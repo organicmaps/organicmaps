@@ -363,7 +363,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     }
     catch (Exception e)
     {
+      // Show Facebook page in browser.
       intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/MapsWithMe"));
+
       startActivity(intent);
     }
   }
@@ -606,10 +608,11 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
               }
               catch (Exception ex)
               {
-                ex.printStackTrace();
+                Log.e(TAG, "Can't run activity" + ex);
               }
             }
-            dialog.cancel();
+
+            dialog.dismiss();
           }
         })
         .setNegativeButton(R.string.close, new DialogInterface.OnClickListener()
@@ -617,7 +620,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
-            dialog.cancel();
+            dialog.dismiss();
           }
         })
         .create()

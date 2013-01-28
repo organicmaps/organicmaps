@@ -679,7 +679,15 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
               @Override
               public void onClick(DialogInterface dlg, int which)
               {
-                startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+                try
+                {
+                  startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+                }
+                catch (Exception ex)
+                {
+                  Log.e(TAG, "Can't run activity:" + ex);
+                }
+
                 dlg.dismiss();
               }
             })
