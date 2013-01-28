@@ -13,7 +13,7 @@
         android:layout_height="0dp"
         android:layout_alignParentTop="true"
         android:focusable="true"
-        android:focusableInTouchMode="true"/>
+        android:focusableInTouchMode="true" />
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -40,40 +40,79 @@
                 android:layout_height="1px"
                 android:background="@android:drawable/divider_horizontal_dark" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/pin_sets"
                 android:layout_width="fill_parent"
-                android:layout_height="60dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/list_selector_background"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp" >
 
-                <TextView
-                    android:id="@+id/pin_button_set_name"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:text="sdfjdslkfjdsklf"
-                    android:textSize="18sp" />
+                    android:layout_height="60dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/disclosure_image_cat"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical" >
 
-                <TextView
+                    <TextView
+                        android:id="@+id/pin_button_set_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="sdfjdslkfjdsklf"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="@string/set"
+                        android:textColor="@android:color/darker_gray" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/disclosure_image_cat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:text="@string/set"
-                    android:textColor="@android:color/darker_gray" />
-            </LinearLayout>
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:src="@drawable/cell_arrow_white" />
+            </RelativeLayout>
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1px"
                 android:background="@android:drawable/divider_horizontal_dark" />
 
-            <include layout="@layout/color_row"
-                android:id="@+id/pin_color_chooser"/>
+            <RelativeLayout
+                android:id="@+id/pin_color_chooser"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/list_selector_background"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp" >
+
+                <include
+                    android:layout_alignParentLeft="true"
+                    layout="@layout/color_row"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:layout_toLeftOf="@+id/disclosure_image_color"/>
+
+                <ImageView
+                    android:id="@+id/disclosure_image_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/cell_arrow_white" />
+            </RelativeLayout>
 
             <View
                 android:layout_width="fill_parent"
@@ -85,17 +124,23 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:hint="@string/description"
                 android:imeOptions="actionDone" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:background="@android:drawable/divider_horizontal_dark" />
 
             <Button
                 android:id="@+id/bmk_delete"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:layout_margin="5dp"
                 android:onClick="onDeleteClick"
                 android:text="@string/remove_pin" />
         </LinearLayout>
     </ScrollView>
-
 
 </RelativeLayout>
