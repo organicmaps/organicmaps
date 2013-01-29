@@ -172,9 +172,9 @@ void InitLocalizedStrings()
 
 -(void)showLoadFileAlertIsSuccessful:(BOOL) successful
 {
-  m_loadingAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"load_kml_title", nil)
+  m_loadingAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"load_kmz_title", nil)
                                                   message:
-                        (successful ? NSLocalizedString(@"load_kml_successful", nil) : NSLocalizedString(@"load_kml_failed", nil))
+                        (successful ? NSLocalizedString(@"load_kmz_successful", nil) : NSLocalizedString(@"load_kmz_failed", nil))
                                                  delegate:nil
                                       cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil];
   m_loadingAlertView.delegate = self;
