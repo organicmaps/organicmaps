@@ -13,6 +13,7 @@
 
 #include "../std/fstream.hpp"
 #include "../std/algorithm.hpp"
+#include "../std/auto_ptr.hpp"
 
 
 void BookmarkCategory::AddBookmarkImpl(Bookmark const & bm, double scale)
@@ -268,29 +269,36 @@ namespace bookmark_impl
   };
 }
 
-void BookmarkCategory::LoadFromKML(ReaderPtr<Reader> const & reader)
+bool BookmarkCategory::LoadFromKML(ReaderPtr<Reader> const & reader)
 {
   ReaderSource<ReaderPtr<Reader> > src(reader);
   bookmark_impl::KMLParser parser(*this);
-  if (!ParseXML(src, parser, true))
+  if (ParseXML(src, parser, true))
+    return true;
+  else
+  {
     LOG(LERROR, ("XML read error. Probably, incorrect file encoding."));
+    return false;
+  }
 }
 
 BookmarkCategory * BookmarkCategory::CreateFromKMLFile(string const & file)
 {
-  BookmarkCategory * cat = new BookmarkCategory("");
+  auto_ptr<BookmarkCategory> cat(new BookmarkCategory(""));
   try
   {
-    cat->LoadFromKML(new FileReader(file));
-    cat->m_file = file;
+    if (cat->LoadFromKML(new FileReader(file)))
+      cat->m_file = file;
+    else
+      cat.reset();
   }
   catch (std::exception const & e)
   {
     LOG(LWARNING, ("Error while loading bookmarks from", file, e.what()));
-    delete cat;
-    cat = 0;
+    cat.reset();
   }
-  return cat;
+
+  return cat.release();
 }
 
 namespace

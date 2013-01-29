@@ -92,7 +92,7 @@ public:
   /// @name Theese fuctions are public for unit tests only.
   /// You don't need to call them from client code.
   //@{
-  void LoadFromKML(ReaderPtr<Reader> const & reader);
+  bool LoadFromKML(ReaderPtr<Reader> const & reader);
   void SaveToKML(ostream & s);
 
   /// Uses the same file name from which was loaded, or

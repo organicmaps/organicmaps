@@ -464,3 +464,60 @@ UNIT_TEST(BookmarkCategory_EmptyName)
   char const * arrFiles[] = { "Bookmarks", "xxx" };
   DeleteCategoryFiles(arrFiles);
 }
+
+namespace
+{
+// Do check for "bad" names without CDATA markers.
+char const * kmlString3 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+    "<kml xmlns=\"http://earth.google.com/kml/2.1\">"
+    "<Document>"
+     "<name>3663 and M <![CDATA[&]]> J Seafood Branches</name>"
+     "<visibility>1</visibility>"
+      "<Placemark>"
+       "<name>![X1]{X2}(X3)</name>"
+       "<Point>"
+        "<coordinates>50, 50</coordinates>"
+       "</Point>"
+      "</Placemark>"
+   "</Document>"
+   "</kml>";
+
+  bool EqualBookmarks(Bookmark const & b1, Bookmark const & b2)
+  {
+    if (b1.GetName() != b2.GetName())
+      return false;
+    if (b1.GetDescription() != b2.GetDescription())
+      return false;
+    if (b1.GetType() != b2.GetType())
+      return false;
+    if (!m2::AlmostEqual(b1.GetOrg(), b2.GetOrg()))
+      return false;
+    if (!my::AlmostEqual(b1.GetScale(), b2.GetScale()))
+      return false;
+
+    // do not check timestamp
+    return true;
+  }
+}
+
+UNIT_TEST(Bookmarks_SpecialXMLNames)
+{
+  BookmarkCategory cat1("");
+  TEST(cat1.LoadFromKML(new MemReader(kmlString3, strlen(kmlString3))), ());
+
+  TEST_EQUAL(cat1.GetBookmarksCount(), 1, ());
+  TEST(cat1.SaveToKMLFile(), ());
+
+  scoped_ptr<BookmarkCategory> cat2(BookmarkCategory::CreateFromKMLFile(cat1.GetFileName()));
+  TEST(cat2.get(), ());
+  TEST_EQUAL(cat2->GetBookmarksCount(), 1, ());
+
+  TEST_EQUAL(cat1.GetName(), "3663 and M & J Seafood Branches", ());
+  TEST_EQUAL(cat1.GetName(), cat2->GetName(), ());
+  TEST_EQUAL(cat1.GetFileName(), cat2->GetFileName(), ());
+  TEST(EqualBookmarks(*cat1.GetBookmark(0), *cat2->GetBookmark(0)), ());
+  TEST_EQUAL(cat1.GetBookmark(0)->GetName(), "![X1]{X2}(X3)", ());
+
+  TEST(my::DeleteFileX(cat1.GetFileName()), ());
+}
