@@ -381,16 +381,16 @@
 "share_bookmarks_email_subject" = "MapsWithMe bookmarks has been shared with you";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Ciao,\n\nQuesti sono i miei \"preferiti\" fra le mappe offline di MapsWithMe, che si trovano nel file allegato \"%@.kml\". Il file può essere aperto se l'app MapsWithMe Pro è già stata installata. In caso contrario, occorre scaricare l'app per il tuo iOS o dispositivo Android dal link http://www.mapswithme.com/get?kml.\n\nBuon divertimento con MapsWithMe!";
+"share_bookmarks_email_body" = "Ciao,\n\nQuesti sono i miei \"preferiti\" fra le mappe offline di MapsWithMe, che si trovano nel file allegato \"%@.kmz\". Il file può essere aperto se l'app MapsWithMe Pro è già stata installata. In caso contrario, occorre scaricare l'app per il tuo iOS o dispositivo Android dal link http://www.mapswithme.com/get?kmz.\n\nBuon divertimento con MapsWithMe!";
 
 /* message title of loading file */
-"load_kml_title" = "Bookmarks Loading";
+"load_kmz_title" = "Caricamento segnalibri in corso";
 
-/* Kml file successful loading */
-"load_kml_successful" = "Bookmarks were loading successfully! You can see them on bookmarks manager screen.";
+/* Kmz file successful loading */
+"load_kmz_successful" = "Segnalibri caricati con successo! Puoi trovare i segnalibri direttamente sulla mappa, oppure aprendo la schermata dedicata alla Gestione dei segnalibri.";
 
 /* Kml file loading failed */
-"load_kml_failed" = "File with bookmarks wasn't uploaded. The reason of this can be that file was corrupted or  faulty.";
+"load_kmz_failed" = "Caricamento dei segnalibri non riuscito. Il file potrebbe essere corrotto o difettoso.";
 
 /* resource for context menu */
 "edit" = "Edit";

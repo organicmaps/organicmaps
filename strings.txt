@@ -1573,34 +1573,61 @@
     cs = Sdílené záložky MapsWithMe
     nl = Bladwijzers van MapsWithMe met u gedeeld
   [share_bookmarks_email_body]
-    en = Hello,\n\nHere are my bookmarks from MapsWithMe offline maps in the attached "%@.kml" file. Please open it if you have MapsWithMe Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://www.mapswithme.com/get?kml.\n\nHave a good time with MapsWithMe!
+    en = Hello,\n\nHere are my bookmarks from MapsWithMe offline maps in the attached "%@.kmz" file. Please open it if you have MapsWithMe Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://www.mapswithme.com/get?kmz.\n\nHave a good time with MapsWithMe!
     tags = ios, android
     comment = Email text when sharing bookmarks category
-    de = Hallo,\n\nIn der angefügten „%@.kml“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MapsWithMe. Falls Sie MapsWithMe Pro bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://www.mapswithme.com/get?kml herunterladen.\n\nIch wünsche viel Vergnügen mit MapsWithMe!
-    uk = Вітаю!\n\nОсь мої закладки з автономних карт MapsWithMe у доданому файлі "%@.kml". Прошу відкрти його, якщо у вас MapsWithMe Pro вже встановлено. Якщо ні, тоді спочатку завантажте застосунок для пристроїв IOS або Android за цим посиланням http://www.mapswithme.com/get?kml.\n\nПриємних розваг з MapsWithMe!
-    es = ¡Hola!\n\nEn el archivo adjunto "%@.kml", están mis marcadores de los mapas offline MapsWithMe. Por favor, ábrelo con MapsWithMe Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://www.mapswithme.com/get?kml.\n\n¡Que disfrutes de MapsWithMe!
-    fr = Bonjour,\n\nVous trouverez mes favoris des cartes hors-ligne MapsWithMe dans le fichier "%@.km:" ci-joint. Veuillez l'ouvrir si vous avez déjà installé MapsWithMe Pro. Sinon, téléchargez d'abord l'application pour appareil iOS ou Android depuis le lien http://www.mapswithme.com/get?kml.\n\nAmusez-vous bien avec MapsWithMe!
-    ja = もしもし\n\nMapsWithMeオフライン地図で作成した私のブックマークを、添付ファイル"%@.kml"でお送りします。MapsWithMe Proを既にインストールされている場合は、ファイルを開いてみてください。インストールがまだの場合は、まずはこちらのリンク http://www.mapswithme.com/get?kml から、お使いのiOSまたはAndroid端末用のアプリをダウンロードしてください。\n\nMapsWithMeで楽しい時間をお過ごしください！
-    ko = 안녕하세요.\n\n첨부된 "%@.kml" 파일에 MapsWithMe 오프라인 지도로부터의 제 즐겨찾기가 있습니다. MapsWithMe 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://www.mapswithme.com/get?kml 링크에서 다운로드하시기 바랍니다.\n\nMapsWithMe와 함께 즐거운 시간 되시기 바랍니다!
-    ru = Здравствуйте!\n\nМои закладки из офлайн карт MapsWithMe находятся в прикрепленном файле"%@.kml". Если у вас уже установлено приложение MapsWithMe Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  MapsWithMe Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.mapswithme.com/get?kml\n\nСпасибо!
-    cs = Dobrý den!\n\nZde jsou mé záložky z offline map MapsWithMe v přiloženém "%@.kml" souboru. Pokud máte již nainstalované MapsWithMe, otevřete tento soubor, prosím. V opačném případě si nejprve nainstalujte aplikaci pro vaše iOS nebo Android zařízení z tohoto odkazu http://www.mapswithme.com/get?kml.\n\nSkvěle se bavte s MapsWithMe!
-    nl = Hallo,\n\nHier zijn mijn bladwijzers uit de MapsWithMe offline kaarten, in het bijgevoegde "%@.kml"-bestand. Open het bestand als u MapsWithMe Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://www.mapswithme.com/get?kml.\n\nVeel plezier met MapsWithMe!
-    it = Ciao,\n\nQuesti sono i miei "preferiti" fra le mappe offline di MapsWithMe, che si trovano nel file allegato "%@.kml". Il file può essere aperto se l'app MapsWithMe Pro è già stata installata. In caso contrario, occorre scaricare l'app per il tuo iOS o dispositivo Android dal link http://www.mapswithme.com/get?kml.\n\nBuon divertimento con MapsWithMe!
-  [load_kml_title]
-    en = Bookmarks Loading
+    de = Hallo,\n\nIn der angefügten „%@.kmz“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MapsWithMe. Falls Sie MapsWithMe Pro bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://www.mapswithme.com/get?kmz herunterladen.\n\nIch wünsche viel Vergnügen mit MapsWithMe!
+    uk = Вітаю!\n\nОсь мої закладки з автономних карт MapsWithMe у доданому файлі "%@.kmz". Прошу відкрти його, якщо у вас MapsWithMe Pro вже встановлено. Якщо ні, тоді спочатку завантажте застосунок для пристроїв IOS або Android за цим посиланням http://www.mapswithme.com/get?kmz.\n\nПриємних розваг з MapsWithMe!
+    es = ¡Hola!\n\nEn el archivo adjunto "%@.kmz", están mis marcadores de los mapas offline MapsWithMe. Por favor, ábrelo con MapsWithMe Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://www.mapswithme.com/get?kmz.\n\n¡Que disfrutes de MapsWithMe!
+    fr = Bonjour,\n\nVous trouverez mes favoris des cartes hors-ligne MapsWithMe dans le fichier "%@.kmz:" ci-joint. Veuillez l'ouvrir si vous avez déjà installé MapsWithMe Pro. Sinon, téléchargez d'abord l'application pour appareil iOS ou Android depuis le lien http://www.mapswithme.com/get?kmz.\n\nAmusez-vous bien avec MapsWithMe!
+    ja = もしもし\n\nMapsWithMeオフライン地図で作成した私のブックマークを、添付ファイル"%@.kmz"でお送りします。MapsWithMe Proを既にインストールされている場合は、ファイルを開いてみてください。インストールがまだの場合は、まずはこちらのリンク http://www.mapswithme.com/get?kmz から、お使いのiOSまたはAndroid端末用のアプリをダウンロードしてください。\n\nMapsWithMeで楽しい時間をお過ごしください！
+    ko = 안녕하세요.\n\n첨부된 "%@.kmz" 파일에 MapsWithMe 오프라인 지도로부터의 제 즐겨찾기가 있습니다. MapsWithMe 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://www.mapswithme.com/get?kmz 링크에서 다운로드하시기 바랍니다.\n\nMapsWithMe와 함께 즐거운 시간 되시기 바랍니다!
+    ru = Здравствуйте!\n\nМои закладки из офлайн карт MapsWithMe находятся в прикрепленном файле"%@.kmz". Если у вас уже установлено приложение MapsWithMe Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  MapsWithMe Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.mapswithme.com/get?kmz\n\nСпасибо!
+    cs = Dobrý den!\n\nZde jsou mé záložky z offline map MapsWithMe v přiloženém "%@.kmz" souboru. Pokud máte již nainstalované MapsWithMe, otevřete tento soubor, prosím. V opačném případě si nejprve nainstalujte aplikaci pro vaše iOS nebo Android zařízení z tohoto odkazu http://www.mapswithme.com/get?kmz.\n\nSkvěle se bavte s MapsWithMe!
+    nl = Hallo,\n\nHier zijn mijn bladwijzers uit de MapsWithMe offline kaarten, in het bijgevoegde "%@.kmz"-bestand. Open het bestand als u MapsWithMe Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://www.mapswithme.com/get?kmz.\n\nVeel plezier met MapsWithMe!
+    it = Ciao,\n\nQuesti sono i miei "preferiti" fra le mappe offline di MapsWithMe, che si trovano nel file allegato "%@.kmz". Il file può essere aperto se l'app MapsWithMe Pro è già stata installata. In caso contrario, occorre scaricare l'app per il tuo iOS o dispositivo Android dal link http://www.mapswithme.com/get?kmz.\n\nBuon divertimento con MapsWithMe!
+  [load_kmz_title]
+    en = Loading Bookmarks
     tags = ios, android
     comment = message title of loading file
-    ru = Загрузка Закладок
-  [load_kml_successful]
-    en = Bookmarks were loading successfully! You can see them on bookmarks manager screen.
+    ru = Загрузка закладок
+    uk = Завантаження закладок
+    ko =즐겨찾기 로드
+    es = Cargando favoritos
+    it = Caricamento segnalibri in corso
+    ja =ブックマークの読み込み中
+    fr = Chargement des favoris
+    cz = Nahrávání záložek
+    nl = Bladwijzers aan het uploaden
+    de = Lesezeichen werden geladen
+  [load_kmz_successful]
+    en = Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.
     tags = ios, android
-    comment = Kml file successful loading
-    ru = Закладки успешно загружены. Вы можете их увидеть на экране менеджера закладок.
-  [load_kml_failed]
-    en = File with bookmarks wasn't uploaded. The reason of this can be that file was corrupted or  faulty.
+    comment = Kmz file successful loading
+    ru = Закладки успешно загружены! Вы можете найти их на карте или на экране Менеджера Закладок. 
+    uk = Закладки успішно завантажено! Ви можете знайти їх на карті або у меню Менеджер закладок.
+    ko =즐겨찾기가 성공적으로 로드되었습니다! 지도 또는 즐겨찾기 관리자 화면에서 찾으실 수 있습니다.
+    es = ¡Los favoritos se han cargado con éxito! Puedes encontrarlos en el mapa o en la pantalla de Gestión de favoritos.
+    it = Segnalibri caricati con successo! Puoi trovare i segnalibri direttamente sulla mappa, oppure aprendo la schermata dedicata alla Gestione dei segnalibri.
+    ja =ブックマークが無事読み込まれました! ブックマークはマップ上またはブックマークマネージャー画面上にあります。
+    fr = Favoris chargés avec succès ! Vous pouvez les trouver sur la carte ou sur l'écran de gestion des favoris.
+    cz = Záložky byly úspěšně nahrány! Můžete je najít na mapě nebo na obrazovce Správce záložek.
+    nl = Bladwijzers met succes geüpload! U vindt ze op de kaart of op het scherm van de Bladwijzer Manager.
+    de = Lesezeichen erfolgreich geladen! Sie können diese nun auf Ihrer Karte oder im Lesezeichen-Manager sehen.
+  [load_kmz_failed]
+    en = Bookmarks upload failed. The file may be corrupted or defective.
     tags = ios, android
     comment = Kml file loading failed
     ru = Файл с закладками не был загружен. Возможно, файл поврежден или неисправен.
+    uk = Не вдалося завантажити закладки. Файл може бути пошкодженим або несправним.
+    ko =즐겨찾기 업로드가 실패했습니다. 파일이 훼손되었거나 결함이 있을지도 모릅니다.
+    es = La carga de favoritos ha fallado. El archivo puede estar corrupto o ser defectuoso.
+    it = Caricamento dei segnalibri non riuscito. Il file potrebbe essere corrotto o difettoso.
+    ja =ブックマークのアップロードに失敗しました。ファイルが破損していた、または問題があった可能性があります。
+    fr = Chargement des favoris échoué. Le dossier peut être corrompu ou défectueux.
+    cz = Nahrávání záložek se nezdařilo. Soubor může být poškozený nebo vadný.
+    nl = Bladwijzers uploaden mislukt. Het bestand is mogelijk beschadigd of defect.
+    de = Hochladen der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein.
   [edit]
     en = Edit
     tags = android
