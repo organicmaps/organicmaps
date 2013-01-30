@@ -30,8 +30,9 @@ UNIT_TEST(Open_KMZ_Test)
   string const KMLFILE = GetPlatform().WritablePathForFile("newKml.kml");
   MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, KMLFILE));
   ZipFileReader::UnzipFile(KMZFILE, "doc.kml", KMLFILE);
+
   BookmarkCategory cat("Default");
-  cat.LoadFromKML(new FileReader(KMLFILE));
+  TEST(cat.LoadFromKML(new FileReader(KMLFILE)), ());
 
   TEST_EQUAL(files.size(), 6, ("KMZ file wrong number of files"));
 

@@ -149,7 +149,7 @@ char const * kmlString =
 UNIT_TEST(Bookmarks_ImportKML)
 {
   BookmarkCategory cat("Default");
-  cat.LoadFromKML(new MemReader(kmlString, strlen(kmlString)));
+  TEST(cat.LoadFromKML(new MemReader(kmlString, strlen(kmlString))), ());
 
   CheckBookmarks(cat);
 
@@ -163,7 +163,7 @@ UNIT_TEST(Bookmarks_ExportKML)
   char const * BOOKMARKS_FILE_NAME = "UnitTestBookmarks.kml";
 
   BookmarkCategory cat("Default");
-  cat.LoadFromKML(new MemReader(kmlString, strlen(kmlString)));
+  TEST(cat.LoadFromKML(new MemReader(kmlString, strlen(kmlString))), ());
   CheckBookmarks(cat);
 
   TEST_EQUAL(cat.IsVisible(), false, ());
@@ -179,7 +179,7 @@ UNIT_TEST(Bookmarks_ExportKML)
   cat.ClearBookmarks();
   TEST_EQUAL(cat.GetBookmarksCount(), 0, ());
 
-  cat.LoadFromKML(new FileReader(BOOKMARKS_FILE_NAME));
+  TEST(cat.LoadFromKML(new FileReader(BOOKMARKS_FILE_NAME)), ());
   CheckBookmarks(cat);
   TEST_EQUAL(cat.IsVisible(), true, ());
 
@@ -447,7 +447,7 @@ char const * kmlString2 =
 UNIT_TEST(Bookmarks_InnerFolder)
 {
   BookmarkCategory cat("Default");
-  cat.LoadFromKML(new MemReader(kmlString2, strlen(kmlString2)));
+  TEST(cat.LoadFromKML(new MemReader(kmlString2, strlen(kmlString2))), ());
 
   TEST_EQUAL(cat.GetBookmarksCount(), 1, ());
 }
