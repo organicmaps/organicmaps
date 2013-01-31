@@ -51,6 +51,7 @@ private:
   /// caching resources for fast rendering.
   void cache();
   void purge();
+  void layout();
 
   string const displayName() const;
 

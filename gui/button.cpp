@@ -7,6 +7,11 @@
 
 namespace gui
 {
+  Button::Params::Params()
+    : m_minWidth(10),
+      m_minHeight(10)
+  {}
+
   Button::Button(Params const & p) : Element(p)
   {
     TextView::Params tp;
@@ -138,6 +143,11 @@ namespace gui
   {
     m_dls.clear();
     m_textView->purge();
+  }
+
+  void Button::layout()
+  {
+    m_textView->setIsDirtyLayout(true);
   }
 
   vector<m2::AnyRectD> const & Button::boundRects() const

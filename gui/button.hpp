@@ -48,6 +48,7 @@ namespace gui
       unsigned m_minWidth;
       unsigned m_minHeight;
       string m_text;
+      Params();
     };
 
     Button(Params const & p);
@@ -81,6 +82,7 @@ namespace gui
     void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
     void purge();
+    void layout();
 
     /// @}
   };

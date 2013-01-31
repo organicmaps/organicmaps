@@ -45,6 +45,12 @@ void CountryStatusDisplay::SetStatusMessage(string const & msgID, T1 const * t1,
   m_statusMsg->setText(msg);
 }
 
+void CountryStatusDisplay::layout()
+{
+  m_downloadButton->setIsDirtyLayout(true);
+  m_statusMsg->setIsDirtyLayout(true);
+}
+
 void CountryStatusDisplay::purge()
 {
   m_downloadButton->purge();

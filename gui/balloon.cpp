@@ -97,6 +97,9 @@ namespace gui
 
   void Balloon::layout()
   {
+    m_textView->setIsDirtyLayout(true);
+    m_imageView->setIsDirtyLayout(true);
+
     m2::RectD tr = m_textView->roughBoundRect();
     m2::RectD ir = m_imageView->roughBoundRect();
 

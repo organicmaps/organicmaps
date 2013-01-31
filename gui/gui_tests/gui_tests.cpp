@@ -74,8 +74,16 @@ struct ButtonTest
     bp.m_pivot = m2::PointD(200, 200);
     bp.m_position = graphics::EPosAbove;
     bp.m_text = "TestButton";
+    bp.m_minWidth = 200;
+    bp.m_minHeight = 40;
 
     m_button.reset(new gui::Button(bp));
+
+    m_button->setFont(gui::Element::EActive, graphics::FontDesc(16, graphics::Color(255, 255, 255, 255)));
+    m_button->setFont(gui::Element::EPressed, graphics::FontDesc(16, graphics::Color(255, 255, 255, 255)));
+
+    m_button->setColor(gui::Element::EActive, graphics::Color(graphics::Color(0, 0, 0, 0.6 * 255)));
+    m_button->setColor(gui::Element::EPressed, graphics::Color(graphics::Color(0, 0, 0, 0.4 * 255)));
 
     c->AddElement(m_button);
   }
