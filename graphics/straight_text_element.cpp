@@ -211,7 +211,10 @@ namespace graphics
       m_maxWordsInRow(4),
       m_minSymInRow(10),
       m_maxSymInRow(20),
-      m_doSplit(false)
+      m_doSplit(false),
+      m_useAllParts(true),
+      m_offset(0, 0),
+      m_delimiters("\n")
   {}
 
   StraightTextElement::StraightTextElement(StraightTextElement const & src,
