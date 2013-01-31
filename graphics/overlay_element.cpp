@@ -16,14 +16,14 @@ namespace graphics
     : m_pivot(p.m_pivot),
       m_position(p.m_position),
       m_depth(p.m_depth),
-      m_userInfo(p.m_userInfo),
       m_isNeedRedraw(true),
       m_isFrozen(false),
       m_isVisible(true),
       m_isValid(true),
       m_isDirtyRect(true),
       m_isDirtyLayout(true),
-      m_isDirtyRoughRect(true)
+      m_isDirtyRoughRect(true),
+      m_userInfo(p.m_userInfo)
   {}
 
   m2::PointD const OverlayElement::computeTopLeft(m2::PointD const & sz,
