@@ -28,7 +28,12 @@ namespace graphics
   }
 
   Circle::Info::Info()
-    : Resource::Info(Resource::ECircle)
+    : Resource::Info(Resource::ECircle),
+      m_radius(0),
+      m_color(0, 0, 0, 0),
+      m_isOutlined(false),
+      m_outlineWidth(0),
+      m_outlineColor()
   {}
 
   bool Circle::Info::lessThan(Resource::Info const * r) const

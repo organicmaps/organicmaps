@@ -22,6 +22,7 @@ namespace graphics
     struct Params : public base_t::Params
     {
       Circle::Info m_ci;
+      Params();
     };
 
     CircleElement(Params const & p);

@@ -7,9 +7,10 @@ namespace graphics
   {}
 
   OverlayElement::Params::Params()
-    : m_pivot(),
+    : m_pivot(0, 0),
       m_position(EPosAboveRight),
-      m_depth(maxDepth)
+      m_depth(maxDepth),
+      m_userInfo()
   {}
 
   OverlayElement::OverlayElement(Params const & p)

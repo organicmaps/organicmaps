@@ -13,6 +13,12 @@
 #include "../graphics/screen.hpp"
 #include "../graphics/pen.hpp"
 
+CompassArrow::Params::Params()
+  : m_arrowWidth(0),
+    m_arrowHeight(0),
+    m_framework(0)
+{}
+
 CompassArrow::CompassArrow(Params const & p)
   : base_t(p),
     m_arrowWidth(p.m_arrowWidth),

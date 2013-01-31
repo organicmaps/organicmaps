@@ -4,6 +4,10 @@
 
 namespace graphics
 {
+  CircleElement::Params::Params()
+    : m_ci()
+  {}
+
   CircleElement::CircleElement(Params const & p)
     : base_t(p),
       m_ci(p.m_ci)

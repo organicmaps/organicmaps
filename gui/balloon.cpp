@@ -11,6 +11,15 @@
 namespace gui
 {
   Balloon::Params::Params()
+    : m_image(),
+      m_textMarginLeft(10),
+      m_textMarginTop(10),
+      m_textMarginRight(10),
+      m_textMarginBottom(10),
+      m_imageMarginLeft(10),
+      m_imageMarginTop(10),
+      m_imageMarginRight(10),
+      m_imageMarginBottom(10)
   {}
 
   Balloon::Balloon(Params const & p)

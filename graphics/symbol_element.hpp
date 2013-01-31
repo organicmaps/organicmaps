@@ -27,6 +27,7 @@ namespace graphics
       Icon::Info m_info;
       m2::RectU m_symbolRect;
       OverlayRenderer * m_renderer;
+      Params();
     };
 
     SymbolElement(Params const & p);

@@ -4,6 +4,13 @@
 
 namespace graphics
 {
+  PathTextElement::Params::Params()
+    : m_pts(0),
+      m_ptsCount(0),
+      m_fullLength(0),
+      m_pathOffset(0)
+  {}
+
   PathTextElement::PathTextElement(Params const & p)
     : TextElement(p),
       m_glyphLayout(p.m_glyphCache,

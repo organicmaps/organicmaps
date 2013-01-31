@@ -43,6 +43,7 @@ public:
     unsigned m_arrowWidth;
     unsigned m_arrowHeight;
     Framework * m_framework;
+    Params();
   };
 
   CompassArrow(Params const & p);

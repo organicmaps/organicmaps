@@ -32,7 +32,7 @@ namespace gui
     void purge();
     void layout();
 
-    struct Params : public gui::Element::Params
+    struct Params : public Element::Params
     {
       string m_text;
     };

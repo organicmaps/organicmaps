@@ -7,6 +7,12 @@
 
 namespace graphics
 {
+  SymbolElement::Params::Params()
+    : m_info(),
+      m_symbolRect(0, 0, 0, 0),
+      m_renderer(0)
+  {}
+
   SymbolElement::SymbolElement(Params const & p)
     : base_t(p),
       m_info(p.m_info),

@@ -30,6 +30,10 @@ namespace location
   double const State::s_cacheRadius = 500;
 
   State::Params::Params()
+    : m_locationAreaColor(0, 0, 0, 0),
+      m_compassAreaColor(0, 0, 0, 0),
+      m_compassBorderColor(0, 0, 0, 0),
+      m_framework(0)
   {}
 
   State::State(Params const & p)

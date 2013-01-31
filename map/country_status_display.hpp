@@ -63,6 +63,7 @@ public:
   struct Params : public gui::Element::Params
   {
     storage::Storage * m_storage;
+    Params();
   };
 
   CountryStatusDisplay(Params const & p);

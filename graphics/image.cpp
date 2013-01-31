@@ -18,7 +18,8 @@ namespace graphics
   }
 
   Image::Info::Info()
-    : Resource::Info(Resource::EImage)
+    : Resource::Info(Resource::EImage),
+      m_size(0, 0)
   {}
 
   Image::Info::Info(char const * resourceName)

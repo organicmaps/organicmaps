@@ -37,6 +37,7 @@ namespace gui
     shared_ptr<graphics::StraightTextElement> & elem = m_elems[state];
 
     graphics::StraightTextElement::Params params;
+
     params.m_depth = depth();
     params.m_fontDesc = font(state);
     params.m_fontDesc.m_size *= visualScale();

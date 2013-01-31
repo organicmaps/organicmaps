@@ -11,6 +11,10 @@
 #include "../std/bind.hpp"
 #include "../std/sstream.hpp"
 
+CountryStatusDisplay::Params::Params()
+  : m_storage(0)
+{
+}
 
 string const CountryStatusDisplay::displayName() const
 {
