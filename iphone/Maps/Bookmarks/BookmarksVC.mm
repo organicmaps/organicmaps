@@ -308,7 +308,7 @@
     NSArray * cells = [table visibleCells];
     for (NSUInteger i = 0; i < cells.count; ++i)
     {
-      UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
+      BookmarkCell * cell = (BookmarkCell *)[cells objectAtIndex:i];
       NSIndexPath * indexPath = [table indexPathForCell:cell];
       if (indexPath.section == 1)
       {
@@ -318,7 +318,7 @@
           m2::PointD const center = bm->GetOrg();
           double const metres = ms::DistanceOnEarth(info.m_latitude, info.m_longitude,
               MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x));
-          cell.detailTextLabel.text = [LocationManager formatDistance:metres];
+          cell.bmDistance.text = [LocationManager formatDistance:metres];
         }
       }
     }
@@ -339,7 +339,7 @@
     NSArray * cells = [table visibleCells];
     for (NSUInteger i = 0; i < cells.count; ++i)
     {
-      UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
+      BookmarkCell * cell = (BookmarkCell *)[cells objectAtIndex:i];
       NSIndexPath * indexPath = [table indexPathForCell:cell];
       if (indexPath.section == 1)
       {
