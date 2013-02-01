@@ -132,7 +132,7 @@ namespace graphics
   void PathRenderer::drawStipplePath(m2::PointD const * points, size_t pointsCount, double offset, Pen const * pen, double depth)
   {
     bool const hasRoundJoin = (pen->m_info.m_join == pen->m_info.ERoundJoin);
-    bool const hasBevelJoin = (pen->m_info.m_join == pen->m_info.EBevelJoin);
+//    bool const hasBevelJoin = (pen->m_info.m_join == pen->m_info.EBevelJoin);
     bool const hasJoin = (pen->m_info.m_join != pen->m_info.ENoJoin);
 
     float rawTileStartLen = 0;

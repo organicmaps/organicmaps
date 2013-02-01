@@ -48,6 +48,13 @@ inline string NumToHex(IntT n)
   return ToHex(buf, sizeof(buf));
 }
 
+/// Specialization to avoid warnings
+template <>
+inline string NumToHex<char>(char c)
+{
+  return ToHex(&c, sizeof(c));
+}
+
 inline string FromHex(void const * ptr, size_t size) {
   string result;
   result.resize(size / 2);

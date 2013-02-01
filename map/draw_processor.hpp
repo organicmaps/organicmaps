@@ -178,8 +178,6 @@ namespace get_pts
     double m_startLength;
     double m_endLength;
 
-    double m_fontSize;
-
     void StartPL(m2::PointD const & pt);
     void EndPL();
 

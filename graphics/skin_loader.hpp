@@ -59,18 +59,20 @@ namespace graphics
 /// pointStyle-specific parameters
     string m_resID;
 
+/// skin-page specific parameters
+    string m_fileName;
+
+///
+    shared_ptr<ResourceManager> m_resourceManager;
+
 /// skin-specific parameters
 
     vector<shared_ptr<ResourceCache> > & m_caches;
 
-/// skin-page specific parameters
-    string m_fileName;
 
     typedef list<pair<int32_t, shared_ptr<Resource> > > TResourceList;
 
     TResourceList m_resourceList;
-
-    shared_ptr<ResourceManager> m_resourceManager;
 
   public:
 

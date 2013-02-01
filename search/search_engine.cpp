@@ -76,7 +76,6 @@ Engine::Engine(IndexType const * pIndex, Reader * pCategoriesR,
                ModelReaderPtr polyR, ModelReaderPtr countryR,
                string const & lang)
   : m_readyThread(false),
-    m_pIndex(pIndex),
     m_pData(new EngineData(pCategoriesR, polyR, countryR))
 {
   InitSuggestions doInit;

@@ -9,7 +9,6 @@ namespace anim
   private:
 
     double m_startValue;
-    double m_curValue;
     double & m_outValue;
     double m_endValue;
 

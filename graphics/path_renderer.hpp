@@ -5,7 +5,7 @@
 
 namespace graphics
 {
-  class Pen;
+  struct Pen;
 
   class PathRenderer : public AreaRenderer
   {

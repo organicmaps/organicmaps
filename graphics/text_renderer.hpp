@@ -18,17 +18,17 @@ namespace graphics
   {
   private:
 
-    bool m_drawTexts;
+//    bool m_drawTexts;
 
   public:
 
     typedef ImageRenderer base_t;
 
-    struct Params : base_t::Params
-    {
-      bool m_drawTexts;
-      Params();
-    };
+//    struct Params : base_t::Params
+//    {
+//      bool m_drawTexts;
+//      Params();
+//    };
 
     TextRenderer(Params const & params);
 

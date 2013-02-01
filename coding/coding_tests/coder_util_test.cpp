@@ -4,14 +4,14 @@
 #include "../coder_util.hpp"
 #include "../../base/logging.hpp"
 
-namespace
-{
-  size_t FixedDstSizeInfiniteMemoryEncode(char const *, size_t, char *, size_t /*dstSize*/)
-  {
-    // LOG(LINFO, ("DstSize", dstSize));
-    return -1U;
-  }
-}
+//namespace
+//{
+//  size_t FixedDstSizeInfiniteMemoryEncode(char const *, size_t, char *, size_t /*dstSize*/)
+//  {
+//    // LOG(LINFO, ("DstSize", dstSize));
+//    return -1U;
+//  }
+//}
 
 /* Commented because takes too much time after memory upgrage :)
 UNIT_TEST(FixedDstSizeCodeToStringInfiniteMemoryTest)

@@ -71,7 +71,6 @@ private:
   SearchParams m_params;
   m2::RectD m_viewport;
 
-  Index const * m_pIndex;
   scoped_ptr<search::Query> m_pQuery;
   scoped_ptr<EngineData> m_pData;
 };

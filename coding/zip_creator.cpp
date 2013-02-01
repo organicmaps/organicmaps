@@ -47,7 +47,8 @@ bool createZipFromPathDeflatedAndDefaultCompression(string const & filePath, str
   ZipHandle zip(zipFilePath);
   if (!zip.m_zipFile)
     return false;
-  zip_fileinfo zipInfo = { 0 };
+  // Special syntax to initialize struct with zeroes
+  zip_fileinfo zipInfo = zip_fileinfo();
   CreateTMZip(zipInfo.tmz_date);
   string fileName = filePath;
   my::GetNameFromFullPath(fileName);

@@ -80,7 +80,7 @@ namespace core
   }
 
   CommandsQueue::Routine::Routine(CommandsQueue * parent, int idx)
-    : m_parent(parent), m_idx(idx), m_env(idx)
+    : m_parent(parent), m_env(idx)
   {}
 
   void CommandsQueue::Routine::Do()

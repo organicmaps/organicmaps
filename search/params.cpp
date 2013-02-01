@@ -43,10 +43,9 @@ bool SearchParams::IsEqualCommon(SearchParams const & rhs) const
 
 string DebugPrint(SearchParams const & params)
 {
-  string s = ("search::SearchParams: ");
-  s += "Query = " + params.m_query;
-  s += "Mode = " + params.m_searchMode;
-  return s;
+  ostringstream stream;
+  stream << "search::SearchParams: Query = " << params.m_query << " Mode = " << params.m_searchMode;
+  return stream.str();
 }
 
 } // namespace search

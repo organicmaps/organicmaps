@@ -34,7 +34,6 @@ public:
   string GetName() const { return m_FileName; }
 
 private:
-  uint64_t m_LastAccessPos;
 #ifdef OMIM_OS_BADA
   Osp::Io::File m_File;
 #else

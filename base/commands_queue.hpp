@@ -127,7 +127,6 @@ namespace core
     private:
 
       CommandsQueue * m_parent;
-      int m_idx;
       Environment m_env;
 
     public:

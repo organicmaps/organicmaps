@@ -168,7 +168,7 @@ ScreenBase const Navigator::ShrinkInto(ScreenBase const & screen, m2::RectD boun
 
 bool Navigator::CanRotateInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
-  m2::RectD clipRect = screen.ClipRect();
+//  m2::RectD clipRect = screen.ClipRect();
   //@TODO
   return false;
 }
