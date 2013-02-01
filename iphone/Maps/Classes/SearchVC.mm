@@ -634,6 +634,7 @@ void setSearchType(search::SearchParams& params)
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
   [m_searchBar resignFirstResponder];
+  [self enableCancelButton];
 }
 
 // Callback from suggestion cell, called when icon is selected
