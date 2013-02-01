@@ -159,7 +159,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
     cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", flag.c_str()]];
 
   // do not show status for parent categories
-  if (cell.reuseIdentifier != @"ParentCell")
+  if (![cell.reuseIdentifier isEqual: @"ParentCell"])
   {
     storage::TStatus const st = frm.GetCountryStatus(countryIndex);
     switch (st)

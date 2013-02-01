@@ -33,7 +33,7 @@ void InitLocalizedStrings()
 
 + (MapsAppDelegate *) theApp
 {
-  return [[UIApplication sharedApplication] delegate];
+  return (MapsAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 - (void) applicationWillTerminate: (UIApplication *) application
