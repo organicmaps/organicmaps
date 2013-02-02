@@ -75,6 +75,25 @@ InformationDisplay::InformationDisplay(Framework * framework)
 
   m_locationState.reset(new location::State(lsp));
 
+  gui::Balloon::Params bp;
+
+  bp.m_position = graphics::EPosAbove;
+  bp.m_depth = graphics::maxDepth;
+  bp.m_pivot = m2::PointD(0, 0);
+  bp.m_imageMarginBottom = 10;
+  bp.m_imageMarginLeft = 10;
+  bp.m_imageMarginRight = 10;
+  bp.m_imageMarginTop = 10;
+  bp.m_textMarginBottom = 10;
+  bp.m_textMarginLeft = 10;
+  bp.m_textMarginRight = 10;
+  bp.m_textMarginTop = 10;
+  bp.m_image = graphics::Image::Info("arrow.png");
+  bp.m_text = "Bookmark";
+
+  m_bookmarkBalloon.reset(new gui::BookmarkBalloon(bp, framework));
+  m_bookmarkBalloon->setIsVisible(false);
+
   enableDebugPoints(false);
   enableRuler(false);
   enableCenter(false);
@@ -97,6 +116,7 @@ void InformationDisplay::setController(gui::Controller *controller)
   m_controller->AddElement(m_compassArrow);
   m_controller->AddElement(m_locationState);
   m_controller->AddElement(m_ruler);
+  m_controller->AddElement(m_bookmarkBalloon);
 }
 
 void InformationDisplay::setScreen(ScreenBase const & screen)
@@ -477,6 +497,11 @@ void InformationDisplay::doDraw(Drawer *drawer)
 shared_ptr<CountryStatusDisplay> const & InformationDisplay::countryStatusDisplay() const
 {
   return m_countryStatusDisplay;
+}
+
+shared_ptr<gui::BookmarkBalloon> const & InformationDisplay::bookmarkBalloon() const
+{
+  return m_bookmarkBalloon;
 }
 
 shared_ptr<location::State> const & InformationDisplay::locationState() const

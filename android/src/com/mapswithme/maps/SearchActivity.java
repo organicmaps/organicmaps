@@ -362,7 +362,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
     }
 
     /// Show tapped country or get suggestion or get category to search.
-    public String onItemClick(int position, Intent mapIntent)
+    public String onItemClick(int position)
     {
       if (isShowCategories())
       {
@@ -372,8 +372,6 @@ public class SearchActivity extends ListActivity implements LocationService.List
       }
       else
       {
-        mapIntent.removeExtra(SEARCH_RESULT);
-
         final SearchResult r = m_context.getResult(position, m_resultID);
         if (r != null)
         {
@@ -381,7 +379,6 @@ public class SearchActivity extends ListActivity implements LocationService.List
           {
             // show country and close activity
             SearchActivity.nativeShowItem(position);
-            mapIntent.putExtra(SEARCH_RESULT, r.getAddressInfo());
             return null;
           }
           else
@@ -524,13 +521,10 @@ public class SearchActivity extends ListActivity implements LocationService.List
   protected void onListItemClick(ListView l, View v, int position, long id)
   {
     super.onListItemClick(l, v, position, id);
-
-    Intent mapIntent = new Intent(this, MWMActivity.class);
-    mapIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-    final String suggestion = getSA().onItemClick(position, mapIntent);
+    final String suggestion = getSA().onItemClick(position);
     if (suggestion == null)
     {
-      startActivity(mapIntent);
+      finish();
     }
     else
     {

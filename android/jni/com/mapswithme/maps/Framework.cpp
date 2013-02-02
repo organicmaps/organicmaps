@@ -20,6 +20,7 @@
 #include "../../../../../platform/location.hpp"
 
 #include "../../../../../base/math.hpp"
+#include "../../../../../base/logging.hpp"
 
 #include "../../../../../std/shared_ptr.hpp"
 #include "../../../../../std/bind.hpp"
@@ -56,6 +57,8 @@ namespace android
     size_t const measurementsCount = 5;
     m_sensors[0].SetCount(measurementsCount);
     m_sensors[1].SetCount(measurementsCount);
+
+    m_work.GetBookmarkBalloon()->setOnClickListener(bind(&Framework::OnBalloonClick, this, _1));
   }
 
   Framework::~Framework()
@@ -271,8 +274,8 @@ namespace android
         m_scheduledTask.reset(new ScheduledTask(bind(
                     & android::Framework::CallLongClickListener,
                     this,
-                    static_cast<int>(x1),
-                    static_cast<int>(y1)),
+                    static_cast<double>(x1),
+                    static_cast<double>(y1)),
                     static_cast<int>(LONG_CLICK_LENGTH_SEC * 1000)
                     ));
         m_longClickTimer.Reset();
@@ -430,7 +433,9 @@ namespace android
   void Framework::ShowSearchResult(search::Result const & r)
   {
     m_doLoadState = false;
-
+    ::Framework::AddressInfo info;
+    info.MakeFrom(r);
+    ActivatePopupWithAddressInfo(r.GetFeatureCenter(), info);
     m_work.ShowSearchResult(r);
   }
 
@@ -552,38 +557,157 @@ namespace android
     return &m_work;
   }
 
-  void Framework::CallClickListener(int x, int y)
+  void Framework::CallClickListener(double x, double y)
   {
-    if (!m_onClickListener.empty())
+    if (!HandleOnSmthClick(x, y))
+      DeactivatePopup();
+  }
+
+  void Framework::CallLongClickListener(double x, double y)
+  {
+    if (!HandleOnSmthClick(x, y))
     {
-      m_onClickListener(x, y);
+      AdditionalHandlingForLongClick(x, y);
     }
   }
 
-  void Framework::CallLongClickListener(int x, int y)
+
+  bool Framework::HandleOnSmthClick(double x, double y)
   {
-    if (!m_onLongClickListener.empty())
+    BookmarkAndCategory bac = m_work.GetBookmark(m2::PointD(x, y));
+    if (ValidateBookmarkAndCategory(bac))
     {
-      m_onLongClickListener(x, y);
+      Bookmark b = *(m_work.GetBmCategory(bac.first)->GetBookmark(bac.second));
+      ActivatePopup(b.GetOrg(), b.GetName());
+      return true;
+    }
+    else
+    {
+      ::Framework::AddressInfo adInfo;
+      m2::PointD pxPivot;
+      if (m_work.GetVisiblePOI(m2::PointD(x, y), pxPivot, adInfo))
+      {
+        ActivatePopupWithAddressInfo(m_work.PtoG(pxPivot), adInfo);
+        return true;
+      }
+      else
+        return false;
     }
   }
 
-  void Framework::AddClickListener(Framework::TOnClickListener const & l)
+  bool Framework::AdditionalHandlingForLongClick(double x, double y)
   {
-    m_onClickListener = l;
+    m2::PointD point(x, y);
+    ::Framework::AddressInfo adInfo;
+    m_work.GetAddressInfo(point, adInfo);
+    ActivatePopupWithAddressInfo(m_work.PtoG(point), adInfo);
   }
 
-  void Framework::RemoveClickListener()
+  void Framework::ToCamelCase(string & s)
   {
-    m_onClickListener.clear();
+    if (s.length() > 0)
+    {
+      s[0] = toupper(s[0]);
+      for(std::string::iterator it = s.begin() + 1; it != s.end(); ++it)
+      {
+          if(!isalpha(*(it - 1)) &&
+             islower(*it))
+          {
+              *it = toupper(*it);
+          }
+      }
+    }
   }
 
-  void Framework::AddLongClickListener(TOnLongClickListener const & l)
+  void Framework::ActivatePopupWithAddressInfo(m2::PointD const & bmkPosition, ::Framework::AddressInfo const & adInfo)
   {
-    m_onLongClickListener = l;
+    string name = adInfo.m_name;
+    string type = "";
+    if (adInfo.GetBestType() != 0)
+      type = adInfo.GetBestType();
+    string bmkname;
+    if (name.empty() && type.empty())
+    {
+      bmkname = m_work.GetStringsBundle().GetString("dropped_pin");
+    }
+    else
+      if (!name.empty())
+      {
+         bmkname = name;
+      }
+      else
+        if (!type.empty())
+        {
+          bmkname = type;
+        }
+        else
+        {
+          std::stringstream cstream;
+          cstream << name << " (" << type << ")";
+          bmkname = cstream.str();
+        }
+
+    ActivatePopup(bmkPosition, bmkname);
+    m_work.DrawPlacemark(bmkPosition);
+    m_work.Invalidate();
   }
-  void Framework::RemoveLongClickListener()
+
+  void Framework::ActivatePopup(m2::PointD const & bmkPosition, string const & name)
   {
-    m_onLongClickListener.clear();
+    gui::BookmarkBalloon * b = m_work.GetBookmarkBalloon();
+    m_work.DisablePlacemark();
+    b->setBookmarkPivot(bmkPosition);
+    b->setBookmarkName(name);
+    b->setIsVisible(true);
+    m_work.Invalidate();
+  }
+
+  void Framework::DeactivatePopup()
+  {
+    gui::BookmarkBalloon * b = m_work.GetBookmarkBalloon();
+    b->setIsVisible(false);
+    m_work.DisablePlacemark();
+    m_work.Invalidate();
+  }
+
+  void Framework::OnBalloonClick(gui::Element * e)
+  {
+    gui::BookmarkBalloon * balloon = static_cast<gui::BookmarkBalloon *>(e);
+    BookmarkAndCategory bac = m_work.GetBookmark(m_work.GtoP(balloon->getBookmarkPivot()));
+    if (ValidateBookmarkAndCategory(bac))
+    {
+      m_balloonClickListener(bac);
+    }
+    else
+    {
+      BookmarkCategory * cat;
+      if (m_work.GetBmCategoriesCount() == 0)
+      {
+        m_work.AddBookmark(m_work.GetStringsBundle().GetString("my_places"), Bookmark(balloon->getBookmarkPivot(), balloon->getBookmarkName(), "placemark-red"));
+        cat = m_work.GetBmCategory(m_work.GetBmCategoriesCount()-1);
+      }
+      else
+      {
+        cat = m_work.GetBmCategory(m_work.GetBmCategoriesCount()-1);
+        LOG(LDEBUG,("Paladin", (balloon->getBookmarkPivot(), balloon->getBookmarkName(), "placemark-red")));
+        m_work.AddBookmark(cat->GetName(), Bookmark(balloon->getBookmarkPivot(), balloon->getBookmarkName(), "placemark-red"));
+      }
+      cat->SaveToKMLFile();
+      int catSize = cat->GetBookmarksCount() - 1;
+      if (catSize > 0)
+      {
+        bac = BookmarkAndCategory(m_work.GetBmCategoriesCount()-1, catSize);
+        m_balloonClickListener(bac);
+      }
+    }
+  }
+
+  void Framework::AddBalloonClickListener(TOnBalloonClickListener const & l)
+  {
+    m_balloonClickListener = l;
+  }
+  void Framework::RemoveBalloonClickListener()
+  {
+    m_balloonClickListener.clear();
   }
 }

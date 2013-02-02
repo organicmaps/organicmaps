@@ -37,7 +37,12 @@
 //#define DRAW_TOUCH_POINTS
 
 namespace search { class Result; }
-namespace gui { class Controller; }
+
+namespace gui
+{
+  class Controller;
+  class BookmarkBalloon;
+}
 namespace anim { class Controller; }
 
 class CountryStatusDisplay;
@@ -234,6 +239,7 @@ public:
 
   InformationDisplay & GetInformationDisplay();
   CountryStatusDisplay * GetCountryStatusDisplay() const;
+  gui::BookmarkBalloon * GetBookmarkBalloon() const;
 
   void PrepareToShutdown();
 
@@ -421,6 +427,8 @@ public:
   }
 
   bool IsBenchmarking() const;
+
+  StringsBundle const & GetStringsBundle();
 
   /// Checks, whether the country which contains
   /// the specified point is loaded

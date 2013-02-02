@@ -156,6 +156,11 @@ CountryStatusDisplay * Framework::GetCountryStatusDisplay() const
   return m_informationDisplay.countryStatusDisplay().get();
 }
 
+gui::BookmarkBalloon * Framework::GetBookmarkBalloon() const
+{
+  return m_informationDisplay.bookmarkBalloon().get();
+}
+
 static void GetResourcesMaps(vector<string> & outMaps)
 {
   Platform & pl = GetPlatform();
@@ -1584,4 +1589,9 @@ Navigator & Framework::GetNavigator()
 shared_ptr<location::State> const & Framework::GetLocationState() const
 {
   return m_informationDisplay.locationState();
+}
+
+StringsBundle const & Framework::GetStringsBundle()
+{
+  return m_stringsBundle;
 }

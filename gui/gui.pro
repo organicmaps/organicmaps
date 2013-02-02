@@ -15,7 +15,7 @@ HEADERS += \
     button.hpp \
     text_view.hpp \
     balloon.hpp \
-    image_view.hpp
+    image_view.hpp \
 
 SOURCES += \
     controller.cpp \

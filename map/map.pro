@@ -51,6 +51,7 @@ HEADERS += \
     dialog_settings.hpp \
     mwm_url.hpp \
     feature_styler.hpp \
+    bookmark_balloon.hpp \
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -93,6 +94,7 @@ SOURCES += \
     dialog_settings.cpp \
     mwm_url.cpp \
     feature_styler.cpp \
+    bookmark_balloon.cpp \
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp

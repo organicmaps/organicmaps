@@ -1,4 +1,4 @@
-#include "balloon.hpp"
+﻿#include "balloon.hpp"
 #include "controller.hpp"
 
 #include "../geometry/transformations.hpp"
@@ -108,45 +108,55 @@ namespace gui
   {
     m_textView->setIsDirtyLayout(true);
     m_imageView->setIsDirtyLayout(true);
-
     m2::RectD tr = m_textView->roughBoundRect();
     m2::RectD ir = m_imageView->roughBoundRect();
 
-    double w = m_textMarginLeft + tr.SizeX() + m_textMarginRight
-             + m_imageMarginLeft + ir.SizeX() + m_imageMarginRight;
+    double k = visualScale();
+    double tml = m_textMarginLeft * k;
+    double tmr = m_textMarginRight * k;
+    double tmt = m_textMarginTop * k;
+    double tmb = m_textMarginBottom * k;
 
-    double h = max(ir.SizeY() + m_imageMarginBottom + m_imageMarginTop,
-                   tr.SizeY() + m_textMarginBottom + m_textMarginTop);
+    double iml = m_imageMarginLeft * k;
+    double imr = m_imageMarginRight * k;
+    double imt = m_imageMarginTop * k;
+    double imb = m_imageMarginBottom * k;
+
+    double w = tml + tr.SizeX() + tmr
+             + iml + ir.SizeX() + imr;
+
+    double h = max(ir.SizeY() + imb + imt,
+                   tr.SizeY() + tmb + tmt);
 
     m2::PointD const & pv = pivot();
     graphics::EPosition pos = position();
 
     if (pos == graphics::EPosAbove)
     {
-      m_textView->setPivot(m2::PointD(pv.x - w / 2 + m_textMarginLeft,
+      m_textView->setPivot(m2::PointD(pv.x - w / 2 + tml,
                                       pv.y - h / 2 - m_arrowHeight));
-      m_imageView->setPivot(m2::PointD(pv.x + w / 2 - m_imageMarginRight - ir.SizeX(),
+      m_imageView->setPivot(m2::PointD(pv.x + w / 2 - imr - ir.SizeX(),
                                        pv.y - h / 2 - m_arrowHeight));
     }
     else if (pos == graphics::EPosUnder)
     {
-      m_textView->setPivot(m2::PointD(pv.x - w / 2 + m_textMarginLeft,
+      m_textView->setPivot(m2::PointD(pv.x - w / 2 + tml,
                                       pv.y + h / 2 + m_arrowHeight));
-      m_imageView->setPivot(m2::PointD(pv.x + w / 2 - m_imageMarginRight - ir.SizeX(),
+      m_imageView->setPivot(m2::PointD(pv.x + w / 2 - imr - ir.SizeX(),
                                        pv.y + h / 2 + m_arrowHeight));
     }
     else if (pos == graphics::EPosLeft)
     {
-      m_textView->setPivot(m2::PointD(pv.x - w - m_arrowHeight + m_textMarginLeft,
+      m_textView->setPivot(m2::PointD(pv.x - w - m_arrowHeight + tml,
                                       pv.y));
-      m_imageView->setPivot(m2::PointD(pv.x - m_arrowHeight - m_imageMarginRight - ir.SizeX(),
+      m_imageView->setPivot(m2::PointD(pv.x - m_arrowHeight - imr - ir.SizeX(),
                                        pv.y));
     }
     else if (pos == graphics::EPosRight)
     {
-      m_textView->setPivot(m2::PointD(pv.x + m_arrowHeight + m_textMarginLeft,
+      m_textView->setPivot(m2::PointD(pv.x + m_arrowHeight + tml,
                                       pv.y));
-      m_imageView->setPivot(m2::PointD(pv.x + m_arrowHeight + m_textMarginLeft + tr.SizeX() + m_textMarginRight + m_imageMarginRight,
+      m_imageView->setPivot(m2::PointD(pv.x + m_arrowHeight + tml + tr.SizeX() + tmr + imr,
                                        pv.y));
     }
 
@@ -250,11 +260,6 @@ namespace gui
 
       m_textView->draw(r, m);
       m_imageView->draw(r, m);
-
-      m2::RectD r1(pivot() * m, pivot() * m);
-      r1.Inflate(2, 2);
-
-      r->drawRectangle(r1, graphics::Color(255, 0, 0, 255), graphics::maxDepth);
     }
   }
 

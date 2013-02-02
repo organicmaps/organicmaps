@@ -13,6 +13,8 @@
 #include "../../../../../base/scheduled_task.hpp"
 #include "../../../../../base/strings_bundle.hpp"
 
+#include "../../../../../search/result.hpp"
+
 #include "../../../nv_event/nv_event.hpp"
 
 class CountryStatusDisplay;
@@ -22,16 +24,13 @@ namespace android
   class Framework
   {
   private:
-    typedef function<void(int, int)> TOnClickListener;
-    typedef function<void(int, int)> TOnLongClickListener;
     ::Framework m_work;
-
+    typedef function<void (BookmarkAndCategory)> TOnBalloonClickListener;
     VideoTimer * m_videoTimer;
 
     void CallRepaint();
 
-    TOnClickListener m_onClickListener;
-    TOnLongClickListener m_onLongClickListener;
+    TOnBalloonClickListener m_balloonClickListener;
     boost::shared_ptr<ScheduledTask> m_scheduledTask;
 
     int m_onClickFnsHandler;
@@ -59,9 +58,22 @@ namespace android
 
     math::AvgVector<float, 3> m_sensors[2];
 
-    void CallClickListener(int x, int y);
-    void CallLongClickListener(int x, int y);
+    void CallClickListener(double x, double y);
+    void CallLongClickListener(double x, double y);
     void KillLongTouchTask();
+
+    bool HandleOnSmthClick(double x, double y);
+    bool AdditionalHandlingForLongClick(double x, double y);
+    void ActivatePopup(m2::PointD const & bmkPosition, string const & name);
+    void ActivatePopupWithAddressInfo(m2::PointD const & bmkPosition, ::Framework::AddressInfo const & adInfo);
+    void OnBalloonClick(gui::Element * e);
+    void ToCamelCase(string & c);
+
+    inline bool ValidateBookmarkAndCategory(BookmarkAndCategory const & bac)
+    {
+      return bac.first > -1 && bac.second > -1;
+    }
+
   public:
     Framework();
     ~Framework();
@@ -118,12 +130,11 @@ namespace android
 
     void Scale(double k);
 
-    void AddClickListener(TOnClickListener const & l);
-    void RemoveClickListener();
 
-    void AddLongClickListener(TOnLongClickListener const & l);
-    void RemoveLongClickListener();
+    void AddBalloonClickListener(TOnBalloonClickListener const & l);
+    void RemoveBalloonClickListener();
 
+    void DeactivatePopup();
     ::Framework * NativeFramework();
   };
 }

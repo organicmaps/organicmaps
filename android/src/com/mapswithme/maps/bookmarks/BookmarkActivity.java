@@ -54,14 +54,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.pin);
-    if (getIntent().getExtras().containsKey(BOOKMARK_POSITION))
-    {
-      // create new bookmark
-      mPin = mManager.getBookmark(((ParcelablePointD)getIntent().getExtras().getParcelable(BOOKMARK_POSITION)));
-      mPin.setName(getIntent().getExtras().getString(BOOKMARK_NAME));
-      findViewById(R.id.pin_name).requestFocus();
-    }
-    else if (getIntent().getExtras().containsKey(PIN))
+    if (getIntent().getExtras().containsKey(PIN))
     {
       Point mPinPair = ((ParcelablePoint)getIntent().getParcelableExtra(PIN)).getPoint();
       mCurrentCategoryId = mPinPair.x;

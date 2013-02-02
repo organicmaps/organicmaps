@@ -1,4 +1,4 @@
-#include "../base/SRC_FIRST.hpp"
+﻿#include "../base/SRC_FIRST.hpp"
 #include "straight_text_element.hpp"
 #include "overlay_renderer.hpp"
 

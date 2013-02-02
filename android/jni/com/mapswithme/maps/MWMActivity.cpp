@@ -12,46 +12,31 @@
 extern "C"
 {
 
-  void CallClickListener(shared_ptr<jobject> obj, jmethodID methodID, int x, int y)
+  void CallBalloonClickListener(shared_ptr<jobject> obj, BookmarkAndCategory & bac)
   {
+    jmethodID methodID = jni::GetJavaMethodID(jni::GetEnv(), *obj.get(), "onClick", "(II)V");
     if (methodID != 0)
     {
-      jni::GetEnv()->CallVoidMethod(*obj.get(), methodID, x, y);
+      jni::GetEnv()->CallVoidMethod(*obj.get(), methodID, bac.first, bac.second);
     }
   }
 
-  void CallLongClickListener(shared_ptr<jobject> obj, int x, int y)
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMActivity_setOnPopupClickListener(JNIEnv * env, jobject thiz, jobject l)
   {
-    CallClickListener(obj, jni::GetJavaMethodID(jni::GetEnv(), *obj.get(), "onLongClick", "(II)V"), x, y);
-  }
-
-  void CallShortClickListener(shared_ptr<jobject> obj, int x, int y)
-  {
-    CallClickListener(obj, jni::GetJavaMethodID(jni::GetEnv(), *obj.get(), "onClick", "(II)V"), x, y);
+    return g_framework->AddBalloonClickListener(bind(&CallBalloonClickListener,jni::make_global_ref(l), _1));
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_addOnLongClickListener(JNIEnv * env, jobject thiz, jobject l)
+  Java_com_mapswithme_maps_MWMActivity_deactivatePopup(JNIEnv * env, jobject thiz)
   {
-    return g_framework->AddLongClickListener(bind(&CallLongClickListener,jni::make_global_ref(l), _1, _2));
+    return g_framework->DeactivatePopup();
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_addOnClickListener(JNIEnv * env, jobject thiz, jobject l)
+  Java_com_mapswithme_maps_MWMActivity_removeOnPopupClickListener()
   {
-    return g_framework->AddClickListener(bind(&CallShortClickListener,jni::make_global_ref(l), _1, _2));
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_removeOnLongClickListener()
-  {
-    g_framework->RemoveLongClickListener();
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_removeOnClickListener()
-  {
-    g_framework->RemoveClickListener();
+    g_framework->RemoveBalloonClickListener();
   }
 
   JNIEXPORT void JNICALL

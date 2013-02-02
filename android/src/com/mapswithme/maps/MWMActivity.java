@@ -11,38 +11,22 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Point;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceHolder.Callback;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
-import com.mapswithme.maps.bookmarks.PopupLayout;
-import com.mapswithme.maps.bookmarks.data.AddressInfo;
-import com.mapswithme.maps.bookmarks.data.Bookmark;
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
-import com.mapswithme.maps.bookmarks.data.ParcelablePointD;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.util.ConnectionState;
@@ -60,26 +44,18 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private MWMApplication mApplication = null;
   private BroadcastReceiver m_externalStorageReceiver = null;
   private AlertDialog m_storageDisconnectedDialog = null;
-  private BookmarkManager m_BookmarkManager;
 
   //showDialog(int, Bundle) available only form API 8
   private String mProDialogMessage;
 
-  private interface OnLongClickListener
+  private interface OnNativePopupClickListenter
   {
-    void onLongClick(int x, int y);
+    void onClick(int cat, int bmk);
   }
 
-  private interface OnClickListenter
-  {
-    void onClick(int x, int y);
-  }
-
-  private native void addOnLongClickListener(Object l);
-  private native void removeOnLongClickListener();
-
-  private native void addOnClickListener(Object l);
-  private native void removeOnClickListener();
+  private native void setOnPopupClickListener(Object l);
+  private native void removeOnPopupClickListener();
+  private native void deactivatePopup();
 
   private LocationService getLocationService()
   {
@@ -308,7 +284,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private boolean m_needCheckUpdate = true;
 
-  private PopupLayout m_popupLayout;
 
   private void checkUpdateMaps()
   {
@@ -453,6 +428,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     runOnUiThread(new Runnable()
     {
 
+      @SuppressWarnings("deprecation")
       @Override
       public void run()
       {
@@ -560,120 +536,28 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     alignZoomButtons();
 
-    BookmarkTouchHandler handler = new BookmarkTouchHandler(m_popupLayout = (PopupLayout)findViewById(R.id.map_popup));
-    m_BookmarkManager = BookmarkManager.getBookmarkManager(getApplicationContext());
-    addOnLongClickListener(handler);
-    addOnClickListener(handler);
-  }
-
-  @Override
-  protected void onStart()
-  {
-    super.onStart();
-    if (getIntent().hasExtra(SearchActivity.SEARCH_RESULT))
+    setOnPopupClickListener(new OnNativePopupClickListenter()
     {
-      m_popupLayout.activate(m_BookmarkManager.previewBookmark((AddressInfo)getIntent().getParcelableExtra(SearchActivity.SEARCH_RESULT)),
-                             getWindowManager());
-      getIntent().removeExtra(SearchActivity.SEARCH_RESULT);
-    }
+
+      @Override
+      public void onClick(int cat, int bmk)
+      {
+        startActivity(
+                     new Intent(MWMActivity.this, BookmarkActivity.class)
+                     .putExtra(
+                               BookmarkActivity.PIN,
+                               new ParcelablePoint(cat, bmk
+                             )
+                     ));
+      }
+    });
   }
 
   @Override
   protected void onStop()
   {
-    if (m_popupLayout != null)
-    {
-      m_popupLayout.deactivate();
-    }
+    deactivatePopup();
     super.onStop();
-  }
-
-  private class BookmarkTouchHandler implements OnClickListenter, OnLongClickListener
-  {
-    private PopupLayout m_PopupLayout;
-
-    BookmarkTouchHandler(PopupLayout pop)
-    {
-      m_PopupLayout = pop;
-    }
-    @Override
-    public void onLongClick(int x, int y)
-    {
-      handleOnSmthClick(x, y, true);
-    }
-
-    @Override
-    public void onClick(final int x, final int y)
-    {
-      if (m_popupLayout.isActive())
-      {
-        if(!m_PopupLayout.handleClick(x, y, mApplication.isProVersion()))
-        {
-          if (mApplication.isProVersion())
-          {
-            handleOnSmthClick(x, y, false);
-          }
-        }
-        else
-        {
-          if (!mApplication.isProVersion())
-          {
-            showProVersionBanner(getString(R.string.bookmarks_in_pro_version));
-          }
-        }
-      }
-      else
-      {
-        handleOnSmthClick(x, y, false);
-      }
-
-    }
-
-    private boolean handleOnSmthClick(int x, int y, boolean longClick)
-    {
-      ParcelablePoint b = m_BookmarkManager.findBookmark(new ParcelablePointD(x, y));
-      if (b != null)
-      {
-        m_PopupLayout.activate(m_BookmarkManager.getBookmark(b.getPoint().x, b.getPoint().y), getWindowManager());
-        return true;
-      }
-      else
-      {
-        AddressInfo info = null;
-        if ((info = m_BookmarkManager.getPOI(new ParcelablePointD(x, y))) != null)
-        {
-          m_PopupLayout.activate(m_BookmarkManager.previewBookmark(info), getWindowManager());
-          return true;
-        }
-        else
-          if (longClick)
-          {
-            info = m_BookmarkManager.getAddressInfo(new ParcelablePointD(x, y));
-            m_PopupLayout.activate(m_BookmarkManager.previewBookmark(info), getWindowManager());
-            return true;
-          }
-          else
-          {
-            return false;
-          }
-      }
-    }
-  }
-
-  @Override
-  public boolean onTouchEvent(MotionEvent event)
-  {
-    m_popupLayout.requestInvalidation();
-    return super.onTouchEvent(event);
-  }
-
-  @Override
-  public void onDestroy()
-  {
-    if (mApplication.isProVersion())
-      removeOnLongClickListener();
-      removeOnClickListener();
-    super.onDestroy();
   }
 
   private void alignZoomButtons()
@@ -839,7 +723,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     startWatchingCompassStatusUpdate();
 
     startWatchingExternalStorage();
-    m_popupLayout.requestInvalidation();
     super.onResume();
   }
 

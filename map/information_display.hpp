@@ -6,6 +6,7 @@
 #include "../storage/index.hpp"
 
 #include "../gui/button.hpp"
+#include "../map/bookmark_balloon.hpp"
 
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
@@ -26,6 +27,7 @@ namespace gui
 {
   class Button;
   class Controller;
+  class BookmarkBalloon;
 }
 
 class Framework;
@@ -88,6 +90,7 @@ private:
   shared_ptr<CountryStatusDisplay> m_countryStatusDisplay;
   shared_ptr<CompassArrow> m_compassArrow;
   shared_ptr<location::State> m_locationState;
+  shared_ptr<gui::BookmarkBalloon> m_bookmarkBalloon;
 
 public:
 
@@ -141,6 +144,7 @@ public:
   void setEmptyCountryIndex(storage::TIndex const & idx);
 
   shared_ptr<CountryStatusDisplay> const & countryStatusDisplay() const;
+  shared_ptr<gui::BookmarkBalloon> const & bookmarkBalloon() const;
   shared_ptr<Ruler> const & ruler() const;
 
 
