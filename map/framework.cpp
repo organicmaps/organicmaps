@@ -373,6 +373,17 @@ void Framework::LoadBookmarks()
   }
 }
 
+void Framework::LoadBookmark(string const & filePath)
+{
+  BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(filePath);
+  if (cat)
+  {
+    m_bookmarks.push_back(cat);
+
+    LOG(LINFO, ("Loaded bookmarks category", cat->GetName(), "with", cat->GetBookmarksCount(), "bookmarks"));
+  }
+}
+
 BookmarkCategory * Framework::AddBookmark(string const & category, Bookmark const & bm)
 {
   // Get global non-rotated viewport rect and calculate viewport scale level.
@@ -574,10 +585,11 @@ string const GenerateValidandUniqFilePathForKLM(string const & filename)
 bool Framework::AddBookmarksFile(string const & filePath)
 {
   string const fileExt = GetFileExt(filePath);
+  string fileSavePath;
   if (fileExt == KML_EXTENSION)
   {
-    string savePath = GenerateValidandUniqFilePathForKLM( GetFileName(filePath) );
-    if (!my::CopyFile(filePath, savePath))
+    fileSavePath = GenerateValidandUniqFilePathForKLM( GetFileName(filePath) );
+    if (!my::CopyFile(filePath, fileSavePath))
       return false;
   }
   else if (fileExt == KMZ_EXTENSION)
@@ -598,8 +610,8 @@ bool Framework::AddBookmarksFile(string const & filePath)
       }
       if (kmlFileName.empty())
         return false;
-      string const savePath = GenerateValidandUniqFilePathForKLM(kmlFileName);
-      ZipFileReader::UnzipFile(filePath, kmlFileName, savePath);
+      fileSavePath = GenerateValidandUniqFilePathForKLM(kmlFileName);
+      ZipFileReader::UnzipFile(filePath, kmlFileName, fileSavePath);
     }
     catch (RootException const & e)
     {
@@ -614,7 +626,7 @@ bool Framework::AddBookmarksFile(string const & filePath)
   }
 
   // Update freshly added bookmarks
-  LoadBookmarks();
+  LoadBookmark(fileSavePath);
 
   return true;
 }
