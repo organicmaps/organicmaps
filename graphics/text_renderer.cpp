@@ -12,11 +12,11 @@
 
 namespace graphics
 {
-  TextRenderer::Params::Params()
-//    : m_drawTexts(true)
-  {}
+  //TextRenderer::Params::Params()
+  //  : m_drawTexts(true)
+  //{}
 
-  TextRenderer::TextRenderer(Params const & params)
+  TextRenderer::TextRenderer(base_t::Params const & params)
     : base_t(params)//, m_drawTexts(params.m_drawTexts)
   {}
 

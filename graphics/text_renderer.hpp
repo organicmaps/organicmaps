@@ -30,7 +30,7 @@ namespace graphics
 //      Params();
 //    };
 
-    TextRenderer(Params const & params);
+    TextRenderer(base_t::Params const & params);
 
     void drawStraightGlyph(m2::PointD const & ptOrg,
                            m2::PointD const & ptGlyph,
