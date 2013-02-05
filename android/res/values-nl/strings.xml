@@ -242,5 +242,11 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Bladwijzers van MapsWithMe met u gedeeld</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Hallo,\n\nHier zijn mijn bladwijzers uit de MapsWithMe offline kaarten, in het bijgevoegde \&quot;%s.kml\&quot;-bestand. Open het bestand als u MapsWithMe Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://www.mapswithme.com/get?kml.\n\nVeel plezier met MapsWithMe!</string>
+	<string name="share_bookmarks_email_body">Hallo,\n\nHier zijn mijn bladwijzers uit de MapsWithMe offline kaarten, in het bijgevoegde \&quot;%s.kmz\&quot;-bestand. Open het bestand als u MapsWithMe Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://www.mapswithme.com/get?kmz.\n\nVeel plezier met MapsWithMe!</string>
+	<!-- message title of loading file -->
+	<string name="load_kmz_title">Bladwijzers aan het uploaden</string>
+	<!-- Kmz file successful loading -->
+	<string name="load_kmz_successful">Bladwijzers met succes geüpload! U vindt ze op de kaart of op het scherm van de Bladwijzer Manager.</string>
+	<!-- Kml file loading failed -->
+	<string name="load_kmz_failed">Bladwijzers uploaden mislukt. Het bestand is mogelijk beschadigd of defect.</string>
 </resources>

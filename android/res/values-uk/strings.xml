@@ -213,5 +213,11 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Вам надаються закладки MapsWithMe</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Вітаю!\n\nОсь мої закладки з автономних карт MapsWithMe у доданому файлі \&quot;%s.kml\&quot;. Прошу відкрти його, якщо у вас MapsWithMe Pro вже встановлено. Якщо ні, тоді спочатку завантажте застосунок для пристроїв IOS або Android за цим посиланням http://www.mapswithme.com/get?kml.\n\nПриємних розваг з MapsWithMe!</string>
+	<string name="share_bookmarks_email_body">Вітаю!\n\nОсь мої закладки з автономних карт MapsWithMe у доданому файлі \&quot;%s.kmz\&quot;. Прошу відкрти його, якщо у вас MapsWithMe Pro вже встановлено. Якщо ні, тоді спочатку завантажте застосунок для пристроїв IOS або Android за цим посиланням http://www.mapswithme.com/get?kmz.\n\nПриємних розваг з MapsWithMe!</string>
+	<!-- message title of loading file -->
+	<string name="load_kmz_title">Завантаження закладок</string>
+	<!-- Kmz file successful loading -->
+	<string name="load_kmz_successful">Закладки успішно завантажено! Ви можете знайти їх на карті або у меню Менеджер закладок.</string>
+	<!-- Kml file loading failed -->
+	<string name="load_kmz_failed">Не вдалося завантажити закладки. Файл може бути пошкодженим або несправним.</string>
 </resources>

@@ -236,5 +236,11 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">MapsWithMeブックマークでシェアされました。</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">もしもし\n\nMapsWithMeオフライン地図で作成した私のブックマークを、添付ファイル\&quot;%s.kml\&quot;でお送りします。MapsWithMe Proを既にインストールされている場合は、ファイルを開いてみてください。インストールがまだの場合は、まずはこちらのリンク http://www.mapswithme.com/get?kml から、お使いのiOSまたはAndroid端末用のアプリをダウンロードしてください。\n\nMapsWithMeで楽しい時間をお過ごしください！</string>
+	<string name="share_bookmarks_email_body">もしもし\n\nMapsWithMeオフライン地図で作成した私のブックマークを、添付ファイル\&quot;%s.kmz\&quot;でお送りします。MapsWithMe Proを既にインストールされている場合は、ファイルを開いてみてください。インストールがまだの場合は、まずはこちらのリンク http://www.mapswithme.com/get?kmz から、お使いのiOSまたはAndroid端末用のアプリをダウンロードしてください。\n\nMapsWithMeで楽しい時間をお過ごしください！</string>
+	<!-- message title of loading file -->
+	<string name="load_kmz_title">ブックマークの読み込み中</string>
+	<!-- Kmz file successful loading -->
+	<string name="load_kmz_successful">ブックマークが無事読み込まれました! ブックマークはマップ上またはブックマークマネージャー画面上にあります。</string>
+	<!-- Kml file loading failed -->
+	<string name="load_kmz_failed">ブックマークのアップロードに失敗しました。ファイルが破損していた、または問題があった可能性があります。</string>
 </resources>

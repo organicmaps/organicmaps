@@ -234,5 +234,5 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Sdílené záložky MapsWithMe</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Dobrý den!\n\nZde jsou mé záložky z offline map MapsWithMe v přiloženém \&quot;%s.kml\&quot; souboru. Pokud máte již nainstalované MapsWithMe, otevřete tento soubor, prosím. V opačném případě si nejprve nainstalujte aplikaci pro vaše iOS nebo Android zařízení z tohoto odkazu http://www.mapswithme.com/get?kml.\n\nSkvěle se bavte s MapsWithMe!</string>
+	<string name="share_bookmarks_email_body">Dobrý den!\n\nZde jsou mé záložky z offline map MapsWithMe v přiloženém \&quot;%s.kmz\&quot; souboru. Pokud máte již nainstalované MapsWithMe, otevřete tento soubor, prosím. V opačném případě si nejprve nainstalujte aplikaci pro vaše iOS nebo Android zařízení z tohoto odkazu http://www.mapswithme.com/get?kmz.\n\nSkvěle se bavte s MapsWithMe!</string>
 </resources>

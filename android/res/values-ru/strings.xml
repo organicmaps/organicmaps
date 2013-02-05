@@ -242,13 +242,13 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">С вами поделились закладками MapsWithMe</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Здравствуйте!\n\nМои закладки из офлайн карт MapsWithMe находятся в прикрепленном файле\&quot;%s.kml\&quot;. Если у вас уже установлено приложение MapsWithMe Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  MapsWithMe Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.mapswithme.com/get?kml\n\nСпасибо!</string>
+	<string name="share_bookmarks_email_body">Здравствуйте!\n\nМои закладки из офлайн карт MapsWithMe находятся в прикрепленном файле\&quot;%s.kmz\&quot;. Если у вас уже установлено приложение MapsWithMe Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  MapsWithMe Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.mapswithme.com/get?kmz\n\nСпасибо!</string>
 	<!-- message title of loading file -->
-	<string name="load_kml_title">Загрузка Закладок</string>
-	<!-- Kml file successful loading -->
-	<string name="load_kml_successful">Закладки успешно загружены. Вы можете их увидеть на экране менеджера закладок.</string>
+	<string name="load_kmz_title">Загрузка закладок</string>
+	<!-- Kmz file successful loading -->
+	<string name="load_kmz_successful">Закладки успешно загружены! Вы можете найти их на карте или на экране Менеджера Закладок.</string>
 	<!-- Kml file loading failed -->
-	<string name="load_kml_failed">Файл с закладками не был загружен. Возможно, файл поврежден или неисправен.</string>
+	<string name="load_kmz_failed">Файл с закладками не был загружен. Возможно, файл поврежден или неисправен.</string>
 	<!-- resource for context menu -->
 	<string name="edit">Редактировать</string>
 	<!-- Title for Confirm dialog -->

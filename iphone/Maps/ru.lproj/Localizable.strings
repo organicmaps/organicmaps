@@ -397,3 +397,6 @@
 
 /* Title for Confirm dialog */
 "are_you_sure" = "Вы уверены?";
+
+/* Warning message when searching around current position */
+"unknown_current_position" = "Текущая позиция недоступна";

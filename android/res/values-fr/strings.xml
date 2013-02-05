@@ -230,5 +230,11 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Signets MapsWithMe partagés avec vous</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Bonjour,\n\nVous trouverez mes favoris des cartes hors-ligne MapsWithMe dans le fichier \&quot;%s.km:\&quot; ci-joint. Veuillez l\'ouvrir si vous avez déjà installé MapsWithMe Pro. Sinon, téléchargez d\'abord l\'application pour appareil iOS ou Android depuis le lien http://www.mapswithme.com/get?kml.\n\nAmusez-vous bien avec MapsWithMe!</string>
+	<string name="share_bookmarks_email_body">Bonjour,\n\nVous trouverez mes favoris des cartes hors-ligne MapsWithMe dans le fichier \&quot;%s.kmz:\&quot; ci-joint. Veuillez l\'ouvrir si vous avez déjà installé MapsWithMe Pro. Sinon, téléchargez d\'abord l\'application pour appareil iOS ou Android depuis le lien http://www.mapswithme.com/get?kmz.\n\nAmusez-vous bien avec MapsWithMe!</string>
+	<!-- message title of loading file -->
+	<string name="load_kmz_title">Chargement des favoris</string>
+	<!-- Kmz file successful loading -->
+	<string name="load_kmz_successful">Favoris chargés avec succès ! Vous pouvez les trouver sur la carte ou sur l\'écran de gestion des favoris.</string>
+	<!-- Kml file loading failed -->
+	<string name="load_kmz_failed">Chargement des favoris échoué. Le dossier peut être corrompu ou défectueux.</string>
 </resources>

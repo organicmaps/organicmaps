@@ -234,5 +234,11 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Marcapáginas de MapsWithMe compartidos contigo</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">¡Hola!\n\nEn el archivo adjunto \&quot;%s.kml\&quot;, están mis marcadores de los mapas offline MapsWithMe. Por favor, ábrelo con MapsWithMe Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://www.mapswithme.com/get?kml.\n\n¡Que disfrutes de MapsWithMe!</string>
+	<string name="share_bookmarks_email_body">¡Hola!\n\nEn el archivo adjunto \&quot;%s.kmz\&quot;, están mis marcadores de los mapas offline MapsWithMe. Por favor, ábrelo con MapsWithMe Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://www.mapswithme.com/get?kmz.\n\n¡Que disfrutes de MapsWithMe!</string>
+	<!-- message title of loading file -->
+	<string name="load_kmz_title">Cargando favoritos</string>
+	<!-- Kmz file successful loading -->
+	<string name="load_kmz_successful">¡Los favoritos se han cargado con éxito! Puedes encontrarlos en el mapa o en la pantalla de Gestión de favoritos.</string>
+	<!-- Kml file loading failed -->
+	<string name="load_kmz_failed">La carga de favoritos ha fallado. El archivo puede estar corrupto o ser defectuoso.</string>
 </resources>

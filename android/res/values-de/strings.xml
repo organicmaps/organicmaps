@@ -238,5 +238,11 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">MapsWithMe Lesezeichen mit Ihnen geteilt</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Hallo,\n\nIn der angefügten „%s.kml“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MapsWithMe. Falls Sie MapsWithMe Pro bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://www.mapswithme.com/get?kml herunterladen.\n\nIch wünsche viel Vergnügen mit MapsWithMe!</string>
+	<string name="share_bookmarks_email_body">Hallo,\n\nIn der angefügten „%s.kmz“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MapsWithMe. Falls Sie MapsWithMe Pro bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://www.mapswithme.com/get?kmz herunterladen.\n\nIch wünsche viel Vergnügen mit MapsWithMe!</string>
+	<!-- message title of loading file -->
+	<string name="load_kmz_title">Lesezeichen werden geladen</string>
+	<!-- Kmz file successful loading -->
+	<string name="load_kmz_successful">Lesezeichen erfolgreich geladen! Sie können diese nun auf Ihrer Karte oder im Lesezeichen-Manager sehen.</string>
+	<!-- Kml file loading failed -->
+	<string name="load_kmz_failed">Hochladen der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein.</string>
 </resources>
