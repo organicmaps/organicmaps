@@ -1,9 +1,12 @@
 #include "logging.hpp"
 
 #include <android/log.h>
+#include <cassert>
 
 #include "../../../../../base/assert.hpp"
 #include "../../../../../base/logging.hpp"
+#include "../../../../../base/exception.hpp"
+
 
 namespace jni
 {
@@ -30,6 +33,12 @@ void AndroidLogMessage(LogLevel l, SrcPoint const & src, string const & s)
 void AndroidAssertMessage(SrcPoint const & src, string const & s)
 {
   AndroidLogMessage(LERROR, src, s);
+
+#ifdef DEBUG
+    assert(false);
+#else
+    MYTHROW(RootException, (s));
+#endif
 }
 
 void InitSystemLog()
