@@ -94,11 +94,7 @@ class SearchAdapter
 
   bool CheckPosition(int position) const
   {
-    int const count = static_cast<int>(m_results.GetCount());
-
-    // for safety reasons do actual check always
-    ASSERT_LESS ( position, count, () );
-    return (position < count);
+    return (position < static_cast<int>(m_results.GetCount()));
   }
 
   SearchAdapter(JNIEnv * env, jobject activity)
