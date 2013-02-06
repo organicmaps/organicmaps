@@ -679,14 +679,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    @SuppressWarnings("deprecation")
-    final int orientation = getWindowManager().getDefaultDisplay().getOrientation();
-    final double correction = LocationService.getAngleCorrection(orientation);
-
-    magneticNorth = LocationService.correctAngle(magneticNorth, correction);
-    trueNorth = LocationService.correctAngle(trueNorth, correction);
-
-    nativeCompassUpdated(time, magneticNorth, trueNorth, accuracy);
+    double angles[] = { magneticNorth, trueNorth };
+    getLocationService().correctCompassAngles(getWindowManager().getDefaultDisplay(), angles);
+    nativeCompassUpdated(time, angles[0], angles[1], accuracy);
   }
   //@}
 

@@ -16,6 +16,7 @@ import android.location.LocationManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.Surface;
 
 import com.mapswithme.maps.MWMApplication;
@@ -412,12 +413,16 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   /// @name Angle correct functions.
   //@{
-  static public double getAngleCorrection(int screenRotation)
+  @SuppressWarnings("deprecation")
+  public void correctCompassAngles(Display display, double angles[])
   {
-    double correction = 0;
+    // Do not do any corrections if heading is from GPS service.
+    if (m_drivingHeading >= 0.0)
+      return;
 
-    // correct due to orientation
-    switch (screenRotation)
+    // Correct compass angles due to orientation.
+    double correction = 0;
+    switch (display.getOrientation())
     {
     case Surface.ROTATION_90:
       correction = Math.PI / 2.0;
@@ -430,10 +435,11 @@ public class LocationService implements LocationListener, SensorEventListener, W
       break;
     }
 
-    return correction;
+    for (int i = 0; i < angles.length; ++i)
+      angles[i] = correctAngle(angles[i], correction);
   }
 
-  static public double correctAngle(double angle, double correction)
+  static private double correctAngle(double angle, double correction)
   {
     angle += correction;
 
@@ -447,7 +453,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
     return angle;
   }
 
-  static double bearingToHeading(double bearing)
+  static private double bearingToHeading(double bearing)
   {
     return correctAngle(0.0, bearing * Math.PI / 180.0);
   }

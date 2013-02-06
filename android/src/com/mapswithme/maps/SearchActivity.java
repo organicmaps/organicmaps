@@ -579,16 +579,13 @@ public class SearchActivity extends ListActivity implements LocationService.List
     if (isShowCategories())
       return;
 
-    @SuppressWarnings("deprecation")
-    final int orientation = getWindowManager().getDefaultDisplay().getOrientation();
-    final double correction = LocationService.getAngleCorrection(orientation);
-
-    final double north = LocationService.correctAngle(trueNorth, correction);
+    double north[] = { trueNorth };
+    m_location.correctCompassAngles(getWindowManager().getDefaultDisplay(), north);
 
     // if difference is more than 1 degree
-    if (m_north == -1 || Math.abs(m_north - north) > 0.02)
+    if (m_north == -1 || Math.abs(m_north - north[0]) > 0.02)
     {
-      m_north = north;
+      m_north = north[0];
       //Log.d(TAG, "Compass updated, north = " + m_north);
 
       updateDistance();
