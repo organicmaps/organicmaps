@@ -245,4 +245,10 @@
 	<string name="load_kmz_successful">Lesezeichen erfolgreich geladen! Sie können diese nun auf Ihrer Karte oder im Lesezeichen-Manager sehen.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Hochladen der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein.</string>
+	<!-- Warning message when doing search around current position -->
+	<string name="unknown_current_position">Ihr Standort wurde bisher noch nicht bestimmt</string>
+	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
+	<string name="download_location_country">Land (%s) Ihres derzeitigen Standorts herunterladen</string>
+	<!-- Warning message when viewport country isn't downloaded during search -->
+	<string name="download_viewport_country_to_search">Land (%s) herunterladen, von dem aus Sie suchen</string>
 </resources>

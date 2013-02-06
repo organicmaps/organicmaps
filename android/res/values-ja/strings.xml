@@ -243,4 +243,10 @@
 	<string name="load_kmz_successful">ブックマークが無事読み込まれました! ブックマークはマップ上またはブックマークマネージャー画面上にあります。</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">ブックマークのアップロードに失敗しました。ファイルが破損していた、または問題があった可能性があります。</string>
+	<!-- Warning message when doing search around current position -->
+	<string name="unknown_current_position">現在地がまだ決定されていません</string>
+	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
+	<string name="download_location_country">現在地である国(%s)をダウンロード</string>
+	<!-- Warning message when viewport country isn't downloaded during search -->
+	<string name="download_viewport_country_to_search">現在マップで検索している国(%s)をダウンロード</string>
 </resources>

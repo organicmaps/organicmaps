@@ -255,4 +255,21 @@ Java_com_mapswithme_maps_SearchActivity_nativeGetResult(
   }
 }
 
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_SearchActivity_getCountryNameIfAbsent(JNIEnv * env, jobject thiz,
+    jdouble lat, jdouble lon)
+{
+  string const name = g_framework->GetCountryNameIfAbsent(m2::PointD(
+      MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)));
+
+  return (name.empty() ? 0 : jni::ToJavaString(env, name));
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_SearchActivity_getViewportCountryNameIfAbsent(JNIEnv * env, jobject thiz)
+{
+  string const name = g_framework->GetCountryNameIfAbsent(g_framework->GetViewportCenter());
+  return (name.empty() ? 0 : jni::ToJavaString(env, name));
+}
+
 }

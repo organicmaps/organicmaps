@@ -237,4 +237,10 @@
 	<string name="load_kmz_successful">Favoris chargés avec succès ! Vous pouvez les trouver sur la carte ou sur l\'écran de gestion des favoris.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Chargement des favoris échoué. Le dossier peut être corrompu ou défectueux.</string>
+	<!-- Warning message when doing search around current position -->
+	<string name="unknown_current_position">Votre position n\'a pas encore été déterminée</string>
+	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
+	<string name="download_location_country">Téléchargez le pays (%s) de votre position actuelle</string>
+	<!-- Warning message when viewport country isn't downloaded during search -->
+	<string name="download_viewport_country_to_search">Téléchargez le pays (%s) que vous recherchez sur</string>
 </resources>

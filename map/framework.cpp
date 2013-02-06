@@ -310,6 +310,11 @@ TStatus Framework::GetCountryStatus(TIndex const & index) const
   return res;
 }
 
+string Framework::GetCountryName(storage::TIndex const & index) const
+{
+  return m_storage.CountryName(index);
+}
+
 m2::RectD Framework::GetCountryBounds(string const & file) const
 {
   m2::RectD const r = GetSearchEngine()->GetCountryBounds(file);

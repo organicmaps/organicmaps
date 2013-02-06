@@ -491,12 +491,31 @@ namespace android
 
   storage::TIndex Framework::GetCountryIndex(double lat, double lon) const
   {
-    return m_work.GetCountryIndex(m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)));
+    return m_work.GetCountryIndex(m2::PointD(MercatorBounds::LonToX(lon),
+                                             MercatorBounds::LatToY(lat)));
   }
 
   string Framework::GetCountryCode(double lat, double lon) const
   {
-    return m_work.GetCountryCode(m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)));
+    return m_work.GetCountryCode(m2::PointD(MercatorBounds::LonToX(lon),
+                                            MercatorBounds::LatToY(lat)));
+  }
+
+  string Framework::GetCountryNameIfAbsent(m2::PointD const & pt) const
+  {
+    using namespace storage;
+
+    TIndex const idx = m_work.GetCountryIndex(pt);
+    TStatus const status = m_work.GetCountryStatus(idx);
+    if (status != EOnDisk && status != EOnDiskOutOfDate)
+      return m_work.GetCountryName(idx);
+    else
+      return string();
+  }
+
+  m2::PointD Framework::GetViewportCenter() const
+  {
+    return m_work.GetViewportCenter();
   }
 
   void Framework::AddString(string const & name, string const & value)

@@ -220,4 +220,10 @@
 	<string name="load_kmz_successful">Закладки успішно завантажено! Ви можете знайти їх на карті або у меню Менеджер закладок.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Не вдалося завантажити закладки. Файл може бути пошкодженим або несправним.</string>
+	<!-- Warning message when doing search around current position -->
+	<string name="unknown_current_position">Ваше місце розташування не визначено</string>
+	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
+	<string name="download_location_country">Завантажити країну (%s) вашого поточного місця розташування</string>
+	<!-- Warning message when viewport country isn't downloaded during search -->
+	<string name="download_viewport_country_to_search">Завантажити країну (% @), в якій ви шукаєте</string>
 </resources>

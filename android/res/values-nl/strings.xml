@@ -249,4 +249,10 @@
 	<string name="load_kmz_successful">Bladwijzers met succes geüpload! U vindt ze op de kaart of op het scherm van de Bladwijzer Manager.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Bladwijzers uploaden mislukt. Het bestand is mogelijk beschadigd of defect.</string>
+	<!-- Warning message when doing search around current position -->
+	<string name="unknown_current_position">Je plaats werd nog niet vastgesteld</string>
+	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
+	<string name="download_location_country">Download land (%s) waar je nu bent</string>
+	<!-- Warning message when viewport country isn't downloaded during search -->
+	<string name="download_viewport_country_to_search">Download land (%s) waar je op wilt zoeken</string>
 </resources>

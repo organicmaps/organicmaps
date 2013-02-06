@@ -105,6 +105,9 @@ namespace android
     storage::TIndex GetCountryIndex(double lat, double lon) const;
     string GetCountryCode(double lat, double lon) const;
 
+    string GetCountryNameIfAbsent(m2::PointD const & pt) const;
+    m2::PointD GetViewportCenter() const;
+
     void AddString(string const & name, string const & value);
 
     void Scale(double k);

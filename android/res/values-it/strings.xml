@@ -39,4 +39,10 @@
 	<string name="load_kmz_successful">Segnalibri caricati con successo! Puoi trovare i segnalibri direttamente sulla mappa, oppure aprendo la schermata dedicata alla Gestione dei segnalibri.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Caricamento dei segnalibri non riuscito. Il file potrebbe essere corrotto o difettoso.</string>
+	<!-- Warning message when doing search around current position -->
+	<string name="unknown_current_position">La tua posizione non è stata ancora stabilita</string>
+	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
+	<string name="download_location_country">Scarica il paese (%s) della tua posizione attuale</string>
+	<!-- Warning message when viewport country isn't downloaded during search -->
+	<string name="download_viewport_country_to_search">Scarica il paese (%s) che stai cercando</string>
 </resources>

@@ -1639,7 +1639,44 @@
     comment = Title for Confirm dialog
     ru = Вы уверены?
   [unknown_current_position]
-    en = Current postion is not available
+    en = Your location hasn't been determined yet
     tags = ios, android
-    comment = Warning message when searching around current position
-    ru = Текущая позиция недоступна
+    comment = Warning message when doing search around current position
+    ru = Ваше местоположение еще не определено
+    uk = Ваше місце розташування не визначено
+    ko = 귀하의 위치를 아직 알아내지 못 했습니다
+    es = Tu ubicación aún no ha sido determinada
+    it = La tua posizione non è stata ancora stabilita
+    ja = 現在地がまだ決定されていません
+    fr = Votre position n'a pas encore été déterminée
+    cz = Vaše poloha zatím nebyla určena
+    nl = Je plaats werd nog niet vastgesteld
+    de = Ihr Standort wurde bisher noch nicht bestimmt 
+  [download_location_country]
+    en = Download the country (%@) of your current location
+    tags = ios, android
+    comment = Warning message when location country isn't downloaded during search (see also download_location_map_proposal).
+    ru = Скачайте страну (%@) вашего текущего местоположения
+    uk = Завантажити країну (%@) вашого поточного місця розташування
+    ko = 귀하께서 현재 계신 국가인 (%@)을(를) 다운로드
+    es = Descargar país (%@) de tu ubicación actual
+    it = Scarica il paese (%@) della tua posizione attuale
+    ja = 現在地である国(%@)をダウンロード
+    fr = Téléchargez le pays (%@) de votre position actuelle
+    cz = Země stahování (%@) Vašeho současného místa
+    nl = Download land (%@) waar je nu bent
+    de = Land (%@) Ihres derzeitigen Standorts herunterladen
+  [download_viewport_country_to_search]
+    en = Download the country (%@) you are searching on
+    tags = ios, android
+    comment = Warning message when viewport country isn't downloaded during search
+    ru = Скачайте страну (%@), на которой вы ищете
+    uk = Завантажити країну (% @), в якій ви шукаєте
+    ko = 귀하께서 검색 중인 국가인 (%@)을(를) 다운로드
+    es = Descargar país (%@) en el que estás buscando
+    it = Scarica il paese (%@) che stai cercando
+    ja = 現在マップで検索している国(%@)をダウンロード
+    fr = Téléchargez le pays (%@) que vous recherchez sur
+    cz = Země stahování (%@), o níž hledáte
+    nl = Download land (%@) waar je op wilt zoeken
+    de = Land (%@) herunterladen, von dem aus Sie suchen

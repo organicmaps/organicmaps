@@ -175,6 +175,7 @@ public:
   void DeleteCountry(storage::TIndex const & index);
 
   storage::TStatus GetCountryStatus(storage::TIndex const & index) const;
+  string GetCountryName(storage::TIndex const & index) const;
 
   /// Get country rect from borders (not from mwm file).
   /// @param[in] file Pass country file name without extension as an id.

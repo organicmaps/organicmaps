@@ -257,6 +257,10 @@
 	<string name="edit">Edit</string>
 	<!-- Title for Confirm dialog -->
 	<string name="are_you_sure">Are you sure?</string>
-	<!-- Warning message when searching around current position -->
-	<string name="unknown_current_position">Current postion is not available</string>
+	<!-- Warning message when doing search around current position -->
+	<string name="unknown_current_position">Your location hasn\'t been determined yet</string>
+	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
+	<string name="download_location_country">Download the country (%s) of your current location</string>
+	<!-- Warning message when viewport country isn't downloaded during search -->
+	<string name="download_viewport_country_to_search">Download the country (%s) you are searching on</string>
 </resources>

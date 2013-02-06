@@ -5,6 +5,7 @@ import java.util.Locale;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -77,11 +78,34 @@ public class SearchActivity extends ListActivity implements LocationService.List
       return m_context.isShowCategories();
     }
 
-    private boolean isShowPositionWarning()
+    private String getWarningForEmptyResults()
     {
-      return (m_context.m_location.getLastKnown() == null && m_context.m_searchMode == AROUND_POSITION);
-    }
+      // First try to show warning if no country downloaded for viewport.
+      if (m_context.m_searchMode != AROUND_POSITION)
+      {
+        final String name = m_context.getViewportCountryNameIfAbsent();
+        if (name != null)
+          return String.format(m_context.getString(R.string.download_viewport_country_to_search), name);
+      }
 
+      // If now position detected or no country downloaded for position.
+      if (m_context.m_searchMode != IN_VIEWPORT)
+      {
+        final Location loc = m_context.m_location.getLastKnown();
+        if (loc == null)
+        {
+          return m_context.getString(R.string.unknown_current_position);
+        }
+        else
+        {
+          final String name = m_context.getCountryNameIfAbsent(loc.getLatitude(), loc.getLongitude());
+          if (name != null)
+            return String.format(m_context.getString(R.string.download_location_country), name);
+        }
+      }
+
+      return null;
+    }
 
     @Override
     public boolean isEnabled(int position)
@@ -259,10 +283,11 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
         holder.m_name.setText(m_context.getString(R.string.no_search_results_found));
 
-        if (isShowPositionWarning())
+        final String msg = getWarningForEmptyResults();
+        if (msg != null)
         {
           holder.m_country.setVisibility(View.VISIBLE);
-          holder.m_country.setText(R.string.unknown_current_position);
+          holder.m_country.setText(msg);
         }
         else
           holder.m_country.setVisibility(View.GONE);
@@ -690,4 +715,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
                                          double lat, double lon, int flags,
                                          int searchMode, int queryID);
   private static native void nativeShowItem(int position);
+
+  private native String getCountryNameIfAbsent(double lat, double lon);
+  private native String getViewportCountryNameIfAbsent();
 }
