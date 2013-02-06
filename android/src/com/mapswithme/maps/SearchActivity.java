@@ -480,7 +480,10 @@ public class SearchActivity extends ListActivity implements LocationService.List
     // Reset current mode flag - start first search.
     m_flags = 0;
     m_north = -1.0;
+
     m_location.startUpdate(this);
+
+    m_searchBox.requestFocus();
 
     // do the search immediately after resume
     runSearch();
