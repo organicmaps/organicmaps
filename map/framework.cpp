@@ -361,6 +361,9 @@ void Framework::RemoveLocalMaps()
 
 void Framework::LoadBookmarks()
 {
+  if (!GetPlatform().IsPro())
+    return;
+
   ClearBookmarks();
 
   string const dir = GetPlatform().WritableDir();
