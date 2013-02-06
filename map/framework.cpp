@@ -371,13 +371,7 @@ void Framework::LoadBookmarks()
   Platform::GetFilesByExt(dir, KML_EXTENSION, files);
   for (size_t i = 0; i < files.size(); ++i)
   {
-    BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(dir + files[i]);
-    if (cat)
-    {
-      m_bookmarks.push_back(cat);
-
-      LOG(LINFO, ("Loaded bookmarks category", cat->GetName(), "with", cat->GetBookmarksCount(), "bookmarks"));
-    }
+    LoadBookmark(dir+files[i]);
   }
 }
 
@@ -604,7 +598,6 @@ bool Framework::AddBookmarksFile(string const & filePath)
   {
     try
     {
-      string const filename = GetFileName(filePath);
       vector<string> files;
       ZipFileReader::FilesList(filePath, files);
       string kmlFileName;
