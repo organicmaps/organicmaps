@@ -1,13 +1,4 @@
 cont {
-  name: "addr:interpolation-all"
-}
-cont {
-  name: "addr:interpolation-even"
-}
-cont {
-  name: "addr:interpolation-odd"
-}
-cont {
   name: "aerialway-cable_car"
   element {
     scale: 15
@@ -752,64 +743,6 @@ cont {
 cont {
   name: "aeroway-terminal"
   element {
-    scale: 6
-    area {
-      color: 0xD4C894
-      border {
-        width: 0.00078125
-        color: 0x6A5A8E
-      }
-      priority: 38
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xD4C894
-      border {
-        width: 0.0015625
-        color: 0x6A5A8E
-      }
-      priority: 39
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xFFFFFFFF
-      priority: 30
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xFFFFFFFF
-      priority: 30
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xD4C894
-      border {
-        width: 0.0125
-        color: 0x6A5A8E
-      }
-      priority: 43
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xD4C894
-      border {
-        width: 0.025
-        color: 0x6A5A8E
-      }
-      priority: 43
-    }
-  }
-  element {
     scale: 12
     area {
       color: 0xD4C894
@@ -879,6 +812,22 @@ cont {
 cont {
   name: "amenity-atm"
   element {
+    scale: 16
+    symbol {
+      name: "atm"
+      priority: 1590
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 11829
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "atm"
@@ -897,6 +846,22 @@ cont {
 }
 cont {
   name: "amenity-bank"
+  element {
+    scale: 16
+    symbol {
+      name: "bank"
+      priority: 1589
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 11829
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -924,7 +889,7 @@ cont {
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
         offset_y: 10
@@ -952,14 +917,31 @@ cont {
 cont {
   name: "amenity-bench"
   element {
+    scale: 16
+    symbol {
+      name: "bench"
+      priority: 1546
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "bench"
       priority: 1546
     }
+  }
+}
+cont {
+  name: "amenity-bicycle_rental"
+  element {
+    scale: 16
+    symbol {
+      name: "bicycle_rental"
+      priority: 1584
+    }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
         offset_y: 10
@@ -967,9 +949,6 @@ cont {
       priority: 11829
     }
   }
-}
-cont {
-  name: "amenity-bicycle_rental"
   element {
     scale: 17
     symbol {
@@ -989,6 +968,22 @@ cont {
 }
 cont {
   name: "amenity-bureau_de_change"
+  element {
+    scale: 16
+    symbol {
+      name: "bureau_de_change"
+      priority: 1591
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 11829
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -1042,7 +1037,7 @@ cont {
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
         offset_y: 10
@@ -1077,7 +1072,7 @@ cont {
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
         offset_y: 10
@@ -1140,6 +1135,22 @@ cont {
 cont {
   name: "amenity-cinema"
   element {
+    scale: 16
+    symbol {
+      name: "cinema"
+      priority: 1539
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 11829
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "cinema"
@@ -1158,55 +1169,6 @@ cont {
 }
 cont {
   name: "amenity-college"
-  element {
-    scale: 6
-    area {
-      color: 0xE8E4D4
-      priority: 17
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xE8E4D4
-      priority: 18
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xE8E4D4
-      priority: 18
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xE8E4D4
-      priority: 18
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xE8E4D4
-      priority: 18
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xE8E4D4
-      priority: 18
-    }
-  }
-  element {
-    scale: 12
-    area {
-      color: 0xE8E4D4
-      priority: -9565
-    }
-  }
   element {
     scale: 13
     area {
@@ -1270,6 +1232,22 @@ cont {
 cont {
   name: "amenity-doctors"
   element {
+    scale: 16
+    symbol {
+      name: "pharmacy"
+      priority: 1527
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 11829
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "pharmacy"
@@ -1289,19 +1267,17 @@ cont {
 cont {
   name: "amenity-drinking_water"
   element {
-    scale: 17
+    scale: 16
     symbol {
       name: "drinking_water"
       priority: 1588
     }
-    caption {
-      primary {
-        height: 12
-        color: 0x404040
-        stroke_color: 0xFFFFFF
-        offset_y: 10
-      }
-      priority: 11829
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "drinking_water"
+      priority: 1588
     }
   }
 }
@@ -1315,7 +1291,7 @@ cont {
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
         offset_y: 10
@@ -1343,6 +1319,22 @@ cont {
 cont {
   name: "amenity-fast_food"
   element {
+    scale: 16
+    symbol {
+      name: "fastfood"
+      priority: 1594
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 11829
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "fastfood"
@@ -1361,6 +1353,22 @@ cont {
 }
 cont {
   name: "amenity-fire_station"
+  element {
+    scale: 16
+    symbol {
+      name: "firebrigade"
+      priority: 1582
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 11829
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -1422,6 +1430,29 @@ cont {
 }
 cont {
   name: "amenity-fuel"
+  element {
+    scale: 15
+    symbol {
+      name: "petrolstation"
+      priority: 1583
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "petrolstation"
+      priority: 1583
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 11829
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -1599,55 +1630,6 @@ cont {
 cont {
   name: "amenity-kindergarten"
   element {
-    scale: 6
-    area {
-      color: 0xE8E4D4
-      priority: 15
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xE8E4D4
-      priority: 16
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xE8E4D4
-      priority: 16
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xE8E4D4
-      priority: 16
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xE8E4D4
-      priority: 16
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xE8E4D4
-      priority: 16
-    }
-  }
-  element {
-    scale: 12
-    area {
-      color: 0xE8E4D4
-      priority: -9567
-    }
-  }
-  element {
     scale: 13
     area {
       color: 0xF0E0DC
@@ -1715,15 +1697,6 @@ cont {
       name: "library"
       priority: 1581
     }
-    caption {
-      primary {
-        height: 12
-        color: 0x404040
-        stroke_color: 0xFFFFFF
-        offset_y: 10
-      }
-      priority: 11829
-    }
   }
   element {
     scale: 17
@@ -1759,7 +1732,7 @@ cont {
       }
       priority: 11829
     }
-  }  
+  }
   element {
     scale: 17
     symbol {
@@ -1784,7 +1757,7 @@ cont {
     symbol {
       name: "bar"
       priority: 1581
-    }    
+    }
     caption {
       primary {
         height: 12
@@ -1794,13 +1767,13 @@ cont {
       }
       priority: 11829
     }
-  }  
+  }
   element {
     scale: 17
     symbol {
       name: "bar"
       priority: 1581
-    }    
+    }
     caption {
       primary {
         height: 12
@@ -2122,6 +2095,13 @@ cont {
 cont {
   name: "amenity-pharmacy"
   element {
+    scale: 16
+    symbol {
+      name: "pharmacy"
+      priority: 1528
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "pharmacy"
@@ -2141,6 +2121,22 @@ cont {
 cont {
   name: "amenity-place_of_worship"
   element {
+    scale: 16
+    symbol {
+      name: "religion"
+      priority: 1544
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 11829
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "religion"
@@ -2159,6 +2155,22 @@ cont {
 }
 cont {
   name: "amenity-police"
+  element {
+    scale: 16
+    symbol {
+      name: "police"
+      priority: 1540
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 11829
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -2197,6 +2209,22 @@ cont {
 }
 cont {
   name: "amenity-post_office"
+  element {
+    scale: 16
+    symbol {
+      name: "postoffice"
+      priority: 1529
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 11829
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -2252,6 +2280,13 @@ cont {
 cont {
   name: "amenity-recycling"
   element {
+    scale: 16
+    symbol {
+      name: "recycling"
+      priority: 1585
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "recycling"
@@ -2278,7 +2313,7 @@ cont {
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
         offset_y: 10
@@ -2305,6 +2340,22 @@ cont {
 }
 cont {
   name: "amenity-restaurant-hotel"
+  element {
+    scale: 16
+    symbol {
+      name: "hotel_and_restaurant"
+      priority: 1535
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 11829
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -2346,55 +2397,6 @@ cont {
 }
 cont {
   name: "amenity-school"
-  element {
-    scale: 6
-    area {
-      color: 0xE8E4D4
-      priority: 16
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xE8E4D4
-      priority: 17
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xE8E4D4
-      priority: 17
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xE8E4D4
-      priority: 17
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xE8E4D4
-      priority: 17
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xE8E4D4
-      priority: 17
-    }
-  }
-  element {
-    scale: 12
-    area {
-      color: 0xE8E4D4
-      priority: -9566
-    }
-  }
   element {
     scale: 13
     area {
@@ -2508,22 +2510,13 @@ cont {
       name: "taxi"
       priority: 1362
     }
-    caption {
-      primary {
-        height: 12
-        color: 0x404040
-        stroke_color: 0xFFFFFF
-        offset_y: 10
-      }
-      priority: 11829
-    }
   }
   element {
     scale: 17
     symbol {
       name: "taxi"
       priority: 1531
-    }    
+    }
     caption {
       primary {
         height: 12
@@ -2537,6 +2530,13 @@ cont {
 }
 cont {
   name: "amenity-telephone"
+  element {
+    scale: 16
+    symbol {
+      name: "telephone"
+      priority: 1593
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -2597,15 +2597,6 @@ cont {
       name: "toilets"
       priority: 11586
     }
-    caption {
-      primary {
-        height: 12
-        color: 0x404040
-        stroke_color: 0xFFFFFF
-        offset_y: 10
-      }
-      priority: 14829
-    }
   }
   element {
     scale: 17
@@ -2627,6 +2618,17 @@ cont {
 cont {
   name: "amenity-townhall"
   element {
+    scale: 16
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+  element {
     scale: 17
     caption {
       primary {
@@ -2640,55 +2642,6 @@ cont {
 }
 cont {
   name: "amenity-university"
-  element {
-    scale: 6
-    area {
-      color: 0xE8E4D4
-      priority: 18
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xE8E4D4
-      priority: 19
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xE8E4D4
-      priority: 19
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xE8E4D4
-      priority: 19
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xE8E4D4
-      priority: 19
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xE8E4D4
-      priority: 19
-    }
-  }
-  element {
-    scale: 12
-    area {
-      color: 0xE8E4D4
-      priority: -9564
-    }
-  }
   element {
     scale: 13
     area {
@@ -2806,9 +2759,6 @@ cont {
   }
 }
 cont {
-  name: "barrier-chicane"
-}
-cont {
   name: "barrier-city_wall"
   element {
     scale: 16
@@ -2844,9 +2794,6 @@ cont {
       priority: 1495
     }
   }
-}
-cont {
-  name: "barrier-cycle_barrier"
 }
 cont {
   name: "barrier-fence"
@@ -2887,13 +2834,6 @@ cont {
 }
 cont {
   name: "barrier-gate"
-  element {
-    scale: 16
-    symbol {
-      name: "gate"
-      priority: 1586
-    }
-  }
   element {
     scale: 17
     symbol {
@@ -3047,233 +2987,6 @@ cont {
       width: 1
       color: 0xB0B0B0
       priority: 1471
-    }
-  }
-}
-cont {
-  name: "boundary-administrative"
-  element {
-    scale: 6
-    lines {
-      width: 3.125
-      color: 0xFFFF00
-      priority: 2
-    }
-    lines {
-      width: 1.3671875
-      color: 0xF9574B
-      dashdot {
-        dd: 3.515625
-        dd: 1.171875
-        dd: 1.171875
-        dd: 1.171875
-      }
-      priority: 3
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 3.125
-      color: 0xFFFF00
-      priority: 2
-    }
-    lines {
-      width: 2.34375
-      color: 0xF9574B
-      dashdot {
-        dd: 7.03125
-        dd: 2.34375
-        dd: 2.34375
-        dd: 2.34375
-      }
-      priority: 3
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 3.125
-      color: 0xFFFF00
-      priority: 2
-    }
-    lines {
-      width: 2.8125
-      color: 0xF9574B
-      dashdot {
-        dd: 4.6875
-        dd: 1.5625
-        dd: 1.5625
-        dd: 1.5625
-      }
-      priority: 3
-    }
-    lines {
-      width: 0.25
-      color: 0xF9574B
-      dashdot {
-        dd: 1.25
-        dd: 0.25
-        dd: 0.25
-        dd: 0.25
-      }
-      priority: 65
-    }
-  }
-  element {
-    scale: 9
-    lines {
-      width: 0.5
-      color: 0xF9574B
-      dashdot {
-        dd: 2.5
-        dd: 0.5
-        dd: 0.5
-        dd: 0.5
-      }
-      priority: 65
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 1
-      color: 0xF9574B
-      dashdot {
-        dd: 5
-        dd: 1
-        dd: 1
-        dd: 1
-      }
-      priority: 159
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 10
-        dd: 2
-        dd: 2
-        dd: 2
-      }
-      priority: 159
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 14
-      color: 0xFFFF00
-      priority: 10443
-    }
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10444
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 14
-      color: 0xFFFF00
-      priority: 10470
-    }
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10471
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 14
-      color: 0xFFFF00
-      priority: 10590
-    }
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10591
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 14
-      color: 0xFFFF00
-      priority: 10794
-    }
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10795
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 14
-      color: 0xFFFF00
-      priority: 11404
-    }
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 11405
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 14
-      color: 0xFFFF00
-      priority: 11682
-    }
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 11683
     }
   }
 }
@@ -5167,39 +4880,6 @@ cont {
 cont {
   name: "highway-bridleway-area"
   element {
-    scale: 12
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.7
-        color: 0xA9D355
-      }
-      priority: 156
-    }
-  }
-  element {
-    scale: 13
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.9
-        color: 0xA9D355
-      }
-      priority: 166
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 1.6
-        color: 0x8FBF4D
-      }
-      priority: 228
-    }
-  }
-  element {
     scale: 15
     area {
       color: 0xD3CB98
@@ -6490,18 +6170,6 @@ cont {
   }
 }
 cont {
-  name: "highway-crossing-island"
-}
-cont {
-  name: "highway-crossing-uncontrolled"
-}
-cont {
-  name: "highway-crossing-zebra"
-}
-cont {
-  name: "highway-crossing-~"
-}
-cont {
   name: "highway-cycleroad"
   element {
     scale: 12
@@ -6594,28 +6262,7 @@ cont {
 }
 cont {
   name: "highway-cycleroad-area"
-  element {
-    scale: 12
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.7
-        color: 0x4DBF4D
-      }
-      priority: 171
-    }
-  }
-  element {
-    scale: 13
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.9
-        color: 0x4DBF4D
-      }
-      priority: 181
-    }
-  }
+
   element {
     scale: 14
     area {
@@ -6804,22 +6451,6 @@ cont {
 cont {
   name: "highway-cycleroad-tunnel"
   element {
-    scale: 10
-    lines {
-      width: 0.125
-      color: 0xFFFFFFFF
-      priority: 120
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.25
-      color: 0xFFFFFFFF
-      priority: 120
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 1
@@ -6992,39 +6623,6 @@ cont {
 cont {
   name: "highway-cycleway-area"
   element {
-    scale: 12
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.7
-        color: 0x4DBF4D
-      }
-      priority: 155
-    }
-  }
-  element {
-    scale: 13
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.9
-        color: 0x4DBF4D
-      }
-      priority: 165
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 1.6
-        color: 0x4DBF4D
-      }
-      priority: 227
-    }
-  }
-  element {
     scale: 15
     area {
       color: 0x90BC90
@@ -7153,9 +6751,9 @@ cont {
       color: 0xF8F8F8
       dashdot {
         dd: 4
-        dd: 0.4
+        dd: 1
         dd: 4
-        dd: 0.4
+        dd: 1
       }
       priority: 337
     }
@@ -7163,8 +6761,8 @@ cont {
       width: 19.2
       color: 0xF8F8F8
       dashdot {
-        dd: 8.4
-        dd: 0.4
+        dd: 8
+        dd: 1
       }
       priority: 344
     }
@@ -7186,9 +6784,9 @@ cont {
       color: 0xF8F8F8
       dashdot {
         dd: 4
-        dd: 0.8
+        dd: 1
         dd: 4
-        dd: 0.8
+        dd: 1
       }
       priority: 339
     }
@@ -7196,8 +6794,8 @@ cont {
       width: 19.2
       color: 0xF8F8F8
       dashdot {
-        dd: 8.8
-        dd: 0.8
+        dd: 8
+        dd: 1
       }
       priority: 346
     }
@@ -7205,33 +6803,6 @@ cont {
       width: 12.8
       color: 0xF8F8F8
       priority: 353
-    }
-  }
-}
-cont {
-  name: "highway-cycleway-destination"
-  element {
-    scale: 15
-    lines {
-      width: 8
-      color: 0xFFFFFFFF
-      priority: 644
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 8
-      color: 0xFFFFFFFF
-      priority: 964
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 12
-      color: 0xFFFFFFFF
-      priority: 1093
     }
   }
 }
@@ -7890,39 +7461,6 @@ cont {
 }
 cont {
   name: "highway-footpath-area"
-  element {
-    scale: 12
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.7
-        color: 0xD0CCAC
-      }
-      priority: 154
-    }
-  }
-  element {
-    scale: 13
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.9
-        color: 0xD0CCAC
-      }
-      priority: 164
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 1.6
-        color: 0xD0CCAC
-      }
-      priority: 226
-    }
-  }
   element {
     scale: 15
     area {
@@ -11469,38 +11007,6 @@ cont {
 cont {
   name: "highway-motorway-tunnel"
   element {
-    scale: 8
-    lines {
-      width: 0.625
-      color: 0xf08800
-      priority: 54
-    }
-  }
-  element {
-    scale: 9
-    lines {
-      width: 1.25
-      color: 0xf08800
-      priority: 54
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.25
-      color: 0xFFFFFFFF
-      priority: 130
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.5
-      color: 0xFFFFFFFF
-      priority: 130
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 5.5
@@ -12205,39 +11711,6 @@ cont {
 cont {
   name: "highway-path-area"
   element {
-    scale: 12
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.7
-        color: 0x909090
-      }
-      priority: 159
-    }
-  }
-  element {
-    scale: 13
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.9
-        color: 0x909090
-      }
-      priority: 169
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 1.6
-        color: 0x909090
-      }
-      priority: 231
-    }
-  }
-  element {
     scale: 15
     area {
       color: 0xD0D0D0
@@ -12262,39 +11735,6 @@ cont {
 cont {
   name: "highway-path-area-bicycle"
   element {
-    scale: 12
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.7
-        color: 0x4DBF4D
-      }
-      priority: 157
-    }
-  }
-  element {
-    scale: 13
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.9
-        color: 0x4DBF4D
-      }
-      priority: 167
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 1.6
-        color: 0x4DBF4D
-      }
-      priority: 229
-    }
-  }
-  element {
     scale: 15
     area {
       color: 0x90BC90
@@ -12318,39 +11758,6 @@ cont {
 }
 cont {
   name: "highway-path-area-horse"
-  element {
-    scale: 12
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.7
-        color: 0xA9D355
-      }
-      priority: 158
-    }
-  }
-  element {
-    scale: 13
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.9
-        color: 0xA9D355
-      }
-      priority: 168
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 1.6
-        color: 0x8FBF4D
-      }
-      priority: 230
-    }
-  }
   element {
     scale: 15
     area {
@@ -13022,8 +12429,8 @@ cont {
       width: 24.8
       color: 0x3A7019
       dashdot {
-        dd: 0.4
-        dd: 8.4
+        dd: 1
+        dd: 8
       }
       priority: 179
     }
@@ -13031,9 +12438,9 @@ cont {
       width: 20
       color: 0x3A7019
       dashdot {
-        dd: 0.4
+        dd: 1
         dd: 4
-        dd: 0.4
+        dd: 1
         dd: 4
       }
       priority: 207
@@ -26083,72 +25490,6 @@ cont {
 cont {
   name: "landuse-basin"
   element {
-    scale: 6
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 54
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 55
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 39
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 39
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 59
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 59
-    }
-  }
-  element {
     scale: 12
     area {
       color: 0xcde5ea
@@ -26238,72 +25579,6 @@ cont {
 }
 cont {
   name: "landuse-basin-detention"
-  element {
-    scale: 6
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 54
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 55
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 39
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 39
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 59
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 59
-    }
-  }
   element {
     scale: 12
     area {
@@ -26395,72 +25670,6 @@ cont {
 cont {
   name: "landuse-basin-infiltration"
   element {
-    scale: 6
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 54
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 55
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 39
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 39
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 59
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 59
-    }
-  }
-  element {
     scale: 12
     area {
       color: 0xcde5ea
@@ -26550,72 +25759,6 @@ cont {
 }
 cont {
   name: "landuse-basin-retention"
-  element {
-    scale: 6
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 54
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 55
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 39
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 39
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 59
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 59
-    }
-  }
   element {
     scale: 12
     area {
@@ -26793,48 +25936,6 @@ cont {
 cont {
   name: "landuse-cemetery"
   element {
-    scale: 6
-    area {
-      color: 0xE8E4D4
-      priority: 6
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xE8E4D4
-      priority: 6
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xE8E4D4
-      priority: 6
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xE8E4D4
-      priority: 6
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xE8E4D4
-      priority: 6
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xE8E4D4
-      priority: 6
-    }
-  }
-  element {
     scale: 12
     area {
       color: 0xE8E4D4
@@ -26900,48 +26001,6 @@ cont {
 }
 cont {
   name: "landuse-cemetery-christian"
-  element {
-    scale: 6
-    area {
-      color: 0xE8E4D4
-      priority: 6
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xE8E4D4
-      priority: 6
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xE8E4D4
-      priority: 6
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xE8E4D4
-      priority: 6
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xE8E4D4
-      priority: 6
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xE8E4D4
-      priority: 6
-    }
-  }
   element {
     scale: 12
     area {
@@ -27028,48 +26087,6 @@ cont {
 }
 cont {
   name: "landuse-commercial"
-  element {
-    scale: 6
-    area {
-      color: 0xF8F8D8
-      priority: 5
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xF8F8D8
-      priority: 5
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xF8F8D8
-      priority: 5
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xF8F8D8
-      priority: 5
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xF8F8D8
-      priority: 5
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xF8F8D8
-      priority: 5
-    }
-  }
   element {
     scale: 12
     area {
@@ -27756,48 +26773,6 @@ cont {
 cont {
   name: "landuse-farmyard"
   element {
-    scale: 6
-    area {
-      color: 0xE8E4D4
-      priority: 2
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xE8E4D4
-      priority: 2
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xE8E4D4
-      priority: 2
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xE8E4D4
-      priority: 2
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xE8E4D4
-      priority: 2
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xE8E4D4
-      priority: 2
-    }
-  }
-  element {
     scale: 12
     area {
       color: 0xE8E4D4
@@ -27863,72 +26838,6 @@ cont {
 }
 cont {
   name: "landuse-field"
-  element {
-    scale: 6
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.00078125
-        color: 0x6FC13D
-      }
-      priority: 12
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0015625
-        color: 0x6FC13D
-      }
-      priority: 13
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.03125
-        color: 0x6FC13D
-      }
-      priority: 13
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0625
-        color: 0x6FC13D
-      }
-      priority: 13
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0125
-        color: 0x6FC13D
-      }
-      priority: 13
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.025
-        color: 0x6FC13D
-      }
-      priority: 13
-    }
-  }
   element {
     scale: 12
     area {
@@ -27999,58 +26908,14 @@ cont {
 cont {
   name: "landuse-forest"
   element {
-    scale: 6
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 8
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 9
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 9
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 9
-    }
-  }
-  element {
     scale: 10
     area {
       color: 0xd0e8c4
       border {
-        width: 0.0125
+        width: 0.05
         color: 0xd0e8c4
       }
-      priority: 9
+      priority: 3
     }
   }
   element {
@@ -28058,10 +26923,10 @@ cont {
     area {
       color: 0xd0e8c4
       border {
-        width: 0.025
+        width: 0.05
         color: 0xd0e8c4
       }
-      priority: 9
+      priority: 3
     }
   }
   element {
@@ -28155,58 +27020,14 @@ cont {
 cont {
   name: "landuse-forest-coniferous"
   element {
-    scale: 6
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 8
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 9
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 9
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 9
-    }
-  }
-  element {
     scale: 10
     area {
       color: 0xd0e8c4
       border {
-        width: 0.0125
+        width: 0.05
         color: 0xd0e8c4
       }
-      priority: 9
+      priority: 3
     }
   }
   element {
@@ -28214,10 +27035,10 @@ cont {
     area {
       color: 0xd0e8c4
       border {
-        width: 0.025
+        width: 0.05
         color: 0xd0e8c4
       }
-      priority: 9
+      priority: 3
     }
   }
   element {
@@ -28311,58 +27132,14 @@ cont {
 cont {
   name: "landuse-forest-deciduous"
   element {
-    scale: 6
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 8
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 9
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 9
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 9
-    }
-  }
-  element {
     scale: 10
     area {
       color: 0xd0e8c4
       border {
-        width: 0.0125
+        width: 0.05
         color: 0xd0e8c4
       }
-      priority: 9
+      priority: 3
     }
   }
   element {
@@ -28370,10 +27147,10 @@ cont {
     area {
       color: 0xd0e8c4
       border {
-        width: 0.025
+        width: 0.05
         color: 0xd0e8c4
       }
-      priority: 9
+      priority: 3
     }
   }
   element {
@@ -28454,58 +27231,14 @@ cont {
 cont {
   name: "landuse-forest-mixed"
   element {
-    scale: 6
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 8
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 9
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 9
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 9
-    }
-  }
-  element {
     scale: 10
     area {
       color: 0xd0e8c4
       border {
-        width: 0.0125
+        width: 0.05
         color: 0xd0e8c4
       }
-      priority: 9
+      priority: 3
     }
   }
   element {
@@ -28513,10 +27246,10 @@ cont {
     area {
       color: 0xd0e8c4
       border {
-        width: 0.025
+        width: 0.05
         color: 0xd0e8c4
       }
-      priority: 9
+      priority: 3
     }
   }
   element {
@@ -28864,48 +27597,6 @@ cont {
 cont {
   name: "landuse-industrial"
   element {
-    scale: 6
-    area {
-      color: 0xE8E4D4
-      priority: 4
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xE8E4D4
-      priority: 4
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xE8E4D4
-      priority: 4
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xE8E4D4
-      priority: 4
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xE8E4D4
-      priority: 4
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xE8E4D4
-      priority: 4
-    }
-  }
-  element {
     scale: 12
     area {
       color: 0xE8E4D4
@@ -29070,72 +27761,6 @@ cont {
 }
 cont {
   name: "landuse-meadow"
-  element {
-    scale: 6
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.00078125
-        color: 0x6FC13D
-      }
-      priority: 14
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0015625
-        color: 0x6FC13D
-      }
-      priority: 15
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.03125
-        color: 0x6FC13D
-      }
-      priority: 15
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0625
-        color: 0x6FC13D
-      }
-      priority: 15
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0125
-        color: 0x6FC13D
-      }
-      priority: 15
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.025
-        color: 0x6FC13D
-      }
-      priority: 15
-    }
-  }
   element {
     scale: 12
     area {
@@ -29434,323 +28059,6 @@ cont {
   }
 }
 cont {
-  name: "landuse-raceway"
-  element {
-    scale: 6
-    area {
-      color: 0xE8E4D4
-      border {
-        width: 0.001171875
-        color: 0x101010
-      }
-      priority: 33
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xE8E4D4
-      border {
-        width: 0.00234375
-        color: 0x101010
-      }
-      priority: 34
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xE8E4D4
-      border {
-        width: 0.0046875
-        color: 0x101010
-      }
-      priority: 29
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xE8E4D4
-      border {
-        width: 0.009375
-        color: 0x101010
-      }
-      priority: 29
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xE8E4D4
-      border {
-        width: 0.01875
-        color: 0x101010
-      }
-      priority: 34
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xE8E4D4
-      border {
-        width: 0.0375
-        color: 0x101010
-      }
-      priority: 34
-    }
-  }
-  element {
-    scale: 12
-    area {
-      color: 0xE8E4D4
-      border {
-        width: 0.075
-        color: 0x101010
-      }
-      priority: 44
-    }
-  }
-  element {
-    scale: 13
-    area {
-      color: 0xE8E4D4
-      border {
-        width: 0.15
-        color: 0x101010
-      }
-      priority: 51
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 0xE8E4D4
-      border {
-        width: 0.6
-        color: 0x101010
-      }
-      priority: 74
-    }
-  }
-  element {
-    scale: 15
-    area {
-      color: 0xE8E4D4
-      border {
-        width: 1.2
-        color: 0x101010
-      }
-      priority: 74
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 0xE8E4D4
-      border {
-        width: 2.4
-        color: 0x101010
-      }
-      priority: 76
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 0xE8E4D4
-      border {
-        width: 2.4
-        color: 0x101010
-      }
-      priority: 77
-    }
-  }
-}
-cont {
-  name: "landuse-raceway-dismantled"
-  element {
-    scale: 10
-    area {
-      color: 0xFBFBFB
-      border {
-        width: 0.01875
-        color: 0x808080
-      }
-      priority: 36
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xFBFBFB
-      border {
-        width: 0.0375
-        color: 0x808080
-      }
-      priority: 36
-    }
-  }
-  element {
-    scale: 12
-    area {
-      color: 0xFFFFFF
-      border {
-        width: 0.075
-        color: 0x808080
-      }
-      priority: 46
-    }
-  }
-  element {
-    scale: 13
-    area {
-      color: 0xFFFFFF
-      border {
-        width: 0.15
-        color: 0x808080
-      }
-      priority: 53
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 0xFFFFFF
-      border {
-        width: 0.6
-        color: 0x808080
-      }
-      priority: 76
-    }
-  }
-  element {
-    scale: 15
-    area {
-      color: 0xFFFFFF
-      border {
-        width: 1.2
-        color: 0x808080
-      }
-      priority: 76
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 0xFFFFFF
-      border {
-        width: 2.4
-        color: 0x808080
-      }
-      priority: 78
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 0xFFFFFF
-      border {
-        width: 2.4
-        color: 0x808080
-      }
-      priority: 79
-    }
-  }
-}
-cont {
-  name: "landuse-raceway-disused"
-  element {
-    scale: 10
-    area {
-      color: 0xF7F7F7
-      border {
-        width: 0.01875
-        color: 0x808080
-      }
-      priority: 35
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xF7F7F7
-      border {
-        width: 0.0375
-        color: 0x808080
-      }
-      priority: 35
-    }
-  }
-  element {
-    scale: 12
-    area {
-      color: 0xE8E4D4
-      border {
-        width: 0.075
-        color: 0x808080
-      }
-      priority: 45
-    }
-  }
-  element {
-    scale: 13
-    area {
-      color: 0xE8E4D4
-      border {
-        width: 0.15
-        color: 0x808080
-      }
-      priority: 52
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 0xE8E4D4
-      border {
-        width: 0.6
-        color: 0x808080
-      }
-      priority: 75
-    }
-  }
-  element {
-    scale: 15
-    area {
-      color: 0xE8E4D4
-      border {
-        width: 1.2
-        color: 0x808080
-      }
-      priority: 75
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 0xE8E4D4
-      border {
-        width: 2.4
-        color: 0x808080
-      }
-      priority: 77
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 0xE8E4D4
-      border {
-        width: 2.4
-        color: 0x808080
-      }
-      priority: 78
-    }
-  }
-}
-cont {
   name: "landuse-railway"
   element {
     scale: 12
@@ -29929,72 +28237,6 @@ cont {
 cont {
   name: "landuse-reservoir"
   element {
-    scale: 6
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 53
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 54
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 38
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 38
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 58
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 58
-    }
-  }
-  element {
     scale: 12
     area {
       color: 0xcde5ea
@@ -30084,72 +28326,6 @@ cont {
 }
 cont {
   name: "landuse-reservoir-cooling"
-  element {
-    scale: 6
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 53
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 54
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 38
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 38
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 58
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 58
-    }
-  }
   element {
     scale: 12
     area {
@@ -30241,72 +28417,6 @@ cont {
 cont {
   name: "landuse-reservoir-evaporator"
   element {
-    scale: 6
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 53
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 54
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 38
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 38
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 58
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 58
-    }
-  }
-  element {
     scale: 12
     area {
       color: 0xcde5ea
@@ -30396,72 +28506,6 @@ cont {
 }
 cont {
   name: "landuse-reservoir-sewage"
-  element {
-    scale: 6
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 53
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 54
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 38
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 38
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 58
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 58
-    }
-  }
   element {
     scale: 12
     area {
@@ -30553,72 +28597,6 @@ cont {
 cont {
   name: "landuse-reservoir-tailings"
   element {
-    scale: 6
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 53
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 54
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 38
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 38
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 58
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 58
-    }
-  }
-  element {
     scale: 12
     area {
       color: 0xcde5ea
@@ -30709,72 +28687,6 @@ cont {
 cont {
   name: "landuse-reservoir-water_storage"
   element {
-    scale: 6
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 53
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 54
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 38
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 38
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 58
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
-      priority: 58
-    }
-  }
-  element {
     scale: 12
     area {
       color: 0xcde5ea
@@ -30864,48 +28776,6 @@ cont {
 }
 cont {
   name: "landuse-residential"
-  element {
-    scale: 6
-    area {
-      color: 0xede8d2
-      priority: 1
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xede8d2
-      priority: 1
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xede8d2
-      priority: 1
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xede8d2
-      priority: 1
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xede8d2
-      priority: 1
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xede8d2
-      priority: 1
-    }
-  }
   element {
     scale: 12
     area {
@@ -31653,72 +29523,6 @@ cont {
 cont {
   name: "landuse-village_green"
   element {
-    scale: 6
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.00078125
-        color: 0x6FC13D
-      }
-      priority: 13
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0015625
-        color: 0x6FC13D
-      }
-      priority: 14
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.03125
-        color: 0x6FC13D
-      }
-      priority: 14
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0625
-        color: 0x6FC13D
-      }
-      priority: 14
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0125
-        color: 0x6FC13D
-      }
-      priority: 14
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.025
-        color: 0x6FC13D
-      }
-      priority: 14
-    }
-  }
-  element {
     scale: 12
     area {
       color: 0xd0e8c4
@@ -31888,72 +29692,6 @@ cont {
 cont {
   name: "landuse-wood"
   element {
-    scale: 6
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 9
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 10
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 10
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 10
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0125
-        color: 0xd0e8c4
-      }
-      priority: 10
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.025
-        color: 0xd0e8c4
-      }
-      priority: 10
-    }
-  }
-  element {
     scale: 12
     area {
       color: 0xd0e8c4
@@ -32022,72 +29760,6 @@ cont {
 }
 cont {
   name: "landuse-wood-coniferous"
-  element {
-    scale: 6
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 9
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 10
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 10
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 10
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0125
-        color: 0xd0e8c4
-      }
-      priority: 10
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.025
-        color: 0xd0e8c4
-      }
-      priority: 10
-    }
-  }
   element {
     scale: 12
     area {
@@ -32158,72 +29830,6 @@ cont {
 cont {
   name: "landuse-wood-deciduous"
   element {
-    scale: 6
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 9
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 10
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 10
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 10
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0125
-        color: 0xd0e8c4
-      }
-      priority: 10
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.025
-        color: 0xd0e8c4
-      }
-      priority: 10
-    }
-  }
-  element {
     scale: 12
     area {
       color: 0xd0e8c4
@@ -32293,72 +29899,6 @@ cont {
 cont {
   name: "landuse-wood-mixed"
   element {
-    scale: 6
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 9
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 10
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 10
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 10
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0125
-        color: 0xd0e8c4
-      }
-      priority: 10
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.025
-        color: 0xd0e8c4
-      }
-      priority: 10
-    }
-  }
-  element {
     scale: 12
     area {
       color: 0xd0e8c4
@@ -32427,72 +29967,6 @@ cont {
 }
 cont {
   name: "leisure-common"
-  element {
-    scale: 6
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 24
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 25
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 25
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 25
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0125
-        color: 0xd0e8c4
-      }
-      priority: 25
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.025
-        color: 0xd0e8c4
-      }
-      priority: 25
-    }
-  }
   element {
     scale: 12
     area {
@@ -32697,83 +30171,6 @@ cont {
 cont {
   name: "leisure-garden"
   element {
-    scale: 6
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 21
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 22
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 22
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 22
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0125
-        color: 0xd0e8c4
-      }
-      priority: 22
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.025
-        color: 0xd0e8c4
-      }
-      priority: 22
-    }
-  }
-  element {
-    scale: 12
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.05
-        color: 0xd0e8c4
-      }
-      priority: 21
-    }
-  }
-  element {
     scale: 13
     area {
       color: 0xcfecb7
@@ -32839,72 +30236,6 @@ cont {
 }
 cont {
   name: "leisure-golf_course"
-  element {
-    scale: 6
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 23
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 24
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 24
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 24
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0125
-        color: 0xd0e8c4
-      }
-      priority: 24
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.025
-        color: 0xd0e8c4
-      }
-      priority: 24
-    }
-  }
   element {
     scale: 12
     area {
@@ -32973,141 +30304,6 @@ cont {
     symbol {
       name: "golfcourse"
       priority: 1595
-    }
-  }
-}
-cont {
-  name: "leisure-green"
-  element {
-    scale: 6
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 25
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 26
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 26
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 26
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0125
-        color: 0xd0e8c4
-      }
-      priority: 26
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.025
-        color: 0xd0e8c4
-      }
-      priority: 26
-    }
-  }
-  element {
-    scale: 12
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.05
-        color: 0xd0e8c4
-      }
-      priority: 24
-    }
-  }
-  element {
-    scale: 13
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.1
-        color: 0xd0e8c4
-      }
-      priority: 29
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.4
-        color: 0xd0e8c4
-      }
-      priority: 50
-    }
-  }
-  element {
-    scale: 15
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.8
-        color: 0xd0e8c4
-      }
-      priority: 50
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.8
-        color: 0xd0e8c4
-      }
-      priority: 50
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 0xcfecb7
-      border {
-        width: 1.6
-        color: 0xd0e8c4
-      }
-      priority: 50
     }
   }
 }
@@ -33242,52 +30438,6 @@ cont {
 cont {
   name: "leisure-park"
   element {
-    scale: 6
-    area {
-      color: 0xcfecb7
-      priority: 19
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcfecb7
-      priority: 20
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcfecb7
-      priority: 20
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcfecb7
-      priority: 20
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcfecb7
-      priority: 20
-    }
-  }
-  element {
     scale: 12
     area {
       color: 0xcfecb7
@@ -33383,72 +30533,6 @@ cont {
 cont {
   name: "leisure-park-destination"
   element {
-    scale: 6
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 19
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0125
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.025
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
     scale: 12
     area {
       color: 0xcfecb7
@@ -33525,72 +30609,6 @@ cont {
 }
 cont {
   name: "leisure-park-no-access"
-  element {
-    scale: 6
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 19
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0125
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.025
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
   element {
     scale: 12
     area {
@@ -33669,72 +30687,6 @@ cont {
 cont {
   name: "leisure-park-permissive"
   element {
-    scale: 6
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 19
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0125
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.025
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
     scale: 12
     area {
       color: 0xcfecb7
@@ -33812,72 +30764,6 @@ cont {
 cont {
   name: "leisure-park-private"
   element {
-    scale: 6
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 19
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0125
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.025
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
     scale: 12
     area {
       color: 0xcfecb7
@@ -33954,72 +30840,6 @@ cont {
 }
 cont {
   name: "leisure-pitch"
-  element {
-    scale: 6
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 22
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 23
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 23
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 23
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0125
-        color: 0xd0e8c4
-      }
-      priority: 23
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.025
-        color: 0xd0e8c4
-      }
-      priority: 23
-    }
-  }
   element {
     scale: 12
     area {
@@ -34292,72 +31112,6 @@ cont {
 }
 cont {
   name: "leisure-playing_fields"
-  element {
-    scale: 6
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 20
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 21
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 21
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 21
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.0125
-        color: 0xd0e8c4
-      }
-      priority: 21
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xcfecb7
-      border {
-        width: 0.025
-        color: 0xd0e8c4
-      }
-      priority: 21
-    }
-  }
   element {
     scale: 12
     area {
@@ -34647,72 +31401,6 @@ cont {
 cont {
   name: "leisure-sports_centre"
   element {
-    scale: 6
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 27
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 28
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 28
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 28
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0125
-        color: 0xd0e8c4
-      }
-      priority: 28
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.025
-        color: 0xd0e8c4
-      }
-      priority: 28
-    }
-  }
-  element {
     scale: 12
     area {
       color: 0xd0e8c4
@@ -34789,72 +31477,6 @@ cont {
 }
 cont {
   name: "leisure-stadium"
-  element {
-    scale: 6
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 26
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 27
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 27
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 27
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0125
-        color: 0xd0e8c4
-      }
-      priority: 27
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.025
-        color: 0xd0e8c4
-      }
-      priority: 27
-    }
-  }
   element {
     scale: 12
     area {
@@ -38105,39 +34727,6 @@ cont {
   }
 }
 cont {
-  name: "natural-military"
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 12
-        color: 0x202020
-      }
-      priority: 10893
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 16
-        color: 0x202020
-      }
-      priority: 11553
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 16
-        color: 0x202020
-      }
-      priority: 11787
-    }
-  }
-}
-cont {
   name: "natural-orchard"
   element {
     scale: 15
@@ -39335,50 +35924,6 @@ cont {
 cont {
   name: "natural-wood"
   element {
-    scale: 6
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 11
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 12
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 12
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 12
-    }
-  }
-  element {
     scale: 10
     area {
       color: 0xd0e8c4
@@ -39469,50 +36014,6 @@ cont {
 }
 cont {
   name: "natural-wood-coniferous"
-  element {
-    scale: 6
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 11
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 12
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 12
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 12
-    }
-  }
   element {
     scale: 10
     area {
@@ -39605,50 +36106,6 @@ cont {
 cont {
   name: "natural-wood-deciduous"
   element {
-    scale: 6
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 11
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 12
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 12
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 12
-    }
-  }
-  element {
     scale: 10
     area {
       color: 0xd0e8c4
@@ -39740,50 +36197,6 @@ cont {
 cont {
   name: "natural-wood-mixed"
   element {
-    scale: 6
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.00078125
-        color: 0xd0e8c4
-      }
-      priority: 11
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0015625
-        color: 0xd0e8c4
-      }
-      priority: 12
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.03125
-        color: 0xd0e8c4
-      }
-      priority: 12
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xd0e8c4
-      border {
-        width: 0.0625
-        color: 0xd0e8c4
-      }
-      priority: 12
-    }
-  }
-  element {
     scale: 10
     area {
       color: 0xd0e8c4
@@ -39871,15 +36284,6 @@ cont {
       priority: 30
     }
   }
-}
-cont {
-  name: "noexit-motor_vehicle"
-}
-cont {
-  name: "noexit-motorcar"
-}
-cont {
-  name: "noexit-vehicle"
 }
 cont {
   name: "piste:lift-j-bar"
