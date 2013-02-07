@@ -221,7 +221,7 @@ Java_com_mapswithme_maps_SearchActivity_nativeGetResult(
   {
     jmethodID methodID = env->GetMethodID(
         klass, "<init>",
-        "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;DDD)V");
+        "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;D)V");
     ASSERT ( methodID, () );
 
     string distance;
@@ -244,8 +244,6 @@ Java_com_mapswithme_maps_SearchActivity_nativeGetResult(
                           jni::ToJavaString(env, res->GetFeatureType()),
                           jni::ToJavaString(env, res->GetRegionFlag()),
                           jni::ToJavaString(env, distance.c_str()),
-                          static_cast<jdouble>(mer.x),
-                          static_cast<jdouble>(mer.y),
                           static_cast<jdouble>(azimut));
   }
   else

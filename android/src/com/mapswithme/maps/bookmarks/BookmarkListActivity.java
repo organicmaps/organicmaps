@@ -1,7 +1,6 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,17 +13,16 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
 
 import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.BookmarkListAdapter.DataChangedListener;
-import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
-import com.mapswithme.maps.location.LocationService;
+
 
 public class BookmarkListActivity extends AbstractBookmarkListActivity
 {
@@ -33,10 +31,8 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   private EditText mSetName;
   private CheckBox mIsVisible;
   private BookmarkCategory mEditedSet;
-  private Bookmark mBookmark;
   private int mSelectedPosition;
   private BookmarkListAdapter mPinAdapter;
-  private LocationService mLocation;
   private boolean mEditContent;
 
   @Override
@@ -48,8 +44,6 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
     mEditContent = getIntent().getBooleanExtra(EDIT_CONTENT, true);
     mEditedSet = mManager.getCategoryById(setIndex);
     setTitle(mEditedSet.getName());
-
-    mLocation = ((MWMApplication) getApplication()).getLocationService();
 
     if (mEditedSet != null)
       createListAdapter();
@@ -71,7 +65,9 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
 
   private void createListAdapter()
   {
-    setListAdapter(mPinAdapter = new BookmarkListAdapter(BookmarkListActivity.this, mEditedSet, new DataChangedListener()
+    setListAdapter(mPinAdapter = new BookmarkListAdapter(this,
+                                                         ((MWMApplication) getApplication()).getLocationService(),
+                                                         mEditedSet, new DataChangedListener()
     {
       @Override
       public void onDataChanged(int vis)
@@ -79,7 +75,8 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
         findViewById(R.id.bookmark_usage_hint).setVisibility(vis);
       }
     }));
-    mLocation.startUpdate(mPinAdapter);
+
+    mPinAdapter.startLocationUpdate();
   }
 
   private void setUpViews()
@@ -165,6 +162,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   protected void onStart()
   {
     super.onStart();
+
     if (mPinAdapter != null)
       mPinAdapter.notifyDataSetChanged();
   }
@@ -173,7 +171,8 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   protected void onPause()
   {
     if (mPinAdapter != null)
-      mLocation.stopUpdate(mPinAdapter);
+      mPinAdapter.stopLocationUpdate();
+
     super.onPause();
   }
 
@@ -181,7 +180,8 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   protected void onResume()
   {
     super.onResume();
+
     if (mPinAdapter != null)
-      mLocation.startUpdate(mPinAdapter);
+      mPinAdapter.startLocationUpdate();
   }
 }

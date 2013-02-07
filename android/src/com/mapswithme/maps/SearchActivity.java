@@ -6,8 +6,6 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.location.Location;
-import android.content.Intent;
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,9 +23,6 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.mapswithme.maps.bookmarks.data.AddressInfo;
-import com.mapswithme.maps.bookmarks.data.Bookmark;
-import com.mapswithme.maps.bookmarks.data.ParcelablePointD;
 import com.mapswithme.maps.location.LocationService;
 
 
@@ -37,7 +32,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
   public static final String SEARCH_RESULT = "search_result";
 
   private static class SearchAdapter extends BaseAdapter
-  {;
+  {
     private final SearchActivity m_context;
     private final LayoutInflater m_inflater;
 
@@ -186,7 +181,6 @@ public class SearchActivity extends ListActivity implements LocationService.List
     /// Created from native code.
     public static class SearchResult
     {
-      public ParcelablePointD mLocation;
       public String m_name;
       public String m_country;
       public String m_amenity;
@@ -211,7 +205,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
       // Called from native code
       @SuppressWarnings("unused")
       public SearchResult(String name, String country, String amenity,
-                          String flag, String distance, double lat, double lon, double azimut)
+                          String flag, String distance, double azimut)
       {
         m_name = name;
         m_country = country;
@@ -221,15 +215,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
         m_distance = distance;
         m_azimut = azimut;
 
-        mLocation = new ParcelablePointD(lat, lon);
-
         m_type = 1;
-      }
-
-      //Native code return location in mercator coordinates, we need screen coordinates
-      public AddressInfo getAddressInfo()
-      {
-        return new AddressInfo(m_name, m_amenity, Bookmark.GtoP(mLocation));
       }
     }
 
