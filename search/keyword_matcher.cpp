@@ -7,84 +7,127 @@
 
 #include "../std/algorithm.hpp"
 
-
 namespace search
 {
 
+KeywordMatcher::KeywordMatcher()
+{
+  Clear();
+}
+
+void KeywordMatcher::Clear()
+{
+  m_keywords = NULL;
+  m_keywordsCount = 0;
+  m_prefix = NULL;
+}
+
 void KeywordMatcher::SetKeywords(StringT const * keywords, size_t count, StringT const * prefix)
 {
-  ASSERT_LESS ( count, static_cast<size_t>(MAX_TOKENS), () );
-
-  m_keywords.resize(count);
-  for (size_t i = 0; i < count; ++i)
-    m_keywords[i] = &keywords[i];
+  m_keywords = keywords;
+  m_keywordsCount = min(static_cast<size_t>(MAX_TOKENS), count);
 
   m_prefix = prefix;
   if (m_prefix && m_prefix->empty())
-    m_prefix = 0;
+    m_prefix = NULL;
 }
 
-uint32_t KeywordMatcher::Score(string const & name) const
+KeywordMatcher::ScoreT KeywordMatcher::Score(string const & name) const
 {
   return Score(NormalizeAndSimplifyString(name));
 }
 
-uint32_t KeywordMatcher::Score(StringT const & name) const
+KeywordMatcher::ScoreT KeywordMatcher::Score(StringT const & name) const
 {
   buffer_vector<StringT, MAX_TOKENS> tokens;
   SplitUniString(name, MakeBackInsertFunctor(tokens), Delimiters());
 
-  /// @todo Some Arabian names have a lot of tokens.
-  /// Trim this stuff while generation.
-  //ASSERT_LESS ( tokens.size(), static_cast<size_t>(MAX_TOKENS), () );
-
-  return Score(tokens.data(), min(size_t(MAX_TOKENS-1), tokens.size()));
+  // Some names can have too many tokens. Trim them.
+  return Score(tokens.data(), min(size_t(MAX_TOKENS), tokens.size()));
 }
 
-uint32_t KeywordMatcher::Score(StringT const * tokens, size_t count) const
+KeywordMatcher::ScoreT KeywordMatcher::Score(StringT const * tokens, size_t count) const
 {
-  ASSERT_LESS ( count, static_cast<size_t>(MAX_TOKENS), () );
+  vector<bool> isQueryTokenMatched(m_keywordsCount);
+  vector<bool> isNameTokenMatched(count);
+  uint32_t numQueryTokensMatched = 0;
+  uint32_t sumTokenMatchDistance = 0;
+  uint32_t prevTokenMatchDistance = 0;
+  bool bPrefixMatched = true;
 
-  // boolean array of matched input tokens
-  unsigned char isTokenMatched[MAX_TOKENS] = { 0 };
-
-  // calculate penalty by keywords - add MAX_TOKENS for each unmatched keyword
-  uint32_t score = 0;
-  for (size_t i = 0; i < m_keywords.size(); ++i)
-  {
-    unsigned char isKeywordMatched = 0;
-    for (size_t j = 0; j < count; ++j)
-      if (*m_keywords[i] == tokens[j])
-        isKeywordMatched = isTokenMatched[j] = 1;
-
-    if (!isKeywordMatched)
-      score += MAX_TOKENS;
-  }
-
-  // calculate penalty for prefix - add MAX_TOKENS for unmatched prefix
-  if (m_prefix)
-  {
-    bool bPrefixMatched = false;
-    for (size_t i = 0; i < count && !bPrefixMatched; ++i)
-      if (StartsWith(tokens[i].begin(), tokens[i].end(),
-                     m_prefix->begin(), m_prefix->end()))
+  for (int i = 0; i < m_keywordsCount; ++i)
+    for (int j = 0; j < count && !isQueryTokenMatched[i]; ++j)
+      if (!isNameTokenMatched[j] && m_keywords[i] == tokens[j])
       {
-        bPrefixMatched = true;
+        isQueryTokenMatched[i] = isNameTokenMatched[j] = true;
+        uint32_t const tokenMatchDistance = i - j;
+        sumTokenMatchDistance += abs(tokenMatchDistance - prevTokenMatchDistance);
+        prevTokenMatchDistance = tokenMatchDistance;
       }
 
-    if (!bPrefixMatched)
-      score += MAX_TOKENS;
+  if (m_prefix)
+  {
+    bPrefixMatched = false;
+    for (int j = 0; j < count && !bPrefixMatched; ++j)
+      if (!isNameTokenMatched[j] &&
+          StartsWith(tokens[j].begin(), tokens[j].end(), m_prefix->begin(), m_prefix->end()))
+      {
+        isNameTokenMatched[j] = bPrefixMatched = true;
+        uint32_t const tokenMatchDistance = int(m_keywordsCount) - j;
+        sumTokenMatchDistance += abs(tokenMatchDistance - prevTokenMatchDistance);
+      }
   }
 
-  // add penalty for each unmatched token in input sequence
-  for (size_t i = 0; i <= count; ++i)
-  {
-    // check for token length (skip common tokens such as "de", "la", "a")
-    if (tokens[i].size() > 2 && !isTokenMatched[i])
-      ++score;
-  }
+  for (size_t i = 0; i < isQueryTokenMatched.size(); ++i)
+    if (isQueryTokenMatched[i])
+      ++numQueryTokensMatched;
+
+  ScoreT score = ScoreT();
+  score.m_bFullQueryMatched = bPrefixMatched && (numQueryTokensMatched == isQueryTokenMatched.size());
+  score.m_bPrefixMatched = bPrefixMatched;
+  score.m_numQueryTokensAndPrefixMatched = numQueryTokensMatched + (bPrefixMatched ? 1 : 0);
+  score.m_nameTokensMatched = 0xFFFFFFFF;
+  for (uint32_t i = 0; i < min(size_t(32), isNameTokenMatched.size()); ++i)
+    if (!isNameTokenMatched[i])
+      score.m_nameTokensMatched &= ~(1 << (31 - i));
+  score.m_sumTokenMatchDistance = sumTokenMatchDistance;
 
   return score;
+}
+
+KeywordMatcher::ScoreT::ScoreT()
+  : m_sumTokenMatchDistance(0), m_nameTokensMatched(0), m_numQueryTokensAndPrefixMatched(0),
+    m_bFullQueryMatched(false), m_bPrefixMatched(false)
+{
+}
+
+bool KeywordMatcher::ScoreT::operator < (KeywordMatcher::ScoreT const & s) const
+{
+  if (m_bFullQueryMatched != s.m_bFullQueryMatched)
+    return m_bFullQueryMatched < s.m_bFullQueryMatched;
+  if (m_numQueryTokensAndPrefixMatched != s.m_numQueryTokensAndPrefixMatched)
+    return m_numQueryTokensAndPrefixMatched < s.m_numQueryTokensAndPrefixMatched;
+  if (m_bPrefixMatched != s.m_bPrefixMatched)
+    return m_bPrefixMatched < s.m_bPrefixMatched;
+  if (m_nameTokensMatched != s.m_nameTokensMatched)
+    return m_nameTokensMatched < s.m_nameTokensMatched;
+  if (m_sumTokenMatchDistance != s.m_sumTokenMatchDistance)
+    return m_sumTokenMatchDistance > s.m_sumTokenMatchDistance;
+  return false;
+}
+
+string DebugPrint(KeywordMatcher::ScoreT const & score)
+{
+  ostringstream out;
+  out << "KeywordMatcher::ScoreT(";
+  out << "FQM=" << score.m_bFullQueryMatched;
+  out << ",nQTM=" << static_cast<int>(score.m_numQueryTokensAndPrefixMatched);
+  out << ",PM=" << score.m_bPrefixMatched;
+  out << ",NTM=";
+  for (int i = 31; i >= 0; --i) out << ((score.m_nameTokensMatched >> i) & 1);
+  out << ",STMD=" << score.m_sumTokenMatchDistance;
+  out << ")";
+  return out.str();
 }
 
 }  // namespace search

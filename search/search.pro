@@ -19,7 +19,7 @@ HEADERS += \
     latlon_match.hpp \
     approximate_string_match.hpp \
     feature_offset_match.hpp \
-    lang_keywords_scorer.hpp \
+    keyword_lang_matcher.hpp \
     params.hpp \
 
 SOURCES += \
@@ -30,5 +30,5 @@ SOURCES += \
     result.cpp \
     latlon_match.cpp \
     approximate_string_match.cpp \
-    lang_keywords_scorer.cpp \
+    keyword_lang_matcher.cpp \
     params.cpp \

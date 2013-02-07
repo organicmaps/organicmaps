@@ -1,6 +1,5 @@
 #include "search_query.hpp"
 #include "feature_offset_match.hpp"
-#include "lang_keywords_scorer.hpp"
 #include "latlon_match.hpp"
 #include "search_common.hpp"
 
@@ -441,8 +440,7 @@ namespace impl
 
       m_pFV->GetFeature(id.second, f);
 
-      uint32_t penalty;
-      m_query.GetBestMatchName(f, penalty, name);
+      m_query.GetBestMatchName(f, name);
 
       // country (region) name is a file name if feature isn't from World.mwm
       if (m_pFV->IsWorld())
@@ -592,22 +590,21 @@ namespace impl
 
 class BestNameFinder
 {
-  uint32_t & m_penalty;
+  KeywordLangMatcher::ScoreT m_score;
   string & m_name;
-  LangKeywordsScorer const & m_keywordsScorer;
+  KeywordLangMatcher const & m_keywordsScorer;
 public:
-  BestNameFinder(uint32_t & penalty, string & name, LangKeywordsScorer const & keywordsScorer)
-    : m_penalty(penalty), m_name(name), m_keywordsScorer(keywordsScorer)
+  BestNameFinder(string & name, KeywordLangMatcher const & keywordsScorer)
+    : m_score(), m_name(name), m_keywordsScorer(keywordsScorer)
   {
-    m_penalty = uint32_t(-1);
   }
 
-  bool operator()(signed char lang, string const & name) const
+  bool operator()(signed char lang, string const & name)
   {
-    uint32_t penalty = m_keywordsScorer.Score(lang, name);
-    if (penalty < m_penalty)
+    KeywordLangMatcher::ScoreT const score = m_keywordsScorer.Score(lang, name);
+    if (m_score < score)
     {
-      m_penalty = penalty;
+      m_score = score;
       m_name = name;
     }
     return true;
@@ -616,19 +613,10 @@ public:
 
 }  // namespace search::impl
 
-void Query::GetBestMatchName(FeatureType const & f, uint32_t & penalty, string & name) const
+void Query::GetBestMatchName(FeatureType const & f, string & name) const
 {
-  impl::BestNameFinder bestNameFinder(penalty, name, m_keywordsScorer);
+  impl::BestNameFinder bestNameFinder(name, m_keywordsScorer);
   (void)f.ForEachNameRef(bestNameFinder);
-
-  /*
-  if (!f.ForEachNameRef(bestNameFinder))
-  {
-    feature::TypesHolder types(f);
-    LOG(LDEBUG, (types));
-    LOG(LDEBUG, (f.GetLimitRect(FeatureType::BEST_GEOMETRY)));
-  }
-  */
 }
 
 Result Query::MakeResult(impl::PreResult2 const & r, set<uint32_t> const * pPrefferedTypes/* = 0*/) const

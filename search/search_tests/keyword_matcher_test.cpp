@@ -1,79 +1,300 @@
 #include "../../testing/testing.hpp"
 #include "../keyword_matcher.hpp"
+
+#include "../search_common.hpp"
+
 #include "../../indexer/search_string_utils.hpp"
 #include "../../indexer/search_delimiters.hpp"
+
 #include "../../base/buffer_vector.hpp"
 #include "../../base/stl_add.hpp"
+
 #include "../../std/scoped_ptr.hpp"
+#include "../../std/sstream.hpp"
+#include "../../std/vector.hpp"
 
 namespace
 {
-static const uint32_t MAX_SCORE = search::KeywordMatcher::MAX_SCORE;
 
-class Matcher
+using search::KeywordMatcher;
+typedef search::KeywordMatcher::ScoreT ScoreT;
+using search::MAX_TOKENS;
+
+enum ExpectedMatchResult
 {
-public:
-  Matcher(char const * query)
-  {
-    strings::UniString const uniQuery = search::NormalizeAndSimplifyString(query);
-    SplitUniString(uniQuery, MakeBackInsertFunctor(m_keywords), search::Delimiters());
-    if (!uniQuery.empty() && uniQuery.back() != ' ')
-    {
-      m_prefix = m_keywords.back();
-      m_keywords.pop_back();
-    }
+  NOMATCH,
+  MATCHES,
+  ANY_RES
+};
 
-    m_matcher.SetKeywords(m_keywords.data(), m_keywords.size(), &m_prefix);
+enum ExpectedScoreComparison
+{
+  DOES_NOT_MATTER,  // Score does not matter.
+  PERFECTLY_EQUAL,  // Matches with the score == previous.
+  BETTER_OR_EQUAL,  // Matches with the score <= previous.
+  STRONGLY_BETTER   // Matched with the score <  previous.
+};
+
+struct KeywordMatcherTestCase
+{
+  ExpectedMatchResult m_eMatch;
+  ExpectedScoreComparison m_eMatchType;
+  char const * m_name;
+};
+
+template <size_t N>
+void TestKeywordMatcher(char const * const query, KeywordMatcherTestCase const (&testCases)[N])
+{
+  vector<strings::UniString> keywords;
+  strings::UniString prefix;
+  if (search::TokenizeStringAndCheckIfLastTokenIsPrefix(query, keywords, search::Delimiters()))
+  {
+    prefix = keywords.back();
+    keywords.pop_back();
   }
 
-  search::KeywordMatcher m_matcher;
-private:
-  buffer_vector<strings::UniString, 10> m_keywords;
-  strings::UniString m_prefix;
-};
+  KeywordMatcher matcher;
+  matcher.SetKeywords(keywords.data(), keywords.size(), &prefix);
+  ScoreT prevScore = ScoreT();
+  for (size_t i = 0; i < N; ++i)
+  {
+    char const * const name = testCases[i].m_name;
+    char const * const prevName = (i == 0 ? "N/A" : testCases[i-1].m_name);
+    ScoreT const testScore = matcher.Score(name);
+
+    // Test that a newly created matcher returns the same result
+    {
+      KeywordMatcher freshMatcher;
+      freshMatcher.SetKeywords(keywords.data(), keywords.size(), &prefix);
+      ScoreT const freshScore = freshMatcher.Score(name);
+      // TEST_EQUAL(testScore, freshScore, (query, name));
+      TEST(!(testScore < freshScore), (query, name));
+      TEST(!(freshScore < testScore), (query, name));
+    }
+
+    if (testCases[i].m_eMatch != ANY_RES)
+    {
+      TEST_EQUAL(testCases[i].m_eMatch == MATCHES,
+                 KeywordMatcher::IsQueryMatched(testScore),
+                 (query, name, testScore));
+    }
+
+    switch (testCases[i].m_eMatchType)
+    {
+    case DOES_NOT_MATTER:
+      break;
+    case PERFECTLY_EQUAL:
+      TEST(!(testScore < prevScore), (query, name, testScore, prevName, prevScore));
+      TEST(!(prevScore < testScore), (query, name, testScore, prevName, prevScore));
+      break;
+    case BETTER_OR_EQUAL:
+      TEST(!(testScore < prevScore), (query, name, testScore, prevName, prevScore));
+      break;
+    case STRONGLY_BETTER:
+      TEST(prevScore < testScore, (query, name, testScore, prevName, prevScore));
+      break;
+    default:
+      ASSERT(false, ());
+    }
+
+    prevScore = testScore;
+  }
+}
 
 }  // unnamed namespace
 
-UNIT_TEST(KeywordMatcher_New)
+UNIT_TEST(KeywordMatcher_Prefix)
 {
-  Matcher matcher("new ");
-  TEST_EQUAL(matcher.m_matcher.Score("new"), 0, ());
-  TEST_EQUAL(matcher.m_matcher.Score("york"), MAX_SCORE, ());
-  TEST_EQUAL(matcher.m_matcher.Score("new york"), 0, ());
+  char const query[] = "new";
+  KeywordMatcherTestCase const testCases[] =
+  {
+    {NOMATCH, DOES_NOT_MATTER, ""},
+    {NOMATCH, DOES_NOT_MATTER, "zzz"},
+    {NOMATCH, DOES_NOT_MATTER, "ne"},
+
+    {MATCHES, STRONGLY_BETTER, "the newark"},
+    {MATCHES, BETTER_OR_EQUAL, "york new"},
+
+    {MATCHES, STRONGLY_BETTER, "new york gym"},
+    {MATCHES, BETTER_OR_EQUAL, "new new york"},
+
+    {MATCHES, STRONGLY_BETTER, "new york"},
+
+    {MATCHES, STRONGLY_BETTER, "newark"},
+    {MATCHES, BETTER_OR_EQUAL, "new"},
+  };
+  TestKeywordMatcher(query, testCases);
 }
 
-UNIT_TEST(KeywordMatcher_York)
+UNIT_TEST(KeywordMatcher_Keyword)
 {
-  Matcher matcher("york ");
-  TEST_EQUAL(matcher.m_matcher.Score("new"), MAX_SCORE, ());
-  TEST_EQUAL(matcher.m_matcher.Score("york"), 0, ());
-  TEST_EQUAL(matcher.m_matcher.Score("new york"), 1, ());
+  char const query[] = "new ";
+  KeywordMatcherTestCase const testCases[] =
+  {
+    {NOMATCH, DOES_NOT_MATTER, ""},
+    {NOMATCH, DOES_NOT_MATTER, "zzz"},
+    {NOMATCH, DOES_NOT_MATTER, "ne"},
+    {NOMATCH, DOES_NOT_MATTER, "the netherlands"},
+
+    {NOMATCH, STRONGLY_BETTER, "newark"},
+
+    {MATCHES, STRONGLY_BETTER, "york new"},
+
+    {MATCHES, STRONGLY_BETTER, "new york gym"},
+    {MATCHES, BETTER_OR_EQUAL, "new new york"},
+
+    {MATCHES, STRONGLY_BETTER, "new york"},
+  };
+  TestKeywordMatcher(query, testCases);
 }
 
-UNIT_TEST(KeywordMatcher_NewYork)
+UNIT_TEST(KeywordMatcher_SanSa_ShouldMatch_SanSalvador_BetterThan_San)
 {
-  Matcher matcher1("new york ");
-  Matcher matcher2("new york");
-  TEST_EQUAL(matcher1.m_matcher.Score("new"), MAX_SCORE, ());
-  TEST_EQUAL(matcher2.m_matcher.Score("new"), MAX_SCORE, ());
-  TEST_EQUAL(matcher1.m_matcher.Score("york"), MAX_SCORE, ());
-  TEST_EQUAL(matcher2.m_matcher.Score("york"), MAX_SCORE, ());
-  TEST_EQUAL(matcher1.m_matcher.Score("new york"), 0, ());
-  TEST_EQUAL(matcher2.m_matcher.Score("new york"), 0, ());
+  char const query[] = "San Sa";
+
+  KeywordMatcherTestCase const testCases[] =
+  {
+    {NOMATCH, DOES_NOT_MATTER, "San"},
+    {MATCHES, STRONGLY_BETTER, "San Salvador"},
+  };
+  TestKeywordMatcher(query, testCases);
 }
 
-UNIT_TEST(KeywordMatcher_YorkNew)
+UNIT_TEST(KeywordMatcher_KeywordAndPrefix)
 {
-  Matcher matcher("new york ");
-  TEST_EQUAL(matcher.m_matcher.Score("new"), MAX_SCORE, ());
-  TEST_EQUAL(matcher.m_matcher.Score("york"), MAX_SCORE, ());
-  TEST_EQUAL(matcher.m_matcher.Score("new york"), 0, ());
+  char const query[] = "new yo";
+
+  KeywordMatcherTestCase const testCases[] =
+  {
+    {NOMATCH, DOES_NOT_MATTER, "new"},
+    {NOMATCH, DOES_NOT_MATTER, "new old"},
+    {NOMATCH, DOES_NOT_MATTER, "old york"},
+
+    {MATCHES, STRONGLY_BETTER, "the york new"},
+
+    {MATCHES, STRONGLY_BETTER, "the new york"},
+    {MATCHES, BETTER_OR_EQUAL, "york new the"},
+
+    {MATCHES, STRONGLY_BETTER, "new york pizza"},
+
+    {MATCHES, STRONGLY_BETTER, "york new"},
+    {MATCHES, BETTER_OR_EQUAL, "yo new"},
+
+    {MATCHES, STRONGLY_BETTER, "new york"},
+    {MATCHES, BETTER_OR_EQUAL, "new yo"},
+  };
+  TestKeywordMatcher(query, testCases);
 }
 
-UNIT_TEST(KeywordMatcher_NewYo)
+UNIT_TEST(KeywordMatcher_KeywordAndKeyword)
 {
-  Matcher matcher("new yo");
-  TEST_EQUAL(matcher.m_matcher.Score("new"), MAX_SCORE, ());
-  TEST_EQUAL(matcher.m_matcher.Score("york"), MAX_SCORE, ());
-  TEST_EQUAL(matcher.m_matcher.Score("new york"), 0, ());
+  char const query[] = "new york ";
+
+  KeywordMatcherTestCase const testCases[] =
+  {
+    {NOMATCH, DOES_NOT_MATTER, "new"},
+    {NOMATCH, DOES_NOT_MATTER, "new old"},
+    {NOMATCH, DOES_NOT_MATTER, "old york"},
+    {NOMATCH, DOES_NOT_MATTER, "new yorkshire"},
+    {NOMATCH, DOES_NOT_MATTER, "york newcastle"},
+
+    {MATCHES, STRONGLY_BETTER, "the york new"},
+
+    {MATCHES, STRONGLY_BETTER, "the new york"},
+    {MATCHES, BETTER_OR_EQUAL, "york new the"},
+
+    {MATCHES, STRONGLY_BETTER, "new york pizza"},
+
+    {MATCHES, STRONGLY_BETTER, "york new"},
+
+    {MATCHES, STRONGLY_BETTER, "new york"},
+  };
+  TestKeywordMatcher(query, testCases);
+}
+
+
+namespace
+{
+
+string GetManyTokens(string tokenPrefix, int tokenCount, bool countForward = true)
+{
+  ostringstream out;
+  for (int i = 0; i < tokenCount; ++i)
+    out << tokenPrefix << (countForward ? i : tokenCount - 1 - i) << " ";
+  return out.str();
+}
+
+}  // unnamed namespace
+
+UNIT_TEST(KeywordMatcher_QueryTooLong)
+{
+  for (int queryLength = MAX_TOKENS - 2; queryLength <= MAX_TOKENS + 2; ++queryLength)
+  {
+    string const query = GetManyTokens("Q", queryLength);
+    string const queryWithPrefix = query + " Prefix";
+    string const queryWithPrefixAndSomethingElse = query + " PrefixAndSomethingElse";
+
+    KeywordMatcherTestCase const testCases[] =
+    {
+      {NOMATCH, DOES_NOT_MATTER, ""},
+      {NOMATCH, DOES_NOT_MATTER, "Q"},
+      {NOMATCH, DOES_NOT_MATTER, "Q "},
+      {NOMATCH, DOES_NOT_MATTER, "Q3"},
+      {NOMATCH, DOES_NOT_MATTER, "Q3 "},
+      {NOMATCH, DOES_NOT_MATTER, "Q3 Q"},
+      {NOMATCH, DOES_NOT_MATTER, "Q3 Q4"},
+      {NOMATCH, DOES_NOT_MATTER, "zzz"},
+
+      {NOMATCH, DOES_NOT_MATTER, "Q"},
+      {ANY_RES, STRONGLY_BETTER, query.c_str()},
+
+      {NOMATCH, DOES_NOT_MATTER, "Q"},
+      {ANY_RES, STRONGLY_BETTER, queryWithPrefix.c_str()},
+
+      {NOMATCH, DOES_NOT_MATTER, "Q"},
+      {ANY_RES, STRONGLY_BETTER, queryWithPrefixAndSomethingElse.c_str()},
+    };
+    TestKeywordMatcher(query.c_str(), testCases);
+    TestKeywordMatcher(queryWithPrefix.c_str(), testCases);
+  }
+}
+
+UNIT_TEST(KeywordMatcher_NameTooLong)
+{
+  string const name[] =
+  {
+    "Aa Bb " + GetManyTokens("T", MAX_TOKENS + 1),
+    "Aa Bb " + GetManyTokens("T", MAX_TOKENS),
+    "Aa Bb " + GetManyTokens("T", MAX_TOKENS - 1),
+  };
+
+  KeywordMatcherTestCase const testCases[] =
+  {
+    {NOMATCH, DOES_NOT_MATTER, "zzz"},
+
+    {MATCHES, STRONGLY_BETTER, name[0].c_str()},
+    {MATCHES, BETTER_OR_EQUAL, name[1].c_str()},
+    {MATCHES, BETTER_OR_EQUAL, name[2].c_str()},
+  };
+
+  char const * query[] = { "a", "aa", "aa ", "b", "bb", "bb ", "t" };
+  for (int i = 0; i < ARRAY_SIZE(query); ++i)
+    TestKeywordMatcher(query[i], testCases);
+}
+
+UNIT_TEST(KeywordMatcher_ManyTokensInReverseOrder)
+{
+  string const query = GetManyTokens("Q", MAX_TOKENS);
+  string const name = GetManyTokens("Q", MAX_TOKENS);
+  string const reversedName = GetManyTokens("Q", MAX_TOKENS, false);
+
+  KeywordMatcherTestCase const testCases[] =
+  {
+    {NOMATCH, DOES_NOT_MATTER, "zzz"},
+
+    {MATCHES, STRONGLY_BETTER, reversedName.c_str()},
+
+    {MATCHES, STRONGLY_BETTER, name.c_str()},
+  };
+  TestKeywordMatcher(query.c_str(), testCases);
 }

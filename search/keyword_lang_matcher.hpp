@@ -3,12 +3,28 @@
 
 #include "../std/vector.hpp"
 
-
 namespace search
 {
 
-class LangKeywordsScorer
+class KeywordLangMatcher
 {
+public:
+
+  class ScoreT
+  {
+  public:
+    ScoreT() {}
+    bool operator < (ScoreT const & s) const;
+  private:
+    friend class KeywordLangMatcher;
+
+    ScoreT(KeywordMatcher::ScoreT const & score, int langScore);
+
+    KeywordMatcher::ScoreT m_parentScore;
+    int m_langScore;
+  };
+
+private:
   enum { NUM_LANG_PRIORITY_TIERS = 4 };
   enum { MAX_LANGS_IN_TIER = 2 };
 
@@ -26,12 +42,16 @@ public:
     m_keywordMatcher.SetKeywords(keywords, count, prefix);
   }
 
-  uint32_t Score(int8_t lang, string const & name) const;
-  uint32_t Score(int8_t lang, StringT const & name) const;
-  uint32_t Score(int8_t lang, StringT const * tokens, size_t count) const;
+  /// @return Score of the name (greater is better).
+  //@{
+  ScoreT Score(int8_t lang, string const & name) const;
+  ScoreT Score(int8_t lang, StringT const & name) const;
+  ScoreT Score(int8_t lang, StringT const * tokens, size_t count) const;
+  //@}
 
 private:
   bool AssertIndex(pair<int, int> const & ind) const;
+  int GetLangScore(int8_t lang) const;
 
   vector<vector<int8_t> > m_languagePriorities;
   KeywordMatcher m_keywordMatcher;

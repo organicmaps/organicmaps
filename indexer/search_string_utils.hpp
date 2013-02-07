@@ -23,4 +23,24 @@ void SplitUniString(strings::UniString const & uniS, F f, DelimsT const & delims
 
 strings::UniString FeatureTypeToString(uint32_t type);
 
+template <class ContainerT, class DelimsT>
+bool TokenizeStringAndCheckIfLastTokenIsPrefix(strings::UniString const & s,
+                                               ContainerT & tokens,
+                                               DelimsT const & delimiter)
+{
+  SplitUniString(s, MakeBackInsertFunctor(tokens), delimiter);
+  return !s.empty() && !delimiter(s.back());
+}
+
+
+template <class ContainerT, class DelimsT>
+bool TokenizeStringAndCheckIfLastTokenIsPrefix(string const & s,
+                                               ContainerT & tokens,
+                                               DelimsT const & delimiter)
+{
+  return TokenizeStringAndCheckIfLastTokenIsPrefix(NormalizeAndSimplifyString(s),
+                                                   tokens,
+                                                   delimiter);
+}
+
 }  // namespace search

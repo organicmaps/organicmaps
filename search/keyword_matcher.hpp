@@ -4,7 +4,7 @@
 #include "../base/string_utils.hpp"
 
 #include "../std/string.hpp"
-
+#include "../std/vector.hpp"
 
 namespace search
 {
@@ -12,29 +12,46 @@ namespace search
 class KeywordMatcher
 {
 public:
-  enum { MAX_SCORE = MAX_TOKENS * MAX_TOKENS };
   typedef strings::UniString StringT;
 
-  KeywordMatcher() : m_prefix(0) {}
-
-  inline void Clear()
+  class ScoreT
   {
-    m_keywords.clear();
-    m_prefix = 0;
-  }
+  public:
+    ScoreT();
+    bool operator < (ScoreT const & s) const;
+
+  private:
+    friend class KeywordMatcher;
+    friend string DebugPrint(ScoreT const & score);
+
+    bool IsQueryMatched() const { return m_bFullQueryMatched; }
+
+    uint32_t m_sumTokenMatchDistance;
+    uint32_t m_nameTokensMatched;
+    uint8_t m_numQueryTokensAndPrefixMatched;
+    bool m_bFullQueryMatched : 1;
+    bool m_bPrefixMatched : 1;
+  };
+
+  KeywordMatcher();
+
+  void Clear();
 
   /// Store references to keywords from source array of strings.
   void SetKeywords(StringT const * keywords, size_t count, StringT const * prefix);
 
-  /// @return penalty of string (less is better).
+  /// @return Score of the name (greater is better).
   //@{
-  uint32_t Score(string const & name) const;
-  uint32_t Score(StringT const & name) const;
-  uint32_t Score(StringT const * tokens, size_t count) const;
+  ScoreT Score(string const & name) const;
+  ScoreT Score(StringT const & name) const;
+  ScoreT Score(StringT const * tokens, size_t count) const;
   //@}
 
+  static bool IsQueryMatched(ScoreT const & score) { return score.IsQueryMatched(); }
+
 private:
-  buffer_vector<StringT const *, 10> m_keywords;
+  StringT const * m_keywords;
+  size_t m_keywordsCount;
   StringT const * m_prefix;
 };
 

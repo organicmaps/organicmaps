@@ -1,6 +1,6 @@
 #pragma once
 #include "intermediate_result.hpp"
-#include "lang_keywords_scorer.hpp"
+#include "keyword_lang_matcher.hpp"
 
 #include "../indexer/search_trie.hpp"
 #include "../indexer/index.hpp"   // for Index::MwmLock
@@ -173,7 +173,7 @@ private:
   bool MatchForSuggestionsImpl(strings::UniString const & token, int8_t lang, Results & res);
   void MatchForSuggestions(strings::UniString const & token, Results & res);
 
-  void GetBestMatchName(FeatureType const & f, uint32_t & penalty, string & name) const;
+  void GetBestMatchName(FeatureType const & f, string & name) const;
 
   Result MakeResult(impl::PreResult2 const & r, set<uint32_t> const * pPrefferedTypes = 0) const;
 
@@ -209,7 +209,7 @@ private:
   void SetLanguage(int id, int8_t lang);
   int8_t GetLanguage(int id) const;
 
-  LangKeywordsScorer m_keywordsScorer;
+  KeywordLangMatcher m_keywordsScorer;
 
   OffsetsVectorT m_offsetsInViewport[RECTSCOUNT];
 
