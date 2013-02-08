@@ -89,7 +89,13 @@ namespace graphics
         m_isUsingMapBuffer = true;
         makeCurrent();
         OGLCHECK(glBufferDataFn(m_target, m_size, 0, GL_DYNAMIC_DRAW));
-        m_gpuData = glMapBufferFn(m_target, GL_WRITE_ONLY_MWM);
+        if (graphics::gl::g_hasContext)
+          m_gpuData = glMapBufferFn(m_target, GL_WRITE_ONLY_MWM);
+        else
+        {
+          m_gpuData = 0;
+          LOG(LINFO, ("no OGL context. skipping OGL call"));
+        }
         OGLCHECKAFTER;
 
         if (m_gpuData != 0)
@@ -116,10 +122,14 @@ namespace graphics
 
         if (g_isMapBufferSupported && m_isUsingMapBuffer)
         {
-          if (glUnmapBufferFn(m_target) == GL_FALSE)
-            LOG(LWARNING, ("glUnmapBuffer returned GL_FALSE!"));
-
-          OGLCHECKAFTER;
+          if (graphics::gl::g_hasContext)
+          {
+            if (glUnmapBufferFn(m_target) == GL_FALSE)
+              LOG(LWARNING, ("glUnmapBuffer returned GL_FALSE!"));
+            OGLCHECKAFTER;
+          }
+          else
+            LOG(LINFO, ("no OGL context. skipping OGL call."));
         }
         else
         {
