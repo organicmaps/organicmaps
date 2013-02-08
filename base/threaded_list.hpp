@@ -35,7 +35,7 @@ public:
     m_isEmpty = !hasElements;
 
     if (!hadElements && hasElements)
-      m_Cond.Signal();
+      m_Cond.Signal(true);
   }
 
   void PushBack(T const & t)
@@ -48,7 +48,7 @@ public:
     m_isEmpty = false;
 
     if (doSignal)
-      m_Cond.Signal();
+      m_Cond.Signal(true);
   }
 
   void PushFront(T const & t)
@@ -61,7 +61,7 @@ public:
     m_isEmpty = false;
 
     if (doSignal)
-      m_Cond.Signal();
+      m_Cond.Signal(true);
   }
 
   void SetName(char const * name)
