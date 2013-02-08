@@ -128,7 +128,7 @@ public:
   virtual bool NeedRedraw() const;
   virtual bool IsEmptyModel() const;
   virtual storage::TIndex GetCountryIndex() const { return storage::TIndex(); }
-  virtual int  GetDrawScale(ScreenBase const & s) const;
+  virtual int GetDrawScale(ScreenBase const & s) const = 0;
 
   bool DoForceUpdate() const;
   void SetForceUpdate(bool flag);
@@ -142,7 +142,7 @@ public:
   shared_ptr<WindowHandle> const & GetWindowHandle() const;
   graphics::GlyphCache * GetGlyphCache() const;
 
-  virtual size_t ScaleEtalonSize() const;
+  virtual size_t ScaleEtalonSize() const = 0;
 
   double VisualScale() const;
   string const & SkinName() const;

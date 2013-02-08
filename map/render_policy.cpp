@@ -2,7 +2,6 @@
 
 #include "render_policy.hpp"
 #include "window_handle.hpp"
-#include "simple_render_policy.hpp"
 #include "tiling_render_policy_st.hpp"
 #include "tiling_render_policy_mt.hpp"
 
@@ -196,23 +195,6 @@ m2::AnyRectD const & RenderPolicy::GetInvalidRect() const
 bool RenderPolicy::IsEmptyModel() const
 {
   return false;
-}
-
-int RenderPolicy::GetDrawScale(ScreenBase const & s) const
-{
-  m2::PointD textureCenter(s.PixelRect().Center());
-  m2::RectD glbRect;
-
-  unsigned scaleEtalonSize = GetPlatform().ScaleEtalonSize();
-  s.PtoG(m2::RectD(textureCenter - m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2),
-                   textureCenter + m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2)),
-                   glbRect);
-  return scales::GetScaleLevel(glbRect);
-}
-
-size_t RenderPolicy::ScaleEtalonSize() const
-{
-  return GetPlatform().ScaleEtalonSize();
 }
 
 double RenderPolicy::VisualScale() const

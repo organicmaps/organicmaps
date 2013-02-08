@@ -12,7 +12,6 @@
 #include <QtCore/QFileInfo>
 
 
-////////////////////////////////////////////////////////////////////////////////////////
 ModelReader * Platform::GetReader(string const & file) const
 {
   return new FileReader(ReadPathForFile(file),
@@ -47,19 +46,9 @@ void Platform::GetFilesByRegExp(string const & directory, string const & regexp,
   }
 }
 
-string Platform::DeviceName() const
-{
-  return OMIM_OS_NAME;
-}
-
 int Platform::PreCachingDepth() const
 {
   return 3;
-}
-
-int Platform::ScaleEtalonSize() const
-{
-  return 512 + 256;
 }
 
 int Platform::VideoMemoryLimit() const
@@ -67,9 +56,11 @@ int Platform::VideoMemoryLimit() const
   return 20 * 1024 * 1024;
 }
 
-///////////////////////////////////////////////////////////////////////////////
+
 extern Platform & GetPlatform()
 {
+  // We need this derive class because Platform::Platform for desktop
+  // has special initialization in every platform.
   class PlatformQt : public Platform
   {
   public:

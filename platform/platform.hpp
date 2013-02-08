@@ -29,10 +29,6 @@ protected:
   /// Flag that it's a paid PRO version of app.
   bool m_isPro;
 
-  class PlatformImpl;
-  /// Used only on those platforms where needed
-  PlatformImpl * m_impl;
-
   /// Internal function to use files from writable dir
   /// if they override the same file in the resources dir
   string ReadPathForFile(string const & file) const;
@@ -42,7 +38,6 @@ protected:
 
 public:
   Platform();
-  ~Platform();
 
   static bool IsFileExistsByFullPath(string const & filePath);
 
@@ -121,8 +116,6 @@ public:
   int PreCachingDepth() const;
 
   string DeviceName() const;
-
-  int ScaleEtalonSize() const;
 
   string UniqueClientId() const;
 

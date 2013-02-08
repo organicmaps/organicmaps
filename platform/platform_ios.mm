@@ -26,18 +26,8 @@
 #import <UIKit/UIScreenMode.h>
 
 
-class Platform::PlatformImpl
-{
-public:
-  int m_scaleEtalonSize;
-  string m_deviceName;
-  int m_videoMemoryLimit;
-};
-
 Platform::Platform()
 {
-  m_impl = new PlatformImpl;
-
   NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 
   NSBundle * bundle = [NSBundle mainBundle];
@@ -53,35 +43,14 @@ Platform::Platform()
   m_tmpDir = [NSHomeDirectory() UTF8String];
   m_tmpDir += "/tmp/";
 
-  m_impl->m_videoMemoryLimit = 8 * 1024 * 1024;
-
-  UIDevice * device = [UIDevice currentDevice];
-  NSRange range = [device.model rangeOfString:@"iPad"];
-  if (range.location != NSNotFound)
-    m_impl->m_deviceName = "iPad";
-  else
-  {
-    range = [device.model rangeOfString:@"iPod"];
-    if (range.location != NSNotFound)
-      m_impl->m_deviceName = "iPod";
-    else
-      m_impl->m_deviceName = "iPhone";
-  }
-
-  m_impl->m_scaleEtalonSize = 256 * 1.5 * [[UIScreen mainScreen] scale];
-
   NSString * appID = [[bundle infoDictionary] objectForKey:@"CFBundleIdentifier"];
   // .travelguide corresponds to the Lite version without search
   m_isPro = ([appID rangeOfString:@"com.mapswithme.travelguide"].location == NSNotFound);
 
+  UIDevice * device = [UIDevice currentDevice];
   NSLog(@"Device: %@, SystemName: %@, SystemVersion: %@", device.model, device.systemName, device.systemVersion);
 
   [pool release];
-}
-
-Platform::~Platform()
-{
-  delete m_impl;
 }
 
 void Platform::GetFilesByRegExp(string const & directory, string const & regexp, FilesList & res)
@@ -115,24 +84,14 @@ int Platform::CpuCores() const
   return 1;
 }
 
-int Platform::ScaleEtalonSize() const
-{
-  return m_impl->m_scaleEtalonSize;
-}
-
 int Platform::VideoMemoryLimit() const
 {
-  return m_impl->m_videoMemoryLimit;
+  return 8 * 1024 * 1024;
 }
 
 int Platform::PreCachingDepth() const
 {
   return 2;
-}
-
-string Platform::DeviceName() const
-{
-  return m_impl->m_deviceName;
 }
 
 static string GetDeviceUid()

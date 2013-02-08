@@ -90,12 +90,9 @@ protected:
   /// Call it when you need do calculate pixel rect (not matter if m_renderPolicy == 0).
   /// @return 1.0 if m_renderPolicy == 0 (possible for Android).
   double GetVisualScale() const;
+  int GetScaleEtalonSize() const;
 
   double m_StartForegroundTime;
-
-  /// @todo Need deep analyzing in future.
-  /// Now it's like a replacement of "m_hasPendingXXX" stuff.
-  int m_etalonSize;
 
   //bool m_hasPendingInvalidate, m_doForceUpdate, m_queryMaxScaleMode, m_drawPlacemark, m_hasPendingShowRectFixed;
   bool m_queryMaxScaleMode, m_drawPlacemark;

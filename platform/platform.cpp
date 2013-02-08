@@ -76,3 +76,8 @@ void Platform::GetFilesByExt(string const & directory, string const & ext, Files
 
   GetFilesByRegExp(directory, '\\' + ext + '$', outFiles);
 }
+
+string Platform::DeviceName() const
+{
+  return OMIM_OS_NAME;
+}

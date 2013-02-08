@@ -259,12 +259,12 @@ namespace
       m_texRtFormat = graphics::Data8Bpp;
     }
 
-    bool isAndroidDevice = GetPlatform().DeviceName() == "Android";
-
-    /// on PowerVR chips on Android glFinish doesn't work, so we should use
-    /// glReadPixels instead of glFinish to synchronize.
-    if (isGPU("Imagination Technologies", "PowerVR", false) && isAndroidDevice)
+#ifdef OMIM_OS_ANDROID
+    // on PowerVR chips on Android glFinish doesn't work, so we should use
+    // glReadPixels instead of glFinish to synchronize.
+    if (isGPU("Imagination Technologies", "PowerVR", false))
       m_useReadPixelsToSynchronize = true;
+#endif
 
     LOG(LINFO, ("selected", graphics::formatName(m_texRtFormat), "format for tile textures"));
 

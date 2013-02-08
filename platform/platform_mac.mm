@@ -65,10 +65,6 @@ Platform::Platform()
   LOG(LDEBUG, ("Settings Directory:", m_settingsDir));
 }
 
-Platform::~Platform()
-{
-}
-
 int Platform::CpuCores() const
 {
   int mib[2], numCPU = 0;

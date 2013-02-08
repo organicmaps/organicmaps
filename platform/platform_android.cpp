@@ -11,11 +11,10 @@
 #include <unistd.h>
 
 
-Platform::Platform() : m_impl(0)
-{}
-
-Platform::~Platform()
-{}
+Platform::Platform()
+{
+  /// @see initialization routine in android/jni/com/.../Platform.hpp
+}
 
 ModelReader * Platform::GetReader(string const & file) const
 {
@@ -77,19 +76,14 @@ int Platform::CpuCores() const
   return (numCPU > 1 ? static_cast<int>(numCPU) : 1);
 }
 
-string Platform::DeviceName() const
-{
-  return "Android";
-}
-
-int Platform::ScaleEtalonSize() const
-{
-  return 512 + 256;
-}
-
 int Platform::VideoMemoryLimit() const
 {
   return 10 * 1024 * 1024;
+}
+
+int Platform::PreCachingDepth() const
+{
+  return 3;
 }
 
 bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const

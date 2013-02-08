@@ -15,8 +15,6 @@ namespace android
 
   public:
 
-    ~Platform();
-
     void Initialize(JNIEnv * env,
                     jstring apkPath,
                     jstring storagePath,

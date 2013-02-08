@@ -42,10 +42,6 @@ Platform::Platform()
   LOG(LDEBUG, ("Settings directory:", m_settingsDir));
 }
 
-Platform::~Platform()
-{
-}
-
 int Platform::CpuCores() const
 {
   const long numCPU = sysconf(_SC_NPROCESSORS_ONLN);

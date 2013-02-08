@@ -113,7 +113,7 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
 void SimpleRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
                                ScreenBase const & s)
 {
-  int scaleEtalonSize = GetPlatform().ScaleEtalonSize();
+  size_t const scaleEtalonSize = ScaleEtalonSize();
 
   m2::RectD glbRect;
   m2::PointD const pxCenter = s.PixelRect().Center();
@@ -124,15 +124,26 @@ void SimpleRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
   shared_ptr<graphics::Overlay> overlay(new graphics::Overlay());
 
   Drawer * pDrawer = e->drawer();
+  graphics::Screen * pScreen = pDrawer->screen().get();
 
-  pDrawer->screen()->setOverlay(overlay);
-  pDrawer->screen()->beginFrame();
-  pDrawer->screen()->clear(m_bgColor);
+  pScreen->setOverlay(overlay);
+  pScreen->beginFrame();
+  pScreen->clear(m_bgColor);
 
   m_renderFn(e, s, s.ClipRect(), s.ClipRect(), scales::GetScaleLevel(glbRect), false);
 
-  overlay->draw(pDrawer->screen().get(), math::Identity<double, 3>());
-  pDrawer->screen()->resetOverlay();
+  overlay->draw(pScreen, math::Identity<double, 3>());
+  pScreen->resetOverlay();
 
-  pDrawer->screen()->endFrame();
+  pScreen->endFrame();
+}
+
+size_t SimpleRenderPolicy::ScaleEtalonSize() const
+{
+  return 512 + 256;
+}
+
+int SimpleRenderPolicy::GetDrawScale(ScreenBase const & s) const
+{
+  return 0;
 }

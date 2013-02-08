@@ -6,25 +6,6 @@
 #include "../../../../../base/logging.hpp"
 
 
-// For the future: It's better to use virtual functions instead of this stuff.
-/*
-class Platform::PlatformImpl
-{
-public:
-
-  PlatformImpl() : m_preCachingDepth(3)
-  {}
-
-  size_t m_preCachingDepth;
-};
-*/
-
-int Platform::PreCachingDepth() const
-{
-  //return m_impl->m_preCachingDepth;
-  return 3;
-}
-
 string Platform::UniqueClientId() const
 {
   string res;
@@ -70,11 +51,6 @@ string Platform::UniqueClientId() const
 
 namespace android
 {
-  Platform::~Platform()
-  {
-    //delete m_impl;
-  }
-
   void Platform::Initialize(JNIEnv * env,
                             jstring apkPath,
                             jstring storagePath,
@@ -82,10 +58,6 @@ namespace android
                             jstring extTmpPath,
                             bool isPro)
   {
-    //if (m_impl)
-    //  delete m_impl;
-    //m_impl = new PlatformImpl();
-
     m_resourcesDir = jni::ToNativeString(env, apkPath);
 
     // Settings file should always be in one place (default external storage).
