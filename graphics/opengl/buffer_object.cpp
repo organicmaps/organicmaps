@@ -94,7 +94,7 @@ namespace graphics
         else
         {
           m_gpuData = 0;
-          LOG(LINFO, ("no OGL context. skipping OGL call"));
+          LOG(LDEBUG, ("no OGL context. skipping OGL call"));
         }
         OGLCHECKAFTER;
 
@@ -129,7 +129,7 @@ namespace graphics
             OGLCHECKAFTER;
           }
           else
-            LOG(LINFO, ("no OGL context. skipping OGL call."));
+            LOG(LDEBUG, ("no OGL context. skipping OGL call."));
         }
         else
         {
