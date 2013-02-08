@@ -23,6 +23,8 @@ CoverageGenerator::CoverageGenerator(
     RenderPolicy::TCountryIndexFn const & countryIndexFn)
   : m_queue(1),
     m_tileRenderer(tileRenderer),
+    m_workCoverage(0),
+    m_currentCoverage(0),
     m_sequenceID(0),
     m_windowHandle(windowHandle),
     m_countryIndexFn(countryIndexFn),
@@ -69,6 +71,8 @@ ScreenCoverage * CoverageGenerator::CreateCoverage()
 void CoverageGenerator::InitializeThreadGL()
 {
   threads::MutexGuard g(m_mutex);
+
+  LOG(LINFO, ("initializing CoverageGenerator on it's own thread."));
 
   if (m_renderContext)
   {

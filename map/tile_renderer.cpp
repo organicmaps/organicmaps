@@ -97,6 +97,8 @@ TileRenderer::~TileRenderer()
 
 void TileRenderer::InitializeThreadGL(core::CommandsQueue::Environment const & env)
 {
+  LOG(LINFO, ("initializing TileRenderer", env.threadNum(), "on it's own thread"));
+
   ThreadData & threadData = m_threadData[env.threadNum()];
 
   int tileWidth = m_resourceManager->params().m_textureParams[graphics::ERenderTargetTexture].m_texWidth;

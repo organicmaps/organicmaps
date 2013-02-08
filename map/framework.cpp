@@ -1387,8 +1387,6 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 
     m_renderPolicy->SetCountryIndexFn(bind(&Framework::GetCountryIndex, this, _1));
 
-    m_renderPolicy->SetRenderFn(DrawModelFn());
-
     m_renderPolicy->SetAnimController(m_animController.get());
 
     m_navigator.SetSupportRotation(m_renderPolicy->DoSupportRotation());
@@ -1402,6 +1400,8 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 
     // Do full invalidate instead of any "pending" stuff.
     Invalidate();
+
+    m_renderPolicy->SetRenderFn(DrawModelFn());
 
     if (m_benchmarkEngine)
       m_benchmarkEngine->Start();
