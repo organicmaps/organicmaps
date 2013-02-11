@@ -57,8 +57,6 @@ namespace android
     size_t const measurementsCount = 5;
     m_sensors[0].SetCount(measurementsCount);
     m_sensors[1].SetCount(measurementsCount);
-
-    m_work.GetBookmarkBalloon()->setOnClickListener(bind(&Framework::OnBalloonClick, this, _1));
   }
 
   Framework::~Framework()
@@ -603,6 +601,7 @@ namespace android
     ActivatePopupWithAddressInfo(m_work.PtoG(point), adInfo);
   }
 
+  /*
   void Framework::ToCamelCase(string & s)
   {
     if (s.length() > 0)
@@ -618,6 +617,7 @@ namespace android
       }
     }
   }
+  */
 
   void Framework::ActivatePopupWithAddressInfo(m2::PointD const & bmkPosition, ::Framework::AddressInfo const & adInfo)
   {
@@ -654,7 +654,8 @@ namespace android
 
   void Framework::ActivatePopup(m2::PointD const & bmkPosition, string const & name)
   {
-    gui::BookmarkBalloon * b = m_work.GetBookmarkBalloon();
+    gui::BookmarkBalloon * b = GetBookmarkBalloon();
+
     m_work.DisablePlacemark();
     b->setBookmarkPivot(bmkPosition);
     b->setBookmarkName(name);
@@ -664,7 +665,7 @@ namespace android
 
   void Framework::DeactivatePopup()
   {
-    gui::BookmarkBalloon * b = m_work.GetBookmarkBalloon();
+    gui::BookmarkBalloon * b = GetBookmarkBalloon();
     b->setIsVisible(false);
     m_work.DisablePlacemark();
     m_work.Invalidate();
@@ -672,7 +673,8 @@ namespace android
 
   void Framework::OnBalloonClick(gui::Element * e)
   {
-    gui::BookmarkBalloon * balloon = static_cast<gui::BookmarkBalloon *>(e);
+    gui::BookmarkBalloon * balloon = GetBookmarkBalloon();
+
     BookmarkAndCategory bac = m_work.GetBookmark(m_work.GtoP(balloon->getBookmarkPivot()));
     if (ValidateBookmarkAndCategory(bac))
     {
@@ -706,8 +708,36 @@ namespace android
   {
     m_balloonClickListener = l;
   }
+
   void Framework::RemoveBalloonClickListener()
   {
     m_balloonClickListener.clear();
+  }
+
+  void Framework::CreateBookmarkBalloon()
+  {
+    CHECK(m_work.GetGuiController(), ());
+    CHECK(m_work.GetRenderPolicy(), ());
+
+    gui::Balloon::Params bp;
+
+    bp.m_position = graphics::EPosAbove;
+    bp.m_depth = graphics::maxDepth;
+    bp.m_pivot = m2::PointD(0, 0);
+    bp.m_imageMarginBottom = 10;
+    bp.m_imageMarginLeft = 10;
+    bp.m_imageMarginRight = 10;
+    bp.m_imageMarginTop = 10;
+    bp.m_textMarginBottom = 10;
+    bp.m_textMarginLeft = 10;
+    bp.m_textMarginRight = 10;
+    bp.m_textMarginTop = 10;
+    bp.m_image = graphics::Image::Info("arrow.png", m_work.GetRenderPolicy()->Density());
+    bp.m_text = "Bookmark";
+
+    m_bmBaloon.reset(new gui::BookmarkBalloon(bp, &m_work));
+    m_bmBaloon->setIsVisible(false);
+    m_bmBaloon->setOnClickListener(bind(&Framework::OnBalloonClick, this, _1));
+    m_work.GetGuiController()->AddElement(m_bmBaloon);
   }
 }

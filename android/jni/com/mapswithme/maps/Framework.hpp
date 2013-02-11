@@ -3,9 +3,9 @@
 #include <jni.h>
 
 #include "../../../../../map/framework.hpp"
-#include "../../../../../map/drawer.hpp"
-#include "../../../../../map/window_handle.hpp"
-#include "../../../../../map/feature_vec_model.hpp"
+#include "../../../../../map/bookmark_balloon.hpp"
+
+#include "../../../../../search/result.hpp"
 
 #include "../../../../../geometry/avg_vector.hpp"
 
@@ -13,9 +13,10 @@
 #include "../../../../../base/scheduled_task.hpp"
 #include "../../../../../base/strings_bundle.hpp"
 
-#include "../../../../../search/result.hpp"
+#include "../../../../../std/shared_ptr.hpp"
 
 #include "../../../nv_event/nv_event.hpp"
+
 
 class CountryStatusDisplay;
 
@@ -31,7 +32,7 @@ namespace android
     void CallRepaint();
 
     TOnBalloonClickListener m_balloonClickListener;
-    boost::shared_ptr<ScheduledTask> m_scheduledTask;
+    shared_ptr<ScheduledTask> m_scheduledTask;
 
     int m_onClickFnsHandler;
     NVMultiTouchEventType m_eventType; //< multitouch action
@@ -66,12 +67,23 @@ namespace android
     bool AdditionalHandlingForLongClick(double x, double y);
     void ActivatePopup(m2::PointD const & bmkPosition, string const & name);
     void ActivatePopupWithAddressInfo(m2::PointD const & bmkPosition, ::Framework::AddressInfo const & adInfo);
-    void OnBalloonClick(gui::Element * e);
+
     void ToCamelCase(string & c);
 
-    inline bool ValidateBookmarkAndCategory(BookmarkAndCategory const & bac)
+    static inline bool ValidateBookmarkAndCategory(BookmarkAndCategory const & bac)
     {
-      return bac.first > -1 && bac.second > -1;
+      return (bac.first > -1 && bac.second > -1);
+    }
+
+    shared_ptr<gui::BookmarkBalloon> m_bmBaloon;
+
+    void OnBalloonClick(gui::Element * e);
+    void CreateBookmarkBalloon();
+    inline gui::BookmarkBalloon * GetBookmarkBalloon()
+    {
+      if (!m_bmBaloon)
+        CreateBookmarkBalloon();
+      return m_bmBaloon.get();
     }
 
   public:

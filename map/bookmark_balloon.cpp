@@ -5,7 +5,7 @@
 
 namespace gui
 {
-  BookmarkBalloon::BookmarkBalloon(Params const & p, Framework * framework)
+  BookmarkBalloon::BookmarkBalloon(Params const & p, Framework const * framework)
   : Balloon(p),
     m_framework(framework)
   {

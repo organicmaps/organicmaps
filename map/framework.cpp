@@ -156,11 +156,6 @@ CountryStatusDisplay * Framework::GetCountryStatusDisplay() const
   return m_informationDisplay.countryStatusDisplay().get();
 }
 
-gui::BookmarkBalloon * Framework::GetBookmarkBalloon() const
-{
-  return m_informationDisplay.bookmarkBalloon().get();
-}
-
 static void GetResourcesMaps(vector<string> & outMaps)
 {
   Platform & pl = GetPlatform();

@@ -239,7 +239,6 @@ public:
 
   InformationDisplay & GetInformationDisplay();
   CountryStatusDisplay * GetCountryStatusDisplay() const;
-  gui::BookmarkBalloon * GetBookmarkBalloon() const;
 
   void PrepareToShutdown();
 

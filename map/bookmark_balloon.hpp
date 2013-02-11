@@ -11,10 +11,12 @@ namespace gui
   private:
     void update();
     m2::PointD m_bookmarkPivot;
-    Framework * m_framework;
+    Framework const * m_framework;
     std::string m_bookmarkName;
+
   public:
-    BookmarkBalloon(Params const & p, Framework * framework);
+    BookmarkBalloon(Params const & p, Framework const * framework);
+
     void setBookmarkPivot(m2::PointD const & pivot);
     m2::PointD const getBookmarkPivot();
     void setBookmarkName(std::string const & name);
