@@ -66,6 +66,7 @@ protected:
   bool m_doSupportRotation;
   bool m_doForceUpdate;
   m2::AnyRectD m_invalidRect;
+  graphics::EDensity m_density;
   double m_visualScale;
   string m_skinName;
   anim::Controller * m_controller;
@@ -81,7 +82,7 @@ public:
     bool m_useDefaultFB;
     graphics::ResourceManager::Params m_rmParams;
     shared_ptr<graphics::RenderContext> m_primaryRC;
-    double m_visualScale;
+    graphics::EDensity m_density;
     string m_skinName;
     size_t m_screenWidth;
     size_t m_screenHeight;
@@ -145,6 +146,7 @@ public:
   virtual size_t ScaleEtalonSize() const = 0;
 
   double VisualScale() const;
+  graphics::EDensity Density() const;
   string const & SkinName() const;
 
   /// This function is used when we need to prevent race

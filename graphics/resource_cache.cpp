@@ -20,12 +20,13 @@ namespace graphics
   {}
 
   ResourceCache::ResourceCache(shared_ptr<ResourceManager> const & resourceManager,
-                     char const * name,
-                     uint8_t pipelineID)
-                   : m_texture(resourceManager->getTexture(name)),
-                     m_packer(m_texture->width(), m_texture->height(), 0x00FFFFFF - 1),
-                     m_textureType(EStaticTexture),
-                     m_pipelineID(pipelineID)
+                               char const * name,
+                               EDensity density,
+                               uint8_t pipelineID)
+                             : m_texture(resourceManager->getTexture(name, density)),
+                               m_packer(m_texture->width(), m_texture->height(), 0x00FFFFFF - 1),
+                               m_textureType(EStaticTexture),
+                               m_pipelineID(pipelineID)
   {
   }
 

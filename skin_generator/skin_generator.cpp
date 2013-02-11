@@ -293,7 +293,7 @@ namespace tools
 
       page.m_dir = skinName.substr(0, skinName.find_last_of("/") + 1);
       page.m_suffix = suffixes[i];
-      page.m_fileName = page.m_dir + "symbols_" + page.m_suffix;
+      page.m_fileName = page.m_dir + "symbols" + page.m_suffix;
 
       for (int i = 0; i < fileNames.size(); ++i)
       {
@@ -424,7 +424,7 @@ namespace tools
 
         m_svgRenderer.load(it->m_fullFileName);
         m_svgRenderer.render(&painter, QRect(0, 0, w, h));
-        string dir(page.m_dir + "drawable-" + page.m_suffix + "/");
+        string dir(page.m_dir + "icons/");
         QDir().mkpath(QString(dir.c_str()));
         string s(dir + it->m_symbolID.toLocal8Bit().constData() + ".png");
         img.save(s.c_str());

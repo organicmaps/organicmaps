@@ -376,32 +376,34 @@ namespace
     return m_texturePools[type].get();
   }
 
-  shared_ptr<gl::BaseTexture> const & ResourceManager::getTexture(string const & fileName)
+  shared_ptr<gl::BaseTexture> const & ResourceManager::getTexture(string const & fileName, EDensity density)
   {
-    TStaticTextures::const_iterator it = m_staticTextures.find(fileName);
+    pair<string, EDensity> key(fileName, density);
+    TStaticTextures::const_iterator it = m_staticTextures.find(key);
     if (it != m_staticTextures.end())
       return it->second;
 
     shared_ptr<gl::BaseTexture> texture;
 
-    texture = make_shared_ptr(new TStaticTexture(fileName));
+    texture = make_shared_ptr(new TStaticTexture(fileName, density));
 
-    m_staticTextures[fileName] = texture;
-    return m_staticTextures[fileName];
+    m_staticTextures[key] = texture;
+    return m_staticTextures[key];
   }
 
   void loadSkin(shared_ptr<ResourceManager> const & rm,
                 string const & fileName,
+                EDensity density,
                 vector<shared_ptr<ResourceCache> > & caches)
   {
     if (fileName.empty())
       return;
 
-    SkinLoader loader(rm, caches);
+    SkinLoader loader(rm, caches, density);
 
     try
     {
-      ReaderPtr<Reader> skinFile(GetPlatform().GetReader(fileName));
+      ReaderPtr<Reader> skinFile(GetPlatform().GetReader(resourcePath(fileName, density)));
       ReaderSource<ReaderPtr<Reader> > source(skinFile);
       if (!ParseXML(source, loader))
         MYTHROW(RootException, ("Error parsing skin file: ", fileName));

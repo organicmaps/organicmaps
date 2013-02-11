@@ -9,10 +9,12 @@
 namespace graphics
 {
   SkinLoader::SkinLoader(shared_ptr<ResourceManager> const & resourceManager,
-                         vector<shared_ptr<ResourceCache> > & caches)
+                         vector<shared_ptr<ResourceCache> > & caches,
+                         EDensity density)
     : m_id(-1),
     m_texRect(0, 0, 0, 0),
     m_fileName(""),
+    m_density(density),
     m_resourceManager(resourceManager),
     m_caches(caches)
   {
@@ -48,7 +50,7 @@ namespace graphics
 
   void SkinLoader::popPage()
   {
-    m_caches.push_back(make_shared_ptr(new ResourceCache(m_resourceManager, m_fileName.c_str(), m_caches.size())));
+    m_caches.push_back(make_shared_ptr(new ResourceCache(m_resourceManager, m_fileName.c_str(), m_density, m_caches.size())));
 
     TResourceList::iterator prevIt = m_resourceList.end();
 

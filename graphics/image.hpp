@@ -1,5 +1,6 @@
 #pragma once
 
+#include "defines.hpp"
 #include "resource.hpp"
 
 #include "../std/string.hpp"
@@ -8,8 +9,8 @@
 
 namespace graphics
 {
-  /// get dimensions of PNG image specified by it's resourceName.
-  m2::PointU const GetDimensions(string const & resourceName);
+  /// get dimensions of PNG image specified by it's resName.
+  m2::PointU const GetDimensions(string const & resName, EDensity density);
 
   struct Image : public Resource
   {
@@ -20,7 +21,7 @@ namespace graphics
       vector<unsigned char> m_data;
 
       Info();
-      Info(char const * resName);
+      Info(char const * resName, EDensity density);
 
       unsigned width() const;
       unsigned height() const;

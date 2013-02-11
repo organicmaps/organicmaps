@@ -133,6 +133,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
   dp.m_isSynchronized = false;
   dp.m_fastSolidPath = true;
   dp.m_renderContext = p.m_primaryRC;
+  dp.m_density = Density();
 
   m_drawer.reset(new Drawer(dp));
 
@@ -167,6 +168,7 @@ void TilingRenderPolicyMT::SetRenderFn(TRenderFn renderFn)
 
   m_TileRenderer.reset(new TileRenderer(TileSize(),
                                         skinName,
+                                        Density(),
                                         GetPlatform().CpuCores(),
                                         m_bgColor,
                                         renderFn,
@@ -176,6 +178,7 @@ void TilingRenderPolicyMT::SetRenderFn(TRenderFn renderFn)
                                         0));
 
   m_CoverageGenerator.reset(new CoverageGenerator(skinName,
+                                                  Density(),
                                                   m_TileRenderer.get(),
                                                   m_windowHandle,
                                                   m_primaryRC,

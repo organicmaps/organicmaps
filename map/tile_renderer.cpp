@@ -21,6 +21,7 @@
 TileRenderer::TileRenderer(
     size_t tileSize,
     string const & skinName,
+    graphics::EDensity density,
     unsigned executorsCount,
     graphics::Color const & bgColor,
     RenderPolicy::TRenderFn const & renderFn,
@@ -32,6 +33,7 @@ TileRenderer::TileRenderer(
       m_tileSize(tileSize),
       m_renderFn(renderFn),
       m_skinName(skinName),
+      m_density(density),
       m_bgColor(bgColor),
       m_sequenceID(0),
       m_isExiting(false),
@@ -64,6 +66,7 @@ TileRenderer::TileRenderer(
     params.m_doUnbindRT = false;
     params.m_isSynchronized = false;
     params.m_skinName = m_skinName;
+    params.m_density = m_density;
     params.m_renderContext = m_threadData[i].m_renderContext;
   /*  params.m_isDebugging = true;
     params.m_drawPathes = false ;

@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 
   gen.renderPages();
 
-  gen.writeToFile(FLAGS_skinName + "_" + FLAGS_skinSuffix);
+  gen.writeToFile(FLAGS_skinName + FLAGS_skinSuffix);
 
   return 0;
 }

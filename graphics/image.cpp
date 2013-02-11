@@ -10,9 +10,9 @@ namespace gil = boost::gil;
 
 namespace graphics
 {
-  m2::PointU const GetDimensions(string const & resourceName)
+  m2::PointU const GetDimensions(string const & resName, EDensity density)
   {
-    ReaderPtr<Reader> reader = GetPlatform().GetReader(resourceName);
+    ReaderPtr<Reader> reader = GetPlatform().GetReader(resourcePath(resName, density));
     gil::point2<ptrdiff_t> size = gil::lodepng_read_dimensions(reader);
     return m2::PointU(size.x, size.y);
   }
@@ -22,20 +22,28 @@ namespace graphics
       m_size(0, 0)
   {}
 
-  Image::Info::Info(char const * resourceName)
-    : Resource::Info(Resource::EImage)
+  Image::Info::Info(char const * name, EDensity density)
+    : Resource::Info(Resource::EImage), m_size(0, 0)
   {
-    m_size = GetDimensions(resourceName);
-    m_data.resize(m_size.x * m_size.y * sizeof(DATA_TRAITS::pixel_t));
+    string resName = graphics::resourcePath(name, density);
 
-    DATA_TRAITS::view_t v = gil::interleaved_view(
-                m_size.x, m_size.y,
-                (DATA_TRAITS::pixel_t*)&m_data[0],
-                m_size.x * sizeof(DATA_TRAITS::pixel_t));
+    try
+    {
+      m_size = GetDimensions(name, density);
+      m_data.resize(m_size.x * m_size.y * sizeof(DATA_TRAITS::pixel_t));
 
-    ReaderPtr<Reader> reader = GetPlatform().GetReader(resourceName);
+      DATA_TRAITS::view_t v = gil::interleaved_view(
+                  m_size.x, m_size.y,
+                  (DATA_TRAITS::pixel_t*)&m_data[0],
+                  m_size.x * sizeof(DATA_TRAITS::pixel_t));
 
-    gil::lodepng_read_and_convert_view(reader, v, DATA_TRAITS::color_converter());
+      ReaderPtr<Reader> reader = GetPlatform().GetReader(resName);
+
+      gil::lodepng_read_and_convert_view(reader, v, DATA_TRAITS::color_converter());
+    }
+    catch (RootException const &)
+    {
+    }
   }
 
   unsigned Image::Info::width() const
@@ -94,19 +102,22 @@ namespace graphics
 
   void Image::render(void * dst)
   {
-    DATA_TRAITS::view_t srcView = gil::interleaved_view(
-          m_info.m_size.x, m_info.m_size.y,
-          (DATA_TRAITS::pixel_t*)&m_info.m_data[0],
-          m_info.m_size.x * sizeof(DATA_TRAITS::pixel_t));
-
     DATA_TRAITS::view_t dstView = gil::interleaved_view(
                 m_info.m_size.x + 4, m_info.m_size.y + 4,
           (DATA_TRAITS::pixel_t*)dst,
           (m_info.m_size.x + 4) * sizeof(DATA_TRAITS::pixel_t));
 
-    gil::copy_pixels(
-          srcView,
-          gil::subimage_view(dstView, 2, 2, m_info.m_size.x, m_info.m_size.y));
+    if ((m_info.m_size.x != 0) && (m_info.m_size.y != 0))
+    {
+      DATA_TRAITS::view_t srcView = gil::interleaved_view(
+            m_info.m_size.x, m_info.m_size.y,
+            (DATA_TRAITS::pixel_t*)&m_info.m_data[0],
+            m_info.m_size.x * sizeof(DATA_TRAITS::pixel_t));
+
+      gil::copy_pixels(
+            srcView,
+            gil::subimage_view(dstView, 2, 2, m_info.m_size.x, m_info.m_size.y));
+    }
 
     DATA_TRAITS::pixel_t pxBorder = DATA_TRAITS::createPixel(Color(0, 0, 0, 0));
 

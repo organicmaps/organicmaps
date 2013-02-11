@@ -209,7 +209,7 @@ namespace graphics
 
   private:
 
-    typedef map<string, shared_ptr<gl::BaseTexture> > TStaticTextures;
+    typedef map<pair<string, EDensity>, shared_ptr<gl::BaseTexture> > TStaticTextures;
 
     TStaticTextures m_staticTextures;
 
@@ -242,7 +242,7 @@ namespace graphics
 
     TTexturePool * texturePool(ETextureType type);
 
-    shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName);
+    shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName, EDensity density);
 
     Params const & params() const;
 
@@ -270,6 +270,7 @@ namespace graphics
 
   void loadSkin(shared_ptr<ResourceManager> const & rm,
                 string const & fileName,
+                EDensity density,
                 vector<shared_ptr<ResourceCache> > & caches);
 }
 

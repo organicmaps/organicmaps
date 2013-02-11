@@ -99,6 +99,7 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
   dp.m_visualScale = VisualScale();
   dp.m_isSynchronized = true;
   dp.m_fastSolidPath = false;
+  dp.m_density = Density();
 
   m_drawer.reset(new Drawer(dp));
 

@@ -1,9 +1,28 @@
 #pragma once
 
+#include "../std/string.hpp"
+
 namespace graphics
 {
   static const int maxDepth = 20000;
   static const int minDepth = -20000;
+
+  enum EDensity
+  {
+    EDensityLDPI = 0,
+    EDensityMDPI,
+    EDensityHDPI,
+    EDensityXHDPI
+  };
+
+  /// get density name
+  char const * convert(EDensity density);
+
+  /// get resource name for specified density
+  string const resourcePath(string const & name, EDensity density);
+
+  /// get scaling koefficient for specified density
+  double visualScale(EDensity density);
 
   /// When adding values here,
   /// please check constructor of ResourceManager,

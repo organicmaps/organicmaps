@@ -118,28 +118,24 @@ namespace android
     switch (densityDpi)
     {
     case 120:
-      rpParams.m_visualScale = 0.75;
-      suffix = "ldpi";
+      rpParams.m_density = graphics::EDensityLDPI;
       break;
 
     case 160:
-      rpParams.m_visualScale = 1.0;
-      suffix = "mdpi";
+      rpParams.m_density = graphics::EDensityMDPI;
       break;
 
     case 240:
-      rpParams.m_visualScale = 1.5;
-      suffix = "hdpi";
+      rpParams.m_density = graphics::EDensityHDPI;
       break;
 
     default:
-      rpParams.m_visualScale = 2.0;
-      suffix = "xhdpi";
+      rpParams.m_density = graphics::EDensityXHDPI;
       break;
     }
 
-    rpParams.m_skinName = string("basic_") + suffix + ".skn";
-    LOG(LINFO, ("Using", suffix, "resources"));
+    rpParams.m_skinName = "basic.skn";
+    LOG(LINFO, ("Using", graphics::convert(rpParams.m_density), "resources"));
 
     rpParams.m_screenWidth = screenWidth;
     rpParams.m_screenHeight = screenHeight;

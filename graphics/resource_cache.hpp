@@ -84,6 +84,7 @@ namespace graphics
     /// creation of a static page
     ResourceCache(shared_ptr<ResourceManager> const & resourceManager,
                   char const * name,
+                  EDensity density,
                   uint8_t pipelineID);
 
     /// creation of a dynamic page

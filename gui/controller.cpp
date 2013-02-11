@@ -10,18 +10,18 @@
 namespace gui
 {
   Controller::RenderParams::RenderParams()
-    : m_VisualScale(0), m_GlyphCache(0)
+    : m_Density(graphics::EDensityMDPI), m_GlyphCache(0)
   {}
 
   Controller::Controller()
-    : m_VisualScale(0), m_GlyphCache(0)
+    : m_Density(graphics::EDensityMDPI), m_GlyphCache(0)
   {}
 
-  Controller::RenderParams::RenderParams(double visualScale,
+  Controller::RenderParams::RenderParams(graphics::EDensity density,
                                          TInvalidateFn invalidateFn,
                                          graphics::GlyphCache * glyphCache,
                                          graphics::Screen * cacheScreen)
-    : m_VisualScale(visualScale),
+    : m_Density(density),
       m_InvalidateFn(invalidateFn),
       m_GlyphCache(glyphCache),
       m_CacheScreen(cacheScreen)
@@ -140,11 +140,17 @@ namespace gui
     return m_VisualScale;
   }
 
+  graphics::EDensity Controller::GetDensity() const
+  {
+    return m_Density;
+  }
+
   void Controller::SetRenderParams(RenderParams const & p)
   {
     m_GlyphCache = p.m_GlyphCache;
     m_InvalidateFn = p.m_InvalidateFn;
-    m_VisualScale = p.m_VisualScale;
+    m_Density = p.m_Density;
+    m_VisualScale = graphics::visualScale(p.m_Density);
     m_CacheScreen = p.m_CacheScreen;
 
     LayoutElements();
@@ -153,7 +159,7 @@ namespace gui
   void Controller::ResetRenderParams()
   {
     m_GlyphCache = 0;
-    m_VisualScale = 0;
+    m_Density = graphics::EDensityLDPI;
     m_InvalidateFn.clear();
     m_CacheScreen = 0;
 

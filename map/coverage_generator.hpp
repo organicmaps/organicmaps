@@ -62,6 +62,7 @@ private:
 
   graphics::PacketsQueue * m_glQueue;
   string m_skinName;
+  graphics::EDensity m_density;
 
   FenceManager m_fenceManager;
   int m_currentFenceID;
@@ -74,6 +75,7 @@ private:
 public:
 
   CoverageGenerator(string const & skinName,
+                    graphics::EDensity density,
                     TileRenderer * tileRenderer,
                     shared_ptr<WindowHandle> const & windowHandle,
                     shared_ptr<graphics::RenderContext> const & primaryRC,

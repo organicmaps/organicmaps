@@ -53,17 +53,18 @@ public:
     cp.m_threadSlot = 0;
     cp.m_storageType = graphics::ETinyStorage;
     cp.m_textureType = graphics::ESmallTexture;
-    cp.m_skinName = "basic_mdpi.skn";
+    cp.m_skinName = "basic.skn";
     cp.m_isSynchronized = false;
     cp.m_resourceManager = base_t::m_resourceManager;
     cp.m_renderContext = base_t::m_primaryContext;
+    cp.m_density = graphics::EDensityMDPI;
 
     m_cacheScreen = make_shared_ptr(new graphics::Screen(cp));
 
     rp.m_CacheScreen = m_cacheScreen.get();
     rp.m_GlyphCache = base_t::m_resourceManager->glyphCache(0);
     rp.m_InvalidateFn = bind(&GUITestWidget<TTest>::invalidate, this);
-    rp.m_VisualScale = 1.0;
+    rp.m_Density = graphics::EDensityMDPI;
 
     InitImpl(m_controller, bool_tag<has_init_with_controller<TTest, TTest>::value >());
 

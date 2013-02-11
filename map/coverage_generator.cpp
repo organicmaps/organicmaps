@@ -15,6 +15,7 @@ bool g_coverageGeneratorDestroyed = false;
 
 CoverageGenerator::CoverageGenerator(
     string const & skinName,
+    graphics::EDensity density,
     TileRenderer * tileRenderer,
     shared_ptr<WindowHandle> const & windowHandle,
     shared_ptr<graphics::RenderContext> const & primaryRC,
@@ -30,6 +31,7 @@ CoverageGenerator::CoverageGenerator(
     m_countryIndexFn(countryIndexFn),
     m_glQueue(glQueue),
     m_skinName(skinName),
+    m_density(density),
     m_fenceManager(2),
     m_currentFenceID(-1),
     m_doForceUpdate(false),
@@ -62,6 +64,7 @@ ScreenCoverage * CoverageGenerator::CreateCoverage()
   params.m_storageType = graphics::EMediumStorage;
   params.m_textureType = graphics::EMediumTexture;
   params.m_skinName = m_skinName;
+  params.m_density = m_density;
 
   shared_ptr<graphics::Screen> screen(new graphics::Screen(params));
 

@@ -1,6 +1,8 @@
 /// @author Siarhei Rachytski
 #pragma once
 
+#include "defines.hpp"
+
 #include "../geometry/rect2d.hpp"
 #include "../std/list.hpp"
 #include "../std/shared_ptr.hpp"
@@ -48,7 +50,7 @@ namespace graphics
 
     list<EMode> m_mode;
 
-/// resourceStyle-specific parameters
+    /// resourceStyle-specific parameters
     int32_t m_id;
     uint32_t m_texX;
     uint32_t m_texY;
@@ -56,16 +58,17 @@ namespace graphics
     uint32_t m_texHeight;
     m2::RectU m_texRect;
 
-/// pointStyle-specific parameters
+    /// pointStyle-specific parameters
     string m_resID;
 
-/// skin-page specific parameters
+    /// skin-page specific parameters
     string m_fileName;
 
-///
+    EDensity m_density;
+
     shared_ptr<ResourceManager> m_resourceManager;
 
-/// skin-specific parameters
+    /// skin-specific parameters
 
     vector<shared_ptr<ResourceCache> > & m_caches;
 
@@ -77,7 +80,8 @@ namespace graphics
   public:
 
     SkinLoader(shared_ptr<ResourceManager> const & resourceManager,
-               vector<shared_ptr<ResourceCache> > & caches);
+               vector<shared_ptr<ResourceCache> > & caches,
+               EDensity density);
 
     bool Push(string const & element);
     void Pop(string const & element);

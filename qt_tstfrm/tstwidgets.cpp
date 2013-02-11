@@ -132,7 +132,8 @@ namespace tst
     params.m_resourceManager = m_resourceManager;
     params.m_threadSlot = m_resourceManager->guiThreadSlot();
     params.m_renderContext = m_primaryContext;
-    params.m_skinName = "basic_mdpi.skn";
+    params.m_skinName = "basic.skn";
+    params.m_density = graphics::EDensityMDPI;
 
     m_primaryScreen = make_shared_ptr(new graphics::Screen(params));
   }

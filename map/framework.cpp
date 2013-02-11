@@ -1380,7 +1380,7 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 
   if (m_renderPolicy)
   {
-    gui::Controller::RenderParams rp(m_renderPolicy->VisualScale(),
+    gui::Controller::RenderParams rp(m_renderPolicy->Density(),
                                      bind(&WindowHandle::invalidate,
                                           renderPolicy->GetWindowHandle().get()),
                                      m_renderPolicy->GetGlyphCache(),

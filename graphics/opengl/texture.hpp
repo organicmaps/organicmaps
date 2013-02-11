@@ -65,10 +65,10 @@ namespace graphics
 
     public:
 
-      Texture(string const & fileName) : BaseTexture(GetDimensions(fileName))
+      Texture(string const & fileName, EDensity density) : BaseTexture(GetDimensions(fileName, density))
       {
         typename Traits::image_t image(width(), height());
-        ReaderPtr<Reader> reader = GetPlatform().GetReader(fileName);
+        ReaderPtr<Reader> reader = GetPlatform().GetReader(resourcePath(fileName, density));
         gil::lodepng_read_and_convert_image(reader, image, typename Traits::color_converter());
         upload(&gil::view(image)(0, 0));
       }
@@ -144,7 +144,7 @@ namespace graphics
       void upload(void * data, m2::RectU const & r);
 
       /// Create the texture loading it from file
-      Texture(string const & fileName);
+      Texture(string const & fileName, EDensity density);
       /// Create the texture with the predefined dimensions
       Texture(size_t width, size_t height);
       Texture(m2::RectU const & r);
@@ -189,11 +189,11 @@ namespace graphics
     }
 
     template <typename Traits>
-    Texture<Traits, true>::Texture(string const & fileName) : ManagedTexture(GetDimensions(fileName), sizeof(pixel_t))
+    Texture<Traits, true>::Texture(string const & fileName, EDensity density) : ManagedTexture(GetDimensions(fileName, density), sizeof(pixel_t))
     {
       lock();
       view_t v = view(width(), height());
-      ReaderPtr<Reader> reader = GetPlatform().GetReader(fileName);
+      ReaderPtr<Reader> reader = GetPlatform().GetReader(resourcePath(fileName, density));
       gil::lodepng_read_and_convert_view(reader, v, typename Traits::color_converter());
       upload(&v(0, 0));
       unlock();

@@ -5,6 +5,7 @@
 #include "../std/list.hpp"
 
 #include "../geometry/point2d.hpp"
+#include "../graphics/defines.hpp"
 
 #include "../base/strings_bundle.hpp"
 
@@ -44,6 +45,9 @@ namespace gui
     /// Invalidate GUI function
     TInvalidateFn m_InvalidateFn;
 
+    /// Screen density
+    graphics::EDensity m_Density;
+
     /// VisualScale to multiply all Device-Independent-Pixels dimensions.
     double m_VisualScale;
 
@@ -77,12 +81,12 @@ namespace gui
 
     struct RenderParams
     {
-      double m_VisualScale;
+      graphics::EDensity m_Density;
       TInvalidateFn m_InvalidateFn;
       graphics::GlyphCache * m_GlyphCache;
       graphics::Screen * m_CacheScreen;
       RenderParams();
-      RenderParams(double visualScale,
+      RenderParams(graphics::EDensity density,
                    TInvalidateFn invalidateFn,
                    graphics::GlyphCache * glyphCache,
                    graphics::Screen * cacheScreen);
@@ -102,6 +106,8 @@ namespace gui
     void AddElement(shared_ptr<Element> const & e);
     /// Get VisualScale parameter
     double GetVisualScale() const;
+    /// Get Density parameter
+    graphics::EDensity GetDensity() const;
     /// Get localized strings bundle
     StringsBundle const * GetStringsBundle() const;
     /// Get GlyphCache

@@ -15,6 +15,34 @@ namespace graphics
    };
   }
 
+  Data s_density[] = {
+    {EDensityLDPI, "ldpi"},
+    {EDensityMDPI, "mdpi"},
+    {EDensityHDPI, "hdpi"},
+    {EDensityXHDPI, "xhdpi"}
+  };
+
+  char const * convert(EDensity density)
+  {
+    for (unsigned i = 0; i < ARRAY_SIZE(s_density); ++i)
+    {
+      if (density == s_density[i].m_val)
+        return s_density[i].m_name;
+    }
+    return 0;
+  }
+
+  string const resourcePath(string const & name, EDensity d)
+  {
+    return string("resources-") + convert(d) + "/" + name;
+  }
+
+  double visualScale(EDensity density)
+  {
+    static double const vs [4] = {0.75, 1, 1.5, 2};
+    return vs[density];
+  }
+
   Data s_semantics[] = {
     {ESemPosition, "Position"},
     {ESemNormal, "Normal"},

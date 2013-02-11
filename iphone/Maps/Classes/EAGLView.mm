@@ -88,15 +88,17 @@
   CGRect frameRect = [[UIScreen mainScreen] applicationFrame];
   CGRect screenRect = [[UIScreen mainScreen] bounds];
   
-  rpParams.m_visualScale = [[UIScreen mainScreen] scale];
+  double vs = [[UIScreen mainScreen] scale];
     
-  rpParams.m_screenWidth = screenRect.size.width * rpParams.m_visualScale;
-  rpParams.m_screenHeight = screenRect.size.height * rpParams.m_visualScale;
+  rpParams.m_screenWidth = screenRect.size.width * vs;
+  rpParams.m_screenHeight = screenRect.size.height * vs;
   
-  if (rpParams.m_visualScale > 1.0)
-    rpParams.m_skinName = "basic_xhdpi.skn";
+  rpParams.m_skinName = "basic.skn";
+  
+  if (vs > 1.0)
+    rpParams.m_density = graphics::EDensityXHDPI;
   else
-    rpParams.m_skinName = "basic_mdpi.skn";
+    rpParams.m_density = graphics::EDensityMDPI;
   
   rpParams.m_videoTimer = videoTimer;
   rpParams.m_useDefaultFB = false;
@@ -114,8 +116,8 @@
   
   frameBuffer = renderPolicy->GetDrawer()->screen()->frameBuffer();
   
-  GetFramework().OnSize(frameRect.size.width * rpParams.m_visualScale,
-                        frameRect.size.height * rpParams.m_visualScale);
+  GetFramework().OnSize(frameRect.size.width * vs,
+                        frameRect.size.height * vs);
   GetFramework().SetRenderPolicy(renderPolicy);
 }
 

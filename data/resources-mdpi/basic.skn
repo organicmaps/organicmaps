@@ -1,6 +1,6 @@
 <!DOCTYPE skin>
 <skin>
- <page width="512" height="256" file="symbols_mdpi.png">
+ <page width="512" height="256" file="symbols.png">
   <symbolStyle id="1" name="airport">
    <resourceStyle width="28" x="0" y="0" height="28"/>
   </symbolStyle>

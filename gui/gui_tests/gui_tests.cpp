@@ -31,7 +31,7 @@ struct BalloonTest
     bp.m_imageMarginBottom = 5;
 
     bp.m_text = "Active";
-    bp.m_image = graphics::Image::Info("testing/images/arrow.png");
+    bp.m_image = graphics::Image::Info("arrow.png", graphics::EDensityMDPI);
 
     m_balloon.reset(new gui::Balloon(bp));
     m_balloon->setIsVisible(true);
@@ -132,7 +132,7 @@ struct ImageViewTest
     ip.m_pivot = m_pivot;
     ip.m_position = graphics::EPosUnder;
 
-    ip.m_image = graphics::Image::Info("testing/images/arrow.png");
+    ip.m_image = graphics::Image::Info("arrow.png", graphics::EDensityMDPI);
 
     m_imageView.reset(new gui::ImageView(ip));
 

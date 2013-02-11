@@ -61,6 +61,7 @@ protected:
 
   RenderPolicy::TRenderFn m_renderFn;
   string m_skinName;
+  graphics::EDensity m_density;
   graphics::Color m_bgColor;
   int m_sequenceID;
   bool m_isExiting;
@@ -86,6 +87,7 @@ public:
   /// constructor.
   TileRenderer(size_t tileSize,
                string const & skinName,
+               graphics::EDensity density,
                unsigned tasksCount,
                graphics::Color const & bgColor,
                RenderPolicy::TRenderFn const & renderFn,

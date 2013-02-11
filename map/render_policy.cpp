@@ -33,7 +33,8 @@ RenderPolicy::RenderPolicy(Params const & p,
     m_primaryRC(p.m_primaryRC),
     m_doSupportRotation(doSupportRotation),
     m_doForceUpdate(false),
-    m_visualScale(p.m_visualScale),
+    m_density(p.m_density),
+    m_visualScale(graphics::visualScale(p.m_density)),
     m_skinName(p.m_skinName)
 {
   LOG(LDEBUG, ("each BaseRule will hold up to", idCacheSize, "cached values"));
@@ -55,6 +56,7 @@ void RenderPolicy::InitCacheScreen()
   cp.m_isSynchronized = false;
   cp.m_resourceManager = m_resourceManager;
   cp.m_renderContext = m_primaryRC;
+  cp.m_density = Density();
 
   m_cacheScreen = make_shared_ptr(new graphics::Screen(cp));
 }
@@ -200,6 +202,11 @@ bool RenderPolicy::IsEmptyModel() const
 double RenderPolicy::VisualScale() const
 {
   return m_visualScale;
+}
+
+graphics::EDensity RenderPolicy::Density() const
+{
+  return m_density;
 }
 
 string const & RenderPolicy::SkinName() const

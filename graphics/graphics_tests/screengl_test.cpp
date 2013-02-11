@@ -1451,7 +1451,7 @@ namespace
   {
     void DoDraw(shared_ptr<graphics::Screen> const & p)
     {
-      graphics::Image::Info ii("testing/images/test.png");
+      graphics::Image::Info ii("test.png", graphics::EDensityMDPI);
 
       math::Matrix<double, 3, 3> m =
           math::Shift(

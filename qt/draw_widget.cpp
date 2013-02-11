@@ -232,8 +232,8 @@ namespace qt
       rpParams.m_useDefaultFB = true;
       rpParams.m_rmParams = rmParams;
       rpParams.m_primaryRC = primaryRC;
-      rpParams.m_visualScale = 1.0;
-      rpParams.m_skinName = "basic_mdpi.skn";
+      rpParams.m_density = graphics::EDensityMDPI;
+      rpParams.m_skinName = "basic.skn";
 
       try
       {

@@ -50,7 +50,7 @@ macx* {
     CLASSIFICATOR_RES.files += ../data/drules_proto.txt
   }
   SKIN_RES.path = Contents/Resources
-  SKIN_RES.files = ../data/basic_mdpi.skn ../data/symbols_mdpi.png
+  SKIN_RES.files = ../data/resources-mdpi/basic.skn ../data/resources-mdpi/symbols.png
   FONT_RES.path = Contents/Resources
   FONT_RES.files = ../data/01_dejavusans.ttf \
                    ../data/02_wqy-microhei.ttf \
@@ -58,7 +58,7 @@ macx* {
                    ../data/04_padauk.ttf \
                    ../data/05_khmeros.ttf \
                    ../data/06_code2000.ttf \
-                    ../data/fonts_blacklist.txt \
+                   ../data/fonts_blacklist.txt \
                    ../data/fonts_whitelist.txt \
                    ../data/unicode_blocks.txt
   MWM_RES.path = Contents/Resources
