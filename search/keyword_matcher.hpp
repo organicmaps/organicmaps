@@ -37,8 +37,8 @@ public:
 
   void Clear();
 
-  /// Store references to keywords from source array of strings.
-  void SetKeywords(StringT const * keywords, size_t count, StringT const * prefix);
+  /// Internal copy of keywords is made.
+  void SetKeywords(StringT const * keywords, size_t count, StringT const & prefix);
 
   /// @return Score of the name (greater is better).
   //@{
@@ -50,9 +50,8 @@ public:
   static bool IsQueryMatched(ScoreT const & score) { return score.IsQueryMatched(); }
 
 private:
-  StringT const * m_keywords;
-  size_t m_keywordsCount;
-  StringT const * m_prefix;
+  vector<StringT> m_keywords;
+  StringT m_prefix;
 };
 
 }  // namespace search

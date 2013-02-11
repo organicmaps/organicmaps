@@ -281,7 +281,7 @@ void Query::SetQuery(string const & query)
     m_tokens.resize(maxTokensCount);
 
   // assign tokens and prefix to scorer
-  m_keywordsScorer.SetKeywords(m_tokens.data(), m_tokens.size(), &m_prefix);
+  m_keywordsScorer.SetKeywords(m_tokens.data(), m_tokens.size(), m_prefix);
 }
 
 void Query::SearchCoordinates(string const & query, Results & res) const

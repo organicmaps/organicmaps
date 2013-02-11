@@ -25,9 +25,6 @@ public:
   };
 
 private:
-  enum { NUM_LANG_PRIORITY_TIERS = 4 };
-  enum { MAX_LANGS_IN_TIER = 2 };
-
   typedef KeywordMatcher::StringT StringT;
 
 public:
@@ -37,7 +34,7 @@ public:
   int8_t GetLanguage(pair<int, int> const & ind) const;
 
   /// Store references to keywords from source array of strings.
-  inline void SetKeywords(StringT const * keywords, size_t count, StringT const * prefix)
+  inline void SetKeywords(StringT const * keywords, size_t count, StringT const & prefix)
   {
     m_keywordMatcher.SetKeywords(keywords, count, prefix);
   }
@@ -50,7 +47,6 @@ public:
   //@}
 
 private:
-  bool AssertIndex(pair<int, int> const & ind) const;
   int GetLangScore(int8_t lang) const;
 
   vector<vector<int8_t> > m_languagePriorities;

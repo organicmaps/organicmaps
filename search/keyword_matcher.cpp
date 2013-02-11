@@ -17,19 +17,14 @@ KeywordMatcher::KeywordMatcher()
 
 void KeywordMatcher::Clear()
 {
-  m_keywords = NULL;
-  m_keywordsCount = 0;
-  m_prefix = NULL;
+  m_keywords.clear();
+  m_prefix.clear();
 }
 
-void KeywordMatcher::SetKeywords(StringT const * keywords, size_t count, StringT const * prefix)
+void KeywordMatcher::SetKeywords(StringT const * keywords, size_t count, StringT const & prefix)
 {
-  m_keywords = keywords;
-  m_keywordsCount = min(static_cast<size_t>(MAX_TOKENS), count);
-
+  m_keywords.assign(keywords, keywords + count);
   m_prefix = prefix;
-  if (m_prefix && m_prefix->empty())
-    m_prefix = NULL;
 }
 
 KeywordMatcher::ScoreT KeywordMatcher::Score(string const & name) const
@@ -48,14 +43,14 @@ KeywordMatcher::ScoreT KeywordMatcher::Score(StringT const & name) const
 
 KeywordMatcher::ScoreT KeywordMatcher::Score(StringT const * tokens, size_t count) const
 {
-  vector<bool> isQueryTokenMatched(m_keywordsCount);
+  vector<bool> isQueryTokenMatched(m_keywords.size());
   vector<bool> isNameTokenMatched(count);
   uint32_t numQueryTokensMatched = 0;
   uint32_t sumTokenMatchDistance = 0;
   uint32_t prevTokenMatchDistance = 0;
   bool bPrefixMatched = true;
 
-  for (int i = 0; i < m_keywordsCount; ++i)
+  for (int i = 0; i < m_keywords.size(); ++i)
     for (int j = 0; j < count && !isQueryTokenMatched[i]; ++j)
       if (!isNameTokenMatched[j] && m_keywords[i] == tokens[j])
       {
@@ -65,15 +60,15 @@ KeywordMatcher::ScoreT KeywordMatcher::Score(StringT const * tokens, size_t coun
         prevTokenMatchDistance = tokenMatchDistance;
       }
 
-  if (m_prefix)
+  if (!m_prefix.empty())
   {
     bPrefixMatched = false;
     for (int j = 0; j < count && !bPrefixMatched; ++j)
       if (!isNameTokenMatched[j] &&
-          StartsWith(tokens[j].begin(), tokens[j].end(), m_prefix->begin(), m_prefix->end()))
+          StartsWith(tokens[j].begin(), tokens[j].end(), m_prefix.begin(), m_prefix.end()))
       {
         isNameTokenMatched[j] = bPrefixMatched = true;
-        uint32_t const tokenMatchDistance = int(m_keywordsCount) - j;
+        uint32_t const tokenMatchDistance = int(m_keywords.size()) - j;
         sumTokenMatchDistance += abs(tokenMatchDistance - prevTokenMatchDistance);
       }
   }

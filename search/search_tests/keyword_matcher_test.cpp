@@ -54,7 +54,7 @@ void TestKeywordMatcher(char const * const query, KeywordMatcherTestCase const (
   }
 
   KeywordMatcher matcher;
-  matcher.SetKeywords(keywords.data(), keywords.size(), &prefix);
+  matcher.SetKeywords(keywords.data(), keywords.size(), prefix);
   ScoreT prevScore = ScoreT();
   for (size_t i = 0; i < N; ++i)
   {
@@ -65,7 +65,7 @@ void TestKeywordMatcher(char const * const query, KeywordMatcherTestCase const (
     // Test that a newly created matcher returns the same result
     {
       KeywordMatcher freshMatcher;
-      freshMatcher.SetKeywords(keywords.data(), keywords.size(), &prefix);
+      freshMatcher.SetKeywords(keywords.data(), keywords.size(), prefix);
       ScoreT const freshScore = freshMatcher.Score(name);
       // TEST_EQUAL(testScore, freshScore, (query, name));
       TEST(!(testScore < freshScore), (query, name));

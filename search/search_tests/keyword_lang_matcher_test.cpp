@@ -41,7 +41,7 @@ KeywordLangMatcher CreateMatcher(string const & query)
     prefix = keywords.back();
     keywords.pop_back();
   }
-  matcher.SetKeywords(keywords.data(), keywords.size(), &prefix);
+  matcher.SetKeywords(keywords.data(), keywords.size(), prefix);
 
   return matcher;
 }
