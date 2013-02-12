@@ -319,9 +319,15 @@ namespace
     virtual double NeedProcess(feature::TypesHolder const & types) const
     {
       using namespace feature;
-      // we need features with texts for address lookup
-      pair<int, int> const r = GetDrawableScaleRangeForRules(types, RULE_TEXT | RULE_SYMBOL);
-      return my::between_s(r.first, r.second, m_scale);
+
+      if (m_scale > -1)
+      {
+        // we need features with texts for address lookup
+        pair<int, int> const r = GetDrawableScaleRangeForRules(types, RULE_TEXT | RULE_SYMBOL);
+        return my::between_s(r.first, r.second, m_scale);
+      }
+      else
+        return true;
     }
 
     static void GetReadableTypes(search::Engine const * eng, int8_t lang,
@@ -487,7 +493,9 @@ void Framework::GetAddressInfo(m2::PointD const & pxPoint, AddressInfo & info) c
     return;
   }
 
+  // use upper scale to get address by point (buildings, streets and POIs are visible).
   int const scale = scales::GetUpperScale();
+
   double addressR[] = {
     15.0,   // radius to search point POI's
     100.0,  // radius to search street names
@@ -520,7 +528,8 @@ void Framework::GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, Ad
   double const inf = numeric_limits<double>::max();
   double addressR[] = { inf, inf, inf };
 
-  DoGetAddressInfo getAddress(pt, scales::GetUpperScale(), GetChecker(), addressR);
+  // FeatureType::WORST_GEOMETRY - no need to check on visibility
+  DoGetAddressInfo getAddress(pt, FeatureType::WORST_GEOMETRY, GetChecker(), addressR);
   getAddress(ft);
   getAddress.FillAddress(GetSearchEngine(), info);
 
@@ -556,11 +565,27 @@ void Framework::AddressInfo::MakeFrom(search::Result const & res)
   string const type = res.GetFeatureType();
   if (!type.empty())
     m_types.push_back(type);
+  else
+    ASSERT ( false, ("Search result with empty type") );
 
   // assign name if it's not equal with type
   string name = res.GetString();
   if (name != type)
     m_name.swap(name);
+}
+
+string Framework::AddressInfo::FormatPinText() const
+{
+  char const * type = GetBestType();
+  if (type)
+  {
+    if (m_name.empty())
+      return type;
+    else
+      return m_name + " (" + string(type) + ')';
+  }
+  else
+    return m_name;
 }
 
 string Framework::AddressInfo::FormatAddress() const

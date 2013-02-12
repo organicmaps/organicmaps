@@ -340,6 +340,7 @@ public:
 
     void MakeFrom(search::Result const & res);
 
+    string FormatPinText() const;
     string FormatAddress() const;
     string FormatTypes() const;
     char const * GetBestType() const;

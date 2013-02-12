@@ -22,9 +22,6 @@
 #include "../../../../../base/math.hpp"
 #include "../../../../../base/logging.hpp"
 
-#include "../../../../../std/shared_ptr.hpp"
-#include "../../../../../std/bind.hpp"
-
 
 #define LONG_CLICK_LENGTH_SEC 1.0
 #define SHORT_CLICK_LENGTH_SEC 0.5
@@ -567,28 +564,25 @@ namespace android
   void Framework::CallLongClickListener(double x, double y)
   {
     if (!HandleOnSmthClick(x, y))
-    {
       AdditionalHandlingForLongClick(x, y);
-    }
   }
-
 
   bool Framework::HandleOnSmthClick(double x, double y)
   {
     BookmarkAndCategory bac = m_work.GetBookmark(m2::PointD(x, y));
     if (ValidateBookmarkAndCategory(bac))
     {
-      Bookmark b = *(m_work.GetBmCategory(bac.first)->GetBookmark(bac.second));
-      ActivatePopup(b.GetOrg(), b.GetName(), "right-arrow.png");
+      Bookmark const * pBM = m_work.GetBmCategory(bac.first)->GetBookmark(bac.second);
+      ActivatePopup(pBM->GetOrg(), pBM->GetName(), "right-arrow.png");
       return true;
     }
     else
     {
-      ::Framework::AddressInfo adInfo;
+      ::Framework::AddressInfo addrInfo;
       m2::PointD pxPivot;
-      if (m_work.GetVisiblePOI(m2::PointD(x, y), pxPivot, adInfo))
+      if (m_work.GetVisiblePOI(m2::PointD(x, y), pxPivot, addrInfo))
       {
-        ActivatePopupWithAddressInfo(m_work.PtoG(pxPivot), adInfo);
+        ActivatePopupWithAddressInfo(m_work.PtoG(pxPivot), addrInfo);
         return true;
       }
       else
@@ -599,9 +593,9 @@ namespace android
   bool Framework::AdditionalHandlingForLongClick(double x, double y)
   {
     m2::PointD point(x, y);
-    ::Framework::AddressInfo adInfo;
-    m_work.GetAddressInfo(point, adInfo);
-    ActivatePopupWithAddressInfo(m_work.PtoG(point), adInfo);
+    ::Framework::AddressInfo addrInfo;
+    m_work.GetAddressInfo(point, addrInfo);
+    ActivatePopupWithAddressInfo(m_work.PtoG(point), addrInfo);
   }
 
   /*
@@ -622,40 +616,19 @@ namespace android
   }
   */
 
-  void Framework::ActivatePopupWithAddressInfo(m2::PointD const & bmkPosition, ::Framework::AddressInfo const & adInfo)
+  void Framework::ActivatePopupWithAddressInfo(m2::PointD const & pos, ::Framework::AddressInfo const & addrInfo)
   {
-    string name = adInfo.m_name;
-    string type = "";
-    if (adInfo.GetBestType() != 0)
-      type = adInfo.GetBestType();
-    string bmkname;
-    if (name.empty() && type.empty())
-    {
-      bmkname = m_work.GetStringsBundle().GetString("dropped_pin");
-    }
-    else
-      if (!name.empty())
-      {
-         bmkname = name;
-      }
-      else
-        if (!type.empty())
-        {
-          bmkname = type;
-        }
-        else
-        {
-          std::stringstream cstream;
-          cstream << name << " (" << type << ")";
-          bmkname = cstream.str();
-        }
+    string name = addrInfo.FormatPinText();
+    if (name.empty())
+      name = m_work.GetStringsBundle().GetString("dropped_pin");
 
-    ActivatePopup(bmkPosition, bmkname, "plus.png");
-    m_work.DrawPlacemark(bmkPosition);
+    ActivatePopup(pos, name);
+
+    m_work.DrawPlacemark(pos);
     m_work.Invalidate();
   }
 
-  void Framework::ActivatePopup(m2::PointD const & bmkPosition, string const & name, string const & imageName)
+  void Framework::ActivatePopup(m2::PointD const & pos, string const & name, string const & imageName)
   {
     BookmarkBalloon * b = GetBookmarkBalloon();
 
@@ -669,7 +642,7 @@ namespace android
 
   void Framework::DeactivatePopup()
   {
-	BookmarkBalloon * b = GetBookmarkBalloon();
+    BookmarkBalloon * b = GetBookmarkBalloon();
     b->setIsVisible(false);
     m_work.DisablePlacemark();
     m_work.Invalidate();
@@ -680,34 +653,15 @@ namespace android
     BookmarkBalloon * balloon = GetBookmarkBalloon();
 
     BookmarkAndCategory bac = m_work.GetBookmark(m_work.GtoP(balloon->getBookmarkPivot()));
-    if (ValidateBookmarkAndCategory(bac))
+    if (!ValidateBookmarkAndCategory(bac))
     {
       // add new bookmark
       Bookmark bm(balloon->glbPivot(), balloon->bookmarkName(), m_bmType);
       bac = AddBookmark(bm);
     }
-    else
-    {
-      BookmarkCategory * cat;
-      if (m_work.GetBmCategoriesCount() == 0)
-      {
-        m_work.AddBookmark(m_work.GetStringsBundle().GetString("my_places"), Bookmark(balloon->getBookmarkPivot(), balloon->getBookmarkName(), "placemark-red"));
-        cat = m_work.GetBmCategory(m_work.GetBmCategoriesCount()-1);
-      }
-      else
-      {
-        cat = m_work.GetBmCategory(m_work.GetBmCategoriesCount()-1);
-        LOG(LDEBUG,("Paladin", (balloon->getBookmarkPivot(), balloon->getBookmarkName(), "placemark-red")));
-        m_work.AddBookmark(cat->GetName(), Bookmark(balloon->getBookmarkPivot(), balloon->getBookmarkName(), "placemark-red"));
-      }
-      cat->SaveToKMLFile();
-      int catSize = cat->GetBookmarksCount() - 1;
-      if (catSize > 0)
-      {
-        bac = BookmarkAndCategory(m_work.GetBmCategoriesCount()-1, catSize);
-        m_balloonClickListener(bac);
-      }
-    }
+
+    // start edit an existing bookmark
+    m_balloonClickListener(bac);
   }
 
   void Framework::AddBalloonClickListener(TOnBalloonClickListener const & l)

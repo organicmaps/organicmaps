@@ -65,8 +65,8 @@ namespace android
 
     bool HandleOnSmthClick(double x, double y);
     bool AdditionalHandlingForLongClick(double x, double y);
-    void ActivatePopup(m2::PointD const & bmkPosition, string const & name, string const & imageName);
-    void ActivatePopupWithAddressInfo(m2::PointD const & bmkPosition, ::Framework::AddressInfo const & adInfo);
+    void ActivatePopup(m2::PointD const & pos, string const & name, string const & imageName);
+    void ActivatePopupWithAddressInfo(m2::PointD const & pos, ::Framework::AddressInfo const & addrInfo);
 
     void ToCamelCase(string & c);
 
