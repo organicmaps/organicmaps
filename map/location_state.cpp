@@ -449,13 +449,8 @@ namespace location
 
   bool State::hitTest(m2::PointD const & pt) const
   {
-//    if (!m_framework->GetNavigator().DoSupportRotation())
-//      return false;
-//    double radius = m_arrowHeight * m_controller->GetVisualScale();
-//    return m_hasCompass && (pt.SquareLength(pivot()) <= my::sq(radius));
-    m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
-    double const pxErrorRadius = pxPosition.Length(m_framework->GetNavigator().GtoP(Position() + m2::PointD(m_errorRadius, 0.0)));
-    return pt.Length(pxPosition) <= pxErrorRadius;
+    double radius = m_arrowHeight * m_controller->GetVisualScale();
+    return (pt.SquareLength(pivot()) <= my::sq(radius));
   }
 
   void State::CheckCompassRotation()
@@ -688,7 +683,7 @@ namespace location
     for (TOnPositionClickListeners::const_iterator it = m_onPositionClickListeners.begin();
          it != m_onPositionClickListeners.end();
          ++it)
-      it->second(point);
+      it->second(Position());
   }
 
   int State::AddOnPositionClickListener(TOnPositionClickListener const & listner)
