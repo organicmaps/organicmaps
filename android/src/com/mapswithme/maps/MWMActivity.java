@@ -525,13 +525,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     if (mApplication.nativeIsBenchmarking())
       getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-    nativeSetString("country_status_added_to_queue", getString(R.string.country_status_added_to_queue));
-    nativeSetString("country_status_downloading", getString(R.string.country_status_downloading));
-    nativeSetString("country_status_download", getString(R.string.country_status_download));
-    nativeSetString("country_status_download_failed", getString(R.string.country_status_download_failed));
-    nativeSetString("try_again", getString(R.string.try_again));
-    nativeSetString("not_enough_free_space_on_sdcard", getString(R.string.not_enough_free_space_on_sdcard));
-
     nativeConnectDownloadButton();
 
     alignZoomButtons();
@@ -542,13 +535,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       @Override
       public void onClick(int cat, int bmk)
       {
-        startActivity(
-                     new Intent(MWMActivity.this, BookmarkActivity.class)
-                     .putExtra(
-                               BookmarkActivity.PIN,
-                               new ParcelablePoint(cat, bmk
-                             )
-                     ));
+        startActivity(new Intent(MWMActivity.this, BookmarkActivity.class)
+        .putExtra(BookmarkActivity.PIN, new ParcelablePoint(cat, bmk)));
       }
     });
   }
@@ -897,8 +885,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       m_externalStorageReceiver = null;
     }
   }
-
-  private native void nativeSetString(String name, String value);
 
   private native void nativeStorageConnected();
   private native void nativeStorageDisconnected();

@@ -105,13 +105,6 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeSetString(JNIEnv * env, jobject thiz, jstring name, jstring value)
-  {
-    g_framework->AddString(jni::ToNativeString(env, name),
-                           jni::ToNativeString(env, value));
-  }
-
-  JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeStorageConnected(JNIEnv * env, jobject thiz)
   {
     android::Platform::Instance().OnExternalStorageStatusChanged(true);

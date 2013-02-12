@@ -71,32 +71,37 @@ public class MWMApplication extends android.app.Application implements MapStorag
     if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ECLAIR_MR1)
       System.setProperty("http.keepAlive", "false");
 
-    AssetManager assets = getAssets();
-    InputStream stream = null;
-    try
+    // get url for PRO version
+    if (!m_isProVersion)
     {
-      stream = assets.open("app_info.txt");
-      BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+      AssetManager assets = getAssets();
+      InputStream stream = null;
+      try
+      {
+        stream = assets.open("app_info.txt");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 
-      final String s = reader.readLine();
-      if (s.length() > 0)
-        m_proVersionURL = s;
+        final String s = reader.readLine();
+        if (s.length() > 0)
+          m_proVersionURL = s;
 
-      Log.i(TAG, "Pro version url: " + m_proVersionURL);
+        Log.i(TAG, "Pro version url: " + m_proVersionURL);
+      }
+      catch (IOException ex)
+      {
+        // suppress exceptions - pro version doesn't need app_info.txt
+      }
+      Utils.closeStream(stream);
     }
-    catch (IOException ex)
-    {
-      // suppress exceptions - pro version doesn't need app_info.txt
-    }
-
-    Utils.closeStream(stream);
 
     final String extStoragePath = getDataStoragePath();
     final String extTmpPath = getExtAppDirectoryPath("caches");
+
     // Create folders if they don't exist
     new File(extStoragePath).mkdirs();
     new File(extTmpPath).mkdirs();
 
+    // init native framework
     nativeInit(getApkPath(),
                extStoragePath,
                getTmpPath(),
@@ -104,11 +109,20 @@ public class MWMApplication extends android.app.Application implements MapStorag
                m_isProVersion);
 
     m_slotID = getMapStorage().subscribe(this);
-    //init bmManager (automatically load bookmarks)
-    if (isProVersion())
-    {
+
+    // init cross-platform strings bundle
+    nativeSetString("country_status_added_to_queue", getString(R.string.country_status_added_to_queue));
+    nativeSetString("country_status_downloading", getString(R.string.country_status_downloading));
+    nativeSetString("country_status_download", getString(R.string.country_status_download));
+    nativeSetString("country_status_download_failed", getString(R.string.country_status_download_failed));
+    nativeSetString("try_again", getString(R.string.try_again));
+    nativeSetString("not_enough_free_space_on_sdcard", getString(R.string.not_enough_free_space_on_sdcard));
+    nativeSetString("dropped_pin", getString(R.string.dropped_pin));
+    nativeSetString("my_places", getString(R.string.my_places));
+
+    // init BookmarkManager (automatically loads bookmarks)
+    if (m_isProVersion)
       BookmarkManager.getBookmarkManager(getApplicationContext());
-    }
   }
 
   public LocationService getLocationService()
@@ -209,6 +223,8 @@ public class MWMApplication extends android.app.Application implements MapStorag
   static public final int NEVER = 2;
   public native void submitDialogResult(int dlg, int res);
   /// @}
+
+  private native void nativeSetString(String name, String value);
 
   /// Dealing with Settings
   public native boolean nativeGetBoolean(String name, boolean defaultVal);

@@ -92,4 +92,11 @@ extern "C"
   {
     return android::Platform::Instance().HasAvailableSpaceForWriting(size);
   }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMApplication_nativeSetString(JNIEnv * env, jobject thiz, jstring name, jstring value)
+  {
+    g_framework->AddString(jni::ToNativeString(env, name),
+                           jni::ToNativeString(env, value));
+  }
 }
