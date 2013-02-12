@@ -75,11 +75,14 @@ namespace android
       return (bac.first > -1 && bac.second > -1);
     }
 
-    shared_ptr<BookmarkBalloon> m_bmBaloon;
+    shared_ptr<gui::BookmarkBalloon> m_bmBaloon;
+    string m_bmCategory;
+    string m_bmType;
 
     void OnBalloonClick(gui::Element * e);
     void CreateBookmarkBalloon();
-    BookmarkBalloon * GetBookmarkBalloon();
+    gui::BookmarkBalloon * GetBookmarkBalloon();
+    BookmarkAndCategory AddBookmark(Bookmark const & bm);
 
   public:
     Framework();
@@ -137,11 +140,12 @@ namespace android
 
     void Scale(double k);
 
-
     void AddBalloonClickListener(TOnBalloonClickListener const & l);
     void RemoveBalloonClickListener();
-
     void DeactivatePopup();
+
+    void AddBookmark(string const & category, Bookmark const & bm);
+
     ::Framework * NativeFramework();
   };
 }

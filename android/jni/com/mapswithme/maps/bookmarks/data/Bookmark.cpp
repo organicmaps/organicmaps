@@ -43,11 +43,10 @@ extern "C"
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nSetBookmarkDescription(
        JNIEnv * env, jobject thiz, jint cat, jlong bmk, jstring newDescr)
   {
-    Bookmark b(*getBookmark(cat, bmk));
-    b.SetDescription(jni::ToNativeString(env, newDescr));
-    string name = frm()->GetBmCategory(cat)->GetName();
-    frm()->AddBookmark(name, b);
-    frm()->GetBmCategory(name)->SaveToKMLFile();
+    // do edit bookmark's description without AddBookmark routine
+    Bookmark * pBM = const_cast<Bookmark *>(getBookmark(cat, bmk));
+    pBM->SetDescription(jni::ToNativeString(env, newDescr));
+    frm()->GetBmCategory(cat)->SaveToKMLFile();
   }
 
   JNIEXPORT jstring JNICALL
@@ -77,15 +76,25 @@ extern "C"
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nChangeBookmark(
          JNIEnv * env, jobject thiz, jdouble x, jdouble y, jstring cat, jstring name, jstring type)
   {
+    // get existing bookmark under point
     BookmarkAndCategory bac = frm()->GetBookmark(frm()->GtoP(m2::PointD(x, y)));
-    Bookmark b(m2::PointD(x, y), jni::ToNativeString(env, name), jni::ToNativeString(env, type));
+
+    // initialize new bookmark
+    Bookmark bm(m2::PointD(x, y), jni::ToNativeString(env, name), jni::ToNativeString(env, type));
     if (bac.first > -1 && bac.second > -1)
+      bm.SetDescription(getBookmark(bac.first, bac.second)->GetDescription());
+
+    // add new bookmark
+    string const category = jni::ToNativeString(env, cat);
+    g_framework->AddBookmark(category, bm);
+
+    // save old bookmark's category
+    if (bac.first > -1)
     {
-      b.SetDescription(getBookmark(bac.first, bac.second)->GetDescription());
+      BookmarkCategory * pCat = frm()->GetBmCategory(bac.first);
+      if (pCat->GetName() != category)
+        pCat->SaveToKMLFile();
     }
-    frm()->AddBookmark(jni::ToNativeString(env, cat), b)->SaveToKMLFile();
-    if (bac.first >= 0)
-      frm()->GetBmCategory(bac.first)->SaveToKMLFile();
   }
 
   JNIEXPORT jobject JNICALL
@@ -122,5 +131,4 @@ extern "C"
   {
     return jni::GetNewParcelablePointD(env, getBookmark(cat, bmk)->GetOrg());
   }
-
 }

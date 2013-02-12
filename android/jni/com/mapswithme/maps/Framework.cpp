@@ -57,6 +57,9 @@ namespace android
     size_t const measurementsCount = 5;
     m_sensors[0].SetCount(measurementsCount);
     m_sensors[1].SetCount(measurementsCount);
+
+    m_bmCategory = m_work.GetStringsBundle().GetString("my_places");
+    m_bmType = "placemark-red";
   }
 
   Framework::~Framework()
@@ -676,24 +679,26 @@ namespace android
   {
     BookmarkBalloon * balloon = GetBookmarkBalloon();
 
-    BookmarkAndCategory bac = m_work.GetBookmark(m_work.GtoP(balloon->glbPivot()));
+    BookmarkAndCategory bac = m_work.GetBookmark(m_work.GtoP(balloon->getBookmarkPivot()));
     if (ValidateBookmarkAndCategory(bac))
     {
-      m_balloonClickListener(bac);
+      // add new bookmark
+      Bookmark bm(balloon->glbPivot(), balloon->bookmarkName(), m_bmType);
+      bac = AddBookmark(bm);
     }
     else
     {
       BookmarkCategory * cat;
       if (m_work.GetBmCategoriesCount() == 0)
       {
-        m_work.AddBookmark(m_work.GetStringsBundle().GetString("my_places"), Bookmark(balloon->glbPivot(), balloon->bookmarkName(), "placemark-red"));
+        m_work.AddBookmark(m_work.GetStringsBundle().GetString("my_places"), Bookmark(balloon->getBookmarkPivot(), balloon->getBookmarkName(), "placemark-red"));
         cat = m_work.GetBmCategory(m_work.GetBmCategoriesCount()-1);
       }
       else
       {
         cat = m_work.GetBmCategory(m_work.GetBmCategoriesCount()-1);
-        Bookmark bm(balloon->glbPivot(), balloon->bookmarkName(), "placemark-red");
-        m_work.AddBookmark(cat->GetName(), bm);
+        LOG(LDEBUG,("Paladin", (balloon->getBookmarkPivot(), balloon->getBookmarkName(), "placemark-red")));
+        m_work.AddBookmark(cat->GetName(), Bookmark(balloon->getBookmarkPivot(), balloon->getBookmarkName(), "placemark-red"));
       }
       cat->SaveToKMLFile();
       int catSize = cat->GetBookmarksCount() - 1;
@@ -713,13 +718,6 @@ namespace android
   void Framework::RemoveBalloonClickListener()
   {
     m_balloonClickListener.clear();
-  }
-
-  BookmarkBalloon * Framework::GetBookmarkBalloon()
-  {
-    if (!m_bmBaloon)
-      CreateBookmarkBalloon();
-    return m_bmBaloon.get();
   }
 
   void Framework::CreateBookmarkBalloon()
@@ -747,5 +745,28 @@ namespace android
     m_bmBaloon->setIsVisible(false);
     m_bmBaloon->setOnClickListener(bind(&Framework::OnBalloonClick, this, _1));
     m_work.GetGuiController()->AddElement(m_bmBaloon);
+  }
+
+  gui::BookmarkBalloon * Framework::GetBookmarkBalloon()
+  {
+    if (!m_bmBaloon)
+      CreateBookmarkBalloon();
+    return m_bmBaloon.get();
+  }
+
+  BookmarkAndCategory Framework::AddBookmark(Bookmark const & bm)
+  {
+    BookmarkAndCategory const bac = m_work.AddBookmarkEx(m_bmCategory, bm);
+    BookmarkCategory * cat = m_work.GetBmCategory(bac.first);
+    cat->SetVisible(true);
+    cat->SaveToKMLFile();
+    return bac;
+  }
+
+  void Framework::AddBookmark(string const & category, Bookmark const & bm)
+  {
+    m_bmCategory = category;
+    m_bmType = bm.GetType();
+    (void) AddBookmark(bm);
   }
 }

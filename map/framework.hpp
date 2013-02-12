@@ -187,30 +187,40 @@ public:
   void ShowCountry(storage::TIndex const & index);
   //@}
 
-  /// Scans and loads all kml files with bookmarks in WritableDir
+  /// Scans and loads all kml files with bookmarks in WritableDir.
   void LoadBookmarks();
-
   void LoadBookmark(string const & filePath);
 
-  // Always returns existing or newly created bookmark category
+  /// @name Always returns existing or newly created bookmark category.
+  //@{
   BookmarkCategory * AddBookmark(string const & category, Bookmark const & bm);
+  BookmarkAndCategory AddBookmarkEx(string const & category, Bookmark const & bm);
+  //@}
+
   inline size_t GetBmCategoriesCount() const { return m_bookmarks.size(); }
   /// @returns 0 if category is not found
   BookmarkCategory * GetBmCategory(size_t index) const;
-  /// Always creates not existing category
+
+  /// @name Always creates not existing category.
+  //@{
   BookmarkCategory * GetBmCategory(string const & name);
-  /// Delete bookmarks category with all bookmarks
+  size_t GetBmCategoryEx(string const & name);
+  //@}
+
+  /// @name Delete bookmarks category with all bookmarks.
   /// @return true if category was deleted
   //@{
   bool DeleteBmCategory(size_t index);
   bool DeleteBmCategory(string const & name);
   //@}
 
-  /// Get bookmark by touch.
+  /// @name Get bookmark by touch.
   /// @param[in]  pixPt   Coordinates of touch point in pixels.
   /// @return     NULL    If there is no bookmark found
+  //@{
   BookmarkAndCategory GetBookmark(m2::PointD const & pxPoint) const;
   BookmarkAndCategory GetBookmark(m2::PointD const & pxPoint, double visualScale) const;
+  //@}
 
   void ShowBookmark(Bookmark const & bm);
 

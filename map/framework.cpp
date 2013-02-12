@@ -390,7 +390,7 @@ void Framework::LoadBookmark(string const & filePath)
   }
 }
 
-BookmarkCategory * Framework::AddBookmark(string const & category, Bookmark const & bm)
+BookmarkAndCategory Framework::AddBookmarkEx(string const & category, Bookmark const & bm)
 {
   // Get global non-rotated viewport rect and calculate viewport scale level.
   double const scale = scales::GetScaleLevelD(
@@ -412,7 +412,7 @@ BookmarkCategory * Framework::AddBookmark(string const & category, Bookmark cons
       if (category == cat->GetName())
       {
         cat->ReplaceBookmark(static_cast<size_t>(index), bm, scale);
-        return cat;
+        return BookmarkAndCategory(i, index);
       }
       else
       {
@@ -422,9 +422,15 @@ BookmarkCategory * Framework::AddBookmark(string const & category, Bookmark cons
     }
   }
 
-  BookmarkCategory * cat = GetBmCategory(category);
+  size_t const ind = GetBmCategoryEx(category);
+  BookmarkCategory * cat = m_bookmarks[ind];
   cat->AddBookmark(bm, scale);
-  return cat;
+  return BookmarkAndCategory(ind, cat->GetBookmarksCount()-1);
+}
+
+BookmarkCategory * Framework::AddBookmark(string const & category, Bookmark const & bm)
+{
+  return m_bookmarks[AddBookmarkEx(category, bm).first];
 }
 
 namespace
@@ -456,16 +462,20 @@ BookmarkCategory * Framework::GetBmCategory(size_t index) const
   return (index < m_bookmarks.size() ? m_bookmarks[index] : 0);
 }
 
-BookmarkCategory * Framework::GetBmCategory(string const & name)
+size_t Framework::GetBmCategoryEx(string const & name)
 {
   CategoryIter i = FindBmCategory(name);
   if (i != m_bookmarks.end())
-    return (*i);
+    return distance(m_bookmarks.begin(), i);
 
   // Automatically create not existing category
-  BookmarkCategory * cat = new BookmarkCategory(name);
-  m_bookmarks.push_back(cat);
-  return cat;
+  m_bookmarks.push_back(new BookmarkCategory(name));
+  return (m_bookmarks.size()-1);
+}
+
+BookmarkCategory * Framework::GetBmCategory(string const & name)
+{
+  return m_bookmarks[GetBmCategoryEx(name)];
 }
 
 void Framework::DeleteBmCategory(CategoryIter i)
