@@ -51,6 +51,7 @@ namespace location
   public:
 
     typedef function<void(int)> TCompassStatusListener;
+    typedef function<void(m2::PointD const &)> TOnPositionClickListener;
 
   private:
 
@@ -113,6 +114,11 @@ namespace location
     TCompassStatusListeners m_compassStatusListeners;
     int m_currentSlotID;
 
+    typedef map<int, TOnPositionClickListener> TOnPositionClickListeners;
+    TOnPositionClickListeners m_onPositionClickListeners;
+
+    void CallOnPositionClickListeners(m2::PointD const & point);
+
     void CallCompassStatusListeners(ECompassProcessMode mode);
 
     double ComputeMoveSpeed(m2::PointD const & globalPt0,
@@ -155,6 +161,9 @@ namespace location
 
     int AddCompassStatusListener(TCompassStatusListener const & l);
     void RemoveCompassStatusListener(int slotID);
+
+    int AddOnPositionClickListener(TOnPositionClickListener const & listner);
+    void RemoveOnPositionClickListener(int listnerID);
 
     void SetIsCentered(bool flag);
     bool IsCentered() const;

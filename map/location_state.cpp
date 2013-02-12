@@ -444,7 +444,7 @@ namespace location
 
   bool State::roughHitTest(m2::PointD const & pt) const
   {
-    return false;
+    return hitTest(pt);
   }
 
   bool State::hitTest(m2::PointD const & pt) const
@@ -453,7 +453,9 @@ namespace location
 //      return false;
 //    double radius = m_arrowHeight * m_controller->GetVisualScale();
 //    return m_hasCompass && (pt.SquareLength(pivot()) <= my::sq(radius));
-    return false;
+    m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
+    double const pxErrorRadius = pxPosition.Length(m_framework->GetNavigator().GtoP(Position() + m2::PointD(m_errorRadius, 0.0)));
+    return pt.Length(pxPosition) <= pxErrorRadius;
   }
 
   void State::CheckCompassRotation()
@@ -647,35 +649,57 @@ namespace location
 
   bool State::onTapEnded(m2::PointD const & pt)
   {
-    if (!m_framework->GetNavigator().DoSupportRotation())
-      return false;
+    CallOnPositionClickListeners(pt);
+    return false;
+//    if (!m_framework->GetNavigator().DoSupportRotation())
+//      return false;
 
-    anim::Controller::Guard guard(m_framework->GetAnimController());
+//    anim::Controller::Guard guard(m_framework->GetAnimController());
 
-    switch (state())
-    {
-    case EActive:
-      if (m_hasCompass)
-      {
-        if (!IsCentered())
-          AnimateToPositionAndEnqueueFollowing();
-        else
-          StartCompassFollowing();
-      }
-      break;
+//    switch (state())
+//    {
+//    case EActive:
+//      if (m_hasCompass)
+//      {
+//        if (!IsCentered())
+//          AnimateToPositionAndEnqueueFollowing();
+//        else
+//          StartCompassFollowing();
+//      }
+//      break;
 
-    case EPressed:
-      StopCompassFollowing();
-      break;
+//    case EPressed:
+//      StopCompassFollowing();
+//      break;
 
-    default:
-      /// @todo Need to check other states?
-      /// - do nothing, then write comment;
-      /// - place ASSERT, if other states are impossible;
-      break;
-    };
+//    default:
+//      /// @todo Need to check other states?
+//      /// - do nothing, then write comment;
+//      /// - place ASSERT, if other states are impossible;
+//      break;
+//    };
 
-    invalidate();
-    return true;
+//    invalidate();
+//    return true;
+  }
+
+  void State::CallOnPositionClickListeners(m2::PointD const & point)
+  {
+    for (TOnPositionClickListeners::const_iterator it = m_onPositionClickListeners.begin();
+         it != m_onPositionClickListeners.end();
+         ++it)
+      it->second(point);
+  }
+
+  int State::AddOnPositionClickListener(TOnPositionClickListener const & listner)
+  {
+    int slotID = m_currentSlotID++;
+    m_onPositionClickListeners[slotID] = listner;
+    return slotID;
+  }
+
+  void State::RemoveOnPositionClickListener(int listnerID)
+  {
+    m_onPositionClickListeners.erase(listnerID);
   }
 }
