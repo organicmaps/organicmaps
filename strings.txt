@@ -1680,3 +1680,7 @@
     cz = Země stahování (%@), o níž hledáte
     nl = Download land (%@) waar je op wilt zoeken
     de = Land (%@) herunterladen, von dem aus Sie suchen
+  [my_current_position]
+    en = My Location
+    tags = ios
+    comment = Title of bookmark when current position was tapped
