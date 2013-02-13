@@ -1,14 +1,15 @@
 package com.mapswithme.maps.bookmarks;
 
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ListActivity;
-import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
+
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 
 public abstract class AbstractBookmarkListActivity extends ListActivity
 {
@@ -20,9 +21,13 @@ public abstract class AbstractBookmarkListActivity extends ListActivity
   {
     super.onCreate(savedInstanceState);
     mManager = BookmarkManager.getBookmarkManager(getApplicationContext());
-    if (Integer.parseInt(android.os.Build.VERSION.SDK) >= 11)
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
     {
-      getActionBar().setDisplayHomeAsUpEnabled(true);
+      // http://stackoverflow.com/questions/6867076/getactionbar-returns-null
+      ActionBar bar = getActionBar();
+      if (bar != null)
+        bar.setDisplayHomeAsUpEnabled(true);
     }
   }
 
