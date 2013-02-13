@@ -53,10 +53,16 @@ namespace android
 
     m_bmCategory = m_work.GetStringsBundle().GetString("my_places");
     m_bmType = "placemark-red";
+
+    for (size_t i = 0; i < ARRAY_SIZE(m_images); ++i)
+      m_images[i] = 0;
   }
 
   Framework::~Framework()
   {
+    for (size_t i = 0; i < ARRAY_SIZE(m_images); ++i)
+      delete m_images[i];
+
     delete m_videoTimer;
   }
 
@@ -154,6 +160,10 @@ namespace android
       LOG(LINFO, ("This android platform is unsupported, reason:", e.what()));
       return false;
     }
+
+    graphics::EDensity const density = m_work.GetRenderPolicy()->Density();
+    m_images[IMAGE_PLUS] = new ImageT("plus.png", density);
+    m_images[IMAGE_ARROW] = new ImageT("right-arrow.png", density);
 
     m_work.SetUpdatesEnabled(true);
     m_work.EnterForeground();
@@ -566,7 +576,7 @@ namespace android
     if (ValidateBookmarkAndCategory(bac))
     {
       Bookmark const * pBM = m_work.GetBmCategory(bac.first)->GetBookmark(bac.second);
-      ActivatePopup(pBM->GetOrg(), pBM->GetName(), "right-arrow.png");
+      ActivatePopup(pBM->GetOrg(), pBM->GetName(), IMAGE_ARROW);
       return true;
     }
     else
@@ -597,18 +607,18 @@ namespace android
     if (name.empty())
       name = m_work.GetStringsBundle().GetString("dropped_pin");
 
-    ActivatePopup(pos, name, "plus.png");
+    ActivatePopup(pos, name, IMAGE_PLUS);
 
     m_work.DrawPlacemark(pos);
     m_work.Invalidate();
   }
 
-  void Framework::ActivatePopup(m2::PointD const & pos, string const & name, string const & imageName)
+  void Framework::ActivatePopup(m2::PointD const & pos, string const & name, PopupImageIndexT index)
   {
     BookmarkBalloon * b = GetBookmarkBalloon();
 
     m_work.DisablePlacemark();
-    b->setImage(graphics::Image::Info(imageName.c_str(), m_work.GetRenderPolicy()->Density()));
+    b->setImage(*m_images[index]);
     b->setGlbPivot(pos);
     b->setBookmarkName(name);
     b->setIsVisible(true);

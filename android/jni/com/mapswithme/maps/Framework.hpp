@@ -60,7 +60,12 @@ namespace android
 
     bool HandleOnSmthClick(double x, double y);
     bool AdditionalHandlingForLongClick(double x, double y);
-    void ActivatePopup(m2::PointD const & pos, string const & name, string const & imageName);
+
+    typedef graphics::Image::Info ImageT;
+    ImageT * m_images[2];
+    enum PopupImageIndexT { IMAGE_PLUS = 0, IMAGE_ARROW = 1 };
+    void ActivatePopup(m2::PointD const & pos, string const & name, PopupImageIndexT index);
+
     void ActivatePopupWithAddressInfo(m2::PointD const & pos, ::Framework::AddressInfo const & addrInfo);
 
     static inline bool ValidateBookmarkAndCategory(BookmarkAndCategory const & bac)
