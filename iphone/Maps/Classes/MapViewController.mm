@@ -78,7 +78,13 @@
   {
     [m_myPositionButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
   }
-
+  if (m_balloonView.isCurrentPosition && m_balloonView.isDisplayed)
+  {
+    m2::PointD newCenter(MercatorBounds::LonToX(info.m_longitude),
+                         MercatorBounds::LatToY(info.m_latitude));
+    m_balloonView.globalPosition = CGPointMake(newCenter.x, newCenter.y);
+    [m_balloonView updatePosition:self.view atPoint:[(EAGLView *)self.view globalPoint2ViewPoint:m_balloonView.globalPosition]];
+  }
   f.OnLocationUpdate(info);
 }
 
@@ -103,6 +109,15 @@
     
     m_myPositionButton.selected = YES;
   }
+}
+
+//fires when user taps on dot or arrow on the screen
+-(void) onMyPosionClick:(m2::PointD const &) point
+{
+  m_balloonView.isCurrentPosition = YES;
+  [m_balloonView setTitle:NSLocalizedString(@"my_current_position", nil)];
+  m_balloonView.globalPosition = CGPointMake(point.x, point.y);
+  [m_balloonView showInView:self.view atPoint:[(EAGLView *)self.view globalPoint2ViewPoint:m_balloonView.globalPosition]];
 }
 
 //********************************************************************************************
@@ -296,6 +311,7 @@
         m2::PointD const globalPos = bm->GetOrg();
         // Set it before changing balloon title to display different images in case of creating/editing Bookmark
         m_balloonView.editedBookmark = bmAndCat;
+        m_balloonView.isCurrentPosition = NO;
         m_balloonView.globalPosition = CGPointMake(globalPos.x, globalPos.y);
         m_balloonView.title = [NSString stringWithUTF8String:bm->GetName().c_str()];
         m_balloonView.color = [NSString stringWithUTF8String:bm->GetType().c_str()];
@@ -314,6 +330,7 @@
       m2::PointD const gPivot = f.PtoG(pxPivot);
       m_balloonView.globalPosition = CGPointMake(gPivot.x, gPivot.y);
       [self updatePinTexts:addrInfo];
+      m_balloonView.isCurrentPosition = NO;
       [m_balloonView showInView:self.view atPoint:CGPointMake(pxPivot.x / scaleFactor, pxPivot.y / scaleFactor)];
     }
     else
@@ -375,8 +392,13 @@
     SEL onCompassStatusChangedSel = @selector(onCompassStatusChanged:);
     onCompassStatusChangedFn onCompassStatusChangedImpl = (onCompassStatusChangedFn)[self methodForSelector:onCompassStatusChangedSel];
 
+    typedef void (*onMyPositionClickedFn)(id, SEL, m2::PointD const &);
+    SEL onMyPositionClickedSel = @selector(onMyPosionClick:);
+    onMyPositionClickedFn onMyPosiionClickedImpl = (onMyPositionClickedFn)[self methodForSelector:onMyPositionClickedSel];
+
     shared_ptr<location::State> ls = f.GetLocationState();
     ls->AddCompassStatusListener(bind(onCompassStatusChangedImpl, self, onCompassStatusChangedSel, _1));
+    ls->AddOnPositionClickListener(bind(onMyPosiionClickedImpl, self, onMyPositionClickedSel,_1));
 
 		m_StickyThreshold = 10;
 

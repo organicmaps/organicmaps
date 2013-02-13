@@ -14,6 +14,7 @@
   {
     m_balloon = view;
     self.title = m_balloon.title;
+    m_balloon.isCurrentPosition = NO;
   }
   return self;
 }

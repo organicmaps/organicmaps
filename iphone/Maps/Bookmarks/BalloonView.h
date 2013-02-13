@@ -23,6 +23,8 @@
 @property(nonatomic, assign) CGPoint globalPosition;
 // If we clicked already existing bookmark, it will be here
 @property(nonatomic, assign) BookmarkAndCategory editedBookmark;
+//check if we should move ballon when our location was changed
+@property(nonatomic, assign) BOOL isCurrentPosition;
 
 - (id) initWithTarget:(id)target andSelector:(SEL)selector;
 - (void) showInView:(UIView *)view atPoint:(CGPoint)pt;

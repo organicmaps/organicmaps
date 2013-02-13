@@ -18,6 +18,7 @@
 @synthesize setName;
 @synthesize isDisplayed;
 @synthesize editedBookmark;
+@synthesize isCurrentPosition;
 
 
 + (NSString *) getDefaultSetName
@@ -44,6 +45,7 @@
     m_selector = selector;
     m_titleView = [[UIImageView alloc] init];
     m_titleView.userInteractionEnabled = YES;
+    isCurrentPosition = NO;
     UITapGestureRecognizer * recognizer = [[[UITapGestureRecognizer alloc]
                                             initWithTarget:m_target action:m_selector] autorelease];
     recognizer.numberOfTapsRequired = 1;
