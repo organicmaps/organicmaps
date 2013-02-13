@@ -576,16 +576,19 @@ void Framework::AddressInfo::MakeFrom(search::Result const & res)
 
 string Framework::AddressInfo::FormatPinText() const
 {
+  // select name or house if name is empty
+  string const & ret = (m_name.empty() ? m_house : m_name);
+
   char const * type = GetBestType();
   if (type)
   {
-    if (m_name.empty())
+    if (ret.empty())
       return type;
     else
-      return m_name + " (" + string(type) + ')';
+      return ret + " (" + string(type) + ')';
   }
   else
-    return m_name;
+    return ret;
 }
 
 string Framework::AddressInfo::FormatAddress() const
