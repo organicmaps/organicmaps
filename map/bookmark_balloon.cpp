@@ -3,43 +3,40 @@
 
 #define POPUP_PADDING 23
 
-namespace gui
+BookmarkBalloon::BookmarkBalloon(Params const & p)
+ : Balloon(p),
+   m_framework(p.m_framework)
 {
-  BookmarkBalloon::BookmarkBalloon(Params const & p, Framework const * framework)
-  : Balloon(p),
-    m_framework(framework)
-  {
-  }
+}
 
-  void BookmarkBalloon::update()
+void BookmarkBalloon::update()
+{
+  Balloon::update();
+  if (isVisible())
   {
-    Balloon::update();
-    if (isVisible())
-    {
-      m2::PointD newPivot(m_framework->GtoP(m_bookmarkPivot));
-      newPivot.y -= POPUP_PADDING * visualScale();
-      setPivot(newPivot);
-    }
+    m2::PointD newPivot(m_framework->GtoP(m_glbPivot));
+    newPivot.y -= POPUP_PADDING * visualScale();
+    setPivot(newPivot);
   }
+}
 
-  void BookmarkBalloon::setBookmarkPivot(m2::PointD const & pivot)
-  {
-    m_bookmarkPivot = pivot;
-  }
+void BookmarkBalloon::setGlbPivot(m2::PointD const & pivot)
+{
+  m_glbPivot = pivot;
+}
 
-  m2::PointD const BookmarkBalloon::getBookmarkPivot()
-  {
-    return m_bookmarkPivot;
-  }
+m2::PointD const BookmarkBalloon::glbPivot()
+{
+  return m_glbPivot;
+}
 
-  void BookmarkBalloon::setBookmarkName(std::string const & name)
-  {
-    m_bookmarkName = name;
-    setText(name);//.substr(0, 13));
-  }
+void BookmarkBalloon::setBookmarkName(string const & name)
+{
+  m_bookmarkName = name;
+  setText(name);//.substr(0, 13));
+}
 
-  std::string const BookmarkBalloon::getBookmarkName()
-  {
-    return m_bookmarkName;
-  }
+string const & BookmarkBalloon::bookmarkName()
+{
+  return m_bookmarkName;
 }

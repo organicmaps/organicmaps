@@ -85,6 +85,7 @@ namespace gui
     void setOnClickListener(TOnClickListener const & fn);
 
     void setText(string const & s);
+    void setImage(graphics::Image::Info const & info);
 
     bool onTapStarted(m2::PointD const & pt);
     bool onTapMoved(m2::PointD const & pt);

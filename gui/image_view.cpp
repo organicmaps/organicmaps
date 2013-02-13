@@ -84,4 +84,10 @@ namespace gui
       r->drawDisplayList(m_displayList.get(), drawM * m);
     }
   }
+  void ImageView::setImage(graphics::Image::Info const & info)
+  {
+    m_image = info;
+    setIsDirtyLayout(true);
+    invalidate();
+  }
 }

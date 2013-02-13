@@ -43,22 +43,22 @@ namespace gui
     tp.m_text = m_text;
     tp.m_position = graphics::EPosRight;
     tp.m_pivot = m2::PointD(0, 0);
-    tp.m_depth = depth();
+    tp.m_depth = depth() + 1;
 
     m_textView.reset(new TextView(tp));
 
-    m_textView->setFont(Element::EActive, graphics::FontDesc(20, graphics::Color(0, 0, 0, 255), true));
+    m_textView->setFont(Element::EActive, graphics::FontDesc(20, graphics::Color(255, 255, 255, 255)));
 
     ImageView::Params ip;
 
     ip.m_pivot = m2::PointD(0, 0);
     ip.m_position = graphics::EPosRight;
-    ip.m_depth = depth();
+    ip.m_depth = depth() + 1;
     ip.m_image = m_image;
 
     m_imageView.reset(new ImageView(ip));
 
-    m_arrowHeight = 20;
+    m_arrowHeight = 10;
     m_arrowAngle = ang::DegreeToRad(90);
     m_arrowWidth = 2 * tan(m_arrowAngle / 2) * m_arrowHeight;
   }
@@ -88,13 +88,13 @@ namespace gui
       graphics::EPosition pos = position();
 
       if (pos == graphics::EPosAbove)
-        r.setMaxY(r.maxY() + m_arrowHeight);
+        r.setMaxY(r.maxY() + m_arrowHeight * k);
       else if (pos == graphics::EPosUnder)
-        r.setMinY(r.minY() - m_arrowHeight);
+        r.setMinY(r.minY() - m_arrowHeight * k);
       else if (pos == graphics::EPosRight)
-        r.setMinX(r.minX() - m_arrowHeight);
+        r.setMinX(r.minX() - m_arrowHeight * k);
       else if (pos == graphics::EPosLeft)
-        r.setMaxX(r.maxX() + m_arrowHeight);
+        r.setMaxX(r.maxX() + m_arrowHeight * k);
 
       m_boundRects[0] = m2::AnyRectD(r);
 
@@ -122,6 +122,8 @@ namespace gui
     double imt = m_imageMarginTop * k;
     double imb = m_imageMarginBottom * k;
 
+    double arrowHeight = m_arrowHeight * k;
+
     double w = tml + tr.SizeX() + tmr
              + iml + ir.SizeX() + imr;
 
@@ -134,29 +136,29 @@ namespace gui
     if (pos == graphics::EPosAbove)
     {
       m_textView->setPivot(m2::PointD(pv.x - w / 2 + tml,
-                                      pv.y - h / 2 - m_arrowHeight));
+                                      pv.y - h / 2 - arrowHeight));
       m_imageView->setPivot(m2::PointD(pv.x + w / 2 - imr - ir.SizeX(),
-                                       pv.y - h / 2 - m_arrowHeight));
+                                       pv.y - h / 2 - arrowHeight));
     }
     else if (pos == graphics::EPosUnder)
     {
       m_textView->setPivot(m2::PointD(pv.x - w / 2 + tml,
-                                      pv.y + h / 2 + m_arrowHeight));
+                                      pv.y + h / 2 + arrowHeight));
       m_imageView->setPivot(m2::PointD(pv.x + w / 2 - imr - ir.SizeX(),
-                                       pv.y + h / 2 + m_arrowHeight));
+                                       pv.y + h / 2 + arrowHeight));
     }
     else if (pos == graphics::EPosLeft)
     {
-      m_textView->setPivot(m2::PointD(pv.x - w - m_arrowHeight + tml,
+      m_textView->setPivot(m2::PointD(pv.x - w - arrowHeight + tml,
                                       pv.y));
-      m_imageView->setPivot(m2::PointD(pv.x - m_arrowHeight - imr - ir.SizeX(),
+      m_imageView->setPivot(m2::PointD(pv.x - arrowHeight - imr - ir.SizeX(),
                                        pv.y));
     }
     else if (pos == graphics::EPosRight)
     {
-      m_textView->setPivot(m2::PointD(pv.x + m_arrowHeight + tml,
+      m_textView->setPivot(m2::PointD(pv.x + arrowHeight + tml,
                                       pv.y));
-      m_imageView->setPivot(m2::PointD(pv.x + m_arrowHeight + tml + tr.SizeX() + tmr + imr,
+      m_imageView->setPivot(m2::PointD(pv.x + arrowHeight + tml + tr.SizeX() + tmr + imr,
                                        pv.y));
     }
 
@@ -182,17 +184,19 @@ namespace gui
 
     m2::RectD const & r = roughBoundRect();
 
+    double k = visualScale();
+
     double bw = r.SizeX();
     double bh = r.SizeY();
-    double aw = m_arrowWidth;
-    double ah = m_arrowHeight;
+    double aw = m_arrowWidth * k;
+    double ah = m_arrowHeight * k;
 
     graphics::EPosition pos = position();
     graphics::Path<float> p;
 
     if (pos & graphics::EPosAbove)
     {
-      bh -= m_arrowHeight;
+      bh -= ah;
 
       p.reset(m2::PointF(-aw / 2, -ah));
       p.lineRel(m2::PointF(-bw / 2 + aw / 2, 0));
@@ -205,7 +209,7 @@ namespace gui
     }
     else if (pos & graphics::EPosUnder)
     {
-      bh -= m_arrowHeight;
+      bh -= ah;
 
       p.reset(m2::PointF(aw / 2, ah));
       p.lineRel(m2::PointF(bw / 2 - aw / 2, 0));
@@ -248,9 +252,9 @@ namespace gui
     {
       checkDirtyLayout();
 
-//      r->drawRectangle(roughBoundRect(), graphics::Color(0, 0, 255, 128), depth());
-//      r->drawRectangle(m_textView->roughBoundRect(), graphics::Color(0, 255, 255, 128), depth());
-//      r->drawRectangle(m_imageView->roughBoundRect(), graphics::Color(0, 255, 0, 128), depth());
+//      r->drawRectangle(roughBoundRect(), graphics::Color(0, 0, 255, 128), depth() + 1);
+//      r->drawRectangle(m_textView->roughBoundRect(), graphics::Color(0, 255, 255, 128), depth() + 1);
+//      r->drawRectangle(m_imageView->roughBoundRect(), graphics::Color(0, 255, 0, 128), depth() + 1);
 
       math::Matrix<double, 3, 3> drawM = math::Shift(
             math::Identity<double, 3>(),
@@ -300,6 +304,13 @@ namespace gui
   void Balloon::setText(string const & s)
   {
     m_textView->setText(s);
+    setIsDirtyLayout(true);
+    invalidate();
+  }
+
+  void Balloon::setImage(graphics::Image::Info const & info)
+  {
+    m_imageView->setImage(info);
     setIsDirtyLayout(true);
     invalidate();
   }

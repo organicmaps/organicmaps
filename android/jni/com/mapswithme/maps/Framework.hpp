@@ -65,7 +65,7 @@ namespace android
 
     bool HandleOnSmthClick(double x, double y);
     bool AdditionalHandlingForLongClick(double x, double y);
-    void ActivatePopup(m2::PointD const & bmkPosition, string const & name);
+    void ActivatePopup(m2::PointD const & bmkPosition, string const & name, string const & imageName);
     void ActivatePopupWithAddressInfo(m2::PointD const & bmkPosition, ::Framework::AddressInfo const & adInfo);
 
     void ToCamelCase(string & c);
@@ -75,16 +75,11 @@ namespace android
       return (bac.first > -1 && bac.second > -1);
     }
 
-    shared_ptr<gui::BookmarkBalloon> m_bmBaloon;
+    shared_ptr<BookmarkBalloon> m_bmBaloon;
 
     void OnBalloonClick(gui::Element * e);
     void CreateBookmarkBalloon();
-    inline gui::BookmarkBalloon * GetBookmarkBalloon()
-    {
-      if (!m_bmBaloon)
-        CreateBookmarkBalloon();
-      return m_bmBaloon.get();
-    }
+    BookmarkBalloon * GetBookmarkBalloon();
 
   public:
     Framework();

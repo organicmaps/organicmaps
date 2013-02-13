@@ -1,25 +1,35 @@
 #pragma once
 
 #include "../gui/balloon.hpp"
+#include "../std/string.hpp"
 
 class Framework;
 
-namespace gui
+/// Balloon, which displays information about bookmark
+class BookmarkBalloon : public gui::Balloon
 {
-  class BookmarkBalloon : public Balloon
+private:
+
+  m2::PointD m_glbPivot;
+  Framework const * m_framework;
+  string m_bookmarkName;
+
+  void update();
+
+public:
+
+  typedef gui::Balloon base_t;
+
+  struct Params : public base_t::Params
   {
-  private:
-    void update();
-    m2::PointD m_bookmarkPivot;
     Framework const * m_framework;
-    std::string m_bookmarkName;
-
-  public:
-    BookmarkBalloon(Params const & p, Framework const * framework);
-
-    void setBookmarkPivot(m2::PointD const & pivot);
-    m2::PointD const getBookmarkPivot();
-    void setBookmarkName(std::string const & name);
-    std::string const getBookmarkName();
   };
-}
+
+  BookmarkBalloon(Params const & p);
+
+  void setGlbPivot(m2::PointD const & pivot);
+  m2::PointD const glbPivot();
+
+  void setBookmarkName(string const & name);
+  string const & bookmarkName();
+};

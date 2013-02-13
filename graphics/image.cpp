@@ -23,7 +23,9 @@ namespace graphics
   {}
 
   Image::Info::Info(char const * name, EDensity density)
-    : Resource::Info(Resource::EImage), m_size(0, 0)
+    : Resource::Info(Resource::EImage),
+      m_size(0, 0),
+      m_resourceName(name)
   {
     string resName = graphics::resourcePath(name, density);
 
@@ -69,7 +71,7 @@ namespace graphics
     Image::Info const * ri = static_cast<Image::Info const *>(r);
 
     if (m_resourceName != ri->m_resourceName)
-      m_resourceName < ri->m_resourceName;
+      return m_resourceName < ri->m_resourceName;
 
     return false;
   }
