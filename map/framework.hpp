@@ -37,12 +37,7 @@
 //#define DRAW_TOUCH_POINTS
 
 namespace search { class Result; }
-
-namespace gui
-{
-  class Controller;
-  class BookmarkBalloon;
-}
+namespace gui { class Controller; }
 namespace anim { class Controller; }
 
 class CountryStatusDisplay;

@@ -597,7 +597,7 @@ namespace android
     if (name.empty())
       name = m_work.GetStringsBundle().GetString("dropped_pin");
 
-    ActivatePopup(pos, name);
+    ActivatePopup(pos, name, "plus.png");
 
     m_work.DrawPlacemark(pos);
     m_work.Invalidate();
@@ -609,7 +609,7 @@ namespace android
 
     m_work.DisablePlacemark();
     b->setImage(graphics::Image::Info(imageName.c_str(), m_work.GetRenderPolicy()->Density()));
-    b->setGlbPivot(bmkPosition);
+    b->setGlbPivot(pos);
     b->setBookmarkName(name);
     b->setIsVisible(true);
     m_work.Invalidate();
@@ -627,7 +627,7 @@ namespace android
   {
     BookmarkBalloon * balloon = GetBookmarkBalloon();
 
-    BookmarkAndCategory bac = m_work.GetBookmark(m_work.GtoP(balloon->getBookmarkPivot()));
+    BookmarkAndCategory bac = m_work.GetBookmark(m_work.GtoP(balloon->glbPivot()));
     if (!ValidateBookmarkAndCategory(bac))
     {
       // add new bookmark
@@ -676,7 +676,7 @@ namespace android
     m_work.GetGuiController()->AddElement(m_bmBaloon);
   }
 
-  gui::BookmarkBalloon * Framework::GetBookmarkBalloon()
+  BookmarkBalloon * Framework::GetBookmarkBalloon()
   {
     if (!m_bmBaloon)
       CreateBookmarkBalloon();

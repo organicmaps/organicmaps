@@ -26,7 +26,6 @@ namespace gui
 {
   class Button;
   class Controller;
-  class BookmarkBalloon;
 }
 
 class Framework;
@@ -142,7 +141,6 @@ public:
   void setEmptyCountryIndex(storage::TIndex const & idx);
 
   shared_ptr<CountryStatusDisplay> const & countryStatusDisplay() const;
-  shared_ptr<gui::BookmarkBalloon> const & bookmarkBalloon(Framework const * p) const;
   shared_ptr<Ruler> const & ruler() const;
 
 
