@@ -23,11 +23,12 @@
 #include "../../../../../base/logging.hpp"
 
 
-#define LONG_CLICK_LENGTH_SEC 1.0
-#define SHORT_CLICK_LENGTH_SEC 0.5
-
+const unsigned LONG_TOUCH_MS = 1000;
+const unsigned SHORT_TOUCH_MS = 250;
+const double DOUBLE_TOUCH_S = SHORT_TOUCH_MS / 1000.0;
 
 android::Framework * g_framework = 0;
+
 
 namespace android
 {
@@ -37,15 +38,10 @@ namespace android
   }
 
   Framework::Framework()
-   : m_work(),
-     m_eventType(NVMultiTouchEventType(0)),
-     m_hasFirst(false),
-     m_hasSecond(false),
-     m_mask(0),
-     m_isInsideDoubleClick(false),
+   : m_mask(0),
      m_isCleanSingleClick(false),
      m_doLoadState(true),
-     m_onClickFnsHandler(0)
+     m_wasLongClick(false)
   {
     ASSERT_EQUAL ( g_framework, 0, () );
     g_framework = this;
@@ -235,7 +231,14 @@ namespace android
     }
   }
 
-  void Framework::KillLongTouchTask()
+  void Framework::StartTouchTask(double x, double y, unsigned ms)
+  {
+    KillTouchTask();
+
+    m_scheduledTask.reset(new ScheduledTask(bind(&android::Framework::OnProcessTouchTask, this, x, y, ms), ms));
+  }
+
+  void Framework::KillTouchTask()
   {
     if (m_scheduledTask)
     {
@@ -244,90 +247,77 @@ namespace android
     }
   }
 
+  /// @param[in] mask Active pointers bits : 0x0 - no, 0x1 - (x1, y1), 0x2 - (x2, y2), 0x3 - (x1, y1)(x2, y2).
   void Framework::Touch(int action, int mask, double x1, double y1, double x2, double y2)
   {
-    NVMultiTouchEventType eventType = (NVMultiTouchEventType)action;
+    NVMultiTouchEventType eventType = static_cast<NVMultiTouchEventType>(action);
 
-    // processing double-click
+    // Check if we touch is canceled or we get coordinates NOT from the first pointer.
     if ((mask != 0x1) || (eventType == NV_MULTITOUCH_CANCEL))
     {
       if (mask == 0x1)
         m_work.GetGuiController()->OnTapCancelled(m2::PointD(x1, y1));
 
-      // cancelling double click
-      m_isInsideDoubleClick = false;
       m_isCleanSingleClick = false;
-      KillLongTouchTask();
+      KillTouchTask();
     }
     else
     {
+      ASSERT_EQUAL(mask, 0x1, ());
+
       if (eventType == NV_MULTITOUCH_DOWN)
       {
+        KillTouchTask();
+
+        m_wasLongClick = false;
         m_isCleanSingleClick = true;
         m_lastX1 = x1;
         m_lastY1 = y1;
 
         if (m_work.GetGuiController()->OnTapStarted(m2::PointD(x1, y1)))
           return;
-        m_scheduledTask.reset(new ScheduledTask(bind(
-                    & android::Framework::CallLongClickListener,
-                    this,
-                    static_cast<double>(x1),
-                    static_cast<double>(y1)),
-                    static_cast<int>(LONG_CLICK_LENGTH_SEC * 1000)
-                    ));
-        m_longClickTimer.Reset();
+
+        StartTouchTask(x1, y1, LONG_TOUCH_MS);
       }
 
       if (eventType == NV_MULTITOUCH_MOVE)
       {
-        double k = m_work.GetRenderPolicy()->VisualScale();
-        if ((fabs(x1 - m_lastX1) > 10 * k)
-        ||  (fabs(y1 - m_lastY1) > 10 * k))
+        double const minDist = m_work.GetRenderPolicy()->VisualScale() * 10.0;
+        if ((fabs(x1 - m_lastX1) > minDist) || (fabs(y1 - m_lastY1) > minDist))
         {
           m_isCleanSingleClick = false;
-          KillLongTouchTask();
+          KillTouchTask();
         }
 
         if (m_work.GetGuiController()->OnTapMoved(m2::PointD(x1, y1)))
           return;
       }
+
       if (eventType == NV_MULTITOUCH_UP)
-        if (m_work.GetGuiController()->OnTapEnded(m2::PointD(x1, y1)))
-          return;
-
-      if ((eventType == NV_MULTITOUCH_UP) && (m_isCleanSingleClick))
       {
-        double timerTime = m_longClickTimer.ElapsedSeconds();
-        KillLongTouchTask();
-        if (timerTime < SHORT_CLICK_LENGTH_SEC)
-        {
-          CallClickListener(static_cast<int>(x1), static_cast<int>(y1));
-        }
+        KillTouchTask();
+
         if (m_work.GetGuiController()->OnTapEnded(m2::PointD(x1, y1)))
           return;
 
-        if (m_isInsideDoubleClick)
+        if (!m_wasLongClick && m_isCleanSingleClick)
         {
-          if (m_doubleClickTimer.ElapsedSeconds() <= 0.5)
+          if (m_doubleClickTimer.ElapsedSeconds() <= DOUBLE_TOUCH_S)
           {
             // performing double-click
-            m_isInsideDoubleClick = false;
             m_work.ScaleToPoint(ScaleToPointEvent(x1, y1, 1.5));
           }
           else
           {
-            // restarting double click
-            m_isInsideDoubleClick = true;
+            // starting single touch task
+            StartTouchTask(x1, y1, SHORT_TOUCH_MS);
+
+            // starting double click
             m_doubleClickTimer.Reset();
           }
         }
         else
-        {
-          // starting double click
-          m_isInsideDoubleClick = true;
-          m_doubleClickTimer.Reset();
-        }
+          m_wasLongClick = false;
       }
     }
 
@@ -353,7 +343,7 @@ namespace android
         if (mask == 0x0)
         {
           if ((eventType != NV_MULTITOUCH_UP) && (eventType != NV_MULTITOUCH_CANCEL))
-            LOG(LINFO, ("should be NV_MULTITOUCH_UP or NV_MULTITOUCH_CANCEL"));
+            LOG(LWARNING, ("should be NV_MULTITOUCH_UP or NV_MULTITOUCH_CANCEL"));
         }
 
         if (m_mask == 0x2)
@@ -370,7 +360,7 @@ namespace android
         if (mask == 0x0)
         {
           if ((eventType != NV_MULTITOUCH_UP) && (eventType != NV_MULTITOUCH_CANCEL))
-            LOG(LINFO, ("should be NV_MULTITOUCH_UP or NV_MULTITOUCH_CANCEL"));
+            LOG(LWARNING, ("should be NV_MULTITOUCH_UP or NV_MULTITOUCH_CANCEL"));
         }
 
         if (mask == 0x1)
@@ -425,7 +415,6 @@ namespace android
     m_x2 = x2;
     m_y2 = y2;
     m_mask = mask;
-    m_eventType = eventType;
   }
 
   void Framework::ShowSearchResult(search::Result const & r)
@@ -555,16 +544,20 @@ namespace android
     return &m_work;
   }
 
-  void Framework::CallClickListener(double x, double y)
+  void Framework::OnProcessTouchTask(double x, double y, unsigned ms)
   {
-    if (!HandleOnSmthClick(x, y))
-      DeactivatePopup();
-  }
+    if (HandleOnSmthClick(x, y))
+      return;
 
-  void Framework::CallLongClickListener(double x, double y)
-  {
-    if (!HandleOnSmthClick(x, y))
+    if (ms == SHORT_TOUCH_MS)
+    {
+      DeactivatePopup();
+    }
+    else if (ms == LONG_TOUCH_MS)
+    {
+      m_wasLongClick = true;
       AdditionalHandlingForLongClick(x, y);
+    }
   }
 
   bool Framework::HandleOnSmthClick(double x, double y)
@@ -597,24 +590,6 @@ namespace android
     m_work.GetAddressInfo(point, addrInfo);
     ActivatePopupWithAddressInfo(m_work.PtoG(point), addrInfo);
   }
-
-  /*
-  void Framework::ToCamelCase(string & s)
-  {
-    if (s.length() > 0)
-    {
-      s[0] = toupper(s[0]);
-      for(std::string::iterator it = s.begin() + 1; it != s.end(); ++it)
-      {
-          if(!isalpha(*(it - 1)) &&
-             islower(*it))
-          {
-              *it = toupper(*it);
-          }
-      }
-    }
-  }
-  */
 
   void Framework::ActivatePopupWithAddressInfo(m2::PointD const & pos, ::Framework::AddressInfo const & addrInfo)
   {

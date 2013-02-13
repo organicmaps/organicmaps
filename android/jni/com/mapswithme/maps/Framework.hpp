@@ -26,32 +26,24 @@ namespace android
   {
   private:
     ::Framework m_work;
-    typedef function<void (BookmarkAndCategory)> TOnBalloonClickListener;
     VideoTimer * m_videoTimer;
 
     void CallRepaint();
 
+    typedef function<void (BookmarkAndCategory)> TOnBalloonClickListener;
     TOnBalloonClickListener m_balloonClickListener;
-    shared_ptr<ScheduledTask> m_scheduledTask;
-
-    int m_onClickFnsHandler;
-    NVMultiTouchEventType m_eventType; //< multitouch action
 
     double m_x1;
     double m_y1;
     double m_x2;
     double m_y2;
-
-    bool m_hasFirst;
-    bool m_hasSecond;
     int m_mask;
-    my::Timer m_longClickTimer;
+
     bool m_doLoadState;
 
     /// @name Single click processing parameters.
     //@{
     my::Timer m_doubleClickTimer;
-    bool m_isInsideDoubleClick;
     bool m_isCleanSingleClick;
     double m_lastX1;
     double m_lastY1;
@@ -59,16 +51,17 @@ namespace android
 
     math::AvgVector<float, 3> m_sensors[2];
 
-    void CallClickListener(double x, double y);
-    void CallLongClickListener(double x, double y);
-    void KillLongTouchTask();
+    shared_ptr<ScheduledTask> m_scheduledTask;
+    bool m_wasLongClick;
+
+    void StartTouchTask(double x, double y, unsigned ms);
+    void KillTouchTask();
+    void OnProcessTouchTask(double x, double y, unsigned ms);
 
     bool HandleOnSmthClick(double x, double y);
     bool AdditionalHandlingForLongClick(double x, double y);
     void ActivatePopup(m2::PointD const & pos, string const & name, string const & imageName);
     void ActivatePopupWithAddressInfo(m2::PointD const & pos, ::Framework::AddressInfo const & addrInfo);
-
-    void ToCamelCase(string & c);
 
     static inline bool ValidateBookmarkAndCategory(BookmarkAndCategory const & bac)
     {
