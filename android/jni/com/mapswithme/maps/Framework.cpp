@@ -556,18 +556,24 @@ namespace android
 
   void Framework::OnProcessTouchTask(double x, double y, unsigned ms)
   {
+    // hide popup for short tap and exit
+    if (ms == SHORT_TOUCH_MS && GetBookmarkBalloon()->isVisible())
+    {
+      DeactivatePopup();
+      return;
+    }
+
+    // set flag for long tap
+    if (ms == LONG_TOUCH_MS)
+      m_wasLongClick = true;
+
+    // process tap (find POI or bookmark under cursor)
     if (HandleOnSmthClick(x, y))
       return;
 
-    if (ms == SHORT_TOUCH_MS)
-    {
-      DeactivatePopup();
-    }
-    else if (ms == LONG_TOUCH_MS)
-    {
-      m_wasLongClick = true;
+    // show pin in any case for long tap
+    if (ms == LONG_TOUCH_MS)
       AdditionalHandlingForLongClick(x, y);
-    }
   }
 
   bool Framework::HandleOnSmthClick(double x, double y)
@@ -618,10 +624,12 @@ namespace android
     BookmarkBalloon * b = GetBookmarkBalloon();
 
     m_work.DisablePlacemark();
+
     b->setImage(*m_images[index]);
     b->setGlbPivot(pos);
     b->setBookmarkName(name);
     b->setIsVisible(true);
+
     m_work.Invalidate();
   }
 
@@ -629,6 +637,7 @@ namespace android
   {
     BookmarkBalloon * b = GetBookmarkBalloon();
     b->setIsVisible(false);
+
     m_work.DisablePlacemark();
     m_work.Invalidate();
   }
@@ -662,7 +671,6 @@ namespace android
   void Framework::CreateBookmarkBalloon()
   {
     CHECK(m_work.GetGuiController(), ());
-    CHECK(m_work.GetRenderPolicy(), ());
 
     BookmarkBalloon::Params bp;
 
