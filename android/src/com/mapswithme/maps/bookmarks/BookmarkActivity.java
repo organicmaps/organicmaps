@@ -19,10 +19,8 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
-import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
-import com.mapswithme.maps.bookmarks.data.ParcelablePointD;
 
 public class BookmarkActivity extends AbstractBookmarkActivity
 {
@@ -42,7 +40,6 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   private int mCurrentCategoryId = -1;
   private List<Icon> mIcons;
   private ImageView mChooserImage;
-  private TextView mChooserName;
   private IconsAdapter mIconsAdapter;
   private EditText mDescr;
 
@@ -97,62 +94,61 @@ public class BookmarkActivity extends AbstractBookmarkActivity
         showDialog(BOOKMARK_COLOR_DIALOG);
       }
     });
+
     findViewById(R.id.pin_sets).setOnClickListener(new OnClickListener()
     {
 
       @Override
       public void onClick(View v)
       {
-        startActivityForResult(
-            new Intent(BookmarkActivity.this, ChooseBookmarkCategoryActivity.class).putExtra(PIN_SET,
-                mCurrentCategoryId).
-                putExtra(PIN, new ParcelablePoint(mPin.getCategoryId(), mPin.getBookmarkId())), REQUEST_CODE_SET);
+        startActivityForResult(new Intent(BookmarkActivity.this,
+                                          ChooseBookmarkCategoryActivity.class)
+        .putExtra(PIN_SET, mCurrentCategoryId)
+        .putExtra(PIN, new ParcelablePoint(mPin.getCategoryId(), mPin.getBookmarkId())), REQUEST_CODE_SET);
       }
     });
+
     mSetName = (TextView) findViewById(R.id.pin_button_set_name);
     mName = (EditText) findViewById(R.id.pin_name);
     mDescr = (EditText)findViewById(R.id.pin_description);
 
     refreshValuesInViews();
+
     mNameWatcher = new TextWatcher()
     {
-
       @Override
       public void onTextChanged(CharSequence s, int start, int before, int count)
       {
         mPin.setName(s.toString());
         setTitle(s.toString());
       }
-
       @Override
       public void beforeTextChanged(CharSequence s, int start, int count, int after)
       {
       }
-
       @Override
       public void afterTextChanged(Editable s)
       {
       }
     };
+
     mDescrWatcher = new TextWatcher()
     {
-
       @Override
       public void onTextChanged(CharSequence s, int start, int before, int count)
       {
         mPin.setDescription(s.toString());
       }
-
       @Override
       public void beforeTextChanged(CharSequence s, int start, int count, int after)
       {
       }
-
       @Override
       public void afterTextChanged(Editable s)
       {
       }
     };
+
     // Set up text watchers only after filling text fields
   }
 
@@ -224,31 +220,23 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
   private Dialog createColorChooser()
   {
-    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    builder.setTitle(R.string.bookmark_color);
-    builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
-    {
-
-      @Override
-      public void onClick(DialogInterface dialog, int which)
-      {
-        updateColorChooser(mIconsAdapter.getCheckedItemPosition());
-        dialog.dismiss();
-      }
-    });
     mIconsAdapter = new IconsAdapter(this, mIcons);
     mIconsAdapter.chooseItem(mIcons.indexOf(mPin.getIcon()));
-    builder.setSingleChoiceItems(mIconsAdapter, mIconsAdapter.getCheckedItemPosition(), new DialogInterface.OnClickListener()
-    {
 
+    return new AlertDialog.Builder(this)
+    .setTitle(R.string.bookmark_color)
+    .setSingleChoiceItems(mIconsAdapter, mIconsAdapter.getCheckedItemPosition(), new DialogInterface.OnClickListener()
+    {
       @Override
       public void onClick(DialogInterface dialog, int which)
       {
         mPin.setIcon(mIcons.get(which));
         mIconsAdapter.chooseItem(which);
+        updateColorChooser(which);
+        dialog.dismiss();
       }
-    });
-    return builder.create();
+    })
+    .create();
   }
 
   @Override
