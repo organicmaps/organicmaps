@@ -348,13 +348,14 @@ public class SearchActivity extends ListActivity implements LocationService.List
     }
 
     /// Show tapped country or get suggestion or get category to search.
+    /// @return Suggestion string with space in the end (for full match purpose).
     public String onItemClick(int position)
     {
       if (isShowCategories())
       {
         assert(position < m_categories.length);
 
-        return getCategoryName(m_categories[position]);
+        return getCategoryName(m_categories[position]) + ' ';
       }
       else
       {
@@ -370,7 +371,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
           else
           {
             // advise suggestion
-            return r.m_name;
+            return r.m_name + ' ';
           }
         }
       }
