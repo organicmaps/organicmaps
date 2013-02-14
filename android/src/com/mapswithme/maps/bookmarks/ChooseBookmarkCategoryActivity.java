@@ -9,7 +9,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnKeyListener;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.HeaderViewListAdapter;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
@@ -26,18 +27,20 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
 {
   private static final int REQUEST_CREATE_CATEGORY = 1000;
   private ChooseBookmarkCategoryAdapter mAdapter;
+  private FooterHandler m_handler;
 
   @Override
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    final FooterHandler handler = new FooterHandler();
+
+    m_handler = new FooterHandler();
     getListView().setOnItemClickListener(new OnItemClickListener()
     {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id)
       {
-        handler.switchToAddButton();
+        m_handler.switchToAddButton();
         mAdapter.chooseItem(position);
         Point cab = ((ParcelablePoint)getIntent().getParcelableExtra(BookmarkActivity.PIN)).getPoint();
         BookmarkCategory cat = mManager.getCategoryById(position);
@@ -52,7 +55,9 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
   @Override
   public void onBackPressed()
   {
+    m_handler.createCategoryIfNeeded();
     setResult(RESULT_OK, new Intent().putExtra(BookmarkActivity.PIN, getIntent().getParcelableExtra(BookmarkActivity.PIN)));
+
     super.onBackPressed();
   }
 
@@ -96,40 +101,60 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
     View mNewLayout;
     InputMethodManager mImm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
+    private void createCategory()
+    {
+      if (mNewName.getText().length() > 0)
+      {
+        createNewCategory(mNewName.getText().toString());
+        mImm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+      }
+    }
+
+    public void createCategoryIfNeeded()
+    {
+      if (mAddButton.getVisibility() == View.INVISIBLE &&
+          mNewLayout.getVisibility() == View.VISIBLE)
+      {
+        createCategory();
+      }
+    }
+
     public FooterHandler()
     {
       mRootView = getLayoutInflater().inflate(R.layout.choose_category_footer, null);
       getListView().addFooterView(mRootView);
       mNewName = (EditText)mRootView.findViewById(R.id.chs_footer_field);
+
       mAddButton = (Button)mRootView.findViewById(R.id.chs_footer_button);
       mAddButton.setOnClickListener(this);
+
       mRootView.findViewById(R.id.chs_footer_create_button).setOnClickListener(new OnClickListener()
       {
-
         @Override
         public void onClick(View v)
         {
-          if ( mNewName.getText().length() > 0) {
-            createNewCategory(mNewName.getText().toString());
-            mImm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-          }
+          createCategory();
         }
       });
+
       mCancel = (ImageButton)mRootView.findViewById(R.id.chs_footer_cancel_button);
       mCancel.setOnClickListener(this);
+
       mNewLayout = mRootView.findViewById(R.id.chs_footer_new_layout);
-      mNewName.setOnKeyListener(new OnKeyListener() {
-        public boolean onKey(View v, int keyCode, KeyEvent event) {
-            // If the event is a key-down event on the "enter" button
-            if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
-                (keyCode == KeyEvent.KEYCODE_ENTER && mNewName.getText().length() > 0)) {
-              // Perform action on key press
-              createNewCategory(mNewName.getText().toString());
-              return true;
-            }
-            return false;
+      mNewName.setOnEditorActionListener(new EditText.OnEditorActionListener()
+      {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
+        {
+          if (actionId == EditorInfo.IME_ACTION_DONE ||
+              (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
+          {
+            createCategory();
+            return true;
+          }
+          return false;
         }
-    });
+      });
     }
 
     private void createNewCategory(String name)
