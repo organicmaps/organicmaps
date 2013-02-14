@@ -119,8 +119,9 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       @Override
       public void onTextChanged(CharSequence s, int start, int before, int count)
       {
-        mPin.setName(s.toString());
-        setTitle(s.toString());
+        final String str = s.toString();
+        mPin.setName(str);
+        setTitle(str);
       }
       @Override
       public void beforeTextChanged(CharSequence s, int start, int count, int after)
@@ -250,6 +251,11 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       mCurrentCategoryId = mPin.getCategoryId();
     }
     super.onActivityResult(requestCode, resultCode, data);
+  }
+
+  public void onOkClick(View v)
+  {
+    onBackPressed();
   }
 
   public void onDeleteClick(View v)

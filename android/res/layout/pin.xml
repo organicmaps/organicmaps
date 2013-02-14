@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,15 +11,12 @@
         android:id="@+id/bmk_hack_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_alignParentTop="true"
         android:focusable="true"
         android:focusableInTouchMode="true" />
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bmk_delete"
-        android:layout_below="@id/bmk_hack_view" >
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -133,14 +130,20 @@
                 android:background="@android:drawable/divider_horizontal_dark" />
 
             <Button
-                android:id="@+id/bmk_delete"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_margin="5dp"
+                android:onClick="onOkClick"
+                android:text="@string/ok" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:onClick="onDeleteClick"
                 android:text="@string/remove_pin" />
+
         </LinearLayout>
     </ScrollView>
 
-</RelativeLayout>
+</LinearLayout>
