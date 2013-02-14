@@ -77,7 +77,8 @@ namespace graphics
       m_pivot(pt),
       m_offset(0, 0)
   {
-    size_t cnt = visText.size();
+    size_t const cnt = visText.size();
+    ASSERT_GREATER(cnt, 0, ());
 
     m_entries.resize(cnt);
     m_metrics.resize(cnt);

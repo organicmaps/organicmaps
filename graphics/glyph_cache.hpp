@@ -3,11 +3,13 @@
 #include "color.hpp"
 
 #include "../base/string_utils.hpp"
+#include "../base/mutex.hpp"
 
 #include "../std/shared_ptr.hpp"
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
 #include "../std/utility.hpp"
+
 
 namespace graphics
 {
@@ -59,6 +61,8 @@ namespace graphics
 
     shared_ptr<GlyphCacheImpl> m_impl;
 
+    static threads::Mutex s_fribidiMutex;
+
   public:
 
     struct Params
@@ -91,6 +95,5 @@ namespace graphics
     double getTextLength(double fontSize, string const & text);
 
     static strings::UniString log2vis(strings::UniString const & str);
-
   };
 }

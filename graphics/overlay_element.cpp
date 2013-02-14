@@ -146,14 +146,23 @@ namespace graphics
   {
     if (m_isDirtyRoughRect)
     {
-      for (int i = 0; i < boundRects().size(); ++i)
-        if (i == 0)
-          m_roughBoundRect = boundRects()[i].GetGlobalRect();
-        else
-          m_roughBoundRect.Add(boundRects()[i].GetGlobalRect());
+      vector<m2::AnyRectD> const & rects = boundRects();
+      size_t const count = rects.size();
+      if (count == 0)
+      {
+        /// @todo Is it correct use-case?
+        m_roughBoundRect = m2::RectD(pivot(), pivot());
+      }
+      else
+      {
+        m_roughBoundRect = rects[0].GetGlobalRect();
+        for (size_t i = 1; i < count; ++i)
+          m_roughBoundRect.Add(rects[i].GetGlobalRect());
+      }
 
       m_isDirtyRoughRect = false;
     }
+
     return m_roughBoundRect;
   }
 

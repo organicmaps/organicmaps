@@ -119,33 +119,36 @@ namespace graphics
   {
     ASSERT(p.m_fontDesc.IsValid(), ());
 
-    buffer_vector<strings::UniString, 3> res;
-    if (p.m_doSplit && !isBidi())
-    {
-      res.clear();
-      if (!p.m_delimiters.empty())
-        visSplit(visText(), res, p.m_delimiters.c_str(), p.m_delimiters.size(), p.m_useAllParts);
-      else
-        visSplit(visText(), res, " \n\t", 3, p.m_useAllParts);
-    }
-    else
-      res.push_back(visText());
-
     double allElemWidth = 0;
     double allElemHeight = 0;
 
-    for (unsigned i = 0; i < res.size(); ++i)
+    if (!visText().empty())
     {
-      m_glyphLayouts.push_back(GlyphLayout(p.m_glyphCache, p.m_fontDesc, m2::PointD(0, 0), res[i], graphics::EPosCenter));
-      m2::RectD r = m_glyphLayouts.back().boundRects().back().GetGlobalRect();
-      allElemWidth = max(r.SizeX(), allElemWidth);
-      allElemHeight += r.SizeY();
+      buffer_vector<strings::UniString, 3> res;
+      if (p.m_doSplit && !isBidi())
+      {
+        res.clear();
+        if (!p.m_delimiters.empty())
+          visSplit(visText(), res, p.m_delimiters.c_str(), p.m_delimiters.size(), p.m_useAllParts);
+        else
+          visSplit(visText(), res, " \n\t", 3, p.m_useAllParts);
+      }
+      else
+        res.push_back(visText());
+
+      for (unsigned i = 0; i < res.size(); ++i)
+      {
+        m_glyphLayouts.push_back(GlyphLayout(p.m_glyphCache, p.m_fontDesc, m2::PointD(0, 0), res[i], graphics::EPosCenter));
+        m2::RectD r = m_glyphLayouts.back().boundRects().back().GetGlobalRect();
+        allElemWidth = max(r.SizeX(), allElemWidth);
+        allElemHeight += r.SizeY();
+      }
     }
 
-    buffer_vector<strings::UniString, 3> auxRes;
-
-    if (p.m_auxFontDesc.IsValid() && (!auxVisText().empty()))
+    if (p.m_auxFontDesc.IsValid() && !auxVisText().empty())
     {
+      buffer_vector<strings::UniString, 3> auxRes;
+
       GlyphLayout l(p.m_glyphCache, p.m_auxFontDesc, m2::PointD(0, 0), auxVisText(), graphics::EPosCenter);
       if (l.boundRects().back().GetGlobalRect().SizeX() > allElemWidth)
       {

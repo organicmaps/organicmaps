@@ -1,26 +1,8 @@
 #include "glyph_cache.hpp"
 #include "glyph_cache_impl.hpp"
-#include "ft2_debug.hpp"
 
-#include "opengl/data_traits.hpp"
-#include "opengl/opengl.hpp"
-
-#include "../3party/fribidi/lib/fribidi-deprecated.h"
 #include "../3party/fribidi/lib/fribidi.h"
 
-#include "../coding/lodepng_io.hpp"
-
-#include "../base/logging.hpp"
-#include "../base/string_utils.hpp"
-
-#include "../std/vector.hpp"
-#include "../std/map.hpp"
-#include "../base/mutex.hpp"
-
-#include <boost/gil/gil_all.hpp>
-
-
-namespace gil = boost::gil;
 
 namespace graphics
 {
@@ -116,18 +98,20 @@ namespace graphics
     return len;
   }
 
-  threads::Mutex m;
+  threads::Mutex GlyphCache::s_fribidiMutex;
 
   strings::UniString GlyphCache::log2vis(strings::UniString const & str)
   {
-//    FriBidiEnv e;
-    threads::MutexGuard g(m);
     size_t const count = str.size();
+    if (count == 0)
+      return str;
+
     strings::UniString res(count);
+
+    //FriBidiEnv env;
+    threads::MutexGuard g(s_fribidiMutex);
     FriBidiParType dir = FRIBIDI_PAR_LTR;  // requested base direction
     fribidi_log2vis(&str[0], count, &dir, &res[0], 0, 0, 0);
     return res;
-//    return str;
   }
-
 }
