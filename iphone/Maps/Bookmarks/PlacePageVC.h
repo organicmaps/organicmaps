@@ -1,8 +1,10 @@
 #import <UIKit/UIKit.h>
+#import <MessageUI/MFMessageComposeViewController.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
 @class BalloonView;
 
-@interface PlacePageVC : UITableViewController <UITextFieldDelegate>
+@interface PlacePageVC : UITableViewController <UITextFieldDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate>
 {
   BOOL m_hideNavBar;
   // @TODO store as a property to retain reference

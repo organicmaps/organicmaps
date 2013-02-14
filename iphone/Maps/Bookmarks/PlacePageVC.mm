@@ -68,7 +68,9 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return 3;
+  if ([self canShare])
+    return 3;
+  return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -77,6 +79,7 @@
   {
   case 0: return 3;
   case 1: return 1;
+  case 2: return 1;
   default: return 0;
   }
 }
@@ -106,94 +109,98 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell * cell;
-  switch (indexPath.section)
+  UITableViewCell * cell = nil;
+  if (indexPath.section == 0)
   {
-  // Section 0: Info about bookmark
-  case 0:
+    NSString * cellId;
+    switch (indexPath.row)
     {
-      NSString * cellId;
-      switch (indexPath.row)
-      {
-        case 0: cellId = @"NameCellId"; break;
-        case 1: cellId = @"SetCellId"; break;
-        default: cellId = @"ColorCellId"; break;
-      }
-      cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-      if (!cell)
-      {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellId] autorelease];
-        switch (indexPath.row)
-        {
-          case 0:
-          {
-            cell.textLabel.text = NSLocalizedString(@"name", @"Add bookmark dialog - bookmark name");
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            // Temporary, to init font and color
-            cell.detailTextLabel.text = @"temp string";
-            // Called to initialize frames and fonts
-            [cell layoutSubviews];
-            CGRect const leftR = cell.textLabel.frame;
-            CGFloat const padding = leftR.origin.x;
-            CGRect r = CGRectMake(padding + leftR.size.width + padding, leftR.origin.y,
-                cell.contentView.frame.size.width - 3 * padding - leftR.size.width, leftR.size.height);
-            UITextField * f = [[[UITextField alloc] initWithFrame:r] autorelease];
-            f.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            f.enablesReturnKeyAutomatically = YES;
-            f.returnKeyType = UIReturnKeyDone;
-            f.clearButtonMode = UITextFieldViewModeWhileEditing;
-            f.autocorrectionType = UITextAutocorrectionTypeNo;
-            f.textAlignment = UITextAlignmentRight;
-            f.textColor = cell.detailTextLabel.textColor;
-            f.font = [cell.detailTextLabel.font fontWithSize:[cell.detailTextLabel.font pointSize]];
-            f.tag = TEXTFIELD_TAG;
-            f.delegate = self;
-            f.autocapitalizationType = UITextAutocapitalizationTypeWords;
-            // Reset temporary font
-            cell.detailTextLabel.text = nil;
-            [cell.contentView addSubview:f];
-          }
-          break;
-
-          case 1:
-            cell.textLabel.text = NSLocalizedString(@"set", @"Add bookmark dialog - bookmark set");
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            break;
-
-          case 2:
-            cell.textLabel.text = NSLocalizedString(@"color", @"Add bookmark dialog - bookmark color");
-            break;
-        }
-      }
-      // Update variable cell values
+      case 0: cellId = @"NameCellId"; break;
+      case 1: cellId = @"SetCellId"; break;
+      default: cellId = @"ColorCellId"; break;
+    }
+    cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if (!cell)
+    {
+      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellId] autorelease];
       switch (indexPath.row)
       {
         case 0:
-          ((UITextField *)[cell.contentView viewWithTag:TEXTFIELD_TAG]).text = m_balloon.title;
-          break;
+        {
+          cell.textLabel.text = NSLocalizedString(@"name", @"Add bookmark dialog - bookmark name");
+          cell.selectionStyle = UITableViewCellSelectionStyleNone;
+          // Temporary, to init font and color
+          cell.detailTextLabel.text = @"temp string";
+          // Called to initialize frames and fonts
+          [cell layoutSubviews];
+          CGRect const leftR = cell.textLabel.frame;
+          CGFloat const padding = leftR.origin.x;
+          CGRect r = CGRectMake(padding + leftR.size.width + padding, leftR.origin.y,
+              cell.contentView.frame.size.width - 3 * padding - leftR.size.width, leftR.size.height);
+          UITextField * f = [[[UITextField alloc] initWithFrame:r] autorelease];
+          f.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+          f.enablesReturnKeyAutomatically = YES;
+          f.returnKeyType = UIReturnKeyDone;
+          f.clearButtonMode = UITextFieldViewModeWhileEditing;
+          f.autocorrectionType = UITextAutocorrectionTypeNo;
+          f.textAlignment = UITextAlignmentRight;
+          f.textColor = cell.detailTextLabel.textColor;
+          f.font = [cell.detailTextLabel.font fontWithSize:[cell.detailTextLabel.font pointSize]];
+          f.tag = TEXTFIELD_TAG;
+          f.delegate = self;
+          f.autocapitalizationType = UITextAutocapitalizationTypeWords;
+          // Reset temporary font
+          cell.detailTextLabel.text = nil;
+          [cell.contentView addSubview:f];
+        }
+        break;
 
         case 1:
-          cell.detailTextLabel.text = m_balloon.setName;
+          cell.textLabel.text = NSLocalizedString(@"set", @"Add bookmark dialog - bookmark set");
+          cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
           break;
 
         case 2:
-          // Create a copy of view here because it can't be subview in map view and in a cell simultaneously
-          cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:m_balloon.color]] autorelease];
+          cell.textLabel.text = NSLocalizedString(@"color", @"Add bookmark dialog - bookmark color");
           break;
       }
     }
-    break;
-  // Section 1: Remove Pin button
-  default:
+    // Update variable cell values
+    switch (indexPath.row)
     {
-      // 2nd section with add/remove pin buttons
-      cell = [tableView dequeueReusableCellWithIdentifier:@"removePinCellId"];
-      if (!cell)
-      {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"removePinCellId"] autorelease];
-        cell.textLabel.textAlignment = UITextAlignmentCenter;
-        cell.textLabel.text = NSLocalizedString(@"remove_pin", @"Place Page - Remove Pin button");
-      }
+      case 0:
+        ((UITextField *)[cell.contentView viewWithTag:TEXTFIELD_TAG]).text = m_balloon.title;
+        break;
+
+      case 1:
+        cell.detailTextLabel.text = m_balloon.setName;
+        break;
+
+      case 2:
+        // Create a copy of view here because it can't be subview in map view and in a cell simultaneously
+        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:m_balloon.color]] autorelease];
+        break;
+    }
+  }
+  else if (indexPath.section == 1 && [self canShare])
+  {
+    cell = [tableView dequeueReusableCellWithIdentifier:@"SharePin"];
+    if (!cell)
+    {
+      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SharePin"] autorelease];
+      cell.textLabel.textAlignment = UITextAlignmentCenter;
+      cell.textLabel.text = NSLocalizedString(@"share", nil);
+    }
+  }
+  else
+  {
+    // 2nd section with add/remove pin buttons
+    cell = [tableView dequeueReusableCellWithIdentifier:@"removePinCellId"];
+    if (!cell)
+    {
+      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"removePinCellId"] autorelease];
+      cell.textLabel.textAlignment = UITextAlignmentCenter;
+      cell.textLabel.text = NSLocalizedString(@"remove_pin", @"Place Page - Remove Pin button");
     }
   }
   return cell;
@@ -232,6 +239,18 @@
       break;
     }
   }
+  else if (indexPath.section == 1 && ([self canShare]))
+  {
+    UIActionSheet * as = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"share", nil) delegate:self cancelButtonTitle:nil  destructiveButtonTitle:nil otherButtonTitles:nil];
+    if ([MFMessageComposeViewController canSendText])
+      [as addButtonWithTitle:NSLocalizedString(@"message", nil)];
+    if ([MFMailComposeViewController canSendMail])
+      [as addButtonWithTitle:NSLocalizedString(@"email", nil)];
+    [as addButtonWithTitle:NSLocalizedString(@"cancel", nil)];
+    [as setCancelButtonIndex:as.numberOfButtons - 1];
+    [as showInView:self.view];
+    [as release];
+  }
   else
   {
     // Remove pin
@@ -257,4 +276,69 @@
   }
   return NO;
 }
+
+- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+  UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+  UITextField * textF = (UITextField *)[cell viewWithTag:TEXTFIELD_TAG];
+  if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"email", nil)])
+  {
+    NSString * shortUrl = [self generateShortUrlwithName:textF.text];
+    [self sendEmailWith:textF.text andUrl:shortUrl];
+  }
+  else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"message", nil)])
+  {
+    NSString * shortUrl = [self generateShortUrlwithName:@""];
+    [self sendMessageWith:textF.text andUrl:shortUrl];
+  }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+  [self dismissModalViewControllerAnimated:YES];
+}
+
+-(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+  [self dismissModalViewControllerAnimated:YES];
+}
+
+-(void)sendEmailWith:(NSString *)textFieldText andUrl:(NSString *)shortUrl
+{
+  MFMailComposeViewController * mailVC = [[[MFMailComposeViewController alloc] init] autorelease];
+  //TODO create subject
+  [mailVC setSubject:NSLocalizedString(@"share_bookmarks_email_subject", nil)];
+  if ([textFieldText isEqualToString:NSLocalizedString(@"my_position", nil)])
+    [mailVC setMessageBody:[NSString stringWithFormat:NSLocalizedString(@"my_position_share_email", nil), shortUrl] isHTML:NO];
+  else
+    [mailVC setMessageBody:[NSString stringWithFormat:NSLocalizedString(@"bookmark_share_email", nil), textFieldText, shortUrl] isHTML:NO];
+  mailVC.mailComposeDelegate = self;
+  [self presentModalViewController:mailVC animated:YES];
+}
+
+-(void)sendMessageWith:(NSString *)textFieldText andUrl:(NSString *)shortUrl
+{
+  MFMessageComposeViewController * messageVC = [[[MFMessageComposeViewController alloc] init] autorelease];
+  if ([textFieldText isEqualToString:NSLocalizedString(@"my_position", nil)])
+    [messageVC setBody:[NSString stringWithFormat:NSLocalizedString(@"my_position_share_sms", nil), shortUrl]];
+  else
+    [messageVC setBody:[NSString stringWithFormat:NSLocalizedString(@"bookmark_share_sms", nil), shortUrl]];
+  messageVC.messageComposeDelegate = self;
+  [self presentModalViewController:messageVC animated:YES];
+}
+
+-(BOOL)canShare
+{
+  return [MFMessageComposeViewController canSendText] || [MFMailComposeViewController canSendMail];
+}
+
+-(NSString *)generateShortUrlwithName:(NSString *) name
+{
+  Framework & f = GetFramework();
+  return [NSString stringWithUTF8String:(f.CodeGe0url(MercatorBounds::YToLat(m_balloon.globalPosition.y),
+                                         MercatorBounds::XToLon(m_balloon.globalPosition.x),
+                                         f.GetBmCategory(m_balloon.editedBookmark.first)->GetBookmark(m_balloon.editedBookmark.second)->GetScale(),
+                                         [name UTF8String])).c_str()];
+}
+
 @end
