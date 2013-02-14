@@ -308,18 +308,13 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
           if (r.m_type == 1)
           {
-            holder.m_flag.setVisibility(View.VISIBLE);
-
             if (r.m_flag != null && r.m_flag.length() > 0 && r.m_azimut < 0.0)
               holder.m_flag.setFlag(m_resource, m_packageName, r.m_flag);
             else
               holder.m_flag.setAzimut(r.m_azimut);
-
-            // force invalidate arrow image
-            holder.m_flag.invalidate();
           }
           else
-            holder.m_flag.setVisibility(View.INVISIBLE);
+            holder.m_flag.clear();
         }
       }
 

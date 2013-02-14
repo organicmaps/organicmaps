@@ -60,16 +60,20 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
     holder.icon.setImageBitmap(item.getIcon().getIcon());
 
     final Location loc = mLocation.getLastKnown();
-    if (mNorth != -1.0 && loc != null)
+    if (loc != null)
     {
       DistanceAndAthimuth daa = item.getDistanceAndAthimuth(loc.getLatitude(), loc.getLongitude(), mNorth);
       holder.distance.setText(daa.getDistance());
-      holder.arrow.setAzimut(daa.getAthimuth());
+
+      if (daa.getAthimuth() >= 0.0)
+        holder.arrow.setAzimut(daa.getAthimuth());
+      else
+        holder.arrow.clear();
     }
     else
     {
       holder.distance.setText("");
-      holder.arrow.setImageDrawable(null);
+      holder.arrow.clear();
     }
 
     //Log.d("lat lot", item.getLat() + " " + item.getLon());

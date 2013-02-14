@@ -34,6 +34,8 @@ public class ArrowImage extends ImageView
 
   public void setFlag(Resources res, String packageName, String flag)
   {
+    setVisibility(VISIBLE);
+
     m_drawArrow = false;
 
     // The aapt can't process resources with name "do". Hack with renaming.
@@ -42,17 +44,38 @@ public class ArrowImage extends ImageView
 
     final int id = res.getIdentifier(flag, "drawable", packageName);
     if (id > 0)
+    {
       setImageDrawable(res.getDrawable(id));
+    }
     else
+    {
+      setImageDrawable(null);
+
       Log.e(TAG, "Failed to get resource id from: " + flag);
+    }
+
+    invalidate();
   }
 
   public void setAzimut(double azimut)
   {
+    setVisibility(VISIBLE);
+
     setImageDrawable(null);
 
     m_drawArrow = true;
     m_angle = (float)(azimut / Math.PI * 180.0);
+
+    invalidate();
+  }
+
+  public void clear()
+  {
+    setVisibility(INVISIBLE);
+
+    setImageDrawable(null);
+
+    m_drawArrow = false;
   }
 
   @Override
