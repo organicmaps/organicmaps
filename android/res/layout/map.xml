@@ -6,11 +6,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>
 
-    <com.mapswithme.maps.bookmarks.PopupLayout
-        android:id="@+id/map_popup"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"/>
-    
     <LinearLayout
         android:id="@+id/navigation_buttons_container"
         android:layout_width="wrap_content"

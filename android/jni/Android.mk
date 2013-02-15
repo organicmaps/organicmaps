@@ -37,7 +37,6 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/core/logging.cpp \
 	com/mapswithme/core/render_context.cpp \
 	com/mapswithme/maps/Framework.cpp \
-	com/mapswithme/maps/bookmarks/PopupLayout.cpp \
 	com/mapswithme/maps/bookmarks/data/Bookmark.cpp \
 	com/mapswithme/maps/bookmarks/data/BookmarkManager.cpp \
 	com/mapswithme/maps/bookmarks/data/BookmarkCategory.cpp \
@@ -54,7 +53,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/platform/Platform.cpp \
 	com/mapswithme/platform/HttpThread.cpp \
 	com/mapswithme/platform/Language.cpp \
-  com/mapswithme/platform/PThreadImpl.cpp \
+	com/mapswithme/platform/PThreadImpl.cpp \
 	nv_thread/nv_thread.cpp \
 	nv_event/nv_event_queue.cpp \
 	nv_event/nv_event.cpp \
