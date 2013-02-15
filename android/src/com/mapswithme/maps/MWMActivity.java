@@ -531,12 +531,18 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     setOnPopupClickListener(new OnNativePopupClickListenter()
     {
-
       @Override
       public void onClick(int cat, int bmk)
       {
-        startActivity(new Intent(MWMActivity.this, BookmarkActivity.class)
-        .putExtra(BookmarkActivity.PIN, new ParcelablePoint(cat, bmk)));
+        if (!mApplication.isProVersion())
+        {
+          showProVersionBanner(getString(R.string.bookmarks_in_pro_version));
+        }
+        else
+        {
+          startActivity(new Intent(MWMActivity.this, BookmarkActivity.class)
+          .putExtra(BookmarkActivity.PIN, new ParcelablePoint(cat, bmk)));
+        }
       }
     });
   }

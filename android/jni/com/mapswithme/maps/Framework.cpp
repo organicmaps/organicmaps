@@ -646,12 +646,16 @@ namespace android
   {
     BookmarkBalloon * balloon = GetBookmarkBalloon();
 
-    BookmarkAndCategory bac = m_work.GetBookmark(m_work.GtoP(balloon->glbPivot()));
-    if (!ValidateBookmarkAndCategory(bac))
+    BookmarkAndCategory bac;
+    if (GetPlatform().IsPro())
     {
-      // add new bookmark
-      Bookmark bm(balloon->glbPivot(), balloon->bookmarkName(), m_bmType);
-      bac = AddBookmark(bm);
+      bac = m_work.GetBookmark(m_work.GtoP(balloon->glbPivot()));
+      if (!ValidateBookmarkAndCategory(bac))
+      {
+        // add new bookmark
+        Bookmark bm(balloon->glbPivot(), balloon->bookmarkName(), m_bmType);
+        bac = AddBookmark(bm);
+      }
     }
 
     // start edit an existing bookmark
