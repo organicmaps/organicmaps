@@ -284,7 +284,6 @@ static void OnSearchResultCallback(search::Results const & res)
      m_searchBar.selectedScopeButtonIndex = scopeSection;
     [self proceedSearchWithString:lastSearchRequest andForceSearch:YES];
   }
-  
   [super viewWillAppear:animated];
 }
 
@@ -315,7 +314,6 @@ static void OnSearchResultCallback(search::Results const & res)
     numberOfRowsInEmptySearch = 0;
     [lastSearchRequest release];
     lastSearchRequest = [[NSString alloc] initWithString:m_searchBar.text];
-    [self clearCacheResults];
     [self proceedSearchWithString:m_searchBar.text andForceSearch:NO];
 }
 
@@ -376,7 +374,7 @@ static void OnSearchResultCallback(search::Results const & res)
     return cell;
   }
   //No search results
-  if ([m_searchBar.text length] != 0 && ![[_searchResults objectAtIndex:scopeSection] getCount])
+  if ([m_searchBar.text length] != 0 && ![[_searchResults objectAtIndex:scopeSection] getCount] && numberOfRowsInEmptySearch)
   {      
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"NoResultsCell"];
     if (cell == nil)
@@ -580,7 +578,6 @@ void setSearchType(search::SearchParams& params)
     
     if (m_framework->Search(params))
     {
-      [self clearCacheResults];
       numberOfRowsInEmptySearch = 0;
       [self showIndicator];
     }
@@ -648,14 +645,7 @@ void setSearchType(search::SearchParams& params)
 {
     scopeSection = selectedScope;
     numberOfRowsInEmptySearch = 0;
-    if (![[_searchResults objectAtIndex:selectedScope] getCount])
-    {
-      [self proceedSearchWithString:m_searchBar.text andForceSearch:NO];
-    }
-    else
-    {
-      [m_table reloadData];
-    }
+    [self proceedSearchWithString:m_searchBar.text andForceSearch:YES];
 }
 
 -(void)setSearchBarHeight
@@ -670,18 +660,8 @@ void setSearchType(search::SearchParams& params)
     [self onCloseButton:nil];
 }
 
--(void)clearCacheResults
-{
-    for (int i = 0; i < [_searchResults count];++i)
-    {
-        [_searchResults replaceObjectAtIndex:i withObject:[[[ResultsWrapper alloc] init]autorelease]];
-    }
-}
-
 -(void)proceedSearchWithString:(NSString *)searchText andForceSearch:(BOOL)forceSearch
 {
-    // Clear old results immediately
-    [_searchResults replaceObjectAtIndex:scopeSection withObject:[[[ResultsWrapper alloc] init]autorelease]];
     [m_table reloadData];
     if (![searchText length])
         return;
