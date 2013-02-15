@@ -398,5 +398,11 @@
 /* Title for Confirm dialog */
 "are_you_sure" = "Are you sure?";
 
-/* Warning message when searching around current position */
-"unknown_current_position" = "Current postion is not available";
+/* Warning message when doing search around current position */
+"unknown_current_position" = "現在地がまだ決定されていません";
+
+/* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
+"download_location_country" = "現在地である国(%@)をダウンロード";
+
+/* Warning message when viewport country isn't downloaded during search */
+"download_viewport_country_to_search" = "現在マップで検索している国(%@)をダウンロード";

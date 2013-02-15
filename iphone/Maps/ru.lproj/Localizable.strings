@@ -121,7 +121,7 @@
 "search" = "Поиск";
 
 /* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "Поиск доступен только в Pro версии MapsWithMe. Установите ее прямо сейчас!";
+"search_available_in_pro_version" = "Поиск доступен только в полной версии MapsWithMe. Установите ее прямо сейчас!";
 
 /* Search box placeholder text */
 "search_map" = "Поиск на карте";
@@ -304,7 +304,7 @@
 "visible" = "Показывать на карте";
 
 /* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "Закладки доступны в полной верии MapsWithMe. Скачать ее прямо сейчас?";
+"bookmarks_in_pro_version" = "Закладки доступны только в полной верии MapsWithMe. Установите ее прямо сейчас!";
 
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS-позиционирование выключено. Пожалуйста, включите его в настройках для удобного использования программы.";
@@ -398,5 +398,11 @@
 /* Title for Confirm dialog */
 "are_you_sure" = "Вы уверены?";
 
-/* Warning message when searching around current position */
-"unknown_current_position" = "Текущая позиция недоступна";
+/* Warning message when doing search around current position */
+"unknown_current_position" = "Ваше местоположение еще не определено";
+
+/* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
+"download_location_country" = "Скачайте страну (%@) вашего текущего местоположения";
+
+/* Warning message when viewport country isn't downloaded during search */
+"download_viewport_country_to_search" = "Скачайте страну (%@), на которой вы ищете";

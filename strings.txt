@@ -427,14 +427,14 @@
     cs = Hledat
     nl = Zoeken
   [search_available_in_pro_version]
-    en = Search is only available in the Pro version of MapsWithMe. Get it right now!
+    en = Search is only available in the full version of MapsWithMe. Get it right now!
     comment = Search button pressed dialog title in the free version
     de = Die Suche ist nur in der Pro Version vorhanden. Möchten Sie sie jetzt installieren?
     es = Buscar está accesible solo en la versión MapWithMe Pro. ¿Instalar ahora mismo?
     fr = Seule la version Pro permet une recherche. Voulez-vous l'installer maintenant?
     ja = サーチ機能はMapsWithMeのプロ版でのみご使用頂けます。今すぐご入手になりますか？
     ko = 검색은 MapsWithMe의 프로 버젼에만 제공됩니다. 지금 받으시겠습니까?
-    ru = Поиск доступен только в Pro версии MapsWithMe. Установите ее прямо сейчас!
+    ru = Поиск доступен только в полной версии MapsWithMe. Установите ее прямо сейчас!
     uk = Пошук доступний тільки в Pro версії MapsWithMe. Встановіть її прямо зараз!
     cs = Vyhledávání je dostupné jen v placené verzi MapsWithMe. Chceš ji teď stáhnout?
     nl = Zoeken is alleen beschikbaar in de Pro versie van MapsWithMe. Wilt u hem nu installeren?
@@ -1238,10 +1238,10 @@
     cs = Viditelný
     nl = Zichtbaar
   [bookmarks_in_pro_version]
-    en = Bookmarks are available in the full version of MapsWithMe. Get it right now?
+    en = Bookmarks are only available in the full version of MapsWithMe. Get it right now!
     tags = ios
     comment = Proposal to download Pro version with Bookmarks
-    ru = Закладки доступны в полной верии MapsWithMe. Скачать ее прямо сейчас?
+    ru = Закладки доступны только в полной верии MapsWithMe. Установите ее прямо сейчас!
     de = Lesezeichen stehen in der Vollversion von MapsWithMe zur Verfügung. Jetzt sofort besorgen?
     uk = Закладки доступні у повній версії MapsWithMe. Отримати просто зараз?
     es = La opción de marcadores está disponible en la versión completa de MapsWithMe. ¿La quieres ya?
@@ -1620,10 +1620,10 @@
     comment = Kml file loading failed
     ru = Файл с закладками не был загружен. Возможно, файл поврежден или неисправен.
     uk = Не вдалося завантажити закладки. Файл може бути пошкодженим або несправним.
-    ko =즐겨찾기 업로드가 실패했습니다. 파일이 훼손되었거나 결함이 있을지도 모릅니다.
+    ko = 즐겨찾기 업로드가 실패했습니다. 파일이 훼손되었거나 결함이 있을지도 모릅니다.
     es = La carga de favoritos ha fallado. El archivo puede estar corrupto o ser defectuoso.
     it = Caricamento dei segnalibri non riuscito. Il file potrebbe essere corrotto o difettoso.
-    ja =ブックマークのアップロードに失敗しました。ファイルが破損していた、または問題があった可能性があります。
+    ja = ブックマークのアップロードに失敗しました。ファイルが破損していた、または問題があった可能性があります。
     fr = Chargement des favoris échoué. Le dossier peut être corrompu ou défectueux.
     cz = Nahrávání záložek se nezdařilo. Soubor může být poškozený nebo vadný.
     nl = Bladwijzers uploaden mislukt. Het bestand is mogelijk beschadigd of defect.

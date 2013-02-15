@@ -398,5 +398,11 @@
 /* Title for Confirm dialog */
 "are_you_sure" = "Are you sure?";
 
-/* Warning message when searching around current position */
-"unknown_current_position" = "Current postion is not available";
+/* Warning message when doing search around current position */
+"unknown_current_position" = "Je plaats werd nog niet vastgesteld";
+
+/* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
+"download_location_country" = "Download land (%@) waar je nu bent";
+
+/* Warning message when viewport country isn't downloaded during search */
+"download_viewport_country_to_search" = "Download land (%@) waar je op wilt zoeken";

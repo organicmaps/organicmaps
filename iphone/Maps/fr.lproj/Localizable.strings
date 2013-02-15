@@ -398,5 +398,11 @@
 /* Title for Confirm dialog */
 "are_you_sure" = "Are you sure?";
 
-/* Warning message when searching around current position */
-"unknown_current_position" = "Current postion is not available";
+/* Warning message when doing search around current position */
+"unknown_current_position" = "Votre position n'a pas encore été déterminée";
+
+/* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
+"download_location_country" = "Téléchargez le pays (%@) de votre position actuelle";
+
+/* Warning message when viewport country isn't downloaded during search */
+"download_viewport_country_to_search" = "Téléchargez le pays (%@) que vous recherchez sur";

@@ -80,7 +80,7 @@
 	<!-- View and button titles for accessibility -->
 	<string name="search">Search</string>
 	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">Search is only available in the Pro version of MapsWithMe. Get it right now!</string>
+	<string name="search_available_in_pro_version">Search is only available in the full version of MapsWithMe. Get it right now!</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Search Map</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -195,7 +195,7 @@
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Visible</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">Bookmarks are available in the full version of MapsWithMe. Get it right now?</string>
+	<string name="bookmarks_in_pro_version">Bookmarks are only available in the full version of MapsWithMe. Get it right now!</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS is disabled. Please enable it in Settings.</string>
 	<!-- Measurement units title in settings activity -->

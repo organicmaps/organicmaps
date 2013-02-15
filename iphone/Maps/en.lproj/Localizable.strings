@@ -121,7 +121,7 @@
 "search" = "Search";
 
 /* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "Search is only available in the Pro version of MapsWithMe. Get it right now!";
+"search_available_in_pro_version" = "Search is only available in the full version of MapsWithMe. Get it right now!";
 
 /* Search box placeholder text */
 "search_map" = "Search Map";
@@ -304,7 +304,7 @@
 "visible" = "Visible";
 
 /* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "Bookmarks are available in the full version of MapsWithMe. Get it right now?";
+"bookmarks_in_pro_version" = "Bookmarks are only available in the full version of MapsWithMe. Get it right now!";
 
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS is disabled. Please enable it in Settings.";
@@ -398,5 +398,11 @@
 /* Title for Confirm dialog */
 "are_you_sure" = "Are you sure?";
 
-/* Warning message when searching around current position */
-"unknown_current_position" = "Current postion is not available";
+/* Warning message when doing search around current position */
+"unknown_current_position" = "Your location hasn't been determined yet";
+
+/* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
+"download_location_country" = "Download the country (%@) of your current location";
+
+/* Warning message when viewport country isn't downloaded during search */
+"download_viewport_country_to_search" = "Download the country (%@) you are searching on";

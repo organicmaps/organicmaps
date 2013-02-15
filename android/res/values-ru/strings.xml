@@ -77,7 +77,7 @@
 	<!-- View and button titles for accessibility -->
 	<string name="search">Поиск</string>
 	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">Поиск доступен только в Pro версии MapsWithMe. Установите ее прямо сейчас!</string>
+	<string name="search_available_in_pro_version">Поиск доступен только в полной версии MapsWithMe. Установите ее прямо сейчас!</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Поиск на карте</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -191,7 +191,7 @@
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Показывать на карте</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">Закладки доступны в полной верии MapsWithMe. Скачать ее прямо сейчас?</string>
+	<string name="bookmarks_in_pro_version">Закладки доступны только в полной верии MapsWithMe. Установите ее прямо сейчас!</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS-позиционирование выключено. Пожалуйста, включите его в настройках для удобного использования программы.</string>
 	<!-- Measurement units title in settings activity -->

@@ -398,5 +398,11 @@
 /* Title for Confirm dialog */
 "are_you_sure" = "Are you sure?";
 
-/* Warning message when searching around current position */
-"unknown_current_position" = "Current postion is not available";
+/* Warning message when doing search around current position */
+"unknown_current_position" = "귀하의 위치를 아직 알아내지 못 했습니다";
+
+/* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
+"download_location_country" = "귀하께서 현재 계신 국가인 (%@)을(를) 다운로드";
+
+/* Warning message when viewport country isn't downloaded during search */
+"download_viewport_country_to_search" = "귀하께서 검색 중인 국가인 (%@)을(를) 다운로드";
