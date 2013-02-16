@@ -216,10 +216,12 @@ public class LocationService implements LocationListener, SensorEventListener, W
       m_locationManager.removeUpdates(this);
       if (m_sensorManager != null)
         m_sensorManager.unregisterListener(this);
-      m_magneticField = null;
 
       //m_lastLocation = null;
 
+      // reset current parameters to force initialize in the next startUpdate
+      m_magneticField = null;
+      m_drivingHeading = -1.0;
       m_isActive = false;
     }
   }
@@ -371,13 +373,14 @@ public class LocationService implements LocationListener, SensorEventListener, W
     // Get the magnetic north (orientation contains azimut, pitch and roll).
     float[] orientation = null;
 
-    if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
+    switch (event.sensor.getType())
     {
+    case Sensor.TYPE_ACCELEROMETER:
       m_gravity = updateCompassSensor(0, event.values);
-    }
-    if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
-    {
+      break;
+    case Sensor.TYPE_MAGNETIC_FIELD:
       m_geomagnetic = updateCompassSensor(1, event.values);
+      break;
     }
 
     if (m_gravity != null && m_geomagnetic != null)
@@ -393,7 +396,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
     if (orientation != null)
     {
-      final double magneticHeading = orientation[0];
+      final double magneticHeading = correctAngle(orientation[0], 0.0);
 
       if (m_magneticField == null)
       {
@@ -436,7 +439,13 @@ public class LocationService implements LocationListener, SensorEventListener, W
     }
 
     for (int i = 0; i < angles.length; ++i)
-      angles[i] = correctAngle(angles[i], correction);
+    {
+      if (angles[i] >= 0.0)
+      {
+        // negative values (like -1.0) should remain negative (indicates that no direction available)
+        angles[i] = correctAngle(angles[i], correction);
+      }
+    }
   }
 
   static private double correctAngle(double angle, double correction)

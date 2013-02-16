@@ -582,13 +582,14 @@ public class SearchActivity extends ListActivity implements LocationService.List
     if (isShowCategories())
       return;
 
-    double north[] = { trueNorth };
+    double north[] = { magneticNorth, trueNorth };
     m_location.correctCompassAngles(getWindowManager().getDefaultDisplay(), north);
+    final double ret = (north[1] >= 0.0 ? north[1] : north[0]);
 
     // if difference is more than 1 degree
-    if (m_north == -1 || Math.abs(m_north - north[0]) > 0.02)
+    if (m_north == -1 || Math.abs(m_north - ret) > 0.02)
     {
-      m_north = north[0];
+      m_north = ret;
       //Log.d(TAG, "Compass updated, north = " + m_north);
 
       updateDistance();
