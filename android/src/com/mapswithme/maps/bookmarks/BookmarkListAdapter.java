@@ -118,13 +118,14 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    double north[] = { trueNorth };
+    double north[] = { magneticNorth, trueNorth };
     mLocation.correctCompassAngles(mContext.getWindowManager().getDefaultDisplay(), north);
+    final double ret = (north[1] >= 0.0 ? north[1] : north[0]);
 
     // if difference is more than 1 degree
-    if (mNorth == -1 || Math.abs(mNorth - north[0]) > 0.02)
+    if (mNorth == -1 || Math.abs(mNorth - ret) > 0.02)
     {
-      mNorth = north[0];
+      mNorth = ret;
       //Log.d(TAG, "Compass updated, north = " + m_north);
 
       notifyDataSetChanged();
