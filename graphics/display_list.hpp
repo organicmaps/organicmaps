@@ -2,6 +2,10 @@
 
 #include "defines.hpp"
 #include "display_list_renderer.hpp"
+#include "opengl/base_texture.hpp"
+#include "opengl/buffer_object.hpp"
+
+#include "../std/set.hpp"
 
 namespace graphics
 {
@@ -21,9 +25,11 @@ namespace graphics
 
     list<shared_ptr<Command> > m_commands;
 
-    list<shared_ptr<DiscardStorageCmd> > m_discardStorageCmd;
-    list<shared_ptr<FreeTextureCmd> > m_freeTextureCmd;
-    list<shared_ptr<FreeStorageCmd> > m_freeStorageCmd;
+    typedef DisplayListRenderer::TextureRef TextureRef;
+    typedef DisplayListRenderer::StorageRef StorageRef;
+
+    set<TextureRef> m_textures;
+    set<StorageRef> m_storages;
 
     DisplayListRenderer * m_parent;
     bool m_isDebugging;

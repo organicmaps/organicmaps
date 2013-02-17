@@ -9,6 +9,52 @@ namespace graphics
   {
   }
 
+  void DisplayListRenderer::addStorageRef(StorageRef const & storage)
+  {
+    m_discardStorageCmds[storage].first++;
+    m_freeStorageCmds[storage].first++;
+  }
+
+  void DisplayListRenderer::removeStorageRef(StorageRef const & storage)
+  {
+    CHECK(m_discardStorageCmds.find(storage) != m_discardStorageCmds.end(), ());
+    pair<int, shared_ptr<DiscardStorageCmd> > & dval = m_discardStorageCmds[storage];
+    --dval.first;
+    if ((dval.first == 0) && dval.second)
+    {
+      dval.second->perform();
+      dval.second.reset();
+    }
+
+    CHECK(m_freeStorageCmds.find(storage) != m_freeStorageCmds.end(), ());
+    pair<int, shared_ptr<FreeStorageCmd> > & fval = m_freeStorageCmds[storage];
+    --fval.first;
+    if ((fval.first == 0) && fval.second)
+    {
+      fval.second->perform();
+      fval.second.reset();
+    }
+  }
+
+  void DisplayListRenderer::addTextureRef(TextureRef const & texture)
+  {
+    pair<int, shared_ptr<FreeTextureCmd> > & val = m_freeTextureCmds[texture];
+    val.first++;
+  }
+
+  void DisplayListRenderer::removeTextureRef(TextureRef const & texture)
+  {
+    CHECK(m_freeTextureCmds.find(texture) != m_freeTextureCmds.end(), ());
+    pair<int, shared_ptr<FreeTextureCmd> > & val = m_freeTextureCmds[texture];
+
+    --val.first;
+    if ((val.first == 0) && val.second)
+    {
+      val.second->perform();
+      val.second.reset();
+    }
+  }
+
   DisplayList * DisplayListRenderer::createDisplayList()
   {
     return new DisplayList(this);
@@ -83,7 +129,9 @@ namespace graphics
       command->m_texture = texture;
       command->m_texturePool = texturePool;
 
-      m_displayList->freeTexture(command);
+      m_freeTextureCmds[texture.get()].second = command;
+
+//      m_displayList->freeTexture(command);
     }
     else
       base_t::freeTexture(texture, texturePool);
@@ -99,7 +147,10 @@ namespace graphics
       command->m_storage = storage;
       command->m_storagePool = storagePool;
 
-      m_displayList->freeStorage(command);
+      StorageRef sref(storage.m_vertices.get(), storage.m_indices.get());
+
+      m_freeStorageCmds[sref].second = command;
+//      m_displayList->freeStorage(command);
     }
     else
       base_t::freeStorage(storage, storagePool);
@@ -127,7 +178,10 @@ namespace graphics
 
       cmd->m_storage = storage;
 
-      m_displayList->discardStorage(cmd);
+      StorageRef sref(storage.m_vertices.get(), storage.m_indices.get());
+
+      m_discardStorageCmds[sref].second = cmd;
+//      m_displayList->discardStorage(cmd);
     }
     else
       base_t::discardStorage(storage);

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../std/map.hpp"
+
 #include "opengl/storage.hpp"
 #include "opengl/base_texture.hpp"
 #include "opengl/geometry_renderer.hpp"
@@ -18,6 +20,23 @@ namespace graphics
 
     typedef gl::GeometryRenderer base_t;
     typedef base_t::Params Params;
+
+    typedef base_t::FreeTexture FreeTextureCmd;
+    typedef base_t::FreeStorage FreeStorageCmd;
+    typedef base_t::DiscardStorage DiscardStorageCmd;
+
+    typedef gl::BaseTexture const * TextureRef;
+    typedef pair<gl::BufferObject const *, gl::BufferObject const *> StorageRef;
+
+    map<TextureRef, pair<int, shared_ptr<FreeTextureCmd> > > m_freeTextureCmds;
+    map<StorageRef, pair<int, shared_ptr<FreeStorageCmd> > > m_freeStorageCmds;
+    map<StorageRef, pair<int, shared_ptr<DiscardStorageCmd> > > m_discardStorageCmds;
+
+    void addStorageRef(StorageRef const & storage);
+    void removeStorageRef(StorageRef const & storage);
+
+    void addTextureRef(TextureRef const & texture);
+    void removeTextureRef(TextureRef const & texture);
 
     DisplayListRenderer(Params const & p);
 

@@ -10,26 +10,17 @@ namespace graphics
 
   DisplayList::~DisplayList()
   {
-    for (list<shared_ptr<DiscardStorageCmd> >::const_iterator it = m_discardStorageCmd.begin();
-         it != m_discardStorageCmd.end();
-         ++it)
-      m_parent->processCommand(*it);
+    set<TextureRef>::const_iterator tit;
+    for (tit = m_textures.begin();
+         tit != m_textures.end();
+         ++tit)
+      m_parent->removeTextureRef(*tit);
 
-    m_discardStorageCmd.clear();
-
-    for (list<shared_ptr<FreeStorageCmd> >::const_iterator it = m_freeStorageCmd.begin();
-         it != m_freeStorageCmd.end();
-         ++it)
-      m_parent->processCommand(*it);
-
-    m_freeStorageCmd.clear();
-
-    for (list<shared_ptr<FreeTextureCmd> >::const_iterator it = m_freeTextureCmd.begin();
-         it != m_freeTextureCmd.end();
-         ++it)
-      m_parent->processCommand(*it);
-
-    m_freeTextureCmd.clear();
+    set<StorageRef>::const_iterator sit;
+    for (sit = m_storages.begin();
+         sit != m_storages.end();
+         ++sit)
+      m_parent->removeStorageRef(*sit);
 
     m_commands.clear();
   }
@@ -55,6 +46,26 @@ namespace graphics
   void DisplayList::drawGeometry(shared_ptr<DrawGeometryCmd> const & cmd)
   {
     cmd->setIsDebugging(m_isDebugging);
+
+    shared_ptr<gl::BaseTexture> const & texture = cmd->m_texture;
+    gl::Storage const & storage = cmd->m_storage;
+
+    TextureRef tref(texture.get());
+
+    if (texture && (m_textures.find(tref) == m_textures.end()))
+    {
+      m_textures.insert(tref);
+      m_parent->addTextureRef(tref);
+    }
+
+    StorageRef sref(storage.m_vertices.get(), storage.m_indices.get());
+
+    if (storage.isValid() && (m_storages.find(sref) == m_storages.end()))
+    {
+      m_storages.insert(sref);
+      m_parent->addStorageRef(sref);
+    }
+
     m_commands.push_back(cmd);
   }
 
@@ -66,20 +77,14 @@ namespace graphics
 
   void DisplayList::freeStorage(shared_ptr<FreeStorageCmd> const & cmd)
   {
-    cmd->setIsDebugging(m_isDebugging);
-    m_freeStorageCmd.push_back(cmd);
   }
 
   void DisplayList::freeTexture(shared_ptr<FreeTextureCmd> const & cmd)
   {
-    cmd->setIsDebugging(m_isDebugging);
-    m_freeTextureCmd.push_back(cmd);
   }
 
   void DisplayList::discardStorage(shared_ptr<DiscardStorageCmd> const & cmd)
   {
-    cmd->setIsDebugging(m_isDebugging);
-    m_discardStorageCmd.push_back(cmd);
   }
 
   void DisplayList::uploadResources(shared_ptr<UploadDataCmd> const & cmd)
