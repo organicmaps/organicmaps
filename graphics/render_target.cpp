@@ -9,6 +9,6 @@ namespace graphics
 
   void RenderTarget::coordMatrix(math::Matrix<float, 4, 4> & m)
   {
-    getOrthoMatrix(m, 0, width(), 0, height(), -maxDepth, maxDepth + 1);
+    getOrthoMatrix(m, 0, width(), 0, height(), minDepth, maxDepth + 100);
   }
 }
