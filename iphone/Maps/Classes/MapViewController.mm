@@ -78,6 +78,9 @@
   {
     [m_myPositionButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
   }
+
+  f.OnLocationUpdate(info);
+
   if (m_balloonView.isCurrentPosition && m_balloonView.isDisplayed)
   {
     m2::PointD newCenter(MercatorBounds::LonToX(info.m_longitude),
@@ -85,7 +88,6 @@
     m_balloonView.globalPosition = CGPointMake(newCenter.x, newCenter.y);
     [m_balloonView updatePosition:self.view atPoint:[(EAGLView *)self.view globalPoint2ViewPoint:m_balloonView.globalPosition]];
   }
-  f.OnLocationUpdate(info);
 }
 
 - (void) onCompassUpdate:(location::CompassInfo const &)info
