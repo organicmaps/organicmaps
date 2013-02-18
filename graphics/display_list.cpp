@@ -52,19 +52,13 @@ namespace graphics
 
     TextureRef tref(texture.get());
 
-    if (texture && (m_textures.find(tref) == m_textures.end()))
-    {
-      m_textures.insert(tref);
+    if (texture && m_textures.insert(tref).second)
       m_parent->addTextureRef(tref);
-    }
 
     StorageRef sref(storage.m_vertices.get(), storage.m_indices.get());
 
-    if (storage.isValid() && (m_storages.find(sref) == m_storages.end()))
-    {
-      m_storages.insert(sref);
+    if (storage.isValid() && m_storages.insert(sref).second)
       m_parent->addStorageRef(sref);
-    }
 
     m_commands.push_back(cmd);
   }

@@ -17,22 +17,28 @@ namespace graphics
 
   void DisplayListRenderer::removeStorageRef(StorageRef const & storage)
   {
-    CHECK(m_discardStorageCmds.find(storage) != m_discardStorageCmds.end(), ());
-    pair<int, shared_ptr<DiscardStorageCmd> > & dval = m_discardStorageCmds[storage];
+    DelayedDiscardStorageMap::iterator dit = m_discardStorageCmds.find(storage);
+    ASSERT(dit != m_discardStorageCmds.end(), ());
+
+    pair<int, shared_ptr<DiscardStorageCmd> > & dval = dit->second;
     --dval.first;
+
     if ((dval.first == 0) && dval.second)
     {
       dval.second->perform();
-      dval.second.reset();
+      m_discardStorageCmds.erase(dit);
     }
 
-    CHECK(m_freeStorageCmds.find(storage) != m_freeStorageCmds.end(), ());
-    pair<int, shared_ptr<FreeStorageCmd> > & fval = m_freeStorageCmds[storage];
+    DelayedFreeStorageMap::iterator fit = m_freeStorageCmds.find(storage);
+    ASSERT(fit != m_freeStorageCmds.end(), ());
+
+    pair<int, shared_ptr<FreeStorageCmd> > & fval = fit->second;
     --fval.first;
+
     if ((fval.first == 0) && fval.second)
     {
       fval.second->perform();
-      fval.second.reset();
+      m_freeStorageCmds.erase(fit);
     }
   }
 
@@ -44,14 +50,16 @@ namespace graphics
 
   void DisplayListRenderer::removeTextureRef(TextureRef const & texture)
   {
-    CHECK(m_freeTextureCmds.find(texture) != m_freeTextureCmds.end(), ());
-    pair<int, shared_ptr<FreeTextureCmd> > & val = m_freeTextureCmds[texture];
+    DelayedFreeTextureMap::iterator tit = m_freeTextureCmds.find(texture);
+    ASSERT(tit != m_freeTextureCmds.end(), ());
 
+    pair<int, shared_ptr<FreeTextureCmd> > & val = tit->second;
     --val.first;
+
     if ((val.first == 0) && val.second)
     {
       val.second->perform();
-      val.second.reset();
+      m_freeTextureCmds.erase(tit);
     }
   }
 
