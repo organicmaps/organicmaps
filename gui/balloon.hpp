@@ -22,7 +22,12 @@ namespace gui
 {
   class Balloon : public Element
   {
+  protected:
+    scoped_ptr<TextView> m_textView;
+
   private:
+    scoped_ptr<ImageView> m_imageView;
+    scoped_ptr<graphics::DisplayList> m_displayList;
 
     typedef function<void (Element *)> TOnClickListener;
 
@@ -31,13 +36,6 @@ namespace gui
     void cache();
     void purge();
     void layout();
-
-    scoped_ptr<TextView> m_textView;
-    scoped_ptr<ImageView> m_imageView;
-    scoped_ptr<graphics::DisplayList> m_displayList;
-
-    string m_text;
-    graphics::Image::Info m_image;
 
     double m_textMarginLeft;
     double m_textMarginTop;

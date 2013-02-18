@@ -12,7 +12,6 @@ private:
 
   m2::PointD m_glbPivot;
   Framework const * m_framework;
-  string m_bookmarkName;
 
   void update();
 

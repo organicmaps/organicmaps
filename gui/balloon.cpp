@@ -24,9 +24,7 @@ namespace gui
 
   Balloon::Balloon(Params const & p)
     : Element(p),
-      m_boundRects(1),
-      m_text(p.m_text),
-      m_image(p.m_image)
+      m_boundRects(1)
   {
     m_textMarginLeft = p.m_textMarginLeft;
     m_textMarginRight = p.m_textMarginRight;
@@ -40,7 +38,7 @@ namespace gui
 
     TextView::Params tp;
 
-    tp.m_text = m_text;
+    tp.m_text = p.m_text;
     tp.m_position = graphics::EPosRight;
     tp.m_pivot = m2::PointD(0, 0);
     tp.m_depth = depth() + 1;
@@ -54,7 +52,7 @@ namespace gui
     ip.m_pivot = m2::PointD(0, 0);
     ip.m_position = graphics::EPosRight;
     ip.m_depth = depth() + 1;
-    ip.m_image = m_image;
+    ip.m_image = p.m_image;
 
     m_imageView.reset(new ImageView(ip));
 
