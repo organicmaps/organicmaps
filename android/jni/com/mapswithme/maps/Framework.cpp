@@ -556,55 +556,40 @@ namespace android
 
   void Framework::OnProcessTouchTask(double x, double y, unsigned ms)
   {
-    // hide popup for short tap and exit
+    m2::PointD pt(x, y);
+
+    // 1. check if we tapped on existing bookmark - show popup and exit
+    BookmarkAndCategory bac = m_work.GetBookmark(pt);
+    if (ValidateBookmarkAndCategory(bac))
+    {
+      Bookmark const * pBM = m_work.GetBmCategory(bac.first)->GetBookmark(bac.second);
+      ActivatePopup(pBM->GetOrg(), pBM->GetName(), IMAGE_ARROW);
+      return;
+    }
+
+    // 2. hide popup and exit for short tap
     if (ms == SHORT_TOUCH_MS && GetBookmarkBalloon()->isVisible())
     {
       DeactivatePopup();
       return;
     }
 
-    // set flag for long tap
+    // 3. set flag for long tap
     if (ms == LONG_TOUCH_MS)
       m_wasLongClick = true;
 
-    // process tap (find POI or bookmark under cursor)
-    if (HandleOnSmthClick(x, y))
-      return;
-
-    // show pin in any case for long tap
-    if (ms == LONG_TOUCH_MS)
-      AdditionalHandlingForLongClick(x, y);
-  }
-
-  bool Framework::HandleOnSmthClick(double x, double y)
-  {
-    BookmarkAndCategory bac = m_work.GetBookmark(m2::PointD(x, y));
-    if (ValidateBookmarkAndCategory(bac))
-    {
-      Bookmark const * pBM = m_work.GetBmCategory(bac.first)->GetBookmark(bac.second);
-      ActivatePopup(pBM->GetOrg(), pBM->GetName(), IMAGE_ARROW);
-      return true;
-    }
-    else
-    {
-      ::Framework::AddressInfo addrInfo;
-      m2::PointD pxPivot;
-      if (m_work.GetVisiblePOI(m2::PointD(x, y), pxPivot, addrInfo))
-      {
-        ActivatePopupWithAddressInfo(m_work.PtoG(pxPivot), addrInfo);
-        return true;
-      }
-      else
-        return false;
-    }
-  }
-
-  bool Framework::AdditionalHandlingForLongClick(double x, double y)
-  {
-    m2::PointD point(x, y);
+    // 4. show popup
     ::Framework::AddressInfo addrInfo;
-    m_work.GetAddressInfo(point, addrInfo);
-    ActivatePopupWithAddressInfo(m_work.PtoG(point), addrInfo);
+    m2::PointD pxPivot;
+    if (m_work.GetVisiblePOI(pt, pxPivot, addrInfo))
+    {
+      ActivatePopupWithAddressInfo(m_work.PtoG(pxPivot), addrInfo);
+    }
+    else if (ms == LONG_TOUCH_MS)
+    {
+      m_work.GetAddressInfo(pt, addrInfo);
+      ActivatePopupWithAddressInfo(m_work.PtoG(pt), addrInfo);
+    }
   }
 
   void Framework::ActivatePopupWithAddressInfo(m2::PointD const & pos, ::Framework::AddressInfo const & addrInfo)

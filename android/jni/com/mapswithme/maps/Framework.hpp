@@ -58,9 +58,6 @@ namespace android
     void KillTouchTask();
     void OnProcessTouchTask(double x, double y, unsigned ms);
 
-    bool HandleOnSmthClick(double x, double y);
-    bool AdditionalHandlingForLongClick(double x, double y);
-
     typedef graphics::Image::Info ImageT;
     ImageT * m_images[2];
     enum PopupImageIndexT { IMAGE_PLUS = 0, IMAGE_ARROW = 1 };
