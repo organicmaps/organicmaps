@@ -85,7 +85,7 @@ namespace graphics
     void enableClipRect(bool flag);
     void setClipRect(m2::RectI const & rect);
 
-    void clear(Color const & c, bool clearRT = true, float depth = 1.0, bool clearDepth = true);
+    void clear(Color const & c, bool clearRT = true, float depth = -1.0, bool clearDepth = true);
     /// @}
 
     unsigned reservePipelines(vector<shared_ptr<ResourceCache> > const & caches,
