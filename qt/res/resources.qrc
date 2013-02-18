@@ -1,10 +1,4 @@
 <RCC>
-    <qresource prefix="/classif32">
-        <file>save.png</file>
-        <file>load.png</file>
-        <file>select.png</file>
-        <file>clear.png</file>
-    </qresource>
     <qresource prefix="/navig64">
         <file>search.png</file>
         <file>up.png</file>

@@ -17,7 +17,6 @@
 namespace classificator
 {
   void ReadCommon(Reader * classificator,
-                  Reader * visibility,
                   Reader * types)
   {
     Classificator & c = classif();
@@ -32,14 +31,6 @@ namespace classificator
     }
 
     {
-      //LOG(LINFO, ("Reading visibility"));
-      ReaderStreamBuf buffer(visibility);
-
-      istream s(&buffer);
-      c.ReadVisibility(s);
-    }
-
-    {
       //LOG(LINFO, ("Reading types mapping"));
       ReaderStreamBuf buffer(types);
 
@@ -48,20 +39,13 @@ namespace classificator
     }
   }
 
-  void ReadVisibility(string const & fPath)
-  {
-    ifstream s(fPath.c_str());
-    classif().ReadVisibility(s);
-  }
-
   void Load()
   {
     LOG(LDEBUG, ("Reading of classificator started"));
 
     Platform & p = GetPlatform();
 
-    ReadCommon(p.GetReader("classificator.txt"),
-               p.GetReader("visibility.txt"),
+    ReadCommon(p.GetReader("classificator.txt"),            
                p.GetReader("types.txt"));
 
     //LOG(LINFO, ("Reading of drawing rules"));

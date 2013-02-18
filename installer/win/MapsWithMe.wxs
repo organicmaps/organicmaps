@@ -107,9 +107,6 @@
              <Component Id='_classificator.txt' Guid='7f871bff-8d12-4eaf-ae76-3e2b3eb8c312'>
                <File Id='_classificator.txt' Name='classificator.txt' Source='..\..\data\classificator.txt' DiskId='1' KeyPath='yes' Checksum='no' />
              </Component>
-             <Component Id='_visibility.txt' Guid='83a05519-c95f-4b36-84f0-bea8abadb020'>
-               <File Id='_visibility.txt' Name='visibility.txt' Source='..\..\data\visibility.txt' DiskId='1' KeyPath='yes' Checksum='no' />
-             </Component>
              <Component Id='_drawing_rules.bin' Guid='bfc9e374-fdad-4864-a66b-3e252f94f3bb'>
                <File Id='_drawing_rules.bin' Name='drawing_rules.bin' Source='..\..\data\drawing_rules.bin' DiskId='1' KeyPath='yes' Checksum='no' />
              </Component>
@@ -167,7 +164,6 @@
          <ComponentRef Id='_basic.skn' />
          <ComponentRef Id='_symbols_24.png' />
          <ComponentRef Id='_classificator.txt' />
-         <ComponentRef Id='_visibility.txt' />
          <ComponentRef Id='_drawing_rules.bin' />
          <ComponentRef Id='_fonts_blacklist.txt' />
          <ComponentRef Id='_fonts_whitelist.txt' />

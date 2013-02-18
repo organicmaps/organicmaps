@@ -24,7 +24,6 @@
 
 #ifndef NO_DOWNLOADER
 #include "update_dialog.hpp"
-#include "classificator_tree.hpp"
 #include "info_dialog.hpp"
 
 #include "../indexer/classificator.hpp"
@@ -44,11 +43,6 @@ MainWindow::MainWindow()
 
   CreateNavigationBar();
   CreateSearchBarAndPanel();
-
-#ifndef NO_DOWNLOADER
-  CreateClassifPanel();
-//  CreateGuidePanel();
-#endif // NO_DOWNLOADER
 
   setCentralWidget(m_pDrawWidget);
 
@@ -379,17 +373,6 @@ void MainWindow::ShowClassifPanel()
 void MainWindow::ShowGuidePanel()
 {
   m_Docks[1]->show();
-}
-
-void MainWindow::CreateClassifPanel()
-{
-  CreatePanelImpl(0, Qt::LeftDockWidgetArea, tr("Classificator Bar"),
-                  QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_C), SLOT(ShowClassifPanel()));
-
-  ClassifTreeHolder * pCTree = new ClassifTreeHolder(m_Docks[0], m_pDrawWidget, SLOT(Repaint()));
-  pCTree->SetRoot(classif().GetMutableRoot());
-
-  m_Docks[0]->setWidget(pCTree);
 }
 
 //void MainWindow::CreateGuidePanel()

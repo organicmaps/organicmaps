@@ -322,6 +322,8 @@ namespace
     {
       size_t const i = m_holder.AddRule(scale, type, new TRule(rule));
       Key k(scale, type, i);
+
+      p->SetVisibilityOnScale(true, scale);
       k.SetPriority(rule.priority());
       p->AddDrawRule(k);
     }

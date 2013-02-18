@@ -10,7 +10,7 @@ mkdir $DST
 
 files=(about.html resources-ldpi resources-mdpi resources-hdpi resources-xhdpi categories.txt classificator.txt 
        types.txt fonts_blacklist.txt fonts_whitelist.txt languages.txt unicode_blocks.txt \ 
-       visibility.txt drules_proto.txt drules_proto.bin external_resources.txt packed_polygons.bin)
+       drules_proto.txt drules_proto.bin external_resources.txt packed_polygons.bin)
 
 for item in ${files[*]}
 do

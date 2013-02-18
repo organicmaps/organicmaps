@@ -42,7 +42,7 @@ macx* {
                     ../data/languages.txt ../data/categories.txt \
                     ../data/packed_polygons.bin
   CLASSIFICATOR_RES.path = Contents/Resources
-  CLASSIFICATOR_RES.files = ../data/classificator.txt ../data/visibility.txt \
+  CLASSIFICATOR_RES.files = ../data/classificator.txt \
                             ../data/types.txt
   CONFIG(production) {
     CLASSIFICATOR_RES.files += ../data/drules_proto.bin
@@ -96,10 +96,8 @@ RESOURCES += res/resources.qrc
 
   SOURCES += \
     update_dialog.cpp \
-    classificator_tree.cpp \
 
   HEADERS += \
     update_dialog.hpp \
-    classificator_tree.hpp \
 
 }

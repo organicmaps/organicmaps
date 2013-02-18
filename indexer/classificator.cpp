@@ -436,25 +436,6 @@ void Classificator::PrintClassificator(char const * fPath)
 #endif
 }
 
-void Classificator::ReadVisibility(istream & s)
-{
-  ClassifObject::VisLoadPolicy policy(&m_root);
-  tree::LoadTreeAsText(s, policy);
-}
-
-void Classificator::PrintVisibility(char const * fPath)
-{
-#ifndef OMIM_OS_BADA
-  ofstream file(fPath);
-
-  ClassifObject::VisSavePolicy policy(&m_root);
-  tree::SaveTreeAsText(file, policy);
-
-#else
-  ASSERT ( false, ("PrintVisibility uses only in indexer_tool") );
-#endif
-}
-
 void Classificator::SortClassificator()
 {
   GetMutableRoot()->Sort();
