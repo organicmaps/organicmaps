@@ -55,6 +55,7 @@ namespace graphics
 
   void PathTextElement::draw(OverlayRenderer * screen, math::Matrix<double, 3, 3> const & m) const
   {
+    int doffs = 0;
     if (screen->isDebugging())
     {
       graphics::Color c(255, 255, 255, 32);
@@ -64,10 +65,10 @@ namespace graphics
       if (isNeedRedraw())
         c = graphics::Color(255, 0, 0, 64);
 
-      screen->drawRectangle(roughBoundRect(), graphics::Color(255, 255, 0, 64), depth());
+      screen->drawRectangle(roughBoundRect(), graphics::Color(255, 255, 0, 64), depth() + doffs++);
 
       for (unsigned i = 0; i < boundRects().size(); ++i)
-        screen->drawRectangle(boundRects()[i], c, depth());
+        screen->drawRectangle(boundRects()[i], c, depth() + doffs++);
     }
 
     if (!isNeedRedraw() || !isVisible() || !isValid())
@@ -77,11 +78,11 @@ namespace graphics
 
     if (desc.m_isMasked)
     {
-      drawTextImpl(m_glyphLayout, screen, m, false, false, desc, depth());
+      drawTextImpl(m_glyphLayout, screen, m, false, false, desc, depth() + doffs++);
       desc.m_isMasked = false;
     }
 
-    drawTextImpl(m_glyphLayout, screen, m, false, false, desc, depth() + 0.1);
+    drawTextImpl(m_glyphLayout, screen, m, false, false, desc, depth() + doffs++);
   }
 
   void PathTextElement::setPivot(m2::PointD const & pivot)

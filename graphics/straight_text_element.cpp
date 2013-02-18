@@ -252,6 +252,7 @@ namespace graphics
 
   void StraightTextElement::draw(OverlayRenderer * screen, math::Matrix<double, 3, 3> const & m) const
   {
+    int doffs = 0;
     if (screen->isDebugging())
     {
       graphics::Color c(255, 255, 255, 32);
@@ -261,10 +262,14 @@ namespace graphics
       if (isNeedRedraw())
         c = graphics::Color(255, 0, 0, 64);
 
-      screen->drawRectangle(roughBoundRect(), graphics::Color(255, 255, 0, 64), depth() - 0.2);
+      screen->drawRectangle(roughBoundRect(), graphics::Color(255, 255, 0, 64), depth());
+
+      doffs += 1;
 
       for (unsigned i = 0 ; i < boundRects().size(); ++i)
-        screen->drawRectangle(boundRects()[i], c, depth() - 0.2);
+        screen->drawRectangle(boundRects()[i], c, depth() + doffs);
+
+      doffs += 1;
     }
 
     if (!isNeedRedraw())
@@ -273,14 +278,16 @@ namespace graphics
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
       if (m_glyphLayouts[i].fontDesc().m_isMasked)
-        drawTextImpl(m_glyphLayouts[i], screen, m, true, true, m_glyphLayouts[i].fontDesc(), depth());
+        drawTextImpl(m_glyphLayouts[i], screen, m, true, true, m_glyphLayouts[i].fontDesc(), depth() + doffs);
     }
+
+    doffs += 1;
 
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
       graphics::FontDesc fontDesc = m_glyphLayouts[i].fontDesc();
       fontDesc.m_isMasked = false;
-      drawTextImpl(m_glyphLayouts[i], screen, m, true, true, fontDesc, depth() + 0.1);
+      drawTextImpl(m_glyphLayouts[i], screen, m, true, true, fontDesc, depth() + doffs);
     }
   }
 
