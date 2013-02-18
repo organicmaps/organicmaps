@@ -156,7 +156,7 @@ namespace graphics
       {
         pointsData[i].pt.x = m_pts[i].x;
         pointsData[i].pt.y = m_pts[i].y;
-        pointsData[i].depth = graphics::maxDepth;
+        pointsData[i].depth = 0;
         pointsData[i].tex.x = m_texPts[i].x;
         pointsData[i].tex.y = m_texPts[i].y;
         pointsData[i].normal.x = 0;
