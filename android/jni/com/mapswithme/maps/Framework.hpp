@@ -77,7 +77,7 @@ namespace android
     void OnBalloonClick(gui::Element * e);
     void CreateBookmarkBalloon();
     BookmarkBalloon * GetBookmarkBalloon();
-    BookmarkAndCategory AddBookmark(Bookmark const & bm);
+    BookmarkAndCategory AddBookmark(Bookmark & bm);
 
   public:
     Framework();
@@ -139,7 +139,7 @@ namespace android
     void RemoveBalloonClickListener();
     void DeactivatePopup();
 
-    void AddBookmark(string const & category, Bookmark const & bm);
+    void AddBookmark(string const & category, Bookmark & bm);
 
     ::Framework * NativeFramework();
   };

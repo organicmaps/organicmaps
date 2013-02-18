@@ -392,11 +392,12 @@ void Framework::LoadBookmark(string const & filePath)
   }
 }
 
-BookmarkAndCategory Framework::AddBookmarkEx(string const & category, Bookmark const & bm)
+BookmarkAndCategory Framework::AddBookmarkEx(string const & category, Bookmark & bm)
 {
   // Get global non-rotated viewport rect and calculate viewport scale level.
-  double const scale = scales::GetScaleLevelD(
-        m_navigator.Screen().GlobalRect().GetLocalRect());
+  bm.SetScale(scales::GetScaleLevelD(m_navigator.Screen().GlobalRect().GetLocalRect()));
+
+  bm.SetTimeStamp(time(0));
 
   // @TODO not optimal for 1st release
   // Existing bookmark can be moved from one category to another,
@@ -410,27 +411,32 @@ BookmarkAndCategory Framework::AddBookmarkEx(string const & category, Bookmark c
     int const index = cat->GetBookmark(org, squareDistance);
     if (index >= 0)
     {
-      // found bookmark to replace
+      size_t const ind = static_cast<size_t>(index);
+
+      // copy needed params from the old bookmark
+      cat->AssignTimeStamp(ind, bm);
+
       if (category == cat->GetName())
       {
-        cat->ReplaceBookmark(static_cast<size_t>(index), bm, scale);
+        // found bookmark to replace
+        cat->ReplaceBookmark(ind, bm);
         return BookmarkAndCategory(i, index);
       }
       else
       {
-        // Bookmark was moved from one category to another
-        cat->DeleteBookmark(static_cast<size_t>(index));
+        // bookmark was moved from one category to another
+        cat->DeleteBookmark(ind);
       }
     }
   }
 
   size_t const ind = GetBmCategoryEx(category);
   BookmarkCategory * cat = m_bookmarks[ind];
-  cat->AddBookmark(bm, scale);
+  cat->AddBookmark(bm);
   return BookmarkAndCategory(ind, cat->GetBookmarksCount()-1);
 }
 
-BookmarkCategory * Framework::AddBookmark(string const & category, Bookmark const & bm)
+BookmarkCategory * Framework::AddBookmark(string const & category, Bookmark & bm)
 {
   return m_bookmarks[AddBookmarkEx(category, bm).first];
 }

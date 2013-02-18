@@ -690,7 +690,7 @@ namespace android
     return m_bmBaloon.get();
   }
 
-  BookmarkAndCategory Framework::AddBookmark(Bookmark const & bm)
+  BookmarkAndCategory Framework::AddBookmark(Bookmark & bm)
   {
     BookmarkAndCategory const bac = m_work.AddBookmarkEx(m_bmCategory, bm);
     BookmarkCategory * cat = m_work.GetBmCategory(bac.first);
@@ -699,7 +699,7 @@ namespace android
     return bac;
   }
 
-  void Framework::AddBookmark(string const & category, Bookmark const & bm)
+  void Framework::AddBookmark(string const & category, Bookmark & bm)
   {
     m_bmCategory = category;
     m_bmType = bm.GetType();

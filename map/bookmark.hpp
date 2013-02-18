@@ -58,9 +58,6 @@ class BookmarkCategory : private noncopyable
   /// Stores file name from which category was loaded
   string m_file;
 
-  friend class bookmark_impl::KMLParser;
-  void AddBookmarkImpl(Bookmark const & bm, double scale);
-
 public:
   BookmarkCategory(string const & name) : m_name(name), m_visible(true) {}
   ~BookmarkCategory();
@@ -69,8 +66,12 @@ public:
 
   /// @name Theese functions are called from Framework only.
   //@{
-  void AddBookmark(Bookmark const & bm, double scale);
-  void ReplaceBookmark(size_t index, Bookmark const & bm, double scale);
+  void AddBookmark(Bookmark const & bm);
+  void ReplaceBookmark(size_t index, Bookmark const & bm);
+
+  /// This function is called when bookmark is editing or replacing.
+  /// We need to assign times to the newly created bookmark from the old one.
+  void AssignTimeStamp(size_t index, Bookmark & bm) const;
   //@}
 
   void SetVisible(bool isVisible) { m_visible = isVisible; }

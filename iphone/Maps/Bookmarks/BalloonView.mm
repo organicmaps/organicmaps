@@ -226,12 +226,13 @@
   // If coordinates are be the same, bookmark is automatically replaced
   Bookmark bm(m2::PointD(self.globalPosition.x, self.globalPosition.y),
               [self.title UTF8String], [self.color UTF8String]);
-  bm.SetTimeStamp(time(0));
+
   BookmarkCategory * cat = GetFramework().AddBookmark([self.setName UTF8String], bm);
 
   // Enable category visibility if it was turned off, so user can see newly added or edited bookmark
   if (!cat->IsVisible())
     cat->SetVisible(true);
+
   // Save all changes
   cat->SaveToKMLFile();
 }

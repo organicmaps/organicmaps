@@ -16,36 +16,27 @@
 #include "../std/auto_ptr.hpp"
 
 
-void BookmarkCategory::AddBookmarkImpl(Bookmark const & bm, double scale)
+void BookmarkCategory::AddBookmark(Bookmark const & bm)
 {
   Bookmark * p = new Bookmark(bm);
-  p->SetScale(scale);
-
   m_bookmarks.push_back(p);
 }
 
-void BookmarkCategory::AddBookmark(Bookmark const & bm, double scale)
-{
-  AddBookmarkImpl(bm, scale);
-}
-
-void BookmarkCategory::ReplaceBookmark(size_t index, Bookmark const & bm, double scale)
+void BookmarkCategory::ReplaceBookmark(size_t index, Bookmark const & bm)
 {
   ASSERT_LESS ( index, m_bookmarks.size(), () );
   if (index < m_bookmarks.size())
   {
-    Bookmark * p = new Bookmark(bm);
-    p->SetScale(scale);
-
-    Bookmark const * old = m_bookmarks[index];
-    // Save creation time stamp
-    p->SetTimeStamp(old->GetTimeStamp());
-    m_bookmarks[index] = p;
-
-    delete old;
+    delete m_bookmarks[index];
+    m_bookmarks[index] = new Bookmark(bm);
   }
-  else
-    LOG(LWARNING, ("Trying to replace non-existing bookmark"));
+}
+
+void BookmarkCategory::AssignTimeStamp(size_t index, Bookmark & bm) const
+{
+  ASSERT_LESS ( index, m_bookmarks.size(), () );
+  if (index < m_bookmarks.size())
+    bm.SetTimeStamp(m_bookmarks[index]->GetTimeStamp());
 }
 
 BookmarkCategory::~BookmarkCategory()
@@ -207,7 +198,8 @@ namespace bookmark_impl
         Bookmark bm(m_org, m_name, m_type);
         bm.SetTimeStamp(m_timeStamp);
         bm.SetDescription(m_description);
-        m_category.AddBookmarkImpl(bm, m_scale);
+        bm.SetScale(m_scale);
+        m_category.AddBookmark(bm);
         Reset();
       }
       m_tags.pop_back();

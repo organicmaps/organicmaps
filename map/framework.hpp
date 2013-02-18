@@ -188,8 +188,8 @@ public:
 
   /// @name Always returns existing or newly created bookmark category.
   //@{
-  BookmarkCategory * AddBookmark(string const & category, Bookmark const & bm);
-  BookmarkAndCategory AddBookmarkEx(string const & category, Bookmark const & bm);
+  BookmarkCategory * AddBookmark(string const & category, Bookmark & bm);
+  BookmarkAndCategory AddBookmarkEx(string const & category, Bookmark & bm);
   //@}
 
   inline size_t GetBmCategoriesCount() const { return m_bookmarks.size(); }
