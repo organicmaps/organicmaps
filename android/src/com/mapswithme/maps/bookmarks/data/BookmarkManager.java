@@ -5,10 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Point;
-import android.text.TextUtils;
 
-import com.mapswithme.maps.MWMActivity;
-import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
 
 public class BookmarkManager
@@ -114,36 +111,40 @@ public class BookmarkManager
 
   public Bookmark getBookmark(int cat, int bmk)
   {
-
     return new Bookmark(mContext, cat, bmk);
   }
 
-  public BookmarkCategory createCategory(Bookmark bookmark, String newName)
+  private String getUniqueName(String newName)
   {
-    String pattern;
-    String name = pattern = newName;
+    String name = newName;
+
+    /// @todo Probably adding "-copy" suffix is better here (Mac OS style).
     int i = 0;
-    while (getCategoryByName(name))
-    {
-      name = pattern + " " + (++i);
-    }
-    bookmark.setCategory(name, getCategoriesCount());
-    BookmarkCategory cat = new BookmarkCategory(mContext, getCategoriesCount()-1);
-    return cat;
+    while (nIsCategoryExist(name))
+      name = newName + " " + (++i);
+
+    return name;
   }
 
-  //TODO
-  public boolean getCategoryByName(String name)
+  public int createCategory(Bookmark bookmark, String newName)
   {
-    return nGetCategoryByName(name);
+    bookmark.setCategory(getUniqueName(newName), getCategoriesCount());
+    return getCategoriesCount() - 1;
   }
 
-  private native boolean nGetCategoryByName(String name);
+  public void setCategoryName(BookmarkCategory cat, String newName)
+  {
+    cat.setName(getUniqueName(newName));
+  }
 
+  private native boolean nIsCategoryExist(String name);
+
+  /*
   public Bookmark previewBookmark(AddressInfo info)
   {
     return new Bookmark(mContext, info.getPosition(), info.getBookmarkName(mContext));
   }
+   */
 
   private native void nShowBookmark(int c, int b);
 

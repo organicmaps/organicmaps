@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Point;
 import android.util.Log;
 
+import com.mapswithme.maps.R;
+
 public class Bookmark
 {
   private Icon mIcon;
@@ -13,9 +15,11 @@ public class Bookmark
   private int mBookmark;
   private double mMercatorX = Double.NaN;
   private double mMercatorY = Double.NaN;
-  private String mPreviewString = "";
-  private final boolean mIsPreviewBookmark;
 
+  //private String mPreviewString = "";
+  //private final boolean mIsPreviewBookmark;
+
+  /*
   // For bookmark preview
   Bookmark(Context context, ParcelablePointD pos, String name)
   {
@@ -25,10 +29,11 @@ public class Bookmark
     mPreviewString = name;
     getXY(mPosition);
   }
+   */
 
   Bookmark(Context context, ParcelablePointD position, int nextCat, int b)
   {
-    mIsPreviewBookmark = false;
+    //mIsPreviewBookmark = false;
     mContext = context.getApplicationContext();
     mPosition = position;
     getXY(position);
@@ -45,7 +50,7 @@ public class Bookmark
 
   Bookmark(Context context, int c, int b)
   {
-    mIsPreviewBookmark = false;
+    //mIsPreviewBookmark = false;
     mContext = context.getApplicationContext();
     mCategoryId = c;
     mBookmark = b;
@@ -129,14 +134,15 @@ public class Bookmark
     return mIcon;
   }
 
-  public String getName(){
+  public String getName()
+  {
     if (mCategoryId > -1 && BookmarkManager.getBookmarkManager(mContext).getCategoryById(mCategoryId).getSize() > mBookmark)
     {
       return nGetName(mCategoryId, mBookmark);
     }
     else
     {
-      return mPreviewString;
+      return "";
     }
   }
 
@@ -148,9 +154,8 @@ public class Bookmark
     }
     else
     {
-      //TODO change string resources
-      mCategoryId++;
-      return "My Places";
+      mCategoryId = 0;
+      return mContext.getString(R.string.my_places);
     }
   }
 
@@ -173,6 +178,8 @@ public class Bookmark
   public void setCategory(String category, int catId)
   {
     changeBookmark(category, getName(), mIcon.getType());
+
+    /// @todo This is not correct, but acceptable in current usage (object is not using later).
     mCategoryId = catId;
     mBookmark = BookmarkManager.getBookmarkManager(mContext).getCategoryById(mCategoryId).getSize() - 1;
   }
@@ -194,24 +201,18 @@ public class Bookmark
 
   public String getBookmarkDescription()
   {
-    if (!mIsPreviewBookmark)
-    {
-      return nGetBookmarkDescription(mCategoryId, mBookmark);
-    }
-    else
-    {
-      return mPreviewString;
-    }
+    //if (!mIsPreviewBookmark)
+    //{
+    return nGetBookmarkDescription(mCategoryId, mBookmark);
+    //}
+    //else
+    //{
+    //  return mPreviewString;
+    //}
   }
 
   public void setDescription(String n)
   {
     nSetBookmarkDescription(mCategoryId, mBookmark, n);
-  }
-
-  //TODO stub
-  public boolean isPreviewBookmark()
-  {
-    return mIsPreviewBookmark;
   }
 }

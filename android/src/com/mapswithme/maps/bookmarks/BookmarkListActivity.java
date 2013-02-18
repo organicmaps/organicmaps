@@ -90,8 +90,9 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       @Override
       public void onTextChanged(CharSequence s, int start, int before, int count)
       {
-        mEditedSet.setName(s.toString());
-        setTitle(s.toString());
+        final String name = s.toString();
+        mManager.setCategoryName(mEditedSet, name);
+        setTitle(name);
       }
 
       @Override
@@ -138,8 +139,8 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
 
   private void startPinActivity(int cat, int bmk)
   {
-    startActivity(new Intent(this, BookmarkActivity.class).
-                  putExtra(BookmarkActivity.PIN, new ParcelablePoint(cat, bmk)));
+    startActivity(new Intent(this, BookmarkActivity.class)
+    .putExtra(BookmarkActivity.PIN, new ParcelablePoint(cat, bmk)));
   }
 
   @Override

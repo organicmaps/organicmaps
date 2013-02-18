@@ -35,8 +35,8 @@ public class BookmarkCategoriesActivity extends AbstractBookmarkCategoryActivity
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id)
       {
-        startActivity(new Intent(BookmarkCategoriesActivity.this, BookmarkListActivity.class).putExtra(BookmarkActivity.PIN_SET,
-            position));
+        startActivity(new Intent(BookmarkCategoriesActivity.this, BookmarkListActivity.class)
+        .putExtra(BookmarkActivity.PIN_SET, position));
       }
     });
     registerForContextMenu(getListView());
