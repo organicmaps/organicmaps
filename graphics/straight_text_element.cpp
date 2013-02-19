@@ -1,116 +1,75 @@
 ﻿#include "../base/SRC_FIRST.hpp"
+
 #include "straight_text_element.hpp"
 #include "overlay_renderer.hpp"
+
+#include "../std/iterator.hpp"
+#include "../std/algorithm.hpp"
+
 
 namespace graphics
 {
   void visSplit(strings::UniString const & visText,
                 buffer_vector<strings::UniString, 3> & res,
-                char const * delimiters,
-                size_t delimSize,
+                char const * delims,
                 bool splitAllFound)
   {
     if (!splitAllFound)
     {
-      if (visText.size() > 15)
+      size_t count = visText.size();
+      if (count > 15)
       {
-        /// split into two
-        size_t rs = visText.size() / 2;
-        size_t ls = visText.size() / 2;
+        // split on two parts
+        typedef strings::UniString::const_iterator IterT;
+        IterT const iMiddle = visText.begin() + count/2;
 
-        size_t s;
+        size_t const delimsSize = strlen(delims);
 
-        while (true)
-        {
-          if (rs == visText.size() - 1)
-            break;
+        // find next delimeter after middle [m, e)
+        IterT iNext = find_first_of(iMiddle,
+                                    visText.end(),
+                                    delims, delims + delimsSize);
 
-          bool foundDelim = false;
-
-          for (int i = 0; i < delimSize; ++i)
-            if (visText[rs] == strings::UniChar(delimiters[i]))
-            {
-              foundDelim = true;
-              break;
-            }
-
-          if (foundDelim)
-            break;
-
-          ++rs;
-        }
-
-        if (rs == visText.size() - 1)
-        {
-          while (true)
-          {
-            if (ls == 0)
-              break;
-
-            bool foundDelim = false;
-
-            for (int i = 0; i < delimSize; ++i)
-              if (visText[ls] == strings::UniChar(delimiters[i]))
-              {
-                foundDelim = true;
-                break;
-              }
-
-            if (foundDelim)
-              break;
-
-            --ls;
-          }
-
-          if (ls < 5)
-            s = visText.size() - 1;
-          else
-            s = ls;
-        }
+        // find last delimeter before middle [b, m)
+        IterT iPrev = find_first_of(reverse_iterator<IterT>(iMiddle),
+                                    reverse_iterator<IterT>(visText.begin()),
+                                    delims, delims + delimsSize).base();
+        // don't do split like this:
+        //     xxxx
+        // xxxxxxxxxxxx
+        if (4 * distance(visText.begin(), iPrev) <= count)
+          iPrev = visText.end();
         else
-          s = rs;
+          --iPrev;
 
-        res.push_back(strings::UniString());
-        res.back().resize(s + 1);
-        for (unsigned i = 0; i < s + 1; ++i)
-          res.back()[i] = visText[i];
-
-        if (s != visText.size() - 1)
+        // get closest delimiter to the middle
+        if (iNext == visText.end() ||
+            (iPrev != visText.end() && distance(iPrev, iMiddle) < distance(iMiddle, iNext)))
         {
-          res.push_back(strings::UniString());
-          res.back().resize(visText.size() - s - 1);
-          for (unsigned i = s + 1; i < visText.size(); ++i)
-            res.back()[i - s - 1] = visText[i];
+          iNext = iPrev;
+        }
+
+        // split string on 2 parts
+        if (iNext != visText.end())
+        {
+          ASSERT_NOT_EQUAL(iNext, visText.begin(), ());
+          res.push_back(strings::UniString(visText.begin(), iNext));
+
+          if (++iNext != visText.end())
+            res.push_back(strings::UniString(iNext, visText.end()));
+
+          return;
         }
       }
-      else
-        res.push_back(visText);
+
+      res.push_back(visText);
     }
     else
     {
-      size_t beg = 0;
-      size_t i = 0;
-      for (;i < visText.size(); ++i)
-      {
-        for (int j = 0; j < delimSize; ++j)
-          if (visText[i] == strings::UniChar(delimiters[j]))
-          {
-            strings::UniString s;
-            s.resize(i - beg);
-            for (unsigned k = beg; k < i; ++k)
-              s[k - beg] = visText[k];
-            res.push_back(s);
-            beg = i + 1;
-          }
-      }
-
-      strings::UniString s;
-
-      s.resize(i - beg);
-      for (unsigned k = beg; k < i; ++k)
-        s[k - beg] = visText[k];
-
-      res.push_back(s);
+      // split string using according to all delimiters
+      typedef strings::SimpleDelimiter DelimT;
+      for (strings::TokenizeIterator<DelimT> iter(visText, DelimT(delims)); iter; ++iter)
+        res.push_back(iter.GetUniString());
     }
   }
 
@@ -129,9 +88,9 @@ namespace graphics
       {
         res.clear();
         if (!p.m_delimiters.empty())
-          visSplit(visText(), res, p.m_delimiters.c_str(), p.m_delimiters.size(), p.m_useAllParts);
+          visSplit(visText(), res, p.m_delimiters.c_str(), p.m_useAllParts);
         else
-          visSplit(visText(), res, " \n\t", 3, p.m_useAllParts);
+          visSplit(visText(), res, " \n\t", p.m_useAllParts);
       }
       else
         res.push_back(visText());
@@ -156,9 +115,9 @@ namespace graphics
         if (p.m_doSplit && !isAuxBidi())
         {
           if (!p.m_delimiters.empty())
-            visSplit(auxVisText(), auxRes, p.m_delimiters.c_str(), p.m_delimiters.size(), p.m_useAllParts);
+            visSplit(auxVisText(), auxRes, p.m_delimiters.c_str(), p.m_useAllParts);
           else
-            visSplit(auxVisText(), auxRes, " \n\t", 3, p.m_useAllParts);
+            visSplit(auxVisText(), auxRes, " \n\t", p.m_useAllParts);
         }
         else
           auxRes.push_back(auxVisText());

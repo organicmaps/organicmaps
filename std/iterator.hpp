@@ -13,6 +13,7 @@ using std::iterator_traits;
 using std::istream_iterator;
 using std::insert_iterator;
 using std::back_insert_iterator;
+using std::reverse_iterator;
 
 #ifdef DEBUG_NEW
 #define new DEBUG_NEW
