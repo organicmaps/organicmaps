@@ -66,7 +66,7 @@ InformationDisplay::InformationDisplay(Framework * framework)
   location::State::Params lsp;
 
   lsp.m_position = graphics::EPosCenter;
-  lsp.m_depth = graphics::maxDepth;
+  lsp.m_depth = graphics::maxDepth - 1;
   lsp.m_pivot = m2::PointD(0, 0);
   lsp.m_compassAreaColor = graphics::Color(255, 255, 255, 192);
   lsp.m_compassBorderColor = graphics::Color(255, 255, 255, 96);

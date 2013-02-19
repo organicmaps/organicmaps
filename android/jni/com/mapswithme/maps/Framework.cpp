@@ -664,7 +664,7 @@ namespace android
     BookmarkBalloon::Params bp;
 
     bp.m_position = graphics::EPosAbove;
-    bp.m_depth = graphics::maxDepth - 3;
+    bp.m_depth = graphics::maxDepth;
     bp.m_pivot = m2::PointD(0, 0);
     bp.m_imageMarginBottom = 10;
     bp.m_imageMarginLeft = 0;

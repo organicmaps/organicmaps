@@ -297,7 +297,7 @@ void Drawer::drawPathNumber(di::PathInfo const & path, di::DrawInfo const * pInf
           true,
           graphics::Color(255, 255, 255, 255));
 
-        m_pScreen->drawText(fontDesc, pt, graphics::EPosCenter, pInfo->m_road, graphics::maxDepth, true);
+        m_pScreen->drawText(fontDesc, pt, graphics::EPosCenter, pInfo->m_road, graphics::maxDepth - 10, true);
       }
     }
   }
