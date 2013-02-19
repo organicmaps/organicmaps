@@ -216,8 +216,7 @@ namespace graphics
       m_maxSymInRow(20),
       m_doSplit(false),
       m_useAllParts(true),
-      m_offset(0, 0),
-      m_delimiters("\n")
+      m_offset(0, 0)
   {}
 
   StraightTextElement::StraightTextElement(StraightTextElement const & src,
