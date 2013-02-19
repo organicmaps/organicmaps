@@ -33,7 +33,7 @@ void IndexAndTypeMapping::Add(uint32_t ind, uint32_t type)
   ASSERT_EQUAL ( ind, m_types.size(), () );
   m_types.push_back(type);
 
-  CHECK ( m_map.insert(make_pair(type, ind)).second, (classif().GetFullObjectName(type), ind) );
+  m_map.insert(make_pair(type, ind));
 }
 
 uint32_t IndexAndTypeMapping::GetIndex(uint32_t t) const
