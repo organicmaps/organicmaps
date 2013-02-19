@@ -8,6 +8,7 @@
 
 #include "../3party/utfcpp/source/utf8/unchecked.h"
 
+
 /// All methods work with strings in utf-8 format
 namespace strings
 {
@@ -39,19 +40,8 @@ void MakeLowerCase(string & s);
 string MakeLowerCase(string const & s);
 bool EqualNoCase(string const & s1, string const & s2);
 
-inline UniString MakeUniString(string const & utf8s)
-{
-  UniString result;
-  utf8::unchecked::utf8to32(utf8s.begin(), utf8s.end(), back_inserter(result));
-  return result;
-}
-
-inline string ToUtf8(UniString const & s)
-{
-  string result;
-  utf8::unchecked::utf32to8(s.begin(), s.end(), back_inserter(result));
-  return result;
-}
+UniString MakeUniString(string const & utf8s);
+string ToUtf8(UniString const & s);
 
 inline string DebugPrint(UniString const & s)
 {
@@ -65,7 +55,7 @@ class TokenizeIterator
   DelimFuncT m_delimFunc;
 
   /// Explicitly disabled, because we're storing iterators for string
-  TokenizeIterator(char const *, DelimFuncT);
+  TokenizeIterator(char const *, DelimFuncT const &);
 
   void move()
   {
@@ -88,13 +78,13 @@ class TokenizeIterator
   }
 
 public:
-  TokenizeIterator(string const & s, DelimFuncT delimFunc)
+  TokenizeIterator(string const & s, DelimFuncT const & delimFunc)
   : m_beg(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFunc(delimFunc)
   {
     move();
   }
 
-  TokenizeIterator(UniString const & s, DelimFuncT delimFunc)
+  TokenizeIterator(UniString const & s, DelimFuncT const & delimFunc)
   : m_beg(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFunc(delimFunc)
   {
     move();
@@ -118,6 +108,7 @@ public:
   {
     if (!*this)
       return false;
+
     TokenizeIterator<DelimFuncT, UniCharIterT> copy(*this);
     ++copy;
     return !copy;
@@ -125,14 +116,7 @@ public:
 
   UniString GetUniString() const
   {
-    UniString result;
-    UniCharIterT iter(m_beg);
-    while (iter != m_end)
-    {
-      result.push_back(*iter);
-      ++iter;
-    }
-    return result;
+    return UniString(m_beg, m_end);
   }
 };
 
@@ -165,7 +149,8 @@ UniChar LastUniChar(string const & s);
 template <class T, size_t N, class TT> bool IsInArray(T (&arr) [N], TT const & t)
 {
   for (size_t i = 0; i < N; ++i)
-    if (arr[i] == t) return true;
+    if (arr[i] == t)
+      return true;
   return false;
 }
 
@@ -187,6 +172,7 @@ inline bool to_uint64(string const & s, uint64_t & i) { return to_uint64(s.c_str
 inline bool to_int64(string const & s, int64_t & i) { return to_int64(s.c_str(), i); }
 inline bool to_double(string const & s, double & d) { return to_double(s.c_str(), d); }
 
+/*
 template <typename ItT, typename DelimiterT>
 typename ItT::value_type JoinStrings(ItT begin, ItT end, DelimiterT const & delimiter)
 {
@@ -210,5 +196,5 @@ typename ContainerT::value_type JoinStrings(ContainerT const & container,
 {
   return JoinStrings(container.begin(), container.end(), delimiter);
 }
-
+*/
 }

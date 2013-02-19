@@ -133,4 +133,18 @@ bool EqualNoCase(string const & s1, string const & s2)
   return MakeLowerCase(s1) == MakeLowerCase(s2);
 }
 
+UniString MakeUniString(string const & utf8s)
+{
+  UniString result;
+  utf8::unchecked::utf8to32(utf8s.begin(), utf8s.end(), back_inserter(result));
+  return result;
+}
+
+string ToUtf8(UniString const & s)
+{
+  string result;
+  utf8::unchecked::utf32to8(s.begin(), s.end(), back_inserter(result));
+  return result;
+}
+
 }
