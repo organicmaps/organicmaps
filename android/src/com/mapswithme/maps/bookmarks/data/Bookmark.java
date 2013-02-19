@@ -42,7 +42,7 @@ public class Bookmark
     String name = getName();
     mCategoryId = nextCat;
     changeBookmark(getCategoryName(), name, mIcon.getType());
-    Point bookmark = BookmarkManager.nGetBookmark(position.x, position.y);
+    Point bookmark = BookmarkManager.getBookmark(position.x, position.y);
     mBookmark = bookmark.y;
     Log.d("Bookmark indices", " " + mCategoryId+ " "+ mBookmark);
   }
@@ -60,50 +60,50 @@ public class Bookmark
 
   private void getXY(ParcelablePointD position)
   {
-    ParcelablePointD ll = nPtoG(position.x, position.y);
+    ParcelablePointD ll = p2g(position.x, position.y);
     mMercatorX = ll.x;
     mMercatorY = ll.y;
   }
 
   public static ParcelablePointD GtoP(ParcelablePointD p)
   {
-    return nGtoP(p.x, p.y);
+    return g2p(p.x, p.y);
   }
 
   public static ParcelablePointD PtoG(ParcelablePointD p)
   {
-    return nPtoG(p.x, p.y);
+    return p2g(p.x, p.y);
   }
 
-  private native DistanceAndAthimuth nGetDistanceAndAzimuth(double x, double y, double cLat, double cLon, double north);
-  private static native ParcelablePointD nGtoP(double x, double y);
-  private static native ParcelablePointD nPtoG(double px, double py);
-  private native ParcelablePointD nGetXY(int c, long b);
-  private native String nGetNamePos(double px, double py);
-  private native String nGetName(int c, long b);
-  private native String nGetIconPos(double px, double py);
-  private native String nGetIcon(int c, long b);
-  private native void nChangeBookmark(double x, double y, String category, String name, String type);
-  private native String nGetBookmarkDescription(int categoryId, long bookmark);
-  private native void nSetBookmarkDescription(int categoryId, long bookmark, String newDescr);
-  private native String nGetBookmarkDescriptionPos(int categoryId, int bookmark);
+  private native DistanceAndAzimut getDistanceAndAzimut(double x, double y, double cLat, double cLon, double north);
+  private static native ParcelablePointD g2p(double x, double y);
+  private static native ParcelablePointD p2g(double px, double py);
+  private native ParcelablePointD getXY(int c, long b);
+  private native String getNamePos(double px, double py);
+  private native String getName(int c, long b);
+  private native String getIconPos(double px, double py);
+  private native String getIcon(int c, long b);
+  private native void changeBookmark(double x, double y, String category, String name, String type);
+  private native String getBookmarkDescription(int categoryId, long bookmark);
+  private native void setBookmarkDescription(int categoryId, long bookmark, String newDescr);
+  private native String getBookmarkDescriptionPos(int categoryId, int bookmark);
 
   void getXY()
   {
-    ParcelablePointD ll = nGetXY(mCategoryId, mBookmark);
+    ParcelablePointD ll = getXY(mCategoryId, mBookmark);
     mMercatorX = ll.x;
     mMercatorY = ll.y;
-    mPosition = nGtoP(mMercatorX, mMercatorY);
+    mPosition = g2p(mMercatorX, mMercatorY);
   }
 
-  public DistanceAndAthimuth getDistanceAndAthimuth(double cLat, double cLon, double north)
+  public DistanceAndAzimut getDistanceAndAzimut(double cLat, double cLon, double north)
   {
-    return nGetDistanceAndAzimuth(mMercatorX, mMercatorY, cLat, cLon, north);
+    return getDistanceAndAzimut(mMercatorX, mMercatorY, cLat, cLon, north);
   }
 
   public ParcelablePointD getPosition()
   {
-    return nGtoP(mMercatorX, mMercatorY);
+    return g2p(mMercatorX, mMercatorY);
   }
 
   public double getLat()
@@ -118,15 +118,7 @@ public class Bookmark
 
   private Icon getIconInternal()
   {
-    if (mCategoryId > -1)
-    {
-      return BookmarkManager.getBookmarkManager(mContext).getIconByName(nGetIcon(mCategoryId, mBookmark));
-    }
-    else
-    {
-      return BookmarkManager.getBookmarkManager(mContext).getIconByName("");
-    }
-
+    return BookmarkManager.getBookmarkManager(mContext).getIconByName((mCategoryId >= 0) ? getIcon(mCategoryId, mBookmark) : "");
   }
 
   public Icon getIcon()
@@ -136,9 +128,9 @@ public class Bookmark
 
   public String getName()
   {
-    if (mCategoryId > -1 && BookmarkManager.getBookmarkManager(mContext).getCategoryById(mCategoryId).getSize() > mBookmark)
+    if (mCategoryId >= 0 && BookmarkManager.getBookmarkManager(mContext).getCategoryById(mCategoryId).getSize() > mBookmark)
     {
-      return nGetName(mCategoryId, mBookmark);
+      return getName(mCategoryId, mBookmark);
     }
     else
     {
@@ -186,7 +178,7 @@ public class Bookmark
 
   private void changeBookmark(String category, String name, String type)
   {
-    nChangeBookmark(mMercatorX, mMercatorY, category, name, type);
+    changeBookmark(mMercatorX, mMercatorY, category, name, type);
   }
 
   public int getCategoryId()
@@ -203,7 +195,7 @@ public class Bookmark
   {
     //if (!mIsPreviewBookmark)
     //{
-    return nGetBookmarkDescription(mCategoryId, mBookmark);
+    return getBookmarkDescription(mCategoryId, mBookmark);
     //}
     //else
     //{
@@ -213,6 +205,6 @@ public class Bookmark
 
   public void setDescription(String n)
   {
-    nSetBookmarkDescription(mCategoryId, mBookmark, n);
+    setBookmarkDescription(mCategoryId, mBookmark, n);
   }
 }

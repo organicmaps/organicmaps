@@ -292,7 +292,7 @@ namespace android
 
       if (eventType == NV_MULTITOUCH_MOVE)
       {
-        double const minDist = m_work.GetRenderPolicy()->VisualScale() * 10.0;
+        double const minDist = m_work.GetVisualScale() * 10.0;
         if ((fabs(x1 - m_lastX1) > minDist) || (fabs(y1 - m_lastY1) > minDist))
         {
           m_isCleanSingleClick = false;
@@ -560,7 +560,7 @@ namespace android
 
     // 1. check if we tapped on existing bookmark - show popup and exit
     BookmarkAndCategory bac = m_work.GetBookmark(pt);
-    if (ValidateBookmarkAndCategory(bac))
+    if (IsValid(bac))
     {
       Bookmark const * pBM = m_work.GetBmCategory(bac.first)->GetBookmark(bac.second);
       ActivatePopup(pBM->GetOrg(), pBM->GetName(), IMAGE_ARROW);
@@ -635,7 +635,7 @@ namespace android
     if (GetPlatform().IsPro())
     {
       bac = m_work.GetBookmark(m_work.GtoP(balloon->glbPivot()));
-      if (!ValidateBookmarkAndCategory(bac))
+      if (!IsValid(bac))
       {
         // add new bookmark
         Bookmark bm(balloon->glbPivot(), balloon->bookmarkName(), m_bmType);

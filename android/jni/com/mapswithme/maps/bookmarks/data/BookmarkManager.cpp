@@ -10,33 +10,29 @@ namespace
 extern "C"
 {
   JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetPOI(
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_getPOI(
       JNIEnv * env, jobject thiz, jdouble px, jdouble py)
   {
-    Framework::AddressInfo adInfo;
+    Framework::AddressInfo addrInfo;
     m2::PointD pxPivot;
-    if (frm()->GetVisiblePOI(m2::PointD(px, py), pxPivot, adInfo))
-    {
-      return jni::GetNewAddressInfo(env, adInfo, pxPivot);
-    }
+    if (frm()->GetVisiblePOI(m2::PointD(px, py), pxPivot, addrInfo))
+      return jni::GetNewAddressInfo(env, addrInfo, pxPivot);
     else
-    {
-      return env->NewGlobalRef(NULL);
-    }
+      return 0;
   }
 
   JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetAddressInfo(
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_getAddressInfo(
       JNIEnv * env, jobject thiz, jdouble px, jdouble py)
   {
     m2::PointD point(px, py);
-    Framework::AddressInfo adInfo;
-    frm()->GetAddressInfo(point, adInfo);
-    return jni::GetNewAddressInfo(env, adInfo, point);
+    Framework::AddressInfo addrInfo;
+    frm()->GetAddressInfo(point, addrInfo);
+    return jni::GetNewAddressInfo(env, addrInfo, point);
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nShowBookmark(
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_showBookmarkOnMap(
       JNIEnv * env, jobject thiz, jint c, jint b)
   {
     frm()->ShowBookmark(*(frm()->GetBmCategory(c)->GetBookmark(b)));
@@ -44,7 +40,7 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nLoadBookmarks(JNIEnv * env, jobject thiz)
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_loadBookmarks(JNIEnv * env, jobject thiz)
   {
     frm()->LoadBookmarks();
   }
@@ -56,21 +52,21 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nIsCategoryExist(
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_isCategoryExist(
       JNIEnv * env, jobject thiz, jstring name)
   {
     return frm()->IsCategoryExist(jni::ToNativeString(env, name));
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nDeleteCategory(
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_deleteCategory(
        JNIEnv * env, jobject thiz, jint index)
   {
     return frm()->DeleteBmCategory(index);
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nDeleteBookmark(
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_deleteBookmark(
       JNIEnv * env, jobject thiz, jint cat, jint bmk)
   {
     BookmarkCategory * pCat = frm()->GetBmCategory(cat);
@@ -82,11 +78,10 @@ extern "C"
   }
 
   JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetBookmark(
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_getBookmark(
       JNIEnv * env, jobject thiz, jdouble px, jdouble py)
   {
-    BookmarkAndCategory bac = frm()->GetBookmark(m2::PointD(px, py));
-
+    BookmarkAndCategory const bac = frm()->GetBookmark(m2::PointD(px, py));
     return jni::GetNewPoint(env, m2::PointI(bac.first, bac.second));
    }
 }

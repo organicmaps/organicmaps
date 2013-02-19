@@ -1,8 +1,0 @@
-<resources>
-
-    <style name="PopupWindowAnimation" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@anim/popup_appear</item>
-        <item name="android:windowExitAnimation">@anim/popup_disappear</item>
-    </style>
-
-</resources>

@@ -35,22 +35,17 @@ public class BookmarkManager
 
   private void refreshList()
   {
-    nLoadBookmarks();
+    loadBookmarks();
   }
 
-  private native void nLoadBookmarks();
+  private native void loadBookmarks();
 
   public void deleteBookmark(Bookmark bmk)
   {
-    nDeleteBookmark(bmk.getCategoryId(), bmk.getBookmarkId());
+    deleteBookmark(bmk.getCategoryId(), bmk.getBookmarkId());
   }
 
-  public void deleteBookmark(int cat, int bmk)
-  {
-    nDeleteBookmark(cat, bmk);
-  }
-
-  private native void nDeleteBookmark(int c, int b);
+  public native void deleteBookmark(int c, int b);
 
   public BookmarkCategory getCategoryById(int id)
   {
@@ -66,14 +61,9 @@ public class BookmarkManager
 
   public native int getCategoriesCount();
 
-  public void deleteCategory(int index)
-  {
-    nDeleteCategory(index);
-  }
+  public native boolean deleteCategory(int index);
 
-  private native boolean nDeleteCategory(int index);
-
-  Icon getIconByName(String name)
+  public Icon getIconByName(String name)
   {
     return mIconManager.getIcon(name);
   }
@@ -85,10 +75,11 @@ public class BookmarkManager
 
   public Bookmark getBookmark(ParcelablePointD p)
   {
-    Point bookmark = nGetBookmark(p.x, p.y);
+    Point bookmark = getBookmark(p.x, p.y);
     if (bookmark.x == -1 && bookmark.y == -1)
     {
-      return new Bookmark(mContext, p, getCategoriesCount() - 1, getCategoriesCount() - 1 >= 0 ? getCategoryById(getCategoriesCount() - 1).getSize() : 0);
+      final int index = getCategoriesCount() - 1;
+      return new Bookmark(mContext, p, index, index >= 0 ? getCategoryById(index).getSize() : 0);
     }
     else
     {
@@ -98,16 +89,14 @@ public class BookmarkManager
 
   public ParcelablePoint findBookmark(ParcelablePointD p)
   {
-    Point bookmark = nGetBookmark(p.x, p.y);
-    if (bookmark.x>=0 && bookmark.y>=0)
-    {
+    Point bookmark = getBookmark(p.x, p.y);
+    if (bookmark.x >= 0 && bookmark.y >= 0)
       return new ParcelablePoint(bookmark);
-    }
     else
       return null;
   }
 
-  static native Point nGetBookmark(double px, double py);
+  public static native Point getBookmark(double px, double py);
 
   public Bookmark getBookmark(int cat, int bmk)
   {
@@ -120,7 +109,7 @@ public class BookmarkManager
 
     /// @todo Probably adding "-copy" suffix is better here (Mac OS style).
     int i = 0;
-    while (nIsCategoryExist(name))
+    while (isCategoryExist(name))
       name = newName + " " + (++i);
 
     return name;
@@ -137,7 +126,7 @@ public class BookmarkManager
     cat.setName(getUniqueName(newName));
   }
 
-  private native boolean nIsCategoryExist(String name);
+  private native boolean isCategoryExist(String name);
 
   /*
   public Bookmark previewBookmark(AddressInfo info)
@@ -146,29 +135,24 @@ public class BookmarkManager
   }
    */
 
-  private native void nShowBookmark(int c, int b);
+  public native void showBookmarkOnMap(int c, int b);
 
-  public void showBookmarkOnMap(int c, int b)
-  {
-    nShowBookmark(c, b);
-  }
-
-  private native String nGetNameForPlace(double px, double py);
+  private native String getNameForPlace(double px, double py);
 
   public String getNameForPlace(ParcelablePointD p)
   {
-    return Utils.toTitleCase(nGetNameForPlace(p.x,p.y));
+    return Utils.toTitleCase(getNameForPlace(p.x,p.y));
   }
 
   public AddressInfo getPOI(ParcelablePointD px)
   {
-    return nGetPOI(px.x, px.y);
+    return getPOI(px.x, px.y);
   }
-  private native AddressInfo nGetPOI(double px, double py);
+  private native AddressInfo getPOI(double px, double py);
 
   public AddressInfo getAddressInfo(ParcelablePointD px)
   {
-    return nGetAddressInfo(px.x, px.y);
+    return getAddressInfo(px.x, px.y);
   }
-  private native AddressInfo nGetAddressInfo(double px, double py);
+  private native AddressInfo getAddressInfo(double px, double py);
 }

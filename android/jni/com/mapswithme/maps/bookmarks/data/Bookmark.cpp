@@ -20,27 +20,27 @@ namespace
 extern "C"
 {
   JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGtoP(JNIEnv * env, jobject thiz, jdouble x, jdouble y)
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_g2p(JNIEnv * env, jobject thiz, jdouble x, jdouble y)
   {
     return jni::GetNewParcelablePointD(env, frm()->GtoP(m2::PointD(x, y)));
   }
 
   JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetName(
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_getName(
        JNIEnv * env, jobject thiz, jint cat, jlong bmk)
   {
     return jni::ToJavaString(env, getBookmark(cat, bmk)->GetName());
   }
 
   JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetBookmarkDescription(
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_getBookmarkDescription(
        JNIEnv * env, jobject thiz, jint cat, jlong bmk)
   {
     return jni::ToJavaString(env, getBookmark(cat, bmk)->GetDescription());
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_Bookmark_nSetBookmarkDescription(
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_setBookmarkDescription(
        JNIEnv * env, jobject thiz, jint cat, jlong bmk, jstring newDescr)
   {
     // do edit bookmark's description without AddBookmark routine
@@ -50,7 +50,7 @@ extern "C"
   }
 
   JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetNamePos(
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_getNamePos(
          JNIEnv * env, jobject thiz, jint px, jint py)
   {
     BookmarkAndCategory bc = frm()->GetBookmark(m2::PointD(px, py));
@@ -58,14 +58,14 @@ extern "C"
   }
 
   JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetIcon(
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_getIcon(
        JNIEnv * env, jobject thiz, jint cat, jlong bmk)
   {
     return jni::ToJavaString(env, getBookmark(cat, bmk)->GetType());
   }
 
   JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetIconPos(
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_getIconPos(
          JNIEnv * env, jobject thiz, jint px, jint py)
   {
     BookmarkAndCategory bc = frm()->GetBookmark(m2::PointD(px, py));
@@ -73,7 +73,7 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_Bookmark_nChangeBookmark(
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_changeBookmark(
          JNIEnv * env, jobject thiz, jdouble x, jdouble y, jstring cat, jstring name, jstring type)
   {
     // get existing bookmark under point
@@ -81,7 +81,7 @@ extern "C"
 
     // initialize new bookmark
     Bookmark bm(m2::PointD(x, y), jni::ToNativeString(env, name), jni::ToNativeString(env, type));
-    if (bac.first > -1 && bac.second > -1)
+    if (IsValid(bac))
       bm.SetDescription(getBookmark(bac.first, bac.second)->GetDescription());
 
     // add new bookmark
@@ -98,14 +98,14 @@ extern "C"
   }
 
   JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_Bookmark_nPtoG(
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_p2g(
        JNIEnv * env, jobject thiz, jdouble px, jdouble py)
   {
     return jni::GetNewParcelablePointD(env, frm()->PtoG(m2::PointD(px, py)));
   }
 
   JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetDistanceAndAzimuth(
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_getDistanceAndAzimut(
       JNIEnv * env, jobject thiz, jdouble x, jdouble y, jdouble cLat, jdouble cLon, jdouble north)
   {
     string distance;
@@ -113,7 +113,7 @@ extern "C"
     g_framework->NativeFramework()->GetDistanceAndAzimut(
         m2::PointD(x, y), cLat, cLon, north, distance, azimut);
 
-    jclass klass = env->FindClass("com/mapswithme/maps/bookmarks/data/DistanceAndAthimuth");
+    jclass klass = env->FindClass("com/mapswithme/maps/bookmarks/data/DistanceAndAzimut");
     ASSERT ( klass, () );
     jmethodID methodID = env->GetMethodID(
         klass, "<init>",
@@ -126,7 +126,7 @@ extern "C"
   }
 
   JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetXY(
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_getXY(
        JNIEnv * env, jobject thiz, jint cat, jlong bmk)
   {
     return jni::GetNewParcelablePointD(env, getBookmark(cat, bmk)->GetOrg());

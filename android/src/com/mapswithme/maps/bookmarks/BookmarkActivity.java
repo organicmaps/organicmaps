@@ -50,14 +50,15 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.pin);
-    if (getIntent().getExtras().containsKey(PIN))
-    {
-      Point mPinPair = ((ParcelablePoint)getIntent().getParcelableExtra(PIN)).getPoint();
-      mCurrentCategoryId = mPinPair.x;
-      mPin = mManager.getBookmark(mPinPair.x, mPinPair.y);
-    }
+
+    setContentView(R.layout.add_or_edit_bookmark);
+
+    assert(getIntent().getExtras().containsKey(PIN));
+    final Point p = ((ParcelablePoint)getIntent().getParcelableExtra(PIN)).getPoint();
+
+    mPin = mManager.getBookmark(p.x, p.y);
     mCurrentCategoryId = mPin.getCategoryId();
+
     setTitle(mPin.getName());
     setUpViews();
   }

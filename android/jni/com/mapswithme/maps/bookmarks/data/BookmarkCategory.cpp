@@ -18,14 +18,14 @@ extern "C"
 {
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nIsVisible(
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_isVisible(
       JNIEnv * env, jobject thiz, jint id)
   {
     return getBmCategory(id)->IsVisible();
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nSetVisibility(
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_setVisibility(
       JNIEnv * env, jobject thiz, jint id, jboolean b)
   {
     BookmarkCategory * pCat = getBmCategory(id);
@@ -34,7 +34,7 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nSetName(
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_setName(
       JNIEnv * env, jobject thiz, jint id, jstring n)
   {
     BookmarkCategory * pCat = getBmCategory(id);
@@ -43,14 +43,14 @@ extern "C"
   }
 
   JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nGetName(
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_getName(
        JNIEnv * env, jobject thiz, jint id)
   {
     return jni::ToJavaString(env, getBmCategory(id)->GetName());
   }
 
   JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nGetSize(
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_getSize(
        JNIEnv * env, jobject thiz, jint id)
   {
     return getBmCategory(id)->GetBookmarksCount();

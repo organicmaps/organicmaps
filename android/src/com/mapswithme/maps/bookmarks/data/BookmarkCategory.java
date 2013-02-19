@@ -14,13 +14,13 @@ public class BookmarkCategory
     mId = id;
   }
 
-  private native boolean nIsVisible(int id);
-  private native void nSetVisibility(int id, boolean v);
+  private native boolean isVisible(int id);
+  private native void setVisibility(int id, boolean v);
 
-  private native String nGetName(int id);
-  private native void nSetName(int old, String n);
+  private native String getName(int id);
+  private native void setName(int old, String n);
 
-  private native int nGetSize(int id);
+  private native int getSize(int id);
 
   public int getId()
   {
@@ -29,28 +29,28 @@ public class BookmarkCategory
 
   public String getName()
   {
-    return mName == null? nGetName(mId): mName;
+    return (mName == null ? getName(mId) : mName);
   }
 
   public boolean isVisible()
   {
-    return nIsVisible(mId);
+    return isVisible(mId);
   }
 
   public void setVisibility(boolean b)
   {
-    nSetVisibility(mId, b);
+    setVisibility(mId, b);
   }
 
   public void setName(String name)
   {
-    nSetName(mId, name);
+    setName(mId, name);
     mName = name;
   }
 
   public int getSize()
   {
-    return nGetSize(mId);
+    return getSize(mId);
   }
 
   public Bookmark getBookmark(int b)

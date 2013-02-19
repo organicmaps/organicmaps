@@ -13,7 +13,7 @@ import com.mapswithme.maps.ArrowImage;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
-import com.mapswithme.maps.bookmarks.data.DistanceAndAthimuth;
+import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.location.LocationService;
 
 
@@ -50,7 +50,7 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
   {
     if (convertView == null)
     {
-      convertView = LayoutInflater.from(mContext).inflate(R.layout.pin_item, null);
+      convertView = LayoutInflater.from(mContext).inflate(R.layout.bookmark_item, null);
       convertView.setTag(new PinHolder(convertView));
     }
 
@@ -62,7 +62,7 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
     final Location loc = mLocation.getLastKnown();
     if (loc != null)
     {
-      DistanceAndAthimuth daa = item.getDistanceAndAthimuth(loc.getLatitude(), loc.getLongitude(), mNorth);
+      DistanceAndAzimut daa = item.getDistanceAndAzimut(loc.getLatitude(), loc.getLongitude(), mNorth);
       holder.distance.setText(daa.getDistance());
 
       if (daa.getAthimuth() >= 0.0)

@@ -86,12 +86,6 @@ protected:
 
   scoped_ptr<RenderPolicy> m_renderPolicy;
 
-  /// Safe function to get current visual scale.
-  /// Call it when you need do calculate pixel rect (not matter if m_renderPolicy == 0).
-  /// @return 1.0 if m_renderPolicy == 0 (possible for Android).
-  double GetVisualScale() const;
-  int GetScaleEtalonSize() const;
-
   double m_StartForegroundTime;
 
   //bool m_hasPendingInvalidate, m_doForceUpdate, m_queryMaxScaleMode, m_drawPlacemark, m_hasPendingShowRectFixed;
@@ -244,6 +238,12 @@ public:
 
   InformationDisplay & GetInformationDisplay();
   CountryStatusDisplay * GetCountryStatusDisplay() const;
+
+  /// Safe function to get current visual scale.
+  /// Call it when you need do calculate pixel rect (not matter if m_renderPolicy == 0).
+  /// @return 1.0 if m_renderPolicy == 0 (possible for Android).
+  double GetVisualScale() const;
+  int GetScaleEtalonSize() const;
 
   void PrepareToShutdown();
 

@@ -6,8 +6,6 @@
 
 #include "../core/jni_helper.hpp"
 
-#include "../../../../../indexer/mercator.hpp"
-
 
 class SearchAdapter
 {
@@ -236,8 +234,6 @@ Java_com_mapswithme_maps_SearchActivity_nativeGetResult(
       }
     }
 
-    m2::PointD rp = res->GetFeatureCenter();
-    m2::PointD mer(rp.x, rp.y);
     return env->NewObject(klass, methodID,
                           jni::ToJavaString(env, res->GetString()),
                           jni::ToJavaString(env, res->GetRegionString()),

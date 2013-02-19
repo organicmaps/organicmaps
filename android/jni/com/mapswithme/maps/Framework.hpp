@@ -65,11 +65,6 @@ namespace android
 
     void ActivatePopupWithAddressInfo(m2::PointD const & pos, ::Framework::AddressInfo const & addrInfo);
 
-    static inline bool ValidateBookmarkAndCategory(BookmarkAndCategory const & bac)
-    {
-      return (bac.first > -1 && bac.second > -1);
-    }
-
     shared_ptr<BookmarkBalloon> m_bmBaloon;
     string m_bmCategory;
     string m_bmType;

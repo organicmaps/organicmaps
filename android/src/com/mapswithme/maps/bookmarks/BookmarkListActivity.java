@@ -39,7 +39,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.pins);
+    setContentView(R.layout.bookmarks_list);
     final int setIndex = getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1);
     mEditContent = getIntent().getBooleanExtra(EDIT_CONTENT, true);
     mEditedSet = mManager.getCategoryById(setIndex);
