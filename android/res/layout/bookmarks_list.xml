@@ -15,7 +15,7 @@
     <include
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        layout="@layout/pin_set_edit" />
+        layout="@layout/edit_bookmark_set" />
 
     <TextView
         style="?android:attr/listSeparatorTextViewStyle"
