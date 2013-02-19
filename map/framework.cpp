@@ -1353,10 +1353,14 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
                                        MercatorBounds::YToLat(point.y),
                                        MercatorBounds::XToLon(point.x));
 
-  CHECK ( MeasurementUtils::FormatDistance(d, distance), () );
+  // Distance may be less than 1.0
+  (void) MeasurementUtils::FormatDistance(d, distance);
 
   if (north >= 0.0)
   {
+    // We calculate azimut even when distance is very short (d ~ 0),
+    // because return value has 2 states (near me or far from me).
+
     azimut = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(lon),
                                      MercatorBounds::LatToY(lat)),
                           point) + north;
