@@ -160,10 +160,8 @@ world  +
         bridleway  +
             area  -
             bridge  -
-            construction  -
             cutting  -
             destination  -
-            disused  -
             dyke  -
             embankment  -
             levee  -
@@ -176,9 +174,7 @@ world  +
         byway  +
             area  -
             bridge  -
-            construction  -
             destination  -
-            disused  -
             no-access  -
             permissive  -
             private  -
@@ -190,25 +186,12 @@ world  +
             uncontrolled  -
             zebra  -
             {}
-        cycleroad  +
-            area  -
-            bridge  -
-            construction  -
-            disused  -
-            junction  -
-            tunnel  -
-            {}
         cycleway  +
             area  -
             bridge  -
-            construction  -
             cutting  -
             destination  -
-            disused  -
             dyke  -
-            embankment  -
-            levee  -
-            no-access  -
             permissive  -
             private  -
             tunnel  -
@@ -217,14 +200,11 @@ world  +
             alpine_hiking  -
             area  -
             bridge  -
-            construction  -
             cutting  -
-            cycleway  -
             demanding_alpine_hiking  -
             demanding_mountain_hiking  -
             destination  -
             difficult_alpine_hiking  -
-            disused  -
             dyke  -
             embankment  -
             hiking  -
@@ -235,50 +215,25 @@ world  +
             private  -
             tunnel  -
             {}
-        ford  +
-            cycleway  -
-            {}
+        ford  -
         living_street  +
             area  -
             bridge  -
-            construction  -
-            disused  -
-            junction  -
             tunnel  -
-            {}
-        minor  +
-            area  -
-            bridge  -
-            construction  -
-            cycleway  -
-            disused  -
-            junction  -
-            oneway  -
-            tunnel  -
-            turning_circle  -
             {}
         motorway  +
             area  -
             bridge  -
-            construction  -
             cutting  -
-            cycleway  -
-            disused  -
             dyke  -
             embankment  -
-            junction  -
             levee  -
             oneway  -
             tunnel  -
             {}
-        motorway_junction  -
         motorway_link  +
             area  -
             bridge  -
-            construction  -
-            cycleway  -
-            disused  -
-            junction  -
             oneway  -
             tunnel  -
             {}
@@ -289,20 +244,14 @@ world  +
             area-horse  -
             bicycle  -
             bicycle-bridge  -
-            bicycle-construction  -
-            bicycle-disused  -
             bicycle-tunnel  -
             bridge  -
             bridge-horse  -
-            construction  -
-            construction-horse  -
             cutting  -
             demanding_alpine_hiking  -
             demanding_mountain_hiking  -
             destination  -
             difficult_alpine_hiking  -
-            disused  -
-            disused-horse  -
             dyke  -
             embankment  -
             hiking  -
@@ -318,47 +267,24 @@ world  +
         pedestrian  +
             area  -
             bridge  -
-            construction  -
-            cycleway  -
-            disused  -
-            junction  -
             tunnel  -
             {}
         primary  +
             area  -
             bridge  -
-            construction  -
-            cycleway  -
-            cycleway-motorroad  -
-            disused  -
-            junction  -
-            motorroad  -
             oneway  -
             tunnel  -
             {}
         primary_link  +
             area  -
             bridge  -
-            construction  -
-            cycleway  -
-            cycleway-motorroad  -
-            disused  -
-            junction  -
-            motorroad  -
             oneway  -
             tunnel  -
             {}
-        raceway  +
-            dismantled  -
-            disused  -
-            {}
+        raceway  -
         residential  +
             area  -
             bridge  -
-            construction  -
-            cycleway  -
-            disused  -
-            junction  -
             oneway  -
             private  -
             tunnel  -
@@ -367,8 +293,6 @@ world  +
         road  +
             area  -
             bridge  -
-            cycleway  -
-            junction  -
             oneway  -
             tunnel  -
             turning_circle  -
@@ -376,23 +300,12 @@ world  +
         secondary  +
             area  -
             bridge  -
-            construction  -
-            cycleway  -
-            cycleway-motorroad  -
-            disused  -
-            junction  -
-            motorroad  -
             oneway  -
             tunnel  -
             {}
         secondary_link  +
             area  -
             bridge  -
-            construction  -
-            cycleway  -
-            cycleway-motorroad  -
-            disused  -
-            junction  -
             motorroad  -
             oneway  -
             tunnel  -
@@ -400,10 +313,7 @@ world  +
         service  +
             area  -
             bridge  -
-            construction  -
             cutting  -
-            cycleway  -
-            disused  -
             driveway  +
                 area  -
                 bridge  -
@@ -423,9 +333,7 @@ world  +
         steps  +
             area  -
             bridge  -
-            construction  -
             cutting  -
-            disused  -
             dyke  -
             embankment  -
             levee  -
@@ -434,34 +342,20 @@ world  +
         tertiary  +
             area  -
             bridge  -
-            construction  -
-            cycleway  -
-            cycleway-motorroad  -
-            disused  -
-            junction  -
-            motorroad  -
             oneway  -
             tunnel  -
             {}
         tertiary_link  +
             area  -
             bridge  -
-            construction  -
-            cycleway  -
-            cycleway-motorroad  -
-            disused  -
-            junction  -
-            motorroad  -
             oneway  -
             tunnel  -
             {}
         track  +
             area  -
             bridge  -
-            construction  -
             cutting  -
             destination  -
-            disused  -
             dyke  -
             embankment  -
             grade1  +
@@ -491,7 +385,6 @@ world  +
                 permissive  -
                 private  -
                 {}
-            junction  -
             levee  -
             no-access  -
             oneway  -
@@ -504,54 +397,23 @@ world  +
         trunk  +
             area  -
             bridge  -
-            construction  -
             cutting  -
-            cycleway  -
-            cycleway-motorroad  -
-            disused  -
             dyke  -
             embankment  -
-            junction  -
             levee  -
-            motorroad  -
             oneway  -
             tunnel  -
             {}
         trunk_link  +
             area  -
             bridge  -
-            construction  -
-            cycleway  -
-            cycleway-motorroad  -
-            disused  -
-            junction  -
-            motorroad  -
             oneway  -
             tunnel  -
             {}
         unclassified  +
             area  -
             bridge  -
-            construction  -
-            cycleway  -
-            disused  -
-            junction  -
             oneway  -
-            tunnel  -
-            turning_circle  -
-            {}
-        unsurfaced  +
-            area  -
-            bridge  -
-            construction  -
-            cycleway  -
-            destination  -
-            disused  -
-            junction  -
-            no-access  -
-            oneway  -
-            permissive  -
-            private  -
             tunnel  -
             {}
         {}
@@ -566,11 +428,7 @@ world  +
         {}
     landuse  +
         allotments  -
-        basin  +
-            detention  -
-            infiltration  -
-            retention  -
-            {}
+        basin  -
         brownfield  -
         cemetery  +
             christian  -
@@ -602,39 +460,15 @@ world  +
         military  -
         orchard  -
         quarry  -
-        raceway  +
-            dismantled  -
-            disused  -
-            {}
+        raceway  -
         railway  -
         recreation_ground  -
-        reservoir  +
-            cooling  -
-            evaporator  -
-            sewage  -
-            tailings  -
-            water_storage  -
-            {}
+        reservoir  -
         residential  -
         retail  -
-        runway  +
-            dismantled  -
-            disused  -
-            {}
         salt_pond  -
-        scrub  +
-            coniferous  -
-            deciduous  -
-            mixed  -
-            {}
-        street  -
         village_green  -
         vineyard  -
-        wood  +
-            coniferous  -
-            deciduous  -
-            mixed  -
-            {}
         {}
     leisure  +
         common  -
@@ -643,7 +477,6 @@ world  +
             {}
         garden  -
         golf_course  -
-        green  -
         landscape_reserve  -
         nature_reserve  -
         park  +
@@ -683,28 +516,7 @@ world  +
         lighthouse  -
         pier  -
         pipeline  +
-            gas  +
-                overground  -
-                {}
-            heat  +
-                overground  -
-                {}
-            hot_water  +
-                overground  -
-                {}
-            natural_gas  +
-                overground  -
-                {}
-            oil  +
-                overground  -
-                {}
             overground  -
-            sewage  +
-                overground  -
-                {}
-            water  +
-                overground  -
-                {}
             {}
         survey_point  -
         wastewater_plant  -
@@ -717,54 +529,26 @@ world  +
         bunker  -
         {}
     natural  +
-        allotments  -
-        basin  -
         bay  -
         beach  -
-        brownfield  -
         cave_entrance  -
-        cemetery  -
         coastline  -
-        commercial  -
-        construction  -
-        farm  -
-        farmland  -
-        farmyard  -
-        forest  +
-            coniferous  -
-            deciduous  -
-            mixed  -
-            {}
-        garages  -
         glacier  -
         grass  -
         greenfield  -
         greenhouse_horticulture  -
         heath  -
-        industrial  -
         lake  -
         land  -
-        landfill  -
         marsh  -
         meadow  -
         orchard  -
         peak  -
         pond  -
-        quarry  -
-        railway  -
-        recreation_ground  -
-        reservoir  -
-        retail  -
         salt_pond  -
-        scrub  +
-            coniferous  -
-            deciduous  -
-            mixed  -
-            {}
+        scrub  -
         spring  -
-        street  -
         tree  -
-        village_green  -
         vineyard  -
         volcano  -
         water  -
@@ -779,7 +563,6 @@ world  +
         {}
     noexit  +
         motor_vehicle  -
-        motorcar  -
         {}
     piste:lift  +
         j-bar  -
@@ -848,7 +631,6 @@ world  +
         crossing  -
         dismantled  +
             bridge  -
-            tunnel  -
             {}
         disused  +
             bridge  -
@@ -873,10 +655,6 @@ world  +
             tunnel  -
             {}
         narrow_gauge  +
-            bridge  -
-            tunnel  -
-            {}
-        planned  +
             bridge  -
             tunnel  -
             {}
