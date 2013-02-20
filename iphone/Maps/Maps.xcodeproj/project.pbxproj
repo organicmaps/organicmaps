@@ -1373,6 +1373,7 @@
 		573D1AF3165252760093A55D /* location-follow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-follow@2x.png"; sourceTree = "<group>"; };
 		5797B6D316C931EE00FFE6D2 /* resources-mdpi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-mdpi"; path = "../../data/resources-mdpi"; sourceTree = "<group>"; };
 		5797B6D416C931EE00FFE6D2 /* resources-xhdpi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xhdpi"; path = "../../data/resources-xhdpi"; sourceTree = "<group>"; };
+		77DDA9A116D504F900804BDB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MapsWithMe-Pro.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MapsWithMe-Pro.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		ED8676FA16A0793800D9A02A /* 22x29-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "22x29-pro.png"; sourceTree = "<group>"; };
 		ED8676FB16A0793800D9A02A /* 44x58-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "44x58-pro.png"; sourceTree = "<group>"; };
@@ -3083,6 +3084,7 @@
 				es,
 				"en-US",
 				it,
+				cs,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			projectDirPath = "";
@@ -4479,6 +4481,7 @@
 				F7DD848514FE7C7F005695E1 /* fr */,
 				F7DD848614FE7FE0005695E1 /* es */,
 				FA971562150920C600916690 /* it */,
+				77DDA9A116D504F900804BDB /* cs */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

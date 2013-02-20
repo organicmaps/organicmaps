@@ -117,7 +117,7 @@
 -(void) onMyPosionClick:(m2::PointD const &) point
 {
   m_balloonView.isCurrentPosition = YES;
-  [m_balloonView setTitle:NSLocalizedString(@"my_current_position", nil)];
+  [m_balloonView setTitle:NSLocalizedString(@"my_position", nil)];
   m_balloonView.globalPosition = CGPointMake(point.x, point.y);
   [m_balloonView showInView:self.view atPoint:[(EAGLView *)self.view globalPoint2ViewPoint:m_balloonView.globalPosition]];
 }

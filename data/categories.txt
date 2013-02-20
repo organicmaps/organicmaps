@@ -199,7 +199,7 @@ it:3attrattiva|3turistico
 es:3atracción turística|3turismo
 ko:관광 명소|관 광|명소|관광
 ja:観光スポット|観光|観光スポット|観光
-cs:3atrakce|3pamětihodnosti
+cs:3atrakce|3pamětihodnost|3zajímavost
 nl:3attractie|3toerisme
 
 tourism-viewpoint
@@ -211,7 +211,7 @@ it:3panorama|turistico
 es:3vista panorámica|turismo
 ko:관점|관 광|명소|관광
 ja:視点|観光|観光スポット|観光
-cs:3vyhlídka|pamětihodnosti
+cs:3vyhlídka|pamětihodnost
 nl:4uitzicht|toerisme
 
 tourism-information
@@ -223,7 +223,7 @@ it:4informazione|turistico
 es:4información|turismo
 ko:관광 정보|정보|명소|관광
 ja:観光情報|情報|観光スポット|観光
-cs:4infocentrum|4turistické informace|pamětihodnosti
+cs:4infocentrum|4turistické informace|pamětihodnosti|Íčko
 nl:4toeristen informatie|4informatie|toerisme
 
 tourism-picnic_site
@@ -235,7 +235,7 @@ it:3picnic|turistico
 es:3picnic|turismo
 ko:소풍 사이트|명소|피크닉|관광
 ja:ピクニックサイトが|スポット|ピクニック|観光
-cs:3piknik|picnic|picnik|pamětihodnosti
+cs:3piknik|picnic|picnik|pamětihodnost
 nl:3picnic locatie|toerisme
 
 amenity-place_of_worship
@@ -247,7 +247,7 @@ it:4tempio|cattedrale|duomo|turistico
 es:4templo|lugar de culto|turismo
 ko:예배 장소|사찰|볼거리|관광
 ja:礼拝の場所|寺院|観光スポット|観光
-cs:4chrám|posvátné místo|pamětihodnosti
+cs:4chrám|posvátné místo|pamětihodnost
 nl:tempel|4temple|toerisme
 
 amenity-bench
@@ -366,7 +366,7 @@ it:3ospedale
 es:3hospital
 ko:병원|병원|의사|의사가
 ja:病院|クリニック|医師|医者
-cs:3nemocnice|klinika|pohotovost|zdravotnické centrum|3lékař
+cs:3nemocnice|klinika|pohotovost|zdravotnické centrum|3lékař|doktor
 nl:3ziekenhuis|kliniek|3dokter
 
 amenity-hunting_stand
@@ -497,7 +497,7 @@ it:2telefono
 es:2teléfono
 ko:전화
 ja:電話
-cs:2telefon|telefoní budka|telefoní automat
+cs:2telefon|telefonní budka|telefonní automat
 nl:2telefoon
 
 amenity-theatre
@@ -1055,7 +1055,7 @@ it:memoriale|monumento|turistico
 es:memorial|turismo
 ko:기념물|관광
 ja:記念碑|観光
-cs:pomník|památka|atrakce|zajímavost|pamětihodnosti
+cs:pomník|památka|atrakce|zajímavost|pamětihodnost
 nl:gedenkteken|monument|attractie|toerisme
 
 historic-monument
@@ -1067,7 +1067,7 @@ it:monumento|turistico
 es:monumento|turismo
 ko:기념물|관광
 ja:記念碑|観光
-cs:zajímavost|pomník|památka|pamětihodnosti
+cs:zajímavost|pomník|památka|pamětihodnost
 nl:monument|attractie|toerisme
 
 historic-ruins
@@ -1079,7 +1079,7 @@ it:rovine|turistico
 es:ruinas|turismo
 ko:유적|관광
 ja:古跡|古蹟|廃墟|遺址|観光
-cs:zřícenina|pamětihodnosti
+cs:ruiny|zřícenina|pamětihodnost
 nl:ruïne|attractie|toerisme
 
 historic-castle
@@ -1103,7 +1103,7 @@ it:sito archeologico|turistico
 es:sitio arqueológico|turismo
 ko:발굴|관광
 ja:発掘|観光
-cs:výkop|pamětihodnosti
+cs:vykopávky|pamětihodnost
 nl:archeologische opgraving|attractie|toerisme
 
 natural-bay
@@ -1151,7 +1151,7 @@ it:3riparazione auto|auto|macchina|3automobile|vettura
 es:3reparaciones auto|coche|automóvil|3auto|carro
 ko:자동차 수리|자동차|차|차량
 ja:自動車修理|カー|車|自動車
-cs:3auto oprava|auto|auta|Půjčení
+cs:3auto opravna|auto|auta|Půjčení
 nl:3auto reparatie|auto|wagen
 
 shop-car
@@ -1223,7 +1223,7 @@ it:4campeggio|campeggi|camping
 es:4campamento|cámping|acampar|acampada
 ko:캠핑|캠프|캠프장|캠핑을
 ja:キャンプ|キャンプ場|幕営|キャンピング
-cs:4kempování|camping|kempy
+cs:4kempování|camping|kemp|camp
 nl:4camping|kamperen
 
 tourism-caravan_site
@@ -1247,5 +1247,5 @@ it:hotel di montagna|baita|capanna|capanna di montagna|capanna alpina|hotel
 es:4cabaña|cabaña de los Alpes|hotel de montaña|hotel
 ko:고산 오두막|산 호텔|호텔
 ja:高山小屋|山のホテル|ホテル
-cs:4horskou chatu|horský hotel|hotel
+cs:4horská chata|horský hotel|hotel
 nl:3berghut|alpenhut|hotel
