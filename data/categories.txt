@@ -345,7 +345,7 @@ ja:噴水|泉|泉水
 cs:kašna|fontána
 nl:fontein
 
-amenity-grave_yard|natural-cemetery|landuse-cemetery
+amenity-grave_yard|landuse-cemetery
 en:graveyard
 ru:кладбище
 de:Friedhof
@@ -752,7 +752,7 @@ ja:パス
 cs:cesta
 nl:pad
 
-highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-pedestrian|highway-unclassified|highway-minor|highway-motorway_link|highway-motorway
+highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-pedestrian|highway-unclassified|highway-motorway_link|highway-motorway
 en:street|st|str|ave
 ru:улица|переулок|проезд|тракт|проспект|ул
 de:Strasse|Weg|Avenue|Gasse|str
@@ -818,7 +818,7 @@ ja:湖|池
 cs:jezero|vodní nádrž|voda
 nl:meer|water
 
-natural-forest|natural-wood|landuse-forest|landuse-wood
+natural-wood|landuse-forest
 en:forest
 ru:лес
 de:Wald

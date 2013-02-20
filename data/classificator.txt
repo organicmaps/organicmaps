@@ -162,9 +162,7 @@ world  +
             bridge  -
             cutting  -
             destination  -
-            dyke  -
             embankment  -
-            levee  -
             no-access  -
             permissive  -
             private  -
@@ -191,7 +189,6 @@ world  +
             bridge  -
             cutting  -
             destination  -
-            dyke  -
             permissive  -
             private  -
             tunnel  -
@@ -205,10 +202,8 @@ world  +
             demanding_mountain_hiking  -
             destination  -
             difficult_alpine_hiking  -
-            dyke  -
             embankment  -
             hiking  -
-            levee  -
             mountain_hiking  -
             no-access  -
             permissive  -
@@ -225,12 +220,11 @@ world  +
             area  -
             bridge  -
             cutting  -
-            dyke  -
             embankment  -
-            levee  -
             oneway  -
             tunnel  -
             {}
+        motorway_junction  -
         motorway_link  +
             area  -
             bridge  -
@@ -252,12 +246,10 @@ world  +
             demanding_mountain_hiking  -
             destination  -
             difficult_alpine_hiking  -
-            dyke  -
             embankment  -
             hiking  -
             horse  -
             horse-tunnel  -
-            levee  -
             mountain_hiking  -
             no-access  -
             permissive  -
@@ -288,14 +280,12 @@ world  +
             oneway  -
             private  -
             tunnel  -
-            turning_circle  -
             {}
         road  +
             area  -
             bridge  -
             oneway  -
             tunnel  -
-            turning_circle  -
             {}
         secondary  +
             area  -
@@ -319,9 +309,7 @@ world  +
                 bridge  -
                 tunnel  -
                 {}
-            dyke  -
             embankment  -
-            levee  -
             oneway  -
             parking_aisle  +
                 area  -
@@ -334,9 +322,6 @@ world  +
             area  -
             bridge  -
             cutting  -
-            dyke  -
-            embankment  -
-            levee  -
             tunnel  -
             {}
         tertiary  +
@@ -356,7 +341,6 @@ world  +
             bridge  -
             cutting  -
             destination  -
-            dyke  -
             embankment  -
             grade1  +
                 area  -
@@ -385,7 +369,6 @@ world  +
                 permissive  -
                 private  -
                 {}
-            levee  -
             no-access  -
             oneway  -
             permissive  -
@@ -398,9 +381,7 @@ world  +
             area  -
             bridge  -
             cutting  -
-            dyke  -
             embankment  -
-            levee  -
             oneway  -
             tunnel  -
             {}
