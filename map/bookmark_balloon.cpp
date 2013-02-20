@@ -32,10 +32,23 @@ m2::PointD const BookmarkBalloon::glbPivot()
 
 void BookmarkBalloon::setBookmarkName(string const & name)
 {
-  setText(name);
+  m_bmkName = name;
+
+  strings::UniString s = strings::MakeUniString(name);
+
+  // 15 is going from straight_text_element.cpp, visSplit.
+  if (s.size() > 15)
+  {
+    s.resize(18);
+    s[17] = s[16] = s[15] = '.';
+
+    setText(strings::ToUtf8(s));
+  }
+  else
+    setText(name);
 }
 
 string const & BookmarkBalloon::bookmarkName()
 {
-  return m_textView->text();
+  return m_bmkName;
 }
