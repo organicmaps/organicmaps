@@ -14,7 +14,7 @@ i = 0
 for l in lns:
     if not isCaption:
         i = l.find(" caption ")
-        if i <> -1:
+        if i != -1:
             isCaption = True
             captionLns = []
             leadSpaces = l[0:i + 1]
@@ -22,13 +22,13 @@ for l in lns:
             newlns.append(leadSpaces + "  primary {")
         else:
             i = l.find(" path_text ")
-            if i <> -1:
+            if i != -1:
                 isCaption = True
                 captionLns = []
                 leadSpaces = l[0:i + 1]
                 newlns.append(l)
                 newlns.append(leadSpaces + "  primary {")
-            else:    
+            else:
                 newlns.append(l)
     else:
         if l[i + 1] == "}":
@@ -49,4 +49,3 @@ for l in lns:
 
 for i in newlns:
     print i
-
