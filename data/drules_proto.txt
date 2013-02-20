@@ -1818,39 +1818,6 @@ cont {
 cont {
   name: "amenity-parking"
   element {
-    scale: 10
-    area {
-      color: 0xF7EFB7
-      border {
-        width: 0.0125
-        color: 0xE9DD72
-      }
-      priority: 37
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xF7EFB7
-      border {
-        width: 0.025
-        color: 0xE9DD72
-      }
-      priority: 37
-    }
-  }
-  element {
-    scale: 12
-    area {
-      color: 0xF8F8D8
-      border {
-        width: 0.05
-        color: 0xE9DD72
-      }
-      priority: 47
-    }
-  }
-  element {
     scale: 13
     area {
       color: 0xF8F8D8
@@ -43687,84 +43654,6 @@ cont {
 }
 cont {
   name: "railway-subway-tunnel"
-  element {
-    scale: 12
-    lines {
-      width: 1.875
-      color: 0x80
-      dashdot {
-        dd: 1.5
-        dd: 1.5
-      }
-      priority: 373
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      priority: 374
-    }
-    lines {
-      width: 1
-      color: 0xCC000080
-      dashdot {
-        dd: 1.5
-        dd: 1.5
-      }
-      priority: 375
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.95
-      color: 0x80
-      dashdot {
-        dd: 1.85
-        dd: 1.85
-      }
-      priority: 384
-    }
-    lines {
-      width: 1.35
-      color: 0xFFFFFF
-      priority: 385
-    }
-    lines {
-      width: 1.35
-      color: 0xCC000080
-      dashdot {
-        dd: 1.85
-        dd: 1.85
-      }
-      priority: 386
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 2.4
-      color: 0x90959
-      dashdot {
-        dd: 2.2
-        dd: 2.2
-      }
-      priority: 461
-    }
-    lines {
-      width: 1.7
-      color: 0xFFFFFF
-      priority: 462
-    }
-    lines {
-      width: 1.7
-      color: 0xB3090959
-      dashdot {
-        dd: 2.2
-        dd: 2.2
-      }
-      priority: 463
-    }
-  }
   element {
     scale: 15
     lines {
