@@ -3,6 +3,7 @@
 #include "data_factory.hpp"
 #include "interval_index.hpp"
 #include "old/interval_index_101.hpp"
+#include "mwm_version.hpp"
 
 #include "../defines.hpp"
 
@@ -10,17 +11,22 @@
 #include "../coding/file_container.hpp"
 
 
-void LoadMapHeader(FilesContainerR const & cont, feature::DataHeader & header)
-{
-  ModelReaderPtr r = cont.GetReader(HEADER_FILE_TAG);
+typedef feature::DataHeader FHeaderT;
 
-  if (cont.IsReaderExist(VERSION_FILE_TAG))
-    header.Load(r);
+void LoadMapHeader(FilesContainerR const & cont, FHeaderT & header)
+{
+  ModelReaderPtr headerReader = cont.GetReader(HEADER_FILE_TAG);
+
+  if (!cont.IsReaderExist(VERSION_FILE_TAG))
+    header.LoadVer1(headerReader);
   else
-    header.LoadVer1(r);
+  {
+    ModelReaderPtr verReader = cont.GetReader(VERSION_FILE_TAG);
+    header.Load(headerReader, static_cast<FHeaderT::Version>(ver::ReadVersion(verReader)));
+  }
 }
 
-void LoadMapHeader(ModelReaderPtr const & reader, feature::DataHeader & header)
+void LoadMapHeader(ModelReaderPtr const & reader, FHeaderT & header)
 {
   LoadMapHeader(FilesContainerR(reader), header);
 }
@@ -32,18 +38,16 @@ void IndexFactory::Load(FilesContainerR const & cont)
 
 IntervalIndexIFace * IndexFactory::CreateIndex(ModelReaderPtr reader)
 {
-  using namespace feature;
-
   IntervalIndexIFace * p;
 
   switch (m_header.GetVersion())
   {
-  case DataHeader::v1:
+  case FHeaderT::v1:
     p = new old_101::IntervalIndex<uint32_t, ModelReaderPtr>(reader);
     break;
 
   default:
-    p = new IntervalIndex<ModelReaderPtr>(reader);;
+    p = new IntervalIndex<ModelReaderPtr>(reader);
     break;
   }
 

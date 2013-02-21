@@ -472,11 +472,6 @@ namespace android
     m_work.RemoveLocalMaps();
   }
 
-  void Framework::AddMap(string const & fileName)
-  {
-    m_work.AddMap(fileName);
-  }
-
   void Framework::GetMapsWithoutSearch(vector<string> & out) const
   {
     ASSERT ( out.empty(), () );

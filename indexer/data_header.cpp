@@ -93,7 +93,7 @@ namespace feature
     WriteVarInt(w, static_cast<int32_t>(m_type));
   }
 
-  void DataHeader::Load(ModelReaderPtr const & r)
+  void DataHeader::Load(ModelReaderPtr const & r, Version ver /*= unknownVersion*/)
   {
     ReaderSource<ModelReaderPtr> src(r);
     m_codingParams.Load(src);
@@ -106,7 +106,7 @@ namespace feature
 
     m_type = static_cast<MapType>(ReadVarInt<int32_t>(src));
 
-    m_ver = v2;
+    m_ver = ver;
   }
 
   void DataHeader::LoadVer1(ModelReaderPtr const & r)

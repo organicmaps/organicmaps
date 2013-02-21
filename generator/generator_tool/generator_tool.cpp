@@ -29,10 +29,7 @@
 #include "../../std/iomanip.hpp"
 #include "../../std/numeric.hpp"
 
-#include "../../version/version.hpp"
 
-
-DEFINE_bool(version, false, "Display version");
 DEFINE_bool(generate_update, false,
               "If specified, update.maps file will be generated from cells in the data path");
 
@@ -93,12 +90,6 @@ int main(int argc, char ** argv)
 
   string const path =
       FLAGS_data_path.empty() ? pl.WritableDir() : AddSlashIfNeeded(FLAGS_data_path);
-
-  if (FLAGS_version)
-  {
-    cout << "Tool version: " << VERSION_STRING << endl;
-    cout << "Built on: " << VERSION_DATE_STRING << endl;
-  }
 
 #ifndef OMIM_PRODUCTION
   // Make a classificator

@@ -10,8 +10,6 @@
 
 #include "../coding/file_reader.hpp"
 
-#include "../version/version.hpp"
-
 #include "../std/cstdio.hpp"
 
 #include <QtGui/QApplication>
@@ -19,7 +17,6 @@
 
 //#include <google/protobuf/stubs/common.h>
 
-#define SETTING_EULA_ACCEPTED "EulaAccepted"
 
 namespace
 {
@@ -63,9 +60,6 @@ int main(int argc, char * argv[])
   InitializeFinalize mainGuard;
   UNUSED_VALUE(mainGuard);
 
-  LOG_SHORT(LINFO, ("Started MapsWithMe version", VERSION_STRING));
-  LOG_SHORT(LINFO, ("Built on", VERSION_DATE_STRING));
-
   QApplication a(argc, argv);
 
   (void)GetPlatform();
@@ -86,8 +80,9 @@ int main(int argc, char * argv[])
   Settings::Set("Units", u);
 
   // display EULA if needed
+  char const * settingsEULA = "EulaAccepted";
   bool eulaAccepted = false;
-  if (!Settings::Get(SETTING_EULA_ACCEPTED, eulaAccepted) || !eulaAccepted)
+  if (!Settings::Get(settingsEULA, eulaAccepted) || !eulaAccepted)
   {
     QStringList buttons;
     buttons << "Accept" << "Decline";
@@ -99,7 +94,7 @@ int main(int argc, char * argv[])
     }
     qt::InfoDialog eulaDialog("MapsWithMe End User Licensing Agreement", buffer.c_str(), NULL, buttons);
     eulaAccepted = (eulaDialog.exec() == 1);
-    Settings::Set(SETTING_EULA_ACCEPTED, eulaAccepted);
+    Settings::Set(settingsEULA, eulaAccepted);
   }
 
   int returnCode = -1;

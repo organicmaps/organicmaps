@@ -5,10 +5,9 @@
 #include "../platform/platform.hpp"
 
 #include "../coding/file_container.hpp"
+#include "../coding/reader_streambuf.hpp"
 
 #include "../std/fstream.hpp"
-
-#include "../version/version.hpp"
 
 
 template <class T> class DoGetBenchmarks
@@ -76,50 +75,47 @@ public:
 template <class ToDo>
 void ForEachBenchmarkRecord(ToDo & toDo)
 {
-  Platform & pl = GetPlatform();
-
-  string buffer;
   try
   {
     string configPath;
-    Settings::Get("BenchmarkConfig", configPath);
-    ReaderPtr<Reader>(pl.GetReader(configPath)).ReadAsString(buffer);
+    if (!Settings::Get("BenchmarkConfig", configPath))
+      return;
+
+    ReaderStreamBuf buffer(GetPlatform().GetReader(configPath));
+    istream stream(&buffer);
+
+    string line;
+    while (stream.good())
+    {
+      getline(stream, line);
+
+      vector<string> parts;
+      strings::SimpleTokenizer it(line, " \t");
+      while (it)
+      {
+        parts.push_back(*it);
+        ++it;
+      }
+
+      if (!parts.empty())
+        toDo(parts);
+    }
   }
   catch (RootException const & e)
   {
     LOG(LERROR, ("Error reading benchmarks: ", e.what()));
-    return;
-  }
-
-  istringstream stream(buffer);
-
-  string line;
-  while (stream.good())
-  {
-    getline(stream, line);
-
-    vector<string> parts;
-    strings::SimpleTokenizer it(line, " ");
-    while (it)
-    {
-      parts.push_back(*it);
-      ++it;
-    }
-
-    if (!parts.empty())
-      toDo(parts);
   }
 }
 
 struct MapsCollector
 {
   vector<string> m_maps;
+
   void operator() (vector<string> const & v)
   {
-    if (!v[0].empty())
-      if (v[0][0] == '#')
-        return;
-    m_maps.push_back(v[0]);
+    ASSERT(!v[0].empty(), ());
+    if (v[0][0] != '#')
+      m_maps.push_back(v[0]);
   }
 };
 
@@ -130,6 +126,7 @@ void BenchmarkEngine::PrepareMaps()
   m_framework->GetLocalMaps(files);
   for_each(files.begin(), files.end(),
            bind(&Framework::RemoveMap, m_framework, _1));
+
   // add only maps needed for benchmarks
   MapsCollector collector;
   ForEachBenchmarkRecord(collector);
@@ -180,7 +177,6 @@ void BenchmarkEngine::SaveBenchmarkResults()
   for (size_t i = 0; i < m_benchmarkResults.size(); ++i)
   {
     fout << GetPlatform().DeviceName() << " "
-         << VERSION_STRING << " "
          << m_startTime << " "
          << m_benchmarkResults[i].m_name << " "
          << m_benchmarkResults[i].m_rect.minX() << " "

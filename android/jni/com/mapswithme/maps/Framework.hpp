@@ -116,7 +116,6 @@ namespace android
 
     void AddLocalMaps();
     void RemoveLocalMaps();
-    void AddMap(string const & fileName);
 
     void GetMapsWithoutSearch(vector<string> & out) const;
 

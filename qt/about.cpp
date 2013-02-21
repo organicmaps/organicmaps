@@ -1,7 +1,5 @@
 #include "about.hpp"
 
-#include "../version/version.hpp"
-
 #include "../platform/platform.hpp"
 
 #include <QtCore/QFile>
@@ -11,6 +9,7 @@
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QLabel>
 #include <QtGui/QTextBrowser>
+
 
 AboutDialog::AboutDialog(QWidget * parent)
   : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint)
@@ -22,12 +21,7 @@ AboutDialog::AboutDialog(QWidget * parent)
   QLabel * labelIcon = new QLabel();
   labelIcon->setPixmap(icon.pixmap(128));
 
-  QString const versionString = tr("<h3>%1 %2</h3>"
-                        "<br/>"
-                        "Built on %3"
-                        ).arg(QString("MapsWithMe"), QLatin1String(VERSION_STRING),
-                              QLatin1String(VERSION_DATE_STRING));
-  QLabel * labelVersion = new QLabel(versionString);
+  QLabel * labelVersion = new QLabel(QString::fromAscii("TODO: Insert version to bundle."));
 
   QHBoxLayout * hBox = new QHBoxLayout();
   hBox->addWidget(labelIcon);
@@ -39,8 +33,10 @@ AboutDialog::AboutDialog(QWidget * parent)
     ReaderPtr<Reader> reader = GetPlatform().GetReader("about.html");
     reader.ReadAsString(aboutText);
   }
-  catch (...)
-  {}
+  catch (RootException const & ex)
+  {
+    LOG(LWARNING, ("About text error: ", ex.Msg()));
+  }
 
   if (!aboutText.empty())
   {

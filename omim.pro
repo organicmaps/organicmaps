@@ -11,7 +11,6 @@ SUBDIRS = 3party \
           base base/base_tests \
           coding coding/coding_tests \
           geometry \
-          version \
           indexer \
           platform \
           geometry/geometry_tests \
@@ -35,7 +34,6 @@ SUBDIRS = 3party \
             base \
             coding \
             geometry \
-            version \
             platform \
             anim \
             indexer \

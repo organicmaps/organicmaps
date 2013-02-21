@@ -2,7 +2,7 @@
 
 ROOT_DIR = ../..
 DEPENDENCIES = generator storage indexer platform geometry coding base gflags expat sgitess \
-               jansson version protobuf tomcrypt
+               jansson protobuf tomcrypt
 
 include($$ROOT_DIR/common.pri)
 

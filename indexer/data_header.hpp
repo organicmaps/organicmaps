@@ -59,20 +59,23 @@ namespace feature
 
     pair<int, int> GetScaleRange() const;
 
+    enum Version
+    {
+      unknownVersion = -1,
+      v1 = 0,     // April 2011
+      v2,         // November 2011 (store type index, instead of raw type in mwm)
+      v3,         // March 2013 (store type index, instead of raw type in search data)
+      lastVersion = v3
+    };
+    inline Version GetVersion() const { return m_ver; }
+
     /// @name Serialization
     //@{
     void Save(FileWriter & w) const;
-    void Load(ModelReaderPtr const & r);
 
+    void Load(ModelReaderPtr const & r, Version ver = unknownVersion);
     void LoadVer1(ModelReaderPtr const & r);
     //@}
-
-    enum Version {
-      v1,     // April 2011
-      v2,      // November 2011
-      latestVersion = v2
-    };
-    inline Version GetVersion() const { return m_ver; }
 
     enum MapType {
       world,

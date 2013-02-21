@@ -11,10 +11,9 @@
 #include "../indexer/feature_impl.hpp"
 #include "../indexer/geometry_serialization.hpp"
 #include "../indexer/scales.hpp"
+#include "../indexer/mwm_version.hpp"
 
 #include "../geometry/polygon.hpp"
-
-#include "../version/ver_serialization.hpp"
 
 #include "../coding/internal/file_data.hpp"
 #include "../coding/file_container.hpp"

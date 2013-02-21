@@ -15,7 +15,6 @@ SUBDIRS = \
           platform \
           search search/search_tests \
           geometry/geometry_tests \
-          version \
           platform/platform_tests \
           yg \
           storage storage/storage_tests \

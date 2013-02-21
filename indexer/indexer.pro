@@ -42,6 +42,7 @@ SOURCES += \
     search_string_utils.cpp \
     string_file.cpp \
     feature_algo.cpp \
+    mwm_version.cpp \
 
 HEADERS += \
     feature.hpp \
@@ -89,6 +90,7 @@ HEADERS += \
     drules_struct.pb.h \
     string_file.hpp \
     feature_algo.hpp \
+    mwm_version.hpp \
 
 OTHER_FILES += drules_struct.proto
 
