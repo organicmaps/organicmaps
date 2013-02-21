@@ -100,6 +100,15 @@ namespace graphics
 
     int j = startPt.m_i;
 
+    if (advance < 0)
+    {
+      res.m_angle = startPt.m_segAngle;
+      res.m_pp.m_segAngle = startPt.m_segAngle;
+      res.m_pp.m_i = j;
+      res.m_pp.m_pt = pt1.Move(advance, startPt.m_segAngle.sin(), startPt.m_segAngle.cos());
+      return res;
+    }
+
     while (advance > 0)
     {
       if (j + 1 == size())

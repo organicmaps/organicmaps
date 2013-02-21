@@ -841,6 +841,34 @@ namespace
     }
   };
 
+  double calc_length(m2::PointD const * v, size_t s)
+  {
+    double ret = 0.0;
+    for (size_t i = 1; i < s; ++i)
+      ret += v[i-1].Length(v[i]);
+    return ret;
+  }
+
+  double calc_length(vector<m2::PointD> const & v)
+  {
+    return calc_length(&v[0], v.size());
+  }
+
+  struct TestDrawThaiString
+  {
+    void DoDraw(shared_ptr<graphics::Screen> p)
+    {
+      string s("ถนนสุขุมวิท");
+
+      graphics::FontDesc fontDesc(20, graphics::Color(0, 0, 0, 0), true, graphics::Color(255, 255, 255, 255));
+      p->drawText(fontDesc, m2::PointD(40, 150), graphics::EPosAboveRight, s, 0, true);
+
+      m2::PointD pts[2] = {m2::PointD(200, 100), m2::PointD(400, 300)};
+
+      p->drawPathText(fontDesc, pts, ARRAY_SIZE(pts), s, calc_length(pts, ARRAY_SIZE(pts)), 0, graphics::EPosCenter, graphics::maxDepth);
+    }
+  };
+
   struct TestDrawStringWithColor
   {
     void DoDraw(shared_ptr<graphics::Screen> p)
@@ -885,14 +913,6 @@ namespace
     }
   };
 
-
-  double calc_length(vector<m2::PointD> const & v)
-  {
-    double ret = 0.0;
-    for (size_t i = 1; i < v.size(); ++i)
-      ret += v[i-1].Length(v[i]);
-    return ret;
-  }
 
   struct TestDrawTextOnPathBigSymbols
   {
@@ -1473,6 +1493,7 @@ namespace
    UNIT_TEST_GL(TestDrawSingleSymbolAndSolidPath);
    UNIT_TEST_GL(TestDrawMultiLineStringWithPosition);
    UNIT_TEST_GL(TestDrawString);
+   UNIT_TEST_GL(TestDrawThaiString);
    UNIT_TEST_GL(TestDrawStringWithColor);
    UNIT_TEST_GL(TestDrawUnicodeSymbols);
    UNIT_TEST_GL(TestDrawTextRect);
