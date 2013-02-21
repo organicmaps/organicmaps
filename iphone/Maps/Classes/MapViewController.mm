@@ -116,6 +116,16 @@
 //fires when user taps on dot or arrow on the screen
 -(void) onMyPosionClick:(m2::PointD const &) point
 {
+  Framework &f = GetFramework();
+  BookmarkAndCategory const bmAndCat = f.GetBookmark(f.GtoP(point));
+  if (IsValid(bmAndCat))
+  {
+    if (f.GetBmCategory(bmAndCat.first)->IsVisible())
+    {
+      [self onBookmarkClickWithBookmarkAndCategory:bmAndCat];
+      return;
+    }
+  }
   m_balloonView.isCurrentPosition = YES;
   [m_balloonView setTitle:NSLocalizedString(@"my_position", nil)];
   m_balloonView.globalPosition = CGPointMake(point.x, point.y);
@@ -295,32 +305,7 @@
   BookmarkAndCategory const bmAndCat = f.GetBookmark(pxClicked);
   if (IsValid(bmAndCat))
   {
-    // Already added bookmark was clicked
-    BookmarkCategory * cat = f.GetBmCategory(bmAndCat.first);
-    if (cat)
-    {
-      // Automatically reveal hidden bookmark on a click
-      if (!cat->IsVisible())
-      {
-        // Category visibility will be autosaved after editing bookmark
-        cat->SetVisible(true);
-        [self Invalidate];
-      }
-
-      Bookmark const * bm = cat->GetBookmark(bmAndCat.second);
-      if (bm)
-      {
-        m2::PointD const globalPos = bm->GetOrg();
-        // Set it before changing balloon title to display different images in case of creating/editing Bookmark
-        m_balloonView.editedBookmark = bmAndCat;
-        m_balloonView.isCurrentPosition = NO;
-        m_balloonView.globalPosition = CGPointMake(globalPos.x, globalPos.y);
-        m_balloonView.title = [NSString stringWithUTF8String:bm->GetName().c_str()];
-        m_balloonView.color = [NSString stringWithUTF8String:bm->GetType().c_str()];
-        m_balloonView.setName = [NSString stringWithUTF8String:cat->GetName().c_str()];
-        [m_balloonView showInView:self.view atPoint:[(EAGLView *)self.view globalPoint2ViewPoint:m_balloonView.globalPosition]];
-      }
-    }
+    [self onBookmarkClickWithBookmarkAndCategory:bmAndCat];
   }
   else
   {
@@ -666,6 +651,37 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void) SetupMeasurementSystem
 {
   GetFramework().SetupMeasurementSystem();
+}
+
+-(void)onBookmarkClickWithBookmarkAndCategory:(BookmarkAndCategory const)bmAndCat
+{
+  Framework &f = GetFramework();
+  // Already added bookmark was clicked
+  BookmarkCategory * cat = f.GetBmCategory(bmAndCat.first);
+  if (cat)
+  {
+    // Automatically reveal hidden bookmark on a click
+    if (!cat->IsVisible())
+    {
+      // Category visibility will be autosaved after editing bookmark
+      cat->SetVisible(true);
+      [self Invalidate];
+    }
+
+    Bookmark const * bm = cat->GetBookmark(bmAndCat.second);
+    if (bm)
+    {
+      m2::PointD const globalPos = bm->GetOrg();
+      // Set it before changing balloon title to display different images in case of creating/editing Bookmark
+      m_balloonView.editedBookmark = bmAndCat;
+      m_balloonView.isCurrentPosition = NO;
+      m_balloonView.globalPosition = CGPointMake(globalPos.x, globalPos.y);
+      m_balloonView.title = [NSString stringWithUTF8String:bm->GetName().c_str()];
+      m_balloonView.color = [NSString stringWithUTF8String:bm->GetType().c_str()];
+      m_balloonView.setName = [NSString stringWithUTF8String:cat->GetName().c_str()];
+      [m_balloonView showInView:self.view atPoint:[(EAGLView *)self.view globalPoint2ViewPoint:m_balloonView.globalPosition]];
+    }
+  }
 }
 
 @end
