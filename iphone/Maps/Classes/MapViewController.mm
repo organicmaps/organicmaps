@@ -353,6 +353,7 @@
 - (void)showSearchResultAsBookmarkAtMercatorPoint:(m2::PointD const &)pt withInfo:(Framework::AddressInfo const &)info
 {
   m_balloonView.globalPosition = CGPointMake(pt.x, pt.y);
+  m_balloonView.isCurrentPosition = NO;
   [self updatePinTexts:info];
   [m_balloonView showInView:self.view atPoint:[(EAGLView *)self.view globalPoint2ViewPoint:m_balloonView.globalPosition]];
 }

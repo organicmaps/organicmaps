@@ -311,10 +311,10 @@ static void OnSearchResultCallback(search::Results const & res)
 //*********** SearchBar handlers *******************************************
 - (void)searchBar:(UISearchBar *)sender textDidChange:(NSString *)searchText
 {
-    numberOfRowsInEmptySearch = 0;
-    [lastSearchRequest release];
-    lastSearchRequest = [[NSString alloc] initWithString:m_searchBar.text];
-    [self proceedSearchWithString:m_searchBar.text andForceSearch:NO];
+  [lastSearchRequest release];
+  lastSearchRequest = [[NSString alloc] initWithString:m_searchBar.text];
+  [self clearCacheResults];
+  [self proceedSearchWithString:m_searchBar.text andForceSearch:NO];
 }
 
 - (void)onCloseButton:(id)sender
@@ -345,7 +345,7 @@ static void OnSearchResultCallback(search::Results const & res)
   //No text in search show categories
   if (m_suggestionsCount)
   {
-      return [categoriesNames count];
+    return [categoriesNames count];
   }
   //If no results we should show 0 strings if search is in progress or 1 string with message thaht there is no results
   if (![[_searchResults objectAtIndex:scopeSection] getCount])
@@ -365,7 +365,7 @@ static void OnSearchResultCallback(search::Results const & res)
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
     {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
 
     cell.textLabel.text =  NSLocalizedString([categoriesNames objectAtIndex:indexPath.row], nil);
@@ -530,9 +530,9 @@ static void OnSearchResultCallback(search::Results const & res)
   }
   else
   {
-     numberOfRowsInEmptySearch = 0;
-     [_searchResults replaceObjectAtIndex:scopeSection withObject:w];
-     [m_table reloadData];
+    numberOfRowsInEmptySearch = 0;
+    [_searchResults replaceObjectAtIndex:scopeSection withObject:w];
+    [m_table reloadData];
   }
 }
 
@@ -643,57 +643,64 @@ void setSearchType(search::SearchParams& params)
 //segmentedControl delegate
 - (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 {
-    scopeSection = selectedScope;
-    numberOfRowsInEmptySearch = 0;
-    [self proceedSearchWithString:m_searchBar.text andForceSearch:YES];
+  scopeSection = selectedScope;
+  [self proceedSearchWithString:m_searchBar.text andForceSearch:YES];
 }
 
 -(void)setSearchBarHeight
 {
-    CGRect r = m_searchBar.frame;
-    r.size.height *= 2;
-    [m_searchBar setFrame:r];
+  CGRect r = m_searchBar.frame;
+  r.size.height *= 2;
+  [m_searchBar setFrame:r];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
-    [self onCloseButton:nil];
+  [self onCloseButton:nil];
+}
+
+-(void)clearCacheResults
+{
+  for (int i = 0; i < [_searchResults count]; ++i)
+  {
+    [_searchResults replaceObjectAtIndex:i withObject:[[[ResultsWrapper alloc] init] autorelease]];
+  }
 }
 
 -(void)proceedSearchWithString:(NSString *)searchText andForceSearch:(BOOL)forceSearch
 {
+  numberOfRowsInEmptySearch = 0;
+  [m_table reloadData];
+  if (![searchText length])
+    return;
+  search::SearchParams params;
+  setSearchType(params);
+  if(forceSearch)
+  {
+    params.SetForceSearch(true);
+  }
+  [self fillSearchParams:params withText:searchText];
+  if (m_framework->Search(params))
+  {
+    [self showIndicator];   
+  }
+  else
+  {
+    numberOfRowsInEmptySearch = 1;
     [m_table reloadData];
-    if (![searchText length])
-        return;
-    search::SearchParams params;
-    setSearchType(params);
-    if(forceSearch)
-    {
-        params.SetForceSearch(true);
-    }
-    [self fillSearchParams:params withText:searchText];
-    if (m_framework->Search(params))
-    {
-        [self showIndicator];
-        numberOfRowsInEmptySearch = 0;   
-    }
-    else
-    {
-        numberOfRowsInEmptySearch = 1;
-        [m_table reloadData];
-    }
+  }
 }
 
 -(void)enableCancelButton
 {
-   for (UIView *v in m_searchBar.subviews)
-   {
-        if ([v isKindOfClass:[UIButton class]])
-        {
-            UIButton *cancelButton = (UIButton*)v;
-            cancelButton.enabled = YES;
-            break;
-        }
+  for (UIView *v in m_searchBar.subviews)
+  {
+    if ([v isKindOfClass:[UIButton class]])
+    {
+      UIButton *cancelButton = (UIButton*)v;
+      cancelButton.enabled = YES;
+      break;
     }
+  }
 }
 @end
