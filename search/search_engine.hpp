@@ -36,6 +36,8 @@ public:
          string const & lang);
   ~Engine();
 
+  void SupportOldFormat(bool b);
+
   void PrepareSearch(m2::RectD const & viewport,
                      bool hasPt, double lat, double lon);
   bool Search(SearchParams const & params, m2::RectD const & viewport);

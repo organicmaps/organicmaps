@@ -125,10 +125,9 @@ protected:
     return 0.0;
   }
 
-  /// Stores lowest loaded map version
-  /// Holds -1 if no maps were added
+  /// Stores lowest loaded map version or MAX_INT if no maps added.
   /// @see feature::DataHeader::Version
-  //int m_lowestMapVersion;
+  int m_lowestMapVersion;
 
   void DrawAdditionalInfo(shared_ptr<PaintEvent> const & e);
 
@@ -136,21 +135,13 @@ protected:
 
   void ClearAllCaches();
 
+  void AddMap(string const & file);
+  void RemoveMap(string const & file);
+
 public:
   Framework();
   virtual ~Framework();
 
-  /*
-  /// @name Used on iPhone for upgrade from April 1.0.1 version
-  //@{
-  /// @return true if client should display delete old maps dialog before using downloader
-  bool NeedToDeleteOldMaps() const;
-  void DeleteOldMaps();
-  //@}
-  */
-
-  void AddMap(string const & file);
-  void RemoveMap(string const & datFile);
   bool IsCategoryExist(string const & name);
   /// @name Process storage connecting/disconnecting.
   //@{

@@ -336,6 +336,8 @@ public:
 
     if (types.Empty()) return;
 
+    Classificator const & c = classif();
+
     // add names of categories of the feature
     for (size_t i = 0; i < types.Size(); ++i)
     {
@@ -354,7 +356,8 @@ public:
       if (my::between_s(m_scales.first, m_scales.second, r.first) ||
           my::between_s(m_scales.first, m_scales.second, r.second))
       {
-        inserter.AddToken(search::CATEGORIES_LANG, search::FeatureTypeToString(type));
+        inserter.AddToken(search::CATEGORIES_LANG,
+                          search::FeatureTypeToString(c.GetIndexForType(type)));
       }
     }
   }

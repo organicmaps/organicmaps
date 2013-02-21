@@ -94,6 +94,11 @@ Engine::~Engine()
 {
 }
 
+void Engine::SupportOldFormat(bool b)
+{
+  m_pQuery->SupportOldFormat(b);
+}
+
 namespace
 {
   m2::PointD GetViewportXY(double lat, double lon)

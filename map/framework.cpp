@@ -66,11 +66,11 @@ void Framework::AddMap(string const & file)
 
   //threads::MutexGuard lock(m_modelSyn);
   int const version = m_model.AddMap(file);
+  if (m_lowestMapVersion > version)
+    m_lowestMapVersion = version;
 
   // Now we do force delete of old (April 2011) maps.
-  //if (m_lowestMapVersion == -1 || (version != -1 && m_lowestMapVersion > version))
-  //  m_lowestMapVersion = version;
-  if (version == 0)
+  if (version == feature::DataHeader::v1)
   {
     LOG(LINFO, ("Deleting old map:", file));
     RemoveMap(file);
@@ -78,10 +78,10 @@ void Framework::AddMap(string const & file)
   }
 }
 
-void Framework::RemoveMap(string const & datFile)
+void Framework::RemoveMap(string const & file)
 {
   //threads::MutexGuard lock(m_modelSyn);
-  m_model.RemoveMap(datFile);
+  m_model.RemoveMap(file);
 }
 
 void Framework::StartLocation()
@@ -183,7 +183,7 @@ Framework::Framework()
     m_width(0),
     m_height(0),
     m_informationDisplay(this),
-    //m_lowestMapVersion(-1),
+    m_lowestMapVersion(numeric_limits<int>::max()),
     m_benchmarkEngine(0)
 {
   // Checking whether we should enable benchmark.
@@ -226,26 +226,26 @@ Framework::Framework()
 
   m_model.InitClassificator();
 
-  // To avoid possible races - init search engine once in constructor.
-  (void)GetSearchEngine();
-
   // Get all available maps.
   vector<string> maps;
   GetResourcesMaps(maps);
 #ifndef OMIM_OS_ANDROID
-  // On Android, local maps are added and removed when
-  // external storage is connected/disconnected.
+  // On Android, local maps are added and removed when external storage is connected/disconnected.
   GetLocalMaps(maps);
 #endif
 
-  // Remove duplicate maps if they're both present in resources and in WritableDir
+  // Remove duplicate maps if they're both present in resources and in WritableDir.
   sort(maps.begin(), maps.end());
   maps.erase(unique(maps.begin(), maps.end()), maps.end());
 
+  // Add founded maps to index.
   for_each(maps.begin(), maps.end(), bind(&Framework::AddMap, this, _1));
 
   // Init storage with needed callback.
   m_storage.Init(bind(&Framework::UpdateAfterDownload, this, _1));
+
+  // To avoid possible races - init search engine once in constructor.
+  (void)GetSearchEngine();
 
   LOG(LDEBUG, ("Storage initialized"));
 }
@@ -358,6 +358,8 @@ void Framework::AddLocalMaps()
   GetLocalMaps(maps);
 
   for_each(maps.begin(), maps.end(), bind(&Framework::AddMap, this, _1));
+
+  m_pSearchEngine->SupportOldFormat(m_lowestMapVersion < feature::DataHeader::v3);
 }
 
 void Framework::RemoveLocalMaps()
@@ -1283,11 +1285,14 @@ search::Engine * Framework::GetSearchEngine() const
 
     try
     {
-      m_pSearchEngine.reset(new search::Engine(&m_model.GetIndex(),
-                               pl.GetReader(SEARCH_CATEGORIES_FILE_NAME),
-                               pl.GetReader(PACKED_POLYGONS_FILE),
-                               pl.GetReader(COUNTRIES_FILE),
-                               languages::CurrentLanguage()));
+      m_pSearchEngine.reset(new search::Engine(
+                              &m_model.GetIndex(),
+                              pl.GetReader(SEARCH_CATEGORIES_FILE_NAME),
+                              pl.GetReader(PACKED_POLYGONS_FILE),
+                              pl.GetReader(COUNTRIES_FILE),
+                              languages::CurrentLanguage()));
+
+      m_pSearchEngine->SupportOldFormat(m_lowestMapVersion < feature::DataHeader::v3);
     }
     catch (RootException const & e)
     {
@@ -1448,36 +1453,6 @@ void Framework::SetupMeasurementSystem()
   m_informationDisplay.ruler()->setIsDirtyLayout(true);
   Invalidate();
 }
-
-/*
-// 0 - old April version which we should delete
-#define MAXIMUM_VERSION_TO_DELETE 0
-
-bool Framework::NeedToDeleteOldMaps() const
-{
-  return m_lowestMapVersion == MAXIMUM_VERSION_TO_DELETE;
-}
-
-void Framework::DeleteOldMaps()
-{
-  Platform & p = GetPlatform();
-  vector<string> maps;
-  p.GetFilesByExt(p.WritableDir(), DATA_FILE_EXTENSION, maps);
-  for (vector<string>::iterator it = maps.begin(); it != maps.end(); ++it)
-  {
-    feature::DataHeader header;
-    LoadMapHeader(p.GetReader(*it), header);
-    if (header.GetVersion() <= MAXIMUM_VERSION_TO_DELETE)
-    {
-      LOG(LINFO, ("Deleting old map", *it));
-      RemoveMap(*it);
-      FileWriter::DeleteFileX(p.WritablePathForFile(*it));
-      InvalidateRect(header.GetBounds());
-    }
-  }
-  m_lowestMapVersion = MAXIMUM_VERSION_TO_DELETE + 1;
-}
-*/
 
 string Framework::GetCountryCode(m2::PointD const & pt) const
 {

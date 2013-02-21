@@ -64,6 +64,8 @@ public:
         size_t resultsNeeded = 10);
   ~Query();
 
+  inline void SupportOldFormat(bool b) { m_supportOldFormat = b; }
+
   void Init();
 
   void SetViewport(m2::RectD viewport[], size_t count);
@@ -139,6 +141,7 @@ private:
 
   typedef vector<MwmInfo> MWMVectorT;
   typedef vector<vector<uint32_t> > OffsetsVectorT;
+  typedef feature::DataHeader FHeaderT;
 
   void SetViewportByIndex(MWMVectorT const & mwmInfo, m2::RectD const & viewport, size_t idx);
   void UpdateViewportOffsets(MWMVectorT const & mwmInfo, m2::RectD const & rect,
@@ -212,6 +215,7 @@ private:
   KeywordLangMatcher m_keywordsScorer;
 
   OffsetsVectorT m_offsetsInViewport[RECTSCOUNT];
+  bool m_supportOldFormat;
 
   template <class ParamT, class RefT> class CompareT
   {
