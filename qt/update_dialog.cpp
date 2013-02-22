@@ -292,8 +292,9 @@ namespace qt
         item->setData(KColumnIndexSize, Qt::UserRole, QVariant(qint64(size.second)));
       }
 
-      if (!statusString.isEmpty())
-        SetRowColor(*item, rowColor);
+    // commented out because it looks terrible on black backgrounds
+    //  if (!statusString.isEmpty())
+    //    SetRowColor(*item, rowColor);
     }
   }
 

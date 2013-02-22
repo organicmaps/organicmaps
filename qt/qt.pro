@@ -21,6 +21,51 @@ win32*|linux* {
   QT *= network
 }
 
+linux* {
+  DEFINES += NO_DOWNLOADER
+  isEmpty(PREFIX):PREFIX = /usr
+  BINDIR = $$PREFIX/bin
+  DATADIR = $$PREFIX/share
+  RESDIR =  $$DATADIR/$${TARGET}
+
+  target.path = $$BINDIR
+  desktop.path = $$DATADIR/applications/
+  desktop.files += res/$${TARGET}.desktop
+  pixmaps.path = $$DATADIR/pixmaps/
+  pixmaps.files += res/icons/128/$${TARGET}.png
+  icon128.path = $$DATADIR/icons/hicolor/128x128/apps/
+  icon128.files += res/icons/128/$${TARGET}.png
+  OTHER_RES.path = $$RESDIR
+  OTHER_RES.files = ../data/about.html ../data/eula.html ../data/welcome.html \
+                    ../data/countries.txt  \
+                    ../data/languages.txt ../data/categories.txt \
+                    ../data/packed_polygons.bin
+  CLASSIFICATOR_RES.path = $$RESDIR
+  CLASSIFICATOR_RES.files = ../data/classificator.txt \
+                            ../data/types.txt
+  CONFIG(production) {
+    CLASSIFICATOR_RES.files += ../data/drules_proto.bin
+  } else {
+    CLASSIFICATOR_RES.files += ../data/drules_proto.txt
+  }
+  SKIN_RES.path = $$RESDIR/resources-mdpi
+  SKIN_RES.files = ../data/resources-mdpi/basic.skn ../data/resources-mdpi/symbols.png
+  FONT_RES.path = $$RESDIR
+  FONT_RES.files = ../data/01_dejavusans.ttf \
+                   ../data/02_wqy-microhei.ttf \
+                   ../data/03_jomolhari-id-a3d.ttf \
+                   ../data/04_padauk.ttf \
+                   ../data/05_khmeros.ttf \
+                   ../data/06_code2000.ttf \
+                   ../data/fonts_blacklist.txt \
+                   ../data/fonts_whitelist.txt \
+                   ../data/unicode_blocks.txt
+  MWM_RES.path = $$RESDIR
+  MWM_RES.files = ../data/World.mwm ../data/WorldCoasts.mwm
+
+  INSTALLS += target desktop pixmaps icon128 OTHER_RES CLASSIFICATOR_RES SKIN_RES FONT_RES MWM_RES
+}
+
 macx* {
   LIBS *= "-framework CoreLocation" "-framework Foundation" "-framework CoreWLAN" \
           "-framework QuartzCore" "-framework IOKit"

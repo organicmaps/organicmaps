@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=MapsWithMe
+Version=1.0
+GenericName=Detailed Offline Maps of the World
+GenericName[ru]=Подробная оффлайновая карта мира
+Icon=MapsWithMe
+TryExec=/usr/bin/MapsWithMe
+Exec=/usr/bin/MapsWithMe
+Terminal=false
+StartupNotify=false
+Categories=Qt;Education;Science;Geography;Geoscience
+Keywords=Maps;Offline Maps;Minsk;London;Briefcase;Case;MapsWithMe;OSM;OpenStreetMap;Map
