@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    FreeType path stroker (specification).                               */
 /*                                                                         */
-/*  Copyright 2002-2006, 2008, 2009, 2011 by                               */
+/*  Copyright 2002-2006, 2008, 2009, 2011-2012 by                          */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -85,25 +85,25 @@ FT_BEGIN_HEADER
    *     miter limit is exceeded.  The outer edges of the strokes
    *     for the two segments are extended until they meet at an
    *     angle.  If the segments meet at too sharp an angle (such
-   *     that the miter would extend from the intersection of the 
-   *     segments a distance greater than the product of the miter 
-   *     limit value and the border radius), then a bevel join (see 
-   *     above) is used instead.  This prevents long spikes being 
-   *     created.  FT_STROKER_LINEJOIN_MITER_FIXED generates a miter 
+   *     that the miter would extend from the intersection of the
+   *     segments a distance greater than the product of the miter
+   *     limit value and the border radius), then a bevel join (see
+   *     above) is used instead.  This prevents long spikes being
+   *     created.  FT_STROKER_LINEJOIN_MITER_FIXED generates a miter
    *     line join as used in PostScript and PDF.
    *
    *   FT_STROKER_LINEJOIN_MITER_VARIABLE ::
    *   FT_STROKER_LINEJOIN_MITER ::
    *     Used to render mitered line joins, with variable bevels if
-   *     the miter limit is exceeded.  The intersection of the 
-   *     strokes is clipped at a line perpendicular to the bisector 
-   *     of the angle between the strokes, at the distance from the 
-   *     intersection of the segments equal to the product of the 
-   *     miter limit value and the border radius.  This prevents 
-   *     long spikes being created.  
-   *     FT_STROKER_LINEJOIN_MITER_VARIABLE generates a mitered line 
-   *     join as used in XPS.  FT_STROKER_LINEJOIN_MITER is an alias 
-   *     for FT_STROKER_LINEJOIN_MITER_VARIABLE, retained for 
+   *     the miter limit is exceeded.  The intersection of the
+   *     strokes is clipped at a line perpendicular to the bisector
+   *     of the angle between the strokes, at the distance from the
+   *     intersection of the segments equal to the product of the
+   *     miter limit value and the border radius.  This prevents
+   *     long spikes being created.
+   *     FT_STROKER_LINEJOIN_MITER_VARIABLE generates a mitered line
+   *     join as used in XPS.  FT_STROKER_LINEJOIN_MITER is an alias
+   *     for FT_STROKER_LINEJOIN_MITER_VARIABLE, retained for
    *     backwards compatibility.
    */
   typedef enum  FT_Stroker_LineJoin_
@@ -682,6 +682,11 @@ FT_BEGIN_HEADER
    *
    * @note:
    *   The source glyph is untouched in case of error.
+   *
+   *   Adding stroke may yield a significantly wider and taller glyph
+   *   depending on how large of a radius was used to stroke the glyph.  You
+   *   may need to manually adjust horizontal and vertical advance amounts
+   *   to account for this added size.
    */
   FT_EXPORT( FT_Error )
   FT_Glyph_Stroke( FT_Glyph    *pglyph,
@@ -719,6 +724,11 @@ FT_BEGIN_HEADER
    *
    * @note:
    *   The source glyph is untouched in case of error.
+   *
+   *   Adding stroke may yield a significantly wider and taller glyph
+   *   depending on how large of a radius was used to stroke the glyph.  You
+   *   may need to manually adjust horizontal and vertical advance amounts
+   *   to account for this added size.
    */
   FT_EXPORT( FT_Error )
   FT_Glyph_StrokeBorder( FT_Glyph    *pglyph,

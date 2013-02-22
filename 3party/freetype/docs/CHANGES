@@ -1,4 +1,117 @@
 
+CHANGES BETWEEN 2.4.10 and 2.4.11
+
+  I. IMPORTANT BUG FIXES
+
+    - Some vulnerabilities in the  BDF implementation have been fixed.
+      Users of this font format should upgrade.
+
+
+  II. IMPORTANT CHANGES
+
+    - Subpixel  hinting support  has been  contributed by  Infinality,
+      based on Greg Hitchcock's whitepaper at
+
+        http://www.microsoft.com/typography/cleartype/truetypecleartype.aspx
+
+      Originally, it was a separate patch available from
+
+        http://www.infinality.net/blog/
+
+      and which has been integrated.
+
+      Note that  ClearType support is not  completely implemented!  In
+      particular,  full support  for the  options `compatible_widths',
+      `symmetrical_smoothing,  and  `bgr'  (via the  GETINFO  bytecode
+      instruction) is missing.
+
+      Activation of  subpixel hinting  support can be  controlled with
+      the `TT_CONFIG_OPTION_SUBPIXEL_HINTING' configuration option; it
+      is switched off by default.  This feature is still experimental;
+      we welcome test reports!
+
+    - Support for OpenType collections (OTC) has been added.
+
+    - Pure CFF fonts within an SFNT wrapper are now supported.
+
+
+  III. MISCELLANEOUS
+
+    - Minor rendering improvements to the auto-hinter.
+
+    - `FT_GlyphSlot_Oblique' now uses a shear angle of 12°.
+
+    - Experimental support  to handle `property modules',  for example
+      to control the  behaviour of the auto-hinter.   The API consists
+      of two new functions, `FT_Property_Set' and `FT_Property_Get'.
+
+      The code is  still subject to change and should  not be used for
+      production.
+
+    - The `ftdiff' demo program now supports UTF-8 encoded input files
+      for option `-f'.
+
+    - Using keys `r' and `R', you can now adjust the stroker radius in
+      the `ftview' demo program.
+
+    - Other, minor fixes and improvements.
+
+
+======================================================================
+
+CHANGES BETWEEN 2.4.9 and 2.4.10
+
+  I. IMPORTANT BUG FIXES
+
+    - Incremental glyph loading as needed by ghostscript was broken.
+
+
+  II. MISCELLANEOUS
+
+    - A new  function `FT_Outline_EmboldenXY',  contributed by  Alexei
+      Podtelezhnikov.
+
+    - In the `ftview' demo program, key `e' has been replaced with `x'
+      and `y' to  embolden in  the horizontal and  vertical direction,
+      respectively.
+
+    - The glyph  spacing computation  in `FT_GlyphSlot_Embolden'  (and
+      similar code in `ftview') has been improved.
+
+    - Minor  improvements to  the TrueType  bytecode  interpreter  and
+      glyph loader, the auto-hinter, and the B/W rasterizer.
+
+
+======================================================================
+
+CHANGES BETWEEN 2.4.8 and 2.4.9
+
+  I. IMPORTANT BUG FIXES
+
+    - Another round of fixes to better handle invalid fonts.   Many of
+      them are vulnerabilities  (see CVE-2012-1126 up to CVE-2012-1144
+      and SA48320) so all users should upgrade.
+
+
+  II. MISCELLANEOUS
+
+    - The `ENCODING -1 <n>' format of BDF fonts is now supported.
+
+    - For BDF fonts,  support for the whole Unicode encoding range has
+      been added.
+
+    - Better TTF support for x_ppem != y_ppem.
+
+    - `FT_Get_Advances' sometimes returned bogus values.
+
+    - The  demo  programs  no  longer  recognize  and  handle  default
+      suffixes; you now have to always specify the complete font name.
+
+    - Better rendering and LCD mode cycling added to `ftview'.
+
+
+======================================================================
+
 CHANGES BETWEEN 2.4.7 and 2.4.8
 
   I. IMPORTANT BUG FIXES
@@ -181,7 +294,7 @@ CHANGES BETWEEN 2.4.1 and 2.4.2
       The  two  new   functions  increment  the  respective   counter.
       `FT_Done_Library' and `FT_Done_Face' then only destroy a library
       or face if the counter is 1, otherwise they simply decrement the
-      counter. 
+      counter.
 
 
 ======================================================================
@@ -3601,7 +3714,7 @@ Extensions support:
 
 ------------------------------------------------------------------------
 
-Copyright 2000-2011 by
+Copyright 2000-2012 by
 David Turner, Robert Wilhelm, and Werner Lemberg.
 
 This  file  is  part  of the  FreeType  project, and may  only be  used,

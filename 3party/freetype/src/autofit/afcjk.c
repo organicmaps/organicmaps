@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    Auto-fitter hinting routines for CJK script (body).                  */
 /*                                                                         */
-/*  Copyright 2006-2011 by                                                 */
+/*  Copyright 2006-2012 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -67,8 +67,7 @@
 
   FT_LOCAL_DEF( void )
   af_cjk_metrics_init_widths( AF_CJKMetrics  metrics,
-                              FT_Face        face,
-                              FT_ULong       charcode )
+                              FT_Face        face )
   {
     /* scan the array of segments in each direction */
     AF_GlyphHintsRec  hints[1];
@@ -87,7 +86,8 @@
       AF_Scaler         scaler = &dummy->root.scaler;
 
 
-      glyph_index = FT_Get_Char_Index( face, charcode );
+      glyph_index = FT_Get_Char_Index( face,
+                                       metrics->root.clazz->standard_char );
       if ( glyph_index == 0 )
         goto Exit;
 
@@ -150,7 +150,10 @@
           }
         }
 
-        af_sort_widths( num_widths, axis->widths );
+        /* this also replaces multiple almost identical stem widths */
+        /* with a single one (the value 100 is heuristic) */
+        af_sort_and_quantize_widths( &num_widths, axis->widths,
+                                     dummy->units_per_em / 100 );
         axis->width_count = num_widths;
       }
 
@@ -556,7 +559,7 @@
       face->charmap = NULL;
     else
     {
-      af_cjk_metrics_init_widths( metrics, face, 0x7530 );
+      af_cjk_metrics_init_widths( metrics, face );
       af_cjk_metrics_init_blues( metrics, face, af_cjk_hani_blue_chars );
       af_cjk_metrics_check_digits( metrics, face );
     }
@@ -1610,7 +1613,7 @@
         goto Exit;
     }
 
-    offset = cur_len % 64;
+    offset = cur_len & 63;
 
     if ( offset < 32 )
     {
@@ -2190,6 +2193,7 @@
 
   static const AF_Script_UniRangeRec  af_cjk_uniranges[] =
   {
+    AF_UNIRANGE_REC(  0x1100UL,  0x11FFUL ),  /* Hangul Jamo                             */
     AF_UNIRANGE_REC(  0x2E80UL,  0x2EFFUL ),  /* CJK Radicals Supplement                 */
     AF_UNIRANGE_REC(  0x2F00UL,  0x2FDFUL ),  /* Kangxi Radicals                         */
     AF_UNIRANGE_REC(  0x2FF0UL,  0x2FFFUL ),  /* Ideographic Description Characters      */
@@ -2225,11 +2229,12 @@
   };
 
 
-  AF_DEFINE_SCRIPT_CLASS(af_cjk_script_class,
+  AF_DEFINE_SCRIPT_CLASS( af_cjk_script_class,
     AF_SCRIPT_CJK,
     af_cjk_uniranges,
+    0x7530, /* 田 */
 
-    sizeof( AF_CJKMetricsRec ),
+    sizeof ( AF_CJKMetricsRec ),
 
     (AF_Script_InitMetricsFunc) af_cjk_metrics_init,
     (AF_Script_ScaleMetricsFunc)af_cjk_metrics_scale,
@@ -2247,11 +2252,12 @@
   };
 
 
-  AF_DEFINE_SCRIPT_CLASS(af_cjk_script_class,
+  AF_DEFINE_SCRIPT_CLASS( af_cjk_script_class,
     AF_SCRIPT_CJK,
     af_cjk_uniranges,
+    0,
 
-    sizeof( AF_CJKMetricsRec ),
+    sizeof ( AF_CJKMetricsRec ),
 
     (AF_Script_InitMetricsFunc) NULL,
     (AF_Script_ScaleMetricsFunc)NULL,

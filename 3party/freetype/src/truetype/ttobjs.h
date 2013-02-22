@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    Objects manager (specification).                                     */
 /*                                                                         */
-/*  Copyright 1996-2009, 2011 by                                           */
+/*  Copyright 1996-2009, 2011-2012 by                                      */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -173,10 +173,12 @@ FT_BEGIN_HEADER
   /*                                                                       */
   typedef struct  TT_DefRecord_
   {
-    FT_Int   range;      /* in which code range is it located? */
-    FT_Long  start;      /* where does it start?               */
-    FT_UInt  opc;        /* function #, or instruction code    */
-    FT_Bool  active;     /* is it active?                      */
+    FT_Int   range;        /* in which code range is it located?     */
+    FT_Long  start;        /* where does it start?                   */
+    FT_Long  end;          /* where does it end?                     */
+    FT_UInt  opc;          /* function #, or instruction code        */
+    FT_Bool  active;       /* is it active?                          */
+    FT_Bool  inline_delta; /* is function that defines inline delta? */
 
   } TT_DefRecord, *TT_DefArray;
 
@@ -189,7 +191,7 @@ FT_BEGIN_HEADER
   {
     FT_Fixed    xx, xy;     /* transformation matrix coefficients */
     FT_Fixed    yx, yy;
-    FT_F26Dot6  ox, oy;     /* offsets        */
+    FT_F26Dot6  ox, oy;     /* offsets                            */
 
   } TT_Transform;
 
@@ -332,6 +334,7 @@ FT_BEGIN_HEADER
 
     FT_Bool            bytecode_ready;
     FT_Bool            cvt_ready;
+    FT_Bool            ttfautohinted;
 
 #endif /* TT_USE_BYTECODE_INTERPRETER */
 
@@ -424,6 +427,10 @@ FT_BEGIN_HEADER
   /*                                                                       */
   FT_LOCAL( FT_Error )
   tt_slot_init( FT_GlyphSlot  slot );
+
+
+  /* auxiliary */
+#define IS_HINTED( flags )  ( ( flags & FT_LOAD_NO_HINTING ) == 0 )
 
 
 FT_END_HEADER

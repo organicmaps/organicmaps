@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>FreeType-2.4.8 API Reference</title>
+<title>FreeType-2.4.11 API Reference</title>
 <style type="text/css">
   body { font-family: Verdana, Geneva, Arial, Helvetica, serif;
          color: #000000;
@@ -35,7 +35,7 @@
 <table align=center><tr><td><font size=-1>[<a href="ft2-index.html">Index</a>]</font></td>
 <td width="100%"></td>
 <td><font size=-1>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
-<center><h1>FreeType-2.4.8 API Reference</h1></center>
+<center><h1>FreeType-2.4.11 API Reference</h1></center>
 
 <center><h1>
 Glyph Variants
@@ -49,7 +49,9 @@ Glyph Variants
 
 <table align=center width="87%"><tr><td>
 <p>Many CJK characters have variant forms. They are a sort of grey area somewhere between being totally irrelevant and semantically distinct; for this reason, the Unicode consortium decided to introduce Ideographic Variation Sequences (IVS), consisting of a Unicode base character and one of 240 variant selectors (U+E0100-U+E01EF), instead of further extending the already huge code range for CJK characters.</p>
-<p>An IVS is registered and unique; for further details please refer to Unicode Technical Report #37, the Ideographic Variation Database. To date (October 2007), the character with the most variants is U+908A, having 8&nbsp;such IVS.</p>
+<p>An IVS is registered and unique; for further details please refer to Unicode Technical Standard #37, the Ideographic Variation Database:</p>
+<p>http://www.unicode.org/reports/tr37/</p>
+<p>To date (November 2012), the character with the most variants is U+9089, having 31 such IVS.</p>
 <p>Adobe and MS decided to support IVS with a new cmap subtable (format&nbsp;14). It is an odd subtable because it is not a mapping of input code points to glyphs, but contains lists of all variants supported by the font.</p>
 <p>A variant may be either &lsquo;default&rsquo; or &lsquo;non-default&rsquo;. A default variant is the one you will get for that code point if you look it up in the standard Unicode cmap. A non-default variant is a different glyph.</p>
 </td></tr></table><br>

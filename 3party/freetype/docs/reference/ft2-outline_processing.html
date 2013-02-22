@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>FreeType-2.4.8 API Reference</title>
+<title>FreeType-2.4.11 API Reference</title>
 <style type="text/css">
   body { font-family: Verdana, Geneva, Arial, Helvetica, serif;
          color: #000000;
@@ -35,25 +35,25 @@
 <table align=center><tr><td><font size=-1>[<a href="ft2-index.html">Index</a>]</font></td>
 <td width="100%"></td>
 <td><font size=-1>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
-<center><h1>FreeType-2.4.8 API Reference</h1></center>
+<center><h1>FreeType-2.4.11 API Reference</h1></center>
 
 <center><h1>
 Outline Processing
 </h1></center>
 <h2>Synopsis</h2>
 <table align=center cellspacing=5 cellpadding=0 border=0>
-<tr><td></td><td><a href="#FT_Outline">FT_Outline</a></td><td></td><td><a href="#FT_Outline_MoveToFunc">FT_Outline_MoveToFunc</a></td></tr>
-<tr><td></td><td><a href="#FT_OUTLINE_FLAGS">FT_OUTLINE_FLAGS</a></td><td></td><td><a href="#FT_Outline_LineToFunc">FT_Outline_LineToFunc</a></td></tr>
-<tr><td></td><td><a href="#FT_Outline_New">FT_Outline_New</a></td><td></td><td><a href="#FT_Outline_ConicToFunc">FT_Outline_ConicToFunc</a></td></tr>
-<tr><td></td><td><a href="#FT_Outline_Done">FT_Outline_Done</a></td><td></td><td><a href="#FT_Outline_CubicToFunc">FT_Outline_CubicToFunc</a></td></tr>
-<tr><td></td><td><a href="#FT_Outline_Copy">FT_Outline_Copy</a></td><td></td><td><a href="#FT_Outline_Funcs">FT_Outline_Funcs</a></td></tr>
-<tr><td></td><td><a href="#FT_Outline_Translate">FT_Outline_Translate</a></td><td></td><td><a href="#FT_Outline_Decompose">FT_Outline_Decompose</a></td></tr>
-<tr><td></td><td><a href="#FT_Outline_Transform">FT_Outline_Transform</a></td><td></td><td><a href="#FT_Outline_Get_CBox">FT_Outline_Get_CBox</a></td></tr>
-<tr><td></td><td><a href="#FT_Outline_Embolden">FT_Outline_Embolden</a></td><td></td><td><a href="#FT_Outline_Get_Bitmap">FT_Outline_Get_Bitmap</a></td></tr>
+<tr><td></td><td><a href="#FT_Outline">FT_Outline</a></td><td></td><td><a href="#ft_outline_flags">ft_outline_flags</a></td></tr>
+<tr><td></td><td><a href="#FT_OUTLINE_FLAGS">FT_OUTLINE_FLAGS</a></td><td></td><td><a href="#FT_Outline_MoveToFunc">FT_Outline_MoveToFunc</a></td></tr>
+<tr><td></td><td><a href="#FT_Outline_New">FT_Outline_New</a></td><td></td><td><a href="#FT_Outline_LineToFunc">FT_Outline_LineToFunc</a></td></tr>
+<tr><td></td><td><a href="#FT_Outline_Done">FT_Outline_Done</a></td><td></td><td><a href="#FT_Outline_ConicToFunc">FT_Outline_ConicToFunc</a></td></tr>
+<tr><td></td><td><a href="#FT_Outline_Copy">FT_Outline_Copy</a></td><td></td><td><a href="#FT_Outline_CubicToFunc">FT_Outline_CubicToFunc</a></td></tr>
+<tr><td></td><td><a href="#FT_Outline_Translate">FT_Outline_Translate</a></td><td></td><td><a href="#FT_Outline_Funcs">FT_Outline_Funcs</a></td></tr>
+<tr><td></td><td><a href="#FT_Outline_Transform">FT_Outline_Transform</a></td><td></td><td><a href="#FT_Outline_Decompose">FT_Outline_Decompose</a></td></tr>
+<tr><td></td><td><a href="#FT_Outline_Embolden">FT_Outline_Embolden</a></td><td></td><td><a href="#FT_Outline_Get_CBox">FT_Outline_Get_CBox</a></td></tr>
+<tr><td></td><td><a href="#FT_Outline_EmboldenXY">FT_Outline_EmboldenXY</a></td><td></td><td><a href="#FT_Outline_Get_Bitmap">FT_Outline_Get_Bitmap</a></td></tr>
 <tr><td></td><td><a href="#FT_Outline_Reverse">FT_Outline_Reverse</a></td><td></td><td><a href="#FT_Outline_Render">FT_Outline_Render</a></td></tr>
 <tr><td></td><td><a href="#FT_Outline_Check">FT_Outline_Check</a></td><td></td><td><a href="#FT_Orientation">FT_Orientation</a></td></tr>
 <tr><td></td><td><a href="#FT_Outline_Get_BBox">FT_Outline_Get_BBox</a></td><td></td><td><a href="#FT_Outline_Get_Orientation">FT_Outline_Get_Orientation</a></td></tr>
-<tr><td></td><td><a href="#ft_outline_flags">ft_outline_flags</a></td><td></td><td></td></tr>
 </table><br><br>
 
 <table align=center width="87%"><tr><td>
@@ -226,10 +226,10 @@ Defined in FT_OUTLINE_H (freetype/ftoutln.h).
 <p>A handle to the library object from where the outline is allocated. Note however that the new outline will <b>not</b> necessarily be <b>freed</b>, when destroying the library, by <a href="ft2-base_interface.html#FT_Done_FreeType">FT_Done_FreeType</a>.</p>
 </td></tr>
 <tr valign=top><td><b>numPoints</b></td><td>
-<p>The maximal number of points within the outline.</p>
+<p>The maximum number of points within the outline.</p>
 </td></tr>
 <tr valign=top><td><b>numContours</b></td><td>
-<p>The maximal number of contours within the outline.</p>
+<p>The maximum number of contours within the outline.</p>
 </td></tr>
 </table>
 </td></tr></table>
@@ -463,6 +463,28 @@ Defined in FT_OUTLINE_H (freetype/ftoutln.h).
     FT_Outline_Embolden( &amp;face-&gt;slot-&gt;outline, strength );         
 </pre>
 </td></tr></table>
+</td></tr></table>
+<hr width="75%">
+<table align=center width="75%"><tr><td><font size=-2>[<a href="ft2-index.html">Index</a>]</font></td>
+<td width="100%"></td>
+<td><font size=-2>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
+
+<table align=center width="75%"><tr><td>
+<h4><a name="FT_Outline_EmboldenXY">FT_Outline_EmboldenXY</a></h4>
+<table align=center width="87%"><tr><td>
+Defined in FT_OUTLINE_H (freetype/ftoutln.h).
+</td></tr></table><br>
+<table align=center width="87%"><tr bgcolor="#D6E8FF"><td><pre>
+
+  FT_EXPORT( <a href="ft2-basic_types.html#FT_Error">FT_Error</a> )
+  <b>FT_Outline_EmboldenXY</b>( <a href="ft2-outline_processing.html#FT_Outline">FT_Outline</a>*  outline,
+                         <a href="ft2-basic_types.html#FT_Pos">FT_Pos</a>       xstrength,
+                         <a href="ft2-basic_types.html#FT_Pos">FT_Pos</a>       ystrength );
+
+</pre></table><br>
+<table align=center width="87%"><tr><td>
+<p>Embolden an outline. The new outline will be &lsquo;xstrength&rsquo; pixels wider and &lsquo;ystrength&rsquo; pixels higher. Otherwise, it is similar to <a href="ft2-outline_processing.html#FT_Outline_Embolden">FT_Outline_Embolden</a>, which uses the same strength in both directions.</p>
+</td></tr></table><br>
 </td></tr></table>
 <hr width="75%">
 <table align=center width="75%"><tr><td><font size=-2>[<a href="ft2-index.html">Index</a>]</font></td>

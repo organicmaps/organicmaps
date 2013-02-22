@@ -44,11 +44,11 @@ INSTALL.UNIX for required tools and the basic self-building procedure.
       the option  pair `--host=' and `--target='.  This  is broken and
       doesn't work.  Similarly, an explicit CC specification like
 
-        env CC=mips-ip22-linux-gcc ./configure
+        env CC=mips-ip22-linux-gcc ./configure                 # BAD
 
       or
 
-        env CC=/usr/local/mips-ip22-linux/bin/gcc ./configure
+        env CC=/usr/local/mips-ip22-linux/bin/gcc ./configure  # BAD
 
       doesn't   work  either;  such   a  configuration   confuses  the
       `configure' script while  trying to find the cross  and native C
@@ -121,7 +121,7 @@ INSTALL.UNIX for required tools and the basic self-building procedure.
 
 ----------------------------------------------------------------------
 
-Copyright 2006, 2008 by suzuki toshiya
+Copyright 2006, 2008, 2012 by suzuki toshiya
 David Turner, Robert Wilhelm, and Werner Lemberg.
 
 

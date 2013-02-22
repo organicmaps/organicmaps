@@ -272,7 +272,7 @@ ftc_stroked_gnode_compare_faceid( FTC_Node    ftcgnode,
     */
    if ( (FT_ULong)type->width >= 0x10000L )
    {
-     FTC_OldImageDesc  desc = (FTC_OldImageDesc)type;
+     FTC_OldImageDesc  desc = (FTC_OldImageDescRec_)type;
 
 
      query.attrs.scaler.face_id = desc->font.face_id;

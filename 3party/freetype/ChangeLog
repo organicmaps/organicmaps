@@ -1,3 +1,2139 @@
+2012-12-20  Werner Lemberg  <wl@gnu.org>
+
+	* Version 2.4.11 released.
+	==========================
+
+
+	Tag sources with `VER-2-4-11'.
+
+	* docs/CHANGES, docs/release: Updated.
+
+	* docs/VERSION.DLL: Update documentation and bump version number to
+	2.4.11.
+
+	* README, Jamfile (RefDoc),
+	builds/win32/vc2005/freetype.vcproj, builds/win32/vc2005/index.html,
+	builds/win32/vc2008/freetype.vcproj, builds/win32/vc2008/index.html,
+	builds/win32/vc2010/freetype.vcxproj, builds/win32/vc2010/index.html,
+	builds/win32/visualc/freetype.dsp,
+	builds/win32/visualc/freetype.vcproj,
+	builds/win32/visualc/index.html, builds/win32/visualce/freetype.dsp,
+	builds/win32/visualce/freetype.vcproj,
+	builds/win32/visualce/index.html,
+	builds/wince/vc2005-ce/freetype.vcproj,
+	builds/wince/vc2005-ce/index.html,
+	builds/wince/vc2008-ce/freetype.vcproj,
+	builds/wince/vc2008-ce/index.html: s/2.4.10/2.4.11/, s/2410/2411/.
+
+	* include/freetype/freetype.h (FREETYPE_PATCH): Set to 10.
+
+	* builds/unix/configure.raw (version_info): Set to 16:0:10.
+
+	* builds/toplevel.mk (dist): Don't include `.mailmap'.
+
+2012-12-20  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[base] Improve trigonometric core.
+
+	FreeType used to rely on a 24-step iteration CORDIC algorithm to
+	calculate trigonometric functions and rotate vectors. It turns out
+	that once the vector is in the right half-plane, the initial rotation
+	by 63 degrees is not necessary. The algorithm is perfectly capable
+	to converge to any angle starting from the second 45 degree rotation.
+	This patch removes the first rotation and makes it a 23-step CORDIC
+	algorithm.
+
+	* src/base/fttrigon.c (FT_TRIG_SCALE, FT_TRIG_COSCALE): Update macro
+	values.
+	(ft_trig_pseudo_rotate, ft_trig_pseudo_polarize): Remove initial
+	rotation.
+
+2012-12-19  Werner Lemberg  <wl@gnu.org>
+
+	* src/base/ftobjs.c (ft_property_do): Fix compiler warning.
+
+2012-12-19  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	* src/base/ftrfork.c (FT_Raccess_Guess): Switch to FT_Int counters.
+
+2012-12-19  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[base] Clean up trigonometric core.
+
+	* src/base/fttrrigon.c (ft_trig_pseudo_polarize): Align algorithm
+	with `ft_trig_pseudo_rotate'.
+
+2012-12-18  Infinality  <infinality@infinality.net>
+
+	[truetype] Minor performance enhancement.
+
+	* src/truetype/ttgload.c: (TT_Process_Simple_Glyph): Use FT_MulFix
+	instead of FT_MulDiv.
+
+2012-12-17  Infinality  <infinality@infinality.net>
+
+	[truetype] Remove unusued code and variables.
+
+	* src/truetype/ttinterp.c: Updated.
+	(Ins_FDEF): Remove opcode patterns that are not being used.
+
+2012-12-16  Werner Lemberg  <wl@gnu.org>
+
+	Various compiler warning fixes.
+
+	* include/freetype/internal/ftserv.h (FT_SERVICE_UNAVAILABLE): Use
+	`logical not' operator instead of negation.  The idea is that `~'
+	returns exactly the data type enforced by the cast to a pointer (be
+	it 32bit or 64bit or whatever), while a negative integer has not
+	this flexibility.
+	* src/cache/ftccmap.c (FTC_CMAP_UNKNOWN): Ditto.
+	* src/truetype/ttgxvar.c (ALL_POINTS, TT_Get_MM_Var): Ditto.
+	* src/type/t1load.c (T1_Get_MM_Var): Ditto.
+	(parse_blend_axis_types): Use cast.
+	* src/bdf/bdflib.c (_bdf_readstream): Use cast.
+
+2012-12-16  Infinality  <infinality@infinality.net>
+
+	[truetype] Remove unusued code and variables.  Add minor fixes.
+
+	* src/truetype/ttsubpix.h: Updated.
+	(SKIP_NONPIXEL_Y_MOVES_Rules_Exceptions): Add Trebuchet MS.
+	(ALLOW_X_DMOVEX_Rules): Remove Arial characters.
+	(ALLOW_X_DMOVE_Rules): Remove Arial characters.
+	(RASTERIZER_35_Rules): Verdana no longer needs to be here.
+	(SKIP_IUP_Rules): Formatting fix.
+	(DELTAP_SKIP_EXAGGERATED_VALUES_Rules): Remove Segoe UI.
+	(COMPATIBLE_WIDTHS_Rules): Add Monaco and Trebuchet MS.
+	(X_SCALING_Rules): Add misc. corrective fixes.
+
+	* src/truetype/ttgload.c: (TT_Process_Simple_Glyph): Adjust correction
+	factor for emboldening during scaling.
+
+	* src/truetype/ttinterp.h: Updated.
+	(TT_ExecContextRec): Remove unused variables.
+
+	* src/truetype/ttobjs.h: Updated.
+	(TT_SizeRec): Add ttfautohinted variable.
+
+	* src/truetype/ttinterp.c: Updated.
+	(Ins_FDEF): Rework code to fix bugs and add more detection.
+	(Ins_CALL): Remove unused code.
+	(Ins_LOOPCALL): Remove unused code.
+	(TT_RunIns): Remove unusued code.
+	(Ins_SHPIX): Add logic to handle ttfautohinted fonts.
+	(Ins_MIRP): Don't round x in cut-in calculation.  Add logic to handle
+	ttfautohinted fonts.
+
+2012-12-16  Werner Lemberg  <wl@gnu.org>
+
+	[sfnt] Fix Savannah bug #37936.
+
+	* src/sfnt/ttload.c (tt_face_load_gasp): Avoid memory leak.
+
+2012-12-15  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[base] Fix 11-year old bug.
+
+	Since the initial commit (ebe85f59) the value of FT_TRIG_SCALE has
+	always been slightly less than the correct value, which has been
+	given in the comment as a hexadecimal. As a result, vector lengths
+	were underestimated and rotated vectors were shortened.
+
+	* src/base/fttrigon.c (FT_TRIG_SCALE): Fix macro value.
+
+2012-12-15  Werner Lemberg  <wl@gnu.org>
+
+	[bdf] Fix Savannah bug #37907.
+
+	* src/bdf/bdflib.c (_bdf_parse_glyphs) <ENCODING>: Normalize
+	negative second parameter of `ENCODING' field also.
+
+2012-12-15  Werner Lemberg  <wl@gnu.org>
+
+	[bdf] Fix Savannah bug #37906.
+
+	* src/bdf/bdflib.c (_bdf_parse_glyphs) <ENCODING>: Use correct array
+	size for checking `glyph_enc'.
+
+2012-12-15  Werner Lemberg  <wl@gnu.org>
+
+	[bdf] Fix Savannah bug #37905.
+
+	* src/bdf/bdflib.c (_bdf_parse_start) <STARTPROPERTIES>: Reset
+	`props_size' to zero in case of allocation error; this value gets
+	used in a loop in `bdf_free_font'.
+
+2012-12-10  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[truetype] Scale F_dot_P down.
+
+	The dot product between freeVector and projVector or cosine of
+	the angle between these FT_F2Dot14 unit vectors used to be scaled up
+	by 4 and routinely occupied 32 bits in an FT_Long field F_dot_P.
+	This patch scales the value down by 2^14 instead, which simplifies 
+	its use throughout the bytecode interpreter.
+
+	This does not lead to the loss of precision because the lower bits
+	are unreliable anyway. Consider two unit vectors (1,0) and (.6,.8)
+	for which the true value of F_dot_P is .6 * 0x40000000 = 0x26666666.
+	These vectors are stored as (0x4000,0) and (0x2666,0x3333) after
+	rounding and F_dot_P is assigned 0x26660000. The lower bits were
+	already lost while rounding the unit vector components.
+
+	Besides code simplification, this change can lead to better
+	performance when FT_MulDiv with the scaled-down F_dot_P is less
+	likely to use the costly 64-bit path. We are not changing the type
+	of F_dot_P to FT_F2Dot14 at this point.  
+
+	* src/truetype/ttinterp.c (Compute_Funcs): Scale F_dot_P down by 14
+	bits and modify its use accordingly.
+	(Direct_Move, Direct_Move_Orig, Compute_Point_Displacement): Modify
+	the use of F_dot_P field.
+	* src/truetype/ttobjs.c (tt_size_run_fpgm): Change arbitrary
+	assignment of F_dot_P to its theoretical maximum in case we decide
+	to scale back its type later.
+
+2012-12-09  Johnson Y. Yan  <yinsen_yan@foxitsoftware.com>
+
+	[type1] Another fix for 2012-09-17 commit.
+
+	* src/type1/t1parse.c (T1_Get_Private_Dict) <found>: Correctly set
+	`limit' value.
+
+2012-12-06  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[truetype] Tweak the previous commit.
+
+	* src/truetype/ttinterp.c (Current_Ratio): Put unit vector
+	components as the second TT_MulFix14 arguments. This is required
+	on 16-bit systems.
+
+2012-12-06  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[truetype] Microoptimizations in bytecode interpreter.
+
+	* src/truetype/ttinterp.c (TT_DivFix14): New macro.
+	(Normalize): Use it here.
+	(Current_Ratio): Use TT_MulFix14 instead of FT_MulDiv.
+	(Ins_SHPIX): Cancel out two TT_MulFix14 calls.
+
+2012-12-05  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[truetype] Cosmetic improvement in bytecode interpreter.
+
+	* src/truetype/ttinterp.c: Use explicit calls to FT_MulDiv,
+	FT_MulFix, and FT_DivFix instead of macros.
+
+2012-12-03  John Tytgat  <John.Tytgat@esko.com>
+
+	[pshinter] Clamp BlueScale value.
+
+	This is Savannah bug #37856.
+
+	* src/pshinter/pshglob.c (psh_calc_max_height): New function.
+	(psh_globals_new): Use it to limit BlueScale value to
+	`1 / max_of_blue_zone_heights'.
+
+2012-12-01  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[truetype, type1] Revise the use of FT_MulDiv.
+
+	* src/truetype/ttgxvar.c: Updated.
+	* src/truetype/ttobjs.c: Updated.
+	* src/type1/t1load.c: Updated.
+
+2012-11-30  Werner Lemberg  <wl@gnu.org>
+
+	[configure] Preserve customized `ftoption.h'.
+
+	Problem reported by Del Merritt <del@alum.mit.edu>.
+
+	* builds/unix/configure.raw <cpp computation of bit length>: Don't
+	remove existing FreeType configuration files.
+
+2012-11-29  John Tytgat  <John.Tytgat@esko.com>
+
+	[type1] Fix Savannah bug #37831.
+
+	The bug report also contains a patch.
+
+	* src/type1/t1parse.c (T1_Get_Private_Dict) <found>: Really fix
+	change from 2012-09-17.
+
+2012-11-28  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[truetype] Fix formatting and typo.
+
+2012-11-27  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[cid, type1, type42] Clean up units_per_EM calculations.
+
+	* src/cid/cidload.c (cid_parse_font_matrix): Updated.
+	* src/type1/t1load.c (t1_parse_font_matrix): Updated.
+	* src/type42/t42parse.c (t42_parse_font_matrix): Updated.
+
+2012-11-27  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[ftstroke] Minor improvement.
+
+	* src/base/ftstroke.c: Replace nested FT_DivFix and FT_MulFix with
+	FT_MulDiv.
+
+2012-11-17  Werner Lemberg  <wl@gnu.org>
+
+	* src/base/fttrigon.c (ft_trig_downscale): Make 64bit version work.
+
+2012-11-15  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[base] Fix integer overflows in dd5718c7d67a.
+
+	* src/base/ftoutln.c (FT_Outline_EmboldenXY): Use FT_MulDiv.
+
+2012-11-15  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Trace stem widths.
+
+	* src/autofit/aflatin.c (af_latin_metrics_init_widths): Add some
+	FT_TRACE calls.
+
+2012-11-13  Werner Lemberg  <wl@gnu.org>
+
+	[cff] Add support for OpenType Collections (OTC).
+
+	* src/cff/cffload.c (cff_font_load): Separate subfont and face
+	index handling to load both pure CFFs with multiple subfonts and
+	OTCs (with multiple faces where each face holds exactly one
+	subfont).
+	* src/cff/cffobjs.c (cff_face_init): Updated.
+
+2012-11-12  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Minor improvement.
+
+	* src/autofit/aflatin.c (af_latin_hints_compute_blue_edges): Fix
+	loop.
+
+2012-11-10  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Improve tracing.
+
+	* src/autofit/aflatin.c (af_latin_hint_edges)
+	[FT_DEBUG_LEVEL_TRACE]: Count number of actions and emit something
+	if there weren't any.
+
+2012-11-04  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[base] Fortify emboldening code against egregious distortions.
+
+	* src/base/ftoutln.c (FT_Outline_EmboldenXY): Threshold emboldening
+	strength when it leads to segment collapse.
+
+2012-11-03  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[base] Clean up emboldening code and improve comments there.
+
+	* src/base/ftoutln.c (FT_Outline_EmboldenXY): Replace sequential
+	calls to FT_MulFix and FT_DivFix with FT_MulDiv.
+	Mention that bisectors are used to figure out the shift direction.
+
+2012-10-24  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Add standard character to `AF_ScriptClassRec' structure.
+
+	* src/autofit/aftypes.h (AF_ScriptClassRec): Add `standard_char'
+	member.
+	(AF_DEFINE_SCRIPT_CLASS): Updated.
+
+	* src/autofit/aflatin.c (af_latin_metrics_init_widths): Use it.
+	(af_latin_metrics_init, af_latin_script_class): Updated.
+
+	* src/autofit/aflatin.c (af_latin2_metrics_init_widths): Use it.
+	(af_latin2_metrics_init, af_latin2_script_class): Updated.
+
+	* src/autofit/afcjk.c (af_cjk_metrics_init_widths): Use it.
+	(af_cjk_metrics_init, af_cjk_script_class): Updated.
+
+	* src/autofit/afindic.c	(af_indic_metrics_init,
+	af_indic_script_class): Updated.
+
+	* src/autofit/afcjk.h, src/autofit/aflatin.h: Updated.
+
+	* src/autofit/afdummy.c: Updated.
+
+2012-10-24  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Only use Unicode CMap.
+
+	* src/autofit/aflatin.c (af_latin_metrics_init): Implement it, to be
+	in sync with `af_face_globals_compute_script_coverage'.
+
+2012-10-21  Werner Lemberg  <wl@gnu.org>
+
+	[psaux] Improve parsing of invalid numbers.
+
+	* src/psaux/psconv.c (PS_Conv_Strtol): Always parse complete number,
+	even in case of overflow.
+	(PS_Conv_ToInt): Only increase cursor if parsing was successful.
+	(PS_Conv_ToFixed): Ditto.
+	Trace underflow and data error.
+
+2012-10-21  Werner Lemberg  <wl@gnu.org>
+
+	[smooth] Improve tracing.
+
+	* src/smooth/ftgrays.c (gray_sweep): Trace last sweep line of
+	current band also.
+
+2012-10-20  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[truetype] Cheaper way to threshold angles between vectors.
+
+	* src/truetype/ttinterp.c (Ins_ISECT): Thresholding tangent is a lot
+	cheaper than thresholding sine. 
+
+2012-10-20  Werner Lemberg  <wl@gnu.org>
+
+	[cff] Improve parsing of invalid real numbers.
+
+	* src/cff/cffparse.c (cff_parse_real): Always parse complete number,
+	even in case of overflow or underflow.
+	Also trace one more underflow.
+
+2012-10-20  Andreas Pehnack  <andreas.pehnack@me.com>
+
+	[sfnt] Load pure CFF fonts wrapped in SFNT container.
+
+	Such fonts only have a `cmap' and a `CFF' table.
+
+	* src/sfnt/ttload.c (tt_face_load_font_dir): Don't call
+	`check_table_dir' if font signature is `OTTO'.
+
+2012-10-20  Werner Lemberg  <wl@gnu.org>
+
+	[psaux] Fix some value overflows and improve tracing.
+
+	* src/psaux/psconv.c: Include FT_INTERNAL_DEBUG_H.
+	(FT_COMPONENT): Define.
+	(PS_Conv_Strtol): Return FT_Long.
+	Handle bad data and overflow.
+	Emit some tracing messages in case of error.
+	(PS_Conv_ToInt): Return FT_Long.
+	(PS_Conv_ToFixed): Updated.
+	* src/psaux/psconv.h: Updated.
+
+	* include/freetype/internal/fttrace.h: Add `psconv'.
+
+2012-10-20  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Fix `make multi CC=c++'.
+
+	* src/autofit/aflatin.c, src/autofit/aflatin2.c: Include
+	`afglobal.h'.
+	* src/autofit/afloader.c: Fix order of header files.
+	* src/autofit/afmodule.c: Include `afglobal.h' and `aferrors.h'.
+
+2012-10-19  Werner Lemberg  <wl@gnu.org>
+
+	[cff] Fix more value errors and improve tracing.
+
+	* src/cff/cffparse.c (cff_parse_integer): Emit tracing message in
+	case of error.
+	(cff_parse_real): Handle and trace overflow, underflow, and bad data
+	consistently.
+	(do_fixed): New helper function, handling and tracing overflow.
+	(cff_parse_fixed, cff_parse_fixed_scaled): Use `do_fixed'.
+
+2012-10-17  Werner Lemberg  <wl@gnu.org>
+
+	[psaux] Fix some value overflows.
+
+	* src/psaux/psconv.c (PS_Conv_ToFixed): Implement it.
+
+2012-10-17  Bram Tassyns  <BramT@enfocus.com>
+
+	[cff] Fix value overflow.
+
+	* src/cff/cffparse.c (cff_parse_fixed_scaled): Implement it.
+
+2012-10-17  Werner Lemberg  <wl@gnu.org>
+
+	[truetype] Fix Savannah bug #37572.
+
+	* src/truetype/ttinterp.c (Ins_ISECT): Use angle between vectors to
+	avoid grazing intersections.  The previous threshold was too coarse,
+	incorrectly rejecting short but valid vectors.
+
+2012-09-30  Gilles Espinasse  <g.esp@free.fr>
+
+	Remove useless `rm' detection.
+
+	`rm -f' is directly used in the `configure' script created by
+	autoconf, thus no availability test is necessary.
+
+	* builds/unix/configure.raw (RMF): Remove test.
+	* builds/unix/unix-def.in (DELETE): Updated.
+
+2012-09-29  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Minor optimization.
+
+	* src/autofit/afglobals.c (af_face_globals_compute_script_coverage):
+	Add loop condition.
+
+2012-09-29  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Fix thinko.
+
+	* src/autofit/aftypes.h (AF_SCRIPT):
+	s/AF_SCRIPT_NONE/AF_SCRIPT_DUMMY/.  We already use `AF_SCRIPT_NONE'
+	as a bit mask.
+
+	* src/autofit/afdummy.c: Updated.
+
+2012-09-18  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Implement `increase-x-height' property.
+
+	* include/freetype/ftautoh.h (FT_Prop_IncreaseXHeight): New
+	structure.
+
+	* include/autofit/afmodule.c (af_property_get_face_globals): New
+	function, re-using code from `af_property_get'.
+	(af_property_set, af_property_get): Handle `increase-x-height'.
+	Updated.
+
+2012-09-18  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Implement Infinality's `increase glyph heights'.
+
+	This is an improved version of a similar fix contained in the
+	so-called `Infinality patch', taken from
+
+	  http://www.infinality.net/fedora/linux/zips/freetype-infinality-2.4.10-20120616_01-x86_64.tar.bz2
+
+	which addresses various enhancements of the auto-hinter.  Without
+	properties to control a module's metadata it wasn't possible to
+	adapt the patches because everything was originally controlled by
+	environment variables which I consider not suitable in general.
+
+	A patch to control `increase_x_height' follows.
+
+	* src/autofit/afglobal.h (AF_PROP_INCREASE_X_HEIGHT_MIN,
+	AF_PROP_INCREASE_X_HEIGHT_MAX): New macros.
+	(AF_FaceGlobalsRec): Add `increase_x_height' member.
+	* src/autofit/afglobal.c (af_face_globals_new): Initialize it.
+
+	* src/autofit/aflatin.c (af_latin_metrics_scale_dim),
+	* src/autofit/aflatin2.c (af_latin2_metrics_scale_dim): Implement
+	handling of `increase_x_height'.
+
+2012-09-18  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Add hierarchical property access to some structures.
+
+	* src/autofit/afglobal.h: Include `afmodule.h'.
+	(AF_FaceGlobalsRec): Add `module' member.
+	(AF_FaceGlobals): Typedef moved to...
+	* src/autofit/aftypes.h: Here.
+	(AF_ScriptMetricsRec): Add `globals' member.
+
+	* src/autofit/afglobal.c (af_face_globals_new,
+	af_face_globals_compute_script_coverage,
+	af_face_globals_get_metrics): Updated.
+
+	* src/autofit/afloader.c (af_loader_reset), src/autofit/afmodule.c
+	(af_property_get): Updated.
+
+2012-09-17  Werner Lemberg  <wl@gnu.org>
+
+	[type1] Fix Savannah bug #37350.
+
+	* src/type1/t1parse.c (T1_Get_Private_Dict) <found>: Check for ASCII
+	storage only if we actually have at least four bytes.
+
+2012-09-15  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Implement `fallback-script' property.
+
+	* src/autofit/afglobal.c: s/default_script/fallback_script/.
+	* src/autofit/afglobal.h: s/AF_SCRIPT_DEFAULT/AF_SCRIPT_FALLBACK/.
+
+	* src/autofit/afmodule.c: s/default_script/fallback_script/.
+	(af_property_set, af_property_get): Implement `fallback-script'.
+	* src/autofit/afmodule.h: s/default_script/fallback_script/.
+
+	* include/freetype/ftautoh.h: Document it.
+
+2012-09-15  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Correct previous Unicode 6.1.0 change.
+
+	The auto-hinter's latin module only handles latin ligatures in the
+	`Alphabetical Presentation Forms' block.
+
+	* src/autofit/aflatin.c (af_latin_uniranges): Fix it.
+
+2012-09-15  Werner Lemberg  <wl@gnu.org>
+
+	* src/autofit/afmodule.c: s/FT_Err_/AF_Err_/.
+
+2012-09-15  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Make default script a global property.
+
+	* src/autofit/afmodule.h (AF_ModuleRec): Add `default_script' field.
+
+	* src/autofit/afglobal.c (af_face_globals_compute_script_coverage,
+	af_face_globals_new), src/autofit/afloader.c (af_loader_reset),
+	src/autofit/afmodule.c (af_property_get) <glyph-to-script-map>,
+	af_autofitter_init:
+	Handle default script.
+
+	* src/autofit/afglobal.h: Updated.
+
+2012-09-15  Werner Lemberg  <wl@gnu.org>
+
+	Use `FT_Module' instead of `FT_Library' argument in property funcs.
+
+	This internal change simplifies access to global module data.
+
+	* include/freetype/internal/services/svprop.h
+	(FT_Properties_SetFunc, FT_Properties_GetFunc): Change accordingly.
+
+	* src/base/ftobjs.c (ft_property_do), src/autofit/afmodule.c
+	(af_property_set, af_property_get): Updated.
+
+2012-09-14  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Update to Unicode 6.1.0.
+
+	* src/autofit/afcjk.c (af_cjk_uniranges), src/autofit/aflatin.c
+	(af_latin_uniranges): Add and fix ranges.
+
+2012-09-14  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Pass `AF_Module' instead of `AF_Loader'.
+
+	We want to access the (not yet existing) module's global data later
+	on.
+
+	* src/autofit/afloader.c: Include `afmodule.h'.
+	(af_loader_init, af_loader_reset, af_loader_done,
+	af_loader_load_glyph): Change accordingly.
+	* src/autofit/afmodule.c (AF_ModuleRec): Move to `afmodule.h'.
+	Updated.
+
+	* src/autofit/afmodule.h: Include `afloader.h'.
+	(AF_ModuleRec): Define here.
+	* src/autofit/afloader.h (AF_Module): Define here.
+	Updated.
+
+2012-09-14  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Fix `make multi'.
+
+	* include/freetype/internal/fttrace.h: Add `afmodule'.
+	* src/autofit/afmodule.c: Include FT_INTERNAL_DEBUG_H.
+	(FT_COMPONENT): Define.
+
+2012-09-14  Werner Lemberg  <wl@gnu.org>
+
+	* src/autofit/afmodule.c: s/FT_Autofitter/AF_Module/.
+
+2012-09-12  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Minor reorganization.
+
+	* src/autofit/afglobal.c (AF_SCRIPT_LIST_DEFAULT,
+	AF_SCRIPT_LIST_NONE, AF_DIGIT): Move to...
+	* src/autofit/afglobal.h (AF_SCRIPT_DEFAULT, AF_SCRIPT_LIST_NONE,
+	AF_DIGIT): This and update code.
+
+2012-09-01  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Implement `glyph-to-script-map' property.
+
+	* include/freetype/ftautoh.h: New public header file.
+	* include/freetype/config/ftheader.h (FT_AUTOHINTER_H): New macro.
+
+	* src/autofit/afglobal.c (AF_FaceGlobalsRec): Move structure to...
+	* src/autofit/afglobal.h: This header file.
+	* src/autofit/afmodule.c: Include FT_AUTOHINTER_H.
+	(af_property_get): Handle `glyph-to-script-map'.
+
+2012-08-31  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Implement properties service framework.
+
+	No properties are added yet.
+
+	* src/autofit/afmodule.c: Include FT_SERVICE_PROPERTIES_H.
+	(af_property_set, af_property_get): New dummy functions.
+	(af_service_properties, af_services, af_get_interface): Provide
+	service setup.
+	(autofit_moduleclass): Add service interface.
+
+	* src/autofit/afpic.c: Add necessary forward declarations.
+	(autofit_module_class_pic_init): Add code for service addition.
+	(autofit_module_pic_free): Add code for service removal.
+	* src/autofit/afpic.h (AF_SERVICES_GET, AF_SERVICE_PROPERTIES_GET):
+	New macros which provide necessary syntactical sugar for PIC
+	support.
+
+2012-08-30  Werner Lemberg  <wl@gnu.org>
+
+	Implement properties to control FreeType modules.
+
+	* include/freetype/fterrdef.h (FT_Err_Missing_Property): New error
+	code.
+	* include/freetype/ftmodapi.h (FT_Property_Set, FT_Property_Get):
+	New API.
+
+	* include/freetype/internal/services/svprop.h: New file.
+	* include/freetype/internal/ftserv.h (FT_SERVICE_PROPERTIES_H): New
+	macro.
+
+	* src/base/ftobjs.c: Include FT_SERVICE_PROPERTIES_H.
+	(ft_property_do, FT_Property_Set, FT_Property_Get): New functions.
+
+2012-08-29  Werner Lemberg  <wl@gnu.org>
+
+	[docmaker] Allow `-' in tags and identifiers.
+
+	* src/tools/docmaker/content.py (re_identifier),
+	src/tools/docmaker/sources.py (re_markup_tag1, re_markup_tag2,
+	re_crossref): Add `-' in patterns.
+
+2012-08-27  Werner Lemberg  <wl@gnu.org>
+
+	[FT_CONFIG_OPTION_PIC] Fix g++ 4.6.2 compiler warnings.
+
+	* include/freetype/internal/ftdriver.h (FT_DEFINE_DRIVER),
+	include/freetype/internal/ftobjs.h (FT_DEFINE_RENDERER,
+	FT_DEFINE_MODULE), include/freetype/internal/ftserv.h
+	(FT_DEFINE_SERVICEDESCREC1, FT_DEFINE_SERVICEDESCREC2,
+	FT_DEFINE_SERVICEDESCREC3, FT_DEFINE_SERVICEDESCREC4,
+	FT_DEFINE_SERVICEDESCREC5, FT_DEFINE_SERVICEDESCREC6),
+	src/autofit/afpic.c (autofit_module_class_pic_init),
+	src/base/basepic.c (ft_base_pic_init), src/base/ftinit.c
+	(ft_create_default_module_classes), src/cff/cffparse.c
+	(FT_Create_Class_cff_field_handlers), src/cff/cffpic.c
+	(cff_driver_class_pic_init), src/pshinter/pshpic.c
+	(pshinter_module_class_pic_init), src/psnames/pspic.c
+	(psnames_module_class_pic_init), src/raster/rastpic.c
+	(ft_raster1_renderer_class_pic_init), src/sfnt/sfntpic.c
+	(sfnt_module_class_pic_init), src/sfnt/ttcmap.c
+	(FT_Create_Class_tt_cmap_classes), src/smooth/ftspic.c
+	(ft_smooth_renderer_class_pic_init), src/truetype/ttpic.c
+	(tt_driver_class_pic_init): Initialize allocation variable.
+
+2012-08-27  Werner Lemberg  <wl@gnu.org>
+
+	[truetype] Fix compilation warning.
+
+	* src/truetype/ttgload.c (IS_HINTED): Move macro to...
+	* src/truetype/ttobjs.h: This header file.
+
+2012-08-27  Werner Lemberg  <wl@gnu.org>
+
+	[autofit, cff, pshinter, psnames] More renamings for orthogonality.
+
+	* src/autofit/afmodule.c, src/autofit/afpic.h:
+	s/AF_AUTOFITTER_/AF_/.
+
+	* src/cff/cffdrivr.c, src/cff/cffobjs.c, src/cff/cffparse.c,
+	src/cff/cffpic.h: s/FT_CFF_/CFF_/.
+
+	* src/pshinter/pshmod.c, src/pshinter/pshpic.h:
+	s/FT_PSHINTER_/PSHINTER_/.
+
+	* src/psnames/psmodule.c, src/psnames/pspic.h:
+	s/FT_PSCMAPS/PSCMAPS_/.
+
+2012-08-27  Werner Lemberg  <wl@gnu.org>
+
+	[sfnt, truetype] More renamings for orthogonality.
+
+	* src/sfnt/sfdriver.c, src/sfnt/sfntpic.h, src/sfnt/ttcmap.c,
+	src/truetype/ttdriver.c, src/truetype/ttpic.h: s/FT_SFNT_/SFNT_/,
+	s/FT_TT_/TT_/, s/GET_CMAP_INFO_GET/CMAP_INFO_GET/.
+
+2012-08-27  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Some macro and variable renamings for orthogonality.
+
+	* include/freetype/internal/autohint.h, src/base/ftobjs.c,
+	src/autofit/afmodule.c, src/autofit/afpic.c, src/autofit/afpic.h:
+	s/SERVICE/INTERFACE/, s/service/interface/, s/Service/Interface/.
+
+2012-08-26  Werner Lemberg  <wl@gnu.org>
+
+	Fix Savannah bug #37178.
+
+	* src/base/ftobjs.c (FT_Open_Face): Initialize `error' with
+	`FT_Err_Missing_Module' before loop to indicate `no valid drivers'.
+
+2012-08-17  Werner Lemberg  <wl@gnu.org>
+
+	* src/base/ftsynth.c (FT_GlyphSlot_Oblique): Fix shear angle.
+
+	The old value was far too large (more than 20°).  The new one
+	corresponds to 12°, quite common in typography.
+
+2012-08-12  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[smooth] Fix Savannah bug #37017.
+
+	* src/smooth/ftgrays.c (gray_render_cubic): Use a different set of
+	checks when detecting super curvy splines to be split.
+
+2012-08-05  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Improve recognition of flat segments.
+
+	Problem reported by Brad Dunzer <BDunzer@extensis.com>.
+
+	* src/autofit/aflatin.c (af_latin_metrics_init_blues): We have
+	a flat segment if the horizontal distance of best on-points is
+	larger than a given threshold.
+
+2012-08-05  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Variable renamings.
+
+	* src/autofit/aflatin.c (af_latin_metrics_init_blues): Replace
+	`glyph' with `outline'.
+	s/best_first/best_contour_first/.
+	s/best_last/best_contour_last/.
+
+2012-07-31  Werner Lemberg  <wl@gnu.org>
+
+	[type1] Fix Savannah bug #37000.
+
+	* src/type1/t1load.c (parse_encoding): Fix order of checks.
+
+2012-07-17  Werner Lemberg  <wl@gnu.org>
+
+	[psaux] Fix Savannah bug #36833.
+
+	* src/psaux/t1decode.c (t1operator_seac): `seac' is not a valid
+	operator if we want metrics only.
+
+2012-07-16  Werner Lemberg  <wl@gnu.org>
+
+	[type1] Fix Savannah bug #36832.
+
+	* src/type1/t1load.c (parse_charstrings): Reject negative number of
+	glyphs.
+
+2012-07-13  Werner Lemberg  <wl@gnu.org>
+
+	[type1] Fix Savannah bug #36829.
+
+	* src/type1/t1load.c (parse_encoding): Check cursor position after
+	call to T1_Skip_PS_Token.
+
+2012-07-12  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	Revert the last commit 45337b07.
+
+	* src/base/ftstroke.c (FT_Stroker_New): Revert the previous change.
+
+2012-07-11  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[ftstroke] Fix uninitialized return value.
+
+	* src/base/ftstroke.c (FT_Stroker_New): Return FT_Err_Ok instead.
+
+2012-07-11  Werner Lemberg  <wl@gnu.org>
+
+	[smooth] Avoid memory leak in case of failure.
+
+	* src/smooth/ftsmooth.c (ft_smooth_render_generic): Use flags to
+	indicate what to clean up after finishing the function, with and
+	without errors.
+
+2012-07-09  Werner Lemberg  <wl@gnu.org>
+
+	Fix compilation with MSVC 5.0.
+
+	Problem reported by Peter Breitenlohner and Akira Kakuto.
+
+	* include/freetype/config/ftstdlib.h (ft_setjmp): Updated.
+	* src/sfnt/ttcmap.c (tt_face_build_cmaps): Remove cast.
+
+2012-07-09  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Improve debugging messages; do some code cleanup.
+
+	* src/autofit/aflatin.c (af_latin_align_linked_edge,
+	af_latin_hint_edges): Synchronize with formatting used in the
+	ttfautohint project.
+
+2012-07-07  Gilles Espinasse  <g.esp@free.fr>
+
+	Fix strict-aliasing warning.
+
+	* src/base/ftglyph.c (FT_Glyph_To_Bitmap): Avoid double cast.
+
+2012-07-07  Dave Thomas  <dave.thomas@metaforic.com>
+
+	[ARM] Fix FT_MulFix_arm.
+
+	* include/freetype/config/ftconfig.h (FT_MulFix_arm) [__arm__]:
+	Avoid ADDS instruction to clobber condition codes.
+
+2012-07-06  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Do some code cleanup.
+
+	* src/autofit/afglobal.c (af_face_globals_new): Simplify.
+
+	* src/autofit/afhints.c: Use `FT_TRACE7' instead of `printf'
+	everywhere.
+	(FT_COMPONENT): New macro.
+	(af_glyph_hints_done): Simplify.
+
+	* include/freetype/internal/fttrace.h: Updated.
+
+2012-07-05  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Improve output of debugging information.
+
+	* src/autofit/afhints.c (af_glyph_hints_dump_segments): Print more
+	data; report no data.
+	(af_glyph_hints_dump_edges): Report no data.
+
+2012-07-04  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Fix Savannah bug #36091.
+
+	* src/autofit/aflatin.c (af_latin_metrics_init_blues),
+	src/autofit/aflatin2.c (af_latin2_metrics_init_blues): Change the
+	constraint for testing round vs. flat segment: Accept either a
+	small distance or a small angle.
+
+2012-07-04  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Beautify blue zone tracing.
+
+	* src/autofit/aflatin.c (af_latin_metrics_init_blues),
+	src/autofit/aflatin2.c (af_latin2_metrics_init_blues): Implement it.
+
+2012-07-03  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Quantize stem widths.
+
+	* src/autofit/afangles.c (af_sort_widths): Rename to...
+	(af_sort_and_quantize_widths): This.
+	Add code to avoid stem widths which are almost identical.
+	* src/autofit/aftypes.h, src/autofit/aflatin.c, src/autofit/afcjk.c:
+	Updated.
+
+2012-07-03  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Minor speed-up.
+
+	* src/autofit/afangles (af_sort_pos, af_sort_widths): Don't swap
+	elements if they are equal.
+
+2012-06-30  Gilles Espinasse  <g.esp@free.fr>
+
+	Fix `checking if gcc static flag -static works' test.
+
+	On my linux build tree, I receive yes answer in in every package I
+	build except freetype for this test checking if gcc static flag
+	`-static' works
+
+	On freetype, no is received, unless bzip2 and zlib are disabled using
+
+	  ./configure --without-bzip2 --without-zlib
+
+	The reason is that bzip2 and zlib tests add `-lz' and `-lbz2' to
+	LDFLAGS and this broke static flag test.
+
+	* builds/unix/configure.raw: Update CFLAGS and LDFLAGS only after
+	LT_INIT has run.
+
+2012-06-28  Infinality  <infinality@infinality.net>
+
+	[truetype] Fix various artifacts.
+
+	Verdana was broken in the original Infinality commit.  Also
+	includes other minor fixes.
+
+	* src/truetype/ttsubpix.h: Updated.  Removed unused macros.
+	(RASTERIZER_35_Rules): Add Verdana.
+	(SKIP_NONPIXEL_Y_MOVES_Rules): Add Tahoma `s'.
+	(MIRP_CVT_ZERO_Rules): Remove Verdana.
+	(ALWAYS_SKIP_DELTAP_Rules): Add Russian char 0x438.
+	(COMPATIBLE_WIDTHS_Rules): Rearrange some rules.
+	(X_SCALING_Rules): Adjust Verdana `a' at 12 and 13 ppem.
+
+	* src/truetype/ttsubpix.c: Updated.
+	(sph_set_tweaks): Re-execute fpgm always.
+
+2012-06-28  Gilles Espinasse  <g.esp@free.fr>
+
+	Fix CFLAGS and LDFLAGS share configure test.
+
+	* builds/unix/configure.raw: Fix typo.
+
+2012-06-28  Werner Lemberg  <wl@gnu.org>
+
+	[truetype] Set the `subpixel_positioned' flag unconditionally.
+
+	This is how the code currently behaves.
+
+	* src/truetype/ttgload.c (tt_loader_init): Do it.
+
+2012-06-27  Werner Lemberg  <wl@gnu.org>
+
+	Fix conditional compilation.
+
+	* src/base/basepic.c: Use FT_CONFIG_OPTION_MAC_FONTS.
+
+2012-06-27  Werner Lemberg  <wl@gnu.org>
+
+	Fix conditional compilation.
+
+	* include/freetype/internal/ftcalc.h (FT_MulDiv_No_Round): Don't
+	enclose with `TT_USE_BYTECODE_INTERPRETER'; we now need the function
+	elsewhere also.
+
+	* src/autofit/afcjk.h: Use AF_CONFIG_OPTION_CJK.
+
+	* src/truetype/ttgload.c (tt_loader_init): Fix compiler warning.
+
+	* src/truetype/ttinterp.c (Ins_MSIRP): Fix compiler warning.
+
+	* src/truetype/ttinterp.h: Use
+	TT_CONFIG_OPTION_BYTECODE_INTERPRETER.
+
+2012-06-26  Infinality  <infinality@infinality.net>
+
+	[truetype] Remove unused rounding functionality.
+
+	The subpixel hinting patch contained the concept of an adjustable
+	number of gridlines per pixel.  This is no longer used due to x
+	being completely ignored instead.  This will return some of the
+	code to its existing state prior to the original Infinality
+	commit.
+
+	* include/freetype/internal/ftobjs.h (FT_PIX_FLOOR_GRID,
+	FT_PIX_ROUND_GRID, FT_PIX_CEIL_GRID): Removed.
+
+	* src/truetype/ttinterp.c: Updated.
+	(Round_None, Round_To_Grid, Round_To_Half_Grid, Round_Down_To_Grid,
+	Round_Up_To_Grid, Round_To_Double_Grid, Round_Super, Round_Super_45,
+	SetSuperRound): Remove parameter to handle the number of grid lines per
+	pixel.
+	(SET_SuperRound, ROUND_None, CUR_Func_round): Updated.
+	(DO_SROUND, DOS45ROUND, DO_ODD, DO_EVEN): Updated.
+	(DO_ROUND, DO_NROUND): Updated.
+	(Move_Zp2_Point, Ins_SHPIX, Ins_MSIRP, Ins_MDAP, Ins_MIAP,
+	Ins_MDRP, Ins_MIRP): Perform Round_None instead of calling a modified
+	rounding function.  Remove gridlines_per_pixel.  Create a local
+	variable to store control value cutin. Simplify the conditional for
+	ignore_x_mode.  Adjust rounding calls to pass only two values.
+
+2012-06-25  Werner Lemberg  <wl@gnu.org>
+
+	[cff] Fix Savannah bug #36705.
+
+	Handle numbers like 2.001 correctly.
+
+	* src/cff/cffparse.c (cff_parse_real): Avoid negative values for
+	`shift'.
+
+2012-06-18  Infinality  <infinality@infinality.net>
+
+	[truetype] Support subpixel hinting.
+
+	This is the large, famous `Infinality' patch to support ClearType
+	bytecode which has been available from
+	http://www.infinality.net/blog/ for some time, and which has been
+	refined over the last years.  While still experimental, it is now
+	mature enough to be included directly into FreeType.
+
+	Most of the code is based on the ClearType whitepaper written by
+	Greg Hitchcock
+
+	  http://www.microsoft.com/typography/cleartype/truetypecleartype.aspx
+
+	which gives a detailed overview of the necessary changes to the
+	Microsoft rasterizer so that older fonts are supported.  However, a
+	lot of details are still missing, and this patches provides a
+	framework to easily handle rendering issues down to the glyph level
+	of certain fonts.
+
+	Note that ClearType support is not completely implemented!  In
+	particular, full support for the options `compatible_widths',
+	`symmetrical_smoothing, and `bgr' (via the GETINFO bytecode
+	instruction) is missing.
+
+	* src/truetype/ttsubpix.c: New file, providing code to handle
+	`tweaks', this is, rules for certain glyphs in certain fonts
+	(including wildcards) which need a special treatment.
+
+	* src/truetype/ttsubpix.h: New file, holding the tweaking rules.
+
+	* include/freetype/config/ftoption.h, src/devel/ftoption.h
+	(TT_CONFIG_OPTION_SUBPIXEL_HINTING): New macro.
+
+	* include/freetype/internal/ftobjs.h (FT_PIX_FLOOR_GRID,
+	FT_PIX_ROUND_GRID, FT_PIX_CEIL_GRID): New macros.
+
+	* src/truetype/truetype.c [TT_USE_BYTECODE_INTERPRETER]: Include
+	`ttsubpix.c'.
+
+	* src/truetype/ttgload.c: Include `ttsubpix.h'.
+	[All changes below are guarded by TT_CONFIG_OPTION_SUBPIXEL_HINTING.]
+
+	(tt_get_metrics): Set tweak flags.
+	(TT_Hint_Glyph): Call `FT_Outline_EmboldenXY' if necessary.
+	(TT_Process_Simple_Glyph): Compensate emboldening if necessary.
+	(compute_glyph_metrics): Handle `compatible widths' option.
+	(tt_loader_init): Handle ClearType GETINFO information bits.
+
+	* src/truetype/rules.mk (TT_DRC_SRC): Updated.
+
+	* src/truetype/ttinterp.c: Include `ttsubpix.h'.
+	[Where necessary, changes below are guarded by
+	TT_CONFIG_OPTION_SUBPIXEL_HINTING.]
+
+	(Direct_Move, Direct_Move_X): Extended.
+	(Round_None, Round_To_Grid, Round_To_Half_Grid, Round_Down_To_Grid,
+	Round_Up_To_Grid, Round_To_Double_Grid, Round_Super, Round_Super_45,
+	SetSuperRound): Add parameter to handle the number of grid lines per
+	pixel.
+	(SET_SuperRound, ROUND_None, CUR_Func_round): Updated.
+	(DO_SROUND, DOS45ROUND, DO_ODD, DO_EVEN): Updated.
+	(DO_ROUND, DO_NROUND): Updated.
+	(DO_RS): Take care of `Typeman' bytecode patterns.
+	(Ins_FDEF): Add some debugging code.  Commented out.
+	(Ins_ENDF): Restore state.
+	(Ins_CALL, Ins_LOOPCALL): Handle inline delta functions.
+	(Ins_MD): Handle `Vacuform' rounds.
+	(Move_Zp2_Point, Ins_SHPIX, Ins_MSIRP, Ins_MDAP, Ins_MIAP,
+	Ins_MDRP, Ins_MIRP): Handle tweaks.
+	(Ins_ALIGNRP): Add tweak guard.
+	(Ins_IUP, Ins_DELTAP): Handle tweaks.
+	(Ins_GETINFO): Handle new ClearType bits.
+	(TT_RunIns): Handle tweaks.
+
+	* src/truetype/ttinterp.h: Updated.
+	(SPH_TweakRule, SPH_ScaleRule): New structures for tweaks.
+	(TT_ExecContextRec): Add members for subpixel hinting support.
+
+	* src/truetype/ttobjs.h (TT_DefRecord): Add `inline_delta' member.
+
+2012-06-15  Werner Lemberg  <wl@gnu.org>
+
+	* Version 2.4.10 released.
+	=========================
+
+
+	Tag sources with `VER-2-4-10'.
+
+	* docs/VERSION.DLL: Update documentation and bump version number to
+	2.4.10.
+
+	* README, Jamfile (RefDoc),
+	builds/win32/vc2005/freetype.vcproj, builds/win32/vc2005/index.html,
+	builds/win32/vc2008/freetype.vcproj, builds/win32/vc2008/index.html,
+	builds/win32/vc2010/freetype.vcxproj, builds/win32/vc2010/index.html,
+	builds/win32/visualc/freetype.dsp,
+	builds/win32/visualc/freetype.vcproj,
+	builds/win32/visualc/index.html, builds/win32/visualce/freetype.dsp,
+	builds/win32/visualce/freetype.vcproj,
+	builds/win32/visualce/index.html,
+	builds/wince/vc2005-ce/freetype.vcproj,
+	builds/wince/vc2005-ce/index.html,
+	builds/wince/vc2008-ce/freetype.vcproj,
+	builds/wince/vc2008-ce/index.html: s/2.4.9/2.4.10/, s/249/2410/.
+
+	* include/freetype/freetype.h (FREETYPE_PATCH): Set to 10.
+
+	* builds/unix/configure.raw (version_info): Set to 15:0:9.
+
+2012-06-15  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	* src/base/ftsynth.c (FT_GlyphSlot_Embolden): Improve spacing.
+
+	* docs/CHANGES: Updated.
+
+2012-06-14  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
+
+	* builds/exports.mk: Add CCexe_CFLAGS and CCexe_LDFLAGS.
+
+	to pass special compiler/linker flags under cross development.
+	Suggested by Savannah bug #36367.
+
+	ChangeLog on 2010-07-15 saying as they were removed was wrong
+	for the official trunk of FreeType2.  This commit is the first
+	introduction of them.
+
+2012-06-14  Werner Lemberg  <wl@gnu.org>
+
+	* docs/CHANGES: Updated.
+
+2012-06-14  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
+
+	[truetype] Add new versions of NEC FA family to tricky font list.
+
+	NEC FA family dated in 1996 have different checksum.
+	Reported by Johnson Y. Yan <yinsen_yan@foxitsoftware.com>; see
+
+	  http://lists.gnu.org/archive/html/freetype-devel/2012-06/msg00023.html
+
+	* src/truetype/ttobjs.c (tt_check_trickyness_sfnt_ids): 4 sets
+	of fpgm & prep table checksums for FA-Gothic, FA-Minchou,
+	FA-RoundedGothicM, FA-RoundedGothicB are added.  The family
+	names in sample PDF are truncated, thus the list of the
+	family names in tt_check_trickyness_family() is not updated yet.
+
+2012-06-06  Werner Lemberg  <wl@gnu.org>
+
+	[ftraster] Fix rounding issue causing visual artifacts.
+
+	Problem reported by jola <hans-jochen.lau@lhsystems.com>; see
+
+	  http://lists.gnu.org/archive/html/freetype-devel/2012-05/msg00036.html
+
+	* src/raster/ftraster.c (SMulDiv_No_Round): New macro.
+	(Line_Up): Use it.
+	* src/raster/ftmisc.h (FT_MulDiv_No_Round): Copied from `ftcalc.c'.
+
+2012-05-28  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	* src/base/ftoutln.c (FT_Outline_Get_Orientation): Simplify.
+
+	We now use the cross product of the direction vectors to compute the
+	outline's orientation.
+
+2012-05-28  Werner Lemberg  <wl@gnu.org>
+
+	* docs/CHANGES: Updated.
+
+2012-05-28  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	New function FT_Outline_EmboldenXY.
+
+	* include/freetype/ftoutln.h (FT_Outline_EmboldenXY): Define it.
+
+	* src/base/ftoutln.c (FT_Outline_EmboldenXY): Implement it, using a
+	simplified embolding algorithm.
+	(FT_Outline_Embolden): Make it a special case of
+	`FT_Outline_EmboldenXY'
+
+2012-05-07  Werner Lemberg  <wl@gnu.org>
+
+	[type1] Fix Savannah bug #36386.
+
+	* src/type1/t1load.c (t1_load_keyword): Ignore keyword if context is
+	not valid.
+
+2012-04-07  Werner Lemberg  <wl@gnu.org>
+
+	Remove compiler warning.
+
+	* src/truetype/ttgload.c (TT_Load_Glyph)
+	[!TT_CONFIG_OPTION_EMBEDDED_BITMAPS]: Access `glyph->face' directly.
+
+2012-03-28  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Properly copy scaler flags to script metrics object.
+
+	Without this patch, only the dummy and cjk autohinter modules get
+	them (since they copy the whole scaler object).
+
+	* src/autofit/aflatin.c (af_latin_metrics_scale),
+	src/autofit/aflatin2.c (af_latin2_metrics_scale): Implement it.
+
+2012-03-22  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[bdflib] Remove redundant macro.
+
+	* src/bdf/bdflib.c (isdigok): Remove and replace with sbitset, which
+	is exactly the same.
+
+2012-03-20  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
+
+	[configure] Fix Savannah bug #35644.
+
+	* builds/unix/configure.raw: Check `-ansi' flag works even if gcc
+	is used.  Bionic libc headers for Android lose the consistency
+	when they are parsed with __STDC_VERSION__ older than 199901L or
+	__STRICT_ANSI__.
+
+2012-03-20  Werner Lemberg  <wl@gnu.org>
+
+	[bdf] Improvement to Savannah bug #35656.
+
+	* src/bdf/bdflib.c (isdigok): Add cast, as suggested in report.
+
+2012-03-17  Chris Liddell  <chris.liddell@artifex.com>
+
+	[type1] Fix Savannah bug #35847.
+
+	* src/type1/t1load.c (parse_subrs): Fix the loop exit condition;
+	we want to exit when we have run out of data.
+
+2012-03-16  Werner Lemberg  <wl@gnu.org>
+
+	[bdf] Really fix Savannah bug #35658.
+
+	* src/bdf/bdflib.c (_bdf_list_split): Add one more `field' initializer.
+
+2012-03-14  Yann Droneaud  <yann@droneaud.fr>
+
+	[sfnt] Make arrays static like all others.
+
+	* src/sfnt/ttload.c (tt_face_load_maxp, tt_face_load_os2),
+	src/sfnt/ttmtx.c (tt_face_load_hhea): Add `static' keyword to frame
+	fields.
+
+2012-03-14  Huw Davies  <huw@codeweavers.com>
+
+	[sfnt] A refinement of the previous commit.
+
+	* src/sfnt/sfobjs.c (tt_name_entry_ascii_from_utf16,
+	tt_name_entry_ascii_from_other): Stop at null byte.
+
+2012-03-14  Huw Davies  <huw@codeweavers.com>
+
+	[sfnt] Add `name' table compatibility to MS Windows.
+
+	* src/sfnt/sfobjs.c (tt_name_entry_ascii_from_utf16,
+	tt_name_entry_ascii_from_other): Don't replace `\0' with question
+	marks when converting strings.
+
+2012-03-14  Werner Lemberg  <wl@gnu.org>
+
+	[type1] Fix Savannah bug #35833.
+
+	Based on the patch given in the bug report.
+
+	* src/type1/t1load.c (IS_INCREMENTAL): New macro.
+	(read_binary_data): Add parameter `incremental'.
+	Update all callers using `IS_INCREMENTAL'.
+
+2012-03-11  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Return correct linear advance width values.
+
+	This was quite a subtle bug which accidentally showed up with glyph
+	`afii10023' of arial.ttf (version 2.76).  This glyph is a composite;
+	the first component, `E', has an advance width of 1366 font units,
+	while the advance width of the composite itself (which looks like
+	uppercase `E' with dieresis) is 1367 font units.  I think this is
+	actually a bug in the font itself, because there is no reason that
+	this glyph has not the same width as uppercase `E' without the
+	dieresis.  Anyway, it helped identify this problem.
+
+	Using the TrueType hinter, the correct value (1367) of `afii10023'
+	was returned, but the autohinter mysteriously returned 1366.
+
+	Digging in the code showed that the autohinter recursively calls
+	FT_Load_Glyph to load the glyph, adding the FT_LOAD_NO_SCALE load
+	flag.  However, the `linearHoriAdvance' field is still returned as a
+	scaled value.  To avoid scaling twice, the old code in autofit reset
+	`linearHoriAdvance', using the `horiAdvance' field.  This seemed to
+	work since FT_LOAD_NO_SCALE was in use, but it failed actually,
+	because `horiAdvance' is defined as the distance of the first
+	subglyph's phantom points, which in turn are initialized using the
+	advance width of the first subglyph.  And as the given example
+	shows, these widths can differ.
+
+	* src/autofit/afloader.c (af_loader_load_g): Temporarily set
+	FT_LOAD_LINEAR_DESIGN while calling FT_Load_Glyph to get unscaled
+	values for the linear advance widths.
+
+2012-03-10  Werner Lemberg  <wl@gnu.org>
+
+	[truetype] Fix SSW instruction.
+
+	* src/truetype/ttinterp.c (DO_SSW): SSW *does* use font units.  For
+	verification, it took some time to find a font which actually uses
+	this instruction.
+
+2012-03-09  Vinnie Falco  <vinnie.falco@gmail.com>
+
+	Prepare source code for amalgamation.
+
+	* include/freetype/freetype.h: Swap order of preprocessor blocks.
+
+2012-03-08  Werner Lemberg  <wl@gnu.org>
+
+	* Version 2.4.9 released.
+	=========================
+
+
+	Tag sources with `VER-2-4-9'.
+
+	* docs/CHANGES: Updated.
+
+	* docs/VERSION.DLL: Update documentation and bump version number to
+	2.4.9.
+
+	* README, Jamfile (RefDoc),
+	builds/win32/vc2005/freetype.vcproj, builds/win32/vc2005/index.html,
+	builds/win32/vc2008/freetype.vcproj, builds/win32/vc2008/index.html,
+	builds/win32/vc2010/freetype.vcxproj, builds/win32/vc2010/index.html,
+	builds/win32/visualc/freetype.dsp,
+	builds/win32/visualc/freetype.vcproj,
+	builds/win32/visualc/index.html, builds/win32/visualce/freetype.dsp,
+	builds/win32/visualce/freetype.vcproj,
+	builds/win32/visualce/index.html,
+	builds/wince/vc2005-ce/freetype.vcproj,
+	builds/wince/vc2005-ce/index.html,
+	builds/wince/vc2008-ce/freetype.vcproj,
+	builds/wince/vc2008-ce/index.html: s/2.4.8/2.4.9/, s/248/249/.
+
+	* include/freetype/freetype.h (FREETYPE_PATCH): Set to 9.
+
+	* builds/unix/configure.raw (version_info): Set to 14:1:8.
+
+2012-03-08  Werner Lemberg  <wl@gnu.org>
+
+	[bdf] Add missing overflow check.
+
+	* src/bdf/bdflib.c (_bdf_parse_glyphs) <BITMAP>: Add threshold for
+	`glyph->bpr'.
+
+2012-03-07  Vinnie Falco  <vinnie.falco@gmail.com>
+
+	Prepare source code for amalgamation.
+
+	* src/autofit/aferrors.h, src/bdf/bdferror.h, src/bzip2/ftbzip2.c,
+	src/cache/ftcerror.h, src/cff/cfferrs.h, src/cid/ciderrs.h,
+	src/gxvalid/gxverror.h, src/gzip/ftgzip.c, src/lzw/ftlzw.c,
+	src/otvalid/otverror.h, src/pcf/pcferror.h, src/pfr/pfrerror.h,
+	src/psaux/psauxerr.h, src/pshinter/pshnterr.h,
+	src/psnames/psnamerr.h, src/raster/rasterrs.h, src/sfnt/sferrors.h,
+	src/smooth/ftsmerrs.h, src/truetype/tterrors.h,
+	src/type1/t1errors.h, src/type42/t42error.h, src/winfonts/fnterrs.h:
+	Add #undef FT_ERR_PREFIX before #define FT_ERR_PREFIX.
+
+2012-03-03  Werner Lemberg  <wl@gnu.org>
+
+	Fix Savannah bug #35660.
+
+	For some divisions, we use casts to 32bit entities.  Always guard
+	against division by zero with these casts also.
+
+	* src/base/ftcalc.c (ft_div64by32): Remove redundant cast.
+	(FT_MulDiv, FT_MulDiv_No_Round): Add 32bit cast.
+	(FT_DivFix): Add 32bit cast (this omission triggered the bug).
+
+2012-03-03  Werner Lemberg  <wl@gnu.org>
+
+	[psaux] Fix handling of track kerning.
+
+	* src/psaux/afmparse.c (afm_parse_track_kern): Don't inverse sign
+	for `min_kern'.  It is indeed quite common that track kerning
+	*increases* spacing for very small sizes.
+
+2012-03-02  Werner Lemberg  <wl@gnu.org>
+
+	[truetype] Fix Savannah bug #35689.
+
+	* src/truetype/ttgload.c (TT_Load_Simple_Glyph): Check first outline
+	point.
+
+2012-03-01  Werner Lemberg  <wl@gnu.org>
+
+	[bdf] Fix Savannah bug #35656.
+
+	* src/bdf/bdflib.c (_bdf_parse_glyphs) <_BDF_BITMAP>: Check validity
+	of nibble characters instead of accessing `a2i' array.
+
+2012-03-01  Werner Lemberg  <wl@gnu.org>
+
+	[winfonts] Fix Savannah bug #35659.
+
+	* src/winfonts/winfnt.c (FNT_Face_Init): Check number of glyphs.
+
+2012-03-01  Werner Lemberg  <wl@gnu.org>
+
+	[bdf] Fix Savannah bug #35658.
+
+	* src/bdf/bdflib.c (_bdf_list_split): Initialize `field' elements
+	properly.
+
+2012-03-01  Werner Lemberg  <wl@gnu.org>
+
+	[psaux] Fix Savannah bug #35657.
+
+	If in function `skip_spaces' the routine `skip_comment' comes to the
+	end of buffer, `cur' is still increased by one, so we need to check
+	for `p >= limit' and not `p == limit'.
+
+	* src/psaux/psconv.c (PS_Conv_Strtol, PS_Conv_ToFixed,
+	PS_Conv_ASCIIHexDecode, PS_Conv_EexecDecode): Fix boundary checking.
+
+2012-03-01  Werner Lemberg  <wl@gnu.org>
+
+	[truetype] Fix Savannah bug #35646.
+
+	* src/truetype/ttinterp.c (Ins_MIRP): Typo, present since ages.  The
+	code is now in sync with the other operators (e.g. MSIRP) which
+	modify twilight points.
+
+2012-03-01  Werner Lemberg  <wl@gnu.org>
+
+	[bdf] Fix Savannah bug #35643.
+
+	* src/bdf/bdflib.c (_bdf_list_ensure): Bring code in sync with
+	comment before `_bdf_list_split', this is, really allocate at least
+	five `field' elements.
+
+2012-03-01  Werner Lemberg  <wl@gnu.org>
+
+	[bdf] Fix Savannah bug #35641.
+
+	* src/bdf/bdflib.c (_bdf_parse_glyphs) <DWIDTH, BBX>: Abort if
+	_BDF_ENCODING isn't set.  We need this because access to the `glyph'
+	variable might be undefined otherwise.
+
+2012-03-01  Werner Lemberg  <wl@gnu.org>
+
+	[truetype] Fix Savannah bug #35640.
+
+	* src/truetype/ttinterp.c (SkipCode, TT_RunIns): Fix boundary check
+	for NPUSHB and NPUSHW instructions.
+
+2012-02-29  Werner Lemberg  <wl@gnu.org>
+
+	[truetype] Fix Savannah bug #35601.
+
+	* src/truetype/ttinterp.c (Ins_SHZ): Use number of points instead of
+	last point for loop.
+	Also remove redundant boundary check.
+
+2012-02-29  Werner Lemberg  <wl@gnu.org>
+
+	[truetype] Remove redundant check.
+
+	* src/truetype/ttgload.c (TT_Load_Simple_Glyph): Remove redundant
+	second check for ordered contour start points.
+
+2012-02-29  Werner Lemberg  <wl@gnu.org>
+
+	[truetype] Make SHC instruction behave similar to MS rasterizer.
+
+	* src/truetype/ttinterp.c (Ins_SHC): Handle virtual contour in
+	twilight zone.
+
+2012-02-29  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	Avoid modulo operators against a power-of-two denominator.
+
+	* src/afcjk.c (af_hint_normal_stem), src/base/ftoutln.c
+	(ft_contour_has), src/cff/cffgload.c (cff_decoder_parse_charstrings)
+	<cff_op_vvcurveto, cff_op_hhcurveto, cff_op_hvcurveto>,
+	src/gxvalid/gxvcommn.c (GXV_32BIT_ALIGNMENT_VALIDATE),
+	src/gxvalid/gxvfeat.c (gxv_feat_setting_validate): Replace `%' with
+	`&' operator.
+
+2012-02-29  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Don't synchronize digit widths for light rendering mode.
+
+	We don't hint horizontally in this mode.
+
+	* src/autofit/afloader.c (af_loader_load_g) <Hint_Metrics>:
+	Implement it.
+
+2012-02-26  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[type42] Minor code optimization (again).
+
+	* src/type42/t42parse.c (t42_parse_sfnts): Simplify previous change.
+
+2012-02-26  Mateusz Jurczyk  <mjurczyk@google.com>
+	    Werner Lemberg  <wl@gnu.org>
+
+	[smooth] Fix Savannah bug #35604.
+
+	* src/smooth/ftsmooth.c (ft_smooth_render_generic): Use `FT_Pos'
+	instead of `FT_UInt' for some variables and update comparisons
+	accordingly.  A detailed analysis can be found in the bug report.
+
+2012-02-26  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[type42] Minor code optimization.
+
+	* src/type42/t42parse.c (t42_parse_sfnts): Use bitmask instead of
+	modulo operator.
+
+2012-02-26  Werner Lemberg  <wl@gnu.org>
+
+	* docs/CHANGES: Updated.
+
+2012-02-26  Werner Lemberg  <wl@gnu.org>
+
+	[type1] Fix Savannah bug #35608.
+
+	* src/type1/t1parse.c (T1_Get_Private_Dict): Reject too short
+	dictionaries.
+
+2012-02-26  Werner Lemberg  <wl@gnu.org>
+
+	[bdf] Support `ENCODING -1 <n>' format.
+
+	* src/bdf/bdflib.c (_bdf_parse_glyphs) <ENCODING>: Implement it.
+
+2012-02-26  Werner Lemberg  <wl@gnu.org>
+
+	[bdf] Fix Savannah bug #35607.
+
+	* src/bdf/bdflib.c (_bdf_parse_glyphs) <ENCODING>: Normalize
+	negative encoding values.
+
+2012-02-26  Werner Lemberg  <wl@gnu.org>
+
+	[type1] Fix Savannah bug #35606.
+
+	* src/type1/t1load.c (parse_subrs): Add proper guards for `strncmp'.
+
+	* src/psaux/psobjs.c (ps_parser_skip_PS_token): Emit error message
+	only if cur < limit.
+
+2012-02-25  Werner Lemberg  <wl@gnu.org>
+
+	[pcf] Fix Savannah bug #35603.
+
+	* src/pcf/pcfread.c (pcf_get_properties): Assure final zero byte in
+	`strings' array.
+
+2012-02-25  Werner Lemberg  <wl@gnu.org>
+
+	[type42] Fix Savannah bug #35602.
+
+	* src/type42/t42parse.c (t42_parse_sfnts): Check `string_size' more
+	thoroughly.
+
+2012-02-25  Werner Lemberg  <wl@gnu.org>
+
+	[bdf] Fix Savannah bugs #35599 and #35600.
+
+	* src/bdf/bdflib.c (ACMSG16): New warning message.
+	(_bdf_parse_glyphs) <_BDF_BITMAP>: Check line length.
+
+2012-02-24  Werner Lemberg  <wl@gnu.org>
+
+	[bdf] Fix Savannah bugs #35597 and #35598.
+
+	* src/bdf/bdflib.c (_bdf_is_atom): Fix handling of property value.
+
+2012-02-24  Vinnie Falco  <vinnie.falco@gmail.com>
+
+	Prepare source code for amalgamation (6/6).
+
+	* src/cff/cffdrivr.c: s/Load_Glyph/cff_glyph_load/.
+
+	* src/cid/cidload.c: s/parse_font_matrix/cid_parse_font_matrix/.
+	s/t1_init_loader/cid_init_loader/.
+	s/t1_done_loader/cid_done_loader/.
+
+	* src/pxaux/t1cmap.c: s/t1_get_glyph_name/psaux_get_glyph_name/.
+
+	* src/truetype/ttdriver.c: s/Load_Glyph/tt_glyph_load/.
+
+	* src/type1/t1load.c: s/parse_font_matrix/t1_parse_font_matrix/.
+
+2012-02-24  Vinnie Falco  <vinnie.falco@gmail.com>
+
+	Prepare source code for amalgamation (5/6).
+
+	* include/freetype/fterrors.h: Undefine FT_KEEP_ERR_PREFIX after
+	using it.
+
+2012-02-22  Vinnie Falco  <vinnie.falco@gmail.com>
+
+	Prepare source code for amalgamation (4/6).
+
+	* src/smooth/ftgrays.c, src/raster/ftraster.c: Undefine RAS_ARG,
+	RAS_ARGS, RAS_VAR, and RAS_VARS before defining it.
+
+	* src/smooth/ftgrays.c: s/TRaster/black_TRaster/,
+	s/PRaster/black_PRaster/.
+	* src/raster/ftraster.c: s/TRaster/gray_TRaster/,
+	s/PRaster/gray_PRaster/.
+
+2012-02-20  Vinnie Falco  <vinnie.falco@gmail.com>
+
+	Prepare source code for amalgamation (3/6).
+
+	* src/smooth/ftgrays.c: s/TWorker/black_TWorker/,
+	s/PWorker/black_PWorker/.
+	* src/raster/ftraster.c: s/TWorker/gray_TWorker/,
+	s/PWorker/gray_PWorker/.
+
+2012-02-20  Vinnie Falco  <vinnie.falco@gmail.com>
+
+	Prepare source code for amalgamation (2/6).
+
+	* src/smooth/ftgrays.c, src/raster/ftraster.c: Undefine FLOOR,
+	CEILING, TRUNC, and SCALED before defining it.
+
+2012-02-20  Vinnie Falco  <vinnie.falco@gmail.com>
+
+	Prepare source code for amalgamation (1/6).
+
+	See discussion starting at
+
+	  http://lists.gnu.org/archive/html/freetype-devel/2012-01/msg00037.html
+
+	* src/smooth/ftgrays.c: s/TBand/gray_TBand/.
+	* src/raster/ftraster.c: s/TBand/black_TBand/.
+
+2012-02-17  Alexei Podtelezhnikov  <apodtele@gmail.com>
+
+	[autofit] Fix outline flags.
+
+	* src/autofit/afloader.c (af_loader_load_g): Don't reassign
+	`outline.flags' so that this information is preserved.  See
+	discussion starting at
+
+	  http://lists.gnu.org/archive/html/freetype-devel/2012-02/msg00046.html
+
+2012-02-11  Werner Lemberg  <wl@gnu.org>
+
+	[truetype] Fix Savannah bug #35466.
+
+	Jump instructions are now bound to the current function.  The MS
+	Windows rasterizer behaves the same, as confirmed by Greg Hitchcock.
+
+	* src/truetype/ttinterp.h (TT_CallRec): Add `Cur_End' element.
+	* src/truetype/ttobjs.h (TT_DefRecord): Add `end' element.
+
+	* src/truetype/ttinterp.c (DO_JROT, DO_JMPR, DO_JROF): Check upper
+	bound of jump address.
+	(Ins_FDEF, Ins_CALL, Ins_LOOPCALL, Ins_UNKNOWN, TT_RunIns): Updated.
+
+2012-02-11  Werner Lemberg  <wl@gnu.org>
+
+	We don't use `extensions'.
+
+	* include/freetype/internal/ftobjs.h (FT_DriverRec): Remove
+	`extensions' field.
+
+2012-02-11  Werner Lemberg  <wl@gnu.org>
+
+	Clean up `generic' fields.
+
+	* include/freetype/internal/ftobjs.h (FT_ModuleRec, FT_LibraryRec):
+	Remove `generic' field since users can't access it.
+
+	* src/base/ftobjs.c (FT_Done_GlyphSlot): Call `generic.finalizer' as
+	advertised in the documentation of FT_Generic.
+	(Destroy_Module, FT_Done_Library): Updated to changes in `ftobjs.h'.
+
+2012-02-07  Werner Lemberg  <wl@gnu.org>
+
+	[autofit] Harmonize function arguments.
+
+	* src/autofit/afloader.c, src/autofit/afloader.h: Use `FT_Int32' for
+	`load_flags'.
+
+2012-02-07  Werner Lemberg  <wl@gnu.org>
+
+	* src/cff/cffobjs.c (cff_face_init): Remove unnecessary casts.
+
+2012-01-17  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
+
+	[gxvalid] Fix Savannah bug #35286.
+
+	Patch submitted by anonymous reporter.
+
+	* src/gxvalid/gxvcommn.c (gxv_XStateTable_subtable_setup):
+	gxv_set_length_by_ulong_offset() must be called with 3, not 4,
+	the number of the subtables in the state tables; classTable,
+	stateArray, entryTable.
+
+2012-01-17  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
+
+	[raccess] Modify for PIC build.
+
+	Based on the patch provided by Erik Dahlstrom <ed@opera.com>,
+	http://lists.gnu.org/archive/html/freetype-devel/2012-01/msg00010.html
+
+	Also `raccess_guess_table[]' and `raccess_rule_by_darwin_vfs()'
+	are renamed with `ft_' suffixes.
+
+	* src/base/ftbase.h: `raccess_rule_by_darwin_vfs()' is renamed
+	to `ft_raccess_rule_by_darwin_vfs()'.
+	* src/base/ftobjs.c: Ditto.
+
+	* src/base/ftrfork.c: Declarations of FT_RFork_Rule,
+	raccess_guess_rec, are moved to...
+	* include/freetype/internal/ftrfork.h: Here.
+
+	* include/freetype/internal/ftrfork.h:
+	FT_RFORK_RULE_ARRAY_{BEGIN,ENTRY,END} macros are defined
+	to replace raccess_guess_table[] in both of PIC and non-PIC
+	modes.
+	* src/base/ftrfork.c: raccess_guess_table[] array is rewritten
+	by FT_RFORK_RULE_ARRAY_{BEGIN,ENTRY,END}.
+
+	* src/base/basepic.h (BasePIC): Add `ft_raccess_guess_table'
+	storage.  (FT_RACCESS_GUESS_TABLE_GET): New macro to retrieve
+	the function pointer from `ft_raccess_guess_table' storage in
+	`BasePIC' structure.
+	* src/base/ftrfork.c (FT_Raccess_Guess): Rewritten with
+	FT_RACCESS_GUESS_TABLE_GET.
+	(raccess_get_rule_type_from_rule_index): Add `library' as the
+	first argument to the function, to retrieve the storage of
+	`ft_raccess_guess_table' from it.  Also `raccess_guess_table'
+	is replaced by FT_RACCESS_GUESS_TABLE_GET.
+	(ft_raccess_rule_by_darwin_vfs): Ditto.
+
+2012-01-16  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
+
+	Remove trailing spaces.
+
+2012-01-16  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
+
+	Formatting PIC related sources.
+
+	* src/autofit/afpic.c: Harmonize to FT2 coding conventions.
+	* src/base/basepic.c: Ditto.
+	* src/base/ftpic.c: Ditto.
+	* src/cff/cffpic.c: Ditto.
+	* src/pshinter/pshpic.c: Ditto.
+	* src/psnames/pspic.c: Ditto.
+	* src/raster/rastpic.c: Ditto.
+	* src/sfnt/sfntpic.c: Ditto.
+	* src/smooth/ftspic.c: Ditto.
+	* src/truetype/ttpic.c: Ditto.
+
+2012-01-16  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
+
+	[autofit] Fix the inclusion of `aflatin2.h' in PIC file.
+
+	* src/autofit/afpic.c: Include `aflatin2.h' when
+	FT_OPTION_AUTOFIT2 is defined, as afglobal.c does so.
+	Unconditionally inclusion causes declared but unimplemented
+	warning by GCC 4.6.
+
+2012-01-16  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
+
+	[cff] Remove redundant declarations of cff_cmap_XXX_class_rec.
+
+	* src/cff/cffpic.c: The declarations of
+	FT_Init_Class_cff_cmap_encoding_class_rec() and
+	FT_Init_Class_cff_cmap_unicode_class_rec() are removed.
+	They can be obtained by the inclusion of cffcmap.h.
+	cffcmap.h invokes FT_DECLARE_CMAP_CLASS() and it declares
+	FT_Init_Class_cff_cmap_encoding_class_rec() etc in PIC mode.
+
+2012-01-15  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
+
+	Fix redundant declaration warning in PIC mode.
+
+	Originally FT_DEFINE_{DRIVER,MODULE,RENDERER}() macros were
+	designed to declare xxx_pic_{free,init} by themselves.
+	Because these macros are used at the end of the module
+	interface (e.g. ttdriver.c) and the wrapper source to build
+	a module as a single object (e.g. truetype.c) includes
+	the PIC file (e.g. ttpic.c) before the module interface,
+	these macros are expanded AFTER xxx_pic_{free,init} body
+	when the modules are built as single object.
+	The declaration after the implementation causes the redundant
+	declaration warnings, so the declarations are moved to module
+	PIC headers (e.g. ttpic.h).  Separating to other header files
+	are needed for multi build.
+
+	* include/freetype/internal/ftdriver.h (FT_DEFINE_DRIVER):
+	Remove class_##_pic_free and class_##_pic_init declarations.
+	* include/freetype/internal/ftobjs.h (FT_DEFINE_RENDERER,
+	FT_DEFINE_MODULE): Ditto.
+
+	* src/base/basepic.h: Insert a comment and fix coding style.
+	* src/autofit/afpic.h: Declare autofit_module_class_pic_{free,
+	init}.
+	* src/cff/cffpic.h: Declare cff_driver_class_pic_{free,init}.
+	* src/pshinter/pshpic.h: Declare pshinter_module_class_pic_{free,
+	init}.
+	* src/psnames/pspic.h: Declare psnames_module_class_pic_{free,
+	init}.
+	* src/raster/rastpic.h: Declare
+	ft_raster{1,5}_renderer_class_pic_{free,init}
+	* src/sfnt/sfntpic.h: Declare sfnt_module_class_pic_{free,init}.
+	* src/smooth/ftspic.h: Declare
+	ft_smooth_{,lcd_,lcdv_}renderer_class_pic_{free,init}.
+	* src/truetype/ttpic.h: Declare tt_driver_class_pic_{free,init}.
+
+2012-01-15  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
+
+	Make pspic.c to include module error header to fix multi build.
+
+	* src/psnames/pspic.c: Include `psnamerr.h'.
+
+2012-01-14  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
+
+	[base] Fix a dereference of uninitialized variable in PIC mode.
+
+	* src/base/ftglyph.c (FT_Glyph_To_Bitmap): `glyph' must be
+	set before derefering to obtain `library'.  The initialization
+	of `clazz', `glyph', `library' and NULL pointer check are
+	reordered to minimize PIC conditonals.
+
+2012-01-14  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
+
+	[base] Insert explicit cast for GCC 4.6 in PIC mode.
+
+	* src/base/ftinit.c (FT_Add_Default_Modules): Under PIC
+	configuration, FT_DEFAULT_MODULES_GET returns
+	FT_Module_Class** pointer, GCC 4.6 warns that
+	const FT_Module_Class* const* variable is warned as
+	inappropriate to store it.  To calm it, explicit cast is
+	inserted.  Also `library' is checked to prevent the NULL
+	pointer dereference in FT_DEFAULT_MODULES_GET.
+
+2012-01-13  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
+
+	Fix PIC build broken by d9145241fe378104ba4c12a42534549faacc92e6.
+
+	Under PIC configuration, FT_{CFF,PSCMAPS,SFNT,TT}_SERVICES_GET
+	take no arguments but derefer the variable named `library'
+	internally.
+
+	* src/cff/cffdrivr.c (cff_get_interface): Declare `library' and
+	set it if non-NULL driver is passed.
+	* src/truetype/ttdriver.c (tt_get_interface): Ditto.
+
+	* src/sfnt/sfdriver.c (sfnt_get_interface): Declare `library'
+	under PIC configuration, and set it if non-NULL module is given.
+	* src/psnames/psmodule.c (psnames_get_interface): Ditto.
+
+2012-01-13  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
+
+	Make PIC files include module error headers, to use the error codes
+	with per-module prefix.
+
+	* src/autofit/afpic.c: Include `aferrors.h'.
+	* src/cff/cffpic.c: Include `cfferrs.h'.
+	* src/pshinter/pshpic.c: Include `pshnterr.h'.
+	* src/raster/rastpic.c: Include `rasterrs.h'.
+	* src/sfnt/sfntpic.c: Include `sferrors.h'.
+	* src/smooth/ftspic.c: Include `ftsmerrs.h'.
+	* src/truetype/ttpic.c: Include `tterrors.h'.
+
+2012-01-04  Tobias Ringström  <tobias@ringis.se>
+
+	[truetype] Fix IP instruction if x_ppem != y_ppem.
+
+	* src/truetype/ttinterp.c (Ins_IP): Scale `orus' coordinates
+	properly.
+
+2012-01-02  Werner Lemberg  <wl@gnu.org>
+
+	Fix tracing message for `loca' table.
+
+	* src/truetype/ttpload.c (tt_face_get_location): Don't emit a
+	warning message if the last `loca' entry references an empty glyph.
+
+2011-12-10  Werner Lemberg  <wl@gnu.org>
+
+	Add some variable initializations.
+	Reported by Richard COOK <rscook@unicode.org>.
+
+	* src/type1/t1driver.c (t1_ps_get_font_value): Initialize `val'.
+	* src/smooth/ftgrays.c (gray_render_conic): Initialize `levels'
+	earlier.
+
+2011-12-08  Werner Lemberg  <wl@gnu.org>
+
+	Fix serious scaling bug in `FT_Get_Advances'.
+
+	* src/base/ftadvanc.c (FT_Get_Advances): Advance values returned by
+	`FT_Load_Glyph' must be simply multiplied by 1024.
+
+2011-12-08  Werner Lemberg  <wl@gnu.org>
+
+	* src/bdf/bdflib.c (_bdf_parse_start): Drop redundant error tracing.
+
+2011-12-02  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
+
+	[mac] Unify DARWIN_NO_CARBON with FT_MACINTOSH.
+
+	Originally FT_MACINTOSH was a pure auto macro and DARWIN_NO_CARBON
+	was a configurable macro to disable Carbon-dependent code.  Because
+	now configure script sets DARWIN_NO_CARBON by default and disables
+	Darwin & Carbon-dependent codes, these macros can be unified.
+	FT_MACINTOSH (undefined by default) is kept and DARWIN_NO_CARBON
+	(defined by default) is removed, because DARWIN_NO_CARBON violates
+	FT_XXX naming convention of public macros, and a macro configured by
+	default is not portable for the building without configure (e.g.
+	make devel).
+
+	* builds/unix/configure.raw: Define FT_MACINTOSH if Carbon-based
+	old Mac font support is requested and Carbon is available.
+	* builds/unix/ftconfig.in: Undefine FT_MACINTOSH when the support
+	for Mac OS X without Carbon (e.g.  Mac OS X 10.4 for ppc64) is
+	requested.
+	* include/freetype/config/ftconfig.in: Ditto.
+	* builds/vms/ftconfig.h: Ditto.
+
+	* src/base/ftbase.h: Remove DARWIN_NO_CARBON.
+	* src/base/ftbase.c: Ditto.
+	* src/base/ftobjs.c: Ditto.
+	* src/base/ftrfork.c: Ditto.
+
+	* src/base/ftmac.c: Compile the body if FT_MACINTOSH is defined
+	(same with TT_USE_BYTECODE_INTERPRETER in ttinterp.c).
+	* builds/mac/ftmac.c: Ditto.
+
+	* builds/mac/FreeType.m68k_cfm.make.txt: Define FT_MACINTOSH.
+	* builds/mac/FreeType.m68k_far.make.txt: Ditto.
+	* builds/mac/FreeType.ppc_classic.make.txt: Ditto.
+	* builds/mac/FreeType.ppc_carbon.make.txt: Ditto.
+
+2011-11-30  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
+
+	Fix Savannah bug #34728 (`make devel' on Mac OS X).
+
+	* builds/toplevel.mk: Check `/dev/null' to identify the Unix-
+	like systems without `init' nor `hurd' (e.g. Mac OS X >= 10.4).
+	* builds/unix/detect.mk: Ditto.
+
+2011-11-30  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
+
+	[apinames] Fix the overflow of signed integer hash.
+
+	* src/tools/apinames.c (names_add): Change the type of `h' from
+	int to unsigned int, to prevent undefined behaviour in the
+	overflow of signed integers (overflow of unsigned int is defined
+	to be wrap around).  Found by clang test suggested by Sean
+	McBride.
+
+2011-11-30  Werner Lemberg  <wl@gnu.org>
+
+	[winfonts] Remove casts.
+
+	* src/winfonts/winfnt.c (winfnt_driver_class): Remove all casts and
+	update affected functions.
+	(FNT_Size_Select): Fix number of arguments.
+
+2011-11-30  Werner Lemberg  <wl@gnu.org>
+
+	[type42] Remove casts.
+
+	* src/type42/t42driver.c (t42_driver_class): Remove all casts and
+	update affected functions.
+
+	* src/type42/t42objs.c, src/type42/t42objs.h: Updated for t42driver
+	changes.
+
+2011-11-30  Werner Lemberg  <wl@gnu.org>
+
+	[type1] Remove casts.
+
+	* src/type1/t1driver.c (t1_driver_class): Remove all casts and
+	update affected functions.
+
+	* src/type1/t1gload.c, src/type1/t1gload.h, src/type1/t1objs.c:
+	Updated for t1driver changes.
+	src/type1/t1objs.h (T1_Driver): Remove unused typedef.
+	Updated for t1driver changes.
+
+2011-11-27  Werner Lemberg  <wl@gnu.org>
+
+	[bdf] Fix Savannah bug #34896.
+
+	ENCODING now covers the whole Unicode range.
+
+	Note, however, that this change is quite expensive since it
+	increases the size of three arrays by almost 400kByte in total.  The
+	right fix is to replace the logic with something smarter.
+	Additionally, there exist very old BDFs for three-byte CCCII
+	encoding which exceeds the range of Unicode (another reason to have
+	a smarter logic).
+
+	* src/bdf/bdf.h (bdf_font_t): Increase size of `nmod' and `umod'
+	arrays.
+	* src/bdf/bdflib.c (bdf_parse_t): Increase size of `have' array.
+
+2011-11-27  Werner Lemberg  <wl@gnu.org>
+
+	[bdf] Improve tracing.
+
+	* src/bdf/bdflib.c (DBGMSG1, DBGMSG2): New macros.
+	(_bdf_parse_glyphs): Use them.
+
+2011-11-26  Werner Lemberg  <wl@gnu.org>
+
+	Improve tracing.
+
+	* src/bdf/bdfdrivr.c (BDF_Face_Done), src/pcf/pcfdrivr.c
+	(PCF_Face_Done): Remove tracing message.
+
+	* src/bdf/bdfdrivr.c (BDF_Face_Init), src/cff/cffobjs.c
+	(cff_face_init), src/cid/cidobjs.c (cid_face_init),
+	src/pfr/pfrobjs.c (pfr_face_init), src/sfnt/sfobjs.c
+	(sfnt_init_face), src/truetype/ttobjs.c (tt_face_init),
+	src/type1/t1objs.c (T1_Face_Init), src/type42/t42objs.c
+	(T42_Face_Init), src/winfonts/winfnt.c (FNT_Face_Init): Add
+	`greeting' message.
+
+	* src/sfnt/sfobjs.c (sfnt_open_font), src/type42/t42objs.c
+	(T42_Open_Face): Improve tracing.
+
+2011-11-26  Werner Lemberg  <wl@gnu.org>
+
+	[cid] Fix error code.
+
+	* src/cid/cidparse.c (cid_parser_new): Do it.
+
+2011-11-26  Werner Lemberg  <wl@gnu.org>
+
+	[cff] Fix error code.
+
+	* src/cff/cffload.c (cff_font_load): Do it.
+
+2011-11-26  Werner Lemberg  <wl@gnu.org>
+
+	Add new error code FT_Err_Missing_Module.
+
+	Previously, FreeType misleadingly returned
+	FT_Err_Unknown_File_Format if a module was missing (or a test was
+	missing completely).
+
+	* include/freetype/fterrdef.h (FT_Err_Missing_Module): Define.
+
+	* src/cff/cffobjs.c (cff_face_init), src/cff/cffdrivr.c
+	(cff_get_glyph_name), src/cid/cidobjs.c (cid_face_init),
+	src/sfnt/sfobjs.c (sfnt_init_face), src/truetype/ttobjs.c
+	(tt_face_init), src/type1/t1objs.c (T1_Face_Init),
+	src/type42/t42objs.c (T42_Face_Init, T42_Driver_Init): Updated.
+
+	* src/type1/t1afm.c (T1_Read_Metrics), src/type/t1objs.c
+	(T1_Face_Init), src/type42/t42objs.c (T42_Face_Init): Remove now
+	redundant test for `psaux'.
+
+2011-11-25  Werner Lemberg  <wl@gnu.org>
+
+	[bdf] Add more error messages.
+
+	* src/bdf/bdflib.c (_bdf_set_default_spacing, _bdf_add_property):
+	Add line number argument.
+	Update all callers.
+	(ERRMSG5, ERRMSG6, ERRMSG7, ERRMSG8, ERRMSG9): New macros.
+	(_bdf_readstream, _bdf_set_default_spacing, _bdf_add_property,
+	_bdf_parse_glyphs, _bdf_parse_start): Add error messages.
+
+2011-11-24  Werner Lemberg  <wl@gnu.org>
+
+	* include/freetype/fterrors.h: Remove dead code.
+
+2011-11-15  Werner Lemberg  <wl@gnu.org>
+
+	* docs/releases: Updated.
+
 2011-11-15  Werner Lemberg  <wl@gnu.org>
 
 	* Version 2.4.8 released.
@@ -184,7 +2320,7 @@
 
 2011-09-27  Simon Bünzli  <zeniko@gmail.com>
 
-	Fix Savannah bug #34189.
+	[type1] Fix Savannah bug #34189.
 
 	* src/type1/t1load.c (T1_Open_Face): Initialize
 	`face->len_buildchar'.
@@ -227,7 +2363,7 @@
 	Add explicit LZW decompression stack size limit.
 
 	Stack larger than 1<<LZW_MAX_BITS is never needed if prefix table is
-	constructed correctly.  It's even less than that, see e.g. 
+	constructed correctly.  It's even less than that, see e.g.
 	libarchive code comment for a better size upper bound:
 
 	  http://code.google.com/p/libarchive/source/browse/trunk/libarchive/archive_read_support_filter_compress.c?r=3635#121
@@ -265,7 +2401,7 @@
 
 2011-09-07  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #33816.
+	[cff] Fix Savannah bug #33816.
 
 	* src/cff/cfftypes.h (CFF_FontRecDictRec): New member
 	`has_font_matrix'.
@@ -327,7 +2463,7 @@
 
 2011-08-09  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #33975.
+	[cff] Fix Savannah bug #33975.
 
 	* src/cff/cffparse.c (cff_parse_font_matrix): Fix typo.
 
@@ -459,7 +2595,7 @@
 
 2011-07-02  Just Fill Bugs  <mozbugbox@yahoo.com.au>
 
-	Fix Savannah bug #33246.
+	[truetype] Fix Savannah bug #33246.
 
 	* src/truetype/ttobjs.c (tt_check_single_notdef): New function.
 	(tt_face_init): Use it to test FT_FACE_FLAG_SCALABLE.
@@ -573,7 +2709,7 @@
 
 2011-06-29  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #33663.
+	[bdf] Fix Savannah bug #33663.
 
 	* src/bdf/bdflib.c (_bdf_parse_glyphs): Handle negative values for
 	ENCODING correctly.
@@ -1127,7 +3263,7 @@
 
 2011-04-13  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #33047.
+	[psaux] Fix Savannah bug #33047.
 
 	Patch submitted by anonymous reporter.
 
@@ -1220,7 +3356,7 @@
 
 2011-03-07  Bram Tassyns  <bramt@enfocus.be>
 
-	Fix Savannah bug #27988.
+	[cff] Fix Savannah bug #27988.
 
 	* src/cff/cffobjs.c (remove_style): New function.
 	(cff_face_init): Use it to strip off the style part of the family
@@ -2052,14 +4188,14 @@
 
 2010-10-12  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #31310.
+	[truetype] Fix Savannah bug #31310.
 
 	* src/truetype/ttgxvar.c (ft_var_readpackedpoints): Protect against
 	invalid `runcnt' values.
 
 2010-10-08  Chris Liddell  <chris.liddell@artifex.com>
 
-	Fix Savannah bug #31275.
+	[sfnt] Fix Savannah bug #31275.
 
 	* src/sfnt/ttpost.c: Include FT_INTERNAL_DEBUG_H.
 
@@ -2118,7 +4254,7 @@
 
 2010-10-02  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #31088 (sort of).
+	[sfnt] Fix Savannah bug #31088 (sort of).
 
 	* src/sfnt/ttload.c (tt_face_load_maxp): Always allocate at least 64
 	function entries.
@@ -2134,7 +4270,7 @@
 
 2010-10-01  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
 
-	Fix Savannah bug #31040.
+	[truetype] Fix Savannah bug #31040.
 
 	* src/truetype/ttinterp.c (free_buffer_in_size): Remove.
 	(TT_RunIns): Updated.
@@ -2368,7 +4504,7 @@
 
 2010-08-17  Teijo Kinnunen <Teijo.Kinnunen@nuance.com>
 
-	Fix Savannah bug #30788.
+	[cache] Fix Savannah bug #30788.
 
 	* src/cache/ftccache.c (FTC_Cache_Clear): Check `cache->buckets' for
 	NULL too.
@@ -2445,7 +4581,7 @@
 
 2010-08-05  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #30657.
+	[truetype] Fix Savannah bug #30657.
 
 	* src/truetype/ttinterp.c (BOUNDSL): New macro.
 	Change `BOUNDS' to `BOUNDSL' where appropriate.
@@ -2455,7 +4591,7 @@
 
 2010-08-05  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #30656.
+	[type42] Fix Savannah bug #30656.
 
 	* src/type42/t42parse.c (t42_parse_sfnts): Protect against negative
 	string_size.
@@ -2654,7 +4790,7 @@
 
 2010-07-08  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #30361.
+	[truetype] Fix Savannah bug #30361.
 
 	* src/truetype/ttinterp.c (Ins_IUP): Fix bounds check.
 
@@ -2775,7 +4911,7 @@
 
 2010-06-30  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #30263.
+	[smooth] Fix Savannah bug #30263.
 
 	* src/smooth/ftgrays.c (gray_render_span): Use cast to `unsigned
 	int' to avoid integer overflow.
@@ -2866,7 +5002,7 @@
 
 2010-06-26  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #30262.
+	[sfnt] Fix Savannah bug #30262.
 
 	* src/sfnt/ttload.c (tt_face_load_maxp): Limit `maxComponentDepth'
 	arbitrarily to 100 to avoid stack exhaustion.
@@ -2883,14 +5019,14 @@
 
 2010-06-25  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #30261.
+	[pfr] Fix Savannah bug #30261.
 
 	* src/pfr/pfrobjs.c (pfr_face_init): Reject fonts which contain
 	neither outline nor bitmap glyphs.
 
 2010-06-25  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #30254.
+	[cff] Fix Savannah bug #30254.
 
 	* src/cff/cffload.c (cff_index_get_pointers): Do sanity check for
 	first offset also.
@@ -2905,7 +5041,7 @@
 
 2010-06-24  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #30247.
+	[pcf] Fix Savannah bug #30247.
 
 	* src/pcf/pcfread.c (pcf_get_metrics): Disallow (invalid) fonts with
 	zero metrics.
@@ -2922,14 +5058,14 @@
 
 2010-06-24  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #30236.
+	[sfnt] Fix Savannah bug #30236.
 
 	* src/sfnt/ttcmap.c (tt_face_build_cmaps): Improve check for pointer
 	to `cmap_table'.
 
 2010-06-24  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #30235.
+	[pfr] Fix Savannah bug #30235.
 
 	* src/pfr/pfrgload.c (pfr_glyph_load_simple): Protect against
 	invalid indices if there aren't any coordinates for indexing.
@@ -2945,7 +5081,7 @@
 
 2010-06-23  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #30220.
+	[bdf] Fix Savannah bug #30220.
 
 	* include/freetype/fterrdef.h
 	(BDF_Err_Missing_Fontboundingbox_Field): New error code.
@@ -2957,21 +5093,21 @@
 
 2010-06-21  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #30168.
+	[pfr] Fix Savannah bug #30168.
 
 	* src/pfr/pfrgload.c (pfr_glyph_load_compound): Limit the number of
 	subglyphs to avoid endless recursion.
 
 2010-06-20  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #30145.
+	[psaux] Fix Savannah bug #30145.
 
 	* src/psaux/psobjs.c (t1_builder_add_contour): Protect against
 	`outline == NULL' which might happen in invalid fonts.
 
 2010-06-19  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #30135.
+	[bdf] Fix Savannah bug #30135.
 
 	* src/bdf/bdflib.c (_bdf_list_join): Don't modify value in static
 	string `empty'.
@@ -2979,14 +5115,14 @@
 
 2010-06-15  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #30108.
+	[autofit] Fix Savannah bug #30108.
 
 	* src/autofit/afglobal.c (af_face_globals_compute_script_coverage):
 	Properly mask AF_DIGIT bit in comparison.
 
 2010-06-11  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #30106.
+	[pshinter] Fix Savannah bug #30106.
 
 	Point numbers for FreeType's implementation of hinting masks are
 	collected before the final number of points of a glyph has been
@@ -3015,14 +5151,14 @@
 
 2010-06-09  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #30082.
+	[cff] Fix Savannah bug #30082.
 
 	* src/cff/cffgload.c (cff_decoder_parse_charstrings)
 	<cff_op_callothersubr>: Protect against stack underflow.
 
 2010-06-08  Werner Lemberg  <wl@gnu.org>
 
-	Fix Savannah bug #30053.
+	[cff] Fix Savannah bug #30053.
 
 	* src/cff/cffparse.c (cff_parse_real): Handle border case where
 	`fraction_length' has value 10.
@@ -3068,7 +5204,7 @@
 
 2010-05-21  Bram Tassyns  <bramt@enfocus.be>
 
-	Fix Savannah bug #27987.
+	[cff] Fix Savannah bug #27987.
 
 	* src/cff/cffobjs.c (remove_subset_prefix): New function.
 	(cff_face_init): Use it to adjust `cffface->family_name'.
@@ -3104,7 +5240,7 @@
 
 2010-05-10  Ken Sharp  <ken.sharp@artifex.com>
 
-	Fix Savannah bug #29846.
+	[psaux] Fix Savannah bug #29846.
 
 	Previously we discovered fonts which used `setcurrentpoint' to set
 	the initial point of a contour to 0,0.  This caused FreeType to
@@ -3123,9 +5259,9 @@
 	and real proper usage of the operator to work the same way as Adobe
 	interpreters apparently do.
 
-	(t1_decoder_parse_charstrings): Make `setcurrentpoint' use the top
-	two elements of the stack to establish unconditionally the current x
-	and y coordinates.
+	* src/psaux/t1decode.c (t1_decoder_parse_charstrings): Make
+	`setcurrentpoint' use the top two elements of the stack to establish
+	unconditionally the current x and y coordinates.
 
 	Make the `flex' subroutine handling (OtherSubr 0) put the current
 	x,y coordinates onto the stack, instead of two dummy uninitialised
@@ -3133,7 +5269,7 @@
 
 2010-04-14  Ken Sharp  <ken.sharp@artifex.com>
 
-	Fix Savannah bug #29444.
+	[psaux] Fix Savannah bug #29444.
 
 	* src/psaux/psobjs.c (t1_builder_start_point): Accept (invalid)
 	`lineto' immediately after `hsbw', in accordance with Acrobat, GS,
@@ -3141,21 +5277,21 @@
 
 2010-04-14  Michał Cichoń  <thedmd@artifexmundi.com>
 
-	Fix Savannah bug #27999.
+	[psaux] Fix Savannah bug #27999.
 
 	* src/cache/ftcmanag.c (FTC_Manager_RemoveFaceID): Only remove
 	selected entry, not all.
 
 2010-04-06  Jonathan Kew  <jfkthame@gmail.com>
 
-	Add overflow check to `fvar' table.
+	[truetype] Add overflow check to `fvar' table.
 
 	* src/truetype/ttgxvar.c (TT_Get_MM_Var): Check axis and instance
 	count.
 
 2010-04-05  Ken Sharp  <ken.sharp@artifex.com>
 
-	Fix Savannah bug #29335.
+	[raster] Fix Savannah bug #29335.
 
 	* src/raster/ftraster.c (Line_Up): Use slow multiplication to
 	prevent overflow.  This shouldn't have any serious impact on speed,
@@ -3178,7 +5314,7 @@
 
 2010-04-01  John Tytgat  <John.Tytgat@esko.com>
 
-	Fix Savannah bug #29404.
+	[truetype] Fix Savannah bug #29404.
 
 	* src/truetype/ttgload.c: Revert change 2752bd1a (check on bit 1
 	of `head' table of TrueType fonts).
@@ -3197,20 +5333,20 @@
 
 2010-03-11  Chris Liddell  <chris.liddell@artifex.com>
 
-	Fix Savannah bug #27442.
+	[raster] Fix Savannah bug #27442.
 
 	* src/raster/ftraster.c (ft_black_reset): Fix `buffer_size'.
 
 2010-03-09  Werner Lemberg  <wl@gnu.org>
 
-	Remove unused variable.
+	[cff] Remove unused variable.
 	Reported by Graham.
 
 	* src/cff/cffparse.c (cff_parse_real): Remove `rest'.
 
 2010-03-02  John Tytgat  <John.Tytgat@esko.com>
 
-	Improve CFF string (especially glyphname) lookup performance.
+	[cff] Improve CFF string (especially glyphname) lookup performance.
 
 	We do this by avoiding memory allocation and file I/O.  This is
 	Savannah patch #7104.
@@ -3277,7 +5413,7 @@
 
 2010-02-18  Chris Liddell  <chris.liddell@artifex.com>
 
-	Fix Savannah bug #28905.
+	[truetype] Fix Savannah bug #28905.
 
 	Initialize phantom points before calling the incremental interface
 	to update glyph metrics.
@@ -3290,7 +5426,7 @@
 
 ----------------------------------------------------------------------------
 
-Copyright 2010-2011 by
+Copyright 2010-2012 by
 David Turner, Robert Wilhelm, and Werner Lemberg.
 
 This file is part of the FreeType project, and may only be used, modified,

@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    PostScript Type 1 decoding routines (body).                          */
 /*                                                                         */
-/*  Copyright 2000-2011 by                                                 */
+/*  Copyright 2000-2012 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -199,12 +199,18 @@
 
 #ifdef FT_CONFIG_OPTION_INCREMENTAL
     T1_Face      face  = (T1_Face)decoder->builder.face;
-#endif     
+#endif
 
 
     if ( decoder->seac )
     {
       FT_ERROR(( "t1operator_seac: invalid nested seac\n" ));
+      return PSaux_Err_Syntax_Error;
+    }
+
+    if ( decoder->builder.metrics_only )
+    {
+      FT_ERROR(( "t1operator_seac: unexpected seac\n" ));
       return PSaux_Err_Syntax_Error;
     }
 
@@ -400,7 +406,7 @@
     if ( decoder->buildchar && decoder->len_buildchar > 0 )
       ft_memset( &decoder->buildchar[0],
                  0,
-                 sizeof( decoder->buildchar[0] ) * decoder->len_buildchar );
+                 sizeof ( decoder->buildchar[0] ) * decoder->len_buildchar );
 
     FT_TRACE4(( "\n"
                 "Start charstring\n" ));
@@ -880,7 +886,7 @@
             ft_memcpy( &decoder->buildchar[idx],
                        blend->weight_vector,
                        blend->num_designs *
-                         sizeof( blend->weight_vector[0] ) );
+                         sizeof ( blend->weight_vector[0] ) );
           }
           break;
 
@@ -1113,7 +1119,7 @@
             FT_TRACE4(( "BuildCharArray = [ " ));
 
             for ( i = 0; i < decoder->len_buildchar; ++i )
-              FT_TRACE4(( "%d ", decoder->buildchar[ i ] ));
+              FT_TRACE4(( "%d ", decoder->buildchar[i] ));
 
             FT_TRACE4(( "]\n" ));
           }

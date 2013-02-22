@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    Objects manager (body).                                              */
 /*                                                                         */
-/*  Copyright 1996-2011                                                    */
+/*  Copyright 1996-2012                                                    */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -244,7 +244,7 @@
   tt_check_trickyness_sfnt_ids( TT_Face  face )
   {
 #define TRICK_SFNT_IDS_PER_FACE   3
-#define TRICK_SFNT_IDS_NUM_FACES  13
+#define TRICK_SFNT_IDS_NUM_FACES  17
 
     static const tt_sfnt_id_rec sfnt_id[TRICK_SFNT_IDS_NUM_FACES]
                                        [TRICK_SFNT_IDS_PER_FACE] = {
@@ -317,6 +317,26 @@
         { 0x00000000, 0x00000000 }, /* cvt  */
         { 0x0d3de9cb, 0x00000141 }, /* fpgm */
         { 0xd4127766, 0x00002280 }  /* prep */
+      },
+      { /* NEC FA-Gothic, 1996 */
+        { 0x00000000, 0x00000000 }, /* cvt  */
+        { 0x4a692698, 0x000001f0 }, /* fpgm */
+        { 0x340d4346, 0x00001fca }  /* prep */
+      },
+      { /* NEC FA-Minchou, 1996 */
+        { 0x00000000, 0x00000000 }, /* cvt  */
+        { 0xcd34c604, 0x00000166 }, /* fpgm */
+        { 0x6cf31046, 0x000022b0 }  /* prep */
+      },
+      { /* NEC FA-RoundGothicB, 1996 */
+        { 0x00000000, 0x00000000 }, /* cvt  */
+        { 0x5da75315, 0x0000019d }, /* fpgm */
+        { 0x40745a5f, 0x000022e0 }  /* prep */
+      },
+      { /* NEC FA-RoundGothicM, 1996 */
+        { 0x00000000, 0x00000000 }, /* cvt  */
+        { 0xf055fc48, 0x000001c2 }, /* fpgm */
+        { 0x3900ded3, 0x00001e18 }  /* prep */
       }
     };
 
@@ -328,7 +348,7 @@
 
 
     FT_MEM_SET( num_matched_ids, 0,
-                sizeof( int ) * TRICK_SFNT_IDS_NUM_FACES );
+                sizeof ( int ) * TRICK_SFNT_IDS_NUM_FACES );
     has_cvt  = FALSE;
     has_fpgm = FALSE;
     has_prep = FALSE;
@@ -493,10 +513,17 @@
     TT_Face       face = (TT_Face)ttface;
 
 
+    FT_TRACE2(( "TTF driver\n" ));
+
     library = ttface->driver->root.library;
-    sfnt    = (SFNT_Service)FT_Get_Module_Interface( library, "sfnt" );
+
+    sfnt = (SFNT_Service)FT_Get_Module_Interface( library, "sfnt" );
     if ( !sfnt )
-      goto Bad_Format;
+    {
+      FT_ERROR(( "tt_face_init: cannot access `sfnt' module\n" ));
+      error = TT_Err_Missing_Module;
+      goto Exit;
+    }
 
     /* create input stream from resource */
     if ( FT_STREAM_SEEK( 0 ) )
@@ -514,7 +541,7 @@
          face->format_tag != 0x00020000L &&    /* CJK fonts for Win 3.1 */
          face->format_tag != TTAG_true   )     /* Mac fonts */
     {
-      FT_TRACE2(( "[not a valid TTF font]\n" ));
+      FT_TRACE2(( "  not a TTF font\n" ));
       goto Bad_Format;
     }
 
@@ -737,7 +764,7 @@
     exec->threshold = 0;
 
     exec->instruction_trap = FALSE;
-    exec->F_dot_P          = 0x10000L;
+    exec->F_dot_P          = 0x4000L;
 
     exec->pedantic_hinting = pedantic;
 
@@ -1163,16 +1190,14 @@
       size->ttmetrics.scale   = metrics->x_scale;
       size->ttmetrics.ppem    = metrics->x_ppem;
       size->ttmetrics.x_ratio = 0x10000L;
-      size->ttmetrics.y_ratio = FT_MulDiv( metrics->y_ppem,
-                                           0x10000L,
+      size->ttmetrics.y_ratio = FT_DivFix( metrics->y_ppem,
                                            metrics->x_ppem );
     }
     else
     {
       size->ttmetrics.scale   = metrics->y_scale;
       size->ttmetrics.ppem    = metrics->y_ppem;
-      size->ttmetrics.x_ratio = FT_MulDiv( metrics->x_ppem,
-                                           0x10000L,
+      size->ttmetrics.x_ratio = FT_DivFix( metrics->x_ppem,
                                            metrics->y_ppem );
       size->ttmetrics.y_ratio = 0x10000L;
     }

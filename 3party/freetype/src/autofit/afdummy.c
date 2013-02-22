@@ -44,10 +44,11 @@
 
 
   AF_DEFINE_SCRIPT_CLASS( af_dummy_script_class,
-    AF_SCRIPT_NONE,
+    AF_SCRIPT_DUMMY,
     NULL,
+    0,
 
-    sizeof( AF_ScriptMetricsRec ),
+    sizeof ( AF_ScriptMetricsRec ),
 
     (AF_Script_InitMetricsFunc) NULL,
     (AF_Script_ScaleMetricsFunc)NULL,

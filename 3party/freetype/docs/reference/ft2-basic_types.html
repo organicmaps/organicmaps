@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>FreeType-2.4.8 API Reference</title>
+<title>FreeType-2.4.11 API Reference</title>
 <style type="text/css">
   body { font-family: Verdana, Geneva, Arial, Helvetica, serif;
          color: #000000;
@@ -35,7 +35,7 @@
 <table align=center><tr><td><font size=-1>[<a href="ft2-index.html">Index</a>]</font></td>
 <td width="100%"></td>
 <td><font size=-1>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
-<center><h1>FreeType-2.4.8 API Reference</h1></center>
+<center><h1>FreeType-2.4.11 API Reference</h1></center>
 
 <center><h1>
 Basic Data Types
@@ -1122,7 +1122,7 @@ Defined in FT_TYPES_H (freetype/fttypes.h).
 </pre></table><br>
 <table align=center width="87%"><tr><td>
 <p>Client applications often need to associate their own data to a variety of FreeType core objects. For example, a text layout API might want to associate a glyph cache to a given size object.</p>
-<p>Most FreeType object contains a &lsquo;generic&rsquo; field, of type FT_Generic, which usage is left to client applications and font servers.</p>
+<p>Some FreeType object contains a &lsquo;generic&rsquo; field, of type FT_Generic, which usage is left to client applications and font servers.</p>
 <p>It can be used to store a pointer to client-specific data, as well as the address of a &lsquo;finalizer&rsquo; function, which will be called by FreeType when the object is destroyed (for example, the previous client example would put the address of the glyph cache destructor in the &lsquo;finalizer&rsquo; field).</p>
 </td></tr></table><br>
 <table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>fields</b></em></td></tr><tr><td>

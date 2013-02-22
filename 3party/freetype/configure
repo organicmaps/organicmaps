@@ -92,19 +92,19 @@ if test $inode_src -ne $inode_dst; then
     cp $abs_ft2_dir/modules.cfg $abs_curr_dir
   fi
   echo "Generating \`Makefile'"
-  echo "TOP_DIR   := $abs_ft2_dir"               > Makefile
-  echo "OBJ_DIR   := $abs_curr_dir"             >> Makefile
-  echo "OBJ_BUILD := \$(OBJ_DIR)"               >> Makefile
-  echo "DOC_DIR   := \$(OBJ_DIR)/reference"     >> Makefile
-  echo "FT_LIBTOOL_DIR   := \$(OBJ_DIR)"        >> Makefile
-  echo "ifndef FT2DEMOS"                        >> Makefile
-  echo "  include \$(TOP_DIR)/Makefile"         >> Makefile
-  echo "else"                                   >> Makefile
-  echo "  TOP_DIR_2 := \$(TOP_DIR)/../ft2demos" >> Makefile
-  echo "  PROJECT   := freetype"                >> Makefile
-  echo "  CONFIG_MK := \$(OBJ_DIR)/config.mk"   >> Makefile
-  echo "  include \$(TOP_DIR_2)/Makefile"       >> Makefile
-  echo "endif"                                  >> Makefile
+  echo "TOP_DIR        := $abs_ft2_dir"           > Makefile
+  echo "OBJ_DIR        := $abs_curr_dir"         >> Makefile
+  echo "OBJ_BUILD      := \$(OBJ_DIR)"           >> Makefile
+  echo "DOC_DIR        := \$(OBJ_DIR)/reference" >> Makefile
+  echo "FT_LIBTOOL_DIR := \$(OBJ_DIR)"           >> Makefile
+  echo "ifndef FT2DEMOS"                         >> Makefile
+  echo "  include \$(TOP_DIR)/Makefile"          >> Makefile
+  echo "else"                                    >> Makefile
+  echo "  TOP_DIR_2 := \$(TOP_DIR)/../ft2demos"  >> Makefile
+  echo "  PROJECT   := freetype"                 >> Makefile
+  echo "  CONFIG_MK := \$(OBJ_DIR)/config.mk"    >> Makefile
+  echo "  include \$(TOP_DIR_2)/Makefile"        >> Makefile
+  echo "endif"                                   >> Makefile
 fi
 
 # call make

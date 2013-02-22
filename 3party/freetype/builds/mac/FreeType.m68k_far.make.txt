@@ -16,6 +16,7 @@ Includes        =  \xB6
 Sym-68K         = -sym off
 
 COptions        = \xB6
+			-d FT_MACINTOSH=1 \xB6
 			-d HAVE_FSSPEC=1 \xB6
 			-d HAVE_FSREF=0 \xB6
 			-d HAVE_QUICKDRAW_TOOLBOX=1 \xB6

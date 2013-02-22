@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>FreeType-2.4.8 API Reference</title>
+<title>FreeType-2.4.11 API Reference</title>
 <style type="text/css">
   body { font-family: Verdana, Geneva, Arial, Helvetica, serif;
          color: #000000;
@@ -35,7 +35,7 @@
 <table align=center><tr><td><font size=-1>[<a href="ft2-index.html">Index</a>]</font></td>
 <td width="100%"></td>
 <td><font size=-1>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
-<center><h1>FreeType-2.4.8 API Reference</h1></center>
+<center><h1>FreeType-2.4.11 API Reference</h1></center>
 
 <center><h1>
 TrueType Tables
@@ -1000,6 +1000,14 @@ Defined in FT_TRUETYPE_TABLES_H (freetype/tttables.h).
 <table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>note</b></em></td></tr><tr><td>
 <p>The table is owned by the face object and disappears with it.</p>
 <p>This function is only useful to access SFNT tables that are loaded by the sfnt, truetype, and opentype drivers. See <a href="ft2-truetype_tables.html#FT_Sfnt_Tag">FT_Sfnt_Tag</a> for a list.</p>
+<p>Here an example how to access the &lsquo;vhea&rsquo; table:</p>
+<pre class="colored">
+  TT_VertHeader*  vert_header;                                     
+                                                                   
+                                                                   
+  vert_header =                                                    
+    (TT_VertHeader*)FT_Get_Sfnt_Table( face, ft_sfnt_vhea );       
+</pre>
 </td></tr></table>
 </td></tr></table>
 <hr width="75%">
@@ -1130,7 +1138,7 @@ Defined in FT_TRUETYPE_TABLES_H (freetype/tttables.h).
 <p>FreeType error code. 0&nbsp;means success.</p>
 </td></tr></table>
 <table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>note</b></em></td></tr><tr><td>
-<p>SFNT tables with length zero are treated as missing.</p>
+<p>While parsing fonts, FreeType handles SFNT tables with length zero as missing.</p>
 </td></tr></table>
 </td></tr></table>
 <hr width="75%">
@@ -1162,6 +1170,7 @@ Defined in FT_TRUETYPE_TABLES_H (freetype/tttables.h).
 </td></tr></table>
 <table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>return</b></em></td></tr><tr><td>
 <p>The language ID of &lsquo;charmap&rsquo;. If &lsquo;charmap&rsquo; doesn't belong to a TrueType/sfnt face, just return&nbsp;0 as the default value.</p>
+<p>For a format&nbsp;14 cmap (to access Unicode IVS), the return value is 0xFFFFFFFF.</p>
 </td></tr></table>
 </td></tr></table>
 <hr width="75%">

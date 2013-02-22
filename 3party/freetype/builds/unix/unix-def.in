@@ -15,7 +15,7 @@
 
 TOP_DIR := $(shell cd $(TOP_DIR); pwd)
 
-DELETE    := @RMF@
+DELETE    := rm -f
 DELDIR    := @RMDIR@
 CAT       := cat
 SEP       := /
