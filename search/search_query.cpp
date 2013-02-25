@@ -910,13 +910,22 @@ template <class ToDo> void Query::Params::ForEachToken(ToDo toDo)
   }
 }
 
+string DebugPrint(Query::Params const & p)
+{
+  return ("Query::Params: Tokens = " + DebugPrint(p.m_tokens) +
+          "; Prefixes = " + DebugPrint(p.m_prefixTokens));
+}
+
 namespace
 {
   bool IsNumber(strings::UniString const & s)
   {
     for (size_t i = 0; i < s.size(); ++i)
-      if (!isdigit(s[i]))
+    {
+      // android production ndk-r8d has bug. "еда" detected as a number.
+      if (s[i] > 127 || !isdigit(s[i]))
         return false;
+    }
     return true;
   }
 
