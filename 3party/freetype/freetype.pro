@@ -92,15 +92,5 @@ SOURCES += \
     src/truetype/ttobjs.c \
     src/truetype/ttpload.c \
     src/truetype/truetype.c \
-    #src/type1/t1afm.c \
-    #src/type1/t1driver.c \
-    #src/type1/t1gload.c \
-    #src/type1/t1load.c \
-    #src/type1/t1objs.c \
-    #src/type1/t1parse.c \
-    #src/type42/t42drivr.c \
-    #src/type42/t42objs.c \
-    #src/type42/t42parse.c \
-    #src/winfonts/winfnt.c \
     src/cache/ftstrokedcache.c
 
