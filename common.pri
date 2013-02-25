@@ -4,7 +4,7 @@
 
 # our own version variables
 VERSION_MAJOR = 2
-VERSION_MINOR = 0
+VERSION_MINOR = 3
 
 # qt's variable
 VERSION = $${VERSION_MAJOR}.$${VERSION_MINOR}
@@ -125,6 +125,10 @@ unix|win32-g++ {
   QMAKE_CXXFLAGS_RELEASE += -O3
   QMAKE_CFLAGS_RELEASE *= -ffast-math
   QMAKE_CXXFLAGS_RELEASE *= -ffast-math
+
+  QMAKE_CFLAGS_RELEASE = -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security
+  QMAKE_CXXFLAGS_RELEASE = -D_FORTIFY_SOURCE=2 -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security
+  QMAKE_LFLAGS = -Wl,-z,relro
 }
 
 linux-g++* {
