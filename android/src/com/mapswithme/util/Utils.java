@@ -6,6 +6,7 @@ import java.io.IOException;
 import android.app.Activity;
 import android.util.Log;
 import android.view.Window;
+import android.widget.EditText;
 
 public class Utils
 {
@@ -51,18 +52,16 @@ public class Utils
     return value.getDimension(metrics);
   }
 
-
   public static String toTitleCase(String str)
   {
     if (str == null)
-    {
-        return null;
-    }
+      return null;
+
     boolean space = true;
     StringBuilder builder = new StringBuilder(str);
-    final int len = builder.length();
 
-    for (int i=0; i < len; ++i)
+    final int len = builder.length();
+    for (int i = 0; i < len; ++i)
     {
       char c = builder.charAt(i);
       if (space)
@@ -87,4 +86,9 @@ public class Utils
     return builder.toString();
   }
 
+  public static void setStringAndCursorToEnd(EditText edit, String s)
+  {
+    edit.setText(s);
+    edit.setSelection(s.length());
+  }
 }

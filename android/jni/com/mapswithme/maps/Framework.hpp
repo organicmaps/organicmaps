@@ -74,6 +74,8 @@ namespace android
     BookmarkBalloon * GetBookmarkBalloon();
     BookmarkAndCategory AddBookmark(Bookmark & bm);
 
+    string m_searchQuery;
+
   public:
     Framework();
     ~Framework();
@@ -108,6 +110,8 @@ namespace android
     void ShowSearchResult(search::Result const & r);
 
     bool Search(search::SearchParams const & params);
+    string GetLastSearchQuery() { return m_searchQuery; }
+    void ClearLastSearchQuery() { m_searchQuery.clear(); }
 
     void LoadState();
     void SaveState();

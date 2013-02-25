@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.util.Utils;
 
 
 public class SearchActivity extends ListActivity implements LocationService.Listener
@@ -398,8 +399,6 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
     requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-    nativeInitSearch();
-
     m_location = ((MWMApplication) getApplication()).getLocationService();
 
     setContentView(R.layout.search_list_view);
@@ -462,17 +461,11 @@ public class SearchActivity extends ListActivity implements LocationService.List
   }
 
   @Override
-  protected void onDestroy()
-  {
-    super.onDestroy();
-
-    nativeFinishSearch();
-  }
-
-  @Override
   protected void onResume()
   {
     super.onResume();
+
+    nativeConnect();
 
     // Reset current mode flag - start first search.
     m_flags = 0;
@@ -480,18 +473,20 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
     m_location.startUpdate(this);
 
-    m_searchBox.requestFocus();
-
     // do the search immediately after resume
-    runSearch();
+    Utils.setStringAndCursorToEnd(m_searchBox, getLastQuery());
+
+    m_searchBox.requestFocus();
   }
 
   @Override
   protected void onPause()
   {
-    super.onPause();
-
     m_location.stopUpdate(this);
+
+    nativeDisconnect();
+
+    super.onPause();
   }
 
   private SearchAdapter getSA()
@@ -553,6 +548,8 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
   private void showCategories()
   {
+    clearLastQuery();
+
     m_progress.setVisibility(View.GONE);
 
     //Log.d(TAG, ("From showCategories()"));
@@ -635,11 +632,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
   private void runSearch(String s)
   {
-    // this call invokes runSearch
-    m_searchBox.setText(s);
-
-    // put cursor to the end of string
-    m_searchBox.setSelection(s.length());
+    Utils.setStringAndCursorToEnd(m_searchBox, s);
   }
 
   /// @name These constants should be equal with search_params.hpp
@@ -701,8 +694,8 @@ public class SearchActivity extends ListActivity implements LocationService.List
     return nativeGetResult(position, queryID, m_lat, m_lon, (m_flags & HAS_POSITION) != 0, m_north);
   }
 
-  private native void nativeInitSearch();
-  private native void nativeFinishSearch();
+  private native void nativeConnect();
+  private native void nativeDisconnect();
 
   private static native SearchAdapter.SearchResult
   nativeGetResult(int position, int queryID, double lat, double lon, boolean mode, double north);
@@ -714,4 +707,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
   private native String getCountryNameIfAbsent(double lat, double lon);
   private native String getViewportCountryNameIfAbsent();
+
+  private native String getLastQuery();
+  private native void clearLastQuery();
 }

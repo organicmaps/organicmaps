@@ -430,14 +430,17 @@ namespace android
   void Framework::ShowSearchResult(search::Result const & r)
   {
     m_doLoadState = false;
+
     ::Framework::AddressInfo info;
     info.MakeFrom(r);
     ActivatePopupWithAddressInfo(r.GetFeatureCenter(), info);
+
     m_work.ShowSearchResult(r);
   }
 
   bool Framework::Search(search::SearchParams const & params)
   {
+    m_searchQuery = params.m_query;
     return m_work.Search(params);
   }
 

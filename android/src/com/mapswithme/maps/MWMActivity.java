@@ -712,12 +712,13 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onResume()
   {
+    super.onResume();
+
     checkShouldResumeLocationService();
 
     startWatchingCompassStatusUpdate();
 
     startWatchingExternalStorage();
-    super.onResume();
   }
 
   @Override

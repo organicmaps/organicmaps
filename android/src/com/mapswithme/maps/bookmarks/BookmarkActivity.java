@@ -21,6 +21,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
+import com.mapswithme.util.Utils;
 
 public class BookmarkActivity extends AbstractBookmarkActivity
 {
@@ -72,10 +73,11 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   private void refreshValuesInViews()
   {
     updateColorChooser(mIcons.indexOf(mPin.getIcon()));
+
     mSetName.setText(mPin.getCategoryName());
-    // This hack move cursor to the end of bookmark name
-    mName.setText("");
-    mName.append(mPin.getName());
+
+    Utils.setStringAndCursorToEnd(mName, mPin.getName());
+
     mDescr.setText(mPin.getBookmarkDescription());
   }
 

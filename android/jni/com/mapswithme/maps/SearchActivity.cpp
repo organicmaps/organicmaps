@@ -36,13 +36,13 @@ class SearchAdapter
       return;
     }
 
-    if (s_pInstance == 0)
+    threads::MutexGuard guard(m_updateMutex);
+
+    if (m_activity == 0)
     {
       // In case when activity is destroyed, but search thread passed any results.
       return;
     }
-
-    threads::MutexGuard guard(m_updateMutex);
 
     // store current results
     m_storeResults = res;
@@ -82,9 +82,7 @@ class SearchAdapter
 
       if (resultID != m_ID)
       {
-        // It happens only when better results came faster than GUI.
-        // It is a rare case, skip this query.
-        ASSERT_GREATER ( m_ID, resultID, () );
+        // It happens when search engine is reconnected.
         return false;
       }
     }
@@ -97,15 +95,31 @@ class SearchAdapter
     return (position < static_cast<int>(m_results.GetCount()));
   }
 
-  SearchAdapter(JNIEnv * env, jobject activity)
-    : m_ID(0), m_storeID(0)
+  SearchAdapter()
+    : m_ID(0), m_storeID(0), m_activity(0)
   {
-    m_activity = env->NewGlobalRef(activity);
   }
 
-  void Delete(JNIEnv * env)
+  void Connect(JNIEnv * env, jobject activity)
   {
-    env->DeleteGlobalRef(m_activity);
+    threads::MutexGuard guard(m_updateMutex);
+
+    if (m_activity != 0)
+      env->DeleteGlobalRef(m_activity);
+    m_activity = env->NewGlobalRef(activity);
+
+    m_storeID = m_ID = 0;
+  }
+
+  void Disconnect(JNIEnv * env)
+  {
+    if (m_activity != 0)
+    {
+      threads::MutexGuard guard(m_updateMutex);
+
+      env->DeleteGlobalRef(m_activity);
+      m_activity = 0;
+    }
   }
 
   static SearchAdapter * s_pInstance;
@@ -113,24 +127,18 @@ class SearchAdapter
 public:
   /// @name Instance lifetime functions.
   //@{
-  static void CreateInstance(JNIEnv * env, jobject activity)
+  static void ConnectInstance(JNIEnv * env, jobject activity)
   {
-    ASSERT ( s_pInstance == 0, () );
-    if (s_pInstance)
-      delete s_pInstance;
+    if (s_pInstance == 0)
+      s_pInstance = new SearchAdapter();
 
-    s_pInstance = new SearchAdapter(env, activity);
+    s_pInstance->Connect(env, activity);
   }
 
-  static void DestroyInstance(JNIEnv * env)
+  static void DisconnectInstance(JNIEnv * env)
   {
-    ASSERT ( s_pInstance, () );
     if (s_pInstance)
-    {
-      s_pInstance->Delete(env);
-      delete s_pInstance;
-      s_pInstance = 0;
-    }
+      s_pInstance->Disconnect(env);
   }
 
   static SearchAdapter & Instance()
@@ -167,15 +175,15 @@ extern "C"
 {
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_SearchActivity_nativeInitSearch(JNIEnv * env, jobject thiz)
+Java_com_mapswithme_maps_SearchActivity_nativeConnect(JNIEnv * env, jobject thiz)
 {
-  SearchAdapter::CreateInstance(env, thiz);
+  SearchAdapter::ConnectInstance(env, thiz);
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_SearchActivity_nativeFinishSearch(JNIEnv * env, jobject thiz)
+Java_com_mapswithme_maps_SearchActivity_nativeDisconnect(JNIEnv * env, jobject thiz)
 {
-  SearchAdapter::DestroyInstance(env);
+  SearchAdapter::DisconnectInstance(env);
 }
 
 JNIEXPORT jboolean JNICALL
@@ -266,6 +274,18 @@ Java_com_mapswithme_maps_SearchActivity_getViewportCountryNameIfAbsent(JNIEnv * 
 {
   string const name = g_framework->GetCountryNameIfAbsent(g_framework->GetViewportCenter());
   return (name.empty() ? 0 : jni::ToJavaString(env, name));
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_SearchActivity_getLastQuery(JNIEnv * env, jobject thiz)
+{
+  return jni::ToJavaString(env, g_framework->GetLastSearchQuery());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_SearchActivity_clearLastQuery(JNIEnv * env, jobject thiz)
+{
+  g_framework->ClearLastSearchQuery();
 }
 
 }
