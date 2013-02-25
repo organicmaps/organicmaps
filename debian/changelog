@@ -1,0 +1,11 @@
+mapswithme (2.3~alpha2) unstable; urgency=low
+
+  * Repackaged as /opt
+
+ -- Darafei A. Praliaskouski <komzpa@mapswith.me>  Fri, 25 Feb 2013 15:48:41 +0300
+
+mapswithme (2.3~alpha1) unstable; urgency=low
+
+  * Initial public release
+
+ -- Darafei A. Praliaskouski <komzpa@mapswith.me>  Fri, 22 Feb 2013 19:30:41 +0300
