@@ -34,10 +34,17 @@
 
   #define OMIM_GL_ES
 
+#elif defined(OMIM_OS_MAEMO)
+  #define USE_OPENGLES20_IF_AVAILABLE 1
+  #include <GLES2/gl2.h>
+  #include <GLES2/gl2ext.h>
+  #define OMIM_GL_ES
+
 #else
   #define GL_GLEXT_PROTOTYPES
   #include <GL/gl.h>
   #include <GL/glext.h>
+
 #endif
 
 
