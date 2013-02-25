@@ -152,7 +152,7 @@ win32* {
   SOURCES += opengl/opengl_es2.cpp
 } else {
   HEADERS +=
-  if CONFIG(OMIM_OS_MAEMO) {
+  CONFIG(OMIM_OS_MAEMO) {
     SOURCES += opengl/opengl_es2.cpp
   } else {
     SOURCES += opengl/opengl_ext.cpp

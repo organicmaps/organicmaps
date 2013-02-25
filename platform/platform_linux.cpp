@@ -1,11 +1,10 @@
 #include "platform.hpp"
 
 #include "../base/logging.hpp"
+#include "../coding/file_reader.hpp"
 
 #include <stdlib.h>
 #include <unistd.h>
-#include "../std/fstream.hpp"
-
 
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -30,8 +29,8 @@ Platform::Platform()
   string path;
   CHECK(GetBinaryFolder(path), ("Can't retrieve path to executable"));
 
-  string home;
-  home = ::getenv("HOME");
+  char const * homePath = ::getenv("HOME");
+  string const home(homePath ? homePath : "");
 
   m_settingsDir = home + "/.config/MapsWithMe/";
 
@@ -46,37 +45,38 @@ Platform::Platform()
   mkdir((home + "/.local/share/").c_str(), 0755);
   mkdir(m_writableDir.c_str(), 0755);
 
-  char * resDir = ::getenv("MWM_RESOURCES_DIR");
+  char const * resDir = ::getenv("MWM_RESOURCES_DIR");
   if (resDir)
     m_resourcesDir = resDir;
   else
   {
-    // installed version
-    if (IsFileExistsByFullPath("/usr/share/MapsWithMe/eula.html"))
-      m_resourcesDir = "/usr/share/MapsWithMe";
     // developer builds with symlink
     if (IsFileExistsByFullPath(path + "../../data/eula.html")){
       m_resourcesDir = path + "../../data";
       m_writableDir = m_resourcesDir;
     }
     // developer builds without symlink
-    if (IsFileExistsByFullPath(path + "../../../omim/data/eula.html"))
+    else if (IsFileExistsByFullPath(path + "../../../omim/data/eula.html"))
     {
       m_resourcesDir = path + "../../../omim/data";
       m_writableDir = m_resourcesDir;
     }
-    // portable installations
+    // installed version - /opt/MapsWithMe
+    else if (IsFileExistsByFullPath("/opt/MapsWithMe/share/eula.html"))
+      m_resourcesDir = "/opt/MapsWithMe/share";
+    // installed version
+    else if (IsFileExistsByFullPath("/usr/share/MapsWithMe/eula.html"))
+      m_resourcesDir = "/usr/share/MapsWithMe";
+    // all-nearby installs
     else if (IsFileExistsByFullPath(path + "/eula.html"))
     {
       m_resourcesDir = path;
-      m_writableDir = m_resourcesDir;
-      m_settingsDir = m_resourcesDir;
     }
   }
   m_resourcesDir += '/';
   m_settingsDir += '/';
 
-  char * tmpDir = ::getenv("TMPDIR");
+  char const * tmpDir = ::getenv("TMPDIR");
   if (tmpDir)
     m_tmpDir = tmpDir;
   else
@@ -87,7 +87,7 @@ Platform::Platform()
   LOG(LDEBUG, ("Writable directory:", m_writableDir));
   LOG(LDEBUG, ("Tmp directory:", m_tmpDir));
   LOG(LDEBUG, ("Settings directory:", m_settingsDir));
-  LOG(LDEBUG,  ("Client ID:", UniqueClientId()));
+  LOG(LDEBUG, ("Client ID:", UniqueClientId()));
 }
 
 int Platform::CpuCores() const
@@ -100,13 +100,12 @@ int Platform::CpuCores() const
 
 string Platform::UniqueClientId() const
 {  
-  string machinefile = "/var/lib/dbus/machine-id";
+  string machineFile = "/var/lib/dbus/machine-id";
   if (IsFileExistsByFullPath("/etc/machine-id"))
-    machinefile = "/etc/machine-id";
+    machineFile = "/etc/machine-id";
 
-  std::ifstream ifs(machinefile.c_str());
-  string content( (std::istreambuf_iterator<char>(ifs) ),
-                  (std::istreambuf_iterator<char>()    ) );
+  string content;
+  FileReader(machineFile).ReadAsString(content);
 
   return content.substr(0,32);
 }

@@ -3,6 +3,7 @@ ROOT_DIR = ..
 DEPENDENCIES = map gui search storage indexer graphics platform anim geometry coding base \
                bzip2 freetype expat fribidi tomcrypt jansson protobuf zlib
 
+
 include($$ROOT_DIR/common.pri)
 
 TARGET = MapsWithMe
@@ -23,23 +24,23 @@ win32*|linux* {
 
 linux* {
   DEFINES += NO_DOWNLOADER
-  isEmpty(PREFIX):PREFIX = /usr
+
+  isEmpty(PREFIX):PREFIX = /opt/MapsWithMe
+  DEFINES += INSTALL_PREFIX=$$(PREFIX)
   BINDIR = $$PREFIX/bin
+
   DATADIR = $$PREFIX/share
-  RESDIR =  $$DATADIR/$${TARGET}
+  RESDIR =  $$DATADIR
 
   target.path = $$BINDIR
-  desktop.path = $$DATADIR/applications/
+  desktop.path = /usr/share/applications/
   desktop.files += res/$${TARGET}.desktop
-  pixmaps.path = $$DATADIR/pixmaps/
-  pixmaps.files += res/icons/128/$${TARGET}.png
-  icon128.path = $$DATADIR/icons/hicolor/128x128/apps/
-  icon128.files += res/icons/128/$${TARGET}.png
+
   OTHER_RES.path = $$RESDIR
   OTHER_RES.files = ../data/about.html ../data/eula.html ../data/welcome.html \
                     ../data/countries.txt  \
                     ../data/languages.txt ../data/categories.txt \
-                    ../data/packed_polygons.bin
+                    ../data/packed_polygons.bin res/logo.png
   CLASSIFICATOR_RES.path = $$RESDIR
   CLASSIFICATOR_RES.files = ../data/classificator.txt \
                             ../data/types.txt
