@@ -66,8 +66,6 @@ void Framework::AddMap(string const & file)
 
   //threads::MutexGuard lock(m_modelSyn);
   int const version = m_model.AddMap(file);
-  if (m_lowestMapVersion > version)
-    m_lowestMapVersion = version;
 
   // Now we do force delete of old (April 2011) maps.
   if (version == feature::DataHeader::v1)
@@ -75,6 +73,11 @@ void Framework::AddMap(string const & file)
     LOG(LINFO, ("Deleting old map:", file));
     RemoveMap(file);
     VERIFY ( my::DeleteFileX(GetPlatform().WritablePathForFile(file)), () );
+  }
+  else
+  {
+    if (m_lowestMapVersion > version)
+      m_lowestMapVersion = version;
   }
 }
 

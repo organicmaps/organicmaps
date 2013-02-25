@@ -13,7 +13,6 @@
 
 #include "../geometry/distance_on_sphere.hpp"
 
-#include "../base/logging.hpp"
 #include "../base/stl_add.hpp"
 
 #include "../std/map.hpp"
