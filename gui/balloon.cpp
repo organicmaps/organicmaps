@@ -1,4 +1,4 @@
-﻿#include "balloon.hpp"
+#include "balloon.hpp"
 #include "controller.hpp"
 
 #include "../geometry/transformations.hpp"
