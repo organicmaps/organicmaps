@@ -94,7 +94,6 @@ world  +
         path  -
         pedestrian  -
         primary  -
-        residental  -
         residential  -
         secondary  -
         service  -
@@ -158,11 +157,8 @@ world  +
     entrance  -
     highway  +
         bridleway  +
-            area  -
             bridge  -
-            cutting  -
             destination  -
-            embankment  -
             no-access  -
             permissive  -
             private  -
@@ -170,10 +166,8 @@ world  +
             {}
         bus_stop  -
         byway  +
-            area  -
             bridge  -
             destination  -
-            no-access  -
             permissive  -
             private  -
             tunnel  -
@@ -185,9 +179,7 @@ world  +
             zebra  -
             {}
         cycleway  +
-            area  -
             bridge  -
-            cutting  -
             destination  -
             permissive  -
             private  -
@@ -197,12 +189,10 @@ world  +
             alpine_hiking  -
             area  -
             bridge  -
-            cutting  -
             demanding_alpine_hiking  -
             demanding_mountain_hiking  -
             destination  -
             difficult_alpine_hiking  -
-            embankment  -
             hiking  -
             mountain_hiking  -
             no-access  -
@@ -212,44 +202,30 @@ world  +
             {}
         ford  -
         living_street  +
-            area  -
             bridge  -
             tunnel  -
             {}
         motorway  +
-            area  -
             bridge  -
-            cutting  -
-            embankment  -
-            oneway  -
             tunnel  -
             {}
         motorway_junction  -
         motorway_link  +
-            area  -
             bridge  -
-            oneway  -
             tunnel  -
             {}
         path  +
             alpine_hiking  -
-            area  -
-            area-bicycle  -
-            area-horse  -
             bicycle  -
             bicycle-bridge  -
             bicycle-tunnel  -
             bridge  -
-            bridge-horse  -
-            cutting  -
             demanding_alpine_hiking  -
             demanding_mountain_hiking  -
             destination  -
             difficult_alpine_hiking  -
-            embankment  -
             hiking  -
             horse  -
-            horse-tunnel  -
             mountain_hiking  -
             no-access  -
             permissive  -
@@ -262,115 +238,83 @@ world  +
             tunnel  -
             {}
         primary  +
-            area  -
             bridge  -
-            oneway  -
             tunnel  -
             {}
         primary_link  +
-            area  -
             bridge  -
-            oneway  -
             tunnel  -
             {}
         raceway  -
         residential  +
             area  -
             bridge  -
-            oneway  -
             private  -
             tunnel  -
             {}
         road  +
-            area  -
             bridge  -
-            oneway  -
             tunnel  -
             {}
         secondary  +
-            area  -
             bridge  -
-            oneway  -
             tunnel  -
             {}
         secondary_link  +
-            area  -
             bridge  -
-            motorroad  -
-            oneway  -
             tunnel  -
             {}
         service  +
             area  -
             bridge  -
-            cutting  -
             driveway  +
                 area  -
                 bridge  -
                 tunnel  -
                 {}
-            embankment  -
-            oneway  -
             parking_aisle  +
-                area  -
                 bridge  -
                 tunnel  -
                 {}
             tunnel  -
             {}
         steps  +
-            area  -
             bridge  -
-            cutting  -
             tunnel  -
             {}
         tertiary  +
-            area  -
             bridge  -
-            oneway  -
             tunnel  -
             {}
         tertiary_link  +
-            area  -
             bridge  -
-            oneway  -
             tunnel  -
             {}
         track  +
             area  -
             bridge  -
-            cutting  -
             destination  -
-            embankment  -
-            grade1  +
-                area  -
-                {}
-            grade2  +
-                area  -
-                {}
+            grade1  -
+            grade2  -
             grade3  +
-                area  -
                 destination  -
                 no-access  -
                 permissive  -
                 private  -
                 {}
             grade4  +
-                area  -
                 destination  -
                 no-access  -
                 permissive  -
                 private  -
                 {}
             grade5  +
-                area  -
                 destination  -
                 no-access  -
                 permissive  -
                 private  -
                 {}
             no-access  -
-            oneway  -
             permissive  -
             private  -
             race  -
@@ -378,23 +322,16 @@ world  +
             tunnel  -
             {}
         trunk  +
-            area  -
             bridge  -
-            cutting  -
-            embankment  -
-            oneway  -
             tunnel  -
             {}
         trunk_link  +
-            area  -
             bridge  -
-            oneway  -
             tunnel  -
             {}
         unclassified  +
             area  -
             bridge  -
-            oneway  -
             tunnel  -
             {}
         {}
@@ -461,7 +398,6 @@ world  +
         landscape_reserve  -
         nature_reserve  -
         park  +
-            destination  -
             no-access  -
             permissive  -
             private  -
@@ -485,9 +421,7 @@ world  +
         sports_centre  -
         stadium  -
         swimming_pool  -
-        track  +
-            area  -
-            {}
+        track  -
         water_park  -
         {}
     man_made  +
@@ -545,6 +479,7 @@ world  +
     noexit  +
         motor_vehicle  -
         {}
+    oneway  -
     piste:lift  +
         j-bar  -
         magic_carpet  -
@@ -605,18 +540,8 @@ world  +
             bridge  -
             tunnel  -
             {}
-        construction  +
-            bridge  -
-            tunnel  -
-            {}
         crossing  -
-        dismantled  +
-            bridge  -
-            {}
-        disused  +
-            bridge  -
-            tunnel  -
-            {}
+        disused  -
         funicular  +
             bridge  -
             tunnel  -
