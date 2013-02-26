@@ -63,6 +63,39 @@ namespace graphics
       g_isSeparateBlendFuncSupported = HasExtension("GL_EXT_blend_func_separate");
 
       glBlendFuncSeparateFn = &glBlendFuncSeparateEXT;
+
+      glActiveTextureFn = &glActiveTexture;
+      glGetAttribLocationFn = &glGetAttribLocation;
+      glGetActiveAttribFn = &glGetActiveAttrib;
+      glGetUniformLocationFn = &glGetUniformLocation;
+      glGetActiveUniformFn = &glGetActiveUniform;
+      glGetProgramInfoLogFn = &glGetProgramInfoLog;
+      glGetProgramivFn = &glGetProgramiv;
+      glLinkProgramFn = &glLinkProgram;
+      glAttachShaderFn = &glAttachShader;
+      glCreateProgramFn = &glCreateProgram;
+      glDeleteProgramFn = & glDeleteProgram;
+      glVertexAttribPointerFn = &glVertexAttribPointer;
+      glEnableVertexAttribArrayFn = &glEnableVertexAttribArray;
+      glUniformMatrix4fvFn = &glUniformMatrix4fv;
+      glUniformMatrix3fvFn = &glUniformMatrix3fv;
+      glUniformMatrix2fvFn = &glUniformMatrix2fv;
+      glUniform4iFn = &glUniform4i;
+      glUniform3iFn = &glUniform3i;
+      glUniform2iFn = &glUniform2i;
+      glUniform1iFn = &glUniform1i;
+      glUniform4fFn = &glUniform4f;
+      glUniform3fFn = &glUniform3f;
+      glUniform2fFn = &glUniform2f;
+      glUniform1fFn = &glUniform1f;
+      glUseProgramFn = &glUseProgram;
+      glGetShaderInfoLogFn = &glGetShaderInfoLog;
+      glGetShaderivFn = &glGetShaderiv;
+      glCompileShaderFn = &glCompileShader;
+      typedef void (OPENGL_CALLING_CONVENTION * glShaderSourceFn_t)(GLuint shader, GLsizei count, const GLchar ** string, const GLint *length);
+      glShaderSourceFn = reinterpret_cast<glShaderSourceFn_t>(&glShaderSource);
+      glCreateShaderFn = &glCreateShader;
+      glDeleteShaderFn = &glDeleteShader;
     }
   }
 }
