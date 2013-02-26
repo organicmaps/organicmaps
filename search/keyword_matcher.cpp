@@ -47,7 +47,7 @@ KeywordMatcher::ScoreT KeywordMatcher::Score(StringT const * tokens, size_t coun
   vector<bool> isNameTokenMatched(count);
   uint32_t numQueryTokensMatched = 0;
   uint32_t sumTokenMatchDistance = 0;
-  uint32_t prevTokenMatchDistance = 0;
+  int32_t prevTokenMatchDistance = 0;
   bool bPrefixMatched = true;
 
   for (int i = 0; i < m_keywords.size(); ++i)
@@ -55,7 +55,7 @@ KeywordMatcher::ScoreT KeywordMatcher::Score(StringT const * tokens, size_t coun
       if (!isNameTokenMatched[j] && m_keywords[i] == tokens[j])
       {
         isQueryTokenMatched[i] = isNameTokenMatched[j] = true;
-        uint32_t const tokenMatchDistance = i - j;
+        int32_t const tokenMatchDistance = i - j;
         sumTokenMatchDistance += abs(tokenMatchDistance - prevTokenMatchDistance);
         prevTokenMatchDistance = tokenMatchDistance;
       }
@@ -68,7 +68,7 @@ KeywordMatcher::ScoreT KeywordMatcher::Score(StringT const * tokens, size_t coun
           StartsWith(tokens[j].begin(), tokens[j].end(), m_prefix.begin(), m_prefix.end()))
       {
         isNameTokenMatched[j] = bPrefixMatched = true;
-        uint32_t const tokenMatchDistance = int(m_keywords.size()) - j;
+        int32_t const tokenMatchDistance = int(m_keywords.size()) - j;
         sumTokenMatchDistance += abs(tokenMatchDistance - prevTokenMatchDistance);
       }
   }

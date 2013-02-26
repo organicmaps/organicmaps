@@ -13,7 +13,7 @@ VERSION_HEADER = ../../omim/version/version.hpp
 
 versiontarget.target = $$VERSION_HEADER
 win32 {
-  versiontarget.commands = C:\\Progra~1\\Git\\bin\\bash.exe $${IN_PWD}/../tools/unix/generate_version.sh $${IN_PWD}/.. $$VERSION_MAJOR $$VERSION_MINOR $$VERSION_HEADER
+  versiontarget.commands = bash.exe $${IN_PWD}/../tools/unix/generate_version.sh $${IN_PWD}/.. $$VERSION_MAJOR $$VERSION_MINOR $$VERSION_HEADER
 }
 !win32 {
   versiontarget.commands = $${IN_PWD}/../tools/unix/generate_version.sh $${IN_PWD}/.. $$VERSION_MAJOR $$VERSION_MINOR $$VERSION_HEADER

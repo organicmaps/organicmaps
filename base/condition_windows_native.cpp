@@ -168,7 +168,6 @@ namespace threads
       void Wait()
       {
         Wait(-1);
-        return false;
       }
 
       bool Wait(unsigned ms)
