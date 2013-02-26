@@ -5,7 +5,7 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 ROOT_DIR = ..
-DEPENDENCIES = graphics geometry coding base expat
+DEPENDENCIES = graphics geometry coding base expat zlib
 
 include($$ROOT_DIR/common.pri)
 
