@@ -55,7 +55,7 @@ void BlobIndexer::FlushChunk()
   if (!m_currentChunk.empty())
   {
     string compressedChunk;
-    m_compressor(m_currentChunk.data(), m_currentChunk.size(), compressedChunk);
+    m_compressor(&m_currentChunk[0], m_currentChunk.size(), compressedChunk);
     m_writer.Write(compressedChunk.data(), compressedChunk.size());
     WriteToSink(m_writer, static_cast<uint32_t>(m_currentChunk.size()));
     uint32_t const chunkPrevOffset = (m_chunkOffset.empty() ? 0 : m_chunkOffset.back());
