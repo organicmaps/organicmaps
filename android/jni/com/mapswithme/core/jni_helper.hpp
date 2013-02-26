@@ -5,7 +5,7 @@
 #include "../../../../../std/string.hpp"
 #include "../../../../../std/shared_ptr.hpp"
 #include "../../../../../geometry/point2d.hpp"
-#include "../../../../../map/Framework.hpp"
+#include "../../../../../map/framework.hpp"
 
 namespace jni
 {
