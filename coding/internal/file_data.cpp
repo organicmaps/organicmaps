@@ -232,7 +232,7 @@ bool RenameFileX(string const & fOld, string const & fNew)
   return CheckRemoveResult(res, fOld);
 }
 
-bool CopyFile(string const & fOld, string const & fNew)
+bool CopyFileX(string const & fOld, string const & fNew)
 {
   try
   {

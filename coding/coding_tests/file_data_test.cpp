@@ -95,7 +95,7 @@ UNIT_TEST(FileData_SharingAV_Windows)
 
     // try rename or copy to locked file
     TEST(!my::RenameFileX(name2, name1), ());
-    TEST(!my::CopyFile(name2, name1), ());
+    TEST(!my::CopyFileX(name2, name1), ());
 
     // files should be unchanged
     CheckFileOK(name1);

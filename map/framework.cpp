@@ -618,7 +618,7 @@ bool Framework::AddBookmarksFile(string const & filePath)
   if (fileExt == KML_EXTENSION)
   {
     fileSavePath = GenerateValidandUniqFilePathForKLM( GetFileName(filePath) );
-    if (!my::CopyFile(filePath, fileSavePath))
+    if (!my::CopyFileX(filePath, fileSavePath))
       return false;
   }
   else if (fileExt == KMZ_EXTENSION)
