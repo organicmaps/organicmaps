@@ -12,9 +12,7 @@ namespace
 {
   bool NeedProcessParent(ClassifObject const * p)
   {
-    string const & n = p->GetName();
-    // same as is_mark_key (@see osm2type.cpp)
-    return (n == "bridge" || n == "junction" || n == "oneway" || n == "fee");
+    return false;
   }
 }
 
@@ -38,7 +36,6 @@ Classificator::ProcessObjects(uint32_t type, ToDo & toDo) const
     path[i++] = p;
     toDo(p);
   }
-
   if (path.empty())
     return res;
   else

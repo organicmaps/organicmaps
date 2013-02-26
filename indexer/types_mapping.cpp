@@ -33,11 +33,7 @@ void IndexAndTypeMapping::Add(uint32_t ind, uint32_t type)
   ASSERT_EQUAL ( ind, m_types.size(), () );
   m_types.push_back(type);
 
-  if (!m_map.insert(make_pair(type, ind)).second)
-  {
-    string const name = classif().GetFullObjectName(type);
-    CHECK_EQUAL(name, "mapswithme|", ());
-  }
+  m_map.insert(make_pair(type, ind));
 }
 
 uint32_t IndexAndTypeMapping::GetIndex(uint32_t t) const
