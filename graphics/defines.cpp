@@ -1,4 +1,5 @@
 #include "defines.hpp"
+#include "../coding/file_name_utils.hpp"
 #include "../base/macros.hpp"
 #include "../base/logging.hpp"
 #include "../std/string.hpp"
@@ -34,7 +35,7 @@ namespace graphics
 
   string const resourcePath(string const & name, EDensity d)
   {
-    return string("resources-") + convert(d) + "/" + name;
+      return my::JoinFoldersToPath(string("resources-") + convert(d), name);
   }
 
   double visualScale(EDensity density)
