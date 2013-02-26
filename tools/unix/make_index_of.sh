@@ -37,17 +37,15 @@ MY_PATH=`dirname $0`
 # find generator_tool
 # check if user specified build suffix parameter
 if [ $# -ge 3 ]; then
-  IT_ARR_SIZE=4
-  IT_PATHS_ARRAY=(  "$MY_PATH/../../../omim-build-$3/out/release/generator_tool" \
-                    "$MY_PATH/../../../$3/out/release/generator_tool" \
-                    "$MY_PATH/../../../omim-build-$3/out/debug/generator_tool" \
-                    "$MY_PATH/../../../$3/out/debug/generator_tool" )
+  IT_PATHS_ARRAY=(  "$MY_PATH/../../../omim-build-$3/out/$3/generator_tool" \
+                    "$MY_PATH/../../../$3/out/$3/generator_tool" \
+                    "$MY_PATH/../../../omim-$3/out/$3/generator_tool" \
+                    "stub-for-cycle" )
 else
-  IT_ARR_SIZE=2
   IT_PATHS_ARRAY=(  "$MY_PATH/../../../omim-build-release/out/release/generator_tool" \
+                    "$MY_PATH/../../../omim-release/out/release/generator_tool"
                     "$MY_PATH/../../../omim-build-debug/out/debug/generator_tool" \
-                    "stub-for-for-cycle" \
-                    "stub-for-for-cycle" )
+                    "$MY_PATH/../../../omim-debug/out/debug/generator_tool" )
 fi
 for i in {0..3}; do
   if [ -x ${IT_PATHS_ARRAY[i]} ]; then
