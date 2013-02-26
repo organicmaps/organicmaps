@@ -15,7 +15,7 @@ namespace graphics
       GLenum glType;
       convert(type, glType);
 
-      m_handle = glCreateShader(glType);
+      m_handle = glCreateShaderFn(glType);
       OGLCHECKAFTER;
 
       if (!m_handle)
@@ -23,24 +23,24 @@ namespace graphics
 
       int len = strlen(src);
 
-      OGLCHECK(glShaderSource(m_handle, 1, &src, &len));
+      OGLCHECK(glShaderSourceFn(m_handle, 1, &src, &len));
 
-      OGLCHECK(glCompileShader(m_handle));
+      OGLCHECK(glCompileShaderFn(m_handle));
 
       GLint compileRes;
-      OGLCHECK(glGetShaderiv(m_handle, GL_COMPILE_STATUS, &compileRes));
+      OGLCHECK(glGetShaderivFn(m_handle, GL_COMPILE_STATUS, &compileRes));
 
       if (compileRes == GL_FALSE)
       {
         GLchar msg[256];
-        OGLCHECK(glGetShaderInfoLog(m_handle, sizeof(msg), 0, msg));
+        OGLCHECK(glGetShaderInfoLogFn(m_handle, sizeof(msg), 0, msg));
         throw CompileException("Couldn't compile shader: ", msg);
       }
     }
 
     Shader::~Shader()
     {
-      OGLCHECK(glDeleteShader(m_handle));
+      OGLCHECK(glDeleteShaderFn(m_handle));
     }
 
     GLuint Shader::id() const

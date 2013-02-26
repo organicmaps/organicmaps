@@ -388,7 +388,7 @@ namespace graphics
       // Disable dither to fix 4-bit textures "grid" issue on Nvidia Tegra cards
       OGLCHECK(glDisable(GL_DITHER));
 
-      OGLCHECK(glActiveTexture(GL_TEXTURE0));
+      OGLCHECK(glActiveTextureFn(GL_TEXTURE0));
 
       OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
       OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
@@ -458,7 +458,7 @@ namespace graphics
       // Disable dither to fix 4-bit textures "grid" issue on Nvidia Tegra cards
       OGLCHECK(glDisable(GL_DITHER));
 
-      OGLCHECK(glActiveTexture(GL_TEXTURE0));
+      OGLCHECK(glActiveTextureFn(GL_TEXTURE0));
 
       OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
       OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));

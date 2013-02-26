@@ -14,29 +14,29 @@ namespace graphics
     Program::Program(shared_ptr<Shader> const & vxShader,
                      shared_ptr<Shader> const & frgShader)
     {
-      m_handle = glCreateProgram();
+      m_handle = glCreateProgramFn();
       OGLCHECKAFTER;
 
       if (!m_handle)
         throw Exception("CreateProgram error", "could not create Program!");
 
-      OGLCHECK(glAttachShader(m_handle, vxShader->id()));
-      OGLCHECK(glAttachShader(m_handle, frgShader->id()));
+      OGLCHECK(glAttachShaderFn(m_handle, vxShader->id()));
+      OGLCHECK(glAttachShaderFn(m_handle, frgShader->id()));
 
-      OGLCHECK(glLinkProgram(m_handle));
+      OGLCHECK(glLinkProgramFn(m_handle));
 
       int linkStatus = GL_FALSE;
-      OGLCHECK(glGetProgramiv(m_handle, GL_LINK_STATUS, &linkStatus));
+      OGLCHECK(glGetProgramivFn(m_handle, GL_LINK_STATUS, &linkStatus));
 
       if (linkStatus != GL_TRUE)
       {
         int bufLength = 0;
-        OGLCHECK(glGetProgramiv(m_handle, GL_INFO_LOG_LENGTH, &bufLength));
+        OGLCHECK(glGetProgramivFn(m_handle, GL_INFO_LOG_LENGTH, &bufLength));
         if (bufLength)
         {
           vector<char> v;
           v.resize(bufLength);
-          glGetProgramInfoLog(m_handle, bufLength, NULL, &v[0]);
+          glGetProgramInfoLogFn(m_handle, bufLength, NULL, &v[0]);
 
           throw LinkException("Could not link program: ", &v[0]);
         }
@@ -47,7 +47,7 @@ namespace graphics
       /// getting all uniforms
       int cnt = 0;
 
-      OGLCHECK(glGetProgramiv(m_handle, GL_ACTIVE_UNIFORMS, &cnt));
+      OGLCHECK(glGetProgramivFn(m_handle, GL_ACTIVE_UNIFORMS, &cnt));
 
       GLchar name[1024];
       GLsizei len = 0;
@@ -59,9 +59,9 @@ namespace graphics
         Uniform f;
         ESemantic sem;
 
-        OGLCHECK(glGetActiveUniform(m_handle, i, ARRAY_SIZE(name), &len, &size, &type, name));
+        OGLCHECK(glGetActiveUniformFn(m_handle, i, ARRAY_SIZE(name), &len, &size, &type, name));
 
-        f.m_handle = glGetUniformLocation(m_handle, name);
+        f.m_handle = glGetUniformLocationFn(m_handle, name);
         OGLCHECKAFTER;
 
         convert(type, f.m_type);
@@ -70,16 +70,16 @@ namespace graphics
         m_uniforms[sem] = f;
       }
 
-      OGLCHECK(glGetProgramiv(m_handle, GL_ACTIVE_ATTRIBUTES, &cnt));
+      OGLCHECK(glGetProgramivFn(m_handle, GL_ACTIVE_ATTRIBUTES, &cnt));
 
       for (unsigned i = 0; i < cnt; ++i)
       {
         Attribute a;
         ESemantic sem;
 
-        OGLCHECK(glGetActiveAttrib(m_handle, i, ARRAY_SIZE(name), &len, &size, &type, name));
+        OGLCHECK(glGetActiveAttribFn(m_handle, i, ARRAY_SIZE(name), &len, &size, &type, name));
 
-        a.m_handle = glGetAttribLocation(m_handle, name);
+        a.m_handle = glGetAttribLocationFn(m_handle, name);
         OGLCHECKAFTER;
 
         convert(type, a.m_type, a.m_count);
@@ -91,7 +91,7 @@ namespace graphics
 
     Program::~Program()
     {
-      OGLCHECK(glDeleteProgram(m_handle));
+      OGLCHECK(glDeleteProgramFn(m_handle));
     }
 
     void Program::setParam(ESemantic sem, float v0)
@@ -256,13 +256,13 @@ namespace graphics
         GLenum t;
         convert(a.m_type, t);
 
-        OGLCHECK(glEnableVertexAttribArray(a.m_handle));
-        OGLCHECK(glVertexAttribPointer(a.m_handle,
-                                       a.m_count,
-                                       t,
-                                       false,
-                                       a.m_stride,
-                                       (void*)((unsigned char *)m_storage.m_vertices->glPtr() + a.m_offset)));
+        OGLCHECK(glEnableVertexAttribArrayFn(a.m_handle));
+        OGLCHECK(glVertexAttribPointerFn(a.m_handle,
+                                         a.m_count,
+                                         t,
+                                         false,
+                                         a.m_stride,
+                                         (void*)((unsigned char *)m_storage.m_vertices->glPtr() + a.m_offset)));
       }
     }
 
@@ -278,69 +278,69 @@ namespace graphics
         switch (u.m_type)
         {
         case EFloat:
-          OGLCHECK(glUniform1f(u.m_handle,
-                               u.m_data.m_floatVal[0]));
+          OGLCHECK(glUniform1fFn(u.m_handle,
+                                 u.m_data.m_floatVal[0]));
           break;
         case EFloatVec2:
-          OGLCHECK(glUniform2f(u.m_handle,
-                               u.m_data.m_floatVal[0],
-                               u.m_data.m_floatVal[1]));
+          OGLCHECK(glUniform2fFn(u.m_handle,
+                                 u.m_data.m_floatVal[0],
+                                 u.m_data.m_floatVal[1]));
           break;
         case EFloatVec3:
-          OGLCHECK(glUniform3f(u.m_handle,
-                               u.m_data.m_floatVal[0],
-                               u.m_data.m_floatVal[1],
-                               u.m_data.m_floatVal[2]));
+          OGLCHECK(glUniform3fFn(u.m_handle,
+                                 u.m_data.m_floatVal[0],
+                                 u.m_data.m_floatVal[1],
+                                 u.m_data.m_floatVal[2]));
           break;
         case EFloatVec4:
-          OGLCHECK(glUniform4f(u.m_handle,
-                               u.m_data.m_floatVal[0],
-                               u.m_data.m_floatVal[1],
-                               u.m_data.m_floatVal[2],
-                               u.m_data.m_floatVal[3]));
+          OGLCHECK(glUniform4fFn(u.m_handle,
+                                 u.m_data.m_floatVal[0],
+                                 u.m_data.m_floatVal[1],
+                                 u.m_data.m_floatVal[2],
+                                 u.m_data.m_floatVal[3]));
           break;
         case EInteger:
-          OGLCHECK(glUniform1i(u.m_handle,
-                               u.m_data.m_intVal[0]));
+          OGLCHECK(glUniform1iFn(u.m_handle,
+                                 u.m_data.m_intVal[0]));
           break;
         case EIntegerVec2:
-          OGLCHECK(glUniform2i(u.m_handle,
-                               u.m_data.m_intVal[0],
-                               u.m_data.m_intVal[1]));
+          OGLCHECK(glUniform2iFn(u.m_handle,
+                                 u.m_data.m_intVal[0],
+                                 u.m_data.m_intVal[1]));
           break;
         case EIntegerVec3:
-          OGLCHECK(glUniform3i(u.m_handle,
-                               u.m_data.m_intVal[0],
-                               u.m_data.m_intVal[1],
-                               u.m_data.m_intVal[2]));
+          OGLCHECK(glUniform3iFn(u.m_handle,
+                                 u.m_data.m_intVal[0],
+                                 u.m_data.m_intVal[1],
+                                 u.m_data.m_intVal[2]));
           break;
         case EIntegerVec4:
-          OGLCHECK(glUniform4i(u.m_handle,
-                               u.m_data.m_intVal[0],
-                               u.m_data.m_intVal[1],
-                               u.m_data.m_intVal[2],
-                               u.m_data.m_intVal[3]));
+          OGLCHECK(glUniform4iFn(u.m_handle,
+                                 u.m_data.m_intVal[0],
+                                 u.m_data.m_intVal[1],
+                                 u.m_data.m_intVal[2],
+                                 u.m_data.m_intVal[3]));
           break;
         case EFloatMat2:
-          OGLCHECK(glUniformMatrix2fv(u.m_handle,
-                                      1,
-                                      false,
-                                      u.m_data.m_matVal));
+          OGLCHECK(glUniformMatrix2fvFn(u.m_handle,
+                                        1,
+                                        false,
+                                        u.m_data.m_matVal));
           break;
         case EFloatMat3:
-          OGLCHECK(glUniformMatrix3fv(u.m_handle,
-                                      1,
-                                      false,
-                                      u.m_data.m_matVal));
+          OGLCHECK(glUniformMatrix3fvFn(u.m_handle,
+                                        1,
+                                        false,
+                                        u.m_data.m_matVal));
           break;
         case EFloatMat4:
-          OGLCHECK(glUniformMatrix4fv(u.m_handle,
-                                      1,
-                                      false,
-                                      u.m_data.m_matVal));
+          OGLCHECK(glUniformMatrix4fvFn(u.m_handle,
+                                        1,
+                                        false,
+                                        u.m_data.m_matVal));
           break;
         case ESampler2D:
-          OGLCHECK(glUniform1i(u.m_handle,
+          OGLCHECK(glUniform1iFn(u.m_handle,
                                u.m_data.m_intVal[0]));
           break;
         }
@@ -349,7 +349,7 @@ namespace graphics
 
     void Program::makeCurrent()
     {
-      OGLCHECK(glUseProgram(m_handle));
+      OGLCHECK(glUseProgramFn(m_handle));
 
       m_storage.m_vertices->makeCurrent();
 

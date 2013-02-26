@@ -141,6 +141,38 @@ namespace graphics
 
     extern void (OPENGL_CALLING_CONVENTION * glBlendFuncSeparateFn) (GLenum sfactorRGB, GLenum dfactorRGB, GLenum sfactorAlpha, GLenum dfactorAlpha);
 
+    extern void (OPENGL_CALLING_CONVENTION * glActiveTextureFn) (GLenum texture);
+    extern GLint (OPENGL_CALLING_CONVENTION * glGetAttribLocationFn) (GLuint program, const GLchar *name);
+    extern void (OPENGL_CALLING_CONVENTION * glGetActiveAttribFn)(GLuint program, GLuint index, GLsizei bufSize, GLsizei *length, GLint *size, GLenum *type, GLchar *name);
+    extern GLint (OPENGL_CALLING_CONVENTION * glGetUniformLocationFn)(GLuint program, const GLchar *name);
+    extern void (OPENGL_CALLING_CONVENTION * glGetActiveUniformFn)(GLuint program, GLuint index, GLsizei bufSize, GLsizei *length, GLint *size, GLenum *type, GLchar *name);
+    extern void (OPENGL_CALLING_CONVENTION * glGetProgramInfoLogFn)(GLuint program, GLsizei bufSize, GLsizei *length, GLchar *infoLog);
+    extern void (OPENGL_CALLING_CONVENTION * glGetProgramivFn)(GLuint program, GLenum pname, GLint *params);
+    extern void (OPENGL_CALLING_CONVENTION * glLinkProgramFn)(GLuint program);
+    extern void (OPENGL_CALLING_CONVENTION * glAttachShaderFn)(GLuint program, GLuint shader);
+    extern GLuint (OPENGL_CALLING_CONVENTION * glCreateProgramFn)(void);
+    extern void (OPENGL_CALLING_CONVENTION * glDeleteProgramFn)(GLuint program);
+    extern void (OPENGL_CALLING_CONVENTION * glVertexAttribPointerFn)(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid *pointer);
+    extern void (OPENGL_CALLING_CONVENTION * glEnableVertexAttribArrayFn)(GLuint index);
+    extern void (OPENGL_CALLING_CONVENTION * glUniformMatrix4fvFn)(GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+    extern void (OPENGL_CALLING_CONVENTION * glUniformMatrix3fvFn)(GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+    extern void (OPENGL_CALLING_CONVENTION * glUniformMatrix2fvFn)(GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+    extern void (OPENGL_CALLING_CONVENTION * glUniform4iFn)(GLint location, GLint v0, GLint v1, GLint v2, GLint v3);
+    extern void (OPENGL_CALLING_CONVENTION * glUniform3iFn)(GLint location, GLint v0, GLint v1, GLint v2);
+    extern void (OPENGL_CALLING_CONVENTION * glUniform2iFn)(GLint location, GLint v0, GLint v1);
+    extern void (OPENGL_CALLING_CONVENTION * glUniform1iFn)(GLint location, GLint v0);
+    extern void (OPENGL_CALLING_CONVENTION * glUniform4fFn)(GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
+    extern void (OPENGL_CALLING_CONVENTION * glUniform3fFn)(GLint location, GLfloat v0, GLfloat v1, GLfloat v2);
+    extern void (OPENGL_CALLING_CONVENTION * glUniform2fFn)(GLint location, GLfloat v0, GLfloat v1);
+    extern void (OPENGL_CALLING_CONVENTION * glUniform1fFn)(GLint location, GLfloat v0);
+    extern void (OPENGL_CALLING_CONVENTION * glUseProgramFn)(GLuint program);
+    extern void (OPENGL_CALLING_CONVENTION * glGetShaderInfoLogFn)(GLuint shader, GLsizei bufSize, GLsizei *length, GLchar *infoLog);
+    extern void (OPENGL_CALLING_CONVENTION * glGetShaderivFn)(GLuint shader, GLenum pname, GLint *params);
+    extern void (OPENGL_CALLING_CONVENTION * glCompileShaderFn)(GLuint shader);
+    extern void (OPENGL_CALLING_CONVENTION * glShaderSourceFn)(GLuint shader, GLsizei count, const GLchar* *string, const GLint *length);
+    extern GLuint (OPENGL_CALLING_CONVENTION * glCreateShaderFn)(GLenum type);
+    extern void (OPENGL_CALLING_CONVENTION * glDeleteShaderFn)(GLuint shader);
+
     /// This flag controls, whether OpenGL resources should delete themselves upon destruction.
     /// Sounds odd, but in EGL there are cases when the only function one should call to finish
     /// its work with resources is eglTerminate, which by itself internally deletes all OpenGL resources.

@@ -56,6 +56,38 @@ namespace graphics
       LOG(LINFO, ("--------------------------------------------"));
     }
 
+    void (OPENGL_CALLING_CONVENTION * glActiveTextureFn) (GLenum texture);
+    GLint (OPENGL_CALLING_CONVENTION * glGetAttribLocationFn)(GLuint program, const GLchar *name);
+    void (OPENGL_CALLING_CONVENTION * glGetActiveAttribFn)(GLuint program, GLuint index, GLsizei bufSize, GLsizei *length, GLint *size, GLenum *type, GLchar *name);
+    GLint (OPENGL_CALLING_CONVENTION * glGetUniformLocationFn)(GLuint program, const GLchar *name);
+    void (OPENGL_CALLING_CONVENTION * glGetActiveUniformFn)(GLuint program, GLuint index, GLsizei bufSize, GLsizei *length, GLint *size, GLenum *type, GLchar *name);
+    void (OPENGL_CALLING_CONVENTION * glGetProgramInfoLogFn)(GLuint program, GLsizei bufSize, GLsizei *length, GLchar *infoLog);
+    void (OPENGL_CALLING_CONVENTION * glGetProgramivFn)(GLuint program, GLenum pname, GLint *params);
+    void (OPENGL_CALLING_CONVENTION * glLinkProgramFn)(GLuint program);
+    void (OPENGL_CALLING_CONVENTION * glAttachShaderFn)(GLuint program, GLuint shader);
+    GLuint (OPENGL_CALLING_CONVENTION * glCreateProgramFn)(void);
+    void (OPENGL_CALLING_CONVENTION * glDeleteProgramFn)(GLuint program);
+    void (OPENGL_CALLING_CONVENTION * glVertexAttribPointerFn)(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid *pointer);
+    void (OPENGL_CALLING_CONVENTION * glEnableVertexAttribArrayFn)(GLuint index);
+    void (OPENGL_CALLING_CONVENTION * glUniformMatrix4fvFn)(GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+    void (OPENGL_CALLING_CONVENTION * glUniformMatrix3fvFn)(GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+    void (OPENGL_CALLING_CONVENTION * glUniformMatrix2fvFn)(GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+    void (OPENGL_CALLING_CONVENTION * glUniform4iFn)(GLint location, GLint v0, GLint v1, GLint v2, GLint v3);
+    void (OPENGL_CALLING_CONVENTION * glUniform3iFn)(GLint location, GLint v0, GLint v1, GLint v2);
+    void (OPENGL_CALLING_CONVENTION * glUniform1iFn)(GLint location, GLint v0);
+    void (OPENGL_CALLING_CONVENTION * glUniform2iFn)(GLint location, GLint v0, GLint v1);
+    void (OPENGL_CALLING_CONVENTION * glUniform4fFn)(GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
+    void (OPENGL_CALLING_CONVENTION * glUniform3fFn)(GLint location, GLfloat v0, GLfloat v1, GLfloat v2);
+    void (OPENGL_CALLING_CONVENTION * glUniform2fFn)(GLint location, GLfloat v0, GLfloat v1);
+    void (OPENGL_CALLING_CONVENTION * glUniform1fFn)(GLint location, GLfloat v0);
+    void (OPENGL_CALLING_CONVENTION * glUseProgramFn)(GLuint program);
+    void (OPENGL_CALLING_CONVENTION * glGetShaderInfoLogFn)(GLuint shader, GLsizei bufSize, GLsizei *length, GLchar *infoLog);
+    void (OPENGL_CALLING_CONVENTION * glGetShaderivFn)(GLuint shader, GLenum pname, GLint *params);
+    void (OPENGL_CALLING_CONVENTION * glCompileShaderFn)(GLuint shader);
+    void (OPENGL_CALLING_CONVENTION * glShaderSourceFn)(GLuint shader, GLsizei count, const GLchar* *string, const GLint *length);
+    GLuint (OPENGL_CALLING_CONVENTION * glCreateShaderFn)(GLenum type);
+    void (OPENGL_CALLING_CONVENTION * glDeleteShaderFn)(GLuint shader);
+
     // basic opengl functions and constants
     void (OPENGL_CALLING_CONVENTION * glEnableFn)(GLenum cap);
     void (OPENGL_CALLING_CONVENTION * glDisableFn)(GLenum cap);
