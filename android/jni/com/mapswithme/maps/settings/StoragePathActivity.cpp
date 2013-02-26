@@ -35,7 +35,7 @@ extern "C"
 
     // Copy all needed files.
     for (size_t i = 0; i < files.size(); ++i)
-      if (!my::CopyFile(from + files[i], to + files[i]))
+      if (!my::CopyFileX(from + files[i], to + files[i]))
       {
         // Do the undo - delete all previously copied files.
         for (size_t j = 0; j <= i; ++j)

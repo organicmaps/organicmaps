@@ -22,7 +22,7 @@ string GetNativeSeparator()
 {
 #ifdef OMIM_OS_WINDOWS
     return "\\";
-#elif
+#else
     return "/";
 #endif;
 }
