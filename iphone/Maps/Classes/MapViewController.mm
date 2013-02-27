@@ -289,11 +289,17 @@
 
 - (void) processMapClickAtPoint:(CGPoint)point longClick:(BOOL)isLongClick
 {
+  BOOL wasBalloonDisplayed;
   if (m_balloonView.isDisplayed)
   {
     [m_balloonView hide];
+    wasBalloonDisplayed = YES;
 //    if (!isLongClick)
 //      return;
+  }
+  else
+  {
+    wasBalloonDisplayed = NO;
   }
 
   // Try to check if we've clicked on bookmark
@@ -312,7 +318,7 @@
     // Check if we've clicked on visible POI
     Framework::AddressInfo addrInfo;
     m2::PointD pxPivot;
-    if (f.GetVisiblePOI(pxClicked, pxPivot, addrInfo))
+    if (!wasBalloonDisplayed && f.GetVisiblePOI(pxClicked, pxPivot, addrInfo))
     {
       m2::PointD const gPivot = f.PtoG(pxPivot);
       m_balloonView.globalPosition = CGPointMake(gPivot.x, gPivot.y);
@@ -341,16 +347,6 @@
   m_balloonView.isCurrentPosition = NO;
   [self updatePinTexts:info];
   [m_balloonView showInView:self.view atPoint:[(EAGLView *)self.view globalPoint2ViewPoint:m_balloonView.globalPosition]];
-}
-
-- (void) onSingleTap:(NSValue *)point
-{
-  [self processMapClickAtPoint:[point CGPointValue] longClick:NO];
-}
-
-- (void) onLongTap:(NSValue *)point
-{
-  [self processMapClickAtPoint:[point CGPointValue] longClick:YES];
 }
 
 - (void) dealloc
