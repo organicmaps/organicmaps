@@ -16,8 +16,8 @@ HEADERS += \
     events.hpp \
     navigator.hpp \
     drawer.hpp \
-    draw_processor.hpp \
-    draw_info.hpp \
+    feature_processor.hpp \
+    path_info.hpp \
     window_handle.hpp \
     tile_renderer.hpp \
     information_display.hpp \
@@ -52,13 +52,16 @@ HEADERS += \
     mwm_url.hpp \
     feature_styler.hpp \
     bookmark_balloon.hpp \
+    feature_info.hpp \
+    area_info.hpp \
+    geometry_processors.hpp
 
 SOURCES += \
     feature_vec_model.cpp \
     framework.cpp \
     navigator.cpp \
     drawer.cpp \
-    draw_processor.cpp \
+    feature_processor.cpp \
     tile_renderer.cpp \
     information_display.cpp \
     location_state.cpp \
@@ -95,6 +98,8 @@ SOURCES += \
     mwm_url.cpp \
     feature_styler.cpp \
     bookmark_balloon.cpp \
+    feature_info.cpp \
+    geometry_processors.cpp
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp

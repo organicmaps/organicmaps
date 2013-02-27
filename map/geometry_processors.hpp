@@ -1,25 +1,23 @@
 #pragma once
 
-#include "draw_info.hpp"
-#include "events.hpp"
+#include "area_info.hpp"
+#include "path_info.hpp"
 
-#include "../indexer/drawing_rule_def.hpp"
-#include "../indexer/feature.hpp"
 #include "../indexer/cell_id.hpp" // CoordPointT
-#include "../indexer/data_header.hpp"
-#include "../indexer/feature_data.hpp"
 
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
+#include "../geometry/rect_intersect.hpp"
+#include "../geometry/screenbase.hpp"
 
 #include "../std/list.hpp"
 #include "../std/limits.hpp"
 
-#include "../graphics/glyph_cache.hpp"
+#include "../base/buffer_vector.hpp"
 
 class ScreenBase;
 
-namespace get_pts
+namespace gp
 {
   /// @name Base class policies (use by inheritance) for points processing.
   /// Containt next functions:\n
@@ -28,17 +26,8 @@ namespace get_pts
   /// - m_rect - clip rect;\n
 
   //@{
-  class base
+  struct base
   {
-  protected:
-    ScreenBase const * m_convertor;
-
-    static m2::PointD make_point(CoordPointT const & p)
-    {
-      return m2::PointD(p.first, p.second);
-    }
-    m2::PointD g2p(m2::PointD const & pt) const;
-
     struct params
     {
       ScreenBase const * m_convertor;
@@ -46,15 +35,27 @@ namespace get_pts
       {}
     };
 
-    base(params const & p) : m_convertor(p.m_convertor)
+    base(params const & p)
+      : m_convertor(p.m_convertor)
     {
+    }
+
+    ScreenBase const * m_convertor;
+
+    static m2::PointD make_point(CoordPointT const & p)
+    {
+      return m2::PointD(p.first, p.second);
+    }
+
+    m2::PointD g2p(m2::PointD const & pt) const
+    {
+      return m_convertor->GtoP(pt);
     }
   };
 
   /// in global coordinates
-  class base_global : public base
+  struct base_global : public base
   {
-  protected:
     m2::RectD const * m_rect;
 
     m2::PointD convert_point(m2::PointD const & pt) const
@@ -75,16 +76,9 @@ namespace get_pts
   };
 
   /// in screen coordinates
-  class base_screen : public base
+  struct base_screen : public base
   {
-  protected:
-
     m2::RectD m_rect;
-
-    m2::PointD convert_point(m2::PointD const & pt) const
-    {
-      return pt;
-    }
 
     struct params : base::params
     {
@@ -94,16 +88,20 @@ namespace get_pts
     };
 
     base_screen(params const & p);
+
+    m2::PointD convert_point(m2::PointD const & pt) const
+    {
+      return pt;
+    }
   };
 
   //@}
 
   template <typename TBase>
-  class calc_length : public TBase
+  struct calc_length : public TBase
   {
     bool m_exist;
     m2::PointD m_prevPt;
-  public:
     double m_length;
 
     typedef typename TBase::params params;
@@ -115,6 +113,7 @@ namespace get_pts
     void operator() (CoordPointT const & p)
     {
       m2::PointD pt(this->convert_point(this->make_point(p)));
+
       if (m_exist)
         m_length += pt.Length(m_prevPt);
 
@@ -122,14 +121,15 @@ namespace get_pts
       m_prevPt = pt;
     }
 
-    bool IsExist() const {return m_exist;}
+    bool IsExist() const
+    {
+      return m_exist;
+    }
   };
 
-  class one_point : public base_global
+  struct one_point : public base_global
   {
     bool m_exist;
-
-  public:
     m2::PointD m_point;
 
     typedef base_global::params params;
@@ -141,10 +141,14 @@ namespace get_pts
 
     void operator() (CoordPointT const & p);
 
-    bool IsExist() const { return m_exist; }
+    bool IsExist() const
+    {
+      return m_exist;
+    }
   };
 
-  template <class TInfo, class TBase> class geometry_base : public TBase
+  template <class TInfo, class TBase>
+  struct geometry_base : public TBase
   {
   public:
     list<TInfo> m_points;
@@ -165,6 +169,54 @@ namespace get_pts
     {
       m_points.back().push_back(this->convert_point(pt));
     }
+  };
+
+  struct get_path_intervals : public geometry_base<di::PathInfo, base_screen>
+  {
+    typedef geometry_base<di::PathInfo, base_screen> base_t;
+
+    buffer_vector<double, 16> * m_intervals;
+
+    bool m_hasPrevPt;
+    m2::PointD m_prev;
+    bool m_isFirst;
+    double m_length;
+
+    struct params : base_t::params
+    {
+      buffer_vector<double, 16> * m_intervals;
+      params();
+    };
+
+    get_path_intervals(params const & p);
+
+    void operator() (m2::PointD const & pt);
+
+    bool IsExist() const;
+  };
+
+  struct cut_path_intervals : public geometry_base<di::PathInfo, base_screen>
+  {
+    typedef geometry_base<di::PathInfo, base_screen> base_t;
+
+    struct params : base_t::params
+    {
+      buffer_vector<double, 16> * m_intervals;
+      params();
+    };
+
+    double m_length;
+    bool m_isInside;
+    bool m_hasPrevPt;
+    m2::PointD m_prev;
+    buffer_vector<double, 16> * m_intervals;
+    unsigned m_pos;
+
+    cut_path_intervals(params const & p);
+
+    void operator() (m2::PointD const & p);
+
+    bool IsExist();
   };
 
   class path_points : public geometry_base<di::PathInfo, base_screen>
@@ -302,49 +354,5 @@ namespace get_pts
     }
 
     m2::PointD GetCenter() const { return m_center / (3*m_count); }
-  };
-}
-
-namespace drule { class BaseRule; }
-namespace di { class DrawInfo; }
-
-class redraw_operation_cancelled {};
-
-namespace fwork
-{
-  class DrawProcessor
-  {
-    m2::RectD m_rect;
-
-    set<string> m_coasts;
-
-    ScreenBase const & m_convertor;
-
-    shared_ptr<PaintEvent> m_paintEvent;
-
-    int m_zoom;
-    bool m_hasNonCoast;
-    bool m_hasAnyFeature;
-
-    graphics::GlyphCache * m_glyphCache;
-
-#ifdef PROFILER_DRAWING
-    size_t m_drawCount;
-#endif
-
-    inline Drawer * GetDrawer() const { return m_paintEvent->drawer(); }
-
-    void PreProcessKeys(vector<drule::Key> & keys) const;
-
-  public:
-
-    DrawProcessor(m2::RectD const & r,
-                  ScreenBase const & convertor,
-                  shared_ptr<PaintEvent> const & paintEvent,
-                  int scaleLevel);
-
-    bool operator() (FeatureType const & f);
-
-    bool IsEmptyDrawing() const;
   };
 }
