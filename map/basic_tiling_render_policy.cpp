@@ -118,7 +118,7 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
 
   if (curCvg)
   {
-    curCvg->Draw(pDrawer->screen().get(), s);
+    curCvg->Draw(pDrawer->screen(), s);
 
     m_DrawScale = curCvg->GetDrawScale();
 

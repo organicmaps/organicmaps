@@ -125,7 +125,7 @@ void SimpleRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
   shared_ptr<graphics::Overlay> overlay(new graphics::Overlay());
 
   Drawer * pDrawer = e->drawer();
-  graphics::Screen * pScreen = pDrawer->screen().get();
+  graphics::Screen * pScreen = pDrawer->screen();
 
   pScreen->setOverlay(overlay);
   pScreen->beginFrame();

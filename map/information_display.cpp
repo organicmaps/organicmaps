@@ -215,7 +215,7 @@ void InformationDisplay::drawCenter(Drawer * drawer)
 //        graphics::Color(187, 187, 187, 128),
 //        graphics::maxDepth - 1);
 
-  ste.draw(drawer->screen().get(), math::Identity<double, 3>());
+  ste.draw(drawer->screen(), math::Identity<double, 3>());
 }
 
 void InformationDisplay::enableDebugInfo(bool doEnable)

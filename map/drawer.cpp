@@ -1,5 +1,6 @@
 #include "drawer.hpp"
 #include "proto_to_styles.hpp"
+#include "feature_styler.hpp"
 
 #include "../std/bind.hpp"
 
@@ -17,6 +18,8 @@
   #include "../indexer/drules_struct.pb.h"
 #endif
 
+#include "../indexer/feature.hpp"
+
 #include "../geometry/screenbase.hpp"
 
 #include "../base/logging.hpp"
@@ -27,38 +30,10 @@ Drawer::Params::Params()
 {
 }
 
-di::DrawInfo::DrawInfo(string const & name,
-         string const & secondaryName,
-         string const & road,
-         double rank)
-  : m_name(name),
-    m_secondaryName(secondaryName),
-    m_road(road),
-    m_rank(rank)
-{}
-
-string const di::DrawInfo::GetPathName() const
-{
-  if (m_secondaryName.empty())
-    return m_name;
-  else
-    return m_name + "      " + m_secondaryName;
-}
-
-uint32_t di::DrawRule::GetID(size_t threadSlot) const
-{
-  return (m_transparent ? m_rule->GetID2(threadSlot) : m_rule->GetID(threadSlot));
-}
-
-void di::DrawRule::SetID(size_t threadSlot, uint32_t id) const
-{
-  m_transparent ? m_rule->SetID2(threadSlot, id) : m_rule->SetID(threadSlot, id);
-}
-
 Drawer::Drawer(Params const & params)
   : m_visualScale(params.m_visualScale)
 {
-  m_pScreen = shared_ptr<graphics::Screen>(new graphics::Screen(params));
+  m_pScreen.reset(new graphics::Screen(params));
 
   for (unsigned i = 0; i < m_pScreen->pipelinesCount(); ++i)
     m_pScreen->addClearPageFn(i, bind(&Drawer::ClearResourceCache, ThreadSlot(), i), 0);
@@ -118,26 +93,27 @@ void Drawer::drawSymbol(m2::PointD const & pt,
   m_pScreen->drawSymbol(pt, symbolName, pos, depth);
 }
 
-void Drawer::drawCircle(m2::PointD const & pt, rule_ptr_t pRule,
-                          graphics::EPosition pos, double depth, FeatureID const & id)
+void Drawer::drawCircle(m2::PointD const & pt,
+                        graphics::EPosition pos,
+                        di::DrawRule const & rule,
+                        di::FeatureInfo::FeatureID const & id)
 {
   graphics::Circle::Info ci;
-  ConvertStyle(pRule->GetCircle(), m_visualScale, ci);
+  ConvertStyle(rule.m_rule->GetCircle(), m_visualScale, ci);
 
-  m_pScreen->drawCircle(pt, ci, pos, depth);
+  m_pScreen->drawCircle(pt, ci, pos, rule.m_depth);
 }
 
 void Drawer::drawSymbol(m2::PointD const & pt,
-                        rule_ptr_t pRule,
                         graphics::EPosition pos,
-                        double depth,
-                        FeatureID const & id)
+                        di::DrawRule const & rule,
+                        di::FeatureInfo::FeatureID const & id)
 {
   graphics::Icon::Info info;
-  ConvertStyle(pRule->GetSymbol(), info);
+  ConvertStyle(rule.m_rule->GetSymbol(), info);
 
   graphics::SymbolElement::Params params;
-  params.m_depth = depth;
+  params.m_depth = rule.m_depth;
   params.m_position = pos;
   params.m_pivot = pt;
   params.m_info = info;
@@ -148,7 +124,7 @@ void Drawer::drawSymbol(m2::PointD const & pt,
   m_pScreen->drawSymbol(params);
 }
 
-void Drawer::drawPath(di::PathInfo const & info, di::DrawRule const * rules, size_t count)
+void Drawer::drawPath(di::PathInfo const & path, di::DrawRule const * rules, size_t count)
 {
   // if any rule needs caching - cache as a whole vector
   bool flag = false;
@@ -195,65 +171,56 @@ void Drawer::drawPath(di::PathInfo const & info, di::DrawRule const * rules, siz
 
   // draw path with array of rules
   for (size_t i = 0; i < count; ++i)
-    m_pScreen->drawPath(&info.m_path[0], info.m_path.size(), -info.GetOffset(), rules[i].GetID(ThreadSlot()), rules[i].m_depth);
+    m_pScreen->drawPath(&path.m_path[0],
+                        path.m_path.size(),
+                        -path.GetOffset(),
+                        rules[i].GetID(ThreadSlot()),
+                        rules[i].m_depth);
 }
 
-void Drawer::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, double depth)
+void Drawer::drawArea(di::AreaInfo const & area, di::DrawRule const & rule)
 {
   // DO NOT cache 'id' in pRule, because one rule can use in drawPath and drawArea.
   // Leave CBaseRule::m_id for drawPath. mapColor working fast enough.
 
   graphics::Brush::Info info;
-  ConvertStyle(pRule->GetArea(), info);
+  ConvertStyle(rule.m_rule->GetArea(), info);
 
   uint32_t const id = m_pScreen->mapInfo(info);
   ASSERT ( id != -1, () );
 
-  m_pScreen->drawTrianglesList(&pts[0], pts.size()/*, res*/, id, depth);
+  m_pScreen->drawTrianglesList(&area.m_path[0], area.m_path.size(), id, rule.m_depth);
 }
 
-uint8_t Drawer::get_text_font_size(rule_ptr_t pRule) const
-{
-  return GetFontSize(pRule->GetCaption(0)) * m_visualScale;
-}
-
-bool Drawer::filter_text_size(rule_ptr_t pRule) const
-{
-  if (pRule->GetCaption(0))
-    return (GetFontSize(pRule->GetCaption(0)) < 3);
-  else
-  {
-    // this rule is not a caption at all
-    return true;
-  }
-}
-
-void Drawer::drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_ptr_t pRule,
-                        graphics::EPosition pos, double depth, FeatureID const & id)
+void Drawer::drawText(m2::PointD const & pt,
+                      graphics::EPosition pos,
+                      di::FeatureStyler const & fs,
+                      di::DrawRule const & rule,
+                      di::FeatureInfo::FeatureID const & id)
 {
   graphics::FontDesc primaryFont;
   m2::PointD primaryOffset;
-  ConvertStyle(pRule->GetCaption(0), m_visualScale, primaryFont, primaryOffset);
-  primaryFont.SetRank(pInfo->m_rank);
+  ConvertStyle(rule.m_rule->GetCaption(0), m_visualScale, primaryFont, primaryOffset);
+  primaryFont.SetRank(fs.m_popRank);
 
   graphics::FontDesc secondaryFont;
   m2::PointD secondaryOffset;
-  if (pRule->GetCaption(1))
+  if (rule.m_rule->GetCaption(1))
   {
-    ConvertStyle(pRule->GetCaption(1), m_visualScale, secondaryFont, secondaryOffset);
-    secondaryFont.SetRank(pInfo->m_rank);
+    ConvertStyle(rule.m_rule->GetCaption(1), m_visualScale, secondaryFont, secondaryOffset);
+    secondaryFont.SetRank(fs.m_popRank);
   }
 
   graphics::StraightTextElement::Params params;
-  params.m_depth = depth;
+  params.m_depth = rule.m_depth;
   params.m_fontDesc = primaryFont;
   params.m_auxFontDesc = secondaryFont;
   params.m_offset = primaryOffset;
   params.m_log2vis = true;
   params.m_pivot = pt;
   params.m_position = pos;
-  params.m_logText = strings::MakeUniString(pInfo->m_name);
-  params.m_auxLogText = strings::MakeUniString(pInfo->m_secondaryName);
+  params.m_logText = strings::MakeUniString(fs.m_primaryText);
+  params.m_auxLogText = strings::MakeUniString(fs.m_secondaryText);
   params.m_doSplit = true;
   params.m_useAllParts = false;
   params.m_userInfo.m_mwmID = id.first;
@@ -262,28 +229,35 @@ void Drawer::drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_pt
   m_pScreen->drawTextEx(params);
 }
 
-bool Drawer::drawPathText(di::PathInfo const & info, di::DrawInfo const * pInfo, rule_ptr_t pRule, double depth)
+void Drawer::drawPathText(di::PathInfo const & path,
+                          di::FeatureStyler const & fs,
+                          di::DrawRule const & rule)
 {
   graphics::FontDesc font;
   m2::PointD offset;
-  ConvertStyle(pRule->GetCaption(0), m_visualScale, font, offset);
+  ConvertStyle(rule.m_rule->GetCaption(0), m_visualScale, font, offset);
 
-  return m_pScreen->drawPathText(font,
-                                 &info.m_path[0],
-                                 info.m_path.size(),
-                                 pInfo->GetPathName(),
-                                 info.GetFullLength(),
-                                 info.GetOffset(),
-                                 graphics::EPosCenter,
-                                 depth);
+  if (fs.m_offsets.empty())
+    return;
+
+  m_pScreen->drawPathText(font,
+                          &path.m_path[0],
+                          path.m_path.size(),
+                          fs.GetPathName(),
+                          path.GetFullLength(),
+                          path.GetOffset(),
+                          &fs.m_offsets[0],
+                          fs.m_offsets.size(),
+                          rule.m_depth);
 }
 
-void Drawer::drawPathNumber(di::PathInfo const & path, di::DrawInfo const * pInfo)
+void Drawer::drawPathNumber(di::PathInfo const & path,
+                            di::FeatureStyler const & fs)
 {
   int const textHeight = static_cast<int>(12 * m_visualScale);
   m2::PointD pt;
   double const length = path.GetFullLength();
-  if (length >= (pInfo->m_road.size() + 2)*textHeight)
+  if (length >= (fs.m_refText.size() + 2) * textHeight)
   {
     size_t const count = size_t(length / 1000.0) + 2;
 
@@ -297,15 +271,20 @@ void Drawer::drawPathNumber(di::PathInfo const & path, di::DrawInfo const * pInf
           true,
           graphics::Color(255, 255, 255, 255));
 
-        m_pScreen->drawText(fontDesc, pt, graphics::EPosCenter, pInfo->m_road, graphics::maxDepth - 10, true);
+        m_pScreen->drawText(fontDesc,
+                            pt,
+                            graphics::EPosCenter,
+                            fs.m_refText,
+                            graphics::maxDepth - 10,
+                            true);
       }
     }
   }
 }
 
-shared_ptr<graphics::Screen> Drawer::screen() const
+graphics::Screen * Drawer::screen() const
 {
-  return m_pScreen;
+  return m_pScreen.get();
 }
 
 double Drawer::VisualScale() const
@@ -318,18 +297,19 @@ void Drawer::SetScale(int level)
   m_level = level;
 }
 
-void Drawer::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size_t count,
-                    FeatureID const & id)
+void Drawer::Draw(di::FeatureInfo const & fi)
 {
+  di::FeatureInfo::FeatureID const & id = fi.m_id;
+  buffer_vector<di::DrawRule, 8> const & rules = fi.m_styler.m_rules;
   buffer_vector<di::DrawRule, 8> pathRules;
 
-  bool const isPath = !pInfo->m_pathes.empty();
-  bool const isArea = !pInfo->m_areas.empty();
+  bool const isPath = !fi.m_pathes.empty();
+  bool const isArea = !fi.m_areas.empty();
 
   // separating path rules from other
-  for (size_t i = 0; i < count; ++i)
+  for (size_t i = 0; i < rules.size(); ++i)
   {
-    rule_ptr_t pRule = rules[i].m_rule;
+    drule::BaseRule const * pRule = rules[i].m_rule;
 
     bool const hasSymbol = pRule->GetSymbol() != 0;
     bool const isCaption = pRule->GetCaption(0) != 0;
@@ -340,15 +320,13 @@ void Drawer::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size_t
 
   if (!pathRules.empty())
   {
-    for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
-    {
+    for (list<di::PathInfo>::const_iterator i = fi.m_pathes.begin(); i != fi.m_pathes.end(); ++i)
       drawPath(*i, pathRules.data(), pathRules.size());
-    }
   }
 
-  for (size_t i = 0; i < count; ++i)
+  for (size_t i = 0; i < rules.size(); ++i)
   {
-    rule_ptr_t pRule = rules[i].m_rule;
+    drule::BaseRule const * pRule = rules[i].m_rule;
     double const depth = rules[i].m_depth;
 
     bool const isCaption = pRule->GetCaption(0) != 0;
@@ -357,19 +335,18 @@ void Drawer::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size_t
 
     if (!isCaption)
     {
-
       // draw area
       if (isArea)
       {
         bool const isFill = pRule->GetArea() != 0;
         bool const hasSym = hasSymbol && ((pRule->GetType() & drule::way) != 0);
 
-        for (list<di::AreaInfo>::const_iterator i = pInfo->m_areas.begin(); i != pInfo->m_areas.end(); ++i)
+        for (list<di::AreaInfo>::const_iterator i = fi.m_areas.begin(); i != fi.m_areas.end(); ++i)
         {
           if (isFill)
-            drawArea(i->m_path, pRule, depth);
+            drawArea(*i, di::DrawRule(pRule, depth, false));
           else if (hasSym)
-            drawSymbol(i->GetCenter(), pRule, graphics::EPosCenter, depth, id);
+            drawSymbol(i->GetCenter(), graphics::EPosCenter, di::DrawRule(pRule, depth, false), id);
         }
       }
 
@@ -377,14 +354,14 @@ void Drawer::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size_t
       if (!isPath && !isArea && ((pRule->GetType() & drule::node) != 0))
       {
         if (hasSymbol)
-          drawSymbol(pInfo->m_point, pRule, graphics::EPosCenter, depth, id);
+          drawSymbol(fi.m_point, graphics::EPosCenter, di::DrawRule(pRule, depth, false), id);
         else if (isCircle)
-          drawCircle(pInfo->m_point, pRule, graphics::EPosCenter, depth, id);
+          drawCircle(fi.m_point, graphics::EPosCenter, di::DrawRule(pRule, depth, false), id);
       }
     }
     else
     {
-      if (!pInfo->m_name.empty() && (pRule->GetCaption(0) != 0))
+      if (!fi.m_styler.m_primaryText.empty() && (pRule->GetCaption(0) != 0))
       {
         bool isN = ((pRule->GetType() & drule::way) != 0);
 
@@ -401,30 +378,30 @@ void Drawer::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size_t
         // draw area text
         if (isArea/* && isN*/)
         {
-          for (list<di::AreaInfo>::const_iterator i = pInfo->m_areas.begin(); i != pInfo->m_areas.end(); ++i)
-            drawText(i->GetCenter(), pInfo, pRule, textPosition, depth, id);
+          for (list<di::AreaInfo>::const_iterator i = fi.m_areas.begin(); i != fi.m_areas.end(); ++i)
+            drawText(i->GetCenter(), textPosition, fi.m_styler, di::DrawRule(pRule, depth, false), id);
         }
 
         // draw way name
-        if (isPath && !isArea && isN && !filter_text_size(pRule))
+        if (isPath && !isArea && isN && !fi.m_styler.FilterTextSize(pRule))
         {
-          for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
-            drawPathText(*i, pInfo, pRule, depth);
+          for (list<di::PathInfo>::const_iterator i = fi.m_pathes.begin(); i != fi.m_pathes.end(); ++i)
+            drawPathText(*i, fi.m_styler, di::DrawRule(pRule, depth, false));
         }
 
         // draw point text
         isN = ((pRule->GetType() & drule::node) != 0);
         if (!isPath && !isArea && isN)
-          drawText(pInfo->m_point, pInfo, pRule, textPosition, depth, id);
+          drawText(fi.m_point, textPosition, fi.m_styler, di::DrawRule(pRule, depth, false), id);
       }
     }
   }
 
   // draw road numbers
-  if (isPath && !pInfo->m_road.empty() && m_level >= 12)
+  if (isPath && !fi.m_styler.m_refText.empty() && m_level >= 12)
   {
-    for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
-      drawPathNumber(*i, pInfo);
+    for (list<di::PathInfo>::const_iterator i = fi.m_pathes.begin(); i != fi.m_pathes.end(); ++i)
+      drawPathNumber(*i, fi.m_styler);
   }
 }
 

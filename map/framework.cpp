@@ -1,5 +1,5 @@
 #include "framework.hpp"
-#include "draw_processor.hpp"
+#include "feature_processor.hpp"
 #include "drawer.hpp"
 #include "benchmark_provider.hpp"
 #include "benchmark_engine.hpp"
@@ -794,7 +794,7 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
                           int scaleLevel,
                           bool isTiling)
 {
-  fwork::DrawProcessor doDraw(clipRect, screen, e, scaleLevel);
+  fwork::FeatureProcessor doDraw(clipRect, screen, e, scaleLevel);
 
   try
   {
@@ -843,7 +843,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   ASSERT ( m_renderPolicy, () );
 
   Drawer * pDrawer = e->drawer();
-  graphics::Screen * pScreen = pDrawer->screen().get();
+  graphics::Screen * pScreen = pDrawer->screen();
 
   pScreen->beginFrame();
 

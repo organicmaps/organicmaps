@@ -125,7 +125,7 @@
 {
   frameBuffer->onSize(width, height);
   
-  shared_ptr<graphics::Screen> screen = renderPolicy->GetDrawer()->screen();
+  graphics::Screen * screen = renderPolicy->GetDrawer()->screen();
 
   /// free old render buffer, as we would not create a new one.
   screen->resetRenderTarget();
