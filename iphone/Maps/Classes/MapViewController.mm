@@ -463,7 +463,12 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-  return YES;
+  if ([otherGestureRecognizer isKindOfClass:[UIPinchGestureRecognizer class]]
+      || [otherGestureRecognizer isKindOfClass:[UIRotationGestureRecognizer class]])
+  {
+    return YES;
+  }
+  return NO;
 }
 
 -(void)addGestures
@@ -635,14 +640,23 @@
 {
   if (recognizer.numberOfTouches >1 )
   {
-    p1 = [recognizer locationOfTouch:0 inView:self.view];
-    p2 = [recognizer locationOfTouch:1 inView:self.view];
+    CGPoint t1 = [recognizer locationOfTouch:0 inView:self.view];
+    CGPoint t2 = [recognizer locationOfTouch:1 inView:self.view];
+
 
     CGFloat const scaleFactor = self.view.contentScaleFactor;
-    p1.x *= scaleFactor;
-    p1.y *= scaleFactor;
-    p2.x *= scaleFactor;
-    p2.y *= scaleFactor;
+    t1.x *= scaleFactor;
+    t1.y *= scaleFactor;
+    t2.x *= scaleFactor;
+    t2.y *= scaleFactor;
+    //avoid jumping if user scales or rotates with one finger fixed
+    if (startedScaling && CFAbsoluteTimeGetCurrent() - lastRotateTime > 0.1)
+    {
+      GetFramework().StartScale(ScaleEvent(t1.x, t1.y, t2.x, t2.y));
+      lastRotateTime = CFAbsoluteTimeGetCurrent();
+    }
+    p1 = t1;
+    p2 = t2;
   }
 }
 
