@@ -47,7 +47,9 @@ UNIT_TEST(PathPoints_ClipAsIntervals)
 
   fun.IsExist();
 
-  LOG(LINFO, (*fun.m_intervals));
+  double res [2] = {5, 45};
+
+  TEST(std::equal(intervals.begin(), intervals.end(), res), ());
 
   typedef gp::filter_screenpts_adapter<gp::cut_path_intervals> cut_functor_t;
 
@@ -62,7 +64,16 @@ UNIT_TEST(PathPoints_ClipAsIntervals)
   for (unsigned i = 0; i < ARRAY_SIZE(pts); ++i)
     cut_fun(CoordPointT(pts[i].x, pts[i].y));
 
-  LOG(LINFO, (cut_fun.m_points.back().m_path));
+  m2::PointD res1[] = {
+    m2::PointD(5, 10),
+    m2::PointD(10, 10),
+    m2::PointD(10, 0),
+    m2::PointD(20, 0),
+    m2::PointD(20, 10),
+    m2::PointD(25, 10)
+  };
+
+  TEST(std::equal(res1, res1 + ARRAY_SIZE(res1), cut_fun.m_points.back().m_path.begin()), ());
 }
 
 UNIT_TEST(PathPoints_DeadZoneClipping)
