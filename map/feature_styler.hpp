@@ -1,21 +1,51 @@
 #pragma once
 
-#include "drawer.hpp"
+#include "../indexer/drawing_rules.hpp"
+
+#include "../geometry/rect2d.hpp"
 
 #include "../std/vector.hpp"
 
 class FeatureType;
 
-namespace feature
+namespace graphics
 {
-  class StylesContainer
+  class GlyphCache;
+}
+
+class ScreenBase;
+
+namespace di
+{
+  struct DrawRule
   {
+    drule::BaseRule const * m_rule;
+    double m_depth;
+    bool m_transparent;
 
-  public:
-    StylesContainer();
-    ~StylesContainer();
+    DrawRule() : m_rule(0) {}
+    DrawRule(drule::BaseRule const * p,
+             double d,
+             bool tr)
+      : m_rule(p),
+        m_depth(d),
+        m_transparent(tr)
+    {}
 
-    typedef buffer_vector<di::DrawRule, 16> StylesContainerT;
+    uint32_t GetID(size_t threadSlot) const;
+    void SetID(size_t threadSlot, uint32_t id) const;
+  };
+
+  struct FeatureStyler
+  {
+    FeatureStyler(FeatureType const & f,
+                  int const zoom,
+                  double const visualScale,
+                  graphics::GlyphCache * glyphCache,
+                  ScreenBase const * convertor,
+                  m2::RectD const * rect);
+
+    typedef buffer_vector<di::DrawRule, 8> StylesContainerT;
     StylesContainerT m_rules;
 
     bool m_isCoastline;
@@ -23,21 +53,34 @@ namespace feature
     bool m_hasPathText;
     int m_geometryType;
 
+    double m_visualScale;
+
     string m_primaryText;
     string m_secondaryText;
     string m_refText;
 
+    typedef buffer_vector<double, 16> ClipIntervalsT;
+    ClipIntervalsT m_intervals;
+
+    typedef buffer_vector<double, 8> TextOffsetsT;
+    TextOffsetsT m_offsets;
+
+    double m_pathLength;
+    double m_textLength;
+    uint8_t m_fontSize;
+
+    graphics::GlyphCache * m_glyphCache;
+    ScreenBase const * m_convertor;
+    m2::RectD const * m_rect;
+
     double m_popRank;
 
-    void GetStyles(FeatureType const & f, int const zoom);
+    bool IsEmpty() const;
 
-    inline bool IsEmpty() const
-    {
-      return m_rules.empty();
-    }
-    inline size_t GetCount() const
-    {
-      return m_rules.size();
-    }
+    string const GetPathName() const;
+
+    bool FilterTextSize(drule::BaseRule const * pRule) const;
+    uint8_t GetTextFontSize(drule::BaseRule const * pRule) const;
+    void LayoutTexts();
   };
 }

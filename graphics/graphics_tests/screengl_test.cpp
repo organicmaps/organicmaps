@@ -948,7 +948,7 @@ namespace
                       m_text,
                       calc_length(m_path),
                       0.0,
-                      graphics::EPosLeft,
+                      0,
                       0);
     }
   };
@@ -1093,6 +1093,7 @@ namespace
       params.m_glyphCache = p->glyphCache();
       params.m_pivot = m_path[0];
       params.m_position = graphics::EPosCenter;
+      params.m_textOffset = 30;
 
       graphics::PathTextElement pte(params);
 

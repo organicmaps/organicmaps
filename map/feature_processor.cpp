@@ -120,22 +120,43 @@ namespace fwork
 
     case feature::GEOM_LINE:
       {
-//        typedef filter_screenpts_adapter<path_points> functor_t;
-        typedef filter_screenpts_adapter<cut_path_intervals> functor_t;
-
-        functor_t::params p;
-
-        p.m_convertor = &m_convertor;
-        p.m_rect = &m_rect;
-        p.m_intervals = &fi.m_styler.m_intervals;
-
-        functor_t fun(p);
-
-        f.ForEachPointRef(fun, m_zoom);
-        if (fun.IsExist())
+        if (fi.m_styler.m_hasPathText)
         {
-          isExist = true;
-          assign_path(fi, fun);
+          typedef filter_screenpts_adapter<cut_path_intervals> functor_t;
+
+          functor_t::params p;
+
+          p.m_convertor = &m_convertor;
+          p.m_rect = &m_rect;
+          p.m_intervals = &fi.m_styler.m_intervals;
+
+          functor_t fun(p);
+
+          f.ForEachPointRef(fun, m_zoom);
+          if (fun.IsExist())
+          {
+            isExist = true;
+            assign_path(fi, fun);
+          }
+        }
+        else
+        {
+          typedef filter_screenpts_adapter<path_points> functor_t;
+
+          functor_t::params p;
+
+          p.m_convertor = &m_convertor;
+          p.m_rect = &m_rect;
+
+          functor_t fun(p);
+
+          f.ForEachPointRef(fun, m_zoom);
+
+          if (fun.IsExist())
+          {
+            isExist = true;
+            assign_path(fi, fun);
+          }
         }
         break;
       }

@@ -8,7 +8,8 @@ namespace graphics
     : m_pts(0),
       m_ptsCount(0),
       m_fullLength(0),
-      m_pathOffset(0)
+      m_pathOffset(0),
+      m_textOffset(0)
   {}
 
   PathTextElement::PathTextElement(Params const & p)
@@ -20,7 +21,7 @@ namespace graphics
         visText(),
         p.m_fullLength,
         p.m_pathOffset,
-        p.m_position)
+        p.m_textOffset)
   {
     setPivot(m_glyphLayout.pivot());
     setIsValid((m_glyphLayout.firstVisible() == 0) && (m_glyphLayout.lastVisible() == visText().size()));
@@ -44,8 +45,8 @@ namespace graphics
       for (unsigned i = 0; i < m_glyphLayout.boundRects().size(); ++i)
         m_boundRects.push_back(m_glyphLayout.boundRects()[i]);
 
-//      for (unsigned i = 0; i < m_boundRects.size(); ++i)
-//        m_boundRects[i] = m2::Inflate(m_boundRects[i], m2::PointD(10, 10));
+      for (unsigned i = 0; i < m_boundRects.size(); ++i)
+        m_boundRects[i] = m2::Inflate(m_boundRects[i], m2::PointD(10, 10));
   //    m_boundRects[i].m2::Inflate(m2::PointD(40, 2)); //< to create more sparse street names structure
       setIsDirtyRect(false);
     }

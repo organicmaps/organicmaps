@@ -153,28 +153,31 @@ namespace graphics
     drawTextEx(params);
   }
 
-
-
-  bool OverlayRenderer::drawPathText(
-      FontDesc const & fontDesc, m2::PointD const * path, size_t s, string const & utf8Text,
-      double fullLength, double pathOffset, graphics::EPosition pos, double depth)
+  void OverlayRenderer::drawPathText(FontDesc const & fontDesc,
+                                     m2::PointD const * path,
+                                     size_t pathSize,
+                                     string const & utf8Text,
+                                     double fullLength,
+                                     double pathOffset,
+                                     double textOffset,
+                                     double depth)
   {
     if (!m_drawTexts)
-      return false;
+      return;
 
     PathTextElement::Params params;
 
     params.m_pts = path;
-    params.m_ptsCount = s;
+    params.m_ptsCount = pathSize;
     params.m_fullLength = fullLength;
     params.m_pathOffset = pathOffset;
     params.m_fontDesc = fontDesc;
     params.m_logText = strings::MakeUniString(utf8Text);
     params.m_depth = depth;
     params.m_log2vis = true;
+    params.m_textOffset = textOffset;
     params.m_glyphCache = glyphCache();
     params.m_pivot = path[0];
-    params.m_position = pos;
 
     shared_ptr<PathTextElement> pte(new PathTextElement(params));
 
@@ -184,8 +187,30 @@ namespace graphics
       pte->draw(this, id);
     else
       m_overlay->processOverlayElement(pte);
+  }
 
-    return true;
+  void OverlayRenderer::drawPathText(FontDesc const & fontDesc,
+                                     m2::PointD const * path,
+                                     size_t pathSize,
+                                     string const & utf8Text,
+                                     double fullLength,
+                                     double pathOffset,
+                                     double const * textOffsets,
+                                     size_t offsSize,
+                                     double depth)
+  {
+    if (!m_drawTexts)
+      return;
+
+    for (unsigned i = 0; i < offsSize; ++i)
+      drawPathText(fontDesc,
+                   path,
+                   pathSize,
+                   utf8Text,
+                   fullLength,
+                   pathOffset,
+                   textOffsets[i],
+                   depth);
   }
 
   void OverlayRenderer::setOverlay(shared_ptr<Overlay> const & overlay)

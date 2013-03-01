@@ -75,7 +75,9 @@ namespace graphics
       m_lastVisible(visText.size()),
       m_fontDesc(fontDesc),
       m_pivot(pt),
-      m_offset(0, 0)
+      m_offset(0, 0),
+      m_textLength(0),
+      m_textOffset(0)
   {
     size_t const cnt = visText.size();
     ASSERT_GREATER(cnt, 0, ());
@@ -100,6 +102,8 @@ namespace graphics
                         fontDesc.m_color);
 
       GlyphMetrics const m = glyphCache->getGlyphMetrics(glyphKey);
+
+      m_textLength += m.m_xAdvance;
 
       if (isFirst)
       {
@@ -157,12 +161,18 @@ namespace graphics
       m_lastVisible(0),
       m_path(src.m_path, m),
       m_visText(src.m_visText),
-      m_pos(src.m_pos),
       m_fontDesc(src.m_fontDesc),
       m_metrics(src.m_metrics),
       m_pivot(0, 0),
-      m_offset(0, 0)
+      m_offset(0, 0),
+      m_textLength(src.m_textLength)
   {
+    m_textOffset = (m2::PointD(0, src.m_textOffset) * m).Length(m2::PointD(0, 0) * m);
+
+    /// if isReverse flag is changed, recalculate m_textOffset
+    if (src.m_path.isReverse() ^ m_path.isReverse())
+      m_textOffset = m_path.fullLength() - m_textOffset - m_textLength;
+
     if (!m_fontDesc.IsValid())
       return;
     m_boundRects.push_back(m2::AnyRectD(m2::RectD(0, 0, 0, 0)));
@@ -176,15 +186,16 @@ namespace graphics
                            strings::UniString const & visText,
                            double fullLength,
                            double pathOffset,
-                           graphics::EPosition pos)
+                           double textOffset)
     : m_firstVisible(0),
       m_lastVisible(0),
       m_path(pts, ptsCount, fullLength, pathOffset),
       m_visText(visText),
-      m_pos(pos),
       m_fontDesc(fontDesc),
       m_pivot(0, 0),
-      m_offset(0, 0)
+      m_offset(0, 0),
+      m_textLength(0),
+      m_textOffset(textOffset)
   {
     if (!m_fontDesc.IsValid())
       return;
@@ -202,6 +213,7 @@ namespace graphics
                    false, //< calculating glyph positions using the unmasked glyphs.
                    graphics::Color(0, 0, 0, 0));
       m_metrics[i] = glyphCache->getGlyphMetrics(key);
+      m_textLength += m_metrics[i].m_xAdvance;
     }
     recalcAlongPath();
   }
@@ -226,32 +238,13 @@ namespace graphics
 
     PathPoint arrPathStart = m_path.front();
 
-    m_pivot = m_path.offsetPoint(arrPathStart, m_path.fullLength() / 2.0).m_pt;
+    m_pivot = m_path.offsetPoint(arrPathStart, m_textOffset).m_pt;
 
     // offset of the text from path's start
-    double offset = (m_path.fullLength() - strLength) / 2.0;
-
-    if (m_pos & graphics::EPosLeft)
-    {
-      offset = 0;
-      m_pivot = arrPathStart.m_pt;
-    }
-
-    if (m_pos & graphics::EPosRight)
-    {
-      offset = (m_path.fullLength() - strLength);
-      m_pivot = m_path.get(m_path.size() - 1);
-    }
+    double offset = m_textOffset;
 
     // calculate base line offset
     double blOffset = 2 - m_fontDesc.m_size / 2;
-    // on-path kerning should be done for baseline-centered glyphs
-    //double kernOffset = blOffset;
-
-    if (m_pos & graphics::EPosUnder)
-      blOffset = 2 - m_fontDesc.m_size;
-    if (m_pos & graphics::EPosAbove)
-      blOffset = 2;
 
     offset -= m_path.pathOffset();
     if (-offset >= strLength)

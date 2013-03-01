@@ -41,7 +41,6 @@ namespace graphics
     TextPath m_path;
 
     strings::UniString m_visText;
-    graphics::EPosition m_pos;
 
     graphics::FontDesc m_fontDesc;
 
@@ -52,7 +51,14 @@ namespace graphics
     m2::PointD m_pivot;
     m2::PointD m_offset;
 
-    double getKerning(GlyphLayoutElem const & prevElem, GlyphMetrics const & prevMetrics, GlyphLayoutElem const & curElem, GlyphMetrics const & curMetrics);
+    double m_textLength;
+    double m_textOffset;
+
+    double getKerning(GlyphLayoutElem const & prevElem,
+                      GlyphMetrics const & prevMetrics,
+                      GlyphLayoutElem const & curElem,
+                      GlyphMetrics const & curMetrics);
+
     void computeBoundRects();
 
     void recalcPivot();
@@ -78,7 +84,7 @@ namespace graphics
                 strings::UniString const & visText,
                 double fullLength,
                 double pathOffset,
-                graphics::EPosition pos);
+                double textOffset);
 
     size_t firstVisible() const;
     size_t lastVisible() const;

@@ -18,6 +18,7 @@ namespace graphics
       size_t m_ptsCount;
       double m_fullLength;
       double m_pathOffset;
+      double m_textOffset;
       Params();
     };
 

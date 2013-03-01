@@ -65,14 +65,24 @@ namespace graphics
                     bool log2vis,
                     bool doSplit = false);
 
-    /// drawing text on the path
-    bool drawPathText(FontDesc const & fontDesc,
+    void drawPathText(FontDesc const & fontDesc,
                       m2::PointD const * path,
                       size_t s,
                       string const & utf8Text,
                       double fullLength,
                       double pathOffset,
-                      graphics::EPosition pos,
+                      double textOffset,
+                      double depth);
+
+    /// drawing text on the path
+    void drawPathText(FontDesc const & fontDesc,
+                      m2::PointD const * path,
+                      size_t s,
+                      string const & utf8Text,
+                      double fullLength,
+                      double pathOffset,
+                      double const * textOffsets,
+                      size_t offsSize,
                       double depth);
 
     void setOverlay(shared_ptr<Overlay> const & overlay);
