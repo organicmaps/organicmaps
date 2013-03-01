@@ -138,3 +138,71 @@ UNIT_TEST(IsIntersect_Intervals)
   TEST(my::IsIntersect(0, 100, -50, 0), ());
   TEST(!my::IsIntersect(0, 100, -50, -20), ());
 }
+
+UNIT_TEST(MergeInterval_Simple)
+{
+  int x0, x1;
+
+  my::Merge(100, 800, 400, 600, x0, x1);
+  TEST((x0 == 100) && (x1 == 800), ());
+
+  my::Merge(100, 800, 50, 600, x0, x1);
+  TEST((x0 == 50) && (x1 == 800), ());
+}
+
+UNIT_TEST(MergeSorted_Simple)
+{
+  double const a [] = {
+    10, 20,
+    30, 40,
+    50, 60
+  };
+
+  double const b [] = {
+    15, 35,
+    70, 80
+  };
+
+  double c[ARRAY_SIZE(a) + ARRAY_SIZE(b)];
+
+  int k;
+
+  double res0[ARRAY_SIZE(a) + ARRAY_SIZE(b)] = {10, 40, 50, 60, 70, 80, 0, 0, 0, 0};
+  k = my::MergeSorted(a, ARRAY_SIZE(a), b, ARRAY_SIZE(b), c, ARRAY_SIZE(c));
+  TEST(std::equal(c, c + k, res0), ());
+
+  double res1[ARRAY_SIZE(a) + ARRAY_SIZE(b)] = {10, 40, 50, 60, 0, 0, 0, 0, 0, 0};
+  k = my::MergeSorted(a, ARRAY_SIZE(a), b, ARRAY_SIZE(b) - 2, c, ARRAY_SIZE(c));
+  TEST(std::equal(c, c + k, res1), ());
+
+  double res2[ARRAY_SIZE(a) + ARRAY_SIZE(b)] = {10, 40, 70, 80, 0, 0, 0, 0, 0, 0};
+  k = my::MergeSorted(a, ARRAY_SIZE(a) - 2, b, ARRAY_SIZE(b), c, ARRAY_SIZE(c));
+  TEST(std::equal(c, c + k, res2), ());
+
+  double res3[ARRAY_SIZE(a) + ARRAY_SIZE(b)] = {10, 40, 0, 0, 0, 0, 0, 0, 0, 0};
+  k = my::MergeSorted(a, ARRAY_SIZE(a) - 2, b, ARRAY_SIZE(b) - 2, c, ARRAY_SIZE(c));
+  TEST(std::equal(c, c + k, res3), ());
+}
+
+UNIT_TEST(MergeSorted_NullArray)
+{
+  double const a [] = {
+    10, 20
+  };
+
+  double const b [] = {
+    0, 0
+  };
+
+  double c [2];
+
+  int k;
+
+  double etalon [2] = {10, 20};
+
+  k = my::MergeSorted(a, ARRAY_SIZE(a), b, 0, c, ARRAY_SIZE(c));
+  TEST(std::equal(c, c + k, etalon), ());
+
+  k = my::MergeSorted(b, 0, a, ARRAY_SIZE(a), c, ARRAY_SIZE(c));
+  TEST(std::equal(c, c + k, etalon), ());
+}
