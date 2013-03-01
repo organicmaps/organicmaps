@@ -593,15 +593,26 @@
   {
     if (recognizer.state == UIGestureRecognizerStateChanged)
     {
-        if (startedScaling)
-        {
-          f.StopScale(ScaleEvent(p1.x, p1.y, p2.x, p2.y));
-          startedScaling = NO;
-        }
+      if (startedScaling)
+      {
+        f.StopScale(ScaleEvent(p1.x, p1.y, p2.x, p2.y));
+        CGPoint z = [self pointFromRecognizerWithScaleFactor:recognizer];
+        f.StartDrag(DragEvent(z.x, z.y));
+        startedScaling = NO;
+        lastRotateTime = 0;
+      }
+      else
+      {
+        [self handlePan:(UIPanGestureRecognizer *)recognizer];
+      }
     }
     if (recognizer.state != UIGestureRecognizerStateEnded)
     {
       return;
+    }
+    else if (!startedScaling)
+    {
+      [self handlePan:(UIPanGestureRecognizer *)recognizer];
     }
   }
 
