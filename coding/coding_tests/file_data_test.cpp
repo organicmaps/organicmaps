@@ -23,6 +23,7 @@ namespace
     f.Write(string(size, c).c_str(), size);
   }
 
+#ifdef OMIM_OS_WINDOWS
   void CheckFileOK(string const & name)
   {
     my::FileData f(name, my::FileData::OP_READ);
@@ -34,6 +35,7 @@ namespace
     f.Read(0, &buffer[0], size);
     TEST ( equal(name.begin(), name.end(), buffer.begin()), () );
   }
+#endif
 }
 
 UNIT_TEST(FileData_ApiSmoke)
