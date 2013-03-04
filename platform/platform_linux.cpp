@@ -40,7 +40,7 @@ Platform::Platform()
     mkdir(m_settingsDir.c_str(), 0755);
   }
 
-  m_writableDir = home + "/.local/share/MapsWithMe/";
+  m_writableDir = home + "/.local/share/MapsWithMe";
   mkdir((home + "/.local/").c_str(), 0755);
   mkdir((home + "/.local/share/").c_str(), 0755);
   mkdir(m_writableDir.c_str(), 0755);
@@ -75,6 +75,7 @@ Platform::Platform()
   }
   m_resourcesDir += '/';
   m_settingsDir += '/';
+  m_writableDir += '/';
 
   char const * tmpDir = ::getenv("TMPDIR");
   if (tmpDir)
