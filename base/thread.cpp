@@ -21,6 +21,7 @@ namespace threads
   /// BADA specific implementation
   class ThreadImpl : public Osp::Base::Runtime::Thread
   {
+    typedef Osp::Base::Runtime::Thread BaseT;
     IRoutine * m_pRoutine;
 
   public:
@@ -35,14 +36,13 @@ namespace threads
 
     int Create(IRoutine * pRoutine)
     {
-      ASSERT(pRoutine, ("Can't be NULL"));
       m_pRoutine = pRoutine;
-      return Start();
+      return BaseT::Start();
     }
 
     int Join()
     {
-      return Join();
+      return BaseT::Join();
     }
 
     virtual Osp::Base::Object * Run()
@@ -178,6 +178,44 @@ namespace threads
       }
     }
   }
+
+
+  ThreadPool::ThreadPool(size_t reserve)
+  {
+    m_pool.reserve(reserve);
+  }
+
+  ThreadPool::~ThreadPool()
+  {
+    for (size_t i = 0; i < m_pool.size(); ++i)
+    {
+      delete m_pool[i].first;
+      delete m_pool[i].second;
+    }
+  }
+
+  void ThreadPool::Add(IRoutine * pRoutine)
+  {
+    ValueT v;
+    v.first = new Thread();
+    v.second = pRoutine;
+
+    m_pool.push_back(v);
+
+    v.first->Create(pRoutine);
+  }
+
+  void ThreadPool::Join()
+  {
+    for (size_t i = 0; i < m_pool.size(); ++i)
+      m_pool[i].first->Join();
+  }
+
+  IRoutine * ThreadPool::GetRoutine(size_t i) const
+  {
+    return m_pool[i].second;
+  }
+
 
   void Sleep(size_t ms)
   {

@@ -74,24 +74,12 @@ namespace
     srand(666);
 
     size_t const count = 20;
-    vector<pair<threads::Thread *, FeaturesLoader *> > pool;
-    pool.resize(count);
+    threads::ThreadPool pool(count);
 
     for (size_t i = 0; i < count; ++i)
-    {
-      pool[i].second = new FeaturesLoader(src);
-      pool[i].first = new threads::Thread();
+      pool.Add(new FeaturesLoader(src));
 
-      pool[i].first->Create(pool[i].second);
-    }
-
-    for (size_t i = 0; i < count; ++i)
-    {
-      pool[i].first->Join();
-
-      delete pool[i].first;
-      delete pool[i].second;
-    }
+    pool.Join();
   }
 }
 

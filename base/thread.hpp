@@ -3,6 +3,8 @@
 #include "../std/target_os.hpp"
 
 #include "../std/stdint.hpp"
+#include "../std/vector.hpp"
+#include "../std/utility.hpp"
 
 #ifdef OMIM_OS_WINDOWS
 #include "../std/windows.hpp" // for DWORD
@@ -51,6 +53,25 @@ namespace threads
     void Cancel();
     /// wait for thread ending
     void Join();
+  };
+
+  /// Simple threads container. Takes ownership for every added IRoutine.
+  class ThreadPool
+  {
+    typedef pair<Thread *, IRoutine *> ValueT;
+    vector<ValueT> m_pool;
+
+    ThreadPool(ThreadPool const &);
+    ThreadPool & operator=(Thread const &);
+
+  public:
+    ThreadPool(size_t reserve = 0);
+    ~ThreadPool();
+
+    void Add(IRoutine * pRoutine);
+    void Join();
+
+    IRoutine * GetRoutine(size_t i) const;
   };
 
   /// Suspends the execution of the current thread until the time-out interval elapses.
