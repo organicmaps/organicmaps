@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = platform coding base tomcrypt jansson
+DEPENDENCIES = platform coding base zlib tomcrypt jansson
 
 include($$ROOT_DIR/common.pri)
 
@@ -33,3 +33,4 @@ SOURCES += \
     language_test.cpp \
     downloader_test.cpp \
     video_timer_test.cpp \
+    apk_test.cpp \
