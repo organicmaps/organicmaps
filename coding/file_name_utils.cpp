@@ -24,7 +24,7 @@ string GetNativeSeparator()
     return "\\";
 #else
     return "/";
-#endif;
+#endif
 }
 
 string JoinFoldersToPath(const string & folder, const string & file)

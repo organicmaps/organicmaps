@@ -24,8 +24,8 @@ namespace graphics
 
   Image::Info::Info(char const * name, EDensity density)
     : Resource::Info(Resource::EImage),
-      m_size(0, 0),
-      m_resourceName(name)
+      m_resourceName(name),
+      m_size(0, 0)
   {
     string resName = graphics::resourcePath(name, density);
 
