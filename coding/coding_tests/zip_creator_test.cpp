@@ -1,69 +1,54 @@
 #include "../../testing/testing.hpp"
 
-#include "../../map/framework.hpp"
-
 #include "../../coding/zip_creator.hpp"
 #include "../../coding/zip_reader.hpp"
 #include "../../coding/internal/file_data.hpp"
-#include "../../coding/writer.hpp"
-
-#include "../../base/scope_guard.hpp"
-
-#include "../../platform/platform.hpp"
+#include "../../coding/file_writer.hpp"
+#include "../../coding/constants.hpp"
 
 #include "../../std/string.hpp"
 #include "../../std/vector.hpp"
-#include "../../std/iostream.hpp"
 
-UNIT_TEST(Create_Zip_From_Big_File)
+
+namespace
 {
-  string const name = "testfileforzip.txt";
-
+  void CreateAndTestZip(string const & filePath, string const & zipPath)
   {
-    my::FileData f(name, my::FileData::OP_WRITE_TRUNCATE);
-    string z(1024*512 + 1, '1');
-    f.Write(z.c_str(), z.size());
+    TEST(CreateZipFromPathDeflatedAndDefaultCompression(filePath, zipPath), ());
+
+    vector<string> files;
+    ZipFileReader::FilesList(zipPath, files);
+    string const unzippedFile = "unzipped.tmp";
+    ZipFileReader::UnzipFile(zipPath, files[0], unzippedFile);
+
+    TEST(my::IsEqualFiles(filePath, unzippedFile), ());
+    TEST(my::DeleteFileX(filePath), ());
+    TEST(my::DeleteFileX(zipPath), ());
+    TEST(my::DeleteFileX(unzippedFile), ());
   }
-
-  string const zipName = "testzip.zip";
-
-  TEST(createZipFromPathDeflatedAndDefaultCompression(name, zipName), ());
-
-
-  vector<string> files;
-  ZipFileReader::FilesList(zipName, files);
-  string const unzippedFile = "unzipped.tmp";
-  ZipFileReader::UnzipFile(zipName, files[0], unzippedFile);
-
-
-  TEST(my::IsEqualFiles(name, unzippedFile),());
-  TEST(my::DeleteFileX(name), ());
-  TEST(my::DeleteFileX(zipName), ());
-  TEST(my::DeleteFileX(unzippedFile), ());
 }
 
-UNIT_TEST(Create_zip)
+UNIT_TEST(CreateZip_BigFile)
 {
   string const name = "testfileforzip.txt";
 
   {
-    my::FileData f(name, my::FileData::OP_WRITE_TRUNCATE);
+    FileWriter f(name);
+    string s(READ_FILE_BUFFER_SIZE + 1, '1');
+    f.Write(s.c_str(), s.size());
+  }
+
+  CreateAndTestZip(name, "testzip.zip");
+}
+
+UNIT_TEST(CreateZip_Smoke)
+{
+  string const name = "testfileforzip.txt";
+
+  {
+    FileWriter f(name);
     f.Write(name.c_str(), name.size());
   }
 
-  string const zipName = "testzip.zip";
-
-  TEST(createZipFromPathDeflatedAndDefaultCompression(name, zipName), ());
-
-
-  vector<string> files;
-  ZipFileReader::FilesList(zipName, files);
-  string const unzippedFile = "unzipped.tmp";
-  ZipFileReader::UnzipFile(zipName, files[0], unzippedFile);
-
-
-  TEST(my::IsEqualFiles(name, unzippedFile),());
-  TEST(my::DeleteFileX(name), ());
-  TEST(my::DeleteFileX(zipName), ());
-  TEST(my::DeleteFileX(unzippedFile), ());
+  CreateAndTestZip(name, "testzip.zip");
 }

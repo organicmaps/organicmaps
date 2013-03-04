@@ -2,6 +2,7 @@
 
 #include "../reader.hpp" // For Reader exceptions.
 #include "../writer.hpp" // For Writer exceptions.
+#include "../constants.hpp"
 
 #include "../../base/exception.hpp"
 #include "../../base/logging.hpp"
@@ -270,7 +271,7 @@ bool IsEqualFiles(string const & firstFile, string const & secondFile)
   if (first.Size() != second.Size())
     return false;
 
-  size_t const bufSize = 512 * 1024;
+  size_t const bufSize = READ_FILE_BUFFER_SIZE;
   vector<char> buf1, buf2;
   buf1.resize(bufSize);
   buf2.resize(bufSize);
@@ -279,15 +280,17 @@ bool IsEqualFiles(string const & firstFile, string const & secondFile)
 
   while (currSize < fileSize)
   {
-    size_t toRead = fileSize - currSize;
-    if (toRead > bufSize)
-      toRead = bufSize;
+    size_t const toRead = min(bufSize, fileSize - currSize);
+
     first.Read(currSize, &buf1[0], toRead);
     second.Read(currSize, &buf2[0], toRead);
+
     if (buf1 != buf2)
       return false;
+
     currSize += toRead;
   }
+
   return true;
 }
 

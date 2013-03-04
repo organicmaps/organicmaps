@@ -240,7 +240,7 @@
           [catName setString:@"MapsWithMe"];
         NSMutableString * kmzFile = [NSMutableString stringWithString:filePath];
         [kmzFile replaceCharactersInRange:NSMakeRange([filePath length] - 1, 1) withString:@"z"];
-        if (createZipFromPathDeflatedAndDefaultCompression([filePath UTF8String], [kmzFile UTF8String]))
+        if (CreateZipFromPathDeflatedAndDefaultCompression([filePath UTF8String], [kmzFile UTF8String]))
         {
           [self sendBookmarksWithExtension:@".kmz" andType:@"application/vnd.google-earth.kmz" andFile:kmzFile andCategory:catName];
         }

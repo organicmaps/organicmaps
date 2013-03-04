@@ -93,3 +93,4 @@ HEADERS += \
     uri.hpp \
     zip_creator.hpp \
     file_name_utils.hpp \
+    constants.hpp \
