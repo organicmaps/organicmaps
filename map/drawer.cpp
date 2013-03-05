@@ -165,6 +165,11 @@ void Drawer::drawPath(di::PathInfo const & path, di::DrawRule const * rules, siz
     else
     {
       LOG(LERROR, ("couldn't successfully pack a sequence of path styles as a whole"));
+      buffer_vector<m2::PointU, 8> rects;
+      for (unsigned i = 0; i < count; ++i)
+        rects.push_back(infos[i]->resourceSize());
+      LOG(LERROR, (rects));
+
       return;
     }
   }
