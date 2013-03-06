@@ -171,12 +171,14 @@ void BenchmarkEngine::SaveBenchmarkResults()
 {
   string resultsPath;
   Settings::Get("BenchmarkResults", resultsPath);
-  LOG(LINFO, (resultsPath));
-  ofstream fout(GetPlatform().WritablePathForFile(resultsPath).c_str(), ios::app);
 
+  ofstream fout(GetPlatform().WritablePathForFile(resultsPath).c_str());
   for (size_t i = 0; i < m_benchmarkResults.size(); ++i)
   {
+    /// @todo Place correct version here from bundle (platform).
+
     fout << GetPlatform().DeviceName() << " "
+         << "2.3.0" << " "
          << m_startTime << " "
          << m_benchmarkResults[i].m_name << " "
          << m_benchmarkResults[i].m_rect.minX() << " "

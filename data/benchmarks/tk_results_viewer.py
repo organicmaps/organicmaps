@@ -9,7 +9,7 @@ import time
 
 def less_start_time(t1, t2):
     fmt = '%a_%b_%d_%H:%M:%S_%Y'
-    return time.strptime(t1[0], fmt) < time.strptime(t2[0], fmt)
+    return time.strptime(t1[0].replace('__','_'), fmt) < time.strptime(t2[0].replace('__','_'), fmt)
 
 class BenchmarkResultsFrame(Frame):
     def __init__(self, cfg_file, results_file, master=None):
