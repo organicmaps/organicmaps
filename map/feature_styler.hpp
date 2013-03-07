@@ -65,8 +65,6 @@ namespace di
     typedef buffer_vector<double, 8> TextOffsetsT;
     TextOffsetsT m_offsets;
 
-    double m_pathLength;
-    double m_textLength;
     uint8_t m_fontSize;
 
     graphics::GlyphCache * m_glyphCache;
@@ -80,7 +78,9 @@ namespace di
     string const GetPathName() const;
 
     bool FilterTextSize(drule::BaseRule const * pRule) const;
+
+  private:
     uint8_t GetTextFontSize(drule::BaseRule const * pRule) const;
-    void LayoutTexts();
+    void LayoutTexts(double pathLength);
   };
 }

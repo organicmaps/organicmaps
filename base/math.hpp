@@ -107,6 +107,7 @@ bool IsIntersect(T const & x0, T const & x1, T const & x2, T const & x3)
   return !((x1 < x2) || (x3 < x0));
 }
 
+/*
 template <typename T>
 void Merge(T const & x0, T const & x1, T const & x2, T const & x3, T & x4, T & x5)
 {
@@ -179,6 +180,7 @@ size_t MergeSorted(T const * a, size_t as, T const * b, size_t bs, T * c, size_t
 
   return k;
 }
+*/
 
 // Computes x^n.
 template <typename T> inline T PowUint(T x, uint64_t n)

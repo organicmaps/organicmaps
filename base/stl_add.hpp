@@ -3,6 +3,7 @@
 #include "../std/iterator.hpp"
 #include "../std/map.hpp"
 
+
 template <class ContainerT> class BackInsertFunctor
 {
   ContainerT & m_Container;
@@ -168,9 +169,65 @@ template <typename IterT> IterT PrevIterInCycle(IterT it, IterT beg, IterT end)
   return --it;
 }
 
-template <typename KeyT, typename ValueT, typename CompareT, typename AllocatorT>
-ValueT ValueForKey(map<KeyT, ValueT, CompareT, AllocatorT> const & m, KeyT key, ValueT defaultV)
+template <class IterT1, class IterT2, class InsertIterT>
+void AccumulateIntervals1With2(IterT1 b1, IterT1 e1, IterT2 b2, IterT2 e2, InsertIterT res)
 {
-  typename map<KeyT, ValueT, CompareT, AllocatorT>::const_iterator const it = m.find(key);
-  return (it == m.end() ? defaultV : it->second);
+  //typedef typename iterator_traits<InsertIterT>::value_type T;
+  typedef typename iterator_traits<IterT1>::value_type T;
+
+  T prev;
+  bool validPrev = false;
+
+  while (b1 != e1 || b2 != e2)
+  {
+    // Try to continue previous range.
+    if (validPrev)
+    {
+      // add b1 range to prev if needed
+      if (b1 != e1 && b1->first < prev.second)
+      {
+        // correct only second if needed
+        if (prev.second < b1->second)
+          prev.second = b1->second;
+        ++b1;
+        continue;
+      }
+
+      // add b2 range to prev if needed
+      if (b2 != e2 && b2->first < prev.second)
+      {
+        // check that intervals are overlapped
+        if (prev.first < b2->second)
+        {
+          // correct first and second if needed
+          if (b2->first < prev.first)
+            prev.first = b2->first;
+          if (prev.second < b2->second)
+            prev.second = b2->second;
+        }
+
+        ++b2;
+        continue;
+      }
+
+      // if nothing to add - push to results
+      *res++ = prev;
+      validPrev = false;
+    }
+
+    if (b1 != e1)
+    {
+      // start new range
+      prev = *b1++;
+      validPrev = true;
+    }
+    else
+    {
+      // go to exit
+      break;
+    }
+  }
+
+  if (validPrev)
+    *res++ = prev;
 }

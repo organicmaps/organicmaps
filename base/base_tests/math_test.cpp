@@ -139,6 +139,7 @@ UNIT_TEST(IsIntersect_Intervals)
   TEST(!my::IsIntersect(0, 100, -50, -20), ());
 }
 
+/*
 UNIT_TEST(MergeInterval_Simple)
 {
   int x0, x1;
@@ -206,3 +207,4 @@ UNIT_TEST(MergeSorted_NullArray)
   k = my::MergeSorted(b, 0, a, ARRAY_SIZE(a), c, ARRAY_SIZE(c));
   TEST(std::equal(c, c + k, etalon), ());
 }
+*/

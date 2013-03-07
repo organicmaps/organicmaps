@@ -16,6 +16,11 @@
 
 #include "../graphics/glyph_cache.hpp"
 
+#include "../base/stl_add.hpp"
+
+#include "../std/iterator_facade.hpp"
+
+
 namespace
 {
   struct less_depth
@@ -108,7 +113,6 @@ namespace di
     bool hasIcon = false;
     bool hasCaptionWithoutOffset = false;
 
-    bool pathWasClipped = false;
     m_fontSize = 0;
 
     size_t const count = keys.size();
@@ -149,26 +153,6 @@ namespace di
         {
           m_hasPathText = true;
 
-          /// calculating clip intervals only once
-
-          if (!pathWasClipped)
-          {
-            typedef gp::filter_screenpts_adapter<gp::get_path_intervals> functor_t;
-
-            functor_t::params p;
-
-            p.m_convertor = m_convertor;
-            p.m_rect = m_rect;
-            p.m_intervals = &m_intervals;
-
-            functor_t fun(p);
-
-            f.ForEachPointRef(fun, zoom);
-
-            m_pathLength = fun.m_length;
-            pathWasClipped = true;
-          }
-
           if (!FilterTextSize(m_rules[i].m_rule))
             m_fontSize = max(m_fontSize, GetTextFontSize(m_rules[i].m_rule));
         }
@@ -179,9 +163,22 @@ namespace di
             hasCaptionWithoutOffset = true;
     }
 
-    /// placing a text on the path
+    // placing a text on the path
     if (m_hasPathText && (m_fontSize != 0))
-      LayoutTexts();
+    {
+      typedef gp::filter_screenpts_adapter<gp::get_path_intervals> functor_t;
+
+      functor_t::params p;
+
+      p.m_convertor = m_convertor;
+      p.m_rect = m_rect;
+      p.m_intervals = &m_intervals;
+
+      functor_t fun(p);
+      f.ForEachPointRef(fun, zoom);
+
+      LayoutTexts(fun.m_length);
+    }
 
     if (hasIcon && hasCaptionWithoutOffset)
       // we need to delete symbol style (single one due to MakeUnique call above)
@@ -198,49 +195,113 @@ namespace di
     sort(m_rules.begin(), m_rules.end(), less_depth());
   }
 
-  void FeatureStyler::LayoutTexts()
+  typedef pair<double, double> RangeT;
+  template <class IterT> class RangeIterT :
+      public iterator_facade<RangeIterT<IterT>, RangeT, forward_traversal_tag, RangeT>
   {
-    m_textLength = m_glyphCache->getTextLength(m_fontSize, GetPathName());
-    double emptySize = max(200 * m_visualScale, m_textLength);
-    double minPeriodSize = emptySize + m_textLength;
+    IterT m_iter;
+  public:
+    RangeIterT(IterT iter) : m_iter(iter) {}
+
+    RangeT dereference() const
+    {
+      IterT next = m_iter;
+      ++next;
+      return RangeT(*m_iter, *next);
+    }
+    bool equal(RangeIterT const & r) const { return (m_iter == r.m_iter); }
+    void increment()
+    {
+      ++m_iter; ++m_iter;
+    }
+  };
+
+  template <class ContT> class RangeInserter
+  {
+    ContT & m_cont;
+  public:
+    RangeInserter(ContT & cont) : m_cont(cont) {}
+
+    RangeInserter & operator*() { return *this; }
+    RangeInserter & operator++(int) { return *this; }
+    RangeInserter & operator=(RangeT const & r)
+    {
+      m_cont.push_back(r.first);
+      m_cont.push_back(r.second);
+      return *this;
+    }
+  };
+
+  void FeatureStyler::LayoutTexts(double pathLength)
+  {
+    double const textLength = m_glyphCache->getTextLength(m_fontSize, GetPathName());
+    /// @todo Choose best constant for minimal space.
+    double const emptySize = max(200 * m_visualScale, textLength);
+    // multiply on factor because tiles will be rendered in smaller scales
+    double const minPeriodSize = 1.5 * (emptySize + textLength);
 
     size_t textCnt = 0;
     double firstTextOffset = 0;
 
-    if (m_pathLength > m_textLength)
+    if (pathLength > textLength)
     {
-      textCnt = ceil((m_pathLength - m_textLength) / minPeriodSize);
-      firstTextOffset = 0.5 * (m_pathLength - (textCnt * m_textLength + (textCnt - 1) * emptySize));
+      textCnt = ceil((pathLength - textLength) / minPeriodSize);
+      firstTextOffset = 0.5 * (pathLength - (textCnt * textLength + (textCnt - 1) * emptySize));
     }
 
-    if ((textCnt != 0) && (!m_intervals.empty()))
+    if (textCnt != 0 && !m_intervals.empty())
     {
-      buffer_vector<double, 16> deadZones;
+      buffer_vector<RangeT, 8> deadZones;
 
-      for (unsigned i = 0; i < textCnt; ++i)
+      for (size_t i = 0; i < textCnt; ++i)
       {
-        double deadZoneStart = firstTextOffset + (m_textLength + minPeriodSize) * i;
-        double deadZoneEnd = deadZoneStart + m_textLength;
+        double const deadZoneStart = firstTextOffset + minPeriodSize * i;
+        double const deadZoneEnd = deadZoneStart + textLength;
 
         if (deadZoneStart > m_intervals.back())
           break;
 
-        deadZones.push_back(deadZoneStart);
-        deadZones.push_back(deadZoneEnd);
-        m_offsets.push_back(deadZoneStart);
+        deadZones.push_back(make_pair(deadZoneStart, deadZoneEnd));
       }
 
       if (!deadZones.empty())
       {
-        buffer_vector<double, 16> res(deadZones.size() + m_intervals.size());
+        buffer_vector<double, 16> res;
 
-        int k = my::MergeSorted(&m_intervals[0], m_intervals.size(),
-                                &deadZones[0], deadZones.size(),
-                                &res[0], res.size());
-
-        res.resize(k);
+        // accumulate text layout intervals with cliping intervals
+        typedef RangeIterT<ClipIntervalsT::iterator> IterT;
+        AccumulateIntervals1With2(IterT(m_intervals.begin()), IterT(m_intervals.end()),
+                                  deadZones.begin(), deadZones.end(),
+                                  RangeInserter<ClipIntervalsT>(res));
 
         m_intervals = res;
+        ASSERT_EQUAL(m_intervals.size() % 2, 0, ());
+
+        // get final text offsets (belongs to final clipping intervals)
+        size_t i = 0;
+        size_t j = 0;
+        while (i != deadZones.size() && j != m_intervals.size())
+        {
+          ASSERT_LESS(deadZones[i].first, deadZones[i].second, ());
+          ASSERT_LESS(m_intervals[j], m_intervals[j+1], ());
+
+          if (deadZones[i].first < m_intervals[j])
+          {
+            ++i;
+            continue;
+          }
+          if (m_intervals[j+1] <= deadZones[i].first)
+          {
+            j += 2;
+            continue;
+          }
+
+          ASSERT_LESS_OR_EQUAL(m_intervals[j], deadZones[i].first, ());
+          ASSERT_LESS_OR_EQUAL(deadZones[i].second, m_intervals[j+1], ());
+
+          m_offsets.push_back(deadZones[i].first);
+          ++i;
+        }
       }
     }
   }
