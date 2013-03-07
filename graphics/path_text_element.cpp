@@ -45,9 +45,9 @@ namespace graphics
       for (unsigned i = 0; i < m_glyphLayout.boundRects().size(); ++i)
         m_boundRects.push_back(m_glyphLayout.boundRects()[i]);
 
-      for (unsigned i = 0; i < m_boundRects.size(); ++i)
-        m_boundRects[i] = m2::Inflate(m_boundRects[i], m2::PointD(10, 10));
-  //    m_boundRects[i].m2::Inflate(m2::PointD(40, 2)); //< to create more sparse street names structure
+      //for (unsigned i = 0; i < m_boundRects.size(); ++i)
+      //  m_boundRects[i] = m2::Inflate(m_boundRects[i], m2::PointD(10, 10));
+      //m_boundRects[i].m2::Inflate(m2::PointD(40, 2)); //< to create more sparse street names structure
       setIsDirtyRect(false);
     }
 
