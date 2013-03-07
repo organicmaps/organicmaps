@@ -12,20 +12,22 @@
 
 namespace
 {
-  void CreateAndTestZip(string const & filePath, string const & zipPath)
-  {
-    TEST(CreateZipFromPathDeflatedAndDefaultCompression(filePath, zipPath), ());
 
-    vector<string> files;
-    ZipFileReader::FilesList(zipPath, files);
-    string const unzippedFile = "unzipped.tmp";
-    ZipFileReader::UnzipFile(zipPath, files[0], unzippedFile);
+void CreateAndTestZip(string const & filePath, string const & zipPath)
+{
+  TEST(CreateZipFromPathDeflatedAndDefaultCompression(filePath, zipPath), ());
 
-    TEST(my::IsEqualFiles(filePath, unzippedFile), ());
-    TEST(my::DeleteFileX(filePath), ());
-    TEST(my::DeleteFileX(zipPath), ());
-    TEST(my::DeleteFileX(unzippedFile), ());
-  }
+  vector<string> files;
+  ZipFileReader::FilesList(zipPath, files);
+  string const unzippedFile = "unzipped.tmp";
+  ZipFileReader::UnzipFile(zipPath, files[0], unzippedFile);
+
+  TEST(my::IsEqualFiles(filePath, unzippedFile), ());
+  TEST(my::DeleteFileX(filePath), ());
+  TEST(my::DeleteFileX(zipPath), ());
+  TEST(my::DeleteFileX(unzippedFile), ());
+}
+
 }
 
 UNIT_TEST(CreateZip_BigFile)

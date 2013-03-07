@@ -13,33 +13,35 @@
 
 namespace
 {
-  struct ZipHandle
-  {
-    zipFile m_zipFile;
-    ZipHandle(string const & filePath)
-    {
-      m_zipFile = zipOpen(filePath.c_str(), 0);
-    }
-    ~ZipHandle()
-    {
-      if (m_zipFile)
-        zipClose(m_zipFile, NULL);
-    }
-  };
 
-  void CreateTMZip(tm_zip & res)
+struct ZipHandle
+{
+  zipFile m_zipFile;
+  ZipHandle(string const & filePath)
   {
-    time_t rawtime;
-    struct tm * timeinfo;
-    time ( &rawtime );
-    timeinfo = localtime ( &rawtime );
-    res.tm_sec = timeinfo->tm_sec;
-    res.tm_min = timeinfo->tm_min;
-    res.tm_hour = timeinfo->tm_hour;
-    res.tm_mday = timeinfo->tm_mday;
-    res.tm_mon = timeinfo->tm_mon;
-    res.tm_year = timeinfo->tm_year;
+    m_zipFile = zipOpen(filePath.c_str(), 0);
   }
+  ~ZipHandle()
+  {
+    if (m_zipFile)
+      zipClose(m_zipFile, NULL);
+  }
+};
+
+void CreateTMZip(tm_zip & res)
+{
+  time_t rawtime;
+  struct tm * timeinfo;
+  time ( &rawtime );
+  timeinfo = localtime ( &rawtime );
+  res.tm_sec = timeinfo->tm_sec;
+  res.tm_min = timeinfo->tm_min;
+  res.tm_hour = timeinfo->tm_hour;
+  res.tm_mday = timeinfo->tm_mday;
+  res.tm_mon = timeinfo->tm_mon;
+  res.tm_year = timeinfo->tm_year;
+}
+
 }
 
 bool CreateZipFromPathDeflatedAndDefaultCompression(string const & filePath, string const & zipFilePath)
