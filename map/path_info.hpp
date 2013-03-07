@@ -40,6 +40,17 @@ namespace di
       return m_fullL;
     }
 
+    double GetLength() const
+    {
+      double sum = 0.0;
+      for (size_t i = 1; i < m_path.size(); ++i)
+      {
+        double const l = m_path[i-1].Length(m_path[i]);
+        sum += l;
+      }
+      return sum;
+    }
+
     double GetOffset() const
     {
       ASSERT ( m_offset >= 0.0, (m_offset) );

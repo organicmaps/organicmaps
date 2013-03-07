@@ -3,17 +3,8 @@
 #include "feature_info.hpp"
 #include "drawer.hpp"
 
-//#include "../platform/preferred_languages.hpp"
-
-//#include "../geometry/screenbase.hpp"
-//#include "../geometry/rect_intersect.hpp"
-
-//#include "../indexer/feature_visibility.hpp"
-//#include "../indexer/drawing_rules.hpp"
-//#include "../indexer/feature_data.hpp"
 #include "../indexer/feature_impl.hpp"
 
-//#include "../std/bind.hpp"
 
 namespace fwork
 {
@@ -137,6 +128,15 @@ namespace fwork
           {
             isExist = true;
             assign_path(fi, fun);
+
+#ifdef DEBUG
+            if (fi.m_pathes.size() == 1)
+            {
+              double const offset = fi.m_pathes.front().GetOffset();
+              for (size_t i = 0; i < fi.m_styler.m_offsets.size(); ++i)
+                ASSERT_LESS_OR_EQUAL(offset, fi.m_styler.m_offsets[i], ());
+            }
+#endif
           }
         }
         else

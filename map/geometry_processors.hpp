@@ -167,52 +167,44 @@ namespace gp
 
     void push_point(m2::PointD const & pt)
     {
+      /// @todo Filter for equal points.
       m_points.back().push_back(this->convert_point(pt));
     }
   };
 
-  struct get_path_intervals : public geometry_base<di::PathInfo, base_screen>
+  struct interval_params : public geometry_base<di::PathInfo, base_screen>
   {
     typedef geometry_base<di::PathInfo, base_screen> base_t;
 
     buffer_vector<double, 16> * m_intervals;
 
-    bool m_hasPrevPt;
     m2::PointD m_prev;
-    bool m_isFirst;
     double m_length;
+    bool m_hasPrevPt;
 
     struct params : base_t::params
     {
       buffer_vector<double, 16> * m_intervals;
-      params();
+      params() : m_intervals(0) {}
     };
 
-    get_path_intervals(params const & p);
+    interval_params(params const & p);
+  };
+
+  struct get_path_intervals : public interval_params
+  {
+    get_path_intervals(params const & p) : interval_params(p) {}
 
     void operator() (m2::PointD const & pt);
 
     bool IsExist() const;
   };
 
-  struct cut_path_intervals : public geometry_base<di::PathInfo, base_screen>
+  struct cut_path_intervals : public interval_params
   {
-    typedef geometry_base<di::PathInfo, base_screen> base_t;
+    size_t m_pos;
 
-    struct params : base_t::params
-    {
-      buffer_vector<double, 16> * m_intervals;
-      params();
-    };
-
-    double m_length;
-    bool m_isInside;
-    bool m_hasPrevPt;
-    m2::PointD m_prev;
-    buffer_vector<double, 16> * m_intervals;
-    unsigned m_pos;
-
-    cut_path_intervals(params const & p);
+    cut_path_intervals(params const & p) : interval_params(p), m_pos(0) {}
 
     void operator() (m2::PointD const & p);
 

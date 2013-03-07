@@ -27,17 +27,13 @@ namespace gp
       m_exist = false;
   }
 
-  get_path_intervals::params::params()
-    : m_intervals(0)
-  {}
-
-  get_path_intervals::get_path_intervals(params const & p)
+  interval_params::interval_params(params const & p)
     : base_t(p),
-      m_hasPrevPt(false),
       m_intervals(p.m_intervals),
-      m_isFirst(true),
-      m_length(0)
-  {}
+      m_length(0.0),
+      m_hasPrevPt(false)
+  {
+  }
 
   void get_path_intervals::operator()(m2::PointD const & pt)
   {
@@ -46,22 +42,21 @@ namespace gp
       m2::PointD prev = m_prev;
       m2::PointD cur = pt;
 
-      double segLen = cur.Length(prev);
+      double const segLen = cur.Length(prev);
 
       if (m2::Intersect(base_t::m_rect, prev, cur))
       {
         double clipStart = prev.Length(m_prev) + m_length;
         double clipEnd = cur.Length(m_prev) + m_length;
 
-        if (m_isFirst)
+        if (m_intervals->empty())
         {
           m_intervals->push_back(clipStart);
           m_intervals->push_back(clipEnd);
-          m_isFirst = false;
         }
         else
         {
-          if (fabs(m_intervals->back() - clipStart) < 1.0E-12)
+          if (my::AlmostEqual(m_intervals->back(), clipStart))
             m_intervals->back() = clipEnd;
           else
           {
@@ -83,47 +78,30 @@ namespace gp
 
   bool get_path_intervals::IsExist() const
   {
-    return !m_isFirst;
+    return !m_intervals->empty();
   }
-
-  cut_path_intervals::params::params() : m_intervals(0)
-  {}
-
-  cut_path_intervals::cut_path_intervals(params const & p)
-    : base_t(p),
-      m_length(0),
-      m_isInside(false),
-      m_hasPrevPt(false),
-      m_intervals(p.m_intervals),
-      m_pos(0)
-  {}
 
   void cut_path_intervals::operator()(m2::PointD const & pt)
   {
     if (m_hasPrevPt)
     {
-      double segLen = pt.Length(m_prev);
+      double const segLen = pt.Length(m_prev);
 
-      while (true)
+      for (; m_pos != m_intervals->size(); m_pos += 2)
       {
-        m2::PointD dir = (pt - m_prev) / segLen;
-
-        if (m_pos == m_intervals->size())
+        double const start = (*m_intervals)[m_pos];
+        if (start >= m_length + segLen)
           break;
 
-        double start = (*m_intervals)[m_pos];
-        double end = (*m_intervals)[m_pos + 1];
-
-        if (start > m_length + segLen)
-          break;
+        m2::PointD const dir = (pt - m_prev) / segLen;
 
         if (start >= m_length)
         {
           m_points.push_back(PathInfo(start));
           push_point(m_prev + dir * (start - m_length));
-          m_isInside = true;
         }
 
+        double const end = (*m_intervals)[m_pos+1];
         if (end >= m_length + segLen)
         {
           push_point(pt);
@@ -133,10 +111,11 @@ namespace gp
         if (end < m_length + segLen)
         {
           push_point(m_prev + dir * (end - m_length));
-          m_isInside = false;
+#ifdef DEBUG
+          double const len = m_points.back().GetLength();
+          ASSERT_LESS_OR_EQUAL ( fabs(len - (end - start)), 1.0E-4, (len, end - start) );
+#endif
         }
-
-        m_pos += 2;
       }
 
       m_prev = pt;
