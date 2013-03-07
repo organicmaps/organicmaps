@@ -79,14 +79,14 @@ namespace graphics
       m_textLength(0),
       m_textOffset(0)
   {
+    if (!m_fontDesc.IsValid())
+      return;
+
     size_t const cnt = visText.size();
     ASSERT_GREATER(cnt, 0, ());
 
     m_entries.resize(cnt);
     m_metrics.resize(cnt);
-
-    if (!m_fontDesc.IsValid())
-      return;
 
     m2::RectD boundRect;
     m2::PointD curPt(0, 0);
@@ -134,7 +134,7 @@ namespace graphics
     m2::PointD ptOffs(-boundRect.SizeX() / 2 - boundRect.minX(),
                       -boundRect.SizeY() / 2 - boundRect.minY());
 
-    /// adjusting according to position
+    // adjusting according to position
     if (pos & EPosLeft)
       ptOffs += m2::PointD(-boundRect.SizeX() / 2, 0);
 
@@ -167,15 +167,17 @@ namespace graphics
       m_offset(0, 0),
       m_textLength(src.m_textLength)
   {
-    m_textOffset = (m2::PointD(0, src.m_textOffset) * m).Length(m2::PointD(0, 0) * m);
-
-    /// if isReverse flag is changed, recalculate m_textOffset
-    if (src.m_path.isReverse() ^ m_path.isReverse())
-      m_textOffset = m_path.fullLength() - m_textOffset - m_textLength;
-
     if (!m_fontDesc.IsValid())
       return;
+
     m_boundRects.push_back(m2::AnyRectD(m2::RectD(0, 0, 0, 0)));
+
+    m_textOffset = (m2::PointD(0, src.m_textOffset) * m).Length(m2::PointD(0, 0) * m);
+
+    // if isReverse flag is changed, recalculate m_textOffset
+    if (src.m_path.isReverse() != m_path.isReverse())
+      m_textOffset = m_path.fullLength() - m_textOffset - m_textLength;
+
     recalcAlongPath();
   }
 
@@ -199,85 +201,88 @@ namespace graphics
   {
     if (!m_fontDesc.IsValid())
       return;
+
     m_boundRects.push_back(m2::AnyRectD(m2::RectD(0, 0, 0, 0)));
 
-    size_t cnt = m_visText.size();
-
+    size_t const cnt = m_visText.size();
     m_metrics.resize(cnt);
 
     for (size_t i = 0; i < cnt; ++i)
     {
       GlyphKey key(visText[i],
                    m_fontDesc.m_size,
-                   //m_fontDesc.m_isMasked,
-                   false, //< calculating glyph positions using the unmasked glyphs.
+                   false, // calculating glyph positions using the unmasked glyphs.
                    graphics::Color(0, 0, 0, 0));
       m_metrics[i] = glyphCache->getGlyphMetrics(key);
       m_textLength += m_metrics[i].m_xAdvance;
     }
+
+    // if was reversed - recalculate m_textOffset
+    if (m_path.isReverse())
+      m_textOffset = m_path.fullLength() - m_textOffset - m_textLength;
+
     recalcAlongPath();
   }
 
   void GlyphLayout::recalcAlongPath()
   {
-    // get vector of glyphs and calculate string length
-    double strLength = 0.0;
-    size_t count = m_visText.size();
-
-    if (count != 0)
-      m_entries.resize(count);
-
-    for (size_t i = 0; i < m_entries.size(); ++i)
-    {
-      m_entries[i].m_sym = m_visText[i];
-      strLength += m_metrics[i].m_xAdvance;
-    }
-
-    if (m_path.fullLength() < strLength)
+    size_t const count = m_visText.size();
+    if (count == 0 || m_path.fullLength() < m_textLength)
       return;
+
+    m_entries.resize(count);
+    for (size_t i = 0; i < count; ++i)
+      m_entries[i].m_sym = m_visText[i];
 
     PathPoint arrPathStart = m_path.front();
 
-    m_pivot = m_path.offsetPoint(arrPathStart, m_textOffset).m_pt;
+    /// @todo Do we really need offset pivot somewhere?
+    //m_path.offsetPoint(arrPathStart, m_textOffset).m_pt;
+    m_pivot = arrPathStart.m_pt;
 
     // offset of the text from path's start
-    double offset = m_textOffset;
+    double offset = m_textOffset - m_path.pathOffset();
 
-    // calculate base line offset
-    double blOffset = 2 - m_fontDesc.m_size / 2;
+    /// @todo The path text is always inside the path geometry now.
+    //ASSERT_GREATER_OR_EQUAL(offset, 0.0, ());
+    if (offset < 0.0) offset = 0.0;
 
-    offset -= m_path.pathOffset();
-    if (-offset >= strLength)
+    if (-offset >= m_textLength)
       return;
 
     // find first visible glyph
     size_t symPos = 0;
-    while (offset < 0 &&  symPos < count)
-      offset += m_metrics[symPos++].m_xAdvance;
+    //while (offset < 0 &&  symPos < count)
+    //  offset += m_metrics[symPos++].m_xAdvance;
 
     PathPoint glyphStartPt = m_path.offsetPoint(arrPathStart, offset);
 
     m_firstVisible = symPos;
 
-    GlyphLayoutElem prevElem; //< previous glyph, to compute kerning from
+    GlyphLayoutElem prevElem; // previous glyph, to compute kerning from
     GlyphMetrics prevMetrics;
     bool hasPrevElem = false;
 
+    // calculate base line offset
+    double const blOffset = 2 - m_fontDesc.m_size / 2;
+
     for (; symPos < count; ++symPos)
     {
-      /// full advance, including possible kerning.
-      double fullGlyphAdvance = m_metrics[symPos].m_xAdvance;
+      if (glyphStartPt.m_i == -1)
+      {
+        //LOG(LWARNING, ("Can't find glyph", symPos, count));
+        return;
+      }
 
       GlyphMetrics const & metrics = m_metrics[symPos];
+      GlyphLayoutElem & entry = m_entries[symPos];
 
-      if (glyphStartPt.m_i == -1)
-        return;
+      // full advance, including possible kerning.
+      double fullGlyphAdvance = metrics.m_xAdvance;
 
       if (metrics.m_width != 0)
       {
         double fullKern = 0;
-        double kern = 0;
-
         bool pathIsTooBended = false;
 
         int i = 0;
@@ -286,55 +291,55 @@ namespace graphics
           PivotPoint pivotPt = m_path.findPivotPoint(glyphStartPt, metrics, fullKern);
 
           if (pivotPt.m_pp.m_i == -1)
+          {
+            //LOG(LWARNING, ("Path text pivot error for glyph", symPos, count));
             return;
+          }
 
-          m_entries[symPos].m_angle = pivotPt.m_angle;
-          double centerOffset = metrics.m_xOffset + metrics.m_width / 2.0;
-          m_entries[symPos].m_pt = pivotPt.m_pp.m_pt.Move(-centerOffset,
-                                                          m_entries[symPos].m_angle.sin(),
-                                                          m_entries[symPos].m_angle.cos());
+          entry.m_angle = pivotPt.m_angle;
+          double const centerOffset = metrics.m_xOffset + metrics.m_width / 2.0;
+          entry.m_pt = pivotPt.m_pp.m_pt.Move(-centerOffset,
+                                              entry.m_angle.sin(),
+                                              entry.m_angle.cos());
 
-          m_entries[symPos].m_pt = m_entries[symPos].m_pt.Move(blOffset,
-                                                               -m_entries[symPos].m_angle.cos(),
-                                                               m_entries[symPos].m_angle.sin());
+          entry.m_pt = entry.m_pt.Move(blOffset,
+                                       -entry.m_angle.cos(),
+                                       entry.m_angle.sin());
 
           // check if angle between letters is too big
-          if (hasPrevElem && (ang::GetShortestDistance(prevElem.m_angle.m_val, m_entries[symPos].m_angle.m_val) > 0.8)){
+          if (hasPrevElem && (ang::GetShortestDistance(prevElem.m_angle.m_val, entry.m_angle.m_val) > 0.8))
+          {
             pathIsTooBended = true;
             break;
           }
 
-          // < check whether we should "kern"
+          // check whether we should "kern"
+          double kern = 0.0;
           if (hasPrevElem)
           {
-            kern = getKerning(prevElem,
-                              prevMetrics,
-                              m_entries[symPos],
-                              m_metrics[symPos]);
-            if (kern < 0.5)
-              kern = 0;
+            kern = getKerning(prevElem, prevMetrics, entry, metrics);
+            if (kern < 0.5) kern = 0.0;
 
             fullGlyphAdvance += kern;
             fullKern += kern;
           }
-
-          if (kern == 0)
+          if (kern == 0.0)
             break;
         }
+
         if (i == 100)
-        {
           LOG(LINFO, ("100 iteration on computing kerning exceeded. possibly infinite loop occured"));
-        }
+
         if (pathIsTooBended)
           break;
 
-        /// kerning should be computed for baseline centered glyph
-        prevElem = m_entries[symPos];
-        prevMetrics = m_metrics[symPos];
+        // kerning should be computed for baseline centered glyph
+        prevElem = entry;
+        prevMetrics = metrics;
         hasPrevElem = true;
 
-        // < align to baseline
-//        m_entries[symPos].m_pt = m_entries[symPos].m_pt.Move(blOffset - kernOffset, m_entries[symPos].m_angle - math::pi / 2);
+        // align to baseline
+        //entry.m_pt = entry.m_pt.Move(blOffset - kernOffset, entry.m_angle - math::pi / 2);
       }
       else
       {
@@ -350,12 +355,11 @@ namespace graphics
       }
 
       glyphStartPt = m_path.offsetPoint(glyphStartPt, fullGlyphAdvance);
-      offset += fullGlyphAdvance;
 
       m_lastVisible = symPos + 1;
     }
 
-    /// storing glyph coordinates relative to pivot point.
+    // storing glyph coordinates relative to pivot point.
     for (unsigned i = m_firstVisible; i < m_lastVisible; ++i)
       m_entries[i].m_pt -= m_pivot;
 
