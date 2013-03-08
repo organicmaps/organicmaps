@@ -3,6 +3,7 @@
 #include "feature.hpp"
 
 #include "../std/algorithm.hpp"
+#include "../std/bind.hpp"
 
 
 using namespace feature;
@@ -37,29 +38,38 @@ void TypesHolder::Remove(uint32_t t)
   }
 }
 
+namespace
+{
+
+class UselessTypesChecker
+{
+  vector<uint32_t> m_types;
+public:
+  UselessTypesChecker()
+  {
+    Classificator const & c = classif();
+
+    char const * arr1[][1] = { { "building" }, { "oneway" } };
+
+    for (size_t i = 0; i < ARRAY_SIZE(arr1); ++i)
+      m_types.push_back(c.GetTypeByPath(vector<string>(arr1[i], arr1[i] + 1)));
+  }
+  bool operator()(uint32_t t) const
+  {
+    return (find(m_types.begin(), m_types.end(), t) != m_types.end());
+  }
+};
+
+}
+
 void TypesHolder::SortBySpec()
 {
   if (m_size < 2)
     return;
 
   // do very simple thing - put "very common" types to the end
-  /// @todo Make this function usefull for many "common" types.
-
-  // initialize common types
-  Classificator const & c = classif();
-  vector<string> path(1);
-  path[0] = "building";
-  uint32_t const buildingT = c.GetTypeByPath(path);
-
-  // do swaps with "common" types
-  size_t end = m_size-1;
-  for (size_t i = 0; i < end; ++i)
-    if (m_types[i] == buildingT)
-    {
-      swap(m_types[i], m_types[end]);
-      ASSERT_NOT_EQUAL(m_types[i], buildingT, ());
-      break;
-    }
+  static UselessTypesChecker checker;
+  (void) RemoveIfKeepValid(m_types, m_types + m_size, bind<bool>(cref(checker), _1));
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
