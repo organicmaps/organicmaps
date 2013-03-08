@@ -5,7 +5,5 @@
 
 namespace classificator
 {
-  void ReadVisibility(string const & fPath);
-
   void Load();
 }
