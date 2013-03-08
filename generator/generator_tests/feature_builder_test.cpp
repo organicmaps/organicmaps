@@ -2,20 +2,48 @@
 
 #include "../feature_builder.hpp"
 
+#include "../../indexer/classificator_loader.hpp"
+#include "../../indexer/classificator.hpp"
+
+
+namespace
+{
+
+template <size_t N, size_t M> void AddTypes(FeatureParams & params, char const * (&arr)[N][M])
+{
+  Classificator const & c = classif();
+
+  for (size_t i = 0; i < N; ++i)
+    params.AddType(c.GetTypeByPath(vector<string>(arr[i], arr[i] + M)));
+}
+
+}
 
 UNIT_TEST(FBuilder_ManyTypes)
 {
+  classificator::Load();
+
   FeatureBuilder1 fb1;
 
   FeatureParams params;
-  params.AddType(70);
-  params.AddType(4098);
-  params.AddType(6339);
-  params.AddType(5379);
-  params.AddType(5451);
-  params.AddType(5195);
-  params.AddType(4122);
-  params.AddType(4250);
+
+  char const * arr1[][1] = {
+    { "building" },
+    { "oneway" }
+  };
+  AddTypes(params, arr1);
+
+  char const * arr2[][2] = {
+    { "place", "country" },
+    { "place", "state" },
+    { "place", "county" },
+    { "place", "region" },
+    { "place", "city" },
+    { "place", "town" },
+    { "railway", "rail" }
+  };
+  AddTypes(params, arr2);
+
   params.FinishAddingTypes();
 
   params.AddHouseNumber("75");
