@@ -10,6 +10,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.util.Statistics;
 
 public class SettingsActivity extends PreferenceActivity
 {
@@ -44,5 +45,21 @@ public class SettingsActivity extends PreferenceActivity
         return true;
       }
     });
+  }
+  
+  @Override
+  protected void onStart()
+  {
+    super.onStart();
+    
+    Statistics.INSTANCE.startActivity(this.getClass().getSimpleName());
+  }
+  
+  @Override
+  protected void onStop()
+  {
+    super.onStop();
+    
+    Statistics.INSTANCE.stopActivity(this.getClass().getSimpleName());
   }
 }

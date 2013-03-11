@@ -26,6 +26,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.util.Statistics;
 import com.mapswithme.util.Utils;
 
 
@@ -485,6 +486,22 @@ public class StoragePathActivity extends ListActivity
     Log.i(TAG, "Current and Default maps pathes: " + currPath + "; " + defPath);
 
     setListAdapter(new StoragePathAdapter(this, currPath, defPath));
+  }
+
+  @Override
+  protected void onStart()
+  {
+    super.onStart();
+    
+    Statistics.INSTANCE.startActivity(this.getClass().getSimpleName());
+  }
+  
+  @Override
+  protected void onStop()
+  {
+    super.onStop();
+    
+    Statistics.INSTANCE.stopActivity(this.getClass().getSimpleName());
   }
 
   @Override

@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.Statistics;
 
 
 public class DownloadUI extends ListActivity implements MapStorage.Listener
@@ -610,6 +611,22 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
     setContentView(R.layout.downloader_list_view);
 
     setListAdapter(new DownloadAdapter(this));
+  }
+  
+  @Override
+  protected void onStart()
+  {
+    super.onStart();
+    
+    Statistics.INSTANCE.startActivity(this.getClass().getSimpleName());
+  }
+  
+  @Override
+  protected void onStop()
+  {
+    super.onStop();
+    
+    Statistics.INSTANCE.stopActivity(this.getClass().getSimpleName());
   }
 
   private DownloadAdapter getDA()

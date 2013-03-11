@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.Statistics;
 
 public class DownloadResourcesActivity extends Activity implements LocationService.Listener, MapStorage.Listener
 {
@@ -351,6 +352,22 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     }
   }
 
+  @Override
+  protected void onStart()
+  {
+    super.onStart();
+    
+    Statistics.INSTANCE.startActivity(this.getClass().getSimpleName());
+  }
+  
+  @Override
+  protected void onStop()
+  {
+    super.onStop();
+    
+    Statistics.INSTANCE.stopActivity(this.getClass().getSimpleName());
+  }
+  
   @Override
   protected void onDestroy()
   {

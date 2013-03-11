@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.util.Statistics;
 
 public abstract class AbstractBookmarkListActivity extends ListActivity
 {
@@ -29,6 +30,22 @@ public abstract class AbstractBookmarkListActivity extends ListActivity
       if (bar != null)
         bar.setDisplayHomeAsUpEnabled(true);
     }
+  }
+
+  @Override
+  protected void onStart()
+  {
+    super.onStart();
+    
+    Statistics.INSTANCE.startActivity(this.getClass().getSimpleName());
+  }
+  
+  @Override
+  protected void onStop()
+  {
+    super.onStop();
+    
+    Statistics.INSTANCE.stopActivity(this.getClass().getSimpleName());
   }
 
   @Override
