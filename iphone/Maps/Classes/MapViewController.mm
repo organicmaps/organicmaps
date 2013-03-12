@@ -18,6 +18,7 @@
 
 #include "RenderContext.hpp"
 
+
 @implementation MapViewController
 
 @synthesize m_myPositionButton;
@@ -28,7 +29,6 @@
   Framework & f = GetFramework();
   if (!f.SetUpdatesEnabled(true))
     f.Invalidate();
-  [self addGestures];
 }
 
 //********************************************************************************************
@@ -341,6 +341,16 @@
   }
 }
 
+- (void) onSingleTap:(NSValue *)point
+{
+  [self processMapClickAtPoint:[point CGPointValue] longClick:NO];
+}
+
+- (void) onLongTap:(NSValue *)point
+{
+  [self processMapClickAtPoint:[point CGPointValue] longClick:YES];
+}
+
 - (void)showSearchResultAsBookmarkAtMercatorPoint:(m2::PointD const &)pt withInfo:(Framework::AddressInfo const &)info
 {
   m_balloonView.globalPosition = CGPointMake(pt.x, pt.y);
@@ -384,6 +394,10 @@
     ls->AddCompassStatusListener(bind(onCompassStatusChangedImpl, self, onCompassStatusChangedSel, _1));
     ls->AddOnPositionClickListener(bind(onMyPosiionClickedImpl, self, onMyPositionClickedSel,_1));
 
+		m_StickyThreshold = 10;
+
+		m_CurrentAction = NOTHING;
+
     [v initRenderPolicy];
 
     // restore previous screen position
@@ -394,6 +408,190 @@
 	}
 
 	return self;
+}
+
+NSInteger compareAddress(id l, id r, void * context)
+{
+	return l < r;
+}
+
+- (void) updatePointsFromEvent:(UIEvent*)event
+{
+	NSSet * allTouches = [event allTouches];
+
+  UIView * v = self.view;
+  CGFloat const scaleFactor = v.contentScaleFactor;
+
+  // 0 touches are possible from touchesCancelled.
+  switch ([allTouches count])
+  {
+    case 0:
+      break;
+
+    case 1:
+    {
+      CGPoint const pt = [[[allTouches allObjects] objectAtIndex:0] locationInView:v];
+      m_Pt1 = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
+      break;
+    }
+
+    default:
+    {
+      NSArray * sortedTouches = [[allTouches allObjects] sortedArrayUsingFunction:compareAddress context:NULL];
+      CGPoint const pt1 = [[sortedTouches objectAtIndex:0] locationInView:v];
+      CGPoint const pt2 = [[sortedTouches objectAtIndex:1] locationInView:v];
+
+      m_Pt1 = m2::PointD(pt1.x * scaleFactor, pt1.y * scaleFactor);
+      m_Pt2 = m2::PointD(pt2.x * scaleFactor, pt2.y * scaleFactor);
+      break;
+    }
+  }
+}
+
+- (void) stopCurrentAction
+{
+	switch (m_CurrentAction)
+	{
+		case NOTHING:
+			break;
+		case DRAGGING:
+			GetFramework().StopDrag(DragEvent(m_Pt1.x, m_Pt1.y));
+			break;
+		case SCALING:
+			GetFramework().StopScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
+			break;
+	}
+
+	m_CurrentAction = NOTHING;
+}
+
+- (void) touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
+{
+  // To cancel single tap timer
+  UITouch * theTouch = (UITouch *)[touches anyObject];
+  if (theTouch.tapCount > 1)
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+
+	[self updatePointsFromEvent:event];
+
+  Framework & f = GetFramework();
+
+	if ([[event allTouches] count] == 1)
+	{
+    if (f.GetGuiController()->OnTapStarted(m_Pt1))
+      return;
+    
+		f.StartDrag(DragEvent(m_Pt1.x, m_Pt1.y));
+		m_CurrentAction = DRAGGING;
+
+    // Start long-tap timer
+    [self performSelector:@selector(onLongTap:) withObject:[NSValue valueWithCGPoint:[theTouch locationInView:self.view]] afterDelay:1.0];
+    // Temporary solution to filter long touch
+    m_touchDownPoint = m_Pt1;
+	}
+	else
+	{
+		f.StartScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
+		m_CurrentAction = SCALING;
+	}
+
+	m_isSticking = true;
+}
+
+- (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
+{
+  m2::PointD const TempPt1 = m_Pt1;
+	m2::PointD const TempPt2 = m_Pt2;
+
+	[self updatePointsFromEvent:event];
+
+  // Cancel long-touch timer
+  if (!m_touchDownPoint.EqualDxDy(m_Pt1, 9))
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+
+  Framework & f = GetFramework();
+
+  if (f.GetGuiController()->OnTapMoved(m_Pt1))
+    return;
+  
+	if (m_isSticking)
+	{
+		if ((TempPt1.Length(m_Pt1) > m_StickyThreshold) || (TempPt2.Length(m_Pt2) > m_StickyThreshold))
+    {
+			m_isSticking = false;
+    }
+		else
+		{
+			// Still stickying. Restoring old points and return.
+			m_Pt1 = TempPt1;
+			m_Pt2 = TempPt2;
+			return;
+		}
+	}
+
+	switch (m_CurrentAction)
+	{
+	case DRAGGING:
+		f.DoDrag(DragEvent(m_Pt1.x, m_Pt1.y));
+//		needRedraw = true;
+		break;
+	case SCALING:
+		if ([[event allTouches] count] < 2)
+			[self stopCurrentAction];
+		else
+		{
+			f.DoScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
+//			needRedraw = true;
+		}
+		break;
+	case NOTHING:
+		return;
+	}
+}
+
+- (void) touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event
+{
+	[self updatePointsFromEvent:event];
+	[self stopCurrentAction];
+
+  UITouch * theTouch = (UITouch*)[touches anyObject];
+  int tapCount = theTouch.tapCount;
+  int touchesCount = [[event allTouches] count];
+
+  Framework & f = GetFramework();
+
+  if (touchesCount == 1)
+  {
+    // Cancel long-touch timer
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    
+    // TapCount could be zero if it was a single long (or moving) tap.
+    if (tapCount < 2)
+    {
+      if (f.GetGuiController()->OnTapEnded(m_Pt1))
+        return;
+    }
+
+    if (tapCount == 1)
+    {
+      // Launch single tap timer
+      if (m_isSticking)
+        [self performSelector:@selector(onSingleTap:) withObject:[NSValue valueWithCGPoint:[theTouch locationInView:self.view]] afterDelay:0.3];
+    }
+    else if (tapCount == 2 && m_isSticking)
+      f.ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2.0));
+  }
+
+  if (touchesCount == 2 && tapCount == 1 && m_isSticking)
+    f.Scale(0.5);
+}
+
+- (void) touchesCancelled:(NSSet*)touches withEvent:(UIEvent*)event
+{
+  [NSObject cancelPreviousPerformRequestsWithTarget:self];
+
+  [self updatePointsFromEvent:event];
+  [self stopCurrentAction];
 }
 
 - (BOOL) shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation) interfaceOrientation
@@ -459,201 +657,6 @@
 - (void) SetupMeasurementSystem
 {
   GetFramework().SetupMeasurementSystem();
-}
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-{
-  return YES;
-}
-
--(void)addGestures
-{
-  lastRotateTime = 0;
-  startedScaling = NO;
-  UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
-  [singleTap setNumberOfTouchesRequired:1];
-  [singleTap setNumberOfTapsRequired:1];
-
-  UITapGestureRecognizer *twoTouches = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTwoSingleTouches:)];
-  [twoTouches setNumberOfTouchesRequired:2];
-  [twoTouches setNumberOfTapsRequired:1];
-
-  UITapGestureRecognizer *twoTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTwoTaps:)];
-  [twoTap setNumberOfTouchesRequired:1];
-  [twoTap setNumberOfTapsRequired:2];
-
-  UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-  [longPress setMinimumPressDuration:1.0];
-
-  UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
-  [pan setMaximumNumberOfTouches:1];
-  [pan setDelegate:self];
-
-  UIRotationGestureRecognizer * rotate = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleRotate:)];
-  [rotate setDelegate:self];
-  UIPinchGestureRecognizer * scale = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handleRotate:)];
-  [scale setDelegate:self];
-
-  [singleTap requireGestureRecognizerToFail:twoTap];
-  [singleTap requireGestureRecognizerToFail:longPress];
-
-  [self.view addGestureRecognizer:singleTap];
-  [self.view addGestureRecognizer:twoTouches];
-  [self.view addGestureRecognizer:twoTap];
-  [self.view addGestureRecognizer:longPress];
-  [self.view addGestureRecognizer:pan];
-  [self.view addGestureRecognizer:rotate];
-  [self.view addGestureRecognizer:scale];
-
-  [singleTap release];
-  [twoTouches release];
-  [twoTap release];
-  [longPress release];
-  [pan release];
-  [rotate release];
-  [scale release];
-}
-
--(void)handleSingleTap:(UITapGestureRecognizer *)recognizer
-{
-  if (CFAbsoluteTimeGetCurrent() - lastRotateTime < 0.1)
-    return;
-  Framework & f = GetFramework();
-
-  CGPoint location = [self pointFromRecognizerWithScaleFactor:recognizer];
-  m2::PointD point = m2::PointD(location.x, location.y);
-
-  if (f.GetGuiController()->OnTapStarted(point))
-  {
-    f.GetGuiController()->OnTapStarted(point);
-    f.GetGuiController()->OnTapMoved(point);
-    f.GetGuiController()->OnTapEnded(point);
-    return;
-  }
-  [self processMapClickAtPoint:[recognizer locationInView:self.view] longClick:NO];
-}
-
--(void)handleTwoSingleTouches:(UITapGestureRecognizer *)recognizer
-{
-  Framework &f = GetFramework();
-  if (CFAbsoluteTimeGetCurrent() - lastRotateTime > 0.1)
-  {
-    f.Scale(0.5);
-  }
-}
-
--(void)handleTwoTaps:(UITapGestureRecognizer*)recognizer
-{
-  if (recognizer.state == UIGestureRecognizerStateEnded)
-  {
-    Framework &f = GetFramework();
-    CGPoint location = [self pointFromRecognizerWithScaleFactor:recognizer];
-    f.ScaleToPoint(ScaleToPointEvent(location.x, location.y, 2.0));
-  }
-}
-
--(void)handleLongPress:(UILongPressGestureRecognizer*)recognizer
-{
-  if (recognizer.state == UIGestureRecognizerStateBegan)
-  {
-    [self processMapClickAtPoint:[recognizer locationInView:self.view] longClick:YES];
-  }
-}
-
--(void)handlePan:(UIPanGestureRecognizer *)recognizer
-{
-  if (CFAbsoluteTimeGetCurrent() - lastRotateTime < 0.1 ||
-      (recognizer.numberOfTouches == 0 && recognizer.state != UIGestureRecognizerStateEnded))
-    return;
-  CGPoint p = [self pointFromRecognizerWithScaleFactor:recognizer];
-  Framework &f = GetFramework();
-  if (recognizer.state == UIGestureRecognizerStateBegan)
-  {
-    f.StartDrag(DragEvent(p.x, p.y));
-  }
-  else if (recognizer.state == UIGestureRecognizerStateChanged)
-  {
-    f.DoDrag(DragEvent(p.x, p.y));
-  }
-  else
-  {
-    f.StopDrag(DragEvent(p.x, p.y));
-  }
-}
-
--(void)handleRotate:(UIRotationGestureRecognizer *)recognizer
-{
-  Framework &f = GetFramework();
-  if (recognizer.numberOfTouches < 2)
-  {
-    if (recognizer.state == UIGestureRecognizerStateChanged)
-    {
-        if (startedScaling)
-        {
-          f.StopScale(ScaleEvent(p1.x, p1.y, p2.x, p2.y));
-          startedScaling = NO;
-        }
-    }
-    if (recognizer.state != UIGestureRecognizerStateEnded)
-    {
-      return;
-    }
-  }
-
-  //Work of Scale Recognizer
-  [self adjustPoints:recognizer];
-  if (recognizer.state == UIGestureRecognizerStateBegan)
-  {
-    [self checkForScalingAndStart];
-  }
-  else if (recognizer.state == UIGestureRecognizerStateChanged)
-  {
-    [self checkForScalingAndStart];
-    f.DoScale(ScaleEvent(p1.x, p1.y, p2.x, p2.y));
-  }
-  else
-  {
-    if (startedScaling)
-    {
-      startedScaling = NO;
-      f.StopScale(ScaleEvent(p1.x, p1.y, p2.x, p2.y));
-    }
-  }
-  lastRotateTime = CFAbsoluteTimeGetCurrent();
-}
-
--(void)checkForScalingAndStart
-{
-  if (!startedScaling)
-  {
-    startedScaling = YES;
-    GetFramework().StartScale(ScaleEvent(p1.x, p1.y, p2.x, p2.y));
-  }
-}
-
--(void)adjustPoints:(UIGestureRecognizer *)recognizer
-{
-  if (recognizer.numberOfTouches >1 )
-  {
-    p1 = [recognizer locationOfTouch:0 inView:self.view];
-    p2 = [recognizer locationOfTouch:1 inView:self.view];
-
-    CGFloat const scaleFactor = self.view.contentScaleFactor;
-    p1.x *= scaleFactor;
-    p1.y *= scaleFactor;
-    p2.x *= scaleFactor;
-    p2.y *= scaleFactor;
-  }
-}
-
--(CGPoint)pointFromRecognizerWithScaleFactor:(UIGestureRecognizer *)recognizer
-{
-  CGPoint point = [recognizer locationInView:self.view];
-  CGFloat const scaleFactor = self.view.contentScaleFactor;
-  point.x *= scaleFactor;
-  point.y *= scaleFactor;
-
-  return point;
 }
 
 -(void)onBookmarkClickWithBookmarkAndCategory:(BookmarkAndCategory const)bmAndCat

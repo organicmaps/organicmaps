@@ -8,14 +8,22 @@
 
 @class BalloonView;
 
-@interface MapViewController : UIViewController <LocationObserver, UIGestureRecognizerDelegate>
+@interface MapViewController : UIViewController <LocationObserver>
 {
-  BalloonView * m_balloonView;
+  enum Action
+	{
+		NOTHING,
+		DRAGGING,
+		SCALING
+	} m_CurrentAction;
 
-  CGPoint p1;
-  CGPoint p2;
-  BOOL startedScaling;
-  CFAbsoluteTime lastRotateTime;
+	bool m_isSticking;
+	size_t m_StickyThreshold;
+	m2::PointD m_Pt1, m_Pt2;
+  
+  BalloonView * m_balloonView;
+  /// Temporary solution to improve long touch detection.
+  m2::PointD m_touchDownPoint;
 }
 
 - (void) SetupMeasurementSystem;
