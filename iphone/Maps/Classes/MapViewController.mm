@@ -463,12 +463,7 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-  if ([otherGestureRecognizer isKindOfClass:[UIPinchGestureRecognizer class]]
-      || [otherGestureRecognizer isKindOfClass:[UIRotationGestureRecognizer class]])
-  {
-    return YES;
-  }
-  return NO;
+  return YES;
 }
 
 -(void)addGestures
@@ -593,26 +588,15 @@
   {
     if (recognizer.state == UIGestureRecognizerStateChanged)
     {
-      if (startedScaling)
-      {
-        f.StopScale(ScaleEvent(p1.x, p1.y, p2.x, p2.y));
-        CGPoint z = [self pointFromRecognizerWithScaleFactor:recognizer];
-        f.StartDrag(DragEvent(z.x, z.y));
-        startedScaling = NO;
-        lastRotateTime = 0;
-      }
-      else
-      {
-        [self handlePan:(UIPanGestureRecognizer *)recognizer];
-      }
+        if (startedScaling)
+        {
+          f.StopScale(ScaleEvent(p1.x, p1.y, p2.x, p2.y));
+          startedScaling = NO;
+        }
     }
     if (recognizer.state != UIGestureRecognizerStateEnded)
     {
       return;
-    }
-    else if (!startedScaling)
-    {
-      [self handlePan:(UIPanGestureRecognizer *)recognizer];
     }
   }
 
@@ -651,23 +635,14 @@
 {
   if (recognizer.numberOfTouches >1 )
   {
-    CGPoint t1 = [recognizer locationOfTouch:0 inView:self.view];
-    CGPoint t2 = [recognizer locationOfTouch:1 inView:self.view];
-
+    p1 = [recognizer locationOfTouch:0 inView:self.view];
+    p2 = [recognizer locationOfTouch:1 inView:self.view];
 
     CGFloat const scaleFactor = self.view.contentScaleFactor;
-    t1.x *= scaleFactor;
-    t1.y *= scaleFactor;
-    t2.x *= scaleFactor;
-    t2.y *= scaleFactor;
-    //avoid jumping if user scales or rotates with one finger fixed
-    if (startedScaling && CFAbsoluteTimeGetCurrent() - lastRotateTime > 0.1)
-    {
-      GetFramework().StartScale(ScaleEvent(t1.x, t1.y, t2.x, t2.y));
-      lastRotateTime = CFAbsoluteTimeGetCurrent();
-    }
-    p1 = t1;
-    p2 = t2;
+    p1.x *= scaleFactor;
+    p1.y *= scaleFactor;
+    p2.x *= scaleFactor;
+    p2.y *= scaleFactor;
   }
 }
 
