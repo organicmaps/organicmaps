@@ -369,16 +369,16 @@ public:
 };
 
 
-class lodepng_writer : public file_mgr {
+class lodepng_writer /*: public file_mgr */{
 protected:
 
     LodePNG::Encoder m_encoder;
-    std::string m_fileName;
+    WriterPtr<Writer> & m_writer;
 
     void init() {}
 
 public:
-    lodepng_writer(const char* filename) : file_mgr(filename, "wb"), m_fileName(filename) { init(); }
+    lodepng_writer(WriterPtr<Writer> & writer) : /*file_mgr(filename, "wb"), m_fileName(filename)*/ m_writer(writer) { init(); }
 
     template <typename View>
     void apply(const View& view)
@@ -418,7 +418,7 @@ public:
           view.height()
       );
 
-//      LodePNG::saveFile(buffer, m_fileName);
+      LodePNG::saveFile(buffer, m_writer);
    }
 };
 

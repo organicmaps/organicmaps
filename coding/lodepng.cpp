@@ -4265,15 +4265,14 @@ namespace LodePNG
   }
   
   /*write given buffer to the file, overwriting the file, it doesn't append to it.*/
-//  void saveFile(const std::vector<unsigned char>& buffer, const std::string& filename)
-//  {
-//    size_t const sz = buffer.size();
-//    if (sz > 0)
-//    {
-//      FileWriter writer(filename);
-//      writer.Write(&buffer[0], sz);
-//    }
-//  }
+  void saveFile(const std::vector<unsigned char>& buffer, WriterPtr<Writer> &writer)
+  {
+    size_t const sz = buffer.size();
+    if (sz > 0)
+    {
+      writer.Write(&buffer[0], sz);
+    }
+  }
   
 //#endif /*LODEPNG_COMPILE_DISK*/
   

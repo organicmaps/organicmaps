@@ -31,6 +31,7 @@ freely, subject to the following restrictions:
 #include <string.h>
 
 #include "reader.hpp"
+#include "writer.hpp"
 
 /* ////////////////////////////////////////////////////////////////////////// */
 /* Code Sections                                                              */
@@ -491,7 +492,7 @@ namespace LodePNG
 //#ifdef LODEPNG_COMPILE_DISK
   //free functions allowing to load and save a file from/to harddisk
   void loadFile(std::vector<unsigned char>& buffer, ReaderPtr<Reader> & reader);
-//  void saveFile(const std::vector<unsigned char>& buffer, const std::string& filename);
+  void saveFile(const std::vector<unsigned char>& buffer, WriterPtr<Writer> & writer);
 //#endif //LODEPNG_COMPILE_DISK
   
 } //namespace LodePNG

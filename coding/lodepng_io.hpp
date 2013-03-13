@@ -193,18 +193,18 @@ struct lodepng_write_support {
 /// Triggers a compile assert if the view color space and channel depth are not supported by the PNG library or by the I/O extension.
 /// Throws std::ios_base::failure if it fails to create the file.
 template <typename View>
-inline void lodepng_write_view(const char* filename,const View& view) {
+inline void lodepng_write_view(WriterPtr<Writer> & writer,const View& view) {
     BOOST_STATIC_ASSERT(lodepng_write_support<View>::is_supported);
-    detail::lodepng_writer m(filename);
+    detail::lodepng_writer m(writer);
     m.apply(view);
 }
 
 /// \ingroup LODEPNG_IO
 /// \brief Saves the view to a png file specified by the given png image file name.
-template <typename View>
+/*template <typename View>
 inline void lodepng_write_view(const std::string& filename,const View& view) {
     lodepng_write_view(filename.c_str(),view);
-}
+}*/
 
 } }  // namespace boost::gil
 

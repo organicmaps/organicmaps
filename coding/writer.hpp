@@ -3,6 +3,7 @@
 #include "../base/base.hpp"
 #include "../base/exception.hpp"
 #include "../std/algorithm.hpp"
+#include "../std/shared_ptr.hpp"
 #include "../std/memcpy.hpp"
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
@@ -113,6 +114,33 @@ private:
 #ifdef DEBUG
   int64_t const m_Offset;
 #endif
+};
+
+template<typename WriterT>
+class WriterPtr
+{
+public:
+  WriterPtr(WriterT * p = 0) : m_p(p) {}
+
+  void Seek(int64_t pos)
+  {
+    m_p->Seek(pos);
+  }
+
+  int64_t Pos() const
+  {
+    return m_p->Pos();
+  }
+
+  void Write(void const * p, size_t size)
+  {
+    m_p->Write(p, size);
+  }
+
+  WriterT * GetPtr() const { return m_p.get(); }
+
+protected:
+  shared_ptr<WriterT> m_p;
 };
 
 template <typename WriterT>
