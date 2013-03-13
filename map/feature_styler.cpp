@@ -82,10 +82,7 @@ namespace feature
     int layer = f.GetLayer();
     bool isTransparent = false;
     if (layer == feature::LAYER_TRANSPARENT_TUNNEL)
-    {
       layer = 0;
-      isTransparent = true;
-    }
 
     bool hasIcon = false;
     bool hasCaptionWithoutOffset = false;
@@ -100,20 +97,7 @@ namespace feature
         depth = (layer * drule::layer_base_priority) + fmod(depth, drule::layer_base_priority);
 
       if (keys[i].m_type == drule::symbol)
-      {
-        depth = 16000;
         hasIcon = true;
-      }
-
-      if (keys[i].m_type == drule::caption)
-      {
-        depth = 15000;
-        if (m_geometryType == GEOM_POINT)
-          depth = 15500;
-      }
-
-      if (keys[i].m_type == drule::pathtext)
-        depth = 17000;
 
       if ((keys[i].m_type == drule::caption)
        || (keys[i].m_type == drule::symbol)
@@ -124,10 +108,10 @@ namespace feature
         // show labels of larger objects first
         depth += priorityModifier;
       }
-      else
+      else if (keys[i].m_type == drule::area)
       {
         // show smaller polygons on top
-        depth += (1 - priorityModifier);
+        depth -= priorityModifier;
       }
 
       if (!m_hasLineStyles && (keys[i].m_type == drule::line))
