@@ -9,11 +9,27 @@
 #include "gl_render_context.hpp"
 #include "defines_conv.hpp"
 
-#include "../../std/bind.hpp"
 #include "../../base/logging.hpp"
+#include "../../base/shared_buffer_manager.hpp"
+#include "../../std/bind.hpp"
 
 namespace graphics
 {
+  namespace
+  {
+    unsigned NextPowerOf2(unsigned n)
+    {
+      n = n - 1;
+      n |= (n >> 1);
+      n |= (n >> 2);
+      n |= (n >> 4);
+      n |= (n >> 8);
+      n |= (n >> 16);
+
+      return n + 1;
+    }
+  }
+
   namespace gl
   {
     typedef Texture<DATA_TRAITS, true> TDynamicTexture;
@@ -48,20 +64,76 @@ namespace graphics
       if (isDebugging())
         LOG(LINFO, ("uploading to", m_texture->id(), "texture"));
 
+      if (m_uploadQueue.empty())
+        return;
+
+      size_t ranges[4];
+      ranges[0] = 0;
+      ranges[1] = ranges[2] = ranges[3] = m_uploadQueue.size();
+      m2::RectU maxRects[3];
+
+      size_t maxIndex = 1;
+      m2::RectU currentMaxRect = m_uploadQueue[0]->m_texRect;
+
+      for (size_t i = 1; i < m_uploadQueue.size(); ++i)
+      {
+        shared_ptr<Resource> const & resource = m_uploadQueue[i];
+        if (resource->m_texRect.minY() >= currentMaxRect.maxY())
+        {
+          ranges[maxIndex] = i;
+          if (resource->m_texRect.minX() < currentMaxRect.minX())
+          {
+            maxRects[maxIndex - 1] = currentMaxRect;
+            maxIndex++;
+          }
+          else
+            maxRects[maxIndex - 1].Add(currentMaxRect);
+
+          currentMaxRect = resource->m_texRect;
+        }
+        else
+          currentMaxRect.Add(resource->m_texRect);
+      }
+
+      if (ranges[maxIndex] != m_uploadQueue.size())
+        maxIndex++;
+      maxRects[maxIndex - 1] = currentMaxRect;
+
       static_cast<ManagedTexture*>(m_texture.get())->lock();
 
       TDynamicTexture * dynTexture = static_cast<TDynamicTexture*>(m_texture.get());
 
-      for (size_t i = 0; i < m_uploadQueue.size(); ++i)
+      for (size_t rangesIt = 1; rangesIt < maxIndex + 1; ++rangesIt)
       {
-        shared_ptr<Resource> const & resource = m_uploadQueue[i];
+        m2::RectU const & maxRect = maxRects[rangesIt - 1];
+        TDynamicTexture::view_t v = dynTexture->view(maxRect.SizeX(),
+                                                     maxRect.SizeY());
+        for (size_t resourceIt = ranges[rangesIt - 1]; resourceIt < ranges[rangesIt]; ++resourceIt)
+        {
+          shared_ptr<Resource> const & resource = m_uploadQueue[resourceIt];
+          m2::RectU currentRect = resource->m_texRect;
+          currentRect.setMinY(currentRect.minY() - maxRect.minY());
+          currentRect.setMaxY(currentRect.maxY() - maxRect.minY());
+          currentRect.setMinX(currentRect.minX() - maxRect.minX());
+          currentRect.setMaxX(currentRect.maxX() - maxRect.minX());
 
-        TDynamicTexture::view_t v = dynTexture->view(resource->m_texRect.SizeX(),
-                                                     resource->m_texRect.SizeY());
+          size_t renderBufferSize = NextPowerOf2(currentRect.SizeX() *
+                                                 currentRect.SizeY() *
+                                                 sizeof(TDynamicTexture::pixel_t));
+          SharedBufferManager::shared_buffer_ptr_t buffer = SharedBufferManager::instance().reserveSharedBuffer(renderBufferSize);
+          TDynamicTexture::view_t bufferView = gil::interleaved_view(currentRect.SizeX(),
+                                                                     currentRect.SizeY(),
+                                                                     (TDynamicTexture::pixel_t *)&((*buffer)[0]),
+                                                                     currentRect.SizeX() * sizeof(TDynamicTexture::pixel_t));
 
-        resource->render(&v(0, 0));
+          resource->render(&bufferView(0, 0));
+          TDynamicTexture::view_t subImage = gil::subimage_view(v, currentRect.minX(), currentRect.minY(),
+                                                                currentRect.SizeX(), currentRect.SizeY());
+          gil::copy_pixels(bufferView, subImage);
+          SharedBufferManager::instance().freeSharedBuffer(renderBufferSize, buffer);
+        }
 
-        dynTexture->upload(&v(0, 0), resource->m_texRect);
+        dynTexture->upload(&v(0,0), maxRect);
       }
 
       /// In multithreaded resource usage scenarios the suggested way to see
