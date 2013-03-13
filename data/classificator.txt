@@ -46,7 +46,6 @@ world  +
         marketplace  -
         nightclub  -
         parking  +
-            destination  -
             fee  -
             multi-storey  +
                 fee  -
@@ -147,7 +146,6 @@ world  +
         {}
     communication  +
         line  +
-            submarine  -
             underground  -
             {}
         {}
@@ -158,20 +156,11 @@ world  +
     highway  +
         bridleway  +
             bridge  -
-            destination  -
-            no-access  -
             permissive  -
             private  -
             tunnel  -
             {}
         bus_stop  -
-        byway  +
-            bridge  -
-            destination  -
-            permissive  -
-            private  -
-            tunnel  -
-            {}
         construction  -
         crossing  +
             island  -
@@ -180,7 +169,6 @@ world  +
             {}
         cycleway  +
             bridge  -
-            destination  -
             permissive  -
             private  -
             tunnel  -
@@ -191,7 +179,6 @@ world  +
             bridge  -
             demanding_alpine_hiking  -
             demanding_mountain_hiking  -
-            destination  -
             difficult_alpine_hiking  -
             hiking  -
             mountain_hiking  -
@@ -222,7 +209,6 @@ world  +
             bridge  -
             demanding_alpine_hiking  -
             demanding_mountain_hiking  -
-            destination  -
             difficult_alpine_hiking  -
             hiking  -
             horse  -
@@ -272,10 +258,7 @@ world  +
                 bridge  -
                 tunnel  -
                 {}
-            parking_aisle  +
-                bridge  -
-                tunnel  -
-                {}
+            parking_aisle  -
             tunnel  -
             {}
         steps  +
@@ -293,23 +276,19 @@ world  +
         track  +
             area  -
             bridge  -
-            destination  -
             grade1  -
             grade2  -
             grade3  +
-                destination  -
                 no-access  -
                 permissive  -
                 private  -
                 {}
             grade4  +
-                destination  -
                 no-access  -
                 permissive  -
                 private  -
                 {}
             grade5  +
-                destination  -
                 no-access  -
                 permissive  -
                 private  -
@@ -317,8 +296,6 @@ world  +
             no-access  -
             permissive  -
             private  -
-            race  -
-            racetrack  -
             tunnel  -
             {}
         trunk  +
@@ -353,7 +330,6 @@ world  +
             {}
         commercial  -
         conservation  +
-            destination  -
             no-access  -
             permissive  -
             private  -
@@ -412,7 +388,6 @@ world  +
             tennis  -
             {}
         recreation_ground  +
-            destination  -
             no-access  -
             permissive  -
             private  -
@@ -526,7 +501,6 @@ world  +
             wind  -
             {}
         line  +
-            submarine  -
             underground  -
             {}
         minor_line  -
@@ -566,10 +540,6 @@ world  +
             {}
         platform  -
         preserved  +
-            bridge  -
-            tunnel  -
-            {}
-        proposed  +
             bridge  -
             tunnel  -
             {}
