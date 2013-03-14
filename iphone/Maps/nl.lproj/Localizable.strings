@@ -197,7 +197,7 @@
 "free_space_for_country" = "Maak %1$@ aan ruimte vrij op uw apparaat om %2$@ te downloaden";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Programma moet\n%.1f%@ downloaden.";
+"download_resources" = "Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %.1f%@ in beslag.";
 
 "getting_position" = "Huidige locatie opvragen";
 

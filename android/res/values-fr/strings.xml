@@ -112,7 +112,7 @@
 	<string name="not_enough_memory">Il ne suffit pas de memoire pour la mise en marche du programme</string>
 	<string name="free_space_for_country">Merci de faire  %1$s de la place disponible pour télécharger %2$s</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Merci de télécharger\n%1$.1f%2$s de ressources nécessaires pour la mise en marche du programme.</string>
+	<string name="download_resources">Avant que vous ne commenciez, laissez-nous télécharger la carte générale du monde sur votre appareil.\nCela prend %1$.1f%2$s de données.</string>
 	<string name="getting_position">Votre position est déterminé</string>
 	<string name="download_resources_continue">Passer sur la carte</string>
 	<string name="downloading_country_can_proceed">Téléchargement de %s.\nPasser sur la carte</string>

@@ -197,7 +197,7 @@
 "free_space_for_country" = "Merci de faire  %1$@ de la place disponible pour télécharger %2$@";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Merci de télécharger\n%.1f%@ de ressources nécessaires pour la mise en marche du programme.";
+"download_resources" = "Avant que vous ne commenciez, laissez-nous télécharger la carte générale du monde sur votre appareil.\nCela prend %.1f%@ de données.";
 
 "getting_position" = "Votre position est déterminé";
 

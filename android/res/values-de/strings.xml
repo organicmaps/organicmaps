@@ -118,7 +118,7 @@
 	<string name="not_enough_memory">Nicht genügend Speicher um die Anwendung zu starten</string>
 	<string name="free_space_for_country">Bitte zuerst %1$s Platz schaffen um %2$s herunterzuladen</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Programm muss\n%1$.1f%2$s zwingend benötigte Daten herunterladen.</string>
+	<string name="download_resources">Bevor Sie starten, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.\nEs wird %1$.1f%2$s Speicherplatz benötigt.</string>
 	<string name="getting_position">Ermittle momentane Position</string>
 	<string name="download_resources_continue">Zur Karte</string>
 	<string name="downloading_country_can_proceed">Lade %s herunter. Sie können jetzt\nzur Karte weitergehen.</string>

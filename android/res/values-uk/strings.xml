@@ -122,7 +122,7 @@
 	<string name="not_enough_memory">Недостатньо пам\'яті для запуску програми</string>
 	<string name="free_space_for_country">Для завантаження %2$s треба %1$s вільного місця</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Для запуску програми потрібно завантажити\n%1$.1f%2$s необхідних ресурсів.</string>
+	<string name="download_resources">Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій. \nВона потребує %1$.1f%2$s даних.</string>
 	<string name="getting_position">Oтримуємо розташування</string>
 	<string name="download_resources_continue">Перейти на карту</string>
 	<string name="downloading_country_can_proceed">Поки завантажується %s \nви можете користуватися додатком.</string>

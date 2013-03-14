@@ -122,7 +122,7 @@
 	<string name="not_enough_memory">Недостаточно памяти для запуска программы</string>
 	<string name="free_space_for_country">Для загрузки %2$s нужно %1$s свободного места</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Для запуска программы нужно загрузить\n%1$.1f%2$s необходимых ресурсов.</string>
+	<string name="download_resources">Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство. \nЭто потребует %1$.1f%2$s данных.</string>
 	<string name="getting_position">Получаем местоположение</string>
 	<string name="download_resources_continue">Перейти на карту</string>
 	<string name="downloading_country_can_proceed">Пока загружается %s \nвы можете пользоваться приложением.</string>
@@ -242,7 +242,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">С вами поделились закладками MapsWithMe</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Здравствуйте!\n\nМои закладки из офлайн карт MapsWithMe находятся в прикрепленном файле\&quot;%s.kmz\&quot;. Если у вас уже установлено приложение MapsWithMe Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  MapsWithMe Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.mapswithme.com/get?kmz\n\nСпасибо!</string>
+	<string name="share_bookmarks_email_body">Здравствуйте!\n\nМои закладки из офлайн карт MapsWithMe находятся в прикрепленном файле \&quot;%s.kmz\&quot;. Если у вас уже установлено приложение MapsWithMe Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  MapsWithMe Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.mapswithme.com/get?kmz\n\nСпасибо!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Загрузка закладок</string>
 	<!-- Kmz file successful loading -->

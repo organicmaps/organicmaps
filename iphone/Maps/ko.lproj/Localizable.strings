@@ -197,7 +197,7 @@
 "free_space_for_country" = "%2$@를 다운로드하기 위해서는 먼저 장치에서 무료로 %1$@를주세요";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "프로그램은 필수 자원의\n%.1f%@ 를 다운로드해야합니다.";
+"download_resources" = "시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다. \n%.1f%@ 데이터가 필요합니다.";
 
 "getting_position" = "현재 위치 얻기";
 

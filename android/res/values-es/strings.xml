@@ -114,7 +114,7 @@
 	<string name="not_enough_memory">No hay suficiente memoria para iniciar la aplicación</string>
 	<string name="free_space_for_country">Por favor liberar %1$s primero para descargar %2$s</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">El programa necesita descaragar\n%1$.1f%2$s de recursos necesarios.</string>
+	<string name="download_resources">Antes de comenzar, permite que descarguemos en tu dispositivo un mapamundi general. \nSe requieren %1$.1f%2$s de datos.</string>
 	<string name="getting_position">Buscando su ubicación actual</string>
 	<string name="download_resources_continue">Ir al mapa</string>
 	<string name="downloading_country_can_proceed">Descargando %s. Puede ahora\nproceder al mapa</string>

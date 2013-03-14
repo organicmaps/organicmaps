@@ -118,7 +118,7 @@
 	<string name="not_enough_memory">Nedostatek paměti ke spuštění aplikace</string>
 	<string name="free_space_for_country">Prosím uvolni nejprve %1$s v tvém zařízení, abys mohl/a stáhnout %2$s</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Program potřebuje stáhnout ještě\n%1$.1f%2$s nezbytných dat.</string>
+	<string name="download_resources">Předtím, než začnete, nám dovolte do vašeho zařízení stáhnout obecnou mapu světa. \nPotřebuje %1$.1f%2$s dat.</string>
 	<string name="getting_position">Získávání aktuální pozice</string>
 	<string name="download_resources_continue">Přejít na mapu</string>
 	<string name="downloading_country_can_proceed">Stahování %s. Nyní můžeš \npoužít na mapě.</string>

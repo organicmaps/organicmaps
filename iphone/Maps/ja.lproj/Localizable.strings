@@ -197,7 +197,7 @@
 "free_space_for_country" = "デバイス上で%1$@解放することで%2$@ダウンロードすることができます";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "アプリは\n%.1f%@分の必須リソースをダウンロードする必要があります";
+"download_resources" = "開始前に一般的な世界地図をデバイスにダウンロードさせてください。これには%.1f%@の空き容量が必要です。";
 
 "getting_position" = "現在地を取得中";
 

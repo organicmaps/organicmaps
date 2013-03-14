@@ -4,6 +4,8 @@
 <!-- Language: it -->
 <resources>
 	<!-- SECTION: Strings -->
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="download_resources">Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %1$.1f%2$s.</string>
 	<!-- Search Suggestion -->
 	<string name="food">mangiare</string>
 	<!-- Search Suggestion -->

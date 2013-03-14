@@ -126,7 +126,7 @@
 	<string name="not_enough_memory">Not enough memory to launch app</string>
 	<string name="free_space_for_country">Please free %1$s on your device first in order to download %2$s</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Program needs to download \n%1$.1f%2$s of mandatory resources.</string>
+	<string name="download_resources">Before you start let us download general world map into your device.\nIt needs %1$.1f%2$s of data.</string>
 	<string name="getting_position">Getting current position</string>
 	<string name="download_resources_continue">Go to Map</string>
 	<string name="downloading_country_can_proceed">Downloading %s. You can now\nproceed to the map.</string>

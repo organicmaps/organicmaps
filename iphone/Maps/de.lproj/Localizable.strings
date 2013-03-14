@@ -197,7 +197,7 @@
 "free_space_for_country" = "Bitte zuerst %1$@ Platz schaffen um %2$@ herunterzuladen";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Programm muss\n%.1f%@ zwingend benötigte Daten herunterladen.";
+"download_resources" = "Bevor Sie starten, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.\nEs wird %.1f%@ Speicherplatz benötigt.";
 
 "getting_position" = "Ermittle momentane Position";
 

@@ -197,7 +197,7 @@
 "free_space_for_country" = "Please free %1$@ on your device first in order to download %2$@";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Program needs to download \n%.1f%@ of mandatory resources.";
+"download_resources" = "Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %.1f%@.";
 
 "getting_position" = "Getting current position";
 

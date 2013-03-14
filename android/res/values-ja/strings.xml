@@ -116,7 +116,7 @@
 	<string name="not_enough_memory">メモリ不足です。アプリを起動できません</string>
 	<string name="free_space_for_country">デバイス上で%1$s解放することで%2$sダウンロードすることができます</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">アプリは\n%1$.1f%2$s分の必須リソースをダウンロードする必要があります</string>
+	<string name="download_resources">開始前に一般的な世界地図をデバイスにダウンロードさせてください。これには%1$.1f%2$sの空き容量が必要です。</string>
 	<string name="getting_position">現在地を取得中</string>
 	<string name="download_resources_continue">地図に移動</string>
 	<string name="downloading_country_can_proceed">%sをダウンロード中\n地図に移動できます</string>

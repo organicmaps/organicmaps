@@ -197,7 +197,7 @@
 "free_space_for_country" = "Для загрузки %2$@ нужно %1$@ свободного места";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Для запуска программы нужно загрузить\n%.1f%@ необходимых ресурсов.";
+"download_resources" = "Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство. \nЭто потребует %.1f%@ данных.";
 
 "getting_position" = "Получаем местоположение";
 
@@ -381,7 +381,7 @@
 "share_bookmarks_email_subject" = "С вами поделились закладками MapsWithMe";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Здравствуйте!\n\nМои закладки из офлайн карт MapsWithMe находятся в прикрепленном файле\"%@.kmz\". Если у вас уже установлено приложение MapsWithMe Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  MapsWithMe Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.mapswithme.com/get?kmz\n\nСпасибо!";
+"share_bookmarks_email_body" = "Здравствуйте!\n\nМои закладки из офлайн карт MapsWithMe находятся в прикрепленном файле \"%@.kmz\". Если у вас уже установлено приложение MapsWithMe Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  MapsWithMe Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.mapswithme.com/get?kmz\n\nСпасибо!";
 
 /* message title of loading file */
 "load_kmz_title" = "Загрузка закладок";

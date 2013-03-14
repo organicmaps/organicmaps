@@ -197,7 +197,7 @@
 "free_space_for_country" = "Prosím uvolni nejprve %1$@ v tvém zařízení, abys mohl/a stáhnout %2$@";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Program potřebuje stáhnout ještě\n%.1f%@ nezbytných dat.";
+"download_resources" = "Předtím, než začnete, nám dovolte do vašeho zařízení stáhnout obecnou mapu světa. \nPotřebuje %.1f%@ dat.";
 
 "getting_position" = "Získávání aktuální pozice";
 

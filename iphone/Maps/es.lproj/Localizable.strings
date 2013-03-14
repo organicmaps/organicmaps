@@ -197,7 +197,7 @@
 "free_space_for_country" = "Por favor liberar %1$@ primero para descargar %2$@";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "El programa necesita descaragar\n%.1f%@ de recursos necesarios.";
+"download_resources" = "Antes de comenzar, permite que descarguemos en tu dispositivo un mapamundi general. \nSe requieren %.1f%@ de datos.";
 
 "getting_position" = "Buscando su ubicación actual";
 
