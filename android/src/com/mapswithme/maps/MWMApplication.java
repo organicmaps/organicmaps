@@ -100,6 +100,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
     // Create folders if they don't exist
     new File(extStoragePath).mkdirs();
     new File(extTmpPath).mkdirs();
+    new File(getExtAppDirectoryPath("tmp")).mkdir();
 
     // init native framework
     nativeInit(getApkPath(),

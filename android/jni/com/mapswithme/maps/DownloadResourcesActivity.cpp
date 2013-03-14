@@ -318,4 +318,11 @@ extern "C"
     else
       return 0;
   }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_DownloadResourcesActivity_loadKMZFile(
+      JNIEnv * env, jobject thiz, jstring path)
+  {
+    g_framework->NativeFramework()->AddBookmarksFile(jni::ToNativeString(env, path));
+  }
 }

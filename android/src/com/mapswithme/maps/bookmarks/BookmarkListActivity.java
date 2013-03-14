@@ -1,9 +1,11 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
@@ -26,6 +28,7 @@ import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 
 public class BookmarkListActivity extends AbstractBookmarkListActivity
 {
+  public static final String TAG = "BookmarkListActivity";
   public static final String EDIT_CONTENT = "edit_content";
 
   private EditText mSetName;
@@ -184,5 +187,34 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
 
     if (mPinAdapter != null)
       mPinAdapter.startLocationUpdate();
+  }
+
+  public void onSendEMail(View v)
+  {
+    String path = ((MWMApplication) getApplication()).getExtAppDirectoryPath("tmp");
+    final String name = mManager.saveToKMZFile(mEditedSet.getId(), path);
+    if (name == null)
+    {
+      // some error occured
+      return;
+    }
+
+    final Intent intent = new Intent(Intent.ACTION_SEND);
+    intent.setType("message/rfc822");
+    intent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_bookmarks_email_subject));
+    intent.putExtra(android.content.Intent.EXTRA_TEXT, String.format(getString(R.string.share_bookmarks_email_body), name));
+
+    path = path + name + ".kmz";
+    Log.d(TAG, "KMZ file path = " + path);
+    intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + path));
+
+    try
+    {
+      startActivity(Intent.createChooser(intent, getString(R.string.share_by_email)));
+    }
+    catch (Exception ex)
+    {
+      Log.i(TAG, "Can't run E-Mail activity" + ex);
+    }
   }
 }

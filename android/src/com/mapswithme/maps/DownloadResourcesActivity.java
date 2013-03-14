@@ -1,11 +1,17 @@
 package com.mapswithme.maps;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -335,6 +341,8 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     if (checkLiteProPackages(isPro))
       return;
 
+    parseIntentForKMZFile();
+
     setContentView(R.layout.download_resources);
 
     // Create sdcard folder if it doesn't exist
@@ -349,6 +357,94 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
       if (ConnectionState.getState(this) == ConnectionState.CONNECTED_BY_WIFI)
         onDownloadClicked(mButton);
+    }
+  }
+
+  private String getExtensionFromMime(String mime)
+  {
+    final int i = mime.lastIndexOf('.');
+    if (i == -1)
+      return null;
+
+    mime = mime.substring(i+1);
+    if (mime.equalsIgnoreCase("kmz"))
+      return ".kmz";
+    else if (mime.equalsIgnoreCase("kml+xml"))
+      return ".kml";
+    else
+      return null;
+  }
+
+  private void parseIntentForKMZFile()
+  {
+    final Intent intent = getIntent();
+    if (intent != null)
+    {
+      final Uri data = intent.getData();
+      if (data != null)
+      {
+        String path = null;
+        File tmpFile = null;
+        if (!data.getScheme().equalsIgnoreCase("file"))
+        {
+          // scheme is "content" or "http" - need to download file first
+          InputStream input = null;
+          OutputStream output = null;
+
+          try
+          {
+            final ContentResolver resolver = getContentResolver();
+            final String ext = getExtensionFromMime(resolver.getType(data));
+            if (ext != null)
+            {
+              final String filePath = mApplication.getExtAppDirectoryPath("tmp") + "Attachment" + ext;
+
+              tmpFile = new File(filePath);
+              output = new FileOutputStream(tmpFile);
+              input = resolver.openInputStream(data);
+
+              byte buffer[] = new byte[512 * 1024];
+              int read;
+              while ((read = input.read(buffer)) != -1)
+                output.write(buffer, 0, read);
+              output.flush();
+
+              path = filePath;
+            }
+          }
+          catch (Exception ex)
+          {
+            Log.w(TAG, "Attachment not found or io error: " + ex);
+          }
+          finally
+          {
+            try
+            {
+              if (input != null)
+                input.close();
+              if (output != null)
+                output.close();
+            }
+            catch (IOException ex)
+            {
+              Log.w(TAG, "Close stream error: " + ex);
+            }
+          }
+        }
+        else
+          path = data.getPath();
+
+        if (path != null)
+        {
+          Log.d(TAG, "Loading bookmarks file from: " + path);
+          loadKMZFile(path);
+        }
+        else
+          Log.w(TAG, "Can't get bookmarks file from URI: " + data.getPath());
+
+        if (tmpFile != null)
+          tmpFile.delete();
+      }
     }
   }
 
@@ -481,4 +577,5 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   private native int startNextFileDownload(Object observer);
   private native Index findIndexByPos(double lat, double lon);
   private native void cancelCurrentFile();
+  private native void loadKMZFile(String path);
 }

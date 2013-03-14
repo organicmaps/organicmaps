@@ -155,4 +155,6 @@ public class BookmarkManager
     return getAddressInfo(px.x, px.y);
   }
   private native AddressInfo getAddressInfo(double px, double py);
+
+  public native String saveToKMZFile(int catID, String tmpPath);
 }

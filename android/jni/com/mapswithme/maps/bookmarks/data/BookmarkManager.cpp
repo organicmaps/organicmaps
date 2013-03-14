@@ -2,6 +2,9 @@
 
 #include "../../../core/jni_helper.hpp"
 
+#include "../../../../../../../coding/zip_creator.hpp"
+
+
 namespace
 {
   ::Framework * frm() { return g_framework->NativeFramework(); }
@@ -83,5 +86,20 @@ extern "C"
   {
     BookmarkAndCategory const bac = frm()->GetBookmark(m2::PointD(px, py));
     return jni::GetNewPoint(env, m2::PointI(bac.first, bac.second));
-   }
+  }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_saveToKMZFile(
+      JNIEnv * env, jobject thiz, jint catID, jstring tmpPath)
+  {
+    BookmarkCategory * pCat = frm()->GetBmCategory(catID);
+    if (pCat)
+    {
+      string const name = pCat->GetName();
+      if (CreateZipFromPathDeflatedAndDefaultCompression(pCat->GetFileName(), jni::ToNativeString(env, tmpPath) + name + ".kmz"))
+        return jni::ToJavaString(env, name);
+    }
+
+    return 0;
+  }
 }
