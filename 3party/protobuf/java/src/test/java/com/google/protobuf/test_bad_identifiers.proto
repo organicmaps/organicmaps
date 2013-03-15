@@ -46,6 +46,23 @@ option java_outer_classname = "TestBadIdentifiersProto";
 message TestMessage {
 }
 
+message Descriptor {
+  option no_standard_descriptor_accessor = true;
+  optional string descriptor = 1;
+  message NestedDescriptor {
+    option no_standard_descriptor_accessor = true;
+    optional string descriptor = 1;
+  }
+  optional NestedDescriptor nested_descriptor = 2;
+}
+
+message Parser {
+  enum ParserEnum {
+    PARSER = 1;
+  }
+  optional ParserEnum parser = 1;
+}
+
 message Deprecated {
   enum TestEnum {
     FOO = 1;
@@ -62,8 +79,30 @@ message Override {
 
 message Object {
   optional int32 object = 1;
+  optional string string_object = 2;
+}
+
+message String {
+  optional string string = 1;
+}
+
+message Integer {
+  optional int32 integer = 1;
+}
+
+message Long {
+  optional int32 long = 1;
+}
+
+message Float {
+  optional float float = 1;
+}
+
+message Double {
+  optional double double = 1;
 }
 
 service TestConflictingMethodNames {
   rpc Override(TestMessage) returns (TestMessage);
 }
+

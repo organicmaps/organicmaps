@@ -29,13 +29,21 @@
 //
 // Author: wan@google.com (Zhanyong Wan)
 
-#include <gtest/gtest-typed-test.h>
-#include <gtest/gtest.h>
+#include "gtest/gtest-typed-test.h"
+#include "gtest/gtest.h"
 
 namespace testing {
 namespace internal {
 
 #if GTEST_HAS_TYPED_TEST_P
+
+// Skips to the first non-space char in str. Returns an empty string if str
+// contains only whitespace characters.
+static const char* SkipSpaces(const char* str) {
+  while (IsSpace(*str))
+    str++;
+  return str;
+}
 
 // Verifies that registered_tests match the test names in
 // defined_test_names_; returns registered_tests if successful, or
@@ -45,11 +53,15 @@ const char* TypedTestCasePState::VerifyRegisteredTestNames(
   typedef ::std::set<const char*>::const_iterator DefinedTestIter;
   registered_ = true;
 
+  // Skip initial whitespace in registered_tests since some
+  // preprocessors prefix stringizied literals with whitespace.
+  registered_tests = SkipSpaces(registered_tests);
+
   Message errors;
-  ::std::set<String> tests;
+  ::std::set<std::string> tests;
   for (const char* names = registered_tests; names != NULL;
        names = SkipComma(names)) {
-    const String name = GetPrefixUntilComma(names);
+    const std::string name = GetPrefixUntilComma(names);
     if (tests.count(name) != 0) {
       errors << "Test " << name << " is listed more than once.\n";
       continue;
@@ -81,7 +93,7 @@ const char* TypedTestCasePState::VerifyRegisteredTestNames(
     }
   }
 
-  const String& errors_str = errors.GetString();
+  const std::string& errors_str = errors.GetString();
   if (errors_str != "") {
     fprintf(stderr, "%s %s", FormatFileLocation(file, line).c_str(),
             errors_str.c_str());

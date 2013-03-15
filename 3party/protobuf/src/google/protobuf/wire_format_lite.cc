@@ -40,7 +40,7 @@
 #include <google/protobuf/stubs/common.h>
 #include <google/protobuf/io/coded_stream_inl.h>
 #include <google/protobuf/io/zero_copy_stream.h>
-#include <google/protobuf/io/zero_copy_stream_impl.h>
+#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
 
 namespace google {
 namespace protobuf {
@@ -56,10 +56,10 @@ const int WireFormatLite::kMessageSetMessageTag;
 #endif
 
 const int WireFormatLite::kMessageSetItemTagsSize =
-  io::CodedOutputStream::VarintSize32(kMessageSetItemStartTag) +
-  io::CodedOutputStream::VarintSize32(kMessageSetItemEndTag) +
-  io::CodedOutputStream::VarintSize32(kMessageSetTypeIdTag) +
-  io::CodedOutputStream::VarintSize32(kMessageSetMessageTag);
+  io::CodedOutputStream::StaticVarintSize32<kMessageSetItemStartTag>::value +
+  io::CodedOutputStream::StaticVarintSize32<kMessageSetItemEndTag>::value +
+  io::CodedOutputStream::StaticVarintSize32<kMessageSetTypeIdTag>::value +
+  io::CodedOutputStream::StaticVarintSize32<kMessageSetMessageTag>::value;
 
 const WireFormatLite::CppType
 WireFormatLite::kFieldTypeToCppTypeMap[MAX_FIELD_TYPE + 1] = {
@@ -281,12 +281,14 @@ void WireFormatLite::WriteString(int field_number, const string& value,
                                  io::CodedOutputStream* output) {
   // String is for UTF-8 text only
   WriteTag(field_number, WIRETYPE_LENGTH_DELIMITED, output);
+  GOOGLE_CHECK(value.size() <= kint32max);
   output->WriteVarint32(value.size());
   output->WriteString(value);
 }
 void WireFormatLite::WriteBytes(int field_number, const string& value,
                                 io::CodedOutputStream* output) {
   WriteTag(field_number, WIRETYPE_LENGTH_DELIMITED, output);
+  GOOGLE_CHECK(value.size() <= kint32max);
   output->WriteVarint32(value.size());
   output->WriteString(value);
 }

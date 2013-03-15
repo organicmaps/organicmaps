@@ -6,7 +6,7 @@
 //  dialog.
 //  This file is based on the Xcode Configuration files in:
 //  http://code.google.com/p/google-toolbox-for-mac/
-//
+// 
 
 #include "General.xcconfig"
 

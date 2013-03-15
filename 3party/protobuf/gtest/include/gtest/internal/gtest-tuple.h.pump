@@ -39,14 +39,15 @@ $$ This meta comment fixes auto-indentation in Emacs. }}
 
 #include <utility>  // For ::std::pair.
 
-// The compiler used in Symbian 5th Edition (__S60_50__) has a bug
-// that prevents us from declaring the tuple template as a friend (it
-// complains that tuple is redefined).  This hack bypasses the bug by
-// declaring the members that should otherwise be private as public.
-#if defined(__SYMBIAN32__) && __S60_50__
-#define GTEST_DECLARE_TUPLE_AS_FRIEND_ public:
+// The compiler used in Symbian has a bug that prevents us from declaring the
+// tuple template as a friend (it complains that tuple is redefined).  This
+// hack bypasses the bug by declaring the members that should otherwise be
+// private as public.
+// Sun Studio versions < 12 also have the above bug.
+#if defined(__SYMBIAN32__) || (defined(__SUNPRO_CC) && __SUNPRO_CC < 0x590)
+# define GTEST_DECLARE_TUPLE_AS_FRIEND_ public:
 #else
-#define GTEST_DECLARE_TUPLE_AS_FRIEND_ \
+# define GTEST_DECLARE_TUPLE_AS_FRIEND_ \
     template <GTEST_$(n)_TYPENAMES_(U)> friend class tuple; \
    private:
 #endif
@@ -117,8 +118,9 @@ struct TupleElement;
 
 $for i [[
 template <GTEST_$(n)_TYPENAMES_(T)>
-struct TupleElement<true, $i, GTEST_$(n)_TUPLE_(T)> [[]]
-{ typedef T$i type; };
+struct TupleElement<true, $i, GTEST_$(n)_TUPLE_(T) > {
+  typedef T$i type;
+};
 
 
 ]]
@@ -140,7 +142,7 @@ class $if k < n [[GTEST_$(k)_TUPLE_(T)]] $else [[tuple]] {
  public:
   template <int k> friend class gtest_internal::Get;
 
-  tuple() {}
+  tuple() : $for m, [[f$(m)_()]] {}
 
   explicit tuple($for m, [[GTEST_BY_REF_(T$m) f$m]]) : [[]]
 $for m, [[f$(m)_(f$m)]] {}
@@ -219,7 +221,9 @@ template <typename Tuple> struct tuple_size;
 
 $for j [[
 template <GTEST_$(j)_TYPENAMES_(T)>
-struct tuple_size<GTEST_$(j)_TUPLE_(T)> { static const int value = $j; };
+struct tuple_size<GTEST_$(j)_TUPLE_(T) > {
+  static const int value = $j;
+};
 
 
 ]]
@@ -301,8 +305,8 @@ template <GTEST_$(n)_TYPENAMES_(T), GTEST_$(n)_TYPENAMES_(U)>
 inline bool operator==(const GTEST_$(n)_TUPLE_(T)& t,
                        const GTEST_$(n)_TUPLE_(U)& u) {
   return gtest_internal::SameSizeTuplePrefixComparator<
-      tuple_size<GTEST_$(n)_TUPLE_(T)>::value,
-      tuple_size<GTEST_$(n)_TUPLE_(U)>::value>::Eq(t, u);
+      tuple_size<GTEST_$(n)_TUPLE_(T) >::value,
+      tuple_size<GTEST_$(n)_TUPLE_(U) >::value>::Eq(t, u);
 }
 
 template <GTEST_$(n)_TYPENAMES_(T), GTEST_$(n)_TYPENAMES_(U)>

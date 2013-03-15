@@ -34,7 +34,7 @@
 
 #include <stdio.h>
 
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 using ::testing::EmptyTestEventListener;
 using ::testing::InitGoogleTest;
@@ -52,7 +52,7 @@ namespace {
 class TersePrinter : public EmptyTestEventListener {
  private:
   // Called before any test activity starts.
-  virtual void OnTestProgramStart(const UnitTest& unit_test) {}
+  virtual void OnTestProgramStart(const UnitTest& /* unit_test */) {}
 
   // Called after all test activities have ended.
   virtual void OnTestProgramEnd(const UnitTest& unit_test) {
@@ -69,7 +69,7 @@ class TersePrinter : public EmptyTestEventListener {
     fflush(stdout);
   }
 
-  // Called after a failed assertion or a SUCCESS().
+  // Called after a failed assertion or a SUCCEED() invocation.
   virtual void OnTestPartResult(const TestPartResult& test_part_result) {
     fprintf(stdout,
             "%s in %s:%d\n%s\n",

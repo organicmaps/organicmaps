@@ -38,12 +38,12 @@
 // make-files on Windows and other platforms. Do not #include this file
 // anywhere else!
 
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 #if GTEST_OS_WINDOWS_MOBILE
-#include <windows.h>
+# include <windows.h>
 #elif GTEST_OS_WINDOWS
-#include <direct.h>
+# include <direct.h>
 #endif  // GTEST_OS_WINDOWS_MOBILE
 
 // Indicates that this translation unit is part of Google Test's
@@ -78,72 +78,50 @@ TEST(XmlOutputTest, GetOutputFormat) {
 
 TEST(XmlOutputTest, GetOutputFileDefault) {
   GTEST_FLAG(output) = "";
-  EXPECT_STREQ(GetAbsolutePathOf(FilePath("test_detail.xml")).c_str(),
-               UnitTestOptions::GetAbsolutePathToOutputFile().c_str());
+  EXPECT_EQ(GetAbsolutePathOf(FilePath("test_detail.xml")).string(),
+            UnitTestOptions::GetAbsolutePathToOutputFile());
 }
 
 TEST(XmlOutputTest, GetOutputFileSingleFile) {
   GTEST_FLAG(output) = "xml:filename.abc";
-  EXPECT_STREQ(GetAbsolutePathOf(FilePath("filename.abc")).c_str(),
-               UnitTestOptions::GetAbsolutePathToOutputFile().c_str());
+  EXPECT_EQ(GetAbsolutePathOf(FilePath("filename.abc")).string(),
+            UnitTestOptions::GetAbsolutePathToOutputFile());
 }
 
 TEST(XmlOutputTest, GetOutputFileFromDirectoryPath) {
+  GTEST_FLAG(output) = "xml:path" GTEST_PATH_SEP_;
+  const std::string expected_output_file =
+      GetAbsolutePathOf(
+          FilePath(std::string("path") + GTEST_PATH_SEP_ +
+                   GetCurrentExecutableName().string() + ".xml")).string();
+  const std::string& output_file =
+      UnitTestOptions::GetAbsolutePathToOutputFile();
 #if GTEST_OS_WINDOWS
-  GTEST_FLAG(output) = "xml:path\\";
-  const String& output_file = UnitTestOptions::GetAbsolutePathToOutputFile();
-  EXPECT_TRUE(
-      _strcmpi(output_file.c_str(),
-               GetAbsolutePathOf(
-                   FilePath("path\\gtest-options_test.xml")).c_str()) == 0 ||
-      _strcmpi(output_file.c_str(),
-               GetAbsolutePathOf(
-                   FilePath("path\\gtest-options-ex_test.xml")).c_str()) == 0 ||
-      _strcmpi(output_file.c_str(),
-               GetAbsolutePathOf(
-                   FilePath("path\\gtest_all_test.xml")).c_str()) == 0)
-                       << " output_file = " << output_file;
+  EXPECT_STRCASEEQ(expected_output_file.c_str(), output_file.c_str());
 #else
-  GTEST_FLAG(output) = "xml:path/";
-  const String& output_file = UnitTestOptions::GetAbsolutePathToOutputFile();
-  // TODO(wan@google.com): libtool causes the test binary file to be
-  //   named lt-gtest-options_test.  Therefore the output file may be
-  //   named .../lt-gtest-options_test.xml.  We should remove this
-  //   hard-coded logic when Chandler Carruth's libtool replacement is
-  //   ready.
-  EXPECT_TRUE(output_file ==
-              GetAbsolutePathOf(
-                  FilePath("path/gtest-options_test.xml")).c_str() ||
-              output_file ==
-              GetAbsolutePathOf(
-                  FilePath("path/lt-gtest-options_test.xml")).c_str() ||
-              output_file ==
-              GetAbsolutePathOf(
-                  FilePath("path/gtest_all_test.xml")).c_str() ||
-              output_file ==
-              GetAbsolutePathOf(
-                  FilePath("path/lt-gtest_all_test.xml")).c_str())
-                      << " output_file = " << output_file;
+  EXPECT_EQ(expected_output_file, output_file.c_str());
 #endif
 }
 
 TEST(OutputFileHelpersTest, GetCurrentExecutableName) {
-  const FilePath executable = GetCurrentExecutableName();
-  const char* const exe_str = executable.c_str();
+  const std::string exe_str = GetCurrentExecutableName().string();
 #if GTEST_OS_WINDOWS
-  ASSERT_TRUE(_strcmpi("gtest-options_test", exe_str) == 0 ||
-              _strcmpi("gtest-options-ex_test", exe_str) == 0 ||
-              _strcmpi("gtest_all_test", exe_str) == 0)
-              << "GetCurrentExecutableName() returns " << exe_str;
+  const bool success =
+      _strcmpi("gtest-options_test", exe_str.c_str()) == 0 ||
+      _strcmpi("gtest-options-ex_test", exe_str.c_str()) == 0 ||
+      _strcmpi("gtest_all_test", exe_str.c_str()) == 0 ||
+      _strcmpi("gtest_dll_test", exe_str.c_str()) == 0;
 #else
   // TODO(wan@google.com): remove the hard-coded "lt-" prefix when
   //   Chandler Carruth's libtool replacement is ready.
-  EXPECT_TRUE(String(exe_str) == "gtest-options_test" ||
-              String(exe_str) == "lt-gtest-options_test" ||
-              String(exe_str) == "gtest_all_test" ||
-              String(exe_str) == "lt-gtest_all_test")
-                  << "GetCurrentExecutableName() returns " << exe_str;
+  const bool success =
+      exe_str == "gtest-options_test" ||
+      exe_str == "gtest_all_test" ||
+      exe_str == "lt-gtest_all_test" ||
+      exe_str == "gtest_dll_test";
 #endif  // GTEST_OS_WINDOWS
+  if (!success)
+    FAIL() << "GetCurrentExecutableName() returns " << exe_str;
 }
 
 class XmlOutputChangeDirTest : public Test {
@@ -152,12 +130,12 @@ class XmlOutputChangeDirTest : public Test {
     original_working_dir_ = FilePath::GetCurrentDir();
     posix::ChDir("..");
     // This will make the test fail if run from the root directory.
-    EXPECT_STRNE(original_working_dir_.c_str(),
-                 FilePath::GetCurrentDir().c_str());
+    EXPECT_NE(original_working_dir_.string(),
+              FilePath::GetCurrentDir().string());
   }
 
   virtual void TearDown() {
-    posix::ChDir(original_working_dir_.c_str());
+    posix::ChDir(original_working_dir_.string().c_str());
   }
 
   FilePath original_working_dir_;
@@ -165,100 +143,70 @@ class XmlOutputChangeDirTest : public Test {
 
 TEST_F(XmlOutputChangeDirTest, PreserveOriginalWorkingDirWithDefault) {
   GTEST_FLAG(output) = "";
-  EXPECT_STREQ(FilePath::ConcatPaths(original_working_dir_,
-                                     FilePath("test_detail.xml")).c_str(),
-               UnitTestOptions::GetAbsolutePathToOutputFile().c_str());
+  EXPECT_EQ(FilePath::ConcatPaths(original_working_dir_,
+                                  FilePath("test_detail.xml")).string(),
+            UnitTestOptions::GetAbsolutePathToOutputFile());
 }
 
 TEST_F(XmlOutputChangeDirTest, PreserveOriginalWorkingDirWithDefaultXML) {
   GTEST_FLAG(output) = "xml";
-  EXPECT_STREQ(FilePath::ConcatPaths(original_working_dir_,
-                                     FilePath("test_detail.xml")).c_str(),
-               UnitTestOptions::GetAbsolutePathToOutputFile().c_str());
+  EXPECT_EQ(FilePath::ConcatPaths(original_working_dir_,
+                                  FilePath("test_detail.xml")).string(),
+            UnitTestOptions::GetAbsolutePathToOutputFile());
 }
 
 TEST_F(XmlOutputChangeDirTest, PreserveOriginalWorkingDirWithRelativeFile) {
   GTEST_FLAG(output) = "xml:filename.abc";
-  EXPECT_STREQ(FilePath::ConcatPaths(original_working_dir_,
-                                     FilePath("filename.abc")).c_str(),
-               UnitTestOptions::GetAbsolutePathToOutputFile().c_str());
+  EXPECT_EQ(FilePath::ConcatPaths(original_working_dir_,
+                                  FilePath("filename.abc")).string(),
+            UnitTestOptions::GetAbsolutePathToOutputFile());
 }
 
 TEST_F(XmlOutputChangeDirTest, PreserveOriginalWorkingDirWithRelativePath) {
+  GTEST_FLAG(output) = "xml:path" GTEST_PATH_SEP_;
+  const std::string expected_output_file =
+      FilePath::ConcatPaths(
+          original_working_dir_,
+          FilePath(std::string("path") + GTEST_PATH_SEP_ +
+                   GetCurrentExecutableName().string() + ".xml")).string();
+  const std::string& output_file =
+      UnitTestOptions::GetAbsolutePathToOutputFile();
 #if GTEST_OS_WINDOWS
-  GTEST_FLAG(output) = "xml:path\\";
-  const String& output_file = UnitTestOptions::GetAbsolutePathToOutputFile();
-  EXPECT_TRUE(
-      _strcmpi(output_file.c_str(),
-               FilePath::ConcatPaths(
-                   original_working_dir_,
-                   FilePath("path\\gtest-options_test.xml")).c_str()) == 0 ||
-      _strcmpi(output_file.c_str(),
-               FilePath::ConcatPaths(
-                   original_working_dir_,
-                   FilePath("path\\gtest-options-ex_test.xml")).c_str()) == 0 ||
-      _strcmpi(output_file.c_str(),
-               FilePath::ConcatPaths(
-                   original_working_dir_,
-                   FilePath("path\\gtest_all_test.xml")).c_str()) == 0)
-                       << " output_file = " << output_file;
+  EXPECT_STRCASEEQ(expected_output_file.c_str(), output_file.c_str());
 #else
-  GTEST_FLAG(output) = "xml:path/";
-  const String& output_file = UnitTestOptions::GetAbsolutePathToOutputFile();
-  // TODO(wan@google.com): libtool causes the test binary file to be
-  //   named lt-gtest-options_test.  Therefore the output file may be
-  //   named .../lt-gtest-options_test.xml.  We should remove this
-  //   hard-coded logic when Chandler Carruth's libtool replacement is
-  //   ready.
-  EXPECT_TRUE(output_file == FilePath::ConcatPaths(original_working_dir_,
-                      FilePath("path/gtest-options_test.xml")).c_str() ||
-              output_file == FilePath::ConcatPaths(original_working_dir_,
-                      FilePath("path/lt-gtest-options_test.xml")).c_str() ||
-              output_file == FilePath::ConcatPaths(original_working_dir_,
-                      FilePath("path/gtest_all_test.xml")).c_str() ||
-              output_file == FilePath::ConcatPaths(original_working_dir_,
-                      FilePath("path/lt-gtest_all_test.xml")).c_str())
-                  << " output_file = " << output_file;
+  EXPECT_EQ(expected_output_file, output_file.c_str());
 #endif
 }
 
 TEST_F(XmlOutputChangeDirTest, PreserveOriginalWorkingDirWithAbsoluteFile) {
 #if GTEST_OS_WINDOWS
   GTEST_FLAG(output) = "xml:c:\\tmp\\filename.abc";
-  EXPECT_STREQ(FilePath("c:\\tmp\\filename.abc").c_str(),
-               UnitTestOptions::GetAbsolutePathToOutputFile().c_str());
+  EXPECT_EQ(FilePath("c:\\tmp\\filename.abc").string(),
+            UnitTestOptions::GetAbsolutePathToOutputFile());
 #else
   GTEST_FLAG(output) ="xml:/tmp/filename.abc";
-  EXPECT_STREQ(FilePath("/tmp/filename.abc").c_str(),
-               UnitTestOptions::GetAbsolutePathToOutputFile().c_str());
+  EXPECT_EQ(FilePath("/tmp/filename.abc").string(),
+            UnitTestOptions::GetAbsolutePathToOutputFile());
 #endif
 }
 
 TEST_F(XmlOutputChangeDirTest, PreserveOriginalWorkingDirWithAbsolutePath) {
 #if GTEST_OS_WINDOWS
-  GTEST_FLAG(output) = "xml:c:\\tmp\\";
-  const String& output_file = UnitTestOptions::GetAbsolutePathToOutputFile();
-  EXPECT_TRUE(
-      _strcmpi(output_file.c_str(),
-               FilePath("c:\\tmp\\gtest-options_test.xml").c_str()) == 0 ||
-      _strcmpi(output_file.c_str(),
-               FilePath("c:\\tmp\\gtest-options-ex_test.xml").c_str()) == 0 ||
-      _strcmpi(output_file.c_str(),
-               FilePath("c:\\tmp\\gtest_all_test.xml").c_str()) == 0)
-                   << " output_file = " << output_file;
+  const std::string path = "c:\\tmp\\";
 #else
-  GTEST_FLAG(output) = "xml:/tmp/";
-  const String& output_file = UnitTestOptions::GetAbsolutePathToOutputFile();
-  // TODO(wan@google.com): libtool causes the test binary file to be
-  //   named lt-gtest-options_test.  Therefore the output file may be
-  //   named .../lt-gtest-options_test.xml.  We should remove this
-  //   hard-coded logic when Chandler Carruth's libtool replacement is
-  //   ready.
-  EXPECT_TRUE(output_file == "/tmp/gtest-options_test.xml" ||
-              output_file == "/tmp/lt-gtest-options_test.xml" ||
-              output_file == "/tmp/gtest_all_test.xml" ||
-              output_file == "/tmp/lt-gtest_all_test.xml")
-                  << " output_file = " << output_file;
+  const std::string path = "/tmp/";
+#endif
+
+  GTEST_FLAG(output) = "xml:" + path;
+  const std::string expected_output_file =
+      path + GetCurrentExecutableName().string() + ".xml";
+  const std::string& output_file =
+      UnitTestOptions::GetAbsolutePathToOutputFile();
+
+#if GTEST_OS_WINDOWS
+  EXPECT_STRCASEEQ(expected_output_file.c_str(), output_file.c_str());
+#else
+  EXPECT_EQ(expected_output_file, output_file.c_str());
 #endif
 }
 

@@ -43,8 +43,9 @@ Installation
 
      $ protoc --version
 
-4) Run the tests:
+4) Build and run the tests:
 
+     $ python setup.py build
      $ python setup.py test
 
    If some tests fail, this library may not work correctly on your
@@ -97,3 +98,4 @@ change the default so that C++ implementation is used whenever it is available.
 It is strongly recommended to run `python setup.py test` after setting the
 variable to "cpp", so the tests will be against C++ implemented Python
 messages.
+

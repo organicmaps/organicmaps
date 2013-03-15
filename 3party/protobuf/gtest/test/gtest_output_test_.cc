@@ -27,13 +27,16 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-// A unit test for Google Test itself.  This verifies that the basic
-// constructs of Google Test work.
+// The purpose of this file is to generate Google Test output under
+// various conditions.  The output will then be verified by
+// gtest_output_test.py to ensure that Google Test generates the
+// desired messages.  Therefore, most tests in this file are MEANT TO
+// FAIL.
 //
 // Author: wan@google.com (Zhanyong Wan)
 
-#include <gtest/gtest-spi.h>
-#include <gtest/gtest.h>
+#include "gtest/gtest-spi.h"
+#include "gtest/gtest.h"
 
 // Indicates that this translation unit is part of Google Test's
 // implementation.  It must come before gtest-internal-inl.h is
@@ -46,15 +49,16 @@
 
 #include <stdlib.h>
 
-#if GTEST_HAS_PTHREAD
-#include <pthread.h>
-#endif  // GTEST_HAS_PTHREAD
-
+#if GTEST_IS_THREADSAFE
 using testing::ScopedFakeTestPartResultReporter;
 using testing::TestPartResultArray;
 
+using testing::internal::Notification;
+using testing::internal::ThreadWithParam;
+#endif
+
 namespace posix = ::testing::internal::posix;
-using testing::internal::String;
+using testing::internal::scoped_ptr;
 
 // Tests catching fatal failures.
 
@@ -83,6 +87,30 @@ TEST(PassingTest, PassingTest1) {
 }
 
 TEST(PassingTest, PassingTest2) {
+}
+
+// Tests that parameters of failing parameterized tests are printed in the
+// failing test summary.
+class FailingParamTest : public testing::TestWithParam<int> {};
+
+TEST_P(FailingParamTest, Fails) {
+  EXPECT_EQ(1, GetParam());
+}
+
+// This generates a test which will fail. Google Test is expected to print
+// its parameter when it outputs the list of all failed tests.
+INSTANTIATE_TEST_CASE_P(PrintingFailingParams,
+                        FailingParamTest,
+                        testing::Values(2));
+
+static const char kGoldenString[] = "\"Line\0 1\"\nLine 2";
+
+TEST(NonfatalFailureTest, EscapesStringOperands) {
+  std::string actual = "actual \"string\"";
+  EXPECT_EQ(kGoldenString, actual);
+
+  const char* golden = kGoldenString;
+  EXPECT_EQ(golden, actual);
 }
 
 // Tests catching a fatal failure in a subroutine.
@@ -205,14 +233,91 @@ TEST(SCOPED_TRACETest, CanBeRepeated) {
 
   {
     SCOPED_TRACE("C");
-    ADD_FAILURE() << "This failure is expected, and should contain "
-                  << "trace point A, B, and C.";
+    ADD_FAILURE() << "This failure is expected, and should "
+                  << "contain trace point A, B, and C.";
   }
 
   SCOPED_TRACE("D");
-  ADD_FAILURE() << "This failure is expected, and should contain "
-                << "trace point A, B, and D.";
+  ADD_FAILURE() << "This failure is expected, and should "
+                << "contain trace point A, B, and D.";
 }
+
+#if GTEST_IS_THREADSAFE
+// Tests that SCOPED_TRACE()s can be used concurrently from multiple
+// threads.  Namely, an assertion should be affected by
+// SCOPED_TRACE()s in its own thread only.
+
+// Here's the sequence of actions that happen in the test:
+//
+//   Thread A (main)                | Thread B (spawned)
+//   ===============================|================================
+//   spawns thread B                |
+//   -------------------------------+--------------------------------
+//   waits for n1                   | SCOPED_TRACE("Trace B");
+//                                  | generates failure #1
+//                                  | notifies n1
+//   -------------------------------+--------------------------------
+//   SCOPED_TRACE("Trace A");       | waits for n2
+//   generates failure #2           |
+//   notifies n2                    |
+//   -------------------------------|--------------------------------
+//   waits for n3                   | generates failure #3
+//                                  | trace B dies
+//                                  | generates failure #4
+//                                  | notifies n3
+//   -------------------------------|--------------------------------
+//   generates failure #5           | finishes
+//   trace A dies                   |
+//   generates failure #6           |
+//   -------------------------------|--------------------------------
+//   waits for thread B to finish   |
+
+struct CheckPoints {
+  Notification n1;
+  Notification n2;
+  Notification n3;
+};
+
+static void ThreadWithScopedTrace(CheckPoints* check_points) {
+  {
+    SCOPED_TRACE("Trace B");
+    ADD_FAILURE()
+        << "Expected failure #1 (in thread B, only trace B alive).";
+    check_points->n1.Notify();
+    check_points->n2.WaitForNotification();
+
+    ADD_FAILURE()
+        << "Expected failure #3 (in thread B, trace A & B both alive).";
+  }  // Trace B dies here.
+  ADD_FAILURE()
+      << "Expected failure #4 (in thread B, only trace A alive).";
+  check_points->n3.Notify();
+}
+
+TEST(SCOPED_TRACETest, WorksConcurrently) {
+  printf("(expecting 6 failures)\n");
+
+  CheckPoints check_points;
+  ThreadWithParam<CheckPoints*> thread(&ThreadWithScopedTrace,
+                                       &check_points,
+                                       NULL);
+  check_points.n1.WaitForNotification();
+
+  {
+    SCOPED_TRACE("Trace A");
+    ADD_FAILURE()
+        << "Expected failure #2 (in thread A, trace A & B both alive).";
+    check_points.n2.Notify();
+    check_points.n3.WaitForNotification();
+
+    ADD_FAILURE()
+        << "Expected failure #5 (in thread A, only trace A alive).";
+  }  // Trace A dies here.
+  ADD_FAILURE()
+      << "Expected failure #6 (in thread A, no trace alive).";
+  thread.Join();
+}
+#endif  // GTEST_IS_THREADSAFE
 
 TEST(DisabledTestsWarningTest,
      DISABLED_AlsoRunDisabledTestsFlagSuppressesWarning) {
@@ -285,6 +390,7 @@ class FatalFailureInFixtureConstructorTest : public testing::Test {
                   << "We should never get here, as the test fixture c'tor "
                   << "had a fatal failure.";
   }
+
  private:
   void Init() {
     FAIL() << "Expected failure #1, in the test fixture c'tor.";
@@ -348,136 +454,66 @@ TEST_F(FatalFailureInSetUpTest, FailureInSetUp) {
          << "We should never get here, as SetUp() failed.";
 }
 
-#if GTEST_OS_WINDOWS
-
-// This group of tests verifies that Google Test handles SEH and C++
-// exceptions correctly.
-
-// A function that throws an SEH exception.
-static void ThrowSEH() {
-  int* p = NULL;
-  *p = 0;  // Raises an access violation.
+TEST(AddFailureAtTest, MessageContainsSpecifiedFileAndLineNumber) {
+  ADD_FAILURE_AT("foo.cc", 42) << "Expected failure in foo.cc";
 }
 
-// Tests exceptions thrown in the test fixture constructor.
-class ExceptionInFixtureCtorTest : public testing::Test {
+#if GTEST_IS_THREADSAFE
+
+// A unary function that may die.
+void DieIf(bool should_die) {
+  GTEST_CHECK_(!should_die) << " - death inside DieIf().";
+}
+
+// Tests running death tests in a multi-threaded context.
+
+// Used for coordination between the main and the spawn thread.
+struct SpawnThreadNotifications {
+  SpawnThreadNotifications() {}
+
+  Notification spawn_thread_started;
+  Notification spawn_thread_ok_to_terminate;
+
+ private:
+  GTEST_DISALLOW_COPY_AND_ASSIGN_(SpawnThreadNotifications);
+};
+
+// The function to be executed in the thread spawn by the
+// MultipleThreads test (below).
+static void ThreadRoutine(SpawnThreadNotifications* notifications) {
+  // Signals the main thread that this thread has started.
+  notifications->spawn_thread_started.Notify();
+
+  // Waits for permission to finish from the main thread.
+  notifications->spawn_thread_ok_to_terminate.WaitForNotification();
+}
+
+// This is a death-test test, but it's not named with a DeathTest
+// suffix.  It starts threads which might interfere with later
+// death tests, so it must run after all other death tests.
+class DeathTestAndMultiThreadsTest : public testing::Test {
  protected:
-  ExceptionInFixtureCtorTest() {
-    printf("(expecting a failure on thrown exception "
-           "in the test fixture's constructor)\n");
-
-    ThrowSEH();
-  }
-
-  virtual ~ExceptionInFixtureCtorTest() {
-    Deinit();
-  }
-
+  // Starts a thread and waits for it to begin.
   virtual void SetUp() {
-    FAIL() << "UNEXPECTED failure in SetUp().  "
-           << "We should never get here, as the test fixture c'tor threw.";
+    thread_.reset(new ThreadWithParam<SpawnThreadNotifications*>(
+        &ThreadRoutine, &notifications_, NULL));
+    notifications_.spawn_thread_started.WaitForNotification();
+  }
+  // Tells the thread to finish, and reaps it.
+  // Depending on the version of the thread library in use,
+  // a manager thread might still be left running that will interfere
+  // with later death tests.  This is unfortunate, but this class
+  // cleans up after itself as best it can.
+  virtual void TearDown() {
+    notifications_.spawn_thread_ok_to_terminate.Notify();
   }
 
-  virtual void TearDown() {
-    FAIL() << "UNEXPECTED failure in TearDown().  "
-           << "We should never get here, as the test fixture c'tor threw.";
-  }
  private:
-  void Deinit() {
-    FAIL() << "UNEXPECTED failure in the d'tor.  "
-           << "We should never get here, as the test fixture c'tor threw.";
-  }
+  SpawnThreadNotifications notifications_;
+  scoped_ptr<ThreadWithParam<SpawnThreadNotifications*> > thread_;
 };
 
-TEST_F(ExceptionInFixtureCtorTest, ExceptionInFixtureCtor) {
-  FAIL() << "UNEXPECTED failure in the test function.  "
-         << "We should never get here, as the test fixture c'tor threw.";
-}
-
-// Tests exceptions thrown in SetUp().
-class ExceptionInSetUpTest : public testing::Test {
- protected:
-  virtual ~ExceptionInSetUpTest() {
-    Deinit();
-  }
-
-  virtual void SetUp() {
-    printf("(expecting 3 failures)\n");
-
-    ThrowSEH();
-  }
-
-  virtual void TearDown() {
-    FAIL() << "Expected failure #2, in TearDown().";
-  }
- private:
-  void Deinit() {
-    FAIL() << "Expected failure #3, in the test fixture d'tor.";
-  }
-};
-
-TEST_F(ExceptionInSetUpTest, ExceptionInSetUp) {
-  FAIL() << "UNEXPECTED failure in the test function.  "
-         << "We should never get here, as SetUp() threw.";
-}
-
-// Tests that TearDown() and the test fixture d'tor are always called,
-// even when the test function throws an exception.
-class ExceptionInTestFunctionTest : public testing::Test {
- protected:
-  virtual ~ExceptionInTestFunctionTest() {
-    Deinit();
-  }
-
-  virtual void TearDown() {
-    FAIL() << "Expected failure #2, in TearDown().";
-  }
- private:
-  void Deinit() {
-    FAIL() << "Expected failure #3, in the test fixture d'tor.";
-  }
-};
-
-// Tests that the test fixture d'tor is always called, even when the
-// test function throws an SEH exception.
-TEST_F(ExceptionInTestFunctionTest, SEH) {
-  printf("(expecting 3 failures)\n");
-
-  ThrowSEH();
-}
-
-#if GTEST_HAS_EXCEPTIONS
-
-// Tests that the test fixture d'tor is always called, even when the
-// test function throws a C++ exception.  We do this only when
-// GTEST_HAS_EXCEPTIONS is non-zero, i.e. C++ exceptions are enabled.
-TEST_F(ExceptionInTestFunctionTest, CppException) {
-  throw 1;
-}
-
-// Tests exceptions thrown in TearDown().
-class ExceptionInTearDownTest : public testing::Test {
- protected:
-  virtual ~ExceptionInTearDownTest() {
-    Deinit();
-  }
-
-  virtual void TearDown() {
-    throw 1;
-  }
- private:
-  void Deinit() {
-    FAIL() << "Expected failure #2, in the test fixture d'tor.";
-  }
-};
-
-TEST_F(ExceptionInTearDownTest, ExceptionInTearDown) {
-  printf("(expecting 2 failures)\n");
-}
-
-#endif  // GTEST_HAS_EXCEPTIONS
-
-#endif  // GTEST_OS_WINDOWS
+#endif  // GTEST_IS_THREADSAFE
 
 // The MixedUpTestCaseTest test case verifies that Google Test will fail a
 // test if it uses a different fixture class than what other tests in
@@ -765,7 +801,7 @@ INSTANTIATE_TYPED_TEST_CASE_P(Unsigned, TypedTestP, UnsignedTypes);
 TEST(ADeathTest, ShouldRunFirst) {
 }
 
-#if GTEST_HAS_TYPED_TEST
+# if GTEST_HAS_TYPED_TEST
 
 // We rely on the golden file to verify that typed tests whose test
 // case name ends with DeathTest are run first.
@@ -780,9 +816,9 @@ TYPED_TEST_CASE(ATypedDeathTest, NumericTypes);
 TYPED_TEST(ATypedDeathTest, ShouldRunFirst) {
 }
 
-#endif  // GTEST_HAS_TYPED_TEST
+# endif  // GTEST_HAS_TYPED_TEST
 
-#if GTEST_HAS_TYPED_TEST_P
+# if GTEST_HAS_TYPED_TEST_P
 
 
 // We rely on the golden file to verify that type-parameterized tests
@@ -801,7 +837,7 @@ REGISTER_TYPED_TEST_CASE_P(ATypeParamDeathTest, ShouldRunFirst);
 
 INSTANTIATE_TYPED_TEST_CASE_P(My, ATypeParamDeathTest, NumericTypes);
 
-#endif  // GTEST_HAS_TYPED_TEST_P
+# endif  // GTEST_HAS_TYPED_TEST_P
 
 #endif  // GTEST_HAS_DEATH_TEST
 
@@ -849,23 +885,13 @@ TEST_F(ExpectFailureTest, ExpectNonFatalFailure) {
                           "failure.");
 }
 
-#if GTEST_IS_THREADSAFE && GTEST_HAS_PTHREAD
+#if GTEST_IS_THREADSAFE
 
 class ExpectFailureWithThreadsTest : public ExpectFailureTest {
  protected:
   static void AddFailureInOtherThread(FailureMode failure) {
-    pthread_t tid;
-    pthread_create(&tid,
-                   NULL,
-                   ExpectFailureWithThreadsTest::FailureThread,
-                   &failure);
-    pthread_join(tid, NULL);
-  }
- private:
-  static void* FailureThread(void* attr) {
-    FailureMode* failure = static_cast<FailureMode*>(attr);
-    AddFailure(*failure);
-    return NULL;
+    ThreadWithParam<FailureMode> thread(&AddFailure, failure, NULL);
+    thread.Join();
   }
 };
 
@@ -901,7 +927,7 @@ TEST_F(ScopedFakeTestPartResultReporterTest, InterceptOnlyCurrentThread) {
   EXPECT_EQ(0, results.size()) << "This shouldn't fail.";
 }
 
-#endif  // GTEST_IS_THREADSAFE && GTEST_HAS_PTHREAD
+#endif  // GTEST_IS_THREADSAFE
 
 TEST_F(ExpectFailureTest, ExpectFatalFailureOnAllThreads) {
   // Expected fatal failure, but succeeds.
@@ -959,9 +985,7 @@ class BarEnvironment : public testing::Environment {
   }
 };
 
-GTEST_DEFINE_bool_(internal_skip_environment_and_ad_hoc_tests, false,
-                   "This flag causes the program to skip test environment "
-                   "tests and ad hoc tests.");
+bool GTEST_FLAG(internal_skip_environment_and_ad_hoc_tests) = false;
 
 // The main function.
 //
@@ -980,18 +1004,19 @@ int main(int argc, char **argv) {
   // for it.
   testing::InitGoogleTest(&argc, argv);
   if (argc >= 2 &&
-      String(argv[1]) == "--gtest_internal_skip_environment_and_ad_hoc_tests")
+      (std::string(argv[1]) ==
+       "--gtest_internal_skip_environment_and_ad_hoc_tests"))
     GTEST_FLAG(internal_skip_environment_and_ad_hoc_tests) = true;
 
 #if GTEST_HAS_DEATH_TEST
   if (testing::internal::GTEST_FLAG(internal_run_death_test) != "") {
     // Skip the usual output capturing if we're running as the child
     // process of an threadsafe-style death test.
-#if GTEST_OS_WINDOWS
+# if GTEST_OS_WINDOWS
     posix::FReopen("nul:", "w", stdout);
-#else
+# else
     posix::FReopen("/dev/null", "w", stdout);
-#endif  // GTEST_OS_WINDOWS
+# endif  // GTEST_OS_WINDOWS
     return RUN_ALL_TESTS();
   }
 #endif  // GTEST_HAS_DEATH_TEST

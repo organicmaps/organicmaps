@@ -45,8 +45,9 @@ namespace cpp {
 namespace {
 
 void SetMessageVariables(const FieldDescriptor* descriptor,
-                         map<string, string>* variables) {
-  SetCommonFieldVariables(descriptor, variables);
+                         map<string, string>* variables,
+                         const Options& options) {
+  SetCommonFieldVariables(descriptor, variables, options);
   (*variables)["type"] = FieldMessageTypeName(descriptor);
   (*variables)["stream_writer"] = (*variables)["declared_type"] +
       (HasFastArraySerialization(descriptor->message_type()->file()) ?
@@ -59,9 +60,10 @@ void SetMessageVariables(const FieldDescriptor* descriptor,
 // ===================================================================
 
 MessageFieldGenerator::
-MessageFieldGenerator(const FieldDescriptor* descriptor)
+MessageFieldGenerator(const FieldDescriptor* descriptor,
+                      const Options& options)
   : descriptor_(descriptor) {
-  SetMessageVariables(descriptor, &variables_);
+  SetMessageVariables(descriptor, &variables_, options);
 }
 
 MessageFieldGenerator::~MessageFieldGenerator() {}
@@ -76,14 +78,23 @@ GenerateAccessorDeclarations(io::Printer* printer) const {
   printer->Print(variables_,
     "inline const $type$& $name$() const$deprecation$;\n"
     "inline $type$* mutable_$name$()$deprecation$;\n"
-    "inline $type$* release_$name$()$deprecation$;\n");
+    "inline $type$* release_$name$()$deprecation$;\n"
+    "inline void set_allocated_$name$($type$* $name$)$deprecation$;\n");
 }
 
 void MessageFieldGenerator::
 GenerateInlineAccessorDefinitions(io::Printer* printer) const {
   printer->Print(variables_,
-    "inline const $type$& $classname$::$name$() const {\n"
-    "  return $name$_ != NULL ? *$name$_ : *default_instance_->$name$_;\n"
+    "inline const $type$& $classname$::$name$() const {\n");
+
+  PrintHandlingOptionalStaticInitializers(
+    variables_, descriptor_->file(), printer,
+    // With static initializers.
+    "  return $name$_ != NULL ? *$name$_ : *default_instance_->$name$_;\n",
+    // Without.
+    "  return $name$_ != NULL ? *$name$_ : *default_instance().$name$_;\n");
+
+  printer->Print(variables_,
     "}\n"
     "inline $type$* $classname$::mutable_$name$() {\n"
     "  set_has_$name$();\n"
@@ -95,6 +106,15 @@ GenerateInlineAccessorDefinitions(io::Printer* printer) const {
     "  $type$* temp = $name$_;\n"
     "  $name$_ = NULL;\n"
     "  return temp;\n"
+    "}\n"
+    "inline void $classname$::set_allocated_$name$($type$* $name$) {\n"
+    "  delete $name$_;\n"
+    "  $name$_ = $name$;\n"
+    "  if ($name$) {\n"
+    "    set_has_$name$();\n"
+    "  } else {\n"
+    "    clear_has_$name$();\n"
+    "  }\n"
     "}\n");
 }
 
@@ -159,9 +179,10 @@ GenerateByteSize(io::Printer* printer) const {
 // ===================================================================
 
 RepeatedMessageFieldGenerator::
-RepeatedMessageFieldGenerator(const FieldDescriptor* descriptor)
+RepeatedMessageFieldGenerator(const FieldDescriptor* descriptor,
+                              const Options& options)
   : descriptor_(descriptor) {
-  SetMessageVariables(descriptor, &variables_);
+  SetMessageVariables(descriptor, &variables_, options);
 }
 
 RepeatedMessageFieldGenerator::~RepeatedMessageFieldGenerator() {}
@@ -189,7 +210,7 @@ void RepeatedMessageFieldGenerator::
 GenerateInlineAccessorDefinitions(io::Printer* printer) const {
   printer->Print(variables_,
     "inline const $type$& $classname$::$name$(int index) const {\n"
-    "  return $name$_.Get(index);\n"
+    "  return $name$_.$cppget$(index);\n"
     "}\n"
     "inline $type$* $classname$::mutable_$name$(int index) {\n"
     "  return $name$_.Mutable(index);\n"

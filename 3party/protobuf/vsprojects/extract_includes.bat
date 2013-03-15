@@ -7,13 +7,19 @@ md include\google\protobuf\compiler
 md include\google\protobuf\compiler\cpp
 md include\google\protobuf\compiler\java
 md include\google\protobuf\compiler\python
+copy ..\src\google\protobuf\stubs\atomicops.h include\google\protobuf\stubs\atomicops.h
+copy ..\src\google\protobuf\stubs\atomicops_internals_x86_msvc.h include\google\protobuf\stubs\atomicops_internals_x86_msvc.h
 copy ..\src\google\protobuf\stubs\common.h include\google\protobuf\stubs\common.h
 copy ..\src\google\protobuf\stubs\once.h include\google\protobuf\stubs\once.h
+copy ..\src\google\protobuf\stubs\platform_macros.h include\google\protobuf\stubs\platform_macros.h
+copy ..\src\google\protobuf\stubs\template_util.h include\google\protobuf\stubs\template_util.h
+copy ..\src\google\protobuf\stubs\type_traits.h include\google\protobuf\stubs\type_traits.h
 copy ..\src\google\protobuf\descriptor.h include\google\protobuf\descriptor.h
 copy ..\src\google\protobuf\descriptor.pb.h include\google\protobuf\descriptor.pb.h
 copy ..\src\google\protobuf\descriptor_database.h include\google\protobuf\descriptor_database.h
 copy ..\src\google\protobuf\dynamic_message.h include\google\protobuf\dynamic_message.h
 copy ..\src\google\protobuf\extension_set.h include\google\protobuf\extension_set.h
+copy ..\src\google\protobuf\generated_enum_reflection.h include\google\protobuf\generated_enum_reflection.h
 copy ..\src\google\protobuf\generated_message_util.h include\google\protobuf\generated_message_util.h
 copy ..\src\google\protobuf\generated_message_reflection.h include\google\protobuf\generated_message_reflection.h
 copy ..\src\google\protobuf\message.h include\google\protobuf\message.h

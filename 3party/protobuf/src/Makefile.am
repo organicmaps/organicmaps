@@ -37,53 +37,70 @@ CLEANFILES = $(protoc_outputs) unittest_proto_middleman \
 MAINTAINERCLEANFILES =   \
   Makefile.in
 
-nobase_include_HEADERS =                                       \
-  google/protobuf/stubs/common.h                               \
-  google/protobuf/stubs/once.h                                 \
-  google/protobuf/descriptor.h                                 \
-  google/protobuf/descriptor.pb.h                              \
-  google/protobuf/descriptor_database.h                        \
-  google/protobuf/dynamic_message.h                            \
-  google/protobuf/extension_set.h                              \
-  google/protobuf/generated_message_util.h                     \
-  google/protobuf/generated_message_reflection.h               \
-  google/protobuf/message.h                                    \
-  google/protobuf/message_lite.h                               \
-  google/protobuf/reflection_ops.h                             \
-  google/protobuf/repeated_field.h                             \
-  google/protobuf/service.h                                    \
-  google/protobuf/text_format.h                                \
-  google/protobuf/unknown_field_set.h                          \
-  google/protobuf/wire_format.h                                \
-  google/protobuf/wire_format_lite.h                           \
-  google/protobuf/wire_format_lite_inl.h                       \
-  google/protobuf/io/coded_stream.h                            \
-  $(GZHEADERS)                                                 \
-  google/protobuf/io/printer.h                                 \
-  google/protobuf/io/tokenizer.h                               \
-  google/protobuf/io/zero_copy_stream.h                        \
-  google/protobuf/io/zero_copy_stream_impl.h                   \
-  google/protobuf/io/zero_copy_stream_impl_lite.h              \
-  google/protobuf/compiler/code_generator.h                    \
-  google/protobuf/compiler/command_line_interface.h            \
-  google/protobuf/compiler/importer.h                          \
-  google/protobuf/compiler/parser.h                            \
-  google/protobuf/compiler/plugin.h                            \
-  google/protobuf/compiler/plugin.pb.h                         \
-  google/protobuf/compiler/cpp/cpp_generator.h                 \
-  google/protobuf/compiler/java/java_generator.h               \
+nobase_include_HEADERS =                                        \
+  google/protobuf/stubs/atomicops.h                             \
+  google/protobuf/stubs/atomicops_internals_arm_gcc.h           \
+  google/protobuf/stubs/atomicops_internals_arm_qnx.h           \
+  google/protobuf/stubs/atomicops_internals_atomicword_compat.h \
+  google/protobuf/stubs/atomicops_internals_macosx.h            \
+  google/protobuf/stubs/atomicops_internals_mips_gcc.h          \
+  google/protobuf/stubs/atomicops_internals_pnacl.h             \
+  google/protobuf/stubs/atomicops_internals_x86_gcc.h           \
+  google/protobuf/stubs/atomicops_internals_x86_msvc.h          \
+  google/protobuf/stubs/common.h                                \
+  google/protobuf/stubs/platform_macros.h                       \
+  google/protobuf/stubs/once.h                                  \
+  google/protobuf/stubs/template_util.h                         \
+  google/protobuf/stubs/type_traits.h                           \
+  google/protobuf/descriptor.h                                  \
+  google/protobuf/descriptor.pb.h                               \
+  google/protobuf/descriptor_database.h                         \
+  google/protobuf/dynamic_message.h                             \
+  google/protobuf/extension_set.h                               \
+  google/protobuf/generated_enum_reflection.h                   \
+  google/protobuf/generated_message_util.h                      \
+  google/protobuf/generated_message_reflection.h                \
+  google/protobuf/message.h                                     \
+  google/protobuf/message_lite.h                                \
+  google/protobuf/reflection_ops.h                              \
+  google/protobuf/repeated_field.h                              \
+  google/protobuf/service.h                                     \
+  google/protobuf/text_format.h                                 \
+  google/protobuf/unknown_field_set.h                           \
+  google/protobuf/wire_format.h                                 \
+  google/protobuf/wire_format_lite.h                            \
+  google/protobuf/wire_format_lite_inl.h                        \
+  google/protobuf/io/coded_stream.h                             \
+  $(GZHEADERS)                                                  \
+  google/protobuf/io/printer.h                                  \
+  google/protobuf/io/tokenizer.h                                \
+  google/protobuf/io/zero_copy_stream.h                         \
+  google/protobuf/io/zero_copy_stream_impl.h                    \
+  google/protobuf/io/zero_copy_stream_impl_lite.h               \
+  google/protobuf/compiler/code_generator.h                     \
+  google/protobuf/compiler/command_line_interface.h             \
+  google/protobuf/compiler/importer.h                           \
+  google/protobuf/compiler/parser.h                             \
+  google/protobuf/compiler/plugin.h                             \
+  google/protobuf/compiler/plugin.pb.h                          \
+  google/protobuf/compiler/cpp/cpp_generator.h                  \
+  google/protobuf/compiler/java/java_generator.h                \
   google/protobuf/compiler/python/python_generator.h
 
 lib_LTLIBRARIES = libprotobuf-lite.la libprotobuf.la libprotoc.la
 
 libprotobuf_lite_la_LIBADD = $(PTHREAD_LIBS)
-libprotobuf_lite_la_LDFLAGS = -version-info 7:0:0 -export-dynamic -no-undefined
+libprotobuf_lite_la_LDFLAGS = -version-info 8:0:0 -export-dynamic -no-undefined
 libprotobuf_lite_la_SOURCES =                                  \
+  google/protobuf/stubs/atomicops_internals_x86_gcc.cc         \
+  google/protobuf/stubs/atomicops_internals_x86_msvc.cc        \
   google/protobuf/stubs/common.cc                              \
   google/protobuf/stubs/once.cc                                \
   google/protobuf/stubs/hash.h                                 \
   google/protobuf/stubs/map-util.h                             \
-  google/protobuf/stubs/stl_util-inl.h                         \
+  google/protobuf/stubs/stl_util.h                             \
+  google/protobuf/stubs/stringprintf.cc                        \
+  google/protobuf/stubs/stringprintf.h                         \
   google/protobuf/extension_set.cc                             \
   google/protobuf/generated_message_util.cc                    \
   google/protobuf/message_lite.cc                              \
@@ -95,7 +112,7 @@ libprotobuf_lite_la_SOURCES =                                  \
   google/protobuf/io/zero_copy_stream_impl_lite.cc
 
 libprotobuf_la_LIBADD = $(PTHREAD_LIBS)
-libprotobuf_la_LDFLAGS = -version-info 7:0:0 -export-dynamic -no-undefined
+libprotobuf_la_LDFLAGS = -version-info 8:0:0 -export-dynamic -no-undefined
 libprotobuf_la_SOURCES =                                       \
   $(libprotobuf_lite_la_SOURCES)                               \
   google/protobuf/stubs/strutil.cc                             \
@@ -123,7 +140,7 @@ libprotobuf_la_SOURCES =                                       \
   google/protobuf/compiler/parser.cc
 
 libprotoc_la_LIBADD = $(PTHREAD_LIBS) libprotobuf.la
-libprotoc_la_LDFLAGS = -version-info 7:0:0 -export-dynamic -no-undefined
+libprotoc_la_LDFLAGS = -version-info 8:0:0 -export-dynamic -no-undefined
 libprotoc_la_SOURCES =                                         \
   google/protobuf/compiler/code_generator.cc                   \
   google/protobuf/compiler/command_line_interface.cc           \
@@ -150,6 +167,7 @@ libprotoc_la_SOURCES =                                         \
   google/protobuf/compiler/cpp/cpp_message.h                   \
   google/protobuf/compiler/cpp/cpp_message_field.cc            \
   google/protobuf/compiler/cpp/cpp_message_field.h             \
+  google/protobuf/compiler/cpp/cpp_options.h                   \
   google/protobuf/compiler/cpp/cpp_primitive_field.cc          \
   google/protobuf/compiler/cpp/cpp_primitive_field.h           \
   google/protobuf/compiler/cpp/cpp_service.cc                  \
@@ -179,6 +197,8 @@ libprotoc_la_SOURCES =                                         \
   google/protobuf/compiler/java/java_service.h                 \
   google/protobuf/compiler/java/java_string_field.cc           \
   google/protobuf/compiler/java/java_string_field.h            \
+  google/protobuf/compiler/java/java_doc_comment.cc            \
+  google/protobuf/compiler/java/java_doc_comment.h             \
   google/protobuf/compiler/python/python_generator.cc
 
 bin_PROGRAMS = protoc
@@ -191,12 +211,14 @@ protoc_inputs =                                                \
   google/protobuf/unittest.proto                               \
   google/protobuf/unittest_empty.proto                         \
   google/protobuf/unittest_import.proto                        \
+  google/protobuf/unittest_import_public.proto                 \
   google/protobuf/unittest_mset.proto                          \
   google/protobuf/unittest_optimize_for.proto                  \
   google/protobuf/unittest_embed_optimize_for.proto            \
   google/protobuf/unittest_custom_options.proto                \
   google/protobuf/unittest_lite.proto                          \
   google/protobuf/unittest_import_lite.proto                   \
+  google/protobuf/unittest_import_public_lite.proto            \
   google/protobuf/unittest_lite_imports_nonlite.proto          \
   google/protobuf/unittest_no_generic_services.proto           \
   google/protobuf/compiler/cpp/cpp_test_bad_identifiers.proto
@@ -220,7 +242,9 @@ protoc_lite_outputs =                                          \
   google/protobuf/unittest_lite.pb.cc                          \
   google/protobuf/unittest_lite.pb.h                           \
   google/protobuf/unittest_import_lite.pb.cc                   \
-  google/protobuf/unittest_import_lite.pb.h
+  google/protobuf/unittest_import_lite.pb.h                    \
+  google/protobuf/unittest_import_public_lite.pb.cc            \
+  google/protobuf/unittest_import_public_lite.pb.h
 
 protoc_outputs =                                               \
   $(protoc_lite_outputs)                                       \
@@ -230,6 +254,8 @@ protoc_outputs =                                               \
   google/protobuf/unittest_empty.pb.h                          \
   google/protobuf/unittest_import.pb.cc                        \
   google/protobuf/unittest_import.pb.h                         \
+  google/protobuf/unittest_import_public.pb.cc                 \
+  google/protobuf/unittest_import_public.pb.h                  \
   google/protobuf/unittest_mset.pb.cc                          \
   google/protobuf/unittest_mset.pb.h                           \
   google/protobuf/unittest_optimize_for.pb.cc                  \
@@ -290,6 +316,9 @@ protobuf_test_SOURCES =                                        \
   google/protobuf/stubs/once_unittest.cc                       \
   google/protobuf/stubs/strutil_unittest.cc                    \
   google/protobuf/stubs/structurally_valid_unittest.cc         \
+  google/protobuf/stubs/stringprintf_unittest.cc               \
+  google/protobuf/stubs/template_util_unittest.cc              \
+  google/protobuf/stubs/type_traits_unittest.cc                \
   google/protobuf/descriptor_database_unittest.cc              \
   google/protobuf/descriptor_unittest.cc                       \
   google/protobuf/dynamic_message_unittest.cc                  \
@@ -298,6 +327,7 @@ protobuf_test_SOURCES =                                        \
   google/protobuf/message_unittest.cc                          \
   google/protobuf/reflection_ops_unittest.cc                   \
   google/protobuf/repeated_field_unittest.cc                   \
+  google/protobuf/repeated_field_reflection_unittest.cc        \
   google/protobuf/text_format_unittest.cc                      \
   google/protobuf/unknown_field_set_unittest.cc                \
   google/protobuf/wire_format_unittest.cc                      \
@@ -311,9 +341,11 @@ protobuf_test_SOURCES =                                        \
   google/protobuf/compiler/mock_code_generator.h               \
   google/protobuf/compiler/parser_unittest.cc                  \
   google/protobuf/compiler/cpp/cpp_bootstrap_unittest.cc       \
+  google/protobuf/compiler/cpp/cpp_unittest.h                  \
   google/protobuf/compiler/cpp/cpp_unittest.cc                 \
   google/protobuf/compiler/cpp/cpp_plugin_unittest.cc          \
   google/protobuf/compiler/java/java_plugin_unittest.cc        \
+  google/protobuf/compiler/java/java_doc_comment_unittest.cc   \
   google/protobuf/compiler/python/python_plugin_unittest.cc    \
   $(COMMON_TEST_SOURCES)
 nodist_protobuf_test_SOURCES = $(protoc_outputs)

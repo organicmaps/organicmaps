@@ -45,7 +45,7 @@
 
 #include <limits.h>
 #include "sample1.h"
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 
 // Step 2. Use the TEST macro to define your tests.
@@ -81,7 +81,7 @@ TEST(FactorialTest, Negative) {
   // test case.
   EXPECT_EQ(1, Factorial(-5));
   EXPECT_EQ(1, Factorial(-1));
-  EXPECT_TRUE(Factorial(-10) > 0);
+  EXPECT_GT(Factorial(-10), 0);
 
   // <TechnicalDetails>
   //

@@ -220,7 +220,7 @@ TEST(Printer, Indenting) {
 }
 
 // Death tests do not work on Windows as of yet.
-#ifdef GTEST_HAS_DEATH_TEST
+#ifdef PROTOBUF_HAS_DEATH_TEST
 TEST(Printer, Death) {
   char buffer[8192];
 
@@ -231,9 +231,33 @@ TEST(Printer, Death) {
   EXPECT_DEBUG_DEATH(printer.Print("$unclosed"), "Unclosed variable name");
   EXPECT_DEBUG_DEATH(printer.Outdent(), "without matching Indent");
 }
-#endif  // GTEST_HAS_DEATH_TEST
+#endif  // PROTOBUF__HAS_DEATH_TEST
 
-TEST(Printer, WriteFailure) {
+TEST(Printer, WriteFailurePartial) {
+  char buffer[17];
+
+  ArrayOutputStream output(buffer, sizeof(buffer));
+  Printer printer(&output, '$');
+
+  // Print 16 bytes to almost fill the buffer (should not fail).
+  printer.Print("0123456789abcdef");
+  EXPECT_FALSE(printer.failed());
+
+  // Try to print 2 chars. Only one fits.
+  printer.Print("<>");
+  EXPECT_TRUE(printer.failed());
+
+  // Anything else should fail too.
+  printer.Print(" ");
+  EXPECT_TRUE(printer.failed());
+  printer.Print("blah");
+  EXPECT_TRUE(printer.failed());
+
+  // Buffer should contain the first 17 bytes written.
+  EXPECT_EQ("0123456789abcdef<", string(buffer, sizeof(buffer)));
+}
+
+TEST(Printer, WriteFailureExact) {
   char buffer[16];
 
   ArrayOutputStream output(buffer, sizeof(buffer));

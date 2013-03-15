@@ -28,10 +28,10 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-// from google3/util/gtl/stl_util-inl.h
+// from google3/util/gtl/stl_util.h
 
-#ifndef GOOGLE_PROTOBUF_STUBS_STL_UTIL_INL_H__
-#define GOOGLE_PROTOBUF_STUBS_STL_UTIL_INL_H__
+#ifndef GOOGLE_PROTOBUF_STUBS_STL_UTIL_H__
+#define GOOGLE_PROTOBUF_STUBS_STL_UTIL_H__
 
 #include <google/protobuf/stubs/common.h>
 
@@ -118,4 +118,4 @@ void STLDeleteValues(T *v) {
 }  // namespace protobuf
 }  // namespace google
 
-#endif  // GOOGLE_PROTOBUF_STUBS_STL_UTIL_INL_H__
+#endif  // GOOGLE_PROTOBUF_STUBS_STL_UTIL_H__

@@ -69,3 +69,4 @@ message RawMessageSet {
     required bytes message = 3;
   }
 }
+

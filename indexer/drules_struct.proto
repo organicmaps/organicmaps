@@ -1,4 +1,5 @@
-option optimize_for = LITE_RUNTIME;
+// To generate LITE version uncomment line below
+//option optimize_for = LITE_RUNTIME;
 
 message DashDotProto
 {

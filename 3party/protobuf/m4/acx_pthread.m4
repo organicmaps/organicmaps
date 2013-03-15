@@ -55,7 +55,7 @@ dnl @category InstalledPackages
 dnl @author Steven G. Johnson <stevenj@alum.mit.edu>
 dnl @version 2006-05-29
 dnl @license GPLWithACException
-dnl
+dnl 
 dnl Checks for GCC shared/pthread inconsistency based on work by
 dnl Marcin Owsiany <marcin@owsiany.pl>
 
@@ -240,14 +240,14 @@ if test "x$acx_pthread_ok" = xyes; then
 	# architectures and systems. The problem is that in certain
 	# configurations, when -shared is specified, GCC "forgets" to
 	# internally use various flags which are still necessary.
-
+	
 	#
 	# Prepare the flags
 	#
 	save_CFLAGS="$CFLAGS"
 	save_LIBS="$LIBS"
 	save_CC="$CC"
-
+	
 	# Try with the flags determined by the earlier checks.
 	#
 	# -Wl,-z,defs forces link-time symbol resolution, so that the
@@ -259,25 +259,25 @@ if test "x$acx_pthread_ok" = xyes; then
 	CFLAGS="-shared -fPIC -Wl,-z,defs $CFLAGS $PTHREAD_CFLAGS"
 	LIBS="$PTHREAD_LIBS $LIBS"
 	CC="$PTHREAD_CC"
-
+	
 	# In order not to create several levels of indentation, we test
 	# the value of "$done" until we find the cure or run out of ideas.
 	done="no"
-
+	
 	# First, make sure the CFLAGS we added are actually accepted by our
 	# compiler.  If not (and OS X's ld, for instance, does not accept -z),
 	# then we can't do this test.
 	if test x"$done" = xno; then
 	   AC_MSG_CHECKING([whether to check for GCC pthread/shared inconsistencies])
 	   AC_TRY_LINK(,, , [done=yes])
-
+	
 	   if test "x$done" = xyes ; then
 	      AC_MSG_RESULT([no])
 	   else
 	      AC_MSG_RESULT([yes])
 	   fi
 	fi
-
+	
 	if test x"$done" = xno; then
 	   AC_MSG_CHECKING([whether -pthread is sufficient with -shared])
 	   AC_TRY_LINK([#include <pthread.h>],
@@ -285,14 +285,14 @@ if test "x$acx_pthread_ok" = xyes; then
 	      pthread_attr_init(0); pthread_cleanup_push(0, 0);
 	      pthread_create(0,0,0,0); pthread_cleanup_pop(0); ],
 	      [done=yes])
-
+	   
 	   if test "x$done" = xyes; then
 	      AC_MSG_RESULT([yes])
 	   else
 	      AC_MSG_RESULT([no])
 	   fi
 	fi
-
+	
 	#
 	# Linux gcc on some architectures such as mips/mipsel forgets
 	# about -lpthread
@@ -305,7 +305,7 @@ if test "x$acx_pthread_ok" = xyes; then
 	      pthread_attr_init(0); pthread_cleanup_push(0, 0);
 	      pthread_create(0,0,0,0); pthread_cleanup_pop(0); ],
 	      [done=yes])
-
+	
 	   if test "x$done" = xyes; then
 	      AC_MSG_RESULT([yes])
 	      PTHREAD_LIBS="-lpthread $PTHREAD_LIBS"
@@ -324,7 +324,7 @@ if test "x$acx_pthread_ok" = xyes; then
 	        pthread_attr_init(0); pthread_cleanup_push(0, 0);
 	        pthread_create(0,0,0,0); pthread_cleanup_pop(0); ],
 	       [done=yes])
-
+	
 	   if test "x$done" = xyes; then
 	      AC_MSG_RESULT([yes])
 	      PTHREAD_LIBS="-lc_r $PTHREAD_LIBS"
@@ -335,11 +335,11 @@ if test "x$acx_pthread_ok" = xyes; then
 	if test x"$done" = xno; then
 	   # OK, we have run out of ideas
 	   AC_MSG_WARN([Impossible to determine how to use pthreads with shared libraries])
-
+	
 	   # so it's not safe to assume that we may use pthreads
 	   acx_pthread_ok=no
 	fi
-
+	
 	AC_MSG_CHECKING([whether what we have so far is sufficient with -nostdlib])
 	CFLAGS="-nostdlib $CFLAGS"
 	# we need c with nostdlib
@@ -355,7 +355,7 @@ if test "x$acx_pthread_ok" = xyes; then
 	else
 	   AC_MSG_RESULT([no])
 	fi
-
+	
 	if test x"$done" = xno; then
 	   AC_MSG_CHECKING([whether -lpthread saves the day])
 	   LIBS="-lpthread $LIBS"

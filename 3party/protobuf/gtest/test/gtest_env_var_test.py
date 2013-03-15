@@ -42,6 +42,8 @@ IS_LINUX = os.name == 'posix' and os.uname()[0] == 'Linux'
 
 COMMAND = gtest_test_utils.GetTestExecutablePath('gtest_env_var_test_')
 
+environ = os.environ.copy()
+
 
 def AssertEq(expected, actual):
   if expected != actual:
@@ -54,9 +56,9 @@ def SetEnvVar(env_var, value):
   """Sets the env variable to 'value'; unsets it when 'value' is None."""
 
   if value is not None:
-    os.environ[env_var] = value
-  elif env_var in os.environ:
-    del os.environ[env_var]
+    environ[env_var] = value
+  elif env_var in environ:
+    del environ[env_var]
 
 
 def GetFlag(flag):
@@ -65,7 +67,7 @@ def GetFlag(flag):
   args = [COMMAND]
   if flag is not None:
     args += [flag]
-  return gtest_test_utils.Subprocess(args).output
+  return gtest_test_utils.Subprocess(args, env=environ).output
 
 
 def TestFlag(flag, test_val, default_val):
@@ -90,9 +92,7 @@ class GTestEnvVarTest(gtest_test_utils.TestCase):
     TestFlag('repeat', '999', '1')
     TestFlag('throw_on_failure', '1', '0')
     TestFlag('death_test_style', 'threadsafe', 'fast')
-
-    if IS_WINDOWS:
-      TestFlag('catch_exceptions', '1', '0')
+    TestFlag('catch_exceptions', '0', '1')
 
     if IS_LINUX:
       TestFlag('death_test_use_fork', '1', '0')

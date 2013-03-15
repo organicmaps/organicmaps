@@ -38,19 +38,18 @@
 // The interface and its implementations are in this header.
 #include "prime_tables.h"
 
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 #if GTEST_HAS_PARAM_TEST
 
 using ::testing::TestWithParam;
 using ::testing::Values;
 
-// As a general rule, tested objects should not be reused between tests.
-// Also, their constructors and destructors of tested objects can have
-// side effects. Thus you should create and destroy them for each test.
-// In this sample we will define a simple factory function for PrimeTable
-// objects. We will instantiate objects in test's SetUp() method and
-// delete them in TearDown() method.
+// As a general rule, to prevent a test from affecting the tests that come
+// after it, you should create and destroy the tested objects for each test
+// instead of reusing them.  In this sample we will define a simple factory
+// function for PrimeTable objects.  We will instantiate objects in test's
+// SetUp() method and delete them in TearDown() method.
 typedef PrimeTable* CreatePrimeTableFunc();
 
 PrimeTable* CreateOnTheFlyPrimeTable() {
@@ -62,11 +61,10 @@ PrimeTable* CreatePreCalculatedPrimeTable() {
   return new PreCalculatedPrimeTable(max_precalculated);
 }
 
-// Inside the test body, fixture constructor, SetUp(), and TearDown()
-// you can refer to the test parameter by GetParam().
-// In this case, the test parameter is a PrimeTableFactory interface pointer
-// which we use in fixture's SetUp() to create and store an instance of
-// PrimeTable.
+// Inside the test body, fixture constructor, SetUp(), and TearDown() you
+// can refer to the test parameter by GetParam().  In this case, the test
+// parameter is a factory function which we call in fixture's SetUp() to
+// create and store an instance of PrimeTable.
 class PrimeTableTest : public TestWithParam<CreatePrimeTableFunc*> {
  public:
   virtual ~PrimeTableTest() { delete table_; }
@@ -121,12 +119,12 @@ INSTANTIATE_TEST_CASE_P(
 
 #else
 
-// Google Test doesn't support value-parameterized tests on some platforms
-// and compilers, such as MSVC 7.1. If we use conditional compilation to
-// compile out all code referring to the gtest_main library, MSVC linker
-// will not link that library at all and consequently complain about
-// missing entry point defined in that library (fatal error LNK1561:
-// entry point must be defined). This dummy test keeps gtest_main linked in.
+// Google Test may not support value-parameterized tests with some
+// compilers. If we use conditional compilation to compile out all
+// code referring to the gtest_main library, MSVC linker will not link
+// that library at all and consequently complain about missing entry
+// point defined in that library (fatal error LNK1561: entry point
+// must be defined). This dummy test keeps gtest_main linked in.
 TEST(DummyTest, ValueParameterizedTestsAreNotSupportedOnThisPlatform) {}
 
 #endif  // GTEST_HAS_PARAM_TEST

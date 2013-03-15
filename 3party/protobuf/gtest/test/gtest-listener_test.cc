@@ -33,16 +33,8 @@
 // This file verifies Google Test event listeners receive events at the
 // right times.
 
-#include <gtest/gtest.h>
-
-// Indicates that this translation unit is part of Google Test's
-// implementation.  It must come before gtest-internal-inl.h is
-// included, or there will be a compiler error.  This trick is to
-// prevent a user from accidentally including gtest-internal-inl.h in
-// his code.
-#define GTEST_IMPLEMENTATION_ 1
-#include "src/gtest-internal-inl.h"  // For Vector.
-#undef GTEST_IMPLEMENTATION_
+#include "gtest/gtest.h"
+#include <vector>
 
 using ::testing::AddGlobalTestEnvironment;
 using ::testing::Environment;
@@ -53,22 +45,20 @@ using ::testing::TestEventListener;
 using ::testing::TestInfo;
 using ::testing::TestPartResult;
 using ::testing::UnitTest;
-using ::testing::internal::String;
-using ::testing::internal::Vector;
 
 // Used by tests to register their events.
-Vector<String>* g_events = NULL;
+std::vector<std::string>* g_events = NULL;
 
 namespace testing {
 namespace internal {
 
 class EventRecordingListener : public TestEventListener {
  public:
-  EventRecordingListener(const char* name) : name_(name) {}
+  explicit EventRecordingListener(const char* name) : name_(name) {}
 
  protected:
   virtual void OnTestProgramStart(const UnitTest& /*unit_test*/) {
-    g_events->PushBack(GetFullMethodName("OnTestProgramStart"));
+    g_events->push_back(GetFullMethodName("OnTestProgramStart"));
   }
 
   virtual void OnTestIterationStart(const UnitTest& /*unit_test*/,
@@ -76,43 +66,43 @@ class EventRecordingListener : public TestEventListener {
     Message message;
     message << GetFullMethodName("OnTestIterationStart")
             << "(" << iteration << ")";
-    g_events->PushBack(message.GetString());
+    g_events->push_back(message.GetString());
   }
 
   virtual void OnEnvironmentsSetUpStart(const UnitTest& /*unit_test*/) {
-    g_events->PushBack(GetFullMethodName("OnEnvironmentsSetUpStart"));
+    g_events->push_back(GetFullMethodName("OnEnvironmentsSetUpStart"));
   }
 
   virtual void OnEnvironmentsSetUpEnd(const UnitTest& /*unit_test*/) {
-    g_events->PushBack(GetFullMethodName("OnEnvironmentsSetUpEnd"));
+    g_events->push_back(GetFullMethodName("OnEnvironmentsSetUpEnd"));
   }
 
   virtual void OnTestCaseStart(const TestCase& /*test_case*/) {
-    g_events->PushBack(GetFullMethodName("OnTestCaseStart"));
+    g_events->push_back(GetFullMethodName("OnTestCaseStart"));
   }
 
   virtual void OnTestStart(const TestInfo& /*test_info*/) {
-    g_events->PushBack(GetFullMethodName("OnTestStart"));
+    g_events->push_back(GetFullMethodName("OnTestStart"));
   }
 
   virtual void OnTestPartResult(const TestPartResult& /*test_part_result*/) {
-    g_events->PushBack(GetFullMethodName("OnTestPartResult"));
+    g_events->push_back(GetFullMethodName("OnTestPartResult"));
   }
 
   virtual void OnTestEnd(const TestInfo& /*test_info*/) {
-    g_events->PushBack(GetFullMethodName("OnTestEnd"));
+    g_events->push_back(GetFullMethodName("OnTestEnd"));
   }
 
   virtual void OnTestCaseEnd(const TestCase& /*test_case*/) {
-    g_events->PushBack(GetFullMethodName("OnTestCaseEnd"));
+    g_events->push_back(GetFullMethodName("OnTestCaseEnd"));
   }
 
   virtual void OnEnvironmentsTearDownStart(const UnitTest& /*unit_test*/) {
-    g_events->PushBack(GetFullMethodName("OnEnvironmentsTearDownStart"));
+    g_events->push_back(GetFullMethodName("OnEnvironmentsTearDownStart"));
   }
 
   virtual void OnEnvironmentsTearDownEnd(const UnitTest& /*unit_test*/) {
-    g_events->PushBack(GetFullMethodName("OnEnvironmentsTearDownEnd"));
+    g_events->push_back(GetFullMethodName("OnEnvironmentsTearDownEnd"));
   }
 
   virtual void OnTestIterationEnd(const UnitTest& /*unit_test*/,
@@ -120,62 +110,60 @@ class EventRecordingListener : public TestEventListener {
     Message message;
     message << GetFullMethodName("OnTestIterationEnd")
             << "("  << iteration << ")";
-    g_events->PushBack(message.GetString());
+    g_events->push_back(message.GetString());
   }
 
   virtual void OnTestProgramEnd(const UnitTest& /*unit_test*/) {
-    g_events->PushBack(GetFullMethodName("OnTestProgramEnd"));
+    g_events->push_back(GetFullMethodName("OnTestProgramEnd"));
   }
 
  private:
-  String GetFullMethodName(const char* name) {
-    Message message;
-    message << name_ << "." << name;
-    return message.GetString();
+  std::string GetFullMethodName(const char* name) {
+    return name_ + "." + name;
   }
 
-  String name_;
+  std::string name_;
 };
 
 class EnvironmentInvocationCatcher : public Environment {
  protected:
   virtual void SetUp() {
-    g_events->PushBack(String("Environment::SetUp"));
+    g_events->push_back("Environment::SetUp");
   }
 
   virtual void TearDown() {
-    g_events->PushBack(String("Environment::TearDown"));
+    g_events->push_back("Environment::TearDown");
   }
 };
 
 class ListenerTest : public Test {
  protected:
   static void SetUpTestCase() {
-    g_events->PushBack(String("ListenerTest::SetUpTestCase"));
+    g_events->push_back("ListenerTest::SetUpTestCase");
   }
 
   static void TearDownTestCase() {
-    g_events->PushBack(String("ListenerTest::TearDownTestCase"));
+    g_events->push_back("ListenerTest::TearDownTestCase");
   }
 
   virtual void SetUp() {
-    g_events->PushBack(String("ListenerTest::SetUp"));
+    g_events->push_back("ListenerTest::SetUp");
   }
 
   virtual void TearDown() {
-    g_events->PushBack(String("ListenerTest::TearDown"));
+    g_events->push_back("ListenerTest::TearDown");
   }
 };
 
 TEST_F(ListenerTest, DoesFoo) {
   // Test execution order within a test case is not guaranteed so we are not
   // recording the test name.
-  g_events->PushBack(String("ListenerTest::* Test Body"));
+  g_events->push_back("ListenerTest::* Test Body");
   SUCCEED();  // Triggers OnTestPartResult.
 }
 
 TEST_F(ListenerTest, DoesBar) {
-  g_events->PushBack(String("ListenerTest::* Test Body"));
+  g_events->push_back("ListenerTest::* Test Body");
   SUCCEED();  // Triggers OnTestPartResult.
 }
 
@@ -186,7 +174,7 @@ TEST_F(ListenerTest, DoesBar) {
 using ::testing::internal::EnvironmentInvocationCatcher;
 using ::testing::internal::EventRecordingListener;
 
-void VerifyResults(const Vector<String>& data,
+void VerifyResults(const std::vector<std::string>& data,
                    const char* const* expected_data,
                    int expected_data_size) {
   const int actual_size = data.size();
@@ -199,18 +187,18 @@ void VerifyResults(const Vector<String>& data,
       expected_data_size : actual_size;
   int i = 0;
   for (; i < shorter_size; ++i) {
-    ASSERT_STREQ(expected_data[i], data.GetElement(i).c_str())
+    ASSERT_STREQ(expected_data[i], data[i].c_str())
         << "at position " << i;
   }
 
   // Prints extra elements in the actual data.
   for (; i < actual_size; ++i) {
-    printf("  Actual event #%d: %s\n", i, data.GetElement(i).c_str());
+    printf("  Actual event #%d: %s\n", i, data[i].c_str());
   }
 }
 
 int main(int argc, char **argv) {
-  Vector<String> events;
+  std::vector<std::string> events;
   g_events = &events;
   InitGoogleTest(&argc, argv);
 

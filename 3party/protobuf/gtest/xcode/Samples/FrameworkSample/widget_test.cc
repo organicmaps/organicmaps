@@ -27,7 +27,7 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-// Author: preston.jackson@gmail.com (Preston Jackson)
+// Author: preston.a.jackson@gmail.com (Preston Jackson)
 //
 // Google Test - FrameworkSample
 // widget_test.cc
@@ -36,7 +36,7 @@
 // This is a simple test file for the Widget class in the Widget.framework
 
 #include <string>
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 #include <Widget/widget.h>
 

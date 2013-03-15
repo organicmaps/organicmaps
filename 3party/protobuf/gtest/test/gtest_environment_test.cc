@@ -33,7 +33,11 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
+
+#define GTEST_IMPLEMENTATION_ 1  // Required for the next #include.
+#include "src/gtest-internal-inl.h"
+#undef GTEST_IMPLEMENTATION_
 
 namespace testing {
 GTEST_DECLARE_string_(filter);
@@ -92,6 +96,7 @@ class MyEnvironment : public testing::Environment {
 
   // Was TearDown() run?
   bool tear_down_was_run() const { return tear_down_was_run_; }
+
  private:
   FailureType failure_in_set_up_;
   bool set_up_was_run_;
@@ -111,7 +116,7 @@ TEST(FooTest, Bar) {
 void Check(bool condition, const char* msg) {
   if (!condition) {
     printf("FAILED: %s\n", msg);
-    abort();
+    testing::internal::posix::Abort();
   }
 }
 
@@ -123,6 +128,7 @@ int RunAllTests(MyEnvironment* env, FailureType failure) {
   env->Reset();
   env->set_failure_in_set_up(failure);
   test_was_run = false;
+  testing::internal::GetUnitTestImpl()->ClearAdHocTestResult();
   return RUN_ALL_TESTS();
 }
 

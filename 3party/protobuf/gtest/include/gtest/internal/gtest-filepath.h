@@ -40,7 +40,7 @@
 #ifndef GTEST_INCLUDE_GTEST_INTERNAL_GTEST_FILEPATH_H_
 #define GTEST_INCLUDE_GTEST_INTERNAL_GTEST_FILEPATH_H_
 
-#include <gtest/internal/gtest-string.h>
+#include "gtest/internal/gtest-string.h"
 
 namespace testing {
 namespace internal {
@@ -56,16 +56,12 @@ namespace internal {
 // Names are NOT checked for syntax correctness -- no checking for illegal
 // characters, malformed paths, etc.
 
-class FilePath {
+class GTEST_API_ FilePath {
  public:
   FilePath() : pathname_("") { }
   FilePath(const FilePath& rhs) : pathname_(rhs.pathname_) { }
 
-  explicit FilePath(const char* pathname) : pathname_(pathname) {
-    Normalize();
-  }
-
-  explicit FilePath(const String& pathname) : pathname_(pathname) {
+  explicit FilePath(const std::string& pathname) : pathname_(pathname) {
     Normalize();
   }
 
@@ -78,7 +74,7 @@ class FilePath {
     pathname_ = rhs.pathname_;
   }
 
-  String ToString() const { return pathname_; }
+  const std::string& string() const { return pathname_; }
   const char* c_str() const { return pathname_.c_str(); }
 
   // Returns the current working directory, or "" if unsuccessful.
@@ -111,8 +107,8 @@ class FilePath {
                                          const FilePath& base_name,
                                          const char* extension);
 
-  // Returns true iff the path is NULL or "".
-  bool IsEmpty() const { return c_str() == NULL || *c_str() == '\0'; }
+  // Returns true iff the path is "".
+  bool IsEmpty() const { return pathname_.empty(); }
 
   // If input name has a trailing separator character, removes it and returns
   // the name, otherwise return the name string unmodified.
@@ -189,10 +185,19 @@ class FilePath {
   // particular, RemoveTrailingPathSeparator() only removes one separator, and
   // it is called in CreateDirectoriesRecursively() assuming that it will change
   // a pathname from directory syntax (trailing separator) to filename syntax.
+  //
+  // On Windows this method also replaces the alternate path separator '/' with
+  // the primary path separator '\\', so that for example "bar\\/\\foo" becomes
+  // "bar\\foo".
 
   void Normalize();
 
-  String pathname_;
+  // Returns a pointer to the last occurence of a valid path separator in
+  // the FilePath. On Windows, for example, both '/' and '\' are valid path
+  // separators. Returns NULL if no path separator was found.
+  const char* FindLastPathSeparator() const;
+
+  std::string pathname_;
 };  // class FilePath
 
 }  // namespace internal

@@ -5,7 +5,7 @@
 //  is set in the "Based On:" dropdown in the "Target" info dialog.
 //  This file is based on the Xcode Configuration files in:
 //  http://code.google.com/p/google-toolbox-for-mac/
-//
+// 
 
 // Dynamic libs need to be position independent
 GCC_DYNAMIC_NO_PIC = NO

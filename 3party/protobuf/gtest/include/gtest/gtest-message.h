@@ -46,8 +46,10 @@
 #ifndef GTEST_INCLUDE_GTEST_GTEST_MESSAGE_H_
 #define GTEST_INCLUDE_GTEST_GTEST_MESSAGE_H_
 
-#include <gtest/internal/gtest-string.h>
-#include <gtest/internal/gtest-internal.h>
+#include <limits>
+
+#include "gtest/internal/gtest-string.h"
+#include "gtest/internal/gtest-internal.h"
 
 namespace testing {
 
@@ -56,7 +58,7 @@ namespace testing {
 // Typical usage:
 //
 //   1. You stream a bunch of values to a Message object.
-//      It will remember the text in a StrStream.
+//      It will remember the text in a stringstream.
 //   2. Then you stream the Message object to an ostream.
 //      This causes the text in the Message to be streamed
 //      to the ostream.
@@ -72,12 +74,12 @@ namespace testing {
 // Message is not intended to be inherited from.  In particular, its
 // destructor is not virtual.
 //
-// Note that StrStream behaves differently in gcc and in MSVC.  You
+// Note that stringstream behaves differently in gcc and in MSVC.  You
 // can stream a NULL char pointer to it in the former, but not in the
 // latter (it causes an access violation if you do).  The Message
 // class hides this difference by treating a NULL char pointer as
 // "(null)".
-class Message {
+class GTEST_API_ Message {
  private:
   // The type of basic IO manipulators (endl, ends, and flush) for
   // narrow streams.
@@ -85,23 +87,26 @@ class Message {
 
  public:
   // Constructs an empty Message.
-  // We allocate the StrStream separately because it otherwise each use of
+  // We allocate the stringstream separately because otherwise each use of
   // ASSERT/EXPECT in a procedure adds over 200 bytes to the procedure's
   // stack frame leading to huge stack frames in some cases; gcc does not reuse
   // the stack space.
-  Message() : ss_(new internal::StrStream) {}
+  Message() : ss_(new ::std::stringstream) {
+    // By default, we want there to be enough precision when printing
+    // a double to a Message.
+    *ss_ << std::setprecision(std::numeric_limits<double>::digits10 + 2);
+  }
 
   // Copy constructor.
-  Message(const Message& msg) : ss_(new internal::StrStream) {  // NOLINT
+  Message(const Message& msg) : ss_(new ::std::stringstream) {  // NOLINT
     *ss_ << msg.GetString();
   }
 
   // Constructs a Message from a C-string.
-  explicit Message(const char* str) : ss_(new internal::StrStream) {
+  explicit Message(const char* str) : ss_(new ::std::stringstream) {
     *ss_ << str;
   }
 
-  ~Message() { delete ss_; }
 #if GTEST_OS_SYMBIAN
   // Streams a value (either a pointer or not) to this object.
   template <typename T>
@@ -113,7 +118,7 @@ class Message {
   // Streams a non-pointer value to this object.
   template <typename T>
   inline Message& operator <<(const T& val) {
-    ::GTestStreamToHelper(ss_, val);
+    ::GTestStreamToHelper(ss_.get(), val);
     return *this;
   }
 
@@ -135,7 +140,7 @@ class Message {
     if (pointer == NULL) {
       *ss_ << "(null)";
     } else {
-      ::GTestStreamToHelper(ss_, pointer);
+      ::GTestStreamToHelper(ss_.get(), pointer);
     }
     return *this;
   }
@@ -178,15 +183,16 @@ class Message {
   Message& operator <<(const ::wstring& wstr);
 #endif  // GTEST_HAS_GLOBAL_WSTRING
 
-  // Gets the text streamed to this object so far as a String.
+  // Gets the text streamed to this object so far as an std::string.
   // Each '\0' character in the buffer is replaced with "\\0".
   //
   // INTERNAL IMPLEMENTATION - DO NOT USE IN A USER PROGRAM.
-  internal::String GetString() const {
-    return internal::StrStreamToString(ss_);
+  std::string GetString() const {
+    return internal::StringStreamToString(ss_.get());
   }
 
  private:
+
 #if GTEST_OS_SYMBIAN
   // These are needed as the Nokia Symbian Compiler cannot decide between
   // const T& and const T* in a function template. The Nokia compiler _can_
@@ -197,17 +203,17 @@ class Message {
     if (pointer == NULL) {
       *ss_ << "(null)";
     } else {
-      ::GTestStreamToHelper(ss_, pointer);
+      ::GTestStreamToHelper(ss_.get(), pointer);
     }
   }
   template <typename T>
   inline void StreamHelper(internal::false_type /*dummy*/, const T& value) {
-    ::GTestStreamToHelper(ss_, value);
+    ::GTestStreamToHelper(ss_.get(), value);
   }
 #endif  // GTEST_OS_SYMBIAN
 
   // We'll hold the text streamed to this object here.
-  internal::StrStream* const ss_;
+  const internal::scoped_ptr< ::std::stringstream> ss_;
 
   // We declare (but don't implement) this to prevent the compiler
   // from implementing the assignment operator.

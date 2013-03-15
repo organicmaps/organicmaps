@@ -47,7 +47,7 @@
 #include <limits.h>
 #include <time.h>
 #include "sample3-inl.h"
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 #include "sample1.h"
 
 // In this sample, we want to ensure that every test finishes within
@@ -101,7 +101,7 @@ TEST_F(IntegerFunctionTest, Factorial) {
   // Tests factorial of negative numbers.
   EXPECT_EQ(1, Factorial(-5));
   EXPECT_EQ(1, Factorial(-1));
-  EXPECT_TRUE(Factorial(-10) > 0);
+  EXPECT_GT(Factorial(-10), 0);
 
   // Tests factorial of 0.
   EXPECT_EQ(1, Factorial(0));
@@ -117,20 +117,20 @@ TEST_F(IntegerFunctionTest, Factorial) {
 // Tests IsPrime()
 TEST_F(IntegerFunctionTest, IsPrime) {
   // Tests negative input.
-  EXPECT_TRUE(!IsPrime(-1));
-  EXPECT_TRUE(!IsPrime(-2));
-  EXPECT_TRUE(!IsPrime(INT_MIN));
+  EXPECT_FALSE(IsPrime(-1));
+  EXPECT_FALSE(IsPrime(-2));
+  EXPECT_FALSE(IsPrime(INT_MIN));
 
   // Tests some trivial cases.
-  EXPECT_TRUE(!IsPrime(0));
-  EXPECT_TRUE(!IsPrime(1));
+  EXPECT_FALSE(IsPrime(0));
+  EXPECT_FALSE(IsPrime(1));
   EXPECT_TRUE(IsPrime(2));
   EXPECT_TRUE(IsPrime(3));
 
   // Tests positive input.
-  EXPECT_TRUE(!IsPrime(4));
+  EXPECT_FALSE(IsPrime(4));
   EXPECT_TRUE(IsPrime(5));
-  EXPECT_TRUE(!IsPrime(6));
+  EXPECT_FALSE(IsPrime(6));
   EXPECT_TRUE(IsPrime(23));
 }
 
@@ -171,24 +171,24 @@ class QueueTest : public QuickTest {
 
 // Tests the default constructor.
 TEST_F(QueueTest, DefaultConstructor) {
-  EXPECT_EQ(0, q0_.Size());
+  EXPECT_EQ(0u, q0_.Size());
 }
 
 // Tests Dequeue().
 TEST_F(QueueTest, Dequeue) {
-  int * n = q0_.Dequeue();
+  int* n = q0_.Dequeue();
   EXPECT_TRUE(n == NULL);
 
   n = q1_.Dequeue();
   EXPECT_TRUE(n != NULL);
   EXPECT_EQ(1, *n);
-  EXPECT_EQ(0, q1_.Size());
+  EXPECT_EQ(0u, q1_.Size());
   delete n;
 
   n = q2_.Dequeue();
   EXPECT_TRUE(n != NULL);
   EXPECT_EQ(2, *n);
-  EXPECT_EQ(1, q2_.Size());
+  EXPECT_EQ(1u, q2_.Size());
   delete n;
 }
 

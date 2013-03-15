@@ -33,10 +33,12 @@
 //  Sanjay Ghemawat, Jeff Dean, and others.
 
 #include <limits>
+#include <map>
 #include <vector>
 #include <google/protobuf/stubs/hash.h>
 
 #include <google/protobuf/compiler/cpp/cpp_helpers.h>
+#include <google/protobuf/io/printer.h>
 #include <google/protobuf/stubs/common.h>
 #include <google/protobuf/stubs/strutil.h>
 #include <google/protobuf/stubs/substitute.h>
@@ -105,6 +107,20 @@ string UnderscoresToCamelCase(const string& input, bool cap_next_letter) {
   return result;
 }
 
+// Returns whether the provided descriptor has an extension. This includes its
+// nested types.
+bool HasExtension(const Descriptor* descriptor) {
+  if (descriptor->extension_count() > 0) {
+    return true;
+  }
+  for (int i = 0; i < descriptor->nested_type_count(); ++i) {
+    if (HasExtension(descriptor->nested_type(i))) {
+      return true;
+    }
+  }
+  return false;
+}
+
 }  // namespace
 
 const char kThickSeparator[] =
@@ -132,7 +148,7 @@ string ClassName(const Descriptor* descriptor, bool qualified) {
 string ClassName(const EnumDescriptor* enum_descriptor, bool qualified) {
   if (enum_descriptor->containing_type() == NULL) {
     if (qualified) {
-      return DotsToColons(enum_descriptor->full_name());
+      return "::" + DotsToColons(enum_descriptor->full_name());
     } else {
       return enum_descriptor->name();
     }
@@ -243,10 +259,23 @@ const char* DeclaredTypeMethodName(FieldDescriptor::Type type) {
 string DefaultValue(const FieldDescriptor* field) {
   switch (field->cpp_type()) {
     case FieldDescriptor::CPPTYPE_INT32:
+      // gcc rejects the decimal form of kint32min and kint64min.
+      if (field->default_value_int32() == kint32min) {
+        // Make sure we are in a 2's complement system.
+        GOOGLE_COMPILE_ASSERT(kint32min == -0x80000000, kint32min_value_error);
+        return "-0x80000000";
+      }
       return SimpleItoa(field->default_value_int32());
     case FieldDescriptor::CPPTYPE_UINT32:
       return SimpleItoa(field->default_value_uint32()) + "u";
     case FieldDescriptor::CPPTYPE_INT64:
+      // See the comments for CPPTYPE_INT32.
+      if (field->default_value_int64() == kint64min) {
+        // Make sure we are in a 2's complement system.
+        GOOGLE_COMPILE_ASSERT(kint64min == GOOGLE_LONGLONG(-0x8000000000000000),
+                       kint64min_value_error);
+        return "GOOGLE_LONGLONG(-0x8000000000000000)";
+      }
       return "GOOGLE_LONGLONG(" + SimpleItoa(field->default_value_int64()) + ")";
     case FieldDescriptor::CPPTYPE_UINT64:
       return "GOOGLE_ULONGLONG(" + SimpleItoa(field->default_value_uint64())+ ")";
@@ -292,8 +321,9 @@ string DefaultValue(const FieldDescriptor* field) {
           ClassName(field->enum_type(), true),
           field->default_value_enum()->number());
     case FieldDescriptor::CPPTYPE_STRING:
-      return "\"" + EscapeTrigraphs(CEscape(field->default_value_string())) +
-             "\"";
+      return "\"" + EscapeTrigraphs(
+        CEscape(field->default_value_string())) +
+        "\"";
     case FieldDescriptor::CPPTYPE_MESSAGE:
       return FieldMessageTypeName(field) + "::default_instance()";
   }
@@ -339,6 +369,67 @@ string GlobalShutdownFileName(const string& filename) {
 // Escape C++ trigraphs by escaping question marks to \?
 string EscapeTrigraphs(const string& to_escape) {
   return StringReplace(to_escape, "?", "\\?", true);
+}
+
+bool StaticInitializersForced(const FileDescriptor* file) {
+  if (HasDescriptorMethods(file) || file->extension_count() > 0) {
+    return true;
+  }
+  for (int i = 0; i < file->message_type_count(); ++i) {
+    if (HasExtension(file->message_type(i))) {
+      return true;
+    }
+  }
+  return false;
+}
+
+void PrintHandlingOptionalStaticInitializers(
+    const FileDescriptor* file, io::Printer* printer,
+    const char* with_static_init, const char* without_static_init,
+    const char* var1, const string& val1,
+    const char* var2, const string& val2) {
+  map<string, string> vars;
+  if (var1) {
+    vars[var1] = val1;
+  }
+  if (var2) {
+    vars[var2] = val2;
+  }
+  PrintHandlingOptionalStaticInitializers(
+      vars, file, printer, with_static_init, without_static_init);
+}
+
+void PrintHandlingOptionalStaticInitializers(
+    const map<string, string>& vars, const FileDescriptor* file,
+    io::Printer* printer, const char* with_static_init,
+    const char* without_static_init) {
+  if (StaticInitializersForced(file)) {
+    printer->Print(vars, with_static_init);
+  } else {
+    printer->Print(vars, (string(
+      "#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER\n") +
+      without_static_init +
+      "#else\n" +
+      with_static_init +
+      "#endif\n").c_str());
+  }
+}
+
+
+static bool HasEnumDefinitions(const Descriptor* message_type) {
+  if (message_type->enum_type_count() > 0) return true;
+  for (int i = 0; i < message_type->nested_type_count(); ++i) {
+    if (HasEnumDefinitions(message_type->nested_type(i))) return true;
+  }
+  return false;
+}
+
+bool HasEnumDefinitions(const FileDescriptor* file) {
+  if (file->enum_type_count() > 0) return true;
+  for (int i = 0; i < file->message_type_count(); ++i) {
+    if (HasEnumDefinitions(file->message_type(i))) return true;
+  }
+  return false;
 }
 
 }  // namespace cpp

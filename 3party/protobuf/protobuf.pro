@@ -61,6 +61,7 @@ SOURCES += \
   src/google/protobuf/io/zero_copy_stream_impl_lite.cc \
   src/google/protobuf/stubs/common.cc \
   src/google/protobuf/stubs/once.cc \
+  src/google/protobuf/stubs/stringprintf.cc \
   src/google/protobuf/stubs/structurally_valid.cc \
   src/google/protobuf/stubs/strutil.cc \
   src/google/protobuf/stubs/substitute.cc \

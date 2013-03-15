@@ -30,10 +30,10 @@
 // Authors: Dan Egnor (egnor@google.com)
 // Ported to Windows: Vadim Berman (vadimb@google.com)
 
-#include <gtest/internal/gtest-linked_ptr.h>
+#include "gtest/internal/gtest-linked_ptr.h"
 
 #include <stdlib.h>
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 namespace {
 
@@ -77,7 +77,8 @@ class LinkedPtrTest : public testing::Test {
 TEST_F(LinkedPtrTest, GeneralTest) {
   {
     linked_ptr<A> a0, a1, a2;
-    a0 = a0;
+    // Use explicit function call notation here to suppress self-assign warning.
+    a0.operator=(a0);
     a1 = a2;
     ASSERT_EQ(a0.get(), static_cast<A*>(NULL));
     ASSERT_EQ(a1.get(), static_cast<A*>(NULL));
@@ -147,8 +148,7 @@ TEST_F(LinkedPtrTest, GeneralTest) {
     "A0 dtor\n"
     "A3 dtor\n"
     "A1 dtor\n",
-    history->GetString().c_str()
-  );
+    history->GetString().c_str());
 }
 
 }  // Unnamed namespace

@@ -7,7 +7,7 @@ Expected: true
 gtest_output_test_.cc:#: Failure
 Value of: 3
 Expected: 2
-[0;32m[==========] [mRunning 56 tests from 23 test cases.
+[0;32m[==========] [mRunning 63 tests from 28 test cases.
 [0;32m[----------] [mGlobal test environment set-up.
 FooEnvironment::SetUp() called.
 BarEnvironment::SetUp() called.
@@ -31,6 +31,19 @@ BarEnvironment::SetUp() called.
 [0;32m[       OK ] [mPassingTest.PassingTest1
 [0;32m[ RUN      ] [mPassingTest.PassingTest2
 [0;32m[       OK ] [mPassingTest.PassingTest2
+[0;32m[----------] [m1 test from NonfatalFailureTest
+[0;32m[ RUN      ] [mNonfatalFailureTest.EscapesStringOperands
+gtest_output_test_.cc:#: Failure
+Value of: actual
+  Actual: "actual \"string\""
+Expected: kGoldenString
+Which is: "\"Line"
+gtest_output_test_.cc:#: Failure
+Value of: actual
+  Actual: "actual \"string\""
+Expected: golden
+Which is: "\"Line"
+[0;31m[  FAILED  ] [mNonfatalFailureTest.EscapesStringOperands
 [0;32m[----------] [m3 tests from FatalFailureTest
 [0;32m[ RUN      ] [mFatalFailureTest.FatalFailureInSubroutine
 (expecting a failure that x should be 1)
@@ -65,7 +78,7 @@ i == 3
 gtest_output_test_.cc:#: Failure
 Expected: (3) >= (a[i]), actual: 3 vs 6
 [0;31m[  FAILED  ] [mLoggingTest.InterleavingLoggingAndAssertions
-[0;32m[----------] [m5 tests from SCOPED_TRACETest
+[0;32m[----------] [m6 tests from SCOPED_TRACETest
 [0;32m[ RUN      ] [mSCOPED_TRACETest.ObeysScopes
 (expected to fail)
 gtest_output_test_.cc:#: Failure
@@ -118,7 +131,7 @@ Value of: n
 Expected: 1
 Google Test trace:
 gtest_output_test_.cc:#: n = 2
-gtest_output_test_.cc:#:
+gtest_output_test_.cc:#: 
 [0;31m[  FAILED  ] [mSCOPED_TRACETest.CanBeNested
 [0;32m[ RUN      ] [mSCOPED_TRACETest.CanBeRepeated
 (expected to fail)
@@ -148,6 +161,35 @@ gtest_output_test_.cc:#: D
 gtest_output_test_.cc:#: B
 gtest_output_test_.cc:#: A
 [0;31m[  FAILED  ] [mSCOPED_TRACETest.CanBeRepeated
+[0;32m[ RUN      ] [mSCOPED_TRACETest.WorksConcurrently
+(expecting 6 failures)
+gtest_output_test_.cc:#: Failure
+Failed
+Expected failure #1 (in thread B, only trace B alive).
+Google Test trace:
+gtest_output_test_.cc:#: Trace B
+gtest_output_test_.cc:#: Failure
+Failed
+Expected failure #2 (in thread A, trace A & B both alive).
+Google Test trace:
+gtest_output_test_.cc:#: Trace A
+gtest_output_test_.cc:#: Failure
+Failed
+Expected failure #3 (in thread B, trace A & B both alive).
+Google Test trace:
+gtest_output_test_.cc:#: Trace B
+gtest_output_test_.cc:#: Failure
+Failed
+Expected failure #4 (in thread B, only trace A alive).
+gtest_output_test_.cc:#: Failure
+Failed
+Expected failure #5 (in thread A, only trace A alive).
+Google Test trace:
+gtest_output_test_.cc:#: Trace A
+gtest_output_test_.cc:#: Failure
+Failed
+Expected failure #6 (in thread A, no trace alive).
+[0;31m[  FAILED  ] [mSCOPED_TRACETest.WorksConcurrently
 [0;32m[----------] [m1 test from NonFatalFailureInFixtureConstructorTest
 [0;32m[ RUN      ] [mNonFatalFailureInFixtureConstructorTest.FailureInConstructor
 (expecting 5 failures)
@@ -206,6 +248,12 @@ gtest_output_test_.cc:#: Failure
 Failed
 Expected failure #3, in the test fixture d'tor.
 [0;31m[  FAILED  ] [mFatalFailureInSetUpTest.FailureInSetUp
+[0;32m[----------] [m1 test from AddFailureAtTest
+[0;32m[ RUN      ] [mAddFailureAtTest.MessageContainsSpecifiedFileAndLineNumber
+foo.cc:42: Failure
+Failed
+Expected failure in foo.cc
+[0;31m[  FAILED  ] [mAddFailureAtTest.MessageContainsSpecifiedFileAndLineNumber
 [0;32m[----------] [m4 tests from MixedUpTestCaseTest
 [0;32m[ RUN      ] [mMixedUpTestCaseTest.FirstTestFromNamespaceFoo
 [0;32m[       OK ] [mMixedUpTestCaseTest.FirstTestFromNamespaceFoo
@@ -382,18 +430,18 @@ Value of: TypeParam()
   Actual: 0
 Expected: 1
 Expected failure
-[0;31m[  FAILED  ] [mTypedTest/0.Failure
+[0;31m[  FAILED  ] [mTypedTest/0.Failure, where TypeParam = int
 [0;32m[----------] [m2 tests from Unsigned/TypedTestP/0, where TypeParam = unsigned char
 [0;32m[ RUN      ] [mUnsigned/TypedTestP/0.Success
 [0;32m[       OK ] [mUnsigned/TypedTestP/0.Success
 [0;32m[ RUN      ] [mUnsigned/TypedTestP/0.Failure
 gtest_output_test_.cc:#: Failure
 Value of: TypeParam()
-  Actual: \0
+  Actual: '\0'
 Expected: 1U
 Which is: 1
 Expected failure
-[0;31m[  FAILED  ] [mUnsigned/TypedTestP/0.Failure
+[0;31m[  FAILED  ] [mUnsigned/TypedTestP/0.Failure, where TypeParam = unsigned char
 [0;32m[----------] [m2 tests from Unsigned/TypedTestP/1, where TypeParam = unsigned int
 [0;32m[ RUN      ] [mUnsigned/TypedTestP/1.Success
 [0;32m[       OK ] [mUnsigned/TypedTestP/1.Success
@@ -404,7 +452,7 @@ Value of: TypeParam()
 Expected: 1U
 Which is: 1
 Expected failure
-[0;31m[  FAILED  ] [mUnsigned/TypedTestP/1.Failure
+[0;31m[  FAILED  ] [mUnsigned/TypedTestP/1.Failure, where TypeParam = unsigned int
 [0;32m[----------] [m4 tests from ExpectFailureTest
 [0;32m[ RUN      ] [mExpectFailureTest.ExpectFatalFailure
 (expecting 1 failure)
@@ -506,6 +554,42 @@ Failed
 Expected non-fatal failure.
 
 [0;31m[  FAILED  ] [mExpectFailureTest.ExpectNonFatalFailureOnAllThreads
+[0;32m[----------] [m2 tests from ExpectFailureWithThreadsTest
+[0;32m[ RUN      ] [mExpectFailureWithThreadsTest.ExpectFatalFailure
+(expecting 2 failures)
+gtest_output_test_.cc:#: Failure
+Failed
+Expected fatal failure.
+gtest.cc:#: Failure
+Expected: 1 fatal failure
+  Actual: 0 failures
+[0;31m[  FAILED  ] [mExpectFailureWithThreadsTest.ExpectFatalFailure
+[0;32m[ RUN      ] [mExpectFailureWithThreadsTest.ExpectNonFatalFailure
+(expecting 2 failures)
+gtest_output_test_.cc:#: Failure
+Failed
+Expected non-fatal failure.
+gtest.cc:#: Failure
+Expected: 1 non-fatal failure
+  Actual: 0 failures
+[0;31m[  FAILED  ] [mExpectFailureWithThreadsTest.ExpectNonFatalFailure
+[0;32m[----------] [m1 test from ScopedFakeTestPartResultReporterTest
+[0;32m[ RUN      ] [mScopedFakeTestPartResultReporterTest.InterceptOnlyCurrentThread
+(expecting 2 failures)
+gtest_output_test_.cc:#: Failure
+Failed
+Expected fatal failure.
+gtest_output_test_.cc:#: Failure
+Failed
+Expected non-fatal failure.
+[0;31m[  FAILED  ] [mScopedFakeTestPartResultReporterTest.InterceptOnlyCurrentThread
+[0;32m[----------] [m1 test from PrintingFailingParams/FailingParamTest
+[0;32m[ RUN      ] [mPrintingFailingParams/FailingParamTest.Fails/0
+gtest_output_test_.cc:#: Failure
+Value of: GetParam()
+  Actual: 2
+Expected: 1
+[0;31m[  FAILED  ] [mPrintingFailingParams/FailingParamTest.Fails/0, where GetParam() = 2
 [0;32m[----------] [mGlobal test environment tear-down
 BarEnvironment::TearDown() called.
 gtest_output_test_.cc:#: Failure
@@ -515,9 +599,10 @@ FooEnvironment::TearDown() called.
 gtest_output_test_.cc:#: Failure
 Failed
 Expected fatal failure.
-[0;32m[==========] [m56 tests from 23 test cases ran.
+[0;32m[==========] [m63 tests from 28 test cases ran.
 [0;32m[  PASSED  ] [m21 tests.
-[0;31m[  FAILED  ] [m35 tests, listed below:
+[0;31m[  FAILED  ] [m42 tests, listed below:
+[0;31m[  FAILED  ] [mNonfatalFailureTest.EscapesStringOperands
 [0;31m[  FAILED  ] [mFatalFailureTest.FatalFailureInSubroutine
 [0;31m[  FAILED  ] [mFatalFailureTest.FatalFailureInNestedSubroutine
 [0;31m[  FAILED  ] [mFatalFailureTest.NonfatalFailureInSubroutine
@@ -527,10 +612,12 @@ Expected fatal failure.
 [0;31m[  FAILED  ] [mSCOPED_TRACETest.WorksInSubroutine
 [0;31m[  FAILED  ] [mSCOPED_TRACETest.CanBeNested
 [0;31m[  FAILED  ] [mSCOPED_TRACETest.CanBeRepeated
+[0;31m[  FAILED  ] [mSCOPED_TRACETest.WorksConcurrently
 [0;31m[  FAILED  ] [mNonFatalFailureInFixtureConstructorTest.FailureInConstructor
 [0;31m[  FAILED  ] [mFatalFailureInFixtureConstructorTest.FailureInConstructor
 [0;31m[  FAILED  ] [mNonFatalFailureInSetUpTest.FailureInSetUp
 [0;31m[  FAILED  ] [mFatalFailureInSetUpTest.FailureInSetUp
+[0;31m[  FAILED  ] [mAddFailureAtTest.MessageContainsSpecifiedFileAndLineNumber
 [0;31m[  FAILED  ] [mMixedUpTestCaseTest.ThisShouldFail
 [0;31m[  FAILED  ] [mMixedUpTestCaseTest.ThisShouldFailToo
 [0;31m[  FAILED  ] [mMixedUpTestCaseWithSameTestNameTest.TheSecondTestWithThisNameShouldFail
@@ -553,8 +640,12 @@ Expected fatal failure.
 [0;31m[  FAILED  ] [mExpectFailureTest.ExpectNonFatalFailure
 [0;31m[  FAILED  ] [mExpectFailureTest.ExpectFatalFailureOnAllThreads
 [0;31m[  FAILED  ] [mExpectFailureTest.ExpectNonFatalFailureOnAllThreads
+[0;31m[  FAILED  ] [mExpectFailureWithThreadsTest.ExpectFatalFailure
+[0;31m[  FAILED  ] [mExpectFailureWithThreadsTest.ExpectNonFatalFailure
+[0;31m[  FAILED  ] [mScopedFakeTestPartResultReporterTest.InterceptOnlyCurrentThread
+[0;31m[  FAILED  ] [mPrintingFailingParams/FailingParamTest.Fails/0, where GetParam() = 2
 
-35 FAILED TESTS
+42 FAILED TESTS
 [0;33m  YOU HAVE 1 DISABLED TEST
 
 [mNote: Google Test filter = FatalFailureTest.*:LoggingTest.*
@@ -620,7 +711,7 @@ Note: Google Test filter = *DISABLED_*
 [==========] 1 test from 1 test case ran.
 [  PASSED  ] 1 test.
 Note: Google Test filter = PassingTest.*
-Note: This is test shard 1 of 2.
+Note: This is test shard 2 of 2.
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 [----------] 1 test from PassingTest
@@ -631,3 +722,4 @@ Note: This is test shard 1 of 2.
 [  PASSED  ] 1 test.
 
   YOU HAVE 1 DISABLED TEST
+

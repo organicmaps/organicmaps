@@ -45,11 +45,42 @@ __author__ = 'wan@google.com (Zhanyong Wan)'
 import os
 import re
 import sets
+import sys
+
 import gtest_test_utils
 
 # Constants.
 
-IS_WINDOWS = os.name == 'nt'
+# Checks if this platform can pass empty environment variables to child
+# processes.  We set an env variable to an empty string and invoke a python
+# script in a subprocess to print whether the variable is STILL in
+# os.environ.  We then use 'eval' to parse the child's output so that an
+# exception is thrown if the input is anything other than 'True' nor 'False'.
+os.environ['EMPTY_VAR'] = ''
+child = gtest_test_utils.Subprocess(
+    [sys.executable, '-c', 'import os; print \'EMPTY_VAR\' in os.environ'])
+CAN_PASS_EMPTY_ENV = eval(child.output)
+
+
+# Check if this platform can unset environment variables in child processes.
+# We set an env variable to a non-empty string, unset it, and invoke
+# a python script in a subprocess to print whether the variable
+# is NO LONGER in os.environ.
+# We use 'eval' to parse the child's output so that an exception
+# is thrown if the input is neither 'True' nor 'False'.
+os.environ['UNSET_VAR'] = 'X'
+del os.environ['UNSET_VAR']
+child = gtest_test_utils.Subprocess(
+    [sys.executable, '-c', 'import os; print \'UNSET_VAR\' not in os.environ'])
+CAN_UNSET_ENV = eval(child.output)
+
+
+# Checks if we should test with an empty filter. This doesn't
+# make sense on platforms that cannot pass empty env variables (Win32)
+# and on platforms that cannot unset variables (since we cannot tell
+# the difference between "" and NULL -- Borland and Solaris < 5.10)
+CAN_TEST_EMPTY_FILTER = (CAN_PASS_EMPTY_ENV and CAN_UNSET_ENV)
+
 
 # The environment variable for specifying the test filters.
 FILTER_ENV_VAR = 'GTEST_FILTER'
@@ -77,6 +108,14 @@ TEST_CASE_REGEX = re.compile(r'^\[\-+\] \d+ tests? from (\w+(/\w+)?)')
 # Regex for parsing test names from Google Test's output.
 TEST_REGEX = re.compile(r'^\[\s*RUN\s*\].*\.(\w+(/\w+)?)')
 
+# The command line flag to tell Google Test to output the list of tests it
+# will run.
+LIST_TESTS_FLAG = '--gtest_list_tests'
+
+# Indicates whether Google Test supports death tests.
+SUPPORTS_DEATH_TESTS = 'HasDeathTest' in gtest_test_utils.Subprocess(
+    [COMMAND, LIST_TESTS_FLAG]).output
+
 # Full names of all tests in gtest_filter_unittests_.
 PARAM_TESTS = [
     'SeqP/ParamTest.TestX/0',
@@ -98,6 +137,14 @@ DISABLED_TESTS = [
     'DISABLED_FoobarbazTest.TestA',
     ]
 
+if SUPPORTS_DEATH_TESTS:
+  DEATH_TESTS = [
+    'HasDeathTest.Test1',
+    'HasDeathTest.Test2',
+    ]
+else:
+  DEATH_TESTS = []
+
 # All the non-disabled tests.
 ACTIVE_TESTS = [
     'FooTest.Abc',
@@ -110,35 +157,35 @@ ACTIVE_TESTS = [
     'BazTest.TestOne',
     'BazTest.TestA',
     'BazTest.TestB',
-
-    'HasDeathTest.Test1',
-    'HasDeathTest.Test2',
-    ] + PARAM_TESTS
+    ] + DEATH_TESTS + PARAM_TESTS
 
 param_tests_present = None
 
 # Utilities.
+
+environ = os.environ.copy()
 
 
 def SetEnvVar(env_var, value):
   """Sets the env variable to 'value'; unsets it when 'value' is None."""
 
   if value is not None:
-    os.environ[env_var] = value
-  elif env_var in os.environ:
-    del os.environ[env_var]
+    environ[env_var] = value
+  elif env_var in environ:
+    del environ[env_var]
 
 
 def RunAndReturnOutput(args = None):
   """Runs the test program and returns its output."""
 
-  return gtest_test_utils.Subprocess([COMMAND] + (args or [])).output
+  return gtest_test_utils.Subprocess([COMMAND] + (args or []),
+                                     env=environ).output
 
 
 def RunAndExtractTestList(args = None):
   """Runs the test program and returns its exit code and a list of tests run."""
 
-  p = gtest_test_utils.Subprocess([COMMAND] + (args or []))
+  p = gtest_test_utils.Subprocess([COMMAND] + (args or []), env=environ)
   tests_run = []
   test_case = ''
   test = ''
@@ -157,15 +204,12 @@ def RunAndExtractTestList(args = None):
 def InvokeWithModifiedEnv(extra_env, function, *args, **kwargs):
   """Runs the given function and arguments in a modified environment."""
   try:
-    original_env = os.environ.copy()
-    os.environ.update(extra_env)
+    original_env = environ.copy()
+    environ.update(extra_env)
     return function(*args, **kwargs)
   finally:
-    for key in extra_env.iterkeys():
-      if key in original_env:
-        os.environ[key] = original_env[key]
-      else:
-        del os.environ[key]
+    environ.clear()
+    environ.update(original_env)
 
 
 def RunWithSharding(total_shards, shard_index, command):
@@ -179,7 +223,7 @@ def RunWithSharding(total_shards, shard_index, command):
 
 
 class GTestFilterUnitTest(gtest_test_utils.TestCase):
-  """Tests GTEST_FILTER env variable or --gtest_filter flag to filter tests."""
+  """Tests the env variable or the command line flag to filter tests."""
 
   # Utilities.
 
@@ -211,26 +255,26 @@ class GTestFilterUnitTest(gtest_test_utils.TestCase):
       return tests_to_run
 
   def RunAndVerify(self, gtest_filter, tests_to_run):
-    """Checks that the binary runs correct set of tests for the given filter."""
+    """Checks that the binary runs correct set of tests for a given filter."""
 
     tests_to_run = self.AdjustForParameterizedTests(tests_to_run)
 
-    # First, tests using GTEST_FILTER.
+    # First, tests using the environment variable.
 
     # Windows removes empty variables from the environment when passing it
-    # to a new process. This means it is impossible to pass an empty filter
-    # into a process using the GTEST_FILTER environment variable. However,
-    # we can still test the case when the variable is not supplied (i.e.,
-    # gtest_filter is None).
+    # to a new process.  This means it is impossible to pass an empty filter
+    # into a process using the environment variable.  However, we can still
+    # test the case when the variable is not supplied (i.e., gtest_filter is
+    # None).
     # pylint: disable-msg=C6403
-    if not IS_WINDOWS or gtest_filter != '':
+    if CAN_TEST_EMPTY_FILTER or gtest_filter != '':
       SetEnvVar(FILTER_ENV_VAR, gtest_filter)
       tests_run = RunAndExtractTestList()[0]
       SetEnvVar(FILTER_ENV_VAR, None)
       self.AssertSetEqual(tests_run, tests_to_run)
     # pylint: enable-msg=C6403
 
-    # Next, tests using --gtest_filter.
+    # Next, tests using the command line flag.
 
     if gtest_filter is None:
       args = []
@@ -260,12 +304,12 @@ class GTestFilterUnitTest(gtest_test_utils.TestCase):
     tests_to_run = self.AdjustForParameterizedTests(tests_to_run)
 
     # Windows removes empty variables from the environment when passing it
-    # to a new process. This means it is impossible to pass an empty filter
-    # into a process using the GTEST_FILTER environment variable. However,
-    # we can still test the case when the variable is not supplied (i.e.,
-    # gtest_filter is None).
+    # to a new process.  This means it is impossible to pass an empty filter
+    # into a process using the environment variable.  However, we can still
+    # test the case when the variable is not supplied (i.e., gtest_filter is
+    # None).
     # pylint: disable-msg=C6403
-    if not IS_WINDOWS or gtest_filter != '':
+    if CAN_TEST_EMPTY_FILTER or gtest_filter != '':
       SetEnvVar(FILTER_ENV_VAR, gtest_filter)
       partition = []
       for i in range(0, total_shards):
@@ -404,10 +448,7 @@ class GTestFilterUnitTest(gtest_test_utils.TestCase):
 
         'BazTest.TestOne',
         'BazTest.TestA',
-        'BazTest.TestB',
-
-        'HasDeathTest.Test1',
-        'HasDeathTest.Test2', ] + PARAM_TESTS)
+        'BazTest.TestB', ] + DEATH_TESTS + PARAM_TESTS)
 
   def testWildcardInTestName(self):
     """Tests using wildcard in the test name."""
@@ -468,7 +509,7 @@ class GTestFilterUnitTest(gtest_test_utils.TestCase):
         ])
 
   def testNegativeFilters(self):
-    self.RunAndVerify('*-HasDeathTest.Test1', [
+    self.RunAndVerify('*-BazTest.TestOne', [
         'FooTest.Abc',
         'FooTest.Xyz',
 
@@ -476,24 +517,17 @@ class GTestFilterUnitTest(gtest_test_utils.TestCase):
         'BarTest.TestTwo',
         'BarTest.TestThree',
 
-        'BazTest.TestOne',
         'BazTest.TestA',
         'BazTest.TestB',
+        ] + DEATH_TESTS + PARAM_TESTS)
 
-        'HasDeathTest.Test2',
-        ] + PARAM_TESTS)
-
-    self.RunAndVerify('*-FooTest.Abc:HasDeathTest.*', [
+    self.RunAndVerify('*-FooTest.Abc:BazTest.*', [
         'FooTest.Xyz',
 
         'BarTest.TestOne',
         'BarTest.TestTwo',
         'BarTest.TestThree',
-
-        'BazTest.TestOne',
-        'BazTest.TestA',
-        'BazTest.TestB',
-        ] + PARAM_TESTS)
+        ] + DEATH_TESTS + PARAM_TESTS)
 
     self.RunAndVerify('BarTest.*-BarTest.TestOne', [
         'BarTest.TestTwo',
@@ -501,15 +535,11 @@ class GTestFilterUnitTest(gtest_test_utils.TestCase):
         ])
 
     # Tests without leading '*'.
-    self.RunAndVerify('-FooTest.Abc:FooTest.Xyz:HasDeathTest.*', [
+    self.RunAndVerify('-FooTest.Abc:FooTest.Xyz:BazTest.*', [
         'BarTest.TestOne',
         'BarTest.TestTwo',
         'BarTest.TestThree',
-
-        'BazTest.TestOne',
-        'BazTest.TestA',
-        'BazTest.TestB',
-        ] + PARAM_TESTS)
+        ] + DEATH_TESTS + PARAM_TESTS)
 
     # Value parameterized tests.
     self.RunAndVerify('*/*', PARAM_TESTS)
@@ -555,7 +585,7 @@ class GTestFilterUnitTest(gtest_test_utils.TestCase):
       os.remove(shard_status_file)
 
   def testShardStatusFileIsCreatedWithListTests(self):
-    """Tests that the shard file is created with --gtest_list_tests."""
+    """Tests that the shard file is created with the "list_tests" flag."""
 
     shard_status_file = os.path.join(gtest_test_utils.GetTempDir(),
                                      'shard_status_file2')
@@ -563,32 +593,41 @@ class GTestFilterUnitTest(gtest_test_utils.TestCase):
 
     extra_env = {SHARD_STATUS_FILE_ENV_VAR: shard_status_file}
     try:
-      InvokeWithModifiedEnv(extra_env,
-                            RunAndReturnOutput,
-                            ['--gtest_list_tests'])
+      output = InvokeWithModifiedEnv(extra_env,
+                                     RunAndReturnOutput,
+                                     [LIST_TESTS_FLAG])
     finally:
+      # This assertion ensures that Google Test enumerated the tests as
+      # opposed to running them.
+      self.assert_('[==========]' not in output,
+                   'Unexpected output during test enumeration.\n'
+                   'Please ensure that LIST_TESTS_FLAG is assigned the\n'
+                   'correct flag value for listing Google Test tests.')
+
       self.assert_(os.path.exists(shard_status_file))
       os.remove(shard_status_file)
 
-  def testShardingWorksWithDeathTests(self):
-    """Tests integration with death tests and sharding."""
-    gtest_filter = 'HasDeathTest.*:SeqP/*'
-    expected_tests = [
-        'HasDeathTest.Test1',
-        'HasDeathTest.Test2',
+  if SUPPORTS_DEATH_TESTS:
+    def testShardingWorksWithDeathTests(self):
+      """Tests integration with death tests and sharding."""
 
-        'SeqP/ParamTest.TestX/0',
-        'SeqP/ParamTest.TestX/1',
-        'SeqP/ParamTest.TestY/0',
-        'SeqP/ParamTest.TestY/1',
-        ]
+      gtest_filter = 'HasDeathTest.*:SeqP/*'
+      expected_tests = [
+          'HasDeathTest.Test1',
+          'HasDeathTest.Test2',
 
-    for flag in ['--gtest_death_test_style=threadsafe',
-                 '--gtest_death_test_style=fast']:
-      self.RunAndVerifyWithSharding(gtest_filter, 3, expected_tests,
-                                    check_exit_0=True, args=[flag])
-      self.RunAndVerifyWithSharding(gtest_filter, 5, expected_tests,
-                                    check_exit_0=True, args=[flag])
+          'SeqP/ParamTest.TestX/0',
+          'SeqP/ParamTest.TestX/1',
+          'SeqP/ParamTest.TestY/0',
+          'SeqP/ParamTest.TestY/1',
+          ]
+
+      for flag in ['--gtest_death_test_style=threadsafe',
+                   '--gtest_death_test_style=fast']:
+        self.RunAndVerifyWithSharding(gtest_filter, 3, expected_tests,
+                                      check_exit_0=True, args=[flag])
+        self.RunAndVerifyWithSharding(gtest_filter, 5, expected_tests,
+                                      check_exit_0=True, args=[flag])
 
 if __name__ == '__main__':
   gtest_test_utils.Main()

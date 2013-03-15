@@ -1,5 +1,8 @@
-# -*- Python -*-
-# Copyright 2008 Google Inc. All Rights Reserved.
+#! /usr/bin/python
+#
+# Protocol Buffers - Google's data interchange format
+# Copyright 2008 Google Inc.  All rights reserved.
+# http://code.google.com/p/protobuf/
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
@@ -26,36 +29,17 @@
 # THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#
-# Author: joi@google.com (Joi Sigurdsson)
-# Author: vladl@google.com (Vlad Losev)
-#
-# Base build file for Google Test Tests.
-#
-# Usage:
-#   cd to the directory with this file, then
-#   ./scons.py [OPTIONS]
-#
-# where frequently used command-line options include:
-#     -h               print usage help.
-#     BUILD=all        build all build types.
-#     BUILD=win-opt    build the given build type.
 
-EnsurePythonVersion(2, 3)
+"""Tests for google.protobuf.internal.message_cpp."""
 
-sconstruct_helper = SConscript('SConstruct.common')
+__author__ = 'shahms@google.com (Shahms King)'
 
-sconstruct_helper.Initialize(build_root_path='..',
-                             support_multiple_win_builds=False)
+import os
+os.environ['PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION'] = 'cpp'
 
-win_base = sconstruct_helper.MakeWinBaseEnvironment()
+import unittest
+from google.protobuf.internal.message_test import *
 
-if win_base.get('MSVS_VERSION', None) == '7.1':
-  sconstruct_helper.AllowVc71StlWithoutExceptions(win_base)
 
-sconstruct_helper.MakeWinDebugEnvironment(win_base, 'win-dbg')
-sconstruct_helper.MakeWinOptimizedEnvironment(win_base, 'win-opt')
-
-sconstruct_helper.ConfigureGccEnvironments()
-
-sconstruct_helper.BuildSelectedEnvironments()
+if __name__ == '__main__':
+  unittest.main()

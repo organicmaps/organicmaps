@@ -46,4 +46,18 @@ public class TestBadIdentifiers extends TestCase {
     TestBadIdentifiersProto.Deprecated.newBuilder();
     TestBadIdentifiersProto.Override.newBuilder();
   }
+
+  public void testGetDescriptor() {
+    Descriptors.FileDescriptor fileDescriptor =
+        TestBadIdentifiersProto.getDescriptor();
+    String descriptorField = TestBadIdentifiersProto.Descriptor
+        .getDefaultInstance().getDescriptor();
+    Descriptors.Descriptor protoDescriptor = TestBadIdentifiersProto.Descriptor
+        .getDefaultInstance().getDescriptorForType();
+    String nestedDescriptorField = TestBadIdentifiersProto.Descriptor
+        .NestedDescriptor.getDefaultInstance().getDescriptor();
+    Descriptors.Descriptor nestedProtoDescriptor = TestBadIdentifiersProto
+        .Descriptor.NestedDescriptor.getDefaultInstance()
+        .getDescriptorForType();
+  }
 }

@@ -51,6 +51,7 @@ except:
   _SUBPROCESS_MODULE_AVAILABLE = False
 # pylint: enable-msg=C6204
 
+GTEST_OUTPUT_VAR_NAME = 'GTEST_OUTPUT'
 
 IS_WINDOWS = os.name == 'nt'
 IS_CYGWIN = os.name == 'posix' and 'CYGWIN' in os.uname()[0]
@@ -62,8 +63,8 @@ TestCase = _test_module.TestCase  # pylint: disable-msg=C6409
 
 # Initially maps a flag to its default value. After
 # _ParseAndStripGTestFlags() is called, maps a flag to its actual value.
-_flag_map = {'gtest_source_dir': os.path.dirname(sys.argv[0]),
-             'gtest_build_dir': os.path.dirname(sys.argv[0])}
+_flag_map = {'source_dir': os.path.dirname(sys.argv[0]),
+             'build_dir': os.path.dirname(sys.argv[0])}
 _gtest_flags_are_parsed = False
 
 
@@ -110,13 +111,13 @@ def GetFlag(flag):
 def GetSourceDir():
   """Returns the absolute path of the directory where the .py files are."""
 
-  return os.path.abspath(GetFlag('gtest_source_dir'))
+  return os.path.abspath(GetFlag('source_dir'))
 
 
 def GetBuildDir():
   """Returns the absolute path of the directory where the test binaries are."""
 
-  return os.path.abspath(GetFlag('gtest_build_dir'))
+  return os.path.abspath(GetFlag('build_dir'))
 
 
 _temp_dir = None
@@ -137,7 +138,7 @@ def GetTempDir():
   return _temp_dir
 
 
-def GetTestExecutablePath(executable_name):
+def GetTestExecutablePath(executable_name, build_dir=None):
   """Returns the absolute path of the test binary given its name.
 
   The function will print a message and abort the program if the resulting file
@@ -145,24 +146,23 @@ def GetTestExecutablePath(executable_name):
 
   Args:
     executable_name: name of the test binary that the test script runs.
+    build_dir:       directory where to look for executables, by default
+                     the result of GetBuildDir().
 
   Returns:
     The absolute path of the test binary.
   """
 
-  path = os.path.abspath(os.path.join(GetBuildDir(), executable_name))
+  path = os.path.abspath(os.path.join(build_dir or GetBuildDir(),
+                                      executable_name))
   if (IS_WINDOWS or IS_CYGWIN) and not path.endswith('.exe'):
     path += '.exe'
 
   if not os.path.exists(path):
     message = (
         'Unable to find the test binary. Please make sure to provide path\n'
-        'to the binary via the --gtest_build_dir flag or the GTEST_BUILD_DIR\n'
-        'environment variable. For convenient use, invoke this script via\n'
-        'mk_test.py.\n'
-        # TODO(vladl@google.com): change mk_test.py to test.py after renaming
-        # the file.
-        'Please run mk_test.py -h for help.')
+        'to the binary via the --build_dir flag or the BUILD_DIR\n'
+        'environment variable.')
     print >> sys.stderr, message
     sys.exit(1)
 
@@ -190,23 +190,28 @@ def GetExitStatus(exit_code):
 
 
 class Subprocess:
-  def __init__(self, command, working_dir=None, capture_stderr=True):
+  def __init__(self, command, working_dir=None, capture_stderr=True, env=None):
     """Changes into a specified directory, if provided, and executes a command.
-    Restores the old directory afterwards. Execution results are returned
-    via the following attributes:
-      terminated_by_sygnal   True iff the child process has been terminated
-                             by a signal.
-      signal                 Sygnal that terminated the child process.
-      exited                 True iff the child process exited normally.
-      exit_code              The code with which the child proces exited.
-      output                 Child process's stdout and stderr output
-                             combined in a string.
+
+    Restores the old directory afterwards.
 
     Args:
       command:        The command to run, in the form of sys.argv.
       working_dir:    The directory to change into.
       capture_stderr: Determines whether to capture stderr in the output member
                       or to discard it.
+      env:            Dictionary with environment to pass to the subprocess.
+
+    Returns:
+      An object that represents outcome of the executed process. It has the
+      following attributes:
+        terminated_by_signal   True iff the child process has been terminated
+                               by a signal.
+        signal                 Sygnal that terminated the child process.
+        exited                 True iff the child process exited normally.
+        exit_code              The code with which the child process exited.
+        output                 Child process's stdout and stderr output
+                               combined in a string.
     """
 
     # The subprocess module is the preferrable way of running programs
@@ -224,13 +229,30 @@ class Subprocess:
 
       p = subprocess.Popen(command,
                            stdout=subprocess.PIPE, stderr=stderr,
-                           cwd=working_dir, universal_newlines=True)
+                           cwd=working_dir, universal_newlines=True, env=env)
       # communicate returns a tuple with the file obect for the child's
       # output.
       self.output = p.communicate()[0]
       self._return_code = p.returncode
     else:
       old_dir = os.getcwd()
+
+      def _ReplaceEnvDict(dest, src):
+        # Changes made by os.environ.clear are not inheritable by child
+        # processes until Python 2.6. To produce inheritable changes we have
+        # to delete environment items with the del statement.
+        for key in dest.keys():
+          del dest[key]
+        dest.update(src)
+
+      # When 'env' is not None, backup the environment variables and replace
+      # them with the passed 'env'. When 'env' is None, we simply use the
+      # current 'os.environ' for compatibility with the subprocess.Popen
+      # semantics used above.
+      if env is not None:
+        old_environ = os.environ.copy()
+        _ReplaceEnvDict(os.environ, env)
+
       try:
         if working_dir is not None:
           os.chdir(working_dir)
@@ -243,6 +265,12 @@ class Subprocess:
         ret_code = p.wait()
       finally:
         os.chdir(old_dir)
+
+        # Restore the old environment variables
+        # if they were replaced.
+        if env is not None:
+          _ReplaceEnvDict(os.environ, old_environ)
+
       # Converts ret_code to match the semantics of
       # subprocess.Popen.returncode.
       if os.WIFSIGNALED(ret_code):
@@ -267,4 +295,11 @@ def Main():
   # unittest.main().  Otherwise the latter will be confused by the
   # --gtest_* flags.
   _ParseAndStripGTestFlags(sys.argv)
+  # The tested binaries should not be writing XML output files unless the
+  # script explicitly instructs them to.
+  # TODO(vladl@google.com): Move this into Subprocess when we implement
+  # passing environment into it as a parameter.
+  if GTEST_OUTPUT_VAR_NAME in os.environ:
+    del os.environ[GTEST_OUTPUT_VAR_NAME]
+
   _test_module.main()

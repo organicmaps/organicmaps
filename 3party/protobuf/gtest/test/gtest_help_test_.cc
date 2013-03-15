@@ -32,7 +32,7 @@
 // This program is meant to be run by gtest_help_test.py.  Do not run
 // it directly.
 
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 // When a help flag is specified, this program should skip the tests
 // and exit with 0; otherwise the following test will be executed,
@@ -40,3 +40,7 @@
 TEST(HelpFlagTest, ShouldNotBeRun) {
   ASSERT_TRUE(false) << "Tests shouldn't be run when --help is specified.";
 }
+
+#if GTEST_HAS_DEATH_TEST
+TEST(DeathTest, UsedByPythonScriptToDetectSupportForDeathTestsInThisBinary) {}
+#endif

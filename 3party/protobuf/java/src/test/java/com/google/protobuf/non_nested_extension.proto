@@ -45,3 +45,4 @@ message MyNonNestedExtension {
 extend MessageToBeExtended {
   optional MyNonNestedExtension nonNestedExtension = 1;
 }
+

@@ -1,3 +1,57 @@
+Changes for 1.6.0:
+
+* New feature: ADD_FAILURE_AT() for reporting a test failure at the
+  given source location -- useful for writing testing utilities.
+* New feature: the universal value printer is moved from Google Mock
+  to Google Test.
+* New feature: type parameters and value parameters are reported in
+  the XML report now.
+* A gtest_disable_pthreads CMake option.
+* Colored output works in GNU Screen sessions now.
+* Parameters of value-parameterized tests are now printed in the
+  textual output.
+* Failures from ad hoc test assertions run before RUN_ALL_TESTS() are
+  now correctly reported.
+* Arguments of ASSERT_XY and EXPECT_XY no longer need to support << to
+  ostream.
+* More complete handling of exceptions.
+* GTEST_ASSERT_XY can be used instead of ASSERT_XY in case the latter
+  name is already used by another library.
+* --gtest_catch_exceptions is now true by default, allowing a test
+  program to continue after an exception is thrown.
+* Value-parameterized test fixtures can now derive from Test and
+  WithParamInterface<T> separately, easing conversion of legacy tests.
+* Death test messages are clearly marked to make them more
+  distinguishable from other messages.
+* Compatibility fixes for Android, Google Native Client, MinGW, HP UX,
+  PowerPC, Lucid autotools, libCStd, Sun C++, Borland C++ Builder (Code Gear),
+  IBM XL C++ (Visual Age C++), and C++0x.
+* Bug fixes and implementation clean-ups.
+* Potentially incompatible changes: disables the harmful 'make install'
+  command in autotools.
+
+Changes for 1.5.0:
+
+ * New feature: assertions can be safely called in multiple threads
+   where the pthreads library is available.
+ * New feature: predicates used inside EXPECT_TRUE() and friends
+   can now generate custom failure messages.
+ * New feature: Google Test can now be compiled as a DLL.
+ * New feature: fused source files are included.
+ * New feature: prints help when encountering unrecognized Google Test flags.
+ * Experimental feature: CMake build script (requires CMake 2.6.4+).
+ * Experimental feature: the Pump script for meta programming.
+ * double values streamed to an assertion are printed with enough precision
+   to differentiate any two different values.
+ * Google Test now works on Solaris and AIX.
+ * Build and test script improvements.
+ * Bug fixes and implementation clean-ups.
+
+ Potentially breaking changes:
+
+ * Stopped supporting VC++ 7.1 with exceptions disabled.
+ * Dropped support for 'make install'.
+
 Changes for 1.4.0:
 
  * New feature: the event listener API

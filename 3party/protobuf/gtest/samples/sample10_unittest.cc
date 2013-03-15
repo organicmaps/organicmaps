@@ -34,7 +34,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 using ::testing::EmptyTestEventListener;
 using ::testing::InitGoogleTest;
@@ -58,7 +58,7 @@ class Water {
     return malloc(allocation_size);
   }
 
-  void operator delete(void* block, size_t allocation_size) {
+  void operator delete(void* block, size_t /* allocation_size */) {
     allocated_--;
     free(block);
   }
@@ -78,19 +78,18 @@ int Water::allocated_ = 0;
 class LeakChecker : public EmptyTestEventListener {
  private:
   // Called before a test starts.
-  virtual void OnTestStart(const TestInfo& test_info) {
+  virtual void OnTestStart(const TestInfo& /* test_info */) {
     initially_allocated_ = Water::allocated();
   }
 
   // Called after a test ends.
-  virtual void OnTestEnd(const TestInfo& test_info) {
+  virtual void OnTestEnd(const TestInfo& /* test_info */) {
     int difference = Water::allocated() - initially_allocated_;
 
     // You can generate a failure in any event handler except
     // OnTestPartResult. Just use an appropriate Google Test assertion to do
     // it.
-    EXPECT_TRUE(difference <= 0)
-        << "Leaked " << difference << " unit(s) of Water!";
+    EXPECT_LE(difference, 0) << "Leaked " << difference << " unit(s) of Water!";
   }
 
   int initially_allocated_;

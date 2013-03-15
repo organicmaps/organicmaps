@@ -69,3 +69,4 @@ AC_DEFUN([AC_CXX_STL_HASH],
       AC_MSG_WARN([could not find an STL hash_map])
    fi
 ])
+
