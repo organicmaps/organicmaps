@@ -245,7 +245,8 @@ namespace graphics
 
     /// @todo The path text is always inside the path geometry now.
     //ASSERT_GREATER_OR_EQUAL(offset, 0.0, ());
-    if (offset < 0.0) offset = 0.0;
+    if (offset < 0.0)
+      offset = 0.0;
 
     if (-offset >= m_textLength)
       return;
@@ -318,7 +319,8 @@ namespace graphics
           if (hasPrevElem)
           {
             kern = getKerning(prevElem, prevMetrics, entry, metrics);
-            if (kern < 0.5) kern = 0.0;
+            if (kern < 0.5)
+              kern = 0.0;
 
             fullGlyphAdvance += kern;
             fullKern += kern;
