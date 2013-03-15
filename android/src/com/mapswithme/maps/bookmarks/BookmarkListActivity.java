@@ -14,8 +14,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 
 import com.mapswithme.maps.MWMActivity;
@@ -42,6 +40,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+
     setContentView(R.layout.bookmarks_list);
     final int setIndex = getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1);
     mEditContent = getIntent().getBooleanExtra(EDIT_CONTENT, true);
@@ -82,6 +81,20 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
     mPinAdapter.startLocationUpdate();
   }
 
+  private void assignCategoryParams()
+  {
+    if (mEditedSet != null)
+    {
+      final String name = mSetName.getText().toString();
+      if (!name.equals(mEditedSet.getName()))
+        mManager.setCategoryName(mEditedSet, name);
+
+      final boolean visible = mIsVisible.isChecked();
+      if (visible != mEditedSet.isVisible())
+        mEditedSet.setVisibility(mIsVisible.isChecked());
+    }
+  }
+
   private void setUpViews()
   {
     mSetName = (EditText) findViewById(R.id.pin_set_name);
@@ -93,9 +106,10 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       @Override
       public void onTextChanged(CharSequence s, int start, int before, int count)
       {
-        final String name = s.toString();
-        mManager.setCategoryName(mEditedSet, name);
-        setTitle(name);
+        setTitle(s.toString());
+
+        // Note! Do not set actual name here - saving process may be too long
+        // see assignCategoryParams() instead.
       }
 
       @Override
@@ -112,15 +126,6 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
     mIsVisible = (CheckBox) findViewById(R.id.pin_set_visible);
     if (mEditedSet != null)
       mIsVisible.setChecked(mEditedSet.isVisible());
-    mIsVisible.setOnCheckedChangeListener(new OnCheckedChangeListener()
-    {
-      @Override
-      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-      {
-        if (mEditedSet != null)
-          mEditedSet.setVisibility(isChecked);
-      }
-    });
   }
 
   @Override
@@ -128,6 +133,8 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   {
     if (mEditContent)
     {
+      assignCategoryParams();
+
       if (menuInfo instanceof AdapterView.AdapterContextMenuInfo)
       {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
@@ -136,6 +143,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
         inflater.inflate(R.menu.pin_sets_context_menu, menu);
         menu.setHeaderTitle(mManager.getBookmark(mEditedSet.getId(), mSelectedPosition).getName());
       }
+
       super.onCreateContextMenu(menu, v, menuInfo);
     }
   }
@@ -174,6 +182,8 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   @Override
   protected void onPause()
   {
+    assignCategoryParams();
+
     if (mPinAdapter != null)
       mPinAdapter.stopLocationUpdate();
 
@@ -191,6 +201,8 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
 
   public void onSendEMail(View v)
   {
+    assignCategoryParams();
+
     String path = ((MWMApplication) getApplication()).getExtAppDirectoryPath("tmp");
     final String name = mManager.saveToKMZFile(mEditedSet.getId(), path);
     if (name == null)

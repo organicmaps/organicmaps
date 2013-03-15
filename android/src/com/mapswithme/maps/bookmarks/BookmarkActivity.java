@@ -41,11 +41,8 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   private int mCurrentCategoryId = -1;
   private List<Icon> mIcons;
   private ImageView mChooserImage;
-  private IconsAdapter mIconsAdapter;
   private EditText mDescr;
-
-  private TextWatcher mNameWatcher;
-  private TextWatcher mDescrWatcher;
+  private Icon m_icon = null;
 
   @Override
   public void onCreate(Bundle savedInstanceState)
@@ -64,15 +61,15 @@ public class BookmarkActivity extends AbstractBookmarkActivity
     setUpViews();
   }
 
-  private void updateColorChooser(int position)
+  private void updateColorChooser(Icon icon)
   {
-    mChooserImage.setImageBitmap(mIcons.get(position).getIcon());
-    //mChooserName.setText(mIcons.get(position).getName());
+    m_icon = icon;
+    mChooserImage.setImageBitmap(m_icon.getIcon());
   }
 
   private void refreshValuesInViews()
   {
-    updateColorChooser(mIcons.indexOf(mPin.getIcon()));
+    updateColorChooser(mPin.getIcon());
 
     mSetName.setText(mPin.getCategoryName());
 
@@ -90,7 +87,6 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
     colorChooser.setOnClickListener(new OnClickListener()
     {
-
       @Override
       public void onClick(View v)
       {
@@ -100,7 +96,6 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
     findViewById(R.id.pin_sets).setOnClickListener(new OnClickListener()
     {
-
       @Override
       public void onClick(View v)
       {
@@ -117,14 +112,15 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
     refreshValuesInViews();
 
-    mNameWatcher = new TextWatcher()
+    mName.addTextChangedListener(new TextWatcher()
     {
       @Override
       public void onTextChanged(CharSequence s, int start, int before, int count)
       {
-        final String str = s.toString();
-        mPin.setName(str);
-        setTitle(str);
+        setTitle(s.toString());
+
+        // Note! Do not set actual name here - saving process may be too long
+        // see assignPinParams() instead.
       }
       @Override
       public void beforeTextChanged(CharSequence s, int start, int count, int after)
@@ -134,52 +130,32 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       public void afterTextChanged(Editable s)
       {
       }
-    };
+    });
+  }
 
-    mDescrWatcher = new TextWatcher()
+  private void assignPinParams()
+  {
+    if (mPin != null)
     {
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count)
-      {
-        mPin.setDescription(s.toString());
-      }
-      @Override
-      public void beforeTextChanged(CharSequence s, int start, int count, int after)
-      {
-      }
-      @Override
-      public void afterTextChanged(Editable s)
-      {
-      }
-    };
+      String s = mName.getText().toString();
+      if (!s.equals(mPin.getName()))
+        mPin.setName(s);
 
-    // Set up text watchers only after filling text fields
-  }
+      s = mDescr.getText().toString();
+      if (!s.equals(mPin.getBookmarkDescription()))
+        mPin.setDescription(s);
 
-  private void setUpWatchers()
-  {
-    mName.addTextChangedListener(mNameWatcher);
-    mDescr.addTextChangedListener(mDescrWatcher);
-  }
-
-  private void removeWatchers()
-  {
-    mName.removeTextChangedListener(mNameWatcher);
-    mDescr.removeTextChangedListener(mDescrWatcher);
+      if (m_icon != null && m_icon != mPin.getIcon())
+        mPin.setIcon(m_icon);
+    }
   }
 
   @Override
-  protected void onStart()
+  protected void onPause()
   {
-    super.onStart();
-    setUpWatchers();
-  }
+    assignPinParams();
 
-  @Override
-  protected void onStop()
-  {
-    removeWatchers();
-    super.onStop();
+    super.onPause();
   }
 
   @Override
@@ -191,7 +167,6 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       AlertDialog.Builder builder = new Builder(this);
       builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener()
       {
-
         @Override
         public void onClick(DialogInterface dialog, int which)
         {
@@ -200,11 +175,11 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       });
       builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
       {
-
         @Override
         public void onClick(DialogInterface dialog, int which)
         {
           mManager.deleteBookmark(mPin);
+          mPin = null;
           dialog.dismiss();
           finish();
         }
@@ -224,19 +199,17 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
   private Dialog createColorChooser()
   {
-    mIconsAdapter = new IconsAdapter(this, mIcons);
-    mIconsAdapter.chooseItem(mIcons.indexOf(mPin.getIcon()));
+    final IconsAdapter adapter = new IconsAdapter(this, mIcons);
+    adapter.chooseItem(mIcons.indexOf(mPin.getIcon()));
 
     return new AlertDialog.Builder(this)
     .setTitle(R.string.bookmark_color)
-    .setSingleChoiceItems(mIconsAdapter, mIconsAdapter.getCheckedItemPosition(), new DialogInterface.OnClickListener()
+    .setSingleChoiceItems(adapter, adapter.getCheckedItemPosition(), new DialogInterface.OnClickListener()
     {
       @Override
       public void onClick(DialogInterface dialog, int which)
       {
-        mPin.setIcon(mIcons.get(which));
-        mIconsAdapter.chooseItem(which);
-        updateColorChooser(which);
+        updateColorChooser(mIcons.get(which));
         dialog.dismiss();
       }
     })
