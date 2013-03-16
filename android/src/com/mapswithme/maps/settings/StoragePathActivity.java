@@ -493,7 +493,7 @@ public class StoragePathActivity extends ListActivity
   {
     super.onStart();
     
-    Statistics.INSTANCE.startActivity(this.getClass().getSimpleName());
+    Statistics.INSTANCE.startActivity(this);
   }
   
   @Override
@@ -501,7 +501,7 @@ public class StoragePathActivity extends ListActivity
   {
     super.onStop();
     
-    Statistics.INSTANCE.stopActivity(this.getClass().getSimpleName());
+    Statistics.INSTANCE.stopActivity(this);
   }
 
   @Override

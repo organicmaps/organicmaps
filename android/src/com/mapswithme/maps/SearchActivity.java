@@ -466,7 +466,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
   {
     super.onStart();
     
-    Statistics.INSTANCE.startActivity(this.getClass().getSimpleName());
+    Statistics.INSTANCE.startActivity(this);
   }
   
   @Override
@@ -474,7 +474,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
   {
     super.onStop();
     
-    Statistics.INSTANCE.stopActivity(this.getClass().getSimpleName());
+    Statistics.INSTANCE.stopActivity(this);
   }
 
   @Override

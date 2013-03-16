@@ -52,7 +52,7 @@ public class SettingsActivity extends PreferenceActivity
   {
     super.onStart();
     
-    Statistics.INSTANCE.startActivity(this.getClass().getSimpleName());
+    Statistics.INSTANCE.startActivity(this);
   }
   
   @Override
@@ -60,6 +60,6 @@ public class SettingsActivity extends PreferenceActivity
   {
     super.onStop();
     
-    Statistics.INSTANCE.stopActivity(this.getClass().getSimpleName());
+    Statistics.INSTANCE.stopActivity(this);
   }
 }

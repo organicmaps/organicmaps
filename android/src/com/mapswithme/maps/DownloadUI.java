@@ -618,7 +618,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
   {
     super.onStart();
     
-    Statistics.INSTANCE.startActivity(this.getClass().getSimpleName());
+    Statistics.INSTANCE.startActivity(this);
   }
   
   @Override
@@ -626,7 +626,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
   {
     super.onStop();
     
-    Statistics.INSTANCE.stopActivity(this.getClass().getSimpleName());
+    Statistics.INSTANCE.stopActivity(this);
   }
 
   private DownloadAdapter getDA()

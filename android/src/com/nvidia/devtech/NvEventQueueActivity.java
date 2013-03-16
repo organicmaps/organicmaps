@@ -160,7 +160,7 @@ public abstract class NvEventQueueActivity extends Activity
     System.out.println("**** onStart");
     super.onStart();
 
-    Statistics.INSTANCE.startActivity(this.getClass().getSimpleName());
+    Statistics.INSTANCE.startActivity(this);
 
     if (m_nativeLaunched)
       onStartNative();
@@ -224,7 +224,7 @@ public abstract class NvEventQueueActivity extends Activity
     System.out.println("**** onStop");
     super.onStop();
     
-    Statistics.INSTANCE.stopActivity(this.getClass().getSimpleName());
+    Statistics.INSTANCE.stopActivity(this);
 
     if (m_nativeLaunched)
       onStopNative();

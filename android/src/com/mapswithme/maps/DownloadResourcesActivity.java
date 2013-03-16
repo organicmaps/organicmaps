@@ -357,7 +357,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   {
     super.onStart();
     
-    Statistics.INSTANCE.startActivity(this.getClass().getSimpleName());
+    Statistics.INSTANCE.startActivity(this);
   }
   
   @Override
@@ -365,7 +365,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   {
     super.onStop();
     
-    Statistics.INSTANCE.stopActivity(this.getClass().getSimpleName());
+    Statistics.INSTANCE.stopActivity(this);
   }
   
   @Override

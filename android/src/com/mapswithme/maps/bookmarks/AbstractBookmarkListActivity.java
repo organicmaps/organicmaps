@@ -37,7 +37,7 @@ public abstract class AbstractBookmarkListActivity extends ListActivity
   {
     super.onStart();
     
-    Statistics.INSTANCE.startActivity(this.getClass().getSimpleName());
+    Statistics.INSTANCE.startActivity(this);
   }
   
   @Override
@@ -45,7 +45,7 @@ public abstract class AbstractBookmarkListActivity extends ListActivity
   {
     super.onStop();
     
-    Statistics.INSTANCE.stopActivity(this.getClass().getSimpleName());
+    Statistics.INSTANCE.stopActivity(this);
   }
 
   @Override
