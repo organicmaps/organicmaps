@@ -205,8 +205,8 @@ node|z6[place=city][capital?]
   text-color:	#606060;
   text-halo-color:	#eeeedd;
 }
-line|z6-8[boundary=administrative][admin_level=4]::d2p2,
-line|z6-8[boundary=administrative][admin_level=4][border_type=state]::d3p2
+line|z5-8[boundary=administrative][admin_level=4]::d2p2,
+line|z4-8[boundary=administrative][admin_level=4][border_type=state]::d3p2
 {
   color:	#eeeedd;
   width:	1;
@@ -232,7 +232,7 @@ area|z6-11[natural=land]
 {
   fill-color:	white;
 }
-line|z6-[boundary=administrative][admin_level=3]
+line|z4-[boundary=administrative][admin_level=3]
 {
   color:	#a0a0a0;
   width:	0.2;
@@ -471,12 +471,10 @@ line|z9[boundary=administrative][admin_level=4]::d2p2
   width:	1.2;
   z-index:	120;
 }
-area|z9-10[aeroway=airport],
-area|z9-12[aeroway=aerodrome]::d1p2,
+area|z11-12[aeroway=aerodrome]::d1p2,
 area|z11-13[aeroway=airport]::d1p2,
 area|z13[aeroway=aerodrome]::d1p3,
-node|z9-10[aeroway=airport],
-node|z9-12[aeroway=aerodrome]::d1p2,
+node|z11-12[aeroway=aerodrome]::d1p2,
 node|z11-13[aeroway=airport]::d1p2,
 node|z13[aeroway=aerodrome]::d1p3
 {
@@ -527,11 +525,6 @@ node|z9[place=city]
   text-color:	#505050;
   text-halo-color:	#eeeedd;
 }
-line|z9[highway=secondary]
-{
-  color:	#fffb80;
-  width:	0.5;
-}
 node|z9[place=county]
 {
   text:	name;
@@ -549,7 +542,7 @@ node|z10-11[place=city][capital?]::d2p3
   text-color:	grey;
   text-halo-color:	#eeeedd;
 }
-area|z9-12[aeroway=aerodrome],
+area|z11-12[aeroway=aerodrome],
 area|z15-[aeroway=aerodrome],
 area|z13-14[aeroway=aerodrome]::d1p2
 {
@@ -727,7 +720,7 @@ node|z12[place=town]
   text-color:	#505050;
   text-halo-color:	#eeeedd;
 }
-area|z10-[aeroway=apron],
+area|z11-[aeroway=apron],
 area|z12-[landuse=brownfield],
 area|z12[landuse=cemetery],
 area|z12[landuse=construction],
@@ -2349,23 +2342,23 @@ line|z14[highway=track]
   dashes:	8,3;
   linecap:	none;
 }
-line|z14[railway=monorail]::d1p3,
-line|z14[railway=tram]::d1p3
+line|z14[railway=monorail]::raildash,
+line|z14[railway=tram]::raildash
 {
   color:	#590959;
   width:	1.7;
-  z-index:	306;
+  z-index:	557;
   dashes:	3.6,5.4;
   linecap:	none;
 }
-line|z14[railway=tram]::d1p2
+line|z14[railway=tram]::railfill
 {
   color:	#e6b7e6;
   width:	1.7;
   z-index:	556;
 }
-line|z14[railway=monorail],
-line|z14[railway=tram]
+line|z14[railway=monorail]::railborder,
+line|z14[railway=tram]::railborder
 {
   color:	#590959;
   width:	2;
@@ -2926,13 +2919,14 @@ line|z15[boundary=administrative][border_type=county]
   z-index:	686;
   dashes:	4,20;
 }
-line|z15-[railway=subway]::d1p3
+line|z15-[railway=subway]
 {
   color:	#0f0f4c;
   width:	2;
   z-index:	686;
   dashes:	9.6,14.4;
   linecap:	none;
+  opacity: 0.4;
 }
 area|z15[amenity=hospital],
 node|z15[amenity=hospital]
@@ -3312,12 +3306,6 @@ line|z15[boundary=administrative][border_type=city]
   z-index:	685;
   dashes:	12,4,4,4;
 }
-line|z15-[railway=subway]::d1p2
-{
-  color:	#b7b7e6;
-  width:	2;
-  z-index:	668;
-}
 line|z15-[piste:lift=platter]
 {
   color:	#202020;
@@ -3437,12 +3425,6 @@ line|z15-[highway=unclassified]
   text-position:	line;
   text-color:	#505050;
   text-halo-color:	white;
-}
-line|z15-[railway=subway]
-{
-  color:	#0f0f4c;
-  width:	3.2;
-  z-index:	572;
 }
 line|z15[waterway=stream]
 {
@@ -6308,13 +6290,6 @@ line|z17-[man_made=pier]::d1p3
   color:	#e4e4e4;
   width:	2.4;
   z-index:	916;
-}
-area|z17-[amenity=parking][access=permissive][fee?],
-area|z17-[amenity=parking][access=public][fee?],
-node|z17-[amenity=parking][access=permissive][fee?],
-node|z17-[amenity=parking][access=public][fee?]
-{
-  icon-image:	parking_fee-permissive.svg;
 }
 area|z17-[sport=shooting],
 node|z17-[sport=shooting]
