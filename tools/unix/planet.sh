@@ -1,32 +1,35 @@
 #!/bin/bash
-################################################
-# Builds whole planet in /media/ssd/common dir #
-################################################
+#################################################
+# Builds whole planet on linux server in Zurich #
+#################################################
 
 # At least "set -e -u" should always be here, not just for debugging!
 # "set -x" is useful to see what is going on.
 set -e -u -x
 
 # global params
-LIGHT_NODES=false
-PROCESSORS=8
-BZIP="pbzip2 -d"
+PLANET_FILE="$HOME/toolchain/v2/data/planet-latest.o5m"
+COASTS_FILE="$HOME/toolchain/v2/data/coastlines-latest.o5m"
+
+FILTER_TOOL="$HOME/toolchain/v2/git/osmctools/osmfilter"
+CONVERT_TOOL="$HOME/toolchain/v2/git/osmctools/osmconvert"
+
+CREATE_COASTS_FILE="$HOME/toolchain/v2/git/osmctools/osmfilter $PLANET_FILE --keep= --keep-ways=\"natural=coastline\" -o=$COASTS_FILE"
+OSM_TO_PIPE="$HOME/toolchain/v2/git/osmctools/osmconvert $PLANET_FILE"
 
 # displays usage and exits
 function Usage {
   echo ''
-  echo "Usage: $0 [path_to_data_folder_with_classsif_and_planet.osm.bz2] [optional_path_to_intermediate_data]"
+  echo "Usage: $0 [--full|--generate|--continue]"
+  echo "  --full       if specified, planet file will be updated and clean generation will start"
+  echo "  --generate   if specified, clean generation will start"
+  echo "  --continue   if specified, previously generated intermediate data and coasts will be used for current generation"
   exit 0
 }
 
 # for parallel builds
 function forky() {
-  local num_par_procs
-  if [[ -z $1 ]] ; then
-    num_par_procs=2
-  else
-    num_par_procs=$1
-  fi
+  local num_par_procs=`nproc`
   while [[ $(jobs | wc -l) -ge $num_par_procs ]] ; do
     sleep 1
   done
@@ -36,30 +39,18 @@ if [ $# -lt 1 ]; then
   Usage
 fi
 
-DATA_PATH=$1
-
-# set up necessary Windows MinGW settings
-#if [ ${WINDIR+1} ]; then
-#fi
-
-# check if we have QT in PATH
-#if [ ! `which qmake` ]; then
-#  echo 'You should add your qmake binary into the PATH. This can be done in 2 ways:'
-#  echo '  1. Set it temporarily by executing: export PATH=/c/qt/your_qt_dir/bin:$PATH'
-#  echo '  2. Set it permanently by adding export... string above to your ~/.bashrc'
-#  echo 'Hint: for second solution you can type from git bash console: notepad ~/.bashrc'
-#  exit 0
-#fi
-
 # determine script path
 MY_PATH=`dirname $0`
 
 # find generator_tool
-IT_PATHS_ARRAY=(  "$MY_PATH/../../../omim-build-release/out/release/generator_tool" \
-                  "$MY_PATH/../../../omim-release/out/release/generator_tool" \
-                  "$MY_PATH/../../out/release/generator_tool" )
+IT_PATHS_ARRAY=( "$MY_PATH/../../../omim-build-production/out/production/generator_tool" \
+                 "$MY_PATH/../../../omim-production/out/production/generator_tool" \
+                 "$MY_PATH/../../out/production/generator_tool" \
+                 "$MY_PATH/../../../omim-build-release/out/release/generator_tool" \
+                 "$MY_PATH/../../../omim-release/out/release/generator_tool" \
+                 "$MY_PATH/../../out/release/generator_tool" )
 
-for i in {0..1}; do
+for i in {0..5}; do
   if [ -x ${IT_PATHS_ARRAY[i]} ]; then
     GENERATOR_TOOL=${IT_PATHS_ARRAY[i]}
     echo TOOL: $GENERATOR_TOOL
@@ -68,91 +59,82 @@ for i in {0..1}; do
 done
 
 if [[ ! -n $GENERATOR_TOOL ]]; then
-  echo 'No generator_tool found, please build omim-build-release or omim/out/release'
+  echo "No generator_tool found in ${IT_PATHS_ARRAY[*]}"
   echo ""
   Usage
 fi
 
-PLANET_OSM_BZ2=$DATA_PATH/planet.osm.bz2
-COASTS_OSM_BZ2=$DATA_PATH/coastlines.osm.bz2
+DATA_PATH="$MY_PATH/../../data"
+INTDIR=$DATA_PATH/intermediate_data/
+INTCOASTSDIR=${INTDIR}coasts/
 
-if ! [ -f $PLANET_OSM_BZ2 ]; then
-  echo "Can't open file $PLANET_OSM_BZ2, did you forgot to specify dataDir?"
-  echo ""
-  Usage
+if ! [ -d $INTDIR ]; then
+  mkdir -p $INTDIR
 fi
 
-if ! [ -f $COASTS_OSM_BZ2 ]; then
-  echo "Can't open file $COASTS_OSM_BZ2, did you forgot to specify dataDir?"
-  echo ""
-  Usage
+if ! [ -d $INTCOASTSDIR ]; then
+  mkdir -p $INTCOASTSDIR
 fi
 
-TMPDIR=$DATA_PATH/intermediate_data/
-
-if [ $# -ge 2 ]; then
-  TMPDIR=$2/
+if [[ $1 == "--full" ]]; then
+  pushd  ~/toolchain/v2
+     bash update_planet.sh
+  popd
 fi
 
-if ! [ -d $TMPDIR ]; then
-  mkdir -p $TMPDIR
+if [[ $1 == "--generate" || $1 == "--full" ]]; then
+  # 1st pass, run in parallel - preprocess whole planet to speed up generation if all coastlines are correct
+  $CONVERT_TOOL $PLANET_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTDIR -use_light_nodes=false -preprocess_xml &
+  # 2nd pass - strip coastlines from the planet to speed up the process
+  $FILTER_TOOL $PLANET_FILE --keep= --keep-ways="natural=coastline" -o=$COASTS_FILE
+  # 3rd pass - preprocess coastlines to separate intermediate directory
+  $CONVERT_TOOL $COASTS_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTCOASTSDIR -use_light_nodes=true -preprocess_xml
+  # 4th pass - generate temporary coastlines file in the coasts intermediate dir
+  $CONVERT_TOOL $COASTS_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTCOASTSDIR -use_light_nodes=true -make_coasts
+  # need link to generated coastlines file
+  ln -s -f $INTCOASTSDIR/WorldCoasts.mwm.tmp $INTDIR/WorldCoasts.mwm.tmp
+  # wait for 1st pass
+  wait
 fi
 
-PV="cat"
-if [ `which pv` ]
-then
-  PV=pv
+if [[ $1 == "--generate" || $1 == "--continue" || $1 == "--full" ]]; then
+  # 5th pass - paralleled in the code
+  $CONVERT_TOOL $PLANET_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTDIR \
+    -use_light_nodes=false -split_by_polygons \
+    -generate_features -generate_world \
+    -data_path=$DATA_PATH -emit_coasts
+
+  # 6th pass - do in parallel
+  # but separate exceptions for world files to finish them earlier
+  PARAMS="-data_path=$DATA_PATH -generate_geometry -generate_index"
+  $GENERATOR_TOOL $PARAMS -output=World &
+  $GENERATOR_TOOL $PARAMS -output=WorldCoasts &
+
+  PARAMS_WITH_SEARCH="$PARAMS -generate_search_index"
+  # additional exceptions for long-generated countries
+  $GENERATOR_TOOL $PARAMS_WITH_SEARCH "-output=Russia_Far Eastern" &
+  for file in $DATA_PATH/*.mwm.tmp; do
+    if [[ "$file" == *minsk-pass*  ]]; then
+      continue
+    fi
+    if [[ "$file" == *World*  ]]; then
+      continue
+    fi
+    if [[ "$file" == *Russia_Far\ Eastern* ]]; then
+      continue
+    fi
+    filename=$(basename "$file")
+    extension="${filename##*.}"
+    filename="${filename%.*.*}"
+    $GENERATOR_TOOL $PARAMS_WITH_SEARCH -output="$filename" &
+    forky $PROCESSORS
+  done
+
+  wait
+
+  # Save World without search index
+  cp "$DATA_PATH/World.mwm" "$DATA_PATH/World.mwm.nosearch"
+  # Generate search index for World
+  $GENERATOR_TOOL -data_path=$DATA_PATH -generate_search_index -output=World
+
 fi
-
-# 1st pass - preprocess coastlines
-$PV $COASTS_OSM_BZ2 | $BZIP | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
-    -use_light_nodes=true \
-    -preprocess_xml
-
-# 2nd pass - generate temporary coastlines file in the intermediate dir
-$PV $COASTS_OSM_BZ2 | $BZIP | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
-    -use_light_nodes=true -make_coasts
-
-# 3rd pass - preprocess planet
-$PV $PLANET_OSM_BZ2 | $BZIP | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
-    -use_light_nodes=$LIGHT_NODES \
-    -preprocess_xml
-
-# 4nd pass - paralleled in the code
-$PV $PLANET_OSM_BZ2 | $BZIP | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
-  -use_light_nodes=$LIGHT_NODES -split_by_polygons \
-  -generate_features -generate_world \
-  -data_path=$DATA_PATH -emit_coasts
-
-# 5rd pass - do in parallel
-# but separate exceptions for wolrd files to finish them earlier
-PARAMS="-data_path=$DATA_PATH -generate_geometry -generate_index"
-$GENERATOR_TOOL $PARAMS -output=World &
-$GENERATOR_TOOL $PARAMS -output=WorldCoasts &
-
-PARAMS_WITH_SEARCH="$PARAMS -generate_search_index"
-# additional exceptions for long-generated countries
-$GENERATOR_TOOL $PARAMS_WITH_SEARCH "-output=Russia_Far Eastern" &
-for file in $DATA_PATH/*.mwm.tmp; do
-  if [[ "$file" == *minsk-pass*  ]]; then
-    continue
-  fi
-  if [[ "$file" == *World*  ]]; then
-    continue
-  fi
-  if [[ "$file" == *Russia_Far\ Eastern* ]]; then
-    continue
-  fi
-  filename=$(basename "$file")
-  extension="${filename##*.}"
-  filename="${filename%.*.*}"
-  $GENERATOR_TOOL $PARAMS_WITH_SEARCH -output="$filename" &
-  forky $PROCESSORS
-done
-
-wait
-
-# Save World without search index
-cp "$DATA_PATH/World.mwm" "$DATA_PATH/World.mwm.nosearch"
-# Generate search index for World
-$GENERATOR_TOOL -data_path=$DATA_PATH -generate_search_index -output=World
