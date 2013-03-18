@@ -18,6 +18,30 @@
 #include "../base/condition.hpp"
 #include "../base/shared_buffer_manager.hpp"
 
+namespace
+{
+  class TileStructuresLockGuard
+  {
+  public:
+    TileStructuresLockGuard(TileCache & tileCache, TileSet & tileSet)
+      : m_tileCache(tileCache), m_tileSet(tileSet)
+    {
+      m_tileSet.Lock();
+      m_tileCache.Lock();
+    }
+
+    ~TileStructuresLockGuard()
+    {
+      m_tileCache.Unlock();
+      m_tileSet.Unlock();
+    }
+
+  private:
+    TileCache & m_tileCache;
+    TileSet & m_tileSet;
+  };
+}
+
 TileRenderer::TileRenderer(
     size_t tileSize,
     string const & skinName,
@@ -91,6 +115,7 @@ TileRenderer::~TileRenderer()
 {
   m_isExiting = true;
 
+  LOG(LDEBUG, ("UVRLOG : Cancel from ~TileRenderer"));
   m_queue.Cancel();
 
   for (size_t i = 0; i < m_threadData.size(); ++i)
@@ -157,7 +182,12 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   /// commands from the previous sequence are ignored
   if (sequenceID < m_sequenceID)
+  {
+    LOG(LDEBUG, ("UVRLOG : tile not rendered. SequenceID=", sequenceID, " m_SequenceID", m_sequenceID));
     return;
+  }
+
+  LOG(LDEBUG, ("UVRLOG : start render tile m_SequenceID=", m_sequenceID));
 
   if (HasTile(rectInfo))
     return;
@@ -274,7 +304,8 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
                  frameScreen,
                  rectInfo,
                  0,
-                 paintEvent->isEmptyDrawing()));
+                 paintEvent->isEmptyDrawing(),
+                 sequenceID));
   }
 }
 
@@ -309,9 +340,31 @@ TileCache & TileRenderer::GetTileCache()
   return m_tileCache;
 }
 
-TileSet & TileRenderer::GetTileSet()
+Tile const * TileRenderer::GetTile(const Tiler::RectInfo & rectInfo)
 {
-  return m_tileSet;
+  TileStructuresLockGuard lock(m_tileCache, m_tileSet);
+
+  if (m_tileSet.HasTile(rectInfo))
+  {
+    ASSERT(!m_tileCache.HasTile(rectInfo), (""));
+    Tile tile = m_tileSet.GetTile(rectInfo);
+
+    if (m_tileCache.CanFit() == 0)
+    {
+      LOG(LINFO, ("resizing tileCache to", m_tileCache.CacheSize() + 1, "elements"));
+      m_tileCache.Resize(m_tileCache.CacheSize() + 1);
+    }
+
+    m_tileCache.AddTile(rectInfo, TileCache::Entry(tile, m_resourceManager));
+    m_tileCache.LockTile(rectInfo);
+
+    m_tileSet.RemoveTile(rectInfo);
+  }
+
+  if (m_tileCache.HasTile(rectInfo))
+    return &m_tileCache.GetTile(rectInfo);
+
+  return NULL;
 }
 
 void TileRenderer::WaitForEmptyAndFinished()
@@ -335,11 +388,7 @@ void TileRenderer::SetIsPaused(bool flag)
 
 void TileRenderer::AddActiveTile(Tile const & tile)
 {
-  /// every code that works both with tileSet and tileCache
-  /// should lock them in the same order to avoid deadlocks
-  /// (unlocking should be done in reverse order)
-  m_tileSet.Lock();
-  m_tileCache.Lock();
+  TileStructuresLockGuard lock(m_tileCache, m_tileSet);
 
   Tiler::RectInfo const & key = tile.m_rectInfo;
 
@@ -347,39 +396,21 @@ void TileRenderer::AddActiveTile(Tile const & tile)
     m_resourceManager->texturePool(graphics::ERenderTargetTexture)->Free(tile.m_renderTarget);
   else
   {
+    LOG(LDEBUG, ("UVRLOG : Add tile to set s=", key.m_tileScale, " x=", key.m_x, " y=", key.m_y, " m_SequenceID=", m_sequenceID));
     m_tileSet.AddTile(tile);
-
-    if (m_tileCache.CanFit() == 0)
-    {
-      LOG(LINFO, ("resizing tileCache to", m_tileCache.CacheSize() + 1, "elements"));
-      m_tileCache.Resize(m_tileCache.CacheSize() + 1);
-    }
-
-    m_tileCache.AddTile(key, TileCache::Entry(tile, m_resourceManager));
-    m_tileCache.LockTile(key);
   }
-
-  m_tileCache.Unlock();
-  m_tileSet.Unlock();
 }
 
-void TileRenderer::RemoveActiveTile(Tiler::RectInfo const & rectInfo)
+void TileRenderer::RemoveActiveTile(Tiler::RectInfo const & rectInfo, int sequenceID)
 {
-  /// every code that works both with tileSet and tileCache
-  /// should lock them in the same order to avoid deadlocks
-  /// (unlocking should be done in reverse order)
-  m_tileSet.Lock();
-  m_tileCache.Lock();
+  TileStructuresLockGuard lock(m_tileCache, m_tileSet);
 
-  if (m_tileSet.HasTile(rectInfo))
+  if (m_tileSet.HasTile(rectInfo) && m_tileSet.GetTileSequenceID(rectInfo) <= sequenceID)
   {
-    ASSERT(m_tileCache.HasTile(rectInfo), ());
-    m_tileCache.UnlockTile(rectInfo);
+    ASSERT(!m_tileCache.HasTile(rectInfo), ("Tile cannot be in tileSet and tileCache at the same time"));
+    LOG(LDEBUG, ("UVRLOG : Remove tile from set s=", rectInfo.m_tileScale, " x=", rectInfo.m_x, " y=", rectInfo.m_y, " m_SequenceID=", m_sequenceID));
     m_tileSet.RemoveTile(rectInfo);
   }
-
-  m_tileCache.Unlock();
-  m_tileSet.Unlock();
 }
 
 size_t TileRenderer::TileSize() const

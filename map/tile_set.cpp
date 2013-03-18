@@ -20,6 +20,12 @@ void TileSet::AddTile(Tile const & tile)
   m_tiles[tile.m_rectInfo] = tile;
 }
 
+int TileSet::GetTileSequenceID(Tiler::RectInfo const & rectInfo)
+{
+  ASSERT(HasTile(rectInfo), ());
+  return m_tiles[rectInfo].m_sequenceID;
+}
+
 void TileSet::RemoveTile(const Tiler::RectInfo &rectInfo)
 {
   m_tiles.erase(rectInfo);

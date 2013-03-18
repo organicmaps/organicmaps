@@ -24,6 +24,8 @@ public:
   bool HasTile(Tiler::RectInfo const & rectInfo);
   /// add tile to the set
   void AddTile(Tile const & tile);
+  /// get sequenceID in witch tile was rendered
+  int GetTileSequenceID(Tiler::RectInfo const & rectInfo);
   /// get tile from the set
   Tile const & GetTile(Tiler::RectInfo const & rectInfo);
   /// remove tile from the set

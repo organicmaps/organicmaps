@@ -10,13 +10,15 @@ Tile::Tile(shared_ptr<graphics::gl::BaseTexture> const & renderTarget,
            ScreenBase const & tileScreen,
            Tiler::RectInfo const & rectInfo,
            double duration,
-           bool isEmptyDrawing)
+           bool isEmptyDrawing,
+           int sequenceID)
   : m_renderTarget(renderTarget),
     m_overlay(overlay),
     m_tileScreen(tileScreen),
     m_rectInfo(rectInfo),
     m_duration(duration),
-    m_isEmptyDrawing(isEmptyDrawing)
+    m_isEmptyDrawing(isEmptyDrawing),
+    m_sequenceID(sequenceID)
 {}
 
 Tile::~Tile()

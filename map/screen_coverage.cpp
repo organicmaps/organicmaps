@@ -101,29 +101,10 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
 {
   ASSERT(m_tileRects.find(ri) != m_tileRects.end(), ());
 
-  TileCache & tileCache = m_tileRenderer->GetTileCache();
-  TileSet & tileSet = m_tileRenderer->GetTileSet();
+  Tile const * tile = m_tileRenderer->GetTile(ri);
 
-  Tile const * tile = 0;
-  bool hasTile = false;
-
-  /// every code that works both with tileSet and tileCache
-  /// should lock them in the same order to avoid deadlocks
-  /// (unlocking should be done in reverse order)
-  tileSet.Lock();
-  tileCache.Lock();
-
-  hasTile = tileSet.HasTile(ri);
-
-  if (hasTile)
+  if (tile != NULL)
   {
-    ASSERT(tileCache.HasTile(ri), ());
-
-    tile = &tileCache.GetTile(ri);
-    ASSERT(m_tiles.find(tile) == m_tiles.end(), ());
-
-    /// while in the TileSet, the tile is assumed to be locked
-
     m_tiles.insert(tile);
     m_tileRects.erase(ri);
     m_newTileRects.erase(ri);
@@ -135,14 +116,6 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
       m_leafTilesToRender--;
     }
 
-    tileSet.RemoveTile(ri);
-  }
-
-  tileCache.Unlock();
-  tileSet.Unlock();
-
-  if (hasTile)
-  {
     if (m_tiler.isLeaf(ri))
     {
       graphics::Overlay * tileOverlayCopy = tile->m_overlay->clone();
@@ -152,6 +125,8 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
       delete tileOverlayCopy;
     }
   }
+  else
+    LOG(LDEBUG, ("UVRLOG : Tile not found s=", ri.m_tileScale, " x=", ri.m_x, " y=", ri.m_y));
 }
 
 void FilterElementsBySharpness(shared_ptr<graphics::OverlayElement> const & e,
@@ -239,6 +214,7 @@ bool ScreenCoverage::Cache(core::CommandsQueue::Environment const & env)
 
 void ScreenCoverage::SetScreen(ScreenBase const & screen)
 {
+  LOG(LDEBUG, ("UVRLOG : Start ScreenCoverage::SetScreen. m_SequenceID=", GetSequenceID()));
   m_screen = screen;
 
   m_newTileRects.clear();
@@ -326,6 +302,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   for (unsigned i = 0; i < newRectsCount; ++i)
   {
     Tiler::RectInfo nr = newRects[i];
+    LOG(LDEBUG, ("UVRLOG : NewRect add s=", nr.m_tileScale, " x=", nr.m_x, " y=", nr.m_y, " m_SequenceID=", GetSequenceID()));
 
     Tiler::RectInfo cr[4] =
     {
@@ -356,7 +333,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   m_tileRenderer->ClearCommands();
   /// setting new sequenceID
   m_tileRenderer->SetSequenceID(GetSequenceID());
-
+  LOG(LDEBUG, ("UVRLOG : Cancel commands from set rect. m_SequenceID =", GetSequenceID()));
   m_tileRenderer->CancelCommands();
 
   // filtering out rects that are fully covered by its descedants
@@ -397,7 +374,8 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
     chain.addCommand(bind(&TileRenderer::RemoveActiveTile,
                           m_tileRenderer,
-                          ri));
+                          ri,
+                          GetSequenceID()));
 
     if (curNewTile == newRectsCount - 1)
       chain.addCommand(bind(&CoverageGenerator::AddFinishSequenceTask,

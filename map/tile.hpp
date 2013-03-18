@@ -24,6 +24,7 @@ struct Tile
   Tiler::RectInfo m_rectInfo; //< taken from tiler
   double m_duration; //< how long does it take to render tile
   bool m_isEmptyDrawing; //< does this tile contains only coasts and oceans
+  int m_sequenceID; // SequenceID in witch tile was rendered
 
   Tile();
 
@@ -32,7 +33,8 @@ struct Tile
        ScreenBase const & tileScreen,
        Tiler::RectInfo const & rectInfo,
        double duration,
-       bool isEmptyDrawing);
+       bool isEmptyDrawing,
+       int sequenceID);
 
   ~Tile();
 };

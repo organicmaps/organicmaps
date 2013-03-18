@@ -103,8 +103,8 @@ public:
                   core::CommandsQueue::Chain const & afterTileFns = core::CommandsQueue::Chain());
   /// get tile cache.
   TileCache & GetTileCache();
-  /// get tile set
-  TileSet & GetTileSet();
+  /// get tile from render if tile already rendered, otherwise return NULL
+  Tile const * GetTile(Tiler::RectInfo const & rectInfo);
   /// wait on a condition variable for an empty queue.
   void WaitForEmptyAndFinished();
 
@@ -122,7 +122,7 @@ public:
   void AddActiveTile(Tile const & tile);
   /// remove tile from the TileSet.
   /// @param doUpdateCache shows, whether we should
-  void RemoveActiveTile(Tiler::RectInfo const & rectInfo);
+  void RemoveActiveTile(Tiler::RectInfo const & rectInfo, int sequenceID);
 
   void SetIsPaused(bool flag);
 
