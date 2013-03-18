@@ -66,6 +66,13 @@ SOURCES += \
   src/google/protobuf/stubs/strutil.cc \
   src/google/protobuf/stubs/substitute.cc \
 
+}
+
+linux* {
+  SOURCES += src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc
+}
+
+# Headers are always included for all configurations
 HEADERS += \
   config.h \
   src/google/protobuf/descriptor.h \
@@ -92,8 +99,5 @@ HEADERS += \
   src/google/protobuf/stubs/hash.h \
   src/google/protobuf/stubs/map-util.h \
   src/google/protobuf/stubs/once.h \
-  src/google/protobuf/stubs/stl_util-inl.h \
   src/google/protobuf/stubs/strutil.h \
   src/google/protobuf/stubs/substitute.h \
-
-}
