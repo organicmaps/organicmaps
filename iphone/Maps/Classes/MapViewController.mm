@@ -690,4 +690,9 @@ NSInteger compareAddress(id l, id r, void * context)
   }
 }
 
+- (void)showBallonWithCategoryIndex:(int)index andBookmarkIndex:(int)bmIndex
+{
+  [self onBookmarkClickWithBookmarkAndCategory:BookmarkAndCategory(index, bmIndex)];
+}
+
 @end

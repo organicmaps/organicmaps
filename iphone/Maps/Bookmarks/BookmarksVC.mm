@@ -5,6 +5,7 @@
 #import "SelectSetVC.h"
 #import "CompassView.h"
 #import "BookmarkCell.h"
+#import "MapViewController.h"
 
 #include "Framework.h"
 
@@ -222,6 +223,7 @@
         {
           // Same as "Close".
           f.ShowBookmark(*bm);
+          [[MapsAppDelegate theApp].m_mapViewController showBallonWithCategoryIndex:m_categoryIndex andBookmarkIndex:indexPath.row];
           [self dismissModalViewControllerAnimated:YES];
           [self.navigationController.visibleViewController dismissModalViewControllerAnimated:YES];
         }
