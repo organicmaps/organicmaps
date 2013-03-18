@@ -26,6 +26,12 @@ int TileSet::GetTileSequenceID(Tiler::RectInfo const & rectInfo)
   return m_tiles[rectInfo].m_sequenceID;
 }
 
+void TileSet::SetTileSequenceID(Tiler::RectInfo const & rectInfo, int sequenceID)
+{
+  ASSERT(HasTile(rectInfo), ());
+  m_tiles[rectInfo].m_sequenceID = sequenceID;
+}
+
 void TileSet::RemoveTile(const Tiler::RectInfo &rectInfo)
 {
   m_tiles.erase(rectInfo);

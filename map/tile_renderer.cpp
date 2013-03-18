@@ -374,11 +374,18 @@ void TileRenderer::WaitForEmptyAndFinished()
 
 bool TileRenderer::HasTile(Tiler::RectInfo const & rectInfo)
 {
+  TileStructuresLockGuard guard(m_tileCache, m_tileSet);
+
+  if (m_tileSet.HasTile(rectInfo))
+  {
+    m_tileSet.SetTileSequenceID(rectInfo, m_sequenceID);
+    return true;
+  }
   TileCache & tileCache = GetTileCache();
-  tileCache.Lock();
-  bool res = tileCache.HasTile(rectInfo);
-  tileCache.Unlock();
-  return res;
+  if (tileCache.HasTile(rectInfo))
+    return true;
+
+  return false;
 }
 
 void TileRenderer::SetIsPaused(bool flag)
