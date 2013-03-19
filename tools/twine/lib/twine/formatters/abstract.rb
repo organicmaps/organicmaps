@@ -57,6 +57,9 @@ module Twine
         # 1) use "s" instead of "@" for substituting strings
         str.gsub!(/%([0-9\$]*)@/, '%\1s')
 
+        # 1a) escape strings that begin with a lone "@"
+        str.sub!(/^@ /, '\\@ ')
+
         # 2) if there is more than one substitution in a string, make sure they are numbered
         substituteCount = 0
         startFound = false
@@ -148,10 +151,11 @@ module Twine
           raise Twine::Error.new("Directory does not exist: #{path}")
         end
 
+        file_name = @options[:file_name] || default_file_name
         Dir.foreach(path) do |item|
           lang = determine_language_given_path(item)
           if lang
-            write_file(File.join(path, item, default_file_name), lang)
+            write_file(File.join(path, item, file_name), lang)
           end
         end
       end

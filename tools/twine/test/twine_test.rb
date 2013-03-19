@@ -1,4 +1,4 @@
-require 'ERB'
+require 'erb'
 require 'rubygems'
 require 'test/unit'
 require 'twine'
@@ -36,6 +36,22 @@ class TwineTest < Test::Unit::TestCase
     end
   end
 
+  def test_generate_string_file_5
+    Dir.mktmpdir do |dir|
+      output_path = File.join(dir, 'en.po')
+      Twine::Runner.run(%W(generate-string-file test/fixtures/strings-1.txt #{output_path} -t tag1))
+      assert_equal(ERB.new(File.read('test/fixtures/test-output-7.txt')).result, File.read(output_path))
+    end
+  end
+
+  def test_generate_string_file_6
+    Dir.mktmpdir do |dir|
+      output_path = File.join(dir, 'en.xml')
+      Twine::Runner.run(%W(generate-string-file test/fixtures/strings-3.txt #{output_path}))
+      assert_equal(ERB.new(File.read('test/fixtures/test-output-8.txt')).result, File.read(output_path))
+    end
+  end
+
   def test_consume_string_file_1
     Dir.mktmpdir do |dir|
       output_path = File.join(dir, 'strings.txt')
@@ -56,6 +72,14 @@ class TwineTest < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       output_path = File.join(dir, 'strings.txt')
       Twine::Runner.run(%W(consume-string-file test/fixtures/strings-1.txt test/fixtures/en-1.json -o #{output_path} -l en -a))
+      assert_equal(File.read('test/fixtures/test-output-4.txt'), File.read(output_path))
+    end
+  end
+
+  def test_consume_string_file_4
+    Dir.mktmpdir do |dir|
+      output_path = File.join(dir, 'strings.txt')
+      Twine::Runner.run(%W(consume-string-file test/fixtures/strings-1.txt test/fixtures/en-1.po -o #{output_path} -l en -a))
       assert_equal(File.read('test/fixtures/test-output-4.txt'), File.read(output_path))
     end
   end

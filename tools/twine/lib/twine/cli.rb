@@ -15,7 +15,7 @@ module Twine
       parser = OptionParser.new do |opts|
         opts.banner = 'Usage: twine COMMAND STRINGS_FILE [INPUT_OR_OUTPUT_PATH] [--lang LANG1,LANG2...] [--tags TAG1,TAG2,TAG3...] [--format FORMAT]'
         opts.separator ''
-        opts.separator 'The purpose of this script is to convert back and forth between multiple data formats, allowing us to treat our strings (and translations) as data stored in a text file. We can then use the data file to create drops for the localization team, consume similar drops returned by the localization team, generate reports on the strings, as well as create formatted string files to ship with your products. Twine currently supports iOS, OS X, Android, and jquery-localize string files.'
+        opts.separator 'The purpose of this script is to convert back and forth between multiple data formats, allowing us to treat our strings (and translations) as data stored in a text file. We can then use the data file to create drops for the localization team, consume similar drops returned by the localization team, generate reports on the strings, as well as create formatted string files to ship with your products. Twine currently supports iOS, OS X, Android, gettext, and jquery-localize string files.'
         opts.separator ''
         opts.separator 'Commands:'
         opts.separator ''
@@ -63,6 +63,9 @@ module Twine
         end
         opts.on('-o', '--output-file OUTPUT_FILE', 'Write the new strings database to this file instead of replacing the original file. This flag is only useful when running the consume-string-file or consume-loc-drop commands.') do |o|
           @options[:output_path] = o
+        end
+        opts.on('-n', '--file-name FILE_NAME', 'When running the generate-all-string-files command, this flag may be used to overwrite the default file name of the format.') do |n|
+          @options[:file_name] = n
         end
         opts.on('-d', '--developer-language LANG', 'When writing the strings data file, set the specified language as the "developer language". In practice, this just means that this language will appear first in the strings data file.') do |d|
           @options[:developer_language] = d
