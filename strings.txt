@@ -1684,3 +1684,7 @@
     cs = Stahování země (%@), v níž hledáš
     nl = Download land (%@) waar je op wilt zoeken
     de = Land (%@) herunterladen, von dem aus Sie suchen
+  [flurry_app_key]
+    en =
+    tags = android
+    comment = The app key for Flurry; needed in order for the Android library to build properly.
