@@ -466,7 +466,7 @@ namespace graphics
       OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 
       OGLCHECK(glEnable(GL_DEPTH_TEST));
-      OGLCHECK(glDepthFunc(GL_GEQUAL));
+      OGLCHECK(glDepthFunc(GL_LEQUAL));
 
       OGLCHECK(glEnable(GL_BLEND));
       OGLCHECK(glDepthMask(GL_TRUE));
@@ -536,7 +536,7 @@ namespace graphics
       OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 
       OGLCHECK(glEnable(GL_DEPTH_TEST));
-      OGLCHECK(glDepthFunc(GL_GEQUAL));
+      OGLCHECK(glDepthFunc(GL_LEQUAL));
 
       OGLCHECK(glEnable(GL_BLEND));
       OGLCHECK(glDepthMask(GL_TRUE));

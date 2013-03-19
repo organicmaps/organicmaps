@@ -110,7 +110,7 @@ public:
   void beginFrame();
   void endFrame();
 
-  void clear(graphics::Color const & c = graphics::Color(187, 187, 187, 255), bool clearRT = true, float depth = -1.0f, bool clearDepth = true);
+  void clear(graphics::Color const & c = graphics::Color(187, 187, 187, 255), bool clearRT = true, float depth = 1.0f, bool clearDepth = true);
 
   void onSize(int w, int h);
 
