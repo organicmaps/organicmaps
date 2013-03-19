@@ -70,8 +70,10 @@ void MapsWithMe_LatLonToString(double lat, double lon, char * s, int nBytes)
   }
 }
 
-char * MapsWithMe_GenShortShowMapUrl(double lat, double lon, double zoomLevel, char const * name)
+int MapsWithMe_GenShortShowMapUrl(double lat, double lon, double zoomLevel, char const * name, char * buf, int bufSize)
 {
   // @TODO: Implement MapsWithMe_GenShortShowMapUrl().
+  // @TODO: Escape URL-unfriendly characters: ! * ' ( ) ; : @ & = + $ , / ? % # [ ]
+
   return 0;
 }

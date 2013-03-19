@@ -39,7 +39,8 @@ char * MapsWithMe_GenShowMapUrl(MapsWithMe_ShowMapRequest const * request);
 */
 
 // Helper method to generate short url.
-char * MapsWithMe_GenShortShowMapUrl(double lat, double lon, double zoomLevel, char const * name);
+// Returns the number of bytes required to fit the whole URL or an error_code < 0 on error.
+int MapsWithMe_GenShortShowMapUrl(double lat, double lon, double zoomLevel, char const * name, char * buf, int bufSize);
 
 #ifdef __cplusplus
 }  // Closing brace for extern "C"
