@@ -127,7 +127,7 @@ if [[ $1 == "--generate" || $1 == "--continue" || $1 == "--full" ]]; then
     extension="${filename##*.}"
     filename="${filename%.*.*}"
     $GENERATOR_TOOL $PARAMS_WITH_SEARCH -output="$filename" &
-    forky $PROCESSORS
+    forky
   done
 
   wait
