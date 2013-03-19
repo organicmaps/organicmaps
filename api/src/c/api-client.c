@@ -45,7 +45,7 @@ int MapsWithMe_LonToInt(double lon, int maxValue)
   return (x <= 0 || x >= maxValue + 1) ? 0 : (int)x;
 }
 
-void MapsWithMe_LatLonToString(double lat, double lon, int nBytes, char * s)
+void MapsWithMe_LatLonToString(double lat, double lon, char * s, int nBytes)
 {
   if (nBytes > MAPSWITHME_MAX_POINT_BYTES)
     nBytes = MAPSWITHME_MAX_POINT_BYTES;

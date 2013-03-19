@@ -5,7 +5,7 @@ char MapsWithMe_Base64Char(int x);
 int MapsWithMe_LatToInt(double lat, int maxValue);
 double MapsWithMe_LonIn180180(double lon);
 int MapsWithMe_LonToInt(double lon, int maxValue);
-void MapsWithMe_LatLonToString(double lat, double lon, int nBytes, char * s);
+void MapsWithMe_LatLonToString(double lat, double lon, char * s, int nBytes);
 
 static const int MAX_POINT_BYTES = 10;
 static const int TEST_COORD_BYTES = 9;
@@ -13,7 +13,7 @@ static const int TEST_COORD_BYTES = 9;
 char const * TestLatLonToStr(double lat, double lon)
 {
   static char s[TEST_COORD_BYTES + 1] = {0};
-  MapsWithMe_LatLonToString(lat, lon, TEST_COORD_BYTES, s);
+  MapsWithMe_LatLonToString(lat, lon, s, TEST_COORD_BYTES);
   return s;
 }
 
@@ -196,13 +196,13 @@ FCT_BGN()
       for (double lon = -190; lon < 190; lon += 0.9)
       {
         char prevStepS[MAX_POINT_BYTES + 1] = {0};
-        MapsWithMe_LatLonToString(lat, lon, MAX_POINT_BYTES, prevStepS);
+        MapsWithMe_LatLonToString(lat, lon, prevStepS, MAX_POINT_BYTES);
 
         for (int len = MAX_POINT_BYTES - 1; len > 0; --len)
         {
           // Test that the current string is a prefix of the previous one.
           char s[MAX_POINT_BYTES] = {0};
-          MapsWithMe_LatLonToString(lat, lon, len, s);
+          MapsWithMe_LatLonToString(lat, lon, s, len);
           prevStepS[len] = 0;
           fct_chk_eq_str(s, prevStepS);
         }
@@ -225,7 +225,7 @@ FCT_BGN()
       for (double lon = -180; lon < 180; lon += 0.05)
       {
         char s[3] = {0};
-        MapsWithMe_LatLonToString(lat, lon, 2, s);
+        MapsWithMe_LatLonToString(lat, lon, s, 2);
         ++num1[b64toI[s[0]]];
         ++num2[b64toI[s[0]]][b64toI[s[1]]];
        }
