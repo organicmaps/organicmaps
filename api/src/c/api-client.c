@@ -2,13 +2,14 @@
 #include <assert.h>
 #include <math.h>
 
-#define MAPSWITHME_MAX_COORD_BYTES 10
-#define MAPSWITHME_MAX_COORD_BITS (MAPSWITHME_MAX_COORD_BYTES * 3)
+// Max number of base64 bytes to encode a geo point.
+#define MAPSWITHME_MAX_POINT_BYTES 10
+#define MAPSWITHME_MAX_COORD_BITS (MAPSWITHME_MAX_POINT_BYTES * 3)
 
 char MapsWithMe_Base64Char(int x)
 {
   assert(x >= 0 && x < 64);
-  return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._"[x];
+  return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"[x];
 }
 
 // Map latitude: [-90, 90] -> [0, maxValue]
@@ -46,8 +47,8 @@ int MapsWithMe_LonToInt(double lon, int maxValue)
 
 void MapsWithMe_LatLonToString(double lat, double lon, int nBytes, char * s)
 {
-  if (nBytes > MAPSWITHME_MAX_COORD_BYTES)
-    nBytes = MAPSWITHME_MAX_COORD_BYTES;
+  if (nBytes > MAPSWITHME_MAX_POINT_BYTES)
+    nBytes = MAPSWITHME_MAX_POINT_BYTES;
 
   int const latI = MapsWithMe_LatToInt(lat, (1 << MAPSWITHME_MAX_COORD_BITS) - 1);
   int const lonI = MapsWithMe_LonToInt(lon, (1 << MAPSWITHME_MAX_COORD_BITS) - 1);
