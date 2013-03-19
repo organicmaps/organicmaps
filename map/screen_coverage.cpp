@@ -125,8 +125,8 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
       delete tileOverlayCopy;
     }
   }
-  else
-    LOG(LDEBUG, ("UVRLOG : Tile not found s=", ri.m_tileScale, " x=", ri.m_x, " y=", ri.m_y));
+  //else
+  //  LOG(LDEBUG, ("UVRLOG : Tile not found s=", ri.m_tileScale, " x=", ri.m_x, " y=", ri.m_y));
 }
 
 void FilterElementsBySharpness(shared_ptr<graphics::OverlayElement> const & e,
@@ -214,7 +214,7 @@ bool ScreenCoverage::Cache(core::CommandsQueue::Environment const & env)
 
 void ScreenCoverage::SetScreen(ScreenBase const & screen)
 {
-  LOG(LDEBUG, ("UVRLOG : Start ScreenCoverage::SetScreen. m_SequenceID=", GetSequenceID()));
+  //LOG(LDEBUG, ("UVRLOG : Start ScreenCoverage::SetScreen. m_SequenceID=", GetSequenceID()));
   m_screen = screen;
 
   m_newTileRects.clear();
@@ -302,7 +302,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   for (unsigned i = 0; i < newRectsCount; ++i)
   {
     Tiler::RectInfo nr = newRects[i];
-    LOG(LDEBUG, ("UVRLOG : NewRect add s=", nr.m_tileScale, " x=", nr.m_x, " y=", nr.m_y, " m_SequenceID=", GetSequenceID()));
+    //LOG(LDEBUG, ("UVRLOG : NewRect add s=", nr.m_tileScale, " x=", nr.m_x, " y=", nr.m_y, " m_SequenceID=", GetSequenceID()));
 
     Tiler::RectInfo cr[4] =
     {
@@ -333,7 +333,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   m_tileRenderer->ClearCommands();
   /// setting new sequenceID
   m_tileRenderer->SetSequenceID(GetSequenceID());
-  LOG(LDEBUG, ("UVRLOG : Cancel commands from set rect. m_SequenceID =", GetSequenceID()));
+  //LOG(LDEBUG, ("UVRLOG : Cancel commands from set rect. m_SequenceID =", GetSequenceID()));
   m_tileRenderer->CancelCommands();
 
   // filtering out rects that are fully covered by its descedants

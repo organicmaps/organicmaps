@@ -111,7 +111,7 @@ CoverageGenerator::~CoverageGenerator()
 
 void CoverageGenerator::Cancel()
 {
-  LOG(LDEBUG, ("UVRLOG : CoverageGenerator::Cancel"));
+  //LOG(LDEBUG, ("UVRLOG : CoverageGenerator::Cancel"));
   m_queue.Cancel();
 }
 
@@ -240,12 +240,12 @@ void CoverageGenerator::MergeTile(core::CommandsQueue::Environment const & env,
 {
   if (sequenceID < m_sequenceID)
   {
-    LOG(LDEBUG, ("UVRLOG : MergeTile fail. s=", rectInfo.m_tileScale, " x=", rectInfo.m_x, " y=", rectInfo.m_y, " SequenceID=", sequenceID, " m_SequenceID=", m_sequenceID));
+    //LOG(LDEBUG, ("UVRLOG : MergeTile fail. s=", rectInfo.m_tileScale, " x=", rectInfo.m_x, " y=", rectInfo.m_y, " SequenceID=", sequenceID, " m_SequenceID=", m_sequenceID));
     m_tileRenderer->RemoveActiveTile(rectInfo, sequenceID);
     return;
   }
 
-  LOG(LDEBUG, ("UVRLOG : MergeTile s=", rectInfo.m_tileScale, " x=", rectInfo.m_x, " y=", rectInfo.m_y, " SequenceID=", sequenceID, " m_SequenceID=", m_sequenceID));
+  //LOG(LDEBUG, ("UVRLOG : MergeTile s=", rectInfo.m_tileScale, " x=", rectInfo.m_x, " y=", rectInfo.m_y, " SequenceID=", sequenceID, " m_SequenceID=", m_sequenceID));
   m_currentCoverage->CopyInto(*m_workCoverage);
   m_workCoverage->SetSequenceID(sequenceID);
   m_workCoverage->Merge(rectInfo);

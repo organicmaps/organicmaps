@@ -115,7 +115,7 @@ TileRenderer::~TileRenderer()
 {
   m_isExiting = true;
 
-  LOG(LDEBUG, ("UVRLOG : Cancel from ~TileRenderer"));
+  //LOG(LDEBUG, ("UVRLOG : Cancel from ~TileRenderer"));
   m_queue.Cancel();
 
   for (size_t i = 0; i < m_threadData.size(); ++i)
@@ -183,11 +183,11 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   /// commands from the previous sequence are ignored
   if (sequenceID < m_sequenceID)
   {
-    LOG(LDEBUG, ("UVRLOG : tile not rendered. SequenceID=", sequenceID, " m_SequenceID", m_sequenceID));
+    //LOG(LDEBUG, ("UVRLOG : tile not rendered. SequenceID=", sequenceID, " m_SequenceID", m_sequenceID));
     return;
   }
 
-  LOG(LDEBUG, ("UVRLOG : start render tile m_SequenceID=", m_sequenceID));
+  //LOG(LDEBUG, ("UVRLOG : start render tile m_SequenceID=", m_sequenceID));
 
   if (HasTile(rectInfo))
     return;
@@ -403,7 +403,7 @@ void TileRenderer::AddActiveTile(Tile const & tile)
     m_resourceManager->texturePool(graphics::ERenderTargetTexture)->Free(tile.m_renderTarget);
   else
   {
-    LOG(LDEBUG, ("UVRLOG : Add tile to set s=", key.m_tileScale, " x=", key.m_x, " y=", key.m_y, " m_SequenceID=", m_sequenceID));
+    //LOG(LDEBUG, ("UVRLOG : Add tile to set s=", key.m_tileScale, " x=", key.m_x, " y=", key.m_y, " m_SequenceID=", m_sequenceID));
     m_tileSet.AddTile(tile);
   }
 }
@@ -415,7 +415,8 @@ void TileRenderer::RemoveActiveTile(Tiler::RectInfo const & rectInfo, int sequen
   if (m_tileSet.HasTile(rectInfo) && m_tileSet.GetTileSequenceID(rectInfo) <= sequenceID)
   {
     ASSERT(!m_tileCache.HasTile(rectInfo), ("Tile cannot be in tileSet and tileCache at the same time"));
-    LOG(LDEBUG, ("UVRLOG : Remove tile from set s=", rectInfo.m_tileScale, " x=", rectInfo.m_x, " y=", rectInfo.m_y, " m_SequenceID=", m_sequenceID));
+    //LOG(LDEBUG, ("UVRLOG : Remove tile from set s=", rectInfo.m_tileScale, " x=", rectInfo.m_x, " y=", rectInfo.m_y, " m_SequenceID=", m_sequenceID));
+    m_resourceManager->texturePool(graphics::ERenderTargetTexture)->Free(m_tileSet.GetTile(rectInfo).m_renderTarget);
     m_tileSet.RemoveTile(rectInfo);
   }
 }
