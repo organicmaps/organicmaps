@@ -54,7 +54,8 @@ HEADERS += \
     bookmark_balloon.hpp \
     feature_info.hpp \
     area_info.hpp \
-    geometry_processors.hpp
+    geometry_processors.hpp \
+    bookmark_manager.hpp \
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -99,7 +100,8 @@ SOURCES += \
     feature_styler.cpp \
     bookmark_balloon.cpp \
     feature_info.cpp \
-    geometry_processors.cpp
+    geometry_processors.cpp \
+    bookmark_manager.cpp \
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp

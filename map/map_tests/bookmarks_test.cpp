@@ -220,18 +220,18 @@ UNIT_TEST(Bookmarks_Timestamp)
   m2::PointD const orgPoint(10, 10);
 
   Bookmark b1(orgPoint, "name", "type");
-  fm.AddBookmark("cat", b1);
+  fm.AddCategory("cat");
+  fm.AddBookmark(0, b1);
 
   Bookmark const * pBm = GetBookmark(fm, orgPoint);
   time_t const timeStamp = pBm->GetTimeStamp();
   TEST_NOT_EQUAL(timeStamp, my::INVALID_TIME_STAMP, ());
 
-  // Replace/update bookmark
   Bookmark b3(orgPoint, "newName", "newType");
   b3.SetTimeStamp(12345);
   TEST_NOT_EQUAL(b3.GetTimeStamp(), timeStamp, ());
 
-  fm.AddBookmark("cat", b3);
+  fm.AddBookmark(0, b3);
 
   pBm = GetBookmark(fm, orgPoint);
   TEST_EQUAL(pBm->GetTimeStamp(), timeStamp, ());
@@ -239,8 +239,21 @@ UNIT_TEST(Bookmarks_Timestamp)
   b3.SetTimeStamp(12345);
   TEST_NOT_EQUAL(b3.GetTimeStamp(), timeStamp, ());
 
-  // Move bookmark to the new category
-  fm.AddBookmark("cat1", b3);
+  fm.AddCategory("cat1");
+  fm.AddBookmark(1, b3);
+
+  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(0)->GetName(), "name", ());
+  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(0)->GetType(), "type", ());
+
+  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(1)->GetName(), "newName", ());
+  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(1)->GetType(), "newType", ());
+
+  TEST_EQUAL(fm.GetBmCategory(1)->GetBookmark(0)->GetName(), "newName", ());
+  TEST_EQUAL(fm.GetBmCategory(1)->GetBookmark(0)->GetType(), "newType", ());
+
+  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmarksCount(), 2, ());
+  TEST_EQUAL(fm.GetBmCategory(1)->GetBookmarksCount(), 1, ());
+
 
   pBm = GetBookmark(fm, orgPoint);
   TEST_EQUAL(pBm->GetTimeStamp(), timeStamp, ());
@@ -256,20 +269,26 @@ UNIT_TEST(Bookmarks_Getting)
   //TEST(m2::AlmostEqual(m2::PointD(400, 200), pixC), (pixC));
 
   char const * arrCat[] = { "cat1", "cat2", "cat3" };
+  for (int i = 0; i < 3; ++i)
+    fm.AddCategory(arrCat[i]);
 
   Bookmark bm(m2::PointD(38, 20), "1", "placemark-red");
-  BookmarkCategory const * c1 = fm.AddBookmark(arrCat[0], bm);
+  fm.AddBookmark(0, bm);
+  BookmarkCategory const * c1 = fm.GetBmCategory(0);
   bm = Bookmark(m2::PointD(41, 20), "2", "placemark-red");
-  BookmarkCategory const * c2 = fm.AddBookmark(arrCat[1], bm);
+  fm.AddBookmark(1, bm);
+  BookmarkCategory const * c2 = fm.GetBmCategory(1);
   bm = Bookmark(m2::PointD(41, 40), "3", "placemark-red");
-  BookmarkCategory const * c3 = fm.AddBookmark(arrCat[2], bm);
+  fm.AddBookmark(2, bm);
+  BookmarkCategory const * c3 = fm.GetBmCategory(2);
+
 
   TEST_NOT_EQUAL(c1, c2, ());
   TEST_NOT_EQUAL(c2, c3, ());
   TEST_NOT_EQUAL(c1, c3, ());
 
-  (void)fm.GetBmCategory("notExistingCat");
-  TEST_EQUAL(fm.GetBmCategoriesCount(), 4, ());
+  (void)fm.GetBmCategory(4);
+  TEST_EQUAL(fm.GetBmCategoriesCount(), 3, ());
 
   BookmarkAndCategory res = fm.GetBookmark(fm.GtoP(m2::PointD(40, 20)), 1.0);
   TEST(IsValid(res), ());
@@ -290,9 +309,9 @@ UNIT_TEST(Bookmarks_Getting)
   TEST_EQUAL(pBm->GetName(), "3", ());
   TEST_EQUAL(pBm->GetType(), "placemark-red", ());
 
-  // This one should replace previous bookmark
   bm = Bookmark(m2::PointD(41, 40), "4", "placemark-blue");
-  BookmarkCategory const * c33 = fm.AddBookmark(arrCat[2], bm);
+  fm.AddBookmark(2, bm);
+  BookmarkCategory const * c33 = fm.GetBmCategory(2);
 
   TEST_EQUAL(c33, c3, ());
 
@@ -301,13 +320,14 @@ UNIT_TEST(Bookmarks_Getting)
   BookmarkCategory * cat = fm.GetBmCategory(res.first);
   TEST(cat, ());
   pBm = cat->GetBookmark(res.second);
-  TEST_EQUAL(pBm->GetName(), "4", ());
-  TEST_EQUAL(pBm->GetType(), "placemark-blue", ());
+  //should find first valid result, there two results with the same coordinates 3 and 4
+  TEST_EQUAL(pBm->GetName(), "3", ());
+  TEST_EQUAL(pBm->GetType(), "placemark-red", ());
 
-  TEST_EQUAL(cat->GetBookmarksCount(), 1, ());
+  TEST_EQUAL(cat->GetBookmarksCount(), 2, ());
 
   cat->DeleteBookmark(0);
-  TEST_EQUAL(cat->GetBookmarksCount(), 0, ());
+  TEST_EQUAL(cat->GetBookmarksCount(), 1, ());
 
   //DeleteCategoryFiles(arrCat);
 }
@@ -320,7 +340,7 @@ UNIT_TEST(Bookmarks_AddressInfo)
   Framework::AddressInfo info;
   fm.GetAddressInfo(m2::PointD(MercatorBounds::LonToX(27.5556), MercatorBounds::LatToY(53.8963)), info);
 
-  TEST_EQUAL(info.m_street, "ул. Карла Маркса", ());
+  TEST_EQUAL(info.m_street, "улица Карла Маркса", ());
   TEST_EQUAL(info.m_house, "10", ());
   TEST_EQUAL(info.m_name, "Библос", ());
   TEST_EQUAL(info.m_types.size(), 1, ());
@@ -388,21 +408,24 @@ UNIT_TEST(Bookmarks_AddingMoving)
   fm.ShowRect(m2::RectD(0, 0, 80, 40));
 
   char const * arrCat[] = { "cat1", "cat2" };
+  for (int i = 0; i < 2; ++i)
+    fm.AddCategory(arrCat[i]);
 
   m2::PointD const globalPoint = m2::PointD(40, 20);
   m2::PointD const pixelPoint = fm.GtoP(globalPoint);
 
   Bookmark bm(globalPoint, "name", "placemark-red");
-  BookmarkCategory const * c1 = fm.AddBookmark(arrCat[0], bm);
+  fm.AddBookmark(0, bm);
+  BookmarkCategory const * c1 = fm.GetBmCategory(0);
   BookmarkAndCategory res = fm.GetBookmark(pixelPoint, 1.0);
   TEST(IsValid(res), ());
   TEST_EQUAL(res.second, 0, ());
   TEST_EQUAL(res.first, 0, ());
   TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), arrCat[0], ());
 
-  // Edit the name and type of bookmark
   bm = Bookmark(globalPoint, "name2", "placemark-blue");
-  BookmarkCategory const * c11 = fm.AddBookmark(arrCat[0], bm);
+  fm.AddBookmark(0, bm);
+  BookmarkCategory const * c11 = fm.GetBmCategory(0);
   TEST_EQUAL(c1, c11, ());
   res = fm.GetBookmark(pixelPoint, 1.0);
   TEST(IsValid(res), ());
@@ -410,24 +433,25 @@ UNIT_TEST(Bookmarks_AddingMoving)
   TEST_EQUAL(res.first, 0, ());
   TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), arrCat[0], ());
   Bookmark const * pBm = fm.GetBmCategory(res.first)->GetBookmark(res.second);
-  TEST_EQUAL(pBm->GetName(), "name2", ());
-  TEST_EQUAL(pBm->GetType(), "placemark-blue", ());
+  TEST_EQUAL(pBm->GetName(), "name", ());
+  TEST_EQUAL(pBm->GetType(), "placemark-red", ());
 
   // Edit name, type and category of bookmark
   bm = Bookmark(globalPoint, "name3", "placemark-green");
-  BookmarkCategory const * c2 = fm.AddBookmark(arrCat[1], bm);
+  fm.AddBookmark(1, bm);
+  BookmarkCategory const * c2 = fm.GetBmCategory(1);
   TEST_NOT_EQUAL(c1, c2, ());
   TEST_EQUAL(fm.GetBmCategoriesCount(), 2, ());
   res = fm.GetBookmark(pixelPoint, 1.0);
   TEST(IsValid(res), ());
   TEST_EQUAL(res.second, 0, ());
-  TEST_EQUAL(res.first, 1, ());
-  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), arrCat[1], ());
-  TEST_EQUAL(fm.GetBmCategory(arrCat[0])->GetBookmarksCount(), 0,
+  TEST_EQUAL(res.first, 0, ());
+  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), arrCat[0], ());
+  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmarksCount(), 2,
              ("Bookmark wasn't moved from one category to another"));
   pBm = fm.GetBmCategory(res.first)->GetBookmark(res.second);
-  TEST_EQUAL(pBm->GetName(), "name3", ());
-  TEST_EQUAL(pBm->GetType(), "placemark-green", ());
+  TEST_EQUAL(pBm->GetName(), "name", ());
+  TEST_EQUAL(pBm->GetType(), "placemark-red", ());
 
   //DeleteCategoryFiles(arrCat);
 }

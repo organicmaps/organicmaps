@@ -187,7 +187,8 @@ Framework::Framework()
     m_height(0),
     m_informationDisplay(this),
     m_lowestMapVersion(numeric_limits<int>::max()),
-    m_benchmarkEngine(0)
+    m_benchmarkEngine(0),
+    m_bmManager(*this)
 {
   // Checking whether we should enable benchmark.
   bool isBenchmarkingEnabled = false;
@@ -256,7 +257,6 @@ Framework::Framework()
 Framework::~Framework()
 {
   delete m_benchmarkEngine;
-  ClearBookmarks();
 }
 
 double Framework::GetVisualScale() const
@@ -374,76 +374,17 @@ void Framework::LoadBookmarks()
 {
   if (!GetPlatform().IsPro())
     return;
-
-  ClearBookmarks();
-
-  string const dir = GetPlatform().WritableDir();
-  Platform::FilesList files;
-  Platform::GetFilesByExt(dir, KML_EXTENSION, files);
-  for (size_t i = 0; i < files.size(); ++i)
-  {
-    LoadBookmark(dir+files[i]);
-  }
+  m_bmManager.LoadBookmarks();
 }
 
-void Framework::LoadBookmark(string const & filePath)
+size_t Framework::AddBookmark(size_t const & categoryIndex, Bookmark & bm)
 {
-  BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(filePath);
-  if (cat)
-  {
-    m_bookmarks.push_back(cat);
-
-    LOG(LINFO, ("Loaded bookmarks category", cat->GetName(), "with", cat->GetBookmarksCount(), "bookmarks"));
-  }
+  return m_bmManager.AddBookmark(categoryIndex, bm);
 }
 
-BookmarkAndCategory Framework::AddBookmarkEx(string const & category, Bookmark & bm)
+size_t Framework::AddCategory(string const & categoryName)
 {
-  // Get global non-rotated viewport rect and calculate viewport scale level.
-  bm.SetScale(scales::GetScaleLevelD(m_navigator.Screen().GlobalRect().GetLocalRect()));
-
-  bm.SetTimeStamp(time(0));
-
-  // @TODO not optimal for 1st release
-  // Existing bookmark can be moved from one category to another,
-  // or simply replaced in the same category,
-  // so we scan all categories for the same bookmark
-  double const squareDistance = my::sq(1.0 * MercatorBounds::degreeInMetres);
-  for (size_t i = 0; i < m_bookmarks.size(); ++i)
-  {
-    m2::PointD const org = bm.GetOrg();
-    BookmarkCategory * cat = m_bookmarks[i];
-    int const index = cat->GetBookmark(org, squareDistance);
-    if (index >= 0)
-    {
-      size_t const ind = static_cast<size_t>(index);
-
-      // copy needed params from the old bookmark
-      cat->AssignTimeStamp(ind, bm);
-
-      if (category == cat->GetName())
-      {
-        // found bookmark to replace
-        cat->ReplaceBookmark(ind, bm);
-        return BookmarkAndCategory(i, index);
-      }
-      else
-      {
-        // bookmark was moved from one category to another
-        cat->DeleteBookmark(ind);
-      }
-    }
-  }
-
-  size_t const ind = GetBmCategoryEx(category);
-  BookmarkCategory * cat = m_bookmarks[ind];
-  cat->AddBookmark(bm);
-  return BookmarkAndCategory(ind, cat->GetBookmarksCount()-1);
-}
-
-BookmarkCategory * Framework::AddBookmark(string const & category, Bookmark & bm)
-{
-  return m_bookmarks[AddBookmarkEx(category, bm).first];
+  return m_bmManager.CreateBmCategory(categoryName);
 }
 
 namespace
@@ -460,69 +401,19 @@ namespace
   };
 }
 
-Framework::CategoryIter Framework::FindBmCategory(string const & name)
-{
-  return find_if(m_bookmarks.begin(), m_bookmarks.end(), EqualCategoryName(name));
-}
-
-bool Framework::IsCategoryExist(string const & name)
-{
-  return (m_bookmarks.end() != find_if(m_bookmarks.begin(), m_bookmarks.end(), EqualCategoryName(name)));
-}
-
 BookmarkCategory * Framework::GetBmCategory(size_t index) const
 {
-  return (index < m_bookmarks.size() ? m_bookmarks[index] : 0);
+  return m_bmManager.GetBmCategory(index);
 }
 
-size_t Framework::GetBmCategoryEx(string const & name)
+size_t Framework::LastEditedCategory()
 {
-  CategoryIter i = FindBmCategory(name);
-  if (i != m_bookmarks.end())
-    return distance(m_bookmarks.begin(), i);
-
-  // Automatically create not existing category
-  m_bookmarks.push_back(new BookmarkCategory(name));
-  return (m_bookmarks.size()-1);
-}
-
-BookmarkCategory * Framework::GetBmCategory(string const & name)
-{
-  return m_bookmarks[GetBmCategoryEx(name)];
-}
-
-void Framework::DeleteBmCategory(CategoryIter i)
-{
-  BookmarkCategory * cat = *i;
-
-  FileWriter::DeleteFileX(cat->GetFileName());
-
-  delete cat;
-
-  m_bookmarks.erase(i);
+  return m_bmManager.LastEditedBMCategory();
 }
 
 bool Framework::DeleteBmCategory(size_t index)
 {
-  if (index < m_bookmarks.size())
-  {
-    DeleteBmCategory(m_bookmarks.begin() + index);
-    return true;
-  }
-  else
-    return false;
-}
-
-bool Framework::DeleteBmCategory(string const & name)
-{
-  CategoryIter i = FindBmCategory(name);
-  if (i != m_bookmarks.end())
-  {
-    DeleteBmCategory(i);
-    return true;
-  }
-  else
-    return false;
+  return m_bmManager.DeleteBmCategory(index);
 }
 
 BookmarkAndCategory Framework::GetBookmark(m2::PointD const & pxPoint) const
@@ -541,15 +432,35 @@ BookmarkAndCategory Framework::GetBookmark(m2::PointD const & pxPoint, double vi
   int retBookmark = -1;
   double minD = numeric_limits<double>::max();
   bool returnBookmarkIsVisible = false;
-  for (size_t i = 0; i < m_bookmarks.size(); ++i)
+
+  if (m_bmManager.AdditionalLayerIsVisible())
   {
-    bool currentCategoryIsVisible = m_bookmarks[i]->IsVisible();
+    for (int i = 0; i < m_bmManager.AdditionalLayerNumberOfPoi(); ++i)
+    {
+
+      m2::PointD const pt = m_bmManager.AdditionalPoiLayerGetBookmark(i)->GetOrg();
+      if (rect.IsPointInside(pt))
+      {
+        double const d = rect.Center().SquareLength(pt);
+        if (d < minD)
+        {
+          retBookmarkCategory = static_cast<int>(additionalLayerCategory);
+          retBookmark = static_cast<int>(i);
+          minD = d;
+        }
+      }
+    }
+  }
+
+  for (size_t i = 0; i < m_bmManager.GetBmCategoriesCount(); ++i)
+  {
+    bool currentCategoryIsVisible = m_bmManager.GetBmCategory(i)->IsVisible();
     if (!currentCategoryIsVisible && returnBookmarkIsVisible)
       continue;
-    size_t const count = m_bookmarks[i]->GetBookmarksCount();
+    size_t const count = m_bmManager.GetBmCategory(i)->GetBookmarksCount();
     for (size_t j = 0; j < count; ++j)
     {
-      Bookmark const * bm = m_bookmarks[i]->GetBookmark(j);
+      Bookmark const * bm = m_bmManager.GetBmCategory(i)->GetBookmark(j);
       m2::PointD const pt = bm->GetOrg();
 
       if (rect.IsPointInside(pt))
@@ -561,7 +472,7 @@ BookmarkAndCategory Framework::GetBookmark(m2::PointD const & pxPoint, double vi
           retBookmarkCategory = static_cast<int>(i);
           retBookmark = static_cast<int>(j);
           minD = d;
-          returnBookmarkIsVisible = m_bookmarks[i]->IsVisible();
+          returnBookmarkIsVisible = m_bmManager.GetBmCategory(i)->IsVisible();
         }
       }
     }
@@ -582,8 +493,7 @@ void Framework::ShowBookmark(Bookmark const & bm)
 
 void Framework::ClearBookmarks()
 {
-  for_each(m_bookmarks.begin(), m_bookmarks.end(), DeleteFunctor());
-  m_bookmarks.clear();
+  m_bmManager.ClearBookmarks();
 }
 
 namespace
@@ -659,9 +569,54 @@ bool Framework::AddBookmarksFile(string const & filePath)
   }
 
   // Update freshly added bookmarks
-  LoadBookmark(fileSavePath);
+  m_bmManager.LoadBookmark(fileSavePath);
 
   return true;
+}
+
+void Framework::AdditionalPoiLayerSetInvisible()
+{
+  m_bmManager.AdditionalPoiLayerSetInvisible();
+}
+
+void Framework::AdditionalPoiLayerSetVisible()
+{
+  m_bmManager.AdditionalPoiLayerSetVisible();
+}
+
+void Framework::AdditionalPoiLayerAddPoi(Bookmark const & bm)
+{
+  m_bmManager.AdditionalPoiLayerAddPoi(bm);
+}
+
+Bookmark const * Framework::AdditionalPoiLayerGetBookmark(size_t index) const
+{
+  return m_bmManager.AdditionalPoiLayerGetBookmark(index);
+}
+
+void Framework::AdditionalPoiLayerDeleteBookmark(int index)
+{
+  m_bmManager.AdditionalPoiLayerDeleteBookmark(index);
+}
+
+void Framework::AdditionalPoiLayerClear()
+{
+  m_bmManager.AdditionalPoiLayerClear();
+}
+
+bool Framework::IsAdditionalLayerPoi(const BookmarkAndCategory & bm) const
+{
+  return m_bmManager.IsAdditionalLayerPoi(bm);
+}
+
+bool Framework::AdditionalLayerIsVisible()
+{
+  return m_bmManager.AdditionalLayerIsVisible();
+}
+
+size_t Framework::AdditionalLayerNumberOfPoi()
+{
+  return m_bmManager.AdditionalLayerNumberOfPoi();
 }
 
 void Framework::GetLocalMaps(vector<string> & outMaps) const
@@ -871,28 +826,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   if (m_drawPlacemark)
     m_informationDisplay.drawPlacemark(pDrawer, DEFAULT_BOOKMARK_TYPE, m_navigator.GtoP(m_placemark));
 
-  // get viewport limit rect
-  m2::AnyRectD const & glbRect = m_navigator.Screen().GlobalRect();
-
-  for (size_t i = 0; i < m_bookmarks.size(); ++i)
-  {
-    if (m_bookmarks[i]->IsVisible())
-    {
-      size_t const count = m_bookmarks[i]->GetBookmarksCount();
-      for (size_t j = 0; j < count; ++j)
-      {
-        Bookmark const * bm = m_bookmarks[i]->GetBookmark(j);
-        m2::PointD const & org = bm->GetOrg();
-
-        // draw only visible bookmarks on screen
-        if (glbRect.IsPointInside(org))
-        {
-          m_informationDisplay.drawPlacemark(pDrawer, bm->GetType().c_str(),
-                                             m_navigator.GtoP(org));
-        }
-      }
-    }
-  }
+  m_bmManager.DrawBookmarks(e);
 
   pScreen->endFrame();
 
@@ -1483,7 +1417,8 @@ bool Framework::SetViewportByURL(string const & url)
   {
     ShowRectExVisibleScale(info.GetViewport());
     Bookmark bm(info.GetMercatorPoint(), m_stringsBundle.GetString("dropped_pin"), DEFAULT_BOOKMARK_TYPE);
-    AddBookmark(m_stringsBundle.GetString("my_places"), bm);
+    m_bmManager.AdditionalPoiLayerClear();
+    m_bmManager.AdditionalPoiLayerAddPoi(bm);
     Invalidate();
     return true;
   }

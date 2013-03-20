@@ -133,7 +133,7 @@ void SearchPanel::OnSearchResult(ResultsT * res)
     m_results.clear();
 
     Framework & frm = m_pDrawWidget->GetFramework();
-    frm.DeleteBmCategory(SEARCH_CATEGORY);
+    frm.AdditionalPoiLayerClear();
 
     for (ResultsT::IterT i = res->Begin(); i != res->End(); ++i)
     {
@@ -141,7 +141,6 @@ void SearchPanel::OnSearchResult(ResultsT * res)
 
       int const rowCount = m_pTable->rowCount();
       m_pTable->insertRow(rowCount);
-
       m_pTable->setItem(rowCount, 1, create_item(QString::fromUtf8(e.GetString())));
       m_pTable->setItem(rowCount, 2, create_item(QString::fromUtf8(e.GetRegionString())));
 
@@ -149,7 +148,7 @@ void SearchPanel::OnSearchResult(ResultsT * res)
       {
         // For debug purposes: add bookmarks for search results
         Bookmark bm(e.GetFeatureCenter(), e.GetString(), "placemark-red");
-        frm.AddBookmark(SEARCH_CATEGORY, bm);
+        frm.AdditionalPoiLayerAddPoi(bm);
 
         m_pTable->setItem(rowCount, 0,
                           create_item(QString::fromUtf8(e.GetFeatureType())));
@@ -225,7 +224,7 @@ void SearchPanel::showEvent(QShowEvent *)
 
 void SearchPanel::hideEvent(QHideEvent *)
 {
-  m_pDrawWidget->GetFramework().DeleteBmCategory(SEARCH_CATEGORY);
+  m_pDrawWidget->GetFramework().AdditionalPoiLayerClear();
 
   disconnect(m_pDrawWidget, SIGNAL(ViewportChanged()), this, SLOT(OnViewportChanged()));
 

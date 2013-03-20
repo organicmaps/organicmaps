@@ -9,6 +9,7 @@
 #include "animator.hpp"
 #include "feature_vec_model.hpp"
 #include "bookmark.hpp"
+#include "bookmark_manager.hpp"
 
 #include "../defines.hpp"
 
@@ -78,11 +79,7 @@ protected:
   Navigator m_navigator;
   Animator m_animator;
 
-  vector<BookmarkCategory *> m_bookmarks;
-
   typedef vector<BookmarkCategory *>::iterator CategoryIter;
-  CategoryIter FindBmCategory(string const & name);
-  void DeleteBmCategory(CategoryIter i);
 
   scoped_ptr<RenderPolicy> m_renderPolicy;
 
@@ -133,6 +130,8 @@ protected:
 
   BenchmarkEngine * m_benchmarkEngine;
 
+  BookmarkManager m_bmManager;
+
   void ClearAllCaches();
 
   void AddMap(string const & file);
@@ -141,8 +140,6 @@ protected:
 public:
   Framework();
   virtual ~Framework();
-
-  bool IsCategoryExist(string const & name);
   /// @name Process storage connecting/disconnecting.
   //@{
   void AddLocalMaps();
@@ -169,29 +166,23 @@ public:
 
   /// Scans and loads all kml files with bookmarks in WritableDir.
   void LoadBookmarks();
-  void LoadBookmark(string const & filePath);
 
   /// @name Always returns existing or newly created bookmark category.
   //@{
-  BookmarkCategory * AddBookmark(string const & category, Bookmark & bm);
-  BookmarkAndCategory AddBookmarkEx(string const & category, Bookmark & bm);
+  size_t AddBookmark(size_t const & categoryIndex, Bookmark & bm);
   //@}
+  size_t AddCategory(string const & categoryName);
 
-  inline size_t GetBmCategoriesCount() const { return m_bookmarks.size(); }
+  inline size_t GetBmCategoriesCount() const { return m_bmManager.GetBmCategoriesCount();}
   /// @returns 0 if category is not found
   BookmarkCategory * GetBmCategory(size_t index) const;
 
-  /// @name Always creates not existing category.
-  //@{
-  BookmarkCategory * GetBmCategory(string const & name);
-  size_t GetBmCategoryEx(string const & name);
-  //@}
+  size_t LastEditedCategory();
 
   /// @name Delete bookmarks category with all bookmarks.
   /// @return true if category was deleted
   //@{
   bool DeleteBmCategory(size_t index);
-  bool DeleteBmCategory(string const & name);
   //@}
 
   /// @name Get bookmark by touch.
@@ -207,6 +198,17 @@ public:
   void ClearBookmarks();
 
   bool AddBookmarksFile(string const & filePath);
+
+  //Additional Layer methods
+  void AdditionalPoiLayerSetInvisible();
+  void AdditionalPoiLayerSetVisible();
+  void AdditionalPoiLayerAddPoi(Bookmark const & bm);
+  Bookmark const * AdditionalPoiLayerGetBookmark(size_t index) const;
+  void AdditionalPoiLayerDeleteBookmark(int index);
+  void AdditionalPoiLayerClear();
+  bool IsAdditionalLayerPoi(const BookmarkAndCategory & bm) const;
+  bool AdditionalLayerIsVisible();
+  size_t AdditionalLayerNumberOfPoi();
 
   inline m2::PointD PtoG(m2::PointD const & p) const { return m_navigator.PtoG(p); }
   inline m2::PointD GtoP(m2::PointD const & p) const { return m_navigator.GtoP(p); }
