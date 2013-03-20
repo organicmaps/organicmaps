@@ -314,7 +314,7 @@ static void OnSearchResultCallback(search::Results const & res)
   [lastSearchRequest release];
   lastSearchRequest = [[NSString alloc] initWithString:m_searchBar.text];
   [self clearCacheResults];
-  [self proceedSearchWithString:m_searchBar.text andForceSearch:NO];
+  [self proceedSearchWithString:m_searchBar.text andForceSearch:YES];
 }
 
 - (void)onCloseButton:(id)sender
