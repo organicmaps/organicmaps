@@ -1,6 +1,8 @@
 #include "api-client.h"
 #include <assert.h>
 #include <math.h>
+#include <stdlib.h>
+#include <string.h>
 
 // Max number of base64 bytes to encode a geo point.
 #define MAPSWITHME_MAX_POINT_BYTES 10
@@ -70,10 +72,113 @@ void MapsWithMe_LatLonToString(double lat, double lon, char * s, int nBytes)
   }
 }
 
-int MapsWithMe_GenShortShowMapUrl(double lat, double lon, double zoomLevel, char const * name, char * buf, int bufSize)
+// Do special URL Encoding:
+// URL restricted / unsafe / unwise characters are %-encoded.
+// See rfc3986, rfc1738, rfc2396.
+// ' ' is replaced with '_'
+// '_' is replaces with %-encoded space, i.e. %20
+int MapsWithMe_UrlEncodeString(char const * s, int size, char ** res)
+{
+  *res = malloc(size * 3 + 1);
+  char * out = *res;
+  for (int i = 0; i < size; ++i)
+  {
+    unsigned char c = (unsigned char)(s[i]);
+    switch (c)
+    {
+    case 0x00: case 0x01: case 0x02: case 0x03: case 0x04: case 0x05: case 0x06: case 0x07:
+    case 0x08: case 0x09: case 0x0A: case 0x0B: case 0x0C: case 0x0D: case 0x0E: case 0x0F:
+    case 0x10: case 0x11: case 0x12: case 0x13: case 0x14: case 0x15: case 0x16: case 0x17:
+    case 0x18: case 0x19: case 0x1A: case 0x1B: case 0x1C: case 0x1D: case 0x1E: case 0x1F:
+    case 0x7F:
+    case '<':
+    case '>':
+    case '#':
+    case '%':
+    case '"':
+    case '!':
+    case '*':
+    case '\'':
+    case '(':
+    case ')':
+    case ';':
+    case ':':
+    case '@':
+    case '&':
+    case '=':
+    case '+':
+    case '$':
+    case ',':
+    case '/':
+    case '?':
+    case '[':
+    case ']':
+    case '{':
+    case '}':
+    case '|':
+    case '^':
+    case '`':
+      *(out++) = '%';
+      *(out++) = "0123456789ABCDEF"[c >> 4];
+      *(out++) = "0123456789ABCDEF"[c & 15];
+      break;
+    case ' ':
+      *(out++) = '_';
+      break;
+    case '_':
+      *(out++) = '%'; *(out++) = '2'; *(out++) = '0';
+      break;
+    default:
+      *(out++) = s[i];
+    }
+  }
+  *(out++) = 0;
+  return out - *res - 1;
+}
+
+void MapsWithMe_AppendString(char * buf, int bufSize, int * bytesAppended, char const * s, int size)
+{
+  int const bytesAvailable = bufSize - *bytesAppended;
+  if (bytesAvailable > 0)
+    memcpy(buf + *bytesAppended, s, size < bytesAvailable ? size : bytesAvailable);
+
+  *bytesAppended += size;
+}
+
+int MapsWithMe_GenShortShowMapUrl(double lat, double lon, double zoom, char const * name, char * buf, int bufSize)
 {
   // @TODO: Implement MapsWithMe_GenShortShowMapUrl().
-  // @TODO: Escape URL-unfriendly characters: ! * ' ( ) ; : @ & = + $ , / ? % # [ ]
 
-  return 0;
+  // URL format:
+  //
+  //       +------------------  1 byte: zoom level
+  //       |+-------+---------  9 bytes: lat,lon
+  //       ||       | +--+----  Variable number of bytes: point name
+  //       ||       | |  |
+  // ge0://ZCoordba64/Name
+
+  int fullUrlSize = 0;
+
+  char urlPrefix[] = "ge0://ZCoord6789";
+
+  int const zoomI = (zoom <= 4 ? 0 : (zoom >= 19.75 ? 63 : (int) ((zoom - 4) * 4)));
+  urlPrefix[6] = MapsWithMe_Base64Char(zoomI);
+
+  MapsWithMe_LatLonToString(lat, lon, urlPrefix + 7, 9);
+
+  MapsWithMe_AppendString(buf, bufSize, &fullUrlSize, urlPrefix, 16);
+
+  if (name != 0 && name[0] != 0)
+  {
+    MapsWithMe_AppendString(buf, bufSize, &fullUrlSize, "/", 1);
+
+    char * encName;
+    int const encNameSize = MapsWithMe_UrlEncodeString(name, strlen(name), &encName);
+
+    MapsWithMe_AppendString(buf, bufSize, &fullUrlSize, encName, encNameSize);
+
+    free(encName);
+  }
+
+  return fullUrlSize;
 }

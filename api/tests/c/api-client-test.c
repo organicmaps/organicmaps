@@ -249,5 +249,179 @@ FCT_BGN()
     fct_chk((max2 - min2) * 1.0 / max2 < 0.05);
   }
   FCT_QTEST_END();
+
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_SmokeTest)
+  {
+    char buf[100] = {0};
+    int res = MapsWithMe_GenShortShowMapUrl(0, 0, 19, "Name", buf, 100);
+    fct_chk_eq_str("ge0://8wAAAAAAAA/Name", buf);
+    fct_chk_eq_int(21, res);
+  }
+  FCT_QTEST_END();
+
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_NameIsNull)
+  {
+    char buf[100] = {0};
+    int res = MapsWithMe_GenShortShowMapUrl(0, 0, 19, 0, buf, 100);
+    fct_chk_eq_str("ge0://8wAAAAAAAA", buf);
+    fct_chk_eq_int(16, res);
+  }
+  FCT_QTEST_END();
+
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_NameIsEmpty)
+  {
+    char buf[100] = {0};
+    int res = MapsWithMe_GenShortShowMapUrl(0, 0, 19, "", buf, 100);
+    fct_chk_eq_str("ge0://8wAAAAAAAA", buf);
+    fct_chk_eq_int(16, res);
+  }
+  FCT_QTEST_END();
+
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_ZoomVerySmall)
+  {
+    char buf[100] = {0};
+    int res = MapsWithMe_GenShortShowMapUrl(0, 0, 2, "Name", buf, 100);
+    fct_chk_eq_str("ge0://AwAAAAAAAA/Name", buf);
+    fct_chk_eq_int(21, res);
+  }
+  FCT_QTEST_END();
+
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_ZoomNegative)
+  {
+    char buf[100] = {0};
+    int res = MapsWithMe_GenShortShowMapUrl(0, 0, -5, "Name", buf, 100);
+    fct_chk_eq_str("ge0://AwAAAAAAAA/Name", buf);
+    fct_chk_eq_int(21, res);
+  }
+  FCT_QTEST_END();
+
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_ZoomLarge)
+  {
+    char buf[100] = {0};
+    int res = MapsWithMe_GenShortShowMapUrl(0, 0, 20, "Name", buf, 100);
+    fct_chk_eq_str("ge0://_wAAAAAAAA/Name", buf);
+    fct_chk_eq_int(21, res);
+  }
+  FCT_QTEST_END();
+
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_ZoomVeryLarge)
+  {
+    char buf[100] = {0};
+    int res = MapsWithMe_GenShortShowMapUrl(0, 0, 2000000000, "Name", buf, 100);
+    fct_chk_eq_str("ge0://_wAAAAAAAA/Name", buf);
+    fct_chk_eq_int(21, res);
+  }
+  FCT_QTEST_END();
+
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_FractionalZoom)
+  {
+    char buf[100] = {0};
+    int res = MapsWithMe_GenShortShowMapUrl(0, 0, 8.25, "Name", buf, 100);
+    fct_chk_eq_str("ge0://RwAAAAAAAA/Name", buf);
+    fct_chk_eq_int(21, res);
+  }
+  FCT_QTEST_END();
+
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_FractionalZoomRoundsDown)
+  {
+    char buf[100] = {0};
+    int res = MapsWithMe_GenShortShowMapUrl(0, 0, 8.499, "Name", buf, 100);
+    fct_chk_eq_str("ge0://RwAAAAAAAA/Name", buf);
+    fct_chk_eq_int(21, res);
+  }
+  FCT_QTEST_END();
+
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_FractionalZoomNextStep)
+  {
+    char buf[100] = {0};
+    int res = MapsWithMe_GenShortShowMapUrl(0, 0, 8.5, "Name", buf, 100);
+    fct_chk_eq_str("ge0://SwAAAAAAAA/Name", buf);
+    fct_chk_eq_int(21, res);
+  }
+  FCT_QTEST_END();
+
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_SpaceIsReplacedWithUnderscore)
+  {
+    char buf[100] = {0};
+    int res = MapsWithMe_GenShortShowMapUrl(0, 0, 19, "Hello World", buf, 100);
+    fct_chk_eq_str("ge0://8wAAAAAAAA/Hello_World", buf);
+    fct_chk_eq_int(28, res);
+  }
+  FCT_QTEST_END();
+
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_NamesAreEscaped)
+  {
+    char buf[100] = {0};
+    int res = MapsWithMe_GenShortShowMapUrl(0, 0, 19, "'Hello,World!%$", buf, 100);
+    fct_chk_eq_str("ge0://8wAAAAAAAA/%27Hello%2CWorld%21%25%24", buf);
+    fct_chk_eq_int(42, res);
+  }
+  FCT_QTEST_END();
+
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_UnderscoreIsReplacedWith%20)
+  {
+    char buf[100] = {0};
+    int res = MapsWithMe_GenShortShowMapUrl(0, 0, 19, "Hello_World", buf, 100);
+    fct_chk_eq_str("ge0://8wAAAAAAAA/Hello%20World", buf);
+    fct_chk_eq_int(30, res);
+  }
+  FCT_QTEST_END();
+
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_ControlCharsAreEscaped)
+  {
+    char buf[100] = {0};
+    int res = MapsWithMe_GenShortShowMapUrl(0, 0, 19, "Hello\tWorld\n", buf, 100);
+    fct_chk_eq_str("ge0://8wAAAAAAAA/Hello%09World%0A", buf);
+    fct_chk_eq_int(33, res);
+  }
+  FCT_QTEST_END();
+
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_BufferNullAndEmpty)
+  {
+    int res = MapsWithMe_GenShortShowMapUrl(0, 0, 19, "Name", 0, 0);
+    fct_chk_eq_int(21, res);
+  }
+  FCT_QTEST_END();
+
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_BufferNotNullAndEmpty)
+  {
+    char buf[100] = {0};
+    int res = MapsWithMe_GenShortShowMapUrl(0, 0, 19, "Name", buf, 0);
+    fct_chk_eq_int(21, res);
+  }
+  FCT_QTEST_END();
+
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_TerminatingNullIsNotWritten)
+  {
+    char buf[] =   "xxxxxxxxxxxxxxxxxxxxxxxxxxx";
+    int res = MapsWithMe_GenShortShowMapUrl(0, 0, 19, "Name", buf, 27);
+    fct_chk_eq_str("ge0://8wAAAAAAAA/Namexxxxxx", buf);
+    fct_chk_eq_int(21, res);
+  }
+  FCT_QTEST_END();
+
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_BufferIs1Byte)
+  {
+    char buf;
+    int res = MapsWithMe_GenShortShowMapUrl(0, 0, 19, "Name", &buf, 1);
+    fct_chk_eq_int('g', buf);
+    fct_chk_eq_int(21, res);
+  }
+  FCT_QTEST_END();
+
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_BufferTooSmall)
+  {
+    for (int bufSize = 1; bufSize <= 21; ++bufSize)
+    {
+      char buf[100] = {0};
+      int res = MapsWithMe_GenShortShowMapUrl(0, 0, 19, "Name", buf, bufSize);
+      char expected[] = "ge0://8wAAAAAAAA/Name";
+      expected[bufSize] = 0;
+      fct_chk_eq_str(expected, buf);
+      fct_chk_eq_int(21, res);
+    }
+  }
+  FCT_QTEST_END();
+
 }
 FCT_END();
