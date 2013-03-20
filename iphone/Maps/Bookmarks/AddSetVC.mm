@@ -31,8 +31,11 @@
   if (text.length)
   {
     m_balloon.setName = text;
-    // Create category if it doesn't exist
-    (void)GetFramework().GetBmCategory([text UTF8String]);
+    [m_balloon deleteBookmark];
+
+    Framework &f = GetFramework();
+    size_t pos = f.AddCategory([text UTF8String]);
+    [m_balloon addBookmarkToCategory:pos];
 
     // Show Place Page dialog with new set selected
     [self onCancelClicked];

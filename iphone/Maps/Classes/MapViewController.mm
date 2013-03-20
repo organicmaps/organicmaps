@@ -257,6 +257,12 @@
   }
   else
   {
+    Framework &f = GetFramework();
+    int categoryPos = f.LastEditedCategory();
+    if (!IsValid(m_balloonView.editedBookmark))
+    {
+      [m_balloonView addBookmarkToCategory:categoryPos];
+    }
     PlacePageVC * placePageVC = [[PlacePageVC alloc] initWithBalloonView:m_balloonView];
     [self.navigationController pushViewController:placePageVC animated:YES];
     [placePageVC release];

@@ -38,4 +38,6 @@
 // and does nothing if called for "new", not added bookmark
 - (void) deleteBookmark;
 
+- (void) addBookmarkToCategory:(size_t)index;
+
 @end

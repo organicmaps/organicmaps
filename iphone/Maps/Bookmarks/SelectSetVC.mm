@@ -11,24 +11,10 @@
   if (self)
   {
     m_balloon = view;
-
-    // Always autocreate bookmark category if it's absent
-    GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
     
     self.title = NSLocalizedString(@"bookmark_sets", @"Bookmark Sets dialog title");
   }
   return self;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-  // Do not show Edit button if we have only one bookmarks set
-  if (GetFramework().GetBmCategoriesCount() > 1)
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
-  else
-    self.navigationItem.rightBarButtonItem = nil;
-
-  [super viewWillAppear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -68,7 +54,7 @@
     if (cat)
       cell.textLabel.text = [NSString stringWithUTF8String:cat->GetName().c_str()];
 
-    if ([m_balloon.setName isEqualToString:cell.textLabel.text])
+    if (m_balloon.editedBookmark.first == indexPath.row)
       cell.accessoryType = UITableViewCellAccessoryCheckmark;
     else
       cell.accessoryType = UITableViewCellAccessoryNone;
@@ -91,51 +77,10 @@
   }
   else
   {
-    if (![m_balloon.setName isEqualToString:cell.textLabel.text])
-      m_balloon.setName = cell.textLabel.text;
+    [m_balloon deleteBookmark];
+    [m_balloon addBookmarkToCategory:indexPath.row];
+
     [self.navigationController popViewControllerAnimated:YES];
-  }
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  // Return NO if you do not want the specified item to be editable.
-  if (indexPath.section == 0)
-    return NO;
-  // Disable deleting of the last remaining set (can be activated by swipe right on a set item)
-  if (GetFramework().GetBmCategoriesCount() > 1)
-    return YES;
-  return NO;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  if (indexPath.section == 1)
-  {
-    if (editingStyle == UITableViewCellEditingStyleDelete)
-    {
-      // Move checkmark to another category if we're deleting the checked one
-      Framework & f = GetFramework();
-      BookmarkCategory * cat = f.GetBmCategory(indexPath.row);
-      bool moveCheckMark = false;
-      if (cat && cat->GetName() == [m_balloon.setName UTF8String])
-        moveCheckMark = true;
-
-      if (f.DeleteBmCategory(indexPath.row))
-        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-      if (f.GetBmCategoriesCount() == 1)
-      {
-        // Disable edit mode to leave at least one bookmarks category
-        [self setEditing:NO animated:YES];
-        self.navigationItem.rightBarButtonItem = nil;
-      }
-      if (moveCheckMark)
-      {
-        UITableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        m_balloon.setName = cell.textLabel.text;
-      }
-    }
   }
 }
 

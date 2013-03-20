@@ -223,11 +223,12 @@
 
 - (void) addOrEditBookmark
 {
-  // If coordinates are be the same, bookmark is automatically replaced
-  Bookmark bm(m2::PointD(self.globalPosition.x, self.globalPosition.y),
-              [self.title UTF8String], [self.color UTF8String]);
+  Framework &f = GetFramework();
+  Bookmark bm(m2::PointD(globalPosition.x, globalPosition.y),
+              [title UTF8String], [color UTF8String]);
+  f.GetBmCategory(editedBookmark.first)->ReplaceBookmark(editedBookmark.second, bm);
 
-  BookmarkCategory * cat = GetFramework().AddBookmark([self.setName UTF8String], bm);
+  BookmarkCategory * cat = f.GetBmCategory(editedBookmark.first);
 
   // Enable category visibility if it was turned off, so user can see newly added or edited bookmark
   if (!cat->IsVisible())
@@ -250,6 +251,16 @@
     // Clear!
     editedBookmark = MakeEmptyBookmarkAndCategory();
   }
+}
+
+- (void) addBookmarkToCategory:(size_t)index
+{
+  Framework &f = GetFramework();
+  Bookmark bm(m2::PointD(globalPosition.x, globalPosition.y),
+              [title UTF8String], [color UTF8String]);
+  size_t newPosition = f.AddBookmark(index, bm);
+  self.editedBookmark = pair <int, int> (index, newPosition);
+  self.setName = [NSString stringWithUTF8String:f.GetBmCategory(index)->GetName().c_str()];
 }
 
 @end
