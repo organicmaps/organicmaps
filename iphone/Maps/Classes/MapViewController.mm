@@ -583,7 +583,12 @@ NSInteger compareAddress(id l, id r, void * context)
   }
 
   if (touchesCount == 2 && tapCount == 1 && m_isSticking)
+  {
     f.Scale(0.5);
+    if (!m_touchDownPoint.EqualDxDy(m_Pt1, 9))
+      [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    m_isSticking = NO;
+  }
 }
 
 - (void) touchesCancelled:(NSSet*)touches withEvent:(UIEvent*)event
