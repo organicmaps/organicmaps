@@ -236,20 +236,18 @@ namespace graphics
 
     PathPoint arrPathStart = m_path.front();
 
-    /// @todo Do we really need offset pivot somewhere?
-    //m_path.offsetPoint(arrPathStart, m_textOffset).m_pt;
-    m_pivot = arrPathStart.m_pt;
-
-    // offset of the text from path's start
+    // Offset of the text from path's start.
+    // In normal behaviour it should be always > 0,
+    // but now we do scale tiles for the fixed layout.
     double offset = m_textOffset - m_path.pathOffset();
-
-    /// @todo The path text is always inside the path geometry now.
-    //ASSERT_GREATER_OR_EQUAL(offset, 0.0, ());
     if (offset < 0.0)
-      offset = 0.0;
-
-    if (-offset >= m_textLength)
-      return;
+    {
+      /// @todo Try to fix this heuristic.
+      if (offset > -3.0)
+        offset = 0.0;
+      else
+        return;
+    }
 
     // find first visible glyph
     size_t symPos = 0;
@@ -257,6 +255,9 @@ namespace graphics
     //  offset += m_metrics[symPos++].m_xAdvance;
 
     PathPoint glyphStartPt = m_path.offsetPoint(arrPathStart, offset);
+
+    /// @todo Calculate better pivot (invariant point when scaling and rotating text).
+    m_pivot = glyphStartPt.m_pt;
 
     m_firstVisible = symPos;
 
