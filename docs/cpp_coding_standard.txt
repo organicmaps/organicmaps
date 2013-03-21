@@ -17,6 +17,8 @@ Naming and formatting
 - We don't have hardcoded line width, but keep it reasonable to fit on the screen
 - Doxygen-style comments can be used
 - Underscores are allowed only in prefixes for member variables and namespace names, like int m_countriesCount; namespace utf_parser
+- Don't specify std:: and boost:: prefixes (headers in std/ folder already have 'using std::string')
+- Use right-to-left order for variables/params: string const & s (reference to the const string)
 
 // *********** Formatting Example ***********
 #include "../std/math.hpp"
