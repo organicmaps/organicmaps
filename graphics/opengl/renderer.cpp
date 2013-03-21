@@ -268,7 +268,6 @@ namespace graphics
 
     void Renderer::finish(bool doForce)
     {
-      shared_ptr<Command> command(new FinishCommand());
       processCommand(make_shared_ptr(new FinishCommand()), Packet::ECommand, doForce);
     }
 

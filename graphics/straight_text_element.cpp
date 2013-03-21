@@ -183,8 +183,7 @@ namespace graphics
     : TextElement(src),
       m_glyphLayouts(src.m_glyphLayouts)
   {
-    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-      m_offsets = src.m_offsets;
+    m_offsets = src.m_offsets;
 
     setPivot(pivot() * m);
 
