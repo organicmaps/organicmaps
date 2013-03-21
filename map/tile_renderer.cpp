@@ -344,6 +344,16 @@ Tile const * TileRenderer::GetTile(const Tiler::RectInfo & rectInfo)
 {
   TileStructuresLockGuard lock(m_tileCache, m_tileSet);
 
+  CacheActiveTile(rectInfo);
+
+  if (m_tileCache.HasTile(rectInfo))
+    return &m_tileCache.GetTile(rectInfo);
+
+  return NULL;
+}
+
+void TileRenderer::CacheActiveTile(Tiler::RectInfo const & rectInfo)
+{
   if (m_tileSet.HasTile(rectInfo))
   {
     ASSERT(!m_tileCache.HasTile(rectInfo), (""));
@@ -360,11 +370,6 @@ Tile const * TileRenderer::GetTile(const Tiler::RectInfo & rectInfo)
 
     m_tileSet.RemoveTile(rectInfo);
   }
-
-  if (m_tileCache.HasTile(rectInfo))
-    return &m_tileCache.GetTile(rectInfo);
-
-  return NULL;
 }
 
 void TileRenderer::WaitForEmptyAndFinished()

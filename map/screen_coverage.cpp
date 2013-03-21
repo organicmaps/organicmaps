@@ -304,22 +304,6 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
     Tiler::RectInfo nr = newRects[i];
     //LOG(LDEBUG, ("UVRLOG : NewRect add s=", nr.m_tileScale, " x=", nr.m_x, " y=", nr.m_y, " m_SequenceID=", GetSequenceID()));
 
-    Tiler::RectInfo cr[4] =
-    {
-      Tiler::RectInfo(nr.m_tileScale + 1, nr.m_x * 2,     nr.m_y * 2),
-      Tiler::RectInfo(nr.m_tileScale + 1, nr.m_x * 2 + 1, nr.m_y * 2),
-      Tiler::RectInfo(nr.m_tileScale + 1, nr.m_x * 2 + 1, nr.m_y * 2 + 1),
-      Tiler::RectInfo(nr.m_tileScale + 1, nr.m_x * 2,     nr.m_y * 2 + 1)
-    };
-
-    int childTilesToDraw = 4;
-
-    for (int i = 0; i < 4; ++i)
-      if (drawnTiles.count(cr[i]) || !m_screen.GlobalRect().IsIntersect(m2::AnyRectD(cr[i].m_rect)))
-        --childTilesToDraw;
-
-//    if (m_tiler.isLeaf(nr) || (childTilesToDraw > 1))
-
     int const step = GetPlatform().PreCachingDepth() - 1;
 
     if ((nr.m_tileScale == m_tiler.tileScale() - step)
@@ -372,10 +356,9 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
     core::CommandsQueue::Chain chain;
 
-    chain.addCommand(bind(&TileRenderer::RemoveActiveTile,
+    chain.addCommand(bind(&TileRenderer::CacheActiveTile,
                           m_tileRenderer,
-                          ri,
-                          GetSequenceID()));
+                          ri));
 
     if (curNewTile == newRectsCount - 1)
       chain.addCommand(bind(&CoverageGenerator::AddFinishSequenceTask,
