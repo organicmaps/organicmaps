@@ -88,8 +88,6 @@ public:
 
   int ThreadSlot() const;
 
-  void clear(graphics::Color const & c = graphics::Color(187, 187, 187, 255), bool clearRT = true, float depth = 1.0f, bool clearDepth = true);
-
   graphics::Screen * screen() const;
 
   void drawSymbol(m2::PointD const & pt,
@@ -102,9 +100,10 @@ public:
 
   void clear(graphics::Color const & c = graphics::Color(187, 187, 187, 255),
              bool clearRT = true,
-             float depth = -1.0f,
+             float depth = 1.0f,
              bool clearDepth = true);
 
   void onSize(int w, int h);
 
+  void Draw(di::FeatureInfo const & fi);
 };
