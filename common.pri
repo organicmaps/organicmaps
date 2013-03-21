@@ -112,6 +112,7 @@ win32-msvc2010 {
   QMAKE_LIB += /LTCG
 }
 
+# unix also works for Android
 unix|win32-g++ {
   QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-compare -Wno-strict-aliasing -Wno-unused-parameter \
       -Werror=return-type
@@ -126,12 +127,6 @@ unix|win32-g++ {
   QMAKE_CFLAGS_RELEASE *= -ffast-math
   QMAKE_CXXFLAGS_RELEASE *= -ffast-math
 
-  # debian build requirements
-  CONFIG(production) {
-    QMAKE_CFLAGS_RELEASE = -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security
-    QMAKE_CXXFLAGS_RELEASE = -D_FORTIFY_SOURCE=2 -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security
-    QMAKE_LFLAGS = -Wl,-z,relro
-  }
 }
 
 linux-g++* {
@@ -143,6 +138,14 @@ linux-g++* {
   QMAKE_LFLAGS *= -Wl,--gc-sections
   QMAKE_CFLAGS_RELEASE *= -ffloat-store
   QMAKE_CXXFLAGS_RELEASE *= -ffloat-store
+
+  # debian build requirements
+  CONFIG(production) {
+    QMAKE_CFLAGS_RELEASE = -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security
+    QMAKE_CXXFLAGS_RELEASE = -D_FORTIFY_SOURCE=2 -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security
+    QMAKE_LFLAGS = -Wl,-z,relro
+  }
+
 }
 
 android-g++ {
