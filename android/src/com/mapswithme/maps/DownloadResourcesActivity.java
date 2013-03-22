@@ -398,7 +398,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
             final String ext = getExtensionFromMime(resolver.getType(data));
             if (ext != null)
             {
-              final String filePath = mApplication.getExtAppDirectoryPath("tmp") + "Attachment" + ext;
+              final String filePath = mApplication.getTempPath() + "Attachment" + ext;
 
               tmpFile = new File(filePath);
               output = new FileOutputStream(tmpFile);
@@ -453,18 +453,18 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   protected void onStart()
   {
     super.onStart();
-    
+
     Statistics.INSTANCE.startActivity(this);
   }
-  
+
   @Override
   protected void onStop()
   {
     super.onStop();
-    
+
     Statistics.INSTANCE.stopActivity(this);
   }
-  
+
   @Override
   protected void onDestroy()
   {

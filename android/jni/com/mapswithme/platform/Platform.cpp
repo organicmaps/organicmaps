@@ -55,7 +55,6 @@ namespace android
                             jstring apkPath,
                             jstring storagePath,
                             jstring tmpPath,
-                            jstring extTmpPath,
                             bool isPro)
   {
     m_resourcesDir = jni::ToNativeString(env, apkPath);
@@ -72,26 +71,18 @@ namespace android
       m_writableDir = m_settingsDir;
     }
 
-    m_localTmpPath = jni::ToNativeString(env, tmpPath);
-    m_externalTmpPath = jni::ToNativeString(env, extTmpPath);
-    // By default use external temporary folder
-    m_tmpDir = m_externalTmpPath;
+    m_tmpDir = jni::ToNativeString(env, tmpPath);
 
     m_isPro = isPro;
 
     LOG(LDEBUG, ("Apk path = ", m_resourcesDir));
     LOG(LDEBUG, ("Writable path = ", m_writableDir));
-    LOG(LDEBUG, ("Local tmp path = ", m_localTmpPath));
-    LOG(LDEBUG, ("External tmp path = ", m_externalTmpPath));
+    LOG(LDEBUG, ("Temporary path = ", m_tmpDir));
     LOG(LDEBUG, ("Settings path = ", m_settingsDir));
   }
 
   void Platform::OnExternalStorageStatusChanged(bool isAvailable)
   {
-    if (isAvailable)
-      m_tmpDir = m_externalTmpPath;
-    else
-      m_tmpDir = m_localTmpPath;
   }
 
   string Platform::GetStoragePathPrefix() const

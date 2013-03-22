@@ -95,17 +95,15 @@ public class MWMApplication extends android.app.Application implements MapStorag
     }
 
     final String extStoragePath = getDataStoragePath();
-    final String extTmpPath = getExtAppDirectoryPath("caches");
+    final String extTmpPath = getTempPath();
 
     // Create folders if they don't exist
     new File(extStoragePath).mkdirs();
     new File(extTmpPath).mkdirs();
-    new File(getExtAppDirectoryPath("tmp")).mkdir();
 
     // init native framework
     nativeInit(getApkPath(),
                extStoragePath,
-               getTmpPath(),
                extTmpPath,
                m_isProVersion);
 
@@ -168,6 +166,12 @@ public class MWMApplication extends android.app.Application implements MapStorag
     return Environment.getExternalStorageDirectory().getAbsolutePath() + "/MapsWithMe/";
   }
 
+  public String getTempPath()
+  {
+    // Can't use getExternalCacheDir() here because of API level = 7.
+    return getExtAppDirectoryPath("cache");
+  }
+
   public String getExtAppDirectoryPath(String folder)
   {
     final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
@@ -187,18 +191,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
     return m_proVersionURL;
   }
 
-  private String getTmpPath()
-  {
-    return getCacheDir().getAbsolutePath() + "/";
-  }
-
-  /*
-  private String getSettingsPath()
-  {
-    return getFilesDir().getAbsolutePath() + "/";
-  }
-   */
-
   static
   {
     System.loadLibrary("mapswithme");
@@ -207,7 +199,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
   private native void nativeInit(String apkPath,
                                  String storagePath,
                                  String tmpPath,
-                                 String extTmpPath,
                                  boolean isPro);
 
   public native boolean nativeIsBenchmarking();

@@ -203,7 +203,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   {
     assignCategoryParams();
 
-    String path = ((MWMApplication) getApplication()).getExtAppDirectoryPath("tmp");
+    String path = ((MWMApplication) getApplication()).getTempPath();
     final String name = mManager.saveToKMZFile(mEditedSet.getId(), path);
     if (name == null)
     {

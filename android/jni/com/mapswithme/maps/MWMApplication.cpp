@@ -26,14 +26,12 @@ extern "C"
                                                     jstring apkPath,
                                                     jstring storagePath,
                                                     jstring tmpPath,
-                                                    jstring extTmpPath,
                                                     jboolean isPro)
   {
     android::Platform::Instance().Initialize(env,
                                              apkPath,
                                              storagePath,
                                              tmpPath,
-                                             extTmpPath,
                                              isPro);
 
     LOG(LDEBUG, ("Creating android::Framework instance ..."));
