@@ -113,7 +113,7 @@ public class WifiLocation extends BroadcastReceiver
       @Override
       protected Boolean doInBackground(String... params)
       {
-        // Send http POST to google location service
+        // Send http POST to location service
         HttpURLConnection conn = null;
         try
         {
