@@ -423,5 +423,14 @@ FCT_BGN()
   }
   FCT_QTEST_END();
 
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_Unicode)
+  {
+    char buf[100] = {0};
+    int res = MapsWithMe_GenShortShowMapUrl(0, 0, 19, "\xe2\x98\x84", buf, 100);
+    fct_chk_eq_str("ge0://8wAAAAAAAA/\xe2\x98\x84", buf);
+    fct_chk_eq_int(20, res);
+  }
+  FCT_QTEST_END();
+
 }
 FCT_END();
