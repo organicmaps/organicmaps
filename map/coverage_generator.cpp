@@ -286,23 +286,26 @@ void CoverageGenerator::CheckEmptyModel(int sequenceID)
   m_windowHandle->invalidate();
 }
 
-void CoverageGenerator::AddFinishSequenceTask(int sequenceID)
+void CoverageGenerator::AddFinishSequenceTaskIfNeed()
 {
   if (g_coverageGeneratorDestroyed)
     return;
 
-  m_queue.AddCommand(bind(&CoverageGenerator::FinishSequence, this, sequenceID));
+  if (m_benchmarkBarier.m_tilesCount == 0)
+    m_queue.AddCommand(bind(&CoverageGenerator::FinishSequence, this));
 }
 
-void CoverageGenerator::FinishSequence(int sequenceID)
+void CoverageGenerator::FinishSequence()
 {
-/*  if (sequenceID < m_sequenceID)
-  {
-    LOG(LINFO, ("sequence", sequenceID, "was cancelled"));
-    return;
-  }*/
-
   SignalBenchmarkFence();
+}
+
+void CoverageGenerator::AddDecrementTileCountTask(int sequenceID)
+{
+  if (g_coverageGeneratorDestroyed)
+    return;
+
+  m_queue.AddCommand(bind(&BenchmarkRenderingBarier::DecrementTileCounter, &m_benchmarkBarier, sequenceID));
 }
 
 void CoverageGenerator::WaitForEmptyAndFinished()
@@ -323,6 +326,12 @@ threads::Mutex & CoverageGenerator::Mutex()
 void CoverageGenerator::SetSequenceID(int sequenceID)
 {
   m_sequenceID = sequenceID;
+}
+
+void CoverageGenerator::StartTileDrawingSession(int sequenceID, unsigned tileCount)
+{
+  m_benchmarkBarier.m_sequenceID = sequenceID;
+  m_benchmarkBarier.m_tilesCount = tileCount;
 }
 
 shared_ptr<graphics::ResourceManager> const & CoverageGenerator::resourceManager() const

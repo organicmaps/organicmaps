@@ -131,6 +131,7 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
   }
 
   pDrawer->endFrame();
+  m_CoverageGenerator->AddFinishSequenceTaskIfNeed();
 }
 
 void BasicTilingRenderPolicy::EndFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)

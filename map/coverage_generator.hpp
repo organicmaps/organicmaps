@@ -40,6 +40,19 @@ namespace graphics
 class CoverageGenerator
 {
 private:
+  struct BenchmarkRenderingBarier
+  {
+    int m_sequenceID;
+    unsigned m_tilesCount;
+
+    void DecrementTileCounter(int sequenceID)
+    {
+      if (sequenceID == m_sequenceID)
+        --m_tilesCount;
+    }
+  };
+
+  BenchmarkRenderingBarier m_benchmarkBarier;
 
   core::CommandsQueue m_queue;
 
@@ -96,7 +109,9 @@ public:
                         int sequenceID);
 
   void AddCheckEmptyModelTask(int sequenceID);
-  void AddFinishSequenceTask(int sequenceID);
+  void AddFinishSequenceTaskIfNeed();
+
+  void AddDecrementTileCountTask(int sequenceID);
 
   void CoverScreen(core::CommandsQueue::Environment const & env,
                    ScreenBase const & screen,
@@ -108,7 +123,7 @@ public:
 
   void CheckEmptyModel(int sequenceID);
 
-  void FinishSequence(int sequenceID);
+  void FinishSequence();
 
   void Cancel();
 
@@ -125,6 +140,7 @@ public:
   bool DoForceUpdate() const;
 
   void SetSequenceID(int sequenceID);
+  void StartTileDrawingSession(int sequenceID, unsigned tileCount);
 
   threads::Mutex & Mutex();
 

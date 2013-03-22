@@ -101,7 +101,16 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
 {
   ASSERT(m_tileRects.find(ri) != m_tileRects.end(), ());
 
-  Tile const * tile = m_tileRenderer->GetTile(ri);
+  m_tileRenderer->CacheActiveTile(ri);
+  TileCache & tileCache = m_tileRenderer->GetTileCache();
+  tileCache.Lock();
+
+  Tile const * tile = NULL;
+  if (tileCache.HasTile(ri))
+  {
+    tileCache.LockTile(ri);
+    tile = &tileCache.GetTile(ri);
+  }
 
   if (tile != NULL)
   {
@@ -115,16 +124,19 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
       m_isEmptyDrawingCoverage &= tile->m_isEmptyDrawing;
       m_leafTilesToRender--;
     }
-
-    if (m_tiler.isLeaf(ri))
-    {
-      graphics::Overlay * tileOverlayCopy = tile->m_overlay->clone();
-      m_overlay->merge(*tileOverlayCopy,
-                        tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
-
-      delete tileOverlayCopy;
-    }
   }
+
+  tileCache.Unlock();
+
+  if (tile != NULL && m_tiler.isLeaf(ri))
+  {
+    graphics::Overlay * tileOverlayCopy = tile->m_overlay->clone();
+    m_overlay->merge(*tileOverlayCopy,
+                      tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
+
+    delete tileOverlayCopy;
+  }
+
   //else
   //  LOG(LDEBUG, ("UVRLOG : Tile not found s=", ri.m_tileScale, " x=", ri.m_x, " y=", ri.m_y));
 }
@@ -323,6 +335,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   // filtering out rects that are fully covered by its descedants
 
   int curNewTile = 0;
+  m_coverageGenerator->StartTileDrawingSession(GetSequenceID(), newRectsCount);
 
   // adding commands for tiles which aren't in cache
   for (size_t i = 0; i < firstClassTiles.size(); ++i, ++curNewTile)
@@ -336,10 +349,9 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
                           ri,
                           GetSequenceID()));
 
-    if (curNewTile == newRectsCount - 1)
-      chain.addCommand(bind(&CoverageGenerator::AddFinishSequenceTask,
-                            m_coverageGenerator,
-                            GetSequenceID()));
+    chain.addCommand(bind(&CoverageGenerator::AddDecrementTileCountTask,
+                          m_coverageGenerator,
+                          GetSequenceID()));
 
     m_tileRenderer->AddCommand(ri, GetSequenceID(),
                                chain);
@@ -360,10 +372,9 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
                           m_tileRenderer,
                           ri));
 
-    if (curNewTile == newRectsCount - 1)
-      chain.addCommand(bind(&CoverageGenerator::AddFinishSequenceTask,
-                            m_coverageGenerator,
-                            GetSequenceID()));
+    chain.addCommand(bind(&CoverageGenerator::AddDecrementTileCountTask,
+                          m_coverageGenerator,
+                          GetSequenceID()));
 
     m_tileRenderer->AddCommand(ri, GetSequenceID(), chain);
   }
