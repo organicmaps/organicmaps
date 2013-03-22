@@ -103,8 +103,6 @@ public:
                   core::CommandsQueue::Chain const & afterTileFns = core::CommandsQueue::Chain());
   /// get tile cache.
   TileCache & GetTileCache();
-  /// get tile from render if tile already rendered, otherwise return NULL
-  Tile const * GetTile(Tiler::RectInfo const & rectInfo);
   /// Move active tile to cache if tile alrady rendered
   void CacheActiveTile(Tiler::RectInfo const & rectInfo);
   /// wait on a condition variable for an empty queue.

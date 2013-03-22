@@ -340,18 +340,6 @@ TileCache & TileRenderer::GetTileCache()
   return m_tileCache;
 }
 
-Tile const * TileRenderer::GetTile(const Tiler::RectInfo & rectInfo)
-{
-  TileStructuresLockGuard lock(m_tileCache, m_tileSet);
-
-  CacheActiveTile(rectInfo);
-
-  if (m_tileCache.HasTile(rectInfo))
-    return &m_tileCache.GetTile(rectInfo);
-
-  return NULL;
-}
-
 void TileRenderer::CacheActiveTile(Tiler::RectInfo const & rectInfo)
 {
   if (m_tileSet.HasTile(rectInfo))
@@ -366,8 +354,6 @@ void TileRenderer::CacheActiveTile(Tiler::RectInfo const & rectInfo)
     }
 
     m_tileCache.AddTile(rectInfo, TileCache::Entry(tile, m_resourceManager));
-    m_tileCache.LockTile(rectInfo);
-
     m_tileSet.RemoveTile(rectInfo);
   }
 }
