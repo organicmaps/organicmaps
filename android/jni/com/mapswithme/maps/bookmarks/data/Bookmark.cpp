@@ -74,14 +74,17 @@ extern "C"
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_changeBookmark(
-         JNIEnv * env, jobject thiz, jdouble x, jdouble y, jstring cat, jstring name, jstring type)
+         JNIEnv * env, jobject thiz, jdouble x, jdouble y,
+         jstring cat, jstring name, jstring type, jstring descr)
   {
     // get existing bookmark under point
     BookmarkAndCategory bac = frm()->GetBookmark(frm()->GtoP(m2::PointD(x, y)));
 
     // initialize new bookmark
     Bookmark bm(m2::PointD(x, y), jni::ToNativeString(env, name), jni::ToNativeString(env, type));
-    if (IsValid(bac))
+    if (descr != 0)
+      bm.SetDescription(jni::ToNativeString(env, descr));
+    else if (IsValid(bac))
       bm.SetDescription(getBookmark(bac.first, bac.second)->GetDescription());
 
     // add new bookmark

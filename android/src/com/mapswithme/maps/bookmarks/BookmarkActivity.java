@@ -136,18 +136,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   private void assignPinParams()
   {
     if (mPin != null)
-    {
-      String s = mName.getText().toString();
-      if (!s.equals(mPin.getName()))
-        mPin.setName(s);
-
-      s = mDescr.getText().toString();
-      if (!s.equals(mPin.getBookmarkDescription()))
-        mPin.setDescription(s);
-
-      if (m_icon != null && m_icon != mPin.getIcon())
-        mPin.setIcon(m_icon);
-    }
+      mPin.setParams(mName.getText().toString(), m_icon, mDescr.getText().toString());
   }
 
   @Override

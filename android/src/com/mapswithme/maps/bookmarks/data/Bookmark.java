@@ -83,7 +83,7 @@ public class Bookmark
   private native String getName(int c, long b);
   private native String getIconPos(double px, double py);
   private native String getIcon(int c, long b);
-  private native void changeBookmark(double x, double y, String category, String name, String type);
+  private native void changeBookmark(double x, double y, String category, String name, String type, String descr);
   private native String getBookmarkDescription(int categoryId, long bookmark);
   private native void setBookmarkDescription(int categoryId, long bookmark, String newDescr);
   private native String getBookmarkDescriptionPos(int categoryId, int bookmark);
@@ -176,9 +176,18 @@ public class Bookmark
     mBookmark = BookmarkManager.getBookmarkManager(mContext).getCategoryById(mCategoryId).getSize() - 1;
   }
 
+  public void setParams(String name, Icon icon, String descr)
+  {
+    if (icon == null)
+      icon = mIcon;
+
+    if (!name.equals(getName()) || icon != mIcon || !descr.equals(getBookmarkDescription()))
+      changeBookmark(mMercatorX, mMercatorY, getCategoryName(), name, icon.getType(), descr);
+  }
+
   private void changeBookmark(String category, String name, String type)
   {
-    changeBookmark(mMercatorX, mMercatorY, category, name, type);
+    changeBookmark(mMercatorX, mMercatorY, category, name, type, null);
   }
 
   public int getCategoryId()
