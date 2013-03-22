@@ -139,8 +139,6 @@ BenchmarkEngine::BenchmarkEngine(Framework * fw)
     m_maxDuration(0),
     m_framework(fw)
 {
-  m_startTime = my::FormatCurrentTime();
-
 //  m_framework->GetInformationDisplay().enableBenchmarkInfo(true);
 }
 
@@ -172,7 +170,7 @@ void BenchmarkEngine::SaveBenchmarkResults()
   string resultsPath;
   Settings::Get("BenchmarkResults", resultsPath);
 
-  ofstream fout(GetPlatform().WritablePathForFile(resultsPath).c_str());
+  ofstream fout(GetPlatform().WritablePathForFile(resultsPath).c_str(), ios::app);
   for (size_t i = 0; i < m_benchmarkResults.size(); ++i)
   {
     /// @todo Place correct version here from bundle (platform).
@@ -255,13 +253,22 @@ void BenchmarkEngine::Do()
 {
   PrepareMaps();
 
-  DoGetBenchmarks<Benchmark> doGet(m_benchmarks, m_framework->m_navigator);
-  ForEachBenchmarkRecord(doGet);
+  int benchMarkCount = 1;
+  Settings::Get("BenchmarkCyrcleCount", benchMarkCount);
 
-  m_curBenchmark = 0;
+  for (int i = 0; i < benchMarkCount; ++i)
+  {
+    DoGetBenchmarks<Benchmark> doGet(m_benchmarks, m_framework->m_navigator);
+    ForEachBenchmarkRecord(doGet);
 
-  m_benchmarksTimer.Reset();
+    m_curBenchmark = 0;
 
-  MarkBenchmarkResultsStart();
-  while (NextBenchmarkCommand()){};
+    m_benchmarksTimer.Reset();
+    m_startTime = my::FormatCurrentTime();
+
+    MarkBenchmarkResultsStart();
+    while (NextBenchmarkCommand()){};
+
+    m_benchmarks.clear();
+  }
 }
