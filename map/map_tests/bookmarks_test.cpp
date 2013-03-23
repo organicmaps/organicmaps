@@ -219,8 +219,10 @@ UNIT_TEST(Bookmarks_Timestamp)
   Framework fm;
   m2::PointD const orgPoint(10, 10);
 
+  char const * arrCat[] = { "cat", "cat1" };
+
   Bookmark b1(orgPoint, "name", "type");
-  fm.AddCategory("cat");
+  fm.AddCategory(arrCat[0]);
   fm.AddBookmark(0, b1);
 
   Bookmark const * pBm = GetBookmark(fm, orgPoint);
@@ -239,7 +241,7 @@ UNIT_TEST(Bookmarks_Timestamp)
   b3.SetTimeStamp(12345);
   TEST_NOT_EQUAL(b3.GetTimeStamp(), timeStamp, ());
 
-  fm.AddCategory("cat1");
+  fm.AddCategory(arrCat[1]);
   fm.AddBookmark(1, b3);
 
   TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(0)->GetName(), "name", ());
@@ -254,9 +256,10 @@ UNIT_TEST(Bookmarks_Timestamp)
   TEST_EQUAL(fm.GetBmCategory(0)->GetBookmarksCount(), 2, ());
   TEST_EQUAL(fm.GetBmCategory(1)->GetBookmarksCount(), 1, ());
 
-
   pBm = GetBookmark(fm, orgPoint);
   TEST_EQUAL(pBm->GetTimeStamp(), timeStamp, ());
+
+  DeleteCategoryFiles(arrCat);
 }
 
 UNIT_TEST(Bookmarks_Getting)
@@ -329,7 +332,7 @@ UNIT_TEST(Bookmarks_Getting)
   cat->DeleteBookmark(0);
   TEST_EQUAL(cat->GetBookmarksCount(), 1, ());
 
-  //DeleteCategoryFiles(arrCat);
+  DeleteCategoryFiles(arrCat);
 }
 
 UNIT_TEST(Bookmarks_AddressInfo)
@@ -340,7 +343,7 @@ UNIT_TEST(Bookmarks_AddressInfo)
   Framework::AddressInfo info;
   fm.GetAddressInfo(m2::PointD(MercatorBounds::LonToX(27.5556), MercatorBounds::LatToY(53.8963)), info);
 
-  TEST_EQUAL(info.m_street, "улица Карла Маркса", ());
+  TEST_EQUAL(info.m_street, "ул. Карла Маркса", ());
   TEST_EQUAL(info.m_house, "10", ());
   TEST_EQUAL(info.m_name, "Библос", ());
   TEST_EQUAL(info.m_types.size(), 1, ());
@@ -453,7 +456,7 @@ UNIT_TEST(Bookmarks_AddingMoving)
   TEST_EQUAL(pBm->GetName(), "name", ());
   TEST_EQUAL(pBm->GetType(), "placemark-red", ());
 
-  //DeleteCategoryFiles(arrCat);
+  DeleteCategoryFiles(arrCat);
 }
 
 namespace
