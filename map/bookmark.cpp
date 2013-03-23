@@ -27,16 +27,23 @@ void BookmarkCategory::ReplaceBookmark(size_t index, Bookmark const & bm)
   ASSERT_LESS ( index, m_bookmarks.size(), () );
   if (index < m_bookmarks.size())
   {
+    Bookmark * p = new Bookmark(bm);
+    AssignPrivateParams(index, *p);
+
     delete m_bookmarks[index];
-    m_bookmarks[index] = new Bookmark(bm);
+    m_bookmarks[index] = p;
   }
 }
 
-void BookmarkCategory::AssignTimeStamp(size_t index, Bookmark & bm) const
+void BookmarkCategory::AssignPrivateParams(size_t index, Bookmark & bm) const
 {
   ASSERT_LESS ( index, m_bookmarks.size(), () );
   if (index < m_bookmarks.size())
-    bm.SetTimeStamp(m_bookmarks[index]->GetTimeStamp());
+  {
+    Bookmark const * p = m_bookmarks[index];
+    bm.SetTimeStamp(p->GetTimeStamp());
+    bm.SetScale(p->GetScale());
+  }
 }
 
 BookmarkCategory::~BookmarkCategory()
