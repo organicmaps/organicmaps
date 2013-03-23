@@ -84,7 +84,9 @@ void MapsWithMe_TransformName(char * s)
   }
 }
 
-// URL Encoding.
+// URL Encode string s.
+// Allocates memory that should be freed.
+// Returns the lenghts of the resulting string in bytes including terminating 0.
 // URL restricted / unsafe / unwise characters are %-encoded.
 // See rfc3986, rfc1738, rfc2396.
 int MapsWithMe_UrlEncodeString(char const * s, int size, char ** res)
@@ -141,6 +143,7 @@ int MapsWithMe_UrlEncodeString(char const * s, int size, char ** res)
   return out - *res - 1;
 }
 
+// Append s to buf (is there is space). Increment *bytesAppended by size.
 void MapsWithMe_AppendString(char * buf, int bufSize, int * bytesAppended, char const * s, int size)
 {
   int const bytesAvailable = bufSize - *bytesAppended;
@@ -152,8 +155,6 @@ void MapsWithMe_AppendString(char * buf, int bufSize, int * bytesAppended, char 
 
 int MapsWithMe_GenShortShowMapUrl(double lat, double lon, double zoom, char const * name, char * buf, int bufSize)
 {
-  // @TODO: Implement MapsWithMe_GenShortShowMapUrl().
-
   // URL format:
   //
   //       +------------------  1 byte: zoom level
