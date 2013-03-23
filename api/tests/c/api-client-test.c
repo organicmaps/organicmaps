@@ -432,5 +432,14 @@ FCT_BGN()
   }
   FCT_QTEST_END();
 
+  FCT_QTEST_BGN(MapsWithMe_GenShortShowMapUrl_UnicodeMixedWithOtherChars)
+  {
+    char buf[100] = {0};
+    int res = MapsWithMe_GenShortShowMapUrl(0, 0, 19, "Back_in \xe2\x98\x84!\xd1\x8e\xd0\xbc", buf, 100);
+    fct_chk_eq_str("ge0://8wAAAAAAAA/Back%20in_\xe2\x98\x84%21\xd1\x8e\xd0\xbc", buf);
+    fct_chk_eq_int(37, res);
+  }
+  FCT_QTEST_END();
+
 }
 FCT_END();

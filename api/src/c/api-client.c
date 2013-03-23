@@ -72,11 +72,21 @@ void MapsWithMe_LatLonToString(double lat, double lon, char * s, int nBytes)
   }
 }
 
-// Do special URL Encoding:
+// Replaces ' ' with '_' and vice versa.
+void MapsWithMe_TransformName(char * s)
+{
+  for (; *s != 0; ++s)
+  {
+    if (*s == ' ')
+      *s = '_';
+    else if (*s == '_')
+      *s = ' ';
+  }
+}
+
+// URL Encoding.
 // URL restricted / unsafe / unwise characters are %-encoded.
 // See rfc3986, rfc1738, rfc2396.
-// ' ' is replaced with '_'
-// '_' is replaces with %-encoded space, i.e. %20
 int MapsWithMe_UrlEncodeString(char const * s, int size, char ** res)
 {
   *res = malloc(size * 3 + 1);
@@ -91,6 +101,7 @@ int MapsWithMe_UrlEncodeString(char const * s, int size, char ** res)
     case 0x10: case 0x11: case 0x12: case 0x13: case 0x14: case 0x15: case 0x16: case 0x17:
     case 0x18: case 0x19: case 0x1A: case 0x1B: case 0x1C: case 0x1D: case 0x1E: case 0x1F:
     case 0x7F:
+    case ' ':
     case '<':
     case '>':
     case '#':
@@ -121,12 +132,6 @@ int MapsWithMe_UrlEncodeString(char const * s, int size, char ** res)
       *(out++) = '%';
       *(out++) = "0123456789ABCDEF"[c >> 4];
       *(out++) = "0123456789ABCDEF"[c & 15];
-      break;
-    case ' ':
-      *(out++) = '_';
-      break;
-    case '_':
-      *(out++) = '%'; *(out++) = '2'; *(out++) = '0';
       break;
     default:
       *(out++) = s[i];
@@ -172,12 +177,16 @@ int MapsWithMe_GenShortShowMapUrl(double lat, double lon, double zoom, char cons
   {
     MapsWithMe_AppendString(buf, bufSize, &fullUrlSize, "/", 1);
 
+    char * newName = strdup(name);
+    MapsWithMe_TransformName(newName);
+
     char * encName;
-    int const encNameSize = MapsWithMe_UrlEncodeString(name, strlen(name), &encName);
+    int const encNameSize = MapsWithMe_UrlEncodeString(newName, strlen(newName), &encName);
 
     MapsWithMe_AppendString(buf, bufSize, &fullUrlSize, encName, encNameSize);
 
     free(encName);
+    free(newName);
   }
 
   return fullUrlSize;
