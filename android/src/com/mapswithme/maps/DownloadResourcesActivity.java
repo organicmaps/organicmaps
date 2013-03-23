@@ -435,16 +435,19 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
         else
           path = data.getPath();
 
+        boolean success = false;
         if (path != null)
         {
           Log.d(TAG, "Loading bookmarks file from: " + path);
-          loadKMZFile(path);
+          success = loadKMZFile(path);
         }
         else
           Log.w(TAG, "Can't get bookmarks file from URI: " + data.getPath());
 
         if (tmpFile != null)
           tmpFile.delete();
+
+        Toast.makeText(this, success ? R.string.load_kmz_successful : R.string.load_kmz_failed, Toast.LENGTH_LONG).show();
       }
     }
   }
@@ -578,5 +581,5 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   private native int startNextFileDownload(Object observer);
   private native Index findIndexByPos(double lat, double lon);
   private native void cancelCurrentFile();
-  private native void loadKMZFile(String path);
+  private native boolean loadKMZFile(String path);
 }
