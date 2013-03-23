@@ -66,13 +66,11 @@ namespace android
     void ActivatePopupWithAddressInfo(m2::PointD const & pos, ::Framework::AddressInfo const & addrInfo);
 
     shared_ptr<BookmarkBalloon> m_bmBaloon;
-    string m_bmCategory;
     string m_bmType;
 
     void OnBalloonClick(gui::Element * e);
     void CreateBookmarkBalloon();
     BookmarkBalloon * GetBookmarkBalloon();
-    BookmarkAndCategory AddBookmark(Bookmark & bm);
 
     string m_searchQuery;
 
@@ -137,7 +135,9 @@ namespace android
     void RemoveBalloonClickListener();
     void DeactivatePopup();
 
-    void AddBookmark(string const & category, Bookmark & bm);
+    BookmarkAndCategory AddBookmark(size_t category, Bookmark & bm);
+    void ReplaceBookmark(BookmarkAndCategory const & ind, Bookmark & bm);
+    size_t ChangeBookmarkCategory(BookmarkAndCategory const & ind, size_t newCat);
 
     ::Framework * NativeFramework();
   };

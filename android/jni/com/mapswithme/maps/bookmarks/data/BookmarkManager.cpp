@@ -12,28 +12,6 @@ namespace
 
 extern "C"
 {
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_getPOI(
-      JNIEnv * env, jobject thiz, jdouble px, jdouble py)
-  {
-    Framework::AddressInfo addrInfo;
-    m2::PointD pxPivot;
-    if (frm()->GetVisiblePOI(m2::PointD(px, py), pxPivot, addrInfo))
-      return jni::GetNewAddressInfo(env, addrInfo, pxPivot);
-    else
-      return 0;
-  }
-
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_getAddressInfo(
-      JNIEnv * env, jobject thiz, jdouble px, jdouble py)
-  {
-    m2::PointD point(px, py);
-    Framework::AddressInfo addrInfo;
-    frm()->GetAddressInfo(point, addrInfo);
-    return jni::GetNewAddressInfo(env, addrInfo, point);
-  }
-
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_showBookmarkOnMap(
       JNIEnv * env, jobject thiz, jint c, jint b)
@@ -54,11 +32,11 @@ extern "C"
     return frm()->GetBmCategoriesCount();
   }
 
-  JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_isCategoryExist(
-      JNIEnv * env, jobject thiz, jstring name)
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_createCategory(
+       JNIEnv * env, jobject thiz, jstring name)
   {
-    return frm()->IsCategoryExist(jni::ToNativeString(env, name));
+    return frm()->AddCategory(jni::ToNativeString(env, name));
   }
 
   JNIEXPORT jboolean JNICALL

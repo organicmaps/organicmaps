@@ -20,7 +20,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
+import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 
 public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActivity
@@ -42,10 +42,11 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
       {
         m_handler.switchToAddButton();
         mAdapter.chooseItem(position);
+
         Point cab = ((ParcelablePoint)getIntent().getParcelableExtra(BookmarkActivity.PIN)).getPoint();
-        BookmarkCategory cat = mManager.getCategoryById(position);
-        mManager.getBookmark(cab.x, cab.y).setCategory(cat.getName(), position);
-        getIntent().putExtra(BookmarkActivity.PIN, new ParcelablePoint(position, cat.getSize()-1));
+        Bookmark bmk = mManager.getBookmark(cab.x, cab.y);
+        bmk.setCategoryId(position);
+        getIntent().putExtra(BookmarkActivity.PIN, new ParcelablePoint(position, bmk.getBookmarkId()));
       }
     });
     setListAdapter(mAdapter = new ChooseBookmarkCategoryAdapter(this, getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1)));

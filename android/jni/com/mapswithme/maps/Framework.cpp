@@ -51,7 +51,6 @@ namespace android
     m_sensors[0].SetCount(measurementsCount);
     m_sensors[1].SetCount(measurementsCount);
 
-    m_bmCategory = m_work.GetStringsBundle().GetString("my_places");
     m_bmType = "placemark-red";
 
     for (size_t i = 0; i < ARRAY_SIZE(m_images); ++i)
@@ -637,7 +636,7 @@ namespace android
       {
         // add new bookmark
         Bookmark bm(balloon->glbPivot(), balloon->bookmarkName(), m_bmType);
-        bac = AddBookmark(bm);
+        bac = AddBookmark(m_work.LastEditedCategory(), bm);
       }
     }
 
@@ -688,19 +687,35 @@ namespace android
     return m_bmBaloon.get();
   }
 
-  BookmarkAndCategory Framework::AddBookmark(Bookmark & bm)
+  BookmarkAndCategory Framework::AddBookmark(size_t cat, Bookmark & bm)
   {
-    BookmarkAndCategory const bac = m_work.AddBookmarkEx(m_bmCategory, bm);
-    BookmarkCategory * cat = m_work.GetBmCategory(bac.first);
-    cat->SetVisible(true);
-    cat->SaveToKMLFile();
-    return bac;
+    size_t const ind = m_work.AddBookmark(cat, bm);
+
+    BookmarkCategory * pCat = m_work.GetBmCategory(cat);
+    pCat->SetVisible(true);
+    pCat->SaveToKMLFile();
+
+    return BookmarkAndCategory(cat, ind);
   }
 
-  void Framework::AddBookmark(string const & category, Bookmark & bm)
+  void Framework::ReplaceBookmark(BookmarkAndCategory const & ind, Bookmark & bm)
   {
-    m_bmCategory = category;
     m_bmType = bm.GetType();
-    (void) AddBookmark(bm);
+
+    BookmarkCategory * pCat = m_work.GetBmCategory(ind.first);
+    pCat->ReplaceBookmark(ind.second, bm);
+    pCat->SaveToKMLFile();
+  }
+
+  size_t Framework::ChangeBookmarkCategory(BookmarkAndCategory const & ind, size_t newCat)
+  {
+    BookmarkCategory * pOld = m_work.GetBmCategory(ind.first);
+
+    Bookmark bmk(*(pOld->GetBookmark(ind.second)));
+
+    pOld->DeleteBookmark(ind.second);
+    pOld->SaveToKMLFile();
+
+    return AddBookmark(newCat, bmk).second;
   }
 }

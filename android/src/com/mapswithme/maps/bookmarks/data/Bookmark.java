@@ -1,8 +1,6 @@
 package com.mapswithme.maps.bookmarks.data;
 
 import android.content.Context;
-import android.graphics.Point;
-import android.util.Log;
 
 import com.mapswithme.maps.R;
 
@@ -16,45 +14,13 @@ public class Bookmark
   private double mMercatorX = Double.NaN;
   private double mMercatorY = Double.NaN;
 
-  //private String mPreviewString = "";
-  //private final boolean mIsPreviewBookmark;
-
-  /*
-  // For bookmark preview
-  Bookmark(Context context, ParcelablePointD pos, String name)
-  {
-    mIsPreviewBookmark = true;
-    mContext = context.getApplicationContext();
-    mPosition = pos;
-    mPreviewString = name;
-    getXY(mPosition);
-  }
-   */
-
-  Bookmark(Context context, ParcelablePointD position, int nextCat, int b)
-  {
-    //mIsPreviewBookmark = false;
-    mContext = context.getApplicationContext();
-    mPosition = position;
-    getXY(position);
-    mBookmark = b;
-    mIcon = getIconInternal();
-    String name = getName();
-    mCategoryId = nextCat;
-    changeBookmark(getCategoryName(), name, mIcon.getType());
-    Point bookmark = BookmarkManager.getBookmark(position.x, position.y);
-    mBookmark = bookmark.y;
-    Log.d("Bookmark indices", " " + mCategoryId+ " "+ mBookmark);
-  }
-
 
   Bookmark(Context context, int c, int b)
   {
-    //mIsPreviewBookmark = false;
     mContext = context.getApplicationContext();
     mCategoryId = c;
     mBookmark = b;
-    mIcon = getIconInternal();// BookmarkManager.getBookmarkManager(mContext).getIconByName(nGetIcon(c, b));
+    mIcon = getIconInternal();
     getXY();
   }
 
@@ -79,14 +45,13 @@ public class Bookmark
   private static native ParcelablePointD g2p(double x, double y);
   private static native ParcelablePointD p2g(double px, double py);
   private native ParcelablePointD getXY(int c, long b);
-  private native String getNamePos(double px, double py);
   private native String getName(int c, long b);
-  private native String getIconPos(double px, double py);
   private native String getIcon(int c, long b);
-  private native void changeBookmark(double x, double y, String category, String name, String type, String descr);
+
+  private native void setBookmarkParams(int c, long b, String name, String type, String descr);
+  private native int changeCategory(int oldCat, int newCat, long bmk);
+
   private native String getBookmarkDescription(int categoryId, long bookmark);
-  private native void setBookmarkDescription(int categoryId, long bookmark, String newDescr);
-  private native String getBookmarkDescriptionPos(int categoryId, int bookmark);
 
   void getXY()
   {
@@ -151,29 +116,13 @@ public class Bookmark
     }
   }
 
-  public void setIcon(Icon icon)
-  {
-    mIcon = icon;
-    changeBookmark(getCategoryName(), getName(), icon.getType());
-  }
-
-  public void setName(String name)
-  {
-    changeBookmark(getCategoryName(), name, mIcon.getType());
-  }
-
   public void setCategoryId(int catId)
   {
-    setCategory(BookmarkManager.getBookmarkManager(mContext).getCategoryById(catId).getName(), catId);
-  }
-
-  public void setCategory(String category, int catId)
-  {
-    changeBookmark(category, getName(), mIcon.getType());
-
-    /// @todo This is not correct, but acceptable in current usage (object is not using later).
-    mCategoryId = catId;
-    mBookmark = BookmarkManager.getBookmarkManager(mContext).getCategoryById(mCategoryId).getSize() - 1;
+    if (catId != mCategoryId)
+    {
+      mBookmark = changeCategory(mCategoryId, catId, mBookmark);
+      mCategoryId = catId;
+    }
   }
 
   public void setParams(String name, Icon icon, String descr)
@@ -182,12 +131,7 @@ public class Bookmark
       icon = mIcon;
 
     if (!name.equals(getName()) || icon != mIcon || !descr.equals(getBookmarkDescription()))
-      changeBookmark(mMercatorX, mMercatorY, getCategoryName(), name, icon.getType(), descr);
-  }
-
-  private void changeBookmark(String category, String name, String type)
-  {
-    changeBookmark(mMercatorX, mMercatorY, category, name, type, null);
+      setBookmarkParams(mCategoryId, mBookmark, name, icon.getType(), descr);
   }
 
   public int getCategoryId()
@@ -202,18 +146,6 @@ public class Bookmark
 
   public String getBookmarkDescription()
   {
-    //if (!mIsPreviewBookmark)
-    //{
     return getBookmarkDescription(mCategoryId, mBookmark);
-    //}
-    //else
-    //{
-    //  return mPreviewString;
-    //}
-  }
-
-  public void setDescription(String n)
-  {
-    setBookmarkDescription(mCategoryId, mBookmark, n);
   }
 }

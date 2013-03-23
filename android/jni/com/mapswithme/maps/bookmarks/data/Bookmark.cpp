@@ -1,7 +1,7 @@
 #include "../../Framework.hpp"
 
 #include "../../../core/jni_helper.hpp"
-#include "../../../../../../../base/logging.hpp"
+
 
 namespace
 {
@@ -39,24 +39,6 @@ extern "C"
     return jni::ToJavaString(env, getBookmark(cat, bmk)->GetDescription());
   }
 
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_Bookmark_setBookmarkDescription(
-       JNIEnv * env, jobject thiz, jint cat, jlong bmk, jstring newDescr)
-  {
-    // do edit bookmark's description without AddBookmark routine
-    Bookmark * pBM = const_cast<Bookmark *>(getBookmark(cat, bmk));
-    pBM->SetDescription(jni::ToNativeString(env, newDescr));
-    frm()->GetBmCategory(cat)->SaveToKMLFile();
-  }
-
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_Bookmark_getNamePos(
-         JNIEnv * env, jobject thiz, jint px, jint py)
-  {
-    BookmarkAndCategory bc = frm()->GetBookmark(m2::PointD(px, py));
-    return jni::ToJavaString(env, getBookmark(bc.first, bc.second)->GetName());
-  }
-
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_getIcon(
        JNIEnv * env, jobject thiz, jint cat, jlong bmk)
@@ -64,40 +46,28 @@ extern "C"
     return jni::ToJavaString(env, getBookmark(cat, bmk)->GetType());
   }
 
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_Bookmark_getIconPos(
-         JNIEnv * env, jobject thiz, jint px, jint py)
-  {
-    BookmarkAndCategory bc = frm()->GetBookmark(m2::PointD(px, py));
-    return jni::ToJavaString(env, getBookmark(bc.first, bc.second)->GetType());
-  }
-
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_Bookmark_changeBookmark(
-         JNIEnv * env, jobject thiz, jdouble x, jdouble y,
-         jstring cat, jstring name, jstring type, jstring descr)
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_setBookmarkParams(
+         JNIEnv * env, jobject thiz, jint cat, jlong bmk,
+         jstring name, jstring type, jstring descr)
   {
-    // get existing bookmark under point
-    BookmarkAndCategory bac = frm()->GetBookmark(frm()->GtoP(m2::PointD(x, y)));
+    Bookmark const * p = getBookmark(cat, bmk);
 
     // initialize new bookmark
-    Bookmark bm(m2::PointD(x, y), jni::ToNativeString(env, name), jni::ToNativeString(env, type));
+    Bookmark bm(p->GetOrg(), jni::ToNativeString(env, name), jni::ToNativeString(env, type));
     if (descr != 0)
       bm.SetDescription(jni::ToNativeString(env, descr));
-    else if (IsValid(bac))
-      bm.SetDescription(getBookmark(bac.first, bac.second)->GetDescription());
+    else
+      bm.SetDescription(p->GetDescription());
 
-    // add new bookmark
-    string const category = jni::ToNativeString(env, cat);
-    g_framework->AddBookmark(category, bm);
+    g_framework->ReplaceBookmark(BookmarkAndCategory(cat, bmk), bm);
+  }
 
-    // save old bookmark's category
-    if (bac.first > -1)
-    {
-      BookmarkCategory * pCat = frm()->GetBmCategory(bac.first);
-      if (pCat->GetName() != category)
-        pCat->SaveToKMLFile();
-    }
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_changeCategory(
+         JNIEnv * env, jobject thiz, jint oldCat, jint newCat, jlong bmk)
+  {
+    return g_framework->ChangeBookmarkCategory(BookmarkAndCategory(oldCat, bmk), newCat);
   }
 
   JNIEXPORT jobject JNICALL
