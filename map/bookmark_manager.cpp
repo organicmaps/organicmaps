@@ -55,9 +55,6 @@ void BookmarkManager::ClearBookmarks()
 
 void BookmarkManager::LoadBookmarks()
 {
-  if (!GetPlatform().IsPro())
-    return;
-
   ClearBookmarks();
 
   string const dir = GetPlatform().WritableDir();
@@ -82,13 +79,17 @@ size_t BookmarkManager::AddBookmark(size_t categoryIndex, Bookmark & bm)
 {
   bm.SetTimeStamp(time(0));
   bm.SetScale(scales::GetScaleLevelD(m_framework.GetNavigator().Screen().GlobalRect().GetLocalRect()));
-  m_categories[categoryIndex]->AddBookmark(bm);
-  if (m_categories[categoryIndex]->GetFileName().empty())
-  {
+
+  BookmarkCategory * pCat = m_categories[categoryIndex];
+  pCat->AddBookmark(bm);
+
+  // Immediately do save category for the new one
+  // (we need it for the last used category ID).
+  if (pCat->GetFileName().empty())
     m_categories[categoryIndex]->SaveToKMLFile();
-  }
-  m_lastCategoryUrl = m_categories[categoryIndex]->GetFileName();
-  return m_categories[categoryIndex]->GetBookmarksCount() - 1;
+
+  m_lastCategoryUrl = pCat->GetFileName();
+  return pCat->GetBookmarksCount() - 1;
 }
 
 size_t BookmarkManager::LastEditedBMCategory()

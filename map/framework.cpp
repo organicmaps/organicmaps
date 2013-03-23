@@ -374,10 +374,11 @@ void Framework::LoadBookmarks()
 {
   if (!GetPlatform().IsPro())
     return;
+
   m_bmManager.LoadBookmarks();
 }
 
-size_t Framework::AddBookmark(size_t const & categoryIndex, Bookmark & bm)
+size_t Framework::AddBookmark(size_t categoryIndex, Bookmark & bm)
 {
   return m_bmManager.AddBookmark(categoryIndex, bm);
 }
@@ -437,7 +438,6 @@ BookmarkAndCategory Framework::GetBookmark(m2::PointD const & pxPoint, double vi
   {
     for (int i = 0; i < m_bmManager.AdditionalLayerNumberOfPoi(); ++i)
     {
-
       m2::PointD const pt = m_bmManager.AdditionalPoiLayerGetBookmark(i)->GetOrg();
       if (rect.IsPointInside(pt))
       {
@@ -454,9 +454,10 @@ BookmarkAndCategory Framework::GetBookmark(m2::PointD const & pxPoint, double vi
 
   for (size_t i = 0; i < m_bmManager.GetBmCategoriesCount(); ++i)
   {
-    bool currentCategoryIsVisible = m_bmManager.GetBmCategory(i)->IsVisible();
+    bool const currentCategoryIsVisible = m_bmManager.GetBmCategory(i)->IsVisible();
     if (!currentCategoryIsVisible && returnBookmarkIsVisible)
       continue;
+
     size_t const count = m_bmManager.GetBmCategory(i)->GetBookmarksCount();
     for (size_t j = 0; j < count; ++j)
     {

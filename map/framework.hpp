@@ -169,11 +169,11 @@ public:
 
   /// @name Always returns existing or newly created bookmark category.
   //@{
-  size_t AddBookmark(size_t const & categoryIndex, Bookmark & bm);
+  size_t AddBookmark(size_t categoryIndex, Bookmark & bm);
   //@}
   size_t AddCategory(string const & categoryName);
 
-  inline size_t GetBmCategoriesCount() const { return m_bmManager.GetBmCategoriesCount();}
+  inline size_t GetBmCategoriesCount() const { return m_bmManager.GetBmCategoriesCount(); }
   /// @returns 0 if category is not found
   BookmarkCategory * GetBmCategory(size_t index) const;
 
