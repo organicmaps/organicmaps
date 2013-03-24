@@ -254,7 +254,7 @@ void BenchmarkEngine::Do()
   PrepareMaps();
 
   int benchMarkCount = 1;
-  Settings::Get("BenchmarkCyrcleCount", benchMarkCount);
+  Settings::Get("BenchmarkCyclesCount", benchMarkCount);
 
   for (int i = 0; i < benchMarkCount; ++i)
   {

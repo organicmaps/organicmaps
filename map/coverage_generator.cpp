@@ -286,12 +286,12 @@ void CoverageGenerator::CheckEmptyModel(int sequenceID)
   m_windowHandle->invalidate();
 }
 
-void CoverageGenerator::AddFinishSequenceTaskIfNeed()
+void CoverageGenerator::AddFinishSequenceTaskIfNeeded()
 {
   if (g_coverageGeneratorDestroyed)
     return;
 
-  if (m_benchmarkBarier.m_tilesCount == 0)
+  if (m_benchmarkBarrier.m_tilesCount == 0)
     m_queue.AddCommand(bind(&CoverageGenerator::FinishSequence, this));
 }
 
@@ -305,7 +305,7 @@ void CoverageGenerator::AddDecrementTileCountTask(int sequenceID)
   if (g_coverageGeneratorDestroyed)
     return;
 
-  m_queue.AddCommand(bind(&BenchmarkRenderingBarier::DecrementTileCounter, &m_benchmarkBarier, sequenceID));
+  m_queue.AddCommand(bind(&BenchmarkRenderingBarier::DecrementTileCounter, &m_benchmarkBarrier, sequenceID));
 }
 
 void CoverageGenerator::WaitForEmptyAndFinished()
@@ -330,8 +330,8 @@ void CoverageGenerator::SetSequenceID(int sequenceID)
 
 void CoverageGenerator::StartTileDrawingSession(int sequenceID, unsigned tileCount)
 {
-  m_benchmarkBarier.m_sequenceID = sequenceID;
-  m_benchmarkBarier.m_tilesCount = tileCount;
+  m_benchmarkBarrier.m_sequenceID = sequenceID;
+  m_benchmarkBarrier.m_tilesCount = tileCount;
 }
 
 shared_ptr<graphics::ResourceManager> const & CoverageGenerator::resourceManager() const

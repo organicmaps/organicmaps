@@ -52,7 +52,7 @@ private:
     }
   };
 
-  BenchmarkRenderingBarier m_benchmarkBarier;
+  BenchmarkRenderingBarier m_benchmarkBarrier;
 
   core::CommandsQueue m_queue;
 
@@ -109,7 +109,7 @@ public:
                         int sequenceID);
 
   void AddCheckEmptyModelTask(int sequenceID);
-  void AddFinishSequenceTaskIfNeed();
+  void AddFinishSequenceTaskIfNeeded();
 
   void AddDecrementTileCountTask(int sequenceID);
 
