@@ -4511,10 +4511,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
 			};
 			name = "Simulator Lite";
 		};
@@ -4610,10 +4606,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
 			};
 			name = "Production Lite";
 		};
@@ -4664,10 +4656,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
 			};
 			name = "Debug Lite";
 		};
@@ -4722,10 +4710,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
 			};
 			name = "AdHoc Lite";
 		};
@@ -4774,10 +4758,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
 			};
 			name = "Simulator Full";
 		};
@@ -4828,10 +4808,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
 			};
 			name = "Debug Full";
 		};
@@ -4886,10 +4862,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
 			};
 			name = "AdHoc Full";
 		};
@@ -4944,10 +4916,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
 			};
 			name = "Production Full";
 		};
@@ -5001,10 +4969,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
 			};
 			name = "Release Lite";
 		};
@@ -5058,10 +5022,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
 			};
 			name = "Release Full";
 		};
@@ -5113,10 +5073,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
 			};
 			name = "Simulator Full Release";
 		};
@@ -5124,10 +5080,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
+				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "Simulator Full Release";
 		};
@@ -5135,10 +5088,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
+				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "Simulator Lite";
 		};
@@ -5146,10 +5096,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
+				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "Simulator Full";
 		};
@@ -5157,10 +5104,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
+				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "Debug Lite";
 		};
@@ -5168,10 +5112,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
+				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "Debug Full";
 		};
@@ -5179,10 +5120,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
+				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "AdHoc Lite";
 		};
@@ -5190,10 +5128,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
+				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "Release Lite";
 		};
@@ -5201,10 +5136,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
+				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "AdHoc Full";
 		};
@@ -5212,10 +5144,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
+				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "Release Full";
 		};
@@ -5223,10 +5152,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
+				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "Production Lite";
 		};
@@ -5234,10 +5160,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Statistics\"",
-				);
+				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "Production Full";
 		};
