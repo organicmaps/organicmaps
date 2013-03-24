@@ -16,6 +16,8 @@
 
 #include "../../../platform/platform.hpp"
 
+#include "../Statistics/Statistics.h"
+
 #include "RenderContext.hpp"
 
 
@@ -636,6 +638,8 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void) OnEnterBackground
 {
+  [[Statistics instance] stopSession];
+  
   // Save state and notify about entering background.
 
   Framework & f = GetFramework();
@@ -646,6 +650,8 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void) OnEnterForeground
 {
+  [[Statistics instance] startSession];
+  
   // Notify about entering foreground (should be called on the first launch too).
   GetFramework().EnterForeground();
 
