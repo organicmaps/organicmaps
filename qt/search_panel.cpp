@@ -108,8 +108,6 @@ namespace
     return pm;
   }
   */
-
-  char const * SEARCH_CATEGORY = "Search";
 }
 
 void SearchPanel::OnSearchResult(ResultsT * res)

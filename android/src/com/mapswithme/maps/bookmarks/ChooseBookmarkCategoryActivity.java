@@ -43,7 +43,8 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
         m_handler.switchToAddButton();
         mAdapter.chooseItem(position);
 
-        Point cab = ((ParcelablePoint)getIntent().getParcelableExtra(BookmarkActivity.PIN)).getPoint();
+        // Note that Point result from the intent is actually a pair of (category index, bookmark index in category).
+        final Point cab = ((ParcelablePoint)getIntent().getParcelableExtra(BookmarkActivity.PIN)).getPoint();
         Bookmark bmk = mManager.getBookmark(cab.x, cab.y);
         bmk.setCategoryId(position);
         getIntent().putExtra(BookmarkActivity.PIN, new ParcelablePoint(position, bmk.getBookmarkId()));
@@ -160,6 +161,7 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
 
     private void createNewCategory(String name)
     {
+      // Note that Point result from the intent is actually a pair of (category index, bookmark index in category).
       final Point cab = ((ParcelablePoint)getIntent().getParcelableExtra(BookmarkActivity.PIN)).getPoint();
       final int index = mManager.createCategory(mManager.getBookmark(cab.x, cab.y), name);
 

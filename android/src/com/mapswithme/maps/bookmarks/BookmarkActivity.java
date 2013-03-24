@@ -42,7 +42,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   private List<Icon> mIcons;
   private ImageView mChooserImage;
   private EditText mDescr;
-  private Icon m_icon = null;
+  private Icon mIcon = null;
 
   @Override
   public void onCreate(Bundle savedInstanceState)
@@ -51,10 +51,11 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
     setContentView(R.layout.add_or_edit_bookmark);
 
+    // Note that Point result from the intent is actually a pair of (category index, bookmark index in category).
     assert(getIntent().getExtras().containsKey(PIN));
-    final Point p = ((ParcelablePoint)getIntent().getParcelableExtra(PIN)).getPoint();
+    final Point cab = ((ParcelablePoint)getIntent().getParcelableExtra(PIN)).getPoint();
 
-    mPin = mManager.getBookmark(p.x, p.y);
+    mPin = mManager.getBookmark(cab.x, cab.y);
     mCurrentCategoryId = mPin.getCategoryId();
 
     setTitle(mPin.getName());
@@ -63,8 +64,8 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
   private void updateColorChooser(Icon icon)
   {
-    m_icon = icon;
-    mChooserImage.setImageBitmap(m_icon.getIcon());
+    mIcon = icon;
+    mChooserImage.setImageBitmap(mIcon.getIcon());
   }
 
   private void refreshValuesInViews()
@@ -136,7 +137,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   private void assignPinParams()
   {
     if (mPin != null)
-      mPin.setParams(mName.getText().toString(), m_icon, mDescr.getText().toString());
+      mPin.setParams(mName.getText().toString(), mIcon, mDescr.getText().toString());
   }
 
   @Override
