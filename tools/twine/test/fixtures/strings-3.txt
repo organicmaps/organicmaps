@@ -1,0 +1,5 @@
+[[My Strings]]
+    [parameterized_string]
+        en = The %@ brown fox jumps over the %@ dog %d times.
+    [percentage_string]
+        en = This product is %d%% off.
