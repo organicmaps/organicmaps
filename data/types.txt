@@ -430,7 +430,7 @@ railway|siding
 highway|track|area
 highway|unclassified
 railway|funicular
-amenity|parking|public|fee
+amenity|parking|fee
 historic|battlefield
 highway|construction
 sport|australian_football
@@ -440,7 +440,7 @@ highway|cycleway|private
 highway|steps
 piste:lift|t-bar
 highway|construction
-amenity|parking|public
+amenity|parking
 highway|path|difficult_alpine_hiking
 earthquake:damage|spontaneous_camp
 highway|cycleway

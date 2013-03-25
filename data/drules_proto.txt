@@ -195,7 +195,7 @@ cont {
       primary {
         height: 12
         color: 0x808080
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -254,7 +254,7 @@ cont {
         height: 12
         color: 0x202020
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -270,7 +270,7 @@ cont {
         height: 12
         color: 0x202020
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -286,7 +286,7 @@ cont {
         height: 12
         color: 0x202020
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -664,7 +664,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -680,7 +680,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -699,7 +699,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15007
     }
@@ -715,7 +715,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15007
     }
@@ -730,7 +730,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -746,7 +746,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -782,7 +782,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -798,7 +798,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -817,7 +817,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -833,7 +833,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -863,7 +863,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15014
     }
@@ -882,7 +882,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -898,7 +898,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -913,7 +913,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -929,7 +929,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -948,7 +948,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -964,7 +964,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -983,7 +983,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -999,7 +999,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1060,7 +1060,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1076,7 +1076,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1112,7 +1112,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1128,7 +1128,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1147,7 +1147,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1163,7 +1163,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1182,7 +1182,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1198,7 +1198,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1228,7 +1228,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1258,7 +1258,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1274,7 +1274,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1383,7 +1383,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1402,7 +1402,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1418,7 +1418,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1486,7 +1486,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1505,7 +1505,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1521,7 +1521,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1540,7 +1540,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1556,7 +1556,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1568,20 +1568,6 @@ cont {
 }
 cont {
   name: "amenity-parking"
-  element {
-    scale: 13
-    area {
-      color: 0xF8F8D8
-      priority: 1001
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 0xF8F8D8
-      priority: 1001
-    }
-  }
   element {
     scale: 15
     area {
@@ -1615,20 +1601,6 @@ cont {
 cont {
   name: "amenity-parking-fee"
   element {
-    scale: 13
-    area {
-      color: 0xF8F8D8
-      priority: 1001
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 0xF8F8D8
-      priority: 1001
-    }
-  }
-  element {
     scale: 15
     area {
       color: 0xF8F8D8
@@ -1660,20 +1632,6 @@ cont {
 }
 cont {
   name: "amenity-parking-multi-storey"
-  element {
-    scale: 13
-    area {
-      color: 0xF8F8D8
-      priority: 1001
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 0xF8F8D8
-      priority: 1001
-    }
-  }
   element {
     scale: 15
     area {
@@ -1707,20 +1665,6 @@ cont {
 cont {
   name: "amenity-parking-multi-storey-fee"
   element {
-    scale: 13
-    area {
-      color: 0xF8F8D8
-      priority: 1001
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 0xF8F8D8
-      priority: 1001
-    }
-  }
-  element {
     scale: 15
     area {
       color: 0xF8F8D8
@@ -1752,20 +1696,6 @@ cont {
 }
 cont {
   name: "amenity-parking-park_and_ride"
-  element {
-    scale: 13
-    area {
-      color: 0xF8F8D8
-      priority: 1001
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 0xF8F8D8
-      priority: 1001
-    }
-  }
   element {
     scale: 15
     area {
@@ -1799,13 +1729,6 @@ cont {
 cont {
   name: "amenity-parking-permissive"
   element {
-    scale: 15
-    symbol {
-      name: "parking-permissive"
-      priority: 16000
-    }
-  }
-  element {
     scale: 16
     symbol {
       name: "parking-permissive"
@@ -1823,13 +1746,6 @@ cont {
 cont {
   name: "amenity-parking-permissive-fee"
   element {
-    scale: 15
-    symbol {
-      name: "parking-permissive"
-      priority: 16000
-    }
-  }
-  element {
     scale: 16
     symbol {
       name: "parking-permissive"
@@ -1845,41 +1761,7 @@ cont {
   }
 }
 cont {
-  name: "amenity-parking-public"
-  element {
-    scale: 17
-    symbol {
-      name: "parking-permissive"
-      priority: 16000
-    }
-  }
-}
-cont {
-  name: "amenity-parking-public-fee"
-  element {
-    scale: 17
-    symbol {
-      name: "parking_fee"
-      priority: 16000
-    }
-  }
-}
-cont {
   name: "amenity-parking-underground"
-  element {
-    scale: 13
-    area {
-      color: 0xF8F8D8
-      priority: 1001
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 0xF8F8D8
-      priority: 1001
-    }
-  }
   element {
     scale: 15
     area {
@@ -1912,20 +1794,6 @@ cont {
 }
 cont {
   name: "amenity-parking-underground-fee"
-  element {
-    scale: 13
-    area {
-      color: 0xF8F8D8
-      priority: 1001
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 0xF8F8D8
-      priority: 1001
-    }
-  }
   element {
     scale: 15
     area {
@@ -1972,7 +1840,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -1991,7 +1859,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2007,7 +1875,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2026,7 +1894,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2042,7 +1910,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2061,7 +1929,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2080,7 +1948,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2096,7 +1964,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2115,7 +1983,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2131,7 +1999,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2155,7 +2023,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2170,7 +2038,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2186,7 +2054,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2205,7 +2073,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2221,7 +2089,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2240,7 +2108,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2261,7 +2129,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2276,7 +2144,7 @@ cont {
         height: 11
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2297,7 +2165,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2400,7 +2268,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2426,7 +2294,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2458,7 +2326,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2473,7 +2341,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2489,7 +2357,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -2515,7 +2383,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -3733,7 +3601,30 @@ cont {
 cont {
   name: "boundary-administrative-4"
   element {
+    scale: 4
+    lines {
+      width: 0.2
+      color: 0xA0A0A0
+      dashdot {
+        dd: 0.3
+        dd: 0.6
+      }
+      cap: BUTTCAP
+      priority: 1112
+    }
+  }
+  element {
     scale: 5
+    lines {
+      width: 0.2
+      color: 0xA0A0A0
+      dashdot {
+        dd: 0.3
+        dd: 0.6
+      }
+      cap: BUTTCAP
+      priority: 1112
+    }
     lines {
       width: 1
       color: 0xEEEEDD
@@ -3836,6 +3727,16 @@ cont {
   element {
     scale: 4
     lines {
+      width: 0.2
+      color: 0xA0A0A0
+      dashdot {
+        dd: 0.3
+        dd: 0.6
+      }
+      cap: BUTTCAP
+      priority: 1112
+    }
+    lines {
       width: 1
       color: 0xEEEEDD
       priority: 1110
@@ -3843,6 +3744,16 @@ cont {
   }
   element {
     scale: 5
+    lines {
+      width: 0.2
+      color: 0xA0A0A0
+      dashdot {
+        dd: 0.3
+        dd: 0.6
+      }
+      cap: BUTTCAP
+      priority: 1112
+    }
     lines {
       width: 1
       color: 0xEEEEDD
@@ -5807,7 +5718,7 @@ cont {
         height: 10
         color: 0x3050D8
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15014
     }
@@ -5823,7 +5734,7 @@ cont {
         height: 11
         color: 0x3050D8
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15014
     }
@@ -16335,7 +16246,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -16351,7 +16262,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -16370,7 +16281,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -16386,7 +16297,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -16405,7 +16316,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -16421,7 +16332,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -16440,7 +16351,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -16456,7 +16367,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -16475,7 +16386,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -16491,7 +16402,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -16510,7 +16421,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -16526,7 +16437,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -16545,7 +16456,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -16561,7 +16472,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -20490,7 +20401,7 @@ cont {
       primary {
         height: 12
         color: 0x202020
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -20505,7 +20416,7 @@ cont {
       primary {
         height: 12
         color: 0x202020
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -20520,7 +20431,7 @@ cont {
       primary {
         height: 16
         color: 0x202020
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -20535,7 +20446,7 @@ cont {
       primary {
         height: 16
         color: 0x202020
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -21144,7 +21055,7 @@ cont {
       primary {
         height: 12
         color: 0x404040
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -21159,7 +21070,7 @@ cont {
       primary {
         height: 12
         color: 0x404040
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -21174,7 +21085,7 @@ cont {
       primary {
         height: 12
         color: 0x404040
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -21189,7 +21100,7 @@ cont {
       primary {
         height: 16
         color: 0x404040
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -21204,7 +21115,7 @@ cont {
       primary {
         height: 16
         color: 0x404040
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -21537,7 +21448,7 @@ cont {
       primary {
         height: 12
         color: 0x202020
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -21552,7 +21463,7 @@ cont {
       primary {
         height: 12
         color: 0x202020
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -21567,7 +21478,7 @@ cont {
       primary {
         height: 16
         color: 0x202020
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -21582,7 +21493,7 @@ cont {
       primary {
         height: 16
         color: 0x202020
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -25435,7 +25346,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15146
     }
@@ -25451,7 +25362,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15146
     }
@@ -25467,7 +25378,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -28423,7 +28334,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xF8FCFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15146
     }
@@ -28439,7 +28350,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xF8FCFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15146
     }
@@ -28455,7 +28366,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xF8FCFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15146
     }
@@ -28474,7 +28385,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xF8FCFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15146
     }
@@ -28490,7 +28401,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xF8FCFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15146
     }
@@ -28506,7 +28417,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xF8FCFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15146
     }
@@ -28522,7 +28433,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xF8FCFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15146
     }
@@ -28538,7 +28449,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xF8FCFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15146
     }
@@ -29093,7 +29004,7 @@ cont {
         height: 10
         color: 0x3050D8
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -29109,7 +29020,7 @@ cont {
         height: 11
         color: 0x3050D8
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -29129,7 +29040,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15000
     }
@@ -29679,7 +29590,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -29695,7 +29606,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -29714,7 +29625,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -29730,7 +29641,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -29749,7 +29660,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -29765,7 +29676,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -29784,7 +29695,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -29800,7 +29711,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -29819,7 +29730,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -29835,7 +29746,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -29854,7 +29765,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -29870,7 +29781,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -29889,7 +29800,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -29905,7 +29816,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -30263,7 +30174,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -30339,7 +30250,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -30355,7 +30266,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -30374,7 +30285,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -30390,7 +30301,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -30409,7 +30320,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -30425,7 +30336,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -30474,7 +30385,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -30490,7 +30401,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -30509,7 +30420,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -30525,7 +30436,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
@@ -30579,7 +30490,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
-        offset_y: 10
+        offset_y: 14
       }
       priority: 15002
     }
