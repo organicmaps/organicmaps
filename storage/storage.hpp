@@ -115,6 +115,7 @@ namespace storage
 
     void DownloadCountry(TIndex const & index);
     bool DeleteFromDownloader(TIndex const & index);
+    bool IsDownloadInProgress() const;
 
     void NotifyStatusChanged(TIndex const & index) const;
 

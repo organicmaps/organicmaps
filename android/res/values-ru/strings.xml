@@ -259,4 +259,8 @@
 	<string name="download_location_country">Скачайте страну (%s) вашего текущего местоположения</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
 	<string name="download_viewport_country_to_search">Скачайте страну (%s), на которой вы ищете</string>
+	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+	<string name="cant_change_this_setting">Эту настройку сейчас менять нельзя</string>
+	<!-- Alert message that downloading is in progress. -->
+	<string name="downloading_is_active">Идет загрузка страны</string>
 </resources>

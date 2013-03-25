@@ -718,4 +718,9 @@ namespace android
 
     return AddBookmark(newCat, bmk).second;
   }
+
+  bool Framework::IsDownloadingActive()
+  {
+    return m_work.Storage().IsDownloadInProgress();
+  }
 }

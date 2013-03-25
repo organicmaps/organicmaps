@@ -1,6 +1,8 @@
 package com.mapswithme.maps.settings;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -14,6 +16,8 @@ import com.mapswithme.util.Statistics;
 
 public class SettingsActivity extends PreferenceActivity
 {
+  private native boolean isDownloadingActive();
+
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
@@ -29,8 +33,29 @@ public class SettingsActivity extends PreferenceActivity
       @Override
       public boolean onPreferenceClick(Preference preference)
       {
-        parent.startActivity(new Intent(parent, StoragePathActivity.class));
-        return true;
+        if (isDownloadingActive())
+        {
+          new AlertDialog.Builder(parent)
+          .setTitle(parent.getString(R.string.cant_change_this_setting))
+          .setMessage(parent.getString(R.string.downloading_is_active))
+          .setPositiveButton(parent.getString(R.string.ok), new DialogInterface.OnClickListener()
+          {
+            @Override
+            public void onClick(DialogInterface dlg, int which)
+            {
+              dlg.dismiss();
+            }
+          })
+          .create()
+          .show();
+
+          return false;
+        }
+        else
+        {
+          parent.startActivity(new Intent(parent, StoragePathActivity.class));
+          return true;
+        }
       }
     });
 
@@ -46,20 +71,20 @@ public class SettingsActivity extends PreferenceActivity
       }
     });
   }
-  
+
   @Override
   protected void onStart()
   {
     super.onStart();
-    
+
     Statistics.INSTANCE.startActivity(this);
   }
-  
+
   @Override
   protected void onStop()
   {
     super.onStop();
-    
+
     Statistics.INSTANCE.stopActivity(this);
   }
 }

@@ -235,6 +235,11 @@ namespace storage
     return false;
   }
 
+  bool Storage::IsDownloadInProgress() const
+  {
+    return !m_queue.empty();
+  }
+
   void Storage::LoadCountriesFile(bool forceReload)
   {
     if (forceReload)

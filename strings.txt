@@ -1689,3 +1689,13 @@
     en =
     tags = android
     comment = The app key for Flurry; needed in order for the Android library to build properly.
+  [cant_change_this_setting]
+  	en = Can't change this setting now
+  	tags = android
+  	comment = Alert message that we can't run Map Storage settings due to some reasons.
+  	ru = Эту настройку сейчас менять нельзя
+  [downloading_is_active]
+  	en = Downloading of country is in progress now
+  	tags = android
+  	comment = Alert message that downloading is in progress.
+  	ru = Идет загрузка страны

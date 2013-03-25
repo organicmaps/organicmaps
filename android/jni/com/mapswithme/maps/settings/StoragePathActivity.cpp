@@ -56,4 +56,10 @@ extern "C"
     g_framework->NativeFramework()->LoadBookmarks();
     return true;
   }
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_settings_SettingsActivity_isDownloadingActive(JNIEnv * env, jobject thiz)
+  {
+    return g_framework->IsDownloadingActive();
+  }
 }
