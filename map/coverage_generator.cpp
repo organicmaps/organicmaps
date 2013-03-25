@@ -292,7 +292,13 @@ void CoverageGenerator::AddFinishSequenceTaskIfNeeded()
     return;
 
   if (m_benchmarkBarrier.m_tilesCount == 0)
+  {
+    // this instruction based on idea that up to this point all tiles is rendered, all threads
+    // expect gui thread in wait state, and no one can modify m_tilesCount expect gui thread.
+    // If banchmarking engine change logic, may be m_tilesCount need to be guard by some sync primitive
+    m_benchmarkBarrier.m_tilesCount = -1;
     m_queue.AddCommand(bind(&CoverageGenerator::FinishSequence, this));
+  }
 }
 
 void CoverageGenerator::FinishSequence()
