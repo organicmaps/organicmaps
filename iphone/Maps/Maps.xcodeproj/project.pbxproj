@@ -4546,6 +4546,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = "-LStatistics";
 				PRODUCT_NAME = "MWM Dbg Lite";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -4592,6 +4593,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = "-LStatistics";
 				PRODUCT_NAME = MapsWithMe;
 				PROVISIONING_PROFILE = "688C490D-DB70-4CEE-AF99-AE2C0EF2C582";
 				SDKROOT = iphoneos;
@@ -4642,6 +4644,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = "-LStatistics";
 				PRODUCT_NAME = "MWM Dbg Lite";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -4696,6 +4699,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = "-LStatistics";
 				PRODUCT_NAME = "MWM Beta Lite";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -4745,6 +4749,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = "-LStatistics";
 				PRODUCT_NAME = "MWM Dbg";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -4794,6 +4799,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = "-LStatistics";
 				PRODUCT_NAME = "MWM Dbg";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -4848,6 +4854,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = "-LStatistics";
 				PRODUCT_NAME = "MWM Beta";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -4902,6 +4909,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = "-LStatistics";
 				PRODUCT_NAME = MapsWithMe;
 				PROVISIONING_PROFILE = "A7482045-F46A-4DEE-9843-8B03C4C7C294";
 				SDKROOT = iphoneos;
@@ -4955,6 +4963,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = "-LStatistics";
 				PRODUCT_NAME = "MWM Rel Lite";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -5008,6 +5017,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = "-LStatistics";
 				PRODUCT_NAME = "MWM Rel";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -5060,6 +5070,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = "-LStatistics";
 				PRODUCT_NAME = "MWM Rel";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -5080,7 +5091,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "Simulator Full Release";
 		};
@@ -5088,7 +5098,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "Simulator Lite";
 		};
@@ -5096,7 +5105,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "Simulator Full";
 		};
@@ -5104,7 +5112,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "Debug Lite";
 		};
@@ -5112,7 +5119,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "Debug Full";
 		};
@@ -5120,7 +5126,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "AdHoc Lite";
 		};
@@ -5128,7 +5133,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "Release Lite";
 		};
@@ -5136,7 +5140,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "AdHoc Full";
 		};
@@ -5144,7 +5147,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "Release Full";
 		};
@@ -5152,7 +5154,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "Production Lite";
 		};
@@ -5160,7 +5161,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				OTHER_LDFLAGS = "-LStatistics";
 			};
 			name = "Production Full";
 		};
