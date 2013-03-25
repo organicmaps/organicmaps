@@ -456,7 +456,7 @@ string BookmarkCategory::RemoveInvalidSymbols(string const & name)
 
 string BookmarkCategory::GenerateUniqueFileName(const string & path, string name)
 {
-  string const kmlExt(".kml");
+  string const kmlExt(BOOKMARKS_FILE_EXTENSION);
 
   // check if file name already contains .kml extension
   size_t const extPos = name.rfind(kmlExt);

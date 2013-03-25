@@ -44,7 +44,6 @@
 /// How many pixels around touch point are used to get bookmark or POI
 #define TOUCH_PIXEL_RADIUS 20
 
-#define KML_EXTENSION ".kml"
 #define KMZ_EXTENSION ".kmz"
 
 #define DEFAULT_BOOKMARK_TYPE "placemark-red"
@@ -531,7 +530,7 @@ bool Framework::AddBookmarksFile(string const & filePath)
 {
   string const fileExt = GetFileExt(filePath);
   string fileSavePath;
-  if (fileExt == KML_EXTENSION)
+  if (fileExt == BOOKMARKS_FILE_EXTENSION)
   {
     fileSavePath = GenerateValidandUniqFilePathForKLM( GetFileName(filePath) );
     if (!my::CopyFileX(filePath, fileSavePath))
@@ -546,7 +545,7 @@ bool Framework::AddBookmarksFile(string const & filePath)
       string kmlFileName;
       for (size_t i = 0; i < files.size();++i)
       {
-        if (GetFileExt(files[i]) == KML_EXTENSION)
+        if (GetFileExt(files[i]) == BOOKMARKS_FILE_EXTENSION)
         {
           kmlFileName = files[i];
           break;

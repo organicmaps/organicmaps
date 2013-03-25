@@ -13,6 +13,7 @@
 #define READY_FILE_EXTENSION ".ready"
 #define RESUME_FILE_EXTENSION ".resume3"
 #define DOWNLOADING_FILE_EXTENSION ".downloading3"
+#define BOOKMARKS_FILE_EXTENSION ".kml"
 
 #define COUNTRIES_FILE  "countries.txt"
 

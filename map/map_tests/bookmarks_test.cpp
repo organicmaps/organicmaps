@@ -204,7 +204,7 @@ namespace
   {
     string const path = GetPlatform().WritableDir();
     for (size_t i = 0; i < N; ++i)
-      FileWriter::DeleteFileX(path + arrFiles[i] + ".kml");
+      FileWriter::DeleteFileX(path + arrFiles[i] + BOOKMARKS_FILE_EXTENSION);
   }
 
   Bookmark const * GetBookmark(Framework const & fm, m2::PointD const & pt)
@@ -376,7 +376,7 @@ UNIT_TEST(Bookmarks_IllegalFileName)
 UNIT_TEST(Bookmarks_UniqueFileName)
 {
   string const BASE = "SomeUniqueFileName";
-  string const FILENAME = BASE + ".kml";
+  string const FILENAME = BASE + BOOKMARKS_FILE_EXTENSION;
 
   {
     FileWriter file(FILENAME);

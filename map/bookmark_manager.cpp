@@ -11,8 +11,6 @@
 #include "../std/target_os.hpp"
 #include "../std/vector.hpp"
 
-#define KML_EXTENSION ".kml"
-#define KMZ_EXTENSION ".kmz"
 
 BookmarkManager::BookmarkManager(Framework& f):m_framework(f)
 {
@@ -59,7 +57,7 @@ void BookmarkManager::LoadBookmarks()
 
   string const dir = GetPlatform().WritableDir();
   Platform::FilesList files;
-  Platform::GetFilesByExt(dir, KML_EXTENSION, files);
+  Platform::GetFilesByExt(dir, BOOKMARKS_FILE_EXTENSION, files);
   for (size_t i = 0; i < files.size(); ++i)
   {
     LoadBookmark(dir+files[i]);
