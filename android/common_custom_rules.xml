@@ -87,4 +87,31 @@
   <target name="tstore-release" depends="-setup-tstore-market, -setup-release, release"/>
   <target name="tstore-debug" depends="-setup-tstore-market, -setup-debug, debug"/>
 
+  <target name="-setup-yandex-market">
+    <property name="mwm.market.name" value="-yandex"/>
+    <echo file="${asset.absolute.dir}/app_info.txt" append="false" message="yastore://details?id=com.mapswithme.maps.pro"/>
+  </target>
+
+  <target name="yandex-production" depends="-setup-yandex-market, -setup-production, production"/>
+  <target name="yandex-release" depends="-setup-yandex-market, -setup-release, release"/>
+  <target name="yandex-debug" depends="-setup-yandex-market, -setup-debug, debug"/>
+
+  <target name="-setup-slideme-market">
+    <property name="mwm.market.name" value="-slideme"/>
+    <echo file="${asset.absolute.dir}/app_info.txt" append="false" message="sam://details?bundleId=5eed1b74-8c8b-11e2-8af8-1670ef61174f"/>
+  </target>
+
+  <target name="slideme-production" depends="-setup-slideme-market, -setup-production, production"/>
+  <target name="slideme-release" depends="-setup-slideme-market, -setup-release, release"/>
+  <target name="slideme-debug" depends="-setup-slideme-market, -setup-debug, debug"/>
+
+  <target name="-setup-androidpit-market">
+    <property name="mwm.market.name" value="-androidpit"/>
+    <echo file="${asset.absolute.dir}/app_info.txt" append="false" message="appcenter://package/com.mapswithme.maps.pro"/>
+  </target>
+
+  <target name="androidpit-production" depends="-setup-androidpit-market, -setup-production, production"/>
+  <target name="androidpit-release" depends="-setup-androidpit-market, -setup-release, release"/>
+  <target name="androidpit-debug" depends="-setup-androidpit-market, -setup-debug, debug"/>
+
 </project>
