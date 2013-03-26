@@ -245,7 +245,7 @@
   return [NSString stringWithUTF8String:s.c_str()];
 }
 
--(bool)lastLocationIsValid
+- (bool)lastLocationIsValid
 {
     return (([self lastLocation] != nil) && ([m_lastLocationTime timeIntervalSinceNow] > -300.0));
 }

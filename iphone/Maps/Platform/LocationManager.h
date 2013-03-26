@@ -35,4 +35,6 @@
 - (bool)getNorthRad:(double &)rad;
 
 + (NSString *)formatDistance:(double)meters;
+
+- (bool)lastLocationIsValid;
 @end

@@ -363,7 +363,7 @@ static void OnSearchResultCallback(search::Results const & res)
     static NSString *CellIdentifier = @"categoryCell";
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil)
+    if (!cell)
     {
       cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
@@ -377,12 +377,18 @@ static void OnSearchResultCallback(search::Results const & res)
   if ([m_searchBar.text length] != 0 && ![[_searchResults objectAtIndex:scopeSection] getCount] && numberOfRowsInEmptySearch)
   {      
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"NoResultsCell"];
-    if (cell == nil)
+    if (!cell)
     {
-      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NoResultsCell"] autorelease];
-      [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-      cell.textLabel.text =  NSLocalizedString(@"no_search_results_found", nil);
+      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"NoResultsCell"] autorelease];
+      cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    cell.textLabel.text = NSLocalizedString(@"no_search_results_found", nil);
+
+    // check if we have no position in "near me" screen
+    if (![m_locationManager lastLocationIsValid] && scopeSection == 0)
+      cell.detailTextLabel.text = NSLocalizedString(@"unknown_current_position", nil);
+    else
+      cell.detailTextLabel.text = @"";
     return cell;
   }
 
