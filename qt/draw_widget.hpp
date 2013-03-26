@@ -19,20 +19,23 @@ namespace qt
 
   class DrawWidget;
 
-  class QtVideoTimer : public ::VideoTimer
+  class QtVideoTimer : public QObject, public ::VideoTimer
   {
+    Q_OBJECT
   private:
     QTimer * m_timer;
-    DrawWidget * m_widget;
 
   public:
-    QtVideoTimer(DrawWidget * w, ::VideoTimer::TFrameFn frameFn);
+    QtVideoTimer(::VideoTimer::TFrameFn frameFn);
 
     void resume();
     void pause();
 
     void start();
     void stop();
+
+  protected:
+    Q_SLOT void TimerElapsed();
   };
 
   class DrawWidget : public QGLWidget
@@ -70,7 +73,6 @@ namespace qt
     void Repaint();
     void ScaleChanged(int action);
     //void ScaleTimerElapsed();
-    void AnimTimerElapsed();
 
     void QueryMaxScaleMode();
 

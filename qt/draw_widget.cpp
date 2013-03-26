@@ -19,14 +19,14 @@
 
 namespace qt
 {
-  QtVideoTimer::QtVideoTimer(DrawWidget * w, TFrameFn frameFn)
-    : ::VideoTimer(frameFn), m_widget(w)
+  QtVideoTimer::QtVideoTimer(TFrameFn frameFn)
+    : ::VideoTimer(frameFn)
   {}
 
   void QtVideoTimer::start()
   {
     m_timer = new QTimer();
-    m_widget->connect(m_timer, SIGNAL(timeout()), m_widget, SLOT(AnimTimerElapsed()));
+    QObject::connect(m_timer, SIGNAL(timeout()), this, SLOT(TimerElapsed()));
     resume();
   }
 
@@ -48,6 +48,11 @@ namespace qt
     delete m_timer;
     m_timer = 0;
     m_state = EStopped;
+  }
+
+  void QtVideoTimer::TimerElapsed()
+  {
+    m_frameFn();
   }
 
   DrawWidget::DrawWidget(QWidget * pParent)
@@ -189,7 +194,7 @@ namespace qt
     /// Using timer, which doesn't use the separate thread
     /// for performing an action. This avoids race conditions in Framework.
     /// see issue #717
-    return new QtVideoTimer(this, bind(&DrawWidget::DrawFrame, this));
+    return new QtVideoTimer(bind(&DrawWidget::DrawFrame, this));
 //#endif
   }
 
@@ -462,11 +467,6 @@ namespace qt
   //{
   //  m_timer->stop();
   //}
-
-  void DrawWidget::AnimTimerElapsed()
-  {
-    DrawFrame();
-  }
 
   void DrawWidget::wheelEvent(QWheelEvent * e)
   {
