@@ -19,6 +19,7 @@ Naming and formatting
 - Underscores are allowed only in prefixes for member variables and namespace names, like int m_countriesCount; namespace utf_parser
 - Don't specify std:: and boost:: prefixes (headers in std/ folder already have 'using std::string')
 - Use right-to-left order for variables/params: string const & s (reference to the const string)
+- In one line 'if', 'for', 'while' we do not use brackets. If one line 'for' or 'while' is combined with one line 'if' do use brackets for cycle.
 
 // *********** Formatting Example ***********
 #include "../std/math.hpp"
@@ -97,6 +98,31 @@ int Foo(int a)
   return 0;
 }
 
+
+//if, for, while formatting
+
+if (condition)
+  foo();
+else
+  bar();
+
+if (condition)
+{
+  if (condition)
+    foo();
+  else
+    bar();
+}
+
+for (size_t i = 0; i < size; ++i)
+  foo(i);
+
+
+while(true)
+{
+  if (condition)
+    break;
+}
 
 
 Tips and Hints
