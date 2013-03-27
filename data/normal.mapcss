@@ -922,12 +922,8 @@ line|z12[railway=light_rail]
 }
 area|z15-[amenity=parking][!access],
 area|z15-[amenity=parking][access?],
-area|z12-14[landuse=commercial],
-area|z12-[natural=heath],
-area|z15-[landuse=commercial]::d1p2,
-node|z15-[amenity=parking][!access],
-node|z15-[amenity=parking][access?],
-node|z15-[landuse=commercial]::d1p2
+area|z12-[landuse=commercial],
+area|z12-[natural=heath]
 {
   fill-color:	#f8f8d8;
 }
@@ -2270,10 +2266,8 @@ line|z14[man_made=cutline]
   dashes:	3,4;
   linecap:	butt;
 }
-area|z14-16[amenity=shelter],
-area|z17-[amenity=shelter]::d1p2,
-node|z14-16[amenity=shelter],
-node|z17-[amenity=shelter]::d1p2
+area|z14-[amenity=shelter],
+node|z14-[amenity=shelter]
 {
   icon-image:	shelter.svg;
 }
@@ -3862,10 +3856,8 @@ node|z15[railway=tram_stop]
   text-offset:  14;
   text-halo-color:	white;
 }
-area|z15[amenity=fuel],
-area|z16-[amenity=fuel]::d1p2,
-node|z15[amenity=fuel],
-node|z16-[amenity=fuel]::d1p2
+area|z15-[amenity=fuel],
+node|z15-[amenity=fuel]
 {
   icon-image:	petrolstation.svg;
 }
@@ -3963,8 +3955,8 @@ line|z16[highway=path][sac_scale=demanding_mountain_hiking]
   dashes:	0.16,2.4;
   linecap:	butt;
 }
-area|z16-[amenity=bureau_de_change]::d1p2,
-node|z16-[amenity=bureau_de_change]::d1p2
+area|z16-[amenity=bureau_de_change],
+node|z16-[amenity=bureau_de_change]
 {
   icon-image:	bureau_de_change.svg;
 }
@@ -4036,8 +4028,8 @@ line|z16[highway=track][tracktype=grade1]
   color:	#d79331;
   width:	3;
 }
-area|z16-[amenity=restaurant]::d1p2,
-node|z16-[amenity=restaurant]::d1p2
+area|z16-[amenity=restaurant],
+node|z16-[amenity=restaurant]
 {
   icon-image:	restaurant.svg;
 }
@@ -4239,14 +4231,14 @@ line|z16[railway=light_rail]::d1p3
   linecap:	butt;
 }
 area|z17-[military=bunker],
-area|z16-[historic=battlefield]::d1p2,
+area|z16-[historic=battlefield],
 node|z17-[military=bunker],
-node|z16-[historic=battlefield]::d1p2
+node|z16-[historic=battlefield]
 {
   icon-image:	cannon.svg;
 }
-area|z16-[amenity=hunting_stand]::d1p2,
-node|z16-[amenity=hunting_stand]::d1p2
+area|z16-[amenity=hunting_stand],
+node|z16-[amenity=hunting_stand]
 {
   icon-image:	hunting_closed_high.svg;
 }
@@ -4282,10 +4274,10 @@ line|z16[railway=spur]::d1p3
   dashes:	8,16;
   linecap:	butt;
 }
-area|z16[building]::d0p5,
-area|z16[building=address]::d1p3,
-node|z16[building]::d0p5,
-node|z16[building=address]::d1p3
+area|z16[building]::int_name,
+area|z16[building=address]::int_name,
+node|z16[building]::int_name,
+node|z16[building=address]::int_name
 {
   text:	int_name;
   font-size:	11;
@@ -4319,8 +4311,8 @@ line|z16-[highway=motorway]
   text-color:	#202020;
   text-halo-color:	#f08800;
 }
-area|z16-[amenity=fast_food]::d1p2,
-node|z16-[amenity=fast_food]::d1p2
+area|z16-[amenity=fast_food],
+node|z16-[amenity=fast_food]
 {
   icon-image:	fastfood.svg;
 }
@@ -4332,8 +4324,8 @@ line|z16[highway=secondary]
   casing-width:	2;
   casing-color:	#c8c860;
 }
-area|z16-[shop=car_repair]::d1p2,
-node|z16-[shop=car_repair]::d1p2
+area|z16-[shop=car_repair],
+node|z16-[shop=car_repair]
 {
   icon-image:	car_repair.svg;
 }
@@ -4478,8 +4470,8 @@ node|z16[aerialway=station]::d1p2
   symbol-fill-color:	#3050d8;
   symbol-size:	4;
 }
-area|z16-[amenity=bicycle_rental]::d1p2,
-node|z16-[amenity=bicycle_rental]::d1p2
+area|z16-[amenity=bicycle_rental],
+node|z16-[amenity=bicycle_rental]
 {
   icon-image:	bicycle_rental.svg;
 }
@@ -4498,8 +4490,8 @@ line|z16[power=minor_line]
   z-index:	862;
   opacity:	0.5;
 }
-area|z16-[amenity=theatre]::d1p2,
-node|z16-[amenity=theatre]::d1p2
+area|z16-[amenity=theatre],
+node|z16-[amenity=theatre]
 {
   icon-image:	theatre.svg;
 }
@@ -4511,11 +4503,6 @@ line|z16[highway=footway][sac_scale=demanding_mountain_hiking]
   dashes:	0.16,2.4;
   linecap:	butt;
 }
-area|z16[landuse=reservoir]::d1p3,
-node|z16[landuse=reservoir]::d1p3
-{
-  z-index:	123;
-}
 line|z16[highway=secondary]
 {
   font-size:	14;
@@ -4525,8 +4512,8 @@ line|z16[highway=secondary]
   text-color:	#404040;
   text-halo-color:	#fffb80;
 }
-area|z16-[amenity=embassy]::d1p2,
-node|z16-[amenity=embassy]::d1p2
+area|z16-[amenity=embassy],
+node|z16-[amenity=embassy]
 {
   icon-image:	embassy.svg;
 }
@@ -4536,10 +4523,10 @@ line|z16[railway=rail]::d1p3
   z-index:	543;
   width:	4;
 }
-area|z16-[tourism=guest_house]::d1p2,
-area|z16-[tourism=hostel]::d1p2,
-node|z16-[tourism=guest_house]::d1p2,
-node|z16-[tourism=hostel]::d1p2
+area|z16-[tourism=guest_house],
+area|z16-[tourism=hostel],
+node|z16-[tourism=guest_house],
+node|z16-[tourism=hostel]
 {
   icon-image:	hostel.svg;
 }
@@ -4620,8 +4607,8 @@ line|z16[highway=tertiary]
   width:	6;
   casing-color:	#c8c860;
 }
-area|z16-[amenity=restaurant][hotel]::d2p2,
-node|z16-[amenity=restaurant][hotel]::d2p2
+area|z16-[amenity=restaurant][hotel],
+node|z16-[amenity=restaurant][hotel]
 {
   icon-image:	hotel_and_restaurant.svg;
 }
@@ -4679,10 +4666,8 @@ line|z16[railway=narrow_gauge]::d1p2
   width:	2;
   z-index:	632;
 }
-area|z16[amenity=toilets],
-area|z17-[amenity=toilets]::d1p2,
-node|z16[amenity=toilets],
-node|z17-[amenity=toilets]::d1p2
+area|z16-[amenity=toilets],
+node|z16-[amenity=toilets],
 {
   icon-image:	toilets.svg;
 }
@@ -4859,8 +4844,8 @@ line|z16[boundary=administrative][type=nation]::d2p2
   z-index:	944;
   dashes:	12,12;
 }
-area|z16-[amenity=fire_station]::d1p2,
-node|z16-[amenity=fire_station]::d1p2
+area|z16-[amenity=fire_station],
+node|z16-[amenity=fire_station]
 {
   icon-image:	firebrigade.svg;
 }
@@ -4872,15 +4857,15 @@ line|z16[railway=construction]::d1p3
   dashes:	4,4,4,12;
   linecap:	butt;
 }
-area|z16-[shop=bakery]::d1p2,
-node|z16-[shop=bakery]::d1p2
+area|z16-[shop=bakery],
+node|z16-[shop=bakery]
 {
   icon-image:	bakery.svg;
 }
 area|z16[amenity=taxi],
-area|z17-[amenity=taxi]::d1p2,
+area|z17-[amenity=taxi],
 node|z16[amenity=taxi],
-node|z17-[amenity=taxi]::d1p2
+node|z17-[amenity=taxi]
 {
   icon-image:	taxi.svg;
 }
@@ -4892,9 +4877,10 @@ line|z16[railway=preserved]::d1p3
   dashes:	12,12;
   linecap:	butt;
 }
-node|z16-[building]
+node|z16-[building]::icon
 {
   icon-image:	building.svg;
+  z-index: -10;
 }
 line|z16[railway=narrow_gauge]
 {
@@ -4910,10 +4896,8 @@ line|z16[power=minor_line]::d1p3
   dashes:	8,4;
   linecap:	butt;
 }
-area|z16[amenity=fountain]::d1p2,
-area|z17-[amenity=fountain]::d1p3,
-node|z16[amenity=fountain]::d1p2,
-node|z17-[amenity=fountain]::d1p3
+area|z16-[amenity=fountain],
+node|z16-[amenity=fountain]
 {
   icon-image:	fountain.svg;
 }
@@ -4949,8 +4933,8 @@ line|z16[railway=siding]
   width:	2.4;
   z-index:	549;
 }
-area|z16-[amenity=car_rental]::d1p2,
-node|z16-[amenity=car_rental]::d1p2
+area|z16-[amenity=car_rental],
+node|z16-[amenity=car_rental]
 {
   icon-image:	car_rental.svg;
 }
@@ -5010,21 +4994,21 @@ line|z16[railway=funicular]::d1p3
   width:	0.6;
   z-index:	651;
 }
-area|z16-[amenity=marketplace]::d1p2,
-area|z16-[shop=convenience]::d1p2,
-area|z16-[shop=supermarket]::d1p2,
-node|z16-[amenity=marketplace]::d1p2,
-node|z16-[shop=convenience]::d1p2,
-node|z16-[shop=supermarket]::d1p2
+area|z16-[amenity=marketplace],
+area|z16-[shop=convenience],
+area|z16-[shop=supermarket],
+node|z16-[amenity=marketplace],
+node|z16-[shop=convenience],
+node|z16-[shop=supermarket]
 {
   icon-image:	supermarket.svg;
 }
 area|z16[amenity=pharmacy],
-area|z16-[amenity=doctors]::d1p2,
-area|z17-[amenity=pharmacy]::d1p2,
+area|z16-[amenity=doctors],
+area|z17-[amenity=pharmacy],
 node|z16[amenity=pharmacy],
-node|z16-[amenity=doctors]::d1p2,
-node|z17-[amenity=pharmacy]::d1p2
+node|z16-[amenity=doctors],
+node|z17-[amenity=pharmacy]
 {
   icon-image:	pharmacy.svg;
 }
@@ -5065,8 +5049,8 @@ line|z16[man_made=cutline]::d1p2
   width:	1;
   z-index:	276;
 }
-area|z16-[amenity=place_of_worship]::d1p2,
-node|z16-[amenity=place_of_worship]::d1p2
+area|z16-[amenity=place_of_worship],
+node|z16-[amenity=place_of_worship]
 {
   icon-image:	religion.svg;
 }
@@ -5102,8 +5086,8 @@ line|z16[waterway=river]
   color:	#cde5ea;
   width:	8;
 }
-area|z16-[shop=hairdresser]::d1p2,
-node|z16-[shop=hairdresser]::d1p2
+area|z16-[shop=hairdresser],
+node|z16-[shop=hairdresser]
 {
   icon-image:	hairdresser.svg;
 }
@@ -5117,15 +5101,15 @@ node|z16-[barrier=lift_gate]
 {
   icon-image:	barrier.svg;
 }
-area|z16-[amenity=bar]::d1p2,
-area|z16-[amenity=nightclub]::d1p2,
-node|z16-[amenity=bar]::d1p2,
-node|z16-[amenity=nightclub]::d1p2
+area|z16-[amenity=bar],
+area|z16-[amenity=nightclub],
+node|z16-[amenity=bar],
+node|z16-[amenity=nightclub]
 {
   icon-image:	bar.svg;
 }
-area|z16-[historic=ruins]::d1p2,
-node|z16-[historic=ruins]::d1p2
+area|z16-[historic=ruins],
+node|z16-[historic=ruins]
 {
   icon-image:	ruins.svg;
 }
@@ -5144,17 +5128,15 @@ line|z16[boundary=administrative][border_type=state]
   z-index:	941;
   dashes:	12,4,4,4;
 }
-area|z16[amenity=speed_trap],
-area|z17-[amenity=speed_trap]::d1p2,
-node|z16[amenity=speed_trap],
-node|z17-[amenity=speed_trap]::d1p2
+area|z16-[amenity=speed_trap],
+node|z16-[amenity=speed_trap]
 {
   icon-image:	speed_trap.svg;
 }
-area|z16-[historic=memorial]::d1p2,
-area|z16-[historic=monument]::d1p2,
-node|z16-[historic=memorial]::d1p2,
-node|z16-[historic=monument]::d1p2
+area|z16-[historic=memorial],
+area|z16-[historic=monument],
+node|z16-[historic=memorial],
+node|z16-[historic=monument]
 {
   icon-image:	memorial.svg;
 }
@@ -5307,8 +5289,8 @@ line|z16[barrier=hedge]::d1p2
   dashes:	0.0,2.0;
   linecap:	butt;
 }
-area|z16-[amenity=police]::d1p2,
-node|z16-[amenity=police]::d1p2
+area|z16-[amenity=police],
+node|z16-[amenity=police]
 {
   icon-image:	police.svg;
 }
@@ -5341,10 +5323,8 @@ line|z16[highway=raceway]
   width:	12;
   z-index:	587;
 }
-area|z16[amenity=hospital],
-area|z17-[amenity=hospital]::d1p2,
-node|z16[amenity=hospital],
-node|z17-[amenity=hospital]::d1p2
+area|z16-[amenity=hospital],
+node|z16-[amenity=hospital]
 {
   icon-image:	hospital.svg;
 }
@@ -5394,8 +5374,8 @@ line|z16[man_made=pipeline]
   z-index:	874;
   opacity:	0.5;
 }
-area|z16-[amenity=car_sharing]::d1p2,
-node|z16-[amenity=car_sharing]::d1p2
+area|z16-[amenity=car_sharing],
+node|z16-[amenity=car_sharing]
 {
   icon-image:	car_sharing.svg;
 }
@@ -5431,17 +5411,17 @@ line|z16[railway=preserved]
   color:	#909090;
   width:	3.2;
 }
-area|z16-[amenity=cinema]::d1p2,
-node|z16-[amenity=cinema]::d1p2
+area|z16-[amenity=cinema],
+node|z16-[amenity=cinema]
 {
   icon-image:	cinema.svg;
 }
-area|z16-[historic=archaeological_site]::d1p2,
-area|z16-[historic=museum]::d1p2,
-area|z16-[tourism=museum]::d1p2,
-node|z16-[historic=archaeological_site]::d1p2,
-node|z16-[historic=museum]::d1p2,
-node|z16-[tourism=museum]::d1p2
+area|z16-[historic=archaeological_site],
+area|z16-[historic=museum],
+area|z16-[tourism=museum],
+node|z16-[historic=archaeological_site],
+node|z16-[historic=museum],
+node|z16-[tourism=museum]
 {
   icon-image:	museum.svg;
 }
@@ -5512,8 +5492,8 @@ line|z16[highway=track]
   color:	#c0a87c;
   width:	4;
 }
-area|z16-[amenity=post_office]::d1p2,
-node|z16-[amenity=post_office]::d1p2
+area|z16-[amenity=post_office],
+node|z16-[amenity=post_office]
 {
   icon-image:	postoffice.svg;
 }
@@ -5543,15 +5523,13 @@ line|z16[railway=yard]::raildash
   dashes:	8,16;
   linecap:	butt;
 }
-area|z16[amenity=library],
-area|z17-[amenity=library]::d1p2,
-node|z16[amenity=library],
-node|z17-[amenity=library]::d1p2
+area|z16-[amenity=library],
+node|z16-[amenity=library],
 {
   icon-image:	library.svg;
 }
-area|z16-[shop=clothes]::d1p2,
-node|z16-[shop=clothes]::d1p2
+area|z16-[shop=clothes],
+node|z16-[shop=clothes]
 {
   icon-image:	clothes.svg;
 }
@@ -6088,15 +6066,15 @@ line|z17-[highway=raceway]
   color:	#e8e4d4;
   width:	12;
 }
-area|z17-[tourism=picnic_site]::d1p3,
-node|z17-[tourism=picnic_site]::d1p3
+area|z17-[tourism=picnic_site],
+node|z17-[tourism=picnic_site]
 {
   icon-image:	picnic.svg;
 }
-area|z17-[amenity=parking][!access]::d1p2,
-area|z17-[amenity=parking][access?]::d1p2,
-node|z17-[amenity=parking][!access]::d1p2,
-node|z17-[amenity=parking][access?]::d1p2
+area|z17-[amenity=parking][!access],
+area|z17-[amenity=parking][access?],
+node|z17-[amenity=parking][!access],
+node|z17-[amenity=parking][access?]
 {
   icon-image:	parking.svg;
 }
@@ -6949,10 +6927,10 @@ node|z17-[amenity=parking][parking=park_and_ride]
 {
   icon-image:	park_and_ride-permissive.svg;
 }
-area|z16[amenity=parking][!access]::d1p2,
-area|z16[amenity=parking][access?]::d1p2,
-node|z16[amenity=parking][!access]::d1p2,
-node|z16[amenity=parking][access?]::d1p2
+area|z16[amenity=parking][!access],
+area|z16[amenity=parking][access?],
+node|z16[amenity=parking][!access],
+node|z16[amenity=parking][access?]
 {
   icon-image:	parking-mini.svg;
 }
@@ -6968,8 +6946,8 @@ node|z17-[tourism=information]
 }
 
 
-area|z17-[amenity=post_box]::d1p2,
-node|z17-[amenity=post_box]::d1p2
+area|z17-[amenity=post_box],
+node|z17-[amenity=post_box]
 {
   icon-image:	postbox.svg;
 }
@@ -6979,8 +6957,8 @@ node|z16-[amenity=bank]
   icon-image:	bank.svg;
   z-index:	5;
 }
-area|z16-[amenity=pub]::d1p2,
-node|z16-[amenity=pub]::d1p2
+area|z16-[amenity=pub],
+node|z16-[amenity=pub]
 {
   icon-image:	pub.svg;
 }
