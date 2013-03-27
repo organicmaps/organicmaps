@@ -1502,6 +1502,23 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, 
   return false;
 }
 
+Framework::BookmarkOrPoi Framework::GetBookmarkOrPoi(m2::PointD const & pxPoint, m2::PointD & pxPivot, AddressInfo & info, BookmarkAndCategory & bmCat)
+{
+  bmCat = GetBookmark(pxPoint);
+  if (IsValid(bmCat))
+    return Framework::BOOKMARK;
+  if (GetVisiblePOI(pxPoint, pxPivot, info))
+  {
+    //We need almost the exact position of the bookmark, parameter 0.1 resolves the error in 2 pixels
+    bmCat = GetBookmark(pxPivot, 0.1);
+    if (IsValid(bmCat))
+      return Framework::BOOKMARK;
+    else
+      return Framework::POI;
+  }
+  return Framework::NOTHING_FOUND;
+}
+
 Animator & Framework::GetAnimator()
 {
   return m_animator;

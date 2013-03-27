@@ -346,6 +346,15 @@ private:
 public:
   bool GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, AddressInfo & info) const;
 
+  enum BookmarkOrPoi
+  {
+    NOTHING_FOUND = 0,
+    BOOKMARK = 1,
+    POI = 2
+  };
+
+  BookmarkOrPoi GetBookmarkOrPoi(m2::PointD const & pxPoint, m2::PointD & pxPivot, AddressInfo & info, BookmarkAndCategory & bmCat);
+
   virtual void BeginPaint(shared_ptr<PaintEvent> const & e);
   /// Function for calling from platform dependent-paint function.
   virtual void DoPaint(shared_ptr<PaintEvent> const & e);
