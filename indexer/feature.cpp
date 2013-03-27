@@ -238,7 +238,7 @@ struct BestMatchedLangNames
   }
 };
 
-void FeatureType::GetPrefferedNames(string & defaultName, string & intName) const
+void FeatureType::GetPreferredNames(string & defaultName, string & intName) const
 {
   ParseCommon();
 
@@ -268,26 +268,6 @@ string FeatureType::GetHouseNumber() const
 {
   ParseCommon();
   return (GetFeatureType() == GEOM_AREA ? m_Params.house.Get() : string());
-}
-
-void FeatureType::GetPreferredDrawableNames(string & defaultName, string & intName) const
-{
-  // ParseCommon is called behind:
-  string name;
-  GetPrefferedNames(name, intName);
-
-  // Get house number if feature has one.
-  defaultName = GetHouseNumber();
-
-  if (defaultName.empty())
-  {
-    defaultName.swap(name);
-  }
-  else
-  {
-    // Draw main feature name as second name after house number.
-    intName.swap(name);
-  }
 }
 
 bool FeatureType::GetName(int8_t lang, string & name) const

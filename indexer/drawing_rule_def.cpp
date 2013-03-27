@@ -45,16 +45,11 @@ namespace drule
     {
       bool operator() (drule::Key const & r1, drule::Key const & r2) const
       {
-        if (r1.m_scale == r2.m_scale)
-        {
-          if (r1.m_type == r2.m_type)
-          {
-            // assume that unique algo leaves the first element (with max priority), others - go away
-            return (r1.m_priority > r2.m_priority);
-          }
-          else return (r1.m_type < r2.m_type);
-        }
-        else return (r1.m_scale < r2.m_scale);
+        // assume that unique algo leaves the first element (with max priority), others - go away
+        if (r1.m_type == r2.m_type)
+          return (r1.m_priority > r2.m_priority);
+        else
+          return (r1.m_type < r2.m_type);
       }
     };
 
@@ -62,32 +57,11 @@ namespace drule
     {
       bool operator() (drule::Key const & r1, drule::Key const & r2) const
       {
-        if (r1.m_scale == r2.m_scale)
-        {
-          // many line and area rules - is ok, other rules - one is enough
-          // By VNG: Why many area styles ??? Did I miss something ???
-          if (r1.m_type == drule::line /*|| r1.m_type == drule::area*/)
-            return (r1 == r2);
-          else
-            return (r1.m_type == r2.m_type);
-        }
-        else return false;
-      }
-    };
-
-    struct less_scale_type_depth
-    {
-      bool operator() (drule::Key const & r1, drule::Key const & r2) const
-      {
-        if (r1.m_scale == r2.m_scale)
-        {
-          if (r1.m_type == r2.m_type)
-          {
-            return (r1.m_priority < r2.m_priority);
-          }
-          else return (r1.m_type < r2.m_type);
-        }
-        else return (r1.m_scale < r2.m_scale);
+        // many line rules - is ok, other rules - one is enough
+        if (r1.m_type == drule::line)
+          return (r1 == r2);
+        else
+          return (r1.m_type == r2.m_type);
       }
     };
   }
@@ -96,10 +70,5 @@ namespace drule
   {
     sort(keys.begin(), keys.end(), less_key());
     keys.erase(unique(keys.begin(), keys.end(), equal_key()), keys.end());
-  }
-
-  void SortByScaleTypeDepth(vector<Key> & keys)
-  {
-    sort(keys.begin(), keys.end(), less_scale_type_depth());
   }
 }

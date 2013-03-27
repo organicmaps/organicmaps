@@ -235,9 +235,7 @@ public:
   /// @param[out] intName optionally choosen from tags "name:<lang_code>" by the algorithm
   //@{
   /// Just get feature names.
-  void GetPrefferedNames(string & defaultName, string & intName) const;
-  /// Additional - take into account house number for defaultName
-  void GetPreferredDrawableNames(string & defaultName, string & intName) const;
+  void GetPreferredNames(string & defaultName, string & intName) const;
   bool GetName(int8_t lang, string & name) const;
   //@}
 

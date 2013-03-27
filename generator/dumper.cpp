@@ -35,7 +35,7 @@ namespace feature
     {
       ++m_totalCount;
       string s1, s2;
-      f.GetPreferredDrawableNames(s1, s2);
+      f.GetPreferredNames(s1, s2);
       if (!s1.empty())
         ++m_namesCount;
 

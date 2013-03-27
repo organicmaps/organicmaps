@@ -99,7 +99,7 @@ namespace
         if (IsInclude(d, types))
         {
           string name, house;
-          f.GetPrefferedNames(name, house /*dummy parameter*/);
+          f.GetPreferredNames(name, house /*dummy parameter*/);
           house = f.GetHouseNumber();
 
           // if geom type is not GEOM_POINT, result center point doesn't matter in future use

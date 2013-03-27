@@ -69,7 +69,19 @@ namespace di
     m_geometryType = type.first;
     m_isCoastline = type.second;
 
-    f.GetPreferredDrawableNames(m_primaryText, m_secondaryText);
+    f.GetPreferredNames(m_primaryText, m_secondaryText);
+
+    // Get house number if feature has one.
+    string houseNumber = f.GetHouseNumber();
+
+    if (!houseNumber.empty())
+    {
+      if (m_primaryText.empty())
+        houseNumber.swap(m_primaryText);
+      else
+        m_primaryText = m_primaryText + " (" + houseNumber + ")";
+    }
+
     m_refText = f.GetRoadNumber();
 
     double const population = static_cast<double>(f.GetPopulation());
@@ -159,8 +171,7 @@ namespace di
 
       if (keys[i].m_type == drule::caption)
         if (m_rules[i].m_rule->GetCaption(0) != 0)
-          if (!m_rules[i].m_rule->GetCaption(0)->has_offset_y())
-            hasCaptionWithoutOffset = true;
+          hasCaptionWithoutOffset = !m_rules[i].m_rule->GetCaption(0)->has_offset_y();
     }
 
     // placing a text on the path
