@@ -315,28 +315,25 @@
   CGFloat const scaleFactor = self.view.contentScaleFactor;
   // @TODO Refactor point transformation
   m2::PointD pxClicked(point.x * scaleFactor, point.y * scaleFactor);
-
-  BookmarkAndCategory const bmAndCat = f.GetBookmark(pxClicked);
-  if (IsValid(bmAndCat))
+  Framework::AddressInfo addrInfo;
+  m2::PointD pxPivot;
+  BookmarkAndCategory bmAndCat;
+  switch (f.GetBookmarkOrPoi(pxClicked, pxPivot, addrInfo, bmAndCat))
   {
-    [self onBookmarkClickWithBookmarkAndCategory:bmAndCat];
-  }
-  else
-  {
-    // Check if we've clicked on visible POI
-    Framework::AddressInfo addrInfo;
-    m2::PointD pxPivot;
-    if (!wasBalloonDisplayed && f.GetVisiblePOI(pxClicked, pxPivot, addrInfo))
-    {
-      m2::PointD const gPivot = f.PtoG(pxPivot);
-      m_balloonView.globalPosition = CGPointMake(gPivot.x, gPivot.y);
-      [self updatePinTexts:addrInfo];
-      m_balloonView.isCurrentPosition = NO;
-      [m_balloonView showInView:self.view atPoint:CGPointMake(pxPivot.x / scaleFactor, pxPivot.y / scaleFactor)];
-    }
-    else
-    {
-      // Just a click somewhere on a map
+    case Framework::BOOKMARK:
+      [self onBookmarkClickWithBookmarkAndCategory:bmAndCat];
+      break;
+    case Framework::POI:
+      if (!wasBalloonDisplayed && f.GetVisiblePOI(pxClicked, pxPivot, addrInfo))
+      {
+        m2::PointD const gPivot = f.PtoG(pxPivot);
+        m_balloonView.globalPosition = CGPointMake(gPivot.x, gPivot.y);
+        [self updatePinTexts:addrInfo];
+        m_balloonView.isCurrentPosition = NO;
+        [m_balloonView showInView:self.view atPoint:CGPointMake(pxPivot.x / scaleFactor, pxPivot.y / scaleFactor)];
+      }
+      break;
+    default:
       if (isLongClick)
       {
         f.GetAddressInfo(pxClicked, addrInfo);
@@ -345,7 +342,7 @@
         [self updatePinTexts:addrInfo];
         [m_balloonView showInView:self.view atPoint:point];
       }
-    }
+      break;
   }
 }
 
