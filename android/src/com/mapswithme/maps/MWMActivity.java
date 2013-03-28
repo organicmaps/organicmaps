@@ -344,7 +344,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private void showFacebookPage()
   {
-    Intent intent = null;
     try
     {
       // Trying to find package with installed Facebook application.
@@ -352,16 +351,12 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       getPackageManager().getPackageInfo("com.facebook.katana", 0);
 
       // Profile id is taken from http://graph.facebook.com/MapsWithMe
-      intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/111923085594432"));
-
-      // throws ActivityNotFoundException
-      startActivity(intent);
+      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/111923085594432")));
     }
     catch (Exception e)
     {
       // Show Facebook page in browser.
-      intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/MapsWithMe"));
-      startActivity(intent);
+      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/MapsWithMe")));
     }
   }
 
@@ -437,6 +432,26 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     });
   }
 
+  private void runProVersionMarketActivity()
+  {
+    try
+    {
+      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(mApplication.getProVersionURL())));
+    }
+    catch (Exception e1)
+    {
+      try
+      {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(mApplication.getDefaultProVersionURL())));
+      }
+      catch (Exception e2)
+      {
+        /// @todo Probably we should show some alert toast here?
+        Log.w(TAG, "Can't run activity" + e2);
+      }
+    }
+  }
+
   private void checkBuyProDialog()
   {
     if (!mApplication.isProVersion() &&
@@ -450,10 +465,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         public void onClick(DialogInterface dlg, int which)
         {
           mApplication.submitDialogResult(MWMApplication.BUYPRO, MWMApplication.OK);
-
-          Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(mApplication.getProVersionURL()));
           dlg.dismiss();
-          startActivity(i);
+          runProVersionMarketActivity();
         }
       });
     }
@@ -596,16 +609,16 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
             {
               startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
             }
-            catch (Exception e)
+            catch (Exception e1)
             {
               // On older Android devices location settings are merged with security
               try
               {
                 startActivity(new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS));
               }
-              catch (Exception ex)
+              catch (Exception e2)
               {
-                Log.e(TAG, "Can't run activity" + ex);
+                Log.w(TAG, "Can't run activity" + e2);
               }
             }
 
@@ -865,9 +878,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         @Override
         public void onClick(DialogInterface dlg, int which)
         {
-          Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(mApplication.getProVersionURL()));
           dlg.dismiss();
-          startActivity(i);
+          runProVersionMarketActivity();
         }
       })
       .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
