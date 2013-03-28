@@ -3,7 +3,6 @@ package com.mapswithme.maps.bookmarks;
 import java.util.List;
 
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -154,29 +153,31 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   {
     if (CONFIRMATION_DIALOG == id)
     {
-      AlertDialog.Builder builder = new Builder(this);
-      builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener()
+      return new AlertDialog.Builder(this)
+      .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener()
       {
         @Override
         public void onClick(DialogInterface dialog, int which)
         {
           dialog.dismiss();
         }
-      });
-      builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
+      })
+      .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
       {
         @Override
         public void onClick(DialogInterface dialog, int which)
         {
+          dialog.dismiss();
+
           mManager.deleteBookmark(mPin);
           mPin = null;
-          dialog.dismiss();
+
           finish();
         }
-      });
-      builder.setTitle(R.string.are_you_sure);
-      builder.setMessage(getString(R.string.delete)+ " " + mPin.getName() + "?");
-      return builder.create();
+      })
+      .setTitle(R.string.are_you_sure)
+      .setMessage(getString(R.string.delete)+ " " + mPin.getName() + "?")
+      .create();
     }
     else
       if (id == BOOKMARK_COLOR_DIALOG)
