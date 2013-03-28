@@ -466,6 +466,7 @@ void ScreenCoverage::RemoveTiles(m2::AnyRectD const & r, int startScale)
   }
 
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
+  tileCache->Lock();
 
   for (vector<Tile const *>::const_iterator it = toRemove.begin(); it != toRemove.end(); ++it)
   {
@@ -474,6 +475,7 @@ void ScreenCoverage::RemoveTiles(m2::AnyRectD const & r, int startScale)
     m_tiles.erase(*it);
     m_tileRects.erase(ri);
   }
+  tileCache->Unlock();
 
   MergeOverlay();
 }

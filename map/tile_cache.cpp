@@ -13,21 +13,24 @@ TileCache::Entry::Entry(Tile const & tile, shared_ptr<graphics::ResourceManager>
   : m_tile(tile), m_rm(rm)
 {}
 
-TileCache::TileCache()
+TileCache::TileCache() : m_isLocked(false)
 {}
 
 void TileCache::AddTile(Tiler::RectInfo const & key, Entry const & entry)
 {
+  ASSERT(m_isLocked, ("TileCache need to be locked on modify"));
   m_cache.Add(key, entry, 1);
 }
 
 void TileCache::Lock()
 {
   m_lock.Lock();
+  m_isLocked = true;
 }
 
 void TileCache::Unlock()
 {
+  m_isLocked = false;
   m_lock.Unlock();
 }
 
@@ -49,36 +52,43 @@ set<Tiler::RectInfo> const & TileCache::Keys() const
 
 bool TileCache::HasTile(Tiler::RectInfo const & key)
 {
+  ASSERT(m_isLocked, ("TileCache need to be locked on modify"));
   return m_cache.HasElem(key);
 }
 
 void TileCache::LockTile(Tiler::RectInfo const & key)
 {
+  ASSERT(m_isLocked, ("TileCache need to be locked on modify"));
   m_cache.LockElem(key);
 }
 
 size_t TileCache::LockCount(Tiler::RectInfo const & key)
 {
+  ASSERT(m_isLocked, ("TileCache need to be locked on modify"));
   return m_cache.LockCount(key);
 }
 
 void TileCache::UnlockTile(Tiler::RectInfo const & key)
 {
+  ASSERT(m_isLocked, ("TileCache need to be locked on modify"));
   m_cache.UnlockElem(key);
 }
 
 void TileCache::TouchTile(Tiler::RectInfo const & key)
 {
+  ASSERT(m_isLocked, ("TileCache need to be locked on modify"));
   m_cache.Touch(key);
 }
 
 Tile const & TileCache::GetTile(Tiler::RectInfo const & key)
 {
+  ASSERT(m_isLocked, ("TileCache need to be locked on modify"));
   return m_cache.Find(key).m_tile;
 }
 
 void TileCache::Remove(Tiler::RectInfo const & key)
 {
+  ASSERT(m_isLocked, ("TileCache need to be locked on modify"));
   m_cache.Remove(key);
 }
 
@@ -89,11 +99,13 @@ int TileCache::CanFit() const
 
 int TileCache::UnlockedWeight() const
 {
+  ASSERT(m_isLocked, ("TileCache need to be locked on modify"));
   return m_cache.UnlockedWeight();
 }
 
 int TileCache::LockedWeight() const
 {
+  ASSERT(m_isLocked, ("TileCache need to be locked on modify"));
   return m_cache.LockedWeight();
 }
 
@@ -104,10 +116,12 @@ int TileCache::CacheSize() const
 
 void TileCache::Resize(int maxWeight)
 {
+  ASSERT(m_isLocked, ("TileCache need to be locked on modify"));
   m_cache.Resize(maxWeight);
 }
 
 void TileCache::FreeRoom(int weight)
 {
+  ASSERT(m_isLocked, ("TileCache need to be locked on modify"));
   m_cache.FreeRoom(weight);
 }

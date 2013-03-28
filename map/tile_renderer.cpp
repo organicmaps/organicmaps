@@ -342,6 +342,7 @@ TileCache & TileRenderer::GetTileCache()
 
 void TileRenderer::CacheActiveTile(Tiler::RectInfo const & rectInfo)
 {
+  TileStructuresLockGuard guard(m_tileCache, m_tileSet);
   if (m_tileSet.HasTile(rectInfo))
   {
     ASSERT(!m_tileCache.HasTile(rectInfo), (""));

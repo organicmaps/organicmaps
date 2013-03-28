@@ -36,6 +36,7 @@ private:
 
   my::MRUCache<Tiler::RectInfo, Entry, EntryValueTraits> m_cache;
   threads::Mutex m_lock;
+  bool m_isLocked;
 
   TileCache(TileCache const & src);
   TileCache const & operator=(TileCache const & src);
