@@ -52,6 +52,7 @@ public class Utils
     return value.getDimension(metrics);
   }
 
+  /*
   public static String toTitleCase(String str)
   {
     if (str == null)
@@ -85,6 +86,7 @@ public class Utils
 
     return builder.toString();
   }
+   */
 
   public static void setStringAndCursorToEnd(EditText edit, String s)
   {

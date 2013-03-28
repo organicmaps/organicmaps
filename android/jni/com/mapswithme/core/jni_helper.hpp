@@ -2,10 +2,11 @@
 
 #include <jni.h>
 
+#include "../../../../../geometry/point2d.hpp"
+
 #include "../../../../../std/string.hpp"
 #include "../../../../../std/shared_ptr.hpp"
-#include "../../../../../geometry/point2d.hpp"
-#include "../../../../../map/framework.hpp"
+
 
 namespace jni
 {
@@ -42,5 +43,4 @@ namespace jni
 
   jobject GetNewPoint(JNIEnv * env, m2::PointD const & point);
   jobject GetNewPoint(JNIEnv * env, m2::PointI const & point);
-  jobject GetNewAddressInfo(JNIEnv * env, Framework::AddressInfo const & adInfo, m2::PointD const & px);
 }
