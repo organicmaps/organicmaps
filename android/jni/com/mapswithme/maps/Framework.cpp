@@ -554,39 +554,41 @@ namespace android
   void Framework::OnProcessTouchTask(double x, double y, unsigned ms)
   {
     m2::PointD pt(x, y);
-
-    // 1. check if we tapped on existing bookmark - show popup and exit
-    BookmarkAndCategory bac = m_work.GetBookmark(pt);
-    if (IsValid(bac))
-    {
-      Bookmark const * pBM = m_work.GetBmCategory(bac.first)->GetBookmark(bac.second);
-      ActivatePopup(pBM->GetOrg(), pBM->GetName(), IMAGE_ARROW);
-      return;
-    }
-
-    // 2. hide popup and exit for short tap
-    if (ms == SHORT_TOUCH_MS && GetBookmarkBalloon()->isVisible())
-    {
-      DeactivatePopup();
-      return;
-    }
-
-    // 3. set flag for long tap
-    if (ms == LONG_TOUCH_MS)
-      m_wasLongClick = true;
-
-    // 4. show popup
     ::Framework::AddressInfo addrInfo;
     m2::PointD pxPivot;
-    if (m_work.GetVisiblePOI(pt, pxPivot, addrInfo))
+    BookmarkAndCategory bmAndCat;
+    switch (m_work.GetBookmarkOrPoi(pt, pxPivot, addrInfo, bmAndCat))
     {
-      ActivatePopupWithAddressInfo(m_work.PtoG(pxPivot), addrInfo);
+    case ::Framework::BOOKMARK:
+      {
+    	Bookmark const * pBM = m_work.GetBmCategory(bmAndCat.first)->GetBookmark(bmAndCat.second);
+    	ActivatePopup(pBM->GetOrg(), pBM->GetName(), IMAGE_ARROW);
+    	return;
+      }
+    case ::Framework::POI:
+      {
+    	if (!GetBookmarkBalloon()->isVisible())
+    	{
+    	  ActivatePopupWithAddressInfo(m_work.PtoG(pxPivot), addrInfo);
+    	  if (ms == LONG_TOUCH_MS)
+    		  m_wasLongClick = true;
+    	  return;
+    	}
+      }
+      /* no break*/
+    default:
+      {
+        if (ms == LONG_TOUCH_MS)
+        {
+          m_work.GetAddressInfo(pt, addrInfo);
+          ActivatePopupWithAddressInfo(m_work.PtoG(pt), addrInfo);
+          m_wasLongClick = true;
+          return;
+        }
+      }
     }
-    else if (ms == LONG_TOUCH_MS)
-    {
-      m_work.GetAddressInfo(pt, addrInfo);
-      ActivatePopupWithAddressInfo(m_work.PtoG(pt), addrInfo);
-    }
+
+    DeactivatePopup();
   }
 
   void Framework::ActivatePopupWithAddressInfo(m2::PointD const & pos, ::Framework::AddressInfo const & addrInfo)
