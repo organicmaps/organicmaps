@@ -2,6 +2,8 @@
 #import "BalloonView.h"
 #import "Framework.h"
 
+#define TEXT_FIELD_TAG 666
+
 @implementation AddSetVC
 
 - (id) initWithBalloonView:(BalloonView *)view andRootNavigationController:(UINavigationController *)navC
@@ -26,7 +28,7 @@
 
 - (void)onSaveClicked
 {
-  UITextField * textField = (UITextField *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].accessoryView;
+  UITextField * textField = (UITextField *)[[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] viewWithTag:TEXT_FIELD_TAG];
   NSString * text = textField.text;
   if (text.length)
   {
@@ -71,17 +73,33 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell * cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"EditSetNameCell"] autorelease];
-  UITextField * f = [[[UITextField alloc] initWithFrame:CGRectMake(20, 8, 260, 21)] autorelease];
-  f.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  f.returnKeyType = UIReturnKeyDone;
-  f.clearButtonMode = UITextFieldViewModeWhileEditing;
-  f.autocorrectionType = UITextAutocorrectionTypeNo;
-  f.delegate = self;
-  f.placeholder = NSLocalizedString(@"bookmark_set_name", @"Add Bookmark Set dialog - hint when set name is empty");
-  f.autocapitalizationType = UITextAutocapitalizationTypeWords;
-  cell.accessoryView = f;
-  cell.selectionStyle = UITableViewCellSelectionStyleNone;
+  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"EditSetNameCell"];
+  if (!cell)
+  {
+    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"EditSetNameCell"] autorelease];
+    cell.textLabel.text =  @"Temporary Name";
+    [cell layoutSubviews];
+    CGRect rect = cell.textLabel.frame;
+    rect.size.width = cell.contentView.bounds.size.width - cell.textLabel.frame.origin.x;
+    rect.origin.x = cell.textLabel.frame.origin.x;
+    UITextField * f = [[UITextField alloc] initWithFrame:rect];
+    f.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    f.returnKeyType = UIReturnKeyDone;
+    f.clearButtonMode = UITextFieldViewModeWhileEditing;
+    f.autocorrectionType = UITextAutocorrectionTypeNo;
+    f.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    f.delegate = self;
+    f.textColor = cell.textLabel.textColor;
+    f.placeholder = NSLocalizedString(@"bookmark_set_name", @"Add Bookmark Set dialog - hint when set name is empty");
+    f.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    f.font = [cell.textLabel.font fontWithSize:[cell.textLabel.font pointSize]];
+    f.tag = TEXT_FIELD_TAG;
+    [cell.contentView addSubview:f];
+    [f becomeFirstResponder];
+    [f release];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.textLabel.text =  @"";
+  }
   return cell;
 }
 
