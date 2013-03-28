@@ -149,7 +149,7 @@ private:
   void ClearCache(size_t ind);
 
   /// @param[in]  viewportID  @see m_viewport
-  void AddResultFromTrie(TrieValueT const & val, size_t mwmID, int viewportID = -1);
+  void AddResultFromTrie(TrieValueT const & val, size_t mwmID, int8_t viewportID = -1);
 
   void FlushResults(Results & res, void (Results::*pAddFn)(Result const &));
 
@@ -203,8 +203,8 @@ private:
   /// @param[in]  viewportID  Index of search viewport (@see comments above); -1 means default viewport.
   //@{
   /// @return Rect for viewport-distance calculation.
-  m2::RectD const & GetViewport(int viewportID = -1) const;
-  m2::PointD GetPosition(int viewportID = -1) const;
+  m2::RectD const & GetViewport(int8_t viewportID = -1) const;
+  m2::PointD GetPosition(int8_t viewportID = -1) const;
   //@}
 
   m2::PointD m_position;

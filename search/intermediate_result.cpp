@@ -21,6 +21,10 @@ namespace search
 namespace
 {
 
+/// All constants in meters (call ResultDistance for center points).
+double const DIST_EQUAL_RESULTS = 100.0;
+double const DIST_SAME_STREET = 5000.0;
+
 double ResultDistance(m2::PointD const & a, m2::PointD const & b)
 {
   return ms::DistanceOnEarth(MercatorBounds::YToLat(a.y), MercatorBounds::XToLon(a.x),
@@ -88,11 +92,12 @@ template <class T> bool LessDistanceT(T const & r1, T const & r2)
 }
 
 PreResult1::PreResult1(uint32_t fID, uint8_t rank, m2::PointD const & center, size_t mwmID,
-                       m2::PointD const & pos, m2::RectD const & viewport)
+                       m2::PointD const & pos, m2::RectD const & viewport, int8_t viewportID)
   : m_center(center),
     m_mwmID(mwmID),
     m_featureID(fID),
-    m_rank(rank)
+    m_rank(rank),
+    m_viewportID(viewportID)
 {
   CalcParams(viewport, pos);
 }
@@ -136,7 +141,7 @@ bool PreResult1::LessViewportDistance(PreResult1 const & r1, PreResult1 const & 
 void PreResult2::CalcParams(m2::RectD const & viewport, m2::PointD const & pos)
 {
   // dummy object to avoid copy-paste
-  PreResult1 res(0, 0, m_center, 0, pos, viewport);
+  PreResult1 res(0, 0, m_center, 0, pos, viewport, -1);
 
   m_distance = res.m_distance;
   m_distanceFromViewportCenter = res.m_distanceFromViewportCenter;
@@ -277,10 +282,7 @@ bool PreResult2::StrictEqualF::operator() (PreResult2 const & r) const
   if (m_r.m_resultType == r.m_resultType && m_r.m_resultType == RESULT_FEATURE)
   {
     if (m_r.m_str == r.m_str && m_r.GetBestType() == r.GetBestType())
-    {
-      // 100.0m - distance between equal features
-      return (ResultDistance(m_r.m_center, r.m_center) < 100.0);
-    }
+      return (ResultDistance(m_r.m_center, r.m_center) < DIST_EQUAL_RESULTS);
   }
 
   return false;
@@ -288,16 +290,16 @@ bool PreResult2::StrictEqualF::operator() (PreResult2 const & r) const
 
 namespace
 {
-  uint8_t FirstLevelIndex(uint32_t t)
-  {
-    uint8_t v;
-    VERIFY ( ftype::GetValue(t, 0, v), (t) );
-    return v;
-  }
-
   class IsLinearChecker
   {
     uint8_t m_index[2];
+
+    static uint8_t FirstLevelIndex(uint32_t t)
+    {
+      uint8_t v;
+      VERIFY ( ftype::GetValue(t, 0, v), (t) );
+      return v;
+    }
 
   public:
     IsLinearChecker()
@@ -310,10 +312,10 @@ namespace
         m_index[i] = static_cast<uint8_t>(c->BinaryFind(arr[i]).GetIndex());
     }
 
-    bool IsMy(uint8_t ind) const
+    bool IsMy(uint32_t type) const
     {
       uint8_t const * e = m_index + ARRAY_SIZE(m_index);
-      return (find(m_index, e, ind) != e);
+      return (find(m_index, e, FirstLevelIndex(type)) != e);
     }
   };
 }
@@ -332,21 +334,24 @@ bool PreResult2::LessLinearTypesF::operator() (PreResult2 const & r1, PreResult2
     return (t1 < t2);
 
   // Should stay the best feature, after unique, so add this criteria:
-
-  if (r1.m_rank != r2.m_rank)
-    return (r1.m_rank > r2.m_rank);
+  if (r1.m_viewportDistance != r2.m_viewportDistance)
+    return (r1.m_viewportDistance < r2.m_viewportDistance);
   return (r1.m_distance < r2.m_distance);
 }
 
 bool PreResult2::EqualLinearTypesF::operator() (PreResult2 const & r1, PreResult2 const & r2) const
 {
-  if (r1.m_resultType == r2.m_resultType && r1.m_str == r2.m_str)
+  // Note! Do compare for distance when filtering linear objects.
+  // Otherwise we will skip the results for different parts of the map.
+  if (r1.m_resultType == r2.m_resultType && r1.m_str == r2.m_str &&
+      //r1.m_viewportDistance == r2.m_viewportDistance &&
+      ResultDistance(r1.m_center, r2.m_center) < DIST_SAME_STREET)
   {
     // filter equal linear features
     static IsLinearChecker checker;
 
     uint32_t const t1 = r1.GetBestType();
-    return (t1 == r2.GetBestType() && checker.IsMy(FirstLevelIndex(t1)));
+    return (t1 == r2.GetBestType() && checker.IsMy(t1));
   }
 
   return false;

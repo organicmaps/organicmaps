@@ -460,8 +460,9 @@ namespace impl
       string name, country;
       LoadFeature(res.GetID(), feature, name, country);
 
+      int8_t const viewportID = res.GetViewportID();
       return new impl::PreResult2(feature, res.GetRank(),
-                                  m_query.GetViewport(), m_query.GetPosition(),
+                                  m_query.GetViewport(viewportID), m_query.GetPosition(viewportID),
                                   name, country);
     }
 
@@ -572,10 +573,10 @@ namespace
   };
 }
 
-void Query::AddResultFromTrie(TrieValueT const & val, size_t mwmID, int viewportID)
+void Query::AddResultFromTrie(TrieValueT const & val, size_t mwmID, int8_t viewportID)
 {
   impl::PreResult1 res(val.m_featureId, val.m_rank, val.m_pt, mwmID,
-                       GetPosition(viewportID), GetViewport(viewportID));
+                       GetPosition(viewportID), GetViewport(viewportID), viewportID);
 
   for (size_t i = 0; i < m_qCount; ++i)
   {
@@ -631,11 +632,12 @@ class FeatureLoader
 {
   Query & m_query;
   size_t m_mwmID, m_count;
-  int m_viewportID;
+  int8_t m_viewportID;
 
 public:
   FeatureLoader(Query & query, size_t mwmID, int viewportID)
-    : m_query(query), m_mwmID(mwmID), m_count(0), m_viewportID(viewportID)
+    : m_query(query), m_mwmID(mwmID), m_count(0),
+      m_viewportID(static_cast<int8_t>(viewportID))
   {
   }
 
@@ -1801,7 +1803,7 @@ void Query::MatchForSuggestions(strings::UniString const & token, Results & res)
     MatchForSuggestionsImpl(token, GetLanguage(LANG_EN), res);
 }
 
-m2::RectD const & Query::GetViewport(int viewportID/* = -1*/) const
+m2::RectD const & Query::GetViewport(int8_t viewportID/* = -1*/) const
 {
   if (viewportID == ADDRESS_RECT_ID)
   {
@@ -1819,7 +1821,7 @@ m2::RectD const & Query::GetViewport(int viewportID/* = -1*/) const
   }
 }
 
-m2::PointD Query::GetPosition(int viewportID/* = -1*/) const
+m2::PointD Query::GetPosition(int8_t viewportID/* = -1*/) const
 {
   if (viewportID == ADDRESS_RECT_ID)
   {

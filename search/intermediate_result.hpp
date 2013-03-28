@@ -41,12 +41,13 @@ class PreResult1
   uint32_t m_featureID;
   uint8_t m_viewportDistance;
   uint8_t m_rank;
+  int8_t m_viewportID;
 
   void CalcParams(m2::RectD const & viewportRect, m2::PointD const & pos);
 
 public:
   PreResult1(uint32_t fID, uint8_t rank, m2::PointD const & center, size_t mwmID,
-             m2::PointD const & pos, m2::RectD const & viewport);
+             m2::PointD const & pos, m2::RectD const & viewport, int8_t viewportID);
 
   static bool LessRank(PreResult1 const & r1, PreResult1 const & r2);
   static bool LessDistance(PreResult1 const & r1, PreResult1 const & r2);
@@ -54,6 +55,7 @@ public:
 
   inline pair<size_t, uint32_t> GetID() const { return make_pair(m_mwmID, m_featureID); }
   uint8_t GetRank() const { return m_rank; }
+  int8_t GetViewportID() const { return m_viewportID; }
 };
 
 
