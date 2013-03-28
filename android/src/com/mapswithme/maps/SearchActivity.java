@@ -1,7 +1,5 @@
 package com.mapswithme.maps;
 
-import java.util.Locale;
-
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -24,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.util.Language;
 import com.mapswithme.util.Statistics;
 import com.mapswithme.util.Utils;
 
@@ -465,15 +464,15 @@ public class SearchActivity extends ListActivity implements LocationService.List
   protected void onStart()
   {
     super.onStart();
-    
+
     Statistics.INSTANCE.startActivity(this);
   }
-  
+
   @Override
   protected void onStop()
   {
     super.onStop();
-    
+
     Statistics.INSTANCE.stopActivity(this);
   }
 
@@ -683,8 +682,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
     Log.d(TAG, "Search query = " + s);
 
-    /// @todo Need to get input language
-    final String lang = Locale.getDefault().getLanguage();
+    final String lang = Language.getKeyboardInput(this);
     Log.d(TAG, "Current language = " + lang);
 
     final int id = m_queryID + QUERY_STEP;
