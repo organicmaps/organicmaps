@@ -4,12 +4,16 @@
 
 #include "../map/render_policy.hpp"
 
+#include "../search/result.hpp"
+
 #include "../gui/controller.hpp"
 
 #include "../graphics/opengl/opengl.hpp"
 
 #include "../platform/settings.hpp"
 #include "../platform/platform.hpp"
+
+#include <QtCore/QLocale>
 
 #include <QtGui/QMouseEvent>
 #include <QtGui/QMenu>
@@ -501,7 +505,23 @@ namespace qt
     if (m_framework->GetCurrentPosition(lat, lon))
       params.SetPosition(lat, lon);
 
+    /// @todo This stuff doesn't work (QT4xx bug). Probably in QT5 ...
+    //QLocale loc = QApplication::keyboardInputLocale();
+    //params.SetInputLanguage(loc.name().toAscii().data());
+
     return m_framework->Search(params);
+  }
+
+  string DrawWidget::GetDistance(search::Result const & res) const
+  {
+    string dist;
+    double lat, lon;
+    if (m_framework->GetCurrentPosition(lat, lon))
+    {
+      double dummy;
+      (void) m_framework->GetDistanceAndAzimut(res.GetFeatureCenter(), lat, lon, -1.0, dist, dummy);
+    }
+    return dist;
   }
 
   void DrawWidget::ShowSearchResult(search::Result const & res)

@@ -148,22 +148,9 @@ void SearchPanel::OnSearchResult(ResultsT * res)
         Bookmark bm(e.GetFeatureCenter(), e.GetString(), "placemark-red");
         frm.AdditionalPoiLayerAddPoi(bm);
 
-        m_pTable->setItem(rowCount, 0,
-                          create_item(QString::fromUtf8(e.GetFeatureType())));
+        m_pTable->setItem(rowCount, 0, create_item(QString::fromUtf8(e.GetFeatureType())));
 
-        string strDist;
-        bool const drawDir = MeasurementUtils::FormatDistance(e.GetDistanceFromCenter(), strDist);
-        m_pTable->setItem(rowCount, 3, create_item(strDist.c_str()));
-
-        if (drawDir)
-        {
-          /*
-          QTableWidgetItem * item =
-              new QTableWidgetItem(draw_direction(e.GetDirectionFromCenter()), QString());
-          item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-          m_pTable->setItem(rowCount, 4, item);
-          */
-        }
+        m_pTable->setItem(rowCount, 3, create_item(m_pDrawWidget->GetDistance(e).c_str()));
       }
 
       m_results.push_back(e);

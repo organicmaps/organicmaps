@@ -83,6 +83,7 @@ namespace qt
     void SetScaleControl(QScaleSlider * pScale);
 
     bool Search(search::SearchParams params);
+    string GetDistance(search::Result const & res) const;
     void ShowSearchResult(search::Result const & res);
     void CloseSearch();
 
