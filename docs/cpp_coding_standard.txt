@@ -20,6 +20,9 @@ Naming and formatting
 - Don't specify std:: and boost:: prefixes (headers in std/ folder already have 'using std::string')
 - Use right-to-left order for variables/params: string const & s (reference to the const string)
 - In one line 'if', 'for', 'while' we do not use brackets. If one line 'for' or 'while' is combined with one line 'if' do use brackets for cycle.
+- Space after the keyword in conditions and loops. Space after ';' in for loop
+- Space between binary operators, but can skip according to operators priority: x = y*y + z*z;
+- Space after double dash
 
 // *********** Formatting Example ***********
 #include "../std/math.hpp"
@@ -118,11 +121,39 @@ for (size_t i = 0; i < size; ++i)
   foo(i);
 
 
-while(true)
+while (true)
 {
   if (condition)
     break;
 }
+
+// Space after the keyword
+
+if (condition)
+{}
+
+for (size_t i = 0; i < 5; ++i)
+{}
+
+while (condition)
+{}
+
+switch (i)
+{}
+
+// Space between operators, and don't use space between unary operator and expression
+x = 0;
+x = -5;
+++x;
+x--;
+x *= 5;
+if (x && !y)
+{}
+v = w * x + y / z;
+v = w*x + y/z;
+v = w * (x + z);
+
+// space after double dash
 
 
 Tips and Hints
