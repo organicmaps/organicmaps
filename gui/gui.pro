@@ -16,6 +16,8 @@ HEADERS += \
     text_view.hpp \
     balloon.hpp \
     image_view.hpp \
+    cached_text_view.hpp \
+    display_list_cache.hpp
 
 SOURCES += \
     controller.cpp \
@@ -24,3 +26,5 @@ SOURCES += \
     text_view.cpp \
     balloon.cpp \
     image_view.cpp \
+    cached_text_view.cpp \
+    display_list_cache.cpp

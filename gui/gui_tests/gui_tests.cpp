@@ -4,6 +4,7 @@
 #include "../button.hpp"
 #include "../text_view.hpp"
 #include "../image_view.hpp"
+#include "../cached_text_view.hpp"
 
 struct BalloonTest
 {
@@ -117,6 +118,33 @@ struct TextViewTest
   }
 };
 
+struct CachedTextViewTest
+{
+  shared_ptr<gui::CachedTextView> m_cachedTextView;
+
+  void Init(gui::Controller * c)
+  {
+    gui::CachedTextView::Params ctp;
+
+    ctp.m_pivot = m2::PointD(100, 100);
+    ctp.m_depth = graphics::maxDepth;
+    ctp.m_position = graphics::EPosAbove;
+    ctp.m_text = "(123.15, 783.123)";
+
+    m_cachedTextView.reset(new gui::CachedTextView(ctp));
+    m_cachedTextView->setIsVisible(true);
+
+    m_cachedTextView->setFont(gui::Element::EActive,
+                              graphics::FontDesc(20, graphics::Color(0, 0, 0, 255), true));
+
+    c->AddElement(m_cachedTextView);
+  }
+
+  void DoDraw(shared_ptr<graphics::Screen> const & p)
+  {
+  }
+};
+
 struct ImageViewTest
 {
   shared_ptr<gui::ImageView> m_imageView;
@@ -155,4 +183,5 @@ UNIT_TEST_GUI(BalloonTest);
 UNIT_TEST_GUI(ButtonTest);
 UNIT_TEST_GUI(TextViewTest);
 UNIT_TEST_GUI(ImageViewTest);
+UNIT_TEST_GUI(CachedTextViewTest);
 
