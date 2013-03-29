@@ -561,31 +561,28 @@ namespace android
     {
     case ::Framework::BOOKMARK:
       {
-    	Bookmark const * pBM = m_work.GetBmCategory(bmAndCat.first)->GetBookmark(bmAndCat.second);
-    	ActivatePopup(pBM->GetOrg(), pBM->GetName(), IMAGE_ARROW);
-    	return;
+        Bookmark const * pBM = m_work.GetBmCategory(bmAndCat.first)->GetBookmark(bmAndCat.second);
+        ActivatePopup(pBM->GetOrg(), pBM->GetName(), IMAGE_ARROW);
+        return;
       }
     case ::Framework::POI:
+      if (!GetBookmarkBalloon()->isVisible())
       {
-    	if (!GetBookmarkBalloon()->isVisible())
-    	{
-    	  ActivatePopupWithAddressInfo(m_work.PtoG(pxPivot), addrInfo);
-    	  if (ms == LONG_TOUCH_MS)
-    		  m_wasLongClick = true;
-    	  return;
-    	}
+        ActivatePopupWithAddressInfo(m_work.PtoG(pxPivot), addrInfo);
+        if (ms == LONG_TOUCH_MS)
+          m_wasLongClick = true;
+        return;
       }
       /* no break*/
     default:
+      if (ms == LONG_TOUCH_MS)
       {
-        if (ms == LONG_TOUCH_MS)
-        {
-          m_work.GetAddressInfo(pt, addrInfo);
-          ActivatePopupWithAddressInfo(m_work.PtoG(pt), addrInfo);
-          m_wasLongClick = true;
-          return;
-        }
+        m_work.GetAddressInfo(pt, addrInfo);
+        ActivatePopupWithAddressInfo(m_work.PtoG(pt), addrInfo);
+        m_wasLongClick = true;
+        return;
       }
+      /* no break*/
     }
 
     DeactivatePopup();
