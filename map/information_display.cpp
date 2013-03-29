@@ -8,6 +8,7 @@
 
 #include "../gui/controller.hpp"
 #include "../gui/button.hpp"
+#include "../gui/cached_text_view.hpp"
 
 #include "../graphics/defines.hpp"
 #include "../graphics/pen.hpp"
@@ -30,50 +31,18 @@ namespace
   static int const FONT_SIZE = 10;
 }
 
-InformationDisplay::InformationDisplay(Framework * framework)
+InformationDisplay::InformationDisplay(Framework * fw)
   : m_bottomShift(0),
     m_visualScale(1)
 {
   m_fontDesc.m_color = graphics::Color(0x44, 0x44, 0x44, 0xFF);
 
-  Ruler::Params rp;
-
-  rp.m_depth = graphics::maxDepth - 10;
-  rp.m_position = graphics::EPosAboveLeft;
-
-  m_ruler.reset(new Ruler(rp));
-
-  CountryStatusDisplay::Params p;
-
-  p.m_pivot = m2::PointD(0, 0);
-  p.m_position = graphics::EPosCenter;
-  p.m_depth = graphics::maxDepth;
-  p.m_storage = &framework->Storage();
-
-  m_countryStatusDisplay.reset(new CountryStatusDisplay(p));
-
-  CompassArrow::Params cap;
-
-  cap.m_position = graphics::EPosCenter;
-  cap.m_depth = graphics::maxDepth;
-  cap.m_arrowHeight = 50;
-  cap.m_arrowWidth = 16;
-  cap.m_pivot = m2::PointD(0, 0);
-  cap.m_framework = framework;
-
-  m_compassArrow.reset(new CompassArrow(cap));
-
-  location::State::Params lsp;
-
-  lsp.m_position = graphics::EPosCenter;
-  lsp.m_depth = graphics::maxDepth - 1;
-  lsp.m_pivot = m2::PointD(0, 0);
-  lsp.m_compassAreaColor = graphics::Color(255, 255, 255, 192);
-  lsp.m_compassBorderColor = graphics::Color(255, 255, 255, 96);
-  lsp.m_locationAreaColor =   graphics::Color(11, 97, 210, 48);
-  lsp.m_framework = framework;
-
-  m_locationState.reset(new location::State(lsp));
+  InitRuler(fw);
+  InitCountryStatusDisplay(fw);
+  InitCompassArrow(fw);
+  InitLocationState(fw);
+  InitCenterLabel();
+  InitDebugLabel();
 
   enableDebugPoints(false);
   enableRuler(false);
@@ -90,6 +59,80 @@ InformationDisplay::InformationDisplay(Framework * framework)
   setVisualScale(m_visualScale);
 }
 
+void InformationDisplay::InitRuler(Framework * fw)
+{
+  Ruler::Params p;
+
+  p.m_depth = graphics::maxDepth - 10;
+  p.m_position = graphics::EPosAboveLeft;
+  p.m_framework = fw;
+
+  m_ruler.reset(new Ruler(p));
+}
+
+void InformationDisplay::InitCountryStatusDisplay(Framework * fw)
+{
+  CountryStatusDisplay::Params p;
+
+  p.m_pivot = m2::PointD(0, 0);
+  p.m_position = graphics::EPosCenter;
+  p.m_depth = graphics::maxDepth;
+  p.m_storage = &fw->Storage();
+
+  m_countryStatusDisplay.reset(new CountryStatusDisplay(p));
+}
+
+void InformationDisplay::InitCompassArrow(Framework * fw)
+{
+  CompassArrow::Params p;
+
+  p.m_position = graphics::EPosCenter;
+  p.m_depth = graphics::maxDepth;
+  p.m_arrowHeight = 50;
+  p.m_arrowWidth = 16;
+  p.m_pivot = m2::PointD(0, 0);
+  p.m_framework = fw;
+
+  m_compassArrow.reset(new CompassArrow(p));
+}
+
+void InformationDisplay::InitLocationState(Framework * fw)
+{
+  location::State::Params p;
+
+  p.m_position = graphics::EPosCenter;
+  p.m_depth = graphics::maxDepth - 1;
+  p.m_pivot = m2::PointD(0, 0);
+  p.m_compassAreaColor = graphics::Color(255, 255, 255, 192);
+  p.m_compassBorderColor = graphics::Color(255, 255, 255, 96);
+  p.m_locationAreaColor =   graphics::Color(11, 97, 210, 48);
+  p.m_framework = fw;
+
+  m_locationState.reset(new location::State(p));
+}
+
+void InformationDisplay::InitCenterLabel()
+{
+  gui::CachedTextView::Params p;
+
+  p.m_depth = graphics::maxDepth - 10;
+  p.m_position = graphics::EPosUnderLeft;
+  p.m_pivot = m2::PointD(0, 0);
+
+  m_centerLabel.reset(new gui::CachedTextView(p));
+}
+
+void InformationDisplay::InitDebugLabel()
+{
+  gui::CachedTextView::Params p;
+
+  p.m_depth = graphics::maxDepth - 10;
+  p.m_position = graphics::EPosAboveRight;
+  p.m_pivot = m2::PointD(0, 0);
+
+  m_debugLabel.reset(new gui::CachedTextView(p));
+}
+
 void InformationDisplay::setController(gui::Controller *controller)
 {
   m_controller = controller;
@@ -97,12 +140,13 @@ void InformationDisplay::setController(gui::Controller *controller)
   m_controller->AddElement(m_compassArrow);
   m_controller->AddElement(m_locationState);
   m_controller->AddElement(m_ruler);
+  m_controller->AddElement(m_centerLabel);
+  m_controller->AddElement(m_debugLabel);
 }
 
 void InformationDisplay::setScreen(ScreenBase const & screen)
 {
   m_screen = screen;
-  m_ruler->setScreen(screen);
 
   if (m_countryStatusDisplay->isVisible())
   {
@@ -131,6 +175,16 @@ void InformationDisplay::setDisplayRect(m2::RectI const & rect)
                            m_displayRect.maxY() - 4 * m_visualScale));
 
   m_ruler->setPivot(pt);
+
+  m2::PointD centerLabelPivot(m_displayRect.maxX() - 4 * m_visualScale,
+                             m_displayRect.maxY() - 30 * m_visualScale);
+
+  m_centerLabel->setPivot(centerLabelPivot);
+
+  m2::PointD debugLabelPivot(m_displayRect.minX() + 10,
+                             m_displayRect.minY() + 20 + 5 * m_visualScale);
+
+  m_debugLabel->setPivot(debugLabelPivot);
 }
 
 void InformationDisplay::enableDebugPoints(bool doEnable)
@@ -172,20 +226,19 @@ void InformationDisplay::setVisualScale(double visualScale)
   m_fontDesc.m_size = static_cast<uint32_t>(FONT_SIZE * m_visualScale);
 
   m_ruler->setFont(gui::Element::EActive, m_fontDesc);
+  m_debugLabel->setFont(gui::Element::EActive, m_fontDesc);
+  m_centerLabel->setFont(gui::Element::EActive, m_fontDesc);
 }
 
 void InformationDisplay::enableCenter(bool doEnable)
 {
-  m_isCenterEnabled = doEnable;
+  m_centerLabel->setIsVisible(doEnable);
 }
 
 void InformationDisplay::setCenter(m2::PointD const & pt)
 {
   m_centerPtLonLat = pt;
-}
 
-void InformationDisplay::drawCenter(Drawer * drawer)
-{
   ostringstream out;
 
   out << fixed << setprecision(4)
@@ -193,63 +246,23 @@ void InformationDisplay::drawCenter(Drawer * drawer)
       << ", "
       << m_centerPtLonLat.x;
 
-  graphics::StraightTextElement::Params params;
-
-  params.m_depth = graphics::maxDepth - 10;
-  params.m_fontDesc = m_fontDesc;
-  params.m_log2vis = false;
-
-  params.m_pivot = m2::PointD(m_displayRect.maxX() - 4 * m_visualScale,
-                              m_displayRect.maxY() - 30 * m_visualScale);
-  params.m_position = graphics::EPosUnderLeft;
-
-  params.m_glyphCache = drawer->screen()->glyphCache();
-  params.m_logText = strings::MakeUniString(out.str());
-
-  graphics::StraightTextElement ste(params);
-
-//  m2::RectD bgRect = m2::Inflate(ste.roughBoundRect(), 5.0, 5.0);
-
-//  drawer->screen()->drawRectangle(
-//        bgRect,
-//        graphics::Color(187, 187, 187, 128),
-//        graphics::maxDepth - 1);
-
-  ste.draw(drawer->screen(), math::Identity<double, 3>());
+  m_centerLabel->setText(out.str());
 }
 
 void InformationDisplay::enableDebugInfo(bool doEnable)
 {
-  m_isDebugInfoEnabled = doEnable;
+  m_debugLabel->setIsVisible(doEnable);
 }
 
 void InformationDisplay::setDebugInfo(double frameDuration, int currentScale)
 {
   m_frameDuration = frameDuration;
   m_currentScale = currentScale;
-}
 
-void InformationDisplay::drawDebugInfo(Drawer * drawer)
-{
   ostringstream out;
   out << "Scale : " << m_currentScale;
 
-/*  out << "SPF: " << m_frameDuration;
-  if (m_frameDuration == 0.0)
-    out << " FPS: inf";
-  else
-    out << " FPS: " << 1.0 / m_frameDuration;*/
-
-  m_yOffset += 20;
-
-  m2::PointD pos = m2::PointD(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset + 5 * m_visualScale);
-
-  drawer->screen()->drawText(m_fontDesc,
-                             pos,
-                             graphics::EPosAboveRight,
-                             out.str(),
-                             graphics::maxDepth - 10,
-                             false);
+  m_debugLabel->setText(out.str());
 }
 
 void InformationDisplay::enableMemoryWarning(bool flag)
@@ -462,10 +475,6 @@ void InformationDisplay::doDraw(Drawer *drawer)
   m_yOffset = 0;
   if (m_isDebugPointsEnabled)
     drawDebugPoints(drawer);
-  if (m_isCenterEnabled)
-    drawCenter(drawer);
-  if (m_isDebugInfoEnabled)
-    drawDebugInfo(drawer);
   if (m_isMemoryWarningEnabled)
     drawMemoryWarning(drawer);
   if (m_isBenchmarkInfoEnabled)
