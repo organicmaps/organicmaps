@@ -1,5 +1,6 @@
 #include "controller.hpp"
 #include "element.hpp"
+#include "display_list_cache.hpp"
 
 #include "../map/drawer.hpp"
 
@@ -153,6 +154,8 @@ namespace gui
     m_VisualScale = graphics::visualScale(p.m_Density);
     m_CacheScreen = p.m_CacheScreen;
 
+    m_DisplayListCache.reset(new DisplayListCache(m_CacheScreen, m_GlyphCache));
+
     LayoutElements();
   }
 
@@ -164,6 +167,8 @@ namespace gui
     m_CacheScreen = 0;
 
     PurgeElements();
+
+    m_DisplayListCache.reset();
   }
 
   void Controller::DrawFrame(graphics::Screen * screen)
@@ -202,6 +207,11 @@ namespace gui
   graphics::Screen * Controller::GetCacheScreen() const
   {
     return m_CacheScreen;
+  }
+
+  DisplayListCache * Controller::GetDisplayListCache() const
+  {
+    return m_DisplayListCache.get();
   }
 
   void Controller::UpdateElements()

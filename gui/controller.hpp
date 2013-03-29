@@ -1,6 +1,9 @@
 #pragma once
 
+#include "display_list_cache.hpp"
+
 #include "../std/shared_ptr.hpp"
+#include "../std/scoped_ptr.hpp"
 #include "../std/function.hpp"
 #include "../std/list.hpp"
 
@@ -29,6 +32,19 @@ namespace gui
     /// Invalidate functor type
     typedef function<void()> TInvalidateFn;
 
+    struct RenderParams
+    {
+      graphics::EDensity m_Density;
+      TInvalidateFn m_InvalidateFn;
+      graphics::GlyphCache * m_GlyphCache;
+      graphics::Screen * m_CacheScreen;
+      RenderParams();
+      RenderParams(graphics::EDensity density,
+                   TInvalidateFn invalidateFn,
+                   graphics::GlyphCache * glyphCache,
+                   graphics::Screen * cacheScreen);
+    };
+
   private:
 
     /// element that has focus.
@@ -53,6 +69,9 @@ namespace gui
 
     /// GlyphCache for text rendering by GUI elements.
     graphics::GlyphCache * m_GlyphCache;
+
+    /// Cache for display lists for fast rendering on GUI thread
+    scoped_ptr<DisplayListCache> m_DisplayListCache;
 
     /// Localized strings for GUI.
     StringsBundle const * m_bundle;
@@ -79,19 +98,6 @@ namespace gui
     bool OnTapCancelled(m2::PointD const & pt);
     /// @}
 
-    struct RenderParams
-    {
-      graphics::EDensity m_Density;
-      TInvalidateFn m_InvalidateFn;
-      graphics::GlyphCache * m_GlyphCache;
-      graphics::Screen * m_CacheScreen;
-      RenderParams();
-      RenderParams(graphics::EDensity density,
-                   TInvalidateFn invalidateFn,
-                   graphics::GlyphCache * glyphCache,
-                   graphics::Screen * cacheScreen);
-    };
-
     /// Attach GUI Controller to the renderer
     void SetRenderParams(RenderParams const & p);
     /// Set the bundle with localized strings
@@ -115,6 +121,8 @@ namespace gui
     /// Get graphics::Screen, which is used to cache gui::Element's
     /// into display lists.
     graphics::Screen * GetCacheScreen() const;
+    /// Get display list cache
+    DisplayListCache * GetDisplayListCache() const;
     /// Redraw GUI
     void DrawFrame(graphics::Screen * screen);
     /// Calling gui::Element::update for every element.
