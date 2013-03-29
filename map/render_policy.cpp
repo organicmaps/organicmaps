@@ -57,6 +57,7 @@ void RenderPolicy::InitCacheScreen()
   cp.m_resourceManager = m_resourceManager;
   cp.m_renderContext = m_primaryRC;
   cp.m_density = Density();
+  cp.m_fastSolidPath = false;
 
   m_cacheScreen = make_shared_ptr(new graphics::Screen(cp));
 }
