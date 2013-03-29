@@ -1,18 +1,23 @@
 #include "ruler.hpp"
+#include "framework.hpp"
 #include "measurement_utils.hpp"
 
 #include "../platform/settings.hpp"
 
-#include "../graphics/overlay_renderer.hpp"
+#include "../gui/cached_text_view.hpp"
+#include "../gui/controller.hpp"
+
 #include "../graphics/pen.hpp"
+#include "../graphics/screen.hpp"
+#include "../graphics/display_list.hpp"
 
 #include "../indexer/mercator.hpp"
 #include "../geometry/distance_on_sphere.hpp"
+#include "../geometry/transformations.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/string_utils.hpp"
 #include "../base/macros.hpp"
-
 
 namespace
 {
@@ -80,6 +85,80 @@ namespace
   }
 }
 
+void Ruler::CalcMetresDiff(double v)
+{
+  UnitValue * arrU;
+  int count;
+
+  switch (m_currSystem)
+  {
+  default:
+    ASSERT_EQUAL ( m_currSystem, 0, () );
+    arrU = g_arrMetres;
+    count = ARRAY_SIZE(g_arrMetres);
+    break;
+
+  case 1:
+    arrU = g_arrFeets;
+    count = ARRAY_SIZE(g_arrFeets);
+    break;
+
+  case 2:
+    arrU = g_arrYards;
+    count = ARRAY_SIZE(g_arrYards);
+    break;
+  }
+
+  string s;
+
+  if (arrU[0].m_i > v)
+  {
+    s = string("< ") + arrU[0].m_s;
+    m_metresDiff = m_minMetersWidth - 1.0;
+  }
+  else if (arrU[count-1].m_i <= v)
+  {
+    s = string("> ") + arrU[count-1].m_s;
+    m_metresDiff = m_maxMetersWidth + 1.0;
+  }
+  else
+    for (int i = 0; i < count; ++i)
+    {
+      if (arrU[i].m_i > v)
+      {
+        m_metresDiff = arrU[i].m_i / m_conversionFn(1.0);
+        s = arrU[i].m_s;
+        break;
+      }
+    }
+
+  m_scaleText->setText(s);
+}
+
+Ruler::Params::Params()
+  : m_framework(0)
+{}
+
+Ruler::Ruler(Params const & p)
+  : base_t(p),
+    m_boundRects(1),
+    m_currSystem(0),
+    m_cacheLength(500),
+    m_framework(p.m_framework)
+{
+  gui::CachedTextView::Params pp;
+
+  pp.m_depth = depth();
+
+  m_scaleText.reset(new gui::CachedTextView(pp));
+}
+
+void Ruler::setController(gui::Controller * controller)
+{
+  gui::Element::setController(controller);
+  m_scaleText->setController(controller);
+}
+
 void Ruler::layout()
 {
   Settings::Units units = Settings::Metric;
@@ -105,93 +184,35 @@ void Ruler::layout()
   }
 }
 
-void Ruler::CalcMetresDiff(double v)
-{
-  UnitValue * arrU;
-  int count;
-
-  switch (m_currSystem)
-  {
-  default:
-    ASSERT_EQUAL ( m_currSystem, 0, () );
-    arrU = g_arrMetres;
-    count = ARRAY_SIZE(g_arrMetres);
-    break;
-
-  case 1:
-    arrU = g_arrFeets;
-    count = ARRAY_SIZE(g_arrFeets);
-    break;
-
-  case 2:
-    arrU = g_arrYards;
-    count = ARRAY_SIZE(g_arrYards);
-    break;
-  }
-
-  if (arrU[0].m_i > v)
-  {
-    m_scalerText = string("< ") + arrU[0].m_s;
-    m_metresDiff = m_minMetersWidth - 1.0;
-  }
-  else if (arrU[count-1].m_i <= v)
-  {
-    m_scalerText = string("> ") + arrU[count-1].m_s;
-    m_metresDiff = m_maxMetersWidth + 1.0;
-  }
-  else
-    for (int i = 0; i < count; ++i)
-    {
-      if (arrU[i].m_i > v)
-      {
-        m_metresDiff = arrU[i].m_i / m_conversionFn(1.0);
-        m_scalerText = arrU[i].m_s;
-        break;
-      }
-    }
-}
-
-
-Ruler::Ruler(Params const & p)
-  : base_t(p),
-    m_boundRects(1),
-    m_currSystem(0)
-{}
-
-void Ruler::setScreen(ScreenBase const & screen)
-{
-  m_screen = screen;
-  setIsDirtyRect(true);
-}
-
-ScreenBase const & Ruler::screen() const
-{
-  return m_screen;
-}
-
 void Ruler::setMinPxWidth(unsigned minPxWidth)
 {
   m_minPxWidth = minPxWidth;
-  setIsDirtyRect(true);
+  setIsDirtyLayout(true);
 }
 
 void Ruler::setMinMetersWidth(double v)
 {
   m_minMetersWidth = v;
-  setIsDirtyRect(true);
+  setIsDirtyLayout(true);
 }
 
 void Ruler::setMaxMetersWidth(double v)
 {
   m_maxMetersWidth = v;
-  setIsDirtyRect(true);
+  setIsDirtyLayout(true);
+}
+
+void Ruler::purge()
+{
+  m_scaleText->purge();
+  m_dl.reset();
 }
 
 void Ruler::update()
 {
-  checkDirtyLayout();
-
   double k = visualScale();
+
+  ScreenBase const & screen = m_framework->GetNavigator().Screen();
 
   int const rulerHeight = my::rounds(5 * k);
   int const minPxWidth = my::rounds(m_minPxWidth * k);
@@ -199,8 +220,8 @@ void Ruler::update()
   // pivot() here is the down right point of the ruler.
   // Get global points of ruler and distance according to minPxWidth.
 
-  m2::PointD pt1 = m_screen.PtoG(pivot());
-  m2::PointD pt0 = m_screen.PtoG(pivot() - m2::PointD(minPxWidth, 0));
+  m2::PointD pt1 = screen.PtoG(pivot());
+  m2::PointD pt0 = screen.PtoG(pivot() - m2::PointD(minPxWidth, 0));
 
   double const distanceInMetres = ms::DistanceOnEarth(
         MercatorBounds::YToLat(pt0.y), MercatorBounds::XToLon(pt0.x),
@@ -225,40 +246,94 @@ void Ruler::update()
     double const a = ang::AngleTo(pt1, pt0);
     pt0 = MercatorBounds::GetSmPoint(pt1, cos(a) * m_metresDiff, sin(a) * m_metresDiff);
 
-    scalerWidthInPx = my::rounds(pivot().Length(m_screen.GtoP(pt0)));
+    scalerWidthInPx = my::rounds(pivot().Length(screen.GtoP(pt0)));
   }
 
-  m2::PointD scalerOrg = pivot() + m2::PointD(-scalerWidthInPx / 2, rulerHeight / 2);
+  m_scalerOrg = pivot() + m2::PointD(-scalerWidthInPx / 2, rulerHeight / 2);
 
   if (position() & graphics::EPosLeft)
-    scalerOrg.x -= scalerWidthInPx / 2;
+    m_scalerOrg.x -= scalerWidthInPx / 2;
 
   if (position() & graphics::EPosRight)
-    scalerOrg.x += scalerWidthInPx / 2;
+    m_scalerOrg.x += scalerWidthInPx / 2;
 
   if (position() & graphics::EPosAbove)
-    scalerOrg.y -= rulerHeight / 2;
+    m_scalerOrg.y -= rulerHeight / 2;
 
   if (position() & graphics::EPosUnder)
-    scalerOrg.y += rulerHeight / 2;
+    m_scalerOrg.y += rulerHeight / 2;
 
-  m_path.clear();
-  m_path.push_back(scalerOrg);
-  m_path.push_back(scalerOrg + m2::PointD(scalerWidthInPx, 0));
+  m_scaleKoeff = scalerWidthInPx / m_cacheLength;
 
-  m_boundRect = m2::RectD(m_path[0], m_path[1]);
-  setIsDirtyRect(true);
+  if (position() & graphics::EPosLeft)
+  {
+    m_scaleText->setPosition(graphics::EPosAboveLeft);
+    m_scaleText->setPivot(m_scalerOrg + m2::PointD(scalerWidthInPx, 0) + m2::PointD(1 * k, -2 * k));
+  }
+  else
+    if (position() & graphics::EPosRight)
+    {
+      m_scaleText->setPosition(graphics::EPosAboveRight);
+      m_scaleText->setPivot(m_scalerOrg + m2::PointD(7 * k, -4 * k));
+    }
+    else
+    {
+      m_scaleText->setPosition(graphics::EPosAbove);
+      m_scaleText->setPivot(m_scalerOrg + m2::PointD(scalerWidthInPx / 2.0, 0) + m2::PointD(7 * k, -4 * k));
+    }
+}
+
+void Ruler::setFont(gui::Element::EState state, graphics::FontDesc const & f)
+{
+  gui::Element::setFont(state, f);
+  m_scaleText->setFont(state, f);
 }
 
 vector<m2::AnyRectD> const & Ruler::boundRects() const
 {
   if (isDirtyRect())
   {
-    m_boundRects[0] = m2::AnyRectD(m_boundRect);
+    m_boundRects[0] = m2::AnyRectD(m_scaleText->roughBoundRect());
     setIsDirtyRect(false);
   }
 
   return m_boundRects;
+}
+
+void Ruler::cache()
+{
+  layout();
+
+  graphics::Screen * cs = m_controller->GetCacheScreen();
+
+  m_dl.reset();
+  m_dl.reset(cs->createDisplayList());
+
+  cs->beginFrame();
+
+  cs->setDisplayList(m_dl.get());
+
+  cs->applySharpStates();
+  cs->setUseNormals(true);
+
+  double k = visualScale();
+
+  m2::PointD path[2] = {
+    m2::PointD(0, 0),
+    m2::PointD(0, 0) + m2::PointD(m_cacheLength, 0)
+  };
+
+  cs->drawPath(
+      path, ARRAY_SIZE(path), 0,
+        cs->mapInfo(graphics::Pen::Info(graphics::Color(0, 0, 0, 0x99), 4 * k, 0, 0, 0)),
+      depth());
+
+  cs->setDisplayList(0);
+
+  cs->setUseNormals(false);
+  cs->applyStates();
+
+  cs->endFrame();
 }
 
 void Ruler::draw(graphics::OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const
@@ -267,37 +342,11 @@ void Ruler::draw(graphics::OverlayRenderer * s, math::Matrix<double, 3, 3> const
   {
     checkDirtyLayout();
 
-    double k = visualScale();
+    s->drawDisplayList(m_dl.get(),
+                       math::Shift(
+                             math::Scale(m, m2::PointD(m_scaleKoeff, 1.0)),
+                             m_scalerOrg));
 
-    s->drawPath(
-        &m_path[0], m_path.size(), 0,
-          s->mapInfo(graphics::Pen::Info(graphics::Color(0, 0, 0, 0x99), 4 * k, 0, 0, 0)),
-        depth());
-
-    graphics::FontDesc f = font(state());
-
-    if (position() & graphics::EPosLeft)
-      s->drawText(f,
-                  m_path[1] + m2::PointD(1 * k, -2 * k),
-                  graphics::EPosAboveLeft,
-                  m_scalerText,
-                  depth(),
-                  false);
-    else
-      if (position() & graphics::EPosRight)
-        s->drawText(f,
-                    m_path[0] + m2::PointD(7 * k, -4 * k),
-                    graphics::EPosAboveRight,
-                    m_scalerText,
-                    depth(),
-                    false);
-      else
-        s->drawText(f,
-                    (m_path[0] + m_path[1]) * 0.5
-                    + m2::PointD(7 * k, -4 * k),
-                    graphics::EPosAbove,
-                    m_scalerText,
-                    depth(),
-                    false);
+    m_scaleText->draw(s, m);
   }
 }
