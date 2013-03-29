@@ -91,9 +91,9 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
 
   rmp.m_storageParams[spp.m_storageType] = spp;
 
-  spp = graphics::ResourceManager::StoragePoolParams(100 * sizeof(graphics::gl::Vertex),
+  spp = graphics::ResourceManager::StoragePoolParams(50 * sizeof(graphics::gl::Vertex),
                                                      sizeof(graphics::gl::Vertex),
-                                                     200 * sizeof(unsigned short),
+                                                     100 * sizeof(unsigned short),
                                                      sizeof(unsigned short),
                                                      5,
                                                      graphics::ETinyStorage,
