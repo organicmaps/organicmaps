@@ -31,7 +31,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
   private boolean m_isProVersion = false;
 
   // Set default string to Google Play page.
-  private final static String m_defaultProURL = "https://play.google.com/store/apps/details?id=com.mapswithme.maps.pro";
+  private final static String m_defaultProURL = "http://play.google.com/store/apps/details?id=com.mapswithme.maps.pro";
   private String m_proVersionURL = m_defaultProURL;
 
   private void showDownloadToast(int resID, Index idx)

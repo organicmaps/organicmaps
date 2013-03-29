@@ -356,7 +356,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     catch (Exception e)
     {
       // Show Facebook page in browser.
-      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/MapsWithMe")));
+      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/MapsWithMe")));
     }
   }
 
