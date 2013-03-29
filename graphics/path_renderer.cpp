@@ -12,13 +12,15 @@ namespace graphics
 {
   PathRenderer::Params::Params()
     : m_drawPathes(true),
-      m_fastSolidPath(true)
+      m_fastSolidPath(true),
+      m_useNormals(false)
   {}
 
-  PathRenderer::PathRenderer(Params const & params)
-    : base_t(params),
-      m_drawPathes(params.m_drawPathes),
-      m_fastSolidPath(params.m_fastSolidPath)
+  PathRenderer::PathRenderer(Params const & p)
+    : base_t(p),
+      m_drawPathes(p.m_drawPathes),
+      m_fastSolidPath(p.m_fastSolidPath),
+      m_useNormals(p.m_useNormals)
   {}
 
   void PathRenderer::drawPath(m2::PointD const * pts, size_t ptsCount, double offset, uint32_t resID, double depth)
@@ -211,12 +213,21 @@ namespace graphics
 
         m2::PointF rawTileEndPt(rawTileStartPt.x + dir.x * rawTileLen, rawTileStartPt.y + dir.y * rawTileLen);
 
-        m2::PointF coords[4] =
+        m2::PointF coords[4];
+
+        if (m_useNormals)
         {
-          rawTileStartPt + fNorm,
-          rawTileStartPt - fNorm,
-          rawTileEndPt - fNorm,
-          rawTileEndPt + fNorm
+          coords[0] = rawTileStartPt;
+          coords[1] = rawTileStartPt;
+          coords[2] = rawTileEndPt;
+          coords[3] = rawTileEndPt;
+        }
+        else
+        {
+          coords[0] = rawTileStartPt + fNorm;
+          coords[1] = rawTileStartPt - fNorm;
+          coords[2] = rawTileEndPt - fNorm;
+          coords[3] = rawTileEndPt + fNorm;
         };
 
         m2::PointF texCoords[4] =
@@ -227,13 +238,17 @@ namespace graphics
           texture->mapPixel(m2::PointF(texMaxX, texMinY))
         };
 
-        m2::PointF normals[4] =
+        m2::PointF normals[4];
+
+        if (m_useNormals)
         {
-          m2::PointF(0, 0),
-          m2::PointF(0, 0),
-          m2::PointF(0, 0),
-          m2::PointF(0, 0)
-        };
+          normals[0] = fNorm;
+          normals[1] = -fNorm;
+          normals[2] = -fNorm;
+          normals[3] = fNorm;
+        }
+        else
+          memset(normals, 0, sizeof(normals));
 
         addTexturedFan(coords,
                        normals,
@@ -303,20 +318,27 @@ namespace graphics
           /// Rotate start vector to find another point on a join.
           startVec.Rotate(angleStep);
 
-          /// Computing three points of a join segment.
-          m2::PointF joinSeg[3] =
-          {
-            m2::PointF(points[i + 1]),
-            m2::PointF(points[i + 1] + startVec * geomHalfWidth),
-            m2::PointF(points[i + 1] + prevStartVec * geomHalfWidth)
-          };
+          m2::PointF joinSeg[3];
+          m2::PointF joinSegNormals[3];
 
-          m2::PointF joinSegNormals[3] =
+          if (m_useNormals)
           {
-            m2::PointF(0, 0),
-            m2::PointF(0, 0),
-            m2::PointF(0, 0)
-          };
+            joinSeg[0] = points[i + 1];
+            joinSeg[1] = points[i + 1];
+            joinSeg[2] = points[i + 1];
+
+            joinSegNormals[0] = m2::PointF(0, 0);
+            joinSegNormals[1] = startVec * geomHalfWidth;
+            joinSegNormals[2] = prevStartVec * geomHalfWidth;
+          }
+          else
+          {
+            joinSeg[0] = m2::PointF(points[i + 1]);
+            joinSeg[1] = m2::PointF(points[i + 1] + startVec * geomHalfWidth);
+            joinSeg[2] = m2::PointF(points[i + 1] + prevStartVec * geomHalfWidth);
+
+            memset(joinSegNormals, 0, sizeof(joinSegNormals));
+          }
 
           addTexturedFan(joinSeg,
                          joinSegNormals,
@@ -487,6 +509,11 @@ namespace graphics
       LOG(LINFO, ("drawing ", m_pathCount, " pathes, ", m_pointsCount, " points total"));
     }
     base_t::endFrame();
+  }
+
+  void PathRenderer::setUseNormals(bool flag)
+  {
+    m_useNormals = flag;
   }
 }
 

@@ -15,6 +15,7 @@ namespace graphics
     unsigned m_pointsCount;
     bool m_drawPathes;
     bool m_fastSolidPath;
+    bool m_useNormals;
 
     void drawSolidPath(m2::PointD const * pts, size_t ptsCount, double offset, Pen const * pen, double depth);
     void drawStipplePath(m2::PointD const * pts, size_t ptsCount, double offset, Pen const * pen, double depth);
@@ -28,6 +29,7 @@ namespace graphics
     {
       bool m_drawPathes;
       bool m_fastSolidPath;
+      bool m_useNormals;
       Params();
     };
 
@@ -37,5 +39,7 @@ namespace graphics
 
     void beginFrame();
     void endFrame();
+
+    void setUseNormals(bool flag);
   };
 }
