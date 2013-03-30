@@ -50,7 +50,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
   // Set focus to editor
-  UITextField * textField = (UITextField *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].accessoryView;  
+  UITextField * textField = (UITextField *)[[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] viewWithTag:TEXT_FIELD_TAG];
   [textField becomeFirstResponder];
 
   [super viewDidAppear:animated];
@@ -76,7 +76,7 @@
   UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"EditSetNameCell"];
   if (!cell)
   {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"EditSetNameCell"] autorelease];
+    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"EditSetNameCell"] autorelease];
     cell.textLabel.text =  @"Temporary Name";
     [cell layoutSubviews];
     CGRect rect = cell.textLabel.frame;
@@ -95,7 +95,6 @@
     f.font = [cell.textLabel.font fontWithSize:[cell.textLabel.font pointSize]];
     f.tag = TEXT_FIELD_TAG;
     [cell.contentView addSubview:f];
-    [f becomeFirstResponder];
     [f release];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.text =  @"";
