@@ -35,13 +35,7 @@ namespace graphics
     TResources m_resources;
     TResources m_parentResources;
 
-    struct LessThan
-    {
-      bool operator()(Resource::Info const * l,
-                      Resource::Info const * r) const;
-    };
-
-    typedef map<Resource::Info const*, uint32_t, LessThan> TResourceInfos;
+    typedef map<Resource::Info const*, uint32_t, Resource::LessThan> TResourceInfos;
     TResourceInfos m_infos;
 
     /// made mutable to implement lazy reservation of texture

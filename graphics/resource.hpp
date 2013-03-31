@@ -46,6 +46,12 @@ namespace graphics
     /// get key for ResourceCache.
     virtual Info const * info() const = 0;
 
+    struct LessThan
+    {
+       bool operator()(Info const * l,
+                       Info const * r) const;
+    };
+
   protected:
     Resource(Category cat,
              m2::RectU const & texRect,

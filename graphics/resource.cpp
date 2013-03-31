@@ -4,6 +4,12 @@
 
 namespace graphics
 {
+  bool Resource::LessThan::operator()(Info const * l,
+                                      Info const * r) const
+  {
+    return l->lessThan(r);
+  }
+
   Resource::Info::Info(Category cat)
     : m_category(cat)
   {}

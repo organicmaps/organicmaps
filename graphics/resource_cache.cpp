@@ -72,12 +72,6 @@ namespace graphics
     }
   }
 
-  bool ResourceCache::LessThan::operator()(Resource::Info const * l,
-                                           Resource::Info const * r) const
-  {
-    return l->lessThan(r);
-  }
-
   uint32_t ResourceCache::findInfo(Resource::Info const & info) const
   {
     TResourceInfos::const_iterator it = m_infos.find(&info);
