@@ -16,8 +16,10 @@ namespace gui
     graphics::GlyphCache * m_GlyphCache;
     /// Actual cache of glyphs as a display lists
     typedef map<graphics::GlyphKey, shared_ptr<graphics::DisplayList> > TGlyphs;
-
     TGlyphs m_Glyphs;
+
+    typedef map<string, shared_ptr<graphics::DisplayList> > TSymbols;
+    TSymbols m_Symbols;
 
   public:
 
@@ -30,5 +32,15 @@ namespace gui
     shared_ptr<graphics::DisplayList> const & FindGlyph(graphics::GlyphKey const & key);
     /// Check, whether the glyph is present in cache.
     bool HasGlyph(graphics::GlyphKey const & key);
+
+    /// @todo refactor to have common functions TouchInfo, FindInfo, HasInfo
+    /// taking as example ResourceCache mapInfo, findInfo, hasInfo functions
+
+    /// Add symbol to cache if needed
+    void TouchSymbol(char const * name);
+    /// Find symbol in cache, caching if needed
+    shared_ptr<graphics::DisplayList> const & FindSymbol(char const * name);
+    /// Check, whether the display list for specified symbol is present in cache
+    bool HasSymbol(char const * name);
   };
 }

@@ -297,7 +297,8 @@ void InformationDisplay::drawMemoryWarning(Drawer * drawer)
 
 void InformationDisplay::drawPlacemark(Drawer * pDrawer, string const & symbol, m2::PointD const & pt)
 {
-  pDrawer->drawSymbol(pt, symbol, graphics::EPosAbove, graphics::maxDepth - 4);
+  pDrawer->screen()->drawDisplayList(m_controller->GetDisplayListCache()->FindSymbol(symbol.c_str()).get(),
+                                     math::Shift(math::Identity<double, 3>(), pt));
 }
 
 /*

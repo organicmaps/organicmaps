@@ -48,4 +48,39 @@ namespace gui
   {
     return m_Glyphs.find(key) != m_Glyphs.end();
   }
+
+  void DisplayListCache::TouchSymbol(char const * name)
+  {
+    FindSymbol(name);
+  }
+
+  bool DisplayListCache::HasSymbol(char const * name)
+  {
+    return m_Symbols.find(name) != m_Symbols.end();
+  }
+
+  shared_ptr<graphics::DisplayList> const & DisplayListCache::FindSymbol(char const * name)
+  {
+    string s(name);
+    TSymbols::const_iterator it = m_Symbols.find(s);
+
+    if (it != m_Symbols.end())
+      return it->second;
+
+    shared_ptr<graphics::DisplayList> & dl = m_Symbols[s];
+
+    dl.reset(m_CacheScreen->createDisplayList());
+
+    m_CacheScreen->beginFrame();
+    m_CacheScreen->setDisplayList(dl.get());
+
+    /// @todo do not cache depth in display list. use separate vertex shader and uniform constant
+    /// to specify it while rendering display list.
+    m_CacheScreen->drawSymbol(m2::PointD(0, 0), name, graphics::EPosAbove, graphics::maxDepth - 4);
+
+    m_CacheScreen->setDisplayList(0);
+    m_CacheScreen->endFrame();
+
+    return dl;
+  }
 }
