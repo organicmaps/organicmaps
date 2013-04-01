@@ -8,7 +8,7 @@
 
 @class BalloonView;
 
-@interface MapViewController : UIViewController <LocationObserver>
+@interface MapViewController : UIViewController <LocationObserver, UIAlertViewDelegate>
 {
   enum Action
 	{

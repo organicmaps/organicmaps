@@ -20,6 +20,16 @@
 
 #include "RenderContext.hpp"
 
+#include "../../../map/dialog_settings.hpp"
+
+#define FACEBOOK_ALERT_VIEW 1
+#define APPSTORE_ALERT_VIEW 2
+#define ITUNES_URL @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%lld"
+#define FACEBOOK_URL @"http://www.facebook.com/MapsWithMe"
+
+const long long PRO_IDL = 510623322L;
+const long long LITE_IDL = 431183278L;
+
 
 @implementation MapViewController
 
@@ -230,16 +240,6 @@
   [self presentModalViewController:navC animated:YES];
   [bVC release];
   [navC release];
-}
-
-// Banner dialog handler
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-  if (buttonIndex != alertView.cancelButtonIndex)
-  {
-    // Launch appstore
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
-  }
 }
 
 - (void) onBalloonClicked
@@ -654,6 +654,11 @@ NSInteger compareAddress(id l, id r, void * context)
 
   if (self.isViewLoaded && self.view.window)
     [self Invalidate]; // only invalidate when map is displayed on the screen
+
+  if (dlg_settings::ShouldShow(dlg_settings::AppStore))
+    [self showAppStoreRatingMenu];
+  else if (dlg_settings::ShouldShow(dlg_settings::FacebookDlg))
+    [self showFacebookRatingMenu];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -707,6 +712,85 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void)showBallonWithCategoryIndex:(int)index andBookmarkIndex:(int)bmIndex
 {
   [self onBookmarkClickWithBookmarkAndCategory:BookmarkAndCategory(index, bmIndex)];
+}
+
+- (void)showAppStoreRatingMenu
+{
+  UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"App Store"
+                                                      message:NSLocalizedString(@"appStore_message", nil)                                                     delegate:self
+                                            cancelButtonTitle:NSLocalizedString(@"no_thanks", nil)
+                                            otherButtonTitles:NSLocalizedString(@"ok", nil), NSLocalizedString(@"remind_me_later", nil), nil];
+  alertView.tag = APPSTORE_ALERT_VIEW;
+  [alertView show];
+  [alertView release];
+}
+
+-(void)showFacebookRatingMenu
+{
+  UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"Facebook"
+                                                      message:NSLocalizedString(@"share_on_facebook_text", nil)
+                                                     delegate:self
+                                            cancelButtonTitle:NSLocalizedString(@"no_thanks", nil)
+                                            otherButtonTitles:NSLocalizedString(@"ok", nil), NSLocalizedString(@"remind_me_later", nil),  nil];
+  alertView.tag = FACEBOOK_ALERT_VIEW;
+  [alertView show];
+  [alertView release];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+  switch (alertView.tag)
+  {
+    case APPSTORE_ALERT_VIEW:
+    {
+      NSString * url = nil;
+      if (GetPlatform().IsPro())
+        url = [NSString stringWithFormat: ITUNES_URL, PRO_IDL];
+      else
+        url = [NSString stringWithFormat: ITUNES_URL, LITE_IDL];
+      [self manageAlert:buttonIndex andUrl:[NSURL URLWithString: url] andDlgSetting:dlg_settings::AppStore];
+      return;
+    }
+    case FACEBOOK_ALERT_VIEW:
+    {
+      NSString* url = [NSString stringWithFormat: FACEBOOK_URL];
+      [self manageAlert:buttonIndex andUrl:[NSURL URLWithString: url] andDlgSetting:dlg_settings::FacebookDlg];
+      return;
+    }
+    default:
+      break;
+  }
+
+  if (buttonIndex != alertView.cancelButtonIndex)
+  {
+    // Launch appstore
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
+  }
+}
+
+-(void) manageAlert:(NSInteger)buttonIndex andUrl:(NSURL*)url andDlgSetting:(dlg_settings::DialogT)set
+{
+  switch (buttonIndex)
+  {
+    case 0:
+    {
+      dlg_settings::SaveResult(set, dlg_settings::Never);
+      break;
+    }
+    case 1:
+    {
+      dlg_settings::SaveResult(set, dlg_settings::OK);
+      [[UIApplication sharedApplication] openURL: url];
+      break;
+    }
+    case 2:
+    {
+      dlg_settings::SaveResult(set, dlg_settings::Later);
+      break;
+    }
+    default:
+      break;
+  }
 }
 
 @end
