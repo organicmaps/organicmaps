@@ -13,10 +13,11 @@ namespace dlg_settings
 char const * g_arrSettingsName[] =
 {
   "FacebookDialog",
-  "BuyProDialog"
+  "BuyProDialog" ,
+  "AppStoreRate"
 };
 
-int g_arrMinForegroundTime[] = { 30 * 60, 60 * 60 };
+int g_arrMinForegroundTime[] = { 30 * 60, 60 * 60, 50 * 60};
 //@}
 
 
