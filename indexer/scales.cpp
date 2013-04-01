@@ -86,7 +86,7 @@ namespace scales
 
   double GetEpsilonForSimplify(int level)
   {
-    return GetEpsilonImpl(level, 9);
+    return GetEpsilonImpl(level, 18);
   }
 
   bool IsGoodForLevel(int level, m2::RectD const & r)
