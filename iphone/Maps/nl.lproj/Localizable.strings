@@ -412,3 +412,9 @@
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "Het downloaden van het land is nu aan de gang.";
+
+/* Message that will be shown in alert view, when we ask user to leave review on App Store */
+"appStore_message" = "Ik hoop dat u veel plezier hebt met MapsWithMe! Zo ja, geef de app dan een cijfer in de App Store of schrijf een recensie. Dit duurt minder dan een minuut, maar kan ons echt helpen. Bedankt voor uw steun!";
+
+/* No, thanks */
+"no_thanks" = "Nee, bedankt";

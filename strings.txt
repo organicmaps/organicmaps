@@ -373,6 +373,7 @@
     nl = Maak ruimte vrij op uw apparaat om %@ te kunnen downloaden
   [remind_me_later]
     en = Remind me later
+    tags = ios, android
     comment = Leave Review dialog - Not now button (remind me later)
     de = Errinern Sie mich später
     es = Recordarme mas tarde
@@ -1711,3 +1712,31 @@
   	cs = Právě probíhá stahování země.
   	nl = Het downloaden van het land is nu aan de gang.
   	de = Der Download der Länder wird gerade ausgeführt.
+  [appStore_message]
+    en = Hope you enjoy using MapsWithMe! If so, please rate or review the app at the App Store. It takes less than a minute but can really help us. Thanks for your support!
+    tags = ios
+    comment = Message that will be shown in alert view, when we ask user to leave review on App Store
+    ru = Надеемся, вам нравится пользоваться MapsWithMe! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!
+    uk = Сподіваємося, що вам сподобалося користуватися MapsWithMe! Якщо це так, будь ласка, оцініть цей застосунок чи залиште свій відгук на app store. Витративши менше хвилини на це, ви дійсно нам допоможете. Дякуємо за вашу підтримку!
+    ko = MapsWithMe로 즐거운 시간을 보내시기 바랍니다! MapsWithMe가 마음에 드신다면 앱스토어에서 평가를 남겨 주시기 바랍니다. 평가하는 데는 1분이 채 걸리지 않지만 저희에게 큰 도움이 됩니다. 성원해 주셔서 감사합니다!
+    cs = Doufáme, že se Vám užívání MapsWithMe líbí! Je-li tomu tak, ohodnoťte prosím naši aplikaci nebo na ni napište recenzi v App Store. Nezabere Vám to ani minutu, ale opravdu nám tím můžete pomoci. Děkujeme Vám za Vaši podporu!
+    es = ¡Ojalá disfrute mucho con MapsWithMe! Si le gusta, le agradeceremos que puntúe nuestra aplicación en el App Store. Es menos de un minuto y nos sería de gran ayuda. ¡Gracias por su apoyo!
+    it = Confidiamo nel fatto che sia piacevole utilizzare MapsWithMe! In caso positivo, ti preghiamo di valutare o recensire l'app all'interno dell'app store. Ti porterà via meno di un minuto e la cosa ci aiuterebbe tantissimo. Grazie per il tuo sostegno!
+    ja = MapsWithMeのご利用をお楽しみください！もし、このアプリがお気に入りであれば、App Storeで評価もしくはレビューしてください。こちらはわずかな時間しか掛からず、皆様の評価やレビューはアプリの向上に役立ちます。ご支援を宜しくお願い致します！
+    fr = Nous espérons que vous appréciez l'utilisation de MapsWithMe ! Si oui, veuillez évaluer l'application sur l'App Store. Cela prend moins d'une minute mais peut vraiment nous aider. Merci pour votre soutien !
+    nl = Ik hoop dat u veel plezier hebt met MapsWithMe! Zo ja, geef de app dan een cijfer in de App Store of schrijf een recensie. Dit duurt minder dan een minuut, maar kan ons echt helpen. Bedankt voor uw steun!
+    de = Wir hoffen, dass Ihnen die Verwendung von MapsWithMe Freude bereitet! Wenn ja, geben Sie bitte eine Bewertung oder einen Bericht für die App im App Store ab. Es dauert weniger als eine Minute, kann uns aber wirklich helfen. Danke für Ihre Unterstützung!
+  [no_thanks]
+    en = No, thanks
+    tags = ios, android
+    comment = No, thanks
+    ru = Нет, спасибо
+    uk = Ні, дякую
+    ko = 평가하지 않겠습니다
+    cs = Ne, díky
+    es = No, gracias
+    it = No, grazie
+    ja = いいえ
+    fr = Non, Merci
+    nl = Nee, bedankt
+    de = Nein, Danke

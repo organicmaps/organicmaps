@@ -412,3 +412,9 @@
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "Идет процесс загрузки карт.";
+
+/* Message that will be shown in alert view, when we ask user to leave review on App Store */
+"appStore_message" = "Надеемся, вам нравится пользоваться MapsWithMe! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!";
+
+/* No, thanks */
+"no_thanks" = "Нет, спасибо";

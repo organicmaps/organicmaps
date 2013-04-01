@@ -412,3 +412,9 @@
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "Der Download der Länder wird gerade ausgeführt.";
+
+/* Message that will be shown in alert view, when we ask user to leave review on App Store */
+"appStore_message" = "Wir hoffen, dass Ihnen die Verwendung von MapsWithMe Freude bereitet! Wenn ja, geben Sie bitte eine Bewertung oder einen Bericht für die App im App Store ab. Es dauert weniger als eine Minute, kann uns aber wirklich helfen. Danke für Ihre Unterstützung!";
+
+/* No, thanks */
+"no_thanks" = "Nein, Danke";
