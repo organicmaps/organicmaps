@@ -228,6 +228,7 @@ world  +
             bridge  -
             tunnel  -
             {}
+        proposed  -
         raceway  -
         residential  +
             area  -

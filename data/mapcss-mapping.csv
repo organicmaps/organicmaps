@@ -881,3 +881,4 @@ area:highway|trunk;[area:highway=trunk];;name;int_name;880;
 area:highway|residental;[area:highway=residental];x;name;int_name;881;
 entrance;[entrance];;ref;addr:flats;882;
 oneway;[oneway?];;name;int_name;883;
+highway|proposed;[highway=proposed];;name;int_name;884;

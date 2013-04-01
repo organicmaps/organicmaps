@@ -881,3 +881,4 @@ area:highway|trunk
 mapswithme
 entrance
 oneway
+highway|proposed
