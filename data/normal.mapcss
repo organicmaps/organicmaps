@@ -1853,7 +1853,7 @@ line|z13[railway=yard]
 }
 line|z13[piste:type=downhill][piste:difficulty=easy]
 {
-  color:	#404040;
+  color:	blue;
   width:	2.5;
 }
 node|z13[place=city]
@@ -2093,11 +2093,6 @@ line|z14[railway=construction]
   dashes:	1.5,1.5;
   linecap:	butt;
 }
-line|z14-[piste:type=downhill][piste:difficulty=easy]
-{
-  color:	#404040;
-  width:	5;
-}
 line|z14[highway=primary],
 line|z14[highway=trunk]
 {
@@ -2121,6 +2116,11 @@ line|z14[railway=narrow_gauge]::d1p2
 line|z14-[piste:type=downhill]
 {
   color:	#505050;
+  width:	5;
+}
+line|z14-[piste:type=downhill][piste:difficulty=easy]
+{
+  color:	blue;
   width:	5;
 }
 line|z14[boundary=administrative][type=nation]

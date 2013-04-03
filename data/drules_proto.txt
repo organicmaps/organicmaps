@@ -22441,7 +22441,7 @@ cont {
     scale: 13
     lines {
       width: 2.5
-      color: 0x404040
+      color: 0x0000FF
       priority: 1000
     }
   }
@@ -22449,7 +22449,7 @@ cont {
     scale: 14
     lines {
       width: 5
-      color: 0x505050
+      color: 0x0000FF
       priority: 1000
     }
   }
@@ -22457,7 +22457,7 @@ cont {
     scale: 15
     lines {
       width: 5
-      color: 0x505050
+      color: 0x0000FF
       priority: 1000
     }
   }
@@ -22465,7 +22465,7 @@ cont {
     scale: 16
     lines {
       width: 5
-      color: 0x505050
+      color: 0x0000FF
       priority: 1000
     }
   }
@@ -22473,7 +22473,7 @@ cont {
     scale: 17
     lines {
       width: 5
-      color: 0x505050
+      color: 0x0000FF
       priority: 1000
     }
   }
