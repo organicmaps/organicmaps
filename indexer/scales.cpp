@@ -86,7 +86,15 @@ namespace scales
 
   double GetEpsilonForSimplify(int level)
   {
-    return GetEpsilonImpl(level, 18);
+    // Keep best geometries on highest zoom to allow scaling them deeper
+    if (level == GetUpperScale())
+      return GetEpsilonImpl(level, 16); // 16 = 0.5 px precision on 1024 tiles on zoom 21
+    // Keep crude geometries in world map
+    else if (level <= GetUpperWorldScale())
+      return GetEpsilonImpl(level, 10); // 10 = 1px precision on 512px tiles
+    // Keep perfect-looking geometries for all the other zooms
+    else
+      return GetEpsilonImpl(level, 12); // 12 = 0.5px precision on 1024px tiles
   }
 
   bool IsGoodForLevel(int level, m2::RectD const & r)
