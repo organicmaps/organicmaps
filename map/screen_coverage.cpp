@@ -224,6 +224,34 @@ bool ScreenCoverage::Cache(core::CommandsQueue::Environment const & env)
   return !isCancelled;
 }
 
+
+namespace
+{
+  struct TileInserter : public std::iterator<std::output_iterator_tag, void,void,void,void>
+  {
+  public:
+    buffer_vector<const Tile *, 64> & m_tiles;
+
+    explicit TileInserter(buffer_vector<const Tile *, 64> & container)
+      : m_tiles(container)
+    {
+    }
+
+    TileInserter & operator= (const Tile * value)
+    {
+      m_tiles.push_back(value);
+      return *this;
+    }
+
+    TileInserter & operator* ()
+      { return *this; }
+    TileInserter & operator++ ()
+      { return *this; }
+    TileInserter operator++ (int)
+      { return *this; }
+  };
+}
+
 void ScreenCoverage::SetScreen(ScreenBase const & screen)
 {
   //LOG(LDEBUG, ("UVRLOG : Start ScreenCoverage::SetScreen. m_SequenceID=", GetSequenceID()));
@@ -275,36 +303,25 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   /// tiles, that aren't in current coverage are unlocked to allow their deletion from TileCache
   /// tiles, that are new to the current coverage are added into m_tiles and locked in TileCache
 
-  TTileSet erasedTiles;
-  TTileSet addedTiles;
+  size_t firstTileForAdd = 0;
+  buffer_vector<const Tile *, 64> diff_tiles;
+  diff_tiles.reserve(m_tiles.size() + tiles.size());
+  TileInserter inserter(diff_tiles);
+  set_difference(m_tiles.begin(), m_tiles.end(), tiles.begin(), tiles.end(), inserter, TTileSet::key_compare());
+  firstTileForAdd = diff_tiles.size();
+  set_difference(tiles.begin(), tiles.end(), m_tiles.begin(), m_tiles.end(), inserter, TTileSet::key_compare());
 
-  set_difference(m_tiles.begin(), m_tiles.end(), tiles.begin(), tiles.end(), inserter(erasedTiles, erasedTiles.end()), TTileSet::key_compare());
-  set_difference(tiles.begin(), tiles.end(), m_tiles.begin(), m_tiles.end(), inserter(addedTiles, addedTiles.end()), TTileSet::key_compare());
+  for (size_t i = 0; i < firstTileForAdd; ++i)
+    tileCache->UnlockTile(diff_tiles[i]->m_rectInfo);
 
-  for (TTileSet::const_iterator it = erasedTiles.begin(); it != erasedTiles.end(); ++it)
-  {
-    tileCache->UnlockTile((*it)->m_rectInfo);
-    /// here we should "unmerge" erasedTiles[i].m_overlay from m_overlay
-  }
-
-  for (TTileSet::const_iterator it = addedTiles.begin(); it != addedTiles.end(); ++it)
-  {
-    tileCache->LockTile((*it)->m_rectInfo);
-  }
+  for (size_t i = firstTileForAdd; i < diff_tiles.size(); ++i)
+    tileCache->LockTile(diff_tiles[i]->m_rectInfo);
 
   tileCache->Unlock();
 
   m_tiles = tiles;
 
   MergeOverlay();
-
-  set<Tiler::RectInfo> drawnTiles;
-
-  for (TTileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
-  {
-    Tiler::RectInfo const & ri = (*it)->m_rectInfo;
-    drawnTiles.insert(Tiler::RectInfo(ri.m_tileScale, ri.m_x, ri.m_y));
-  }
 
   vector<Tiler::RectInfo> firstClassTiles;
   vector<Tiler::RectInfo> secondClassTiles;
@@ -394,8 +411,6 @@ void ScreenCoverage::Draw(graphics::Screen * s, ScreenBase const & screen)
 
   if (m_sharpTextDL)
     s->drawDisplayList(m_sharpTextDL.get(), m);
-
-
 }
 
 shared_ptr<graphics::Overlay> const & ScreenCoverage::GetOverlay() const
