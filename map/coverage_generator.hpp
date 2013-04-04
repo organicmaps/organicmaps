@@ -112,6 +112,7 @@ public:
   void AddFinishSequenceTaskIfNeeded();
 
   void AddDecrementTileCountTask(int sequenceID);
+  void DecrementTileCounter(int sequenceID);
 
   void CoverScreen(core::CommandsQueue::Environment const & env,
                    ScreenBase const & screen,

@@ -1,4 +1,5 @@
 #include "../base/SRC_FIRST.hpp"
+#include "../platform/settings.hpp"
 
 #include "coverage_generator.hpp"
 #include "screen_coverage.hpp"
@@ -268,7 +269,10 @@ void CoverageGenerator::MergeTile(core::CommandsQueue::Environment const & env,
 
   m_workCoverage->Clear();
 
-  m_windowHandle->invalidate();
+  bool isBenchmarking = false;
+  Settings::Get("IsBenchmarking", isBenchmarking);
+  if (!isBenchmarking)
+    m_windowHandle->invalidate();
 }
 
 void CoverageGenerator::AddCheckEmptyModelTask(int sequenceID)
@@ -311,7 +315,13 @@ void CoverageGenerator::AddDecrementTileCountTask(int sequenceID)
   if (g_coverageGeneratorDestroyed)
     return;
 
-  m_queue.AddCommand(bind(&BenchmarkRenderingBarier::DecrementTileCounter, &m_benchmarkBarrier, sequenceID));
+  m_queue.AddCommand(bind(&CoverageGenerator::DecrementTileCounter, this, sequenceID));
+}
+
+void CoverageGenerator::DecrementTileCounter(int sequenceID)
+{
+  m_benchmarkBarrier.DecrementTileCounter(sequenceID);
+  m_windowHandle->invalidate();
 }
 
 void CoverageGenerator::WaitForEmptyAndFinished()
