@@ -209,8 +209,6 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   shared_ptr<PaintEvent> paintEvent = make_shared_ptr(new PaintEvent(drawer, &env));
 
-  my::Timer timer;
-
   graphics::TTexturePool * texturePool = m_resourceManager->texturePool(graphics::ERenderTargetTexture);
 
   shared_ptr<graphics::gl::BaseTexture> tileTarget = texturePool->Reserve();
@@ -282,23 +280,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   {
     if (glQueue)
       glQueue->completeCommands();
-  }
-  else
-  {
-    if (!m_isExiting)
-    {
-      if (glQueue)
-        glQueue->cancelCommands();
-    }
-  }
 
-  if (env.isCancelled())
-  {
-    if (!m_isExiting)
-      texturePool->Free(tileTarget);
-  }
-  else
-  {
     AddActiveTile(Tile(tileTarget,
                  tileOverlay,
                  frameScreen,
@@ -306,6 +288,16 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
                  0,
                  paintEvent->isEmptyDrawing(),
                  sequenceID));
+  }
+  else
+  {
+    if (!m_isExiting)
+    {
+      if (glQueue)
+        glQueue->cancelCommands();
+
+      texturePool->Free(tileTarget);
+    }
   }
 }
 

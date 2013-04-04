@@ -315,7 +315,7 @@ namespace graphics
     m_tree.ForEach(MakeBackInsertFunctor(v));
     m_tree.Clear();
 
-    int clippedCnt = 0;
+    //int clippedCnt = 0;
     //int elemCnt = v.size();
 
     m2::RectD rd(r);
@@ -327,13 +327,11 @@ namespace graphics
 
       if (!e->isVisible())
       {
-        clippedCnt++;
+        //clippedCnt++;
         continue;
       }
 
-      if (!e->roughBoundRect().IsIntersect(rd))
-        clippedCnt++;
-      else
+      if (e->roughBoundRect().IsIntersect(rd))
       {
         bool hasIntersection = false;
         for (unsigned j = 0; j < e->boundRects().size(); ++j)
@@ -348,6 +346,8 @@ namespace graphics
         if (hasIntersection)
           processOverlayElement(e);
       }
+      //else
+      //  clippedCnt++;
     }
 
 //    LOG(LINFO, ("clipped out", clippedCnt, "elements,", elemCnt, "elements total"));
