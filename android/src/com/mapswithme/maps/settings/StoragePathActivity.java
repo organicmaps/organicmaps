@@ -32,12 +32,12 @@ import com.mapswithme.util.Utils;
 
 public class StoragePathActivity extends ListActivity
 {
-  private static String TAG = "SettingsActivity";
+  private static String TAG = "StoragePathActivity";
 
   /// ListView adapter
   private static class StoragePathAdapter extends BaseAdapter
   {
-    private static String TAG = "SettingsAdapter";
+    private static String TAG = "StoragePathAdapter";
     private static String MWM_DIR_POSTFIX = "/MapsWithMe/";
 
     /// @name Different row types.
@@ -65,8 +65,6 @@ public class StoragePathActivity extends ListActivity
       m_defPath = defPath;
 
       m_listItemHeight = (int)Utils.getAttributeDimension(context, android.R.attr.listPreferredItemHeight);
-
-      updateList();
     }
 
     private String getSizeString(long size)
@@ -111,7 +109,7 @@ public class StoragePathActivity extends ListActivity
       return -1;
     }
 
-    private void updateList()
+    public void updateList()
     {
       m_sizeNeeded = getDirSize(m_currPath + MWM_DIR_POSTFIX);
       Log.i(TAG, "Needed size for maps: " + m_sizeNeeded);
@@ -124,6 +122,8 @@ public class StoragePathActivity extends ListActivity
 
       m_current = findItemByPath(m_currPath);
       assert(m_current != -1);
+
+      notifyDataSetChanged();
     }
 
     private boolean addStorage(String path)
@@ -383,7 +383,6 @@ public class StoragePathActivity extends ListActivity
       m_currPath = path;
 
       updateList();
-      notifyDataSetChanged();
     }
 
     private class MoveFilesTask extends AsyncTask<String, Void, Boolean>
@@ -476,8 +475,13 @@ public class StoragePathActivity extends ListActivity
     }
   }
 
+  private StoragePathAdapter getAdapter()
+  {
+    return (StoragePathAdapter) getListView().getAdapter();
+  }
+
   @Override
-  public void onCreate(Bundle savedInstanceState)
+  protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
 
@@ -492,15 +496,17 @@ public class StoragePathActivity extends ListActivity
   protected void onStart()
   {
     super.onStart();
-    
+
     Statistics.INSTANCE.startActivity(this);
+
+    getAdapter().updateList();
   }
-  
+
   @Override
   protected void onStop()
   {
     super.onStop();
-    
+
     Statistics.INSTANCE.stopActivity(this);
   }
 
@@ -509,7 +515,7 @@ public class StoragePathActivity extends ListActivity
   {
     // Do not process clicks on header items.
     if (position != 0)
-      ((StoragePathAdapter) getListView().getAdapter()).onListItemClick(position);
+      getAdapter().onListItemClick(position);
   }
 
   private native String nativeGetStoragePath();
