@@ -24,7 +24,6 @@ import com.mapswithme.util.Utils;
 
 public class BookmarkActivity extends AbstractBookmarkActivity
 {
-  private static final int CONFIRMATION_DIALOG = 11001;
   private static final int BOOKMARK_COLOR_DIALOG = 11002;
 
   public static final String BOOKMARK_POSITION = "bookmark_position";
@@ -151,41 +150,10 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   @Deprecated
   protected Dialog onCreateDialog(int id)
   {
-    if (CONFIRMATION_DIALOG == id)
-    {
-      return new AlertDialog.Builder(this)
-      .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener()
-      {
-        @Override
-        public void onClick(DialogInterface dialog, int which)
-        {
-          dialog.dismiss();
-        }
-      })
-      .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
-      {
-        @Override
-        public void onClick(DialogInterface dialog, int which)
-        {
-          dialog.dismiss();
-
-          mManager.deleteBookmark(mPin);
-          mPin = null;
-
-          finish();
-        }
-      })
-      .setTitle(R.string.are_you_sure)
-      .setMessage(getString(R.string.delete)+ " " + mPin.getName() + "?")
-      .create();
-    }
+    if (id == BOOKMARK_COLOR_DIALOG)
+      return createColorChooser();
     else
-      if (id == BOOKMARK_COLOR_DIALOG)
-      {
-        return createColorChooser();
-      }
-      else
-        return super.onCreateDialog(id);
+      return super.onCreateDialog(id);
   }
 
   private Dialog createColorChooser()
@@ -227,6 +195,12 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
   public void onDeleteClick(View v)
   {
-    showDialog(CONFIRMATION_DIALOG);
+    if (mPin != null)
+    {
+      mManager.deleteBookmark(mPin);
+      mPin = null;
+
+      finish();
+    }
   }
 }
