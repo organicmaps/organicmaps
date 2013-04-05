@@ -224,34 +224,6 @@ bool ScreenCoverage::Cache(core::CommandsQueue::Environment const & env)
   return !isCancelled;
 }
 
-
-namespace
-{
-  struct TileInserter : public std::iterator<std::output_iterator_tag, void,void,void,void>
-  {
-  public:
-    buffer_vector<const Tile *, 64> & m_tiles;
-
-    explicit TileInserter(buffer_vector<const Tile *, 64> & container)
-      : m_tiles(container)
-    {
-    }
-
-    TileInserter & operator= (const Tile * value)
-    {
-      m_tiles.push_back(value);
-      return *this;
-    }
-
-    TileInserter & operator* ()
-      { return *this; }
-    TileInserter & operator++ ()
-      { return *this; }
-    TileInserter operator++ (int)
-      { return *this; }
-  };
-}
-
 void ScreenCoverage::SetScreen(ScreenBase const & screen)
 {
   //LOG(LDEBUG, ("UVRLOG : Start ScreenCoverage::SetScreen. m_SequenceID=", GetSequenceID()));
@@ -306,10 +278,9 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   size_t firstTileForAdd = 0;
   buffer_vector<const Tile *, 64> diff_tiles;
   diff_tiles.reserve(m_tiles.size() + tiles.size());
-  TileInserter inserter(diff_tiles);
-  set_difference(m_tiles.begin(), m_tiles.end(), tiles.begin(), tiles.end(), inserter, TTileSet::key_compare());
+  set_difference(m_tiles.begin(), m_tiles.end(), tiles.begin(), tiles.end(), back_inserter(diff_tiles), TTileSet::key_compare());
   firstTileForAdd = diff_tiles.size();
-  set_difference(tiles.begin(), tiles.end(), m_tiles.begin(), m_tiles.end(), inserter, TTileSet::key_compare());
+  set_difference(tiles.begin(), tiles.end(), m_tiles.begin(), m_tiles.end(), back_inserter(diff_tiles), TTileSet::key_compare());
 
   for (size_t i = 0; i < firstTileForAdd; ++i)
     tileCache->UnlockTile(diff_tiles[i]->m_rectInfo);
