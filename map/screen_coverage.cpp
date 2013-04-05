@@ -22,7 +22,8 @@ ScreenCoverage::ScreenCoverage()
     m_overlay(new graphics::Overlay()),
     m_isEmptyDrawingCoverage(false),
     m_isEmptyModelAtCoverageCenter(true),
-    m_leafTilesToRender(0)
+    m_leafTilesToRender(0),
+    m_isBenchmarking(false)
 {
   m_overlay->setCouldOverlap(false);
 }
@@ -36,7 +37,8 @@ ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
     m_isEmptyDrawingCoverage(false),
     m_isEmptyModelAtCoverageCenter(true),
     m_leafTilesToRender(0),
-    m_cacheScreen(cacheScreen)
+    m_cacheScreen(cacheScreen),
+    m_isBenchmarking(false)
 {
   m_overlay->setCouldOverlap(false);
 }
@@ -323,7 +325,9 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   // filtering out rects that are fully covered by its descedants
 
   int curNewTile = 0;
-  m_coverageGenerator->StartTileDrawingSession(GetSequenceID(), newRectsCount);
+
+  if (m_isBenchmarking)
+    m_coverageGenerator->StartTileDrawingSession(GetSequenceID(), newRectsCount);
 
   // adding commands for tiles which aren't in cache
   for (size_t i = 0; i < firstClassTiles.size(); ++i, ++curNewTile)
@@ -337,9 +341,12 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
                           ri,
                           GetSequenceID()));
 
-    chain.addCommand(bind(&CoverageGenerator::AddDecrementTileCountTask,
-                          m_coverageGenerator,
-                          GetSequenceID()));
+    if (m_isBenchmarking)
+    {
+      chain.addCommand(bind(&CoverageGenerator::AddDecrementTileCountTask,
+                            m_coverageGenerator,
+                            GetSequenceID()));
+    }
 
     m_tileRenderer->AddCommand(ri, GetSequenceID(),
                                chain);
@@ -360,9 +367,12 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
                           m_tileRenderer,
                           ri));
 
-    chain.addCommand(bind(&CoverageGenerator::AddDecrementTileCountTask,
-                          m_coverageGenerator,
-                          GetSequenceID()));
+    if (m_isBenchmarking)
+    {
+      chain.addCommand(bind(&CoverageGenerator::AddDecrementTileCountTask,
+                            m_coverageGenerator,
+                            GetSequenceID()));
+    }
 
     m_tileRenderer->AddCommand(ri, GetSequenceID(), chain);
   }
@@ -479,4 +489,9 @@ void ScreenCoverage::MergeOverlay()
       m_overlay->merge(*copy.get(), (*it)->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
     }
   }
+}
+
+void ScreenCoverage::SetBenchmarkingFlag(bool isBenchmarking)
+{
+  m_isBenchmarking = isBenchmarking;
 }

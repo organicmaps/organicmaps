@@ -55,6 +55,7 @@ private:
   shared_ptr<graphics::Overlay> m_overlay;
 
   /// State flags
+  bool m_isBenchmarking;
 
   /// Does the all leaf tiles in this coverage are empty?
   bool m_isEmptyDrawingCoverage;
@@ -133,4 +134,6 @@ public:
   /// Unlock and remove tiles which intersect the specified rect
   /// and deeper or equal than specified scale
   void RemoveTiles(m2::AnyRectD const & r, int startScale);
+
+  void SetBenchmarkingFlag(bool isBenchmarking);
 };

@@ -82,6 +82,7 @@ private:
 
   bool m_doForceUpdate;
   bool m_isPaused;
+  bool m_isBenchmarking;
 
   ScreenCoverage * CreateCoverage();
 

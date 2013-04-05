@@ -36,7 +36,8 @@ CoverageGenerator::CoverageGenerator(
     m_fenceManager(2),
     m_currentFenceID(-1),
     m_doForceUpdate(false),
-    m_isPaused(false)
+    m_isPaused(false),
+    m_isBenchmarking(false)
 {
   g_coverageGeneratorDestroyed = false;
 
@@ -49,6 +50,8 @@ CoverageGenerator::CoverageGenerator(
   m_queue.AddFinCommand(bind(&CoverageGenerator::FinalizeThreadGL, this));
 
   m_queue.Start();
+
+  Settings::Get("IsBenchmarking", m_isBenchmarking);
 }
 
 ScreenCoverage * CoverageGenerator::CreateCoverage()
@@ -69,7 +72,10 @@ ScreenCoverage * CoverageGenerator::CreateCoverage()
 
   shared_ptr<graphics::Screen> screen(new graphics::Screen(params));
 
-  return new ScreenCoverage(m_tileRenderer, this, screen);
+  ScreenCoverage * screenCoverage = new ScreenCoverage(m_tileRenderer, this, screen);
+  screenCoverage->SetBenchmarkingFlag(m_isBenchmarking);
+
+  return screenCoverage;
 }
 
 void CoverageGenerator::InitializeThreadGL()
@@ -172,18 +178,21 @@ void CoverageGenerator::AddCoverScreenTask(ScreenBase const & screen, bool doFor
 
 int CoverageGenerator::InsertBenchmarkFence()
 {
+  ASSERT(m_isBenchmarking, ("Only in benchmarking mode!"));
   m_currentFenceID = m_fenceManager.insertFence();
   return m_currentFenceID;
 }
 
 void CoverageGenerator::JoinBenchmarkFence(int fenceID)
 {
+  ASSERT(m_isBenchmarking, ("Only in benchmarking mode!"));
   CHECK(fenceID == m_currentFenceID, ("InsertBenchmarkFence without corresponding SignalBenchmarkFence detected"));
   m_fenceManager.joinFence(fenceID);
 }
 
 void CoverageGenerator::SignalBenchmarkFence()
 {
+  ASSERT(m_isBenchmarking, ("Only in benchmarking mode!"));
   if (m_currentFenceID != -1)
     m_fenceManager.signalFence(m_currentFenceID);
 }
@@ -269,9 +278,7 @@ void CoverageGenerator::MergeTile(core::CommandsQueue::Environment const & env,
 
   m_workCoverage->Clear();
 
-  bool isBenchmarking = false;
-  Settings::Get("IsBenchmarking", isBenchmarking);
-  if (!isBenchmarking)
+  if (!m_isBenchmarking)
     m_windowHandle->invalidate();
 }
 
@@ -320,6 +327,7 @@ void CoverageGenerator::AddDecrementTileCountTask(int sequenceID)
 
 void CoverageGenerator::DecrementTileCounter(int sequenceID)
 {
+  ASSERT(m_isBenchmarking, ("Only in benchmarking mode!"));
   m_benchmarkBarrier.DecrementTileCounter(sequenceID);
   m_windowHandle->invalidate();
 }
@@ -346,6 +354,7 @@ void CoverageGenerator::SetSequenceID(int sequenceID)
 
 void CoverageGenerator::StartTileDrawingSession(int sequenceID, unsigned tileCount)
 {
+  ASSERT(m_isBenchmarking, ("Only in benchmarking mode!"));
   m_benchmarkBarrier.m_sequenceID = sequenceID;
   m_benchmarkBarrier.m_tilesCount = tileCount;
 }
