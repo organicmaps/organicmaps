@@ -243,4 +243,8 @@
 	<string name="download_location_country">Téléchargez le pays (%s) de votre position actuelle</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
 	<string name="download_viewport_country_to_search">Téléchargez le pays (%s) que vous recherchez sur</string>
+	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+	<string name="cant_change_this_setting">Nous sommes désolés, les paramètres de Map Storage sont désactivés.</string>
+	<!-- Alert message that downloading is in progress. -->
+	<string name="downloading_is_active">Le téléchargement du pays est en cours actuellement.</string>
 </resources>

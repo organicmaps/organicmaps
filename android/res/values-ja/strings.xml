@@ -249,4 +249,8 @@
 	<string name="download_location_country">現在地である国(%s)をダウンロード</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
 	<string name="download_viewport_country_to_search">現在マップで検索している国(%s)をダウンロード</string>
+	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+	<string name="cant_change_this_setting">誠に恐れ入りますがマップストレージ設定は無効になっております。</string>
+	<!-- Alert message that downloading is in progress. -->
+	<string name="downloading_is_active">国のダウンロードは現在進行中です。</string>
 </resources>

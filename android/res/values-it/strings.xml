@@ -47,4 +47,8 @@
 	<string name="download_location_country">Scarica il paese (%s) della tua posizione attuale</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
 	<string name="download_viewport_country_to_search">Scarica il paese (%s) che stai cercando</string>
+	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+	<string name="cant_change_this_setting">Siamo spiacenti, ma le impostazioni di archiviazione delle mappe sono disabilitate.</string>
+	<!-- Alert message that downloading is in progress. -->
+	<string name="downloading_is_active">Il download della nazione è in corso.</string>
 </resources>

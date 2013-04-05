@@ -226,4 +226,8 @@
 	<string name="download_location_country">Завантажити країну (%s) вашого поточного місця розташування</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
 	<string name="download_viewport_country_to_search">Завантажити країну (% @), в якій ви шукаєте</string>
+	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+	<string name="cant_change_this_setting">Вибачте, налаштування функції запам\'ятовування карти скасовано.</string>
+	<!-- Alert message that downloading is in progress. -->
+	<string name="downloading_is_active">Зараз відбувається завантаження країни.</string>
 </resources>

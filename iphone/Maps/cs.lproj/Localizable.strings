@@ -395,9 +395,6 @@
 /* resource for context menu */
 "edit" = "Upravit";
 
-/* Title for Confirm dialog */
-"are_you_sure" = "Opravdu?";
-
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Tvá poloha zatím nebyla určena";
 
@@ -406,3 +403,12 @@
 
 /* Warning message when viewport country isn't downloaded during search */
 "download_viewport_country_to_search" = "Stahování země (%@), v níž hledáš";
+
+/* The app key for Flurry; needed in order for the Android library to build properly. */
+"flurry_app_key" = "";
+
+/* Alert message that we can't run Map Storage settings due to some reasons. */
+"cant_change_this_setting" = "Litujeme, nastavení Uložení Map jsou zakázána.";
+
+/* Alert message that downloading is in progress. */
+"downloading_is_active" = "Právě probíhá stahování země.";

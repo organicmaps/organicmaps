@@ -395,9 +395,6 @@
 /* resource for context menu */
 "edit" = "Редактировать";
 
-/* Title for Confirm dialog */
-"are_you_sure" = "Вы уверены?";
-
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Ваше местоположение еще не определено";
 
@@ -406,3 +403,12 @@
 
 /* Warning message when viewport country isn't downloaded during search */
 "download_viewport_country_to_search" = "Скачайте страну (%@), на которой вы ищете";
+
+/* The app key for Flurry; needed in order for the Android library to build properly. */
+"flurry_app_key" = "";
+
+/* Alert message that we can't run Map Storage settings due to some reasons. */
+"cant_change_this_setting" = "Извините, настройки места хранения карт сейчас недоступны.";
+
+/* Alert message that downloading is in progress. */
+"downloading_is_active" = "Идет процесс загрузки карт.";

@@ -255,8 +255,6 @@
 	<string name="load_kmz_failed">Bookmarks upload failed. The file may be corrupted or defective.</string>
 	<!-- resource for context menu -->
 	<string name="edit">Edit</string>
-	<!-- Title for Confirm dialog -->
-	<string name="are_you_sure">Are you sure?</string>
 	<!-- Warning message when doing search around current position -->
 	<string name="unknown_current_position">Your location hasn\'t been determined yet</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
@@ -266,7 +264,7 @@
 	<!-- The app key for Flurry; needed in order for the Android library to build properly. -->
 	<string name="flurry_app_key"></string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
-	<string name="cant_change_this_setting">Can\'t change this setting now</string>
+	<string name="cant_change_this_setting">Sorry, Map Storage settings are currently disabled.</string>
 	<!-- Alert message that downloading is in progress. -->
-	<string name="downloading_is_active">Downloading of country is in progress now</string>
+	<string name="downloading_is_active">Country download is in progress now.</string>
 </resources>

@@ -247,4 +247,8 @@
 	<string name="download_location_country">Descargar país (%s) de tu ubicación actual</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
 	<string name="download_viewport_country_to_search">Descargar país (%s) en el que estás buscando</string>
+	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+	<string name="cant_change_this_setting">Lo sentimos, la configuración de Guardar Mapa está desactivada.</string>
+	<!-- Alert message that downloading is in progress. -->
+	<string name="downloading_is_active">Se está descargando un país.</string>
 </resources>

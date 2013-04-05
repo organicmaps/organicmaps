@@ -1637,12 +1637,6 @@
     comment = resource for context menu
     ru = Редактировать
     cs = Upravit
-  [are_you_sure]
-    en = Are you sure?
-    tags = android
-    comment = Title for Confirm dialog
-    ru = Вы уверены?
-    cs = Opravdu?
   [unknown_current_position]
     en = Your location hasn't been determined yet
     tags = ios, android
@@ -1690,12 +1684,30 @@
     tags = android
     comment = The app key for Flurry; needed in order for the Android library to build properly.
   [cant_change_this_setting]
-  	en = Can't change this setting now
+  	en = Sorry, Map Storage settings are currently disabled.
   	tags = android
   	comment = Alert message that we can't run Map Storage settings due to some reasons.
-  	ru = Эту настройку сейчас менять нельзя
+  	ko = 죄송합니다, 지도 스토리지 설정이 비활성화되어 있습니다.
+  	es = Lo sentimos, la configuración de Guardar Mapa está desactivada.
+  	ru = Извините, настройки места хранения карт сейчас недоступны.
+  	uk = Вибачте, налаштування функції запам'ятовування карти скасовано.
+  	it = Siamo spiacenti, ma le impostazioni di archiviazione delle mappe sono disabilitate.
+  	ja = 誠に恐れ入りますがマップストレージ設定は無効になっております。
+  	fr = Nous sommes désolés, les paramètres de Map Storage sont désactivés.
+  	cs = Litujeme, nastavení Uložení Map jsou zakázána.
+  	nl = Sorry, instellingen voor kaartopslag uitgeschakeld.
+  	de = Es tut uns leid, die Einstellungen der Kartenspeicherung sind deaktiviert.
   [downloading_is_active]
-  	en = Downloading of country is in progress now
+  	en = Country download is in progress now.
   	tags = android
   	comment = Alert message that downloading is in progress.
-  	ru = Идет загрузка страны
+  	ko = 국가 다운로드가 지금 진행 중입니다.
+  	es = Se está descargando un país.
+  	ru = Идет процесс загрузки карт.
+  	uk = Зараз відбувається завантаження країни.
+  	it = Il download della nazione è in corso.
+  	ja = 国のダウンロードは現在進行中です。
+  	fr = Le téléchargement du pays est en cours actuellement.
+  	cs = Právě probíhá stahování země.
+  	nl = Het downloaden van het land is nu aan de gang.
+  	de = Der Download der Länder wird gerade ausgeführt.

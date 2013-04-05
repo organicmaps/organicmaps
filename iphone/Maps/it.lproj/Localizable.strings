@@ -395,9 +395,6 @@
 /* resource for context menu */
 "edit" = "Edit";
 
-/* Title for Confirm dialog */
-"are_you_sure" = "Are you sure?";
-
 /* Warning message when doing search around current position */
 "unknown_current_position" = "La tua posizione non è stata ancora stabilita";
 
@@ -406,3 +403,12 @@
 
 /* Warning message when viewport country isn't downloaded during search */
 "download_viewport_country_to_search" = "Scarica il paese (%@) che stai cercando";
+
+/* The app key for Flurry; needed in order for the Android library to build properly. */
+"flurry_app_key" = "";
+
+/* Alert message that we can't run Map Storage settings due to some reasons. */
+"cant_change_this_setting" = "Siamo spiacenti, ma le impostazioni di archiviazione delle mappe sono disabilitate.";
+
+/* Alert message that downloading is in progress. */
+"downloading_is_active" = "Il download della nazione è in corso.";

@@ -251,4 +251,8 @@
 	<string name="download_location_country">Land (%s) Ihres derzeitigen Standorts herunterladen</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
 	<string name="download_viewport_country_to_search">Land (%s) herunterladen, von dem aus Sie suchen</string>
+	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+	<string name="cant_change_this_setting">Es tut uns leid, die Einstellungen der Kartenspeicherung sind deaktiviert.</string>
+	<!-- Alert message that downloading is in progress. -->
+	<string name="downloading_is_active">Der Download der Länder wird gerade ausgeführt.</string>
 </resources>

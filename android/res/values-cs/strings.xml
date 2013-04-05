@@ -247,12 +247,14 @@
 	<string name="load_kmz_failed">Nahrávání záložek se nezdařilo. Soubor může být poškozený nebo vadný.</string>
 	<!-- resource for context menu -->
 	<string name="edit">Upravit</string>
-	<!-- Title for Confirm dialog -->
-	<string name="are_you_sure">Opravdu?</string>
 	<!-- Warning message when doing search around current position -->
 	<string name="unknown_current_position">Tvá poloha zatím nebyla určena</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
 	<string name="download_location_country">Stahování země (%s) tvé aktuální polohy</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
 	<string name="download_viewport_country_to_search">Stahování země (%s), v níž hledáš</string>
+	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+	<string name="cant_change_this_setting">Litujeme, nastavení Uložení Map jsou zakázána.</string>
+	<!-- Alert message that downloading is in progress. -->
+	<string name="downloading_is_active">Právě probíhá stahování země.</string>
 </resources>
