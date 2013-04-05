@@ -2,6 +2,7 @@
 
 #include "gl_test_widget.hpp"
 #include "../../gui/controller.hpp"
+#include "../../base/strings_bundle.hpp"
 #include <QMouseEvent>
 
 template <class T, void (T::*)(gui::Controller*)>
@@ -31,6 +32,7 @@ private:
 
   shared_ptr<gui::Controller> m_controller;
   shared_ptr<graphics::Screen> m_cacheScreen;
+  shared_ptr<StringsBundle> m_stringBundle;
 
 public:
 
@@ -65,6 +67,11 @@ public:
     rp.m_GlyphCache = base_t::m_resourceManager->glyphCache(0);
     rp.m_InvalidateFn = bind(&GUITestWidget<TTest>::invalidate, this);
     rp.m_Density = graphics::EDensityMDPI;
+
+    m_stringBundle.reset(new StringsBundle());
+    m_stringBundle->SetDefaultString("country_status_download", "Download^");
+
+    m_controller->SetStringsBundle(m_stringBundle.get());
 
     InitImpl(m_controller, bool_tag<has_init_with_controller<TTest, TTest>::value >());
 

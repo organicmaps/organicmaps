@@ -6,6 +6,9 @@
 #include "../image_view.hpp"
 #include "../cached_text_view.hpp"
 
+#include "../../map/country_status_display.hpp"
+
+
 struct BalloonTest
 {
   shared_ptr<gui::Balloon> m_balloon;
@@ -135,7 +138,7 @@ struct CachedTextViewTest
     m_cachedTextView->setIsVisible(true);
 
     m_cachedTextView->setFont(gui::Element::EActive,
-                              graphics::FontDesc(20, graphics::Color(0, 0, 0, 255), true));
+                              graphics::FontDesc(20, graphics::Color(255, 0, 0, 255), true));
 
     c->AddElement(m_cachedTextView);
   }
@@ -179,9 +182,41 @@ struct ImageViewTest
   }
 };
 
-UNIT_TEST_GUI(BalloonTest);
-UNIT_TEST_GUI(ButtonTest);
-UNIT_TEST_GUI(TextViewTest);
-UNIT_TEST_GUI(ImageViewTest);
-UNIT_TEST_GUI(CachedTextViewTest);
+struct CountryStatusDisplayTest
+{
+  shared_ptr<CountryStatusDisplay> m_countryStatus;
+  shared_ptr<storage::Storage> m_storage;
+  m2::PointD m_pivot;
+
+  void Init(gui::Controller * c)
+  {
+    CountryStatusDisplay::Params p;
+
+    m_pivot = m2::PointD(400, 400);
+
+    m_storage.reset(new storage::Storage());
+    //m_storage->Init();
+
+    p.m_depth = graphics::maxDepth;
+    p.m_pivot = m_pivot;
+    p.m_position = graphics::EPosAboveLeft;
+    p.m_storage = m_storage.get();
+
+    m_countryStatus.reset(new CountryStatusDisplay(p));
+    m_countryStatus->setCountryIndex(storage::TIndex(1, 1, 1));
+    m_countryStatus->setPivot(m_pivot);
+    c->AddElement(m_countryStatus);
+  }
+
+  void DoDraw(shared_ptr<graphics::Screen> const & p)
+  {
+  }
+};
+
+//UNIT_TEST_GUI(BalloonTest);
+//UNIT_TEST_GUI(ButtonTest);
+//UNIT_TEST_GUI(TextViewTest);
+//UNIT_TEST_GUI(ImageViewTest);
+//UNIT_TEST_GUI(CachedTextViewTest);
+UNIT_TEST_GUI(CountryStatusDisplayTest);
 
