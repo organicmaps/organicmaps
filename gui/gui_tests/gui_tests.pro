@@ -10,11 +10,12 @@ include($$ROOT_DIR/common.pri)
 
 QT *= opengl gui core
 
-win32 {
+win32* {
   LIBS *= -lopengl32 -lshell32
   win32-g++: LIBS *= -lpthread
 }
-macx*: LIBS *= "-framework Foundation"
+
+macx*: LIBS *= "-framework Foundation" "-framework IOKit"
 
 SOURCES += \
     ../../testing/testingmain.cpp \
