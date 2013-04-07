@@ -38,30 +38,7 @@ template <class StorageT> class PushBackByteSink
 {
 public:
   explicit PushBackByteSink(StorageT & storage)
-    : m_Storage(storage)//, m_InitialStorageSize(storage.size())
-  {
-  }
-
-  void Write(void const * p, size_t size)
-  {
-    // assume input buffer as buffer of bytes
-    unsigned char const * pp = static_cast<unsigned char const *>(p);
-    m_Storage.append(pp, pp + size);
-  }
-
-  size_t Pos() const
-  {
-    return m_Storage.size();
-  }
-private:
-  StorageT & m_Storage;
-};
-
-template <typename T> class PushBackByteSink<vector<T> >
-{
-public:
-  explicit PushBackByteSink(vector<T> & storage)
-    : m_Storage(storage)//, m_InitialStorageSize(storage.size())
+    : m_Storage(storage)
   {
   }
 
@@ -77,7 +54,7 @@ public:
     return m_Storage.size();
   }
 private:
-  vector<T> & m_Storage;
+  StorageT & m_Storage;
 };
 
 class CountingSink
