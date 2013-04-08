@@ -2,9 +2,6 @@
 
 #include "../defines.hpp"
 
-#include "../indexer/data_factory.hpp"
-//#include "../indexer/search_index_builder.hpp"
-
 #include "../platform/platform.hpp"
 #include "../platform/servers_list.hpp"
 #include "../platform/settings.hpp"
