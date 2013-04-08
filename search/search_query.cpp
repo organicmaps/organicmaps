@@ -1318,6 +1318,7 @@ namespace impl
 
     /// Tanslates country full english name to mwm file name prefix
     /// (need when matching correspondent mwm file in CountryInfoGetter::GetMatchedRegions).
+    //@{
     static bool FeatureName2FileNamePrefix(string & name, char const * prefix,
                                     char const * arr[], size_t n)
     {
@@ -1329,7 +1330,6 @@ namespace impl
       return true;
     }
 
-    //@{
     void AssignEnglishName(FeatureType const & f, Locality & l)
     {
       // search for name in next order: "en", "int_name", "default"
@@ -1440,7 +1440,8 @@ namespace impl
         Locality * loc = PushLocality(Locality(v, index));
         if (loc)
         {
-          f.GetName(m_lang, loc->m_name);
+          // m_lang name should exist if we matched feature in search index for this language.
+          VERIFY(f.GetName(m_lang, loc->m_name), ());
 
           loc->m_matchedTokens.push_back(m_index);
 
@@ -1460,69 +1461,48 @@ namespace impl
       //LOG(LDEBUG, ("Countries before processing = ", m_localities[Locality::COUNTRY]));
       //LOG(LDEBUG, ("States before processing = ", m_localities[Locality::STATE]));
 
-      AddRegions(Locality::COUNTRY, regions);
       AddRegions(Locality::STATE, regions);
+      AddRegions(Locality::COUNTRY, regions);
 
       //LOG(LDEBUG, ("Regions after processing = ", regions));
     }
 
-    bool GetBestCity(Locality & res, vector<Region> const & regions)
+    void GetBestCity(Locality & res, vector<Region> const & regions)
     {
-      // Get suitable city-locality.
-      Locality * p1st = 0;
-
+      size_t const regsCount = regions.size();
       vector<Locality> & arr = m_localities[Locality::CITY];
+
+      // Interate in reverse order from better to generic locality.
       for (vector<Locality>::reverse_iterator i = arr.rbegin(); i != arr.rend(); ++i)
       {
         if (!i->IsSuitable(m_query.m_tokens, m_query.m_prefix))
           continue;
 
-        if (!regions.empty())
+        // additional check for locality belongs to region
+        vector<Region const *> belongs;
+        for (size_t j = 0; j < regsCount; ++j)
         {
-          // additional check for locality belongs to region
-          Region const * p = 0;
-          for (size_t j = 0; j < regions.size(); ++j)
-          {
-            if (IsBelong(*i, regions[j]))
-            {
-              p = &regions[j];
-              break;
-            }
-          }
-
-          if (p == 0)
-          {
-            // remember first suitable locality for the last chance
-            if (p1st == 0)
-              p1st = &(*i);
-
-            // locality doesn't belong to region - goto next
-            continue;
-          }
-          else
-          {
-            // splice locality info with region info
-            i->m_matchedTokens.insert(i->m_matchedTokens.end(),
-                                      p->m_matchedTokens.begin(), p->m_matchedTokens.end());
-            // we need to store sorted range of token indexies
-            sort(i->m_matchedTokens.begin(), i->m_matchedTokens.end());
-
-            i->m_enName = i->m_enName + ", " + p->m_enName;
-          }
+          if (IsBelong(*i, regions[j]))
+            belongs.push_back(&regions[j]);
         }
 
-        // get best locality and exit
-        i->Swap(res);
-        return true;
-      }
+        for (size_t j = 0; j < belongs.size(); ++j)
+        {
+          // splice locality info with region info
+          i->m_matchedTokens.insert(i->m_matchedTokens.end(),
+                                    belongs[j]->m_matchedTokens.begin(), belongs[j]->m_matchedTokens.end());
+          // we need to store sorted range of token indexies
+          sort(i->m_matchedTokens.begin(), i->m_matchedTokens.end());
 
-      if (p1st)
-      {
-        p1st->Swap(res);
-        return true;
+          i->m_enName += (", " + belongs[j]->m_enName);
+        }
+
+        if (res < *i)
+          i->Swap(res);
+
+        if (regsCount == 0)
+          return;
       }
-      else
-        return false;
     }
   };
 }
@@ -1558,26 +1538,25 @@ void Query::SearchLocality(MwmValue * pMwm, impl::Locality & res1, impl::Region 
       // sort localities by priority
       doFind.SortLocalities();
 
-      // get Region's from COUNTRY and STATE localities
+      // get Region's from STATE and COUNTRY localities
       vector<impl::Region> regions;
       doFind.GetRegions(regions);
 
       // get best CITY locality
       impl::Locality loc;
-      if (doFind.GetBestCity(loc, regions) && (res1 < loc))
+      doFind.GetBestCity(loc, regions);
+      if (res1 < loc)
       {
         LOG(LDEBUG, ("Better location ", loc, " for language ", lang));
         res1.Swap(loc);
       }
-      else
+
+      // get best region
+      if (!regions.empty())
       {
-        // get best Region
-        if (!regions.empty())
-        {
-          sort(regions.begin(), regions.end());
-          if (res2 < regions.back())
-            res2.Swap(regions.back());
-        }
+        sort(regions.begin(), regions.end());
+        if (res2 < regions.back())
+          res2.Swap(regions.back());
       }
     }
   }
