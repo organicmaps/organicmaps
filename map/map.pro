@@ -56,6 +56,8 @@ HEADERS += \
     area_info.hpp \
     geometry_processors.hpp \
     bookmark_manager.hpp \
+    ge0_parser.hpp \
+    url_api.hpp \
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -102,6 +104,8 @@ SOURCES += \
     feature_info.cpp \
     geometry_processors.cpp \
     bookmark_manager.cpp \
+    ge0_parser.cpp \
+    ../api/src/c/api-client.c \
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp
