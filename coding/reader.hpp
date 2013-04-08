@@ -147,7 +147,7 @@ public:
 
   virtual ModelReader * CreateSubReader(uint64_t pos, uint64_t size) const = 0;
 
-  inline string GetName() const { return m_name; }
+  inline string const & GetName() const { return m_name; }
 };
 
 // Reader pointer class for data files.
@@ -163,7 +163,7 @@ public:
     return m_p->CreateSubReader(pos, size);
   }
 
-  inline string GetName() const { return m_p->GetName(); }
+  inline string const & GetName() const { return m_p->GetName(); }
 };
 
 

@@ -99,7 +99,7 @@ public:
   }
 
   inline uint64_t GetFileSize() const { return m_source.Size(); }
-  inline string GetFileName() const { return m_source.GetName(); }
+  inline string const & GetFileName() const { return m_source.GetName(); }
 
 private:
   ReaderT m_source;
