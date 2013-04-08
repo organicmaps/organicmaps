@@ -1,11 +1,6 @@
 #include "fct.h"
 #include "../../src/c/api-client.h"
-
-char MapsWithMe_Base64Char(int x);
-int MapsWithMe_LatToInt(double lat, int maxValue);
-double MapsWithMe_LonIn180180(double lon);
-int MapsWithMe_LonToInt(double lon, int maxValue);
-void MapsWithMe_LatLonToString(double lat, double lon, char * s, int nBytes);
+#include "../../internal/c/api-client-internals.h"
 
 static const int MAX_POINT_BYTES = 10;
 static const int TEST_COORD_BYTES = 9;
