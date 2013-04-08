@@ -42,6 +42,11 @@ class CoverageGenerator
 private:
   struct BenchmarkRenderingBarier
   {
+    BenchmarkRenderingBarier()
+      : m_sequenceID(-1), m_tilesCount(-1)
+    {
+    }
+
     int m_sequenceID;
     unsigned m_tilesCount;
 
