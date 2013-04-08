@@ -55,7 +55,8 @@ void MapsWithMe_LatLonToString(double lat, double lon, char * s, int nBytes)
   int const latI = MapsWithMe_LatToInt(lat, (1 << MAPSWITHME_MAX_COORD_BITS) - 1);
   int const lonI = MapsWithMe_LonToInt(lon, (1 << MAPSWITHME_MAX_COORD_BITS) - 1);
 
-  for (int i = 0, shift = MAPSWITHME_MAX_COORD_BITS - 3; i < nBytes; ++i, shift -= 3)
+  int i, shift;
+  for (i = 0, shift = MAPSWITHME_MAX_COORD_BITS - 3; i < nBytes; ++i, shift -= 3)
   {
     int const latBits = latI >> shift & 7;
     int const lonBits = lonI >> shift & 7;
@@ -93,7 +94,8 @@ int MapsWithMe_UrlEncodeString(char const * s, int size, char ** res)
 {
   *res = malloc(size * 3 + 1);
   char * out = *res;
-  for (int i = 0; i < size; ++i)
+  int i;
+  for (i = 0; i < size; ++i)
   {
     unsigned char c = (unsigned char)(s[i]);
     switch (c)
