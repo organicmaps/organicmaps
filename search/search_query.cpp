@@ -1036,7 +1036,6 @@ namespace impl
       if (m_type != NONE)
       {
         ASSERT ( !m_matchedTokens.empty(), () );
-        ASSERT ( !m_enName.empty(), () );
         return true;
       }
       else
