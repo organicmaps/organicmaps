@@ -23,6 +23,8 @@
 
 namespace qt
 {
+  const unsigned LONG_TOUCH_MS = 1000;
+
   QtVideoTimer::QtVideoTimer(TFrameFn frameFn)
     : ::VideoTimer(frameFn)
   {}
@@ -71,15 +73,21 @@ namespace qt
   {
     //m_timer = new QTimer(this);
     //connect(m_timer, SIGNAL(timeout()), this, SLOT(ScaleTimerElapsed()));
+    for (size_t i = 0; i < ARRAY_SIZE(m_images); ++i)
+          m_images[i] = 0;
   }
 
   DrawWidget::~DrawWidget()
   {
+    for (size_t i = 0; i < ARRAY_SIZE(m_images); ++i)
+          delete m_images[i];
+
     m_framework.reset();
   }
 
   void DrawWidget::PrepareShutdown()
   {
+    KillPressTask();
     m_framework->PrepareToShutdown();
     m_videoTimer.reset();
   }
@@ -258,6 +266,9 @@ namespace qt
         LOG(LERROR, (e.what()));
       }
 
+      graphics::EDensity const density = m_framework->GetRenderPolicy()->Density();
+      m_images[IMAGE_PLUS] = new ImageT("plus.png", density);
+      m_images[IMAGE_ARROW] = new ImageT("right-arrow.png", density);
       m_isInitialized = true;
     }
   }
@@ -306,6 +317,122 @@ namespace qt
     }
   }
 
+  void DrawWidget::StartPressTask(double x, double y, unsigned ms)
+  {
+    m_scheduledTasks.reset(new ScheduledTask(bind(&DrawWidget::OnPressTaskEvent, this, x, y, ms), ms));
+  }
+
+  void DrawWidget::KillPressTask()
+  {
+    if (m_scheduledTasks)
+    {
+      m_scheduledTasks->Cancel();
+      m_scheduledTasks.reset();
+    }
+  }
+
+  void DrawWidget::OnPressTaskEvent(double x, double y, unsigned ms)
+  {
+    m2::PointD pt(x, y);
+    m2::PointD pivot;
+    Framework::AddressInfo addressInfo;
+    BookmarkAndCategory bm;
+    switch (m_framework->GetBookmarkOrPoi(pt, pivot, addressInfo, bm))
+    {
+    case Framework::BOOKMARK:
+      {
+        const Bookmark * bookmark = m_framework->GetBmCategory(bm.first)->GetBookmark(bm.second);
+        ActivatePopup(bookmark->GetOrg(), bookmark->GetName(), IMAGE_ARROW);
+        return;
+      }
+    case Framework::POI:
+      if (GetBookmarkBalloon()->isVisible())
+      {
+        ActivatePopupWithAdressInfo(m_framework->PtoG(pivot), addressInfo);
+        if (ms == LONG_TOUCH_MS)
+        {
+
+        }
+        return;
+      }
+    default:
+      if (ms == LONG_TOUCH_MS)
+      {
+        m_framework->GetAddressInfo(pivot, addressInfo);
+        ActivatePopupWithAdressInfo(m_framework->PtoG(pivot), addressInfo);
+        return;
+      }
+    }
+
+    DiactivatePopup();
+  }
+
+  void DrawWidget::ActivatePopup(m2::PointD const & pivot, string const & name, PopupImageIndexT index)
+  {
+    BookmarkBalloon * balloon = GetBookmarkBalloon();
+
+    m_framework->DisablePlacemark();
+
+    balloon->setImage(*m_images[index]);
+    balloon->setGlbPivot(pivot);
+    balloon->setBookmarkName(name);
+    balloon->setIsVisible(true);
+
+    m_framework->Invalidate();
+  }
+
+  void DrawWidget::ActivatePopupWithAdressInfo(m2::PointD const & pivot, Framework::AddressInfo const & addrInfo)
+  {
+    string name = addrInfo.FormatPinText();
+    if (name.empty())
+      name = m_framework->GetStringsBundle().GetString("dropped_pin");
+
+    ActivatePopup(pivot, name, IMAGE_PLUS);
+
+    m_framework->DrawPlacemark(pivot);
+    m_framework->Invalidate();
+  }
+
+  void DrawWidget::DiactivatePopup()
+  {
+    BookmarkBalloon * balloon = GetBookmarkBalloon();
+
+    balloon->setIsVisible(false);
+    m_framework->DisablePlacemark();
+    m_framework->Invalidate();
+  }
+
+  void DrawWidget::CreateBookmarkBalloon()
+  {
+    BookmarkBalloon::Params bp;
+
+    bp.m_position = graphics::EPosAbove;
+    bp.m_depth = graphics::maxDepth;
+    bp.m_pivot = m2::PointD(0.0, 0.0);
+    bp.m_text = "Bookmark";
+    bp.m_textMarginLeft = 10;
+    bp.m_textMarginTop = 7;
+    bp.m_textMarginRight = 10;
+    bp.m_textMarginBottom = 10;
+    bp.m_imageMarginLeft = 0;
+    bp.m_imageMarginTop = 7;
+    bp.m_imageMarginRight = 10;
+    bp.m_imageMarginBottom = 10;
+    bp.m_framework = m_framework.get();
+
+    m_bookmarkBalloon.reset(new BookmarkBalloon(bp));
+    m_bookmarkBalloon->setIsVisible(false);
+    m_framework->GetGuiController()->AddElement(m_bookmarkBalloon);
+  }
+
+  BookmarkBalloon * DrawWidget::GetBookmarkBalloon()
+  {
+    if (!m_bookmarkBalloon)
+      CreateBookmarkBalloon();
+
+    return m_bookmarkBalloon.get();
+  }
+
   namespace
   {
     DragEvent get_drag_event(QMouseEvent * e)
@@ -331,6 +458,7 @@ namespace qt
 
     if (e->button() == Qt::LeftButton)
     {
+      KillPressTask();
       if (m_framework->GetGuiController()->OnTapStarted(m2::PointU(e->pos().x(), e->pos().y())))
         return;
 
@@ -344,6 +472,7 @@ namespace qt
       }
       else
       {
+        StartPressTask(e->x(), e->y(), LONG_TOUCH_MS);
         // starting drag
         m_framework->StartDrag(get_drag_event(e));
 

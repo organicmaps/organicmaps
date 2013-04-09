@@ -1,9 +1,12 @@
 #pragma once
 
+#include "../base/scheduled_task.hpp"
+
 #include "../map/window_handle.hpp"
 #include "../map/framework.hpp"
 #include "../map/navigator.hpp"
 #include "../map/qgl_render_context.hpp"
+#include "../map/bookmark_balloon.hpp"
 
 #include "../platform/video_timer.hpp"
 
@@ -102,6 +105,22 @@ namespace qt
     VideoTimer * CreateVideoTimer();
 
   protected:
+    void StartPressTask(double x, double y, unsigned ms);
+    void KillPressTask();
+    void OnPressTaskEvent(double x, double y, unsigned ms);
+
+    typedef graphics::Image::Info ImageT;
+    ImageT * m_images[2];
+    enum PopupImageIndexT { IMAGE_PLUS = 0, IMAGE_ARROW = 1 };
+    void ActivatePopup(m2::PointD const & pivot, string const & name, PopupImageIndexT index);
+    void ActivatePopupWithAdressInfo(m2::PointD const & pivot, Framework::AddressInfo const & addrInfo);
+    void DiactivatePopup();
+
+    shared_ptr<BookmarkBalloon> m_bookmarkBalloon;
+    void CreateBookmarkBalloon();
+    BookmarkBalloon * GetBookmarkBalloon();
+
+  protected:
     /// @name Overriden from base_type.
     //@{
     virtual void initializeGL();
@@ -128,5 +147,7 @@ namespace qt
     void StopRotating(QKeyEvent * e);
 
     QScaleSlider * m_pScale;
+
+    shared_ptr<ScheduledTask> m_scheduledTasks;
   };
 }
