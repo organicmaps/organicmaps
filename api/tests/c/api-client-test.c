@@ -180,6 +180,7 @@ FCT_BGN()
     fct_chk_eq_str("_________", TestLatLonToStr(90, 179.999999));
     fct_chk_eq_str("VVVVVVVVV", TestLatLonToStr(-90, 179.999999));
     fct_chk_eq_str("wAAAAAAAA", TestLatLonToStr(0.0, 0.0));
+    fct_chk_eq_str("6qqqqqqqq", TestLatLonToStr(90.0, 0.0));
     fct_chk_eq_str("P________", TestLatLonToStr(-0.000001, -0.000001));
   }
   FCT_QTEST_END();
