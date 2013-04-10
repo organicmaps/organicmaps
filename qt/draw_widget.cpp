@@ -74,13 +74,13 @@ namespace qt
     //m_timer = new QTimer(this);
     //connect(m_timer, SIGNAL(timeout()), this, SLOT(ScaleTimerElapsed()));
     for (size_t i = 0; i < ARRAY_SIZE(m_images); ++i)
-          m_images[i] = 0;
+      m_images[i] = 0;
   }
 
   DrawWidget::~DrawWidget()
   {
     for (size_t i = 0; i < ARRAY_SIZE(m_images); ++i)
-          delete m_images[i];
+      delete m_images[i];
 
     m_framework.reset();
   }
