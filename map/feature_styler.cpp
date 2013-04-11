@@ -134,7 +134,7 @@ namespace di
     {
       double depth = keys[i].m_priority;
 
-      if (layer != 0)
+      if ((layer != 0) && (depth < 19000))
         depth = (layer * drule::layer_base_priority) + fmod(depth, drule::layer_base_priority);
 
       if (keys[i].m_type == drule::symbol)
