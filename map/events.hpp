@@ -18,12 +18,7 @@ class RotateEvent
 public:
   RotateEvent(double x1, double y1, double x2, double y2)
   {
-    double dx = x2 - x1;
-    double dy = y2 - y1;
-    double len = sqrt(dx * dx + dy * dy);
-    dy /= len;
-    dx /= len;
-    m_Angle = atan2(dy, dx);
+    m_Angle = atan2(y2 - y1, x2 - x1);
   }
 
   inline double Angle() const { return m_Angle; }

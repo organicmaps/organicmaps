@@ -319,6 +319,8 @@ namespace qt
 
   void DrawWidget::StartPressTask(double x, double y, unsigned ms)
   {
+    m_taskX = x;
+    m_taskY = y;
     m_scheduledTasks.reset(new ScheduledTask(bind(&DrawWidget::OnPressTaskEvent, this, x, y, ms), ms));
   }
 
@@ -335,6 +337,7 @@ namespace qt
   {
     m2::PointD pt(x, y);
     m2::PointD pivot;
+
     Framework::AddressInfo addressInfo;
     BookmarkAndCategory bm;
     switch (m_framework->GetBookmarkOrPoi(pt, pivot, addressInfo, bm))
@@ -345,21 +348,20 @@ namespace qt
         ActivatePopup(bookmark->GetOrg(), bookmark->GetName(), IMAGE_ARROW);
         return;
       }
+
     case Framework::POI:
-      if (GetBookmarkBalloon()->isVisible())
+      if (!GetBookmarkBalloon()->isVisible())
       {
         ActivatePopupWithAdressInfo(m_framework->PtoG(pivot), addressInfo);
-        if (ms == LONG_TOUCH_MS)
-        {
-
-        }
         return;
       }
+      break;
+
     default:
       if (ms == LONG_TOUCH_MS)
       {
-        m_framework->GetAddressInfo(pivot, addressInfo);
-        ActivatePopupWithAdressInfo(m_framework->PtoG(pivot), addressInfo);
+        m_framework->GetAddressInfo(pt, addressInfo);
+        ActivatePopupWithAdressInfo(m_framework->PtoG(pt), addressInfo);
         return;
       }
     }
@@ -422,6 +424,10 @@ namespace qt
 
     m_bookmarkBalloon.reset(new BookmarkBalloon(bp));
     m_bookmarkBalloon->setIsVisible(false);
+
+    /// @todo Process adding bookmark.
+    //m_bookmarkBalloon->setOnClickListener(bind(&DrawWidget::OnBalloonClick, this, _1));
+
     m_framework->GetGuiController()->AddElement(m_bookmarkBalloon);
   }
 
@@ -456,9 +462,10 @@ namespace qt
   {
     QGLWidget::mousePressEvent(e);
 
+    KillPressTask();
+
     if (e->button() == Qt::LeftButton)
     {
-      KillPressTask();
       if (m_framework->GetGuiController()->OnTapStarted(m2::PointU(e->pos().x(), e->pos().y())))
         return;
 
@@ -473,6 +480,7 @@ namespace qt
       else
       {
         StartPressTask(e->x(), e->y(), LONG_TOUCH_MS);
+
         // starting drag
         m_framework->StartDrag(get_drag_event(e));
 
@@ -521,6 +529,8 @@ namespace qt
   {
     QGLWidget::mouseDoubleClickEvent(e);
 
+    KillPressTask();
+
     if (e->button() == Qt::LeftButton)
     {
       StopDragging(e);
@@ -536,13 +546,19 @@ namespace qt
   {
     QGLWidget::mouseMoveEvent(e);
 
-    m_framework->GetGuiController()->OnTapMoved(m2::PointU(e->pos().x(), e->pos().y()));
+    m2::PointD const pt(e->pos().x(), e->pos().y());
+
+    double const minDist = m_framework->GetVisualScale() * 10.0;
+    if (fabs(pt.x - m_taskX) > minDist || fabs(pt.y - m_taskY) > minDist)
+      KillPressTask();
+
+    m_framework->GetGuiController()->OnTapMoved(pt);
 
     if (m_isDrag)
       m_framework->DoDrag(get_drag_event(e));
 
     if (m_isRotate)
-      m_framework->DoRotate(get_rotate_event(e->pos(), this->rect().center()));
+      m_framework->DoRotate(get_rotate_event(e->pos(), rect().center()));
   }
 
   void DrawWidget::mouseReleaseEvent(QMouseEvent * e)

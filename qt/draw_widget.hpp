@@ -149,5 +149,6 @@ namespace qt
     QScaleSlider * m_pScale;
 
     shared_ptr<ScheduledTask> m_scheduledTasks;
+    double m_taskX, m_taskY;
   };
 }
