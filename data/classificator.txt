@@ -555,11 +555,38 @@ world  +
             tunnel  -
             {}
         station  +
-            subway  -
+            subway  +
+                blue  -
+                brown  -
+                darkgreen  -
+                gray  -
+                green  -
+                grey  -
+                lightblue  -
+                lightgreen  -
+                orange  -
+                purple  -
+                red  -
+                violet  -
+                yellow  -
+                {}
             {}
         subway  +
+            blue  -
             bridge  -
+            brown  -
+            darkgreen  -
+            gray  -
+            green  -
+            grey  -
+            lightblue  -
+            lightgreen  -
+            orange  -
+            purple  -
+            red  -
             tunnel  -
+            violet  -
+            yellow  -
             {}
         subway_entrance  -
         tram  +
@@ -611,6 +638,7 @@ world  +
         {}
     tourism  +
         alpine_hut  -
+        artwork  -
         attraction  -
         camp_site  -
         caravan_site  -

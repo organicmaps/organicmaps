@@ -95,9 +95,9 @@ node|z3[place=country]::d1p3
 }
 line|z4[boundary=administrative][admin_level=2]
 {
-  color:	#a0a090;
+  color:	#ffa090;
   width:	1;
-  z-index:	119;
+  z-index:	400;
   dashes:	3.12,3.12;
   linecap:	butt;
 }
@@ -143,9 +143,9 @@ node|z13-14[place=village]::d1p4
 }
 line|z5[boundary=administrative][admin_level=2]
 {
-  color:	#d9775b;
+  color:	#ff775b;
   width:	1;
-  z-index:	119;
+  z-index:	400;
   dashes:	3.12,3.12;
   linecap:	butt;
 }
@@ -766,12 +766,6 @@ line|z11[boundary=administrative][border_type=state]::d2p2
   z-index:	153;
   dashes:	10,2,2,2;
   linecap:	butt;
-}
-line|z11[boundary=administrative][border_type=state]
-{
-  color:	yellow;
-  width:	10;
-  z-index:	152;
 }
 line|z10-11[highway=primary_link]
 {
@@ -2898,7 +2892,7 @@ line|z15[boundary=administrative][border_type=county]
   z-index:	686;
   dashes:	4,20;
 }
-line|z15-[railway=subway]
+line|z12-[railway=subway]
 {
   color:	#0f0f4c;
   width:	2;
@@ -2906,11 +2900,6 @@ line|z15-[railway=subway]
   dashes:	9.6,14.4;
   linecap:	butt;
   opacity: 0.4;
-}
-area|z15[amenity=hospital],
-node|z15[amenity=hospital]
-{
-  icon-image:	hospital0.svg;
 }
 line|z15[man_made=cutline]
 {
@@ -3080,7 +3069,13 @@ node|z15-[place=village]::d1p4
   text-color:	#909090;
   text-halo-color:	#eeeedd;
 }
-
+area|z16[amenity=parking][!access],
+area|z16[amenity=parking][access?],
+node|z16[amenity=parking][!access],
+node|z16[amenity=parking][access?]
+{
+  icon-image:	parking-mini.svg;
+}
 area|z16-[amenity=parking][access=permissive],
 node|z16-[amenity=parking][access=permissive],
 {
@@ -3095,7 +3090,9 @@ line|z15[highway=pedestrian]
   casing-color:	#c0bc9c;
 }
 area|z15-[tourism=viewpoint],
-node|z15-[tourism=viewpoint]
+node|z15-[tourism=viewpoint],
+area|z15-[tourism=artwork],
+node|z15-[tourism=artwork]
 {
   icon-image:	viewpoint.svg;
 }
@@ -3871,6 +3868,7 @@ node|z15[railway=tram_stop]
   text-color:	#3050d8;
   text-offset:  14;
   text-halo-color:	white;
+  text-position: center;
 }
 area|z15-[amenity=fuel],
 node|z15-[amenity=fuel]
@@ -3944,8 +3942,6 @@ area|z15-[highway=pedestrian][area?]
 {
   fill-color:	#f0f0f0;
 }
-area|z17-[highway=bus_stop],
-area|z16[railway=tram_stop],
 node|z17-[highway=bus_stop],
 node|z16[railway=tram_stop]
 {
@@ -4984,14 +4980,6 @@ line|z16[man_made=breakwater]
   color:	#707070;
   width:	4;
   z-index:	854;
-}
-line|z16[barrier=fence]::d1p2
-{
-  color:	#b0b0b0;
-  width:	1;
-  z-index:	885;
-  dashes:	0.0,2.0;
-  linecap:	butt;
 }
 line|z16[highway=track][tracktype=grade3]
 {
@@ -6103,8 +6091,8 @@ node|z17-[sport=football]
 {
   icon-image:	football-borderless.svg;
 }
-area|z17-[amenity=parking][fee?],
-node|z17-[amenity=parking][fee?]
+area|z16-[amenity=parking][fee?],
+node|z16-[amenity=parking][fee?]
 {
   icon-image:	parking_fee.svg;
 }
@@ -6403,14 +6391,6 @@ line|z17-[railway=siding]
   color:	#333333;
   width:	2.4;
   z-index:	578;
-}
-line|z17-[barrier=fence]
-{
-  color:	#b0b0b0;
-  width:	1;
-  z-index:	955;
-  dashes:	0.0,4.0;
-  linecap:	butt;
 }
 line|z17-[highway=path][route=hiking]
 {
@@ -6823,6 +6803,37 @@ line|z17-[power=minor_line]
   opacity:	0.5;
 }
 
+line|z12-[railway=subway]                               {width:3; color: #0f0f4c; z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
+node[railway=station][transport=subway]                 {text-color:	#3050d8; text-position: center;}
+
+line|z12-[railway=subway][colour]                       {width:3; color: eval(tag("colour")); z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
+node[railway=station][transport=subway][colour]         {text-color:	eval(tag("colour"));}
+
+line|z12-[railway=subway][colour=red]                   {width:3; color: #DD0000; z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
+node[railway=station][transport=subway][colour=red]     {text-color:	#DD0000;}
+
+line|z12-[railway=subway][colour=blue]                  {width:3; color: #072889; z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
+node[railway=station][transport=subway][colour=blue]    {text-color:	#072889;}
+
+line|z12-[railway=subway][colour=purple]                {width:3; color: #8B509C; z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
+node[railway=station][transport=subway][colour=purple]  {text-color:	#8B509C;}
+
+line|z12-[railway=subway][colour=orange]                {width:3; color: #FF7700; z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
+node[railway=station][transport=subway][colour=orange]  {text-color:	#FF7700;}
+
+line|z12-[railway=subway][colour=green]                 {width:3; color: #006600; z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
+node[railway=station][transport=subway][colour=green]   {text-color:	#006600;}
+
+line|z12-[railway=subway][colour=brown]                 {width:3; color: #BB7700; z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
+node[railway=station][transport=subway][colour=brown]   {text-color:	#BB7700;}
+
+line|z12-[railway=subway][colour=yellow]                {width:3; color: #F7C600; z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
+node[railway=station][transport=subway][colour=yellow]  {text-color:	#F7C600;}
+
+
+
+
+
 area[waterway=riverbank],
 line[waterway=river],
 line[waterway=canal]
@@ -6835,7 +6846,7 @@ area|z15-[area:highway=pedestrian],
 area|z15-[area:highway=path],
 area|z15-[area:highway=steps]
 {
-  fill-color: #c0bcac;
+  fill-color:	#d0ccbc;
 }
 
 line[highway=footway],
@@ -6901,9 +6912,8 @@ node|z17-[entrance]
   symbol-size:  1;
 }
 
-node|z15-[railway=station],
-area|z15-[railway=station],
-node|z13-[railway=station][transport=subway]
+node|z15-[railway=station][!transport],
+area|z15-[railway=station][!transport]
 { 
   font-size:	12;
   text-halo-radius:	2;
@@ -6911,7 +6921,7 @@ node|z13-[railway=station][transport=subway]
   text-color:	#3050d8;
   text-offset:  14;
   text-halo-color:	#f8fcff;
-  z-index: 150;
+  z-index: 170;
 }
 
 /* POI icons */
@@ -6945,17 +6955,10 @@ node|z17-[railway=tram_stop]
 {
   icon-image:	tramway.svg;
 }
-area|z17-[amenity=parking][parking=park_and_ride],
-node|z17-[amenity=parking][parking=park_and_ride]
+area|z16-[amenity=parking][parking=park_and_ride],
+node|z16-[amenity=parking][parking=park_and_ride]
 {
   icon-image:	park_and_ride-permissive.svg;
-}
-area|z16[amenity=parking][!access],
-area|z16[amenity=parking][access?],
-node|z16[amenity=parking][!access],
-node|z16[amenity=parking][access?]
-{
-  icon-image:	parking-mini.svg;
 }
 area|z17-[man_made=lighthouse],
 node|z17-[man_made=lighthouse]
@@ -7055,8 +7058,43 @@ node|z16-[railway=station]
   icon-image:	railway-station.svg;
 }
 
-area|z13-14[railway=station][transport=subway],
-node|z13-14[railway=station][transport=subway]
+
+node|z12[railway=station][transport=subway],
+area|z12[railway=station][transport=subway]
+{ 
+  font-size:	10;
+  text-halo-radius:	2;
+  text:	name;
+  text-offset:  10;
+  text-halo-color:	#f8fcff;
+  z-index: 170;
+  -x-kot-layer: top;
+}
+node|z13-14[railway=station][transport=subway],
+area|z13-14[railway=station][transport=subway]
+{ 
+  font-size:	11;
+  text-halo-radius:	2;
+  text:	name;
+  text-offset:  10;
+  text-halo-color:	#f8fcff;
+  z-index: 170;
+  -x-kot-layer: top;
+}
+node|z15-[railway=station][transport=subway],
+area|z15-[railway=station][transport=subway]
+{ 
+  font-size:	12;
+  text-halo-radius:	2;
+  text:	name;
+  text-offset:  14;
+  text-halo-color:	#f8fcff;
+  z-index: 170;
+  -x-kot-layer: top;
+}
+
+area|z12-14[railway=station][transport=subway],
+node|z12-14[railway=station][transport=subway]
 {
   icon-image:	subway-station-s.svg;
 }
@@ -7086,7 +7124,13 @@ line[waterway],
 line[railway],
 line[man_made=cutline]
 {
-    text-position: line;
+  text-position: line;
+}
+
+[highway=bus_stop],
+[railway=station]
+{
+  text-position: center;
 }
 
 line|z16-[bridge?]::bridgewhite,
