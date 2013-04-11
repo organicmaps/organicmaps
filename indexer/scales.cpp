@@ -58,7 +58,7 @@ namespace scales
 
   m2::RectD GetRectForLevel(double level, m2::PointD const & center, double X2YRatio)
   {
-    double const dy = 2.0*GetRationForLevel(level) / (1.0 + X2YRatio);
+    double const dy = 2.0 * GetRationForLevel(level) / (1.0 + X2YRatio);
     double const dx = X2YRatio * dy;
     ASSERT_GREATER ( dy, 0.0, () );
     ASSERT_GREATER ( dx, 0.0, () );
@@ -73,28 +73,25 @@ namespace scales
 
   namespace
   {
-    double GetEpsilonImpl(int level, int logEps)
+    double GetEpsilonImpl(long level, double pixelTolerance)
     {
-      return (MercatorBounds::maxX - MercatorBounds::minX) / pow(2.0, double(level + logEps - initial_level));
+      return (MercatorBounds::maxX - MercatorBounds::minX) * pixelTolerance / double(256L << level);
     }
   }
 
   double GetEpsilonForLevel(int level)
   {
-    return GetEpsilonImpl(level, 6);
+    return GetEpsilonImpl(level, 7);
   }
 
   double GetEpsilonForSimplify(int level)
   {
-    // Keep best geometries on highest zoom to allow scaling them deeper
+    // Keep better geometries on highest zoom to allow scaling them deeper
     if (level == GetUpperScale())
-      return GetEpsilonImpl(level, 16); // 16 = 0.5 px precision on 1024 tiles on zoom 21
-    // Keep crude geometries in world map
-    else if (level <= GetUpperWorldScale())
-      return GetEpsilonImpl(level, 10); // 10 = 1px precision on 512px tiles
-    // Keep perfect-looking geometries for all the other zooms
+      return GetEpsilonImpl(level, 0.4);
+    // Keep crude geometries for all other zooms
     else
-      return GetEpsilonImpl(level, 12); // 12 = 0.5px precision on 1024px tiles
+      return GetEpsilonImpl(level, 1.3);
   }
 
   bool IsGoodForLevel(int level, m2::RectD const & r)
