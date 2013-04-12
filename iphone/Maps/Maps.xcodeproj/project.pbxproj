@@ -1352,6 +1352,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1003EAD917170741005EBDAE /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* MapsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapsAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* MapsAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MapsAppDelegate.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -3103,6 +3104,7 @@
 				"en-US",
 				it,
 				cs,
+				"zh-Hant",
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			projectDirPath = "";
@@ -4500,6 +4502,7 @@
 				F7DD848614FE7FE0005695E1 /* es */,
 				FA971562150920C600916690 /* it */,
 				77DDA9A116D504F900804BDB /* cs */,
+				1003EAD917170741005EBDAE /* zh-Hant */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

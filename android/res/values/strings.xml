@@ -207,7 +207,7 @@
 	<!-- Do search near my position only -->
 	<string name="search_mode_nearme">Near Me</string>
 	<!-- Do search in current viewport only -->
-	<string name="search_mode_viewport">On the Map</string>
+	<string name="search_mode_viewport">On the Screen</string>
 	<!-- Search Suggestion -->
 	<string name="food">food</string>
 	<!-- Search Suggestion -->
