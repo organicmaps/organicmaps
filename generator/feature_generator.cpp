@@ -334,15 +334,17 @@ public:
         (*m_countries)(fb);
     }
   }
-
-  void Finish()
+  /// @return false if coasts are not merged and FLAG_fail_on_coasts is set
+  bool Finish()
   {
     if (m_world)
       m_world->DoMerge();
 
     if (m_coasts)
     {
-      m_coasts->Finish();
+      // Check and stop if some coasts were not merged
+      if (!m_coasts->Finish())
+        return false;
 
       size_t const count = m_coasts->GetCellsCount();
       LOG(LINFO, ("Generating coastline polygons", count));
@@ -363,6 +365,8 @@ public:
           Polygonizer<FeaturesCollector> > emitter(m_coastsHolder.get(), m_countries.get());
       feature::ForEachFromDatRawFormat(m_srcCoastsFile, emitter);
     }
+
+    return true;
   }
 
   inline void GetNames(vector<string> & names) const
@@ -392,7 +396,9 @@ bool GenerateImpl(GenerateInfo & info)
           bucketer, holder, info.m_makeCoasts ? classif().GetCoastType() : 0);
     ParseXMLFromStdIn(parser);
 
-    bucketer.Finish();
+    // Stop if coasts are not merged and FLAG_fail_on_coasts is set
+    if (!bucketer.Finish())
+      return false;
     bucketer.GetNames(info.m_bucketNames);
   }
   catch (Reader::Exception const & e)

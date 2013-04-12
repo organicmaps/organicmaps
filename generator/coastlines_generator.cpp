@@ -8,6 +8,8 @@
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
 
+#include "../../3party/gflags/src/gflags/gflags.h"
+
 #include "../std/bind.hpp"
 
 
@@ -15,6 +17,7 @@ typedef m2::RegionI RegionT;
 typedef m2::PointI PointT;
 typedef m2::RectI RectT;
 
+DECLARE_bool(fail_on_coasts);
 
 CoastlineFeaturesGenerator::CoastlineFeaturesGenerator(uint32_t coastType,
                                                        int lowLevel, int highLevel, int maxPoints)
@@ -97,23 +100,56 @@ namespace
   class DoAddToTree : public FeatureEmitterIFace
   {
     CoastlineFeaturesGenerator & m_rMain;
+    size_t m_notMergedCoastsCount;
+    size_t m_totalNotMergedCoastsPoints;
+
   public:
-    DoAddToTree(CoastlineFeaturesGenerator & rMain) : m_rMain(rMain) {}
+    DoAddToTree(CoastlineFeaturesGenerator & rMain)
+      : m_rMain(rMain), m_notMergedCoastsCount(0), m_totalNotMergedCoastsPoints(0) {}
 
     virtual void operator() (FeatureBuilder1 const & fb)
     {
       if (fb.IsGeometryClosed())
         m_rMain.AddRegionToTree(fb);
       else
+      {
         LOG(LINFO, ("Not merged coastline", fb.GetOsmIdsString()));
+        ++m_notMergedCoastsCount;
+        m_totalNotMergedCoastsPoints += fb.GetPointsCount();
+      }
+    }
+
+    bool HasNotMergedCoasts() const
+    {
+      return m_notMergedCoastsCount != 0;
+    }
+
+    size_t GetNotMergedCoastsCount() const
+    {
+      return m_notMergedCoastsCount;
+    }
+
+    size_t GetNotMergedCoastsPoints() const
+    {
+      return m_totalNotMergedCoastsPoints;
     }
   };
 }
 
-void CoastlineFeaturesGenerator::Finish()
+bool CoastlineFeaturesGenerator::Finish()
 {
   DoAddToTree doAdd(*this);
   m_merger.DoMerge(doAdd);
+
+  if (doAdd.HasNotMergedCoasts())
+  {
+    LOG(LINFO, ("Total not merged coasts:", doAdd.GetNotMergedCoastsCount()));
+    LOG(LINFO, ("Total points in not merged coasts:", doAdd.GetNotMergedCoastsPoints()));
+    if (FLAGS_fail_on_coasts)
+      return false;
+  }
+
+  return true;
 }
 
 namespace

@@ -62,7 +62,7 @@ DEFINE_bool(unpack_mwm, false, "Unpack each section of mwm into a separate file 
 DEFINE_bool(generate_packed_borders, false, "Generate packed file with country polygons.");
 DEFINE_bool(check_mwm, false, "Check map file to be correct.");
 DEFINE_string(delete_section, "", "Delete specified section (defines.hpp) from container.");
-
+DEFINE_bool(fail_on_coasts, false, "Stop and exit with '255' code if some coastlines are not merged.");
 
 string AddSlashIfNeeded(string const & str)
 {

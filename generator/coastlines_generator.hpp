@@ -31,7 +31,8 @@ public:
   void AddRegionToTree(FeatureBuilder1 const & fb);
 
   void operator() (FeatureBuilder1 const & fb);
-  void Finish();
+  /// @return false if coasts are not merged and FLAG_fail_on_coasts is set
+  bool Finish();
 
   inline size_t GetCellsCount() const { return 1 << 2 * m_lowLevel; }
   void GetFeatures(size_t i, vector<FeatureBuilder1> & vecFb);
