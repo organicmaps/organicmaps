@@ -340,17 +340,8 @@ namespace
       size_t const count = types.Size();
       for (size_t i = 0; i < count; ++i)
       {
-        uint32_t type = types[i];
-
         string s;
-        if (!eng->GetNameByType(type, lang, s))
-        {
-          // Try to use common type truncation if no match found.
-          ftype::TruncValue(type, 2);
-          (void)eng->GetNameByType(type, lang, s);
-        }
-
-        if (!s.empty())
+        if (eng->GetNameByType(types[i], lang, s))
           info.m_types.push_back(s);
       }
 

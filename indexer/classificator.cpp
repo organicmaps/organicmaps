@@ -286,6 +286,11 @@ namespace ftype
       set_value(type, cl, 1);
     }
   }
+
+  uint8_t GetLevel(uint32_t type)
+  {
+    return get_control_level(type);
+  }
 }
 
 namespace

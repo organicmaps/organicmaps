@@ -20,6 +20,7 @@ namespace ftype
   bool GetValue(uint32_t type, uint8_t level, uint8_t & value);
   void PopValue(uint32_t & type);
   void TruncValue(uint32_t & type, uint8_t level);
+  uint8_t GetLevel(uint32_t type);
 }
 
 class ClassifObjectPtr

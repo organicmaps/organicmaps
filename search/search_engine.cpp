@@ -8,6 +8,7 @@
 #include "../indexer/search_string_utils.hpp"
 #include "../indexer/mercator.hpp"
 #include "../indexer/scales.hpp"
+#include "../indexer/classificator.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -380,7 +381,14 @@ string Engine::GetCountryName(string const & id)
 
 bool Engine::GetNameByType(uint32_t type, int8_t lang, string & name) const
 {
-  return m_pData->m_categories.GetNameByType(type, lang, name);
+  uint8_t level = ftype::GetLevel(type);
+  while (level >= 2)
+  {
+    if (m_pData->m_categories.GetNameByType(type, lang, name))
+      return true;
+    ftype::TruncValue(type, --level);
+  }
+  return false;
 }
 
 m2::RectD Engine::GetCountryBounds(string const & file) const
