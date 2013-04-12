@@ -76,35 +76,62 @@ if ! [ -d $INTCOASTSDIR ]; then
   mkdir -p $INTCOASTSDIR
 fi
 
+# Cycle while coasts will be merged only if --full key was used
 if [[ $1 == "--full" ]]; then
-  pushd  ~/toolchain/v2
-     bash update_planet.sh
-  popd
+  FAIL_ON_COASTS="true"
+else
+  FAIL_ON_COASTS="false"
 fi
+
+# If exit code is 255 and FAIL_ON_COASTS is true this means total fail or that coasts are not merged
+function merge_coasts() {
+  # Strip coastlines from the planet to speed up the process
+  $FILTER_TOOL $PLANET_FILE --keep= --keep-ways="natural=coastline" -o=$COASTS_FILE
+  # Preprocess coastlines to separate intermediate directory
+  $CONVERT_TOOL $COASTS_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTCOASTSDIR -use_light_nodes=true -preprocess_xml
+  # Generate temporary coastlines file in the coasts intermediate dir
+  $CONVERT_TOOL $COASTS_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTCOASTSDIR -use_light_nodes=true -make_coasts -fail_on_coasts=$FAIL_ON_COASTS
+}
+
+# Loop while coasts will be correctly merged
+if [[ $1 == "--full" ]]; then
+
+  EXIT_CODE=255
+  while [ $EXIT_CODE -ne 0 ]; do
+
+    # Get fresh data from OSM server
+    if [[ $1 == "--full" ]]; then
+      pushd  ~/toolchain/v2
+         bash update_planet.sh
+      popd
+    fi
+
+    merge_coasts
+    EXIT_CODE=$?
+  done
+else
+  if [[ $1 == "--generate" ]]; then
+    # Just merge coasts and continue
+    merge_coasts
+  fi
+fi
+
+# need link to generated coastlines file
+ln -s -f $INTCOASTSDIR/WorldCoasts.mwm.tmp $INTDIR/WorldCoasts.mwm.tmp
 
 if [[ $1 == "--generate" || $1 == "--full" ]]; then
   # 1st pass, run in parallel - preprocess whole planet to speed up generation if all coastlines are correct
-  $CONVERT_TOOL $PLANET_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTDIR -use_light_nodes=false -preprocess_xml &
-  # 2nd pass - strip coastlines from the planet to speed up the process
-  $FILTER_TOOL $PLANET_FILE --keep= --keep-ways="natural=coastline" -o=$COASTS_FILE
-  # 3rd pass - preprocess coastlines to separate intermediate directory
-  $CONVERT_TOOL $COASTS_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTCOASTSDIR -use_light_nodes=true -preprocess_xml
-  # 4th pass - generate temporary coastlines file in the coasts intermediate dir
-  $CONVERT_TOOL $COASTS_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTCOASTSDIR -use_light_nodes=true -make_coasts
-  # need link to generated coastlines file
-  ln -s -f $INTCOASTSDIR/WorldCoasts.mwm.tmp $INTDIR/WorldCoasts.mwm.tmp
-  # wait for 1st pass
-  wait
+  $CONVERT_TOOL $PLANET_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTDIR -use_light_nodes=false -preprocess_xml
 fi
 
 if [[ $1 == "--generate" || $1 == "--continue" || $1 == "--full" ]]; then
-  # 5th pass - paralleled in the code
+  # 2nd pass - paralleled in the code
   $CONVERT_TOOL $PLANET_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTDIR \
     -use_light_nodes=false -split_by_polygons \
     -generate_features -generate_world \
     -data_path=$DATA_PATH -emit_coasts
 
-  # 6th pass - do in parallel
+  # 3rd pass - do in parallel
   # but separate exceptions for world files to finish them earlier
   PARAMS="-data_path=$DATA_PATH -generate_geometry -generate_index"
   $GENERATOR_TOOL $PARAMS -output=World &
