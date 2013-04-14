@@ -23,8 +23,8 @@ SOURCES += \
   ../../testing/testingmain.cpp \
   kmz_unarchive_test.cpp \
   navigator_test.cpp \
-  map_foreach_test.cpp \
-  multithread_map_test.cpp \
+# map_foreach_test.cpp \
+# multithread_map_test.cpp \
   bookmarks_test.cpp \
   geourl_test.cpp \
   measurement_tests.cpp \
