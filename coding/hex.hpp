@@ -27,7 +27,9 @@ template <typename ContainerT>
 inline string ToHex(ContainerT const & container)
 {
   STATIC_ASSERT(sizeof(*container.begin()) == 1);
-  ASSERT ( !container.empty(), ("Dereference of container::end() is illegal") );
+
+  if (container.empty())
+    return string();
 
   return ToHex(&*container.begin(), container.end() - container.begin());
 }

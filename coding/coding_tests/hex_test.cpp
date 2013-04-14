@@ -18,7 +18,7 @@ static string GenString()
 {
   static PseudoRNG32 rng;
   string result;
-  // By VNG: avoid empty string, else TeHex function failed.
+  // Avoid empty string, since we test it seperately.
   size_t size = rng.Generate() % 20 + 1;
   for (size_t i = 0; i < size; ++i)
   {
@@ -46,4 +46,14 @@ UNIT_TEST(EncodeNumber)
 UNIT_TEST(DecodeLowerCaseHex)
 {
   TEST_EQUAL(FromHex("fe"), "\xfe", ());
+}
+
+UNIT_TEST(EncodeEmptyString)
+{
+  TEST_EQUAL(ToHex(string()), "", ());
+}
+
+UNIT_TEST(DecodeEmptyString)
+{
+  TEST_EQUAL(FromHex(""), "", ());
 }
