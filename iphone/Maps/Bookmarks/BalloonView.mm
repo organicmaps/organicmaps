@@ -216,8 +216,7 @@
   id old = title;
   title = [newTitle retain];
   [old release];
-  //m_titleView.image = [self createPopupImageWithName:newTitle andAddress:description];
-  m_titleView.image = [self createPopupImageWithTitle:newTitle andDescription:nil];
+  m_titleView.image = [self createPopupImageWithTitle:newTitle andDescription:description];
   [m_titleView sizeToFit];
 }
 
