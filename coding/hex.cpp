@@ -27,6 +27,8 @@ namespace impl {
       return (digit - '0');
     else if (digit >= 'A' && digit <= 'F')
       return (digit - 'A' + 10);
+    else if (digit >= 'a' && digit <= 'f')
+      return (digit - 'a' + 10);
     ASSERT(false, (digit));
     return 0;
   }
