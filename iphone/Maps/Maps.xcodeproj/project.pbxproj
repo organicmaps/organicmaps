@@ -243,6 +243,8 @@
 		FAB2D51E15DAB53F00C706C3 /* tail.png in Resources */ = {isa = PBXBuildFile; fileRef = FAB2D51415DAB53F00C706C3 /* tail.png */; };
 		FAB2D51F15DAB53F00C706C3 /* tail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAB2D51515DAB53F00C706C3 /* tail@2x.png */; };
 		FABF223E13FAA97A003D4D49 /* CompassView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FABF223D13FAA97A003D4D49 /* CompassView.mm */; };
+		FAC23543171B2C09003BED96 /* EditDescriptionVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAC23542171B2C09003BED96 /* EditDescriptionVC.mm */; };
+		FAC23544171B2C09003BED96 /* EditDescriptionVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAC23542171B2C09003BED96 /* EditDescriptionVC.mm */; };
 		FAD4906C13EFF61F005E7D43 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = FAD4906A13EFF61F005E7D43 /* search.png */; };
 		FAD4906D13EFF61F005E7D43 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAD4906B13EFF61F005E7D43 /* search@2x.png */; };
 		FAEA8B2A1437CA80002A6737 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEA8B291437CA80002A6737 /* libjansson.a */; };
@@ -1573,6 +1575,8 @@
 		FAB2D51515DAB53F00C706C3 /* tail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tail@2x.png"; path = "Bookmarks/tail@2x.png"; sourceTree = SOURCE_ROOT; };
 		FABF223C13FAA97A003D4D49 /* CompassView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassView.h; sourceTree = "<group>"; };
 		FABF223D13FAA97A003D4D49 /* CompassView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CompassView.mm; sourceTree = "<group>"; };
+		FAC23541171B2C09003BED96 /* EditDescriptionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditDescriptionVC.h; path = Bookmarks/EditDescriptionVC.h; sourceTree = SOURCE_ROOT; };
+		FAC23542171B2C09003BED96 /* EditDescriptionVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = EditDescriptionVC.mm; path = Bookmarks/EditDescriptionVC.mm; sourceTree = SOURCE_ROOT; };
 		FAD4906A13EFF61F005E7D43 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
 		FAD4906B13EFF61F005E7D43 /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@2x.png"; sourceTree = "<group>"; };
 		FAEA8B291437CA80002A6737 /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjansson.a; sourceTree = SOURCE_ROOT; };
@@ -2408,6 +2412,8 @@
 		FA36B8011540388B004560CC /* Bookmarks */ = {
 			isa = PBXGroup;
 			children = (
+				FAC23541171B2C09003BED96 /* EditDescriptionVC.h */,
+				FAC23542171B2C09003BED96 /* EditDescriptionVC.mm */,
 				F785EB3E16386FC4003A38A8 /* BookmarkCell.h */,
 				F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */,
 				FA36B8171540466A004560CC /* Images */,
@@ -4459,6 +4465,7 @@
 				FAAEA7D5161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
 				F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 				CB252D6F16FF82C9001E41E9 /* Statistics.m in Sources */,
+				FAC23543171B2C09003BED96 /* EditDescriptionVC.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4494,6 +4501,7 @@
 				FAAEA7D6161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
 				F785EB4116386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 				CB252D7016FF82C9001E41E9 /* Statistics.m in Sources */,
+				FAC23544171B2C09003BED96 /* EditDescriptionVC.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

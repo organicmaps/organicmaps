@@ -2,6 +2,7 @@
 #import "BalloonView.h"
 #import "SelectSetVC.h"
 #import "SelectColorVC.h"
+#import "EditDescriptionVC.h"
 #import "Statistics.h"
 
 #define TEXTFIELD_TAG 999
@@ -49,7 +50,7 @@
   {
     UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     UITextField * f = (UITextField *)[cell viewWithTag:TEXTFIELD_TAG];
-    if (f && f.text.length)
+    if (f.text.length)
       m_balloon.title = f.text;
 
     // We're going back to the map
@@ -84,29 +85,6 @@
   default: return 0;
   }
 }
-
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-//{
-//  if (section != 0)
-//    return nil;
-//  // Address and type text
-//  UILabel * label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 40)] autorelease];
-//  label.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-//  label.numberOfLines = 0;
-//  label.lineBreakMode = UILineBreakModeWordWrap;
-//  label.backgroundColor = [UIColor clearColor];
-//  label.textColor = [UIColor darkGrayColor];
-//  label.textAlignment = UITextAlignmentCenter;
-//  label.text = [NSString stringWithFormat:@"%@\n%@", m_balloon.type, m_balloon.description];
-//  return label;
-//}
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-//{
-//  if (section != 0)
-//    return 0;
-//  return 60;
-//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -183,7 +161,19 @@
         break;
     }
   }
-  else if (indexPath.section == 1 && [self canShare])
+  else if (indexPath.section == 1)
+  {
+    NSString * cellLabelText = NSLocalizedString(@"description", nil);
+    cell = [tableView dequeueReusableCellWithIdentifier:cellLabelText];
+    if (!cell)
+    {
+      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellLabelText] autorelease];
+      cell.textLabel.text = cellLabelText;
+      cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    cell.detailTextLabel.text = m_balloon.notes;
+  }
+  else if (indexPath.section == 2 && [self canShare])
   {
     cell = [tableView dequeueReusableCellWithIdentifier:@"SharePin"];
     if (!cell)
@@ -240,7 +230,14 @@
       break;
     }
   }
-  else if (indexPath.section == 1 && ([self canShare]))
+  else if (indexPath.section == 1)
+  {
+    m_hideNavBar = NO;
+    EditDescriptionVC * vc = [[EditDescriptionVC alloc] initWithBalloonView:m_balloon];
+    [self.navigationController pushViewController:vc animated:YES];
+    [vc release];
+  }
+  else if (indexPath.section == 2 && ([self canShare]))
   {
     UIActionSheet * as = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"share", nil) delegate:self cancelButtonTitle:nil  destructiveButtonTitle:nil otherButtonTitles:nil];
     if ([MFMessageComposeViewController canSendText])

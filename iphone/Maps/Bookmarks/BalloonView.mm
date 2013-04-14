@@ -11,7 +11,7 @@
 
 @synthesize globalPosition;
 @synthesize title;
-//@synthesize description;
+@synthesize description;
 //@synthesize type;
 @synthesize pinImage;
 @synthesize color;
@@ -65,7 +65,7 @@
   self.color = nil;
   self.setName = nil;
   self.title = nil;
-//  self.description = nil;
+  self.description = nil;
 //  self.type = nil;
   [super dealloc];
 }
@@ -223,9 +223,11 @@
 
 - (void) addOrEditBookmark
 {
-  Framework &f = GetFramework();
+  Framework & f = GetFramework();
   Bookmark bm(m2::PointD(globalPosition.x, globalPosition.y),
               [title UTF8String], [color UTF8String]);
+  if (description)
+    bm.SetDescription([description UTF8String]);
   f.GetBmCategory(editedBookmark.first)->ReplaceBookmark(editedBookmark.second, bm);
 
   BookmarkCategory * cat = f.GetBmCategory(editedBookmark.first);
