@@ -197,7 +197,7 @@
 	<!-- Do search near my position only -->
 	<string name="search_mode_nearme">周辺情報</string>
 	<!-- Do search in current viewport only -->
-	<string name="search_mode_viewport">地図上検索</string>
+	<string name="search_mode_viewport">画面上</string>
 	<!-- Search Suggestion -->
 	<string name="food">飯</string>
 	<!-- Search Suggestion -->

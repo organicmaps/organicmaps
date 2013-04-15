@@ -322,7 +322,7 @@
 "search_mode_nearme" = "Near Me";
 
 /* Do search in current viewport only */
-"search_mode_viewport" = "On the Map";
+"search_mode_viewport" = "On the Screen";
 
 /* Search Suggestion */
 "food" = "mangiare";

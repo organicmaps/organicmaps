@@ -191,7 +191,7 @@
 	<!-- Do search near my position only -->
 	<string name="search_mode_nearme">Cerca de mí</string>
 	<!-- Do search in current viewport only -->
-	<string name="search_mode_viewport">En el mapa</string>
+	<string name="search_mode_viewport">En la pantalla</string>
 	<!-- Search Suggestion -->
 	<string name="food">comer</string>
 	<!-- Search Suggestion -->

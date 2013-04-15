@@ -1415,15 +1415,15 @@
     en = On the Screen
     tags = ios, android
     comment = Do search in current viewport only
-    cs = Na mapě
-    de = Auf der Karte
-    es = En el mapa
-    fr = Sur la carte
-    ja = 地図上検索
-    ko = 현재 맵 검색
-    nl = Op de kaart
-    ru = На карте
-    uk = На мапі
+    cs = Na obrazovce
+    de = Am Bildschirm
+    es = En la pantalla
+    fr = Sur l'écran
+    ja = 画面上
+    ko = 화면에
+    nl = Op het scherm
+    ru = На экране
+    uk = На екрані
   [food]
     en = food
     tags = ios, android

@@ -322,7 +322,7 @@
 "search_mode_nearme" = "周辺情報";
 
 /* Do search in current viewport only */
-"search_mode_viewport" = "地図上検索";
+"search_mode_viewport" = "画面上";
 
 /* Search Suggestion */
 "food" = "飯";

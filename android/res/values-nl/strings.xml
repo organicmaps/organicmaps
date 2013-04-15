@@ -190,7 +190,7 @@
 	<!-- Do search near my position only -->
 	<string name="search_mode_nearme">Dichtbij mij</string>
 	<!-- Do search in current viewport only -->
-	<string name="search_mode_viewport">Op de kaart</string>
+	<string name="search_mode_viewport">Op het scherm</string>
 	<!-- Search Suggestion -->
 	<string name="food">eten</string>
 	<!-- Search Suggestion -->

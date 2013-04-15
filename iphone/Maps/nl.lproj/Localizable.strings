@@ -322,7 +322,7 @@
 "search_mode_nearme" = "Dichtbij mij";
 
 /* Do search in current viewport only */
-"search_mode_viewport" = "Op de kaart";
+"search_mode_viewport" = "Op het scherm";
 
 /* Search Suggestion */
 "food" = "eten";

@@ -203,7 +203,7 @@
 	<!-- Do search near my position only -->
 	<string name="search_mode_nearme">Около меня</string>
 	<!-- Do search in current viewport only -->
-	<string name="search_mode_viewport">На карте</string>
+	<string name="search_mode_viewport">На экране</string>
 	<!-- Search Suggestion -->
 	<string name="food">еда</string>
 	<!-- Search Suggestion -->

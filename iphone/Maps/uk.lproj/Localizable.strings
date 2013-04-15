@@ -322,7 +322,7 @@
 "search_mode_nearme" = "Поряд";
 
 /* Do search in current viewport only */
-"search_mode_viewport" = "На мапі";
+"search_mode_viewport" = "На екрані";
 
 /* Search Suggestion */
 "food" = "food";

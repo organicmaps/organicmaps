@@ -322,7 +322,7 @@
 "search_mode_nearme" = "Около меня";
 
 /* Do search in current viewport only */
-"search_mode_viewport" = "На карте";
+"search_mode_viewport" = "На экране";
 
 /* Search Suggestion */
 "food" = "еда";

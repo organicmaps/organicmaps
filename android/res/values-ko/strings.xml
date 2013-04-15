@@ -193,7 +193,7 @@
 	<!-- Do search near my position only -->
 	<string name="search_mode_nearme">근처 검색</string>
 	<!-- Do search in current viewport only -->
-	<string name="search_mode_viewport">현재 맵 검색</string>
+	<string name="search_mode_viewport">화면에</string>
 	<!-- Search Suggestion -->
 	<string name="food">음식</string>
 	<!-- Search Suggestion -->

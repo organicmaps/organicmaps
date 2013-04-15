@@ -322,7 +322,7 @@
 "search_mode_nearme" = "V mé blízkosti";
 
 /* Do search in current viewport only */
-"search_mode_viewport" = "Na mapě";
+"search_mode_viewport" = "Na obrazovce";
 
 /* Search Suggestion */
 "food" = "jídlo";

@@ -203,7 +203,7 @@
 	<!-- Do search near my position only -->
 	<string name="search_mode_nearme">Поряд</string>
 	<!-- Do search in current viewport only -->
-	<string name="search_mode_viewport">На мапі</string>
+	<string name="search_mode_viewport">На екрані</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Результатів не знайдено</string>
 	<!-- Notes field in Bookmarks view -->

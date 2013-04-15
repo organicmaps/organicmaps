@@ -322,7 +322,7 @@
 "search_mode_nearme" = "근처 검색";
 
 /* Do search in current viewport only */
-"search_mode_viewport" = "현재 맵 검색";
+"search_mode_viewport" = "화면에";
 
 /* Search Suggestion */
 "food" = "음식";

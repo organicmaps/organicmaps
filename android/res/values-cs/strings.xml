@@ -199,7 +199,7 @@
 	<!-- Do search near my position only -->
 	<string name="search_mode_nearme">V mé blízkosti</string>
 	<!-- Do search in current viewport only -->
-	<string name="search_mode_viewport">Na mapě</string>
+	<string name="search_mode_viewport">Na obrazovce</string>
 	<!-- Search Suggestion -->
 	<string name="food">jídlo</string>
 	<!-- Search Suggestion -->
