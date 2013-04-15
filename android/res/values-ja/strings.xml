@@ -253,4 +253,8 @@
 	<string name="cant_change_this_setting">誠に恐れ入りますがマップストレージ設定は無効になっております。</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">国のダウンロードは現在進行中です。</string>
+	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
+	<string name="appStore_message">MapsWithMeのご利用をお楽しみください！もし、このアプリがお気に入りであれば、App Storeで評価もしくはレビューしてください。こちらはわずかな時間しか掛からず、皆様の評価やレビューはアプリの向上に役立ちます。ご支援を宜しくお願い致します！</string>
+	<!-- No, thanks -->
+	<string name="no_thanks">いいえ</string>
 </resources>

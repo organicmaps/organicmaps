@@ -324,6 +324,50 @@
 /* Do search in current viewport only */
 "search_mode_viewport" = "On the Screen";
 
+/* Search Suggestion */
+"food" = "food";
+
+/* Search Suggestion */
+"transport" = "transport";
+
+/* Search Suggestion */
+"fuel" = "gas";
+
+/* Search Suggestion */
+"parking" = "parking";
+
+/* Search Suggestion */
+"shop" = "shop";
+
+"hotel" = "hotel";
+
+/* Search Suggestion */
+"tourism" = "sights";
+
+/* Search Suggestion */
+"entertainment" = "entertainment";
+
+/* Search Suggestion */
+"atm" = "atm";
+
+/* Search Suggestion */
+"bank" = "bank";
+
+/* Search Suggestion */
+"pharmacy" = "pharmacy";
+
+/* Search Suggestion */
+"hospital" = "hospital";
+
+/* Search Suggestion */
+"toilet" = "toilet";
+
+/* Search Suggestion */
+"post" = "post";
+
+/* Search Suggestion */
+"police" = "police";
+
 /* String in search result list, when nothing found */
 "no_search_results_found" = "No results found";
 
@@ -359,6 +403,9 @@
 
 /* Warning message when viewport country isn't downloaded during search */
 "download_viewport_country_to_search" = "Download the country (%@) you are searching on";
+
+/* The app key for Flurry; needed in order for the Android library to build properly. */
+"flurry_app_key" = "";
 
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "Sorry, Map Storage settings are currently disabled.";

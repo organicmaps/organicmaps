@@ -261,4 +261,8 @@
 	<string name="cant_change_this_setting">Извините, настройки места хранения карт сейчас недоступны.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Идет процесс загрузки карт.</string>
+	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
+	<string name="appStore_message">Надеемся, вам нравится пользоваться MapsWithMe! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!</string>
+	<!-- No, thanks -->
+	<string name="no_thanks">Нет, спасибо</string>
 </resources>

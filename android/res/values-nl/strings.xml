@@ -23,10 +23,6 @@
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
 	<string name="do_nothing">Doorgaan</string>
 	<string name="download_maps">Gedownloade Kaarten</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_kb">Download %qu kB</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_mb">Download %qu MB</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">Download is afgebroken, klik om nog een keer te proberen</string>
 	<!-- Settings/Downloader - info for downloaded country -->
@@ -52,8 +48,6 @@
 	<string name="maps">Kaart</string>
 	<!-- Settings/Downloader - info for country in the download queue -->
 	<string name="marked_for_downloading">Kaarten</string>
-	<!-- Settings/Downloader - size string -->
-	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mijlen</string>
 	<!-- View and button titles for accessibility -->
@@ -68,8 +62,6 @@
 	<string name="free_disk_space_for_country_x">Maak ruimte vrij op uw apparaat om %s te kunnen downloaden</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">Herinner me later</string>
-	<!-- Update maps later/Buy pro version later button text -->
-	<string name="later">Later</string>
 	<!-- Don't show some dialog any more -->
 	<string name="never">Nooit</string>
 	<!-- Leave Review dialog - Complain button (goes to support site) -->
@@ -102,8 +94,6 @@
 	<string name="country_status_added_to_queue">^is toegevoegd aan de download wachtrij</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
 	<string name="country_status_downloading">aan het downloaden^^%</string>
-	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">Download^</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Downloaden^is niet gelukt</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
@@ -112,10 +102,8 @@
 	<string name="downloading_touch_to_cancel">%d%% aan het downloaden, klik om te annuleren</string>
 	<string name="downloaded_touch_to_delete">Downloaded (%s), klik om te verwijderen</string>
 	<string name="connection_settings">Verbindingsinstellingen</string>
-	<string name="download_mb_or_kb">Download %s</string>
 	<string name="close">Sluiten</string>
 	<string name="unsupported_phone">Een hardware geaccellereerde OpenGL is nodig. Jammer genoeg wordt uw apparaat niet ondersteund.</string>
-	<string name="download">Download</string>
 	<string name="external_storage_is_not_available">SD kaart/USB opslag met gedownloade kaarten is niet beschikbaar</string>
 	<string name="disconnect_usb_cable">Verwijder de USB kabel of plaats een geheugen kaart om MapsWithMe te gebruiken</string>
 	<string name="not_enough_free_space_on_sdcard">Maak eerst ruimte vrij op de SD kaart/USB opslag om de app te gebruiken</string>
@@ -139,7 +127,6 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Doorgaan</string>
 	<string name="downloaded_touch_to_update">(%s) gedownload, klik om te updaten of te verwijderen</string>
-	<string name="update_mb_or_kb">Update %s</string>
 	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
 	<string name="search_update_maps">Om de zoekfunctie te kunnen gebruiken moet u de kaarten updaten</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
@@ -259,4 +246,8 @@
 	<string name="cant_change_this_setting">Sorry, instellingen voor kaartopslag uitgeschakeld.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Het downloaden van het land is nu aan de gang.</string>
+	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
+	<string name="appStore_message">Ik hoop dat u veel plezier hebt met MapsWithMe! Zo ja, geef de app dan een cijfer in de App Store of schrijf een recensie. Dit duurt minder dan een minuut, maar kan ons echt helpen. Bedankt voor uw steun!</string>
+	<!-- No, thanks -->
+	<string name="no_thanks">Nee, bedankt</string>
 </resources>

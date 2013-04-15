@@ -125,8 +125,6 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="download_location_map_up_to_date">La carte de votre\nposition (%s) est déjà téléchargée</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="pause">Pause</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Continuer</string>
 	<string name="downloaded_touch_to_update">(%s) est téléchargé, touchez pour renouveler ou effacer</string>
 	<string name="update_mb_or_kb">Renouveler %s</string>
@@ -178,8 +176,6 @@
 	<string name="move_maps">Bouger les cartes?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Cela peut prendre plusieurs minutes.\nVeuillez patienter…</string>
-	<!-- Show bookmarks from this category on a map or not -->
-	<string name="visible">Visible</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
 	<string name="bookmarks_in_pro_version">Les marques-page sont disponibles dans la version complète de MapsWithMe. Se la procurer maintenant?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
@@ -247,4 +243,8 @@
 	<string name="cant_change_this_setting">Nous sommes désolés, les paramètres de Map Storage sont désactivés.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Le téléchargement du pays est en cours actuellement.</string>
+	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
+	<string name="appStore_message">Nous espérons que vous appréciez l\'utilisation de MapsWithMe ! Si oui, veuillez évaluer l\'application sur l\'App Store. Cela prend moins d\'une minute mais peut vraiment nous aider. Merci pour votre soutien !</string>
+	<!-- No, thanks -->
+	<string name="no_thanks">Non, Merci</string>
 </resources>

@@ -249,4 +249,8 @@
 	<string name="cant_change_this_setting">죄송합니다, 지도 스토리지 설정이 비활성화되어 있습니다.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">국가 다운로드가 지금 진행 중입니다.</string>
+	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
+	<string name="appStore_message">MapsWithMe로 즐거운 시간을 보내시기 바랍니다! MapsWithMe가 마음에 드신다면 앱스토어에서 평가를 남겨 주시기 바랍니다. 평가하는 데는 1분이 채 걸리지 않지만 저희에게 큰 도움이 됩니다. 성원해 주셔서 감사합니다!</string>
+	<!-- No, thanks -->
+	<string name="no_thanks">평가하지 않겠습니다</string>
 </resources>

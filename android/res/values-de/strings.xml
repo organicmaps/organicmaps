@@ -131,8 +131,6 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="download_location_map_up_to_date">Die Karte von ihrem aktuellen\nOrt (%s) ist aktuell</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="pause">Pause</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Fortfahren</string>
 	<string name="downloaded_touch_to_update">Heruntergeladen (%s), berühren zum aktualisieren oder löschen</string>
 	<string name="update_mb_or_kb">Aktualisiere %s</string>
@@ -164,8 +162,6 @@
 	<string name="dropped_pin">Gesetzte Stecknadel</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">Meine Orte</string>
-	<!-- Add bookmark dialog - bookmark name -->
-	<string name="name">Name</string>
 	<!-- Add bookmark dialog - bookmark address -->
 	<string name="address">Adresse</string>
 	<!-- Place Page - Remove Pin button -->
@@ -255,4 +251,8 @@
 	<string name="cant_change_this_setting">Es tut uns leid, die Einstellungen der Kartenspeicherung sind deaktiviert.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Der Download der Länder wird gerade ausgeführt.</string>
+	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
+	<string name="appStore_message">Wir hoffen, dass Ihnen die Verwendung von MapsWithMe Freude bereitet! Wenn ja, geben Sie bitte eine Bewertung oder einen Bericht für die App im App Store ab. Es dauert weniger als eine Minute, kann uns aber wirklich helfen. Danke für Ihre Unterstützung!</string>
+	<!-- No, thanks -->
+	<string name="no_thanks">Nein, Danke</string>
 </resources>

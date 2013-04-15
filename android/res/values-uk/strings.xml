@@ -230,4 +230,8 @@
 	<string name="cant_change_this_setting">Вибачте, налаштування функції запам\'ятовування карти скасовано.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Зараз відбувається завантаження країни.</string>
+	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
+	<string name="appStore_message">Сподіваємося, що вам сподобалося користуватися MapsWithMe! Якщо це так, будь ласка, оцініть цей застосунок чи залиште свій відгук на app store. Витративши менше хвилини на це, ви дійсно нам допоможете. Дякуємо за вашу підтримку!</string>
+	<!-- No, thanks -->
+	<string name="no_thanks">Ні, дякую</string>
 </resources>

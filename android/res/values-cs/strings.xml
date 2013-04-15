@@ -257,4 +257,8 @@
 	<string name="cant_change_this_setting">Litujeme, nastavení Uložení Map jsou zakázána.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Právě probíhá stahování země.</string>
+	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
+	<string name="appStore_message">Doufáme, že se Vám užívání MapsWithMe líbí! Je-li tomu tak, ohodnoťte prosím naši aplikaci nebo na ni napište recenzi v App Store. Nezabere Vám to ani minutu, ale opravdu nám tím můžete pomoci. Děkujeme Vám za Vaši podporu!</string>
+	<!-- No, thanks -->
+	<string name="no_thanks">Ne, díky</string>
 </resources>

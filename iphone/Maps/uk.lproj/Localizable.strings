@@ -402,7 +402,7 @@
 "download_location_country" = "Завантажити країну (%@) вашого поточного місця розташування";
 
 /* Warning message when viewport country isn't downloaded during search */
-"download_viewport_country_to_search" = "Завантажити країну (% @), в якій ви шукаєте";
+"download_viewport_country_to_search" = "Завантажити країну (%@), в якій ви шукаєте";
 
 /* The app key for Flurry; needed in order for the Android library to build properly. */
 "flurry_app_key" = "";

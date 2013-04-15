@@ -267,4 +267,8 @@
 	<string name="cant_change_this_setting">Sorry, Map Storage settings are currently disabled.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Country download is in progress now.</string>
+	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
+	<string name="appStore_message">Hope you enjoy using MapsWithMe! If so, please rate or review the app at the App Store. It takes less than a minute but can really help us. Thanks for your support!</string>
+	<!-- No, thanks -->
+	<string name="no_thanks">No, thanks</string>
 </resources>

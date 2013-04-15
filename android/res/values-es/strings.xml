@@ -154,8 +154,6 @@
 	<string name="bookmark_sets">Grupos de marcadores</string>
 	<!-- Boormarks - dialog title -->
 	<string name="bookmarks">Marcadores</string>
-	<!-- Add bookmark dialog - bookmark color -->
-	<string name="color">Color</string>
 	<!-- Unknown Dropped Pin title, when name can't be determined -->
 	<string name="dropped_pin">Etiqueta colocada</string>
 	<!-- Default bookmarks set name -->
@@ -180,8 +178,6 @@
 	<string name="move_maps">¿Mover mapas?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Esto podría tardar varios minutos.\nPor favor, espera…</string>
-	<!-- Show bookmarks from this category on a map or not -->
-	<string name="visible">Visible</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
 	<string name="bookmarks_in_pro_version">La opción de marcadores está disponible en la versión completa de MapsWithMe. ¿La quieres ya?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
@@ -251,4 +247,8 @@
 	<string name="cant_change_this_setting">Lo sentimos, la configuración de Guardar Mapa está desactivada.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Se está descargando un país.</string>
+	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
+	<string name="appStore_message">¡Ojalá disfrute mucho con MapsWithMe! Si le gusta, le agradeceremos que puntúe nuestra aplicación en el App Store. Es menos de un minuto y nos sería de gran ayuda. ¡Gracias por su apoyo!</string>
+	<!-- No, thanks -->
+	<string name="no_thanks">No, gracias</string>
 </resources>

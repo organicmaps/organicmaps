@@ -51,4 +51,8 @@
 	<string name="cant_change_this_setting">Siamo spiacenti, ma le impostazioni di archiviazione delle mappe sono disabilitate.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Il download della nazione è in corso.</string>
+	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
+	<string name="appStore_message">Confidiamo nel fatto che sia piacevole utilizzare MapsWithMe! In caso positivo, ti preghiamo di valutare o recensire l\'app all\'interno dell\'app store. Ti porterà via meno di un minuto e la cosa ci aiuterebbe tantissimo. Grazie per il tuo sostegno!</string>
+	<!-- No, thanks -->
+	<string name="no_thanks">No, grazie</string>
 </resources>
