@@ -26,6 +26,7 @@
 #define APPSTORE_ALERT_VIEW 2
 #define ITUNES_URL @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%lld"
 #define FACEBOOK_URL @"http://www.facebook.com/MapsWithMe"
+#define FACEBOOK_SCHEME @"fb://profile/111923085594432"
 
 const long long PRO_IDL = 510623322L;
 const long long LITE_IDL = 431183278L;
@@ -753,7 +754,9 @@ NSInteger compareAddress(id l, id r, void * context)
     }
     case FACEBOOK_ALERT_VIEW:
     {
-      NSString* url = [NSString stringWithFormat: FACEBOOK_URL];
+      NSString * url = [NSString stringWithFormat: FACEBOOK_SCHEME];
+      if (![[UIApplication sharedApplication] canOpenURL: [NSURL URLWithString: url]])
+        url = [NSString stringWithFormat: FACEBOOK_URL];
       [self manageAlert:buttonIndex andUrl:[NSURL URLWithString: url] andDlgSetting:dlg_settings::FacebookDlg];
       return;
     }
