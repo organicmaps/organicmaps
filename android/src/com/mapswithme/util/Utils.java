@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.Window;
 import android.widget.EditText;
+import android.os.Build;
 
 public class Utils
 {
@@ -27,9 +28,10 @@ public class Utils
     }
   }
 
-  public static boolean isKindleFire()
+  public static boolean isAmazonDevice()
   {
-    return android.os.Build.MODEL.equals("Kindle Fire");
+    final boolean byAmazon = "Amazon".equalsIgnoreCase(Build.MANUFACTURER);
+    return byAmazon;
   }
 
   // if enabled, screen will be turned off automatically by the system

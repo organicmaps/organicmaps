@@ -525,7 +525,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   public void onCreate(Bundle savedInstanceState)
   {
     // Use full-screen on Kindle Fire only
-    if (Utils.isKindleFire())
+    if (Utils.isAmazonDevice())
     {
       getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
       getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
@@ -597,7 +597,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
       // Do not show this dialog on Kindle Fire - it doesn't have location services
       // and even wifi settings can't be opened programmatically
-      if (!Utils.isKindleFire())
+      if (!Utils.isAmazonDevice())
       {
         new AlertDialog.Builder(this).setTitle(R.string.location_is_disabled_long_text)
         .setPositiveButton(R.string.connection_settings, new DialogInterface.OnClickListener()
