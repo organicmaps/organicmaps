@@ -1428,7 +1428,7 @@
     en = food
     tags = ios, android
     comment = Search Suggestion
-    cs = Jídlo
+    cs = jídlo
     de = Essen
     es = comer
     fr = repas
@@ -1441,7 +1441,7 @@
     en = transport
     tags = ios, android
     comment = Search Suggestion
-    cs = Doprava
+    cs = doprava
     de = Verkehr
     es = transporte
     fr = transport
@@ -1454,7 +1454,7 @@
     en = gas
     tags = ios, android
     comment = Search Suggestion
-    cs = Čerpací stanice
+    cs = čerpací stanice
     de = Tankstelle
     es = gasolinera
     fr = station-service
@@ -1480,7 +1480,7 @@
     en = shop
     tags = ios, android
     comment = Search Suggestion
-    cs = Obchod
+    cs = obchod
     de = Laden
     es = tienda
     fr = magasin
@@ -1492,7 +1492,7 @@
   [hotel]
     en = hotel
     tags = ios, android
-    cs = Hotel
+    cs = hotel
     de = Hotel
     es = hotel
     fr = hôtel
@@ -1505,7 +1505,7 @@
     en = sights
     tags = ios, android
     comment = Search Suggestion
-    cs = Pamětihodnosti
+    cs = pamětihodnosti
     de = Sehenswürdigkeit
     es = turismo
     fr = curiosités
@@ -1518,7 +1518,7 @@
     en = entertainment
     tags = ios, android
     comment = Search Suggestion
-    cs = Zábava
+    cs = zábava
     de = Unterhaltung
     es = entretenimiento
     fr = divertissement
@@ -1531,7 +1531,7 @@
     en = atm
     tags = ios, android
     comment = Search Suggestion
-    cs = Bankomat
+    cs = bankomat
     de = Geldautomat
     es = atm
     fr = bancomat
@@ -1544,7 +1544,7 @@
     en = bank
     tags = ios, android
     comment = Search Suggestion
-    cs = Banka
+    cs = banka
     de = Bank
     es = banco
     fr = banque
@@ -1557,7 +1557,7 @@
     en = pharmacy
     tags = ios, android
     comment = Search Suggestion
-    cs = Lékárna
+    cs = lékárna
     de = Apotheke
     es = farmacia
     fr = pharmacie
@@ -1570,7 +1570,7 @@
     en = hospital
     tags = ios, android
     comment = Search Suggestion
-    cs = Nemocnice
+    cs = nemocnice
     de = Spital
     es = hospital
     fr = hôpital|clinique
@@ -1583,7 +1583,7 @@
     en = toilet
     tags = ios, android
     comment = Search Suggestion
-    cs = Záchody
+    cs = záchody
     de = Toilette
     es = servicios sanitario
     fr = toilette
@@ -1596,7 +1596,7 @@
     en = post
     tags = ios, android
     comment = Search Suggestion
-    cs = Pošta
+    cs = pošta
     de = Post
     es = oficina de correos
     fr = poste
@@ -1609,7 +1609,7 @@
     en = police
     tags = ios, android
     comment = Search Suggestion
-    cs = Policie
+    cs = policie
     de = Polizeistation
     es = policía
     fr = gendarmerie

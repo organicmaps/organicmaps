@@ -325,48 +325,48 @@
 "search_mode_viewport" = "Na mapě";
 
 /* Search Suggestion */
-"food" = "Jídlo";
+"food" = "jídlo";
 
 /* Search Suggestion */
-"transport" = "Doprava";
+"transport" = "doprava";
 
 /* Search Suggestion */
-"fuel" = "Čerpací stanice";
+"fuel" = "čerpací stanice";
 
 /* Search Suggestion */
 "parking" = "Parkoviště";
 
 /* Search Suggestion */
-"shop" = "Obchod";
+"shop" = "obchod";
 
-"hotel" = "Hotel";
-
-/* Search Suggestion */
-"tourism" = "Pamětihodnosti";
+"hotel" = "hotel";
 
 /* Search Suggestion */
-"entertainment" = "Zábava";
+"tourism" = "pamětihodnosti";
 
 /* Search Suggestion */
-"atm" = "Bankomat";
+"entertainment" = "zábava";
 
 /* Search Suggestion */
-"bank" = "Banka";
+"atm" = "bankomat";
 
 /* Search Suggestion */
-"pharmacy" = "Lékárna";
+"bank" = "banka";
 
 /* Search Suggestion */
-"hospital" = "Nemocnice";
+"pharmacy" = "lékárna";
 
 /* Search Suggestion */
-"toilet" = "Záchody";
+"hospital" = "nemocnice";
 
 /* Search Suggestion */
-"post" = "Pošta";
+"toilet" = "záchody";
 
 /* Search Suggestion */
-"police" = "Policie";
+"post" = "pošta";
+
+/* Search Suggestion */
+"police" = "policie";
 
 /* String in search result list, when nothing found */
 "no_search_results_found" = "Žádné výsledky";

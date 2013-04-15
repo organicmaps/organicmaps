@@ -201,34 +201,34 @@
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">Na mapě</string>
 	<!-- Search Suggestion -->
-	<string name="food">Jídlo</string>
+	<string name="food">jídlo</string>
 	<!-- Search Suggestion -->
-	<string name="transport">Doprava</string>
+	<string name="transport">doprava</string>
 	<!-- Search Suggestion -->
-	<string name="fuel">Čerpací stanice</string>
+	<string name="fuel">čerpací stanice</string>
 	<!-- Search Suggestion -->
 	<string name="parking">Parkoviště</string>
 	<!-- Search Suggestion -->
-	<string name="shop">Obchod</string>
-	<string name="hotel">Hotel</string>
+	<string name="shop">obchod</string>
+	<string name="hotel">hotel</string>
 	<!-- Search Suggestion -->
-	<string name="tourism">Pamětihodnosti</string>
+	<string name="tourism">pamětihodnosti</string>
 	<!-- Search Suggestion -->
-	<string name="entertainment">Zábava</string>
+	<string name="entertainment">zábava</string>
 	<!-- Search Suggestion -->
-	<string name="atm">Bankomat</string>
+	<string name="atm">bankomat</string>
 	<!-- Search Suggestion -->
-	<string name="bank">Banka</string>
+	<string name="bank">banka</string>
 	<!-- Search Suggestion -->
-	<string name="pharmacy">Lékárna</string>
+	<string name="pharmacy">lékárna</string>
 	<!-- Search Suggestion -->
-	<string name="hospital">Nemocnice</string>
+	<string name="hospital">nemocnice</string>
 	<!-- Search Suggestion -->
-	<string name="toilet">Záchody</string>
+	<string name="toilet">záchody</string>
 	<!-- Search Suggestion -->
-	<string name="post">Pošta</string>
+	<string name="post">pošta</string>
 	<!-- Search Suggestion -->
-	<string name="police">Policie</string>
+	<string name="police">policie</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Žádné výsledky</string>
 	<!-- Notes field in Bookmarks view -->
