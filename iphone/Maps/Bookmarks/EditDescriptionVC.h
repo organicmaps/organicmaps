@@ -5,7 +5,7 @@
 @interface EditDescriptionVC : UIViewController
 {
   // @TODO store as a property to retain reference
-  // Used to pass description for editing
+  // Used to pass description (notes) for editing
   BalloonView * m_balloon;
 }
 

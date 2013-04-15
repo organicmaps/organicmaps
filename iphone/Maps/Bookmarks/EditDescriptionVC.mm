@@ -39,14 +39,14 @@
 {
   [self registerForKeyboardNotifications];
   UITextView * tv = (UITextView *)self.view;
-  tv.text = m_balloon.description;
+  tv.text = m_balloon.notes;
   [tv becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
   UITextView * tv = (UITextView *)self.view;
-  m_balloon.description = tv.text.length ? tv.text : nil;
+  m_balloon.notes = tv.text.length ? tv.text : nil;
   [tv resignFirstResponder];
   [self unregisterKeyboardNotifications];
 }

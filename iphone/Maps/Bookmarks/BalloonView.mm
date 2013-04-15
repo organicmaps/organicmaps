@@ -11,7 +11,7 @@
 
 @synthesize globalPosition;
 @synthesize title;
-@synthesize description;
+@synthesize notes;
 //@synthesize type;
 @synthesize pinImage;
 @synthesize color;
@@ -65,7 +65,7 @@
   self.color = nil;
   self.setName = nil;
   self.title = nil;
-  self.description = nil;
+  self.notes = nil;
 //  self.type = nil;
   [super dealloc];
 }
@@ -156,7 +156,7 @@
 
   [view addSubview:self.pinImage];
 
-//  m_titleView.image = [[self createPopupImageWithName:self.title andAddress:self.description] autorelease];
+//  m_titleView.image = [[self createPopupImageWithName:self.title andAddress:self.notes] autorelease];
   CGSize const s = m_titleView.bounds.size;
   m_titleView.frame = CGRectMake(pt.x, pt.y, 1, 1);
 
@@ -216,7 +216,7 @@
   id old = title;
   title = [newTitle retain];
   [old release];
-  m_titleView.image = [self createPopupImageWithTitle:newTitle andDescription:description];
+  m_titleView.image = [self createPopupImageWithTitle:newTitle andDescription:notes];
   [m_titleView sizeToFit];
 }
 
@@ -225,8 +225,8 @@
   Framework & f = GetFramework();
   Bookmark bm(m2::PointD(globalPosition.x, globalPosition.y),
               [title UTF8String], [color UTF8String]);
-  if (description)
-    bm.SetDescription([description UTF8String]);
+  if (notes)
+    bm.SetDescription([notes UTF8String]);
   f.GetBmCategory(editedBookmark.first)->ReplaceBookmark(editedBookmark.second, bm);
 
   BookmarkCategory * cat = f.GetBmCategory(editedBookmark.first);

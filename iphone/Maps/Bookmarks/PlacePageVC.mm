@@ -71,8 +71,8 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
   if ([self canShare])
-    return 3;
-  return 2;
+    return 4;
+  return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -82,6 +82,7 @@
   case 0: return 3;
   case 1: return 1;
   case 2: return 1;
+  case 3: return 1;
   default: return 0;
   }
 }
@@ -184,8 +185,7 @@
     }
   }
   else
-  {
-    // 2nd section with add/remove pin buttons
+ {
     cell = [tableView dequeueReusableCellWithIdentifier:@"removePinCellId"];
     if (!cell)
     {

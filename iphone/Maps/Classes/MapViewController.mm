@@ -294,9 +294,9 @@ const long long LITE_IDL = 431183278L;
     res = NSLocalizedString(@"dropped_pin", nil);
 
   // Reset description BEFORE title, as title's setter also takes it into an account for Balloon text generation
-  m_balloonView.description = nil;
+  m_balloonView.notes = nil;
   m_balloonView.title = res;
-  //m_balloonView.description = [NSString stringWithUTF8String:info.FormatAddress().c_str()];
+  //m_balloonView.notes = [NSString stringWithUTF8String:info.FormatAddress().c_str()];
   //m_balloonView.type = [NSString stringWithUTF8String:info.FormatTypes().c_str()];
 }
 
@@ -713,9 +713,9 @@ NSInteger compareAddress(id l, id r, void * context)
       // Reset description BEFORE title, as title's setter also takes it into an account for Balloon text generation
       string const & descr = bm->GetDescription();
       if (!descr.empty())
-        m_balloonView.description = [NSString stringWithUTF8String:descr.c_str()];
+        m_balloonView.notes = [NSString stringWithUTF8String:descr.c_str()];
       else
-        m_balloonView.description = nil;
+        m_balloonView.notes = nil;
       m_balloonView.title = [NSString stringWithUTF8String:bm->GetName().c_str()];
       m_balloonView.color = [NSString stringWithUTF8String:bm->GetType().c_str()];
       m_balloonView.setName = [NSString stringWithUTF8String:cat->GetName().c_str()];
