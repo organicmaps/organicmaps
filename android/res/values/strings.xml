@@ -240,7 +240,7 @@
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">No results found</string>
 	<!-- Notes field in Bookmarks view -->
-	<string name="description">Description</string>
+	<string name="description">Notes</string>
 	<!-- Button text -->
 	<string name="share_by_email">Share by email</string>
 	<!-- Email Subject when sharing bookmarks category -->

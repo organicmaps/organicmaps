@@ -1632,17 +1632,19 @@
     ru = Нет результатов поиска
     uk = Результатів не знайдено
   [description]
-    en = Description
+    en = Notes
     tags = ios, android
     comment = Notes field in Bookmarks view
-    cs = Popis
-    de = Beschreibung
-    es = Descripción
-    ja = 説明
-    ko = 설명
-    nl = Beschrijving
-    ru = Описание
-    uk = Опис
+    cs = Poznámky
+    de = Notizen
+    es = Notas
+    fr = Notes
+    ja = メモ
+    ko = 메모
+    nl = Notities
+    ru = Заметки
+    uk = Примiтки
+    zh-Hant = 附註
   [share_by_email]
     en = Share by email
     tags = ios, android

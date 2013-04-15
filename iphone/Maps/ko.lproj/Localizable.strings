@@ -372,7 +372,7 @@
 "no_search_results_found" = "결과 없음";
 
 /* Notes field in Bookmarks view */
-"description" = "설명";
+"description" = "메모";
 
 /* Button text */
 "share_by_email" = "이메일로 공유";

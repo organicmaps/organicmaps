@@ -226,7 +226,7 @@
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">결과 없음</string>
 	<!-- Notes field in Bookmarks view -->
-	<string name="description">설명</string>
+	<string name="description">메모</string>
 	<!-- Button text -->
 	<string name="share_by_email">이메일로 공유</string>
 	<!-- Email Subject when sharing bookmarks category -->

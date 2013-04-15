@@ -372,7 +372,7 @@
 "no_search_results_found" = "No results found";
 
 /* Notes field in Bookmarks view */
-"description" = "Description";
+"description" = "附註";
 
 /* Button text */
 "share_by_email" = "Share by email";

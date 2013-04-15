@@ -196,4 +196,6 @@
 	<string name="measurement_units">測量單位</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">同時選擇公里和英哩</string>
+	<!-- Notes field in Bookmarks view -->
+	<string name="description">附註</string>
 </resources>
