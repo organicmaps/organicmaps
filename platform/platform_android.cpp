@@ -23,6 +23,11 @@ ModelReader * Platform::GetReader(string const & file) const
     return new FileReader(ReadPathForFile(file),
                           READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
   }
+  if (IsFileExistsByFullPath(file))
+  {
+    return new FileReader(ReadPathForFile(file),
+                          READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
+  }
   else
   {
     ASSERT_EQUAL ( file.find("assets/"), string::npos, () );

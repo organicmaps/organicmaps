@@ -13,7 +13,11 @@ string Platform::ReadPathForFile(string const & file) const
   {
     fullPath = m_resourcesDir + file;
     if (!IsFileExistsByFullPath(fullPath))
-      MYTHROW(FileAbsentException, ("File doesn't exist", fullPath));
+    {
+      fullPath = file;
+      if (!IsFileExistsByFullPath(fullPath))
+        MYTHROW(FileAbsentException, ("File doesn't exist", fullPath));
+    }
   }
   return fullPath;
 }
@@ -54,16 +58,57 @@ string Platform::DefaultUrlsJSON() const
 
 void Platform::GetFontNames(FilesList & res) const
 {
-  string arr[] = { WritableDir(), ResourcesDir() };
+  char const * fontsWhitelist[] = {
+    "Roboto-Regular.ttf",
+    "DroidSansArabic.ttf",
+    "DroidNaskh-Regular.ttf",
+    "Lohit-Bengali.ttf",
+    "Lohit-Devanagari.ttf",
+    "Lohit-Tamil.ttf",
+    "DroidSansThai.ttf",
+    "DroidSans.ttf",
+    "DroidSansArmenian.ttf",
+    "DroidSansEthiopic-Regular.ttf",
+    "DroidSansGeorgian.ttf",
+    "DroidSansHebrew-Regular.ttf",
+    "DroidSansHebrew.ttf",
+    "DroidSansJapanese.ttf",
+    "DroidSansFallback.ttf",
+    "LTe50872.ttf",
+    "LTe50259.ttf",
+    "DejaVuSans.ttf",
+    "arial.ttf"
+  };
 
-  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+  char const * systemFontsPath[] = {
+    "/system/fonts/",
+    "/usr/share/fonts/truetype/droid/",
+    "/usr/share/fonts/truetype/ttf-dejavu/",
+  };
+
+  for (size_t i = 0; i < ARRAY_SIZE(fontsWhitelist); ++i)
   {
-    LOG(LDEBUG, ("Searching for fonts in", arr[i]));
-    GetFilesByExt(arr[i], ".ttf", res);
-  }
+    for (size_t j = 0; j < ARRAY_SIZE(systemFontsPath); ++j)
+    {
+      string const path = string(systemFontsPath[j]) + fontsWhitelist[i];
+      if (IsFileExistsByFullPath(path))
+        res.push_back(path);
+    };
+  };
 
-  sort(res.begin(), res.end());
-  res.erase(unique(res.begin(), res.end()), res.end());
+  string const resourcesPaths[] = { WritableDir(), ResourcesDir() };
+
+  FilesList resourcesFonts;
+
+  for (size_t i = 0; i < ARRAY_SIZE(resourcesPaths); ++i)
+  {
+    LOG(LDEBUG, ("Searching for fonts in", resourcesPaths[i]));
+    GetFilesByExt(resourcesPaths[i], ".ttf", resourcesFonts);
+  };
+
+  sort(resourcesFonts.begin(), resourcesFonts.end());
+  resourcesFonts.erase(unique(resourcesFonts.begin(), resourcesFonts.end()), resourcesFonts.end());
+  res.insert(res.end(), resourcesFonts.begin(), resourcesFonts.end());
 
   LOG(LINFO, ("Available font files:", (res)));
 }
