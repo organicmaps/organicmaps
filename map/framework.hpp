@@ -134,16 +134,18 @@ protected:
 
   void ClearAllCaches();
 
-  void AddMap(string const & file);
   void RemoveMap(string const & file);
 
 public:
   Framework();
   virtual ~Framework();
+
   /// @name Process storage connecting/disconnecting.
   //@{
   void AddLocalMaps();
   void RemoveLocalMaps();
+
+  void AddMap(string const & file);
   //@}
 
   /// @return File names without path.

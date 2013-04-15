@@ -335,22 +335,40 @@ UNIT_TEST(Bookmarks_Getting)
   DeleteCategoryFiles(arrCat);
 }
 
+namespace
+{
+  void CheckPlace(Framework const & fm, double lat, double lon,
+                  char const * name,
+                  char const * st, char const * house,
+                  char const * typeEn, char const * typeRu)
+  {
+    Framework::AddressInfo info;
+    fm.GetAddressInfo(fm.GtoP(m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat))), info);
+
+    TEST_EQUAL(info.m_name, name, ());
+    TEST_EQUAL(info.m_street, st, ());
+    TEST_EQUAL(info.m_house, house, ());
+    TEST_EQUAL(info.m_types.size(), 1, ());
+
+    // assume that developers have English or Russian system language :)
+    char const * type = info.GetBestType();
+    TEST(type && (strcmp(type, typeEn) == 0 || strcmp(type, typeRu)), (type));
+  }
+}
+
 UNIT_TEST(Bookmarks_AddressInfo)
 {
-  // Maps added in constructor (we need minsk-pass.mwm)
+  // Maps added in constructor (we need minsk-pass.mwm only)
   Framework fm;
+  fm.RemoveLocalMaps();
+  fm.AddMap("minsk-pass.mwm");
 
-  Framework::AddressInfo info;
-  fm.GetAddressInfo(m2::PointD(MercatorBounds::LonToX(27.5556), MercatorBounds::LatToY(53.8963)), info);
+  fm.OnSize(800, 600);
 
-  TEST_EQUAL(info.m_street, "ул. Карла Маркса", ());
-  TEST_EQUAL(info.m_house, "10", ());
-  TEST_EQUAL(info.m_name, "Библос", ());
-  TEST_EQUAL(info.m_types.size(), 1, ());
-
-  // assume that developers have English or Russian system language :)
-  char const * type = info.GetBestType();
-  TEST(type && (strcmp(type, "cafe") == 0 || strcmp(type, "кафе")), (type));
+  CheckPlace(fm, 53.8964918, 27.555559,
+             "Планета Pizza", "улица Карла Маркса", "10", "cafe", "кафе");
+  CheckPlace(fm, 53.8964365, 27.5554007,
+             "Нц Шашек И Шахмат", "улица Карла Маркса", "10", "hotel", "гостиница");
 }
 
 UNIT_TEST(Bookmarks_IllegalFileName)
