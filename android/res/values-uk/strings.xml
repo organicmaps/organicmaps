@@ -24,7 +24,7 @@
 	<string name="do_nothing">Продовжити завантаження</string>
 	<string name="download_maps">Завантажити карти</string>
 	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_kb">Завантажити %qu КБ</string>
+	<string name="download_x_kb">Завантажити %qu кБ</string>
 	<!-- Settings/Downloader - Download confirmation button -->
 	<string name="download_x_mb">Завантажити %qu МБ</string>
 	<!-- Settings/Downloader - info for country when download fails -->

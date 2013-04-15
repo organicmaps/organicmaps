@@ -141,8 +141,8 @@
     fr = Télécharger %qu kB
     ja = %quをダウンロード
     ko = %qu 다운로드하기
-    ru = Загрузить %qu КБ
-    uk = Завантажити %qu КБ
+    ru = Загрузить %qu кБ
+    uk = Завантажити %qu кБ
     zh-Hant = 下載 %qu kB
   [download_x_mb]
     en = Download %qu MB

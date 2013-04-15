@@ -39,7 +39,7 @@
 "download_maps" = "Загрузить карты";
 
 /* Settings/Downloader - Download confirmation button */
-"download_x_kb" = "Загрузить %qu КБ";
+"download_x_kb" = "Загрузить %qu кБ";
 
 /* Settings/Downloader - Download confirmation button */
 "download_x_mb" = "Загрузить %qu МБ";
