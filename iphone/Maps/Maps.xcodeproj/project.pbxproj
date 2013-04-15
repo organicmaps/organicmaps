@@ -1508,6 +1508,10 @@
 		FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = WorldCoasts.mwm; path = ../../data/WorldCoasts.mwm; sourceTree = "<group>"; };
 		FA46DA2B12D4166E00968C36 /* countries.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries.txt; path = ../../data/countries.txt; sourceTree = SOURCE_ROOT; };
 		FA4B0A1315136C4C00758203 /* World.mwm.nosearch */ = {isa = PBXFileReference; lastKnownFileType = file; name = World.mwm.nosearch; path = ../../data/World.mwm.nosearch; sourceTree = "<group>"; };
+		FA5940D2171C964D0045C9BB /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FA5940D3171C964D0045C9BB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FA5940D4171C964D0045C9BB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FA5940D5171C964D0045C9BB /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA5D4F151557F79900E7D8BB /* PlacePageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlacePageVC.h; path = Bookmarks/PlacePageVC.h; sourceTree = SOURCE_ROOT; };
 		FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PlacePageVC.mm; path = Bookmarks/PlacePageVC.mm; sourceTree = SOURCE_ROOT; };
 		FA64D9A813F975AD00350ECF /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = types.txt; path = ../../data/types.txt; sourceTree = SOURCE_ROOT; };
@@ -3105,6 +3109,10 @@
 				it,
 				cs,
 				"zh-Hant",
+				uk,
+				ja,
+				ko,
+				nl,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			projectDirPath = "";
@@ -4503,6 +4511,10 @@
 				FA971562150920C600916690 /* it */,
 				77DDA9A116D504F900804BDB /* cs */,
 				1003EAD917170741005EBDAE /* zh-Hant */,
+				FA5940D2171C964D0045C9BB /* uk */,
+				FA5940D3171C964D0045C9BB /* ja */,
+				FA5940D4171C964D0045C9BB /* ko */,
+				FA5940D5171C964D0045C9BB /* nl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
