@@ -1444,9 +1444,11 @@
     cs = Doprava
     de = Verkehr
     es = transporte
+    fr = transport
     it = transporto
     ja = 輸送
     ko = 수송
+    nl = transport
     ru = транспорт
   [fuel]
     en = gas
@@ -1468,6 +1470,7 @@
     cs = Parkoviště
     de = Parkplatz
     es = estationamiento
+    fr = parking
     it = parcheggio
     ja = 駐車場
     ko = 주차
@@ -1491,10 +1494,12 @@
     tags = ios, android
     cs = Hotel
     de = Hotel
+    es = hotel
     fr = hôtel
     it = hôtel
     ja = ホテル
     ko = 호텔
+    nl = hotel
     ru = гостиница
   [tourism]
     en = sights
@@ -1517,6 +1522,7 @@
     de = Unterhaltung
     es = entretenimiento
     fr = divertissement
+    it = divertimento
     ja = エンターテイメント
     ko = 엔터테인먼트
     nl = uitgaan
@@ -1527,8 +1533,11 @@
     comment = Search Suggestion
     cs = Bankomat
     de = Geldautomat
+    es = atm
     fr = bancomat
     it = bancomat
+    ja = atm
+    ko = atm
     nl = geldautomaat
     ru = банкомат
   [bank]
@@ -1542,6 +1551,7 @@
     it = banca
     ja = 銀行
     ko = 은행
+    nl = bank
     ru = банк
   [pharmacy]
     en = pharmacy
@@ -1562,6 +1572,7 @@
     comment = Search Suggestion
     cs = Nemocnice
     de = Spital
+    es = hospital
     fr = hôpital|clinique
     it = ospedale
     ja = 病院
@@ -1579,6 +1590,7 @@
     it = toilette
     ja = トイレ
     ko = 화장실
+    nl = toilet
     ru = туалет
   [post]
     en = post
@@ -1591,6 +1603,7 @@
     it = posta
     ja = 電子メール
     ko = 우편
+    nl = post
     ru = почта
   [police]
     en = police

@@ -290,7 +290,7 @@ en:3cinema|entertainment
 ru:кинотеатр|3кино|развлечения
 de:3Kino|Cinema|Filmtheater|Unterhaltung
 fr:3cinéma|ciné|divertissement
-it:3cinema|teatro
+it:3cinema|teatro|divertimento
 es:3cine|entretenimiento
 ko:영화|엔터테인먼트
 ja:シネマ|エンターテイメント
@@ -505,7 +505,7 @@ en:3theatre|theater|entertainment
 ru:3театр|развлечения
 de:3Theater|Unterhaltung
 fr:3théâtre|divertissement
-it:3teatro
+it:3teatro|divertimento
 es:3teatro|entretenimiento
 ko:연극|엔터테인먼트
 ja:劇場|エンターテイメント
@@ -1027,7 +1027,7 @@ en:3nightclub|3disco|dance|entertainment
 ru:3ночной клуб|3дискотека|развлечения
 de:3Nachtclub|Nachtklub|Unterhaltung
 fr:3discothèque|3nuit-club|divertissement
-it:3night club
+it:3night club|divertimento
 es:3discoteca|nightclub|entretenimiento
 ko:나이트 클럽|엔터테인먼트
 ja:ナイトクラブ|エンターテイメント

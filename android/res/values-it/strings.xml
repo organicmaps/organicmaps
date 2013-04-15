@@ -20,6 +20,8 @@
 	<!-- Search Suggestion -->
 	<string name="tourism">turistico</string>
 	<!-- Search Suggestion -->
+	<string name="entertainment">divertimento</string>
+	<!-- Search Suggestion -->
 	<string name="atm">bancomat</string>
 	<!-- Search Suggestion -->
 	<string name="bank">banca</string>

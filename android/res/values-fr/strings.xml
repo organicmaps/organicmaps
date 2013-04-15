@@ -193,6 +193,8 @@
 	<!-- Search Suggestion -->
 	<string name="food">repas</string>
 	<!-- Search Suggestion -->
+	<string name="transport">transport</string>
+	<!-- Search Suggestion -->
 	<string name="fuel">station-service</string>
 	<!-- Search Suggestion -->
 	<string name="parking">parking</string>
