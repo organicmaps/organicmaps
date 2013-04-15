@@ -76,7 +76,7 @@ namespace di
 
     if (!houseNumber.empty())
     {
-      if (m_primaryText.empty())
+      if (m_primaryText.empty() || houseNumber.find(m_primaryText) != string::npos)
         houseNumber.swap(m_primaryText);
       else
         m_primaryText = m_primaryText + " (" + houseNumber + ")";
@@ -134,7 +134,10 @@ namespace di
     {
       double depth = keys[i].m_priority;
 
-      if ((layer != 0) && (depth < 19000))
+      if ((layer != 0) && (depth < 19000)
+          && ((keys[i].m_type == drule::area)
+           || (keys[i].m_type == drule::line)
+           || (keys[i].m_type == drule::waymarker)))
         depth = (layer * drule::layer_base_priority) + fmod(depth, drule::layer_base_priority);
 
       if (keys[i].m_type == drule::symbol)
@@ -143,8 +146,7 @@ namespace di
       if ((keys[i].m_type == drule::caption)
        || (keys[i].m_type == drule::symbol)
        || (keys[i].m_type == drule::circle)
-       || (keys[i].m_type == drule::pathtext)
-       || (keys[i].m_type == drule::waymarker))
+       || (keys[i].m_type == drule::pathtext))
       {
         // show labels of larger objects first
         depth += priorityModifier;
