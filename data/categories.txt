@@ -858,7 +858,7 @@ tourism-hostel
 en:3hostel|hotel|motel
 ru:3хостел|гостиница|отель|мотель
 de:3Wohnheim|Gasthaus
-fr:3foyer
+fr:3foyer|hôtel
 it:3ostello
 es:3albergue juvenil|4residencia
 ko:호스텔
