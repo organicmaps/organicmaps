@@ -31471,6 +31471,10 @@ cont {
   name: "railway-tram_stop"
   element {
     scale: 15
+    symbol {
+      name: "tramway-mini"
+      priority: 16000
+    }
     caption {
       primary {
         height: 10
@@ -31480,13 +31484,13 @@ cont {
       }
       priority: 15000
     }
+  }
+  element {
+    scale: 16
     symbol {
       name: "tramway-mini"
       priority: 16000
     }
-  }
-  element {
-    scale: 16
     caption {
       primary {
         height: 11
@@ -31496,10 +31500,6 @@ cont {
       }
       priority: 15000
     }
-    symbol {
-      name: "tramway-mini"
-      priority: 16000
-    }
   }
   element {
     scale: 17
@@ -31507,14 +31507,14 @@ cont {
       name: "tramway"
       priority: 16000
     }
-    path_text {
+    caption {
       primary {
         height: 12
         color: 0x3050D8
         stroke_color: 0xFFFFFF
         offset_y: 14
       }
-      priority: 16000
+      priority: 15000
     }
   }
 }

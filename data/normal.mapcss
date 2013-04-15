@@ -3102,8 +3102,8 @@ line|z15[railway=siding]::d1p2
   width:	1.4;
   z-index:	396;
 }
-area|z15-16[railway=tram_stop]::d1p2,
-node|z15-16[railway=tram_stop]::d1p2
+area|z15-16[railway=tram_stop],
+node|z15-16[railway=tram_stop]
 {
   icon-image:	tramway-mini.svg;
 }
@@ -3868,7 +3868,6 @@ node|z15[railway=tram_stop]
   text-color:	#3050d8;
   text-offset:  14;
   text-halo-color:	white;
-  text-position: center;
 }
 area|z15-[amenity=fuel],
 node|z15-[amenity=fuel]
@@ -7128,6 +7127,7 @@ line[man_made=cutline]
 }
 
 [highway=bus_stop],
+[railway=tram_stop],
 [railway=station]
 {
   text-position: center;
