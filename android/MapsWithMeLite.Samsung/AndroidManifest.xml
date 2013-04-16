@@ -37,6 +37,25 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!-- standard "geo" scheme -->
+            <intent-filter><action android:name="android.intent.action.VIEW"></action>
+                <category android:name="android.intent.category.DEFAULT"></category>
+                <data android:scheme="geo"></data>
+           </intent-filter>
+
+ <!--
+           <intent-filter><action android:name="android.intent.action.VIEW"></action>
+              <category android:name="android.intent.category.DEFAULT"></category>
+              <data android:scheme="ge0"></data>
+           </intent-filter>
+
+           <intent-filter><action android:name="android.intent.action.VIEW"></action>
+               <category android:name="android.intent.category.DEFAULT"></category>
+               <data android:scheme="mapswithme"></data>
+           </intent-filter>
+-->
+
         </activity>
         <activity android:name="com.mapswithme.maps.MWMActivity"
                   android:label="@string/app_name"

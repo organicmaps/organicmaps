@@ -52,11 +52,13 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   private LocationService mLocationService = null;
   private Index mCountryIndex = null;
 
-  //TODO add geo processors
-  private IntentProcessor[] mIntentProcessors = {new KmzIntentProcessor(),
-                                                 new Ge0IntentProcessor(),
-                                                 new GeoIntentProcessor(),
-                                                 new MapsWithMeIntentProcessor()};
+  private IntentProcessor[] mIntentProcessors = {new GeoIntentProcessor(),
+                                                 /* uncomment code below when add
+                                                  * appropriate schemes support
+                                                  * */
+                                                 //new Ge0IntentProcessor()
+                                                 //new MapsWithMeIntentProcessor()
+                                                };
 
   private void setDownloadMessage(int bytesToDownload)
   {
@@ -349,9 +351,10 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     if (checkLiteProPackages(isPro))
       return;
 
-
-    dispatchIntent();
-
+    final boolean dispatched = dispatchIntent();
+    if (!dispatched) {
+      parseIntentForKMZFile();
+    }
 
     setContentView(R.layout.download_resources);
 
@@ -370,18 +373,18 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     }
   }
 
-  private void dispatchIntent() {
+  private boolean dispatchIntent() {
 
     if (getIntent() != null) {
       final Intent intent = getIntent();
       for (IntentProcessor ip : mIntentProcessors) {
         if (ip.isIntentSupported(intent)) {
-          Utils.toastShortcut(this, "Intent: " + intent.getData());
           ip.processIntent(intent);
+          return true;
         }
       }
     }
-
+    return false;
   }
 
   private String getExtensionFromMime(String mime)
@@ -470,7 +473,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
         if (tmpFile != null)
           tmpFile.delete();
 
-        Toast.makeText(this, success ? R.string.load_kmz_successful : R.string.load_kmz_failed, Toast.LENGTH_LONG).show();
+        Utils.toastShortcut(this, success ? R.string.load_kmz_successful : R.string.load_kmz_failed);
       }
     }
   }
@@ -598,23 +601,6 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   {
   }
 
-  private class KmzIntentProcessor implements IntentProcessor {
-
-    @Override
-    public boolean isIntentSupported(Intent intent) {
-      final String scheme = intent.getScheme();
-      return "file".equals(scheme) || "http".equals(scheme);
-    }
-
-    @Override
-    public boolean processIntent(Intent intent) {
-      // TODO temp impl
-      parseIntentForKMZFile();
-      return true;
-    }
-
-  }
-
   private class GeoIntentProcessor implements IntentProcessor {
 
     @Override
@@ -624,12 +610,12 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
     @Override
     public boolean processIntent(Intent intent) {
-      // TODO Auto-generated method stub
-      Utils.toastShortcut(DownloadResourcesActivity.this, this.getClass().getSimpleName());
-      return false;
+      final Uri data = intent.getData();
+      return data != null ? setViewPortByUrl(data.toString()) : false;
     }
   }
 
+  @SuppressWarnings("unused")
   private class Ge0IntentProcessor implements IntentProcessor {
 
     @Override
@@ -639,24 +625,22 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
     @Override
     public boolean processIntent(Intent intent) {
-      // TODO Auto-generated method stub
-      Utils.toastShortcut(DownloadResourcesActivity.this, this.getClass().getSimpleName());
+      // TODO add ge0 parsing
       return false;
     }
   }
 
+  @SuppressWarnings("unused")
   private class MapsWithMeIntentProcessor implements IntentProcessor {
 
     @Override
     public boolean isIntentSupported(Intent intent) {
-      // TODO Auto-generated method stub
       return "mapswithme".equals(intent.getScheme());
     }
 
     @Override
     public boolean processIntent(Intent intent) {
-      // TODO Auto-generated method stub
-      Utils.toastShortcut(DownloadResourcesActivity.this, this.getClass().getSimpleName());
+      // TODO add mapswithme parsing
       return false;
     }
 
@@ -669,4 +653,6 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   private native Index findIndexByPos(double lat, double lon);
   private native void cancelCurrentFile();
   private native boolean loadKMZFile(String path);
+  //===============S=C=H=E=M=E======================//
+  private native boolean setViewPortByUrl(String url);
 }

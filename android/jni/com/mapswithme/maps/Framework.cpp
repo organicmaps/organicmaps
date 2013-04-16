@@ -722,4 +722,12 @@ namespace android
   {
     return m_work.Storage().IsDownloadInProgress();
   }
+
+  bool Framework::SetViewportByUrl(string const & url)
+  {
+    //TODO this is weird hack, we should reconsider Android
+    // lifecycle handling design
+    m_doLoadState = false;
+    m_work.SetViewportByURL(url);
+  }
 }

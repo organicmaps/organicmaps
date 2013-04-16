@@ -142,6 +142,8 @@ namespace android
     ::Framework * NativeFramework();
 
     bool IsDownloadingActive();
+
+    bool SetViewportByUrl(string const & ulr);
   };
 }
 

@@ -33,6 +33,25 @@
                   android:screenOrientation="behind"
                   android:theme="@style/MWMNoTitle"
                   android:configChanges="orientation|screenLayout|screenSize">
+
+            <!-- standard "geo" scheme -->
+            <intent-filter><action android:name="android.intent.action.VIEW"></action>
+                <category android:name="android.intent.category.DEFAULT"></category>
+                <data android:scheme="geo"></data>
+           </intent-filter>
+
+ <!--
+           <intent-filter><action android:name="android.intent.action.VIEW"></action>
+              <category android:name="android.intent.category.DEFAULT"></category>
+              <data android:scheme="ge0"></data>
+           </intent-filter>
+
+           <intent-filter><action android:name="android.intent.action.VIEW"></action>
+               <category android:name="android.intent.category.DEFAULT"></category>
+               <data android:scheme="mapswithme"></data>
+           </intent-filter>
+-->
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
