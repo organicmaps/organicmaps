@@ -39,6 +39,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+
+             <!-- standart "geo" scheme -->
+            <intent-filter><action android:name="android.intent.action.VIEW"></action>
+                <category android:name="android.intent.category.DEFAULT"></category>
+                <data android:scheme="geo"></data>
+           </intent-filter>
+
+           <!-- internal "ge0" scheme for sms on so on -->
+           <intent-filter><action android:name="android.intent.action.VIEW"></action>
+              <category android:name="android.intent.category.DEFAULT"></category>
+              <data android:scheme="ge0"></data>
+           </intent-filter>
+
+           <!-- internal "mapswithme" scheme for human-readable links -->
+           <intent-filter><action android:name="android.intent.action.VIEW"></action>
+               <category android:name="android.intent.category.DEFAULT"></category>
+               <data android:scheme="mapswithme"></data>
+           </intent-filter>
+
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />

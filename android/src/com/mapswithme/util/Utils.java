@@ -4,9 +4,11 @@ import java.io.Closeable;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.os.Build;
 
 public class Utils
@@ -95,4 +97,14 @@ public class Utils
     edit.setText(s);
     edit.setSelection(s.length());
   }
+
+  public static void toastShortcut(Context context, String message) {
+    Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+  }
+
+  public static void toastShortcut(Context context, int messageResId) {
+    final String message = context.getString(messageResId);
+    toastShortcut(context, message);
+  }
+
 }
