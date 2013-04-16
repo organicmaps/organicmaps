@@ -254,4 +254,10 @@ namespace m2
 
   typedef AnyRect<double> AnyRectD;
   typedef AnyRect<float> AnyRectF;
+
+  template <typename T>
+  inline string DebugPrint(m2::AnyRect<T> const & r)
+  {
+    return DebugPrint(r.GetGlobalRect());
+  }
 }

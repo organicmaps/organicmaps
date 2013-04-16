@@ -1415,11 +1415,11 @@ bool Framework::SetViewportByURL(string const & url)
 
   if (info.IsValid())
   {
-    ShowRectExVisibleScale(info.GetViewport());
     Bookmark bm(info.GetMercatorPoint(), m_stringsBundle.GetString("dropped_pin"), DEFAULT_BOOKMARK_TYPE);
     m_bmManager.AdditionalPoiLayerClear();
     m_bmManager.AdditionalPoiLayerAddPoi(bm);
-    Invalidate();
+    // Invalidate is called inside this function
+    ShowRectExVisibleScale(info.GetViewport());
     return true;
   }
 
