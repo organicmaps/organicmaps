@@ -88,6 +88,8 @@ namespace qt
   void DrawWidget::PrepareShutdown()
   {
     KillPressTask();
+    ASSERT(isValid(), ());
+    makeCurrent();
     m_framework->PrepareToShutdown();
     m_videoTimer.reset();
   }
