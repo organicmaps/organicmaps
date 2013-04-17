@@ -418,3 +418,24 @@
 
 /* No, thanks */
 "no_thanks" = "No, grazie";
+
+/* Share one specific bookmark using SMS, %s contains ge0:// link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
+"bookmark_share_sms" = "I pinned %s\nMake sure you have installed http://mapswith.me/app";
+
+/* Share my position using SMS, %s contains ge0:// link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
+"my_position_share_sms" = "I'm here %s\nMake sure you have installed http://mapswith.me/app";
+
+/* Share one specific bookmark using EMail, %1$s is bookmark's name, %2$s is ge0:// link */
+"bookmark_share_email" = "Hi,\n\nI pinned %1$s at MapsWithMe, offline maps of the World. Click %2$s to see the place on the map.\n\nBefore opening, please make sure you have MapsWithMe app installed. If not, get it here: http://mapswith.me/app\n\nThanks!";
+
+/* Share my position using EMail, %s is ge0:// link WITHOUT NAME */
+"my_position_share_email" = "Hi,\n\nClick %s to see my position on the map. Before opening, please make sure you have MapsWithMe offline maps installed. If not, get it here: http://mapswith.me/app\n\nThanks!";
+
+/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+"share" = "Share with friends";
+
+/* Share by Message button text (including SMS) */
+"message" = "Message";
+
+/* Share by email button text (including SMS) */
+"email" = "E-Mail";
