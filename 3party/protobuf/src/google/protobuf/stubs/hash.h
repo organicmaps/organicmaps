@@ -37,7 +37,7 @@
 
 #include <string.h>
 #include <google/protobuf/stubs/common.h>
-#include "config.h"
+#include "../config.h"
 
 #if defined(HAVE_HASH_MAP) && defined(HAVE_HASH_SET)
 #include HASH_MAP_H
