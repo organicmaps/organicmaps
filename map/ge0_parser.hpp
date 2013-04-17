@@ -2,6 +2,8 @@
 #include "../base/base.hpp"
 #include "../std/string.hpp"
 
+static const int NAME_POSITON_IN_URL = 17;
+
 namespace url_api
 {
 

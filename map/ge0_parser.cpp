@@ -4,7 +4,6 @@
 #include "../coding/url_encode.hpp"
 #include "../base/math.hpp"
 
-static const int NAME_POSITON_IN_URL = 17;
 static const int ZOOM_POSITION = 6;
 
 url_api::Ge0Parser::Ge0Parser()
