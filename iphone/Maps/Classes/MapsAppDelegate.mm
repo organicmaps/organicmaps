@@ -150,9 +150,19 @@ void InitLocalizedStrings()
 {
   NSString * scheme = url.scheme;
   // geo scheme support, see http://tools.ietf.org/html/rfc5870
-  if ([scheme isEqualToString:@"geo"])
+  if ([scheme isEqualToString:@"geo"] || [scheme isEqualToString:@"ge0"])
   {
-    GetFramework().SetViewportByURL([[url.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] UTF8String]);
+    if (GetFramework().SetViewportByURL([[url.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] UTF8String]))
+    {
+      //TODO always show map after parsing url
+      UIViewController * currentVC = m_navController.visibleViewController;
+      if ([currentVC isMemberOfClass:NSClassFromString(@"MapViewController")])
+      {
+        Framework & f = GetFramework();
+        const size_t catIndex = f.LastEditedCategory();
+        [m_mapViewController showBallonWithCategoryIndex:catIndex andBookmarkIndex:(f.GetBmCategory(catIndex)->GetBookmarksCount() - 1)];
+      }
+    }
     return YES;
   }
   if ([scheme isEqualToString:@"file"])
