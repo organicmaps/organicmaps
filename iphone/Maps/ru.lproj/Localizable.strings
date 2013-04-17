@@ -419,17 +419,17 @@
 /* No, thanks */
 "no_thanks" = "Нет, спасибо";
 
-/* Share one specific bookmark using SMS, %s contains ge0:// link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "%s Чтобы открыть, скачай http://mapswith.me/app";
+/* Share one specific bookmark using SMS, %@ contains ge0:// link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
+"bookmark_share_sms" = "%@ Чтобы открыть, скачай http://mapswith.me/app";
 
-/* Share my position using SMS, %s contains ge0:// link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Я тут %s Чтобы открыть, скачай http://mapswith.me/app";
+/* Share my position using SMS, %@ contains ge0:// link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
+"my_position_share_sms" = "Я тут %@ Чтобы открыть, скачай http://mapswith.me/app";
 
-/* Share one specific bookmark using EMail, %1$s is bookmark's name, %2$s is ge0:// link */
-"bookmark_share_email" = "Привет!\n\nОткрой ссылку %2$s, для того чтобы посмотреть мою метку %1$s на карте MapsWithMe.\nЕсли у тебя еще нет приложения MapsWithMe на твоем устройстве, скачай его предварительно по ссылке http://mapswith.me/app\n\nСпасибо!";
+/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link */
+"bookmark_share_email" = "Привет!\n\nОткрой ссылку %2$@, для того чтобы посмотреть мою метку %1$@ на карте MapsWithMe.\nЕсли у тебя еще нет приложения MapsWithMe на твоем устройстве, скачай его предварительно по ссылке http://mapswith.me/app\n\nСпасибо!";
 
-/* Share my position using EMail, %s is ge0:// link WITHOUT NAME */
-"my_position_share_email" = "Привет!\n\nЯ сейчас здесь: %s - нажми на ссылку, чтобы увидеть это место на карте MapsWithMe.\nЕсли на твоем устройстве еще нет приложения MapsWithMe, предварительно установи его отсюда: http://mapswith.me/app\n\nСпасибо!";
+/* Share my position using EMail, %@ is ge0:// link WITHOUT NAME */
+"my_position_share_email" = "Привет!\n\nЯ сейчас здесь: %@ - нажми на ссылку, чтобы увидеть это место на карте MapsWithMe.\nЕсли на твоем устройстве еще нет приложения MapsWithMe, предварительно установи его отсюда: http://mapswith.me/app\n\nСпасибо!";
 
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Отправить другу";

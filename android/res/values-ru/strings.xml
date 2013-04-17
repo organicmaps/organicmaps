@@ -265,13 +265,13 @@
 	<string name="appStore_message">Надеемся, вам нравится пользоваться MapsWithMe! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Нет, спасибо</string>
-	<!-- Share one specific bookmark using SMS, %s contains ge0:// link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<!-- Share one specific bookmark using SMS, %@ contains ge0:// link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="bookmark_share_sms">%s Чтобы открыть, скачай http://mapswith.me/app</string>
-	<!-- Share my position using SMS, %s contains ge0:// link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<!-- Share my position using SMS, %@ contains ge0:// link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">Я тут %s Чтобы открыть, скачай http://mapswith.me/app</string>
-	<!-- Share one specific bookmark using EMail, %1$s is bookmark's name, %2$s is ge0:// link -->
+	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link -->
 	<string name="bookmark_share_email">Привет!\n\nОткрой ссылку %2$s, для того чтобы посмотреть мою метку %1$s на карте MapsWithMe.\nЕсли у тебя еще нет приложения MapsWithMe на твоем устройстве, скачай его предварительно по ссылке http://mapswith.me/app\n\nСпасибо!</string>
-	<!-- Share my position using EMail, %s is ge0:// link WITHOUT NAME -->
+	<!-- Share my position using EMail, %@ is ge0:// link WITHOUT NAME -->
 	<string name="my_position_share_email">Привет!\n\nЯ сейчас здесь: %s - нажми на ссылку, чтобы увидеть это место на карте MapsWithMe.\nЕсли на твоем устройстве еще нет приложения MapsWithMe, предварительно установи его отсюда: http://mapswith.me/app\n\nСпасибо!</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Отправить другу</string>

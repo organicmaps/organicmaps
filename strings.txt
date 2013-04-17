@@ -1836,25 +1836,25 @@
     ru = Нет, спасибо
     uk = Ні, дякую
   [bookmark_share_sms]
-    en = I pinned %s\nMake sure you have installed http://mapswith.me/app
+    en = I pinned %@\nMake sure you have installed http://mapswith.me/app
     tags = ios, android
-    comment = Share one specific bookmark using SMS, %s contains ge0:// link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
-    ru = %s Чтобы открыть, скачай http://mapswith.me/app
+    comment = Share one specific bookmark using SMS, %@ contains ge0:// link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
+    ru = %@ Чтобы открыть, скачай http://mapswith.me/app
   [my_position_share_sms]
-    en = I'm here %s\nMake sure you have installed http://mapswith.me/app
+    en = I'm here %@\nMake sure you have installed http://mapswith.me/app
     tags = ios, android
-    comment = Share my position using SMS, %s contains ge0:// link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
-    ru = Я тут %s Чтобы открыть, скачай http://mapswith.me/app
+    comment = Share my position using SMS, %@ contains ge0:// link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
+    ru = Я тут %@ Чтобы открыть, скачай http://mapswith.me/app
   [bookmark_share_email]
-    en = Hi,\n\nI pinned %1$s at MapsWithMe, offline maps of the World. Click %2$s to see the place on the map.\n\nBefore opening, please make sure you have MapsWithMe app installed. If not, get it here: http://mapswith.me/app\n\nThanks!
+    en = Hi,\n\nI pinned %1$@ at MapsWithMe, offline maps of the World. Click %2$@ to see the place on the map.\n\nBefore opening, please make sure you have MapsWithMe app installed. If not, get it here: http://mapswith.me/app\n\nThanks!
     tags = ios, android
-    comment = Share one specific bookmark using EMail, %1$s is bookmark's name, %2$s is ge0:// link
-    ru = Привет!\n\nОткрой ссылку %2$s, для того чтобы посмотреть мою метку %1$s на карте MapsWithMe.\nЕсли у тебя еще нет приложения MapsWithMe на твоем устройстве, скачай его предварительно по ссылке http://mapswith.me/app\n\nСпасибо!
+    comment = Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link
+    ru = Привет!\n\nОткрой ссылку %2$@, для того чтобы посмотреть мою метку %1$@ на карте MapsWithMe.\nЕсли у тебя еще нет приложения MapsWithMe на твоем устройстве, скачай его предварительно по ссылке http://mapswith.me/app\n\nСпасибо!
   [my_position_share_email]
-    en = Hi,\n\nClick %s to see my position on the map. Before opening, please make sure you have MapsWithMe offline maps installed. If not, get it here: http://mapswith.me/app\n\nThanks!
+    en = Hi,\n\nClick %@ to see my position on the map. Before opening, please make sure you have MapsWithMe offline maps installed. If not, get it here: http://mapswith.me/app\n\nThanks!
     tags = ios, android
-    comment = Share my position using EMail, %s is ge0:// link WITHOUT NAME
-    ru = Привет!\n\nЯ сейчас здесь: %s - нажми на ссылку, чтобы увидеть это место на карте MapsWithMe.\nЕсли на твоем устройстве еще нет приложения MapsWithMe, предварительно установи его отсюда: http://mapswith.me/app\n\nСпасибо!
+    comment = Share my position using EMail, %@ is ge0:// link WITHOUT NAME
+    ru = Привет!\n\nЯ сейчас здесь: %@ - нажми на ссылку, чтобы увидеть это место на карте MapsWithMe.\nЕсли на твоем устройстве еще нет приложения MapsWithMe, предварительно установи его отсюда: http://mapswith.me/app\n\nСпасибо!
   [share]
     en = Share with friends
     tags = ios, android
