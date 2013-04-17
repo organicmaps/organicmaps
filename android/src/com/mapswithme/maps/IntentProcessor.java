@@ -2,7 +2,8 @@ package com.mapswithme.maps;
 
 import android.content.Intent;
 
-public interface IntentProcessor {
+public interface IntentProcessor
+{
 
   public boolean isIntentSupported(Intent intent);
 

@@ -52,7 +52,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   private LocationService mLocationService = null;
   private Index mCountryIndex = null;
 
-  private IntentProcessor[] mIntentProcessors = {new GeoIntentProcessor(),
+  private IntentProcessor[] mIntentProcessors = { new GeoIntentProcessor(),
                                                  /* uncomment code below when add
                                                   * appropriate schemes support
                                                   * */
@@ -352,9 +352,9 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
       return;
 
     final boolean dispatched = dispatchIntent();
-    if (!dispatched) {
+    if (!dispatched)
       parseIntentForKMZFile();
-    }
+
 
     setContentView(R.layout.download_resources);
 
@@ -373,12 +373,15 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     }
   }
 
-  private boolean dispatchIntent() {
-
-    if (getIntent() != null) {
+  private boolean dispatchIntent() 
+  {
+    if (getIntent() != null)
+    {
       final Intent intent = getIntent();
-      for (IntentProcessor ip : mIntentProcessors) {
-        if (ip.isIntentSupported(intent)) {
+      for (IntentProcessor ip : mIntentProcessors)
+      {
+        if (ip.isIntentSupported(intent))
+        {
           ip.processIntent(intent);
           return true;
         }
@@ -601,45 +604,56 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   {
   }
 
-  private class GeoIntentProcessor implements IntentProcessor {
+  private class GeoIntentProcessor implements IntentProcessor
+  {
 
     @Override
-    public boolean isIntentSupported(Intent intent) {
+    public boolean isIntentSupported(Intent intent)
+    {
       return "geo".equals(intent.getScheme());
     }
 
     @Override
-    public boolean processIntent(Intent intent) {
+    public boolean processIntent(Intent intent)
+    {
       final Uri data = intent.getData();
       return data != null ? setViewPortByUrl(data.toString()) : false;
     }
+
   }
 
   @SuppressWarnings("unused")
-  private class Ge0IntentProcessor implements IntentProcessor {
+  private class Ge0IntentProcessor implements IntentProcessor
+  {
 
     @Override
-    public boolean isIntentSupported(Intent intent) {
+    public boolean isIntentSupported(Intent intent)
+    {
       return "ge0".equals(intent.getScheme());
     }
 
     @Override
-    public boolean processIntent(Intent intent) {
+    public boolean processIntent(Intent intent)
+    {
       // TODO add ge0 parsing
       return false;
     }
+
   }
 
   @SuppressWarnings("unused")
-  private class MapsWithMeIntentProcessor implements IntentProcessor {
+  private class MapsWithMeIntentProcessor implements IntentProcessor
+  {
 
     @Override
-    public boolean isIntentSupported(Intent intent) {
+    public boolean isIntentSupported(Intent intent)
+    {
       return "mapswithme".equals(intent.getScheme());
     }
 
     @Override
-    public boolean processIntent(Intent intent) {
+    public boolean processIntent(Intent intent)
+    {
       // TODO add mapswithme parsing
       return false;
     }

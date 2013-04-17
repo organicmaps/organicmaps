@@ -98,11 +98,13 @@ public class Utils
     edit.setSelection(s.length());
   }
 
-  public static void toastShortcut(Context context, String message) {
+  public static void toastShortcut(Context context, String message)
+  {
     Toast.makeText(context, message, Toast.LENGTH_LONG).show();
   }
 
-  public static void toastShortcut(Context context, int messageResId) {
+  public static void toastShortcut(Context context, int messageResId)
+  {
     final String message = context.getString(messageResId);
     toastShortcut(context, message);
   }
