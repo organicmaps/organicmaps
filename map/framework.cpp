@@ -1564,10 +1564,13 @@ StringsBundle const & Framework::GetStringsBundle()
 
 string Framework::CodeGe0url(double const lat, double const lon, double const zoomLevel, string const & name)
 {
-  size_t const resultSize = name.empty() ? NAME_POSITON_IN_URL - 1: NAME_POSITON_IN_URL + name.size();
+  size_t const resultSize = MapsWithMe_GetMaxBufferSize(name.size());
+
   string res(resultSize, 0);
   int const len = MapsWithMe_GenShortShowMapUrl(lat, lon, zoomLevel, name.c_str(), &res[0], res.size());
+
   ASSERT_LESS_OR_EQUAL(len, res.size(), ());
   res.resize(len);
+
   return res;
 }

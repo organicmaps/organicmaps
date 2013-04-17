@@ -164,6 +164,11 @@ void MapsWithMe_AppendString(char * buf, int bufSize, int * bytesAppended, char 
   *bytesAppended += size;
 }
 
+int MapsWithMe_GetMaxBufferSize(int nameSize)
+{
+  return ((nameSize == 0) ? 17 : 17 + 3 * nameSize + 1);
+}
+
 int MapsWithMe_GenShortShowMapUrl(double lat, double lon, double zoom, char const * name, char * buf, int bufSize)
 {
   // URL format:

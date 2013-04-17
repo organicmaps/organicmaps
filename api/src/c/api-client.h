@@ -38,6 +38,10 @@ typedef struct
 char * MapsWithMe_GenShowMapUrl(MapsWithMe_ShowMapRequest const * request);
 */
 
+// Helper function to calculate maximum buffer size for
+// MapsWithMe_GenShortShowMapUrl (with null-terminator).
+int MapsWithMe_GetMaxBufferSize(int nameSize);
+
 // Helper method to generate short url.
 // Returns the number of bytes required to fit the whole URL or an error_code < 0 on error.
 int MapsWithMe_GenShortShowMapUrl(double lat, double lon, double zoomLevel, char const * name, char * buf, int bufSize);
