@@ -63,7 +63,7 @@
 
 // By VNG: In defines below, in looks like we have a _DLL (wtf???).
 // But now we are linking like static library, so we should redefine GLAPI.
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined(__MINGW32__)
 #undef GLAPI
 #define GLAPI extern
 #endif

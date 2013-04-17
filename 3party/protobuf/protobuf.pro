@@ -68,7 +68,7 @@ SOURCES += \
 
 }
 
-linux*|android* {
+linux*|android*|win32-g++ {
   SOURCES += src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc
 }
 

@@ -6,6 +6,8 @@
 
 #ifndef OMIM_OS_WINDOWS
   #include <signal.h>
+#else
+  #include "../std/windows.hpp"
 #endif
 
 

@@ -17,7 +17,7 @@ Timer::Timer()
 
 double Timer::LocalTime()
 {
-#ifdef OMIM_OS_WINDOWS
+#ifdef OMIM_OS_WINDOWS_NATIVE
   FILETIME ft;
   GetSystemTimeAsFileTime(&ft);
   uint64_t val = ft.dwHighDateTime;
