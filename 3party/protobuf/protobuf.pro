@@ -72,6 +72,10 @@ linux*|android*|win32-g++ {
   SOURCES += src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc
 }
 
+win32-msvc* {
+  SOURCES += src/google/protobuf/stubs/atomicops_internals_x86_msvc.cc
+}
+
 # Headers are always included for all configurations
 HEADERS += \
   config.h \
