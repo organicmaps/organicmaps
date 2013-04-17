@@ -6,6 +6,7 @@
 #include "geourl_process.hpp"
 #include "measurement_utils.hpp"
 #include "dialog_settings.hpp"
+#include "ge0_parser.hpp"
 
 #include "../defines.hpp"
 
@@ -39,6 +40,9 @@
 #include "../std/algorithm.hpp"
 #include "../std/target_os.hpp"
 #include "../std/vector.hpp"
+
+#include "../../api/internal/c/api-client-internals.h"
+#include "../../api/src/c/api-client.h"
 
 
 /// How many pixels around touch point are used to get bookmark or POI
@@ -1406,23 +1410,43 @@ anim::Controller * Framework::GetAnimController() const
   return m_animController.get();
 }
 
+void Framework::AddBookmarkAndSetViewport(Bookmark & bm, m2::RectD const & viewPort)
+{
+  size_t const catIndex = LastEditedCategory();
+  m_bmManager.AddBookmark(catIndex, bm);
+  ShowRectExVisibleScale(viewPort);
+}
+
 bool Framework::SetViewportByURL(string const & url)
 {
-  using namespace url_scheme;
-
-  Info info;
-  ParseGeoURL(url, info);
-
-  if (info.IsValid())
+  if (url.find("geo") == 0)
   {
-    Bookmark bm(info.GetMercatorPoint(), m_stringsBundle.GetString("dropped_pin"), DEFAULT_BOOKMARK_TYPE);
-    m_bmManager.AdditionalPoiLayerClear();
-    m_bmManager.AdditionalPoiLayerAddPoi(bm);
-    // Invalidate is called inside this function
-    ShowRectExVisibleScale(info.GetViewport());
-    return true;
-  }
+    using namespace url_scheme;
 
+    Info info;
+    ParseGeoURL(url, info);
+
+    if (info.IsValid())
+    {
+      //now we don't use request
+      url_api::Request request;
+      FillRequestFromBookmark(request, info.m_lat, info.m_lon, info.m_zoom, m_stringsBundle.GetString("dropped_pin"));
+      Bookmark bm(info.GetMercatorPoint(), m_stringsBundle.GetString("dropped_pin"), DEFAULT_BOOKMARK_TYPE);
+      AddBookmarkAndSetViewport(bm, info.GetViewport());
+      return true;
+    }
+  }
+  else if (url.find("ge0") == 0)
+  {
+    url_api::Ge0Parser parser;
+    if (parser.Parse(url, request))
+    {
+      m2::PointD const center(MercatorBounds::LonToX(request.m_viewportLon), MercatorBounds::LatToY(request.m_viewportLat));
+      Bookmark bm(center, request.m_points[0].m_name, DEFAULT_BOOKMARK_TYPE);
+      AddBookmarkAndSetViewport(bm, scales::GetRectForLevel(request.m_viewportZoomLevel, center, 1));
+      return true;
+    }
+  }
   return false;
 }
 
@@ -1537,4 +1561,14 @@ shared_ptr<location::State> const & Framework::GetLocationState() const
 StringsBundle const & Framework::GetStringsBundle()
 {
   return m_stringsBundle;
+}
+
+string Framework::CodeGe0url(double const lat, double const lon, double const zoomLevel, string const & name)
+{
+  size_t const resultSize = name.empty() ? NAME_POSITON_IN_URL - 1: NAME_POSITON_IN_URL + name.size();
+  string res(resultSize, 0);
+  int const len = MapsWithMe_GenShortShowMapUrl(lat, lon, zoomLevel, name.c_str(), &res[0], res.size());
+  ASSERT_LESS_OR_EQUAL(len, res.size(), ());
+  res.resize(len);
+  return res;
 }

@@ -10,6 +10,7 @@
 #include "feature_vec_model.hpp"
 #include "bookmark.hpp"
 #include "bookmark_manager.hpp"
+#include "url_api.hpp"
 
 #include "../defines.hpp"
 
@@ -255,6 +256,7 @@ public:
 
 private:
   search::Engine * GetSearchEngine() const;
+  void AddBookmarkAndSetViewport(Bookmark & bm, m2::RectD const & viewPort);
 
 public:
   m2::RectD GetCurrentViewport() const;
@@ -444,4 +446,7 @@ public:
   bool IsCountryLoaded(m2::PointD const & pt) const;
 
   shared_ptr<location::State> const & GetLocationState() const;
+
+public:
+  string CodeGe0url(double const lat, double const lon, double const zoomLevel, string const & name);
 };
