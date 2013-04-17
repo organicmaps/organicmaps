@@ -1428,9 +1428,6 @@ bool Framework::SetViewportByURL(string const & url)
 
     if (info.IsValid())
     {
-      //now we don't use request
-      url_api::Request request;
-      FillRequestFromBookmark(request, info.m_lat, info.m_lon, info.m_zoom, m_stringsBundle.GetString("dropped_pin"));
       Bookmark bm(info.GetMercatorPoint(), m_stringsBundle.GetString("dropped_pin"), DEFAULT_BOOKMARK_TYPE);
       AddBookmarkAndSetViewport(bm, info.GetViewport());
       return true;
@@ -1439,6 +1436,8 @@ bool Framework::SetViewportByURL(string const & url)
   else if (url.find("ge0") == 0)
   {
     url_api::Ge0Parser parser;
+    //now we don't use request
+    url_api::Request request;
     if (parser.Parse(url, request))
     {
       m2::PointD const center(MercatorBounds::LonToX(request.m_viewportLon), MercatorBounds::LatToY(request.m_viewportLat));
