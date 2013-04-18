@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Window;
 import android.widget.EditText;
@@ -109,4 +110,13 @@ public class Utils
     toastShortcut(context, message);
   }
 
+  public static boolean isIntentSupported(Context context, Intent intent)
+  {
+    return context.getPackageManager().resolveActivity(intent, 0) != null;
+  }
+
+  public static boolean apiEqualOrGreaterThan(int api)
+  {
+    return Build.VERSION.SDK_INT >= api;
+  }
 }
