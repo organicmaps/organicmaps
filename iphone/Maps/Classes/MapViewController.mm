@@ -5,6 +5,7 @@
 #import "BalloonView.h"
 #import "BookmarksRootVC.h"
 #import "PlacePageVC.h"
+#import "GetActiveConnectionType.h"
 
 #import "../Settings/SettingsManager.h"
 
@@ -656,10 +657,13 @@ NSInteger compareAddress(id l, id r, void * context)
   if (self.isViewLoaded && self.view.window)
     [self Invalidate]; // only invalidate when map is displayed on the screen
 
-  if (dlg_settings::ShouldShow(dlg_settings::AppStore))
-    [self showAppStoreRatingMenu];
-  else if (dlg_settings::ShouldShow(dlg_settings::FacebookDlg))
-    [self showFacebookRatingMenu];
+  if (GetActiveConnectionType() != ENotConnected)
+  {
+    if (dlg_settings::ShouldShow(dlg_settings::AppStore))
+      [self showAppStoreRatingMenu];
+    else if (dlg_settings::ShouldShow(dlg_settings::FacebookDlg))
+      [self showFacebookRatingMenu];
+  }
 }
 
 - (void) viewWillAppear:(BOOL)animated
