@@ -3,6 +3,7 @@
 #include "../api/internal/c/api-client-internals.h"
 #include "../coding/url_encode.hpp"
 #include "../base/math.hpp"
+#include "../indexer/mercator.hpp"
 
 static const int ZOOM_POSITION = 6;
 
@@ -39,7 +40,10 @@ bool url_api::Ge0Parser::Parse(string const & url, Request & request)
   request.m_points.push_back(url_api::Point());
   url_api::Point & newPt = request.m_points.back();
 
-  DecodeLatLon(url.substr(7,9), newPt.m_lat, newPt.m_lon);
+  DecodeLatLon(url.substr(7, 9), newPt.m_lat, newPt.m_lon);
+
+  ASSERT(MercatorBounds::ValidLon(newPt.m_lon), (newPt.m_lon));
+  ASSERT(MercatorBounds::ValidLat(newPt.m_lat), (newPt.m_lat));
 
   request.m_viewportLat = newPt.m_lat;
   request.m_viewportLon = newPt.m_lon;

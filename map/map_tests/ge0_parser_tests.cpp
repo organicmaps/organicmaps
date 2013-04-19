@@ -163,6 +163,9 @@ UNIT_TEST(LatLonDecoding)
   TestSuccess("ge0://B6qqqqqqqq/Name", 90, 0, 4.25, "Name");
   TestSuccess("ge0://BVVVVVVVVV/Name", -90, 179.999999, 4.25, "Name");
   TestSuccess("ge0://BP________/Name", -0.000001, -0.000001, 4.25, "Name");
+  TestSuccess("ge0://Bzqqqqqqqq/Name", 45, 45, 4.25, "Name");
+  TestSuccess("ge0://BaF6F6F6F6/Name", -20, 20, 4.25, "Name");
+  TestSuccess("ge0://B4srhdHVVt/Name", 64.5234, 12.1234, 4.25, "Name");
   TestSuccess("ge0://B_________/Name", 90, 179.999999, 4.25, "Name");
   TestSuccess("ge0://Bqqqqqqqqq/Name", 90, -180, 4.25, "Name");
   TestSuccess("ge0://BAAAAAAAAA/Name", -90, -180, 4.25, "Name");
