@@ -68,7 +68,10 @@ namespace scales
     ASSERT_GREATER ( xL, 0.0, () );
     ASSERT_GREATER ( yL, 0.0, () );
 
-    return m2::RectD(center.x - xL, center.y - yL, center.x + xL, center.y + yL);
+    return m2::RectD(MercatorBounds::ClampX(center.x - xL),
+                     MercatorBounds::ClampY(center.y - yL),
+                     MercatorBounds::ClampX(center.x + xL),
+                     MercatorBounds::ClampY(center.y + yL));
   }
 
   namespace

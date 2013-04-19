@@ -50,7 +50,7 @@ struct MercatorBounds
   {
     lat = my::clamp(lat, -86.0, 86.0);
     double const res = my::RadToDeg(log(tan(my::DegToRad(45.0 + lat * 0.5))));
-    return my::clamp(res, -180.0, 180.0);
+    return ClampY(res);
   }
 
   inline static double XToLon(double x)
