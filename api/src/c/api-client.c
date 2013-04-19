@@ -85,14 +85,6 @@ void MapsWithMe_TransformName(char * s)
   }
 }
 
-char * EncodeByte(char * out, unsigned char c)
-{
-  *(out++) = '%';
-  *(out++) = "0123456789ABCDEF"[c >> 4];
-  *(out++) = "0123456789ABCDEF"[c & 15];
-  return out;
-}
-
 // URL Encode string s.
 // Allocates memory that should be freed.
 // Returns the lenghts of the resulting string in bytes including terminating 0.
@@ -105,50 +97,49 @@ int MapsWithMe_UrlEncodeString(char const * s, int size, char ** res)
   int i;
   for (i = 0; i < size; ++i)
   {
-    unsigned char const c = (unsigned char)(s[i]);
-    if (c >= 0x80)
-      out = EncodeByte(out, c);
-    else
-      switch (c)
-      {
-      case 0x00: case 0x01: case 0x02: case 0x03: case 0x04: case 0x05: case 0x06: case 0x07:
-      case 0x08: case 0x09: case 0x0A: case 0x0B: case 0x0C: case 0x0D: case 0x0E: case 0x0F:
-      case 0x10: case 0x11: case 0x12: case 0x13: case 0x14: case 0x15: case 0x16: case 0x17:
-      case 0x18: case 0x19: case 0x1A: case 0x1B: case 0x1C: case 0x1D: case 0x1E: case 0x1F:
-      case 0x7F:
-      case ' ':
-      case '<':
-      case '>':
-      case '#':
-      case '%':
-      case '"':
-      case '!':
-      case '*':
-      case '\'':
-      case '(':
-      case ')':
-      case ';':
-      case ':':
-      case '@':
-      case '&':
-      case '=':
-      case '+':
-      case '$':
-      case ',':
-      case '/':
-      case '?':
-      case '[':
-      case ']':
-      case '{':
-      case '}':
-      case '|':
-      case '^':
-      case '`':
-        out = EncodeByte(out, c);
-        break;
-      default:
-        *(out++) = s[i];
-      }
+    unsigned char c = (unsigned char)(s[i]);
+    switch (c)
+    {
+    case 0x00: case 0x01: case 0x02: case 0x03: case 0x04: case 0x05: case 0x06: case 0x07:
+    case 0x08: case 0x09: case 0x0A: case 0x0B: case 0x0C: case 0x0D: case 0x0E: case 0x0F:
+    case 0x10: case 0x11: case 0x12: case 0x13: case 0x14: case 0x15: case 0x16: case 0x17:
+    case 0x18: case 0x19: case 0x1A: case 0x1B: case 0x1C: case 0x1D: case 0x1E: case 0x1F:
+    case 0x7F:
+    case ' ':
+    case '<':
+    case '>':
+    case '#':
+    case '%':
+    case '"':
+    case '!':
+    case '*':
+    case '\'':
+    case '(':
+    case ')':
+    case ';':
+    case ':':
+    case '@':
+    case '&':
+    case '=':
+    case '+':
+    case '$':
+    case ',':
+    case '/':
+    case '?':
+    case '[':
+    case ']':
+    case '{':
+    case '}':
+    case '|':
+    case '^':
+    case '`':
+      *(out++) = '%';
+      *(out++) = "0123456789ABCDEF"[c >> 4];
+      *(out++) = "0123456789ABCDEF"[c & 15];
+      break;
+    default:
+      *(out++) = s[i];
+    }
   }
   *(out++) = 0;
   return out - *res - 1;
