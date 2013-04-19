@@ -56,7 +56,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
                                                  /* uncomment code below when add
                                                   * appropriate schemes support
                                                   * */
-                                                 //new Ge0IntentProcessor()
+                                                 new Ge0IntentProcessor()
                                                  //new MapsWithMeIntentProcessor()
                                                 };
 
@@ -635,8 +635,8 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     @Override
     public boolean processIntent(Intent intent)
     {
-      // TODO add ge0 parsing
-      return false;
+      final Uri data = intent.getData();
+      return data != null ? setViewPortByUrl(data.toString()) : false;
     }
 
   }

@@ -42,16 +42,16 @@
 
              <!-- standard "geo" scheme -->
             <intent-filter><action android:name="android.intent.action.VIEW"></action>
-                <category android:name="android.intent.category.DEFAULT"></category>
-                <data android:scheme="geo"></data>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="geo"/>
            </intent-filter>
 
-<!--
+
            <intent-filter><action android:name="android.intent.action.VIEW"></action>
-              <category android:name="android.intent.category.DEFAULT"></category>
-              <data android:scheme="ge0"></data>
+              <category android:name="android.intent.category.DEFAULT"/>
+              <data android:scheme="ge0"/>
            </intent-filter>
-
+<!--
            <intent-filter><action android:name="android.intent.action.VIEW"></action>
                <category android:name="android.intent.category.DEFAULT"></category>
                <data android:scheme="mapswithme"></data>

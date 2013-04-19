@@ -48,6 +48,9 @@ public class Bookmark
   private native String getName(int c, long b);
   private native String getIcon(int c, long b);
 
+  private native double getScale(int category, long bookmark);
+  private native String encode2Ge0Url(int category, long bookmark);
+
   private native void setBookmarkParams(int c, long b, String name, String type, String descr);
   private native int changeCategory(int oldCat, int newCat, long bmk);
 
@@ -147,5 +150,10 @@ public class Bookmark
   public String getBookmarkDescription()
   {
     return getBookmarkDescription(mCategoryId, mBookmark);
+  }
+
+  public String getGe0Url()
+  {
+    return encode2Ge0Url(mCategoryId, mBookmark);
   }
 }

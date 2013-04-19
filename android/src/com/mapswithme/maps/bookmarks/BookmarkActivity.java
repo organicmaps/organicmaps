@@ -1,7 +1,5 @@
 package com.mapswithme.maps.bookmarks;
 
-import java.util.List;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -10,6 +8,8 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -20,7 +20,10 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
+import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.Utils;
+
+import java.util.List;
 
 public class BookmarkActivity extends AbstractBookmarkActivity
 {
@@ -86,6 +89,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
     colorChooser.setOnClickListener(new OnClickListener()
     {
+      @SuppressWarnings("deprecation")
       @Override
       public void onClick(View v)
       {
@@ -202,5 +206,32 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
       finish();
     }
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu)
+  {
+    MenuItem menuItem = ShareAction.ACTIONS.get(ShareAction.ID_ANY).addToMenuIfSupported(this, menu, true);
+    if (menuItem != null)
+      menuItem.setIcon(android.R.drawable.ic_menu_share);
+
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item)
+  {
+    if (ShareAction.ACTIONS.containsKey(item.getItemId()))
+    {
+      assignPinParams();
+
+      final ShareAction shareAction = ShareAction.ACTIONS.get(item.getItemId());
+      final String body = getString(R.string.bookmark_share_sms, mPin.getGe0Url());
+      final String subject = mPin.getName();
+      shareAction.shareWithText(this, body, subject);
+      return true;
+    }
+    else
+      return super.onOptionsItemSelected(item);
   }
 }

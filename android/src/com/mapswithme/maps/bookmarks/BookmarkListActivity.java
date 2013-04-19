@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,8 +21,10 @@ import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.BookmarkListAdapter.DataChangedListener;
+import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
+import com.mapswithme.util.ShareAction;
 
 
 public class BookmarkListActivity extends AbstractBookmarkListActivity
@@ -141,6 +144,14 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
         mSelectedPosition = info.position;
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.pin_sets_context_menu, menu);
+
+
+        for (ShareAction sa : ShareAction.ACTIONS.values())
+        {
+          if (sa.isSupported(this))
+            menu.add(Menu.NONE, sa.getId(), sa.getId(), getResources().getString(sa.getNameResId()));
+        }
+
         menu.setHeaderTitle(mManager.getBookmark(mEditedSet.getId(), mSelectedPosition).getName());
       }
 
@@ -167,6 +178,28 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       mManager.deleteBookmark(mEditedSet.getId(), mSelectedPosition);
       ((BookmarkListAdapter) getListView().getAdapter()).notifyDataSetChanged();
     }
+    else if (ShareAction.ACTIONS.containsKey(itemId))
+    {
+      final ShareAction shareAction = ShareAction.ACTIONS.get(itemId);
+      final Bookmark bmk = mManager.getBookmark(mEditedSet.getId(), mSelectedPosition);
+
+      String body;
+      if (shareAction instanceof ShareAction.EmailShareAction)
+      {
+        body = getString(R.string.bookmark_share_email, bmk.getName(), bmk.getGe0Url());
+      }
+      else
+      {
+        // SMS specific text for all other cases
+        // Because we don't know how much text we have,
+        // So take shorter option.
+        body = getString(R.string.bookmark_share_sms, bmk.getGe0Url());
+      }
+
+      final String subject = bmk.getName();
+      shareAction.shareWithText(this, body, subject);
+    }
+
     return super.onContextItemSelected(item);
   }
 

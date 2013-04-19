@@ -104,4 +104,18 @@ extern "C"
   {
     return jni::GetNewParcelablePointD(env, getBookmark(cat, bmk)->GetOrg());
   }
+
+  JNIEXPORT jdouble JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_getScale(
+       JNIEnv * env, jobject thiz, jint cat, jlong bmk)
+  {
+    return getBookmark(cat, bmk)->GetScale();
+  }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_encode2Ge0Url(
+       JNIEnv * env, jobject thiz, jint cat, jlong bmk)
+  {
+    return jni::ToJavaString(env, frm()->CodeGe0url(getBookmark(cat, bmk)));
+  }
 }
