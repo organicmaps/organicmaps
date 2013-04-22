@@ -116,6 +116,7 @@
           cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksVCSetVisibilityCell"] autorelease];
           cell.textLabel.text = NSLocalizedString(@"visible", nil);
           cell.accessoryView = [[[UISwitch alloc] init] autorelease];
+          cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         UISwitch * sw = (UISwitch *)cell.accessoryView;
         sw.on = cat->IsVisible();
@@ -197,7 +198,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   // Remove cell selection
-  [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:NO];
+  [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 
   Framework & f = GetFramework();
   switch (indexPath.section)

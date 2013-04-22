@@ -157,7 +157,7 @@
 {
   // Remove cell selection
   UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
-  [cell setSelected:NO animated:!tableView.editing];
+  [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 
   if (tableView.editing)
   {

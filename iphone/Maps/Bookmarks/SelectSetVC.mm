@@ -64,8 +64,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
-  [cell setSelected:NO animated:YES];
+  [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
   if (indexPath.section == 0)
   {
     AddSetVC * asVC = [[AddSetVC alloc] initWithBalloonView:m_balloon andRootNavigationController:self.navigationController];
