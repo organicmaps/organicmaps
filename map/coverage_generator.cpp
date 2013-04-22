@@ -204,7 +204,7 @@ void CoverageGenerator::CoverScreen(core::CommandsQueue::Environment const & env
   if (sequenceID < m_sequenceID)
     return;
 
-  m_currentCoverage->CopyInto(*m_workCoverage);
+  m_currentCoverage->CopyInto(*m_workCoverage, false);
 
   m_workCoverage->SetSequenceID(sequenceID);
   m_workCoverage->SetScreen(screen);
@@ -256,7 +256,7 @@ void CoverageGenerator::MergeTile(core::CommandsQueue::Environment const & env,
   }
 
   //LOG(LDEBUG, ("UVRLOG : MergeTile s=", rectInfo.m_tileScale, " x=", rectInfo.m_x, " y=", rectInfo.m_y, " SequenceID=", sequenceID, " m_SequenceID=", m_sequenceID));
-  m_currentCoverage->CopyInto(*m_workCoverage);
+  m_currentCoverage->CopyInto(*m_workCoverage, true);
   m_workCoverage->SetSequenceID(sequenceID);
   m_workCoverage->Merge(rectInfo);
 

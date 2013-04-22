@@ -43,7 +43,7 @@ ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
   m_overlay->setCouldOverlap(false);
 }
 
-void ScreenCoverage::CopyInto(ScreenCoverage & cvg)
+void ScreenCoverage::CopyInto(ScreenCoverage & cvg, bool cloneOverlay)
 {
   cvg.m_tileRenderer = m_tileRenderer;
   cvg.m_tiler = m_tiler;
@@ -71,7 +71,8 @@ void ScreenCoverage::CopyInto(ScreenCoverage & cvg)
 
   tileCache->Unlock();
 
-  cvg.m_overlay.reset(m_overlay->clone());
+  if (cloneOverlay)
+    cvg.m_overlay.reset(m_overlay->clone());
 }
 
 void ScreenCoverage::Clear()
@@ -132,11 +133,9 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
 
   if (tile != NULL && m_tiler.isLeaf(ri))
   {
-    graphics::Overlay * tileOverlayCopy = tile->m_overlay->clone();
-    m_overlay->merge(*tileOverlayCopy,
+    m_overlay->merge(*tile->m_overlay,
                       tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
 
-    delete tileOverlayCopy;
   }
 
   //else
@@ -484,10 +483,7 @@ void ScreenCoverage::MergeOverlay()
   {
     Tiler::RectInfo const & ri = (*it)->m_rectInfo;
     if (m_tiler.isLeaf(ri))
-    {
-      scoped_ptr<graphics::Overlay> copy((*it)->m_overlay->clone());
-      m_overlay->merge(*copy.get(), (*it)->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
-    }
+      m_overlay->merge(*(*it)->m_overlay, (*it)->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
   }
 }
 

@@ -94,7 +94,7 @@ public:
   /// Destructor
   ~ScreenCoverage();
   /// Copy all needed information into specified ScreenCoverage
-  void CopyInto(ScreenCoverage & cvg);
+  void CopyInto(ScreenCoverage & cvg, bool cloneOverlay);
   /// Make screen coverage empty
   void Clear();
   /// set unique ID for all actions, used to compute this coverage
