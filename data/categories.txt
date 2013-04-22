@@ -139,7 +139,7 @@ ko:슈퍼마켓|쇼핑|가게
 ja:スーパーマーケット|ショップ|お買い物|店
 cs:3supermarket|obchod
 nl:3supermarkt|winkel
-zh:超級市場|市場|購物
+zh:3超級市場|市場|購物
 
 highway-bus_stop
 en:bus stop|2bus|stop|4transport

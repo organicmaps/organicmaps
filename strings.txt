@@ -15,7 +15,7 @@
     nl = Navigeer makkelijker met MapsWithMe Pro met offline zoeken. Instelleer het nu!
     ru = Больше возможностей в полной версии MapsWithMe с оффлайн поиском. Установить ее сейчас?
     uk = Більше можливостей у повній версії MapsWithMe з оффлайн пошуком. Встановіть її зараз?
-    zh-Hant = 完整版的MapsWithMe特色在於更完善的離線搜尋，立即購買!
+    zh = 完整版的MapsWithMe特色在於更完善的離線搜尋，立即購買!
   [about]
     en = About
     comment = About button text (should be short! @todo - fix french)
@@ -28,7 +28,7 @@
     nl = Over
     ru = О программе
     uk = Про програму
-    zh-Hant = 關於
+    zh = 關於
   [back]
     en = Back
     comment = Button text (should be short)
@@ -41,7 +41,7 @@
     nl = Terug
     ru = Назад
     uk = Назад
-    zh-Hant = 返回
+    zh = 返回
   [cancel]
     en = Cancel
     comment = Button text (should be short)
@@ -54,7 +54,7 @@
     nl = Annuleer
     ru = Отмена
     uk = Скасування
-    zh-Hant = 取消
+    zh = 取消
   [cancel_download]
     en = Cancel Download
     comment = Button which interrupts country download
@@ -67,7 +67,7 @@
     nl = Annulleer Download
     ru = Отменить загрузку
     uk = Скасувати завантаження
-    zh-Hant = 取消下載
+    zh = 取消下載
   [delete]
     en = Delete
     comment = Button which deletes downloaded country
@@ -80,7 +80,7 @@
     nl = Verwijder
     ru = Удалить
     uk = Видалити
-    zh-Hant = 刪除
+    zh = 刪除
   [delete_old_maps]
     en = Delete old maps and proceed
     comment = Button in iOS Downloader, displayed only when upgrading from v1 to v2
@@ -93,7 +93,7 @@
     nl = Verwijder oude kaarten en ga door
     ru = Удалить старые карты и продолжить
     uk = Видалити старі карти та продовжити
-    zh-Hant = 刪除舊的地圖並繼續
+    zh = 刪除舊的地圖並繼續
   [do_not_ask_me_again]
     en = Do not ask me again
     comment = Button to dismiss dialog forever
@@ -106,7 +106,7 @@
     nl = Nooit meer vragen
     ru = Больше не спрашивать
     uk = Більше не питати
-    zh-Hant = 別再問我
+    zh = 別再問我
   [do_nothing]
     en = Continue
     comment = Button "do not interrupt download" if user touched actively downloading country
@@ -119,7 +119,7 @@
     nl = Doorgaan
     ru = Продолжить загрузку
     uk = Продовжити завантаження
-    zh-Hant = 繼續
+    zh = 繼續
   [download_maps]
     en = Download Maps
     cs = Stáhnout mapy
@@ -131,7 +131,7 @@
     nl = Gedownloade Kaarten
     ru = Загрузить карты
     uk = Завантажити карти
-    zh-Hant = 下載地圖
+    zh = 下載地圖
   [download_x_kb]
     en = Download %qu kB
     comment = Settings/Downloader - Download confirmation button
@@ -143,7 +143,7 @@
     ko = %qu 다운로드하기
     ru = Загрузить %qu кБ
     uk = Завантажити %qu кБ
-    zh-Hant = 下載 %qu kB
+    zh = 下載 %qu kB
   [download_x_mb]
     en = Download %qu MB
     comment = Settings/Downloader - Download confirmation button
@@ -155,7 +155,7 @@
     ko = %qu 다운로드하기
     ru = Загрузить %qu МБ
     uk = Завантажити %qu МБ
-    zh-Hant = 下載 %qu MB
+    zh = 下載 %qu MB
   [download_has_failed]
     en = Download has failed, touch again for one more try
     comment = Settings/Downloader - info for country when download fails
@@ -168,7 +168,7 @@
     nl = Download is afgebroken, klik om nog een keer te proberen
     ru = Ошибка загрузки. Нажмите, чтобы повторить попытку
     uk = Помилка завантаження. Натисніть, щоб повторити спробу
-    zh-Hant = 下載失敗，請再試一次
+    zh = 下載失敗，請再試一次
   [downloaded_x_y_touch_to_delete]
     en = Downloaded (%1$qu %2$@), touch to delete
     comment = Settings/Downloader - info for downloaded country
@@ -181,7 +181,7 @@
     nl = (%1$qu %2$@) gedownload, klik om te verwijderen
     ru = Загружено (%1$qu %2$@), нажмите для удаления
     uk = Завантажено (%1$qu %2$@), натисніть для видалення
-    zh-Hant = 已下載的 (%qu %@), 輕觸以刪除
+    zh = 已下載的 (%qu %@), 輕觸以刪除
   [downloading_x_touch_to_cancel]
     en = Downloading %qu%%, touch to cancel
     comment = Settings/Downloader - country info current download progress
@@ -194,7 +194,7 @@
     nl = %qu%% downloaden, klik om te annuleren
     ru = Загружается %qu%%, нажмите, чтобы прервать
     uk = Завантажується %qu%%, натисніть, щоб перервати
-    zh-Hant = 正在下載 %qu%%, 輕觸以取消
+    zh = 正在下載 %qu%%, 輕觸以取消
   [downloading]
     en = Downloading…
     comment = Settings/Downloader - info for country which started downloading
@@ -207,7 +207,7 @@
     nl = Downloaden…
     ru = Загружается…
     uk = Завантажується…
-    zh-Hant = 下載中...
+    zh = 下載中...
   [get_it_now]
     en = Get it now
     cs = Získat nyní
@@ -219,7 +219,7 @@
     nl = Installeren
     ru = Установить
     uk = Встановити
-    zh-Hant = 馬上取得
+    zh = 馬上取得
   [share_on_facebook_text]
     en = Are you enjoying MapsWithMe? Help your friends and family learn about the app, share it with them on Facebook!
     comment = Text to show occasionaly with a proposal to Like our program on Facebook
@@ -229,7 +229,7 @@
     nl = Deel dit programma met uw vrienden op Facebook, als ons programma u bevalt.
     ru = Нравится MapsWithMe? Помогите вашим друзьям и родным узнать о приложении, поделитесь с ними на Фейсбуке!
     uk = Якщо вам подобається наша програма, будь ласка порекомендуйте її своїм друзям на Facebook.
-    zh-Hant = 喜歡MapsWithMe嗎？幫助您的朋友和家人了解應用程式，透過Facebook分享給他們吧！
+    zh = 喜歡MapsWithMe嗎？幫助您的朋友和家人了解應用程式，透過Facebook分享給他們吧！
   [leave_review_text]
     en = If you like MapsWithMe, please support us by writing a review. If you face any issues, please let us know by filling in a special form.
     comment = Leave Review dialog title
@@ -242,7 +242,7 @@
     nl = Ondersteun MapsWithMe door een review te schrijven. Vul een speciaal formulier in als u problemen ondervindt
     ru = Если вам нравится MapsWithMe, пожалуйста, поддержите нас, написав отзыв. Если у вас возникли проблемы при использовании программы, пожалуйста, сообщите нам, заполнив специальную форму, чтобы мы могли связаться с вами для уточнения деталей.
     uk = Якщо вам подобається MapsWithMe, будь ласка, підтримайте нас, написавши відгук. Якщо у вас виникли проблеми при використанні програми, будь ласка, повідомте нам, заповнивши спеціальну форму, щоб ми могли зв'язатися з вами для уточнення деталей.
-    zh-Hant = 如果您喜歡MapsWithMe，請支持我們並幫我們寫寫評論。如果您遇到任何問題，請填寫表單讓我們知道。
+    zh = 如果您喜歡MapsWithMe，請支持我們並幫我們寫寫評論。如果您遇到任何問題，請填寫表單讓我們知道。
   [kb]
     en = kB
     comment = Settings/Downloader - size string
@@ -261,7 +261,7 @@
     nl = Kilometers
     ru = Километры
     uk = Кілометри
-    zh-Hant = 公里
+    zh = 公里
   [leave_a_review]
     en = Leave a Review
     comment = Leave Review dialog - Review button
@@ -274,7 +274,7 @@
     nl = Laat een review achter
     ru = Написать отзыв
     uk = Написати відгук
-    zh-Hant = 發表評論
+    zh = 發表評論
   [location_services_are_needed_desc]
     en = Location Services are needed to display your current position on the map.
     comment = Location purpose text description
@@ -287,7 +287,7 @@
     nl = Locatie Services zijn nodig om uw huidige locatie weer te geven op de kaart
     ru = Геолокация нужна для определения вашего местоположения на карте.
     uk = Геолокація потрібна для визначення вашого місця розташування на карті.
-    zh-Hant = 定位服務需要在地圖上顯示您的目前位置
+    zh = 定位服務需要在地圖上顯示您的目前位置
   [maps]
     en = Maps
     comment = View and button titles for accessibility
@@ -300,7 +300,7 @@
     nl = Kaart
     ru = Карта
     uk = Карта
-    zh-Hant = 地圖
+    zh = 地圖
   [marked_for_downloading]
     en = Marked for downloading, touch to cancel
     comment = Settings/Downloader - info for country in the download queue
@@ -313,7 +313,7 @@
     nl = Kaarten
     ru = Поставлено в очередь на загрузку, нажмите для отмены
     uk = Поставлено в чергу на завантаження, натисніть для скасування
-    zh-Hant = 標記為下載，輕觸以取消
+    zh = 標記為下載，輕觸以取消
   [mb]
     en = MB
     comment = Settings/Downloader - size string
@@ -330,7 +330,7 @@
     nl = Mijlen
     ru = Мили
     uk = Милі
-    zh-Hant = 英哩
+    zh = 英哩
   [my_position]
     en = My Position
     comment = View and button titles for accessibility
@@ -343,7 +343,7 @@
     nl = Mijn Locatie
     ru = Мое местоположение
     uk = Моє місце розташування
-    zh-Hant = 我的位置
+    zh = 我的位置
   [no_internet_connection_detected]
     en = No Internet connection detected
     comment = Settings/Downloader - No internet connection dialog title
@@ -356,7 +356,7 @@
     nl = Geen Internet verbinding gedetecteerd
     ru = Отсутствует подключение к интернету
     uk = Відсутнє підключення до інтернету
-    zh-Hant = 無網路連結
+    zh = 無網路連線
   [no_wifi_ask_cellular_download]
     en = No WiFi connection detected. Would you like to use cellular data (GPRS, EDGE or 3G) to download %@?
     comment = Settings/Downloader - 3G download warning dialog title
@@ -369,10 +369,10 @@
     nl = Geen WiFi verbinding gedetecteerd. Wilt u mobiele data (GPRS, EDGE of 3G) gebruiken om %@ te downloaden?
     ru = Нет WiFi соединения. Вы хотите скачать %@ через сотового оператора (GPRS, EDGE или 3G)?
     uk = Відсутнє WiFi з'єднання. Ви бажаєте завантажити % @ через стільникового оператора (GPRS, EDGE або 3G)?
-    zh-Hant = 無現WiFi訊號!您想使用其他的網路連結方式(GPRS, EDGE or 3G)來下載嗎 %@？
+    zh = 未發現WiFi訊號!您想使用其他的網路連線方式(GPRS, EDGE 或 3G)來下載嗎 %@？
   [ok]
     en = OK
-    zh-Hant = 好的
+    zh = 好的
   [enable_location_services]
     en = Please enable Location Services
     comment = not used? Search View - Location is disabled by user warning text
@@ -385,7 +385,7 @@
     nl = Schakel Locatie Services in
     ru = Пожалуйста, включите геолокацию в настройках телефона
     uk = Будь ласка, включіть геолокацію в настройках телефону
-    zh-Hant = 請啟動位置服務
+    zh = 請啟動位置服務
   [free_disk_space_for_country_x]
     en = Please free some space on your device first in order to download %@
     comment = Settings/Downloader - No free space dialog message
@@ -398,7 +398,7 @@
     nl = Maak ruimte vrij op uw apparaat om %@ te kunnen downloaden
     ru = Нет свободного места. Пожалуйста, удалите ненужные карты или приложения, чтобы загрузить %@
     uk = Немає вільного місця. Будь ласка, видаліть непотрібні карти або програми, щоб завантажити %@
-    zh-Hant = 為了要下載%@ ，請先釋放一些空間!
+    zh = 如要下載%@ ，請先釋放一些空間!
   [remind_me_later]
     en = Remind me later
     tags = ios, android
@@ -412,7 +412,7 @@
     nl = Herinner me later
     ru = Напомнить позже
     uk = Нагадати пізніше
-    zh-Hant = 稍後提醒我
+    zh = 稍後提醒我
   [later]
     en = Later
     comment = Update maps later/Buy pro version later button text
@@ -424,7 +424,7 @@
     ko = 후
     ru = Не сейчас
     uk = Не зараз
-    zh-Hant = 稍後
+    zh = 稍後
   [never]
     en = Never
     comment = Don't show some dialog any more
@@ -434,7 +434,7 @@
     nl = Nooit
     ru = Не показывать
     uk = Не показувати
-    zh-Hant = 不再提醒
+    zh = 不再提醒
   [report_an_issue]
     en = Report an issue
     comment = Leave Review dialog - Complain button (goes to support site)
@@ -447,7 +447,7 @@
     nl = Meld een probleem
     ru = Сообщить о проблеме
     uk = Повідомити про проблему
-    zh-Hant = 回饋問題
+    zh = 回饋問題
   [search]
     en = Search
     comment = View and button titles for accessibility
@@ -460,7 +460,7 @@
     nl = Zoeken
     ru = Поиск
     uk = Пошук
-    zh-Hant = 搜尋
+    zh = 搜尋
   [search_available_in_pro_version]
     en = Search is only available in the full version of MapsWithMe. Get it right now!
     comment = Search button pressed dialog title in the free version
@@ -473,7 +473,7 @@
     nl = Zoeken is alleen beschikbaar in de Pro versie van MapsWithMe. Wilt u hem nu installeren?
     ru = Поиск доступен только в полной версии MapsWithMe. Установите ее прямо сейчас!
     uk = Пошук доступний тільки в Pro версії MapsWithMe. Встановіть її прямо зараз!
-    zh-Hant = 搜尋功能僅適用於MapsWithMe專業完整版。馬上購買！
+    zh = 搜尋功能僅適用於MapsWithMe專業完整版。馬上購買！
   [search_map]
     en = Search Map
     comment = Search box placeholder text
@@ -486,7 +486,7 @@
     nl = Zoek Kaart
     ru = Поиск на карте
     uk = Пошук на карті
-    zh-Hant = 搜尋地圖
+    zh = 搜尋地圖
   [not_enough_disk_space]
     en = There is not enough free disk space
     comment = Settings/Downloader - No free space dialog title
@@ -499,7 +499,7 @@
     nl = Er is niet genoeg vrije ruimte
     ru = Нет свободного места
     uk = Немає вільного місця
-    zh-Hant = 沒有足夠的儲存空間
+    zh = 沒有足夠的儲存空間
   [touch_to_download]
     en = Touch to download
     comment = Settings/Downloader - info for not downloaded country
@@ -512,7 +512,7 @@
     nl = Klik om te downloaden
     ru = Нажмите для загрузки
     uk = Натисніть для завантаження
-    zh-Hant = 輕觸後下載
+    zh = 輕觸後下載
   [use_cellular_data]
     en = Yes
     comment = Settings/Downloader - 3G download warning dialog confirm button
@@ -525,7 +525,7 @@
     nl = Ja
     ru = Да
     uk = Так
-    zh-Hant = 是的
+    zh = 是的
   [use_wifi_recommendation_text]
     en = We recommend using WiFi to download large maps
     comment = Settings/Downloader - No internet connection dialog message
@@ -538,7 +538,7 @@
     nl = We raden WiFi aan om grote kaarten te downloaden
     ru = Мы рекомендуем загружать большие страны через WiFi
     uk = Ми рекомендуємо завантажувати великі країни через WiFi
-    zh-Hant = 我們建議透過WiFi來下載大的地圖
+    zh = 我們建議透過WiFi連線來下載較大的地圖
   [new_map_data_format_upgrade_dialog]
     en = We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.
     comment = NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2
@@ -549,7 +549,7 @@
     nl = Wij hebben de kaart geupdate en hem verkleind. Met grote landen kunt u nu ervoor kiezen om allen de regio/staat te downloaden die u nodig heeft. Om de nieuwe kaarten te gebruiken moet u alle oude kaarten verwijderen.
     ru = Мы обновили карты и уменьшили их размер. Для больших стран вы сможете выборочно загружать нужные вам штаты или регионы. Однако, чтобы воспользоваться новыми картами, необходимо предварительно удалить старыe.
     uk = Ми оновили карти і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими картами, необхідно попередньо видалити старi.
-    zh-Hant = “我們已經更新並縮小了地圖資料，而較大的國家，您可以只選擇您所需的地區/國家來下載即可。如果您要使用新地圖，則需先刪除先前已下載的圖資後方能使用!”
+    zh = “我們已經更新並縮小了地圖資料，而較大的國家，您可以只選擇您所需的地區/國家來下載即可。如果您要使用新地圖，則需先刪除先前已下載的圖資後方能使用!”
   [which_measurement_system]
     en = Which measurement system do you prefer?
     comment = Choose measurement on first launch alert - title
@@ -562,7 +562,7 @@
     nl = Welk meetstelsel heeft u liever?
     ru = Какую систему измерения вы предпочитаете?
     uk = Якій системі вимірювання ви віддаєте перевагу?
-    zh-Hant = 您偏好哪種測量單位系統？
+    zh = 您偏好哪種測量單位系統？
   [location_is_disabled_long_text]
     en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
     comment = Location services are disabled by user alert - message
@@ -575,7 +575,7 @@
     nl = U heeft momenteel alle Locatie Services voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen
     ru = Геолокация выключена в настройках устройства. Пожалуйста, включите ее для удобного использования программы.
     uk = Геолокація вимкнена в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.
-    zh-Hant = 您目前裝置所有的定位服務或相關應用程式是處於停用的狀態，請從系統設定中選擇啟用。
+    zh = 您目前裝置所有的定位服務或相關應用程式是處於停用的狀態，請從系統設定中選擇啟用。
   [device_doesnot_support_location_services]
     en = Your device doesn't support Location Services
     comment = Location Services are not available on the device alert - message
@@ -588,7 +588,7 @@
     nl = Uw apparaat ondersteunt geen Locatie Services
     ru = Ваше устройство не поддерживает геолокацию
     uk = Ваш пристрій не підтримує геолокацію
-    zh-Hant = 你的裝置不支援定位服務唷!
+    zh = 你的裝置不支援定位服務唷!
   [zoom_to_country]
     en = Zoom to the country
     comment = View and button titles for accessibility
@@ -601,7 +601,7 @@
     nl = Zoom in richting het land
     ru = Показать страну на карте
     uk = Показати країну на карті
-    zh-Hant = 放大到全國檢視
+    zh = 放大到全國檢視
   [country_status_added_to_queue]
     en = ^is added to the downloading queue.
     comment = Message to display at the center of the screen when the country is added to the downloading queue
@@ -614,7 +614,7 @@
     nl = ^is toegevoegd aan de download wachtrij
     ru = ^добавлено в очередь загрузки.
     uk = ^добавлено в чергу завантаження.
-    zh-Hant = ^已加入到下載佇列中
+    zh = ^已加入到下載佇列中
   [country_status_downloading]
     en = Downloading^^%
     comment = Message to display at the center of the screen when the country is downloading
@@ -627,7 +627,7 @@
     nl = aan het downloaden^^%
     ru = Загружается^^%
     uk = Завантажується^^%
-    zh-Hant = 下載中^^%
+    zh = 下載中^^%
   [country_status_download]
     en = Download^
     comment = Button text for the button at the center of the screen when the country is not downloaded
@@ -639,7 +639,7 @@
     ko = 다운로드^
     ru = Загрузить^
     uk = Завантажити^
-    zh-Hant = 下載^
+    zh = 下載^
   [country_status_download_failed]
     en = Downloading^has failed
     comment = Message to display at the center of the screen when the country download has failed
@@ -652,7 +652,7 @@
     nl = Downloaden^is niet gelukt
     ru = Ошибка загрузки^
     uk = Помилка завантаження^
-    zh-Hant = 下載^失敗
+    zh = 下載^失敗
   [try_again]
     en = Try Again
     comment = Button text for the button under the country_status_download_failed message
@@ -665,10 +665,10 @@
     nl = Probeer opnieuw
     ru = Попробуйте еще раз
     uk = Спробуйте ще раз
-    zh-Hant = 再試一次
+    zh = 再試一次
   [app_name]
     en = MapsWithMe
-    zh-Hant = Maps With Me 專業版
+    zh = Maps With Me 專業版
   [about_menu_title]
     en = About MapsWithMe
     cs = O aplikaci MapsWithMe
@@ -680,7 +680,7 @@
     nl = Over MapsWithMe
     ru = О программе
     uk = Про програму
-    zh-Hant = 關於 MapsWithMe
+    zh = 關於 MapsWithMe
   [downloading_touch_to_cancel]
     en = Downloading %d%%, touch to cancel
     cs = Stahování %d%%, klepni pro zrušení
@@ -692,7 +692,7 @@
     nl = %d%% aan het downloaden, klik om te annuleren
     ru = Загружается %d%%, нажмите, чтобы прервать
     uk = Завантажується %d%%, натисніть, щоб перервати
-    zh-Hant = 正在下載 %d%%, 輕觸以取消
+    zh = 正在下載 %d%%, 輕觸以取消
   [downloaded_touch_to_delete]
     en = Downloaded (%@), touch to delete
     cs = Staženo (%@), klepni pro smazání
@@ -704,7 +704,7 @@
     nl = Downloaded (%@), klik om te verwijderen
     ru = Загружено (%@), нажмите для удаления
     uk = Завантажено (%@), натисніть для видалення
-    zh-Hant = 已下載的 (%@), 輕觸以刪除
+    zh = 已下載的 (%@), 輕觸以刪除
   [connection_settings]
     en = Connection Settings
     cs = Nastavení připojení
@@ -716,7 +716,7 @@
     nl = Verbindingsinstellingen
     ru = Настройки подключения
     uk = Налаштування підключення
-    zh-Hant = 連線設定
+    zh = 連線設定
   [download_mb_or_kb]
     en = Download %@
     cs = Stáhnout %@
@@ -727,7 +727,7 @@
     ko = %@ 다운로드하기
     ru = Загрузить %@
     uk = Завантажити %@
-    zh-Hant = 下載 %@
+    zh = 下載 %@
   [close]
     en = Close
     cs = Zavřít
@@ -739,7 +739,7 @@
     nl = Sluiten
     ru = Закрыть
     uk = Закрити
-    zh-Hant = 關閉
+    zh = 關閉
   [unsupported_phone]
     en = A hardware accelerated OpenGL is required. Unfortunately, your device is not supported.
     cs = Je vyžadována hardwarová akcelerace OpenGL. Bohužel, tvé zařízení není podporováno.
@@ -751,7 +751,7 @@
     nl = Een hardware geaccellereerde OpenGL is nodig. Jammer genoeg wordt uw apparaat niet ondersteund.
     ru = Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.
     uk = Для роботи програми необхідний апаратно прискорений OpenGL. На жаль, ваш пристрій не підтримується.
-    zh-Hant = OpenGL硬體加速是必需的。很不幸的是，您的裝置不支援此功能!
+    zh = 需要OpenGL硬體加速功能的支援。但很不幸的，您的裝置並不支援此功能!
   [download]
     en = Download
     cs = Stáhnout
@@ -762,7 +762,7 @@
     ko = 다운로드
     ru = Загрузить
     uk = Завантажити
-    zh-Hant = 下載
+    zh = 下載
   [external_storage_is_not_available]
     en = SD card/USB storage with downloaded maps is not available
     cs = SD karta/USB uložiště s uloženými mapami není k dispozici
@@ -774,7 +774,7 @@
     nl = SD kaart/USB opslag met gedownloade kaarten is niet beschikbaar
     ru = Загруженные карты недоступны
     uk = Завантажені карти недоступні
-    zh-Hant = SD 卡/USB 無法有效儲存下載的地圖
+    zh = SD 卡/USB 無法有效儲存下載的地圖
   [disconnect_usb_cable]
     en = Please disconnect USB cable or insert memory card to use MapsWithMe
     cs = Prosím odpoj USB kabel nebo vlož paměťovou kartu pro použití s MapsWithMe
@@ -786,7 +786,7 @@
     nl = Verwijder de USB kabel of plaats een geheugen kaart om MapsWithMe te gebruiken
     ru = Отключите USB кабель или вставьте SD-карту
     uk = Вимкніть USB кабель або вставте SD-карту
-    zh-Hant = 請拔除USB線或插入SD卡以使用MapsWithMe
+    zh = 請拔除USB線或插入SD卡以使用MapsWithMe
   [not_enough_free_space_on_sdcard]
     en = Please free some space on SD card/USB storage first in order to use the app
     cs = Prosím, uvolni nejprve nějaký prostor na SD kartě/USB uložišti
@@ -798,7 +798,7 @@
     nl = Maak eerst ruimte vrij op de SD kaart/USB opslag om de app te gebruiken
     ru = Недостаточно свободного места на SD карте/в памяти устройства для использования программы
     uk = Недостатньо вільного місця на SD карті / в пам'яті пристрою для використання програми
-    zh-Hant = 為了程式的使用，請先釋放一些SD卡/ USB儲存空間
+    zh = 如要繼續使用，請先釋放一些SD卡/ USB儲存空間
   [not_enough_memory]
     en = Not enough memory to launch app
     cs = Nedostatek paměti ke spuštění aplikace
@@ -810,7 +810,7 @@
     nl = Not genoeg geheugen om app te starten
     ru = Недостаточно памяти для запуска программы
     uk = Недостатньо пам'яті для запуску програми
-    zh-Hant = 沒有足夠的記憶體以啟用程式
+    zh = 沒有足夠的記憶體以啟用程式
   [free_space_for_country]
     en = Please free %1$@ on your device first in order to download %2$@
     cs = Prosím uvolni nejprve %1$@ v tvém zařízení, abys mohl/a stáhnout %2$@
@@ -822,7 +822,7 @@
     nl = Maak %1$@ aan ruimte vrij op uw apparaat om %2$@ te downloaden
     ru = Для загрузки %2$@ нужно %1$@ свободного места
     uk = Для завантаження %2$@ треба %1$@ вільного місця
-    zh-Hant = 請先釋放 %@ 統空間以下載 %@
+    zh = 請先釋放 %@ 系統空間以下載 %@
   [download_resources]
     en = Before you start let us download general world map into your device.\nIt needs %.1f%@ of data.
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -836,7 +836,6 @@
     nl = Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %.1f%@ in beslag.
     ru = Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство. \nЭто потребует %.1f%@ данных.
     uk = Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій. \nВона потребує %.1f%@ даних.
-    zh-Hant = 
   [getting_position]
     en = Getting current position
     cs = Získávání aktuální pozice
@@ -848,7 +847,7 @@
     nl = Huidige locatie opvragen
     ru = Получаем местоположение
     uk = Oтримуємо розташування
-    zh-Hant = 取得目前所在位置
+    zh = 取得目前所在位置
   [download_resources_continue]
     en = Go to Map
     cs = Přejít na mapu
@@ -860,7 +859,7 @@
     nl = Ga naar de Kaart
     ru = Перейти на карту
     uk = Перейти на карту
-    zh-Hant = 跳到地圖
+    zh = 跳到地圖
   [downloading_country_can_proceed]
     en = Downloading %@. You can now\nproceed to the map.
     cs = Stahování %@. Nyní můžeš \npoužít na mapě.
@@ -872,7 +871,7 @@
     nl = %@ aan het downloaden. U kunt doorgaan\nnaar de kaart
     ru = Пока загружается %@ \nвы можете пользоваться приложением.
     uk = Поки завантажується %@ \nви можете користуватися додатком.
-    zh-Hant = 正在下載 %@. 您現在 可以繼續使用地圖了
+    zh = 正在下載 %@. 您現在 可以繼續使用地圖了
   [download_country_ask]
     en = Download %@?
     cs = Stáhnout %@?
@@ -884,7 +883,7 @@
     nl = %@ downloaden?
     ru = Загрузить %@?
     uk = Завантажити %@?
-    zh-Hant = 下載 %@?
+    zh = 下載 %@?
   [update_country_ask]
     en = Update %@?
     cs = Aktualizovat %@?
@@ -896,7 +895,7 @@
     nl = %@ updaten?
     ru = Обновить %@?
     uk = Oновити %@?
-    zh-Hant = 更新 %@?
+    zh = 更新 %@?
   [download_location_map_proposal]
     en = You can download the map\nof your current location.
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -909,7 +908,6 @@
     nl = U kunt de kaart van\nuw huidige locatie downloaden
     ru = Вы можете загрузить карту\nвашего текущего местоположения.
     uk = Ви можете завантажити карту\nвашего поточного місця розташування.
-    zh-Hant = 
   [download_location_update_map_proposal]
     en = You can update the map\nof your current location.
     comment = REMOVE THIS_STRING AFTER REFACTORING
@@ -922,7 +920,6 @@
     nl = U kunt de kaart\nvan uw huidige locatie kunnen geupdate worden
     ru = Вы можете обновить карту\nвашего текущего местоположения.
     uk = Ви можете оновити карту\nвашого поточного місця розташування.
-    zh-Hant = 
   [download_location_map_up_to_date]
     en = The map at your current\nlocation (%@) is up-to-date
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -935,7 +932,6 @@
     nl = De kaart op uw huidige\nlocatie (%@) is up-to-date
     ru = Карта местности, в которой\nвы находитесь (%@) уже загружена.
     uk = Карта місцевості, в якій\nви знаходитеся (%@) вже завантажена.
-    zh-Hant = 
   [pause]
     en = Pause
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -946,7 +942,7 @@
     nl = Pauze
     ru = Приостановить
     uk = Призупинити
-    zh-Hant = 暫停
+    zh = 暫停
   [continue_download]
     en = Continue
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -959,7 +955,7 @@
     nl = Doorgaan
     ru = Продолжить
     uk = Продовжити
-    zh-Hant = 繼續
+    zh = 繼續
   [downloaded_touch_to_update]
     en = Downloaded (%@), touch to update or delete
     cs = Staženo (%@), klepni pro smazání/aktualizaci
@@ -971,7 +967,7 @@
     nl = (%@) gedownload, klik om te updaten of te verwijderen
     ru = Загружено (%@), нажмите для обновления или удаления
     uk = Завантажено (%@), натисніть для оновлення або видалення
-    zh-Hant = 下載 (%@), 輕觸以更新或刪除
+    zh = 下載 (%@), 輕觸以更新或刪除
   [update_mb_or_kb]
     en = Update %@
     cs = Aktualizace %@
@@ -982,7 +978,7 @@
     ko = %@업데이트
     ru = Обновить %@
     uk = Oновити %@
-    zh-Hant = 更新 %@
+    zh = 更新 %@
   [search_update_maps]
     en = You need updated maps for search function:
     tags = android
@@ -996,7 +992,7 @@
     nl = Om de zoekfunctie te kunnen gebruiken moet u de kaarten updaten
     ru = Для функции поиска необходимо обновить устаревшие карты:
     uk = Для функції пошуку необхідно оновити застарілі карти:
-    zh-Hant = 您需要更新地圖以使用搜尋功能：
+    zh = 您需要更新地圖以使用搜尋功能：
   [advise_update_maps]
     en = Update available for these maps:
     tags = android
@@ -1010,7 +1006,7 @@
     nl = Update beschikbaar voor deze kaarten:
     ru = Доступно обновление для следующих карт:
     uk = Доступно оновлення для наступних карт:
-    zh-Hant = 以下為可用的更新地圖：
+    zh = 以下為可用的更新地圖：
   [suggest_uninstall_lite]
     en = You don't need MapsWithMe Lite any more, so you can uninstall it.
     tags = android
@@ -1024,7 +1020,7 @@
     nl = U heeft MapsWithMe Lite niet meer nodig, dus u kunt de app deïnstalleren
     ru = MapsWithMe Lite больше не нужна. Рекомендуем ее удалить.
     uk = MapsWithMe Lite більше не потрібна. Рекомендуємо її видалити.
-    zh-Hant = 你再也不需要 MapsWithMe Lite了,所以您可以移除它了!
+    zh = 你再也不需要 MapsWithMe Lite了,所以您可以移除它!
   [download_country_success]
     en = %@ downloaded successfuly
     tags = android
@@ -1038,7 +1034,7 @@
     nl = %@ is succesvol gedownload
     ru = %@ успешно загружена
     uk = %@ успішно завантажена
-    zh-Hant = %@ 已成功下載
+    zh = %@ 已成功下載
   [download_country_failed]
     en = %@ download has failed
     tags = android
@@ -1052,7 +1048,7 @@
     nl = %@ download is afgebroken
     ru = Не удалось загрузить %@
     uk = Не вдалося завантажити %@
-    zh-Hant = %@ 下載失敗
+    zh = %@ 下載失敗
   [add_new_set]
     en = Add new Set
     tags = ios
@@ -1066,7 +1062,7 @@
     nl = Voeg nieuwe Groep toe
     ru = Добавить группу
     uk = Додати групу
-    zh-Hant = 新增收藏夾
+    zh = 新增收藏夾
   [add_to_bookmarks]
     en = Add to Bookmarks
     tags = ios
@@ -1080,7 +1076,7 @@
     nl = Voeg aan Bladwijzers toe
     ru = Добавить в закладки
     uk = Додати в закладки
-    zh-Hant = 加入到書籤
+    zh = 加入到書籤
   [bookmark_color]
     en = Bookmark Color
     tags = ios
@@ -1094,7 +1090,7 @@
     nl = Bladwijzer Kleur
     ru = Цвет закладки
     uk = Колір закладки
-    zh-Hant = 書籤顏色
+    zh = 書籤顏色
   [bookmark_set_name]
     en = Bookmark Set Name
     tags = ios
@@ -1108,7 +1104,7 @@
     nl = Bladwijzer Groep Naam
     ru = Название группы
     uk = Назва групи
-    zh-Hant = 收藏夾名稱
+    zh = 收藏夾名稱
   [bookmark_sets]
     en = Bookmark Sets
     tags = ios
@@ -1122,7 +1118,7 @@
     nl = Bladwijzer groepen
     ru = Группы закладок
     uk = Групи закладок
-    zh-Hant = 收藏夾
+    zh = 收藏夾
   [bookmarks]
     en = Bookmarks
     tags = ios
@@ -1136,7 +1132,7 @@
     nl = Bladwijzers
     ru = Закладки
     uk = Закладки
-    zh-Hant = 書籤
+    zh = 書籤
   [color]
     en = Color
     tags = ios
@@ -1149,7 +1145,7 @@
     nl = Kleur
     ru = Цвет
     uk = Колір
-    zh-Hant = 顏色
+    zh = 顏色
   [dropped_pin]
     en = Dropped Pin
     tags = ios
@@ -1163,7 +1159,7 @@
     nl = Geplaatste Speld
     ru = Новая метка
     uk = Нова мітка
-    zh-Hant = 設下PIN
+    zh = 設下PIN
   [my_places]
     en = My Places
     tags = ios
@@ -1177,7 +1173,7 @@
     nl = Mijn Plaatsen
     ru = Мои Закладки
     uk = Мої Закладки
-    zh-Hant = 我的地點
+    zh = 我的地點
   [name]
     en = Name
     tags = ios
@@ -1190,7 +1186,7 @@
     nl = Naam
     ru = Название
     uk = Iм'я
-    zh-Hant = 名字
+    zh = 名字
   [address]
     en = Address
     tags = ios
@@ -1204,7 +1200,7 @@
     nl = Adres
     ru = Адрес
     uk = Адреса
-    zh-Hant = 位址
+    zh = 位址
   [remove_pin]
     en = Remove Pin
     tags = ios
@@ -1218,7 +1214,7 @@
     nl = Verwijder speld
     ru = Удалить метку
     uk = Видалити мітку
-    zh-Hant = 移除PIN
+    zh = 移除PIN
   [set]
     en = Set
     tags = ios
@@ -1232,7 +1228,7 @@
     nl = Groep
     ru = Группа
     uk = Група
-    zh-Hant = 定
+    zh = 收藏夾
   [bookmarks_usage_hint]
     en = To add a new bookmark here, tap on any place of the map and hold until the pop-up appears.
     tags = ios
@@ -1246,7 +1242,7 @@
     nl = Voeg een plaats naar keuze op de kaart toe aan de bladwijzers. Om dat te doen, drukt u op een plek op de kaart en houd u het ingedrukt tot het contextmenu verschijnt.
     ru = Добавьте в избранное любое место на карте. Для этого нажмите на точку на карте и удерживайте, пока не появится контекстное меню.
     uk = Додайте будь-яке місце на карті в закладки. Щоб зробити це, натисніть місце на карті і утримувайте, поки з'явиться контекстне меню.
-    zh-Hant = 如要新增書籤 , 請按住地圖上的任何地方不放，直到有彈出視窗顯示選項。
+    zh = 如要新增書籤 , 請按住地圖上的任何地方不放，直到有彈出視窗顯示選項。
   [settings]
     en = Settings
     tags = android
@@ -1260,7 +1256,7 @@
     nl = Instellingen
     ru = Настройки
     uk = Налаштування
-    zh-Hant = 設定
+    zh = 設定
   [maps_storage]
     en = Maps storage
     tags = android
@@ -1274,7 +1270,7 @@
     nl = Kaarten bewaren
     ru = Хранилище карт
     uk = Пам'ять для карт
-    zh-Hant = 地圖儲存
+    zh = 地圖儲存
   [maps_storage_summary]
     en = Select the place where maps should be downloaded to
     tags = android
@@ -1288,7 +1284,7 @@
     nl = Selecteer de map waar u de kaarten wilt opslaan
     ru = Выберите место, где будут храниться загруженные карты
     uk = Виберіть місце, куди повинні бути завантажені карти
-    zh-Hant = 請選擇下載地圖後要放的位置
+    zh = 請選擇下載地圖後要放的位置
   [move_maps]
     en = Move maps?
     tags = android
@@ -1302,7 +1298,7 @@
     nl = Kaarten verplaatsen?
     ru = Переместить карты?
     uk = Перемістити карти?
-    zh-Hant = 移動地圖？
+    zh = 移動地圖？
   [wait_several_minutes]
     en = This can take several minutes.\nPlease wait…
     tags = android
@@ -1316,7 +1312,7 @@
     nl = Dit kan enkele minuten duren.\nEven geduld…
     ru = Это может занять несколько минут.\nПожалуйста, подождите…
     uk = Це може зайняти кілька хвилин.\nЛаска, зачекайте…
-    zh-Hant = 這可能需要幾分鐘\n請稍候...
+    zh = 這可能需要幾分鐘\n請稍候...
   [visible]
     en = Visible
     tags = ios
@@ -1328,7 +1324,7 @@
     nl = Zichtbaar
     ru = Показывать на карте
     uk = Показувати
-    zh-Hant = 看得到的
+    zh = 看得到的
   [bookmarks_in_pro_version]
     en = Bookmarks are only available in the full version of MapsWithMe. Get it right now!
     tags = ios
@@ -1342,7 +1338,7 @@
     nl = Bladwijzers zijn beschikbaar in de volledige versie van MapsWithMe. Wilt u die nu gelijk?
     ru = Закладки доступны только в полной верии MapsWithMe. Установите ее прямо сейчас!
     uk = Закладки доступні у повній версії MapsWithMe. Отримати просто зараз?
-    zh-Hant = 書籤是MapsWithMe完整版本才有的功能，馬上購買?
+    zh = 書籤是MapsWithMe完整版本才有的功能，馬上購買?
   [gps_is_disabled_long_text]
     en = GPS is disabled. Please enable it in Settings.
     tags = android
@@ -1356,7 +1352,7 @@
     nl = GPS is uitgeschakeld. Schakel ze in bij Instellingen.
     ru = GPS-позиционирование выключено. Пожалуйста, включите его в настройках для удобного использования программы.
     uk = GPS вимкнено в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.
-    zh-Hant = GPS 目前是關閉的，請在系統中設定為開啟使用
+    zh = GPS 目前是關閉的，請在系統中設定為開啟使用
   [measurement_units]
     en = Measurement Units
     tags = ios, android
@@ -1370,7 +1366,7 @@
     nl = Afstandseenheid
     ru = Единицы измерения
     uk = Одиниці виміру
-    zh-Hant = 測量單位
+    zh = 測量單位
   [measurement_units_summary]
     en = Choose between miles and kilometres
     tags = ios, android
@@ -1384,7 +1380,7 @@
     nl = Kies tussen mijlen en kilometers
     ru = Использовать километры или мили
     uk = Вибір між милями та кілометрами
-    zh-Hant = 同時選擇公里和英哩
+    zh = 請選擇公里或英哩
   [search_mode_all]
     en = Everywhere
     tags = ios, android
@@ -1398,6 +1394,7 @@
     nl = Overalq
     ru = Везде
     uk = Скрізь
+    zh = 任何地方
   [search_mode_nearme]
     en = Near Me
     tags = ios, android
@@ -1411,6 +1408,7 @@
     nl = Dichtbij mij
     ru = Около меня
     uk = Поряд
+    zh = 我的附近
   [search_mode_viewport]
     en = On the Screen
     tags = ios, android
@@ -1424,6 +1422,7 @@
     nl = Op het scherm
     ru = На экране
     uk = На екрані
+    zh = 畫面中的地圖
   [food]
     en = food
     tags = ios, android
@@ -1437,6 +1436,7 @@
     ko = 음식
     nl = eten
     ru = еда
+    zh = 酒吧
   [transport]
     en = transport
     tags = ios, android
@@ -1450,6 +1450,7 @@
     ko = 수송
     nl = transport
     ru = транспорт
+    zh = 巴士站
   [fuel]
     en = gas
     tags = ios, android
@@ -1463,6 +1464,7 @@
     ko = 연료
     nl = benzine
     ru = заправка
+    zh = 加油站
   [parking]
     en = parking
     tags = ios, android
@@ -1476,6 +1478,7 @@
     ko = 주차
     nl = parkeerplaats
     ru = парковка
+    zh = 停車場
   [shop]
     en = shop
     tags = ios, android
@@ -1489,6 +1492,7 @@
     ko = 쇼핑
     nl = winkel
     ru = магазин
+    zh = 市場
   [hotel]
     en = hotel
     tags = ios, android
@@ -1501,6 +1505,7 @@
     ko = 호텔
     nl = hotel
     ru = гостиница
+    zh = 飯店
   [tourism]
     en = sights
     tags = ios, android
@@ -1514,6 +1519,7 @@
     ko = 관광
     nl = toerisme
     ru = достопримечательность
+    zh = 視野
   [entertainment]
     en = entertainment
     tags = ios, android
@@ -1527,6 +1533,7 @@
     ko = 엔터테인먼트
     nl = uitgaan
     ru = развлечения
+    zh = 娛樂
   [atm]
     en = atm
     tags = ios, android
@@ -1553,6 +1560,7 @@
     ko = 은행
     nl = bank
     ru = банк
+    zh = 銀行
   [pharmacy]
     en = pharmacy
     tags = ios, android
@@ -1566,6 +1574,7 @@
     ko = 약국
     nl = apotheek
     ru = аптека
+    zh = 藥局
   [hospital]
     en = hospital
     tags = ios, android
@@ -1579,6 +1588,7 @@
     ko = 병원
     nl = ziekenhuis
     ru = больница
+    zh = 醫院
   [toilet]
     en = toilet
     tags = ios, android
@@ -1592,6 +1602,7 @@
     ko = 화장실
     nl = toilet
     ru = туалет
+    zh = 廁所
   [post]
     en = post
     tags = ios, android
@@ -1605,6 +1616,7 @@
     ko = 우편
     nl = post
     ru = почта
+    zh = 郵筒
   [police]
     en = police
     tags = ios, android
@@ -1618,6 +1630,7 @@
     ko = 치안대
     nl = politie
     ru = полиция
+    zh = 警察局
   [no_search_results_found]
     en = No results found
     tags = ios, android
@@ -1631,6 +1644,7 @@
     nl = Geen resultaten gevonden
     ru = Нет результатов поиска
     uk = Результатів не знайдено
+    zh = 找不到搜尋結果
   [description]
     en = Notes
     tags = ios, android
@@ -1644,7 +1658,7 @@
     nl = Notities
     ru = Заметки
     uk = Примiтки
-    zh-Hant = 附註
+    zh = 描述說明
   [share_by_email]
     en = Share by email
     tags = ios, android
@@ -1658,6 +1672,7 @@
     nl = Delen via e-mail
     ru = Послать по email
     uk = Поділитися по електронній пошті
+    zh = 以 email 分享
   [share_bookmarks_email_subject]
     en = MapsWithMe bookmarks has been shared with you
     tags = ios, android
@@ -1671,6 +1686,7 @@
     nl = Bladwijzers van MapsWithMe met u gedeeld
     ru = С вами поделились закладками MapsWithMe
     uk = Вам надаються закладки MapsWithMe
+    zh = 您已分享了 MapsWithMe 書籤
   [share_bookmarks_email_body]
     en = Hello,\n\nHere are my bookmarks from MapsWithMe offline maps in the attached "%@.kmz" file. Please open it if you have MapsWithMe Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://www.mapswithme.com/get?kmz.\n\nHave a good time with MapsWithMe!
     tags = ios, android
@@ -1685,6 +1701,7 @@
     nl = Hallo,\n\nHier zijn mijn bladwijzers uit de MapsWithMe offline kaarten, in het bijgevoegde "%@.kmz"-bestand. Open het bestand als u MapsWithMe Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://www.mapswithme.com/get?kmz.\n\nVeel plezier met MapsWithMe!
     ru = Здравствуйте!\n\nМои закладки из офлайн карт MapsWithMe находятся в прикрепленном файле "%@.kmz". Если у вас уже установлено приложение MapsWithMe Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  MapsWithMe Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.mapswithme.com/get?kmz\n\nСпасибо!
     uk = Вітаю!\n\nОсь мої закладки з автономних карт MapsWithMe у доданому файлі "%@.kmz". Прошу відкрти його, якщо у вас MapsWithMe Pro вже встановлено. Якщо ні, тоді спочатку завантажте застосунок для пристроїв IOS або Android за цим посиланням http://www.mapswithme.com/get?kmz.\n\nПриємних розваг з MapsWithMe!
+    zh = 哈囉!\n\n這是我的MapsWithe離線地圖中所夾帶的 "%@.kmz" 書籤檔案。若您已安裝MapsWithMe專業版的話請開啟它，否則請先從 http://www.mapswithme.com/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用MapsWithMe愉快!
   [load_kmz_title]
     en = Loading Bookmarks
     tags = ios, android
@@ -1699,6 +1716,7 @@
     nl = Bladwijzers aan het uploaden
     ru = Загрузка закладок
     uk = Завантаження закладок
+    zh = 正在載入書籤...
   [load_kmz_successful]
     en = Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.
     tags = ios, android
@@ -1713,6 +1731,7 @@
     nl = Bladwijzers met succes geüpload! U vindt ze op de kaart of op het scherm van de Bladwijzer Manager.
     ru = Закладки успешно загружены! Вы можете найти их на карте или на экране Менеджера Закладок.
     uk = Закладки успішно завантажено! Ви можете знайти їх на карті або у меню Менеджер закладок.
+    zh = 書籤上傳成功! 您可以在地圖上或是書籤管理畫面中找到書籤。
   [load_kmz_failed]
     en = Bookmarks upload failed. The file may be corrupted or defective.
     tags = ios, android
@@ -1727,12 +1746,14 @@
     nl = Bladwijzers uploaden mislukt. Het bestand is mogelijk beschadigd of defect.
     ru = Файл с закладками не был загружен. Возможно, файл поврежден или неисправен.
     uk = Не вдалося завантажити закладки. Файл може бути пошкодженим або несправним.
+    zh = 書籤上傳失敗! 檔案可能有毀損或是不完全。
   [edit]
     en = Edit
     tags = android
     comment = resource for context menu
     cs = Upravit
     ru = Редактировать
+    zh = 編輯
   [unknown_current_position]
     en = Your location hasn't been determined yet
     tags = ios, android
@@ -1747,6 +1768,7 @@
     nl = Je plaats werd nog niet vastgesteld
     ru = Ваше местоположение еще не определено
     uk = Ваше місце розташування не визначено
+    zh = 您的位置尚未定未完成
   [download_location_country]
     en = Download the country (%@) of your current location
     tags = ios, android
@@ -1761,6 +1783,7 @@
     nl = Download land (%@) waar je nu bent
     ru = Скачайте страну (%@) вашего текущего местоположения
     uk = Завантажити країну (%@) вашого поточного місця розташування
+    zh = 下載您目前所在位置的國家 (%@) 地圖
   [download_viewport_country_to_search]
     en = Download the country (%@) you are searching on
     tags = ios, android
@@ -1775,6 +1798,7 @@
     nl = Download land (%@) waar je op wilt zoeken
     ru = Скачайте страну (%@), на которой вы ищете
     uk = Завантажити країну (%@), в якій ви шукаєте
+    zh = 下載您正在搜尋的國家 (%@) 地圖
   [flurry_app_key]
     en = 
     tags = android
@@ -1793,6 +1817,7 @@
     nl = Sorry, instellingen voor kaartopslag uitgeschakeld.
     ru = Извините, настройки места хранения карт сейчас недоступны.
     uk = Вибачте, налаштування функції запам'ятовування карти скасовано.
+    zh = 很抱歉, 地圖儲存設定目前是停用的狀態!
   [downloading_is_active]
     en = Country download is in progress now.
     tags = android
@@ -1807,6 +1832,7 @@
     nl = Het downloaden van het land is nu aan de gang.
     ru = Идет процесс загрузки карт.
     uk = Зараз відбувається завантаження країни.
+    zh = 國家地圖正在進行下載
   [appStore_message]
     en = Hope you enjoy using MapsWithMe! If so, please rate or review the app at the App Store. It takes less than a minute but can really help us. Thanks for your support!
     tags = ios
@@ -1821,6 +1847,7 @@
     nl = Ik hoop dat u veel plezier hebt met MapsWithMe! Zo ja, geef de app dan een cijfer in de App Store of schrijf een recensie. Dit duurt minder dan een minuut, maar kan ons echt helpen. Bedankt voor uw steun!
     ru = Надеемся, вам нравится пользоваться MapsWithMe! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!
     uk = Сподіваємося, що вам сподобалося користуватися MapsWithMe! Якщо це так, будь ласка, оцініть цей застосунок чи залиште свій відгук на app store. Витративши менше хвилини на це, ви дійсно нам допоможете. Дякуємо за вашу підтримку!
+    zh = 祝您使用 MapsWithMe愉快! 方便的話，請到App Store幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持!
   [no_thanks]
     en = No, thanks
     tags = ios, android
@@ -1835,6 +1862,7 @@
     nl = Nee, bedankt
     ru = Нет, спасибо
     uk = Ні, дякую
+    zh = 不, 謝了!
   [bookmark_share_sms]
     en = I pinned %@\nMake sure you have installed http://mapswith.me/app
     tags = ios, android
