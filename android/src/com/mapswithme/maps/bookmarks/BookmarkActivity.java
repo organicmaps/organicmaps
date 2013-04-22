@@ -226,9 +226,8 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       assignPinParams();
 
       final ShareAction shareAction = ShareAction.ACTIONS.get(item.getItemId());
-      final String body = getString(R.string.bookmark_share_sms, mPin.getGe0Url());
-      final String subject = mPin.getName();
-      shareAction.shareWithText(this, body, subject);
+      shareAction.shareBookmark(this, mPin);
+      
       return true;
     }
     else

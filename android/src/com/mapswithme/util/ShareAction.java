@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.data.Bookmark;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,16 +21,42 @@ public abstract class ShareAction
   public final static int ID_EMAIL = 0xfff2;
   public final static int ID_ANY = 0xffff;
 
-  public final static SmsShareAction SMS_SHARE = new SmsShareAction();
-  public final static EmailShareAction EMAIL_SHARE = new EmailShareAction();
-  public final static AnyShareAction ANY_SHARE = new AnyShareAction();
-
   @SuppressLint("UseSparseArrays")
   public final static Map<Integer, ShareAction> ACTIONS = new HashMap<Integer, ShareAction>();
 
+  /* Actions*/
+  private final static SmsShareAction SMS_SHARE = new SmsShareAction();
+  private final static EmailShareAction EMAIL_SHARE = new EmailShareAction();
+  private final static AnyShareAction ANY_SHARE = new AnyShareAction();
+   
+  /* Extras*/
+  private static final String EXTRA_SMS_BODY = "sms_body";
+  
+  /* Types*/
+  private static final String TYPE_MESSAGE_RFC822 = "message/rfc822";
+  private static final String TYPE_TEXT_PLAIN = "text/plain";
+  
+  /* URIs*/
+  private static final String URI_STRING_SMS = "sms:";
+  
   protected final int mId;
   protected final int mNameResId;
   protected final Intent mBaseIntent;
+
+  public static SmsShareAction getSmsShare()
+  {
+    return SMS_SHARE;
+  }
+
+  public static EmailShareAction getEmailShare()
+  {
+    return EMAIL_SHARE;
+  }
+
+  public static AnyShareAction getAnyShare()
+  {
+    return ANY_SHARE;
+  }
 
   protected ShareAction(int id, int nameResId, Intent baseIntent)
   {
@@ -80,41 +107,44 @@ public abstract class ShareAction
 
     activity.startActivity(intent);
   }
+  
+  public void shareBookmark(Activity activity, Bookmark bookmark) 
+  {
+    final String body = activity.getString(R.string.bookmark_share_sms, bookmark.getGe0Url());
+    // TODO we are going to change subject
+    final String subject = bookmark.getName();
+    shareWithText(activity, body, subject);
+  }
 
   public static class SmsShareAction extends ShareAction
   {
-
     protected SmsShareAction()
     {
-      super(ID_SMS, R.string.message, new Intent(Intent.ACTION_VIEW).setData(Uri.parse("sms:")));
+      super(ID_SMS, R.string.message, new Intent(Intent.ACTION_VIEW).setData(Uri.parse(URI_STRING_SMS)));
     }
 
     @Override
     public void shareWithText(Activity activity, String body, String subject)
     {
       final Intent smsIntent = getIntent();
-      smsIntent.putExtra("sms_body", body);
+      smsIntent.putExtra(EXTRA_SMS_BODY, body);
       activity.startActivity(smsIntent);
     }
-
   }
 
   public static class EmailShareAction extends ShareAction
   {
-
     protected EmailShareAction()
     {
-      super(ID_EMAIL, R.string.share_by_email, new Intent(Intent.ACTION_SEND).setType("message/rfc822"));
+      super(ID_EMAIL, R.string.share_by_email, new Intent(Intent.ACTION_SEND).setType(TYPE_MESSAGE_RFC822));
     }
-
   }
 
   public static class AnyShareAction extends ShareAction
   {
-
     protected AnyShareAction()
     {
-      super(ID_ANY, R.string.share, new Intent(Intent.ACTION_SEND).setType("text/plain"));
+      super(ID_ANY, R.string.share, new Intent(Intent.ACTION_SEND).setType(TYPE_TEXT_PLAIN));
     }
 
     @Override
@@ -126,13 +156,21 @@ public abstract class ShareAction
       final String header = activity.getString(R.string.share);
       activity.startActivity(Intent.createChooser(intent, header));
     }
+    
+    @Override
+    public void shareBookmark(Activity activity, Bookmark bookmark)
+    { 
+      final String body = activity.getString(R.string.bookmark_share_email, bookmark.getName(), bookmark.getGe0Url());
+      // TODO also change this subject
+      final String subject = bookmark.getName();
+      shareWithText(activity, body, subject);
+    }
   }
 
   static
   {
-    ACTIONS.put(ID_ANY, ANY_SHARE);
-    ACTIONS.put(ID_EMAIL, EMAIL_SHARE);
-    ACTIONS.put(ID_SMS, SMS_SHARE);
+    ACTIONS.put(ID_ANY, getAnyShare());
+    ACTIONS.put(ID_EMAIL, getEmailShare());
+    ACTIONS.put(ID_SMS, getSmsShare());
   }
-
 }

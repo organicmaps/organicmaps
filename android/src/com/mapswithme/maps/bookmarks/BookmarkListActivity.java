@@ -183,21 +183,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       final ShareAction shareAction = ShareAction.ACTIONS.get(itemId);
       final Bookmark bmk = mManager.getBookmark(mEditedSet.getId(), mSelectedPosition);
 
-      String body;
-      if (shareAction instanceof ShareAction.EmailShareAction)
-      {
-        body = getString(R.string.bookmark_share_email, bmk.getName(), bmk.getGe0Url());
-      }
-      else
-      {
-        // SMS specific text for all other cases
-        // Because we don't know how much text we have,
-        // So take shorter option.
-        body = getString(R.string.bookmark_share_sms, bmk.getGe0Url());
-      }
-
-      final String subject = bmk.getName();
-      shareAction.shareWithText(this, body, subject);
+      shareAction.shareBookmark(this, bmk);
     }
 
     return super.onContextItemSelected(item);
