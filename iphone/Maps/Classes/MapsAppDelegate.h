@@ -13,6 +13,7 @@
   UINavigationController * m_navController;
   UIWindow * m_window;
   UIAlertView * m_loadingAlertView;
+  BOOL m_didOpenedWithUrl;
 }
 
 @property (nonatomic, retain) IBOutlet MapViewController * m_mapViewController;

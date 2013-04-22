@@ -8,6 +8,7 @@
 
 #include "Framework.h"
 #include "../../../platform/settings.hpp"
+#include "../../../platform/platform.hpp"
 
 /// Adds needed localized strings to C++ code
 /// @TODO Refactor localization mechanism to make it simpler
@@ -56,6 +57,20 @@ void InitLocalizedStrings()
 - (void) applicationWillEnterForeground: (UIApplication *) application
 {
   [m_mapViewController OnEnterForeground];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+  UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+  if (GetPlatform().IsPro() && !m_didOpenedWithUrl && [pasteboard.string length])
+  {
+    if (GetFramework().SetViewportByURL([[pasteboard.string stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] UTF8String]))
+    {
+      [self showParsedBookmarkOnMap];
+      pasteboard.string = @"";
+    }
+  }
+  m_didOpenedWithUrl = NO;
 }
 
 - (SettingsManager *)settingsManager
@@ -139,6 +154,8 @@ void InitLocalizedStrings()
   [m_window setRootViewController:m_navController];
   [m_window makeKeyAndVisible];
 
+  m_didOpenedWithUrl = NO;
+
   return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
 }
 
@@ -154,15 +171,10 @@ void InitLocalizedStrings()
   {
     if (GetFramework().SetViewportByURL([[url.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] UTF8String]))
     {
-      [m_navController popToRootViewControllerAnimated:YES];
-      if (![m_navController.visibleViewController isMemberOfClass:NSClassFromString(@"MapViewController")])
-        [m_mapViewController dismissModalViewControllerAnimated:YES];
-      m_navController.navigationBarHidden = YES;
-      Framework & f = GetFramework();
-      const size_t catIndex = f.LastEditedCategory();
-      [m_mapViewController showBallonWithCategoryIndex:catIndex andBookmarkIndex:(f.GetBmCategory(catIndex)->GetBookmarksCount() - 1)];
+      [self showParsedBookmarkOnMap];
+      m_didOpenedWithUrl = YES;
+      return YES;
     }
-    return YES;
   }
   if ([scheme isEqualToString:@"file"])
   {
@@ -173,6 +185,7 @@ void InitLocalizedStrings()
      }
      [[NSNotificationCenter defaultCenter] postNotificationName:@"KML file added" object:nil];
      [self showLoadFileAlertIsSuccessful:YES];
+     m_didOpenedWithUrl = YES;
      return YES;
   }
   NSLog(@"Scheme %@ is not supported", scheme);
@@ -202,6 +215,17 @@ void InitLocalizedStrings()
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
   m_loadingAlertView = nil;
+}
+
+-(void) showParsedBookmarkOnMap
+{
+  [m_navController popToRootViewControllerAnimated:YES];
+  if (![m_navController.visibleViewController isMemberOfClass:NSClassFromString(@"MapViewController")])
+    [m_mapViewController dismissModalViewControllerAnimated:YES];
+  m_navController.navigationBarHidden = YES;
+  Framework & f = GetFramework();
+  const size_t catIndex = f.LastEditedCategory();
+  [m_mapViewController showBallonWithCategoryIndex:catIndex andBookmarkIndex:(f.GetBmCategory(catIndex)->GetBookmarksCount() - 1)];
 }
 
 @end
