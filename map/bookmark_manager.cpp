@@ -173,6 +173,11 @@ Bookmark const * BookmarkManager::AdditionalPoiLayerGetBookmark(size_t index) co
   return m_additionalPoiLayer->GetBookmark(index);
 }
 
+Bookmark * BookmarkManager::AdditionalPoiLayerGetBookmark(size_t index)
+{
+  return m_additionalPoiLayer->GetBookmark(index);
+}
+
 void BookmarkManager::AdditionalPoiLayerDeleteBookmark(int index)
 {
   m_additionalPoiLayer->DeleteBookmark(index);

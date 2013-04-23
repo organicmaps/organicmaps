@@ -207,6 +207,7 @@ public:
   void AdditionalPoiLayerSetVisible();
   void AdditionalPoiLayerAddPoi(Bookmark const & bm);
   Bookmark const * AdditionalPoiLayerGetBookmark(size_t index) const;
+  Bookmark * AdditionalPoiLayerGetBookmark(size_t index);
   void AdditionalPoiLayerDeleteBookmark(int index);
   void AdditionalPoiLayerClear();
   bool IsAdditionalLayerPoi(const BookmarkAndCategory & bm) const;

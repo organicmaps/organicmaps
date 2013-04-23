@@ -30,8 +30,10 @@ public:
 
   m2::PointD const & GetOrg() const { return m_org; }
   string const & GetName() const { return m_name; }
+  void SetName(string const & name) { m_name = name; }
   /// @return Now its a bookmark color - name of icon file
   string const & GetType() const { return m_type; }
+  void SetType(string const & type) { m_type = type; }
   m2::RectD GetViewport() const { return m2::RectD(m_org, m_org); }
 
   string const & GetDescription() const { return m_description; }
@@ -84,6 +86,7 @@ public:
   inline size_t GetBookmarksCount() const { return m_bookmarks.size(); }
 
   Bookmark const * GetBookmark(size_t index) const;
+  Bookmark * GetBookmark(size_t index);
   /// @param[in] distance in metres between orgs
   /// @returns -1 or index of found bookmark
   int GetBookmark(m2::PointD const org, double const squareDistance) const;

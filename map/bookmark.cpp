@@ -75,6 +75,11 @@ Bookmark const * BookmarkCategory::GetBookmark(size_t index) const
   return (index < m_bookmarks.size() ? m_bookmarks[index] : 0);
 }
 
+Bookmark * BookmarkCategory::GetBookmark(size_t index)
+{
+  return (index < m_bookmarks.size() ? m_bookmarks[index] : 0);
+}
+
 int BookmarkCategory::GetBookmark(m2::PointD const org, double const squareDistance) const
 {
   for (size_t i = 0; i < m_bookmarks.size(); ++i)

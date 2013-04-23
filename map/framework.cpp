@@ -598,6 +598,11 @@ Bookmark const * Framework::AdditionalPoiLayerGetBookmark(size_t index) const
   return m_bmManager.AdditionalPoiLayerGetBookmark(index);
 }
 
+Bookmark * Framework::AdditionalPoiLayerGetBookmark(size_t index)
+{
+  return m_bmManager.AdditionalPoiLayerGetBookmark(index);
+}
+
 void Framework::AdditionalPoiLayerDeleteBookmark(int index)
 {
   m_bmManager.AdditionalPoiLayerDeleteBookmark(index);
