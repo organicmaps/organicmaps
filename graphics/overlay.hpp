@@ -8,6 +8,7 @@
 #include "../geometry/tree4d.hpp"
 
 #include "../base/matrix.hpp"
+#include "../base/mutex.hpp"
 
 #include "../std/map.hpp"
 #include "../std/list.hpp"
@@ -23,6 +24,8 @@ namespace graphics
   {
   private:
 
+    threads::Mutex m_mutex;
+
     bool m_couldOverlap;
 
     m4::Tree<shared_ptr<OverlayElement>, OverlayElementTraits> m_tree;
@@ -30,10 +33,21 @@ namespace graphics
     void addOverlayElement(shared_ptr<OverlayElement> const & oe);
     void replaceOverlayElement(shared_ptr<OverlayElement> const & oe);
 
+    Overlay(Overlay const & src) {}
+
   public:
 
+    class Lock
+    {
+    public:
+      Lock(shared_ptr<Overlay> overlay);
+      ~Lock();
+
+    private:
+      shared_ptr<Overlay> m_overlay;
+    };
+
     Overlay();
-    Overlay(Overlay const & src);
 
     void draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m);
 
@@ -48,11 +62,15 @@ namespace graphics
 
     void offset(m2::PointD const & offs, m2::RectD const & rect);
 
+    void lock();
+    void unlock();
+
     void clear();
 
     void setCouldOverlap(bool flag);
 
     void merge(Overlay const & infoLayer, math::Matrix<double, 3, 3> const & m);
+    void merge(Overlay const & infoLayer);
 
     void clip(m2::RectI const & r);
 
@@ -63,7 +81,5 @@ namespace graphics
     {
       m_tree.ForEach(fn);
     }
-
-    Overlay * clone() const;
   };
 }

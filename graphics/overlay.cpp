@@ -13,6 +13,17 @@
 
 namespace graphics
 {
+  Overlay::Lock::Lock(shared_ptr<Overlay> overlay)
+    : m_overlay(overlay)
+  {
+    m_overlay->lock();
+  }
+
+  Overlay::Lock::~Lock()
+  {
+    m_overlay->unlock();
+  }
+
   bool betterOverlayElement(shared_ptr<OverlayElement> const & l,
                             shared_ptr<OverlayElement> const & r)
   {
@@ -45,26 +56,6 @@ namespace graphics
   Overlay::Overlay()
     : m_couldOverlap(true)
   {}
-
-  Overlay::Overlay(Overlay const & src)
-  {
-    m_couldOverlap = src.m_couldOverlap;
-
-    vector<shared_ptr<OverlayElement> > elems;
-    src.m_tree.ForEach(MakeBackInsertFunctor(elems));
-
-    math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
-
-    for (unsigned i = 0; i < elems.size(); ++i)
-    {
-      shared_ptr<OverlayElement> e(elems[i]->clone(id));
-
-      e->setIsVisible(true);
-      e->setIsNeedRedraw(true);
-
-      processOverlayElement(e);
-    }
-  }
 
   void Overlay::setCouldOverlap(bool flag)
   {
@@ -150,6 +141,16 @@ namespace graphics
   void Overlay::offset(m2::PointD const & offs, m2::RectD const & rect)
   {
     offsetTree(m_tree, offs, rect);
+  }
+
+  void Overlay::lock()
+  {
+    m_mutex.Lock();
+  }
+
+  void Overlay::unlock()
+  {
+    m_mutex.Unlock();
   }
 
   void Overlay::clear()
@@ -271,9 +272,8 @@ namespace graphics
 
   void Overlay::processOverlayElement(shared_ptr<OverlayElement> const & oe, math::Matrix<double, 3, 3> const & m)
   {
-    if (m != math::Identity<double, 3>())
-      processOverlayElement(make_shared_ptr(oe->clone(m)));
-    else
+    oe->setTransformation(m);
+    if (oe->isValid())
       processOverlayElement(oe);
   }
 
@@ -307,6 +307,21 @@ namespace graphics
     /// 3. merging them into the infoLayer starting from most
     /// important one to optimize the space usage.
     for_each(v.begin(), v.end(), bind(&Overlay::processOverlayElement, this, _1, cref(m)));
+  }
+
+  void Overlay::merge(Overlay const & infoLayer)
+  {
+    vector<shared_ptr<OverlayElement> > v;
+
+    /// 1. collecting all elements from tree
+    infoLayer.m_tree.ForEach(MakeBackInsertFunctor(v));
+
+    /// 2. sorting by priority, so the more important ones comes first
+    sort(v.begin(), v.end(), &greater_priority);
+
+    /// 3. merging them into the infoLayer starting from most
+    /// important one to optimize the space usage.
+    for_each(v.begin(), v.end(), bind(&Overlay::processOverlayElement, this, _1));
   }
 
   void Overlay::clip(m2::RectI const & r)
@@ -370,12 +385,6 @@ namespace graphics
     set_intersection(v0.begin(), v0.end(), v1.begin(), v1.end(), back_inserter(res));
 
     return !res.empty();
-  }
-
-  Overlay * Overlay::clone() const
-  {
-    Overlay * res = new Overlay(*this);
-    return res;
   }
 }
 
