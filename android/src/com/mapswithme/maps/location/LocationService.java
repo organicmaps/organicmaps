@@ -192,12 +192,13 @@ public class LocationService implements LocationListener, SensorEventListener, W
           Log.d(TAG, "Last saved app location (" + m_lastLocation.getProvider() +
                 ") delta = " + (currTime - m_lastTime));
 
+          m_lastLocation.setTime(m_lastTime);
           lastKnown = getBestLastKnownLocation(m_lastLocation, lastKnown);
         }
 
         // Pass last known location only in the end of all registerListener
         // in case, when we want to disconnect in listener.
-        if (lastKnown != null)
+        if (lastKnown != null && (currTime - lastKnown.getTime() < MAXTIME_COMPARE_SAVED_LOCATIONS))
           emitLocation(lastKnown, currTime);
       }
 
@@ -228,6 +229,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   private static final int MAXTIME_COMPARE_LOCATIONS = 1000 * 60 * 1;
   private static final int MAXTIME_CALC_DIRECTIONS = 1000 * 10;
+  private static final int MAXTIME_COMPARE_SAVED_LOCATIONS = MAXTIME_COMPARE_LOCATIONS * 5;
 
   /// Choose better last known location from previous (saved) and current (to check).
   private static Location getBestLastKnownLocation(Location prev, Location curr)
@@ -238,7 +240,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
       return curr;
 
     final long delta = curr.getTime() - prev.getTime();
-    if (Math.abs(delta) < 5 * MAXTIME_COMPARE_LOCATIONS)
+    if (Math.abs(delta) < MAXTIME_COMPARE_SAVED_LOCATIONS)
     {
       return (curr.getAccuracy() < prev.getAccuracy() ? curr : prev);
     }
