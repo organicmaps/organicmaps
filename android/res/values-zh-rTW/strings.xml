@@ -119,11 +119,19 @@
 	<string name="not_enough_free_space_on_sdcard">如要繼續使用，請先釋放一些SD卡/ USB儲存空間</string>
 	<string name="not_enough_memory">沒有足夠的記憶體以啟用程式</string>
 	<string name="free_space_for_country">請先釋放 %1$s 系統空間以下載 %2$s</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="download_resources">在您開始之前 ， 先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %1$.1f%2$s 。</string>
 	<string name="getting_position">取得目前所在位置</string>
 	<string name="download_resources_continue">跳到地圖</string>
 	<string name="downloading_country_can_proceed">正在下載 %s. 您現在 可以繼續使用地圖了</string>
 	<string name="download_country_ask">下載 %s?</string>
 	<string name="update_country_ask">更新 %s?</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="download_location_map_proposal">您可以下載目前所在位置的地圖。</string>
+	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
+	<string name="download_location_update_map_proposal">您可以更新目前所在位置的地圖。</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="download_location_map_up_to_date">您目前所在位置 (%s) \n的地圖已是最新圖資 !</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">暫停</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
