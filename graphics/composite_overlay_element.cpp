@@ -5,7 +5,7 @@
 
 namespace graphics
 {
-  CompositeOverlayElement::CompositeOverlayElement(OverlayElement::Params const & p)
+  /*CompositeOverlayElement::CompositeOverlayElement(OverlayElement::Params const & p)
     : OverlayElement(p)
   {}
 
@@ -64,5 +64,5 @@ namespace graphics
       m_elements[i]->offset(offs);
 
     setIsDirtyRect(true);
-  }
+  }*/
 }

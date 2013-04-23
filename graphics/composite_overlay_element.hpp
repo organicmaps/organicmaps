@@ -6,7 +6,7 @@
 
 namespace graphics
 {
-  class CompositeOverlayElement : public OverlayElement
+  /*class CompositeOverlayElement : public OverlayElement
   {
   private:
 
@@ -29,5 +29,5 @@ namespace graphics
     double priority() const;
 
     void offset(m2::PointD const & offs);
-  };
+  };*/
 }
