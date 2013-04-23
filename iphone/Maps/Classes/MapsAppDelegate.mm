@@ -225,7 +225,13 @@ void InitLocalizedStrings()
   m_navController.navigationBarHidden = YES;
   Framework & f = GetFramework();
   const size_t catIndex = f.LastEditedCategory();
-  [m_mapViewController showBallonWithCategoryIndex:catIndex andBookmarkIndex:(f.GetBmCategory(catIndex)->GetBookmarksCount() - 1)];
+  BookmarkCategory * cat = f.GetBmCategory(catIndex);
+  size_t bookmarkPos = cat->GetBookmarksCount() - 1;
+  Bookmark * bm = cat->GetBookmark(bookmarkPos);
+  if (bm->GetName().empty())
+    bm->SetName([NSLocalizedString(@"dropped_pin", nil) UTF8String]);
+  else
+    [m_mapViewController showBallonWithCategoryIndex:catIndex andBookmarkIndex:bookmarkPos];
 }
 
 @end
