@@ -325,10 +325,10 @@
 "search_mode_viewport" = "畫面中的地圖";
 
 /* Search Suggestion */
-"food" = "酒吧";
+"food" = "飲食";
 
 /* Search Suggestion */
-"transport" = "巴士站";
+"transport" = "運輸";
 
 /* Search Suggestion */
 "fuel" = "加油站";
@@ -337,12 +337,12 @@
 "parking" = "停車場";
 
 /* Search Suggestion */
-"shop" = "市場";
+"shop" = "購物";
 
 "hotel" = "飯店";
 
 /* Search Suggestion */
-"tourism" = "視野";
+"tourism" = "旅遊景點";
 
 /* Search Suggestion */
 "entertainment" = "娛樂";

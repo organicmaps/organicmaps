@@ -1440,7 +1440,7 @@
     ko = 음식
     nl = eten
     ru = еда
-    zh = 酒吧
+    zh = 飲食
   [transport]
     en = transport
     tags = ios, android
@@ -1454,7 +1454,7 @@
     ko = 수송
     nl = transport
     ru = транспорт
-    zh = 巴士站
+    zh = 運輸
   [fuel]
     en = gas
     tags = ios, android
@@ -1496,7 +1496,7 @@
     ko = 쇼핑
     nl = winkel
     ru = магазин
-    zh = 市場
+    zh = 購物
   [hotel]
     en = hotel
     tags = ios, android
@@ -1523,7 +1523,7 @@
     ko = 관광
     nl = toerisme
     ru = достопримечательность
-    zh = 視野
+    zh = 旅遊景點
   [entertainment]
     en = entertainment
     tags = ios, android

@@ -203,18 +203,18 @@
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">畫面中的地圖</string>
 	<!-- Search Suggestion -->
-	<string name="food">酒吧</string>
+	<string name="food">飲食</string>
 	<!-- Search Suggestion -->
-	<string name="transport">巴士站</string>
+	<string name="transport">運輸</string>
 	<!-- Search Suggestion -->
 	<string name="fuel">加油站</string>
 	<!-- Search Suggestion -->
 	<string name="parking">停車場</string>
 	<!-- Search Suggestion -->
-	<string name="shop">市場</string>
+	<string name="shop">購物</string>
 	<string name="hotel">飯店</string>
 	<!-- Search Suggestion -->
-	<string name="tourism">視野</string>
+	<string name="tourism">旅遊景點</string>
 	<!-- Search Suggestion -->
 	<string name="entertainment">娛樂</string>
 	<!-- Search Suggestion -->
