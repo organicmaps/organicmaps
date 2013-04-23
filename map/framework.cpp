@@ -1492,7 +1492,11 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, 
   list<shared_ptr<ElementT> > candidates;
   m2::RectD rect(pt.x - halfSize, pt.y - halfSize,
                  pt.x + halfSize, pt.y + halfSize);
-  m_renderPolicy->FrameOverlay()->selectOverlayElements(rect, candidates);
+  {
+    shared_ptr<graphics::Overlay> frameOverlay = m_renderPolicy->FrameOverlay();
+    graphics::Overlay::Lock guard(frameOverlay);
+    frameOverlay->selectOverlayElements(rect, candidates);
+  }
 
   shared_ptr<ElementT> elem = GetClosestToPivot(candidates, pt);
 

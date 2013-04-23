@@ -43,7 +43,7 @@ ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
   m_overlay->setCouldOverlap(false);
 }
 
-void ScreenCoverage::CopyInto(ScreenCoverage & cvg, bool cloneOverlay)
+void ScreenCoverage::CopyInto(ScreenCoverage & cvg, bool mergeOverlay)
 {
   cvg.m_tileRenderer = m_tileRenderer;
   cvg.m_tiler = m_tiler;
@@ -70,9 +70,11 @@ void ScreenCoverage::CopyInto(ScreenCoverage & cvg, bool cloneOverlay)
   }
 
   tileCache->Unlock();
-
-  if (cloneOverlay)
-    cvg.m_overlay.reset(m_overlay->clone());
+  if (mergeOverlay)
+  {
+    graphics::Overlay::Lock guard(cvg.m_overlay);
+    cvg.m_overlay->merge(*m_overlay);
+  }
 }
 
 void ScreenCoverage::Clear()
@@ -80,7 +82,10 @@ void ScreenCoverage::Clear()
   m_tileRects.clear();
   m_newTileRects.clear();
   m_newLeafTileRects.clear();
-  m_overlay->clear();
+  {
+    graphics::Overlay::Lock guard(m_overlay);
+    m_overlay->clear();
+  }
   m_isEmptyDrawingCoverage = false;
   m_isEmptyModelAtCoverageCenter = true;
   m_leafTilesToRender = 0;
@@ -133,9 +138,9 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
 
   if (tile != NULL && m_tiler.isLeaf(ri))
   {
+    graphics::Overlay::Lock guard(m_overlay);
     m_overlay->merge(*tile->m_overlay,
                       tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
-
   }
 
   //else
@@ -191,22 +196,25 @@ bool ScreenCoverage::Cache(core::CommandsQueue::Environment const & env)
 
   // selecting and rendering non-sharp elements.
 
-  vector<shared_ptr<graphics::OverlayElement> > nonSharpElements;
-  m_overlay->forEach(bind(&FilterElementsBySharpness, _1, ref(nonSharpElements), false));
+  {
+    graphics::Overlay::Lock guard(m_overlay);
+    vector<shared_ptr<graphics::OverlayElement> > nonSharpElements;
+    m_overlay->forEach(bind(&FilterElementsBySharpness, _1, ref(nonSharpElements), false));
 
-  for (unsigned i = 0; i < nonSharpElements.size(); ++i)
-    nonSharpElements[i]->draw(m_cacheScreen.get(), idM);
+    for (unsigned i = 0; i < nonSharpElements.size(); ++i)
+      nonSharpElements[i]->draw(m_cacheScreen.get(), idM);
 
-  // selecting and rendering sharp elements
+    // selecting and rendering sharp elements
 
-  vector<shared_ptr<graphics::OverlayElement> > sharpElements;
-  m_overlay->forEach(bind(&FilterElementsBySharpness, _1, ref(sharpElements), true));
+    vector<shared_ptr<graphics::OverlayElement> > sharpElements;
+    m_overlay->forEach(bind(&FilterElementsBySharpness, _1, ref(sharpElements), true));
 
-  m_cacheScreen->applySharpStates();
-  m_cacheScreen->setDisplayList(m_sharpTextDL.get());
+    m_cacheScreen->applySharpStates();
+    m_cacheScreen->setDisplayList(m_sharpTextDL.get());
 
-  for (unsigned i = 0; i < sharpElements.size(); ++i)
-    sharpElements[i]->draw(m_cacheScreen.get(), idM);
+    for (unsigned i = 0; i < sharpElements.size(); ++i)
+      sharpElements[i]->draw(m_cacheScreen.get(), idM);
+  } /// Overlay lock
 
   m_cacheScreen->setDisplayList(0);
   m_cacheScreen->applyStates();
@@ -477,6 +485,7 @@ void ScreenCoverage::RemoveTiles(m2::AnyRectD const & r, int startScale)
 
 void ScreenCoverage::MergeOverlay()
 {
+  graphics::Overlay::Lock guard(m_overlay);
   m_overlay->clear();
 
   for (TTileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
