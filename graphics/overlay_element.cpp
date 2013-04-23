@@ -24,7 +24,8 @@ namespace graphics
       m_isDirtyRect(true),
       m_isDirtyLayout(true),
       m_isDirtyRoughRect(true),
-      m_userInfo(p.m_userInfo)
+      m_userInfo(p.m_userInfo),
+      m_inverseMatrix(math::Identity<double, 3>())
   {}
 
   m2::PointD const OverlayElement::computeTopLeft(m2::PointD const & sz,
@@ -229,4 +230,18 @@ namespace graphics
     return m_depth;
   }
 
+  math::Matrix<double, 3, 3> const & OverlayElement::getResetMatrix() const
+  {
+    return m_inverseMatrix;
+  }
+
+  void OverlayElement::setTransformation(const math::Matrix<double, 3, 3> & m)
+  {
+    m_inverseMatrix = math::Inverse(m);
+  }
+
+  void OverlayElement::resetTransformation()
+  {
+    setTransformation(math::Identity<double, 3>());
+  }
 }

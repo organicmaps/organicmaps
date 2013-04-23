@@ -27,14 +27,6 @@ namespace graphics
     setIsValid((m_glyphLayout.firstVisible() == 0) && (m_glyphLayout.lastVisible() == visText().size()));
   }
 
-  PathTextElement::PathTextElement(PathTextElement const & src, math::Matrix<double, 3, 3> const & m)
-    : TextElement(src),
-      m_glyphLayout(src.m_glyphLayout, m)
-  {
-    setPivot(m_glyphLayout.pivot());
-    setIsValid((m_glyphLayout.firstVisible() == 0) && (m_glyphLayout.lastVisible() == visText().size()));
-  }
-
   vector<m2::AnyRectD> const & PathTextElement::boundRects() const
   {
     if (isDirtyRect())
@@ -92,8 +84,11 @@ namespace graphics
     m_glyphLayout.setPivot(pivot);
   }
 
-  OverlayElement * PathTextElement::clone(math::Matrix<double, 3, 3> const & m) const
+  void PathTextElement::setTransformation(const math::Matrix<double, 3, 3> & m)
   {
-    return new PathTextElement(*this, m);
+    m_glyphLayout = GlyphLayout(m_glyphLayout, getResetMatrix() * m);
+    TextElement::setPivot(m_glyphLayout.pivot());
+    setIsValid((m_glyphLayout.firstVisible() == 0) && (m_glyphLayout.lastVisible() == visText().size()));
+    TextElement::setTransformation(m);
   }
 }

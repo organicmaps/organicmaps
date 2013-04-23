@@ -86,9 +86,9 @@ namespace gui
     /// check if the layout of element is dirty and re-layout element if needed.
     void checkDirtyLayout() const;
 
-    graphics::OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
     void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
     double priority() const;
 
+    void setTransformation(const math::Matrix<double, 3, 3> & m);
   };
 }

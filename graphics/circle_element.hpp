@@ -26,12 +26,11 @@ namespace graphics
     };
 
     CircleElement(Params const & p);
-    CircleElement(CircleElement const & ce, math::Matrix<double, 3, 3> const & m);
 
     vector<m2::AnyRectD> const & boundRects() const;
 
     void draw(OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const;
 
-    OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
+    void setTransformation(const math::Matrix<double, 3, 3> & m);
   };
 }

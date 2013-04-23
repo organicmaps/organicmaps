@@ -28,7 +28,6 @@ namespace graphics
     };
 
     StraightTextElement(Params const & p);
-    StraightTextElement(StraightTextElement const & src, math::Matrix<double, 3, 3> const & m);
 
     vector<m2::AnyRectD> const & boundRects() const;
 
@@ -36,7 +35,7 @@ namespace graphics
 
     void setPivot(m2::PointD const & pv);
 
-    OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
+    void setTransformation(const math::Matrix<double, 3, 3> & m);
 
     bool hasSharpGeometry() const;
   };

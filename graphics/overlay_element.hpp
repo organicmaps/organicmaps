@@ -43,6 +43,11 @@ namespace graphics
     mutable bool m_isDirtyRoughRect;
     mutable m2::RectD m_roughBoundRect;
 
+    math::Matrix<double, 3, 3> m_inverseMatrix;
+
+  protected:
+    math::Matrix<double, 3, 3> const & getResetMatrix() const;
+
   public:
 
     UserInfo m_userInfo;
@@ -62,11 +67,16 @@ namespace graphics
     OverlayElement(Params const & p);
     virtual ~OverlayElement();
 
-    virtual OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const = 0;
-
     /// PLEASE, REMEMBER THE REFERENCE!!!
     virtual vector<m2::AnyRectD> const & boundRects() const = 0;
     virtual void draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const = 0;
+    /// Set new transformation ! RELATIVE TO INIT STATE ! for drawing and safe information for reseting
+    /// Need to call base class method
+    virtual void setTransformation(math::Matrix<double, 3, 3> const & m) = 0;
+    /// This method reset transformation to initial state.
+    /// Geometry stored in coordinates relative to the tile.
+    /// Need to call base class method
+    virtual void resetTransformation();
 
     virtual double priority() const;
 

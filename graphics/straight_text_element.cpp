@@ -178,22 +178,6 @@ namespace graphics
       m_offset(0, 0)
   {}
 
-  StraightTextElement::StraightTextElement(StraightTextElement const & src,
-                                           math::Matrix<double, 3, 3> const & m)
-    : TextElement(src),
-      m_glyphLayouts(src.m_glyphLayouts)
-  {
-    m_offsets = src.m_offsets;
-
-    setPivot(pivot() * m);
-
-    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-    {
-      m_glyphLayouts[i].setPivot(pivot());
-      m_glyphLayouts[i].setOffset(m_offsets[i]);
-    }
-  }
-
   vector<m2::AnyRectD> const & StraightTextElement::boundRects() const
   {
     if (isDirtyRect())
@@ -262,9 +246,17 @@ namespace graphics
       m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + offs);
   }
 
-  OverlayElement * StraightTextElement::clone(math::Matrix<double, 3, 3> const & m) const
+  void StraightTextElement::setTransformation(const math::Matrix<double, 3, 3> & m)
   {
-    return new StraightTextElement(*this, m);
+    setPivot(pivot() * getResetMatrix() * m);
+
+    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
+    {
+      m_glyphLayouts[i].setPivot(pivot());
+      m_glyphLayouts[i].setOffset(m_offsets[i]);
+    }
+
+    TextElement::setTransformation(m);
   }
 
   bool StraightTextElement::hasSharpGeometry() const

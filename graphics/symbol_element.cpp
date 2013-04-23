@@ -30,14 +30,6 @@ namespace graphics
     m_symbolRect = res->m_texRect;
   }
 
-  SymbolElement::SymbolElement(SymbolElement const & se, math::Matrix<double, 3, 3> const & m)
-    : base_t(se),
-      m_info(se.m_info),
-      m_symbolRect(se.m_symbolRect)
-  {
-    setPivot(se.pivot() * m);
-  }
-
   vector<m2::AnyRectD> const & SymbolElement::boundRects() const
   {
     if (isDirtyRect())
@@ -101,9 +93,10 @@ namespace graphics
                                    res->m_pipelineID);
   }
 
-  OverlayElement * SymbolElement::clone(math::Matrix<double, 3, 3> const & m) const
+  void SymbolElement::setTransformation(const math::Matrix<double, 3, 3> & m)
   {
-    return new SymbolElement(*this, m);
+    setPivot(pivot() * getResetMatrix() * m);
+    base_t::setTransformation(m);
   }
 
   bool SymbolElement::hasSharpGeometry() const

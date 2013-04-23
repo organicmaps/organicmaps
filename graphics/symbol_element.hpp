@@ -31,15 +31,14 @@ namespace graphics
     };
 
     SymbolElement(Params const & p);
-    SymbolElement(SymbolElement const & se, math::Matrix<double, 3, 3> const & m);
 
     vector<m2::AnyRectD> const & boundRects() const;
     void draw(OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const;
 
     uint32_t resID() const;
 
-    OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
-
     bool hasSharpGeometry() const;
+
+    void setTransformation(const math::Matrix<double, 3, 3> & m);
   };
 }

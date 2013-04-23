@@ -13,13 +13,6 @@ namespace graphics
       m_ci(p.m_ci)
   {}
 
-  CircleElement::CircleElement(CircleElement const & ce, math::Matrix<double, 3, 3> const & m)
-    : base_t(ce),
-      m_ci(ce.m_ci)
-  {
-    setPivot(ce.pivot() * m);
-  }
-
   vector<m2::AnyRectD> const & CircleElement::boundRects() const
   {
     if (isDirtyRect())
@@ -72,8 +65,9 @@ namespace graphics
                           res->m_pipelineID);
   }
 
-  OverlayElement * CircleElement::clone(math::Matrix<double, 3, 3> const & m) const
+  void CircleElement::setTransformation(const math::Matrix<double, 3, 3> & m)
   {
-    return new CircleElement(*this, m);
+    setPivot(pivot() * getResetMatrix() * m);
+    base_t::setTransformation(m);
   }
 }

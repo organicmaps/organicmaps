@@ -84,11 +84,6 @@ namespace gui
     }
   }
 
-  graphics::OverlayElement * Element::clone(math::Matrix<double, 3, 3> const & m) const
-  {
-    return 0;
-  }
-
   void Element::draw(graphics::OverlayRenderer *r, math::Matrix<double, 3, 3> const & m) const
   {
     for (unsigned i = 0; i < boundRects().size(); ++i)
@@ -125,4 +120,7 @@ namespace gui
     m_controller = controller;
   }
 
+  void Element::setTransformation(const math::Matrix<double, 3, 3> & /*m*/)
+  {
+  }
 }

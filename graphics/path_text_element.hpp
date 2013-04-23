@@ -23,14 +23,12 @@ namespace graphics
     };
 
     PathTextElement(Params const & p);
-    PathTextElement(PathTextElement const & src, math::Matrix<double, 3, 3> const & m);
 
     vector<m2::AnyRectD> const & boundRects() const;
 
     void draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
     void setPivot(m2::PointD const & pivot);
-
-    OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
+    void setTransformation(const math::Matrix<double, 3, 3> & m);
   };
 }
