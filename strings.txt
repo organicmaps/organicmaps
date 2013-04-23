@@ -836,6 +836,7 @@
     nl = Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %.1f%@ in beslag.
     ru = Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство. \nЭто потребует %.1f%@ данных.
     uk = Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій. \nВона потребує %.1f%@ даних.
+    zh =  在您開始之前 ， 先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %.1f%@ 。
   [getting_position]
     en = Getting current position
     cs = Získávání aktuální pozice
@@ -908,6 +909,7 @@
     nl = U kunt de kaart van\nuw huidige locatie downloaden
     ru = Вы можете загрузить карту\nвашего текущего местоположения.
     uk = Ви можете завантажити карту\nвашего поточного місця розташування.
+    zh = 您可以下載目前所在位置的地圖。
   [download_location_update_map_proposal]
     en = You can update the map\nof your current location.
     comment = REMOVE THIS_STRING AFTER REFACTORING
@@ -920,6 +922,7 @@
     nl = U kunt de kaart\nvan uw huidige locatie kunnen geupdate worden
     ru = Вы можете обновить карту\nвашего текущего местоположения.
     uk = Ви можете оновити карту\nвашого поточного місця розташування.
+    zh = 您可以更新目前所在位置的地圖。
   [download_location_map_up_to_date]
     en = The map at your current\nlocation (%@) is up-to-date
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -932,6 +935,7 @@
     nl = De kaart op uw huidige\nlocatie (%@) is up-to-date
     ru = Карта местности, в которой\nвы находитесь (%@) уже загружена.
     uk = Карта місцевості, в якій\nви знаходитеся (%@) вже завантажена.
+    zh = 您目前所在位置 (%@) \n的地圖已是最新圖資 !
   [pause]
     en = Pause
     comment = REMOVE THIS STRING AFTER REFACTORING
