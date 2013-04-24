@@ -7,7 +7,10 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -34,6 +37,8 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
   private int m_httpErrorCode = NOT_SET;
   private long m_downloadedBytes = 0;
 
+  private static Executor s_exec = Executors.newFixedThreadPool(4);
+
   native boolean onWrite(long httpCallbackID, long beg, byte[] data, long size);
 
   native void onFinish(long httpCallbackID, long httpCode, long beg, long end);
@@ -55,9 +60,13 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
   {
   }
 
+  private long getChunkID() { return m_beg; }
+
   @Override
   protected void onPostExecute(Boolean success)
   {
+    //Log.i(TAG, "Writing chunk " + getChunkID());
+
     // It seems like onPostExecute can be called (from GUI thread queue)
     // after the task was cancelled in destructor of HttpThread.
     // Reproduced by Samsung testers: touch Try Again for many times from
@@ -84,9 +93,13 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
     }
   }
 
+  @SuppressLint("NewApi")
   void start()
   {
-    execute();
+    if (Utils.apiEqualOrGreaterThan(11))
+      executeOnExecutor(s_exec, (Void[])null);
+    else
+      execute((Void[])null);
   }
 
   static long parseContentRange(String contentRangeValue)
@@ -112,6 +125,8 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
   @Override
   protected Boolean doInBackground(Void... p)
   {
+    //Log.i(TAG, "Start downloading chunk " + getChunkID());
+
     HttpURLConnection urlConnection = null;
 
     try
@@ -170,16 +185,20 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
         long contentLength = parseContentRange(urlConnection.getHeaderField("Content-Range"));
         if (contentLength < 0)
           contentLength = urlConnection.getContentLength();
+
         // Check even if contentLength is invalid (-1), in this case it's not our server!
         if (contentLength != m_expectedFileSize)
         {
           // we've set error code so client should be notified about the error
           m_httpErrorCode = FILE_SIZE_CHECK_FAILED;
-          Log.w(TAG, "Error for " + urlConnection.getURL() + ": Invalid file size received (" + contentLength + ") while expecting " + m_expectedFileSize + ". Aborting download.");
+          Log.w(TAG, "Error for " + urlConnection.getURL() +
+                ": Invalid file size received (" + contentLength + ") while expecting " + m_expectedFileSize +
+              ". Aborting download.");
           return false;
         }
         // @TODO Else display received web page to user - router is redirecting us to some page
       }
+
       return downloadFromStream(new BufferedInputStream(urlConnection.getInputStream()));
     }
     catch (MalformedURLException ex)
@@ -200,6 +219,8 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
     }
     finally
     {
+      //Log.i(TAG, "End downloading chunk " + getChunkID());
+
       if (urlConnection != null)
         urlConnection.disconnect();
       else
