@@ -1,7 +1,6 @@
 #include "../base/SRC_FIRST.hpp"
 
 #include "overlay_renderer.hpp"
-#include "composite_overlay_element.hpp"
 #include "straight_text_element.hpp"
 #include "path_text_element.hpp"
 #include "symbol_element.hpp"

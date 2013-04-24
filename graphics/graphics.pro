@@ -53,7 +53,6 @@ SOURCES += \
     overlay_element.cpp \
     symbol_element.cpp \
     overlay_renderer.cpp \
-    composite_overlay_element.cpp \
     path_text_element.cpp \
     straight_text_element.cpp \
     glyph.cpp \
@@ -123,7 +122,6 @@ HEADERS += \
     overlay_element.hpp \
     symbol_element.hpp \
     overlay_renderer.hpp \
-    composite_overlay_element.hpp \
     path_text_element.hpp \
     straight_text_element.hpp \
     agg_traits.hpp \
