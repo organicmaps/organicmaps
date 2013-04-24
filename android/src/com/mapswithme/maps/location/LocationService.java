@@ -227,26 +227,26 @@ public class LocationService implements LocationListener, SensorEventListener, W
     }
   }
 
-  private static final int MAXTIME_COMPARE_LOCATIONS = 1000 * 60 * 1;
-  private static final int MAXTIME_CALC_DIRECTIONS = 1000 * 10;
-  private static final int MAXTIME_COMPARE_SAVED_LOCATIONS = MAXTIME_COMPARE_LOCATIONS * 5;
+  private static final long MAXTIME_COMPARE_LOCATIONS = 1000 * 60 * 1;
+  private static final long MAXTIME_CALC_DIRECTIONS = 1000 * 10;
+  private static final long MAXTIME_COMPARE_SAVED_LOCATIONS = MAXTIME_COMPARE_LOCATIONS * 5;
 
-  /// Choose better last known location from previous (saved) and current (to check).
-  private static Location getBestLastKnownLocation(Location prev, Location curr)
+  /// Choose better last known location.
+  private static Location getBestLastKnownLocation(Location l1, Location l2)
   {
-    if (curr == null)
-      return prev;
-    else if (prev == null)
-      return curr;
+    if (l1 == null)
+      return l2;
+    else if (l2 == null)
+      return l1;
 
-    final long delta = curr.getTime() - prev.getTime();
+    final long delta = l2.getTime() - l1.getTime();
     if (Math.abs(delta) < MAXTIME_COMPARE_SAVED_LOCATIONS)
     {
-      return (curr.getAccuracy() < prev.getAccuracy() ? curr : prev);
+      return (l2.getAccuracy() < l1.getAccuracy() ? l2 : l1);
     }
     else
     {
-      return (delta > 0 ? curr : prev);
+      return (delta > 0 ? l2 : l1);
     }
   }
 
