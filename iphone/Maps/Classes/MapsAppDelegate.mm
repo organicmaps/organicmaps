@@ -64,9 +64,10 @@ void InitLocalizedStrings()
   UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
   if (GetPlatform().IsPro() && !m_didOpenedWithUrl && [pasteboard.string length])
   {
-    if (GetFramework().SetViewportByURL([[pasteboard.string stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] UTF8String]))
+    url_api::Request request;
+    if (GetFramework().SetViewportByURL([[pasteboard.string stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] UTF8String], request))
     {
-      [self showParsedBookmarkOnMap];
+      [self showParsedBookmarkOnMap: request];
       pasteboard.string = @"";
     }
   }
@@ -169,9 +170,10 @@ void InitLocalizedStrings()
   // geo scheme support, see http://tools.ietf.org/html/rfc5870
   if ([scheme isEqualToString:@"geo"] || [scheme isEqualToString:@"ge0"])
   {
-    if (GetFramework().SetViewportByURL([[url.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] UTF8String]))
+    url_api::Request request;
+    if (GetFramework().SetViewportByURL([[url.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] UTF8String], request))
     {
-      [self showParsedBookmarkOnMap];
+      [self showParsedBookmarkOnMap: request];
       m_didOpenedWithUrl = YES;
       return YES;
     }
@@ -208,30 +210,26 @@ void InitLocalizedStrings()
 -(void)dismissAlert
 {
   if (m_loadingAlertView)
-  {
-   [m_loadingAlertView dismissWithClickedButtonIndex:0 animated:YES];
-  }
+    [m_loadingAlertView dismissWithClickedButtonIndex:0 animated:YES];
 }
+
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
   m_loadingAlertView = nil;
 }
 
--(void) showParsedBookmarkOnMap
+-(void) showParsedBookmarkOnMap:(url_api::Request) request
 {
   [m_navController popToRootViewControllerAnimated:YES];
   if (![m_navController.visibleViewController isMemberOfClass:NSClassFromString(@"MapViewController")])
     [m_mapViewController dismissModalViewControllerAnimated:YES];
   m_navController.navigationBarHidden = YES;
-  Framework & f = GetFramework();
-  const size_t catIndex = f.LastEditedCategory();
-  BookmarkCategory * cat = f.GetBmCategory(catIndex);
-  size_t bookmarkPos = cat->GetBookmarksCount() - 1;
-  Bookmark * bm = cat->GetBookmark(bookmarkPos);
-  if (bm->GetName().empty())
-    bm->SetName([NSLocalizedString(@"dropped_pin", nil) UTF8String]);
-  else
-    [m_mapViewController showBallonWithCategoryIndex:catIndex andBookmarkIndex:bookmarkPos];
+  
+  m2::PointD point(MercatorBounds::LonToX(request.m_viewportLon),
+                   MercatorBounds::LatToY(request.m_viewportLat));
+  NSString * name = [NSString stringWithUTF8String: request.m_points.front().m_name.c_str()];
+  
+  [m_mapViewController showBalloonWithText:name andGlobalPoint:point];
 }
 
 @end

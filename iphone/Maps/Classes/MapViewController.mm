@@ -714,7 +714,7 @@ NSInteger compareAddress(id l, id r, void * context)
   }
 }
 
-- (void)showBallonWithCategoryIndex:(int)index andBookmarkIndex:(int)bmIndex
+- (void)showBalloonWithCategoryIndex:(int)index andBookmarkIndex:(int)bmIndex
 {
   [self onBookmarkClickWithBookmarkAndCategory:BookmarkAndCategory(index, bmIndex)];
 }
@@ -798,6 +798,16 @@ NSInteger compareAddress(id l, id r, void * context)
     default:
       break;
   }
+}
+
+- (void)showBalloonWithText:(NSString *)text andGlobalPoint:(m2::PointD) point
+{
+  m_balloonView.globalPosition = CGPointMake(point.x, point.y);
+  m_balloonView.title = text;
+  m_balloonView.isCurrentPosition = NO;
+  m_balloonView.editedBookmark = pair<int, int>(-1, -1);
+  CGFloat const scaleFactor = self.view.contentScaleFactor;
+  [m_balloonView showInView:self.view atPoint:CGPointMake(point.x / scaleFactor, point.y / scaleFactor)];
 }
 
 @end

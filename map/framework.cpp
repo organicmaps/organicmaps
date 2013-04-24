@@ -1422,7 +1422,7 @@ void Framework::AddBookmarkAndSetViewport(Bookmark & bm, m2::RectD const & viewP
   ShowRectExVisibleScale(viewPort);
 }
 
-bool Framework::SetViewportByURL(string const & url)
+bool Framework::SetViewportByURL(string const & url, url_api::Request & request)
 {
   if (url.find("geo") == 0)
   {
@@ -1433,21 +1433,28 @@ bool Framework::SetViewportByURL(string const & url)
 
     if (info.IsValid())
     {
-      Bookmark bm(info.GetMercatorPoint(), m_stringsBundle.GetString("dropped_pin"), DEFAULT_BOOKMARK_TYPE);
-      AddBookmarkAndSetViewport(bm, info.GetViewport());
+      // TODO this is hack to kick-off release
+      request.m_viewportLat = info.m_lat;
+      request.m_viewportLon = info.m_lon;
+      request.m_points.push_back(url_api::Point());
+      url_api::Point & newPoint = request.m_points.back();
+      newPoint.m_name = m_stringsBundle.GetString("dropped_pin");
+
+      ShowRectExVisibleScale(info.GetViewport());
       return true;
     }
   }
   else if (url.find("ge0") == 0)
   {
     url_api::Ge0Parser parser;
-    //now we don't use request
-    url_api::Request request;
     if (parser.Parse(url, request))
     {
+      url_api::Point & point = request.m_points.front();
+      if (point.m_name.empty())
+        point.m_name = m_stringsBundle.GetString("dropped_pin");
+
       m2::PointD const center(MercatorBounds::LonToX(request.m_viewportLon), MercatorBounds::LatToY(request.m_viewportLat));
-      Bookmark bm(center, request.m_points[0].m_name, DEFAULT_BOOKMARK_TYPE);
-      AddBookmarkAndSetViewport(bm, scales::GetRectForLevel(request.m_viewportZoomLevel, center, 1));
+      ShowRectExVisibleScale(scales::GetRectForLevel(request.m_viewportZoomLevel, center, 1));
       return true;
     }
   }

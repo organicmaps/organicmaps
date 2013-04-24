@@ -311,7 +311,7 @@ public:
   m2::PointD GetViewportCenter() const;
   void SetViewportCenter(m2::PointD const & pt);
 
-  bool SetViewportByURL(string const & url);
+  bool SetViewportByURL(string const & url,  url_api::Request & request);
 
   bool NeedRedraw() const;
   void SetNeedRedraw(bool flag);

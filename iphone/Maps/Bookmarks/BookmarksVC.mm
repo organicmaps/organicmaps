@@ -223,7 +223,7 @@
         {
           // Same as "Close".
           f.ShowBookmark(*bm);
-          [[MapsAppDelegate theApp].m_mapViewController showBallonWithCategoryIndex:m_categoryIndex andBookmarkIndex:indexPath.row];
+          [[MapsAppDelegate theApp].m_mapViewController showBalloonWithCategoryIndex:m_categoryIndex andBookmarkIndex:indexPath.row];
           [self dismissModalViewControllerAnimated:YES];
           [self.navigationController.visibleViewController dismissModalViewControllerAnimated:YES];
         }

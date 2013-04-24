@@ -39,7 +39,8 @@
 - (IBAction)OnBookmarksClicked:(id)sender;
 
 - (void)showSearchResultAsBookmarkAtMercatorPoint:(m2::PointD const &)pt withInfo:(Framework::AddressInfo const &)info;
-- (void)showBallonWithCategoryIndex:(int)index andBookmarkIndex:(int)bmIndex;
+- (void)showBalloonWithCategoryIndex:(int)index andBookmarkIndex:(int)bmIndex;
+- (void)showBalloonWithText:(NSString *)text andGlobalPoint:(m2::PointD) point;
 
 @property (nonatomic, retain) IBOutlet UIButton * m_myPositionButton;
 
