@@ -728,20 +728,20 @@ namespace android
     //TODO this is weird hack, we should reconsider Android
     // lifecycle handling design
     m_doLoadState = false;
-
     url_api:: Request request;
     bool success = m_work.SetViewportByURL(url, request);
-    // Show balloon
-    if (success && (request.m_points.size() > 0))
+    // Show temp balloon
+    if (success && !request.m_points.empty())
     {
       m2::PointD pt(MercatorBounds::LonToX(request.m_viewportLon),
                     MercatorBounds::LatToY(request.m_viewportLat));
-      ActivatePopup(pt, request.m_points.front().m_name, IMAGE_PLUS);
 
+      ActivatePopup(pt, request.m_points.front().m_name, IMAGE_PLUS);
       m_work.DrawPlacemark(pt);
       m_work.Invalidate();
-    }
 
-    return success;
+      return true;
+    }
+    return false;
   }
 }

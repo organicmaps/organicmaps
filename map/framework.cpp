@@ -1433,12 +1433,14 @@ bool Framework::SetViewportByURL(string const & url, url_api::Request & request)
 
     if (info.IsValid())
     {
-      // TODO this is hack to kick-off release
-      request.m_viewportLat = info.m_lat;
-      request.m_viewportLon = info.m_lon;
+      // @TODO this is hack to kick-off release
       request.m_points.push_back(url_api::Point());
       url_api::Point & newPoint = request.m_points.back();
+
       newPoint.m_name = m_stringsBundle.GetString("dropped_pin");
+      request.m_viewportLat = newPoint.m_lat = info.m_lat;
+      request.m_viewportLon = newPoint.m_lon = info.m_lon;
+      request.m_viewportZoomLevel = info.m_zoom;
 
       ShowRectExVisibleScale(info.GetViewport());
       return true;
