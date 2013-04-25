@@ -218,10 +218,10 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   drawer->screen()->setRenderTarget(tileTarget);
 
-  shared_ptr<graphics::Overlay> tileOverlay(new graphics::Overlay());
+  shared_ptr<graphics::Overlay> tileOverlay(new graphics::Overlay(), graphics::Overlay::Deleter());
   tileOverlay->setCouldOverlap(true);
 
-  drawer->screen()->setOverlay(tileOverlay);
+  drawer->screen()->setOverlay(tileOverlay.get());
 
   /// ensuring, that the render target is not bound as a texture
 
