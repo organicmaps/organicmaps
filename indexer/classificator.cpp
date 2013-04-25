@@ -301,16 +301,16 @@ namespace
     typedef vec_t::const_iterator iter_t;
 
     vec_t const & m_rules;
-    vec_t & m_keys;
+    drule::KeysT & m_keys;
 
     bool m_added;
 
     void add_rule(int ft, iter_t i)
     {
       static const int visible[3][drule::count_of_rules] = {
-        {0, 0, 1, 1, 1, 0, 0},   // fpoint
-        {1, 0, 0, 0, 0, 1, 0},   // fline
-        {1, 1, 1, 1, 0, 0, 0}    // farea
+        { 0, 0, 1, 1, 1, 0, 0 },   // fpoint
+        { 1, 0, 0, 0, 0, 1, 0 },   // fline
+        { 1, 1, 1, 1, 0, 0, 0 }    // farea
       };
 
       if (visible[ft][i->m_type] == 1)
@@ -321,7 +321,7 @@ namespace
     }
 
   public:
-    suitable_getter(vec_t const & rules, vec_t & keys)
+    suitable_getter(vec_t const & rules, drule::KeysT & keys)
       : m_rules(rules), m_keys(keys)
     {
     }
@@ -330,14 +330,12 @@ namespace
     {
       iter_t i = lower_bound(m_rules.begin(), m_rules.end(), scale, less_scales());
       while (i != m_rules.end() && i->m_scale == scale)
-      {
         add_rule(ft, i++);
-      }
     }
   };
 }
 
-void ClassifObject::GetSuitable(int scale, FeatureGeoType ft, vector<drule::Key> & keys) const
+void ClassifObject::GetSuitable(int scale, FeatureGeoType ft, drule::KeysT & keys) const
 {
   ASSERT ( ft <= FEATURE_TYPE_AREA, () );
 

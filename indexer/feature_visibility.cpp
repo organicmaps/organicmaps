@@ -96,12 +96,12 @@ namespace
   {
     int m_scale;
     ClassifObject::FeatureGeoType m_ft;
-    vector<drule::Key> & m_keys;
+    drule::KeysT & m_keys;
     string & m_name;
 
   public:
     DrawRuleGetter(int scale, feature::EGeomType ft,
-                  vector<drule::Key> & keys, string & name)
+                  drule::KeysT & keys, string & name)
       : m_scale(scale), m_ft(ClassifObject::FeatureGeoType(ft)), m_keys(keys), m_name(name)
     {
     }
@@ -125,7 +125,7 @@ namespace
 }
 
 pair<int, bool> GetDrawRule(FeatureBase const & f, int level,
-                            vector<drule::Key> & keys, string & names)
+                            drule::KeysT & keys, string & names)
 {
   feature::TypesHolder types(f);
 
@@ -205,7 +205,7 @@ namespace
     void operator() (ClassifObject const *) {}
     bool operator() (ClassifObject const * p, bool & res)
     {
-      vector<drule::Key> keys;
+      drule::KeysT keys;
       p->GetSuitable(m_scale, m_ft, keys);
 
       for (size_t i = 0; i < keys.size(); ++i)

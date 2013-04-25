@@ -7,6 +7,7 @@
 #include "../base/string_utils.hpp"
 
 #include "../std/cstdio.hpp"
+#include "../std/iterator.hpp"
 
 
 namespace drule
@@ -66,9 +67,9 @@ namespace drule
     };
   }
 
-  void MakeUnique(vector<Key> & keys)
+  void MakeUnique(KeysT & keys)
   {
     sort(keys.begin(), keys.end(), less_key());
-    keys.erase(unique(keys.begin(), keys.end(), equal_key()), keys.end());
+    keys.resize(distance(keys.begin(), unique(keys.begin(), keys.end(), equal_key())));
   }
 }

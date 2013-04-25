@@ -1,7 +1,8 @@
 #pragma once
 
+#include "../base/buffer_vector.hpp"
+
 #include "../std/string.hpp"
-#include "../std/vector.hpp"
 
 
 namespace drule
@@ -36,6 +37,6 @@ namespace drule
 
   double const layer_base_priority = 2000;
 
-  void MakeUnique(vector<Key> & keys);
-  void SortByScaleTypeDepth(vector<Key> & keys);
+  typedef buffer_vector<Key, 16> KeysT;
+  void MakeUnique(KeysT & keys);
 }

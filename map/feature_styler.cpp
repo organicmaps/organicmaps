@@ -56,7 +56,7 @@ namespace di
       m_convertor(convertor),
       m_rect(rect)
   {
-    vector<drule::Key> keys;
+    drule::KeysT keys;
     string names;       // for debug use only, in release it's empty
     pair<int, bool> type = feature::GetDrawRule(f, zoom, keys, names);
 
@@ -102,7 +102,6 @@ namespace di
     }
 
     double area = 0.0;
-
     if (m_geometryType != feature::GEOM_POINT)
     {
       m2::RectD const bbox = f.GetLimitRect(zoom);
@@ -160,7 +159,7 @@ namespace di
       if (!m_hasLineStyles && (keys[i].m_type == drule::line))
         m_hasLineStyles = true;
 
-      m_rules[i] = di::DrawRule( drule::rules().Find(keys[i]), depth, isTransparent);
+      m_rules[i] = di::DrawRule(drule::rules().Find(keys[i]), depth, isTransparent);
 
       if ((m_geometryType == feature::GEOM_LINE) && !m_hasPathText && !m_primaryText.empty())
         if (m_rules[i].m_rule->GetCaption(0) != 0)

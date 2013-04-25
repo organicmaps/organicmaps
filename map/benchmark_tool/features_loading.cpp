@@ -43,7 +43,7 @@ namespace
 
       m_timer.Reset();
 
-      vector<drule::Key> keys;
+      drule::KeysT keys;
       string names;       // for debug use only, in release it's empty
       (void)feature::GetDrawRule(ft, m_scale, keys, names);
 

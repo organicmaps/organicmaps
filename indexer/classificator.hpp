@@ -82,7 +82,7 @@ public:
   void ConcatChildNames(string & s) const;
 
   enum FeatureGeoType { FEATURE_TYPE_POINT = 0, FEATURE_TYPE_LINE, FEATURE_TYPE_AREA };
-  void GetSuitable(int scale, FeatureGeoType ft, vector<drule::Key> & keys) const;
+  void GetSuitable(int scale, FeatureGeoType ft, drule::KeysT & keys) const;
   inline vector<drule::Key> const & GetDrawingRules() const { return m_drawRule; }
 
   bool IsDrawable(int scale) const;
