@@ -4,8 +4,6 @@
 
 #include "../geometry/screenbase.hpp"
 
-#include "../graphics/overlay.hpp"
-
 #include "tile.hpp"
 #include "tiler.hpp"
 #include "render_policy.hpp"
@@ -18,6 +16,8 @@ namespace graphics
   {
     class Screen;
   }
+
+  class Overlay;
 }
 
 class CoverageGenerator;
@@ -51,8 +51,6 @@ private:
   /// Tiles in this set are locked to prevent their deletion
   /// from TileCache while drawing them
   TTileSet m_tiles;
-  /// Overlay composed of overlays for visible tiles
-  shared_ptr<graphics::Overlay> m_overlay;
 
   /// State flags
   bool m_isBenchmarking;
@@ -80,9 +78,6 @@ private:
   ScreenCoverage(ScreenCoverage const & src);
   ScreenCoverage const & operator=(ScreenCoverage const & src);
 
-  /// For each tile in m_tiles merge it's overlay into the big one.
-  void MergeOverlay();
-
 public:
 
   /// Default Constructor
@@ -94,7 +89,7 @@ public:
   /// Destructor
   ~ScreenCoverage();
   /// Copy all needed information into specified ScreenCoverage
-  void CopyInto(ScreenCoverage & cvg, bool mergeOverlay);
+  void CopyInto(ScreenCoverage & cvg);
   /// Make screen coverage empty
   void Clear();
   /// set unique ID for all actions, used to compute this coverage
@@ -114,14 +109,15 @@ public:
   storage::TIndex GetCountryIndexAtCoverageCenter() const;
   /// Check, whether the model is empty at the center of the coverage.
   void CheckEmptyModelAtCoverageCenter();
-  /// Getter for Overlay
-  shared_ptr<graphics::Overlay> const & GetOverlay() const;
   /// Cache coverage in display list
   /// @return true - if the coverage was cached successfully,
   ///         false - otherwise(p.e. the caching was cancelled)
-  bool Cache(core::CommandsQueue::Environment const & env);
+  bool Cache(core::CommandsQueue::Environment const & env,
+             graphics::Overlay * frameOverlay);
   /// add rendered tile to coverage. Tile is locked, so make sure to unlock it in case it's not needed.
-  void Merge(Tiler::RectInfo const & ri);
+  void Merge(Tiler::RectInfo const & ri, graphics::Overlay * frameOverlay);
+  /// For each tile in m_tiles merge it's overlay into the big one.
+  void MergeOverlay(graphics::Overlay * frameOverlay);
   /// recalculate screen coverage, using as much info from prev coverage as possible
   void SetScreen(ScreenBase const & screen);
   /// draw screen coverage
