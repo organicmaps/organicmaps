@@ -53,10 +53,18 @@
               <category android:name="android.intent.category.BROWSABLE"/>
               <data android:scheme="ge0"/>
            </intent-filter>
+
+           <intent-filter><action android:name="android.intent.action.VIEW"></action>
+              <category android:name="android.intent.category.DEFAULT"/>
+              <category android:name="android.intent.category.BROWSABLE"/>
+              <data android:scheme="http"
+                    android:host="ge0.me"/>
+           </intent-filter>
+
 <!--
            <intent-filter><action android:name="android.intent.action.VIEW"></action>
                <category android:name="android.intent.category.DEFAULT"></category>
-               <data android:scheme="mapswithme"></data>
+               <data android:scheme="mapswithme"/>
            </intent-filter>
 -->
 
@@ -64,7 +72,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:host="*"
-				  android:mimeType="application/vnd.google-earth.kmz" />
+                      android:mimeType="application/vnd.google-earth.kmz" />
             </intent-filter>
 
             <intent-filter>

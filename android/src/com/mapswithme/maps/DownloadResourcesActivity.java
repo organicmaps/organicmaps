@@ -53,10 +53,11 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   private Index mCountryIndex = null;
 
   private IntentProcessor[] mIntentProcessors = { new GeoIntentProcessor(),
+                                                  new HttpGe0IntentProcessor(),
+                                                  new Ge0IntentProcessor()
                                                  /* uncomment code below when add
                                                   * appropriate schemes support
                                                   * */
-                                                 new Ge0IntentProcessor()
                                                  //new MapsWithMeIntentProcessor()
                                                 };
 
@@ -622,7 +623,6 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
   }
 
-  @SuppressWarnings("unused")
   private class Ge0IntentProcessor implements IntentProcessor
   {
 
@@ -637,6 +637,33 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     {
       final Uri data = intent.getData();
       return data != null ? setViewPortByUrl(data.toString()) : false;
+    }
+
+  }
+
+  private class HttpGe0IntentProcessor implements IntentProcessor
+  {
+
+    @Override
+    public boolean isIntentSupported(Intent intent)
+    {
+      if ("http".equalsIgnoreCase(intent.getScheme()) && "ge0.me".equals(intent.getData().getHost()))
+        return true;
+      else
+        return false;
+    }
+
+    @Override
+    public boolean processIntent(Intent intent)
+    {
+      final Uri data = intent.getData();
+      if (data != null)
+      {
+        final String ge0Url = "ge0:/" + data.getPath();
+        return setViewPortByUrl(ge0Url);
+      }
+      else
+        return false;
     }
 
   }

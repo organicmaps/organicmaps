@@ -40,6 +40,19 @@
                 <data android:scheme="geo"></data>
            </intent-filter>
 
+          <intent-filter><action android:name="android.intent.action.VIEW"></action>
+            <category android:name="android.intent.category.DEFAULT"/>
+            <category android:name="android.intent.category.BROWSABLE"/>
+            <data android:scheme="ge0"/>
+          </intent-filter>
+
+          <intent-filter><action android:name="android.intent.action.VIEW"></action>
+            <category android:name="android.intent.category.DEFAULT"/>
+            <category android:name="android.intent.category.BROWSABLE"/>
+            <data android:scheme="http"
+            android:host="ge0.me"/>
+          </intent-filter>
+
  <!--
            <intent-filter><action android:name="android.intent.action.VIEW"></action>
               <category android:name="android.intent.category.DEFAULT"></category>
