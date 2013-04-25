@@ -31,7 +31,7 @@ namespace graphics
 
     m2::PointD m_pivot;
     graphics::EPosition m_position;
-    double m_depth;    
+    double m_depth;
 
     bool m_isNeedRedraw;
     bool m_isFrozen;
