@@ -1867,21 +1867,45 @@
     ru = Нет, спасибо
     uk = Ні, дякую
     zh = 不, 謝了!
+
   [bookmark_share_sms]
-    en = I pinned %@\nMake sure you have installed http://mapswith.me/app
+    en = Look at my pin on MapsWithMe map. Open the link: %1$@ or %2$@
     tags = ios, android
-    comment = Share one specific bookmark using SMS, %@ contains ge0:// link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
-    ru = %@ Чтобы открыть, скачай http://mapswith.me/app
+    comment = Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
+    ru = Моя метка на карте. Жми %1$@ или %2$@
+    ko = 지도에서 내 PIN을 참조하십시오. %1$@ 또는 %2$@ 열기
+    it = Vedi pin sulla mappa. Apri %1$@ o %2$@
+    ja = 私のピンはマップのここに。%1$@ または %2$@ 開いてください
+    de = Meine Nadel auf der Karte sehen. Klicke auf den Link %1$@ oder %2$@
+    nl = Bekijk mijn pin op de kaart. Open %1$@ of %2$@
+    cz = Značka na mapě. Otevřete %1$@ nebo %2$@
+    fr = Voir ma punaise sur la carte. Ouvrir %1$@ ou %2$@
+    uk = Моя мітка на карті. Іди %1$@ або %2$@
+    es = Ve mi alfiler en mapa. Abre %1$@ o %2$@
+
+
   [my_position_share_sms]
-    en = I'm here %@\nMake sure you have installed http://mapswith.me/app
+    en = See where I am now. Open the link: %1$@ or %2$@
     tags = ios, android
-    comment = Share my position using SMS, %@ contains ge0:// link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
-    ru = Я тут %@ Чтобы открыть, скачай http://mapswith.me/app
+    comment = Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
+    ru = Смотри, где я сейчас. Жми %1$@ или %2$@
+    ko = 현재 위치를 알아 보십시오. %1$@ 또는 %2$@ 열기
+    it = Vedi dove sono ora. Apri %1$@ o %2$@
+    ja = 私は今ここにいます。%1$@ または %2$@ を開いてください。
+    de = Sieh, wo ich gerade bin. Klicke auf den Link %1$@ oder %2$@
+    nl = Kijk waar ik nu ben. Open %1$@ of %2$@
+    cz = Jsem zde. Otevřete %1$@ nebo %2$@
+    fr = Localisez-moi maintenant. Ouvrir %1$@ ou %2$@
+    uk = Глянь де я зараз. Іди %1$@ або %2$@
+    es = Mira dónde estoy. Abre %1$@ o %2$@
+
+
   [bookmark_share_email]
     en = Hi,\n\nI pinned %1$@ at MapsWithMe, offline maps of the World. Click %2$@ to see the place on the map.\n\nBefore opening, please make sure you have MapsWithMe app installed. If not, get it here: http://mapswith.me/app\n\nThanks!
     tags = ios, android
-    comment = Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link
+    comment = Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me
     ru = Привет!\n\nОткрой ссылку %2$@, для того чтобы посмотреть мою метку %1$@ на карте MapsWithMe.\nЕсли у тебя еще нет приложения MapsWithMe на твоем устройстве, скачай его предварительно по ссылке http://mapswith.me/app\n\nСпасибо!
+
   [my_position_share_email]
     en = Hi,\n\nClick %@ to see my position on the map. Before opening, please make sure you have MapsWithMe offline maps installed. If not, get it here: http://mapswith.me/app\n\nThanks!
     tags = ios, android
