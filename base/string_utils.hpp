@@ -5,6 +5,7 @@
 #include "../std/string.hpp"
 #include "../std/stdint.hpp"
 #include "../std/sstream.hpp"
+#include "../std/limits.hpp"
 
 #include "../3party/utfcpp/source/utf8/unchecked.h"
 
@@ -154,23 +155,88 @@ template <class T, size_t N, class TT> bool IsInArray(T (&arr) [N], TT const & t
   return false;
 }
 
+/// @name From string to numeric.
+//@{
 bool to_int(char const * s, int & i);
 bool to_uint64(char const * s, uint64_t & i);
 bool to_int64(char const * s, int64_t & i);
 bool to_double(char const * s, double & d);
 
-template <class T>
-string to_string(T i)
-{
-  ostringstream ss;
-  ss << i;
-  return ss.str();
-}
-
 inline bool to_int(string const & s, int & i) { return to_int(s.c_str(), i); }
 inline bool to_uint64(string const & s, uint64_t & i) { return to_uint64(s.c_str(), i); }
 inline bool to_int64(string const & s, int64_t & i) { return to_int64(s.c_str(), i); }
 inline bool to_double(string const & s, double & d) { return to_double(s.c_str(), d); }
+//@}
+
+/// @name From numeric to string.
+//@{
+inline string to_string(string const & s)
+{
+  return s;
+}
+
+inline string to_string(char const * s)
+{
+  return s;
+}
+
+template <typename T> string to_string(T t)
+{
+  ostringstream ss;
+  ss << t;
+  return ss.str();
+}
+
+namespace impl
+{
+
+template <typename T> char * to_string_digits(char * buf, T i)
+{
+  do
+  {
+    --buf;
+    *buf = static_cast<char>(i % 10) + '0';
+    i = i / 10;
+  } while (i != 0);
+  return buf;
+}
+
+template <typename T> string to_string_signed(T i)
+{
+  bool const negative = i < 0;
+  int const sz = numeric_limits<T>::digits10 + 1;
+  char buf[sz];
+  char * end = buf + sz;
+  char * beg = to_string_digits(end, negative ? -i : i);
+  if (negative)
+  {
+    --beg;
+    *beg = '-';
+  }
+  return string(beg, end - beg);
+}
+
+template <typename T> string to_string_unsigned(T i)
+{
+  int const sz = numeric_limits<T>::digits10;
+  char buf[sz];
+  char * end = buf + sz;
+  char * beg = to_string_digits(end, i);
+  return string(beg, end - beg);
+}
+
+}
+
+inline string to_string(int64_t i)
+{
+  return impl::to_string_signed(i);
+}
+
+inline string to_string(uint64_t i)
+{
+  return impl::to_string_unsigned(i);
+}
+//@}
 
 /*
 template <typename ItT, typename DelimiterT>

@@ -218,10 +218,23 @@ UNIT_TEST(to_int64)
 
 UNIT_TEST(to_string)
 {
+  TEST_EQUAL(strings::to_string(0), "0", ());
+  TEST_EQUAL(strings::to_string(-0), "0", ());
+  TEST_EQUAL(strings::to_string(1), "1", ());
   TEST_EQUAL(strings::to_string(-1), "-1", ());
   TEST_EQUAL(strings::to_string(1234567890), "1234567890", ());
+  TEST_EQUAL(strings::to_string(-987654321), "-987654321", ());
   TEST_EQUAL(strings::to_string(0.56), "0.56", ());
   TEST_EQUAL(strings::to_string(-100.2), "-100.2", ());
+
+  // 6 digits after the comma with rounding - it's a default behavior
+  TEST_EQUAL(strings::to_string(-0.66666666), "-0.666667", ());
+
+  TEST_EQUAL(strings::to_string(-1.0E2), "-100", ());
+  TEST_EQUAL(strings::to_string(1.0E-2), "0.01", ());
+
+  TEST_EQUAL(strings::to_string(123456789123456789ULL), "123456789123456789", ());
+  TEST_EQUAL(strings::to_string(-987654321987654321LL), "-987654321987654321", ());
 }
 
 struct FunctorTester
