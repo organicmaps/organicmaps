@@ -9,62 +9,82 @@
 
 #include "../base/matrix.hpp"
 #include "../base/mutex.hpp"
+#ifdef _DEBUG
+  #include "../base/thread.hpp"
+#endif
 
-#include "../std/map.hpp"
 #include "../std/list.hpp"
 
 namespace graphics
 {
   struct OverlayElementTraits
   {
-    static m2::RectD const LimitRect(shared_ptr<OverlayElement> const & elem);
+    static m2::RectD const LimitRect(OverlayElement * elem);
   };
 
   class Overlay
   {
   private:
+#ifdef _DEBUG
+    threads::ThreadID m_threadID;
+#endif
 
     threads::Mutex m_mutex;
 
     bool m_couldOverlap;
 
-    m4::Tree<shared_ptr<OverlayElement>, OverlayElementTraits> m_tree;
+    m4::Tree<OverlayElement *, OverlayElementTraits> m_tree;
 
-    void addOverlayElement(shared_ptr<OverlayElement> const & oe);
-    void replaceOverlayElement(shared_ptr<OverlayElement> const & oe);
+    void addOverlayElement(OverlayElement * oe);
+    void replaceOverlayElement(OverlayElement * oe);
 
     Overlay(Overlay const & src) {}
 
   public:
 
+    struct Deleter
+    {
+      void operator()(Overlay * overlay)
+      {
+        DeleteOverlay(overlay);
+      }
+
+      static void DeleteOverlay(Overlay * overlay)
+      {
+        overlay->deleteElementsAndClear();
+        delete overlay;
+      }
+    };
+
     class Lock
     {
     public:
-      Lock(shared_ptr<Overlay> overlay);
+      Lock(Overlay * overlay);
       ~Lock();
 
     private:
-      shared_ptr<Overlay> m_overlay;
+      Overlay * m_overlay;
     };
 
     Overlay();
 
     void draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m);
 
-    void selectOverlayElements(m2::PointD const & pt, list<shared_ptr<OverlayElement> > & res);
-    void selectOverlayElements(m2::RectD const & rect, list<shared_ptr<OverlayElement> > & res);
+    void selectOverlayElements(m2::PointD const & pt, list<OverlayElement const * > & res);
+    void selectOverlayElements(m2::RectD const & rect, list<OverlayElement const * > & res);
 
-    void removeOverlayElement(shared_ptr<OverlayElement> const & oe, m2::RectD const & r);
+    void removeOverlayElement(OverlayElement * oe, m2::RectD const & r);
 
-    void processOverlayElement(shared_ptr<OverlayElement> const & oe);
+    void processOverlayElement(OverlayElement * oe);
 
-    void processOverlayElement(shared_ptr<OverlayElement> const & oe, math::Matrix<double, 3, 3> const & m);
+    void processOverlayElement(OverlayElement * oe, math::Matrix<double, 3, 3> const & m);
 
     void offset(m2::PointD const & offs, m2::RectD const & rect);
 
     void lock();
     void unlock();
 
+    void deleteElementsAndClear();
     void clear();
 
     void setCouldOverlap(bool flag);
@@ -81,5 +101,18 @@ namespace graphics
     {
       m_tree.ForEach(fn);
     }
+
+#ifdef _DEBUG
+    void setThreadID(threads::ThreadID id)
+    {
+      m_threadID = id;
+    }
+
+    bool validateTread(threads::ThreadID id)
+    {
+      return m_threadID == id;
+    }
+
+#endif
   };
 }

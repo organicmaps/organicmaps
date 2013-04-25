@@ -13,7 +13,7 @@
 
 namespace graphics
 {
-  Overlay::Lock::Lock(shared_ptr<Overlay> overlay)
+  Overlay::Lock::Lock(Overlay * overlay)
     : m_overlay(overlay)
   {
     m_overlay->lock();
@@ -24,8 +24,8 @@ namespace graphics
     m_overlay->unlock();
   }
 
-  bool betterOverlayElement(shared_ptr<OverlayElement> const & l,
-                            shared_ptr<OverlayElement> const & r)
+  bool betterOverlayElement(OverlayElement * l,
+                            OverlayElement * r)
   {
     /// "frozen" object shouldn't be popped out.
     if (r->isFrozen())
@@ -35,13 +35,13 @@ namespace graphics
     return l->priority() > r->priority();
   }
 
-  m2::RectD const OverlayElementTraits::LimitRect(shared_ptr<OverlayElement> const & elem)
+  m2::RectD const OverlayElementTraits::LimitRect(OverlayElement * elem)
   {
     return elem->roughBoundRect();
   }
 
   void DrawIfNotCancelled(OverlayRenderer * r,
-                          shared_ptr<OverlayElement> const & e,
+                          OverlayElement * e,
                           math::Matrix<double, 3, 3> const & m)
   {
     if (!r->isCancelled())
@@ -153,12 +153,20 @@ namespace graphics
     m_mutex.Unlock();
   }
 
+  void Overlay::deleteElementsAndClear()
+  {
+    std::vector<OverlayElement *> elements;
+    m_tree.ForEach(MakeBackInsertFunctor(elements));
+    for_each(elements.begin(), elements.end(), DeleteFunctor());
+    clear();
+  }
+
   void Overlay::clear()
   {
     m_tree.Clear();
   }
 
-  void Overlay::addOverlayElement(shared_ptr<OverlayElement> const & oe)
+  void Overlay::addOverlayElement(OverlayElement * oe)
   {
     m_tree.Add(oe);
   }
@@ -166,31 +174,31 @@ namespace graphics
   struct DoPreciseSelectByPoint
   {
     m2::PointD m_pt;
-    list<shared_ptr<OverlayElement> > * m_elements;
+    list<OverlayElement const * > & m_elements;
 
-    DoPreciseSelectByPoint(m2::PointD const & pt, list<shared_ptr<OverlayElement> > * elements)
+    DoPreciseSelectByPoint(m2::PointD const & pt, list<OverlayElement const * > & elements)
       : m_pt(pt), m_elements(elements)
     {}
 
-    void operator()(shared_ptr<OverlayElement> const & e)
+    void operator()(OverlayElement * e)
     {
       if (e->hitTest(m_pt))
-        m_elements->push_back(e);
+        m_elements.push_back(e);
     }
   };
 
   struct DoPreciseSelectByRect
   {
     m2::AnyRectD m_rect;
-    list<shared_ptr<OverlayElement> > * m_elements;
+    list<OverlayElement const *> & m_elements;
 
     DoPreciseSelectByRect(m2::RectD const & rect,
-                          list<shared_ptr<OverlayElement> > * elements)
+                          list<OverlayElement const *> & elements)
       : m_rect(rect),
         m_elements(elements)
     {}
 
-    void operator()(shared_ptr<OverlayElement> const & e)
+    void operator()(OverlayElement * e)
     {
       vector<m2::AnyRectD> const & rects = e->boundRects();
 
@@ -202,7 +210,7 @@ namespace graphics
 
         if (m_rect.IsIntersect(rect))
         {
-          m_elements->push_back(e);
+          m_elements.push_back(e);
           break;
         }
       }
@@ -211,17 +219,17 @@ namespace graphics
 
   struct DoPreciseIntersect
   {
-    shared_ptr<OverlayElement> m_oe;
-    bool * m_isIntersect;
+    OverlayElement const * m_oe;
+    bool & m_isIntersect;
 
-    DoPreciseIntersect(shared_ptr<OverlayElement> const & oe, bool * isIntersect)
+    DoPreciseIntersect(OverlayElement const * oe, bool & isIntersect)
       : m_oe(oe),
         m_isIntersect(isIntersect)
     {}
 
-    void operator()(shared_ptr<OverlayElement> const & e)
+    void operator()(OverlayElement * e)
     {
-      if (*m_isIntersect)
+      if (m_isIntersect)
         return;
 
       if (m_oe->m_userInfo == e->m_userInfo)
@@ -234,30 +242,30 @@ namespace graphics
       {
         for (vector<m2::AnyRectD>::const_iterator rit = rr.begin(); rit != rr.end(); ++rit)
         {
-          *m_isIntersect = lit->IsIntersect(*rit);
-          if (*m_isIntersect)
+          m_isIntersect = lit->IsIntersect(*rit);
+          if (m_isIntersect)
             return;
         }
       }
     }
   };
 
-  void Overlay::selectOverlayElements(m2::RectD const & rect, list<shared_ptr<OverlayElement> > & res)
+  void Overlay::selectOverlayElements(m2::RectD const & rect, list<OverlayElement const *> & res)
   {
-    DoPreciseSelectByRect fn(rect, &res);
+    DoPreciseSelectByRect fn(rect, res);
     m_tree.ForEachInRect(rect, fn);
   }
 
-  void Overlay::selectOverlayElements(m2::PointD const & pt, list<shared_ptr<OverlayElement> > & res)
+  void Overlay::selectOverlayElements(m2::PointD const & pt, list<OverlayElement const *> & res)
   {
-    DoPreciseSelectByPoint fn(pt, &res);
+    DoPreciseSelectByPoint fn(pt, res);
     m_tree.ForEachInRect(m2::RectD(pt - m2::PointD(1, 1), pt + m2::PointD(1, 1)), fn);
   }
 
-  void Overlay::replaceOverlayElement(shared_ptr<OverlayElement> const & oe)
+  void Overlay::replaceOverlayElement(OverlayElement * oe)
   {
     bool isIntersect = false;
-    DoPreciseIntersect fn(oe, &isIntersect);
+    DoPreciseIntersect fn(oe, isIntersect);
     m_tree.ForEachInRect(oe->roughBoundRect(), fn);
     if (isIntersect)
       m_tree.ReplaceIf(oe, &betterOverlayElement);
@@ -265,19 +273,19 @@ namespace graphics
       m_tree.Add(oe);
   }
 
-  void Overlay::removeOverlayElement(shared_ptr<OverlayElement> const & oe, m2::RectD const & r)
+  void Overlay::removeOverlayElement(OverlayElement * oe, m2::RectD const & r)
   {
     m_tree.Erase(oe, r);
   }
 
-  void Overlay::processOverlayElement(shared_ptr<OverlayElement> const & oe, math::Matrix<double, 3, 3> const & m)
+  void Overlay::processOverlayElement(OverlayElement * oe, math::Matrix<double, 3, 3> const & m)
   {
     oe->setTransformation(m);
     if (oe->isValid())
       processOverlayElement(oe);
   }
 
-  void Overlay::processOverlayElement(shared_ptr<OverlayElement> const & oe)
+  void Overlay::processOverlayElement(OverlayElement * oe)
   {
     if (oe->isValid())
     {
@@ -288,15 +296,15 @@ namespace graphics
     }
   }
 
-  bool greater_priority(shared_ptr<OverlayElement> const & l,
-                        shared_ptr<OverlayElement> const & r)
+  bool greater_priority(OverlayElement const * l,
+                        OverlayElement const * r)
   {
     return l->priority() > r->priority();
   }
 
   void Overlay::merge(Overlay const & layer, math::Matrix<double, 3, 3> const & m)
   {
-    vector<shared_ptr<OverlayElement> > v;
+    vector<OverlayElement *> v;
 
     /// 1. collecting all elements from tree
     layer.m_tree.ForEach(MakeBackInsertFunctor(v));
@@ -311,7 +319,7 @@ namespace graphics
 
   void Overlay::merge(Overlay const & infoLayer)
   {
-    vector<shared_ptr<OverlayElement> > v;
+    vector<OverlayElement *> v;
 
     /// 1. collecting all elements from tree
     infoLayer.m_tree.ForEach(MakeBackInsertFunctor(v));
@@ -326,19 +334,18 @@ namespace graphics
 
   void Overlay::clip(m2::RectI const & r)
   {
-    vector<shared_ptr<OverlayElement> > v;
+    vector<OverlayElement * > v;
     m_tree.ForEach(MakeBackInsertFunctor(v));
     m_tree.Clear();
 
     //int clippedCnt = 0;
-    //int elemCnt = v.size();
 
     m2::RectD rd(r);
     m2::AnyRectD ard(rd);
 
     for (unsigned i = 0; i < v.size(); ++i)
     {
-      shared_ptr<OverlayElement> const & e = v[i];
+      OverlayElement * e = v[i];
 
       if (!e->isVisible())
       {
@@ -370,17 +377,17 @@ namespace graphics
 
   bool Overlay::checkHasEquals(Overlay const * l) const
   {
-    vector<shared_ptr<OverlayElement> > v0;
+    vector<OverlayElement *> v0;
     m_tree.ForEach(MakeBackInsertFunctor(v0));
 
     sort(v0.begin(), v0.end());
 
-    vector<shared_ptr<OverlayElement> > v1;
+    vector<OverlayElement *> v1;
     l->m_tree.ForEach(MakeBackInsertFunctor(v1));
 
     sort(v1.begin(), v1.end());
 
-    vector<shared_ptr<OverlayElement> > res;
+    vector<OverlayElement *> res;
 
     set_intersection(v0.begin(), v0.end(), v1.begin(), v1.end(), back_inserter(res));
 

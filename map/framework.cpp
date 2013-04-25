@@ -1473,13 +1473,13 @@ bool Framework::IsBenchmarking() const
   return m_benchmarkEngine != 0;
 }
 
-shared_ptr<graphics::OverlayElement> const GetClosestToPivot(list<shared_ptr<graphics::OverlayElement> > const & l,
+graphics::OverlayElement const * GetClosestToPivot(list<graphics::OverlayElement const * > const & l,
                                                        m2::PointD const & pxPoint)
 {
   double dist = numeric_limits<double>::max();
-  shared_ptr<graphics::OverlayElement> res;
+  graphics::OverlayElement const * res;
 
-  for (list<shared_ptr<graphics::OverlayElement> >::const_iterator it = l.begin();
+  for (list<graphics::OverlayElement const *>::const_iterator it = l.begin();
        it != l.end();
        ++it)
   {
@@ -1503,16 +1503,16 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, 
 
   typedef graphics::OverlayElement ElementT;
 
-  list<shared_ptr<ElementT> > candidates;
+  list<ElementT const * > candidates;
   m2::RectD rect(pt.x - halfSize, pt.y - halfSize,
                  pt.x + halfSize, pt.y + halfSize);
   {
-    shared_ptr<graphics::Overlay> frameOverlay = m_renderPolicy->FrameOverlay();
+    graphics::Overlay * frameOverlay = m_renderPolicy->FrameOverlay();
     graphics::Overlay::Lock guard(frameOverlay);
     frameOverlay->selectOverlayElements(rect, candidates);
   }
 
-  shared_ptr<ElementT> elem = GetClosestToPivot(candidates, pt);
+  ElementT const * elem = GetClosestToPivot(candidates, pt);
 
   /// cloning element to avoid it's modification after FrameUnlock.
 
