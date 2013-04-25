@@ -1502,24 +1502,22 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, 
   double const halfSize = TOUCH_PIXEL_RADIUS * GetVisualScale();
 
   typedef graphics::OverlayElement ElementT;
+  ElementT::UserInfo ui;
 
-  list<ElementT const * > candidates;
   m2::RectD rect(pt.x - halfSize, pt.y - halfSize,
                  pt.x + halfSize, pt.y + halfSize);
   {
     graphics::Overlay * frameOverlay = m_renderPolicy->FrameOverlay();
     graphics::Overlay::Lock guard(frameOverlay);
+
+    list<ElementT const * > candidates;
     frameOverlay->selectOverlayElements(rect, candidates);
+
+    ElementT const * elem = GetClosestToPivot(candidates, pt);
+
+    if (elem)
+      ui = elem->userInfo();
   }
-
-  ElementT const * elem = GetClosestToPivot(candidates, pt);
-
-  /// cloning element to avoid it's modification after FrameUnlock.
-
-  ElementT::UserInfo ui;
-
-  if (elem)
-    ui = elem->userInfo();
 
   m_renderPolicy->FrameUnlock();
 
