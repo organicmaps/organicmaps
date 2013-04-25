@@ -16,11 +16,7 @@ namespace graphics
 
     bool m_drawTexts;
     bool m_drawSymbols;
-    shared_ptr<graphics::Overlay> m_overlay;
-
-    typedef map<m2::PointI, shared_ptr<OverlayElement> > TElements;
-
-    TElements m_elements;
+    graphics::Overlay * m_overlay;
 
   public:
 
@@ -28,7 +24,7 @@ namespace graphics
     {
       bool m_drawTexts;
       bool m_drawSymbols;
-      shared_ptr<graphics::Overlay> m_overlay;
+      graphics::Overlay * m_overlay;
       Params();
     };
 
@@ -85,9 +81,9 @@ namespace graphics
                       size_t offsSize,
                       double depth);
 
-    void setOverlay(shared_ptr<Overlay> const & overlay);
+    void setOverlay(Overlay * overlay);
 
-    shared_ptr<Overlay> const & overlay() const;
+    Overlay * overlay() const;
 
     void resetOverlay();
   };

@@ -239,10 +239,10 @@ void RenderPolicy::FrameUnlock()
   LOG(LWARNING, ("unimplemented method called"));
 }
 
-shared_ptr<graphics::Overlay> const RenderPolicy::FrameOverlay() const
+graphics::Overlay * RenderPolicy::FrameOverlay() const
 {
   LOG(LWARNING, ("unimplemented method called"));
-  return shared_ptr<graphics::Overlay>();
+  return NULL;
 }
 
 graphics::Color const RenderPolicy::GetBgColor() const

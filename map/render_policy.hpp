@@ -162,7 +162,7 @@ public:
   /// Get current graphics::Overlay object.
   /// Access to this resource should be synchronized using
   /// FrameLock/FrameUnlock methods
-  virtual shared_ptr<graphics::Overlay> const FrameOverlay() const;
+  virtual graphics::Overlay * FrameOverlay() const;
 
   /// Benchmarking protocol
   virtual int InsertBenchmarkFence();

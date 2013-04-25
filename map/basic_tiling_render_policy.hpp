@@ -81,7 +81,7 @@ public:
 
   void FrameLock();
   void FrameUnlock();
-  shared_ptr<graphics::Overlay> const FrameOverlay() const;
+  graphics::Overlay * FrameOverlay() const;
 
   /// benchmarking protocol
   int InsertBenchmarkFence();
