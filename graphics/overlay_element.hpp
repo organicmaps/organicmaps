@@ -6,6 +6,10 @@
 #include "defines.hpp"
 #include "../std/vector.hpp"
 
+#ifdef _DEBUG
+  #include "../base/object_tracker.hpp"
+#endif
+
 namespace graphics
 {
   class OverlayRenderer;
@@ -44,6 +48,10 @@ namespace graphics
     mutable m2::RectD m_roughBoundRect;
 
     math::Matrix<double, 3, 3> m_inverseMatrix;
+
+#ifdef _DEBUG
+    dbg::ObjectTracker m_tracker;
+#endif
 
   protected:
     math::Matrix<double, 3, 3> const & getResetMatrix() const;

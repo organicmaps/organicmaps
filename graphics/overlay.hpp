@@ -32,6 +32,7 @@ namespace graphics
     threads::Mutex m_mutex;
 
     bool m_couldOverlap;
+    set<OverlayElement *> m_notProcessedElements;
 
     m4::Tree<OverlayElement *, OverlayElementTraits> m_tree;
 
@@ -90,9 +91,15 @@ namespace graphics
     void setCouldOverlap(bool flag);
 
     void merge(Overlay const & infoLayer, math::Matrix<double, 3, 3> const & m);
-    void merge(Overlay const & infoLayer);
 
     void clip(m2::RectI const & r);
+
+    void clearNotProcessed();
+    void deleteNotProcessed();
+
+#ifdef _DEBUG
+    void validateNotProcessed();
+#endif
 
     bool checkHasEquals(Overlay const * l) const;
 

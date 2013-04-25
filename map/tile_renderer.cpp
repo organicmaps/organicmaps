@@ -269,6 +269,11 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   if (!env.isCancelled())
     tileOverlay->clip(renderRect);
 
+#ifdef _DEBUG
+  tileOverlay->validateNotProcessed();
+#endif
+  tileOverlay->deleteNotProcessed();
+
   drawer->screen()->finish();
 
   if (m_resourceManager->useReadPixelsToSynchronize())

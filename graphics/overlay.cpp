@@ -283,6 +283,8 @@ namespace graphics
     oe->setTransformation(m);
     if (oe->isValid())
       processOverlayElement(oe);
+    else
+      m_notProcessedElements.insert(oe);
   }
 
   void Overlay::processOverlayElement(OverlayElement * oe)
@@ -294,6 +296,8 @@ namespace graphics
       else
         replaceOverlayElement(oe);
     }
+    else
+      m_notProcessedElements.insert(oe);
   }
 
   bool greater_priority(OverlayElement const * l,
@@ -315,21 +319,7 @@ namespace graphics
     /// 3. merging them into the infoLayer starting from most
     /// important one to optimize the space usage.
     for_each(v.begin(), v.end(), bind(&Overlay::processOverlayElement, this, _1, cref(m)));
-  }
-
-  void Overlay::merge(Overlay const & infoLayer)
-  {
-    vector<OverlayElement *> v;
-
-    /// 1. collecting all elements from tree
-    infoLayer.m_tree.ForEach(MakeBackInsertFunctor(v));
-
-    /// 2. sorting by priority, so the more important ones comes first
-    sort(v.begin(), v.end(), &greater_priority);
-
-    /// 3. merging them into the infoLayer starting from most
-    /// important one to optimize the space usage.
-    for_each(v.begin(), v.end(), bind(&Overlay::processOverlayElement, this, _1));
+    clearNotProcessed();
   }
 
   void Overlay::clip(m2::RectI const & r)
@@ -347,15 +337,9 @@ namespace graphics
     {
       OverlayElement * e = v[i];
 
-      if (!e->isVisible())
+      bool hasIntersection = false;
+      if (e->isVisible() && e->roughBoundRect().IsIntersect(rd))
       {
-        //clippedCnt++;
-        continue;
-      }
-
-      if (e->roughBoundRect().IsIntersect(rd))
-      {
-        bool hasIntersection = false;
         for (unsigned j = 0; j < e->boundRects().size(); ++j)
         {
           if (ard.IsIntersect(e->boundRects()[j]))
@@ -364,12 +348,12 @@ namespace graphics
             break;
           }
         }
-
-        if (hasIntersection)
-          processOverlayElement(e);
       }
-      //else
-      //  clippedCnt++;
+
+      if (hasIntersection)
+        processOverlayElement(e);
+      else
+        m_notProcessedElements.insert(e);
     }
 
 //    LOG(LINFO, ("clipped out", clippedCnt, "elements,", elemCnt, "elements total"));
@@ -393,5 +377,34 @@ namespace graphics
 
     return !res.empty();
   }
+
+  void Overlay::clearNotProcessed()
+  {
+    m_notProcessedElements.clear();
+  }
+
+  void Overlay::deleteNotProcessed()
+  {
+    for (set<OverlayElement *>::const_iterator it = m_notProcessedElements.begin();
+         it != m_notProcessedElements.end();
+         ++it)
+    {
+      delete *it;
+    }
+
+    m_notProcessedElements.clear();
+  }
+
+#ifdef _DEBUG
+  void Overlay::validateNotProcessed()
+  {
+    vector<OverlayElement *> v;
+
+    m_tree.ForEach(MakeBackInsertFunctor(v));
+    for (size_t i = 0; i < v.size(); ++i)
+      ASSERT(m_notProcessedElements.find(v[i]) == m_notProcessedElements.end(),
+             ("Object marked to deletion in tree!!!"));
+  }
+#endif
 }
 
