@@ -227,6 +227,7 @@ void InitLocalizedStrings()
   
   m2::PointD point(MercatorBounds::LonToX(request.m_viewportLon),
                    MercatorBounds::LatToY(request.m_viewportLat));
+  
   NSString * name = [NSString stringWithUTF8String: request.m_points.front().m_name.c_str()];
   
   [m_mapViewController showBalloonWithText:name andGlobalPoint:point];

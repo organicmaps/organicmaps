@@ -807,6 +807,8 @@ NSInteger compareAddress(id l, id r, void * context)
   m_balloonView.isCurrentPosition = NO;
   m_balloonView.editedBookmark = pair<int, int>(-1, -1);
   CGFloat const scaleFactor = self.view.contentScaleFactor;
+
+  point = GetFramework().GtoP(point);
   [m_balloonView showInView:self.view atPoint:CGPointMake(point.x / scaleFactor, point.y / scaleFactor)];
 }
 
