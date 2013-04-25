@@ -42,6 +42,7 @@
 			<string>com.mapswithme.maps</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>ge0</string>
 				<string>geo</string>
 			</array>
 		</dict>
