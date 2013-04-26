@@ -392,7 +392,7 @@ void ScreenCoverage::Draw(graphics::Screen * s, ScreenBase const & screen)
 
 int ScreenCoverage::GetDrawScale() const
 {
-  return min(m_tiler.tileScale(), scales::GetUpperScale());
+  return m_tiler.tileScale();
 }
 
 bool ScreenCoverage::IsEmptyDrawingCoverage() const

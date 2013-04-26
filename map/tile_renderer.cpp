@@ -252,13 +252,15 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   frameScreen.PtoG(m2::Inflate(m2::RectD(renderRect), inflationSize, inflationSize), clipRect);
   frameScreen.PtoG(m2::RectD(renderRect), selectRect);
 
+  // adjusting tileScale to look the same across devices with different tileWidth and visualScale values
+  int styleTileScale = max((rectInfo.m_tileScale + log(tileWidth / 256.0 / drawer->VisualScale()) / log(2.0)), 1.0);
   m_renderFn(
         paintEvent,
         frameScreen,
         selectRect,
         clipRect,
-        min(scales::GetUpperScale(), rectInfo.m_tileScale),
-        rectInfo.m_tileScale <= scales::GetUpperScale()
+        styleTileScale,
+        styleTileScale <= scales::GetUpperScale()
         );
 
   drawer->endFrame();

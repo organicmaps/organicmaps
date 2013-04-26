@@ -3,9 +3,12 @@
 #include "../geometry/rect2d.hpp"
 #include "../geometry/point2d.hpp"
 
+int const UPPER_STYLE_SCALE = 19;
+
 namespace scales
 {
   inline int GetUpperScale() { return 17; }
+  inline int GetUpperStyleScale() { return UPPER_STYLE_SCALE; }
   inline int GetUpperWorldScale() { return 9; }
 
   double GetM2PFactor(int level);

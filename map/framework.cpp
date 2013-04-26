@@ -762,9 +762,10 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
 
   try
   {
-    int const scale = (m_queryMaxScaleMode ? scales::GetUpperScale() : scaleLevel);
+    // limit scaleLevel to be not more than upperScale
+    int const upperScale = scales::GetUpperScale();
+    int const scale = min((m_queryMaxScaleMode ? upperScale : scaleLevel), upperScale);
 
-    //threads::MutexGuard lock(m_modelSyn);
     if (isTiling)
       m_model.ForEachFeature_TileDrawing(selectRect, doDraw, scale);
     else

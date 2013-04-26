@@ -126,7 +126,7 @@ void RulesHolder::Clean()
 
 size_t RulesHolder::AddRule(int scale, rule_type_t type, BaseRule * p)
 {
-  ASSERT ( 0 <= scale && scale <= scales::GetUpperScale(), (scale) );
+  ASSERT ( 0 <= scale && scale <= scales::GetUpperStyleScale(), (scale) );
   ASSERT ( 0 <= type && type < count_of_rules, () );
 
   m_container[type].push_back(p);

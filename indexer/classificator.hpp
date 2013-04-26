@@ -1,6 +1,7 @@
 #pragma once
 #include "drawing_rule_def.hpp"
 #include "types_mapping.hpp"
+#include "scales.hpp"
 
 #include "../base/base.hpp"
 
@@ -113,7 +114,7 @@ public:
     }
   }
 
-  typedef bitset<18> visible_mask_t;
+  typedef bitset<UPPER_STYLE_SCALE+1> visible_mask_t;
   visible_mask_t GetVisibilityMask() const { return m_visibility; }
   void SetVisibilityMask(visible_mask_t mask) { m_visibility = mask; }
   void SetVisibilityOnScale(const bool isVisible, const int scale) { m_visibility[scale] = isVisible; }

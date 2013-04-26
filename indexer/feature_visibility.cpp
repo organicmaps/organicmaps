@@ -118,7 +118,7 @@ namespace
     bool operator() (ClassifObject const * p, bool & res)
     {
       res = true;
-      p->GetSuitable(m_scale, m_ft, m_keys);
+      p->GetSuitable(min(m_scale, scales::GetUpperStyleScale()), m_ft, m_keys);
       return false;
     }
   };

@@ -1,5 +1,6 @@
 #include "classificator.hpp"
 #include "tree_structure.hpp"
+#include "scales.hpp"
 
 #include "../coding/file_reader.hpp"
 
@@ -81,10 +82,13 @@ void ClassifObject::LoadPolicy::Serialize(string const & s)
   drule::Key key;
   key.fromString(s);
 
-  //p->m_drawRule.push_back(key);
-
   // mark as visible in rule's scale
   p->m_visibility[key.m_scale] = true;
+
+  // mark objects visible on higher zooms as visible on upperScale, to get them into .mwm file
+  int const upperScale = scales::GetUpperScale();
+  if (key.m_scale > upperScale)
+    p->m_visibility[upperScale] = true;
 }
 
 void ClassifObject::LoadPolicy::Start(size_t i)
