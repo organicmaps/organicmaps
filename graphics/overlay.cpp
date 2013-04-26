@@ -385,13 +385,7 @@ namespace graphics
 
   void Overlay::deleteNotProcessed()
   {
-    for (set<OverlayElement *>::const_iterator it = m_notProcessedElements.begin();
-         it != m_notProcessedElements.end();
-         ++it)
-    {
-      delete *it;
-    }
-
+    for_each(m_notProcessedElements.begin(), m_notProcessedElements.end(), DeleteFunctor());
     m_notProcessedElements.clear();
   }
 
@@ -399,11 +393,13 @@ namespace graphics
   void Overlay::validateNotProcessed()
   {
     vector<OverlayElement *> v;
-
     m_tree.ForEach(MakeBackInsertFunctor(v));
+
     for (size_t i = 0; i < v.size(); ++i)
+    {
       ASSERT(m_notProcessedElements.find(v[i]) == m_notProcessedElements.end(),
              ("Object marked to deletion in tree!!!"));
+    }
   }
 #endif
 }

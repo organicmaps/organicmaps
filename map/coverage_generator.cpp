@@ -218,7 +218,7 @@ void CoverageGenerator::CoverScreen(core::CommandsQueue::Environment const & env
   m_workCoverage->SetSequenceID(sequenceID);
   m_workCoverage->SetScreen(screen);
 #ifdef DEBUG
-  m_overlay.validateTread(threads::GetCurrentThreadID());
+  m_overlay.validateThread(threads::GetCurrentThreadID());
 #endif
   m_workCoverage->MergeOverlay(&m_overlay);
 
@@ -272,7 +272,7 @@ void CoverageGenerator::MergeTile(core::CommandsQueue::Environment const & env,
   m_currentCoverage->CopyInto(*m_workCoverage);
   m_workCoverage->SetSequenceID(sequenceID);
 #ifdef DEBUG
-  m_overlay.validateTread(threads::GetCurrentThreadID());
+  m_overlay.validateThread(threads::GetCurrentThreadID());
 #endif
   m_workCoverage->Merge(rectInfo, &m_overlay);
 

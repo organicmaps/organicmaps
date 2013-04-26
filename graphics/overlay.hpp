@@ -45,7 +45,7 @@ namespace graphics
 
     struct Deleter
     {
-      void operator()(Overlay * overlay)
+      void operator()(Overlay * overlay) const
       {
         DeleteOverlay(overlay);
       }
@@ -115,7 +115,7 @@ namespace graphics
       m_threadID = id;
     }
 
-    bool validateTread(threads::ThreadID id)
+    bool validateThread(threads::ThreadID id)
     {
       return m_threadID == id;
     }
