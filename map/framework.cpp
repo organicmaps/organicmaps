@@ -1477,7 +1477,7 @@ graphics::OverlayElement const * GetClosestToPivot(list<graphics::OverlayElement
                                                        m2::PointD const & pxPoint)
 {
   double dist = numeric_limits<double>::max();
-  graphics::OverlayElement const * res;
+  graphics::OverlayElement const * res = NULL;
 
   for (list<graphics::OverlayElement const *>::const_iterator it = l.begin();
        it != l.end();
