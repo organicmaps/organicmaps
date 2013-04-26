@@ -420,7 +420,7 @@
 "no_thanks" = "Ne, díky";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Značka na mapě. Otevřete %1$@ nebo %2$@";
+"bookmark_share_sms" = "Značka na mapě otevřete %1$@ nebo %2$@";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
 "my_position_share_sms" = "Jsem zde. Otevřete %1$@ nebo %2$@";
@@ -434,7 +434,7 @@
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Podívejte se na moji aktuální polohu na mapě na MapsWithMe";
 
-/* Share my position using EMail, %@ is ge0:// link WITHOUT NAME */
+/* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Ahoj,\n\nnyní jsem zde: %1$@ . Klikni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDěkuji.";
 
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */

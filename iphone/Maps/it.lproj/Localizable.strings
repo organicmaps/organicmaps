@@ -429,12 +429,12 @@
 "bookmark_share_email_subject" = "Dai uno sguardo al mio pin sulla mappa di MapsWithMe";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Ciao,\n\nHo segnato: %1$@ su MapsWithMe, le mappe del mondo offline. Clicca su questo link %2$@ oppure su questo %3$@ per vedere il posto sulla mappa.\n\nGrazie.";
+"bookmark_share_email" = "Ciao,\n\nHo segnato %1$@ su MapsWithMe, le mappe del mondo offline. Clicca su questo link %2$@ oppure su questo %3$@ per vedere il posto sulla mappa.\n\nGrazie.";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Guarda dove mi trovo attualmente sulla mappa MapsWithMe";
 
-/* Share my position using EMail, %@ is ge0:// link WITHOUT NAME */
+/* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Ciao,\n\nSono qui adesso: %1$@. Clicca su questo link %2$@ oppure su questo %3$@ per vedere il posto sulla mappa.\n\nGrazie.";
 
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */

@@ -1877,7 +1877,7 @@
     ja = 私のピンはマップのここに。%1$@ または %2$@ 開いてください
     de = Meine Nadel auf der Karte sehen. Klicke auf den Link %1$@ oder %2$@
     nl = Bekijk mijn pin op de kaart. Open %1$@ of %2$@
-    cs = Značka na mapě. Otevřete %1$@ nebo %2$@
+    cs = Značka na mapě otevřete %1$@ nebo %2$@
     fr = Voir ma punaise sur la carte. Ouvrir %1$@ ou %2$@
     uk = Моя мітка на карті. Іди %1$@ або %2$@
     es = Ve mi alfiler en mapa. Abre %1$@ o %2$@
@@ -1885,7 +1885,7 @@
     en = See where I am now. Open the link: %1$@ or %2$@
     tags = ios, android
     comment = Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
-    ru = Смотри, где я сейчас. Жми %1$@ или %2$@
+    ru = Смотри где я сейчас. Жми %1$@ или %2$@
     ko = 현재 위치를 알아 보십시오. %1$@ 또는 %2$@ 열기
     it = Vedi dove sono ora. Apri %1$@ o %2$@
     ja = 私は今ここにいます。%1$@ または %2$@ を開いてください。
@@ -1916,12 +1916,12 @@
     uk = Привіт,\n\nЯ позначив: %1$@ у MapsWithMe, оффлайн карти світу. Натисни на це посилання %2$@ або на це посилання %3$@, щоб побачити місце на карті. \n\nДякую.
     ko = 안녕하세요.\n\n다음 위치에 표시를 하였습니다: 오프라인 세계 지도인 MapsWithMe에서 %1$@ . %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.
     ja = こんにちは。\n\n世界のオフラインマップMapsWithMe でこの場所をピンで留めました： %1$@ 。リンク %2$@ または %3$@ クリックしてその場所をマップで確認してください。\n\nよろしくお願いします
-    it = Ciao,\n\nHo segnato: %1$@ su MapsWithMe, le mappe del mondo offline. Clicca su questo link %2$@ oppure su questo %3$@ per vedere il posto sulla mappa.\n\nGrazie.
-    es = Hola:\n\nMarqué con un alfiler: %1$@ en MapsWithMe, mapas del mundo sin conexión. Haz clic en este enlace %2$@ o este %3$@ para ver el sitio en el mapa.\n\nGracias.
+    it = Ciao,\n\nHo segnato %1$@ su MapsWithMe, le mappe del mondo offline. Clicca su questo link %2$@ oppure su questo %3$@ per vedere il posto sulla mappa.\n\nGrazie.
+    es = ¡Hola!\n\nMarqué con un alfiler: %1$@ en MapsWithMe, mapas del mundo sin conexión. Haz clic en este enlace %2$@ o este %3$@ para ver el sitio en el mapa.\n\nGracias.
     nl = Hoi,\n\nIk heb: %1$@ geprikt bij MapsWithMe, offline wereldkaarten. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.
-    fr = Salut,\n\nJ'ai épinglé : %1$@XX à MapsWithMe, les cartes du monde hors ligne. clique sur ce lien %2$@ ou sur celui-ci %3$@ pour visualiser l'endroit sur la carte.\n\nMerci.
+    fr = Salut,\n\nJ'ai épinglé: %1$@ à MapsWithMe, les cartes du monde hors ligne. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour visualiser l'endroit sur la carte.\n\nMerci.
     cs = Ahoj,\n\nUmístil jsem značku %1$@ na MapsWithMe, světové mapy bez internetového připojení. Klikni na jeden z těchto odkazů %2$@ , %3$@ a uvidíš toto místo na mapě.\n\nDěkuji.
-    de = Hi,\n\nich habe gepinnt: %1$@ auf MapsWithMe, Offline-Weltkarten. Klicke auf diesen Link %2$@ oder diesen %3$@, um den Ort auf der Karte zu sehen.\n\nVielen Dank.
+    de = Hi,\n\nIch habe gepinnt: %1$@ auf MapsWithMe, Offline-Weltkarten. Klicke auf diesen Link %2$@ oder diesen %3$@, um den Ort auf der Karte zu sehen.\n\nVielen Dank.
   [my_position_share_email_subject]
     en = Look at my current location on MapsWithMe map
     tags = ios, android
@@ -1939,8 +1939,8 @@
  [my_position_share_email]
     en = Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
     tags = ios, android
-    comment = Share my position using EMail, %@ is ge0:// link WITHOUT NAME
-    ru = Привет!\n\nЧтобы увидеть на карте MapsWithMe, где я сейчас нахожусь, открой эту ссылку %2$@ или эту %3$@\n\nСпасибо.
+    comment = Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME
+    ru = Привет!\n\nЯ сейчас здесь: %1$@. Чтобы увидеть это место на карте MapsWithMe, открой эту ссылку %2$@ или эту %3$@ \n\nСпасибо.
     uk = Привіт,\n\nЯ зараз тут: %1$@.  Натисни на це посилання %2$@ або на це посилання %3$@ щоб побачити місце на карті. \n\nДякую.
     ko = 안녕하세요.\n\n지금 다음 위치에 있습니다: %1$@ . %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.
     ja = こんにちは。\n\n私は今ここにいます: %1$@ 。リンク %2$@ または %3$@  をクリックしてその場所をマップで確認してください。\n\nよろしくお願いします。

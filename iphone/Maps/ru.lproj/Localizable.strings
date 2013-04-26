@@ -423,7 +423,7 @@
 "bookmark_share_sms" = "Моя метка на карте. Жми %1$@ или %2$@";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Смотри, где я сейчас. Жми %1$@ или %2$@";
+"my_position_share_sms" = "Смотри где я сейчас. Жми %1$@ или %2$@";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Смотри мою метку на карте MapsWithMe";
@@ -434,8 +434,8 @@
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Посмотри на карте MapsWithMe, где я сейчас нахожусь";
 
-/* Share my position using EMail, %@ is ge0:// link WITHOUT NAME */
-"my_position_share_email" = "Привет!\n\nЧтобы увидеть на карте MapsWithMe, где я сейчас нахожусь, открой эту ссылку %2$@ или эту %3$@\n\nСпасибо.";
+/* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
+"my_position_share_email" = "Привет!\n\nЯ сейчас здесь: %1$@. Чтобы увидеть это место на карте MapsWithMe, открой эту ссылку %2$@ или эту %3$@ \n\nСпасибо.";
 
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Отправить другу";

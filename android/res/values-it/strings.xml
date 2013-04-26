@@ -64,9 +64,9 @@
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Dai uno sguardo al mio pin sulla mappa di MapsWithMe</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Ciao,\n\nHo segnato: %1$s su MapsWithMe, le mappe del mondo offline. Clicca su questo link %2$s oppure su questo %3$s per vedere il posto sulla mappa.\n\nGrazie.</string>
+	<string name="bookmark_share_email">Ciao,\n\nHo segnato %1$s su MapsWithMe, le mappe del mondo offline. Clicca su questo link %2$s oppure su questo %3$s per vedere il posto sulla mappa.\n\nGrazie.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Guarda dove mi trovo attualmente sulla mappa MapsWithMe</string>
-	<!-- Share my position using EMail, %@ is ge0:// link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Ciao,\n\nSono qui adesso: %1$s. Clicca su questo link %2$s oppure su questo %3$s per vedere il posto sulla mappa.\n\nGrazie.</string>
 </resources>
