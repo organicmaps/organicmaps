@@ -350,6 +350,7 @@ private:
 
 public:
   bool GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, AddressInfo & info) const;
+  string GetNameAndAddressAtPoint(m2::PointD const & pxPoint);
 
   enum BookmarkOrPoi
   {

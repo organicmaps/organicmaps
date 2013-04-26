@@ -500,9 +500,7 @@ void Framework::GetAddressInfo(m2::PointD const & pxPoint, AddressInfo & info) c
   m_model.ForEachFeature(rect, getAddress, scale);
 
   getAddress.FillAddress(GetSearchEngine(), info);
-
-  // @TODO Temporarily commented - it's slow and not used in UI
-  //GetLocality(pt, info);
+  GetLocality(pt, info);
 }
 
 void Framework::GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, AddressInfo & info) const
