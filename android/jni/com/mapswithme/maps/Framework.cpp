@@ -55,6 +55,9 @@ namespace android
 
     for (size_t i = 0; i < ARRAY_SIZE(m_images); ++i)
       m_images[i] = 0;
+
+    shared_ptr<location::State> locState = NativeFramework()->GetLocationState();
+    locState->AddOnPositionClickListener(bind(&Framework::OnPositionClicked, this, _1));
   }
 
   Framework::~Framework()
@@ -63,6 +66,15 @@ namespace android
       delete m_images[i];
 
     delete m_videoTimer;
+  }
+
+  //TODO used to keep track of current position for "my_posotion" balloon
+  bool m_doUpdateBalloonPositionFromLocation = false;
+  void Framework::OnPositionClicked(m2::PointD const & point)
+  {
+    m_doUpdateBalloonPositionFromLocation = true;
+    string name = NativeFramework()->GetStringsBundle().GetString("my_position");
+    ActivatePopup(point, name, IMAGE_PLUS);
   }
 
   void Framework::OnLocationError(int errorCode)
@@ -77,6 +89,16 @@ namespace android
     info.m_latitude = lat;
     info.m_longitude = lon;
     info.m_horizontalAccuracy = accuracy;
+
+    // TODO don't forget to make cross-platform
+    // when we have our sexy-cross-platform balloons
+    if (m_doUpdateBalloonPositionFromLocation)
+    {
+      GetBookmarkBalloon()->setGlbPivot(m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)));
+      m_work.Invalidate();
+    }
+    //
+
     m_work.OnLocationUpdate(info);
   }
 
@@ -553,6 +575,9 @@ namespace android
 
   void Framework::OnProcessTouchTask(double x, double y, unsigned ms)
   {
+    // stop updating balloon position
+    m_doUpdateBalloonPositionFromLocation = false;
+
     m2::PointD pt(x, y);
     ::Framework::AddressInfo addrInfo;
     m2::PointD pxPivot;
@@ -728,7 +753,7 @@ namespace android
     //TODO this is weird hack, we should reconsider Android
     // lifecycle handling design
     m_doLoadState = false;
-    url_api:: Request request;
+    url_api::Request request;
     bool success = m_work.SetViewportByURL(url, request);
     // Show temp balloon
     if (success && !request.m_points.empty())

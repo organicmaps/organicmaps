@@ -71,6 +71,7 @@ namespace android
     void OnBalloonClick(gui::Element * e);
     void CreateBookmarkBalloon();
     BookmarkBalloon * GetBookmarkBalloon();
+    void OnPositionClicked(m2::PointD const & point);
 
     string m_searchQuery;
 

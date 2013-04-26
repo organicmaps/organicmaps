@@ -110,8 +110,11 @@ public abstract class ShareAction
   
   public void shareBookmark(Activity activity, Bookmark bookmark) 
   {
-    final String body = activity.getString(R.string.bookmark_share_sms, bookmark.getGe0Url(), bookmark.getHttpGe0Url());
-    final String subject = activity.getString(R.string.bookmark_share_email_subject);
+    final boolean isMyPosition = activity.getString(R.string.my_position).equals(bookmark.getName());
+    final String body = activity.getString(isMyPosition ? R.string.my_position_share_sms : R.string.bookmark_share_sms,
+                                           bookmark.getGe0Url(), bookmark.getHttpGe0Url());
+    final String subject = activity.getString(isMyPosition ? R.string.my_position_share_email_subject : R.string.bookmark_share_email_subject);
+
     shareWithText(activity, body, subject);
   }
 
@@ -137,6 +140,17 @@ public abstract class ShareAction
     {
       super(ID_EMAIL, R.string.share_by_email, new Intent(Intent.ACTION_SEND).setType(TYPE_MESSAGE_RFC822));
     }
+
+    @Override
+    public void shareBookmark(Activity activity, Bookmark bookmark)
+    {
+      final boolean isMyPosition = activity.getString(R.string.my_position).equals(bookmark.getName());
+      final String body = activity.getString(isMyPosition ? R.string.my_position_share_email : R.string.bookmark_share_email,
+                                             bookmark.getName(), bookmark.getGe0Url(), bookmark.getHttpGe0Url());
+      final String subject = activity.getString(isMyPosition ? R.string.my_position_share_email_subject : R.string.bookmark_share_email_subject);
+
+      shareWithText(activity, body, subject);
+    }
   }
 
   public static class AnyShareAction extends ShareAction
@@ -154,15 +168,6 @@ public abstract class ShareAction
             .putExtra(Intent.EXTRA_SUBJECT, subject);
       final String header = activity.getString(R.string.share);
       activity.startActivity(Intent.createChooser(intent, header));
-    }
-    
-    @Override
-    public void shareBookmark(Activity activity, Bookmark bookmark)
-    { 
-      final String body = activity.getString(R.string.bookmark_share_email, 
-                                             bookmark.getName(), bookmark.getGe0Url(), bookmark.getHttpGe0Url());
-      final String subject = activity.getString(R.string.bookmark_share_email_subject);
-      shareWithText(activity, body, subject);
     }
   }
 

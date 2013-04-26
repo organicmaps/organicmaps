@@ -449,13 +449,8 @@ namespace location
 
   bool State::hitTest(m2::PointD const & pt) const
   {
-#ifdef OMIM_OS_ANDROID
-    /// @todo This feature will be implemented in the next update of Android.
-    return false;
-#else
     double radius = m_arrowHeight * m_controller->GetVisualScale();
     return (pt.SquareLength(pivot()) <= my::sq(radius));
-#endif
   }
 
   void State::CheckCompassRotation()

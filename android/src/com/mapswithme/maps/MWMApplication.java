@@ -118,6 +118,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
     nativeSetString("not_enough_free_space_on_sdcard", getString(R.string.not_enough_free_space_on_sdcard));
     nativeSetString("dropped_pin", getString(R.string.dropped_pin));
     nativeSetString("my_places", getString(R.string.my_places));
+    nativeSetString("my_position", getString(R.string.my_position));
 
     // init BookmarkManager (automatically loads bookmarks)
     if (m_isProVersion)
