@@ -261,4 +261,16 @@
 	<string name="appStore_message">Doufáme, že se Vám užívání MapsWithMe líbí! Je-li tomu tak, ohodnoťte prosím naši aplikaci nebo na ni napište recenzi v App Store. Nezabere Vám to ani minutu, ale opravdu nám tím můžete pomoci. Děkujeme Vám za Vaši podporu!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Ne, díky</string>
+	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<string name="bookmark_share_sms">Značka na mapě. Otevřete %1$s nebo %2$s</string>
+	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<string name="my_position_share_sms">Jsem zde. Otevřete %1$s nebo %2$s</string>
+	<!-- Subject for emailed bookmark -->
+	<string name="bookmark_share_email_subject">Podívej se na mou značku na mapě MapsWithMe</string>
+	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
+	<string name="bookmark_share_email">Ahoj,\n\nUmístil jsem značku %1$s na MapsWithMe, světové mapy bez internetového připojení. Klikni na jeden z těchto odkazů %2$s , %3$s a uvidíš toto místo na mapě.\n\nDěkuji.</string>
+	<!-- Subject for emailed position -->
+	<string name="my_position_share_email_subject">Podívejte se na moji aktuální polohu na mapě na MapsWithMe</string>
+	<!-- Share my position using EMail, %@ is ge0:// link WITHOUT NAME -->
+	<string name="my_position_share_email">Ahoj,\n\nnyní jsem zde: %1$s . Klikni na jeden z těchto odkazů %2$s, %3$s a uvidíš toto místo na mapě.\n\nDěkuji.</string>
 </resources>
