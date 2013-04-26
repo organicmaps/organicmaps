@@ -110,9 +110,8 @@ public abstract class ShareAction
   
   public void shareBookmark(Activity activity, Bookmark bookmark) 
   {
-    final String body = activity.getString(R.string.bookmark_share_sms, bookmark.getGe0Url());
-    // TODO we are going to change subject
-    final String subject = bookmark.getName();
+    final String body = activity.getString(R.string.bookmark_share_sms, bookmark.getGe0Url(), bookmark.getHttpGe0Url());
+    final String subject = activity.getString(R.string.bookmark_share_email_subject);
     shareWithText(activity, body, subject);
   }
 
@@ -160,9 +159,9 @@ public abstract class ShareAction
     @Override
     public void shareBookmark(Activity activity, Bookmark bookmark)
     { 
-      final String body = activity.getString(R.string.bookmark_share_email, bookmark.getName(), bookmark.getGe0Url());
-      // TODO also change this subject
-      final String subject = bookmark.getName();
+      final String body = activity.getString(R.string.bookmark_share_email, 
+                                             bookmark.getName(), bookmark.getGe0Url(), bookmark.getHttpGe0Url());
+      final String subject = activity.getString(R.string.bookmark_share_email_subject);
       shareWithText(activity, body, subject);
     }
   }

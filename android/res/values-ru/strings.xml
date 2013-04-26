@@ -265,14 +265,18 @@
 	<string name="appStore_message">Надеемся, вам нравится пользоваться MapsWithMe! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Нет, спасибо</string>
-	<!-- Share one specific bookmark using SMS, %@ contains ge0:// link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">%s Чтобы открыть, скачай http://mapswith.me/app</string>
-	<!-- Share my position using SMS, %@ contains ge0:// link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Я тут %s Чтобы открыть, скачай http://mapswith.me/app</string>
-	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link -->
-	<string name="bookmark_share_email">Привет!\n\nОткрой ссылку %2$s, для того чтобы посмотреть мою метку %1$s на карте MapsWithMe.\nЕсли у тебя еще нет приложения MapsWithMe на твоем устройстве, скачай его предварительно по ссылке http://mapswith.me/app\n\nСпасибо!</string>
+	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<string name="bookmark_share_sms">Моя метка на карте. Жми %1$s или %2$s</string>
+	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<string name="my_position_share_sms">Смотри, где я сейчас. Жми %1$s или %2$s</string>
+	<!-- Subject for emailed bookmark -->
+	<string name="bookmark_share_email_subject">Смотри мою метку на карте MapsWithMe</string>
+	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
+	<string name="bookmark_share_email">Привет!\n\nОткрой эту ссылку %2$s либо эту %3$s,  для того чтобы увидеть мою метку %1$s на карте MapsWithMe.\n\nСпасибо.</string>
+	<!-- Subject for emailed position -->
+	<string name="my_position_share_email_subject">Посмотри на карте MapsWithMe, где я сейчас нахожусь</string>
 	<!-- Share my position using EMail, %@ is ge0:// link WITHOUT NAME -->
-	<string name="my_position_share_email">Привет!\n\nЯ сейчас здесь: %s - нажми на ссылку, чтобы увидеть это место на карте MapsWithMe.\nЕсли на твоем устройстве еще нет приложения MapsWithMe, предварительно установи его отсюда: http://mapswith.me/app\n\nСпасибо!</string>
+	<string name="my_position_share_email">Привет!\n\nЧтобы увидеть на карте MapsWithMe, где я сейчас нахожусь, открой эту ссылку %2$s или эту %3$s\n\nСпасибо.</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Отправить другу</string>
 	<!-- Share by Message button text (including SMS) -->

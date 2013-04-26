@@ -271,14 +271,18 @@
 	<string name="appStore_message">Hope you enjoy using MapsWithMe! If so, please rate or review the app at the App Store. It takes less than a minute but can really help us. Thanks for your support!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">No, thanks</string>
-	<!-- Share one specific bookmark using SMS, %@ contains ge0:// link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">I pinned %s\nMake sure you have installed http://mapswith.me/app</string>
-	<!-- Share my position using SMS, %@ contains ge0:// link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">I\'m here %s\nMake sure you have installed http://mapswith.me/app</string>
-	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link -->
-	<string name="bookmark_share_email">Hi,\n\nI pinned %1$s at MapsWithMe, offline maps of the World. Click %2$s to see the place on the map.\n\nBefore opening, please make sure you have MapsWithMe app installed. If not, get it here: http://mapswith.me/app\n\nThanks!</string>
+	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<string name="bookmark_share_sms">Look at my pin on MapsWithMe map. Open the link: %1$s or %2$s</string>
+	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<string name="my_position_share_sms">See where I am now. Open the link: %1$s or %2$s</string>
+	<!-- Subject for emailed bookmark -->
+	<string name="bookmark_share_email_subject">Look at my pin on MapsWithMe map</string>
+	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
+	<string name="bookmark_share_email">Hi,\n\nI pinned: %1$s at MapsWithMe, world offline maps. Click this link %2$s or this one %3$s to see the place on the map.\n\nThanks.</string>
+	<!-- Subject for emailed position -->
+	<string name="my_position_share_email_subject">Look at my current location on MapsWithMe map</string>
 	<!-- Share my position using EMail, %@ is ge0:// link WITHOUT NAME -->
-	<string name="my_position_share_email">Hi,\n\nClick %s to see my position on the map. Before opening, please make sure you have MapsWithMe offline maps installed. If not, get it here: http://mapswith.me/app\n\nThanks!</string>
+	<string name="my_position_share_email">Hi,\n\nI\'m here now: %1$s. Click this link %2$s or this one %3$s to see the place on the map.\n\nThanks.</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Share with friends</string>
 	<!-- Share by Message button text (including SMS) -->

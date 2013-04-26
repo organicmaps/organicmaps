@@ -156,4 +156,11 @@ public class Bookmark
   {
     return encode2Ge0Url(mCategoryId, mBookmark);
   }
+  
+  public String getHttpGe0Url() 
+  {
+    String url = getGe0Url();
+    url = url.replace("ge0://", "http://ge0.me/");
+    return url;
+  }
 }

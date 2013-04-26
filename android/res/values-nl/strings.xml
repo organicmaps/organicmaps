@@ -250,4 +250,16 @@
 	<string name="appStore_message">Ik hoop dat u veel plezier hebt met MapsWithMe! Zo ja, geef de app dan een cijfer in de App Store of schrijf een recensie. Dit duurt minder dan een minuut, maar kan ons echt helpen. Bedankt voor uw steun!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Nee, bedankt</string>
+	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<string name="bookmark_share_sms">Bekijk mijn pin op de kaart. Open %1$s of %2$s</string>
+	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<string name="my_position_share_sms">Kijk waar ik nu ben. Open %1$s of %2$s</string>
+	<!-- Subject for emailed bookmark -->
+	<string name="bookmark_share_email_subject">Kijk naar mijn pin op MapsWithMe kaart</string>
+	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
+	<string name="bookmark_share_email">Hoi,\n\nIk heb: %1$s geprikt bij MapsWithMe, offline wereldkaarten. Klik op deze %2$s of deze %3$s om de plaats op de kaart te zien.\n\nBedankt.</string>
+	<!-- Subject for emailed position -->
+	<string name="my_position_share_email_subject">Kijk naar mijn huidige locatie op MapsWithMe kaart</string>
+	<!-- Share my position using EMail, %@ is ge0:// link WITHOUT NAME -->
+	<string name="my_position_share_email">Hoi,\n\nMomenteel ben ik hier: %1$s. Klik op deze %2$s of deze %3$s om de plaats op de kaart te zien.\n\nBedankt.</string>
 </resources>
