@@ -306,7 +306,6 @@
 -(void)sendEmailWith:(NSString *)textFieldText andUrl:(NSString *)shortUrl
 {
   MFMailComposeViewController * mailVC = [[[MFMailComposeViewController alloc] init] autorelease];
-  //TODO create subject
   NSString * httpGe0Url = [shortUrl stringByReplacingCharactersInRange:NSMakeRange(0, 6) withString:@"http://ge0.me/"];
 
   if ([textFieldText isEqualToString:NSLocalizedString(@"my_position", nil)])
