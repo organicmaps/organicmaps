@@ -318,6 +318,7 @@ world  +
         monument  -
         museum  -
         ruins  -
+        ship  -
         {}
     landuse  +
         allotments  -

@@ -735,7 +735,7 @@ tourism|guest_house;[tourism=guest_house];;name;int_name;734;
 tourism|motel;[tourism=motel];;name;int_name;735;
 boundary|administrative|4|state;[boundary=administrative][admin_level=4][border_type=state];;name;int_name;736;
 place|state|USA;[place=state][addr:country=US];;name;int_name;737;
-building|address;[building=address];;addr:housenumber;name;738;
+building|address;[addr:housenumber][!shop][!amenity][!office];;addr:housenumber;name;738;
 amenity|parking|no-access;[amenity=parking][access=no];;name;int_name;739;
 highway|bridleway|dike;[highway=bridleway][dike?];x;name;int_name;740;highway|track
 highway|bridleway|dyke;[highway=bridleway][dyke?];x;name;int_name;741;highway|track
@@ -909,3 +909,4 @@ railway|subway|violet;[railway=subway][colour=violet];;name;int_name;908;
 railway|station|subway|violet;[railway=station][transport=subway][colour=violet];;name;int_name;909;
 railway|subway|grey;[railway=subway][colour=grey];;name;int_name;910;
 railway|station|subway|grey;[railway=station][transport=subway][colour=grey];;name;int_name;911;
+historic|ship;[historic=ship];;name;int_name;912;

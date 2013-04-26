@@ -909,3 +909,4 @@ railway|subway|violet
 railway|station|subway|violet
 railway|subway|grey
 railway|station|subway|grey
+historic|ship
