@@ -307,22 +307,33 @@
 {
   MFMailComposeViewController * mailVC = [[[MFMailComposeViewController alloc] init] autorelease];
   //TODO create subject
-  [mailVC setSubject:NSLocalizedString(@"share_bookmarks_email_subject", nil)];
+  NSString * httpGe0Url = [shortUrl stringByReplacingCharactersInRange:NSMakeRange(0, 6) withString:@"http://ge0.me/"];
+
   if ([textFieldText isEqualToString:NSLocalizedString(@"my_position", nil)])
-    [mailVC setMessageBody:[NSString stringWithFormat:NSLocalizedString(@"my_position_share_email", nil), shortUrl] isHTML:NO];
+  {
+    [mailVC setMessageBody:[NSString stringWithFormat:NSLocalizedString(@"my_position_share_email", nil), textFieldText, shortUrl, httpGe0Url] isHTML:NO];
+    [mailVC setSubject:NSLocalizedString(@"my_position_share_email_subject", nil)];
+  }
   else
-    [mailVC setMessageBody:[NSString stringWithFormat:NSLocalizedString(@"bookmark_share_email", nil), textFieldText, shortUrl] isHTML:NO];
+  {
+    [mailVC setMessageBody:[NSString stringWithFormat:NSLocalizedString(@"bookmark_share_email", nil), textFieldText, shortUrl, httpGe0Url] isHTML:NO];
+    [mailVC setSubject:NSLocalizedString(@"bookmark_share_email_subject", nil)];
+  }
+
   mailVC.mailComposeDelegate = self;
   [self presentModalViewController:mailVC animated:YES];
 }
 
 -(void)sendMessageWith:(NSString *)textFieldText andUrl:(NSString *)shortUrl
 {
+  NSString * httpGe0Url = [shortUrl stringByReplacingCharactersInRange:NSMakeRange(0, 6) withString:@"http://ge0.me/"];
   MFMessageComposeViewController * messageVC = [[[MFMessageComposeViewController alloc] init] autorelease];
+
   if ([textFieldText isEqualToString:NSLocalizedString(@"my_position", nil)])
-    [messageVC setBody:[NSString stringWithFormat:NSLocalizedString(@"my_position_share_sms", nil), shortUrl]];
+    [messageVC setBody:[NSString stringWithFormat:NSLocalizedString(@"my_position_share_sms", nil), shortUrl, httpGe0Url]];
   else
-    [messageVC setBody:[NSString stringWithFormat:NSLocalizedString(@"bookmark_share_sms", nil), shortUrl]];
+    [messageVC setBody:[NSString stringWithFormat:NSLocalizedString(@"bookmark_share_sms", nil), shortUrl, httpGe0Url]];
+
   messageVC.messageComposeDelegate = self;
   [self presentModalViewController:messageVC animated:YES];
 }

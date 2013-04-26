@@ -419,17 +419,23 @@
 /* No, thanks */
 "no_thanks" = "No, thanks";
 
-/* Share one specific bookmark using SMS, %@ contains ge0:// link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "I pinned %@\nMake sure you have installed http://mapswith.me/app";
+/* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
+"bookmark_share_sms" = "Look at my pin on MapsWithMe map. Open the link: %1$@ or %2$@";
 
-/* Share my position using SMS, %@ contains ge0:// link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "I'm here %@\nMake sure you have installed http://mapswith.me/app";
+/* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
+"my_position_share_sms" = "See where I am now. Open the link: %1$@ or %2$@";
 
-/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link */
-"bookmark_share_email" = "Hi,\n\nI pinned %1$@ at MapsWithMe, offline maps of the World. Click %2$@ to see the place on the map.\n\nBefore opening, please make sure you have MapsWithMe app installed. If not, get it here: http://mapswith.me/app\n\nThanks!";
+/* Subject for emailed bookmark */
+"bookmark_share_email_subject" = "Look at my pin on MapsWithMe map";
+
+/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
+"bookmark_share_email" = "Hi,\n\nI pinned: %1$@ at MapsWithMe, world offline maps. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.";
+
+/* Subject for emailed position */
+"my_position_share_email_subject" = "Look at my current location on MapsWithMe map";
 
 /* Share my position using EMail, %@ is ge0:// link WITHOUT NAME */
-"my_position_share_email" = "Hi,\n\nClick %@ to see my position on the map. Before opening, please make sure you have MapsWithMe offline maps installed. If not, get it here: http://mapswith.me/app\n\nThanks!";
+"my_position_share_email" = "Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.";
 
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Share with friends";

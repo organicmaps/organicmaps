@@ -419,17 +419,23 @@
 /* No, thanks */
 "no_thanks" = "평가하지 않겠습니다";
 
-/* Share one specific bookmark using SMS, %@ contains ge0:// link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "I pinned %@\nMake sure you have installed http://mapswith.me/app";
+/* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
+"bookmark_share_sms" = "지도에서 내 PIN을 참조하십시오. %1$@ 또는 %2$@ 열기";
 
-/* Share my position using SMS, %@ contains ge0:// link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "I'm here %@\nMake sure you have installed http://mapswith.me/app";
+/* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
+"my_position_share_sms" = "현재 위치를 알아 보십시오. %1$@ 또는 %2$@ 열기";
 
-/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link */
-"bookmark_share_email" = "Hi,\n\nI pinned %1$@ at MapsWithMe, offline maps of the World. Click %2$@ to see the place on the map.\n\nBefore opening, please make sure you have MapsWithMe app installed. If not, get it here: http://mapswith.me/app\n\nThanks!";
+/* Subject for emailed bookmark */
+"bookmark_share_email_subject" = "MapsWithMe 지도에서 내 핀 보기";
+
+/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
+"bookmark_share_email" = "안녕하세요.\n\n다음 위치에 표시를 하였습니다: 오프라인 세계 지도인 MapsWithMe에서 %1$@ . %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.";
+
+/* Subject for emailed position */
+"my_position_share_email_subject" = "MapsWithMe 지도에서 제 현재 위치를 살펴 보시기 바랍니다";
 
 /* Share my position using EMail, %@ is ge0:// link WITHOUT NAME */
-"my_position_share_email" = "Hi,\n\nClick %@ to see my position on the map. Before opening, please make sure you have MapsWithMe offline maps installed. If not, get it here: http://mapswith.me/app\n\nThanks!";
+"my_position_share_email" = "안녕하세요.\n\n지금 다음 위치에 있습니다: %1$@ . %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.";
 
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Share with friends";
