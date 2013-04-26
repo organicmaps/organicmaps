@@ -395,7 +395,7 @@ namespace graphics
     m_notProcessedElements.clear();
   }
 
-#ifdef _DEBUG
+#ifdef DEBUG
   void Overlay::validateNotProcessed()
   {
     vector<OverlayElement *> v;

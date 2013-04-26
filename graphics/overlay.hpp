@@ -9,7 +9,7 @@
 
 #include "../base/matrix.hpp"
 #include "../base/mutex.hpp"
-#ifdef _DEBUG
+#ifdef DEBUG
   #include "../base/thread.hpp"
 #endif
 
@@ -25,7 +25,7 @@ namespace graphics
   class Overlay
   {
   private:
-#ifdef _DEBUG
+#ifdef DEBUG
     threads::ThreadID m_threadID;
 #endif
 
@@ -97,7 +97,7 @@ namespace graphics
     void clearNotProcessed();
     void deleteNotProcessed();
 
-#ifdef _DEBUG
+#ifdef DEBUG
     void validateNotProcessed();
 #endif
 
@@ -109,7 +109,7 @@ namespace graphics
       m_tree.ForEach(fn);
     }
 
-#ifdef _DEBUG
+#ifdef DEBUG
     void setThreadID(threads::ThreadID id)
     {
       m_threadID = id;

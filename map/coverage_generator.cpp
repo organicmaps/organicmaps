@@ -9,7 +9,7 @@
 #include "../graphics/opengl/gl_render_context.hpp"
 
 #include "../base/logging.hpp"
-#ifdef _DEBUG
+#ifdef DEBUG
   #include "../base/thread.hpp"
 #endif
 
@@ -84,7 +84,7 @@ ScreenCoverage * CoverageGenerator::CreateCoverage()
 
 void CoverageGenerator::InitializeThreadGL()
 {
-#ifdef _DEBUG
+#ifdef DEBUG
   m_overlay.setThreadID(threads::GetCurrentThreadID());
 #endif
 
@@ -217,7 +217,7 @@ void CoverageGenerator::CoverScreen(core::CommandsQueue::Environment const & env
 
   m_workCoverage->SetSequenceID(sequenceID);
   m_workCoverage->SetScreen(screen);
-#ifdef _DEBUG
+#ifdef DEBUG
   m_overlay.validateTread(threads::GetCurrentThreadID());
 #endif
   m_workCoverage->MergeOverlay(&m_overlay);
@@ -271,7 +271,7 @@ void CoverageGenerator::MergeTile(core::CommandsQueue::Environment const & env,
   //LOG(LDEBUG, ("UVRLOG : MergeTile s=", rectInfo.m_tileScale, " x=", rectInfo.m_x, " y=", rectInfo.m_y, " SequenceID=", sequenceID, " m_SequenceID=", m_sequenceID));
   m_currentCoverage->CopyInto(*m_workCoverage);
   m_workCoverage->SetSequenceID(sequenceID);
-#ifdef _DEBUG
+#ifdef DEBUG
   m_overlay.validateTread(threads::GetCurrentThreadID());
 #endif
   m_workCoverage->Merge(rectInfo, &m_overlay);

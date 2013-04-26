@@ -269,7 +269,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   if (!env.isCancelled())
     tileOverlay->clip(renderRect);
 
-#ifdef _DEBUG
+#ifdef DEBUG
   tileOverlay->validateNotProcessed();
 #endif
   tileOverlay->deleteNotProcessed();

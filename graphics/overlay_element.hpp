@@ -6,7 +6,7 @@
 #include "defines.hpp"
 #include "../std/vector.hpp"
 
-#ifdef _DEBUG
+#ifdef DEBUG
   #include "../base/object_tracker.hpp"
 #endif
 
@@ -49,7 +49,7 @@ namespace graphics
 
     math::Matrix<double, 3, 3> m_inverseMatrix;
 
-#ifdef _DEBUG
+#ifdef DEBUG
     dbg::ObjectTracker m_tracker;
 #endif
 
