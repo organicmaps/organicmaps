@@ -20,6 +20,15 @@ char const * g_arrSettingsName[] =
 int g_arrMinForegroundTime[] = { 30 * 60, 60 * 60, 50 * 60};
 //@}
 
+string const g_timeInApp = "AllForegroundTime";
+
+void AddTimeToSetting(string const & settingName, double elapsed)
+{
+  double val = 0;
+  (void)Settings::Get(settingName, val);
+  Settings::Set(settingName, val + elapsed);
+}
+
 
 bool ShouldShow(DialogT dlg)
 {
@@ -58,11 +67,9 @@ void EnterBackground(double elapsed)
   for (int i = 0; i < DlgCount; ++i)
   {
     string const name = string(g_arrSettingsName[i]) + "ForegroundTime";
-
-    double val = 0;
-    (void)Settings::Get(name, val);
-    Settings::Set(name, val + elapsed);
+    AddTimeToSetting(name, elapsed);
   }
+  AddTimeToSetting(g_timeInApp, elapsed);
 }
 
 }
