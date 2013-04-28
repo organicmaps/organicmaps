@@ -33,11 +33,15 @@
   tv.font = tmpCell.detailTextLabel.font;
   [tmpCell release];
   self.view = tv;
+  [tv release];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-  [self registerForKeyboardNotifications];
+  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    self.contentSizeForViewInPopover = self.view.frame.size;
+  else
+    [self registerForKeyboardNotifications];
   UITextView * tv = (UITextView *)self.view;
   tv.text = m_balloon.notes;
   [tv becomeFirstResponder];
@@ -48,22 +52,23 @@
   UITextView * tv = (UITextView *)self.view;
   m_balloon.notes = tv.text.length ? tv.text : nil;
   [tv resignFirstResponder];
-  [self unregisterKeyboardNotifications];
+  if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
+    [self unregisterKeyboardNotifications];
 }
 
 - (void)registerForKeyboardNotifications
 {
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(keyboardWasShown:)
-                                               name:UIKeyboardDidShowNotification object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(keyboardWillBeHidden:)
-                                               name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)unregisterKeyboardNotifications
 {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)keyboardWasShown:(NSNotification*)aNotification

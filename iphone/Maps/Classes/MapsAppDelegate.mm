@@ -226,6 +226,7 @@ void InitLocalizedStrings()
 
 -(void) showParsedBookmarkOnMap:(url_api::Request) request
 {
+  [m_mapViewController dismissPopoverAndSaveBookmark:YES];
   [m_navController popToRootViewControllerAnimated:YES];
   if (![m_navController.visibleViewController isMemberOfClass:NSClassFromString(@"MapViewController")])
     [m_mapViewController dismissModalViewControllerAnimated:YES];

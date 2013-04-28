@@ -167,7 +167,6 @@
 {
   if (isDisplayed)
   {
-
     CGFloat const pinHeight = self.pinImage.bounds.size.height;
     CGFloat const w2 = m_titleView.bounds.size.width;
     CGFloat const h2 = m_titleView.bounds.size.height;
@@ -184,7 +183,7 @@
   {
     isDisplayed = NO;
     [m_titleView removeFromSuperview];
-    editedBookmark = MakeEmptyBookmarkAndCategory();
+    self.notes = nil;
   }
 }
 

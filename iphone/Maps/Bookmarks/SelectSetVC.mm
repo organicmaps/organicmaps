@@ -67,11 +67,10 @@
   [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
   if (indexPath.section == 0)
   {
-    AddSetVC * asVC = [[AddSetVC alloc] initWithBalloonView:m_balloon andRootNavigationController:self.navigationController];
-    // Use temporary navigation controller to display nav bar in modal view controller
-    UINavigationController * navC = [[UINavigationController alloc] initWithRootViewController:asVC];
-    [self.navigationController presentModalViewController:navC animated:YES];
-    [navC release];
+    AddSetVC * asVC = [[AddSetVC alloc] initWithBalloonView:m_balloon];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+      [asVC setContentSizeForViewInPopover:[self contentSizeForViewInPopover]];
+    [self.navigationController pushViewController:asVC animated:YES];
     [asVC release];
   }
   else

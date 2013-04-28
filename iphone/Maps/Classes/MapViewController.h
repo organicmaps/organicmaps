@@ -8,7 +8,7 @@
 
 @class BalloonView;
 
-@interface MapViewController : UIViewController <LocationObserver, UIAlertViewDelegate>
+@interface MapViewController : UIViewController <LocationObserver, UIAlertViewDelegate, UIPopoverControllerDelegate>
 {
   enum Action
 	{
@@ -24,6 +24,7 @@
   BalloonView * m_balloonView;
   /// Temporary solution to improve long touch detection.
   m2::PointD m_touchDownPoint;
+  UIPopoverController * popover;
 }
 
 - (void) SetupMeasurementSystem;
@@ -41,6 +42,8 @@
 - (void)showSearchResultAsBookmarkAtMercatorPoint:(m2::PointD const &)pt withInfo:(Framework::AddressInfo const &)info;
 - (void)showBalloonWithCategoryIndex:(int)index andBookmarkIndex:(int)bmIndex;
 - (void)showBalloonWithText:(NSString *)text andGlobalPoint:(m2::PointD) point;
+
+- (void)dismissPopoverAndSaveBookmark:(BOOL)save;
 
 @property (nonatomic, retain) IBOutlet UIButton * m_myPositionButton;
 

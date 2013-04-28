@@ -4,6 +4,8 @@
 #import "SelectColorVC.h"
 #import "EditDescriptionVC.h"
 #import "Statistics.h"
+#import "MapsAppDelegate.h"
+#import "MapViewController.h"
 
 #define TEXTFIELD_TAG 999
 
@@ -35,6 +37,12 @@
   if ([m_balloon.title isEqualToString:NSLocalizedString(@"dropped_pin", nil)])
     [[[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].contentView viewWithTag:TEXTFIELD_TAG] becomeFirstResponder];
 
+  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+  {
+    CGSize size = CGSizeMake(320, 480);
+    self.contentSizeForViewInPopover = size;
+  }
+
   [super viewWillAppear:animated];
 }
 
@@ -50,14 +58,14 @@
   {
     UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     UITextField * f = (UITextField *)[cell viewWithTag:TEXTFIELD_TAG];
-    if (f.text.length)
+    if (f && f.text.length)
       m_balloon.title = f.text;
 
     // We're going back to the map
-    if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound)
+    if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad && [self.navigationController.viewControllers indexOfObject:self] == NSNotFound)
     {
       [m_balloon addOrEditBookmark];
-      [m_balloon hide];
+      m_balloon.editedBookmark = MakeEmptyBookmarkAndCategory();
     }
   }
   [super viewWillDisappear:animated];
@@ -200,7 +208,7 @@
 - (void)onRemoveClicked
 {
   [m_balloon deleteBookmark];
-  [m_balloon hide];
+  m_balloon.editedBookmark = MakeEmptyBookmarkAndCategory();
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -215,7 +223,7 @@
       {
         m_hideNavBar = NO;
         SelectSetVC * vc = [[SelectSetVC alloc] initWithBalloonView:m_balloon];
-        [self.navigationController pushViewController:vc animated:YES];
+        [self pushToNavigationControllerAndSetControllerToPopoverSize:vc];
         [vc release];
       }
       break;
@@ -224,7 +232,7 @@
       {
         m_hideNavBar = NO;
         SelectColorVC * vc = [[SelectColorVC alloc] initWithBalloonView:m_balloon];
-        [self.navigationController pushViewController:vc animated:YES];
+        [self pushToNavigationControllerAndSetControllerToPopoverSize:vc];
         [vc release];
       }
       break;
@@ -234,7 +242,7 @@
   {
     m_hideNavBar = NO;
     EditDescriptionVC * vc = [[EditDescriptionVC alloc] initWithBalloonView:m_balloon];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self pushToNavigationControllerAndSetControllerToPopoverSize:vc];
     [vc release];
   }
   else if (indexPath.section == 2 && ([self canShare]))
@@ -251,11 +259,15 @@
   }
   else
   {
-    // Remove pin
-    [self onRemoveClicked];
     m_removePinOnClose = YES;
-    // Close place page
-    [self.navigationController popViewControllerAnimated:YES];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+      [[MapsAppDelegate theApp].m_mapViewController dismissPopoverAndSaveBookmark:NO];
+    else
+    {
+      // Remove pin
+      [self onRemoveClicked];
+      [self.navigationController popViewControllerAnimated:YES];
+    }
   }
 }
 
@@ -354,6 +366,13 @@
                                          MercatorBounds::XToLon(m_balloon.globalPosition.x),
                                          f.GetBmCategory(m_balloon.editedBookmark.first)->GetBookmark(m_balloon.editedBookmark.second)->GetScale(),
                                          [name UTF8String])).c_str()];
+}
+
+-(void)pushToNavigationControllerAndSetControllerToPopoverSize:(UIViewController *)vc
+{
+  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    [vc setContentSizeForViewInPopover:[self contentSizeForViewInPopover]];
+  [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

@@ -103,6 +103,7 @@ const long long LITE_IDL = 431183278L;
     m_balloonView.globalPosition = CGPointMake(newCenter.x, newCenter.y);
     [m_balloonView updatePosition:self.view atPoint:[(EAGLView *)self.view globalPoint2ViewPoint:m_balloonView.globalPosition]];
   }
+  [self showPopoverFromBalloonData];
 }
 
 - (void) onCompassUpdate:(location::CompassInfo const &)info
@@ -263,16 +264,43 @@ const long long LITE_IDL = 431183278L;
   }
   else
   {
-    Framework &f = GetFramework();
-    int categoryPos = f.LastEditedCategory();
+    Framework & f = GetFramework();
     if (!IsValid(m_balloonView.editedBookmark))
     {
+      int categoryPos = f.LastEditedCategory();
       [m_balloonView addBookmarkToCategory:categoryPos];
     }
-    PlacePageVC * placePageVC = [[PlacePageVC alloc] initWithBalloonView:m_balloonView];
-    [self.navigationController pushViewController:placePageVC animated:YES];
+
+    PlacePageVC * placePageVC = nil;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+      UINavigationController * navC = [[UINavigationController alloc] init];
+      popover = [[UIPopoverController alloc] initWithContentViewController:navC];
+      popover.delegate = self;
+
+      placePageVC = [[PlacePageVC alloc] initWithBalloonView:m_balloonView];
+      [navC pushViewController:placePageVC animated:YES];
+      [navC release];
+
+      [popover setPopoverContentSize:CGSizeMake(320, 480)];
+      [self showPopoverFromBalloonData];
+    }
+    else
+    {
+      placePageVC = [[PlacePageVC alloc] initWithBalloonView:m_balloonView];
+      [self.navigationController pushViewController:placePageVC animated:YES];
+    }
+    [m_balloonView hide];
     [placePageVC release];
   }
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+  [m_balloonView addOrEditBookmark];
+  m_balloonView.editedBookmark = MakeEmptyBookmarkAndCategory();
+  [self destroyPopover];
+  [self Invalidate];
 }
 
 - (void) updatePinTexts:(Framework::AddressInfo const &)info
@@ -307,6 +335,7 @@ const long long LITE_IDL = 431183278L;
   if (m_balloonView.isDisplayed)
   {
     [m_balloonView hide];
+    m_balloonView.editedBookmark = MakeEmptyBookmarkAndCategory();
     wasBalloonDisplayed = YES;
 //    if (!isLongClick)
 //      return;
@@ -636,6 +665,7 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
 {
   [[MapsAppDelegate theApp].m_locationManager setOrientation:self.interfaceOrientation];
+  [self showPopoverFromBalloonData];
   [self Invalidate];
 }
 
@@ -732,7 +762,8 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void)showAppStoreRatingMenu
 {
   UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"App Store"
-                                                      message:NSLocalizedString(@"appStore_message", nil)                                                     delegate:self
+                                                      message:NSLocalizedString(@"appStore_message", nil)
+                                                      delegate:self
                                             cancelButtonTitle:NSLocalizedString(@"no_thanks", nil)
                                             otherButtonTitles:NSLocalizedString(@"ok", nil), NSLocalizedString(@"remind_me_later", nil), nil];
   alertView.tag = APPSTORE_ALERT_VIEW;
@@ -824,10 +855,44 @@ NSInteger compareAddress(id l, id r, void * context)
   m_balloonView.title = text;
   m_balloonView.isCurrentPosition = NO;
   m_balloonView.editedBookmark = pair<int, int>(-1, -1);
+  m_balloonView.notes = @"";
   CGFloat const scaleFactor = self.view.contentScaleFactor;
 
   point = GetFramework().GtoP(point);
   [m_balloonView showInView:self.view atPoint:CGPointMake(point.x / scaleFactor, point.y / scaleFactor)];
+}
+
+- (void) destroyPopover
+{
+  [popover release];
+  popover = nil;
+}
+
+//if save is NO, we need to delete bookmark
+- (void)dismissPopoverAndSaveBookmark:(BOOL)save
+{
+  if (IsValid(m_balloonView.editedBookmark))
+  {
+    if (save)
+      [m_balloonView addOrEditBookmark];
+    else
+      [m_balloonView deleteBookmark];
+    m_balloonView.editedBookmark = MakeEmptyBookmarkAndCategory();
+  }
+  [popover dismissPopoverAnimated:YES];
+  [self destroyPopover];
+  [self Invalidate];
+}
+
+-(void)showPopoverFromBalloonData
+{
+  m2::PointD pt = GetFramework().GtoP(m2::PointD(m_balloonView.globalPosition.x, m_balloonView.globalPosition.y));
+  pt.y -= m_balloonView.pinImage.frame.size.height;
+  //TODO We should always remember about scale factor, solve this problem
+  double sf = self.view.contentScaleFactor;
+  pt.x /= sf;
+  pt.y /= sf;
+  [popover presentPopoverFromRect:CGRectMake(pt.x, pt.y, 1, 1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
 @end

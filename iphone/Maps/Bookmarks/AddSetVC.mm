@@ -6,13 +6,12 @@
 
 @implementation AddSetVC
 
-- (id) initWithBalloonView:(BalloonView *)view andRootNavigationController:(UINavigationController *)navC
+- (id) initWithBalloonView:(BalloonView *)view
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
   {
     m_balloon = view;
-    m_rootNavigationController = navC;
 
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onSaveClicked)] autorelease];
     self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onCancelClicked)] autorelease];
@@ -23,7 +22,7 @@
 
 - (void)onCancelClicked
 {
-  [self dismissModalViewControllerAnimated:YES];
+  [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)onSaveClicked
@@ -38,12 +37,13 @@
     Framework &f = GetFramework();
     size_t pos = f.AddCategory([text UTF8String]);
     [m_balloon addBookmarkToCategory:pos];
-
-    // Show Place Page dialog with new set selected
-    [self onCancelClicked];
-    NSArray * vcs = m_rootNavigationController.viewControllers;
-    UITableViewController * addBookmarkVC = (UITableViewController *)[vcs objectAtIndex:[vcs count] - 2];
-    [m_rootNavigationController popToViewController:addBookmarkVC animated:YES];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+      [self.navigationController popToRootViewControllerAnimated:YES];
+    else
+    {
+      UIViewController * t = [self.navigationController.viewControllers objectAtIndex:1];
+      [self.navigationController popToViewController:t animated:YES];
+    }
   }
 }
 
