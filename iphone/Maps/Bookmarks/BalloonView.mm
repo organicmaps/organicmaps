@@ -145,18 +145,13 @@
 
   isDisplayed = YES;
 
-  CGFloat const w = self.pinImage.bounds.size.width;
   CGFloat const h = self.pinImage.bounds.size.height;
   // Fix point
-  pt.y -= h;
-  self.pinImage.frame = CGRectMake(pt.x - w/2, pt.y, w, h);
+  if (IsValid(editedBookmark))
+    pt.y -= h;
+
   // Do not show pin if we're editing existing bookmark.
   // @TODO move pin (and probably balloon drawing) to cross-platform code
-  self.pinImage.hidden = IsValid(editedBookmark);
-
-  [view addSubview:self.pinImage];
-
-//  m_titleView.image = [[self createPopupImageWithName:self.title andAddress:self.notes] autorelease];
   CGSize const s = m_titleView.bounds.size;
   m_titleView.frame = CGRectMake(pt.x, pt.y, 1, 1);
 
@@ -172,13 +167,14 @@
 {
   if (isDisplayed)
   {
-    CGFloat const w1 = self.pinImage.bounds.size.width;
-    CGFloat const h1 = self.pinImage.bounds.size.height;
-    self.pinImage.frame = CGRectMake(pt.x - w1/2, pt.y - h1, w1, h1);
 
+    CGFloat const pinHeight = self.pinImage.bounds.size.height;
     CGFloat const w2 = m_titleView.bounds.size.width;
     CGFloat const h2 = m_titleView.bounds.size.height;
-    m_titleView.frame = CGRectMake(pt.x - w2/2, pt.y - h1 - h2, w2, h2);
+    double balloon_y = pt.y - h2;
+    if (IsValid(editedBookmark))
+      balloon_y -= pinHeight;
+    m_titleView.frame = CGRectMake(pt.x - w2/2, balloon_y, w2, h2);
   }
 }
 
@@ -188,7 +184,6 @@
   {
     isDisplayed = NO;
     [m_titleView removeFromSuperview];
-    [self.pinImage removeFromSuperview];
     editedBookmark = MakeEmptyBookmarkAndCategory();
   }
 }
