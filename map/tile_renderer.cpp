@@ -218,10 +218,10 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   drawer->screen()->setRenderTarget(tileTarget);
 
-  shared_ptr<graphics::Overlay> tileOverlay(new graphics::Overlay(), graphics::Overlay::Deleter());
+  shared_ptr<graphics::Overlay> tileOverlay(new graphics::Overlay());
   tileOverlay->setCouldOverlap(true);
 
-  drawer->screen()->setOverlay(tileOverlay.get());
+  drawer->screen()->setOverlay(tileOverlay);
 
   /// ensuring, that the render target is not bound as a texture
 
@@ -270,11 +270,6 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   /// filter out the overlay elements that are out of the bound rect for the tile
   if (!env.isCancelled())
     tileOverlay->clip(renderRect);
-
-#ifdef DEBUG
-  tileOverlay->validateNotProcessed();
-#endif
-  tileOverlay->deleteNotProcessed();
 
   drawer->screen()->finish();
 

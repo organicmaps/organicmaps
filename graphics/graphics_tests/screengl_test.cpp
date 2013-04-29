@@ -19,7 +19,6 @@
 #include "../../testing/testing.hpp"
 #include <QtGui/QKeyEvent>
 
-#include "../../base/scope_guard.hpp"
 #include "../../base/math.hpp"
 #include "../../base/string_utils.hpp"
 #include "../../std/shared_ptr.hpp"
@@ -1267,9 +1266,7 @@ namespace
   public:
     void DoDraw(shared_ptr<graphics::Screen> p)
     {
-      graphics::Overlay * overlay = new graphics::Overlay();
-      MY_SCOPE_GUARD(overlayGuard, bind(&graphics::Overlay::Deleter::DeleteOverlay, overlay));
-      p->setOverlay(overlay);
+      p->setOverlay(make_shared_ptr(new graphics::Overlay()));
       p->overlay()->setCouldOverlap(false);
 
       p->drawSymbol(m2::PointD(200, 200), "current-position", graphics::EPosUnder, graphics::maxDepth);

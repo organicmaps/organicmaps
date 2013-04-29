@@ -89,9 +89,6 @@ private:
   bool m_isPaused;
   bool m_isBenchmarking;
 
-  /// Overlay composed of overlays for visible tiles
-  graphics::Overlay m_overlay;
-
   ScreenCoverage * CreateCoverage();
 
 public:
@@ -142,7 +139,6 @@ public:
   storage::TIndex GetCountryIndex(m2::PointD const & pt) const;
 
   ScreenCoverage * CurrentCoverage();
-  graphics::Overlay * GetOverlay();
 
   int InsertBenchmarkFence();
   void JoinBenchmarkFence(int fenceID);

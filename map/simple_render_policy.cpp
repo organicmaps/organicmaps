@@ -3,8 +3,6 @@
 #include "drawer.hpp"
 #include "window_handle.hpp"
 
-#include "../base/scope_guard.hpp"
-
 #include "../graphics/overlay.hpp"
 #include "../graphics/opengl/opengl.hpp"
 #include "../graphics/render_context.hpp"
@@ -124,8 +122,7 @@ void SimpleRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
                    pxCenter + m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2)),
          glbRect);
 
-  graphics::Overlay * overlay = new graphics::Overlay();
-  MY_SCOPE_GUARD(overlayGuard, bind(&graphics::Overlay::Deleter::DeleteOverlay, overlay));
+  shared_ptr<graphics::Overlay> overlay(new graphics::Overlay());
 
   Drawer * pDrawer = e->drawer();
   graphics::Screen * pScreen = pDrawer->screen();

@@ -11,7 +11,6 @@
 #include "../graphics/screen.hpp"
 #include "../graphics/display_list.hpp"
 #include "../graphics/opengl/base_texture.hpp"
-#include "../graphics/overlay.hpp"
 
 #include "screen_coverage.hpp"
 #include "tile_renderer.hpp"
@@ -19,31 +18,32 @@
 #include "coverage_generator.hpp"
 
 ScreenCoverage::ScreenCoverage()
-  : m_sequenceID(numeric_limits<int>::max()),
-    m_tileRenderer(NULL),
-    m_coverageGenerator(NULL),
-    m_isBenchmarking(false),
+  : m_tiler(),
+    m_overlay(new graphics::Overlay()),
     m_isEmptyDrawingCoverage(false),
     m_isEmptyModelAtCoverageCenter(true),
-    m_leafTilesToRender(0)
+    m_leafTilesToRender(0),
+    m_isBenchmarking(false)
 {
+  m_overlay->setCouldOverlap(false);
 }
 
 ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
                                CoverageGenerator * coverageGenerator,
                                shared_ptr<graphics::Screen> const & cacheScreen)
-  : m_sequenceID(numeric_limits<int>::max()),
-    m_tileRenderer(tileRenderer),
+  : m_tileRenderer(tileRenderer),
     m_coverageGenerator(coverageGenerator),
-    m_isBenchmarking(false),
+    m_overlay(new graphics::Overlay()),
     m_isEmptyDrawingCoverage(false),
     m_isEmptyModelAtCoverageCenter(true),
     m_leafTilesToRender(0),
-    m_cacheScreen(cacheScreen)
+    m_cacheScreen(cacheScreen),
+    m_isBenchmarking(false)
 {
+  m_overlay->setCouldOverlap(false);
 }
 
-void ScreenCoverage::CopyInto(ScreenCoverage & cvg)
+void ScreenCoverage::CopyInto(ScreenCoverage & cvg, bool mergeOverlay)
 {
   cvg.m_tileRenderer = m_tileRenderer;
   cvg.m_tiler = m_tiler;
@@ -70,6 +70,11 @@ void ScreenCoverage::CopyInto(ScreenCoverage & cvg)
   }
 
   tileCache->Unlock();
+  if (mergeOverlay)
+  {
+    graphics::Overlay::Lock guard(cvg.m_overlay);
+    cvg.m_overlay->merge(*m_overlay);
+  }
 }
 
 void ScreenCoverage::Clear()
@@ -77,6 +82,10 @@ void ScreenCoverage::Clear()
   m_tileRects.clear();
   m_newTileRects.clear();
   m_newLeafTileRects.clear();
+  {
+    graphics::Overlay::Lock guard(m_overlay);
+    m_overlay->clear();
+  }
   m_isEmptyDrawingCoverage = false;
   m_isEmptyModelAtCoverageCenter = true;
   m_leafTilesToRender = 0;
@@ -96,7 +105,7 @@ void ScreenCoverage::Clear()
   m_tiles.clear();
 }
 
-void ScreenCoverage::Merge(Tiler::RectInfo const & ri, graphics::Overlay * frameOverlay)
+void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
 {
   ASSERT(m_tileRects.find(ri) != m_tileRects.end(), ());
 
@@ -129,24 +138,24 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri, graphics::Overlay * frame
 
   if (tile != NULL && m_tiler.isLeaf(ri))
   {
-    graphics::Overlay::Lock guard(frameOverlay);
-    frameOverlay->merge(*tile->m_overlay,
-                        tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
+    graphics::Overlay::Lock guard(m_overlay);
+    m_overlay->merge(*tile->m_overlay,
+                      tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
   }
 
   //else
   //  LOG(LDEBUG, ("UVRLOG : Tile not found s=", ri.m_tileScale, " x=", ri.m_x, " y=", ri.m_y));
 }
 
-void FilterElementsBySharpness(graphics::OverlayElement * e,
-                               vector<graphics::OverlayElement const *> & v,
+void FilterElementsBySharpness(shared_ptr<graphics::OverlayElement> const & e,
+                               vector<shared_ptr<graphics::OverlayElement> > & v,
                                bool flag)
 {
   if (e->hasSharpGeometry() == flag)
     v.push_back(e);
 }
 
-bool ScreenCoverage::Cache(core::CommandsQueue::Environment const & env, graphics::Overlay * frameOverlay)
+bool ScreenCoverage::Cache(core::CommandsQueue::Environment const & env)
 {
   /// caching tiles blitting commands.
 
@@ -188,17 +197,17 @@ bool ScreenCoverage::Cache(core::CommandsQueue::Environment const & env, graphic
   // selecting and rendering non-sharp elements.
 
   {
-    graphics::Overlay::Lock guard(frameOverlay);
-    vector<graphics::OverlayElement const *> nonSharpElements;
-    frameOverlay->forEach(bind(&FilterElementsBySharpness, _1, ref(nonSharpElements), false));
+    graphics::Overlay::Lock guard(m_overlay);
+    vector<shared_ptr<graphics::OverlayElement> > nonSharpElements;
+    m_overlay->forEach(bind(&FilterElementsBySharpness, _1, ref(nonSharpElements), false));
 
     for (unsigned i = 0; i < nonSharpElements.size(); ++i)
       nonSharpElements[i]->draw(m_cacheScreen.get(), idM);
 
     // selecting and rendering sharp elements
 
-    vector<graphics::OverlayElement const *> sharpElements;
-    frameOverlay->forEach(bind(&FilterElementsBySharpness, _1, ref(sharpElements), true));
+    vector<shared_ptr<graphics::OverlayElement> > sharpElements;
+    m_overlay->forEach(bind(&FilterElementsBySharpness, _1, ref(sharpElements), true));
 
     m_cacheScreen->applySharpStates();
     m_cacheScreen->setDisplayList(m_sharpTextDL.get());
@@ -291,6 +300,8 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   tileCache->Unlock();
 
   m_tiles = tiles;
+
+  MergeOverlay();
 
   vector<Tiler::RectInfo> firstClassTiles;
   vector<Tiler::RectInfo> secondClassTiles;
@@ -390,6 +401,11 @@ void ScreenCoverage::Draw(graphics::Screen * s, ScreenBase const & screen)
     s->drawDisplayList(m_sharpTextDL.get(), m);
 }
 
+shared_ptr<graphics::Overlay> const & ScreenCoverage::GetOverlay() const
+{
+  return m_overlay;
+}
+
 int ScreenCoverage::GetDrawScale() const
 {
   return m_tiler.tileScale();
@@ -463,18 +479,20 @@ void ScreenCoverage::RemoveTiles(m2::AnyRectD const & r, int startScale)
     m_tileRects.erase(ri);
   }
   tileCache->Unlock();
+
+  MergeOverlay();
 }
 
-void ScreenCoverage::MergeOverlay(graphics::Overlay * frameOverlay)
+void ScreenCoverage::MergeOverlay()
 {
-  graphics::Overlay::Lock guard(frameOverlay);
-  frameOverlay->clear();
+  graphics::Overlay::Lock guard(m_overlay);
+  m_overlay->clear();
 
   for (TTileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
   {
     Tiler::RectInfo const & ri = (*it)->m_rectInfo;
     if (m_tiler.isLeaf(ri))
-      frameOverlay->merge(*(*it)->m_overlay, (*it)->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
+      m_overlay->merge(*(*it)->m_overlay, (*it)->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
   }
 }
 

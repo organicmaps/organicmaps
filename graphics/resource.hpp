@@ -25,7 +25,6 @@ namespace graphics
       Category m_category;
 
       Info(Category cat);
-      virtual ~Info() {}
 
       virtual Info const & cacheKey() const = 0;
       /// returns the size of this resource info which will

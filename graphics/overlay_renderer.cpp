@@ -12,8 +12,7 @@ namespace graphics
 {
   OverlayRenderer::Params::Params()
     : m_drawTexts(true),
-      m_drawSymbols(true),
-      m_overlay(NULL)
+      m_drawSymbols(true)
   {
   }
 
@@ -30,10 +29,14 @@ namespace graphics
     if (!m_drawSymbols)
       return;
 
-    if (!m_overlay)
-      SymbolElement(params).draw(this, math::Identity<double, 3>());
+    shared_ptr<OverlayElement> oe(new SymbolElement(params));
+
+    math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
+
+    if (!m_overlay.get())
+      oe->draw(this, id);
     else
-      m_overlay->processOverlayElement(new SymbolElement(params));
+      m_overlay->processOverlayElement(oe);
   }
 
   void OverlayRenderer::drawSymbol(m2::PointD const & pt, string const & name, EPosition pos, int depth)
@@ -61,10 +64,14 @@ namespace graphics
     params.m_pivot = pt;
     params.m_ci = ci;
 
-    if (!m_overlay)
-      CircleElement(params).draw(this, math::Identity<double, 3>());
+    shared_ptr<OverlayElement> oe(new CircleElement(params));
+
+    math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
+
+    if (!m_overlay.get())
+      oe->draw(this, id);
     else
-      m_overlay->processOverlayElement(new CircleElement(params));
+      m_overlay->processOverlayElement(oe);
   }
 
   void OverlayRenderer::drawText(FontDesc const & fontDesc,
@@ -90,10 +97,14 @@ namespace graphics
     params.m_offset = m2::PointD(0,0);
     params.m_glyphCache = glyphCache();
 
-    if (!m_overlay)
-      StraightTextElement(params).draw(this, math::Identity<double, 3>());
+    shared_ptr<OverlayElement> oe(new StraightTextElement(params));
+
+    math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
+
+    if (!m_overlay.get())
+      oe->draw(this, id);
     else
-      m_overlay->processOverlayElement(new StraightTextElement(params));
+      m_overlay->processOverlayElement(oe);
   }
 
   void OverlayRenderer::drawTextEx(StraightTextElement::Params & params)
@@ -103,10 +114,14 @@ namespace graphics
 
     params.m_glyphCache = glyphCache();
 
-    if (!m_overlay)
-      StraightTextElement(params).draw(this, math::Identity<double, 3>());
+    shared_ptr<OverlayElement> oe(new StraightTextElement(params));
+
+    math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
+
+    if (!m_overlay.get())
+      oe->draw(this, id);
     else
-      m_overlay->processOverlayElement(new StraightTextElement(params));
+      m_overlay->processOverlayElement(oe);
   }
 
   void OverlayRenderer::drawTextEx(FontDesc const & primaryFont,
@@ -163,10 +178,14 @@ namespace graphics
     params.m_glyphCache = glyphCache();
     params.m_pivot = path[0];
 
-    if (!m_overlay)
-      PathTextElement(params).draw(this, math::Identity<double, 3>());
+    shared_ptr<PathTextElement> pte(new PathTextElement(params));
+
+    math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
+
+    if (!m_overlay.get())
+      pte->draw(this, id);
     else
-      m_overlay->processOverlayElement(new PathTextElement(params));
+      m_overlay->processOverlayElement(pte);
   }
 
   void OverlayRenderer::drawPathText(FontDesc const & fontDesc,
@@ -193,18 +212,18 @@ namespace graphics
                    depth);
   }
 
-  void OverlayRenderer::setOverlay(Overlay *overlay)
+  void OverlayRenderer::setOverlay(shared_ptr<Overlay> const & overlay)
   {
     m_overlay = overlay;
   }
 
-  Overlay * OverlayRenderer::overlay() const
+  shared_ptr<Overlay> const & OverlayRenderer::overlay() const
   {
     return m_overlay;
   }
 
   void OverlayRenderer::resetOverlay()
   {
-    m_overlay = NULL;
+    m_overlay.reset();
   }
 }

@@ -9,9 +9,6 @@
 #include "../graphics/opengl/gl_render_context.hpp"
 
 #include "../base/logging.hpp"
-#ifdef DEBUG
-  #include "../base/thread.hpp"
-#endif
 
 #include "../std/bind.hpp"
 
@@ -45,7 +42,6 @@ CoverageGenerator::CoverageGenerator(
   g_coverageGeneratorDestroyed = false;
 
   m_resourceManager = rm;
-  m_overlay.setCouldOverlap(false);
 
   if (!m_glQueue)
     m_renderContext.reset(primaryRC->createShared());
@@ -84,10 +80,6 @@ ScreenCoverage * CoverageGenerator::CreateCoverage()
 
 void CoverageGenerator::InitializeThreadGL()
 {
-#ifdef DEBUG
-  m_overlay.setThreadID(threads::GetCurrentThreadID());
-#endif
-
   threads::MutexGuard g(m_mutex);
 
   LOG(LINFO, ("initializing CoverageGenerator on it's own thread."));
@@ -135,7 +127,6 @@ void CoverageGenerator::InvalidateTilesImpl(m2::AnyRectD const & r, int startSca
   {
     threads::MutexGuard g(m_mutex);
     m_currentCoverage->RemoveTiles(r, startScale);
-    m_currentCoverage->MergeOverlay(&m_overlay);
   }
 
   TileCache & tileCache = m_tileRenderer->GetTileCache();
@@ -213,14 +204,10 @@ void CoverageGenerator::CoverScreen(core::CommandsQueue::Environment const & env
   if (sequenceID < m_sequenceID)
     return;
 
-  m_currentCoverage->CopyInto(*m_workCoverage);
+  m_currentCoverage->CopyInto(*m_workCoverage, false);
 
   m_workCoverage->SetSequenceID(sequenceID);
   m_workCoverage->SetScreen(screen);
-#ifdef DEBUG
-  m_overlay.validateThread(threads::GetCurrentThreadID());
-#endif
-  m_workCoverage->MergeOverlay(&m_overlay);
 
   if (!m_workCoverage->IsPartialCoverage() && m_workCoverage->IsEmptyDrawingCoverage())
   {
@@ -228,7 +215,7 @@ void CoverageGenerator::CoverScreen(core::CommandsQueue::Environment const & env
     AddCheckEmptyModelTask(sequenceID);
   }
 
-  bool shouldSwap = !m_isPaused && m_workCoverage->Cache(env, &m_overlay);
+  bool shouldSwap = !m_isPaused && m_workCoverage->Cache(env);
 
   if (shouldSwap)
   {
@@ -269,12 +256,9 @@ void CoverageGenerator::MergeTile(core::CommandsQueue::Environment const & env,
   }
 
   //LOG(LDEBUG, ("UVRLOG : MergeTile s=", rectInfo.m_tileScale, " x=", rectInfo.m_x, " y=", rectInfo.m_y, " SequenceID=", sequenceID, " m_SequenceID=", m_sequenceID));
-  m_currentCoverage->CopyInto(*m_workCoverage);
+  m_currentCoverage->CopyInto(*m_workCoverage, true);
   m_workCoverage->SetSequenceID(sequenceID);
-#ifdef DEBUG
-  m_overlay.validateThread(threads::GetCurrentThreadID());
-#endif
-  m_workCoverage->Merge(rectInfo, &m_overlay);
+  m_workCoverage->Merge(rectInfo);
 
   if (!m_workCoverage->IsPartialCoverage() && m_workCoverage->IsEmptyDrawingCoverage())
   {
@@ -282,7 +266,7 @@ void CoverageGenerator::MergeTile(core::CommandsQueue::Environment const & env,
     AddCheckEmptyModelTask(sequenceID);
   }
 
-  bool shouldSwap = !m_isPaused && m_workCoverage->Cache(env, &m_overlay);
+  bool shouldSwap = !m_isPaused && m_workCoverage->Cache(env);
 
   if (shouldSwap)
   {
@@ -356,11 +340,6 @@ void CoverageGenerator::WaitForEmptyAndFinished()
 ScreenCoverage * CoverageGenerator::CurrentCoverage()
 {
   return m_currentCoverage;
-}
-
-graphics::Overlay * CoverageGenerator::GetOverlay()
-{
-  return &m_overlay;
 }
 
 threads::Mutex & CoverageGenerator::Mutex()

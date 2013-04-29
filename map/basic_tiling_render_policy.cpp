@@ -264,9 +264,9 @@ void BasicTilingRenderPolicy::FrameUnlock()
   m_CoverageGenerator->Mutex().Unlock();
 }
 
-graphics::Overlay * BasicTilingRenderPolicy::FrameOverlay() const
+shared_ptr<graphics::Overlay> const BasicTilingRenderPolicy::FrameOverlay() const
 {
-  return m_CoverageGenerator->GetOverlay();
+  return m_CoverageGenerator->CurrentCoverage()->GetOverlay();
 }
 
 int BasicTilingRenderPolicy::InsertBenchmarkFence()
