@@ -5,6 +5,7 @@
 #import "CompassView.h"
 #import "BookmarkCell.h"
 #import "MapViewController.h"
+#import "Statistics.h"
 
 #include "Framework.h"
 
@@ -260,6 +261,7 @@
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
   [self dismissModalViewControllerAnimated:YES];
+  [[Statistics instance] logEvent:@"KML Export"];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
