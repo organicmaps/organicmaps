@@ -1,5 +1,6 @@
 #import "SelectColorVC.h"
 #import "BalloonView.h"
+#import "Statistics.h"
 
 static NSString * g_colors [] = {
   @"placemark-red",
@@ -62,6 +63,7 @@ static NSString * g_colors [] = {
   m_balloon.pinImage.image = cell.imageView.image;
   m_balloon.color = g_colors[indexPath.row];
   [self.navigationController popViewControllerAnimated:YES];
+  [[Statistics instance] logEvent:@"Select Bookmark color"];
 }
 
 @end
