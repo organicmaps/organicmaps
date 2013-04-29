@@ -72,9 +72,9 @@ namespace android
   bool m_doUpdateBalloonPositionFromLocation = false;
   void Framework::OnPositionClicked(m2::PointD const & point)
   {
-    m_doUpdateBalloonPositionFromLocation = true;
     string name = NativeFramework()->GetStringsBundle().GetString("my_position");
     ActivatePopup(point, name, IMAGE_PLUS);
+    m_doUpdateBalloonPositionFromLocation = true;
   }
 
   void Framework::OnLocationError(int errorCode)
@@ -94,7 +94,8 @@ namespace android
     // when we have our sexy-cross-platform balloons
     if (m_doUpdateBalloonPositionFromLocation)
     {
-      GetBookmarkBalloon()->setGlbPivot(m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)));
+      GetBookmarkBalloon()->setGlbPivot(m2::PointD(MercatorBounds::LonToX(lon),
+                                                   MercatorBounds::LatToY(lat)));
       m_work.Invalidate();
     }
     //
@@ -578,10 +579,11 @@ namespace android
     // stop updating balloon position
     m_doUpdateBalloonPositionFromLocation = false;
 
-    m2::PointD pt(x, y);
+    m2::PointD               pt(x, y);
     ::Framework::AddressInfo addrInfo;
-    m2::PointD pxPivot;
-    BookmarkAndCategory bmAndCat;
+    m2::PointD                pxPivot;
+    BookmarkAndCategory      bmAndCat;
+
     switch (m_work.GetBookmarkOrPoi(pt, pxPivot, addrInfo, bmAndCat))
     {
     case ::Framework::BOOKMARK:
@@ -627,6 +629,12 @@ namespace android
 
   void Framework::ActivatePopup(m2::PointD const & pos, string const & name, PopupImageIndexT index)
   {
+    /**
+     * Disable my position
+     * balloon updates
+     */
+    m_doUpdateBalloonPositionFromLocation = false;
+
     BookmarkBalloon * b = GetBookmarkBalloon();
 
     m_work.DisablePlacemark();
@@ -641,6 +649,8 @@ namespace android
 
   void Framework::DeactivatePopup()
   {
+    m_doUpdateBalloonPositionFromLocation = false;
+
     BookmarkBalloon * b = GetBookmarkBalloon();
     b->setIsVisible(false);
 
