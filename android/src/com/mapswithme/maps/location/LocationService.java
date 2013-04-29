@@ -1,9 +1,5 @@
 package com.mapswithme.maps.location;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-
 import android.content.Context;
 import android.hardware.GeomagneticField;
 import android.hardware.Sensor;
@@ -21,6 +17,12 @@ import android.view.Surface;
 
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.LocationUtils;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 
 
 public class LocationService implements LocationListener, SensorEventListener, WifiLocation.Listener
@@ -119,24 +121,9 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
     if (!m_isActive)
     {
-      List<String> providers = m_locationManager.getProviders(false);
+      m_isGPSOff = false;
 
-      // Remove passive provider and check for enabled providers.
-      boolean isGPSOff = false;
-      for (int i = 0; i < providers.size();)
-      {
-        final String provider = providers.get(i);
-        if (!m_locationManager.isProviderEnabled(provider) ||
-            provider.equals(LocationManager.PASSIVE_PROVIDER))
-        {
-          if (provider.equals(LocationManager.GPS_PROVIDER))
-            isGPSOff = true;
-          providers.remove(i);
-        }
-        else
-          ++i;
-      }
-
+      List<String> providers = getFilteredProviders();
       Log.d(TAG, "Enabled providers count = " + providers.size());
 
       if (providers.size() == 0)
@@ -144,47 +131,67 @@ public class LocationService implements LocationListener, SensorEventListener, W
       else
       {
         m_isActive = true;
-        Location lastKnown = null;
 
         for (String provider : providers)
         {
           Log.d(TAG, "Connected to provider = " + provider);
           // Half of a second is more than enough, I think ...
           m_locationManager.requestLocationUpdates(provider, 500, 0, this);
-
-          // Remember last known location
-          lastKnown = getBestLastKnownLocation(lastKnown, m_locationManager.getLastKnownLocation(provider));
         }
         registerSensorListeners();
 
-        // Select better location between last known from providers or last save in the application.
-        final long currTime = System.currentTimeMillis();
 
-        if (lastKnown != null)
-          Log.d(TAG, "Last known provider's location (" + lastKnown.getProvider() +
-                ") delta = " + (currTime - lastKnown.getTime()));
-
-        if (m_lastLocation != null)
+        List<Location> notExpiredLocations = getAllNotExpiredLocations(providers);
+        Location lastKnownLocation = null;
+        if (notExpiredLocations.size() > 0)
         {
-          Log.d(TAG, "Last saved app location (" + m_lastLocation.getProvider() +
-                ") delta = " + (currTime - m_lastTime));
+           final Location newestLocation = LocationUtils.getNewestLocation(notExpiredLocations);
+           final Location mostAccurateLocation = LocationUtils.getMostAccurateLocation(notExpiredLocations);
 
-          m_lastLocation.setTime(m_lastTime);
-          lastKnown = getBestLastKnownLocation(m_lastLocation, lastKnown);
+           if (LocationUtils.isFirstOneIsBetterLocation(newestLocation, mostAccurateLocation))
+             lastKnownLocation = newestLocation;
+           else
+             lastKnownLocation = mostAccurateLocation;
+
         }
+
+        if (!LocationUtils.isFirstOneIsBetterLocation(lastKnownLocation, m_lastLocation))
+          lastKnownLocation = m_lastLocation;
 
         // Pass last known location only in the end of all registerListener
         // in case, when we want to disconnect in listener.
-        if (lastKnown != null
-            && ((currTime - lastKnown.getTime() < MAXTIME_COMPARE_SAVED_LOCATIONS)
-                // we need any location if have no one
-               ||  m_lastLocation == null))
-          emitLocation(lastKnown, currTime);
+        if (lastKnownLocation != null)
+          emitLocation(lastKnownLocation, System.currentTimeMillis());
       }
 
-      if (isGPSOff)
+      if (m_isGPSOff)
         observer.onLocationError(ERROR_GPS_OFF);
     }
+  }
+
+  private List<String> getFilteredProviders()
+  {
+    List<String> allProviders = m_locationManager.getProviders(false);
+    List<String> acceptedProviders = new ArrayList<String>(allProviders.size());
+
+    for (String prov : allProviders)
+    {
+      if (!m_locationManager.isProviderEnabled(prov) || prov.equals(LocationManager.PASSIVE_PROVIDER))
+      {
+        if (prov.equals(LocationManager.GPS_PROVIDER))
+          m_isGPSOff = true;
+
+        Log.i(TAG, ">>>MWM LOC prov skipped: " + prov);
+      }
+      else
+      {
+        acceptedProviders.add(prov);
+        Log.i(TAG, ">>>MWM LOC prov added: " + prov);
+      }
+
+    }
+
+    return acceptedProviders;
   }
 
   private void registerSensorListeners()
@@ -231,64 +238,34 @@ public class LocationService implements LocationListener, SensorEventListener, W
       m_magneticField = null;
       m_drivingHeading = -1.0;
       m_isActive = false;
+      // also reset location
+      m_lastLocation = null;
     }
   }
 
-  private static final long MAXTIME_COMPARE_LOCATIONS = 1000 * 60 * 1;
   private static final long MAXTIME_CALC_DIRECTIONS = 1000 * 10;
-  private static final long MAXTIME_COMPARE_SAVED_LOCATIONS = MAXTIME_COMPARE_LOCATIONS * 5;
+  private static final long LOCATION_EXPIRATION_TIME = 5 * 60 * 1000; /* 5 minutes*/
 
-  /// Choose better last known location.
-  private static Location getBestLastKnownLocation(Location l1, Location l2)
+  private List<Location> getAllNotExpiredLocations(List<String> providers)
   {
-    if (l1 == null)
-      return l2;
-    else if (l2 == null)
-      return l1;
+    List<Location> locations = new ArrayList<Location>(providers.size());
 
-    final long delta = l2.getTime() - l1.getTime();
-    if (Math.abs(delta) < MAXTIME_COMPARE_SAVED_LOCATIONS)
+    for (String prov : providers)
     {
-      // better is with lower accuracy
-      return (l2.getAccuracy() < l1.getAccuracy() ? l2 : l1);
-    }
-    else
-    {
-      return (delta > 0 ? l2 : l1);
-    }
-  }
-
-  private boolean isSameProvider(String p1, String p2)
-  {
-    if (p1 == null || p2 == null)
-      return (p1 == p2);
-    return p1.equals(p2);
-  }
-
-  /// Check if current location is better than m_lastLocation.
-  /// @return 0 If new location is sucks.
-  private long getBetterLocationTime(Location curr)
-  {
-    assert(curr != null);
-
-    final long currTime = System.currentTimeMillis();
-
-    if (m_lastLocation != null)
-    {
-      final long delta = currTime - m_lastTime;
-      assert(delta >= 0);
-
-      if ((delta < MAXTIME_COMPARE_LOCATIONS) &&
-          !isSameProvider(m_lastLocation.getProvider(), curr.getProvider()) &&
-          (curr.getAccuracy() > m_lastLocation.getAccuracy()))
+      Location loc = m_locationManager.getLastKnownLocation(prov);
+      final long timeNow = System.currentTimeMillis();
+      if (loc != null && ((timeNow - loc.getTime()) <= LOCATION_EXPIRATION_TIME))
       {
-        // Just filter middle locations from different sources,
-        // while we have stable (in one minute range) locations with better accuracy.
-        return 0;
+        locations.add(loc);
+        Log.i(TAG, ">>>MWM LOC added: " + loc);
+      }
+      else
+      {
+        Log.i(TAG, ">>>MWM LOC skipped: " + loc);
       }
     }
 
-    return currTime;
+    return locations;
   }
 
   private void calcDirection(Location l, long t)
@@ -322,11 +299,13 @@ public class LocationService implements LocationListener, SensorEventListener, W
   {
     //printLocation(l);
 
-    final long currTime = getBetterLocationTime(l);
-    if (currTime != 0)
+    if (LocationUtils.isFirstOneIsBetterLocation(l, m_lastLocation))
     {
+      Log.i(TAG, ">>>MWM LOC taken: " + l);
+
+      final long timeNow = System.currentTimeMillis();
       if (m_lastLocation != null)
-        calcDirection(l, currTime);
+        calcDirection(l, timeNow);
 
       // Used for more precise compass updates
       if (m_sensorManager != null)
@@ -340,8 +319,10 @@ public class LocationService implements LocationListener, SensorEventListener, W
         }
       }
 
-      emitLocation(l, currTime);
+      emitLocation(l, timeNow);
     }
+    else
+      Log.i(TAG, ">>>MWM LOC not taken: " + l);
   }
 
   private native float[] nativeUpdateCompassSensor(int ind, float[] arr);
@@ -368,6 +349,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   private float[] m_gravity = null;
   private float[] m_geomagnetic = null;
+
+  private boolean m_isGPSOff;
 
   private void emitCompassResults(long time, double north, double trueNorth, double offset)
   {
