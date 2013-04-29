@@ -1,5 +1,6 @@
 #import "BookmarksRootVC.h"
 #import "BookmarksVC.h"
+#import "Statistics.h"
 
 #include "Framework.h"
 
@@ -220,7 +221,10 @@
   {
     // Launch appstore
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
+    [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"YES"];
   }
+  else
+    [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"NO"];
   // Close view
   [self dismissModalViewControllerAnimated:YES];
 }

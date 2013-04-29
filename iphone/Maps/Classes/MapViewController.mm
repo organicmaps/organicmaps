@@ -25,6 +25,7 @@
 
 #define FACEBOOK_ALERT_VIEW 1
 #define APPSTORE_ALERT_VIEW 2
+#define BALLOON_PROPOSAL_ALERT_VIEW 11
 #define ITUNES_URL @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%lld"
 #define FACEBOOK_URL @"http://www.facebook.com/MapsWithMe"
 #define FACEBOOK_SCHEME @"fb://profile/111923085594432"
@@ -255,6 +256,7 @@ const long long LITE_IDL = 431183278L;
                                    delegate:self
                                    cancelButtonTitle:NSLocalizedString(@"cancel", nil)
                                    otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
+    alert.tag = BALLOON_PROPOSAL_ALERT_VIEW;
 
     [alert show];
     [alert release];
@@ -768,10 +770,18 @@ NSInteger compareAddress(id l, id r, void * context)
       break;
   }
 
-  if (buttonIndex != alertView.cancelButtonIndex)
+  if (alertView.tag == BALLOON_PROPOSAL_ALERT_VIEW)
   {
-    // Launch appstore
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
+    if (buttonIndex != alertView.cancelButtonIndex)
+    {
+      // Launch appstore
+      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
+      [[Statistics instance] logProposalReason:@"Balloon Touch" withAnswer:@"YES"];
+    }
+    else
+    {
+      [[Statistics instance] logProposalReason:@"Balloon Touch" withAnswer:@"NO"];
+    }
   }
 }
 

@@ -6,6 +6,7 @@
 #import "CustomNavigationView.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
+#import "Statistics.h"
 
 #include "Framework.h"
 
@@ -256,7 +257,11 @@ static void OnSearchResultCallback(search::Results const & res)
   {
     // Launch appstore
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
+    [[Statistics instance] logProposalReason:@"Search Screen" withAnswer:@"YES"];
   }
+  else
+    [[Statistics instance] logProposalReason:@"Search Screen" withAnswer:@"NO"];
+
   // Close view
   [self dismissModalViewControllerAnimated:YES];
 }
