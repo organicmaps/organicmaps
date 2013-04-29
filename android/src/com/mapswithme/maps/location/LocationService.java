@@ -140,23 +140,10 @@ public class LocationService implements LocationListener, SensorEventListener, W
       Log.d(TAG, "Enabled providers count = " + providers.size());
 
       if (providers.size() == 0)
-      {
-        // Use WiFi BSSIDS and Google Internet location service if no other options are available
-        // But only if connection is available
-        if (ConnectionState.isConnected(m_application) &&
-            ((WifiManager)m_application.getSystemService(Context.WIFI_SERVICE)).isWifiEnabled())
-        {
-          if (m_wifiScanner == null)
-            m_wifiScanner = new WifiLocation();
-          m_wifiScanner.StartScan(m_application, this);
-        }
-        else
-          observer.onLocationError(ERROR_DENIED);
-      }
+        handleEmptyProvidersList(observer);
       else
       {
         m_isActive = true;
-
         Location lastKnown = null;
 
         for (String provider : providers)
@@ -168,17 +155,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
           // Remember last known location
           lastKnown = getBestLastKnownLocation(lastKnown, m_locationManager.getLastKnownLocation(provider));
         }
-
-        if (m_sensorManager != null)
-        {
-          // How often compass is updated (may be SensorManager.SENSOR_DELAY_UI)
-          final int COMPASS_REFRESH_MKS = SensorManager.SENSOR_DELAY_NORMAL;
-
-          if (m_accelerometer != null)
-            m_sensorManager.registerListener(this, m_accelerometer, COMPASS_REFRESH_MKS);
-          if (m_magnetometer != null)
-            m_sensorManager.registerListener(this, m_magnetometer, COMPASS_REFRESH_MKS);
-        }
+        registerSensorListeners();
 
         // Select better location between last known from providers or last save in the application.
         final long currTime = System.currentTimeMillis();
@@ -198,13 +175,43 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
         // Pass last known location only in the end of all registerListener
         // in case, when we want to disconnect in listener.
-        if (lastKnown != null && (currTime - lastKnown.getTime() < MAXTIME_COMPARE_SAVED_LOCATIONS))
+        if (lastKnown != null
+            && ((currTime - lastKnown.getTime() < MAXTIME_COMPARE_SAVED_LOCATIONS)
+                // we need any location if have no one
+               ||  m_lastLocation == null))
           emitLocation(lastKnown, currTime);
       }
 
       if (isGPSOff)
         observer.onLocationError(ERROR_GPS_OFF);
     }
+  }
+
+  private void registerSensorListeners()
+  {
+    if (m_sensorManager != null)
+    {
+      // How often compass is updated (may be SensorManager.SENSOR_DELAY_UI)
+      final int COMPASS_REFRESH_MKS = SensorManager.SENSOR_DELAY_NORMAL;
+
+      if (m_accelerometer != null)
+        m_sensorManager.registerListener(this, m_accelerometer, COMPASS_REFRESH_MKS);
+      if (m_magnetometer != null)
+        m_sensorManager.registerListener(this, m_magnetometer, COMPASS_REFRESH_MKS);
+    }
+  }
+
+  private void handleEmptyProvidersList(Listener observer)
+  {
+    if (ConnectionState.isConnected(m_application) &&
+        ((WifiManager)m_application.getSystemService(Context.WIFI_SERVICE)).isWifiEnabled())
+    {
+      if (m_wifiScanner == null)
+        m_wifiScanner = new WifiLocation();
+      m_wifiScanner.StartScan(m_application, this);
+    }
+    else
+      observer.onLocationError(ERROR_DENIED);
   }
 
   public void stopUpdate(Listener observer)
@@ -242,6 +249,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
     final long delta = l2.getTime() - l1.getTime();
     if (Math.abs(delta) < MAXTIME_COMPARE_SAVED_LOCATIONS)
     {
+      // better is with lower accuracy
       return (l2.getAccuracy() < l1.getAccuracy() ? l2 : l1);
     }
     else
