@@ -2,6 +2,7 @@
 #import "BalloonView.h"
 #import "SelectSetVC.h"
 #import "SelectColorVC.h"
+#import "Statistics.h"
 
 #define TEXTFIELD_TAG 999
 
@@ -295,11 +296,13 @@
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
+  [[Statistics instance] logEvent:@"ge0(zero) MAIL Export"];
   [self dismissModalViewControllerAnimated:YES];
 }
 
 -(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 {
+  [[Statistics instance] logEvent:@"ge0(zero) MESSAGE Export"];
   [self dismissModalViewControllerAnimated:YES];
 }
 

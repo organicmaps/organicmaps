@@ -3,6 +3,7 @@
 #import "SettingsManager.h"
 #import "Preferences.h"
 #import "LocationManager.h"
+#import "Statistics.h"
 
 #include <sys/xattr.h>
 
@@ -175,6 +176,10 @@ void InitLocalizedStrings()
     {
       [self showParsedBookmarkOnMap: request];
       m_didOpenedWithUrl = YES;
+      if ([scheme isEqualToString:@"geo"])
+        [[Statistics instance] logEvent:@"geo Import"];
+      if ([scheme isEqualToString:@"ge0"])
+        [[Statistics instance] logEvent:@"ge0(zero) Import"];
       return YES;
     }
   }
@@ -188,6 +193,7 @@ void InitLocalizedStrings()
      [[NSNotificationCenter defaultCenter] postNotificationName:@"KML file added" object:nil];
      [self showLoadFileAlertIsSuccessful:YES];
      m_didOpenedWithUrl = YES;
+     [[Statistics instance] logEvent:@"KML Import"];
      return YES;
   }
   NSLog(@"Scheme %@ is not supported", scheme);
