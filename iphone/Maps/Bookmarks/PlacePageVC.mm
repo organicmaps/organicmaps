@@ -313,7 +313,9 @@
 
   if ([textFieldText isEqualToString:NSLocalizedString(@"my_position", nil)])
   {
-    [mailVC setMessageBody:[NSString stringWithFormat:NSLocalizedString(@"my_position_share_email", nil), textFieldText, shortUrl, httpGe0Url] isHTML:NO];
+    m2::PointD pt = m2::PointD(m_balloon.globalPosition.x, m_balloon.globalPosition.y);
+    NSString * nameAndAddress = [NSString stringWithUTF8String:GetFramework().GetNameAndAddressAtPoint(pt).c_str()];
+    [mailVC setMessageBody:[NSString stringWithFormat:NSLocalizedString(@"my_position_share_email", nil), nameAndAddress, shortUrl, httpGe0Url] isHTML:NO];
     [mailVC setSubject:NSLocalizedString(@"my_position_share_email_subject", nil)];
   }
   else
