@@ -1544,14 +1544,30 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, 
   return false;
 }
 
-string Framework::GetNameAndAddressAtPoint(m2::PointD const & pxPoint)
+namespace
 {
-  AddressInfo info;
-  GetAddressInfo(pxPoint, info);
+string GenerateNameAndAddress(Framework::AddressInfo const & info)
+{
   if (info.m_name.empty())
     return info.FormatAddress();
   else
     return info.m_name + ", " +  info.FormatAddress();
+}
+}
+
+
+string Framework::GetNameAndAddressAtPoint(m2::PointD const & pxPoint)
+{
+  AddressInfo info;
+  GetAddressInfo(pxPoint, info);
+  return GenerateNameAndAddress(info);
+}
+
+string Framework::GetNameAndAddressAtGlobalPoint(m2::PointD const & glPoint)
+{
+  AddressInfo info;
+  GetAddressInfoForGlobalPoint(glPoint, info);
+  return GenerateNameAndAddress(info);
 }
 
 Framework::BookmarkOrPoi Framework::GetBookmarkOrPoi(m2::PointD const & pxPoint, m2::PointD & pxPivot, AddressInfo & info, BookmarkAndCategory & bmCat)

@@ -343,6 +343,7 @@ public:
 
   /// Get address information for point on map.
   void GetAddressInfo(m2::PointD const & pxPoint, AddressInfo & info) const;
+  void GetAddressInfoForGlobalPoint(m2::PointD const & pt, AddressInfo & info) const;
 
 private:
   void GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, AddressInfo & info) const;
@@ -351,6 +352,7 @@ private:
 public:
   bool GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, AddressInfo & info) const;
   string GetNameAndAddressAtPoint(m2::PointD const & pxPoint);
+  string GetNameAndAddressAtGlobalPoint(m2::PointD const & glPoint);
 
   enum BookmarkOrPoi
   {

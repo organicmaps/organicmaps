@@ -475,6 +475,11 @@ void Framework::GetAddressInfo(m2::PointD const & pxPoint, AddressInfo & info) c
   // Input point is in pixel coordinates.
   m2::PointD const pt = PtoG(pxPoint);
 
+  GetAddressInfoForGlobalPoint(pt, info);
+}
+
+void Framework::GetAddressInfoForGlobalPoint(m2::PointD const & pt, AddressInfo & info) const
+{
   info.Clear();
 
   info.m_country = GetCountryName(pt);
