@@ -285,7 +285,9 @@ public class LocationService implements LocationListener, SensorEventListener, W
   public void onLocationChanged(Location l)
   {
     //printLocation(l);
-
+    
+    // hack to avoid time zone troubles
+    l.setTime(System.currentTimeMillis());
     if (LocationUtils.isFirstOneBetterLocation(l, m_lastLocation))
     {
       final long timeNow = System.currentTimeMillis();
