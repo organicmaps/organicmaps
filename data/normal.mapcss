@@ -1016,11 +1016,6 @@ line|z12[railway=monorail]
   width:	1;
   z-index:	226;
 }
-line|z12[leisure=track]
-{
-  color:	#d0e8c4;
-  width:	0.7;
-}
 line|z12[highway=track][tracktype=grade2]
 {
   color:	#d79331;
@@ -1536,11 +1531,6 @@ line|z13[highway=construction]
   width:	2.75;
   dashes:	4,4;
   linecap:	butt;
-}
-line|z13[leisure=track]
-{
-  color:	#d0e8c4;
-  width:	0.9;
 }
 line|z13[highway=ford]
 {
@@ -2063,9 +2053,7 @@ line|z14[highway=construction]
   linecap:	butt;
 }
 area|z14-[earthquake:damage=spontaneous_camp],
-area|z14-16[tourism=camp_site]::d1p2,
-node|z14-[earthquake:damage=spontaneous_camp],
-node|z14-16[tourism=camp_site]::d1p2
+node|z14-[earthquake:damage=spontaneous_camp]
 {
   icon-image:	earthquakecamp.svg;
 }
@@ -2128,13 +2116,6 @@ line|z14[highway=motorway]::d1p2
   casing-linecap:	 butt;
   casing-width:	2;
   casing-color:	#b87c04;
-}
-line|z14[leisure=track]
-{
-  color:	#d0e8c4;
-  width:	1.6;
-  casing-color:	grey;
-  casing-width:	1;  
 }
 line|z14[aeroway=runway]
 {
@@ -3027,13 +3008,6 @@ line|z15-[piste:lift=j-bar]
   color:	#202020;
   width:	0.8;
 }
-area|z15[building=address],
-node|z15[building=address]
-{
-  text:	int_name;
-  font-size:	10;
-  text-color:	#808070;
-}
 line|z15[waterway=weir]
 {
   color:	#000044;
@@ -3236,13 +3210,6 @@ line|z15[railway=narrow_gauge]::d1p2
   color:	#e6e6e6;
   width:	2;
   z-index:	387;
-}
-line|z15[leisure=track]
-{
-  color:	#d0e8c4;
-  width:	2.9;
-  casing-color:	grey;
-  casing-width:	1;
 }
 area|z15-16[place=village],
 node|z15-16[place=village]
@@ -3908,13 +3875,6 @@ line|z15[railway=siding]
   width:	2.4;
   z-index:	297;
 }
-area|z15[building],
-node|z15[building]
-{
-  text:	"addr:housenumber";
-  font-size:	8;
-  text-color:	#808070;
-}
 line|z15[highway=cycleway]
 {
   color:	#90bc90;
@@ -4073,7 +4033,7 @@ area|z17-[amenity=bureau_de_change],
 area|z17-[amenity=bus_station],
 area|z17-[amenity=cafe],
 area|z17-[amenity=car_rental],
-area|z16-[amenity=car_sharing],
+area|z17-[amenity=car_sharing],
 area|z17-[amenity=cinema],
 area|z17-[amenity=doctors],
 area|z17-[amenity=embassy],
@@ -4084,41 +4044,43 @@ area|z17-[amenity=fuel],
 area|z17-[amenity=hospital],
 area|z17-[amenity=hunting_stand],
 area|z17-[amenity=library],
-area|z16-[amenity=marketplace],
-area|z16-[amenity=nightclub],
+area|z17-[amenity=marketplace],
+area|z17-[amenity=nightclub],
 area|z17-[amenity=pharmacy],
 area|z17-[amenity=place_of_worship],
 area|z17-[amenity=police],
 area|z17-[amenity=post_box],
 area|z17-[amenity=post_office],
-area|z16-[amenity=pub],
+area|z17-[amenity=pub],
 area|z17-[amenity=recycling],
 area|z17-[amenity=restaurant],
 area|z17-[amenity=speed_trap],
 area|z17-[amenity=taxi],
 area|z17-[amenity=telephone],
-area|z16-[amenity=theatre],
+area|z17-[amenity=theatre],
 area|z17-[amenity=toilets],
-area|z16-[historic=archaeological_site],
-area|z16-[historic=battlefield],
-area|z16-[historic=castle],
-area|z16-[historic=memorial],
-area|z16-[historic=monument],
-area|z16-[historic=museum],
-area|z16-[historic=ruins],
-area|z16-[shop=bakery],
-area|z16-[shop=car_repair],
-area|z16-[shop=clothes],
-area|z16-[shop=convenience],
-area|z16-[shop=hairdresser],
-area|z16-[shop=kiosk],
-area|z16-[shop=supermarket],
+area|z17-[historic=archaeological_site],
+area|z17-[historic=battlefield],
+area|z17-[historic=castle],
+area|z17-[historic=memorial],
+area|z17-[historic=monument],
+area|z17-[historic=museum],
+area|z17-[historic=ruins],
+area|z17-[shop=bakery],
+area|z17-[shop=car_repair],
+area|z17-[shop=clothes],
+area|z17-[shop=doityourself],
+area|z17-[shop=convenience],
+area|z17-[shop=mall],
+area|z17-[shop=hairdresser],
+area|z17-[shop=kiosk],
+area|z17-[shop=supermarket],
 area|z17-[tourism=camp_site],
-area|z16-[tourism=guest_house],
-area|z16-[tourism=hostel],
-area|z16-[tourism=hotel],
-area|z16-[tourism=motel],
-area|z16-[tourism=museum],
+area|z17-[tourism=guest_house],
+area|z17-[tourism=hostel],
+area|z17-[tourism=hotel],
+area|z17-[tourism=motel],
+area|z17-[tourism=museum],
 area|z17-[tourism=picnic_site],
 node|z17-[amenity=atm],
 node|z17-[amenity=bank],
@@ -4128,7 +4090,7 @@ node|z17-[amenity=bureau_de_change],
 node|z17-[amenity=bus_station],
 node|z17-[amenity=cafe],
 node|z17-[amenity=car_rental],
-node|z16-[amenity=car_sharing],
+node|z17-[amenity=car_sharing],
 node|z17-[amenity=cinema],
 node|z17-[amenity=doctors],
 node|z17-[amenity=embassy],
@@ -4139,44 +4101,46 @@ node|z17-[amenity=fuel],
 node|z17-[amenity=hospital],
 node|z17-[amenity=hunting_stand],
 node|z17-[amenity=library],
-node|z16-[amenity=marketplace],
-node|z16-[amenity=nightclub],
+node|z17-[amenity=marketplace],
+node|z17-[amenity=nightclub],
 node|z17-[amenity=pharmacy],
 node|z17-[amenity=place_of_worship],
 node|z17-[amenity=police],
 node|z17-[amenity=post_box],
 node|z17-[amenity=post_office],
-node|z16-[amenity=pub],
+node|z17-[amenity=pub],
 node|z17-[amenity=recycling],
 node|z17-[amenity=restaurant],
 node|z17-[amenity=speed_trap],
 node|z17-[amenity=taxi],
 node|z17-[amenity=telephone],
-node|z16-[amenity=theatre],
+node|z17-[amenity=theatre],
 node|z17-[amenity=toilets],
-node|z16-[historic=archaeological_site],
-node|z16-[historic=battlefield],
-node|z16-[historic=castle],
-node|z16-[historic=memorial],
-node|z16-[historic=monument],
-node|z16-[historic=museum],
-node|z16-[historic=ruins],
-node|z16-[shop=bakery],
-node|z16-[shop=car_repair],
-node|z16-[shop=clothes],
-node|z16-[shop=convenience],
-node|z16-[shop=hairdresser],
-node|z16-[shop=kiosk],
-node|z16-[shop=supermarket],
+node|z17-[historic=archaeological_site],
+node|z17-[historic=battlefield],
+node|z17-[historic=castle],
+node|z17-[historic=memorial],
+node|z17-[historic=monument],
+node|z17-[historic=museum],
+node|z17-[historic=ruins],
+node|z17-[shop=bakery],
+node|z17-[shop=car_repair],
+node|z17-[shop=clothes],
+node|z17-[shop=doityourself],
+node|z17-[shop=convenience],
+node|z17-[shop=mall],
+node|z17-[shop=hairdresser],
+node|z17-[shop=kiosk],
+node|z17-[shop=supermarket],
 node|z17-[tourism=camp_site],
-node|z16-[tourism=guest_house],
-node|z16-[tourism=hostel],
-node|z16-[tourism=hotel],
-node|z16-[tourism=motel],
-node|z16-[tourism=museum],
+node|z17-[tourism=guest_house],
+node|z17-[tourism=hostel],
+node|z17-[tourism=hotel],
+node|z17-[tourism=motel],
+node|z17-[tourism=museum],
 node|z17-[tourism=picnic_site]
 {
-  font-size:	12;
+  font-size:	11;
   text-halo-radius:	2;
   text:	name;
   text-color:	#404040;
@@ -4200,8 +4164,8 @@ line|z16[boundary=administrative][admin_level=10]
   z-index:	927;
   dashes:	4,20;
 }
-area|z16-[amenity=atm],
-node|z16-[amenity=atm]
+area|z17-[amenity=atm],
+node|z17-[amenity=atm]
 {
   icon-image:	atm.svg;
 }
@@ -4265,13 +4229,6 @@ line|z16[railway=spur]::d1p2
   width:	1.2;
   z-index:	638;
 }
-line|z16[leisure=track]
-{
-  color:	#d0e8c4;
-  casing-color:	grey;
-  casing-width:	1;
-  width:	5.8;
-}
 line|z16[railway=spur]::d1p3
 {
   color:	#333333;
@@ -4281,9 +4238,7 @@ line|z16[railway=spur]::d1p3
   linecap:	butt;
 }
 area|z16[building]::int_name,
-area|z16[building=address]::int_name,
-node|z16[building]::int_name,
-node|z16[building=address]::int_name
+node|z16[building]::int_name
 {
   text:	int_name;
   font-size:	11;
@@ -4667,8 +4622,8 @@ line|z16[railway=narrow_gauge]::d1p2
   width:	2;
   z-index:	632;
 }
-area|z16-[amenity=toilets],
-node|z16-[amenity=toilets],
+area|z17-[amenity=toilets],
+node|z17-[amenity=toilets],
 {
   icon-image:	toilets.svg;
 }
@@ -4692,51 +4647,6 @@ line|z16[boundary=administrative][border_type=suburb]
   width:	0.8;
   z-index:	936;
   dashes:	4,20;
-}
-area|z16[amenity=atm],
-area|z16[amenity=bank],
-area|z16[amenity=bar],
-area|z16[amenity=bicycle_rental],
-area|z16[amenity=bureau_de_change],
-area|z16[amenity=cafe],
-area|z16[amenity=car_rental],
-area|z16[amenity=cinema],
-area|z16[amenity=doctors],
-area|z16[amenity=embassy],
-area|z16[amenity=fast_food],
-area|z16[amenity=fire_station],
-area|z16[amenity=fuel],
-area|z16[amenity=hunting_stand],
-area|z16[amenity=place_of_worship],
-area|z16[amenity=police],
-area|z16[amenity=post_office],
-area|z16[amenity=restaurant],
-node|z16[amenity=atm],
-node|z16[amenity=bank],
-node|z16[amenity=bar],
-node|z16[amenity=bicycle_rental],
-node|z16[amenity=bureau_de_change],
-node|z16[amenity=cafe],
-node|z16[amenity=car_rental],
-node|z16[amenity=cinema],
-node|z16[amenity=doctors],
-node|z16[amenity=embassy],
-node|z16[amenity=fast_food],
-node|z16[amenity=fire_station],
-node|z16[amenity=fuel],
-node|z16[amenity=hunting_stand],
-node|z16[amenity=place_of_worship],
-node|z16[amenity=police],
-node|z16[amenity=post_office],
-node|z16[amenity=restaurant]
-{
-  font-size:	11;
-  text-halo-radius:	2;
-  text:	name;
-  text-color:	#404040;
-  text-offset:  14;
-  text-halo-color:	white;
-  z-index: 1;
 }
 area|z16-[natural=cave_entrance],
 area|z16-[natural=volcano],
@@ -4878,11 +4788,6 @@ line|z16[railway=preserved]::d1p3
   dashes:	12,12;
   linecap:	butt;
 }
-node|z16-[building]::icon
-{
-  icon-image:	building.svg;
-  z-index: -10;
-}
 line|z16[railway=narrow_gauge]
 {
   color:	#333333;
@@ -4952,8 +4857,8 @@ node|z16[building=address]
   font-size:	11;
   text-color:	#808070;
 }
-area|z16-[amenity=drinking_water],
-node|z16-[amenity=drinking_water]
+area|z17-[amenity=drinking_water],
+node|z17-[amenity=drinking_water]
 {
   icon-image:	drinking_water.svg;
 }
@@ -4989,9 +4894,13 @@ line|z16[railway=funicular]::d1p3
 }
 area|z16-[amenity=marketplace],
 area|z16-[shop=convenience],
+area|z16-[shop=mall],
+area|z16-[shop=doityourself],
 area|z16-[shop=supermarket],
 node|z16-[amenity=marketplace],
 node|z16-[shop=convenience],
+node|z16-[shop=mall],
+node|z16-[shop=doityourself],
 node|z16-[shop=supermarket]
 {
   icon-image:	supermarket.svg;
@@ -5284,8 +5193,8 @@ line|z16[barrier=hedge]
   dashes:	0.0,2.0;
   linecap:	butt;
 }
-area|z16-[amenity=police],
-node|z16-[amenity=police]
+area|z17-[amenity=police],
+node|z17-[amenity=police]
 {
   icon-image:	police.svg;
 }
@@ -5674,9 +5583,7 @@ line|z17-[boundary=administrative][type=nation]::d2p2
   z-index:	978;
   dashes:	12,12;
 }
-area|z17-[building=address],
 area|z17-[building],
-node|z17-[building=address],
 node|z17-[building]
 {
   text:	"addr:housenumber";
@@ -5704,13 +5611,47 @@ line|z17-[man_made=pipeline]::d1p2
   dashes:	1.2,2,1.2,2,1.2,4.4;
   linecap:	butt;
 }
-line|z17-[highway=steps]::d1p2
+line|z17[highway=steps]::d1p2
 {
   width:	4;
   z-index:	692;
   color:	#d0ccac;
   linecap:	butt;
-  dashes:	2.4,0.8;
+  dashes:	2.4,1;
+}
+line|z17[highway=steps]
+{
+  color:    #a0a090;
+  width:    6;
+  linecap:  butt;
+}
+line|z18[highway=steps]::d1p2
+{
+  width:    8;
+  z-index:  692;
+  color:    #d0ccac;
+  linecap:  butt;
+  dashes:   3,1;
+}
+line|z18[highway=steps]
+{
+  color:    #a0a090;
+  width:    10;
+  linecap:  butt;
+}
+line|z19-[highway=steps]::d1p2
+{
+  width:    16;
+  z-index:  692;
+  color:    #d0ccac;
+  linecap:  butt;
+  dashes:   4,1;
+}
+line|z19-[highway=steps]
+{
+  color:    #a0a090;
+  width:    18;
+  linecap:  butt;
 }
 line|z17-[man_made=pipeline][location=overground]
 {
@@ -5800,8 +5741,8 @@ line|z17-[highway=raceway]
   width:	13.6;
   z-index:	474;
 }
-area|z17-[tourism=camp_site]::d1p3,
-node|z17-[tourism=camp_site]::d1p3
+area|z14-[tourism=camp_site],
+node|z14-[tourism=camp_site]
 {
   icon-image:	campsite.svg;
 }
@@ -5957,18 +5898,6 @@ line|z17-[boundary=administrative][admin_level=6]
   width:	1;
   z-index:	966;
   dashes:	4,20;
-}
-area|z17-[power=generator][power_source=wind]::d2p3,
-node|z17-[power=generator][power_source=wind]::d2p3
-{
-  z-index:	924;
-}
-line|z17-[leisure=track]
-{
-  color:	#d0e8c4;
-  width:	6;
-  casing-color:	grey;
-  casing-width:	1;
 }
 line|z17-[railway=spur]::d1p2
 {
@@ -6656,11 +6585,6 @@ line|z17-[highway=footway]
   color:	#c0bcac;
   width:	3;
 }
-line|z17-[highway=steps]
-{
-  color:	#a0a090;
-  width:	6;
-}
 line|z17-[waterway=drain]
 {
   width:	6.4;
@@ -7191,6 +7115,17 @@ line[access][access!=yes]::*
 {
   opacity:	0;
   casing-opacity:  0;
+}
+
+line|z15-[marking=sport][colour]
+{
+    width: 1;
+    colour: eval(tag("colour"));
+}
+line|z15-[marking=sport][!colour]
+{
+    width: 1;
+    colour: white;
 }
 
 *[highway][area?]

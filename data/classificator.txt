@@ -414,6 +414,14 @@ world  +
     mapswithme  +
         grid  -
         {}
+    marking  +
+        sport  +
+            black  -
+            blue  -
+            red  -
+            white  -
+            {}
+        {}
     military  +
         bunker  -
         {}
@@ -609,8 +617,10 @@ world  +
         car_repair  -
         clothes  -
         convenience  -
+        doityourself  -
         hairdresser  -
         kiosk  -
+        mall  -
         supermarket  -
         {}
     sport  +
