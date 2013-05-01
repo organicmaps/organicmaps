@@ -18,7 +18,7 @@ public class LocationUtils
     * @param firstLoc  The new Location that you want to evaluate
     * @param secondLoc  The current Location fix, to which you want to compare the new one
     */
-  public static boolean isFirstOneIsBetterLocation(Location firstLoc, Location secondLoc)
+  public static boolean isFirstOneBetterLocation(Location firstLoc, Location secondLoc)
   {
     if (secondLoc == null)
     {
@@ -96,16 +96,16 @@ public class LocationUtils
   public static Location getNewestLocation(Collection<Location> locations)
   {
     final Comparator<Location> newerFirstComparator = new Comparator<Location>()
-        {
-          @Override
-          public int compare(Location lhs, Location rhs)
-          {
-            final long deltaTime = lhs.getTime() - rhs.getTime();
-            return (int) (1 * Math.signum(deltaTime));
-          }
-        };
+    {
+      @Override
+      public int compare(Location lhs, Location rhs)
+      {
+        final long deltaTime = lhs.getTime() - rhs.getTime();
+        return (int) (1 * Math.signum(deltaTime));
+      }
+    };
 
-        return getBestLocation(locations, newerFirstComparator);
+    return getBestLocation(locations, newerFirstComparator);
   }
 
 

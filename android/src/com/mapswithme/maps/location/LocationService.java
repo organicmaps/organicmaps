@@ -148,14 +148,14 @@ public class LocationService implements LocationListener, SensorEventListener, W
            final Location newestLocation = LocationUtils.getNewestLocation(notExpiredLocations);
            final Location mostAccurateLocation = LocationUtils.getMostAccurateLocation(notExpiredLocations);
 
-           if (LocationUtils.isFirstOneIsBetterLocation(newestLocation, mostAccurateLocation))
+           if (LocationUtils.isFirstOneBetterLocation(newestLocation, mostAccurateLocation))
              lastKnownLocation = newestLocation;
            else
              lastKnownLocation = mostAccurateLocation;
 
         }
 
-        if (!LocationUtils.isFirstOneIsBetterLocation(lastKnownLocation, m_lastLocation))
+        if (!LocationUtils.isFirstOneBetterLocation(lastKnownLocation, m_lastLocation))
           lastKnownLocation = m_lastLocation;
 
         // Pass last known location only in the end of all registerListener
@@ -180,15 +180,9 @@ public class LocationService implements LocationListener, SensorEventListener, W
       {
         if (prov.equals(LocationManager.GPS_PROVIDER))
           m_isGPSOff = true;
-
-        Log.i(TAG, ">>>MWM LOC prov skipped: " + prov);
       }
       else
-      {
         acceptedProviders.add(prov);
-        Log.i(TAG, ">>>MWM LOC prov added: " + prov);
-      }
-
     }
 
     return acceptedProviders;
@@ -255,14 +249,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
       Location loc = m_locationManager.getLastKnownLocation(prov);
       final long timeNow = System.currentTimeMillis();
       if (loc != null && ((timeNow - loc.getTime()) <= LOCATION_EXPIRATION_TIME))
-      {
         locations.add(loc);
-        Log.i(TAG, ">>>MWM LOC added: " + loc);
-      }
-      else
-      {
-        Log.i(TAG, ">>>MWM LOC skipped: " + loc);
-      }
     }
 
     return locations;
@@ -299,10 +286,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
   {
     //printLocation(l);
 
-    if (LocationUtils.isFirstOneIsBetterLocation(l, m_lastLocation))
+    if (LocationUtils.isFirstOneBetterLocation(l, m_lastLocation))
     {
-      Log.i(TAG, ">>>MWM LOC taken: " + l);
-
       final long timeNow = System.currentTimeMillis();
       if (m_lastLocation != null)
         calcDirection(l, timeNow);
@@ -321,8 +306,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
       emitLocation(l, timeNow);
     }
-    else
-      Log.i(TAG, ">>>MWM LOC not taken: " + l);
   }
 
   private native float[] nativeUpdateCompassSensor(int ind, float[] arr);
