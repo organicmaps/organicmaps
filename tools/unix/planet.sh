@@ -97,22 +97,30 @@ function merge_coasts() {
 if [[ $1 == "--full" ]]; then
 
   EXIT_CODE=255
-  while [ $EXIT_CODE -ne 0 ]; do
+  while [[ $EXIT_CODE != 0 ]]; do
 
     # Get fresh data from OSM server
-    if [[ $1 == "--full" ]]; then
-      pushd  ~/toolchain/v2
-         bash update_planet.sh
-      popd
-    fi
+    pushd  ~/toolchain/v2
+       bash update_planet.sh
+    popd
 
+    # Do not exit on error
+    set +e
     merge_coasts
+    set -e
     EXIT_CODE=$?
+    if [[ $EXIT_CODE != 0 ]]; then
+      echo "Will try fresh coasts again in 40 minutes..."
+      sleep 2400
+    fi
   done
 else
   if [[ $1 == "--generate" ]]; then
     # Just merge coasts and continue
+    # Do not exit on error
+    set +e
     merge_coasts
+    set -e
   fi
 fi
 
