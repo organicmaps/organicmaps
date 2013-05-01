@@ -1607,11 +1607,11 @@ StringsBundle const & Framework::GetStringsBundle()
   return m_stringsBundle;
 }
 
-string Framework::CodeGe0url(Bookmark const * bmk)
+string Framework::CodeGe0url(Bookmark const * bmk, bool const addName)
 {
   double lat = MercatorBounds::YToLat(bmk->GetOrg().y);
   double lon = MercatorBounds::XToLon(bmk->GetOrg().x);
-  return CodeGe0url(lat, lon, bmk->GetScale(), bmk->GetName());
+  return CodeGe0url(lat, lon, bmk->GetScale(), addName ? bmk->GetName() : "");
 }
 
 string Framework::CodeGe0url(double const lat, double const lon, double const zoomLevel, string const & name)

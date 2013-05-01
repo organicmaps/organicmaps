@@ -774,3 +774,23 @@ namespace android
     return false;
   }
 }
+
+//============ GLUE CODE for com.mapswithme.maps.Framework class =============//
+/*            ____
+ *          _ |||| _
+ *          \\    //
+ *           \\  //
+ *            \\//
+ *             \/
+ */
+
+extern "C"
+{
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetNameAndAddress4Point(JNIEnv * env, jclass clazz, jdouble mercatorX, jdouble mercatorY)
+  {
+    m2::PointD globalPoint = m2::PointD(mercatorX, mercatorY);
+    ::Framework * nativeFramework = g_framework->NativeFramework();
+    return jni::ToJavaString(env, nativeFramework->GetNameAndAddressAtPoint(globalPoint));
+  }
+}

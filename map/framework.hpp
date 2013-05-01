@@ -452,6 +452,6 @@ public:
   shared_ptr<location::State> const & GetLocationState() const;
 
 public:
-  string CodeGe0url(Bookmark const * bmk);
+  string CodeGe0url(Bookmark const * bmk, bool const addName);
   string CodeGe0url(double const lat, double const lon, double const zoomLevel, string const & name);
 };

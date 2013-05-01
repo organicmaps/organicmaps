@@ -1,5 +1,6 @@
 package com.mapswithme.maps.bookmarks.data;
 
+import android.R.bool;
 import android.content.Context;
 
 import com.mapswithme.maps.R;
@@ -49,7 +50,7 @@ public class Bookmark
   private native String getIcon(int c, long b);
 
   private native double getScale(int category, long bookmark);
-  private native String encode2Ge0Url(int category, long bookmark);
+  private native String encode2Ge0Url(int category, long bookmark, boolean addName);
 
   private native void setBookmarkParams(int c, long b, String name, String type, String descr);
   private native int changeCategory(int oldCat, int newCat, long bmk);
@@ -152,14 +153,14 @@ public class Bookmark
     return getBookmarkDescription(mCategoryId, mBookmark);
   }
 
-  public String getGe0Url()
+  public String getGe0Url(boolean addName)
   {
-    return encode2Ge0Url(mCategoryId, mBookmark);
+    return encode2Ge0Url(mCategoryId, mBookmark, addName);
   }
   
-  public String getHttpGe0Url() 
+  public String getHttpGe0Url(boolean addName) 
   {
-    String url = getGe0Url();
+    String url = getGe0Url(addName);
     url = url.replaceFirst("ge0://", "http://ge0.me/");
     return url;
   }

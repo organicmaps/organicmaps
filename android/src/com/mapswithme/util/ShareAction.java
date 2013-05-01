@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 
@@ -111,9 +112,14 @@ public abstract class ShareAction
   public void shareBookmark(Activity activity, Bookmark bookmark) 
   {
     final boolean isMyPosition = activity.getString(R.string.my_position).equals(bookmark.getName());
-    final String body = activity.getString(isMyPosition ? R.string.my_position_share_sms : R.string.bookmark_share_sms,
-                                           bookmark.getGe0Url(), bookmark.getHttpGe0Url());
-    final String subject = activity.getString(isMyPosition ? R.string.my_position_share_email_subject : R.string.bookmark_share_email_subject);
+    final String body = activity.getString(isMyPosition 
+                                           ? R.string.my_position_share_sms 
+                                           : R.string.bookmark_share_sms,
+                                           bookmark.getGe0Url(false), bookmark.getHttpGe0Url(false));
+    
+    final String subject = activity.getString(isMyPosition 
+                                              ? R.string.my_position_share_email_subject 
+                                              : R.string.bookmark_share_email_subject);
 
     shareWithText(activity, body, subject);
   }
@@ -145,9 +151,24 @@ public abstract class ShareAction
     public void shareBookmark(Activity activity, Bookmark bookmark)
     {
       final boolean isMyPosition = activity.getString(R.string.my_position).equals(bookmark.getName());
-      final String body = activity.getString(isMyPosition ? R.string.my_position_share_email : R.string.bookmark_share_email,
-                                             bookmark.getName(), bookmark.getGe0Url(), bookmark.getHttpGe0Url());
-      final String subject = activity.getString(isMyPosition ? R.string.my_position_share_email_subject : R.string.bookmark_share_email_subject);
+      
+      String name;
+      if (isMyPosition)
+      {
+        name = Framework.getNameAndAddress4Point(bookmark.getPosition().x, bookmark.getPosition().y);
+        bookmark.setParams(name, bookmark.getIcon(), bookmark.getBookmarkDescription());
+      }
+      else 
+        name = bookmark.getName();
+      
+      final String body = activity.getString(isMyPosition 
+                                             ? R.string.my_position_share_email 
+                                             : R.string.bookmark_share_email,
+                                             name, bookmark.getGe0Url(!isMyPosition), bookmark.getHttpGe0Url(!isMyPosition));
+      
+      final String subject = activity.getString(isMyPosition 
+                                                ? R.string.my_position_share_email_subject 
+                                                : R.string.bookmark_share_email_subject);
 
       shareWithText(activity, body, subject);
     }

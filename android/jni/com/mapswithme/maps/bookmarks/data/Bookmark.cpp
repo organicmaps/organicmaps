@@ -114,8 +114,8 @@ extern "C"
 
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_encode2Ge0Url(
-       JNIEnv * env, jobject thiz, jint cat, jlong bmk)
+       JNIEnv * env, jobject thiz, jint cat, jlong bmk, jboolean addName)
   {
-    return jni::ToJavaString(env, frm()->CodeGe0url(getBookmark(cat, bmk)));
+    return jni::ToJavaString(env, frm()->CodeGe0url(getBookmark(cat, bmk), addName));
   }
 }

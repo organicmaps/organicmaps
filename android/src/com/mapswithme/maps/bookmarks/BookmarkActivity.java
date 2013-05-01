@@ -211,9 +211,13 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   @Override
   public boolean onCreateOptionsMenu(Menu menu)
   {
-    MenuItem menuItem = ShareAction.ACTIONS.get(ShareAction.ID_ANY).addToMenuIfSupported(this, menu, true);
+    MenuItem menuItem = ShareAction.getAnyShare().addToMenuIfSupported(this, menu, true);
     if (menuItem != null)
       menuItem.setIcon(android.R.drawable.ic_menu_share);
+    
+    menuItem = ShareAction.getEmailShare().addToMenuIfSupported(this, menu, true);
+    if (menuItem != null)
+      menuItem.setIcon(android.R.drawable.ic_menu_send);
 
     return true;
   }
