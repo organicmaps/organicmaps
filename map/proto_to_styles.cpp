@@ -106,7 +106,7 @@ void ConvertStyle(SymbolRuleProto const * pSrc, graphics::Icon::Info & dest)
 
 void ConvertStyle(CircleRuleProto const * pSrc, double scale, graphics::Circle::Info & dest)
 {
-  dest = graphics::Circle::Info(min(max(pSrc->radius(), 3.0), 6.0) * scale,
+  dest = graphics::Circle::Info(pSrc->radius() * scale,
                         ConvertColor(pSrc->color()));
 
   if (pSrc->has_border())
@@ -122,8 +122,7 @@ void ConvertStyle(CircleRuleProto const * pSrc, double scale, graphics::Circle::
 
 void ConvertStyle(CaptionDefProto const * pSrc, double scale, graphics::FontDesc & dest, m2::PointD & offset)
 {
-  uint8_t const h = max(static_cast<int>(pSrc->height() * scale),
-                        static_cast<int>(8 * scale));    // replace 12 to 8 as it defined in drawing rules
+  uint8_t const h = static_cast<int>(pSrc->height() * scale);
 
   offset = m2::PointD(0,0);
   if (pSrc->has_offset_x())
