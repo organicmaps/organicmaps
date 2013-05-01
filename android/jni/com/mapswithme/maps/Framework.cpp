@@ -53,8 +53,8 @@ namespace android
 
     m_bmType = "placemark-red";
 
-    for (size_t i = 0; i < ARRAY_SIZE(m_images); ++i)
-      m_images[i] = 0;
+//    for (size_t i = 0; i < ARRAY_SIZE(m_images); ++i)
+//      m_images[i] = 0;
 
     shared_ptr<location::State> locState = NativeFramework()->GetLocationState();
     locState->AddOnPositionClickListener(bind(&Framework::OnPositionClicked, this, _1));
@@ -62,8 +62,8 @@ namespace android
 
   Framework::~Framework()
   {
-    for (size_t i = 0; i < ARRAY_SIZE(m_images); ++i)
-      delete m_images[i];
+//    for (size_t i = 0; i < ARRAY_SIZE(m_images); ++i)
+//      delete m_images[i];
 
     delete m_videoTimer;
   }
@@ -184,8 +184,8 @@ namespace android
     }
 
     graphics::EDensity const density = m_work.GetRenderPolicy()->Density();
-    m_images[IMAGE_PLUS] = new ImageT("plus.png", density);
-    m_images[IMAGE_ARROW] = new ImageT("right-arrow.png", density);
+    m_images[IMAGE_PLUS]  = ImageT("plus.png", density);
+    m_images[IMAGE_ARROW] = ImageT("right-arrow.png", density);
 
     m_work.SetUpdatesEnabled(true);
     m_work.EnterForeground();
@@ -639,7 +639,7 @@ namespace android
 
     m_work.DisablePlacemark();
 
-    b->setImage(*m_images[index]);
+    b->setImage(m_images[index]);
     b->setGlbPivot(pos);
     b->setBookmarkName(name);
     b->setIsVisible(true);
