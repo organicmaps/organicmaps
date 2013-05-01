@@ -284,7 +284,10 @@
   UITextField * textF = (UITextField *)[cell viewWithTag:TEXTFIELD_TAG];
   if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"email", nil)])
   {
-    NSString * shortUrl = [self generateShortUrlwithName:textF.text];
+    // Not really beutiful now, but ...
+    Boolean isMyPosition = [textF.text isEqualToString:NSLocalizedString(@"my_position", nil)];
+    NSString * shortUrl = [self generateShortUrlwithName:isMyPosition ? @"" : textF.text];
+
     [self sendEmailWith:textF.text andUrl:shortUrl];
   }
   else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"message", nil)])
