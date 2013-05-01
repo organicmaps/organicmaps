@@ -3,3 +3,4 @@ Latin_Extended-A 01_dejavusans.ttf
 Latin_Extended-B 01_dejavusans.ttf
 CJK_Compatibility 02_wqy-microhei.ttf
 Cyrillic /system/fonts/Roboto-Regular.ttf
+Cyrillic /system/fonts/DroidSans.ttf
