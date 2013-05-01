@@ -21,6 +21,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mapswithme.maps.MWMActivity.MapTask;
+import com.mapswithme.maps.MWMActivity.OpenUrlTask;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.ConnectionState;
@@ -51,6 +53,8 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   private CheckBox mDownloadCountryCheckBox = null;
   private LocationService mLocationService = null;
   private Index mCountryIndex = null;
+  
+  private MapTask mMapTaskToForward;
 
   private IntentProcessor[] mIntentProcessors = { new GeoIntentProcessor(),
                                                   new HttpGe0IntentProcessor(),
@@ -248,6 +252,14 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     // Disable animation because MWMActivity should appear exactly over this one
     // Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
     mwmActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    
+    //add task to forward
+    if (mMapTaskToForward != null) 
+    {
+      mwmActivityIntent.putExtra(MWMActivity.EXTRA_TASK, mMapTaskToForward);
+      mMapTaskToForward = null;
+    }
+    
     startActivity(mwmActivityIntent);
 
     finish();
@@ -617,8 +629,8 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     @Override
     public boolean processIntent(Intent intent)
     {
-      final Uri data = intent.getData();
-      return data != null ? setViewPortByUrl(data.toString()) : false;
+      mMapTaskToForward = new OpenUrlTask(intent.getData().toString());
+      return true;
     }
 
   }
@@ -635,8 +647,8 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     @Override
     public boolean processIntent(Intent intent)
     {
-      final Uri data = intent.getData();
-      return data != null ? setViewPortByUrl(data.toString()) : false;
+      mMapTaskToForward = new OpenUrlTask(intent.getData().toString());
+      return true;
     }
 
   }
@@ -660,7 +672,8 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
       if (data != null)
       {
         final String ge0Url = "ge0:/" + data.getPath();
-        return setViewPortByUrl(ge0Url);
+        mMapTaskToForward = new OpenUrlTask(ge0Url);
+        return true;
       }
       else
         return false;
@@ -694,6 +707,4 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   private native Index findIndexByPos(double lat, double lon);
   private native void cancelCurrentFile();
   private native boolean loadKMZFile(String path);
-  //===============S=C=H=E=M=E======================//
-  private native boolean setViewPortByUrl(String url);
 }

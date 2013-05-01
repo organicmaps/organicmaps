@@ -1,5 +1,6 @@
 package com.mapswithme.maps;
 
+import java.io.Serializable;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -35,6 +36,8 @@ import com.nvidia.devtech.NvEventQueueActivity;
 
 public class MWMActivity extends NvEventQueueActivity implements LocationService.Listener
 {
+  public static final String EXTRA_TASK = "map_task";
+  
   private static final int PRO_VERSION_DIALOG = 110001;
   private static final String PRO_VERSION_DIALOG_MSG = "pro_version_dialog_msg";
   //VideoTimer m_timer;
@@ -558,8 +561,31 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         }
       }
     });
+    
+    
+    Intent intent = getIntent();
+    // We need check for tasks both in onCreate and onNewIntent
+    // because of bug in OS: https://code.google.com/p/android/issues/detail?id=38629
+    handleTask(intent);
+  }
+  
+  @Override
+  protected void onNewIntent(Intent intent)
+  {
+    super.onNewIntent(intent);
+    handleTask(intent);
   }
 
+  private void handleTask(Intent intent)
+  {
+    if (intent != null && intent.hasExtra(EXTRA_TASK))
+    {
+      MapTask mapTask = (MapTask) intent.getSerializableExtra(EXTRA_TASK);
+      mapTask.run(this);
+      intent.removeExtra(EXTRA_TASK);
+    }
+  }
+  
   @Override
   protected void onStop()
   {
@@ -904,6 +930,29 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       m_externalStorageReceiver = null;
     }
   }
+  
+  public interface MapTask extends Serializable 
+  {
+    public boolean run(MWMActivity target);
+  }
+  
+  public static class OpenUrlTask implements MapTask
+  {
+    private static final long serialVersionUID = 1L;
+    private final String mUrl;
+    
+    public OpenUrlTask(String url) 
+    {
+      Utils.checkNotNull(url);
+      mUrl = url;
+    }
+    
+    @Override
+    public boolean run(MWMActivity target)
+    {
+      return target.setViewPortByUrl(mUrl);
+    }
+  }
 
   private native void nativeStorageConnected();
   private native void nativeStorageDisconnected();
@@ -918,4 +967,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private native void nativeCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
 
   private native boolean nativeIsInChina(double lat, double lon);
+  
+  private native boolean setViewPortByUrl(String url);
 }

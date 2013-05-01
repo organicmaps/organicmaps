@@ -53,18 +53,12 @@ namespace android
 
     m_bmType = "placemark-red";
 
-//    for (size_t i = 0; i < ARRAY_SIZE(m_images); ++i)
-//      m_images[i] = 0;
-
     shared_ptr<location::State> locState = NativeFramework()->GetLocationState();
     locState->AddOnPositionClickListener(bind(&Framework::OnPositionClicked, this, _1));
   }
 
   Framework::~Framework()
   {
-//    for (size_t i = 0; i < ARRAY_SIZE(m_images); ++i)
-//      delete m_images[i];
-
     delete m_videoTimer;
   }
 

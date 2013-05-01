@@ -326,10 +326,4 @@ extern "C"
     return g_framework->NativeFramework()->AddBookmarksFile(jni::ToNativeString(env, path));
   }
 
-  JNIEXPORT jboolean JNICALL
-    Java_com_mapswithme_maps_DownloadResourcesActivity_setViewPortByUrl(
-        JNIEnv * env, jobject thiz, jstring url)
-    {
-      return g_framework->SetViewportByUrl(jni::ToNativeString(env, url));
-    }
 }
