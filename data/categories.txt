@@ -115,7 +115,7 @@ cs:3pekárna|obchod
 nl:3bakker|winkel
 zh:2麵包店|2蛋糕店|烘焙|麵包|蛋糕|購物
 
-shop-convenience|shop-mall|shop-doityourself
+shop-convenience|shop-mall|shop-doityourself|shop-florist|shop-butcher
 en:2shop
 ru:2магазин
 de:3Einkaufenladen|Geschäft|2Laden

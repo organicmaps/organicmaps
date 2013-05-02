@@ -429,6 +429,7 @@ world  +
         bay  -
         beach  -
         cave_entrance  -
+        cliff  -
         coastline  -
         glacier  -
         grass  -
@@ -493,7 +494,9 @@ world  +
         island  -
         islet  -
         locality  -
+        ocean  -
         region  -
+        sea  -
         state  +
             USA  -
             {}
@@ -613,11 +616,13 @@ world  +
         {}
     shop  +
         bakery  -
+        butcher  -
         car  -
         car_repair  -
         clothes  -
         convenience  -
         doityourself  -
+        florist  -
         hairdresser  -
         kiosk  -
         mall  -

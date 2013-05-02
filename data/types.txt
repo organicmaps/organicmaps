@@ -917,3 +917,8 @@ marking|sport|black
 marking|sport|blue
 shop|mall
 shop|doityourself
+place|sea
+place|ocean
+natural|cliff
+shop|butcher
+shop|florist

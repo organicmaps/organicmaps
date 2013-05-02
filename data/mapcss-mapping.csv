@@ -917,3 +917,8 @@ marking|sport|black;[marking=sport][colour=black];;name;int_name;916;
 marking|sport|blue;[marking=sport][colour=blue];;name;int_name;917;
 shop|mall;[shop=mall];;name;int_name;918;
 shop|doityourself;[shop=doityourself];;name;int_name;919;
+place|sea;[place=sea];;name;int_name;920;
+place|ocean;[place=ocean];;name;int_name;921;
+natural|cliff;[natural=cliff];;name;int_name;922;
+shop|butcher;[shop=butcher];;name;int_name;923;
+shop|florist;[shop=florist];;name;int_name;924;
