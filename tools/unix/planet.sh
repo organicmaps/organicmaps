@@ -107,12 +107,13 @@ if [[ $1 == "--full" ]]; then
     # Do not exit on error
     set +e
     merge_coasts
-    set -e
     EXIT_CODE=$?
     if [[ $EXIT_CODE != 0 ]]; then
+      date -u
       echo "Will try fresh coasts again in 40 minutes..."
       sleep 2400
     fi
+    set -e
   done
 else
   if [[ $1 == "--generate" ]]; then
@@ -126,6 +127,7 @@ fi
 
 # need link to generated coastlines file
 ln -s -f $INTCOASTSDIR/WorldCoasts.mwm.tmp $INTDIR/WorldCoasts.mwm.tmp
+
 
 if [[ $1 == "--generate" || $1 == "--full" ]]; then
   # 1st pass, run in parallel - preprocess whole planet to speed up generation if all coastlines are correct
