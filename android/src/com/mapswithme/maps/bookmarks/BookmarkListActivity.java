@@ -1,5 +1,6 @@
 package com.mapswithme.maps.bookmarks;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.util.ShareAction;
+import com.mapswithme.util.Utils;
 
 
 public class BookmarkListActivity extends AbstractBookmarkListActivity
@@ -247,5 +249,37 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
     {
       Log.i(TAG, "Can't run E-Mail activity" + ex);
     }
+  }
+
+  // Menu routiones
+  private static final int ID_SEND_BY_EMAIL = 0x01;
+
+  @SuppressLint("InlinedApi")
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu)
+  {
+    MenuItem menuItem =  menu.add(Menu.NONE,
+                         ID_SEND_BY_EMAIL,
+                         ID_SEND_BY_EMAIL,
+                         R.string.share_by_email);
+
+    menuItem.setIcon(android.R.drawable.ic_menu_share);
+    if (Utils.apiEqualOrGreaterThan(11))
+      menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item)
+  {
+
+    if (item.getItemId() == ID_SEND_BY_EMAIL)
+    {
+      onSendEMail(null);
+      return true;
+    }
+
+    return super.onOptionsItemSelected(item);
   }
 }

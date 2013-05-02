@@ -23,12 +23,12 @@
         android:layout_height="wrap_content"
         android:text="@string/bookmarks" />
 
-    <Button
+   <!--  <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:onClick="onSendEMail"
-        android:text="@string/share_by_email" />
+        android:text="@string/share_by_email" /> -->
 
     <TextView
         android:id="@+id/bookmark_usage_hint"
