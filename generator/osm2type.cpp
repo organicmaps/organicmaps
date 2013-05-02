@@ -192,8 +192,12 @@ namespace ftype
           m_params.ref = v;
 
         // get house number
-        if (k == "addr:housenumber") m_params.AddHouseNumber(v);
-        if (k == "addr:housename") m_params.AddHouseName(v);
+        if (k == "addr:housenumber")
+            m_params.AddHouseNumber(v);
+        if (k == "addr:housename")
+            m_params.AddHouseName(v);
+        if (k == "addr:flats")
+            m_params.flats = v;
 
         // get population rank
         if (k == "population")

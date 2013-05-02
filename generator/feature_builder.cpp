@@ -39,7 +39,7 @@ m2::PointD FeatureBuilder1::GetGeometryCenter() const
   size_t const count = poly.size();
   for (size_t i = 0; i < count; ++i)
     ret += poly[i];
-  return (ret / count);
+  return ret / count;
 }
 
 void FeatureBuilder1::SetCenter(m2::PointD const & p)
@@ -165,21 +165,26 @@ namespace
 bool FeatureBuilder1::PreSerialize()
 {
   if (!m_Params.IsValid()) return false;
+  static const int8_t defaultCode = StringUtf8Multilang::GetLangIndex("default");
+  static const int8_t intCode = StringUtf8Multilang::GetLangIndex("int_name");
 
   switch (m_Params.GetGeomType())
   {
   case GEOM_POINT:
     // If we don't have name and have house number, than replace them.
     if (m_Params.name.IsEmpty() && !m_Params.house.IsEmpty())
-      m_Params.name.AddString(0, m_Params.house.Get());
+      m_Params.name.AddString(defaultCode, m_Params.house.Get());
 
     // We need refs for motorway's junctions. Try to update name always, not only for junctions.
-    // if (feature::IsJunction(m_Params.m_Types)) { ... }
-    if (m_Params.name.IsEmpty() && !m_Params.ref.empty())
-      m_Params.name.AddString(0, m_Params.ref);
+    if (m_Params.name.IsEmpty() && (!m_Params.ref.empty() || m_Params.flats.empty()))
+    {
+      m_Params.name.AddString(defaultCode, m_Params.ref);
+      m_Params.name.AddString(intCode, m_Params.flats);
+    }
 
     m_Params.house.Clear();
     m_Params.ref.clear();
+    m_Params.flats.clear();
     break;
 
   case GEOM_LINE:
