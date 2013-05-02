@@ -438,10 +438,10 @@
 "my_position_share_email" = "Привет!\n\nЯ сейчас здесь: %1$@. Чтобы увидеть это место на карте MapsWithMe, открой эту ссылку %2$@ или эту %3$@ \n\nСпасибо.";
 
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
-"share" = "Отправить другу";
+"share" = "Поделиться ...";
 
 /* Share by Message button text (including SMS) */
-"message" = "Сообщение";
+"message" = "Отправить по SMS";
 
 /* Share by email button text (including SMS) */
 "email" = "E-Mail";

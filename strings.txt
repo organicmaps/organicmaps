@@ -1951,15 +1951,15 @@
     cs = Ahoj,\n\nnyní jsem zde: %1$@ . Klikni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDěkuji.
     de = Hi,\n\nich bin gerade hier: %1$@ . Klicke auf diesen Link %2$@ oder diesen %3$@, um meinen Standort auf der Karte zu sehen.\n\nVielen Dank.
   [share]
-    en = Share with friends
+    en = Share ...
     tags = ios, android
     comment = Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.
-    ru = Отправить другу
+    ru = Поделиться ...
   [message]
-    en = Message
+    en = Share by SMS
     tags = ios, android
     comment = Share by Message button text (including SMS)
-    ru = Сообщение
+    ru = Отправить по SMS
   [email]
     en = E-Mail
     tags = ios, android

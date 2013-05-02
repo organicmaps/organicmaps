@@ -278,7 +278,7 @@
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Привет!\n\nЯ сейчас здесь: %1$s. Чтобы увидеть это место на карте MapsWithMe, открой эту ссылку %2$s или эту %3$s \n\nСпасибо.</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
-	<string name="share">Отправить другу</string>
+	<string name="share">Поделиться ...</string>
 	<!-- Share by Message button text (including SMS) -->
-	<string name="message">Сообщение</string>
+	<string name="message">Отправить по SMS</string>
 </resources>
