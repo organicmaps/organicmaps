@@ -264,13 +264,6 @@ const long long LITE_IDL = 431183278L;
   }
   else
   {
-    Framework & f = GetFramework();
-    if (!IsValid(m_balloonView.editedBookmark))
-    {
-      int categoryPos = f.LastEditedCategory();
-      [m_balloonView addBookmarkToCategory:categoryPos];
-    }
-
     PlacePageVC * placePageVC = nil;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
@@ -289,6 +282,12 @@ const long long LITE_IDL = 431183278L;
     {
       placePageVC = [[PlacePageVC alloc] initWithBalloonView:m_balloonView];
       [self.navigationController pushViewController:placePageVC animated:YES];
+    }
+    Framework & f = GetFramework();
+    if (!IsValid(m_balloonView.editedBookmark))
+    {
+      int categoryPos = f.LastEditedCategory();
+      [m_balloonView addBookmarkToCategory:categoryPos];
     }
     [m_balloonView hide];
     [placePageVC release];
@@ -887,7 +886,8 @@ NSInteger compareAddress(id l, id r, void * context)
 -(void)showPopoverFromBalloonData
 {
   m2::PointD pt = GetFramework().GtoP(m2::PointD(m_balloonView.globalPosition.x, m_balloonView.globalPosition.y));
-  pt.y -= m_balloonView.pinImage.frame.size.height;
+  if (IsValid(m_balloonView.editedBookmark))
+    pt.y -= m_balloonView.pinImage.frame.size.height;
   //TODO We should always remember about scale factor, solve this problem
   double sf = self.view.contentScaleFactor;
   pt.x /= sf;
