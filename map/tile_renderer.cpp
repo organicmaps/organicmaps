@@ -282,14 +282,6 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   {
     if (glQueue)
       glQueue->completeCommands();
-
-    AddActiveTile(Tile(tileTarget,
-                 tileOverlay,
-                 frameScreen,
-                 rectInfo,
-                 0,
-                 paintEvent->isEmptyDrawing(),
-                 sequenceID));
   }
   else
   {
@@ -297,9 +289,23 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
     {
       if (glQueue)
         glQueue->cancelCommands();
-
-      texturePool->Free(tileTarget);
     }
+  }
+
+  if (env.isCancelled())
+  {
+    if (!m_isExiting)
+      texturePool->Free(tileTarget);
+  }
+  else
+  {
+    AddActiveTile(Tile(tileTarget,
+                 tileOverlay,
+                 frameScreen,
+                 rectInfo,
+                 0,
+                 paintEvent->isEmptyDrawing(),
+                 sequenceID));
   }
 }
 
