@@ -4,33 +4,13 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <ScrollView
+    <EditText
+        android:id="@+id/pin_set_name"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <EditText
-                android:layout_margin="5dp"
-                android:id="@+id/pin_set_name"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/name"
-                android:singleLine="true"
-                android:imeOptions="actionDone" />
-
-            <CheckBox
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_margin="5dp"
-                android:button="@drawable/eye"
-                android:id="@+id/pin_set_visible"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
-    </ScrollView>
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:hint="@string/name"
+        android:imeOptions="actionDone"
+        android:singleLine="true" />
 
 </LinearLayout>

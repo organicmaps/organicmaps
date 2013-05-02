@@ -4,6 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
@@ -25,22 +28,46 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
     if (convertView == null)
     {
       convertView = LayoutInflater.from(getContext()).inflate(R.layout.bmk_category_item, null);
-      convertView.setTag(new PinSetHolder((TextView) convertView.findViewById(R.id.psi_name)));
+      final PinSetHolder holder = new PinSetHolder((TextView) convertView.findViewById(R.id.psi_name),
+                                                   (CheckBox) convertView.findViewById(R.id.pin_set_visible));
+      convertView.setTag(holder);
+      holder.visibilityCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener()
+      {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+        {
+          BookmarkCategoriesAdapter.this
+                                   .getBookmarkManager()
+                                   .getCategoryById(holder.categoryId)
+                                   .setVisibility(isChecked);
+        }
+      });
     }
+
     PinSetHolder psh = (PinSetHolder) convertView.getTag();
     BookmarkCategory set = getItem(position);
+    // category ID
+    psh.categoryId = position;
+    // name
     psh.name.setText(set.getName() + " ("+String.valueOf(set.getSize())+")");
+    // visiblity
+    psh.visibilityCheckBox.setChecked(set.isVisible());
+
     return convertView;
   }
 
   static class PinSetHolder
   {
     TextView name;
+    CheckBox visibilityCheckBox;
 
-    public PinSetHolder(TextView name)
+    // Data
+    int categoryId;
+
+    public PinSetHolder(TextView name, CheckBox visibilityCheckBox)
     {
-      super();
       this.name = name;
+      this.visibilityCheckBox = visibilityCheckBox;
     }
   }
 

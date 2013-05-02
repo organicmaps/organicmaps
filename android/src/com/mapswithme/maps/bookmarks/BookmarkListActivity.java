@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.mapswithme.maps.MWMActivity;
@@ -35,7 +34,6 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   public static final String EDIT_CONTENT = "edit_content";
 
   private EditText mSetName;
-  private CheckBox mIsVisible;
   private BookmarkCategory mEditedSet;
   private int mSelectedPosition;
   private BookmarkListAdapter mPinAdapter;
@@ -93,10 +91,6 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       final String name = mSetName.getText().toString();
       if (!name.equals(mEditedSet.getName()))
         mManager.setCategoryName(mEditedSet, name);
-
-      final boolean visible = mIsVisible.isChecked();
-      if (visible != mEditedSet.isVisible())
-        mEditedSet.setVisibility(mIsVisible.isChecked());
     }
   }
 
@@ -128,9 +122,6 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       }
     });
 
-    mIsVisible = (CheckBox) findViewById(R.id.pin_set_visible);
-    if (mEditedSet != null)
-      mIsVisible.setChecked(mEditedSet.isVisible());
   }
 
   @Override
@@ -251,7 +242,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
     }
   }
 
-  // Menu routiones
+  // Menu routines
   private static final int ID_SEND_BY_EMAIL = 0x01;
 
   @SuppressLint("InlinedApi")
