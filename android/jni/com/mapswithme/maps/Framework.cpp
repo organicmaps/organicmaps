@@ -787,10 +787,10 @@ namespace android
 extern "C"
 {
   JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetNameAndAddress4Point(JNIEnv * env, jclass clazz, jdouble mercatorX, jdouble mercatorY)
+  Java_com_mapswithme_maps_Framework_nativeGetNameAndAddress4Point(JNIEnv * env, jclass clazz, jdouble pixelX, jdouble pixelY)
   {
-    m2::PointD globalPoint = m2::PointD(mercatorX, mercatorY);
+    m2::PointD point = m2::PointD(pixelX, pixelY);
     ::Framework * nativeFramework = g_framework->NativeFramework();
-    return jni::ToJavaString(env, nativeFramework->GetNameAndAddressAtPoint(globalPoint));
+    return jni::ToJavaString(env, nativeFramework->GetNameAndAddressAtPoint(point));
   }
 }

@@ -1,6 +1,5 @@
 package com.mapswithme.maps.bookmarks.data;
 
-import android.R.bool;
 import android.content.Context;
 
 import com.mapswithme.maps.R;
@@ -75,11 +74,13 @@ public class Bookmark
     return g2p(mMercatorX, mMercatorY);
   }
 
+  // Why mercatorX is Lat?
   public double getLat()
   {
     return mMercatorX;
   }
 
+  // Why mercatorY is Lon?
   public double getLon()
   {
     return mMercatorY;

@@ -7,12 +7,12 @@ package com.mapswithme.maps;
 public class Framework
 {
 
-  public static String getNameAndAddress4Point(double mercatorX, double mercatorY)
+  public static String getNameAndAddress4Point(double pixelX, double pixelY)
   {
-    return nativeGetNameAndAddress4Point(mercatorX, mercatorY);
+    return nativeGetNameAndAddress4Point(pixelX, pixelY);
   }
   
-  private native static String nativeGetNameAndAddress4Point(double mercatorX, double mercatorY);
+  private native static String nativeGetNameAndAddress4Point(double pointX, double pointY);
   
   private Framework() {}
 }
