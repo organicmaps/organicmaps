@@ -126,12 +126,7 @@ namespace graphics
         auxRes.push_back(auxVisText());
 
       for (int i = 0; i < auxRes.size(); ++i)
-      {
         m_glyphLayouts.push_back(GlyphLayout(p.m_glyphCache, p.m_auxFontDesc, m2::PointD(0, 0), auxRes[i], graphics::EPosCenter));
-        m2::RectD r = m_glyphLayouts.back().boundRects().back().GetGlobalRect();
-        allElemWidth = max(r.SizeX(), allElemWidth);
-        allElemHeight += r.SizeY();
-      }
     }
 
     double curShift = allElemHeight / 2;

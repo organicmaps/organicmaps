@@ -172,7 +172,7 @@ namespace di
 
       if (keys[i].m_type == drule::caption)
         if (m_rules[i].m_rule->GetCaption(0) != 0)
-          hasCaptionWithoutOffset = !m_rules[i].m_rule->GetCaption(0)->has_offset_y();
+          hasCaptionWithoutOffset = !(m_rules[i].m_rule->GetCaption(0)->has_offset_y() || m_rules[i].m_rule->GetCaption(0)->has_offset_x());
     }
 
     // placing a text on the path

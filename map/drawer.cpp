@@ -378,7 +378,13 @@ void Drawer::Draw(di::FeatureInfo const & fi)
           else
             textPosition = graphics::EPosAbove;
         }
-
+        if (pRule->GetCaption(0)->has_offset_x())
+        {
+          if (pRule->GetCaption(0)->offset_x() > 0)
+            textPosition = graphics::EPosRight;
+          else
+            textPosition = graphics::EPosLeft;
+        }
 
         // draw area text
         if (isArea/* && isN*/)
