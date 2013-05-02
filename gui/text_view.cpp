@@ -3,6 +3,7 @@
 
 #include "../graphics/display_list.hpp"
 #include "../graphics/screen.hpp"
+#include "../geometry/transformations.hpp"
 
 namespace gui
 {
@@ -42,7 +43,7 @@ namespace gui
     params.m_fontDesc = font(state);
     params.m_fontDesc.m_size *= visualScale();
     params.m_log2vis = true;
-    params.m_pivot = pivot();
+    params.m_pivot = m2::PointD(0.0, 0.0);
     params.m_position = position();
     params.m_glyphCache = m_controller->GetGlyphCache();
     params.m_logText = strings::MakeUniString(m_text);
@@ -99,8 +100,11 @@ namespace gui
       map<EState, shared_ptr<graphics::DisplayList> >::const_iterator it;
       it = m_dls.find(state());
 
+      math::Matrix<double, 3, 3> drawM = math::Shift(math::Identity<double, 3>(),
+                                                     pivot());
+
       if (it != m_dls.end())
-        r->drawDisplayList(it->second.get(), m);
+        r->drawDisplayList(it->second.get(), drawM * m);
       else
         LOG(LWARNING, ("m_dls[state()] is not set!"));
     }
@@ -116,13 +120,15 @@ namespace gui
       map<EState, shared_ptr<graphics::StraightTextElement> >::const_iterator it;
       it = m_elems.find(EActive);
 
+      m2::PointD pt = pivot();
+
       if (it != m_elems.end())
-        m_boundRects.push_back(m2::AnyRectD(it->second->roughBoundRect()));
+        m_boundRects.push_back(m2::AnyRectD(Offset(it->second->roughBoundRect(), pt)));
 
       it = m_elems.find(EPressed);
 
       if (it != m_elems.end())
-        m_boundRects.push_back(m2::AnyRectD(it->second->roughBoundRect()));
+        m_boundRects.push_back(m2::AnyRectD(Offset(it->second->roughBoundRect(), pt)));
 
       setIsDirtyRect(false);
     }
