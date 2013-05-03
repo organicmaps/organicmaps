@@ -14,7 +14,7 @@
    <resourceStyle width="20" x="60" y="0" height="20"/>
   </symbolStyle>
   <symbolStyle id="5" name="arrow">
-   <resourceStyle width="20" x="80" y="0" height="16"/>
+   <resourceStyle width="20" x="80" y="0" height="20"/>
   </symbolStyle>
   <symbolStyle id="6" name="athletics-borderless">
    <resourceStyle width="20" x="100" y="0" height="20"/>
