@@ -205,11 +205,12 @@ namespace tools
     return s;
   }
 
-  struct LessHeight
+  struct GreaterHeight
   {
-    bool operator()(SkinGenerator::SymbolInfo const & left, SkinGenerator::SymbolInfo const & right)
+    bool operator() (SkinGenerator::SymbolInfo const & left,
+                     SkinGenerator::SymbolInfo const & right) const
     {
-      return left.m_size.height() < right.m_size.height();
+      return (left.m_size.height() > right.m_size.height());
     }
   };
 
@@ -356,6 +357,8 @@ namespace tools
     for (TSkinPages::iterator pageIt = m_pages.begin(); pageIt != m_pages.end(); ++pageIt)
     {
       SkinPageInfo & page = *pageIt;
+      sort(page.m_symbols.begin(), page.m_symbols.end(), GreaterHeight());
+
       /// Trying to repack all elements as tight as possible
       page.m_width = 64;
       page.m_height = 64;
@@ -385,6 +388,7 @@ namespace tools
           continue;
         }
 
+        /*
         for (TFonts::iterator fontIt = page.m_fonts.begin(); fontIt != page.m_fonts.end(); ++fontIt)
         {
           for (TChars::iterator charIt = fontIt->m_chars.begin(); charIt != fontIt->m_chars.end(); ++charIt)
@@ -414,6 +418,7 @@ namespace tools
             page.m_height *= 2;
           continue;
         }
+        */
 
         break;
       }
