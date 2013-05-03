@@ -438,13 +438,13 @@
 "my_position_share_email" = "안녕하세요.\n\n지금 다음 위치에 있습니다: %1$@ . %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.";
 
 /* Android share by Message/SMS button text (including SMS) */
-"share_by_message" = "Share by message";
+"share_by_message" = "메시지로 공유";
 
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
-"share" = "Share";
+"share" = "공유";
 
 /* iOS share by Message button text (including SMS) */
-"message" = "Message";
+"message" = "메시지";
 
 /* Share by email button text */
-"email" = "E-Mail";
+"email" = "이메일";

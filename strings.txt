@@ -1965,6 +1965,7 @@
     nl = Delen via bericht
     zh = 透過消息分享
     uk = Поділитися повідомленням
+    ko = 메시지로 공유
 
   [share]
     en = Share
@@ -1980,6 +1981,7 @@
     nl = Delen
     uk = Поділитися
     zh = 分享
+    ko = 공유
 
   [message]
     en = Message
@@ -1995,6 +1997,7 @@
     nl = Bericht
     zh = 消息
     uk = Повідомлення
+    ko = 메시지
 
   [email]
     en = E-Mail
@@ -2009,3 +2012,4 @@
     nl = E-mail
     zh = 電子郵件
     uk = Електронна пошта
+    ko = 이메일
