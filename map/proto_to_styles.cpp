@@ -122,7 +122,8 @@ void ConvertStyle(CircleRuleProto const * pSrc, double scale, graphics::Circle::
 
 void ConvertStyle(CaptionDefProto const * pSrc, double scale, graphics::FontDesc & dest, m2::PointD & offset)
 {
-  uint8_t const h = static_cast<int>(pSrc->height() * scale);
+  // fonts smaller than 8px look "jumpy" on LDPI devices
+  uint8_t const h = max(8, static_cast<int>(pSrc->height() * scale));
 
   offset = m2::PointD(0,0);
   if (pSrc->has_offset_x())

@@ -129,6 +129,10 @@ public:
 
   /// @return JSON-encoded list of urls if metaserver is unreachable
   string DefaultUrlsJSON() const;
+
+private:
+  void GetSystemFontNames(FilesList & res) const;
+
 };
 
 extern Platform & GetPlatform();

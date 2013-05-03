@@ -13,6 +13,67 @@
   #include <sys/vfs.h>
 #endif
 
+void Platform::GetSystemFontNames(FilesList & res) const
+{
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE)
+#else
+  char const * fontsWhitelist[] = {
+    "Roboto-Regular.ttf",
+    "DroidSansFallback.ttf",
+    "DroidSans.ttf",
+    "DroidSansArabic.ttf",
+    "DroidNaskh-Regular.ttf",
+    "Lohit-Bengali.ttf",
+    "Lohit-Devanagari.ttf",
+    "Lohit-Tamil.ttf",
+    "DroidSansThai.ttf",
+    "DroidSansArmenian.ttf",
+    "DroidSansEthiopic-Regular.ttf",
+    "DroidSansGeorgian.ttf",
+    "DroidSansHebrew-Regular.ttf",
+    "DroidSansHebrew.ttf",
+    "DroidSansJapanese.ttf",
+    "LTe50872.ttf",
+    "LTe50259.ttf",
+    "DejaVuSans.ttf",
+    "arial.ttf"
+  };
+
+  char const * systemFontsPath[] = {
+    "/system/fonts/",
+    "/usr/share/fonts/truetype/droid/",
+    "/usr/share/fonts/truetype/ttf-dejavu/",
+  };
+
+  uint64_t fileSize = 0;
+
+  for (size_t i = 0; i < ARRAY_SIZE(fontsWhitelist); ++i)
+  {
+    for (size_t j = 0; j < ARRAY_SIZE(systemFontsPath); ++j)
+    {
+      string const path = string(systemFontsPath[j]) + fontsWhitelist[i];
+      if (IsFileExistsByFullPath(path))
+      {
+        if (GetFileSizeByName(path, fileSize))
+        {
+          res.push_back(path);
+          LOG(LINFO, ("Found system font", path, "with file size", fileSize));
+        }
+      }
+    }
+  }
+
+  // Ignoring system fonts if broken Samsung Duos font detected
+  if (GetPlatform().GetFileSizeByName("/system/fonts/DroidSans.ttf", fileSize))
+  {
+    if (fileSize == 183560)
+    {
+      res.clear();
+      LOG(LINFO, ("Ignoring system fonts"));
+    }
+  }
+#endif
+}
 
 bool Platform::IsFileExistsByFullPath(string const & filePath)
 {

@@ -148,3 +148,7 @@ bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
   }
   return false;
 }
+
+void Platform::GetSystemFontNames(FilesList & res) const
+{
+}

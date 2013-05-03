@@ -58,43 +58,7 @@ string Platform::DefaultUrlsJSON() const
 
 void Platform::GetFontNames(FilesList & res) const
 {
-  char const * fontsWhitelist[] = {
-    "Roboto-Regular.ttf",
-    "DroidSansArabic.ttf",
-    "DroidNaskh-Regular.ttf",
-    "Lohit-Bengali.ttf",
-    "Lohit-Devanagari.ttf",
-    "Lohit-Tamil.ttf",
-    "DroidSansThai.ttf",
-    "DroidSans.ttf",
-    "DroidSansArmenian.ttf",
-    "DroidSansEthiopic-Regular.ttf",
-    "DroidSansGeorgian.ttf",
-    "DroidSansHebrew-Regular.ttf",
-    "DroidSansHebrew.ttf",
-    "DroidSansJapanese.ttf",
-    "DroidSansFallback.ttf",
-    "LTe50872.ttf",
-    "LTe50259.ttf",
-    "DejaVuSans.ttf",
-    "arial.ttf"
-  };
-
-  char const * systemFontsPath[] = {
-    "/system/fonts/",
-    "/usr/share/fonts/truetype/droid/",
-    "/usr/share/fonts/truetype/ttf-dejavu/",
-  };
-
-  for (size_t i = 0; i < ARRAY_SIZE(fontsWhitelist); ++i)
-  {
-    for (size_t j = 0; j < ARRAY_SIZE(systemFontsPath); ++j)
-    {
-      string const path = string(systemFontsPath[j]) + fontsWhitelist[i];
-      if (IsFileExistsByFullPath(path))
-        res.push_back(path);
-    };
-  };
+  GetSystemFontNames(res);
 
   string const resourcesPaths[] = { WritableDir(), ResourcesDir() };
 
