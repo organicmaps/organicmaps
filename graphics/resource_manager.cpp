@@ -176,11 +176,13 @@ namespace graphics
   ResourceManager::GlyphCacheParams::GlyphCacheParams(string const & unicodeBlockFile,
                                                       string const & whiteListFile,
                                                       string const & blackListFile,
-                                                      size_t glyphCacheMemoryLimit)
+                                                      size_t glyphCacheMemoryLimit,
+                                                      EDensity density)
     : m_unicodeBlockFile(unicodeBlockFile),
       m_whiteListFile(whiteListFile),
       m_blackListFile(blackListFile),
-      m_glyphCacheMemoryLimit(glyphCacheMemoryLimit)
+      m_glyphCacheMemoryLimit(glyphCacheMemoryLimit),
+      m_density(density)
   {}
 
 namespace
@@ -306,6 +308,7 @@ namespace
                              gccp.m_whiteListFile,
                              gccp.m_blackListFile,
                              gccp.m_glyphCacheMemoryLimit / p.m_threadSlotsCount,
+                             gccp.m_density,
                              false);
 
       m_threadSlots[i].m_glyphCache.reset(new GlyphCache(gcp));

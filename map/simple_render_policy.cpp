@@ -74,7 +74,8 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
   rmp.m_glyphCacheParams = graphics::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
                                                                  "fonts_whitelist.txt",
                                                                  "fonts_blacklist.txt",
-                                                                 2 * 1024 * 1024);
+                                                                 2 * 1024 * 1024,
+                                                                 Density());
 
   rmp.m_renderThreadsCount = 0;
   rmp.m_threadSlotsCount = 1;

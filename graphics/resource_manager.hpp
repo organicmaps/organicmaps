@@ -159,11 +159,14 @@ namespace graphics
 
       size_t m_glyphCacheMemoryLimit;
 
+      EDensity m_density;
+
       GlyphCacheParams();
       GlyphCacheParams(string const & unicodeBlockFile,
                        string const & whiteListFile,
                        string const & blackListFile,
-                       size_t glyphCacheMemoryLimit);
+                       size_t glyphCacheMemoryLimit,
+                       EDensity density);
     };
 
     struct Params

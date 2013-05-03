@@ -49,8 +49,18 @@ namespace graphics
         || (l.m_color != r.m_color);
   }
 
-  GlyphCache::Params::Params(string const & blocksFile, string const & whiteListFile, string const & blackListFile, size_t maxSize, bool isDebugging)
-    : m_blocksFile(blocksFile), m_whiteListFile(whiteListFile), m_blackListFile(blackListFile), m_maxSize(maxSize), m_isDebugging(isDebugging)
+  GlyphCache::Params::Params(string const & blocksFile,
+                             string const & whiteListFile,
+                             string const & blackListFile,
+                             size_t maxSize,
+                             EDensity density,
+                             bool isDebugging)
+    : m_blocksFile(blocksFile),
+      m_whiteListFile(whiteListFile),
+      m_blackListFile(blackListFile),
+      m_maxSize(maxSize),
+      m_density(density),
+      m_isDebugging(isDebugging)
   {}
 
   GlyphCache::GlyphCache()

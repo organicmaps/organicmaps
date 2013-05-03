@@ -2,6 +2,8 @@
 
 #include "color.hpp"
 
+#include "defines.hpp"
+
 #include "../base/string_utils.hpp"
 #include "../base/mutex.hpp"
 
@@ -71,11 +73,13 @@ namespace graphics
       string m_whiteListFile;
       string m_blackListFile;
       size_t m_maxSize;
+      EDensity m_density;
       bool   m_isDebugging;
       Params(string const & blocksFile,
              string const & whiteListFile,
              string const & blackListFile,
              size_t maxSize,
+             EDensity density,
              bool isDebugging);
     };
 
