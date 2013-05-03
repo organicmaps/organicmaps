@@ -13,8 +13,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.mapswithme.maps.MWMActivity;
@@ -66,6 +68,23 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       }
     });
     registerForContextMenu(getListView());
+    
+    adaptUiForOsVersion();
+  }
+
+  private void adaptUiForOsVersion()
+  {
+    final Button shareButton = (Button) findViewById(R.id.btn_share);
+    if (Utils.apiLowerThan(11))
+    {
+      shareButton.setOnClickListener(new OnClickListener()
+      {
+        @Override
+        public void onClick(View v) { onSendEMail(shareButton); }
+      });
+    }
+    else 
+      shareButton.setVisibility(View.GONE);
   }
 
   private void createListAdapter()

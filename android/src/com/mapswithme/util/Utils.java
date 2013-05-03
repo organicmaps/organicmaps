@@ -120,6 +120,11 @@ public class Utils
     return Build.VERSION.SDK_INT >= api;
   }
   
+  public static boolean apiLowerThan(int api)
+  {
+    return Build.VERSION.SDK_INT < api;
+  }
+  
   public static void checkNotNull(Object object)
   {
     if (null == object) throw new NullPointerException("Argument here must not be NULL");

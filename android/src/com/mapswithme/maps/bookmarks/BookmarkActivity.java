@@ -11,7 +11,9 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -61,6 +63,57 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
     setTitle(mPin.getName());
     setUpViews();
+    
+    adaptUiForOsVersion();
+  }
+
+  private void adaptUiForOsVersion()
+  {
+    ViewGroup compatBtns = (ViewGroup) findViewById(R.id.compat_btns_bar);
+    if (Utils.apiLowerThan(11))
+    {
+      
+      Button shareEmailBtn = (Button) compatBtns.findViewById(R.id.btn_share_email);
+      if (ShareAction.getEmailShare().isSupported(this))
+      {
+        shareEmailBtn.setOnClickListener(new OnClickListener()
+        {
+          @Override
+          public void onClick(View v)
+          {
+             assignPinParams();
+             ShareAction.getEmailShare().shareBookmark(BookmarkActivity.this, mPin);
+          }
+        });
+      } 
+      else 
+      {
+        shareEmailBtn.setVisibility(View.GONE);
+      }
+      
+      Button shareAnyBtn = (Button) compatBtns.findViewById(R.id.btn_share_any);
+      if (ShareAction.getAnyShare().isSupported(this))
+      {
+        shareAnyBtn.setOnClickListener(new OnClickListener()
+        {
+          @Override
+          public void onClick(View v)
+          {
+            assignPinParams();
+            ShareAction.getAnyShare().shareBookmark(BookmarkActivity.this, mPin);
+          }
+        });
+      }
+      else 
+      {
+        shareAnyBtn.setVisibility(View.GONE);
+      }
+      
+    }
+    else 
+    {
+      compatBtns.setVisibility(View.GONE);
+    }
   }
 
   private void updateColorChooser(Icon icon)

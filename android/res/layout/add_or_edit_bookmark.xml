@@ -16,7 +16,8 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -97,10 +98,10 @@
 
                 <include
                     android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/disclosure_image_color"
                     layout="@layout/color_row"
                     android:clickable="false"
-                    android:focusable="false"
-                    android:layout_toLeftOf="@+id/disclosure_image_color"/>
+                    android:focusable="false" />
 
                 <ImageView
                     android:id="@+id/disclosure_image_color"
@@ -142,8 +143,28 @@
                 android:layout_margin="5dp"
                 android:onClick="onDeleteClick"
                 android:text="@string/remove_pin" />
-
         </LinearLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/compat_btns_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0" >
+
+        <Button
+            android:id="@+id/btn_share_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/share_by_email" />
+
+        <Button
+            android:id="@+id/btn_share_any"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/share" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -23,12 +23,14 @@
         android:layout_height="wrap_content"
         android:text="@string/bookmarks" />
 
-   <!--  <Button
+    <!--
+         <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:onClick="onSendEMail"
-        android:text="@string/share_by_email" /> -->
+        android:text="@string/share_by_email" />
+    -->
 
     <TextView
         android:id="@+id/bookmark_usage_hint"
@@ -40,7 +42,16 @@
     <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
     </ListView>
+
+    <Button
+        android:id="@+id/btn_share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text="@string/share_by_email"
+        android:drawableLeft="@android:drawable/ic_menu_share"/>
 
 </LinearLayout>
