@@ -259,7 +259,7 @@ void Drawer::drawPathText(di::PathInfo const & path,
 void Drawer::drawPathNumber(di::PathInfo const & path,
                             di::FeatureStyler const & fs)
 {
-  int const textHeight = static_cast<int>(12 * m_visualScale);
+  int const textHeight = static_cast<int>(11 * m_visualScale);
   m2::PointD pt;
   double const length = path.GetFullLength();
   if (length >= (fs.m_refText.size() + 2) * textHeight)
@@ -280,7 +280,7 @@ void Drawer::drawPathNumber(di::PathInfo const & path,
                             pt,
                             graphics::EPosCenter,
                             fs.m_refText,
-                            graphics::maxDepth - 10,
+                            0,
                             true);
       }
     }
