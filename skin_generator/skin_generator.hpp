@@ -1,13 +1,17 @@
 #pragma once
 
+#include "../../geometry/rect2d.hpp"
+#include "../../geometry/packer.hpp"
+
+#include "../../coding/writer.hpp"
+
 #include "../../base/base.hpp"
+
 #include "../../std/vector.hpp"
 #include "../../std/list.hpp"
 #include "../../std/string.hpp"
 #include "../../std/map.hpp"
-#include "../../geometry/rect2d.hpp"
-#include "../../coding/writer.hpp"
-#include "../../geometry/packer.hpp"
+
 #include <boost/gil/gil_all.hpp>
 
 #include <QtGui/QPainter>
@@ -97,7 +101,7 @@ namespace tools
   public:
 
       SkinGenerator();
-      void processFont(string const & fileName, string const & skinName, vector<int8_t> const & fontSizes, int symbolScale);
+      //void processFont(string const & fileName, string const & skinName, vector<int8_t> const & fontSizes, int symbolScale);
       void processSymbols(string const & symbolsDir,
                           string const & skinName,
                           vector<QSize> const & symbolSizes,

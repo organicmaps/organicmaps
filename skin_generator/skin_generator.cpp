@@ -1,16 +1,21 @@
 #include "skin_generator.hpp"
-#include <QtXml/QDomElement>
-#include <QtXml/QDomDocument>
-#include <QtCore/QDir>
-#include "../std/bind.hpp"
+
 #include "../coding/lodepng_io.hpp"
-#include <boost/gil/gil_all.hpp>
+
+#include "../base/logging.hpp"
+
 #include "../std/algorithm.hpp"
 #include "../std/iterator.hpp"
 #include "../std/fstream.hpp"
 #include "../std/iostream.hpp"
-#include "../base/logging.hpp"
+#include "../std/bind.hpp"
 
+#include <QtXml/QDomElement>
+#include <QtXml/QDomDocument>
+#include <QtCore/QDir>
+
+
+/*
 #include <ft2build.h>
 
 #include FT_FREETYPE_H
@@ -50,6 +55,7 @@ void CheckError(FT_Error error)
 #define FTCHECK(x) do {FT_Error e = (x); CheckError(e);} while (false)
 
 namespace gil = boost::gil;
+*/
 
 namespace tools
 {
@@ -57,6 +63,7 @@ namespace tools
     : m_baseLineOffset(0)
   {}
 
+  /*
   void SkinGenerator::processFont(string const & fileName, string const & skinName, vector<int8_t> const & fontSizes, int symbolScale)
   {
     string symbols(" 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ;:'\"/?.,`~!@#$%^&*()-_+=<>");
@@ -167,22 +174,23 @@ namespace tools
         fontInfo.m_chars[symbol] = make_pair(normalCharInfo, strokedCharInfo);
       }
 
-/*      std::stringstream out;
-      out << getBaseFileName(fileName) + "_" << (int)fontSizes[i];
+      //std::stringstream out;
+      //out << getBaseFileName(fileName) + "_" << (int)fontSizes[i];
 
-      page.m_fileName = out.str().c_str();
+      //page.m_fileName = out.str().c_str();
 
-      gil::bgra8_image_t skinImage(page.m_width, page.m_height);
-      gil::fill_pixels(gil::view(skinImage), gil::rgba8_pixel_t(0, 0, 0, 0));
+      //gil::bgra8_image_t skinImage(page.m_width, page.m_height);
+      //gil::fill_pixels(gil::view(skinImage), gil::rgba8_pixel_t(0, 0, 0, 0));
 
-      gil::lodepng_write_view(
-          skinName.substr(0, skinName.find_last_of("/") + 1) + page.m_fileName + ".png",
-          gil::const_view(skinImage));*/
+      //gil::lodepng_write_view(
+      //    skinName.substr(0, skinName.find_last_of("/") + 1) + page.m_fileName + ".png",
+      //    gil::const_view(skinImage));
     }
 
     FT_Done_Face(face);
     FT_Done_FreeType(lib);
   }
+  */
 
   string const SkinGenerator::getBaseFileName(string const & fileName)
   {

@@ -34,11 +34,13 @@ int main(int argc, char *argv[])
   std::vector<std::string> suffixes;
   suffixes.push_back(FLAGS_skinSuffix);
 
+  /*
   gen.processSearchIcons(FLAGS_searchIconsSrcPath,
                          FLAGS_searchCategories,
                          FLAGS_searchIconsOutPath,
                          FLAGS_searchIconWidth,
                          FLAGS_searchIconHeight);
+                         */
 
   gen.processSymbols(FLAGS_symbolsDir, FLAGS_skinName, symbolSizes, suffixes);
 
