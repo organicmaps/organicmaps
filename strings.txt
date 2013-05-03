@@ -1951,31 +1951,61 @@
     cs = Ahoj,\n\nnyní jsem zde: %1$@ . Klikni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDěkuji.
     de = Hi,\n\nich bin gerade hier: %1$@ . Klicke auf diesen Link %2$@ oder diesen %3$@, um meinen Standort auf der Karte zu sehen.\n\nVielen Dank.
 
-  [just_share]
-    en = Share
-    tags = android
-    comment = Android Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.
-    ru = Поделиться
-
   [share_by_message]
     en = Share by message
-    tags = android
+    tags = ios, android
     comment = Android share by Message/SMS button text (including SMS)
     ru = Отправить сообщением
+    cs = Sdílet po zprávách
+    de = Mit Benachrichtigung teilen
+    es = Compartir por mensaje
+    fr = Partager par message
+    it = Condividi con un messaggio
+    ja = メッセージで共有
+    nl = Delen via bericht
+    zh = 透過消息分享
+    uk = Поділитися повідомленням
 
   [share]
-    en = Share with Friends
-    tags = ios
-    comment = iOS Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.
-    ru = Отправить другу
+    en = Share
+    tags = ios, android
+    comment = Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.
+    ru = Поделиться
+    cs = Sdílet
+    de = Teilen
+    es = Compartir
+    fr = Partager
+    it = Condividi
+    ja = 共有
+    nl = Delen
+    uk = Поділитися
+    zh = 分享
 
   [message]
     en = Message
-    tags = ios
+    tags = ios, android
     comment = iOS share by Message button text (including SMS)
     ru = Сообщение
+    cs = Zpráva
+    de = Nachricht
+    es = Mensaje
+    fr = Message
+    it = Messaggio
+    ja = メッセージ
+    nl = Bericht
+    zh = 消息
+    uk = Повідомлення
 
   [email]
     en = E-Mail
     tags = ios, android
     comment = Share by email button text
+    cs = E-Mail
+    de = E-Mail
+    es = Correo electrónico
+    fr = E-mail
+    it = E-mail
+    ja = Eメール
+    nl = E-mail
+    zh = 電子郵件
+    uk = Електронна пошта
