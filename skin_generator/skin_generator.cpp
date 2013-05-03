@@ -283,12 +283,25 @@ namespace tools
     }
   }
 
+  void DoPatchSize(QString const & name, string const & skinName, QSize & size)
+  {
+    if (name.startsWith("placemark-") || name.startsWith("current-position"))
+    {
+      if (skinName.rfind("-mdpi") != string::npos)
+        size = QSize(24, 24);
+      else if (skinName.rfind("-hdpi") != string::npos)
+        size = QSize(36, 36);
+      else if (skinName.rfind("-xhdpi") != string::npos)
+        size = QSize(48, 48);
+    }
+  }
+
   void SkinGenerator::processSymbols(string const & svgDataDir,
                                      string const & skinName,
                                      vector<QSize> const & symbolSizes,
                                      vector<string> const & suffixes)
   {
-    for (int i = 0; i < symbolSizes.size(); ++i)
+    for (size_t j = 0; j < symbolSizes.size(); ++j)
     {
       QDir dir(QString(svgDataDir.c_str()));
       QStringList fileNames = dir.entryList(QDir::Files);
@@ -297,22 +310,24 @@ namespace tools
       m_pages.push_back(SkinPageInfo());
       SkinPageInfo & page = m_pages.back();
 
-      QSize symbolSize = symbolSizes[i];
-
       page.m_dir = skinName.substr(0, skinName.find_last_of("/") + 1);
-      page.m_suffix = suffixes[i];
+      page.m_suffix = suffixes[j];
       page.m_fileName = page.m_dir + "symbols" + page.m_suffix;
 
-      for (int i = 0; i < fileNames.size(); ++i)
+      for (size_t i = 0; i < fileNames.size(); ++i)
       {
-        if (fileNames.at(i).endsWith(".svg"))
+        QString const & fileName = fileNames.at(i);
+        if (fileName.endsWith(".svg"))
         {
-          QString fullFileName = QString(svgDataDir.c_str()) + "/" + fileNames.at(i);
-          QString symbolID = fileNames.at(i).left(fileNames.at(i).lastIndexOf("."));
+          QString fullFileName = QString(svgDataDir.c_str()) + "/" + fileName;
+          QString symbolID = fileName.left(fileName.lastIndexOf("."));
           if (m_svgRenderer.load(fullFileName))
           {
             QRect viewBox = m_svgRenderer.viewBox();
             QSize defaultSize = m_svgRenderer.defaultSize();
+
+            QSize symbolSize = symbolSizes[j];
+            DoPatchSize(fileName, skinName, symbolSize);
 
             QSize size = defaultSize * (symbolSize.width() / 24.0);
 
