@@ -437,11 +437,14 @@
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Salut,\n\nJe me trouve actuellement là : %1$@. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour visualiser l'endroit sur la carte.\n\nMerci.";
 
-/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
-"share" = "Share with friends";
+/* Android share by Message/SMS button text (including SMS) */
+"share_by_message" = "Partager par message";
 
-/* Share by Message button text (including SMS) */
+/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+"share" = "Partager";
+
+/* iOS share by Message button text (including SMS) */
 "message" = "Message";
 
-/* Share by email button text (including SMS) */
-"email" = "E-Mail";
+/* Share by email button text */
+"email" = "E-mail";

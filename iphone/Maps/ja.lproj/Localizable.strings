@@ -434,14 +434,17 @@
 /* Subject for emailed position */
 "my_position_share_email_subject" = "MapsWithMeマップ上での自分の現在地を見る";
 
-/* Share my position using EMail, %@ is ge0:// link WITHOUT NAME */
+/* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "こんにちは。\n\n私は今ここにいます: %1$@ 。リンク %2$@ または %3$@  をクリックしてその場所をマップで確認してください。\n\nよろしくお願いします。";
 
+/* Android share by Message/SMS button text (including SMS) */
+"share_by_message" = "メッセージで共有";
+
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
-"share" = "Share with friends";
+"share" = "共有";
 
-/* Share by Message button text (including SMS) */
-"message" = "Message";
+/* iOS share by Message button text (including SMS) */
+"message" = "メッセージ";
 
-/* Share by email button text (including SMS) */
-"email" = "E-Mail";
+/* Share by email button text */
+"email" = "Eメール";

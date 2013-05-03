@@ -434,14 +434,17 @@
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Look at my current location on MapsWithMe map";
 
-/* Share my position using EMail, %@ is ge0:// link WITHOUT NAME */
+/* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.";
 
+/* Android share by Message/SMS button text (including SMS) */
+"share_by_message" = "透過消息分享";
+
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
-"share" = "Share with friends";
+"share" = "分享";
 
-/* Share by Message button text (including SMS) */
-"message" = "Message";
+/* iOS share by Message button text (including SMS) */
+"message" = "消息";
 
-/* Share by email button text (including SMS) */
-"email" = "E-Mail";
+/* Share by email button text */
+"email" = "電子郵件";
