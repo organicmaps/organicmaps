@@ -260,6 +260,14 @@
 	<string name="bookmark_share_email">Hoi,\n\nIk heb: %1$s geprikt bij MapsWithMe, offline wereldkaarten. Klik op deze %2$s of deze %3$s om de plaats op de kaart te zien.\n\nBedankt.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Kijk naar mijn huidige locatie op MapsWithMe kaart</string>
-	<!-- Share my position using EMail, %@ is ge0:// link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Hoi,\n\nMomenteel ben ik hier: %1$s. Klik op deze %2$s of deze %3$s om de plaats op de kaart te zien.\n\nBedankt.</string>
+	<!-- Android share by Message/SMS button text (including SMS) -->
+	<string name="share_by_message">Delen via bericht</string>
+	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+	<string name="share">Delen</string>
+	<!-- iOS share by Message button text (including SMS) -->
+	<string name="message">Bericht</string>
+	<!-- Share by email button text -->
+	<string name="email">E-mail</string>
 </resources>

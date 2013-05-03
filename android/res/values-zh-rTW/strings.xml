@@ -261,4 +261,12 @@
 	<string name="appStore_message">祝您使用 MapsWithMe愉快! 方便的話，請到App Store幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">不, 謝了!</string>
+	<!-- Android share by Message/SMS button text (including SMS) -->
+	<string name="share_by_message">透過消息分享</string>
+	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+	<string name="share">分享</string>
+	<!-- iOS share by Message button text (including SMS) -->
+	<string name="message">消息</string>
+	<!-- Share by email button text -->
+	<string name="email">電子郵件</string>
 </resources>

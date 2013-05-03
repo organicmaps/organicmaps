@@ -267,6 +267,14 @@
 	<string name="bookmark_share_email">こんにちは。\n\n世界のオフラインマップMapsWithMe でこの場所をピンで留めました： %1$s 。リンク %2$s または %3$s クリックしてその場所をマップで確認してください。\n\nよろしくお願いします</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">MapsWithMeマップ上での自分の現在地を見る</string>
-	<!-- Share my position using EMail, %@ is ge0:// link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">こんにちは。\n\n私は今ここにいます: %1$s 。リンク %2$s または %3$s  をクリックしてその場所をマップで確認してください。\n\nよろしくお願いします。</string>
+	<!-- Android share by Message/SMS button text (including SMS) -->
+	<string name="share_by_message">メッセージで共有</string>
+	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+	<string name="share">共有</string>
+	<!-- iOS share by Message button text (including SMS) -->
+	<string name="message">メッセージ</string>
+	<!-- Share by email button text -->
+	<string name="email">Eメール</string>
 </resources>

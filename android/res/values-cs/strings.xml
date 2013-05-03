@@ -273,4 +273,12 @@
 	<string name="my_position_share_email_subject">Podívejte se na moji aktuální polohu na mapě na MapsWithMe</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Ahoj,\n\nnyní jsem zde: %1$s . Klikni na jeden z těchto odkazů %2$s, %3$s a uvidíš toto místo na mapě.\n\nDěkuji.</string>
+	<!-- Android share by Message/SMS button text (including SMS) -->
+	<string name="share_by_message">Sdílet po zprávách</string>
+	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+	<string name="share">Sdílet</string>
+	<!-- iOS share by Message button text (including SMS) -->
+	<string name="message">Zpráva</string>
+	<!-- Share by email button text -->
+	<string name="email">E-Mail</string>
 </resources>

@@ -261,4 +261,12 @@
 	<string name="my_position_share_email_subject">Consultez ma localisation actuelle sur la carte MapsWithMe</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Salut,\n\nJe me trouve actuellement là : %1$s. Clique sur ce lien %2$s ou sur celui-ci %3$s pour visualiser l\'endroit sur la carte.\n\nMerci.</string>
+	<!-- Android share by Message/SMS button text (including SMS) -->
+	<string name="share_by_message">Partager par message</string>
+	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+	<string name="share">Partager</string>
+	<!-- iOS share by Message button text (including SMS) -->
+	<string name="message">Message</string>
+	<!-- Share by email button text -->
+	<string name="email">E-mail</string>
 </resources>

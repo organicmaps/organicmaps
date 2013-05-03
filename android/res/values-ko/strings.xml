@@ -263,6 +263,6 @@
 	<string name="bookmark_share_email">안녕하세요.\n\n다음 위치에 표시를 하였습니다: 오프라인 세계 지도인 MapsWithMe에서 %1$s . %2$s 또는 %3$s 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">MapsWithMe 지도에서 제 현재 위치를 살펴 보시기 바랍니다</string>
-	<!-- Share my position using EMail, %@ is ge0:// link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">안녕하세요.\n\n지금 다음 위치에 있습니다: %1$s . %2$s 또는 %3$s 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.</string>
 </resources>
