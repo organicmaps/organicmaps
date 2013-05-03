@@ -65,7 +65,7 @@
     if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad && [self.navigationController.viewControllers indexOfObject:self] == NSNotFound)
     {
       [m_balloon addOrEditBookmark];
-      m_balloon.editedBookmark = MakeEmptyBookmarkAndCategory();
+      [m_balloon clear];
     }
   }
   [super viewWillDisappear:animated];
@@ -208,7 +208,7 @@
 - (void)onRemoveClicked
 {
   [m_balloon deleteBookmark];
-  m_balloon.editedBookmark = MakeEmptyBookmarkAndCategory();
+  [m_balloon clear];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

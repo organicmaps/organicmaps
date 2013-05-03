@@ -4,9 +4,6 @@
 #include "../../../platform/settings.hpp"
 
 
-#define SETTINGS_LAST_BOOKMARK_SET "LastBookmarkSet"
-
-
 @implementation BalloonView
 
 @synthesize globalPosition;
@@ -23,11 +20,9 @@
 
 + (NSString *) getDefaultSetName
 {
-  string savedSet;
-  if (Settings::Get(SETTINGS_LAST_BOOKMARK_SET, savedSet))
-    return [NSString stringWithUTF8String:savedSet.c_str()];
-  // Use default set name
-  return NSLocalizedString(@"my_places", @"Default bookmarks set name");
+  Framework &f = GetFramework();
+  int categoryPos = f.LastEditedCategory();
+  return[NSString stringWithUTF8String:f.GetBmCategory(categoryPos)->GetName().c_str()];
 }
 
 - (id) initWithTarget:(id)target andSelector:(SEL)selector;
@@ -140,8 +135,7 @@
 
 - (void) showInView:(UIView *)view atPoint:(CGPoint)pt
 {
-  if (isDisplayed)
-    [self hide];
+  [self hide];
 
   isDisplayed = YES;
 
@@ -183,8 +177,13 @@
   {
     isDisplayed = NO;
     [m_titleView removeFromSuperview];
-    self.notes = nil;
   }
+}
+
+-(void)clear
+{
+  self.notes = nil;
+  self.editedBookmark = MakeEmptyBookmarkAndCategory();
 }
 
 // Overrided property setter to reload another pin image
@@ -194,15 +193,6 @@
   color = [newColor retain];
   [old release];
   self.pinImage.image = [UIImage imageNamed:newColor];
-}
-
-// Overrided property setter to save default set name into the settings
-- (void) setSetName:(NSString *)newName
-{
-  id old = setName;
-  setName = [newName retain];
-  [old release];
-  Settings::Set(SETTINGS_LAST_BOOKMARK_SET, string([newName UTF8String]));
 }
 
 - (void) setTitle:(NSString *)newTitle
@@ -216,21 +206,27 @@
 
 - (void) addOrEditBookmark
 {
-  Framework & f = GetFramework();
-  Bookmark bm(m2::PointD(globalPosition.x, globalPosition.y),
-              [title UTF8String], [color UTF8String]);
-  if (notes)
-    bm.SetDescription([notes UTF8String]);
-  f.GetBmCategory(editedBookmark.first)->ReplaceBookmark(editedBookmark.second, bm);
+  if (IsValid(self.editedBookmark))
+  {
+    BookmarkCategory * bmCat = GetFramework().GetBmCategory(editedBookmark.first);
+    if (bmCat)
+    {
+      Bookmark * bm = bmCat->GetBookmark(editedBookmark.second);
+      bm->SetName([title UTF8String]);
+      bm->SetType([color UTF8String]);
+      if (notes)
+        bm->SetDescription([notes UTF8String]);
+      else
+        bm->SetDescription([@"" UTF8String]);
 
-  BookmarkCategory * cat = f.GetBmCategory(editedBookmark.first);
+      // Enable category visibility if it was turned off, so user can see newly added or edited bookmark
+      if (!bmCat->IsVisible())
+        bmCat->SetVisible(true);
 
-  // Enable category visibility if it was turned off, so user can see newly added or edited bookmark
-  if (!cat->IsVisible())
-    cat->SetVisible(true);
-
-  // Save all changes
-  cat->SaveToKMLFile();
+      // Save all changes
+      bmCat->SaveToKMLFile();
+    }
+  }
 }
 
 - (void) deleteBookmark

@@ -30,6 +30,7 @@
 - (void) showInView:(UIView *)view atPoint:(CGPoint)pt;
 - (void) updatePosition:(UIView *)view atPoint:(CGPoint)pt;
 - (void) hide;
+- (void) clear;
 
 // Kosher method to add bookmark into the Framework.
 // It automatically "edits" bookmark if it's already exists

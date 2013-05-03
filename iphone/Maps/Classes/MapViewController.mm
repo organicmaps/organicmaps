@@ -142,6 +142,7 @@ const long long LITE_IDL = 431183278L;
       return;
     }
   }
+  [m_balloonView clear];
   m_balloonView.isCurrentPosition = YES;
   [m_balloonView setTitle:NSLocalizedString(@"my_position", nil)];
   m_balloonView.globalPosition = CGPointMake(point.x, point.y);
@@ -297,7 +298,7 @@ const long long LITE_IDL = 431183278L;
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
   [m_balloonView addOrEditBookmark];
-  m_balloonView.editedBookmark = MakeEmptyBookmarkAndCategory();
+  [m_balloonView clear];
   [self destroyPopover];
   [self Invalidate];
 }
@@ -334,7 +335,7 @@ const long long LITE_IDL = 431183278L;
   if (m_balloonView.isDisplayed)
   {
     [m_balloonView hide];
-    m_balloonView.editedBookmark = MakeEmptyBookmarkAndCategory();
+    [m_balloonView clear];
     wasBalloonDisplayed = YES;
 //    if (!isLongClick)
 //      return;
@@ -392,6 +393,7 @@ const long long LITE_IDL = 431183278L;
 
 - (void)showSearchResultAsBookmarkAtMercatorPoint:(m2::PointD const &)pt withInfo:(Framework::AddressInfo const &)info
 {
+  [m_balloonView clear];
   m_balloonView.globalPosition = CGPointMake(pt.x, pt.y);
   m_balloonView.isCurrentPosition = NO;
   [self updatePinTexts:info];
@@ -850,11 +852,10 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void)showBalloonWithText:(NSString *)text andGlobalPoint:(m2::PointD) point
 {
+  [m_balloonView clear];
   m_balloonView.globalPosition = CGPointMake(point.x, point.y);
   m_balloonView.title = text;
   m_balloonView.isCurrentPosition = NO;
-  m_balloonView.editedBookmark = pair<int, int>(-1, -1);
-  m_balloonView.notes = @"";
   CGFloat const scaleFactor = self.view.contentScaleFactor;
 
   point = GetFramework().GtoP(point);
@@ -876,7 +877,7 @@ NSInteger compareAddress(id l, id r, void * context)
       [m_balloonView addOrEditBookmark];
     else
       [m_balloonView deleteBookmark];
-    m_balloonView.editedBookmark = MakeEmptyBookmarkAndCategory();
+    [m_balloonView clear];
   }
   [popover dismissPopoverAnimated:YES];
   [self destroyPopover];
