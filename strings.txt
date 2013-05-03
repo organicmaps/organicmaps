@@ -1950,17 +1950,32 @@
     fr = Salut,\n\nJe me trouve actuellement là : %1$@. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour visualiser l'endroit sur la carte.\n\nMerci.
     cs = Ahoj,\n\nnyní jsem zde: %1$@ . Klikni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDěkuji.
     de = Hi,\n\nich bin gerade hier: %1$@ . Klicke auf diesen Link %2$@ oder diesen %3$@, um meinen Standort auf der Karte zu sehen.\n\nVielen Dank.
+
+  [just_share]
+    en = Share
+    tags = android
+    comment = Android Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.
+    ru = Поделиться
+
+  [share_by_message]
+    en = Share by message
+    tags = android
+    comment = Android share by Message/SMS button text (including SMS)
+    ru = Отправить сообщением
+
   [share]
-    en = Share ...
-    tags = ios, android
-    comment = Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.
-    ru = Поделиться ...
+    en = Share with Friends
+    tags = ios
+    comment = iOS Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.
+    ru = Отправить другу
+
   [message]
-    en = Share by SMS
-    tags = ios, android
-    comment = Share by Message button text (including SMS)
-    ru = Отправить по SMS
+    en = Message
+    tags = ios
+    comment = iOS share by Message button text (including SMS)
+    ru = Сообщение
+
   [email]
     en = E-Mail
     tags = ios, android
-    comment = Share by email button text (including SMS)
+    comment = Share by email button text

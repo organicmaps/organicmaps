@@ -128,7 +128,7 @@ public abstract class ShareAction
   {
     protected SmsShareAction()
     {
-      super(ID_SMS, R.string.message, new Intent(Intent.ACTION_VIEW).setData(Uri.parse(URI_STRING_SMS)));
+      super(ID_SMS, R.string.share_by_message, new Intent(Intent.ACTION_VIEW).setData(Uri.parse(URI_STRING_SMS)));
     }
 
     @Override
@@ -178,7 +178,7 @@ public abstract class ShareAction
   {
     protected AnyShareAction()
     {
-      super(ID_ANY, R.string.share, new Intent(Intent.ACTION_SEND).setType(TYPE_TEXT_PLAIN));
+      super(ID_ANY, R.string.just_share, new Intent(Intent.ACTION_SEND).setType(TYPE_TEXT_PLAIN));
     }
 
     @Override
@@ -187,7 +187,7 @@ public abstract class ShareAction
       final Intent intent = getIntent();
       intent.putExtra(Intent.EXTRA_TEXT, body)
             .putExtra(Intent.EXTRA_SUBJECT, subject);
-      final String header = activity.getString(R.string.share);
+      final String header = activity.getString(R.string.just_share);
       activity.startActivity(Intent.createChooser(intent, header));
     }
   }
