@@ -7513,6 +7513,10 @@ cont {
   element {
     scale: 17
     caption {
+      secondary {
+        height: 11
+        color: 0x404040
+      }
       primary {
         height: 11
         color: 0x404040
@@ -7527,6 +7531,10 @@ cont {
   element {
     scale: 18
     caption {
+      secondary {
+        height: 11
+        color: 0x404040
+      }
       primary {
         height: 11
         color: 0x404040
@@ -7541,6 +7549,10 @@ cont {
   element {
     scale: 19
     caption {
+      secondary {
+        height: 11
+        color: 0x404040
+      }
       primary {
         height: 11
         color: 0x404040
@@ -7550,6 +7562,49 @@ cont {
     area {
       color: 0xCDCDB4
       priority: 1001
+    }
+  }
+}
+cont {
+  name: "building-address"
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 10
+        color: 0x808070
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0x404040
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0x404040
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0x404040
+      }
+      priority: 15000
     }
   }
 }
