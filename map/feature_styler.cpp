@@ -149,6 +149,9 @@ namespace di
       {
         // show labels of larger objects first
         depth += priorityModifier;
+        // show labels of nodes first
+        if (m_geometryType == feature::GEOM_POINT)
+          ++depth;
       }
       else if (keys[i].m_type == drule::area)
       {
