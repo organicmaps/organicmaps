@@ -615,18 +615,36 @@ world  +
         ferry  -
         {}
     shop  +
+        alcohol  -
         bakery  -
+        beverages  -
+        bicycle  -
+        books  -
         butcher  -
         car  -
         car_repair  -
+        chemist  -
         clothes  -
+        computer  -
+        confectionery  -
         convenience  -
+        department_store  -
         doityourself  -
+        electronics  -
         florist  -
+        garden_centre  -
+        gift  -
+        greengrocer  -
         hairdresser  -
+        hardware  -
+        jewelry  -
         kiosk  -
         mall  -
+        mobile_phone  -
+        optician  -
+        shoes  -
         supermarket  -
+        toys  -
         {}
     sport  +
         american_football  -
