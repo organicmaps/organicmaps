@@ -75,6 +75,11 @@ public class PromocodeActivationDialog extends Dialog
     mHandler = new Handler();
   }
 
+  private String getString(int id)
+  {
+    return getContext().getString(id);
+  }
+
   private void setUpView()
   {
     mPromoText = (EditText) findViewById(R.id.txt_promocode);
@@ -168,7 +173,7 @@ public class PromocodeActivationDialog extends Dialog
       public void run()
       {
         setViewIsWaiting(false);
-        showError("Wrong promocode. Please try again.");
+        showError(getString(R.string.promocode_failure));
       }
     });
   }
@@ -184,7 +189,7 @@ public class PromocodeActivationDialog extends Dialog
         setViewIsWaiting(false);
         ActivationSettings.setSearchActivated(getContext(), true);
         dismiss();
-        Utils.toastShortcut(getContext(), "Promo code is activated!");
+        Utils.toastShortcut(getContext(), getString(R.string.promocode_success));
       }
     });
   }
@@ -198,7 +203,7 @@ public class PromocodeActivationDialog extends Dialog
       public void run()
       {
         setViewIsWaiting(false);
-        showError("Connection error. Please try again later.");
+        showError(getString(R.string.promocode_error));
       }
     });
   }

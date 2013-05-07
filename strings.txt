@@ -2013,3 +2013,28 @@
     zh = 電子郵件
     uk = Електронна пошта
     ko = 이메일
+
+  [promocode_activation]
+    en = Promo Code Activation
+    tags = android
+    comment = Promocode Activation dialog title
+
+  [enter_promocode_hint]
+    en = Enter Promo Code
+    tags = android
+    comment = Enter promo code hint
+
+  [promocode_success]
+    en = Promo code is activated!
+    tags = android
+    comment = Promocode Activation success message
+
+  [promocode_error]
+    en = Connection error. Please try again later.
+    tags = android
+    comment = Promocode Activation connection/io error
+
+  [promocode_failure]
+    en = Invalid promo code. Please try again.
+    tags = android
+    comment = Promocode Activation is invalid  message.

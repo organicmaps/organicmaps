@@ -291,4 +291,14 @@
 	<string name="message">Message</string>
 	<!-- Share by email button text -->
 	<string name="email">E-Mail</string>
+	<!-- Promocode Activation dialog title -->
+	<string name="promocode_activation">Promo Code Activation</string>
+	<!-- Enter promo code hint -->
+	<string name="enter_promocode_hint">Enter Promo Code</string>
+	<!-- Promocode Activation success message -->
+	<string name="promocode_success">Promo code is activated!</string>
+	<!-- Promocode Activation connection/io error -->
+	<string name="promocode_error">Connection error. Please try again later.</string>
+	<!-- Promocode Activation is invalid  message. -->
+	<string name="promocode_failure">Invalid promo code. Please try again.</string>
 </resources>

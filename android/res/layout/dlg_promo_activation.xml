@@ -22,7 +22,7 @@
             android:drawableLeft="@drawable/ic_launcher"
             android:gravity="center|left"
             android:drawablePadding="5dp"
-            android:text="Promocode Activation" />
+            android:text="@string/promocode_activation" />
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:hint="Enter promocode"
+        android:hint="@string/enter_promocode_hint"
         />
 
     <TextView
@@ -61,14 +61,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cancel" />
+            android:text="@android:string/cancel" />
 
         <Button
             android:id="@+id/btn_activate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Activate" />
+            android:text="@android:string/ok" />
     </LinearLayout>
 
 </LinearLayout>
