@@ -9,9 +9,11 @@ import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.inputmethodservice.Keyboard.Key;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.os.Environment;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +32,8 @@ import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.maps.promo.ActivationSettings;
+import com.mapswithme.maps.promo.PromocodeActivationDialog;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
@@ -40,6 +45,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   
   private static final int PRO_VERSION_DIALOG = 110001;
   private static final String PRO_VERSION_DIALOG_MSG = "pro_version_dialog_msg";
+  private static final int PROMO_DIALOG = 110002;
   //VideoTimer m_timer;
 
   private static String TAG = "MWMActivity";
@@ -482,7 +488,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   public void onSearchClicked(View v)
   {
-    if (!mApplication.isProVersion())
+    if (!(mApplication.isProVersion() || ActivationSettings.isSearchActivated(this)))
     {
       showProVersionBanner(getString(R.string.search_available_in_pro_version));
     }
@@ -916,8 +922,25 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
           dlg.dismiss();
         }
       })
+      .setOnKeyListener(new OnKeyListener()
+      {
+        @Override
+        public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event)
+        {
+          // TODO Auto-generated method stub
+          if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP)
+          {
+            showDialog(PROMO_DIALOG);
+            dismissDialog(PRO_VERSION_DIALOG);
+            return true;
+          }
+          return false;
+        }
+      })
       .create();
     }
+    else if (id == PROMO_DIALOG)
+      return new PromocodeActivationDialog(this);
     else
       return super.onCreateDialog(id);
   }
