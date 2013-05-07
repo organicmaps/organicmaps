@@ -930,6 +930,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
           // TODO Auto-generated method stub
           if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP)
           {
+            if (ActivationSettings.isSearchActivated(getApplicationContext()))
+              return false;
+
             showDialog(PROMO_DIALOG);
             dismissDialog(PRO_VERSION_DIALOG);
             return true;

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.promo.request.PromoActivationRequest;
+import com.mapswithme.util.Statistics;
 import com.mapswithme.util.Utils;
 
 import java.io.InputStream;
@@ -73,6 +74,9 @@ public class PromocodeActivationDialog extends Dialog
     hideError();
 
     mHandler = new Handler();
+
+    // Track dialog creation
+    Statistics.INSTANCE.trackPromocodeDialogOpenedEvent();
   }
 
   private String getString(int id)
@@ -190,6 +194,9 @@ public class PromocodeActivationDialog extends Dialog
         ActivationSettings.setSearchActivated(getContext(), true);
         dismiss();
         Utils.toastShortcut(getContext(), getString(R.string.promocode_success));
+
+        // Track successful activation
+        Statistics.INSTANCE.trackPromocodeActivatedEvent();
       }
     });
   }

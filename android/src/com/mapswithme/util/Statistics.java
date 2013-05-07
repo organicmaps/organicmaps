@@ -8,6 +8,9 @@ import com.mapswithme.maps.R;
 public enum Statistics
 {
   INSTANCE;
+
+  private static String TAG_PROMO_DE = "PROMO-DE: ";
+
 	private Statistics()
 	{
 		Log.d("Stats", "Created Statistics instance.");
@@ -16,6 +19,16 @@ public enum Statistics
 
 		FlurryAgent.setLogEnabled(true);
 		FlurryAgent.setLogLevel(Log.DEBUG);
+	}
+
+	public void trackPromocodeDialogOpenedEvent()
+	{
+	  FlurryAgent.logEvent(TAG_PROMO_DE + "opened promo code dialog");
+	}
+
+	public void trackPromocodeActivatedEvent()
+	{
+	  FlurryAgent.logEvent(TAG_PROMO_DE + "promo code activated");
 	}
 
 	public void startActivity(Context context)
