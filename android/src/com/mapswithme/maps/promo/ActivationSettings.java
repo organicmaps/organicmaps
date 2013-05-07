@@ -6,8 +6,8 @@ import android.content.SharedPreferences;
 
 public class ActivationSettings
 {
-  private final static String PREFIX = "MWM-AS";
-  private final static String PREFS_NAME = PREFIX + "act-set";
+  private final static String PREFIX = "MWM-AS:";
+  private final static String PREFS_NAME = PREFIX + "name-";
   private final static String PARAM_SEARCH_ACTIVATED = PREFIX + "search";
 
   public static boolean isSearchActivated(Context context)

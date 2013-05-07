@@ -25,8 +25,6 @@ import java.net.URL;
 public class PromocodeActivationDialog extends Dialog
                                        implements OnClickListener, PromoActivationRequest.RequestListener
 {
-
-
   private EditText mPromoText;
   private TextView mErrorText;
   private Button mCancelBtn;
@@ -152,7 +150,8 @@ public class PromocodeActivationDialog extends Dialog
 
     final String promoCode = mPromoText.getText().toString().trim();
 
-    new Thread() {
+    new Thread() 
+    {
       @Override
       public void run()
       {

@@ -5,6 +5,7 @@ import com.mapswithme.util.Utils;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -51,11 +52,11 @@ public abstract class PromoActivationRequest
 
   protected void doRequest(URL url)
   {
-    URLConnection urlConnection = null;
+    HttpURLConnection urlConnection = null;
     InputStream in = null;
     try
     {
-      urlConnection= url.openConnection();
+      urlConnection= (HttpURLConnection) url.openConnection();
       in = new BufferedInputStream(urlConnection.getInputStream());
 
       boolean success = parseResponse(in);
@@ -73,6 +74,7 @@ public abstract class PromoActivationRequest
     finally
     {
       Utils.closeStream(in);
+      urlConnection.disconnect();
     }
 
   }
