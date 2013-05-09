@@ -337,13 +337,11 @@ const long long LITE_IDL = 431183278L;
     [m_balloonView hide];
     [m_balloonView clear];
     wasBalloonDisplayed = YES;
-//    if (!isLongClick)
-//      return;
   }
   else
-  {
     wasBalloonDisplayed = NO;
-  }
+
+  m_balloonView.isCurrentPosition = NO;
 
   // Try to check if we've clicked on bookmark
   Framework & f = GetFramework();
@@ -364,7 +362,6 @@ const long long LITE_IDL = 431183278L;
         m2::PointD const gPivot = f.PtoG(pxPivot);
         m_balloonView.globalPosition = CGPointMake(gPivot.x, gPivot.y);
         [self updatePinTexts:addrInfo];
-        m_balloonView.isCurrentPosition = NO;
         [m_balloonView showInView:self.view atPoint:CGPointMake(pxPivot.x / scaleFactor, pxPivot.y / scaleFactor)];
       }
       break;
