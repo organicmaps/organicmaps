@@ -254,6 +254,8 @@
 		FAEA8B2A1437CA80002A6737 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEA8B291437CA80002A6737 /* libjansson.a */; };
 		FAEC232B1501299500E024BF /* SearchSuggestionsCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAEC232A1501299500E024BF /* SearchSuggestionsCell.mm */; };
 		FAF29847146EEF4A00FF0057 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF29846146EEF4A00FF0057 /* libprotobuf.a */; };
+		FAF30A95173AB23900818BF6 /* 00_roboto_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */; };
+		FAF30A96173AB23900818BF6 /* 00_roboto_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */; };
 		FAF457E715597D4600DCCC49 /* Framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF457E615597D4600DCCC49 /* Framework.cpp */; };
 		FAF457E815597D4600DCCC49 /* Framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF457E615597D4600DCCC49 /* Framework.cpp */; };
 		FAF8003C1417D7E50024E8C1 /* ad.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF8FF3E1417D7E50024E8C1 /* ad.png */; };
@@ -1591,6 +1593,7 @@
 		FAEC23291501299500E024BF /* SearchSuggestionsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSuggestionsCell.h; sourceTree = "<group>"; };
 		FAEC232A1501299500E024BF /* SearchSuggestionsCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchSuggestionsCell.mm; sourceTree = "<group>"; };
 		FAF29846146EEF4A00FF0057 /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libprotobuf.a; sourceTree = SOURCE_ROOT; };
+		FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 00_roboto_regular.ttf; path = ../../data/00_roboto_regular.ttf; sourceTree = "<group>"; };
 		FAF457E415597BC100DCCC49 /* Framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Framework.h; sourceTree = "<group>"; };
 		FAF457E615597D4600DCCC49 /* Framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Framework.cpp; sourceTree = "<group>"; };
 		FAF800001417D7E50024E8C1 /* sc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sc.png; path = ../../data/flags/sc.png; sourceTree = SOURCE_ROOT; };
@@ -2348,6 +2351,7 @@
 				FAB5841914168E3200CEA40C /* Flags */,
 				FAAFD696139D9BE2000AE70C /* categories.txt */,
 				FA64D9A813F975AD00350ECF /* types.txt */,
+				FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */,
 				EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */,
 				EEA615E6134C4968003A9827 /* 02_wqy-microhei.ttf */,
 				EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */,
@@ -3780,6 +3784,7 @@
 				ED86770116A0793800D9A02A /* 320-pro.png in Resources */,
 				5797B6D516C931EE00FFE6D2 /* resources-mdpi in Resources */,
 				5797B6D716C931EE00FFE6D2 /* resources-xhdpi in Resources */,
+				FAF30A95173AB23900818BF6 /* 00_roboto_regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4388,6 +4393,7 @@
 				FA765AB41737BC6D00279CFF /* 44x58-lite.png in Resources */,
 				FA765AB51737BC6D00279CFF /* 64-lite.png in Resources */,
 				FA765AB61737BC6D00279CFF /* 320-lite.png in Resources */,
+				FAF30A96173AB23900818BF6 /* 00_roboto_regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
