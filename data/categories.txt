@@ -444,7 +444,7 @@ ru:3парковка
 de:3Parkplatz|Parking
 fr:3parking
 it:3parcheggio
-es:3estationamiento|3aparcamiento
+es:3estacionamiento|3aparcamiento
 ko:주차
 ja:駐車場
 cs:3parkoviště

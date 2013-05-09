@@ -1475,7 +1475,7 @@
     comment = Search Suggestion
     cs = Parkoviště
     de = Parkplatz
-    es = estationamiento
+    es = estacionamiento
     fr = parking
     it = parcheggio
     ja = 駐車場
