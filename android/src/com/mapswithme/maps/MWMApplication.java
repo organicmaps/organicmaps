@@ -110,15 +110,15 @@ public class MWMApplication extends android.app.Application implements MapStorag
     m_slotID = getMapStorage().subscribe(this);
 
     // init cross-platform strings bundle
-    nativeSetString("country_status_added_to_queue", getString(R.string.country_status_added_to_queue));
-    nativeSetString("country_status_downloading", getString(R.string.country_status_downloading));
-    nativeSetString("country_status_download", getString(R.string.country_status_download));
-    nativeSetString("country_status_download_failed", getString(R.string.country_status_download_failed));
-    nativeSetString("try_again", getString(R.string.try_again));
-    nativeSetString("not_enough_free_space_on_sdcard", getString(R.string.not_enough_free_space_on_sdcard));
-    nativeSetString("dropped_pin", getString(R.string.dropped_pin));
-    nativeSetString("my_places", getString(R.string.my_places));
-    nativeSetString("my_position", getString(R.string.my_position));
+    nativeAddLocalization("country_status_added_to_queue", getString(R.string.country_status_added_to_queue));
+    nativeAddLocalization("country_status_downloading", getString(R.string.country_status_downloading));
+    nativeAddLocalization("country_status_download", getString(R.string.country_status_download));
+    nativeAddLocalization("country_status_download_failed", getString(R.string.country_status_download_failed));
+    nativeAddLocalization("try_again", getString(R.string.try_again));
+    nativeAddLocalization("not_enough_free_space_on_sdcard", getString(R.string.not_enough_free_space_on_sdcard));
+    nativeAddLocalization("dropped_pin", getString(R.string.dropped_pin));
+    nativeAddLocalization("my_places", getString(R.string.my_places));
+    nativeAddLocalization("my_position", getString(R.string.my_position));
 
     // init BookmarkManager (automatically loads bookmarks)
     if (m_isProVersion)
@@ -222,7 +222,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
   public native void submitDialogResult(int dlg, int res);
   /// @}
 
-  private native void nativeSetString(String name, String value);
+  private native void nativeAddLocalization(String name, String value);
 
   /// Dealing with Settings
   public native boolean nativeGetBoolean(String name, boolean defaultVal);

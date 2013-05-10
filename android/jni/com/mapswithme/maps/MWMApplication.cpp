@@ -92,7 +92,7 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMApplication_nativeSetString(JNIEnv * env, jobject thiz, jstring name, jstring value)
+  Java_com_mapswithme_maps_MWMApplication_nativeAddLocalization(JNIEnv * env, jobject thiz, jstring name, jstring value)
   {
     g_framework->AddString(jni::ToNativeString(env, name),
                            jni::ToNativeString(env, value));
