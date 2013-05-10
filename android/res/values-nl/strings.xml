@@ -186,7 +186,7 @@
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Kies tussen mijlen en kilometers</string>
 	<!-- Do search in all sources -->
-	<string name="search_mode_all">Overalq</string>
+	<string name="search_mode_all">Overal</string>
 	<!-- Do search near my position only -->
 	<string name="search_mode_nearme">Dichtbij mij</string>
 	<!-- Do search in current viewport only -->

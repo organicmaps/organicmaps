@@ -1395,7 +1395,7 @@
     fr = Partout
     ja = どこにでも
     ko = 모든 곳
-    nl = Overalq
+    nl = Overal
     ru = Везде
     uk = Скрізь
     zh = 任何地方

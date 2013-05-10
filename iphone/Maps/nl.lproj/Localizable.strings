@@ -316,7 +316,7 @@
 "measurement_units_summary" = "Kies tussen mijlen en kilometers";
 
 /* Do search in all sources */
-"search_mode_all" = "Overalq";
+"search_mode_all" = "Overal";
 
 /* Do search near my position only */
 "search_mode_nearme" = "Dichtbij mij";
