@@ -13,7 +13,6 @@ import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.inputmethodservice.Keyboard.Key;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;

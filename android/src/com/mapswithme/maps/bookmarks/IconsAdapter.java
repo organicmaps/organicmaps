@@ -44,13 +44,13 @@ public class IconsAdapter extends ArrayAdapter<Icon> implements Chooseable
 
   private class SpinnerViewHolder
   {
-    TextView name;
+//    TextView name;
     ImageView icon;
     RadioButton checked;
 
     public SpinnerViewHolder(TextView name, ImageView icon, RadioButton check)
     {
-      this.name = name;
+//      this.name = name;
       this.icon = icon;
       this.checked = check;
       checked.setVisibility(View.VISIBLE);
