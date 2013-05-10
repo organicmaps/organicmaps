@@ -97,4 +97,21 @@ extern "C"
     g_framework->AddString(jni::ToNativeString(env, name),
                            jni::ToNativeString(env, value));
   }
+
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_MWMApplication_nativeGetInt(JNIEnv * env, jobject thiz, jstring name, jint defaultValue)
+  {
+    jint value;
+    if (Settings::Get(jni::ToNativeString(env, name), value))
+      return value;
+
+    return defaultValue;
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMApplication_nativeSetInt(JNIEnv * env, jobject thiz, jstring name, jint value)
+  {
+    (void)Settings::Set(jni::ToNativeString(env, name), value);
+  }
+
 }

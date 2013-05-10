@@ -225,6 +225,8 @@ public class MWMApplication extends android.app.Application implements MapStorag
   private native void nativeAddLocalization(String name, String value);
 
   /// Dealing with Settings
-  public native boolean nativeGetBoolean(String name, boolean defaultVal);
-  public native void nativeSetBoolean(String name, boolean val);
+  public native boolean nativeGetBoolean(String name, boolean defaultValue);
+  public native void nativeSetBoolean(String name, boolean value);
+  public native int nativeGetInt(String name, int defaultValue);
+  public native void nativeSetInt(String name, int value);
 }
