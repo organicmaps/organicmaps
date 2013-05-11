@@ -4,6 +4,7 @@
 #include "drawer.hpp"
 
 #include "../indexer/feature_impl.hpp"
+#include "../indexer/feature_algo.hpp"
 
 
 namespace fwork
@@ -98,6 +99,10 @@ namespace fwork
 
       functor_t fun(p);
       f.ForEachTriangleExRef(fun, m_zoom);
+
+      if (fi.m_styler.m_hasPointStyles)
+        fun.SetCenter(feature::GetCenter(f, m_zoom));
+
       if (fun.IsExist())
       {
         isExist = true;

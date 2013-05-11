@@ -296,7 +296,6 @@ namespace gp
   /// Adapter for points filtering, before they will go for processing
   template <class TBase> class filter_screenpts_adapter : public TBase
   {
-    size_t m_count;
     m2::PointD m_prev, m_center;
 
     static bool equal_scr_pts(m2::PointD const & p1, m2::PointD const & p2)
@@ -314,7 +313,7 @@ namespace gp
     typedef typename TBase::params params;
 
     filter_screenpts_adapter(params const & p)
-      : TBase(p), m_count(0),
+      : TBase(p),
       m_prev(numeric_limits<CoordT>::min(), numeric_limits<CoordT>::min()), m_center(0, 0)
     {
     }
@@ -335,16 +334,13 @@ namespace gp
 
       m2::RectD r;
       for (int i = 0; i < 3; ++i)
-      {
         r.Add(arr[i]);
-        m_center += arr[i];
-      }
-      ++m_count;
 
       if (!empty_scr_rect(r) && r.IsIntersect(this->m_rect))
         TBase::operator()(arr[0], arr[1], arr[2]);
     }
 
-    m2::PointD GetCenter() const { return m_center / (3*m_count); }
+    m2::PointD GetCenter() const { return m_center; }
+    void SetCenter(m2::PointD const & p) { m_center = this->g2p(p); }
   };
 }
