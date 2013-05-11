@@ -5,7 +5,7 @@
 namespace feature
 {
 
-class CalcPolyCenter
+class CalculateLineCenter
 {
   typedef m2::PointD P;
 
@@ -23,7 +23,7 @@ class CalcPolyCenter
   double m_length;
 
 public:
-  CalcPolyCenter() : m_length(0.0) {}
+  CalculateLineCenter() : m_length(0.0) {}
 
   void operator() (CoordPointT const & pt)
   {
@@ -59,26 +59,47 @@ public:
   }
 };
 
-class CalcMassCenter
+class CalculatePointOnSurface
 {
   typedef m2::PointD P;
   P m_center;
-  size_t m_count;
+  P m_rectCenter;
+  double m_squareDistanceToApproximate;
 
 public:
-  CalcMassCenter() : m_center(0.0, 0.0), m_count(0) {}
+  CalculatePointOnSurface(m2::RectD const & rect)
+  {
+    m_rectCenter = rect.Center();
+    m_center = m_rectCenter;
+    m_squareDistanceToApproximate = numeric_limits<double>::max();
+  }
 
   void operator() (P const & p1, P const & p2, P const & p3)
   {
-    ++m_count;
-    m_center += p1;
-    m_center += p2;
-    m_center += p3;
+    if (m_squareDistanceToApproximate == 0.0)
+      return;
+    if (m2::IsPointInsideTriangle(m_rectCenter, p1, p2, p3))
+    {
+      m_center = m_rectCenter;
+      m_squareDistanceToApproximate = 0.0;
+      return;
+    }
+    P triangleCenter(p1);
+    triangleCenter += p2;
+    triangleCenter += p3;
+    triangleCenter = triangleCenter / 3.0;
+
+    double triangleDistance = m_rectCenter.SquareLength(triangleCenter);
+    if (triangleDistance <= m_squareDistanceToApproximate)
+    {
+      m_center = triangleCenter;
+      m_squareDistanceToApproximate = triangleDistance;
+    }
   }
-  P GetCenter() const { return m_center / (3*m_count); }
+  P GetCenter() const { return m_center; }
 };
 
-m2::PointD GetCenter(FeatureType const & f)
+m2::PointD GetCenter(FeatureType const & f, int scale)
 {
   feature::EGeomType const type = f.GetFeatureType();
   switch (type)
@@ -88,19 +109,21 @@ m2::PointD GetCenter(FeatureType const & f)
 
   case feature::GEOM_LINE:
     {
-      CalcPolyCenter doCalc;
-      f.ForEachPointRef(doCalc, FeatureType::BEST_GEOMETRY);
+      CalculateLineCenter doCalc;
+      f.ForEachPointRef(doCalc, scale);
       return doCalc.GetCenter();
     }
 
   default:
     {
       ASSERT_EQUAL ( type, feature::GEOM_AREA, () );
-      CalcMassCenter doCalc;
-      f.ForEachTriangleRef(doCalc, FeatureType::BEST_GEOMETRY);
+      CalculatePointOnSurface doCalc(f.GetLimitRect(scale));
+      f.ForEachTriangleRef(doCalc, scale);
       return doCalc.GetCenter();
     }
   }
 }
+
+m2::PointD GetCenter(FeatureType const & f) { return GetCenter(f, FeatureType::BEST_GEOMETRY); }
 
 }
