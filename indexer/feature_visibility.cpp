@@ -374,7 +374,7 @@ namespace
 
 pair<int, int> GetDrawableScaleRangeForRules(feature::TypesHolder const & types, int rules)
 {
-  int const upBound = scales::GetUpperScale();
+  int const upBound = scales::GetUpperStyleScale();
   int lowL = -1;
   for (int level = 0; level <= upBound; ++level)
   {
