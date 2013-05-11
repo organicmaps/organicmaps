@@ -435,6 +435,9 @@ public class SearchActivity extends ListActivity implements LocationService.List
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     m_modesSpinner.setAdapter(adapter);
 
+    // Default mode is AROUND_POSITION
+    m_modesSpinner.setSelection(((MWMApplication) getApplication()).nativeGetInt(SEARCH_MODE_SETTING, 1));
+
     m_modesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
     {
       @Override
@@ -446,7 +449,8 @@ public class SearchActivity extends ListActivity implements LocationService.List
         case 1: mode = AROUND_POSITION; break;
         case 2: mode = IN_VIEWPORT; break;
         }
-
+        // Save new search setting
+        ((MWMApplication) getApplication()).nativeSetInt(SEARCH_MODE_SETTING, position);
         runSearch(mode);
       }
 
@@ -658,7 +662,8 @@ public class SearchActivity extends ListActivity implements LocationService.List
   private static final int SEARCH_WORLD = 4;
   private static final int ALL = AROUND_POSITION | IN_VIEWPORT | SEARCH_WORLD;
   //@}
-  private int m_searchMode = ALL;
+  private static final String SEARCH_MODE_SETTING = "SearchMode";
+  private int m_searchMode = AROUND_POSITION;
 
   private void runSearch(int mode)
   {
