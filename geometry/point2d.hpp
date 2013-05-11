@@ -200,6 +200,16 @@ namespace m2
   }
 
   template <typename T>
+  bool IsPointInsideTriangle(Point<T> const & p,
+                                     Point<T> const & a, Point<T> const & b, Point<T> const & c)
+  {
+    T const cpab = CrossProduct(b - a, p - a);
+    T const cpbc = CrossProduct(c - b, p - b);
+    T const cpca = CrossProduct(a - c, p - c);
+    return (cpab <= 0 && cpbc <= 0 && cpca <= 0) || (cpab >= 0 && cpbc >= 0 && cpca >= 0);
+  }
+
+  template <typename T>
   bool IsPointStrictlyInsideTriangle(Point<T> const & p,
                                      Point<T> const & a, Point<T> const & b, Point<T> const & c)
   {
