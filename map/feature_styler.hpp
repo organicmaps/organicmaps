@@ -50,6 +50,7 @@ namespace di
 
     bool m_isCoastline;
     bool m_hasLineStyles;
+    bool m_hasPointStyles;
     bool m_hasPathText;
     int m_geometryType;
 

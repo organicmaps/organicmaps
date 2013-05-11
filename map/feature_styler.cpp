@@ -65,6 +65,7 @@ namespace di
       return;
 
     m_hasLineStyles = false;
+    m_hasPointStyles = false;
 
     m_geometryType = type.first;
     m_isCoastline = type.second;
@@ -141,6 +142,11 @@ namespace di
 
       if (keys[i].m_type == drule::symbol)
         hasIcon = true;
+
+      if ((keys[i].m_type == drule::caption && !m_primaryText.empty())
+       || (keys[i].m_type == drule::symbol)
+       || (keys[i].m_type == drule::circle))
+        m_hasPointStyles = true;
 
       if ((keys[i].m_type == drule::caption)
        || (keys[i].m_type == drule::symbol)
