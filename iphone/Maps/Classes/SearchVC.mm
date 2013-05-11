@@ -17,6 +17,7 @@
 
 #include "../../platform/platform.hpp"
 #include "../../platform/preferred_languages.hpp"
+#include "../../platform/settings.hpp"
 
 #include "../../geometry/angles.hpp"
 #include "../../geometry/distance_on_sphere.hpp"
@@ -24,6 +25,8 @@
 /// When to display compass instead of country flags
 #define MIN_COMPASS_DISTANCE 25000.0
 
+/// To save search scope selection between launches
+#define SEARCH_MODE_SETTING "SearchMode"
 
 SearchVC * g_searchVC = nil;
 
@@ -88,9 +91,16 @@ SearchVC * g_searchVC = nil;
 // to appear instantly for the user, they also store last search text query.
 //ResultsWrapper * g_lastSearchResults = nil;
 
+static int GetDefaultSearchScope()
+{
+  int value;
+  if (Settings::Get(SEARCH_MODE_SETTING, value))
+    return value;
+  return 0; // 0 is default scope ("Near me")
+}
 
 NSString *lastSearchRequest = nil;
-int scopeSection = 2;
+int scopeSection = GetDefaultSearchScope();
 int numberOfRowsInEmptySearch = 0;
 
 static void OnSearchResultCallback(search::Results const & res)
@@ -547,7 +557,7 @@ static void OnSearchResultCallback(search::Results const & res)
   }
 }
 
-void setSearchType(search::SearchParams& params)
+void setSearchType(search::SearchParams & params)
 {
   switch (scopeSection)
   {
@@ -655,6 +665,8 @@ void setSearchType(search::SearchParams& params)
 - (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 {
   scopeSection = selectedScope;
+  // Save selected search mode for future launches
+  Settings::Set(SEARCH_MODE_SETTING, scopeSection);
   [self proceedSearchWithString:m_searchBar.text andForceSearch:YES];
 }
 
