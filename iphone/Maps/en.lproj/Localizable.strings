@@ -448,3 +448,18 @@
 
 /* Share by email button text */
 "email" = "E-Mail";
+
+/* Promocode Activation dialog title */
+"promocode_activation" = "Promo Code Activation";
+
+/* Enter promo code hint */
+"enter_promocode_hint" = "Enter Promo Code";
+
+/* Promocode Activation success message */
+"promocode_success" = "Promo code is activated!";
+
+/* Promocode Activation connection/io error */
+"promocode_error" = "Connection error. Please try again later.";
+
+/* Promocode Activation is invalid  message. */
+"promocode_failure" = "Invalid promo code. Please try again.";
