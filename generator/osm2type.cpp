@@ -41,8 +41,12 @@ namespace ftype
 
     bool is_skip_tag(string const & k)
     {
-      // skip "cycleway's" tags because they interfer to set a valid types like "highway's"
-      return (k == "created_by" || k == "description" || k == "cycleway" || k == "embankment");
+      return (k == "created_by"
+           || k == "description"
+           || k == "cycleway"     // [highway=primary][cycleway=lane] parsed as [highway=cycleway]
+           || k == "proposed"     // [highway=proposed][proposed=primary] parsed as [highway=primary]
+           || k == "construction" // [highway=primary][construction=primary] parsed as [highway=construction]
+           );
     }
 
     template <class ToDo> class tags_wrapper
