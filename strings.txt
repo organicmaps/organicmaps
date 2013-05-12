@@ -401,7 +401,7 @@
     zh-Hant = 如要下載%@ ，請先釋放一些空間!
   [remind_me_later]
     en = Remind me later
-    tags = ios, android
+    tags = ios,android
     comment = Leave Review dialog - Not now button (remind me later)
     cs = Upozornit mě později
     de = Errinern Sie mich später
@@ -1359,7 +1359,7 @@
     zh-Hant = GPS 目前是關閉的，請在系統中設定為開啟使用
   [measurement_units]
     en = Measurement Units
-    tags = ios, android
+    tags = ios,android
     comment = Measurement units title in settings activity
     cs = Měřicí jednotky
     de = Maßeinheiten
@@ -1373,7 +1373,7 @@
     zh-Hant = 測量單位
   [measurement_units_summary]
     en = Choose between miles and kilometres
-    tags = ios, android
+    tags = ios,android
     comment = Detailed description of Measurement Units settings button
     cs = Vyber si míle nebo kilometry
     de = Auswahl zwischen Meilen und Kilometern
@@ -1387,7 +1387,7 @@
     zh-Hant = 請選擇公里或英哩
   [search_mode_all]
     en = Everywhere
-    tags = ios, android
+    tags = ios,android
     comment = Do search in all sources
     cs = Všude
     de = Überall
@@ -1401,7 +1401,7 @@
     zh-Hant = 任何地方
   [search_mode_nearme]
     en = Near Me
-    tags = ios, android
+    tags = ios,android
     comment = Do search near my position only
     cs = V mé blízkosti
     de = In meiner Nähe
@@ -1415,7 +1415,7 @@
     zh-Hant = 我的附近
   [search_mode_viewport]
     en = On the Screen
-    tags = ios, android
+    tags = ios,android
     comment = Do search in current viewport only
     cs = Na obrazovce
     de = Am Bildschirm
@@ -1429,7 +1429,7 @@
     zh-Hant = 畫面中的地圖
   [food]
     en = food
-    tags = ios, android
+    tags = ios,android
     comment = Search Suggestion
     cs = jídlo
     de = Essen
@@ -1443,7 +1443,7 @@
     zh-Hant = 飲食
   [transport]
     en = transport
-    tags = ios, android
+    tags = ios,android
     comment = Search Suggestion
     cs = doprava
     de = Verkehr
@@ -1457,7 +1457,7 @@
     zh-Hant = 運輸
   [fuel]
     en = gas
-    tags = ios, android
+    tags = ios,android
     comment = Search Suggestion
     cs = čerpací stanice
     de = Tankstelle
@@ -1471,7 +1471,7 @@
     zh-Hant = 加油站
   [parking]
     en = parking
-    tags = ios, android
+    tags = ios,android
     comment = Search Suggestion
     cs = Parkoviště
     de = Parkplatz
@@ -1485,7 +1485,7 @@
     zh-Hant = 停車場
   [shop]
     en = shop
-    tags = ios, android
+    tags = ios,android
     comment = Search Suggestion
     cs = obchod
     de = Laden
@@ -1499,7 +1499,7 @@
     zh-Hant = 購物
   [hotel]
     en = hotel
-    tags = ios, android
+    tags = ios,android
     cs = hotel
     de = Hotel
     es = hotel
@@ -1512,7 +1512,7 @@
     zh-Hant = 飯店
   [tourism]
     en = sights
-    tags = ios, android
+    tags = ios,android
     comment = Search Suggestion
     cs = pamětihodnosti
     de = Sehenswürdigkeit
@@ -1526,7 +1526,7 @@
     zh-Hant = 旅遊景點
   [entertainment]
     en = entertainment
-    tags = ios, android
+    tags = ios,android
     comment = Search Suggestion
     cs = zábava
     de = Unterhaltung
@@ -1540,7 +1540,7 @@
     zh-Hant = 娛樂
   [atm]
     en = atm
-    tags = ios, android
+    tags = ios,android
     comment = Search Suggestion
     cs = bankomat
     de = Geldautomat
@@ -1553,7 +1553,7 @@
     ru = банкомат
   [bank]
     en = bank
-    tags = ios, android
+    tags = ios,android
     comment = Search Suggestion
     cs = banka
     de = Bank
@@ -1567,7 +1567,7 @@
     zh-Hant = 銀行
   [pharmacy]
     en = pharmacy
-    tags = ios, android
+    tags = ios,android
     comment = Search Suggestion
     cs = lékárna
     de = Apotheke
@@ -1581,7 +1581,7 @@
     zh-Hant = 藥局
   [hospital]
     en = hospital
-    tags = ios, android
+    tags = ios,android
     comment = Search Suggestion
     cs = nemocnice
     de = Spital
@@ -1595,7 +1595,7 @@
     zh-Hant = 醫院
   [toilet]
     en = toilet
-    tags = ios, android
+    tags = ios,android
     comment = Search Suggestion
     cs = záchody
     de = Toilette
@@ -1609,7 +1609,7 @@
     zh-Hant = 廁所
   [post]
     en = post
-    tags = ios, android
+    tags = ios,android
     comment = Search Suggestion
     cs = pošta
     de = Post
@@ -1623,7 +1623,7 @@
     zh-Hant = 郵筒
   [police]
     en = police
-    tags = ios, android
+    tags = ios,android
     comment = Search Suggestion
     cs = policie
     de = Polizeistation
@@ -1637,7 +1637,7 @@
     zh-Hant = 警察局
   [no_search_results_found]
     en = No results found
-    tags = ios, android
+    tags = ios,android
     comment = String in search result list, when nothing found
     cs = Žádné výsledky
     de = Keine Ergebnisse gefunden
@@ -1651,7 +1651,7 @@
     zh-Hant = 找不到搜尋結果
   [description]
     en = Notes
-    tags = ios, android
+    tags = ios,android
     comment = Notes field in Bookmarks view
     cs = Poznámky
     de = Notizen
@@ -1665,7 +1665,7 @@
     zh-Hant = 描述說明
   [share_by_email]
     en = Share by email
-    tags = ios, android
+    tags = ios,android
     comment = Button text
     cs = Sdílet emailem
     de = Per E-Mail teilen
@@ -1679,7 +1679,7 @@
     zh-Hant = 以 email 分享
   [share_bookmarks_email_subject]
     en = MapsWithMe bookmarks has been shared with you
-    tags = ios, android
+    tags = ios,android
     comment = Email Subject when sharing bookmarks category
     cs = Sdílené záložky MapsWithMe
     de = MapsWithMe Lesezeichen mit Ihnen geteilt
@@ -1693,7 +1693,7 @@
     zh-Hant = 您已分享了 MapsWithMe 書籤
   [share_bookmarks_email_body]
     en = Hello,\n\nHere are my bookmarks from MapsWithMe offline maps in the attached "%@.kmz" file. Please open it if you have MapsWithMe Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://www.mapswithme.com/get?kmz.\n\nHave a good time with MapsWithMe!
-    tags = ios, android
+    tags = ios,android
     comment = Email text when sharing bookmarks category
     cs = Ahoj!\n\nZde jsou mé záložky z offline map aplikace MapsWithMe v přiloženém "%@.kmz" souboru. Pokud máš již aplikaci MapsWithMe Pro nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro tvé iOS nebo Android zařízení z tohoto odkazu http://www.mapswithme.com/get?kmz.\n\nSkvěle se bav s MapsWithMe!
     de = Hallo,\n\nIn der angefügten „%@.kmz“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MapsWithMe. Falls Sie MapsWithMe Pro bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://www.mapswithme.com/get?kmz herunterladen.\n\nIch wünsche viel Vergnügen mit MapsWithMe!
@@ -1708,7 +1708,7 @@
     zh-Hant = 哈囉!\n\n這是我的MapsWithe離線地圖中所夾帶的 "%@.kmz" 書籤檔案。若您已安裝MapsWithMe專業版的話請開啟它，否則請先從 http://www.mapswithme.com/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用MapsWithMe愉快!
   [load_kmz_title]
     en = Loading Bookmarks
-    tags = ios, android
+    tags = ios,android
     comment = message title of loading file
     cs = Nahrávání záložek
     de = Lesezeichen werden geladen
@@ -1723,7 +1723,7 @@
     zh-Hant = 正在載入書籤...
   [load_kmz_successful]
     en = Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.
-    tags = ios, android
+    tags = ios,android
     comment = Kmz file successful loading
     cs = Záložky byly úspěšně nahrány! Můžeš je najít na mapě nebo na obrazovce Správce záložek.
     de = Lesezeichen erfolgreich geladen! Sie können diese nun auf Ihrer Karte oder im Lesezeichen-Manager sehen.
@@ -1738,7 +1738,7 @@
     zh-Hant = 書籤上傳成功! 您可以在地圖上或是書籤管理畫面中找到書籤。
   [load_kmz_failed]
     en = Bookmarks upload failed. The file may be corrupted or defective.
-    tags = ios, android
+    tags = ios,android
     comment = Kml file loading failed
     cs = Nahrávání záložek se nezdařilo. Soubor může být poškozený nebo vadný.
     de = Hochladen der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein.
@@ -1760,7 +1760,7 @@
     zh-Hant = 編輯
   [unknown_current_position]
     en = Your location hasn't been determined yet
-    tags = ios, android
+    tags = ios,android
     comment = Warning message when doing search around current position
     cs = Tvá poloha zatím nebyla určena
     de = Ihr Standort wurde bisher noch nicht bestimmt
@@ -1775,7 +1775,7 @@
     zh-Hant = 您的位置尚未定未完成
   [download_location_country]
     en = Download the country (%@) of your current location
-    tags = ios, android
+    tags = ios,android
     comment = Warning message when location country isn't downloaded during search (see also download_location_map_proposal).
     cs = Stahování země (%@) tvé aktuální polohy
     de = Land (%@) Ihres derzeitigen Standorts herunterladen
@@ -1790,7 +1790,7 @@
     zh-Hant = 下載您目前所在位置的國家 (%@) 地圖
   [download_viewport_country_to_search]
     en = Download the country (%@) you are searching on
-    tags = ios, android
+    tags = ios,android
     comment = Warning message when viewport country isn't downloaded during search
     cs = Stahování země (%@), v níž hledáš
     de = Land (%@) herunterladen, von dem aus Sie suchen
@@ -1854,7 +1854,7 @@
     zh-Hant = 祝您使用 MapsWithMe愉快! 方便的話，請到App Store幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持!
   [no_thanks]
     en = No, thanks
-    tags = ios, android
+    tags = ios,android
     comment = No, thanks
     cs = Ne, díky
     de = Nein, Danke
@@ -1869,7 +1869,7 @@
     zh-Hant = 不, 謝了!
   [bookmark_share_sms]
     en = Look at my pin on MapsWithMe map. Open the link: %1$@ or %2$@
-    tags = ios, android
+    tags = ios,android
     comment = Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
     ru = Моя метка на карте. Жми %1$@ или %2$@
     ko = 지도에서 내 PIN을 참조하십시오. %1$@ 또는 %2$@ 열기
@@ -1883,7 +1883,7 @@
     es = Ve mi alfiler en mapa. Abre %1$@ o %2$@
   [my_position_share_sms]
     en = See where I am now. Open the link: %1$@ or %2$@
-    tags = ios, android
+    tags = ios,android
     comment = Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
     ru = Смотри где я сейчас. Жми %1$@ или %2$@
     ko = 현재 위치를 알아 보십시오. %1$@ 또는 %2$@ 열기
@@ -1897,7 +1897,7 @@
     es = Mira dónde estoy. Abre %1$@ o %2$@
   [bookmark_share_email_subject]
     en = Look at my pin on MapsWithMe map
-    tags = ios, android
+    tags = ios,android
     comment = Subject for emailed bookmark
     ru = Смотри мою метку на карте MapsWithMe
     uk = Поглянь на мою позначку на карті MapsWithMe
@@ -1924,7 +1924,7 @@
     de = Hi,\n\nIch habe gepinnt: %1$@ auf MapsWithMe, Offline-Weltkarten. Klicke auf diesen Link %2$@ oder diesen %3$@, um den Ort auf der Karte zu sehen.\n\nVielen Dank.
   [my_position_share_email_subject]
     en = Look at my current location on MapsWithMe map
-    tags = ios, android
+    tags = ios,android
     comment = Subject for emailed position
     ru = Посмотри на карте MapsWithMe, где я сейчас нахожусь
     uk = Подивись моє поточне місцезнаходження на карті MapsWithMe
@@ -1938,7 +1938,7 @@
     de = Sieh dir meinen aktuellen Standort auf der Karte MapsWithMe an
  [my_position_share_email]
     en = Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
-    tags = ios, android
+    tags = ios,android
     comment = Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME
     ru = Привет!\n\nЯ сейчас здесь: %1$@. Чтобы увидеть это место на карте MapsWithMe, открой эту ссылку %2$@ или эту %3$@ \n\nСпасибо.
     uk = Привіт,\n\nЯ зараз тут: %1$@.  Натисни на це посилання %2$@ або на це посилання %3$@ щоб побачити місце на карті. \n\nДякую.
@@ -1953,7 +1953,7 @@
 
   [share_by_message]
     en = Share by message
-    tags = ios, android
+    tags = ios,android
     comment = Android share by Message/SMS button text (including SMS)
     ru = Отправить сообщением
     cs = Sdílet po zprávách
@@ -1969,7 +1969,7 @@
 
   [share]
     en = Share
-    tags = ios, android
+    tags = ios,android
     comment = Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.
     ru = Поделиться
     cs = Sdílet
@@ -1985,7 +1985,7 @@
 
   [message]
     en = Message
-    tags = ios, android
+    tags = ios,android
     comment = iOS share by Message button text (including SMS)
     ru = Сообщение
     cs = Zpráva
@@ -2001,7 +2001,7 @@
 
   [email]
     en = E-Mail
-    tags = ios, android
+    tags = ios,android
     comment = Share by email button text
     cs = E-Mail
     de = E-Mail
