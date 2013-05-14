@@ -10,6 +10,7 @@ HEADERS += defines.hpp
 SUBDIRS = 3party \
           base base/base_tests \
           coding coding/coding_tests \
+          3party/sqlite3/sqlite3_tests \
           geometry \
           indexer \
           platform \
