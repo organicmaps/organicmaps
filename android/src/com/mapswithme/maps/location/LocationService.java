@@ -140,9 +140,10 @@ public class LocationService implements LocationListener, SensorEventListener, W
         }
         registerSensorListeners();
 
-
+        // Choose best location from available
         List<Location> notExpiredLocations = getAllNotExpiredLocations(providers);
         Location lastKnownLocation = null;
+        
         if (notExpiredLocations.size() > 0)
         {
            final Location newestLocation = LocationUtils.getNewestLocation(notExpiredLocations);
@@ -152,11 +153,11 @@ public class LocationService implements LocationListener, SensorEventListener, W
              lastKnownLocation = newestLocation;
            else
              lastKnownLocation = mostAccurateLocation;
-
         }
 
-        if (!LocationUtils.isFirstOneBetterLocation(lastKnownLocation, m_lastLocation))
+        if (m_lastLocation != null && LocationUtils.isFirstOneBetterLocation(m_lastLocation, lastKnownLocation))
           lastKnownLocation = m_lastLocation;
+        // ### location chosen
 
         // Pass last known location only in the end of all registerListener
         // in case, when we want to disconnect in listener.
