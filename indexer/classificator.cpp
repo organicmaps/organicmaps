@@ -170,8 +170,13 @@ void ClassifObject::Swap(ClassifObject & r)
 
 ClassifObject const * ClassifObject::GetObject(size_t i) const
 {
-  ASSERT_LESS ( i, m_objs.size(), (m_name) );
-  return &(m_objs[i]);
+  if (i < m_objs.size())
+    return &(m_objs[i]);
+  else
+  {
+    LOG(LINFO, ("Map contains object that has no classificator entry", i, m_name));
+    return 0;
+  }
 }
 
 void ClassifObject::ConcatChildNames(string & s) const

@@ -33,8 +33,13 @@ Classificator::ProcessObjects(uint32_t type, ToDo & toDo) const
   while (ftype::GetValue(type, i, v))
   {
     p = p->GetObject(v);
-    path[i++] = p;
-    toDo(p);
+    if (p != 0)
+    {
+      path[i++] = p;
+      toDo(p);
+    }
+    else
+      break;
   }
   if (path.empty())
     return res;
