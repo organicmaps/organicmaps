@@ -736,8 +736,10 @@ namespace graphics
 
   void GeometryBatcher::flushDynamicPage()
   {
+    int currentDynamicPage = m_dynamicPage;
     callClearPageFns(m_dynamicPage);
-    changeDynamicPage();
+    if (currentDynamicPage != m_dynamicPage)
+      changeDynamicPage();
   }
 
   int GeometryBatcher::nextDynamicPage() const
@@ -841,39 +843,47 @@ namespace graphics
 
         ids[i] = staticCache->findInfo(*infos[i]);
 
-        if (ids[i] == invalidPageHandle())
+        if (ids[i] != invalidPageHandle())
         {
-          ids[i] = staticCache->findInfo(infos[i]->cacheKey());
-          if (ids[i] == invalidPageHandle())
-          {
-            ids[i] = dynamicCache->findInfo(*infos[i]);
-            if (ids[i] == invalidPageHandle())
-            {
-              if (dynamicCache->hasRoom(*infos[i]))
-                ids[i] = packID(m_dynamicPage, dynamicCache->mapInfo(*infos[i]));
-              else
-              {
-                packed = false;
-                break;
-              }
-            }
-            else
-              ids[i] = packID(m_dynamicPage, ids[i]);
-          }
-          else
-          {
-            ids[i] = staticCache->addParentInfo(*infos[i]);
-            ids[i] = packID(m_startStaticPage, ids[i]);
-          }
+          ids[i] = packID(m_startStaticPage, ids[i]);
+          continue;
+        }
+
+        ids[i] = staticCache->findInfo(infos[i]->cacheKey());
+        if (ids[i] != invalidPageHandle())
+        {
+          ids[i] = staticCache->addParentInfo(*infos[i]);
+          ids[i] = packID(m_startStaticPage, ids[i]);
+          continue;
+        }
+
+        ids[i] = dynamicCache->findInfo(*infos[i]);
+        if (ids[i] != invalidPageHandle())
+        {
+          ids[i] = packID(m_dynamicPage, ids[i]);
         }
         else
-          ids[i] = packID(m_startStaticPage, ids[i]);
+        {
+          if (dynamicCache->hasRoom(*infos[i]))
+            ids[i] = packID(m_dynamicPage, dynamicCache->mapInfo(*infos[i]));
+          else
+          {
+            packed = false;
+            break;
+          }
+        }
       }
 
       if (packed)
-        return packed;
+        return true;
       else
+      {
+#ifdef DEBUG
+        int lastPage = m_dynamicPage;
+#endif
         flushDynamicPage();
+        ASSERT(lastPage == m_dynamicPage, ());
+      }
     }
 
     return false;
