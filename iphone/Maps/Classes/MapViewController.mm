@@ -405,8 +405,10 @@ const long long LITE_IDL = 431183278L;
 
 - (id) initWithCoder: (NSCoder *)coder
 {
-	if ((self = [super initWithCoder:coder]))
-	{
+  NSLog(@"MapViewController initWithCoder Started");
+
+  if ((self = [super initWithCoder:coder]))
+  {
     self.title = NSLocalizedString(@"back", @"Back button in nav bar to show the map");
 
     // Helper to display/hide pin on screen tap
@@ -432,9 +434,9 @@ const long long LITE_IDL = 431183278L;
     ls->AddCompassStatusListener(bind(onCompassStatusChangedImpl, self, onCompassStatusChangedSel, _1));
     ls->AddOnPositionClickListener(bind(onMyPosiionClickedImpl, self, onMyPositionClickedSel,_1));
 
-		m_StickyThreshold = 10;
+    m_StickyThreshold = 10;
 
-		m_CurrentAction = NOTHING;
+    m_CurrentAction = NOTHING;
 
     [v initRenderPolicy];
 
@@ -443,9 +445,10 @@ const long long LITE_IDL = 431183278L;
       f.SetMaxWorldRect();
     
     f.Invalidate();
-	}
+  }
 
-	return self;
+  NSLog(@"MapViewController initWithCoder Ended");
+  return self;
 }
 
 NSInteger compareAddress(id l, id r, void * context)

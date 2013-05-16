@@ -32,6 +32,8 @@
 // The GL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:
 - (id)initWithCoder:(NSCoder*)coder
 {
+  NSLog(@"EAGLView initWithCoder Started");
+
   if ((self = [super initWithCoder:coder]))
   {
     // Setup Layer Properties
@@ -43,6 +45,7 @@
 
     if (!renderContext.get())
     {
+      NSLog(@"EAGLView initWithCoder Error");
       [self release];
       return nil;
     }
@@ -60,51 +63,54 @@
     // Correct retina display support in opengl renderbuffer
     self.contentScaleFactor = [[UIScreen mainScreen] scale];
   }
-  
+
+  NSLog(@"EAGLView initWithCoder Ended");
   return self;
 }
 
 - (void)initRenderPolicy
 {
+  NSLog(@"EAGLView initRenderPolicy Started");
+
   // to avoid grid bug on 3G device
   graphics::DataFormat rtFmt = graphics::Data4Bpp;
   graphics::DataFormat texFmt = graphics::Data4Bpp;
   if ([[NSString stringWithFormat:@"%s", glGetString(GL_RENDERER)] hasPrefix:@"PowerVR MBX"])
     rtFmt = graphics::Data8Bpp;
-  
+
   typedef void (*drawFrameFn)(id, SEL);
   SEL drawFrameSel = @selector(drawFrame);
   drawFrameFn drawFrameImpl = (drawFrameFn)[self methodForSelector:drawFrameSel];
 
   videoTimer = CreateIOSVideoTimer(bind(drawFrameImpl, self, drawFrameSel));
-  
+
   graphics::ResourceManager::Params rmParams;
   rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
   rmParams.m_rtFormat = rtFmt;
   rmParams.m_texFormat = texFmt;
-  
+
   RenderPolicy::Params rpParams;
-  
+
   CGRect frameRect = [[UIScreen mainScreen] applicationFrame];
   CGRect screenRect = [[UIScreen mainScreen] bounds];
-  
+
   double vs = [[UIScreen mainScreen] scale];
-    
+
   rpParams.m_screenWidth = screenRect.size.width * vs;
   rpParams.m_screenHeight = screenRect.size.height * vs;
-  
+
   rpParams.m_skinName = "basic.skn";
-  
+
   if (vs > 1.0)
     rpParams.m_density = graphics::EDensityXHDPI;
   else
     rpParams.m_density = graphics::EDensityMDPI;
-  
+
   rpParams.m_videoTimer = videoTimer;
   rpParams.m_useDefaultFB = false;
   rpParams.m_rmParams = rmParams;
   rpParams.m_primaryRC = renderContext;
-  
+
   try
   {
     renderPolicy = CreateRenderPolicy(rpParams);
@@ -113,12 +119,14 @@
   {
     /// terminate program (though this situation is unreal :) )
   }
-  
+
   frameBuffer = renderPolicy->GetDrawer()->screen()->frameBuffer();
-  
-  GetFramework().OnSize(frameRect.size.width * vs,
-                        frameRect.size.height * vs);
-  GetFramework().SetRenderPolicy(renderPolicy);
+
+  Framework & f = GetFramework();
+  f.OnSize(frameRect.size.width * vs, frameRect.size.height * vs);
+  f.SetRenderPolicy(renderPolicy);
+
+  NSLog(@"EAGLView initRenderPolicy Ended");
 }
 
 - (void)onSize:(int)width withHeight:(int)height

@@ -140,6 +140,8 @@ void InitLocalizedStrings()
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  NSLog(@"application didFinishLaunchingWithOptions");
+
   InitLocalizedStrings();
 
   [m_mapViewController OnEnterForeground];

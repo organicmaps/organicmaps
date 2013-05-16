@@ -20,8 +20,8 @@
 
 + (NSString *) getDefaultSetName
 {
-  Framework &f = GetFramework();
-  int categoryPos = f.LastEditedCategory();
+  Framework & f = GetFramework();
+  int const categoryPos = f.LastEditedCategory();
   return[NSString stringWithUTF8String:f.GetBmCategory(categoryPos)->GetName().c_str()];
 }
 
@@ -31,7 +31,11 @@
   {
     // Default bookmark pin color
     self.color = @"placemark-red";
+
+    NSLog(@"Framework initialization started");
     self.setName = [BalloonView getDefaultSetName];
+    NSLog(@"Framework initialization ended");
+
     // Load bookmarks from kml files
     GetFramework().LoadBookmarks();
     self.pinImage = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:self.color]] autorelease];
