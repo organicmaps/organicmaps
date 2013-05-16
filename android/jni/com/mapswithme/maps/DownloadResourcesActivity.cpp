@@ -279,33 +279,6 @@ extern "C"
     return ERR_FILE_IN_PROGRESS;
   }
 
-  // Move downloaded maps from /sdcard/Android/data/com.mapswithme.maps/files/
-  // to /sdcard/MapsWithMe
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_DownloadResourcesActivity_moveMaps(JNIEnv * env, jobject thiz,
-      jstring fromPath, jstring toPath)
-  {
-    string const from = jni::ToNativeString(env, fromPath);
-    string const to = jni::ToNativeString(env, toPath);
-
-    Platform & pl = GetPlatform();
-    Platform::FilesList files;
-
-    // Move *.mwm files
-    pl.GetFilesByExt(from, DATA_FILE_EXTENSION, files);
-    for (size_t i = 0; i < files.size(); ++i)
-    {
-      LOG(LDEBUG, ("moving map from:", from + files[i], ", to:", to + files[i]));
-      my::RenameFileX((from + files[i]).c_str(), (to + files[i]).c_str());
-    }
-
-    // Delete not finished temporary files (old one from first release version).
-    files.clear();
-    pl.GetFilesByRegExp(from, "\\.(downloading$|resume$)", files);
-    for (size_t i = 0; i < files.size(); ++i)
-      my::DeleteFileX((from + files[i]).c_str());
-  }
-
   JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_DownloadResourcesActivity_findIndexByPos(JNIEnv * env, jobject thiz,
       jdouble lat, jdouble lon)
@@ -325,5 +298,4 @@ extern "C"
   {
     return g_framework->NativeFramework()->AddBookmarksFile(jni::ToNativeString(env, path));
   }
-
 }

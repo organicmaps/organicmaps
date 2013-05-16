@@ -53,17 +53,16 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   private CheckBox mDownloadCountryCheckBox = null;
   private LocationService mLocationService = null;
   private Index mCountryIndex = null;
-  
+
   private MapTask mMapTaskToForward;
 
-  private IntentProcessor[] mIntentProcessors = { new GeoIntentProcessor(),
-                                                  new HttpGe0IntentProcessor(),
-                                                  new Ge0IntentProcessor()
-                                                 /* uncomment code below when add
-                                                  * appropriate schemes support
-                                                  * */
-                                                 //new MapsWithMeIntentProcessor()
-                                                };
+  private IntentProcessor[] mIntentProcessors = {
+      new GeoIntentProcessor(),
+      new HttpGe0IntentProcessor(),
+      new Ge0IntentProcessor()
+      // uncomment code below when add appropriate schemes support
+      //new MapsWithMeIntentProcessor()
+  };
 
   private void setDownloadMessage(int bytesToDownload)
   {
@@ -252,14 +251,14 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     // Disable animation because MWMActivity should appear exactly over this one
     // Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
     mwmActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-    
+
     //add task to forward
-    if (mMapTaskToForward != null) 
+    if (mMapTaskToForward != null)
     {
       mwmActivityIntent.putExtra(MWMActivity.EXTRA_TASK, mMapTaskToForward);
       mMapTaskToForward = null;
     }
-    
+
     startActivity(mwmActivityIntent);
 
     finish();
@@ -368,14 +367,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     if (!dispatched)
       parseIntentForKMZFile();
 
-
     setContentView(R.layout.download_resources);
-
-    // Create sdcard folder if it doesn't exist
-    new File(mApplication.getDataStoragePath()).mkdirs();
-    // Used to migrate from v2.0.0 to 2.0.1
-    moveMaps(mApplication.getExtAppDirectoryPath("files"),
-             mApplication.getDataStoragePath());
 
     if (prepareFilesDownload())
     {
@@ -386,7 +378,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     }
   }
 
-  private boolean dispatchIntent() 
+  private boolean dispatchIntent()
   {
     if (getIntent() != null)
     {
@@ -619,7 +611,6 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
   private class GeoIntentProcessor implements IntentProcessor
   {
-
     @Override
     public boolean isIntentSupported(Intent intent)
     {
@@ -632,12 +623,10 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
       mMapTaskToForward = new OpenUrlTask(intent.getData().toString());
       return true;
     }
-
   }
 
   private class Ge0IntentProcessor implements IntentProcessor
   {
-
     @Override
     public boolean isIntentSupported(Intent intent)
     {
@@ -650,12 +639,10 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
       mMapTaskToForward = new OpenUrlTask(intent.getData().toString());
       return true;
     }
-
   }
 
   private class HttpGe0IntentProcessor implements IntentProcessor
   {
-
     @Override
     public boolean isIntentSupported(Intent intent)
     {
@@ -678,13 +665,11 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
       else
         return false;
     }
-
   }
 
   @SuppressWarnings("unused")
   private class MapsWithMeIntentProcessor implements IntentProcessor
   {
-
     @Override
     public boolean isIntentSupported(Intent intent)
     {
@@ -697,10 +682,8 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
       // TODO add mapswithme parsing
       return false;
     }
-
   }
 
-  private native void moveMaps(String fromFolder, String toFolder);
   private native int getBytesToDownload();
   private native boolean isWorldExists(String path);
   private native int startNextFileDownload(Object observer);
