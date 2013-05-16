@@ -8,10 +8,17 @@
 {
   [Flurry startSession:
       [[NSBundle mainBundle] objectForInfoDictionaryKey:@"FlurryKey"]];
+  [self configure];
 }
 
 - (void) stopSession
 {
+}
+
+- (void) configure
+{
+  [Flurry setCrashReportingEnabled:YES];
+  [Flurry setSessionReportsOnPauseEnabled:NO];
 }
 
 - (void) logEvent:(NSString *)eventName
