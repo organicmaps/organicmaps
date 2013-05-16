@@ -73,6 +73,9 @@ namespace android
     BookmarkBalloon * GetBookmarkBalloon();
     void OnPositionClicked(m2::PointD const & point);
 
+    /// @todo used to keep track of current position for "my_position" balloon
+    bool m_doUpdateBalloonPositionFromLocation;
+
     string m_searchQuery;
 
   public:

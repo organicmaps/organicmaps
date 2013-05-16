@@ -41,7 +41,8 @@ namespace android
    : m_mask(0),
      m_isCleanSingleClick(false),
      m_doLoadState(true),
-     m_wasLongClick(false)
+     m_wasLongClick(false),
+     m_doUpdateBalloonPositionFromLocation(false)
   {
     ASSERT_EQUAL ( g_framework, 0, () );
     g_framework = this;
@@ -62,8 +63,6 @@ namespace android
     delete m_videoTimer;
   }
 
-  //TODO used to keep track of current position for "my_posotion" balloon
-  bool m_doUpdateBalloonPositionFromLocation = false;
   void Framework::OnPositionClicked(m2::PointD const & point)
   {
     string name = NativeFramework()->GetStringsBundle().GetString("my_position");
@@ -84,8 +83,7 @@ namespace android
     info.m_longitude = lon;
     info.m_horizontalAccuracy = accuracy;
 
-    // TODO don't forget to make cross-platform
-    // when we have our sexy-cross-platform balloons
+    /// @todo don't forget to make cross-platform when we have our sexy-cross-platform balloons
     if (m_doUpdateBalloonPositionFromLocation)
     {
       GetBookmarkBalloon()->setGlbPivot(m2::PointD(MercatorBounds::LonToX(lon),
@@ -623,10 +621,7 @@ namespace android
 
   void Framework::ActivatePopup(m2::PointD const & pos, string const & name, PopupImageIndexT index)
   {
-    /**
-     * Disable my position
-     * balloon updates
-     */
+    // stop updating balloon position
     m_doUpdateBalloonPositionFromLocation = false;
 
     BookmarkBalloon * b = GetBookmarkBalloon();
@@ -754,13 +749,11 @@ namespace android
 
   bool Framework::SetViewportByUrl(string const & url)
   {
-    //TODO this is weird hack, we should reconsider Android
-    // lifecycle handling design
+    /// @todo this is weird hack, we should reconsider Android lifecycle handling design
     m_doLoadState = false;
+
     url_api::Request request;
-    bool success = m_work.SetViewportByURL(url, request);
-    // Show temp balloon
-    if (success && !request.m_points.empty())
+    if (m_work.SetViewportByURL(url, request) && !request.m_points.empty())
     {
       m2::PointD pt(MercatorBounds::LonToX(request.m_viewportLon),
                     MercatorBounds::LatToY(request.m_viewportLat));
