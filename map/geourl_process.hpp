@@ -11,13 +11,7 @@ namespace url_scheme
   {
     double m_lat, m_lon, m_zoom;
 
-    static double EmptyValue() { return -1000.0; }
-
-    bool IsValid() const
-    {
-      return (m_lat != EmptyValue() && m_lon != EmptyValue());
-    }
-
+    bool IsValid() const;
     void Reset();
 
     Info()
@@ -26,7 +20,7 @@ namespace url_scheme
     }
 
     m2::RectD GetViewport() const;
-    // @return lat and lon in Mercator projection
+    /// @return lat and lon in Mercator projection
     m2::PointD GetMercatorPoint() const;
   };
 

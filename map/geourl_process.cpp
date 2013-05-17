@@ -8,9 +8,14 @@
 
 namespace url_scheme
 {
+  bool Info::IsValid() const
+  {
+    return (MercatorBounds::ValidLat(m_lat) && MercatorBounds::ValidLon(m_lon));
+  }
+
   void Info::Reset()
   {
-    m_lat = m_lon = EmptyValue();
+    m_lat = m_lon = -1000.0;
     m_zoom = scales::GetUpperScale();
   }
 
@@ -91,6 +96,14 @@ namespace url_scheme
         if (!CheckKeyword(token))
         {
           ToDouble(token, m_info.m_zoom);
+
+          // validate zoom bounds
+          if (m_info.m_zoom < 0.0)
+            m_info.m_zoom = 0.0;
+          int const upperScale = scales::GetUpperScale();
+          if (m_info.m_zoom > upperScale)
+            m_info.m_zoom = upperScale;
+
           m_mode = FINISH;
         }
         break;
@@ -99,10 +112,19 @@ namespace url_scheme
         break;
       }
     }
+
+    bool IsEnd() const { return m_mode == FINISH; }
   };
 
   void ParseGeoURL(string const & s, Info & info)
   {
-    strings::Tokenize(s, ":/?&=,", DoGeoParse(info));
+    DoGeoParse parser(info);
+    strings::SimpleTokenizer iter(s, ":/?&=,");
+
+    while (iter && !parser.IsEnd())
+    {
+      parser(*iter);
+      ++iter;
+    }
   }
 }
