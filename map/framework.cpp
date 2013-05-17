@@ -180,7 +180,8 @@ Framework::Framework()
     /// Move this constants to Ruler (and don't store them at all).
     m_metresMinWidth(10),
     m_metresMaxWidth(1000000),
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_WINDOWS) || defined(OMIM_OS_LINUX)
+
+#if defined(OMIM_OS_DESKTOP)
     m_minRulerWidth(97),
 #else
     m_minRulerWidth(60),
