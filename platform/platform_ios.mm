@@ -96,7 +96,10 @@ int Platform::PreCachingDepth() const
 
 static string GetDeviceUid()
 {
-  NSString * uid = [[UIDevice currentDevice] uniqueIdentifier];
+  NSString * uid = @"";
+  UIDevice * device = [UIDevice currentDevice];
+  if (device.systemVersion.floatValue >= 6.0 && device.identifierForVendor)
+    uid = [device.identifierForVendor UUIDString];
   return [uid UTF8String];
 }
 
