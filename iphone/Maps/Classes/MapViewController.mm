@@ -684,8 +684,6 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void) OnEnterForeground
 {
-  [[Statistics instance] startSession];
-  
   // Notify about entering foreground (should be called on the first launch too).
   GetFramework().EnterForeground();
 

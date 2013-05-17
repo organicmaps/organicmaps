@@ -145,6 +145,7 @@ void InitLocalizedStrings()
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSLog(@"application didFinishLaunchingWithOptions");
+  [[Statistics instance] startSession];
 
   InitLocalizedStrings();
 
