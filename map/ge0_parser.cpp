@@ -11,8 +11,6 @@
 #include "../base/string_utils.hpp"
 
 
-static const int ZOOM_POSITION = 6;
-
 url_api::Ge0Parser::Ge0Parser()
 {
   for (size_t i = 0; i < 256; ++i)
@@ -34,6 +32,12 @@ bool url_api::Ge0Parser::Parse(string const & url, Request & request)
   //       ||       | |  |
   // ge0://ZCoordba64/Name
 
+  const int ZOOM_POSITION = 6;
+  const int LATLON_POSITION = ZOOM_POSITION + 1;
+  const int NAME_POSITON_IN_URL = 17;
+  const int LATLON_LENGTH = NAME_POSITON_IN_URL - LATLON_POSITION - 1;
+  const size_t MAX_NAME_LENGTH = 256;
+
   request.Clear();
   if (url.size() < 16 || !strings::StartsWith(url, "ge0://"))
     return false;
@@ -46,7 +50,7 @@ bool url_api::Ge0Parser::Parse(string const & url, Request & request)
   request.m_points.push_back(url_api::Point());
   url_api::Point & newPt = request.m_points.back();
 
-  DecodeLatLon(url.substr(7, 9), newPt.m_lat, newPt.m_lon);
+  DecodeLatLon(url.substr(LATLON_POSITION, LATLON_LENGTH), newPt.m_lat, newPt.m_lon);
 
   ASSERT(MercatorBounds::ValidLon(newPt.m_lon), (newPt.m_lon));
   ASSERT(MercatorBounds::ValidLat(newPt.m_lat), (newPt.m_lat));
@@ -55,7 +59,8 @@ bool url_api::Ge0Parser::Parse(string const & url, Request & request)
   request.m_viewportLon = newPt.m_lon;
 
   if (url.size() >= NAME_POSITON_IN_URL)
-    newPt.m_name = DecodeName(url.substr(NAME_POSITON_IN_URL, url.size() - NAME_POSITON_IN_URL));
+    newPt.m_name = DecodeName(url.substr(NAME_POSITON_IN_URL,
+                                         min(url.size() - NAME_POSITON_IN_URL, MAX_NAME_LENGTH)));
   return true;
 }
 
@@ -107,13 +112,12 @@ double url_api::Ge0Parser::DecodeLonFromInt(int const lon, int const maxValue)
   return static_cast<double>(lon) / (maxValue + 1.0) * 360.0 - 180;
 }
 
-string url_api::Ge0Parser::DecodeName(string const & name)
+string url_api::Ge0Parser::DecodeName(string name)
 {
-  string resultName = name;
-  ValidateName(resultName);
-  resultName = UrlDecode(resultName);
-  SpacesToUnderscore(resultName);
-  return resultName;
+  ValidateName(name);
+  name = UrlDecode(name);
+  SpacesToUnderscore(name);
+  return name;
 }
 
 void url_api::Ge0Parser::SpacesToUnderscore(string & name)

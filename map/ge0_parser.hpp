@@ -2,7 +2,6 @@
 #include "../base/base.hpp"
 #include "../std/string.hpp"
 
-static const int NAME_POSITON_IN_URL = 17;
 
 namespace url_api
 {
@@ -23,7 +22,7 @@ protected:
   void DecodeLatLonToInt(string const & url, int & lat, int & lon, int const bytes);
   double DecodeLatFromInt(int const lat, int const maxValue);
   double DecodeLonFromInt(int const lon, int const maxValue);
-  string DecodeName(string const & name);
+  string DecodeName(string name);
   void SpacesToUnderscore(string & name);
   void ValidateName(string & name);
   static bool IsHexChar(char const a);

@@ -186,9 +186,11 @@ UNIT_TEST(NameDecoding)
   TestSuccess("ge0://AwAAAAAAAA/%d0%9c%d0%b8%d0%bd%d1%81%d0%ba_%d1%83%d0%bb._%d0%9b%d0%b5%d0%bd%d0%b8%d0%bd%d0%b0_9", 0, 0, 4, "Минск ул. Ленина 9");
   TestSuccess("ge0://AwAAAAAAAA/z%c3%bcrich_bahnhofstrasse", 0, 0, 4, "zürich bahnhofstrasse");
   TestSuccess("ge0://AwAAAAAAAA/%e5%8c%97%e4%ba%ac_or_B%c4%9bij%c4%abng%3F", 0, 0, 4, "北京 or Běijīng?");
-  TestSuccess("ge0://AwAAAAAAAA/%d0%9a%d0%b0%d0%ba_%d0%b2%d1%8b_%d1%81%d1%87%d0%b8%d1%82%d0%b0%d0%b5%d1%82%d0%b5%2C_%d0%bd%d0%b0%d0%b4%d0%be_%d0%bb%d0%b8_%d0%bf%d0%b8%d1%81%d0%b0%d1%82%d1%8c_const_%d0%b4%d0%bb%d1%8f_%d0%bf%d0%b0%d1%80%d0%b0%d0%bc%d0%b5%d1%82%d1%80%d0%be%d0%b2%2C_%d0%ba%d0%be%d1%82%d0%be%d1%80%d1%8b%d0%b5_%d0%bf%d0%b5%d1%80%d0%b5%d0%b4%d0%b0%d1%8e%d1%82%d1%81%d1%8f_%d0%b2_%d1%84%d1%83%d0%bd%d0%ba%d1%86%d0%b8%d1%8e_%d0%bf%d0%be_%d0%b7%d0%bd%d0%b0%d1%87%d0%b5%d0%bd%d0%b8%d1%8e%3F",
-              0, 0, 4, "Как вы считаете, надо ли писать const для параметров, которые передаются в функцию по значению?");
   TestSuccess("ge0://AwAAAAAAAA/\xd1\x81\xd1\x82\xd1\x80\xd0\xbe\xd0\xba\xd0\xb0_\xd0\xb2_\xd1\x8e\xd1\x82\xd1\x84-8", 0, 0, 4, "строка в ютф-8");
+
+  // name is valid, but too long
+  //TestSuccess("ge0://AwAAAAAAAA/%d0%9a%d0%b0%d0%ba_%d0%b2%d1%8b_%d1%81%d1%87%d0%b8%d1%82%d0%b0%d0%b5%d1%82%d0%b5%2C_%d0%bd%d0%b0%d0%b4%d0%be_%d0%bb%d0%b8_%d0%bf%d0%b8%d1%81%d0%b0%d1%82%d1%8c_const_%d0%b4%d0%bb%d1%8f_%d0%bf%d0%b0%d1%80%d0%b0%d0%bc%d0%b5%d1%82%d1%80%d0%be%d0%b2%2C_%d0%ba%d0%be%d1%82%d0%be%d1%80%d1%8b%d0%b5_%d0%bf%d0%b5%d1%80%d0%b5%d0%b4%d0%b0%d1%8e%d1%82%d1%81%d1%8f_%d0%b2_%d1%84%d1%83%d0%bd%d0%ba%d1%86%d0%b8%d1%8e_%d0%bf%d0%be_%d0%b7%d0%bd%d0%b0%d1%87%d0%b5%d0%bd%d0%b8%d1%8e%3F",
+  //            0, 0, 4, "Как вы считаете, надо ли писать const для параметров, которые передаются в функцию по значению?");
 }
 
 UNIT_TEST(LatLonFullAndClippedCoordinates)
