@@ -78,9 +78,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  if ([self canShare])
-    return 4;
-  return 3;
+  return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -182,7 +180,7 @@
     }
     cell.detailTextLabel.text = m_balloon.notes;
   }
-  else if (indexPath.section == 2 && [self canShare])
+  else if (indexPath.section == 2)
   {
     cell = [tableView dequeueReusableCellWithIdentifier:@"SharePin"];
     if (!cell)
@@ -245,13 +243,14 @@
     [self pushToNavigationControllerAndSetControllerToPopoverSize:vc];
     [vc release];
   }
-  else if (indexPath.section == 2 && ([self canShare]))
+  else if (indexPath.section == 2)
   {
     UIActionSheet * as = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"share", nil) delegate:self cancelButtonTitle:nil  destructiveButtonTitle:nil otherButtonTitles:nil];
     if ([MFMessageComposeViewController canSendText])
       [as addButtonWithTitle:NSLocalizedString(@"message", nil)];
     if ([MFMailComposeViewController canSendMail])
       [as addButtonWithTitle:NSLocalizedString(@"email", nil)];
+    [as addButtonWithTitle:NSLocalizedString(@"copy_link", nil)];
     [as addButtonWithTitle:NSLocalizedString(@"cancel", nil)];
     [as setCancelButtonIndex:as.numberOfButtons - 1];
     [as showInView:self.view];
@@ -303,6 +302,10 @@
   {
     NSString * shortUrl = [self generateShortUrlwithName:@""];
     [self sendMessageWith:textF.text andUrl:shortUrl];
+  }
+  else  if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"copy_link", nil)])
+  {
+    [UIPasteboard generalPasteboard].string = [self generateShortUrlwithName:textF.text];
   }
 }
 
