@@ -238,6 +238,8 @@ inline string to_string(uint64_t i)
 }
 //@}
 
+bool StartsWith(string const & s1, char const * s2);
+
 /*
 template <typename ItT, typename DelimiterT>
 typename ItT::value_type JoinStrings(ItT begin, ItT end, DelimiterT const & delimiter)

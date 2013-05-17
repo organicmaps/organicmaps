@@ -365,3 +365,18 @@ UNIT_TEST(UniStringToUtf8)
   strings::UniString uniS = strings::MakeUniString(utf8Text);
   TEST_EQUAL(string(utf8Text), strings::ToUtf8(uniS), ());
 }
+
+UNIT_TEST(StartsWith)
+{
+  using namespace strings;
+
+  TEST(StartsWith(string(), ""), ());
+
+  string s("xyz");
+  TEST(StartsWith(s, ""), ());
+  TEST(StartsWith(s, "x"), ());
+  TEST(StartsWith(s, "xyz"), ());
+  TEST(!StartsWith(s, "xyzabc"), ());
+  TEST(!StartsWith(s, "ayz"), ());
+  TEST(!StartsWith(s, "axy"), ());
+}

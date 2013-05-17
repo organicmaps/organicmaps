@@ -1425,7 +1425,7 @@ void Framework::AddBookmarkAndSetViewport(Bookmark & bm, m2::RectD const & viewP
 
 bool Framework::SetViewportByURL(string const & url, url_api::Request & request)
 {
-  if (url.find("geo") == 0)
+  if (strings::StartsWith(url, "geo"))
   {
     using namespace url_scheme;
 
@@ -1447,7 +1447,7 @@ bool Framework::SetViewportByURL(string const & url, url_api::Request & request)
       return true;
     }
   }
-  else if (url.find("ge0") == 0)
+  else if (strings::StartsWith(url, "ge0"))
   {
     url_api::Ge0Parser parser;
     if (parser.Parse(url, request))

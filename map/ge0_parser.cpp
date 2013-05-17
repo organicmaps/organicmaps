@@ -1,9 +1,15 @@
 #include "ge0_parser.hpp"
 #include "url_api.hpp"
+
 #include "../api/internal/c/api-client-internals.h"
-#include "../coding/url_encode.hpp"
-#include "../base/math.hpp"
+
 #include "../indexer/mercator.hpp"
+
+#include "../coding/url_encode.hpp"
+
+#include "../base/math.hpp"
+#include "../base/string_utils.hpp"
+
 
 static const int ZOOM_POSITION = 6;
 
@@ -29,7 +35,7 @@ bool url_api::Ge0Parser::Parse(string const & url, Request & request)
   // ge0://ZCoordba64/Name
 
   request.Clear();
-  if (url.size() < 16 || url.substr(0, 6) != "ge0://")
+  if (url.size() < 16 || !strings::StartsWith(url, "ge0://"))
     return false;
 
   uint8_t const zoomI = DecodeBase64Char(url[ZOOM_POSITION]);

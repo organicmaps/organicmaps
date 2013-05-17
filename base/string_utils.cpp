@@ -147,4 +147,9 @@ string ToUtf8(UniString const & s)
   return result;
 }
 
+bool StartsWith(string const & s1, char const * s2)
+{
+  return (s1.compare(0, strlen(s2), s2) == 0);
+}
+
 }
