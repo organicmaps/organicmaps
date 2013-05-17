@@ -2038,3 +2038,19 @@
     en = Invalid promo code. Please try again.
     tags = android
     comment = Promocode Activation is invalid  message.
+
+   [copy_link]
+    en = Copy Link
+    tags = ios
+    comment = Copy Link
+    cs = Zkopírovat odkaz
+    de = Link kopieren
+    es = Copiar enlace
+    fr = Copier le lien
+    it = Copia link
+    ja = リンクをコピー
+    nl = Kopieer koppeling
+    zh-Hant = 拷贝链接
+    uk = Копіювати посилання
+    ko = 링크 복사하기
+    ru = Скопировать ссылку
