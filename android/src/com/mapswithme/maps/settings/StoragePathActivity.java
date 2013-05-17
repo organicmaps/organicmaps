@@ -116,10 +116,17 @@ public class StoragePathActivity extends ListActivity
 
       m_items.clear();
 
-      //parseMountFile("/etc/vold.conf", VOLD_MODE, currPath, defPath, sizeNeeded);
-      //parseMountFile("/etc/vold.fstab", VOLD_MODE, currPath, defPath, sizeNeeded);
+      // Parse mounted volumes.
+      parseMountFile("/etc/vold.conf", VOLD_MODE);
+      parseMountFile("/etc/vold.fstab", VOLD_MODE);
+      parseMountFile("/system/etc/vold.fstab", VOLD_MODE);
       parseMountFile("/proc/mounts", MOUNTS_MODE);
 
+      // Add current and default paths.
+      addStorage(m_currPath);
+      addStorage(m_defPath);
+
+      // Find index of the current path.
       m_current = findItemByPath(m_currPath);
       assert(m_current != -1);
 
@@ -159,31 +166,17 @@ public class StoragePathActivity extends ListActivity
       return false;
     }
 
-    private static int CURRENT_PATH = 1;
-    private static int DEFAULT_PATH = 2;
-
-    /// @return Flag that current path or default path is added successfully.
-    private int callAddStorage(String path, int flag)
-    {
-      if (addStorage(path))
-      {
-        if (path.equals(m_currPath))
-          flag |= CURRENT_PATH;
-        if (path.equals(m_defPath))
-          flag |= DEFAULT_PATH;
-      }
-
-      return flag;
-    }
-
     private static int VOLD_MODE = 1;
     private static int MOUNTS_MODE = 2;
 
+    // http://stackoverflow.com/questions/8151779/find-sd-card-volume-label-on-android
+    // http://stackoverflow.com/questions/5694933/find-an-external-sd-card-location
+    // http://stackoverflow.com/questions/14212969/file-canwrite-returns-false-on-some-devices-although-write-external-storage-pe
     private void parseMountFile(String file, int mode)
     {
-      BufferedReader reader = null;
-      int addFlag = 0;
+      Log.i(TAG, "Parsing " + file);
 
+      BufferedReader reader = null;
       try
       {
         reader = new BufferedReader(new FileReader(file));
@@ -193,28 +186,35 @@ public class StoragePathActivity extends ListActivity
           String line = reader.readLine();
           if (line == null) break;
 
-          String[] arr = line.split(" ");
-          if (arr.length >= 3)
+          // standard regexp for all possible whitespaces (space, tab, etc)
+          String[] arr = line.split("\\s+");
+
+          // split may return empty first strings
+          int start = 0;
+          while (start < arr.length && arr[start].length() == 0)
+            ++start;
+
+          if (arr.length - start > 3)
           {
-            if (arr[0].charAt(0) == '#')
+            if (arr[start + 0].charAt(0) == '#')
               continue;
 
             if (mode == VOLD_MODE)
             {
-              Log.i(TAG, "Label = " + arr[1] + "; Path = " + arr[2]);
+              Log.i(TAG, "Label = " + arr[start + 1] + "; Path = " + arr[start + 2]);
 
-              if (arr[0].startsWith("dev_mount"))
-                addFlag = callAddStorage(arr[2], addFlag);
+              if (arr[start + 0].startsWith("dev_mount"))
+                addStorage(arr[start + 2]);
             }
             else
             {
               assert(mode == MOUNTS_MODE);
-              Log.i(TAG, "Label = " + arr[0] + "; Path = " + arr[1]);
+              Log.i(TAG, "Label = " + arr[start + 0] + "; Path = " + arr[start + 1]);
 
               String prefixes[] = { "tmpfs", "/dev/block/vold", "/dev/fuse" };
               for (String s : prefixes)
-                if (arr[0].startsWith(s))
-                  addFlag = callAddStorage(arr[1], addFlag);
+                if (arr[start + 0].startsWith(s))
+                  addStorage(arr[start + 1]);
             }
           }
         }
@@ -227,14 +227,6 @@ public class StoragePathActivity extends ListActivity
       {
         Utils.closeStream(reader);
       }
-
-      // Check that current and default paths are added to the list.
-      if ((addFlag & CURRENT_PATH) == 0)
-        addFlag = callAddStorage(m_currPath, addFlag);
-      if ((addFlag & DEFAULT_PATH) == 0)
-        addFlag = callAddStorage(m_defPath, addFlag);
-
-      assert(addFlag == (CURRENT_PATH | DEFAULT_PATH));
     }
 
     /// @name Assume that MapsWithMe folder doesn't have inner folders and symbolic links.
