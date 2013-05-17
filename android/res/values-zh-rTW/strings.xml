@@ -34,7 +34,7 @@
 	<!-- Settings/Downloader - country info current download progress -->
 	<string name="downloading_x_touch_to_cancel">正在下載 %qu%%, 輕觸以取消</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
-	<string name="downloading">下載中...</string>
+	<string name="downloading">下載中…</string>
 	<string name="get_it_now">馬上取得</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">喜歡MapsWithMe嗎？幫助您的朋友和家人了解應用程式，透過Facebook分享給他們吧！</string>

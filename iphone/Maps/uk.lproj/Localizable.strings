@@ -10,7 +10,7 @@
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Більше можливостей у повній версії MapsWithMe з оффлайн пошуком. Встановіть її зараз?";
+"pro_version_available" = "Більше можливостей у повній версії MapsWithMe з оффлайн пошуком. Встановити її зараз?";
 
 /* About button text (should be short! @todo - fix french) */
 "about" = "Про програму";
@@ -19,10 +19,10 @@
 "back" = "Назад";
 
 /* Button text (should be short) */
-"cancel" = "Скасування";
+"cancel" = "Вiдмiна";
 
 /* Button which interrupts country download */
-"cancel_download" = "Скасувати завантаження";
+"cancel_download" = "Вiдмiнити завантаження";
 
 /* Button which deletes downloaded country */
 "delete" = "Видалити";
@@ -62,7 +62,7 @@
 "share_on_facebook_text" = "Якщо вам подобається наша програма, будь ласка порекомендуйте її своїм друзям на Facebook.";
 
 /* Leave Review dialog title */
-"leave_review_text" = "Якщо вам подобається MapsWithMe, будь ласка, підтримайте нас, написавши відгук. Якщо у вас виникли проблеми при використанні програми, будь ласка, повідомте нам, заповнивши спеціальну форму, щоб ми могли зв'язатися з вами для уточнення деталей.";
+"leave_review_text" = "Якщо вам подобається MapsWithMe, будь ласка, підтримайте нас, написавши відгук. Якщо у вас виникли проблеми при використанні програми, будь ласка, повідомте нам, заповнивши спеціальну форму, щоб ми могли зв'язатися з вами.";
 
 /* Settings/Downloader - size string */
 "kb" = "КБ";
@@ -74,7 +74,7 @@
 "leave_a_review" = "Написати відгук";
 
 /* Location purpose text description */
-"location_services_are_needed_desc" = "Геолокація потрібна для визначення вашого місця розташування на карті.";
+"location_services_are_needed_desc" = "Геолокація потрібна для встановлення вашого місця розташування на карті.";
 
 /* View and button titles for accessibility */
 "maps" = "Карта";
@@ -103,7 +103,7 @@
 "enable_location_services" = "Будь ласка, включіть геолокацію в настройках телефону";
 
 /* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "Немає вільного місця. Будь ласка, видаліть непотрібні карти або програми, щоб завантажити %@";
+"free_disk_space_for_country_x" = "Немає вільного місця. Будь ласка, видаліть непотрібні мапи або програми, щоб завантажити %@";
 
 /* Leave Review dialog - Not now button (remind me later) */
 "remind_me_later" = "Нагадати пізніше";
@@ -124,7 +124,7 @@
 "search_available_in_pro_version" = "Пошук доступний тільки в Pro версії MapsWithMe. Встановіть її прямо зараз!";
 
 /* Search box placeholder text */
-"search_map" = "Пошук на карті";
+"search_map" = "Пошук на мапi";
 
 /* Settings/Downloader - No free space dialog title */
 "not_enough_disk_space" = "Немає вільного місця";
@@ -139,7 +139,7 @@
 "use_wifi_recommendation_text" = "Ми рекомендуємо завантажувати великі країни через WiFi";
 
 /* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
-"new_map_data_format_upgrade_dialog" = "Ми оновили карти і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими картами, необхідно попередньо видалити старi.";
+"new_map_data_format_upgrade_dialog" = "Ми оновили мапи і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими мапами, необхідно попередньо видалити старi.";
 
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Якій системі вимірювання ви віддаєте перевагу?";
@@ -151,7 +151,7 @@
 "device_doesnot_support_location_services" = "Ваш пристрій не підтримує геолокацію";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Показати країну на карті";
+"zoom_to_country" = "Показати країну на мапi";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^добавлено в чергу завантаження.";
@@ -186,7 +186,7 @@
 
 "download" = "Завантажити";
 
-"external_storage_is_not_available" = "Завантажені карти недоступні";
+"external_storage_is_not_available" = "Завантажені мапи недоступні";
 
 "disconnect_usb_cable" = "Вимкніть USB кабель або вставте SD-карту";
 
@@ -197,11 +197,11 @@
 "free_space_for_country" = "Для завантаження %2$@ треба %1$@ вільного місця";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій. \nВона потребує %.1f%@ даних.";
+"download_resources" = "Перш ніж розпочати дозвольте нам завантажити мапу світу на ваш пристрій. \nВона потребує %.1f%@ даних.";
 
 "getting_position" = "Oтримуємо розташування";
 
-"download_resources_continue" = "Перейти на карту";
+"download_resources_continue" = "Перейти на мапу";
 
 "downloading_country_can_proceed" = "Поки завантажується %@ \nви можете користуватися додатком.";
 
@@ -210,13 +210,13 @@
 "update_country_ask" = "Oновити %@?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "Ви можете завантажити карту\nвашего поточного місця розташування.";
+"download_location_map_proposal" = "Ви можете завантажити мапу\nвашого поточного місця розташування.";
 
 /* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "Ви можете оновити карту\nвашого поточного місця розташування.";
+"download_location_update_map_proposal" = "Ви можете оновити мапу\nвашого поточного місця розташування.";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "Карта місцевості, в якій\nви знаходитеся (%@) вже завантажена.";
+"download_location_map_up_to_date" = "Мапа місцевості, в якій\nви знаходитеся (%@) вже завантажена.";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "Призупинити";
@@ -229,7 +229,7 @@
 "update_mb_or_kb" = "Oновити %@";
 
 /* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "Для функції пошуку необхідно оновити застарілі карти:";
+"search_update_maps" = "Для функції пошуку необхідно оновити застарілі мапи:";
 
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Доступно оновлення для наступних карт:";

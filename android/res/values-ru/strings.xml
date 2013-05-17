@@ -39,7 +39,7 @@
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">Нравится MapsWithMe? Помогите вашим друзьям и родным узнать о приложении, поделитесь с ними на Фейсбуке!</string>
 	<!-- Leave Review dialog title -->
-	<string name="leave_review_text">Если вам нравится MapsWithMe, пожалуйста, поддержите нас, написав отзыв. Если у вас возникли проблемы при использовании программы, пожалуйста, сообщите нам, заполнив специальную форму, чтобы мы могли связаться с вами для уточнения деталей.</string>
+	<string name="leave_review_text">Если вам нравится MapsWithMe, пожалуйста, поддержите нас, написав отзыв. Если у вас возникли проблемы при использовании программы, пожалуйста, сообщите нам, заполнив специальную форму, чтобы мы могли связаться с вами.</string>
 	<!-- Settings/Downloader - size string -->
 	<string name="kb">КБ</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->

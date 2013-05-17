@@ -5,15 +5,15 @@
 <resources>
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">Більше можливостей у повній версії MapsWithMe з оффлайн пошуком. Встановіть її зараз?</string>
+	<string name="pro_version_available">Більше можливостей у повній версії MapsWithMe з оффлайн пошуком. Встановити її зараз?</string>
 	<!-- About button text (should be short! @todo - fix french) -->
 	<string name="about">Про програму</string>
 	<!-- Button text (should be short) -->
 	<string name="back">Назад</string>
 	<!-- Button text (should be short) -->
-	<string name="cancel">Скасування</string>
+	<string name="cancel">Вiдмiна</string>
 	<!-- Button which interrupts country download -->
-	<string name="cancel_download">Скасувати завантаження</string>
+	<string name="cancel_download">Вiдмiнити завантаження</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Видалити</string>
 	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
@@ -39,7 +39,7 @@
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">Якщо вам подобається наша програма, будь ласка порекомендуйте її своїм друзям на Facebook.</string>
 	<!-- Leave Review dialog title -->
-	<string name="leave_review_text">Якщо вам подобається MapsWithMe, будь ласка, підтримайте нас, написавши відгук. Якщо у вас виникли проблеми при використанні програми, будь ласка, повідомте нам, заповнивши спеціальну форму, щоб ми могли зв\'язатися з вами для уточнення деталей.</string>
+	<string name="leave_review_text">Якщо вам подобається MapsWithMe, будь ласка, підтримайте нас, написавши відгук. Якщо у вас виникли проблеми при використанні програми, будь ласка, повідомте нам, заповнивши спеціальну форму, щоб ми могли зв\'язатися з вами.</string>
 	<!-- Settings/Downloader - size string -->
 	<string name="kb">КБ</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -47,7 +47,7 @@
 	<!-- Leave Review dialog - Review button -->
 	<string name="leave_a_review">Написати відгук</string>
 	<!-- Location purpose text description -->
-	<string name="location_services_are_needed_desc">Геолокація потрібна для визначення вашого місця розташування на карті.</string>
+	<string name="location_services_are_needed_desc">Геолокація потрібна для встановлення вашого місця розташування на карті.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Карта</string>
 	<!-- Settings/Downloader - info for country in the download queue -->
@@ -65,7 +65,7 @@
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">Будь ласка, включіть геолокацію в настройках телефону</string>
 	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">Немає вільного місця. Будь ласка, видаліть непотрібні карти або програми, щоб завантажити %s</string>
+	<string name="free_disk_space_for_country_x">Немає вільного місця. Будь ласка, видаліть непотрібні мапи або програми, щоб завантажити %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">Нагадати пізніше</string>
 	<!-- Update maps later/Buy pro version later button text -->
@@ -79,7 +79,7 @@
 	<!-- Search button pressed dialog title in the free version -->
 	<string name="search_available_in_pro_version">Пошук доступний тільки в Pro версії MapsWithMe. Встановіть її прямо зараз!</string>
 	<!-- Search box placeholder text -->
-	<string name="search_map">Пошук на карті</string>
+	<string name="search_map">Пошук на мапi</string>
 	<!-- Settings/Downloader - No free space dialog title -->
 	<string name="not_enough_disk_space">Немає вільного місця</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
@@ -89,7 +89,7 @@
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">Ми рекомендуємо завантажувати великі країни через WiFi</string>
 	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">Ми оновили карти і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими картами, необхідно попередньо видалити старi.</string>
+	<string name="new_map_data_format_upgrade_dialog">Ми оновили мапи і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими мапами, необхідно попередньо видалити старi.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Якій системі вимірювання ви віддаєте перевагу?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -97,7 +97,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Ваш пристрій не підтримує геолокацію</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">Показати країну на карті</string>
+	<string name="zoom_to_country">Показати країну на мапi</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^добавлено в чергу завантаження.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -116,24 +116,24 @@
 	<string name="close">Закрити</string>
 	<string name="unsupported_phone">Для роботи програми необхідний апаратно прискорений OpenGL. На жаль, ваш пристрій не підтримується.</string>
 	<string name="download">Завантажити</string>
-	<string name="external_storage_is_not_available">Завантажені карти недоступні</string>
+	<string name="external_storage_is_not_available">Завантажені мапи недоступні</string>
 	<string name="disconnect_usb_cable">Вимкніть USB кабель або вставте SD-карту</string>
 	<string name="not_enough_free_space_on_sdcard">Недостатньо вільного місця на SD карті / в пам\'яті пристрою для використання програми</string>
 	<string name="not_enough_memory">Недостатньо пам\'яті для запуску програми</string>
 	<string name="free_space_for_country">Для завантаження %2$s треба %1$s вільного місця</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій. \nВона потребує %1$.1f%2$s даних.</string>
+	<string name="download_resources">Перш ніж розпочати дозвольте нам завантажити мапу світу на ваш пристрій. \nВона потребує %1$.1f%2$s даних.</string>
 	<string name="getting_position">Oтримуємо розташування</string>
-	<string name="download_resources_continue">Перейти на карту</string>
+	<string name="download_resources_continue">Перейти на мапу</string>
 	<string name="downloading_country_can_proceed">Поки завантажується %s \nви можете користуватися додатком.</string>
 	<string name="download_country_ask">Завантажити %s?</string>
 	<string name="update_country_ask">Oновити %s?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">Ви можете завантажити карту\nвашего поточного місця розташування.</string>
+	<string name="download_location_map_proposal">Ви можете завантажити мапу\nвашого поточного місця розташування.</string>
 	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">Ви можете оновити карту\nвашого поточного місця розташування.</string>
+	<string name="download_location_update_map_proposal">Ви можете оновити мапу\nвашого поточного місця розташування.</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">Карта місцевості, в якій\nви знаходитеся (%s) вже завантажена.</string>
+	<string name="download_location_map_up_to_date">Мапа місцевості, в якій\nви знаходитеся (%s) вже завантажена.</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Призупинити</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -141,7 +141,7 @@
 	<string name="downloaded_touch_to_update">Завантажено (%s), натисніть для оновлення або видалення</string>
 	<string name="update_mb_or_kb">Oновити %s</string>
 	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Для функції пошуку необхідно оновити застарілі карти:</string>
+	<string name="search_update_maps">Для функції пошуку необхідно оновити застарілі мапи:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Доступно оновлення для наступних карт:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->

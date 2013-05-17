@@ -54,7 +54,7 @@
 "downloading_x_touch_to_cancel" = "正在下載 %qu%%, 輕觸以取消";
 
 /* Settings/Downloader - info for country which started downloading */
-"downloading" = "下載中...";
+"downloading" = "下載中…";
 
 "get_it_now" = "馬上取得";
 

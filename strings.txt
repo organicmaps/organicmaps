@@ -14,7 +14,7 @@
     ko = 오프라인 검색 기능의 MapsWithMe의 풀버젼으로 보다 쉽게 검색하세요. 지금 구매하세요!
     nl = Navigeer makkelijker met MapsWithMe Pro met offline zoeken. Instelleer het nu!
     ru = Больше возможностей в полной версии MapsWithMe с оффлайн поиском. Установить ее сейчас?
-    uk = Більше можливостей у повній версії MapsWithMe з оффлайн пошуком. Встановіть її зараз?
+    uk = Більше можливостей у повній версії MapsWithMe з оффлайн пошуком. Встановити її зараз?
     zh-Hant = 完整版的MapsWithMe特色在於更完善的離線搜尋，立即購買!
   [about]
     en = About
@@ -53,7 +53,7 @@
     ko = 취소하기
     nl = Annuleer
     ru = Отмена
-    uk = Скасування
+    uk = Вiдмiна
     zh-Hant = 取消
   [cancel_download]
     en = Cancel Download
@@ -66,7 +66,7 @@
     ko = 다운로드 취소하기
     nl = Annulleer Download
     ru = Отменить загрузку
-    uk = Скасувати завантаження
+    uk = Вiдмiнити завантаження
     zh-Hant = 取消下載
   [delete]
     en = Delete
@@ -207,7 +207,7 @@
     nl = Downloaden…
     ru = Загружается…
     uk = Завантажується…
-    zh-Hant = 下載中...
+    zh-Hant = 下載中…
   [get_it_now]
     en = Get it now
     cs = Získat nyní
@@ -240,8 +240,8 @@
     ja = MapsWithMeを気に入って頂けた場合には評価をしてサポートして頂きますようお願いします。問題等がありましたら、特定のフォームを使って当社までご報告ください。
     ko = MapsWithMe를 좋아하시면 평을 작성하여 주시기 바랍니다. 안건의 발생의 경우 특정 양식서를 작성하여 주시기 바랍니다.
     nl = Ondersteun MapsWithMe door een review te schrijven. Vul een speciaal formulier in als u problemen ondervindt
-    ru = Если вам нравится MapsWithMe, пожалуйста, поддержите нас, написав отзыв. Если у вас возникли проблемы при использовании программы, пожалуйста, сообщите нам, заполнив специальную форму, чтобы мы могли связаться с вами для уточнения деталей.
-    uk = Якщо вам подобається MapsWithMe, будь ласка, підтримайте нас, написавши відгук. Якщо у вас виникли проблеми при використанні програми, будь ласка, повідомте нам, заповнивши спеціальну форму, щоб ми могли зв'язатися з вами для уточнення деталей.
+    ru = Если вам нравится MapsWithMe, пожалуйста, поддержите нас, написав отзыв. Если у вас возникли проблемы при использовании программы, пожалуйста, сообщите нам, заполнив специальную форму, чтобы мы могли связаться с вами.
+    uk = Якщо вам подобається MapsWithMe, будь ласка, підтримайте нас, написавши відгук. Якщо у вас виникли проблеми при використанні програми, будь ласка, повідомте нам, заповнивши спеціальну форму, щоб ми могли зв'язатися з вами.
     zh-Hant = 如果您喜歡MapsWithMe，請支持我們並幫我們寫寫評論。如果您遇到任何問題，請填寫表單讓我們知道。
   [kb]
     en = kB
@@ -286,7 +286,7 @@
     ko = 위치 서비스가 귀하의 현재의 지도상의 위치를 표시하기 위해 필요합니다.
     nl = Locatie Services zijn nodig om uw huidige locatie weer te geven op de kaart
     ru = Геолокация нужна для определения вашего местоположения на карте.
-    uk = Геолокація потрібна для визначення вашого місця розташування на карті.
+    uk = Геолокація потрібна для встановлення вашого місця розташування на карті.
     zh-Hant = 定位服務需要在地圖上顯示您的目前位置
   [maps]
     en = Maps
@@ -397,7 +397,7 @@
     ko = 먼저 귀하의 장치에 어느 정도의 공간을 확보하여 %@를 다운로드하여 주십시요.
     nl = Maak ruimte vrij op uw apparaat om %@ te kunnen downloaden
     ru = Нет свободного места. Пожалуйста, удалите ненужные карты или приложения, чтобы загрузить %@
-    uk = Немає вільного місця. Будь ласка, видаліть непотрібні карти або програми, щоб завантажити %@
+    uk = Немає вільного місця. Будь ласка, видаліть непотрібні мапи або програми, щоб завантажити %@
     zh-Hant = 如要下載%@ ，請先釋放一些空間!
   [remind_me_later]
     en = Remind me later
@@ -485,7 +485,7 @@
     ko = 지도 검색하기
     nl = Zoek Kaart
     ru = Поиск на карте
-    uk = Пошук на карті
+    uk = Пошук на мапi
     zh-Hant = 搜尋地圖
   [not_enough_disk_space]
     en = There is not enough free disk space
@@ -548,7 +548,7 @@
     fr = Nous avons mis à jour les cartes en les réduisant. Vous pouvez maintenant ne télécharger que la région ou le pays qui vous intéresse, cependant pour avoir les nouvelles cartes, il vous faut effacer toutes les anciennes cartes.
     nl = Wij hebben de kaart geupdate en hem verkleind. Met grote landen kunt u nu ervoor kiezen om allen de regio/staat te downloaden die u nodig heeft. Om de nieuwe kaarten te gebruiken moet u alle oude kaarten verwijderen.
     ru = Мы обновили карты и уменьшили их размер. Для больших стран вы сможете выборочно загружать нужные вам штаты или регионы. Однако, чтобы воспользоваться новыми картами, необходимо предварительно удалить старыe.
-    uk = Ми оновили карти і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими картами, необхідно попередньо видалити старi.
+    uk = Ми оновили мапи і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими мапами, необхідно попередньо видалити старi.
     zh-Hant = “我們已經更新並縮小了地圖資料，而較大的國家，您可以只選擇您所需的地區/國家來下載即可。如果您要使用新地圖，則需先刪除先前已下載的圖資後方能使用!”
   [which_measurement_system]
     en = Which measurement system do you prefer?
@@ -600,7 +600,7 @@
     ko = 국가로 확대하여 주세요
     nl = Zoom in richting het land
     ru = Показать страну на карте
-    uk = Показати країну на карті
+    uk = Показати країну на мапi
     zh-Hant = 放大到全國檢視
   [country_status_added_to_queue]
     en = ^is added to the downloading queue.
@@ -773,7 +773,7 @@
     ko = 다운로드된지도와 SD 카드 / USB 저장 장치를 사용할 수 없습니다
     nl = SD kaart/USB opslag met gedownloade kaarten is niet beschikbaar
     ru = Загруженные карты недоступны
-    uk = Завантажені карти недоступні
+    uk = Завантажені мапи недоступні
     zh-Hant = SD 卡/USB 無法有效儲存下載的地圖
   [disconnect_usb_cable]
     en = Please disconnect USB cable or insert memory card to use MapsWithMe
@@ -835,7 +835,7 @@
     ko = 시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다. \n%.1f%@ 데이터가 필요합니다.
     nl = Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %.1f%@ in beslag.
     ru = Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство. \nЭто потребует %.1f%@ данных.
-    uk = Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій. \nВона потребує %.1f%@ даних.
+    uk = Перш ніж розпочати дозвольте нам завантажити мапу світу на ваш пристрій. \nВона потребує %.1f%@ даних.
     zh-Hant =  在您開始之前 ， 先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %.1f%@ 。
   [getting_position]
     en = Getting current position
@@ -859,7 +859,7 @@
     ko = 지도로 이동
     nl = Ga naar de Kaart
     ru = Перейти на карту
-    uk = Перейти на карту
+    uk = Перейти на мапу
     zh-Hant = 跳到地圖
   [downloading_country_can_proceed]
     en = Downloading %@. You can now\nproceed to the map.
@@ -908,7 +908,7 @@
     ko = 당신의 현재 위치의지도를 다운로드할 수 있습니다.
     nl = U kunt de kaart van\nuw huidige locatie downloaden
     ru = Вы можете загрузить карту\nвашего текущего местоположения.
-    uk = Ви можете завантажити карту\nвашего поточного місця розташування.
+    uk = Ви можете завантажити мапу\nвашого поточного місця розташування.
     zh-Hant = 您可以下載目前所在位置的地圖。
   [download_location_update_map_proposal]
     en = You can update the map\nof your current location.
@@ -921,7 +921,7 @@
     ko = 귀하의 현재 위치의지도를 업데이트할 수 있습니다.
     nl = U kunt de kaart\nvan uw huidige locatie kunnen geupdate worden
     ru = Вы можете обновить карту\nвашего текущего местоположения.
-    uk = Ви можете оновити карту\nвашого поточного місця розташування.
+    uk = Ви можете оновити мапу\nвашого поточного місця розташування.
     zh-Hant = 您可以更新目前所在位置的地圖。
   [download_location_map_up_to_date]
     en = The map at your current\nlocation (%@) is up-to-date
@@ -934,7 +934,7 @@
     ko = 현재 위치 (%@)\n에서지도는 최신이다
     nl = De kaart op uw huidige\nlocatie (%@) is up-to-date
     ru = Карта местности, в которой\nвы находитесь (%@) уже загружена.
-    uk = Карта місцевості, в якій\nви знаходитеся (%@) вже завантажена.
+    uk = Мапа місцевості, в якій\nви знаходитеся (%@) вже завантажена.
     zh-Hant = 您目前所在位置 (%@) \n的地圖已是最新圖資 !
   [pause]
     en = Pause
@@ -995,7 +995,7 @@
     ko = 당신은 검색 기능에 대한 업데이트된지도 필요
     nl = Om de zoekfunctie te kunnen gebruiken moet u de kaarten updaten
     ru = Для функции поиска необходимо обновить устаревшие карты:
-    uk = Для функції пошуку необхідно оновити застарілі карти:
+    uk = Для функції пошуку необхідно оновити застарілі мапи:
     zh-Hant = 您需要更新地圖以使用搜尋功能：
   [advise_update_maps]
     en = Update available for these maps:
