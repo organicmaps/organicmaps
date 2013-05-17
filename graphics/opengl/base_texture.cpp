@@ -94,8 +94,8 @@ namespace graphics
 
     m2::PointF const BaseTexture::mapPixel(m2::PointF const & p) const
     {
-      return m2::PointF(p.x / (float) width() /*+ 0.0 / width()*/,
-                        p.y / (float) height() /*+ 0.0 / height()*/);
+      return m2::PointF(p.x / (float) width(),
+                        p.y / (float) height());
     }
 
     void BaseTexture::mapPixel(float & x, float & y) const

@@ -13,7 +13,7 @@ namespace graphics
   PathRenderer::Params::Params()
     : m_drawPathes(true),
       m_fastSolidPath(true),
-      m_useNormals(false)
+      m_useNormals(true)
   {}
 
   PathRenderer::PathRenderer(Params const & p)
@@ -146,6 +146,10 @@ namespace graphics
 
     bool skipToOffset = true;
 
+    /// Geometry width. It's 1px wider than the pattern width.
+    float const geomWidth = pen->m_info.m_w + 4 - 2 * aaShift();
+    float const geomHalfWidth = geomWidth / 2.0;
+
     for (size_t i = 0; i < pointsCount - 1; ++i)
     {
       m2::PointD dir = points[i + 1] - points[i];
@@ -168,10 +172,6 @@ namespace graphics
           segLenRemain = -offset;
         }
       }
-
-      /// Geometry width. It's 1px wider than the pattern width.
-      int geomWidth = static_cast<int>(pen->m_info.m_w) + 4 - 2 * aaShift();
-      float geomHalfWidth =  geomWidth / 2.0;
 
       /// Starting point of the tiles on this segment
       m2::PointF rawTileStartPt = points[i] + dir * (segLen - segLenRemain);
@@ -398,11 +398,11 @@ namespace graphics
         fDirNextSeg = m2::PointD(fNormNextSeg.y, -fNormNextSeg.x);
       }
 
-      float texMinX = pen->m_texRect.minX() + 1;
-      float texMaxX = pen->m_texRect.maxX() - 1;
+      float texMinX = pen->m_texRect.minX() + aaShift();
+      float texMaxX = pen->m_texRect.maxX() - aaShift();
 
-      float texMinY = pen->m_texRect.maxY() - aaShift();
-      float texMaxY = pen->m_texRect.minY() + aaShift();
+      float texMinY = pen->m_texRect.minY() + aaShift();
+      float texMaxY = pen->m_texRect.maxY() - aaShift();
 
       float texCenterX = (texMinX + texMaxX) / 2;
 
@@ -474,8 +474,8 @@ namespace graphics
       if ((rightIsCap && hasRoundCap)
        || (!rightIsCap && hasRoundJoin))
       {
-        texCoords[cur++] = texture->mapPixel(m2::PointF(texMaxX, texMinY));
-        texCoords[cur++] = texture->mapPixel(m2::PointF(texMaxX, texMaxY));
+        texCoords[cur++] = texture->mapPixel(m2::PointF(texMinX, texMinY));
+        texCoords[cur++] = texture->mapPixel(m2::PointF(texMinX, texMaxY));
       }
       else if ((rightIsCap && hasSquareCap)
             || (!rightIsCap && hasBevelJoin))

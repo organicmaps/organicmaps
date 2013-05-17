@@ -275,45 +275,28 @@ namespace graphics
 
       agg::scanline_u8 s;
       agg::rasterizer_scanline_aa<> rasterizer;
-      if (info.m_w > 2)
-      {
-        agg::ellipse ell;
-        float r = ceil(info.m_w) / 2.0;
-        ell.init(r + 2, r + 2, r, r, 100);
-        rasterizer.add_path(ell);
+      float r = ceil(info.m_w / 2.0);
 
-        agg::render_scanlines_aa_solid(rasterizer,
-                                       s,
-                                       rbase,
-                                       agg::rgba8(info.m_color.r,
-                                                  info.m_color.g,
-                                                  info.m_color.b,
-                                                  info.m_color.a));
+      agg::ellipse ell;
 
-        uint32_t ri = static_cast<uint32_t>(r);
+      ell.init(r + 2, r + 2, r, r, 100);
+      rasterizer.add_path(ell);
 
-        /// pixels that are used to texture inner part of the line should be fully opaque
-        v(2 + ri - 1, 2) = pxPenColor;
-        v(2 + ri    , 2) = pxPenColor;
-        v(2 + ri - 1, 2 + ri * 2 - 1) = pxPenColor;
-        v(2 + ri    , 2 + ri * 2 - 1) = pxPenColor;
+      agg::render_scanlines_aa_solid(rasterizer,
+                                     s,
+                                     rbase,
+                                     agg::rgba8(info.m_color.r,
+                                                info.m_color.g,
+                                                info.m_color.b,
+                                                info.m_color.a));
 
-        /// in non-transparent areas - premultiply color value with alpha and make it opaque
-        for (size_t x = 2; x < v.width() - 2; ++x)
-          for (size_t y = 2; y < v.height() - 2; ++y)
-          {
-            unsigned char alpha = gil::get_color(v(x, y), gil::alpha_t());
-            if (alpha != 0)
-              v(x, y) = pxPenColor;
-          }
-      }
-      else
-      {
-        gil::fill_pixels(
-            gil::subimage_view(v, 2, 2, rect.SizeX() - 4, rect.SizeY() - 4),
-            pxPenColor
-            );
-      }
+      for (size_t x = 2; x <= v.width() - 2; ++x)
+        for (size_t y = 2; y <= v.height() - 2; ++y)
+        {
+          unsigned char alpha = gil::get_color(v(x, y), gil::alpha_t());
+          if (alpha != 0)
+            v(x, y) = pxPenColor;
+        }
     }
     else
     {
