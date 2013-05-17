@@ -27,6 +27,8 @@
 		5797B6D616C931EE00FFE6D2 /* resources-mdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D316C931EE00FFE6D2 /* resources-mdpi */; };
 		5797B6D716C931EE00FFE6D2 /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D416C931EE00FFE6D2 /* resources-xhdpi */; };
 		5797B6D816C931EE00FFE6D2 /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D416C931EE00FFE6D2 /* resources-xhdpi */; };
+		CB252D6D16FF82C8001E41E9 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB252D6A16FF82C8001E41E9 /* libFlurry.a */; };
+		CB252D6E16FF82C9001E41E9 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB252D6A16FF82C8001E41E9 /* libFlurry.a */; };
 		CB252D6F16FF82C9001E41E9 /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.m */; };
 		CB252D7016FF82C9001E41E9 /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.m */; };
 		ED8676FE16A0793800D9A02A /* 22x29-pro.png in Resources */ = {isa = PBXBuildFile; fileRef = ED8676FA16A0793800D9A02A /* 22x29-pro.png */; };
@@ -1384,6 +1386,8 @@
 		5797B6D416C931EE00FFE6D2 /* resources-xhdpi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xhdpi"; path = "../../data/resources-xhdpi"; sourceTree = "<group>"; };
 		77DDA9A116D504F900804BDB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MapsWithMe-Pro.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MapsWithMe-Pro.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		CB252D6916FF82C8001E41E9 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		CB252D6A16FF82C8001E41E9 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		CB252D6B16FF82C8001E41E9 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistics.h; sourceTree = "<group>"; };
 		CB252D6C16FF82C8001E41E9 /* Statistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Statistics.m; sourceTree = "<group>"; };
 		ED8676FA16A0793800D9A02A /* 22x29-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "22x29-pro.png"; sourceTree = "<group>"; };
@@ -2140,6 +2144,7 @@
 				FAF29847146EEF4A00FF0057 /* libprotobuf.a in Frameworks */,
 				EE5A34E6156FCB9500E34FFE /* libgui.a in Frameworks */,
 				EEFFB4E815DCDD8A00BACE1C /* libanim.a in Frameworks */,
+				CB252D6D16FF82C8001E41E9 /* libFlurry.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2174,6 +2179,7 @@
 				FAFB0911151215EE0041901D /* libprotobuf.a in Frameworks */,
 				EE5A34E7156FCBD800E34FFE /* libgui.a in Frameworks */,
 				EEFFB4E915DCDD8A00BACE1C /* libanim.a in Frameworks */,
+				CB252D6E16FF82C9001E41E9 /* libFlurry.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2327,6 +2333,8 @@
 		CB252D6816FF82C8001E41E9 /* Statistics */ = {
 			isa = PBXGroup;
 			children = (
+				CB252D6916FF82C8001E41E9 /* Flurry.h */,
+				CB252D6A16FF82C8001E41E9 /* libFlurry.a */,
 				CB252D6B16FF82C8001E41E9 /* Statistics.h */,
 				CB252D6C16FF82C8001E41E9 /* Statistics.m */,
 			);

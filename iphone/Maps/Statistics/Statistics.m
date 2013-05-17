@@ -1,13 +1,13 @@
 #import "Statistics.h"
 
-//#import "Flurry.h"
-
+#import "Flurry.h"
 
 @implementation Statistics
 
 - (void) startSession
 {
-  //[Flurry startSession: [[NSBundle mainBundle] objectForInfoDictionaryKey:@"FlurryKey"]];
+  [Flurry startSession:
+      [[NSBundle mainBundle] objectForInfoDictionaryKey:@"FlurryKey"]];
 }
 
 - (void) stopSession
@@ -16,25 +16,24 @@
 
 - (void) logEvent:(NSString *)eventName
 {
-  //[Flurry logEvent:eventName];
+  [Flurry logEvent:eventName];
 }
 
 - (void) logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters
 {
-  //[Flurry logEvent:eventName withParameters:parameters];
+  [Flurry logEvent:eventName withParameters:parameters];
 }
 
 - (void)logProposalReason:(NSString *)reason withAnswer:(NSString *)answer
 {
-  //NSDictionary * dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects: answer, nil]
-  //                                                  forKeys:[NSArray arrayWithObjects: @"Answer", nil]];
-  //NSString * screen = [NSString stringWithFormat:@"Open AppStore With Proposal on %@", reason];
-  //[[Statistics instance] logEvent:screen withParameters:dict];
+  NSDictionary * dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects: answer, nil]
+                                                    forKeys:[NSArray arrayWithObjects: @"Answer", nil]];
+  NSString * screen = [NSString stringWithFormat:@"Open AppStore With Proposal on %@", reason];
+  [[Statistics instance] logEvent:screen withParameters:dict];
 }
 
 + (Statistics *) instance
 {
-  /*
   static Statistics* instance = nil;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
@@ -44,9 +43,6 @@
     [Flurry setSecureTransportEnabled:true];
   });
   return instance;
-  */
-
-  return nil;
 }
 
 @end
