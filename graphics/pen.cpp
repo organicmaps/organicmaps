@@ -32,9 +32,6 @@ namespace graphics
     if (symbol != 0)
       m_icon = Icon::Info(symbol);
 
-    if (m_w < 1.0)
-      m_w = 1.0;
-
     if (!m_icon.m_name.empty())
     {
       m_isSolid = false;
@@ -259,6 +256,11 @@ namespace graphics
     if (info.m_isSolid)
     {
       /// draw circle
+
+      // we need symmetrical non-antialiased circle. To achive symmetry, ceil it to pixel boundary
+      // exact sub-pixel line width gets set later, and texture gets sceled down a bit for anti-aliasing
+      float r = ceil(info.m_w / 2.0);
+
       agg::rendering_buffer buf(
           (unsigned char *)&v(0, 0),
           rect.SizeX(),
@@ -275,7 +277,6 @@ namespace graphics
 
       agg::scanline_u8 s;
       agg::rasterizer_scanline_aa<> rasterizer;
-      float r = ceil(info.m_w / 2.0);
 
       agg::ellipse ell;
 
