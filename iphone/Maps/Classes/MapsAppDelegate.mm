@@ -63,13 +63,17 @@ void InitLocalizedStrings()
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
   UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-  if (GetPlatform().IsPro() && !m_didOpenedWithUrl && [pasteboard.string length])
+  if (GetPlatform().IsPro() && !m_didOpenedWithUrl)
   {
-    url_api::Request request;
-    if (GetFramework().SetViewportByURL([[pasteboard.string stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] UTF8String], request))
+    NSString * url = [pasteboard.string stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    if ([url length])
     {
-      [self showParsedBookmarkOnMap: request];
-      pasteboard.string = @"";
+      url_api::Request request;
+      if (GetFramework().SetViewportByURL([url UTF8String], request))
+      {
+        [self showParsedBookmarkOnMap: request];
+        pasteboard.string = @"";
+      }
     }
   }
   m_didOpenedWithUrl = NO;
