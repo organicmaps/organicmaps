@@ -816,7 +816,7 @@ nl:pad
 zh:3人行步道|步道
 
 highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-pedestrian|highway-unclassified|highway-motorway_link|highway-motorway
-en:street|st|str|ave
+en:street|st|str|ave|road|rd
 ru:улица|переулок|проезд|тракт|проспект|ул
 de:Strasse|Weg|Avenue|Gasse|str
 fr:rue|avenue|reulle
