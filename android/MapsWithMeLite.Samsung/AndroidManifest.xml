@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.mapswithme.maps.samsung"
-      android:versionCode="233"
-      android:versionName="2.3.3"
+      android:versionCode="234"
+      android:versionName="2.3.4"
       android:installLocation="preferExternal"
       android:sharedUserId="com.mapswithme"
       android:sharedUserLabel="@string/shared_user_label">
@@ -25,36 +25,40 @@
     <supports-screens android:largeScreens="true" android:xlargeScreens="true"/>
 
     <application android:icon="@drawable/ic_launcher" 
-        				 android:label="@string/app_name"
-        				 android:name="com.mapswithme.maps.MWMApplication">
-        				 
+                 android:label="@string/app_name"
+                 android:name="com.mapswithme.maps.MWMApplication">
+
         <activity android:name="com.mapswithme.maps.DownloadResourcesActivity"
                   android:label="@string/app_name"
                   android:screenOrientation="behind"
                   android:theme="@style/MWMNoTitle"
                   android:configChanges="orientation|screenLayout|screenSize">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
             <!-- standard "geo" scheme -->
-            <intent-filter><action android:name="android.intent.action.VIEW"></action>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"></action>
                 <category android:name="android.intent.category.DEFAULT"></category>
                 <data android:scheme="geo"></data>
            </intent-filter>
 
-          <intent-filter><action android:name="android.intent.action.VIEW"></action>
-            <category android:name="android.intent.category.DEFAULT"/>
-            <category android:name="android.intent.category.BROWSABLE"/>
-            <data android:scheme="ge0"/>
+          <intent-filter>
+              <action android:name="android.intent.action.VIEW"></action>
+              <category android:name="android.intent.category.DEFAULT"/>
+              <category android:name="android.intent.category.BROWSABLE"/>
+              <data android:scheme="ge0"/>
           </intent-filter>
 
-          <intent-filter><action android:name="android.intent.action.VIEW"></action>
-            <category android:name="android.intent.category.DEFAULT"/>
-            <category android:name="android.intent.category.BROWSABLE"/>
-            <data android:scheme="http"
-            android:host="ge0.me"/>
+          <intent-filter>
+              <action android:name="android.intent.action.VIEW"></action>
+              <category android:name="android.intent.category.DEFAULT"/>
+              <category android:name="android.intent.category.BROWSABLE"/>
+              <data android:scheme="http"
+                    android:host="ge0.me"/>
           </intent-filter>
 
  <!--
