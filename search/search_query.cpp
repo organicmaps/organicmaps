@@ -1268,17 +1268,14 @@ namespace impl
     public:
       TypeChecker()
       {
+        Classificator const & c = classif();
+
         char const * arr[][2] = {
           { "place", "country" },
+          { "place", "state" },
           { "place", "city" },
           { "place", "town" }
         };
-
-        Classificator const & c = classif();
-
-        // process only USA states
-        char const * arrStateUSA[] = { "place", "state", "USA" };
-        m_vec.push_back(c.GetTypeByPath(vector<string>(arrStateUSA, arrStateUSA + 3)));
 
         for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
           m_vec.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2)));
@@ -1291,15 +1288,17 @@ namespace impl
         for (size_t i = 0; i < types.Size(); ++i)
         {
           uint32_t t = types[i];
+          ftype::TruncValue(t, 2);
 
-          ftype::TruncValue(t, 3);
           if (t == m_vec[0])
+            return Locality::COUNTRY;
+
+          if (t == m_vec[1])
             return Locality::STATE;
 
-          ftype::TruncValue(t, 2);
-          for (int j = 1; j < m_vec.size(); ++j)
+          for (int j = 2; j < m_vec.size(); ++j)
             if (t == m_vec[j])
-              return (j == 1 ? Locality::COUNTRY : Locality::CITY);
+              return Locality::CITY;
         }
 
         return Locality::NONE;
