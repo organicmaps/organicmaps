@@ -43,6 +43,9 @@ namespace graphics
         m_isSolid = true;
       else
       {
+        // hack for Samsung GT-S5570 (GPU floor()'s texture pattern width)
+        m_w = max(m_w, 1.0);
+
         buffer_vector<double, 4> tmpV;
         copy(pattern, pattern + patternSize, back_inserter(tmpV));
 
