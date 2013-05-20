@@ -137,7 +137,7 @@ public class StoragePathActivity extends ListActivity
     {
       try
       {
-        final File f = new File(path);
+        final File f = new File(path + "/");
         if (f.exists() && f.isDirectory() && f.canWrite())
         {
           if (findItemByPath(path) != -1)
