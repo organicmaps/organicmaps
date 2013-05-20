@@ -162,7 +162,13 @@ public class LocationService implements LocationListener, SensorEventListener, W
         // Pass last known location only in the end of all registerListener
         // in case, when we want to disconnect in listener.
         if (lastKnownLocation != null)
+        {
+          final long currentTime = System.currentTimeMillis();
+          //mark location with current time
+          lastKnownLocation.setTime(currentTime);
           emitLocation(lastKnownLocation, System.currentTimeMillis());
+        }
+
       }
 
       if (m_isGPSOff)
