@@ -46,7 +46,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   /// Used to filter locations from different providers
   private Location m_lastLocation = null;
-  private long m_lastTime = 0;
   private double m_drivingHeading = -1.0;
 
   private WifiLocation m_wifiScanner = null;
@@ -163,10 +162,9 @@ public class LocationService implements LocationListener, SensorEventListener, W
         // in case, when we want to disconnect in listener.
         if (lastKnownLocation != null)
         {
-          final long currentTime = System.currentTimeMillis();
           //mark location with current time
-          lastKnownLocation.setTime(currentTime);
-          emitLocation(lastKnownLocation, System.currentTimeMillis());
+          lastKnownLocation.setTime(System.currentTimeMillis());
+          emitLocation(lastKnownLocation);
         }
 
       }
@@ -266,7 +264,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
   {
     // Try to calculate user direction if he is moving and
     // we have previous close position.
-    if ((l.getSpeed() >= 1.0) && (t - m_lastTime <= MAXTIME_CALC_DIRECTIONS))
+    if ((l.getSpeed() >= 1.0) && (t - m_lastLocation.getTime() <= MAXTIME_CALC_DIRECTIONS))
     {
       if (l.hasBearing())
         m_drivingHeading = bearingToHeading(l.getBearing());
@@ -277,12 +275,11 @@ public class LocationService implements LocationListener, SensorEventListener, W
       m_drivingHeading = -1.0;
   }
 
-  private void emitLocation(Location l, long currTime)
+  private void emitLocation(Location l)
   {
     //Log.d(TAG, "Location accepted");
     notifyLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
     m_lastLocation = l;
-    m_lastTime = currTime;
   }
 
   /// Delta distance when we need to recreate GeomagneticField (to calculate declination).
@@ -313,7 +310,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
         }
       }
 
-      emitLocation(l, timeNow);
+      emitLocation(l);
     }
   }
 
