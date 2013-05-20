@@ -13887,13 +13887,13 @@ cont {
   element {
     scale: 18
     lines {
-      width: 10.8
+      width: 13.2
       color: 0xC0BC9C
       priority: 27
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 10.8
       color: 0xE8E8E8
       priority: 1027
     }
@@ -13909,13 +13909,13 @@ cont {
   element {
     scale: 19
     lines {
-      width: 10.8
+      width: 22.8
       color: 0xC0BC9C
       priority: 27
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 20.4
       color: 0xE8E8E8
       priority: 1027
     }
@@ -14077,13 +14077,13 @@ cont {
   element {
     scale: 18
     lines {
-      width: 10.8
+      width: 13.2
       color: 0xC0BC9C
       priority: 27
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 10.8
       color: 0xE8E8E8
       priority: 1027
     }
@@ -14099,13 +14099,13 @@ cont {
   element {
     scale: 19
     lines {
-      width: 10.8
+      width: 22.8
       color: 0xC0BC9C
       priority: 27
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 20.4
       color: 0xE8E8E8
       priority: 1027
     }
@@ -14190,13 +14190,13 @@ cont {
   element {
     scale: 18
     lines {
-      width: 10.8
+      width: 13.2
       color: 0xC0BC9C
       priority: 27
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 10.8
       color: 0xE8E8E8
       priority: 1027
     }
@@ -14212,13 +14212,13 @@ cont {
   element {
     scale: 19
     lines {
-      width: 10.8
+      width: 22.8
       color: 0xC0BC9C
       priority: 27
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 20.4
       color: 0xE8E8E8
       priority: 1027
     }
@@ -18181,13 +18181,13 @@ cont {
   element {
     scale: 18
     lines {
-      width: 9.12
+      width: 11.52
       color: 0xC8C8AF
       priority: 34
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 10.8
       color: 0xFFFFFF
       priority: 1034
     }
@@ -18203,13 +18203,13 @@ cont {
   element {
     scale: 19
     lines {
-      width: 9.12
+      width: 21.12
       color: 0xC8C8AF
       priority: 34
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 20.4
       color: 0xFFFFFF
       priority: 1034
     }
@@ -18356,13 +18356,13 @@ cont {
   element {
     scale: 18
     lines {
-      width: 9.12
+      width: 11.52
       color: 0xC8C8AF
       priority: 34
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 10.8
       color: 0xFFFFFF
       priority: 1034
     }
@@ -18378,13 +18378,13 @@ cont {
   element {
     scale: 19
     lines {
-      width: 9.12
+      width: 21.12
       color: 0xC8C8AF
       priority: 34
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 20.4
       color: 0xFFFFFF
       priority: 1034
     }
@@ -18439,8 +18439,8 @@ cont {
   element {
     scale: 17
     lines {
-      width: 9.6
-      color: 0x707070
+      width: 9.12
+      color: 0xC8C8AF
       priority: 34
       cap: BUTTCAP
     }
@@ -18461,13 +18461,13 @@ cont {
   element {
     scale: 18
     lines {
-      width: 9.6
-      color: 0x707070
+      width: 11.52
+      color: 0xC8C8AF
       priority: 34
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 10.8
       color: 0xFFFFFF
       priority: 1034
     }
@@ -18483,13 +18483,13 @@ cont {
   element {
     scale: 19
     lines {
-      width: 9.6
-      color: 0x707070
+      width: 21.12
+      color: 0xC8C8AF
       priority: 34
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 20.4
       color: 0xFFFFFF
       priority: 1034
     }
@@ -18614,8 +18614,8 @@ cont {
   element {
     scale: 17
     lines {
-      width: 9.6
-      color: 0x707070
+      width: 9.12
+      color: 0xC8C8AF
       priority: 34
       cap: BUTTCAP
     }
@@ -18636,13 +18636,13 @@ cont {
   element {
     scale: 18
     lines {
-      width: 9.6
-      color: 0x707070
+      width: 11.52
+      color: 0xC8C8AF
       priority: 34
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 10.8
       color: 0xFFFFFF
       priority: 1034
     }
@@ -18658,13 +18658,13 @@ cont {
   element {
     scale: 19
     lines {
-      width: 9.6
-      color: 0x707070
+      width: 21.12
+      color: 0xC8C8AF
       priority: 34
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 20.4
       color: 0xFFFFFF
       priority: 1034
     }
@@ -18719,8 +18719,8 @@ cont {
   element {
     scale: 17
     lines {
-      width: 9.6
-      color: 0x707070
+      width: 9.12
+      color: 0xC8C8AF
       priority: 34
       cap: BUTTCAP
     }
@@ -18741,13 +18741,13 @@ cont {
   element {
     scale: 18
     lines {
-      width: 9.6
-      color: 0x707070
+      width: 11.52
+      color: 0xC8C8AF
       priority: 34
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 10.8
       color: 0xFFFFFF
       priority: 1034
     }
@@ -18763,13 +18763,13 @@ cont {
   element {
     scale: 19
     lines {
-      width: 9.6
-      color: 0x707070
+      width: 21.12
+      color: 0xC8C8AF
       priority: 34
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 20.4
       color: 0xFFFFFF
       priority: 1034
     }
@@ -18846,13 +18846,13 @@ cont {
   element {
     scale: 18
     lines {
-      width: 9.12
+      width: 11.52
       color: 0xC8C8AF
       priority: 34
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 10.8
       color: 0xFFFFFF
       priority: 1034
     }
@@ -18868,13 +18868,13 @@ cont {
   element {
     scale: 19
     lines {
-      width: 9.12
+      width: 21.12
       color: 0xC8C8AF
       priority: 34
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 20.4
       color: 0xFFFFFF
       priority: 1034
     }
@@ -18951,13 +18951,13 @@ cont {
   element {
     scale: 18
     lines {
-      width: 9.12
+      width: 11.52
       color: 0xC8C8AF
       priority: 34
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 10.8
       color: 0xFFFFFF
       priority: 1034
     }
@@ -18973,13 +18973,13 @@ cont {
   element {
     scale: 19
     lines {
-      width: 9.12
+      width: 21.12
       color: 0xC8C8AF
       priority: 34
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 20.4
       color: 0xFFFFFF
       priority: 1034
     }
@@ -32228,6 +32228,13 @@ cont {
   }
   element {
     scale: 13
+    caption {
+      primary {
+        height: 12
+        color: 0x202020
+      }
+      priority: 15087
+    }
     area {
       color: 0xB9D4D4
       priority: -15913
@@ -34791,7 +34798,6 @@ cont {
       primary {
         height: 8
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -34802,7 +34808,6 @@ cont {
       primary {
         height: 9
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -34813,7 +34818,6 @@ cont {
       primary {
         height: 9
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -34824,7 +34828,6 @@ cont {
       primary {
         height: 9
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -34835,7 +34838,6 @@ cont {
       primary {
         height: 10
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -34846,7 +34848,6 @@ cont {
       primary {
         height: 10
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -34857,7 +34858,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -34868,7 +34868,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -34879,7 +34878,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -34890,7 +34888,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -34901,7 +34898,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -34912,7 +34908,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -34923,7 +34918,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -34934,7 +34928,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -34945,7 +34938,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -34956,7 +34948,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -34967,7 +34958,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -34978,7 +34968,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -34989,7 +34978,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -35026,7 +35014,6 @@ cont {
       primary {
         height: 8
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -35037,7 +35024,6 @@ cont {
       primary {
         height: 8
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -35048,7 +35034,6 @@ cont {
       primary {
         height: 8
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -35059,7 +35044,6 @@ cont {
       primary {
         height: 8
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -35070,7 +35054,6 @@ cont {
       primary {
         height: 10
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -35081,7 +35064,6 @@ cont {
       primary {
         height: 10
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -35092,7 +35074,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -35103,7 +35084,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -35114,7 +35094,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -35125,7 +35104,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -35136,7 +35114,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -35147,7 +35124,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -35158,7 +35134,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -35169,7 +35144,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -35180,7 +35154,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -35191,7 +35164,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }
@@ -35202,7 +35174,6 @@ cont {
       primary {
         height: 11
         color: 0x4976D1
-        stroke_color: 0xFFFFFF
       }
       priority: 15000
     }

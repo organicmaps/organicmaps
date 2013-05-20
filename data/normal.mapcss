@@ -79,8 +79,6 @@ node|z1-[place=ocean]
   text: name;
   font-size:8;
   text-color:#4976d1;
-  text-halo-radius: 2;
-  text-halo-color:#ffffff;
   z-index:-1
 }
 node|z2-[place=ocean]
@@ -99,9 +97,7 @@ node|z3-[place=sea]
 {
   text: name;
   font-size: 8;
-  text-halo-radius: 1;
   text-color: #4976d1;
-  text-halo-color: #ffffff;
 }
 node|z7-[place=sea]
 {
@@ -1416,7 +1412,7 @@ area|z15[natural=meadow],
 area|z15[natural=orchard],
 area|z15[natural=salt_pond],
 area|z15[natural=vineyard],
-area|z14-15[natural=water],
+area|z13-15[natural=water],
 area|z14[place=farm],
 area|z13-15[place=islet],
 area|z17-[place=islet],
@@ -5735,6 +5731,12 @@ line|z19-[highway=steps]
   linecap:  butt;
 }
 
+line|z17-[highway=service]
+{
+  color:	white;
+  width:	7;
+}
+
 line|z17[highway=footway]::d1p2
 {
   width:  4;
@@ -5743,7 +5745,7 @@ line|z17[highway=footway]::d1p2
   linecap:  butt;
   dashes: 1,3;
 }
-line|z17[highway=footway]
+line|z17-[highway=footway]
 {
   color:    #d0ccbc;
   width:    5;
@@ -5757,9 +5759,10 @@ line|z18[highway=footway]::d1p2
   linecap:  butt;
   dashes:   1,3;
 }
-line|z18[highway=footway]
+line|z18[highway=footway],
+line|z18[highway=service],
+line|z18[highway=pedestrian]
 {
-  color:    #d0ccbc;
   width:    9;
 }
 
@@ -5771,12 +5774,12 @@ line|z19-[highway=footway]::d1p2
   linecap:  butt;
   dashes:   1,4;
 }
-line|z19-[highway=footway]
+line|z19-[highway=footway],
+line|z19-[highway=service],
+line|z19-[highway=pedestrian]
 {
-  color:    #d0ccbc;
   width:    17;
 }
-
 
 
 line|z17-[man_made=pipeline][location=overground]
@@ -5949,13 +5952,6 @@ line|z17-[railway=rail]::d1p5
   z-index:	681;
   dashes:	12,12;
   linecap:	butt;
-}
-line|z17-[highway=service][service=driveway]
-{
-  color:	white;
-  width:	4;
-  casing-width:	0.5;
-  casing-color:	#707070;
 }
 line|z17-[communication=line]
 {
@@ -6212,11 +6208,7 @@ line|z17-[highway=secondary]
 }
 
 
-line|z17-[highway=service]
-{
-  color:	white;
-  width:	7;
-}
+
 line|z17-[route=ferry]
 {
   color:	#a8c8d8;
