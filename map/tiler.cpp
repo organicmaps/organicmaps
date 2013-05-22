@@ -1,9 +1,7 @@
-#include "../base/SRC_FIRST.hpp"
 #include "tiler.hpp"
+
 #include "../indexer/mercator.hpp"
-#include "../indexer/scales.hpp"
-#include "../base/logging.hpp"
-#include "../platform/platform.hpp"
+
 
 Tiler::RectInfo::RectInfo()
   : m_tileScale(0), m_x(0), m_y(0)
@@ -65,19 +63,17 @@ int Tiler::getTileScale(ScreenBase const & s, int ts) const
   tmpS.Rotate(-tmpS.GetAngle());
 
   /// slightly smaller than original to produce "antialiasing" effect using bilinear filtration.
-  size_t tileSize = static_cast<size_t>(ts / 1.05);
+  int const halfSize = static_cast<int>(ts / 1.05 / 2.0);
 
   m2::RectD glbRect;
-  m2::PointD pxCenter = tmpS.PixelRect().Center();
-  tmpS.PtoG(m2::RectD(pxCenter - m2::PointD(tileSize / 2, tileSize / 2),
-                      pxCenter + m2::PointD(tileSize / 2, tileSize / 2)),
+  m2::PointD const pxCenter = tmpS.PixelRect().Center();
+  tmpS.PtoG(m2::RectD(pxCenter - m2::PointD(halfSize, halfSize),
+                      pxCenter + m2::PointD(halfSize, halfSize)),
             glbRect);
 
-  double glbRectSize = min(glbRect.SizeX(), glbRect.SizeY());
-
-  int res = static_cast<int>(ceil(log((MercatorBounds::maxX - MercatorBounds::minX) / glbRectSize) / log(2.0)));
-
-  return res;
+  /// @todo Fix this for possible anisotropic scales in screen.
+  double const glbRectSize = min(glbRect.SizeX(), glbRect.SizeY());
+  return my::rounds(log((MercatorBounds::maxX - MercatorBounds::minX) / glbRectSize) / log(2.0));
 }
 
 void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt, size_t tileSize)
@@ -102,30 +98,26 @@ void Tiler::tiles(vector<RectInfo> & tiles, int depth)
 
   for (unsigned i = 0; i < depth; ++i)
   {
-    int pow = depth - 1 - i;
+    int const pow = depth - 1 - i;
+    int const scale = 1 << pow;
+    int const tileSize = m_tileSize * scale;
+    int const tileScale = getTileScale(m_screen, tileSize);
 
-    int scale = 1 << pow;
+    double const rectSizeX = (MercatorBounds::maxX - MercatorBounds::minX) / (1 << tileScale);
+    double const rectSizeY = (MercatorBounds::maxY - MercatorBounds::minY) / (1 << tileScale);
 
-    int tileSize = m_tileSize * scale;
-
-    int tileScale = getTileScale(m_screen, tileSize);
-
-    double rectSizeX = (MercatorBounds::maxX - MercatorBounds::minX) / (1 << tileScale);
-    double rectSizeY = (MercatorBounds::maxY - MercatorBounds::minY) / (1 << tileScale);
-
-    /// calculating coverage on the global rect, which corresponds to the
-    /// pixel rect, which in ceiled to tileSize
+    // calculating coverage on the global rect, which corresponds to the
+    // pixel rect, which in ceiled to tileSize
 
     m2::AnyRectD const & globalRect = m_screen.GlobalRect();
-    m2::RectD const clipRect = m_screen.GlobalRect().GetGlobalRect();
+    m2::RectD const clipRect = globalRect.GetGlobalRect();
 
     int minTileX = static_cast<int>(floor(clipRect.minX() / rectSizeX));
     int maxTileX = static_cast<int>(ceil(clipRect.maxX() / rectSizeX));
     int minTileY = static_cast<int>(floor(clipRect.minY() / rectSizeY));
     int maxTileY = static_cast<int>(ceil(clipRect.maxY() / rectSizeY));
 
-    /// generating new coverage
-
+    // generating new coverage
     for (int tileY = minTileY; tileY < maxTileY; ++tileY)
       for (int tileX = minTileX; tileX < maxTileX; ++tileX)
       {
