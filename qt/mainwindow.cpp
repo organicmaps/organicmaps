@@ -344,12 +344,12 @@ void MainWindow::OnSearchButtonClicked()
   {
     m_pDrawWidget->GetFramework().PrepareSearch(false);
 
-    m_Docks[2]->show();
-    m_Docks[2]->widget()->setFocus();
+    m_Docks[0]->show();
+    m_Docks[0]->widget()->setFocus();
   }
   else
   {
-    m_Docks[2]->hide();
+    m_Docks[0]->hide();
   }
 }
 
@@ -368,33 +368,14 @@ void MainWindow::ShowUpdateDialog()
   dlg.ShowModal();
 }
 
-void MainWindow::ShowClassifPanel()
-{
-  m_Docks[0]->show();
-}
-
-void MainWindow::ShowGuidePanel()
-{
-  m_Docks[1]->show();
-}
-
-//void MainWindow::CreateGuidePanel()
-//{
-//  CreatePanelImpl(1, Qt::LeftDockWidgetArea, tr("Guide Bar"),
-//                  QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_G), SLOT(ShowGuidePanel()));
-
-//  qt::GuidePageHolder * pGPage = new qt::GuidePageHolder(m_Docks[1]);
-
-//  m_Docks[1]->setWidget(pGPage);
-//}
 #endif // NO_DOWNLOADER
 
 void MainWindow::CreateSearchBarAndPanel()
 {
-  CreatePanelImpl(2, Qt::RightDockWidgetArea, tr("Search"),
+  CreatePanelImpl(0, Qt::RightDockWidgetArea, tr("Search"),
                   QKeySequence(), 0);
-  SearchPanel * panel = new SearchPanel(m_pDrawWidget, m_Docks[2]);
-  m_Docks[2]->setWidget(panel);
+  SearchPanel * panel = new SearchPanel(m_pDrawWidget, m_Docks[0]);
+  m_Docks[0]->setWidget(panel);
 }
 
 void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name,
@@ -407,7 +388,7 @@ void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString cons
   // hide by default
   m_Docks[i]->hide();
 
-  // register a hotkey to show classificator panel
+  // register a hotkey to show panel
   if (!hotkey.isEmpty())
   {
     QAction * pAct = new QAction(this);

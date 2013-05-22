@@ -21,7 +21,7 @@ namespace qt
     QAction * m_pSearchAction;
     DrawWidget * m_pDrawWidget;
 
-    QDockWidget * m_Docks[3];
+    QDockWidget * m_Docks[1];
 
     scoped_ptr<location::LocationService> m_locationService;
 
@@ -40,10 +40,6 @@ namespace qt
     void LoadState();
 
   protected:
-#ifndef NO_DOWNLOADER
-    void CreateClassifPanel();
-    void CreateGuidePanel();
-#endif // NO_DOWNLOADER
     void CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name,
                          QKeySequence const & hotkey, char const * slot);
     void CreateNavigationBar();
@@ -59,8 +55,6 @@ namespace qt
   protected Q_SLOTS:
 #ifndef NO_DOWNLOADER
     void ShowUpdateDialog();
-    void ShowClassifPanel();
-    void ShowGuidePanel();
 #endif // NO_DOWNLOADER
 
     void OnPreferences();
