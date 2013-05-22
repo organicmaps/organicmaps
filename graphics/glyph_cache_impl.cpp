@@ -190,7 +190,16 @@ namespace graphics
       return;
 
     for (size_t i = 0; i < fontNames.size(); ++i)
-      addFont(fontNames[i].c_str());
+    {
+      try
+      {
+        addFont(fontNames[i].c_str());
+      }
+      catch (RootException const & ex)
+      {
+        LOG(LERROR, ("Can't load font", fontNames[i], ex.Msg()));
+      }
+    }
 
     /*
     LOG(LINFO, ("----------------------------"));

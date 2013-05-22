@@ -60,19 +60,18 @@ void Platform::GetFontNames(FilesList & res) const
 {
   GetSystemFontNames(res);
 
-  string const resourcesPaths[] = { WritableDir(), ResourcesDir() };
+  string const paths[] = { WritableDir(), ResourcesDir() };
 
-  FilesList resourcesFonts;
-
-  for (size_t i = 0; i < ARRAY_SIZE(resourcesPaths); ++i)
+  FilesList fonts;
+  for (size_t i = 0; i < ARRAY_SIZE(paths); ++i)
   {
-    LOG(LDEBUG, ("Searching for fonts in", resourcesPaths[i]));
-    GetFilesByExt(resourcesPaths[i], ".ttf", resourcesFonts);
-  };
+    LOG(LDEBUG, ("Searching for fonts in", paths[i]));
+    GetFilesByExt(paths[i], ".ttf", fonts);
+  }
 
-  sort(resourcesFonts.begin(), resourcesFonts.end());
-  resourcesFonts.erase(unique(resourcesFonts.begin(), resourcesFonts.end()), resourcesFonts.end());
-  res.insert(res.end(), resourcesFonts.begin(), resourcesFonts.end());
+  sort(fonts.begin(), fonts.end());
+  fonts.erase(unique(fonts.begin(), fonts.end()), fonts.end());
+  res.insert(res.end(), fonts.begin(), fonts.end());
 
   LOG(LINFO, ("Available font files:", (res)));
 }
