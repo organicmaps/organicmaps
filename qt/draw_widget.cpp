@@ -251,8 +251,12 @@ namespace qt
       rpParams.m_useDefaultFB = true;
       rpParams.m_rmParams = rmParams;
       rpParams.m_primaryRC = primaryRC;
-      rpParams.m_density = graphics::EDensityMDPI;
       rpParams.m_skinName = "basic.skn";
+
+      if (QApplication::desktop()->physicalDpiX() < 180)
+        rpParams.m_density = graphics::EDensityMDPI;
+      else
+        rpParams.m_density = graphics::EDensityXHDPI;
 
       try
       {
@@ -323,7 +327,9 @@ namespace qt
   {
     m_taskX = x;
     m_taskY = y;
+#ifndef OMIM_PRODUCTION
     m_scheduledTasks.reset(new ScheduledTask(bind(&DrawWidget::OnPressTaskEvent, this, x, y, ms), ms));
+#endif
   }
 
   void DrawWidget::KillPressTask()

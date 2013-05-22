@@ -49,10 +49,13 @@ linux* {
   } else {
     CLASSIFICATOR_RES.files += ../data/drules_proto.txt
   }
-  SKIN_RES.path = $$RESDIR/resources-mdpi
-  SKIN_RES.files = ../data/resources-mdpi/basic.skn ../data/resources-mdpi/symbols.png
+  MDPI_SKIN_RES.path = $$RESDIR/resources-mdpi
+  MDPI_SKIN_RES.files = ../data/resources-mdpi/basic.skn ../data/resources-mdpi/symbols.png
+  XHDPI_SKIN_RES.path = $$RESDIR/resources-xhdpi
+  XHDPI_SKIN_RES.files = ../data/resources-xhdpi/basic.skn ../data/resources-xhdpi/symbols.png
   FONT_RES.path = $$RESDIR
-  FONT_RES.files = ../data/01_dejavusans.ttf \
+  FONT_RES.files = ../data/00_roboto_regular.ttf \
+                   ../data/01_dejavusans.ttf \
                    ../data/02_wqy-microhei.ttf \
                    ../data/03_jomolhari-id-a3d.ttf \
                    ../data/04_padauk.ttf \
@@ -64,7 +67,7 @@ linux* {
   MWM_RES.path = $$RESDIR
   MWM_RES.files = ../data/World.mwm ../data/WorldCoasts.mwm
 
-  INSTALLS += target desktop pixmaps icon128 OTHER_RES CLASSIFICATOR_RES SKIN_RES FONT_RES MWM_RES
+  INSTALLS += target desktop pixmaps icon128 OTHER_RES CLASSIFICATOR_RES MDPI_SKIN_RES XHDPI_SKIN_RES FONT_RES MWM_RES
 }
 
 macx* {
