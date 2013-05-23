@@ -8,44 +8,41 @@
 #include "../graphics/screen.hpp"
 #include "../graphics/path.hpp"
 
+#define TEXT_LEFT_MARGIN 1
+#define TEXT_RIGHT_MARGIN 25
+
 namespace gui
 {
   Balloon::Params::Params()
-    : m_image(),
-      m_textMarginLeft(10),
-      m_textMarginTop(10),
-      m_textMarginRight(10),
-      m_textMarginBottom(10),
-      m_imageMarginLeft(10),
-      m_imageMarginTop(10),
-      m_imageMarginRight(10),
-      m_imageMarginBottom(10)
+    : m_image()
   {}
 
   Balloon::Balloon(Params const & p)
     : Element(p),
+      m_balloonScale(1.0),
+      m_textImageOffsetH(0.0),
+      m_textImageOffsetV(0.0),
       m_boundRects(1)
   {
-    m_textMarginLeft = p.m_textMarginLeft;
-    m_textMarginRight = p.m_textMarginRight;
-    m_textMarginTop = p.m_textMarginTop;
-    m_textMarginBottom = p.m_textMarginBottom;
-
-    m_imageMarginLeft = p.m_imageMarginLeft;
-    m_imageMarginRight = p.m_imageMarginRight;
-    m_imageMarginTop = p.m_imageMarginTop;
-    m_imageMarginBottom = p.m_imageMarginBottom;
-
     TextView::Params tp;
 
-    tp.m_text = p.m_text;
-    tp.m_position = graphics::EPosRight;
+    tp.m_position = graphics::EPosAboveRight;
     tp.m_pivot = m2::PointD(0, 0);
     tp.m_depth = depth() + 1;
 
-    m_textView.reset(new TextView(tp));
+    m_mainTextView.reset(new TextView(tp));
+    m_mainTextView->setFont(Element::EActive, graphics::FontDesc(17, graphics::Color(0, 0, 0, 255)));
 
-    m_textView->setFont(Element::EActive, graphics::FontDesc(20, graphics::Color(255, 255, 255, 255)));
+    TextView::Params auxTp;
+    auxTp.m_text = p.m_auxText;
+    auxTp.m_position = graphics::EPosAboveRight;
+    auxTp.m_pivot = m2::PointD(0, 0);
+    auxTp.m_depth = depth() + 1;
+
+    m_auxTextView.reset(new TextView(auxTp));
+    m_auxTextView->setFont(Element::EActive, graphics::FontDesc(12, graphics::Color(51, 51, 51, 255)));
+
+    updateTextMode(p.m_mainText, p.m_auxText);
 
     ImageView::Params ip;
 
@@ -55,44 +52,46 @@ namespace gui
     ip.m_image = p.m_image;
 
     m_imageView.reset(new ImageView(ip));
+  }
 
-    m_arrowHeight = 10;
-    m_arrowAngle = ang::DegreeToRad(90);
-    m_arrowWidth = 2 * tan(m_arrowAngle / 2) * m_arrowHeight;
+  void Balloon::updateTextMode(string const & main, string const & aux)
+  {
+    m_textMode = NoText;
+    if (!main.empty())
+      m_textMode = (ETextMode)(m_textMode | SingleMainText);
+    if (!aux.empty())
+      m_textMode = (ETextMode)(m_textMode | SingleAuxText);
   }
 
   vector<m2::AnyRectD> const & Balloon::boundRects() const
   {
     if (isDirtyRect())
     {
-      m2::RectD tr = m_textView->roughBoundRect();
+      m2::RectD tr = m_mainTextView->roughBoundRect();
+      m2::RectD auxTr = m_auxTextView->roughBoundRect();
       m2::RectD ir = m_imageView->roughBoundRect();
 
       double k = visualScale();
 
-      tr.setMinX(tr.minX() - m_textMarginLeft * k);
-      tr.setMinY(tr.minY() - m_textMarginTop * k);
-      tr.setMaxX(tr.maxX() + m_textMarginRight * k);
-      tr.setMaxY(tr.maxY() + m_textMarginBottom * k);
+      tr.setMinX(tr.minX() - (m_borderImg.m_size.x + TEXT_LEFT_MARGIN) * k);
+      tr.setMaxX(tr.maxX() + TEXT_RIGHT_MARGIN * k);
 
-      ir.setMinX(ir.minX() - m_imageMarginLeft * k);
-      ir.setMinY(ir.minY() - m_imageMarginTop * k);
-      ir.setMaxX(ir.maxX() + m_imageMarginRight * k);
-      ir.setMaxY(ir.maxY() + m_imageMarginBottom * k);
+      auxTr.setMinX(auxTr.minX() - (m_borderImg.m_size.x + TEXT_LEFT_MARGIN) * k);
+      auxTr.setMaxX(auxTr.maxX() - TEXT_RIGHT_MARGIN * k);
 
-      m2::RectD r(tr);
-      r.Add(ir);
+      ir.setMaxX(ir.maxX() + m_borderImg.m_size.x * k);
 
-      graphics::EPosition pos = position();
+      m2::RectD r(ir);
+      if (m_textMode & SingleMainText)
+        r.Add(tr);
+      if (m_textMode & SingleAuxText)
+        r.Add(auxTr);
 
-      if (pos == graphics::EPosAbove)
-        r.setMaxY(r.maxY() + m_arrowHeight * k);
-      else if (pos == graphics::EPosUnder)
-        r.setMinY(r.minY() - m_arrowHeight * k);
-      else if (pos == graphics::EPosRight)
-        r.setMinX(r.minX() - m_arrowHeight * k);
-      else if (pos == graphics::EPosLeft)
-        r.setMaxX(r.maxX() + m_arrowHeight * k);
+      double diff = m_bodyImg.m_size.y + m_arrowImg.m_size.y - r.SizeY();
+      double halfDiff = diff / 2.0;
+
+      r.setMaxY(r.maxY() + halfDiff);
+      r.setMinY(r.minY() - halfDiff);
 
       m_boundRects[0] = m2::AnyRectD(r);
 
@@ -104,64 +103,79 @@ namespace gui
 
   void Balloon::layout()
   {
-    m_textView->setIsDirtyLayout(true);
+    m_mainTextView->setIsDirtyLayout(true);
+    m_auxTextView->setIsDirtyLayout(true);
     m_imageView->setIsDirtyLayout(true);
-    m2::RectD tr = m_textView->roughBoundRect();
-    m2::RectD ir = m_imageView->roughBoundRect();
+
+    m2::RectD mainTextRect = m_mainTextView->roughBoundRect();
+    m2::RectD auxTextRect = m_auxTextView->roughBoundRect();
+    m2::RectD imageRect = m_imageView->roughBoundRect();
 
     double k = visualScale();
-    double tml = m_textMarginLeft * k;
-    double tmr = m_textMarginRight * k;
-    double tmt = m_textMarginTop * k;
-    double tmb = m_textMarginBottom * k;
+    double leftMargin = (m_borderImg.m_size.x + TEXT_LEFT_MARGIN) * k;
+    double rightMargin = TEXT_RIGHT_MARGIN * k;
 
-    double iml = m_imageMarginLeft * k;
-    double imr = m_imageMarginRight * k;
-    double imt = m_imageMarginTop * k;
-    double imb = m_imageMarginBottom * k;
+    double imageMargin = m_borderImg.m_size.x * k;
 
-    double arrowHeight = m_arrowHeight * k;
+    double mainWidth = leftMargin + mainTextRect.SizeX() + rightMargin;
+    double auxWidth = leftMargin + auxTextRect.SizeX() + rightMargin;
+    double imageWidth = imageRect.SizeX() + imageMargin;
 
-    double w = tml + tr.SizeX() + tmr
-             + iml + ir.SizeX() + imr;
+    double maxWidth = max(mainWidth, auxWidth) + imageWidth;
 
-    double h = max(ir.SizeY() + imb + imt,
-                   tr.SizeY() + tmb + tmt);
+    if (m_textMode & SingleMainText)
+      layoutMainText(maxWidth, leftMargin);
 
-    m2::PointD const & pv = pivot();
-    graphics::EPosition pos = position();
+    if (m_textMode & SingleAuxText)
+      layoutAuxText(maxWidth, leftMargin);
 
-    if (pos == graphics::EPosAbove)
-    {
-      m_textView->setPivot(m2::PointD(pv.x - w / 2 + tml,
-                                      pv.y - h / 2 - arrowHeight));
-      m_imageView->setPivot(m2::PointD(pv.x + w / 2 - imr - ir.SizeX(),
-                                       pv.y - h / 2 - arrowHeight));
-    }
-    else if (pos == graphics::EPosUnder)
-    {
-      m_textView->setPivot(m2::PointD(pv.x - w / 2 + tml,
-                                      pv.y + h / 2 + arrowHeight));
-      m_imageView->setPivot(m2::PointD(pv.x + w / 2 - imr - ir.SizeX(),
-                                       pv.y + h / 2 + arrowHeight));
-    }
-    else if (pos == graphics::EPosLeft)
-    {
-      m_textView->setPivot(m2::PointD(pv.x - w - arrowHeight + tml,
-                                      pv.y));
-      m_imageView->setPivot(m2::PointD(pv.x - arrowHeight - imr - ir.SizeX(),
-                                       pv.y));
-    }
-    else if (pos == graphics::EPosRight)
-    {
-      m_textView->setPivot(m2::PointD(pv.x + arrowHeight + tml,
-                                      pv.y));
-      m_imageView->setPivot(m2::PointD(pv.x + arrowHeight + tml + tr.SizeX() + tmr + imr,
-                                       pv.y));
-    }
+    m2::PointD pv = pivot();
+    pv.x = pv.x + maxWidth / 2.0 - imageMargin - imageRect.SizeX();
+    pv.y -= (m_arrowImg.m_size.y + m_borderImg.m_size.y / 2.0);
 
-    m_textView->setPosition(graphics::EPosRight);
+    m_imageView->setPivot(pv);
+
     m_imageView->setPosition(graphics::EPosRight);
+  }
+
+  void Balloon::layoutMainText(double balloonWidth,
+                               double leftMargin)
+  {
+    m2::PointD pv = pivot();
+    graphics::EPosition newPosition = graphics::EPosRight;
+
+    pv.x = pv.x - balloonWidth / 2.0 + leftMargin;
+
+    if (m_textMode == DualText)
+    {
+      pv.y = pv.y - (m_bodyImg.m_size.y / 2.0 + m_arrowImg.m_size.y - 2) ;
+      newPosition = graphics::EPosAboveRight;
+    }
+    else
+      pv.y = pv.y - (m_bodyImg.m_size.y / 2.0 + m_arrowImg.m_size.y - 2);
+
+    m_mainTextView->setPivot(pv);
+    m_mainTextView->setPosition(newPosition);
+  }
+
+  void Balloon::layoutAuxText(double balloonWidth,
+                              double leftMargin)
+  {
+    m2::PointD pv = pivot();
+    graphics::EPosition newPosition = graphics::EPosRight;
+
+    pv.x = pv.x - balloonWidth / 2.0 + leftMargin;
+    if (m_textMode == DualText)
+    {
+      double textHeight = m_auxTextView->roughBoundRect().SizeY();
+      pv.y = pv.y - (m_bodyImg.m_size.y / 2.0 + m_arrowImg.m_size.y) + 1.5 * textHeight;
+      newPosition = graphics::EPosAboveRight;
+    }
+    else
+      pv.y -= (m_bodyImg.m_size.y / 2.0 + m_arrowImg.m_size.y);
+
+    m_auxTextView->setPivot(pv);
+    m_auxTextView->setPosition(newPosition);
   }
 
   void Balloon::setPivot(m2::PointD const & pv)
@@ -170,8 +184,67 @@ namespace gui
     layout();
   }
 
+  void Balloon::cacheBorders(graphics::Screen * cs,
+                             graphics::Image::Info &borderImg,
+                             uint32_t balloonWidth,
+                             uint32_t arrowHeight)
+  {
+    uint32_t borderID = cs->mapInfo(borderImg);
+
+    double offsetX = balloonWidth / 2.0;
+    double offsetY = borderImg.m_size.y + arrowHeight;
+
+    math::Matrix<double, 3, 3> identity = math::Identity<double, 3>();
+    math::Matrix<double, 3, 3> leftM = math::Shift(identity,
+                                                   -offsetX, -offsetY);
+
+    cs->drawImage(leftM, borderID, depth());
+
+    math::Matrix<double, 3, 3> rightM = math::Shift(
+                                                    math::Scale(identity, -1.0, 1.0),
+                                                    offsetX, -offsetY);
+
+    cs->drawImage(rightM, borderID, depth());
+  }
+
+  void Balloon::cacheBody(graphics::Screen * cs,
+                 graphics::Image::Info & bodyImg,
+                 double offsetX,
+                 double bodyWidth,
+                 uint32_t arrowHeight)
+  {
+    uint32_t bodyID = cs->mapInfo(bodyImg);
+    int32_t bodyCount = (bodyWidth + bodyImg.m_size.x - 1) / (double)(bodyImg.m_size.x);
+    double offsetY = bodyImg.m_size.y + arrowHeight;
+    offsetY = -offsetY;
+    double currentOffsetX = -offsetX;
+
+    math::Matrix<double, 3, 3> m = math::Shift(math::Identity<double, 3>(),
+                                               currentOffsetX, offsetY);
+
+    for (int32_t i = 0; i < bodyCount - 1; ++i)
+    {
+      cs->drawImage(m, bodyID, depth());
+
+      m = math::Shift(m, m2::PointF(bodyImg.m_size.x, 0));
+      currentOffsetX += bodyImg.m_size.x;
+    }
+
+    int32_t lastTileWidth = bodyWidth - (bodyImg.m_size.x) * (bodyCount - 1);
+    double scaleFactor = (double(lastTileWidth) + 2.5)/ (double)(bodyImg.m_size.x);
+
+    math::Matrix<double, 3, 3> lastBodyM = math::Shift(
+                                                      math::Scale(math::Identity<double, 3>(), scaleFactor, 1.0),
+                                                        currentOffsetX, offsetY);
+    cs->drawImage(lastBodyM, bodyID, depth() + 1);
+  }
+
   void Balloon::cache()
   {
+    m2::RectD const & r = roughBoundRect();
+
+    double bw = r.SizeX();
+
     graphics::Screen * cs = m_controller->GetCacheScreen();
 
     m_displayList.reset();
@@ -180,50 +253,14 @@ namespace gui
     cs->beginFrame();
     cs->setDisplayList(m_displayList.get());
 
-    m2::RectD const & r = roughBoundRect();
+    cacheBorders(cs, m_borderImg, bw, m_arrowImg.m_size.y - 2);
+    cacheBody(cs, m_bodyImg, bw / 2.0 - (double)m_borderImg.m_size.x, bw - 2.0 * m_borderImg.m_size.x, m_arrowImg.m_size.y - 2);
 
-    double k = visualScale();
+    uint32_t arrowID = cs->mapInfo(m_arrowImg);
 
-    double bw = r.SizeX();
-    double bh = r.SizeY();
-    double aw = m_arrowWidth * k;
-    double ah = m_arrowHeight * k;
-
-    graphics::EPosition pos = position();
-    graphics::Path<float> p;
-
-    if (pos & graphics::EPosAbove)
-    {
-      bh -= ah;
-
-      p.reset(m2::PointF(-aw / 2, -ah));
-      p.lineRel(m2::PointF(-bw / 2 + aw / 2, 0));
-      p.lineRel(m2::PointF(0, -bh));
-      p.lineRel(m2::PointF(bw, 0));
-      p.lineRel(m2::PointF(0, bh));
-      p.lineRel(m2::PointF(-bw / 2 + aw / 2, 0));
-      p.lineRel(m2::PointF(-aw / 2, ah));
-      p.lineRel(m2::PointF(-aw / 2, -ah));
-    }
-    else if (pos & graphics::EPosUnder)
-    {
-      bh -= ah;
-
-      p.reset(m2::PointF(aw / 2, ah));
-      p.lineRel(m2::PointF(bw / 2 - aw / 2, 0));
-      p.lineRel(m2::PointF(0, bh));
-      p.lineRel(m2::PointF(-bw, 0));
-      p.lineRel(m2::PointF(0, -bh));
-      p.lineRel(m2::PointF(bw / 2 - aw / 2, 0));
-      p.lineRel(m2::PointF(aw / 2, -ah));
-      p.lineRel(m2::PointF(aw / 2, ah));
-    }
-
-    graphics::Color c(0, 0, 0, 128);
-
-    uint32_t colorID = cs->mapInfo(graphics::Brush::Info(c));
-
-    cs->drawTrianglesFan(p.points(), p.size(), colorID, depth());
+    math::Matrix<double, 3, 3> arrowM = math::Shift(math::Identity<double, 3>(),
+                                                    -(m_arrowImg.m_size.x / 2.0), -((double)m_arrowImg.m_size.y + 1));
+    cs->drawImage(arrowM, arrowID, depth() + 10);
 
     cs->setDisplayList(0);
     cs->endFrame();
@@ -231,16 +268,28 @@ namespace gui
 
   void Balloon::purge()
   {
-    m_textView->purge();
+    m_mainTextView->purge();
+    m_auxTextView->purge();
     m_imageView->purge();
     m_displayList.reset();
+  }
+
+  void Balloon::initBgImages()
+  {
+    graphics::EDensity density = m_controller->GetDensity();
+    m_borderImg = graphics::Image::Info("balloon_border.png", density);
+    m_bodyImg = graphics::Image::Info("balloon_body.png", density);
+    m_arrowImg = graphics::Image::Info("balloon_arrow.png", density);
   }
 
   void Balloon::setController(Controller * controller)
   {
     Element::setController(controller);
-    m_textView->setController(controller);
+    m_mainTextView->setController(controller);
+    m_auxTextView->setController(controller);
     m_imageView->setController(controller);
+
+    initBgImages();
   }
 
   void Balloon::draw(graphics::OverlayRenderer * r,
@@ -250,18 +299,23 @@ namespace gui
     {
       checkDirtyLayout();
 
-//      r->drawRectangle(roughBoundRect(), graphics::Color(0, 0, 255, 128), depth() + 1);
-//      r->drawRectangle(m_textView->roughBoundRect(), graphics::Color(0, 255, 255, 128), depth() + 1);
-//      r->drawRectangle(m_imageView->roughBoundRect(), graphics::Color(0, 255, 0, 128), depth() + 1);
-
       math::Matrix<double, 3, 3> drawM = math::Shift(
             math::Identity<double, 3>(),
             pivot() * m);
 
-      r->drawDisplayList(m_displayList.get(), drawM);
+      math::Matrix<double, 3, 3> scaleM = math::Scale(math::Identity<double, 3>(),
+                                                      m_balloonScale, m_balloonScale);
 
-      m_textView->draw(r, m);
-      m_imageView->draw(r, m);
+      r->drawDisplayList(m_displayList.get(), scaleM * drawM);
+
+      math::Matrix<double, 3, 3> offsetM = math::Shift(math::Identity<double, 3>(),
+                                                       m_textImageOffsetV, m_textImageOffsetH);
+
+      if (m_textMode | SingleMainText)
+        m_mainTextView->draw(r, offsetM * m);
+      if (m_textMode | SingleAuxText)
+        m_auxTextView->draw(r, offsetM * m);
+      m_imageView->draw(r, offsetM * m);
     }
   }
 
@@ -299,10 +353,13 @@ namespace gui
     return false;
   }
 
-  void Balloon::setText(string const & s)
+  void Balloon::setText(string const & main, string const & aux)
   {
-    m_textView->setText(s);
+    updateTextMode(main, aux);
+    m_mainTextView->setText(main);
+    m_auxTextView->setText(aux);
     setIsDirtyLayout(true);
+    calcMaxTextWidth();
     invalidate();
   }
 
@@ -311,5 +368,26 @@ namespace gui
     m_imageView->setImage(info);
     setIsDirtyLayout(true);
     invalidate();
+  }
+
+  void Balloon::onScreenSize(int w, int h)
+  {
+    int minEdge = min(w, h);
+    m_maxWidth = minEdge - 64;
+    setIsDirtyLayout(true);
+    calcMaxTextWidth();
+    invalidate();
+  }
+
+  void Balloon::calcMaxTextWidth()
+  {
+    double k = visualScale();
+    double textMargin = (m_borderImg.m_size.x + TEXT_LEFT_MARGIN) * k +
+                        TEXT_RIGHT_MARGIN * k;
+
+    double imageWidth = m_borderImg.m_size.x * k;
+    unsigned maxTextWidth = ceil(m_maxWidth - (textMargin + imageWidth));
+    m_mainTextView->setMaxWidth(maxTextWidth);
+    m_auxTextView->setMaxWidth(maxTextWidth);
   }
 }
