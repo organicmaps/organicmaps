@@ -896,6 +896,7 @@ highway-motorway_junction
 en:3exit|3junction
 ru:3съезд
 uk:з'їзд|сполучення|переплетення
+de:Ausfahrt
 cs:dopravní uzel|3dálnice
 nl:3uitgang|3kruising
 zh:1交流道|出口處|高速公路|公路
