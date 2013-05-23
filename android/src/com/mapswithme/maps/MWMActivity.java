@@ -24,6 +24,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -52,6 +53,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private MWMApplication mApplication = null;
   private BroadcastReceiver m_externalStorageReceiver = null;
   private AlertDialog m_storageDisconnectedDialog = null;
+
+  private ImageButton mMyPositionButton;
 
   //showDialog(int, Bundle) available only form API 8
   private String mProDialogMessage;
@@ -108,8 +111,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   public void checkShouldResumeLocationService()
   {
-    final View v = findViewById(R.id.map_button_myposition);
-
+    ImageButton v = mMyPositionButton;
+    //TODO Why it could be null???
     if (v != null)
     {
       final LocationState state = getLocationState();
@@ -128,10 +131,10 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         {
           state.startCompassFollowing();
 
-          v.setBackgroundResource(R.drawable.myposition_button_follow);
+          v.setImageResource(R.drawable.myposition_button_follow);
         }
         else
-          v.setBackgroundResource(resID);
+          v.setImageResource(resID);
 
         v.setSelected(true);
 
@@ -140,7 +143,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       }
       else
       {
-        v.setBackgroundResource(R.drawable.myposition_button_normal);
+        v.setImageResource(R.drawable.myposition_button_normal);
         v.setSelected(false);
       }
     }
@@ -548,6 +551,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     nativeConnectDownloadButton();
 
+    //set up view
+    mMyPositionButton = (ImageButton) findViewById(R.id.map_button_myposition);
+
     alignZoomButtons();
 
     setOnPopupClickListener(new OnNativePopupClickListenter()
@@ -676,21 +682,20 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   public void onCompassStatusChanged(int newStatus)
   {
-    View v = findViewById(R.id.map_button_myposition);
 
     if (newStatus == 1)
     {
-      v.setBackgroundResource(R.drawable.myposition_button_follow);
+      mMyPositionButton.setImageResource(R.drawable.myposition_button_follow);
     }
     else
     {
       if (getLocationState().hasPosition())
-        v.setBackgroundResource(R.drawable.myposition_button_found);
+        mMyPositionButton.setImageResource(R.drawable.myposition_button_found);
       else
-        v.setBackgroundResource(R.drawable.myposition_button_normal);
+        mMyPositionButton.setImageResource(R.drawable.myposition_button_normal);
     }
 
-    v.setSelected(true);
+    mMyPositionButton.setSelected(true);
   }
 
   public void OnCompassStatusChanged(int newStatus)
@@ -711,10 +716,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   {
     if (getLocationState().isFirstPosition())
     {
-      final View v = findViewById(R.id.map_button_myposition);
 
-      v.setBackgroundResource(R.drawable.myposition_button_found);
-      v.setSelected(true);
+      mMyPositionButton.setImageResource(R.drawable.myposition_button_found);
+      mMyPositionButton.setSelected(true);
     }
 
     nativeLocationUpdated(time, lat, lon, accuracy);

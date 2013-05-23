@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="Widget.MapButtonZoom" parent="android:Widget.Holo.ImageButton">
+        <item name="android:background">@null</item>
+        <item name="android:layout_marginBottom">5dip</item>
+        <item name="android:layout_marginLeft">5dip</item>
+        <item name="android:layout_marginRight">5dip</item>
+        <item name="android:layout_marginTop">5dip</item>
+        <item name="android:padding">0dp</item>
+    </style>
+    <style name="Widget.MapButtonBottom" parent="android:Widget.Holo.ImageButton">
+        <item name="android:background">@null</item>
+        <item name="android:padding">0dp</item>
+    </style>
+</resources>

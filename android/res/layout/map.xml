@@ -1,88 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <android.view.SurfaceView
         android:id="@+id/map_surfaceview"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"/>
+        android:layout_height="fill_parent" />
 
     <LinearLayout
         android:id="@+id/navigation_buttons_container"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:gravity="top"
         android:layout_gravity="right"
-        android:orientation="vertical">
+        android:gravity="top"
+        android:orientation="vertical" >
 
-        <Button
+        <ImageButton
             android:id="@+id/map_button_plus"
+            style="@style/Widget.MapButtonZoom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/zoom_in_button"
             android:onClick="onPlusClicked"
-            android:layout_marginTop="5dip"
-            android:layout_marginBottom="5dip"
-            android:layout_marginLeft="5dip"
-            android:layout_marginRight="5dip"/>
+            android:src="@drawable/zoom_in_button" />
 
-        <Button
+        <ImageButton
             android:id="@+id/map_button_minus"
+            style="@style/Widget.MapButtonZoom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/zoom_out_button"
             android:onClick="onMinusClicked"
-            android:layout_marginTop="5dip"
-            android:layout_marginLeft="5dip"
-            android:layout_marginRight="5dip"
-            android:layout_marginBottom="5dip"/>
-
+            android:src="@drawable/zoom_out_button" />
     </LinearLayout>
-    
+
     <LinearLayout
         android:id="@+id/map_butons_container"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:gravity="bottom"
-        android:orientation="horizontal"
+        android:layout_marginBottom="10dip"
         android:layout_marginLeft="10dip"
-        android:layout_marginBottom="10dip">
+        android:gravity="bottom"
+        android:orientation="horizontal" >
 
-        <Button
+        <ImageButton
             android:id="@+id/map_button_myposition"
+            style="@style/Widget.MapButtonBottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/myposition_button_normal"
+            android:contentDescription="@string/my_position"
             android:onClick="onMyPositionClicked"
-            android:contentDescription="@string/my_position"/>
+            android:src="@drawable/myposition_button_normal" />
 
-        <Button
+        <ImageButton
             android:id="@+id/map_button_download"
+            style="@style/Widget.MapButtonBottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/download_button"
             android:layout_marginLeft="10dip"
+            android:contentDescription="@string/download_maps"
             android:onClick="onDownloadClicked"
-            android:contentDescription="@string/download_maps"/>
+            android:src="@drawable/download_button" />
 
-        <Button 
+        <ImageButton
             android:id="@+id/map_button_search"
+            style="@style/Widget.MapButtonBottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/search_button"
             android:layout_marginLeft="10dip"
+            android:contentDescription="@string/search_map"
             android:onClick="onSearchClicked"
-            android:contentDescription="@string/search_map"/>
+            android:src="@drawable/search_button" />
 
-        <Button
+        <ImageButton
             android:id="@+id/map_button_bookmarks"
+            style="@style/Widget.MapButtonBottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bookmarks_button"
             android:layout_marginLeft="10dip"
+            android:contentDescription="@string/bookmarks"
             android:onClick="onBookmarksClicked"
-            android:contentDescription="@string/bookmarks"/>
-
+            android:src="@drawable/bookmarks_button" />
     </LinearLayout>
 
 </merge>
