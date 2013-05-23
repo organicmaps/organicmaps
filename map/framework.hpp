@@ -331,6 +331,9 @@ public:
 
     void MakeFrom(search::Result const & res);
 
+    string GetPinName() const;
+    string GetPinType() const;
+
     string FormatPinText() const;
     string FormatAddress() const;
     string FormatTypes() const;

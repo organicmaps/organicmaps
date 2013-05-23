@@ -568,6 +568,20 @@ void Framework::AddressInfo::MakeFrom(search::Result const & res)
     m_name.swap(name);
 }
 
+string Framework::AddressInfo::GetPinName() const
+{
+  return m_name.empty() ? m_house : m_name;
+}
+
+string Framework::AddressInfo::GetPinType() const
+{
+  char const * type = GetBestType();
+  if (type)
+    return string(type);
+
+  return "";
+}
+
 string Framework::AddressInfo::FormatPinText() const
 {
   // select name or house if name is empty
