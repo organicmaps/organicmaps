@@ -150,8 +150,17 @@ namespace android
       rpParams.m_density = graphics::EDensityHDPI;
       break;
 
-    default:
+    case 320:
       rpParams.m_density = graphics::EDensityXHDPI;
+      break;
+
+    case 480:
+      rpParams.m_density = graphics::EDensityXXHDPI;
+      break;
+
+    default:
+      LOG(LERROR, ("Invalid device density", densityDpi));
+      rpParams.m_density = graphics::EDensityMDPI;
       break;
     }
 

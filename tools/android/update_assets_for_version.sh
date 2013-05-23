@@ -8,7 +8,7 @@ DST=$1
 rm -rf $DST
 mkdir $DST
 
-files=(about.html resources-ldpi resources-mdpi resources-hdpi resources-xhdpi categories.txt classificator.txt 
+files=(about.html resources-ldpi resources-mdpi resources-hdpi resources-xhdpi resources-xxhdpi categories.txt classificator.txt 
        types.txt fonts_blacklist.txt fonts_whitelist.txt languages.txt unicode_blocks.txt \ 
        drules_proto.txt drules_proto.bin external_resources.txt packed_polygons.bin)
 

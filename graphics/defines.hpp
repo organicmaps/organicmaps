@@ -12,7 +12,8 @@ namespace graphics
     EDensityLDPI = 0,
     EDensityMDPI,
     EDensityHDPI,
-    EDensityXHDPI
+    EDensityXHDPI,
+    EDensityXXHDPI
   };
 
   /// get density name

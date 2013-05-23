@@ -20,7 +20,8 @@ namespace graphics
     {EDensityLDPI, "ldpi"},
     {EDensityMDPI, "mdpi"},
     {EDensityHDPI, "hdpi"},
-    {EDensityXHDPI, "xhdpi"}
+    {EDensityXHDPI, "xhdpi"},
+    {EDensityXXHDPI, "xxhdpi"} // using xhdpi resources for xxdpi screens
   };
 
   char const * convert(EDensity density)
@@ -40,7 +41,7 @@ namespace graphics
 
   double visualScale(EDensity density)
   {
-    static double const vs [4] = {0.75, 1, 1.5, 2};
+    static double const vs [5] = {0.75, 1, 1.5, 2, 3};
     return vs[density];
   }
 

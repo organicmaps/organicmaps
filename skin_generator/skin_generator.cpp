@@ -294,6 +294,8 @@ namespace tools
         size = QSize(36, 36);
       else if (skinName.rfind("-xhdpi") != string::npos)
         size = QSize(48, 48);
+      else if (skinName.rfind("-xxhdpi") != string::npos)
+        size = QSize(72, 72);
     }
   }
 
