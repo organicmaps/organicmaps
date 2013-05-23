@@ -27,16 +27,16 @@ namespace graphics
     ASSERT(res->m_cat == Resource::EImage, ());
 
     m2::RectI texRect(res->m_texRect);
-    texRect.Inflate(-1, -1);
+    texRect.Inflate(-2, -2);
 
     m2::PointF pts[6] =
     {
-      m2::PointF(m2::PointD(-1, -1) * m),
-      m2::PointF(m2::PointD(texRect.SizeX() - 1, -1) * m),
-      m2::PointF(m2::PointD(texRect.SizeX() - 1, texRect.SizeY() - 1) * m),
-      m2::PointF(m2::PointD(texRect.SizeX() - 1, texRect.SizeY() - 1) * m),
-      m2::PointF(m2::PointD(-1, texRect.SizeY() - 1) * m),
-      m2::PointF(m2::PointD(-1, -1) * m)
+      m2::PointF(m2::PointD(0, 0) * m),
+      m2::PointF(m2::PointD(texRect.SizeX(), 0) * m),
+      m2::PointF(m2::PointD(texRect.SizeX(), texRect.SizeY()) * m),
+      m2::PointF(m2::PointD(texRect.SizeX(), texRect.SizeY()) * m),
+      m2::PointF(m2::PointD(0, texRect.SizeY()) * m),
+      m2::PointF(m2::PointD(0, 0) * m)
     };
 
     GeometryPipeline & p = pipeline(res->m_pipelineID);
