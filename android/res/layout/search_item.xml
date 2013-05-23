@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:textAppearance="?android:attr/textAppearanceSmall"/>
+            android:textAppearance="@style/Holo.TextAppearance.Small.Light"/>
 
         <!-- Amenity -->
         <TextView
@@ -39,7 +39,7 @@
             android:layout_gravity="right"            
             android:gravity="right"
             android:ellipsize="end"
-            android:textAppearance="?android:attr/textAppearanceSmall"/>
+            android:textAppearance="@style/Holo.TextAppearance.Small.Light"/>
 
     </LinearLayout>
     
@@ -57,14 +57,14 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
+            android:textAppearance="@style/Holo.TextAppearance.Large.Light"/>
 
         <!-- Long Country Name -->
         <TextView
             android:id="@+id/country"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"/>
+            android:textAppearance="@style/Holo.TextAppearance.Small.Light"/>
 
     </LinearLayout>
 

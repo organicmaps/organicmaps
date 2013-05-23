@@ -431,8 +431,8 @@ public class SearchActivity extends ListActivity implements LocationService.List
     m_modesSpinner = (Spinner) findViewById(R.id.search_modes_spinner);
 
     ArrayAdapter<CharSequence> adapter =
-        ArrayAdapter.createFromResource(this, R.array.search_modes, android.R.layout.simple_spinner_item);
-    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter.createFromResource(this, R.array.search_modes, R.layout.simple_spinner_item);
+    adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
     m_modesSpinner.setAdapter(adapter);
 
     // Default mode is AROUND_POSITION

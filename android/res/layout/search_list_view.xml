@@ -23,7 +23,7 @@
                      android:layout_centerVertical="true"
                      android:layout_alignParentRight="true"
                      android:layout_marginRight="8dp"
-                     style="@android:style/Widget.ProgressBar.Small"
+                     style="@style/Holo.ProgressBar.Small"
                      android:visibility="gone"/>
 
     </RelativeLayout>

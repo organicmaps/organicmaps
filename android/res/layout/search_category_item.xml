@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/cell_arrow_white"/>
+        android:src="@drawable/cell_arrow_black"/>
 
     <TextView
         android:id="@+id/name"
@@ -31,6 +31,6 @@
         android:layout_toLeftOf="@id/disclosure_image"
         android:layout_toRightOf="@+id/country_flag"
         android:layout_centerVertical="true"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+        android:textAppearance="@style/Holo.TextAppearance.Large.Light"/>
 
 </RelativeLayout>
