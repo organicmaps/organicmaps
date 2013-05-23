@@ -77,8 +77,6 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
                                                (float)bytesToDownload / 1024 / 1024,
                                                getString(R.string.mb))));
 
-    // set normal text color
-    mMsgView.setTextColor(Color.WHITE);
   }
 
   private boolean prepareFilesDownload()
