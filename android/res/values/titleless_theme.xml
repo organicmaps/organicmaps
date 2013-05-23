@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="MWMNoTitle" parent="@android:style/Theme.NoTitleBar">
+    <style name="MWMNoTitle" parent="@style/Holo.Theme.Light.NoActionBar">
     </style>
 </resources>

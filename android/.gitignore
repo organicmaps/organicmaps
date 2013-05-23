@@ -1,10 +1,11 @@
-#local files
+# local files
 .classpath
 .cproject
 .project
 local.properties
 
-#dirs
+# compile-time dirs, local dirs
 bin/
 gen/
 resbuilder/
+.settings/
