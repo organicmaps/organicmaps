@@ -5,7 +5,7 @@
 <resources>
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">Больше возможностей в полной версии MapsWithMe с оффлайн поиском. Установить ее сейчас?</string>
+	<string name="pro_version_available">Больше возможностей в полной версии MapsWithMe с офлайн поиском. Установить ее сейчас?</string>
 	<!-- About button text (should be short! @todo - fix french) -->
 	<string name="about">О программе</string>
 	<!-- Button text (should be short) -->
@@ -272,7 +272,7 @@
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Смотри мою метку на карте MapsWithMe</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Привет!\n\nОткрой эту ссылку %2$s либо эту %3$s,  для того чтобы увидеть мою метку %1$s на карте MapsWithMe.\n\nСпасибо.</string>
+	<string name="bookmark_share_email">Привет!\n\nОткрой эту ссылку %2$s либо эту %3$s, для того, чтобы увидеть мою метку %1$s на карте MapsWithMe.\n\nСпасибо.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Посмотри на карте MapsWithMe, где я сейчас нахожусь</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
@@ -283,4 +283,6 @@
 	<string name="share">Поделиться</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Сообщение</string>
+	<!-- Copy Link -->
+	<string name="copy_link">Скопировать ссылку</string>
 </resources>

@@ -271,4 +271,6 @@
 	<string name="message">Mensaje</string>
 	<!-- Share by email button text -->
 	<string name="email">Correo electrónico</string>
+	<!-- Copy Link -->
+	<string name="copy_link">Copiar enlace</string>
 </resources>

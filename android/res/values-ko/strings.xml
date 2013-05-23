@@ -273,4 +273,6 @@
 	<string name="message">메시지</string>
 	<!-- Share by email button text -->
 	<string name="email">이메일</string>
+	<!-- Copy Link -->
+	<string name="copy_link">링크 복사하기</string>
 </resources>

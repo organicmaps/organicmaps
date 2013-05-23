@@ -77,4 +77,6 @@
 	<string name="message">Messaggio</string>
 	<!-- Share by email button text -->
 	<string name="email">E-mail</string>
+	<!-- Copy Link -->
+	<string name="copy_link">Copia link</string>
 </resources>

@@ -5,13 +5,13 @@
 <resources>
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">Більше можливостей у повній версії MapsWithMe з оффлайн пошуком. Встановити її зараз?</string>
+	<string name="pro_version_available">Більше можливостей у повній версії MapsWithMe з офлайн пошуком. Встановити її зараз?</string>
 	<!-- About button text (should be short! @todo - fix french) -->
 	<string name="about">Про програму</string>
 	<!-- Button text (should be short) -->
 	<string name="back">Назад</string>
 	<!-- Button text (should be short) -->
-	<string name="cancel">Вiдмiна</string>
+	<string name="cancel">Скасувати</string>
 	<!-- Button which interrupts country download -->
 	<string name="cancel_download">Вiдмiнити завантаження</string>
 	<!-- Button which deletes downloaded country -->
@@ -63,9 +63,9 @@
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">Відсутнє WiFi з\'єднання. Ви бажаєте завантажити % @ через стільникового оператора (GPRS, EDGE або 3G)?</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
-	<string name="enable_location_services">Будь ласка, включіть геолокацію в настройках телефону</string>
+	<string name="enable_location_services">Будь ласка, увімкніть геолокацію в налаштуваннях телефону</string>
 	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">Немає вільного місця. Будь ласка, видаліть непотрібні мапи або програми, щоб завантажити %s</string>
+	<string name="free_disk_space_for_country_x">Немає вільного місця. Будь ласка, видаліть непотрібні карти або програми, щоб завантажити %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">Нагадати пізніше</string>
 	<!-- Update maps later/Buy pro version later button text -->
@@ -79,7 +79,7 @@
 	<!-- Search button pressed dialog title in the free version -->
 	<string name="search_available_in_pro_version">Пошук доступний тільки в Pro версії MapsWithMe. Встановіть її прямо зараз!</string>
 	<!-- Search box placeholder text -->
-	<string name="search_map">Пошук на мапi</string>
+	<string name="search_map">Пошук на картi</string>
 	<!-- Settings/Downloader - No free space dialog title -->
 	<string name="not_enough_disk_space">Немає вільного місця</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
@@ -89,7 +89,7 @@
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">Ми рекомендуємо завантажувати великі країни через WiFi</string>
 	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">Ми оновили мапи і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими мапами, необхідно попередньо видалити старi.</string>
+	<string name="new_map_data_format_upgrade_dialog">Ми оновили карти і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими картами, необхідно попередньо видалити старi.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Якій системі вимірювання ви віддаєте перевагу?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -97,7 +97,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Ваш пристрій не підтримує геолокацію</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">Показати країну на мапi</string>
+	<string name="zoom_to_country">Показати країну на карті</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^добавлено в чергу завантаження.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -116,24 +116,24 @@
 	<string name="close">Закрити</string>
 	<string name="unsupported_phone">Для роботи програми необхідний апаратно прискорений OpenGL. На жаль, ваш пристрій не підтримується.</string>
 	<string name="download">Завантажити</string>
-	<string name="external_storage_is_not_available">Завантажені мапи недоступні</string>
+	<string name="external_storage_is_not_available">Завантажені карти недоступні</string>
 	<string name="disconnect_usb_cable">Вимкніть USB кабель або вставте SD-карту</string>
 	<string name="not_enough_free_space_on_sdcard">Недостатньо вільного місця на SD карті / в пам\'яті пристрою для використання програми</string>
 	<string name="not_enough_memory">Недостатньо пам\'яті для запуску програми</string>
 	<string name="free_space_for_country">Для завантаження %2$s треба %1$s вільного місця</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Перш ніж розпочати дозвольте нам завантажити мапу світу на ваш пристрій. \nВона потребує %1$.1f%2$s даних.</string>
+	<string name="download_resources">Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій. \nВона потребує %1$.1f%2$s даних.</string>
 	<string name="getting_position">Oтримуємо розташування</string>
-	<string name="download_resources_continue">Перейти на мапу</string>
-	<string name="downloading_country_can_proceed">Поки завантажується %s \nви можете користуватися додатком.</string>
+	<string name="download_resources_continue">Перейти на карту</string>
+	<string name="downloading_country_can_proceed">Поки завантажується %s \nви можете користуватися програмою.</string>
 	<string name="download_country_ask">Завантажити %s?</string>
 	<string name="update_country_ask">Oновити %s?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">Ви можете завантажити мапу\nвашого поточного місця розташування.</string>
+	<string name="download_location_map_proposal">Ви можете завантажити карту\nвашого поточного місця розташування.</string>
 	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">Ви можете оновити мапу\nвашого поточного місця розташування.</string>
+	<string name="download_location_update_map_proposal">Ви можете оновити карту\nвашого поточного місця розташування.</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">Мапа місцевості, в якій\nви знаходитеся (%s) вже завантажена.</string>
+	<string name="download_location_map_up_to_date">Карта місцевості, в якій\nви знаходитеся (%s) вже завантажена.</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Призупинити</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -141,9 +141,9 @@
 	<string name="downloaded_touch_to_update">Завантажено (%s), натисніть для оновлення або видалення</string>
 	<string name="update_mb_or_kb">Oновити %s</string>
 	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Для функції пошуку необхідно оновити застарілі мапи:</string>
+	<string name="search_update_maps">Для функції пошуку необхідно оновити застарілі карти:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">Доступно оновлення для наступних карт:</string>
+	<string name="advise_update_maps">Доступні оновлення для наступних карт:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
 	<string name="suggest_uninstall_lite">MapsWithMe Lite більше не потрібна. Рекомендуємо її видалити.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
@@ -177,7 +177,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Група</string>
 	<!-- Text hint in Bookmarks dialog, displayed if it's empty -->
-	<string name="bookmarks_usage_hint">Додайте будь-яке місце на карті в закладки. Щоб зробити це, натисніть місце на карті і утримувайте, поки з\'явиться контекстне меню.</string>
+	<string name="bookmarks_usage_hint">Додайте будь-яке місце на карті в закладки. Щоб зробити це, натисніть місце на карті і утримуйте, поки з\'явиться контекстне меню.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Налаштування</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -187,39 +187,70 @@
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Перемістити карти?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
-	<string name="wait_several_minutes">Це може зайняти кілька хвилин.\nЛаска, зачекайте…</string>
+	<string name="wait_several_minutes">Це може зайняти кілька хвилин.\nБудь ласка, зачекайте…</string>
 	<!-- Show bookmarks from this category on a map or not -->
-	<string name="visible">Показувати</string>
+	<string name="visible">Показувати на карті</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
 	<string name="bookmarks_in_pro_version">Закладки доступні у повній версії MapsWithMe. Отримати просто зараз?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
-	<string name="gps_is_disabled_long_text">GPS вимкнено в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.</string>
+	<string name="gps_is_disabled_long_text">GPS вимкнено в налаштуваннях пристрою. Будь ласка, увімкніть його для зручного використання програми.</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Одиниці виміру</string>
 	<!-- Detailed description of Measurement Units settings button -->
-	<string name="measurement_units_summary">Вибір між милями та кілометрами</string>
+	<string name="measurement_units_summary">Використовувати милі чи кілометри</string>
 	<!-- Do search in all sources -->
-	<string name="search_mode_all">Скрізь</string>
+	<string name="search_mode_all">Всюди</string>
 	<!-- Do search near my position only -->
-	<string name="search_mode_nearme">Поряд</string>
+	<string name="search_mode_nearme">Поруч</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">На екрані</string>
+	<!-- Search Suggestion -->
+	<string name="food">їжа</string>
+	<!-- Search Suggestion -->
+	<string name="transport">транспорт</string>
+	<!-- Search Suggestion -->
+	<string name="fuel">заправка</string>
+	<!-- Search Suggestion -->
+	<string name="parking">парковка</string>
+	<!-- Search Suggestion -->
+	<string name="shop">крамниця</string>
+	<string name="hotel">готель</string>
+	<!-- Search Suggestion -->
+	<string name="tourism">пам’ятні місця</string>
+	<!-- Search Suggestion -->
+	<string name="entertainment">розваги</string>
+	<!-- Search Suggestion -->
+	<string name="atm">банкомат</string>
+	<!-- Search Suggestion -->
+	<string name="bank">банк</string>
+	<!-- Search Suggestion -->
+	<string name="pharmacy">аптека</string>
+	<!-- Search Suggestion -->
+	<string name="hospital">лікарня</string>
+	<!-- Search Suggestion -->
+	<string name="toilet">туалет</string>
+	<!-- Search Suggestion -->
+	<string name="post">пошта</string>
+	<!-- Search Suggestion -->
+	<string name="police">міліція</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Результатів не знайдено</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Примiтки</string>
 	<!-- Button text -->
-	<string name="share_by_email">Поділитися по електронній пошті</string>
+	<string name="share_by_email">Подiлитися по електронній пошті</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Вам надаються закладки MapsWithMe</string>
+	<string name="share_bookmarks_email_subject">З вами поділилися закладками MapsWithMe</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Вітаю!\n\nОсь мої закладки з автономних карт MapsWithMe у доданому файлі \&quot;%s.kmz\&quot;. Прошу відкрти його, якщо у вас MapsWithMe Pro вже встановлено. Якщо ні, тоді спочатку завантажте застосунок для пристроїв IOS або Android за цим посиланням http://www.mapswithme.com/get?kmz.\n\nПриємних розваг з MapsWithMe!</string>
+	<string name="share_bookmarks_email_body">Вітаю!\n\nОсь мої закладки з офлайн карт MapsWithMe у доданому файлі \&quot;%s.kmz\&quot;. Ви можете відкрти його, якщо у вас встановлена MapsWithMe Pro. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://www.mapswithme.com/get?kmz.\n\nПриємних розваг з MapsWithMe!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Завантаження закладок</string>
 	<!-- Kmz file successful loading -->
 	<string name="load_kmz_successful">Закладки успішно завантажено! Ви можете знайти їх на карті або у меню Менеджер закладок.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Не вдалося завантажити закладки. Файл може бути пошкодженим або несправним.</string>
+	<!-- resource for context menu -->
+	<string name="edit">Редаґувати</string>
 	<!-- Warning message when doing search around current position -->
 	<string name="unknown_current_position">Ваше місце розташування не визначено</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
@@ -227,11 +258,11 @@
 	<!-- Warning message when viewport country isn't downloaded during search -->
 	<string name="download_viewport_country_to_search">Завантажити країну (%s), в якій ви шукаєте</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
-	<string name="cant_change_this_setting">Вибачте, налаштування функції запам\'ятовування карти скасовано.</string>
+	<string name="cant_change_this_setting">Вибачте, налаштування папки з картами зараз недоступні.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Зараз відбувається завантаження країни.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Сподіваємося, що вам сподобалося користуватися MapsWithMe! Якщо це так, будь ласка, оцініть цей застосунок чи залиште свій відгук на app store. Витративши менше хвилини на це, ви дійсно нам допоможете. Дякуємо за вашу підтримку!</string>
+	<string name="appStore_message">Сподіваємося, що вам сподобалося користуватися MapsWithMe! Якщо так, будь ласка, надайте оцінку програмі або залиште свій відгук на app store. Витративши менше хвилини, ви дійсно нам допоможете. Дякуємо за вашу підтримку!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Ні, дякую</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
@@ -241,17 +272,19 @@
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Поглянь на мою позначку на карті MapsWithMe</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Привіт,\n\nЯ позначив: %1$s у MapsWithMe, оффлайн карти світу. Натисни на це посилання %2$s або на це посилання %3$s, щоб побачити місце на карті. \n\nДякую.</string>
+	<string name="bookmark_share_email">Привіт,\n\nЯ позначив: %1$s на MapsWithMe, офлайн картах світу. Натисни на це посилання %2$s або на це посилання %3$s, щоб побачити місце на карті. \n\nДякую.</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Подивись моє поточне місцезнаходження на карті MapsWithMe</string>
+	<string name="my_position_share_email_subject">Поглянь на моє поточне місцезнаходження на карті MapsWithMe</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Привіт,\n\nЯ зараз тут: %1$s.  Натисни на це посилання %2$s або на це посилання %3$s щоб побачити місце на карті. \n\nДякую.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
-	<string name="share_by_message">Поділитися повідомленням</string>
+	<string name="share_by_message">Подiлитися за допомогою повідомлення</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
-	<string name="share">Поділитися</string>
+	<string name="share">Подiлитись</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Повідомлення</string>
 	<!-- Share by email button text -->
 	<string name="email">Електронна пошта</string>
+	<!-- Copy Link -->
+	<string name="copy_link">Копіювати посилання</string>
 </resources>

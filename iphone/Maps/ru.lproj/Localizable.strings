@@ -10,7 +10,7 @@
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Больше возможностей в полной версии MapsWithMe с оффлайн поиском. Установить ее сейчас?";
+"pro_version_available" = "Больше возможностей в полной версии MapsWithMe с офлайн поиском. Установить ее сейчас?";
 
 /* About button text (should be short! @todo - fix french) */
 "about" = "О программе";
@@ -429,7 +429,7 @@
 "bookmark_share_email_subject" = "Смотри мою метку на карте MapsWithMe";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Привет!\n\nОткрой эту ссылку %2$@ либо эту %3$@,  для того чтобы увидеть мою метку %1$@ на карте MapsWithMe.\n\nСпасибо.";
+"bookmark_share_email" = "Привет!\n\nОткрой эту ссылку %2$@ либо эту %3$@, для того, чтобы увидеть мою метку %1$@ на карте MapsWithMe.\n\nСпасибо.";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Посмотри на карте MapsWithMe, где я сейчас нахожусь";

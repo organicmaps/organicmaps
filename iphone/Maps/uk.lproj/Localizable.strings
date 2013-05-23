@@ -10,7 +10,7 @@
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Більше можливостей у повній версії MapsWithMe з оффлайн пошуком. Встановити її зараз?";
+"pro_version_available" = "Більше можливостей у повній версії MapsWithMe з офлайн пошуком. Встановити її зараз?";
 
 /* About button text (should be short! @todo - fix french) */
 "about" = "Про програму";
@@ -19,7 +19,7 @@
 "back" = "Назад";
 
 /* Button text (should be short) */
-"cancel" = "Вiдмiна";
+"cancel" = "Скасувати";
 
 /* Button which interrupts country download */
 "cancel_download" = "Вiдмiнити завантаження";
@@ -100,10 +100,10 @@
 "ok" = "OK";
 
 /* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "Будь ласка, включіть геолокацію в настройках телефону";
+"enable_location_services" = "Будь ласка, увімкніть геолокацію в налаштуваннях телефону";
 
 /* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "Немає вільного місця. Будь ласка, видаліть непотрібні мапи або програми, щоб завантажити %@";
+"free_disk_space_for_country_x" = "Немає вільного місця. Будь ласка, видаліть непотрібні карти або програми, щоб завантажити %@";
 
 /* Leave Review dialog - Not now button (remind me later) */
 "remind_me_later" = "Нагадати пізніше";
@@ -124,7 +124,7 @@
 "search_available_in_pro_version" = "Пошук доступний тільки в Pro версії MapsWithMe. Встановіть її прямо зараз!";
 
 /* Search box placeholder text */
-"search_map" = "Пошук на мапi";
+"search_map" = "Пошук на картi";
 
 /* Settings/Downloader - No free space dialog title */
 "not_enough_disk_space" = "Немає вільного місця";
@@ -139,7 +139,7 @@
 "use_wifi_recommendation_text" = "Ми рекомендуємо завантажувати великі країни через WiFi";
 
 /* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
-"new_map_data_format_upgrade_dialog" = "Ми оновили мапи і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими мапами, необхідно попередньо видалити старi.";
+"new_map_data_format_upgrade_dialog" = "Ми оновили карти і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими картами, необхідно попередньо видалити старi.";
 
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Якій системі вимірювання ви віддаєте перевагу?";
@@ -151,7 +151,7 @@
 "device_doesnot_support_location_services" = "Ваш пристрій не підтримує геолокацію";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Показати країну на мапi";
+"zoom_to_country" = "Показати країну на карті";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^добавлено в чергу завантаження.";
@@ -186,7 +186,7 @@
 
 "download" = "Завантажити";
 
-"external_storage_is_not_available" = "Завантажені мапи недоступні";
+"external_storage_is_not_available" = "Завантажені карти недоступні";
 
 "disconnect_usb_cable" = "Вимкніть USB кабель або вставте SD-карту";
 
@@ -197,26 +197,26 @@
 "free_space_for_country" = "Для завантаження %2$@ треба %1$@ вільного місця";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Перш ніж розпочати дозвольте нам завантажити мапу світу на ваш пристрій. \nВона потребує %.1f%@ даних.";
+"download_resources" = "Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій. \nВона потребує %.1f%@ даних.";
 
 "getting_position" = "Oтримуємо розташування";
 
-"download_resources_continue" = "Перейти на мапу";
+"download_resources_continue" = "Перейти на карту";
 
-"downloading_country_can_proceed" = "Поки завантажується %@ \nви можете користуватися додатком.";
+"downloading_country_can_proceed" = "Поки завантажується %@ \nви можете користуватися програмою.";
 
 "download_country_ask" = "Завантажити %@?";
 
 "update_country_ask" = "Oновити %@?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "Ви можете завантажити мапу\nвашого поточного місця розташування.";
+"download_location_map_proposal" = "Ви можете завантажити карту\nвашого поточного місця розташування.";
 
 /* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "Ви можете оновити мапу\nвашого поточного місця розташування.";
+"download_location_update_map_proposal" = "Ви можете оновити карту\nвашого поточного місця розташування.";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "Мапа місцевості, в якій\nви знаходитеся (%@) вже завантажена.";
+"download_location_map_up_to_date" = "Карта місцевості, в якій\nви знаходитеся (%@) вже завантажена.";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "Призупинити";
@@ -229,10 +229,10 @@
 "update_mb_or_kb" = "Oновити %@";
 
 /* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "Для функції пошуку необхідно оновити застарілі мапи:";
+"search_update_maps" = "Для функції пошуку необхідно оновити застарілі карти:";
 
 /* Show popup notification on app start when we have out-of-date maps */
-"advise_update_maps" = "Доступно оновлення для наступних карт:";
+"advise_update_maps" = "Доступні оновлення для наступних карт:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
 "suggest_uninstall_lite" = "MapsWithMe Lite більше не потрібна. Рекомендуємо її видалити.";
@@ -283,7 +283,7 @@
 "set" = "Група";
 
 /* Text hint in Bookmarks dialog, displayed if it's empty */
-"bookmarks_usage_hint" = "Додайте будь-яке місце на карті в закладки. Щоб зробити це, натисніть місце на карті і утримувайте, поки з'явиться контекстне меню.";
+"bookmarks_usage_hint" = "Додайте будь-яке місце на карті в закладки. Щоб зробити це, натисніть місце на карті і утримуйте, поки з'явиться контекстне меню.";
 
 /* Settings button in system menu */
 "settings" = "Налаштування";
@@ -298,75 +298,75 @@
 "move_maps" = "Перемістити карти?";
 
 /* Ask to wait user several minutes (some long process in modal dialog). */
-"wait_several_minutes" = "Це може зайняти кілька хвилин.\nЛаска, зачекайте…";
+"wait_several_minutes" = "Це може зайняти кілька хвилин.\nБудь ласка, зачекайте…";
 
 /* Show bookmarks from this category on a map or not */
-"visible" = "Показувати";
+"visible" = "Показувати на карті";
 
 /* Proposal to download Pro version with Bookmarks */
 "bookmarks_in_pro_version" = "Закладки доступні у повній версії MapsWithMe. Отримати просто зараз?";
 
 /* Toast which is displayed when GPS has been deactivated */
-"gps_is_disabled_long_text" = "GPS вимкнено в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.";
+"gps_is_disabled_long_text" = "GPS вимкнено в налаштуваннях пристрою. Будь ласка, увімкніть його для зручного використання програми.";
 
 /* Measurement units title in settings activity */
 "measurement_units" = "Одиниці виміру";
 
 /* Detailed description of Measurement Units settings button */
-"measurement_units_summary" = "Вибір між милями та кілометрами";
+"measurement_units_summary" = "Використовувати милі чи кілометри";
 
 /* Do search in all sources */
-"search_mode_all" = "Скрізь";
+"search_mode_all" = "Всюди";
 
 /* Do search near my position only */
-"search_mode_nearme" = "Поряд";
+"search_mode_nearme" = "Поруч";
 
 /* Do search in current viewport only */
 "search_mode_viewport" = "На екрані";
 
 /* Search Suggestion */
-"food" = "food";
+"food" = "їжа";
 
 /* Search Suggestion */
-"transport" = "transport";
+"transport" = "транспорт";
 
 /* Search Suggestion */
-"fuel" = "gas";
+"fuel" = "заправка";
 
 /* Search Suggestion */
-"parking" = "parking";
+"parking" = "парковка";
 
 /* Search Suggestion */
-"shop" = "shop";
+"shop" = "крамниця";
 
-"hotel" = "hotel";
-
-/* Search Suggestion */
-"tourism" = "sights";
+"hotel" = "готель";
 
 /* Search Suggestion */
-"entertainment" = "entertainment";
+"tourism" = "пам’ятні місця";
 
 /* Search Suggestion */
-"atm" = "atm";
+"entertainment" = "розваги";
 
 /* Search Suggestion */
-"bank" = "bank";
+"atm" = "банкомат";
 
 /* Search Suggestion */
-"pharmacy" = "pharmacy";
+"bank" = "банк";
 
 /* Search Suggestion */
-"hospital" = "hospital";
+"pharmacy" = "аптека";
 
 /* Search Suggestion */
-"toilet" = "toilet";
+"hospital" = "лікарня";
 
 /* Search Suggestion */
-"post" = "post";
+"toilet" = "туалет";
 
 /* Search Suggestion */
-"police" = "police";
+"post" = "пошта";
+
+/* Search Suggestion */
+"police" = "міліція";
 
 /* String in search result list, when nothing found */
 "no_search_results_found" = "Результатів не знайдено";
@@ -375,13 +375,13 @@
 "description" = "Примiтки";
 
 /* Button text */
-"share_by_email" = "Поділитися по електронній пошті";
+"share_by_email" = "Подiлитися по електронній пошті";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "Вам надаються закладки MapsWithMe";
+"share_bookmarks_email_subject" = "З вами поділилися закладками MapsWithMe";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Вітаю!\n\nОсь мої закладки з автономних карт MapsWithMe у доданому файлі \"%@.kmz\". Прошу відкрти його, якщо у вас MapsWithMe Pro вже встановлено. Якщо ні, тоді спочатку завантажте застосунок для пристроїв IOS або Android за цим посиланням http://www.mapswithme.com/get?kmz.\n\nПриємних розваг з MapsWithMe!";
+"share_bookmarks_email_body" = "Вітаю!\n\nОсь мої закладки з офлайн карт MapsWithMe у доданому файлі \"%@.kmz\". Ви можете відкрти його, якщо у вас встановлена MapsWithMe Pro. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://www.mapswithme.com/get?kmz.\n\nПриємних розваг з MapsWithMe!";
 
 /* message title of loading file */
 "load_kmz_title" = "Завантаження закладок";
@@ -393,7 +393,7 @@
 "load_kmz_failed" = "Не вдалося завантажити закладки. Файл може бути пошкодженим або несправним.";
 
 /* resource for context menu */
-"edit" = "Edit";
+"edit" = "Редаґувати";
 
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Ваше місце розташування не визначено";
@@ -408,13 +408,13 @@
 "flurry_app_key" = "";
 
 /* Alert message that we can't run Map Storage settings due to some reasons. */
-"cant_change_this_setting" = "Вибачте, налаштування функції запам'ятовування карти скасовано.";
+"cant_change_this_setting" = "Вибачте, налаштування папки з картами зараз недоступні.";
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "Зараз відбувається завантаження країни.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Сподіваємося, що вам сподобалося користуватися MapsWithMe! Якщо це так, будь ласка, оцініть цей застосунок чи залиште свій відгук на app store. Витративши менше хвилини на це, ви дійсно нам допоможете. Дякуємо за вашу підтримку!";
+"appStore_message" = "Сподіваємося, що вам сподобалося користуватися MapsWithMe! Якщо так, будь ласка, надайте оцінку програмі або залиште свій відгук на app store. Витративши менше хвилини, ви дійсно нам допоможете. Дякуємо за вашу підтримку!";
 
 /* No, thanks */
 "no_thanks" = "Ні, дякую";
@@ -429,19 +429,19 @@
 "bookmark_share_email_subject" = "Поглянь на мою позначку на карті MapsWithMe";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Привіт,\n\nЯ позначив: %1$@ у MapsWithMe, оффлайн карти світу. Натисни на це посилання %2$@ або на це посилання %3$@, щоб побачити місце на карті. \n\nДякую.";
+"bookmark_share_email" = "Привіт,\n\nЯ позначив: %1$@ на MapsWithMe, офлайн картах світу. Натисни на це посилання %2$@ або на це посилання %3$@, щоб побачити місце на карті. \n\nДякую.";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Подивись моє поточне місцезнаходження на карті MapsWithMe";
+"my_position_share_email_subject" = "Поглянь на моє поточне місцезнаходження на карті MapsWithMe";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Привіт,\n\nЯ зараз тут: %1$@.  Натисни на це посилання %2$@ або на це посилання %3$@ щоб побачити місце на карті. \n\nДякую.";
 
 /* Android share by Message/SMS button text (including SMS) */
-"share_by_message" = "Поділитися повідомленням";
+"share_by_message" = "Подiлитися за допомогою повідомлення";
 
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
-"share" = "Поділитися";
+"share" = "Подiлитись";
 
 /* iOS share by Message button text (including SMS) */
 "message" = "Повідомлення";

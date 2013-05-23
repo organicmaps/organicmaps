@@ -301,4 +301,6 @@
 	<string name="promocode_error">Connection error. Please try again later.</string>
 	<!-- Promocode Activation is invalid  message. -->
 	<string name="promocode_failure">Invalid promo code. Please try again.</string>
+	<!-- Copy Link -->
+	<string name="copy_link">Copy Link</string>
 </resources>

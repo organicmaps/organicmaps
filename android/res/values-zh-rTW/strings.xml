@@ -269,4 +269,6 @@
 	<string name="message">消息</string>
 	<!-- Share by email button text -->
 	<string name="email">電子郵件</string>
+	<!-- Copy Link -->
+	<string name="copy_link">拷贝链接</string>
 </resources>

@@ -281,4 +281,6 @@
 	<string name="message">Zpráva</string>
 	<!-- Share by email button text -->
 	<string name="email">E-Mail</string>
+	<!-- Copy Link -->
+	<string name="copy_link">Zkopírovat odkaz</string>
 </resources>

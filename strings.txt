@@ -13,8 +13,8 @@
     ja = MapsWithMe完全版ならオフラインサーチでさらにナビゲートが簡単です。今すぐご入手下さい！
     ko = 오프라인 검색 기능의 MapsWithMe의 풀버젼으로 보다 쉽게 검색하세요. 지금 구매하세요!
     nl = Navigeer makkelijker met MapsWithMe Pro met offline zoeken. Instelleer het nu!
-    ru = Больше возможностей в полной версии MapsWithMe с оффлайн поиском. Установить ее сейчас?
-    uk = Більше можливостей у повній версії MapsWithMe з оффлайн пошуком. Встановити її зараз?
+    ru = Больше возможностей в полной версии MapsWithMe с офлайн поиском. Установить ее сейчас?
+    uk = Більше можливостей у повній версії MapsWithMe з офлайн пошуком. Встановити її зараз?
     zh-Hant = 完整版的MapsWithMe特色在於更完善的離線搜尋，立即購買!
   [about]
     en = About
@@ -53,7 +53,7 @@
     ko = 취소하기
     nl = Annuleer
     ru = Отмена
-    uk = Вiдмiна
+    uk = Скасувати
     zh-Hant = 取消
   [cancel_download]
     en = Cancel Download
@@ -384,7 +384,7 @@
     ko = 위치 서비스를 작동시켜 주십시요.
     nl = Schakel Locatie Services in
     ru = Пожалуйста, включите геолокацию в настройках телефона
-    uk = Будь ласка, включіть геолокацію в настройках телефону
+    uk = Будь ласка, увімкніть геолокацію в налаштуваннях телефону
     zh-Hant = 請啟動位置服務
   [free_disk_space_for_country_x]
     en = Please free some space on your device first in order to download %@
@@ -397,7 +397,7 @@
     ko = 먼저 귀하의 장치에 어느 정도의 공간을 확보하여 %@를 다운로드하여 주십시요.
     nl = Maak ruimte vrij op uw apparaat om %@ te kunnen downloaden
     ru = Нет свободного места. Пожалуйста, удалите ненужные карты или приложения, чтобы загрузить %@
-    uk = Немає вільного місця. Будь ласка, видаліть непотрібні мапи або програми, щоб завантажити %@
+    uk = Немає вільного місця. Будь ласка, видаліть непотрібні карти або програми, щоб завантажити %@
     zh-Hant = 如要下載%@ ，請先釋放一些空間!
   [remind_me_later]
     en = Remind me later
@@ -485,7 +485,7 @@
     ko = 지도 검색하기
     nl = Zoek Kaart
     ru = Поиск на карте
-    uk = Пошук на мапi
+    uk = Пошук на картi
     zh-Hant = 搜尋地圖
   [not_enough_disk_space]
     en = There is not enough free disk space
@@ -548,7 +548,7 @@
     fr = Nous avons mis à jour les cartes en les réduisant. Vous pouvez maintenant ne télécharger que la région ou le pays qui vous intéresse, cependant pour avoir les nouvelles cartes, il vous faut effacer toutes les anciennes cartes.
     nl = Wij hebben de kaart geupdate en hem verkleind. Met grote landen kunt u nu ervoor kiezen om allen de regio/staat te downloaden die u nodig heeft. Om de nieuwe kaarten te gebruiken moet u alle oude kaarten verwijderen.
     ru = Мы обновили карты и уменьшили их размер. Для больших стран вы сможете выборочно загружать нужные вам штаты или регионы. Однако, чтобы воспользоваться новыми картами, необходимо предварительно удалить старыe.
-    uk = Ми оновили мапи і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими мапами, необхідно попередньо видалити старi.
+    uk = Ми оновили карти і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими картами, необхідно попередньо видалити старi.
     zh-Hant = “我們已經更新並縮小了地圖資料，而較大的國家，您可以只選擇您所需的地區/國家來下載即可。如果您要使用新地圖，則需先刪除先前已下載的圖資後方能使用!”
   [which_measurement_system]
     en = Which measurement system do you prefer?
@@ -600,7 +600,7 @@
     ko = 국가로 확대하여 주세요
     nl = Zoom in richting het land
     ru = Показать страну на карте
-    uk = Показати країну на мапi
+    uk = Показати країну на карті
     zh-Hant = 放大到全國檢視
   [country_status_added_to_queue]
     en = ^is added to the downloading queue.
@@ -773,7 +773,7 @@
     ko = 다운로드된지도와 SD 카드 / USB 저장 장치를 사용할 수 없습니다
     nl = SD kaart/USB opslag met gedownloade kaarten is niet beschikbaar
     ru = Загруженные карты недоступны
-    uk = Завантажені мапи недоступні
+    uk = Завантажені карти недоступні
     zh-Hant = SD 卡/USB 無法有效儲存下載的地圖
   [disconnect_usb_cable]
     en = Please disconnect USB cable or insert memory card to use MapsWithMe
@@ -835,7 +835,7 @@
     ko = 시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다. \n%.1f%@ 데이터가 필요합니다.
     nl = Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %.1f%@ in beslag.
     ru = Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство. \nЭто потребует %.1f%@ данных.
-    uk = Перш ніж розпочати дозвольте нам завантажити мапу світу на ваш пристрій. \nВона потребує %.1f%@ даних.
+    uk = Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій. \nВона потребує %.1f%@ даних.
     zh-Hant =  在您開始之前 ， 先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %.1f%@ 。
   [getting_position]
     en = Getting current position
@@ -859,7 +859,7 @@
     ko = 지도로 이동
     nl = Ga naar de Kaart
     ru = Перейти на карту
-    uk = Перейти на мапу
+    uk = Перейти на карту
     zh-Hant = 跳到地圖
   [downloading_country_can_proceed]
     en = Downloading %@. You can now\nproceed to the map.
@@ -871,7 +871,7 @@
     ko = %@다운로드. 이제지도를 진행할 수 있습니다.
     nl = %@ aan het downloaden. U kunt doorgaan\nnaar de kaart
     ru = Пока загружается %@ \nвы можете пользоваться приложением.
-    uk = Поки завантажується %@ \nви можете користуватися додатком.
+    uk = Поки завантажується %@ \nви можете користуватися програмою.
     zh-Hant = 正在下載 %@. 您現在 可以繼續使用地圖了
   [download_country_ask]
     en = Download %@?
@@ -908,7 +908,7 @@
     ko = 당신의 현재 위치의지도를 다운로드할 수 있습니다.
     nl = U kunt de kaart van\nuw huidige locatie downloaden
     ru = Вы можете загрузить карту\nвашего текущего местоположения.
-    uk = Ви можете завантажити мапу\nвашого поточного місця розташування.
+    uk = Ви можете завантажити карту\nвашого поточного місця розташування.
     zh-Hant = 您可以下載目前所在位置的地圖。
   [download_location_update_map_proposal]
     en = You can update the map\nof your current location.
@@ -921,7 +921,7 @@
     ko = 귀하의 현재 위치의지도를 업데이트할 수 있습니다.
     nl = U kunt de kaart\nvan uw huidige locatie kunnen geupdate worden
     ru = Вы можете обновить карту\nвашего текущего местоположения.
-    uk = Ви можете оновити мапу\nвашого поточного місця розташування.
+    uk = Ви можете оновити карту\nвашого поточного місця розташування.
     zh-Hant = 您可以更新目前所在位置的地圖。
   [download_location_map_up_to_date]
     en = The map at your current\nlocation (%@) is up-to-date
@@ -934,7 +934,7 @@
     ko = 현재 위치 (%@)\n에서지도는 최신이다
     nl = De kaart op uw huidige\nlocatie (%@) is up-to-date
     ru = Карта местности, в которой\nвы находитесь (%@) уже загружена.
-    uk = Мапа місцевості, в якій\nви знаходитеся (%@) вже завантажена.
+    uk = Карта місцевості, в якій\nви знаходитеся (%@) вже завантажена.
     zh-Hant = 您目前所在位置 (%@) \n的地圖已是最新圖資 !
   [pause]
     en = Pause
@@ -995,7 +995,7 @@
     ko = 당신은 검색 기능에 대한 업데이트된지도 필요
     nl = Om de zoekfunctie te kunnen gebruiken moet u de kaarten updaten
     ru = Для функции поиска необходимо обновить устаревшие карты:
-    uk = Для функції пошуку необхідно оновити застарілі мапи:
+    uk = Для функції пошуку необхідно оновити застарілі карти:
     zh-Hant = 您需要更新地圖以使用搜尋功能：
   [advise_update_maps]
     en = Update available for these maps:
@@ -1009,7 +1009,7 @@
     ko = 이지도에 사용할 수있는 업데이트 :
     nl = Update beschikbaar voor deze kaarten:
     ru = Доступно обновление для следующих карт:
-    uk = Доступно оновлення для наступних карт:
+    uk = Доступні оновлення для наступних карт:
     zh-Hant = 以下為可用的更新地圖：
   [suggest_uninstall_lite]
     en = You don't need MapsWithMe Lite any more, so you can uninstall it.
@@ -1245,7 +1245,7 @@
     ko = 지도상의 어떤 장소든지 즐겨찾기에 추가할 수 있습니다. 이를 위해서는 컨텍스트 메뉴가 나타날 때까지 지도상의 장소를 오래 누르시면 됩니다.
     nl = Voeg een plaats naar keuze op de kaart toe aan de bladwijzers. Om dat te doen, drukt u op een plek op de kaart en houd u het ingedrukt tot het contextmenu verschijnt.
     ru = Добавьте в избранное любое место на карте. Для этого нажмите на точку на карте и удерживайте, пока не появится контекстное меню.
-    uk = Додайте будь-яке місце на карті в закладки. Щоб зробити це, натисніть місце на карті і утримувайте, поки з'явиться контекстне меню.
+    uk = Додайте будь-яке місце на карті в закладки. Щоб зробити це, натисніть місце на карті і утримуйте, поки з'явиться контекстне меню.
     zh-Hant = 如要新增書籤 , 請按住地圖上的任何地方不放，直到有彈出視窗顯示選項。
   [settings]
     en = Settings
@@ -1315,7 +1315,7 @@
     ko = 이 작업은 수 분 소요될 수 있습니다.\n잠시 기다리세요…
     nl = Dit kan enkele minuten duren.\nEven geduld…
     ru = Это может занять несколько минут.\nПожалуйста, подождите…
-    uk = Це може зайняти кілька хвилин.\nЛаска, зачекайте…
+    uk = Це може зайняти кілька хвилин.\nБудь ласка, зачекайте…
     zh-Hant = 這可能需要幾分鐘\n請稍候...
   [visible]
     en = Visible
@@ -1327,7 +1327,7 @@
     ko = 눈에 보이는
     nl = Zichtbaar
     ru = Показывать на карте
-    uk = Показувати
+    uk = Показувати на карті
     zh-Hant = 看得到的
   [bookmarks_in_pro_version]
     en = Bookmarks are only available in the full version of MapsWithMe. Get it right now!
@@ -1355,7 +1355,7 @@
     ko = GPS가 사용 중지되었습니다. 설정에서 이를 작동시켜 주시기 바랍니다.
     nl = GPS is uitgeschakeld. Schakel ze in bij Instellingen.
     ru = GPS-позиционирование выключено. Пожалуйста, включите его в настройках для удобного использования программы.
-    uk = GPS вимкнено в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.
+    uk = GPS вимкнено в налаштуваннях пристрою. Будь ласка, увімкніть його для зручного використання програми.
     zh-Hant = GPS 目前是關閉的，請在系統中設定為開啟使用
   [measurement_units]
     en = Measurement Units
@@ -1383,7 +1383,7 @@
     ko = 마일과 킬로미터 중에서 선택하십시오
     nl = Kies tussen mijlen en kilometers
     ru = Использовать километры или мили
-    uk = Вибір між милями та кілометрами
+    uk = Використовувати милі чи кілометри
     zh-Hant = 請選擇公里或英哩
   [search_mode_all]
     en = Everywhere
@@ -1397,7 +1397,7 @@
     ko = 모든 곳
     nl = Overal
     ru = Везде
-    uk = Скрізь
+    uk = Всюди
     zh-Hant = 任何地方
   [search_mode_nearme]
     en = Near Me
@@ -1411,7 +1411,7 @@
     ko = 근처 검색
     nl = Dichtbij mij
     ru = Около меня
-    uk = Поряд
+    uk = Поруч
     zh-Hant = 我的附近
   [search_mode_viewport]
     en = On the Screen
@@ -1440,6 +1440,7 @@
     ko = 음식
     nl = eten
     ru = еда
+    uk = їжа
     zh-Hant = 飲食
   [transport]
     en = transport
@@ -1454,6 +1455,7 @@
     ko = 수송
     nl = transport
     ru = транспорт
+    uk = транспорт
     zh-Hant = 運輸
   [fuel]
     en = gas
@@ -1468,6 +1470,7 @@
     ko = 연료
     nl = benzine
     ru = заправка
+    uk = заправка
     zh-Hant = 加油站
   [parking]
     en = parking
@@ -1482,6 +1485,7 @@
     ko = 주차
     nl = parkeerplaats
     ru = парковка
+    uk = парковка
     zh-Hant = 停車場
   [shop]
     en = shop
@@ -1496,6 +1500,7 @@
     ko = 쇼핑
     nl = winkel
     ru = магазин
+    uk = крамниця
     zh-Hant = 購物
   [hotel]
     en = hotel
@@ -1509,6 +1514,7 @@
     ko = 호텔
     nl = hotel
     ru = гостиница
+    uk = готель
     zh-Hant = 飯店
   [tourism]
     en = sights
@@ -1523,6 +1529,7 @@
     ko = 관광
     nl = toerisme
     ru = достопримечательность
+    uk = пам’ятні місця
     zh-Hant = 旅遊景點
   [entertainment]
     en = entertainment
@@ -1537,6 +1544,7 @@
     ko = 엔터테인먼트
     nl = uitgaan
     ru = развлечения
+    uk = розваги
     zh-Hant = 娛樂
   [atm]
     en = atm
@@ -1551,6 +1559,7 @@
     ko = atm
     nl = geldautomaat
     ru = банкомат
+    uk = банкомат
   [bank]
     en = bank
     tags = ios,android
@@ -1564,6 +1573,7 @@
     ko = 은행
     nl = bank
     ru = банк
+    uk = банк
     zh-Hant = 銀行
   [pharmacy]
     en = pharmacy
@@ -1578,6 +1588,7 @@
     ko = 약국
     nl = apotheek
     ru = аптека
+    uk = аптека
     zh-Hant = 藥局
   [hospital]
     en = hospital
@@ -1592,6 +1603,7 @@
     ko = 병원
     nl = ziekenhuis
     ru = больница
+    uk = лікарня
     zh-Hant = 醫院
   [toilet]
     en = toilet
@@ -1606,6 +1618,7 @@
     ko = 화장실
     nl = toilet
     ru = туалет
+    uk = туалет
     zh-Hant = 廁所
   [post]
     en = post
@@ -1620,6 +1633,7 @@
     ko = 우편
     nl = post
     ru = почта
+    uk = пошта
     zh-Hant = 郵筒
   [police]
     en = police
@@ -1634,6 +1648,7 @@
     ko = 치안대
     nl = politie
     ru = полиция
+    uk = міліція
     zh-Hant = 警察局
   [no_search_results_found]
     en = No results found
@@ -1675,7 +1690,7 @@
     ko = 이메일로 공유
     nl = Delen via e-mail
     ru = Послать по email
-    uk = Поділитися по електронній пошті
+    uk = Подiлитися по електронній пошті
     zh-Hant = 以 email 分享
   [share_bookmarks_email_subject]
     en = MapsWithMe bookmarks has been shared with you
@@ -1689,7 +1704,7 @@
     ko = 귀하와 공유된 MapsWithMe 즐겨찾기
     nl = Bladwijzers van MapsWithMe met u gedeeld
     ru = С вами поделились закладками MapsWithMe
-    uk = Вам надаються закладки MapsWithMe
+    uk = З вами поділилися закладками MapsWithMe
     zh-Hant = 您已分享了 MapsWithMe 書籤
   [share_bookmarks_email_body]
     en = Hello,\n\nHere are my bookmarks from MapsWithMe offline maps in the attached "%@.kmz" file. Please open it if you have MapsWithMe Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://www.mapswithme.com/get?kmz.\n\nHave a good time with MapsWithMe!
@@ -1704,7 +1719,7 @@
     ko = 안녕하세요.\n\n첨부된 "%@.kmz" 파일에 MapsWithMe 오프라인 지도로부터의 제 즐겨찾기가 있습니다. MapsWithMe 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://www.mapswithme.com/get?kmz 링크에서 다운로드하시기 바랍니다.\n\nMapsWithMe와 함께 즐거운 시간 되시기 바랍니다!
     nl = Hallo,\n\nHier zijn mijn bladwijzers uit de MapsWithMe offline kaarten, in het bijgevoegde "%@.kmz"-bestand. Open het bestand als u MapsWithMe Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://www.mapswithme.com/get?kmz.\n\nVeel plezier met MapsWithMe!
     ru = Здравствуйте!\n\nМои закладки из офлайн карт MapsWithMe находятся в прикрепленном файле "%@.kmz". Если у вас уже установлено приложение MapsWithMe Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  MapsWithMe Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.mapswithme.com/get?kmz\n\nСпасибо!
-    uk = Вітаю!\n\nОсь мої закладки з автономних карт MapsWithMe у доданому файлі "%@.kmz". Прошу відкрти його, якщо у вас MapsWithMe Pro вже встановлено. Якщо ні, тоді спочатку завантажте застосунок для пристроїв IOS або Android за цим посиланням http://www.mapswithme.com/get?kmz.\n\nПриємних розваг з MapsWithMe!
+    uk = Вітаю!\n\nОсь мої закладки з офлайн карт MapsWithMe у доданому файлі "%@.kmz". Ви можете відкрти його, якщо у вас встановлена MapsWithMe Pro. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://www.mapswithme.com/get?kmz.\n\nПриємних розваг з MapsWithMe!
     zh-Hant = 哈囉!\n\n這是我的MapsWithe離線地圖中所夾帶的 "%@.kmz" 書籤檔案。若您已安裝MapsWithMe專業版的話請開啟它，否則請先從 http://www.mapswithme.com/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用MapsWithMe愉快!
   [load_kmz_title]
     en = Loading Bookmarks
@@ -1757,6 +1772,7 @@
     comment = resource for context menu
     cs = Upravit
     ru = Редактировать
+    uk = Редаґувати
     zh-Hant = 編輯
   [unknown_current_position]
     en = Your location hasn't been determined yet
@@ -1820,7 +1836,7 @@
     ko = 죄송합니다, 지도 스토리지 설정이 비활성화되어 있습니다.
     nl = Sorry, instellingen voor kaartopslag uitgeschakeld.
     ru = Извините, настройки места хранения карт сейчас недоступны.
-    uk = Вибачте, налаштування функції запам'ятовування карти скасовано.
+    uk = Вибачте, налаштування папки з картами зараз недоступні.
     zh-Hant = 很抱歉, 地圖儲存設定目前是停用的狀態!
   [downloading_is_active]
     en = Country download is in progress now.
@@ -1850,7 +1866,7 @@
     ko = MapsWithMe로 즐거운 시간을 보내시기 바랍니다! MapsWithMe가 마음에 드신다면 앱스토어에서 평가를 남겨 주시기 바랍니다. 평가하는 데는 1분이 채 걸리지 않지만 저희에게 큰 도움이 됩니다. 성원해 주셔서 감사합니다!
     nl = Ik hoop dat u veel plezier hebt met MapsWithMe! Zo ja, geef de app dan een cijfer in de App Store of schrijf een recensie. Dit duurt minder dan een minuut, maar kan ons echt helpen. Bedankt voor uw steun!
     ru = Надеемся, вам нравится пользоваться MapsWithMe! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!
-    uk = Сподіваємося, що вам сподобалося користуватися MapsWithMe! Якщо це так, будь ласка, оцініть цей застосунок чи залиште свій відгук на app store. Витративши менше хвилини на це, ви дійсно нам допоможете. Дякуємо за вашу підтримку!
+    uk = Сподіваємося, що вам сподобалося користуватися MapsWithMe! Якщо так, будь ласка, надайте оцінку програмі або залиште свій відгук на app store. Витративши менше хвилини, ви дійсно нам допоможете. Дякуємо за вашу підтримку!
     zh-Hant = 祝您使用 MapsWithMe愉快! 方便的話，請到App Store幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持!
   [no_thanks]
     en = No, thanks
@@ -1912,8 +1928,8 @@
   [bookmark_share_email]
     en = Hi,\n\nI pinned: %1$@ at MapsWithMe, world offline maps. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
     comment = Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me
-    ru = Привет!\n\nОткрой эту ссылку %2$@ либо эту %3$@,  для того чтобы увидеть мою метку %1$@ на карте MapsWithMe.\n\nСпасибо.
-    uk = Привіт,\n\nЯ позначив: %1$@ у MapsWithMe, оффлайн карти світу. Натисни на це посилання %2$@ або на це посилання %3$@, щоб побачити місце на карті. \n\nДякую.
+    ru = Привет!\n\nОткрой эту ссылку %2$@ либо эту %3$@, для того, чтобы увидеть мою метку %1$@ на карте MapsWithMe.\n\nСпасибо.
+    uk = Привіт,\n\nЯ позначив: %1$@ на MapsWithMe, офлайн картах світу. Натисни на це посилання %2$@ або на це посилання %3$@, щоб побачити місце на карті. \n\nДякую.
     ko = 안녕하세요.\n\n다음 위치에 표시를 하였습니다: 오프라인 세계 지도인 MapsWithMe에서 %1$@ . %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.
     ja = こんにちは。\n\n世界のオフラインマップMapsWithMe でこの場所をピンで留めました： %1$@ 。リンク %2$@ または %3$@ クリックしてその場所をマップで確認してください。\n\nよろしくお願いします
     it = Ciao,\n\nHo segnato %1$@ su MapsWithMe, le mappe del mondo offline. Clicca su questo link %2$@ oppure su questo %3$@ per vedere il posto sulla mappa.\n\nGrazie.
@@ -1927,7 +1943,7 @@
     tags = ios,android
     comment = Subject for emailed position
     ru = Посмотри на карте MapsWithMe, где я сейчас нахожусь
-    uk = Подивись моє поточне місцезнаходження на карті MapsWithMe
+    uk = Поглянь на моє поточне місцезнаходження на карті MapsWithMe
     ko = MapsWithMe 지도에서 제 현재 위치를 살펴 보시기 바랍니다
     ja = MapsWithMeマップ上での自分の現在地を見る
     it = Guarda dove mi trovo attualmente sulla mappa MapsWithMe
@@ -1964,7 +1980,7 @@
     ja = メッセージで共有
     nl = Delen via bericht
     zh-Hant = 透過消息分享
-    uk = Поділитися повідомленням
+    uk = Подiлитися за допомогою повідомлення
     ko = 메시지로 공유
 
   [share]
@@ -1979,7 +1995,7 @@
     it = Condividi
     ja = 共有
     nl = Delen
-    uk = Поділитися
+    uk = Подiлитись
     zh-Hant = 分享
     ko = 공유
 

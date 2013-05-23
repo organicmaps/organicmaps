@@ -277,4 +277,6 @@
 	<string name="message">メッセージ</string>
 	<!-- Share by email button text -->
 	<string name="email">Eメール</string>
+	<!-- Copy Link -->
+	<string name="copy_link">リンクをコピー</string>
 </resources>
