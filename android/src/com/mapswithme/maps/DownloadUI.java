@@ -92,15 +92,16 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
 
       public int getTextColor()
       {
+        //TODO introduce resources
         switch (m_status)
         {
-        case MapStorage.ON_DISK: return 0xFF00A144;
+        case MapStorage.ON_DISK:             return 0xFF00A144;
         case MapStorage.ON_DISK_OUT_OF_DATE: return 0xFFFF69B4;
-        case MapStorage.NOT_DOWNLOADED: return 0xFFFFFFFF;
-        case MapStorage.DOWNLOAD_FAILED: return 0xFFFF0000;
-        case MapStorage.DOWNLOADING: return 0xFF342BB6;
-        case MapStorage.IN_QUEUE: return 0xFF5B94DE;
-        default: return 0xFFFFFFFF;
+        case MapStorage.NOT_DOWNLOADED:      return 0xFF000000;
+        case MapStorage.DOWNLOAD_FAILED:     return 0xFFFF0000;
+        case MapStorage.DOWNLOADING:         return 0xFF342BB6;
+        case MapStorage.IN_QUEUE:            return 0xFF5B94DE;
+        default:                             return 0xFF000000;
         }
       }
 

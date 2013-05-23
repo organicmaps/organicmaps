@@ -187,7 +187,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
       finishFilesDownload(ERR_NO_MORE_FILES);
   }
 
-  private void onDownloadClicked(View v)
+  public void onDownloadClicked(View v)
   {
     setAction(PAUSE);
     doDownload();

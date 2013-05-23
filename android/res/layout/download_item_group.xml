@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@null"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
@@ -12,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+        android:textAppearance="@style/Holo.TextAppearance.Large.Light"/>
 
     <ImageView
         android:id="@+id/disclosure_image"
@@ -20,6 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:src="@drawable/cell_arrow_white"/>
+        android:src="@drawable/cell_arrow_black"/>
 
 </RelativeLayout>

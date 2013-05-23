@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/pi_arrow"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="@style/Holo.TextAppearance.Small.Light" />
 
     <TextView
         android:id="@+id/pi_name"
@@ -40,6 +40,6 @@
         android:layout_toRightOf="@id/pi_pin_color"
         android:singleLine="true"
         android:text="sdkfjsdokfjsdfosdjfisdofjsdoifjsdofji"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="@style/Holo.TextAppearance.Large.Light" />
 
 </RelativeLayout>
