@@ -36,13 +36,13 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1px"
-                android:background="@android:drawable/divider_horizontal_dark" />
+                android:background="@drawable/abs__list_divider_holo_light"/>
 
             <RelativeLayout
                 android:id="@+id/pin_sets"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/list_selector_background"
+                android:background="@drawable/list_selector_holo_light"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp" >
 
@@ -80,19 +80,19 @@
                     android:layout_centerVertical="true"
                     android:clickable="false"
                     android:focusable="false"
-                    android:src="@drawable/cell_arrow_white" />
+                    android:src="@drawable/cell_arrow_black" />
             </RelativeLayout>
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1px"
-                android:background="@android:drawable/divider_horizontal_dark" />
+                android:background="@drawable/abs__list_divider_holo_light" />
 
             <RelativeLayout
                 android:id="@+id/pin_color_chooser"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/list_selector_background"
+                android:background="@drawable/list_selector_holo_light"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp" >
 
@@ -109,13 +109,13 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/cell_arrow_white" />
+                    android:src="@drawable/cell_arrow_black" />
             </RelativeLayout>
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1px"
-                android:background="@android:drawable/divider_horizontal_dark" />
+                android:background="@drawable/abs__list_divider_holo_light" />
 
             <EditText
                 android:id="@+id/pin_description"
@@ -128,7 +128,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1px"
-                android:background="@android:drawable/divider_horizontal_dark" />
+                android:background="@drawable/abs__list_divider_holo_light" />
 
             <Button
                 android:layout_width="fill_parent"
