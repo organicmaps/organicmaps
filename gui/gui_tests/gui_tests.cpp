@@ -24,18 +24,8 @@ struct BalloonTest
     bp.m_pivot = m2::PointD(200, 200);
     bp.m_position = graphics::EPosAbove;
 
-    bp.m_textMarginLeft = 10;
-    bp.m_textMarginRight = 10;
-    bp.m_textMarginTop = 5;
-    bp.m_textMarginBottom = 5;
-
-    bp.m_imageMarginLeft = 0;
-    bp.m_imageMarginRight = 10;
-    bp.m_imageMarginTop = 5;
-    bp.m_imageMarginBottom = 5;
-
-    bp.m_text = "Active";
-    bp.m_image = graphics::Image::Info("arrow.png", graphics::EDensityMDPI);
+    bp.m_mainText = "Active";
+    bp.m_image = graphics::Image::Info("plus.png", graphics::EDensityMDPI);
 
     m_balloon.reset(new gui::Balloon(bp));
     m_balloon->setIsVisible(true);
@@ -57,9 +47,9 @@ struct BalloonTest
   void SetText(gui::Balloon * b)
   {
     if (m_flag)
-      b->setText("Arrow");
+      b->setText("Arrow", "");
     else
-      b->setText("Cinema");
+      b->setText("Cinema", "");
   }
 
   void DoDraw(shared_ptr<graphics::Screen> const & p)
@@ -195,7 +185,6 @@ struct CountryStatusDisplayTest
     m_pivot = m2::PointD(400, 400);
 
     m_storage.reset(new storage::Storage());
-    //m_storage->Init();
 
     p.m_depth = graphics::maxDepth;
     p.m_pivot = m_pivot;
@@ -213,10 +202,10 @@ struct CountryStatusDisplayTest
   }
 };
 
-//UNIT_TEST_GUI(BalloonTest);
+UNIT_TEST_GUI(BalloonTest);
 //UNIT_TEST_GUI(ButtonTest);
 //UNIT_TEST_GUI(TextViewTest);
 //UNIT_TEST_GUI(ImageViewTest);
 //UNIT_TEST_GUI(CachedTextViewTest);
-UNIT_TEST_GUI(CountryStatusDisplayTest);
+//UNIT_TEST_GUI(CountryStatusDisplayTest);
 
