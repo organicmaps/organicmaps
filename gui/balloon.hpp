@@ -53,21 +53,17 @@ namespace gui
 
     mutable vector<m2::AnyRectD> m_boundRects;
 
-    void cacheBorders(graphics::Screen * cs,
-                      graphics::Image::Info & borderImg,
-                      uint32_t balloonWidth,
-                      uint32_t arrowHeight);
+    void cacheLeftBorder(graphics::Screen * cs,
+                         double offsetX);
+
+    void cacheRightBorder(graphics::Screen * cs,
+                          double offsetX);
+
     void cacheBody(graphics::Screen * cs,
-                   graphics::Image::Info & bodyImg,
                    double offsetX,
-                   double bodyWidth,
-                   uint32_t arrowHeight);
+                   double bodyWidth);
 
     void initBgImages();
-
-    void cache();
-    void purge();
-    void layout();
 
     void layoutMainText(double balloonWidth,
                         double leftMargin);
@@ -83,6 +79,11 @@ namespace gui
     TOnClickListener m_onClickListener;
 
     typedef Element base_t;
+
+  protected:
+    void cache();
+    void purge();
+    void layout();
 
   public:
 

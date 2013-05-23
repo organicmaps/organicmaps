@@ -10,6 +10,7 @@
 
 #define TEXT_LEFT_MARGIN 1
 #define TEXT_RIGHT_MARGIN 25
+#define ARROW_MARGIN 16
 
 namespace gui
 {
@@ -130,12 +131,19 @@ namespace gui
       layoutAuxText(maxWidth, leftMargin);
 
     m2::PointD pv = pivot();
-    pv.x = pv.x + maxWidth / 2.0 - imageMargin - imageRect.SizeX();
+
+    graphics::EPosition pos = position();
+    if (pos & graphics::EPosRight)
+      pv.x = pv.x + m_arrowImg.m_size.x / 2.0 + ARROW_MARGIN * k + m_borderImg.m_size.x - imageMargin;
+    else if (pos & graphics::EPosLeft)
+      pv.x = pv.x  + (maxWidth - m_borderImg.m_size.x - ARROW_MARGIN * k - m_arrowImg.m_size.x / 2.0) - imageMargin;
+    else
+      pv.x = pv.x + maxWidth / 2.0 - imageMargin;
     pv.y -= (m_arrowImg.m_size.y + m_borderImg.m_size.y / 2.0);
 
     m_imageView->setPivot(pv);
 
-    m_imageView->setPosition(graphics::EPosRight);
+    m_imageView->setPosition(graphics::EPosLeft);
   }
 
   void Balloon::layoutMainText(double balloonWidth,
@@ -144,7 +152,14 @@ namespace gui
     m2::PointD pv = pivot();
     graphics::EPosition newPosition = graphics::EPosRight;
 
-    pv.x = pv.x - balloonWidth / 2.0 + leftMargin;
+    graphics::EPosition balloonPos = position();
+    double k = visualScale();
+    if (balloonPos & graphics::EPosRight)
+      pv.x = pv.x - (balloonWidth - m_borderImg.m_size.x - ARROW_MARGIN * k - m_arrowImg.m_size.x / 2.0) + leftMargin;
+    else if (balloonPos & graphics::EPosLeft)
+      pv.x = pv.x - (m_borderImg.m_size.x + ARROW_MARGIN * k + m_arrowImg.m_size.x / 2.0) + leftMargin;
+    else
+      pv.x = pv.x - balloonWidth / 2.0 + leftMargin;
 
     if (m_textMode == DualText)
     {
@@ -164,7 +179,15 @@ namespace gui
     m2::PointD pv = pivot();
     graphics::EPosition newPosition = graphics::EPosRight;
 
-    pv.x = pv.x - balloonWidth / 2.0 + leftMargin;
+    double k = visualScale();
+    graphics::EPosition balloonPos = position();
+    if (balloonPos & graphics::EPosRight)
+      pv.x = pv.x - (balloonWidth - m_borderImg.m_size.x - ARROW_MARGIN * k - m_arrowImg.m_size.x / 2.0) + leftMargin;
+    else if (balloonPos & graphics::EPosLeft)
+      pv.x = pv.x - (m_borderImg.m_size.x + ARROW_MARGIN * visualScale() + m_arrowImg.m_size.x / 2.0) + leftMargin;
+    else
+      pv.x = pv.x - balloonWidth / 2.0 + leftMargin;
+
     if (m_textMode == DualText)
     {
       double textHeight = m_auxTextView->roughBoundRect().SizeY();
@@ -184,38 +207,38 @@ namespace gui
     layout();
   }
 
-  void Balloon::cacheBorders(graphics::Screen * cs,
-                             graphics::Image::Info &borderImg,
-                             uint32_t balloonWidth,
-                             uint32_t arrowHeight)
+  void Balloon::cacheLeftBorder(graphics::Screen * cs,
+                                double offsetX)
   {
-    uint32_t borderID = cs->mapInfo(borderImg);
+    uint32_t borderID = cs->mapInfo(m_borderImg);
 
-    double offsetX = balloonWidth / 2.0;
-    double offsetY = borderImg.m_size.y + arrowHeight;
+    double offsetY = m_borderImg.m_size.y + m_arrowImg.m_size.y - 2;
+    math::Matrix<double, 3, 3> m = math::Shift(math::Identity<double, 3>(),
+                                               -offsetX, -offsetY);
 
-    math::Matrix<double, 3, 3> identity = math::Identity<double, 3>();
-    math::Matrix<double, 3, 3> leftM = math::Shift(identity,
-                                                   -offsetX, -offsetY);
+    cs->drawImage(m, borderID, depth());
+  }
 
-    cs->drawImage(leftM, borderID, depth());
+  void Balloon::cacheRightBorder(graphics::Screen * cs,
+                                 double offsetX)
+  {
+    uint32_t borderID = cs->mapInfo(m_borderImg);
 
-    math::Matrix<double, 3, 3> rightM = math::Shift(
-                                                    math::Scale(identity, -1.0, 1.0),
-                                                    offsetX, -offsetY);
+    double offsetY = m_borderImg.m_size.y + m_arrowImg.m_size.y - 2;
+    math::Matrix<double, 3, 3> m = math::Shift(
+                                              math::Scale(math::Identity<double, 3>(), -1.0, 1.0),
+                                               offsetX, -offsetY);
 
-    cs->drawImage(rightM, borderID, depth());
+    cs->drawImage(m, borderID, depth());
   }
 
   void Balloon::cacheBody(graphics::Screen * cs,
-                 graphics::Image::Info & bodyImg,
-                 double offsetX,
-                 double bodyWidth,
-                 uint32_t arrowHeight)
+                          double offsetX,
+                          double bodyWidth)
   {
-    uint32_t bodyID = cs->mapInfo(bodyImg);
-    int32_t bodyCount = (bodyWidth + bodyImg.m_size.x - 1) / (double)(bodyImg.m_size.x);
-    double offsetY = bodyImg.m_size.y + arrowHeight;
+    uint32_t bodyID = cs->mapInfo(m_bodyImg);
+    int32_t bodyCount = (bodyWidth + m_bodyImg.m_size.x - 1) / (double)(m_bodyImg.m_size.x);
+    double offsetY = m_bodyImg.m_size.y + m_arrowImg.m_size.y - 2;
     offsetY = -offsetY;
     double currentOffsetX = -offsetX;
 
@@ -226,17 +249,17 @@ namespace gui
     {
       cs->drawImage(m, bodyID, depth());
 
-      m = math::Shift(m, m2::PointF(bodyImg.m_size.x, 0));
-      currentOffsetX += bodyImg.m_size.x;
+      m = math::Shift(m, m2::PointF(m_bodyImg.m_size.x, 0));
+      currentOffsetX += m_bodyImg.m_size.x;
     }
 
-    int32_t lastTileWidth = bodyWidth - (bodyImg.m_size.x) * (bodyCount - 1);
-    double scaleFactor = (double(lastTileWidth) + 2.5)/ (double)(bodyImg.m_size.x);
+    double lastTileWidth = bodyWidth - (m_bodyImg.m_size.x) * (bodyCount - 1);
+    double scaleFactor = (double(lastTileWidth))/ (double)(m_bodyImg.m_size.x);
 
     math::Matrix<double, 3, 3> lastBodyM = math::Shift(
                                                       math::Scale(math::Identity<double, 3>(), scaleFactor, 1.0),
                                                         currentOffsetX, offsetY);
-    cs->drawImage(lastBodyM, bodyID, depth() + 1);
+    cs->drawImage(lastBodyM, bodyID, depth());
   }
 
   void Balloon::cache()
@@ -253,14 +276,32 @@ namespace gui
     cs->beginFrame();
     cs->setDisplayList(m_displayList.get());
 
-    cacheBorders(cs, m_borderImg, bw, m_arrowImg.m_size.y - 2);
-    cacheBody(cs, m_bodyImg, bw / 2.0 - (double)m_borderImg.m_size.x, bw - 2.0 * m_borderImg.m_size.x, m_arrowImg.m_size.y - 2);
-
     uint32_t arrowID = cs->mapInfo(m_arrowImg);
-
     math::Matrix<double, 3, 3> arrowM = math::Shift(math::Identity<double, 3>(),
                                                     -(m_arrowImg.m_size.x / 2.0), -((double)m_arrowImg.m_size.y + 1));
-    cs->drawImage(arrowM, arrowID, depth() + 10);
+    cs->drawImage(arrowM, arrowID, depth() + 1);
+
+    double leftBorderOffset = 0.0;
+    double bodyWidth = bw - 2.0 * m_borderImg.m_size.x;
+    double rightBorderOffset = 0.0;
+
+    graphics::EPosition pos = position();
+    if (pos & graphics::EPosRight)
+    {
+      rightBorderOffset = m_borderImg.m_size.x + ARROW_MARGIN * visualScale() + m_arrowImg.m_size.x / 2.0;
+      leftBorderOffset = bw - rightBorderOffset;
+    }
+    else if (pos & graphics::EPosLeft)
+    {
+      leftBorderOffset = m_borderImg.m_size.x + ARROW_MARGIN * visualScale() + m_arrowImg.m_size.x / 2.0;
+      rightBorderOffset = bw - leftBorderOffset;
+    }
+    else
+      rightBorderOffset = leftBorderOffset = bw / 2.0;
+
+    cacheLeftBorder(cs, leftBorderOffset);
+    cacheRightBorder(cs, rightBorderOffset);
+    cacheBody(cs, leftBorderOffset - m_borderImg.m_size.x, bodyWidth);
 
     cs->setDisplayList(0);
     cs->endFrame();
