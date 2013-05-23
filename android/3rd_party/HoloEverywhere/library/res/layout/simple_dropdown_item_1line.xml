@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8"?><TextView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" style="?android:dropDownItemStyle" android:textAppearance="?textAppearanceLargePopupMenu" android:ellipsize="marquee" android:singleLine="true" android:layout_height="?listPreferredItemHeight" android:id="@android:id/text1"></TextView>

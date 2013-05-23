@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Mindig"</string>
+    <string name="activity_resolver_use_once">"Csak egyszer"</string>
+    <string name="candidates_style">"jelöltek"</string>
+    <string name="capital_off">"Ki"</string>
+    <string name="capital_on">"Be"</string>
+    <string name="chooseActivity">"Válasszon egy műveletet"</string>
+    <string name="date_picker_decrement_day_button">"Dátum értékének csökkentése"</string>
+    <string name="date_picker_decrement_month_button">"Hónap értékének csökkentése"</string>
+    <string name="date_picker_decrement_year_button">"Év értékének csökkentése"</string>
+    <string name="date_picker_dialog_title">"Dátum beállítása"</string>
+    <string name="date_picker_increment_day_button">"Dátum értékének növelése"</string>
+    <string name="date_picker_increment_month_button">"Hónap értékének növelése"</string>
+    <string name="date_picker_increment_year_button">"Év értékének növelése"</string>
+    <string name="date_time_done">"Kész"</string>
+    <string name="date_time_set">"Beállítás"</string>
+    <string name="loading">"Betöltés..."</string>
+    <string name="noApplications">"Egy alkalmazás sem tudja végrehajtani ezt a műveletet."</string>
+    <string name="number_picker_decrement_button">"Csökkentés"</string>
+    <string name="number_picker_increment_button">"Növelés"</string>
+    <string name="number_picker_increment_scroll_action">"A növeléshez csúsztassa felfelé, a csökkentéshez pedig lefelé."</string>
+    <string name="number_picker_increment_scroll_mode">"%s érintse meg és tartsa lenyomva."</string>
+    <string name="ringtone_default">"Alapértelmezett csengőhang"</string>
+    <string name="ringtone_picker_title">"Csengőhangok"</string>
+    <string name="ringtone_silent">"Néma"</string>
+    <string name="time_picker_decrement_hour_button">"Óra értékének csökkentése"</string>
+    <string name="time_picker_decrement_minute_button">"Perc értékének csökkentése"</string>
+    <string name="time_picker_decrement_set_am_button">"Állítsa de. értékre"</string>
+    <string name="time_picker_dialog_title">"Idő beállítása"</string>
+    <string name="time_picker_increment_hour_button">"Óra értékének növelése"</string>
+    <string name="time_picker_increment_minute_button">"Perc értékének növelése"</string>
+    <string name="time_picker_increment_set_pm_button">"Állítsa du. értékre"</string>
+    <string name="whichApplication">"Művelet végrehajtása a következővel:"</string>
+</resources>

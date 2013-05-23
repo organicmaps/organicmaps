@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Alati"</string>
+    <string name="activity_resolver_use_once">"Ainult üks kord"</string>
+    <string name="candidates_style">"kandidaadid"</string>
+    <string name="capital_off">"VÄLJAS"</string>
+    <string name="capital_on">"SEES"</string>
+    <string name="chooseActivity">"Toimingu valimine"</string>
+    <string name="date_picker_decrement_day_button">"Päeva vähendamine"</string>
+    <string name="date_picker_decrement_month_button">"Kuu vähendamine"</string>
+    <string name="date_picker_decrement_year_button">"Aasta vähendamine"</string>
+    <string name="date_picker_dialog_title">"Kuupäeva määramine"</string>
+    <string name="date_picker_increment_day_button">"Päeva suurendamine"</string>
+    <string name="date_picker_increment_month_button">"Kuu suurendamine"</string>
+    <string name="date_picker_increment_year_button">"Aasta suurendamine"</string>
+    <string name="date_time_done">"Valmis"</string>
+    <string name="date_time_set">"Määra"</string>
+    <string name="loading">"Laadimine ..."</string>
+    <string name="noApplications">"Ükski rakendus ei saa seda toimingut teostada."</string>
+    <string name="number_picker_decrement_button">"Vähendamine"</string>
+    <string name="number_picker_increment_button">"Suurendamine"</string>
+    <string name="number_picker_increment_scroll_action">"Suurendamiseks lohistage üles, vähendamiseks alla."</string>
+    <string name="number_picker_increment_scroll_mode">"%s puudutage ja hoidke."</string>
+    <string name="ringtone_default">"Vaikehelin"</string>
+    <string name="ringtone_picker_title">"Helinad"</string>
+    <string name="ringtone_silent">"Hääletu"</string>
+    <string name="time_picker_decrement_hour_button">"Tundide vähendamine"</string>
+    <string name="time_picker_decrement_minute_button">"Minutite vähendamine"</string>
+    <string name="time_picker_decrement_set_am_button">"AM-i seadmine"</string>
+    <string name="time_picker_dialog_title">"Kellaaja määramine"</string>
+    <string name="time_picker_increment_hour_button">"Tundide suurendamine"</string>
+    <string name="time_picker_increment_minute_button">"Minutite suurendamine"</string>
+    <string name="time_picker_increment_set_pm_button">"PM-i seadmine"</string>
+    <string name="whichApplication">"Lõpetage toiming rakendusega"</string>
+</resources>

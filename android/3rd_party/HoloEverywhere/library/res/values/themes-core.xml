@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <style name="Holo.Base.Theme" parent="Theme.Sherlock">
+        <!--Include block: Dark-->
+        <!--Include block: Base-->
+        <item name="activatedBackgroundIndicator">@drawable/activated_background_holo</item>
+        <item name="android:dropDownListViewStyle">?dropDownListViewStyle</item>
+        <item name="buttonBarButtonStyle">?borderlessButtonStyle</item>
+        <item name="buttonBarStyle">@style/Holo.ButtonBar</item>
+        <item name="datePickerStyle">@style/Holo.DatePicker</item>
+        <item name="dialogItemTextAppearance">?textAppearanceListItemSmall</item>
+        <item name="dividerHorizontal">?android:listDivider</item>
+        <item name="dividerVertical">?android:listDivider</item>
+        <item name="dropdownListPreferredItemHeight">?listPreferredItemHeightSmall</item>
+        <item name="fastScrollOverlayPosition">atThumb</item>
+        <item name="fastScrollTextColor">@color/primary_text_holo_dark</item>
+        <item name="fastScrollThumbDrawable">@drawable/fastscroll_thumb_holo</item>
+        <item name="listPreferredItemHeight">64dip</item>
+        <item name="listPreferredItemHeightLarge">80dp</item>
+        <item name="listPreferredItemHeightSmall">48dp</item>
+        <item name="listPreferredItemPaddingLeft">8dp</item>
+        <item name="listPreferredItemPaddingRight">8dp</item>
+        <item name="numberPickerInputTextStyle">@style/Holo.EditText.NumberPickerInputText</item>
+        <item name="numberPickerStyle">@style/Holo.NumberPicker</item>
+        <item name="panelMenuListWidth">250dp</item>
+        <item name="textAppearanceListItem">?android:textAppearanceLarge</item>
+        <item name="textAppearanceListItemSmall">?android:textAppearanceMedium</item>
+        <item name="timePickerStyle">@style/Holo.TimePicker</item>
+        <!--End of block Base-->
+        <!--Include block: TextDark-->
+        <!--Include block: Text-->
+        <item name="android:candidatesTextStyleSpans">@string/candidates_style</item>
+        <item name="android:textCheckMark">?android:checkMark</item>
+        <item name="android:textCheckMarkInverse">?android:checkMark</item>
+        <item name="android:textColorLink">@color/holo_blue_light</item>
+        <!--End of block Text-->
+        <item name="android:textAppearance">@style/Holo.TextAppearance</item>
+        <item name="android:textAppearanceInverse">@style/Holo.TextAppearance.Inverse</item>
+        <item name="android:textAppearanceLarge">@style/Holo.TextAppearance.Large</item>
+        <item name="android:textAppearanceLargeInverse">@style/Holo.TextAppearance.Large.Inverse</item>
+        <item name="android:textAppearanceMedium">@style/Holo.TextAppearance.Medium</item>
+        <item name="android:textAppearanceMediumInverse">@style/Holo.TextAppearance.Medium.Inverse</item>
+        <item name="android:textAppearanceSmall">@style/Holo.TextAppearance.Small</item>
+        <item name="android:textAppearanceSmallInverse">@style/Holo.TextAppearance.Small.Inverse</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_dark</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_dark</item>
+        <item name="android:textColorHintInverse">@color/hint_foreground_holo_light</item>
+        <item name="android:textColorPrimary">@color/primary_text_holo_dark</item>
+        <item name="android:textColorPrimaryDisableOnly">@color/primary_text_disable_only_holo_dark</item>
+        <item name="android:textColorPrimaryInverse">@color/primary_text_holo_light</item>
+        <item name="android:textColorPrimaryInverseDisableOnly">@color/primary_text_disable_only_holo_light</item>
+        <item name="android:textColorPrimaryInverseNoDisable">@color/primary_text_nodisable_holo_light</item>
+        <item name="android:textColorPrimaryNoDisable">@color/primary_text_nodisable_holo_dark</item>
+        <item name="android:textColorSecondary">@color/secondary_text_holo_dark</item>
+        <item name="android:textColorSecondaryInverse">@color/secondary_text_holo_light</item>
+        <item name="android:textColorSecondaryInverseNoDisable">@color/secondary_text_nodisable_holo_light</item>
+        <item name="android:textColorSecondaryNoDisable">@color/secondary_text_nodisable_holo_dark</item>
+        <item name="android:textColorTertiary">@color/tertiary_text_holo_dark</item>
+        <item name="android:textColorTertiaryInverse">@color/tertiary_text_holo_light</item>
+        <!--End of block TextDark-->
+        <item name="alertDialogStyle">@style/Holo.AlertDialog</item>
+        <item name="alertDialogTheme">@style/Holo.Theme.Dialog.Alert</item>
+        <item name="android:windowBackground">@drawable/background_holo_dark</item>
+        <item name="autoCompleteTextViewStyle">@style/Holo.AutoCompleteTextView</item>
+        <item name="borderlessButtonStyle">@style/Holo.Button.Borderless</item>
+        <item name="calendarViewStyle">@style/Holo.CalendarView</item>
+        <item name="detailsElementBackground">@drawable/panel_bg_holo_dark</item>
+        <item name="dialogTheme">@style/Holo.Theme.Dialog</item>
+        <item name="dropDownListViewStyle">@style/Holo.ListView.DropDown</item>
+        <item name="fastScrollPreviewBackgroundLeft">@drawable/fastscroll_label_left_holo_dark</item>
+        <item name="fastScrollPreviewBackgroundRight">@drawable/fastscroll_label_right_holo_dark</item>
+        <item name="fastScrollTrackDrawable">@drawable/fastscroll_track_holo_dark</item>
+        <item name="listDividerAlertDialog">@drawable/list_divider_holo_dark</item>
+        <item name="listPopupWindowStyle">@style/Holo.ListPopupWindow</item>
+        <item name="popupWindowStyle">@style/Holo.PopupWindow</item>
+        <item name="segmentedButtonStyle">@style/Holo.SegmentedButton</item>
+        <item name="selectableItemBackground">@drawable/item_background_holo_dark</item>
+        <item name="spinnerDropDownItemStyle">@style/Holo.TextView.SpinnerItem.DropDown</item>
+        <item name="spinnerItemStyle">@style/Holo.TextView.SpinnerItem</item>
+        <item name="spinnerStyle">@style/Holo.Spinner</item>
+        <item name="switchStyle">@style/Holo.Switch</item>
+        <item name="switchStyleOld">@style/Holo.Switch.Old</item>
+        <item name="textColorAlertDialogListItem">@color/primary_text_holo_dark</item>
+        <!--End of block Dark-->
+        <!--Include block: BarDark-->
+        <item name="textAppearanceLargePopupMenu">@style/Holo.TextAppearance</item>
+        <item name="textAppearanceSmallPopupMenu">@style/Holo.TextAppearance.Small</item>
+        <!--End of block BarDark-->
+    </style>
+    <style name="Holo.Base.Theme.Light" parent="Theme.Sherlock.Light">
+        <!--Include block: Light-->
+        <!--Include block: Base-->
+        <item name="activatedBackgroundIndicator">@drawable/activated_background_holo</item>
+        <item name="android:dropDownListViewStyle">?dropDownListViewStyle</item>
+        <item name="buttonBarButtonStyle">?borderlessButtonStyle</item>
+        <item name="buttonBarStyle">@style/Holo.ButtonBar</item>
+        <item name="datePickerStyle">@style/Holo.DatePicker</item>
+        <item name="dialogItemTextAppearance">?textAppearanceListItemSmall</item>
+        <item name="dividerHorizontal">?android:listDivider</item>
+        <item name="dividerVertical">?android:listDivider</item>
+        <item name="dropdownListPreferredItemHeight">?listPreferredItemHeightSmall</item>
+        <item name="fastScrollOverlayPosition">atThumb</item>
+        <item name="fastScrollTextColor">@color/primary_text_holo_dark</item>
+        <item name="fastScrollThumbDrawable">@drawable/fastscroll_thumb_holo</item>
+        <item name="listPreferredItemHeight">64dip</item>
+        <item name="listPreferredItemHeightLarge">80dp</item>
+        <item name="listPreferredItemHeightSmall">48dp</item>
+        <item name="listPreferredItemPaddingLeft">8dp</item>
+        <item name="listPreferredItemPaddingRight">8dp</item>
+        <item name="numberPickerInputTextStyle">@style/Holo.EditText.NumberPickerInputText</item>
+        <item name="numberPickerStyle">@style/Holo.NumberPicker</item>
+        <item name="panelMenuListWidth">250dp</item>
+        <item name="textAppearanceListItem">?android:textAppearanceLarge</item>
+        <item name="textAppearanceListItemSmall">?android:textAppearanceMedium</item>
+        <item name="timePickerStyle">@style/Holo.TimePicker</item>
+        <!--End of block Base-->
+        <!--Include block: TextLight-->
+        <!--Include block: Text-->
+        <item name="android:candidatesTextStyleSpans">@string/candidates_style</item>
+        <item name="android:textCheckMark">?android:checkMark</item>
+        <item name="android:textCheckMarkInverse">?android:checkMark</item>
+        <item name="android:textColorLink">@color/holo_blue_light</item>
+        <!--End of block Text-->
+        <item name="android:textAppearance">@style/Holo.TextAppearance.Light</item>
+        <item name="android:textAppearanceInverse">@style/Holo.TextAppearance.Inverse.Light</item>
+        <item name="android:textAppearanceLarge">@style/Holo.TextAppearance.Large.Light</item>
+        <item name="android:textAppearanceLargeInverse">@style/Holo.TextAppearance.Large.Inverse.Light</item>
+        <item name="android:textAppearanceMedium">@style/Holo.TextAppearance.Medium.Light</item>
+        <item name="android:textAppearanceMediumInverse">@style/Holo.TextAppearance.Medium.Inverse.Light</item>
+        <item name="android:textAppearanceSmall">@style/Holo.TextAppearance.Small.Light</item>
+        <item name="android:textAppearanceSmallInverse">@style/Holo.TextAppearance.Small.Inverse.Light</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_light</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_light</item>
+        <item name="android:textColorHintInverse">@color/hint_foreground_holo_dark</item>
+        <item name="android:textColorPrimary">@color/primary_text_holo_light</item>
+        <item name="android:textColorPrimaryDisableOnly">@color/primary_text_disable_only_holo_light</item>
+        <item name="android:textColorPrimaryInverse">@color/primary_text_holo_dark</item>
+        <item name="android:textColorPrimaryInverseDisableOnly">@color/primary_text_disable_only_holo_dark</item>
+        <item name="android:textColorPrimaryInverseNoDisable">@color/primary_text_nodisable_holo_dark</item>
+        <item name="android:textColorPrimaryNoDisable">@color/primary_text_nodisable_holo_light</item>
+        <item name="android:textColorSecondary">@color/secondary_text_holo_light</item>
+        <item name="android:textColorSecondaryInverse">@color/secondary_text_holo_dark</item>
+        <item name="android:textColorSecondaryInverseNoDisable">@color/secondary_text_nodisable_holo_dark</item>
+        <item name="android:textColorSecondaryNoDisable">@color/secondary_text_nodisable_holo_light</item>
+        <item name="android:textColorTertiary">@color/tertiary_text_holo_light</item>
+        <item name="android:textColorTertiaryInverse">@color/tertiary_text_holo_dark</item>
+        <!--End of block TextLight-->
+        <item name="alertDialogStyle">@style/Holo.AlertDialog.Light</item>
+        <item name="alertDialogTheme">@style/Holo.Theme.Dialog.Alert.Light</item>
+        <item name="android:windowBackground">@drawable/background_holo_light</item>
+        <item name="autoCompleteTextViewStyle">@style/Holo.AutoCompleteTextView.Light</item>
+        <item name="borderlessButtonStyle">@style/Holo.Button.Borderless.Light</item>
+        <item name="calendarViewStyle">@style/Holo.CalendarView.Light</item>
+        <item name="detailsElementBackground">@drawable/panel_bg_holo_light</item>
+        <item name="dialogTheme">@style/Holo.Theme.Dialog.Light</item>
+        <item name="dropDownListViewStyle">@style/Holo.ListView.DropDown.Light</item>
+        <item name="fastScrollPreviewBackgroundLeft">@drawable/fastscroll_label_left_holo_light</item>
+        <item name="fastScrollPreviewBackgroundRight">@drawable/fastscroll_label_right_holo_light</item>
+        <item name="fastScrollTrackDrawable">@drawable/fastscroll_track_holo_light</item>
+        <item name="listDividerAlertDialog">@drawable/list_divider_holo_light</item>
+        <item name="listPopupWindowStyle">@style/Holo.ListPopupWindow.Light</item>
+        <item name="popupWindowStyle">@style/Holo.PopupWindow.Light</item>
+        <item name="segmentedButtonStyle">@style/Holo.SegmentedButton.Light</item>
+        <item name="selectableItemBackground">@drawable/item_background_holo_light</item>
+        <item name="spinnerDropDownItemStyle">@style/Holo.TextView.SpinnerItem.DropDown.Light</item>
+        <item name="spinnerItemStyle">@style/Holo.TextView.SpinnerItem.Light</item>
+        <item name="spinnerStyle">@style/Holo.Spinner.Light</item>
+        <item name="switchStyle">@style/Holo.Switch.Light</item>
+        <item name="switchStyleOld">@style/Holo.Switch.Light.Old</item>
+        <item name="textColorAlertDialogListItem">@color/primary_text_holo_light</item>
+        <!--End of block Light-->
+        <!--Include block: BarLight-->
+        <item name="textAppearanceLargePopupMenu">@style/Holo.TextAppearance.Light</item>
+        <item name="textAppearanceSmallPopupMenu">@style/Holo.TextAppearance.Small.Light</item>
+        <!--End of block BarLight-->
+    </style>
+    <style name="Holo.Base.Theme.Light.DarkActionBar" parent="Theme.Sherlock.Light.DarkActionBar">
+        <!--Include block: Light-->
+        <!--Include block: Base-->
+        <item name="activatedBackgroundIndicator">@drawable/activated_background_holo</item>
+        <item name="android:dropDownListViewStyle">?dropDownListViewStyle</item>
+        <item name="buttonBarButtonStyle">?borderlessButtonStyle</item>
+        <item name="buttonBarStyle">@style/Holo.ButtonBar</item>
+        <item name="datePickerStyle">@style/Holo.DatePicker</item>
+        <item name="dialogItemTextAppearance">?textAppearanceListItemSmall</item>
+        <item name="dividerHorizontal">?android:listDivider</item>
+        <item name="dividerVertical">?android:listDivider</item>
+        <item name="dropdownListPreferredItemHeight">?listPreferredItemHeightSmall</item>
+        <item name="fastScrollOverlayPosition">atThumb</item>
+        <item name="fastScrollTextColor">@color/primary_text_holo_dark</item>
+        <item name="fastScrollThumbDrawable">@drawable/fastscroll_thumb_holo</item>
+        <item name="listPreferredItemHeight">64dip</item>
+        <item name="listPreferredItemHeightLarge">80dp</item>
+        <item name="listPreferredItemHeightSmall">48dp</item>
+        <item name="listPreferredItemPaddingLeft">8dp</item>
+        <item name="listPreferredItemPaddingRight">8dp</item>
+        <item name="numberPickerInputTextStyle">@style/Holo.EditText.NumberPickerInputText</item>
+        <item name="numberPickerStyle">@style/Holo.NumberPicker</item>
+        <item name="panelMenuListWidth">250dp</item>
+        <item name="textAppearanceListItem">?android:textAppearanceLarge</item>
+        <item name="textAppearanceListItemSmall">?android:textAppearanceMedium</item>
+        <item name="timePickerStyle">@style/Holo.TimePicker</item>
+        <!--End of block Base-->
+        <!--Include block: TextLight-->
+        <!--Include block: Text-->
+        <item name="android:candidatesTextStyleSpans">@string/candidates_style</item>
+        <item name="android:textCheckMark">?android:checkMark</item>
+        <item name="android:textCheckMarkInverse">?android:checkMark</item>
+        <item name="android:textColorLink">@color/holo_blue_light</item>
+        <!--End of block Text-->
+        <item name="android:textAppearance">@style/Holo.TextAppearance.Light</item>
+        <item name="android:textAppearanceInverse">@style/Holo.TextAppearance.Inverse.Light</item>
+        <item name="android:textAppearanceLarge">@style/Holo.TextAppearance.Large.Light</item>
+        <item name="android:textAppearanceLargeInverse">@style/Holo.TextAppearance.Large.Inverse.Light</item>
+        <item name="android:textAppearanceMedium">@style/Holo.TextAppearance.Medium.Light</item>
+        <item name="android:textAppearanceMediumInverse">@style/Holo.TextAppearance.Medium.Inverse.Light</item>
+        <item name="android:textAppearanceSmall">@style/Holo.TextAppearance.Small.Light</item>
+        <item name="android:textAppearanceSmallInverse">@style/Holo.TextAppearance.Small.Inverse.Light</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_light</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_light</item>
+        <item name="android:textColorHintInverse">@color/hint_foreground_holo_dark</item>
+        <item name="android:textColorPrimary">@color/primary_text_holo_light</item>
+        <item name="android:textColorPrimaryDisableOnly">@color/primary_text_disable_only_holo_light</item>
+        <item name="android:textColorPrimaryInverse">@color/primary_text_holo_dark</item>
+        <item name="android:textColorPrimaryInverseDisableOnly">@color/primary_text_disable_only_holo_dark</item>
+        <item name="android:textColorPrimaryInverseNoDisable">@color/primary_text_nodisable_holo_dark</item>
+        <item name="android:textColorPrimaryNoDisable">@color/primary_text_nodisable_holo_light</item>
+        <item name="android:textColorSecondary">@color/secondary_text_holo_light</item>
+        <item name="android:textColorSecondaryInverse">@color/secondary_text_holo_dark</item>
+        <item name="android:textColorSecondaryInverseNoDisable">@color/secondary_text_nodisable_holo_dark</item>
+        <item name="android:textColorSecondaryNoDisable">@color/secondary_text_nodisable_holo_light</item>
+        <item name="android:textColorTertiary">@color/tertiary_text_holo_light</item>
+        <item name="android:textColorTertiaryInverse">@color/tertiary_text_holo_dark</item>
+        <!--End of block TextLight-->
+        <item name="alertDialogStyle">@style/Holo.AlertDialog.Light</item>
+        <item name="alertDialogTheme">@style/Holo.Theme.Dialog.Alert.Light</item>
+        <item name="android:windowBackground">@drawable/background_holo_light</item>
+        <item name="autoCompleteTextViewStyle">@style/Holo.AutoCompleteTextView.Light</item>
+        <item name="borderlessButtonStyle">@style/Holo.Button.Borderless.Light</item>
+        <item name="calendarViewStyle">@style/Holo.CalendarView.Light</item>
+        <item name="detailsElementBackground">@drawable/panel_bg_holo_light</item>
+        <item name="dialogTheme">@style/Holo.Theme.Dialog.Light</item>
+        <item name="dropDownListViewStyle">@style/Holo.ListView.DropDown.Light</item>
+        <item name="fastScrollPreviewBackgroundLeft">@drawable/fastscroll_label_left_holo_light</item>
+        <item name="fastScrollPreviewBackgroundRight">@drawable/fastscroll_label_right_holo_light</item>
+        <item name="fastScrollTrackDrawable">@drawable/fastscroll_track_holo_light</item>
+        <item name="listDividerAlertDialog">@drawable/list_divider_holo_light</item>
+        <item name="listPopupWindowStyle">@style/Holo.ListPopupWindow.Light</item>
+        <item name="popupWindowStyle">@style/Holo.PopupWindow.Light</item>
+        <item name="segmentedButtonStyle">@style/Holo.SegmentedButton.Light</item>
+        <item name="selectableItemBackground">@drawable/item_background_holo_light</item>
+        <item name="spinnerDropDownItemStyle">@style/Holo.TextView.SpinnerItem.DropDown.Light</item>
+        <item name="spinnerItemStyle">@style/Holo.TextView.SpinnerItem.Light</item>
+        <item name="spinnerStyle">@style/Holo.Spinner.Light</item>
+        <item name="switchStyle">@style/Holo.Switch.Light</item>
+        <item name="switchStyleOld">@style/Holo.Switch.Light.Old</item>
+        <item name="textColorAlertDialogListItem">@color/primary_text_holo_light</item>
+        <!--End of block Light-->
+        <!--Include block: BarDark-->
+        <item name="textAppearanceLargePopupMenu">@style/Holo.TextAppearance</item>
+        <item name="textAppearanceSmallPopupMenu">@style/Holo.TextAppearance.Small</item>
+        <!--End of block BarDark-->
+    </style>
+</resources>

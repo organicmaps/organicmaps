@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><selector xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:state_window_focused="false" android:drawable="@drawable/btn_check_on_holo_light" android:state_enabled="true" android:state_checked="true"></item>
+	<item android:state_window_focused="false" android:drawable="@drawable/btn_check_off_holo_light" android:state_enabled="true" android:state_checked="false"></item>
+	<item android:drawable="@drawable/btn_check_on_pressed_holo_light" android:state_enabled="true" android:state_pressed="true" android:state_checked="true"></item>
+	<item android:drawable="@drawable/btn_check_off_pressed_holo_light" android:state_enabled="true" android:state_pressed="true" android:state_checked="false"></item>
+	<item android:state_focused="true" android:drawable="@drawable/btn_check_on_focused_holo_light" android:state_enabled="true" android:state_checked="true"></item>
+	<item android:state_focused="true" android:drawable="@drawable/btn_check_off_focused_holo_light" android:state_enabled="true" android:state_checked="false"></item>
+	<item android:drawable="@drawable/btn_check_off_holo_light" android:state_enabled="true" android:state_checked="false"></item>
+	<item android:drawable="@drawable/btn_check_on_holo_light" android:state_enabled="true" android:state_checked="true"></item>
+	<item android:state_window_focused="false" android:drawable="@drawable/btn_check_on_disabled_holo_light" android:state_checked="true"></item>
+	<item android:state_window_focused="false" android:drawable="@drawable/btn_check_off_disabled_holo_light" android:state_checked="false"></item>
+	<item android:state_focused="true" android:drawable="@drawable/btn_check_on_disabled_focused_holo_light" android:state_checked="true"></item>
+	<item android:state_focused="true" android:drawable="@drawable/btn_check_off_disabled_focused_holo_light" android:state_checked="false"></item>
+	<item android:drawable="@drawable/btn_check_off_disabled_holo_light" android:state_checked="false"></item>
+	<item android:drawable="@drawable/btn_check_on_disabled_holo_light" android:state_checked="true"></item>
+</selector>

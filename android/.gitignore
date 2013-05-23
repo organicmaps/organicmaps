@@ -1,0 +1,10 @@
+#local files
+.classpath
+.cproject
+.project
+local.properties
+
+#dirs
+bin/
+gen/
+resbuilder/

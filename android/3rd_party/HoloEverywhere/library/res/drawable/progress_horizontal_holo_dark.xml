@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:drawable="@drawable/progress_bg_holo_dark" android:id="@android:id/background"></item>
+	<item android:id="@android:id/secondaryProgress">
+		<scale android:drawable="@drawable/progress_secondary_holo_dark" android:scaleWidth="100%"></scale>
+	</item>
+	<item android:id="@android:id/progress">
+		<scale android:drawable="@drawable/progress_primary_holo_dark" android:scaleWidth="100%"></scale>
+	</item>
+</layer-list>

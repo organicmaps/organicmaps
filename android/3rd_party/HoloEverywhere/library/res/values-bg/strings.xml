@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Винаги"</string>
+    <string name="activity_resolver_use_once">"Само веднъж"</string>
+    <string name="candidates_style">"кандидати"</string>
+    <string name="capital_off">"ИЗКЛ"</string>
+    <string name="capital_on">"ВКЛ"</string>
+    <string name="chooseActivity">"Избиране на действие"</string>
+    <string name="date_picker_decrement_day_button">"Намаляване на дните"</string>
+    <string name="date_picker_decrement_month_button">"Намаляване на месеците"</string>
+    <string name="date_picker_decrement_year_button">"Намаляване на годините"</string>
+    <string name="date_picker_dialog_title">"Задаване на дата"</string>
+    <string name="date_picker_increment_day_button">"Увеличаване на дните"</string>
+    <string name="date_picker_increment_month_button">"Увеличаване на месеците"</string>
+    <string name="date_picker_increment_year_button">"Увеличаване на годините"</string>
+    <string name="date_time_done">"Готово"</string>
+    <string name="date_time_set">"Задаване"</string>
+    <string name="loading">"Зарежда се..."</string>
+    <string name="noApplications">"Това действие не може да се изпълни от нито едно приложение."</string>
+    <string name="number_picker_decrement_button">"Намаляване"</string>
+    <string name="number_picker_increment_button">"Увеличаване"</string>
+    <string name="number_picker_increment_scroll_action">"Плъзнете нагоре за увеличаване и надолу за намаляване."</string>
+    <string name="number_picker_increment_scroll_mode">"Докоснете %s път/и и задръжте."</string>
+    <string name="ringtone_default">"Стандартна мелодия"</string>
+    <string name="ringtone_picker_title">"Мелодии"</string>
+    <string name="ringtone_silent">"Тишина"</string>
+    <string name="time_picker_decrement_hour_button">"Намаляване на часовете"</string>
+    <string name="time_picker_decrement_minute_button">"Намаляване на минутите"</string>
+    <string name="time_picker_decrement_set_am_button">"Задаване на AM"</string>
+    <string name="time_picker_dialog_title">"Задаване на часа"</string>
+    <string name="time_picker_increment_hour_button">"Увеличаване на часовете"</string>
+    <string name="time_picker_increment_minute_button">"Увеличаване на минутите"</string>
+    <string name="time_picker_increment_set_pm_button">"Задаване на PM"</string>
+    <string name="whichApplication">"Изпълняване на действието чрез"</string>
+</resources>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Selalu"</string>
+    <string name="activity_resolver_use_once">"Hanya sekali"</string>
+    <string name="candidates_style">"calon"</string>
+    <string name="capital_off">"MATI"</string>
+    <string name="capital_on">"HIDUP"</string>
+    <string name="chooseActivity">"Pilih tindakan"</string>
+    <string name="date_picker_decrement_day_button">"Kurangi hari"</string>
+    <string name="date_picker_decrement_month_button">"Kurangi bulan"</string>
+    <string name="date_picker_decrement_year_button">"Kurangi tahun"</string>
+    <string name="date_picker_dialog_title">"Setel tanggal"</string>
+    <string name="date_picker_increment_day_button">"Tambah hari"</string>
+    <string name="date_picker_increment_month_button">"Tambah bulan"</string>
+    <string name="date_picker_increment_year_button">"Tambah tahun"</string>
+    <string name="date_time_done">"Selesai"</string>
+    <string name="date_time_set">"Setel"</string>
+    <string name="loading">"Memuat..."</string>
+    <string name="noApplications">"Tidak ada apl yang dapat melakukan tindakan ini."</string>
+    <string name="number_picker_decrement_button">"Kurangi"</string>
+    <string name="number_picker_increment_button">"Tambah"</string>
+    <string name="number_picker_increment_scroll_action">"Geser ke atas untuk menambah dan ke bawah untuk mengurangi."</string>
+    <string name="number_picker_increment_scroll_mode">"%s sentuh dan tahan."</string>
+    <string name="ringtone_default">"Nada dering default"</string>
+    <string name="ringtone_picker_title">"Nada dering"</string>
+    <string name="ringtone_silent">"Senyap"</string>
+    <string name="time_picker_decrement_hour_button">"Kurangi jam"</string>
+    <string name="time_picker_decrement_minute_button">"Kurangi menit"</string>
+    <string name="time_picker_decrement_set_am_button">"Setel AM"</string>
+    <string name="time_picker_dialog_title">"Setel waktu"</string>
+    <string name="time_picker_increment_hour_button">"Tambah jam"</string>
+    <string name="time_picker_increment_minute_button">"Tambah menit"</string>
+    <string name="time_picker_increment_set_pm_button">"Menyetel PM"</string>
+    <string name="whichApplication">"Tindakan lengkap menggunakan"</string>
+</resources>

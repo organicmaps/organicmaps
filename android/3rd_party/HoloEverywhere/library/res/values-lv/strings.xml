@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Vienmēr"</string>
+    <string name="activity_resolver_use_once">"Tikai vienreiz"</string>
+    <string name="candidates_style">"kandidāti"</string>
+    <string name="capital_off">"IZSLĒGT"</string>
+    <string name="capital_on">"IESLĒGT"</string>
+    <string name="chooseActivity">"Darbības izvēle"</string>
+    <string name="date_picker_decrement_day_button">"Norādīt agrāku dienu"</string>
+    <string name="date_picker_decrement_month_button">"Norādīt agrāku mēnesi"</string>
+    <string name="date_picker_decrement_year_button">"Norādīt agrāku gadu"</string>
+    <string name="date_picker_dialog_title">"Datuma iestatīšana"</string>
+    <string name="date_picker_increment_day_button">"Norādīt vēlāku dienu"</string>
+    <string name="date_picker_increment_month_button">"Norādīt vēlāku mēnesi"</string>
+    <string name="date_picker_increment_year_button">"Norādīt vēlāku gadu"</string>
+    <string name="date_time_done">"Gatavs"</string>
+    <string name="date_time_set">"Iestatīt"</string>
+    <string name="loading">"Notiek ielāde..."</string>
+    <string name="noApplications">"Šo darbību nevar veikt neviena lietotne."</string>
+    <string name="number_picker_decrement_button">"Samazināt"</string>
+    <string name="number_picker_increment_button">"Palielināt"</string>
+    <string name="number_picker_increment_scroll_action">"Velciet uz augšu, lai palielinātu vērtību, un uz leju, lai to samazinātu."</string>
+    <string name="number_picker_increment_scroll_mode">"%s: pieskarieties un turiet nospiestu."</string>
+    <string name="ringtone_default">"Noklusējuma zvana signāls"</string>
+    <string name="ringtone_picker_title">"Zvana signāli"</string>
+    <string name="ringtone_silent">"Klusums"</string>
+    <string name="time_picker_decrement_hour_button">"Norādīt agrāku stundu"</string>
+    <string name="time_picker_decrement_minute_button">"Norādīt agrākas minūtes"</string>
+    <string name="time_picker_decrement_set_am_button">"Iestatīt priekšpusdienas laiku"</string>
+    <string name="time_picker_dialog_title">"Laika iestatīšana"</string>
+    <string name="time_picker_increment_hour_button">"Norādīt vēlāku stundu"</string>
+    <string name="time_picker_increment_minute_button">"Norādīt vēlākas minūtes"</string>
+    <string name="time_picker_increment_set_pm_button">"Iestatīt pēcpusdienas laiku"</string>
+    <string name="whichApplication">"Pabeigt darbību, izmantojot"</string>
+</resources>

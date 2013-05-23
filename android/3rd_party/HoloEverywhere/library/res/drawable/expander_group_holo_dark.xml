@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?><selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/expander_close_holo_dark" android:state_expanded="true"></item>
+    <item android:drawable="@drawable/expander_open_holo_dark"></item>
+</selector>

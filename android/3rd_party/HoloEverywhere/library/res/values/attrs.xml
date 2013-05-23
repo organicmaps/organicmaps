@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <!--Start attrs definition block-->
+    <attr name="alertDialogCenterButtons" format="boolean"/>
+    <attr name="alertDialogStyle" format="reference"/>
+    <attr name="alertDialogTheme" format="reference"/>
+    <attr name="autoCompleteTextViewStyle" format="reference"/>
+    <attr name="borderlessButtonStyle" format="reference"/>
+    <attr name="bottomBright" format="reference|color"/>
+    <attr name="bottomDark" format="reference|color"/>
+    <attr name="bottomMedium" format="reference|color"/>
+    <attr name="buttonBarButtonStyle" format="reference"/>
+    <attr name="buttonBarStyle" format="reference"/>
+    <attr name="calendarViewShown" format="boolean"/>
+    <attr name="calendarViewStyle" format="reference"/>
+    <attr name="centerBright" format="reference|color"/>
+    <attr name="centerDark" format="reference|color"/>
+    <attr name="centerMedium" format="reference|color"/>
+    <attr name="datePickerStyle" format="reference"/>
+    <attr name="dateTextAppearance" format="reference"/>
+    <attr name="detailsElementBackground" format="reference"/>
+    <attr name="dialogItemBackground" format="reference|color"/>
+    <attr name="dialogItemTextAppearance" format="reference"/>
+    <attr name="dialogTheme" format="reference"/>
+    <attr name="disableChildrenWhenDisabled" format="boolean"/>
+    <attr name="dividerHorizontal" format="reference"/>
+    <attr name="dividerPadding" format="dimension"/>
+    <attr name="dropDownHorizontalOffset" format="dimension"/>
+    <attr name="dropDownVerticalOffset" format="dimension"/>
+    <attr name="endYear" format="integer"/>
+    <attr name="fastScrollOverlayPosition" format="enum">
+        <enum name="atThumb" value="1"/>
+        <enum name="floating" value="0"/>
+    </attr>
+    <attr name="fastScrollPreviewBackgroundLeft" format="reference"/>
+    <attr name="fastScrollPreviewBackgroundRight" format="reference"/>
+    <attr name="fastScrollTextColor" format="color"/>
+    <attr name="fastScrollThumbDrawable" format="reference"/>
+    <attr name="fastScrollTrackDrawable" format="reference"/>
+    <attr name="firstDayOfWeek" format="integer"/>
+    <attr name="flingable" format="boolean"/>
+    <attr name="focusedMonthDateColor" format="color|reference"/>
+    <attr name="forceShownState" format="boolean"/>
+    <attr name="fullBright" format="reference|color"/>
+    <attr name="fullDark" format="reference|color"/>
+    <attr name="gravity">
+        <flag name="bottom" value="0x50"/>
+        <flag name="center" value="0x11"/>
+        <flag name="center_horizontal" value="0x01"/>
+        <flag name="center_vertical" value="0x10"/>
+        <flag name="clip" value="0x88"/>
+        <flag name="clip_horizontal" value="0x08"/>
+        <flag name="clip_vertical" value="0x80"/>
+        <flag name="end" value="0x00800005"/>
+        <flag name="fill" value="0x77"/>
+        <flag name="fill_horizontal" value="0x07"/>
+        <flag name="fill_vertical" value="0x70"/>
+        <flag name="left" value="0x03"/>
+        <flag name="right" value="0x05"/>
+        <flag name="start" value="0x00800003"/>
+        <flag name="top" value="0x30"/>
+    </attr>
+    <attr name="holoTheme" format="enum">
+        <enum name="dark" value="1"/>
+        <enum name="invalid" value="0"/>
+        <enum name="light" value="2"/>
+        <enum name="mixed" value="3"/>
+        <enum name="preference" value="4"/>
+    </attr>
+    <attr name="horizontalProgressLayout" format="reference"/>
+    <attr name="layout" format="reference"/>
+    <attr name="listDividerAlertDialog" format="reference"/>
+    <attr name="listItemLayout" format="reference"/>
+    <attr name="listLayout" format="reference"/>
+    <attr name="listPreferredItemHeight" format="dimension"/>
+    <attr name="listPreferredItemHeightLarge" format="dimension"/>
+    <attr name="maxDate" format="reference|string"/>
+    <attr name="minDate" format="reference|string"/>
+    <attr name="multiChoiceItemLayout" format="reference"/>
+    <attr name="numberPickerDownButtonStyle" format="reference"/>
+    <attr name="numberPickerInputTextStyle" format="reference"/>
+    <attr name="numberPickerStyle" format="reference"/>
+    <attr name="numberPickerUpButtonStyle" format="reference"/>
+    <attr name="panelMenuListWidth" format="dimension"/>
+    <attr name="popupPromptView" format="reference"/>
+    <attr name="popupWindowStyle" format="reference"/>
+    <attr name="preferenceTheme" format="reference">
+        <enum name="dark" value="1"/>
+        <enum name="light" value="2"/>
+        <enum name="mixed" value="3"/>
+    </attr>
+    <attr name="progressLayout" format="reference"/>
+    <attr name="segmentedButtonStyle" format="reference"/>
+    <attr name="selectedDateVerticalBar" format="reference"/>
+    <attr name="selectedWeekBackgroundColor" format="color|reference"/>
+    <attr name="selectionDivider" format="reference"/>
+    <attr name="selectionDividerHeight" format="dimension"/>
+    <attr name="selectionDividersDistance" format="dimension"/>
+    <attr name="showDividers">
+        <flag name="all" value="7"/>
+        <flag name="beginning" value="1"/>
+        <flag name="end" value="4"/>
+        <flag name="middle" value="2"/>
+        <flag name="none" value="0"/>
+    </attr>
+    <attr name="showWeekNumber" format="boolean"/>
+    <attr name="shownWeekCount" format="integer"/>
+    <attr name="singleChoiceItemLayout" format="reference"/>
+    <attr name="solidColor" format="color|reference"/>
+    <attr name="spinnerMode" format="enum">
+        <enum name="dialog" value="0"/>
+        <enum name="dropdown" value="1"/>
+    </attr>
+    <attr name="spinnerStyle" format="reference"/>
+    <attr name="spinnersShown" format="boolean"/>
+    <attr name="startYear" format="integer"/>
+    <attr name="switchMinWidth" format="dimension"/>
+    <attr name="switchPadding" format="dimension"/>
+    <attr name="switchStyle" format="reference"/>
+    <attr name="switchStyleOld" format="reference"/>
+    <attr name="switchTextAppearance" format="reference"/>
+    <attr name="textAllCaps" format="boolean"/>
+    <attr name="textAppearanceListItem" format="reference"/>
+    <attr name="textColorAlertDialogListItem" format="reference"/>
+    <attr name="textOff" format="reference|string"/>
+    <attr name="textOn" format="reference|string"/>
+    <attr name="thumb" format="reference"/>
+    <attr name="thumbTextPadding" format="dimension"/>
+    <attr name="timePickerStyle" format="reference"/>
+    <attr name="toggleWhenClick" format="boolean"/>
+    <attr name="topBright" format="reference|color"/>
+    <attr name="topDark" format="reference|color"/>
+    <attr name="track" format="reference"/>
+    <attr name="unfocusedMonthDateColor" format="color|reference"/>
+    <attr name="virtualButtonPressedDrawable" format="reference"/>
+    <attr name="weekDayTextAppearance" format="reference"/>
+    <attr name="weekNumberColor" format="color|reference"/>
+    <attr name="weekSeparatorLineColor" format="color|reference"/>
+    <attr name="windowFixedHeightMajor" format="dimension|fraction"/>
+    <attr name="windowFixedHeightMinor" format="dimension|fraction"/>
+    <attr name="windowFixedWidthMajor" format="dimension|fraction"/>
+    <attr name="windowFixedWidthMinor" format="dimension|fraction"/>
+    <attr name="windowMinHeightMajor" format="dimension|fraction"/>
+    <attr name="windowMinHeightMinor" format="dimension|fraction"/>
+    <!--Start styleable definition block-->
+    <declare-styleable name="AbsSpinner">
+        <attr name="android:entries"/>
+    </declare-styleable>
+    <declare-styleable name="AlertDialog">
+        <attr name="bottomBright"/>
+        <attr name="bottomDark"/>
+        <attr name="bottomMedium"/>
+        <attr name="centerBright"/>
+        <attr name="centerDark"/>
+        <attr name="centerMedium"/>
+        <attr name="fullBright"/>
+        <attr name="fullDark"/>
+        <attr name="gravity"/>
+        <attr name="horizontalProgressLayout"/>
+        <attr name="layout"/>
+        <attr name="listItemLayout"/>
+        <attr name="listLayout"/>
+        <attr name="multiChoiceItemLayout"/>
+        <attr name="progressLayout"/>
+        <attr name="singleChoiceItemLayout"/>
+        <attr name="topBright"/>
+        <attr name="topDark"/>
+    </declare-styleable>
+    <declare-styleable name="AutoCompleteTextView">
+        <attr name="android:completionHint"/>
+        <attr name="android:completionHintView"/>
+        <attr name="android:completionThreshold"/>
+        <attr name="android:dropDownAnchor"/>
+        <attr name="android:dropDownHeight"/>
+        <attr name="android:dropDownSelector"/>
+        <attr name="android:dropDownWidth"/>
+        <attr name="android:entries"/>
+        <attr name="android:inputType"/>
+        <attr name="dropDownHorizontalOffset"/>
+        <attr name="dropDownVerticalOffset"/>
+    </declare-styleable>
+    <declare-styleable name="CalendarView">
+        <attr name="dateTextAppearance"/>
+        <attr name="firstDayOfWeek"/>
+        <attr name="focusedMonthDateColor"/>
+        <attr name="maxDate"/>
+        <attr name="minDate"/>
+        <attr name="selectedDateVerticalBar"/>
+        <attr name="selectedWeekBackgroundColor"/>
+        <attr name="showWeekNumber"/>
+        <attr name="shownWeekCount"/>
+        <attr name="unfocusedMonthDateColor"/>
+        <attr name="weekDayTextAppearance"/>
+        <attr name="weekNumberColor"/>
+        <attr name="weekSeparatorLineColor"/>
+    </declare-styleable>
+    <declare-styleable name="ColorDrawable">
+        <attr name="android:color"/>
+    </declare-styleable>
+    <declare-styleable name="DatePicker">
+        <attr name="calendarViewShown"/>
+        <attr name="endYear"/>
+        <attr name="forceShownState"/>
+        <attr name="layout"/>
+        <attr name="maxDate"/>
+        <attr name="minDate"/>
+        <attr name="spinnersShown"/>
+        <attr name="startYear"/>
+    </declare-styleable>
+    <declare-styleable name="Divider">
+        <attr name="android:orientation"/>
+    </declare-styleable>
+    <declare-styleable name="ExpandableListView">
+        <attr name="android:childDivider"/>
+        <attr name="android:childIndicator"/>
+        <attr name="android:childIndicatorLeft"/>
+        <attr name="android:childIndicatorRight"/>
+        <attr name="android:groupIndicator"/>
+        <attr name="android:indicatorLeft"/>
+        <attr name="android:indicatorRight"/>
+    </declare-styleable>
+    <declare-styleable name="FastScroll">
+        <attr name="fastScrollOverlayPosition"/>
+        <attr name="fastScrollPreviewBackgroundLeft"/>
+        <attr name="fastScrollPreviewBackgroundRight"/>
+        <attr name="fastScrollTextColor"/>
+        <attr name="fastScrollThumbDrawable"/>
+        <attr name="fastScrollTrackDrawable"/>
+    </declare-styleable>
+    <declare-styleable name="IconMenuView">
+        <attr name="android:maxItems"/>
+        <attr name="android:maxItemsPerRow"/>
+        <attr name="android:maxRows"/>
+        <attr name="android:moreIcon"/>
+        <attr name="android:rowHeight"/>
+    </declare-styleable>
+    <declare-styleable name="LayerDrawable">
+        <attr name="android:opacity"/>
+    </declare-styleable>
+    <declare-styleable name="LayerDrawableItem">
+        <attr name="android:bottom"/>
+        <attr name="android:drawable"/>
+        <attr name="android:id"/>
+        <attr name="android:left"/>
+        <attr name="android:right"/>
+        <attr name="android:top"/>
+    </declare-styleable>
+    <declare-styleable name="LinearLayout">
+        <attr name="android:baselineAligned"/>
+        <attr name="android:baselineAlignedChildIndex"/>
+        <attr name="android:divider"/>
+        <attr name="android:dividerPadding"/>
+        <attr name="android:gravity"/>
+        <attr name="android:measureWithLargestChild"/>
+        <attr name="android:orientation"/>
+        <attr name="android:showDividers"/>
+        <attr name="android:weightSum"/>
+        <attr name="dividerPadding"/>
+        <attr name="showDividers"/>
+    </declare-styleable>
+    <declare-styleable name="MenuView">
+        <attr name="android:headerBackground"/>
+        <attr name="android:horizontalDivider"/>
+        <attr name="android:itemIconDisabledAlpha"/>
+        <attr name="android:preserveIconSpacing"/>
+        <attr name="android:verticalDivider"/>
+        <attr name="android:windowAnimationStyle"/>
+        <attr name="dialogItemBackground"/>
+        <attr name="dialogItemTextAppearance"/>
+    </declare-styleable>
+    <declare-styleable name="NumberPicker">
+        <attr name="android:fadingEdgeLength"/>
+        <attr name="android:layout"/>
+        <attr name="android:maxHeight"/>
+        <attr name="android:maxWidth"/>
+        <attr name="android:minHeight"/>
+        <attr name="android:minWidth"/>
+        <attr name="android:orientation"/>
+        <attr name="flingable"/>
+        <attr name="selectionDivider"/>
+        <attr name="selectionDividerHeight"/>
+        <attr name="selectionDividersDistance"/>
+        <attr name="solidColor"/>
+        <attr name="virtualButtonPressedDrawable"/>
+    </declare-styleable>
+    <declare-styleable name="PopupWindow">
+        <attr name="android:popupAnimationStyle"/>
+        <attr name="android:popupBackground"/>
+    </declare-styleable>
+    <declare-styleable name="ProgressBar">
+        <attr name="android:indeterminate"/>
+        <attr name="android:indeterminateBehavior"/>
+        <attr name="android:indeterminateDrawable"/>
+        <attr name="android:indeterminateDuration"/>
+        <attr name="android:indeterminateOnly"/>
+        <attr name="android:interpolator"/>
+        <attr name="android:max"/>
+        <attr name="android:maxHeight"/>
+        <attr name="android:maxWidth"/>
+        <attr name="android:minHeight"/>
+        <attr name="android:minWidth"/>
+        <attr name="android:progress"/>
+        <attr name="android:progressDrawable"/>
+        <attr name="android:secondaryProgress"/>
+    </declare-styleable>
+    <declare-styleable name="RotateDrawable">
+        <attr name="android:drawable"/>
+        <attr name="android:fromDegrees"/>
+        <attr name="android:pivotX"/>
+        <attr name="android:pivotY"/>
+        <attr name="android:toDegrees"/>
+        <attr name="android:visible"/>
+    </declare-styleable>
+    <declare-styleable name="SeekBar">
+        <attr name="android:disabledAlpha"/>
+        <attr name="android:thumb"/>
+        <attr name="android:thumbOffset"/>
+    </declare-styleable>
+    <declare-styleable name="Spinner">
+        <attr name="android:dropDownSelector"/>
+        <attr name="android:dropDownWidth"/>
+        <attr name="android:gravity"/>
+        <attr name="android:popupBackground"/>
+        <attr name="android:prompt"/>
+        <attr name="disableChildrenWhenDisabled"/>
+        <attr name="dropDownHorizontalOffset"/>
+        <attr name="dropDownVerticalOffset"/>
+        <attr name="popupPromptView"/>
+        <attr name="spinnerMode"/>
+    </declare-styleable>
+    <declare-styleable name="StateListDrawable">
+        <attr name="android:constantSize"/>
+        <attr name="android:dither"/>
+        <attr name="android:enterFadeDuration"/>
+        <attr name="android:exitFadeDuration"/>
+        <attr name="android:variablePadding"/>
+        <attr name="android:visible"/>
+    </declare-styleable>
+    <declare-styleable name="Switch">
+        <attr name="switchMinWidth"/>
+        <attr name="switchPadding"/>
+        <attr name="switchTextAppearance"/>
+        <attr name="textOff"/>
+        <attr name="textOn"/>
+        <attr name="thumb"/>
+        <attr name="thumbTextPadding"/>
+        <attr name="toggleWhenClick"/>
+        <attr name="track"/>
+    </declare-styleable>
+    <declare-styleable name="TextAppearance">
+        <attr name="android:textAllCaps"/>
+        <attr name="android:textColor"/>
+        <attr name="android:textColorHighlight"/>
+        <attr name="android:textColorHint"/>
+        <attr name="android:textColorLink"/>
+        <attr name="android:textSize"/>
+        <attr name="android:textStyle"/>
+        <attr name="android:typeface"/>
+    </declare-styleable>
+    <declare-styleable name="TextView">
+        <attr name="android:text"/>
+        <attr name="android:textAllCaps"/>
+        <attr name="textAllCaps"/>
+    </declare-styleable>
+    <declare-styleable name="TimePicker">
+        <attr name="layout"/>
+    </declare-styleable>
+    <declare-styleable name="WindowSizes">
+        <attr name="windowFixedHeightMajor"/>
+        <attr name="windowFixedHeightMinor"/>
+        <attr name="windowFixedWidthMajor"/>
+        <attr name="windowFixedWidthMinor"/>
+        <attr name="windowMinHeightMajor"/>
+        <attr name="windowMinHeightMinor"/>
+        <attr name="windowMinWidthMajor"/>
+        <attr name="windowMinWidthMinor"/>
+    </declare-styleable>
+    <!--End of any blocks-->
+</resources>

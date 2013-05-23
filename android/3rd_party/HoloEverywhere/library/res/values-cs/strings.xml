@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Vždy"</string>
+    <string name="activity_resolver_use_once">"Pouze jednou"</string>
+    <string name="candidates_style">"kandidáti"</string>
+    <string name="capital_off">"O"</string>
+    <string name="capital_on">"I"</string>
+    <string name="chooseActivity">"Vyberte činnost"</string>
+    <string name="date_picker_decrement_day_button">"Ubrat den"</string>
+    <string name="date_picker_decrement_month_button">"Ubrat měsíc"</string>
+    <string name="date_picker_decrement_year_button">"Ubrat rok"</string>
+    <string name="date_picker_dialog_title">"Nastavení data"</string>
+    <string name="date_picker_increment_day_button">"Přidat den"</string>
+    <string name="date_picker_increment_month_button">"Přidat měsíc"</string>
+    <string name="date_picker_increment_year_button">"Přidat rok"</string>
+    <string name="date_time_done">"Hotovo"</string>
+    <string name="date_time_set">"Nastavit"</string>
+    <string name="loading">"Načítání..."</string>
+    <string name="noApplications">"Tuto činnost nemohou provádět žádné aplikace."</string>
+    <string name="number_picker_decrement_button">"Snížit"</string>
+    <string name="number_picker_increment_button">"Zvýšit"</string>
+    <string name="number_picker_increment_scroll_action">"Chcete-li hodnotu zvýšit, přijeďte prstem nahoru, chcete-li hodnotu snížit, přejeďte prstem dolů."</string>
+    <string name="number_picker_increment_scroll_mode">"%s dotkněte se a podržte."</string>
+    <string name="ringtone_default">"Výchozí vyzváněcí tón"</string>
+    <string name="ringtone_picker_title">"Vyzváněcí tóny"</string>
+    <string name="ringtone_silent">"Ticho"</string>
+    <string name="time_picker_decrement_hour_button">"Ubrat hodinu"</string>
+    <string name="time_picker_decrement_minute_button">"Ubrat minutu"</string>
+    <string name="time_picker_decrement_set_am_button">"Nastavit dop."</string>
+    <string name="time_picker_dialog_title">"Nastavení času"</string>
+    <string name="time_picker_increment_hour_button">"Přidat hodinu"</string>
+    <string name="time_picker_increment_minute_button">"Přidat minutu"</string>
+    <string name="time_picker_increment_set_pm_button">"Nastavit odp."</string>
+    <string name="whichApplication">"Dokončit akci pomocí aplikace"</string>
+</resources>

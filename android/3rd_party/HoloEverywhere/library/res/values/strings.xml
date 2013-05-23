@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">Always</string>
+    <string name="activity_resolver_use_once">Just once</string>
+    <string name="candidates_style">candidates</string>
+    <string name="capital_off">OFF</string>
+    <string name="capital_on">ON</string>
+    <string name="chooseActivity">Choose an action</string>
+    <string name="date_picker_decrement_day_button">Decrease day</string>
+    <string name="date_picker_decrement_month_button">Decrease month</string>
+    <string name="date_picker_decrement_year_button">Decrease year</string>
+    <string name="date_picker_dialog_title">Set date</string>
+    <string name="date_picker_increment_day_button">Increase day</string>
+    <string name="date_picker_increment_month_button">Increase month</string>
+    <string name="date_picker_increment_year_button">Increase year</string>
+    <string name="date_time_done">Done</string>
+    <string name="date_time_set">Set</string>
+    <string name="loading">Loading\u2026</string>
+    <string name="noApplications">No apps can perform this action.</string>
+    <string name="number_picker_decrement_button">Decrease</string>
+    <string name="number_picker_increment_button">Increase</string>
+    <string name="number_picker_increment_scroll_action">Slide up to increase and down to decrease.</string>
+    <string name="number_picker_increment_scroll_mode">%s touch and hold.</string>
+    <string name="ringtone_default">Default ringtone</string>
+    <string name="ringtone_picker_title">Ringtones</string>
+    <string name="ringtone_silent">Silent</string>
+    <string name="time_picker_decrement_hour_button">Decrease hour</string>
+    <string name="time_picker_decrement_minute_button">Decrease minute</string>
+    <string name="time_picker_decrement_set_am_button">Set AM</string>
+    <string name="time_picker_dialog_title">Set time</string>
+    <string name="time_picker_increment_hour_button">Increase hour</string>
+    <string name="time_picker_increment_minute_button">Increase minute</string>
+    <string name="time_picker_increment_set_pm_button">Set PM</string>
+    <string name="time_picker_separator">:</string>
+    <string name="whichApplication">Complete action using</string>
+</resources>

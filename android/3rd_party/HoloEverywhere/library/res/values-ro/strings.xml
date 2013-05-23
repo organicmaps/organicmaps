@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Întotdeauna"</string>
+    <string name="activity_resolver_use_once">"Numai o dată"</string>
+    <string name="candidates_style">"candidaţi"</string>
+    <string name="capital_off">"DEZACTIVAT"</string>
+    <string name="capital_on">"ACTIVAT"</string>
+    <string name="chooseActivity">"Alegeţi o acţiune"</string>
+    <string name="date_picker_decrement_day_button">"Reduceţi valoarea pentru zi"</string>
+    <string name="date_picker_decrement_month_button">"Reduceţi valoarea pentru lună"</string>
+    <string name="date_picker_decrement_year_button">"Reduceţi valoarea pentru an"</string>
+    <string name="date_picker_dialog_title">"Setaţi data"</string>
+    <string name="date_picker_increment_day_button">"Creşteţi valoarea pentru zi"</string>
+    <string name="date_picker_increment_month_button">"Creşteţi valoarea pentru lună"</string>
+    <string name="date_picker_increment_year_button">"Creşteţi valoarea pentru an"</string>
+    <string name="date_time_done">"Terminat"</string>
+    <string name="date_time_set">"Setaţi"</string>
+    <string name="loading">"Se încarcă…"</string>
+    <string name="noApplications">"Această acţiune nu poate fi efectuată de nicio aplicaţie."</string>
+    <string name="number_picker_decrement_button">"Reduceţi"</string>
+    <string name="number_picker_increment_button">"Creşteţi"</string>
+    <string name="number_picker_increment_scroll_action">"Glisaţi în sus pentru a creşte şi în jos pentru a reduce."</string>
+    <string name="number_picker_increment_scroll_mode">"Atingeţi şi ţineţi apăsat %s."</string>
+    <string name="ringtone_default">"Ton de apel prestabilit"</string>
+    <string name="ringtone_picker_title">"Tonuri de apel"</string>
+    <string name="ringtone_silent">"Silenţios"</string>
+    <string name="time_picker_decrement_hour_button">"Reduceţi valoarea pentru oră"</string>
+    <string name="time_picker_decrement_minute_button">"Reduceţi valoarea pentru minute"</string>
+    <string name="time_picker_decrement_set_am_button">"Setaţi valoarea AM"</string>
+    <string name="time_picker_dialog_title">"Setaţi ora"</string>
+    <string name="time_picker_increment_hour_button">"Creşteţi valoarea pentru oră"</string>
+    <string name="time_picker_increment_minute_button">"Creşteţi valoarea pentru minute"</string>
+    <string name="time_picker_increment_set_pm_button">"Setaţi valoarea PM"</string>
+    <string name="whichApplication">"Finalizare acţiune utilizând"</string>
+</resources>

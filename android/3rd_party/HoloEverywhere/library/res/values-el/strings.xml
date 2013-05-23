@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Πάντα"</string>
+    <string name="activity_resolver_use_once">"Μόνο μία φορά"</string>
+    <string name="candidates_style">"υποψήφιοι"</string>
+    <string name="capital_off">"Ανενεργό"</string>
+    <string name="capital_on">"Ενεργό"</string>
+    <string name="chooseActivity">"Επιλέξτε μια ενέργεια"</string>
+    <string name="date_picker_decrement_day_button">"Μείωση ημέρας"</string>
+    <string name="date_picker_decrement_month_button">"Μείωση μήνα"</string>
+    <string name="date_picker_decrement_year_button">"Μείωση έτους"</string>
+    <string name="date_picker_dialog_title">"Ορισμός ημερομηνίας"</string>
+    <string name="date_picker_increment_day_button">"Αύξηση ημέρας"</string>
+    <string name="date_picker_increment_month_button">"Αύξηση μήνα"</string>
+    <string name="date_picker_increment_year_button">"Αύξηση έτους"</string>
+    <string name="date_time_done">"Τέλος"</string>
+    <string name="date_time_set">"Ορισμός"</string>
+    <string name="loading">"Φόρτωση…"</string>
+    <string name="noApplications">"Δεν υπάρχουν εφαρμογές, οι οποίες μπορούν να εκτελέσουν αυτήν την ενέργεια."</string>
+    <string name="number_picker_decrement_button">"Μείωση"</string>
+    <string name="number_picker_increment_button">"Αύξηση"</string>
+    <string name="number_picker_increment_scroll_action">"Πραγματοποιήστε κύλιση προς τα πάνω για αύξηση και προς τα κάτω για μείωση."</string>
+    <string name="number_picker_increment_scroll_mode">"Πατήστε παρατεταμένα το %s."</string>
+    <string name="ringtone_default">"Προεπιλεγμένος ήχος κλήσης"</string>
+    <string name="ringtone_picker_title">"Ήχοι κλήσης"</string>
+    <string name="ringtone_silent">"Σίγαση"</string>
+    <string name="time_picker_decrement_hour_button">"Μείωση ώρας"</string>
+    <string name="time_picker_decrement_minute_button">"Μείωση λεπτού"</string>
+    <string name="time_picker_decrement_set_am_button">"Ορισμός ΠΜ"</string>
+    <string name="time_picker_dialog_title">"Ρύθμιση ώρας"</string>
+    <string name="time_picker_increment_hour_button">"Αύξηση ώρας"</string>
+    <string name="time_picker_increment_minute_button">"Αύξηση λεπτού"</string>
+    <string name="time_picker_increment_set_pm_button">"Ορισμός ΜΜ"</string>
+    <string name="whichApplication">"Ολοκλήρωση ενέργειας με τη χρήση"</string>
+</resources>

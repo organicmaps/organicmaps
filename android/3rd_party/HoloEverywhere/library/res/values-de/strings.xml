@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Immer"</string>
+    <string name="activity_resolver_use_once">"Nur einmal"</string>
+    <string name="candidates_style">"Kandidaten"</string>
+    <string name="capital_off">"AUS"</string>
+    <string name="capital_on">"AN"</string>
+    <string name="chooseActivity">"Aktion auswählen"</string>
+    <string name="date_picker_decrement_day_button">"Tag verringern"</string>
+    <string name="date_picker_decrement_month_button">"Monat verringern"</string>
+    <string name="date_picker_decrement_year_button">"Jahr verringern"</string>
+    <string name="date_picker_dialog_title">"Datum festlegen"</string>
+    <string name="date_picker_increment_day_button">"Tag verlängern"</string>
+    <string name="date_picker_increment_month_button">"Monat verlängern"</string>
+    <string name="date_picker_increment_year_button">"Jahr verlängern"</string>
+    <string name="date_time_done">"Fertig"</string>
+    <string name="date_time_set">"Speichern"</string>
+    <string name="loading">"Wird geladen…"</string>
+    <string name="noApplications">"Diese Aktion kann von keiner App ausgeführt werden."</string>
+    <string name="number_picker_decrement_button">"Verringern"</string>
+    <string name="number_picker_increment_button">"Verlängern"</string>
+    <string name="number_picker_increment_scroll_action">"Zum Verlängern nach oben und zum Verringern nach unten schieben"</string>
+    <string name="number_picker_increment_scroll_mode">"%s berühren und gedrückt halten"</string>
+    <string name="ringtone_default">"Standard-Klingelton"</string>
+    <string name="ringtone_picker_title">"Klingeltöne"</string>
+    <string name="ringtone_silent">"Lautlos"</string>
+    <string name="time_picker_decrement_hour_button">"Stunden verringern"</string>
+    <string name="time_picker_decrement_minute_button">"Minuten verringern"</string>
+    <string name="time_picker_decrement_set_am_button">"Zeit festlegen"</string>
+    <string name="time_picker_dialog_title">"Uhrzeit festlegen"</string>
+    <string name="time_picker_increment_hour_button">"Stunden verlängern"</string>
+    <string name="time_picker_increment_minute_button">"Minuten verlängern"</string>
+    <string name="time_picker_increment_set_pm_button">"Zeit festlegen"</string>
+    <string name="whichApplication">"Aktion durchführen mit"</string>
+</resources>

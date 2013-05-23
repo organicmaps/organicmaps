@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Vedno"</string>
+    <string name="activity_resolver_use_once">"Samo tokrat"</string>
+    <string name="candidates_style">"kandidati"</string>
+    <string name="capital_off">"IZKLOPLJENO"</string>
+    <string name="capital_on">"VKLOPLJENO"</string>
+    <string name="chooseActivity">"Izberite dejanje"</string>
+    <string name="date_picker_decrement_day_button">"Zmanjšanje vrednosti za dan"</string>
+    <string name="date_picker_decrement_month_button">"Zmanjšanje vrednosti za mesec"</string>
+    <string name="date_picker_decrement_year_button">"Zmanjšanje vrednosti za leto"</string>
+    <string name="date_picker_dialog_title">"Nastavi datum"</string>
+    <string name="date_picker_increment_day_button">"Povečanje vrednosti za dan"</string>
+    <string name="date_picker_increment_month_button">"Povečanje vrednosti za mesec"</string>
+    <string name="date_picker_increment_year_button">"Povečanje vrednosti za leto"</string>
+    <string name="date_time_done">"Končano"</string>
+    <string name="date_time_set">"Nastavi"</string>
+    <string name="loading">"Nalaganje …"</string>
+    <string name="noApplications">"Tega dejanja ne more izvesti noben program."</string>
+    <string name="number_picker_decrement_button">"Manj"</string>
+    <string name="number_picker_increment_button">"Več"</string>
+    <string name="number_picker_increment_scroll_action">"Povlecite navzgor za povečanje in navzdol za zmanjšanje."</string>
+    <string name="number_picker_increment_scroll_mode">"Dotaknite se vrednosti %s in jo pridržite."</string>
+    <string name="ringtone_default">"Privzeta melodija zvonjenja"</string>
+    <string name="ringtone_picker_title">"Melodije zvonjenja"</string>
+    <string name="ringtone_silent">"Tiho"</string>
+    <string name="time_picker_decrement_hour_button">"Zmanjšanje vrednosti za uro"</string>
+    <string name="time_picker_decrement_minute_button">"Zmanjšanje vrednosti za minuto"</string>
+    <string name="time_picker_decrement_set_am_button">"Nastavi AM"</string>
+    <string name="time_picker_dialog_title">"Nastavi uro"</string>
+    <string name="time_picker_increment_hour_button">"Povečanje vrednosti za uro"</string>
+    <string name="time_picker_increment_minute_button">"Povečanje vrednosti za minuto"</string>
+    <string name="time_picker_increment_set_pm_button">"Nastavi PM"</string>
+    <string name="whichApplication">"Dokončanje dejanja z"</string>
+</resources>

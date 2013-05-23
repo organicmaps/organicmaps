@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_focused="true" android:drawable="@drawable/switch_bg_focused_holo_dark"></item>
+    <item android:drawable="@drawable/switch_bg_holo_dark"></item>
+
+</selector>

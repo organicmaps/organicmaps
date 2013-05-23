@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Aina"</string>
+    <string name="activity_resolver_use_once">"Vain kerran"</string>
+    <string name="candidates_style">"kandidaatit"</string>
+    <string name="capital_off">"POIS"</string>
+    <string name="capital_on">"PÄÄLLÄ"</string>
+    <string name="chooseActivity">"Valitse toiminto"</string>
+    <string name="date_picker_decrement_day_button">"Vähennä päivien määrää."</string>
+    <string name="date_picker_decrement_month_button">"Vähennä kuukausien määrää."</string>
+    <string name="date_picker_decrement_year_button">"Vähennä vuosien määrää."</string>
+    <string name="date_picker_dialog_title">"Aseta päivämäärä"</string>
+    <string name="date_picker_increment_day_button">"Lisää päivien määrää."</string>
+    <string name="date_picker_increment_month_button">"Lisää kuukausien määrää."</string>
+    <string name="date_picker_increment_year_button">"Lisää vuosien määrää."</string>
+    <string name="date_time_done">"Valmis"</string>
+    <string name="date_time_set">"Aseta"</string>
+    <string name="loading">"Ladataan…"</string>
+    <string name="noApplications">"Yksikään sovellus ei voi suorittaa tätä toimintoa."</string>
+    <string name="number_picker_decrement_button">"Vähennä"</string>
+    <string name="number_picker_increment_button">"Lisää"</string>
+    <string name="number_picker_increment_scroll_action">"Lisää tai vähennä arvoa liu\'uttamalla ylös tai alas."</string>
+    <string name="number_picker_increment_scroll_mode">"%s kosketa pitkään."</string>
+    <string name="ringtone_default">"Oletussoittoääni"</string>
+    <string name="ringtone_picker_title">"Soittoäänet"</string>
+    <string name="ringtone_silent">"Äänetön"</string>
+    <string name="time_picker_decrement_hour_button">"Vähennä tuntien määrää."</string>
+    <string name="time_picker_decrement_minute_button">"Vähennä minuuttien määrää."</string>
+    <string name="time_picker_decrement_set_am_button">"Aseta ap"</string>
+    <string name="time_picker_dialog_title">"Aseta aika"</string>
+    <string name="time_picker_increment_hour_button">"Lisää tuntien määrää."</string>
+    <string name="time_picker_increment_minute_button">"Lisää minuuttien määrää."</string>
+    <string name="time_picker_increment_set_pm_button">"Aseta ip"</string>
+    <string name="whichApplication">"Tee toiminto käyttäen sovellusta"</string>
+</resources>

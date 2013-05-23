@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Altyd"</string>
+    <string name="activity_resolver_use_once">"Net een keer"</string>
+    <string name="candidates_style">"kandidate"</string>
+    <string name="capital_off">"AF"</string>
+    <string name="capital_on">"AAN"</string>
+    <string name="chooseActivity">"Kies \'n handeling"</string>
+    <string name="date_picker_decrement_day_button">"Verminder dag"</string>
+    <string name="date_picker_decrement_month_button">"Verminder maand"</string>
+    <string name="date_picker_decrement_year_button">"Verminder jaar"</string>
+    <string name="date_picker_dialog_title">"Stel datum"</string>
+    <string name="date_picker_increment_day_button">"Vermeerder dag"</string>
+    <string name="date_picker_increment_month_button">"Vermeerder maand"</string>
+    <string name="date_picker_increment_year_button">"Vermeerder jaar"</string>
+    <string name="date_time_done">"Klaar"</string>
+    <string name="date_time_set">"Stel"</string>
+    <string name="loading">"Laai tans..."</string>
+    <string name="noApplications">"Geen programme kan hierdie handeling uitvoer nie."</string>
+    <string name="number_picker_decrement_button">"Verminder"</string>
+    <string name="number_picker_increment_button">"Vermeerder"</string>
+    <string name="number_picker_increment_scroll_action">"Gly op om te vermeeder en af om te verminder."</string>
+    <string name="number_picker_increment_scroll_mode">"%s raak en hou."</string>
+    <string name="ringtone_default">"Verstek luitoon"</string>
+    <string name="ringtone_picker_title">"Luitone"</string>
+    <string name="ringtone_silent">"Stil"</string>
+    <string name="time_picker_decrement_hour_button">"Verminder uur"</string>
+    <string name="time_picker_decrement_minute_button">"Verminder minute"</string>
+    <string name="time_picker_decrement_set_am_button">"Stel VM."</string>
+    <string name="time_picker_dialog_title">"Stel tyd"</string>
+    <string name="time_picker_increment_hour_button">"Vermeerder uur"</string>
+    <string name="time_picker_increment_minute_button">"Vermeerder minuut"</string>
+    <string name="time_picker_increment_set_pm_button">"Stel NM."</string>
+    <string name="whichApplication">"Voltooi handeling met"</string>
+</resources>

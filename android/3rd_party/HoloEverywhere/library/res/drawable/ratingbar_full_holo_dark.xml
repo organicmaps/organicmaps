@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ratingbar_full_empty_holo_dark" android:id="@+android:id/background"></item>
+    <item android:drawable="@drawable/ratingbar_full_empty_holo_dark" android:id="@+android:id/secondaryProgress"></item>
+    <item android:drawable="@drawable/ratingbar_full_filled_holo_dark" android:id="@+android:id/progress"></item>
+</layer-list>

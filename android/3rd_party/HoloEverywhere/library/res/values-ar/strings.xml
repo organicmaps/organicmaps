@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"دومًا"</string>
+    <string name="activity_resolver_use_once">"مرة واحدة فقط"</string>
+    <string name="candidates_style">"العناصر المرشحة"</string>
+    <string name="capital_off">"إيقاف"</string>
+    <string name="capital_on">"تشغيل"</string>
+    <string name="chooseActivity">"اختيار إجراء"</string>
+    <string name="date_picker_decrement_day_button">"تقليل الأيام"</string>
+    <string name="date_picker_decrement_month_button">"تقليل الشهور"</string>
+    <string name="date_picker_decrement_year_button">"تقليل الأعوام"</string>
+    <string name="date_picker_dialog_title">"تعيين التاريخ"</string>
+    <string name="date_picker_increment_day_button">"زيادة الأيام"</string>
+    <string name="date_picker_increment_month_button">"زيادة الشهور"</string>
+    <string name="date_picker_increment_year_button">"زيادة الأعوام"</string>
+    <string name="date_time_done">"تم"</string>
+    <string name="date_time_set">"تعيين"</string>
+    <string name="loading">"جارٍ التحميل…"</string>
+    <string name="noApplications">"ليست هناك تطبيقات يمكنها تنفيذ هذا الإجراء."</string>
+    <string name="number_picker_decrement_button">"تقليل"</string>
+    <string name="number_picker_increment_button">"زيادة"</string>
+    <string name="number_picker_increment_scroll_action">"مرر لأعلى للزيادة ولأسفل للتقليل."</string>
+    <string name="number_picker_increment_scroll_mode">"%s المس مع الاستمرار."</string>
+    <string name="ringtone_default">"نغمة الرنين الافتراضية"</string>
+    <string name="ringtone_picker_title">"نغمات الرنين"</string>
+    <string name="ringtone_silent">"صامت"</string>
+    <string name="time_picker_decrement_hour_button">"تقليل الساعات"</string>
+    <string name="time_picker_decrement_minute_button">"تقليل الدقائق"</string>
+    <string name="time_picker_decrement_set_am_button">"تعيين الصباح"</string>
+    <string name="time_picker_dialog_title">"تعيين الوقت"</string>
+    <string name="time_picker_increment_hour_button">"زيادة الساعات"</string>
+    <string name="time_picker_increment_minute_button">"زيادة الدقائق"</string>
+    <string name="time_picker_increment_set_pm_button">"تعيين المساء"</string>
+    <string name="whichApplication">"إكمال الإجراء باستخدام"</string>
+</resources>

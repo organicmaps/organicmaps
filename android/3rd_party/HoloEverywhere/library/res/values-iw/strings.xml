@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"תמיד"</string>
+    <string name="activity_resolver_use_once">"רק פעם אחת"</string>
+    <string name="candidates_style">"מועמדים"</string>
+    <string name="capital_off">"כבוי"</string>
+    <string name="capital_on">"מופעל"</string>
+    <string name="chooseActivity">"בחירת פעולה"</string>
+    <string name="date_picker_decrement_day_button">"הפחת יום"</string>
+    <string name="date_picker_decrement_month_button">"הפחת חודש"</string>
+    <string name="date_picker_decrement_year_button">"הפחת שנה"</string>
+    <string name="date_picker_dialog_title">"הגדר תאריך"</string>
+    <string name="date_picker_increment_day_button">"הוסף יום"</string>
+    <string name="date_picker_increment_month_button">"הוסף חודש"</string>
+    <string name="date_picker_increment_year_button">"הוסף שנה"</string>
+    <string name="date_time_done">"בוצע"</string>
+    <string name="date_time_set">"הגדר"</string>
+    <string name="loading">"טוען..."</string>
+    <string name="noApplications">"אין יישומים שיכולים לבצע פעולה זו."</string>
+    <string name="number_picker_decrement_button">"הפחת"</string>
+    <string name="number_picker_increment_button">"הוסף"</string>
+    <string name="number_picker_increment_scroll_action">"הסט למעלה כדי להוסיף ולמטה כדי להפחית."</string>
+    <string name="number_picker_increment_scroll_mode">"%s גע והחזק."</string>
+    <string name="ringtone_default">"רינגטון ברירת מחדל"</string>
+    <string name="ringtone_picker_title">"רינגטונים"</string>
+    <string name="ringtone_silent">"שקט"</string>
+    <string name="time_picker_decrement_hour_button">"הפחת שעה"</string>
+    <string name="time_picker_decrement_minute_button">"הפחת דקה"</string>
+    <string name="time_picker_decrement_set_am_button">"הגדר AM"</string>
+    <string name="time_picker_dialog_title">"הגדרת שעה"</string>
+    <string name="time_picker_increment_hour_button">"הוסף שעה"</string>
+    <string name="time_picker_increment_minute_button">"הוסף דקה"</string>
+    <string name="time_picker_increment_set_pm_button">"הגדר PM"</string>
+    <string name="whichApplication">"השלמת פעולה באמצעות"</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_window_focused="true" android:drawable="@drawable/btn_rating_star_on_pressed_holo_light" android:state_pressed="true"></item>
+
+    <item android:state_focused="true" android:state_window_focused="true" android:drawable="@drawable/btn_rating_star_on_focused_holo_light"></item>
+
+    <item android:state_selected="true" android:state_window_focused="true" android:drawable="@drawable/btn_rating_star_on_focused_holo_light"></item>
+
+    <item android:drawable="@drawable/btn_rating_star_on_normal_holo_light"></item>
+
+</selector>

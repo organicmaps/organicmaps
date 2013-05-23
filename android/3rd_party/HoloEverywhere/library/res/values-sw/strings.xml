@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Kila mara"</string>
+    <string name="activity_resolver_use_once">"Mara moja tu"</string>
+    <string name="candidates_style">"wagombeaji"</string>
+    <string name="capital_off">"ZIMA"</string>
+    <string name="capital_on">"Washa"</string>
+    <string name="chooseActivity">"Chagua kitendo"</string>
+    <string name="date_picker_decrement_day_button">"Punguza siku"</string>
+    <string name="date_picker_decrement_month_button">"Punguza mwezi"</string>
+    <string name="date_picker_decrement_year_button">"Punguza mwaka"</string>
+    <string name="date_picker_dialog_title">"Weka tarehe"</string>
+    <string name="date_picker_increment_day_button">"Ongeza siku"</string>
+    <string name="date_picker_increment_month_button">"Ongeza mwezi"</string>
+    <string name="date_picker_increment_year_button">"Ongeza mwaka"</string>
+    <string name="date_time_done">"Imekamilika"</string>
+    <string name="date_time_set">"Weka"</string>
+    <string name="loading">"Inapakia…"</string>
+    <string name="noApplications">"Hakuna programu zinazoweza kufanya tendo hili."</string>
+    <string name="number_picker_decrement_button">"Punguza"</string>
+    <string name="number_picker_increment_button">"Ongeza"</string>
+    <string name="number_picker_increment_scroll_action">"Sogeza juu ili uongeze na chini ili upunguze."</string>
+    <string name="number_picker_increment_scroll_mode">"%s gusa na ushikilie."</string>
+    <string name="ringtone_default">"Toni mlio chaguo-msingi"</string>
+    <string name="ringtone_picker_title">"Toni za mlio"</string>
+    <string name="ringtone_silent">"Kimya"</string>
+    <string name="time_picker_decrement_hour_button">"Punguza saa"</string>
+    <string name="time_picker_decrement_minute_button">"Punguza dakika"</string>
+    <string name="time_picker_decrement_set_am_button">"Seti AM"</string>
+    <string name="time_picker_dialog_title">"Weka muda"</string>
+    <string name="time_picker_increment_hour_button">"Ongeza saa"</string>
+    <string name="time_picker_increment_minute_button">"Ongeza dakika"</string>
+    <string name="time_picker_increment_set_pm_button">"Seti PM"</string>
+    <string name="whichApplication">"Kamilisha kitendo kwa kutumia"</string>
+</resources>

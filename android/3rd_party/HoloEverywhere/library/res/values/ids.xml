@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+	<item name="progress" type="id"></item>
+	<item name="secondaryProgress" type="id"></item>
+	<item name="edit" type="id"></item>
+	<item name="leftSpacer" type="id"></item>
+	<item name="rightSpacer" type="id"></item>
+	<item name="typeface" type="id"></item>
+	<item name="increment" type="id"></item>
+	<item name="decrement" type="id"></item>
+	<item name="empty" type="id"></item>
+</resources>

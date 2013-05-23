@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?><selector xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:drawable="@drawable/btn_group_normal_holo_light" android:state_enabled="true"></item>
+	<item android:drawable="@drawable/btn_group_disabled_holo_light"></item>
+</selector>

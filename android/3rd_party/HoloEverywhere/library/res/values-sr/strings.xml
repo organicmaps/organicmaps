@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Увек"</string>
+    <string name="activity_resolver_use_once">"Само једном"</string>
+    <string name="candidates_style">"кандидати"</string>
+    <string name="capital_off">"НЕ"</string>
+    <string name="capital_on">"ДА"</string>
+    <string name="chooseActivity">"Изаберите радњу"</string>
+    <string name="date_picker_decrement_day_button">"Смањивање дана"</string>
+    <string name="date_picker_decrement_month_button">"Смањивање месеца"</string>
+    <string name="date_picker_decrement_year_button">"Смањивање године"</string>
+    <string name="date_picker_dialog_title">"Подешавање датума"</string>
+    <string name="date_picker_increment_day_button">"Повећавање дана"</string>
+    <string name="date_picker_increment_month_button">"Повећавање месеца"</string>
+    <string name="date_picker_increment_year_button">"Повећавање године"</string>
+    <string name="date_time_done">"Готово"</string>
+    <string name="date_time_set">"Подеси"</string>
+    <string name="loading">"Учитавање…"</string>
+    <string name="noApplications">"Ниједна апликација не може да обавља ову радњу."</string>
+    <string name="number_picker_decrement_button">"Смањивање"</string>
+    <string name="number_picker_increment_button">"Повећавање"</string>
+    <string name="number_picker_increment_scroll_action">"Превуците нагоре да бисте повећали, а надоле да бисте смањили."</string>
+    <string name="number_picker_increment_scroll_mode">"%s додирните и задржите."</string>
+    <string name="ringtone_default">"Подразумевани звук звона"</string>
+    <string name="ringtone_picker_title">"Звукови звона"</string>
+    <string name="ringtone_silent">"Нечујно"</string>
+    <string name="time_picker_decrement_hour_button">"Смањивање сати"</string>
+    <string name="time_picker_decrement_minute_button">"Смањивање минута"</string>
+    <string name="time_picker_decrement_set_am_button">"Подеси пре подне"</string>
+    <string name="time_picker_dialog_title">"Подешавање времена"</string>
+    <string name="time_picker_increment_hour_button">"Повећавање сати"</string>
+    <string name="time_picker_increment_minute_button">"Повећавање минута"</string>
+    <string name="time_picker_increment_set_pm_button">"Подеси по подне"</string>
+    <string name="whichApplication">"Довршавање радње помоћу"</string>
+</resources>

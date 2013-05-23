@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Her zaman"</string>
+    <string name="activity_resolver_use_once">"Yalnızca bir defa"</string>
+    <string name="candidates_style">"adaylar"</string>
+    <string name="capital_off">"KAPALI"</string>
+    <string name="capital_on">"AÇIK"</string>
+    <string name="chooseActivity">"İşlem seçin"</string>
+    <string name="date_picker_decrement_day_button">"Günü azalt"</string>
+    <string name="date_picker_decrement_month_button">"Ayı azalt"</string>
+    <string name="date_picker_decrement_year_button">"Yılı azalt"</string>
+    <string name="date_picker_dialog_title">"Tarihi ayarlayın"</string>
+    <string name="date_picker_increment_day_button">"Günü artır"</string>
+    <string name="date_picker_increment_month_button">"Ayı artır"</string>
+    <string name="date_picker_increment_year_button">"Yılı artır"</string>
+    <string name="date_time_done">"Tamamlandı"</string>
+    <string name="date_time_set">"Ayarla"</string>
+    <string name="loading">"Yükleniyor..."</string>
+    <string name="noApplications">"Bu eylemi hiçbir uygulama gerçekleştiremez."</string>
+    <string name="number_picker_decrement_button">"Azalt"</string>
+    <string name="number_picker_increment_button">"Artır"</string>
+    <string name="number_picker_increment_scroll_action">"Artırmak için yukarı, azaltmak için aşağı kaydırın."</string>
+    <string name="number_picker_increment_scroll_mode">"%s rakamına dokunun ve basılı tutun."</string>
+    <string name="ringtone_default">"Varsayılan zil sesi"</string>
+    <string name="ringtone_picker_title">"Zil sesleri"</string>
+    <string name="ringtone_silent">"Sessiz"</string>
+    <string name="time_picker_decrement_hour_button">"Saati azalt"</string>
+    <string name="time_picker_decrement_minute_button">"Dakikayı azalt"</string>
+    <string name="time_picker_decrement_set_am_button">"ÖÖ değerini ayarla"</string>
+    <string name="time_picker_dialog_title">"Saati ayarlayın"</string>
+    <string name="time_picker_increment_hour_button">"Saati artır"</string>
+    <string name="time_picker_increment_minute_button">"Dakikayı artır"</string>
+    <string name="time_picker_increment_set_pm_button">"ÖS değerini ayarla"</string>
+    <string name="whichApplication">"İşlemi şunu kullanarak tamamla"</string>
+</resources>

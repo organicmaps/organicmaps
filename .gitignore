@@ -63,6 +63,9 @@ bada/Maps/Res
 bada/Maps/Home
 bada/Maps/*.zip
 
+# android temporal
+mobile_api
+
 # android
 android/bin
 android/gen

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"हमेशा"</string>
+    <string name="activity_resolver_use_once">"केवल एक बार"</string>
+    <string name="candidates_style">"उम्‍मीदवार"</string>
+    <string name="capital_off">"बंद"</string>
+    <string name="capital_on">"चालू"</string>
+    <string name="chooseActivity">"कोई क्रिया चुनें"</string>
+    <string name="date_picker_decrement_day_button">"दिन कम करें"</string>
+    <string name="date_picker_decrement_month_button">"माह कम करें"</string>
+    <string name="date_picker_decrement_year_button">"वर्ष कम करें"</string>
+    <string name="date_picker_dialog_title">"दिनांक सेट करें"</string>
+    <string name="date_picker_increment_day_button">"दिन बढ़ाएं"</string>
+    <string name="date_picker_increment_month_button">"माह बढ़ाएं"</string>
+    <string name="date_picker_increment_year_button">"वर्ष बढ़ाएं"</string>
+    <string name="date_time_done">"पूर्ण"</string>
+    <string name="date_time_set">"सेट करें"</string>
+    <string name="loading">"लोड हो रहे हैं..."</string>
+    <string name="noApplications">"कोई भी एप्‍लिकेशन यह कार्यवाही नहीं कर सकता."</string>
+    <string name="number_picker_decrement_button">"कम करें"</string>
+    <string name="number_picker_increment_button">"बढ़ाएं"</string>
+    <string name="number_picker_increment_scroll_action">"बढ़ाने के लिए ऊपर और कम करने के लिए नीचे स्‍लाइड करें."</string>
+    <string name="number_picker_increment_scroll_mode">"%s को स्‍पर्श करके रखें."</string>
+    <string name="ringtone_default">"डिफ़ॉल्‍ट रिंगटोन"</string>
+    <string name="ringtone_picker_title">"रिंगटोन"</string>
+    <string name="ringtone_silent">"मौन"</string>
+    <string name="time_picker_decrement_hour_button">"घंटे कम करें"</string>
+    <string name="time_picker_decrement_minute_button">"मिनट कम करें"</string>
+    <string name="time_picker_decrement_set_am_button">"प्रात: सेट करें"</string>
+    <string name="time_picker_dialog_title">"समय सेट करें"</string>
+    <string name="time_picker_increment_hour_button">"घंटे बढ़ाएं"</string>
+    <string name="time_picker_increment_minute_button">"मिनट बढ़ाएं"</string>
+    <string name="time_picker_increment_set_pm_button">"सायं सेट करें"</string>
+    <string name="whichApplication">"इसका उपयोग करके क्रिया पूर्ण करें"</string>
+</resources>

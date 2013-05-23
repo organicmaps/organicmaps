@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <style name="Holo.AlertDialog">
+        <item name="bottomBright">@drawable/dialog_bottom_holo_dark</item>
+        <item name="bottomDark">@drawable/dialog_bottom_holo_dark</item>
+        <item name="bottomMedium">@drawable/dialog_bottom_holo_dark</item>
+        <item name="centerBright">@drawable/dialog_middle_holo_dark</item>
+        <item name="centerDark">@drawable/dialog_middle_holo_dark</item>
+        <item name="centerMedium">@drawable/dialog_middle_holo_dark</item>
+        <item name="fullBright">@drawable/dialog_full_holo_dark</item>
+        <item name="fullDark">@drawable/dialog_full_holo_dark</item>
+        <item name="horizontalProgressLayout">@layout/alert_dialog_progress_holo</item>
+        <item name="layout">@layout/alert_dialog_holo</item>
+        <item name="listItemLayout">@layout/select_dialog_item_holo</item>
+        <item name="listLayout">@layout/select_dialog_holo</item>
+        <item name="multiChoiceItemLayout">@layout/select_dialog_multichoice_holo</item>
+        <item name="progressLayout">@layout/progress_dialog_holo</item>
+        <item name="singleChoiceItemLayout">@layout/select_dialog_singlechoice_holo</item>
+        <item name="topBright">@drawable/dialog_top_holo_dark</item>
+        <item name="topDark">@drawable/dialog_top_holo_dark</item>
+    </style>
+    <style name="Holo.AlertDialog.Light">
+        <item name="bottomBright">@drawable/dialog_bottom_holo_light</item>
+        <item name="bottomDark">@drawable/dialog_bottom_holo_light</item>
+        <item name="bottomMedium">@drawable/dialog_bottom_holo_light</item>
+        <item name="centerBright">@drawable/dialog_middle_holo_light</item>
+        <item name="centerDark">@drawable/dialog_middle_holo_light</item>
+        <item name="centerMedium">@drawable/dialog_middle_holo_light</item>
+        <item name="fullBright">@drawable/dialog_full_holo_light</item>
+        <item name="fullDark">@drawable/dialog_full_holo_light</item>
+        <item name="topBright">@drawable/dialog_top_holo_light</item>
+        <item name="topDark">@drawable/dialog_top_holo_light</item>
+    </style>
+    <style name="Holo.Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit</item>
+    </style>
+    <style name="Holo.DialogWindowTitle">
+        <item name="android:maxLines">1</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:textAppearance">@style/Holo.TextAppearance.DialogWindowTitle</item>
+    </style>
+    <style name="Holo.DialogWindowTitle.Light">
+        <item name="android:textAppearance">@style/Holo.TextAppearance.DialogWindowTitle.Light</item>
+    </style>
+    <style name="Holo.TextAppearance.DialogWindowTitle" parent="Holo.TextAppearance">
+        <item name="android:textColor">@color/holo_blue_light</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+    <style name="Holo.TextAppearance.DialogWindowTitle.Light" parent="Holo.TextAppearance.Light">
+        <item name="android:textColor">@color/holo_blue_light</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+    <style name="Holo.Theme.Dialog" parent="Holo.Theme">
+        <!--Include block: Dialog-->
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowAnimationStyle">@style/Holo.Animation.Dialog</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="borderlessButtonStyle">@style/Holo.Button.Borderless.Small</item>
+        <item name="buttonBarStyle">@style/Holo.ButtonBar.AlertDialog</item>
+        <item name="listPreferredItemPaddingLeft">16dip</item>
+        <item name="listPreferredItemPaddingRight">16dip</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="windowAnimationStyle">@style/Holo.Animation.Dialog</item>
+        <item name="windowContentOverlay">@null</item>
+        <item name="windowMinWidthMajor">@dimen/dialog_min_width_major</item>
+        <item name="windowMinWidthMinor">@dimen/dialog_min_width_minor</item>
+        <item name="windowNoTitle">true</item>
+        <!--End of block Dialog-->
+        <item name="android:windowBackground">@drawable/dialog_full_holo_dark</item>
+        <item name="android:windowTitleStyle">@style/Holo.DialogWindowTitle</item>
+    </style>
+    <style name="Holo.Theme.Dialog.Alert" parent="Holo.Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    <style name="Holo.Theme.Dialog.Alert.Light" parent="Holo.Theme.Dialog.Light">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    <style name="Holo.Theme.Dialog.FixedSize">
+        <!--Include block: FixedSize-->
+        <item name="windowFixedHeightMajor">@dimen/dialog_fixed_height_major</item>
+        <item name="windowFixedHeightMinor">@dimen/dialog_fixed_height_minor</item>
+        <item name="windowFixedWidthMajor">@dimen/dialog_fixed_width_major</item>
+        <item name="windowFixedWidthMinor">@dimen/dialog_fixed_width_minor</item>
+        <!--End of block FixedSize-->
+    </style>
+    <style name="Holo.Theme.Dialog.Light" parent="Holo.Theme.Light">
+        <!--Include block: Dialog-->
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowAnimationStyle">@style/Holo.Animation.Dialog</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="borderlessButtonStyle">@style/Holo.Button.Borderless.Small</item>
+        <item name="buttonBarStyle">@style/Holo.ButtonBar.AlertDialog</item>
+        <item name="listPreferredItemPaddingLeft">16dip</item>
+        <item name="listPreferredItemPaddingRight">16dip</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="windowAnimationStyle">@style/Holo.Animation.Dialog</item>
+        <item name="windowContentOverlay">@null</item>
+        <item name="windowMinWidthMajor">@dimen/dialog_min_width_major</item>
+        <item name="windowMinWidthMinor">@dimen/dialog_min_width_minor</item>
+        <item name="windowNoTitle">true</item>
+        <!--End of block Dialog-->
+        <item name="android:windowBackground">@drawable/dialog_full_holo_light</item>
+        <item name="android:windowTitleStyle">@style/Holo.DialogWindowTitle.Light</item>
+    </style>
+    <style name="Holo.Theme.Dialog.Light.FixedSize">
+        <!--Include block: FixedSize-->
+        <item name="windowFixedHeightMajor">@dimen/dialog_fixed_height_major</item>
+        <item name="windowFixedHeightMinor">@dimen/dialog_fixed_height_minor</item>
+        <item name="windowFixedWidthMajor">@dimen/dialog_fixed_width_major</item>
+        <item name="windowFixedWidthMinor">@dimen/dialog_fixed_width_minor</item>
+        <!--End of block FixedSize-->
+    </style>
+    <style name="Holo.Theme.Dialog.Light.NoFrame">
+        <!--Include block: NoFrame-->
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowContentOverlay">@null</item>
+        <item name="windowNoTitle">true</item>
+        <!--End of block NoFrame-->
+    </style>
+    <style name="Holo.Theme.Dialog.NoFrame">
+        <!--Include block: NoFrame-->
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowContentOverlay">@null</item>
+        <item name="windowNoTitle">true</item>
+        <!--End of block NoFrame-->
+    </style>
+</resources>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Njalo"</string>
+    <string name="activity_resolver_use_once">"Kanye nje"</string>
+    <string name="candidates_style">"abahlanganyeli"</string>
+    <string name="capital_off">"VALIWE"</string>
+    <string name="capital_on">"VULIWE"</string>
+    <string name="chooseActivity">"Khetha okufanele kwenziwe"</string>
+    <string name="date_picker_decrement_day_button">"Yehlisa usuku"</string>
+    <string name="date_picker_decrement_month_button">"Yehlisa inyanga"</string>
+    <string name="date_picker_decrement_year_button">"Yehlisa unyaka"</string>
+    <string name="date_picker_dialog_title">"Setha idethi"</string>
+    <string name="date_picker_increment_day_button">"Khulisa usuku"</string>
+    <string name="date_picker_increment_month_button">"Khulisa inyanga"</string>
+    <string name="date_picker_increment_year_button">"Khulisa unyaka"</string>
+    <string name="date_time_done">"Kwenziwe"</string>
+    <string name="date_time_set">"Hlela"</string>
+    <string name="loading">"Iyalayisha…"</string>
+    <string name="noApplications">"Azikho izinsiza ezingenza lokhu"</string>
+    <string name="number_picker_decrement_button">"Yehlisa"</string>
+    <string name="number_picker_increment_button">"Khulisa"</string>
+    <string name="number_picker_increment_scroll_action">"Shelelisela phezulu ukuze ungeze futhi phansi ukuze wehlise."</string>
+    <string name="number_picker_increment_scroll_mode">"%s thinta bese ucindezela."</string>
+    <string name="ringtone_default">"Iringithoni emisiwe"</string>
+    <string name="ringtone_picker_title">"Amaringithoni"</string>
+    <string name="ringtone_silent">"Thulile"</string>
+    <string name="time_picker_decrement_hour_button">"Yehlisa ihora"</string>
+    <string name="time_picker_decrement_minute_button">"Yehlisa iminithi"</string>
+    <string name="time_picker_decrement_set_am_button">"Setha Ekuseni"</string>
+    <string name="time_picker_dialog_title">"Hlela isikhathi"</string>
+    <string name="time_picker_increment_hour_button">"Khulisa ihora"</string>
+    <string name="time_picker_increment_minute_button">"Khulisa iminithi"</string>
+    <string name="time_picker_increment_set_pm_button">"Setha Ntambama"</string>
+    <string name="whichApplication">"Qedela isenzo usebenzisa"</string>
+</resources>

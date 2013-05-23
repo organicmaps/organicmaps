@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:divider="?dividerHorizontal" android:dividerPadding="0dip" android:showDividers="middle" android:layout_height="match_parent" android:orientation="vertical">
+	<FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1">
+		<GridView android:layout_width="wrap_content" android:numColumns="4" android:columnWidth="128dp" android:layout_gravity="center" android:padding="16dp" android:clipToPadding="false" android:layout_height="match_parent" android:scrollbarStyle="outsideOverlay" android:id="@+id/resolver_grid"></GridView>
+	</FrameLayout>
+	<LinearLayout android:layout_width="match_parent" style="?buttonBarStyle" android:measureWithLargestChild="true" android:layout_height="wrap_content" android:id="@+id/button_bar" android:orientation="horizontal" android:visibility="gone">
+		<Button android:layout_width="wrap_content" android:layout_gravity="end" style="?buttonBarButtonStyle" android:minHeight="@dimen/alert_dialog_button_bar_height" android:text="@string/activity_resolver_use_always" android:textSize="14sp" android:layout_height="wrap_content" android:layout_weight="1" android:id="@+id/button_always" android:enabled="false" android:onClick="onButtonClick" android:maxLines="2"></Button>
+		<Button android:layout_width="wrap_content" android:layout_gravity="start" style="?buttonBarButtonStyle" android:minHeight="@dimen/alert_dialog_button_bar_height" android:text="@string/activity_resolver_use_once" android:textSize="14sp" android:layout_height="wrap_content" android:layout_weight="1" android:id="@+id/button_once" android:enabled="false" android:onClick="onButtonClick" android:maxLines="2"></Button>
+	</LinearLayout>
+</LinearLayout>

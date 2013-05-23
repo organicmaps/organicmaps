@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <style name="Sherlock.__Theme" parent="android:Theme.Holo">
+    </style>
+    <style name="Sherlock.__Theme.Light" parent="android:Theme.Holo.Light">
+    </style>
+    <style name="Sherlock.__Theme.DarkActionBar" parent="android:Theme.Holo.Light.DarkActionBar">
+        <!-- Useful for offsetting contents with an overlay action bar. -->
+        <item name="actionBarSize">?android:attr/actionBarSize</item>
+        <!-- Needed for our bug-fix dropdown list navigation layout. :( -->
+        <item name="dropdownListPreferredItemHeight">48dp</item>
+        <!-- Needed for our ShareActionProvider and SearchView implementation. -->
+        <item name="android:actionBarWidgetTheme">@style/Theme.Sherlock</item>
+        <!-- For crazy people who use IcsSpinner. -->
+        <item name="dropDownListViewStyle">?android:attr/dropDownListViewStyle</item>
+        <!-- Needed for our SearchView implementation. -->
+        <item name="selectableItemBackground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="Theme.Sherlock.NoActionBar">
+      <item name="android:windowActionBar">false</item>
+      <item name="android:windowNoTitle">true</item>
+    </style>
+    <style name="Theme.Sherlock.Light.NoActionBar">
+      <item name="android:windowActionBar">false</item>
+      <item name="android:windowNoTitle">true</item>
+    </style>
+</resources>

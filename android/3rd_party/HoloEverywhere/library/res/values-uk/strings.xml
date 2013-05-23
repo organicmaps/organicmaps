@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Завжди"</string>
+    <string name="activity_resolver_use_once">"Лише цього разу"</string>
+    <string name="candidates_style">"кандидати"</string>
+    <string name="capital_off">"ВИМК"</string>
+    <string name="capital_on">"УВІМК"</string>
+    <string name="chooseActivity">"Виберіть дію"</string>
+    <string name="date_picker_decrement_day_button">"На день назад"</string>
+    <string name="date_picker_decrement_month_button">"На місяць назад"</string>
+    <string name="date_picker_decrement_year_button">"На рік назад"</string>
+    <string name="date_picker_dialog_title">"Установити дату"</string>
+    <string name="date_picker_increment_day_button">"На день уперед"</string>
+    <string name="date_picker_increment_month_button">"На місяць уперед"</string>
+    <string name="date_picker_increment_year_button">"На рік уперед"</string>
+    <string name="date_time_done">"Готово"</string>
+    <string name="date_time_set">"Застосувати"</string>
+    <string name="loading">"Завантаження..."</string>
+    <string name="noApplications">"Жодна програма не може виконати цю дію."</string>
+    <string name="number_picker_decrement_button">"Зменшити"</string>
+    <string name="number_picker_increment_button">"Збільшити"</string>
+    <string name="number_picker_increment_scroll_action">"Проведіть пальцем угору, щоб збільшити, і вниз, щоб зменшити."</string>
+    <string name="number_picker_increment_scroll_mode">"%s – торкніться й утримуйте."</string>
+    <string name="ringtone_default">"Мелодія за умовч."</string>
+    <string name="ringtone_picker_title">"Мелодії"</string>
+    <string name="ringtone_silent">"Без звуку"</string>
+    <string name="time_picker_decrement_hour_button">"На годину назад"</string>
+    <string name="time_picker_decrement_minute_button">"На хвилину назад"</string>
+    <string name="time_picker_decrement_set_am_button">"Установити час \"дп\""</string>
+    <string name="time_picker_dialog_title">"Установити час"</string>
+    <string name="time_picker_increment_hour_button">"На годину вперед"</string>
+    <string name="time_picker_increment_minute_button">"На хвилину вперед"</string>
+    <string name="time_picker_increment_set_pm_button">"Установити час \"пп\""</string>
+    <string name="whichApplication">"Завершити дію за доп."</string>
+</resources>

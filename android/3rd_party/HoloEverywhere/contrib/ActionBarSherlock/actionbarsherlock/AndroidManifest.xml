@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="100" android:versionName="4.2.0" package="com.actionbarsherlock">
+
+    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="16"/>
+
+</manifest>

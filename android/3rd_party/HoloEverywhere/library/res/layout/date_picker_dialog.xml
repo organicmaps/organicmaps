@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8"?><DatePicker xmlns:android="http://schemas.android.com/apk/res/android" xmlns:holo="http://schemas.android.com/apk/res-auto" android:layout_width="wrap_content" android:layout_gravity="center_horizontal" android:layout_height="wrap_content" android:id="@+id/datePicker" holo:spinnersShown="true" holo:calendarViewShown="false"></DatePicker>

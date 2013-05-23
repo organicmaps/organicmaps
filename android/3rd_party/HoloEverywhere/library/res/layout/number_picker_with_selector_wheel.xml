@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><merge xmlns:android="http://schemas.android.com/apk/res/android">
+	<Internal.NumberPickerEditText android:layout_width="fill_parent" android:textAppearance="?android:attr/textAppearanceMedium" android:gravity="center" android:singleLine="true" android:layout_height="wrap_content" android:id="@+id/numberpicker_input" android:background="@null"></Internal.NumberPickerEditText>
+</merge>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Sempre"</string>
+    <string name="activity_resolver_use_once">"Apenas uma vez"</string>
+    <string name="candidates_style">"candidatos"</string>
+    <string name="capital_off">"Desactivar"</string>
+    <string name="capital_on">"Activado"</string>
+    <string name="chooseActivity">"Escolha uma ação"</string>
+    <string name="date_picker_decrement_day_button">"Diminuir dia"</string>
+    <string name="date_picker_decrement_month_button">"Diminuir mês"</string>
+    <string name="date_picker_decrement_year_button">"Diminuir ano"</string>
+    <string name="date_picker_dialog_title">"Definir data"</string>
+    <string name="date_picker_increment_day_button">"Aumentar o dia"</string>
+    <string name="date_picker_increment_month_button">"Aumentar mês"</string>
+    <string name="date_picker_increment_year_button">"Aumentar ano"</string>
+    <string name="date_time_done">"Concluído"</string>
+    <string name="date_time_set">"Definir"</string>
+    <string name="loading">"A carregar…"</string>
+    <string name="noApplications">"Nenhuma aplicação pode efetuar esta ação."</string>
+    <string name="number_picker_decrement_button">"Diminuir"</string>
+    <string name="number_picker_increment_button">"Aumentar"</string>
+    <string name="number_picker_increment_scroll_action">"Deslizar para cima para aumentar e para baixo para diminuir."</string>
+    <string name="number_picker_increment_scroll_mode">"Toque sem soltar em %s."</string>
+    <string name="ringtone_default">"Toque predefinido"</string>
+    <string name="ringtone_picker_title">"Toques"</string>
+    <string name="ringtone_silent">"Silencioso"</string>
+    <string name="time_picker_decrement_hour_button">"Diminuir hora"</string>
+    <string name="time_picker_decrement_minute_button">"Diminuir minutos"</string>
+    <string name="time_picker_decrement_set_am_button">"Definir AM"</string>
+    <string name="time_picker_dialog_title">"Definir hora"</string>
+    <string name="time_picker_increment_hour_button">"Aumentar horas"</string>
+    <string name="time_picker_increment_minute_button">"Aumentar minutos"</string>
+    <string name="time_picker_increment_set_pm_button">"Definir PM"</string>
+    <string name="whichApplication">"Concluir acção utilizando"</string>
+</resources>

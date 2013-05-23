@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
+
+  <groupId>com.actionbarsherlock</groupId>
+  <artifactId>parent</artifactId>
+  <packaging>pom</packaging>
+  <version>4.3.1</version>
+
+  <name>ActionBarSherlock (Parent)</name>
+  <description>Android library for implementing the action bar design pattern using the backported sources of Ice Cream Sandwich.</description>
+  <url>http://actionbarsherlock.com</url>
+  <inceptionYear>2011</inceptionYear>
+
+  <modules>
+    <module>actionbarsherlock</module>
+    <module>actionbarsherlock-fest</module>
+    <module>actionbarsherlock-i18n</module>
+    <module>actionbarsherlock-samples</module>
+  </modules>
+
+  <scm>
+    <url>https://github.com/JakeWharton/ActionBarSherlock/</url>
+    <connection>scm:git:git://github.com/JakeWharton/ActionBarSherlock.git</connection>
+    <developerConnection>scm:git:git@github.com:JakeWharton/ActionBarSherlock.git</developerConnection>
+    <tag>4.3.1</tag>
+  </scm>
+
+  <developers>
+    <developer>
+      <name>Jake Wharton</name>
+      <email>jakewharton@gmail.com</email>
+      <id>jakewharton</id>
+      <url>http://jakewharton.com</url>
+      <timezone>-5</timezone>
+      <roles>
+        <role>developer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <licenses>
+    <license>
+      <name>Apache License Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <organization>
+    <name>Jake Wharton</name>
+    <url>http://jakewharton.com</url>
+  </organization>
+
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>https://github.com/JakeWharton/ActionBarSherlock/issues</url>
+  </issueManagement>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <java.version>1.6</java.version>
+    <android.platform>14</android.platform>
+
+    <!-- Compilation dependencies -->
+    <android.version>4.0.1.2</android.version>
+    <android-support.version>r7</android-support.version>
+    <fest.android.version>1.0.4</fest.android.version>
+
+    <!-- Sample dependencies -->
+    <nineoldandroids.version>2.4.0</nineoldandroids.version>
+    <roboguice-sherlock.version>1.5</roboguice-sherlock.version>
+
+    <!-- Test dependencies -->
+    <junit.version>4.10</junit.version>
+    <fest.version>2.0M10</fest.version>
+    <robolectric.version>2.0-alpha-2</robolectric.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.google.android</groupId>
+        <artifactId>android</artifactId>
+        <version>${android.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.android</groupId>
+        <artifactId>support-v4</artifactId>
+        <version>${android-support.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.nineoldandroids</groupId>
+        <artifactId>library</artifactId>
+        <version>${nineoldandroids.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.rtyley</groupId>
+        <artifactId>roboguice-sherlock</artifactId>
+        <version>${roboguice-sherlock.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.easytesting</groupId>
+        <artifactId>fest-assert-core</artifactId>
+        <version>${fest.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.robolectric</groupId>
+        <artifactId>robolectric</artifactId>
+        <version>${robolectric.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.squareup</groupId>
+        <artifactId>fest-android</artifactId>
+        <version>${fest.android.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.0</version>
+          <configuration>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
+            <showWarnings>true</showWarnings>
+            <compilerArguments>
+              <Xlint />
+            </compilerArguments>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+          <artifactId>android-maven-plugin</artifactId>
+          <version>3.5.3</version>
+          <configuration>
+            <nativeLibrariesDirectory>ignored</nativeLibrariesDirectory>
+            <sdk>
+              <platform>${android.platform}</platform>
+            </sdk>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>2.9</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <version>1.7</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.holoeverywhere</groupId>
+          <artifactId>resbuilder</artifactId>
+          <version>1.5.0</version>
+        </plugin>
+
+        <plugin>
+          <groupId>com.google.code.maven-replacer-plugin</groupId>
+          <artifactId>maven-replacer-plugin</artifactId>
+          <version>1.4.0</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.10</version>
+        <configuration>
+          <failsOnError>true</failsOnError>
+          <consoleOutput>true</consoleOutput>
+          <configLocation>checkstyle.xml</configLocation>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>checkstyle</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

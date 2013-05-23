@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <style name="Holo.Theme.DialogWhenLarge" parent="Holo.Theme.Dialog.FixedSize"/>
+    <style name="Holo.Theme.DialogWhenLarge.Light" parent="Holo.Theme.Dialog.Light.FixedSize"/>
+    <style name="Holo.Theme.DialogWhenLarge.Light.DarkActionBar"/>
+</resources>

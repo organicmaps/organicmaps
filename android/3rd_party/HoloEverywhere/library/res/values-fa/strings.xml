@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"همیشه"</string>
+    <string name="activity_resolver_use_once">"فقط این بار"</string>
+    <string name="candidates_style">"داوطلبین"</string>
+    <string name="capital_off">"خاموش"</string>
+    <string name="capital_on">"روشن"</string>
+    <string name="chooseActivity">"انتخاب عملکرد"</string>
+    <string name="date_picker_decrement_day_button">"کاهش روز"</string>
+    <string name="date_picker_decrement_month_button">"کاهش ماه"</string>
+    <string name="date_picker_decrement_year_button">"کاهش سال"</string>
+    <string name="date_picker_dialog_title">"تاریخ تنظیم"</string>
+    <string name="date_picker_increment_day_button">"افزایش روز"</string>
+    <string name="date_picker_increment_month_button">"افزایش ماه"</string>
+    <string name="date_picker_increment_year_button">"افزایش سال"</string>
+    <string name="date_time_done">"انجام شد"</string>
+    <string name="date_time_set">"تنظیم"</string>
+    <string name="loading">"در حال بارگیری..."</string>
+    <string name="noApplications">"هیچ برنامه‌ای نمی‎تواند این کار را انجام دهد."</string>
+    <string name="number_picker_decrement_button">"کاهش"</string>
+    <string name="number_picker_increment_button">"افزایش"</string>
+    <string name="number_picker_increment_scroll_action">"برای افزایش به بالا بلغزانید و برای کاهش به پایین بلغزانید."</string>
+    <string name="number_picker_increment_scroll_mode">"%s لمس کرده و نگه دارید."</string>
+    <string name="ringtone_default">"آهنگ زنگ پیش‌فرض"</string>
+    <string name="ringtone_picker_title">"آهنگ‌های زنگ"</string>
+    <string name="ringtone_silent">"ساکت"</string>
+    <string name="time_picker_decrement_hour_button">"کاهش ساعت"</string>
+    <string name="time_picker_decrement_minute_button">"کاهش دقیقه"</string>
+    <string name="time_picker_decrement_set_am_button">"تنظیم ق.ظ"</string>
+    <string name="time_picker_dialog_title">"تنظیم زمان"</string>
+    <string name="time_picker_increment_hour_button">"افزایش ساعت"</string>
+    <string name="time_picker_increment_minute_button">"افزایش دقیقه"</string>
+    <string name="time_picker_increment_set_pm_button">"تنظیم ب.ظ"</string>
+    <string name="whichApplication">"تکمیل عملکرد با استفاده از"</string>
+</resources>

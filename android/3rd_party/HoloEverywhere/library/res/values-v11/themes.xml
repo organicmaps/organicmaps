@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <style name="Holo.Theme" parent="Holo.Base.Theme">
+        <!--Include block: HoloDark-->
+        <!--Include block: Holo-->
+        <item name="android:activatedBackgroundIndicator">?activatedBackgroundIndicator</item>
+        <item name="android:dialogTheme">?dialogTheme</item>
+        <item name="android:dividerHorizontal">?dividerHorizontal</item>
+        <item name="android:dividerVertical">?dividerVertical</item>
+        <item name="android:textAppearanceLargePopupMenu">?textAppearanceLargePopupMenu</item>
+        <item name="android:textAppearanceSmallPopupMenu">?textAppearanceSmallPopupMenu</item>
+        <item name="android:windowMinWidthMajor">?windowMinWidthMajor</item>
+        <item name="android:windowMinWidthMinor">?windowMinWidthMinor</item>
+        <!--End of block Holo-->
+        <!--End of block HoloDark-->
+        <!--Include block: HoloBarDark-->
+        <!--Include block: HoloBar-->
+        <!--End of block HoloBar-->
+        <!--End of block HoloBarDark-->
+        <item name="holoTheme">dark</item>
+    </style>
+    <style name="Holo.Theme.Light" parent="Holo.Base.Theme.Light">
+        <!--Include block: HoloLight-->
+        <!--Include block: Holo-->
+        <item name="android:activatedBackgroundIndicator">?activatedBackgroundIndicator</item>
+        <item name="android:dialogTheme">?dialogTheme</item>
+        <item name="android:dividerHorizontal">?dividerHorizontal</item>
+        <item name="android:dividerVertical">?dividerVertical</item>
+        <item name="android:textAppearanceLargePopupMenu">?textAppearanceLargePopupMenu</item>
+        <item name="android:textAppearanceSmallPopupMenu">?textAppearanceSmallPopupMenu</item>
+        <item name="android:windowMinWidthMajor">?windowMinWidthMajor</item>
+        <item name="android:windowMinWidthMinor">?windowMinWidthMinor</item>
+        <!--End of block Holo-->
+        <!--End of block HoloLight-->
+        <!--Include block: HoloBarLight-->
+        <!--Include block: HoloBar-->
+        <!--End of block HoloBar-->
+        <!--End of block HoloBarLight-->
+        <item name="holoTheme">light</item>
+    </style>
+    <style name="Holo.Theme.Light.DarkActionBar" parent="Holo.Base.Theme.Light.DarkActionBar">
+        <!--Include block: HoloLight-->
+        <!--Include block: Holo-->
+        <item name="android:activatedBackgroundIndicator">?activatedBackgroundIndicator</item>
+        <item name="android:dialogTheme">?dialogTheme</item>
+        <item name="android:dividerHorizontal">?dividerHorizontal</item>
+        <item name="android:dividerVertical">?dividerVertical</item>
+        <item name="android:textAppearanceLargePopupMenu">?textAppearanceLargePopupMenu</item>
+        <item name="android:textAppearanceSmallPopupMenu">?textAppearanceSmallPopupMenu</item>
+        <item name="android:windowMinWidthMajor">?windowMinWidthMajor</item>
+        <item name="android:windowMinWidthMinor">?windowMinWidthMinor</item>
+        <!--End of block Holo-->
+        <!--End of block HoloLight-->
+        <!--Include block: HoloBarDark-->
+        <!--Include block: HoloBar-->
+        <!--End of block HoloBar-->
+        <!--End of block HoloBarDark-->
+        <item name="holoTheme">mixed</item>
+    </style>
+</resources>

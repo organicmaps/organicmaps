@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <style name="Holo.TextAppearance">
+        <!--Include block: ColorsDark-->
+        <item name="android:textColor">@color/primary_text_holo_dark</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_dark</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_dark</item>
+        <!--End of block ColorsDark-->
+        <item name="android:textColorLink">@color/holo_blue_light</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    <style name="Holo.TextAppearance.CalendarView.WeekDayView" parent="Holo.TextAppearance">
+        <item name="android:textColor">#505050</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="Holo.TextAppearance.DropDownItem">
+        <item name="android:textColor">?android:textColorPrimaryDisableOnly</item>
+    </style>
+    <style name="Holo.TextAppearance.Inverse">
+        <!--Include block: ColorsLight-->
+        <item name="android:textColor">@color/primary_text_holo_light</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_light</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_light</item>
+        <!--End of block ColorsLight-->
+    </style>
+    <style name="Holo.TextAppearance.Inverse.Light">
+        <!--Include block: ColorsDark-->
+        <item name="android:textColor">@color/primary_text_holo_dark</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_dark</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_dark</item>
+        <!--End of block ColorsDark-->
+    </style>
+    <style name="Holo.TextAppearance.Large">
+        <item name="android:textSize">22sp</item>
+    </style>
+    <style name="Holo.TextAppearance.Large.Inverse">
+        <!--Include block: ColorsLight-->
+        <item name="android:textColor">@color/primary_text_holo_light</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_light</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_light</item>
+        <!--End of block ColorsLight-->
+    </style>
+    <style name="Holo.TextAppearance.Large.Inverse.Light">
+        <!--Include block: ColorsDark-->
+        <item name="android:textColor">@color/primary_text_holo_dark</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_dark</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_dark</item>
+        <!--End of block ColorsDark-->
+    </style>
+    <style name="Holo.TextAppearance.Large.Light">
+        <!--Include block: ColorsLight-->
+        <item name="android:textColor">@color/primary_text_holo_light</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_light</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_light</item>
+        <!--End of block ColorsLight-->
+    </style>
+    <style name="Holo.TextAppearance.Light">
+        <!--Include block: ColorsLight-->
+        <item name="android:textColor">@color/primary_text_holo_light</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_light</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_light</item>
+        <!--End of block ColorsLight-->
+    </style>
+    <style name="Holo.TextAppearance.Medium">
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="Holo.TextAppearance.Medium.Inverse">
+        <!--Include block: ColorsLight-->
+        <item name="android:textColor">@color/primary_text_holo_light</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_light</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_light</item>
+        <!--End of block ColorsLight-->
+    </style>
+    <style name="Holo.TextAppearance.Medium.Inverse.Light">
+        <!--Include block: ColorsDark-->
+        <item name="android:textColor">@color/primary_text_holo_dark</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_dark</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_dark</item>
+        <!--End of block ColorsDark-->
+    </style>
+    <style name="Holo.TextAppearance.Medium.Light">
+        <!--Include block: ColorsLight-->
+        <item name="android:textColor">@color/primary_text_holo_light</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_light</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_light</item>
+        <!--End of block ColorsLight-->
+    </style>
+    <style name="Holo.TextAppearance.PopupMenu">
+        <!--Include block: ColorsDark-->
+        <item name="android:textColor">@color/primary_text_holo_dark</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_dark</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_dark</item>
+        <!--End of block ColorsDark-->
+    </style>
+    <style name="Holo.TextAppearance.PopupMenu.Large">
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="Holo.TextAppearance.PopupMenu.Light">
+        <!--Include block: ColorsLight-->
+        <item name="android:textColor">@color/primary_text_holo_light</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_light</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_light</item>
+        <!--End of block ColorsLight-->
+    </style>
+    <style name="Holo.TextAppearance.PopupMenu.Light.Large">
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="Holo.TextAppearance.PopupMenu.Light.Small">
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="Holo.TextAppearance.PopupMenu.Small">
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="Holo.TextAppearance.Small">
+        <item name="android:textColor">@color/secondary_text_holo_dark</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_dark</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_dark</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="Holo.TextAppearance.Small.Inverse">
+        <item name="android:textColor">@color/secondary_text_holo_light</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_light</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_light</item>
+    </style>
+    <style name="Holo.TextAppearance.Small.Inverse.Light">
+        <item name="android:textColor">@color/secondary_text_holo_dark</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_dark</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_dark</item>
+    </style>
+    <style name="Holo.TextAppearance.Small.Light">
+        <item name="android:textColor">@color/secondary_text_holo_light</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_light</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_light</item>
+    </style>
+    <style name="Holo.TextAppearance.TextView"/>
+    <style name="Holo.TextAppearance.TextView.SpinnerItem">
+        <!--Include block: ColorsDark-->
+        <item name="android:textColor">@color/primary_text_holo_dark</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_dark</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_dark</item>
+        <!--End of block ColorsDark-->
+    </style>
+    <style name="Holo.TextAppearance.TextView.SpinnerItem.Light">
+        <!--Include block: ColorsLight-->
+        <item name="android:textColor">@color/primary_text_holo_light</item>
+        <item name="android:textColorHighlight">@color/highlighted_text_holo_light</item>
+        <item name="android:textColorHint">@color/hint_foreground_holo_light</item>
+        <!--End of block ColorsLight-->
+    </style>
+    <style name="Holo.TextAppearance.Widget.IconMenu.Item" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textColor">?android:panelColorForeground</item>
+    </style>
+</resources>

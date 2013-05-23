@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Luôn chọn"</string>
+    <string name="activity_resolver_use_once">"Chỉ một lần"</string>
+    <string name="candidates_style">"ứng viên"</string>
+    <string name="capital_off">"TẮT"</string>
+    <string name="capital_on">"BẬT"</string>
+    <string name="chooseActivity">"Chọn một tác vụ"</string>
+    <string name="date_picker_decrement_day_button">"Giảm ngày"</string>
+    <string name="date_picker_decrement_month_button">"Giảm tháng"</string>
+    <string name="date_picker_decrement_year_button">"Giảm năm"</string>
+    <string name="date_picker_dialog_title">"Đặt ngày"</string>
+    <string name="date_picker_increment_day_button">"Tăng ngày"</string>
+    <string name="date_picker_increment_month_button">"Tăng tháng"</string>
+    <string name="date_picker_increment_year_button">"Tăng năm"</string>
+    <string name="date_time_done">"Xong"</string>
+    <string name="date_time_set">"Đặt"</string>
+    <string name="loading">"Đang tải…"</string>
+    <string name="noApplications">"Không ứng dụng nào có thể thực hiện tác vụ này."</string>
+    <string name="number_picker_decrement_button">"Giảm"</string>
+    <string name="number_picker_increment_button">"Tăng"</string>
+    <string name="number_picker_increment_scroll_action">"Trượt lên để tăng và trượt xuống để giảm."</string>
+    <string name="number_picker_increment_scroll_mode">"Chạm và giữ %s."</string>
+    <string name="ringtone_default">"Nhạc chuông mặc định"</string>
+    <string name="ringtone_picker_title">"Nhạc chuông"</string>
+    <string name="ringtone_silent">"Im lặng"</string>
+    <string name="time_picker_decrement_hour_button">"Giảm giờ"</string>
+    <string name="time_picker_decrement_minute_button">"Giảm phút"</string>
+    <string name="time_picker_decrement_set_am_button">"Đặt SA"</string>
+    <string name="time_picker_dialog_title">"Đặt giờ"</string>
+    <string name="time_picker_increment_hour_button">"Tăng giờ"</string>
+    <string name="time_picker_increment_minute_button">"Tăng phút"</string>
+    <string name="time_picker_increment_set_pm_button">"Đặt CH"</string>
+    <string name="whichApplication">"Hoàn tất tác vụ đang sử dụng"</string>
+</resources>

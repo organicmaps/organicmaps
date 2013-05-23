@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Alltid"</string>
+    <string name="activity_resolver_use_once">"Bare én gang"</string>
+    <string name="candidates_style">"TAG_FONT""kandidater""CLOSE_FONT"</string>
+    <string name="capital_off">"Av"</string>
+    <string name="capital_on">"På"</string>
+    <string name="chooseActivity">"Velg en handling"</string>
+    <string name="date_picker_decrement_day_button">"Reduser dager"</string>
+    <string name="date_picker_decrement_month_button">"Reduser måneder"</string>
+    <string name="date_picker_decrement_year_button">"Reduser år"</string>
+    <string name="date_picker_dialog_title">"Angi dato"</string>
+    <string name="date_picker_increment_day_button">"Øk dager"</string>
+    <string name="date_picker_increment_month_button">"Øk måneder"</string>
+    <string name="date_picker_increment_year_button">"Øk år"</string>
+    <string name="date_time_done">"Ferdig"</string>
+    <string name="date_time_set">"Lagre"</string>
+    <string name="loading">"Laster inn …"</string>
+    <string name="noApplications">"Ingen apper kan gjøre dette."</string>
+    <string name="number_picker_decrement_button">"Reduser"</string>
+    <string name="number_picker_increment_button">"Øk"</string>
+    <string name="number_picker_increment_scroll_action">"Dra opp for å øke og ned for å redusere."</string>
+    <string name="number_picker_increment_scroll_mode">"%s – trykk og hold inne."</string>
+    <string name="ringtone_default">"Standard ringetone"</string>
+    <string name="ringtone_picker_title">"Ringetoner"</string>
+    <string name="ringtone_silent">"Stille"</string>
+    <string name="time_picker_decrement_hour_button">"Reduser timer"</string>
+    <string name="time_picker_decrement_minute_button">"Reduser minutter"</string>
+    <string name="time_picker_decrement_set_am_button">"Angi a.m."</string>
+    <string name="time_picker_dialog_title">"Stille klokken"</string>
+    <string name="time_picker_increment_hour_button">"Øk timer"</string>
+    <string name="time_picker_increment_minute_button">"Øk minutter"</string>
+    <string name="time_picker_increment_set_pm_button">"Angi p.m."</string>
+    <string name="whichApplication">"Fullfør med"</string>
+</resources>

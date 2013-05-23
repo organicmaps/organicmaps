@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><Internal.HoloListMenuItemView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:paddingRight="16dip" android:layout_height="?dropdownListPreferredItemHeight" android:minWidth="196dip">
+	<RelativeLayout android:layout_width="0dip" android:layout_gravity="center_vertical" android:layout_marginLeft="16dip" android:duplicateParentState="true" android:layout_height="wrap_content" android:layout_weight="1">
+		<TextView android:layout_alignParentTop="true" android:layout_width="match_parent" android:textAppearance="?dialogItemTextAppearance" android:ellipsize="marquee" android:duplicateParentState="true" android:singleLine="true" android:layout_alignParentLeft="true" android:layout_height="wrap_content" android:id="@+id/title" android:fadingEdge="horizontal"></TextView>
+		<TextView android:layout_width="wrap_content" android:layout_below="@id/title" android:textAppearance="?android:textAppearanceSmall" android:duplicateParentState="true" android:singleLine="true" android:layout_alignParentLeft="true" android:layout_height="wrap_content" android:id="@+id/shortcut"></TextView>
+	</RelativeLayout>
+</Internal.HoloListMenuItemView>

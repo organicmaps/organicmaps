@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Altid"</string>
+    <string name="activity_resolver_use_once">"Kun én gang"</string>
+    <string name="candidates_style">"kandidater"</string>
+    <string name="capital_off">"FRA"</string>
+    <string name="capital_on">"TIL"</string>
+    <string name="chooseActivity">"Vælg en handling"</string>
+    <string name="date_picker_decrement_day_button">"Tidligere dag"</string>
+    <string name="date_picker_decrement_month_button">"Tidligere måned"</string>
+    <string name="date_picker_decrement_year_button">"Tidligere år"</string>
+    <string name="date_picker_dialog_title">"Angiv dato"</string>
+    <string name="date_picker_increment_day_button">"Senere dag"</string>
+    <string name="date_picker_increment_month_button">"Senere måned"</string>
+    <string name="date_picker_increment_year_button">"Senere år"</string>
+    <string name="date_time_done">"Udført"</string>
+    <string name="date_time_set">"Angiv"</string>
+    <string name="loading">"Indlæser…"</string>
+    <string name="noApplications">"Der er ingen apps, der kan foretage denne handling."</string>
+    <string name="number_picker_decrement_button">"Lavere"</string>
+    <string name="number_picker_increment_button">"Højere"</string>
+    <string name="number_picker_increment_scroll_action">"Glid op for at øge og ned for at mindske."</string>
+    <string name="number_picker_increment_scroll_mode">"Tryk %s gange, og hold inde."</string>
+    <string name="ringtone_default">"Standardringetone"</string>
+    <string name="ringtone_picker_title">"Ringetoner"</string>
+    <string name="ringtone_silent">"Lydløs"</string>
+    <string name="time_picker_decrement_hour_button">"Sænk timetal"</string>
+    <string name="time_picker_decrement_minute_button">"Sænk minuttal"</string>
+    <string name="time_picker_decrement_set_am_button">"Indstil AM"</string>
+    <string name="time_picker_dialog_title">"Angiv tidspunkt"</string>
+    <string name="time_picker_increment_hour_button">"Forøg timetal"</string>
+    <string name="time_picker_increment_minute_button">"Forøg minuttal"</string>
+    <string name="time_picker_increment_set_pm_button">"Indstil PM"</string>
+    <string name="whichApplication">"Fuldfør handling ved hjælp af"</string>
+</resources>

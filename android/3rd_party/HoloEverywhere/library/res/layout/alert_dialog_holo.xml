@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:holo="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:paddingLeft="8dp" android:paddingRight="8dp" android:layout_height="wrap_content" android:id="@+id/parentPanel" android:orientation="vertical">
+	<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/topPanel" android:orientation="vertical">
+		<View android:layout_width="match_parent" android:layout_height="2dip" android:id="@+id/titleDividerTop" android:background="@color/holo_blue_light" android:visibility="gone"></View>
+		<LinearLayout android:layout_width="match_parent" android:layout_marginRight="16dip" android:layout_marginLeft="16dip" android:gravity="center_vertical|left" android:minHeight="@dimen/alert_dialog_title_height" android:layout_height="wrap_content" android:id="@+id/title_template" android:orientation="horizontal">
+			<ImageView android:layout_width="wrap_content" android:paddingRight="8dip" android:layout_height="wrap_content" android:id="@+id/icon" android:contentDescription="@string/loading"></ImageView>
+			<Internal.DialogTitle android:layout_width="match_parent" style="?android:attr/windowTitleStyle" android:ellipsize="end" android:singleLine="true" android:layout_height="wrap_content" android:id="@+id/alertTitle"></Internal.DialogTitle>
+		</LinearLayout>
+		<View android:layout_width="match_parent" android:layout_height="2dip" android:id="@+id/titleDivider" android:background="@color/holo_blue_light" android:visibility="gone"></View>
+	</LinearLayout>
+	<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:id="@+id/contentPanel" android:orientation="vertical">
+		<ScrollView android:layout_width="match_parent" android:clipToPadding="false" android:layout_height="wrap_content" android:id="@+id/scrollView">
+			<TextView android:layout_width="match_parent" style="?android:attr/textAppearanceMedium" android:paddingBottom="8dip" android:paddingLeft="16dip" android:paddingRight="16dip" android:layout_height="wrap_content" android:paddingTop="8dip" android:id="@+id/message"></TextView>
+		</ScrollView>
+	</LinearLayout>
+	<FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:id="@+id/customPanel">
+		<FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/custom"></FrameLayout>
+	</FrameLayout>
+	<LinearLayout android:layout_width="match_parent" android:minHeight="@dimen/alert_dialog_button_bar_height" android:layout_height="wrap_content" android:id="@+id/buttonPanel" android:orientation="vertical">
+		<View android:layout_width="match_parent" android:layout_height="1dp" android:id="@+id/buttonPanelTopDivivder" android:background="?dividerHorizontal"></View>
+		<LinearLayout android:layout_width="match_parent" style="?buttonBarStyle" android:measureWithLargestChild="true" android:layout_height="wrap_content" android:orientation="horizontal">
+			<Button android:layout_width="wrap_content" android:layout_gravity="left" style="?buttonBarButtonStyle" android:minHeight="@dimen/alert_dialog_button_bar_height" android:textSize="14sp" android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/button2" android:maxLines="2"></Button>
+			<Button android:layout_width="wrap_content" android:layout_gravity="center_horizontal" style="?buttonBarButtonStyle" android:minHeight="@dimen/alert_dialog_button_bar_height" android:textSize="14sp" android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/button3" android:maxLines="2"></Button>
+			<Button android:layout_width="wrap_content" android:layout_gravity="right" style="?buttonBarButtonStyle" android:minHeight="@dimen/alert_dialog_button_bar_height" android:textSize="14sp" android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/button1" android:maxLines="2"></Button>
+		</LinearLayout>
+	</LinearLayout>
+</LinearLayout>

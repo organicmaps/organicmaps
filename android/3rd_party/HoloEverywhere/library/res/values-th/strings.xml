@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"ทุกครั้ง"</string>
+    <string name="activity_resolver_use_once">"เฉพาะครั้งนี้"</string>
+    <string name="candidates_style">"ตัวเลือก"</string>
+    <string name="capital_off">"ปิด"</string>
+    <string name="capital_on">"เปิด"</string>
+    <string name="chooseActivity">"เลือกการทำงาน"</string>
+    <string name="date_picker_decrement_day_button">"ลดวัน"</string>
+    <string name="date_picker_decrement_month_button">"ลดเดือน"</string>
+    <string name="date_picker_decrement_year_button">"ลดปี"</string>
+    <string name="date_picker_dialog_title">"ตั้งวันที่"</string>
+    <string name="date_picker_increment_day_button">"เพิ่มวัน"</string>
+    <string name="date_picker_increment_month_button">"เพิ่มเดือน"</string>
+    <string name="date_picker_increment_year_button">"เพิ่มปี"</string>
+    <string name="date_time_done">"เสร็จสิ้น"</string>
+    <string name="date_time_set">"ตั้งค่า"</string>
+    <string name="loading">"กำลังโหลด..."</string>
+    <string name="noApplications">"ไม่มีแอปพลิเคชันใดทำงานนี้ได้"</string>
+    <string name="number_picker_decrement_button">"ลด"</string>
+    <string name="number_picker_increment_button">"เพิ่ม"</string>
+    <string name="number_picker_increment_scroll_action">"เลื่อนขึ้นเพื่อเพิ่มและเลื่อนลงเพื่อลด"</string>
+    <string name="number_picker_increment_scroll_mode">"แตะ %s ค้างไว้"</string>
+    <string name="ringtone_default">"เสียงเรียกเข้าเริ่มต้น"</string>
+    <string name="ringtone_picker_title">"เสียงเรียกเข้า"</string>
+    <string name="ringtone_silent">"ปิดเสียง"</string>
+    <string name="time_picker_decrement_hour_button">"ลดชั่วโมง"</string>
+    <string name="time_picker_decrement_minute_button">"ลดนาที"</string>
+    <string name="time_picker_decrement_set_am_button">"ตั้งค่า AM"</string>
+    <string name="time_picker_dialog_title">"ตั้งเวลา"</string>
+    <string name="time_picker_increment_hour_button">"เพิ่มชั่วโมง"</string>
+    <string name="time_picker_increment_minute_button">"เพิ่มนาที"</string>
+    <string name="time_picker_increment_set_pm_button">"ตั้งค่า PM"</string>
+    <string name="whichApplication">"ทำงานให้เสร็จโดยใช้"</string>
+</resources>

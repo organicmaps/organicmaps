@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Alltid"</string>
+    <string name="activity_resolver_use_once">"Bara en gång"</string>
+    <string name="candidates_style">"kandidater"</string>
+    <string name="capital_off">"AV"</string>
+    <string name="capital_on">"PÅ"</string>
+    <string name="chooseActivity">"Välj en åtgärd"</string>
+    <string name="date_picker_decrement_day_button">"Minska dagar"</string>
+    <string name="date_picker_decrement_month_button">"Minska månader"</string>
+    <string name="date_picker_decrement_year_button">"Minska år"</string>
+    <string name="date_picker_dialog_title">"Ange datum"</string>
+    <string name="date_picker_increment_day_button">"Öka dagar"</string>
+    <string name="date_picker_increment_month_button">"Öka månader"</string>
+    <string name="date_picker_increment_year_button">"Öka år"</string>
+    <string name="date_time_done">"Klar"</string>
+    <string name="date_time_set">"Ställ in"</string>
+    <string name="loading">"Läser in …"</string>
+    <string name="noApplications">"Inga appar kan utföra den här åtgärden."</string>
+    <string name="number_picker_decrement_button">"Minska"</string>
+    <string name="number_picker_increment_button">"Öka"</string>
+    <string name="number_picker_increment_scroll_action">"Dra uppåt för att öka och nedåt för att minska."</string>
+    <string name="number_picker_increment_scroll_mode">"%s tryck länge."</string>
+    <string name="ringtone_default">"Standardringsignal"</string>
+    <string name="ringtone_picker_title">"Ringsignaler"</string>
+    <string name="ringtone_silent">"Tyst"</string>
+    <string name="time_picker_decrement_hour_button">"Minska timmar"</string>
+    <string name="time_picker_decrement_minute_button">"Minska minuter"</string>
+    <string name="time_picker_decrement_set_am_button">"Ange fm"</string>
+    <string name="time_picker_dialog_title">"Ange tid"</string>
+    <string name="time_picker_increment_hour_button">"Öka timmar"</string>
+    <string name="time_picker_increment_minute_button">"Öka minuter"</string>
+    <string name="time_picker_increment_set_pm_button">"Ange em"</string>
+    <string name="whichApplication">"Slutför åtgärd genom att använda"</string>
+</resources>

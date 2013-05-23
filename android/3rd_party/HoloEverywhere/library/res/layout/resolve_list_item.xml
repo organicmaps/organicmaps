@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:gravity="center" android:padding="16dp" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/activity_picker_bg">
+	<TextView android:minLines="2" android:layout_width="wrap_content" android:paddingLeft="4dip" android:textAppearance="?android:attr/textAppearance" android:gravity="center" android:paddingRight="4dip" android:layout_height="wrap_content" android:id="@android:id/text2" android:maxLines="2"></TextView>
+	<ImageView android:layout_width="0dp" android:layout_height="0dp" android:id="@+id/icon" android:scaleType="fitCenter"></ImageView>
+	<TextView android:minLines="2" android:layout_width="wrap_content" android:paddingLeft="4dip" android:textAppearance="?android:attr/textAppearanceSmall" android:gravity="center" android:paddingRight="4dip" android:layout_height="wrap_content" android:id="@android:id/text1" android:maxLines="2"></TextView>
+</LinearLayout>

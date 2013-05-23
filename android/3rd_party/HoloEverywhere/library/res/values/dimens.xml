@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+	<dimen name="alert_dialog_title_height">64dip</dimen>
+	<dimen name="alert_dialog_button_bar_height">48dip</dimen>
+	<dimen name="fastscroll_thumb_width">64dp</dimen>
+	<dimen name="fastscroll_thumb_height">52dp</dimen>
+	<dimen name="fastscroll_overlay_size">104dp</dimen>
+	<item name="dialog_min_width_major" type="dimen">65%</item>
+	<item name="dialog_min_width_minor" type="dimen">95%</item>
+	<item name="dialog_fixed_width_major" type="dimen">320dp</item>
+	<item name="dialog_fixed_width_minor" type="dimen">320dp</item>
+	<item name="dialog_fixed_height_major" type="dimen">80%</item>
+	<item name="dialog_fixed_height_minor" type="dimen">100%</item>
+</resources>

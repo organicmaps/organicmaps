@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Sempre"</string>
+    <string name="activity_resolver_use_once">"Només una"</string>
+    <string name="candidates_style">"candidats"</string>
+    <string name="capital_off">"NO"</string>
+    <string name="capital_on">"SÍ"</string>
+    <string name="chooseActivity">"Tria una acció"</string>
+    <string name="date_picker_decrement_day_button">"Fes disminuir el dia"</string>
+    <string name="date_picker_decrement_month_button">"Fes disminuir el mes"</string>
+    <string name="date_picker_decrement_year_button">"Fes disminuir l\'any"</string>
+    <string name="date_picker_dialog_title">"Establiment de data"</string>
+    <string name="date_picker_increment_day_button">"Fes augmentar el dia"</string>
+    <string name="date_picker_increment_month_button">"Fes augmentar el mes"</string>
+    <string name="date_picker_increment_year_button">"Fes augmentar l\'any"</string>
+    <string name="date_time_done">"Fet"</string>
+    <string name="date_time_set">"Defineix"</string>
+    <string name="loading">"S\'està carregant…"</string>
+    <string name="noApplications">"No hi ha cap aplicació que pugui dur a terme aquesta acció."</string>
+    <string name="number_picker_decrement_button">"Redueix"</string>
+    <string name="number_picker_increment_button">"Incrementa"</string>
+    <string name="number_picker_increment_scroll_action">"Fes lliscar el dit cap amunt per incrementar i cap avall per disminuir."</string>
+    <string name="number_picker_increment_scroll_mode">"Mantén premut %s."</string>
+    <string name="ringtone_default">"To predeterminat"</string>
+    <string name="ringtone_picker_title">"Sons de trucada"</string>
+    <string name="ringtone_silent">"Silenci"</string>
+    <string name="time_picker_decrement_hour_button">"Fes disminuir l\'hora"</string>
+    <string name="time_picker_decrement_minute_button">"Fes disminuir el minut"</string>
+    <string name="time_picker_decrement_set_am_button">"Estableix com a a. m."</string>
+    <string name="time_picker_dialog_title">"Estableix l\'hora"</string>
+    <string name="time_picker_increment_hour_button">"Fes augmentar l\'hora"</string>
+    <string name="time_picker_increment_minute_button">"Fes augmentar el minut"</string>
+    <string name="time_picker_increment_set_pm_button">"Estableix com a p. m."</string>
+    <string name="whichApplication">"Completa l\'acció mitjançant"</string>
+</resources>

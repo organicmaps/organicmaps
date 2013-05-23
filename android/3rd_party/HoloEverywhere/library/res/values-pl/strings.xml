@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="activity_resolver_use_always">"Zawsze"</string>
+    <string name="activity_resolver_use_once">"Tylko raz"</string>
+    <string name="candidates_style">"kandydaci"</string>
+    <string name="capital_off">"Wył."</string>
+    <string name="capital_on">"Wł."</string>
+    <string name="chooseActivity">"Wybierz czynność"</string>
+    <string name="date_picker_decrement_day_button">"Zmień dzień na wcześniejszy"</string>
+    <string name="date_picker_decrement_month_button">"Zmień miesiąc na wcześniejszy"</string>
+    <string name="date_picker_decrement_year_button">"Zmień rok na wcześniejszy"</string>
+    <string name="date_picker_dialog_title">"Ustaw datę"</string>
+    <string name="date_picker_increment_day_button">"Zmień dzień na późniejszy"</string>
+    <string name="date_picker_increment_month_button">"Zmień miesiąc na późniejszy"</string>
+    <string name="date_picker_increment_year_button">"Zmień rok na późniejszy"</string>
+    <string name="date_time_done">"Gotowe"</string>
+    <string name="date_time_set">"Ustaw"</string>
+    <string name="loading">"Wczytywanie…"</string>
+    <string name="noApplications">"Żadna z aplikacji nie może wykonać tej czynności."</string>
+    <string name="number_picker_decrement_button">"Zmniejsz"</string>
+    <string name="number_picker_increment_button">"Zwiększ"</string>
+    <string name="number_picker_increment_scroll_action">"Przesuń w górę, by zwiększyć, i w dół, by zmniejszyć."</string>
+    <string name="number_picker_increment_scroll_mode">"%s dotknij i przytrzymaj."</string>
+    <string name="ringtone_default">"Dzwonek domyślny"</string>
+    <string name="ringtone_picker_title">"Dzwonki"</string>
+    <string name="ringtone_silent">"Cichy"</string>
+    <string name="time_picker_decrement_hour_button">"Zmień godzinę na wcześniejszą"</string>
+    <string name="time_picker_decrement_minute_button">"Zmień minutę na wcześniejszą"</string>
+    <string name="time_picker_decrement_set_am_button">"Ustaw AM"</string>
+    <string name="time_picker_dialog_title">"Ustaw godzinę"</string>
+    <string name="time_picker_increment_hour_button">"Zmień godzinę na późniejszą"</string>
+    <string name="time_picker_increment_minute_button">"Zmień minutę na późniejszą"</string>
+    <string name="time_picker_increment_set_pm_button">"Ustaw PM"</string>
+    <string name="whichApplication">"Zakończ czynność przez..."</string>
+</resources>
