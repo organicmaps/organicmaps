@@ -97,7 +97,7 @@ namespace graphics
 
       for (unsigned i = 0; i < res.size(); ++i)
       {
-        m_glyphLayouts.push_back(GlyphLayout(p.m_glyphCache, p.m_fontDesc, m2::PointD(0, 0), res[i], graphics::EPosCenter));
+        m_glyphLayouts.push_back(GlyphLayout(p.m_glyphCache, p.m_fontDesc, m2::PointD(0, 0), res[i], graphics::EPosCenter, p.m_maxPixelWidth));
         m2::RectD r = m_glyphLayouts.back().boundRects().back().GetGlobalRect();
         allElemWidth = max(r.SizeX(), allElemWidth);
         allElemHeight += r.SizeY();
@@ -168,6 +168,7 @@ namespace graphics
       m_maxWordsInRow(4),
       m_minSymInRow(10),
       m_maxSymInRow(20),
+      m_maxPixelWidth(numeric_limits<unsigned>::max()),
       m_doSplit(false),
       m_useAllParts(true),
       m_offset(0, 0)

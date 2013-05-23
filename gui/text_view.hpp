@@ -20,6 +20,7 @@ namespace gui
     map<EState, shared_ptr<graphics::StraightTextElement> > m_elems;
 
     string m_text;
+    unsigned m_maxWidth;
 
     mutable vector<m2::AnyRectD> m_boundRects;
 
@@ -41,6 +42,7 @@ namespace gui
 
     void setText(string const & text);
     string const & text() const;
+    void setMaxWidth(unsigned width);
 
     vector<m2::AnyRectD> const & boundRects() const;
     void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;

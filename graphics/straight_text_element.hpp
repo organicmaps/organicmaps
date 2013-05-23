@@ -20,6 +20,7 @@ namespace graphics
       unsigned m_maxWordsInRow;
       unsigned m_minSymInRow;
       unsigned m_maxSymInRow;
+      unsigned m_maxPixelWidth;
       bool m_doSplit;
       bool m_useAllParts;
       m2::PointD m_offset;

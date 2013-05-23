@@ -64,6 +64,20 @@ namespace graphics
     void recalcPivot();
     void recalcAlongPath();
 
+    inline void addGlyph(GlyphCache * glyphCache,
+                        GlyphKey const & key,
+                        bool isFirst,
+                        strings::UniChar symbol,
+                        m2::RectD & boundRect,
+                        m2::PointD & curPt);
+
+    void initStraigthText(GlyphCache * glyphCache,
+                          FontDesc const & font,
+                          m2::PointD const & pt,
+                          strings::UniString const & visText,
+                          graphics::EPosition pos,
+                          unsigned maxWidth);
+
   public:
 
     GlyphLayout();
@@ -76,6 +90,13 @@ namespace graphics
                 m2::PointD const & pt,
                 strings::UniString const & visText,
                 graphics::EPosition pos);
+
+    GlyphLayout(GlyphCache * glyphCache,
+                FontDesc const & font,
+                m2::PointD const & pt,
+                strings::UniString const & visText,
+                graphics::EPosition pos,
+                unsigned maxWidth);
 
     GlyphLayout(GlyphCache * glyphCache,
                 FontDesc const & font,

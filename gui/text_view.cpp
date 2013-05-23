@@ -8,7 +8,7 @@
 namespace gui
 {
   TextView::TextView(Params const & p)
-    : Element(p)
+    : Element(p), m_maxWidth(numeric_limits<unsigned>::max())
   {
     setText(p.m_text);
 
@@ -50,6 +50,7 @@ namespace gui
     params.m_doSplit = true;
     params.m_delimiters = "\n";
     params.m_useAllParts = true;
+    params.m_maxPixelWidth = m_maxWidth;
 
     elem.reset(new graphics::StraightTextElement(params));
   }
@@ -134,6 +135,12 @@ namespace gui
     }
 
     return m_boundRects;
+  }
+
+  void TextView::setMaxWidth(unsigned width)
+  {
+    m_maxWidth = width;
+    setIsDirtyLayout(true);
   }
 
   bool TextView::onTapStarted(m2::PointD const & pt)

@@ -79,80 +79,24 @@ namespace graphics
       m_textLength(0),
       m_textOffset(0)
   {
-    if (!m_fontDesc.IsValid())
-      return;
+    initStraigthText(glyphCache, fontDesc, pt, visText, pos, numeric_limits<unsigned>::max());
+  }
 
-    size_t const cnt = visText.size();
-    ASSERT_GREATER(cnt, 0, ());
-
-    m_entries.resize(cnt);
-    m_metrics.resize(cnt);
-
-    m2::RectD boundRect;
-    m2::PointD curPt(0, 0);
-
-    bool isFirst = true;
-
-    for (size_t i = 0; i < visText.size(); ++i)
-    {
-      GlyphKey glyphKey(visText[i],
-                        fontDesc.m_size,
-                        //fontDesc.m_isMasked,
-                        false, //< calculating glyph positions using unmasked glyphs.
-                        fontDesc.m_color);
-
-      GlyphMetrics const m = glyphCache->getGlyphMetrics(glyphKey);
-
-      m_textLength += m.m_xAdvance;
-
-      if (isFirst)
-      {
-        boundRect = m2::RectD(m.m_xOffset,
-                             -m.m_yOffset,
-                              m.m_xOffset,
-                             -m.m_yOffset);
-        isFirst = false;
-      }
-      else
-        boundRect.Add(m2::PointD(m.m_xOffset + curPt.x, -m.m_yOffset + curPt.y));
-
-      boundRect.Add(m2::PointD(m.m_xOffset + m.m_width,
-                             -(m.m_yOffset + m.m_height)) + curPt);
-
-      GlyphLayoutElem elem;
-      elem.m_sym = visText[i];
-      elem.m_angle = 0;
-      elem.m_pt = curPt;
-      m_entries[i] = elem;
-      m_metrics[i] = m;
-
-      curPt += m2::PointD(m.m_xAdvance, m.m_yAdvance);
-    }
-
-    boundRect.Inflate(2, 2);
-
-    m2::PointD ptOffs(-boundRect.SizeX() / 2 - boundRect.minX(),
-                      -boundRect.SizeY() / 2 - boundRect.minY());
-
-    // adjusting according to position
-    if (pos & EPosLeft)
-      ptOffs += m2::PointD(-boundRect.SizeX() / 2, 0);
-
-    if (pos & EPosRight)
-      ptOffs += m2::PointD(boundRect.SizeX() / 2, 0);
-
-    if (pos & EPosAbove)
-      ptOffs += m2::PointD(0, -boundRect.SizeY() / 2);
-
-    if (pos & EPosUnder)
-      ptOffs += m2::PointD(0, boundRect.SizeY() / 2);
-
-    for (unsigned i = 0; i < m_entries.size(); ++i)
-      m_entries[i].m_pt += ptOffs;
-
-    boundRect.Offset(ptOffs);
-
-    m_boundRects.push_back(m2::AnyRectD(boundRect));
+  GlyphLayout::GlyphLayout(GlyphCache * glyphCache,
+                          FontDesc const & fontDesc,
+                          m2::PointD const & pt,
+                          strings::UniString const & visText,
+                          graphics::EPosition pos,
+                          unsigned maxWidth)
+    : m_firstVisible(0),
+      m_lastVisible(visText.size()),
+      m_fontDesc(fontDesc),
+      m_pivot(pt),
+      m_offset(0, 0),
+      m_textLength(0),
+      m_textOffset(0)
+  {
+    initStraigthText(glyphCache, fontDesc, pt, visText, pos, maxWidth);
   }
 
   GlyphLayout::GlyphLayout(GlyphLayout const & src,
@@ -222,6 +166,115 @@ namespace graphics
       m_textOffset = m_path.fullLength() - m_textOffset - m_textLength;
 
     recalcAlongPath();
+  }
+
+  void GlyphLayout::addGlyph(GlyphCache * glyphCache,
+                             GlyphKey const & key,
+                             bool isFirst,
+                             strings::UniChar symbol,
+                             m2::RectD & boundRect,
+                             m2::PointD & curPt)
+  {
+    GlyphMetrics const m = glyphCache->getGlyphMetrics(key);
+
+    m_textLength += m.m_xAdvance;
+
+    if (isFirst)
+    {
+      boundRect = m2::RectD(m.m_xOffset,
+                           -m.m_yOffset,
+                            m.m_xOffset,
+                           -m.m_yOffset);
+
+    }
+    else
+      boundRect.Add(m2::PointD(m.m_xOffset + curPt.x, -m.m_yOffset + curPt.y));
+
+    boundRect.Add(m2::PointD(m.m_xOffset + m.m_width,
+                           -(m.m_yOffset + m.m_height)) + curPt);
+
+    GlyphLayoutElem elem;
+    elem.m_sym = symbol;
+    elem.m_angle = 0;
+    elem.m_pt = curPt;
+    m_entries.push_back(elem);
+    m_metrics.push_back(m);
+
+    curPt += m2::PointD(m.m_xAdvance, m.m_yAdvance);
+  }
+
+  void GlyphLayout::initStraigthText(GlyphCache * glyphCache,
+                                     FontDesc const & fontDesc,
+                                     m2::PointD const & pt,
+                                     strings::UniString const & visText,
+                                     graphics::EPosition pos,
+                                     unsigned maxWidth)
+  {
+    if (!m_fontDesc.IsValid())
+      return;
+
+    size_t const cnt = visText.size();
+    ASSERT_GREATER(cnt, 0, ());
+
+    m_entries.reserve(cnt + 2);
+    m_metrics.reserve(cnt + 2);
+
+    m2::RectD boundRect;
+    m2::PointD curPt(0, 0);
+
+    bool isFirst = true;
+
+    strings::UniChar dotSymbol = strings::MakeUniString(".")[0];
+    GlyphKey dotKey(dotSymbol,
+                    fontDesc.m_size,
+                    false,
+                    fontDesc.m_color);
+    maxWidth -= glyphCache->getGlyphMetrics(dotKey).m_xAdvance;
+
+    for (size_t i = 0; i < visText.size(); ++i)
+    {
+      if (m_textLength >= maxWidth)
+      {
+        addGlyph(glyphCache, dotKey, isFirst, dotSymbol, boundRect, curPt);
+        addGlyph(glyphCache, dotKey, isFirst, dotSymbol, boundRect, curPt);
+        addGlyph(glyphCache, dotKey, isFirst, dotSymbol, boundRect, curPt);
+        m_lastVisible = i + 3;
+        break;
+      }
+
+      GlyphKey glyphKey(visText[i],
+                        fontDesc.m_size,
+                        false, //< calculating glyph positions using unmasked glyphs.
+                        fontDesc.m_color);
+
+      addGlyph(glyphCache, glyphKey, isFirst, visText[i], boundRect, curPt);
+      isFirst = false;
+    }
+
+    boundRect.Inflate(2, 2);
+
+    m2::PointD ptOffs(-boundRect.SizeX() / 2 - boundRect.minX(),
+                      -boundRect.SizeY() / 2 - boundRect.minY());
+
+    // adjusting according to position
+    if (pos & EPosLeft)
+      ptOffs += m2::PointD(-boundRect.SizeX() / 2, 0);
+
+    if (pos & EPosRight)
+      ptOffs += m2::PointD(boundRect.SizeX() / 2, 0);
+
+    if (pos & EPosAbove)
+      ptOffs += m2::PointD(0, -boundRect.SizeY() / 2);
+
+    if (pos & EPosUnder)
+      ptOffs += m2::PointD(0, boundRect.SizeY() / 2);
+
+    for (unsigned i = 0; i < m_entries.size(); ++i)
+      m_entries[i].m_pt += ptOffs;
+
+    boundRect.Offset(ptOffs);
+
+    m_boundRects.push_back(m2::AnyRectD(boundRect));
   }
 
   void GlyphLayout::recalcAlongPath()
