@@ -152,20 +152,25 @@ namespace location
       int const rectScale = scales::GetScaleLevel(rect);
       int setScale = -1;
 
-      // correct rect scale if country isn't downloaded
+      // Correct rect scale if country isn't downloaded.
       int const upperScale = scales::GetUpperWorldScale();
       if (rectScale > upperScale && !m_framework->IsCountryLoaded(center))
         setScale = upperScale;
       else
       {
-        // correct rect scale for best user experience
+        // Correct scale if it's too small.
         int const bestScale = scales::GetUpperScale() - 1;
         if (rectScale > bestScale)
           setScale = bestScale;
       }
 
       if (setScale != -1)
-        rect = scales::GetRectForLevel(setScale, center, 1.0);
+      {
+        /// @todo Correct rect scale for best user experience.
+        /// The logic of GetRectForLevel differs from tile scale calculating logic
+        /// (@see initial_level in scales.cpp).
+        rect = scales::GetRectForLevel(setScale + 0.51, center, 1.0);
+      }
 
       m_framework->ShowRectEx(rect);
 

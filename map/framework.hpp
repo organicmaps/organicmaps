@@ -86,11 +86,8 @@ protected:
 
   double m_StartForegroundTime;
 
-  //bool m_hasPendingInvalidate, m_doForceUpdate, m_queryMaxScaleMode, m_drawPlacemark, m_hasPendingShowRectFixed;
   bool m_queryMaxScaleMode, m_drawPlacemark;
 
-  //m2::RectD m_pendingFixedRect;
-  //m2::AnyRectD m_invalidRect;
   m2::PointD m_placemark;
 
   double const m_metresMinWidth;

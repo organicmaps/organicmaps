@@ -270,7 +270,7 @@ double Framework::GetVisualScale() const
 
 int Framework::GetScaleEtalonSize() const
 {
-  return (m_renderPolicy ? m_renderPolicy->ScaleEtalonSize() : 512 + 256);
+  return (m_renderPolicy ? m_renderPolicy->ScaleEtalonSize() : 512);
 }
 
 void Framework::DeleteCountry(TIndex const & index)
@@ -927,21 +927,8 @@ void Framework::ShowRectFixed(m2::AnyRectD const & r)
   m2::AnyRectD rect(r);
   CheckMinGlobalRect(rect);
 
-  /*
-  if (!m_renderPolicy)
-  {
-    m_pendingFixedRect = rect;
-    m_hasPendingShowRectFixed = true;
-    return;
-  }
-  */
-
-  //size_t const sz = m_renderPolicy->ScaleEtalonSize();
-
-  /// @todo Get stored value instead of m_renderPolicy call because of invalid render policy here.
-  int const etalonSize = GetScaleEtalonSize();
-  m2::RectD etalonRect(0, 0, etalonSize, etalonSize);
-  etalonRect.Offset(-etalonSize / 2, -etalonSize);
+  double const halfSize = GetScaleEtalonSize() / 2.0;
+  m2::RectD etalonRect(-halfSize, -halfSize, halfSize, halfSize);
 
   m2::PointD const pxCenter = m_navigator.Screen().PixelRect().Center();
   etalonRect.Offset(pxCenter);
