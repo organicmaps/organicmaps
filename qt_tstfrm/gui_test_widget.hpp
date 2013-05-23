@@ -4,6 +4,8 @@
 #include "../../gui/controller.hpp"
 #include "../../base/strings_bundle.hpp"
 #include <QMouseEvent>
+#include <QObject>
+#include <QTimerEvent>
 
 template <class T, void (T::*)(gui::Controller*)>
 struct init_with_controller_fn_bind
@@ -34,6 +36,9 @@ private:
   shared_ptr<graphics::Screen> m_cacheScreen;
   shared_ptr<StringsBundle> m_stringBundle;
 
+  shared_ptr<QObject> m_timerObj;
+  int m_timerID;
+
 public:
 
   void invalidate()
@@ -43,6 +48,10 @@ public:
 
   void initializeGL()
   {
+    m_timerObj.reset(new QObject());
+    m_timerObj->installEventFilter(this);
+    m_timerID = m_timerObj->startTimer(1000 / 60);
+
     base_t::initializeGL();
 
     m_controller.reset(new gui::Controller());
@@ -112,6 +121,20 @@ public:
     base_t::mouseMoveEvent(e);
 
     m_controller->OnTapMoved(m2::PointU(e->pos().x(), e->pos().y()));
+  }
+
+  bool eventFilter(QObject * obj, QEvent *event)
+  {
+    if (obj == m_timerObj.get() && event->type() == QEvent::Timer)
+    {
+      if (((QTimerEvent *)event)->timerId() == m_timerID)
+      {
+        invalidate();
+        return true;
+      }
+    }
+
+    return false;
   }
 };
 
