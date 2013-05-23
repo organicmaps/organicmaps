@@ -7,6 +7,7 @@
 #include "../anim/value_interpolation.hpp"
 
 #define POPUP_PADDING 23
+#define ANIM_PADDING 8
 
 class BookmarkBalloon::BalloonAnimTask : public anim::Task
 {
@@ -85,8 +86,78 @@ private:
 
 BookmarkBalloon::BookmarkBalloon(Params const & p)
  : Balloon(p),
+   m_isPositionChecked(true),
    m_framework(p.m_framework)
 {
+}
+
+void BookmarkBalloon::setIsPositionChecked(bool isChecked)
+{
+  m_isPositionChecked = isChecked;
+}
+
+bool BookmarkBalloon::isPositionChecked() const
+{
+  return m_isPositionChecked;
+}
+
+bool BookmarkBalloon::checkPosition()
+{
+  if (isPositionChecked())
+    return false;
+
+  setIsPositionChecked(true);
+
+  bool result = false;
+
+  bool needLayout = false;
+  m2::RectD balloonRect = roughBoundRect();
+  if (balloonRect.minX() < 0)
+  {
+    setPosition(graphics::EPosLeft);
+    needLayout = true;
+  }
+  if (m_framework->GetNavigator().Screen().GetWidth() < balloonRect.maxX())
+  {
+    setPosition(graphics::EPosRight);
+    needLayout = true;
+  }
+
+  if (needLayout)
+    layout();
+
+  ScreenBase const & screen =  m_framework->GetNavigator().Screen();
+
+  m2::PointD globalOrg = screen.GetOrg();
+  m2::PointD pixelOrg = screen.GtoP(globalOrg);
+
+  double k = visualScale();
+  balloonRect = roughBoundRect();
+  if (balloonRect.minX() < 0)
+  {
+    pixelOrg.x += (balloonRect.minX() - ANIM_PADDING * k);
+    result = true;
+  }
+  else if (balloonRect.maxX() > screen.GetWidth())
+  {
+    pixelOrg.x += (balloonRect.maxX() - screen.GetWidth() + ANIM_PADDING * k);
+    result = true;
+  }
+
+  if (balloonRect.minY() < 0)
+  {
+    pixelOrg.y += (balloonRect.minY() - ANIM_PADDING * k);
+    result = true;
+  }
+  else if (balloonRect.maxY() > screen.GetHeight())
+  {
+    pixelOrg.y += (balloonRect.maxY() - screen.GetHeight() + ANIM_PADDING * k);
+    result = true;
+  }
+
+  m_framework->GetAnimator().MoveScreen(globalOrg, screen.PtoG(pixelOrg), 0.5);
+
+  return result;
 }
 
 void BookmarkBalloon::update()
@@ -97,6 +168,9 @@ void BookmarkBalloon::update()
     m2::PointD newPivot(m_framework->GtoP(m_glbPivot));
     newPivot.y -= POPUP_PADDING * visualScale();
     setPivot(newPivot);
+
+    if (checkPosition())
+      setIsDirtyLayout(true);
 
     if (m_currentAnimTask)
     {
@@ -153,6 +227,9 @@ void BookmarkBalloon::cancelTask()
 
 void BookmarkBalloon::showAnimated()
 {
+  setPosition(graphics::EPosCenter);
+  setIsPositionChecked(false);
+
   animTaskEnded(0);
   setIsVisible(true);
 }

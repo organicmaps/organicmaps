@@ -14,9 +14,14 @@ private:
   shared_ptr<BalloonAnimTask> m_currentAnimTask;
 
   m2::PointD m_glbPivot;
-  Framework const * m_framework;
+  Framework * m_framework;
   string m_bmkName;
   string m_bmkType;
+  bool m_isPositionChecked;
+
+  void setIsPositionChecked(bool isChecked);
+  bool isPositionChecked() const;
+  bool checkPosition();
 
   void createTask(double startScale, double endScale,
                   double startOffset, double endOffset,
@@ -32,7 +37,7 @@ public:
 
   struct Params : public base_t::Params
   {
-    Framework const * m_framework;
+    Framework * m_framework;
   };
 
   BookmarkBalloon(Params const & p);
