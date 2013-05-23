@@ -589,7 +589,10 @@ void Navigator::SetAngle(double angle)
 
 void Navigator::SetOrg(m2::PointD const & org)
 {
-  m_Screen.SetOrg(org);
+  ScreenBase tmp = m_Screen;
+  tmp.SetOrg(org);
+  if (CheckBorders(tmp))
+    m_Screen = tmp;
 }
 
 void Navigator::Move(double azDir, double factor)
