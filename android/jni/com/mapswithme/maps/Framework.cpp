@@ -66,7 +66,7 @@ namespace android
   void Framework::OnPositionClicked(m2::PointD const & point)
   {
     string name = NativeFramework()->GetStringsBundle().GetString("my_position");
-    ActivatePopup(point, name, IMAGE_PLUS);
+    ActivatePopup(point, name, "", IMAGE_PLUS);
     m_doUpdateBalloonPositionFromLocation = true;
   }
 
@@ -193,6 +193,7 @@ namespace android
 
     m_work.SetUpdatesEnabled(true);
     m_work.EnterForeground();
+    UpdateBalloonSize();
     return true;
   }
 
@@ -226,6 +227,7 @@ namespace android
   void Framework::Resize(int w, int h)
   {
     m_work.OnSize(w, h);
+    UpdateBalloonSize();
   }
 
   void Framework::DrawFrame()
@@ -593,7 +595,7 @@ namespace android
     case ::Framework::BOOKMARK:
       {
         Bookmark const * pBM = m_work.GetBmCategory(bmAndCat.first)->GetBookmark(bmAndCat.second);
-        ActivatePopup(pBM->GetOrg(), pBM->GetName(), IMAGE_ARROW);
+        ActivatePopup(pBM->GetOrg(), pBM->GetName(), string(""), IMAGE_ARROW);
         return;
       }
     case ::Framework::POI:
@@ -621,17 +623,18 @@ namespace android
 
   void Framework::ActivatePopupWithAddressInfo(m2::PointD const & pos, ::Framework::AddressInfo const & addrInfo)
   {
-    string name = addrInfo.FormatPinText();
-    if (name.empty())
+    string name = addrInfo.GetPinName();
+    string type = addrInfo.GetPinType();
+    if (name.empty() && type.empty())
       name = m_work.GetStringsBundle().GetString("dropped_pin");
 
-    ActivatePopup(pos, name, IMAGE_PLUS);
+    ActivatePopup(pos, name, type, IMAGE_PLUS);
 
     m_work.DrawPlacemark(pos);
     m_work.Invalidate();
   }
 
-  void Framework::ActivatePopup(m2::PointD const & pos, string const & name, PopupImageIndexT index)
+  void Framework::ActivatePopup(m2::PointD const & pos, string const & name, string const & type, PopupImageIndexT index)
   {
     // stop updating balloon position
     m_doUpdateBalloonPositionFromLocation = false;
@@ -642,8 +645,8 @@ namespace android
 
     b->setImage(m_images[index]);
     b->setGlbPivot(pos);
-    b->setBookmarkName(name);
-    b->setIsVisible(true);
+    b->setBookmarkCaption(name, type);
+    b->showAnimated();
 
     m_work.Invalidate();
   }
@@ -653,7 +656,7 @@ namespace android
     m_doUpdateBalloonPositionFromLocation = false;
 
     BookmarkBalloon * b = GetBookmarkBalloon();
-    b->setIsVisible(false);
+    b->hide();
 
     m_work.DisablePlacemark();
     m_work.Invalidate();
@@ -698,21 +701,25 @@ namespace android
     bp.m_position = graphics::EPosAbove;
     bp.m_depth = graphics::maxDepth;
     bp.m_pivot = m2::PointD(0, 0);
-    bp.m_imageMarginBottom = 10;
-    bp.m_imageMarginLeft = 0;
-    bp.m_imageMarginRight = 10;
-    bp.m_imageMarginTop = 7;
-    bp.m_textMarginBottom = 10;
-    bp.m_textMarginLeft = 10;
-    bp.m_textMarginRight = 10;
-    bp.m_textMarginTop = 7;
-    bp.m_text = "Bookmark";
+    bp.m_mainText = "Bookmark";
     bp.m_framework = &m_work;
 
     m_bmBaloon.reset(new BookmarkBalloon(bp));
     m_bmBaloon->setIsVisible(false);
     m_bmBaloon->setOnClickListener(bind(&Framework::OnBalloonClick, this, _1));
     m_work.GetGuiController()->AddElement(m_bmBaloon);
+    UpdateBalloonSize();
+  }
+
+  void Framework::UpdateBalloonSize()
+  {
+     if (m_bmBaloon == NULL)
+         return;
+
+     int width = m_work.GetNavigator().Screen().GetWidth();
+     int height = m_work.GetNavigator().Screen().GetHeight();
+     
+     m_bmBaloon->onScreenSize(width, height);
   }
 
   BookmarkBalloon * Framework::GetBookmarkBalloon()
@@ -770,7 +777,7 @@ namespace android
       m2::PointD pt(MercatorBounds::LonToX(request.m_viewportLon),
                     MercatorBounds::LatToY(request.m_viewportLat));
 
-      ActivatePopup(pt, request.m_points.front().m_name, IMAGE_PLUS);
+      ActivatePopup(pt, request.m_points.front().m_name, "", IMAGE_PLUS);
       m_work.DrawPlacemark(pt);
       m_work.Invalidate();
 

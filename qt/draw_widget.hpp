@@ -112,7 +112,7 @@ namespace qt
     typedef graphics::Image::Info ImageT;
     ImageT m_images[2];
     enum PopupImageIndexT { IMAGE_PLUS = 0, IMAGE_ARROW = 1 };
-    void ActivatePopup(m2::PointD const & pivot, string const & name, PopupImageIndexT index);
+    void ActivatePopup(m2::PointD const & pivot, string const & name, string const & type, PopupImageIndexT index);
     void ActivatePopupWithAdressInfo(m2::PointD const & pivot, Framework::AddressInfo const & addrInfo);
     void DiactivatePopup();
 

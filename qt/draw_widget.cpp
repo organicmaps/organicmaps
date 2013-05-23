@@ -71,8 +71,6 @@ namespace qt
       //m_redrawInterval(100),
       m_pScale(0)
   {
-    //m_timer = new QTimer(this);
-    //connect(m_timer, SIGNAL(timeout()), this, SLOT(ScaleTimerElapsed()));
   }
 
   DrawWidget::~DrawWidget()
@@ -276,6 +274,9 @@ namespace qt
 
   void DrawWidget::resizeGL(int w, int h)
   {
+    if (m_bookmarkBalloon)
+      m_bookmarkBalloon->onScreenSize(w, h);
+
     m_framework->OnSize(w, h);
     m_framework->Invalidate();
 
@@ -348,7 +349,7 @@ namespace qt
     case Framework::BOOKMARK:
       {
         const Bookmark * bookmark = m_framework->GetBmCategory(bm.first)->GetBookmark(bm.second);
-        ActivatePopup(bookmark->GetOrg(), bookmark->GetName(), IMAGE_ARROW);
+        ActivatePopup(bookmark->GetOrg(), bookmark->GetName(), "", IMAGE_ARROW);
         return;
       }
 
@@ -372,7 +373,10 @@ namespace qt
     DiactivatePopup();
   }
 
-  void DrawWidget::ActivatePopup(m2::PointD const & pivot, string const & name, PopupImageIndexT index)
+  void DrawWidget::ActivatePopup(m2::PointD const & pivot,
+                                 string const & name,
+                                 string const & type,
+                                 PopupImageIndexT index)
   {
     BookmarkBalloon * balloon = GetBookmarkBalloon();
 
@@ -380,19 +384,20 @@ namespace qt
 
     balloon->setImage(m_images[index]);
     balloon->setGlbPivot(pivot);
-    balloon->setBookmarkName(name);
-    balloon->setIsVisible(true);
+    balloon->setBookmarkCaption(name, type);
+    balloon->showAnimated();
 
     m_framework->Invalidate();
   }
 
   void DrawWidget::ActivatePopupWithAdressInfo(m2::PointD const & pivot, Framework::AddressInfo const & addrInfo)
   {
-    string name = addrInfo.FormatPinText();
-    if (name.empty())
+    string name = addrInfo.GetPinName();
+    string type = addrInfo.GetPinType();
+    if (name.empty() && type.empty())
       name = m_framework->GetStringsBundle().GetString("dropped_pin");
 
-    ActivatePopup(pivot, name, IMAGE_PLUS);
+    ActivatePopup(pivot, name, type, IMAGE_PLUS);
 
     m_framework->DrawPlacemark(pivot);
     m_framework->Invalidate();
@@ -402,7 +407,7 @@ namespace qt
   {
     BookmarkBalloon * balloon = GetBookmarkBalloon();
 
-    balloon->setIsVisible(false);
+    balloon->hide();
     m_framework->DisablePlacemark();
     m_framework->Invalidate();
   }
@@ -414,15 +419,7 @@ namespace qt
     bp.m_position = graphics::EPosAbove;
     bp.m_depth = graphics::maxDepth;
     bp.m_pivot = m2::PointD(0.0, 0.0);
-    bp.m_text = "Bookmark";
-    bp.m_textMarginLeft = 10;
-    bp.m_textMarginTop = 7;
-    bp.m_textMarginRight = 10;
-    bp.m_textMarginBottom = 10;
-    bp.m_imageMarginLeft = 0;
-    bp.m_imageMarginTop = 7;
-    bp.m_imageMarginRight = 10;
-    bp.m_imageMarginBottom = 10;
+    bp.m_mainText = "Bookmark";
     bp.m_framework = m_framework.get();
 
     m_bookmarkBalloon.reset(new BookmarkBalloon(bp));
@@ -432,6 +429,7 @@ namespace qt
     //m_bookmarkBalloon->setOnClickListener(bind(&DrawWidget::OnBalloonClick, this, _1));
 
     m_framework->GetGuiController()->AddElement(m_bookmarkBalloon);
+    m_bookmarkBalloon->onScreenSize(width(), height());
   }
 
   BookmarkBalloon * DrawWidget::GetBookmarkBalloon()
