@@ -11,6 +11,7 @@
 #include "bookmark.hpp"
 #include "bookmark_manager.hpp"
 #include "url_api.hpp"
+#include "mwm_url.hpp"
 
 #include "../defines.hpp"
 
@@ -451,4 +452,18 @@ public:
 public:
   string CodeGe0url(Bookmark const * bmk, bool const addName);
   string CodeGe0url(double const lat, double const lon, double const zoomLevel, string const & name);
+
+private:
+  url_scheme::ParsedMapApi m_ParsedMapApi;
+  void DrawMapApiPoints(shared_ptr<PaintEvent> const & e);
+
+public:
+  void MapApiSetUriAndParse(string const & url);
+  bool GetMapApiPoint(m2::PointD const & pxPoint, url_scheme::ApiPoint & point);
+  vector<url_scheme::ApiPoint> const & GetMapApiPoints() { return m_ParsedMapApi.GetPoints(); }
+  void ClearMapApiPoints() { m_ParsedMapApi.Clear(); }
+  int GetMapApiVersion() const { return m_ParsedMapApi.GetApiversion(); }
+  string const & GetMapApiAppTitle() const { return m_ParsedMapApi.GetAppTitle(); }
+  string const & GetMapApiBackUrl() const { return m_ParsedMapApi.GetGlobalBackUrl(); }
+  m2::RectD GetMapApiRect() const { return m_ParsedMapApi.GetRect(); }
 };

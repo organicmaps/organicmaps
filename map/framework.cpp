@@ -838,6 +838,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
     m_informationDisplay.drawPlacemark(pDrawer, DEFAULT_BOOKMARK_TYPE, m_navigator.GtoP(m_placemark));
 
   m_bmManager.DrawBookmarks(e);
+  DrawMapApiPoints(e);
 
   pScreen->endFrame();
 
@@ -1449,6 +1450,10 @@ bool Framework::SetViewportByURL(string const & url, url_api::Request & request)
       return true;
     }
   }
+  else if (strings::StartsWith(url, "mapswithme://") || strings::StartsWith(url, "mwm://"))
+  {
+    m_ParsedMapApi.SetUriAndParse(url);
+  }
   return false;
 }
 
@@ -1613,4 +1618,59 @@ string Framework::CodeGe0url(double const lat, double const lon, double const zo
   res.resize(len);
 
   return res;
+}
+
+void Framework::DrawMapApiPoints(shared_ptr<PaintEvent> const & e)
+{
+  Navigator & navigator = GetNavigator();
+  InformationDisplay & informationDisplay  = GetInformationDisplay();
+  // get viewport limit rect
+  m2::AnyRectD const & glbRect = navigator.Screen().GlobalRect();
+  Drawer * pDrawer = e->drawer();
+
+  vector<url_scheme::ApiPoint> const & v = GetMapApiPoints();
+
+  for (size_t i = 0; i < v.size(); ++i)
+  {
+    m2::PointD const & org = m2::PointD(MercatorBounds::LonToX(v[i].m_lon),
+                                        MercatorBounds::LatToY(v[i].m_lat));
+    if (glbRect.IsPointInside(org))
+      //ToDo Use Custom Pins
+      //super magic hack!!! Only purple! Only hardcore
+      informationDisplay.drawPlacemark(pDrawer, "placemark-purple", navigator.GtoP(org));
+  }
+}
+
+void Framework::MapApiSetUriAndParse(string const & url)
+{
+  m_ParsedMapApi.SetUriAndParse(url);
+}
+
+//Dummy method. TODO create method that will run all layers without copy/past
+bool Framework::GetMapApiPoint(m2::PointD const & pxPoint, url_scheme::ApiPoint & point)
+{
+  int const sm = TOUCH_PIXEL_RADIUS * GetVisualScale();
+  m2::RectD const rect(PtoG(m2::PointD(pxPoint.x - sm, pxPoint.y - sm)),
+                       PtoG(m2::PointD(pxPoint.x + sm, pxPoint.y + sm)));
+  double minD = numeric_limits<double>::max();
+  bool result = false;
+
+  vector <url_scheme::ApiPoint> const & vect = m_ParsedMapApi.GetPoints();
+
+  for (size_t i = 0; i < vect.size();++i)
+  {
+    m2::PointD const pt = m2::PointD(m2::PointD(MercatorBounds::LonToX(vect[i].m_lon),
+                                                MercatorBounds::LatToY(vect[i].m_lat)));
+    if (rect.IsPointInside(pt))
+    {
+      double const d = rect.Center().SquareLength(pt);
+      if (d < minD)
+      {
+        point = vect[i];
+        minD = d;
+        result = true;
+      }
+    }
+  }
+  return result;
 }

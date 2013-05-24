@@ -3,6 +3,9 @@
 #include "../mwm_url.hpp"
 #include "../../coding/uri.hpp"
 
+#include "../../base/string_format.hpp"
+#include "../../base/pseudo_random.hpp"
+#include "../../base/logging.hpp"
 
 using namespace url_scheme;
 
@@ -18,6 +21,7 @@ UNIT_TEST(MapApiSmoke)
   TEST_EQUAL(api.GetPoints()[0].m_lon, -9.419289, ());
   TEST_EQUAL(api.GetPoints()[0].m_title, "Point Name", ());
   TEST_EQUAL(api.GetPoints()[0].m_url, "", ());
+  TEST_EQUAL(api.GetGlobalBackUrl(), "", ());
 }
 
 UNIT_TEST(MapApiInvalidUrl)
@@ -87,4 +91,185 @@ UNIT_TEST(MapApiPointURLEncoded)
   TEST_EQUAL(api.GetPoints().size(), 1, ());
   TEST_EQUAL(api.GetPoints()[0].m_title, "\xd0\x9c\xd0\xb8\xd0\xbd\xd1\x81\xd0\xba", ());
   TEST_EQUAL(api.GetPoints()[0].m_url, "http://map?ll=1,2&n=test", ());
+}
+
+UNIT_TEST(GlobalBackUrl)
+{
+  {
+    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName&backurl=ge0://"));
+    TEST_EQUAL(api.GetGlobalBackUrl(), "ge0://", ());
+  }
+  {
+    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName&backurl=ge0%3A%2F%2F"));
+    TEST_EQUAL(api.GetGlobalBackUrl(), "ge0://", ());
+  }
+  {
+    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName&backurl=http://mapswithme.com"));
+    TEST_EQUAL(api.GetGlobalBackUrl(), "http://mapswithme.com", ());
+  }
+  {
+    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName&backurl=someapp://%D0%9C%D0%BE%D0%B1%D0%B8%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%9A%D0%B0%D1%80%D1%82%D1%8B"));
+    TEST_EQUAL(api.GetGlobalBackUrl(), "someapp://\xd0\x9c\xd0\xbe\xd0\xb1\xd0\xb8\xd0\xbb\xd1\x8c\xd0\xbd\xd1\x8b\xd0\xb5 \xd0\x9a\xd0\xb0\xd1\x80\xd1\x82\xd1\x8b", ());
+  }
+  {
+    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName"));
+    TEST_EQUAL(api.GetGlobalBackUrl(), "", ());
+  }
+  {
+    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName&backurl=%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%3A%2F%2F%D0%BE%D1%82%D0%BA%D1%80%D0%BE%D0%B9%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D1%83"));
+    TEST_EQUAL(api.GetGlobalBackUrl(), "приложение://откройСсылку", ());
+  }
+  {
+    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName&backurl=%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%3A%2F%2F%D0%BE%D1%82%D0%BA%D1%80%D0%BE%D0%B9%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D1%83"));
+    TEST_EQUAL(api.GetGlobalBackUrl(), "приложение://откройСсылку", ());
+  }
+  {
+    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName&backurl=%E6%88%91%E6%84%9Bmapswithme"));
+    TEST_EQUAL(api.GetGlobalBackUrl(), "我愛mapswithme", ());
+  }
+}
+
+UNIT_TEST(VersionTest)
+{
+  {
+    ParsedMapApi api(Uri("mwm://map?ll=1,2&v=1&n=PointName"));
+    TEST_EQUAL(api.GetApiversion(), 1, ());
+  }
+  {
+    ParsedMapApi api(Uri("mwm://map?ll=1,2&v=kotik&n=PointName"));
+    TEST_EQUAL(api.GetApiversion(), 0, ());
+  }
+  {
+    ParsedMapApi api(Uri("mwm://map?ll=1,2&v=APacanyVoobsheKotjata&n=PointName"));
+    TEST_EQUAL(api.GetApiversion(), 0, ());
+  }
+  {
+    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName"));
+    TEST_EQUAL(api.GetApiversion(), 0, ());
+  }
+  {
+    ParsedMapApi api(Uri("mwm://map?v=666&ll=1,2&n=PointName"));
+    TEST_EQUAL(api.GetApiversion(), 666, ());
+  }
+}
+
+UNIT_TEST(AppNameTest)
+{
+  {
+    ParsedMapApi api(Uri("mwm://map?ll=1,2&v=1&n=PointName&appname=Google"));
+    TEST_EQUAL(api.GetAppTitle(), "Google", ());
+  }
+  {
+    ParsedMapApi api(Uri("mwm://map?ll=1,2&v=1&n=PointName&appname=%D0%AF%D0%BD%D0%B4%D0%B5%D0%BA%D1%81"));
+    TEST_EQUAL(api.GetAppTitle(), "Яндекс", ());
+  }
+  {
+    ParsedMapApi api(Uri("mwm://map?ll=1,2&v=1&n=PointName"));
+    TEST_EQUAL(api.GetAppTitle(), "", ());
+  }
+}
+
+UNIT_TEST(RectTest)
+{
+  {
+    ParsedMapApi api(Uri("mwm://map?ll=0,0"));
+    m2::RectD rect = api.GetRect();
+    TEST_EQUAL(rect.maxX(), 0, ());
+    TEST_EQUAL(rect.maxY(), 0, ());
+    TEST_EQUAL(rect.minX(), 0, ());
+    TEST_EQUAL(rect.minX(), 0, ());
+  }
+  {
+    ParsedMapApi api(Uri("mwm://map?ll=0,0&ll=1,1&ll=2,2&ll=3,3&ll=4,4&ll=5,5&"));
+    m2::RectD rect = api.GetRect();
+    TEST_EQUAL(rect.maxX(), 5, ());
+    TEST_EQUAL(rect.maxY(), 5, ());
+    TEST_EQUAL(rect.minX(), 0, ());
+    TEST_EQUAL(rect.minX(), 0, ());
+  }
+  {
+    ParsedMapApi api(Uri("mwm://map?ll=-90,90&ll=90,-90"));
+    m2::RectD rect = api.GetRect();
+    TEST_EQUAL(rect.maxX(), 90, ());
+    TEST_EQUAL(rect.maxY(), 90, ());
+    TEST_EQUAL(rect.minX(), -90, ());
+    TEST_EQUAL(rect.minX(), -90, ());
+  }
+  {
+    ParsedMapApi api(Uri("mwm://map?ll=180,180&ll=0,0&ll=-180,-180"));
+    m2::RectD rect = api.GetRect();
+    TEST_EQUAL(rect.maxX(), 0, ());
+    TEST_EQUAL(rect.maxY(), 0, ());
+    TEST_EQUAL(rect.minX(), 0, ());
+    TEST_EQUAL(rect.minX(), 0, ());
+  }
+  {
+    ParsedMapApi api(Uri("mwm://"));
+    m2::RectD rect = api.GetRect();
+    TEST(!rect.IsValid(), ());
+  }
+}
+
+namespace
+{
+string generatePartOfUrl(url_scheme::ApiPoint const & point)
+{
+  stringstream stream;
+  stream << "&ll=" << strings::ToString(point.m_lat)  << "," << strings::ToString(point.m_lon)
+         << "&n=" << point.m_title
+         << "&u=" << point.m_title;
+  return stream.str();
+}
+
+string randomString(size_t size, size_t seed)
+{
+  string result(size, '0');
+  LCG32 random(seed);
+  for (size_t i = 0; i < size; ++i)
+    result[i] = 'a' + random.Generate() % 26;
+  return result;
+}
+
+void generateRandomTest(size_t numberOfPoints, size_t stringLength)
+{
+  vector <url_scheme::ApiPoint> vect(numberOfPoints);
+  for (size_t i = 0; i < numberOfPoints; ++i)
+  {
+    url_scheme::ApiPoint point;
+    LCG32 random(i);
+    point.m_lat = random.Generate() % 90;
+    point.m_lat *= random.Generate() % 2 == 0 ? 1 : -1;
+    point.m_lon = random.Generate() % 180;
+    point.m_lon *= random.Generate() % 2 == 0 ? 1 : -1;
+    point.m_title = randomString(stringLength, i);
+    point.m_url = randomString(stringLength, i);
+    vect[i] = point;
+  }
+  string result = "mapswithme://map?v=1";
+  for (size_t i = 0; i < vect.size(); ++i)
+    result += generatePartOfUrl(vect[i]);
+  Uri uri(result);
+  ParsedMapApi api(uri);
+  vector <url_scheme::ApiPoint> const & points = api.GetPoints();
+  TEST_EQUAL(points.size(), vect.size(), ());
+  for (size_t i = 0; i < vect.size();++i)
+  {
+    TEST_EQUAL(points[i].m_lat, vect[i].m_lat, ());
+    TEST_EQUAL(points[i].m_lon, vect[i].m_lon, ());
+    TEST_EQUAL(points[i].m_title, vect[i].m_title, ());
+    TEST_EQUAL(points[i].m_url, vect[i].m_url, ());
+  }
+  TEST_EQUAL(api.GetApiversion(), 1, ());
+}
+
+}
+
+UNIT_TEST(100FullEnteriesRandomTest)
+{
+  generateRandomTest(100, 10);
+}
+
+UNIT_TEST(StressTestRandomTest)
+{
+  generateRandomTest(10000, 100);
 }

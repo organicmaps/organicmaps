@@ -21,12 +21,21 @@ bool IsInvalidApiPoint(ApiPoint const & p) { return p.m_lat == INVALID_LAT_VALUE
 
 }  // unnames namespace
 
-ParsedMapApi::ParsedMapApi(Uri const & uri)
+ParsedMapApi::ParsedMapApi():m_id(0)
+{}
+
+ParsedMapApi::ParsedMapApi(Uri const & uri):m_id(0)
 {
   if (!Parse(uri))
   {
     m_points.clear();
   }
+}
+
+void ParsedMapApi::SetUriAndParse(string const & url)
+{
+  Clear();
+  Parse(url_scheme::Uri(url));
 }
 
 bool ParsedMapApi::IsValid() const
@@ -48,6 +57,15 @@ bool ParsedMapApi::Parse(Uri const & uri)
 
 void ParsedMapApi::AddKeyValue(string const & key, string const & value)
 {
+  if (key == "backurl")
+    m_globalBackUrl = value;
+  if (key == "v")
+  {
+    if (!strings::to_int(value, m_id))
+      m_id = 0;
+  }
+  if (key == "appname")
+    m_appTitle = value;
   if (key == "ll")
   {
     m_points.push_back(ApiPoint());
@@ -82,6 +100,7 @@ void ParsedMapApi::AddKeyValue(string const & key, string const & value)
 
     m_points.back().m_lat = lat;
     m_points.back().m_lon = lon;
+    m_showRect = m2::Add(m_showRect, m2::PointD(lat, lon));
   }
   else if (key == "n")
   {
@@ -97,4 +116,13 @@ void ParsedMapApi::AddKeyValue(string const & key, string const & value)
     else
       LOG(LWARNING, ("Map API: Point url with no point. 'll' should come first!"));
   }
+}
+
+void ParsedMapApi::Clear()
+{
+  m_points.clear();
+  m_globalBackUrl.clear();
+  m_appTitle.clear();
+  m_id = 0;
+  m_showRect = m2::RectD();
 }
