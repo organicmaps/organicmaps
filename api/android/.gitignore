@@ -1,7 +1,6 @@
 bin/
 gen/
 .settings/
-resbuilder/
 
 .classpath
 .cproject
