@@ -1,3 +1,13 @@
+mapswithme (2.3.4) unstable; urgency=low
+
+  * New upstream dataset
+  * Support for High-DPI screens
+  * Updated stylesheet
+  * Rendering engine performance improvement
+  * Better on-screen fonts
+
+ -- Darafei A. Praliaskouski <komzpa@mapswith.me>  Sat, 25 May 2013 11:48:41 +0300
+
 mapswithme (2.3~alpha2) unstable; urgency=low
 
   * Repackaged as /opt

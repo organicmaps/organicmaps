@@ -13,7 +13,8 @@
 	dh $@ 
 override_dh_auto_configure:
 	qmake -r CONFIG+=no_downloader CONFIG+=production omim.pro 
-	dh_auto_configure
-.PHONY: override_dh_auto_configure
 
 override_dh_auto_test:
+
+.PHONY: override_dh_auto_configure
+
