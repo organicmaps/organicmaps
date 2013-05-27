@@ -133,7 +133,6 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
   dp.m_storageType = graphics::ESmallStorage;
   dp.m_textureType = graphics::ESmallTexture;
   dp.m_isSynchronized = false;
-  dp.m_fastSolidPath = true;
   dp.m_renderContext = p.m_primaryRC;
   dp.m_density = Density();
 

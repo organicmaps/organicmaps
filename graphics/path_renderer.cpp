@@ -12,14 +12,12 @@ namespace graphics
 {
   PathRenderer::Params::Params()
     : m_drawPathes(true),
-      m_fastSolidPath(true),
       m_useNormals(true)
   {}
 
   PathRenderer::PathRenderer(Params const & p)
     : base_t(p),
       m_drawPathes(p.m_drawPathes),
-      m_fastSolidPath(p.m_fastSolidPath),
       m_useNormals(p.m_useNormals)
   {}
 
@@ -49,7 +47,7 @@ namespace graphics
     if (!pen->m_info.m_icon.m_name.empty())
       drawSymbolPath(pts, ptsCount, offset, pen, depth);
     else
-      if (m_fastSolidPath && pen->m_isSolid)
+      if (pen->m_isSolid)
         drawSolidPath(pts, ptsCount, offset, pen, depth);
       else
         drawStipplePath(pts, ptsCount, offset, pen, depth);

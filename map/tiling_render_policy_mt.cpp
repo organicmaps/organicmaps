@@ -132,7 +132,6 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
   dp.m_storageType = ESmallStorage;
   dp.m_textureType = ESmallTexture;
   dp.m_isSynchronized = false;
-  dp.m_fastSolidPath = true;
   dp.m_renderContext = p.m_primaryRC;
   dp.m_density = Density();
 

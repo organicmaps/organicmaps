@@ -314,7 +314,6 @@ void Ruler::cache()
   cs->setDisplayList(m_dl.get());
 
   cs->applySharpStates();
-  cs->setUseNormals(true);
 
   double k = visualScale();
 
@@ -325,12 +324,11 @@ void Ruler::cache()
 
   cs->drawPath(
       path, ARRAY_SIZE(path), 0,
-        cs->mapInfo(graphics::Pen::Info(graphics::Color(0, 0, 0, 0x99), 4 * k, 0, 0, 0)),
+        cs->mapInfo(graphics::Pen::Info(graphics::Color(0, 0, 0, 0x99), 4 * k, 0, 0, 0, 0, 0, graphics::Pen::Info::ERoundJoin, graphics::Pen::Info::EButtCap)),
       depth());
 
   cs->setDisplayList(0);
 
-  cs->setUseNormals(false);
   cs->applyStates();
 
   cs->endFrame();
