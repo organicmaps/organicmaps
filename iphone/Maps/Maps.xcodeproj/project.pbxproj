@@ -1910,6 +1910,7 @@
 		FAF804311417E3510024E8C1 /* za@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "za@2x.png"; path = "../../data/flags/za@2x.png"; sourceTree = SOURCE_ROOT; };
 		FAF804321417E3510024E8C1 /* zm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zm@2x.png"; path = "../../data/flags/zm@2x.png"; sourceTree = SOURCE_ROOT; };
 		FAF804331417E3510024E8C1 /* zw@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zw@2x.png"; path = "../../data/flags/zw@2x.png"; sourceTree = SOURCE_ROOT; };
+		FAF8E2EC1752E0F100D41090 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FAF8FF3E1417D7E50024E8C1 /* ad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ad.png; path = ../../data/flags/ad.png; sourceTree = SOURCE_ROOT; };
 		FAF8FF3F1417D7E50024E8C1 /* ae.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ae.png; path = ../../data/flags/ae.png; sourceTree = SOURCE_ROOT; };
 		FAF8FF401417D7E50024E8C1 /* af.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = af.png; path = ../../data/flags/af.png; sourceTree = SOURCE_ROOT; };
@@ -3135,6 +3136,7 @@
 				ja,
 				ko,
 				nl,
+				pl,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			projectDirPath = "";
@@ -4545,6 +4547,7 @@
 				FA5940D3171C964D0045C9BB /* ja */,
 				FA5940D4171C964D0045C9BB /* ko */,
 				FA5940D5171C964D0045C9BB /* nl */,
+				FAF8E2EC1752E0F100D41090 /* pl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
