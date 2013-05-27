@@ -115,9 +115,9 @@ namespace graphics
       if (res == GL_FRAMEBUFFER_UNSUPPORTED_MWM)
         LOG(LINFO, ("unsupported combination of attached target formats. could be possibly skipped. id=", m_id));
       else if (res == GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_MWM)
-        LOG(LINFO, ("incomplete attachement. id=", m_id));
+        LOG(LINFO, ("incomplete attachment. id=", m_id));
       else if (res == GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_MWM)
-        LOG(LINFO, ("incomplete missing attachement. id=", m_id));
+        LOG(LINFO, ("incomplete missing attachment. id=", m_id));
       else if (res == GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_MWM)
       {
         LOG(LINFO, ("incomplete dimensions. id=", m_id));

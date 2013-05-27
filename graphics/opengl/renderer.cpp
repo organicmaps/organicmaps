@@ -119,13 +119,13 @@ namespace graphics
 
     void Renderer::DiscardFramebuffer::perform()
     {
-      GLenum attachements[2];
-      int numAttachements = 0;
+      GLenum attachments[2];
+      int numAttachments = 0;
       if (m_doDiscardColor)
-        attachements[numAttachements++] = GL_COLOR_ATTACHMENT0_MWM;
+        attachments[numAttachments++] = GL_COLOR_ATTACHMENT0_MWM;
       if (m_doDiscardDepth)
-        attachements[numAttachements++] = GL_DEPTH_ATTACHMENT_MWM;
-      glDiscardFramebufferFn(GL_FRAMEBUFFER_MWM, numAttachements, attachements);
+        attachments[numAttachments++] = GL_DEPTH_ATTACHMENT_MWM;
+      glDiscardFramebufferFn(GL_FRAMEBUFFER_MWM, numAttachments, attachments);
     }
 
     void Renderer::discardFramebuffer(bool doDiscardColor, bool doDiscardDepth)

@@ -124,7 +124,7 @@ namespace graphics
     void (OPENGL_CALLING_CONVENTION * glGenFramebuffersFn) (GLsizei n, GLuint *framebuffers);
     void (OPENGL_CALLING_CONVENTION * glDeleteFramebuffersFn) (GLsizei n, const GLuint *framebuffers);
     GLenum (OPENGL_CALLING_CONVENTION * glCheckFramebufferStatusFn) (GLenum target);
-    void (OPENGL_CALLING_CONVENTION * glDiscardFramebufferFn)(GLenum target, GLsizei numAttachments, GLenum const * attachements) = 0;
+    void (OPENGL_CALLING_CONVENTION * glDiscardFramebufferFn)(GLenum target, GLsizei numAttachments, GLenum const * attachments) = 0;
 
     void (OPENGL_CALLING_CONVENTION * glGenRenderbuffersFn) (GLsizei n, GLuint *renderbuffers);
     void (OPENGL_CALLING_CONVENTION * glDeleteRenderbuffersFn) (GLsizei n, const GLuint *renderbuffers);
