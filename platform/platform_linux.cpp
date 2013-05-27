@@ -51,7 +51,8 @@ Platform::Platform()
   else
   {
     // developer builds with symlink
-    if (IsFileExistsByFullPath(path + "../../data/eula.html")){
+    if (IsFileExistsByFullPath(path + "../../data/eula.html"))
+    {
       m_resourcesDir = path + "../../data";
       m_writableDir = m_resourcesDir;
     }
@@ -61,17 +62,15 @@ Platform::Platform()
       m_resourcesDir = path + "../../../omim/data";
       m_writableDir = m_resourcesDir;
     }
-    // installed version - /opt/MapsWithMe
-    else if (IsFileExistsByFullPath("/opt/MapsWithMe/share/eula.html"))
-      m_resourcesDir = "/opt/MapsWithMe/share";
+    // installed version - /opt/MapsWithMe and unpacked packages
+    else if (IsFileExistsByFullPath(path + "../share/eula.html"))
+      m_resourcesDir = path + "../share";
     // installed version
     else if (IsFileExistsByFullPath("/usr/share/MapsWithMe/eula.html"))
       m_resourcesDir = "/usr/share/MapsWithMe";
     // all-nearby installs
     else if (IsFileExistsByFullPath(path + "/eula.html"))
-    {
       m_resourcesDir = path;
-    }
   }
   m_resourcesDir += '/';
   m_settingsDir += '/';
@@ -108,7 +107,7 @@ string Platform::UniqueClientId() const
   string content;
   FileReader(machineFile).ReadAsString(content);
 
-  return content.substr(0,32);
+  return content.substr(0, 32);
 }
 
 void Platform::RunOnGuiThread(TFunctor const & fn)
