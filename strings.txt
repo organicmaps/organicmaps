@@ -2039,7 +2039,7 @@
     fr = Voir ma punaise sur la carte. Ouvrir %1$@ ou %2$@
     uk = Моя мітка на карті. Іди %1$@ або %2$@
     es = Ve mi alfiler en mapa. Abre %1$@ o %2$@
-    pl = Spójrz na mój znacznik w MapsWithMe. Link: %1$@ lub %2$@
+    pl = Mój znacznik w MapsWithMe %1$@ i %2$@
   [my_position_share_sms]
     en = See where I am now. Open the link: %1$@ or %2$@
     tags = ios,android
