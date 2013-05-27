@@ -397,7 +397,7 @@
     ko = WiFi 연결이 감지되지 않았습니다. %@를 다운로드하기 위해 휴대 자료(GPRS, EDGE 혹은 3G)를 사용하시겠습니까?
     nl = Geen WiFi verbinding gedetecteerd. Wilt u mobiele data (GPRS, EDGE of 3G) gebruiken om %@ te downloaden?
     ru = Нет WiFi соединения. Вы хотите скачать %@ через сотового оператора (GPRS, EDGE или 3G)?
-    uk = Відсутнє WiFi з'єднання. Ви бажаєте завантажити % @ через стільникового оператора (GPRS, EDGE або 3G)?
+    uk = Відсутнє WiFi з'єднання. Ви бажаєте завантажити %@ через стільникового оператора (GPRS, EDGE або 3G)?
     zh-Hant = 未發現WiFi訊號!您想使用其他的網路連線方式(GPRS, EDGE 或 3G)來下載嗎 %@？
     pl = Nie wykryto połączenia z siecią WiFi. Czy chciałbyś skorzystać z trybu sieci danych (GPRS, EDGE lub 3G), aby pobrać %@?
   [ok]
