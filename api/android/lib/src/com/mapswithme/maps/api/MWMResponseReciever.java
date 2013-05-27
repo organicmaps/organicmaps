@@ -16,8 +16,8 @@ public final class MWMResponseReciever extends BroadcastReceiver
   @Override
   final public void onReceive(Context context, Intent intent)
   {
-    if (   MapsWithMeApi.getCallbackAction(context).equals(intent.getAction())
-        && sResponseHandler != null)
+    if (sResponseHandler != null 
+        && MapsWithMeApi.getCallbackAction(context).equals(intent.getAction()))
     {
       sResponseHandler.onResponse(context, MWMResponse.extractFromIntent(context, intent));
       // clean up handler to avoid context-leak

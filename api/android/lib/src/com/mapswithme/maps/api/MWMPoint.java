@@ -66,12 +66,7 @@ public final class MWMPoint implements Serializable
       return false;
     if (Double.doubleToLongBits(mLon) != Double.doubleToLongBits(other.mLon))
       return false;
-    if (mName == null)
-    {
-      if (other.mName != null)
-        return false;
-    } else if (!mName.equals(other.mName))
-      return false;
-    return true;
+    
+    return mName == null ? other.mName == null : mName.equals(other.mName);
   }
 }
