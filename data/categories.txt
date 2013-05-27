@@ -646,14 +646,14 @@ en:3toilet|wc
 ru:3туалет
 uk:3туалет
 de:WC|3Toilette
-fr:wc|3toilette
-it:wc|3toilette
+fr:WC|3toilette
+it:WC|3toilette
 es:3servicios sanitario|3lavabo|inodoro|baño
 ko:1화장실
 ja:1トイレ
 cs:3záchody|wc|toalety
 nl:3toilet|wc
-zh:1廁所|2洗手間|WC
+zh:1廁所|2洗手間|wc
 pl:3toaleta|wc|ubikacja|wychodek
 
 amenity-university
