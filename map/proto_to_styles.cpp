@@ -19,7 +19,7 @@ namespace
 
   double ConvertWidth(double w, double scale)
   {
-    return max(w, 1.0) * scale;
+    return max(w * scale, 1.0);
   }
 }
 
