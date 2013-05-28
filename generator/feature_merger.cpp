@@ -1,6 +1,7 @@
 #include "feature_merger.hpp"
 
 #include "../indexer/feature.hpp"
+#include "../indexer/feature_visibility.hpp"
 #include "../indexer/point_to_int64.hpp"
 #include "../indexer/classificator.hpp"
 
@@ -301,8 +302,39 @@ MergedFeatureBuilder1 * FeatureTypesProcessor::operator() (FeatureBuilder1 const
 
   p->ForEachChangeTypes(do_change_types(*this));
 
+  // do preprocessing after types correction
+  feature::PreprocessForWorldMap(*p);
+
   // zero all additional params for world merged features (names, ranks, ...)
   p->ZeroParams();
 
   return p;
+}
+
+
+namespace feature
+{
+
+class IsInvisibleFn
+{
+  int m_upperScale;
+public:
+  IsInvisibleFn(int scale) : m_upperScale(scale) {}
+  bool operator() (uint32_t type) const
+  {
+    int const startScale = feature::GetDrawableScaleRange(type).first;
+    // Actually it should not be equal to -1, but leave for safety reasons.
+    return (startScale == -1 || startScale > m_upperScale);
+  }
+};
+
+void PreprocessForWorldMap(FeatureBuilder1 & fb)
+{
+  int const upperScale = scales::GetUpperWorldScale();
+
+  fb.RemoveTypesIf(IsInvisibleFn(upperScale));
+
+  fb.RemoveNameIfInvisible(0, upperScale);
+}
+
 }

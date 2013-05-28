@@ -37,13 +37,13 @@ namespace feature
 
   int GetMinDrawableScale(FeatureBase const & f);
 
-  /// @return [-1, -1] if no any text exists
+  /// @return [-1, -1] if range is not drawable
   //@{
   /// @name Get scale range when feature is visible.
   pair<int, int> GetDrawableScaleRange(uint32_t type);
   pair<int, int> GetDrawableScaleRange(TypesHolder const & types);
 
-  /// @name Get scale range when feature's text is visible.
+  /// @name Get scale range when feature's text or symbol is visible.
   enum
   {
     RULE_TEXT = 1, RULE_SYMBOL = 2

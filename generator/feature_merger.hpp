@@ -104,7 +104,7 @@ class FeatureTypesProcessor
   };
 
 public:
-  /// For example: highway-motorway_link => highway-motorway.
+  /// For example: highway-motorway_link-* => highway-motorway.
   void SetMappingTypes(char const * arr1[2], char const * arr2[2]);
 
   /// Leave original types, for example: boundary-administrative-2.
@@ -115,3 +115,8 @@ public:
 
   MergedFeatureBuilder1 * operator() (FeatureBuilder1 const & fb);
 };
+
+namespace feature
+{
+  void PreprocessForWorldMap(FeatureBuilder1 & fb);
+}

@@ -51,6 +51,15 @@ public:
   void DoCorrectForType(feature::EGeomType type);
   bool DoCorrect();
 
+  /// Clear name if it's not visible in scale range [minS, maxS].
+  void RemoveNameIfInvisible(int minS = 0, int maxS = 1000);
+
+  template <class FnT> void RemoveTypesIf(FnT fn)
+  {
+    m_Params.m_Types.erase(remove_if(m_Params.m_Types.begin(), m_Params.m_Types.end(), fn),
+                           m_Params.m_Types.end());
+  }
+
   typedef vector<char> buffer_t;
 
   /// @name Serialization.

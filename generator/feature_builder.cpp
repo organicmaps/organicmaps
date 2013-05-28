@@ -210,14 +210,20 @@ bool FeatureBuilder1::PreSerialize()
   }
 
   // Clear name for features with invisible texts.
-  int64_t dummy;
-  if (!m_Params.name.IsEmpty() && !GetCoastCell(dummy) &&
-      (GetDrawableScaleRangeForRules(GetFeatureBase(), RULE_TEXT).first == -1))
-  {
-    m_Params.name.Clear();
-  }
+  RemoveNameIfInvisible();
 
   return true;
+}
+
+void FeatureBuilder1::RemoveNameIfInvisible(int minS, int maxS)
+{
+  int64_t dummy;
+  if (!m_Params.name.IsEmpty() && !GetCoastCell(dummy))
+  {
+    pair<int, int> const range = GetDrawableScaleRangeForRules(GetFeatureBase(), RULE_TEXT);
+    if (range.first > maxS || range.second < minS)
+      m_Params.name.Clear();
+  }
 }
 
 bool FeatureBuilder1::operator == (FeatureBuilder1 const & fb) const
