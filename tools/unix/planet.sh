@@ -125,8 +125,8 @@ else
   fi
 fi
 
-# need link to generated coastlines file
-ln -s -f $INTCOASTSDIR/WorldCoasts.mwm.tmp $INTDIR/WorldCoasts.mwm.tmp
+# make a working copy of generated coastlines file
+cp $INTCOASTSDIR/WorldCoasts.mwm.tmp $INTDIR/WorldCoasts.mwm.tmp
 
 
 if [[ $1 == "--generate" || $1 == "--full" ]]; then
@@ -174,4 +174,11 @@ if [[ $1 == "--generate" || $1 == "--continue" || $1 == "--full" ]]; then
   # Generate search index for World
   $GENERATOR_TOOL -data_path=$DATA_PATH -generate_search_index -output=World
 
+  # Update countries list
+  $GENERATOR_TOOL -generate_update
+
+  # Update external resources
+  pushd $DATA_PATH
+    $MY_PATH/external_resources.sh > external_resources.txt
+  popd
 fi
