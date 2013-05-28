@@ -1,15 +1,92 @@
 #import "PlacePageVC.h"
 #import "BalloonView.h"
 #import "SelectSetVC.h"
-#import "SelectColorVC.h"
 #import "EditDescriptionVC.h"
 #import "Statistics.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 
+@interface PinPickerView : UIView
+
+- (id)initWithImage:(UIImage *)image;
+
++ (CGFloat)viewWidth;
++ (CGFloat)viewHeight;
+
+@end
+
+@interface PinPickerView ()
+@property (nonatomic, retain) UILabel * titleLabel;
+@end
+
+@implementation PinPickerView
+
+CGFloat const pWidth = 200;
+CGFloat const pHeight = 36;
+CGFloat const pMargin = 10;
+
++ (CGFloat)viewWidth
+{
+  return pWidth;
+}
+
++ (CGFloat)viewHeight
+{
+  return pHeight;
+}
+
+- (id)initWithImage:(UIImage *)image
+{
+  self = [super initWithFrame:CGRectMake(0.0, 0.0, pWidth, pHeight)];
+	if (self)
+	{
+		CGFloat y = (self.bounds.size.height - image.size.height) / 2;
+    UIImageView * imageView = [[UIImageView alloc] initWithFrame:
+                              CGRectMake(pMargin,
+                                         y,
+                                         image.size.width,
+                                         image.size.height)];
+    imageView.image = image;
+    [self addSubview:imageView];
+    [imageView release];
+	}
+	return self;
+}
+
+// Enable accessibility for this view.
+- (BOOL)isAccessibilityElement
+{
+	return YES;
+}
+
+// Return a string that describes this view.
+- (NSString *)accessibilityLabel
+{
+	return self.titleLabel.text;
+}
+
+@end
+
 #define TEXTFIELD_TAG 999
 
+static NSString  * const g_colors [] =
+{
+  @"placemark-red",
+  @"placemark-blue",
+  @"placemark-brown",
+  @"placemark-green",
+  @"placemark-orange",
+  @"placemark-pink",
+  @"placemark-purple"
+};
+
+@interface PlacePageVC()
+@property (nonatomic, retain) UIView * viewWithPicker;
+@end
+
 @implementation PlacePageVC
+
+@synthesize pinsArray, viewWithPicker;
 
 - (id) initWithBalloonView:(BalloonView *)view
 {
@@ -19,8 +96,27 @@
     m_balloon = view;
     self.title = m_balloon.title;
     m_balloon.isCurrentPosition = NO;
+
+    NSMutableArray * viewArray = [[NSMutableArray alloc] init];
+
+    for (size_t i = 0; i < ARRAY_SIZE(g_colors); ++i)
+    {
+
+      PinPickerView * pinView = [[PinPickerView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@.png", g_colors[i]]]];
+		  [viewArray addObject:pinView];
+      [pinView release];
+    }
+		self.pinsArray = viewArray;
+    [viewArray release];
   }
   return self;
+}
+
+- (void) dealloc
+{
+  [pinsArray release];
+  [viewWithPicker release];
+  [super dealloc];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -43,6 +139,8 @@
     CGSize size = CGSizeMake(320, 480);
     self.contentSizeForViewInPopover = size;
   }
+
+  [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged)  name:UIDeviceOrientationDidChangeNotification  object:nil];
 
   [super viewWillAppear:animated];
 }
@@ -74,6 +172,7 @@
       [m_balloon clear];
     }
   }
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
   [super viewWillDisappear:animated];
 }
 
@@ -234,10 +333,7 @@
 
     case 2:
       {
-        m_hideNavBar = NO;
-        SelectColorVC * vc = [[SelectColorVC alloc] initWithBalloonView:m_balloon];
-        [self pushToNavigationControllerAndSetControllerToPopoverSize:vc];
-        [vc release];
+        [self createAndShowColorPicker];
       }
       break;
     }
@@ -382,6 +478,153 @@
   if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     [vc setContentSizeForViewInPopover:[self contentSizeForViewInPopover]];
   [self.navigationController pushViewController:vc animated:YES];
+}
+
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
+{
+	return [PinPickerView viewWidth];
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
+{
+	return [PinPickerView viewHeight];
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+	return [pinsArray count];
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+	return 1;
+}
+
+
+#pragma mark - UIPickerViewDelegate
+
+// tell the picker which view to use for a given component and row, we have an array of views to show
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row
+          forComponent:(NSInteger)component reusingView:(UIView *)view
+{
+	return [pinsArray objectAtIndex:row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+  selectedRow = row;
+}
+
+-(void)pickerDoneClicked
+{
+  if (![m_balloon.color isEqualToString:g_colors[selectedRow]])
+  {
+    m_balloon.pinImage.image = [UIImage imageNamed:g_colors[selectedRow]];
+    [[Statistics instance] logEvent:@"Select Bookmark color"];
+    m_balloon.color = g_colors[selectedRow];
+    [self.tableView reloadData];
+  }
+  [self pickerCancelClicked];
+}
+
+-(void)pickerCancelClicked
+{
+  self.tableView.scrollEnabled = YES;
+  [viewWithPicker removeFromSuperview];
+  self.viewWithPicker = nil;
+}
+
+-(void)createAndShowColorPicker
+{
+  double height, width;
+  CGRect rect;
+  [self getScreenHeight:height width:width rect:rect];
+
+  viewWithPicker = [[UIView alloc] initWithFrame:rect];
+  UIPickerView * picker = [[UIPickerView alloc] initWithFrame:CGRectMake(0.0, 0.0, 0.0, 0.0)];
+  picker.delegate = self;
+  picker.showsSelectionIndicator = YES;
+  CGRect r = picker.frame;
+  [picker setCenter:CGPointMake(width / 2, height - r.size.height / 2)];
+  [viewWithPicker addSubview:picker];
+
+  UIToolbar * pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, picker.frame.origin.y - 44, width, 44)];
+  pickerToolbar.barStyle = UIBarStyleBlackOpaque;
+  //[pickerToolbar sizeToFit];
+
+  NSMutableArray *barItems = [[NSMutableArray alloc] init];
+  UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(pickerDoneClicked)];
+  UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(pickerCancelClicked)];
+  [barItems addObject:doneBtn];
+  [barItems addObject:cancelBtn];
+
+  [pickerToolbar setItems:barItems animated:YES];
+  [barItems release];
+
+
+  [picker release];
+  [viewWithPicker addSubview:pickerToolbar];
+  [pickerToolbar release];
+  if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
+  {
+    UIWindow* window = [UIApplication sharedApplication].keyWindow;
+    if (!window)
+      window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+    [[[window subviews] objectAtIndex:0] addSubview:viewWithPicker];
+  }
+  else
+  {
+    [self.view.superview addSubview:viewWithPicker];
+  }
+
+  self.tableView.scrollEnabled = NO;
+
+  selectedRow = 0;
+}
+
+-(void) orientationChanged
+{
+  if (viewWithPicker)
+  {
+    double height, width;
+    CGRect rect;
+    [self getScreenHeight:height width:width rect:rect];
+    [viewWithPicker setFrame:rect];
+
+    NSArray *subviews = [viewWithPicker subviews];
+
+    UIPickerView * p = nil;
+    UIToolbar * t = nil;
+    for (UIView *subview in subviews)
+    {
+      if ([subview isKindOfClass:[UIPickerView class]])
+        p = (UIPickerView *)subview;
+      else if ([subview isKindOfClass:[UIToolbar class]])
+        t = (UIToolbar *)subview;
+    }
+    [p setFrame:CGRectMake(0, height - p.frame.size.height, width, p.frame.size.height)];
+    [t setFrame:CGRectMake(0, p.frame.origin.y - 44, width, 44)];
+  }
+}
+
+-(void)getScreenHeight:(double &)height width:(double &)width rect:(CGRect &)rect
+{
+  if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
+  {
+    rect = [UIScreen mainScreen].bounds;
+    height = self.view.window.frame.size.height;
+    width  = self.view.window.frame.size.width;
+    if(!UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+      std::swap(height, width);
+
+  }
+  else
+  {
+    height = self.view.superview.frame.size.height;
+    width = self.view.superview.frame.size.width;
+    rect = self.view.superview.frame;
+  }
 }
 
 @end

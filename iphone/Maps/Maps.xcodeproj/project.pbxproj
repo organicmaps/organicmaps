@@ -192,8 +192,6 @@
 		FA765AB41737BC6D00279CFF /* 44x58-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FA765AB01737BC6D00279CFF /* 44x58-lite.png */; };
 		FA765AB51737BC6D00279CFF /* 64-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FA765AB11737BC6D00279CFF /* 64-lite.png */; };
 		FA765AB61737BC6D00279CFF /* 320-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FA765AB21737BC6D00279CFF /* 320-lite.png */; };
-		FA77353C15615E2300DB495F /* SelectColorVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA77353B15615E2300DB495F /* SelectColorVC.mm */; };
-		FA77353D15615E2300DB495F /* SelectColorVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA77353B15615E2300DB495F /* SelectColorVC.mm */; };
 		FA81AE3314D061BF00A0D70D /* SearchCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA81AE3214D061BF00A0D70D /* SearchCell.mm */; };
 		FA85F633145DDDC20090E1A0 /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA85F632145DDDC20090E1A0 /* packed_polygons.bin */; };
 		FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA87151A12B1518F00592DAF /* SystemConfiguration.framework */; };
@@ -1529,8 +1527,6 @@
 		FA765AB01737BC6D00279CFF /* 44x58-lite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "44x58-lite.png"; sourceTree = "<group>"; };
 		FA765AB11737BC6D00279CFF /* 64-lite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "64-lite.png"; sourceTree = "<group>"; };
 		FA765AB21737BC6D00279CFF /* 320-lite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "320-lite.png"; sourceTree = "<group>"; };
-		FA77353A15615E2300DB495F /* SelectColorVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectColorVC.h; path = Bookmarks/SelectColorVC.h; sourceTree = SOURCE_ROOT; };
-		FA77353B15615E2300DB495F /* SelectColorVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SelectColorVC.mm; path = Bookmarks/SelectColorVC.mm; sourceTree = SOURCE_ROOT; };
 		FA81AE3114D061BF00A0D70D /* SearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
 		FA81AE3214D061BF00A0D70D /* SearchCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchCell.mm; sourceTree = "<group>"; };
 		FA85F632145DDDC20090E1A0 /* packed_polygons.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = packed_polygons.bin; path = ../../data/packed_polygons.bin; sourceTree = SOURCE_ROOT; };
@@ -2434,8 +2430,6 @@
 				F785EB3E16386FC4003A38A8 /* BookmarkCell.h */,
 				F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */,
 				FA36B8171540466A004560CC /* Images */,
-				FA77353A15615E2300DB495F /* SelectColorVC.h */,
-				FA77353B15615E2300DB495F /* SelectColorVC.mm */,
 				FAA614B6155F16950031C345 /* AddSetVC.h */,
 				FAA614B7155F16950031C345 /* AddSetVC.mm */,
 				FA054610155C465E001F4E37 /* SelectSetVC.h */,
@@ -4485,7 +4479,6 @@
 				FAF457E715597D4600DCCC49 /* Framework.cpp in Sources */,
 				FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */,
 				FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */,
-				FA77353C15615E2300DB495F /* SelectColorVC.mm in Sources */,
 				FAAEA7D5161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
 				F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 				CB252D6F16FF82C9001E41E9 /* Statistics.m in Sources */,
@@ -4521,7 +4514,6 @@
 				FAF457E815597D4600DCCC49 /* Framework.cpp in Sources */,
 				FA054613155C465E001F4E37 /* SelectSetVC.mm in Sources */,
 				FAA614B9155F16950031C345 /* AddSetVC.mm in Sources */,
-				FA77353D15615E2300DB495F /* SelectColorVC.mm in Sources */,
 				FAAEA7D6161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
 				F785EB4116386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 				CB252D7016FF82C9001E41E9 /* Statistics.m in Sources */,
