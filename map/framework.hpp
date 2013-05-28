@@ -466,4 +466,5 @@ public:
   string const & GetMapApiAppTitle() const { return m_ParsedMapApi.GetAppTitle(); }
   string const & GetMapApiBackUrl() const { return m_ParsedMapApi.GetGlobalBackUrl(); }
   m2::RectD GetMapApiRect() const { return m_ParsedMapApi.GetRect(); }
+  bool IsValidMapApi() const { return m_ParsedMapApi.IsValid(); }
 };

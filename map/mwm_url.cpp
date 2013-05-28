@@ -32,10 +32,10 @@ ParsedMapApi::ParsedMapApi(Uri const & uri):m_id(0)
   }
 }
 
-void ParsedMapApi::SetUriAndParse(string const & url)
+bool ParsedMapApi::SetUriAndParse(string const & url)
 {
   Clear();
-  Parse(url_scheme::Uri(url));
+  return Parse(url_scheme::Uri(url));
 }
 
 bool ParsedMapApi::IsValid() const

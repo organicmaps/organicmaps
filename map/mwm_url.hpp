@@ -20,7 +20,7 @@ class ParsedMapApi
 public:
   ParsedMapApi(Uri const & uri);
   ParsedMapApi();
-  void SetUriAndParse(string const & url);
+  bool SetUriAndParse(string const & url);
   bool IsValid() const;
   vector<ApiPoint> const & GetPoints() const { return m_points; }
   string const & GetGlobalBackUrl() const { return m_globalBackUrl; }
