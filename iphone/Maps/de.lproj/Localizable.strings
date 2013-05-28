@@ -145,7 +145,7 @@
 "which_measurement_system" = "Welches Messsystem ziehen Sie vor?";
 
 /* Location services are disabled by user alert - message */
-"location_is_disabled_long_text" = "Ortungsdienste sind inactiv. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.";
+"location_is_disabled_long_text" = "Ortungsdienste sind inaktiv. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.";
 
 /* Location Services are not available on the device alert - message */
 "device_doesnot_support_location_services" = "Ihr Gerät unterstützt keine Ortungsdienste";

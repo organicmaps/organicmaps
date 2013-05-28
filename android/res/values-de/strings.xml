@@ -89,7 +89,7 @@
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Welches Messsystem ziehen Sie vor?</string>
 	<!-- Location services are disabled by user alert - message -->
-	<string name="location_is_disabled_long_text">Ortungsdienste sind inactiv. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.</string>
+	<string name="location_is_disabled_long_text">Ortungsdienste sind inaktiv. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.</string>
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Ihr Gerät unterstützt keine Ortungsdienste</string>
 	<!-- View and button titles for accessibility -->

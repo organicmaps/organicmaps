@@ -612,7 +612,7 @@
     en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
     comment = Location services are disabled by user alert - message
     cs = Aktuálně máš všechny možnosti pro určování polohy vypnuté. Prosím, povol je v Nastavení.
-    de = Ortungsdienste sind inactiv. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.
+    de = Ortungsdienste sind inaktiv. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.
     es = No se puede acceder a los servicios de localización. Por favor, activelo en los ajustes.
     fr = Tous les services de repérage sont désactivés. Veuillez s'il vous plaît la mettre en prise pour la commode utilisation du programme.
     ja = このデバイス、またはアプリケーションの位置情報サービスが全て無効になっています。設定画面から有効にして下さい。
