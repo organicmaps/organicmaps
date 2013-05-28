@@ -7,6 +7,52 @@
         android:layout_height="fill_parent" />
 
     <LinearLayout
+        android:id="@+id/title_bar"
+        android:layout_height="@dimen/abs__action_bar_default_height"
+        android:layout_width="match_parent"
+        android:layout_gravity="top|center_horizontal"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/abs__ab_solid_light_holo">
+
+        <LinearLayout
+            android:id="@+id/up_block"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:addStatesFromChildren="true"
+            android:background="@drawable/abs__item_background_holo_light"
+            android:clickable="true">
+
+            <ImageView
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:src="@drawable/abs__ic_ab_back_holo_light"/>
+
+            <ImageView
+                android:id="@+id/app_icon"
+                android:layout_height="@dimen/abs__action_bar_default_height"
+                android:layout_width="@dimen/abs__action_bar_default_height"
+                android:paddingTop="@dimen/abs__action_bar_icon_vertical_padding"
+                android:paddingBottom="@dimen/abs__action_bar_icon_vertical_padding"
+                android:src="@drawable/ic_launcher"
+                android:scaleType="fitStart"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/app_title"
+            style="@style/Holo.TextAppearance.Medium.Light"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="left|center_vertical"
+            android:text="Что-то там про булки и еду"
+            android:singleLine="true"/>
+    </LinearLayout>
+
+
+    <LinearLayout
         android:id="@+id/navigation_buttons_container"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"

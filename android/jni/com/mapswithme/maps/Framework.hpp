@@ -33,6 +33,7 @@ namespace android
     typedef function<void (BookmarkAndCategory)> TOnBalloonClickListener;
     TOnBalloonClickListener m_balloonClickListener;
 
+
     double m_x1;
     double m_y1;
     double m_x2;
@@ -40,6 +41,12 @@ namespace android
     int m_mask;
 
     bool m_doLoadState;
+    bool m_apiPointActive;
+    url_scheme::ApiPoint m_activePoint;
+    //Api point
+    typedef function<void (bool, double, double, string, string)> TOnApiPointActivatedListener;
+    TOnApiPointActivatedListener m_apiPointActivatedListener;
+
 
     /// @name Single click processing parameters.
     //@{
@@ -143,6 +150,9 @@ namespace android
     void RemoveBalloonClickListener();
     void DeactivatePopup();
 
+    void AddApiPointActivatedListener(TOnApiPointActivatedListener const & l);
+    void RemoveApiPointActivatedListener();
+
     BookmarkAndCategory AddBookmark(size_t category, Bookmark & bm);
     void ReplaceBookmark(BookmarkAndCategory const & ind, Bookmark & bm);
     size_t ChangeBookmarkCategory(BookmarkAndCategory const & ind, size_t newCat);
@@ -152,6 +162,8 @@ namespace android
     bool IsDownloadingActive();
 
     bool SetViewportByUrl(string const & ulr);
+
+    void MapApiSetUriAndParse(string const & uri);
   };
 }
 

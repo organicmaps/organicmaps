@@ -590,32 +590,50 @@ namespace android
     m2::PointD                pxPivot;
     BookmarkAndCategory      bmAndCat;
 
-    switch (m_work.GetBookmarkOrPoi(pt, pxPivot, addrInfo, bmAndCat))
+    m_apiPointActive = NativeFramework()->GetMapApiPoint(pt, m_activePoint);
+    if (m_apiPointActivatedListener)
+      m_apiPointActivatedListener(m_apiPointActive, m_activePoint.m_lat,
+                                                    m_activePoint.m_lon,
+                                                    m_activePoint.m_title,
+                                                    m_activePoint.m_url);
+
+
+    if (m_apiPointActive)
     {
-    case ::Framework::BOOKMARK:
+      m2::PointD pivot(MercatorBounds::LonToX(m_activePoint.m_lon),
+                       MercatorBounds::LatToY(m_activePoint.m_lat));
+      ActivatePopup(pivot, m_activePoint.m_title, IMAGE_ARROW);
+      return;
+    }
+    else
+    {
+      switch (m_work.GetBookmarkOrPoi(pt, pxPivot, addrInfo, bmAndCat))
       {
-        Bookmark const * pBM = m_work.GetBmCategory(bmAndCat.first)->GetBookmark(bmAndCat.second);
-        ActivatePopup(pBM->GetOrg(), pBM->GetName(), "", IMAGE_ARROW);
-        return;
-      }
-    case ::Framework::POI:
-      if (!GetBookmarkBalloon()->isVisible())
-      {
-        ActivatePopupWithAddressInfo(m_work.PtoG(pxPivot), addrInfo);
+      case ::Framework::BOOKMARK:
+        {
+          Bookmark const * pBM = m_work.GetBmCategory(bmAndCat.first)->GetBookmark(bmAndCat.second);
+          ActivatePopup(pBM->GetOrg(), pBM->GetName(), IMAGE_ARROW);
+          return;
+        }
+      case ::Framework::POI:
+        if (!GetBookmarkBalloon()->isVisible())
+        {
+          ActivatePopupWithAddressInfo(m_work.PtoG(pxPivot), addrInfo);
+          if (ms == LONG_TOUCH_MS)
+            m_wasLongClick = true;
+          return;
+        }
+        /* no break*/
+      default:
         if (ms == LONG_TOUCH_MS)
+        {
+          m_work.GetAddressInfo(pt, addrInfo);
+          ActivatePopupWithAddressInfo(m_work.PtoG(pt), addrInfo);
           m_wasLongClick = true;
-        return;
+          return;
+        }
+        /* no break*/
       }
-      /* no break*/
-    default:
-      if (ms == LONG_TOUCH_MS)
-      {
-        m_work.GetAddressInfo(pt, addrInfo);
-        ActivatePopupWithAddressInfo(m_work.PtoG(pt), addrInfo);
-        m_wasLongClick = true;
-        return;
-      }
-      /* no break*/
     }
 
     DeactivatePopup();
@@ -785,6 +803,23 @@ namespace android
     }
     return false;
   }
+
+  void Framework::AddApiPointActivatedListener(TOnApiPointActivatedListener const & l)
+  {
+    m_apiPointActivatedListener = l;
+  }
+
+  void Framework::RemoveApiPointActivatedListener()
+  {
+    if (m_apiPointActivatedListener)
+      m_apiPointActivatedListener.clear();
+  }
+
+  void Framework::MapApiSetUriAndParse(string const & uri)
+  {
+    NativeFramework()->MapApiSetUriAndParse(uri);
+    m_doLoadState = false;
+  }
 }
 
 //============ GLUE CODE for com.mapswithme.maps.Framework class =============//
@@ -798,11 +833,50 @@ namespace android
 
 extern "C"
 {
+
+  void CallOnApiPointActivatedListener(shared_ptr<jobject> obj,  bool activated, double lat, double lon, string name, string id)
+  {
+    jmethodID methodID = jni::GetJavaMethodID(jni::GetEnv(), *obj.get(),
+                                             "onApiPointActivated",
+                                             "(ZDDLjava/lang/String;Ljava/lang/String;)V");
+    if (methodID != 0)
+    {
+      jstring j_name = jni::ToJavaString(jni::GetEnv(), name);
+      jstring j_id   = jni::ToJavaString(jni::GetEnv(), id);
+      jni::GetEnv()->CallVoidMethod(*obj.get(), methodID, activated, lat, lon, j_name, j_id);
+    }
+  }
+
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetNameAndAddress4Point(JNIEnv * env, jclass clazz, jdouble pixelX, jdouble pixelY)
   {
     m2::PointD point = m2::PointD(pixelX, pixelY);
     ::Framework * nativeFramework = g_framework->NativeFramework();
     return jni::ToJavaString(env, nativeFramework->GetNameAndAddressAtPoint(point));
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativePassApiUrl(JNIEnv * env, jclass clazz, jstring url)
+  {
+    g_framework->MapApiSetUriAndParse(jni::ToNativeString(url));
+  }
+
+
+   JNIEXPORT void JNICALL
+   Java_com_mapswithme_maps_Framework_nativeSetApiPointActivatedListener(JNIEnv * env, jobject thiz, jobject l)
+   {
+     g_framework->AddApiPointActivatedListener(bind(&CallOnApiPointActivatedListener, jni::make_global_ref(l), _1, _2, _3, _4, _5));
+   }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeRemoveApiPointActivatedListener(JNIEnv * env, jobject thiz)
+  {
+    g_framework->RemoveApiPointActivatedListener();
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeClearApiPoints(JNIEnv * env, jobject thiz)
+  {
+    g_framework->NativeFramework()->ClearMapApiPoints();
   }
 }

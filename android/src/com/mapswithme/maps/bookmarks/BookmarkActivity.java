@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,9 +20,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.api.MWMRequest;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
+import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.Utils;
 
@@ -46,6 +49,9 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   private ImageView mChooserImage;
   private EditText mDescr;
   private Icon mIcon = null;
+
+  // API
+  private Button mOpenWithAppBtn;
 
   @Override
   public void onCreate(Bundle savedInstanceState)
@@ -137,7 +143,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   {
     View colorChooser = findViewById(R.id.pin_color_chooser);
     mChooserImage = (ImageView)colorChooser.findViewById(R.id.row_color_image);
-
+    mOpenWithAppBtn = (Button) findViewById(R.id.btn_get_this_point);
     mIcons = mManager.getIcons();
 
     colorChooser.setOnClickListener(new OnClickListener()
@@ -230,6 +236,41 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       }
     })
     .create();
+  }
+
+  @Override
+  public void setViewFromState(SuppotedState state)
+  {
+    // TODO we need to differ if activity opened for api point
+    final MWMRequest request = MWMRequest.getCurrentRequest();
+    if (state == SuppotedState.API_REQUEST
+        && request.hasPendingIntent()
+        && request.hasPoint())
+    {
+      // TODO add to resources
+      final String pattern = "Open with %s";
+      final String text = String.format(pattern, request.getCallerName(this));
+      final Drawable icon = request.getIcon(this);
+      final int iconSize = (int) getResources().getDimension(R.dimen.icon_size);
+      icon.setBounds(0, 0, iconSize, iconSize);
+      mOpenWithAppBtn.setCompoundDrawables(icon, null, null, null);
+      mOpenWithAppBtn.setText(text);
+      mOpenWithAppBtn.setOnClickListener(new OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          if (MWMRequest.getCurrentRequest().sendResponse(getApplicationContext(), true))
+          {
+            finish();
+            getMwmApplication().getAppStateManager().transitionTo(SuppotedState.DEFAULT_MAP);
+          }
+        }
+      });
+      mOpenWithAppBtn.setVisibility(View.VISIBLE);
+    }
+    else
+      mOpenWithAppBtn.setVisibility(View.GONE);
   }
 
   @Override

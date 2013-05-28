@@ -9,9 +9,10 @@ import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.state.MapsWithMeBaseActivity;
 import com.mapswithme.util.Statistics;
 
-public abstract class AbstractBookmarkActivity extends Activity
+public abstract class AbstractBookmarkActivity extends MapsWithMeBaseActivity
 {
   protected BookmarkManager mManager;
 

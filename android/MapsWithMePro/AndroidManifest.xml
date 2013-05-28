@@ -64,12 +64,11 @@
                      android:host="ge0.me"/>
            </intent-filter>
 
-<!--
-           <intent-filter><action android:name="android.intent.action.VIEW"></action>
-               <category android:name="android.intent.category.DEFAULT"></category>
-               <data android:scheme="mapswithme"/>
+           <!-- API CALL -->
+           <intent-filter>
+               <action android:name="com.mapswithme.maps.api.request" />
+               <category android:name="android.intent.category.DEFAULT" />
            </intent-filter>
--->
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

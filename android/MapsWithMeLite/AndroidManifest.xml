@@ -57,22 +57,17 @@
                     android:host="ge0.me"/>
           </intent-filter>
 
- <!--
-           <intent-filter><action android:name="android.intent.action.VIEW"></action>
-              <category android:name="android.intent.category.DEFAULT"></category>
-              <data android:scheme="ge0"></data>
-           </intent-filter>
+          <!-- API CALL -->
+          <intent-filter>
+              <action android:name="com.mapswithme.maps.api.request" />
+              <category android:name="android.intent.category.DEFAULT" />
+          </intent-filter>
 
-           <intent-filter><action android:name="android.intent.action.VIEW"></action>
-               <category android:name="android.intent.category.DEFAULT"></category>
-               <data android:scheme="mapswithme"></data>
-           </intent-filter>
--->
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+          <intent-filter>
+              <action android:name="android.intent.action.MAIN" />
+              <category android:name="android.intent.category.LAUNCHER" />
+          </intent-filter>
         </activity>
 
         <activity android:name="com.mapswithme.maps.MWMActivity"

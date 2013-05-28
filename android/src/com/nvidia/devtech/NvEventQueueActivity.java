@@ -20,9 +20,10 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.state.MapsWithMeBaseActivity;
 import com.mapswithme.util.Statistics;
 
-public abstract class NvEventQueueActivity extends Activity
+public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity
 {
   private static final String TAG = "NvEventQueueActivity";
   private static final int EGL_RENDERABLE_TYPE = 0x3040;

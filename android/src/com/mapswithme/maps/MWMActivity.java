@@ -24,10 +24,15 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mapswithme.maps.Framework.OnApiPointActivatedListener;
+import com.mapswithme.maps.api.MWMRequest;
 import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
@@ -35,11 +40,12 @@ import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.promo.ActivationSettings;
 import com.mapswithme.maps.promo.PromocodeActivationDialog;
 import com.mapswithme.maps.settings.UnitLocale;
+import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
 import com.nvidia.devtech.NvEventQueueActivity;
 
-public class MWMActivity extends NvEventQueueActivity implements LocationService.Listener
+public class MWMActivity extends NvEventQueueActivity implements LocationService.Listener, OnApiPointActivatedListener
 {
   public static final String EXTRA_TASK = "map_task";
   
@@ -55,6 +61,11 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private AlertDialog m_storageDisconnectedDialog = null;
 
   private ImageButton mMyPositionButton;
+  // for API
+  private View mTitleBar;
+  private ImageView mAppIcon;
+  private TextView mAppTitle;
+
 
   //showDialog(int, Bundle) available only form API 8
   private String mProDialogMessage;
@@ -112,7 +123,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   public void checkShouldResumeLocationService()
   {
     ImageButton v = mMyPositionButton;
-    //TODO Why it could be null???
     if (v != null)
     {
       final LocationState state = getLocationState();
@@ -553,6 +563,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     //set up view
     mMyPositionButton = (ImageButton) findViewById(R.id.map_button_myposition);
+    mTitleBar = findViewById(R.id.title_bar);
+    mAppIcon = (ImageView) findViewById(R.id.app_icon);
+    mAppTitle = (TextView) findViewById(R.id.app_title);
 
     alignZoomButtons();
 
@@ -770,6 +783,48 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   }
 
   @Override
+  public void setViewFromState(SuppotedState state)
+  {
+    if (state == SuppotedState.API_REQUEST && MWMRequest.hasRequest())
+    {
+      // show title
+      mTitleBar.findViewById(R.id.up_block).setOnClickListener(new OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          onBackPressed();
+        }
+      });
+
+      final MWMRequest request = MWMRequest.getCurrentRequest();
+      if (request.hasTitle())
+        mAppTitle.setText(request.getTitle());
+      else
+        mAppTitle.setText(request.getCallerName(this));
+
+      mAppIcon.setImageDrawable(request.getIcon(this));
+      mTitleBar.setVisibility(View.VISIBLE);
+      Framework.setOnApiPointActivatedListener(this);
+     }
+    else
+    {
+      // hide title
+      mTitleBar.setVisibility(View.GONE);
+      Framework.removeOnApiPointActivatedListener();
+    }
+  }
+
+  @Override
+  public void onBackPressed()
+  {
+    if (getState() == SuppotedState.API_REQUEST)
+      getMwmApplication().getAppStateManager().transitionTo(SuppotedState.DEFAULT_MAP);
+
+    super.onBackPressed();
+  }
+
+  @Override
   public boolean onCreateOptionsMenu(Menu menu)
   {
     return ContextMenu.onCreateOptionsMenu(this, menu);
@@ -981,6 +1036,24 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     {
       return target.setViewPortByUrl(mUrl);
     }
+  }
+
+  @Override
+  public void onApiPointActivated(final boolean activated, double lat, double lon, final String name, String id)
+  {
+    MWMRequest request = MWMRequest.getCurrentRequest();
+    request.setHasPoint(activated);
+    if (activated)
+      request.setPointData(lat, lon, name, id);
+    runOnUiThread(new Runnable()
+    {
+
+      @Override
+      public void run()
+      {
+        Utils.toastShortcut(MWMActivity.this, name + " status: " + activated);
+      }
+    });
   }
 
   private native void nativeStorageConnected();

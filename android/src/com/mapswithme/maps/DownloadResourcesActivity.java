@@ -1,12 +1,5 @@
 package com.mapswithme.maps;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -24,12 +17,23 @@ import android.widget.Toast;
 import com.mapswithme.maps.MWMActivity.MapTask;
 import com.mapswithme.maps.MWMActivity.OpenUrlTask;
 import com.mapswithme.maps.MapStorage.Index;
+import com.mapswithme.maps.api.Const;
+import com.mapswithme.maps.api.MWMRequest;
 import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.maps.state.MapsWithMeBaseActivity;
+import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Statistics;
 import com.mapswithme.util.Utils;
 
-public class DownloadResourcesActivity extends Activity implements LocationService.Listener, MapStorage.Listener
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+public class DownloadResourcesActivity extends MapsWithMeBaseActivity
+                                       implements LocationService.Listener, MapStorage.Listener
 {
   private static final String TAG = "DownloadResourcesActivity";
 
@@ -59,9 +63,8 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   private IntentProcessor[] mIntentProcessors = {
       new GeoIntentProcessor(),
       new HttpGe0IntentProcessor(),
-      new Ge0IntentProcessor()
-      // uncomment code below when add appropriate schemes support
-      //new MapsWithMeIntentProcessor()
+      new Ge0IntentProcessor(),
+      new MapsWithMeIntentProcessor()
   };
 
   private void setDownloadMessage(int bytesToDownload)
@@ -665,20 +668,35 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     }
   }
 
-  @SuppressWarnings("unused")
+  /**
+   * Use this to invoke API task.
+   */
   private class MapsWithMeIntentProcessor implements IntentProcessor
   {
     @Override
     public boolean isIntentSupported(Intent intent)
     {
-      return "mapswithme".equals(intent.getScheme());
+      return Const.ACTION_MWM_REQUEST.equals(intent.getAction());
     }
 
     @Override
     public boolean processIntent(Intent intent)
     {
-      // TODO add mapswithme parsing
-      return false;
+      //TODO get url and pass to core asynchronously
+      final String apiUrl = intent.getStringExtra(Const.EXTRA_URL);
+      if (apiUrl != null)
+      {
+        // We do not want to wait until parsing finish
+        new Thread() {
+          @Override
+          public void run() { Framework.passApiUrl(apiUrl); };
+        }.start();
+      }
+      final MWMRequest request = MWMRequest.extractFromIntent(intent, getApplicationContext());
+      MWMRequest.setCurrentRequest(request);
+      getMwmApplication().getAppStateManager().transitionTo(SuppotedState.API_REQUEST);
+
+      return true;
     }
   }
 

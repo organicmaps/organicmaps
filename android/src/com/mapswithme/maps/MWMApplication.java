@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.maps.state.AppStateManager;
+import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.Utils;
 
 
@@ -27,6 +29,8 @@ public class MWMApplication extends android.app.Application implements MapStorag
   private LocationState m_locationState = null;
   private MapStorage m_storage = null;
   private int m_slotID = 0;
+
+  private AppStateManager mAppStateManager = new AppStateManager();
 
   private boolean m_isProVersion = false;
 
@@ -195,6 +199,16 @@ public class MWMApplication extends android.app.Application implements MapStorag
   public String getDefaultProVersionURL()
   {
     return m_defaultProURL;
+  }
+
+  public AppStateManager getAppStateManager()
+  {
+    return mAppStateManager;
+  }
+
+  public SuppotedState getAppState()
+  {
+    return mAppStateManager.getCurrentState();
   }
 
   static
