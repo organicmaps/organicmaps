@@ -1459,6 +1459,7 @@ bool Framework::SetViewportByURL(string const & url, url_api::Request & request)
       m2::RectD view(MercatorBounds::LonToX(z.minX()), MercatorBounds::LatToY(z.minY()),
                      MercatorBounds::LonToX(z.maxX()), MercatorBounds::LatToY(z.maxY()));
       ShowRectExVisibleScale(view);
+      return true;
     }
   }
   return false;
