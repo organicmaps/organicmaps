@@ -233,29 +233,29 @@ namespace feature
   template <class TSource>
   void ReadFromSourceRowFormat(TSource & src, FeatureBuilder1 & fb)
   {
-   uint32_t const sz = ReadVarUint<uint32_t>(src);
-   typename FeatureBuilder1::buffer_t buffer(sz);
-   src.Read(&buffer[0], sz);
-   fb.Deserialize(buffer);
+    uint32_t const sz = ReadVarUint<uint32_t>(src);
+    typename FeatureBuilder1::buffer_t buffer(sz);
+    src.Read(&buffer[0], sz);
+    fb.Deserialize(buffer);
   }
 
   /// Process features in .dat file.
   template <class ToDo>
   void ForEachFromDatRawFormat(string const & fName, ToDo & toDo)
   {
-   FileReader reader(fName);
-   ReaderSource<FileReader> src(reader);
+    FileReader reader(fName);
+    ReaderSource<FileReader> src(reader);
 
-   uint64_t currPos = 0;
-   uint64_t const fSize = reader.Size();
+    uint64_t currPos = 0;
+    uint64_t const fSize = reader.Size();
 
-   // read features one by one
-   while (currPos < fSize)
-   {
-     FeatureBuilder1 fb;
-     ReadFromSourceRowFormat(src, fb);
-     toDo(fb, currPos);
-     currPos = src.Pos();
-   }
+    // read features one by one
+    while (currPos < fSize)
+    {
+      FeatureBuilder1 fb;
+      ReadFromSourceRowFormat(src, fb);
+      toDo(fb, currPos);
+      currPos = src.Pos();
+    }
   }
 }
