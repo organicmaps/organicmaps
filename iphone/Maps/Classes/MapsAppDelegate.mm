@@ -190,6 +190,17 @@ void InitLocalizedStrings()
       return YES;
     }
   }
+  if ([scheme isEqualToString:@"mapswithme"])
+  {
+    url_api::Request request;
+    if (GetFramework().SetViewportByURL([[url.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] UTF8String], request));
+    {
+      [self showMap];
+      [m_mapViewController prepareForApi];
+      return YES;
+    }
+  }
+
   if ([scheme isEqualToString:@"file"])
   {
      if (!GetFramework().AddBookmarksFile([[url relativePath] UTF8String]))
@@ -231,14 +242,18 @@ void InitLocalizedStrings()
   m_loadingAlertView = nil;
 }
 
--(void) showParsedBookmarkOnMap:(url_api::Request) request
+-(void)showMap
 {
   [m_navController popToRootViewControllerAnimated:YES];
   if (![m_navController.visibleViewController isMemberOfClass:NSClassFromString(@"MapViewController")])
     [m_mapViewController dismissModalViewControllerAnimated:YES];
   [m_mapViewController dismissPopoverAndSaveBookmark:YES];
   m_navController.navigationBarHidden = YES;
-  
+}
+
+-(void) showParsedBookmarkOnMap:(url_api::Request) request
+{
+  [self showMap];
   m2::PointD point(MercatorBounds::LonToX(request.m_viewportLon),
                    MercatorBounds::LatToY(request.m_viewportLat));
   

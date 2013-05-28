@@ -26,6 +26,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
   m_hideNavBar = YES;
+  self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
   [self.navigationController setNavigationBarHidden:NO animated:YES];
   // Update the table - we can display it after changing set or color
   [self.tableView reloadData];
@@ -49,7 +50,12 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
   if (m_hideNavBar)
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+  {
+    if (![[MapsAppDelegate theApp].m_mapViewController shouldShowNavBar])
+      [self.navigationController setNavigationBarHidden:YES animated:YES];
+    else
+      self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+  }
   // Handle 3 scenarios:
   // 1. User pressed Remove Pin and goes back to the map - bookmark was deleted on click, do nothing
   // 2. User goes back to the map by pressing Map (Back) button - save possibly edited title, add bookmark

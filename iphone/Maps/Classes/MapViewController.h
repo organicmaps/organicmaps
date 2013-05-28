@@ -44,7 +44,10 @@
 - (void)showBalloonWithText:(NSString *)text andGlobalPoint:(m2::PointD) point;
 
 - (void)dismissPopoverAndSaveBookmark:(BOOL)save;
+- (void)prepareForApi;
+- (BOOL)shouldShowNavBar;
 
 @property (nonatomic, retain) IBOutlet UIButton * m_myPositionButton;
+@property (nonatomic, assign) BOOL isApiMode;
 
 @end

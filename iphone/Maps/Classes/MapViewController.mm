@@ -444,6 +444,8 @@ const long long LITE_IDL = 431183278L;
     if (!f.LoadState())
       f.SetMaxWorldRect();
     
+    _isApiMode = NO;
+
     f.Invalidate();
   }
 
@@ -892,6 +894,46 @@ NSInteger compareAddress(id l, id r, void * context)
   pt.x /= sf;
   pt.y /= sf;
   [popover presentPopoverFromRect:CGRectMake(pt.x, pt.y, 1, 1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+- (void)prepareForApi
+{
+  _isApiMode = YES;
+  if ([self shouldShowNavBar])
+  {
+    self.navigationController.navigationBarHidden = NO;
+    UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"back", nil) style: UIBarButtonItemStyleDone target:self action:@selector(returnToApiApp)] autorelease];
+    self.navigationItem.leftBarButtonItem = closeButton;
+
+
+//    UIBarButtonItem * hide = [[[UIBarButtonItem alloc] initWithTitle:@"hide" style: UIBarButtonItemStyleDone target:self action:@selector(onHideClicked)] autorelease];
+//    self.navigationItem.rightBarButtonItem = hide;
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    self.navigationItem.title = [NSString stringWithUTF8String:GetFramework().GetMapApiAppTitle().c_str()];
+  }
+}
+
+- (void) clearApiBar
+{
+  self.navigationController.navigationBarHidden = YES;
+  _isApiMode = NO;
+  self.navigationController.navigationItem.title = @"";
+  GetFramework().ClearMapApiPoints();
+  [self Invalidate];
+}
+
+-(void)returnToApiApp
+{
+  NSString * backUrl = [NSString stringWithUTF8String:GetFramework().GetMapApiBackUrl().c_str()];
+  [self clearApiBar];
+  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:backUrl]];
+}
+
+-(BOOL) shouldShowNavBar
+{
+  Framework & f = GetFramework();
+  NSString * backUrl = [NSString stringWithUTF8String:f.GetMapApiBackUrl().c_str()];
+  return (_isApiMode && [backUrl length] && [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:backUrl]]);
 }
 
 @end
