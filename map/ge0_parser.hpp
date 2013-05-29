@@ -6,7 +6,7 @@
 namespace url_api
 {
 
-class Request;
+struct Request;
 
 class Ge0Parser
 {
