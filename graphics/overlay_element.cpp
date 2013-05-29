@@ -24,8 +24,8 @@ namespace graphics
       m_isDirtyRect(true),
       m_isDirtyLayout(true),
       m_isDirtyRoughRect(true),
-      m_userInfo(p.m_userInfo),
-      m_inverseMatrix(math::Identity<double, 3>())
+      m_inverseMatrix(math::Identity<double, 3>()),
+      m_userInfo(p.m_userInfo)
   {}
 
   m2::PointD const OverlayElement::computeTopLeft(m2::PointD const & sz,

@@ -110,7 +110,7 @@ namespace qt
     void OnPressTaskEvent(double x, double y, unsigned ms);
 
     typedef graphics::Image::Info ImageT;
-    ImageT * m_images[2];
+    ImageT m_images[2];
     enum PopupImageIndexT { IMAGE_PLUS = 0, IMAGE_ARROW = 1 };
     void ActivatePopup(m2::PointD const & pivot, string const & name, PopupImageIndexT index);
     void ActivatePopupWithAdressInfo(m2::PointD const & pivot, Framework::AddressInfo const & addrInfo);

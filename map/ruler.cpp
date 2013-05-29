@@ -141,9 +141,9 @@ Ruler::Params::Params()
 
 Ruler::Ruler(Params const & p)
   : base_t(p),
+    m_cacheLength(500),
     m_boundRects(1),
     m_currSystem(0),
-    m_cacheLength(500),
     m_framework(p.m_framework)
 {
   gui::CachedTextView::Params pp;

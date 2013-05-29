@@ -1,5 +1,6 @@
 #include "vertex_decl.hpp"
 #include "defines.hpp"
+#include "../base/assert.hpp"
 #include "../base/logging.hpp"
 
 namespace graphics
@@ -76,6 +77,8 @@ namespace graphics
       case EFloat:
         FillPosition<float>::fill(va, &vs->m_fNormal, v, stride);
         break;
+      default:
+        ASSERT(false, ("Not supported"));
       }
     }
   };
@@ -108,6 +111,8 @@ namespace graphics
       case EFloat:
         FillTexCoord<float>::fill(va, &vs->m_fTex, v, stride);
         break;
+      default:
+        ASSERT(false, ("Not supported"));
       };
     }
   };

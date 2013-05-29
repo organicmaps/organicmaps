@@ -73,15 +73,10 @@ namespace qt
   {
     //m_timer = new QTimer(this);
     //connect(m_timer, SIGNAL(timeout()), this, SLOT(ScaleTimerElapsed()));
-    for (size_t i = 0; i < ARRAY_SIZE(m_images); ++i)
-      m_images[i] = 0;
   }
 
   DrawWidget::~DrawWidget()
   {
-    for (size_t i = 0; i < ARRAY_SIZE(m_images); ++i)
-      delete m_images[i];
-
     m_framework.reset();
   }
 
@@ -273,8 +268,8 @@ namespace qt
       }
 
       graphics::EDensity const density = m_framework->GetRenderPolicy()->Density();
-      m_images[IMAGE_PLUS] = new ImageT("plus.png", density);
-      m_images[IMAGE_ARROW] = new ImageT("right-arrow.png", density);
+      m_images[IMAGE_PLUS] = ImageT("plus.png", density);
+      m_images[IMAGE_ARROW] = ImageT("right-arrow.png", density);
       m_isInitialized = true;
     }
   }
@@ -383,7 +378,7 @@ namespace qt
 
     m_framework->DisablePlacemark();
 
-    balloon->setImage(*m_images[index]);
+    balloon->setImage(m_images[index]);
     balloon->setGlbPivot(pivot);
     balloon->setBookmarkName(name);
     balloon->setIsVisible(true);

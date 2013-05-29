@@ -18,12 +18,14 @@
 #include "coverage_generator.hpp"
 
 ScreenCoverage::ScreenCoverage()
-  : m_tiler(),
+  : m_sequenceID(numeric_limits<int>::max()),
+    m_tileRenderer(NULL),
+    m_coverageGenerator(NULL),
     m_overlay(new graphics::Overlay()),
+    m_isBenchmarking(false),
     m_isEmptyDrawingCoverage(false),
     m_isEmptyModelAtCoverageCenter(true),
-    m_leafTilesToRender(0),
-    m_isBenchmarking(false)
+    m_leafTilesToRender(0)
 {
   m_overlay->setCouldOverlap(false);
 }
@@ -31,14 +33,15 @@ ScreenCoverage::ScreenCoverage()
 ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
                                CoverageGenerator * coverageGenerator,
                                shared_ptr<graphics::Screen> const & cacheScreen)
-  : m_tileRenderer(tileRenderer),
+  : m_sequenceID(numeric_limits<int>::max()),
+    m_tileRenderer(tileRenderer),
     m_coverageGenerator(coverageGenerator),
     m_overlay(new graphics::Overlay()),
+    m_isBenchmarking(false),
     m_isEmptyDrawingCoverage(false),
     m_isEmptyModelAtCoverageCenter(true),
     m_leafTilesToRender(0),
-    m_cacheScreen(cacheScreen),
-    m_isBenchmarking(false)
+    m_cacheScreen(cacheScreen)
 {
   m_overlay->setCouldOverlap(false);
 }
