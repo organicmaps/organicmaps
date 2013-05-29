@@ -60,7 +60,13 @@ void Platform::GetFontNames(FilesList & res) const
 {
   GetSystemFontNames(res);
 
-  string const paths[] = { WritableDir(), ResourcesDir() };
+  // Do not search inside apk for the fonts in Android.
+  string const paths[] = {
+      WritableDir()
+#ifndef OMIM_OS_ANDROID
+    , ResourcesDir()
+#endif
+                         };
 
   FilesList fonts;
   for (size_t i = 0; i < ARRAY_SIZE(paths); ++i)
