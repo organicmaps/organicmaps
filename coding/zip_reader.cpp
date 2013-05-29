@@ -23,10 +23,10 @@ ZipFileReader::ZipFileReader(string const & container, string const & file)
     MYTHROW(LocateZipException, ("Can't locate file inside zip", file));
 
   if (UNZ_OK != unzOpenCurrentFile(zip))
-      MYTHROW(LocateZipException, ("Can't open file inside zip", file));
+    MYTHROW(LocateZipException, ("Can't open file inside zip", file));
 
-  uint64_t offset = unzGetCurrentFileZStreamPos64(zip);
-  unzCloseCurrentFile(zip);
+  uint64_t const offset = unzGetCurrentFileZStreamPos64(zip);
+  (void) unzCloseCurrentFile(zip);
 
   if (offset > Size())
     MYTHROW(LocateZipException, ("Invalid offset inside zip", file));
@@ -82,15 +82,14 @@ void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileIn
     MYTHROW(LocateZipException, ("Can't locate file inside zip", fileInZip));
 
   if (UNZ_OK != unzOpenCurrentFile(zip))
-      MYTHROW(LocateZipException, ("Can't open file inside zip", fileInZip));
+    MYTHROW(LocateZipException, ("Can't open file inside zip", fileInZip));
+  MY_SCOPE_GUARD(currentFileGuard, bind(&unzCloseCurrentFile, zip));
 
   unz_file_info64 fileInfo;
   if (UNZ_OK != unzGetCurrentFileInfo64(zip, &fileInfo, NULL, 0, NULL, 0, NULL, 0))
     MYTHROW(LocateZipException, ("Can't get uncompressed file size inside zip", fileInZip));
 
-  MY_SCOPE_GUARD(currentFileGuard, bind(&unzCloseCurrentFile, zip));
-
-  static size_t const BUF_SIZE = 1024 * 50;
+  size_t const BUF_SIZE = 1024 * 50;
   vector<char> buf(BUF_SIZE);
 
   // First outFile should be closed, then FileWriter::DeleteFileX is called,
