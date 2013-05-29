@@ -15,7 +15,8 @@ namespace my {
 class FileData
 {
 public:
-  enum Op { OP_READ = 0, OP_WRITE_TRUNCATE = 1, OP_WRITE_EXISTING = 2, OP_APPEND};
+  /// @note Do not change order (@see FileData::FileData).
+  enum Op { OP_READ = 0, OP_WRITE_TRUNCATE, OP_WRITE_EXISTING, OP_APPEND };
 
   FileData(string const & fileName, Op op);
   ~FileData();
