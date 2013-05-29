@@ -148,6 +148,6 @@
         <!--End of block ColorsLight-->
     </style>
     <style name="Holo.TextAppearance.Widget.IconMenu.Item" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
-        <item name="android:textColor">?android:panelColorForeground</item>
+        <item name="android:textColor">#000</item>
     </style>
 </resources>

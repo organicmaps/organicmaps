@@ -133,7 +133,6 @@
         <item name="android:panelBackground">@drawable/menu_hardkey_panel_holo_light</item>
         <item name="android:panelColorBackground">#FFFFFF</item>
         <item name="android:panelColorForeground">@color/primary_text_holo_light</item>
-        <item name="android:panelFullBackground">@drawable/menu_background_fill_parent_width_holo_light</item>
         <item name="android:panelTextAppearance">@style/Holo.TextAppearance.Light</item>
         <!--End of block BackportBarLight-->
         <item name="holoTheme">light</item>
