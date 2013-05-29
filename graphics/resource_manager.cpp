@@ -440,6 +440,7 @@ namespace
       m_threadSlots[i].m_glyphCache->addFonts(fontNames);
   }
 
+  /*
   void ResourceManager::memoryWarning()
   {
   }
@@ -469,6 +470,7 @@ namespace
       if (m_storagePools[i].get())
         m_storagePools[i]->EnterForeground();
   }
+  */
 
   shared_ptr<graphics::gl::BaseTexture> ResourceManager::createRenderTarget(unsigned w, unsigned h)
   {

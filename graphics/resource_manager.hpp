@@ -1,19 +1,19 @@
 #pragma once
 
-#include "../std/shared_ptr.hpp"
-#include "../std/map.hpp"
-#include "../std/string.hpp"
-#include "../std/list.hpp"
-#include "../std/vector.hpp"
-
-#include "../base/mutex.hpp"
-#include "../base/resource_pool.hpp"
-
 #include "opengl/storage.hpp"
 #include "opengl/program_manager.hpp"
 #include "glyph_cache.hpp"
 #include "data_formats.hpp"
 #include "defines.hpp"
+
+//#include "../base/mutex.hpp"
+#include "../base/resource_pool.hpp"
+
+#include "../std/shared_ptr.hpp"
+#include "../std/map.hpp"
+#include "../std/string.hpp"
+#include "../std/vector.hpp"
+
 
 namespace graphics
 {
@@ -218,7 +218,7 @@ namespace graphics
 
     void loadSkinInfoAndTexture(string const & skinFileName, EDensity density);
 
-    threads::Mutex m_mutex;
+    //threads::Mutex m_mutex;
 
     vector<shared_ptr<TTexturePool> > m_texturePools;
     vector<shared_ptr<TStoragePool> > m_storagePools;
@@ -263,9 +263,11 @@ namespace graphics
 
     void addFonts(vector<string> const & fontNames);
 
+    /*
     void memoryWarning();
     void enterBackground();
     void enterForeground();
+    */
 
     void updatePoolState();
 
