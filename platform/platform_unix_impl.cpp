@@ -6,6 +6,7 @@
 
 #include <dirent.h>
 #include <sys/stat.h>
+#include "../std/algorithm.hpp"
 
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE)
   #include <sys/mount.h>
@@ -22,6 +23,8 @@ void Platform::GetSystemFontNames(FilesList & res) const
     "DroidSansFallback.ttf",
     "DroidSans.ttf",
     "DroidSansArabic.ttf",
+    "DroidSansSemc.ttf",
+    "DroidSansSemcCJK.ttf",
     "DroidNaskh-Regular.ttf",
     "Lohit-Bengali.ttf",
     "Lohit-Devanagari.ttf",
@@ -35,14 +38,22 @@ void Platform::GetSystemFontNames(FilesList & res) const
     "DroidSansJapanese.ttf",
     "LTe50872.ttf",
     "LTe50259.ttf",
+    "DevanagariOTS.ttf",
     "DejaVuSans.ttf",
     "arial.ttf"
   };
 
   char const * systemFontsPath[] = {
     "/system/fonts/",
+    "/usr/share/fonts/truetype/roboto/",
     "/usr/share/fonts/truetype/droid/",
-    "/usr/share/fonts/truetype/ttf-dejavu/",
+    "/usr/share/fonts/truetype/ttf-dejavu/"
+  };
+  
+  const uint64_t fontSizeBlacklist[] = {
+    183560,   // Samsung Duos DroidSans
+    7140172,  // Serif font without Emoji
+    14416824  // Serif font with Emoji
   };
 
   uint64_t fileSize = 0;
@@ -56,8 +67,12 @@ void Platform::GetSystemFontNames(FilesList & res) const
       {
         if (GetFileSizeByName(path, fileSize))
         {
-          res.push_back(path);
-          LOG(LINFO, ("Found system font", path, "with file size", fileSize));
+          uint64_t const * end = fontSizeBlacklist + ARRAY_SIZE(fontSizeBlacklist);
+          if (find(fontSizeBlacklist, end, fileSize) == end)
+          {
+            res.push_back(path);
+            LOG(LINFO, ("Found usable system font", path, "with file size", fileSize));
+          }
         }
       }
     }
