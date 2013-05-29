@@ -212,9 +212,11 @@ namespace graphics
 
   private:
 
-    typedef map<pair<string, EDensity>, shared_ptr<gl::BaseTexture> > TStaticTextures;
-
+    typedef map<string, shared_ptr<gl::BaseTexture> > TStaticTextures;
     TStaticTextures m_staticTextures;
+    string m_skinBuffer;
+
+    void loadSkinInfoAndTexture(string const & skinFileName, EDensity density);
 
     threads::Mutex m_mutex;
 
@@ -232,8 +234,12 @@ namespace graphics
     Params m_params;
 
   public:
+    ResourceManager(Params const & p, string const & skinFileName, EDensity density);
 
-    ResourceManager(Params const & p);
+    /// Use like static function with shared_ptr instead of this.
+    /// @todo Check if we can remove shared_ptrs from this logic.
+    static void loadSkin(shared_ptr<ResourceManager> const & rm,
+                         vector<shared_ptr<ResourceCache> > & caches);
 
     void initThreadSlots(Params const & p);
 
@@ -245,7 +251,7 @@ namespace graphics
 
     TTexturePool * texturePool(ETextureType type);
 
-    shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName, EDensity density);
+    shared_ptr<gl::BaseTexture> const & getTexture(string const & name);
 
     Params const & params() const;
 
@@ -270,10 +276,5 @@ namespace graphics
     shared_ptr<graphics::gl::BaseTexture> createRenderTarget(unsigned w, unsigned h);
     gl::ProgramManager * programManager(int threadSlot);
   };
-
-  void loadSkin(shared_ptr<ResourceManager> const & rm,
-                string const & fileName,
-                EDensity density,
-                vector<shared_ptr<ResourceCache> > & caches);
 }
 

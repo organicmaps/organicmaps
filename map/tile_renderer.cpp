@@ -89,8 +89,6 @@ TileRenderer::TileRenderer(
       params.m_renderQueue = packetsQueues[i];
     params.m_doUnbindRT = false;
     params.m_isSynchronized = false;
-    params.m_skinName = m_skinName;
-    params.m_density = m_density;
     params.m_renderContext = m_threadData[i].m_renderContext;
   /*  params.m_isDebugging = true;
     params.m_drawPathes = false ;

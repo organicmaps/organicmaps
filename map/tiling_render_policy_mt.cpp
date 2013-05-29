@@ -11,8 +11,7 @@
 using namespace graphics;
 
 TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
-  : BasicTilingRenderPolicy(p,
-                            false)
+  : BasicTilingRenderPolicy(p, false)
 {
   int cpuCores = GetPlatform().CpuCores();
 
@@ -113,7 +112,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
 
   rmp.m_useSingleThreadedOGL = false;
 
-  m_resourceManager.reset(new graphics::ResourceManager(rmp));
+  m_resourceManager.reset(new graphics::ResourceManager(rmp, SkinName(), Density()));
 
   m_primaryRC->setResourceManager(m_resourceManager);
   m_primaryRC->startThreadDrawing(m_resourceManager->guiThreadSlot());
@@ -127,13 +126,11 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
   dp.m_frameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer(p.m_useDefaultFB));
   dp.m_resourceManager = m_resourceManager;
   dp.m_threadSlot = m_resourceManager->guiThreadSlot();
-  dp.m_skinName = SkinName();
   dp.m_visualScale = VisualScale();
   dp.m_storageType = ESmallStorage;
   dp.m_textureType = ESmallTexture;
   dp.m_isSynchronized = false;
   dp.m_renderContext = p.m_primaryRC;
-  dp.m_density = Density();
 
   m_drawer.reset(new Drawer(dp));
 

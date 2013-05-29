@@ -82,7 +82,7 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
 
   rmp.m_useSingleThreadedOGL = false;
 
-  m_resourceManager.reset(new graphics::ResourceManager(rmp));
+  m_resourceManager.reset(new graphics::ResourceManager(rmp, SkinName(), Density()));
 
   m_primaryRC->setResourceManager(m_resourceManager);
   m_primaryRC->startThreadDrawing(m_resourceManager->guiThreadSlot());
@@ -96,10 +96,8 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
   dp.m_frameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer(p.m_useDefaultFB));
   dp.m_resourceManager = m_resourceManager;
   dp.m_threadSlot = m_resourceManager->guiThreadSlot();
-  dp.m_skinName = SkinName();
   dp.m_visualScale = VisualScale();
   dp.m_isSynchronized = true;
-  dp.m_density = Density();
 
   m_drawer.reset(new Drawer(dp));
 

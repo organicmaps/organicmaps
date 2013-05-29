@@ -274,9 +274,37 @@ namespace
       LOG(LINFO, ("using ReadPixels instead of glFinish to synchronize"));
   }
 
-  ResourceManager::ResourceManager(Params const & p)
+  void ResourceManager::loadSkinInfoAndTexture(string const & skinFileName, EDensity density)
+  {
+    try
+    {
+      ReaderPtr<Reader> reader(GetPlatform().GetReader(resourcePath(skinFileName, density)));
+      reader.ReadAsString(m_skinBuffer);
+
+      size_t i = m_skinBuffer.find("file=\"", 0);
+      if (i == string::npos)
+        MYTHROW(RootException, ("Invalid skin file"));
+      i += strlen("file=\"");
+
+      size_t const j = m_skinBuffer.find('\"', i);
+      if (j == string::npos)
+        MYTHROW(RootException, ("Invalid skin file"));
+
+      string const textureFileName = m_skinBuffer.substr(i, j-i);
+      m_staticTextures[textureFileName] = make_shared_ptr(new TStaticTexture(textureFileName, density));
+    }
+    catch (RootException const & ex)
+    {
+      LOG(LERROR, ("Error reading skin file", skinFileName, ex.Msg()));
+    }
+  }
+
+  ResourceManager::ResourceManager(Params const & p, string const & skinFileName, EDensity density)
     : m_params(p)
   {
+    // Load skin and texture once before thread's initializing.
+    loadSkinInfoAndTexture(skinFileName, density);
+
     initThreadSlots(p);
 
     m_storagePools.resize(EInvalidStorage + 1);
@@ -379,43 +407,21 @@ namespace
     return m_texturePools[type].get();
   }
 
-  shared_ptr<gl::BaseTexture> const & ResourceManager::getTexture(string const & fileName, EDensity density)
+  shared_ptr<gl::BaseTexture> const & ResourceManager::getTexture(string const & name)
   {
-    pair<string, EDensity> key(fileName, density);
-    TStaticTextures::const_iterator it = m_staticTextures.find(key);
-    if (it != m_staticTextures.end())
-      return it->second;
-
-    shared_ptr<gl::BaseTexture> texture;
-
-    texture = make_shared_ptr(new TStaticTexture(fileName, density));
-
-    m_staticTextures[key] = texture;
-    return m_staticTextures[key];
+    TStaticTextures::const_iterator it = m_staticTextures.find(name);
+    ASSERT ( it != m_staticTextures.end(), () );
+    return it->second;
   }
 
-  void loadSkin(shared_ptr<ResourceManager> const & rm,
-                string const & fileName,
-                EDensity density,
-                vector<shared_ptr<ResourceCache> > & caches)
+  void ResourceManager::loadSkin(shared_ptr<ResourceManager> const & rm,
+                                 vector<shared_ptr<ResourceCache> > & caches)
   {
-    if (fileName.empty())
-      return;
+    SkinLoader loader(rm, caches);
 
-    SkinLoader loader(rm, caches, density);
-
-    try
-    {
-      ReaderPtr<Reader> skinFile(GetPlatform().GetReader(resourcePath(fileName, density)));
-      ReaderSource<ReaderPtr<Reader> > source(skinFile);
-      if (!ParseXML(source, loader))
-        MYTHROW(RootException, ("Error parsing skin file: ", fileName));
-    }
-    catch (RootException const & e)
-    {
-      LOG(LERROR, ("Error reading skin file: ", e.what()));
-      return;
-    }
+    ReaderSource<MemReader> source(MemReader(rm->m_skinBuffer.c_str(), rm->m_skinBuffer.size()));
+    if (!ParseXML(source, loader))
+      LOG(LERROR, ("Error parsing skin"));
   }
 
   ResourceManager::Params const & ResourceManager::params() const

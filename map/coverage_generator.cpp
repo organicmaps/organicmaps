@@ -67,8 +67,6 @@ ScreenCoverage * CoverageGenerator::CreateCoverage()
   params.m_renderContext = m_renderContext;
   params.m_storageType = graphics::EMediumStorage;
   params.m_textureType = graphics::EMediumTexture;
-  params.m_skinName = m_skinName;
-  params.m_density = m_density;
 
   shared_ptr<graphics::Screen> screen(new graphics::Screen(params));
 

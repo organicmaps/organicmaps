@@ -52,11 +52,9 @@ void RenderPolicy::InitCacheScreen()
   cp.m_threadSlot = m_resourceManager->guiThreadSlot();
   cp.m_storageType = graphics::ETinyStorage;
   cp.m_textureType = graphics::ESmallTexture;
-  cp.m_skinName = m_skinName;
   cp.m_isSynchronized = false;
   cp.m_resourceManager = m_resourceManager;
   cp.m_renderContext = m_primaryRC;
-  cp.m_density = Density();
 
   m_cacheScreen = make_shared_ptr(new graphics::Screen(cp));
 }

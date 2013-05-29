@@ -112,7 +112,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
 
   rmp.m_useSingleThreadedOGL = true;
 
-  m_resourceManager.reset(new graphics::ResourceManager(rmp));
+  m_resourceManager.reset(new graphics::ResourceManager(rmp, SkinName(), Density()));
 
   m_primaryRC->setResourceManager(m_resourceManager);
   m_primaryRC->startThreadDrawing(m_resourceManager->guiThreadSlot());
@@ -128,13 +128,11 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
   dp.m_frameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer(p.m_useDefaultFB));
   dp.m_resourceManager = m_resourceManager;
   dp.m_threadSlot = m_resourceManager->guiThreadSlot();
-  dp.m_skinName = SkinName();
   dp.m_visualScale = VisualScale();
   dp.m_storageType = graphics::ESmallStorage;
   dp.m_textureType = graphics::ESmallTexture;
   dp.m_isSynchronized = false;
   dp.m_renderContext = p.m_primaryRC;
-  dp.m_density = Density();
 
 //  p.m_isDebugging = true;
 

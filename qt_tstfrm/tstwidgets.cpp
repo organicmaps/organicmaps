@@ -116,7 +116,7 @@ namespace tst
 
     rmp.m_useSingleThreadedOGL = false;
 
-    m_resourceManager.reset(new graphics::ResourceManager(rmp));
+    m_resourceManager.reset(new graphics::ResourceManager(rmp, "basic.skn", graphics::EDensityMDPI));
 
     m_primaryContext->setResourceManager(m_resourceManager);
     m_primaryContext->startThreadDrawing(0);
@@ -133,8 +133,6 @@ namespace tst
     params.m_resourceManager = m_resourceManager;
     params.m_threadSlot = m_resourceManager->guiThreadSlot();
     params.m_renderContext = m_primaryContext;
-    params.m_skinName = "basic.skn";
-    params.m_density = graphics::EDensityMDPI;
 
     m_primaryScreen = make_shared_ptr(new graphics::Screen(params));
   }

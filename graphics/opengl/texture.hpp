@@ -189,7 +189,8 @@ namespace graphics
     }
 
     template <typename Traits>
-    Texture<Traits, true>::Texture(string const & fileName, EDensity density) : ManagedTexture(GetDimensions(fileName, density), sizeof(pixel_t))
+    Texture<Traits, true>::Texture(string const & fileName, EDensity density)
+      : ManagedTexture(GetDimensions(fileName, density), sizeof(pixel_t))
     {
       lock();
       view_t v = view(width(), height());

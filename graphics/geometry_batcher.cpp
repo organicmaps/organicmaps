@@ -31,8 +31,7 @@ namespace graphics
 
   GeometryBatcher::Params::Params()
     : m_storageType(ELargeStorage),
-      m_textureType(ELargeTexture),
-      m_density(EDensityLDPI)
+      m_textureType(ELargeTexture)
   {
     CheckPointLayout<float>();
     CheckPointLayout<double>();
@@ -40,13 +39,12 @@ namespace graphics
 
   GeometryBatcher::GeometryBatcher(Params const & p)
     : base_t(p),
-      m_isAntiAliased(true),
-      m_density(p.m_density)
+      m_isAntiAliased(true)
   {
     base_t::applyStates();
 
     vector<shared_ptr<ResourceCache> > caches;
-    loadSkin(resourceManager(), p.m_skinName, m_density, caches);
+    ResourceManager::loadSkin(resourceManager(), caches);
 
     m_staticPagesCount = caches.size();
     m_startStaticPage = reservePipelines(caches,

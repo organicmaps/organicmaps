@@ -64,8 +64,6 @@ namespace graphics
     /// skin-page specific parameters
     string m_fileName;
 
-    EDensity m_density;
-
     shared_ptr<ResourceManager> m_resourceManager;
 
     /// skin-specific parameters
@@ -80,8 +78,7 @@ namespace graphics
   public:
 
     SkinLoader(shared_ptr<ResourceManager> const & resourceManager,
-               vector<shared_ptr<ResourceCache> > & caches,
-               EDensity density);
+               vector<shared_ptr<ResourceCache> > & caches);
 
     bool Push(string const & element);
     void Pop(string const & element);

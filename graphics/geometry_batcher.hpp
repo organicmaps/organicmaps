@@ -30,7 +30,6 @@ namespace graphics
     bool m_isAntiAliased;
 
     int m_aaShift;
-    EDensity m_density;
 
   public:
 
@@ -47,8 +46,6 @@ namespace graphics
     {
       EStorageType m_storageType;
       ETextureType m_textureType;
-      string m_skinName;
-      EDensity m_density;
       Params();
     };
 
