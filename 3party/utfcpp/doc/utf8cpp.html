@@ -89,9 +89,6 @@
           <a href="#points">Points of Interest</a>
         </li>
         <li>
-          <a href="#conclusion">Conclusion</a>
-        </li>
-        <li>
           <a href="#links">Links</a>
         </li>
       </ul>
@@ -101,10 +98,12 @@
     </h2>
     <p>
       Many C++ developers miss an easy and portable way of handling Unicode encoded
-      strings. The original C++ Standard (known as C++98 or C++03) is Unicode agnostic,
-      and while some work is being done to introduce Unicode to the next incarnation
-      called C++0x, for the moment nothing of the sort is available. In the meantime,
-      developers use third party libraries like ICU, OS specific capabilities, or simply
+      strings. The original C++ Standard (known as C++98 or C++03) is Unicode agnostic.
+      C++11 provides some support for Unicode on core language and library level:
+      u8, u, and U character and string literals, char16_t and char32_t character types,
+      u16string and u32string library classes, and codecvt support for conversions 
+      between Unicode encoding forms.
+      In the meantime, developers use third party libraries like ICU, OS specific capabilities, or simply
       roll out their own solutions.
     </p>
     <p>
@@ -1730,7 +1729,7 @@ assert (*un_it == <span class="literal">0x10346</span>);
         for Windows (both 32 and 64 bit), and most 32 bit and 64 bit Unix derivatives.
       </li>
       <li>
-        Lightweight: follow the "pay only for what you use" guidline.
+        Lightweight: follow the "pay only for what you use" guideline.
       </li>
       <li>
         Unintrusive: avoid forcing any particular design or even programming style on the
@@ -1752,6 +1751,10 @@ assert (*un_it == <span class="literal">0x10346</span>);
         recommend looking at ICU even if you don't plan to use it.
       </li>
       <li>
+        C++11 language and library features. Still far from complete, and not widely
+        supported by compiler vendors. 
+      </li>
+      <li>
         <a href=
         "http://www.gtkmm.org/gtkmm2/docs/tutorial/html/ch03s04.html">Glib::ustring</a>.
         A class specifically made to work with UTF-8 strings, and also feel like
@@ -1761,18 +1764,9 @@ assert (*un_it == <span class="literal">0x10346</span>);
       <li>
         Platform dependent solutions: Windows and POSIX have functions to convert strings
         from one encoding to another. That is only a subset of what my library offers,
-        but if that is all you need it may be good enough, especially given the fact that
-        these functions are mature and tested in production.
+        but if that is all you need it may be good enough.
       </li>
     </ol>
-    <h2 id="conclusion">
-      Conclusion
-    </h2>
-    <p>
-      Until Unicode becomes officially recognized by the C++ Standard Library, we need to
-      use other means to work with UTF-8 strings. Template functions I describe in this
-      article may be a good step in this direction.
-    </p>
     <h2 id="links">
       Links
     </h2>
