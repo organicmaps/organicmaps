@@ -2,6 +2,7 @@
 package com.mapswithme.maps.api;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -21,7 +22,7 @@ public final class MapsWithMeApi
 
   public static void showPointOnMap(Activity caller, double lat, double lon, String name, String id)
   {
-    showPointsOnMap(caller, (String)null, (MWMResponseHandler)null, new MWMPoint(lat, lon, name));
+    showPointsOnMap(caller, (String)null, (PendingIntent)null, new MWMPoint(lat, lon, name));
   }
 
   public static void showPointsOnMap(Activity caller, String title, MWMPoint... points)
@@ -29,28 +30,19 @@ public final class MapsWithMeApi
     showPointsOnMap(caller, title, null, points);
   }
 
-  public static void showPointsOnMap(Activity caller, String title, MWMResponseHandler responseHandler, MWMPoint... points)
+  public static void showPointsOnMap(Activity caller, String title, PendingIntent pendingIntent, MWMPoint... points)
   {
     final Intent mwmIntent = new Intent(Const.ACTION_MWM_REQUEST);
-    mwmIntent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-
+    
     mwmIntent.putExtra(Const.EXTRA_URL, createMwmUrl(caller, title, points).toString());
     mwmIntent.putExtra(Const.EXTRA_TITLE, title);
-    mwmIntent.putExtra(Const.EXTRA_CALLMEBACK_MODE, responseHandler != null);
+    
+    final boolean hasIntent = pendingIntent != null;
+    mwmIntent.putExtra(Const.EXTRA_HAS_PENDING_INTENT, hasIntent);
+    if (hasIntent)
+      mwmIntent.putExtra(Const.EXTRA_CALLER_PENDING_INTENT, pendingIntent);
 
     addCommonExtras(caller, mwmIntent);
-
-    MWMResponseReciever.sResponseHandler = responseHandler;
-    if (responseHandler != null)
-    {
-      // detect if it is registered
-      // throw if not
-      final Intent callbackIntentStub = new Intent(getCallbackAction(caller));
-      final boolean recieverEnabled = caller.getPackageManager().queryBroadcastReceivers(callbackIntentStub, 0).size() > 0;
-      if (!recieverEnabled)
-        throw new IllegalStateException(String.format(
-                  "BroadcastReciever with intent-filter for action \"%s\" must be added to manifest.", getCallbackAction(caller)));
-    }
 
     if (isMapsWithMeInstalled(caller))
     {
@@ -111,7 +103,6 @@ public final class MapsWithMeApi
   {
     intent.putExtra(Const.EXTRA_CALLER_APP_INFO, context.getApplicationInfo());
     intent.putExtra(Const.EXTRA_API_VERSION, Const.API_VERSION);
-    intent.putExtra(Const.EXTRA_CALLBACK_ACTION, getCallbackAction(context));
 
     return intent;
   }
