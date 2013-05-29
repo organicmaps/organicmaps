@@ -41,6 +41,8 @@ private:
 #endif
   string m_FileName;
   Op m_Op;
+
+  string GetErrorProlog() const;
 };
 
 bool GetFileSize(string const & fName, uint64_t & sz);

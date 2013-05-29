@@ -18,6 +18,7 @@ class Reader
 public:
   DECLARE_EXCEPTION(Exception, RootException);
   DECLARE_EXCEPTION(OpenException, Exception);
+  DECLARE_EXCEPTION(SizeException, Exception);
   DECLARE_EXCEPTION(ReadException, Exception);
 
   virtual ~Reader() {}

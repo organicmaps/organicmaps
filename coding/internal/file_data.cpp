@@ -10,13 +10,15 @@
 #include "../../std/target_os.hpp"
 #include "../../std/fstream.hpp"
 #include "../../std/exception.hpp"
+#include "../../std/cerrno.hpp"
 
 #ifdef OMIM_OS_WINDOWS
   #include <io.h>
 #endif
 
 
-namespace my {
+namespace my
+{
 
 FileData::FileData(string const & fileName, Op op)
     : m_FileName(fileName), m_Op(op)
@@ -28,8 +30,7 @@ FileData::FileData(string const & fileName, Op op)
     return;
 #else
   m_File = fopen(fileName.c_str(), modes[op]);
-  int error = m_File ? ferror(m_File) : 0;
-  if (m_File && error == 0)
+  if (m_File && ferror(m_File) == 0)
     return;
 
   if (op == OP_WRITE_EXISTING)
@@ -37,28 +38,42 @@ FileData::FileData(string const & fileName, Op op)
     // Special case, since "r+b" fails if file doesn't exist.
     if (m_File)
       fclose(m_File);
+
     m_File = fopen(fileName.c_str(), "wb");
-    error = m_File ? ferror(m_File) : 0;
+    if (m_File && ferror(m_File) == 0)
+      return;
   }
-  if (m_File && error == 0)
-    return;
 #endif
 
   // if we're here - something bad is happened
   if (m_Op != OP_READ)
-    MYTHROW(Writer::OpenException, (fileName, error));
+    MYTHROW(Writer::OpenException, (GetErrorProlog()));
   else
-    MYTHROW(Reader::OpenException, (fileName, error));
+    MYTHROW(Reader::OpenException, (GetErrorProlog()));
 }
 
 FileData::~FileData()
 {
 #ifndef OMIM_OS_BADA
-  if (int error = fclose(m_File))
+  if (0 != fclose(m_File))
   {
-    LOG(LWARNING, ("Error closing file", m_FileName, m_Op, error));
+    LOG(LWARNING, ("Error closing file", GetErrorProlog()));
   }
 #endif
+}
+
+string FileData::GetErrorProlog() const
+{
+  char const * s;
+  switch (m_Op)
+  {
+  case OP_READ: s = "Read"; break;
+  case OP_WRITE_TRUNCATE: s = "Write truncate"; break;
+  case OP_WRITE_EXISTING: s = "Write existing"; break;
+  case OP_APPEND: s = "Append"; break;
+  }
+
+  return m_FileName + "; " + s + "; " + strerror(errno);
 }
 
 uint64_t FileData::Size() const
@@ -67,19 +82,21 @@ uint64_t FileData::Size() const
   Osp::Io::FileAttributes attr;
   result error = Osp::Io::File::GetAttributes(m_FileName.c_str(), attr);
   if (IsFailed(error))
-    MYTHROW(Reader::OpenException, (m_FileName, m_Op, error));
+    MYTHROW(Reader::SizeException, (m_FileName, m_Op, error));
   return attr.GetFileSize();
 #else
-  uint64_t const pos = Pos();
+  uint64_t const pos = ftell64(m_File);
+  if (ferror(m_File))
+    MYTHROW(Reader::SizeException, (GetErrorProlog(), pos));
   fseek64(m_File, 0, SEEK_END);
-  if (int error = ferror(m_File))
-    MYTHROW(Reader::OpenException, (m_FileName, m_Op, error));
-  uint64_t size = ftell64(m_File);
-  if (int error = ferror(m_File))
-    MYTHROW(Reader::OpenException, (m_FileName, m_Op, error));
+  if (ferror(m_File))
+    MYTHROW(Reader::SizeException, (GetErrorProlog()));
+  uint64_t const size = ftell64(m_File);
+  if (ferror(m_File))
+    MYTHROW(Reader::SizeException, (GetErrorProlog(), size));
   fseek64(m_File, pos, SEEK_SET);
-  if (int error = ferror(m_File))
-    MYTHROW(Writer::SeekException, (m_FileName, m_Op, error, pos));
+  if (ferror(m_File))
+    MYTHROW(Reader::SizeException, (GetErrorProlog(), pos));
   return size;
 #endif
 }
@@ -90,33 +107,32 @@ void FileData::Read(uint64_t pos, void * p, size_t size)
   result error = m_File.Seek(Osp::Io::FILESEEKPOSITION_BEGIN, pos);
   if (IsFailed(error))
     MYTHROW(Reader::ReadException, (error, pos));
-  int bytesRead = m_File.Read(p, size);
+  int const bytesRead = m_File.Read(p, size);
   error = GetLastResult();
   if (static_cast<size_t>(bytesRead) != size || IsFailed(error))
     MYTHROW(Reader::ReadException, (m_FileName, m_Op, error, bytesRead, pos, size));
 #else
   fseek64(m_File, pos, SEEK_SET);
-  if (int error = ferror(m_File))
-      MYTHROW(Reader::ReadException, (error, pos));
-  size_t bytesRead = fread(p, 1, size, m_File);
-  int error = ferror(m_File);
-  if (bytesRead != size || error)
-    MYTHROW(Reader::ReadException, (m_FileName, m_Op, error, bytesRead, pos, size));
+  if (ferror(m_File))
+    MYTHROW(Reader::ReadException, (GetErrorProlog(), pos));
+  size_t const bytesRead = fread(p, 1, size, m_File);
+  if (bytesRead != size || ferror(m_File))
+    MYTHROW(Reader::ReadException, (GetErrorProlog(), bytesRead, pos, size));
 #endif
 }
 
 uint64_t FileData::Pos() const
 {
 #ifdef OMIM_OS_BADA
-  int pos = m_File.Tell();
+  int const pos = m_File.Tell();
   result error = GetLastResult();
   if (IsFailed(error))
     MYTHROW(Writer::PosException, (m_FileName, m_Op, error, pos));
   return pos;
 #else
-  uint64_t result = ftell64(m_File);
-  if (int error = ferror(m_File))
-    MYTHROW(Writer::PosException, (m_FileName, m_Op, error, result));
+  uint64_t const result = ftell64(m_File);
+  if (ferror(m_File))
+    MYTHROW(Writer::PosException, (GetErrorProlog(), result));
   return result;
 #endif
 }
@@ -130,8 +146,8 @@ void FileData::Seek(uint64_t pos)
     MYTHROW(Writer::SeekException, (m_FileName, m_Op, error, pos));
 #else
   fseek64(m_File, pos, SEEK_SET);
-  if (int error = ferror(m_File))
-    MYTHROW(Writer::SeekException, (m_FileName, m_Op, error, pos));
+  if (ferror(m_File))
+    MYTHROW(Writer::SeekException, (GetErrorProlog(), pos));
 #endif
 }
 
@@ -142,10 +158,9 @@ void FileData::Write(void const * p, size_t size)
   if (IsFailed(error))
     MYTHROW(Writer::WriteException, (m_FileName, m_Op, error, size));
 #else
-  size_t bytesWritten = fwrite(p, 1, size, m_File);
-  int error = ferror(m_File);
-  if (bytesWritten != size || error)
-    MYTHROW(Writer::WriteException, (m_FileName, m_Op, error, bytesWritten, size));
+  size_t const bytesWritten = fwrite(p, 1, size, m_File);
+  if (bytesWritten != size || ferror(m_File))
+    MYTHROW(Writer::WriteException, (GetErrorProlog(), bytesWritten, size));
 #endif
 }
 
@@ -157,8 +172,8 @@ void FileData::Flush()
     MYTHROW(Writer::WriteException, (m_FileName, m_Op, error));
 #else
   fflush(m_File);
-  if (int error = ferror(m_File))
-    MYTHROW(Writer::WriteException, (m_FileName, m_Op, error));
+  if (ferror(m_File))
+    MYTHROW(Writer::WriteException, (GetErrorProlog()));
 #endif
 }
 
