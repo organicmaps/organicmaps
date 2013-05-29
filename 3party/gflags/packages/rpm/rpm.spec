@@ -7,10 +7,10 @@ Summary: A commandline flags library that allows for distributed flags
 Version: %VERSION
 Release: %rel
 Group: Development/Libraries
-URL: http://code.google.com/p/google-gflags
+URL: http://code.google.com/p/gflags
 License: BSD
-Vendor: Google
-Packager: Google Inc. <google-gflags@googlegroups.com>
+Vendor: Google Inc. and others
+Packager: Google Inc. and others <google-gflags@googlegroups.com>
 Source: http://%{NAME}.googlecode.com/files/%{NAME}-%{VERSION}.tar.gz
 Distribution: Redhat 7 and above.
 Buildroot: %{_tmppath}/%{name}-root
@@ -66,9 +66,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %docdir %{prefix}/share/doc/%{NAME}-%{VERSION}
 %{prefix}/share/doc/%{NAME}-%{VERSION}/*
-
-%doc AUTHORS COPYING ChangeLog INSTALL NEWS README
-%doc doc/*
 
 %{_libdir}/*.so.*
 %{_bindir}/gflags_completions.sh

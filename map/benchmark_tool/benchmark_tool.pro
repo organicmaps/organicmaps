@@ -10,6 +10,8 @@ DEPENDENCIES = map indexer platform geometry coding base gflags protobuf tomcryp
 
 include($$ROOT_DIR/common.pri)
 
+INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src
+
 QT *= core
 
 win32 {

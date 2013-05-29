@@ -1,10 +1,10 @@
-// Copyright (c) 2007, Google Inc.
+// Copyright (c) 2011, Google Inc.
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
-// 
+//
 //     * Redistributions of source code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
 //     * Redistributions in binary form must reproduce the above
@@ -14,7 +14,7 @@
 //     * Neither the name of Google Inc. nor the names of its
 // contributors may be used to endorse or promote products derived from
 // this software without specific prior written permission.
-// 
+//
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 // "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -26,38 +26,36 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
+//
 // ---
-// All Rights Reserved.
+// Author: csilvers@google.com (Craig Silverstein)
 //
-//
-// This file is needed for windows -- unittests are not part of the
-// gflags dll, but still want to include config.h just like the
-// dll does, so they can use internal tools and APIs for testing.
-//
-// The problem is that config.h declares GFLAGS_DLL_DECL to be
-// for exporting symbols, but the unittest needs to *import* symbols
-// (since it's not the dll).
-//
-// The solution is to have this file, which is just like config.h but
-// sets GFLAGS_DLL_DECL to do a dllimport instead of a dllexport.
-//
-// The reason we need this extra GFLAGS_DLL_DECL_FOR_UNITTESTS
-// variable is in case people want to set GFLAGS_DLL_DECL explicitly
-// to something other than __declspec(dllexport).  In that case, they
-// may want to use something other than __declspec(dllimport) for the
-// unittest case.  For that, we allow folks to define both
-// GFLAGS_DLL_DECL and GFLAGS_DLL_DECL_FOR_UNITTESTS explicitly.
-//
-// NOTE: This file is equivalent to config.h on non-windows systems,
-// which never defined GFLAGS_DLL_DECL_FOR_UNITTESTS and always
-// define GFLAGS_DLL_DECL to the empty string.
+// A simple program that uses STRIP_FLAG_HELP.  We'll have a shell
+// script that runs 'strings' over this program and makes sure
+// that the help string is not in there.
 
-#include "config.h"
+#include "config_for_unittests.h"
+#define STRIP_FLAG_HELP 1
+#include <gflags/gflags.h>
 
-#undef GFLAGS_DLL_DECL
-#ifdef GFLAGS_DLL_DECL_FOR_UNITTESTS
-# define GFLAGS_DLL_DECL  GFLAGS_DLL_DECL_FOR_UNITTESTS
-#else
-# define GFLAGS_DLL_DECL  // if DLL_DECL_FOR_UNITTESTS isn't defined, use ""
-#endif
+#include <stdio.h>
+
+using GOOGLE_NAMESPACE::SetUsageMessage;
+using GOOGLE_NAMESPACE::ParseCommandLineFlags;
+
+
+DEFINE_bool(test, true, "This text should be stripped out");
+
+int main(int argc, char** argv) {
+  SetUsageMessage("Usage message");
+  ParseCommandLineFlags(&argc, &argv, false);
+
+  // Unfortunately, for us, libtool can replace executables with a shell
+  // script that does some work before calling the 'real' executable
+  // under a different name.  We need the 'real' executable name to run
+  // 'strings' on it, so we construct this binary to print the real
+  // name (argv[0]) on stdout when run.
+  puts(argv[0]);
+
+  return 0;
+}

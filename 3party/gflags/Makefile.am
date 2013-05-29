@@ -21,7 +21,8 @@ AM_LDFLAGS = -no-undefined $(LIBSTDCXX_LA_LINKER_FLAG)
 gflagsincludedir = $(includedir)/gflags
 ## The .h files you want to install (that is, .h files that people
 ## who install this package can include in their own applications.)
-gflagsinclude_HEADERS = src/gflags/gflags.h src/gflags/gflags_completions.h
+gflagsinclude_HEADERS = src/gflags/gflags.h src/gflags/gflags_declare.h \
+                        src/gflags/gflags_completions.h
 
 # This is for backwards compatibility only.
 googleincludedir = $(includedir)/google
@@ -39,7 +40,7 @@ dist_doc_DATA = AUTHORS COPYING ChangeLog INSTALL NEWS README \
 ## The libraries (.so's) you want to install
 lib_LTLIBRARIES =
 ## The location of the windows project file for each binary we make
-WINDOWS_PROJECTS = google-gflags.sln
+WINDOWS_PROJECTS = gflags.sln
 
 ## unittests you want to run when people type 'make check'.
 ## TESTS is for binary unittests, check_SCRIPTS for script-based unittests.
@@ -55,7 +56,7 @@ CLEANFILES =
 
 ## vvvv RULES TO MAKE THE LIBRARIES, BINARIES, AND UNITTESTS
 
-GFLAGS_SOURCES = $(gflagsinclude_HEADERS) src/mutex.h \
+GFLAGS_SOURCES = $(gflagsinclude_HEADERS) src/mutex.h src/util.h \
                  src/gflags.cc src/gflags_reporting.cc \
                  src/gflags_completions.cc
 
@@ -63,12 +64,14 @@ lib_LTLIBRARIES += libgflags.la
 WINDOWS_PROJECTS += vsprojects/libgflags/libgflags.vcproj
 libgflags_la_SOURCES = $(GFLAGS_SOURCES)
 libgflags_la_CXXFLAGS = $(PTHREAD_CFLAGS) -DNDEBUG
-libgflags_la_LDFLAGS = $(PTHREAD_CFLAGS)
+# -version-info gets passed to libtool
+libgflags_la_LDFLAGS = $(PTHREAD_CFLAGS) -version-info @SO_VERSION@
 libgflags_la_LIBADD = $(PTHREAD_LIBS)
 
 lib_LTLIBRARIES += libgflags_nothreads.la
 libgflags_nothreads_la_SOURCES = $(GFLAGS_SOURCES)
 libgflags_nothreads_la_CXXFLAGS = -DNDEBUG -DNO_THREADS
+libgflags_nothreads_la_LDFLAGS = -version-info @SO_VERSION@
 
 TESTS += gflags_unittest
 WINDOWS_PROJECTS += vsprojects/gflags_unittest/gflags_unittest.vcproj
@@ -117,6 +120,21 @@ gflags_unittest_sh: gflags_unittest$(EXEEXT) \
 	bash --version >/dev/null 2>&1 && export SH=bash || export SH=sh; \
 	$$SH "$(top_srcdir)/src/gflags_unittest.sh" \
 	     "`pwd`/gflags_unittest" "$(top_srcdir)" "@TEST_TMPDIR@"
+
+# Test the STRIP_FLAGS #define.
+TESTS += gflags_strip_flags_test
+gflags_strip_flags_test_SOURCES = $(gflagsinclude_HEADERS) \
+                                  src/config_for_unittests.h \
+                                  src/gflags_strip_flags_test.cc
+gflags_strip_flags_test_CXXFLAGS = $(PTHREAD_CFLAGS)
+gflags_strip_flags_test_LDFLAGS = $(PTHREAD_CFLAGS)
+gflags_strip_flags_test_LDADD = libgflags.la
+
+check_SCRIPTS += gflags_strip_flags_test_sh
+noinst_SCRIPTS += src/gflags_strip_flags_test.sh
+gflags_strip_flags_test_sh: gflags_strip_flags_test$(EXEEXT)
+	sh "$(top_srcdir)/src/gflags_strip_flags_test.sh" \
+           "`pwd`/gflags_strip_flags_test$(EXEEXT)"
 
 # These are negative-compilation tests.  We want to make sure these
 # erroneous use of the flags macros correctly fail to compile.
@@ -171,8 +189,8 @@ lib${PACKAGE}.pc: Makefile packages/rpm/rpm.spec
 	echo '' >> "$@".tmp
 	echo 'Name: $(PACKAGE)' >> "$@".tmp
 	echo 'Version: $(VERSION)' >> "$@".tmp
-	-grep '^Summary:' packages/rpm/rpm.spec | sed s/^Summary:/Description:/ | head -n1 >> "$@".tmp
-	-grep '^URL: ' packages/rpm/rpm.spec >> "$@".tmp
+	-grep '^Summary:' $(top_srcdir)/packages/rpm/rpm.spec | sed s/^Summary:/Description:/ | head -n1 >> "$@".tmp
+	-grep '^URL: ' $(top_srcdir)/packages/rpm/rpm.spec >> "$@".tmp
 	echo 'Requires:' >> "$@".tmp
 	echo 'Libs: -L$${libdir} -l$(PACKAGE)' >> "$@".tmp
 	echo 'Libs.private: $(PTHREAD_CFLAGS) $(PTHREAD_LIBS)' >> "$@".tmp
@@ -189,6 +207,7 @@ libtool: $(LIBTOOL_DEPS)
 EXTRA_DIST = packages/rpm.sh packages/rpm/rpm.spec packages/deb.sh packages/deb \
 	libtool $(SCRIPTS) \
 	src/windows/config.h src/windows/port.h src/windows/port.cc \
-	src/windows/gflags/gflags.h src/windows/gflags/gflags_completions.h \
+	src/windows/gflags/gflags.h src/windows/gflags/gflags_declare.h \
+        src/windows/gflags/gflags_completions.h \
 	$(WINDOWS_PROJECTS) \
         src/solaris/libstdc++.la

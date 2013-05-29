@@ -1,6 +1,6 @@
 Source: gflags
 Priority: optional
-Maintainer: Google Inc. <google-gflags@googlegroups.com>
+Maintainer: Google Inc. and others <google-gflags@googlegroups.com>
 Build-Depends: debhelper (>= 4.0.0), binutils
 Standards-Version: 3.6.1
 

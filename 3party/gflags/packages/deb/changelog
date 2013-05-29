@@ -1,3 +1,33 @@
+gflags (2.0-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Google Inc. and others <google-gflags@googlegroups.com>  Wed, 25 Jan 2012 15:09:14 -0800
+
+gflags (1.7-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Google Inc. <opensource@google.com>  Tue, 20 Dec 2011 19:48:57 -0800
+
+gflags (1.6-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Google Inc. <opensource@google.com>  Fri, 29 Jul 2011 19:05:21 -0700
+
+gflags (1.5-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Google Inc. <opensource@google.com>  Mon, 24 Jan 2011 16:11:35 -0800
+
+gflags (1.4-2) unstable; urgency=low
+
+  * Accidentally uploaded an outdated .deb to Google Code; this is the right one
+
+ -- Google Inc. <opensource@google.com>  Wed, 13 Oct 2010 17:48:44 -0700
+
 gflags (1.4-1) unstable; urgency=low
 
   * New upstream release.

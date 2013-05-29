@@ -50,12 +50,12 @@
 completion_word_index="$(($# - 1))"
 completion_word="${!completion_word_index}"
 
-# TODO(daven): Replace this once commandlineflags_completions.cc has
+# TODO(user): Replace this once gflags_completions.cc has
 # a bool parameter indicating unambiguously to hijack the process for
 # completion purposes.
 if [ -z "$completion_word" ]; then
   # Until an empty value for the completion word stops being misunderstood
-  # by google3 binaries, don't actuall execute the binary or the process
+  # by binaries, don't actually execute the binary or the process
   # won't be hijacked!
   exit 0
 fi
@@ -74,12 +74,10 @@ binary="${!binary_index}"
 # places this in the $COMP_LINE variable.
 if [ "$binary" == "time" ] || [ "$binary" == "env" ]; then
   # we'll assume that the first 'argument' is actually the
-  # binary to be run, if we think it looks like a google3
   # binary
 
-  # TODO(daven): Decide what 'looks' like a google3 binary.  =)
 
-  # TODO(daven): This is not perfect - the 'env' command, for instance,
+  # TODO(user): This is not perfect - the 'env' command, for instance,
   #   is allowed to have options between the 'env' and 'the command to
   #   be executed'.  For example, consider:
   # $ env FOO="bar"  bin/do_something  --help<TAB>
@@ -105,7 +103,7 @@ for ((i=1; i<=$(($# - 3)); ++i)); do
 done
 params="$params --tab_completion_word \"$completion_word\""
 
-# TODO(daven): Perhaps stash the output in a temporary file somewhere
+# TODO(user): Perhaps stash the output in a temporary file somewhere
 # in /tmp, and only cat it to stdout if the command returned a success
 # code, to prevent false positives
 

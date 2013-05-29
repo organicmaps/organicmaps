@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Copyright (c) 2006, Google Inc.
 # All rights reserved.
@@ -32,21 +32,17 @@
 # ---
 # Author: Craig Silverstein
 #
-# Just tries to run gflags_unittest with various flags defined in
-# gflags.cc, and make sure they give the appropriate exit
-# status and appropriate error message.
+# Just tries to run the gflags_unittest with various flags
+# defined in gflags.cc, and make sure they give the
+# appropriate exit status and appropriate error message.
 
-if [ -z "$1" ]
-then
-    echo "USAGE: $0 <unittest exe> [top_srcdir] [tmpdir]"
-    exit 1
-fi
-
+if [ -z "$1" ]; then
+  echo "USAGE: $0 <unittest exe> [top_srcdir] [tmpdir]"
+  exit 1
+fi 
 EXE="$1"
 SRCDIR="${2:-./}"
 TMPDIR="${3:-/tmp/gflags}"
-
-# Executables built with the main source file suffixed with "-main" and "_main".
 EXE2="${EXE}2"    # eg, gflags_unittest2
 EXE3="${EXE}3"    # eg, gflags_unittest3
 
@@ -65,8 +61,9 @@ ExpectExe() {
   local unexpected_output="$1"
   shift
 
-  # We always add --srcdir=$SRCDIR because it's needed for correctness
-  "$executable" --srcdir="$SRCDIR" "$@" > "$TMPDIR/test.$line_number" 2>&1
+    # We always add --srcdir because it's needed for correctness
+    "$executable" --srcdir="$SRCDIR" "$@" > "$TMPDIR/test.$line_number" 2>&1
+
   local actual_rc=$?
   if [ $actual_rc != $expected_rc ]; then
     echo "Test on line $line_number failed:" \
@@ -111,14 +108,22 @@ export FLAGS_help=false
 # First, just make sure the unittest works as-is
 Expect $LINENO 0 "PASS" ""
 
-# --help should show all flags, including flags from gflags_reporting.cc
+# --help should show all flags, including flags from gflags_reporting
 Expect $LINENO 1 "/gflags_reporting.cc" "" --help
+
+# Make sure that --help prints even very long helpstrings.
+Expect $LINENO 1 "end of a long helpstring" "" --help
 
 # Make sure --help reflects flag changes made before flag-parsing
 Expect $LINENO 1 \
      "-changed_bool1 (changed) type: bool default: true" "" --help
 Expect $LINENO 1 \
-     "-changed_bool2 (changed) type: bool default: true" "" --help
+     "-changed_bool2 (changed) type: bool default: false currently: true" "" \
+     --help
+# And on the command-line, too
+Expect $LINENO 1 \
+     "-changeable_string_var () type: string default: \"1\" currently: \"2\"" \
+     "" --changeable_string_var 2 --help
 
 # --nohelp and --help=false should be as if we didn't say anything
 Expect $LINENO 0 "PASS" "" --nohelp
@@ -128,17 +133,18 @@ Expect $LINENO 0 "PASS" "" --help=false
 Expect $LINENO 1 "/gflags_reporting.cc" "" -helpfull
 
 # --helpshort should show only flags from the unittest itself
-Expect $LINENO 1 "/gflags_unittest.cc" "/gflags_reporting.cc" --helpshort
+Expect $LINENO 1 "/gflags_unittest.cc" \
+       "/gflags_reporting.cc" --helpshort
 
 # --helpshort should show the tldflag we created in the unittest dir
 Expect $LINENO 1 "tldflag1" "/google.cc" --helpshort
 Expect $LINENO 1 "tldflag2" "/google.cc" --helpshort
 
 # --helpshort should work if the main source file is suffixed with [_-]main
-ExpectExe "$EXE2" $LINENO 1 "/gflags_unittest-main.cc" "/gflags_reporting.cc" \
-  --helpshort
-ExpectExe "$EXE3" $LINENO 1 "/gflags_unittest_main.cc" "/gflags_reporting.cc" \
-  --helpshort
+ExpectExe "$EXE2" $LINENO 1 "/gflags_unittest-main.cc" \
+          "/gflags_reporting.cc" --helpshort
+ExpectExe "$EXE3" $LINENO 1 "/gflags_unittest_main.cc" \
+          "/gflags_reporting.cc" --helpshort
 
 # --helpon needs an argument
 Expect $LINENO 1 \
@@ -146,20 +152,22 @@ Expect $LINENO 1 \
      "" --helpon
 
 # --helpon argument indicates what file we'll show args from
-Expect $LINENO 1 "/gflags.cc" "/gflags_unittest.cc" --helpon=gflags
+Expect $LINENO 1 "/gflags.cc" "/gflags_unittest.cc" \
+  --helpon=gflags
 
 # another way of specifying the argument
-Expect $LINENO 1 "/gflags.cc" "/gflags_unittest.cc" --helpon gflags
+Expect $LINENO 1 "/gflags.cc" "/gflags_unittest.cc" \
+       --helpon gflags
 
 # test another argument
 Expect $LINENO 1 "/gflags_unittest.cc" "/gflags.cc" \
-  --helpon gflags_unittest
+  --helpon=gflags_unittest
 
 # helpmatch is like helpon but takes substrings
-Expect $LINENO 1 "/gflags_reporting.cc" "/gflags_unittest.cc" \
-  -helpmatch reporting
-Expect $LINENO 1 "/gflags_unittest.cc" "/gflags.cc" \
-  -helpmatch=unittest
+Expect $LINENO 1 "/gflags_reporting.cc" \
+       "/gflags_unittest.cc" -helpmatch reporting
+Expect $LINENO 1 "/gflags_unittest.cc" \
+       "/gflags.cc" -helpmatch=unittest
 
 # if no flags are found with helpmatch or helpon, suggest --help
 Expect $LINENO 1 "No modules matched" "/gflags_unittest.cc" \
@@ -177,6 +185,7 @@ Expect $LINENO 1 "/gflags_unittest.cc</file>" \
 
 # just print the version info and exit
 Expect $LINENO 0 "gflags_unittest" "gflags_unittest.cc" --version
+Expect $LINENO 0 "version test_version" "gflags_unittest.cc" --version
 
 # --undefok is a fun flag...
 Expect $LINENO 1 "unknown command line flag 'foo'" "" --undefok= --foo --unused_bool
@@ -196,8 +205,10 @@ Expect $LINENO 0 "PASS" "" --flagfile="$TMPDIR/flagfile.2"
 Expect $LINENO 0 "PASS" "" --flagfile="$TMPDIR/flagfile.3"
 
 # Also try to load flags from the environment
-Expect $LINENO 0 "gflags_unittest" "gflags_unittest.cc" --fromenv=version
-Expect $LINENO 0 "gflags_unittest" "gflags_unittest.cc" --tryfromenv=version
+Expect $LINENO 0 "gflags_unittest" "gflags_unittest.cc" \
+  --fromenv=version
+Expect $LINENO 0 "gflags_unittest" "gflags_unittest.cc" \
+  --tryfromenv=version
 Expect $LINENO 0 "PASS" "" --fromenv=help
 Expect $LINENO 0 "PASS" "" --tryfromenv=help
 Expect $LINENO 1 "helpfull not found in environment" "" --fromenv=helpfull
@@ -215,10 +226,11 @@ Expect $LINENO 0 "gflags_unittest" "gflags_unittest.cc" \
 # Make sure -- by itself stops argv processing
 Expect $LINENO 0 "PASS" "" -- --help
 
+
 # And we should die if the flag value doesn't pass the validator
 Expect $LINENO 1 "ERROR: failed validation of new value 'true' for flag 'always_fail'" "" --always_fail
 
-# TODO(wojtekm) And if locking in validators fails.
+# TODO(user) And if locking in validators fails.
 # Expect $LINENO 0 "PASS" "" --deadlock_if_cant_lock
 
 echo "PASS"

@@ -15,6 +15,12 @@ have to figure out that part for yourself.  If you choose to just
 re-use the existing .sln, make sure you set the IncludeDir's
 appropriately!  Look at the properties for libgflags.dll.
 
-You can also link gflags code in statically.  For this to work, you'll
-need to add "/D GFLAGS_DLL_DECL=" to the compile line of every
-gflags .cc file.
+You can also create a static library of gflags.  To do this, add
+   /D GFLAGS_DLL_DECL= /D GFLAGS_DLL_DECLARE_FLAG= /D GFLAGS_DLL_DEFINE_FLAG=
+to the compile line of every gflags .cc file.
+
+If you create a static library that *uses* flags (that is, DEFINEs or
+DECLAREs flags), you will need to add the following to every .cc file
+that defines or declares a flag (it's safe to add them to every .cc
+file in your project):
+   /D GFLAGS_DLL_DECLARE_FLAG= /D GFLAGS_DLL_DEFINE_FLAG=

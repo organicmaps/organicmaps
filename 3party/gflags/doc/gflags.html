@@ -2,11 +2,9 @@
 
 <html>
 <head>
-<title>How To Use Google Commandline Flags</title>
+<title>How To Use Gflags (formerly Google Commandline Flags)</title>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="http://www.google.com/favicon.ico" type="image/x-icon"
-      rel="shortcut icon">
 <link href="designstyle.css" type="text/css" rel="stylesheet">
 <style type="text/css">
 <!--
@@ -28,7 +26,7 @@
 
 <body>
 
-<h1>How To Use Google Commandline Flags (gflags)</h1>
+<h1>How To Use Gflags (formerly Google Commandline Flags)</h1>
 <small>(as of
 <script type=text/javascript>
   var lm = new Date(document.lastModified);
@@ -72,13 +70,14 @@ string (in particular, a filename) as an argument.  Users can use a
 library to help parse the commandline and store the flags in some data
 structure.</p>
 
-<p>Google's commandline flags library differs from other libraries,
+<p>Gflags, the commandline flags library used within Google,
+differs from other libraries,
 such as <code>getopt()</code>, in that flag definitions can be
 scattered around the source code, and not just listed in one place
 such as <code>main()</code>.  In practice, this means that a single
 source-code file will define and use flags that are meaningful to that
 file.  Any application that links in that file will get the flags, and
-the google commandline flags library will automatically handle that
+the gflags library will automatically handle that
 flag appropriately.</p>
 
 <p>There's significant gain in flexibility, and ease of code reuse,
@@ -122,7 +121,7 @@ types supported:</p>
 flag in our example is a list of strings, but is defined of type
 "string", not "list_of_string" or similar.  This is by design.  We'd
 rather use only simple types for the flags, and allow for complex,
-arbitrary parsing routines to parse them, then to try to put the logic
+arbitrary parsing routines to parse them, than to try to put the logic
 inside the flags library proper.</p>
 
 <p>All DEFINE macros take the same three arguments: the name of the
@@ -218,7 +217,7 @@ two files. This causes the flag to be a global variable.</p>
 
 <p>After DEFINE-ing a flag, you may optionally register a validator
 function with the flag.  If you do this, after the flag is parsed from
-the commandline, and whenever its value is changes via a call to
+the commandline, and whenever its value is changed via a call to
 <code>SetCommandLineOption()</code>, the validator function is called
 with the new value as an argument.  The validator function should
 return 'true' if the flag value is valid, and false otherwise.
@@ -369,11 +368,12 @@ commandline, but if they do not, the flag's value will default to
 true.</p>
 
 
-<h2> <A name="special">Special Flags</code> </h2>
+<h2> <A name="special">Special Flags</a> </h2>
 
 <p>There are a few flags defined by the commandlineflags module
-itself, and are available to all applications.  These fall into three
-categories.  First are the 'reporting' flags that, when found, cause
+itself, and are available to all applications that use
+commandlineflags.  These fall into
+three categories.  First are the 'reporting' flags that, when found, cause
 the application to print some information about itself and exit.</p>
 
 <table><tr valign=top>
@@ -386,7 +386,8 @@ the application to print some information about itself and exit.</p>
      (in case -help changes in the future)</td>
 </tr><tr valign=top>
   <td><code>--helpshort</code></td>
-  <td>shows only flags for the file that includes <code>main()</code></td>
+  <td>shows only flags for the file with the same name as the executable 
+      (usually the one containing <code>main()</code>)</td>
 </tr><tr valign=top>
   <td><code>--helpxml</code></td>
   <td>like --help, but output is in xml for easier parsing</td>
@@ -504,7 +505,7 @@ and then processing continues with remaining flags from the command
 line.</p>
 
 
-<h2> <A name="api">The API</code> </h2>
+<h2> <A name="api">The API</a> </h2>
 
 <p>In addition to accessing <code>FLAGS_foo</code> directly, it is
 possible to access the flags programmatically, through an API.  It is
@@ -516,8 +517,8 @@ access parts of <code>argv</code> outside main, including the program
 name (<code>argv[0]</code>).</p>
 
 <p>For more information about these routines, and other useful helper
-methods such as <code>google::SetUsageMessage</code>, see
-<code>gflags.h</code>.</p>
+methods such as <code>google::SetUsageMessage()</code> and
+<code>google::SetVersionString</code>, see <code>gflags.h</code>.</p>
 
 
 <h2> <A name="misc">Miscellaneous Notes</code> </h2>

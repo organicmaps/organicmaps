@@ -28,9 +28,8 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // ---
-// Author: Roberto Bayardo
 //
-// A negative compile test for commandlineflags.
+// A negative comiple test for gflags.
 
 #include <gflags/gflags.h>
 
@@ -54,7 +53,7 @@ DEFINE_bool(some_bool_flag_3,
             "false",
             "false in in quotes, which is wrong");
 
-#elif defined(SANITY)
+#elif defined(TEST_SANITY)
 
 DEFINE_bool(some_bool_flag_4,
             true,

@@ -9,6 +9,8 @@ DEPENDENCIES = storage indexer geometry coding base expat
 
 include($$ROOT_DIR/common.pri)
 
+INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src
+
 QT *= core
 
 SOURCES += \

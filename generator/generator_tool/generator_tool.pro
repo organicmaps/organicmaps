@@ -6,6 +6,8 @@ DEPENDENCIES = generator storage indexer platform geometry coding base gflags ex
 
 include($$ROOT_DIR/common.pri)
 
+INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src
+
 CONFIG += console
 CONFIG -= app_bundle
 TEMPLATE = app

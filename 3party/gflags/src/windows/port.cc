@@ -42,15 +42,21 @@
 #include <windows.h>
 #include "port.h"
 
-#ifndef HAVE_SNPRINTF
-int snprintf(char *str, size_t size, const char *format, ...) {
+// These call the windows _vsnprintf, but always NUL-terminate.
+#if !defined(__MINGW32__) && !defined(__MINGW64__)  /* mingw already defines */
+int safe_vsnprintf(char *str, size_t size, const char *format, va_list ap) {
   if (size == 0)        // not even room for a \0?
     return -1;          // not what C99 says to do, but what windows does
+  str[size-1] = '\0';
+  return _vsnprintf(str, size-1, format, ap);
+}
+
+int snprintf(char *str, size_t size, const char *format, ...) {
+  int r;
   va_list ap;
   va_start(ap, format);
-  const int r = _vsnprintf(str, size-1, format, ap);
+  r = vsnprintf(str, size, format, ap);
   va_end(ap);
-  str[size-1] = '\0';
   return r;
 }
-#endif
+#endif  /* #if !defined(__MINGW32__) && !defined(__MINGW64__) */

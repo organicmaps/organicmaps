@@ -4,20 +4,34 @@
 # make sure we're interpreted by some minimal autoconf
 AC_PREREQ(2.57)
 
-AC_INIT(gflags, 1.4, opensource@google.com)
+AC_INIT(gflags, 2.0, google-gflags@googlegroups.com)
+# Update this value for every release!  (A:B:C will map to foo.so.(A-C).C.B)
+# http://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html
+SO_VERSION=3:0:1
+
 # The argument here is just something that should be in the current directory
 # (for sanity checking)
 AC_CONFIG_SRCDIR(README)
+AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([dist-zip])
 AM_CONFIG_HEADER(src/config.h)
 
 # Checks for programs.
+AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_CPP
-AC_PROG_CXX
 AM_CONDITIONAL(GCC, test "$GCC" = yes)   # let the Makefile know if we're gcc
 AC_CANONICAL_HOST
 
+# MinGW uses autoconf, but also needs the windows shim routines
+# (since it doesn't have its own support for, say, pthreads).
+# This requires us to #include a special header file, and also to
+# link in some windows versions of .o's instead of the unix versions.
+AH_BOTTOM([
+#if defined( __MINGW32__) || defined(__MINGW64__)
+#include "windows/port.h"
+#endif
+])
 # Populate $host_cpu, $host_os, etc.
 AC_CANONICAL_HOST
 case $host_os in
@@ -40,6 +54,7 @@ AC_SUBST(TEST_TMPDIR)
 # Uncomment this if you'll be exporting libraries (.so's)
 AC_PROG_LIBTOOL
 AC_SUBST(LIBTOOL_DEPS)
+AC_SUBST(SO_VERSION)
 
 # Check whether some low-level functions/files are available
 AC_HEADER_STDC
@@ -49,6 +64,8 @@ AC_CHECK_HEADER(stdint.h, ac_cv_have_stdint_h=1, ac_cv_have_stdint_h=0)
 AC_CHECK_HEADER(sys/types.h, ac_cv_have_systypes_h=1, ac_cv_have_systypes_h=0)
 AC_CHECK_HEADER(inttypes.h, ac_cv_have_inttypes_h=1, ac_cv_have_inttypes_h=0)
 AC_CHECK_HEADERS([fnmatch.h])
+AC_CHECK_HEADERS([sys/stat.h])
+AC_CHECK_HEADERS([unistd.h])
 
 # These are the types I need.  We look for them in either stdint.h,
 # sys/types.h, or inttypes.h, all of which are part of the default-includes.
@@ -57,7 +74,6 @@ AC_CHECK_TYPE(u_int16_t, ac_cv_have_u_int16_t=1, ac_cv_have_u_int16_t=0)
 AC_CHECK_TYPE(__int16, ac_cv_have___int16=1, ac_cv_have___int16=0)
 
 AC_CHECK_FUNCS([strtoll strtoq])
-AC_CHECK_FUNCS([setenv putenv])    # MinGW has putenv but not setenv
 
 AX_C___ATTRIBUTE__
 # We only care about __attribute__ ((unused))
@@ -72,6 +88,7 @@ ACX_PTHREAD
 # Find out what namespace 'normal' STL code lives in, and also what namespace
 # the user wants our classes to be defined in
 AC_CXX_STL_NAMESPACE
+# TODO(csilvers): this should be renamed to gflags.
 AC_DEFINE_GOOGLE_NAMESPACE(google)
 
 # Solaris 10 6/06 has a bug where /usr/sfw/lib/libstdc++.la is empty.
@@ -108,5 +125,7 @@ AC_DEFINE(GFLAGS_DLL_DECL,,
 	   #includes "config.h" before anything else.])
 
 # Write generated configuration file, and also .h files
-AC_CONFIG_FILES([Makefile src/gflags/gflags.h src/gflags/gflags_completions.h])
+AC_CONFIG_FILES([Makefile
+                 src/gflags/gflags.h src/gflags/gflags_declare.h
+                 src/gflags/gflags_completions.h])
 AC_OUTPUT

@@ -52,7 +52,7 @@ cp "$archive" "$RPM_SOURCE_DIR"
 # does a better job of this, so if we can run 'dpkg --print-architecture'
 # to get the build CPU, we use that in preference of the rpmbuild
 # default.
-target=`dpkg --print-architecture 2>/dev/null`   # "" if dpkg isn't found
+target=`dpkg --print-architecture 2>/dev/null || echo ""`
 if [ -n "$target" ]
 then
    target=" --target $target"

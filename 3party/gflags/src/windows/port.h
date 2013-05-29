@@ -40,12 +40,6 @@
 #ifndef GOOGLE_GFLAGS_WINDOWS_PORT_H_
 #define GOOGLE_GFLAGS_WINDOWS_PORT_H_
 
-// You should never include this file directly, but always include it
-// from either config.h (MSVC) or mingw.h (MinGW/msys).
-#if !defined(GOOGLE_GFLAGS_WINDOWS_CONFIG_H_)
-# error "port.h should only be included from config.h"
-#endif
-
 #ifdef _WIN32
 
 #ifndef WIN32_LEAN_AND_MEAN
@@ -53,16 +47,45 @@
 #endif
 #include <windows.h>
 #include <direct.h>          /* for mkdir */
+#include <stdlib.h>          /* for _putenv, getenv */
 #include <stdio.h>           /* need this to override stdio's snprintf */
+#include <stdarg.h>          /* util.h uses va_copy */
+#include <string.h>          /* for _stricmp */
 
-#define putenv  _putenv
-
-// ----------------------------------- STRING ROUTINES
-
-// We can't just use _snprintf as a drop-in-replacement, because it
-// doesn't always NUL-terminate. :-(
+/* We can't just use _vsnprintf and _snprintf as drop-in-replacements,
+ * because they don't always NUL-terminate. :-(  We also can't use the
+ * name vsnprintf, since windows defines that (but not snprintf (!)).
+ */
+#if !defined(__MINGW32__) && !defined(__MINGW64__)  /* mingw already defines */
 extern GFLAGS_DLL_DECL int snprintf(char *str, size_t size,
-                                    const char *format, ...);
+                                       const char *format, ...);
+extern int GFLAGS_DLL_DECL safe_vsnprintf(char *str, size_t size,
+                                             const char *format, va_list ap);
+#define vsnprintf(str, size, format, ap)  safe_vsnprintf(str, size, format, ap)
+#define va_copy(dst, src)  (dst) = (src)
+#endif  /* #if !defined(__MINGW32__) && !defined(__MINGW64__) */
+
+inline void setenv(const char* name, const char* value, int) {
+  // In windows, it's impossible to set a variable to the empty string.
+  // We handle this by setting it to "0" and the NUL-ing out the \0.
+  // That is, we putenv("FOO=0") and then find out where in memory the
+  // putenv wrote "FOO=0", and change it in-place to "FOO=\0".
+  // c.f. http://svn.apache.org/viewvc/stdcxx/trunk/tests/src/environ.cpp?r1=611451&r2=637508&pathrev=637508
+  static const char* const kFakeZero = "0";
+  if (*value == '\0')
+    value = kFakeZero;
+  // Apparently the semantics of putenv() is that the input
+  // must live forever, so we leak memory here. :-(
+  const int nameval_len = strlen(name) + 1 + strlen(value) + 1;
+  char* nameval = reinterpret_cast<char*>(malloc(nameval_len));
+  snprintf(nameval, nameval_len, "%s=%s", name, value);
+  _putenv(nameval);
+  if (value == kFakeZero) {
+    nameval[nameval_len - 2] = '\0';   // works when putenv() makes no copy
+    if (*getenv(name) != '\0')
+      *getenv(name) = '\0';            // works when putenv() copies nameval
+  }
+}
 
 #define strcasecmp   _stricmp
 

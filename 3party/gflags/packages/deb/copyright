@@ -1,9 +1,9 @@
-This package was debianized by Google Inc. <opensource@google.com> on
-13 December 2006.
+This package was debianized by Craig Silverstein <google-ctemplate@google.com>
+on Wed, 25 Jan 2012 15:09:14 -0800.
 
-It was downloaded from http://code.google.com/
+It was downloaded from http://code.google.com/p/gflags/downloads/list
 
-Upstream Author: opensource@google.com
+Upstream Author: google-gflags@google.com
 
 Copyright (c) 2006, Google Inc.
 All rights reserved.

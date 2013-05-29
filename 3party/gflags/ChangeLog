@@ -1,3 +1,40 @@
+Wed Jan 25 15:09:14 2012  Google Inc. <google-gflags@googlegroups.com>
+
+	* gflags: version 2.0
+	* Changed the 'official' gflags email in setup.py/etc
+	* Renamed google-gflags.sln to gflags.sln
+	* Changed copyright text to reflect Google's relinquished ownership
+
+Tue Dec 20 19:48:57 2011  Google Inc. <opensource@google.com>
+
+	* google-gflags: version 1.7
+	* Add CommandLineFlagInfo::flag_ptr pointing to current storage (musji)
+	* PORTING: flush after writing to stderr, needed on cygwin
+	* PORTING: Clean up the GFLAGS_DLL_DECL stuff better
+	* Fix a bug in StringPrintf() that affected large strings (csilvers)
+	* Die at configure-time when g++ isn't installed
+
+Fri Jul 29 19:05:21 2011  Google Inc. <opensource@google.com>
+
+	* google-gflags: version 1.6
+	* BUGFIX: Fix a bug where we were leaving out a required $(top_srcdir)
+	* Fix definition of clstring (jyrki)
+	* Split up flag declares into its own file (jyrki)
+	* Add --version support (csilvers)
+	* Update the README for gflags with static libs
+	* Update acx_pthread.m4 for nostdlib
+	* Change ReparseCommandLineFlags to return void (csilvers)
+	* Some doc typofixes and example augmentation (various)
+
+Mon Jan 24 16:11:35 2011  Google Inc. <opensource@google.com>
+
+	* google-gflags: version 1.5
+	* Better reporting of current vs default value (handler)
+	* Add API for cleaning up of memory at program-exit (jmarantz)
+	* Fix macros to work inside namespaces (csilvers)
+	* Use our own string typedef in case string is redefined (csilvers)
+	* Updated to autoconf 2.65
+
 Wed Oct 13 17:40:12 2010  Google Inc. <opensource@google.com>
 
 	* google-gflags: version 1.4

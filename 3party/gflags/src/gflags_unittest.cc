@@ -1,4 +1,4 @@
-// Copyright (c) 2006, Google Inc.
+// Copyright (c) 2005, Google Inc.
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -28,27 +28,26 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // ---
-// Author: Marius Eriksen
 //
 // For now, this unit test does not cover all features of
 // gflags.cc
 
 #include "config_for_unittests.h"
+#include <gflags/gflags.h>
+
+#include <math.h>       // for isinf() and isnan()
 #include <stdio.h>
-#include <stdlib.h>     // for &exit
-#include <assert.h>
+#include <stdlib.h>
 #include <string.h>
 #ifdef HAVE_UNISTD_H
-#include <unistd.h>     // for unlink()
-#endif
-#ifdef HAVE_SYS_STAT_H
-#include <sys/stat.h>   // for mkdir()
-#endif
-#include <math.h>       // for isinf() and isnan()
+# include <unistd.h>
+#endif     // for unlink()
 #include <vector>
 #include <string>
+#include "util.h"
+TEST_INIT
+EXPECT_DEATH_INIT
 
-#include <gflags/gflags.h>
 // I don't actually use this header file, but #include it under the
 // old location to make sure that the include-header-forwarding
 // works.  But don't bother on windows; the windows port is so new
@@ -58,39 +57,14 @@
 void (*unused_fn)() = &GOOGLE_NAMESPACE::HandleCommandLineCompletions;
 #endif
 
+using std::string;
+using std::vector;
 using GOOGLE_NAMESPACE::int32;
 using GOOGLE_NAMESPACE::FlagRegisterer;
 using GOOGLE_NAMESPACE::StringFromEnv;
 using GOOGLE_NAMESPACE::RegisterFlagValidator;
 using GOOGLE_NAMESPACE::CommandLineFlagInfo;
 using GOOGLE_NAMESPACE::GetAllFlags;
-
-// Returns the number of elements in an array.
-#define GET_ARRAY_SIZE(arr) (sizeof(arr)/sizeof(*(arr)))
-
-#if !defined(HAVE_SETENV) && defined(HAVE_PUTENV)   // mingw, at least
-void setenv(const char* name, const char* value, int) {
-  // In windows, it's impossible to set a variable to the empty string.
-  // We handle this by setting it to "0" and the NUL-ing out the \0.
-  // cf http://svn.apache.org/viewvc/stdcxx/trunk/tests/src/environ.cpp?r1=611451&r2=637508&pathrev=637508
-  static const char* const kFakeZero = "0";
-  if (*value == '\0')
-    value = kFakeZero;
-  // Apparently the semantics of putenv() is that the input
-  // must live forever, so we leak memory here. :-(
-  const int nameval_len = strlen(name) + 1 + strlen(value) + 1;
-  char* nameval = reinterpret_cast<char*>(malloc(nameval_len));
-  snprintf(nameval, nameval_len, "%s=%s", name, value);
-  putenv(nameval);
-  if (value == kFakeZero) {
-    nameval[nameval_len - 2] = '\0';   // works when putenv() makes no copy
-    if (*getenv(name) != '\0')
-      *getenv(name) = '\0';            // works when putenv() copies nameval
-  }
-}
-#endif
-
-DECLARE_string(tryfromenv);   // in gflags.cc
 
 DEFINE_string(test_tmpdir, "/tmp/gflags_unittest", "Dir we use for temp files");
 #ifdef _MSC_VER  // in MSVC, we run from the vsprojects directory
@@ -100,6 +74,8 @@ DEFINE_string(srcdir, "..\\..",
 DEFINE_string(srcdir, StringFromEnv("SRCDIR", "."),
               "Source-dir root, needed to find gflags_unittest_flagfile");
 #endif
+
+DECLARE_string(tryfromenv);   // in gflags.cc
 
 DEFINE_bool(test_bool, false, "tests bool-ness");
 DEFINE_int32(test_int32, -1, "");
@@ -131,7 +107,7 @@ static int changeable_bool_var = 8008;
 DEFINE_bool(changeable_bool_var, ++changeable_bool_var == 8009, "");
 
 static int changeable_string_var = 0;
-static std::string ChangeableString() {
+static string ChangeableString() {
   char r[] = {static_cast<char>('0' + ++changeable_string_var), '\0'};
   return r;
 }
@@ -151,17 +127,32 @@ DEFINE_string(unused_string, "unused", "");
 // These flags are used by gflags_unittest.sh
 DEFINE_bool(changed_bool1, false, "changed");
 DEFINE_bool(changed_bool2, false, "changed");
+DEFINE_bool(long_helpstring, false,
+            "This helpstring goes on forever and ever and ever and ever and "
+            "ever and ever and ever and ever and ever and ever and ever and "
+            "ever and ever and ever and ever and ever and ever and ever and "
+            "ever and ever and ever and ever and ever and ever and ever and "
+            "ever and ever and ever and ever and ever and ever and ever and "
+            "ever and ever and ever and ever and ever and ever and ever and "
+            "ever and ever and ever and ever and ever and ever and ever and "
+            "ever and ever and ever and ever and ever and ever and ever and "
+            "ever and ever and ever and ever and ever and ever and ever and "
+            "ever and ever and ever and ever and ever and ever and ever and "
+            "ever.  This is the end of a long helpstring");
+
 
 static bool AlwaysFail(const char* flag, bool value) { return value == false; }
 DEFINE_bool(always_fail, false, "will fail to validate when you set it");
-static bool dummy = RegisterFlagValidator(&FLAGS_always_fail, AlwaysFail);
+namespace {
+bool dummy = RegisterFlagValidator(&FLAGS_always_fail, AlwaysFail);
+}
 
-// See the comment by GetAllFlags in commandlineflags.h
+// See the comment by GetAllFlags in gflags.h
 static bool DeadlockIfCantLockInValidators(const char* flag, bool value) {
   if (!value) {
     return true;
   }
-  std::vector<CommandLineFlagInfo> dummy;
+  vector<CommandLineFlagInfo> dummy;
   GetAllFlags(&dummy);
   return true;
 }
@@ -169,8 +160,61 @@ DEFINE_bool(deadlock_if_cant_lock,
             false,
             "will deadlock if set to true and "
             "if locking of registry in validators fails.");
-static bool dummy1 = RegisterFlagValidator(&FLAGS_deadlock_if_cant_lock,
-                                           DeadlockIfCantLockInValidators);
+namespace {
+bool dummy1 = RegisterFlagValidator(&FLAGS_deadlock_if_cant_lock,
+                                    DeadlockIfCantLockInValidators);
+}
+
+#define MAKEFLAG(x) DEFINE_int32(test_flag_num##x, x, "Test flag")
+
+// Define 10 flags
+#define MAKEFLAG10(x)                           \
+  MAKEFLAG(x##0);                               \
+  MAKEFLAG(x##1);                               \
+  MAKEFLAG(x##2);                               \
+  MAKEFLAG(x##3);                               \
+  MAKEFLAG(x##4);                               \
+  MAKEFLAG(x##5);                               \
+  MAKEFLAG(x##6);                               \
+  MAKEFLAG(x##7);                               \
+  MAKEFLAG(x##8);                               \
+  MAKEFLAG(x##9)
+
+// Define 100 flags
+#define MAKEFLAG100(x)                          \
+  MAKEFLAG10(x##0);                             \
+  MAKEFLAG10(x##1);                             \
+  MAKEFLAG10(x##2);                             \
+  MAKEFLAG10(x##3);                             \
+  MAKEFLAG10(x##4);                             \
+  MAKEFLAG10(x##5);                             \
+  MAKEFLAG10(x##6);                             \
+  MAKEFLAG10(x##7);                             \
+  MAKEFLAG10(x##8);                             \
+  MAKEFLAG10(x##9)
+
+// Define a bunch of command-line flags.  Each occurrence of the MAKEFLAG100
+// macro defines 100 integer flags.  This lets us test the effect of having
+// many flags on startup time.
+MAKEFLAG100(1);
+MAKEFLAG100(2);
+MAKEFLAG100(3);
+MAKEFLAG100(4);
+MAKEFLAG100(5);
+MAKEFLAG100(6);
+MAKEFLAG100(7);
+MAKEFLAG100(8);
+MAKEFLAG100(9);
+MAKEFLAG100(10);
+MAKEFLAG100(11);
+MAKEFLAG100(12);
+MAKEFLAG100(13);
+MAKEFLAG100(14);
+MAKEFLAG100(15);
+
+#undef MAKEFLAG100
+#undef MAKEFLAG10
+#undef MAKEFLAG
 
 // This is a pseudo-flag -- we want to register a flag with a filename
 // at the top level, but there is no way to do this except by faking
@@ -199,119 +243,7 @@ using fLI::FLAGS_tldflag2;
 
 _START_GOOGLE_NAMESPACE_
 
-using std::string;
-using std::vector;
-
-// The following is some bare-bones testing infrastructure
-
-#define EXPECT_TRUE(cond)                               \
-  do {                                                  \
-    if (!(cond)) {                                      \
-      fprintf(stderr, "Check failed: %s\n", #cond);     \
-      exit(1);                                          \
-    }                                                   \
-  } while (0)
-
-#define EXPECT_FALSE(cond)  EXPECT_TRUE(!(cond))
-
-#define EXPECT_OP(op, val1, val2)                                       \
-  do {                                                                  \
-    if (!((val1) op (val2))) {                                          \
-      fprintf(stderr, "Check failed: %s %s %s\n", #val1, #op, #val2);   \
-      exit(1);                                                          \
-    }                                                                   \
-  } while (0)
-
-#define EXPECT_EQ(val1, val2)  EXPECT_OP(==, val1, val2)
-#define EXPECT_NE(val1, val2)  EXPECT_OP(!=, val1, val2)
-#define EXPECT_GT(val1, val2)  EXPECT_OP(>, val1, val2)
-#define EXPECT_LT(val1, val2)  EXPECT_OP(<, val1, val2)
-
-// C99 declares isnan and isinf should be macros, so the #ifdef test
-// should be reliable everywhere.  Of course, it's not, but these
-// are testing pertty marginal functionality anyway, so it's ok to
-// not-run them even in situations they might, with effort, be made to work.
-#ifdef isnan  // Some compilers, like sun's for Solaris 10, don't define this
-#define EXPECT_NAN(arg)                                         \
-  do {                                                          \
-    if (!isnan(arg)) {                                          \
-      fprintf(stderr, "Check failed: isnan(%s)\n", #arg);       \
-      exit(1);                                                  \
-    }                                                           \
-  } while (0)
-#else
-#define EXPECT_NAN(arg)
-#endif
-
-#ifdef isinf  // Some compilers, like sun's for Solaris 10, don't define this
-#define EXPECT_INF(arg)                                         \
-  do {                                                          \
-    if (!isinf(arg)) {                                          \
-      fprintf(stderr, "Check failed: isinf(%s)\n", #arg);       \
-      exit(1);                                                  \
-    }                                                           \
-  } while (0)
-#else
-#define EXPECT_INF(arg)
-#endif
-
-#define EXPECT_DOUBLE_EQ(val1, val2)                                    \
-  do {                                                                  \
-    if (((val1) < (val2) - 0.001 || (val1) > (val2) + 0.001)) {         \
-      fprintf(stderr, "Check failed: %s == %s\n", #val1, #val2);        \
-      exit(1);                                                          \
-    }                                                                   \
-  } while (0)
-
-#define EXPECT_STREQ(val1, val2)                                        \
-  do {                                                                  \
-    if (strcmp((val1), (val2)) != 0) {                                  \
-      fprintf(stderr, "Check failed: streq(%s, %s)\n", #val1, #val2);   \
-      exit(1);                                                          \
-    }                                                                   \
-  } while (0)
-
-static bool g_called_exit;
-static void CalledExit(int) { g_called_exit = true; }
-extern GFLAGS_DLL_DECL void (*commandlineflags_exitfunc)(int);  // in gflags.cc
-
-#define EXPECT_DEATH(fn, msg)                                           \
-  do {                                                                  \
-    g_called_exit = false;                                              \
-    commandlineflags_exitfunc = &CalledExit;                            \
-    fn;                                                                 \
-    commandlineflags_exitfunc = &exit;    /* set back to its default */ \
-    if (!g_called_exit) {                                               \
-      fprintf(stderr, "Function didn't die (%s): %s\n", msg, #fn);      \
-      exit(1);                                                          \
-    }                                                                   \
-  } while (0)
-
-
-vector<void (*)()> g_testlist;  // the tests to run
-
-#define TEST(a, b)                                      \
-  struct Test_##a##_##b {                               \
-    Test_##a##_##b() { g_testlist.push_back(&Run); }    \
-    static void Run() {                                 \
-      FlagSaver fs;                                     \
-      fprintf(stderr, "Running test %s/%s\n", #a, #b);  \
-      RunTest();                                        \
-    }                                                   \
-    static void RunTest();                              \
-  };                                                    \
-  static Test_##a##_##b g_test_##a##_##b;               \
-  void Test_##a##_##b::RunTest()
-
-
-static int RUN_ALL_TESTS() {
-  vector<void (*)()>::const_iterator it;
-  for (it = g_testlist.begin(); it != g_testlist.end(); ++it) {
-    (*it)();
-  }
-  fprintf(stderr, "Passed %d tests\n\nPASS\n", (int)g_testlist.size());
-  return 0;
-}
+namespace {
 
 
 static string TmpFile(const string& basename) {
@@ -323,6 +255,7 @@ static string TmpFile(const string& basename) {
 }
 
 // Returns the definition of the --flagfile flag to be used in the tests.
+// Must be called after ParseCommandLineFlags().
 static const char* GetFlagFileFlag() {
 #ifdef _MSC_VER
   static const string flagfile = FLAGS_srcdir + "\\src\\gflags_unittest_flagfile";
@@ -359,9 +292,10 @@ TEST(FlagTypes, FlagTypes) {
   AssertIsType<string>(FLAGS_test_string);
 }
 
+#ifdef GTEST_HAS_DEATH_TEST
 // Death tests for "help" options.
 //
-// The help system automatically calls exit(1) when you specify any of
+// The help system automatically calls gflags_exitfunc(1) when you specify any of
 // the help-related flags ("-helpmatch", "-helpxml") so we can't test
 // those mainline.
 
@@ -377,6 +311,7 @@ TEST(ReadFlagsFromStringDeathTest, HelpXml) {
   EXPECT_DEATH(ReadFlagsFromString("-helpxml", GetArgv0(), true),
                "");
 }
+#endif
 
 
 // A subroutine needed for testing reading flags from a string.
@@ -484,7 +419,7 @@ TEST(FlagFileTest, FilenamesOurfileFirst) {
       -1.0);
 }
 
-#ifdef HAVE_FNMATCH_H   // otherwise glob isn't supported
+#ifdef HAVE_FNMATCH_H  // otherwise glob isn't supported
 TEST(FlagFileTest, FilenamesOurfileGlob) {
   FLAGS_test_string = "initial";
   FLAGS_test_bool = false;
@@ -536,7 +471,7 @@ TEST(FlagFileTest, FilenamesOurfileInBigList) {
       1,
       -1.0);
 }
-#endif
+#endif  // ifdef HAVE_FNMATCH_H
 
 // Tests that a failed flag-from-string read keeps flags at default values
 TEST(FlagFileTest, FailReadFlagsFromString) {
@@ -773,6 +708,7 @@ TEST(FromEnvTest, LegalValues) {
   EXPECT_STREQ("unknown", StringFromEnv("STRING_VAL_UNKNOWN", "unknown"));
 }
 
+#ifdef GTEST_HAS_DEATH_TEST
 // Tests that the FooFromEnv dies on parse-error
 TEST(FromEnvDeathTest, IllegalValues) {
   setenv("BOOL_BAD1", "so true!", 1);
@@ -810,6 +746,8 @@ TEST(FromEnvDeathTest, IllegalValues) {
   EXPECT_DEATH(DoubleFromEnv("DOUBLE_BAD1", 40.0), "error parsing env variable");
   EXPECT_DEATH(DoubleFromEnv("DOUBLE_BAD2", 40.0), "error parsing env variable");
 }
+#endif
+
 
 // Tests that FlagSaver can save the states of string flags.
 TEST(FlagSaverTest, CanSaveStringFlagStates) {
@@ -929,6 +867,7 @@ TEST(GetAllFlagsTest, BaseTest) {
       found_test_bool = true;
       EXPECT_EQ(i->type, "bool");
       EXPECT_EQ(i->default_value, "false");
+      EXPECT_EQ(i->flag_ptr, &FLAGS_test_bool);
       break;
     }
   }
@@ -948,7 +887,7 @@ TEST(ShowUsageWithFlagsRestrictTest, BaseTest) {
 }
 
 // Note: all these argv-based tests depend on SetArgv being called
-// before InitGoogle() in main(), below.
+// before ParseCommandLineFlags() in main(), below.
 TEST(GetArgvsTest, BaseTest) {
   vector<string> argvs = GetArgvs();
   EXPECT_EQ(4, argvs.size());
@@ -982,7 +921,7 @@ TEST(ProgramInvocationShortNameTest, BaseTest) {
   EXPECT_STREQ("gflags_unittest", ProgramInvocationShortName());
 }
 
-TEST(ProgramUsageTest, BaseTest) {  // Depends on 1st arg to InitGoogle in main
+TEST(ProgramUsageTest, BaseTest) {  // Depends on 1st arg to ParseCommandLineFlags()
   EXPECT_STREQ("/test/argv/for/gflags_unittest: "
                "<useless flag> [...]\nDoes something useless.\n",
                ProgramUsage());
@@ -1052,6 +991,7 @@ TEST(GetCommandLineFlagInfoTest, FlagExists) {
   EXPECT_EQ("-1", info.default_value);
   EXPECT_TRUE(info.is_default);
   EXPECT_FALSE(info.has_validator_fn);
+  EXPECT_EQ(&FLAGS_test_int32, info.flag_ptr);
 
   FLAGS_test_bool = true;
   r = GetCommandLineFlagInfo("test_bool", &info);
@@ -1063,6 +1003,7 @@ TEST(GetCommandLineFlagInfoTest, FlagExists) {
   EXPECT_EQ("false", info.default_value);
   EXPECT_FALSE(info.is_default);
   EXPECT_FALSE(info.has_validator_fn);
+  EXPECT_EQ(&FLAGS_test_bool, info.flag_ptr);
 
   FLAGS_test_bool = false;
   r = GetCommandLineFlagInfo("test_bool", &info);
@@ -1074,6 +1015,7 @@ TEST(GetCommandLineFlagInfoTest, FlagExists) {
   EXPECT_EQ("false", info.default_value);
   EXPECT_FALSE(info.is_default);  // value is same, but flag *was* modified
   EXPECT_FALSE(info.has_validator_fn);
+  EXPECT_EQ(&FLAGS_test_bool, info.flag_ptr);
 }
 
 TEST(GetCommandLineFlagInfoTest, FlagDoesNotExist) {
@@ -1086,6 +1028,7 @@ TEST(GetCommandLineFlagInfoTest, FlagDoesNotExist) {
   info.filename = "/";
   info.is_default = false;
   info.has_validator_fn = true;
+  info.flag_ptr = NULL;
   bool r = GetCommandLineFlagInfo("test_int3210", &info);
   EXPECT_FALSE(r);
   EXPECT_EQ("name", info.name);
@@ -1096,6 +1039,7 @@ TEST(GetCommandLineFlagInfoTest, FlagDoesNotExist) {
   EXPECT_EQ("/", info.filename);
   EXPECT_FALSE(info.is_default);
   EXPECT_TRUE(info.has_validator_fn);
+  EXPECT_EQ(NULL, info.flag_ptr);
 }
 
 TEST(GetCommandLineFlagInfoOrDieTest, FlagExistsAndIsDefault) {
@@ -1107,6 +1051,7 @@ TEST(GetCommandLineFlagInfoOrDieTest, FlagExistsAndIsDefault) {
   EXPECT_EQ("-1", info.current_value);
   EXPECT_EQ("-1", info.default_value);
   EXPECT_TRUE(info.is_default);
+  EXPECT_EQ(&FLAGS_test_int32, info.flag_ptr);
   info = GetCommandLineFlagInfoOrDie("test_bool");
   EXPECT_EQ("test_bool", info.name);
   EXPECT_EQ("bool", info.type);
@@ -1115,6 +1060,7 @@ TEST(GetCommandLineFlagInfoOrDieTest, FlagExistsAndIsDefault) {
   EXPECT_EQ("false", info.default_value);
   EXPECT_TRUE(info.is_default);
   EXPECT_FALSE(info.has_validator_fn);
+  EXPECT_EQ(&FLAGS_test_bool, info.flag_ptr);
 }
 
 TEST(GetCommandLineFlagInfoOrDieTest, FlagExistsAndWasAssigned) {
@@ -1127,6 +1073,7 @@ TEST(GetCommandLineFlagInfoOrDieTest, FlagExistsAndWasAssigned) {
   EXPECT_EQ("400", info.current_value);
   EXPECT_EQ("-1", info.default_value);
   EXPECT_FALSE(info.is_default);
+  EXPECT_EQ(&FLAGS_test_int32, info.flag_ptr);
   FLAGS_test_bool = true;
   info = GetCommandLineFlagInfoOrDie("test_bool");
   EXPECT_EQ("test_bool", info.name);
@@ -1136,12 +1083,15 @@ TEST(GetCommandLineFlagInfoOrDieTest, FlagExistsAndWasAssigned) {
   EXPECT_EQ("false", info.default_value);
   EXPECT_FALSE(info.is_default);
   EXPECT_FALSE(info.has_validator_fn);
+  EXPECT_EQ(&FLAGS_test_bool, info.flag_ptr);
 }
 
+#ifdef GTEST_HAS_DEATH_TEST
 TEST(GetCommandLineFlagInfoOrDieDeathTest, FlagDoesNotExist) {
   EXPECT_DEATH(GetCommandLineFlagInfoOrDie("test_int3210"),
                ".*: flag test_int3210 does not exist");
 }
+#endif
 
 
 // These are lightly tested because they're deprecated.  Basically,
@@ -1162,7 +1112,8 @@ TEST(DeprecatedFunctionsTest, AppendFlagsIntoFile) {
   FILE* fp = fopen(filename.c_str(), "r");
   EXPECT_TRUE(fp != NULL);
   char line[8192];
-  fgets(line, sizeof(line)-1, fp);   // first line should be progname
+  EXPECT_TRUE(fgets(line, sizeof(line)-1, fp) != NULL);  // get the first line
+  // First line should be progname.
   EXPECT_STREQ("not the real argv0\n", line);
 
   bool found_bool = false, found_int32 = false;
@@ -1189,7 +1140,7 @@ TEST(DeprecatedFunctionsTest, ReadFromFlagsFile) {
   r = ReadFromFlagsFile(filename, GetArgv0(), true);
   EXPECT_TRUE(r);
   EXPECT_EQ(-10, FLAGS_test_int32);
-}
+}  // unnamed namespace
 
 TEST(DeprecatedFunctionsTest, ReadFromFlagsFileFailure) {
   FLAGS_test_int32 = -20;
@@ -1206,7 +1157,7 @@ TEST(DeprecatedFunctionsTest, ReadFromFlagsFileFailure) {
   EXPECT_EQ(-22, FLAGS_test_int32);   // the -21 from the flagsfile didn't take
 }
 
-TEST(FlagsSetBeforeInitGoogleTest, TryFromEnv) {
+TEST(FlagsSetBeforeInitTest, TryFromEnv) {
   EXPECT_EQ("pre-set", FLAGS_test_tryfromenv);
 }
 
@@ -1214,7 +1165,7 @@ TEST(FlagsSetBeforeInitGoogleTest, TryFromEnv) {
 // ParseCommandLineNonHelpFlags() uses the last definition of a flag
 // in case it's defined more than once.
 
-DEFINE_int32(test_flag, -1, "used for testing commandlineflags.cc");
+DEFINE_int32(test_flag, -1, "used for testing gflags.cc");
 
 // Parses and returns the --test_flag flag.
 // If with_help is true, calls ParseCommandLineFlags; otherwise calls
@@ -1247,8 +1198,8 @@ TEST(ParseCommandLineFlagsUsesLastDefinitionTest,
     NULL,
   };
 
-  EXPECT_EQ(2, ParseTestFlag(true, GET_ARRAY_SIZE(argv) - 1, argv));
-  EXPECT_EQ(2, ParseTestFlag(false, GET_ARRAY_SIZE(argv) - 1, argv));
+  EXPECT_EQ(2, ParseTestFlag(true, arraysize(argv) - 1, argv));
+  EXPECT_EQ(2, ParseTestFlag(false, arraysize(argv) - 1, argv));
 }
 
 TEST(ParseCommandLineFlagsUsesLastDefinitionTest,
@@ -1259,8 +1210,8 @@ TEST(ParseCommandLineFlagsUsesLastDefinitionTest,
     NULL,
   };
 
-  EXPECT_EQ(2, ParseTestFlag(true, GET_ARRAY_SIZE(argv) - 1, argv));
-  EXPECT_EQ(2, ParseTestFlag(false, GET_ARRAY_SIZE(argv) - 1, argv));
+  EXPECT_EQ(2, ParseTestFlag(true, arraysize(argv) - 1, argv));
+  EXPECT_EQ(2, ParseTestFlag(false, arraysize(argv) - 1, argv));
 }
 
 TEST(ParseCommandLineFlagsUsesLastDefinitionTest,
@@ -1272,8 +1223,8 @@ TEST(ParseCommandLineFlagsUsesLastDefinitionTest,
     NULL,
   };
 
-  EXPECT_EQ(2, ParseTestFlag(true, GET_ARRAY_SIZE(argv) - 1, argv));
-  EXPECT_EQ(2, ParseTestFlag(false, GET_ARRAY_SIZE(argv) - 1, argv));
+  EXPECT_EQ(2, ParseTestFlag(true, arraysize(argv) - 1, argv));
+  EXPECT_EQ(2, ParseTestFlag(false, arraysize(argv) - 1, argv));
 }
 
 TEST(ParseCommandLineFlagsUsesLastDefinitionTest,
@@ -1285,8 +1236,8 @@ TEST(ParseCommandLineFlagsUsesLastDefinitionTest,
     NULL,
   };
 
-  EXPECT_EQ(3, ParseTestFlag(true, GET_ARRAY_SIZE(argv) - 1, argv));
-  EXPECT_EQ(3, ParseTestFlag(false, GET_ARRAY_SIZE(argv) - 1, argv));
+  EXPECT_EQ(3, ParseTestFlag(true, arraysize(argv) - 1, argv));
+  EXPECT_EQ(3, ParseTestFlag(false, arraysize(argv) - 1, argv));
 }
 
 TEST(ParseCommandLineFlagsUsesLastDefinitionTest,
@@ -1299,8 +1250,8 @@ TEST(ParseCommandLineFlagsUsesLastDefinitionTest,
     NULL,
   };
 
-  EXPECT_EQ(3, ParseTestFlag(true, GET_ARRAY_SIZE(argv) - 1, argv));
-  EXPECT_EQ(3, ParseTestFlag(false, GET_ARRAY_SIZE(argv) - 1, argv));
+  EXPECT_EQ(3, ParseTestFlag(true, arraysize(argv) - 1, argv));
+  EXPECT_EQ(3, ParseTestFlag(false, arraysize(argv) - 1, argv));
 }
 
 TEST(ParseCommandLineFlagsAndDashArgs, TwoDashArgFirst) {
@@ -1311,8 +1262,8 @@ TEST(ParseCommandLineFlagsAndDashArgs, TwoDashArgFirst) {
     NULL,
   };
 
-  EXPECT_EQ(-1, ParseTestFlag(true, GET_ARRAY_SIZE(argv) - 1, argv));
-  EXPECT_EQ(-1, ParseTestFlag(false, GET_ARRAY_SIZE(argv) - 1, argv));
+  EXPECT_EQ(-1, ParseTestFlag(true, arraysize(argv) - 1, argv));
+  EXPECT_EQ(-1, ParseTestFlag(false, arraysize(argv) - 1, argv));
 }
 
 TEST(ParseCommandLineFlagsAndDashArgs, TwoDashArgMiddle) {
@@ -1324,8 +1275,8 @@ TEST(ParseCommandLineFlagsAndDashArgs, TwoDashArgMiddle) {
     NULL,
   };
 
-  EXPECT_EQ(7, ParseTestFlag(true, GET_ARRAY_SIZE(argv) - 1, argv));
-  EXPECT_EQ(7, ParseTestFlag(false, GET_ARRAY_SIZE(argv) - 1, argv));
+  EXPECT_EQ(7, ParseTestFlag(true, arraysize(argv) - 1, argv));
+  EXPECT_EQ(7, ParseTestFlag(false, arraysize(argv) - 1, argv));
 }
 
 TEST(ParseCommandLineFlagsAndDashArgs, OneDashArg) {
@@ -1336,10 +1287,11 @@ TEST(ParseCommandLineFlagsAndDashArgs, OneDashArg) {
     NULL,
   };
 
-  EXPECT_EQ(0, ParseTestFlag(true, GET_ARRAY_SIZE(argv) - 1, argv));
-  EXPECT_EQ(0, ParseTestFlag(false, GET_ARRAY_SIZE(argv) - 1, argv));
+  EXPECT_EQ(0, ParseTestFlag(true, arraysize(argv) - 1, argv));
+  EXPECT_EQ(0, ParseTestFlag(false, arraysize(argv) - 1, argv));
 }
 
+#ifdef GTEST_HAS_DEATH_TEST
 TEST(ParseCommandLineFlagsUnknownFlagDeathTest,
      FlagIsCompletelyUnknown) {
   const char* argv[] = {
@@ -1348,9 +1300,9 @@ TEST(ParseCommandLineFlagsUnknownFlagDeathTest,
     NULL,
   };
 
-  EXPECT_DEATH(ParseTestFlag(true, GET_ARRAY_SIZE(argv) - 1, argv),
+  EXPECT_DEATH(ParseTestFlag(true, arraysize(argv) - 1, argv),
                "unknown command line flag.*");
-  EXPECT_DEATH(ParseTestFlag(false, GET_ARRAY_SIZE(argv) - 1, argv),
+  EXPECT_DEATH(ParseTestFlag(false, arraysize(argv) - 1, argv),
                "unknown command line flag.*");
 }
 
@@ -1362,9 +1314,9 @@ TEST(ParseCommandLineFlagsUnknownFlagDeathTest,
     NULL,
   };
 
-  EXPECT_DEATH(ParseTestFlag(true, GET_ARRAY_SIZE(argv) - 1, argv),
+  EXPECT_DEATH(ParseTestFlag(true, arraysize(argv) - 1, argv),
                "unknown command line flag.*");
-  EXPECT_DEATH(ParseTestFlag(false, GET_ARRAY_SIZE(argv) - 1, argv),
+  EXPECT_DEATH(ParseTestFlag(false, arraysize(argv) - 1, argv),
                "unknown command line flag.*");
 }
 
@@ -1376,11 +1328,12 @@ TEST(ParseCommandLineFlagsUnknownFlagDeathTest,
     NULL,
   };
 
-  EXPECT_DEATH(ParseTestFlag(true, GET_ARRAY_SIZE(argv) - 1, argv),
+  EXPECT_DEATH(ParseTestFlag(true, arraysize(argv) - 1, argv),
                "boolean value .* specified for .* command line flag");
-  EXPECT_DEATH(ParseTestFlag(false, GET_ARRAY_SIZE(argv) - 1, argv),
+  EXPECT_DEATH(ParseTestFlag(false, arraysize(argv) - 1, argv),
                "boolean value .* specified for .* command line flag");
 }
+#endif
 
 TEST(ParseCommandLineFlagsWrongFields,
      DescriptionIsInvalid) {
@@ -1396,6 +1349,7 @@ TEST(ParseCommandLineFlagsWrongFields,
   CommandLineFlagInfo fi;
   EXPECT_TRUE(GetCommandLineFlagInfo("flag_name", &fi));
   EXPECT_EQ("", fi.description);
+  EXPECT_EQ(&current_storage, fi.flag_ptr);
 }
 
 static bool ValidateTestFlagIs5(const char* flagname, int32 flagval) {
@@ -1417,7 +1371,7 @@ TEST(FlagsValidator, ValidFlagViaArgv) {
     NULL,
   };
   EXPECT_TRUE(RegisterFlagValidator(&FLAGS_test_flag, &ValidateTestFlagIs5));
-  EXPECT_EQ(5, ParseTestFlag(true, GET_ARRAY_SIZE(argv) - 1, argv));
+  EXPECT_EQ(5, ParseTestFlag(true, arraysize(argv) - 1, argv));
   // Undo the flag validator setting
   EXPECT_TRUE(RegisterFlagValidator(&FLAGS_test_flag, NULL));
 }
@@ -1442,6 +1396,7 @@ TEST(FlagsValidator, ValidFlagViaSetValue) {
   EXPECT_TRUE(RegisterFlagValidator(&FLAGS_test_flag, NULL));
 }
 
+#ifdef GTEST_HAS_DEATH_TEST
 TEST(FlagsValidatorDeathTest, InvalidFlagViaArgv) {
   const char* argv[] = {
     "my_test",
@@ -1449,10 +1404,11 @@ TEST(FlagsValidatorDeathTest, InvalidFlagViaArgv) {
     NULL,
   };
   EXPECT_TRUE(RegisterFlagValidator(&FLAGS_test_flag, &ValidateTestFlagIs5));
-  EXPECT_DEATH(ParseTestFlag(true, GET_ARRAY_SIZE(argv) - 1, argv),
+  EXPECT_DEATH(ParseTestFlag(true, arraysize(argv) - 1, argv),
                "ERROR: failed validation of new value '50' for flag 'test_flag'");
   EXPECT_TRUE(RegisterFlagValidator(&FLAGS_test_flag, NULL));
 }
+#endif
 
 TEST(FlagsValidator, InvalidFlagViaSetDefault) {
   EXPECT_TRUE(RegisterFlagValidator(&FLAGS_test_flag, &ValidateTestFlagIs5));
@@ -1476,6 +1432,7 @@ TEST(FlagsValidator, InvalidFlagViaSetValue) {
   EXPECT_TRUE(RegisterFlagValidator(&FLAGS_test_flag, NULL));
 }
 
+#ifdef GTEST_HAS_DEATH_TEST
 TEST(FlagsValidatorDeathTest, InvalidFlagNeverSet) {
   // If a flag keeps its default value, and that default value is
   // invalid, we should die at argv-parse time.
@@ -1484,9 +1441,10 @@ TEST(FlagsValidatorDeathTest, InvalidFlagNeverSet) {
     NULL,
   };
   EXPECT_TRUE(RegisterFlagValidator(&FLAGS_test_flag, &ValidateTestFlagIs5));
-  EXPECT_DEATH(ParseTestFlag(true, GET_ARRAY_SIZE(argv) - 1, argv),
+  EXPECT_DEATH(ParseTestFlag(true, arraysize(argv) - 1, argv),
                "ERROR: --test_flag must be set on the commandline");
 }
+#endif
 
 TEST(FlagsValidator, InvalidFlagPtr) {
   int32 dummy;
@@ -1537,52 +1495,45 @@ TEST(FlagsValidator, FlagSaver) {
 }
 
 
-static int Main(int argc, char **argv) {
-  // We need to call SetArgv before InitGoogle, so our "test" argv will
+}  // unnamed namespace
+
+int main(int argc, char **argv) {
+  // We need to call SetArgv before parsing flags, so our "test" argv will
   // win out over this executable's real argv.  That makes running this
   // test with a real --help flag kinda annoying, unfortunately.
   const char* test_argv[] = { "/test/argv/for/gflags_unittest",
                               "argv 2", "3rd argv", "argv #4" };
-  SetArgv(GET_ARRAY_SIZE(test_argv), test_argv);
+  SetArgv(arraysize(test_argv), test_argv);
 
   // The first arg is the usage message, also important for testing.
   string usage_message = (string(GetArgv0()) +
                           ": <useless flag> [...]\nDoes something useless.\n");
 
-  // We test setting tryfromenv manually, and making sure initgoogle still
-  // evaluates it.
+  // We test setting tryfromenv manually, and making sure
+  // ParseCommandLineFlags still evaluates it.
   FLAGS_tryfromenv = "test_tryfromenv";
   setenv("FLAGS_test_tryfromenv", "pre-set", 1);
 
   // Modify flag values from declared default value in two ways.
   // The recommended way:
   SetCommandLineOptionWithMode("changed_bool1", "true", SET_FLAGS_DEFAULT);
+
   // The non-recommended way:
   FLAGS_changed_bool2 = true;
 
   SetUsageMessage(usage_message.c_str());
+  SetVersionString("test_version");
   ParseCommandLineFlags(&argc, &argv, true);
+  MakeTmpdir(&FLAGS_test_tmpdir);
 
-#if defined(__MINGW32__)
-  // I had trouble creating a directory in /tmp from mingw
-  FLAGS_test_tmpdir = "./gflags_unittest_testdir";
-  mkdir(FLAGS_test_tmpdir.c_str());   // mingw has a weird one-arg mkdir
-#elif defined(_MSC_VER)
-  char tmppath_buffer[1024];
-  int tmppath_len = GetTempPathA(sizeof(tmppath_buffer), tmppath_buffer);
-  assert(tmppath_len > 0 && tmppath_len < sizeof(tmppath_buffer));
-  assert(tmppath_buffer[tmppath_len - 1] == '\\');   // API guarantees it
-  FLAGS_test_tmpdir = string(tmppath_buffer) + "gflags_unittest_testdir";
-  _mkdir(FLAGS_test_tmpdir.c_str());
-#else
-  mkdir(FLAGS_test_tmpdir.c_str(), 0755);
-#endif
-
-  return RUN_ALL_TESTS();
+  const int exit_status = RUN_ALL_TESTS();
+  ShutDownCommandLineFlags();
+  return exit_status;
 }
 
 _END_GOOGLE_NAMESPACE_
 
 int main(int argc, char** argv) {
-  return GOOGLE_NAMESPACE::Main(argc, argv);
+  return GOOGLE_NAMESPACE::main(argc, argv);
 }
+
