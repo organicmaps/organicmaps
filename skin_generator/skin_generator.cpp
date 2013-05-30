@@ -214,6 +214,37 @@ namespace tools
     }
   };
 
+  struct MaxDimensions
+  {
+    int & m_width;
+    int & m_height;
+
+    MaxDimensions(int & width, int & height)
+      : m_width(width), m_height(height)
+    {
+      m_width = 0;
+      m_height = 0;
+    }
+
+    void operator()(SkinGenerator::SymbolInfo const & info)
+    {
+      m_width = max(m_width, info.m_size.width());
+      m_height = max(m_height, info.m_size.height());
+    }
+  };
+
+  int NextPowerOf2(int n)
+  {
+    n = n - 1;
+    n |= (n >> 1);
+    n |= (n >> 2);
+    n |= (n >> 4);
+    n |= (n >> 8);
+    n |= (n >> 16);
+
+    return n + 1;
+  }
+
   void SkinGenerator::processSearchIcons(string const & symbolsDir,
                                          string const & searchCategories,
                                          string const & searchIconsPath,
@@ -354,6 +385,7 @@ namespace tools
       }
     }
   }
+
   void SkinGenerator::renderPages()
   {
     for (TSkinPages::iterator pageIt = m_pages.begin(); pageIt != m_pages.end(); ++pageIt)
@@ -361,9 +393,11 @@ namespace tools
       SkinPageInfo & page = *pageIt;
       sort(page.m_symbols.begin(), page.m_symbols.end(), GreaterHeight());
 
-      /// Trying to repack all elements as tight as possible
-      page.m_width = 64;
-      page.m_height = 64;
+      MaxDimensions dim(page.m_width, page.m_height);
+      for_each(page.m_symbols.begin(), page.m_symbols.end(), dim);
+
+      page.m_width = NextPowerOf2(page.m_width);
+      page.m_height = NextPowerOf2(page.m_height);
 
       /// packing until we find a suitable rect
       while (true)
