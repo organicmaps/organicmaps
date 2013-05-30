@@ -518,4 +518,13 @@ namespace graphics
   {
     return m_fontDesc;
   }
+
+  int GlyphLayout::baseLineOffset()
+  {
+    int result = 0;
+    for (size_t i = 0; i < m_metrics.size(); ++i)
+      result = min(m_metrics[i].m_yOffset, result);
+
+    return -result;
+  }
 }

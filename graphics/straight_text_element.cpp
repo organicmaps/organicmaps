@@ -129,6 +129,9 @@ namespace graphics
         m_glyphLayouts.push_back(GlyphLayout(p.m_glyphCache, p.m_auxFontDesc, m2::PointD(0, 0), auxRes[i], graphics::EPosCenter));
     }
 
+    for (size_t i = 0; i < m_glyphLayouts.size(); ++i)
+      allElemHeight -= m_glyphLayouts[i].baseLineOffset();
+
     double curShift = allElemHeight / 2;
 
     /// performing aligning of glyphLayouts as for the center position

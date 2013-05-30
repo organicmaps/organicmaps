@@ -120,5 +120,7 @@ namespace graphics
 
     m2::PointD const & offset() const;
     void setOffset(m2::PointD const & offs);
+
+    int baseLineOffset();
   };
 }
