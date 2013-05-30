@@ -790,8 +790,11 @@ namespace android
     m_doLoadState = false;
 
     url_api::Request request;
-    if (m_work.SetViewportByURL(url, request) && !request.m_points.empty())
+    if (m_work.SetViewportByURL(url, request)
+        && !request.m_points.size() == 1)
     {
+
+      //we need it only for one-point-call
       m2::PointD pt(MercatorBounds::LonToX(request.m_viewportLon),
                     MercatorBounds::LatToY(request.m_viewportLat));
 
@@ -813,12 +816,6 @@ namespace android
   {
     if (m_apiPointActivatedListener)
       m_apiPointActivatedListener.clear();
-  }
-
-  void Framework::MapApiSetUriAndParse(string const & uri)
-  {
-    NativeFramework()->MapApiSetUriAndParse(uri);
-    m_doLoadState = false;
   }
 }
 
@@ -858,7 +855,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativePassApiUrl(JNIEnv * env, jclass clazz, jstring url)
   {
-    g_framework->MapApiSetUriAndParse(jni::ToNativeString(url));
+    g_framework->SetViewportByUrl(jni::ToNativeString(url));
   }
 
 

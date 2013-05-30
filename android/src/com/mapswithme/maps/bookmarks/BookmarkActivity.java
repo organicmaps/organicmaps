@@ -36,11 +36,13 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
   public static final String BOOKMARK_POSITION = "bookmark_position";
   public static final String PIN = "pin";
+  public static final String FROM_MAP = "from_map";
   public static final String PIN_ICON_ID = "pin";
   public static final String PIN_SET = "pin_set";
   public static final int REQUEST_CODE_SET = 567890;
   public static final String BOOKMARK_NAME = "bookmark_name";
 
+  private boolean mStartedByMap;
   private Bookmark mPin;
   private EditText mName;
   private TextView mSetName;
@@ -66,6 +68,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
     mPin = mManager.getBookmark(cab.x, cab.y);
     mCurrentCategoryId = mPin.getCategoryId();
+    mStartedByMap = getIntent().getBooleanExtra(FROM_MAP, false);
 
     setTitle(mPin.getName());
     setUpViews();
@@ -245,7 +248,8 @@ public class BookmarkActivity extends AbstractBookmarkActivity
     final MWMRequest request = MWMRequest.getCurrentRequest();
     if (state == SuppotedState.API_REQUEST
         && request.hasPendingIntent()
-        && request.hasPoint())
+        && request.hasPoint()
+        && mStartedByMap)
     {
       // TODO add to resources
       final String pattern = "Open with %s";

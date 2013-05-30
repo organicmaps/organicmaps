@@ -162,8 +162,6 @@ namespace android
     bool IsDownloadingActive();
 
     bool SetViewportByUrl(string const & ulr);
-
-    void MapApiSetUriAndParse(string const & uri);
   };
 }
 

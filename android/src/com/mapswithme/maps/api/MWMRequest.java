@@ -89,7 +89,8 @@ public class MWMRequest
       {
         mPendingIntent.send(context, success ? Activity.RESULT_OK : Activity.RESULT_CANCELED, i);
         return true;
-      } catch (Exception e)
+      }
+      catch (Exception e)
       {
         e.printStackTrace();
       }

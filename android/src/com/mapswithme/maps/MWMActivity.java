@@ -581,7 +581,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         else
         {
           startActivity(new Intent(MWMActivity.this, BookmarkActivity.class)
-          .putExtra(BookmarkActivity.PIN, new ParcelablePoint(cat, bmk)));
+          .putExtra(BookmarkActivity.PIN, new ParcelablePoint(cat, bmk))
+          .putExtra(BookmarkActivity.FROM_MAP, true));
         }
       }
     });
