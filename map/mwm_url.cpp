@@ -100,7 +100,7 @@ void ParsedMapApi::AddKeyValue(string const & key, string const & value)
 
     m_points.back().m_lat = lat;
     m_points.back().m_lon = lon;
-    m_showRect = m2::Add(m_showRect, m2::PointD(lat, lon));
+    m_showRect = m2::Add(m_showRect, m2::PointD(lon, lat));
   }
   else if (key == "n")
   {
