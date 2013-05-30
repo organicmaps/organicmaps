@@ -23,8 +23,11 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -61,6 +64,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private AlertDialog m_storageDisconnectedDialog = null;
 
   private ImageButton mMyPositionButton;
+  private SurfaceView mMapSurface;
   // for API
   private View mTitleBar;
   private ImageView mAppIcon;
@@ -566,6 +570,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     mTitleBar = findViewById(R.id.title_bar);
     mAppIcon = (ImageView) findViewById(R.id.app_icon);
     mAppTitle = (TextView) findViewById(R.id.app_title);
+    mMapSurface = (SurfaceView) findViewById(R.id.map_surfaceview);
 
     alignZoomButtons();
 
@@ -786,6 +791,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public void setViewFromState(SuppotedState state)
   {
+    final LayoutParams mapLp = mMapSurface.getLayoutParams();
+    int marginTopForMap = 0;
+
     if (state == SuppotedState.API_REQUEST && MWMRequest.hasRequest())
     {
       // show title
@@ -807,12 +815,19 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       mAppIcon.setImageDrawable(request.getIcon(this));
       mTitleBar.setVisibility(View.VISIBLE);
       Framework.setOnApiPointActivatedListener(this);
+
+      marginTopForMap = (int) getResources().getDimension(R.dimen.abs__action_bar_default_height);
      }
     else
     {
       // hide title
       mTitleBar.setVisibility(View.GONE);
       Framework.removeOnApiPointActivatedListener();
+    }
+    //we use <merge> so we not sure of type here
+    if (mapLp instanceof MarginLayoutParams)
+    {
+      ((MarginLayoutParams)mapLp).setMargins(0, marginTopForMap, 0, 0);
     }
   }
 
