@@ -127,34 +127,34 @@ UNIT_TEST(TrieBuilder_WriteNode_Smoke)
   };
   trie::builder::WriteNode(sink, 0, 3, "123", 3,
                            &children[0], &children[0] + ARRAY_SIZE(children));
-  unsigned char const expected [] =
+  uint8_t const expected [] =
   {
-    BOOST_BINARY(11000101),             // Header: [0b11] [0b000101]
-    3,                                  // Number of values
-    '1', '2', '3',                      // Values
-    BOOST_BINARY(10000001),             // Child 1: header: [+leaf] [-supershort]  [2 symbols]
-    ZENC('1'), ZENC('A' - '1'),         // Child 1: edge
-    'i', '1',                           // Child 1: intermediate data
-    1,                                  // Child 1: size
-    64 | ZENC('B' - '1'),               // Child 2: header: [-leaf] [+supershort]
-    'i', 'i', '2',                      // Child 2: intermediate data
-    2,                                  // Child 2: size
-    BOOST_BINARY(00000001),             // Child 3: header: [-leaf] [-supershort]  [2 symbols]
-    ZENC('z' - 'B'), 0,                 // Child 3: edge
-    3,                                  // Child 3: size
-    BOOST_BINARY(10111111),             // Child 4: header: [+leaf] [-supershort]  [>= 63 symbols]
-    69,                                 // Child 4: edgeSize - 1
-    ZENC('a' - 'z'), 2,2,2,2,2,2,2,2,2, // Child 4: edge
-    ZENC('a' - 'j'), 2,2,2,2,2,2,2,2,2, // Child 4: edge
-    ZENC('a' - 'j'), 2,2,2,2,2,2,2,2,2, // Child 4: edge
-    ZENC('a' - 'j'), 2,2,2,2,2,2,2,2,2, // Child 4: edge
-    ZENC('a' - 'j'), 2,2,2,2,2,2,2,2,2, // Child 4: edge
-    ZENC('a' - 'j'), 2,2,2,2,2,2,2,2,2, // Child 4: edge
-    ZENC('a' - 'j'), 2,2,2,2,2,2,2,2,2, // Child 4: edge
-    'i', '4',                           // Child 4: intermediate data
-    4,                                  // Child 4: size
-    BOOST_BINARY(11000000) | ZENC(0),   // Child 5: header: [+leaf] [+supershort]
-    '5', 'z'                            // Child 5: intermediate data
+    BOOST_BINARY(11000101),                                                 // Header: [0b11] [0b000101]
+    3,                                                                      // Number of values
+    '1', '2', '3',                                                          // Values
+    BOOST_BINARY(10000001),                                                 // Child 1: header: [+leaf] [-supershort]  [2 symbols]
+    static_cast<uint8_t>(ZENC('1')), static_cast<uint8_t>(ZENC('A' - '1')), // Child 1: edge
+    'i', '1',                                                               // Child 1: intermediate data
+    1,                                                                      // Child 1: size
+    static_cast<uint8_t>(64 | ZENC('B' - '1')),                             // Child 2: header: [-leaf] [+supershort]
+    'i', 'i', '2',                                                          // Child 2: intermediate data
+    2,                                                                      // Child 2: size
+    BOOST_BINARY(00000001),                                                 // Child 3: header: [-leaf] [-supershort]  [2 symbols]
+    static_cast<uint8_t>(ZENC('z' - 'B')), 0,                               // Child 3: edge
+    3,                                                                      // Child 3: size
+    BOOST_BINARY(10111111),                                                 // Child 4: header: [+leaf] [-supershort]  [>= 63 symbols]
+    69,                                                                     // Child 4: edgeSize - 1
+    static_cast<uint8_t>(ZENC('a' - 'z')), 2,2,2,2,2,2,2,2,2,               // Child 4: edge
+    static_cast<uint8_t>(ZENC('a' - 'j')), 2,2,2,2,2,2,2,2,2,               // Child 4: edge
+    static_cast<uint8_t>(ZENC('a' - 'j')), 2,2,2,2,2,2,2,2,2,               // Child 4: edge
+    static_cast<uint8_t>(ZENC('a' - 'j')), 2,2,2,2,2,2,2,2,2,               // Child 4: edge
+    static_cast<uint8_t>(ZENC('a' - 'j')), 2,2,2,2,2,2,2,2,2,               // Child 4: edge
+    static_cast<uint8_t>(ZENC('a' - 'j')), 2,2,2,2,2,2,2,2,2,               // Child 4: edge
+    static_cast<uint8_t>(ZENC('a' - 'j')), 2,2,2,2,2,2,2,2,2,               // Child 4: edge
+    'i', '4',                                                               // Child 4: intermediate data
+    4,                                                                      // Child 4: size
+    static_cast<uint8_t>(BOOST_BINARY(11000000) | ZENC(0)),                 // Child 5: header: [+leaf] [+supershort]
+    '5', 'z'                                                                // Child 5: intermediate data
   };
 
   TEST_EQUAL(serial, vector<uint8_t>(&expected[0], &expected[0] + ARRAY_SIZE(expected)), ());

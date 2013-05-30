@@ -42,7 +42,7 @@ UNIT_TEST(StringNumericOptimal_IntCoding1)
 
 UNIT_TEST(StringNumericOptimal_IntCoding2)
 {
-  int arr[] = { -1, -2, -666666, 0xFFFFFFFE, 0xFFFFFFFF };
+  int arr[] = { -1, -2, -666666, static_cast<int>(0xFFFFFFFE), static_cast<int>(0xFFFFFFFF) };
   TestStringCodingT(arr, ARRAY_SIZE(arr), 12);  // should be coded as String
 }
 
