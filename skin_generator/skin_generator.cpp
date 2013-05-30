@@ -317,7 +317,7 @@ namespace tools
 
   void DoPatchSize(QString const & name, string const & skinName, QSize & size)
   {
-    if (name.startsWith("placemark-") || name.startsWith("current-position"))
+    if (name.startsWith("placemark-") || name.startsWith("current-position") || name.startsWith("api_pin"))
     {
       if (skinName.rfind("-mdpi") != string::npos)
         size = QSize(24, 24);
