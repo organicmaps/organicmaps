@@ -122,12 +122,13 @@ namespace android
 
   void Framework::SetBestDensity(int densityDpi, RenderPolicy::Params & params)
   {
-    pair<int, graphics::EDensity> dens[] = {
-        (120, graphics::EDensityLDPI),
-        (160, graphics::EDensityMDPI),
-        (240, graphics::EDensityHDPI),
-        (320, graphics::EDensityXHDPI),
-        (480, graphics::EDensityXXHDPI),
+    typedef pair<int, graphics::EDensity> P;
+    P dens[] = {
+        P(120, graphics::EDensityLDPI),
+        P(160, graphics::EDensityMDPI),
+        P(240, graphics::EDensityHDPI),
+        P(320, graphics::EDensityXHDPI),
+        P(480, graphics::EDensityXXHDPI)
     };
 
     int prevRange = numeric_limits<int>::max();
