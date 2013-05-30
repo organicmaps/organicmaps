@@ -1061,15 +1061,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     request.setHasPoint(activated);
     if (activated)
       request.setPointData(lat, lon, name, id);
-    runOnUiThread(new Runnable()
-    {
-
-      @Override
-      public void run()
-      {
-        Utils.toastShortcut(MWMActivity.this, name + " status: " + activated);
-      }
-    });
   }
 
   private native void nativeStorageConnected();

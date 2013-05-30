@@ -36,7 +36,6 @@
                 android:layout_width="@dimen/abs__action_bar_default_height"
                 android:paddingTop="@dimen/abs__action_bar_icon_vertical_padding"
                 android:paddingBottom="@dimen/abs__action_bar_icon_vertical_padding"
-                android:src="@drawable/ic_launcher"
                 android:scaleType="fitStart"/>
 
         </LinearLayout>
@@ -47,7 +46,6 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:gravity="left|center_vertical"
-            android:text="Что-то там про булки и еду"
             android:singleLine="true"/>
     </LinearLayout>
 

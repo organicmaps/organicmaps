@@ -150,8 +150,6 @@
                 android:layout_width="fill_parent"
                 android:layout_margin="5dp"
                 android:gravity="center"
-                android:text="Open this point with ???"
-                android:drawableLeft="@drawable/ic_launcher"
                 />
 
             <LinearLayout
