@@ -189,7 +189,7 @@ namespace android
 
     graphics::EDensity const density = m_work.GetRenderPolicy()->Density();
     m_images[IMAGE_PLUS]  = ImageT("plus.png", density);
-    m_images[IMAGE_ARROW] = ImageT("right-arrow.png", density);
+    m_images[IMAGE_ARROW] = ImageT("arrow.png", density);
 
     m_work.SetUpdatesEnabled(true);
     m_work.EnterForeground();

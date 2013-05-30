@@ -266,8 +266,8 @@ namespace qt
       }
 
       graphics::EDensity const density = m_framework->GetRenderPolicy()->Density();
-      m_images[IMAGE_PLUS] = ImageT("plus.png", density);
-      m_images[IMAGE_ARROW] = ImageT("right-arrow.png", density);
+      m_images[IMAGE_PLUS] = new ImageT("plus.png", density);
+      m_images[IMAGE_ARROW] = new ImageT("arrow.png", density);
       m_isInitialized = true;
     }
   }
