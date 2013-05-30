@@ -27,6 +27,10 @@
 *.gitattributes text eol=lf
 *.gitignore text eol=lf
 
+# Declare files that will always have CRLF line endings on checkout.
+*.dsp    text eol=crlf
+*.dsw    text eol=crlf
+
 # Binary files which doesn't need any normalization
 *.bin     binary
 *.bz2     binary
