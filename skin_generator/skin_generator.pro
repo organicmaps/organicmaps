@@ -21,7 +21,8 @@ PRE_TARGETDEPS += $$BINARIES_PATH/$${LIB_PREFIX}base$$LIB_EXT
 LIBS += -lcoding -lgeometry -lfreetype -lgflags -lbase
 
 INCLUDEPATH += $$ROOT_DIR/3party/boost \
-               $$ROOT_DIR/3party/freetype/include
+               $$ROOT_DIR/3party/freetype/include \
+               $$ROOT_DIR/3party/gflags/src
 
 HEADERS += skin_generator.hpp
            
