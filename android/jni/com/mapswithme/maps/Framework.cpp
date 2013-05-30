@@ -120,6 +120,34 @@ namespace android
     m_work.EnterBackground();
   }
 
+  void Framework::SetBestDensity(int densityDpi, RenderPolicy::Params & params)
+  {
+    pair<int, graphics::EDensity> dens[] = {
+        (120, graphics::EDensityLDPI),
+        (160, graphics::EDensityMDPI),
+        (240, graphics::EDensityHDPI),
+        (320, graphics::EDensityXHDPI),
+        (480, graphics::EDensityXXHDPI),
+    };
+
+    int prevRange = numeric_limits<int>::max();
+    int bestRangeIndex = 0;
+    for (int i = 0; i < ARRAY_SIZE(dens); i++)
+    {
+      int currRange = abs(densityDpi - dens[i].first);
+      if (currRange <= prevRange)
+      {
+        // it is better, take index
+        bestRangeIndex = i;
+        prevRange = currRange;
+      }
+      else
+        break;
+    }
+
+    params.m_density = dens[bestRangeIndex].second;
+  }
+
   bool Framework::InitRenderPolicy(int densityDpi, int screenWidth, int screenHeight)
   {
     graphics::ResourceManager::Params rmParams;
@@ -136,33 +164,7 @@ namespace android
     rpParams.m_primaryRC = make_shared_ptr(new android::RenderContext());
 
     char const * suffix = 0;
-    switch (densityDpi)
-    {
-    case 120:
-      rpParams.m_density = graphics::EDensityLDPI;
-      break;
-
-    case 160:
-      rpParams.m_density = graphics::EDensityMDPI;
-      break;
-
-    case 240:
-      rpParams.m_density = graphics::EDensityHDPI;
-      break;
-
-    case 320:
-      rpParams.m_density = graphics::EDensityXHDPI;
-      break;
-
-    case 480:
-      rpParams.m_density = graphics::EDensityXXHDPI;
-      break;
-
-    default:
-      LOG(LERROR, ("Invalid device density", densityDpi));
-      rpParams.m_density = graphics::EDensityMDPI;
-      break;
-    }
+    SetBestDensity(densityDpi, rpParams);
 
     rpParams.m_skinName = "basic.skn";
     LOG(LINFO, ("Using", graphics::convert(rpParams.m_density), "resources"));

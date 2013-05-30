@@ -78,6 +78,8 @@ namespace android
 
     string m_searchQuery;
 
+    void SetBestDensity(int densityDpi, RenderPolicy::Params & params);
+
   public:
     Framework();
     ~Framework();
