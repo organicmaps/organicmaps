@@ -72,7 +72,8 @@ namespace gui
 
     void calcMaxTextWidth();
 
-    graphics::Image::Info m_borderImg;
+    graphics::Image::Info m_borderLImg;
+    graphics::Image::Info m_borderRImg;
     graphics::Image::Info m_bodyImg;
     graphics::Image::Info m_arrowImg;
 

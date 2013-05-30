@@ -206,6 +206,7 @@ void BookmarkBalloon::animTaskEnded(int animIndex)
   }
 
   m_mainTextView->setIsVisible(isVisibleTextAndImage);
+  m_auxTextView->setIsVisible(isVisibleTextAndImage);
   m_imageView->setIsVisible(isVisibleTextAndImage);
 }
 
@@ -245,7 +246,7 @@ void BookmarkBalloon::setGlbPivot(m2::PointD const & pivot)
   m_glbPivot = pivot;
 }
 
-m2::PointD const BookmarkBalloon::glbPivot()
+m2::PointD const & BookmarkBalloon::glbPivot() const
 {
   return m_glbPivot;
 }
@@ -275,7 +276,10 @@ void BookmarkBalloon::setBookmarkCaption(string const & name,
   setText(name, type);
 }
 
-string const & BookmarkBalloon::bookmarkName()
+string BookmarkBalloon::bookmarkName() const
 {
-  return m_bmkName;
+  if (!m_bmkName.empty() && !m_bmkType.empty())
+    return m_bmkName + " (" + m_bmkType + ")";
+
+  return m_bmkName.empty() ? m_bmkType : m_bmkName;
 }

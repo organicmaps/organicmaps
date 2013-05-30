@@ -46,8 +46,8 @@ public:
   void hide();
 
   void setGlbPivot(m2::PointD const & pivot);
-  m2::PointD const glbPivot();
+  m2::PointD const & glbPivot() const;
 
   void setBookmarkCaption(string const & name, string const & type);
-  string const & bookmarkName();
+  string bookmarkName() const;
 };
