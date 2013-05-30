@@ -8,8 +8,8 @@
    This file is part of bzip2/libbzip2, a program and library for
    lossless, block-sorting data compression.
 
-   bzip2/libbzip2 version 1.0.5 of 10 December 2007
-   Copyright (C) 1996-2007 Julian Seward <jseward@bzip.org>
+   bzip2/libbzip2 version 1.0.6 of 6 September 2010
+   Copyright (C) 1996-2010 Julian Seward <jseward@bzip.org>
 
    Please read the WARNING, DISCLAIMER and PATENTS sections in the
    README file.
@@ -29,10 +29,6 @@
 */
 
 #include "bzlib_private.h"
-
-#ifdef __GNUC__
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-#endif
 
 
 /*---------------------------------------------------*/
@@ -429,7 +425,7 @@ int BZ_API(BZ2_bzCompress) ( bz_stream *strm, int action )
             return progress ? BZ_RUN_OK : BZ_PARAM_ERROR;
          }
          else
-   if (action == BZ_FLUSH) {
+	 if (action == BZ_FLUSH) {
             s->avail_in_expect = strm->avail_in;
             s->mode = BZ_M_FLUSHING;
             goto preswitch;
@@ -1376,7 +1372,7 @@ const char * BZ_API(BZ2_bzlibVersion)(void)
 #ifndef BZ_NO_STDIO
 /*---------------------------------------------------*/
 
-#if (defined(_WIN32) || defined(OS2) || defined(MSDOS)) && !defined(OMIM_OS_BADA)
+#if defined(_WIN32) || defined(OS2) || defined(MSDOS)
 #   include <fcntl.h>
 #   include <io.h>
 #   define SET_BINARY_MODE(file) setmode(fileno(file),O_BINARY)

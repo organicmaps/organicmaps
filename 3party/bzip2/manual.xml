@@ -9,7 +9,7 @@
 <book lang="en" id="userman" xreflabel="bzip2 Manual">
 
  <bookinfo>
-  <title>bzip2 and libbzip2, version 1.0.5</title>
+  <title>bzip2 and libbzip2, version 1.0.6</title>
   <subtitle>A program and library for data compression</subtitle>
   <copyright>
    <year>&bz-lifespan;</year>
@@ -139,7 +139,7 @@ else.</para>
 
  <listitem><para><computeroutput>bzip2</computeroutput>,
   <computeroutput>bunzip2</computeroutput> - a block-sorting file
-  compressor, v1.0.4</para></listitem>
+  compressor, v1.0.6</para></listitem>
 
  <listitem><para><computeroutput>bzcat</computeroutput> -
    decompresses files to stdout</para></listitem>
@@ -1033,7 +1033,7 @@ kind.</para>
 
 
 <sect2 id="bzcompress-init" xreflabel="BZ2_bzCompressInit">
-<title><computeroutput>BZ2_bzCompressInit</computeroutput></title>
+<title>BZ2_bzCompressInit</title>
 
 <programlisting>
 typedef struct {
@@ -1183,7 +1183,7 @@ BZ2_bzCompress
 
 
 <sect2 id="bzCompress" xreflabel="BZ2_bzCompress">
-<title><computeroutput>BZ2_bzCompress</computeroutput></title>
+<title>BZ2_bzCompress</title>
 
 <programlisting>
 int BZ2_bzCompress ( bz_stream *strm, int action );
@@ -1408,7 +1408,7 @@ BZ_PARAM_ERROR
 
 
 <sect2 id="bzCompress-end" xreflabel="BZ2_bzCompressEnd">
-<title><computeroutput>BZ2_bzCompressEnd</computeroutput></title>
+<title>BZ2_bzCompressEnd</title>
 
 <programlisting>
 int BZ2_bzCompressEnd ( bz_stream *strm );
@@ -1428,7 +1428,7 @@ BZ_OK           otherwise
 
 
 <sect2 id="bzDecompress-init" xreflabel="BZ2_bzDecompressInit">
-<title><computeroutput>BZ2_bzDecompressInit</computeroutput></title>
+<title>BZ2_bzDecompressInit</title>
 
 <programlisting>
 int BZ2_bzDecompressInit ( bz_stream *strm, int verbosity, int small );
@@ -1492,7 +1492,7 @@ BZ2_bzDecompress
 
 
 <sect2 id="bzDecompress" xreflabel="BZ2_bzDecompress">
-<title><computeroutput>BZ2_bzDecompress</computeroutput></title>
+<title>BZ2_bzDecompress</title>
 
 <programlisting>
 int BZ2_bzDecompress ( bz_stream *strm );
@@ -1587,7 +1587,7 @@ BZ2_bzDecompressEnd
 
 
 <sect2 id="bzDecompress-end" xreflabel="BZ2_bzDecompressEnd">
-<title><computeroutput>BZ2_bzDecompressEnd</computeroutput></title>
+<title>BZ2_bzDecompressEnd</title>
 
 <programlisting>
 int BZ2_bzDecompressEnd ( bz_stream *strm );
@@ -1682,7 +1682,7 @@ general points.</para>
 
 
 <sect2 id="bzreadopen" xreflabel="BZ2_bzReadOpen">
-<title><computeroutput>BZ2_bzReadOpen</computeroutput></title>
+<title>BZ2_bzReadOpen</title>
 
 <programlisting>
 typedef void BZFILE;
@@ -1765,7 +1765,7 @@ BZ2_bzClose
 
 
 <sect2 id="bzread" xreflabel="BZ2_bzRead">
-<title><computeroutput>BZ2_bzRead</computeroutput></title>
+<title>BZ2_bzRead</title>
 
 <programlisting>
 int BZ2_bzRead ( int *bzerror, BZFILE *b, void *buf, int len );
@@ -1859,7 +1859,7 @@ BZ2_bzReadClose
 
 
 <sect2 id="bzreadgetunused" xreflabel="BZ2_bzReadGetUnused">
-<title><computeroutput>BZ2_bzReadGetUnused</computeroutput></title>
+<title>BZ2_bzReadGetUnused</title>
 
 <programlisting>
 void BZ2_bzReadGetUnused( int* bzerror, BZFILE *b, 
@@ -1903,7 +1903,7 @@ BZ2_bzReadClose
 
 
 <sect2 id="bzreadclose" xreflabel="BZ2_bzReadClose">
-<title><computeroutput>BZ2_bzReadClose</computeroutput></title>
+<title>BZ2_bzReadClose</title>
 
 <programlisting>
 void BZ2_bzReadClose ( int *bzerror, BZFILE *b );
@@ -1937,7 +1937,7 @@ none
 
 
 <sect2 id="bzwriteopen" xreflabel="BZ2_bzWriteOpen">
-<title><computeroutput>BZ2_bzWriteOpen</computeroutput></title>
+<title>BZ2_bzWriteOpen</title>
 
 <programlisting>
 BZFILE *BZ2_bzWriteOpen( int *bzerror, FILE *f, 
@@ -2003,7 +2003,7 @@ BZ2_bzWriteClose
 
 
 <sect2 id="bzwrite" xreflabel="BZ2_bzWrite">
-<title><computeroutput>BZ2_bzWrite</computeroutput></title>
+<title>BZ2_bzWrite</title>
 
 <programlisting>
 void BZ2_bzWrite ( int *bzerror, BZFILE *b, void *buf, int len );
@@ -2031,7 +2031,7 @@ BZ_OK
 
 
 <sect2 id="bzwriteclose" xreflabel="BZ2_bzWriteClose">
-<title><computeroutput>BZ2_bzWriteClose</computeroutput></title>
+<title>BZ2_bzWriteClose</title>
 
 <programlisting>
 void BZ2_bzWriteClose( int *bzerror, BZFILE* f,
@@ -2235,7 +2235,7 @@ if ( bzerror != BZ_STREAM_END ) {
 
 
 <sect2 id="bzbufftobuffcompress" xreflabel="BZ2_bzBuffToBuffCompress">
-<title><computeroutput>BZ2_bzBuffToBuffCompress</computeroutput></title>
+<title>BZ2_bzBuffToBuffCompress</title>
 
 <programlisting>
 int BZ2_bzBuffToBuffCompress( char*         dest,
@@ -2302,7 +2302,7 @@ BZ_OK
 
 
 <sect2 id="bzbufftobuffdecompress" xreflabel="BZ2_bzBuffToBuffDecompress">
-<title><computeroutput>BZ2_bzBuffToBuffDecompress</computeroutput></title>
+<title>BZ2_bzBuffToBuffDecompress</title>
 
 <programlisting>
 int BZ2_bzBuffToBuffDecompress( char*         dest,
@@ -2377,7 +2377,7 @@ BZ_OK
 
 
 <sect1 id="zlib-compat" xreflabel="zlib compatibility functions">
-<title><computeroutput>zlib</computeroutput> compatibility functions</title>
+<title>zlib compatibility functions</title>
 
 <para>Yoshioka Tsuneo has contributed some functions to give
 better <computeroutput>zlib</computeroutput> compatibility.
@@ -2444,11 +2444,11 @@ value.</para>
 
 <sect1 id="stdio-free" 
        xreflabel="Using the library in a stdio-free environment">
-<title>Using the library in a <computeroutput>stdio</computeroutput>-free environment</title>
+<title>Using the library in a stdio-free environment</title>
 
 
 <sect2 id="stdio-bye" xreflabel="Getting rid of stdio">
-<title>Getting rid of <computeroutput>stdio</computeroutput></title>
+<title>Getting rid of stdio</title>
 
 <para>In a deeply embedded application, you might want to use
 just the memory-to-memory functions.  You can do this
