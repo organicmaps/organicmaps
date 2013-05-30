@@ -1645,7 +1645,7 @@ void Framework::DrawMapApiPoints(shared_ptr<PaintEvent> const & e)
     if (glbRect.IsPointInside(org))
       //ToDo Use Custom Pins
       //super magic hack!!! Only purple! Only hardcore
-      informationDisplay.drawPlacemark(pDrawer, "placemark-purple", navigator.GtoP(org));
+      informationDisplay.drawPlacemark(pDrawer, "api_pin", navigator.GtoP(org));
   }
 }
 
