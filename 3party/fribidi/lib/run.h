@@ -1,11 +1,11 @@
 /* FriBidi
  * run.h - text run data type
  *
- * $Id: run.h,v 1.9 2006/01/31 03:23:13 behdad Exp $
+ * $Id: run.h,v 1.10 2011-05-04 18:04:29 behdad Exp $
  * $Author: behdad $
- * $Date: 2006/01/31 03:23:13 $
- * $Revision: 1.9 $
- * $Source: /cvs/fribidi/fribidi2/lib/run.h,v $
+ * $Date: 2011-05-04 18:04:29 $
+ * $Revision: 1.10 $
+ * $Source: /home/behdad/src/fdo/fribidi/togit/git/../fribidi/fribidi2/lib/run.h,v $
  *
  * Authors:
  *   Behdad Esfahbod, 2001, 2002, 2004
@@ -27,8 +27,8 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library, in a file named COPYING; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
- * Boston, MA 02111-1307, USA
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA
  * 
  * For licensing issues, contact <license@farsiweb.info>.
  */
@@ -51,8 +51,8 @@ struct _FriBidiRunStruct
   FriBidiRun *prev;
   FriBidiRun *next;
 
-  FriBidiCharType type;
   FriBidiStrIndex pos, len;
+  FriBidiCharType type;
   FriBidiLevel level;
 };
 

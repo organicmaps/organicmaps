@@ -1,11 +1,11 @@
 /* FriBidi
  * gen-arabic-shaping-tab.c - generate arabic-shaping.tab.i
  *
- * $Id: gen-arabic-shaping-tab.c,v 1.2 2006/01/31 03:23:12 behdad Exp $
+ * $Id: gen-arabic-shaping-tab.c,v 1.2 2006-01-31 03:23:12 behdad Exp $
  * $Author: behdad $
- * $Date: 2006/01/31 03:23:12 $
+ * $Date: 2006-01-31 03:23:12 $
  * $Revision: 1.2 $
- * $Source: /cvs/fribidi/fribidi2/gen.tab/gen-arabic-shaping-tab.c,v $
+ * $Source: /home/behdad/src/fdo/fribidi/togit/git/../fribidi/fribidi2/gen.tab/gen-arabic-shaping-tab.c,v $
  *
  * Author:
  *   Behdad Esfahbod, 2004, 2005
@@ -25,8 +25,8 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library, in a file named COPYING; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
- * Boston, MA 02111-1307, USA
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA
  * 
  * For licensing issues, contact <license@farsiweb.info>.
  */

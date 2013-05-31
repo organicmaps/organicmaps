@@ -1,11 +1,11 @@
 /* FriBidi
  * fribidi-types.h - define data types for the rest of the library
  *
- * $Id: fribidi-types.h,v 1.12 2006/01/31 03:23:13 behdad Exp $
+ * $Id: fribidi-types.h,v 1.13 2010-02-24 19:40:04 behdad Exp $
  * $Author: behdad $
- * $Date: 2006/01/31 03:23:13 $
- * $Revision: 1.12 $
- * $Source: /cvs/fribidi/fribidi2/lib/fribidi-types.h,v $
+ * $Date: 2010-02-24 19:40:04 $
+ * $Revision: 1.13 $
+ * $Source: /home/behdad/src/fdo/fribidi/togit/git/../fribidi/fribidi2/lib/fribidi-types.h,v $
  *
  * Author:
  *   Behdad Esfahbod, 2001, 2002, 2004
@@ -25,8 +25,8 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library, in a file named COPYING; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
- * Boston, MA 02111-1307, USA
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA
  *
  * For licensing issues, contact <license@farsiweb.info>.
  */
@@ -40,8 +40,7 @@
 
 #if FRIBIDI_USE_GLIB+0
 # ifndef __FRIBIDI_DOC
-#  include <glib/gtypes.h>
-#  include <glib/gunicode.h>
+#  include <glib.h>
 # endif	/* !__FRIBIDI_DOC */
 # define FRIBIDI_INT8_LOCAL		gint8
 # define FRIBIDI_INT16_LOCAL		gint16

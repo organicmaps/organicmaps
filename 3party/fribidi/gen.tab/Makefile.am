@@ -123,3 +123,5 @@ $(top_builddir)/lib/fribidi-config.h: $(top_srcdir)/lib/fribidi-config.h.in
 .PHONY: gen
 
 .DELETE_ON_ERROR:
+
+-include $(top_srcdir)/git.mk

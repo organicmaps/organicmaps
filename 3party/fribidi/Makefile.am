@@ -1,11 +1,11 @@
 ##                                               -*- Automake -*-
 ## Process this file with automake to produce Makefile.in
 ##############################################################################
-## $Id: Makefile.am,v 1.10 2005/08/25 18:35:34 behdad Exp $
+## $Id: Makefile.am,v 1.10 2005-08-25 18:35:34 behdad Exp $
 ## $Author: behdad $
-## $Date: 2005/08/25 18:35:34 $
+## $Date: 2005-08-25 18:35:34 $
 ## $Revision: 1.10 $
-## $Source: /cvs/fribidi/fribidi2/Makefile.am,v $
+## $Source: /home/behdad/src/fdo/fribidi/togit/git/../fribidi/fribidi2/Makefile.am,v $
 ##############################################################################
 
 ## The order of subdirs is important, don't change without a reason.
@@ -34,8 +34,8 @@ MAINTAINERCLEANFILES = \
 		$(srcdir)/ltmain.sh \
 		$(srcdir)/missing \
 		$(srcdir)/mkinstalldirs \
+		$(srcdir)/ChangeLog \
 		`find "$(srcdir)" -type f -name Makefile.in -print` \
-		`find "$(srcdir)" -type f -name "*~" -print` \
 		`$(srcdir)/bootstrap --write-configure`
 # The last line above is a horrible hack.
 # GNU Coding Standards recommends that `make maintainer-clean' should not 
@@ -51,26 +51,46 @@ indent: $(srcdir)/.indent.pro
 
 .PHONY: indent
 
-# Creating ChangeLog from CVS log, using cvs2cl(1):
-
-MAINTAINERCLEANFILES += ChangeLog ChangeLog.bak
-
-EXTRA_DIST += ChangeLog
-
-ChangeLog: $(srcdir)/ChangeLog
-
-$(srcdir)/ChangeLog:
-	@if test -d "$(srcdir)/CVS"; then \
-	  (cd "$(srcdir)" && \
-	  ./missing --run cvs2cl --stdout --utc --FSF -U AUTHORS) > $@.tmp \
-	  && echo "For older changes see ChangeLog.old" >> $@.tmp && mv -f $@.tmp $@ \
+#
+# ChangeLog generation
+#
+CHANGELOG_RANGE =
+ChangeLog:
+	$(AM_V_GEN) if test -d "$(top_srcdir)/.git"; then \
+	  (GIT_DIR=$(top_srcdir)/.git $(top_srcdir)/missing --run \
+	   git log $(CHANGELOG_RANGE) --stat) | fmt --split-only > $@.tmp \
+	  && mv -f $@.tmp "$(srcdir)/ChangeLog" \
 	  || ($(RM) $@.tmp; \
 	      echo Failed to generate ChangeLog, your ChangeLog may be outdated >&2; \
-	      (test -f $@ || echo cvs2cl is required to generate this file >> $@)); \
+	      (test -f $@ || echo git-log is required to generate this file >> "$(srcdir)/$@")); \
 	else \
 	  test -f $@ || \
-	  (echo A CVS checkout and cvs2cl is required to generate ChangeLog >&2 && \
-	  echo A CVS checkout and cvs2cl is required to generate this file >> $@); \
+	  (echo A git checkout and git-log is required to generate ChangeLog >&2 && \
+	  echo A git checkout and git-log is required to generate this file >> "$(srcdir)/$@"); \
 	fi
+.PHONY: $(srcdir)/ChangeLog
 
-.PHONY: ChangeLog $(srcdir)/ChangeLog
+#
+# Release engineering
+#
+
+TAR_OPTIONS = --owner=0 --group=0
+dist-hook: dist-clear-sticky-bits
+# Clean up any sticky bits we may inherit from parent dir
+dist-clear-sticky-bits:
+	chmod -R a-s $(distdir)
+
+
+tar_file = $(PACKAGE_TARNAME)-$(VERSION).tar.bz2
+sha256_file = $(tar_file).sha256
+gpg_file = $(sha256_file).asc
+$(sha256_file): $(tar_file)
+	sha256sum $^ > $@
+$(gpg_file): $(sha256_file)
+	@echo "Please enter your GPG password to sign the checksum."
+	gpg --armor --sign $^
+
+release-files: $(tar_file) $(sha256_file) $(gpg_file)
+
+
+-include $(top_srcdir)/git.mk

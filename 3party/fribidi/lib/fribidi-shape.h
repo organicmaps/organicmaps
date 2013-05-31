@@ -1,11 +1,11 @@
 /* FriBidi
  * fribidi-shape.h - shaping
  *
- * $Id: fribidi-shape.h,v 1.2 2006/01/14 12:09:29 behdad Exp $
+ * $Id: fribidi-shape.h,v 1.2 2006-01-14 12:09:29 behdad Exp $
  * $Author: behdad $
- * $Date: 2006/01/14 12:09:29 $
+ * $Date: 2006-01-14 12:09:29 $
  * $Revision: 1.2 $
- * $Source: /cvs/fribidi/fribidi2/lib/fribidi-shape.h,v $
+ * $Source: /home/behdad/src/fdo/fribidi/togit/git/../fribidi/fribidi2/lib/fribidi-shape.h,v $
  *
  * Author:
  *   Behdad Esfahbod, 2004, 2005
@@ -25,8 +25,8 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library, in a file named COPYING; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
- * Boston, MA 02111-1307, USA
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA
  * 
  * For licensing issues, contact <license@farsiweb.info>.
  */

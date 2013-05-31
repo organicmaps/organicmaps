@@ -1,11 +1,11 @@
 /* FriBidi
  * fribidi-common.h - common include for library headers
  *
- * $Id: fribidi-common.h,v 1.13 2007/04/05 16:13:24 behdad Exp $
+ * $Id: fribidi-common.h,v 1.14 2010-02-24 19:40:04 behdad Exp $
  * $Author: behdad $
- * $Date: 2007/04/05 16:13:24 $
- * $Revision: 1.13 $
- * $Source: /cvs/fribidi/fribidi2/lib/fribidi-common.h,v $
+ * $Date: 2010-02-24 19:40:04 $
+ * $Revision: 1.14 $
+ * $Source: /home/behdad/src/fdo/fribidi/togit/git/../fribidi/fribidi2/lib/fribidi-common.h,v $
  *
  * Author:
  *   Behdad Esfahbod, 2004
@@ -24,8 +24,8 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library, in a file named COPYING; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
- * Boston, MA 02111-1307, USA
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA
  * 
  * For licensing issues, contact <license@farsiweb.info>.
  */
@@ -52,18 +52,17 @@
 #endif /* !FRIBIDI_NAMESPACE */
 
 /* FRIBIDI_ENTRY is a macro used to declare library entry points. */
-#define FRIBIDI_ENTRY		/* empty */
-//#ifndef FRIBIDI_ENTRY
-//# if (defined(WIN32)) || (defined(_WIN32_WCE))
-//#  define FRIBIDI_ENTRY __declspec(dllimport)
-//# else /* !WIN32 */
-//#  define FRIBIDI_ENTRY		/* empty */
-//# endif	/* !WIN32 */
-//#endif /* !FRIBIDI_ENTRY */
+#ifndef FRIBIDI_ENTRY
+# if (defined(WIN32)) || (defined(_WIN32_WCE))
+#  define FRIBIDI_ENTRY __declspec(dllimport)
+# else /* !WIN32 */
+#  define FRIBIDI_ENTRY		/* empty */
+# endif	/* !WIN32 */
+#endif /* !FRIBIDI_ENTRY */
 
 #if FRIBIDI_USE_GLIB+0
 # ifndef __FRIBIDI_DOC
-#  include <glib/gmacros.h>
+#  include <glib.h>
 # endif	/* !__FRIBIDI_DOC */
 # define FRIBIDI_BEGIN_DECLS		G_BEGIN_DECLS
 # define FRIBIDI_END_DECLS		G_END_DECLS

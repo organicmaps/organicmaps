@@ -1,11 +1,11 @@
 /* FriBidi
  * fribidi-benchmark.c - command line benchmark tool for libfribidi
  *
- * $Id: fribidi-benchmark.c,v 1.7 2006/01/31 03:23:12 behdad Exp $
+ * $Id: fribidi-benchmark.c,v 1.8 2009-04-14 03:49:52 behdad Exp $
  * $Author: behdad $
- * $Date: 2006/01/31 03:23:12 $
- * $Revision: 1.7 $
- * $Source: /cvs/fribidi/fribidi2/bin/fribidi-benchmark.c,v $
+ * $Date: 2009-04-14 03:49:52 $
+ * $Revision: 1.8 $
+ * $Source: /home/behdad/src/fdo/fribidi/togit/git/../fribidi/fribidi2/bin/fribidi-benchmark.c,v $
  *
  * Authors:
  *   Behdad Esfahbod, 2001, 2002, 2004
@@ -27,8 +27,8 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library, in a file named COPYING; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
- * Boston, MA 02111-1307, USA
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA
  * 
  * For licensing issues, contact <license@farsiweb.info>.
  */
@@ -58,6 +58,9 @@
 #if HAVE_SYS_TIMES_H+0
 # include <sys/times.h>
 #endif
+#ifdef _WIN32
+#include <windows.h>
+#endif /* _WIN32 */
 
 #include "getopt.h"
 
@@ -123,12 +126,26 @@ utime (
   void
 )
 {
-  struct tms tb;
+#ifdef _WIN32
+  FILETIME creationTime, exitTime, kernelTime, userTime;
+  HANDLE currentProcess = GetCurrentProcess();
+  if (GetProcessTimes(currentProcess, &creationTime, &exitTime, &kernelTime, &userTime))
+  {
+      unsigned __int64 myTime = userTime.dwHighDateTime;
+      myTime = (myTime << 32) | userTime.dwLowDateTime;
+      return 1e-7 * myTime;
+  }
+  else
+      return 0.0;
+#else /* !_WIN32 */
 #if HAVE_SYS_TIMES_H+0
+  struct tms tb;
   times (&tb);
   return 0.01 * tb.tms_utime;
 #else
 #warning Please fill in here to use other functions for determining time.
+  return 0.0;
+#endif
 #endif
 }
 

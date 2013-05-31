@@ -1,11 +1,11 @@
 /* FriBidi
  * common.h - common include for library sources
  *
- * $Id: common.h,v 1.20 2008-04-08 21:38:23 behdad Exp $
+ * $Id: common.h,v 1.21 2010-02-24 19:40:04 behdad Exp $
  * $Author: behdad $
- * $Date: 2008-04-08 21:38:23 $
- * $Revision: 1.20 $
- * $Source: /cvs/fribidi/fribidi2/lib/common.h,v $
+ * $Date: 2010-02-24 19:40:04 $
+ * $Revision: 1.21 $
+ * $Source: /home/behdad/src/fdo/fribidi/togit/git/../fribidi/fribidi2/lib/common.h,v $
  *
  * Author:
  *   Behdad Esfahbod, 2004
@@ -24,18 +24,17 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library, in a file named COPYING; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
- * Boston, MA 02111-1307, USA
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA
  *
  * For licensing issues, contact <license@farsiweb.info>.
  */
 #ifndef _COMMON_H
 #define _COMMON_H
 
-//#if HAVE_CONFIG_H+0
-//# include <config.h>
-//#endif
-#include "../config_omim.h"
+#if HAVE_CONFIG_H+0
+# include <config.h>
+#endif
 
 #include <fribidi-common.h>
 
@@ -46,9 +45,9 @@
 # define FRIBIDI_PRIVATESPACE(SYMBOL) FRIBIDI_PRIVATESPACE0(_,FRIBIDI_NAMESPACE(_##SYMBOL##__internal__))
 #endif /* !FRIBIDI_PRIVATESPACE */
 
-//#if (defined(WIN32)) || (defined(_WIN32_WCE))
-//# define FRIBIDI_ENTRY __declspec(dllexport)
-//#endif /* WIN32 */
+#if (defined(WIN32)) || (defined(_WIN32_WCE))
+# define FRIBIDI_ENTRY __declspec(dllexport)
+#endif /* WIN32 */
 
 #if FRIBIDI_USE_GLIB+0
 # ifndef SIZEOF_LONG
@@ -58,7 +57,7 @@
 #  define SIZEOF_VOID_P GLIB_SIZEOF_VOID_P
 # endif	/* !SIZEOF_VOID_P */
 # ifndef __FRIBIDI_DOC
-#  include <glib/gmem.h>
+#  include <glib.h>
 # endif	/* !__FRIBIDI_DOC */
 # ifndef fribidi_malloc
 #  define fribidi_malloc g_try_malloc
@@ -66,12 +65,12 @@
 # endif	/* !fribidi_malloc */
 # ifndef fribidi_assert
 #  ifndef __FRIBIDI_DOC
-#   include <glib/gmessages.h>
+#   include <glib.h>
 #  endif /* !__FRIBIDI_DOC */
 #  define fribidi_assert g_assert
 # endif	/* !fribidi_assert */
 # ifndef __FRIBIDI_DOC
-#  include <glib/gmacros.h>
+#  include <glib.h>
 # endif	/* !__FRIBIDI_DOC */
 # ifndef FRIBIDI_BEGIN_STMT
 #  define FRIBIDI_BEGIN_STMT G_STMT_START {

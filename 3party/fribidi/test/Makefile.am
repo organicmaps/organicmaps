@@ -36,3 +36,5 @@ references:
 		exit 1; \
 	done
 
+
+-include $(top_srcdir)/git.mk

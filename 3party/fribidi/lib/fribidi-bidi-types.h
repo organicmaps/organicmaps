@@ -5,7 +5,7 @@
  * $Author: behdad $
  * $Date: 2008-11-24 17:48:31 $
  * $Revision: 1.15 $
- * $Source: /cvs/fribidi/fribidi2/lib/fribidi-bidi-types.h,v $
+ * $Source: /home/behdad/src/fdo/fribidi/togit/git/../fribidi/fribidi2/lib/fribidi-bidi-types.h,v $
  *
  * Author:
  *   Behdad Esfahbod, 2001, 2002, 2004
@@ -25,8 +25,8 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library, in a file named COPYING; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
- * Boston, MA 02111-1307, USA
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA
  *
  * For licensing issues, contact <license@farsiweb.info>.
  */

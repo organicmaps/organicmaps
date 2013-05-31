@@ -1,6 +1,9 @@
 bin_PROGRAMS = fribidi
 
-noinst_PROGRAMS = fribidi-benchmark fribidi-bidi-types fribidi-caprtl2utf8
+noinst_PROGRAMS = fribidi-benchmark fribidi-bidi-types
+if FRIBIDI_CHARSETS
+noinst_PROGRAMS += fribidi-caprtl2utf8
+endif
 
 getopt_SOURCES = getopt.c getopt1.c getopt_int.h getopt.h gettext.h
 
@@ -23,3 +26,5 @@ endif # !FRIBIDI_CHARSETS
 
 $(top_builddir)/lib/libfribidi.la:
 	cd $(top_builddir)/lib && $(MAKE) $(AM_MAKEFLAGS) libfribidi.la
+
+-include $(top_srcdir)/git.mk

@@ -61,3 +61,5 @@ $(man3): c2man.stamp
 		$(MAKE) $(AM_MAKEFLAGS) $<;\
 	fi
 	@touch $@
+
+-include $(top_srcdir)/git.mk

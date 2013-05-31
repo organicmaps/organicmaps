@@ -1,3 +1,12 @@
+Overview of changes between 0.19.4 and 0.19.5
+=============================================
+* Update to Unicode 6.2.0.
+
+Overview of changes between 0.19.2 and 0.19.4
+=============================================
+* Update to Unicode 6.1.0.
+* Misc fixes.
+
 Overview of changes between 0.19.1 and 0.19.2
 =============================================
 * Update to Unicode Character Database 5.1.0

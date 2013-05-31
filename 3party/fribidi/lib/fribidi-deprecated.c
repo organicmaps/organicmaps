@@ -1,11 +1,11 @@
 /* FriBidi
  * fribidi-deprecated.c - deprecated interfaces.
  *
- * $Id: fribidi-deprecated.c,v 1.6 2006/06/01 22:53:55 behdad Exp $
+ * $Id: fribidi-deprecated.c,v 1.6 2006-06-01 22:53:55 behdad Exp $
  * $Author: behdad $
- * $Date: 2006/06/01 22:53:55 $
+ * $Date: 2006-06-01 22:53:55 $
  * $Revision: 1.6 $
- * $Source: /cvs/fribidi/fribidi2/lib/fribidi-deprecated.c,v $
+ * $Source: /home/behdad/src/fdo/fribidi/togit/git/../fribidi/fribidi2/lib/fribidi-deprecated.c,v $
  *
  * Authors:
  *   Behdad Esfahbod, 2001, 2002, 2004
@@ -27,8 +27,8 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library, in a file named COPYING; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
- * Boston, MA 02111-1307, USA
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA
  * 
  * For licensing issues, contact <license@farsiweb.info>.
  */

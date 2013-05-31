@@ -1,11 +1,11 @@
 /* FriBidi
  * fribidi-deprecated.h - Deprecated interfaces
  *
- * $Id: fribidi-deprecated.h,v 1.3 2006/01/31 03:23:13 behdad Exp $
+ * $Id: fribidi-deprecated.h,v 1.4 2009-03-27 16:14:33 behdad Exp $
  * $Author: behdad $
- * $Date: 2006/01/31 03:23:13 $
- * $Revision: 1.3 $
- * $Source: /cvs/fribidi/fribidi2/lib/fribidi-deprecated.h,v $
+ * $Date: 2009-03-27 16:14:33 $
+ * $Revision: 1.4 $
+ * $Source: /home/behdad/src/fdo/fribidi/togit/git/../fribidi/fribidi2/lib/fribidi-deprecated.h,v $
  *
  * Author:
  *   Behdad Esfahbod, 2004, 2005
@@ -25,8 +25,8 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library, in a file named COPYING; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
- * Boston, MA 02111-1307, USA
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA
  * 
  * For licensing issues, contact <license@farsiweb.info>.
  */
@@ -155,14 +155,14 @@ fribidi_get_type_internal (
  * string, the other way. Moreover, the position maps should be filled with
  * valid entries.
  * 
- * A position map pointing to a removed character is filled with -1. By the
+ * A position map pointing to a removed character is filled with \-1. By the
  * way, you should not use embedding_levels if str is visual string.
  * 
  * For best results this function should be run on a whole paragraph, not
  * lines; but feel free to do otherwise if you know what you are doing.
  * Deprecated.  Use fribidi_remove_special_chars instead.
  *
- * Returns: New length of the string, or -1 if an error occured (memory
+ * Returns: New length of the string, or \-1 if an error occured (memory
  * allocation failure most probably).
  */
 FRIBIDI_ENTRY FriBidiStrIndex
@@ -197,7 +197,7 @@ fribidi_remove_bidi_marks (
  */
      FRIBIDI_ENTRY FriBidiLevel fribidi_log2vis (
   const FriBidiChar *str,	/* input logical string */
-  FriBidiStrIndex len,	/* input string length */
+  const FriBidiStrIndex len,	/* input string length */
   FriBidiParType *pbase_dir,	/* requested and resolved paragraph
 				 * base direction */
   FriBidiChar *visual_str,	/* output visual string */

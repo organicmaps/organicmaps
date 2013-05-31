@@ -3,14 +3,14 @@
 ## Use autoupdate to update this file for newer versions of autoconf.
 ## Use autoscan to check if you need to add something to this file.
 ##############################################################################
-## $Id: configure.ac,v 1.28 2009-03-26 22:37:29 behdad Exp $
+## $Id: configure.ac,v 1.29 2011-01-21 22:49:59 behdad Exp $
 ## $Auther: behdad $
-## $Date: 2009-03-26 22:37:29 $
-## $Revision: 1.28 $
-## $Source: /cvs/fribidi/fribidi2/configure.ac,v $
+## $Date: 2011-01-21 22:49:59 $
+## $Revision: 1.29 $
+## $Source: /home/behdad/src/fdo/fribidi/togit/git/../fribidi/fribidi2/configure.ac,v $
 ##############################################################################
 
-AC_PREREQ(2.56)
+AC_PREREQ([2.64])
 
 dnl Define different version variables.
 dnl
@@ -28,9 +28,9 @@ dnl   FRIBIDI_BINARY_AGE = FRIBIDI_INTERFACE_AGE = 0;
 dnl
 m4_define(fribidi_major_version, 0)dnl
 m4_define(fribidi_minor_version, 19)dnl
-m4_define(fribidi_micro_version, 2)dnl
+m4_define(fribidi_micro_version, 5)dnl
 m4_define(fribidi_interface_version, 3)dnl
-m4_define(fribidi_interface_age, 1)dnl
+m4_define(fribidi_interface_age, 4)dnl
 m4_define(fribidi_binary_age, 3)dnl
 dnl
 m4_define(fribidi_version,
@@ -38,11 +38,21 @@ m4_define(fribidi_version,
 	    fribidi_major_version.fribidi_minor_version,
 	    fribidi_major_version.fribidi_minor_version.fribidi_micro_version))dnl
 
-AC_INIT([GNU FriBidi],fribidi_version(),[http://fribidi.org/bug])
-AC_REVISION([$Id: configure.ac,v 1.28 2009-03-26 22:37:29 behdad Exp $])
-AC_CONFIG_SRCDIR(lib/fribidi.h)
-AC_CONFIG_HEADERS(config.h)
-AM_INIT_AUTOMAKE([gnits])
+AC_INIT([GNU FriBidi],
+	fribidi_version(),
+        [http://bugs.freedesktop.org/enter_bug.cgi?product=fribidi],
+	[fribidi],
+	[http://fribidi.org/])
+
+AC_CONFIG_SRCDIR([fribidi.pc.in])
+AC_CONFIG_HEADERS([config.h])
+
+AM_INIT_AUTOMAKE([1.11.1 gnits dist-bzip2 no-dist-gzip -Wall no-define])
+AM_SILENT_RULES([yes])
+
+# Initialize libtool
+LT_PREREQ([2.2])
+LT_INIT([disable-static])
 
 FRIBIDI_MAJOR_VERSION=fribidi_major_version()
 FRIBIDI_MINOR_VERSION=fribidi_minor_version()
@@ -75,8 +85,6 @@ dnl ==========================================================================
 # Checks for programs.
 AC_PROG_CC
 AC_PROG_INSTALL
-AC_LIBTOOL_WIN32_DLL
-AC_PROG_LIBTOOL
 AC_MSG_CHECKING([for native Win32])
   case $build_os in
     mingw*) os_win32=yes ;;

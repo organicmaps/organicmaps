@@ -41,3 +41,5 @@ $(top_builddir)/config.h: $(top_srcdir)/config.h.in
 
 $(top_builddir)/lib/fribidi-config.h: $(top_srcdir)/lib/fribidi-config.h.in
 	cd $(top_builddir)/lib && $(MAKE) $(AM_MAKEFLAGS) fribidi-config.h
+
+-include $(top_srcdir)/git.mk

@@ -80,3 +80,5 @@ $(top_builddir)/config.h: $(top_srcdir)/config.h.in
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) config.h
 
 .PHONY: gen
+
+-include $(top_srcdir)/git.mk

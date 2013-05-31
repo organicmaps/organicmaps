@@ -1,11 +1,11 @@
 /* FriBidi
  * gen-unicode-version.c - generate fribidi-unicode-version.h
  *
- * $Id: gen-unicode-version.c,v 1.12 2006/01/31 03:23:12 behdad Exp $
+ * $Id: gen-unicode-version.c,v 1.12 2006-01-31 03:23:12 behdad Exp $
  * $Author: behdad $
- * $Date: 2006/01/31 03:23:12 $
+ * $Date: 2006-01-31 03:23:12 $
  * $Revision: 1.12 $
- * $Source: /cvs/fribidi/fribidi2/gen.tab/gen-unicode-version.c,v $
+ * $Source: /home/behdad/src/fdo/fribidi/togit/git/../fribidi/fribidi2/gen.tab/gen-unicode-version.c,v $
  *
  * Author:
  *   Behdad Esfahbod, 2001, 2002, 2004
@@ -25,8 +25,8 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library, in a file named COPYING; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
- * Boston, MA 02111-1307, USA
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA
  * 
  * For licensing issues, contact <license@farsiweb.info>.
  */

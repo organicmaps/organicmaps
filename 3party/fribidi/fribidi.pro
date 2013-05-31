@@ -10,6 +10,8 @@ DEPENDENCIES =
 
 include($$ROOT_DIR/common.pri)
 
+DEFINES += HAVE_CONFIG_H
+
 CONFIG -= warn_on
 CONFIG *= warn_off
 

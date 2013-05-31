@@ -1,10 +1,10 @@
 #! /bin/sh
 # depcomp - compile a program generating dependencies as side-effects
 
-scriptversion=2007-03-29.01
+scriptversion=2011-12-04.11; # UTC
 
-# Copyright (C) 1999, 2000, 2003, 2004, 2005, 2006, 2007 Free Software
-# Foundation, Inc.
+# Copyright (C) 1999, 2000, 2003, 2004, 2005, 2006, 2007, 2009, 2010,
+# 2011 Free Software Foundation, Inc.
 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,9 +17,7 @@ scriptversion=2007-03-29.01
 # GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-# 02110-1301, USA.
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # As a special exception to the GNU General Public License, if you
 # distribute this file as part of a program that contains a
@@ -46,7 +44,7 @@ Environment variables:
   object      Object file output by `PROGRAMS ARGS'.
   DEPDIR      directory where to store dependencies.
   depfile     Dependency file to output.
-  tmpdepfile  Temporary file to use when outputing dependencies.
+  tmpdepfile  Temporary file to use when outputting dependencies.
   libtool     Whether libtool is used (yes/no).
 
 Report bugs to <bug-automake@gnu.org>.
@@ -85,6 +83,23 @@ if test "$depmode" = dashXmstdout; then
    # This is just like dashmstdout with a different argument.
    dashmflag=-xM
    depmode=dashmstdout
+fi
+
+cygpath_u="cygpath -u -f -"
+if test "$depmode" = msvcmsys; then
+   # This is just like msvisualcpp but w/o cygpath translation.
+   # Just convert the backslash-escaped backslashes to single forward
+   # slashes to satisfy depend.m4
+   cygpath_u='sed s,\\\\,/,g'
+   depmode=msvisualcpp
+fi
+
+if test "$depmode" = msvc7msys; then
+   # This is just like msvc7 but w/o cygpath translation.
+   # Just convert the backslash-escaped backslashes to single forward
+   # slashes to satisfy depend.m4
+   cygpath_u='sed s,\\\\,/,g'
+   depmode=msvc7
 fi
 
 case "$depmode" in
@@ -151,10 +166,12 @@ gcc)
 ' < "$tmpdepfile" |
 ## Some versions of gcc put a space before the `:'.  On the theory
 ## that the space means something, we add a space to the output as
-## well.
+## well.  hp depmode also adds that space, but also prefixes the VPATH
+## to the object.  Take care to not repeat it in the output.
 ## Some versions of the HPUX 10.20 sed can't process this invocation
 ## correctly.  Breaking it into two sed invocations is a workaround.
-    sed -e 's/^\\$//' -e '/^$/d' -e '/:$/d' | sed -e 's/$/ :/' >> "$depfile"
+    sed -e 's/^\\$//' -e '/^$/d' -e "s|.*$object$||" -e '/:$/d' \
+      | sed -e 's/$/ :/' >> "$depfile"
   rm -f "$tmpdepfile"
   ;;
 
@@ -192,14 +209,14 @@ sgi)
 ' < "$tmpdepfile" \
     | sed -e 's/^.*\.o://' -e 's/#.*$//' -e '/^$/ d' | \
     tr '
-' ' ' >> $depfile
-    echo >> $depfile
+' ' ' >> "$depfile"
+    echo >> "$depfile"
 
     # The second pass generates a dummy entry for each header file.
     tr ' ' '
 ' < "$tmpdepfile" \
    | sed -e 's/^.*\.o://' -e 's/#.*$//' -e '/^$/ d' -e 's/$/:/' \
-   >> $depfile
+   >> "$depfile"
   else
     # The sourcefile does not contain any dependencies, so just
     # store a dummy comment line, to avoid errors with the Makefile
@@ -328,7 +345,12 @@ hp2)
   if test -f "$tmpdepfile"; then
     sed -e "s,^.*\.[a-z]*:,$object:," "$tmpdepfile" > "$depfile"
     # Add `dependent.h:' lines.
-    sed -ne '2,${; s/^ *//; s/ \\*$//; s/$/:/; p;}' "$tmpdepfile" >> "$depfile"
+    sed -ne '2,${
+	       s/^ *//
+	       s/ \\*$//
+	       s/$/:/
+	       p
+	     }' "$tmpdepfile" >> "$depfile"
   else
     echo "#dummy" > "$depfile"
   fi
@@ -393,6 +415,52 @@ tru64)
    rm -f "$tmpdepfile"
    ;;
 
+msvc7)
+  if test "$libtool" = yes; then
+    showIncludes=-Wc,-showIncludes
+  else
+    showIncludes=-showIncludes
+  fi
+  "$@" $showIncludes > "$tmpdepfile"
+  stat=$?
+  grep -v '^Note: including file: ' "$tmpdepfile"
+  if test "$stat" = 0; then :
+  else
+    rm -f "$tmpdepfile"
+    exit $stat
+  fi
+  rm -f "$depfile"
+  echo "$object : \\" > "$depfile"
+  # The first sed program below extracts the file names and escapes
+  # backslashes for cygpath.  The second sed program outputs the file
+  # name when reading, but also accumulates all include files in the
+  # hold buffer in order to output them again at the end.  This only
+  # works with sed implementations that can handle large buffers.
+  sed < "$tmpdepfile" -n '
+/^Note: including file:  *\(.*\)/ {
+  s//\1/
+  s/\\/\\\\/g
+  p
+}' | $cygpath_u | sort -u | sed -n '
+s/ /\\ /g
+s/\(.*\)/	\1 \\/p
+s/.\(.*\) \\/\1:/
+H
+$ {
+  s/.*/	/
+  G
+  p
+}' >> "$depfile"
+  rm -f "$tmpdepfile"
+  ;;
+
+msvc7msys)
+  # This case exists only to let depend.m4 do its work.  It works by
+  # looking at the text of this script.  This case will never be run,
+  # since it is checked for above.
+  exit 1
+  ;;
+
 #nosideeffect)
   # This comment above is used by automake to tell side-effect
   # dependency tracking mechanisms from slower ones.
@@ -404,7 +472,7 @@ dashmstdout)
 
   # Remove the call to Libtool.
   if test "$libtool" = yes; then
-    while test $1 != '--mode=compile'; do
+    while test "X$1" != 'X--mode=compile'; do
       shift
     done
     shift
@@ -455,36 +523,45 @@ makedepend)
   "$@" || exit $?
   # Remove any Libtool call
   if test "$libtool" = yes; then
-    while test $1 != '--mode=compile'; do
+    while test "X$1" != 'X--mode=compile'; do
       shift
     done
     shift
   fi
   # X makedepend
   shift
-  cleared=no
-  for arg in "$@"; do
+  cleared=no eat=no
+  for arg
+  do
     case $cleared in
     no)
       set ""; shift
       cleared=yes ;;
     esac
+    if test $eat = yes; then
+      eat=no
+      continue
+    fi
     case "$arg" in
     -D*|-I*)
       set fnord "$@" "$arg"; shift ;;
     # Strip any option that makedepend may not understand.  Remove
     # the object too, otherwise makedepend will parse it as a source file.
+    -arch)
+      eat=yes ;;
     -*|$object)
       ;;
     *)
       set fnord "$@" "$arg"; shift ;;
     esac
   done
-  obj_suffix="`echo $object | sed 's/^.*\././'`"
+  obj_suffix=`echo "$object" | sed 's/^.*\././'`
   touch "$tmpdepfile"
   ${MAKEDEPEND-makedepend} -o"$obj_suffix" -f"$tmpdepfile" "$@"
   rm -f "$depfile"
-  cat < "$tmpdepfile" > "$depfile"
+  # makedepend may prepend the VPATH from the source file name to the object.
+  # No need to regex-escape $object, excess matching of '.' is harmless.
+  sed "s|^.*\($object *:\)|\1|" "$tmpdepfile" > "$depfile"
   sed '1,2d' "$tmpdepfile" | tr ' ' '
 ' | \
 ## Some versions of the HPUX 10.20 sed can't process this invocation
@@ -500,7 +577,7 @@ cpp)
 
   # Remove the call to Libtool.
   if test "$libtool" = yes; then
-    while test $1 != '--mode=compile'; do
+    while test "X$1" != 'X--mode=compile'; do
       shift
     done
     shift
@@ -538,13 +615,27 @@ cpp)
 
 msvisualcpp)
   # Important note: in order to support this mode, a compiler *must*
-  # always write the preprocessed file to stdout, regardless of -o,
-  # because we must use -o when running libtool.
+  # always write the preprocessed file to stdout.
   "$@" || exit $?
+
+  # Remove the call to Libtool.
+  if test "$libtool" = yes; then
+    while test "X$1" != 'X--mode=compile'; do
+      shift
+    done
+    shift
+  fi
+
   IFS=" "
   for arg
   do
     case "$arg" in
+    -o)
+      shift
+      ;;
+    $object)
+      shift
+      ;;
     "-Gm"|"/Gm"|"-Gi"|"/Gi"|"-ZI"|"/ZI")
 	set fnord "$@"
 	shift
@@ -557,14 +648,21 @@ msvisualcpp)
 	;;
     esac
   done
-  "$@" -E |
-  sed -n '/^#line [0-9][0-9]* "\([^"]*\)"/ s::echo "`cygpath -u \\"\1\\"`":p' | sort | uniq > "$tmpdepfile"
+  "$@" -E 2>/dev/null |
+  sed -n '/^#line [0-9][0-9]* "\([^"]*\)"/ s::\1:p' | $cygpath_u | sort -u > "$tmpdepfile"
   rm -f "$depfile"
   echo "$object : \\" > "$depfile"
-  . "$tmpdepfile" | sed 's% %\\ %g' | sed -n '/^\(.*\)$/ s::	\1 \\:p' >> "$depfile"
+  sed < "$tmpdepfile" -n -e 's% %\\ %g' -e '/^\(.*\)$/ s::	\1 \\:p' >> "$depfile"
   echo "	" >> "$depfile"
-  . "$tmpdepfile" | sed 's% %\\ %g' | sed -n '/^\(.*\)$/ s::\1\::p' >> "$depfile"
+  sed < "$tmpdepfile" -n -e 's% %\\ %g' -e '/^\(.*\)$/ s::\1\::p' >> "$depfile"
   rm -f "$tmpdepfile"
+  ;;
+
+msvcmsys)
+  # This case exists only to let depend.m4 do its work.  It works by
+  # looking at the text of this script.  This case will never be run,
+  # since it is checked for above.
+  exit 1
   ;;
 
 none)
@@ -585,5 +683,6 @@ exit 0
 # eval: (add-hook 'write-file-hooks 'time-stamp)
 # time-stamp-start: "scriptversion="
 # time-stamp-format: "%:y-%02m-%02d.%02H"
-# time-stamp-end: "$"
+# time-stamp-time-zone: "UTC"
+# time-stamp-end: "; # UTC"
 # End:

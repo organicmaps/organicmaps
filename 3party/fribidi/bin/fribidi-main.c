@@ -1,11 +1,11 @@
 /* FriBidi
  * fribidi-main.c - command line program for libfribidi
  *
- * $Id: fribidi-main.c,v 1.15 2006/01/31 03:23:12 behdad Exp $
+ * $Id: fribidi-main.c,v 1.15 2006-01-31 03:23:12 behdad Exp $
  * $Author: behdad $
- * $Date: 2006/01/31 03:23:12 $
+ * $Date: 2006-01-31 03:23:12 $
  * $Revision: 1.15 $
- * $Source: /cvs/fribidi/fribidi2/bin/fribidi-main.c,v $
+ * $Source: /home/behdad/src/fdo/fribidi/togit/git/../fribidi/fribidi2/bin/fribidi-main.c,v $
  *
  * Authors:
  *   Behdad Esfahbod, 2001, 2002, 2004
@@ -27,8 +27,8 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library, in a file named COPYING; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
- * Boston, MA 02111-1307, USA
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA
  * 
  * For licensing issues, contact <license@farsiweb.info>.
  */
@@ -134,7 +134,7 @@ help (
 	  "      --nopad           Do not right justify RTL lines\n"
 	  "      --nobreak         Do not break long lines\n"
 	  "  -w, --width W         Screen width for padding, default is %d, but if\n"
-	  "                        enviroment variable COLUMNS is defined, its value\n"
+	  "                        environment variable COLUMNS is defined, its value\n"
 	  "                        will be used, --width overrides both of them.\n",
 	  text_width);
   printf

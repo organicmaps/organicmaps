@@ -16,16 +16,16 @@
  * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with GNU FriBidi; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  * 
  * For licensing issues, contact <license@farsiweb.info> or write to
  * Sharif FarsiWeb, Inc., PO Box 13445-389, Tehran, Iran.
  */
-/* $Id: fribidi-arabic.h,v 1.1 2005/11/03 01:39:01 behdad Exp $
+/* $Id: fribidi-arabic.h,v 1.1 2005-11-03 01:39:01 behdad Exp $
  * $Author: behdad $
- * $Date: 2005/11/03 01:39:01 $
+ * $Date: 2005-11-03 01:39:01 $
  * $Revision: 1.1 $
- * $Source: /cvs/fribidi/fribidi2/lib/fribidi-arabic.h,v $
+ * $Source: /home/behdad/src/fdo/fribidi/togit/git/../fribidi/fribidi2/lib/fribidi-arabic.h,v $
  *
  * Author(s):
  *   Behdad Esfahbod, 2005
