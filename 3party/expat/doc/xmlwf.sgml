@@ -389,11 +389,6 @@ supports both.
   <refsect1>
     <title>BUGS</title>
 	<para>
-	According to the W3C standard, an XML file without a
-	declaration at the beginning is not considered well-formed.
-	However, <command>&dhpackage;</command> allows this to pass.
-	</para>
-	<para>
 	<command>&dhpackage;</command> returns a 0 - noerr result,
 	even if the file is not well-formed.  There is no good way for
 	a program to use <command>&dhpackage;</command> to quickly

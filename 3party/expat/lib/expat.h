@@ -2,7 +2,6 @@
    See the file COPYING for copying permission.
 */
 
-#pragma once
 #ifndef Expat_INCLUDED
 #define Expat_INCLUDED 1
 
@@ -743,6 +742,29 @@ XML_GetSpecifiedAttributeCount(XML_Parser parser);
 XMLPARSEAPI(int)
 XML_GetIdAttributeIndex(XML_Parser parser);
 
+#ifdef XML_ATTR_INFO
+/* Source file byte offsets for the start and end of attribute names and values.
+   The value indices are exclusive of surrounding quotes; thus in a UTF-8 source
+   file an attribute value of "blah" will yield:
+   info->valueEnd - info->valueStart = 4 bytes.
+*/
+typedef struct {
+  XML_Index  nameStart;  /* Offset to beginning of the attribute name. */
+  XML_Index  nameEnd;    /* Offset after the attribute name's last byte. */
+  XML_Index  valueStart; /* Offset to beginning of the attribute value. */
+  XML_Index  valueEnd;   /* Offset after the attribute value's last byte. */
+} XML_AttrInfo;
+
+/* Returns an array of XML_AttrInfo structures for the attribute/value pairs
+   passed in last call to the XML_StartElementHandler that were specified
+   in the start-tag rather than defaulted. Each attribute/value pair counts
+   as 1; thus the number of entries in the array is
+   XML_GetSpecifiedAttributeCount(parser) / 2.
+*/
+XMLPARSEAPI(const XML_AttrInfo *)
+XML_GetAttributeInfo(XML_Parser parser);
+#endif
+
 /* Parses some input. Returns XML_STATUS_ERROR if a fatal error is
    detected.  The last call to XML_Parse must have isFinal true; len
    may be zero for this call (or any other).
@@ -884,6 +906,15 @@ XMLPARSEAPI(int)
 XML_SetParamEntityParsing(XML_Parser parser,
                           enum XML_ParamEntityParsing parsing);
 
+/* Sets the hash salt to use for internal hash calculations.
+   Helps in preventing DoS attacks based on predicting hash
+   function behavior. This must be called before parsing is started.
+   Returns 1 if successful, 0 when called after parsing has started.
+*/
+XMLPARSEAPI(int)
+XML_SetHashSalt(XML_Parser parser,
+                unsigned long hash_salt);
+
 /* If XML_Parse or XML_ParseBuffer have returned XML_STATUS_ERROR, then
    XML_GetErrorCode returns information about the error.
 */
@@ -985,7 +1016,8 @@ enum XML_FeatureEnum {
   XML_FEATURE_SIZEOF_XML_CHAR,
   XML_FEATURE_SIZEOF_XML_LCHAR,
   XML_FEATURE_NS,
-  XML_FEATURE_LARGE_SIZE
+  XML_FEATURE_LARGE_SIZE,
+  XML_FEATURE_ATTR_INFO
   /* Additional features must be added to the end of this enum. */
 };
 
@@ -1005,8 +1037,8 @@ XML_GetFeatureList(void);
    change to major or minor version.
 */
 #define XML_MAJOR_VERSION 2
-#define XML_MINOR_VERSION 0
-#define XML_MICRO_VERSION 1
+#define XML_MINOR_VERSION 1
+#define XML_MICRO_VERSION 0
 
 #ifdef __cplusplus
 }

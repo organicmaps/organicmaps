@@ -129,8 +129,10 @@ interface.</p>
       <li><a href="#XML_GetBase">XML_GetBase</a></li>
       <li><a href="#XML_GetSpecifiedAttributeCount">XML_GetSpecifiedAttributeCount</a></li>
       <li><a href="#XML_GetIdAttributeIndex">XML_GetIdAttributeIndex</a></li>
+      <li><a href="#XML_GetAttributeInfo">XML_GetAttributeInfo</a></li>
       <li><a href="#XML_SetEncoding">XML_SetEncoding</a></li>
       <li><a href="#XML_SetParamEntityParsing">XML_SetParamEntityParsing</a></li>
+      <li><a href="#XML_SetHashSalt">XML_SetHashSalt</a></li>
       <li><a href="#XML_UseForeignDTD">XML_UseForeignDTD</a></li>
       <li><a href="#XML_SetReturnNSTriplet">XML_SetReturnNSTriplet</a></li>
       <li><a href="#XML_DefaultCurrent">XML_DefaultCurrent</a></li>
@@ -369,6 +371,11 @@ footprint and can be faster.</dd>
 statically with the code that calls it; this is required to get all
 the right MSVC magic annotations correct.  This is ignored on other
 platforms.</dd>
+
+<dt>XML_ATTR_INFO</dt>
+<dd>If defined, makes the the additional function <code><a href=
+"#XML_GetAttributeInfo" >XML_GetAttributeInfo</a></code> available
+for reporting attribute byte offsets.</dd>
 </dl>
 
 <hr />
@@ -917,12 +924,15 @@ XML_ParserCreateNS(const XML_Char *encoding,
 Constructs a new parser that has namespace processing in effect. Namespace
 expanded element names and attribute names are returned as a concatenation
 of the namespace URI, <em>sep</em>, and the local part of the name. This
-means that you should pick a character for <em>sep</em> that can't be
-part of a legal URI. There is a special case when <em>sep</em> is the null
-character <code>'\0'</code>: the namespace URI and the local part will be
-concatenated without any separator - this is intended to support RDF processors.
-It is a programming error to use the null separator with 
-<a href= "#XML_SetReturnNSTriplet">namespace triplets</a>.</div>
+means that you should pick a character for <em>sep</em> that can't be part
+of an URI. Since Expat does not check namespace URIs for conformance, the
+only safe choice for a namespace separator is a character that is illegal
+in XML. For instance, <code>'\xFF'</code> is not legal in UTF-8, and
+<code>'\xFFFF'</code> is not legal in UTF-16. There is a special case when
+<em>sep</em> is the null character <code>'\0'</code>: the namespace URI and
+the local part will be concatenated without any separator - this is intended
+to support RDF processors. It is a programming error to use the null separator
+with <a href= "#XML_SetReturnNSTriplet">namespace triplets</a>.</div>
 
 <pre class="fcndec" id="XML_ParserCreate_MM">
 XML_Parser XMLCALL
@@ -2074,6 +2084,27 @@ attribute. If called inside a start handler, then that means the
 current call.
 </div>
 
+<pre class="fcndec" id="XML_GetAttributeInfo">
+const XML_AttrInfo * XMLCALL
+XML_GetAttributeInfo(XML_Parser parser);
+</pre>
+<pre class="signature">
+typedef struct {
+  XML_Index  nameStart;  /* Offset to beginning of the attribute name. */
+  XML_Index  nameEnd;    /* Offset after the attribute name's last byte. */
+  XML_Index  valueStart; /* Offset to beginning of the attribute value. */
+  XML_Index  valueEnd;   /* Offset after the attribute value's last byte. */
+} XML_AttrInfo;
+</pre>
+<div class="fcndef">
+Returns an array of <code>XML_AttrInfo</code> structures for the
+attribute/value pairs passed in the last call to the
+<code>XML_StartElementHandler</code> that were specified
+in the start-tag rather than defaulted. Each attribute/value pair counts
+as 1; thus the number of entries in the array is
+<code>XML_GetSpecifiedAttributeCount(parser) / 2</code>.
+</div>
+
 <pre class="fcndec" id="XML_SetEncoding">
 enum XML_Status XMLCALL
 XML_SetEncoding(XML_Parser p,
@@ -2104,6 +2135,24 @@ The choices for <code>code</code> are:
 <li><code>XML_PARAM_ENTITY_PARSING_UNLESS_STANDALONE</code></li>
 <li><code>XML_PARAM_ENTITY_PARSING_ALWAYS</code></li>
 </ul>
+<b>Note:</b> If <code>XML_SetParamEntityParsing</code> is called after 
+<code>XML_Parse</code> or <code>XML_ParseBuffer</code>, then it has
+no effect and will always return 0.
+</div>
+
+<pre class="fcndec" id="XML_SetHashSalt">
+int XMLCALL
+XML_SetHashSalt(XML_Parser p,
+                unsigned long hash_salt);
+</pre>
+<div class="fcndef">
+Sets the hash salt to use for internal hash calculations.
+Helps in preventing DoS attacks based on predicting hash
+function behavior. In order to have an effect this must be called
+before parsing has started. Returns 1 if successful, 0 when called
+after <code>XML_Parse</code> or <code>XML_ParseBuffer</code>.
+<p><b>Note:</b> This call is optional, as the parser will auto-generate a new
+random salt value if no value has been set at the start of parsing.</p>
 </div>
 
 <pre class="fcndec" id="XML_UseForeignDTD">

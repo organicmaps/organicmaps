@@ -13,7 +13,7 @@ Expat can be built on Windows in three ways:
   Based on the workspace file expat.dsw. The related project
   files (.dsp) are located in the lib subdirectory.
 
-* MS Visual Studio .NET 2002, 2003, 2005:
+* MS Visual Studio .NET 2002, 2003, 2005, 2008, 2010:
   The VC++ 6 workspace file (expat.dsw) and project files (.dsp)
   can be opened and imported in VS.NET without problems.
 

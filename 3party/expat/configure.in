@@ -10,8 +10,8 @@ dnl   under the terms of the License (based on the MIT/X license) contained
 dnl   in the file COPYING that comes with this distribution.
 dnl
 
-dnl Ensure that Expat is configured with autoconf 2.52 or newer
-AC_PREREQ(2.52)
+dnl Ensure that Expat is configured with autoconf 2.58 or newer
+AC_PREREQ(2.58)
 
 dnl Get the version number of Expat, using m4's esyscmd() command to run
 dnl the command at m4-generation time. This allows us to create an m4
@@ -25,12 +25,13 @@ dnl test. I believe this test will work, but I don't have a place with non-
 dnl GNU M4 to test it right now.
 define([expat_version], ifdef([__gnu__],
                               [esyscmd(conftools/get-version.sh lib/expat.h)],
-                              [2.0.x]))
+                              [2.1.x]))
 AC_INIT(expat, expat_version, expat-bugs@libexpat.org)
 undefine([expat_version])
 
 AC_CONFIG_SRCDIR(Makefile.in)
 AC_CONFIG_AUX_DIR(conftools)
+AC_CONFIG_MACRO_DIR([m4])
 
 
 dnl
@@ -44,13 +45,12 @@ dnl
 dnl If the API changes incompatibly set LIBAGE back to 0
 dnl
 
-LIBCURRENT=6
-LIBREVISION=2
-LIBAGE=5
+LIBCURRENT=7
+LIBREVISION=0
+LIBAGE=6
 
 AC_CONFIG_HEADER(expat_config.h)
 
-sinclude(conftools/libtool.m4)
 sinclude(conftools/ac_c_bigendian_cross.m4)
 
 AC_LIBTOOL_WIN32_DLL
@@ -62,6 +62,7 @@ AC_SUBST(LIBAGE)
 
 dnl Checks for programs.
 AC_PROG_CC
+AC_PROG_CXX
 AC_PROG_INSTALL
 
 if test "$GCC" = yes ; then
@@ -144,7 +145,7 @@ AC_DEFINE([XML_DTD], 1,
 AC_DEFINE([XML_CONTEXT_BYTES], 1024,
           [Define to specify how much context to retain around the current parse point.])
 
-AC_CONFIG_FILES(Makefile)
+AC_CONFIG_FILES([Makefile expat.pc])
 AC_OUTPUT
 
 abs_srcdir="`cd $srcdir && pwd`"

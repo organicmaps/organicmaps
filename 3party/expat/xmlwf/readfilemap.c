@@ -58,10 +58,12 @@ filemap(const char *name,
   }
   if (fstat(fd, &sb) < 0) {
     perror(name);
+    close(fd);
     return 0;
   }
   if (!S_ISREG(sb.st_mode)) {
     fprintf(stderr, "%s: not a regular file\n", name);
+    close(fd);
     return 0;
   }
   nbytes = sb.st_size;

@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdint.h>
 
 #include "expat.h"
 #include "chardata.h"
@@ -1254,7 +1255,7 @@ external_entity_handler(XML_Parser parser,
                         const XML_Char *systemId,
                         const XML_Char *publicId) 
 {
-    long callno = 1 + (long)XML_GetUserData(parser);
+    intptr_t callno = 1 + (intptr_t)XML_GetUserData(parser);
     char *text;
     XML_Parser p2;
 

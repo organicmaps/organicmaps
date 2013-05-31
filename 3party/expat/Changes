@@ -1,5 +1,41 @@
+Release 2.1.0 Sat March 24 2012
+        - Bug Fixes:
+          #1742315: Harmful XML_ParserCreateNS suggestion.
+          #2895533: CVE-2012-1147 - Resource leak in readfilemap.c.
+          #1785430: Expat build fails on linux-amd64 with gcc version>=4.1 -O3.
+          #1983953, 2517952, 2517962, 2649838: 
+                Build modifications using autoreconf instead of buildconf.sh.
+          #2815947, #2884086: OBJEXT and EXEEXT support while building.
+          #1990430: CVE-2009-3720 - Parser crash with special UTF-8 sequences.
+          #2517938: xmlwf should return non-zero exit status if not well-formed.
+          #2517946: Wrong statement about XMLDecl in xmlwf.1 and xmlwf.sgml.
+          #2855609: Dangling positionPtr after error.
+          #2894085: CVE-2009-3560 - Buffer over-read and crash in big2_toUtf8().
+          #2958794: CVE-2012-1148 - Memory leak in poolGrow.
+          #2990652: CMake support.
+          #3010819: UNEXPECTED_STATE with a trailing "%" in entity value.
+          #3206497: Unitialized memory returned from XML_Parse.
+          #3287849: make check fails on mingw-w64.
+          #3496608: CVE-2012-0876 - Hash DOS attack.
+        - Patches:
+          #1749198: pkg-config support.
+          #3010222: Fix for bug #3010819.
+          #3312568: CMake support.
+          #3446384: Report byte offsets for attr names and values.
+        - New Features / API changes:
+          Added new API member XML_SetHashSalt() that allows setting an intial
+                value (salt) for hash calculations. This is part of the fix for
+                bug #3496608 to randomize hash parameters.
+          When compiled with XML_ATTR_INFO defined, adds new API member
+                XML_GetAttributeInfo() that allows retrieving the byte
+                offsets for attribute names and values (patch #3446384).
+          Added CMake build system.
+                See bug #2990652 and patch #3312568.
+          Added run-benchmark target to Makefile.in - relies on testdata module
+                present in the same relative location as in the repository.
+          
 Release 2.0.1 Tue June 5 2007
-        - Fixed bugs #1515266, 1515600: The character data handler's calling
+        - Fixed bugs #1515266, #1515600: The character data handler's calling
           of XML_StopParser() was not handled properly; if the parser was
           stopped and the handler set to NULL, the parser would segfault.
         - Fixed bug #1690883: Expat failed on EBCDIC systems as it assumed
@@ -8,7 +44,7 @@ Release 2.0.1 Tue June 5 2007
         - Fixed xmlwf bug #1513566: "out of memory" error on file size zero.
         - Fixed outline.c bug #1543233: missing a final XML_ParserFree() call.
         - Fixes and improvements for Windows platform:
-          bugs #1409451, #1476160, 1548182, 1602769, 1717322.
+          bugs #1409451, #1476160, #1548182, #1602769, #1717322.
         - Build fixes for various platforms:
           HP-UX, Tru64, Solaris 9: patch #1437840, bug #1196180.
           All Unix: #1554618 (refreshed config.sub/config.guess).
@@ -30,8 +66,8 @@ Release 2.0.0 Wed Jan 11 2006
           byte indexes and line/column numbers.
         - Updated to use libtool 1.5.22 (the most recent).
         - Added support for AmigaOS.
-        - Some mostly minor bug fixes. SF issues include: 1006708,
-          1021776, 1023646, 1114960, 1156398, 1221160, 1271642.
+        - Some mostly minor bug fixes. SF issues include: #1006708,
+          #1021776, #1023646, #1114960, #1156398, #1221160, #1271642.
 
 Release 1.95.8 Fri Jul 23 2004
         - Major new feature: suspend/resume.  Handlers can now request
@@ -40,8 +76,8 @@ Release 1.95.8 Fri Jul 23 2004
           documentation for more details.
         - Some mostly minor bug fixes, but compilation should no
           longer generate warnings on most platforms.  SF issues
-          include: 827319, 840173, 846309, 888329, 896188, 923913,
-          928113, 961698, 985192.
+          include: #827319, #840173, #846309, #888329, #896188, #923913,
+          #928113, #961698, #985192.
 
 Release 1.95.7 Mon Oct 20 2003
         - Fixed enum XML_Status issue (reported on SourceForge many
@@ -54,19 +90,19 @@ Release 1.95.7 Mon Oct 20 2003
         - Improved ability to build without the configure-generated
           expat_config.h header.  This is useful for applications
           which embed Expat rather than linking in the library.
-        - Fixed a variety of bugs: see SF issues 458907, 609603,
-          676844, 679754, 692878, 692964, 695401, 699323, 699487,
-          820946.
+        - Fixed a variety of bugs: see SF issues #458907, #609603,
+          #676844, #679754, #692878, #692964, #695401, #699323, #699487,
+          #820946.
         - Improved hash table lookups.
         - Added more regression tests and improved documentation.
 
 Release 1.95.6 Tue Jan 28 2003
         - Added XML_FreeContentModel().
         - Added XML_MemMalloc(), XML_MemRealloc(), XML_MemFree().
-        - Fixed a variety of bugs: see SF issues 615606, 616863,
-          618199, 653180, 673791.
+        - Fixed a variety of bugs: see SF issues #615606, #616863,
+          #618199, #653180, #673791.
         - Enhanced the regression test suite.
-        - Man page improvements: includes SF issue 632146.
+        - Man page improvements: includes SF issue #632146.
 
 Release 1.95.5 Fri Sep 6 2002
         - Added XML_UseForeignDTD() for improved SAX2 support.
@@ -84,9 +120,9 @@ Release 1.95.5 Fri Sep 6 2002
         - Reduced line-length for all source code and headers to be
           no longer than 80 characters, to help with AS/400 support.
         - Reduced memory copying during parsing (SF patch #600964).
-        - Fixed a variety of bugs: see SF issues 580793, 434664,
-          483514, 580503, 581069, 584041, 584183, 584832, 585537,
-          596555, 596678, 598352, 598944, 599715, 600479, 600971.
+        - Fixed a variety of bugs: see SF issues #580793, #434664,
+          #483514, #580503, #581069, #584041, #584183, #584832, #585537,
+          #596555, #596678, #598352, #598944, #599715, #600479, #600971.
 
 Release 1.95.4 Fri Jul 12 2002
         - Added support for VMS, contributed by Craig Berry.  See
@@ -95,14 +131,14 @@ Release 1.95.4 Fri Jul 12 2002
           contributed by Thomas Wegner and Daryle Walker.
         - Added Borland C++ Builder 5 / BCC 5.5 support, contributed
           by Patrick McConnell (SF patch #538032).
-        - Fixed a variety of bugs: see SF issues 441449, 563184,
-          564342, 566334, 566901, 569461, 570263, 575168, 579196.
+        - Fixed a variety of bugs: see SF issues #441449, #563184,
+          #564342, #566334, #566901, #569461, #570263, #575168, #579196.
         - Made skippedEntityHandler conform to SAX2 (see source comment)
         - Re-implemented WFC: Entity Declared from XML 1.0 spec and
           added a new error "entity declared in parameter entity":
-          see SF bug report 569461 and SF patch 578161
+          see SF bug report #569461 and SF patch #578161
         - Re-implemented section 5.1 from XML 1.0 spec:
-          see SF bug report 570263 and SF patch 578161
+          see SF bug report #570263 and SF patch #578161
 
 Release 1.95.3 Mon Jun 3 2002
         - Added a project to the MSVC workspace to create a wchar_t
@@ -114,9 +150,9 @@ Release 1.95.3 Mon Jun 3 2002
         - Made the XML_UNICODE builds usable (thanks, Karl!).
         - Allow xmlwf to read from standard input.
         - Install a man page for xmlwf on Unix systems.
-        - Fixed many bugs; see SF bug reports 231864, 461380, 464837,
-          466885, 469226, 477667, 484419, 487840, 494749, 496505,
-          547350.  Other bugs which we can't test as easily may also
+        - Fixed many bugs; see SF bug reports #231864, #461380, #464837,
+          #466885, #469226, #477667, #484419, #487840, #494749, #496505,
+          #547350.  Other bugs which we can't test as easily may also
           have been fixed, especially in the area of build support.
 
 Release 1.95.2 Fri Jul 27 2001

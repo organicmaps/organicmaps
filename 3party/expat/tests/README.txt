@@ -8,7 +8,6 @@ unit testing framework for C. More information on Check can be found at:
 
         http://check.sourceforge.net/
 
-Expat must be built and installed before "make check" can be executed.
+Expat must be built and, depending on platform, must be installed, before "make check" can be executed.
 
-Since both Check and this test suite are young, it can all change in a
-later version.
+This test suite can all change in a later version.

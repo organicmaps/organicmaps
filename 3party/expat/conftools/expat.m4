@@ -7,7 +7,7 @@ dnl If --with-expat has not been specified, set with_expat to 'no'.
 dnl In addition, an Automake conditional EXPAT_INSTALLED is set accordingly.
 dnl This is necessary to adapt a whole lot of packages that have expat
 dnl bundled as a static library.
-AC_DEFUN(AM_WITH_EXPAT,
+AC_DEFUN([AM_WITH_EXPAT],
 [ AC_ARG_WITH(expat,
 	      [  --with-expat=PREFIX     Use system Expat library],
 	      , with_expat=no)

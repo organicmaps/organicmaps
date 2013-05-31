@@ -9,6 +9,8 @@ DEPENDENCIES =
 
 include($$ROOT_DIR/common.pri)
 
+DEFINES += HAVE_MEMMOVE
+
 CONFIG -= warn_on
 CONFIG *= warn_off
 

@@ -18,10 +18,11 @@ extern "C" {
 #define CK_NORMAL  1
 #define CK_VERBOSE 2
 
-/* Workaround for Tru64 Unix systems where the C compiler has a working
-   __func__, but the C++ compiler only has a working __FUNCTION__.  This
-   could be fixed in configure.in, but it's not worth it right now. */
-#if defined(__osf__) && defined(__cplusplus)
+/* Workaround for Microsoft's compiler and Tru64 Unix systems where the
+   C compiler has a working __func__, but the C++ compiler only has a 
+   working __FUNCTION__.  This could be fixed in configure.in, but it's
+   not worth it right now. */
+#if defined (_MSC_VER) || (defined(__osf__) && defined(__cplusplus))
 #define __func__ __FUNCTION__
 #endif
 

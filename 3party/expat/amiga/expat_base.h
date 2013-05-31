@@ -21,37 +21,20 @@
 ** SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifdef __USE_INLINE__
-#undef __USE_INLINE__
+#ifndef EXPAT_BASE_H
+#define EXPAT_BASE_H
+
+#include <exec/libraries.h>
+#include <dos/dos.h>
+#include <interfaces/exec.h>
+#include <interfaces/utility.h>
+
+
+struct ExpatBase {
+	struct Library libNode;
+	uint16 pad;
+	BPTR SegList;
+	struct ExecIFace *IExec;
+};
+
 #endif
-
-#include <stdlib.h>
-#include <proto/exec.h>
-
-struct Library* ExpatBase = 0;
-struct ExpatIFace* IExpat = 0;
-
-
-void setup() __attribute__((constructor));
-void cleanup() __attribute__((destructor));
-
-
-void setup()
-{
-	ExpatBase = IExec->OpenLibrary("expat.library", 53);
-	IExpat = (struct ExpatIFace*)IExec->GetInterface(ExpatBase, "main", 1, NULL);
-
-	if ( IExpat == 0 )  {
-		IExec->DebugPrintF("Can't open expat.library\n");
-	}
-}
-
-
-void cleanup()
-{
-	IExec->DropInterface((struct Interface*)IExpat);
-	IExpat = 0;
-
-	IExec->CloseLibrary(ExpatBase);
-	ExpatBase = 0;
-}

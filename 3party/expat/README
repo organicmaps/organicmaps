@@ -1,5 +1,5 @@
 
-                        Expat, Release 2.0.1
+                        Expat, Release 2.1.0
 
 This is Expat, a C library for parsing XML, written by James Clark.
 Expat is a stream-oriented XML parser.  This means that you register
@@ -25,8 +25,7 @@ intended to be production grade software.
 If you are building Expat from a check-out from the CVS repository,
 you need to run a script that generates the configure script using the
 GNU autoconf and libtool tools.  To do this, you need to have
-autoconf 2.52 or newer and libtool 1.4 or newer (1.5 or newer preferred).
-Run the script like this:
+autoconf 2.58 or newer. Run the script like this:
 
         ./buildconf.sh
 
@@ -65,8 +64,8 @@ location.  Have a look at the "Makefile" to learn about additional
 the directories into which things will be installed.
 
 If you are interested in building Expat to provide document
-information in UTF-16 rather than the default UTF-8, follow these
-instructions (after having run "make distclean"):
+information in UTF-16 encoding rather than the default UTF-8, follow
+these instructions (after having run "make distclean"):
 
         1. For UTF-16 output as unsigned short (and version/error
            strings as char), run:
@@ -106,7 +105,10 @@ use DESTDIR=$(INSTALL_ROOT), even if DESTDIR eventually is defined in the
 environment, because variable-setting priority is
 1) commandline
 2) in-makefile
-3) environment           
+3) environment  
+
+Note: This only applies to the Expat library itself, building UTF-16 versions
+of xmlwf and the tests is currently not supported.         
 
 Note for Solaris users:  The "ar" command is usually located in
 "/usr/ccs/bin", which is not in the default PATH.  You will need to

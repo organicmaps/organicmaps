@@ -849,8 +849,10 @@ tmain(int argc, XML_Char **argv)
       if (outputType == 'm')
         metaEndDocument(parser);
       fclose(fp);
-      if (!result)
+      if (!result) {
         tremove(outName);
+        exit(2);
+      }
       free(outName);
     }
     XML_ParserFree(parser);

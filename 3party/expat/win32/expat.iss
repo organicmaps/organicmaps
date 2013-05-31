@@ -2,22 +2,22 @@
 ; information on the free installer builder, see www.jrsoftware.org.
 ;
 ; This script was contributed by Tim Peters.
-; The current version is used with Inno Setup 2.0.19.
+; It was designed for Inno Setup 2.0.19 but works with later versions as well.
 
 [Setup]
 AppName=Expat
 AppId=expat
-AppVersion=2.0.1
-AppVerName=Expat 2.0.1
-AppCopyright=Copyright © 1998-2006 Thai Open Source Software Center, Clark Cooper, and the Expat maintainers
+AppVersion=2.1.0
+AppVerName=Expat 2.1.0
+AppCopyright=Copyright © 1998-2012 Thai Open Source Software Center, Clark Cooper, and the Expat maintainers
 AppPublisher=The Expat Developers
 AppPublisherURL=http://www.libexpat.org/
 AppSupportURL=http://www.libexpat.org/
 AppUpdatesURL=http://www.libexpat.org/
-UninstallDisplayName=Expat XML Parser 2.0.1
-VersionInfoVersion=2.0.1
+UninstallDisplayName=Expat XML Parser 2.1.0
+VersionInfoVersion=2.1.0
 
-DefaultDirName={pf}\Expat 2.0.1
+DefaultDirName={pf}\Expat 2.1.0
 UninstallFilesDir={app}\Uninstall
 
 Compression=lzma
