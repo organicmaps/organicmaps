@@ -1,7 +1,7 @@
 /* blast.c
- * Copyright (C) 2003 Mark Adler
+ * Copyright (C) 2003, 2012 Mark Adler
  * For conditions of distribution and use, see copyright notice in blast.h
- * version 1.1, 16 Feb 2003
+ * version 1.2, 24 Oct 2012
  *
  * blast.c decompresses data compressed by the PKWare Compression Library.
  * This function provides functionality similar to the explode() function of
@@ -22,6 +22,8 @@
  *
  * 1.0  12 Feb 2003     - First version
  * 1.1  16 Feb 2003     - Fixed distance check for > 4 GB uncompressed data
+ * 1.2  24 Oct 2012     - Add note about using binary mode in stdio
+ *                      - Fix comparisons of differently signed integers
  */
 
 #include <setjmp.h>             /* for setjmp(), longjmp(), and jmp_buf */
@@ -279,7 +281,7 @@ local int decomp(struct state *s)
     int dict;           /* log2(dictionary size) - 6 */
     int symbol;         /* decoded symbol, extra bits for distance */
     int len;            /* length for copy */
-    int dist;           /* distance for copy */
+    unsigned dist;      /* distance for copy */
     int copy;           /* copy counter */
     unsigned char *from, *to;   /* copy pointers */
     static int virgin = 1;                              /* build tables once */

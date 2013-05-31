@@ -1,4 +1,4 @@
-        ZLIB version 1.2.3 for AS400 installation instructions
+        ZLIB version 1.2.8 for AS400 installation instructions
 
 I) From an AS400 *SAVF file:
 
@@ -8,7 +8,7 @@ On the AS400:
 
 _       Create the ZLIB AS400 library:
 
-        CRTLIB LIB(ZLIB) TYPE(PROD) TEXT('ZLIB compression API library')
+        CRTLIB LIB(ZLIB) TYPE(*PROD) TEXT('ZLIB compression API library')
 
 _       Create a work save file, for example:
 
@@ -52,7 +52,7 @@ II) From the original source distribution:
 
 1)      On the AS400, create the source library:
 
-        CRTLIB LIB(ZLIB) TYPE(PROD) TEXT('ZLIB compression API library')
+        CRTLIB LIB(ZLIB) TYPE(*PROD) TEXT('ZLIB compression API library')
 
 2)      Create the source files:
 
@@ -70,7 +70,10 @@ II) From the original source distribution:
     compress.c          COMPRESS C     ZLIB - Compress a memory buffer
     crc32.c             CRC32    C     ZLIB - Compute the CRC-32 of a data stream
     deflate.c           DEFLATE  C     ZLIB - Compress data using the deflation algorithm
-    gzio.c              GZIO     C     ZLIB - IO on .gz files
+    gzclose.c           GZCLOSE  C     ZLIB - Close .gz files
+    gzlib.c             GZLIB    C     ZLIB - Miscellaneous .gz files IO support
+    gzread.c            GZREAD   C     ZLIB - Read .gz files
+    gzwrite.c           GZWRITE  C     ZLIB - Write .gz files
     infback.c           INFBACK  C     ZLIB - Inflate using a callback interface
     inffast.c           INFFAST  C     ZLIB - Fast proc. literals & length/distance pairs
     inflate.c           INFLATE  C     ZLIB - Interface to inflate modules
@@ -81,6 +84,7 @@ II) From the original source distribution:
                 H                      Original ZLIB C and ILE/RPG include files
     crc32.h             CRC32    C     ZLIB - CRC32 tables
     deflate.h           DEFLATE  C     ZLIB - Internal compression state
+    gzguts.h            GZGUTS   C     ZLIB - Definitions for the gzclose module
     inffast.h           INFFAST  C     ZLIB - Header to use inffast.c
     inffixed.h          INFFIXED C     ZLIB - Table for decoding fixed codes
     inflate.h           INFLATE  C     ZLIB - Internal inflate state definitions
@@ -108,4 +112,4 @@ Notes:  For AS400 ILE RPG programmers, a /copy member defining the ZLIB
                 implementation does not handle conversion from/to ASCII, so
                 text data code conversions must be done explicitely.
 
-        Always open zipped files in binary mode.
+        Mainly for the reason above, always open zipped files in binary mode.

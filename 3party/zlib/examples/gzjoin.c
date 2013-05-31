@@ -1,7 +1,7 @@
 /* gzjoin -- command to join gzip files into one gzip file
 
-  Copyright (C) 2004 Mark Adler, all rights reserved
-  version 1.0, 11 Dec 2004
+  Copyright (C) 2004, 2005, 2012 Mark Adler, all rights reserved
+  version 1.2, 14 Aug 2012
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the author be held liable for any damages
@@ -27,6 +27,7 @@
  *
  * 1.0  11 Dec 2004     - First version
  * 1.1  12 Jun 2005     - Changed ssize_t to long for portability
+ * 1.2  14 Aug 2012     - Clean up for z_const usage
  */
 
 /*
@@ -308,7 +309,7 @@ local void gzcopy(char *name, int clr, unsigned long *crc, unsigned long *tot,
     /* inflate and copy compressed data, clear last-block bit if requested */
     len = 0;
     zpull(&strm, in);
-    start = strm.next_in;
+    start = in->next;
     last = start[0] & 1;
     if (last && clr)
         start[0] &= ~1;
@@ -351,7 +352,7 @@ local void gzcopy(char *name, int clr, unsigned long *crc, unsigned long *tot,
                 pos = 0x100 >> pos;
                 last = strm.next_in[-1] & pos;
                 if (last && clr)
-                    strm.next_in[-1] &= ~pos;
+                    in->buf[strm.next_in - in->buf - 1] &= ~pos;
             }
             else {
                 /* next last-block bit is in next unused byte */
@@ -364,14 +365,14 @@ local void gzcopy(char *name, int clr, unsigned long *crc, unsigned long *tot,
                 }
                 last = strm.next_in[0] & 1;
                 if (last && clr)
-                    strm.next_in[0] &= ~1;
+                    in->buf[strm.next_in - in->buf] &= ~1;
             }
         }
     }
 
     /* update buffer with unused input */
     in->left = strm.avail_in;
-    in->next = strm.next_in;
+    in->next = in->buf + (strm.next_in - in->buf);
 
     /* copy used input, write empty blocks to get to byte boundary */
     pos = strm.data_type & 7;

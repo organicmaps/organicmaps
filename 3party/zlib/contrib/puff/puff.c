@@ -1,8 +1,8 @@
 /*
  * puff.c
- * Copyright (C) 2002-2010 Mark Adler
+ * Copyright (C) 2002-2013 Mark Adler
  * For conditions of distribution and use, see copyright notice in puff.h
- * version 2.1, 4 Apr 2010
+ * version 2.3, 21 Jan 2013
  *
  * puff.c is a simple inflate written to be an unambiguous way to specify the
  * deflate format.  It is not written for speed but rather simplicity.  As a
@@ -49,9 +49,9 @@
  *                      - Fix fixed codes table error
  *                      - Provide a scanning mode for determining size of
  *                        uncompressed data
- * 1.3  20 Mar 2002     - Go back to lengths for puff() parameters [Jean-loup]
+ * 1.3  20 Mar 2002     - Go back to lengths for puff() parameters [Gailly]
  *                      - Add a puff.h file for the interface
- *                      - Add braces in puff() for else do [Jean-loup]
+ *                      - Add braces in puff() for else do [Gailly]
  *                      - Use indexes instead of pointers for readability
  * 1.4  31 Mar 2002     - Simplify construct() code set check
  *                      - Fix some comments
@@ -69,13 +69,20 @@
  *                      - Allow TEST code to read from piped stdin
  * 2.1   4 Apr 2010     - Avoid variable initialization for happier compilers
  *                      - Avoid unsigned comparisons for even happier compilers
+ * 2.2  25 Apr 2010     - Fix bug in variable initializations [Oberhumer]
+ *                      - Add const where appropriate [Oberhumer]
+ *                      - Split if's and ?'s for coverage testing
+ *                      - Break out test code to separate file
+ *                      - Move NIL to puff.h
+ *                      - Allow incomplete code only if single code length is 1
+ *                      - Add full code coverage test to Makefile
+ * 2.3  21 Jan 2013     - Check for invalid code length codes in dynamic blocks
  */
 
 #include <setjmp.h>             /* for setjmp(), longjmp(), and jmp_buf */
 #include "puff.h"               /* prototype for puff() */
 
 #define local static            /* for local function definitions */
-#define NIL ((unsigned char *)0)        /* for no output option */
 
 /*
  * Maximums for allocations and loops.  It is not useful to change these --
@@ -95,7 +102,7 @@ struct state {
     unsigned long outcnt;       /* bytes written to out so far */
 
     /* input state */
-    unsigned char *in;          /* input buffer */
+    const unsigned char *in;    /* input buffer */
     unsigned long inlen;        /* available input at in */
     unsigned long incnt;        /* bytes read so far */
     int bitbuf;                 /* bit buffer */
@@ -123,7 +130,8 @@ local int bits(struct state *s, int need)
     /* load at least need bits into val */
     val = s->bitbuf;
     while (s->bitcnt < need) {
-        if (s->incnt == s->inlen) longjmp(s->env, 1);   /* out of input */
+        if (s->incnt == s->inlen)
+            longjmp(s->env, 1);         /* out of input */
         val |= (long)(s->in[s->incnt++]) << s->bitcnt;  /* load eight bits */
         s->bitcnt += 8;
     }
@@ -162,7 +170,8 @@ local int stored(struct state *s)
     s->bitcnt = 0;
 
     /* get length and check against its one's complement */
-    if (s->incnt + 4 > s->inlen) return 2;      /* not enough input */
+    if (s->incnt + 4 > s->inlen)
+        return 2;                               /* not enough input */
     len = s->in[s->incnt++];
     len |= s->in[s->incnt++] << 8;
     if (s->in[s->incnt++] != (~len & 0xff) ||
@@ -170,7 +179,8 @@ local int stored(struct state *s)
         return -2;                              /* didn't match complement! */
 
     /* copy len bytes from in to out */
-    if (s->incnt + len > s->inlen) return 2;    /* not enough input */
+    if (s->incnt + len > s->inlen)
+        return 2;                               /* not enough input */
     if (s->out != NIL) {
         if (s->outcnt + len > s->outlen)
             return 1;                           /* not enough output space */
@@ -222,7 +232,7 @@ struct huffman {
  *   in the deflate format.  See the format notes for fixed() and dynamic().
  */
 #ifdef SLOW
-local int decode(struct state *s, struct huffman *h)
+local int decode(struct state *s, const struct huffman *h)
 {
     int len;            /* current number of bits in code */
     int code;           /* len bits being decoded */
@@ -250,7 +260,7 @@ local int decode(struct state *s, struct huffman *h)
  * a few percent larger.
  */
 #else /* !SLOW */
-local int decode(struct state *s, struct huffman *h)
+local int decode(struct state *s, const struct huffman *h)
 {
     int len;            /* current number of bits in code */
     int code;           /* len bits being decoded */
@@ -283,10 +293,13 @@ local int decode(struct state *s, struct huffman *h)
             len++;
         }
         left = (MAXBITS+1) - len;
-        if (left == 0) break;
-        if (s->incnt == s->inlen) longjmp(s->env, 1);   /* out of input */
+        if (left == 0)
+            break;
+        if (s->incnt == s->inlen)
+            longjmp(s->env, 1);         /* out of input */
         bitbuf = s->in[s->incnt++];
-        if (left > 8) left = 8;
+        if (left > 8)
+            left = 8;
     }
     return -10;                         /* ran out of codes */
 }
@@ -324,7 +337,7 @@ local int decode(struct state *s, struct huffman *h)
  * - Within a given code length, the symbols are kept in ascending order for
  *   the code bits definition.
  */
-local int construct(struct huffman *h, short *length, int n)
+local int construct(struct huffman *h, const short *length, int n)
 {
     int symbol;         /* current symbol when stepping through length[] */
     int len;            /* current length when stepping through h->count[] */
@@ -344,7 +357,8 @@ local int construct(struct huffman *h, short *length, int n)
     for (len = 1; len <= MAXBITS; len++) {
         left <<= 1;                     /* one more bit, double codes left */
         left -= h->count[len];          /* deduct count from possible codes */
-        if (left < 0) return left;      /* over-subscribed--return negative */
+        if (left < 0)
+            return left;                /* over-subscribed--return negative */
     }                                   /* left > 0 means incomplete */
 
     /* generate offsets into symbol table for each length for sorting */
@@ -420,8 +434,8 @@ local int construct(struct huffman *h, short *length, int n)
  *   defined to do the wrong thing in this case.
  */
 local int codes(struct state *s,
-                struct huffman *lencode,
-                struct huffman *distcode)
+                const struct huffman *lencode,
+                const struct huffman *distcode)
 {
     int symbol;         /* decoded symbol */
     int len;            /* length for copy */
@@ -444,11 +458,13 @@ local int codes(struct state *s,
     /* decode literals and length/distance pairs */
     do {
         symbol = decode(s, lencode);
-        if (symbol < 0) return symbol;  /* invalid symbol */
+        if (symbol < 0)
+            return symbol;              /* invalid symbol */
         if (symbol < 256) {             /* literal: symbol is the byte */
             /* write out the literal */
             if (s->out != NIL) {
-                if (s->outcnt == s->outlen) return 1;
+                if (s->outcnt == s->outlen)
+                    return 1;
                 s->out[s->outcnt] = symbol;
             }
             s->outcnt++;
@@ -456,12 +472,14 @@ local int codes(struct state *s,
         else if (symbol > 256) {        /* length */
             /* get and compute length */
             symbol -= 257;
-            if (symbol >= 29) return -10;       /* invalid fixed code */
+            if (symbol >= 29)
+                return -10;             /* invalid fixed code */
             len = lens[symbol] + bits(s, lext[symbol]);
 
             /* get and check distance */
             symbol = decode(s, distcode);
-            if (symbol < 0) return symbol;      /* invalid symbol */
+            if (symbol < 0)
+                return symbol;          /* invalid symbol */
             dist = dists[symbol] + bits(s, dext[symbol]);
 #ifndef INFLATE_ALLOW_INVALID_DISTANCE_TOOFAR_ARRR
             if (dist > s->outcnt)
@@ -470,13 +488,15 @@ local int codes(struct state *s,
 
             /* copy length bytes from distance bytes back */
             if (s->out != NIL) {
-                if (s->outcnt + len > s->outlen) return 1;
+                if (s->outcnt + len > s->outlen)
+                    return 1;
                 while (len--) {
                     s->out[s->outcnt] =
 #ifdef INFLATE_ALLOW_INVALID_DISTANCE_TOOFAR_ARRR
-                        dist > s->outcnt ? 0 :
+                        dist > s->outcnt ?
+                            0 :
 #endif
-                        s->out[s->outcnt - dist];
+                            s->out[s->outcnt - dist];
                     s->outcnt++;
                 }
             }
@@ -525,6 +545,12 @@ local int fixed(struct state *s)
         int symbol;
         short lengths[FIXLCODES];
 
+        /* construct lencode and distcode */
+        lencode.count = lencnt;
+        lencode.symbol = lensym;
+        distcode.count = distcnt;
+        distcode.symbol = distsym;
+
         /* literal/length table */
         for (symbol = 0; symbol < 144; symbol++)
             lengths[symbol] = 8;
@@ -540,12 +566,6 @@ local int fixed(struct state *s)
         for (symbol = 0; symbol < MAXDCODES; symbol++)
             lengths[symbol] = 5;
         construct(&distcode, lengths, MAXDCODES);
-
-        /* construct lencode and distcode */
-        lencode.count = lencnt;
-        lencode.symbol = lensym;
-        distcode.count = distcnt;
-        distcode.symbol = distsym;
 
         /* do this just once */
         virgin = 0;
@@ -675,7 +695,8 @@ local int dynamic(struct state *s)
 
     /* build huffman table for code lengths codes (use lencode temporarily) */
     err = construct(&lencode, lengths, 19);
-    if (err != 0) return -4;            /* require complete code set here */
+    if (err != 0)               /* require complete code set here */
+        return -4;
 
     /* read length/literal and distance code length tables */
     index = 0;
@@ -684,12 +705,15 @@ local int dynamic(struct state *s)
         int len;                /* last length to repeat */
 
         symbol = decode(s, &lencode);
+        if (symbol < 0)
+            return symbol;          /* invalid symbol */
         if (symbol < 16)                /* length in 0..15 */
             lengths[index++] = symbol;
         else {                          /* repeat instruction */
             len = 0;                    /* assume repeating zeros */
             if (symbol == 16) {         /* repeat last length 3..6 times */
-                if (index == 0) return -5;      /* no last length! */
+                if (index == 0)
+                    return -5;          /* no last length! */
                 len = lengths[index - 1];       /* last length */
                 symbol = 3 + bits(s, 2);
             }
@@ -710,13 +734,13 @@ local int dynamic(struct state *s)
 
     /* build huffman table for literal/length codes */
     err = construct(&lencode, lengths, nlen);
-    if (err < 0 || (err > 0 && nlen - lencode.count[0] != 1))
-        return -7;      /* only allow incomplete codes if just one code */
+    if (err && (err < 0 || nlen != lencode.count[0] + lencode.count[1]))
+        return -7;      /* incomplete code ok only for single length 1 code */
 
     /* build huffman table for distance codes */
     err = construct(&distcode, lengths + nlen, ndist);
-    if (err < 0 || (err > 0 && ndist - distcode.count[0] != 1))
-        return -8;      /* only allow incomplete codes if just one code */
+    if (err && (err < 0 || ndist != distcode.count[0] + distcode.count[1]))
+        return -8;      /* incomplete code ok only for single length 1 code */
 
     /* decode data until end-of-block code */
     return codes(s, &lencode, &distcode);
@@ -768,7 +792,7 @@ local int dynamic(struct state *s)
  */
 int puff(unsigned char *dest,           /* pointer to destination pointer */
          unsigned long *destlen,        /* amount of output space */
-         unsigned char *source,         /* pointer to source data pointer */
+         const unsigned char *source,   /* pointer to source data pointer */
          unsigned long *sourcelen)      /* amount of input available */
 {
     struct state s;             /* input/output state */
@@ -795,11 +819,15 @@ int puff(unsigned char *dest,           /* pointer to destination pointer */
         do {
             last = bits(&s, 1);         /* one if last block */
             type = bits(&s, 2);         /* block type 0..3 */
-            err = type == 0 ? stored(&s) :
-                  (type == 1 ? fixed(&s) :
-                   (type == 2 ? dynamic(&s) :
-                    -1));               /* type == 3, invalid */
-            if (err != 0) break;        /* return with error */
+            err = type == 0 ?
+                    stored(&s) :
+                    (type == 1 ?
+                        fixed(&s) :
+                        (type == 2 ?
+                            dynamic(&s) :
+                            -1));       /* type == 3, invalid */
+            if (err != 0)
+                break;                  /* return with error */
         } while (!last);
     }
 
@@ -810,146 +838,3 @@ int puff(unsigned char *dest,           /* pointer to destination pointer */
     }
     return err;
 }
-
-#ifdef TEST
-/* Examples of how to use puff().
-
-   Usage: puff [-w] [-nnn] file
-          ... | puff [-w] [-nnn]
-
-   where file is the input file with deflate data, nnn is the number of bytes
-   of input to skip before inflating (e.g. to skip a zlib or gzip header), and
-   -w is used to write the decompressed data to stdout */
-
-#include <stdio.h>
-#include <stdlib.h>
-
-/* Return size times approximately the cube root of 2, keeping the result as 1,
-   3, or 5 times a power of 2 -- the result is always > size, until the result
-   is the maximum value of an unsigned long, where it remains.  This is useful
-   to keep reallocations less than ~33% over the actual data. */
-local size_t bythirds(size_t size)
-{
-    int n;
-    size_t m;
-
-    m = size;
-    for (n = 0; m; n++)
-        m >>= 1;
-    if (n < 3)
-        return size + 1;
-    n -= 3;
-    m = size >> n;
-    m += m == 6 ? 2 : 1;
-    m <<= n;
-    return m > size ? m : (size_t)(-1);
-}
-
-/* Read the input file *name, or stdin if name is NULL, into allocated memory.
-   Reallocate to larger buffers until the entire file is read in.  Return a
-   pointer to the allocated data, or NULL if there was a memory allocation
-   failure.  *len is the number of bytes of data read from the input file (even
-   if load() returns NULL).  If the input file was empty or could not be opened
-   or read, *len is zero. */
-local void *load(char *name, size_t *len)
-{
-    size_t size;
-    void *buf, *swap;
-    FILE *in;
-
-    *len = 0;
-    buf = malloc(size = 4096);
-    if (buf == NULL)
-        return NULL;
-    in = name == NULL ? stdin : fopen(name, "rb");
-    if (in != NULL) {
-        for (;;) {
-            *len += fread((char *)buf + *len, 1, size - *len, in);
-            if (*len < size) break;
-            size = bythirds(size);
-            if (size == *len || (swap = realloc(buf, size)) == NULL) {
-                free(buf);
-                buf = NULL;
-                break;
-            }
-            buf = swap;
-        }
-        fclose(in);
-    }
-    return buf;
-}
-
-int main(int argc, char **argv)
-{
-    int ret, put = 0;
-    unsigned skip = 0;
-    char *arg, *name = NULL;
-    unsigned char *source = NULL, *dest;
-    size_t len = 0;
-    unsigned long sourcelen, destlen;
-
-    /* process arguments */
-    while (arg = *++argv, --argc)
-        if (arg[0] == '-') {
-            if (arg[1] == 'w' && arg[2] == 0)
-                put = 1;
-            else if (arg[1] >= '0' && arg[1] <= '9')
-                skip = (unsigned)atoi(arg + 1);
-            else {
-                fprintf(stderr, "invalid option %s\n", arg);
-                return 3;
-            }
-        }
-        else if (name != NULL) {
-            fprintf(stderr, "only one file name allowed\n");
-            return 3;
-        }
-        else
-            name = arg;
-    source = load(name, &len);
-    if (source == NULL) {
-        fprintf(stderr, "memory allocation failure\n");
-        return 4;
-    }
-    if (len == 0) {
-        fprintf(stderr, "could not read %s, or it was empty\n",
-                name == NULL ? "<stdin>" : name);
-        free(source);
-        return 3;
-    }
-    if (skip >= len) {
-        fprintf(stderr, "skip request of %d leaves no input\n", skip);
-        free(source);
-        return 3;
-    }
-
-    /* test inflate data with offset skip */
-    len -= skip;
-    sourcelen = (unsigned long)len;
-    ret = puff(NIL, &destlen, source + skip, &sourcelen);
-    if (ret)
-        fprintf(stderr, "puff() failed with return code %d\n", ret);
-    else {
-        fprintf(stderr, "puff() succeeded uncompressing %lu bytes\n", destlen);
-        if (sourcelen < len) fprintf(stderr, "%lu compressed bytes unused\n",
-                                     len - sourcelen);
-    }
-
-    /* if requested, inflate again and write decompressd data to stdout */
-    if (put) {
-        dest = malloc(destlen);
-        if (dest == NULL) {
-            fprintf(stderr, "memory allocation failure\n");
-            free(source);
-            return 4;
-        }
-        puff(dest, &destlen, source + skip, &sourcelen);
-        fwrite(dest, 1, destlen, stdout);
-        free(dest);
-    }
-
-    /* clean up */
-    free(source);
-    return ret;
-}
-#endif

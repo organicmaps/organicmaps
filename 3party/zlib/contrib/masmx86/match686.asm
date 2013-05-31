@@ -195,6 +195,7 @@ dsNiceMatch equ 136+zlib1222add
     ELSE
     _longest_match      proc near
     ENDIF
+.FPO (9, 4, 0, 0, 1, 0)
 
 ;;; Save registers that the compiler may be using, and adjust esp to
 ;;; make room for our stack frame.

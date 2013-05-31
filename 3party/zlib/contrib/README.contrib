@@ -75,3 +75,4 @@ untgz/      by Pedro A. Aranda Gutierrez <paag@tid.es>
 
 vstudio/    by Gilles Vollant <info@winimage.com>
         Building a minizip-enhanced zlib with Microsoft Visual Studio
+        Includes vc11 from kreuzerkrieg and vc12 from davispuh

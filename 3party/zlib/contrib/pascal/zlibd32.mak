@@ -63,9 +63,9 @@ uncompr.obj: uncompr.c zlib.h zconf.h
 
 zutil.obj: zutil.c zutil.h zlib.h zconf.h
 
-example.obj: example.c zlib.h zconf.h
+example.obj: test/example.c zlib.h zconf.h
 
-minigzip.obj: minigzip.c zlib.h zconf.h
+minigzip.obj: test/minigzip.c zlib.h zconf.h
 
 
 # For the sake of the old Borland make,

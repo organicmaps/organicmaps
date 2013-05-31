@@ -10,7 +10,8 @@ unit zlibpas;
 interface
 
 const
-  ZLIB_VERSION = '1.2.5';
+  ZLIB_VERSION = '1.2.8';
+  ZLIB_VERNUM  = $1280;
 
 type
   alloc_func = function(opaque: Pointer; items, size: Integer): Pointer;
@@ -45,6 +46,23 @@ type
     reserved: LongInt;    (* reserved for future use *)
   end;
 
+  gz_headerp = ^gz_header;
+  gz_header = packed record
+    text: Integer;        (* true if compressed data believed to be text *)
+    time: LongInt;        (* modification time *)
+    xflags: Integer;      (* extra flags (not used when writing a gzip file) *)
+    os: Integer;          (* operating system *)
+    extra: PChar;         (* pointer to extra field or Z_NULL if none *)
+    extra_len: Integer;   (* extra field length (valid if extra != Z_NULL) *)
+    extra_max: Integer;   (* space at extra (only when reading header) *)
+    name: PChar;          (* pointer to zero-terminated file name or Z_NULL *)
+    name_max: Integer;    (* space at name (only when reading header) *)
+    comment: PChar;       (* pointer to zero-terminated comment or Z_NULL *)
+    comm_max: Integer;    (* space at comment (only when reading header) *)
+    hcrc: Integer;        (* true if there was or will be a header crc *)
+    done: Integer;        (* true when done reading gzip header *)
+  end;
+
 (* constants *)
 const
   Z_NO_FLUSH      = 0;
@@ -52,6 +70,8 @@ const
   Z_SYNC_FLUSH    = 2;
   Z_FULL_FLUSH    = 3;
   Z_FINISH        = 4;
+  Z_BLOCK         = 5;
+  Z_TREES         = 6;
 
   Z_OK            =  0;
   Z_STREAM_END    =  1;
@@ -71,9 +91,11 @@ const
   Z_FILTERED            = 1;
   Z_HUFFMAN_ONLY        = 2;
   Z_RLE                 = 3;
+  Z_FIXED               = 4;
   Z_DEFAULT_STRATEGY    = 0;
 
   Z_BINARY   = 0;
+  Z_TEXT     = 1;
   Z_ASCII    = 1;
   Z_UNKNOWN  = 2;
 
@@ -96,14 +118,21 @@ function deflateSetDictionary(var strm: z_stream; const dictionary: PChar;
 function deflateCopy(var dest, source: z_stream): Integer;
 function deflateReset(var strm: z_stream): Integer;
 function deflateParams(var strm: z_stream; level, strategy: Integer): Integer;
+function deflateTune(var strm: z_stream; good_length, max_lazy, nice_length, max_chain: Integer): Integer;
 function deflateBound(var strm: z_stream; sourceLen: LongInt): LongInt;
+function deflatePending(var strm: z_stream; var pending: Integer; var bits: Integer): Integer;
 function deflatePrime(var strm: z_stream; bits, value: Integer): Integer;
+function deflateSetHeader(var strm: z_stream; head: gz_header): Integer;
 function inflateInit2(var strm: z_stream; windowBits: Integer): Integer;
 function inflateSetDictionary(var strm: z_stream; const dictionary: PChar;
                               dictLength: Integer): Integer;
 function inflateSync(var strm: z_stream): Integer;
 function inflateCopy(var dest, source: z_stream): Integer;
 function inflateReset(var strm: z_stream): Integer;
+function inflateReset2(var strm: z_stream; windowBits: Integer): Integer;
+function inflatePrime(var strm: z_stream; bits, value: Integer): Integer;
+function inflateMark(var strm: z_stream): LongInt;
+function inflateGetHeader(var strm: z_stream; var head: gz_header): Integer;
 function inflateBackInit(var strm: z_stream;
                          windowBits: Integer; window: PChar): Integer;
 function inflateBack(var strm: z_stream; in_fn: in_func; in_desc: Pointer;
@@ -123,7 +152,9 @@ function uncompress(dest: PChar; var destLen: LongInt;
 
 (* checksum functions *)
 function adler32(adler: LongInt; const buf: PChar; len: Integer): LongInt;
+function adler32_combine(adler1, adler2, len2: LongInt): LongInt;
 function crc32(crc: LongInt; const buf: PChar; len: Integer): LongInt;
+function crc32_combine(crc1, crc2, len2: LongInt): LongInt;
 
 (* various hacks, don't look :) *)
 function deflateInit_(var strm: z_stream; level: Integer;
@@ -155,10 +186,12 @@ implementation
 {$L zutil.obj}
 
 function adler32; external;
+function adler32_combine; external;
 function compress; external;
 function compress2; external;
 function compressBound; external;
 function crc32; external;
+function crc32_combine; external;
 function deflate; external;
 function deflateBound; external;
 function deflateCopy; external;
@@ -166,18 +199,25 @@ function deflateEnd; external;
 function deflateInit_; external;
 function deflateInit2_; external;
 function deflateParams; external;
+function deflatePending; external;
 function deflatePrime; external;
 function deflateReset; external;
 function deflateSetDictionary; external;
+function deflateSetHeader; external;
+function deflateTune; external;
 function inflate; external;
 function inflateBack; external;
 function inflateBackEnd; external;
 function inflateBackInit_; external;
 function inflateCopy; external;
 function inflateEnd; external;
+function inflateGetHeader; external;
 function inflateInit_; external;
 function inflateInit2_; external;
+function inflateMark; external;
+function inflatePrime; external;
 function inflateReset; external;
+function inflateReset2; external;
 function inflateSetDictionary; external;
 function inflateSync; external;
 function uncompress; external;

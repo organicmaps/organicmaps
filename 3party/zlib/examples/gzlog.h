@@ -1,6 +1,6 @@
 /* gzlog.h
-  Copyright (C) 2004, 2008 Mark Adler, all rights reserved
-  version 2.0, 25 Apr 2008
+  Copyright (C) 2004, 2008, 2012 Mark Adler, all rights reserved
+  version 2.2, 14 Aug 2012
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the author be held liable for any damages
@@ -27,6 +27,8 @@
                      Interface changed slightly in that now path is a prefix
                      Compression now occurs as needed during gzlog_write()
                      gzlog_write() now always leaves the log file as valid gzip
+   2.1   8 Jul 2012  Fix argument checks in gzlog_compress() and gzlog_write()
+   2.2  14 Aug 2012  Clean up signed comparisons
  */
 
 /*

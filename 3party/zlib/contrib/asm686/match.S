@@ -83,17 +83,25 @@
 .text
 
 /* uInt longest_match(deflate_state *deflatestate, IPos curmatch) */
+.cfi_sections	.debug_frame
 
 longest_match:
 
+.cfi_startproc
 /* Save registers that the compiler may be using, and adjust %esp to	*/
 /* make room for our stack frame.					*/
 
 		pushl	%ebp
+		.cfi_def_cfa_offset 8
+		.cfi_offset ebp, -8
 		pushl	%edi
+		.cfi_def_cfa_offset 12
 		pushl	%esi
+		.cfi_def_cfa_offset 16
 		pushl	%ebx
+		.cfi_def_cfa_offset 20
 		subl	$LocalVarsSize, %esp
+		.cfi_def_cfa_offset LocalVarsSize+20
 
 /* Retrieve the function arguments. %ecx will hold cur_match		*/
 /* throughout the entire function. %edx will hold the pointer to the	*/
@@ -108,7 +116,7 @@ longest_match:
 /* if (s->prev_length >= s->good_match) {				*/
 /*     chain_length >>= 2;						*/
 /* }									*/
-
+ 
 		movl	dsPrevLen(%edx), %eax
 		movl	dsGoodMatch(%edx), %ebx
 		cmpl	%ebx, %eax
@@ -336,8 +344,14 @@ LookaheadRet:
 /* Restore the stack and return from whence we came.			*/
 
 		addl	$LocalVarsSize, %esp
+		.cfi_def_cfa_offset 20
 		popl	%ebx
+		.cfi_def_cfa_offset 16
 		popl	%esi
+		.cfi_def_cfa_offset 12
 		popl	%edi
+		.cfi_def_cfa_offset 8
 		popl	%ebp
+		.cfi_def_cfa_offset 4
+.cfi_endproc
 match_init:	ret

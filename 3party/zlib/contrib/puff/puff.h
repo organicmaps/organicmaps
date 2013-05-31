@@ -1,6 +1,6 @@
 /* puff.h
-  Copyright (C) 2002-2010 Mark Adler, all rights reserved
-  version 2.1, 4 Apr 2010
+  Copyright (C) 2002-2013 Mark Adler, all rights reserved
+  version 2.3, 21 Jan 2013
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the author be held liable for any damages
@@ -25,7 +25,11 @@
 /*
  * See puff.c for purpose and usage.
  */
+#ifndef NIL
+#  define NIL ((unsigned char *)0)      /* for no output option */
+#endif
+
 int puff(unsigned char *dest,           /* pointer to destination pointer */
          unsigned long *destlen,        /* amount of output space */
-         unsigned char *source,         /* pointer to source data pointer */
+         const unsigned char *source,   /* pointer to source data pointer */
          unsigned long *sourcelen);     /* amount of input available */

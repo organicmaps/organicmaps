@@ -1,7 +1,7 @@
 /* enough.c -- determine the maximum size of inflate's Huffman code tables over
  * all possible valid and complete Huffman codes, subject to a length limit.
- * Copyright (C) 2007, 2008 Mark Adler
- * Version 1.3  17 February 2008  Mark Adler
+ * Copyright (C) 2007, 2008, 2012 Mark Adler
+ * Version 1.4  18 August 2012  Mark Adler
  */
 
 /* Version history:
@@ -14,6 +14,9 @@
    1.3  17 Feb 2008  Add argument for initial root table size
                      Fix bug for initial root table size == max - 1
                      Use a macro to compute the history index
+   1.4  18 Aug 2012  Avoid shifts more than bits in type (caused endless loop!)
+                     Clean up comparisons of different types
+                     Clean up code indentation
  */
 
 /*
@@ -236,8 +239,8 @@ local big_t count(int syms, int len, int left)
     for (use = least; use <= most; use++) {
         got = count(syms - use, len + 1, (left - use) << 1);
         sum += got;
-        if (got == -1 || sum < got)         /* overflow */
-            return -1;
+        if (got == (big_t)0 - 1 || sum < got)   /* overflow */
+            return (big_t)0 - 1;
     }
 
     /* verify that all recursive calls are productive */
@@ -458,6 +461,7 @@ int main(int argc, char **argv)
     int n;              /* number of symbols to code for this run */
     big_t got;          /* return value of count() */
     big_t sum;          /* accumulated number of codes over n */
+    code_t word;        /* for counting bits in code_t */
 
     /* set up globals for cleanup() */
     code = NULL;
@@ -466,19 +470,19 @@ int main(int argc, char **argv)
 
     /* get arguments -- default to the deflate literal/length code */
     syms = 286;
-        root = 9;
+    root = 9;
     max = 15;
     if (argc > 1) {
         syms = atoi(argv[1]);
         if (argc > 2) {
             root = atoi(argv[2]);
-                        if (argc > 3)
-                                max = atoi(argv[3]);
-                }
+            if (argc > 3)
+                max = atoi(argv[3]);
+        }
     }
     if (argc > 4 || syms < 2 || root < 1 || max < 1) {
         fputs("invalid arguments, need: [sym >= 2 [root >= 1 [max >= 1]]]\n",
-                          stderr);
+              stderr);
         return 1;
     }
 
@@ -487,18 +491,17 @@ int main(int argc, char **argv)
         max = syms - 1;
 
     /* determine the number of bits in a code_t */
-    n = 0;
-    while (((code_t)1 << n) != 0)
-        n++;
+    for (n = 0, word = 1; word; n++, word <<= 1)
+        ;
 
     /* make sure that the calculation of most will not overflow */
-    if (max > n || syms - 2 >= (((code_t)0 - 1) >> (max - 1))) {
+    if (max > n || (code_t)(syms - 2) >= (((code_t)0 - 1) >> (max - 1))) {
         fputs("abort: code length too long for internal types\n", stderr);
         return 1;
     }
 
     /* reject impossible code requests */
-    if (syms - 1 > ((code_t)1 << max) - 1) {
+    if ((code_t)(syms - 1) > ((code_t)1 << max) - 1) {
         fprintf(stderr, "%d symbols cannot be coded in %d bits\n",
                 syms, max);
         return 1;
@@ -532,7 +535,7 @@ int main(int argc, char **argv)
     for (n = 2; n <= syms; n++) {
         got = count(n, 1, 2);
         sum += got;
-        if (got == -1 || sum < got) {       /* overflow */
+        if (got == (big_t)0 - 1 || sum < got) {     /* overflow */
             fputs("abort: can't count that high!\n", stderr);
             cleanup();
             return 1;
@@ -556,9 +559,9 @@ int main(int argc, char **argv)
     }
 
     /* find and show maximum inflate table usage */
-        if (root > max)                 /* reduce root to max length */
-                root = max;
-    if (syms < ((code_t)1 << (root + 1)))
+    if (root > max)                 /* reduce root to max length */
+        root = max;
+    if ((code_t)syms < ((code_t)1 << (root + 1)))
         enough(syms);
     else
         puts("cannot handle minimum code lengths > root");

@@ -1,6 +1,6 @@
 /* blast.h -- interface for blast.c
-  Copyright (C) 2003 Mark Adler
-  version 1.1, 16 Feb 2003
+  Copyright (C) 2003, 2012 Mark Adler
+  version 1.2, 24 Oct 2012
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the author be held liable for any damages
@@ -28,6 +28,10 @@
  * that library.  (Note: PKWare overused the "implode" verb, and the format
  * used by their library implode() function is completely different and
  * incompatible with the implode compression method supported by PKZIP.)
+ *
+ * The binary mode for stdio functions should be used to assure that the
+ * compressed data is not corrupted when read or written.  For example:
+ * fopen(..., "rb") and fopen(..., "wb").
  */
 
 

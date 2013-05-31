@@ -1,7 +1,12 @@
 /* zran.c -- example of zlib/gzip stream indexing and random access
- * Copyright (C) 2005 Mark Adler
+ * Copyright (C) 2005, 2012 Mark Adler
  * For conditions of distribution and use, see copyright notice in zlib.h
-   Version 1.0  29 May 2005  Mark Adler */
+   Version 1.1  29 Sep 2012  Mark Adler */
+
+/* Version History:
+ 1.0  29 May 2005  First version
+ 1.1  29 Sep 2012  Fix memory reallocation error
+ */
 
 /* Illustrate the use of Z_BLOCK, inflatePrime(), and inflateSetDictionary()
    for random access of a compressed file.  A file containing a zlib or gzip
@@ -221,7 +226,7 @@ local int build_index(FILE *in, off_t span, struct access **built)
 
     /* clean up and return index (release unused entries in list) */
     (void)inflateEnd(&strm);
-    index = realloc(index, sizeof(struct point) * index->have);
+    index->list = realloc(index->list, sizeof(struct point) * index->have);
     index->size = index->have;
     *built = index;
     return index->size;
