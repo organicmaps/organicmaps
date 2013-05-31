@@ -1,3 +1,118 @@
+Version 2.4
+===========
+
+Released 2012-09-23
+
+* New features:
+
+  - Add `json_boolean()` macro that returns the JSON true or false
+    value based on its argument (#86).
+
+  - Add `json_load_callback()` that calls a callback function
+    repeatedly to read the JSON input (#57).
+
+  - Add JSON_ESCAPE_SLASH encoding flag to escape all occurences of
+    ``/`` with ``\/``.
+
+* Bug fixes:
+
+  - Check for and reject NaN and Inf values for reals. Encoding these
+    values resulted in invalid JSON.
+
+  - Fix `json_real_set()` to return -1 on error.
+
+* Build:
+
+  - Jansson now builds on Windows with Visual Studio 2010, and
+    includes solution and project files in ``win32/vs2010/``
+    directory.
+
+  - Fix build warnings (#77, #78).
+
+  - Add ``-no-undefined`` to LDFLAGS (#90).
+
+* Tests:
+
+  - Fix the symbol exports test on Linux/PPC64 (#88).
+
+* Documentation:
+
+  - Fix typos (#73, #84).
+
+
+Version 2.3.1
+=============
+
+Released 2012-04-20
+
+* Build issues:
+
+  - Only use ``long long`` if ``strtoll()`` is also available.
+
+* Documentation:
+
+  - Fix the names of library version constants in documentation. (#52)
+
+  - Change the tutorial to use GitHub API v3. (#65)
+
+* Tests:
+
+  - Make some tests locale independent. (#51)
+
+  - Distribute the library exports test in the tarball.
+
+  - Make test run on shells that don't support the ``export FOO=bar``
+    syntax.
+
+
+Version 2.3
+===========
+
+Released 2012-01-27
+
+* New features:
+
+  - `json_unpack()` and friends: Add support for optional object keys
+    with the ``{s?o}`` syntax.
+
+  - Add `json_object_update_existing()` and
+    `json_object_update_missing()`, for updating only existing keys or
+    only adding missing keys to an object. (#37)
+
+  - Add `json_object_foreach()` for more convenient iteration over
+    objects. (#45, #46)
+
+  - When decoding JSON, write the number of bytes that were read from
+    input to ``error.position`` also on success. This is handy with
+    ``JSON_DISABLE_EOF_CHECK``.
+
+  - Add support for decoding any JSON value, not just arrays or
+    objects. The support is enabled with the new ``JSON_DECODE_ANY``
+    flag. Patch by Andrea Marchesini. (#4)
+
+* Bug fixes
+
+  - Avoid problems with object's serial number growing too big. (#40,
+    #41)
+
+  - Decoding functions now return NULL if the first argument is NULL.
+    Patch by Andrea Marchesini.
+
+  - Include ``jansson_config.h.win32`` in the distribution tarball.
+
+  - Remove ``+`` and leading zeros from exponents in the encoder.
+    (#39)
+
+  - Make Jansson build and work on MinGW. (#39, #38)
+
+* Documentation
+
+  - Note that the same JSON values must not be encoded in parallel by
+    separate threads. (#42)
+
+  - Document MinGW support.
+
+
 Version 2.2.1
 =============
 

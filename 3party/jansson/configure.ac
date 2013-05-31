@@ -1,5 +1,5 @@
 AC_PREREQ([2.60])
-AC_INIT([jansson], [2.2.1], [petri@digip.org])
+AC_INIT([jansson], [2.4], [petri@digip.org])
 
 AM_INIT_AUTOMAKE([1.10 foreign])
 
@@ -18,13 +18,7 @@ AC_CHECK_HEADERS([locale.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_INT32_T
-
 AC_TYPE_LONG_LONG_INT
-case $ac_cv_type_long_long_int in
-     yes) json_have_long_long=1;;
-     *) json_have_long_long=0;;
-esac
-AC_SUBST([json_have_long_long])
 
 AC_C_INLINE
 case $ac_cv_c_inline in
@@ -35,7 +29,14 @@ esac
 AC_SUBST([json_inline])
 
 # Checks for library functions.
-AC_CHECK_FUNCS([setlocale localeconv])
+AC_CHECK_FUNCS([strtoll localeconv])
+
+case "$ac_cv_type_long_long_int$ac_cv_func_strtoll" in
+     yesyes) json_have_long_long=1;;
+     *) json_have_long_long=0;;
+esac
+AC_SUBST([json_have_long_long])
+
 case "$ac_cv_header_locale_h$ac_cv_func_localeconv" in
      yesyes) json_have_localeconv=1;;
      *) json_have_localeconv=0;;

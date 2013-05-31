@@ -7,9 +7,8 @@ Tutorial
 .. highlight:: c
 
 In this tutorial, we create a program that fetches the latest commits
-of a repository in GitHub_ over the web. One of the response formats
-supported by `GitHub API`_ is JSON, so the result can be parsed using
-Jansson.
+of a repository in GitHub_ over the web. `GitHub API`_ uses JSON, so
+the result can be parsed using Jansson.
 
 To stick to the the scope of this tutorial, we will only cover the the
 parts of the program related to handling JSON data. For the best user
@@ -31,42 +30,44 @@ name. Please note that the GitHub API is rate limited, so if you run
 the program too many times within a short period of time, the sever
 starts to respond with an error.
 
-.. _GitHub: http://github.com/
-.. _GitHub API: http://develop.github.com/
+.. _GitHub: https://github.com/
+.. _GitHub API: http://developer.github.com/
 .. _libcurl: http://curl.haxx.se/
 
 
 .. _tutorial-github-commits-api:
 
-The GitHub Commits API
-======================
+The GitHub Repo Commits API
+===========================
 
-The `GitHub commits API`_ is used by sending HTTP requests to URLs
-starting with ``http://github.com/api/v2/json/commits/``. Our program
-only lists the latest commits, so the rest of the URL is
-``list/USER/REPOSITORY/BRANCH``, where ``USER``, ``REPOSITORY`` and
-``BRANCH`` are the GitHub user ID, the name of the repository, and the
-name of the branch whose commits are to be listed, respectively.
+The `GitHub Repo Commits API`_ is used by sending HTTP requests to
+URLs like ``https://api.github.com/repos/USER/REPOSITORY/commits``,
+where ``USER`` and ``REPOSITORY`` are the GitHub user ID and the name
+of the repository whose commits are to be listed, respectively.
 
-GitHub responds with a JSON object of the following form:
+GitHub responds with a JSON array of the following form:
 
 .. code-block:: none
 
-    {
-        "commits": [
-            {
-                "id": "<the commit ID>",
+    [
+        {
+            "sha": "<the commit ID>",
+            "commit": {
                 "message": "<the commit message>",
-                <more fields, not important to this tutorial>
+                <more fields, not important to this tutorial...>
             },
-            {
-                "id": "<the commit ID>",
+            <more fields...>
+        },
+        {
+            "sha": "<the commit ID>",
+            "commit": {
                 "message": "<the commit message>",
-                <more fields, not important to this tutorial>
+                <more fields...>
             },
-            <more commits...>
-        ]
-    }
+            <more fields...>
+        },
+        <more commits...>
+    ]
 
 In our program, the HTTP request is sent using the following
 function::
@@ -80,7 +81,7 @@ return value is *NULL*. For full details, refer to :download:`the code
 <github_commits.c>`, as the actual implementation is not important
 here.
 
-.. _GitHub commits API: http://develop.github.com/p/commits.html
+.. _GitHub Repo Commits API: http://developer.github.com/v3/repos/commits/
 
 .. _tutorial-the-program:
 
@@ -95,10 +96,10 @@ First the includes::
 Like all the programs using Jansson, we need to include
 :file:`jansson.h`.
 
-The following definitions are used to build the GitHub commits API
-request URL::
+The following definitions are used to build the GitHub API request
+URL::
 
-   #define URL_FORMAT   "http://github.com/api/v2/json/commits/list/%s/%s/master"
+   #define URL_FORMAT   "https://api.github.com/repos/%s/%s/commits"
    #define URL_SIZE     256
 
 The following function is used when formatting the result to find the
@@ -118,20 +119,21 @@ first newline in the commit message::
 The main function follows. In the beginning, we first declare a bunch
 of variables and check the command line parameters::
 
-    size_t i;
-    char *text;
-    char url[URL_SIZE];
-
-    json_t *root;
-    json_error_t error;
-    json_t *commits;
-
-    if(argc != 3)
+    int main(int argc, char *argv[])
     {
-        fprintf(stderr, "usage: %s USER REPOSITORY\n\n", argv[0]);
-        fprintf(stderr, "List commits at USER's REPOSITORY.\n\n");
-        return 2;
-    }
+        size_t i;
+        char *text;
+        char url[URL_SIZE];
+
+        json_t *root;
+        json_error_t error;
+
+        if(argc != 3)
+        {
+            fprintf(stderr, "usage: %s USER REPOSITORY\n\n", argv[0]);
+            fprintf(stderr, "List commits at USER's REPOSITORY.\n\n");
+            return 2;
+        }
 
 Then we build the request URL using the user and repository names
 given as command line parameters::
@@ -171,47 +173,49 @@ Now we're ready to extract the data out of the decoded JSON response.
 The structure of the response JSON was explained in section
 :ref:`tutorial-github-commits-api`.
 
-First, we'll extract the ``commits`` array from the JSON response::
+We check that the returned value really is an array::
 
-    commits = json_object_get(root, "commits");
-    if(!json_is_array(commits))
+    if(!json_is_array(root))
     {
-        fprintf(stderr, "error: commits is not an array\n");
+        fprintf(stderr, "error: root is not an array\n");
         return 1;
     }
 
-This is the array that contains objects describing latest commits in
-the repository. We check that the returned value really is an array.
-If the key ``commits`` doesn't exist, :func:`json_object_get()`
-returns *NULL*, but :func:`json_is_array()` handles this case, too.
-
 Then we proceed to loop over all the commits in the array::
 
-    for(i = 0; i < json_array_size(commits); i++)
+    for(i = 0; i < json_array_size(root); i++)
     {
-        json_t *commit, *id, *message;
+        json_t *data, *sha, *commit, *message;
         const char *message_text;
 
-        commit = json_array_get(commits, i);
-        if(!json_is_object(commit))
+        data = json_array_get(root, i);
+        if(!json_is_object(data))
         {
-            fprintf(stderr, "error: commit %d is not an object\n", i + 1);
+            fprintf(stderr, "error: commit data %d is not an object\n", i + 1);
             return 1;
         }
     ...
 
 The function :func:`json_array_size()` returns the size of a JSON
 array. First, we again declare some variables and then extract the
-i'th element of the ``commits`` array using :func:`json_array_get()`.
+i'th element of the ``root`` array using :func:`json_array_get()`.
 We also check that the resulting value is a JSON object.
 
-Next we'll extract the commit ID and commit message, and check that
-they both are JSON strings::
+Next we'll extract the commit ID (a hexadecimal SHA-1 sum),
+intermediate commit info object, and the commit message from that
+object. We also do proper type checks::
 
-        id = json_object_get(commit, "id");
-        if(!json_is_string(id))
+        sha = json_object_get(data, "sha");
+        if(!json_is_string(sha))
         {
-            fprintf(stderr, "error: commit %d: id is not a string\n", i + 1);
+            fprintf(stderr, "error: commit %d: sha is not a string\n", i + 1);
+            return 1;
+        }
+
+        commit = json_object_get(data, "commit");
+        if(!json_is_object(commit))
+        {
+            fprintf(stderr, "error: commit %d: commit is not an object\n", i + 1);
             return 1;
         }
 
@@ -250,25 +254,27 @@ The program's ready, let's test it and view the latest commits in
 Jansson's repository::
 
     $ ./github_commits akheron jansson
-    86dc1d62 Fix indentation
-    b67e130f json_dumpf: Document the output shortage on error
-    4cd77771 Enhance handling of circular references
-    79009e62 json_dumps: Close the strbuffer if dumping fails
-    76999799 doc: Fix a small typo in apiref
-    22af193a doc/Makefile.am: Remove *.pyc in clean
-    951d091f Make integer, real and string mutable
-    185e107d Don't use non-portable asprintf()
-    ca7703fb Merge branch '1.0'
-    12cd4e8c jansson 1.0.4
-    <etc...>
+    1581f26a Merge branch '2.3'
+    aabfd493 load: Change buffer_pos to be a size_t
+    bd72efbd load: Avoid unexpected behaviour in macro expansion
+    e8fd3e30 Document and tweak json_load_callback()
+    873eddaf Merge pull request #60 from rogerz/contrib
+    bd2c0c73 Ignore the binary test_load_callback
+    17a51a4b Merge branch '2.3'
+    09c39adc Add json_load_callback to the list of exported symbols
+    cbb80baf Merge pull request #57 from rogerz/contrib
+    040bd7b0 Add json_load_callback()
+    2637faa4 Make test stripping locale independent
+    <...>
 
 
 Conclusion
 ==========
 
 In this tutorial, we implemented a program that fetches the latest
-commits of a GitHub repository using the GitHub commits API. Jansson
-was used to decode the JSON response and to extract the commit data.
+commits of a GitHub repository using the GitHub Repo Commits API.
+Jansson was used to decode the JSON response and to extract the commit
+data.
 
 This tutorial only covered a small part of Jansson. For example, we
 did not create or manipulate JSON values at all. Proceed to

@@ -22,11 +22,12 @@ fi
 
 [ -z "$STOP" ] && STOP=0
 
-export suites_srcdir=$top_srcdir/test/suites
-export suites_builddir=suites
-export scriptdir=$top_srcdir/test/scripts
-export logdir=logs
-export bindir=bin
+suites_srcdir=$top_srcdir/test/suites
+suites_builddir=suites
+scriptdir=$top_srcdir/test/scripts
+logdir=logs
+bindir=bin
+export suites_srcdir suites_builddir scriptdir logdir bindir
 
 passed=0
 failed=0

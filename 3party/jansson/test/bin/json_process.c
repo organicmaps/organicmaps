@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2011 Petri Lehtinen <petri@digip.org>
+ * Copyright (c) 2009-2012 Petri Lehtinen <petri@digip.org>
  *
  * Jansson is free software; you can redistribute it and/or modify
  * it under the terms of the MIT license. See LICENSE for details.
@@ -18,6 +18,13 @@
 #if HAVE_LOCALE_H
 #include <locale.h>
 #endif
+
+#if _WIN32
+#include <io.h>  /* for _setmode() */
+#include <fcntl.h>  /* for _O_BINARY */
+#endif
+
+#define l_isspace(c) ((c) == ' ' || (c) == '\n' || (c) == '\r' || (c) == '\t')
 
 static int getenv_int(const char *name)
 {
@@ -42,14 +49,14 @@ static const char *strip(char *str)
 {
     size_t length;
     char *result = str;
-    while(*result && isspace(*result))
+    while(*result && l_isspace(*result))
         result++;
 
     length = strlen(result);
     if(length == 0)
         return result;
 
-    while(isspace(result[length - 1]))
+    while(l_isspace(result[length - 1]))
         result[--length] = '\0';
 
     return result;
@@ -71,6 +78,13 @@ int main(int argc, char *argv[])
         fprintf(stderr, "usage: %s\n", argv[0]);
         return 2;
     }
+
+#ifdef _WIN32
+    /* On Windows, set stdout and stderr to binary mode to avoid
+       outputting DOS line terminators */
+    _setmode(_fileno(stdout), _O_BINARY);
+    _setmode(_fileno(stderr), _O_BINARY);
+#endif
 
     indent = getenv_int("JSON_INDENT");
     if(indent < 0 || indent > 255) {

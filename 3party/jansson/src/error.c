@@ -59,4 +59,5 @@ void jsonp_error_vset(json_error_t *error, int line, int column,
     error->position = position;
 
     vsnprintf(error->text, JSON_ERROR_TEXT_LENGTH, msg, ap);
+    error->text[JSON_ERROR_TEXT_LENGTH - 1] = '\0';
 }

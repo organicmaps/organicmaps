@@ -24,16 +24,16 @@
 #ifdef __cplusplus
 #define JSON_INLINE inline
 #else
-#define JSON_INLINE @json_inline@
+#define JSON_INLINE __inline
 #endif
 
 /* If your compiler supports the `long long` type and the strtoll()
    library function, JSON_INTEGER_IS_LONG_LONG is defined to 1,
    otherwise to 0. */
-#define JSON_INTEGER_IS_LONG_LONG @json_have_long_long@
+#define JSON_INTEGER_IS_LONG_LONG 1
 
 /* If locale.h and localeconv() are available, define to 1,
    otherwise to 0. */
-#define JSON_HAVE_LOCALECONV @json_have_localeconv@
+#define JSON_HAVE_LOCALECONV 1
 
 #endif

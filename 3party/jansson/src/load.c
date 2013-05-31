@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2011 Petri Lehtinen <petri@digip.org>
+ * Copyright (c) 2009-2012 Petri Lehtinen <petri@digip.org>
  *
  * Jansson is free software; you can redistribute it and/or modify
  * it under the terms of the MIT license. See LICENSE for details.
@@ -13,7 +13,7 @@
 #include <string.h>
 #include <assert.h>
 
-#include <jansson.h>
+#include "jansson.h"
 #include "jansson_private.h"
 #include "strbuffer.h"
 #include "utf.h"
@@ -32,12 +32,12 @@
 #define TOKEN_NULL           261
 
 /* Locale independent versions of isxxx() functions */
-#define l_isupper(c)  ('A' <= c && c <= 'Z')
-#define l_islower(c)  ('a' <= c && c <= 'z')
+#define l_isupper(c)  ('A' <= (c) && (c) <= 'Z')
+#define l_islower(c)  ('a' <= (c) && (c) <= 'z')
 #define l_isalpha(c)  (l_isupper(c) || l_islower(c))
-#define l_isdigit(c)  ('0' <= c && c <= '9')
+#define l_isdigit(c)  ('0' <= (c) && (c) <= '9')
 #define l_isxdigit(c) \
-    (l_isdigit(c) || 'A' <= c || c <= 'F' || 'a' <= c || c <= 'f')
+    (l_isdigit(c) || 'A' <= (c) || (c) <= 'F' || 'a' <= (c) || (c) <= 'f')
 
 /* Read one byte from stream, convert to unsigned char, then int, and
    return. return EOF on end of file. This corresponds to the
@@ -48,7 +48,7 @@ typedef struct {
     get_func get;
     void *data;
     char buffer[5];
-    int buffer_pos;
+    size_t buffer_pos;
     int state;
     int line;
     int column, last_column;
@@ -87,6 +87,7 @@ static void error_set(json_error_t *error, const lex_t *lex,
 
     va_start(ap, msg);
     vsnprintf(msg_text, JSON_ERROR_TEXT_LENGTH, msg, ap);
+    msg_text[JSON_ERROR_TEXT_LENGTH - 1] = '\0';
     va_end(ap);
 
     if(lex)
@@ -102,6 +103,7 @@ static void error_set(json_error_t *error, const lex_t *lex,
             if(lex->saved_text.length <= 20) {
                 snprintf(msg_with_context, JSON_ERROR_TEXT_LENGTH,
                          "%s near '%s'", msg_text, saved_text);
+                msg_with_context[JSON_ERROR_TEXT_LENGTH - 1] = '\0';
                 result = msg_with_context;
             }
         }
@@ -114,6 +116,7 @@ static void error_set(json_error_t *error, const lex_t *lex,
             else {
                 snprintf(msg_with_context, JSON_ERROR_TEXT_LENGTH,
                          "%s near end of file", msg_text);
+                msg_with_context[JSON_ERROR_TEXT_LENGTH - 1] = '\0';
                 result = msg_with_context;
             }
         }
@@ -444,7 +447,11 @@ out:
 }
 
 #if JSON_INTEGER_IS_LONG_LONG
+#ifdef _MSC_VER // Microsoft Visual Studio
+#define json_strtoint     _strtoi64
+#else
 #define json_strtoint     strtoll
+#endif
 #else
 #define json_strtoint     strtol
 #endif
@@ -820,9 +827,11 @@ static json_t *parse_json(lex_t *lex, size_t flags, json_error_t *error)
     json_t *result;
 
     lex_scan(lex, error);
-    if(lex->token != '[' && lex->token != '{') {
-        error_set(error, lex, "'[' or '{' expected");
-        return NULL;
+    if(!(flags & JSON_DECODE_ANY)) {
+        if(lex->token != '[' && lex->token != '{') {
+            error_set(error, lex, "'[' or '{' expected");
+            return NULL;
+        }
     }
 
     result = parse_value(lex, flags, error);
@@ -834,8 +843,13 @@ static json_t *parse_json(lex_t *lex, size_t flags, json_error_t *error)
         if(lex->token != TOKEN_EOF) {
             error_set(error, lex, "end of file expected");
             json_decref(result);
-            result = NULL;
+            return NULL;
         }
+    }
+
+    if(error) {
+        /* Save the position even though there was no error */
+        error->position = lex->stream.position;
     }
 
     return result;
@@ -867,13 +881,19 @@ json_t *json_loads(const char *string, size_t flags, json_error_t *error)
     json_t *result;
     string_data_t stream_data;
 
+    jsonp_error_init(error, "<string>");
+
+    if (string == NULL) {
+        error_set(error, NULL, "wrong arguments");
+        return NULL;
+    }
+
     stream_data.data = string;
     stream_data.pos = 0;
 
     if(lex_init(&lex, string_get, (void *)&stream_data))
         return NULL;
 
-    jsonp_error_init(error, "<string>");
     result = parse_json(&lex, flags, error);
 
     lex_close(&lex);
@@ -905,6 +925,13 @@ json_t *json_loadb(const char *buffer, size_t buflen, size_t flags, json_error_t
     json_t *result;
     buffer_data_t stream_data;
 
+    jsonp_error_init(error, "<buffer>");
+
+    if (buffer == NULL) {
+        error_set(error, NULL, "wrong arguments");
+        return NULL;
+    }
+
     stream_data.data = buffer;
     stream_data.pos = 0;
     stream_data.len = buflen;
@@ -912,7 +939,6 @@ json_t *json_loadb(const char *buffer, size_t buflen, size_t flags, json_error_t
     if(lex_init(&lex, buffer_get, (void *)&stream_data))
         return NULL;
 
-    jsonp_error_init(error, "<buffer>");
     result = parse_json(&lex, flags, error);
 
     lex_close(&lex);
@@ -925,15 +951,21 @@ json_t *json_loadf(FILE *input, size_t flags, json_error_t *error)
     const char *source;
     json_t *result;
 
-    if(lex_init(&lex, (get_func)fgetc, input))
-        return NULL;
-
     if(input == stdin)
         source = "<stdin>";
     else
         source = "<stream>";
 
     jsonp_error_init(error, source);
+
+    if (input == NULL) {
+        error_set(error, NULL, "wrong arguments");
+        return NULL;
+    }
+
+    if(lex_init(&lex, (get_func)fgetc, input))
+        return NULL;
+
     result = parse_json(&lex, flags, error);
 
     lex_close(&lex);
@@ -947,6 +979,11 @@ json_t *json_load_file(const char *path, size_t flags, json_error_t *error)
 
     jsonp_error_init(error, path);
 
+    if (path == NULL) {
+        error_set(error, NULL, "wrong arguments");
+        return NULL;
+    }
+
     fp = fopen(path, "rb");
     if(!fp)
     {
@@ -958,5 +995,60 @@ json_t *json_load_file(const char *path, size_t flags, json_error_t *error)
     result = json_loadf(fp, flags, error);
 
     fclose(fp);
+    return result;
+}
+
+#define MAX_BUF_LEN 1024
+
+typedef struct
+{
+    char data[MAX_BUF_LEN];
+    size_t len;
+    size_t pos;
+    json_load_callback_t callback;
+    void *arg;
+} callback_data_t;
+
+static int callback_get(void *data)
+{
+    char c;
+    callback_data_t *stream = data;
+
+    if(stream->pos >= stream->len) {
+        stream->pos = 0;
+        stream->len = stream->callback(stream->data, MAX_BUF_LEN, stream->arg);
+        if(stream->len == 0 || stream->len == (size_t)-1)
+            return EOF;
+    }
+
+    c = stream->data[stream->pos];
+    stream->pos++;
+    return (unsigned char)c;
+}
+
+json_t *json_load_callback(json_load_callback_t callback, void *arg, size_t flags, json_error_t *error)
+{
+    lex_t lex;
+    json_t *result;
+
+    callback_data_t stream_data;
+
+    memset(&stream_data, 0, sizeof(stream_data));
+    stream_data.callback = callback;
+    stream_data.arg = arg;
+
+    jsonp_error_init(error, "<callback>");
+
+    if (callback == NULL) {
+        error_set(error, NULL, "wrong arguments");
+        return NULL;
+    }
+
+    if(lex_init(&lex, (get_func)callback_get, &stream_data))
+        return NULL;
+
+    result = parse_json(&lex, flags, error);
+
+    lex_close(&lex);
     return result;
 }

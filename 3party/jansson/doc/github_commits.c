@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2011 Petri Lehtinen <petri@digip.org>
+ * Copyright (c) 2009-2012 Petri Lehtinen <petri@digip.org>
  *
  * Jansson is free software; you can redistribute it and/or modify
  * it under the terms of the MIT license. See LICENSE for details.
@@ -13,7 +13,7 @@
 
 #define BUFFER_SIZE  (256 * 1024)  /* 256 KB */
 
-#define URL_FORMAT   "http://github.com/api/v2/json/commits/list/%s/%s/master"
+#define URL_FORMAT   "https://api.github.com/repos/%s/%s/commits"
 #define URL_SIZE     256
 
 /* Return the offset of the first newline in text or the length of
@@ -102,7 +102,6 @@ int main(int argc, char *argv[])
 
     json_t *root;
     json_error_t error;
-    json_t *commits;
 
     if(argc != 3)
     {
@@ -126,29 +125,35 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    commits = json_object_get(root, "commits");
-    if(!json_is_array(commits))
+    if(!json_is_array(root))
     {
-        fprintf(stderr, "error: commits is not an array\n");
+        fprintf(stderr, "error: root is not an array\n");
         return 1;
     }
 
-    for(i = 0; i < json_array_size(commits); i++)
+    for(i = 0; i < json_array_size(root); i++)
     {
-        json_t *commit, *id, *message;
+        json_t *data, *sha, *commit, *message;
         const char *message_text;
 
-        commit = json_array_get(commits, i);
-        if(!json_is_object(commit))
+        data = json_array_get(root, i);
+        if(!json_is_object(data))
         {
-            fprintf(stderr, "error: commit %d is not an object\n", i + 1);
+            fprintf(stderr, "error: commit data %d is not an object\n", i + 1);
             return 1;
         }
 
-        id = json_object_get(commit, "id");
-        if(!json_is_string(id))
+        sha = json_object_get(data, "sha");
+        if(!json_is_string(sha))
         {
-            fprintf(stderr, "error: commit %d: id is not a string\n", i + 1);
+            fprintf(stderr, "error: commit %d: sha is not a string\n", i + 1);
+            return 1;
+        }
+
+        commit = json_object_get(data, "commit");
+        if(!json_is_object(commit))
+        {
+            fprintf(stderr, "error: commit %d: commit is not an object\n", i + 1);
             return 1;
         }
 
@@ -161,7 +166,7 @@ int main(int argc, char *argv[])
 
         message_text = json_string_value(message);
         printf("%.8s %.*s\n",
-               json_string_value(id),
+               json_string_value(sha),
                newline_offset(message_text),
                message_text);
     }

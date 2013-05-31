@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2011 Petri Lehtinen <petri@digip.org>
+ * Copyright (c) 2009-2012 Petri Lehtinen <petri@digip.org>
  *
  * Jansson is free software; you can redistribute it and/or modify
  * it under the terms of the MIT license. See LICENSE for details.
@@ -137,6 +137,48 @@ static void test_update()
     json_decref(ten);
     json_decref(other);
     json_decref(object);
+}
+
+static void test_conditional_updates()
+{
+    json_t *object, *other;
+
+    object = json_pack("{sisi}", "foo", 1, "bar", 2);
+    other = json_pack("{sisi}", "foo", 3, "baz", 4);
+
+    if(json_object_update_existing(object, other))
+        fail("json_object_update_existing failed");
+
+    if(json_object_size(object) != 2)
+        fail("json_object_update_existing added new items");
+
+    if(json_integer_value(json_object_get(object, "foo")) != 3)
+        fail("json_object_update_existing failed to update existing key");
+
+    if(json_integer_value(json_object_get(object, "bar")) != 2)
+        fail("json_object_update_existing updated wrong key");
+
+    json_decref(object);
+
+    object = json_pack("{sisi}", "foo", 1, "bar", 2);
+
+    if(json_object_update_missing(object, other))
+        fail("json_object_update_missing failed");
+
+    if(json_object_size(object) != 3)
+        fail("json_object_update_missing didn't add new items");
+
+    if(json_integer_value(json_object_get(object, "foo")) != 1)
+        fail("json_object_update_missing updated existing key");
+
+    if(json_integer_value(json_object_get(object, "bar")) != 2)
+        fail("json_object_update_missing updated wrong key");
+
+    if(json_integer_value(json_object_get(object, "baz")) != 4)
+        fail("json_object_update_missing didn't add new items");
+
+    json_decref(object);
+    json_decref(other);
 }
 
 static void test_circular()
@@ -437,13 +479,33 @@ static void test_preserve_order()
     json_decref(object);
 }
 
+static void test_foreach()
+{
+    const char *key;
+    json_t *object1, *object2, *value;
+
+    object1 = json_pack("{sisisi}", "foo", 1, "bar", 2, "baz", 3);
+    object2 = json_object();
+
+    json_object_foreach(object1, key, value)
+        json_object_set(object2, key, value);
+
+    if(!json_equal(object1, object2))
+        fail("json_object_foreach failed to iterate all key-value pairs");
+
+    json_decref(object1);
+    json_decref(object2);
+}
+
 static void run_tests()
 {
     test_misc();
     test_clear();
     test_update();
+    test_conditional_updates();
     test_circular();
     test_set_nocheck();
     test_iterators();
     test_preserve_order();
+    test_foreach();
 }

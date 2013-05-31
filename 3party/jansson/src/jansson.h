@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2011 Petri Lehtinen <petri@digip.org>
+ * Copyright (c) 2009-2012 Petri Lehtinen <petri@digip.org>
  *
  * Jansson is free software; you can redistribute it and/or modify
  * it under the terms of the MIT license. See LICENSE for details.
@@ -21,11 +21,11 @@ extern "C" {
 /* version */
 
 #define JANSSON_MAJOR_VERSION  2
-#define JANSSON_MINOR_VERSION  2
-#define JANSSON_MICRO_VERSION  1
+#define JANSSON_MINOR_VERSION  4
+#define JANSSON_MICRO_VERSION  0
 
 /* Micro version is omitted if it's 0 */
-#define JANSSON_VERSION  "2.2.1"
+#define JANSSON_VERSION  "2.4"
 
 /* Version as a 3-byte hex number, e.g. 0x010201 == 1.2.1. Use this
    for numeric comparisons, e.g. #if JANSSON_VERSION_HEX >= ... */
@@ -53,7 +53,11 @@ typedef struct {
 } json_t;
 
 #if JSON_INTEGER_IS_LONG_LONG
+#ifdef _WIN32
+#define JSON_INTEGER_FORMAT "I64d"
+#else
 #define JSON_INTEGER_FORMAT "lld"
+#endif
 typedef long long json_int_t;
 #else
 #define JSON_INTEGER_FORMAT "ld"
@@ -82,6 +86,7 @@ json_t *json_integer(json_int_t value);
 json_t *json_real(double value);
 json_t *json_true(void);
 json_t *json_false(void);
+#define json_boolean(val)      ((val) ? json_true() : json_false())
 json_t *json_null(void);
 
 static JSON_INLINE
@@ -126,12 +131,20 @@ int json_object_set_new_nocheck(json_t *object, const char *key, json_t *value);
 int json_object_del(json_t *object, const char *key);
 int json_object_clear(json_t *object);
 int json_object_update(json_t *object, json_t *other);
+int json_object_update_existing(json_t *object, json_t *other);
+int json_object_update_missing(json_t *object, json_t *other);
 void *json_object_iter(json_t *object);
 void *json_object_iter_at(json_t *object, const char *key);
+void *json_object_key_to_iter(const char *key);
 void *json_object_iter_next(json_t *object, void *iter);
 const char *json_object_iter_key(void *iter);
 json_t *json_object_iter_value(void *iter);
 int json_object_iter_set_new(json_t *object, void *iter, json_t *value);
+
+#define json_object_foreach(object, key, value) \
+    for(key = json_object_iter_key(json_object_iter(object)); \
+        key && (value = json_object_iter_value(json_object_key_to_iter(key))); \
+        key = json_object_iter_key(json_object_iter_next(object, json_object_key_to_iter(key))))
 
 static JSON_INLINE
 int json_object_set(json_t *object, const char *key, json_t *value)
@@ -218,11 +231,15 @@ json_t *json_deep_copy(json_t *value);
 
 #define JSON_REJECT_DUPLICATES 0x1
 #define JSON_DISABLE_EOF_CHECK 0x2
+#define JSON_DECODE_ANY        0x4
+
+typedef size_t (*json_load_callback_t)(void *buffer, size_t buflen, void *data);
 
 json_t *json_loads(const char *input, size_t flags, json_error_t *error);
 json_t *json_loadb(const char *buffer, size_t buflen, size_t flags, json_error_t *error);
 json_t *json_loadf(FILE *input, size_t flags, json_error_t *error);
 json_t *json_load_file(const char *path, size_t flags, json_error_t *error);
+json_t *json_load_callback(json_load_callback_t callback, void *data, size_t flags, json_error_t *error);
 
 
 /* encoding */
@@ -233,6 +250,7 @@ json_t *json_load_file(const char *path, size_t flags, json_error_t *error);
 #define JSON_SORT_KEYS      0x80
 #define JSON_PRESERVE_ORDER 0x100
 #define JSON_ENCODE_ANY     0x200
+#define JSON_ESCAPE_SLASH   0x400
 
 typedef int (*json_dump_callback_t)(const char *buffer, size_t size, void *data);
 

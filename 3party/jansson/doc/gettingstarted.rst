@@ -10,8 +10,8 @@ Compiling and Installing Jansson
 The Jansson source is available at
 http://www.digip.org/jansson/releases/.
 
-Unix-like systems
------------------
+Unix-like systems (including MinGW)
+-----------------------------------
 
 Unpack the source tarball and change to the source directory:
 
@@ -54,22 +54,25 @@ used as described above.
 .. _libtool: http://www.gnu.org/software/libtool/
 
 
+Windows
+-------
+
+Jansson can be built with Visual Studio 2010 (and probably newer
+versions, too). The solution and project files are in the
+``win32/vs2010/`` directory in the source distribution.
+
+
 Other Systems
 -------------
 
-On Windows and other non Unix-like systems, you may be unable to run
-the ``./configure`` script. In this case, follow these steps. All the
-files mentioned can be found in the ``src/`` directory.
+On non Unix-like systems, you may be unable to run the ``./configure``
+script. In this case, follow these steps. All the files mentioned can
+be found in the ``src/`` directory.
 
-1. Create ``jansson_config.h``. This file has some platform-specific
+1. Create ``jansson_config.h`` (which has some platform-specific
    parameters that are normally filled in by the ``./configure``
-   script:
-
-   - On Windows, rename ``jansson_config.h.win32`` to ``jansson_config.h``.
-
-   - On other systems, edit ``jansson_config.h.in``, replacing all
-     ``@variable@`` placeholders, and rename the file to
-     ``jansson_config.h``.
+   script). Edit ``jansson_config.h.in``, replacing all ``@variable@``
+   placeholders, and rename the file to ``jansson_config.h``.
 
 2. Make ``jansson.h`` and ``jansson_config.h`` available to the
    compiler, so that they can be found when compiling programs that

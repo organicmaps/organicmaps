@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2011 Petri Lehtinen <petri@digip.org>
+ * Copyright (c) 2009-2012 Petri Lehtinen <petri@digip.org>
  *
  * Jansson is free software; you can redistribute it and/or modify
  * it under the terms of the MIT license. See LICENSE for details.
@@ -133,9 +133,34 @@ static void encode_other_than_array_or_object()
 
 }
 
+static void escape_slashes()
+{
+    /* Test dump escaping slashes */
+
+    json_t *json;
+    char *result;
+
+    json = json_object();
+    json_object_set_new(json, "url", json_string("https://github.com/akheron/jansson"));
+
+    result = json_dumps(json, 0);
+    if(!result || strcmp(result, "{\"url\": \"https://github.com/akheron/jansson\"}"))
+        fail("json_dumps failed to not escape slashes");
+
+    free(result);
+
+    result = json_dumps(json, JSON_ESCAPE_SLASH);
+    if(!result || strcmp(result, "{\"url\": \"https:\\/\\/github.com\\/akheron\\/jansson\"}"))
+        fail("json_dumps failed to escape slashes");
+
+    free(result);
+    json_decref(json);
+}
+
 static void run_tests()
 {
     encode_twice();
     circular_references();
     encode_other_than_array_or_object();
+    escape_slashes();
 }

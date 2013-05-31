@@ -39,7 +39,7 @@ static void test_simple()
     json_set_alloc_funcs(my_malloc, my_free);
     create_and_free_complex_object();
 
-    if(malloc_called != 27 || free_called != 27)
+    if(malloc_called != 20 || free_called != 20)
         fail("Custom allocation failed");
 }
 
@@ -55,14 +55,14 @@ static void *secure_malloc(size_t size)
     /* Store the memory area size in the beginning of the block */
     void *ptr = malloc(size + 8);
     *((size_t *)ptr) = size;
-    return ptr + 8;
+    return (char *)ptr + 8;
 }
 
 static void secure_free(void *ptr)
 {
     size_t size;
 
-    ptr -= 8;
+    ptr = (char *)ptr - 8;
     size = *((size_t *)ptr);
 
     /*guaranteed_*/memset(ptr, 0, size);

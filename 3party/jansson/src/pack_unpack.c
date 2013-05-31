@@ -1,13 +1,13 @@
 /*
- * Copyright (c) 2009-2011 Petri Lehtinen <petri@digip.org>
- * Copyright (c) 2011 Graeme Smecher <graeme.smecher@mail.mcgill.ca>
+ * Copyright (c) 2009-2012 Petri Lehtinen <petri@digip.org>
+ * Copyright (c) 2011-2012 Graeme Smecher <graeme.smecher@mail.mcgill.ca>
  *
  * Jansson is free software; you can redistribute it and/or modify
  * it under the terms of the MIT license. See LICENSE for details.
  */
 
 #include <string.h>
-#include <jansson.h>
+#include "jansson.h"
 #include "jansson_private.h"
 #include "utf.h"
 
@@ -233,12 +233,12 @@ static int unpack_object(scanner_t *s, json_t *root, va_list *ap)
     */
     hashtable_t key_set;
 
-    if(hashtable_init(&key_set, jsonp_hash_str, jsonp_str_equal, NULL, NULL)) {
+    if(hashtable_init(&key_set)) {
         set_error(s, "<internal>", "Out of memory");
         return -1;
     }
 
-    if(!json_is_object(root)) {
+    if(root && !json_is_object(root)) {
         set_error(s, "<validation>", "Expected object, got %s",
                   type_name(root));
         goto out;
@@ -248,6 +248,7 @@ static int unpack_object(scanner_t *s, json_t *root, va_list *ap)
     while(s->token != '}') {
         const char *key;
         json_t *value;
+        int opt = 0;
 
         if(strict != 0) {
             set_error(s, "<format>", "Expected '}' after '%c', got '%c'",
@@ -279,23 +280,34 @@ static int unpack_object(scanner_t *s, json_t *root, va_list *ap)
 
         next_token(s);
 
-        value = json_object_get(root, key);
-        if(!value) {
-            set_error(s, "<validation>", "Object item not found: %s", key);
-            goto out;
+        if(s->token == '?') {
+            opt = 1;
+            next_token(s);
+        }
+
+        if(!root) {
+            /* skipping */
+            value = NULL;
+        }
+        else {
+            value = json_object_get(root, key);
+            if(!value && !opt) {
+                set_error(s, "<validation>", "Object item not found: %s", key);
+                goto out;
+            }
         }
 
         if(unpack(s, value, ap))
             goto out;
 
-        hashtable_set(&key_set, (void *)key, NULL);
+        hashtable_set(&key_set, key, 0, json_null());
         next_token(s);
     }
 
     if(strict == 0 && (s->flags & JSON_STRICT))
         strict = 1;
 
-    if(strict == 1 && key_set.size != json_object_size(root)) {
+    if(root && strict == 1 && key_set.size != json_object_size(root)) {
         long diff = (long)json_object_size(root) - (long)key_set.size;
         set_error(s, "<validation>", "%li object item(s) left unpacked", diff);
         goto out;
@@ -313,7 +325,7 @@ static int unpack_array(scanner_t *s, json_t *root, va_list *ap)
     size_t i = 0;
     int strict = 0;
 
-    if(!json_is_array(root)) {
+    if(root && !json_is_array(root)) {
         set_error(s, "<validation>", "Expected array, got %s", type_name(root));
         return -1;
     }
@@ -346,11 +358,17 @@ static int unpack_array(scanner_t *s, json_t *root, va_list *ap)
             return -1;
         }
 
-        value = json_array_get(root, i);
-        if(!value) {
-            set_error(s, "<validation>", "Array index %lu out of range",
-                      (unsigned long)i);
-            return -1;
+        if(!root) {
+            /* skipping */
+            value = NULL;
+        }
+        else {
+            value = json_array_get(root, i);
+            if(!value) {
+                set_error(s, "<validation>", "Array index %lu out of range",
+                          (unsigned long)i);
+                return -1;
+            }
         }
 
         if(unpack(s, value, ap))
@@ -363,7 +381,7 @@ static int unpack_array(scanner_t *s, json_t *root, va_list *ap)
     if(strict == 0 && (s->flags & JSON_STRICT))
         strict = 1;
 
-    if(strict == 1 && i != json_array_size(root)) {
+    if(root && strict == 1 && i != json_array_size(root)) {
         long diff = (long)json_array_size(root) - (long)i;
         set_error(s, "<validation>", "%li array item(s) left unpacked", diff);
         return -1;
@@ -383,99 +401,118 @@ static int unpack(scanner_t *s, json_t *root, va_list *ap)
             return unpack_array(s, root, ap);
 
         case 's':
-            if(!json_is_string(root)) {
+            if(root && !json_is_string(root)) {
                 set_error(s, "<validation>", "Expected string, got %s",
                           type_name(root));
                 return -1;
             }
 
             if(!(s->flags & JSON_VALIDATE_ONLY)) {
-                const char **str;
+                const char **target;
 
-                str = va_arg(*ap, const char **);
-                if(!str) {
+                target = va_arg(*ap, const char **);
+                if(!target) {
                     set_error(s, "<args>", "NULL string argument");
                     return -1;
                 }
 
-                *str = json_string_value(root);
+                if(root)
+                    *target = json_string_value(root);
             }
             return 0;
 
         case 'i':
-            if(!json_is_integer(root)) {
+            if(root && !json_is_integer(root)) {
                 set_error(s, "<validation>", "Expected integer, got %s",
                           type_name(root));
                 return -1;
             }
 
-            if(!(s->flags & JSON_VALIDATE_ONLY))
-                *va_arg(*ap, int*) = json_integer_value(root);
+            if(!(s->flags & JSON_VALIDATE_ONLY)) {
+                int *target = va_arg(*ap, int*);
+                if(root)
+                    *target = (int)json_integer_value(root);
+            }
 
             return 0;
 
         case 'I':
-            if(!json_is_integer(root)) {
+            if(root && !json_is_integer(root)) {
                 set_error(s, "<validation>", "Expected integer, got %s",
                           type_name(root));
                 return -1;
             }
 
-            if(!(s->flags & JSON_VALIDATE_ONLY))
-                *va_arg(*ap, json_int_t*) = json_integer_value(root);
+            if(!(s->flags & JSON_VALIDATE_ONLY)) {
+                json_int_t *target = va_arg(*ap, json_int_t*);
+                if(root)
+                    *target = json_integer_value(root);
+            }
 
             return 0;
 
         case 'b':
-            if(!json_is_boolean(root)) {
+            if(root && !json_is_boolean(root)) {
                 set_error(s, "<validation>", "Expected true or false, got %s",
                           type_name(root));
                 return -1;
             }
 
-            if(!(s->flags & JSON_VALIDATE_ONLY))
-                *va_arg(*ap, int*) = json_is_true(root);
+            if(!(s->flags & JSON_VALIDATE_ONLY)) {
+                int *target = va_arg(*ap, int*);
+                if(root)
+                    *target = json_is_true(root);
+            }
 
             return 0;
 
         case 'f':
-            if(!json_is_real(root)) {
+            if(root && !json_is_real(root)) {
                 set_error(s, "<validation>", "Expected real, got %s",
                           type_name(root));
                 return -1;
             }
 
-            if(!(s->flags & JSON_VALIDATE_ONLY))
-                *va_arg(*ap, double*) = json_real_value(root);
+            if(!(s->flags & JSON_VALIDATE_ONLY)) {
+                double *target = va_arg(*ap, double*);
+                if(root)
+                    *target = json_real_value(root);
+            }
 
             return 0;
 
         case 'F':
-            if(!json_is_number(root)) {
+            if(root && !json_is_number(root)) {
                 set_error(s, "<validation>", "Expected real or integer, got %s",
                           type_name(root));
                 return -1;
             }
 
-            if(!(s->flags & JSON_VALIDATE_ONLY))
-                *va_arg(*ap, double*) = json_number_value(root);
+            if(!(s->flags & JSON_VALIDATE_ONLY)) {
+                double *target = va_arg(*ap, double*);
+                if(root)
+                    *target = json_number_value(root);
+            }
 
             return 0;
 
         case 'O':
-            if(!(s->flags & JSON_VALIDATE_ONLY))
+            if(root && !(s->flags & JSON_VALIDATE_ONLY))
                 json_incref(root);
             /* Fall through */
 
         case 'o':
-            if(!(s->flags & JSON_VALIDATE_ONLY))
-                *va_arg(*ap, json_t**) = root;
+            if(!(s->flags & JSON_VALIDATE_ONLY)) {
+                json_t **target = va_arg(*ap, json_t**);
+                if(root)
+                    *target = root;
+            }
 
             return 0;
 
         case 'n':
             /* Never assign, just validate */
-            if(!json_is_null(root)) {
+            if(root && !json_is_null(root)) {
                 set_error(s, "<validation>", "Expected null, got %s",
                           type_name(root));
                 return -1;

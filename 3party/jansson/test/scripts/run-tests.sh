@@ -1,7 +1,19 @@
-# Copyright (c) 2009-2011 Petri Lehtinen <petri@digip.org>
+# Copyright (c) 2009-2012 Petri Lehtinen <petri@digip.org>
 #
 # Jansson is free software; you can redistribute it and/or modify
 # it under the terms of the MIT license. See LICENSE for details.
+
+die() {
+    echo "$1" >&2
+    exit 1
+}
+
+[ -n "$1" ] || die "Usage: $0 suite-name"
+[ -n "$bindir" ] || die "Set bindir"
+[ -n "$logdir" ] || die "Set logdir"
+[ -n "$scriptdir" ] || die "Set scriptdir"
+[ -n "$suites_srcdir" ] || die "Set suites_srcdir"
+[ -n "$suites_builddir" ] || die "Set suites_builddir"
 
 json_process=$bindir/json_process
 
@@ -9,7 +21,6 @@ suite_name=$1
 suite_srcdir=$suites_srcdir/$suite_name
 suite_builddir=$suites_builddir/$suite_name
 suite_log=$logdir/$suite_name
-
 
 [ -z "$VERBOSE" ] && VERBOSE=0
 [ -z "$STOP" ] && STOP=0

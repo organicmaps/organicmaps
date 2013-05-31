@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2011 Petri Lehtinen <petri@digip.org>
+ * Copyright (c) 2009-2012 Petri Lehtinen <petri@digip.org>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the MIT license. See LICENSE for details.
@@ -8,20 +8,20 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
-typedef size_t (*key_hash_fn)(const void *key);
-typedef int (*key_cmp_fn)(const void *key1, const void *key2);
-typedef void (*free_fn)(void *key);
-
 struct hashtable_list {
     struct hashtable_list *prev;
     struct hashtable_list *next;
 };
 
+/* "pair" may be a bit confusing a name, but think of it as a
+   key-value pair. In this case, it just encodes some extra data,
+   too */
 struct hashtable_pair {
-    void *key;
-    void *value;
     size_t hash;
     struct hashtable_list list;
+    json_t *value;
+    size_t serial;
+    char key[1];
 };
 
 struct hashtable_bucket {
@@ -34,56 +34,23 @@ typedef struct hashtable {
     struct hashtable_bucket *buckets;
     size_t num_buckets;  /* index to primes[] */
     struct hashtable_list list;
-
-    key_hash_fn hash_key;
-    key_cmp_fn cmp_keys;  /* returns non-zero for equal keys */
-    free_fn free_key;
-    free_fn free_value;
 } hashtable_t;
 
-/**
- * hashtable_create - Create a hashtable object
- *
- * @hash_key: The key hashing function
- * @cmp_keys: The key compare function. Returns non-zero for equal and
- *     zero for unequal unequal keys
- * @free_key: If non-NULL, called for a key that is no longer referenced.
- * @free_value: If non-NULL, called for a value that is no longer referenced.
- *
- * Returns a new hashtable object that should be freed with
- * hashtable_destroy when it's no longer used, or NULL on failure (out
- * of memory).
- */
-hashtable_t *hashtable_create(key_hash_fn hash_key, key_cmp_fn cmp_keys,
-                              free_fn free_key, free_fn free_value);
 
-/**
- * hashtable_destroy - Destroy a hashtable object
- *
- * @hashtable: The hashtable
- *
- * Destroys a hashtable created with hashtable_create().
- */
-void hashtable_destroy(hashtable_t *hashtable);
+#define hashtable_key_to_iter(key_) \
+    (&(container_of(key_, struct hashtable_pair, key)->list))
 
 /**
  * hashtable_init - Initialize a hashtable object
  *
  * @hashtable: The (statically allocated) hashtable object
- * @hash_key: The key hashing function
- * @cmp_keys: The key compare function. Returns non-zero for equal and
- *     zero for unequal unequal keys
- * @free_key: If non-NULL, called for a key that is no longer referenced.
- * @free_value: If non-NULL, called for a value that is no longer referenced.
  *
  * Initializes a statically allocated hashtable object. The object
  * should be cleared with hashtable_close when it's no longer used.
  *
  * Returns 0 on success, -1 on error (out of memory).
  */
-int hashtable_init(hashtable_t *hashtable,
-                   key_hash_fn hash_key, key_cmp_fn cmp_keys,
-                   free_fn free_key, free_fn free_value);
+int hashtable_init(hashtable_t *hashtable);
 
 /**
  * hashtable_close - Release all resources used by a hashtable object
@@ -99,20 +66,19 @@ void hashtable_close(hashtable_t *hashtable);
  *
  * @hashtable: The hashtable object
  * @key: The key
+ * @serial: For addition order of keys
  * @value: The value
  *
  * If a value with the given key already exists, its value is replaced
- * with the new value.
- *
- * Key and value are "stealed" in the sense that hashtable frees them
- * automatically when they are no longer used. The freeing is
- * accomplished by calling free_key and free_value functions that were
- * supplied to hashtable_new. In case one or both of the free
- * functions is NULL, the corresponding item is not "stealed".
+ * with the new value. Value is "stealed" in the sense that hashtable
+ * doesn't increment its refcount but decreases the refcount when the
+ * value is no longer needed.
  *
  * Returns 0 on success, -1 on failure (out of memory).
  */
-int hashtable_set(hashtable_t *hashtable, void *key, void *value);
+int hashtable_set(hashtable_t *hashtable,
+                  const char *key, size_t serial,
+                  json_t *value);
 
 /**
  * hashtable_get - Get a value associated with a key
@@ -122,7 +88,7 @@ int hashtable_set(hashtable_t *hashtable, void *key, void *value);
  *
  * Returns value if it is found, or NULL otherwise.
  */
-void *hashtable_get(hashtable_t *hashtable, const void *key);
+void *hashtable_get(hashtable_t *hashtable, const char *key);
 
 /**
  * hashtable_del - Remove a value from the hashtable
@@ -132,7 +98,7 @@ void *hashtable_get(hashtable_t *hashtable, const void *key);
  *
  * Returns 0 on success, or -1 if the key was not found.
  */
-int hashtable_del(hashtable_t *hashtable, const void *key);
+int hashtable_del(hashtable_t *hashtable, const char *key);
 
 /**
  * hashtable_clear - Clear hashtable
@@ -169,7 +135,7 @@ void *hashtable_iter(hashtable_t *hashtable);
  * Like hashtable_iter() but returns an iterator pointing to a
  * specific key.
  */
-void *hashtable_iter_at(hashtable_t *hashtable, const void *key);
+void *hashtable_iter_at(hashtable_t *hashtable, const char *key);
 
 /**
  * hashtable_iter_next - Advance an iterator
@@ -190,6 +156,13 @@ void *hashtable_iter_next(hashtable_t *hashtable, void *iter);
 void *hashtable_iter_key(void *iter);
 
 /**
+ * hashtable_iter_serial - Retrieve the serial number pointed to by an iterator
+ *
+ * @iter: The iterator
+ */
+size_t hashtable_iter_serial(void *iter);
+
+/**
  * hashtable_iter_value - Retrieve the value pointed by an iterator
  *
  * @iter: The iterator
@@ -202,6 +175,6 @@ void *hashtable_iter_value(void *iter);
  * @iter: The iterator
  * @value: The value to set
  */
-void hashtable_iter_set(hashtable_t *hashtable, void *iter, void *value);
+void hashtable_iter_set(void *iter, json_t *value);
 
 #endif
