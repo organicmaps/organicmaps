@@ -53,7 +53,7 @@ L :=
 # Target flag -- no trailing space.
 #
 T  := -o
-TE := -e 
+TE := -e
 
 
 # C flags

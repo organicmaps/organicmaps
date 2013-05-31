@@ -30,5 +30,8 @@ file src/bdf/README and src/pcf/README).
 The gzip module uses the zlib license (see src/gzip/zlib.h) which too is
 compatible to the above two licenses.
 
+The MD5 checksum support (only used for debugging in development builds)
+is in the public domain.
+
 
 --- end of LICENSE.TXT ---

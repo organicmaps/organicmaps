@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    The FreeType basic cache interface (body).                           */
 /*                                                                         */
-/*  Copyright 2003, 2004, 2005, 2006, 2007, 2009, 2010, 2011 by            */
+/*  Copyright 2003-2007, 2009-2011, 2013 by                                */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -226,7 +226,7 @@
           }
         }
         else
-          error = FTC_Err_Invalid_Argument;
+          error = FT_THROW( Invalid_Argument );
       }
     }
 
@@ -328,7 +328,7 @@
     /* some argument checks are delayed to FTC_Cache_Lookup */
     if ( !aglyph )
     {
-      error = FTC_Err_Invalid_Argument;
+      error = FT_THROW( Invalid_Argument );
       goto Exit;
     }
 
@@ -424,7 +424,7 @@
     /* some argument checks are delayed to FTC_Cache_Lookup */
     if ( !aglyph || !scaler )
     {
-      error = FTC_Err_Invalid_Argument;
+      error = FT_THROW( Invalid_Argument );
       goto Exit;
     }
 
@@ -583,7 +583,7 @@
 
 
     if ( !desc )
-      return FTC_Err_Invalid_Argument;
+      return FT_THROW( Invalid_Argument );
 
     ftc_image_type_from_old_desc( &type0, desc );
 
@@ -668,7 +668,7 @@
 
     /* other argument checks delayed to FTC_Cache_Lookup */
     if ( !ansbit )
-      return FTC_Err_Invalid_Argument;
+      return FT_THROW( Invalid_Argument );
 
     *ansbit = NULL;
 
@@ -765,7 +765,7 @@
 
     /* other argument checks delayed to FTC_Cache_Lookup */
     if ( !ansbit || !scaler )
-        return FTC_Err_Invalid_Argument;
+        return FT_THROW( Invalid_Argument );
 
     *ansbit = NULL;
 
@@ -838,7 +838,7 @@
 
 
     if ( !desc )
-      return FTC_Err_Invalid_Argument;
+      return FT_THROW( Invalid_Argument );
 
     ftc_image_type_from_old_desc( &type0, desc );
 

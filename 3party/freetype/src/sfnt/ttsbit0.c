@@ -5,7 +5,7 @@
 /*    TrueType and OpenType embedded bitmap support (body).                */
 /*    This is a heap-optimized version.                                    */
 /*                                                                         */
-/*  Copyright 2005, 2006, 2007, 2008, 2009 by                              */
+/*  Copyright 2005-2009, 2013 by                                           */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -43,7 +43,7 @@
   tt_face_load_eblc( TT_Face    face,
                      FT_Stream  stream )
   {
-    FT_Error  error = SFNT_Err_Ok;
+    FT_Error  error = FT_Err_Ok;
     FT_Fixed  version;
     FT_ULong  num_strikes, table_size;
     FT_Byte*  p;
@@ -63,7 +63,7 @@
     if ( table_size < 8 )
     {
       FT_ERROR(( "tt_face_load_sbit_strikes: table too short\n" ));
-      error = SFNT_Err_Invalid_File_Format;
+      error = FT_THROW( Invalid_File_Format );
       goto Exit;
     }
 
@@ -81,7 +81,7 @@
     if ( version != 0x00020000UL || num_strikes >= 0x10000UL )
     {
       FT_ERROR(( "tt_face_load_sbit_strikes: invalid table version\n" ));
-      error = SFNT_Err_Invalid_File_Format;
+      error = FT_THROW( Invalid_File_Format );
       goto Fail;
     }
 
@@ -136,7 +136,7 @@
 
 
     if ( strike_index >= (FT_ULong)face->sbit_num_strikes )
-      return SFNT_Err_Invalid_Argument;
+      return FT_THROW( Invalid_Argument );
 
     strike = face->sbit_table + 8 + strike_index * 48;
 
@@ -153,7 +153,7 @@
                              (FT_Char)strike[23]   /* min_advance_SB */
                                                  ) << 6;
 
-    return SFNT_Err_Ok;
+    return FT_Err_Ok;
   }
 
 
@@ -216,7 +216,7 @@
 
       if ( 8 + 48 * strike_index + 3 * 4 + 34 + 1 > face->sbit_table_size )
       {
-        error = SFNT_Err_Invalid_File_Format;
+        error = FT_THROW( Invalid_File_Format );
         goto Exit;
       }
 
@@ -231,7 +231,7 @@
       if ( decoder->strike_index_array > face->sbit_table_size             ||
            decoder->strike_index_array + 8 * decoder->strike_index_count >
              face->sbit_table_size                                         )
-        error = SFNT_Err_Invalid_File_Format;
+        error = FT_THROW( Invalid_File_Format );
     }
 
   Exit:
@@ -249,7 +249,7 @@
   static FT_Error
   tt_sbit_decoder_alloc_bitmap( TT_SBitDecoder  decoder )
   {
-    FT_Error    error = SFNT_Err_Ok;
+    FT_Error    error = FT_Err_Ok;
     FT_UInt     width, height;
     FT_Bitmap*  map = decoder->bitmap;
     FT_Long     size;
@@ -257,7 +257,7 @@
 
     if ( !decoder->metrics_loaded )
     {
-      error = SFNT_Err_Invalid_Argument;
+      error = FT_THROW( Invalid_Argument );
       goto Exit;
     }
 
@@ -290,7 +290,7 @@
       break;
 
     default:
-      error = SFNT_Err_Invalid_File_Format;
+      error = FT_THROW( Invalid_File_Format );
       goto Exit;
     }
 
@@ -345,10 +345,10 @@
 
     decoder->metrics_loaded = 1;
     *pp = p;
-    return SFNT_Err_Ok;
+    return FT_Err_Ok;
 
   Fail:
-    return SFNT_Err_Invalid_Argument;
+    return FT_THROW( Invalid_Argument );
   }
 
 
@@ -373,9 +373,9 @@
                                      FT_Int          x_pos,
                                      FT_Int          y_pos )
   {
-    FT_Error    error = SFNT_Err_Ok;
+    FT_Error    error = FT_Err_Ok;
     FT_Byte*    line;
-    FT_Int      bit_height, bit_width, pitch, width, height, h;
+    FT_Int      bit_height, bit_width, pitch, width, height, line_bits, h;
     FT_Bitmap*  bitmap;
 
 
@@ -396,16 +396,18 @@
     width  = decoder->metrics->width;
     height = decoder->metrics->height;
 
+    line_bits = width * decoder->bit_depth;
+
     if ( x_pos < 0 || x_pos + width > bit_width   ||
          y_pos < 0 || y_pos + height > bit_height )
     {
-      error = SFNT_Err_Invalid_File_Format;
+      error = FT_THROW( Invalid_File_Format );
       goto Exit;
     }
 
-    if ( p + ( ( width + 7 ) >> 3 ) * height > limit )
+    if ( p + ( ( line_bits + 7 ) >> 3 ) * height > limit )
     {
-      error = SFNT_Err_Invalid_File_Format;
+      error = FT_THROW( Invalid_File_Format );
       goto Exit;
     }
 
@@ -421,7 +423,7 @@
         FT_Int    w;
 
 
-        for ( w = width; w >= 8; w -= 8 )
+        for ( w = line_bits; w >= 8; w -= 8 )
         {
           write[0] = (FT_Byte)( write[0] | *p++ );
           write   += 1;
@@ -440,7 +442,7 @@
         FT_UInt   wval = 0;
 
 
-        for ( w = width; w >= 8; w -= 8 )
+        for ( w = line_bits; w >= 8; w -= 8 )
         {
           wval      = (FT_UInt)( wval | *p++ );
           write[0]  = (FT_Byte)( write[0] | ( wval >> x_pos ) );
@@ -511,9 +513,9 @@
                                     FT_Int          x_pos,
                                     FT_Int          y_pos )
   {
-    FT_Error    error = SFNT_Err_Ok;
+    FT_Error    error = FT_Err_Ok;
     FT_Byte*    line;
-    FT_Int      bit_height, bit_width, pitch, width, height, h, nbits;
+    FT_Int      bit_height, bit_width, pitch, width, height, line_bits, h, nbits;
     FT_Bitmap*  bitmap;
     FT_UShort   rval;
 
@@ -535,16 +537,18 @@
     width  = decoder->metrics->width;
     height = decoder->metrics->height;
 
+    line_bits = width * decoder->bit_depth;
+
     if ( x_pos < 0 || x_pos + width  > bit_width  ||
          y_pos < 0 || y_pos + height > bit_height )
     {
-      error = SFNT_Err_Invalid_File_Format;
+      error = FT_THROW( Invalid_File_Format );
       goto Exit;
     }
 
-    if ( p + ( ( width * height + 7 ) >> 3 ) > limit )
+    if ( p + ( ( line_bits * height + 7 ) >> 3 ) > limit )
     {
-      error = SFNT_Err_Invalid_File_Format;
+      error = FT_THROW( Invalid_File_Format );
       goto Exit;
     }
 
@@ -561,13 +565,13 @@
     for ( h = height; h > 0; h--, line += pitch )
     {
       FT_Byte*  write = line;
-      FT_Int    w     = width;
+      FT_Int    w     = line_bits;
 
 
       /* handle initial byte (in target bitmap) specially if necessary */
       if ( x_pos )
       {
-        w = ( width < 8 - x_pos ) ? width : 8 - x_pos;
+        w = ( line_bits < 8 - x_pos ) ? line_bits : 8 - x_pos;
 
         if ( h == height )
         {
@@ -590,7 +594,7 @@
                     ( ~( 0xFF << w ) << ( 8 - w - x_pos ) );
         rval    <<= 8;
 
-        w = width - w;
+        w = line_bits - w;
       }
 
       /* handle medial bytes */
@@ -634,7 +638,7 @@
                                  FT_Int          x_pos,
                                  FT_Int          y_pos )
   {
-    FT_Error  error = SFNT_Err_Ok;
+    FT_Error  error = FT_Err_Ok;
     FT_UInt   num_components, nn;
 
     FT_Char  horiBearingX = decoder->metrics->horiBearingX;
@@ -686,7 +690,7 @@
     return error;
 
   Fail:
-    error = SFNT_Err_Invalid_File_Format;
+    error = FT_THROW( Invalid_File_Format );
     goto Exit;
   }
 
@@ -709,7 +713,7 @@
     /* seek into the EBDT table now */
     if ( glyph_start + glyph_size > decoder->ebdt_size )
     {
-      error = SFNT_Err_Invalid_Argument;
+      error = FT_THROW( Invalid_Argument );
       goto Exit;
     }
 
@@ -736,7 +740,7 @@
       break;
 
     default:
-      error = SFNT_Err_Ok;
+      error = FT_Err_Ok;
     }
 
     if ( error )
@@ -819,11 +823,11 @@
     image_offset = FT_NEXT_ULONG( p );
 
     /* overflow check */
-    if ( decoder->eblc_base + decoder->strike_index_array + image_offset <
-           decoder->eblc_base )
+    p = decoder->eblc_base + decoder->strike_index_array;
+    if ( image_offset > (FT_ULong)( p_limit - p ) )
       goto Failure;
 
-    p = decoder->eblc_base + decoder->strike_index_array + image_offset;
+    p += image_offset;
     if ( p + 8 > p_limit )
       goto NoBitmap;
 
@@ -890,11 +894,8 @@
 
         num_glyphs = FT_NEXT_ULONG( p );
 
-        /* overflow check */
-        if ( p + ( num_glyphs + 1 ) * 4 < p )
-          goto Failure;
-
-        if ( p + ( num_glyphs + 1 ) * 4 > p_limit )
+        /* overflow check for p + ( num_glyphs + 1 ) * 4 */
+        if ( num_glyphs > (FT_ULong)( ( ( p_limit - p ) >> 2 ) - 1 ) )
           goto NoBitmap;
 
         for ( mm = 0; mm < num_glyphs; mm++ )
@@ -932,11 +933,8 @@
 
         num_glyphs = FT_NEXT_ULONG( p );
 
-        /* overflow check */
-        if ( p + 2 * num_glyphs < p )
-          goto Failure;
-
-        if ( p + 2 * num_glyphs > p_limit )
+        /* overflow check for p + 2 * num_glyphs */
+        if ( num_glyphs > (FT_ULong)( ( p_limit - p ) >> 1 ) )
           goto NoBitmap;
 
         for ( mm = 0; mm < num_glyphs; mm++ )
@@ -974,10 +972,10 @@
                                         y_pos );
 
   Failure:
-    return SFNT_Err_Invalid_Table;
+    return FT_THROW( Invalid_Table );
 
   NoBitmap:
-    return SFNT_Err_Invalid_Argument;
+    return FT_THROW( Invalid_Argument );
   }
 
 

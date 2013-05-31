@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>FreeType-2.4.11 API Reference</title>
+<title>FreeType-2.4.12 API Reference</title>
 <style type="text/css">
   body { font-family: Verdana, Geneva, Arial, Helvetica, serif;
          color: #000000;
@@ -35,7 +35,7 @@
 <table align=center><tr><td><font size=-1>[<a href="ft2-index.html">Index</a>]</font></td>
 <td width="100%"></td>
 <td><font size=-1>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
-<center><h1>FreeType-2.4.11 API Reference</h1></center>
+<center><h1>FreeType-2.4.12 API Reference</h1></center>
 
 <center><h1>
 Outline Processing
@@ -226,10 +226,10 @@ Defined in FT_OUTLINE_H (freetype/ftoutln.h).
 <p>A handle to the library object from where the outline is allocated. Note however that the new outline will <b>not</b> necessarily be <b>freed</b>, when destroying the library, by <a href="ft2-base_interface.html#FT_Done_FreeType">FT_Done_FreeType</a>.</p>
 </td></tr>
 <tr valign=top><td><b>numPoints</b></td><td>
-<p>The maximum number of points within the outline.</p>
+<p>The maximum number of points within the outline. Must be smaller than or equal to 0xFFFF (65535).</p>
 </td></tr>
 <tr valign=top><td><b>numContours</b></td><td>
-<p>The maximum number of contours within the outline.</p>
+<p>The maximum number of contours within the outline. This value must be in the range 0 to &lsquo;numPoints&rsquo;.</p>
 </td></tr>
 </table>
 </td></tr></table>

@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    Type 1 driver interface (body).                                      */
 /*                                                                         */
-/*  Copyright 1996-2004, 2006, 2007, 2009, 2011 by                         */
+/*  Copyright 1996-2004, 2006, 2007, 2009, 2011, 2013 by                   */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -61,7 +61,7 @@
   {
     FT_STRCPYN( buffer, face->type1.glyph_names[glyph_index], buffer_max );
 
-    return T1_Err_Ok;
+    return FT_Err_Ok;
   }
 
 
@@ -138,7 +138,7 @@
   {
     *afont_info = ((T1_Face)face)->type1.font_info;
 
-    return T1_Err_Ok;
+    return FT_Err_Ok;
   }
 
 
@@ -148,7 +148,7 @@
   {
     *afont_extra = ((T1_Face)face)->type1.font_extra;
 
-    return T1_Err_Ok;
+    return FT_Err_Ok;
   }
 
 
@@ -167,7 +167,7 @@
   {
     *afont_private = ((T1_Face)face)->type1.private_dict;
 
-    return T1_Err_Ok;
+    return FT_Err_Ok;
   }
 
 
@@ -669,7 +669,7 @@
                       right_glyph,
                       kerning );
 
-    return T1_Err_Ok;
+    return FT_Err_Ok;
   }
 
 

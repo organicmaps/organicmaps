@@ -6668,7 +6668,7 @@
 
 2007-01-10  Derek Clegg  <dclegg@apple.com>
 
-	* src/type1/t1load.c (T1_Get_MM_Var): Always return fixed point
+	* src/type1/t1load.c (T1_Get_MM_Var): Always return fixed-point
 	values.
 
 2007-01-08  David Turner  <david@freetype.org>

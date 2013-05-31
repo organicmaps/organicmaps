@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    Stream handling (specification).                                     */
 /*                                                                         */
-/*  Copyright 1996-2002, 2004-2006, 2011 by                                */
+/*  Copyright 1996-2002, 2004-2006, 2011, 2013 by                          */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -154,67 +154,60 @@ FT_BEGIN_HEADER
   /*                                                                       */
 
 #define FT_BYTE_( p, i )  ( ((const FT_Byte*)(p))[(i)] )
-#define FT_INT8_( p, i )  ( ((const FT_Char*)(p))[(i)] )
 
 #define FT_INT16( x )   ( (FT_Int16)(x)  )
 #define FT_UINT16( x )  ( (FT_UInt16)(x) )
 #define FT_INT32( x )   ( (FT_Int32)(x)  )
 #define FT_UINT32( x )  ( (FT_UInt32)(x) )
 
-#define FT_BYTE_I16( p, i, s )  ( FT_INT16(  FT_BYTE_( p, i ) ) << (s) )
+
 #define FT_BYTE_U16( p, i, s )  ( FT_UINT16( FT_BYTE_( p, i ) ) << (s) )
-#define FT_BYTE_I32( p, i, s )  ( FT_INT32(  FT_BYTE_( p, i ) ) << (s) )
 #define FT_BYTE_U32( p, i, s )  ( FT_UINT32( FT_BYTE_( p, i ) ) << (s) )
 
-#define FT_INT8_I16( p, i, s )  ( FT_INT16(  FT_INT8_( p, i ) ) << (s) )
-#define FT_INT8_U16( p, i, s )  ( FT_UINT16( FT_INT8_( p, i ) ) << (s) )
-#define FT_INT8_I32( p, i, s )  ( FT_INT32(  FT_INT8_( p, i ) ) << (s) )
-#define FT_INT8_U32( p, i, s )  ( FT_UINT32( FT_INT8_( p, i ) ) << (s) )
 
-
-#define FT_PEEK_SHORT( p )  FT_INT16( FT_INT8_I16( p, 0, 8) | \
-                                      FT_BYTE_I16( p, 1, 0) )
+#define FT_PEEK_SHORT( p )  FT_INT16( FT_BYTE_U16( p, 0, 8) | \
+                                      FT_BYTE_U16( p, 1, 0) )
 
 #define FT_PEEK_USHORT( p )  FT_UINT16( FT_BYTE_U16( p, 0, 8 ) | \
                                         FT_BYTE_U16( p, 1, 0 ) )
 
-#define FT_PEEK_LONG( p )  FT_INT32( FT_INT8_I32( p, 0, 24 ) | \
-                                     FT_BYTE_I32( p, 1, 16 ) | \
-                                     FT_BYTE_I32( p, 2,  8 ) | \
-                                     FT_BYTE_I32( p, 3,  0 ) )
+#define FT_PEEK_LONG( p )  FT_INT32( FT_BYTE_U32( p, 0, 24 ) | \
+                                     FT_BYTE_U32( p, 1, 16 ) | \
+                                     FT_BYTE_U32( p, 2,  8 ) | \
+                                     FT_BYTE_U32( p, 3,  0 ) )
 
 #define FT_PEEK_ULONG( p )  FT_UINT32( FT_BYTE_U32( p, 0, 24 ) | \
                                        FT_BYTE_U32( p, 1, 16 ) | \
                                        FT_BYTE_U32( p, 2,  8 ) | \
                                        FT_BYTE_U32( p, 3,  0 ) )
 
-#define FT_PEEK_OFF3( p )  FT_INT32( FT_INT8_I32( p, 0, 16 ) | \
-                                     FT_BYTE_I32( p, 1,  8 ) | \
-                                     FT_BYTE_I32( p, 2,  0 ) )
+#define FT_PEEK_OFF3( p )  FT_INT32( FT_BYTE_U32( p, 0, 16 ) | \
+                                     FT_BYTE_U32( p, 1,  8 ) | \
+                                     FT_BYTE_U32( p, 2,  0 ) )
 
 #define FT_PEEK_UOFF3( p )  FT_UINT32( FT_BYTE_U32( p, 0, 16 ) | \
                                        FT_BYTE_U32( p, 1,  8 ) | \
                                        FT_BYTE_U32( p, 2,  0 ) )
 
-#define FT_PEEK_SHORT_LE( p )  FT_INT16( FT_INT8_I16( p, 1, 8 ) | \
-                                         FT_BYTE_I16( p, 0, 0 ) )
+#define FT_PEEK_SHORT_LE( p )  FT_INT16( FT_BYTE_U16( p, 1, 8 ) | \
+                                         FT_BYTE_U16( p, 0, 0 ) )
 
 #define FT_PEEK_USHORT_LE( p )  FT_UINT16( FT_BYTE_U16( p, 1, 8 ) |  \
                                            FT_BYTE_U16( p, 0, 0 ) )
 
-#define FT_PEEK_LONG_LE( p )  FT_INT32( FT_INT8_I32( p, 3, 24 ) | \
-                                        FT_BYTE_I32( p, 2, 16 ) | \
-                                        FT_BYTE_I32( p, 1,  8 ) | \
-                                        FT_BYTE_I32( p, 0,  0 ) )
+#define FT_PEEK_LONG_LE( p )  FT_INT32( FT_BYTE_U32( p, 3, 24 ) | \
+                                        FT_BYTE_U32( p, 2, 16 ) | \
+                                        FT_BYTE_U32( p, 1,  8 ) | \
+                                        FT_BYTE_U32( p, 0,  0 ) )
 
 #define FT_PEEK_ULONG_LE( p )  FT_UINT32( FT_BYTE_U32( p, 3, 24 ) | \
                                           FT_BYTE_U32( p, 2, 16 ) | \
                                           FT_BYTE_U32( p, 1,  8 ) | \
                                           FT_BYTE_U32( p, 0,  0 ) )
 
-#define FT_PEEK_OFF3_LE( p )  FT_INT32( FT_INT8_I32( p, 2, 16 ) | \
-                                        FT_BYTE_I32( p, 1,  8 ) | \
-                                        FT_BYTE_I32( p, 0,  0 ) )
+#define FT_PEEK_OFF3_LE( p )  FT_INT32( FT_BYTE_U32( p, 2, 16 ) | \
+                                        FT_BYTE_U32( p, 1,  8 ) | \
+                                        FT_BYTE_U32( p, 0,  0 ) )
 
 #define FT_PEEK_UOFF3_LE( p )  FT_UINT32( FT_BYTE_U32( p, 2, 16 ) | \
                                           FT_BYTE_U32( p, 1,  8 ) | \

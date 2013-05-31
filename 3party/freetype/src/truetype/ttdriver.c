@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    TrueType font driver implementation (body).                          */
 /*                                                                         */
-/*  Copyright 1996-2012 by                                                 */
+/*  Copyright 1996-2013 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -163,7 +163,7 @@
       }
     }
 
-    return TT_Err_Ok;
+    return FT_Err_Ok;
   }
 
   /*************************************************************************/
@@ -187,7 +187,7 @@
   {
     TT_Face   ttface = (TT_Face)size->face;
     TT_Size   ttsize = (TT_Size)size;
-    FT_Error  error  = TT_Err_Ok;
+    FT_Error  error  = FT_Err_Ok;
 
 
     ttsize->strike_index = strike_index;
@@ -221,7 +221,7 @@
                    FT_Size_Request  req )
   {
     TT_Size   ttsize = (TT_Size)size;
-    FT_Error  error  = TT_Err_Ok;
+    FT_Error  error  = FT_Err_Ok;
 
 
 #ifdef TT_CONFIG_OPTION_EMBEDDED_BITMAPS
@@ -294,13 +294,13 @@
 
 
     if ( !slot )
-      return TT_Err_Invalid_Slot_Handle;
+      return FT_THROW( Invalid_Slot_Handle );
 
     if ( !size )
-      return TT_Err_Invalid_Size_Handle;
+      return FT_THROW( Invalid_Size_Handle );
 
     if ( !face )
-      return TT_Err_Invalid_Argument;
+      return FT_THROW( Invalid_Argument );
 
 #ifdef FT_CONFIG_OPTION_INCREMENTAL
     if ( glyph_index >= (FT_UInt)face->num_glyphs &&
@@ -308,7 +308,7 @@
 #else
     if ( glyph_index >= (FT_UInt)face->num_glyphs )
 #endif
-      return TT_Err_Invalid_Argument;
+      return FT_THROW( Invalid_Argument );
 
     if ( load_flags & FT_LOAD_NO_HINTING )
     {

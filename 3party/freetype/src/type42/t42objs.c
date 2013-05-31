@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    Type 42 objects manager (body).                                      */
 /*                                                                         */
-/*  Copyright 2002-2009, 2011                                              */
+/*  Copyright 2002-2009, 2011, 2013                                        */
 /*  by Roberto Alameda.                                                    */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -63,7 +63,7 @@
     {
       FT_ERROR(( "T42_Open_Face: cannot handle FontType %d\n",
                  type1->font_type ));
-      error = T42_Err_Unknown_File_Format;
+      error = FT_THROW( Unknown_File_Format );
       goto Exit;
     }
 
@@ -74,7 +74,7 @@
     if ( !loader.charstrings.init )
     {
       FT_ERROR(( "T42_Open_Face: no charstrings array in face\n" ));
-      error = T42_Err_Invalid_File_Format;
+      error = FT_THROW( Invalid_File_Format );
     }
 
     loader.charstrings.init  = 0;
@@ -185,7 +185,7 @@
     if ( !psaux )
     {
       FT_ERROR(( "T42_Face_Init: cannot access `psaux' module\n" ));
-      error = T42_Err_Missing_Module;
+      error = FT_THROW( Missing_Module );
       goto Exit;
     }
 
@@ -204,7 +204,7 @@
     if ( face_index > 0 )
     {
       FT_ERROR(( "T42_Face_Init: invalid face index\n" ));
-      error = T42_Err_Invalid_Argument;
+      error = FT_THROW( Invalid_Argument );
       goto Exit;
     }
 
@@ -347,7 +347,8 @@
         charmap.encoding    = FT_ENCODING_UNICODE;
 
         error = FT_CMap_New( cmap_classes->unicode, NULL, &charmap, NULL );
-        if ( error && FT_Err_No_Unicode_Glyph_Name != error )
+        if ( error                                      &&
+             FT_ERR_NEQ( error, No_Unicode_Glyph_Name ) )
           goto Exit;
         error = FT_Err_Ok;
 
@@ -481,12 +482,12 @@
     if ( !ttmodule )
     {
       FT_ERROR(( "T42_Driver_Init: cannot access `truetype' module\n" ));
-      return T42_Err_Missing_Module;
+      return FT_THROW( Missing_Module );
     }
 
     driver->ttclazz = (FT_Driver_Class)ttmodule->clazz;
 
-    return T42_Err_Ok;
+    return FT_Err_Ok;
   }
 
 
@@ -504,7 +505,7 @@
     FT_Face   face    = size->face;
     T42_Face  t42face = (T42_Face)face;
     FT_Size   ttsize;
-    FT_Error  error   = T42_Err_Ok;
+    FT_Error  error   = FT_Err_Ok;
 
 
     error = FT_New_Size( t42face->ttf_face, &ttsize );
@@ -580,7 +581,7 @@
     FT_Face        face    = t42slot->face;
     T42_Face       t42face = (T42_Face)face;
     FT_GlyphSlot   ttslot;
-    FT_Error       error   = T42_Err_Ok;
+    FT_Error       error   = FT_Err_Ok;
 
 
     if ( face->glyph == NULL )

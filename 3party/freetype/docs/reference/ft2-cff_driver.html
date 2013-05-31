@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>FreeType-2.4.12 API Reference</title>
+<style type="text/css">
+  body { font-family: Verdana, Geneva, Arial, Helvetica, serif;
+         color: #000000;
+         background: #FFFFFF; }
+
+  p { text-align: justify; }
+  h1 { text-align: center; }
+  li { text-align: justify; }
+  td { padding: 0 0.5em 0 0.5em; }
+  td.left { padding: 0 0.5em 0 0.5em;
+            text-align: left; }
+
+  a:link { color: #0000EF; }
+  a:visited { color: #51188E; }
+  a:hover { color: #FF0000; }
+
+  span.keyword { font-family: monospace;
+                 text-align: left;
+                 white-space: pre;
+                 color: darkblue; }
+
+  pre.colored { color: blue; }
+
+  ul.empty { list-style-type: none; }
+</style>
+</head>
+<body>
+
+<table align=center><tr><td><font size=-1>[<a href="ft2-index.html">Index</a>]</font></td>
+<td width="100%"></td>
+<td><font size=-1>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
+<center><h1>FreeType-2.4.12 API Reference</h1></center>
+
+<center><h1>
+The CFF driver
+</h1></center>
+<h2>Synopsis</h2>
+<table align=center cellspacing=5 cellpadding=0 border=0>
+<tr><td></td><td><a href="#hinting-engine">hinting-engine</a></td><td></td><td><a href="#FT_CFF_HINTING_XXX">FT_CFF_HINTING_XXX</a></td><td></td><td><a href="#no-stem-darkening">no-stem-darkening</a></td></tr>
+</table><br><br>
+
+<table align=center width="87%"><tr><td>
+<p>While FreeType's CFF driver doesn't expose API functions by itself, it is possible to control its behaviour with <a href="ft2-module_management.html#FT_Property_Set">FT_Property_Set</a> and <a href="ft2-module_management.html#FT_Property_Get">FT_Property_Get</a>. The following lists the available properties together with the necessary macros and structures.</p>
+<p>The CFF driver's module name is &lsquo;cff&rsquo;.</p>
+</td></tr></table><br>
+<table align=center width="75%"><tr><td>
+<h4><a name="hinting-engine">hinting-engine</a></h4>
+<table align=center width="87%"><tr><td>
+<p>Thanks to Adobe, which contributed a new hinting (and parsing) engine, an application can select between &lsquo;freetype&rsquo; and &lsquo;adobe&rsquo;.</p>
+<p>Right now, the default engine is &lsquo;freetype&rsquo;. However, this will change: After a certain time of intensive testing it is planned to make &lsquo;adobe&rsquo; the default due to its superior rendering results.</p>
+<p>The following example code demonstrates how to select Adobe's hinting engine (omitting the error handling).</p>
+<pre class="colored">
+  FT_Library  library;
+  FT_Face     face;
+  FT_UInt     hinting_engine = FT_CFF_HINTING_ADOBE;
+
+
+  FT_Init_FreeType( &amp;library );
+
+  FT_Property_Set( library, "cff",
+                            "hinting-engine", &amp;hinting_engine );
+</pre>
+</td></tr></table><br>
+<table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>note</b></em></td></tr><tr><td>
+<p>This property can be used with <a href="ft2-module_management.html#FT_Property_Get">FT_Property_Get</a> also.</p>
+</td></tr></table>
+</td></tr></table>
+<hr width="75%">
+<table align=center width="75%"><tr><td><font size=-2>[<a href="ft2-index.html">Index</a>]</font></td>
+<td width="100%"></td>
+<td><font size=-2>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
+
+<table align=center width="75%"><tr><td>
+<h4><a name="FT_CFF_HINTING_XXX">FT_CFF_HINTING_XXX</a></h4>
+<table align=center width="87%"><tr><td>
+Defined in FT_CFF_DRIVER_H (freetype/ftcffdrv.h).
+</td></tr></table><br>
+<table align=center width="87%"><tr bgcolor="#D6E8FF"><td><pre>
+
+#define <a href="ft2-cff_driver.html#FT_CFF_HINTING_XXX">FT_CFF_HINTING_FREETYPE</a>  0
+#define <a href="ft2-cff_driver.html#FT_CFF_HINTING_XXX">FT_CFF_HINTING_ADOBE</a>     1
+
+</pre></table><br>
+<table align=center width="87%"><tr><td>
+<p>A list of constants used for the <a href="ft2-cff_driver.html#hinting-engine">hinting-engine</a> property to select the hinting engine for CFF fonts.</p>
+</td></tr></table><br>
+<table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>values</b></em></td></tr><tr><td>
+<p></p>
+<table cellpadding=3 border=0>
+<tr valign=top><td colspan=0><b>FT_CFF_HINTING_FREETYPE</b></td></tr>
+<tr valign=top><td></td><td>
+<p>Use the old FreeType hinting engine.</p>
+</td></tr>
+<tr valign=top><td><b>FT_CFF_HINTING_ADOBE</b></td><td>
+<p>Use the hinting engine contributed by Adobe.</p>
+</td></tr>
+</table>
+</td></tr></table>
+</td></tr></table>
+<hr width="75%">
+<table align=center width="75%"><tr><td><font size=-2>[<a href="ft2-index.html">Index</a>]</font></td>
+<td width="100%"></td>
+<td><font size=-2>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
+
+<table align=center width="75%"><tr><td>
+<h4><a name="no-stem-darkening">no-stem-darkening</a></h4>
+<table align=center width="87%"><tr><td>
+<p>By default, the Adobe CFF engine darkens stems at smaller sizes, regardless of hinting, to enhance contrast. Setting this property, stem darkening gets switched off.</p>
+<p>Note that stem darkening is never applied if <a href="ft2-base_interface.html#FT_LOAD_XXX">FT_LOAD_NO_SCALE</a> is set.</p>
+<pre class="colored">
+  FT_Library  library;
+  FT_Face     face;
+  FT_Bool     no_stem_darkening = TRUE;
+
+
+  FT_Init_FreeType( &amp;library );
+
+  FT_Property_Set( library, "cff",
+                            "no-stem-darkening", &amp;no_stem_darkening );
+</pre>
+</td></tr></table><br>
+<table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>note</b></em></td></tr><tr><td>
+<p>This property can be used with <a href="ft2-module_management.html#FT_Property_Get">FT_Property_Get</a> also.</p>
+</td></tr></table>
+</td></tr></table>
+<hr width="75%">
+<table align=center width="75%"><tr><td><font size=-2>[<a href="ft2-index.html">Index</a>]</font></td>
+<td width="100%"></td>
+<td><font size=-2>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
+
+</body>
+</html>

@@ -55,7 +55,7 @@ compare_to_minimum_version ()
   if test $MAJOR1 -lt $MAJOR2; then
     echo 0
     return
-  else 
+  else
     if test $MAJOR1 -gt $MAJOR2; then
       echo 1
       return
@@ -67,7 +67,7 @@ compare_to_minimum_version ()
   if test $MINOR1 -lt $MINOR2; then
     echo 0
     return
-  else 
+  else
     if test $MINOR1 -gt $MINOR2; then
       echo 1
       return

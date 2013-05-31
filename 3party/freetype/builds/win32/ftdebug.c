@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    Debugging and logging component for Win32 (body).                    */
 /*                                                                         */
-/*  Copyright 1996-2001, 2002, 2005, 2008, 2009 by                         */
+/*  Copyright 1996-2001, 2002, 2005, 2008, 2009, 2013 by                   */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -47,7 +47,6 @@
 
 #ifdef FT_DEBUG_LEVEL_ERROR
 
-
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
@@ -55,8 +54,11 @@
 #include <windows.h>
 
 
+  /* documentation is in ftdebug.h */
+
   FT_BASE_DEF( void )
-  FT_Message( const char*  fmt, ... )
+  FT_Message( const char*  fmt,
+              ... )
   {
     static char  buf[8192];
     va_list      ap;
@@ -71,8 +73,11 @@
   }
 
 
+  /* documentation is in ftdebug.h */
+
   FT_BASE_DEF( void )
-  FT_Panic( const char*  fmt, ... )
+  FT_Panic( const char*  fmt,
+            ... )
   {
     static char  buf[8192];
     va_list      ap;
@@ -84,6 +89,21 @@
     va_end( ap );
 
     exit( EXIT_FAILURE );
+  }
+
+
+  /* documentation is in ftdebug.h */
+
+  FT_BASE_DEF( int )
+  FT_Throw( FT_Error     error,
+            int          line,
+            const char*  file )
+  {
+    FT_UNUSED( error );
+    FT_UNUSED( line );
+    FT_UNUSED( file );
+
+    return 0;
   }
 
 

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>FreeType-2.4.11 API Reference</title>
+<title>FreeType-2.4.12 API Reference</title>
 <style type="text/css">
   body { font-family: Verdana, Geneva, Arial, Helvetica, serif;
          color: #000000;
@@ -35,7 +35,7 @@
 <table align=center><tr><td><font size=-1>[<a href="ft2-index.html">Index</a>]</font></td>
 <td width="100%"></td>
 <td><font size=-1>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
-<center><h1>FreeType-2.4.11 API Reference</h1></center>
+<center><h1>FreeType-2.4.12 API Reference</h1></center>
 
 <center><h1>
 Header File Macros
@@ -58,14 +58,15 @@ Header File Macros
 <tr><td></td><td><a href="#FT_MODULE_H">FT_MODULE_H</a></td><td></td><td><a href="#FT_GX_VALIDATE_H">FT_GX_VALIDATE_H</a></td></tr>
 <tr><td></td><td><a href="#FT_RENDER_H">FT_RENDER_H</a></td><td></td><td><a href="#FT_PFR_H">FT_PFR_H</a></td></tr>
 <tr><td></td><td><a href="#FT_AUTOHINTER_H">FT_AUTOHINTER_H</a></td><td></td><td><a href="#FT_STROKER_H">FT_STROKER_H</a></td></tr>
-<tr><td></td><td><a href="#FT_TYPE1_TABLES_H">FT_TYPE1_TABLES_H</a></td><td></td><td><a href="#FT_SYNTHESIS_H">FT_SYNTHESIS_H</a></td></tr>
-<tr><td></td><td><a href="#FT_TRUETYPE_IDS_H">FT_TRUETYPE_IDS_H</a></td><td></td><td><a href="#FT_XFREE86_H">FT_XFREE86_H</a></td></tr>
-<tr><td></td><td><a href="#FT_TRUETYPE_TABLES_H">FT_TRUETYPE_TABLES_H</a></td><td></td><td><a href="#FT_TRIGONOMETRY_H">FT_TRIGONOMETRY_H</a></td></tr>
-<tr><td></td><td><a href="#FT_TRUETYPE_TAGS_H">FT_TRUETYPE_TAGS_H</a></td><td></td><td><a href="#FT_LCD_FILTER_H">FT_LCD_FILTER_H</a></td></tr>
-<tr><td></td><td><a href="#FT_BDF_H">FT_BDF_H</a></td><td></td><td><a href="#FT_UNPATENTED_HINTING_H">FT_UNPATENTED_HINTING_H</a></td></tr>
-<tr><td></td><td><a href="#FT_CID_H">FT_CID_H</a></td><td></td><td><a href="#FT_INCREMENTAL_H">FT_INCREMENTAL_H</a></td></tr>
-<tr><td></td><td><a href="#FT_GZIP_H">FT_GZIP_H</a></td><td></td><td><a href="#FT_GASP_H">FT_GASP_H</a></td></tr>
-<tr><td></td><td><a href="#FT_LZW_H">FT_LZW_H</a></td><td></td><td><a href="#FT_ADVANCES_H">FT_ADVANCES_H</a></td></tr>
+<tr><td></td><td><a href="#FT_CFF_DRIVER_H">FT_CFF_DRIVER_H</a></td><td></td><td><a href="#FT_SYNTHESIS_H">FT_SYNTHESIS_H</a></td></tr>
+<tr><td></td><td><a href="#FT_TYPE1_TABLES_H">FT_TYPE1_TABLES_H</a></td><td></td><td><a href="#FT_XFREE86_H">FT_XFREE86_H</a></td></tr>
+<tr><td></td><td><a href="#FT_TRUETYPE_IDS_H">FT_TRUETYPE_IDS_H</a></td><td></td><td><a href="#FT_TRIGONOMETRY_H">FT_TRIGONOMETRY_H</a></td></tr>
+<tr><td></td><td><a href="#FT_TRUETYPE_TABLES_H">FT_TRUETYPE_TABLES_H</a></td><td></td><td><a href="#FT_LCD_FILTER_H">FT_LCD_FILTER_H</a></td></tr>
+<tr><td></td><td><a href="#FT_TRUETYPE_TAGS_H">FT_TRUETYPE_TAGS_H</a></td><td></td><td><a href="#FT_UNPATENTED_HINTING_H">FT_UNPATENTED_HINTING_H</a></td></tr>
+<tr><td></td><td><a href="#FT_BDF_H">FT_BDF_H</a></td><td></td><td><a href="#FT_INCREMENTAL_H">FT_INCREMENTAL_H</a></td></tr>
+<tr><td></td><td><a href="#FT_CID_H">FT_CID_H</a></td><td></td><td><a href="#FT_GASP_H">FT_GASP_H</a></td></tr>
+<tr><td></td><td><a href="#FT_GZIP_H">FT_GZIP_H</a></td><td></td><td><a href="#FT_ADVANCES_H">FT_ADVANCES_H</a></td></tr>
+<tr><td></td><td><a href="#FT_LZW_H">FT_LZW_H</a></td><td></td><td></td></tr>
 </table><br><br>
 
 <table align=center width="87%"><tr><td>
@@ -340,6 +341,22 @@ Header File Macros
 </pre></table><br>
 <table align=center width="87%"><tr><td>
 <p>A macro used in #include statements to name the file containing structures and macros related to the auto-hinting module.</p>
+</td></tr></table><br>
+</td></tr></table>
+<hr width="75%">
+<table align=center width="75%"><tr><td><font size=-2>[<a href="ft2-index.html">Index</a>]</font></td>
+<td width="100%"></td>
+<td><font size=-2>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
+
+<table align=center width="75%"><tr><td>
+<h4><a name="FT_CFF_DRIVER_H">FT_CFF_DRIVER_H</a></h4>
+<table align=center width="87%"><tr bgcolor="#D6E8FF"><td><pre>
+
+#define <b>FT_CFF_DRIVER_H</b>  &lt;freetype/ftcffdrv.h&gt;
+
+</pre></table><br>
+<table align=center width="87%"><tr><td>
+<p>A macro used in #include statements to name the file containing structures and macros related to the CFF driver module.</p>
 </td></tr></table><br>
 </td></tr></table>
 <hr width="75%">

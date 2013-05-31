@@ -216,7 +216,7 @@ FT_BEGIN_HEADER
    *       U+1900 - U+194F  // Limbu
    *       U+1B80 - U+1BBF  // Sundanese
    *       U+1C80 - U+1CDF  // Meetei Mayak
-   *       U+A800 - U+A82F  // Syloti Nagri 
+   *       U+A800 - U+A82F  // Syloti Nagri
    *      U+11800 - U+118DF // Sharada
    *     }
    *

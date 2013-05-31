@@ -2,9 +2,9 @@
 /*                                                                         */
 /*  ftdebug.c                                                              */
 /*                                                                         */
-/*    Debugging and logging component (body).                              */
+/*    Debugging and logging component for amiga (body).                    */
 /*                                                                         */
-/*  Copyright 1996-2001, 2002, 2004, 2005 by                               */
+/*  Copyright 1996-2001, 2002, 2004, 2005, 2013 by                         */
 /*  David Turner, Robert Wilhelm, Werner Lemberg and Detlef Würkner.       */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -41,12 +41,12 @@
   /*************************************************************************/
 
 
-/*
- * Based on the default ftdebug.c,
- * replaced vprintf() with KVPrintF(),
- * commented out exit(),
- * replaced getenv() with GetVar().
- */
+  /*
+   * Based on the default ftdebug.c,
+   * replaced vprintf() with KVPrintF(),
+   * commented out exit(),
+   * replaced getenv() with GetVar().
+   */
 
 #include <exec/types.h>
 #include <utility/tagitem.h>
@@ -59,9 +59,9 @@
 #include <clib/debug_protos.h>
 
 #ifndef __amigaos4__
-extern struct Library *DOSBase;
+  extern struct Library *DOSBase;
 #else
-extern struct DOSIFace *IDOS;
+  extern struct DOSIFace *IDOS;
 #endif
 
 
@@ -75,13 +75,13 @@ extern struct DOSIFace *IDOS;
   /* documentation is in ftdebug.h */
 
   FT_BASE_DEF( void )
-  FT_Message( const char*  fmt, ... )
+  FT_Message( const char*  fmt,
+              ... )
   {
     va_list  ap;
 
 
     va_start( ap, fmt );
-/*  vprintf( fmt, ap ); */
     KVPrintF( fmt, ap );
     va_end( ap );
   }
@@ -90,17 +90,32 @@ extern struct DOSIFace *IDOS;
   /* documentation is in ftdebug.h */
 
   FT_BASE_DEF( void )
-  FT_Panic( const char*  fmt, ... )
+  FT_Panic( const char*  fmt,
+            ... )
   {
     va_list  ap;
 
 
     va_start( ap, fmt );
-/*  vprintf( fmt, ap ); */
     KVPrintF( fmt, ap );
     va_end( ap );
 
 /*  exit( EXIT_FAILURE ); */
+  }
+
+
+  /* documentation is in ftdebug.h */
+
+  FT_BASE_DEF( int )
+  FT_Throw( FT_Error     error,
+            int          line,
+            const char*  file )
+  {
+    FT_UNUSED( error );
+    FT_UNUSED( line );
+    FT_UNUSED( file );
+
+    return 0;
   }
 
 #endif /* FT_DEBUG_LEVEL_ERROR */

@@ -52,6 +52,7 @@ on _most_ systems, but not all of them:
 
     release     libtool     so
   -------------------------------
+     2.4.12     16.1.10   6.10.1
      2.4.11     16.0.10   6.10.0
      2.4.10     15.0.9    6.9.0
      2.4.9      14.1.8    6.8.1
@@ -108,7 +109,7 @@ other release numbers.
 
 ------------------------------------------------------------------------
 
-Copyright 2002-2012 by
+Copyright 2002-2013 by
 David Turner, Robert Wilhelm, and Werner Lemberg.
 
 This  file is  part  of the  FreeType  project, and  may  only be  used,

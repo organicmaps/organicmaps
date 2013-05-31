@@ -23,7 +23,7 @@ or MSys on Win32:
     fail.
 
     It is also fine to have GNU Make under another name (e.g. 'gmake')
-    if you use the GNUMAKE variable as described below.
+    if you use the MAKE variable as described below.
 
     As  a  special exception,  'makepp'  can  also  be used  to  build
     FreeType 2.  See the file docs/MAKEPP for details.
@@ -61,11 +61,11 @@ or MSys on Win32:
 
       ./configure --prefix=/usr
 
-    When using a different command to invoke GNU Make, use the GNUMAKE
+    When using  a different command  to invoke GNU Make,  use the MAKE
     variable.  For example,  if `gmake' is the command  to use on your
     system, do something like:
 
-       GNUMAKE=gmake ./configure [options]
+       MAKE=gmake ./configure [options]
        gmake
        gmake install            (as root)
 
@@ -83,7 +83,7 @@ or MSys on Win32:
 
 ----------------------------------------------------------------------
 
-Copyright 2003, 2004, 2005, 2006, 2007 by
+Copyright 2003-2007, 2013 by
 David Turner, Robert Wilhelm, and Werner Lemberg.
 
 This  file is  part of  the FreeType  project, and  may only  be used,

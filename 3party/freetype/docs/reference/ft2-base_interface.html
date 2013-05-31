@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>FreeType-2.4.11 API Reference</title>
+<title>FreeType-2.4.12 API Reference</title>
 <style type="text/css">
   body { font-family: Verdana, Geneva, Arial, Helvetica, serif;
          color: #000000;
@@ -35,7 +35,7 @@
 <table align=center><tr><td><font size=-1>[<a href="ft2-index.html">Index</a>]</font></td>
 <td width="100%"></td>
 <td><font size=-1>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
-<center><h1>FreeType-2.4.11 API Reference</h1></center>
+<center><h1>FreeType-2.4.12 API Reference</h1></center>
 
 <center><h1>
 Base Interface
@@ -761,7 +761,8 @@ Defined in FT_FREETYPE_H (freetype/freetype.h).
 <p>The typographic descender of the face, expressed in font units. For font formats not having this information, it is set to &lsquo;bbox.yMin&rsquo;. Note that this field is usually negative. Only relevant for scalable formats.</p>
 </td></tr>
 <tr valign=top><td><b>height</b></td><td>
-<p>The height is the vertical distance between two consecutive baselines, expressed in font units. It is always positive. Only relevant for scalable formats.</p>
+<p>This value is the vertical distance between two consecutive baselines, expressed in font units. It is always positive. Only relevant for scalable formats.</p>
+<p>If you want the global glyph height, use &lsquo;ascender - descender&rsquo;.</p>
 </td></tr>
 <tr valign=top><td><b>max_advance_width</b></td><td>
 <p>The maximum advance width, in font units, for all glyphs in this face. This can be used to make word wrapping computations faster. Only relevant for scalable formats.</p>

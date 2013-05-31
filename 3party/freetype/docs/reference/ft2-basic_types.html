@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>FreeType-2.4.11 API Reference</title>
+<title>FreeType-2.4.12 API Reference</title>
 <style type="text/css">
   body { font-family: Verdana, Geneva, Arial, Helvetica, serif;
          color: #000000;
@@ -35,7 +35,7 @@
 <table align=center><tr><td><font size=-1>[<a href="ft2-index.html">Index</a>]</font></td>
 <td width="100%"></td>
 <td><font size=-1>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
-<center><h1>FreeType-2.4.11 API Reference</h1></center>
+<center><h1>FreeType-2.4.12 API Reference</h1></center>
 
 <center><h1>
 Basic Data Types
@@ -55,7 +55,7 @@ Basic Data Types
 <tr><td></td><td><a href="#FT_UShort">FT_UShort</a></td><td></td><td><a href="#FT_Matrix">FT_Matrix</a></td><td></td><td><a href="#FT_Generic_Finalizer">FT_Generic_Finalizer</a></td></tr>
 <tr><td></td><td><a href="#FT_Long">FT_Long</a></td><td></td><td><a href="#FT_FWord">FT_FWord</a></td><td></td><td><a href="#FT_Generic">FT_Generic</a></td></tr>
 <tr><td></td><td><a href="#FT_ULong">FT_ULong</a></td><td></td><td><a href="#FT_UFWord">FT_UFWord</a></td><td></td><td><a href="#FT_MAKE_TAG">FT_MAKE_TAG</a></td></tr>
-<tr><td></td><td><a href="#FT_Bool">FT_Bool</a></td><td></td><td><a href="#FT_F2Dot14">FT_F2Dot14</a></td><td></td><td></td></tr>
+<tr><td></td><td><a href="#FT_Bool">FT_Bool</a></td><td></td><td><a href="#FT_F2Dot14">FT_F2Dot14</a></td><td></td><td><a href="#FT_Int64">FT_Int64</a></td></tr>
 </table><br><br>
 
 <table align=center width="87%"><tr><td>
@@ -430,7 +430,7 @@ Defined in FT_TYPES_H (freetype/fttypes.h).
 
 </pre></table><br>
 <table align=center width="87%"><tr><td>
-<p>This type is used to store 16.16 fixed float values, like scaling values or matrix coefficients.</p>
+<p>This type is used to store 16.16 fixed-point values, like scaling values or matrix coefficients.</p>
 </td></tr></table><br>
 </td></tr></table>
 <hr width="75%">
@@ -468,7 +468,7 @@ Defined in FT_IMAGE_H (freetype/ftimage.h).
 
 </pre></table><br>
 <table align=center width="87%"><tr><td>
-<p>The type FT_Pos is used to store vectorial coordinates. Depending on the context, these can represent distances in integer font units, or 16.16, or 26.6 fixed float pixel coordinates.</p>
+<p>The type FT_Pos is used to store vectorial coordinates. Depending on the context, these can represent distances in integer font units, or 16.16, or 26.6 fixed-point pixel coordinates.</p>
 </td></tr></table><br>
 </td></tr></table>
 <hr width="75%">
@@ -573,7 +573,7 @@ Defined in FT_TYPES_H (freetype/fttypes.h).
 
 </pre></table><br>
 <table align=center width="87%"><tr><td>
-<p>A simple structure used to store a 2x2 matrix. Coefficients are in 16.16 fixed float format. The computation performed is:</p>
+<p>A simple structure used to store a 2x2 matrix. Coefficients are in 16.16 fixed-point format. The computation performed is:</p>
 <pre class="colored">
    x' = x*xx + y*xy                                             
    y' = x*yx + y*yy                                             
@@ -651,7 +651,7 @@ Defined in FT_TYPES_H (freetype/fttypes.h).
 
 </pre></table><br>
 <table align=center width="87%"><tr><td>
-<p>A signed 2.14 fixed float type used for unit vectors.</p>
+<p>A signed 2.14 fixed-point type used for unit vectors.</p>
 </td></tr></table><br>
 </td></tr></table>
 <hr width="75%">
@@ -705,7 +705,7 @@ Defined in FT_TYPES_H (freetype/fttypes.h).
 
 </pre></table><br>
 <table align=center width="87%"><tr><td>
-<p>A signed 26.6 fixed float type used for vectorial pixel coordinates.</p>
+<p>A signed 26.6 fixed-point type used for vectorial pixel coordinates.</p>
 </td></tr></table><br>
 </td></tr></table>
 <hr width="75%">
@@ -1163,6 +1163,22 @@ Defined in FT_TYPES_H (freetype/fttypes.h).
 <table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>note</b></em></td></tr><tr><td>
 <p>The produced values <b>must</b> be 32-bit integers. Don't redefine this macro.</p>
 </td></tr></table>
+</td></tr></table>
+<hr width="75%">
+<table align=center width="75%"><tr><td><font size=-2>[<a href="ft2-index.html">Index</a>]</font></td>
+<td width="100%"></td>
+<td><font size=-2>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
+
+<table align=center width="75%"><tr><td>
+<h4><a name="FT_Int64">FT_Int64</a></h4>
+<table align=center width="87%"><tr><td>
+Defined in FT_CONFIG_CONFIG_H (freetype/config/ftconfig.h).
+</td></tr></table><br>
+<table align=center width="87%"><tr bgcolor="#D6E8FF"><td><pre>
+
+  <span class="keyword">typedef</span> <span class="keyword">signed</span> XXX  <b>FT_Int64</b>;
+
+</pre></table><br>
 </td></tr></table>
 <hr width="75%">
 <table align=center width="75%"><tr><td><font size=-2>[<a href="ft2-index.html">Index</a>]</font></td>

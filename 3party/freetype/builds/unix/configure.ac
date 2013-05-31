@@ -2,7 +2,7 @@
 #
 # Process this file with autoconf to produce a configure script.
 #
-# Copyright 2001-2012 by
+# Copyright 2001-2013 by
 # David Turner, Robert Wilhelm, and Werner Lemberg.
 #
 # This file is part of the FreeType project, and may only be used, modified,
@@ -11,13 +11,13 @@
 # indicate that you have read the license and understand and accept it
 # fully.
 
-AC_INIT([FreeType], [2.4.11], [freetype@nongnu.org], [freetype])
+AC_INIT([FreeType], [2.4.12], [freetype@nongnu.org], [freetype])
 AC_CONFIG_SRCDIR([ftconfig.in])
 
 
 # Don't forget to update docs/VERSION.DLL!
 
-version_info='16:0:10'
+version_info='16:1:10'
 AC_SUBST([version_info])
 ft_version=`echo $version_info | tr : .`
 AC_SUBST([ft_version])
@@ -727,9 +727,7 @@ AC_CONFIG_HEADERS([ftconfig.h:ftconfig.in],
 # and `builds/unix/unix-cc.mk' that will be used by the build system
 #
 AC_CONFIG_FILES([unix-cc.mk:unix-cc.in
-                 unix-def.mk:unix-def.in
-                 freetype-config
-                 freetype2.pc:freetype2.in])
+                 unix-def.mk:unix-def.in])
 
 # re-generate the Jamfile to use libtool now
 #

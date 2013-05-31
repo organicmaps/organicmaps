@@ -3,7 +3,7 @@
 #
 
 
-# Copyright 1996-2000, 2002, 2004, 2006, 2008 by
+# Copyright 1996-2000, 2002, 2004, 2006, 2008, 2013 by
 # David Turner, Robert Wilhelm, and Werner Lemberg.
 #
 # This file is part of the FreeType project, and may only be used, modified,
@@ -12,13 +12,14 @@
 # indicate that you have read the license and understand and accept it
 # fully.
 
+SHELL := @SHELL@
 
 TOP_DIR := $(shell cd $(TOP_DIR); pwd)
 
-DELETE    := rm -f
-DELDIR    := @RMDIR@
-CAT       := cat
-SEP       := /
+DELETE := rm -f
+DELDIR := @RMDIR@
+CAT    := cat
+SEP    := /
 
 # this is used for `make distclean' and `make install'
 OBJ_BUILD ?= $(BUILD_DIR)
@@ -57,6 +58,13 @@ datadir      := @datadir@
 
 version_info := @version_info@
 
+# Variables needed for `freetype-config' and `freetype.pc'.
+#
+FT2_EXTRA_LIBS     := @FT2_EXTRA_LIBS@
+LIBBZ2             := @LIBBZ2@
+LIBZ               := @LIBZ@
+build_libtool_libs := @build_libtool_libs@
+ft_version         := @ft_version@
 
 # The directory where all library files are placed.
 #
@@ -81,5 +89,49 @@ SYSTEM_ZLIB := @SYSTEM_ZLIB@
 #
 NO_OUTPUT := 2> /dev/null
 
+
+# To support calls like
+#
+#   configure --includedir='${libdir}'/freetype2/include
+#
+# we generate `freetype-config' and `freetype.pc' at compile time so that
+# those variables are properly expanded.
+
+$(OBJ_BUILD)/freetype-config: $(TOP_DIR)/builds/unix/freetype-config.in
+	rm -f $@ $@.tmp
+	sed -e 's|%FT2_EXTRA_LIBS%|$(FT2_EXTRA_LIBS)|' \
+	    -e 's|%LIBBZ2%|$(LIBBZ2)|' \
+	    -e 's|%LIBZ%|$(LIBZ)|' \
+	    -e 's|%build_libtool_libs%|$(build_libtool_libs)|' \
+	    -e 's|%exec_prefix%|$(exec_prefix)|' \
+	    -e 's|%ft_version%|$(ft_version)|' \
+	    -e 's|%includedir%|$(includedir)|' \
+	    -e 's|%libdir%|$(libdir)|' \
+	    -e 's|%prefix%|$(prefix)|' \
+	    $< \
+	    > $@.tmp
+	chmod +x $@.tmp
+	chmod a-w $@.tmp
+	mv $@.tmp $@
+
+$(OBJ_BUILD)/freetype2.pc: $(TOP_DIR)/builds/unix/freetype2.in
+	rm -f $@ $@.tmp
+	sed -e 's|%FT2_EXTRA_LIBS%|$(FT2_EXTRA_LIBS)|' \
+	    -e 's|%LIBBZ2%|$(LIBBZ2)|' \
+	    -e 's|%LIBZ%|$(LIBZ)|' \
+	    -e 's|%build_libtool_libs%|$(build_libtool_libs)|' \
+	    -e 's|%exec_prefix%|$(exec_prefix)|' \
+	    -e 's|%ft_version%|$(ft_version)|' \
+	    -e 's|%includedir%|$(includedir)|' \
+	    -e 's|%libdir%|$(libdir)|' \
+	    -e 's|%prefix%|$(prefix)|' \
+	    $< \
+	    > $@.tmp
+	chmod +x $@.tmp
+	chmod a-w $@.tmp
+	mv $@.tmp $@
+
+all: $(OBJ_BUILD)/freetype-config \
+     $(OBJ_BUILD)/freetype2.pc
 
 # EOF

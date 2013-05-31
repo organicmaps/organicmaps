@@ -1,4 +1,94 @@
 
+CHANGES BETWEEN 2.4.11 and 2.4.12
+
+  I. IMPORTANT CHANGES
+
+    - We have another CFF parsing and hinting engine!  Written by Dave
+      Arnold <darnold@adobe.com>,  this work  has been  contributed by
+      Adobe in  collaboration with Google.   It is vastly  superior to
+      the old CFF engine, and it  will replace it in the next release.
+      Right  now,  it  is  still  off by  default,  and  you  have  to
+      explicitly select it using  the new `hinting-engine' property of
+      the cff driver:
+
+        ...
+        #include FT_MODULE_H
+        #include FT_CFF_DRIVER_H
+
+        FT_Library  library;
+        int         engine = FT_CFF_HINTING_ADOBE;
+
+
+        ...
+        FT_Property_Set( library, "cff", "hinting-engine", &engine );
+
+      The code has  a (mature) beta status; we encourage  all users to
+      test it and report any problems.
+
+      In case you want to activate the new CFF engine unconditionally,
+      apply this patch:
+
+--- snip ---
+diff --git a/src/cff/cffobjs.c b/src/cff/cffobjs.c
+index ebcf189..3f2ce6b 100644
+--- a/src/cff/cffobjs.c
++++ b/src/cff/cffobjs.c
+@@ -1056,7 +1056,7 @@
+
+
+     /* set default property values */
+-    driver->hinting_engine    = FT_CFF_HINTING_FREETYPE;
++    driver->hinting_engine    = FT_CFF_HINTING_ADOBE;
+     driver->no_stem_darkening = FALSE;
+
+     return FT_Err_Ok;
+--- snip ---
+
+    - The  macro FT_CONFIG_OPTION_OLD_INTERNALS  is no  longer set  by
+      default.  In  the next  release, we  will completely  remove the
+      associated code.   Please update your  programs in case  you are
+      still using this macro.
+
+
+  II. MISCELLANEOUS
+
+    - The  (top-level)  `configure'  script   now  respects  the  MAKE
+      environment variable to specify a `make' binary.   For backwards
+      compatibility, GNUMAKE still overrides MAKE, though.
+
+    - The `ftview'  and `ftdiff'  demo programs have  been redesigned,
+      showing  more options  permanently  on the  screen, among  other
+      minor improvements.
+
+    - Using the `H'  key, it is now possible to  select the CFF engine
+      in both `ftview' and `ftdiff'.
+
+    - The new command line option `-H' for `ftbench' selects the Adobe
+      CFF engine.
+
+    - It is  now possible  to directly select  the LCD  rendering mode
+      with the keys `A'-`F' in  `ftview'.  The key mapping for cycling
+      through LCD modes  has been changed from `K' and  `L' to `k' and
+      `l', and  toggling custom LCD  filtering is no longer  mapped to
+      key `F' but to key `L'.
+
+    - In `ftdiff',  key `x' toggles  between layout modes:  Either use
+      the  advance width  (this is  new and  now the  default) or  the
+      bounding box information to determine line breaks.
+
+    - For all demo  tools, the new command line option  `-v' shows the
+      version.
+
+    - For the demo tools with a GUI, the new command line options `-w'
+      and `-h' select  the width and the height of  the output window,
+      respectively.
+
+    - The `ttdebug' program was broken and has been reactivated.  Note
+      that this program is not compiled by default.
+
+
+======================================================================
+
 CHANGES BETWEEN 2.4.10 and 2.4.11
 
   I. IMPORTANT BUG FIXES
@@ -2486,7 +2576,7 @@ CHANGES BETWEEN 2.0.3 and 2.0.2
       number.  see <freetype/fterrors.h> for details.
 
     - A   new  public   header   file  has   been  introduced,   named
-      FT_TRIGONOMETRY_H     (include/freetype/fttrig.h),     providing
+      FT_TRIGONOMETRY_H    (include/freetype/fttrigon.h),    providing
       trigonometric functions to  compute sines, cosines, arctangents,
       etc. with 16.16 fixed precision.  The implementation is based on
       the CORDIC  algorithm and is very fast  while being sufficiently
@@ -3714,7 +3804,7 @@ Extensions support:
 
 ------------------------------------------------------------------------
 
-Copyright 2000-2012 by
+Copyright 2000-2013 by
 David Turner, Robert Wilhelm, and Werner Lemberg.
 
 This  file  is  part  of the  FreeType  project, and may  only be  used,

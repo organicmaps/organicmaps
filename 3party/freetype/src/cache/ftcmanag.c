@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    FreeType Cache Manager (body).                                       */
 /*                                                                         */
-/*  Copyright 2000-2001, 2002, 2003, 2004, 2005, 2006, 2008, 2009, 2010 by */
+/*  Copyright 2000-2006, 2008-2010, 2013 by                                */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -187,12 +187,12 @@
 
 
     if ( asize == NULL )
-      return FTC_Err_Invalid_Argument;
+      return FT_THROW( Invalid_Argument );
 
     *asize = NULL;
 
     if ( !manager )
-      return FTC_Err_Invalid_Cache_Handle;
+      return FT_THROW( Invalid_Cache_Handle );
 
 #ifdef FTC_INLINE
 
@@ -314,12 +314,12 @@
 
 
     if ( aface == NULL )
-      return FTC_Err_Invalid_Argument;
+      return FT_THROW( Invalid_Argument );
 
     *aface = NULL;
 
     if ( !manager )
-      return FTC_Err_Invalid_Cache_Handle;
+      return FT_THROW( Invalid_Cache_Handle );
 
     /* we break encapsulation for the sake of speed */
 #ifdef FTC_INLINE
@@ -364,7 +364,7 @@
 
 
     if ( !library )
-      return FTC_Err_Invalid_Library_Handle;
+      return FT_THROW( Invalid_Library_Handle );
 
     memory = library->memory;
 
@@ -575,7 +575,7 @@
                              FTC_CacheClass   clazz,
                              FTC_Cache       *acache )
   {
-    FT_Error   error = FTC_Err_Invalid_Argument;
+    FT_Error   error = FT_ERR( Invalid_Argument );
     FTC_Cache  cache = NULL;
 
 
@@ -586,7 +586,7 @@
 
       if ( manager->num_caches >= FTC_MAX_CACHES )
       {
-        error = FTC_Err_Too_Many_Caches;
+        error = FT_THROW( Too_Many_Caches );
         FT_ERROR(( "FTC_Manager_RegisterCache:"
                    " too many registered caches\n" ));
         goto Exit;

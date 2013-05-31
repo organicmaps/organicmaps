@@ -4,7 +4,8 @@
 /*                                                                         */
 /*    High-level Type 42 driver interface (body).                          */
 /*                                                                         */
-/*  Copyright 2002-2004, 2006, 2007, 2009, 2011 by Roberto Alameda.        */
+/*  Copyright 2002-2004, 2006, 2007, 2009, 2011, 2013 by                   */
+/*  Roberto Alameda.                                                       */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
 /*  modified, and distributed under the terms of the FreeType project      */
@@ -63,7 +64,7 @@
   {
     FT_STRCPYN( buffer, face->type1.glyph_names[glyph_index], buffer_max );
 
-    return T42_Err_Ok;
+    return FT_Err_Ok;
   }
 
 
@@ -125,7 +126,7 @@
   {
     *afont_info = ((T42_Face)face)->type1.font_info;
 
-    return T42_Err_Ok;
+    return FT_Err_Ok;
   }
 
 
@@ -135,7 +136,7 @@
   {
     *afont_extra = ((T42_Face)face)->type1.font_extra;
 
-    return T42_Err_Ok;
+    return FT_Err_Ok;
   }
 
 
@@ -154,7 +155,7 @@
   {
     *afont_private = ((T42_Face)face)->type1.private_dict;
 
-    return T42_Err_Ok;
+    return FT_Err_Ok;
   }
 
 

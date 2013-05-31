@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    FreeType high-level API and common types (specification only).       */
 /*                                                                         */
-/*  Copyright 1996-2012 by                                                 */
+/*  Copyright 1996-2013 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -31,8 +31,8 @@
 
 #include <ft2build.h>
 #include FT_CONFIG_CONFIG_H
-#include FT_ERRORS_H
 #include FT_TYPES_H
+#include FT_ERRORS_H
 
 
 FT_BEGIN_HEADER
@@ -875,11 +875,14 @@ FT_BEGIN_HEADER
   /*                           usually negative.  Only relevant for        */
   /*                           scalable formats.                           */
   /*                                                                       */
-  /*    height              :: The height is the vertical distance         */
+  /*    height              :: This value is the vertical distance         */
   /*                           between two consecutive baselines,          */
   /*                           expressed in font units.  It is always      */
   /*                           positive.  Only relevant for scalable       */
   /*                           formats.                                    */
+  /*                                                                       */
+  /*                           If you want the global glyph height, use    */
+  /*                           `ascender - descender'.                     */
   /*                                                                       */
   /*    max_advance_width   :: The maximum advance width, in font units,   */
   /*                           for all glyphs in this face.  This can be   */
@@ -2431,7 +2434,7 @@ FT_BEGIN_HEADER
    *
    *     If the font is `tricky' (see @FT_FACE_FLAG_TRICKY for more), using
    *     FT_LOAD_NO_SCALE usually yields meaningless outlines because the
-   *     subglyphs must be scaled and positioned with hinting instructions. 
+   *     subglyphs must be scaled and positioned with hinting instructions.
    *     This can be solved by loading the font without FT_LOAD_NO_SCALE and
    *     setting the character size to `font->units_per_EM'.
    *
@@ -3695,7 +3698,7 @@ FT_BEGIN_HEADER
   /* <Description>                                                         */
   /*    A very simple function used to perform the computation             */
   /*    `(a*b)/0x10000' with maximum accuracy.  Most of the time this is   */
-  /*    used to multiply a given value by a 16.16 fixed float factor.      */
+  /*    used to multiply a given value by a 16.16 fixed-point factor.      */
   /*                                                                       */
   /* <Input>                                                               */
   /*    a :: The first multiplier.                                         */
@@ -3740,7 +3743,7 @@ FT_BEGIN_HEADER
   /* <Description>                                                         */
   /*    A very simple function used to perform the computation             */
   /*    `(a*0x10000)/b' with maximum accuracy.  Most of the time, this is  */
-  /*    used to divide a given value by a 16.16 fixed float factor.        */
+  /*    used to divide a given value by a 16.16 fixed-point factor.        */
   /*                                                                       */
   /* <Input>                                                               */
   /*    a :: The first multiplier.                                         */
@@ -3879,7 +3882,7 @@ FT_BEGIN_HEADER
    */
 #define FREETYPE_MAJOR  2
 #define FREETYPE_MINOR  4
-#define FREETYPE_PATCH  11
+#define FREETYPE_PATCH  12
 
 
   /*************************************************************************/

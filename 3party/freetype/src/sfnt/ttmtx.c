@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    Load the metrics tables common to TTF and OTF fonts (body).          */
 /*                                                                         */
-/*  Copyright 2006-2009, 2011-2012 by                                      */
+/*  Copyright 2006-2009, 2011-2013 by                                      */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -167,8 +167,8 @@
 
       /* Adobe simply ignores this problem.  So we shall do the same. */
 #if 0
-      error = vertical ? SFNT_Err_Invalid_Vert_Metrics
-                       : SFNT_Err_Invalid_Horiz_Metrics;
+      error = vertical ? FT_THROW( Invalid_Vert_Metrics )
+                       : FT_THROW( Invalid_Horiz_Metrics );
       goto Exit;
 #else
       num_shorts = 0;
@@ -419,7 +419,7 @@
       *aadvance = 0;
     }
 
-    return SFNT_Err_Ok;
+    return FT_Err_Ok;
   }
 
 #else /* !FT_CONFIG_OPTION_OLD_INTERNALS */
@@ -444,7 +444,7 @@
          gindex >= (FT_UInt)face->max_profile.numGlyphs )
     {
       *abearing = *aadvance = 0;
-      return SFNT_Err_Ok;
+      return FT_Err_Ok;
     }
 
     if ( gindex < (FT_UInt)k )
@@ -459,7 +459,7 @@
       *aadvance = ((TT_LongMetrics)header->long_metrics)[k - 1].advance;
     }
 
-    return SFNT_Err_Ok;
+    return FT_Err_Ok;
   }
 
 #endif /* !FT_CONFIG_OPTION_OLD_INTERNALS */

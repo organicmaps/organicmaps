@@ -3,7 +3,7 @@
 #
 
 
-# Copyright 1996-2000, 2002, 2003, 2004, 2006 by
+# Copyright 1996-2000, 2002-2004, 2006, 2013 by
 # David Turner, Robert Wilhelm, and Werner Lemberg.
 #
 # This file is part of the FreeType project, and may only be used, modified,
@@ -76,13 +76,14 @@ ifeq ($(PLATFORM),unix)
 
   have_Makefile := $(wildcard $(OBJ_DIR)/Makefile)
 
+      CONFIG_SHELL ?= /bin/sh
       setup: std_setup
   ifdef must_configure
     ifneq ($(have_Makefile),)
       # we are building FT2 not in the src tree
-	      $(TOP_DIR)/builds/unix/configure $(value CFG)
+	      $(CONFIG_SHELL) $(TOP_DIR)/builds/unix/configure $(value CFG)
     else
-	      cd builds/unix; ./configure $(value CFG)
+	      cd builds/unix; $(CONFIG_SHELL) ./configure $(value CFG)
     endif
   endif
 

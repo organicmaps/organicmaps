@@ -4,8 +4,7 @@
 /*                                                                         */
 /*    TrueType and OpenType embedded bitmap support (body).                */
 /*                                                                         */
-/*  Copyright 1996-2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009,   */
-/*            2010 by                                                      */
+/*  Copyright 1996-2010, 2013 by                                           */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -353,7 +352,7 @@
 
         if ( range->last_glyph < range->first_glyph )
         {
-          error = SFNT_Err_Invalid_File_Format;
+          error = FT_THROW( Invalid_File_Format );
           goto Exit;
         }
 
@@ -390,7 +389,7 @@
       break;
 
     default:
-      error = SFNT_Err_Invalid_File_Format;
+      error = FT_THROW( Invalid_File_Format );
     }
 
   Exit:
@@ -418,7 +417,7 @@
   tt_face_load_eblc( TT_Face    face,
                      FT_Stream  stream )
   {
-    FT_Error   error  = SFNT_Err_Ok;
+    FT_Error   error  = FT_Err_Ok;
     FT_Memory  memory = stream->memory;
     FT_Fixed   version;
     FT_ULong   num_strikes;
@@ -496,7 +495,7 @@
          num_strikes >= 0x10000L    )
     {
       FT_ERROR(( "tt_face_load_sbit_strikes: invalid table version\n" ));
-      error = SFNT_Err_Invalid_File_Format;
+      error = FT_THROW( Invalid_File_Format );
 
       goto Exit;
     }
@@ -662,7 +661,7 @@
 
 
     if ( strike_index >= face->num_sbit_strikes )
-      return SFNT_Err_Invalid_Argument;
+      return FT_THROW( Invalid_Argument );
 
     strike = face->sbit_strikes + strike_index;
 
@@ -679,7 +678,7 @@
 
     metrics->height = metrics->ascender - metrics->descender;
 
-    return SFNT_Err_Ok;
+    return FT_Err_Ok;
   }
 
 
@@ -774,7 +773,7 @@
       Found:
         /* return successfully! */
         *arange  = range;
-        return SFNT_Err_Ok;
+        return FT_Err_Ok;
       }
     }
 
@@ -782,7 +781,7 @@
     *arange        = 0;
     *aglyph_offset = 0;
 
-    return SFNT_Err_Invalid_Argument;
+    return FT_THROW( Invalid_Argument );
   }
 
 
@@ -839,7 +838,7 @@
 
     *astrike = strike;
 
-    return SFNT_Err_Ok;
+    return FT_Err_Ok;
 
   Fail:
     /* no embedded bitmap for this glyph in face */
@@ -847,7 +846,7 @@
     *astrike       = 0;
     *aglyph_offset = 0;
 
-    return SFNT_Err_Invalid_Argument;
+    return FT_THROW( Invalid_Argument );
   }
 
 
@@ -883,7 +882,7 @@
                         TT_SBit_Range    range,
                         TT_SBit_Metrics  metrics )
   {
-    FT_Error  error = SFNT_Err_Ok;
+    FT_Error  error = FT_Err_Ok;
 
 
     switch ( range->image_format )
@@ -942,7 +941,7 @@
       if ( range->index_format == 2 || range->index_format == 5 )
         *metrics = range->metrics;
       else
-        return SFNT_Err_Invalid_File_Format;
+        return FT_THROW( Invalid_File_Format );
    }
 
   Exit:
@@ -1171,7 +1170,7 @@
     if ( x_offset < 0 || x_offset + metrics->width  > map->width ||
          y_offset < 0 || y_offset + metrics->height > map->rows  )
     {
-      error = SFNT_Err_Invalid_Argument;
+      error = FT_THROW( Invalid_Argument );
 
       goto Exit;
     }
@@ -1221,7 +1220,7 @@
         break;
 
       default:  /* invalid format */
-        return SFNT_Err_Invalid_File_Format;
+        return FT_THROW( Invalid_File_Format );
       }
 
       /* Now read data and draw glyph into target pixmap       */
@@ -1301,7 +1300,7 @@
         break;
 
       default:
-        return SFNT_Err_Invalid_File_Format;
+        return FT_THROW( Invalid_File_Format );
       }
 
       size = map->rows * map->pitch;
@@ -1328,7 +1327,7 @@
     case 8:  /* compound format */
       if ( FT_STREAM_SKIP( 1L ) )
       {
-        error = SFNT_Err_Invalid_Stream_Skip;
+        error = FT_THROW( Invalid_Stream_Skip );
         goto Exit;
       }
       /* fallthrough */
@@ -1337,7 +1336,7 @@
       break;
 
     default: /* invalid image format */
-      return SFNT_Err_Invalid_File_Format;
+      return FT_THROW( Invalid_File_Format );
     }
 
     /* All right, we have a compound format.  First of all, read */

@@ -15,7 +15,7 @@ function shift( array, \
 function init_cpp_src_line()
 {
   logical_line = ""
-  delete break_pos 
+  delete break_pos
 }
 
 
@@ -110,8 +110,8 @@ function shrink_spaces_to_linebreak( pos, \
 {
   for ( i = 0; i < asorti( break_pos, junk ) && break_pos[i] < pos ; i++ )
     ;
- 
-  if ( break_pos[i] < 1 ) 
+
+  if ( break_pos[i] < 1 )
     return;
 
   part_str = substr( logical_line, pos, break_pos[i] - pos + 1 )
