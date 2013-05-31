@@ -16,7 +16,7 @@ CONFIG -= warn_on
 CONFIG *= warn_off
 
 HEADERS += \
-    config_omim.h \
+    config.h \
     config_mac.h \
     config_android.h \
     config_ios.h \
