@@ -224,7 +224,7 @@ namespace graphics
 
     bool isFirst = true;
 
-    strings::UniChar dotSymbol = strings::MakeUniString(".")[0];
+    strings::UniChar dotSymbol = '.';
     GlyphKey dotKey(dotSymbol,
                     fontDesc.m_size,
                     false,
@@ -253,21 +253,24 @@ namespace graphics
 
     boundRect.Inflate(2, 2);
 
-    m2::PointD ptOffs(-boundRect.SizeX() / 2 - boundRect.minX(),
-                      -boundRect.SizeY() / 2 - boundRect.minY());
+    double halfSizeX = boundRect.SizeX() / 2.0;
+    double halfSizeY = boundRect.SizeY() / 2.0;
+
+    m2::PointD ptOffs(-halfSizeX - boundRect.minX(),
+                      -halfSizeY - boundRect.minY());
 
     // adjusting according to position
     if (pos & EPosLeft)
-      ptOffs += m2::PointD(-boundRect.SizeX() / 2, 0);
+      ptOffs += m2::PointD(-halfSizeX, 0);
 
     if (pos & EPosRight)
-      ptOffs += m2::PointD(boundRect.SizeX() / 2, 0);
+      ptOffs += m2::PointD(halfSizeX, 0);
 
     if (pos & EPosAbove)
-      ptOffs += m2::PointD(0, -boundRect.SizeY() / 2);
+      ptOffs += m2::PointD(0, -halfSizeY);
 
     if (pos & EPosUnder)
-      ptOffs += m2::PointD(0, boundRect.SizeY() / 2);
+      ptOffs += m2::PointD(0, halfSizeY);
 
     for (unsigned i = 0; i < m_entries.size(); ++i)
       m_entries[i].m_pt += ptOffs;

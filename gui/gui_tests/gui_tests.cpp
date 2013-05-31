@@ -25,6 +25,7 @@ struct BalloonTest
     bp.m_position = graphics::EPosAbove;
 
     bp.m_mainText = "Active";
+    bp.m_auxText = "Very very very very very very very very very very very very very very long";
     bp.m_image = graphics::Image::Info("plus.png", graphics::EDensityMDPI);
 
     m_balloon.reset(new gui::Balloon(bp));
@@ -47,9 +48,9 @@ struct BalloonTest
   void SetText(gui::Balloon * b)
   {
     if (m_flag)
-      b->setText("Arrow", "");
+      b->setText("Arrow", "Very very very very very very very very very very very very very very long");
     else
-      b->setText("Cinema", "");
+      b->setText("Very very very very very very very very very very very very very very long", "Arrow");
   }
 
   void DoDraw(shared_ptr<graphics::Screen> const & p)

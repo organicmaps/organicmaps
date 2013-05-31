@@ -8,14 +8,17 @@
 #include "../graphics/screen.hpp"
 #include "../graphics/path.hpp"
 
-#define TOP_SHADOW_MARGIN 2
-#define BOTTOM_SHADOW_MARGIN 4
-#define TEXT_LEFT_MARGIN 1
-#define TEXT_RIGHT_MARGIN 25
-#define ARROW_MARGIN 16
-
 namespace gui
 {
+  namespace
+  {
+    static const int TopShadowMargin = 2;
+    static const int BottomShadowMargin = 4;
+    static const int LeftTextMargin = 1;
+    static const int RightTextMargin = 25;
+    static const int ArrowMargin = 16;
+  }
+
   Balloon::Params::Params()
     : m_image()
   {}
@@ -76,11 +79,11 @@ namespace gui
 
       double k = visualScale();
 
-      tr.setMinX(tr.minX() - (m_borderLImg.m_size.x + TEXT_LEFT_MARGIN * k));
-      tr.setMaxX(tr.maxX() + TEXT_RIGHT_MARGIN * k);
+      tr.setMinX(tr.minX() - (m_borderLImg.m_size.x + LeftTextMargin * k));
+      tr.setMaxX(tr.maxX() + RightTextMargin * k);
 
-      auxTr.setMinX(auxTr.minX() - (m_borderLImg.m_size.x + TEXT_LEFT_MARGIN * k));
-      auxTr.setMaxX(auxTr.maxX() + TEXT_RIGHT_MARGIN * k);
+      auxTr.setMinX(auxTr.minX() - (m_borderLImg.m_size.x + LeftTextMargin * k));
+      auxTr.setMaxX(auxTr.maxX() + RightTextMargin * k);
 
       ir.setMaxX(ir.maxX() + m_borderRImg.m_size.x);
 
@@ -115,8 +118,8 @@ namespace gui
     m2::RectD imageRect = m_imageView->roughBoundRect();
 
     double k = visualScale();
-    double leftMargin = m_borderLImg.m_size.x + TEXT_LEFT_MARGIN * k;
-    double rightMargin = TEXT_RIGHT_MARGIN * k;
+    double leftMargin = m_borderLImg.m_size.x + LeftTextMargin * k;
+    double rightMargin = RightTextMargin * k;
 
     double imageMargin = m_borderRImg.m_size.x;
 
@@ -137,9 +140,9 @@ namespace gui
     graphics::EPosition pos = position();
     graphics::EPosition newPosition = graphics::EPosLeft;
     if (pos & graphics::EPosRight)
-      pv.x = pv.x + m_arrowImg.m_size.x / 2.0 + ARROW_MARGIN * k + m_borderRImg.m_size.x - imageMargin;
+      pv.x = pv.x + m_arrowImg.m_size.x / 2.0 + ArrowMargin * k + m_borderRImg.m_size.x - imageMargin;
     else if (pos & graphics::EPosLeft)
-      pv.x = pv.x  + (maxWidth - m_borderRImg.m_size.x - ARROW_MARGIN * k - m_arrowImg.m_size.x / 2.0) - imageMargin;
+      pv.x = pv.x  + (maxWidth - m_borderRImg.m_size.x - ArrowMargin * k - m_arrowImg.m_size.x / 2.0) - imageMargin;
     else
     {
       if (m_textMode != NoText)
@@ -147,36 +150,50 @@ namespace gui
       else
         newPosition = graphics::EPosCenter;
     }
-    pv.y -= (m_arrowImg.m_size.y + (m_bodyImg.m_size.y - (TOP_SHADOW_MARGIN + BOTTOM_SHADOW_MARGIN) * k) / 2.0);
+    pv.y -= (m_arrowImg.m_size.y + (m_bodyImg.m_size.y - (TopShadowMargin + BottomShadowMargin) * k) / 2.0);
 
     m_imageView->setPivot(pv);
 
     m_imageView->setPosition(newPosition);
   }
 
+  void Balloon::layoutPointByX(m2::PointD & pv,
+                               double balloonWidth,
+                               double leftMargin)
+  {
+    double k = visualScale();
+    graphics::EPosition pos = position();
+    if (pos & graphics::EPosRight)
+      pv.x = pv.x - (balloonWidth - m_borderRImg.m_size.x - ArrowMargin * k - m_arrowImg.m_size.x / 2.0) + leftMargin;
+    else if (pos & graphics::EPosLeft)
+      pv.x = pv.x - (m_borderLImg.m_size.x + ArrowMargin * k + m_arrowImg.m_size.x / 2.0) + leftMargin;
+    else
+      pv.x = pv.x - balloonWidth / 2.0 + leftMargin;
+  }
+
+  graphics::EPosition Balloon::layoutPointByY(m2::PointD & pv,
+                                              double dualDivisor)
+  {
+    graphics::EPosition result = graphics::EPosRight;
+    double heightWithoutShadows = m_bodyImg.m_size.y - (TopShadowMargin + BottomShadowMargin) * visualScale();
+    if (m_textMode == DualText)
+    {
+      pv.y = pv.y - (heightWithoutShadows / dualDivisor + m_arrowImg.m_size.y);
+      result = graphics::EPosAboveRight;
+    }
+    else
+      pv.y = pv.y - (heightWithoutShadows / 2.0 + m_arrowImg.m_size.y);
+
+    return result;
+  }
+
   void Balloon::layoutMainText(double balloonWidth,
                                double leftMargin)
   {
     m2::PointD pv = pivot();
-    graphics::EPosition newPosition = graphics::EPosRight;
 
-    graphics::EPosition balloonPos = position();
-    double k = visualScale();
-    if (balloonPos & graphics::EPosRight)
-      pv.x = pv.x - (balloonWidth - m_borderRImg.m_size.x - ARROW_MARGIN * k - m_arrowImg.m_size.x / 2.0) + leftMargin;
-    else if (balloonPos & graphics::EPosLeft)
-      pv.x = pv.x - (m_borderLImg.m_size.x + ARROW_MARGIN * k + m_arrowImg.m_size.x / 2.0) + leftMargin;
-    else
-      pv.x = pv.x - balloonWidth / 2.0 + leftMargin;
-
-    double heightWithoutShadows = m_bodyImg.m_size.y - (BOTTOM_SHADOW_MARGIN + TOP_SHADOW_MARGIN) * visualScale();
-    if (m_textMode == DualText)
-    {
-      pv.y = pv.y - (heightWithoutShadows / 2.0 + m_arrowImg.m_size.y);
-      newPosition = graphics::EPosAboveRight;
-    }
-    else
-      pv.y = pv.y - (heightWithoutShadows / 2.0 + m_arrowImg.m_size.y);
+    layoutPointByX(pv, balloonWidth, leftMargin);
+    graphics::EPosition newPosition = layoutPointByY(pv, 2.0);
 
     m_mainTextView->setPivot(pv);
     m_mainTextView->setPosition(newPosition);
@@ -186,25 +203,9 @@ namespace gui
                               double leftMargin)
   {
     m2::PointD pv = pivot();
-    graphics::EPosition newPosition = graphics::EPosRight;
 
-    double k = visualScale();
-    graphics::EPosition balloonPos = position();
-    if (balloonPos & graphics::EPosRight)
-      pv.x = pv.x - (balloonWidth - m_borderRImg.m_size.x - ARROW_MARGIN * k - m_arrowImg.m_size.x / 2.0) + leftMargin;
-    else if (balloonPos & graphics::EPosLeft)
-      pv.x = pv.x - (m_borderLImg.m_size.x + ARROW_MARGIN * visualScale() + m_arrowImg.m_size.x / 2.0) + leftMargin;
-    else
-      pv.x = pv.x - balloonWidth / 2.0 + leftMargin;
-
-    double heightWithoutShadows = m_bodyImg.m_size.y - (BOTTOM_SHADOW_MARGIN + TOP_SHADOW_MARGIN) * visualScale();
-    if (m_textMode == DualText)
-    {
-      pv.y = pv.y - (heightWithoutShadows  / 6.0 + m_arrowImg.m_size.y);
-      newPosition = graphics::EPosAboveRight;
-    }
-    else
-      pv.y = pv.y - (heightWithoutShadows / 2.0 + m_arrowImg.m_size.y);
+    layoutPointByX(pv, balloonWidth, leftMargin);
+    graphics::EPosition newPosition = layoutPointByY(pv, 6.0);
 
     m_auxTextView->setPivot(pv);
     m_auxTextView->setPosition(newPosition);
@@ -221,7 +222,7 @@ namespace gui
   {
     uint32_t borderID = cs->mapInfo(m_borderLImg);
 
-    double offsetY = m_borderLImg.m_size.y + m_arrowImg.m_size.y - BOTTOM_SHADOW_MARGIN * visualScale();
+    double offsetY = m_borderLImg.m_size.y + m_arrowImg.m_size.y - BottomShadowMargin * visualScale();
     math::Matrix<double, 3, 3> m = math::Shift(
                                               math::Identity<double, 3>(),
                                                -offsetX, -offsetY);
@@ -234,7 +235,7 @@ namespace gui
   {
     uint32_t borderID = cs->mapInfo(m_borderRImg);
 
-    double offsetY = m_borderRImg.m_size.y + m_arrowImg.m_size.y - BOTTOM_SHADOW_MARGIN * visualScale();
+    double offsetY = m_borderRImg.m_size.y + m_arrowImg.m_size.y - BottomShadowMargin * visualScale();
     math::Matrix<double, 3, 3> m = math::Shift(
                                                math::Identity<double, 3>(),
                                                offsetX - m_borderRImg.m_size.x, -offsetY);
@@ -248,7 +249,7 @@ namespace gui
   {
     uint32_t bodyID = cs->mapInfo(m_bodyImg);
     int32_t bodyCount = (bodyWidth + m_bodyImg.m_size.x - 1) / (double)(m_bodyImg.m_size.x );
-    double offsetY = m_bodyImg.m_size.y + m_arrowImg.m_size.y - BOTTOM_SHADOW_MARGIN * visualScale();
+    double offsetY = m_bodyImg.m_size.y + m_arrowImg.m_size.y - BottomShadowMargin * visualScale();
     offsetY = -offsetY;
     double currentOffsetX = -offsetX;
 
@@ -298,12 +299,12 @@ namespace gui
     graphics::EPosition pos = position();
     if (pos & graphics::EPosRight)
     {
-      rightBorderOffset = m_borderLImg.m_size.x + ARROW_MARGIN * visualScale() + m_arrowImg.m_size.x / 2.0;
+      rightBorderOffset = m_borderLImg.m_size.x + ArrowMargin * visualScale() + m_arrowImg.m_size.x / 2.0;
       leftBorderOffset = bw - rightBorderOffset;
     }
     else if (pos & graphics::EPosLeft)
     {
-      leftBorderOffset = m_borderRImg.m_size.x + ARROW_MARGIN * visualScale() + m_arrowImg.m_size.x / 2.0;
+      leftBorderOffset = m_borderRImg.m_size.x + ArrowMargin * visualScale() + m_arrowImg.m_size.x / 2.0;
       rightBorderOffset = bw - leftBorderOffset;
     }
     else
@@ -328,10 +329,10 @@ namespace gui
   void Balloon::initBgImages()
   {
     graphics::EDensity density = m_controller->GetDensity();
-    m_borderLImg = graphics::Image::Info("round-left.png", density /*, graphics::Image::Info::DitherIt()*/);
-    m_borderRImg = graphics::Image::Info("round-right.png", density /*, graphics::Image::Info::DitherIt()*/);
-    m_bodyImg = graphics::Image::Info("mid.png", density /*, graphics::Image::Info::DitherIt()*/);
-    m_arrowImg = graphics::Image::Info("pin.png", density /*, graphics::Image::Info::DitherIt()*/);
+    m_borderLImg = graphics::Image::Info("round-left.png", density);
+    m_borderRImg = graphics::Image::Info("round-right.png", density);
+    m_bodyImg = graphics::Image::Info("mid.png", density);
+    m_arrowImg = graphics::Image::Info("pin.png", density);
   }
 
   void Balloon::setController(Controller * controller)
@@ -434,8 +435,8 @@ namespace gui
   void Balloon::calcMaxTextWidth()
   {
     double k = visualScale();
-    double textMargin = m_borderLImg.m_size.x + TEXT_LEFT_MARGIN * k +
-                        TEXT_RIGHT_MARGIN * k;
+    double textMargin = m_borderLImg.m_size.x + LeftTextMargin * k +
+                        RightTextMargin * k;
 
     double imageWidth = m_borderRImg.m_size.x;
     unsigned maxTextWidth = ceil(m_maxWidth - (textMargin + imageWidth));

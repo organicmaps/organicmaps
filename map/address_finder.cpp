@@ -576,10 +576,7 @@ string Framework::AddressInfo::GetPinName() const
 string Framework::AddressInfo::GetPinType() const
 {
   char const * type = GetBestType();
-  if (type)
-    return string(type);
-
-  return "";
+  return (type ? type : "");
 }
 
 string Framework::AddressInfo::FormatPinText() const

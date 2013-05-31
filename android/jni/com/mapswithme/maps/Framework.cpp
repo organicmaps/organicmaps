@@ -595,7 +595,7 @@ namespace android
     case ::Framework::BOOKMARK:
       {
         Bookmark const * pBM = m_work.GetBmCategory(bmAndCat.first)->GetBookmark(bmAndCat.second);
-        ActivatePopup(pBM->GetOrg(), pBM->GetName(), string(""), IMAGE_ARROW);
+        ActivatePopup(pBM->GetOrg(), pBM->GetName(), "", IMAGE_ARROW);
         return;
       }
     case ::Framework::POI:

@@ -6,8 +6,11 @@
 #include "../anim/controller.hpp"
 #include "../anim/value_interpolation.hpp"
 
-#define POPUP_PADDING 23
-#define ANIM_PADDING 8
+namespace
+{
+  static const int PopupPadding = 23;
+  static const int AnimPadding = 8;
+}
 
 class BookmarkBalloon::BalloonAnimTask : public anim::Task
 {
@@ -135,23 +138,23 @@ bool BookmarkBalloon::checkPosition()
   balloonRect = roughBoundRect();
   if (balloonRect.minX() < 0)
   {
-    pixelOrg.x += (balloonRect.minX() - ANIM_PADDING * k);
+    pixelOrg.x += (balloonRect.minX() - AnimPadding * k);
     result = true;
   }
   else if (balloonRect.maxX() > screen.GetWidth())
   {
-    pixelOrg.x += (balloonRect.maxX() - screen.GetWidth() + ANIM_PADDING * k);
+    pixelOrg.x += (balloonRect.maxX() - screen.GetWidth() + AnimPadding * k);
     result = true;
   }
 
   if (balloonRect.minY() < 0)
   {
-    pixelOrg.y += (balloonRect.minY() - ANIM_PADDING * k);
+    pixelOrg.y += (balloonRect.minY() - AnimPadding * k);
     result = true;
   }
   else if (balloonRect.maxY() > screen.GetHeight())
   {
-    pixelOrg.y += (balloonRect.maxY() - screen.GetHeight() + ANIM_PADDING * k);
+    pixelOrg.y += (balloonRect.maxY() - screen.GetHeight() + AnimPadding * k);
     result = true;
   }
 
@@ -166,7 +169,7 @@ void BookmarkBalloon::update()
   if (isVisible())
   {
     m2::PointD newPivot(m_framework->GtoP(m_glbPivot));
-    newPivot.y -= POPUP_PADDING * visualScale();
+    newPivot.y -= PopupPadding * visualScale();
     setPivot(newPivot);
 
     if (checkPosition())
@@ -256,22 +259,6 @@ void BookmarkBalloon::setBookmarkCaption(string const & name,
 {
   m_bmkName = name;
   m_bmkType = type;
-
-  /*strings::UniString uniName = strings::MakeUniString(name);
-  strings::UniString uniType = strings::MakeUniString(type);
-
-  // 15 is going from straight_text_element.cpp, visSplit.
-  if (uniName.size() > 15)
-  {
-    uniName.resize(18);
-    uniName[17] = uniName[16] = uniName[15] = '.';
-  }
-
-  if (uniType.size() > 15)
-  {
-    uniType.resize(18);
-    uniType[17] = uniType[16] = uniType[15] = '.';
-  }*/
 
   setText(name, type);
 }

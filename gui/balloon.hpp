@@ -70,6 +70,13 @@ namespace gui
     void layoutAuxText(double balloonWidth,
                        double leftMargin);
 
+    void layoutPointByX(m2::PointD & pv,
+                        double balloonWidth,
+                        double leftMargin);
+
+    graphics::EPosition layoutPointByY(m2::PointD & pv,
+                                       double dualDivisor);
+
     void calcMaxTextWidth();
 
     graphics::Image::Info m_borderLImg;
