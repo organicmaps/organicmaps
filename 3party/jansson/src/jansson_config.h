@@ -34,6 +34,6 @@
 
 /* If locale.h and localeconv() are available, define to 1,
    otherwise to 0. */
-#define JSON_HAVE_LOCALECONV 1
+#define JSON_HAVE_LOCALECONV 0
 
 #endif
