@@ -285,7 +285,6 @@ namespace gui
 
     cs->beginFrame();
     cs->setDisplayList(m_displayList.get());
-    cs->applyDither();
 
     uint32_t arrowID = cs->mapInfo(m_arrowImg);
     math::Matrix<double, 3, 3> arrowM = math::Shift(math::Identity<double, 3>(),
