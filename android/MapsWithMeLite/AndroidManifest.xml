@@ -60,7 +60,6 @@
           <!-- API CALL -->
           <intent-filter>
               <action android:name="com.mapswithme.maps.api.request" />
-              <category android:name="android.intent.category.DEFAULT" />
           </intent-filter>
 
 
