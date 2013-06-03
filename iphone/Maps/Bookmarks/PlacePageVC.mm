@@ -147,13 +147,8 @@ static NSString  * const g_colors [] =
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-  if (m_hideNavBar)
-  {
-    if (![[MapsAppDelegate theApp].m_mapViewController shouldShowNavBar])
+  if (m_hideNavBar && ![[MapsAppDelegate theApp].m_mapViewController shouldShowNavBar])
       [self.navigationController setNavigationBarHidden:YES animated:YES];
-    else
-      self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-  }
   // Handle 3 scenarios:
   // 1. User pressed Remove Pin and goes back to the map - bookmark was deleted on click, do nothing
   // 2. User goes back to the map by pressing Map (Back) button - save possibly edited title, add bookmark

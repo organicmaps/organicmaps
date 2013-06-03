@@ -908,7 +908,6 @@ NSInteger compareAddress(id l, id r, void * context)
 
 //    UIBarButtonItem * hide = [[[UIBarButtonItem alloc] initWithTitle:@"hide" style: UIBarButtonItemStyleDone target:self action:@selector(onHideClicked)] autorelease];
 //    self.navigationItem.rightBarButtonItem = hide;
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     self.navigationItem.title = [NSString stringWithUTF8String:GetFramework().GetMapApiAppTitle().c_str()];
   }
 }
