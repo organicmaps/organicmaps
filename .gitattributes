@@ -15,6 +15,7 @@
 # Declare files that will always have LF line endings on checkout.
 *.txt    text eol=lf
 *.html   text eol=lf
+*.xml    text eol=lf
 *.csv    text eol=lf
 *.svg    text eol=lf
 *.py     text eol=lf
