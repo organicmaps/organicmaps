@@ -1431,8 +1431,7 @@ bool Framework::SetViewportByURL(string const & url, url_api::Request & request)
       request.m_viewportLat = newPoint.m_lat = info.m_lat;
       request.m_viewportLon = newPoint.m_lon = info.m_lon;
       request.m_viewportZoomLevel = info.m_zoom;
-
-      ShowRectExVisibleScale(info.GetViewport());
+      SetViewPortSync(info.GetViewport());
       return true;
     }
   }
@@ -1446,7 +1445,7 @@ bool Framework::SetViewportByURL(string const & url, url_api::Request & request)
         point.m_name = m_stringsBundle.GetString("dropped_pin");
 
       m2::PointD const center(MercatorBounds::LonToX(request.m_viewportLon), MercatorBounds::LatToY(request.m_viewportLat));
-      ShowRectExVisibleScale(scales::GetRectForLevel(request.m_viewportZoomLevel, center, 1));
+      SetViewPortSync(scales::GetRectForLevel(request.m_viewportZoomLevel, center, 1));
       return true;
     }
   }
@@ -1458,11 +1457,19 @@ bool Framework::SetViewportByURL(string const & url, url_api::Request & request)
       //Can do better consider nav bar size
       m2::RectD view(MercatorBounds::LonToX(z.minX()), MercatorBounds::LatToY(z.minY()),
                      MercatorBounds::LonToX(z.maxX()), MercatorBounds::LatToY(z.maxY()));
-      ShowRectExVisibleScale(view);
+      SetViewPortSync(view);
       return true;
     }
   }
   return false;
+}
+
+void Framework::SetViewPortSync(m2::RectD const & rect)
+{
+  // This is tricky way to syncronize work and
+  // rendring threads.
+  m2::AnyRectD aRect(rect);
+  m_animator.ChangeViewport(aRect, aRect, 0.0);
 }
 
 m2::RectD Framework::GetCurrentViewport() const

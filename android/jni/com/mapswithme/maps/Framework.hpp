@@ -41,8 +41,7 @@ namespace android
     int m_mask;
 
     bool m_doLoadState;
-    //Api point
-    url_scheme::ApiPoint m_activePoint;
+    //Api
     typedef function<void (bool, double, double, string, string)> TOnApiPointActivatedListener;
     TOnApiPointActivatedListener m_apiPointActivatedListener;
 

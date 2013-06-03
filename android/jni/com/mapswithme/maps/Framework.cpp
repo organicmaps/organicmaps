@@ -590,19 +590,20 @@ namespace android
     m2::PointD                pxPivot;
     BookmarkAndCategory      bmAndCat;
 
-    bool const apiPointActivated = NativeFramework()->GetMapApiPoint(pt, m_activePoint);
+    url_scheme::ApiPoint apiPoint;
+    bool const apiPointActivated = NativeFramework()->GetMapApiPoint(pt, apiPoint);
     if (m_apiPointActivatedListener)
-      m_apiPointActivatedListener(apiPointActivated, m_activePoint.m_lat,
-                                                    m_activePoint.m_lon,
-                                                    m_activePoint.m_title,
-                                                    m_activePoint.m_url);
+      m_apiPointActivatedListener(apiPointActivated, apiPoint.m_lat,
+                                                     apiPoint.m_lon,
+                                                     apiPoint.m_title,
+                                                     apiPoint.m_url);
 
 
     if (apiPointActivated)
     {
-      m2::PointD pivot(MercatorBounds::LonToX(m_activePoint.m_lon),
-                       MercatorBounds::LatToY(m_activePoint.m_lat));
-      ActivatePopup(pivot, m_activePoint.m_title, IMAGE_ARROW);
+      m2::PointD pivot(MercatorBounds::LonToX(apiPoint.m_lon),
+                       MercatorBounds::LatToY(apiPoint.m_lat));
+      ActivatePopup(pivot, apiPoint.m_title, "", IMAGE_ARROW);
       return;
     }
     else
@@ -612,7 +613,7 @@ namespace android
       case ::Framework::BOOKMARK:
         {
           Bookmark const * pBM = m_work.GetBmCategory(bmAndCat.first)->GetBookmark(bmAndCat.second);
-          ActivatePopup(pBM->GetOrg(), pBM->GetName(), IMAGE_ARROW);
+          ActivatePopup(pBM->GetOrg(), pBM->GetName(), "", IMAGE_ARROW);
           return;
         }
       case ::Framework::POI:
@@ -842,8 +843,8 @@ extern "C"
                                                    "onApiPointActivated",
                                                    "(ZDDLjava/lang/String;Ljava/lang/String;)V");
 
-    jstring j_name = jni::ToJavaString(name);
-    jstring j_id   = jni::ToJavaString(id);
+    jstring j_name = jni::ToJavaString(jniEnv, name);
+    jstring j_id   = jni::ToJavaString(jniEnv, id);
     jniEnv->CallVoidMethod(*obj.get(), methodID, activated, lat, lon, j_name, j_id);
   }
 

@@ -459,6 +459,7 @@ public:
 private:
   url_scheme::ParsedMapApi m_ParsedMapApi;
   void DrawMapApiPoints(shared_ptr<PaintEvent> const & e);
+  void SetViewPortSync(m2::RectD const & rect);
 
 public:
   void MapApiSetUriAndParse(string const & url);

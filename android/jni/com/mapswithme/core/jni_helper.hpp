@@ -30,15 +30,9 @@ namespace jni
   }
 
   jstring ToJavaString(JNIEnv * env, char const * s);
-
   inline jstring ToJavaString(JNIEnv * env, string const & s)
   {
     return ToJavaString(env, s.c_str());
-  }
-
-  inline jstring ToJavaString(string const & s)
-  {
-    return ToJavaString(GetEnv(), s.c_str());
   }
 
   string DescribeException();
