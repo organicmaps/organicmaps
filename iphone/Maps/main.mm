@@ -31,14 +31,14 @@ int main(int argc, char * argv[])
   LOG(LINFO, ("MapsWithMe started, detected CPU cores:", GetPlatform().CpuCores()));
 
   NSSetUncaughtExceptionHandler(&exceptionHandler);
+  int retVal;
+  @autoreleasepool
+  {
+    Dummy * dummy = [[Dummy alloc] autorelease];
+    NSThread * thread = [[[NSThread alloc] initWithTarget:dummy selector:@selector(dummyThread:) object:nil] autorelease];
+    [thread start];
 
-  NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-
-  Dummy * dummy = [[Dummy alloc] autorelease];
-  NSThread * thread = [[[NSThread alloc] initWithTarget:dummy selector:@selector(dummyThread:) object:nil] autorelease];
-  [thread start];
-
-  int retVal = UIApplicationMain(argc, argv, nil, nil);
-  [pool release];
+    retVal = UIApplicationMain(argc, argv, nil, nil);
+  }
   return retVal;
 }
