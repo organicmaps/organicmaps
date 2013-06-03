@@ -41,9 +41,8 @@ namespace android
     int m_mask;
 
     bool m_doLoadState;
-    bool m_apiPointActive;
-    url_scheme::ApiPoint m_activePoint;
     //Api point
+    url_scheme::ApiPoint m_activePoint;
     typedef function<void (bool, double, double, string, string)> TOnApiPointActivatedListener;
     TOnApiPointActivatedListener m_apiPointActivatedListener;
 
@@ -81,8 +80,6 @@ namespace android
     void CreateBookmarkBalloon();
     BookmarkBalloon * GetBookmarkBalloon();
     void OnPositionClicked(m2::PointD const & point);
-
-    /// @todo used to keep track of current position for "my_position" balloon
     bool m_doUpdateBalloonPositionFromLocation;
 
     string m_searchQuery;

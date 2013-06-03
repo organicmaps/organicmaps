@@ -682,21 +682,22 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     @Override
     public boolean processIntent(Intent intent)
     {
-      //TODO get url and pass to core asynchronously
       final String apiUrl = intent.getStringExtra(Const.EXTRA_URL);
       if (apiUrl != null)
       {
         // We do not want to wait until parsing finish
-        new Thread() {
+        new Thread() 
+        {
           @Override
           public void run() { Framework.passApiUrl(apiUrl); };
         }.start();
+        //TODO add synchronization for non-UI thread call
+        final MWMRequest request = MWMRequest.extractFromIntent(intent, getApplicationContext());
+        MWMRequest.setCurrentRequest(request);
+        getMwmApplication().getAppStateManager().transitionTo(SuppotedState.API_REQUEST);
+        return true;
       }
-      final MWMRequest request = MWMRequest.extractFromIntent(intent, getApplicationContext());
-      MWMRequest.setCurrentRequest(request);
-      getMwmApplication().getAppStateManager().transitionTo(SuppotedState.API_REQUEST);
-
-      return true;
+      return false;
     }
   }
 

@@ -19,7 +19,8 @@ public class Framework
     return nativeGetNameAndAddress4Point(pixelX, pixelY);
   }
   
-  public static void passApiUrl(String url) {
+  public static void passApiUrl(String url) 
+  {
     nativePassApiUrl(url);
   }
 

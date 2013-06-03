@@ -590,15 +590,15 @@ namespace android
     m2::PointD                pxPivot;
     BookmarkAndCategory      bmAndCat;
 
-    m_apiPointActive = NativeFramework()->GetMapApiPoint(pt, m_activePoint);
+    bool const apiPointActivated = NativeFramework()->GetMapApiPoint(pt, m_activePoint);
     if (m_apiPointActivatedListener)
-      m_apiPointActivatedListener(m_apiPointActive, m_activePoint.m_lat,
+      m_apiPointActivatedListener(apiPointActivated, m_activePoint.m_lat,
                                                     m_activePoint.m_lon,
                                                     m_activePoint.m_title,
                                                     m_activePoint.m_url);
 
 
-    if (m_apiPointActive)
+    if (apiPointActivated)
     {
       m2::PointD pivot(MercatorBounds::LonToX(m_activePoint.m_lon),
                        MercatorBounds::LatToY(m_activePoint.m_lat));
@@ -790,8 +790,11 @@ namespace android
     m_doLoadState = false;
 
     url_api::Request request;
+    // if we have only one point
+    // and import is successful
+    // => show balloon
     if (m_work.SetViewportByURL(url, request)
-        && !request.m_points.size() == 1)
+        && request.m_points.size() == 1)
     {
 
       //we need it only for one-point-call
@@ -833,15 +836,15 @@ extern "C"
 
   void CallOnApiPointActivatedListener(shared_ptr<jobject> obj,  bool activated, double lat, double lon, string name, string id)
   {
-    jmethodID methodID = jni::GetJavaMethodID(jni::GetEnv(), *obj.get(),
-                                             "onApiPointActivated",
-                                             "(ZDDLjava/lang/String;Ljava/lang/String;)V");
-    if (methodID != 0)
-    {
-      jstring j_name = jni::ToJavaString(jni::GetEnv(), name);
-      jstring j_id   = jni::ToJavaString(jni::GetEnv(), id);
-      jni::GetEnv()->CallVoidMethod(*obj.get(), methodID, activated, lat, lon, j_name, j_id);
-    }
+    JNIEnv * jniEnv = jni::GetEnv();
+    const jmethodID methodID = jni::GetJavaMethodID(jniEnv,
+                                                    *obj.get(),
+                                                   "onApiPointActivated",
+                                                   "(ZDDLjava/lang/String;Ljava/lang/String;)V");
+
+    jstring j_name = jni::ToJavaString(name);
+    jstring j_id   = jni::ToJavaString(id);
+    jniEnv->CallVoidMethod(*obj.get(), methodID, activated, lat, lon, j_name, j_id);
   }
 
   JNIEXPORT jstring JNICALL
@@ -858,12 +861,13 @@ extern "C"
     g_framework->SetViewportByUrl(jni::ToNativeString(url));
   }
 
-
-   JNIEXPORT void JNICALL
-   Java_com_mapswithme_maps_Framework_nativeSetApiPointActivatedListener(JNIEnv * env, jobject thiz, jobject l)
-   {
-     g_framework->AddApiPointActivatedListener(bind(&CallOnApiPointActivatedListener, jni::make_global_ref(l), _1, _2, _3, _4, _5));
-   }
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeSetApiPointActivatedListener(JNIEnv * env, jobject thiz, jobject l)
+  {
+    g_framework->AddApiPointActivatedListener(
+        bind(&CallOnApiPointActivatedListener, jni::make_global_ref(l),
+            _1, _2, _3, _4, _5));
+  }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeRemoveApiPointActivatedListener(JNIEnv * env, jobject thiz)
