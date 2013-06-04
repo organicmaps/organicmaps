@@ -57,15 +57,6 @@ bool ParsedMapApi::Parse(Uri const & uri)
 
 void ParsedMapApi::AddKeyValue(string const & key, string const & value)
 {
-  if (key == "backurl")
-    m_globalBackUrl = value;
-  if (key == "v")
-  {
-    if (!strings::to_int(value, m_id))
-      m_id = 0;
-  }
-  if (key == "appname")
-    m_appTitle = value;
   strings::AsciiToLower(key);
 
   if (key == "ll")
@@ -123,6 +114,19 @@ void ParsedMapApi::AddKeyValue(string const & key, string const & value)
 void ParsedMapApi::Clear()
 {
   m_points.clear();
+  else if (key == "backurl")
+  {
+    m_globalBackUrl = value;
+  }
+  else if (key == "v")
+  {
+    if (!strings::to_int(value, m_version))
+      m_version = 0;
+  }
+  else if (key == "appname")
+  {
+    m_appTitle = value;
+  }
   m_globalBackUrl.clear();
   m_appTitle.clear();
   m_id = 0;
