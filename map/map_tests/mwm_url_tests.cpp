@@ -133,23 +133,23 @@ UNIT_TEST(VersionTest)
 {
   {
     ParsedMapApi api(Uri("mwm://map?ll=1,2&v=1&n=PointName"));
-    TEST_EQUAL(api.GetApiversion(), 1, ());
+    TEST_EQUAL(api.GetApiVersion(), 1, ());
   }
   {
     ParsedMapApi api(Uri("mwm://map?ll=1,2&v=kotik&n=PointName"));
-    TEST_EQUAL(api.GetApiversion(), 0, ());
+    TEST_EQUAL(api.GetApiVersion(), 0, ());
   }
   {
     ParsedMapApi api(Uri("mwm://map?ll=1,2&v=APacanyVoobsheKotjata&n=PointName"));
-    TEST_EQUAL(api.GetApiversion(), 0, ());
+    TEST_EQUAL(api.GetApiVersion(), 0, ());
   }
   {
     ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName"));
-    TEST_EQUAL(api.GetApiversion(), 0, ());
+    TEST_EQUAL(api.GetApiVersion(), 0, ());
   }
   {
-    ParsedMapApi api(Uri("mwm://map?v=666&ll=1,2&n=PointName"));
-    TEST_EQUAL(api.GetApiversion(), 666, ());
+    ParsedMapApi api(Uri("mwm://map?V=666&ll=1,2&n=PointName"));
+    TEST_EQUAL(api.GetApiVersion(), 666, ());
   }
 }
 
@@ -259,7 +259,7 @@ void generateRandomTest(size_t numberOfPoints, size_t stringLength)
     TEST_EQUAL(points[i].m_title, vect[i].m_title, ());
     TEST_EQUAL(points[i].m_url, vect[i].m_url, ());
   }
-  TEST_EQUAL(api.GetApiversion(), 1, ());
+  TEST_EQUAL(api.GetApiVersion(), 1, ());
 }
 
 }
@@ -272,4 +272,18 @@ UNIT_TEST(100FullEnteriesRandomTest)
 UNIT_TEST(StressTestRandomTest)
 {
   generateRandomTest(10000, 100);
+}
+
+UNIT_TEST(MWMApiZoomLevelTest)
+{
+  m2::RectD const r1 = ParsedMapApi(Uri("mwm://map?ll=0,0")).GetRect();
+  m2::RectD const r2 = ParsedMapApi(Uri("mwm://map?z=14.5&ll=0,0")).GetRect();
+  TEST_NOT_EQUAL(r1, r2, ());
+  m2::RectD const r3 = ParsedMapApi(Uri("mwm://map?ll=0,0&z=14")).GetRect();
+  TEST_NOT_EQUAL(r2, r3, ());
+  TEST_NOT_EQUAL(r1, r3, ());
+  m2::RectD const rEqualToR3 = ParsedMapApi(Uri("mwm://map?ll=0,0&z=14.000")).GetRect();
+  TEST_EQUAL(r3, rEqualToR3, ());
+  m2::RectD const rEqualToR1 = ParsedMapApi(Uri("mwm://map?ll=0,0&z=-23.43")).GetRect();
+  TEST_EQUAL(r1, rEqualToR1, ());
 }

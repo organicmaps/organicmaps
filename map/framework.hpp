@@ -465,8 +465,8 @@ public:
   void MapApiSetUriAndParse(string const & url);
   bool GetMapApiPoint(m2::PointD const & pxPoint, url_scheme::ApiPoint & point);
   vector<url_scheme::ApiPoint> const & GetMapApiPoints() { return m_ParsedMapApi.GetPoints(); }
-  void ClearMapApiPoints() { m_ParsedMapApi.Clear(); }
-  int GetMapApiVersion() const { return m_ParsedMapApi.GetApiversion(); }
+  void ClearMapApiPoints() { m_ParsedMapApi.Reset(); }
+  int GetMapApiVersion() const { return m_ParsedMapApi.GetApiVersion(); }
   string const & GetMapApiAppTitle() const { return m_ParsedMapApi.GetAppTitle(); }
   string const & GetMapApiBackUrl() const { return m_ParsedMapApi.GetGlobalBackUrl(); }
   m2::RectD GetMapApiRect() const { return m_ParsedMapApi.GetRect(); }

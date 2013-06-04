@@ -1,6 +1,7 @@
 #include "mwm_url.hpp"
 
 #include "../indexer/mercator.hpp"
+#include "../indexer/scales.hpp"
 
 #include "../coding/uri.hpp"
 
@@ -21,20 +22,19 @@ bool IsInvalidApiPoint(ApiPoint const & p) { return p.m_lat == INVALID_LAT_VALUE
 
 }  // unnames namespace
 
-ParsedMapApi::ParsedMapApi():m_id(0)
-{}
+ParsedMapApi::ParsedMapApi() : m_version(0), m_zoomLevel(0.0)
+{
+}
 
-ParsedMapApi::ParsedMapApi(Uri const & uri):m_id(0)
+ParsedMapApi::ParsedMapApi(Uri const & uri) : m_version(0), m_zoomLevel(0.0)
 {
   if (!Parse(uri))
-  {
-    m_points.clear();
-  }
+    Reset();
 }
 
 bool ParsedMapApi::SetUriAndParse(string const & url)
 {
-  Clear();
+  Reset();
   return Parse(url_scheme::Uri(url));
 }
 
@@ -55,7 +55,7 @@ bool ParsedMapApi::Parse(Uri const & uri)
   return true;
 }
 
-void ParsedMapApi::AddKeyValue(string const & key, string const & value)
+void ParsedMapApi::AddKeyValue(string key, string const & value)
 {
   strings::AsciiToLower(key);
 
@@ -95,6 +95,11 @@ void ParsedMapApi::AddKeyValue(string const & key, string const & value)
     m_points.back().m_lon = lon;
     m_showRect = m2::Add(m_showRect, m2::PointD(lon, lat));
   }
+  else if (key == "z")
+  {
+    if (!strings::to_double(value, m_zoomLevel))
+      m_zoomLevel = 0.0;
+  }
   else if (key == "n")
   {
     if (!m_points.empty())
@@ -109,11 +114,6 @@ void ParsedMapApi::AddKeyValue(string const & key, string const & value)
     else
       LOG(LWARNING, ("Map API: Point url with no point. 'll' should come first!"));
   }
-}
-
-void ParsedMapApi::Clear()
-{
-  m_points.clear();
   else if (key == "backurl")
   {
     m_globalBackUrl = value;
@@ -127,8 +127,23 @@ void ParsedMapApi::Clear()
   {
     m_appTitle = value;
   }
+}
+
+void ParsedMapApi::Reset()
+{
+  m_points.clear();
   m_globalBackUrl.clear();
   m_appTitle.clear();
-  m_id = 0;
+  m_version = 0;
   m_showRect = m2::RectD();
+  m_zoomLevel = 0.0;
+}
+
+m2::RectD ParsedMapApi::GetRect() const
+{
+  // Use zoom only for one point and ignore it for several points
+  if (m_zoomLevel >= 1.0 && m_points.size() == 1)
+    return scales::GetRectForLevel(m_zoomLevel, m_showRect.Center(), 1.0);
+
+  return m_showRect;
 }

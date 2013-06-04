@@ -25,20 +25,22 @@ public:
   vector<ApiPoint> const & GetPoints() const { return m_points; }
   string const & GetGlobalBackUrl() const { return m_globalBackUrl; }
   string const & GetAppTitle() const { return m_appTitle; }
-  int GetApiversion() const { return m_id; }
-  m2::RectD GetRect() const { return m_showRect; }
-  void Clear();
+  int GetApiVersion() const { return m_version; }
+  m2::RectD GetRect() const;
+  void Reset();
 
 private:
   bool Parse(Uri const & uri);
-  void AddKeyValue(string const & key, string const & value);
+  void AddKeyValue(string key, string const & value);
 
   vector<ApiPoint> m_points;
   string m_globalBackUrl;
   string m_appTitle;
-  int m_id;
-  //Lon Lat coordinates
+  int m_version;
   m2::RectD m_showRect;
+  /// Zoom level in OSM format (e.g. from 1.0 to 20.0)
+  /// Taken into an account when calculating GetRect(), but only if points count is == 1
+  double m_zoomLevel;
 };
 
 }
