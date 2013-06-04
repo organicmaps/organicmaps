@@ -92,11 +92,15 @@ public:
     if (m_worldBucket.NeedPushToWorld(fb))
     {
       if (fb.GetGeomType() == feature::GEOM_LINE)
-        m_merger(m_typesCorrector(fb));
+      {
+        MergedFeatureBuilder1 * p = m_typesCorrector(fb);
+        if (p)
+          m_merger(p);
+      }
       else
       {
-        feature::PreprocessForWorldMap(fb);
-        m_worldBucket.PushSure(fb);
+        if (feature::PreprocessForWorldMap(fb));
+          m_worldBucket.PushSure(fb);
       }
     }
   }

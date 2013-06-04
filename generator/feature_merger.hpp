@@ -118,5 +118,6 @@ public:
 
 namespace feature
 {
-  void PreprocessForWorldMap(FeatureBuilder1 & fb);
+  /// @return false If fb became invalid (no any suitable types).
+  bool PreprocessForWorldMap(FeatureBuilder1 & fb);
 }

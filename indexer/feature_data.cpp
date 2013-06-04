@@ -179,6 +179,7 @@ void FeatureParams::SetType(uint32_t t)
 
 bool FeatureParams::PopAnyType(uint32_t & t)
 {
+  CHECK(!m_Types.empty(), ());
   t = m_Types.back();
   m_Types.pop_back();
   return m_Types.empty();

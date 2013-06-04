@@ -303,7 +303,11 @@ MergedFeatureBuilder1 * FeatureTypesProcessor::operator() (FeatureBuilder1 const
   p->ForEachChangeTypes(do_change_types(*this));
 
   // do preprocessing after types correction
-  feature::PreprocessForWorldMap(*p);
+  if (!feature::PreprocessForWorldMap(*p))
+  {
+    delete p;
+    return 0;
+  }
 
   // zero all additional params for world merged features (names, ranks, ...)
   p->ZeroParams();
@@ -328,13 +332,16 @@ public:
   }
 };
 
-void PreprocessForWorldMap(FeatureBuilder1 & fb)
+bool PreprocessForWorldMap(FeatureBuilder1 & fb)
 {
   int const upperScale = scales::GetUpperWorldScale();
 
-  fb.RemoveTypesIf(IsInvisibleFn(upperScale));
+  if (fb.RemoveTypesIf(IsInvisibleFn(upperScale)))
+    return false;
 
   fb.RemoveNameIfInvisible(0, upperScale);
+
+  return true;
 }
 
 }
