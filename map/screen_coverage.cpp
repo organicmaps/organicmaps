@@ -346,14 +346,14 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
     core::CommandsQueue::Chain chain;
 
-    chain.addCommand(bind(&CoverageGenerator::AddMergeTileTask,
+    chain.addCommand(bind(&CoverageGenerator::MergeTile,
                           m_coverageGenerator,
                           ri,
                           GetSequenceID()));
 
     if (m_isBenchmarking)
     {
-      chain.addCommand(bind(&CoverageGenerator::AddDecrementTileCountTask,
+      chain.addCommand(bind(&CoverageGenerator::DecrementTileCount,
                             m_coverageGenerator,
                             GetSequenceID()));
     }
@@ -379,7 +379,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
     if (m_isBenchmarking)
     {
-      chain.addCommand(bind(&CoverageGenerator::AddDecrementTileCountTask,
+      chain.addCommand(bind(&CoverageGenerator::DecrementTileCount,
                             m_coverageGenerator,
                             GetSequenceID()));
     }

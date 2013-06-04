@@ -12,11 +12,7 @@
 
 #include "../std/bind.hpp"
 
-bool g_coverageGeneratorDestroyed = false;
-
 CoverageGenerator::CoverageGenerator(
-    string const & skinName,
-    graphics::EDensity density,
     TileRenderer * tileRenderer,
     shared_ptr<WindowHandle> const & windowHandle,
     shared_ptr<graphics::RenderContext> const & primaryRC,
@@ -27,20 +23,10 @@ CoverageGenerator::CoverageGenerator(
     m_tileRenderer(tileRenderer),
     m_workCoverage(0),
     m_currentCoverage(0),
-    m_sequenceID(0),
     m_windowHandle(windowHandle),
     m_countryIndexFn(countryIndexFn),
-    m_glQueue(glQueue),
-    m_skinName(skinName),
-    m_density(density),
-    m_fenceManager(2),
-    m_currentFenceID(-1),
-    m_doForceUpdate(false),
-    m_isPaused(false),
-    m_isBenchmarking(false)
+    m_glQueue(glQueue)
 {
-  g_coverageGeneratorDestroyed = false;
-
   m_resourceManager = rm;
 
   if (!m_glQueue)
@@ -51,7 +37,27 @@ CoverageGenerator::CoverageGenerator(
 
   m_queue.Start();
 
-  Settings::Get("IsBenchmarking", m_isBenchmarking);
+  Settings::Get("IsBenchmarking", m_benchmarkInfo.m_isBenchmarking);
+}
+
+CoverageGenerator::~CoverageGenerator()
+{
+  LOG(LINFO, ("cancelling coverage thread"));
+  m_queue.Cancel();
+
+  LOG(LINFO, ("deleting workCoverage"));
+  delete m_workCoverage;
+  m_workCoverage = 0;
+
+  LOG(LINFO, ("deleting currentCoverage"));
+  delete m_currentCoverage;
+  m_currentCoverage = 0;
+}
+
+void CoverageGenerator::Shutdown()
+{
+  m_stateInfo.SetSequenceID(numeric_limits<int>::max());
+  m_queue.Join();
 }
 
 ScreenCoverage * CoverageGenerator::CreateCoverage()
@@ -71,14 +77,14 @@ ScreenCoverage * CoverageGenerator::CreateCoverage()
   shared_ptr<graphics::Screen> screen(new graphics::Screen(params));
 
   ScreenCoverage * screenCoverage = new ScreenCoverage(m_tileRenderer, this, screen);
-  screenCoverage->SetBenchmarkingFlag(m_isBenchmarking);
+  screenCoverage->SetBenchmarkingFlag(m_benchmarkInfo.m_isBenchmarking);
 
   return screenCoverage;
 }
 
 void CoverageGenerator::InitializeThreadGL()
 {
-  threads::MutexGuard g(m_mutex);
+  threads::MutexGuard g(m_stateInfo.m_mutex);
 
   LOG(LINFO, ("initializing CoverageGenerator on it's own thread."));
 
@@ -98,32 +104,192 @@ void CoverageGenerator::FinalizeThreadGL()
     m_renderContext->endThreadDrawing(m_resourceManager->cacheThreadSlot());
 }
 
-CoverageGenerator::~CoverageGenerator()
+void CoverageGenerator::Pause()
 {
-  LOG(LINFO, ("cancelling coverage thread"));
-  Cancel();
-
-  LOG(LINFO, ("deleting workCoverage"));
-  delete m_workCoverage;
-  m_workCoverage = 0;
-
-  LOG(LINFO, ("deleting currentCoverage"));
-  delete m_currentCoverage;
-  m_currentCoverage = 0;
-
-  g_coverageGeneratorDestroyed = true;
+  m_stateInfo.Pause();
+  m_queue.CancelCommands();
 }
 
-void CoverageGenerator::Cancel()
+void CoverageGenerator::Resume()
 {
-  //LOG(LDEBUG, ("UVRLOG : CoverageGenerator::Cancel"));
-  m_queue.Cancel();
+  m_stateInfo.Resume();
+}
+
+void CoverageGenerator::InvalidateTiles(m2::AnyRectD const & r, int startScale)
+{
+  if (m_stateInfo.m_sequenceID == numeric_limits<int>::max())
+    return;
+
+  /// this automatically will skip the previous CoverScreen commands
+  /// and MergeTiles commands from previously generated ScreenCoverages
+  ++m_stateInfo.m_sequenceID;
+
+  m_queue.AddCommand(bind(&CoverageGenerator::InvalidateTilesImpl, this, r, startScale));
+}
+
+void CoverageGenerator::CoverScreen(ScreenBase const & screen, bool doForce)
+{
+  if ((screen == m_stateInfo.m_currentScreen) && (!doForce))
+    return;
+
+  if (m_stateInfo.m_sequenceID == numeric_limits<int>::max())
+    return;
+
+  m_stateInfo.m_currentScreen = screen;
+
+  ++m_stateInfo.m_sequenceID;
+
+  m_queue.AddCommand(bind(&CoverageGenerator::CoverScreenImpl, this, _1, screen, m_stateInfo.m_sequenceID));
+}
+
+void CoverageGenerator::MergeTile(Tiler::RectInfo const & rectInfo,
+                                         int sequenceID)
+{
+  m_queue.AddCommand(bind(&CoverageGenerator::MergeTileImpl, this, _1, rectInfo, sequenceID));
+}
+
+void CoverageGenerator::CheckEmptyModel(int sequenceID)
+{
+  m_queue.AddCommand(bind(&CoverageGenerator::CheckEmptyModelImpl, this, sequenceID));
+}
+
+void CoverageGenerator::FinishSequenceIfNeeded()
+{
+  m_queue.AddCommand(bind(&CoverageGenerator::BenchmarkInfo::TryFinishSequence, &m_benchmarkInfo));
+}
+
+void CoverageGenerator::DecrementTileCount(int sequenceID)
+{
+  m_queue.AddCommand(bind(&CoverageGenerator::BenchmarkInfo::DecrementTileCount, &m_benchmarkInfo, sequenceID));
+}
+
+ScreenCoverage * CoverageGenerator::CurrentCoverage()
+{
+  return m_currentCoverage;
+}
+
+void CoverageGenerator::Lock()
+{
+  m_stateInfo.m_mutex.Lock();
+}
+
+void CoverageGenerator::Unlock()
+{
+  m_stateInfo.m_mutex.Unlock();
+}
+
+void CoverageGenerator::StartTileDrawingSession(int sequenceID, unsigned tileCount)
+{
+  ASSERT(m_benchmarkInfo.m_isBenchmarking, ("Only in benchmarking mode!"));
+  m_benchmarkInfo.m_benchmarkSequenceID = sequenceID;
+  m_benchmarkInfo.m_tilesCount = tileCount;
+}
+
+storage::TIndex CoverageGenerator::GetCountryIndex(m2::PointD const & pt) const
+{
+  return m_countryIndexFn(pt);
+}
+
+bool CoverageGenerator::DoForceUpdate() const
+{
+  return m_stateInfo.m_needForceUpdate;
+}
+
+////////////////////////////////////////////////////
+///           Benchmark support
+////////////////////////////////////////////////////
+int CoverageGenerator::InsertBenchmarkFence()
+{
+  return m_benchmarkInfo.InsertBenchmarkFence();
+}
+
+void CoverageGenerator::JoinBenchmarkFence(int fenceID)
+{
+  m_benchmarkInfo.JoinBenchmarkFence(fenceID);
+}
+
+////////////////////////////////////////////////////
+///       On Coverage generator thread methods
+////////////////////////////////////////////////////
+void CoverageGenerator::CoverScreenImpl(core::CommandsQueue::Environment const & env,
+                                        ScreenBase const & screen,
+                                        int sequenceID)
+{
+  if (sequenceID < m_stateInfo.m_sequenceID)
+    return;
+
+  m_currentCoverage->CopyInto(*m_workCoverage, false);
+
+  m_workCoverage->SetSequenceID(sequenceID);
+  m_workCoverage->SetScreen(screen);
+
+  if (!m_workCoverage->IsPartialCoverage() && m_workCoverage->IsEmptyDrawingCoverage())
+  {
+    m_workCoverage->ResetEmptyModelAtCoverageCenter();
+    CheckEmptyModel(sequenceID);
+  }
+
+  bool shouldSwap = !m_stateInfo.m_isPause && m_workCoverage->Cache(env);
+
+  if (shouldSwap)
+  {
+    threads::MutexGuard g(m_stateInfo.m_mutex);
+    swap(m_currentCoverage, m_workCoverage);
+  }
+  else
+  {
+    /// we should skip all the following MergeTile commands
+    ++m_stateInfo.m_sequenceID;
+  }
+
+  m_stateInfo.SetForceUpdate(!shouldSwap);
+
+  m_workCoverage->Clear();
+
+  m_windowHandle->invalidate();
+}
+
+void CoverageGenerator::MergeTileImpl(core::CommandsQueue::Environment const & env,
+                                  Tiler::RectInfo const & rectInfo,
+                                  int sequenceID)
+{
+  if (sequenceID < m_stateInfo.m_sequenceID)
+  {
+    m_tileRenderer->RemoveActiveTile(rectInfo, sequenceID);
+    return;
+  }
+
+  m_currentCoverage->CopyInto(*m_workCoverage, true);
+  m_workCoverage->SetSequenceID(sequenceID);
+  m_workCoverage->Merge(rectInfo);
+
+  if (!m_workCoverage->IsPartialCoverage() && m_workCoverage->IsEmptyDrawingCoverage())
+  {
+    m_workCoverage->ResetEmptyModelAtCoverageCenter();
+    CheckEmptyModel(sequenceID);
+  }
+
+  bool shouldSwap = !m_stateInfo.m_isPause && m_workCoverage->Cache(env);
+
+  if (shouldSwap)
+  {
+    threads::MutexGuard g(m_stateInfo.m_mutex);
+    swap(m_currentCoverage, m_workCoverage);
+    m_benchmarkInfo.DecrementTileCount(sequenceID);
+  }
+
+  m_stateInfo.SetForceUpdate(!shouldSwap);
+
+  m_workCoverage->Clear();
+
+  if (!m_benchmarkInfo.m_isBenchmarking)
+    m_windowHandle->invalidate();
 }
 
 void CoverageGenerator::InvalidateTilesImpl(m2::AnyRectD const & r, int startScale)
 {
   {
-    threads::MutexGuard g(m_mutex);
+    threads::MutexGuard g(m_stateInfo.m_mutex);
     m_currentCoverage->RemoveTiles(r, startScale);
   }
 
@@ -147,147 +313,9 @@ void CoverageGenerator::InvalidateTilesImpl(m2::AnyRectD const & r, int startSca
   tileCache.Unlock();
 }
 
-void CoverageGenerator::InvalidateTiles(m2::AnyRectD const & r, int startScale)
+void CoverageGenerator::CheckEmptyModelImpl(int sequenceID)
 {
-  if (m_sequenceID == numeric_limits<int>::max())
-    return;
-
-  /// this automatically will skip the previous CoverScreen commands
-  /// and MergeTiles commands from previously generated ScreenCoverages
-  ++m_sequenceID;
-
-  m_queue.AddCommand(bind(&CoverageGenerator::InvalidateTilesImpl, this, r, startScale));
-}
-
-void CoverageGenerator::AddCoverScreenTask(ScreenBase const & screen, bool doForce)
-{
-  if ((screen == m_currentScreen) && (!doForce))
-    return;
-
-  if (m_sequenceID == numeric_limits<int>::max())
-    return;
-
-  m_currentScreen = screen;
-
-  ++m_sequenceID;
-
-  m_queue.AddCommand(bind(&CoverageGenerator::CoverScreen, this, _1, screen, m_sequenceID));
-}
-
-int CoverageGenerator::InsertBenchmarkFence()
-{
-  ASSERT(m_isBenchmarking, ("Only in benchmarking mode!"));
-  m_currentFenceID = m_fenceManager.insertFence();
-  return m_currentFenceID;
-}
-
-void CoverageGenerator::JoinBenchmarkFence(int fenceID)
-{
-  ASSERT(m_isBenchmarking, ("Only in benchmarking mode!"));
-  CHECK(fenceID == m_currentFenceID, ("InsertBenchmarkFence without corresponding SignalBenchmarkFence detected"));
-  m_fenceManager.joinFence(fenceID);
-}
-
-void CoverageGenerator::SignalBenchmarkFence()
-{
-  ASSERT(m_isBenchmarking, ("Only in benchmarking mode!"));
-  if (m_currentFenceID != -1)
-    m_fenceManager.signalFence(m_currentFenceID);
-}
-
-void CoverageGenerator::CoverScreen(core::CommandsQueue::Environment const & env,
-                                    ScreenBase const & screen,
-                                    int sequenceID)
-{
-  if (sequenceID < m_sequenceID)
-    return;
-
-  m_currentCoverage->CopyInto(*m_workCoverage, false);
-
-  m_workCoverage->SetSequenceID(sequenceID);
-  m_workCoverage->SetScreen(screen);
-
-  if (!m_workCoverage->IsPartialCoverage() && m_workCoverage->IsEmptyDrawingCoverage())
-  {
-    m_workCoverage->ResetEmptyModelAtCoverageCenter();
-    AddCheckEmptyModelTask(sequenceID);
-  }
-
-  bool shouldSwap = !m_isPaused && m_workCoverage->Cache(env);
-
-  if (shouldSwap)
-  {
-    threads::MutexGuard g(m_mutex);
-    swap(m_currentCoverage, m_workCoverage);
-  }
-  else
-  {
-    /// we should skip all the following MergeTile commands
-    ++m_sequenceID;
-  }
-
-  m_doForceUpdate = !shouldSwap;
-
-  m_workCoverage->Clear();
-
-  m_windowHandle->invalidate();
-}
-
-void CoverageGenerator::AddMergeTileTask(Tiler::RectInfo const & rectInfo,
-                                         int sequenceID)
-{
-  if (g_coverageGeneratorDestroyed)
-    return;
-
-  m_queue.AddCommand(bind(&CoverageGenerator::MergeTile, this, _1, rectInfo, sequenceID));
-}
-
-void CoverageGenerator::MergeTile(core::CommandsQueue::Environment const & env,
-                                  Tiler::RectInfo const & rectInfo,
-                                  int sequenceID)
-{
-  if (sequenceID < m_sequenceID)
-  {
-    //LOG(LDEBUG, ("UVRLOG : MergeTile fail. s=", rectInfo.m_tileScale, " x=", rectInfo.m_x, " y=", rectInfo.m_y, " SequenceID=", sequenceID, " m_SequenceID=", m_sequenceID));
-    m_tileRenderer->RemoveActiveTile(rectInfo, sequenceID);
-    return;
-  }
-
-  //LOG(LDEBUG, ("UVRLOG : MergeTile s=", rectInfo.m_tileScale, " x=", rectInfo.m_x, " y=", rectInfo.m_y, " SequenceID=", sequenceID, " m_SequenceID=", m_sequenceID));
-  m_currentCoverage->CopyInto(*m_workCoverage, true);
-  m_workCoverage->SetSequenceID(sequenceID);
-  m_workCoverage->Merge(rectInfo);
-
-  if (!m_workCoverage->IsPartialCoverage() && m_workCoverage->IsEmptyDrawingCoverage())
-  {
-    m_workCoverage->ResetEmptyModelAtCoverageCenter();
-    AddCheckEmptyModelTask(sequenceID);
-  }
-
-  bool shouldSwap = !m_isPaused && m_workCoverage->Cache(env);
-
-  if (shouldSwap)
-  {
-    threads::MutexGuard g(m_mutex);
-    swap(m_currentCoverage, m_workCoverage);
-  }
-
-  m_doForceUpdate = !shouldSwap;
-
-  m_workCoverage->Clear();
-
-  if (!m_isBenchmarking)
-    m_windowHandle->invalidate();
-}
-
-void CoverageGenerator::AddCheckEmptyModelTask(int sequenceID)
-{
-  m_queue.AddCommand(bind(&CoverageGenerator::CheckEmptyModel, this, sequenceID));
-}
-
-void CoverageGenerator::CheckEmptyModel(int sequenceID)
-{
-  if (sequenceID < m_sequenceID)
+  if (sequenceID < m_stateInfo.m_sequenceID)
     return;
 
   m_currentCoverage->CheckEmptyModelAtCoverageCenter();
@@ -295,89 +323,89 @@ void CoverageGenerator::CheckEmptyModel(int sequenceID)
   m_windowHandle->invalidate();
 }
 
-void CoverageGenerator::AddFinishSequenceTaskIfNeeded()
+////////////////////////////////////////////////////////////
+///             BenchmarkInfo
+////////////////////////////////////////////////////////////
+
+CoverageGenerator::BenchmarkInfo::BenchmarkInfo()
+  : m_benchmarkSequenceID(numeric_limits<int>::max())
+  , m_tilesCount(-1)
+  , m_fenceManager(2)
+  , m_currentFenceID(-1)
+  , m_isBenchmarking(false)
 {
-  if (g_coverageGeneratorDestroyed)
+}
+
+void CoverageGenerator::BenchmarkInfo::DecrementTileCount(int sequenceID)
+{
+  if (!m_isBenchmarking)
     return;
 
-  if (m_benchmarkBarrier.m_tilesCount == 0)
+  if (sequenceID < m_benchmarkSequenceID)
   {
-    // this instruction based on idea that up to this point all tiles is rendered, all threads
-    // expect gui thread in wait state, and no one can modify m_tilesCount expect gui thread.
-    // If banchmarking engine change logic, may be m_tilesCount need to be guard by some sync primitive
-    m_benchmarkBarrier.m_tilesCount = -1;
-    m_queue.AddCommand(bind(&CoverageGenerator::FinishSequence, this));
+    m_tilesCount = -1;
+    return;
+  }
+  m_tilesCount -= 1;
+}
+
+int CoverageGenerator::BenchmarkInfo::InsertBenchmarkFence()
+{
+  ASSERT(m_isBenchmarking, ("Only for benchmark mode"));
+  m_currentFenceID = m_fenceManager.insertFence();
+  return m_currentFenceID;
+}
+
+void CoverageGenerator::BenchmarkInfo::JoinBenchmarkFence(int fenceID)
+{
+  ASSERT(m_isBenchmarking, ("Only for benchmark mode"));
+  CHECK(fenceID == m_currentFenceID, ("InsertBenchmarkFence without corresponding SignalBenchmarkFence detected"));
+  m_fenceManager.joinFence(fenceID);
+}
+
+void CoverageGenerator::BenchmarkInfo::SignalBenchmarkFence()
+{
+  ASSERT(m_isBenchmarking, ("Only for benchmark mode"));
+  if (m_currentFenceID != -1)
+    m_fenceManager.signalFence(m_currentFenceID);
+}
+
+void CoverageGenerator::BenchmarkInfo::TryFinishSequence()
+{
+  if (m_tilesCount == 0)
+  {
+    m_tilesCount = -1;
+    SignalBenchmarkFence();
   }
 }
 
-void CoverageGenerator::FinishSequence()
+////////////////////////////////////////////////////////////
+///             BenchmarkInfo
+////////////////////////////////////////////////////////////
+CoverageGenerator::StateInfo::StateInfo()
+  : m_isPause(false)
+  , m_needForceUpdate(false)
+  , m_sequenceID(0)
 {
-  SignalBenchmarkFence();
 }
 
-void CoverageGenerator::AddDecrementTileCountTask(int sequenceID)
-{
-  if (g_coverageGeneratorDestroyed)
-    return;
-
-  m_queue.AddCommand(bind(&CoverageGenerator::DecrementTileCounter, this, sequenceID));
-}
-
-void CoverageGenerator::DecrementTileCounter(int sequenceID)
-{
-  ASSERT(m_isBenchmarking, ("Only in benchmarking mode!"));
-  m_benchmarkBarrier.DecrementTileCounter(sequenceID);
-  m_windowHandle->invalidate();
-}
-
-void CoverageGenerator::WaitForEmptyAndFinished()
-{
-  m_queue.Join();
-}
-
-ScreenCoverage * CoverageGenerator::CurrentCoverage()
-{
-  return m_currentCoverage;
-}
-
-threads::Mutex & CoverageGenerator::Mutex()
-{
-  return m_mutex;
-}
-
-void CoverageGenerator::SetSequenceID(int sequenceID)
+void CoverageGenerator::StateInfo::SetSequenceID(int sequenceID)
 {
   m_sequenceID = sequenceID;
 }
 
-void CoverageGenerator::StartTileDrawingSession(int sequenceID, unsigned tileCount)
+void CoverageGenerator::StateInfo::SetForceUpdate(bool needForceUpdate)
 {
-  ASSERT(m_isBenchmarking, ("Only in benchmarking mode!"));
-  m_benchmarkBarrier.m_sequenceID = sequenceID;
-  m_benchmarkBarrier.m_tilesCount = tileCount;
+  m_needForceUpdate = needForceUpdate;
 }
 
-shared_ptr<graphics::ResourceManager> const & CoverageGenerator::resourceManager() const
+void CoverageGenerator::StateInfo::Pause()
 {
-  return m_resourceManager;
+  m_isPause = true;
 }
 
-storage::TIndex CoverageGenerator::GetCountryIndex(m2::PointD const & pt) const
+void CoverageGenerator::StateInfo::Resume()
 {
-  return m_countryIndexFn(pt);
-}
-
-void CoverageGenerator::CancelCommands()
-{
-  m_queue.CancelCommands();
-}
-
-void CoverageGenerator::SetIsPaused(bool flag)
-{
-  m_isPaused = flag;
-}
-
-bool CoverageGenerator::DoForceUpdate() const
-{
-  return m_doForceUpdate;
+  m_isPause = false;
+  m_needForceUpdate = true;
 }

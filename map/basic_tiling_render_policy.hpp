@@ -37,7 +37,6 @@ protected:
   int  m_DrawScale;
   bool m_IsEmptyModel;
   storage::TIndex m_countryIndex;
-  bool m_DoRecreateCoverage;
   bool m_IsNavigating;
   bool m_WasAnimatingLastFrame;
   size_t m_TileSize;

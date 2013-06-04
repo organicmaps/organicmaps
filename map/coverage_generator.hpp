@@ -39,25 +39,105 @@ namespace graphics
 /// newly rendered tile(p.e. merge it into current ScreenCoverage).
 class CoverageGenerator
 {
+  ScreenCoverage * CreateCoverage();
+
+public:
+
+  CoverageGenerator(TileRenderer * tileRenderer,
+                    shared_ptr<WindowHandle> const & windowHandle,
+                    shared_ptr<graphics::RenderContext> const & primaryRC,
+                    shared_ptr<graphics::ResourceManager> const & rm,
+                    graphics::PacketsQueue * glQueue,
+                    RenderPolicy::TCountryIndexFn const & countryIndexFn);
+
+  ~CoverageGenerator();
+
+  void Shutdown();
+
+  void InitializeThreadGL();
+  void FinalizeThreadGL();
+
+  //@{ Add task to run on CoverageGenerator thread
+  void InvalidateTiles(m2::AnyRectD const & rect, int startScale);
+  void CoverScreen(ScreenBase const & screen, bool doForce);
+  void MergeTile(Tiler::RectInfo const & rectInfo,
+                        int sequenceID);
+  void FinishSequenceIfNeeded();
+  void DecrementTileCount(int sequenceID);
+  void CheckEmptyModel(int sequenceID);
+  //}@
+
+  //@{ Benchmark support
+  int InsertBenchmarkFence();
+  void JoinBenchmarkFence(int fenceID);
+  //}@
+
+  storage::TIndex GetCountryIndex(m2::PointD const & pt) const;
+
+  ScreenCoverage * CurrentCoverage();
+
+  void StartTileDrawingSession(int sequenceID, unsigned tileCount);
+
+  //@{ Frame lock
+  void Lock();
+  void Unlock();
+  //}@
+
+  void Pause();
+  void Resume();
+
+  bool DoForceUpdate() const;
+
 private:
-  struct BenchmarkRenderingBarier
+  void CoverScreenImpl(core::CommandsQueue::Environment const & env,
+                       ScreenBase const & screen,
+                       int sequenceID);
+
+  void MergeTileImpl(core::CommandsQueue::Environment const & env,
+                     Tiler::RectInfo const & rectInfo,
+                     int sequenceID);
+
+  void InvalidateTilesImpl(m2::AnyRectD const & rect, int startScale);
+
+  void CheckEmptyModelImpl(int sequenceID);
+
+private:
+  struct BenchmarkInfo
   {
-    BenchmarkRenderingBarier()
-      : m_sequenceID(-1), m_tilesCount(-1)
-    {
-    }
+    int m_benchmarkSequenceID;
+    int m_tilesCount;
 
+    FenceManager m_fenceManager;
+    int m_currentFenceID;
+
+    bool m_isBenchmarking;
+
+    BenchmarkInfo();
+
+    void DecrementTileCount(int sequenceID);
+
+    int InsertBenchmarkFence();
+    void JoinBenchmarkFence(int fenceID);
+    void SignalBenchmarkFence();
+    void TryFinishSequence();
+  } m_benchmarkInfo;
+
+  struct StateInfo
+  {
+    bool m_isPause;
+    bool m_needForceUpdate;
     int m_sequenceID;
-    unsigned m_tilesCount;
+    ScreenBase m_currentScreen;
+    threads::Mutex m_mutex;
 
-    void DecrementTileCounter(int sequenceID)
-    {
-      if (sequenceID == m_sequenceID)
-        --m_tilesCount;
-    }
-  };
+    StateInfo();
 
-  BenchmarkRenderingBarier m_benchmarkBarrier;
+    void SetSequenceID(int sequenceID);
+    void SetForceUpdate(bool needForceUpdate);
+
+    void Pause();
+    void Resume();
+  } m_stateInfo;
 
   core::CommandsQueue m_queue;
 
@@ -69,90 +149,9 @@ private:
   ScreenCoverage * m_workCoverage;
   ScreenCoverage * m_currentCoverage;
 
-  ScreenBase m_currentScreen;
-  int m_sequenceID;
-
   shared_ptr<WindowHandle> m_windowHandle;
-
-  threads::Mutex m_mutex;
 
   RenderPolicy::TCountryIndexFn m_countryIndexFn;
 
   graphics::PacketsQueue * m_glQueue;
-  string m_skinName;
-  graphics::EDensity m_density;
-
-  FenceManager m_fenceManager;
-  int m_currentFenceID;
-
-  bool m_doForceUpdate;
-  bool m_isPaused;
-  bool m_isBenchmarking;
-
-  ScreenCoverage * CreateCoverage();
-
-public:
-
-  CoverageGenerator(string const & skinName,
-                    graphics::EDensity density,
-                    TileRenderer * tileRenderer,
-                    shared_ptr<WindowHandle> const & windowHandle,
-                    shared_ptr<graphics::RenderContext> const & primaryRC,
-                    shared_ptr<graphics::ResourceManager> const & rm,
-                    graphics::PacketsQueue * glQueue,
-                    RenderPolicy::TCountryIndexFn const & countryIndexFn);
-
-  ~CoverageGenerator();
-
-  void InitializeThreadGL();
-  void FinalizeThreadGL();
-
-  void InvalidateTiles(m2::AnyRectD const & rect, int startScale);
-  void InvalidateTilesImpl(m2::AnyRectD const & rect, int startScale);
-
-  void AddCoverScreenTask(ScreenBase const & screen, bool doForce);
-  void AddMergeTileTask(Tiler::RectInfo const & rectInfo,
-                        int sequenceID);
-
-  void AddCheckEmptyModelTask(int sequenceID);
-  void AddFinishSequenceTaskIfNeeded();
-
-  void AddDecrementTileCountTask(int sequenceID);
-  void DecrementTileCounter(int sequenceID);
-
-  void CoverScreen(core::CommandsQueue::Environment const & env,
-                   ScreenBase const & screen,
-                   int sequenceID);
-
-  void MergeTile(core::CommandsQueue::Environment const & env,
-                 Tiler::RectInfo const & rectInfo,
-                 int sequenceID);
-
-  void CheckEmptyModel(int sequenceID);
-
-  void FinishSequence();
-
-  void Cancel();
-
-  void WaitForEmptyAndFinished();
-
-  storage::TIndex GetCountryIndex(m2::PointD const & pt) const;
-
-  ScreenCoverage * CurrentCoverage();
-
-  int InsertBenchmarkFence();
-  void JoinBenchmarkFence(int fenceID);
-  void SignalBenchmarkFence();
-
-  bool DoForceUpdate() const;
-
-  void SetSequenceID(int sequenceID);
-  void StartTileDrawingSession(int sequenceID, unsigned tileCount);
-
-  threads::Mutex & Mutex();
-
-  shared_ptr<graphics::ResourceManager> const & resourceManager() const;
-
-  void SetIsPaused(bool flag);
-  void CancelCommands();
 };

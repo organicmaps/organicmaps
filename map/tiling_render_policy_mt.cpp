@@ -174,9 +174,7 @@ void TilingRenderPolicyMT::SetRenderFn(TRenderFn renderFn)
                                         VisualScale(),
                                         0));
 
-  m_CoverageGenerator.reset(new CoverageGenerator(skinName,
-                                                  Density(),
-                                                  m_TileRenderer.get(),
+  m_CoverageGenerator.reset(new CoverageGenerator(m_TileRenderer.get(),
                                                   m_windowHandle,
                                                   m_primaryRC,
                                                   m_resourceManager,

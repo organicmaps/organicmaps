@@ -39,7 +39,6 @@ BasicTilingRenderPolicy::BasicTilingRenderPolicy(Params const & p,
   : RenderPolicy(p, GetPlatform().IsPro(), GetPlatform().CpuCores() + 2),
     m_DrawScale(0),
     m_IsEmptyModel(false),
-    m_DoRecreateCoverage(false),
     m_IsNavigating(false),
     m_WasAnimatingLastFrame(false)
 {
@@ -95,13 +94,11 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
     m_CoverageGenerator->InvalidateTiles(GetInvalidRect(), scales::GetUpperWorldScale() + 1);
 
   if (!m_IsNavigating && (!IsAnimating()))
-    m_CoverageGenerator->AddCoverScreenTask(s,
-                                            doForceUpdateFromGenerator
-                                            || m_DoRecreateCoverage
-                                            || (doForceUpdate && doIntersectInvalidRect));
+    m_CoverageGenerator->CoverScreen(s,
+                                     doForceUpdateFromGenerator
+                                     || (doForceUpdate && doIntersectInvalidRect));
 
   SetForceUpdate(false);
-  m_DoRecreateCoverage = false;
 
   /// rendering current coverage
 
@@ -111,7 +108,7 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
 
   pDrawer->screen()->clear(m_bgColor);
 
-  m_CoverageGenerator->Mutex().Lock();
+  FrameLock();
 
   ScreenCoverage * curCvg = m_CoverageGenerator->CurrentCoverage();
 
@@ -131,12 +128,12 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
   }
 
   pDrawer->endFrame();
-  m_CoverageGenerator->AddFinishSequenceTaskIfNeeded();
+  m_CoverageGenerator->FinishSequenceIfNeeded();
 }
 
 void BasicTilingRenderPolicy::EndFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {
-  m_CoverageGenerator->Mutex().Unlock();
+  FrameUnlock();
 
   if (m_QueuedRenderer)
     m_QueuedRenderer->EndFrame();
@@ -153,8 +150,7 @@ void BasicTilingRenderPolicy::PauseBackgroundRendering()
 {
   m_TileRenderer->SetIsPaused(true);
   m_TileRenderer->CancelCommands();
-  m_CoverageGenerator->SetIsPaused(true);
-  m_CoverageGenerator->CancelCommands();
+  m_CoverageGenerator->Pause();
   if (m_QueuedRenderer)
     m_QueuedRenderer->SetPartialExecution(GetPlatform().CpuCores(), true);
 }
@@ -162,8 +158,7 @@ void BasicTilingRenderPolicy::PauseBackgroundRendering()
 void BasicTilingRenderPolicy::ResumeBackgroundRendering()
 {
   m_TileRenderer->SetIsPaused(false);
-  m_CoverageGenerator->SetIsPaused(false);
-  m_DoRecreateCoverage = true;
+  m_CoverageGenerator->Resume();
   if (m_QueuedRenderer)
     m_QueuedRenderer->SetPartialExecution(GetPlatform().CpuCores(), false);
 }
@@ -256,12 +251,12 @@ size_t BasicTilingRenderPolicy::TileSize() const
 
 void BasicTilingRenderPolicy::FrameLock()
 {
-  m_CoverageGenerator->Mutex().Lock();
+  m_CoverageGenerator->Lock();
 }
 
 void BasicTilingRenderPolicy::FrameUnlock()
 {
-  m_CoverageGenerator->Mutex().Unlock();
+  m_CoverageGenerator->Unlock();
 }
 
 shared_ptr<graphics::Overlay> const BasicTilingRenderPolicy::FrameOverlay() const

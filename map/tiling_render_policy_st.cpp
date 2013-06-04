@@ -160,8 +160,7 @@ TilingRenderPolicyST::~TilingRenderPolicyST()
   m_QueuedRenderer->PrepareQueueCancellation(cpuCores);
 
   /// now we should process all commands to collect them into queues
-  m_CoverageGenerator->SetSequenceID(numeric_limits<int>::max());
-  m_CoverageGenerator->WaitForEmptyAndFinished();
+  m_CoverageGenerator->Shutdown();
 
   m_QueuedRenderer->CancelQueuedCommands(cpuCores);
 
@@ -214,9 +213,7 @@ void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
   /// CoverageGenerator rendering queue could execute commands partially
   /// as there are no render-to-texture calls.
 //  m_QueuedRenderer->SetPartialExecution(cpuCores, true);
-  m_CoverageGenerator.reset(new CoverageGenerator(skinName,
-                                                  Density(),
-                                                  m_TileRenderer.get(),
+  m_CoverageGenerator.reset(new CoverageGenerator(m_TileRenderer.get(),
                                                   m_windowHandle,
                                                   m_primaryRC,
                                                   m_resourceManager,
