@@ -52,7 +52,7 @@ UNIT_TEST(MapApiPointNameBeforeLatLon)
 
 UNIT_TEST(MapApiPointNameOverwritten)
 {
-  ParsedMapApi api(Uri("mapswithme://map?ll=1,2&n=A&n=B"));
+  ParsedMapApi api(Uri("mapswithme://map?ll=1,2&n=A&N=B"));
   TEST(api.IsValid(), ());
   TEST_EQUAL(api.GetPoints().size(), 1, ());
   TEST_EQUAL(api.GetPoints()[0].m_title, "B", ());
@@ -60,7 +60,7 @@ UNIT_TEST(MapApiPointNameOverwritten)
 
 UNIT_TEST(MapApiMultiplePoints)
 {
-  ParsedMapApi api(Uri("mwm://map?ll=1.1,1.2&n=A&ll=2.1,2.2&ll=-3.1,-3.2&n=C"));
+  ParsedMapApi api(Uri("mwm://map?ll=1.1,1.2&n=A&LL=2.1,2.2&ll=-3.1,-3.2&n=C"));
   TEST(api.IsValid(), ());
   TEST_EQUAL(api.GetPoints().size(), 3, ());
   TEST_EQUAL(api.GetPoints()[0].m_lat, 1.1, ());
@@ -108,7 +108,7 @@ UNIT_TEST(GlobalBackUrl)
     TEST_EQUAL(api.GetGlobalBackUrl(), "http://mapswithme.com", ());
   }
   {
-    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName&backurl=someapp://%D0%9C%D0%BE%D0%B1%D0%B8%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%9A%D0%B0%D1%80%D1%82%D1%8B"));
+    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName&backUrl=someapp://%D0%9C%D0%BE%D0%B1%D0%B8%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%9A%D0%B0%D1%80%D1%82%D1%8B"));
     TEST_EQUAL(api.GetGlobalBackUrl(), "someapp://\xd0\x9c\xd0\xbe\xd0\xb1\xd0\xb8\xd0\xbb\xd1\x8c\xd0\xbd\xd1\x8b\xd0\xb5 \xd0\x9a\xd0\xb0\xd1\x80\xd1\x82\xd1\x8b", ());
   }
   {
@@ -160,7 +160,7 @@ UNIT_TEST(AppNameTest)
     TEST_EQUAL(api.GetAppTitle(), "Google", ());
   }
   {
-    ParsedMapApi api(Uri("mwm://map?ll=1,2&v=1&n=PointName&appname=%D0%AF%D0%BD%D0%B4%D0%B5%D0%BA%D1%81"));
+    ParsedMapApi api(Uri("mwm://map?ll=1,2&v=1&n=PointName&AppName=%D0%AF%D0%BD%D0%B4%D0%B5%D0%BA%D1%81"));
     TEST_EQUAL(api.GetAppTitle(), "Яндекс", ());
   }
   {

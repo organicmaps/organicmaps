@@ -66,6 +66,8 @@ void ParsedMapApi::AddKeyValue(string const & key, string const & value)
   }
   if (key == "appname")
     m_appTitle = value;
+  strings::AsciiToLower(key);
+
   if (key == "ll")
   {
     m_points.push_back(ApiPoint());
