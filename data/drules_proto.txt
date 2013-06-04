@@ -51622,21 +51622,48 @@ cont {
     scale: 17
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 18
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 19
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
 }
@@ -51653,21 +51680,87 @@ cont {
     scale: 17
     symbol {
       name: "bakery"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 18
     symbol {
       name: "bakery"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 19
     symbol {
       name: "bakery"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+}
+cont {
+  name: "shop-beverages"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
 }
@@ -51684,21 +51777,48 @@ cont {
     scale: 17
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 18
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 19
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
 }
@@ -51708,21 +51828,48 @@ cont {
     scale: 17
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 18
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 19
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
 }
@@ -51732,21 +51879,87 @@ cont {
     scale: 17
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 18
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 19
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+}
+cont {
+  name: "shop-car"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
 }
@@ -51763,21 +51976,87 @@ cont {
     scale: 17
     symbol {
       name: "car_repair"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 18
     symbol {
       name: "car_repair"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 19
     symbol {
       name: "car_repair"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+}
+cont {
+  name: "shop-chemist"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
 }
@@ -51794,21 +52073,126 @@ cont {
     scale: 17
     symbol {
       name: "clothes"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 18
     symbol {
       name: "clothes"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 19
     symbol {
       name: "clothes"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+}
+cont {
+  name: "shop-computer"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+}
+cont {
+  name: "shop-confectionery"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
 }
@@ -51825,21 +52209,48 @@ cont {
     scale: 17
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 18
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 19
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
 }
@@ -51856,21 +52267,48 @@ cont {
     scale: 17
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 18
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 19
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
 }
@@ -51887,21 +52325,48 @@ cont {
     scale: 17
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 18
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 19
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
 }
@@ -51911,21 +52376,48 @@ cont {
     scale: 17
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 18
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 19
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
 }
@@ -51935,21 +52427,165 @@ cont {
     scale: 17
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 18
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 19
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+}
+cont {
+  name: "shop-garden_centre"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+}
+cont {
+  name: "shop-gift"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+}
+cont {
+  name: "shop-greengrocer"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
 }
@@ -51966,21 +52602,126 @@ cont {
     scale: 17
     symbol {
       name: "hairdresser"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 18
     symbol {
       name: "hairdresser"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 19
     symbol {
       name: "hairdresser"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+}
+cont {
+  name: "shop-hardware"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+}
+cont {
+  name: "shop-jewelry"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
 }
@@ -51997,21 +52738,48 @@ cont {
     scale: 17
     symbol {
       name: "kiosk"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 18
     symbol {
       name: "kiosk"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 19
     symbol {
       name: "kiosk"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
 }
@@ -52028,21 +52796,126 @@ cont {
     scale: 17
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 18
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 19
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+}
+cont {
+  name: "shop-mobile_phone"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+}
+cont {
+  name: "shop-optician"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
 }
@@ -52052,21 +52925,48 @@ cont {
     scale: 17
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 18
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 19
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
 }
@@ -52083,21 +52983,87 @@ cont {
     scale: 17
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 18
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
   element {
     scale: 19
     symbol {
       name: "supermarket"
-      priority: 16000
+      priority: 16005
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+}
+cont {
+  name: "shop-toys"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15005
     }
   }
 }
