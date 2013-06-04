@@ -11,6 +11,10 @@ include($$ROOT_DIR/common.pri)
 CONFIG -= warn_on
 CONFIG *= warn_off
 
+linux-g++* {
+  DEFINES += OMIM_FULL_FREETYPE
+}
+
 SOURCES += \
     src/autofit/afangles.c \
     src/autofit/afcjk.c \
@@ -94,3 +98,27 @@ SOURCES += \
     src/truetype/truetype.c \
     src/cache/ftstrokedcache.c
 
+contains(DEFINES, OMIM_FULL_FREETYPE) {
+  SOURCES += \
+    src/cff/cf2ft.c \
+    src/cff/cf2font.c \
+    src/cff/cf2blues.c \
+    src/cff/cf2intrp.c \
+    src/cff/cf2stack.c \
+    src/cff/cf2arrst.c \
+    src/cff/cf2hints.c \
+    src/cff/cf2error.c \
+    src/cff/cf2read.c \
+    src/type1/t1afm.c \
+    src/type1/t1driver.c \
+    src/type1/t1gload.c \
+    src/type1/t1load.c \
+    src/type1/t1objs.c \
+    src/type1/t1parse.c \
+    src/type42/t42drivr.c \
+    src/type42/t42objs.c \
+    src/type42/t42parse.c \
+    src/type42/type42.c \
+    src/winfonts/winfnt.c \
+
+}
