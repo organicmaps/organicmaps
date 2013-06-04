@@ -89,8 +89,8 @@ private:
 
 BookmarkBalloon::BookmarkBalloon(Params const & p)
  : Balloon(p),
-   m_isPositionChecked(true),
-   m_framework(p.m_framework)
+   m_framework(p.m_framework),
+   m_isPositionChecked(true)
 {
 }
 

@@ -10,7 +10,7 @@ namespace scales
 {
   /// @name This parameters should be tuned.
   //@{
-  static const int initial_level = 1;
+  static const int INITIAL_LEVEL = 1;
 
   double GetM2PFactor(int level)
   {
@@ -26,7 +26,7 @@ namespace scales
 
   double GetScaleLevelD(double ratio)
   {
-    double const level = min(static_cast<double>(GetUpperScale()), log(ratio) / log(2.0) + initial_level);
+    double const level = min(static_cast<double>(GetUpperScale()), log(ratio) / log(2.0) + INITIAL_LEVEL);
     return (level < 0.0 ? 0.0 : level);
   }
 
@@ -52,8 +52,9 @@ namespace scales
 
   double GetRationForLevel(double level)
   {
-    if (level < initial_level) level = initial_level;
-    return pow(2.0, level - initial_level);
+    if (level < INITIAL_LEVEL)
+      level = INITIAL_LEVEL;
+    return pow(2.0, level - INITIAL_LEVEL);
   }
 
   m2::RectD GetRectForLevel(double level, m2::PointD const & center, double X2YRatio)

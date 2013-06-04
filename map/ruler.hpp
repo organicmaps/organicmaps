@@ -32,7 +32,6 @@ private:
   /// @todo Remove this variables. All this stuff are constants
   /// (get values from Framework constructor)
   unsigned m_minPxWidth;
-  unsigned m_maxPxWidth;
 
   double m_minMetersWidth;
   double m_maxMetersWidth;
