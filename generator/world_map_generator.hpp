@@ -99,7 +99,7 @@ public:
       }
       else
       {
-        if (feature::PreprocessForWorldMap(fb));
+        if (feature::PreprocessForWorldMap(fb))
           m_worldBucket.PushSure(fb);
       }
     }
