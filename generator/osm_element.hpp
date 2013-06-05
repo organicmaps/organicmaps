@@ -3,7 +3,7 @@
 #include "osm2type.hpp"
 #include "xml_element.hpp"
 #include "feature_builder.hpp"
-#include "osm_decl.hpp"
+#include "ways_merger.hpp"
 
 #include "../indexer/feature_visibility.hpp"
 
@@ -13,8 +13,6 @@
 
 #include "../std/unordered_map.hpp"
 #include "../std/list.hpp"
-#include "../std/set.hpp"
-#include "../std/vector.hpp"
 
 
 /// @param  TEmitter  Feature accumulating policy
@@ -33,116 +31,38 @@ protected:
     SetTags(tags);
   }
 
-  static bool IsValidAreaPath(vector<m2::PointD> const & pts)
-  {
-    return (pts.size() > 2 && pts.front() == pts.back());
-  }
-
-  bool GetPoint(uint64_t id, m2::PointD & pt)
+  bool GetPoint(uint64_t id, m2::PointD & pt) const
   {
     return m_holder.GetNode(id, pt.y, pt.x);
   }
 
-  template <class ToDo> class process_points
-  {
-    SecondPassParserBase * m_pMain;
-    ToDo & m_toDo;
-
-  public:
-    process_points(SecondPassParserBase * pMain, ToDo & toDo)
-      : m_pMain(pMain), m_toDo(toDo)
-    {
-    }
-    void operator () (uint64_t id)
-    {
-      m2::PointD pt;
-      if (m_pMain->GetPoint(id, pt))
-        m_toDo(pt);
-    }
-  };
-
-  typedef multimap<uint64_t, shared_ptr<WayElement> > way_map_t;
-
-  void GetWay(uint64_t id, way_map_t & m)
-  {
-    shared_ptr<WayElement> e(new WayElement(id));
-    if (m_holder.GetWay(id, *e) && e->IsValid())
-    {
-      m.insert(make_pair(e->nodes.front(), e));
-      m.insert(make_pair(e->nodes.back(), e));
-    }
-  }
-
-  template <class ToDo>
-  void ForEachWayPoint(uint64_t id, ToDo toDo)
-  {
-    WayElement e(id);
-    if (m_holder.GetWay(id, e))
-    {
-      process_points<ToDo> process(this, toDo);
-      e.ForEachPoint(process);
-    }
-  }
-
-  template <class ToDo>
-  void ProcessWayPoints(way_map_t & m, ToDo toDo)
-  {
-    if (m.empty()) return;
-
-    typedef way_map_t::iterator iter_t;
-
-    // start
-    iter_t i = m.begin();
-    uint64_t id = i->first;
-
-    process_points<ToDo> process(this, toDo);
-    do
-    {
-      // process way points
-      shared_ptr<WayElement> e = i->second;
-      e->ForEachPointOrdered(id, process);
-
-      m.erase(i);
-
-      // next 'id' to process
-      id = e->GetOtherEndPoint(id);
-      pair<iter_t, iter_t> r = m.equal_range(id);
-
-      // finally erase element 'e' and find next way in chain
-      i = r.second;
-      while (r.first != r.second)
-      {
-        if (r.first->second == e)
-          m.erase(r.first++);
-        else
-        {
-          i = r.first;
-          ++r.first;
-        }
-      }
-
-      if (i == r.second) break;
-    } while (true);
-  }
+  typedef vector<m2::PointD> pts_vec_t;
+  typedef list<pts_vec_t> holes_list_t;
 
   class holes_accumulator
   {
-    SecondPassParserBase * m_pMain;
+    AreaWayMerger<THolder> m_merger;
+    holes_list_t m_holes;
 
   public:
-    /// @param[out] list of holes
-    list<vector<m2::PointD> > m_holes;
-
-    holes_accumulator(SecondPassParserBase * pMain) : m_pMain(pMain) {}
+    holes_accumulator(SecondPassParserBase * pMain) : m_merger(pMain->m_holder) {}
 
     void operator() (uint64_t id)
     {
-      m_holes.push_back(vector<m2::PointD>());
+      m_merger.AddWay(id);
+    }
 
-      m_pMain->ForEachWayPoint(id, MakeBackInsertFunctor(m_holes.back()));
+    void operator() (pts_vec_t & v, vector<uint64_t> const &)
+    {
+      m_holes.push_back(pts_vec_t());
+      m_holes.back().swap(v);
+    }
 
-      if (!m_pMain->IsValidAreaPath(m_holes.back()))
-        m_holes.pop_back();
+    holes_list_t & GetHoles()
+    {
+      ASSERT ( m_holes.empty(), ("Can call only once") );
+      m_merger.ForEachArea(*this, false);
+      return m_holes;
     }
   };
 
@@ -181,7 +101,7 @@ protected:
         m_holes(id);
     }
 
-    list<vector<m2::PointD> > & GetHoles() { return m_holes.m_holes; }
+    holes_list_t & GetHoles() { return m_holes.GetHoles(); }
   };
 
   /// Feature types processor.
@@ -344,6 +264,45 @@ protected:
     // unrecognized feature by classificator
     return fValue.IsValid();
   }
+
+  class multipolygons_emitter
+  {
+    SecondPassParserBase * m_pMain;
+    FeatureParams const & m_params;
+    holes_list_t & m_holes;
+    uint64_t m_relID;
+
+  public:
+    multipolygons_emitter(SecondPassParserBase * pMain,
+                          FeatureParams const & params,
+                          holes_list_t & holes,
+                          uint64_t relID)
+      : m_pMain(pMain), m_params(params), m_holes(holes), m_relID(relID)
+    {
+    }
+
+    void operator() (pts_vec_t const & pts, vector<uint64_t> const & ids)
+    {
+      feature_builder_t f;
+      f.SetParams(m_params);
+
+      for (size_t i = 0; i < ids.size(); ++i)
+        f.AddOsmId("way", ids[i]);
+
+      for (size_t i = 0; i < pts.size(); ++i)
+        f.AddPoint(pts[i]);
+
+      if (f.IsGeometryClosed())
+      {
+        f.SetAreaAddHoles(m_holes);
+        if (f.PreSerialize())
+        {
+          f.AddOsmId("relation", m_relID);
+          m_pMain->m_emitter(f);
+        }
+      }
+    }
+  };
 };
 
 template <class TEmitter, class THolder>
@@ -470,7 +429,7 @@ protected:
         return;
 
       typename base_type::holes_accumulator holes(this);
-      typename base_type::way_map_t wayMap;
+      AreaWayMerger<THolder> outer(base_type::m_holder);
 
       // 3. Iterate ways to get 'outer' and 'inner' geometries
       for (size_t i = 0; i < p->childs.size(); ++i)
@@ -483,39 +442,14 @@ protected:
           CHECK ( strings::to_uint64(p->childs[i].attrs["ref"], wayID), (p->childs[i].attrs["ref"]) );
 
           if (role == "outer")
-          {
-            base_type::GetWay(wayID, wayMap);
-          }
+            outer.AddWay(wayID);
           else if (role == "inner")
-          {
             holes(wayID);
-          }
         }
       }
 
-      // 4. Cycle through the ways in map to get closed area features.
-      while (!wayMap.empty())
-      {
-        feature_t f;
-        f.SetParams(fValue);
-
-        for (typename base_type::way_map_t::iterator it = wayMap.begin(); it != wayMap.end(); ++it)
-          f.AddOsmId("way", it->second->m_wayOsmId);
-
-        base_type::ProcessWayPoints(wayMap, bind(&base_type::feature_builder_t::AddPoint, ref(f), _1));
-
-        if (f.IsGeometryClosed())
-        {
-          f.SetAreaAddHoles(holes.m_holes);
-          if (f.PreSerialize())
-          {
-            // add osm id for debugging
-            f.AddOsmId("relation", id);
-            base_type::m_emitter(f);
-          }
-        }
-      }
-
+      typename base_type::multipolygons_emitter emitter(this, fValue, holes.GetHoles(), id);
+      outer.ForEachArea(emitter, true);
       return;
     }
 

@@ -61,3 +61,4 @@ HEADERS += \
     coastlines_generator.hpp \
     tesselator.hpp \
     check_model.hpp \
+    ways_merger.hpp
