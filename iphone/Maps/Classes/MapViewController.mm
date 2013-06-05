@@ -96,13 +96,6 @@ const long long LITE_IDL = 431183278L;
 
   f.OnLocationUpdate(info);
 
-  if (m_balloonView.isCurrentPosition && m_balloonView.isDisplayed)
-  {
-    m2::PointD newCenter(MercatorBounds::LonToX(info.m_longitude),
-                         MercatorBounds::LatToY(info.m_latitude));
-    m_balloonView.globalPosition = CGPointMake(newCenter.x, newCenter.y);
-    [m_balloonView updatePosition:self.view atPoint:[(EAGLView *)self.view globalPoint2ViewPoint:m_balloonView.globalPosition]];
-  }
   [self showPopoverFromBalloonData];
 }
 
@@ -142,11 +135,11 @@ const long long LITE_IDL = 431183278L;
       return;
     }
   }
+
   [m_balloonView clear];
-  m_balloonView.isCurrentPosition = YES;
   [m_balloonView setTitle:NSLocalizedString(@"my_position", nil)];
   m_balloonView.globalPosition = CGPointMake(point.x, point.y);
-  [m_balloonView showInView:self.view atPoint:[(EAGLView *)self.view globalPoint2ViewPoint:m_balloonView.globalPosition]];
+  [m_balloonView showInView];
 }
 
 //********************************************************************************************
@@ -332,7 +325,7 @@ const long long LITE_IDL = 431183278L;
 - (void) processMapClickAtPoint:(CGPoint)point longClick:(BOOL)isLongClick
 {
   BOOL wasBalloonDisplayed;
-  if (m_balloonView.isDisplayed)
+  if ([m_balloonView isDisplayed])
   {
     [m_balloonView hide];
     [m_balloonView clear];
@@ -341,12 +334,10 @@ const long long LITE_IDL = 431183278L;
   else
     wasBalloonDisplayed = NO;
 
-  m_balloonView.isCurrentPosition = NO;
-
   // Try to check if we've clicked on bookmark
   Framework & f = GetFramework();
   CGFloat const scaleFactor = self.view.contentScaleFactor;
-  // @TODO Refactor point transformation
+
   m2::PointD pxClicked(point.x * scaleFactor, point.y * scaleFactor);
   Framework::AddressInfo addrInfo;
   m2::PointD pxPivot;
@@ -362,17 +353,16 @@ const long long LITE_IDL = 431183278L;
         m2::PointD const gPivot = f.PtoG(pxPivot);
         m_balloonView.globalPosition = CGPointMake(gPivot.x, gPivot.y);
         [self updatePinTexts:addrInfo];
-        [m_balloonView showInView:self.view atPoint:CGPointMake(pxPivot.x / scaleFactor, pxPivot.y / scaleFactor)];
+        [m_balloonView showInView];
       }
       break;
     default:
       if (isLongClick)
       {
         f.GetAddressInfo(pxClicked, addrInfo);
-        // @TODO Refactor point transformation
         m_balloonView.globalPosition = [(EAGLView *)self.view viewPoint2GlobalPoint:point];
         [self updatePinTexts:addrInfo];
-        [m_balloonView showInView:self.view atPoint:point];
+        [m_balloonView showInView];
       }
       break;
   }
@@ -392,9 +382,8 @@ const long long LITE_IDL = 431183278L;
 {
   [m_balloonView clear];
   m_balloonView.globalPosition = CGPointMake(pt.x, pt.y);
-  m_balloonView.isCurrentPosition = NO;
   [self updatePinTexts:info];
-  [m_balloonView showInView:self.view atPoint:[(EAGLView *)self.view globalPoint2ViewPoint:m_balloonView.globalPosition]];
+  [m_balloonView showInView];
 }
 
 - (void) dealloc
@@ -739,7 +728,6 @@ NSInteger compareAddress(id l, id r, void * context)
       m2::PointD const globalPos = bm->GetOrg();
       // Set it before changing balloon title to display different images in case of creating/editing Bookmark
       m_balloonView.editedBookmark = bmAndCat;
-      m_balloonView.isCurrentPosition = NO;
       m_balloonView.globalPosition = CGPointMake(globalPos.x, globalPos.y);
       // Reset description BEFORE title, as title's setter also takes it into an account for Balloon text generation
       string const & descr = bm->GetDescription();
@@ -747,10 +735,11 @@ NSInteger compareAddress(id l, id r, void * context)
         m_balloonView.notes = [NSString stringWithUTF8String:descr.c_str()];
       else
         m_balloonView.notes = nil;
+
       m_balloonView.title = [NSString stringWithUTF8String:bm->GetName().c_str()];
       m_balloonView.color = [NSString stringWithUTF8String:bm->GetType().c_str()];
       m_balloonView.setName = [NSString stringWithUTF8String:cat->GetName().c_str()];
-      [m_balloonView showInView:self.view atPoint:[(EAGLView *)self.view globalPoint2ViewPoint:m_balloonView.globalPosition]];
+      [m_balloonView showInView];
     }
   }
 }
@@ -855,11 +844,7 @@ NSInteger compareAddress(id l, id r, void * context)
   [m_balloonView clear];
   m_balloonView.globalPosition = CGPointMake(point.x, point.y);
   m_balloonView.title = text;
-  m_balloonView.isCurrentPosition = NO;
-  CGFloat const scaleFactor = self.view.contentScaleFactor;
-
-  point = GetFramework().GtoP(point);
-  [m_balloonView showInView:self.view atPoint:CGPointMake(point.x / scaleFactor, point.y / scaleFactor)];
+  [m_balloonView showInView];
 }
 
 - (void) destroyPopover
@@ -887,12 +872,10 @@ NSInteger compareAddress(id l, id r, void * context)
 -(void)showPopoverFromBalloonData
 {
   m2::PointD pt = GetFramework().GtoP(m2::PointD(m_balloonView.globalPosition.x, m_balloonView.globalPosition.y));
-  if (IsValid(m_balloonView.editedBookmark))
-    pt.y -= m_balloonView.pinImage.frame.size.height;
-  //TODO We should always remember about scale factor, solve this problem
-  double sf = self.view.contentScaleFactor;
+  double const sf = self.view.contentScaleFactor;
   pt.x /= sf;
   pt.y /= sf;
+
   [popover presentPopoverFromRect:CGRectMake(pt.x, pt.y, 1, 1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 

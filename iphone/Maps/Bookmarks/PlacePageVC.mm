@@ -95,7 +95,6 @@ static NSString  * const g_colors [] =
   {
     m_balloon = view;
     self.title = m_balloon.title;
-    m_balloon.isCurrentPosition = NO;
 
     NSMutableArray * viewArray = [[NSMutableArray alloc] init];
 
@@ -515,7 +514,6 @@ static NSString  * const g_colors [] =
 {
   if (![m_balloon.color isEqualToString:g_colors[selectedRow]])
   {
-    m_balloon.pinImage.image = [UIImage imageNamed:g_colors[selectedRow]];
     [[Statistics instance] logEvent:@"Select Bookmark color"];
     m_balloon.color = g_colors[selectedRow];
     [self.tableView reloadData];

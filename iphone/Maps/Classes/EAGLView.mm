@@ -164,9 +164,6 @@
   Framework & f = GetFramework();
   if (f.NeedRedraw())
   {
-    if (balloonView.isDisplayed)
-      [balloonView updatePosition:self atPoint:[self globalPoint2ViewPoint:balloonView.globalPosition]];
-
     f.SetNeedRedraw(false);
     f.BeginPaint(pe);
     f.DoPaint(pe);

@@ -34,9 +34,10 @@
     m_balloon.setName = text;
     [m_balloon deleteBookmark];
 
-    Framework &f = GetFramework();
-    size_t pos = f.AddCategory([text UTF8String]);
+    Framework & f = GetFramework();
+    size_t const pos = f.AddCategory([text UTF8String]);
     [m_balloon addBookmarkToCategory:pos];
+
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
       [self.navigationController popToRootViewControllerAnimated:YES];
     else
