@@ -93,7 +93,6 @@ namespace android
                                                    MercatorBounds::LatToY(lat)));
       m_work.Invalidate();
     }
-    //
 
     m_work.OnLocationUpdate(info);
   }
@@ -592,7 +591,7 @@ namespace android
 
     m2::PointD               pt(x, y);
     ::Framework::AddressInfo addrInfo;
-    m2::PointD                pxPivot;
+    m2::PointD               pxPivot;
     BookmarkAndCategory      bmAndCat;
 
     url_scheme::ApiPoint apiPoint;
@@ -690,7 +689,6 @@ namespace android
     CHECK(m_work.GetGuiController(), ());
 
     BookmarkBalloon::Params bp;
-
     bp.m_position = graphics::EPosAbove;
     bp.m_depth = graphics::maxDepth;
     bp.m_pivot = m2::PointD(0, 0);
@@ -701,12 +699,13 @@ namespace android
     m_bmBaloon->setIsVisible(false);
 
     m_work.GetGuiController()->AddElement(m_bmBaloon);
+
     UpdateBalloonSize();
   }
 
   void Framework::UpdateBalloonSize()
   {
-     if (m_bmBaloon == NULL)
+    if (m_bmBaloon == NULL)
          return;
 
      ScreenBase const & screen = m_work.GetNavigator().Screen();
