@@ -44,27 +44,22 @@ namespace
 
 TileRenderer::TileRenderer(
     size_t tileSize,
-    string const & skinName,
-    graphics::EDensity density,
     unsigned executorsCount,
     graphics::Color const & bgColor,
     RenderPolicy::TRenderFn const & renderFn,
     shared_ptr<graphics::RenderContext> const & primaryRC,
     shared_ptr<graphics::ResourceManager> const & rm,
     double visualScale,
-    graphics::PacketsQueue ** packetsQueues
-  ) : m_queue(executorsCount),
-      m_tileSize(tileSize),
-      m_renderFn(renderFn),
-      m_skinName(skinName),
-      m_density(density),
-      m_bgColor(bgColor),
-      m_sequenceID(0),
-      m_isExiting(false),
-      m_isPaused(false)
+    graphics::PacketsQueue ** packetsQueues)
+  : m_queue(executorsCount)
+  , m_tileSize(tileSize)
+  , m_renderFn(renderFn)
+  , m_bgColor(bgColor)
+  , m_sequenceID(0)
+  , m_isExiting(false)
+  , m_isPaused(false)
 {
   m_resourceManager = rm;
-  m_primaryContext = primaryRC;
 
   m_threadData.resize(m_queue.ExecutorsCount());
 
@@ -76,7 +71,7 @@ TileRenderer::TileRenderer(
   for (unsigned i = 0; i < m_threadData.size(); ++i)
   {
     if (!packetsQueues)
-      m_threadData[i].m_renderContext.reset(m_primaryContext->createShared());
+      m_threadData[i].m_renderContext.reset(primaryRC->createShared());
 
     Drawer::Params params;
 
@@ -113,7 +108,6 @@ TileRenderer::~TileRenderer()
 {
   m_isExiting = true;
 
-  //LOG(LDEBUG, ("UVRLOG : Cancel from ~TileRenderer"));
   m_queue.Cancel();
 
   for (size_t i = 0; i < m_threadData.size(); ++i)
@@ -180,12 +174,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   /// commands from the previous sequence are ignored
   if (sequenceID < m_sequenceID)
-  {
-    //LOG(LDEBUG, ("UVRLOG : tile not rendered. SequenceID=", sequenceID, " m_SequenceID", m_sequenceID));
     return;
-  }
-
-  //LOG(LDEBUG, ("UVRLOG : start render tile m_SequenceID=", m_sequenceID));
 
   if (HasTile(rectInfo))
     return;
@@ -230,17 +219,6 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   drawer->screen()->setClipRect(renderRect);
   drawer->clear(m_bgColor);
 
-/*  drawer->clear(graphics::Color(rand() % 32 + 128, rand() % 64 + 128, rand() % 32 + 128, 255));
-
-  std::stringstream out;
-  out << rectInfo.m_y << ", " << rectInfo.m_x << ", " << rectInfo.m_tileScale;
-
-  drawer->screen()->drawText(graphics::FontDesc(12, graphics::Color(0, 0, 0, 255), true),
-                             renderRect.Center(),
-                             graphics::EPosCenter,
-                             out.str(),
-                             0,
-                             false);*/
   frameScreen.SetFromRect(m2::AnyRectD(rectInfo.m_rect));
 
   m2::RectD selectRect;

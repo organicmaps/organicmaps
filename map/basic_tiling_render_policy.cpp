@@ -6,7 +6,6 @@
 
 #include "tile_renderer.hpp"
 #include "coverage_generator.hpp"
-#include "screen_coverage.hpp"
 #include "queued_renderer.hpp"
 
 size_t BasicTilingRenderPolicy::CalculateTileSize(size_t screenWidth, size_t screenHeight)
@@ -40,7 +39,8 @@ BasicTilingRenderPolicy::BasicTilingRenderPolicy(Params const & p,
     m_DrawScale(0),
     m_IsEmptyModel(false),
     m_IsNavigating(false),
-    m_WasAnimatingLastFrame(false)
+    m_WasAnimatingLastFrame(false),
+    m_DoRecreateCoverage(false)
 {
   m_TileSize = CalculateTileSize(p.m_screenWidth, p.m_screenHeight);
 
@@ -96,9 +96,11 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
   if (!m_IsNavigating && (!IsAnimating()))
     m_CoverageGenerator->CoverScreen(s,
                                      doForceUpdateFromGenerator
+                                     || m_DoRecreateCoverage
                                      || (doForceUpdate && doIntersectInvalidRect));
 
   SetForceUpdate(false);
+  m_DoRecreateCoverage = false;
 
   /// rendering current coverage
 
@@ -110,25 +112,17 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
 
   FrameLock();
 
-  ScreenCoverage * curCvg = m_CoverageGenerator->CurrentCoverage();
+  m_CoverageGenerator->Draw(pDrawer->screen(), s);
+  m_DrawScale = m_CoverageGenerator->GetDrawScale();
 
-
-  if (curCvg)
+  if (!m_CoverageGenerator->IsEmptyDrawing() || !m_CoverageGenerator->IsPartialCoverage())
   {
-    curCvg->Draw(pDrawer->screen(), s);
-
-    m_DrawScale = curCvg->GetDrawScale();
-
-    if (!curCvg->IsEmptyDrawingCoverage() || !curCvg->IsPartialCoverage())
-    {
-      m_IsEmptyModel = curCvg->IsEmptyDrawingCoverage() && curCvg->IsEmptyModelAtCoverageCenter();
-      if (m_IsEmptyModel)
-        m_countryIndex = curCvg->GetCountryIndexAtCoverageCenter();
-    }
+    m_IsEmptyModel = m_CoverageGenerator->IsEmptyDrawing() && m_CoverageGenerator->IsEmptyModelAtCenter();
+    if (m_IsEmptyModel)
+      m_countryIndex = m_CoverageGenerator->GetCountryIndexAtCenter();
   }
 
   pDrawer->endFrame();
-  m_CoverageGenerator->FinishSequenceIfNeeded();
 }
 
 void BasicTilingRenderPolicy::EndFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
@@ -159,6 +153,7 @@ void BasicTilingRenderPolicy::ResumeBackgroundRendering()
 {
   m_TileRenderer->SetIsPaused(false);
   m_CoverageGenerator->Resume();
+  m_DoRecreateCoverage = true;
   if (m_QueuedRenderer)
     m_QueuedRenderer->SetPartialExecution(GetPlatform().CpuCores(), false);
 }
@@ -259,9 +254,9 @@ void BasicTilingRenderPolicy::FrameUnlock()
   m_CoverageGenerator->Unlock();
 }
 
-shared_ptr<graphics::Overlay> const BasicTilingRenderPolicy::FrameOverlay() const
+graphics::Overlay * BasicTilingRenderPolicy::FrameOverlay() const
 {
-  return m_CoverageGenerator->CurrentCoverage()->GetOverlay();
+  return m_CoverageGenerator->GetOverlay();
 }
 
 int BasicTilingRenderPolicy::InsertBenchmarkFence()

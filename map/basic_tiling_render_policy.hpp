@@ -40,6 +40,7 @@ protected:
   bool m_IsNavigating;
   bool m_WasAnimatingLastFrame;
   size_t m_TileSize;
+  bool m_DoRecreateCoverage;
 
 protected:
 
@@ -80,7 +81,7 @@ public:
 
   void FrameLock();
   void FrameUnlock();
-  shared_ptr<graphics::Overlay> const FrameOverlay() const;
+  graphics::Overlay * FrameOverlay() const;
 
   /// benchmarking protocol
   int InsertBenchmarkFence();

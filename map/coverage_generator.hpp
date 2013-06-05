@@ -39,8 +39,6 @@ namespace graphics
 /// newly rendered tile(p.e. merge it into current ScreenCoverage).
 class CoverageGenerator
 {
-  ScreenCoverage * CreateCoverage();
-
 public:
 
   CoverageGenerator(TileRenderer * tileRenderer,
@@ -54,16 +52,19 @@ public:
 
   void Shutdown();
 
-  void InitializeThreadGL();
-  void FinalizeThreadGL();
+  //@{ Called only on android, with Single thread policy
+  void InitializeThreadGL(shared_ptr<graphics::RenderContext> context,
+                          shared_ptr<graphics::ResourceManager> resourceManager,
+                          graphics::PacketsQueue * glQueue);
+  void FinalizeThreadGL(shared_ptr<graphics::RenderContext> context,
+                        shared_ptr<graphics::ResourceManager> resourceManager);
+  //@}
 
   //@{ Add task to run on CoverageGenerator thread
   void InvalidateTiles(m2::AnyRectD const & rect, int startScale);
   void CoverScreen(ScreenBase const & screen, bool doForce);
   void MergeTile(Tiler::RectInfo const & rectInfo,
                         int sequenceID);
-  void FinishSequenceIfNeeded();
-  void DecrementTileCount(int sequenceID);
   void CheckEmptyModel(int sequenceID);
   //}@
 
@@ -72,11 +73,10 @@ public:
   void JoinBenchmarkFence(int fenceID);
   //}@
 
+  void Draw(graphics::Screen * s, ScreenBase const & screen);
+
   storage::TIndex GetCountryIndex(m2::PointD const & pt) const;
-
-  ScreenCoverage * CurrentCoverage();
-
-  void StartTileDrawingSession(int sequenceID, unsigned tileCount);
+  storage::TIndex GetCountryIndexAtCenter() const;
 
   //@{ Frame lock
   void Lock();
@@ -86,7 +86,14 @@ public:
   void Pause();
   void Resume();
 
+  graphics::Overlay * GetOverlay() const;
+
+  bool IsEmptyDrawing() const;
+  bool IsEmptyModelAtCenter() const;
+  bool IsPartialCoverage() const;
   bool DoForceUpdate() const;
+
+  int GetDrawScale() const;
 
 private:
   void CoverScreenImpl(core::CommandsQueue::Environment const & env,
@@ -100,6 +107,15 @@ private:
   void InvalidateTilesImpl(m2::AnyRectD const & rect, int startScale);
 
   void CheckEmptyModelImpl(int sequenceID);
+
+private:
+  void FinishSequenceIfNeeded();
+  void ComputeCoverTasks();
+  void MergeOverlay();
+  void MergeSingleTile(Tiler::RectInfo const & rectInfo);
+  bool CacheCoverage(core::CommandsQueue::Environment const & env);
+
+  void ClearCoverage();
 
 private:
   struct BenchmarkInfo
@@ -139,19 +155,46 @@ private:
     void Resume();
   } m_stateInfo;
 
+  struct CoverageInfo
+  {
+    CoverageInfo(TileRenderer * tileRenderer);
+    ~CoverageInfo();
+
+    Tiler m_tiler;
+    TileRenderer * m_tileRenderer;
+
+    typedef set<Tile const *, LessRectInfo> TTileSet;
+    TTileSet m_tiles;
+
+    graphics::Overlay * m_overlay;
+
+    int m_renderLeafTilesCount;
+    bool m_hasTileCahceMiss;
+    bool m_isEmptyDrawing;
+  } m_coverageInfo;
+
+  struct IndexInfo
+  {
+    IndexInfo(RenderPolicy::TCountryIndexFn indexFn);
+
+    RenderPolicy::TCountryIndexFn m_countryIndexFn;
+    storage::TIndex m_countryIndex;
+  } m_indexInfo;
+
+  struct CachedCoverageInfo
+  {
+    CachedCoverageInfo();
+    ~CachedCoverageInfo();
+
+    graphics::DisplayList * m_mainElements;
+    graphics::DisplayList * m_sharpElements;
+    ScreenBase m_screen;
+  };
+
+  CachedCoverageInfo * m_currentCoverage;
+  CachedCoverageInfo * m_backCoverage;
+
   core::CommandsQueue m_queue;
-
-  TileRenderer * m_tileRenderer;
-
-  shared_ptr<graphics::ResourceManager> m_resourceManager;
-  shared_ptr<graphics::RenderContext> m_renderContext;
-
-  ScreenCoverage * m_workCoverage;
-  ScreenCoverage * m_currentCoverage;
-
   shared_ptr<WindowHandle> m_windowHandle;
-
-  RenderPolicy::TCountryIndexFn m_countryIndexFn;
-
-  graphics::PacketsQueue * m_glQueue;
+  shared_ptr<graphics::Screen> m_cacheScreen;
 };

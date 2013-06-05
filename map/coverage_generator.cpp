@@ -1,57 +1,49 @@
 #include "../base/SRC_FIRST.hpp"
 #include "../platform/settings.hpp"
+#include "../platform/platform.hpp"
 
 #include "coverage_generator.hpp"
-#include "screen_coverage.hpp"
 #include "tile_renderer.hpp"
 #include "tile_set.hpp"
 
 #include "../graphics/opengl/gl_render_context.hpp"
+#include "../graphics/display_list.hpp"
 
 #include "../base/logging.hpp"
 
 #include "../std/bind.hpp"
 
-CoverageGenerator::CoverageGenerator(
-    TileRenderer * tileRenderer,
-    shared_ptr<WindowHandle> const & windowHandle,
-    shared_ptr<graphics::RenderContext> const & primaryRC,
-    shared_ptr<graphics::ResourceManager> const & rm,
-    graphics::PacketsQueue * glQueue,
-    RenderPolicy::TCountryIndexFn const & countryIndexFn)
-  : m_queue(1),
-    m_tileRenderer(tileRenderer),
-    m_workCoverage(0),
-    m_currentCoverage(0),
-    m_windowHandle(windowHandle),
-    m_countryIndexFn(countryIndexFn),
-    m_glQueue(glQueue)
+CoverageGenerator::CoverageGenerator(TileRenderer * tileRenderer,
+                                     shared_ptr<WindowHandle> const & windowHandle,
+                                     shared_ptr<graphics::RenderContext> const & primaryRC,
+                                     shared_ptr<graphics::ResourceManager> const & rm,
+                                     graphics::PacketsQueue * glQueue,
+                                     RenderPolicy::TCountryIndexFn const & countryIndexFn)
+  : m_coverageInfo(tileRenderer)
+  , m_indexInfo(countryIndexFn)
+  , m_queue(1)
+  , m_windowHandle(windowHandle)
 {
-  m_resourceManager = rm;
+  shared_ptr<graphics::RenderContext> renderContext;
+  if (!glQueue)
+    renderContext.reset(primaryRC->createShared());
 
-  if (!m_glQueue)
-    m_renderContext.reset(primaryRC->createShared());
-
-  m_queue.AddInitCommand(bind(&CoverageGenerator::InitializeThreadGL, this));
-  m_queue.AddFinCommand(bind(&CoverageGenerator::FinalizeThreadGL, this));
+  m_queue.AddInitCommand(bind(&CoverageGenerator::InitializeThreadGL, this, renderContext, rm, glQueue));
+  m_queue.AddFinCommand(bind(&CoverageGenerator::FinalizeThreadGL, this, renderContext, rm));
 
   m_queue.Start();
 
   Settings::Get("IsBenchmarking", m_benchmarkInfo.m_isBenchmarking);
+
+  m_currentCoverage = new CachedCoverageInfo();
+  m_backCoverage = new CachedCoverageInfo();
 }
 
 CoverageGenerator::~CoverageGenerator()
 {
   LOG(LINFO, ("cancelling coverage thread"));
   m_queue.Cancel();
-
-  LOG(LINFO, ("deleting workCoverage"));
-  delete m_workCoverage;
-  m_workCoverage = 0;
-
-  LOG(LINFO, ("deleting currentCoverage"));
-  delete m_currentCoverage;
-  m_currentCoverage = 0;
+  ClearCoverage();
 }
 
 void CoverageGenerator::Shutdown()
@@ -60,48 +52,40 @@ void CoverageGenerator::Shutdown()
   m_queue.Join();
 }
 
-ScreenCoverage * CoverageGenerator::CreateCoverage()
-{
-  graphics::Screen::Params params;
-
-  params.m_resourceManager = m_resourceManager;
-  params.m_renderQueue = m_glQueue;
-
-  params.m_doUnbindRT = false;
-  params.m_isSynchronized = false;
-  params.m_threadSlot = m_resourceManager->cacheThreadSlot();
-  params.m_renderContext = m_renderContext;
-  params.m_storageType = graphics::EMediumStorage;
-  params.m_textureType = graphics::EMediumTexture;
-
-  shared_ptr<graphics::Screen> screen(new graphics::Screen(params));
-
-  ScreenCoverage * screenCoverage = new ScreenCoverage(m_tileRenderer, this, screen);
-  screenCoverage->SetBenchmarkingFlag(m_benchmarkInfo.m_isBenchmarking);
-
-  return screenCoverage;
-}
-
-void CoverageGenerator::InitializeThreadGL()
+void CoverageGenerator::InitializeThreadGL(shared_ptr<graphics::RenderContext> context,
+                                           shared_ptr<graphics::ResourceManager> resourceManager,
+                                           graphics::PacketsQueue * glQueue)
 {
   threads::MutexGuard g(m_stateInfo.m_mutex);
 
   LOG(LINFO, ("initializing CoverageGenerator on it's own thread."));
 
-  if (m_renderContext)
+  if (context)
   {
-    m_renderContext->makeCurrent();
-    m_renderContext->startThreadDrawing(m_resourceManager->cacheThreadSlot());
+    context->makeCurrent();
+    context->startThreadDrawing(resourceManager->cacheThreadSlot());
   }
 
-  m_workCoverage = CreateCoverage();
-  m_currentCoverage = CreateCoverage();
+  graphics::Screen::Params params;
+
+  params.m_resourceManager = resourceManager;
+  params.m_renderQueue = glQueue;
+
+  params.m_doUnbindRT = false;
+  params.m_isSynchronized = false;
+  params.m_threadSlot = resourceManager->cacheThreadSlot();
+  params.m_renderContext = context;
+  params.m_storageType = graphics::EMediumStorage;
+  params.m_textureType = graphics::EMediumTexture;
+
+  m_cacheScreen.reset(new graphics::Screen(params));
 }
 
-void CoverageGenerator::FinalizeThreadGL()
+void CoverageGenerator::FinalizeThreadGL(shared_ptr<graphics::RenderContext> context,
+                                         shared_ptr<graphics::ResourceManager> resourceManager)
 {
-  if (m_renderContext)
-    m_renderContext->endThreadDrawing(m_resourceManager->cacheThreadSlot());
+  if (context)
+    context->endThreadDrawing(resourceManager->cacheThreadSlot());
 }
 
 void CoverageGenerator::Pause()
@@ -158,16 +142,6 @@ void CoverageGenerator::FinishSequenceIfNeeded()
   m_queue.AddCommand(bind(&CoverageGenerator::BenchmarkInfo::TryFinishSequence, &m_benchmarkInfo));
 }
 
-void CoverageGenerator::DecrementTileCount(int sequenceID)
-{
-  m_queue.AddCommand(bind(&CoverageGenerator::BenchmarkInfo::DecrementTileCount, &m_benchmarkInfo, sequenceID));
-}
-
-ScreenCoverage * CoverageGenerator::CurrentCoverage()
-{
-  return m_currentCoverage;
-}
-
 void CoverageGenerator::Lock()
 {
   m_stateInfo.m_mutex.Lock();
@@ -178,21 +152,58 @@ void CoverageGenerator::Unlock()
   m_stateInfo.m_mutex.Unlock();
 }
 
-void CoverageGenerator::StartTileDrawingSession(int sequenceID, unsigned tileCount)
+void CoverageGenerator::Draw(graphics::Screen * s, ScreenBase const & screen)
 {
-  ASSERT(m_benchmarkInfo.m_isBenchmarking, ("Only in benchmarking mode!"));
-  m_benchmarkInfo.m_benchmarkSequenceID = sequenceID;
-  m_benchmarkInfo.m_tilesCount = tileCount;
+  math::Matrix<double, 3, 3> m = m_currentCoverage->m_screen.PtoGMatrix() * screen.GtoPMatrix();
+
+  ASSERT(m_currentCoverage, ());
+  if (m_currentCoverage->m_mainElements)
+    s->drawDisplayList(m_currentCoverage->m_mainElements, m);
+  if (m_currentCoverage->m_sharpElements)
+    s->drawDisplayList(m_currentCoverage->m_sharpElements, m);
+
+  if (m_benchmarkInfo.m_isBenchmarking)
+    FinishSequenceIfNeeded();
 }
 
 storage::TIndex CoverageGenerator::GetCountryIndex(m2::PointD const & pt) const
 {
-  return m_countryIndexFn(pt);
+  return m_indexInfo.m_countryIndexFn(pt);
+}
+
+storage::TIndex CoverageGenerator::GetCountryIndexAtCenter() const
+{
+  return m_indexInfo.m_countryIndex;
+}
+
+graphics::Overlay * CoverageGenerator::GetOverlay() const
+{
+  return m_coverageInfo.m_overlay;
+}
+
+bool CoverageGenerator::IsEmptyDrawing() const
+{
+  return (m_coverageInfo.m_renderLeafTilesCount <= 0) && m_coverageInfo.m_isEmptyDrawing;
+}
+
+bool CoverageGenerator::IsEmptyModelAtCenter() const
+{
+  return m_indexInfo.m_countryIndex.IsValid();
+}
+
+bool CoverageGenerator::IsPartialCoverage() const
+{
+  return m_coverageInfo.m_hasTileCahceMiss;
 }
 
 bool CoverageGenerator::DoForceUpdate() const
 {
   return m_stateInfo.m_needForceUpdate;
+}
+
+int CoverageGenerator::GetDrawScale() const
+{
+  return m_coverageInfo.m_tiler.tileScale();
 }
 
 ////////////////////////////////////////////////////
@@ -218,23 +229,24 @@ void CoverageGenerator::CoverScreenImpl(core::CommandsQueue::Environment const &
   if (sequenceID < m_stateInfo.m_sequenceID)
     return;
 
-  m_currentCoverage->CopyInto(*m_workCoverage, false);
+  m_stateInfo.m_currentScreen = screen;
+  m_backCoverage->m_screen = screen;
+  m_coverageInfo.m_tiler.seed(screen, screen.GlobalRect().GlobalCenter(), m_coverageInfo.m_tileRenderer->TileSize());
 
-  m_workCoverage->SetSequenceID(sequenceID);
-  m_workCoverage->SetScreen(screen);
+  ComputeCoverTasks();
 
-  if (!m_workCoverage->IsPartialCoverage() && m_workCoverage->IsEmptyDrawingCoverage())
+  if (!IsPartialCoverage() && IsEmptyDrawing())
   {
-    m_workCoverage->ResetEmptyModelAtCoverageCenter();
+    m_indexInfo.m_countryIndex = storage::TIndex();
     CheckEmptyModel(sequenceID);
   }
 
-  bool shouldSwap = !m_stateInfo.m_isPause && m_workCoverage->Cache(env);
+  bool shouldSwap = !m_stateInfo.m_isPause && CacheCoverage(env);
 
   if (shouldSwap)
   {
     threads::MutexGuard g(m_stateInfo.m_mutex);
-    swap(m_currentCoverage, m_workCoverage);
+    swap(m_currentCoverage, m_backCoverage);
   }
   else
   {
@@ -243,9 +255,6 @@ void CoverageGenerator::CoverScreenImpl(core::CommandsQueue::Environment const &
   }
 
   m_stateInfo.SetForceUpdate(!shouldSwap);
-
-  m_workCoverage->Clear();
-
   m_windowHandle->invalidate();
 }
 
@@ -255,32 +264,29 @@ void CoverageGenerator::MergeTileImpl(core::CommandsQueue::Environment const & e
 {
   if (sequenceID < m_stateInfo.m_sequenceID)
   {
-    m_tileRenderer->RemoveActiveTile(rectInfo, sequenceID);
+    m_coverageInfo.m_tileRenderer->RemoveActiveTile(rectInfo, sequenceID);
     return;
   }
 
-  m_currentCoverage->CopyInto(*m_workCoverage, true);
-  m_workCoverage->SetSequenceID(sequenceID);
-  m_workCoverage->Merge(rectInfo);
+  m_backCoverage->m_screen = m_stateInfo.m_currentScreen;
+  MergeSingleTile(rectInfo);
 
-  if (!m_workCoverage->IsPartialCoverage() && m_workCoverage->IsEmptyDrawingCoverage())
+  if (!IsPartialCoverage() && IsEmptyDrawing())
   {
-    m_workCoverage->ResetEmptyModelAtCoverageCenter();
+    m_indexInfo.m_countryIndex = storage::TIndex();
     CheckEmptyModel(sequenceID);
   }
 
-  bool shouldSwap = !m_stateInfo.m_isPause && m_workCoverage->Cache(env);
+  bool shouldSwap = !m_stateInfo.m_isPause && CacheCoverage(env);
 
   if (shouldSwap)
   {
     threads::MutexGuard g(m_stateInfo.m_mutex);
-    swap(m_currentCoverage, m_workCoverage);
+    swap(m_currentCoverage, m_backCoverage);
     m_benchmarkInfo.DecrementTileCount(sequenceID);
   }
 
   m_stateInfo.SetForceUpdate(!shouldSwap);
-
-  m_workCoverage->Clear();
 
   if (!m_benchmarkInfo.m_isBenchmarking)
     m_windowHandle->invalidate();
@@ -288,14 +294,34 @@ void CoverageGenerator::MergeTileImpl(core::CommandsQueue::Environment const & e
 
 void CoverageGenerator::InvalidateTilesImpl(m2::AnyRectD const & r, int startScale)
 {
+  TileCache & tileCache = m_coverageInfo.m_tileRenderer->GetTileCache();
+  tileCache.Lock();
+
   {
     threads::MutexGuard g(m_stateInfo.m_mutex);
-    m_currentCoverage->RemoveTiles(r, startScale);
+
+    buffer_vector<Tile const *, 8> toRemove;
+
+    for (CoverageInfo::TTileSet::const_iterator it = m_coverageInfo.m_tiles.begin();
+         it != m_coverageInfo.m_tiles.end();
+         ++it)
+    {
+      Tiler::RectInfo const & ri = (*it)->m_rectInfo;
+
+      if (r.IsIntersect(m2::AnyRectD(ri.m_rect)) && (ri.m_tileScale >= startScale))
+      {
+        toRemove.push_back(*it);
+        tileCache.UnlockTile(ri);
+      }
+    }
+
+    for (buffer_vector<Tile const *, 8>::const_iterator it = toRemove.begin();
+         it != toRemove.end();
+         ++it)
+    {
+      m_coverageInfo.m_tiles.erase(*it);
+    }
   }
-
-  TileCache & tileCache = m_tileRenderer->GetTileCache();
-
-  tileCache.Lock();
 
   /// here we should copy elements as we've delete some of them later
   set<Tiler::RectInfo> k = tileCache.Keys();
@@ -311,6 +337,8 @@ void CoverageGenerator::InvalidateTilesImpl(m2::AnyRectD const & r, int startSca
   }
 
   tileCache.Unlock();
+
+  MergeOverlay();
 }
 
 void CoverageGenerator::CheckEmptyModelImpl(int sequenceID)
@@ -318,9 +346,292 @@ void CoverageGenerator::CheckEmptyModelImpl(int sequenceID)
   if (sequenceID < m_stateInfo.m_sequenceID)
     return;
 
-  m_currentCoverage->CheckEmptyModelAtCoverageCenter();
+  if (!IsPartialCoverage() && IsEmptyDrawing())
+  {
+    m2::PointD const centerPt = m_stateInfo.m_currentScreen.GlobalRect().GetGlobalRect().Center();
+    m_indexInfo.m_countryIndex = GetCountryIndex(centerPt);
+  }
 
   m_windowHandle->invalidate();
+}
+
+////////////////////////////////////////////////////////////
+///             Support methods
+////////////////////////////////////////////////////////////
+void CoverageGenerator::ComputeCoverTasks()
+{
+  m_coverageInfo.m_isEmptyDrawing = true;
+  m_coverageInfo.m_renderLeafTilesCount = 0;
+
+  vector<Tiler::RectInfo> allRects;
+  allRects.reserve(16);
+  buffer_vector<Tiler::RectInfo, 8> newRects;
+  m_coverageInfo.m_tiler.tiles(allRects, GetPlatform().PreCachingDepth());
+
+  TileCache & tileCache = m_coverageInfo.m_tileRenderer->GetTileCache();
+  tileCache.Lock();
+
+  int const step = GetPlatform().PreCachingDepth() - 1;
+
+  CoverageInfo::TTileSet tiles;
+  for (size_t i = 0; i < allRects.size(); ++i)
+  {
+    Tiler::RectInfo const & ri = allRects[i];
+
+    if (!((ri.m_tileScale == m_coverageInfo.m_tiler.tileScale() - step) ||
+          (ri.m_tileScale == m_coverageInfo.m_tiler.tileScale() )))
+    {
+      continue;
+    }
+
+    if (tileCache.HasTile(ri))
+    {
+      tileCache.TouchTile(ri);
+      Tile const * tile = &tileCache.GetTile(ri);
+      ASSERT(tiles.find(tile) == tiles.end(), ());
+
+      if (m_coverageInfo.m_tiler.isLeaf(ri))
+        m_coverageInfo.m_isEmptyDrawing &= tile->m_isEmptyDrawing;
+
+      tiles.insert(tile);
+    }
+    else
+    {
+      newRects.push_back(ri);
+      if (m_coverageInfo.m_tiler.isLeaf(ri))
+        ++m_coverageInfo.m_renderLeafTilesCount;
+    }
+  }
+
+  m_coverageInfo.m_hasTileCahceMiss = !newRects.empty();
+
+  /// computing difference between current and previous coverage
+  /// tiles, that aren't in current coverage are unlocked to allow their deletion from TileCache
+  /// tiles, that are new to the current coverage are added into m_tiles and locked in TileCache
+
+  size_t firstTileForAdd = 0;
+  buffer_vector<const Tile *, 64> diff_tiles;
+  diff_tiles.reserve(m_coverageInfo.m_tiles.size() + tiles.size());
+  set_difference(m_coverageInfo.m_tiles.begin(), m_coverageInfo.m_tiles.end(),
+                 tiles.begin(), tiles.end(),
+                 back_inserter(diff_tiles), CoverageInfo::TTileSet::key_compare());
+
+  firstTileForAdd = diff_tiles.size();
+  set_difference(tiles.begin(), tiles.end(),
+                 m_coverageInfo.m_tiles.begin(), m_coverageInfo.m_tiles.end(),
+                 back_inserter(diff_tiles), CoverageInfo::TTileSet::key_compare());
+
+  for (size_t i = 0; i < firstTileForAdd; ++i)
+    tileCache.UnlockTile(diff_tiles[i]->m_rectInfo);
+
+  for (size_t i = firstTileForAdd; i < diff_tiles.size(); ++i)
+    tileCache.LockTile(diff_tiles[i]->m_rectInfo);
+
+  tileCache.Unlock();
+
+  m_coverageInfo.m_tiles = tiles;
+  MergeOverlay();
+
+  /// clearing all old commands
+  m_coverageInfo.m_tileRenderer->ClearCommands();
+  /// setting new sequenceID
+  m_coverageInfo.m_tileRenderer->SetSequenceID(m_stateInfo.m_sequenceID);
+  /// @todo After ClearCommands i think we have no commands to cancel.
+  m_coverageInfo.m_tileRenderer->CancelCommands();
+
+  m_benchmarkInfo.m_tilesCount = newRects.size();
+  m_benchmarkInfo.m_benchmarkSequenceID = m_stateInfo.m_sequenceID;
+
+  for (size_t i = 0; i < newRects.size(); ++i)
+  {
+    Tiler::RectInfo const & ri = newRects[i];
+
+    core::CommandsQueue::Chain chain;
+
+    chain.addCommand(bind(&CoverageGenerator::MergeTile,
+                          this, ri, m_stateInfo.m_sequenceID));
+
+    m_coverageInfo.m_tileRenderer->AddCommand(ri, m_stateInfo.m_sequenceID, chain);
+  }
+}
+
+void CoverageGenerator::MergeOverlay()
+{
+  m_coverageInfo.m_overlay->lock();
+  m_coverageInfo.m_overlay->clear();
+
+  for (CoverageInfo::TTileSet::const_iterator it = m_coverageInfo.m_tiles.begin();
+       it != m_coverageInfo.m_tiles.end();
+       ++it)
+  {
+    Tiler::RectInfo const & ri = (*it)->m_rectInfo;
+    if (m_coverageInfo.m_tiler.isLeaf(ri))
+      m_coverageInfo.m_overlay->merge(*(*it)->m_overlay,
+                                      (*it)->m_tileScreen.PtoGMatrix() * m_stateInfo.m_currentScreen.GtoPMatrix());
+  }
+
+  m_coverageInfo.m_overlay->unlock();
+}
+
+void CoverageGenerator::MergeSingleTile(Tiler::RectInfo const & rectInfo)
+{
+  m_coverageInfo.m_tileRenderer->CacheActiveTile(rectInfo);
+  TileCache & tileCache = m_coverageInfo.m_tileRenderer->GetTileCache();
+  tileCache.Lock();
+
+  Tile const * tile = NULL;
+  if (tileCache.HasTile(rectInfo))
+  {
+    tileCache.LockTile(rectInfo);
+    tile = &tileCache.GetTile(rectInfo);
+  }
+
+  if (tile != NULL)
+  {
+    m_coverageInfo.m_tiles.insert(tile);
+
+    if (m_coverageInfo.m_tiler.isLeaf(rectInfo))
+    {
+      m_coverageInfo.m_isEmptyDrawing &= tile->m_isEmptyDrawing;
+      m_coverageInfo.m_renderLeafTilesCount--;
+    }
+  }
+
+  tileCache.Unlock();
+
+  if (tile != NULL && m_coverageInfo.m_tiler.isLeaf(rectInfo))
+  {
+    m_coverageInfo.m_overlay->lock();
+    m_coverageInfo.m_overlay->merge(*tile->m_overlay,
+                                     tile->m_tileScreen.PtoGMatrix() * m_stateInfo.m_currentScreen.GtoPMatrix());
+    m_coverageInfo.m_overlay->unlock();
+  }
+}
+
+namespace
+{
+  bool SharpnessComparator(shared_ptr<graphics::OverlayElement> const & e1,
+                           shared_ptr<graphics::OverlayElement> const & e2)
+  {
+    return e1->hasSharpGeometry() && (!e2->hasSharpGeometry());
+  }
+}
+
+bool CoverageGenerator::CacheCoverage(core::CommandsQueue::Environment const & env)
+{
+  delete m_backCoverage->m_mainElements;
+  delete m_backCoverage->m_sharpElements;
+
+  m_backCoverage->m_mainElements = m_cacheScreen->createDisplayList();
+  m_backCoverage->m_sharpElements = m_cacheScreen->createDisplayList();
+
+  m_cacheScreen->setEnvironment(&env);
+
+  m_cacheScreen->beginFrame();
+  m_cacheScreen->setDisplayList(m_backCoverage->m_mainElements);
+
+  vector<graphics::BlitInfo> infos;
+
+  for (CoverageInfo::TTileSet::const_iterator it = m_coverageInfo.m_tiles.begin();
+       it != m_coverageInfo.m_tiles.end();
+       ++it)
+  {
+    Tile const * tile = *it;
+
+    size_t tileWidth = tile->m_renderTarget->width();
+    size_t tileHeight = tile->m_renderTarget->height();
+
+    graphics::BlitInfo bi;
+
+    bi.m_matrix = tile->m_tileScreen.PtoGMatrix() * m_stateInfo.m_currentScreen.GtoPMatrix();
+    bi.m_srcRect = m2::RectI(0, 0, tileWidth - 2, tileHeight - 2);
+    bi.m_texRect = m2::RectU(1, 1, tileWidth - 1, tileHeight - 1);
+    bi.m_srcSurface = tile->m_renderTarget;
+
+    infos.push_back(bi);
+  }
+
+  if (!infos.empty())
+    m_cacheScreen->blit(&infos[0], infos.size(), true, graphics::minDepth);
+
+  math::Matrix<double, 3, 3> idM = math::Identity<double, 3>();
+
+  m_coverageInfo.m_overlay->lock();
+
+  vector<shared_ptr<graphics::OverlayElement> > overlayElements;
+  overlayElements.reserve(m_coverageInfo.m_overlay->getElementsCount());
+  m_coverageInfo.m_overlay->forEach(MakeBackInsertFunctor(overlayElements));
+  sort(overlayElements.begin(), overlayElements.end(), SharpnessComparator);
+
+  unsigned currentElement = 0;
+
+  for (; currentElement < overlayElements.size(); ++currentElement)
+  {
+    shared_ptr<graphics::OverlayElement> const & elem = overlayElements[currentElement];
+    if (elem->hasSharpGeometry())
+      break;
+
+    elem->draw(m_cacheScreen.get(), idM);
+  }
+
+  m_cacheScreen->applySharpStates();
+  m_cacheScreen->setDisplayList(m_backCoverage->m_sharpElements);
+
+  for (; currentElement < overlayElements.size(); ++currentElement)
+    overlayElements[currentElement]->draw(m_cacheScreen.get(), idM);
+
+  m_coverageInfo.m_overlay->unlock();
+
+  m_cacheScreen->setDisplayList(0);
+  m_cacheScreen->applyStates();
+
+  m_cacheScreen->endFrame();
+
+  /// completing commands that was immediately executed
+  /// while recording of displayList(for example UnlockStorage)
+
+  m_cacheScreen->completeCommands();
+
+  bool isCancelled = m_cacheScreen->isCancelled();
+
+  m_cacheScreen->setEnvironment(0);
+
+  return !isCancelled;
+}
+
+void CoverageGenerator::ClearCoverage()
+{
+  {
+    m_coverageInfo.m_overlay->lock();
+    m_coverageInfo.m_overlay->clear();
+    m_coverageInfo.m_overlay->unlock();
+  }
+
+  m_coverageInfo.m_isEmptyDrawing = false;
+  m_coverageInfo.m_renderLeafTilesCount = 0;
+  m_coverageInfo.m_hasTileCahceMiss = false;
+  m_indexInfo.m_countryIndex = storage::TIndex();
+
+  TileCache & tileCache = m_coverageInfo.m_tileRenderer->GetTileCache();
+
+  tileCache.Lock();
+
+  for (CoverageInfo::TTileSet::const_iterator it = m_coverageInfo.m_tiles.begin();
+       it != m_coverageInfo.m_tiles.end();
+       ++it)
+  {
+    Tiler::RectInfo const & ri = (*it)->m_rectInfo;
+    tileCache.UnlockTile(ri);
+  }
+
+  tileCache.Unlock();
+
+  m_coverageInfo.m_tiles.clear();
+
+  delete m_currentCoverage;
+  m_currentCoverage = 0;
+  delete m_backCoverage;
+  m_backCoverage = 0;
 }
 
 ////////////////////////////////////////////////////////////
@@ -380,7 +691,7 @@ void CoverageGenerator::BenchmarkInfo::TryFinishSequence()
 }
 
 ////////////////////////////////////////////////////////////
-///             BenchmarkInfo
+///             StateInfo
 ////////////////////////////////////////////////////////////
 CoverageGenerator::StateInfo::StateInfo()
   : m_isPause(false)
@@ -407,5 +718,41 @@ void CoverageGenerator::StateInfo::Pause()
 void CoverageGenerator::StateInfo::Resume()
 {
   m_isPause = false;
-  m_needForceUpdate = true;
+  m_needForceUpdate = false;
+}
+
+////////////////////////////////////////////////////////////
+///             CoverageGenerator
+////////////////////////////////////////////////////////////
+CoverageGenerator::CoverageInfo::CoverageInfo(TileRenderer *tileRenderer)
+  : m_tileRenderer(tileRenderer)
+  , m_overlay(new graphics::Overlay())
+{
+  m_overlay->setCouldOverlap(false);
+}
+
+CoverageGenerator::CoverageInfo::~CoverageInfo()
+{
+  delete m_overlay;
+}
+
+////////////////////////////////////////////////////////////
+///                   IndexInfo
+////////////////////////////////////////////////////////////
+CoverageGenerator::IndexInfo::IndexInfo(RenderPolicy::TCountryIndexFn indexFn)
+  : m_countryIndexFn(indexFn)
+  , m_countryIndex()
+{
+}
+
+CoverageGenerator::CachedCoverageInfo::CachedCoverageInfo()
+  : m_mainElements(NULL)
+  , m_sharpElements(NULL)
+{
+}
+
+CoverageGenerator::CachedCoverageInfo::~CachedCoverageInfo()
+{
+  delete m_mainElements;
+  delete m_sharpElements;
 }

@@ -49,8 +49,6 @@ protected:
 
   buffer_vector<ThreadData, 4> m_threadData;
 
-  shared_ptr<graphics::RenderContext> m_primaryContext;
-
   TileCache m_tileCache;
 
   /// set of already rendered tiles, which are waiting
@@ -60,8 +58,6 @@ protected:
   size_t m_tileSize;
 
   RenderPolicy::TRenderFn m_renderFn;
-  string m_skinName;
-  graphics::EDensity m_density;
   graphics::Color m_bgColor;
   int m_sequenceID;
   bool m_isExiting;
@@ -86,8 +82,6 @@ public:
 
   /// constructor.
   TileRenderer(size_t tileSize,
-               string const & skinName,
-               graphics::EDensity density,
                unsigned tasksCount,
                graphics::Color const & bgColor,
                RenderPolicy::TRenderFn const & renderFn,

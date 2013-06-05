@@ -164,8 +164,6 @@ void TilingRenderPolicyMT::SetRenderFn(TRenderFn renderFn)
   string skinName = SkinName();
 
   m_TileRenderer.reset(new TileRenderer(TileSize(),
-                                        skinName,
-                                        Density(),
                                         GetPlatform().CpuCores(),
                                         m_bgColor,
                                         renderFn,

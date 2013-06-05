@@ -13,17 +13,6 @@
 
 namespace graphics
 {
-  Overlay::Lock::Lock(shared_ptr<Overlay> overlay)
-    : m_overlay(overlay)
-  {
-    m_overlay->lock();
-  }
-
-  Overlay::Lock::~Lock()
-  {
-    m_overlay->unlock();
-  }
-
   bool betterOverlayElement(shared_ptr<OverlayElement> const & l,
                             shared_ptr<OverlayElement> const & r)
   {
@@ -143,6 +132,11 @@ namespace graphics
     offsetTree(m_tree, offs, rect);
   }
 
+  size_t Overlay::getElementsCount() const
+  {
+    return m_tree.GetSize();
+  }
+
   void Overlay::lock()
   {
     m_mutex.Lock();
@@ -242,13 +236,13 @@ namespace graphics
     }
   };
 
-  void Overlay::selectOverlayElements(m2::RectD const & rect, list<shared_ptr<OverlayElement> > & res)
+  void Overlay::selectOverlayElements(m2::RectD const & rect, list<shared_ptr<OverlayElement> > & res) const
   {
     DoPreciseSelectByRect fn(rect, &res);
     m_tree.ForEachInRect(rect, fn);
   }
 
-  void Overlay::selectOverlayElements(m2::PointD const & pt, list<shared_ptr<OverlayElement> > & res)
+  void Overlay::selectOverlayElements(m2::PointD const & pt, list<shared_ptr<OverlayElement> > & res) const
   {
     DoPreciseSelectByPoint fn(pt, &res);
     m_tree.ForEachInRect(m2::RectD(pt - m2::PointD(1, 1), pt + m2::PointD(1, 1)), fn);

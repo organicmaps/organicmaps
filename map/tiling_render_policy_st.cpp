@@ -198,8 +198,6 @@ void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
     queues[i] = m_QueuedRenderer->GetPacketsQueue(i);
 
   m_TileRenderer.reset(new TileRenderer(TileSize(),
-                                        skinName,
-                                        Density(),
                                         cpuCores,
                                         m_bgColor,
                                         renderFn,

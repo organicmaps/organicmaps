@@ -37,22 +37,12 @@ namespace graphics
 
   public:
 
-    class Lock
-    {
-    public:
-      Lock(shared_ptr<Overlay> overlay);
-      ~Lock();
-
-    private:
-      shared_ptr<Overlay> m_overlay;
-    };
-
     Overlay();
 
     void draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m);
 
-    void selectOverlayElements(m2::PointD const & pt, list<shared_ptr<OverlayElement> > & res);
-    void selectOverlayElements(m2::RectD const & rect, list<shared_ptr<OverlayElement> > & res);
+    void selectOverlayElements(m2::PointD const & pt, list<shared_ptr<OverlayElement> > & res) const;
+    void selectOverlayElements(m2::RectD const & rect, list<shared_ptr<OverlayElement> > & res) const;
 
     void removeOverlayElement(shared_ptr<OverlayElement> const & oe, m2::RectD const & r);
 
@@ -61,6 +51,8 @@ namespace graphics
     void processOverlayElement(shared_ptr<OverlayElement> const & oe, math::Matrix<double, 3, 3> const & m);
 
     void offset(m2::PointD const & offs, m2::RectD const & rect);
+
+    size_t getElementsCount() const;
 
     void lock();
     void unlock();

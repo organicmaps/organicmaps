@@ -31,7 +31,6 @@ HEADERS += \
     tiler.hpp \
     tile.hpp \
     tile_cache.hpp \
-    screen_coverage.hpp \
     ruler.hpp \
     measurement_utils.hpp \
     simple_render_policy.hpp \
@@ -77,7 +76,6 @@ SOURCES += \
     tiler.cpp \
     tile_cache.cpp \
     tile.cpp \
-    screen_coverage.cpp \
     ruler.cpp \
     measurement_utils.cpp \
     window_handle.cpp \
