@@ -1464,11 +1464,13 @@ bool Framework::SetViewportByURL(string const & url, url_api::Request & request)
   return false;
 }
 
-void Framework::SetViewPortSync(m2::RectD const & rect)
+void Framework::SetViewPortSync(m2::RectD rect)
 {
   // This is tricky way to syncronize work and
   // rendring threads.
+  CheckMinVisibleScale(rect);
   m2::AnyRectD aRect(rect);
+  CheckMinGlobalRect(aRect);
   m_animator.ChangeViewport(aRect, aRect, 0.0);
 }
 
