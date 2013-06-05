@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MapsWithMeCapitals</string>
+    <string name="show_all">Show All Capitals with MapsWithMe</string>
+    <string name="open_with_mapswithme">Open With MapsWithMe</string>
+    <string name="name">Name:</string>
+    <string name="alternative_names">Alternative names:</string>
+    <string name="lat">Lat:</string>
+    <string name="lon">Lon:</string>
+    <string name="country">Country:</string>
+    <string name="population">Population:</string>
+    <string name="time_zone">Time Zone:</string>
+    <string name="elevation">Elevation:</string>
+
+</resources>
