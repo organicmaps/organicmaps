@@ -17,7 +17,7 @@ public class MWMResponse
     return "MWMResponse [mSelectedPoint=" + mPoint + "]";
   }
 
-  static MWMResponse extractFromIntent(Context context, Intent intent)
+  public static MWMResponse extractFromIntent(Context context, Intent intent)
   {
     final MWMResponse response = new MWMResponse();
     // parse status
