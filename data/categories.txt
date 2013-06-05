@@ -1554,8 +1554,8 @@ pl:4pole namiotowe
 
 tourism-alpine_hut
 en:mountains lodging|hotel|hostel|alpine hut
-ru:горный отель|отель|хостел
-uk:гірський готель|гірська хатинка|готель|хостел
+ru:горный отель|отель
+uk:гірський готель|гірська хатинка|готель
 de:4Berghütte|Almhütte|Berghotel|hotel
 fr:hôtel de montagne|refuge|chaumière alpine|hôtel
 it:hotel di montagna|baita|capanna|capanna di montagna|capanna alpina|hotel
@@ -1566,3 +1566,7 @@ cs:4horská chata|horský hotel|hotel
 nl:3berghut|alpenhut|hotel
 zh:1山上住宿|飯店|旅館|住宿|旅舍|2高山住宿
 pl:3schronisko|chata w górach|goście|hotel|nocleg|bacówka
+
+office
+en:3office|company
+ru:2офис|компания|контора

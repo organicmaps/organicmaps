@@ -941,3 +941,10 @@ shop|beverages
 shop|toys
 shop|confectionery
 shop
+lit
+office|company
+office|telecommunication
+office|government
+office|estate_agent
+office|lawyer
+office

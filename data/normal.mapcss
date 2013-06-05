@@ -35,11 +35,11 @@ area[natural=coastline]
 }
 
 area[landuse]::*,
-area[natural]::*,
+area[natural][natural!=water]::*,
 area[leisure]::*,
 area[place]::*,
 area[aeroway]::*,
-area[tourism]::*,
+area[tourism][tourism!=attraction]::*,
 {fill-position: background}
 
 /* area[waterway]::*, */
@@ -1033,8 +1033,7 @@ area|z13-[amenity=college],
 area|z13-[amenity=kindergarten],
 area|z13-[amenity=school],
 area|z13-[amenity=university],
-area|z12-[man_made=wastewater_plant],
-area|z12-[tourism=attraction]
+area|z12-[man_made=wastewater_plant]
 {
   fill-position:	background;
 }
@@ -1224,13 +1223,6 @@ line|z12[railway=disused]
 area|z12-[natural=land]
 {
   fill-color:	#f8f8f8;
-}
-area|z14-16[leisure=golf_course]::d1p2,
-area|z12[tourism=zoo]::d1p2,
-area|z17-[leisure=golf_course]::d1p3,
-node|z17-[leisure=golf_course]::d1p3
-{
-  z-index:	48;
 }
 area|z12[natural=peak],
 area|z13[natural=peak]::d1p2,
@@ -2122,11 +2114,6 @@ area|z15-[tourism=alpine_hut],
 node|z15-[tourism=alpine_hut]
 {
   icon-image:	alpine_hut.svg;
-}
-area|z14[natural=wetland]::d1p2,
-area|z15[waterway=dock]::d1p2
-{
-  z-index:	110;
 }
 line|z14[boundary=national_park]
 {
@@ -3302,8 +3289,8 @@ line|z15[waterway=ditch]
   width:	0.6;
   z-index:	109;
 }
-line|z15-[highway=residential],
-line|z15-[highway=unclassified]
+line|z14-[highway=residential],
+line|z14-[highway=unclassified]
 {
   font-size:	12;
   text-halo-radius:	2;
@@ -3993,6 +3980,7 @@ area|z17-[historic=monument],
 area|z17-[historic=museum],
 area|z17-[historic=ruins],
 area|z17-[shop][shop!=no],
+area|z17-[office][office!=no],
 area|z17-[tourism=camp_site],
 area|z17-[tourism=guest_house],
 area|z17-[tourism=hostel],
@@ -4042,6 +4030,7 @@ node|z17-[historic=monument],
 node|z17-[historic=museum],
 node|z17-[historic=ruins],
 node|z17-[shop][shop!=no],
+node|z17-[office][office!=no],
 node|z17-[tourism=camp_site],
 node|z17-[tourism=guest_house],
 node|z17-[tourism=hostel],
@@ -7075,7 +7064,11 @@ line|z15-[marking=sport][colour?]
 {
     color: eval(tag("colour"));
 }
-
+line|z18-[lit]::lit
+{
+  width: 0.3;
+  color: yellow
+}
 
 *[highway][area?]
 {fill-color: eval(prop("color")); width: 0; casing-width: 0}

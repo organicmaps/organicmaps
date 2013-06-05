@@ -398,6 +398,7 @@ world  +
         track  -
         water_park  -
         {}
+    lit  -
     man_made  +
         breakwater  -
         cairn  -
@@ -461,6 +462,13 @@ world  +
         {}
     noexit  +
         motor_vehicle  -
+        {}
+    office  +
+        company  -
+        estate_agent  -
+        government  -
+        lawyer  -
+        telecommunication  -
         {}
     oneway  -
     piste:lift  +
