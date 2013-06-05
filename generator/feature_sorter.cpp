@@ -51,7 +51,7 @@ namespace
 
       uint64_t const pointAsInt64 = PointToInt64(m_midLoc.x, m_midLoc.y, m_coordBits);
       uint64_t const minScale = feature::GetMinDrawableScale(ft.GetFeatureBase());
-      CHECK(minScale <= scales::GetUpperScale(), ("Dat file contain invisible feature"));
+      CHECK(minScale <= scales::GetUpperStyleScale(), ("Dat file contain invisible feature"));
 
       uint64_t const order = (minScale << 59) | (pointAsInt64 >> 5);
       m_vec.push_back(make_pair(order, pos));

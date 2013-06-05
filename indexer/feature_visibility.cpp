@@ -292,7 +292,7 @@ bool RemoveNoDrawableTypes(vector<uint32_t> & types, FeatureGeoType ft)
 
 int GetMinDrawableScale(FeatureBase const & f)
 {
-  int const upBound = scales::GetUpperScale();
+  int const upBound = scales::GetUpperStyleScale();
 
   for (int level = 0; level <= upBound; ++level)
     if (feature::IsDrawableForIndex(f, level))
