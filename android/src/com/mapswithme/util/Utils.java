@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.os.Build;
 
-public class Utils
+final public class Utils
 {
   private static final String TAG = "Utils";
 
@@ -137,4 +137,7 @@ public class Utils
   {
     if (null == object) throw new NullPointerException("Argument here must not be NULL");
   }
+  
+  // utility class
+  private Utils() {};
 }

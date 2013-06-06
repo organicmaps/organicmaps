@@ -24,6 +24,12 @@ public class MWMRequest
   private boolean mHasPoint;
   private double mLat;
   private double mLon;
+  
+  
+  public double getLat()  { return mLat; }
+  public double getLon()  { return mLon; }
+  public String getName() { return mName;}
+
   private String mName;
   private String mId;
 

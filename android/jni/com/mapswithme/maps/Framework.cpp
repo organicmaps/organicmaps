@@ -68,6 +68,7 @@ namespace android
     string name = NativeFramework()->GetStringsBundle().GetString("my_position");
     ActivatePopup(point, name, "", IMAGE_PLUS);
     m_doUpdateBalloonPositionFromLocation = true;
+    //TODO add listener to ballon for Java code
   }
 
   void Framework::OnLocationError(int errorCode)

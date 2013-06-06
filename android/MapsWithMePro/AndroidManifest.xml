@@ -151,5 +151,11 @@
                   android:screenOrientation="behind"
                   android:configChanges="orientation|screenLayout|screenSize">
         </activity>
+        
+        <activity android:name="com.mapswithme.maps.MapObjectActivity"
+                  android:screenOrientation="behind"
+                  android:launchMode="singleTop"
+                  android:configChanges="orientation|screenLayout|screenSize">
+        </activity>
     </application>
 </manifest>

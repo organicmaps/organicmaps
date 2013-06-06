@@ -1009,7 +1009,6 @@ public class MWMActivity extends NvEventQueueActivity
         @Override
         public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event)
         {
-          // TODO Auto-generated method stub
           if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP)
           {
             if (ActivationSettings.isSearchActivated(getApplicationContext()))
@@ -1074,6 +1073,7 @@ public class MWMActivity extends NvEventQueueActivity
         public void run()
         {
           Utils.toastShortcut(getApplicationContext(), String.format("Api point: %s %s %f %f", name, id, lat, lon));
+          MapObjectActivity.startWithApiPoint(getActivity(), name, null, null, lat, lon);
         }
       });
   }
@@ -1089,11 +1089,13 @@ public class MWMActivity extends NvEventQueueActivity
       public void run()
       {
         Utils.toastShortcut(getApplicationContext(), String.format("POI : %s %s %s %f %f", name, type, address, lat, lon));
+        MapObjectActivity.startWithPoi(getActivity(), name, type, address, lat, lon);
       }
     });
   }
+  
   @Override
-  public void onBookmarkActivated(int category, int bookmarkIndex)
+  public void onBookmarkActivated(final int category, final int bookmarkIndex)
   {
     // TODO show MapObjectActivity for bookmark
     final Bookmark bmk = BookmarkManager.getBookmarkManager(this).getBookmark(category, bookmarkIndex);
@@ -1104,9 +1106,12 @@ public class MWMActivity extends NvEventQueueActivity
       {
         Utils.toastShortcut(getApplicationContext(), String.format("Bookmark: %s %s %f %f", bmk.getName(), bmk.getCategoryName(), 
                                                                                             bmk.getLat(),  bmk.getLon()));
+        
+        MapObjectActivity.startWithBookmark(getActivity(), category, bookmarkIndex);
       }
     });
   }
+  
   
   private native void nativeStorageConnected();
   private native void nativeStorageDisconnected();
