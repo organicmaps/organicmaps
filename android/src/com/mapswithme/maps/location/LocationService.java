@@ -41,7 +41,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   public interface Listener
   {
-    public void onLocationUpdated(long time, double lat, double lon, float accuracy);
+    public void onLocationUpdated(final Location l);
     public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
     public void onLocationError(int errorCode);
   };
@@ -93,11 +93,11 @@ public class LocationService implements LocationListener, SensorEventListener, W
   }
    */
 
-  private void notifyLocationUpdated(long time, double lat, double lon, float accuracy)
+  private void notifyLocationUpdated(final Location l)
   {
     Iterator<Listener> it = m_observers.iterator();
     while (it.hasNext())
-      it.next().onLocationUpdated(time, lat, lon, accuracy);
+      it.next().onLocationUpdated(l);
   }
 
   private void notifyCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
@@ -285,7 +285,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
   private void emitLocation(Location l)
   {
     m_lastLocation = l;
-    notifyLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
+    notifyLocationUpdated(l);
   }
 
   /// Delta distance when we need to recreate GeomagneticField (to calculate declination).

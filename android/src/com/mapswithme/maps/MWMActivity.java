@@ -726,7 +726,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   }
 
   @Override
-  public void onLocationUpdated(long time, double lat, double lon, float accuracy)
+  public void onLocationUpdated(final Location l)
   {
     if (getLocationState().isFirstPosition())
     {
@@ -735,7 +735,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       mMyPositionButton.setSelected(true);
     }
 
-    nativeLocationUpdated(time, lat, lon, accuracy);
+    nativeLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
   }
 
   @Override

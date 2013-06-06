@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -538,10 +539,12 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
   }
 
   @Override
-  public void onLocationUpdated(long time, double lat, double lon, float accuracy)
+  public void onLocationUpdated(final Location l)
   {
     if (mCountryIndex == null)
     {
+      final double lat = l.getLatitude();
+      final double lon = l.getLongitude();
       Log.i(TAG, "Searching for country name at location lat=" + lat + ", lon=" + lon);
 
       mCountryIndex = findIndexByPos(lat, lon);

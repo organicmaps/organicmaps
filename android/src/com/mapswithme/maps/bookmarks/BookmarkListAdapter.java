@@ -110,7 +110,7 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
   }
 
   @Override
-  public void onLocationUpdated(long time, double lat, double lon, float accuracy)
+  public void onLocationUpdated(final Location l)
   {
     notifyDataSetChanged();
   }

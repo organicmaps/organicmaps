@@ -587,12 +587,12 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   }
 
   @Override
-  public void onLocationUpdated(long time, double lat, double lon, float accuracy)
+  public void onLocationUpdated(final Location l)
   {
     m_flags |= HAS_POSITION;
 
-    m_lat = lat;
-    m_lon = lon;
+    m_lat = l.getLatitude();
+    m_lon = l.getLongitude();
 
     if (runSearch() == SEARCH_SKIPPED)
       updateDistance();
