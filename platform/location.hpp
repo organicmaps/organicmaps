@@ -23,7 +23,8 @@ namespace location
     EGoogle
   };
 
-  /// @note always check m_status before using this structure
+  /// Our structure ALWAYS has valid lat, lon and horizontal accuracy.
+  /// We filter out location events without lat/lon/acc in native code as we don't need them.
   class GpsInfo
   {
   public:
@@ -32,13 +33,16 @@ namespace location
     double m_latitude;            //!< degrees
     double m_longitude;           //!< degrees
     double m_horizontalAccuracy;  //!< metres
-//    double m_altitude;            //!< metres
-//    double m_verticalAccuracy;    //!< metres
-//    double m_course;              //!< positive degrees from the true North
-//    double m_speed;               //!< metres per second
+    double m_altitude;            //!< metres
+    double m_verticalAccuracy;    //!< metres
+    double m_course;              //!< positive degrees from the true North
+    double m_speed;               //!< metres per second
+
+    bool HasAltitude() const { return m_verticalAccuracy >= 0.; }
+    bool HasBearing() const  { return m_course >= 0.; }
+    bool HasSpeed() const    { return m_speed >= 0.; }
   };
 
-  /// @note always check m_status before using this structure
   class CompassInfo
   {
   public:
