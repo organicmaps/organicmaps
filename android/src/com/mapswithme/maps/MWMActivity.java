@@ -1,8 +1,5 @@
 package com.mapswithme.maps;
 
-import java.io.Serializable;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -35,10 +32,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mapswithme.maps.Framework.OnApiPointActivatedListener;
+import com.mapswithme.maps.Framework.OnBookmarkActivatedListener;
+import com.mapswithme.maps.Framework.OnPoiActivatedListener;
 import com.mapswithme.maps.api.MWMRequest;
-import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
-import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
+import com.mapswithme.maps.bookmarks.data.Bookmark;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.promo.ActivationSettings;
 import com.mapswithme.maps.promo.PromocodeActivationDialog;
@@ -48,7 +47,12 @@ import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
 import com.nvidia.devtech.NvEventQueueActivity;
 
-public class MWMActivity extends NvEventQueueActivity implements LocationService.Listener, OnApiPointActivatedListener
+import java.io.Serializable;
+import java.util.Locale;
+
+public class MWMActivity extends NvEventQueueActivity 
+                         implements LocationService.Listener, OnApiPointActivatedListener,
+                                    OnBookmarkActivatedListener, OnPoiActivatedListener
 {
   public static final String EXTRA_TASK = "map_task";
   
@@ -74,13 +78,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   //showDialog(int, Bundle) available only form API 8
   private String mProDialogMessage;
 
-  private interface OnNativePopupClickListenter
-  {
-    void onClick(int cat, int bmk);
-  }
-
-  private native void setOnPopupClickListener(Object l);
-  private native void removeOnPopupClickListener();
   private native void deactivatePopup();
 
   private LocationService getLocationService()
@@ -574,29 +571,40 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     alignZoomButtons();
 
-    setOnPopupClickListener(new OnNativePopupClickListenter()
-    {
-      @Override
-      public void onClick(int cat, int bmk)
-      {
-        if (!mApplication.isProVersion())
-        {
-          showProVersionBanner(getString(R.string.bookmarks_in_pro_version));
-        }
-        else
-        {
-          startActivity(new Intent(MWMActivity.this, BookmarkActivity.class)
-          .putExtra(BookmarkActivity.PIN, new ParcelablePoint(cat, bmk))
-          .putExtra(BookmarkActivity.FROM_MAP, true));
-        }
-      }
-    });
+//    setOnPopupClickListener(new OnNativePopupClickListenter()
+//    {
+//      @Override
+//      public void onClick(int cat, int bmk)
+//      {
+//        if (!mApplication.isProVersion())
+//        {
+//          showProVersionBanner(getString(R.string.bookmarks_in_pro_version));
+//        }
+//        else
+//        {
+//          startActivity(new Intent(MWMActivity.this, BookmarkActivity.class)
+//          .putExtra(BookmarkActivity.PIN, new ParcelablePoint(cat, bmk))
+//          .putExtra(BookmarkActivity.FROM_MAP, true));
+//        }
+//      }
+//    });
     
+    Framework.setOnBookmarkActivatedListener(this);
+    Framework.setOnPoiActivatedListener(this);
     
     Intent intent = getIntent();
     // We need check for tasks both in onCreate and onNewIntent
     // because of bug in OS: https://code.google.com/p/android/issues/detail?id=38629
     handleTask(intent);
+  }
+  
+  @Override
+  public void onDestroy()
+  {
+    Framework.clearOnBookmarkActivatedListener();
+    Framework.clearOnPoiActivatedListener();
+    
+    super.onDestroy();
   }
   
   @Override
@@ -822,7 +830,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     {
       // hide title
       mTitleBar.setVisibility(View.GONE);
-      Framework.removeOnApiPointActivatedListener();
+      Framework.clearOnApiPointActivatedListener();
     }
     //we use <merge> so we not sure of type here
     if (mapLp instanceof MarginLayoutParams)
@@ -1055,14 +1063,51 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   }
 
   @Override
-  public void onApiPointActivated(final boolean activated, double lat, double lon, final String name, String id)
+  public void onApiPointActivated(final double lat, final double lon, final String name, final String id)
   {
-    MWMRequest request = MWMRequest.getCurrentRequest();
-    request.setHasPoint(activated);
-    if (activated)
-      request.setPointData(lat, lon, name, id);
+      MWMRequest.getCurrentRequest().setPointData(lat, lon, name, id);
+      // TODO show MapObjectActivity for api point
+      runOnUiThread(new Runnable()
+      {
+        
+        @Override
+        public void run()
+        {
+          Utils.toastShortcut(getApplicationContext(), String.format("Api point: %s %s %f %f", name, id, lat, lon));
+        }
+      });
   }
-
+ 
+  @Override
+  public void onPoiActivated(final String name, final String type, final String address, final double lat, final double lon)
+  {
+    // TODO show MapObjectActivity for POI point
+    runOnUiThread(new Runnable()
+    {
+      
+      @Override
+      public void run()
+      {
+        Utils.toastShortcut(getApplicationContext(), String.format("POI : %s %s %s %f %f", name, type, address, lat, lon));
+      }
+    });
+  }
+  @Override
+  public void onBookmarkActivated(int category, int bookmarkIndex)
+  {
+    // TODO show MapObjectActivity for bookmark
+    final Bookmark bmk = BookmarkManager.getBookmarkManager(this).getBookmark(category, bookmarkIndex);
+    runOnUiThread(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        Utils.toastShortcut(getApplicationContext(), String.format("Bookmark: %s %s %f %f", bmk.getName(), bmk.getCategoryName(), 
+                                                                                            bmk.getLat(),  bmk.getLon()));
+      }
+    });
+  }
+  
   private native void nativeStorageConnected();
   private native void nativeStorageDisconnected();
 

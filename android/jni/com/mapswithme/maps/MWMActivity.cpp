@@ -11,32 +11,10 @@
 ////////////////////////////////////////////////////////////////////////////////////////////
 extern "C"
 {
-
-  void CallBalloonClickListener(shared_ptr<jobject> obj, BookmarkAndCategory & bac)
-  {
-    jmethodID methodID = jni::GetJavaMethodID(jni::GetEnv(), *obj.get(), "onClick", "(II)V");
-    if (methodID != 0)
-    {
-      jni::GetEnv()->CallVoidMethod(*obj.get(), methodID, bac.first, bac.second);
-    }
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_setOnPopupClickListener(JNIEnv * env, jobject thiz, jobject l)
-  {
-    return g_framework->AddBalloonClickListener(bind(&CallBalloonClickListener,jni::make_global_ref(l), _1));
-  }
-
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_deactivatePopup(JNIEnv * env, jobject thiz)
   {
     return g_framework->DeactivatePopup();
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_removeOnPopupClickListener()
-  {
-    g_framework->RemoveBalloonClickListener();
   }
 
   JNIEXPORT void JNICALL

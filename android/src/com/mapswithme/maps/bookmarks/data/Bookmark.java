@@ -11,8 +11,8 @@ public class Bookmark
   private ParcelablePointD mPosition;
   private int mCategoryId = -1;
   private int mBookmark;
-  private double mMercatorX = Double.NaN;
-  private double mMercatorY = Double.NaN;
+  private double mLat = Double.NaN;
+  private double mLon = Double.NaN;
 
 
   Bookmark(Context context, int c, int b)
@@ -27,8 +27,8 @@ public class Bookmark
   private void getXY(ParcelablePointD position)
   {
     ParcelablePointD ll = p2g(position.x, position.y);
-    mMercatorX = ll.x;
-    mMercatorY = ll.y;
+    mLat = ll.x;
+    mLon = ll.y;
   }
 
   public static ParcelablePointD GtoP(ParcelablePointD p)
@@ -59,31 +59,33 @@ public class Bookmark
   void getXY()
   {
     ParcelablePointD ll = getXY(mCategoryId, mBookmark);
-    mMercatorX = ll.x;
-    mMercatorY = ll.y;
-    mPosition = g2p(mMercatorX, mMercatorY);
+    mLat = ll.x;
+    final double yRad = ll.y*Math.PI/180.0;
+    final double lat = (180.0/Math.PI)*(2.0 * Math.atan(Math.exp(yRad)) - Math.PI/2.0);
+    mLon = lat;
+    mPosition = g2p(mLat, mLon);
   }
 
   public DistanceAndAzimut getDistanceAndAzimut(double cLat, double cLon, double north)
   {
-    return getDistanceAndAzimut(mMercatorX, mMercatorY, cLat, cLon, north);
+    return getDistanceAndAzimut(mLat, mLon, cLat, cLon, north);
   }
 
   public ParcelablePointD getPosition()
   {
-    return g2p(mMercatorX, mMercatorY);
+    return g2p(mLat, mLon);
   }
 
   // Why mercatorX is Lat?
   public double getLat()
   {
-    return mMercatorX;
+    return mLat;
   }
 
   // Why mercatorY is Lon?
   public double getLon()
   {
-    return mMercatorY;
+    return mLon;
   }
 
   private Icon getIconInternal()

@@ -30,8 +30,19 @@ namespace android
 
     void CallRepaint();
 
-    typedef function<void (BookmarkAndCategory)> TOnBalloonClickListener;
-    TOnBalloonClickListener m_balloonClickListener;
+    /* Balloon */
+    // POI
+    typedef function<void (::Framework::AddressInfo, m2::PointD)> TOnPoiActivatedListener;
+    TOnPoiActivatedListener m_poiActivatedListener;
+    // Bookmark
+    typedef function<void (BookmarkAndCategory)> TOnBookmarkActivatedListener;
+    TOnBookmarkActivatedListener m_bookmarkActivatedListener;
+    // API point
+    typedef function<void (url_scheme::ApiPoint)> TOnApiPointActivatedListener;
+    TOnApiPointActivatedListener m_apiPointActivatedListener;
+
+
+
 
 
     double m_x1;
@@ -41,9 +52,6 @@ namespace android
     int m_mask;
 
     bool m_doLoadState;
-    //Api
-    typedef function<void (bool, double, double, string, string)> TOnApiPointActivatedListener;
-    TOnApiPointActivatedListener m_apiPointActivatedListener;
 
 
     /// @name Single click processing parameters.
@@ -75,7 +83,12 @@ namespace android
     shared_ptr<BookmarkBalloon> m_bmBaloon;
     string m_bmType;
 
-    void OnBalloonClick(gui::Element * e);
+    // Balloon click callbacks
+    void OnActivatePoi(gui::Element * e, ::Framework::AddressInfo addrInfo, m2::PointD globalPoint);
+    void OnActivateBookmark(gui::Element * e, BookmarkAndCategory bmkAndCat);
+    void OnAcitvateApiPoint(gui::Element * e, url_scheme::ApiPoint apiPoint);
+
+
     void CreateBookmarkBalloon();
     BookmarkBalloon * GetBookmarkBalloon();
     void OnPositionClicked(m2::PointD const & point);
@@ -142,13 +155,6 @@ namespace android
 
     void Scale(double k);
 
-    void AddBalloonClickListener(TOnBalloonClickListener const & l);
-    void RemoveBalloonClickListener();
-    void DeactivatePopup();
-
-    void AddApiPointActivatedListener(TOnApiPointActivatedListener const & l);
-    void RemoveApiPointActivatedListener();
-
     BookmarkAndCategory AddBookmark(size_t category, Bookmark & bm);
     void ReplaceBookmark(BookmarkAndCategory const & ind, Bookmark & bm);
     size_t ChangeBookmarkCategory(BookmarkAndCategory const & ind, size_t newCat);
@@ -158,6 +164,24 @@ namespace android
     bool IsDownloadingActive();
 
     bool SetViewportByUrl(string const & ulr);
+
+    void DeactivatePopup();
+
+    /*
+     * There glue code listeners started
+     * to show their ugly (inter)faces!
+     */
+
+    // POI
+    void SetPoiActivatedListener(TOnPoiActivatedListener const & l);
+    void ClearPoiActivatedListener();
+    // BOOKMARK
+    void SetBookmarkActivatedListener(TOnBookmarkActivatedListener const & l);
+    void ClearBookmarkActivatedListener();
+    // API point
+    void SetApiPointActivatedListener(TOnApiPointActivatedListener const & l);
+    void ClearApiPointActivatedListener();
+
   };
 }
 

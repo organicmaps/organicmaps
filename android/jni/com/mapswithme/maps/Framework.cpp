@@ -592,18 +592,12 @@ namespace android
 
     url_scheme::ApiPoint apiPoint;
     bool const apiPointActivated = NativeFramework()->GetMapApiPoint(pt, apiPoint);
-    if (m_apiPointActivatedListener)
-      m_apiPointActivatedListener(apiPointActivated, apiPoint.m_lat,
-                                                     apiPoint.m_lon,
-                                                     apiPoint.m_title,
-                                                     apiPoint.m_url);
-
-
     if (apiPointActivated)
     {
       m2::PointD pivot(MercatorBounds::LonToX(apiPoint.m_lon),
                        MercatorBounds::LatToY(apiPoint.m_lat));
       ActivatePopup(pivot, apiPoint.m_title, "", IMAGE_ARROW);
+      m_bmBaloon.get()->setOnClickListener(bind(&Framework::OnAcitvateApiPoint, this, _1, apiPoint));
       return;
     }
     else
@@ -614,12 +608,15 @@ namespace android
         {
           Bookmark const * pBM = m_work.GetBmCategory(bmAndCat.first)->GetBookmark(bmAndCat.second);
           ActivatePopup(pBM->GetOrg(), pBM->GetName(), "", IMAGE_ARROW);
+          m_bmBaloon.get()->setOnClickListener(bind(&Framework::OnActivateBookmark, this, _1, bmAndCat));
           return;
         }
       case ::Framework::POI:
         if (!GetBookmarkBalloon()->isVisible())
         {
-          ActivatePopupWithAddressInfo(m_work.PtoG(pxPivot), addrInfo);
+          const m2::PointD globalPoint = m_work.PtoG(pxPivot);
+          ActivatePopupWithAddressInfo(globalPoint, addrInfo);
+          m_bmBaloon.get()->setOnClickListener(bind(&Framework::OnActivatePoi, this, _1, addrInfo, globalPoint));
           if (ms == LONG_TOUCH_MS)
             m_wasLongClick = true;
           return;
@@ -629,7 +626,9 @@ namespace android
         if (ms == LONG_TOUCH_MS)
         {
           m_work.GetAddressInfo(pt, addrInfo);
-          ActivatePopupWithAddressInfo(m_work.PtoG(pt), addrInfo);
+          const m2::PointD globalPoint = m_work.PtoG(pt);
+          ActivatePopupWithAddressInfo(globalPoint, addrInfo);
+          m_bmBaloon.get()->setOnClickListener(bind(&Framework::OnActivatePoi, this, _1, addrInfo, globalPoint));
           m_wasLongClick = true;
           return;
         }
@@ -681,36 +680,6 @@ namespace android
     m_work.Invalidate();
   }
 
-  void Framework::OnBalloonClick(gui::Element * e)
-  {
-    BookmarkBalloon * balloon = GetBookmarkBalloon();
-
-    BookmarkAndCategory bac;
-    if (GetPlatform().IsPro())
-    {
-      bac = m_work.GetBookmark(m_work.GtoP(balloon->glbPivot()));
-      if (!IsValid(bac))
-      {
-        // add new bookmark
-        Bookmark bm(balloon->glbPivot(), balloon->bookmarkName(), m_bmType);
-        bac = AddBookmark(m_work.LastEditedCategory(), bm);
-      }
-    }
-
-    // start edit an existing bookmark
-    m_balloonClickListener(bac);
-  }
-
-  void Framework::AddBalloonClickListener(TOnBalloonClickListener const & l)
-  {
-    m_balloonClickListener = l;
-  }
-
-  void Framework::RemoveBalloonClickListener()
-  {
-    m_balloonClickListener.clear();
-  }
-
   void Framework::CreateBookmarkBalloon()
   {
     CHECK(m_work.GetGuiController(), ());
@@ -725,7 +694,7 @@ namespace android
 
     m_bmBaloon.reset(new BookmarkBalloon(bp));
     m_bmBaloon->setIsVisible(false);
-    m_bmBaloon->setOnClickListener(bind(&Framework::OnBalloonClick, this, _1));
+
     m_work.GetGuiController()->AddElement(m_bmBaloon);
     UpdateBalloonSize();
   }
@@ -811,16 +780,54 @@ namespace android
     return false;
   }
 
-  void Framework::AddApiPointActivatedListener(TOnApiPointActivatedListener const & l)
+  void Framework::OnActivatePoi(gui::Element * e, ::Framework::AddressInfo addrInfo, m2::PointD globalPoint)
+  {
+    m_poiActivatedListener(addrInfo, globalPoint);
+  }
+
+
+  void Framework::OnActivateBookmark(gui::Element * e, BookmarkAndCategory bmkAndCat)
+  {
+    m_bookmarkActivatedListener(bmkAndCat);
+  }
+
+  void Framework::OnAcitvateApiPoint(gui::Element * e, url_scheme::ApiPoint apiPoint)
+  {
+    m_apiPointActivatedListener(apiPoint);
+  }
+
+  // POI
+  void Framework::SetPoiActivatedListener(TOnPoiActivatedListener const & l)
+  {
+    m_poiActivatedListener = l;
+  }
+
+  void Framework::ClearPoiActivatedListener()
+  {
+    m_poiActivatedListener.clear();
+  }
+
+  // BOOKMARK
+  void Framework::SetBookmarkActivatedListener(TOnBookmarkActivatedListener const & l)
+  {
+    m_bookmarkActivatedListener = l;
+  }
+
+  void Framework::ClearBookmarkActivatedListener()
+  {
+    m_bookmarkActivatedListener.clear();
+  }
+
+  // API point
+  void Framework::SetApiPointActivatedListener(TOnApiPointActivatedListener const & l)
   {
     m_apiPointActivatedListener = l;
   }
-
-  void Framework::RemoveApiPointActivatedListener()
+  void Framework::ClearApiPointActivatedListener()
   {
-    if (m_apiPointActivatedListener)
-      m_apiPointActivatedListener.clear();
+    m_apiPointActivatedListener.clear();
   }
+
 }
 
 //============ GLUE CODE for com.mapswithme.maps.Framework class =============//
@@ -835,17 +842,47 @@ namespace android
 extern "C"
 {
 
-  void CallOnApiPointActivatedListener(shared_ptr<jobject> obj,  bool activated, double lat, double lon, string name, string id)
+  void CallOnApiPointActivatedListener(shared_ptr<jobject> obj, url_scheme::ApiPoint apiPoint)
   {
+    const string name = apiPoint.m_title;
+    const string id   = apiPoint.m_url;
+    const double lat  = apiPoint.m_lat;
+    const double lon  = apiPoint.m_lon;
+
+
     JNIEnv * jniEnv = jni::GetEnv();
     const jmethodID methodID = jni::GetJavaMethodID(jniEnv,
                                                     *obj.get(),
                                                    "onApiPointActivated",
-                                                   "(ZDDLjava/lang/String;Ljava/lang/String;)V");
+                                                   "(DDLjava/lang/String;Ljava/lang/String;)V");
 
     jstring j_name = jni::ToJavaString(jniEnv, name);
     jstring j_id   = jni::ToJavaString(jniEnv, id);
-    jniEnv->CallVoidMethod(*obj.get(), methodID, activated, lat, lon, j_name, j_id);
+    jniEnv->CallVoidMethod(*obj.get(), methodID, lat, lon, j_name, j_id);
+  }
+
+  void CallOnPoiActivatedListener(shared_ptr<jobject> obj, ::Framework::AddressInfo addrInfo, m2::PointD globalPoint)
+  {
+    JNIEnv * jniEnv = jni::GetEnv();
+
+    const jstring j_name = jni::ToJavaString(jniEnv, addrInfo.GetPinName());
+    const jstring j_type = jni::ToJavaString(jniEnv, addrInfo.GetPinType());
+    const jstring j_address = jni::ToJavaString(jniEnv, addrInfo.FormatAddress());
+    const double lon = MercatorBounds::XToLon(globalPoint.x);
+    const double lat = MercatorBounds::YToLat(globalPoint.y);
+
+    const char * signature = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;DD)V";
+    const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(),
+                                                    "onPoiActivated", signature);
+    jniEnv->CallVoidMethod(*obj.get(), methodId, j_name, j_type, j_address, lat, lon);
+  }
+
+  void CallOnBookmarkActivatedListener(shared_ptr<jobject> obj, BookmarkAndCategory bmkAndCat)
+  {
+    JNIEnv * jniEnv = jni::GetEnv();
+    const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(),
+                                                    "onBookmarkActivated", "(II)V");
+    jniEnv->CallVoidMethod(*obj.get(), methodId, bmkAndCat.first, bmkAndCat.second);
   }
 
   JNIEXPORT jstring JNICALL
@@ -863,17 +900,42 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetApiPointActivatedListener(JNIEnv * env, jobject thiz, jobject l)
+  Java_com_mapswithme_maps_Framework_nativeSetApiPointActivatedListener(JNIEnv * env, jclass clazz, jobject l)
   {
-    g_framework->AddApiPointActivatedListener(
-        bind(&CallOnApiPointActivatedListener, jni::make_global_ref(l),
-            _1, _2, _3, _4, _5));
+    g_framework->SetApiPointActivatedListener(
+        bind(&CallOnApiPointActivatedListener, jni::make_global_ref(l), _1));
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeRemoveApiPointActivatedListener(JNIEnv * env, jobject thiz)
+  Java_com_mapswithme_maps_Framework_nativeClearApiPointActivatedListener(JNIEnv * env, jclass clazz, jobject l)
   {
-    g_framework->RemoveApiPointActivatedListener();
+    g_framework->ClearApiPointActivatedListener();
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeSetOnPoiActivatedListener(JNIEnv * env, jclass clazz, jobject l)
+  {
+    g_framework->SetPoiActivatedListener(
+        bind(&CallOnPoiActivatedListener, jni::make_global_ref(l), _1, _2));
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeClearOnPoiActivatedListener(JNIEnv * env, jclass clazz)
+  {
+    g_framework->ClearPoiActivatedListener();
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeSetOnBookmarkActivatedListener(JNIEnv * env, jclass clazz, jobject l)
+  {
+    g_framework->SetBookmarkActivatedListener(
+        bind(&CallOnBookmarkActivatedListener, jni::make_global_ref(l), _1));
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeClearOnBookmarkActivatedListener(JNIEnv * env, jclass clazz)
+  {
+    g_framework->ClearBookmarkActivatedListener();
   }
 
   JNIEXPORT void JNICALL
