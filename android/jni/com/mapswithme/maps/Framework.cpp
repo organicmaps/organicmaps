@@ -5,7 +5,6 @@
 #include "../core/render_context.hpp"
 
 #include "../../../../../map/framework.hpp"
-#include "../../../../../map/measurement_utils.hpp"
 
 #include "../../../../../gui/controller.hpp"
 
@@ -63,14 +62,8 @@ namespace android
     m_work.OnLocationError(static_cast<location::TLocationError>(errorCode));
   }
 
-  void Framework::OnLocationUpdated(uint64_t time, double lat, double lon, float accuracy)
+  void Framework::OnLocationUpdated(location::GpsInfo const & info)
   {
-    location::GpsInfo info;
-    info.m_timestamp = static_cast<double>(time);
-    info.m_latitude = lat;
-    info.m_longitude = lon;
-    info.m_horizontalAccuracy = accuracy;
-
     m_work.OnLocationUpdate(info);
   }
 
@@ -81,7 +74,6 @@ namespace android
     info.m_magneticHeading = magneticNorth;
     info.m_trueHeading = trueNorth;
     info.m_accuracy = accuracy;
-
     m_work.OnCompassUpdate(info);
   }
 

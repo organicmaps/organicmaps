@@ -295,6 +295,10 @@ public class LocationService implements LocationListener, SensorEventListener, W
   public void onLocationChanged(Location l)
   {
     mLogger.d("Location changed", l);
+    // Completely ignore locations without lat and lon
+    if (l.getAccuracy() <= 0.)
+      return;
+    
     // hack to avoid time zone troubles
     l.setTime(System.currentTimeMillis());
     if (LocationUtils.isFirstOneBetterLocation(l, m_lastLocation))

@@ -735,7 +735,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       mMyPositionButton.setSelected(true);
     }
 
-    nativeLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
+    nativeLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy(), l.getAltitude(), l.getSpeed(), l.getBearing());
   }
 
   @Override
@@ -1119,7 +1119,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private native void nativeDestroy();
 
   private native void nativeOnLocationError(int errorCode);
-  private native void nativeLocationUpdated(long time, double lat, double lon, float accuracy);
+  private native void nativeLocationUpdated(long time, double lat, double lon, float accuracy, double altitude, float speed, float bearing);
   private native void nativeCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
 
   private native boolean nativeIsInChina(double lat, double lon);

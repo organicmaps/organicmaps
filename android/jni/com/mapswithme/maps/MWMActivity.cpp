@@ -26,9 +26,30 @@ extern "C"
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeLocationUpdated(JNIEnv * env, jobject thiz,
-      jlong time, jdouble lat, jdouble lon, jfloat accuracy)
+      jlong time, jdouble lat, jdouble lon, jfloat accuracy,
+      jdouble altitude, jfloat speed, jfloat bearing)
   {
-    g_framework->OnLocationUpdated(time, lat, lon, accuracy);
+    const double GPS_VALUE_NOT_SET = -9999999.9;
+
+    location::GpsInfo info;
+    info.m_horizontalAccuracy = accuracy;
+    info.m_latitude = lat;
+    info.m_longitude = lon;
+    info.m_timestamp = time;
+    info.m_source = location::EAndroidNative;
+
+    if (altitude == 0.0)
+      info.m_altitude = info.m_verticalAccuracy = GPS_VALUE_NOT_SET;
+    else
+    {
+      info.m_altitude = altitude;
+      // use horizontal accuracy
+      info.m_verticalAccuracy = accuracy;
+    }
+    info.m_course = (bearing == 0.0 ? GPS_VALUE_NOT_SET : bearing);
+    info.m_speed = (speed == 0.0 ? GPS_VALUE_NOT_SET : speed);
+
+    g_framework->OnLocationUpdated(info);
   }
 
   JNIEXPORT void JNICALL

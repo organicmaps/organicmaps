@@ -71,7 +71,7 @@ namespace android
     void DeleteCountry(storage::TIndex const & idx);
 
     void OnLocationError(int/* == location::TLocationStatus*/ newStatus);
-    void OnLocationUpdated(uint64_t time, double lat, double lon, float accuracy);
+    void OnLocationUpdated(location::GpsInfo const & info);
     void OnCompassUpdated(uint64_t time, double magneticNorth, double trueNorth, double accuracy);
     void UpdateCompassSensor(int ind, float * arr);
 
