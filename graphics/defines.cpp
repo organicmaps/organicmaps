@@ -8,44 +8,78 @@
 
 namespace graphics
 {
-  namespace {
-   struct Data
-   {
-     int m_val;
-     char const * m_name;
-   };
+  namespace
+  {
+    // Use custom struct to leave {} initialization notation (pair doesn't support it).
+    template <class FirstT, class SecondT> struct DataT
+    {
+      FirstT first;
+      SecondT second;
+    };
+
+    typedef DataT<int, char const *> DataIS;
+
+    template <class SecondT, size_t N>
+    SecondT FindSecondByFirst(DataT<int, SecondT> (&arr)[N], int t)
+    {
+      for (size_t i = 0; i < N; ++i)
+      {
+        if (t == arr[i].first)
+          return arr[i].second;
+      }
+
+      LOG(LERROR, (t));
+      return SecondT();
+    }
+
+    template <class FirstT, class SecondT, size_t N, class CompareT>
+    FirstT FindFirstBySecond(DataT<FirstT, SecondT> (&arr)[N],
+                             SecondT t, CompareT comp)
+    {
+      for (size_t i = 0; i < N; ++i)
+      {
+        if (comp(t, arr[i].second))
+          return arr[i].first;
+      }
+
+      LOG(LERROR, (t));
+      return FirstT();
+    }
+
+    struct EqualStrings
+    {
+      bool operator() (char const * s1, char const * s2) const
+      {
+        return (strcmp(s1, s2) == 0);
+      }
+    };
   }
 
-  Data s_density[] = {
+  DataIS s_density[] = {
     {EDensityLDPI, "ldpi"},
     {EDensityMDPI, "mdpi"},
     {EDensityHDPI, "hdpi"},
     {EDensityXHDPI, "xhdpi"},
-    {EDensityXXHDPI, "xxhdpi"} // using xhdpi resources for xxdpi screens
+    {EDensityXXHDPI, "xxhdpi"}
   };
 
   char const * convert(EDensity density)
   {
-    for (unsigned i = 0; i < ARRAY_SIZE(s_density); ++i)
-    {
-      if (density == s_density[i].m_val)
-        return s_density[i].m_name;
-    }
-    return 0;
+    return FindSecondByFirst(s_density, density);
   }
 
   string const resourcePath(string const & name, EDensity d)
   {
-      return my::JoinFoldersToPath(string("resources-") + convert(d), name);
+    return my::JoinFoldersToPath(string("resources-") + convert(d), name);
   }
 
   double visualScale(EDensity density)
   {
-    static double const vs [5] = {0.75, 1, 1.5, 2, 3};
+    static double const vs [5] = { 0.75, 1, 1.5, 2, 3 };
     return vs[density];
   }
 
-  Data s_semantics[] = {
+  DataIS s_semantics[] = {
     {ESemPosition, "Position"},
     {ESemNormal, "Normal"},
     {ESemTexCoord0, "TexCoord0"},
@@ -56,20 +90,10 @@ namespace graphics
 
   void convert(char const * name, ESemantic & sem)
   {
-    for (unsigned i = 0; i < ARRAY_SIZE(s_semantics); ++i)
-    {
-      if (strcmp(name, s_semantics[i].m_name) == 0)
-      {
-        sem = (ESemantic)s_semantics[i].m_val;
-        return;
-      }
-    }
-
-    sem = (ESemantic)0;
-    LOG(LERROR, ("Unknown Semantics=", name, "specified!"));
+    sem = static_cast<ESemantic>(FindFirstBySecond(s_semantics, name, EqualStrings()));
   }
 
-  Data s_storages [] = {
+  DataIS s_storages[] = {
     {ETinyStorage, "TinyStorage"},
     {ESmallStorage, "SmallStorage"},
     {EMediumStorage, "MediumStorage"},
@@ -79,17 +103,10 @@ namespace graphics
 
   char const * convert(EStorageType type)
   {
-    for (unsigned i = 0; i < ARRAY_SIZE(s_storages); ++i)
-    {
-      if (s_storages[i].m_val == type)
-        return s_storages[i].m_name;
-    }
-
-    LOG(LERROR, ("Unknown StorageType=", type, "specified!"));
-    return "UnknownStorage";
+    return FindSecondByFirst(s_storages, type);
   }
 
-  Data s_textures [] = {
+  DataIS s_textures[] = {
     {ESmallTexture, "SmallTexture"},
     {EMediumTexture, "MediumTexture"},
     {ELargeTexture, "LargeTexture"},
@@ -100,25 +117,10 @@ namespace graphics
 
   char const * convert(ETextureType type)
   {
-    for (unsigned i = 0; i < ARRAY_SIZE(s_textures); ++i)
-    {
-      if (s_textures[i].m_val == type)
-        return s_textures[i].m_name;
-    }
-
-    LOG(LERROR, ("Unknown TextureType=", type, "specified!"));
-    return "UnknownTexture";
+    return FindSecondByFirst(s_textures, type);
   }
 
-  namespace {
-    struct DataType
-    {
-      EDataType m_dt;
-      unsigned m_elemSize;
-    };
-  }
-
-  DataType s_dataTypes [] = {
+  DataT<int, unsigned> s_dataTypes[] = {
     {EInteger, sizeof(int)},
     {EIntegerVec2, sizeof(int) * 2},
     {EIntegerVec3, sizeof(int) * 3},
@@ -133,13 +135,8 @@ namespace graphics
     {ESampler2D, sizeof(int)}
   };
 
-  unsigned elemSize(EDataType dt)
+  unsigned elemSize(EDataType type)
   {
-    for (unsigned i = 0; i < ARRAY_SIZE(s_dataTypes); ++i)
-      if (s_dataTypes[i].m_dt == dt)
-        return s_dataTypes[i].m_elemSize;
-
-    return 0;
+    return FindSecondByFirst(s_dataTypes, type);
   }
-
 }
