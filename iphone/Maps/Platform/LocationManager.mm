@@ -115,43 +115,44 @@
   info.m_timestamp = [location.timestamp timeIntervalSince1970];
   info.m_source = location::EAppleNative;
 
-  //info.m_verticalAccuracy = location.verticalAccuracy;
-  //info.m_altitude = location.altitude;
-  //info.m_course = location.course;
-  //info.m_speed = location.speed;
+  info.m_verticalAccuracy = location.verticalAccuracy;
+  info.m_altitude = location.altitude;
+  info.m_course = location.course;
+  info.m_speed = location.speed;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-  if (location::IsLatValid(newLocation.coordinate.latitude) &&
-      location::IsLonValid(newLocation.coordinate.longitude))
+  // According to documentation, lat and lon are valid only if horz acc is non-negative.
+  // So we filter out such events completely.
+  if (newLocation.horizontalAccuracy < 0.)
+    return;
+
+  // Save current device time for location.
+  [m_lastLocationTime release];
+  m_lastLocationTime = [[NSDate date] retain];
+
+  location::GpsInfo newInfo;
+  [self location:newLocation toGpsInfo:newInfo];
+  for (id observer in m_observers)
+    [observer onLocationUpdate:newInfo];
+
+  // Pass current course if we are moving and GPS course is valid.
+  if (newLocation.speed >= 1.0 && newLocation.course >= 0.0)
   {
-    // Save current device time for location.
-    [m_lastLocationTime release];
-    m_lastLocationTime = [[NSDate date] retain];
+    m_isCourse = YES;
 
-    location::GpsInfo newInfo;
-    [self location:newLocation toGpsInfo:newInfo];
+    location::CompassInfo newInfo;
+    newInfo.m_magneticHeading = my::DegToRad(newLocation.course);
+    newInfo.m_trueHeading = newInfo.m_magneticHeading;
+    newInfo.m_accuracy = 10.0;
+    newInfo.m_timestamp = [newLocation.timestamp timeIntervalSince1970];
+
     for (id observer in m_observers)
-      [observer onLocationUpdate:newInfo];
-
-    // Pass current course if we are moving and GPS course is valid.
-    if (newLocation.speed >= 1.0 && newLocation.course >= 0.0)
-    {
-      m_isCourse = YES;
-
-      location::CompassInfo newInfo;
-      newInfo.m_magneticHeading = my::DegToRad(newLocation.course);
-      newInfo.m_trueHeading = newInfo.m_magneticHeading;
-      newInfo.m_accuracy = 10.0;
-      newInfo.m_timestamp = [newLocation.timestamp timeIntervalSince1970];
-
-      for (id observer in m_observers)
-        [observer onCompassUpdate:newInfo];
-    }
-    else
-      m_isCourse = NO;
+      [observer onCompassUpdate:newInfo];
   }
+  else
+    m_isCourse = NO;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
