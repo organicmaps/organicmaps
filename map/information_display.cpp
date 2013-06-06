@@ -13,6 +13,7 @@
 #include "../graphics/defines.hpp"
 #include "../graphics/pen.hpp"
 #include "../graphics/straight_text_element.hpp"
+#include "../graphics/depth_constants.hpp"
 
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
@@ -63,7 +64,7 @@ void InformationDisplay::InitRuler(Framework * fw)
 {
   Ruler::Params p;
 
-  p.m_depth = graphics::maxDepth - 10;
+  p.m_depth = graphics::rulerDepth;
   p.m_position = graphics::EPosAboveLeft;
   p.m_framework = fw;
 
@@ -76,7 +77,7 @@ void InformationDisplay::InitCountryStatusDisplay(Framework * fw)
 
   p.m_pivot = m2::PointD(0, 0);
   p.m_position = graphics::EPosCenter;
-  p.m_depth = graphics::maxDepth;
+  p.m_depth = graphics::countryStatusDepth;
   p.m_storage = &fw->Storage();
 
   m_countryStatusDisplay.reset(new CountryStatusDisplay(p));
@@ -87,7 +88,7 @@ void InformationDisplay::InitCompassArrow(Framework * fw)
   CompassArrow::Params p;
 
   p.m_position = graphics::EPosCenter;
-  p.m_depth = graphics::maxDepth;
+  p.m_depth = graphics::compassDepth;
   p.m_arrowHeight = 50;
   p.m_arrowWidth = 16;
   p.m_pivot = m2::PointD(0, 0);
@@ -101,11 +102,11 @@ void InformationDisplay::InitLocationState(Framework * fw)
   location::State::Params p;
 
   p.m_position = graphics::EPosCenter;
-  p.m_depth = graphics::maxDepth - 1;
+  p.m_depth = graphics::locationDepth;
   p.m_pivot = m2::PointD(0, 0);
   p.m_compassAreaColor = graphics::Color(255, 255, 255, 192);
   p.m_compassBorderColor = graphics::Color(255, 255, 255, 96);
-  p.m_locationAreaColor =   graphics::Color(11, 97, 210, 48);
+  p.m_locationAreaColor = graphics::Color(11, 97, 210, 48);
   p.m_framework = fw;
 
   m_locationState.reset(new location::State(p));
@@ -115,7 +116,7 @@ void InformationDisplay::InitCenterLabel()
 {
   gui::CachedTextView::Params p;
 
-  p.m_depth = graphics::maxDepth - 10;
+  p.m_depth = graphics::rulerDepth;
   p.m_position = graphics::EPosUnderLeft;
   p.m_pivot = m2::PointD(0, 0);
 
@@ -126,7 +127,7 @@ void InformationDisplay::InitDebugLabel()
 {
   gui::CachedTextView::Params p;
 
-  p.m_depth = graphics::maxDepth - 10;
+  p.m_depth = graphics::debugDepth;
   p.m_position = graphics::EPosAboveRight;
   p.m_pivot = m2::PointD(0, 0);
 
@@ -202,8 +203,8 @@ void InformationDisplay::drawDebugPoints(Drawer * pDrawer)
   for (int i = 0; i < sizeof(m_DebugPts) / sizeof(m2::PointD); ++i)
     if (m_DebugPts[i] != m2::PointD(0, 0))
     {
-      pDrawer->screen()->drawArc(m_DebugPts[i], 0, math::pi * 2, 30, graphics::Color(0, 0, 255, 32), graphics::maxDepth);
-      pDrawer->screen()->fillSector(m_DebugPts[i], 0, math::pi * 2, 30, graphics::Color(0, 0, 255, 32), graphics::maxDepth);
+      pDrawer->screen()->drawArc(m_DebugPts[i], 0, math::pi * 2, 30, graphics::Color(0, 0, 255, 32), graphics::debugDepth);
+      pDrawer->screen()->fillSector(m_DebugPts[i], 0, math::pi * 2, 30, graphics::Color(0, 0, 255, 32), graphics::debugDepth);
     }
 }
 
@@ -288,7 +289,7 @@ void InformationDisplay::drawMemoryWarning(Drawer * drawer)
                              pos,
                              graphics::EPosAboveRight,
                              out.str(),
-                             graphics::maxDepth - 10,
+                             graphics::debugDepth,
                              false);
 
   if (m_lastMemoryWarning.ElapsedSeconds() > 5)
@@ -445,10 +446,11 @@ void InformationDisplay::drawBenchmarkInfo(Drawer * pDrawer)
                               pos,
                               graphics::EPosAboveRight,
                               "benchmark info :",
-                              graphics::maxDepth,
+                              graphics::benchmarkDepth,
                               false);
 
-  for (unsigned i = max(0, (int)m_benchmarkInfo.size() - 5); i < m_benchmarkInfo.size(); ++i)
+  size_t const count = m_benchmarkInfo.size();
+  for (size_t i = (count <= 5 ? 0 : count - 5); i < count; ++i)
   {
     ostringstream out;
     m2::RectD const & r = m_benchmarkInfo[i].m_rect;
@@ -464,11 +466,9 @@ void InformationDisplay::drawBenchmarkInfo(Drawer * pDrawer)
                                 pos,
                                 graphics::EPosAboveRight,
                                 out.str(),
-                                graphics::maxDepth,
-                                false
-                                );
+                                graphics::benchmarkDepth,
+                                false);
   }
-
 }
 
 void InformationDisplay::doDraw(Drawer *drawer)

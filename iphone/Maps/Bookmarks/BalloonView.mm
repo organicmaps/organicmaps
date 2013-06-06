@@ -5,6 +5,8 @@
 
 #include "../../../gui/controller.hpp"
 
+#include "../../../graphics/depth_constants.hpp"
+
 
 @implementation BalloonView
 
@@ -32,7 +34,7 @@
     // Init balloon.
     BookmarkBalloon::Params bp;
     bp.m_position = graphics::EPosAbove;
-    bp.m_depth = graphics::maxDepth;
+    bp.m_depth = graphics::balloonBaseDepth;
     bp.m_pivot = m2::PointD(0, 0);
     bp.m_mainText = "Bookmark";
     bp.m_framework = &f;

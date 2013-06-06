@@ -9,6 +9,7 @@
 #include "../gui/controller.hpp"
 
 #include "../graphics/opengl/opengl.hpp"
+#include "../graphics/depth_constants.hpp"
 
 #include "../platform/settings.hpp"
 #include "../platform/platform.hpp"
@@ -417,7 +418,7 @@ namespace qt
     BookmarkBalloon::Params bp;
 
     bp.m_position = graphics::EPosAbove;
-    bp.m_depth = graphics::maxDepth;
+    bp.m_depth = graphics::balloonBaseDepth;
     bp.m_pivot = m2::PointD(0.0, 0.0);
     bp.m_mainText = "Bookmark";
     bp.m_framework = m_framework.get();

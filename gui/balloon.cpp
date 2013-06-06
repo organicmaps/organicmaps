@@ -7,6 +7,8 @@
 #include "../graphics/brush.hpp"
 #include "../graphics/screen.hpp"
 #include "../graphics/path.hpp"
+#include "../graphics/depth_constants.hpp"
+
 
 namespace gui
 {
@@ -30,16 +32,11 @@ namespace gui
       m_textImageOffsetV(0.0),
       m_boundRects(1)
   {
-    const int incDepth = 100;
-
-    if (depth() + incDepth > graphics::maxDepth)
-        setDepth(graphics::maxDepth - incDepth);
-
     TextView::Params tp;
 
     tp.m_position = graphics::EPosAboveRight;
     tp.m_pivot = m2::PointD(0, 0);
-    tp.m_depth = depth() + incDepth;
+    tp.m_depth = depth() + graphics::balloonContentInc;
 
     m_mainTextView.reset(new TextView(tp));
     m_mainTextView->setFont(Element::EActive, graphics::FontDesc(17, graphics::Color(0, 0, 0, 255)));
@@ -48,7 +45,7 @@ namespace gui
     auxTp.m_text = p.m_auxText;
     auxTp.m_position = graphics::EPosAboveRight;
     auxTp.m_pivot = m2::PointD(0, 0);
-    auxTp.m_depth = depth() + incDepth;
+    auxTp.m_depth = depth() + graphics::balloonContentInc;
 
     m_auxTextView.reset(new TextView(auxTp));
     m_auxTextView->setFont(Element::EActive, graphics::FontDesc(12, graphics::Color(102, 102, 102, 255)));
@@ -59,7 +56,7 @@ namespace gui
 
     ip.m_pivot = m2::PointD(0, 0);
     ip.m_position = graphics::EPosRight;
-    ip.m_depth = depth() + incDepth;
+    ip.m_depth = depth() + graphics::balloonContentInc;
     ip.m_image = p.m_image;
 
     m_imageView.reset(new ImageView(ip));

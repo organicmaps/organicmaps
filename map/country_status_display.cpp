@@ -153,7 +153,7 @@ CountryStatusDisplay::CountryStatusDisplay(Params const & p)
 
   gui::Button::Params bp;
 
-  bp.m_depth = graphics::maxDepth - 10;
+  bp.m_depth = depth();
   bp.m_minWidth = 200;
   bp.m_minHeight = 40;
   bp.m_pivot = m2::PointD(0, 0);
@@ -172,7 +172,7 @@ CountryStatusDisplay::CountryStatusDisplay(Params const & p)
   m_downloadButton->setColor(EPressed, graphics::Color(graphics::Color(0, 0, 0, 0.4 * 255)));
 
   gui::TextView::Params tp;
-  tp.m_depth = graphics::maxDepth - 10;
+  tp.m_depth = depth();
   tp.m_pivot = m2::PointD(0, 0);
   tp.m_text = "Downloading";
 
@@ -258,8 +258,6 @@ void CountryStatusDisplay::draw(graphics::OverlayRenderer *r,
     return;
 
   checkDirtyLayout();
-
-  //r->drawRectangle(roughBoundRect(), graphics::Color(0, 0, 255, 64), graphics::maxDepth);
 
   if (m_downloadButton->isVisible())
     m_downloadButton->draw(r, m);
