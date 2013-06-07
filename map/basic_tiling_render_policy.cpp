@@ -115,12 +115,9 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
   m_CoverageGenerator->Draw(pDrawer->screen(), s);
   m_DrawScale = m_CoverageGenerator->GetDrawScale();
 
-  if (!m_CoverageGenerator->IsEmptyDrawing() || !m_CoverageGenerator->IsPartialCoverage())
-  {
-    m_IsEmptyModel = m_CoverageGenerator->IsEmptyDrawing() && m_CoverageGenerator->IsEmptyModelAtCenter();
-    if (m_IsEmptyModel)
-      m_countryIndex = m_CoverageGenerator->GetCountryIndexAtCenter();
-  }
+  m_IsEmptyModel = m_CoverageGenerator->IsEmptyDrawing();
+  if (m_IsEmptyModel)
+    m_countryIndex = m_CoverageGenerator->GetCountryIndexAtCenter();
 
   pDrawer->endFrame();
 }

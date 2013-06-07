@@ -183,17 +183,12 @@ graphics::Overlay * CoverageGenerator::GetOverlay() const
 
 bool CoverageGenerator::IsEmptyDrawing() const
 {
-  return (m_coverageInfo.m_renderLeafTilesCount <= 0) && m_coverageInfo.m_isEmptyDrawing;
+  return (m_currentCoverage->m_renderLeafTilesCount <= 0) && m_currentCoverage->m_isEmptyDrawing;
 }
 
-bool CoverageGenerator::IsEmptyModelAtCenter() const
+bool CoverageGenerator::IsBackEmptyDrawing() const
 {
-  return m_indexInfo.m_countryIndex.IsValid();
-}
-
-bool CoverageGenerator::IsPartialCoverage() const
-{
-  return m_coverageInfo.m_hasTileCahceMiss;
+  return (m_backCoverage->m_renderLeafTilesCount <= 0) && m_backCoverage->m_isEmptyDrawing;
 }
 
 bool CoverageGenerator::DoForceUpdate() const
@@ -235,11 +230,8 @@ void CoverageGenerator::CoverScreenImpl(core::CommandsQueue::Environment const &
 
   ComputeCoverTasks();
 
-  if (!IsPartialCoverage() && IsEmptyDrawing())
-  {
-    m_indexInfo.m_countryIndex = storage::TIndex();
-    CheckEmptyModel(sequenceID);
-  }
+  if (IsBackEmptyDrawing())
+    CheckEmptyModelImpl(sequenceID);
 
   bool shouldSwap = !m_stateInfo.m_isPause && CacheCoverage(env);
 
@@ -269,13 +261,12 @@ void CoverageGenerator::MergeTileImpl(core::CommandsQueue::Environment const & e
   }
 
   m_backCoverage->m_screen = m_stateInfo.m_currentScreen;
+  m_backCoverage->m_isEmptyDrawing = m_currentCoverage->m_isEmptyDrawing;
+  m_backCoverage->m_renderLeafTilesCount = m_currentCoverage->m_renderLeafTilesCount;
   MergeSingleTile(rectInfo);
 
-  if (!IsPartialCoverage() && IsEmptyDrawing())
-  {
-    m_indexInfo.m_countryIndex = storage::TIndex();
-    CheckEmptyModel(sequenceID);
-  }
+  if (IsBackEmptyDrawing())
+    CheckEmptyModelImpl(sequenceID);
 
   bool shouldSwap = !m_stateInfo.m_isPause && CacheCoverage(env);
 
@@ -346,7 +337,7 @@ void CoverageGenerator::CheckEmptyModelImpl(int sequenceID)
   if (sequenceID < m_stateInfo.m_sequenceID)
     return;
 
-  if (!IsPartialCoverage() && IsEmptyDrawing())
+  if (IsBackEmptyDrawing() || IsEmptyDrawing())
   {
     m2::PointD const centerPt = m_stateInfo.m_currentScreen.GlobalRect().GetGlobalRect().Center();
     m_indexInfo.m_countryIndex = GetCountryIndex(centerPt);
@@ -360,8 +351,8 @@ void CoverageGenerator::CheckEmptyModelImpl(int sequenceID)
 ////////////////////////////////////////////////////////////
 void CoverageGenerator::ComputeCoverTasks()
 {
-  m_coverageInfo.m_isEmptyDrawing = true;
-  m_coverageInfo.m_renderLeafTilesCount = 0;
+  m_backCoverage->m_isEmptyDrawing = false;
+  m_backCoverage->m_renderLeafTilesCount = 0;
 
   vector<Tiler::RectInfo> allRects;
   allRects.reserve(16);
@@ -373,6 +364,7 @@ void CoverageGenerator::ComputeCoverTasks()
 
   int const step = GetPlatform().PreCachingDepth() - 1;
 
+  bool isEmptyDrawingBuf = true;
   CoverageInfo::TTileSet tiles;
   for (size_t i = 0; i < allRects.size(); ++i)
   {
@@ -391,7 +383,7 @@ void CoverageGenerator::ComputeCoverTasks()
       ASSERT(tiles.find(tile) == tiles.end(), ());
 
       if (m_coverageInfo.m_tiler.isLeaf(ri))
-        m_coverageInfo.m_isEmptyDrawing &= tile->m_isEmptyDrawing;
+        isEmptyDrawingBuf &= tile->m_isEmptyDrawing;
 
       tiles.insert(tile);
     }
@@ -399,11 +391,11 @@ void CoverageGenerator::ComputeCoverTasks()
     {
       newRects.push_back(ri);
       if (m_coverageInfo.m_tiler.isLeaf(ri))
-        ++m_coverageInfo.m_renderLeafTilesCount;
+        ++m_backCoverage->m_renderLeafTilesCount;
     }
   }
 
-  m_coverageInfo.m_hasTileCahceMiss = !newRects.empty();
+  m_backCoverage->m_isEmptyDrawing = isEmptyDrawingBuf;
 
   /// computing difference between current and previous coverage
   /// tiles, that aren't in current coverage are unlocked to allow their deletion from TileCache
@@ -492,8 +484,8 @@ void CoverageGenerator::MergeSingleTile(Tiler::RectInfo const & rectInfo)
 
     if (m_coverageInfo.m_tiler.isLeaf(rectInfo))
     {
-      m_coverageInfo.m_isEmptyDrawing &= tile->m_isEmptyDrawing;
-      m_coverageInfo.m_renderLeafTilesCount--;
+      m_backCoverage->m_isEmptyDrawing &= tile->m_isEmptyDrawing;
+      m_backCoverage->m_renderLeafTilesCount--;
     }
   }
 
@@ -607,11 +599,6 @@ void CoverageGenerator::ClearCoverage()
     m_coverageInfo.m_overlay->unlock();
   }
 
-  m_coverageInfo.m_isEmptyDrawing = false;
-  m_coverageInfo.m_renderLeafTilesCount = 0;
-  m_coverageInfo.m_hasTileCahceMiss = false;
-  m_indexInfo.m_countryIndex = storage::TIndex();
-
   TileCache & tileCache = m_coverageInfo.m_tileRenderer->GetTileCache();
 
   tileCache.Lock();
@@ -718,7 +705,7 @@ void CoverageGenerator::StateInfo::Pause()
 void CoverageGenerator::StateInfo::Resume()
 {
   m_isPause = false;
-  m_needForceUpdate = false;
+  m_needForceUpdate = true;
 }
 
 ////////////////////////////////////////////////////////////
@@ -748,6 +735,8 @@ CoverageGenerator::IndexInfo::IndexInfo(RenderPolicy::TCountryIndexFn indexFn)
 CoverageGenerator::CachedCoverageInfo::CachedCoverageInfo()
   : m_mainElements(NULL)
   , m_sharpElements(NULL)
+  , m_renderLeafTilesCount(0)
+  , m_isEmptyDrawing(false)
 {
 }
 

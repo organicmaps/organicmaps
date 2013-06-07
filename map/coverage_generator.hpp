@@ -89,8 +89,6 @@ public:
   graphics::Overlay * GetOverlay() const;
 
   bool IsEmptyDrawing() const;
-  bool IsEmptyModelAtCenter() const;
-  bool IsPartialCoverage() const;
   bool DoForceUpdate() const;
 
   int GetDrawScale() const;
@@ -107,6 +105,7 @@ private:
   void InvalidateTilesImpl(m2::AnyRectD const & rect, int startScale);
 
   void CheckEmptyModelImpl(int sequenceID);
+  bool IsBackEmptyDrawing() const;
 
 private:
   void FinishSequenceIfNeeded();
@@ -167,10 +166,6 @@ private:
     TTileSet m_tiles;
 
     graphics::Overlay * m_overlay;
-
-    int m_renderLeafTilesCount;
-    bool m_hasTileCahceMiss;
-    bool m_isEmptyDrawing;
   } m_coverageInfo;
 
   struct IndexInfo
@@ -189,6 +184,8 @@ private:
     graphics::DisplayList * m_mainElements;
     graphics::DisplayList * m_sharpElements;
     ScreenBase m_screen;
+    int m_renderLeafTilesCount;
+    bool m_isEmptyDrawing;
   };
 
   CachedCoverageInfo * m_currentCoverage;
