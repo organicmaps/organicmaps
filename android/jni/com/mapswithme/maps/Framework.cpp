@@ -66,7 +66,7 @@ namespace android
   void Framework::OnPositionClicked(m2::PointD const & point)
   {
     string name = NativeFramework()->GetStringsBundle().GetString("my_position");
-    ActivatePopup(point, name, "", IMAGE_PLUS);
+    ActivatePopup(point, name, "", IMAGE_ARROW);
     m_doUpdateBalloonPositionFromLocation = true;
     //TODO add listener to ballon for Java code
   }
@@ -189,7 +189,6 @@ namespace android
     }
 
     graphics::EDensity const density = m_work.GetRenderPolicy()->Density();
-    m_images[IMAGE_PLUS]  = ImageT("plus.png", density);
     m_images[IMAGE_ARROW] = ImageT("arrow.png", density);
 
     m_work.SetUpdatesEnabled(true);
@@ -647,7 +646,7 @@ namespace android
     if (name.empty() && type.empty())
       name = m_work.GetStringsBundle().GetString("dropped_pin");
 
-    ActivatePopup(pos, name, type, IMAGE_PLUS);
+    ActivatePopup(pos, name, type, IMAGE_ARROW);
 
     m_work.DrawPlacemark(pos);
     m_work.Invalidate();
@@ -772,7 +771,7 @@ namespace android
       m2::PointD pt(MercatorBounds::LonToX(request.m_viewportLon),
                     MercatorBounds::LatToY(request.m_viewportLat));
 
-      ActivatePopup(pt, request.m_points.front().m_name, "", IMAGE_PLUS);
+      ActivatePopup(pt, request.m_points.front().m_name, "", IMAGE_ARROW);
       m_work.DrawPlacemark(pt);
       m_work.Invalidate();
 
@@ -887,11 +886,15 @@ extern "C"
   }
 
   JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetNameAndAddress4Point(JNIEnv * env, jclass clazz, jdouble pixelX, jdouble pixelY)
+  Java_com_mapswithme_maps_Framework_nativeGetNameAndAddress4Point(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
   {
-    m2::PointD point = m2::PointD(pixelX, pixelY);
+
+
+    m2::PointD point = m2::PointD( MercatorBounds::LonToX(lon),
+                                   MercatorBounds::LatToY(lat));
+
     ::Framework * nativeFramework = g_framework->NativeFramework();
-    return jni::ToJavaString(env, nativeFramework->GetNameAndAddressAtPoint(point));
+    return jni::ToJavaString(env, nativeFramework->GetNameAndAddressAtGlobalPoint(point));
   }
 
   JNIEXPORT void JNICALL
@@ -943,5 +946,12 @@ extern "C"
   Java_com_mapswithme_maps_Framework_nativeClearApiPoints(JNIEnv * env, jobject thiz)
   {
     g_framework->NativeFramework()->ClearMapApiPoints();
+  }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetGe0Url(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jdouble zoomLevel, jstring name)
+  {
+    const string url = g_framework->NativeFramework()->CodeGe0url(lat, lon, zoomLevel, jni::ToNativeString(name));
+    return jni::ToJavaString(env, url);
   }
 }

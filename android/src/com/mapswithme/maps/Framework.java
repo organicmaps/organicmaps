@@ -24,9 +24,19 @@ public class Framework
 
   // Interface
 
-  public static String getNameAndAddress4Point(double pixelX, double pixelY)
+  public static String getGe0Url(double lat, double lon, double zoomLevel, String name)
   {
-    return nativeGetNameAndAddress4Point(pixelX, pixelY);
+    return nativeGetGe0Url(lat, lon, zoomLevel, name);
+  }
+  
+  public static String getHttpGe0Url(double lat, double lon, double zoomLevel, String name)
+  {
+    return getGe0Url(lat, lon, zoomLevel, name).replaceFirst("ge0://", "http://ge0.me/");
+  }
+  
+  public static String getNameAndAddress4Point(double lat, double lon)
+  {
+    return nativeGetNameAndAddress4Point(lat, lon);
   }
   
   public static void passApiUrl(String url) 
@@ -73,9 +83,11 @@ public class Framework
    *  "Implementation" - native methods
    */
   
+  private native static String nativeGetGe0Url(double lat, double lon, double zoomLevel, String name);
+  
   private native static void nativePassApiUrl(String url);
 
-  private native static String nativeGetNameAndAddress4Point(double pointX, double pointY);
+  private native static String nativeGetNameAndAddress4Point(double lat, double lon);
   
   // API point
   private native static void nativeSetApiPointActivatedListener(OnApiPointActivatedListener listener);

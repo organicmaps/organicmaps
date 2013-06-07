@@ -4,15 +4,17 @@ import android.content.Context;
 
 import com.mapswithme.maps.R;
 
-public class Bookmark
+public class Bookmark extends MapObject
 {
   private Icon mIcon;
   private Context mContext;
   private ParcelablePointD mPosition;
   private int mCategoryId = -1;
   private int mBookmark;
-  private double mLat = Double.NaN;
+  private double mMerX = Double.NaN;
+  private double mMerY = Double.NaN;
   private double mLon = Double.NaN;
+  private double mLat = Double.NaN;
 
 
   Bookmark(Context context, int c, int b)
@@ -27,8 +29,8 @@ public class Bookmark
   private void getXY(ParcelablePointD position)
   {
     ParcelablePointD ll = p2g(position.x, position.y);
-    mLat = ll.x;
-    mLon = ll.y;
+    mMerX = ll.x;
+    mMerY = ll.y;
   }
 
   public static ParcelablePointD GtoP(ParcelablePointD p)
@@ -56,37 +58,41 @@ public class Bookmark
 
   private native String getBookmarkDescription(int categoryId, long bookmark);
 
+  @Override
+  public double getScale()
+  {
+    return getScale(mCategoryId, mBookmark);
+  }
+
   void getXY()
   {
     ParcelablePointD ll = getXY(mCategoryId, mBookmark);
-    mLat = ll.x;
+    mMerX = ll.x;
+    mMerY = ll.y;
+    
     final double yRad = ll.y*Math.PI/180.0;
     final double lat = (180.0/Math.PI)*(2.0 * Math.atan(Math.exp(yRad)) - Math.PI/2.0);
-    mLon = lat;
-    mPosition = g2p(mLat, mLon);
+    mLat = lat;
+    mLon = ll.x;
+    
+    mPosition = g2p(mMerX, mMerY);
   }
 
   public DistanceAndAzimut getDistanceAndAzimut(double cLat, double cLon, double north)
   {
-    return getDistanceAndAzimut(mLat, mLon, cLat, cLon, north);
+    return getDistanceAndAzimut(mMerX, mMerY, cLat, cLon, north);
   }
 
   public ParcelablePointD getPosition()
   {
-    return g2p(mLat, mLon);
+    return g2p(mMerX, mMerY);
   }
 
-  // Why mercatorX is Lat?
-  public double getLat()
-  {
-    return mLat;
-  }
+  @Override
+  public double getLat() { return mLat; }
 
-  // Why mercatorY is Lon?
-  public double getLon()
-  {
-    return mLon;
-  }
+  @Override
+  public double getLon() { return mLon; }
 
   private Icon getIconInternal()
   {
@@ -98,6 +104,7 @@ public class Bookmark
     return mIcon;
   }
 
+  @Override
   public String getName()
   {
     if (mCategoryId >= 0 && BookmarkManager.getBookmarkManager(mContext).getCategoryById(mCategoryId).getSize() > mBookmark)

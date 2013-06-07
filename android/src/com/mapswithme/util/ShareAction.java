@@ -11,7 +11,7 @@ import android.view.MenuItem;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.Bookmark;
+import com.mapswithme.maps.bookmarks.data.MapObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -109,21 +109,28 @@ public abstract class ShareAction
     activity.startActivity(intent);
   }
   
-  public void shareBookmark(Activity activity, Bookmark bookmark) 
+  /**
+   * 
+   * BASE share method 
+   * 
+   */
+  public void shareMapObject(Activity activity, MapObject mapObject) 
   {
-    final boolean isMyPosition = activity.getString(R.string.my_position).equals(bookmark.getName());
-    final String body = activity.getString(isMyPosition 
-                                           ? R.string.my_position_share_sms 
-                                           : R.string.bookmark_share_sms,
-                                           bookmark.getGe0Url(false), bookmark.getHttpGe0Url(false));
+    final String ge0Url  = Framework.getGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), mapObject.getName());
+    final String httpUrl = Framework.getHttpGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), mapObject.getName());  
+    final String address = Framework.getNameAndAddress4Point(mapObject.getLat(), mapObject.getLon());
     
-    final String subject = activity.getString(isMyPosition 
-                                              ? R.string.my_position_share_email_subject 
-                                              : R.string.bookmark_share_email_subject);
+    final String body = activity.getString(R.string.bookmark_share_email, address, ge0Url, httpUrl);
+    final String subject = activity.getString(R.string.bookmark_share_email_subject);
 
     shareWithText(activity, body, subject);
   }
 
+  /**
+   * 
+   * SMS 
+   *
+   */
   public static class SmsShareAction extends ShareAction
   {
     protected SmsShareAction()
@@ -138,42 +145,37 @@ public abstract class ShareAction
       smsIntent.putExtra(EXTRA_SMS_BODY, body);
       activity.startActivity(smsIntent);
     }
+    
+    @Override
+    public void shareMapObject(Activity activity, MapObject mapObject)
+    {
+      final String ge0Url  = Framework.getGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), "");
+      final String httpUrl = Framework.getHttpGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), "");
+      
+      final String body = activity.getString(R.string.bookmark_share_sms, ge0Url, httpUrl);
+
+      shareWithText(activity, body, "");
+    }
   }
 
+  /**
+   * 
+   * EMAIL
+   * 
+   */
   public static class EmailShareAction extends ShareAction
   {
     protected EmailShareAction()
     {
       super(ID_EMAIL, R.string.share_by_email, new Intent(Intent.ACTION_SEND).setType(TYPE_MESSAGE_RFC822));
     }
-
-    @Override
-    public void shareBookmark(Activity activity, Bookmark bookmark)
-    {
-      final boolean isMyPosition = activity.getString(R.string.my_position).equals(bookmark.getName());
-      
-      String name;
-      if (isMyPosition)
-      {
-        name = Framework.getNameAndAddress4Point(bookmark.getPosition().x, bookmark.getPosition().y);
-        bookmark.setParams(name, bookmark.getIcon(), bookmark.getBookmarkDescription());
-      }
-      else 
-        name = bookmark.getName();
-      
-      final String body = activity.getString(isMyPosition 
-                                             ? R.string.my_position_share_email 
-                                             : R.string.bookmark_share_email,
-                                             name, bookmark.getGe0Url(!isMyPosition), bookmark.getHttpGe0Url(!isMyPosition));
-      
-      final String subject = activity.getString(isMyPosition 
-                                                ? R.string.my_position_share_email_subject 
-                                                : R.string.bookmark_share_email_subject);
-
-      shareWithText(activity, body, subject);
-    }
   }
 
+  /**
+   * 
+   * ANYTHING
+   *
+   */
   public static class AnyShareAction extends ShareAction
   {
     protected AnyShareAction()

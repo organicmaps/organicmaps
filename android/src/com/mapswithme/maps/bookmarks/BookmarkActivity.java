@@ -6,27 +6,19 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.api.MWMRequest;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
-import com.mapswithme.maps.state.SuppotedState;
-import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.Utils;
 
 import java.util.List;
@@ -73,58 +65,8 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
     setTitle(mPin.getName());
     setUpViews();
-    
-    adaptUiForOsVersion();
   }
 
-  private void adaptUiForOsVersion()
-  {
-    ViewGroup compatBtns = (ViewGroup) findViewById(R.id.compat_btns_bar);
-    if (Utils.apiLowerThan(11))
-    {
-      
-      Button shareEmailBtn = (Button) compatBtns.findViewById(R.id.btn_share_email);
-      if (ShareAction.getEmailShare().isSupported(this))
-      {
-        shareEmailBtn.setOnClickListener(new OnClickListener()
-        {
-          @Override
-          public void onClick(View v)
-          {
-             assignPinParams();
-             ShareAction.getEmailShare().shareBookmark(BookmarkActivity.this, mPin);
-          }
-        });
-      } 
-      else 
-      {
-        shareEmailBtn.setVisibility(View.GONE);
-      }
-      
-      Button shareAnyBtn = (Button) compatBtns.findViewById(R.id.btn_share_any);
-      if (ShareAction.getAnyShare().isSupported(this))
-      {
-        shareAnyBtn.setOnClickListener(new OnClickListener()
-        {
-          @Override
-          public void onClick(View v)
-          {
-            assignPinParams();
-            ShareAction.getAnyShare().shareBookmark(BookmarkActivity.this, mPin);
-          }
-        });
-      }
-      else 
-      {
-        shareAnyBtn.setVisibility(View.GONE);
-      }
-      
-    }
-    else 
-    {
-      compatBtns.setVisibility(View.GONE);
-    }
-  }
 
   private void updateColorChooser(Icon icon)
   {
@@ -268,35 +210,5 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
       finish();
     }
-  }
-
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu)
-  {
-    MenuItem menuItem = ShareAction.getAnyShare().addToMenuIfSupported(this, menu, true);
-    if (menuItem != null)
-      menuItem.setIcon(android.R.drawable.ic_menu_share);
-    
-    menuItem = ShareAction.getEmailShare().addToMenuIfSupported(this, menu, true);
-    if (menuItem != null)
-      menuItem.setIcon(android.R.drawable.ic_menu_send);
-
-    return true;
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item)
-  {
-    if (ShareAction.ACTIONS.containsKey(item.getItemId()))
-    {
-      assignPinParams();
-
-      final ShareAction shareAction = ShareAction.ACTIONS.get(item.getItemId());
-      shareAction.shareBookmark(this, mPin);
-      
-      return true;
-    }
-    else
-      return super.onOptionsItemSelected(item);
   }
 }

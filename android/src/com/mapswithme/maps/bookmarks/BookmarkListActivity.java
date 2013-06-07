@@ -195,7 +195,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       final ShareAction shareAction = ShareAction.ACTIONS.get(itemId);
       final Bookmark bmk = mManager.getBookmark(mEditedSet.getId(), mSelectedPosition);
 
-      shareAction.shareBookmark(this, bmk);
+      shareAction.shareMapObject(this, bmk);
     }
 
     return super.onContextItemSelected(item);

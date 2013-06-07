@@ -1,24 +1,36 @@
 package com.mapswithme.maps;
 
+import android.annotation.TargetApi;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Pair;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 
 import com.mapswithme.maps.api.MWMRequest;
 import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.state.SuppotedState;
+import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 
 import java.io.Serializable;
 
@@ -32,6 +44,8 @@ public class MapObjectFragment extends Fragment
     API_POINT,
     BOOKMARK
   }
+  
+  private static final int MENU_SHARE = 0x100;
   
   private TextView mNameTV;
   private TextView mGroupTypeTV;
@@ -52,13 +66,13 @@ public class MapObjectFragment extends Fragment
   //Bookmark
   private int mCategory;
   private int mBmkIndex;
+  private double mScale = MapObject.DEF_SCALE;
   
   public void setForBookmark(Bookmark bookmark)
   {
     UiUtils.hide(mAddToBookmarks);
     UiUtils.show(mEditBmk);
     UiUtils.hide(mOpenWith);
-    UiUtils.show(mShare);
     
     setTexts(bookmark.getName(), bookmark.getCategoryName(), null, bookmark.getLat(), bookmark.getLon());
     
@@ -70,9 +84,9 @@ public class MapObjectFragment extends Fragment
     mEditBmk.setCompoundDrawables(UiUtils
         .setCompoundDrawableBounds(android.R.drawable.ic_menu_edit, R.dimen.icon_size, getResources()), null, null, null);
     
-    //TODO add buttons processors
     mCategory = bookmark.getCategoryId();
     mBmkIndex = bookmark.getBookmarkId();
+    mScale = bookmark.getScale();
   }
   
   public void setForApiPoint(MWMRequest request)
@@ -80,13 +94,10 @@ public class MapObjectFragment extends Fragment
     UiUtils.show(mAddToBookmarks);
     UiUtils.hide(mEditBmk);
     UiUtils.show(mOpenWith);
-    UiUtils.show(mShare);
     
     setTexts(request.getName(), null, null, request.getLat(), request.getLon());
     mOpenWith.setCompoundDrawables(UiUtils
         .setCompoundDrawableBounds(request.getIcon(getActivity()), R.dimen.icon_size, getResources()), null, null, null);
-    
-    //TODO add buttons processors
     
   }
   
@@ -95,11 +106,8 @@ public class MapObjectFragment extends Fragment
    UiUtils.show(mAddToBookmarks);
    UiUtils.hide(mEditBmk);
    UiUtils.hide(mOpenWith);
-   UiUtils.show(mShare);
    
    setTexts(name, type, null, lat, lon);
-   
-   //TODO add buttons processors
   }
   
   private void setTexts(String name, String type, String descr, double lat, double lon)
@@ -145,10 +153,10 @@ public class MapObjectFragment extends Fragment
     
     mAddToBookmarks = (Button) view.findViewById(R.id.addToBookmarks);
     mEditBmk        = (Button) view.findViewById(R.id.editBookmark);
-    mShare          = (Button) view.findViewById(R.id.share);
     mOpenWith       = (Button) view.findViewById(R.id.openWith);
+    mShare          = (Button) view.findViewById(R.id.share);
     
-    // set up listeners
+    // set up listeners, drawables, visibility
     mAddToBookmarks.setOnClickListener(this);
     mShare.setOnClickListener(this);
     mOpenWith.setOnClickListener(this);
@@ -157,12 +165,25 @@ public class MapObjectFragment extends Fragment
     mAddToBookmarks.setCompoundDrawables(UiUtils
         .setCompoundDrawableBounds(R.drawable.placemark_red, R.dimen.icon_size, getResources()), null, null, null);
     
-    mShare.setCompoundDrawables(UiUtils
-        .setCompoundDrawableBounds(android.R.drawable.ic_menu_share, R.dimen.icon_size, getResources()), null, null, null);
+    if (Utils.apiEqualOrGreaterThan(11))
+      UiUtils.hide(mShare);
+    else 
+    {
+      mShare.setCompoundDrawables(UiUtils
+          .setCompoundDrawableBounds(android.R.drawable.ic_menu_share, R.dimen.icon_size, getResources()), null, null, null);
+      UiUtils.show(mShare);
+    }
     
     return view;
   }
-
+  
+  @Override
+  public void onCreate(Bundle savedInstanceState)
+  {
+    super.onCreate(savedInstanceState);
+    setHasOptionsMenu(true);
+  }
+  
   @Override
   public void onClick(View v)
   {
@@ -171,14 +192,15 @@ public class MapObjectFragment extends Fragment
     if (id == R.id.addToBookmarks)
       onAddBookmarkClicked();
     if (id == R.id.editBookmark)
-      onEditBookmarkClecked();
+      onEditBookmarkClicked();
     if (id == R.id.openWith)
       onOpenWithClicked();
+    if (id == R.id.share)
+      showShareContextMenu();
   }
   
   private void onAddBookmarkClicked()
   {
-    
     //TODO add PRO check
     final Pair<Integer, Integer> bmkAndCat = BookmarkManager.getBookmarkManager(getActivity()).addNewBookmark(mName, mLat, mLon);
     BookmarkActivity.startWithBookmark(getActivity(), bmkAndCat.first, bmkAndCat.second);
@@ -186,7 +208,7 @@ public class MapObjectFragment extends Fragment
     getActivity().finish();
   }
   
-  private void onEditBookmarkClecked()
+  private void onEditBookmarkClicked()
   {
     BookmarkActivity.startWithBookmark(getActivity(), mCategory, mBmkIndex);
     getActivity().finish();
@@ -197,6 +219,112 @@ public class MapObjectFragment extends Fragment
     MWMRequest.getCurrentRequest().sendResponse(getActivity(), true);
     ((MWMApplication)getActivity().getApplication()).getAppStateManager().transitionTo(SuppotedState.DEFAULT_MAP);
     getActivity().finish();
+  }
+  
+  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+  @Override
+  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+  {
+    super.onCreateOptionsMenu(menu, inflater);
+    
+    final MenuItem shareMenu = menu.add(Menu.NONE, MENU_SHARE, 0, R.string.share);
+    shareMenu.setIcon(R.drawable.share);
+    if (Utils.apiEqualOrGreaterThan(11))
+      shareMenu.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+  }
+  
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item)
+  {
+    final int itemId = item.getItemId();
+    
+    if (itemId == MENU_SHARE)
+    {
+      if (Utils.apiEqualOrGreaterThan(11))
+        onShareActionClicked(getActivity().findViewById(MENU_SHARE));
+      else 
+        showShareContextMenu();
+      
+      return true;
+    }
+    else if (ShareAction.ACTIONS.containsKey(itemId))
+    {
+      ShareAction.ACTIONS.get(itemId).shareMapObject(getActivity(), createMapObject());
+      return true;
+    }
+    
+    return super.onOptionsItemSelected(item);
+  }
+  
+  @Override
+  public boolean onContextItemSelected(MenuItem item)
+  {
+    final int itemId = item.getItemId(); 
+    
+    if (ShareAction.ACTIONS.containsKey(itemId))
+    {
+      ShareAction.ACTIONS.get(itemId).shareMapObject(getActivity(), createMapObject());
+      return true;
+    }
+    return super.onContextItemSelected(item);
+  }
+  
+  @Override
+  public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
+  {
+    super.onCreateContextMenu(menu, v, menuInfo);
+    
+    ShareAction.getSmsShare().addToMenuIfSupported(getActivity(), menu, false);
+    ShareAction.getEmailShare().addToMenuIfSupported(getActivity(), menu, false);
+    ShareAction.getAnyShare().addToMenuIfSupported(getActivity(), menu, false);
+  }
+  
+  private void onShareActionClicked(View anchor)
+  {
+    final PopupMenu popUpMenu = new PopupMenu(getActivity(), anchor);
+    final Menu menu = popUpMenu.getMenu();
+    
+    ShareAction.getSmsShare().addToMenuIfSupported(getActivity(), menu, false);
+    ShareAction.getEmailShare().addToMenuIfSupported(getActivity(), menu, false);
+    ShareAction.getAnyShare().addToMenuIfSupported(getActivity(), menu, false);
+    
+    popUpMenu.setOnMenuItemClickListener(new OnMenuItemClickListener()
+    {
+      
+      @Override
+      public boolean onMenuItemClick(MenuItem item)
+      {
+        return onOptionsItemSelected(item);
+      }
+    });
+    
+    popUpMenu.show();
+  }
+  
+  private void showShareContextMenu()
+  {
+    registerForContextMenu(mShare);
+    mShare.showContextMenu();
+    unregisterForContextMenu(mShare);
+  }
+  
+  private MapObject createMapObject()
+  {
+    return new MapObject()
+    {
+      
+      @Override
+      public String getName()  { return mName; }
+      
+      @Override
+      public double getLon()   { return mLon; }
+      
+      @Override
+      public double getLat()   { return mLat; }
+      
+      @Override
+      public double getScale() { return mScale; }
+    };
   }
   
 }

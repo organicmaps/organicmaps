@@ -1,10 +1,16 @@
 
 package com.mapswithme.maps;
 
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 
 import com.mapswithme.maps.MapObjectFragment.MapObjectType;
 import com.mapswithme.maps.api.MWMRequest;
@@ -63,6 +69,15 @@ public class MapObjectActivity extends FragmentActivity
   {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_map_object);
+    
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+    {
+      // http://stackoverflow.com/questions/6867076/getactionbar-returns-null
+      ActionBar bar = getActionBar();
+      if (bar != null)
+        bar.setDisplayHomeAsUpEnabled(true);
+    }
+    
     // Show the Up button in the action bar.
     mFragment = (MapObjectFragment)getSupportFragmentManager().findFragmentById(R.id.mapObjFragment);
     handleIntent(getIntent());
@@ -101,5 +116,18 @@ public class MapObjectActivity extends FragmentActivity
     
   }
 
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item)
+  {
+    if (item.getItemId() == android.R.id.home)
+    {
+      InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+      imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+      onBackPressed();
+      return true;
+    }
+    else
+      return super.onOptionsItemSelected(item);
+  }
   
 }

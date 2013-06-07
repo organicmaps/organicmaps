@@ -72,8 +72,8 @@ namespace android
     void OnProcessTouchTask(double x, double y, unsigned ms);
 
     typedef graphics::Image::Info ImageT;
-    ImageT m_images[2];
-    enum PopupImageIndexT { IMAGE_PLUS = 0, IMAGE_ARROW = 1 };
+    ImageT m_images[1];
+    enum PopupImageIndexT {IMAGE_ARROW = 0};
 
     void ActivatePopup(m2::PointD const & pos, string const & name, string const & type, PopupImageIndexT index);
     void ActivatePopupWithAddressInfo(m2::PointD const & pos, ::Framework::AddressInfo const & addrInfo);
