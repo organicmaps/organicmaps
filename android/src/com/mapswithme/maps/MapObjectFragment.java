@@ -1,6 +1,5 @@
 package com.mapswithme.maps;
 
-import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import com.mapswithme.maps.api.MWMRequest;
 import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.util.UiUtils;
 
 import java.io.Serializable;
@@ -44,9 +42,15 @@ public class MapObjectFragment extends Fragment
   private Button mShare;
   private Button mOpenWith;
   
+  
+  //POI, API 
   private double mLat;
   private double mLon;
   private String mName;
+  
+  //Bookmark
+  private int mCategory;
+  private int mBmkIndex;
   
   public void setForBookmark(Bookmark bookmark)
   {
@@ -66,6 +70,8 @@ public class MapObjectFragment extends Fragment
         .setCompoundDrawableBounds(android.R.drawable.ic_menu_edit, R.dimen.icon_size, getResources()), null, null, null);
     
     //TODO add buttons processors
+    mCategory = bookmark.getCategoryId();
+    mBmkIndex = bookmark.getBookmarkId();
   }
   
   public void setForApiPoint(MWMRequest request)
@@ -163,6 +169,8 @@ public class MapObjectFragment extends Fragment
     
     if (id == R.id.addToBookmarks)
       onAddBookmarkClicked();
+    if (id == R.id.editBookmark)
+      onEditBookmarkClecked();
   }
   
   private void onAddBookmarkClicked()
@@ -170,14 +178,15 @@ public class MapObjectFragment extends Fragment
     
     //TODO add PRO check
     final Pair<Integer, Integer> bmkAndCat = BookmarkManager.getBookmarkManager(getActivity()).addNewBookmark(mName, mLat, mLon);
-    
-    
-    startActivity(new Intent(getActivity(), BookmarkActivity.class)
-                      .putExtra(BookmarkActivity.PIN, new ParcelablePoint(bmkAndCat.first, bmkAndCat.second))
-                      .putExtra(BookmarkActivity.FROM_MAP, true));
+    BookmarkActivity.startWithBookmark(getActivity(), bmkAndCat.first, bmkAndCat.second);
     // for now finish 
     getActivity().finish();
   }
   
+  private void onEditBookmarkClecked()
+  {
+    BookmarkActivity.startWithBookmark(getActivity(), mCategory, mBmkIndex);
+    getActivity().finish();
+  }
   
 }

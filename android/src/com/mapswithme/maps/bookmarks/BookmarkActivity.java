@@ -2,6 +2,7 @@ package com.mapswithme.maps.bookmarks;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
@@ -12,8 +13,8 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -54,6 +55,14 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
   // API
   private Button mOpenWithAppBtn;
+  
+  
+  public static void startWithBookmark(Context context, int category, int bookmark)
+  {
+    context.startActivity(new Intent(context, BookmarkActivity.class)
+    .putExtra(BookmarkActivity.PIN, new ParcelablePoint(category, bookmark))
+    .putExtra(BookmarkActivity.FROM_MAP, true));
+  }
 
   @Override
   public void onCreate(Bundle savedInstanceState)
