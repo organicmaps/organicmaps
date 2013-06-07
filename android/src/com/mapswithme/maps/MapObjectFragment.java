@@ -86,7 +86,7 @@ public class MapObjectFragment extends Fragment
         .setCompoundDrawableBounds(icon, R.dimen.icon_size, getResources()), null, null, null);
     
     mEditBmk.setCompoundDrawables(UiUtils
-        .setCompoundDrawableBounds(android.R.drawable.ic_menu_edit, R.dimen.icon_size, getResources()), null, null, null);
+        .setCompoundDrawableBounds(R.drawable.edit_bookmark, R.dimen.icon_size, getResources()), null, null, null);
     
     mCategory = bookmark.getCategoryId();
     mBmkIndex = bookmark.getBookmarkId();
@@ -191,7 +191,7 @@ public class MapObjectFragment extends Fragment
     else 
     {
       mShare.setCompoundDrawables(UiUtils
-          .setCompoundDrawableBounds(android.R.drawable.ic_menu_share, R.dimen.icon_size, getResources()), null, null, null);
+          .setCompoundDrawableBounds(R.drawable.share, R.dimen.icon_size, getResources()), null, null, null);
       UiUtils.show(mShare);
     }
     
@@ -222,11 +222,20 @@ public class MapObjectFragment extends Fragment
   
   private void onAddBookmarkClicked()
   {
-    //TODO add PRO check
-    final Pair<Integer, Integer> bmkAndCat = BookmarkManager.getBookmarkManager(getActivity()).addNewBookmark(mName, mLat, mLon);
-    BookmarkActivity.startWithBookmark(getActivity(), bmkAndCat.first, bmkAndCat.second);
-    // for now finish 
-    getActivity().finish();
+    //TODO add normal PRO check
+    if ( !((MWMApplication)getActivity().getApplication()).isProVersion())
+    {
+      // TODO this cast if safe, but style is bad
+      MapObjectActivity activity = (MapObjectActivity) getActivity();
+      activity.showProVersionBanner(getString(R.string.bookmarks_in_pro_version));
+    }
+    else
+    {
+      final Pair<Integer, Integer> bmkAndCat = BookmarkManager.getBookmarkManager(getActivity()).addNewBookmark(mName, mLat, mLon);
+      BookmarkActivity.startWithBookmark(getActivity(), bmkAndCat.first, bmkAndCat.second);
+      // for now finish 
+      getActivity().finish();
+    }
   }
   
   private void onEditBookmarkClicked()

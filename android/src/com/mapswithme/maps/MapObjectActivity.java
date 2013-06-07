@@ -4,17 +4,26 @@ package com.mapswithme.maps;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnKeyListener;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
 import com.mapswithme.maps.MapObjectFragment.MapObjectType;
 import com.mapswithme.maps.api.MWMRequest;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.promo.ActivationSettings;
+import com.mapswithme.maps.promo.PromocodeActivationDialog;
 
 public class MapObjectActivity extends FragmentActivity
 {
@@ -144,5 +153,98 @@ public class MapObjectActivity extends FragmentActivity
     else
       return super.onOptionsItemSelected(item);
   }
+  
+  
+  
+  ////
+  //
+  //    COPY PASTE!!!
+  // REFACTORING PENDING
+  //
+  ////
+  @Override
+  @Deprecated
+  protected Dialog onCreateDialog(int id)
+  {
+    if (id == PRO_VERSION_DIALOG)
+    {
+      return new AlertDialog.Builder(this)
+      .setMessage("")
+      .setPositiveButton(getString(R.string.get_it_now), new DialogInterface.OnClickListener()
+      {
+        @Override
+        public void onClick(DialogInterface dlg, int which)
+        {
+          dlg.dismiss();
+          runProVersionMarketActivity();
+        }
+      })
+      .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
+      {
+        @Override
+        public void onClick(DialogInterface dlg, int which)
+        {
+          dlg.dismiss();
+        }
+      })
+      .create();
+    }
+    else
+      return super.onCreateDialog(id);
+  }
+  
+  
+  @Override
+  @Deprecated
+  protected void onPrepareDialog(int id, Dialog dialog, Bundle args)
+  {
+    if (id == PRO_VERSION_DIALOG)
+    {
+      ((AlertDialog)dialog).setMessage(mProDialogMessage);
+    }
+    else
+    {
+      super.onPrepareDialog(id, dialog, args);
+    }
+  }
+  
+  
+  private void runProVersionMarketActivity()
+  {
+    try
+    {
+      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse( ((MWMApplication)getApplication()).getProVersionURL() )));
+    }
+    catch (Exception e1)
+    {
+      try
+      {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse( ((MWMApplication)getApplication()).getDefaultProVersionURL() )));
+      }
+      catch (Exception e2)
+      {
+        /// @todo Probably we should show some alert toast here?
+        Log.w(this.toString(), "Can't run activity" + e2);
+      }
+    }
+  }
+  
+  public void showProVersionBanner(final String message)
+  {
+    mProDialogMessage = message;
+    runOnUiThread(new Runnable()
+    {
+
+      @SuppressWarnings("deprecation")
+      @Override
+      public void run()
+      {
+        showDialog(PRO_VERSION_DIALOG);
+      }
+    });
+  }
+  
+  private static final int PRO_VERSION_DIALOG = 110001;
+  private String mProDialogMessage;
   
 }
