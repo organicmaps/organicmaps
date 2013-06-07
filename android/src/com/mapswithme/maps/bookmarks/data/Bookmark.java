@@ -2,6 +2,7 @@ package com.mapswithme.maps.bookmarks.data;
 
 import android.content.Context;
 
+import com.mapswithme.maps.MapObjectFragment.MapObjectType;
 import com.mapswithme.maps.R;
 
 public class Bookmark extends MapObject
@@ -173,5 +174,11 @@ public class Bookmark extends MapObject
     String url = getGe0Url(addName);
     url = url.replaceFirst("ge0://", "http://ge0.me/");
     return url;
+  }
+
+  @Override
+  public MapObjectType getType()
+  {
+    return MapObjectType.BOOKMARK;
   }
 }

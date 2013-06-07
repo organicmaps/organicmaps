@@ -1084,6 +1084,18 @@ public class MWMActivity extends NvEventQueueActivity
     });
   }
   
+  @Override
+  public void onMyPositionActivated(final double lat, final double lon)
+  {
+    runOnUiThread(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        MapObjectActivity.startWithMyPosition(getActivity(), lat, lon);
+      }
+    });
+  }
   
   private native void nativeStorageConnected();
   private native void nativeStorageDisconnected();
@@ -1100,19 +1112,4 @@ public class MWMActivity extends NvEventQueueActivity
   private native boolean nativeIsInChina(double lat, double lon);
   
   private native boolean setViewPortByUrl(String url);
-
-  @Override
-  public void onMyPositionActivated(final double lat, final double lon)
-  {
-    // TODO show my position
-    runOnUiThread(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-//        MapObjectActivity.startWithBookmark(getActivity(), category, bookmarkIndex);
-        Utils.toastShortcut(getActivity(), "My Position!" + lat + " " + lon);
-      }
-    });
-  }
 }

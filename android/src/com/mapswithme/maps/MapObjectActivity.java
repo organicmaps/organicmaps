@@ -63,6 +63,15 @@ public class MapObjectActivity extends FragmentActivity
     i.putExtra(EXTRA_LON, lon);
     context.startActivity(i);
   }
+  
+  public static void startWithMyPosition(Context context, double lat, double lon)
+  {
+    final Intent i = new Intent(context, MapObjectActivity.class);
+    i.putExtra(EXTRA_OBJECT_TYPE, MapObjectFragment.MapObjectType.MY_POSITION);
+    i.putExtra(EXTRA_LAT, lat);
+    i.putExtra(EXTRA_LON, lon);
+    context.startActivity(i);
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -112,6 +121,12 @@ public class MapObjectActivity extends FragmentActivity
       final double lat  = intent.getDoubleExtra(EXTRA_LAT, 0);
       final double lon  = intent.getDoubleExtra(EXTRA_LON, 0);
       mFragment.setForPoi(name, poiType, address, lat, lon);
+    }
+    else if (type == MapObjectType.MY_POSITION)
+    {
+      final double lat  = intent.getDoubleExtra(EXTRA_LAT, 0);
+      final double lon  = intent.getDoubleExtra(EXTRA_LON, 0);
+      mFragment.setForMyPosition(lat, lon);
     }
     
   }

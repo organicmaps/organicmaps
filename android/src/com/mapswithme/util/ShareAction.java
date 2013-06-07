@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MapObjectFragment.MapObjectType;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 
@@ -120,8 +121,11 @@ public abstract class ShareAction
     final String httpUrl = Framework.getHttpGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), mapObject.getName());  
     final String address = Framework.getNameAndAddress4Point(mapObject.getLat(), mapObject.getLon());
     
-    final String body = activity.getString(R.string.bookmark_share_email, address, ge0Url, httpUrl);
-    final String subject = activity.getString(R.string.bookmark_share_email_subject);
+    final int bodyId = mapObject.getType() == MapObjectType.MY_POSITION ? R.string.my_position_share_email : R.string.bookmark_share_email;
+    final int subjectId = mapObject.getType() == MapObjectType.MY_POSITION ? R.string.my_position_share_email_subject : R.string.bookmark_share_email_subject;
+    
+    final String body = activity.getString(bodyId, address, ge0Url, httpUrl);
+    final String subject = activity.getString(subjectId);
 
     shareWithText(activity, body, subject);
   }
@@ -152,7 +156,9 @@ public abstract class ShareAction
       final String ge0Url  = Framework.getGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), "");
       final String httpUrl = Framework.getHttpGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), "");
       
-      final String body = activity.getString(R.string.bookmark_share_sms, ge0Url, httpUrl);
+      final int bodyId = mapObject.getType() == MapObjectType.MY_POSITION ? R.string.my_position_share_sms : R.string.bookmark_share_sms;
+      
+      final String body = activity.getString(bodyId, ge0Url, httpUrl);
 
       shareWithText(activity, body, "");
     }

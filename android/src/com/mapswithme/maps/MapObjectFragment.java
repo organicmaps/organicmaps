@@ -42,7 +42,8 @@ public class MapObjectFragment extends Fragment
   {
     POI,
     API_POINT,
-    BOOKMARK
+    BOOKMARK,
+    MY_POSITION
   }
   
   private static final int MENU_SHARE = 0x100;
@@ -68,6 +69,9 @@ public class MapObjectFragment extends Fragment
   private int mBmkIndex;
   private double mScale = MapObject.DEF_SCALE;
   
+  // General
+  MapObjectType mType;
+  
   public void setForBookmark(Bookmark bookmark)
   {
     UiUtils.hide(mAddToBookmarks);
@@ -87,6 +91,8 @@ public class MapObjectFragment extends Fragment
     mCategory = bookmark.getCategoryId();
     mBmkIndex = bookmark.getBookmarkId();
     mScale = bookmark.getScale();
+    
+    mType = MapObjectType.BOOKMARK;
   }
   
   public void setForApiPoint(MWMRequest request)
@@ -99,6 +105,7 @@ public class MapObjectFragment extends Fragment
     mOpenWith.setCompoundDrawables(UiUtils
         .setCompoundDrawableBounds(request.getIcon(getActivity()), R.dimen.icon_size, getResources()), null, null, null);
     
+    mType = MapObjectType.API_POINT;
   }
   
   public void setForPoi(String name, String type, String address, double lat, double lon)
@@ -108,6 +115,20 @@ public class MapObjectFragment extends Fragment
    UiUtils.hide(mOpenWith);
    
    setTexts(name, type, null, lat, lon);
+   
+   mType = MapObjectType.POI;
+  }
+  
+  public void setForMyPosition(double lat, double lon)
+  {
+   UiUtils.show(mAddToBookmarks);
+   UiUtils.hide(mEditBmk);
+   UiUtils.hide(mOpenWith);
+   
+   final String name = getString(R.string.my_position);
+   setTexts(name, "", null, lat, lon);
+   
+   mType = MapObjectType.MY_POSITION;
   }
   
   private void setTexts(String name, String type, String descr, double lat, double lon)
@@ -324,6 +345,9 @@ public class MapObjectFragment extends Fragment
       
       @Override
       public double getScale() { return mScale; }
+
+      @Override
+      public MapObjectType getType() { return mType; }
     };
   }
   
