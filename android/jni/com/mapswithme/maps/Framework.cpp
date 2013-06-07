@@ -67,6 +67,7 @@ namespace android
   {
     string name = NativeFramework()->GetStringsBundle().GetString("my_position");
     ActivatePopup(point, name, "", IMAGE_ARROW);
+    m_bmBaloon.get()->setOnClickListener(bind(&Framework::OnActivateMyPosition, this, _1));
     m_doUpdateBalloonPositionFromLocation = true;
     //TODO add listener to ballon for Java code
   }
@@ -796,6 +797,14 @@ namespace android
     m_apiPointActivatedListener(apiPoint);
   }
 
+  void Framework::OnActivateMyPosition(gui::Element * e)
+  {
+    m2::PointD const & glbPoint = GetBookmarkBalloon()->glbPivot();
+    const double lat = MercatorBounds::YToLat(glbPoint.y);
+    const double lon = MercatorBounds::XToLon(glbPoint.x);
+    m_myPositionActivatedListener(lat, lon);
+  }
+
   // POI
   void Framework::SetPoiActivatedListener(TOnPoiActivatedListener const & l)
   {
@@ -828,6 +837,17 @@ namespace android
     m_apiPointActivatedListener.clear();
   }
 
+  // My Position
+  void Framework::SetOnMyPositionActivatedListener(TOnMyPositionActivatedListener const & l)
+  {
+    m_myPositionActivatedListener = l;
+  }
+  void Framework::ClearOnMyPositionActivatedListener()
+  {
+    m_myPositionActivatedListener.clear();
+  }
+
+
 }
 
 //============ GLUE CODE for com.mapswithme.maps.Framework class =============//
@@ -842,6 +862,7 @@ namespace android
 extern "C"
 {
 
+  // API
   void CallOnApiPointActivatedListener(shared_ptr<jobject> obj, url_scheme::ApiPoint apiPoint)
   {
     const string name = apiPoint.m_title;
@@ -861,6 +882,7 @@ extern "C"
     jniEnv->CallVoidMethod(*obj.get(), methodID, lat, lon, j_name, j_id);
   }
 
+  // POI
   void CallOnPoiActivatedListener(shared_ptr<jobject> obj, ::Framework::AddressInfo addrInfo, m2::PointD globalPoint)
   {
     JNIEnv * jniEnv = jni::GetEnv();
@@ -877,6 +899,7 @@ extern "C"
     jniEnv->CallVoidMethod(*obj.get(), methodId, j_name, j_type, j_address, lat, lon);
   }
 
+  // Bookmark
   void CallOnBookmarkActivatedListener(shared_ptr<jobject> obj, BookmarkAndCategory bmkAndCat)
   {
     JNIEnv * jniEnv = jni::GetEnv();
@@ -885,6 +908,19 @@ extern "C"
     jniEnv->CallVoidMethod(*obj.get(), methodId, bmkAndCat.first, bmkAndCat.second);
   }
 
+  // My Position
+  void CallOnMyPositionActivatedListener(shared_ptr<jobject> obj,  double lat, double lon)
+  {
+    JNIEnv * jniEnv = jni::GetEnv();
+    const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(),
+                                                    "onMyPositionActivated", "(DD)V");
+    jniEnv->CallVoidMethod(*obj.get(), methodId, lat, lon);
+  }
+
+  // JNI EXPORTS
+  //!!!!!!!!!!!!
+  //!!!!!!!!!!!!
+  //////////////
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetNameAndAddress4Point(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
   {
@@ -903,6 +939,8 @@ extern "C"
     g_framework->SetViewportByUrl(jni::ToNativeString(url));
   }
 
+
+   //API
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeSetApiPointActivatedListener(JNIEnv * env, jclass clazz, jobject l)
   {
@@ -916,6 +954,8 @@ extern "C"
     g_framework->ClearApiPointActivatedListener();
   }
 
+
+  // POI
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeSetOnPoiActivatedListener(JNIEnv * env, jclass clazz, jobject l)
   {
@@ -929,6 +969,8 @@ extern "C"
     g_framework->ClearPoiActivatedListener();
   }
 
+
+  // Bookmark
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeSetOnBookmarkActivatedListener(JNIEnv * env, jclass clazz, jobject l)
   {
@@ -940,6 +982,20 @@ extern "C"
   Java_com_mapswithme_maps_Framework_nativeClearOnBookmarkActivatedListener(JNIEnv * env, jclass clazz)
   {
     g_framework->ClearBookmarkActivatedListener();
+  }
+
+  // My Position
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeSetOnMyPositionActivatedListener(JNIEnv * env, jclass clazz, jobject l)
+  {
+    g_framework->SetOnMyPositionActivatedListener(
+        bind(&CallOnMyPositionActivatedListener, jni::make_global_ref(l), _1, _2));
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeClearOnMyPositionActivatedListener(JNIEnv * env, jclass clazz)
+  {
+    g_framework->ClearOnMyPositionActivatedListener();
   }
 
   JNIEXPORT void JNICALL

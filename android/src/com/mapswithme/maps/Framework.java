@@ -7,20 +7,33 @@ package com.mapswithme.maps;
 public class Framework
 {
 
+  // API
   public interface OnApiPointActivatedListener
   {
     public void onApiPointActivated(double lat, double lon, String name, String id);
   }
   
+  
+  // POI
   public interface OnPoiActivatedListener 
   {
     public void onPoiActivated(String name, String type, String address, double lat, double lon);
   }
   
+  
+  // Bookmark
   public interface OnBookmarkActivatedListener
   {
     public void onBookmarkActivated(int category, int bookmarkIndex);
   }
+  
+  //My Position
+  public interface OnMyPositionActivatedListener
+  {
+    public void onMyPositionActivated(double lat, double lon);
+  }
+  
+  
 
   // Interface
 
@@ -44,6 +57,7 @@ public class Framework
     nativePassApiUrl(url);
   }
 
+  // API
   public static void setOnApiPointActivatedListener(OnApiPointActivatedListener listener)
   {
     nativeSetApiPointActivatedListener(listener);
@@ -54,6 +68,8 @@ public class Framework
     nativeClearApiPointActivatedListener();
   }
   
+  
+  // POI
   public static void setOnPoiActivatedListener(OnApiPointActivatedListener listener)
   {
     nativeSetOnPoiActivatedListener(listener);
@@ -64,6 +80,7 @@ public class Framework
     nativeClearOnPoiActivatedListener();
   }
   
+  // Bookmark
   public static void setOnBookmarkActivatedListener(OnBookmarkActivatedListener listener)
   {
     nativeSetOnBookmarkActivatedListener(listener);
@@ -72,6 +89,17 @@ public class Framework
   public static void clearOnBookmarkActivatedListener()
   {
     nativeClearOnBookmarkActivatedListener();
+  }
+  
+  // My Position
+  public static void setOnMyPositionActivatedListener(OnMyPositionActivatedListener listener)
+  {
+    nativeSetOnMyPositionActivatedListener(listener);
+  }
+  
+  public static void clearOnMyPositionActivatedListener()
+  {
+    nativeClearOnMyPositionActivatedListener();
   }
 
   public static void clearApiPoints()
@@ -98,6 +126,9 @@ public class Framework
   // Bookmark
   private native static void nativeSetOnBookmarkActivatedListener(OnBookmarkActivatedListener listener);
   private native static void nativeClearOnBookmarkActivatedListener();
+  // My Position
+  private native static void nativeSetOnMyPositionActivatedListener(OnMyPositionActivatedListener listener);
+  private native static void nativeClearOnMyPositionActivatedListener();
 
   private native static void nativeClearApiPoints();
 

@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import com.mapswithme.maps.Framework.OnApiPointActivatedListener;
 import com.mapswithme.maps.Framework.OnBookmarkActivatedListener;
+import com.mapswithme.maps.Framework.OnMyPositionActivatedListener;
 import com.mapswithme.maps.Framework.OnPoiActivatedListener;
 import com.mapswithme.maps.api.MWMRequest;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
@@ -50,7 +51,7 @@ import java.util.Locale;
 
 public class MWMActivity extends NvEventQueueActivity 
                          implements LocationService.Listener, OnApiPointActivatedListener,
-                                    OnBookmarkActivatedListener, OnPoiActivatedListener
+                                    OnBookmarkActivatedListener, OnPoiActivatedListener, OnMyPositionActivatedListener
 {
   public static final String EXTRA_TASK = "map_task";
   
@@ -571,6 +572,7 @@ public class MWMActivity extends NvEventQueueActivity
 
     Framework.setOnBookmarkActivatedListener(this);
     Framework.setOnPoiActivatedListener(this);
+    Framework.setOnMyPositionActivatedListener(this);
     
     Intent intent = getIntent();
     // We need check for tasks both in onCreate and onNewIntent
@@ -583,6 +585,7 @@ public class MWMActivity extends NvEventQueueActivity
   {
     Framework.clearOnBookmarkActivatedListener();
     Framework.clearOnPoiActivatedListener();
+    Framework.clearOnMyPositionActivatedListener();
     
     super.onDestroy();
   }
@@ -1097,4 +1100,19 @@ public class MWMActivity extends NvEventQueueActivity
   private native boolean nativeIsInChina(double lat, double lon);
   
   private native boolean setViewPortByUrl(String url);
+
+  @Override
+  public void onMyPositionActivated(final double lat, final double lon)
+  {
+    // TODO show my position
+    runOnUiThread(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+//        MapObjectActivity.startWithBookmark(getActivity(), category, bookmarkIndex);
+        Utils.toastShortcut(getActivity(), "My Position!" + lat + " " + lon);
+      }
+    });
+  }
 }

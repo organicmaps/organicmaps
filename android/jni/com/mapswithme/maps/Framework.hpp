@@ -40,6 +40,9 @@ namespace android
     // API point
     typedef function<void (url_scheme::ApiPoint)> TOnApiPointActivatedListener;
     TOnApiPointActivatedListener m_apiPointActivatedListener;
+    // My Position
+    typedef function<void (double, double)> TOnMyPositionActivatedListener;
+    TOnMyPositionActivatedListener m_myPositionActivatedListener;
 
 
 
@@ -87,6 +90,7 @@ namespace android
     void OnActivatePoi(gui::Element * e, ::Framework::AddressInfo addrInfo, m2::PointD globalPoint);
     void OnActivateBookmark(gui::Element * e, BookmarkAndCategory bmkAndCat);
     void OnAcitvateApiPoint(gui::Element * e, url_scheme::ApiPoint apiPoint);
+    void OnActivateMyPosition(gui::Element * e);
 
 
     void CreateBookmarkBalloon();
@@ -181,6 +185,9 @@ namespace android
     // API point
     void SetApiPointActivatedListener(TOnApiPointActivatedListener const & l);
     void ClearApiPointActivatedListener();
+    // My Position
+    void SetOnMyPositionActivatedListener(TOnMyPositionActivatedListener const & l);
+    void ClearOnMyPositionActivatedListener();
 
   };
 }
