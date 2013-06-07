@@ -36,8 +36,6 @@ import com.mapswithme.maps.Framework.OnBookmarkActivatedListener;
 import com.mapswithme.maps.Framework.OnPoiActivatedListener;
 import com.mapswithme.maps.api.MWMRequest;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
-import com.mapswithme.maps.bookmarks.data.Bookmark;
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.promo.ActivationSettings;
 import com.mapswithme.maps.promo.PromocodeActivationDialog;
@@ -571,24 +569,6 @@ public class MWMActivity extends NvEventQueueActivity
 
     alignZoomButtons();
 
-//    setOnPopupClickListener(new OnNativePopupClickListenter()
-//    {
-//      @Override
-//      public void onClick(int cat, int bmk)
-//      {
-//        if (!mApplication.isProVersion())
-//        {
-//          showProVersionBanner(getString(R.string.bookmarks_in_pro_version));
-//        }
-//        else
-//        {
-//          startActivity(new Intent(MWMActivity.this, BookmarkActivity.class)
-//          .putExtra(BookmarkActivity.PIN, new ParcelablePoint(cat, bmk))
-//          .putExtra(BookmarkActivity.FROM_MAP, true));
-//        }
-//      }
-//    });
-    
     Framework.setOnBookmarkActivatedListener(this);
     Framework.setOnPoiActivatedListener(this);
     
@@ -1065,14 +1045,11 @@ public class MWMActivity extends NvEventQueueActivity
   public void onApiPointActivated(final double lat, final double lon, final String name, final String id)
   {
       MWMRequest.getCurrentRequest().setPointData(lat, lon, name, id);
-      // TODO show MapObjectActivity for api point
       runOnUiThread(new Runnable()
       {
-        
         @Override
         public void run()
         {
-          Utils.toastShortcut(getApplicationContext(), String.format("Api point: %s %s %f %f", name, id, lat, lon));
           MapObjectActivity.startWithApiPoint(getActivity(), name, null, null, lat, lon);
         }
       });
@@ -1081,14 +1058,11 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onPoiActivated(final String name, final String type, final String address, final double lat, final double lon)
   {
-    // TODO show MapObjectActivity for POI point
     runOnUiThread(new Runnable()
     {
-      
       @Override
       public void run()
       {
-        Utils.toastShortcut(getApplicationContext(), String.format("POI : %s %s %s %f %f", name, type, address, lat, lon));
         MapObjectActivity.startWithPoi(getActivity(), name, type, address, lat, lon);
       }
     });
@@ -1097,16 +1071,11 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onBookmarkActivated(final int category, final int bookmarkIndex)
   {
-    // TODO show MapObjectActivity for bookmark
-    final Bookmark bmk = BookmarkManager.getBookmarkManager(this).getBookmark(category, bookmarkIndex);
     runOnUiThread(new Runnable()
     {
       @Override
       public void run()
       {
-        Utils.toastShortcut(getApplicationContext(), String.format("Bookmark: %s %s %f %f", bmk.getName(), bmk.getCategoryName(), 
-                                                                                            bmk.getLat(),  bmk.getLon()));
-        
         MapObjectActivity.startWithBookmark(getActivity(), category, bookmarkIndex);
       }
     });

@@ -37,13 +37,11 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
   public static final String BOOKMARK_POSITION = "bookmark_position";
   public static final String PIN = "pin";
-  public static final String FROM_MAP = "from_map";
   public static final String PIN_ICON_ID = "pin";
   public static final String PIN_SET = "pin_set";
   public static final int REQUEST_CODE_SET = 567890;
   public static final String BOOKMARK_NAME = "bookmark_name";
 
-  private boolean mStartedByMap;
   private Bookmark mPin;
   private EditText mName;
   private TextView mSetName;
@@ -52,16 +50,11 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   private ImageView mChooserImage;
   private EditText mDescr;
   private Icon mIcon = null;
-
-  // API
-  private Button mOpenWithAppBtn;
-  
   
   public static void startWithBookmark(Context context, int category, int bookmark)
   {
     context.startActivity(new Intent(context, BookmarkActivity.class)
-    .putExtra(BookmarkActivity.PIN, new ParcelablePoint(category, bookmark))
-    .putExtra(BookmarkActivity.FROM_MAP, true));
+    .putExtra(BookmarkActivity.PIN, new ParcelablePoint(category, bookmark)));
   }
 
   @Override
@@ -77,7 +70,6 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
     mPin = mManager.getBookmark(cab.x, cab.y);
     mCurrentCategoryId = mPin.getCategoryId();
-    mStartedByMap = getIntent().getBooleanExtra(FROM_MAP, false);
 
     setTitle(mPin.getName());
     setUpViews();
@@ -155,7 +147,6 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   {
     View colorChooser = findViewById(R.id.pin_color_chooser);
     mChooserImage = (ImageView)colorChooser.findViewById(R.id.row_color_image);
-    mOpenWithAppBtn = (Button) findViewById(R.id.btn_get_this_point);
     mIcons = mManager.getIcons();
 
     colorChooser.setOnClickListener(new OnClickListener()
@@ -248,42 +239,6 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       }
     })
     .create();
-  }
-
-  @Override
-  public void setViewFromState(SuppotedState state)
-  {
-    // TODO we need to differ if activity opened for api point
-    final MWMRequest request = MWMRequest.getCurrentRequest();
-    if (state == SuppotedState.API_REQUEST
-        && request.hasPendingIntent()
-        && request.hasPoint()
-        && mStartedByMap)
-    {
-      // TODO add to resources
-      final String pattern = "Open with %s";
-      final String text = String.format(pattern, request.getCallerName(this));
-      final Drawable icon = request.getIcon(this);
-      final int iconSize = (int) getResources().getDimension(R.dimen.icon_size);
-      icon.setBounds(0, 0, iconSize, iconSize);
-      mOpenWithAppBtn.setCompoundDrawables(icon, null, null, null);
-      mOpenWithAppBtn.setText(text);
-      mOpenWithAppBtn.setOnClickListener(new OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          if (MWMRequest.getCurrentRequest().sendResponse(getApplicationContext(), true))
-          {
-            finish();
-            getMwmApplication().getAppStateManager().transitionTo(SuppotedState.DEFAULT_MAP);
-          }
-        }
-      });
-      mOpenWithAppBtn.setVisibility(View.VISIBLE);
-    }
-    else
-      mOpenWithAppBtn.setVisibility(View.GONE);
   }
 
   @Override

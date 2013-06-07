@@ -17,6 +17,7 @@ import com.mapswithme.maps.api.MWMRequest;
 import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.UiUtils;
 
 import java.io.Serializable;
@@ -171,6 +172,8 @@ public class MapObjectFragment extends Fragment
       onAddBookmarkClicked();
     if (id == R.id.editBookmark)
       onEditBookmarkClecked();
+    if (id == R.id.openWith)
+      onOpenWithClicked();
   }
   
   private void onAddBookmarkClicked()
@@ -186,6 +189,13 @@ public class MapObjectFragment extends Fragment
   private void onEditBookmarkClecked()
   {
     BookmarkActivity.startWithBookmark(getActivity(), mCategory, mBmkIndex);
+    getActivity().finish();
+  }
+  
+  private void onOpenWithClicked()
+  {
+    MWMRequest.getCurrentRequest().sendResponse(getActivity(), true);
+    ((MWMApplication)getActivity().getApplication()).getAppStateManager().transitionTo(SuppotedState.DEFAULT_MAP);
     getActivity().finish();
   }
   
