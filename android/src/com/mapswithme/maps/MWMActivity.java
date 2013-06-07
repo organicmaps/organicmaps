@@ -247,7 +247,7 @@ public class MWMActivity extends NvEventQueueActivity
   public void onMyPositionClicked(View v)
   {
     final LocationState state = mApplication.getLocationState();
-
+    ImageView vImage = (ImageView)v;
     if (!state.hasPosition())
     {
       if (!state.isFirstPosition())
@@ -255,8 +255,8 @@ public class MWMActivity extends NvEventQueueActivity
         // If first time pressed - start location observing:
 
         // Set the button state to "searching" first ...
-        v.setBackgroundResource(R.drawable.myposition_button_normal);
-        v.setSelected(true);
+        vImage.setImageResource(R.drawable.myposition_button_normal);
+        vImage.setSelected(true);
 
         // ... and then call startLocation, as there could be my_position button
         // state changes in the startLocation.
@@ -269,7 +269,7 @@ public class MWMActivity extends NvEventQueueActivity
       if (!state.isCentered())
       {
         state.animateToPositionAndEnqueueLocationProcessMode(LocationState.LOCATION_CENTER_ONLY);
-        v.setSelected(true);
+        vImage.setSelected(true);
         return;
       }
       else
@@ -282,8 +282,8 @@ public class MWMActivity extends NvEventQueueActivity
             {
               state.startCompassFollowing();
 
-              v.setBackgroundResource(R.drawable.myposition_button_follow);
-              v.setSelected(true);
+              vImage.setImageResource(R.drawable.myposition_button_follow);
+              vImage.setSelected(true);
               return;
             }
             else
@@ -298,8 +298,8 @@ public class MWMActivity extends NvEventQueueActivity
     stopLocation();
 
     // ... and then set button state to default.
-    v.setBackgroundResource(R.drawable.myposition_button_normal);
-    v.setSelected(false);
+    vImage.setImageResource(R.drawable.myposition_button_normal);
+    vImage.setSelected(false);
   }
 
   private boolean m_needCheckUpdate = true;
