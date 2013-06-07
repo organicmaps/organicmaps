@@ -78,7 +78,7 @@ public class MapObjectFragment extends Fragment
     UiUtils.show(mEditBmk);
     UiUtils.hide(mOpenWith);
     
-    setTexts(bookmark.getName(), bookmark.getCategoryName(), null, bookmark.getLat(), bookmark.getLon());
+    setTexts(bookmark.getName(), bookmark.getCategoryName(), bookmark.getBookmarkDescription(), bookmark.getLat(), bookmark.getLon());
     
     @SuppressWarnings("deprecation")
     Drawable icon = new BitmapDrawable(bookmark.getIcon().getIcon());
