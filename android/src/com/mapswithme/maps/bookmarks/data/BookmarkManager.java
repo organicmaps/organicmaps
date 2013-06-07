@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.util.Pair;
 
 public class BookmarkManager
 {
@@ -41,6 +42,16 @@ public class BookmarkManager
   public void deleteBookmark(Bookmark bmk)
   {
     deleteBookmark(bmk.getCategoryId(), bmk.getBookmarkId());
+  }
+  
+  public int addBookmarkToLastEditedCategory(String name, double lat, double lon)
+  {
+    return nativeAddBookmarkToLastEditedCategory(name, lat, lon);
+  }
+  
+  public int getLastEditedCategory()
+  {
+    return nativeGetLastEditedCategory();
   }
 
   public native void deleteBookmark(int c, int b);
@@ -91,8 +102,20 @@ public class BookmarkManager
   {
     cat.setName(newName);
   }
+  
+  public Pair<Integer, Integer> addNewBookmark(String name, double lat, double lon)
+  {
+    final int cat = getLastEditedCategory();
+    final int bmk = addBookmarkToLastEditedCategory(name, lat, lon);
+    
+    return new Pair<Integer, Integer>(cat, bmk);
+  }
 
   public native void showBookmarkOnMap(int c, int b);
 
   public native String saveToKMZFile(int catID, String tmpPath);
+  
+  public native int nativeAddBookmarkToLastEditedCategory(String name, double lat, double lon);
+  
+  public native int nativeGetLastEditedCategory();
 }

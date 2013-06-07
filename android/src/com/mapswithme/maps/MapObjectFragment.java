@@ -1,10 +1,12 @@
 package com.mapswithme.maps;
 
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,7 +15,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.mapswithme.maps.api.MWMRequest;
+import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.util.UiUtils;
 
 import java.io.Serializable;
@@ -29,15 +34,19 @@ public class MapObjectFragment extends Fragment
     BOOKMARK
   }
   
-  private TextView mName;
-  private TextView mGroupType;
-  private TextView mLatLon;
-  private TextView mDescr;
+  private TextView mNameTV;
+  private TextView mGroupTypeTV;
+  private TextView mLatLonTV;
+  private TextView mDescrTV;
 
   private Button mAddToBookmarks;
   private Button mEditBmk;
   private Button mShare;
   private Button mOpenWith;
+  
+  private double mLat;
+  private double mLon;
+  private String mName;
   
   public void setForBookmark(Bookmark bookmark)
   {
@@ -50,7 +59,7 @@ public class MapObjectFragment extends Fragment
     
     @SuppressWarnings("deprecation")
     Drawable icon = new BitmapDrawable(bookmark.getIcon().getIcon());
-    mName.setCompoundDrawables(UiUtils
+    mNameTV.setCompoundDrawables(UiUtils
         .setCompoundDrawableBounds(icon, R.dimen.icon_size, getResources()), null, null, null);
     
     mEditBmk.setCompoundDrawables(UiUtils
@@ -71,6 +80,7 @@ public class MapObjectFragment extends Fragment
         .setCompoundDrawableBounds(request.getIcon(getActivity()), R.dimen.icon_size, getResources()), null, null, null);
     
     //TODO add buttons processors
+    
   }
   
   public void setForPoi(String name, String type, String address, double lat, double lon)
@@ -88,27 +98,31 @@ public class MapObjectFragment extends Fragment
   private void setTexts(String name, String type, String descr, double lat, double lon)
   {
     if (!TextUtils.isEmpty(name))
-      mName.setText(name);
+      mName = name;
     else 
-      mName.setText(R.string.dropped_pin);
+      mName = getString(R.string.dropped_pin);
+    
+    mNameTV.setText(mName);
     
     if (TextUtils.isEmpty(type))
-      UiUtils.hide(mGroupType);
+      UiUtils.hide(mGroupTypeTV);
     else 
     {
-      mGroupType.setText(type);
-      UiUtils.show(mGroupType);
+      mGroupTypeTV.setText(type);
+      UiUtils.show(mGroupTypeTV);
     }
     
     if (TextUtils.isEmpty(descr))
-      UiUtils.hide(mDescr);
+      UiUtils.hide(mDescrTV);
     else 
     {
-      mDescr.setText(descr);
-      UiUtils.show(mDescr);
+      mDescrTV.setText(descr);
+      UiUtils.show(mDescrTV);
     }
     
-    mLatLon.setText(UiUtils.formatLatLon(lat, lon));
+    mLatLonTV.setText(UiUtils.formatLatLon(lat, lon));
+    mLat = lat;
+    mLon = lon;
   }
   
   @Override
@@ -116,10 +130,10 @@ public class MapObjectFragment extends Fragment
   {
     final View view = inflater.inflate(R.layout.fragment_map_object, container, false);
     // find views
-    mName      = (TextView) view.findViewById(R.id.name);
-    mGroupType = (TextView) view.findViewById(R.id.groupType);
-    mLatLon    = (TextView) view.findViewById(R.id.latLon);
-    mDescr     = (TextView) view.findViewById(R.id.descr);
+    mNameTV      = (TextView) view.findViewById(R.id.name);
+    mGroupTypeTV = (TextView) view.findViewById(R.id.groupType);
+    mLatLonTV    = (TextView) view.findViewById(R.id.latLon);
+    mDescrTV     = (TextView) view.findViewById(R.id.descr);
     
     
     mAddToBookmarks = (Button) view.findViewById(R.id.addToBookmarks);
@@ -146,6 +160,24 @@ public class MapObjectFragment extends Fragment
   public void onClick(View v)
   {
     final int id = v.getId();
+    
+    if (id == R.id.addToBookmarks)
+      onAddBookmarkClicked();
   }
+  
+  private void onAddBookmarkClicked()
+  {
+    
+    //TODO add PRO check
+    final Pair<Integer, Integer> bmkAndCat = BookmarkManager.getBookmarkManager(getActivity()).addNewBookmark(mName, mLat, mLon);
+    
+    
+    startActivity(new Intent(getActivity(), BookmarkActivity.class)
+                      .putExtra(BookmarkActivity.PIN, new ParcelablePoint(bmkAndCat.first, bmkAndCat.second))
+                      .putExtra(BookmarkActivity.FROM_MAP, true));
+    // for now finish 
+    getActivity().finish();
+  }
+  
   
 }

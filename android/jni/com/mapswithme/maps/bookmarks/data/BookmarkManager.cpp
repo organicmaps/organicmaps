@@ -80,4 +80,23 @@ extern "C"
 
     return 0;
   }
+
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastEditedCategory(
+      JNIEnv * env, jobject thiz, jstring name, double lat, double lon)
+  {
+    const m2::PointD glbPoint(MercatorBounds::LonToX(lon),
+                              MercatorBounds::LatToY(lat));
+
+    Bookmark bmk(glbPoint, jni::ToNativeString(name), "placemark-red");
+    Framework * const framework = frm();
+    return framework->AddBookmark(framework->LastEditedCategory(), bmk);
+  }
+
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetLastEditedCategory(
+        JNIEnv * env, jobject thiz)
+  {
+    return frm()->LastEditedCategory();
+  }
 }
