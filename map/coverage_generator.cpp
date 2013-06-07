@@ -274,13 +274,13 @@ void CoverageGenerator::MergeTileImpl(core::CommandsQueue::Environment const & e
   {
     threads::MutexGuard g(m_stateInfo.m_mutex);
     swap(m_currentCoverage, m_backCoverage);
-    m_benchmarkInfo.DecrementTileCount(sequenceID);
   }
+
+  m_benchmarkInfo.DecrementTileCount(sequenceID);
 
   m_stateInfo.SetForceUpdate(!shouldSwap);
 
-  if (!m_benchmarkInfo.m_isBenchmarking)
-    m_windowHandle->invalidate();
+  m_windowHandle->invalidate();
 }
 
 void CoverageGenerator::InvalidateTilesImpl(m2::AnyRectD const & r, int startScale)
