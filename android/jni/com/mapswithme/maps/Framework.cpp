@@ -781,18 +781,18 @@ namespace android
     return false;
   }
 
-  void Framework::OnActivatePoi(gui::Element * e, ::Framework::AddressInfo addrInfo, m2::PointD globalPoint)
+  void Framework::OnActivatePoi(gui::Element * e, ::Framework::AddressInfo const & addrInfo, m2::PointD const & globalPoint)
   {
     m_poiActivatedListener(addrInfo, globalPoint);
   }
 
 
-  void Framework::OnActivateBookmark(gui::Element * e, BookmarkAndCategory bmkAndCat)
+  void Framework::OnActivateBookmark(gui::Element * e, BookmarkAndCategory const & bmkAndCat)
   {
     m_bookmarkActivatedListener(bmkAndCat);
   }
 
-  void Framework::OnAcitvateApiPoint(gui::Element * e, url_scheme::ApiPoint apiPoint)
+  void Framework::OnAcitvateApiPoint(gui::Element * e, url_scheme::ApiPoint const & apiPoint)
   {
     m_apiPointActivatedListener(apiPoint);
   }
@@ -863,27 +863,21 @@ extern "C"
 {
 
   // API
-  void CallOnApiPointActivatedListener(shared_ptr<jobject> obj, url_scheme::ApiPoint apiPoint)
+  void CallOnApiPointActivatedListener(shared_ptr<jobject> obj, url_scheme::ApiPoint const & apiPoint)
   {
-    const string name = apiPoint.m_title;
-    const string id   = apiPoint.m_url;
-    const double lat  = apiPoint.m_lat;
-    const double lon  = apiPoint.m_lon;
-
-
     JNIEnv * jniEnv = jni::GetEnv();
     const jmethodID methodID = jni::GetJavaMethodID(jniEnv,
                                                     *obj.get(),
                                                    "onApiPointActivated",
                                                    "(DDLjava/lang/String;Ljava/lang/String;)V");
 
-    jstring j_name = jni::ToJavaString(jniEnv, name);
-    jstring j_id   = jni::ToJavaString(jniEnv, id);
-    jniEnv->CallVoidMethod(*obj.get(), methodID, lat, lon, j_name, j_id);
+    jstring j_name = jni::ToJavaString(jniEnv, apiPoint.m_title);
+    jstring j_id   = jni::ToJavaString(jniEnv, apiPoint.m_url);
+    jniEnv->CallVoidMethod(*obj.get(), methodID, apiPoint.m_lat, apiPoint.m_lon, j_name, j_id);
   }
 
   // POI
-  void CallOnPoiActivatedListener(shared_ptr<jobject> obj, ::Framework::AddressInfo addrInfo, m2::PointD globalPoint)
+  void CallOnPoiActivatedListener(shared_ptr<jobject> obj, ::Framework::AddressInfo const & addrInfo, m2::PointD const & globalPoint)
   {
     JNIEnv * jniEnv = jni::GetEnv();
 
@@ -900,7 +894,7 @@ extern "C"
   }
 
   // Bookmark
-  void CallOnBookmarkActivatedListener(shared_ptr<jobject> obj, BookmarkAndCategory bmkAndCat)
+  void CallOnBookmarkActivatedListener(shared_ptr<jobject> obj, BookmarkAndCategory const & bmkAndCat)
   {
     JNIEnv * jniEnv = jni::GetEnv();
     const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(),

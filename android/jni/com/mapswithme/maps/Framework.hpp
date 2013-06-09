@@ -32,13 +32,13 @@ namespace android
 
     /* Balloon */
     // POI
-    typedef function<void (::Framework::AddressInfo, m2::PointD)> TOnPoiActivatedListener;
+    typedef function<void (::Framework::AddressInfo const &, m2::PointD const &)> TOnPoiActivatedListener;
     TOnPoiActivatedListener m_poiActivatedListener;
     // Bookmark
-    typedef function<void (BookmarkAndCategory)> TOnBookmarkActivatedListener;
+    typedef function<void (BookmarkAndCategory const &)> TOnBookmarkActivatedListener;
     TOnBookmarkActivatedListener m_bookmarkActivatedListener;
     // API point
-    typedef function<void (url_scheme::ApiPoint)> TOnApiPointActivatedListener;
+    typedef function<void (url_scheme::ApiPoint const &)> TOnApiPointActivatedListener;
     TOnApiPointActivatedListener m_apiPointActivatedListener;
     // My Position
     typedef function<void (double, double)> TOnMyPositionActivatedListener;
@@ -87,9 +87,9 @@ namespace android
     string m_bmType;
 
     // Balloon click callbacks
-    void OnActivatePoi(gui::Element * e, ::Framework::AddressInfo addrInfo, m2::PointD globalPoint);
-    void OnActivateBookmark(gui::Element * e, BookmarkAndCategory bmkAndCat);
-    void OnAcitvateApiPoint(gui::Element * e, url_scheme::ApiPoint apiPoint);
+    void OnActivatePoi(gui::Element * e, ::Framework::AddressInfo const & addrInfo, m2::PointD const & globalPoint);
+    void OnActivateBookmark(gui::Element * e, BookmarkAndCategory const & bmkAndCat);
+    void OnAcitvateApiPoint(gui::Element * e, url_scheme::ApiPoint const &  apiPoint);
     void OnActivateMyPosition(gui::Element * e);
 
 
