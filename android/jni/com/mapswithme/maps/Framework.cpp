@@ -765,19 +765,27 @@ namespace android
 
     url_api::Request request;
     // if we have only one point
-    // and import is successful
-    // => show balloon
-    if (m_work.SetViewportByURL(url, request)
-        && request.m_points.size() == 1)
+    // and import is successful - show balloon
+    if (m_work.SetViewportByURL(url, request) && request.m_points.size() == 1)
     {
-
       //we need it only for one-point-call
+      url_api::Point const point = request.m_points.front();
+
       m2::PointD pt(MercatorBounds::LonToX(request.m_viewportLon),
                     MercatorBounds::LatToY(request.m_viewportLat));
+      ActivatePopup(pt, point.m_name, "", IMAGE_ARROW);
 
-      ActivatePopup(pt, request.m_points.front().m_name, "", IMAGE_ARROW);
-      m_work.DrawPlacemark(pt);
-      m_work.Invalidate();
+      if (!strings::StartsWith(url, "mapswithme"))
+      {
+        // ge0, geo
+        m_work.DrawPlacemark(pt);
+        m_work.Invalidate();
+      }
+
+      url_scheme::ApiPoint const apiPoint {point.m_lat, point.m_lon, point.m_name, point.m_id};
+
+      LOG(LERROR, ("POINT setting listener", apiPoint.m_title, apiPoint.m_url));
+      m_bmBaloon.get()->setOnClickListener(bind(&Framework::OnAcitvateApiPoint, this, _1, apiPoint));
 
       return true;
     }
@@ -797,6 +805,7 @@ namespace android
 
   void Framework::OnAcitvateApiPoint(gui::Element * e, url_scheme::ApiPoint const & apiPoint)
   {
+    LOG(LERROR, ("POINT on api point listener", apiPoint.m_title, apiPoint.m_url));
     m_apiPointActivatedListener(apiPoint);
   }
 

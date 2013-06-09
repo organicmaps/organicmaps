@@ -119,7 +119,11 @@ public class MapObjectActivity extends FragmentActivity
     } 
     else if (type == MapObjectType.API_POINT)
     {
-      mFragment.setForApiPoint(MWMRequest.getCurrentRequest());
+      final String name    = intent.getStringExtra(EXTRA_NAME);
+      final double lat  = intent.getDoubleExtra(EXTRA_LAT, 0);
+      final double lon  = intent.getDoubleExtra(EXTRA_LON, 0);
+      
+      mFragment.setForApiPoint(name, lat, lon);
     }
     else if (type == MapObjectType.POI)
     {

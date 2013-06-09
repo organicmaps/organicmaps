@@ -48,6 +48,7 @@ import com.nvidia.devtech.NvEventQueueActivity;
 
 import java.io.Serializable;
 import java.util.Locale;
+import java.util.Stack;
 
 public class MWMActivity extends NvEventQueueActivity 
                          implements LocationService.Listener, OnApiPointActivatedListener,
@@ -72,6 +73,9 @@ public class MWMActivity extends NvEventQueueActivity
   private View mTitleBar;
   private ImageView mAppIcon;
   private TextView mAppTitle;
+  // Map tasks that we run AFTER rendering initialized
+  private Stack<MapTask> mTasks = new Stack<MWMActivity.MapTask>();
+  
 
 
   //showDialog(int, Bundle) available only form API 8
@@ -186,6 +190,9 @@ public class MWMActivity extends NvEventQueueActivity
         checkBuyProDialog();
       }
     });
+    
+    while (!mTasks.isEmpty())
+      mTasks.pop().run(this);
   }
 
   private Activity getActivity() { return this; }
@@ -573,11 +580,12 @@ public class MWMActivity extends NvEventQueueActivity
     Framework.setOnBookmarkActivatedListener(this);
     Framework.setOnPoiActivatedListener(this);
     Framework.setOnMyPositionActivatedListener(this);
+    Framework.setOnApiPointActivatedListener(this);
     
     Intent intent = getIntent();
     // We need check for tasks both in onCreate and onNewIntent
     // because of bug in OS: https://code.google.com/p/android/issues/detail?id=38629
-    handleTask(intent);
+    addTask(intent);
   }
   
   @Override
@@ -586,6 +594,7 @@ public class MWMActivity extends NvEventQueueActivity
     Framework.clearOnBookmarkActivatedListener();
     Framework.clearOnPoiActivatedListener();
     Framework.clearOnMyPositionActivatedListener();
+    Framework.clearOnApiPointActivatedListener();
     
     super.onDestroy();
   }
@@ -594,15 +603,15 @@ public class MWMActivity extends NvEventQueueActivity
   protected void onNewIntent(Intent intent)
   {
     super.onNewIntent(intent);
-    handleTask(intent);
+    addTask(intent);
   }
 
-  private void handleTask(Intent intent)
+  private void addTask(Intent intent)
   {
     if (intent != null && intent.hasExtra(EXTRA_TASK))
     {
       MapTask mapTask = (MapTask) intent.getSerializableExtra(EXTRA_TASK);
-      mapTask.run(this);
+      mTasks.add(mapTask);
       intent.removeExtra(EXTRA_TASK);
     }
   }
@@ -805,7 +814,6 @@ public class MWMActivity extends NvEventQueueActivity
 
       mAppIcon.setImageDrawable(request.getIcon(this));
       mTitleBar.setVisibility(View.VISIBLE);
-      Framework.setOnApiPointActivatedListener(this);
 
       marginTopForMap = (int) getResources().getDimension(R.dimen.abs__action_bar_default_height);
      }
@@ -813,7 +821,6 @@ public class MWMActivity extends NvEventQueueActivity
     {
       // hide title
       mTitleBar.setVisibility(View.GONE);
-      Framework.clearOnApiPointActivatedListener();
     }
     //we use <merge> so we not sure of type here
     if (mapLp instanceof MarginLayoutParams)
@@ -1047,7 +1054,11 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onApiPointActivated(final double lat, final double lon, final String name, final String id)
   {
-      MWMRequest.getCurrentRequest().setPointData(lat, lon, name, id);
+      if (MWMRequest.hasRequest())
+        MWMRequest.getCurrentRequest().setPointData(lat, lon, name, id);
+        // This is case for "mwm" scheme,
+        // if point is from "geo" or "ge0" - this is wrong. So we check here.
+      
       runOnUiThread(new Runnable()
       {
         @Override

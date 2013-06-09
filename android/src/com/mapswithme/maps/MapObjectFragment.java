@@ -95,15 +95,21 @@ public class MapObjectFragment extends Fragment
     mType = MapObjectType.BOOKMARK;
   }
   
-  public void setForApiPoint(MWMRequest request)
+  public void setForApiPoint(String name, double lat, double lon)
   {
     UiUtils.show(mAddToBookmarks);
     UiUtils.hide(mEditBmk);
-    UiUtils.show(mOpenWith);
     
-    setTexts(request.getName(), null, null, request.getLat(), request.getLon());
-    mOpenWith.setCompoundDrawables(UiUtils
-        .setCompoundDrawableBounds(request.getIcon(getActivity()), R.dimen.icon_size, getResources()), null, null, null);
+    if (MWMRequest.hasRequest())
+    {
+      UiUtils.show(mOpenWith);
+      mOpenWith.setCompoundDrawables(UiUtils
+          .setCompoundDrawableBounds(MWMRequest.getCurrentRequest().getIcon(getActivity()), R.dimen.icon_size, getResources()), null, null, null);
+    }
+    else 
+      UiUtils.hide(mOpenWith);
+    
+    setTexts(name, null, null, lat, lon);
     
     mType = MapObjectType.API_POINT;
   }
