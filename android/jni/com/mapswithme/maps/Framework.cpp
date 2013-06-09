@@ -464,6 +464,9 @@ namespace android
     info.MakeFrom(r);
     ActivatePopupWithAddressInfo(r.GetFeatureCenter(), info);
 
+    m2:: PointD globalPoint = r.GetFeatureCenter();
+    m_bmBaloon.get()->setOnClickListener(bind(&Framework::OnActivatePoi, this, _1, info, globalPoint));
+
     m_work.ShowSearchResult(r);
   }
 
