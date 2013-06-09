@@ -770,21 +770,18 @@ namespace android
     {
       //we need it only for one-point-call
       url_api::Point const point = request.m_points.front();
-
       m2::PointD pt(MercatorBounds::LonToX(request.m_viewportLon),
                     MercatorBounds::LatToY(request.m_viewportLat));
       ActivatePopup(pt, point.m_name, "", IMAGE_ARROW);
 
+      // For geo and ge0 draw placemark
       if (!strings::StartsWith(url, "mapswithme"))
       {
-        // ge0, geo
         m_work.DrawPlacemark(pt);
         m_work.Invalidate();
       }
 
       url_scheme::ApiPoint const apiPoint {point.m_lat, point.m_lon, point.m_name, point.m_id};
-
-      LOG(LERROR, ("POINT setting listener", apiPoint.m_title, apiPoint.m_url));
       m_bmBaloon.get()->setOnClickListener(bind(&Framework::OnAcitvateApiPoint, this, _1, apiPoint));
 
       return true;
@@ -938,13 +935,6 @@ extern "C"
     ::Framework * nativeFramework = g_framework->NativeFramework();
     return jni::ToJavaString(env, nativeFramework->GetNameAndAddressAtGlobalPoint(point));
   }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativePassApiUrl(JNIEnv * env, jclass clazz, jstring url)
-  {
-    g_framework->SetViewportByUrl(jni::ToNativeString(url));
-  }
-
 
    //API
   JNIEXPORT void JNICALL

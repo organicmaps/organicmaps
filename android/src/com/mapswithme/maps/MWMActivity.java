@@ -191,6 +191,9 @@ public class MWMActivity extends NvEventQueueActivity
       }
     });
     
+    // Task are not UI-thread bounded,
+    // if any task need UI-thread it should implicitly 
+    // use Activity.runOnUiThread().
     while (!mTasks.isEmpty())
       mTasks.pop().run(this);
   }
@@ -608,12 +611,15 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void addTask(Intent intent)
   {
-    if (intent != null && intent.hasExtra(EXTRA_TASK))
+    if (intent != null 
+        && intent.hasExtra(EXTRA_TASK)
+        && ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0))
     {
       MapTask mapTask = (MapTask) intent.getSerializableExtra(EXTRA_TASK);
       mTasks.add(mapTask);
       intent.removeExtra(EXTRA_TASK);
     }
+    setIntent(null);
   }
   
   @Override
@@ -1028,6 +1034,10 @@ public class MWMActivity extends NvEventQueueActivity
     }
   }
   
+  ////
+  //    Map TASKS
+  ////
+  
   public interface MapTask extends Serializable 
   {
     public boolean run(MWMActivity target);
@@ -1051,6 +1061,11 @@ public class MWMActivity extends NvEventQueueActivity
     }
   }
 
+  
+  ////
+  //   NATIVE callbacks and methods
+  ////
+  
   @Override
   public void onApiPointActivated(final double lat, final double lon, final String name, final String id)
   {

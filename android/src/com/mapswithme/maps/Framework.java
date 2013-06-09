@@ -52,11 +52,6 @@ public class Framework
     return nativeGetNameAndAddress4Point(lat, lon);
   }
   
-  public static void passApiUrl(String url) 
-  {
-    nativePassApiUrl(url);
-  }
-
   // API
   public static void setOnApiPointActivatedListener(OnApiPointActivatedListener listener)
   {
@@ -112,9 +107,6 @@ public class Framework
    */
   
   private native static String nativeGetGe0Url(double lat, double lon, double zoomLevel, String name);
-  
-  private native static void nativePassApiUrl(String url);
-
   private native static String nativeGetNameAndAddress4Point(double lat, double lon);
   
   // API point
