@@ -160,7 +160,7 @@ bool BookmarkBalloon::checkPosition()
 
   m_framework->GetAnimator().MoveScreen(globalOrg, screen.PtoG(pixelOrg), 0.5);
 
-  return result;
+  return result || needLayout;
 }
 
 void BookmarkBalloon::update()
