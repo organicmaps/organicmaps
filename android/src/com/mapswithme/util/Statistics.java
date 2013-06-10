@@ -1,24 +1,28 @@
 package com.mapswithme.util;
 
-import android.content.Context;
+import android.app.Activity;
 import android.util.Log;
 import com.flurry.android.FlurryAgent;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.api.MWMRequest;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public enum Statistics
 {
   INSTANCE;
 
   private static String TAG_PROMO_DE = "PROMO-DE: ";
+  private static String TAG_API = "API: ";
 
 	private Statistics()
 	{
-		Log.d("Stats", "Created Statistics instance.");
+		Log.d(TAG, "Created Statistics instance.");
 
 		FlurryAgent.setUseHttps(true);
-
 		FlurryAgent.setLogEnabled(true);
-		FlurryAgent.setLogLevel(Log.DEBUG);
+		// Do not log everything in production.
+		FlurryAgent.setLogLevel(Log.ERROR);
 	}
 
 	public void trackPromocodeDialogOpenedEvent()
@@ -30,40 +34,35 @@ public enum Statistics
 	{
 	  FlurryAgent.logEvent(TAG_PROMO_DE + "promo code activated");
 	}
-
-	public void startActivity(Context context)
+	
+	public void trackApiCall(MWMRequest request)
 	{
-	  synchronized ("live")
-	  {
-  	  if (liveActivities == 0)
-	    {
-  	    Log.d(TAG, "NEW SESSION.");
-  	    FlurryAgent.onStartSession(context, (String)context.getResources().getText(
-  	        R.string.flurry_app_key));
-  	  }
-
-	    ++liveActivities;
-	  }
-
-    Log.d(TAG, "Started activity: " + context.getClass().getSimpleName() + ".");
+	  final String text = "used by " + request.getCallerInfo().packageName;
+	  FlurryAgent.logEvent(TAG_API + text);
 	}
 
-  public void stopActivity(Context context)
-  {
-    Log.d(TAG, "Stopped activity: " + context.getClass().getSimpleName() + ".");
-
-    synchronized ("live")
+	public void startActivity(Activity activity)
+	{
+	  if (mLiveActivities.getAndIncrement() == 0)
     {
-      --liveActivities;
-      if (liveActivities == 0)
-      {
-        Log.d(TAG, "FINISHED SESSION.");
-        FlurryAgent.onEndSession(context);
-      }
+	    Log.d(TAG, "NEW SESSION.");
+	    FlurryAgent.onStartSession(activity, activity.getResources().getString(R.string.flurry_app_key));
+	  }
+
+    Log.d(TAG, "Started activity: " + activity.getClass().getSimpleName() + ".");
+	}
+
+  public void stopActivity(Activity activity)
+  {
+    Log.d(TAG, "Stopped activity: " + activity.getClass().getSimpleName() + ".");
+      
+    if (mLiveActivities.decrementAndGet() == 0)
+    {
+      Log.d(TAG, "FINISHED SESSION.");
+      FlurryAgent.onEndSession(activity);
     }
   }
 
-	private int liveActivities = 0;
+	private AtomicInteger mLiveActivities = new AtomicInteger(0);
 	private final String TAG = "Stats";
-	// private FlurryAgent flurryAgent;
 }

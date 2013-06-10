@@ -1,16 +1,5 @@
 package com.nvidia.devtech;
 
-import java.util.Arrays;
-import java.util.Comparator;
-
-import javax.microedition.khronos.egl.EGL10;
-import javax.microedition.khronos.egl.EGL11;
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.egl.EGLContext;
-import javax.microedition.khronos.egl.EGLDisplay;
-import javax.microedition.khronos.egl.EGLSurface;
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -22,6 +11,16 @@ import android.view.SurfaceView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.state.MapsWithMeBaseActivity;
 import com.mapswithme.util.Statistics;
+
+import java.util.Arrays;
+import java.util.Comparator;
+
+import javax.microedition.khronos.egl.EGL10;
+import javax.microedition.khronos.egl.EGL11;
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.egl.EGLContext;
+import javax.microedition.khronos.egl.EGLDisplay;
+import javax.microedition.khronos.egl.EGLSurface;
 
 public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity
 {

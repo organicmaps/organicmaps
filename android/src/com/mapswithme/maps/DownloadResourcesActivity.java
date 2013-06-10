@@ -687,6 +687,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
       {
         final MWMRequest request = MWMRequest.extractFromIntent(intent, getApplicationContext());
         MWMRequest.setCurrentRequest(request);
+        Statistics.INSTANCE.trackApiCall(request);
         getMwmApplication().getAppStateManager().transitionTo(SuppotedState.API_REQUEST);
         
         mMapTaskToForward = new OpenUrlTask(apiUrl);
