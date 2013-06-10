@@ -56,7 +56,6 @@ TileRenderer::TileRenderer(
   , m_renderFn(renderFn)
   , m_bgColor(bgColor)
   , m_sequenceID(0)
-  , m_isExiting(false)
   , m_isPaused(false)
 {
   m_resourceManager = rm;
@@ -106,8 +105,13 @@ TileRenderer::TileRenderer(
 
 TileRenderer::~TileRenderer()
 {
-  m_isExiting = true;
+}
 
+void TileRenderer::Shutdown()
+{
+  LOG(LINFO, ("shutdown resources"));
+  SetSequenceID(numeric_limits<int>::max());
+  m_queue.CancelCommands();
   m_queue.Cancel();
 
   for (size_t i = 0; i < m_threadData.size(); ++i)
@@ -261,17 +265,13 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   }
   else
   {
-    if (!m_isExiting)
-    {
-      if (glQueue)
-        glQueue->cancelCommands();
-    }
+    if (glQueue)
+      glQueue->cancelCommands();
   }
 
   if (env.isCancelled())
   {
-    if (!m_isExiting)
-      texturePool->Free(tileTarget);
+    texturePool->Free(tileTarget);
   }
   else
   {
@@ -333,11 +333,6 @@ void TileRenderer::CacheActiveTile(Tiler::RectInfo const & rectInfo)
     m_tileCache.AddTile(rectInfo, TileCache::Entry(tile, m_resourceManager));
     m_tileSet.RemoveTile(rectInfo);
   }
-}
-
-void TileRenderer::WaitForEmptyAndFinished()
-{
-  m_queue.Join();
 }
 
 bool TileRenderer::HasTile(Tiler::RectInfo const & rectInfo)

@@ -158,30 +158,23 @@ TilingRenderPolicyST::~TilingRenderPolicyST()
   LOG(LINFO, ("deleting TilingRenderPolicyST"));
 
   m_QueuedRenderer->PrepareQueueCancellation(cpuCores);
-
   /// now we should process all commands to collect them into queues
   m_CoverageGenerator->Shutdown();
-
   m_QueuedRenderer->CancelQueuedCommands(cpuCores);
-
-  LOG(LINFO, ("reseting coverageGenerator"));
-  m_CoverageGenerator.reset();
 
   /// firstly stop all rendering commands in progress and collect all commands into queues
 
   for (unsigned i = 0; i < cpuCores; ++i)
     m_QueuedRenderer->PrepareQueueCancellation(i);
 
-  m_TileRenderer->ClearCommands();
-  m_TileRenderer->SetSequenceID(numeric_limits<int>::max());
-  m_TileRenderer->CancelCommands();
-  m_TileRenderer->WaitForEmptyAndFinished();
-
+  m_TileRenderer->Shutdown();
   /// now we should cancel all collected commands
 
   for (unsigned i = 0; i < cpuCores; ++i)
     m_QueuedRenderer->CancelQueuedCommands(i);
 
+  LOG(LINFO, ("reseting coverageGenerator"));
+  m_CoverageGenerator.reset();
   LOG(LINFO, ("reseting tileRenderer"));
   m_TileRenderer.reset();
   LOG(LINFO, ("done reseting tileRenderer"));

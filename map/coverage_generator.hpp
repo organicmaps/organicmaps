@@ -52,20 +52,9 @@ public:
 
   void Shutdown();
 
-  //@{ Called only on android, with Single thread policy
-  void InitializeThreadGL(shared_ptr<graphics::RenderContext> context,
-                          shared_ptr<graphics::ResourceManager> resourceManager,
-                          graphics::PacketsQueue * glQueue);
-  void FinalizeThreadGL(shared_ptr<graphics::RenderContext> context,
-                        shared_ptr<graphics::ResourceManager> resourceManager);
-  //@}
-
   //@{ Add task to run on CoverageGenerator thread
   void InvalidateTiles(m2::AnyRectD const & rect, int startScale);
   void CoverScreen(ScreenBase const & screen, bool doForce);
-  void MergeTile(Tiler::RectInfo const & rectInfo,
-                        int sequenceID);
-  void CheckEmptyModel(int sequenceID);
   //}@
 
   //@{ Benchmark support
@@ -92,6 +81,19 @@ public:
   bool DoForceUpdate() const;
 
   int GetDrawScale() const;
+
+private:
+  //@{ Called only on android, with Single thread policy
+  void InitializeThreadGL(shared_ptr<graphics::RenderContext> context,
+                          shared_ptr<graphics::ResourceManager> resourceManager,
+                          graphics::PacketsQueue * glQueue);
+  void FinalizeThreadGL(shared_ptr<graphics::RenderContext> context,
+                        shared_ptr<graphics::ResourceManager> resourceManager);
+  //@}
+
+  void MergeTile(Tiler::RectInfo const & rectInfo,
+                        int sequenceID);
+  void CheckEmptyModel(int sequenceID);
 
 private:
   void CoverScreenImpl(core::CommandsQueue::Environment const & env,

@@ -149,13 +149,10 @@ TilingRenderPolicyMT::~TilingRenderPolicyMT()
   LOG(LINFO, ("cancelling ResourceManager"));
   m_resourceManager->cancel();
 
+  m_CoverageGenerator->Shutdown();
+  m_TileRenderer->Shutdown();
+
   m_CoverageGenerator.reset();
-
-  m_TileRenderer->ClearCommands();
-  m_TileRenderer->SetSequenceID(numeric_limits<int>::max());
-  m_TileRenderer->CancelCommands();
-  m_TileRenderer->WaitForEmptyAndFinished();
-
   m_TileRenderer.reset();
 }
 

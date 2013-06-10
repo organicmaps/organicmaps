@@ -60,7 +60,6 @@ protected:
   RenderPolicy::TRenderFn m_renderFn;
   graphics::Color m_bgColor;
   int m_sequenceID;
-  bool m_isExiting;
 
   bool m_isPaused;
 
@@ -91,6 +90,7 @@ public:
                graphics::PacketsQueue ** packetsQueue);
   /// destructor.
   virtual ~TileRenderer();
+  void Shutdown();
   /// add command to the commands queue.
   void AddCommand(Tiler::RectInfo const & rectInfo,
                   int sequenceID,
@@ -99,8 +99,6 @@ public:
   TileCache & GetTileCache();
   /// Move active tile to cache if tile alrady rendered
   void CacheActiveTile(Tiler::RectInfo const & rectInfo);
-  /// wait on a condition variable for an empty queue.
-  void WaitForEmptyAndFinished();
 
   void SetSequenceID(int sequenceID);
 

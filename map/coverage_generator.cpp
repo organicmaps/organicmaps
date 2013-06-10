@@ -42,14 +42,15 @@ CoverageGenerator::CoverageGenerator(TileRenderer * tileRenderer,
 CoverageGenerator::~CoverageGenerator()
 {
   LOG(LINFO, ("cancelling coverage thread"));
-  m_queue.Cancel();
   ClearCoverage();
 }
 
 void CoverageGenerator::Shutdown()
 {
+  LOG(LINFO, ("shutdown resources"));
   m_stateInfo.SetSequenceID(numeric_limits<int>::max());
-  m_queue.Join();
+  m_queue.CancelCommands();
+  m_queue.Cancel();
 }
 
 void CoverageGenerator::InitializeThreadGL(shared_ptr<graphics::RenderContext> context,
