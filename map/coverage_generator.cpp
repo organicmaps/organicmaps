@@ -292,7 +292,8 @@ void CoverageGenerator::InvalidateTilesImpl(m2::AnyRectD const & r, int startSca
   {
     threads::MutexGuard g(m_stateInfo.m_mutex);
 
-    buffer_vector<Tile const *, 8> toRemove;
+    typedef buffer_vector<Tile const *, 8> vector8_t;
+    vector8_t toRemove;
 
     for (CoverageInfo::TTileSet::const_iterator it = m_coverageInfo.m_tiles.begin();
          it != m_coverageInfo.m_tiles.end();
@@ -307,7 +308,7 @@ void CoverageGenerator::InvalidateTilesImpl(m2::AnyRectD const & r, int startSca
       }
     }
 
-    for (buffer_vector<Tile const *, 8>::const_iterator it = toRemove.begin();
+    for (vector8_t::const_iterator it = toRemove.begin();
          it != toRemove.end();
          ++it)
     {
