@@ -4,8 +4,202 @@
 <!-- Language: it -->
 <resources>
 	<!-- SECTION: Strings -->
+	<!-- Dialog text when paid version become available on the market. Showed only once. -->
+	<string name="pro_version_available">Naviga più facilmente con la versione completa di MapsWithMe con la ricerca offline. Scaricala subito!</string>
+	<!-- About button text (should be short! @todo - fix french) -->
+	<string name="about">Informazioni</string>
+	<!-- Button text (should be short) -->
+	<string name="back">Indietro</string>
+	<!-- Button text (should be short) -->
+	<string name="cancel">Annulla</string>
+	<!-- Button which interrupts country download -->
+	<string name="cancel_download">Annulla il download</string>
+	<!-- Button which deletes downloaded country -->
+	<string name="delete">Cancella</string>
+	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
+	<string name="delete_old_maps">Cancella le vecchie mappe e procedi</string>
+	<!-- Button to dismiss dialog forever -->
+	<string name="do_not_ask_me_again">Non me lo chiedere di nuovo</string>
+	<!-- Button "do not interrupt download" if user touched actively downloading country -->
+	<string name="do_nothing">Continua</string>
+	<string name="download_maps">Scarica le mappe</string>
+	<!-- Settings/Downloader - Download confirmation button -->
+	<string name="download_x_kb">Scarica %qu MB</string>
+	<!-- Settings/Downloader - Download confirmation button -->
+	<string name="download_x_mb">Scarica %qu MB</string>
+	<!-- Settings/Downloader - info for country when download fails -->
+	<string name="download_has_failed">Download fallito, tocca di nuovo per un altro tentativo</string>
+	<!-- Settings/Downloader - info for downloaded country -->
+	<string name="downloaded_x_y_touch_to_delete">Scaricato (%1$qu %2$s), tocca per annullare</string>
+	<!-- Settings/Downloader - country info current download progress -->
+	<string name="downloading_x_touch_to_cancel">Download di %qu%%, tocca per annullare</string>
+	<!-- Settings/Downloader - info for country which started downloading -->
+	<string name="downloading">In fase di download...</string>
+	<string name="get_it_now">Prendila ora</string>
+	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
+	<string name="share_on_facebook_text">Ti stai divertendo MapsWithMe? Aiuta i tuoi amici e la famiglia a conoscere l\'app, condividila con loro su Facebook!</string>
+	<!-- Leave Review dialog title -->
+	<string name="leave_review_text">Se ti piace MapsWithMe, cortesemente sostienici, scrivendo una recensione. Se incontri problemi, faccelo sapere compilando l\'apposito modulo.</string>
+	<!-- Settings/Downloader - size string -->
+	<string name="kb">kB</string>
+	<!-- Choose measurement on first launch alert - choose metric system button -->
+	<string name="kilometres">Chilometri</string>
+	<!-- Leave Review dialog - Review button -->
+	<string name="leave_a_review">Lascia una recensione</string>
+	<!-- Location purpose text description -->
+	<string name="location_services_are_needed_desc">I servizi di localizzazione sono necessari per visualizzare la tua posizione corrente sulla mappa.</string>
+	<!-- View and button titles for accessibility -->
+	<string name="maps">Mappe</string>
+	<!-- Settings/Downloader - info for country in the download queue -->
+	<string name="marked_for_downloading">Contrassegnato per il download, tocca per cancellare</string>
+	<!-- Settings/Downloader - size string -->
+	<string name="mb">MB</string>
+	<!-- Choose measurement on first launch alert - choose imperial system button -->
+	<string name="miles">Miglia</string>
+	<!-- View and button titles for accessibility -->
+	<string name="my_position">La mia posizione</string>
+	<!-- Settings/Downloader - No internet connection dialog title -->
+	<string name="no_internet_connection_detected">Non è stata rilevata alcuna connessione Internet</string>
+	<!-- Settings/Downloader - 3G download warning dialog title -->
+	<string name="no_wifi_ask_cellular_download">Non è stata rilevata alcuna connessione WiFi. Vuoi utilizzare i dati cellulare (GPRS, EDGE o 3G) per scaricare %s?</string>
+	<!-- not used? Search View - Location is disabled by user warning text -->
+	<string name="enable_location_services">Cortesemente abilita i servizi di localizzazione</string>
+	<!-- Settings/Downloader - No free space dialog message -->
+	<string name="free_disk_space_for_country_x">Cortesemente libera spazio sul tuo dispositivo prima per poter scaricare %s</string>
+	<!-- Leave Review dialog - Not now button (remind me later) -->
+	<string name="remind_me_later">Ricordamelo in seguito</string>
+	<!-- Update maps later/Buy pro version later button text -->
+	<string name="later">Più tardi</string>
+	<!-- Don't show some dialog any more -->
+	<string name="never">Mai</string>
+	<!-- Leave Review dialog - Complain button (goes to support site) -->
+	<string name="report_an_issue">Segnala un problema</string>
+	<!-- View and button titles for accessibility -->
+	<string name="search">Cerca</string>
+	<!-- Search button pressed dialog title in the free version -->
+	<string name="search_available_in_pro_version">La ricerca è disponibile solo nella versione completa di MapsWithMe. Scaricala subito!</string>
+	<!-- Search box placeholder text -->
+	<string name="search_map">Ricerca Mappa</string>
+	<!-- Settings/Downloader - No free space dialog title -->
+	<string name="not_enough_disk_space">Non c\'è abbastanza spazio libero su disco</string>
+	<!-- Settings/Downloader - info for not downloaded country -->
+	<string name="touch_to_download">Tocca per scaricare</string>
+	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
+	<string name="use_cellular_data">Sì</string>
+	<!-- Settings/Downloader - No internet connection dialog message -->
+	<string name="use_wifi_recommendation_text">Ti consigliamo di utilizzare il WiFi per scaricare mappe di grandi dimensioni</string>
+	<!-- Choose measurement on first launch alert - title -->
+	<string name="which_measurement_system">Quale sistema di misura preferisci?</string>
+	<!-- Location services are disabled by user alert - message -->
+	<string name="location_is_disabled_long_text">Attualmente hai disattivati tutti i servizi di locazione per questo dispositivo o applicazione.  Cortesemente abilitali nelle Impostazioni.</string>
+	<!-- Location Services are not available on the device alert - message -->
+	<string name="device_doesnot_support_location_services">Il tuo dispositivo non supporta i servizi di localizzazione</string>
+	<!-- View and button titles for accessibility -->
+	<string name="zoom_to_country">Zoom sul paese</string>
+	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
+	<string name="country_status_added_to_queue">^ aggiunto alla coda di download.</string>
+	<!-- Message to display at the center of the screen when the country is downloading -->
+	<string name="country_status_downloading">Sto scaricando^^%</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
+	<string name="country_status_download">Scarica^</string>
+	<!-- Message to display at the center of the screen when the country download has failed -->
+	<string name="country_status_download_failed">Lo scaricamento^è fallito</string>
+	<!-- Button text for the button under the country_status_download_failed message -->
+	<string name="try_again">Riprova</string>
+	<string name="about_menu_title">Informazioni su MapsWithMe</string>
+	<string name="downloading_touch_to_cancel">Download di %d%%, tocca per cancellare</string>
+	<string name="downloaded_touch_to_delete">Scaricato (%s), tocca per cancellare</string>
+	<string name="connection_settings">Impostazioni di connessione</string>
+	<string name="download_mb_or_kb">Scarica %s</string>
+	<string name="close">Chiudi</string>
+	<string name="unsupported_phone">È necessaria una accelerazione hardware OpenGL. Purtroppo, il tuo dispositivo non è supportato.</string>
+	<string name="download">Carica</string>
+	<string name="external_storage_is_not_available">La scheda/USB/di memoria SD con le mappe scaricate non è disponibile</string>
+	<string name="disconnect_usb_cable">Coortesemente scollega il cavo USB oppure inserisci la scheda di memoria per l\'usco dell\'app</string>
+	<string name="not_enough_free_space_on_sdcard">Libera prima dello spazio sulla scheda Sd/ memoria USB per usare l\'app</string>
+	<string name="not_enough_memory">Memoria insufficiente per lanciare l\'app</string>
+	<string name="free_space_for_country">Libera %1$s sul dispositivo prima per poter scaricare %2$s</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="download_resources">Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %1$.1f%2$s.</string>
+	<string name="getting_position">Ottieni la posizione corrente</string>
+	<string name="download_resources_continue">Vai alla mappa</string>
+	<string name="downloading_country_can_proceed">Sto scaricando %s. Puoi ora\nprocedere con la mappa.</string>
+	<string name="download_country_ask">Vuoi scaricare %s?</string>
+	<string name="update_country_ask">Vuoi aggiornare %s?</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="download_location_map_proposal">Puoi scaricare la mappa\ndella tua posizione corrente.</string>
+	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
+	<string name="download_location_update_map_proposal">Puoi aggiornare la mappa\ndella tua posizione corrente.</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="download_location_map_up_to_date">La mappa della tua attuale\nposizione (%s) è aggiornata</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="pause">Pausa</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="continue_download">Continua</string>
+	<string name="downloaded_touch_to_update">Scaricato (%s), tocca per aggiornare o cancellare</string>
+	<string name="update_mb_or_kb">Aggiorna %s</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">Hai bisogno di mappe aggiornate per la funzione di ricerca:</string>
+	<!-- Show popup notification on app start when we have out-of-date maps -->
+	<string name="advise_update_maps">Aggiornamento disponibile per queste mappe:</string>
+	<!-- Show popup notification in Pro version that Lite can be deleted -->
+	<string name="suggest_uninstall_lite">Non hai più bisogno di MapsWithMe Lite, quindi puoi disinstallarlo.</string>
+	<!-- Show popup notification on top of the map when country was downloaded. -->
+	<string name="download_country_success">Scaricato %s con successo</string>
+	<!-- Show popup notification on top of the map when country download has failed. -->
+	<string name="download_country_failed">Il trasferimento di %s non è riuscito</string>
+	<!-- Add New Bookmark Set dialog title -->
+	<string name="add_new_set">Aggiungi un nuovo Set</string>
+	<!-- Place Page - Add To Bookmarks button -->
+	<string name="add_to_bookmarks">Aggiungi ai Preferiti</string>
+	<!-- Bookmark Color dialog title -->
+	<string name="bookmark_color">Colore del Segnalibro</string>
+	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<string name="bookmark_set_name">Seleziona un nome del segnalibro</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">Seleziona un segnalibro</string>
+	<!-- Boormarks - dialog title -->
+	<string name="bookmarks">Segnalibri</string>
+	<!-- Add bookmark dialog - bookmark color -->
+	<string name="color">Colore</string>
+	<!-- Unknown Dropped Pin title, when name can't be determined -->
+	<string name="dropped_pin">Pin trascinato</string>
+	<!-- Default bookmarks set name -->
+	<string name="my_places">I miei luoghi</string>
+	<!-- Add bookmark dialog - bookmark address -->
+	<string name="address">Indirizzo</string>
+	<!-- Place Page - Remove Pin button -->
+	<string name="remove_pin">Rimuovi il Pin</string>
+	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
+	<string name="set">Seleziona</string>
+	<!-- Text hint in Bookmarks dialog, displayed if it's empty -->
+	<string name="bookmarks_usage_hint">Per aggiungere un nuovo segnalibro qui, tocca qualsiasi punto della mappa e tieni premuto fino a quando non appare il pop-up.</string>
+	<!-- Settings button in system menu -->
+	<string name="settings">Impostazioni</string>
+	<!-- Header of settings activity where user defines storage path -->
+	<string name="maps_storage">Lista delle Mape</string>
+	<!-- Detailed description of Maps Storage settings button -->
+	<string name="maps_storage_summary">Seleziona il luogo in cui le mappe devono essere scaricate</string>
+	<!-- Question dialog for transferring maps from one storage to another -->
+	<string name="move_maps">Vuoi spostare le mappe?</string>
+	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<string name="wait_several_minutes">Questo può richiedere diversi minuti.\ncortesemente attendi...</string>
+	<!-- Show bookmarks from this category on a map or not -->
+	<string name="visible">Visibile</string>
+	<!-- Proposal to download Pro version with Bookmarks -->
+	<string name="bookmarks_in_pro_version">I segnalibri sono disponibili solo nella versione completa di MapsWithMe. Scaricalo subito!</string>
+	<!-- Toast which is displayed when GPS has been deactivated -->
+	<string name="gps_is_disabled_long_text">Il GPS è disabilitato. Cortesemente abilitalo nelle Impostazioni.</string>
+	<!-- Measurement units title in settings activity -->
+	<string name="measurement_units">Unità di misura</string>
+	<!-- Detailed description of Measurement Units settings button -->
+	<string name="measurement_units_summary">Scegli tra miglia e chilometri</string>
+	<!-- Do search in all sources -->
+	<string name="search_mode_all">Ovunque</string>
+	<!-- Do search near my position only -->
+	<string name="search_mode_nearme">Vicino a me</string>
+	<!-- Do search in current viewport only -->
+	<string name="search_mode_viewport">Nella schermata</string>
 	<!-- Search Suggestion -->
 	<string name="food">mangiare</string>
 	<!-- Search Suggestion -->
@@ -35,6 +229,14 @@
 	<string name="post">posta</string>
 	<!-- Search Suggestion -->
 	<string name="police">posto di polizia</string>
+	<!-- String in search result list, when nothing found -->
+	<string name="no_search_results_found">Nessun risultato trovato</string>
+	<!-- Notes field in Bookmarks view -->
+	<string name="description">Note</string>
+	<!-- Button text -->
+	<string name="share_by_email">Condividi via email</string>
+	<!-- Email Subject when sharing bookmarks category -->
+	<string name="share_bookmarks_email_subject">Il segnalibri MapsWithMe è stato condiviso con te</string>
 	<!-- Email text when sharing bookmarks category -->
 	<string name="share_bookmarks_email_body">Ciao,\n\nQuesti sono i miei \&quot;preferiti\&quot; fra le mappe offline di MapsWithMe, che si trovano nel file allegato \&quot;%s.kmz\&quot;. Il file può essere aperto se l\'app MapsWithMe Pro è già stata installata. In caso contrario, occorre scaricare l\'app per il tuo iOS o dispositivo Android dal link http://www.mapswithme.com/get?kmz.\n\nBuon divertimento con MapsWithMe!</string>
 	<!-- message title of loading file -->
@@ -43,6 +245,8 @@
 	<string name="load_kmz_successful">Segnalibri caricati con successo! Puoi trovare i segnalibri direttamente sulla mappa, oppure aprendo la schermata dedicata alla Gestione dei segnalibri.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Caricamento dei segnalibri non riuscito. Il file potrebbe essere corrotto o difettoso.</string>
+	<!-- resource for context menu -->
+	<string name="edit">Copia link</string>
 	<!-- Warning message when doing search around current position -->
 	<string name="unknown_current_position">La tua posizione non è stata ancora stabilita</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->

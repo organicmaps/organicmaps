@@ -10,6 +10,7 @@
     de = Mehr Möglichkeiten in der vollen Version MapsWithMe mit Offline-Suche. Jetzt herunterladen!
     es = Mas facil navegar con la version completa MapsWithMe con el buscador fuera de la Internet. Bajalo ya!
     fr = Plus de possibilités dans la version complète de MapsWithMe avec la recherche en hors ligne. Télécharger maintenant!
+    it = Naviga più facilmente con la versione completa di MapsWithMe con la ricerca offline. Scaricala subito!
     ja = MapsWithMe完全版ならオフラインサーチでさらにナビゲートが簡単です。今すぐご入手下さい！
     ko = 오프라인 검색 기능의 MapsWithMe의 풀버젼으로 보다 쉽게 검색하세요. 지금 구매하세요!
     nl = Navigeer makkelijker met MapsWithMe Pro met offline zoeken. Instelleer het nu!
@@ -17,6 +18,7 @@
     uk = Більше можливостей у повній версії MapsWithMe з офлайн пошуком. Встановити її зараз?
     zh-Hant = 完整版的MapsWithMe特色在於更完善的離線搜尋，立即購買!
     pl = Nawigacja staje się prostsza kiedy masz pełną wersję aplikację MapsWithMe wraz z wyszukiwaniem offline. Pobierz już teraz!
+    pt = Navegue mais facilmente com a versão completa do MapsWithMe com a funcionalidade de procura offline. Obtenha-a agora mesmo!
   [about]
     en = About
     comment = About button text (should be short! @todo - fix french)
@@ -24,6 +26,7 @@
     de = Über Karten
     es = Acerca de
     fr = Au sujet des cartes
+    it = Informazioni
     ja = 情報
     ko = 소개
     nl = Over
@@ -31,6 +34,7 @@
     uk = Про програму
     zh-Hant = 關於
     pl = O programie
+    pt = Sobre
   [back]
     en = Back
     comment = Button text (should be short)
@@ -38,6 +42,7 @@
     de = Zurück
     es = Atrás
     fr = Retour
+    it = Indietro
     ja = 戻る
     ko = 뒤로
     nl = Terug
@@ -45,6 +50,7 @@
     uk = Назад
     zh-Hant = 返回
     pl = Wróć
+    pt = Voltar
   [cancel]
     en = Cancel
     comment = Button text (should be short)
@@ -52,6 +58,7 @@
     de = Abbrechen
     es = Cancelar
     fr = Annuler
+    it = Annulla
     ja = キャンセル
     ko = 취소하기
     nl = Annuleer
@@ -59,6 +66,7 @@
     uk = Скасувати
     zh-Hant = 取消
     pl = Anuluj
+    pt = Cancelar
   [cancel_download]
     en = Cancel Download
     comment = Button which interrupts country download
@@ -66,6 +74,7 @@
     de = Download beenden
     es = Cancelar descarga
     fr = Annuler le téléchargement
+    it = Annulla il download
     ja = ダウンロードをキャンセル
     ko = 다운로드 취소하기
     nl = Annulleer Download
@@ -73,6 +82,7 @@
     uk = Вiдмiнити завантаження
     zh-Hant = 取消下載
     pl = Anuluj pobieranie
+    pt = Cancelar Descarga
   [delete]
     en = Delete
     comment = Button which deletes downloaded country
@@ -80,6 +90,7 @@
     de = Löschen
     es = Eliminar
     fr = Effacer
+    it = Cancella
     ja = 削除
     ko = 삭제하기
     nl = Verwijder
@@ -87,6 +98,7 @@
     uk = Видалити
     zh-Hant = 刪除
     pl = Usuń
+    pt = Eliminar
   [delete_old_maps]
     en = Delete old maps and proceed
     comment = Button in iOS Downloader, displayed only when upgrading from v1 to v2
@@ -94,6 +106,7 @@
     de = Alte Karten löschen und fortsetzen
     es = Eliminar mapas antiguos y seguir
     fr = Effacer les anciennes cartes et continuer
+    it = Cancella le vecchie mappe e procedi
     ja = 古いマップを削除して次へ進む
     ko = 이전의 지도를 삭제하고 진행하기
     nl = Verwijder oude kaarten en ga door
@@ -101,6 +114,7 @@
     uk = Видалити старі карти та продовжити
     zh-Hant = 刪除舊的地圖並繼續
     pl = Usuń stare mapy i kontynuuj
+    pt = Eliminar mapas antigos e continuar
   [do_not_ask_me_again]
     en = Do not ask me again
     comment = Button to dismiss dialog forever
@@ -108,6 +122,7 @@
     de = Nicht mehr fragen
     es = No volver a preguntar
     fr = Ne poser plus de questions
+    it = Non me lo chiedere di nuovo
     ja = 以後、このメッセージを表示しない
     ko = 또 묻지 마세요.
     nl = Nooit meer vragen
@@ -115,6 +130,7 @@
     uk = Більше не питати
     zh-Hant = 別再問我
     pl = Nie pytaj ponownie
+    pt = Não volte a perguntar-me
   [do_nothing]
     en = Continue
     comment = Button "do not interrupt download" if user touched actively downloading country
@@ -122,6 +138,7 @@
     de = Download fortsetzen
     es = Seguir descarga
     fr = Continuer de télécharger
+    it = Continua
     ja = 何もしない
     ko = 아무것도 하지 마세요
     nl = Doorgaan
@@ -129,12 +146,14 @@
     uk = Продовжити завантаження
     zh-Hant = 繼續
     pl = Kontynuuj
+    pt = Continuar
   [download_maps]
     en = Download Maps
     cs = Stáhnout mapy
     de = Landkarten herunterladen
     es = Descargar mapas
     fr = Télécharger les cartes
+    it = Scarica le mappe
     ja = マップをダウンロード
     ko = 지도 다운로드받기
     nl = Gedownloade Kaarten
@@ -142,6 +161,7 @@
     uk = Завантажити карти
     pl = Pobierz mapy
     zh-Hant = 下載地圖
+    pt = Descarregar mapas
   [download_x_kb]
     en = Download %qu kB
     comment = Settings/Downloader - Download confirmation button
@@ -149,12 +169,14 @@
     de = Herunterladen %qu kB
     es = Descargar %qu kB
     fr = Télécharger %qu kB
+    it = Scarica %qu MB
     ja = %quをダウンロード
     ko = %qu 다운로드하기
     ru = Загрузить %qu кБ
     uk = Завантажити %qu кБ
     zh-Hant = 下載 %qu kB
     pl = Pobierz %qu kB
+    pt = Descarregar %qu kB
   [download_x_mb]
     en = Download %qu MB
     comment = Settings/Downloader - Download confirmation button
@@ -162,12 +184,14 @@
     de = Herunterladen %qu MB
     es = Descargar %qu MB
     fr = Télécharger %qu MB
+    it = Scarica %qu MB
     ja = %quをダウンロード
     ko = %qu 다운로드하기
     ru = Загрузить %qu МБ
     uk = Завантажити %qu МБ
     zh-Hant = 下載 %qu MB
     pl = Pobierz %qu MB
+    pt = Descarregar %qu MB
   [download_has_failed]
     en = Download has failed, touch again for one more try
     comment = Settings/Downloader - info for country when download fails
@@ -175,6 +199,7 @@
     de = Download fehlgeschlagen. Bitte versuchen Sie es erneut.
     es = Error durante la descarga, iniciar otra vez
     fr = Erreur de téléchargement. Merci de recommencer.
+    it = Download fallito, tocca di nuovo per un altro tentativo
     ja = ダウンロードに失敗しました。もう一度試すにはタッチして下さい。
     ko = 다운로드에 실패하였습니다. 다시 두드려 시도하여 주십시요.
     nl = Download is afgebroken, klik om nog een keer te proberen
@@ -182,6 +207,7 @@
     uk = Помилка завантаження. Натисніть, щоб повторити спробу
     zh-Hant = 下載失敗，請再試一次
     pl = Pobieranie nie powiodło się. Naciśnij, aby spróbować ponownie.
+    pt = A descarga falhou, toque novamente para tentar uma vez mais.
   [downloaded_x_y_touch_to_delete]
     en = Downloaded (%1$qu %2$@), touch to delete
     comment = Settings/Downloader - info for downloaded country
@@ -189,6 +215,7 @@
     de = Heruntergeladen (%1$qu %2$@). Drücken, um zu löschen
     es = Descargado (%1$qu %2$@), apreté para eliminar
     fr = Téléchargé (%1$qu %2$@), appuyez pour effacer
+    it = Scaricato (%1$qu %2$@), tocca per annullare
     ja = (%1$qu %2$@)をダウンロードしました。削除するにはタッチして下さい。
     ko = (%1$qu %2$@)가 다운로드 되었습니다, 두드려 삭제하십시요.
     nl = (%1$qu %2$@) gedownload, klik om te verwijderen
@@ -196,6 +223,7 @@
     uk = Завантажено (%1$qu %2$@), натисніть для видалення
     zh-Hant = 已下載的 (%qu %@), 輕觸以刪除
     pl = Pobrano (%1$qu %2$@). Naciśnij, aby usunąć.
+    pt = Descarregado (%1$qu %2$@), toque para eliminar.
   [downloading_x_touch_to_cancel]
     en = Downloading %qu%%, touch to cancel
     comment = Settings/Downloader - country info current download progress
@@ -203,6 +231,7 @@
     de = Heruntergeladen %qu%%. Drücken, um abzubrechen
     es = Descarga %qu%%, presionar para cancelar
     fr = Téléchargement en cours %qu%%, touchez pour stopper
+    it = Download di %qu%%, tocca per annullare
     ja = %qu%%をダウンロード中です。キャンセルするにはタッチして下さい。
     ko = %qu%%를 다운로드 중, 두드려 취소하십시요
     nl = %qu%% downloaden, klik om te annuleren
@@ -210,6 +239,7 @@
     uk = Завантажується %qu%%, натисніть, щоб перервати
     zh-Hant = 正在下載 %qu%%, 輕觸以取消
     pl = Pobieranie %qu%%. Naciśnij, aby anulować.
+    pt = A descarregar %qu%%, toque para cancelar.
   [downloading]
     en = Downloading…
     comment = Settings/Downloader - info for country which started downloading
@@ -217,6 +247,7 @@
     de = Wird heruntergeladen…
     es = Descargando…
     fr = Téléchargement en cours…
+    it = In fase di download...
     ja = ダウンロード中…
     ko = 다운로드 중…
     nl = Downloaden…
@@ -224,12 +255,14 @@
     uk = Завантажується…
     zh-Hant = 下載中…
     pl = Pobieranie…
+    pt = A descarregar…
   [get_it_now]
     en = Get it now
     cs = Získat nyní
     de = Installieren
     es = Instalar
     fr = Installer
+    it = Prendila ora
     ja = 今すぐ入手
     ko = 지금 가져오기
     nl = Installeren
@@ -237,6 +270,7 @@
     uk = Встановити
     zh-Hant = 馬上取得
     pl = Pobierz teraz
+    pt = Obtenha agora
   [share_on_facebook_text]
     en = Are you enjoying MapsWithMe? Help your friends and family learn about the app, share it with them on Facebook!
     comment = Text to show occasionaly with a proposal to Like our program on Facebook
@@ -244,10 +278,12 @@
     de = Wenn ihnen unser Programm gefällt, teilen sie es bitte auf Facebook mit ihren Freunden.
     ja = アプリの使い勝手はどうでしょうか？是非Facebookで友達にシェアしてください
     nl = Deel dit programma met uw vrienden op Facebook, als ons programma u bevalt.
+    it = Ti stai divertendo MapsWithMe? Aiuta i tuoi amici e la famiglia a conoscere l'app, condividila con loro su Facebook!
     ru = Нравится MapsWithMe? Помогите вашим друзьям и родным узнать о приложении, поделитесь с ними на Фейсбуке!
     uk = Якщо вам подобається наша програма, будь ласка порекомендуйте її своїм друзям на Facebook.
     zh-Hant = 喜歡MapsWithMe嗎？幫助您的朋友和家人了解應用程式，透過Facebook分享給他們吧！
     pl = Podoba ci się korzystanie z MapsWithMe? Pomóż swoim przyjaciołom i rodzinie w dowiedzeniu się czegoś więcej o aplikacji, udostępnij na Facebooku!
+    pt = Está a gostar do MapsWithMe? Ajude os seus amigos e família a conhecer a app, partilhe-a com eles no Facebook!
   [leave_review_text]
     en = If you like MapsWithMe, please support us by writing a review. If you face any issues, please let us know by filling in a special form.
     comment = Leave Review dialog title
@@ -255,6 +291,7 @@
     de = Wenn Ihnen MapsWithMe gefällt, unterstützen Sie uns bitte, indem Sie Ihre Meinung hinterlassen. Wenn Sie Probleme bei der Benutzung des Programms haben, melden Sie uns diese bitte, indem Sie das entsprechende Formular ausfüllen.
     es = Si te gusta MapsWithMe, por favor apóyanos a nosotros en escribir una reseña. Si tienes cualquier problema, por favor completa un formulario especial, para que podamos contactar contigo.
     fr = Si Maps With Me vous plait, merci de nous soutenir en donnant votre avis. Si vous rencontrez des problèmes avec ce programme, merci de nous le faire savoir en remplissant le formulaire adéquat.
+    it =  Se ti piace MapsWithMe, cortesemente sostienici, scrivendo una recensione. Se incontri problemi, faccelo sapere compilando l'apposito modulo.
     ja = MapsWithMeを気に入って頂けた場合には評価をしてサポートして頂きますようお願いします。問題等がありましたら、特定のフォームを使って当社までご報告ください。
     ko = MapsWithMe를 좋아하시면 평을 작성하여 주시기 바랍니다. 안건의 발생의 경우 특정 양식서를 작성하여 주시기 바랍니다.
     nl = Ondersteun MapsWithMe door een review te schrijven. Vul een speciaal formulier in als u problemen ondervindt
@@ -262,13 +299,16 @@
     uk = Якщо вам подобається MapsWithMe, будь ласка, підтримайте нас, написавши відгук. Якщо у вас виникли проблеми при використанні програми, будь ласка, повідомте нам, заповнивши спеціальну форму, щоб ми могли зв'язатися з вами.
     zh-Hant = 如果您喜歡MapsWithMe，請支持我們並幫我們寫寫評論。如果您遇到任何問題，請填寫表單讓我們知道。
     pl = Jeśli podoba ci się aplikacja MapsWithMe, to wesprzyj nas i napisz recenzję. Jeśli masz problemy z poprawnym korzystaniem z aplikacji, to daj nam znać wypełniając specjalny formularz.
+    pt = Se gosta do MapsWithMe, por favor apoie-nos escrevendo uma revisão. Se encontrar quaisquer problemas por favor contacte-nos preenchendo um formulário especial.
   [kb]
     en = kB
     comment = Settings/Downloader - size string
     nl = KB
     ru = КБ
+    it = kB
     uk = КБ
     pl = KB
+    pt = kB
   [kilometres]
     en = Kilometres
     comment = Choose measurement on first launch alert - choose metric system button
@@ -276,6 +316,7 @@
     de = Kilometer
     es = Kilómetros
     fr = Kilomètres
+    it = Chilometri
     ja = キロメートル
     ko = 킬로미터
     nl = Kilometers
@@ -283,6 +324,7 @@
     uk = Кілометри
     zh-Hant = 公里
     pl = Kilometry
+    pt = Quilómetros
   [leave_a_review]
     en = Leave a Review
     comment = Leave Review dialog - Review button
@@ -290,6 +332,7 @@
     de = Meinung hinterlassen
     es = Escribir una opinión|comentario
     fr = Donner mon opinion
+    it = Lascia una recensione
     ja = 評価する
     ko = 평 남기기
     nl = Laat een review achter
@@ -297,6 +340,7 @@
     uk = Написати відгук
     zh-Hant = 發表評論
     pl = Napisz recenzję
+    pt = Deixe uma revisão
   [location_services_are_needed_desc]
     en = Location Services are needed to display your current position on the map.
     comment = Location purpose text description
@@ -304,6 +348,7 @@
     de = Ortungsdienste sind notwendig, um Ihren Standort zu bestimmen.
     es = Los servicios de localización son necesarios para mostrar su posición actual en el mapa.
     fr = Vous avez besoin des services de localisation pour déterminer votre position sur la carte.
+    it = I servizi di localizzazione sono necessari per visualizzare la tua posizione corrente sulla mappa.
     ja = あなたの現在地をマップに表示するには位置情報サービスが必要です。
     ko = 위치 서비스가 귀하의 현재의 지도상의 위치를 표시하기 위해 필요합니다.
     nl = Locatie Services zijn nodig om uw huidige locatie weer te geven op de kaart
@@ -311,6 +356,7 @@
     uk = Геолокація потрібна для встановлення вашого місця розташування на карті.
     zh-Hant = 定位服務需要在地圖上顯示您的目前位置
     pl = Usługi lokalizacji są potrzebne do wyświetlania twojej aktualnej pozycji na mapie.
+    pt = São necessários os serviços de localização para apresentar a sua posição atual no mapa.
   [maps]
     en = Maps
     comment = View and button titles for accessibility
@@ -318,6 +364,7 @@
     de = Karte
     es = Mapa
     fr = Carte
+    it = Mappe
     ja = マップ
     ko = 지도
     nl = Kaart
@@ -325,6 +372,7 @@
     uk = Карта
     zh-Hant = 地圖
     pl = Mapy
+    pt = Mapas
   [marked_for_downloading]
     en = Marked for downloading, touch to cancel
     comment = Settings/Downloader - info for country in the download queue
@@ -332,6 +380,7 @@
     de = Wartet auf Download. Drücken, um abzubrechen
     es = Marcado para descarga, presionar para cancelar
     fr = Attendez avant de télécharger, touchez pour annuler
+    it = Contrassegnato per il download, tocca per cancellare
     ja = ダウンロードを始めます。キャンセルするにはタッチして下さい。
     ko = 다운로드로 표시하였습니다. 두드려 취소하십시요.
     nl = Kaarten
@@ -339,12 +388,15 @@
     uk = Поставлено в чергу на завантаження, натисніть для скасування
     zh-Hant = 標記為下載，輕觸以取消
     pl = Oznaczono jako do pobrania. Naciśnij, aby anulować
+    pt = Marcado para descarga, toque para cancelar
   [mb]
     en = MB
     comment = Settings/Downloader - size string
     ru = МБ
     uk = МБ
+    it = MB
     pl = MB
+    pt = MB
   [miles]
     en = Miles
     comment = Choose measurement on first launch alert - choose imperial system button
@@ -353,11 +405,13 @@
     es = Milla
     ja = マイル
     ko = 마일
+    it = Miglia
     nl = Mijlen
     ru = Мили
     uk = Милі
     zh-Hant = 英哩
     pl = Mile
+    pt = Milhas
   [my_position]
     en = My Position
     comment = View and button titles for accessibility
@@ -365,6 +419,7 @@
     de = Mein Standort
     es = Mi posición
     fr = Ma position
+    it = La mia posizione
     ja = 現在地
     ko = 나의 위치
     nl = Mijn Locatie
@@ -372,6 +427,7 @@
     uk = Моє місце розташування
     zh-Hant = 我的位置
     pl = Moja pozycja
+    pt = A minha posição
   [no_internet_connection_detected]
     en = No Internet connection detected
     comment = Settings/Downloader - No internet connection dialog title
@@ -379,6 +435,7 @@
     de = Keine Internetverbindung
     es = No hay conexión al Internet
     fr = Pas de branchement internet
+    it = Non è stata rilevata alcuna connessione Internet
     ja = インターネット接続が見つかりません
     ko = 인터넷이 연결되지 않았습니다.
     nl = Geen Internet verbinding gedetecteerd
@@ -386,6 +443,7 @@
     uk = Відсутнє підключення до інтернету
     zh-Hant = 無網路連線
     pl = Nie wykryto połączenia z Internetem
+    pt = Não foi detetada uma ligação à Internet
   [no_wifi_ask_cellular_download]
     en = No WiFi connection detected. Would you like to use cellular data (GPRS, EDGE or 3G) to download %@?
     comment = Settings/Downloader - 3G download warning dialog title
@@ -393,6 +451,7 @@
     de = Keine WLAN-Verbindung. Möchten Sie %@ über das Mobilnetz (GPRS, EDGE oder 3G) herunterladen?
     es = No hay conexión WiFi. ¿Quieres descargar con el %@ operador (GPRS, EDGE or 3G)?
     fr = Pas de connection WiFi. Désirez vous télécharger par le réseau de téléphone mobile (GPRS, EDGE ou 3G)?
+    it = Non è stata rilevata alcuna connessione WiFi. Vuoi utilizzare i dati cellulare (GPRS, EDGE o 3G) per scaricare %@?
     ja = WiFi接続が見つかりません。GPRS、EDGE又は3G等のセルラーデータを使って%@をダウンロードしますか?
     ko = WiFi 연결이 감지되지 않았습니다. %@를 다운로드하기 위해 휴대 자료(GPRS, EDGE 혹은 3G)를 사용하시겠습니까?
     nl = Geen WiFi verbinding gedetecteerd. Wilt u mobiele data (GPRS, EDGE of 3G) gebruiken om %@ te downloaden?
@@ -400,10 +459,12 @@
     uk = Відсутнє WiFi з'єднання. Ви бажаєте завантажити %@ через стільникового оператора (GPRS, EDGE або 3G)?
     zh-Hant = 未發現WiFi訊號!您想使用其他的網路連線方式(GPRS, EDGE 或 3G)來下載嗎 %@？
     pl = Nie wykryto połączenia z siecią WiFi. Czy chciałbyś skorzystać z trybu sieci danych (GPRS, EDGE lub 3G), aby pobrać %@?
+    pt = Não detetada uma ligação WiFi. Pretende utilizar os dados por pacotes (GPRS, EDGE or 3G) para descarregar %@?
   [ok]
     en = OK
     zh-Hant = 好的
     pl = OK
+    pt = OK
   [enable_location_services]
     en = Please enable Location Services
     comment = not used? Search View - Location is disabled by user warning text
@@ -411,6 +472,7 @@
     de = Aktivieren Sie bitte Ortungsdienste in den Einstellungen Ihres Geräts
     es = Por favor, permite los servicios de localización
     fr = Paramétrez les services de localisation de votre appareil, s'il vous plaît
+    it = Cortesemente abilita i servizi di localizzazione
     ja = 位置情報サービスを有効にして下さい。
     ko = 위치 서비스를 작동시켜 주십시요.
     nl = Schakel Locatie Services in
@@ -418,6 +480,7 @@
     uk = Будь ласка, увімкніть геолокацію в налаштуваннях телефону
     zh-Hant = 請啟動位置服務
     pl = Proszę włączyć usługi lokalizacji
+    pt = Por favor active os Serviços de Localização
   [free_disk_space_for_country_x]
     en = Please free some space on your device first in order to download %@
     comment = Settings/Downloader - No free space dialog message
@@ -425,12 +488,14 @@
     de = Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um den Download durchführen zu können.
     es = No hay espacio suficiente para realizar la descarga
     fr = Le disque est plein, merci de faire de la place pour permettre le téléchargement
+    it = Cortesemente libera spazio sul tuo dispositivo prima per poter scaricare %@
     ja = 位置情報サービスを有効にして下さい。
     ko = 먼저 귀하의 장치에 어느 정도의 공간을 확보하여 %@를 다운로드하여 주십시요.
     nl = Maak ruimte vrij op uw apparaat om %@ te kunnen downloaden
     ru = Нет свободного места. Пожалуйста, удалите ненужные карты или приложения, чтобы загрузить %@
     uk = Немає вільного місця. Будь ласка, видаліть непотрібні карти або програми, щоб завантажити %@
     zh-Hant = 如要下載%@ ，請先釋放一些空間!
+    pt = Por favor liberte primeiro algum espaço no seu dispositivo para descarregar %@
   [remind_me_later]
     en = Remind me later
     tags = ios,android
@@ -439,6 +504,7 @@
     de = Errinern Sie mich später
     es = Recordarme mas tarde
     fr = Rappelez moi plus tard
+    it = Ricordamelo in seguito
     ja = 後でリマインド
     ko = 이후에 기억시키기
     nl = Herinner me later
@@ -446,6 +512,7 @@
     uk = Нагадати пізніше
     zh-Hant = 稍後提醒我
     pl = Przypomnij mi później
+    pt = Lembrar-me mais tarde
   [later]
     en = Later
     comment = Update maps later/Buy pro version later button text
@@ -453,12 +520,14 @@
     de = Später
     es = Luego
     fr = Plus tard
+    it = Più tardi
     ja = 後で
     ko = 후
     ru = Не сейчас
     uk = Не зараз
     zh-Hant = 稍後
     pl = Później
+    pt = Mais tarde
   [never]
     en = Never
     comment = Don't show some dialog any more
@@ -466,10 +535,12 @@
     de = Nie
     ja = 決して
     nl = Nooit
+    it = Mai
     ru = Не показывать
     uk = Не показувати
     zh-Hant = 不再提醒
     pl = Nigdy
+    pt = Nunca
   [report_an_issue]
     en = Report an issue
     comment = Leave Review dialog - Complain button (goes to support site)
@@ -477,6 +548,7 @@
     de = Problem melden
     es = Reportar un problema
     fr = Signalez un problème
+    it = Segnala un problema
     ja = 問題を報告
     ko = 문제 보고하기
     nl = Meld een probleem
@@ -484,6 +556,7 @@
     uk = Повідомити про проблему
     zh-Hant = 回饋問題
     pl = Zgłoś błąd
+    pt = Reelatar um problema
   [search]
     en = Search
     comment = View and button titles for accessibility
@@ -491,6 +564,7 @@
     de = Suche
     es = Buscar
     fr = Recherche
+    it = Cerca
     ja = 検索
     ko = 검색하기
     nl = Zoeken
@@ -498,6 +572,7 @@
     uk = Пошук
     zh-Hant = 搜尋
     pl = Szukaj
+    pt = Procura
   [search_available_in_pro_version]
     en = Search is only available in the full version of MapsWithMe. Get it right now!
     comment = Search button pressed dialog title in the free version
@@ -505,6 +580,7 @@
     de = Die Suche ist nur in der Pro Version vorhanden. Möchten Sie sie jetzt installieren?
     es = Buscar está accesible solo en la versión MapWithMe Pro. ¿Instalar ahora mismo?
     fr = Seule la version Pro permet une recherche. Voulez-vous l'installer maintenant?
+    it = La ricerca è disponibile solo nella versione completa di MapsWithMe. Scaricala subito!
     ja = サーチ機能はMapsWithMeのプロ版でのみご使用頂けます。今すぐご入手になりますか？
     ko = 검색은 MapsWithMe의 프로 버젼에만 제공됩니다. 지금 받으시겠습니까?
     nl = Zoeken is alleen beschikbaar in de Pro versie van MapsWithMe. Wilt u hem nu installeren?
@@ -512,6 +588,7 @@
     uk = Пошук доступний тільки в Pro версії MapsWithMe. Встановіть її прямо зараз!
     zh-Hant = 搜尋功能僅適用於MapsWithMe專業完整版。馬上購買！
     pl = Szukanie jest dostępne tylko w pełnej wersji MapsWithMe. Pobierz już teraz!
+    pt = A procura apenas está disponível na versão completa do MapsWithMe. Obtenha-a agora mesmo!
   [search_map]
     en = Search Map
     comment = Search box placeholder text
@@ -519,6 +596,7 @@
     de = Auf der Karte suchen
     es = Buscar en el mapa
     fr = Rechercher sur la carte
+    it = Ricerca Mappa
     ja = マップから検索
     ko = 지도 검색하기
     nl = Zoek Kaart
@@ -526,6 +604,7 @@
     uk = Пошук на картi
     zh-Hant = 搜尋地圖
     pl = Szukaj mapy
+    pt = Procurar mapa
   [not_enough_disk_space]
     en = There is not enough free disk space
     comment = Settings/Downloader - No free space dialog title
@@ -533,6 +612,7 @@
     de = Kein Speicherplatz vorhanden
     es = No hay suficiente espacio libre
     fr = Le disque est plein
+    it = Non c'è abbastanza spazio libero su disco
     ja = ディスクに十分な空き領域がありません
     ko = 디스크 공간이 부족합니다.
     nl = Er is niet genoeg vrije ruimte
@@ -540,6 +620,7 @@
     uk = Немає вільного місця
     zh-Hant = 沒有足夠的儲存空間
     pl = Nie ma wystarczającej ilości wolnego miejsca
+    pt = Não há espaço livre suficiente em disco
   [touch_to_download]
     en = Touch to download
     comment = Settings/Downloader - info for not downloaded country
@@ -547,6 +628,7 @@
     de = Berühren, um herunterzuladen
     es = Presionar para descargar
     fr = Pressez pour télécharger
+    it = Tocca per scaricare
     ja = タッチしてダウンロード
     ko = 두드려 다운로드하세요
     nl = Klik om te downloaden
@@ -554,6 +636,7 @@
     uk = Натисніть для завантаження
     zh-Hant = 輕觸後下載
     pl = Naciśnij, aby pobrać.
+    pt = Toque para descarregar
   [use_cellular_data]
     en = Yes
     comment = Settings/Downloader - 3G download warning dialog confirm button
@@ -561,6 +644,7 @@
     de = Ja
     es = Sí
     fr = Oui
+    it = Sì
     ja = はい
     ko = 네
     nl = Ja
@@ -568,6 +652,7 @@
     uk = Так
     zh-Hant = 是的
     pl = Tak
+    pt = Sim
   [use_wifi_recommendation_text]
     en = We recommend using WiFi to download large maps
     comment = Settings/Downloader - No internet connection dialog message
@@ -575,6 +660,7 @@
     de = Wir empfehlen Ihnen, grosse Länder über eine WLAN-Verbindung herunterzuladen
     es = Recomendamos usar WiFi para descarga de los países grandes
     fr = Nous vous recommandons d'utiliser le WiFi pour télécharger les grandes cartes
+    it = Ti consigliamo di utilizzare il WiFi per scaricare mappe di grandi dimensioni
     ja = 大きなマップをダウンロードするにはWiFiの使用をお勧めします。
     ko = WiFi를 이용하여 큰 지도를 다운로드하는 것을 권하여 드립니다.
     nl = We raden WiFi aan om grote kaarten te downloaden
@@ -582,6 +668,7 @@
     uk = Ми рекомендуємо завантажувати великі країни через WiFi
     zh-Hant = 我們建議透過WiFi連線來下載較大的地圖
     pl = Zalecamy korzystanie z WiFi przy pobieraniu dużych map
+    pt = Recomendamos a utilização de WiFi para descarregar grandes mapas
   [new_map_data_format_upgrade_dialog]
     en = We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.
     comment = NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2
@@ -601,6 +688,7 @@
     de = Welches Messsystem ziehen Sie vor?
     es = ¿Cual sistema de medición prefieres?
     fr = Quel système de mesure préférez vous?
+    it = Quale sistema di misura preferisci?
     ja = どちらの測定システムを使いますか?
     ko = 어느 측정 시스템을 선호하십니까?
     nl = Welk meetstelsel heeft u liever?
@@ -608,6 +696,7 @@
     uk = Якій системі вимірювання ви віддаєте перевагу?
     zh-Hant = 您偏好哪種測量單位系統？
     pl = Który system miar bardziej ci odpowiada?
+    pt = Que sistema de medidas prefere?
   [location_is_disabled_long_text]
     en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
     comment = Location services are disabled by user alert - message
@@ -615,6 +704,7 @@
     de = Ortungsdienste sind inaktiv. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.
     es = No se puede acceder a los servicios de localización. Por favor, activelo en los ajustes.
     fr = Tous les services de repérage sont désactivés. Veuillez s'il vous plaît la mettre en prise pour la commode utilisation du programme.
+    it = Attualmente hai disattivati tutti i servizi di locazione per questo dispositivo o applicazione.  Cortesemente abilitali nelle Impostazioni.
     ja = このデバイス、またはアプリケーションの位置情報サービスが全て無効になっています。設定画面から有効にして下さい。
     ko = 현재 이 장치나 애플리케이션을 위한 전 위치 서비스를 불능시키셨습니다. 설정에서 이를 작동시켜 주시기 바랍니다.
     nl = U heeft momenteel alle Locatie Services voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen
@@ -622,6 +712,7 @@
     uk = Геолокація вимкнена в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.
     zh-Hant = 您目前裝置所有的定位服務或相關應用程式是處於停用的狀態，請從系統設定中選擇啟用。
     pl = Usługi lokalizacji są aktualnie wyłączone dla tego urządzenia lub aplikacji. Proszę włączyć je w ustawieniach.
+    pt = Atualmente tem todos os Serviços de Localização para este dispositivo ou aplicação desativados. Por favor ative-os nas Definições.
   [device_doesnot_support_location_services]
     en = Your device doesn't support Location Services
     comment = Location Services are not available on the device alert - message
@@ -629,6 +720,7 @@
     de = Ihr Gerät unterstützt keine Ortungsdienste
     es = Su dispositivo no es compatible con los servicios de localización
     fr = Votre appareil n'est pas compatible pour les services de repérage
+    it = Il tuo dispositivo non supporta i servizi di localizzazione
     ja = ご使用のデバイスは位置情報サービスをサポートしていません。
     ko = 귀하의장치가 위치 서비스를 지원하지 않습니다.
     nl = Uw apparaat ondersteunt geen Locatie Services
@@ -636,6 +728,7 @@
     uk = Ваш пристрій не підтримує геолокацію
     zh-Hant = 你的裝置不支援定位服務唷!
     pl = Twoje urządzenie nie wspiera usług lokalizacji
+    pt = O seu dispositivo não suporta os Serviços de Localização
   [zoom_to_country]
     en = Zoom to the country
     comment = View and button titles for accessibility
@@ -643,6 +736,7 @@
     de = Das Land auf der Karte anzeigen
     es = Ampliar la vista del país
     fr = Zoomer sur le pays désiré
+    it = Zoom sul paese
     ja = 国へズーム
     ko = 국가로 확대하여 주세요
     nl = Zoom in richting het land
@@ -650,6 +744,7 @@
     uk = Показати країну на карті
     zh-Hant = 放大到全國檢視
     pl = Przybliż na kraj
+    pt = Zoom no país
   [country_status_added_to_queue]
     en = ^is added to the downloading queue.
     comment = Message to display at the center of the screen when the country is added to the downloading queue
@@ -657,6 +752,7 @@
     de = ^wird zur Download-Warteschleife hinzugefügt
     es = ^añadido a la cola de descarga
     fr = ^ajouté à son tour de télécharger
+    it = ^ aggiunto alla coda di download.
     ja = ^をダウンロードキューに追加しました
     ko = ^는 다운로드 대기열에추가됩니다.
     nl = ^is toegevoegd aan de download wachtrij
@@ -664,6 +760,7 @@
     uk = ^добавлено в чергу завантаження.
     zh-Hant = ^已加入到下載佇列中
     pl = ^dodano do kolejki pobierania.
+    pt = ^é adicionado à fila de descargas.
   [country_status_downloading]
     en = Downloading^^%
     comment = Message to display at the center of the screen when the country is downloading
@@ -671,6 +768,7 @@
     de = Wird heruntergeladen^^%
     es = Descargando^^%
     fr = Téléchargement en cours^^%
+    it = Sto scaricando^^%
     ja = ダウンロード中^^%
     ko = 다운로드 중^^%
     nl = aan het downloaden^^%
@@ -678,6 +776,7 @@
     uk = Завантажується^^%
     zh-Hant = 下載中^^%
     pl = Pobieranie^^%
+    pt = A descarregar^^%
   [country_status_download]
     en = Download^
     comment = Button text for the button at the center of the screen when the country is not downloaded
@@ -685,12 +784,14 @@
     de = Herunterladen^
     es = Descargar^
     fr = Charger^
+    it = Scarica^
     ja = ダウンロード^
     ko = 다운로드^
     ru = Загрузить^
     uk = Завантажити^
     zh-Hant = 下載^
     pl = Pobierz^
+    pt = Descarga^
   [country_status_download_failed]
     en = Downloading^has failed
     comment = Message to display at the center of the screen when the country download has failed
@@ -698,6 +799,7 @@
     de = Download^fehlgeschlagen
     es = Error durante la descarga^
     fr = Erreur de téléchargement^
+    it = Lo scaricamento^è fallito
     ja = ダウンロードに失敗しました^
     ko = 다운로드에 실패하였습니다^
     nl = Downloaden^is niet gelukt
@@ -705,6 +807,7 @@
     uk = Помилка завантаження^
     zh-Hant = 下載^失敗
     pl = Pobieranie^nie powiodło się
+    pt = A descarga^falhou
   [try_again]
     en = Try Again
     comment = Button text for the button under the country_status_download_failed message
@@ -712,6 +815,7 @@
     de = Nochmals versuchen
     es = Intentarla otra vez
     fr = Essayez encore une fois
+    it = Riprova
     ja = 再実行
     ko = 다시 시도
     nl = Probeer opnieuw
@@ -719,6 +823,7 @@
     uk = Спробуйте ще раз
     zh-Hant = 再試一次
     pl = Spróbuj ponownie
+    pt = Tente de novo
   [app_name]
     en = MapsWithMe
     zh-Hant = Maps With Me 專業版
@@ -728,6 +833,7 @@
     de = Über MapsWithMe
     es = Sobre MapsWithMe
     fr = Au sujet des cartes
+    it = Informazioni su MapsWithMe
     ja = 情報
     ko = 소개
     nl = Over MapsWithMe
@@ -735,12 +841,14 @@
     uk = Про програму
     zh-Hant = 關於 MapsWithMe
     pl = O aplikacji MapsWithMe
+    pt = Sobre o MapsWithMe
   [downloading_touch_to_cancel]
     en = Downloading %d%%, touch to cancel
     cs = Stahování %d%%, klepni pro zrušení
     de = Heruntergeladen %d%%. Berühren, um abzubrechen
     es = Descargando %d%%, presionar para cancelar
     fr = Chargement en cours %d%%, toucher pour annuler
+    it = Download di %d%%, tocca per cancellare
     ja = %d%%をダウンロード中です。キャンセルするにはタッチして下さい。
     ko = %d%%를 다운로드 중, 두드려 취소하십시요
     nl = %d%% aan het downloaden, klik om te annuleren
@@ -748,12 +856,14 @@
     uk = Завантажується %d%%, натисніть, щоб перервати
     zh-Hant = 正在下載 %d%%, 輕觸以取消
     pl = Pobieranie %d%%. Naciśnij, aby anulować.
+    pt = A descarregar %d%%, toque para cancelar
   [downloaded_touch_to_delete]
     en = Downloaded (%@), touch to delete
     cs = Staženo (%@), klepni pro smazání
     de = Heruntergeladen (%@). Berühren, um zu löschen
     es = Descargado (%@), presionar para eliminar
     fr = Elle est chargée (%@), Appuyer pour effacer
+    it = Scaricato (%@), tocca per cancellare
     ja = (%@)をダウンロードしました。削除するにはタッチして下さい。
     ko = (%@)가 다운로드 되었습니다, 두드려 삭제하십시요.
     nl = Downloaded (%@), klik om te verwijderen
@@ -761,12 +871,14 @@
     uk = Завантажено (%@), натисніть для видалення
     zh-Hant = 已下載的 (%@), 輕觸以刪除
     pl = Pobrano (%@). Naciśnij, aby usunąć.
+    pt = Descarregado (%@), toque para eliminar
   [connection_settings]
     en = Connection Settings
     cs = Nastavení připojení
     de = Verbindungseinstellungen
     es = Ajustes de conexión
     fr = Paramètres de connexion
+    it = Impostazioni di connessione
     ja = 接続設定
     ko = 연결 설정
     nl = Verbindingsinstellingen
@@ -774,24 +886,28 @@
     uk = Налаштування підключення
     zh-Hant = 連線設定
     pl = Ustawienia połączenia
+    pt = Definições de Ligação
   [download_mb_or_kb]
     en = Download %@
     cs = Stáhnout %@
     de = Herunterladen %@
     es = Descargar %@
     fr = Charger %@
+    it = Scarica %@
     ja = %@をダウンロード
     ko = %@ 다운로드하기
     ru = Загрузить %@
     uk = Завантажити %@
     zh-Hant = 下載 %@
     pl = Pobierz %@
+    pt = Descarga %@
   [close]
     en = Close
     cs = Zavřít
     de = Schließen
     es = Cerrar
     fr = Fermer
+    it = Chiudi
     ja = 閉じる
     ko = 닫기
     nl = Sluiten
@@ -799,12 +915,14 @@
     uk = Закрити
     zh-Hant = 關閉
     pl = Zamknij
+    pt = Fechar
   [unsupported_phone]
     en = A hardware accelerated OpenGL is required. Unfortunately, your device is not supported.
     cs = Je vyžadována hardwarová akcelerace OpenGL. Bohužel, tvé zařízení není podporováno.
     de = Das Programm braucht OpenGL um funktionnieren zu können. Leider wird ihr Gerät nicht unterschtüzt.
     es = Un acelerador de hardware OpenGL se requiere. Desafortunadamente, su dispositivo móvil no es compatible.
     fr = Le programme a besoin d`OpenGL pour travailler. Votre appareil n`est pas appuyé maleuresement.
+    it = È necessaria una accelerazione hardware OpenGL. Purtroppo, il tuo dispositivo non è supportato.
     ja = ハードウェアアクセラレーションされたOpenGLが必要です。残念ながらご使用のデバイスはサポートされていません。
     ko = 하드웨어 촉진 OpenGL이 요구됩니다. 애석하게도 귀하의 장치는 지원되지 않습니다.
     nl = Een hardware geaccellereerde OpenGL is nodig. Jammer genoeg wordt uw apparaat niet ondersteund.
@@ -812,24 +930,28 @@
     uk = Для роботи програми необхідний апаратно прискорений OpenGL. На жаль, ваш пристрій не підтримується.
     zh-Hant = 需要OpenGL硬體加速功能的支援。但很不幸的，您的裝置並不支援此功能!
     pl = OpenGL wymaga odpowiedniego urządzenia. Niestety twoje urządzenie nie wspiera tej technologii.
+    pt = É necessário um OpenGL acelerado por hardware. Infelizmente o seu dispositivo não é suportado.
   [download]
     en = Download
     cs = Stáhnout
     de = Herunterladen
     es = Descargar
     fr = Télécharger
+    it = Carica
     ja = ダウンロード
     ko = 다운로드
     ru = Загрузить
     uk = Завантажити
     zh-Hant = 下載
     pl = Pobierz
+    pt = Descarga
   [external_storage_is_not_available]
     en = SD card/USB storage with downloaded maps is not available
     cs = SD karta/USB uložiště s uloženými mapami není k dispozici
     de = SD Karte/USB Speicher mit geladenen Karten nicht verfügbar
     es = La memoria SD/almacenamiento USB con los mapas descargados no está disponible
     fr = Les cartes téléchargées sont indisponibles
+    it = La scheda/USB/di memoria SD con le mappe scaricate non è disponibile
     ja = ダウンロード済みの地図はSDカード／USBストレージに保存する事はできません
     ko = 다운로드된지도와 SD 카드 / USB 저장 장치를 사용할 수 없습니다
     nl = SD kaart/USB opslag met gedownloade kaarten is niet beschikbaar
@@ -837,12 +959,14 @@
     uk = Завантажені карти недоступні
     zh-Hant = SD 卡/USB 無法有效儲存下載的地圖
     pl = Karta SD/Pamięć USB z pobranymi mapami nie jest dostępna
+    pt = Não está disponível um cartão SD/armazenamento USB com os mapas descarregados
   [disconnect_usb_cable]
     en = Please disconnect USB cable or insert memory card to use MapsWithMe
     cs = Prosím odpoj USB kabel nebo vlož paměťovou kartu pro použití s MapsWithMe
     de = Bitte USB Kabel entfernen oder Speicherkarte einsetzen um MapsWithMe zu verwenden
     es = Por favor desconectar el cable USB o insertar la memoria SD para usar MapsWithMe
     fr = Débranchez le câble USB ou insérez la carte SD
+    it = Coortesemente scollega il cavo USB oppure inserisci la scheda di memoria per l'usco dell'app
     ja = USBケーブルを抜くかMapsWithMeに使うメモリーカードを挿入してください
     ko = MapsWithMe를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오
     nl = Verwijder de USB kabel of plaats een geheugen kaart om MapsWithMe te gebruiken
@@ -850,12 +974,14 @@
     uk = Вимкніть USB кабель або вставте SD-карту
     zh-Hant = 請拔除USB線或插入SD卡以使用MapsWithMe
     pl = Proszę odłączyć kabel USB albo włożyć kartę pamięci by korzystać z MapsWithMe
+    pt = Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar MapsWithMe
   [not_enough_free_space_on_sdcard]
     en = Please free some space on SD card/USB storage first in order to use the app
     cs = Prosím, uvolni nejprve nějaký prostor na SD kartě/USB uložišti
     de = Bitte zuerst Speicherplatz auf SD Karte/USB Speicher freigeben um die Anwendung zu nutzen
     es = Por favor liberar espacio en la memoria SD/almacenamiento USB para usar la aplicación
     fr = L'espace disponible sur l'appareil est insuffisant pour l'utilisation du programme
+    it = Libera prima dello spazio sulla scheda Sd/ memoria USB per usare l'app
     ja = アプリを起動する前にSDカード/USBストレージの空き容量を増やしてください
     ko = 응용 프로그램을 사용하기 위해서는 첫째 SD 카드 / USB 저장 장치에 여유 공간을 확보하십시오
     nl = Maak eerst ruimte vrij op de SD kaart/USB opslag om de app te gebruiken
@@ -863,12 +989,14 @@
     uk = Недостатньо вільного місця на SD карті / в пам'яті пристрою для використання програми
     zh-Hant = 如要繼續使用，請先釋放一些SD卡/ USB儲存空間
     pl = Proszę zwolnić trochę pamięci na karcie SD/pamięci USB, aby korzystać z aplikacji
+    pt = Por favor liberte primeiro algum espaço no cartão SD/armazenamento USB para utilizar a app
   [not_enough_memory]
     en = Not enough memory to launch app
     cs = Nedostatek paměti ke spuštění aplikace
     de = Nicht genügend Speicher um die Anwendung zu starten
     es = No hay suficiente memoria para iniciar la aplicación
     fr = Il ne suffit pas de memoire pour la mise en marche du programme
+    it = Memoria insufficiente per lanciare l'app
     ja = メモリ不足です。アプリを起動できません
     ko = 응용 프로그램을 실행하기위한 메모리가 충분하지 않다
     nl = Not genoeg geheugen om app te starten
@@ -876,12 +1004,14 @@
     uk = Недостатньо пам'яті для запуску програми
     zh-Hant = 沒有足夠的記憶體以啟用程式
     pl = Za mało pamięci by uruchomić aplikację
+    pt = Não há memória suficiente para executar a app
   [free_space_for_country]
     en = Please free %1$@ on your device first in order to download %2$@
     cs = Prosím uvolni nejprve %1$@ v tvém zařízení, abys mohl/a stáhnout %2$@
     de = Bitte zuerst %1$@ Platz schaffen um %2$@ herunterzuladen
     es = Por favor liberar %1$@ primero para descargar %2$@
     fr = Merci de faire  %1$@ de la place disponible pour télécharger %2$@
+    it = Libera %1$@ sul dispositivo prima per poter scaricare %2$@
     ja = デバイス上で%1$@解放することで%2$@ダウンロードすることができます
     ko = %2$@를 다운로드하기 위해서는 먼저 장치에서 무료로 %1$@를주세요
     nl = Maak %1$@ aan ruimte vrij op uw apparaat om %2$@ te downloaden
@@ -889,6 +1019,7 @@
     uk = Для завантаження %2$@ треба %1$@ вільного місця
     zh-Hant = 請先釋放 %@ 系統空間以下載 %@
     pl = Proszę zwolnić %1$@ na swoim urządzeniu zanim rozpoczniesz pobieranie $2$@
+    pt = Por favor liberte primeiro %1$@ no seu dispositivo para descarregar %2$@
   [download_resources]
     en = Before you start let us download general world map into your device.\nIt needs %.1f%@ of data.
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -904,12 +1035,14 @@
     uk = Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій. \nВона потребує %.1f%@ даних.
     zh-Hant =  在您開始之前 ， 先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %.1f%@ 。
     pl = Zanim rozpoczniesz pozwól nam na pobranie ogólnej mapy świata na swoje urządzenie.\n Wymaga to %.1f%@ danych.
+    pt = Antes de começar permita-nos que descarreguemos um mapa mundial geral para o seu dispositivo.\nÉ necessário %.1f%@ de dados.
   [getting_position]
     en = Getting current position
     cs = Získávání aktuální pozice
     de = Ermittle momentane Position
     es = Buscando su ubicación actual
     fr = Votre position est déterminé
+    it = Ottieni la posizione corrente
     ja = 現在地を取得中
     ko = 현재 위치 얻기
     nl = Huidige locatie opvragen
@@ -917,12 +1050,14 @@
     uk = Oтримуємо розташування
     zh-Hant = 取得目前所在位置
     pl = Otrzymywanie informacji o aktualnej pozycji
+    pt = A obter a posição atual
   [download_resources_continue]
     en = Go to Map
     cs = Přejít na mapu
     de = Zur Karte
     es = Ir al mapa
     fr = Passer sur la carte
+    it = Vai alla mappa
     ja = 地図に移動
     ko = 지도로 이동
     nl = Ga naar de Kaart
@@ -930,12 +1065,14 @@
     uk = Перейти на карту
     zh-Hant = 跳到地圖
     pl = Idź do mapy
+    pt = Ir para o mapa
   [downloading_country_can_proceed]
     en = Downloading %@. You can now\nproceed to the map.
     cs = Stahování %@. Nyní můžeš \npoužít na mapě.
     de = Lade %@ herunter. Sie können jetzt\nzur Karte weitergehen.
     es = Descargando %@. Puede ahora\nproceder al mapa
     fr = Téléchargement de %@.\nPasser sur la carte
+    it = Sto scaricando %@. Puoi ora\nprocedere con la mappa.
     ja = %@をダウンロード中\n地図に移動できます
     ko = %@다운로드. 이제지도를 진행할 수 있습니다.
     nl = %@ aan het downloaden. U kunt doorgaan\nnaar de kaart
@@ -943,12 +1080,14 @@
     uk = Поки завантажується %@ \nви можете користуватися програмою.
     zh-Hant = 正在下載 %@. 您現在 可以繼續使用地圖了
     pl = Pobieranie %@. Możesz teraz\notworzyć mapę.
+    pt = A descarregar %@. Pode agora\ncontinuar para o mapa.
   [download_country_ask]
     en = Download %@?
     cs = Stáhnout %@?
     de = %@ herunterladen?
     es = Descargar %@?
     fr = Télécharger %@?
+    it = Vuoi scaricare %@?
     ja = %@をダウンロードしますか？
     ko = %@다운로드?
     nl = %@ downloaden?
@@ -956,12 +1095,14 @@
     uk = Завантажити %@?
     zh-Hant = 下載 %@?
     pl = Pobrać %@?
+    pt = Descarregar %@?
   [update_country_ask]
     en = Update %@?
     cs = Aktualizovat %@?
     de = %@ aktualisieren?
     es = Actualizar %@?
     fr = Renouveler %@?
+    it = Vuoi aggiornare %@?
     ja = %@を更新しますか？
     ko = %@업데이트?
     nl = %@ updaten?
@@ -969,6 +1110,7 @@
     uk = Oновити %@?
     zh-Hant = 更新 %@?
     pl = Zaktualizować %@?
+    pt = Atualizar %@?
   [download_location_map_proposal]
     en = You can download the map\nof your current location.
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -976,6 +1118,7 @@
     de = Sie können die Karte von\nihrem aktuellen Ort herunterladen.
     es = Puede descargar el mapa de su ubicación actual
     fr = Vous pouvez télécharger la carte\nde votre position actuelle.
+    it = Puoi scaricare la mappa\ndella tua posizione corrente.
     ja = 現在地の地図を\nダウンロードできます
     ko = 당신의 현재 위치의지도를 다운로드할 수 있습니다.
     nl = U kunt de kaart van\nuw huidige locatie downloaden
@@ -983,6 +1126,7 @@
     uk = Ви можете завантажити карту\nвашого поточного місця розташування.
     zh-Hant = 您可以下載目前所在位置的地圖。
     pl = Możesz pobrać mapę terenu\nwokół twojej aktualnej pozycji.
+    pt = Pode descarregar o mapa\nda sua posição atual.
   [download_location_update_map_proposal]
     en = You can update the map\nof your current location.
     comment = REMOVE THIS_STRING AFTER REFACTORING
@@ -990,6 +1134,7 @@
     de = Sie können die Karte von\nihrem aktuellen Ort aktualisieren.
     es = Puede actualizar el mapa de su ubicación actual
     fr = Vous pouvez renouveler la carte\nde votre position actuelle.
+    it = Puoi aggiornare la mappa\ndella tua posizione corrente.
     ja = 現在地の地図を\n更新できます
     ko = 귀하의 현재 위치의지도를 업데이트할 수 있습니다.
     nl = U kunt de kaart\nvan uw huidige locatie kunnen geupdate worden
@@ -997,6 +1142,7 @@
     uk = Ви можете оновити карту\nвашого поточного місця розташування.
     zh-Hant = 您可以更新目前所在位置的地圖。
     pl = Możesz zaktualizować mapę terenu\nwokół twojej aktualnej pozycji.
+    pt = Pode atualizar o mapa\nda sua posição atual.
   [download_location_map_up_to_date]
     en = The map at your current\nlocation (%@) is up-to-date
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -1004,6 +1150,7 @@
     de = Die Karte von ihrem aktuellen\nOrt (%@) ist aktuell
     es = El mapa de su ubicación\nactual (%@) está actualizado
     fr = La carte de votre\nposition (%@) est déjà téléchargée
+    it = La mappa della tua attuale\nposizione (%@) è aggiornata
     ja = 現在地の地図は\n最新です (%@)
     ko = 현재 위치 (%@)\n에서지도는 최신이다
     nl = De kaart op uw huidige\nlocatie (%@) is up-to-date
@@ -1011,6 +1158,7 @@
     uk = Карта місцевості, в якій\nви знаходитеся (%@) вже завантажена.
     zh-Hant = 您目前所在位置 (%@) \n的地圖已是最新圖資 !
     pl = Mapa wokół twojej aktualnej\npozycji (%@) jest aktualna
+    pt = O mapa da sua localização\natual (%@) está atualizado
   [pause]
     en = Pause
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -1019,10 +1167,12 @@
     ja = 一時停止
     ko = 중지
     nl = Pauze
+    it = Pausa
     ru = Приостановить
     uk = Призупинити
     zh-Hant = 暫停
     pl = Pauza
+    pt = Pausa
   [continue_download]
     en = Continue
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -1030,6 +1180,7 @@
     de = Fortfahren
     es = Continuar
     fr = Continuer
+    it = Continua
     ja = 続行
     ko = 계속
     nl = Doorgaan
@@ -1037,12 +1188,14 @@
     uk = Продовжити
     zh-Hant = 繼續
     pl = Kontynuuj
+    pt = Continuar
   [downloaded_touch_to_update]
     en = Downloaded (%@), touch to update or delete
     cs = Staženo (%@), klepni pro smazání/aktualizaci
     de = Heruntergeladen (%@), berühren zum aktualisieren oder löschen
     es = Descargado (%@), presionar para actualizar o borrar
     fr = (%@) est téléchargé, touchez pour renouveler ou effacer
+    it = Scaricato (%@), tocca per aggiornare o cancellare
     ja = (%@)をダウンロードしました。タップして更新、削除できます
     ko = 다운로드 (%@), 터치를 업데이 트하거나 삭제하는 방법
     nl = (%@) gedownload, klik om te updaten of te verwijderen
@@ -1050,18 +1203,21 @@
     uk = Завантажено (%@), натисніть для оновлення або видалення
     zh-Hant = 下載 (%@), 輕觸以更新或刪除
     pl = Pobrano (%@). Naciśnij, aby zaktualizować lub usunąć.
+    pt = Descarregado (%@), toque para atualizar ou eliminar
   [update_mb_or_kb]
     en = Update %@
     cs = Aktualizace %@
     de = Aktualisiere %@
     es = Actualizar %@
     fr = Renouveler %@
+    it = Aggiorna %@
     ja = %@を更新
     ko = %@업데이트
     ru = Обновить %@
     uk = Oновити %@
     zh-Hant = 更新 %@
     pl = Aktualizacja %@
+    pt = Atualizar %@
   [search_update_maps]
     en = You need updated maps for search function:
     tags = android
@@ -1070,6 +1226,7 @@
     de = Sie benötigen aktualisierte Karten für die Suchfunktion
     es = Necesita los mapas actualizados para la función de búsqueda
     fr = Merci d'effacer les cartes anciennes pour faire fonctionner la recherche
+    it = Hai bisogno di mappe aggiornate per la funzione di ricerca:
     ja = 検索機能を利用するには地図を更新する必要があります
     ko = 당신은 검색 기능에 대한 업데이트된지도 필요
     nl = Om de zoekfunctie te kunnen gebruiken moet u de kaarten updaten
@@ -1077,6 +1234,7 @@
     uk = Для функції пошуку необхідно оновити застарілі карти:
     zh-Hant = 您需要更新地圖以使用搜尋功能：
     pl = Musisz posiadać zaktualizowane mapy, aby korzystać z funkcji szukania
+    pt = Precisa de mapas atualizados para a função de procura:
   [advise_update_maps]
     en = Update available for these maps:
     tags = android
@@ -1085,6 +1243,7 @@
     de = Aktualisierung für diese Karten erhältlich:
     es = Hay actualizaciones disponibles para estos mapas:
     fr = Le renouvellement est disponible pour les cartes suivantes:
+    it = Aggiornamento disponibile per queste mappe:
     ja = こちらの地図が更新できます：
     ko = 이지도에 사용할 수있는 업데이트 :
     nl = Update beschikbaar voor deze kaarten:
@@ -1092,6 +1251,7 @@
     uk = Доступні оновлення для наступних карт:
     zh-Hant = 以下為可用的更新地圖：
     pl = Aktualizacja dostępna dla tych map:
+    pt = Atualização disponível para estes mapas:
   [suggest_uninstall_lite]
     en = You don't need MapsWithMe Lite any more, so you can uninstall it.
     tags = android
@@ -1100,6 +1260,7 @@
     de = Sie benötigen MapsWithMe Lite nicht mehr, sie können es deinstallieren.
     es = Ahora no necesita MapsWithMe Lite, la puede desinstalar.
     fr = Vous n'avez plus besoin de MapsWithMe Lite. Merci de l'effacer
+    it = Non hai più bisogno di MapsWithMe Lite, quindi puoi disinstallarlo.
     ja = MapsWithMe Liteはもう必要ありませんので削除してもかまいません
     ko = 당신은 더 이상 MapsWithMe 라이트는 필요 없어, 당신은 그것을 제거할 수 있습니다.
     nl = U heeft MapsWithMe Lite niet meer nodig, dus u kunt de app deïnstalleren
@@ -1107,6 +1268,7 @@
     uk = MapsWithMe Lite більше не потрібна. Рекомендуємо її видалити.
     zh-Hant = 你再也不需要 MapsWithMe Lite了,所以您可以移除它!
     pl = Nie potrzebujesz już więcej MapsWithMe Lite, więc możesz je usunąć.
+    pt = Não precisa mais do MapsWithMe Lite, podendo portanto desinstalá-la.
   [download_country_success]
     en = %@ downloaded successfuly
     tags = android
@@ -1115,6 +1277,7 @@
     de = %@ erfolgreich heruntergeladen
     es = %@ se descargó exitosamente
     fr = Téléchargement de %@ est accompli avec succès
+    it = Scaricato %@ con successo
     ja = %@のダウンロードが成功しました
     ko = %@이 성공적으로 다운로드
     nl = %@ is succesvol gedownload
@@ -1122,6 +1285,7 @@
     uk = %@ успішно завантажена
     zh-Hant = %@ 已成功下載
     pl = %@ pobrano pomyślnie
+    pt = %@ descarregado com sucesso
   [download_country_failed]
     en = %@ download has failed
     tags = android
@@ -1130,6 +1294,7 @@
     de = %@ herunterladen fehlgeschlagen
     es = %@ la descarga ha fallado
     fr = Erreur de téléchargement de %@
+    it = Il trasferimento di %@ non è riuscito
     ja = %@のダウンロードが失敗しました
     ko = %@다운로드가 실패했습니다
     nl = %@ download is afgebroken
@@ -1137,6 +1302,7 @@
     uk = Не вдалося завантажити %@
     zh-Hant = %@ 下載失敗
     pl = %@ pobieranie nie powiodło się
+    pt = %@ descarga falhou
   [add_new_set]
     en = Add new Set
     tags = ios
@@ -1145,6 +1311,7 @@
     de = Neue Gruppe hinzufügen
     es = Agregar un grupo nuevo
     fr = Ajouter une groupe
+    it = Aggiungi un nuovo Set
     ja = 新しいセットを追加
     ko = 새로운 세트 추가
     nl = Voeg nieuwe Groep toe
@@ -1152,6 +1319,7 @@
     uk = Додати групу
     zh-Hant = 新增收藏夾
     pl = Dodaj nowy zestaw
+    pt = Adicionar novo conjunto
   [add_to_bookmarks]
     en = Add to Bookmarks
     tags = ios
@@ -1160,6 +1328,7 @@
     de = Zu Lesezeichen hinzufügen
     es = Agregar a marcadores
     fr = Ajouter dans les signets
+    it = Aggiungi ai Preferiti
     ja = ブックマークに追加
     ko = 즐겨찾기에 추가
     nl = Voeg aan Bladwijzers toe
@@ -1167,6 +1336,7 @@
     uk = Додати в закладки
     zh-Hant = 加入到書籤
     pl = Dodaj do zakładek
+    pt = Adicionar aos Favoritos
   [bookmark_color]
     en = Bookmark Color
     tags = ios
@@ -1175,6 +1345,7 @@
     de = Lesezeichen Farbe
     es = Color del marcador
     fr = Couleur du signet
+    it = Colore del Segnalibro
     ja = ブックマークの色
     ko = 색상 즐겨찾기에 추가
     nl = Bladwijzer Kleur
@@ -1182,6 +1353,7 @@
     uk = Колір закладки
     zh-Hant = 書籤顏色
     pl = Kolor zakładki
+    pt = Cor de favoritos
   [bookmark_set_name]
     en = Bookmark Set Name
     tags = ios
@@ -1190,6 +1362,7 @@
     de = Name des Lesezeichens
     es = Nombre del grupo de marcadores
     fr = Nom de la groupe
+    it = Seleziona un nome del segnalibro
     ja = ブックマークセット名
     ko = 집합 이름을 즐겨찾기에 추가
     nl = Bladwijzer Groep Naam
@@ -1197,6 +1370,7 @@
     uk = Назва групи
     zh-Hant = 收藏夾名稱
     pl = Nazwa zestawu zakładek
+    pt = Nome do conjunto dos favoritos
   [bookmark_sets]
     en = Bookmark Sets
     tags = ios
@@ -1205,6 +1379,7 @@
     de = Lesezeichenmappe
     es = Grupos de marcadores
     fr = Groupes de signets
+    it = Seleziona un segnalibro
     ja = ブックマークセット
     ko = 세트를 즐겨찾기에 추가
     nl = Bladwijzer groepen
@@ -1212,6 +1387,7 @@
     uk = Групи закладок
     zh-Hant = 收藏夾
     pl = Zestawy zakładek
+    pt = Conjuntos de favoritos
   [bookmarks]
     en = Bookmarks
     tags = ios
@@ -1220,6 +1396,7 @@
     de = Lesezeichengruppen
     es = Marcadores
     fr = Signets
+    it = Segnalibri
     ja = ブックマーク
     ko = 북마크
     nl = Bladwijzers
@@ -1227,6 +1404,7 @@
     uk = Закладки
     zh-Hant = 書籤
     pl = Zakładki
+    pt = Favoritos
   [color]
     en = Color
     tags = ios
@@ -1234,6 +1412,7 @@
     cs = Barva
     de = Farbe
     fr = Couleur
+    it = Colore
     ja = 色
     ko = 색깔
     nl = Kleur
@@ -1241,6 +1420,7 @@
     uk = Колір
     zh-Hant = 顏色
     pl = Kolor
+    pt = Cor
   [dropped_pin]
     en = Dropped Pin
     tags = ios
@@ -1249,6 +1429,7 @@
     de = Gesetzte Stecknadel
     es = Etiqueta colocada
     fr = L'épingle déplacée
+    it = Pin trascinato
     ja = ドロップされたピン
     ko = 알수 없는 핀
     nl = Geplaatste Speld
@@ -1256,6 +1437,7 @@
     uk = Нова мітка
     zh-Hant = 設下PIN
     pl = Znacznik
+    pt = Marcador posicionado
   [my_places]
     en = My Places
     tags = ios
@@ -1264,6 +1446,7 @@
     de = Meine Orte
     es = Mis lugares
     fr = Mes signets
+    it = I miei luoghi
     ja = マイロケーション
     ko = 내 장소
     nl = Mijn Plaatsen
@@ -1271,6 +1454,7 @@
     uk = Мої Закладки
     zh-Hant = 我的地點
     pl = Moje miejsca
+    pt = Os meus locais
   [name]
     en = Name
     tags = ios
@@ -1278,6 +1462,7 @@
     cs = Název
     es = Nombre
     fr = Nom
+    if = Nome
     ja = 場所名
     ko = 이름
     nl = Naam
@@ -1285,6 +1470,7 @@
     uk = Iм'я
     zh-Hant = 名字
     pl = Nazwa
+    pt = Nome
   [address]
     en = Address
     tags = ios
@@ -1293,6 +1479,7 @@
     de = Adresse
     es = Dirección
     fr = Adresse
+    it = Indirizzo
     ja = 住所
     ko = 주소
     nl = Adres
@@ -1300,6 +1487,7 @@
     uk = Адреса
     zh-Hant = 位址
     pl = Adres
+    pt = Endereço
   [remove_pin]
     en = Remove Pin
     tags = ios
@@ -1308,6 +1496,7 @@
     de = Stecknadel entfernen
     es = Quitar la etiqueta
     fr = Effacer l'épingle
+    it = Rimuovi il Pin
     ja = ピンを削除
     ko = 핀 제거
     nl = Verwijder speld
@@ -1315,6 +1504,7 @@
     uk = Видалити мітку
     zh-Hant = 移除PIN
     pl = Usuń znacznik
+    pt = Retirar o marcador
   [set]
     en = Set
     tags = ios
@@ -1323,6 +1513,7 @@
     de = Gruppe
     es = Grupo
     fr = Groupe
+    it = Seleziona
     ja = セット
     ko = 집합
     nl = Groep
@@ -1330,6 +1521,7 @@
     uk = Група
     zh-Hant = 收藏夾
     pl = Zestaw
+    pt = Conjunto
   [bookmarks_usage_hint]
     en = To add a new bookmark here, tap on any place of the map and hold until the pop-up appears.
     tags = ios
@@ -1338,6 +1530,7 @@
     de = Fügen sie einen beliebigen Ort auf der Karte den Lesezeichen hinzu. Berühren sie dazu den Ort auf der Karte bis das Kontextmenü erscheint.
     es = Para añadir un marcador a cualquier lugar del mapa, presionar un punto y mantenerlo hasta que aparezca el menú contextual.
     fr = Ajoutez n'importe quel endroit sur la carte à vos favoris. Pour cela, touchez un point sur la carte et maintenez appuyé jusqu'à ce que le menu contextuel apparaisse.
+    it = Per aggiungere un nuovo segnalibro qui, tocca qualsiasi punto della mappa e tieni premuto fino a quando non appare il pop-up.
     ja = 地図上のあらゆる場所をブックマークに追加できます。地図上の場所をタッチして、コンテキストメニューが表示されるまで長押しするだけです。
     ko = 지도상의 어떤 장소든지 즐겨찾기에 추가할 수 있습니다. 이를 위해서는 컨텍스트 메뉴가 나타날 때까지 지도상의 장소를 오래 누르시면 됩니다.
     nl = Voeg een plaats naar keuze op de kaart toe aan de bladwijzers. Om dat te doen, drukt u op een plek op de kaart en houd u het ingedrukt tot het contextmenu verschijnt.
@@ -1345,6 +1538,7 @@
     uk = Додайте будь-яке місце на карті в закладки. Щоб зробити це, натисніть місце на карті і утримуйте, поки з'явиться контекстне меню.
     zh-Hant = 如要新增書籤 , 請按住地圖上的任何地方不放，直到有彈出視窗顯示選項。
     pl = Aby dodać nową zakładkę, naciśnij na dowolne miejsce na mapie i przytrzymaj do czasu aż pojawi się okienko.
+    pt = Para adicionar um novo favorito aqui, toque em qualquer local do mapa e mantenha premido até que apareça o pop-up.
   [settings]
     en = Settings
     tags = android
@@ -1353,6 +1547,7 @@
     de = Einstellungen
     es = Ajustes
     fr = Réglages
+    it = Impostazioni
     ja = 設定
     ko = 설정
     nl = Instellingen
@@ -1360,6 +1555,7 @@
     uk = Налаштування
     zh-Hant = 設定
     pl = Ustawienia
+    pt = Definições
   [maps_storage]
     en = Maps storage
     tags = android
@@ -1368,6 +1564,7 @@
     de = Kartenspeicher
     es = Almacenamiento de mapas
     fr = Sauvegarde des cartes
+    it = Lista delle Mape
     ja = 地図収納
     ko = 지도 저장소
     nl = Kaarten bewaren
@@ -1375,6 +1572,7 @@
     uk = Пам'ять для карт
     zh-Hant = 地圖儲存
     pl = Pamięć map
+    pt = Armazenamento dos mapas
   [maps_storage_summary]
     en = Select the place where maps should be downloaded to
     tags = android
@@ -1383,6 +1581,7 @@
     de = Wählen Sie den Ort, wohin die Karten heruntergeladen werden sollen
     es = Seleccione el lugar donde deben descargarse los mapas
     fr = Sélectionnez l'endroit où les cartes doivent être téléchargées
+    it = Seleziona il luogo in cui le mappe devono essere scaricate
     ja = マップのダウンロード先を選択してください
     ko = 지도가 다운로드될 곳을 선택합니다
     nl = Selecteer de map waar u de kaarten wilt opslaan
@@ -1390,6 +1589,7 @@
     uk = Виберіть місце, куди повинні бути завантажені карти
     zh-Hant = 請選擇下載地圖後要放的位置
     pl = Wybierz lokalizację, w której mają być zapisywane pobierane mapy
+    pt = Selecione o local para onde os mapas devem ser descarregados
   [move_maps]
     en = Move maps?
     tags = android
@@ -1398,6 +1598,7 @@
     de = Karten verschieben?
     es = ¿Mover mapas?
     fr = Bouger les cartes?
+    it = Vuoi spostare le mappe?
     ja = 地図を移動しますか？
     ko = 지도를 이동합니까?
     nl = Kaarten verplaatsen?
@@ -1405,6 +1606,7 @@
     uk = Перемістити карти?
     zh-Hant = 移動地圖？
     pl = Przenieść mapy?
+    pt = Mover mapas?
   [wait_several_minutes]
     en = This can take several minutes.\nPlease wait…
     tags = android
@@ -1413,6 +1615,7 @@
     de = Dies kann einige Minuten in Anspruch nehmen.\nBitte warten…
     es = Esto podría tardar varios minutos.\nPor favor, espera…
     fr = Cela peut prendre plusieurs minutes.\nVeuillez patienter…
+    it = Questo può richiedere diversi minuti.\ncortesemente attendi...
     ja = 数分かかる場合があります。\nお待ち下さい…
     ko = 이 작업은 수 분 소요될 수 있습니다.\n잠시 기다리세요…
     nl = Dit kan enkele minuten duren.\nEven geduld…
@@ -1420,12 +1623,14 @@
     uk = Це може зайняти кілька хвилин.\nБудь ласка, зачекайте…
     zh-Hant = 這可能需要幾分鐘\n請稍候...
     pl = TO może zająć kilka minut.\nProszę czekać…
+    pt = Isto pode demorar alguns minutos.\nPor favor aguarde…
   [visible]
     en = Visible
     tags = ios
     comment = Show bookmarks from this category on a map or not
     cs = Viditelný
     de = Sichtbar
+    it = Visibile
     ja = 目に見える
     ko = 눈에 보이는
     nl = Zichtbaar
@@ -1433,6 +1638,7 @@
     uk = Показувати на карті
     zh-Hant = 看得到的
     pl = Widoczne
+    pt = Visível
   [bookmarks_in_pro_version]
     en = Bookmarks are only available in the full version of MapsWithMe. Get it right now!
     tags = ios
@@ -1441,6 +1647,7 @@
     de = Lesezeichen stehen in der Vollversion von MapsWithMe zur Verfügung. Jetzt sofort besorgen?
     es = La opción de marcadores está disponible en la versión completa de MapsWithMe. ¿La quieres ya?
     fr = Les marques-page sont disponibles dans la version complète de MapsWithMe. Se la procurer maintenant?
+    it = I segnalibri sono disponibili solo nella versione completa di MapsWithMe. Scaricalo subito!
     ja = ブックマークはMapsWithMeの完全版でご利用いただけます。いますぐ取得されますか？
     ko = MapsWithMe의 정식 버전에서는 즐겨찾기를 이용하실 수 있습니다. 지금 바로 구입하시겠습니까?
     nl = Bladwijzers zijn beschikbaar in de volledige versie van MapsWithMe. Wilt u die nu gelijk?
@@ -1448,6 +1655,7 @@
     uk = Закладки доступні у повній версії MapsWithMe. Отримати просто зараз?
     zh-Hant = 書籤是MapsWithMe完整版本才有的功能，馬上購買?
     pl = Zakładki są dostępne tylko w pełnej wersji MapsWithMe. Pobierz już teraz!
+    pt = Os favoritos apenas estão disponíveis na versão completa de MapsWithMe. Obtenha-a agora mesmo!
   [gps_is_disabled_long_text]
     en = GPS is disabled. Please enable it in Settings.
     tags = android
@@ -1456,6 +1664,7 @@
     de = GPS ist deaktiviert. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.
     es = El GPS está inhabilitado. Por favor, activelo en los ajustes.
     fr = GPS désactivé. Veuillez s'il vous plaît la mettre en prise pour la commode utilisation du programme.
+    it = Il GPS è disabilitato. Cortesemente abilitalo nelle Impostazioni.
     ja = GPSが無効です。設定画面から有効にして下さい。
     ko = GPS가 사용 중지되었습니다. 설정에서 이를 작동시켜 주시기 바랍니다.
     nl = GPS is uitgeschakeld. Schakel ze in bij Instellingen.
@@ -1463,6 +1672,7 @@
     uk = GPS вимкнено в налаштуваннях пристрою. Будь ласка, увімкніть його для зручного використання програми.
     zh-Hant = GPS 目前是關閉的，請在系統中設定為開啟使用
     pl = GPS jest wyłączony. Proszę włączyć go w ustawieniach.
+    pt = O GPS está desativado. Por favor ative-o nas Definições.
   [measurement_units]
     en = Measurement Units
     tags = ios,android
@@ -1471,6 +1681,7 @@
     de = Maßeinheiten
     es = Unidades de medida
     fr = Unités de mesure
+    it = Unità di misura
     ja = 計測単位
     ko = 측정 단위
     nl = Afstandseenheid
@@ -1478,6 +1689,7 @@
     uk = Одиниці виміру
     zh-Hant = 測量單位
     pl = Jednostki miary
+    pt = Unidades de medida
   [measurement_units_summary]
     en = Choose between miles and kilometres
     tags = ios,android
@@ -1486,6 +1698,7 @@
     de = Auswahl zwischen Meilen und Kilometern
     es = Elija entre millas y kilómetros
     fr = Choisissez entre miles et kilomètres
+    it = Scegli tra miglia e chilometri
     ja = マイルまたはキロメートルを選択
     ko = 마일과 킬로미터 중에서 선택하십시오
     nl = Kies tussen mijlen en kilometers
@@ -1493,6 +1706,7 @@
     uk = Використовувати милі чи кілометри
     zh-Hant = 請選擇公里或英哩
     pl = Wybierz pomiędzy milami, a kilometrami
+    pt = Escolha entre milhas e quilómetros
   [search_mode_all]
     en = Everywhere
     tags = ios,android
@@ -1501,6 +1715,7 @@
     de = Überall
     es = Todos
     fr = Partout
+    it = Ovunque
     ja = どこにでも
     ko = 모든 곳
     nl = Overal
@@ -1508,6 +1723,7 @@
     uk = Всюди
     zh-Hant = 任何地方
     pl = Wszędzie
+    pt = Em qualquer lugar
   [search_mode_nearme]
     en = Near Me
     tags = ios,android
@@ -1516,6 +1732,7 @@
     de = In meiner Nähe
     es = Cerca de mí
     fr = Près de moi
+    it = Vicino a me
     ja = 周辺情報
     ko = 근처 검색
     nl = Dichtbij mij
@@ -1523,6 +1740,7 @@
     uk = Поруч
     zh-Hant = 我的附近
     pl = W pobliżu mnie
+    pt = Perto de mim
   [search_mode_viewport]
     en = On the Screen
     tags = ios,android
@@ -1531,6 +1749,7 @@
     de = Am Bildschirm
     es = En la pantalla
     fr = Sur l'écran
+    it = Nella schermata
     ja = 画面上
     ko = 화면에
     nl = Op het scherm
@@ -1538,6 +1757,7 @@
     uk = На екрані
     zh-Hant = 畫面中的地圖
     pl = Na ekranie
+    pt = No ecrã
   [food]
     en = food
     tags = ios,android
@@ -1554,6 +1774,7 @@
     uk = їжа
     zh-Hant = 飲食
     pl = jedzenie
+    pt = alimentação
   [transport]
     en = transport
     tags = ios,android
@@ -1570,6 +1791,7 @@
     uk = транспорт
     zh-Hant = 運輸
     pl = transport
+    pt = transporte
   [fuel]
     en = gas
     tags = ios,android
@@ -1586,6 +1808,7 @@
     uk = заправка
     zh-Hant = 加油站
     pl = stacja benzynowa
+    pt = combustível
   [parking]
     en = parking
     tags = ios,android
@@ -1602,6 +1825,7 @@
     uk = парковка
     zh-Hant = 停車場
     pl = parking
+    pt = estacionamento
   [shop]
     en = shop
     tags = ios,android
@@ -1618,6 +1842,7 @@
     uk = крамниця
     zh-Hant = 購物
     pl = sklep
+    pt = compras
   [hotel]
     en = hotel
     tags = ios,android
@@ -1633,6 +1858,7 @@
     uk = готель
     zh-Hant = 飯店
     pl = hotel
+    pt = hotel
   [tourism]
     en = sights
     tags = ios,android
@@ -1649,6 +1875,7 @@
     uk = пам’ятні місця
     zh-Hant = 旅遊景點
     pl = osobliwości miasta
+    pt = vistas
   [entertainment]
     en = entertainment
     tags = ios,android
@@ -1665,6 +1892,7 @@
     uk = розваги
     zh-Hant = 娛樂
     pl = rozrywka
+    pt = entretenimento
   [atm]
     en = atm
     tags = ios,android
@@ -1680,6 +1908,7 @@
     ru = банкомат
     uk = банкомат
     pl = bankomat
+    pt = multibanco
   [bank]
     en = bank
     tags = ios,android
@@ -1696,6 +1925,7 @@
     uk = банк
     zh-Hant = 銀行
     pl = bank
+    pt = banco
   [pharmacy]
     en = pharmacy
     tags = ios,android
@@ -1712,6 +1942,7 @@
     uk = аптека
     zh-Hant = 藥局
     pl = apteka
+    pt = farmácia
   [hospital]
     en = hospital
     tags = ios,android
@@ -1728,6 +1959,7 @@
     uk = лікарня
     zh-Hant = 醫院
     pl = szpital
+    pt = hospital
   [toilet]
     en = toilet
     tags = ios,android
@@ -1744,6 +1976,7 @@
     uk = туалет
     zh-Hant = 廁所
     pl = toaleta
+    pt = WC
   [post]
     en = post
     tags = ios,android
@@ -1760,6 +1993,7 @@
     uk = пошта
     zh-Hant = 郵筒
     pl = poczta
+    pt = correios
   [police]
     en = police
     tags = ios,android
@@ -1776,6 +2010,7 @@
     uk = міліція
     zh-Hant = 警察局
     pl = policja
+    pt = polícia
   [no_search_results_found]
     en = No results found
     tags = ios,android
@@ -1784,6 +2019,7 @@
     de = Keine Ergebnisse gefunden
     es = No se han encontrado resultados
     fr = Aucun résultat trouvé
+    it = Nessun risultato trovato
     ja = 結果が見つかりませんでした
     ko = 결과 없음
     nl = Geen resultaten gevonden
@@ -1791,6 +2027,7 @@
     uk = Результатів не знайдено
     zh-Hant = 找不到搜尋結果
     pl = Nie znaleziono
+    pt = Não foram encontrados resultados
   [description]
     en = Notes
     tags = ios,android
@@ -1799,6 +2036,7 @@
     de = Notizen
     es = Notas
     fr = Notes
+    it = Note
     ja = メモ
     ko = 메모
     nl = Notities
@@ -1806,6 +2044,7 @@
     uk = Примiтки
     zh-Hant = 描述說明
     pl = Notatki
+    pt = Notas
   [share_by_email]
     en = Share by email
     tags = ios,android
@@ -1814,6 +2053,7 @@
     de = Per E-Mail teilen
     es = Enviar por e-mail
     fr = Partager par e-mail
+    it = Condividi via email
     ja = Eメールでシェアする
     ko = 이메일로 공유
     nl = Delen via e-mail
@@ -1821,6 +2061,7 @@
     uk = Подiлитися по електронній пошті
     zh-Hant = 以 email 分享
     pl = Udostępnij przez email
+    pt = Partilhar por e-mail
   [share_bookmarks_email_subject]
     en = MapsWithMe bookmarks has been shared with you
     tags = ios,android
@@ -1829,6 +2070,7 @@
     de = MapsWithMe Lesezeichen mit Ihnen geteilt
     es = Marcapáginas de MapsWithMe compartidos contigo
     fr = Signets MapsWithMe partagés avec vous
+    it = Il segnalibri MapsWithMe è stato condiviso con te
     ja = MapsWithMeブックマークでシェアされました。
     ko = 귀하와 공유된 MapsWithMe 즐겨찾기
     nl = Bladwijzers van MapsWithMe met u gedeeld
@@ -1836,6 +2078,7 @@
     uk = З вами поділилися закладками MapsWithMe
     zh-Hant = 您已分享了 MapsWithMe 書籤
     pl = Udostępniono ci zakładkę z MapsWithMe
+    pt = Os favoritos do MapsWithMe foram partilhados consigo
   [share_bookmarks_email_body]
     en = Hello,\n\nHere are my bookmarks from MapsWithMe offline maps in the attached "%@.kmz" file. Please open it if you have MapsWithMe Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://www.mapswithme.com/get?kmz.\n\nHave a good time with MapsWithMe!
     tags = ios,android
@@ -1852,6 +2095,7 @@
     uk = Вітаю!\n\nОсь мої закладки з офлайн карт MapsWithMe у доданому файлі "%@.kmz". Ви можете відкрти його, якщо у вас встановлена MapsWithMe Pro. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://www.mapswithme.com/get?kmz.\n\nПриємних розваг з MapsWithMe!
     zh-Hant = 哈囉!\n\n這是我的MapsWithe離線地圖中所夾帶的 "%@.kmz" 書籤檔案。若您已安裝MapsWithMe專業版的話請開啟它，否則請先從 http://www.mapswithme.com/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用MapsWithMe愉快!
     pl = Cześć,\n\nOto moje zakładki pochodzące z aplikacji MapsWithMe wraz z załączonymi mapami offline w pliku "%@.kmz". Proszę otwórz to jeśli posiadasz zainstalowaną aplikację MapsWithMe Pro. Jeśli nie, najpierw pobierz ją na swoje urządzenie z systemem iOS lub Android pod tym linkiem: http://www.mapswithme.com/get?kmz. \n\nBaw się dobrze z MapsWithMe!
+    pt = Olá,\n\nAqui estão os meus favoritos dos mapas offline do MapsWithMe, anexados no ficheiro "%@.kmz". Por favor abra-os se já tiver instalado o MapsWithMe Pro. Caso contrário, descarregue primeiro a app para o seu dispositivo iOS ou Android a partir desta hiperligação: http://www.mapswithme.com/get?kmz.\n\nDisfrute do MapsWithMe!
   [load_kmz_title]
     en = Loading Bookmarks
     tags = ios,android
@@ -1868,6 +2112,7 @@
     uk = Завантаження закладок
     zh-Hant = 正在載入書籤...
     pl = Wczytywanie zakładek
+    pt = A carregar favoritos
   [load_kmz_successful]
     en = Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.
     tags = ios,android
@@ -1884,6 +2129,7 @@
     uk = Закладки успішно завантажено! Ви можете знайти їх на карті або у меню Менеджер закладок.
     zh-Hant = 書籤上傳成功! 您可以在地圖上或是書籤管理畫面中找到書籤。
     pl = Zakładki wczytane pomyślnie! Możesz znaleźć je na mapie lub w menedżerze zakładek.
+    pt = Favoritos carregados com sucesso! Pode encontrá-los no mapa ou no ecrã de gestão dos favoritos.
   [load_kmz_failed]
     en = Bookmarks upload failed. The file may be corrupted or defective.
     tags = ios,android
@@ -1900,15 +2146,18 @@
     uk = Не вдалося завантажити закладки. Файл може бути пошкодженим або несправним.
     zh-Hant = 書籤上傳失敗! 檔案可能有毀損或是不完全。
     pl = Przesyłanie zakładek nie powiodło się. Plik może być uszkodzony lub posiadać defekty.
+    pt = Falha no envio dos favoritos. O ficheiro pode estar corrompido ou com defeito.
   [edit]
     en = Edit
     tags = android
     comment = resource for context menu
     cs = Upravit
     ru = Редактировать
+    it = Copia link
     uk = Редаґувати
     zh-Hant = 編輯
     pl = Edytuj
+    pt = Editar
   [unknown_current_position]
     en = Your location hasn't been determined yet
     tags = ios,android
@@ -1925,6 +2174,7 @@
     uk = Ваше місце розташування не визначено
     zh-Hant = 您的位置尚未定未完成
     pl = Twoja lokalizacja nie została jeszcze określona
+    pt = A sua localização ainda não foi determinada
   [download_location_country]
     en = Download the country (%@) of your current location
     tags = ios,android
@@ -1941,6 +2191,7 @@
     uk = Завантажити країну (%@) вашого поточного місця розташування
     zh-Hant = 下載您目前所在位置的國家 (%@) 地圖
     pl = Pobierz mapę kraju (%@), w którym aktualnie przebywasz
+    pt = Descarregue o país (%@) da sua localização atual
   [download_viewport_country_to_search]
     en = Download the country (%@) you are searching on
     tags = ios,android
@@ -1957,6 +2208,7 @@
     uk = Завантажити країну (%@), в якій ви шукаєте
     zh-Hant = 下載您正在搜尋的國家 (%@) 地圖
     pl = Pobierz mapę kraju (%@), którego aktualnie poszukujesz
+    pt = Descarregue o país (%@) em que está a fazer a procura
   [flurry_app_key]
     en = 
     tags = android
@@ -1977,6 +2229,7 @@
     uk = Вибачте, налаштування папки з картами зараз недоступні.
     zh-Hant = 很抱歉, 地圖儲存設定目前是停用的狀態!
     pl = Przepraszamy, ustawienia pamięci mapy są aktualnie wyłączone.
+    pt = Lamentamos, as definições do Map Storage estão atualmente desativadas.
   [downloading_is_active]
     en = Country download is in progress now.
     tags = android
@@ -1993,6 +2246,7 @@
     uk = Зараз відбувається завантаження країни.
     zh-Hant = 國家地圖正在進行下載
     pl = Pobieranie mapy kraju jest w toku.
+    pt = A descarga do país está atualmente em progresso.
   [appStore_message]
     en = Hope you enjoy using MapsWithMe! If so, please rate or review the app at the App Store. It takes less than a minute but can really help us. Thanks for your support!
     tags = ios
@@ -2009,6 +2263,7 @@
     uk = Сподіваємося, що вам сподобалося користуватися MapsWithMe! Якщо так, будь ласка, надайте оцінку програмі або залиште свій відгук на app store. Витративши менше хвилини, ви дійсно нам допоможете. Дякуємо за вашу підтримку!
     zh-Hant = 祝您使用 MapsWithMe愉快! 方便的話，請到App Store幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持!
     pl = Mamy nadzieję, że podoba ci się aplikacja MapsWithMe! Jeśli tak to proszę oceń ją lub napisz recenzję w AppStore. To zajmie ci mniej niż minutę, a bardzo nam pomoże. Dziękujemy za wsparcie!
+    pt = Esperamos que esteja a disfrutar da utilização do MapsWithMe! Se assim for, por favor classifique ou dê a sua opinião sobre a app na App Store. Vai demorar menos de um minuto mas pode mesmo ajudar-nos. Obrigado pelo seu apoio!
   [no_thanks]
     en = No, thanks
     tags = ios,android
@@ -2025,6 +2280,7 @@
     uk = Ні, дякую
     zh-Hant = 不, 謝了!
     pl = Nie, dziękuję
+    pt = Não, obrigado
   [bookmark_share_sms]
     en = Look at my pin on MapsWithMe map. Open the link: %1$@ or %2$@
     tags = ios,android
@@ -2040,6 +2296,7 @@
     uk = Моя мітка на карті. Іди %1$@ або %2$@
     es = Ve mi alfiler en mapa. Abre %1$@ o %2$@
     pl = Mój znacznik w MapsWithMe %1$@ i %2$@
+    pt = Veja o meu marcador no mapa do MapsWithMe. Abra a hiperligação: %1$@ ou %2$@
   [my_position_share_sms]
     en = See where I am now. Open the link: %1$@ or %2$@
     tags = ios,android
@@ -2055,6 +2312,7 @@
     uk = Глянь де я зараз. Іди %1$@ або %2$@
     es = Mira dónde estoy. Abre %1$@ o %2$@
     pl = Zobacz gdzie jestem. Link %1$@ lub %2$@
+    pt = Veja onde estou agora. Abra a hiperligação: %1$@ ou %2$@
   [bookmark_share_email_subject]
     en = Look at my pin on MapsWithMe map
     tags = ios,android
@@ -2070,6 +2328,7 @@
     cs = Podívej se na mou značku na mapě MapsWithMe
     de = Schau dir meine Nadel auf der MapsWithMe-Karte an
     pl = Obejrzyj mój znacznik na mapie w MapsWithMe
+    pt = Veja o meu marcador no mapa do MapsWithMe.
   [bookmark_share_email]
     en = Hi,\n\nI pinned: %1$@ at MapsWithMe, world offline maps. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
     comment = Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me
@@ -2084,6 +2343,7 @@
     cs = Ahoj,\n\nUmístil jsem značku %1$@ na MapsWithMe, světové mapy bez internetového připojení. Klikni na jeden z těchto odkazů %2$@ , %3$@ a uvidíš toto místo na mapě.\n\nDěkuji.
     de = Hi,\n\nIch habe gepinnt: %1$@ auf MapsWithMe, Offline-Weltkarten. Klicke auf diesen Link %2$@ oder diesen %3$@, um den Ort auf der Karte zu sehen.\n\nVielen Dank.
     pl = Cześć,\n\nDodałem znacznik w: %1$@ w aplikacji MapsWithMe, mapach offline całego świata. Naciśnij ten link %2$@ lub ten %3$@ by zobaczyć to miejsce na mapie.\n\nDziękuję.
+    pt = Olá,\n\nFixei:%1$@ na MapsWithMe, mapas offline mundiais. Clique nesta ligação %2$@ ou nesta %3$@ para ver o local no mapa.\n\nObrigado.
   [my_position_share_email_subject]
     en = Look at my current location on MapsWithMe map
     tags = ios,android
@@ -2099,6 +2359,7 @@
     cs = Podívejte se na moji aktuální polohu na mapě na MapsWithMe
     de = Sieh dir meinen aktuellen Standort auf der Karte MapsWithMe an
     pl = Zobacz moją aktualną lokalizację na mapie przy użyciu MapsWithMe
+    pt = Veja a minha localização atual em MapsWithMe map
  [my_position_share_email]
     en = Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
     tags = ios,android
@@ -2114,7 +2375,7 @@
     cs = Ahoj,\n\nnyní jsem zde: %1$@ . Klikni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDěkuji.
     de = Hi,\n\nich bin gerade hier: %1$@ . Klicke auf diesen Link %2$@ oder diesen %3$@, um meinen Standort auf der Karte zu sehen.\n\nVielen Dank.
     pl = Cześć,\n\nJestem teraz tutaj: %1$@. Naciśnij na ten link %2$@ lub ten %3$@, aby zobaczyć to miejsce na mapie.\n\nDziękuję.
-
+    pt = Olá,\n\n Estou aqui agora: %1$@. Clique nesta ligação %2$@ ou nesta %3$@ para ver o local no mapa.\n\nObrigado.
   [share_by_message]
     en = Share by message
     tags = ios,android
@@ -2131,7 +2392,7 @@
     uk = Подiлитися за допомогою повідомлення
     ko = 메시지로 공유
     pl = Udostępnij przez wiadomość
-
+    pt = Partilhar por mensagem
   [share]
     en = Share
     tags = ios,android
@@ -2148,7 +2409,7 @@
     zh-Hant = 分享
     ko = 공유
     pl = Udostępnij
-
+    pt = Partilhar
   [message]
     en = Message
     tags = ios,android
@@ -2165,7 +2426,7 @@
     uk = Повідомлення
     ko = 메시지
     pl = Wiadomość
-
+    pt = Mensagem
   [email]
     en = E-Mail
     tags = ios,android
@@ -2181,38 +2442,38 @@
     uk = Електронна пошта
     ko = 이메일
     pl = E-mail
-
+    pt = E-Mail
   [promocode_activation]
     en = Promo Code Activation
     tags = android
     comment = Promocode Activation dialog title
     pl = Aktywacja kodu promocyjnego
-
+    pt = Ativação do Código de Promoção
   [enter_promocode_hint]
     en = Enter Promo Code
     tags = android
     comment = Enter promo code hint
     pl = Wprowadź kod promocyjny
-
+    pt = Introduza o Código de Promoção
   [promocode_success]
     en = Promo code is activated!
     tags = android
     comment = Promocode Activation success message
     pl = Kod promocyjny został aktywowany!
-
+    pt = O código de promoção está ativado!
   [promocode_error]
     en = Connection error. Please try again later.
     tags = android
     comment = Promocode Activation connection/io error
     pl = Błąd połączenia. Proszę spróbować ponownie później.
-
+    pt = Erro de ligação. Por favor tente de novo mais tarde.
   [promocode_failure]
     en = Invalid promo code. Please try again.
     tags = android
     comment = Promocode Activation is invalid  message.
     pl = Błędny kod promocyjny. Spróbuj ponownie.
-
-   [copy_link]
+    pt = Código de promoção inválido. Por favor tente de novo.
+  [copy_link]
     en = Copy Link
     tags = ios
     comment = Copy Link
@@ -2228,3 +2489,4 @@
     ko = 링크 복사하기
     ru = Скопировать ссылку
     pl = Kopiuj link
+    pt = Copiar hiperligação
