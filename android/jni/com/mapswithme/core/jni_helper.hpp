@@ -24,12 +24,9 @@ namespace jni
   JavaVM * GetJVM();
 
   string ToNativeString(JNIEnv * env, jstring str);
-  inline string ToNativeString(jstring str)
-  {
-    return ToNativeString(GetEnv(), str);
-  }
 
   jstring ToJavaString(JNIEnv * env, char const * s);
+
   inline jstring ToJavaString(JNIEnv * env, string const & s)
   {
     return ToJavaString(env, s.c_str());

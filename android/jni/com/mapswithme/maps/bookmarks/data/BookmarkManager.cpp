@@ -88,7 +88,7 @@ extern "C"
     const m2::PointD glbPoint(MercatorBounds::LonToX(lon),
                               MercatorBounds::LatToY(lat));
 
-    Bookmark bmk(glbPoint, jni::ToNativeString(name), "placemark-red");
+    Bookmark bmk(glbPoint, jni::ToNativeString(env, name), "placemark-red");
     Framework * const framework = frm();
     return framework->AddBookmark(framework->LastEditedCategory(), bmk);
   }

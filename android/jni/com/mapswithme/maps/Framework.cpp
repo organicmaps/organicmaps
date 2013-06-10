@@ -1003,7 +1003,7 @@ extern "C"
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetGe0Url(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jdouble zoomLevel, jstring name)
   {
-    const string url = g_framework->NativeFramework()->CodeGe0url(lat, lon, zoomLevel, jni::ToNativeString(name));
+    const string url = g_framework->NativeFramework()->CodeGe0url(lat, lon, zoomLevel, jni::ToNativeString(env, name));
     return jni::ToJavaString(env, url);
   }
 }
