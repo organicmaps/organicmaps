@@ -19,6 +19,7 @@ SUBDIRS = 3party \
           base base/base_tests \
           coding coding/coding_tests \
           geometry \
+          stats \
           indexer \
           platform \
           geometry/geometry_tests \
@@ -56,4 +57,5 @@ SUBDIRS = 3party \
             gui \
             search \
             map \
+            stats/client \
 }
