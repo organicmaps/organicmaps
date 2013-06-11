@@ -247,7 +247,7 @@
 "add_new_set" = "Aggiungi un nuovo Set";
 
 /* Place Page - Add To Bookmarks button */
-"add_to_bookmarks" = "Aggiungi ai Preferiti";
+"add_to_bookmarks" = "Aggiungi al Segnalibri";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Colore del Segnalibro";
@@ -466,3 +466,6 @@
 
 /* Copy Link */
 "copy_link" = "Copia link";
+
+/* Text for the button that returns to caller application */
+"more_info" = "Mostra più informazioni";

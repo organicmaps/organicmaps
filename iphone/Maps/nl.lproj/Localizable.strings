@@ -247,7 +247,7 @@
 "add_new_set" = "Voeg nieuwe Groep toe";
 
 /* Place Page - Add To Bookmarks button */
-"add_to_bookmarks" = "Voeg aan Bladwijzers toe";
+"add_to_bookmarks" = "Toevoegen aan Bladwijzers";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Bladwijzer Kleur";
@@ -466,3 +466,6 @@
 
 /* Copy Link */
 "copy_link" = "Kopieer koppeling";
+
+/* Text for the button that returns to caller application */
+"more_info" = "Toon meer info";

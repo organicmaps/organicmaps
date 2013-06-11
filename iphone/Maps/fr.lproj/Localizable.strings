@@ -247,7 +247,7 @@
 "add_new_set" = "Ajouter une groupe";
 
 /* Place Page - Add To Bookmarks button */
-"add_to_bookmarks" = "Ajouter dans les signets";
+"add_to_bookmarks" = "Ajouter aux favoris";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Couleur du signet";
@@ -466,3 +466,6 @@
 
 /* Copy Link */
 "copy_link" = "Copier le lien";
+
+/* Text for the button that returns to caller application */
+"more_info" = "Afficher plus de renseignements";

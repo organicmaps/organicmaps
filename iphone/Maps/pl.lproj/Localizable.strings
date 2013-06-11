@@ -466,3 +466,6 @@
 
 /* Copy Link */
 "copy_link" = "Kopiuj link";
+
+/* Text for the button that returns to caller application */
+"more_info" = "Pokaż więcej informacji";

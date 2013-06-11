@@ -247,7 +247,7 @@
 "add_new_set" = "Neue Gruppe hinzufügen";
 
 /* Place Page - Add To Bookmarks button */
-"add_to_bookmarks" = "Zu Lesezeichen hinzufügen";
+"add_to_bookmarks" = "Zu den Lesezeichen hinzufügen";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Lesezeichen Farbe";
@@ -450,19 +450,22 @@
 "email" = "E-Mail";
 
 /* Promocode Activation dialog title */
-"promocode_activation" = "Promo Code Activation";
+"promocode_activation" = "Aktivierung des Aktionscodes";
 
 /* Enter promo code hint */
-"enter_promocode_hint" = "Enter Promo Code";
+"enter_promocode_hint" = "Geben Sie den Aktionscode ein";
 
 /* Promocode Activation success message */
-"promocode_success" = "Promo code is activated!";
+"promocode_success" = "Aktionscode wurde aktiviert!";
 
 /* Promocode Activation connection/io error */
-"promocode_error" = "Connection error. Please try again later.";
+"promocode_error" = "Verbindungsfehler: Bitte versuchen Sie es später erneut.";
 
 /* Promocode Activation is invalid  message. */
-"promocode_failure" = "Invalid promo code. Please try again.";
+"promocode_failure" = "Ungültiger Aktionscode. Bitte versuchen Sie es nochmals.";
 
 /* Copy Link */
 "copy_link" = "Link kopieren";
+
+/* Text for the button that returns to caller application */
+"more_info" = "Weitere Infos anzeigen";

@@ -247,7 +247,7 @@
 "add_new_set" = "Добавить группу";
 
 /* Place Page - Add To Bookmarks button */
-"add_to_bookmarks" = "Добавить в закладки";
+"add_to_bookmarks" = "Добавить в Закладки";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Цвет закладки";
@@ -466,3 +466,6 @@
 
 /* Copy Link */
 "copy_link" = "Скопировать ссылку";
+
+/* Text for the button that returns to caller application */
+"more_info" = "Подробнее";
