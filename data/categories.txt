@@ -12,6 +12,7 @@ cs:3bankomat|spořitelna|peníze
 nl:3geldautomaat|geld
 zh:3atm|理財|錢|金錢
 pl:5bankomat|pieniądze
+pt:3multibanco|dinheiro
 
 amenity-bank
 en:3bank|money
@@ -27,6 +28,7 @@ cs:3banka|peníze
 nl:3bank|geld
 zh:1銀行|錢
 pl:3bank|pieniądze
+pt:3banco|dinheiro
 
 amenity-bureau_de_change
 en:3currency exchange|3exchange|money
@@ -42,6 +44,7 @@ cs:3směnárna|peníze
 nl:3geld wisselen|3wisselen|geld
 zh:1匯率|理財|外幣|兌換|貨幣
 pl:4kantor|5wymiana|pieniądze
+pt:3câmbio|3troca|dinheiro
 
 amenity-bar|amenity-pub
 en:2bar|2pub|beer|drink|food
@@ -57,6 +60,7 @@ cs:2bar|pivo|pití|jídlo|voda|pitná voda|tekutiny
 nl:2bar|2pub|bier|drinken|eten
 zh:1酒吧|酒館|飲酒|PUB|吧台|飲食
 pl:2bar|2pub|piwo|napoje|jedzenie
+pt:2bar|2pub|cerveja|beber|alimentação
 
 amenity-cafe
 en:3cafe|3restaurant|3food
@@ -72,6 +76,7 @@ cs:3kavárna|restaurace|hospoda|jídlo
 nl:3café|3restaurant|3eten
 zh:2咖啡廳|咖啡|3cafe|餐廳|飲食
 pl:3kawiarnia|4restauracja|kawa|jedzenie
+pt:3café|3restaurante|alimentação
 
 amenity-fast_food
 en:4fast food|3restaurant|3cafe|takeaway|3food
@@ -87,6 +92,7 @@ cs:2rychlé občerstvení|4fastfood|kavárna|restaurace|jídlo
 nl:4fast food|3restaurant|3cafe|afhaaleten|3eten
 zh:1速食店|麥當勞|肯德雞|漢堡王|頂呱呱|薯條|速食|用餐|飲食
 pl:4fast food|restauracja szybkiej obsługi|5na wynos|jedzenie
+pt:4comida de plástico|comida para levar|3café|3alimentação
 
 amenity-restaurant
 en:3restaurant|3cafe|3food
@@ -102,6 +108,8 @@ cs:3restaurace|hospoda|kavárna|jídlo
 nl:3restaurant|3café|3eten
 zh:1餐廳|餐館|飯店|吃飯|餐點|早餐|午餐|晚餐|食堂|飲食|用餐
 pl:4restauracja|3kawiarnia|2jedzenie
+pt:3restaurante|3café|3alimentação
+
 
 amenity-fuel
 en:gas station|3fuel|2gas
@@ -117,6 +125,7 @@ cs:3čerpací stanice|2pumpa
 nl:3tankstation|2benzine
 zh:1加油站|2加氣站|汽油|加油|天然氣
 pl:3stacja benzynowa|3benzyna|4paliwo
+pt:3combustível|gás
 
 shop-bakery
 en:3bakery|shop
@@ -132,6 +141,7 @@ cs:3pekárna|obchod
 nl:3bakker|winkel
 zh:1麵包店|2蛋糕店|烘焙|麵包|蛋糕|購物
 pl:4piekarnia|sklep
+pt:3padaria|clube noturno
 
 shop-convenience|shop-mall|shop-doityourself|shop-florist|shop-butcher
 en:2shop
@@ -147,6 +157,7 @@ cs:2obchod
 nl:2winkel
 zh:1購物|店鋪|商店|雜貨店|便利商店
 pl:3sklep|towary
+pt:2clube noturno
 
 shop-supermarket
 en:3supermarket|shop
@@ -162,6 +173,7 @@ cs:3supermarket|obchod
 nl:3supermarkt|winkel
 zh:1超級市場|市場|購物
 pl:4supermarket|zakupy|sklep
+pt:3supermercado|clube noturno
 
 highway-bus_stop
 en:bus stop|2bus|stop|4transport
@@ -177,6 +189,7 @@ cs:autobusová zastávka|4autobus|2bus|zastávka|stanice|doprava
 nl:bushalte|2bus|halte|4transport
 zh:1巴士站|巴士|運輸|交通|客運站|公車|公車站
 pl:przystanek autobusowy|autobus|4transport
+pt:paragem de autocarro|via férrea|transporte
 
 railway-tram_stop
 en:tram stop|3tram|stop|4transport
@@ -192,6 +205,7 @@ cs:tramvajová zastávka|3tramvaj|4zastávka|stanice|doprava
 nl:3tramhalte|4transport
 zh:1電車站|電車|運輸|交通|鐵路|大眾運輸
 pl:przystanek tramwajowy|tramwaj|transport
+pt:paragem de elétrico|via férrea|transporte
 
 amenity-bus_station
 en:bus station|2bus|station|4transport
@@ -207,6 +221,7 @@ cs:autobusové nádraží|zastávka|bus|doprava
 nl:busstation|2bus|station|4transport
 zh:1巴士|巴士站|交通|運輸
 pl:Stacja autobusowa|Zajezdnia|transport
+pt:estação rodoviária|4transporte
 
 railway-station
 en:3train station|4railway|railroad|3train|4station|4transport
@@ -222,6 +237,7 @@ cs:3železniční stanice|vlakové nádraží|2vlak|doprava
 nl:4station|4spoorwegen|spoor|3trein|4transport
 zh:1鐵道|鐵路|火車|火車站|高鐵站|運輸
 pl:dworzec kolejowy|stacja kolejowa|transport
+pt:estação de comboios|caminhos-de-ferro|transporte
 
 railway-subway_entrance|railway-station-subway
 en:3subway|3tube|3metro|3underground|transport
@@ -237,6 +253,7 @@ cs:3metro|3podzemka|doprava
 nl:3metro|transport
 zh:1地鐵|2地下鐵|運輸
 pl:3metro|kolej podziemna|transport
+pt:metro|transporte
 
 tourism-attraction
 en:3attraction|3tourism|3sights
@@ -252,6 +269,8 @@ cs:3atrakce|3pamětihodnost|3zajímavost
 nl:3attractie|3toerisme
 zh:1景點|3旅遊景點|旅遊|3觀光景點|觀光|名勝
 pl:4atrakcje|zwiedzanie|turystyka|osobliwości miasta
+pt:3atração|turismo|vistas
+
 
 tourism-viewpoint
 en:4viewpoint|tourism|sights
@@ -267,6 +286,7 @@ cs:3vyhlídka|pamětihodnost
 nl:4uitzicht|toerisme
 zh:1視野|景觀|景點|觀光|3旅遊景點
 pl:3punkt widokowy|widok|krajobraz|osobliwości miasta
+pt:4ponto de vista|turismo|vistas
 
 tourism-information
 en:4tourist information|4information|sights
@@ -282,6 +302,7 @@ cs:4infocentrum|4turistické informace|pamětihodnosti|Íčko
 nl:4toeristen informatie|4informatie|toerisme
 zh:2觀光諮詢|旅遊中心|旅遊問題|資訊|旅遊資訊
 pl:4informacja turystyczna|punkt informacji|osobliwości miasta
+pt:4informações turísticas|4informação|vistas
 
 tourism-picnic_site
 en:3picnic site|sights
@@ -297,6 +318,7 @@ cs:3piknik|picnic|picnik|pamětihodnost
 nl:3picnic locatie|toerisme
 zh:1野餐|旅遊
 pl:4pole piknikowe|plener|piknik|osobliwości miasta
+pt:4local de piquenique|vistas
 
 amenity-place_of_worship
 en:place of worship|4temple|sights
@@ -312,6 +334,7 @@ cs:4chrám|posvátné místo|pamětihodnost
 nl:tempel|4temple|toerisme
 zh:1寺廟|佛|景點|寺院|教堂|做禮拜|觀光|古蹟|歷史|拜拜|燒香|禱告|寺|精舍|禪寺
 pl:4świątynia|kościół|turystyka|osobliwości miasta
+pt:local de culto|4templo|vistas
 
 amenity-bench
 en:bench
@@ -326,6 +349,8 @@ cs:lavička
 nl:bankje
 zh:1長板凳|板凳|長椅|長椅子|條凳
 pl:ławka
+pt:banco
+
 
 amenity-bicycle_rental
 en:4bicycle
@@ -341,6 +366,7 @@ cs:4jízdní kolo|3kolo
 nl:4fietsverhuur
 zh:1自行車|腳踏車|單車
 pl:4rower
+pt:4bicicleta
 
 amenity-car_sharing|amenity-car_rental
 en:3car rental|car
@@ -356,6 +382,7 @@ cs:3půjčovna aut|3auto
 nl:3autoverhuur|auto
 zh:1租車|出租
 pl:4wypożyczalnia samochodów|samochód|auto
+pt:3aluguer de automóveis|carro
 
 amenity-cinema
 en:3cinema|entertainment
@@ -371,6 +398,7 @@ cs:3kino|biograf|zábava
 nl:3bioscoop|uitgaan
 zh:1電影院|電影|娛樂
 pl:3kino|filmy|rozrywka
+pt:3cinema|entretenimento
 
 amenity-college
 en:college
@@ -386,6 +414,7 @@ cs:vysoká škola
 nl:college
 zh:1大學|學院|專科院校|院校
 pl:szkoła wyższa|college
+pt:faculdade
 
 amenity-drinking_water
 en:4drinking water
@@ -401,6 +430,8 @@ cs:4pitná voda
 nl:4drinkwater
 zh:1飲用水|可喝的水|2飲水設施|喝水|口渴
 pl:4picie wody|woda|picie
+pt:água potável
+
 
 amenity-fire_station
 en:fire station
@@ -416,6 +447,8 @@ cs:hasiči
 nl:brandweer
 zh:1消防局|滅火隊|消防隊|消防車|救難|緊急
 pl:4straż pożarna|ogień|pożar|katastrofa
+pt:posto de bombeiros
+
 
 amenity-fountain
 en:fountain
@@ -431,6 +464,7 @@ cs:kašna|fontána
 nl:fontein
 zh:1噴泉|2噴水池|噴水
 pl:3fontanna|woda
+pt:fonte
 
 amenity-grave_yard|landuse-cemetery
 en:graveyard
@@ -446,6 +480,8 @@ cs:hřbitov
 nl:begraafplaats
 zh:1墓地
 pl:3cmentarz|pochówek
+pt:cemitério
+
 
 amenity-hospital|amenity-doctors
 en:3hospital|clinic|3doctor
@@ -461,6 +497,7 @@ cs:3nemocnice|klinika|pohotovost|zdravotnické centrum|3lékař|doktor
 nl:3ziekenhuis|kliniek|3dokter
 zh:1醫院|醫生|診所|醫療|診療
 pl:3szpital|klinika|lekarz|doktor|leczenie
+pt:3clínica|clínica|3médico
 
 amenity-hunting_stand
 en:hunting stand
@@ -475,6 +512,7 @@ cs:lovecké stanoviště|posed
 nl:jaagplek
 zh:1狩獵場|打獵|狩獵|獵人|獵
 pl:4budka myśliwska|polowanie|łowiectwo|stanowisko łowieckie
+pt:suporte de caça
 
 amenity-kindergarten
 en:kindergarten
@@ -490,6 +528,7 @@ cs:školka|mateřská škola|dětská školka|mateřská školka
 nl:kleuterschool
 zh:1幼稚園
 pl:4przedszkole|dzieci|zerówka
+pt:jardim de infância
 
 amenity-library
 en:3library
@@ -505,6 +544,7 @@ cs:3knihovna
 nl:3bibliotheek
 zh:1圖書館
 pl:3biblioteka|książki
+pt:biblioteca
 
 amenity-parking
 en:3parking
@@ -520,6 +560,7 @@ cs:3parkoviště
 nl:3parkeerplaats
 zh:1停車場|停車|泊車
 pl:3parking
+pt:3parking
 
 amenity-pharmacy
 en:3pharmacy|3drugstore|apothecary|dispensary
@@ -535,6 +576,7 @@ cs:3lékárna
 nl:3apotheek|verdeelstation
 zh:1藥局|成藥
 pl:3apteka
+pt:3farmacêutico|3farmácia
 
 amenity-post_box
 en:3postbox|post
@@ -550,6 +592,7 @@ cs:3poštovní schránka|3schránka
 nl:3brievenbus|post
 zh:1郵筒|郵件
 pl:5skrzynka pocztowa|listy|poczta
+pt:3caixa de correio|correios
 
 amenity-post_office
 en:3post
@@ -565,6 +608,8 @@ cs:3pošta
 nl:3post
 zh:1郵局|郵筒
 pl:4poczta|listy
+pt:3correios
+
 
 amenity-recycling
 en:recycling|trash|bin|garbage
@@ -580,6 +625,7 @@ cs:koš|odpadkový koš|popelnice|uložiště odpadu
 nl:recycling|afval|prullenbak|vuilnis
 zh:1垃圾桶|垃圾|回收|回收場
 pl:3recykling|ponowne odtworzenie|odpady
+pt:reciclagem|lixo
 
 amenity-school
 en:3school
@@ -595,6 +641,7 @@ cs:3škola
 nl:3school
 zh:1學校
 pl:3szkoła
+pt:3escola
 
 amenity-shelter
 en:shelter
@@ -610,6 +657,7 @@ cs:přístřešek|úkryt
 nl:beschutting
 zh:1隱藏處
 pl:3szopa|schronienie
+pt:abrigo
 
 amenity-telephone
 en:2phone
@@ -625,6 +673,7 @@ cs:2telefon|telefonní budka|telefonní automat
 nl:2telefoon
 zh:1電話|2電話亭|2公共電話|3公用電話
 pl:3telefon|budka telefoniczna
+pt:telefone
 
 amenity-theatre
 en:3theatre|theater|entertainment
@@ -640,6 +689,7 @@ cs:3divadlo|zábava
 nl:3theater|uitgaan
 zh:1劇場|戲院|劇院|娛樂
 pl:3teatr|rozrywka
+pt:3teatro|entretenimento
 
 amenity-toilets
 en:3toilet|wc
@@ -655,6 +705,7 @@ cs:3záchody|wc|toalety
 nl:3toilet|wc
 zh:1廁所|2洗手間|wc
 pl:3toaleta|wc|ubikacja|wychodek
+pt:WC
 
 amenity-university
 en:4university
@@ -670,6 +721,7 @@ cs:4univerzita|universita
 nl:4universiteit
 zh:1大學|學院
 pl:3uniwersytet|szkoła policealna
+pt:4universidade
 
 place-continent
 en:continent
@@ -685,6 +737,7 @@ cs:kontinent
 nl:continent
 zh:1大陸|洲
 pl:5kontynent
+pt:continente
 
 place-country
 en:country
@@ -700,6 +753,7 @@ cs:země
 nl:land
 zh:國|國家
 pl:kraj|państwo
+pt:país
 
 place-city
 en:city|town
@@ -715,6 +769,7 @@ cs:velkoměsto
 nl:stad|dorp
 zh:1城鎮|城市|市|鎮市
 pl:miasto|metropolia
+pt:cidade
 
 place-town
 en:town|city
@@ -730,6 +785,7 @@ cs:město
 nl:dorp|stad
 zh:鎮|城鎮|鄉|鄉鎮
 pl:miasteczko|miasto
+pt:cidade
 
 place-city-capital
 en:capital|city
@@ -745,6 +801,7 @@ cs:hlavní město|metropole
 nl:hoofdstad|stad
 zh:1首都|城市|市
 pl:stolica|miasto
+pt:capital
 
 place-county
 en:county
@@ -760,6 +817,7 @@ cs:země
 nl:land
 zh:縣
 pl:wieś|ląd
+pt:município
 
 place-state
 en:state|province
@@ -775,6 +833,7 @@ cs:země|provincie|kraj
 nl:regio|provincie
 zh:省|州
 pl:3stan|4region|5prowincja
+pt:estado|província
 
 place-region
 en:region
@@ -790,6 +849,7 @@ cs:region|oblast|zóna|sektor
 nl:regio
 zh:1地區
 pl:4region
+pt:região
 
 place-island|place-islet
 en:island|islet
@@ -805,6 +865,7 @@ cs:ostrov
 nl:eiland
 zh:島|小島|島嶼
 pl:4wyspa
+pt:ilha
 
 place-suburb
 en:suburb|district
@@ -820,6 +881,7 @@ cs:předměstí|městská část|městská zóna
 nl:buitenwijken|wijk
 zh:1郊區|近郊
 pl:5przedmieścia|okolice miasta
+pt:subúrbio|distrito
 
 place-hamlet
 en:hamlet|village
@@ -835,6 +897,7 @@ cs:vesnička
 nl:dorpje|dorp
 zh:村|1村莊|鄉下
 pl:wieś|wioska
+pt:lugarejo
 
 place-village
 en:village|hamlet
@@ -850,6 +913,7 @@ cs:vesnice
 nl:dorp|dorpje
 zh:1村莊|村|鄉下
 pl:wioska|wieś
+pt:aldeia
 
 place-locality
 en:locality
@@ -865,6 +929,7 @@ cs:lokalita
 nl:lokaal
 zh:1當地|地方
 pl:lokalne|region
+pt:localidade
 
 place-farm
 en:farm
@@ -880,6 +945,7 @@ cs:farma
 nl:boerderij
 zh:1農場|農田
 pl:3farma|gospodarstwo
+pt:quinta
 
 waterway-river|waterway-stream|waterway-riverbank
 en:river
@@ -895,6 +961,7 @@ cs:řeka
 nl:rivier
 zh:1河流|河
 pl:3rzeka|strumień
+pt:rio
 
 waterway-canal
 en:canal
@@ -910,6 +977,7 @@ cs:kanál
 nl:kanaal
 zh:1運河
 pl:4kanał
+pt:canal
 
 highway-raceway
 en:racetrack
@@ -925,6 +993,7 @@ cs:závodiště
 nl:racebaan
 zh:1跑道|賽道|2賽車道|賽車|2賽車場
 pl:3tor wyścigowy|tor samochodowy|wyścigi
+pt:pista de corridas
 
 highway-path|highway-footway|highway-steps
 en:path
@@ -940,6 +1009,7 @@ cs:cesta
 nl:pad
 zh:1人行步道|步道
 pl:3ścieżka|dróżka|droga
+pt:caminho
 
 highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-pedestrian|highway-unclassified|highway-motorway_link|highway-motorway
 en:street|st|str|ave|road|rd
@@ -955,6 +1025,7 @@ cs:ulice|cesta|silnice|ul
 nl:straat|st|str|laan
 zh:路|街
 pl:3ulica|droga
+pt:rua
 
 highway-motorway_junction
 en:3exit|3junction
@@ -965,6 +1036,7 @@ cs:dopravní uzel|3dálnice
 nl:3uitgang|3kruising
 zh:1交流道|出口處|高速公路|公路
 pl:wyjazd|wyjście
+pt:3saída|junção
 
 natural-peak
 en:peak|mountain
@@ -980,6 +1052,7 @@ cs:hora|pohoří
 nl:top|berg
 zh:1山峰|1山脈|山|峰
 pl:3góra|szczyt|wierzchołek
+pt:pico|montanha
 
 natural-water|landuse-basin|landuse-reservoir
 en:water
@@ -995,6 +1068,7 @@ cs:voda
 nl:water
 zh:1水庫|盆地|休閒|大自然
 pl:woda|naturalna woda
+pt:água
 
 natural-pond
 en:pond|water
@@ -1010,6 +1084,7 @@ cs:rybník|vodní nádrž|voda
 nl:plas|water
 zh:潭|池塘
 pl:3źródło|woda
+pt:lagoa|água
 
 natural-lake
 en:lake|water
@@ -1025,6 +1100,7 @@ cs:jezero|vodní nádrž|voda
 nl:meer|water
 zh:1湖泊|湖
 pl:3jezioro|woda|akwen|zbiornik
+pt:lago|água
 
 natural-wood|landuse-forest
 en:forest
@@ -1040,6 +1116,7 @@ cs:les
 nl:bos
 zh:1樹林|森林|樹木
 pl:las
+pt:floresta
 
 leisure-garden
 en:garden
@@ -1055,6 +1132,8 @@ cs:zahrada
 nl:tuin
 zh:1花園
 pl:ogród
+pt:jardim
+
 
 leisure-park
 en:park
@@ -1070,6 +1149,7 @@ cs:park
 nl:park
 zh:1公園
 pl:park
+pt:parque
 
 tourism-hostel
 en:3hostel|hotel|motel
@@ -1085,6 +1165,7 @@ cs:3hostel|hotel|ubytovna|motel
 nl:3hostel|hotel|motel
 zh:1旅舍|旅館|青年旅舍|青年旅館|住宿|飯店|3汽車旅館|3motel
 pl:4hostel|4hotel|4motel
+pt:3pousada|4hotel|motel
 
 tourism-hotel
 en:2hotel|hostel|motel
@@ -1100,7 +1181,7 @@ cs:2hotel|hostel|ubytovna|motel
 nl:2hotel|hostel|motel
 zh:1飯店|1汽車旅館|3motel|旅館|住宿|賓館|酒店|旅舍|招待所
 pl:3hotel|hostel|motel
-
+pt:3hotel|pousada|motel
 
 shop-hairdresser
 en:3hairdresser
@@ -1116,6 +1197,7 @@ cs:4kadeřnictví|4holičství
 nl:3kapper
 zh:1理髮師|美髮師|髮型設計師
 pl:4fryzjer
+pt:cabeleireiro
 
 aeroway-airport|aeroway-aerodrome
 en:3airport|3plane
@@ -1131,6 +1213,7 @@ cs:3letiště
 nl:3vliegveld|3vliegtuig
 zh:1機場|2航空站|3航空公司|2飛機場
 pl:3lotnisko
+pt:3aeroporto
 
 leisure-stadium
 en:stadium|4sport
@@ -1146,6 +1229,7 @@ cs:stadion|4sport
 nl:stadium|4sport
 zh:1體育中心|2運動場|2體育館|體育|運動
 pl:4stadion
+pt:estádio|desporto
 
 leisure-playground
 en:playground
@@ -1161,6 +1245,7 @@ cs:hřiště
 nl:speelplaats
 zh:1遊樂場
 pl:4plac zabaw
+pt:recreio
 
 leisure-sports_centre
 en:sports center|sport
@@ -1176,6 +1261,7 @@ cs:sportovní centrum|sport
 nl:sportcentrum|sport
 zh:1體育中心|2體育館|體育|運動|健身
 pl:cebtrum sportowe|sport
+pt:desporto|sport
 
 leisure-golf_course
 en:golf course|sport
@@ -1191,6 +1277,7 @@ cs:golf
 nl:golfbaan|sport
 zh:3高爾夫球場|2高爾夫球|高爾夫|體育|運動
 pl:4kurs golfowy|sport
+pt:campo de golfe|desporto
 
 leisure-pitch
 en:pitch|sport
@@ -1206,6 +1293,7 @@ cs:sport
 nl:veld|sport
 zh:2運動場|體育館|球場|2足球場|體育|運動|健身
 pl:pole|boisko|sport
+pt:campo|desporto
 
 leisure-swimming_pool
 en:4swimming pool|sport
@@ -1221,6 +1309,7 @@ cs:4koupaliště|3bazén|aquapark|4lázně
 nl:4zwembad|sport
 zh:2游泳池|游泳|玩水
 pl:3basen|pływalnia|sport
+pt:4piscina|desporto
 
 building|building-address
 en:building
@@ -1236,6 +1325,7 @@ cs:stavba
 nl:gebouw
 zh:1建築物
 pl:4budynek
+pt:construção
 
 amenity-police
 en:4police
@@ -1251,6 +1341,7 @@ cs:4policie|4bezpečnost
 nl:4politie
 zh:1警察局|警察|警員
 pl:4policja|komisariat
+pt:4polícia
 
 amenity-taxi
 en:3taxi|transport
@@ -1266,6 +1357,7 @@ cs:3taxi|doprava
 nl:3taxi|transport
 zh:1計程車|交通
 pl:3taxi|taksówka
+pt:3táxi|transporte
 
 amenity-marketplace
 en:4marketplace|market|shop
@@ -1281,6 +1373,7 @@ cs:4tržiště|samoobsluha|market|obchod
 nl:4markt|winkel
 zh:1市場|市集|購物
 pl:targ|targowisko|sklep
+pt:4mercado|mercado|loja
 
 amenity-nightclub
 en:3nightclub|3disco|dance|entertainment
@@ -1296,6 +1389,7 @@ cs:4noční klub|3disco|3klub|zábava
 nl:3nightclub|3disco|dansen|uitgaan
 zh:1夜店|2俱樂部|酒|喝酒|跳舞|舞|2夜生活|娛樂
 pl:3dyskoteka|klub nocny|rozrywka
+pt:3discoteca|3dançar|entretenimento
 
 amenity-embassy
 en:4embassy
@@ -1311,6 +1405,7 @@ cs:4velvyslanectví|4ambasáda
 nl:4ambassade
 zh:1大使館|使館
 pl:4ambasada
+pt:4embaixada
 
 historic-memorial
 en:memorial|monument|attraction|tourism|sights
@@ -1326,6 +1421,7 @@ cs:pomník|památka|atrakce|zajímavost|pamětihodnost
 nl:gedenkteken|monument|attractie|toerisme
 zh:1紀念碑|紀念館|旅遊景點
 pl:3pomnik|osobliwości miasta
+pt:memorial|monumento|turismo|vistas
 
 historic-monument
 en:monument|attraction|tourism|sights
@@ -1341,6 +1437,7 @@ cs:zajímavost|pomník|památka|pamětihodnost
 nl:monument|attractie|toerisme
 zh:1紀念碑|紀念塔|紀念館|旅遊景點
 pl:3pomnik historyczny|osobliwości miasta
+pt:monumento|turismo|vistas
 
 historic-ruins
 en:ruins|attraction|tourism|sights
@@ -1356,6 +1453,7 @@ cs:ruiny|zřícenina|pamětihodnost
 nl:ruïne|attractie|toerisme
 zh:1廢墟|古蹟|遺址|旅遊景點
 pl:3ruiny|turystyka|osobliwości miasta
+pt:ruínas|turismo|vistas
 
 historic-castle
 en:castle|attraction|tourism|sights
@@ -1371,6 +1469,7 @@ cs:zámek|atrakce|pamětihodnosti
 nl:kasteel|attractie|toerisme
 zh:城堡|堡|古蹟|歷史|旅遊景點
 pl:3zamek|turystyka|zwiedzanie|osobliwości miasta
+pt:castelo|turismo|vistas
 
 historic-archaeological_site
 en:archaeological site|attraction|tourism|sights
@@ -1386,6 +1485,7 @@ cs:vykopávky|pamětihodnost
 nl:archeologische opgraving|attractie|toerisme
 zh:1考古遺址|考古|遺址|古蹟|歷史|旅遊景點
 pl:5miejsce arhceologiczne|wykopaliska|osobliwości miasta
+pt:sítio arqueológico|turismo|vistas
 
 natural-bay
 en:bay
@@ -1401,6 +1501,7 @@ cs:záliv
 nl:baai
 zh:1海灣|灣|灣區
 pl:3zatoka
+pt|baía
 
 natural-spring
 en:spring
@@ -1416,6 +1517,7 @@ cs:pramen
 nl:bron
 zh:1泉水|泉|玩水
 pl:źródło
+pt:primavera
 
 shop-clothes
 en:clothes shop|4clothes
@@ -1431,6 +1533,7 @@ cs:oblečení|obchod
 nl:kledingwinkel|4kleding
 zh:1買衣服|衣服
 pl:sklep z ubraniami|ciuchowy|sklep
+pt:loja de roupas
 
 shop-car_repair
 en:3car repair shop|4service station|auto
@@ -1446,6 +1549,7 @@ cs:3auto opravna|auto|auta|Půjčení
 nl:3auto reparatie|auto|wagen
 zh:1汽車維修|維修|汽車|修理
 pl:3naprawa samochodu|warsztat samochodowy|warsztat|samochód|auto
+pt:oficina de reparação de automóveis|estação de serviço
 
 shop-car
 en:car shop
@@ -1461,6 +1565,7 @@ cs:obchod s auty|obchod
 nl:auto winkel
 zh:1買車|購車
 pl:3salon samochodowy|samochody
+pt:loja de carros
 
 shop-kiosk
 en:kiosk|shop
@@ -1476,6 +1581,7 @@ cs:kiosk|obchod
 nl:kiosk|winkel
 zh:1小舖|小店|購物|商店|小攤|攤子|攤販
 pl:kiosk|sklep|gazety|prasa
+pt:loja
 
 tourism-museum
 en:4museum|attraction|tourism|sights
@@ -1491,6 +1597,7 @@ cs:4muzeum|pamětihodnosti
 nl:4museum|attractie|toerisme
 zh:1博物館|旅遊|觀光|景點|遊覽|歷史|旅遊景點
 pl:4muzeum|turystyka|zwiedzanie|osobliwości miasta
+pt:4museu|turismo|vistas
 
 tourism-guest_house
 en:guest house|hotel|hostel
@@ -1506,6 +1613,7 @@ cs:penzion|hotel|hostel|ubytovna
 nl:gasthuis|hotel|hostel
 zh:1賓館|旅館|飯店|酒店|旅舍|住宿|招待所
 pl:4pensjonat|hotel|hostel|gościnne pokoje
+pt: casa de hóspedes|pousada|motel
 
 tourism-motel
 en:3motel|hotel|hostel
@@ -1521,6 +1629,7 @@ cs:3motel|penzion|hotel|hostel|ubytovna
 nl:3motel|hotel|hostel
 zh:1汽車旅館|3motel|旅館|飯店|住宿|
 pl:3motel|hotel|hostel
+pt:3pousada|motel
 
 tourism-camp_site
 en:4camping|campsite|campground
@@ -1536,6 +1645,7 @@ cs:4kempování|camping|kemp|camp
 nl:4camping|kamperen
 zh:露營|營地|營區|2露營區
 pl:4kamping|pole kempingowe
+pt:4acampamento|área de acampamento|local de acampamento
 
 tourism-caravan_site
 en:4caravan site|RV site
@@ -1551,6 +1661,7 @@ cs:kemp pro obytné přívěsy
 nl:caravan site
 zh:1營區|營地
 pl:4pole namiotowe
+pt:4parque de campismo|caravanismo
 
 tourism-alpine_hut
 en:mountains lodging|hotel|hostel|alpine hut
@@ -1566,7 +1677,9 @@ cs:4horská chata|horský hotel|hotel
 nl:3berghut|alpenhut|hotel
 zh:1山上住宿|飯店|旅館|住宿|旅舍|2高山住宿
 pl:3schronisko|chata w górach|goście|hotel|nocleg|bacówka
+pt:alojamento nas montanhas|cabana alpina|3pousada|motel
 
 office
 en:3office|company
 ru:2офис|компания|контора
+pt:2escritório|empresa
