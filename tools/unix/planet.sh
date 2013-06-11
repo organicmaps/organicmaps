@@ -176,9 +176,10 @@ if [[ $1 == "--generate" || $1 == "--continue" || $1 == "--full" ]]; then
 
   # Update countries list
   $GENERATOR_TOOL -generate_update
+  mv $DATA_PATH/countries.txt.updated $DATA_PATH/countries.txt
 
   # Update external resources
   pushd $DATA_PATH
-    $MY_PATH/external_resources.sh > external_resources.txt
+    ../tools/unix/external_resources.sh > external_resources.txt
   popd
 fi
