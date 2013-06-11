@@ -100,11 +100,12 @@ public class MapObjectFragment extends Fragment
     UiUtils.show(mAddToBookmarks);
     UiUtils.hide(mEditBmk);
     
-    if (MWMRequest.hasRequest())
+    final MWMRequest request = MWMRequest.getCurrentRequest();
+    if (request != null  && request.hasPendingIntent())
     {
       UiUtils.show(mOpenWith);
       mOpenWith.setCompoundDrawables(UiUtils
-          .setCompoundDrawableBounds(MWMRequest.getCurrentRequest().getIcon(getActivity()), R.dimen.icon_size, getResources()), null, null, null);
+          .setCompoundDrawableBounds(request.getIcon(getActivity()), R.dimen.icon_size, getResources()), null, null, null);
     }
     else 
       UiUtils.hide(mOpenWith);
