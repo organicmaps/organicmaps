@@ -1322,21 +1322,20 @@
     pt = Adicionar novo conjunto
   [add_to_bookmarks]
     en = Add to Bookmarks
-    tags = ios
+    tags = ios,android
     comment = Place Page - Add To Bookmarks button
-    cs = Přidat do záložek
-    de = Zu Lesezeichen hinzufügen
-    es = Agregar a marcadores
-    fr = Ajouter dans les signets
-    it = Aggiungi ai Preferiti
-    ja = ブックマークに追加
+    ru = Добавить в Закладки
+    de = Zu den Lesezeichen hinzufügen
+    fr = Ajouter aux favoris
+    it = Aggiungi al Segnalibri
+    es = Añadir a Favoritos
     ko = 즐겨찾기에 추가
-    nl = Voeg aan Bladwijzers toe
-    ru = Добавить в закладки
-    uk = Додати в закладки
-    zh-Hant = 加入到書籤
+    ja = ブックマークに追加
+    cs = Přidat k záložkám
+    nl = Toevoegen aan Bladwijzers
+    zh-Hant = 添加到書簽
     pl = Dodaj do zakładek
-    pt = Adicionar aos Favoritos
+    uk = Додати в закладки
   [bookmark_color]
     en = Bookmark Color
     tags = ios
@@ -2495,3 +2494,20 @@
     ru = Скопировать ссылку
     pl = Kopiuj link
     pt = Copiar hiperligação
+  [more_info]
+    en = Show More Info
+    tags = ios,android
+    comment = Text for the button that returns to caller application
+    ru = Подробнее
+    de = Weitere Infos anzeigen
+    fr = Afficher plus de renseignements
+    it = Mostra più informazioni
+    es = Mostrar más información
+    ko = 추가 정보 보기
+    ja = 詳細情報を表示
+    cs = Zobrazit další informace
+    nl = Toon meer info
+    zh-Hant = 显示更多信息"
+    pl  =Pokaż więcej informacji
+    uk = Докладніше
+    pt = Mostrar informação adicional
