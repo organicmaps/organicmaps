@@ -275,6 +275,16 @@
 	<string name="message">Nachricht</string>
 	<!-- Share by email button text -->
 	<string name="email">E-Mail</string>
+	<!-- Promocode Activation dialog title -->
+	<string name="promocode_activation">Aktivierung des Aktionscodes</string>
+	<!-- Enter promo code hint -->
+	<string name="enter_promocode_hint">Geben Sie den Aktionscode ein</string>
+	<!-- Promocode Activation success message -->
+	<string name="promocode_success">Aktionscode wurde aktiviert!</string>
+	<!-- Promocode Activation connection/io error -->
+	<string name="promocode_error">Verbindungsfehler: Bitte versuchen Sie es später erneut.</string>
+	<!-- Promocode Activation is invalid  message. -->
+	<string name="promocode_failure">Ungültiger Aktionscode. Bitte versuchen Sie es nochmals.</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Link kopieren</string>
 </resources>

@@ -2447,30 +2447,35 @@
     en = Promo Code Activation
     tags = android
     comment = Promocode Activation dialog title
+    de = Aktivierung des Aktionscodes
     pl = Aktywacja kodu promocyjnego
     pt = Ativação do Código de Promoção
   [enter_promocode_hint]
     en = Enter Promo Code
     tags = android
     comment = Enter promo code hint
+    de = Geben Sie den Aktionscode ein
     pl = Wprowadź kod promocyjny
     pt = Introduza o Código de Promoção
   [promocode_success]
     en = Promo code is activated!
     tags = android
     comment = Promocode Activation success message
+    de = Aktionscode wurde aktiviert!
     pl = Kod promocyjny został aktywowany!
     pt = O código de promoção está ativado!
   [promocode_error]
     en = Connection error. Please try again later.
     tags = android
     comment = Promocode Activation connection/io error
+    de = Verbindungsfehler: Bitte versuchen Sie es später erneut.
     pl = Błąd połączenia. Proszę spróbować ponownie później.
     pt = Erro de ligação. Por favor tente de novo mais tarde.
   [promocode_failure]
     en = Invalid promo code. Please try again.
     tags = android
     comment = Promocode Activation is invalid  message.
+    de = Ungültiger Aktionscode. Bitte versuchen Sie es nochmals.
     pl = Błędny kod promocyjny. Spróbuj ponownie.
     pt = Código de promoção inválido. Por favor tente de novo.
   [copy_link]
