@@ -270,12 +270,12 @@ namespace
       m_texRtFormat = graphics::Data8Bpp;
     }
 
-//#ifdef OMIM_OS_ANDROID
+#ifdef OMIM_OS_ANDROID
     // on PowerVR chips on Android glFinish doesn't work, so we should use
     // glReadPixels instead of glFinish to synchronize.
     if (isGPUVersion("Imagination Technologies", "PowerVR SGX 540", "OpenGL ES 2.0"))
       m_useReadPixelsToSynchronize = true;
-//#endif
+#endif
 
     LOG(LINFO, ("selected", graphics::formatName(m_texRtFormat), "format for tile textures"));
 
