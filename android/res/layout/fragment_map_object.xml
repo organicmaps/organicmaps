@@ -61,14 +61,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_small"
-        android:text="Add To Bookmarks" />
+        android:text="@string/add_to_bookmarks" />
 
     <Button
         android:id="@+id/editBookmark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_small"
-        android:text="Edit Bookmark" />
+        android:text="@string/edit" />
 
     <Button
         android:id="@+id/share"
@@ -82,6 +82,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_small"
-        android:text="Open With " />
+        android:text="@string/more_info" />
 
 </LinearLayout>
