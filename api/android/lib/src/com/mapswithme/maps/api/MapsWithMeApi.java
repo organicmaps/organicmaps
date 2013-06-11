@@ -15,26 +15,84 @@ import java.util.Locale;
 public final class MapsWithMeApi
 {
 
-  public static void showPointsOnMap(Activity caller, MWMPoint... points)
-  {
-    showPointsOnMap(caller, null, null, points);
-  }
+  public static final double ZOOM_MIN = 1;
+  public static final double ZOOM_MAX = 19;
 
-  public static void showPointOnMap(Activity caller, double lat, double lon, String name, String id)
+  /**
+   *  Shows single point on the map.
+   * 
+   * @param caller
+   * @param lat
+   * @param lon
+   * @param name
+   */
+  public static void showPointOnMap(Activity caller, double lat, double lon, String name)
   {
     showPointsOnMap(caller, (String)null, (PendingIntent)null, new MWMPoint(lat, lon, name));
   }
+  
+  
+  /** 
+   *  Shows single point on the map using specified 
+   *  zoom level in range from {@link MapsWithMeApi#ZOOM_MIN} to {@link MapsWithMeApi#ZOOM_MAX}.
+   * 
+   * @param caller
+   * @param lat
+   * @param lon
+   * @param name
+   * @param zoomLevel
+   */
+  public static void showPointOnMap(Activity caller, double lat, double lon, String name, double zoomLevel)
+  {
+    showPointsOnMap(caller, (String)null, zoomLevel, (PendingIntent)null, new MWMPoint(lat, lon, name));
+  }
 
+  /**
+   *  Shows set of points on the map.
+   * 
+   * @param caller
+   * @param title
+   * @param points
+   */
   public static void showPointsOnMap(Activity caller, String title, MWMPoint... points)
   {
     showPointsOnMap(caller, title, null, points);
   }
 
-  public static void showPointsOnMap(Activity caller, String title, PendingIntent pendingIntent, MWMPoint... points)
+  /**
+   *  Shows set of points on the maps
+   *  and allows MapsWithMeApplication to send {@link PendingIntent} provided by client application.
+   * 
+   * @param caller
+   * @param title
+   * @param pendingIntent
+   * @param points
+   */
+  public static void showPointsOnMap(Activity caller, String title, PendingIntent pendingIntent, MWMPoint ... points)
+  {
+    showPointsOnMap(caller, title, -1, pendingIntent, points);
+  }
+  
+  /**
+   *  Detects if any version (Lite, Pro) of MapsWithMe, which supports
+   *  API calls are installed on the device.
+   * 
+   * @param context
+   * @return
+   */
+  public static boolean isMapsWithMeInstalled(Context context)
+  {
+    final Intent intent = new Intent(Const.ACTION_MWM_REQUEST);
+    return context.getPackageManager().resolveActivity(intent, 0) != null;
+  }
+  
+  // Internal only code 
+  
+  private static void showPointsOnMap(Activity caller, String title, double zoomLevel, PendingIntent pendingIntent, MWMPoint... points)
   {
     final Intent mwmIntent = new Intent(Const.ACTION_MWM_REQUEST);
     
-    mwmIntent.putExtra(Const.EXTRA_URL, createMwmUrl(caller, title, points).toString());
+    mwmIntent.putExtra(Const.EXTRA_URL, createMwmUrl(caller, title, zoomLevel, points).toString());
     mwmIntent.putExtra(Const.EXTRA_TITLE, title);
     
     final boolean hasIntent = pendingIntent != null;
@@ -47,7 +105,6 @@ public final class MapsWithMeApi
     if (isMapsWithMeInstalled(caller))
     {
       // Match activity for intent
-      // TODO specify DEFAULT for Pro version.
       final ActivityInfo aInfo = caller.getPackageManager().resolveActivity(mwmIntent, 0).activityInfo;
       mwmIntent.setClassName(aInfo.packageName, aInfo.name);
       caller.startActivity(mwmIntent);
@@ -56,15 +113,8 @@ public final class MapsWithMeApi
     else 
       Toast.makeText(caller, "MapsWithMe is not installed.", Toast.LENGTH_LONG).show();
   }
-
-  public static boolean isMapsWithMeInstalled(Context context)
-  {
-    final Intent intent = new Intent(Const.ACTION_MWM_REQUEST);
-    return context.getPackageManager().resolveActivity(intent, 0) != null;
-  }
- 
   
-  static StringBuilder createMwmUrl(Context context, String title, MWMPoint ... points)
+  static StringBuilder createMwmUrl(Context context, String title, double zoomLevel, MWMPoint ... points)
   {
     StringBuilder urlBuilder = new StringBuilder("mapswithme://map?");
     // version
@@ -77,7 +127,9 @@ public final class MapsWithMeApi
               .append("&");
     // title
     appendIfNotNull(urlBuilder, "appname", title);
-
+    // zoom
+    appendIfNotNull(urlBuilder, "z", isValidZoomLevel(zoomLevel) ? String.valueOf(zoomLevel) : null);
+    
     // points
     for (MWMPoint point : points)
     {
@@ -116,5 +168,10 @@ public final class MapsWithMeApi
              .append("&");
     
     return builder;
+  }
+  
+  private static boolean isValidZoomLevel(double zoom)
+  {
+    return zoom >= ZOOM_MIN && zoom <= ZOOM_MAX;
   }
 }
