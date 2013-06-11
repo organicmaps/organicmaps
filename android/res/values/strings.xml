@@ -303,4 +303,6 @@
 	<string name="promocode_failure">Invalid promo code. Please try again.</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Copy Link</string>
+	<!-- Text for the button that returns to caller application -->
+	<string name="more_info">Show More Info</string>
 </resources>

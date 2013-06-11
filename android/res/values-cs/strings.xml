@@ -149,7 +149,7 @@
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Přidat novou skupinu záložek</string>
 	<!-- Place Page - Add To Bookmarks button -->
-	<string name="add_to_bookmarks">Přidat do záložek</string>
+	<string name="add_to_bookmarks">Přidat k záložkám</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Barva záložky</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
@@ -283,4 +283,6 @@
 	<string name="email">E-Mail</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Zkopírovat odkaz</string>
+	<!-- Text for the button that returns to caller application -->
+	<string name="more_info">Zobrazit další informace</string>
 </resources>

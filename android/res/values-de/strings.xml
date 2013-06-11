@@ -147,7 +147,7 @@
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Neue Gruppe hinzufügen</string>
 	<!-- Place Page - Add To Bookmarks button -->
-	<string name="add_to_bookmarks">Zu Lesezeichen hinzufügen</string>
+	<string name="add_to_bookmarks">Zu den Lesezeichen hinzufügen</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Lesezeichen Farbe</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
@@ -287,4 +287,6 @@
 	<string name="promocode_failure">Ungültiger Aktionscode. Bitte versuchen Sie es nochmals.</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Link kopieren</string>
+	<!-- Text for the button that returns to caller application -->
+	<string name="more_info">Weitere Infos anzeigen</string>
 </resources>

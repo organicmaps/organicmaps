@@ -287,4 +287,6 @@
 	<string name="email">Електронна пошта</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Копіювати посилання</string>
+	<!-- Text for the button that returns to caller application -->
+	<string name="more_info">Докладніше</string>
 </resources>

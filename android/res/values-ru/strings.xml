@@ -153,7 +153,7 @@
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Добавить группу</string>
 	<!-- Place Page - Add To Bookmarks button -->
-	<string name="add_to_bookmarks">Добавить в закладки</string>
+	<string name="add_to_bookmarks">Добавить в Закладки</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Цвет закладки</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
@@ -285,4 +285,6 @@
 	<string name="message">Сообщение</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Скопировать ссылку</string>
+	<!-- Text for the button that returns to caller application -->
+	<string name="more_info">Подробнее</string>
 </resources>

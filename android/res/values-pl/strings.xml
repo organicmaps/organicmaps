@@ -296,4 +296,6 @@
 	<string name="promocode_failure">Błędny kod promocyjny. Spróbuj ponownie.</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Kopiuj link</string>
+	<!-- Text for the button that returns to caller application -->
+	<string name="more_info">Pokaż więcej informacji</string>
 </resources>

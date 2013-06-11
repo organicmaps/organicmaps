@@ -140,7 +140,7 @@
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Voeg nieuwe Groep toe</string>
 	<!-- Place Page - Add To Bookmarks button -->
-	<string name="add_to_bookmarks">Voeg aan Bladwijzers toe</string>
+	<string name="add_to_bookmarks">Toevoegen aan Bladwijzers</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Bladwijzer Kleur</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
@@ -272,4 +272,6 @@
 	<string name="email">E-mail</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Kopieer koppeling</string>
+	<!-- Text for the button that returns to caller application -->
+	<string name="more_info">Toon meer info</string>
 </resources>

@@ -275,4 +275,6 @@
 	<string name="email">이메일</string>
 	<!-- Copy Link -->
 	<string name="copy_link">링크 복사하기</string>
+	<!-- Text for the button that returns to caller application -->
+	<string name="more_info">추가 정보 보기</string>
 </resources>

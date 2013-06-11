@@ -151,7 +151,7 @@
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">新增收藏夾</string>
 	<!-- Place Page - Add To Bookmarks button -->
-	<string name="add_to_bookmarks">加入到書籤</string>
+	<string name="add_to_bookmarks">添加到書簽</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">書籤顏色</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
@@ -271,4 +271,6 @@
 	<string name="email">電子郵件</string>
 	<!-- Copy Link -->
 	<string name="copy_link">拷贝链接</string>
+	<!-- Text for the button that returns to caller application -->
+	<string name="more_info">显示更多信息\&quot;</string>
 </resources>

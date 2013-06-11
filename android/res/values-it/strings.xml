@@ -151,7 +151,7 @@
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Aggiungi un nuovo Set</string>
 	<!-- Place Page - Add To Bookmarks button -->
-	<string name="add_to_bookmarks">Aggiungi ai Preferiti</string>
+	<string name="add_to_bookmarks">Aggiungi al Segnalibri</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Colore del Segnalibro</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
@@ -283,4 +283,6 @@
 	<string name="email">E-mail</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Copia link</string>
+	<!-- Text for the button that returns to caller application -->
+	<string name="more_info">Mostra più informazioni</string>
 </resources>
