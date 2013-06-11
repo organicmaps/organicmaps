@@ -175,9 +175,11 @@ namespace graphics
 
       string m_vendorName;
       string m_rendererName;
+      string m_versionName;
 
       /// check non-strict matching upon vendorName and rendererName
       bool isGPU(char const * vendorName, char const * rendererName, bool strictMatch) const;
+      bool isGPUVersion(char const * vendorName, char const * rendererName, char const * version);
 
     public:
 

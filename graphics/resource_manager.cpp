@@ -217,6 +217,7 @@ namespace
 
     GetGLStringSafe(GL_VENDOR, m_vendorName);
     GetGLStringSafe(GL_RENDERER, m_rendererName);
+    GetGLStringSafe(GL_VERSION, m_versionName);
   }
 
   bool ResourceManager::Params::isGPU(char const * vendorName, char const * rendererName, bool strictMatch) const
@@ -229,6 +230,14 @@ namespace
     else
       return (m_vendorName.find(vendorName) != string::npos)
           && (m_rendererName.find(rendererName) != string::npos);
+  }
+
+  bool ResourceManager::Params::isGPUVersion(char const * vendorName, char const * rendererName, char const * version)
+  {
+    LOG(LINFO, ("Version name =", m_versionName));
+    return (m_vendorName == string(vendorName))
+        && (m_rendererName == string(rendererName))
+        && (m_versionName == string(version));
   }
 
   void ResourceManager::Params::checkDeviceCaps()
@@ -261,12 +270,12 @@ namespace
       m_texRtFormat = graphics::Data8Bpp;
     }
 
-#ifdef OMIM_OS_ANDROID
+//#ifdef OMIM_OS_ANDROID
     // on PowerVR chips on Android glFinish doesn't work, so we should use
     // glReadPixels instead of glFinish to synchronize.
-    if (isGPU("Imagination Technologies", "PowerVR SGX 540", false))
+    if (isGPUVersion("Imagination Technologies", "PowerVR SGX 540", "OpenGL ES 2.0"))
       m_useReadPixelsToSynchronize = true;
-#endif
+//#endif
 
     LOG(LINFO, ("selected", graphics::formatName(m_texRtFormat), "format for tile textures"));
 
