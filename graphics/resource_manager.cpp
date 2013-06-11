@@ -264,7 +264,7 @@ namespace
 #ifdef OMIM_OS_ANDROID
     // on PowerVR chips on Android glFinish doesn't work, so we should use
     // glReadPixels instead of glFinish to synchronize.
-    if (isGPU("Imagination Technologies", "PowerVR", false))
+    if (isGPU("Imagination Technologies", "PowerVR SGX 540", false))
       m_useReadPixelsToSynchronize = true;
 #endif
 
