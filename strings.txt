@@ -1722,8 +1722,8 @@
     uk = Всюди
     zh-Hant = 任何地方
     pl = Wszędzie
-    pt = Em qualquer lugar
-  [search_mode_nearme]
+    pt = Em toda a parte
+  [search_mode_nearme] 
     en = Near Me
     tags = ios,android
     comment = Do search near my position only

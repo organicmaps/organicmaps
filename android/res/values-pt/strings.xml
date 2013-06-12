@@ -196,7 +196,7 @@
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Escolha entre milhas e quilómetros</string>
 	<!-- Do search in all sources -->
-	<string name="search_mode_all">Em qualquer lugar</string>
+	<string name="search_mode_all">Em toda a parte</string>
 	<!-- Do search near my position only -->
 	<string name="search_mode_nearme">Perto de mim</string>
 	<!-- Do search in current viewport only -->
