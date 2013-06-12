@@ -1,0 +1,138 @@
+<h1>MapsWithMe Android API: Getting Started</h1>
+
+<h2>Introduction</h2>
+
+<p>MapsWithMe Android API (hereinafter referred to as <em>&quot;API Library&quot;</em> or just <em>&quot;library&quot;</em>)
+provides interface for client application to perform next tasks:</p>
+
+<ul>
+<li>Show one or set of the points on offline map of <a href="http://mapswith.me/" title="MapsWithMe">MapsWithMe Application</a></li>
+<li>Send arbitrary <a href="http://developer.android.com/reference/android/app/PendingIntent.html" title="PendingIntent">PendingIntent</a> with point data when
+user asks for more information by pressing &quot;More Info&quot; button in MapsWithMe Application</li>
+</ul>
+
+<p>Thus, you can provide two way communication between your appication and MapsWithMe,
+using MapsWithMe to show points of interest (POI) and providing more information in your app.</p>
+
+<p>Please refer to <a href="http://example.com" title="Sample Application">sample application</a> for demo.</p>
+
+<h2>Prerequisites</h2>
+
+<p>It is supposed that you are familiar with Android Development, and you have Android SDK and Eclipse (or another IDE of your choice) installed.
+You should be familiar with concept of <a href="http://developer.android.com/guide/components/intents-filters.html" title="Intents and Intent Filters">Intents</a>, <a href="http://developer.android.com/tools/projects/index.html#LibraryProjects" title="Android Library Project">library projects</a>, and <a href="http://developer.android.com/reference/android/app/PendingIntent.html" title="PendingIntent">PendingIntents</a> (recommended) as well.
+Your application must target at least <em>android sdk version 7</em>.</p>
+
+<h2>Integration</h2>
+
+<p>First step is to clone <a href="http://example.com" title="GitHub Repository">repository</a> or download it as an archive.</p>
+
+<p>When your are done you find two folders: <em>lib</em> and <em>sample-app-capitals</em>. First one is a library project that you should add to your project.
+You don&#39;t need any additional permissions in your AndroidManifest.xml to use API library, so you can write real code straight away.</p>
+
+<h2>Classes Overview and HOW TO</h2>
+
+<p>Core classes you will work with are:</p>
+
+<ul>
+<li><a href="http://example.com" title="MapsWithMeApi.java">com.mapswithme.maps.api.MapsWithMeApi</a> - static class with methods such as <code>showPointOnMap(Activity, double, double, String)</code> etc.</li>
+<li><a href="http://example.com" title="MWMPoint.java">com.mapswithme.maps.api.MWMPoint</a> - model of POI, includes lat, lon, name, and id data.</li>
+<li><a href="http://example.com" title="MWMResponse.java">com.mapswithme.maps.api.MWMResponse</a> - </li>
+</ul>
+
+<h3>Show Points on the Map</h3>
+
+<p>The simplest usage:</p>
+
+<pre><code>public class MyPerfectActivity extends Activity {
+...
+
+  void showSomethingOnTheMap(SomeDomainObject arg)
+  {
+    // Do some work, create lat, lon, and name for point
+    final double lat = ...;
+    final double lon = ...;
+    final String name = ...;
+    // Ask MapsWithMe to show the point
+    MapsWithMeApi.showPointOnMap(this, lat, lon, name);
+  }
+...
+
+}
+</code></pre>
+
+<p>For multiple points use <a href="http://example.com" title="MWMPoint.java">MWMPoint</a> class:</p>
+
+<pre><code>void showMultiplePoints(List&lt;SomeDomainObject&gt; list)
+{
+  // Convert objects to MMWPoints
+  final MWMPoint[] points = new MWMPoint[list.length];
+  for (int i = 0; i &lt; list.size; i++)
+  {
+    // Get lat, lon, and name from object and assign it to new MMWPoint
+    points[i] = new MWMPoint(lat, lon, name);
+  }
+  // Show all point on the map, you could also provide some title
+  MapsWithMeApi.showPointsOnMap(this, &quot;Look at my points, my points are amazing!&quot;, points);
+}
+</code></pre>
+
+<h3>Ask MapsWithMe to Call my App</h3>
+
+<p>We support PendingIntent interaction (just like Android system
+NotificationManager does). You need to specify ID for each point to
+diftiguish it leter, and PentingIntent that MapsWithMe send back to
+your application:</p>
+
+<pre><code>// Here is how to pass points with ID ant PendingIntent
+void showMultiplePointsWithPendingIntent(List&lt;SomeDomainObject&gt; list, PendingIntent pendingIntent)
+{
+  // Convert objects to MMWPoints
+  final MWMPoint[] points = new MWMPoint[list.length];
+  for (int i = 0; i &lt; list.size; i++)
+  {
+    //                                      ||
+    //                                      ||
+    //                                      \/
+    //         Now you should specify string ID for each point
+    points[i] = new MWMPoint(lat, lon, name, id);
+  }
+  // Show all points on the map, you could also provide some title
+  MapsWithMeApi.showPointsOnMap(this, &quot;This title says that user should choose some point&quot;, pendingIntent, points);
+}
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    // Handle intent you specified with PandingIntent
+    // Now it has additional information (MWMPoint).
+    handleIntent(getIntent());
+}
+
+@Override
+protected void onNewIntent(Intent intent)
+{
+  super.onNewIntent(intent);
+  // if defined your activity as &quot;SingleTop&quot;- you should use onNewIntent
+  handleIntent(intent);
+}
+
+void handleIntent(Intent intent)
+{
+  final MWMResponse mwmResponse = MWMResponse.extractFromIntent(this, intent);
+  // Here is your point that user selected
+  final MWMPoint point = mwmResponse.getPoint();
+  // Now, for instance you can do some work depending on point id
+  processUserInteraction(point.getId());
+}
+</code></pre>
+
+<h2>Docs [TODO add link to javadoc]</h2>
+
+<h2>Sample Code [TODO add link to sample code]</h2>
+
+<h2>FAQ [TODO to be defined]</h2>
+
+<h2>Support</h2>
+
+<p>If you have any questions please email to <a href="mailto:api@mapswith.me" title="MapsWithMe Support Contact">api@mapswith.me</a>.</p>
