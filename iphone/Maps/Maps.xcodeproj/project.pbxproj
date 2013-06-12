@@ -1394,6 +1394,7 @@
 		ED8676FD16A0793800D9A02A /* 320-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "320-pro.png"; sourceTree = "<group>"; };
 		ED8B1A2016772AB4003CAD0A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		EDBB18B716972B0600AF0742 /* libzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzlib.a; sourceTree = "<group>"; };
+		EDC894E41768A5D3000D3660 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE026F0511D6AC0D00645242 /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = classificator.txt; path = ../../data/classificator.txt; sourceTree = SOURCE_ROOT; };
 		EE1201FF11CD464100ABDD5D /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbase.a; sourceTree = SOURCE_ROOT; };
 		EE12020011CD464100ABDD5D /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcoding.a; sourceTree = SOURCE_ROOT; };
@@ -3131,6 +3132,7 @@
 				ko,
 				nl,
 				pl,
+				pt,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			projectDirPath = "";
@@ -4540,6 +4542,7 @@
 				FA5940D4171C964D0045C9BB /* ko */,
 				FA5940D5171C964D0045C9BB /* nl */,
 				FAF8E2EC1752E0F100D41090 /* pl */,
+				EDC894E41768A5D3000D3660 /* pt */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
