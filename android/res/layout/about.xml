@@ -1,10 +1,20 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/dialog_max_height"
+    android:gravity="center"
     android:orientation="vertical" >
+
+    <ProgressBar
+        style="@android:style/Widget.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 
     <WebView
         android:id="@+id/webview_about"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_max_height"
+        android:layout_gravity="center"
+        android:visibility="invisible"/>
+
+</FrameLayout>

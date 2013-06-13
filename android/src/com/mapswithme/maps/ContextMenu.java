@@ -4,25 +4,42 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.mapswithme.maps.settings.SettingsActivity;
+import com.mapswithme.util.UiUtils;
 
 
 public class ContextMenu
 {
   private static void onAboutDialogClicked(Activity parent)
   {
-    LayoutInflater inflater = LayoutInflater.from(parent);
+    final String url = "file:///android_asset/about.html";
 
+    LayoutInflater inflater = LayoutInflater.from(parent);
     View alertDialogView = inflater.inflate(R.layout.about, null);
-    WebView myWebView = (WebView) alertDialogView.findViewById(R.id.webview_about);
-    myWebView.loadUrl("file:///android_asset/about.html");
+    final WebView myWebView = (WebView) alertDialogView.findViewById(R.id.webview_about);
+
+    myWebView.setWebViewClient(new WebViewClient() {
+      @Override
+      public void onPageFinished(WebView view, String url)
+      {
+        super.onPageFinished(view, url);
+        UiUtils.show(myWebView);
+
+        AlphaAnimation aAnim = new AlphaAnimation(0, 1);
+        aAnim.setDuration(750);
+        myWebView.startAnimation(aAnim);
+      }
+    });
 
     new AlertDialog.Builder(parent)
     .setView(alertDialogView)
@@ -32,11 +49,13 @@ public class ContextMenu
       @Override
       public void onClick(DialogInterface dialog, int which)
       {
-        dialog.cancel();
+        dialog.dismiss();
       }
     })
     .create()
     .show();
+
+    myWebView.loadUrl(url);
   }
 
   private static void onSettingsClicked(Activity parent)

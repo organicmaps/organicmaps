@@ -4,9 +4,11 @@
     <dimen name="icon_size">24dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    
+
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="margin_large">32dp</dimen>
+
+    <dimen name="dialog_max_height">320dp</dimen>
 
 </resources>
