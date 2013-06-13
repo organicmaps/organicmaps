@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string  name="downolad_url">http://www.mapswithme.com/get/</string>
+    <string  name="mapswithme">MapsWithMe</string>
+    <string  name="dlg_title">We have partnered with <b><font fgcolor="#ff70B82A">MapsWithMe</font></b> to provide you with offline maps of the entire world.</string>
+    <string  name="download_please">To continue please\ndownload the app</string>
+</resources>
