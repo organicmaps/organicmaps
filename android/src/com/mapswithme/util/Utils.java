@@ -5,11 +5,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
 import android.view.Window;
 import android.widget.EditText;
@@ -129,17 +132,17 @@ final public class Utils
   {
     return Build.VERSION.SDK_INT >= api;
   }
-
+  
   public static boolean apiLowerThan(int api)
   {
     return Build.VERSION.SDK_INT < api;
   }
-
+  
   public static void checkNotNull(Object object)
   {
     if (null == object) throw new NullPointerException("Argument here must not be NULL");
   }
-
+  
   @SuppressWarnings("deprecation")
   public static void copyTextToClipboard(Context context, String text)
   {

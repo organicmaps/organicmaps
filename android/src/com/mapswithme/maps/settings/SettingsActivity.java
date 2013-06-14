@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -13,11 +14,13 @@ import android.preference.PreferenceActivity;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Statistics;
+import com.mapswithme.util.Utils;
 
 public class SettingsActivity extends PreferenceActivity
 {
   private native boolean isDownloadingActive();
 
+  @SuppressWarnings("deprecation")
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
@@ -70,6 +73,24 @@ public class SettingsActivity extends PreferenceActivity
         return true;
       }
     });
+
+
+    //Statistics preference
+    if (Utils.apiEqualOrGreaterThan(9))
+    {
+      CheckBoxPreference allowStatsPreference = (CheckBoxPreference) findPreference("allow_stats");
+      allowStatsPreference.setChecked(Statistics.INSTANCE.isStatisticsEnabled(this));
+      allowStatsPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener()
+      {
+        @Override
+        public boolean onPreferenceChange(Preference preference, Object newValue)
+        {
+          Statistics.INSTANCE.setStatEnabled(getApplicationContext(), (Boolean)newValue);
+          return true;
+        }
+      });
+    }
+    // no else
   }
 
   @Override

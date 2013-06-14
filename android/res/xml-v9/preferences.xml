@@ -13,4 +13,9 @@
         android:summary="@string/measurement_units_summary"
         android:title="@string/measurement_units" />
 
+    <CheckBoxPreference
+        android:key="allow_stats"
+        android:summary="Let us make app better, Dude!"
+        android:title="Allow Statistics?" />
+
 </PreferenceScreen>
