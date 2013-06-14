@@ -28,7 +28,8 @@ public class ContextMenu
     View alertDialogView = inflater.inflate(R.layout.about, null);
     final WebView myWebView = (WebView) alertDialogView.findViewById(R.id.webview_about);
 
-    myWebView.setWebViewClient(new WebViewClient() {
+    myWebView.setWebViewClient(new WebViewClient()
+    {
       @Override
       public void onPageFinished(WebView view, String url)
       {
