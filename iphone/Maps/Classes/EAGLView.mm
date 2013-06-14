@@ -2,7 +2,6 @@
 #import <OpenGLES/EAGLDrawable.h>
 
 #import "EAGLView.h"
-#import "BalloonView.h"
 
 #include "RenderBuffer.hpp"
 #include "RenderContext.hpp"
@@ -19,9 +18,9 @@
 
 #include "../../std/bind.hpp"
 
+
 @implementation EAGLView
 
-@synthesize balloonView;
 
 // You must implement this method
 + (Class)layerClass

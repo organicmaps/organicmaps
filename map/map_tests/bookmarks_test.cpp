@@ -2,6 +2,8 @@
 
 #include "../../map/framework.hpp"
 
+#include "../../search/result.hpp"
+
 #include "../../platform/platform.hpp"
 
 #include "../../coding/internal/file_data.hpp"
@@ -342,8 +344,9 @@ namespace
                   char const * st, char const * house,
                   char const * typeEn, char const * typeRu)
   {
-    Framework::AddressInfo info;
-    fm.GetAddressInfo(fm.GtoP(m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat))), info);
+    search::AddressInfo info;
+    fm.GetAddressInfoForGlobalPoint(
+          m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)), info);
 
     TEST_EQUAL(info.m_name, name, ());
     TEST_EQUAL(info.m_street, st, ());

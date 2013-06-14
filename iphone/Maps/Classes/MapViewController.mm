@@ -11,6 +11,9 @@
 
 #import "../../Common/CustomAlertView.h"
 
+#include "Framework.h"
+#include "RenderContext.hpp"
+
 #include "../../../anim/controller.hpp"
 
 #include "../../../gui/controller.hpp"
@@ -19,9 +22,8 @@
 
 #include "../Statistics/Statistics.h"
 
-#include "RenderContext.hpp"
-
 #include "../../../map/dialog_settings.hpp"
+
 
 #define FACEBOOK_ALERT_VIEW 1
 #define APPSTORE_ALERT_VIEW 2
@@ -122,26 +124,6 @@ const long long LITE_IDL = 431183278L;
   }
 }
 
-//fires when user taps on dot or arrow on the screen
--(void) onMyPosionClick:(m2::PointD const &) point
-{
-  Framework &f = GetFramework();
-  BookmarkAndCategory const bmAndCat = f.GetBookmark(f.GtoP(point));
-  if (IsValid(bmAndCat))
-  {
-    if (f.GetBmCategory(bmAndCat.first)->IsVisible())
-    {
-      [self onBookmarkClickWithBookmarkAndCategory:bmAndCat];
-      return;
-    }
-  }
-
-  [m_balloonView clear];
-  [m_balloonView setTitle:NSLocalizedString(@"my_position", nil)];
-  m_balloonView.globalPosition = CGPointMake(point.x, point.y);
-  [m_balloonView showInView];
-}
-
 //********************************************************************************************
 //********************************************************************************************
 
@@ -240,7 +222,7 @@ const long long LITE_IDL = 431183278L;
   [navC release];
 }
 
-- (void) onBalloonClicked
+- (void) onBalloonClicked:(m2::PointD const &)pt withInfo:(search::AddressInfo const &)info
 {
   // Disable bookmarks for free version
   if (!GetPlatform().IsPro())
@@ -283,7 +265,7 @@ const long long LITE_IDL = 431183278L;
       int categoryPos = f.LastEditedCategory();
       [m_balloonView addBookmarkToCategory:categoryPos];
     }
-    [m_balloonView hide];
+
     [placePageVC release];
   }
 }
@@ -296,76 +278,9 @@ const long long LITE_IDL = 431183278L;
   [self Invalidate];
 }
 
-- (void) updatePinTexts:(Framework::AddressInfo const &)info
-{
-  NSString * res = [NSString stringWithUTF8String:info.m_name.c_str()];
-
-  char const * cType = info.GetBestType();
-  if (cType)
-  {
-    NSString * type = [NSString stringWithUTF8String:cType];
-
-    if (res.length == 0)
-      res = [type capitalizedString];
-    else
-      res = [NSString stringWithFormat:@"%@ (%@)", res, type];
-  }
-
-  if (res.length == 0)
-    res = NSLocalizedString(@"dropped_pin", nil);
-
-  // Reset description BEFORE title, as title's setter also takes it into an account for Balloon text generation
-  m_balloonView.notes = nil;
-  m_balloonView.title = res;
-  //m_balloonView.notes = [NSString stringWithUTF8String:info.FormatAddress().c_str()];
-  //m_balloonView.type = [NSString stringWithUTF8String:info.FormatTypes().c_str()];
-}
-
-
 - (void) processMapClickAtPoint:(CGPoint)point longClick:(BOOL)isLongClick
 {
-  BOOL wasBalloonDisplayed;
-  if ([m_balloonView isDisplayed])
-  {
-    [m_balloonView hide];
-    [m_balloonView clear];
-    wasBalloonDisplayed = YES;
-  }
-  else
-    wasBalloonDisplayed = NO;
-
-  // Try to check if we've clicked on bookmark
-  Framework & f = GetFramework();
-  CGFloat const scaleFactor = self.view.contentScaleFactor;
-
-  m2::PointD pxClicked(point.x * scaleFactor, point.y * scaleFactor);
-  Framework::AddressInfo addrInfo;
-  m2::PointD pxPivot;
-  BookmarkAndCategory bmAndCat;
-  switch (f.GetBookmarkOrPoi(pxClicked, pxPivot, addrInfo, bmAndCat))
-  {
-    case Framework::BOOKMARK:
-      [self onBookmarkClickWithBookmarkAndCategory:bmAndCat];
-      break;
-    case Framework::POI:
-      if (!wasBalloonDisplayed && f.GetVisiblePOI(pxClicked, pxPivot, addrInfo))
-      {
-        m2::PointD const gPivot = f.PtoG(pxPivot);
-        m_balloonView.globalPosition = CGPointMake(gPivot.x, gPivot.y);
-        [self updatePinTexts:addrInfo];
-        [m_balloonView showInView];
-      }
-      break;
-    default:
-      if (isLongClick)
-      {
-        f.GetAddressInfo(pxClicked, addrInfo);
-        m_balloonView.globalPosition = [(EAGLView *)self.view viewPoint2GlobalPoint:point];
-        [self updatePinTexts:addrInfo];
-        [m_balloonView showInView];
-      }
-      break;
-  }
+  GetFramework().GetBalloonManager().OnClick(m2::PointD(point.x, point.y), isLongClick == YES);
 }
 
 - (void) onSingleTap:(NSValue *)point
@@ -378,12 +293,14 @@ const long long LITE_IDL = 431183278L;
   [self processMapClickAtPoint:[point CGPointValue] longClick:YES];
 }
 
-- (void)showSearchResultAsBookmarkAtMercatorPoint:(m2::PointD const &)pt withInfo:(Framework::AddressInfo const &)info
+- (void)showSearchResultAsBookmarkAtMercatorPoint:(const m2::PointD &)pt withInfo:(const search::AddressInfo &)info
 {
-  [m_balloonView clear];
-  m_balloonView.globalPosition = CGPointMake(pt.x, pt.y);
-  [self updatePinTexts:info];
-  [m_balloonView showInView];
+  GetFramework().GetBalloonManager().ShowAddress(pt, info);
+}
+
+- (void)showBalloonWithCategoryIndex:(int)cat andBookmarkIndex:(int)bm
+{
+  // TODO:
 }
 
 - (void) dealloc
@@ -401,32 +318,32 @@ const long long LITE_IDL = 431183278L;
     self.title = NSLocalizedString(@"back", @"Back button in nav bar to show the map");
 
     // Helper to display/hide pin on screen tap
-    m_balloonView = [[BalloonView alloc] initWithTarget:self andSelector:@selector(onBalloonClicked)];
-
-    // @TODO refactor cyclic dependence.
-    // Here we're creating view and window handle in it, and later we should pass framework to the view.
-    EAGLView * v = (EAGLView *)self.view;
-    // @TODO implement balloon view in a cross-platform code
-    v.balloonView = m_balloonView;
+    m_balloonView = [[BalloonView alloc] initWithTarget:self];
 
     Framework & f = GetFramework();
-    
-    typedef void (*onCompassStatusChangedFn)(id, SEL, int);
-    SEL onCompassStatusChangedSel = @selector(onCompassStatusChanged:);
-    onCompassStatusChangedFn onCompassStatusChangedImpl = (onCompassStatusChangedFn)[self methodForSelector:onCompassStatusChangedSel];
 
-    typedef void (*onMyPositionClickedFn)(id, SEL, m2::PointD const &);
-    SEL onMyPositionClickedSel = @selector(onMyPosionClick:);
-    onMyPositionClickedFn onMyPosiionClickedImpl = (onMyPositionClickedFn)[self methodForSelector:onMyPositionClickedSel];
+    // Init balloon callbacks.
+    // TODO -----------------------------------------------------------------------------------------------
+    typedef void (*BalloonFnT)(id, SEL, m2::PointD const &, search::AddressInfo const &);
+    SEL balloonSelector = @selector(onBalloonClicked:withInfo:);
+    BalloonFnT balloonFn = (BalloonFnT)[self methodForSelector:balloonSelector];
+
+    BalloonManager & manager = f.GetBalloonManager();
+    manager.ConnectPoiListener(bind(balloonFn, self, balloonSelector, _1, _2));
+    // TODO -----------------------------------------------------------------------------------------------
+
+    typedef void (*CompassStatusFnT)(id, SEL, int);
+    SEL compassStatusSelector = @selector(onCompassStatusChanged:);
+    CompassStatusFnT compassStatusFn = (CompassStatusFnT)[self methodForSelector:compassStatusSelector];
 
     shared_ptr<location::State> ls = f.GetLocationState();
-    ls->AddCompassStatusListener(bind(onCompassStatusChangedImpl, self, onCompassStatusChangedSel, _1));
-    ls->AddOnPositionClickListener(bind(onMyPosiionClickedImpl, self, onMyPositionClickedSel,_1));
+    ls->AddCompassStatusListener(bind(compassStatusFn, self, compassStatusSelector, _1));
 
     m_StickyThreshold = 10;
 
     m_CurrentAction = NOTHING;
 
+    EAGLView * v = (EAGLView *)self.view;
     [v initRenderPolicy];
 
     // restore previous screen position
@@ -707,48 +624,6 @@ NSInteger compareAddress(id l, id r, void * context)
   GetFramework().SetupMeasurementSystem();
 }
 
--(void)onBookmarkClickWithBookmarkAndCategory:(BookmarkAndCategory const)bmAndCat
-{
-  Framework &f = GetFramework();
-  // Already added bookmark was clicked
-  BookmarkCategory * cat = f.GetBmCategory(bmAndCat.first);
-  if (cat)
-  {
-    // Automatically reveal hidden bookmark on a click
-    if (!cat->IsVisible())
-    {
-      // Category visibility will be autosaved after editing bookmark
-      cat->SetVisible(true);
-      [self Invalidate];
-    }
-
-    Bookmark const * bm = cat->GetBookmark(bmAndCat.second);
-    if (bm)
-    {
-      m2::PointD const globalPos = bm->GetOrg();
-      // Set it before changing balloon title to display different images in case of creating/editing Bookmark
-      m_balloonView.editedBookmark = bmAndCat;
-      m_balloonView.globalPosition = CGPointMake(globalPos.x, globalPos.y);
-      // Reset description BEFORE title, as title's setter also takes it into an account for Balloon text generation
-      string const & descr = bm->GetDescription();
-      if (!descr.empty())
-        m_balloonView.notes = [NSString stringWithUTF8String:descr.c_str()];
-      else
-        m_balloonView.notes = nil;
-
-      m_balloonView.title = [NSString stringWithUTF8String:bm->GetName().c_str()];
-      m_balloonView.color = [NSString stringWithUTF8String:bm->GetType().c_str()];
-      m_balloonView.setName = [NSString stringWithUTF8String:cat->GetName().c_str()];
-      [m_balloonView showInView];
-    }
-  }
-}
-
-- (void)showBalloonWithCategoryIndex:(int)index andBookmarkIndex:(int)bmIndex
-{
-  [self onBookmarkClickWithBookmarkAndCategory:BookmarkAndCategory(index, bmIndex)];
-}
-
 - (void)showAppStoreRatingMenu
 {
   UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"App Store"
@@ -839,14 +714,6 @@ NSInteger compareAddress(id l, id r, void * context)
   }
 }
 
-- (void)showBalloonWithText:(NSString *)text andGlobalPoint:(m2::PointD) point
-{
-  [m_balloonView clear];
-  m_balloonView.globalPosition = CGPointMake(point.x, point.y);
-  m_balloonView.title = text;
-  [m_balloonView showInView];
-}
-
 - (void) destroyPopover
 {
   [popover release];
@@ -887,7 +754,6 @@ NSInteger compareAddress(id l, id r, void * context)
     self.navigationController.navigationBarHidden = NO;
     UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"back", nil) style: UIBarButtonItemStyleDone target:self action:@selector(returnToApiApp)] autorelease];
     self.navigationItem.leftBarButtonItem = closeButton;
-
 
 //    UIBarButtonItem * hide = [[[UIBarButtonItem alloc] initWithTitle:@"hide" style: UIBarButtonItemStyleDone target:self action:@selector(onHideClicked)] autorelease];
 //    self.navigationItem.rightBarButtonItem = hide;

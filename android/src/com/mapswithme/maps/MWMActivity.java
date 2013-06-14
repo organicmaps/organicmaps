@@ -1,5 +1,9 @@
 package com.mapswithme.maps;
 
+import java.io.Serializable;
+import java.util.Locale;
+import java.util.Stack;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -31,10 +35,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mapswithme.maps.Framework.OnApiPointActivatedListener;
-import com.mapswithme.maps.Framework.OnBookmarkActivatedListener;
-import com.mapswithme.maps.Framework.OnMyPositionActivatedListener;
-import com.mapswithme.maps.Framework.OnPoiActivatedListener;
+import com.mapswithme.maps.Framework.OnBalloonListener;
 import com.mapswithme.maps.api.MWMRequest;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.location.LocationService;
@@ -46,16 +47,10 @@ import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
 import com.nvidia.devtech.NvEventQueueActivity;
 
-import java.io.Serializable;
-import java.util.Locale;
-import java.util.Stack;
-
-public class MWMActivity extends NvEventQueueActivity 
-                         implements LocationService.Listener, OnApiPointActivatedListener,
-                                    OnBookmarkActivatedListener, OnPoiActivatedListener, OnMyPositionActivatedListener
+public class MWMActivity extends NvEventQueueActivity implements LocationService.Listener, OnBalloonListener
 {
   public static final String EXTRA_TASK = "map_task";
-  
+
   private static final int PRO_VERSION_DIALOG = 110001;
   private static final String PRO_VERSION_DIALOG_MSG = "pro_version_dialog_msg";
   private static final int PROMO_DIALOG = 110002;
@@ -75,7 +70,7 @@ public class MWMActivity extends NvEventQueueActivity
   private TextView mAppTitle;
   // Map tasks that we run AFTER rendering initialized
   private Stack<MapTask> mTasks = new Stack<MWMActivity.MapTask>();
-  
+
 
 
   //showDialog(int, Bundle) available only form API 8
@@ -190,9 +185,9 @@ public class MWMActivity extends NvEventQueueActivity
         checkBuyProDialog();
       }
     });
-    
+
     // Task are not UI-thread bounded,
-    // if any task need UI-thread it should implicitly 
+    // if any task need UI-thread it should implicitly
     // use Activity.runOnUiThread().
     while (!mTasks.isEmpty())
       mTasks.pop().run(this);
@@ -580,28 +575,22 @@ public class MWMActivity extends NvEventQueueActivity
 
     alignZoomButtons();
 
-    Framework.setOnBookmarkActivatedListener(this);
-    Framework.setOnPoiActivatedListener(this);
-    Framework.setOnMyPositionActivatedListener(this);
-    Framework.setOnApiPointActivatedListener(this);
-    
+    Framework.connectBalloonListeners(this);
+
     Intent intent = getIntent();
     // We need check for tasks both in onCreate and onNewIntent
     // because of bug in OS: https://code.google.com/p/android/issues/detail?id=38629
     addTask(intent);
   }
-  
+
   @Override
   public void onDestroy()
   {
-    Framework.clearOnBookmarkActivatedListener();
-    Framework.clearOnPoiActivatedListener();
-    Framework.clearOnMyPositionActivatedListener();
-    Framework.clearOnApiPointActivatedListener();
-    
+    Framework.clearBalloonListeners();
+
     super.onDestroy();
   }
-  
+
   @Override
   protected void onNewIntent(Intent intent)
   {
@@ -611,7 +600,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void addTask(Intent intent)
   {
-    if (intent != null 
+    if (intent != null
         && intent.hasExtra(EXTRA_TASK)
         && ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0))
     {
@@ -621,7 +610,7 @@ public class MWMActivity extends NvEventQueueActivity
     }
     setIntent(null);
   }
-  
+
   @Override
   protected void onStop()
   {
@@ -822,7 +811,7 @@ public class MWMActivity extends NvEventQueueActivity
       mTitleBar.setVisibility(View.VISIBLE);
 
       marginTopForMap = (int) getResources().getDimension(R.dimen.abs__action_bar_default_height);
-     }
+    }
     else
     {
       // hide title
@@ -1033,27 +1022,27 @@ public class MWMActivity extends NvEventQueueActivity
       m_externalStorageReceiver = null;
     }
   }
-  
+
   ////
   //    Map TASKS
   ////
-  
-  public interface MapTask extends Serializable 
+
+  public interface MapTask extends Serializable
   {
     public boolean run(MWMActivity target);
   }
-  
+
   public static class OpenUrlTask implements MapTask
   {
     private static final long serialVersionUID = 1L;
     private final String mUrl;
-    
-    public OpenUrlTask(String url) 
+
+    public OpenUrlTask(String url)
     {
       Utils.checkNotNull(url);
       mUrl = url;
     }
-    
+
     @Override
     public boolean run(MWMActivity target)
     {
@@ -1061,29 +1050,29 @@ public class MWMActivity extends NvEventQueueActivity
     }
   }
 
-  
+
   ////
   //   NATIVE callbacks and methods
   ////
-  
+
   @Override
   public void onApiPointActivated(final double lat, final double lon, final String name, final String id)
   {
-      if (MWMRequest.hasRequest())
-        MWMRequest.getCurrentRequest().setPointData(lat, lon, name, id);
-        // This is case for "mwm" scheme,
-        // if point is from "geo" or "ge0" - this is wrong. So we check here.
-      
-      runOnUiThread(new Runnable()
+    if (MWMRequest.hasRequest())
+      MWMRequest.getCurrentRequest().setPointData(lat, lon, name, id);
+    // This is case for "mwm" scheme,
+    // if point is from "geo" or "ge0" - this is wrong. So we check here.
+
+    runOnUiThread(new Runnable()
+    {
+      @Override
+      public void run()
       {
-        @Override
-        public void run()
-        {
-          MapObjectActivity.startWithApiPoint(getActivity(), name, null, null, lat, lon);
-        }
-      });
+        MapObjectActivity.startWithApiPoint(getActivity(), name, null, null, lat, lon);
+      }
+    });
   }
- 
+
   @Override
   public void onPoiActivated(final String name, final String type, final String address, final double lat, final double lon)
   {
@@ -1096,7 +1085,7 @@ public class MWMActivity extends NvEventQueueActivity
       }
     });
   }
-  
+
   @Override
   public void onBookmarkActivated(final int category, final int bookmarkIndex)
   {
@@ -1109,7 +1098,7 @@ public class MWMActivity extends NvEventQueueActivity
       }
     });
   }
-  
+
   @Override
   public void onMyPositionActivated(final double lat, final double lon)
   {
@@ -1122,7 +1111,7 @@ public class MWMActivity extends NvEventQueueActivity
       }
     });
   }
-  
+
   private native void nativeStorageConnected();
   private native void nativeStorageDisconnected();
 
@@ -1136,6 +1125,6 @@ public class MWMActivity extends NvEventQueueActivity
   private native void nativeCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
 
   private native boolean nativeIsInChina(double lat, double lon);
-  
+
   private native boolean setViewPortByUrl(String url);
 }

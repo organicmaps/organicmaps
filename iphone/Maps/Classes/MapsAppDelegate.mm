@@ -251,12 +251,10 @@ void InitLocalizedStrings()
   m_navController.navigationBarHidden = YES;
 }
 
--(void) showParsedBookmarkOnMap:(url_scheme::ApiPoint const &)apiPoint
+-(void) showParsedBookmarkOnMap:(url_api::Request const &) request
 {
   [self showMap];
-  m2::PointD const globalPoint(MercatorBounds::LonToX(apiPoint.m_lon), MercatorBounds::LatToY(apiPoint.m_lat));
-  NSString * name = [NSString stringWithUTF8String:apiPoint.m_name.c_str()];
-  [m_mapViewController showBalloonWithText:name andGlobalPoint:globalPoint];
+  GetFramework().GetBalloonManager().ShowUrlRequest(request);
 }
 
 @end

@@ -332,7 +332,7 @@ namespace
 
     static void GetReadableTypes(search::Engine const * eng, int8_t lang,
                                  feature::TypesHolder & types,
-                                 Framework::AddressInfo & info)
+                                 search::AddressInfo & info)
     {
       types.SortBySpec();
 
@@ -367,7 +367,7 @@ namespace
       }
     }
 
-    void FillAddress(search::Engine const * eng, Framework::AddressInfo & info)
+    void FillAddress(search::Engine const * eng, search::AddressInfo & info)
     {
       int8_t const lang = eng->GetCurrentLanguage();
 
@@ -435,7 +435,7 @@ namespace
       m_eps = max(rect.SizeX(), rect.SizeY());
     }
 
-    void FillLocality(Framework::AddressInfo & info, Framework const & fm)
+    void FillLocality(search::AddressInfo & info, Framework const & fm)
     {
       SortResults();
       //LOG(LDEBUG, (m_cont));
@@ -470,15 +470,7 @@ namespace
   }
 }
 
-void Framework::GetAddressInfo(m2::PointD const & pxPoint, AddressInfo & info) const
-{
-  // Input point is in pixel coordinates.
-  m2::PointD const pt = PtoG(pxPoint);
-
-  GetAddressInfoForGlobalPoint(pt, info);
-}
-
-void Framework::GetAddressInfoForGlobalPoint(m2::PointD const & pt, AddressInfo & info) const
+void Framework::GetAddressInfoForGlobalPoint(m2::PointD const & pt, search::AddressInfo & info) const
 {
   info.Clear();
 
@@ -508,7 +500,7 @@ void Framework::GetAddressInfoForGlobalPoint(m2::PointD const & pt, AddressInfo 
   GetLocality(pt, info);
 }
 
-void Framework::GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, AddressInfo & info) const
+void Framework::GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, search::AddressInfo & info) const
 {
   info.Clear();
 
@@ -531,7 +523,7 @@ void Framework::GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, Ad
   //GetLocality(pt, info);
 }
 
-void Framework::GetLocality(m2::PointD const & pt, AddressInfo & info) const
+void Framework::GetLocality(m2::PointD const & pt, search::AddressInfo & info) const
 {
   CheckerT & checker = GetChecker();
 
@@ -545,110 +537,4 @@ void Framework::GetLocality(m2::PointD const & pt, AddressInfo & info) const
   m_model.ForEachFeature(rect, getLocality, scale);
 
   getLocality.FillLocality(info, *this);
-}
-
-////////////////////////////////////////////////////////////////////////////////////
-// Framework::AddressInfo implementation
-////////////////////////////////////////////////////////////////////////////////////
-
-void Framework::AddressInfo::MakeFrom(search::Result const & res)
-{
-  ASSERT_EQUAL ( res.GetResultType(), search::Result::RESULT_FEATURE, () );
-
-  // push the feature type
-  string const type = res.GetFeatureType();
-  if (!type.empty())
-    m_types.push_back(type);
-  else
-    ASSERT ( false, ("Search result with empty type") );
-
-  // assign name if it's not equal with type
-  string name = res.GetString();
-  if (name != type)
-    m_name.swap(name);
-}
-
-string Framework::AddressInfo::GetPinName() const
-{
-  return m_name.empty() ? m_house : m_name;
-}
-
-string Framework::AddressInfo::GetPinType() const
-{
-  char const * type = GetBestType();
-  return (type ? type : "");
-}
-
-string Framework::AddressInfo::FormatPinText() const
-{
-  // select name or house if name is empty
-  string const & ret = (m_name.empty() ? m_house : m_name);
-
-  char const * type = GetBestType();
-  if (type)
-  {
-    if (ret.empty())
-      return type;
-    else
-      return ret + " (" + string(type) + ')';
-  }
-  else
-    return ret;
-}
-
-string Framework::AddressInfo::FormatAddress() const
-{
-  string result = m_house;
-  if (!m_street.empty())
-  {
-    if (!result.empty())
-      result += ' ';
-    result += m_street;
-  }
-  if (!m_city.empty())
-  {
-    if (!result.empty())
-      result += ", ";
-    result += m_city;
-  }
-  if (!m_country.empty())
-  {
-    if (!result.empty())
-      result += ", ";
-    result += m_country;
-  }
-  return result;
-}
-
-string Framework::AddressInfo::FormatTypes() const
-{
-  string result;
-  for (size_t i = 0; i < m_types.size(); ++i)
-  {
-    ASSERT ( !m_types.empty(), () );
-    if (!result.empty())
-      result += ' ';
-    result += m_types[i];
-  }
-  return result;
-}
-
-char const * Framework::AddressInfo::GetBestType() const
-{
-  if (!m_types.empty())
-  {
-    ASSERT ( !m_types[0].empty(), () );
-    return m_types[0].c_str();
-  }
-  return 0;
-}
-
-void Framework::AddressInfo::Clear()
-{
-  m_country.clear();
-  m_city.clear();
-  m_street.clear();
-  m_house.clear();
-  m_name.clear();
-  m_types.clear();
 }

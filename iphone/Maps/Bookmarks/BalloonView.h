@@ -23,11 +23,8 @@
 @property(nonatomic, retain) NSString * setName;
 
 
-- (id) initWithTarget:(id)target andSelector:(SEL)selector;
-- (void) showInView;
-- (void) hide;
+- (id) initWithTarget:(id)target;
 - (void) clear;
-- (BOOL) isDisplayed;
 
 // Kosher method to add bookmark into the Framework.
 // It automatically "edits" bookmark if it's already exists

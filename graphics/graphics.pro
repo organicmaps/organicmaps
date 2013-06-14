@@ -142,7 +142,7 @@ HEADERS += \
     vertex_stream.hpp \
     path_view.hpp \
     path.hpp \
-    depth_constants.hpp
+    depth_constants.hpp \
 
 win32* {
   SOURCES += opengl/opengl_win32.cpp

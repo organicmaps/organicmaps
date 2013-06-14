@@ -6,6 +6,10 @@
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 
+#include "Framework.h"
+#include "../../search/result.hpp"
+
+
 @interface PinPickerView : UIView
 
 - (id)initWithImage:(UIImage *)image;
@@ -424,8 +428,10 @@ static NSString  * const g_colors [] =
 
   if ([textFieldText isEqualToString:NSLocalizedString(@"my_position", nil)])
   {
+    search::AddressInfo info;
     m2::PointD pt = m2::PointD(m_balloon.globalPosition.x, m_balloon.globalPosition.y);
-    NSString * nameAndAddress = [NSString stringWithUTF8String:GetFramework().GetNameAndAddressAtGlobalPoint(pt).c_str()];
+    GetFramework().GetAddressInfoForGlobalPoint(pt, info);
+    NSString * nameAndAddress = [NSString stringWithUTF8String:info.FormatNameAndAddress().c_str()];
     [mailVC setMessageBody:[NSString stringWithFormat:NSLocalizedString(@"my_position_share_email", nil), nameAndAddress, shortUrl, httpGe0Url] isHTML:NO];
     [mailVC setSubject:NSLocalizedString(@"my_position_share_email_subject", nil)];
   }

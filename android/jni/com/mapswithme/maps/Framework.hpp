@@ -30,24 +30,6 @@ namespace android
 
     void CallRepaint();
 
-    /* Balloon */
-    // POI
-    typedef function<void (::Framework::AddressInfo const &, m2::PointD const &)> TOnPoiActivatedListener;
-    TOnPoiActivatedListener m_poiActivatedListener;
-    // Bookmark
-    typedef function<void (BookmarkAndCategory const &)> TOnBookmarkActivatedListener;
-    TOnBookmarkActivatedListener m_bookmarkActivatedListener;
-    // API point
-    typedef function<void (url_scheme::ApiPoint const &)> TOnApiPointActivatedListener;
-    TOnApiPointActivatedListener m_apiPointActivatedListener;
-    // My Position
-    typedef function<void (double, double)> TOnMyPositionActivatedListener;
-    TOnMyPositionActivatedListener m_myPositionActivatedListener;
-
-
-
-
-
     double m_x1;
     double m_y1;
     double m_x2;
@@ -55,7 +37,6 @@ namespace android
     int m_mask;
 
     bool m_doLoadState;
-
 
     /// @name Single click processing parameters.
     //@{
@@ -73,30 +54,6 @@ namespace android
     void StartTouchTask(double x, double y, unsigned ms);
     void KillTouchTask();
     void OnProcessTouchTask(double x, double y, unsigned ms);
-
-    typedef graphics::Image::Info ImageT;
-    ImageT m_images[1];
-    enum PopupImageIndexT {IMAGE_ARROW = 0};
-
-    void ActivatePopup(m2::PointD const & pos, string const & name, string const & type, PopupImageIndexT index);
-    void ActivatePopupWithAddressInfo(m2::PointD const & pos, ::Framework::AddressInfo const & addrInfo);
-
-    void UpdateBalloonSize();
-
-    shared_ptr<BookmarkBalloon> m_bmBaloon;
-    string m_bmType;
-
-    // Balloon click callbacks
-    void OnActivatePoi(gui::Element * e, ::Framework::AddressInfo const & addrInfo, m2::PointD const & globalPoint);
-    void OnActivateBookmark(gui::Element * e, BookmarkAndCategory const & bmkAndCat);
-    void OnActivateApiPoint(gui::Element * e, url_scheme::ApiPoint const & apiPoint);
-    void OnActivateMyPosition(gui::Element * e);
-
-
-    void CreateBookmarkBalloon();
-    BookmarkBalloon * GetBookmarkBalloon();
-    void OnPositionClicked(m2::PointD const & point);
-    bool m_doUpdateBalloonPositionFromLocation;
 
     string m_searchQuery;
 
@@ -164,31 +121,13 @@ namespace android
     size_t ChangeBookmarkCategory(BookmarkAndCategory const & ind, size_t newCat);
 
     ::Framework * NativeFramework();
+    BalloonManager & GetBalloonManager() { return m_work.GetBalloonManager(); }
 
     bool IsDownloadingActive();
 
     bool SetViewportByUrl(string const & ulr);
 
     void DeactivatePopup();
-
-    /*
-     * There glue code listeners started
-     * to show their ugly (inter)faces!
-     */
-
-    // POI
-    void SetPoiActivatedListener(TOnPoiActivatedListener const & l);
-    void ClearPoiActivatedListener();
-    // BOOKMARK
-    void SetBookmarkActivatedListener(TOnBookmarkActivatedListener const & l);
-    void ClearBookmarkActivatedListener();
-    // API point
-    void SetApiPointActivatedListener(TOnApiPointActivatedListener const & l);
-    void ClearApiPointActivatedListener();
-    // My Position
-    void SetOnMyPositionActivatedListener(TOnMyPositionActivatedListener const & l);
-    void ClearOnMyPositionActivatedListener();
-
   };
 }
 

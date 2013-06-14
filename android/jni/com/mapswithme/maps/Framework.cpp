@@ -16,7 +16,6 @@
 
 #include "../../../../../graphics/opengl/framebuffer.hpp"
 #include "../../../../../graphics/opengl/opengl.hpp"
-#include "../../../../../graphics/depth_constants.hpp"
 
 #include "../../../../../platform/platform.hpp"
 #include "../../../../../platform/location.hpp"
@@ -43,8 +42,7 @@ namespace android
    : m_mask(0),
      m_isCleanSingleClick(false),
      m_doLoadState(true),
-     m_wasLongClick(false),
-     m_doUpdateBalloonPositionFromLocation(false)
+     m_wasLongClick(false)
   {
     ASSERT_EQUAL ( g_framework, 0, () );
     g_framework = this;
@@ -53,25 +51,11 @@ namespace android
     size_t const measurementsCount = 5;
     m_sensors[0].SetCount(measurementsCount);
     m_sensors[1].SetCount(measurementsCount);
-
-    m_bmType = "placemark-red";
-
-    shared_ptr<location::State> locState = NativeFramework()->GetLocationState();
-    locState->AddOnPositionClickListener(bind(&Framework::OnPositionClicked, this, _1));
   }
 
   Framework::~Framework()
   {
     delete m_videoTimer;
-  }
-
-  void Framework::OnPositionClicked(m2::PointD const & point)
-  {
-    string name = NativeFramework()->GetStringsBundle().GetString("my_position");
-    ActivatePopup(point, name, "", IMAGE_ARROW);
-    m_bmBaloon.get()->setOnClickListener(bind(&Framework::OnActivateMyPosition, this, _1));
-    m_doUpdateBalloonPositionFromLocation = true;
-    //TODO add listener to ballon for Java code
   }
 
   void Framework::OnLocationError(int errorCode)
@@ -87,14 +71,6 @@ namespace android
     info.m_longitude = lon;
     info.m_horizontalAccuracy = accuracy;
 
-    /// @todo don't forget to make cross-platform when we have our sexy-cross-platform balloons
-    if (m_doUpdateBalloonPositionFromLocation)
-    {
-      GetBookmarkBalloon()->setGlbPivot(m2::PointD(MercatorBounds::LonToX(lon),
-                                                   MercatorBounds::LatToY(lat)));
-      m_work.Invalidate();
-    }
-
     m_work.OnLocationUpdate(info);
   }
 
@@ -105,6 +81,7 @@ namespace android
     info.m_magneticHeading = magneticNorth;
     info.m_trueHeading = trueNorth;
     info.m_accuracy = accuracy;
+
     m_work.OnCompassUpdate(info);
   }
 
@@ -190,12 +167,9 @@ namespace android
       return false;
     }
 
-    graphics::EDensity const density = m_work.GetRenderPolicy()->Density();
-    m_images[IMAGE_ARROW] = ImageT("arrow.png", density);
-
     m_work.SetUpdatesEnabled(true);
     m_work.EnterForeground();
-    UpdateBalloonSize();
+
     return true;
   }
 
@@ -229,7 +203,6 @@ namespace android
   void Framework::Resize(int w, int h)
   {
     m_work.OnSize(w, h);
-    UpdateBalloonSize();
   }
 
   void Framework::DrawFrame()
@@ -461,13 +434,6 @@ namespace android
   {
     m_doLoadState = false;
 
-    ::Framework::AddressInfo info;
-    info.MakeFrom(r);
-    ActivatePopupWithAddressInfo(r.GetFeatureCenter(), info);
-
-    m2:: PointD globalPoint = r.GetFeatureCenter();
-    m_bmBaloon.get()->setOnClickListener(bind(&Framework::OnActivatePoi, this, _1, info, globalPoint));
-
     m_work.ShowSearchResult(r);
   }
 
@@ -587,137 +553,8 @@ namespace android
 
   void Framework::OnProcessTouchTask(double x, double y, unsigned ms)
   {
-    // stop updating balloon position
-    m_doUpdateBalloonPositionFromLocation = false;
-
-    m2::PointD               pt(x, y);
-    ::Framework::AddressInfo addrInfo;
-    m2::PointD               pxPivot;
-    BookmarkAndCategory      bmAndCat;
-
-    url_scheme::ApiPoint apiPoint;
-    bool const apiPointActivated = NativeFramework()->GetMapApiPoint(pt, apiPoint);
-    if (apiPointActivated)
-    {
-      m2::PointD pivot(MercatorBounds::LonToX(apiPoint.m_lon),
-                       MercatorBounds::LatToY(apiPoint.m_lat));
-      ActivatePopup(pivot, apiPoint.m_name, "", IMAGE_ARROW);
-      m_bmBaloon.get()->setOnClickListener(bind(&Framework::OnActivateApiPoint, this, _1, apiPoint));
-      return;
-    }
-    else
-    {
-      switch (m_work.GetBookmarkOrPoi(pt, pxPivot, addrInfo, bmAndCat))
-      {
-      case ::Framework::BOOKMARK:
-        {
-          Bookmark const * pBM = m_work.GetBmCategory(bmAndCat.first)->GetBookmark(bmAndCat.second);
-          ActivatePopup(pBM->GetOrg(), pBM->GetName(), "", IMAGE_ARROW);
-          m_bmBaloon.get()->setOnClickListener(bind(&Framework::OnActivateBookmark, this, _1, bmAndCat));
-          return;
-        }
-      case ::Framework::POI:
-        if (!GetBookmarkBalloon()->isVisible())
-        {
-          const m2::PointD globalPoint = m_work.PtoG(pxPivot);
-          ActivatePopupWithAddressInfo(globalPoint, addrInfo);
-          m_bmBaloon.get()->setOnClickListener(bind(&Framework::OnActivatePoi, this, _1, addrInfo, globalPoint));
-          if (ms == LONG_TOUCH_MS)
-            m_wasLongClick = true;
-          return;
-        }
-        /* no break*/
-      default:
-        if (ms == LONG_TOUCH_MS)
-        {
-          m_work.GetAddressInfo(pt, addrInfo);
-          const m2::PointD globalPoint = m_work.PtoG(pt);
-          ActivatePopupWithAddressInfo(globalPoint, addrInfo);
-          m_bmBaloon.get()->setOnClickListener(bind(&Framework::OnActivatePoi, this, _1, addrInfo, globalPoint));
-          m_wasLongClick = true;
-          return;
-        }
-        /* no break*/
-      }
-    }
-
-    DeactivatePopup();
-  }
-
-  void Framework::ActivatePopupWithAddressInfo(m2::PointD const & pos, ::Framework::AddressInfo const & addrInfo)
-  {
-    string name = addrInfo.GetPinName();
-    string type = addrInfo.GetPinType();
-    if (name.empty() && type.empty())
-      name = m_work.GetStringsBundle().GetString("dropped_pin");
-
-    ActivatePopup(pos, name, type, IMAGE_ARROW);
-
-    m_work.DrawPlacemark(pos);
-    m_work.Invalidate();
-  }
-
-  void Framework::ActivatePopup(m2::PointD const & pos, string const & name, string const & type, PopupImageIndexT index)
-  {
-    // stop updating balloon position
-    m_doUpdateBalloonPositionFromLocation = false;
-
-    BookmarkBalloon * b = GetBookmarkBalloon();
-
-    m_work.DisablePlacemark();
-
-    b->setImage(m_images[index]);
-    b->setGlbPivot(pos);
-    b->setBookmarkCaption(name, type);
-    b->showAnimated();
-
-    m_work.Invalidate();
-  }
-
-  void Framework::DeactivatePopup()
-  {
-    m_doUpdateBalloonPositionFromLocation = false;
-
-    BookmarkBalloon * b = GetBookmarkBalloon();
-    b->hide();
-
-    m_work.DisablePlacemark();
-    m_work.Invalidate();
-  }
-
-  void Framework::CreateBookmarkBalloon()
-  {
-    CHECK(m_work.GetGuiController(), ());
-
-    BookmarkBalloon::Params bp;
-    bp.m_position = graphics::EPosAbove;
-    bp.m_depth = graphics::balloonBaseDepth;
-    bp.m_pivot = m2::PointD(0, 0);
-    bp.m_mainText = "Bookmark";
-    bp.m_framework = &m_work;
-
-    m_bmBaloon.reset(new BookmarkBalloon(bp));
-    m_bmBaloon->setIsVisible(false);
-
-    m_work.GetGuiController()->AddElement(m_bmBaloon);
-
-    UpdateBalloonSize();
-  }
-
-  void Framework::UpdateBalloonSize()
-  {
-    if (m_bmBaloon == NULL)
-         return;
-
-     ScreenBase const & screen = m_work.GetNavigator().Screen();
-     m_bmBaloon->onScreenSize(screen.GetWidth(), screen.GetHeight());
-  }
-
-  BookmarkBalloon * Framework::GetBookmarkBalloon()
-  {
-    if (!m_bmBaloon)
-      CreateBookmarkBalloon();
-    return m_bmBaloon.get();
+    m_wasLongClick = (ms == LONG_TOUCH_MS);
+    GetBalloonManager().OnClick(m2::PointD(x, y), m_wasLongClick);
   }
 
   BookmarkAndCategory Framework::AddBookmark(size_t cat, Bookmark & bm)
@@ -733,8 +570,6 @@ namespace android
 
   void Framework::ReplaceBookmark(BookmarkAndCategory const & ind, Bookmark & bm)
   {
-    m_bmType = bm.GetType();
-
     BookmarkCategory * pCat = m_work.GetBmCategory(ind.first);
     pCat->ReplaceBookmark(ind.second, bm);
     pCat->SaveToKMLFile();
@@ -765,91 +600,16 @@ namespace android
     url_scheme::ApiPoint apiPoint;
     if (m_work.SetViewportByURL(url, apiPoint))
     {
-      // we need it only for one-point-call
-      m2::PointD const globalPoint(MercatorBounds::LonToX(apiPoint.m_lon), MercatorBounds::LatToY(apiPoint.m_lat));
-      ActivatePopup(globalPoint, apiPoint.m_name, "", IMAGE_ARROW);
-
-      // For geo and ge0 draw placemark
-      if (!strings::StartsWith(url, "mapswithme"))
-      {
-        m_work.DrawPlacemark(globalPoint);
-        m_work.Invalidate();
-      }
-
-      m_bmBaloon.get()->setOnClickListener(bind(&Framework::OnActivateApiPoint, this, _1, apiPoint));
-
+      GetBalloonManager().ShowApiPoint(apiPoint);
       return true;
     }
     return false;
   }
 
-  void Framework::OnActivatePoi(gui::Element * e, ::Framework::AddressInfo const & addrInfo, m2::PointD const & globalPoint)
+  void Framework::DeactivatePopup()
   {
-    m_poiActivatedListener(addrInfo, globalPoint);
+    GetBalloonManager().Hide();
   }
-
-
-  void Framework::OnActivateBookmark(gui::Element * e, BookmarkAndCategory const & bmkAndCat)
-  {
-    m_bookmarkActivatedListener(bmkAndCat);
-  }
-
-  void Framework::OnActivateApiPoint(gui::Element * e, url_scheme::ApiPoint const & apiPoint)
-  {
-    m_apiPointActivatedListener(apiPoint);
-  }
-
-  void Framework::OnActivateMyPosition(gui::Element * e)
-  {
-    m2::PointD const & glbPoint = GetBookmarkBalloon()->glbPivot();
-    const double lat = MercatorBounds::YToLat(glbPoint.y);
-    const double lon = MercatorBounds::XToLon(glbPoint.x);
-    m_myPositionActivatedListener(lat, lon);
-  }
-
-  // POI
-  void Framework::SetPoiActivatedListener(TOnPoiActivatedListener const & l)
-  {
-    m_poiActivatedListener = l;
-  }
-
-  void Framework::ClearPoiActivatedListener()
-  {
-    m_poiActivatedListener.clear();
-  }
-
-  // BOOKMARK
-  void Framework::SetBookmarkActivatedListener(TOnBookmarkActivatedListener const & l)
-  {
-    m_bookmarkActivatedListener = l;
-  }
-
-  void Framework::ClearBookmarkActivatedListener()
-  {
-    m_bookmarkActivatedListener.clear();
-  }
-
-  // API point
-  void Framework::SetApiPointActivatedListener(TOnApiPointActivatedListener const & l)
-  {
-    m_apiPointActivatedListener = l;
-  }
-  void Framework::ClearApiPointActivatedListener()
-  {
-    m_apiPointActivatedListener.clear();
-  }
-
-  // My Position
-  void Framework::SetOnMyPositionActivatedListener(TOnMyPositionActivatedListener const & l)
-  {
-    m_myPositionActivatedListener = l;
-  }
-  void Framework::ClearOnMyPositionActivatedListener()
-  {
-    m_myPositionActivatedListener.clear();
-  }
-
-
 }
 
 //============ GLUE CODE for com.mapswithme.maps.Framework class =============//
@@ -863,7 +623,6 @@ namespace android
 
 extern "C"
 {
-
   // API
   void CallOnApiPointActivatedListener(shared_ptr<jobject> obj, url_scheme::ApiPoint const & apiPoint)
   {
@@ -879,7 +638,7 @@ extern "C"
   }
 
   // POI
-  void CallOnPoiActivatedListener(shared_ptr<jobject> obj, ::Framework::AddressInfo const & addrInfo, m2::PointD const & globalPoint)
+  void CallOnPoiActivatedListener(shared_ptr<jobject> obj, m2::PointD const & globalPoint, search::AddressInfo const & addrInfo)
   {
     JNIEnv * jniEnv = jni::GetEnv();
 
@@ -913,84 +672,35 @@ extern "C"
     jniEnv->CallVoidMethod(*obj.get(), methodId, lat, lon);
   }
 
-  // JNI EXPORTS
-  //!!!!!!!!!!!!
-  //!!!!!!!!!!!!
-  //////////////
+  /// @name JNI EXPORTS
+  //@{
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetNameAndAddress4Point(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
   {
+    search::AddressInfo info;
 
+    g_framework->NativeFramework()->GetAddressInfoForGlobalPoint(
+        m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)), info);
 
-    m2::PointD point = m2::PointD( MercatorBounds::LonToX(lon),
-                                   MercatorBounds::LatToY(lat));
-
-    ::Framework * nativeFramework = g_framework->NativeFramework();
-    return jni::ToJavaString(env, nativeFramework->GetNameAndAddressAtGlobalPoint(point));
-  }
-
-   //API
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetApiPointActivatedListener(JNIEnv * env, jclass clazz, jobject l)
-  {
-    g_framework->SetApiPointActivatedListener(
-        bind(&CallOnApiPointActivatedListener, jni::make_global_ref(l), _1));
+    return jni::ToJavaString(env, info.FormatNameAndAddress());
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeClearApiPointActivatedListener(JNIEnv * env, jclass clazz, jobject l)
+  Java_com_mapswithme_maps_Framework_nativeConnectBalloonListeners(JNIEnv * env, jclass clazz, jobject l)
   {
-    g_framework->ClearApiPointActivatedListener();
-  }
+    BalloonManager & manager = g_framework->GetBalloonManager();
+    shared_ptr<jobject> obj = jni::make_global_ref(l);
 
-
-  // POI
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetOnPoiActivatedListener(JNIEnv * env, jclass clazz, jobject l)
-  {
-    g_framework->SetPoiActivatedListener(
-        bind(&CallOnPoiActivatedListener, jni::make_global_ref(l), _1, _2));
+    manager.ConnectApiListener(bind(&CallOnApiPointActivatedListener, obj, _1));
+    manager.ConnectPoiListener(bind(&CallOnPoiActivatedListener, obj, _1, _2));
+    manager.ConnectBookmarkListener(bind(&CallOnBookmarkActivatedListener, obj, _1));
+    manager.ConnectPositionListener(bind(&CallOnMyPositionActivatedListener, obj, _1, _2));
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeClearOnPoiActivatedListener(JNIEnv * env, jclass clazz)
+  Java_com_mapswithme_maps_Framework_nativeClearBalloonListeners(JNIEnv * env, jobject thiz)
   {
-    g_framework->ClearPoiActivatedListener();
-  }
-
-
-  // Bookmark
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetOnBookmarkActivatedListener(JNIEnv * env, jclass clazz, jobject l)
-  {
-    g_framework->SetBookmarkActivatedListener(
-        bind(&CallOnBookmarkActivatedListener, jni::make_global_ref(l), _1));
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeClearOnBookmarkActivatedListener(JNIEnv * env, jclass clazz)
-  {
-    g_framework->ClearBookmarkActivatedListener();
-  }
-
-  // My Position
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetOnMyPositionActivatedListener(JNIEnv * env, jclass clazz, jobject l)
-  {
-    g_framework->SetOnMyPositionActivatedListener(
-        bind(&CallOnMyPositionActivatedListener, jni::make_global_ref(l), _1, _2));
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeClearOnMyPositionActivatedListener(JNIEnv * env, jclass clazz)
-  {
-    g_framework->ClearOnMyPositionActivatedListener();
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeClearApiPoints(JNIEnv * env, jobject thiz)
-  {
-    g_framework->NativeFramework()->ClearMapApiPoints();
+    g_framework->GetBalloonManager().ClearListeners();
   }
 
   JNIEXPORT jstring JNICALL

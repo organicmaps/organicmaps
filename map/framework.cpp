@@ -129,6 +129,7 @@ void Framework::OnLocationUpdate(location::GpsInfo const & info)
 #endif
 
   m_informationDisplay.locationState()->OnLocationUpdate(rInfo);
+  m_balloonManager.LocationChanged(rInfo);
 }
 
 void Framework::OnCompassUpdate(location::CompassInfo const & info)
@@ -169,12 +170,9 @@ static void GetResourcesMaps(vector<string> & outMaps)
 }
 
 Framework::Framework()
-  : //m_hasPendingInvalidate(false),
-    //m_doForceUpdate(false),
-    m_animator(this),
+  : m_animator(this),
     m_queryMaxScaleMode(false),
     m_drawPlacemark(false),
-    //m_hasPendingShowRectFixed(false),
 
     /// @todo It's not a class state, so no need to store it in memory.
     /// Move this constants to Ruler (and don't store them at all).
@@ -192,7 +190,8 @@ Framework::Framework()
     m_informationDisplay(this),
     m_lowestMapVersion(numeric_limits<int>::max()),
     m_benchmarkEngine(0),
-    m_bmManager(*this)
+    m_bmManager(*this),
+    m_balloonManager(*this)
 {
   // Checking whether we should enable benchmark.
   bool isBenchmarkingEnabled = false;
@@ -210,6 +209,7 @@ Framework::Framework()
 
   m_stringsBundle.SetDefaultString("dropped_pin", "Dropped Pin");
   m_stringsBundle.SetDefaultString("my_places", "My Places");
+  m_stringsBundle.SetDefaultString("my_position", "My Position");
 
   m_animController.reset(new anim::Controller());
 
@@ -705,11 +705,9 @@ void Framework::OnSize(int w, int h)
 
     m2::RectI const & viewPort = m_renderPolicy->OnSize(w, h);
 
-    m_navigator.OnSize(
-          viewPort.minX(),
-          viewPort.minY(),
-          viewPort.SizeX(),
-          viewPort.SizeY());
+    m_navigator.OnSize(viewPort.minX(), viewPort.minY(), viewPort.SizeX(), viewPort.SizeY());
+
+    m_balloonManager.ScreenSizeChanged(w, h);
   }
 
   m_width = w;
@@ -1297,10 +1295,9 @@ void Framework::ShowSearchResult(search::Result const & res)
 
   ShowRectExVisibleScale(rect);
 
-  // On iOS, we draw search results as bookmarks
-#ifndef OMIM_OS_IPHONE
-  DrawPlacemark(res.GetFeatureCenter());
-#endif
+  search::AddressInfo info;
+  info.MakeFrom(res);
+  m_balloonManager.ShowAddress(res.GetFeatureCenter(), info);
 }
 
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
@@ -1365,6 +1362,8 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
                                    m_metresMinWidth);
 
     m_informationDisplay.setVisualScale(m_renderPolicy->VisualScale());
+
+    m_balloonManager.RenderPolicyCreated(m_renderPolicy->Density());
 
     if (m_width != 0 && m_height != 0)
       OnSize(m_width, m_height);
@@ -1481,7 +1480,7 @@ bool Framework::IsBenchmarking() const
   return m_benchmarkEngine != 0;
 }
 
-shared_ptr<graphics::OverlayElement> const GetClosestToPivot(list<shared_ptr<graphics::OverlayElement> > const & l,
+shared_ptr<graphics::OverlayElement> GetClosestToPivot(list<shared_ptr<graphics::OverlayElement> > const & l,
                                                        m2::PointD const & pxPoint)
 {
   double dist = numeric_limits<double>::max();
@@ -1502,7 +1501,8 @@ shared_ptr<graphics::OverlayElement> const GetClosestToPivot(list<shared_ptr<gra
   return res;
 }
 
-bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, AddressInfo & info) const
+bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot,
+                              search::AddressInfo & info) const
 {
   m_renderPolicy->FrameLock();
 
@@ -1552,40 +1552,16 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, 
   return false;
 }
 
-namespace
-{
-string GenerateNameAndAddress(Framework::AddressInfo const & info)
-{
-  if (info.m_name.empty())
-    return info.FormatAddress();
-  else
-    return info.m_name + ", " +  info.FormatAddress();
-}
-}
-
-
-string Framework::GetNameAndAddressAtPoint(m2::PointD const & pxPoint)
-{
-  AddressInfo info;
-  GetAddressInfo(pxPoint, info);
-  return GenerateNameAndAddress(info);
-}
-
-string Framework::GetNameAndAddressAtGlobalPoint(m2::PointD const & glPoint)
-{
-  AddressInfo info;
-  GetAddressInfoForGlobalPoint(glPoint, info);
-  return GenerateNameAndAddress(info);
-}
-
-Framework::BookmarkOrPoi Framework::GetBookmarkOrPoi(m2::PointD const & pxPoint, m2::PointD & pxPivot, AddressInfo & info, BookmarkAndCategory & bmCat)
+Framework::BookmarkOrPoi Framework::GetBookmarkOrPoi(m2::PointD const & pxPoint, m2::PointD & pxPivot,
+                                                     search::AddressInfo & info, BookmarkAndCategory & bmCat)
 {
   bmCat = GetBookmark(pxPoint);
   if (IsValid(bmCat))
     return Framework::BOOKMARK;
+
   if (GetVisiblePOI(pxPoint, pxPivot, info))
   {
-    //We need almost the exact position of the bookmark, parameter 0.1 resolves the error in 2 pixels
+    // We need almost the exact position of the bookmark, parameter 0.1 resolves the error in 2 pixels
     bmCat = GetBookmark(pxPivot, 0.1);
     if (IsValid(bmCat))
       return Framework::BOOKMARK;

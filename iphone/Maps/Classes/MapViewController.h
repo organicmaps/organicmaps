@@ -4,8 +4,8 @@
 #include "../../geometry/point2d.hpp"
 #include "../../geometry/rect2d.hpp"
 
-#include "Framework.h"
 
+namespace search { struct AddressInfo; }
 @class BalloonView;
 
 @interface MapViewController : UIViewController <LocationObserver, UIAlertViewDelegate, UIPopoverControllerDelegate>
@@ -20,7 +20,7 @@
 	bool m_isSticking;
 	size_t m_StickyThreshold;
 	m2::PointD m_Pt1, m_Pt2;
-  
+
   BalloonView * m_balloonView;
   /// Temporary solution to improve long touch detection.
   m2::PointD m_touchDownPoint;
@@ -39,9 +39,8 @@
 - (IBAction)OnSearchClicked:(id)sender;
 - (IBAction)OnBookmarksClicked:(id)sender;
 
-- (void)showSearchResultAsBookmarkAtMercatorPoint:(m2::PointD const &)pt withInfo:(Framework::AddressInfo const &)info;
-- (void)showBalloonWithCategoryIndex:(int)index andBookmarkIndex:(int)bmIndex;
-- (void)showBalloonWithText:(NSString *)text andGlobalPoint:(m2::PointD) point;
+- (void)showSearchResultAsBookmarkAtMercatorPoint:(m2::PointD const &)pt withInfo:(search::AddressInfo const &)info;
+- (void)showBalloonWithCategoryIndex:(int)cat andBookmarkIndex:(int)bm;
 
 - (void)dismissPopoverAndSaveBookmark:(BOOL)save;
 - (void)prepareForApi;

@@ -8,8 +8,12 @@
 #include "navigator.hpp"
 #include "animator.hpp"
 #include "feature_vec_model.hpp"
+
 #include "bookmark.hpp"
 #include "bookmark_manager.hpp"
+#include "balloon_manager.hpp"
+
+#include "url_api.hpp"
 #include "mwm_url.hpp"
 
 #include "../defines.hpp"
@@ -38,7 +42,12 @@
 
 //#define DRAW_TOUCH_POINTS
 
-namespace search { class Result; }
+namespace search
+{
+  class Result;
+  struct AddressInfo;
+}
+
 namespace gui { class Controller; }
 namespace anim { class Controller; }
 
@@ -129,6 +138,7 @@ protected:
   BenchmarkEngine * m_benchmarkEngine;
 
   BookmarkManager m_bmManager;
+  BalloonManager m_balloonManager;
 
   void ClearAllCaches();
 
@@ -321,36 +331,19 @@ public:
   /// @param[in] pixPt Current touch point in device pixel coordinates.
   void GetFeatureTypes(m2::PointD pixPt, vector<string> & types) const;
 
-  struct AddressInfo
-  {
-    string m_country, m_city, m_street, m_house, m_name;
-    vector<string> m_types;
-
-    void MakeFrom(search::Result const & res);
-
-    string GetPinName() const;
-    string GetPinType() const;
-
-    string FormatPinText() const;
-    string FormatAddress() const;
-    string FormatTypes() const;
-    char const * GetBestType() const;
-
-    void Clear();
-  };
-
   /// Get address information for point on map.
-  void GetAddressInfo(m2::PointD const & pxPoint, AddressInfo & info) const;
-  void GetAddressInfoForGlobalPoint(m2::PointD const & pt, AddressInfo & info) const;
+  inline void GetAddressInfoForPixelPoint(m2::PointD const & pxPoint, search::AddressInfo & info) const
+  {
+    GetAddressInfoForGlobalPoint(PtoG(pxPoint), info);
+  }
+  void GetAddressInfoForGlobalPoint(m2::PointD const & pt, search::AddressInfo & info) const;
 
 private:
-  void GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, AddressInfo & info) const;
-  void GetLocality(m2::PointD const & pt, AddressInfo & info) const;
+  void GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, search::AddressInfo & info) const;
+  void GetLocality(m2::PointD const & pt, search::AddressInfo & info) const;
 
 public:
-  bool GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, AddressInfo & info) const;
-  string GetNameAndAddressAtPoint(m2::PointD const & pxPoint);
-  string GetNameAndAddressAtGlobalPoint(m2::PointD const & glPoint);
+  bool GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, search::AddressInfo & info) const;
 
   enum BookmarkOrPoi
   {
@@ -359,7 +352,8 @@ public:
     POI = 2
   };
 
-  BookmarkOrPoi GetBookmarkOrPoi(m2::PointD const & pxPoint, m2::PointD & pxPivot, AddressInfo & info, BookmarkAndCategory & bmCat);
+  BookmarkOrPoi GetBookmarkOrPoi(m2::PointD const & pxPoint, m2::PointD & pxPivot,
+                                 search::AddressInfo & info, BookmarkAndCategory & bmCat);
 
   virtual void BeginPaint(shared_ptr<PaintEvent> const & e);
   /// Function for calling from platform dependent-paint function.
@@ -442,6 +436,8 @@ public:
   bool IsBenchmarking() const;
 
   StringsBundle const & GetStringsBundle();
+
+  BalloonManager & GetBalloonManager() { return m_balloonManager; }
 
   /// Checks, whether the country which contains
   /// the specified point is loaded

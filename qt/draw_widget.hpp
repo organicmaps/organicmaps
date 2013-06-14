@@ -1,12 +1,11 @@
 #pragma once
 
-#include "../base/scheduled_task.hpp"
-
 #include "../map/window_handle.hpp"
 #include "../map/framework.hpp"
 #include "../map/navigator.hpp"
 #include "../map/qgl_render_context.hpp"
-#include "../map/bookmark_balloon.hpp"
+
+#include "../base/scheduled_task.hpp"
 
 #include "../platform/video_timer.hpp"
 
@@ -109,17 +108,6 @@ namespace qt
     void KillPressTask();
     void OnPressTaskEvent(double x, double y, unsigned ms);
 
-    typedef graphics::Image::Info ImageT;
-    ImageT m_images[2];
-    enum PopupImageIndexT { IMAGE_PLUS = 0, IMAGE_ARROW = 1 };
-    void ActivatePopup(m2::PointD const & pivot, string const & name, string const & type, PopupImageIndexT index);
-    void ActivatePopupWithAdressInfo(m2::PointD const & pivot, Framework::AddressInfo const & addrInfo);
-    void DiactivatePopup();
-
-    shared_ptr<BookmarkBalloon> m_bookmarkBalloon;
-    void CreateBookmarkBalloon();
-    BookmarkBalloon * GetBookmarkBalloon();
-
   protected:
     /// @name Overriden from base_type.
     //@{
@@ -150,5 +138,7 @@ namespace qt
 
     shared_ptr<ScheduledTask> m_scheduledTasks;
     double m_taskX, m_taskY;
+
+    BalloonManager & GetBalloonManager() { return m_framework->GetBalloonManager(); }
   };
 }

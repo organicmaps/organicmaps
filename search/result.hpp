@@ -107,4 +107,24 @@ public:
   }
 };
 
+struct AddressInfo
+{
+  string m_country, m_city, m_street, m_house, m_name;
+  vector<string> m_types;
+
+  void MakeFrom(search::Result const & res);
+
+  string GetPinName() const;
+  string GetPinType() const;
+
+  string FormatPinText() const;
+  string FormatAddress() const;
+  string FormatTypes() const;
+  string FormatNameAndAddress() const;
+
+  char const * GetBestType() const;
+
+  void Clear();
+};
+
 }

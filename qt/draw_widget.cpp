@@ -62,6 +62,11 @@ namespace qt
     m_frameFn();
   }
 
+  void DummyAPI(url_scheme::ApiPoint const &) {}
+  void DummyBookmark(BookmarkAndCategory const &) {}
+  void DummyPOI(m2::PointD const &, search::AddressInfo const &) {}
+  void DummyPosition(double, double) {}
+
   DrawWidget::DrawWidget(QWidget * pParent)
     : QGLWidget(pParent),
       m_isInitialized(false),
@@ -72,6 +77,12 @@ namespace qt
       //m_redrawInterval(100),
       m_pScale(0)
   {
+    // Initialize with some stubs for test.
+    BalloonManager & manager = GetBalloonManager();
+    manager.ConnectApiListener(&DummyAPI);
+    manager.ConnectBookmarkListener(&DummyBookmark);
+    manager.ConnectPoiListener(&DummyPOI);
+    manager.ConnectPositionListener(&DummyPosition);
   }
 
   DrawWidget::~DrawWidget()
@@ -266,18 +277,12 @@ namespace qt
         LOG(LERROR, (e.what()));
       }
 
-      graphics::EDensity const density = m_framework->GetRenderPolicy()->Density();
-      m_images[IMAGE_PLUS] = ImageT("plus.png", density);
-      m_images[IMAGE_ARROW] = ImageT("arrow.png", density);
       m_isInitialized = true;
     }
   }
 
   void DrawWidget::resizeGL(int w, int h)
   {
-    if (m_bookmarkBalloon)
-      m_bookmarkBalloon->onScreenSize(w, h);
-
     m_framework->OnSize(w, h);
     m_framework->Invalidate();
 
@@ -340,105 +345,7 @@ namespace qt
 
   void DrawWidget::OnPressTaskEvent(double x, double y, unsigned ms)
   {
-    m2::PointD pt(x, y);
-    m2::PointD pivot;
-
-    Framework::AddressInfo addressInfo;
-    BookmarkAndCategory bm;
-    switch (m_framework->GetBookmarkOrPoi(pt, pivot, addressInfo, bm))
-    {
-    case Framework::BOOKMARK:
-      {
-        const Bookmark * bookmark = m_framework->GetBmCategory(bm.first)->GetBookmark(bm.second);
-        ActivatePopup(bookmark->GetOrg(), bookmark->GetName(), "", IMAGE_ARROW);
-        return;
-      }
-
-    case Framework::POI:
-      if (!GetBookmarkBalloon()->isVisible())
-      {
-        ActivatePopupWithAdressInfo(m_framework->PtoG(pivot), addressInfo);
-        return;
-      }
-      break;
-
-    default:
-      if (ms == LONG_TOUCH_MS)
-      {
-        m_framework->GetAddressInfo(pt, addressInfo);
-        ActivatePopupWithAdressInfo(m_framework->PtoG(pt), addressInfo);
-        return;
-      }
-    }
-
-    DiactivatePopup();
-  }
-
-  void DrawWidget::ActivatePopup(m2::PointD const & pivot,
-                                 string const & name,
-                                 string const & type,
-                                 PopupImageIndexT index)
-  {
-    BookmarkBalloon * balloon = GetBookmarkBalloon();
-
-    m_framework->DisablePlacemark();
-
-    balloon->setImage(m_images[index]);
-    balloon->setGlbPivot(pivot);
-    balloon->setBookmarkCaption(name, type);
-    balloon->showAnimated();
-
-    m_framework->Invalidate();
-  }
-
-  void DrawWidget::ActivatePopupWithAdressInfo(m2::PointD const & pivot, Framework::AddressInfo const & addrInfo)
-  {
-    string name = addrInfo.GetPinName();
-    string type = addrInfo.GetPinType();
-    if (name.empty() && type.empty())
-      name = m_framework->GetStringsBundle().GetString("dropped_pin");
-
-    ActivatePopup(pivot, name, type, IMAGE_PLUS);
-
-    m_framework->DrawPlacemark(pivot);
-    m_framework->Invalidate();
-  }
-
-  void DrawWidget::DiactivatePopup()
-  {
-    BookmarkBalloon * balloon = GetBookmarkBalloon();
-
-    balloon->hide();
-    m_framework->DisablePlacemark();
-    m_framework->Invalidate();
-  }
-
-  void DrawWidget::CreateBookmarkBalloon()
-  {
-    BookmarkBalloon::Params bp;
-
-    bp.m_position = graphics::EPosAbove;
-    bp.m_depth = graphics::balloonBaseDepth;
-    bp.m_pivot = m2::PointD(0.0, 0.0);
-    bp.m_mainText = "Bookmark";
-    bp.m_framework = m_framework.get();
-
-    m_bookmarkBalloon.reset(new BookmarkBalloon(bp));
-    m_bookmarkBalloon->setIsVisible(false);
-
-    /// @todo Process adding bookmark.
-    //m_bookmarkBalloon->setOnClickListener(bind(&DrawWidget::OnBalloonClick, this, _1));
-
-    m_framework->GetGuiController()->AddElement(m_bookmarkBalloon);
-    m_bookmarkBalloon->onScreenSize(width(), height());
-  }
-
-  BookmarkBalloon * DrawWidget::GetBookmarkBalloon()
-  {
-    if (!m_bookmarkBalloon)
-      CreateBookmarkBalloon();
-
-    return m_bookmarkBalloon.get();
+    GetBalloonManager().OnClick(m2::PointD(x, y), true);
   }
 
   namespace
@@ -498,7 +405,7 @@ namespace qt
       QMenu menu;
 
       // Get POI under cursor or nearest address by point.
-      Framework::AddressInfo info;
+      search::AddressInfo info;
       m2::PointD dummy;
       if (m_framework->GetVisiblePOI(pt, dummy, info))
       {
@@ -506,7 +413,7 @@ namespace qt
       }
       else
       {
-        m_framework->GetAddressInfo(pt, info);
+        m_framework->GetAddressInfoForPixelPoint(pt, info);
       }
 
       // Get feature types under cursor.

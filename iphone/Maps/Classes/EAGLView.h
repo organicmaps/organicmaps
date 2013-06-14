@@ -2,7 +2,6 @@
 
 #include "../../std/shared_ptr.hpp"
 
-@class BalloonView;
 
 class VideoTimer;
 class RenderPolicy;
@@ -35,8 +34,6 @@ namespace graphics
   // It's possible when we add/remove subviews (bookmark balloons) and it hangs the map without this check
   CGRect lastViewSize;
 }
-
-@property(nonatomic, retain) BalloonView * balloonView;
 
 - (void) initRenderPolicy;
 - (CGPoint) viewPoint2GlobalPoint:(CGPoint)pt;
