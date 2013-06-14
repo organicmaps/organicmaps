@@ -110,10 +110,7 @@ public final class MapsWithMeApi
       caller.startActivity(mwmIntent);
     }
     else
-    {
-      final DownloadMapsWithMeDialog dialog = new DownloadMapsWithMeDialog(caller);
-      dialog.show();
-    }
+      (new DownloadMapsWithMeDialog(caller)).show();
   }
 
   static StringBuilder createMwmUrl(Context context, String title, double zoomLevel, MWMPoint ... points)
@@ -153,7 +150,8 @@ public final class MapsWithMeApi
     return Const.CALLBACK_PREFIX + context.getPackageName();
   }
 
-  @SuppressLint("NewApi") private static Intent addCommonExtras(Context context, Intent intent)
+  @SuppressLint("NewApi")
+  private static Intent addCommonExtras(Context context, Intent intent)
   {
     intent.putExtra(Const.EXTRA_CALLER_APP_INFO, context.getApplicationInfo());
     intent.putExtra(Const.EXTRA_API_VERSION, Const.API_VERSION);

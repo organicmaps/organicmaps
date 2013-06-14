@@ -21,7 +21,8 @@ public class DownloadMapsWithMeDialog extends Dialog implements android.view.Vie
   }
 
 
-  public void onDownloadButtonClicked(){
+  public void onDownloadButtonClicked()
+  {
     Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(getContext().getString(R.string.downolad_url)));
     getContext().startActivity(i);
     dismiss();
