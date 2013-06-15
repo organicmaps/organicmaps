@@ -545,14 +545,14 @@ bool Framework::AddBookmarksFile(string const & filePath)
   {
     try
     {
-      vector<string> files;
+      ZipFileReader::FileListT files;
       ZipFileReader::FilesList(filePath, files);
       string kmlFileName;
-      for (size_t i = 0; i < files.size();++i)
+      for (size_t i = 0; i < files.size(); ++i)
       {
-        if (GetFileExt(files[i]) == BOOKMARKS_FILE_EXTENSION)
+        if (GetFileExt(files[i].first) == BOOKMARKS_FILE_EXTENSION)
         {
-          kmlFileName = files[i];
+          kmlFileName = files[i].first;
           break;
         }
       }

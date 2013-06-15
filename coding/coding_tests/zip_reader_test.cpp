@@ -104,13 +104,16 @@ UNIT_TEST(ZipFilesList)
 
   try
   {
-    vector<string> files;
+    ZipFileReader::FileListT files;
     ZipFileReader::FilesList(ZIPFILE, files);
 
     TEST_EQUAL(files.size(), 3, ());
-    TEST_EQUAL(files[0], "1.txt", ());
-    TEST_EQUAL(files[1], "2.txt", ());
-    TEST_EQUAL(files[2], "3.ttt", ());
+    TEST_EQUAL(files[0].first, "1.txt", ());
+    TEST_EQUAL(files[0].second, 2, ());
+    TEST_EQUAL(files[1].first, "2.txt", ());
+    TEST_EQUAL(files[1].second, 2, ());
+    TEST_EQUAL(files[2].first, "3.ttt", ());
+    TEST_EQUAL(files[2].second, 2, ());
   }
   catch (std::exception const & e)
   {
@@ -119,7 +122,7 @@ UNIT_TEST(ZipFilesList)
 
   try
   {
-    vector<string> files;
+    ZipFileReader::FileListT files;
     ZipFileReader::FilesList(ZIPFILE_INVALID, files);
     TEST(false, ("This test shouldn't be reached - exception should be thrown"));
   }
@@ -164,19 +167,19 @@ UNIT_TEST(ZipExtract)
   }
   TEST(ZipFileReader::IsZip(ZIPFILE), ("Not a zip file"));
 
-  vector<string> files;
+  ZipFileReader::FileListT files;
   ZipFileReader::FilesList(ZIPFILE, files);
   TEST_EQUAL(files.size(), 2, ());
 
   string const OUTFILE = "out.tmp";
   string s;
-  ZipFileReader::UnzipFile(ZIPFILE, files[0], OUTFILE);
+  ZipFileReader::UnzipFile(ZIPFILE, files[0].first, OUTFILE);
   {
     FileReader(OUTFILE).ReadAsString(s);
   }
   TEST_EQUAL(s, "aaaaaaaaaa\x0A", ());
   // OUTFILE should be rewritten correctly in the next lines
-  ZipFileReader::UnzipFile(ZIPFILE, files[1], OUTFILE);
+  ZipFileReader::UnzipFile(ZIPFILE, files[1].first, OUTFILE);
   {
     FileReader(OUTFILE).ReadAsString(s);
   }
@@ -195,18 +198,18 @@ UNIT_TEST(ZipFileSizes)
   }
   TEST(ZipFileReader::IsZip(ZIPFILE), ("Not a zip file"));
 
-  vector<string> files;
+  ZipFileReader::FileListT files;
   ZipFileReader::FilesList(ZIPFILE, files);
   TEST_EQUAL(files.size(), 2, ());
 
   {
-    ZipFileReader file(ZIPFILE, files[0]);
+    ZipFileReader file(ZIPFILE, files[0].first);
     TEST_EQUAL(file.Size(), 6, ());
     TEST_EQUAL(file.UncompressedSize(), 11, ());
   }
 
   {
-    ZipFileReader file(ZIPFILE, files[1]);
+    ZipFileReader file(ZIPFILE, files[1].first);
     TEST_EQUAL(file.Size(), 8, ());
     TEST_EQUAL(file.UncompressedSize(), 9, ());
   }

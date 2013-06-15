@@ -12,14 +12,14 @@
 UNIT_TEST(Open_KMZ_Test)
 {
   string const KMZFILE = GetPlatform().WritablePathForFile("test.kmz");
-  vector<string> files;
+  ZipFileReader::FileListT files;
   ZipFileReader::FilesList(KMZFILE, files);
 
   bool isKMLinZip = false;
 
   for (int i = 0; i < files.size();++i)
   {
-    if (files[i] == "doc.kml")
+    if (files[i].first == "doc.kml")
     {
       isKMLinZip = true;
       break;

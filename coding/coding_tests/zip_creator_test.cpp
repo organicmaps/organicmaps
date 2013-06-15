@@ -17,10 +17,12 @@ void CreateAndTestZip(string const & filePath, string const & zipPath)
 {
   TEST(CreateZipFromPathDeflatedAndDefaultCompression(filePath, zipPath), ());
 
-  vector<string> files;
+  ZipFileReader::FileListT files;
   ZipFileReader::FilesList(zipPath, files);
+  TEST_EQUAL(files[0].second, FileReader(filePath).Size(), ());
+
   string const unzippedFile = "unzipped.tmp";
-  ZipFileReader::UnzipFile(zipPath, files[0], unzippedFile);
+  ZipFileReader::UnzipFile(zipPath, files[0].first, unzippedFile);
 
   TEST(my::IsEqualFiles(filePath, unzippedFile), ());
   TEST(my::DeleteFileX(filePath), ());

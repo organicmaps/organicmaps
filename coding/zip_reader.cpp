@@ -53,10 +53,11 @@ void ZipFileReader::FilesList(string const & zipContainer, FileListT & filesList
   do
   {
     char fileName[256];
-    if (UNZ_OK != unzGetCurrentFileInfo64(zip, NULL, fileName, ARRAY_SIZE(fileName), NULL, 0, NULL, 0))
+    unz_file_info64 fileInfo;
+    if (UNZ_OK != unzGetCurrentFileInfo64(zip, &fileInfo, fileName, ARRAY_SIZE(fileName), NULL, 0, NULL, 0))
       MYTHROW(LocateZipException, ("Can't get file name inside zip", zipContainer));
 
-    filesList.push_back(fileName);
+    filesList.push_back(make_pair(fileName, fileInfo.uncompressed_size));
 
   } while (UNZ_OK == unzGoToNextFile(zip));
 }

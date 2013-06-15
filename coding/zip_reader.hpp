@@ -14,7 +14,8 @@ private:
 
 public:
   typedef function<void(int, int)> ProgressFn;
-  typedef vector<string> FileListT;
+  /// Contains file name inside zip and it's uncompressed size
+  typedef vector<pair<string, uint32_t> > FileListT;
 
   DECLARE_EXCEPTION(OpenZipException, OpenException);
   DECLARE_EXCEPTION(LocateZipException, OpenException);
