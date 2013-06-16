@@ -43,22 +43,24 @@ void Platform::GetFilesByRegExp(string const & directory, string const & regexp,
   if (ZipFileReader::IsZip(directory))
   {
     // Get files list inside zip file
-    FilesList fList;
+    typedef ZipFileReader::FileListT FilesT;
+    FilesT fList;
     ZipFileReader::FilesList(directory, fList);
 
     regexp::RegExpT exp;
     regexp::Create(regexp, exp);
 
-    for (FilesList::iterator it = fList.begin(); it != fList.end(); ++it)
+    for (FilesT::iterator it = fList.begin(); it != fList.end(); ++it)
     {
-      if (regexp::IsExist(*it, exp))
+      string & name = it->first;
+      if (regexp::IsExist(name, exp))
       {
         // Remove assets/ prefix - clean files are needed for fonts white/blacklisting logic
         size_t const ASSETS_LENGTH = 7;
-        if (it->find("assets/") == 0)
-          it->erase(0, ASSETS_LENGTH);
+        if (name.find("assets/") == 0)
+          name.erase(0, ASSETS_LENGTH);
 
-        res.push_back(*it);
+        res.push_back(name);
       }
     }
   }
