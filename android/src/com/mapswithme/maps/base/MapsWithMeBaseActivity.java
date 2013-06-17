@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.Statistics;
+import com.mapswithme.util.Utils;
 
 public class MapsWithMeBaseActivity extends FragmentActivity
 {
@@ -48,7 +49,7 @@ public class MapsWithMeBaseActivity extends FragmentActivity
   {
     super.onCreate(arg0);
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+    if (Utils.apiEqualOrGreaterThan(11))
     {
       // http://stackoverflow.com/questions/6867076/getactionbar-returns-null
       ActionBar bar = getActionBar();

@@ -397,9 +397,12 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   {
     super.onCreate(savedInstanceState);
 
-    ActionBar actionBar = getActionBar();
-    if (actionBar != null)
-      actionBar.hide();
+    if (Utils.apiEqualOrGreaterThan(11))
+    {
+      ActionBar actionBar = getActionBar();
+      if (actionBar != null)
+        actionBar.hide();
+    }
 
     m_location = ((MWMApplication) getApplication()).getLocationService();
 

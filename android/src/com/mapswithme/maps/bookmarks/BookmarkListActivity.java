@@ -45,8 +45,8 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-
     setContentView(R.layout.bookmarks_list);
+
     final int setIndex = getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1);
     mEditContent = getIntent().getBooleanExtra(EDIT_CONTENT, true);
     mEditedSet = mManager.getCategoryById(setIndex);
@@ -68,7 +68,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       }
     });
     registerForContextMenu(getListView());
-    
+
     adaptUiForOsVersion();
   }
 
@@ -83,7 +83,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
         public void onClick(View v) { onSendEMail(shareButton); }
       });
     }
-    else 
+    else
       shareButton.setVisibility(View.GONE);
   }
 
@@ -273,7 +273,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
                          ID_SEND_BY_EMAIL,
                          R.string.share_by_email);
 
-    menuItem.setIcon(android.R.drawable.ic_menu_share);
+    menuItem.setIcon(R.drawable.share);
     if (Utils.apiEqualOrGreaterThan(11))
       menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 

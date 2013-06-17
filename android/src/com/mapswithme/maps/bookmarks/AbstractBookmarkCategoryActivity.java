@@ -1,7 +1,6 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
@@ -13,12 +12,6 @@ import com.mapswithme.maps.R;
 public abstract class AbstractBookmarkCategoryActivity extends AbstractBookmarkListActivity
 {
   private int mSelectedPosition;
-
-  @Override
-  protected void onCreate(Bundle savedInstanceState)
-  {
-    super.onCreate(savedInstanceState);
-  }
 
   @Override
   public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
