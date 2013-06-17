@@ -280,7 +280,9 @@ const long long LITE_IDL = 431183278L;
 
 - (void) processMapClickAtPoint:(CGPoint)point longClick:(BOOL)isLongClick
 {
-  GetFramework().GetBalloonManager().OnClick(m2::PointD(point.x, point.y), isLongClick == YES);
+  CGFloat const scaleFactor = self.view.contentScaleFactor;
+  m2::PointD pxClicked(point.x * scaleFactor, point.y * scaleFactor);
+  GetFramework().GetBalloonManager().OnClick(m2::PointD(pxClicked.x, pxClicked.y), isLongClick == YES);
 }
 
 - (void) onSingleTap:(NSValue *)point
@@ -322,15 +324,28 @@ const long long LITE_IDL = 431183278L;
 
     Framework & f = GetFramework();
 
-    // Init balloon callbacks.
-    // TODO -----------------------------------------------------------------------------------------------
-    typedef void (*BalloonFnT)(id, SEL, m2::PointD const &, search::AddressInfo const &);
-    SEL balloonSelector = @selector(onBalloonClicked:withInfo:);
-    BalloonFnT balloonFn = (BalloonFnT)[self methodForSelector:balloonSelector];
+    typedef void (*POSITIONBalloonFnT)(id,SEL, double, double);
+    typedef void (*POIBalloonFnT)(id, SEL, m2::PointD const &, search::AddressInfo const &);
+    typedef void (*APIPOINTBalloonFnT)(id,SEL, url_scheme::ApiPoint const &);
+    typedef void (*BOOKMARKBalloonFnT)(id,SEL, BookmarkAndCategory const &);
 
     BalloonManager & manager = f.GetBalloonManager();
-    manager.ConnectPoiListener(bind(balloonFn, self, balloonSelector, _1, _2));
-    // TODO -----------------------------------------------------------------------------------------------
+
+    SEL positionSel = @selector(positionBallonClickedLat:lon:);
+    POSITIONBalloonFnT positionFn = (POSITIONBalloonFnT)[self methodForSelector:positionSel];
+    manager.ConnectPositionListener(bind(positionFn, self, positionSel,_1,_2));
+
+    SEL ballonPOIsel = @selector(poiBalloonClicked:info:);
+    POIBalloonFnT balloonFn = (POIBalloonFnT)[self methodForSelector:ballonPOIsel];
+    manager.ConnectPoiListener(bind(balloonFn, self, ballonPOIsel, _1, _2));
+
+    SEL apiPointSel = @selector(apiBalloonClicked:);
+    APIPOINTBalloonFnT apiFn = (APIPOINTBalloonFnT)[self methodForSelector:apiPointSel];
+    manager.ConnectApiListener(bind(apiFn, self, apiPointSel, _1));
+
+    SEL bookmarkSel = @selector(bookmarkBalloonClicked:);
+    BOOKMARKBalloonFnT bookmarkFn = (BOOKMARKBalloonFnT)[self methodForSelector:bookmarkSel];
+    manager.ConnectBookmarkListener(bind(bookmarkFn, self, bookmarkSel, _1));
 
     typedef void (*CompassStatusFnT)(id, SEL, int);
     SEL compassStatusSelector = @selector(onCompassStatusChanged:);
@@ -754,9 +769,6 @@ NSInteger compareAddress(id l, id r, void * context)
     self.navigationController.navigationBarHidden = NO;
     UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"back", nil) style: UIBarButtonItemStyleDone target:self action:@selector(returnToApiApp)] autorelease];
     self.navigationItem.leftBarButtonItem = closeButton;
-
-//    UIBarButtonItem * hide = [[[UIBarButtonItem alloc] initWithTitle:@"hide" style: UIBarButtonItemStyleDone target:self action:@selector(onHideClicked)] autorelease];
-//    self.navigationItem.rightBarButtonItem = hide;
     self.navigationItem.title = [NSString stringWithUTF8String:GetFramework().GetMapApiAppTitle().c_str()];
   }
 }
@@ -782,6 +794,26 @@ NSInteger compareAddress(id l, id r, void * context)
   Framework & f = GetFramework();
   NSString * backUrl = [NSString stringWithUTF8String:f.GetMapApiBackUrl().c_str()];
   return (_isApiMode && [backUrl length] && [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:backUrl]]);
+}
+
+-(void)positionBallonClickedLat:(double)lat lon:(double)lon
+{
+  NSLog(@"Position");
+}
+
+-(void)poiBalloonClicked:(m2::PointD const &)pt info:(search::AddressInfo const &)info
+{
+  NSLog(@"poi");
+}
+
+-(void)apiBalloonClicked:(url_scheme::ApiPoint const &) apiPoint
+{
+  NSLog(@"api");
+}
+
+-(void)bookmarkBalloonClicked:(BookmarkAndCategory const &) bmAndCat
+{
+  NSLog(@"bookmark");
 }
 
 @end
