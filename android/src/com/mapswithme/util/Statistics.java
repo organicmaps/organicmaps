@@ -2,7 +2,6 @@ package com.mapswithme.util;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -14,8 +13,10 @@ import android.os.Build;
 import android.util.Log;
 
 import com.flurry.android.FlurryAgent;
+import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.MWMRequest;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 
 public enum Statistics
 {
@@ -33,15 +34,42 @@ public enum Statistics
   private static int ACTIVE_USER_MIN_SESSION = 2;
   private static long ACTIVE_USER_MIN_TIME = 30*24*3600;
 
+  private boolean DEBUG = true;
+  private boolean mNewSession = true;
+
 
 	private Statistics()
 	{
 		Log.d(TAG, "Created Statistics instance.");
 
 		FlurryAgent.setUseHttps(true);
-		FlurryAgent.setLogEnabled(true);
-		// Do not log everything in production.
-		FlurryAgent.setLogLevel(Log.ERROR);
+		FlurryAgent.setCaptureUncaughtExceptions(true);
+
+		if (DEBUG)
+		{
+		  FlurryAgent.setLogLevel(Log.DEBUG);
+	FlurryAgent.setLogEnabled(true);
+	FlurryAgent.setLogEvents(true);
+		}
+		else
+		{
+		  FlurryAgent.setLogLevel(Log.ERROR);
+		  FlurryAgent.setLogEnabled(true);
+		  FlurryAgent.setLogEvents(false);
+		}
+
+	}
+
+	public void trackIfEnabled(Context context, String event)
+	{
+	  if (isStatisticsEnabled(context))
+	    FlurryAgent.logEvent(event);
+	}
+
+	public void trackIfEnabled(Context context, String event, Map<String, String> params)
+	{
+	  if (isStatisticsEnabled(context))
+	    FlurryAgent.logEvent(event, params);
 	}
 
 	public void trackPromocodeDialogOpenedEvent()
@@ -62,38 +90,70 @@ public enum Statistics
 
 	public void startActivity(Activity activity)
 	{
-	  if (mLiveActivities.getAndIncrement() == 0)
+	  // CITATION
+    // Insert a call to FlurryAgent.onStartSession(Context, String), passing it
+    // a reference to a Context object (such as an Activity or Service), and
+    // your project's API key. We recommend using the onStart method of each
+    // Activity in your application, and passing the Activity (or Service)
+    // itself as the Context object - passing the global Application context is
+    // not recommended.
+    FlurryAgent.onStartSession(activity, activity.getResources().getString(R.string.flurry_app_key));
+
+    if (mNewSession)
     {
-	    Log.d(TAG, "NEW SESSION.");
-	    FlurryAgent.onStartSession(activity, activity.getResources().getString(R.string.flurry_app_key));
-
-
-	    final int currentSessionNumber = incAndGetSessionsNumber(activity);
-	    if (isStatisticsEnabled(activity) && isActiveUser(activity, currentSessionNumber))
-	    {
-	      // TODO add one-time statistics
-	      if (!isStatisticsCollected(activity))
-	      {
-	        // Collect here!
-
-	        setStatisticsCollected(activity, true);
-	      }
-	    }
-	  }
-
-    Log.d(TAG, "Started activity: " + activity.getClass().getSimpleName() + ".");
+      final int currentSessionNumber = incAndGetSessionsNumber(activity);
+      if (isStatisticsEnabled(activity) && isActiveUser(activity, currentSessionNumber))
+      {
+        // TODO do it in separate thread
+        if (!isStatisticsCollected(activity))
+        {
+          collectOneTimeStatistics(activity);
+        }
+      }
+      mNewSession = false;
+    }
 	}
 
-  public void stopActivity(Activity activity)
+	public void stopActivity(Activity activity)
   {
-    Log.d(TAG, "Stopped activity: " + activity.getClass().getSimpleName() + ".");
-
-    if (mLiveActivities.decrementAndGet() == 0)
-    {
-      Log.d(TAG, "FINISHED SESSION.");
+    // CITATION
+    // Insert a call to FlurryAgent.onEndSession(Context) when a session is
+    // complete. We recommend using the onStop method of each Activity in your
+    // application. Make sure to match up a call to onEndSession for each call
+    // of onStartSession, passing in the same Context object that was used to
+    // call onStartSession.
       FlurryAgent.onEndSession(activity);
-    }
   }
+
+  private void collectOneTimeStatistics(Activity activity)
+  {
+    // Only for PRO
+    if (((MWMApplication)activity.getApplication()).isProVersion())
+    {
+      final Map<String, String> params = new HashMap<String, String>(2);
+      // Number of sets
+      BookmarkManager manager = BookmarkManager.getBookmarkManager(activity);
+      final int categoriesCount = manager.getCategoriesCount();
+      if (categoriesCount > 0)
+      {
+        // Calculate average num of bmks in category
+        double[] sizes = new double[categoriesCount];
+        for (int catIndex = 0; catIndex < categoriesCount; catIndex++)
+          sizes[catIndex] = manager.getCategoryById(catIndex).getSize();
+        final double average = MathUtils.average(sizes);
+
+        params.put("Average number of bmks", String.valueOf(average));
+      }
+      params.put("Categories count", String.valueOf(categoriesCount));
+
+      trackIfEnabled(activity, "One time PRO stat", params);
+    }
+    // For all version
+    // TODO add number of maps
+
+    setStatisticsCollected(activity, true);
+  }
+
 
   private boolean isStatisticsCollected(Context context)
   {
@@ -123,7 +183,7 @@ public enum Statistics
     if (Utils.apiLowerThan(9))
       return false;
 
-    return getStatPrefs(context).getBoolean(PARAM_STAT_ENABLED, false);
+    return getStatPrefs(context).getBoolean(PARAM_STAT_ENABLED, true);
   }
 
   public void setStatEnabled(Context context, boolean isEnabled)
@@ -156,6 +216,5 @@ public enum Statistics
     return context.getSharedPreferences(FILE_STAT_DATA, Context.MODE_PRIVATE);
   }
 
-	private AtomicInteger mLiveActivities = new AtomicInteger(0);
-	private final String TAG = "Stats";
+	private final String TAG = "MWMStat";
 }
