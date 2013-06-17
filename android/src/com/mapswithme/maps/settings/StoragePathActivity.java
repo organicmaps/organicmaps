@@ -9,7 +9,6 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
@@ -26,11 +25,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.util.Statistics;
+import com.mapswithme.maps.base.MapsWithMeBaseListActivity;
 import com.mapswithme.util.Utils;
 
 
-public class StoragePathActivity extends ListActivity
+public class StoragePathActivity extends MapsWithMeBaseListActivity
 {
   private static String TAG = "StoragePathActivity";
 
@@ -488,18 +487,7 @@ public class StoragePathActivity extends ListActivity
   protected void onStart()
   {
     super.onStart();
-
-    Statistics.INSTANCE.startActivity(this);
-
     getAdapter().updateList();
-  }
-
-  @Override
-  protected void onStop()
-  {
-    super.onStop();
-
-    Statistics.INSTANCE.stopActivity(this);
   }
 
   @Override

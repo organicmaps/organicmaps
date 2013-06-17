@@ -1,9 +1,11 @@
 package com.mapswithme.maps.settings;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -11,6 +13,8 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
+import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Statistics;
@@ -25,6 +29,15 @@ public class SettingsActivity extends PreferenceActivity
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+    {
+      // http://stackoverflow.com/questions/6867076/getactionbar-returns-null
+      ActionBar bar = getActionBar();
+      if (bar != null)
+        bar.setDisplayHomeAsUpEnabled(true);
+    }
 
     addPreferencesFromResource(R.xml.preferences);
 
@@ -107,5 +120,19 @@ public class SettingsActivity extends PreferenceActivity
     super.onStop();
 
     Statistics.INSTANCE.stopActivity(this);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item)
+  {
+    if (item.getItemId() == android.R.id.home)
+    {
+      InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+      imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+      onBackPressed();
+      return true;
+    }
+    else
+      return super.onOptionsItemSelected(item);
   }
 }

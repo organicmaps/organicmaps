@@ -1,6 +1,6 @@
 package com.mapswithme.maps;
 
-import android.app.ListActivity;
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.res.Resources;
 import android.location.Location;
@@ -21,13 +21,13 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.mapswithme.maps.base.MapsWithMeBaseListActivity;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.Language;
-import com.mapswithme.util.Statistics;
 import com.mapswithme.util.Utils;
 
 
-public class SearchActivity extends ListActivity implements LocationService.Listener
+public class SearchActivity extends MapsWithMeBaseListActivity implements LocationService.Listener
 {
   private static String TAG = "SearchActivity";
   public static final String SEARCH_RESULT = "search_result";
@@ -397,7 +397,9 @@ public class SearchActivity extends ListActivity implements LocationService.List
   {
     super.onCreate(savedInstanceState);
 
-    requestWindowFeature(Window.FEATURE_NO_TITLE);
+    ActionBar actionBar = getActionBar();
+    if (actionBar != null)
+      actionBar.hide();
 
     m_location = ((MWMApplication) getApplication()).getLocationService();
 
@@ -462,22 +464,6 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
     // Create search list view adapter.
     setListAdapter(new SearchAdapter(this));
-  }
-
-  @Override
-  protected void onStart()
-  {
-    super.onStart();
-
-    Statistics.INSTANCE.startActivity(this);
-  }
-
-  @Override
-  protected void onStop()
-  {
-    super.onStop();
-
-    Statistics.INSTANCE.stopActivity(this);
   }
 
   @Override

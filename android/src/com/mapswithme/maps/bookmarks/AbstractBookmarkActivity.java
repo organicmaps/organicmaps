@@ -8,9 +8,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
+import com.mapswithme.maps.base.MapsWithMeBaseActivity;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.maps.state.MapsWithMeBaseActivity;
-import com.mapswithme.util.Statistics;
 
 public abstract class AbstractBookmarkActivity extends MapsWithMeBaseActivity
 {
@@ -31,22 +30,7 @@ public abstract class AbstractBookmarkActivity extends MapsWithMeBaseActivity
         bar.setDisplayHomeAsUpEnabled(true);
     }
   }
-  
-  @Override
-  protected void onStart()
-  {
-    super.onStart();
-    
-    Statistics.INSTANCE.startActivity(this);
-  }
-  
-  @Override
-  protected void onStop()
-  {
-    super.onStop();
-    
-    Statistics.INSTANCE.stopActivity(this);
-  }
+
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item)

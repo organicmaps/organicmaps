@@ -9,7 +9,7 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.state.MapsWithMeBaseActivity;
+import com.mapswithme.maps.base.MapsWithMeBaseActivity;
 import com.mapswithme.util.Statistics;
 
 import java.util.Arrays;
@@ -160,8 +160,6 @@ public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity
     System.out.println("**** onStart");
     super.onStart();
 
-    Statistics.INSTANCE.startActivity(this);
-
     if (m_nativeLaunched)
       onStartNative();
   }
@@ -223,9 +221,6 @@ public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity
   {
     System.out.println("**** onStop");
     super.onStop();
-    
-    Statistics.INSTANCE.stopActivity(this);
-
     if (m_nativeLaunched)
       onStopNative();
   }

@@ -14,13 +14,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mapswithme.maps.MWMActivity.MapTask;
 import com.mapswithme.maps.MWMActivity.*;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.MWMRequest;
+import com.mapswithme.maps.base.MapsWithMeBaseActivity;
 import com.mapswithme.maps.location.LocationService;
-import com.mapswithme.maps.state.MapsWithMeBaseActivity;
 import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Statistics;
@@ -488,22 +487,6 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
   }
 
   @Override
-  protected void onStart()
-  {
-    super.onStart();
-
-    Statistics.INSTANCE.startActivity(this);
-  }
-
-  @Override
-  protected void onStop()
-  {
-    super.onStop();
-
-    Statistics.INSTANCE.stopActivity(this);
-  }
-
-  @Override
   protected void onDestroy()
   {
     super.onDestroy();
@@ -689,7 +672,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
         MWMRequest.setCurrentRequest(request);
         Statistics.INSTANCE.trackApiCall(request);
         getMwmApplication().getAppStateManager().transitionTo(SuppotedState.API_REQUEST);
-        
+
         mMapTaskToForward = new OpenUrlTask(apiUrl);
         return true;
       }
