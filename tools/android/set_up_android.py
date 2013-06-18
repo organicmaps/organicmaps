@@ -2,10 +2,12 @@
 
 import os
 import shutil
+import getopt
+import sys
 
-
-def locate_sdk():
-    sdkPath = raw_input('Enter Android SKD path: ').strip()
+def locate_sdk(sdkPath):
+    if (not sdkPath):
+        sdkPath = raw_input('Enter Android SDK path: ').strip()
     # check if directory is correct
     androidPath = os.path.join(sdkPath, 'tools', 'android')
     if os.path.exists(androidPath):
@@ -18,8 +20,9 @@ def locate_sdk():
 ### !locate_sdk
 
 
-def locate_ndk():
-    ndkPath = raw_input('Enter Anroid NDK path: ').strip()
+def locate_ndk(ndkPath):
+    if (not ndkPath):
+        ndkPath = raw_input('Enter Anroid NDK path: ').strip()
     # check if directory is correct
     ndkBuildPath = os.path.join(ndkPath, 'ndk-build')
     if os.path.exists(ndkBuildPath):
@@ -74,8 +77,8 @@ def write_local_properties(sdkDir, ndkDir):
 
     # copy files to folders
     subfolders = (['MapsWithMeLite', 'MapsWithMeLite.Samsung', 'MapsWithMePro',
-                   '3rd_party/Holoeverywhere/library',
-                   '3rd_party/Holoeverywhere/contrib/ActionBarSherlock/actionbarsherlock'])
+                   '3rd_party/HoloEverywhere/library',
+                   '3rd_party/HoloEverywhere/contrib/ActionBarSherlock/actionbarsherlock'])
 
     for folder in subfolders:
         dst = os.path.join(androidRoot, folder, 'local.properties')
@@ -84,10 +87,31 @@ def write_local_properties(sdkDir, ndkDir):
 
 ### !write_local_properties
 
+def usage():
+    print "Usage: " + sys.argv[0] + " --sdk <SDK path> --ndk <NDK path>"
+
 
 def run():
-    sdkDir = locate_sdk()
-    ndkDir = locate_ndk()
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "h", ["sdk=", "ndk=", "help"])
+    except getopt.GetoptError as err:
+        print str(err)
+        usage()
+        exit(2)
+
+    sdk = None
+    ndk = None
+    for o, a in opts:
+        if o == "--sdk":
+            sdk = a
+        elif o == "--ndk":
+            ndk = a
+        elif o in ("-h", "--help"):
+            usage()
+            sys.exit()
+
+    sdkDir = locate_sdk(sdk)
+    ndkDir = locate_ndk(ndk)
     print '>>> Replacing aapt'
     replace_aapt(sdkDir)
     print '>>> Updating assets'
