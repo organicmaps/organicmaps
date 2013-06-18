@@ -22,8 +22,8 @@ import com.mapswithme.maps.base.MapsWithMeBaseActivity;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.ConnectionState;
-import com.mapswithme.util.Statistics;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.io.File;
 import java.io.FileOutputStream;

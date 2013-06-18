@@ -15,8 +15,8 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.promo.request.PromoActivationRequest;
-import com.mapswithme.util.Statistics;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.io.InputStream;
 import java.net.MalformedURLException;

@@ -2,8 +2,8 @@ package com.mapswithme.maps.base;
 
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.state.SuppotedState;
-import com.mapswithme.util.Statistics;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.statistics.Statistics;
 
 import android.app.ActionBar;
 import android.app.Activity;

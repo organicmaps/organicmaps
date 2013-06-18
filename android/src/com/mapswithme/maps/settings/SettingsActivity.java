@@ -16,8 +16,8 @@ import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.util.Statistics;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.statistics.Statistics;
 
 public class SettingsActivity extends PreferenceActivity
 {

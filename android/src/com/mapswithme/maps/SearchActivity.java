@@ -25,8 +25,8 @@ import android.widget.TextView;
 import com.mapswithme.maps.base.MapsWithMeBaseListActivity;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.Language;
-import com.mapswithme.util.Statistics;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.statistics.Statistics;
 
 
 public class SearchActivity extends MapsWithMeBaseListActivity implements LocationService.Listener

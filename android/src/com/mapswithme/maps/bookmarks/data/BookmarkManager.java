@@ -3,7 +3,7 @@ package com.mapswithme.maps.bookmarks.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mapswithme.util.Statistics;
+import com.mapswithme.util.statistics.Statistics;
 
 import android.content.Context;
 import android.graphics.Point;

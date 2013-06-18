@@ -10,7 +10,7 @@ import android.view.SurfaceView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.MapsWithMeBaseActivity;
-import com.mapswithme.util.Statistics;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Arrays;
 import java.util.Comparator;

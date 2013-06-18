@@ -24,7 +24,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.base.MapsWithMeBaseListActivity;
 import com.mapswithme.util.ConnectionState;
-import com.mapswithme.util.Statistics;
+import com.mapswithme.util.statistics.Statistics;
 
 
 public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage.Listener

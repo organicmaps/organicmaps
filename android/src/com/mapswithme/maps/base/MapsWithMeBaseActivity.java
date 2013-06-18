@@ -2,7 +2,6 @@ package com.mapswithme.maps.base;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
@@ -10,8 +9,8 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.state.SuppotedState;
-import com.mapswithme.util.Statistics;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.statistics.Statistics;
 
 public class MapsWithMeBaseActivity extends FragmentActivity
 {

@@ -22,7 +22,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
-import com.mapswithme.util.Statistics;
+import com.mapswithme.util.statistics.Statistics;
 
 public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActivity
 {
