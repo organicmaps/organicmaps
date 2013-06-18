@@ -14,18 +14,23 @@
 namespace
 {
 
-struct ZipHandle
+class ZipHandle
 {
-  zipFile m_zipFile;
+  zipFile m_zipFileHandle;
+
+public:
   ZipHandle(string const & filePath)
   {
-    m_zipFile = zipOpen(filePath.c_str(), 0);
+    m_zipFileHandle = zipOpen(filePath.c_str(), 0);
   }
+
   ~ZipHandle()
   {
-    if (m_zipFile)
-      zipClose(m_zipFile, NULL);
+    if (m_zipFileHandle)
+      zipClose(m_zipFileHandle, NULL);
   }
+
+  zipFile Handle() const { return m_zipFileHandle; }
 };
 
 void CreateTMZip(tm_zip & res)
@@ -47,7 +52,7 @@ void CreateTMZip(tm_zip & res)
 bool CreateZipFromPathDeflatedAndDefaultCompression(string const & filePath, string const & zipFilePath)
 {
   ZipHandle zip(zipFilePath);
-  if (!zip.m_zipFile)
+  if (!zip.Handle())
     return false;
 
   // Special syntax to initialize struct with zeroes
@@ -55,7 +60,7 @@ bool CreateZipFromPathDeflatedAndDefaultCompression(string const & filePath, str
   CreateTMZip(zipInfo.tmz_date);
   string fileName = filePath;
   my::GetNameFromFullPath(fileName);
-  if (zipOpenNewFileInZip(zip.m_zipFile, fileName.c_str(), &zipInfo,
+  if (::zipOpenNewFileInZip(zip.Handle(), fileName.c_str(), &zipInfo,
                           NULL, 0, NULL, 0, "ZIP from MapsWithMe", Z_DEFLATED, Z_DEFAULT_COMPRESSION) < 0)
   {
     return false;
@@ -73,7 +78,7 @@ bool CreateZipFromPathDeflatedAndDefaultCompression(string const & filePath, str
     size_t const toRead = min(bufSize, fileSize - currSize);
     f.Read(currSize, &buffer[0], toRead);
 
-    if (ZIP_OK != zipWriteInFileInZip(zip.m_zipFile, &buffer[0], toRead))
+    if (ZIP_OK != ::zipWriteInFileInZip(zip.Handle(), &buffer[0], toRead))
       return false;
 
     currSize += toRead;

@@ -98,7 +98,7 @@ void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileIn
   MY_SCOPE_GUARD(outFileGuard, bind(&FileWriter::DeleteFileX, cref(outFilePath)));
   FileWriter outFile(outFilePath);
 
-  int pos = 0;
+  uint64_t pos = 0;
   while (true)
   {
     int const readBytes = unzReadCurrentFile(zip, &buf[0], BUF_SIZE);

@@ -13,7 +13,7 @@ private:
   uint64_t m_uncompressedFileSize;
 
 public:
-  typedef function<void(int, int)> ProgressFn;
+  typedef function<void(uint64_t, uint64_t)> ProgressFn;
   /// Contains file name inside zip and it's uncompressed size
   typedef vector<pair<string, uint32_t> > FileListT;
 
