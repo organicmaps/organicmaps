@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.base.MapsWithMeBaseListActivity;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.Statistics;
 
 
 public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage.Listener
@@ -235,6 +236,7 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
           public void onClick(DialogInterface dlg, int which)
           {
             m_storage.deleteCountry(idx);
+            Statistics.INSTANCE.trackCountryDeleted(m_context);
             dlg.dismiss();
           }
         })
@@ -258,7 +260,10 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
             if (!hasFreeSpace(remoteSize + MB))
               showNotEnoughFreeSpaceDialog(getSizeString(remoteSize), name);
             else
+            {
               m_storage.downloadCountry(idx);
+              Statistics.INSTANCE.trackCountryUpdate(m_context);
+            }
 
             dlg.dismiss();
           }
@@ -269,6 +274,7 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
           public void onClick(DialogInterface dlg, int which)
           {
             m_storage.deleteCountry(idx);
+            Statistics.INSTANCE.trackCountryDeleted(m_context);
             dlg.dismiss();
           }
         })
@@ -296,6 +302,7 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
             public void onClick(DialogInterface dlg, int which)
             {
               m_storage.downloadCountry(idx);
+              Statistics.INSTANCE.trackCountryDownload(m_context);
               dlg.dismiss();
             }
           })

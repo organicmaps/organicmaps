@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.base.MapsWithMeBaseListActivity;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.Language;
+import com.mapswithme.util.Statistics;
 import com.mapswithme.util.Utils;
 
 
@@ -351,7 +353,10 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       {
         assert(position < m_categories.length);
 
-        return getCategoryName(m_categories[position]) + ' ';
+        final String category = getCategoryName(m_categories[position]);
+        Statistics.INSTANCE.trackSearchCategoryClicked(m_context, category);
+
+        return category + ' ';
       }
       else
       {
@@ -454,8 +459,24 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         case 1: mode = AROUND_POSITION; break;
         case 2: mode = IN_VIEWPORT; break;
         }
+
         // Save new search setting
-        ((MWMApplication) getApplication()).nativeSetInt(SEARCH_MODE_SETTING, position);
+        //
+        // But track change before that
+        final int oldSearchContext = getMwmApplication().nativeGetInt(SEARCH_MODE_SETTING, 1);
+        final String[] contexts = {"All", "Around", "Viewport"};
+        // value | val % 7 | real index in 'contexts'
+        //     7 |       0 |    0
+        //     1 |       1 |    1
+        //     2 |       2 |    2
+        final String from = contexts[oldSearchContext % 7];
+        final String to   = contexts[mode % 7];
+
+        if (!TextUtils.equals(from, to))
+          Statistics.INSTANCE.trackSearchContextChanged(SearchActivity.this, from, to);
+        // END of statistics
+
+        getMwmApplication().nativeSetInt(SEARCH_MODE_SETTING, position);
         runSearch(mode);
       }
 

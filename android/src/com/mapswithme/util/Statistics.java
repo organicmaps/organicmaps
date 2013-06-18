@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.media.MediaPlayer.TrackInfo;
 import android.os.Build;
 import android.util.Log;
 
@@ -91,6 +92,31 @@ public enum Statistics
 
 	}
 
+	public void trackCountryDownload(Context context)
+	{
+	  trackIfEnabled(context, "Country download");
+	}
+
+	public void trackCountryUpdate(Context context)
+	{
+	  trackIfEnabled(context, "Country update");
+	}
+
+	public void trackCountryDeleted(Context context)
+	{
+	  trackIfEnabled(context, "Country deleted");
+	}
+
+	public void trackSearchCategoryClicked(Context context, String category)
+	{
+	  final String EVENT = "Search category clicked";
+
+	  final Map<String, String> params = new HashMap<String, String>(1);
+	  params.put("category", category);
+
+	  trackIfEnabled(context, EVENT, params);
+	}
+
 	public void trackGroupChanged(Context context)
 	{
 	  trackIfEnabled(context, "Bookmark group changed");
@@ -104,6 +130,17 @@ public enum Statistics
 	public void trackGroupCreated(Context context)
 	{
 	  trackIfEnabled(context, "Group Created");
+	}
+
+	public void trackSearchContextChanged(Context context, String from, String to)
+	{
+	  final String EVENT = "Search context changed";
+
+	  final Map<String, String> params = new HashMap<String, String>(2);
+    params.put("from", from);
+    params.put("to", to);
+
+    trackIfEnabled(context, EVENT, params);
 	}
 
 	public void trackColorChanged(Context context, String from, String to)
@@ -171,7 +208,7 @@ public enum Statistics
       if (isStatisticsEnabled(activity) && isActiveUser(activity, currentSessionNumber))
       {
         Log.d(TAG, "Trying to collect on time stat.");
-        // TODO do it in separate thread
+        // TODO do it in separate thread?
         if (!isStatisticsCollected(activity))
         {
           collectOneTimeStatistics(activity);
