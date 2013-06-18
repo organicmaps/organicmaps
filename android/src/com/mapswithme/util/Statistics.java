@@ -1,5 +1,6 @@
 package com.mapswithme.util;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,20 +23,25 @@ public enum Statistics
 {
   INSTANCE;
 
-  private static String TAG_PROMO_DE = "PROMO-DE: ";
+  private final static String TAG_PROMO_DE = "PROMO-DE: ";
   private static String TAG_API = "API: ";
 
-  private static String FILE_STAT_DATA  = "statistics.wtf";
-  private static String PARAM_SESSIONS = "sessions";
-  private static String PARAM_STAT_ENABLED = "stat_enabled";
-  private static String PARAM_STAT_COLLECTED = "collected";
-  private static String PARAM_STAT_COLLECTED_TIME = "collected_time";
+  private final static String FILE_STAT_DATA  = "statistics.wtf";
+  private final static String PARAM_SESSIONS = "sessions";
+  private final static String PARAM_STAT_ENABLED = "stat_enabled";
+  private final static String PARAM_STAT_COLLECTED = "collected";
+  private final static String PARAM_STAT_COLLECTED_TIME = "collected_time";
 
-  private static int ACTIVE_USER_MIN_SESSION = 2;
-  private static long ACTIVE_USER_MIN_TIME = 30*24*3600;
+  private final static int ACTIVE_USER_MIN_SESSION = 2;
+  private final static long ACTIVE_USER_MIN_TIME = 30*24*3600;
 
   private boolean DEBUG = true;
   private boolean mNewSession = true;
+  // Statistics counters
+  private int mBookmarksCreated= 0;
+  private int mSharedTimes = 0;
+
+
 
 
 	private Statistics()
@@ -62,14 +68,74 @@ public enum Statistics
 
 	public void trackIfEnabled(Context context, String event)
 	{
+
 	  if (isStatisticsEnabled(context))
+	  {
 	    FlurryAgent.logEvent(event);
+	    Log.d(TAG, String.format("Logged: %s", event));
+	  }
+	  else
+	    Log.d(TAG, String.format("Not logged: %s", event));
+
 	}
 
 	public void trackIfEnabled(Context context, String event, Map<String, String> params)
 	{
 	  if (isStatisticsEnabled(context))
+	  {
 	    FlurryAgent.logEvent(event, params);
+	    Log.d(TAG, String.format("Logged: %s with %s", event, Utils.mapPrettyPrint(params)));
+	  }
+	  else
+	    Log.d(TAG, String.format("Not logged: %s", event));
+
+	}
+
+	public void trackGroupChanged(Context context)
+	{
+	  trackIfEnabled(context, "Bookmark group changed");
+	}
+
+	public void trackDescriptionChanged(Context context)
+	{
+	  trackIfEnabled(context, "Description changed");
+	}
+
+	public void trackGroupCreated(Context context)
+	{
+	  trackIfEnabled(context, "Group Created");
+	}
+
+	public void trackColorChanged(Context context, String from, String to)
+	{
+	  final String EVENT = "Color changed";
+
+	  final Map<String, String> params = new HashMap<String, String>(2);
+	  params.put("from", from);
+	  params.put("to", to);
+
+	  trackIfEnabled(context, EVENT, params);
+	}
+
+	public void trackBookmarkCreated(Context context)
+	{
+	  final String EVENT = "Bookmark created";
+
+	  final Map<String, String> params = new HashMap<String, String>(1);
+	  params.put("Count", String.valueOf(++mBookmarksCreated));
+
+	  trackIfEnabled(context, EVENT, params);
+	}
+
+	public void trackPlaceShared(Context context, String channel)
+	{
+	  final String EVENT = "Place Shared";
+
+	  final Map<String, String> params = new HashMap<String, String>(2);
+	  params.put("Channel", channel);
+	  params.put("Total Count", String.valueOf(++mSharedTimes));
+
+	  trackIfEnabled(context, EVENT, params);
 	}
 
 	public void trackPromocodeDialogOpenedEvent()
@@ -104,11 +170,14 @@ public enum Statistics
       final int currentSessionNumber = incAndGetSessionsNumber(activity);
       if (isStatisticsEnabled(activity) && isActiveUser(activity, currentSessionNumber))
       {
+        Log.d(TAG, "Trying to collect on time stat.");
         // TODO do it in separate thread
         if (!isStatisticsCollected(activity))
         {
           collectOneTimeStatistics(activity);
         }
+        else
+          Log.d(TAG, "One time is already collected.");
       }
       mNewSession = false;
     }
@@ -208,6 +277,7 @@ public enum Statistics
     final SharedPreferences statPrefs = getStatPrefs(context);
     final int currentSessionNumber = statPrefs.getInt(PARAM_SESSIONS, 0) + 1;
     Utils.applyPrefs(statPrefs.edit().putInt(PARAM_SESSIONS, currentSessionNumber));
+
     return currentSessionNumber;
   }
 
@@ -216,5 +286,5 @@ public enum Statistics
     return context.getSharedPreferences(FILE_STAT_DATA, Context.MODE_PRIVATE);
   }
 
-	private final String TAG = "MWMStat";
+	private final static String TAG = "MWMStat";
 }

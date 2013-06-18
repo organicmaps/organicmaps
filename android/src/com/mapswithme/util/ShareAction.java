@@ -30,17 +30,17 @@ public abstract class ShareAction
   private final static SmsShareAction SMS_SHARE = new SmsShareAction();
   private final static EmailShareAction EMAIL_SHARE = new EmailShareAction();
   private final static AnyShareAction ANY_SHARE = new AnyShareAction();
-   
+
   /* Extras*/
   private static final String EXTRA_SMS_BODY = "sms_body";
-  
+
   /* Types*/
   private static final String TYPE_MESSAGE_RFC822 = "message/rfc822";
   private static final String TYPE_TEXT_PLAIN = "text/plain";
-  
+
   /* URIs*/
   private static final String URI_STRING_SMS = "sms:";
-  
+
   protected final int mId;
   protected final int mNameResId;
   protected final Intent mBaseIntent;
@@ -109,30 +109,32 @@ public abstract class ShareAction
 
     activity.startActivity(intent);
   }
-  
+
   /**
-   * 
-   * BASE share method 
-   * 
+   *
+   * BASE share method
+   *
    */
-  public void shareMapObject(Activity activity, MapObject mapObject) 
+  public void shareMapObject(Activity activity, MapObject mapObject)
   {
     final String ge0Url  = Framework.getGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), mapObject.getName());
-    final String httpUrl = Framework.getHttpGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), mapObject.getName());  
+    final String httpUrl = Framework.getHttpGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), mapObject.getName());
     final String address = Framework.getNameAndAddress4Point(mapObject.getLat(), mapObject.getLon());
-    
+
     final int bodyId = mapObject.getType() == MapObjectType.MY_POSITION ? R.string.my_position_share_email : R.string.bookmark_share_email;
     final int subjectId = mapObject.getType() == MapObjectType.MY_POSITION ? R.string.my_position_share_email_subject : R.string.bookmark_share_email_subject;
-    
+
     final String body = activity.getString(bodyId, address, ge0Url, httpUrl);
     final String subject = activity.getString(subjectId);
 
     shareWithText(activity, body, subject);
+
+    Statistics.INSTANCE.trackPlaceShared(activity, this.getClass().getSimpleName());
   }
 
   /**
-   * 
-   * SMS 
+   *
+   * SMS
    *
    */
   public static class SmsShareAction extends ShareAction
@@ -149,25 +151,27 @@ public abstract class ShareAction
       smsIntent.putExtra(EXTRA_SMS_BODY, body);
       activity.startActivity(smsIntent);
     }
-    
+
     @Override
     public void shareMapObject(Activity activity, MapObject mapObject)
     {
       final String ge0Url  = Framework.getGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), "");
       final String httpUrl = Framework.getHttpGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), "");
-      
+
       final int bodyId = mapObject.getType() == MapObjectType.MY_POSITION ? R.string.my_position_share_sms : R.string.bookmark_share_sms;
-      
+
       final String body = activity.getString(bodyId, ge0Url, httpUrl);
 
       shareWithText(activity, body, "");
+
+      Statistics.INSTANCE.trackPlaceShared(activity, this.getClass().getSimpleName());
     }
   }
 
   /**
-   * 
+   *
    * EMAIL
-   * 
+   *
    */
   public static class EmailShareAction extends ShareAction
   {
@@ -178,7 +182,7 @@ public abstract class ShareAction
   }
 
   /**
-   * 
+   *
    * ANYTHING
    *
    */

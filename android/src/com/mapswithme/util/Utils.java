@@ -3,6 +3,7 @@ package com.mapswithme.util;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.Scanner;
 
 import android.annotation.TargetApi;
@@ -132,17 +133,17 @@ final public class Utils
   {
     return Build.VERSION.SDK_INT >= api;
   }
-  
+
   public static boolean apiLowerThan(int api)
   {
     return Build.VERSION.SDK_INT < api;
   }
-  
+
   public static void checkNotNull(Object object)
   {
     if (null == object) throw new NullPointerException("Argument here must not be NULL");
   }
-  
+
   @SuppressWarnings("deprecation")
   public static void copyTextToClipboard(Context context, String text)
   {
@@ -156,7 +157,24 @@ final public class Utils
       ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
       ClipData clip = ClipData.newPlainText("MapsWithMe: " + text, text);
       clipboard.setPrimaryClip(clip);
-    }
+  }
+  }
+
+  public static <K,V> String mapPrettyPrint(Map<K, V> map)
+  {
+    checkNotNull(map);
+    if (map.isEmpty()) return "[]";
+
+    StringBuilder sb = new StringBuilder("[");
+    for (K key : map.keySet())
+      sb.append(String.valueOf(key))
+        .append('=')
+        .append(map.get(key))
+        .append(", ");
+
+    // Replace last ', ' with ']'.
+    sb.replace(sb.length() - 2, sb.length() - 1, "]");
+    return sb.toString();
   }
 
   // utility class

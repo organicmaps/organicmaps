@@ -3,6 +3,8 @@ package com.mapswithme.maps.bookmarks.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mapswithme.util.Statistics;
+
 import android.content.Context;
 import android.graphics.Point;
 import android.util.Pair;
@@ -43,12 +45,13 @@ public class BookmarkManager
   {
     deleteBookmark(bmk.getCategoryId(), bmk.getBookmarkId());
   }
-  
+
   public int addBookmarkToLastEditedCategory(String name, double lat, double lon)
   {
+    Statistics.INSTANCE.trackBookmarkCreated(mContext);
     return nativeAddBookmarkToLastEditedCategory(name, lat, lon);
   }
-  
+
   public int getLastEditedCategory()
   {
     return nativeGetLastEditedCategory();
@@ -102,20 +105,20 @@ public class BookmarkManager
   {
     cat.setName(newName);
   }
-  
+
   public Pair<Integer, Integer> addNewBookmark(String name, double lat, double lon)
   {
     final int cat = getLastEditedCategory();
     final int bmk = addBookmarkToLastEditedCategory(name, lat, lon);
-    
+
     return new Pair<Integer, Integer>(cat, bmk);
   }
 
   public native void showBookmarkOnMap(int c, int b);
 
   public native String saveToKMZFile(int catID, String tmpPath);
-  
+
   public native int nativeAddBookmarkToLastEditedCategory(String name, double lat, double lon);
-  
+
   public native int nativeGetLastEditedCategory();
 }

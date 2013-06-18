@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
+import com.mapswithme.util.Statistics;
 
 public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActivity
 {
@@ -171,6 +172,8 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
       switchToAddButton();
 
       getAdapter().chooseItem(index);
+
+      Statistics.INSTANCE.trackGroupCreated(ChooseBookmarkCategoryActivity.this);
     }
 
     private void switchToAddButton()

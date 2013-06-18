@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +20,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
+import com.mapswithme.util.Statistics;
 import com.mapswithme.util.Utils;
 
 import java.util.List;
@@ -31,7 +33,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   public static final String PIN = "pin";
   public static final String PIN_ICON_ID = "pin";
   public static final String PIN_SET = "pin_set";
-  public static final int REQUEST_CODE_SET = 567890;
+  public static final int REQUEST_CODE_SET = 0x1;
   public static final String BOOKMARK_NAME = "bookmark_name";
 
   private Bookmark mPin;
@@ -42,7 +44,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   private ImageView mChooserImage;
   private EditText mDescr;
   private Icon mIcon = null;
-  
+
   public static void startWithBookmark(Context context, int category, int bookmark)
   {
     context.startActivity(new Intent(context, BookmarkActivity.class)
@@ -70,6 +72,14 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
   private void updateColorChooser(Icon icon)
   {
+    if (mIcon != null)
+    {
+      final String from = mIcon.getName();
+      final String to   = icon.getName();
+      if (!TextUtils.equals(from, to))
+        Statistics.INSTANCE.trackColorChanged(this, from, to);
+    }
+
     mIcon = icon;
     mChooserImage.setImageBitmap(mIcon.getIcon());
   }
@@ -143,7 +153,14 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   private void assignPinParams()
   {
     if (mPin != null)
-      mPin.setParams(mName.getText().toString(), mIcon, mDescr.getText().toString());
+    {
+      final String descr = mDescr.getText().toString().trim();
+      final String oldDescr = mPin.getBookmarkDescription().trim();
+      if (!TextUtils.equals(descr, oldDescr))
+        Statistics.INSTANCE.trackDescriptionChanged(this);
+
+      mPin.setParams(mName.getText().toString(), mIcon, descr);
+    }
   }
 
   @Override
@@ -188,9 +205,14 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   {
     if (requestCode == REQUEST_CODE_SET && resultCode == RESULT_OK)
     {
+
       Point pin = ((ParcelablePoint)data.getParcelableExtra(PIN)).getPoint();
       mPin = mManager.getBookmark(pin.x, pin.y);
       refreshValuesInViews();
+
+      if (mCurrentCategoryId != mPin.getCategoryId())
+        Statistics.INSTANCE.trackGroupChanged(this);
+
       mCurrentCategoryId = mPin.getCategoryId();
     }
     super.onActivityResult(requestCode, resultCode, data);
