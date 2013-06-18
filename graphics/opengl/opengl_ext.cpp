@@ -92,8 +92,7 @@ namespace graphics
       glGetShaderInfoLogFn = &glGetShaderInfoLog;
       glGetShaderivFn = &glGetShaderiv;
       glCompileShaderFn = &glCompileShader;
-      typedef void (OPENGL_CALLING_CONVENTION * glShaderSourceFn_t)(GLuint shader, GLsizei count, const GLchar ** string, const GLint *length);
-      glShaderSourceFn = reinterpret_cast<glShaderSourceFn_t>(&glShaderSource);
+      glShaderSourceFn = &glShaderSource;
       glCreateShaderFn = &glCreateShader;
       glDeleteShaderFn = &glDeleteShader;
     }

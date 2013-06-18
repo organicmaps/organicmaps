@@ -84,7 +84,11 @@ namespace graphics
     void (OPENGL_CALLING_CONVENTION * glGetShaderInfoLogFn)(GLuint shader, GLsizei bufSize, GLsizei *length, GLchar *infoLog);
     void (OPENGL_CALLING_CONVENTION * glGetShaderivFn)(GLuint shader, GLenum pname, GLint *params);
     void (OPENGL_CALLING_CONVENTION * glCompileShaderFn)(GLuint shader);
+#if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_7_0) || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_8)
+    void (OPENGL_CALLING_CONVENTION * glShaderSourceFn)(GLuint shader, GLsizei count, const GLchar* const *string, const GLint *length);
+#else
     void (OPENGL_CALLING_CONVENTION * glShaderSourceFn)(GLuint shader, GLsizei count, const GLchar* *string, const GLint *length);
+#endif
     GLuint (OPENGL_CALLING_CONVENTION * glCreateShaderFn)(GLenum type);
     void (OPENGL_CALLING_CONVENTION * glDeleteShaderFn)(GLuint shader);
 
