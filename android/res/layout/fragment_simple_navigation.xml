@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:gravity="center"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:id="@+id/staticData"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_small"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/degrees"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="-23.399437\n-52.090904" />
+
+        <include
+            android:layout_margin="@dimen/margin_small"
+            layout="@layout/horizontal_separator" />
+
+        <TextView
+            android:id="@+id/dms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="40°26′47″N\n079°58′36″W" />
+    </LinearLayout>
+
+    <include
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_small"
+        layout="@layout/horizontal_separator" />
+
+    <LinearLayout
+        android:id="@+id/dynamicData"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_small"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/distance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="666km" />
+
+        <com.mapswithme.maps.ArrowImage
+            android:id="@+id/arrow"
+            android:layout_width="@dimen/arrow_nav_size"
+            android:layout_height="@dimen/arrow_nav_size" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -78,27 +78,6 @@ extern "C"
   }
 
   JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_Bookmark_getDistanceAndAzimut(
-      JNIEnv * env, jobject thiz, jdouble x, jdouble y, jdouble cLat, jdouble cLon, jdouble north)
-  {
-    string distance;
-    double azimut = -1.0;
-    g_framework->NativeFramework()->GetDistanceAndAzimut(
-        m2::PointD(x, y), cLat, cLon, north, distance, azimut);
-
-    jclass klass = env->FindClass("com/mapswithme/maps/bookmarks/data/DistanceAndAzimut");
-    ASSERT ( klass, () );
-    jmethodID methodID = env->GetMethodID(
-        klass, "<init>",
-        "(Ljava/lang/String;D)V");
-    ASSERT ( methodID, () );
-
-    return env->NewObject(klass, methodID,
-                          jni::ToJavaString(env, distance.c_str()),
-                          static_cast<jdouble>(azimut));
-  }
-
-  JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_getXY(
        JNIEnv * env, jobject thiz, jint cat, jlong bmk)
   {

@@ -3,6 +3,7 @@ package com.mapswithme.maps.bookmarks.data;
 import android.content.Context;
 
 import com.mapswithme.maps.MapObjectFragment.MapObjectType;
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 
 public class Bookmark extends MapObject
@@ -44,7 +45,6 @@ public class Bookmark extends MapObject
     return p2g(p.x, p.y);
   }
 
-  private native DistanceAndAzimut getDistanceAndAzimut(double x, double y, double cLat, double cLon, double north);
   private static native ParcelablePointD g2p(double x, double y);
   private static native ParcelablePointD p2g(double px, double py);
   private native ParcelablePointD getXY(int c, long b);
@@ -70,18 +70,18 @@ public class Bookmark extends MapObject
     ParcelablePointD ll = getXY(mCategoryId, mBookmark);
     mMerX = ll.x;
     mMerY = ll.y;
-    
+
     final double yRad = ll.y*Math.PI/180.0;
     final double lat = (180.0/Math.PI)*(2.0 * Math.atan(Math.exp(yRad)) - Math.PI/2.0);
     mLat = lat;
     mLon = ll.x;
-    
+
     mPosition = g2p(mMerX, mMerY);
   }
 
   public DistanceAndAzimut getDistanceAndAzimut(double cLat, double cLon, double north)
   {
-    return getDistanceAndAzimut(mMerX, mMerY, cLat, cLon, north);
+    return Framework.getDistanceAndAzimut(mMerX, mMerY, cLat, cLon, north);
   }
 
   public ParcelablePointD getPosition()
@@ -168,8 +168,8 @@ public class Bookmark extends MapObject
   {
     return encode2Ge0Url(mCategoryId, mBookmark, addName);
   }
-  
-  public String getHttpGe0Url(boolean addName) 
+
+  public String getHttpGe0Url(boolean addName)
   {
     String url = getGe0Url(addName);
     url = url.replaceFirst("ge0://", "http://ge0.me/");

@@ -11,4 +11,6 @@
 
     <dimen name="dialog_max_height">320dp</dimen>
 
+    <dimen name="arrow_nav_size">64dp</dimen>
+
 </resources>

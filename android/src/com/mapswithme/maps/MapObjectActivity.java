@@ -1,7 +1,6 @@
 
 package com.mapswithme.maps;
 
-import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,29 +8,27 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.DialogInterface.OnKeyListener;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
 import com.mapswithme.maps.MapObjectFragment.MapObjectType;
-import com.mapswithme.maps.api.MWMRequest;
+import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.maps.promo.ActivationSettings;
-import com.mapswithme.maps.promo.PromocodeActivationDialog;
+import com.mapswithme.maps.bookmarks.data.ParcelablePointD;
 
 public class MapObjectActivity extends FragmentActivity
 {
-  
-  private MapObjectFragment mFragment;
-  
+
+  private MapObjectFragment mMapObjectFragment;
+  private SimpleNavigationFragment mNavigationFragment;
+
   public static String EXTRA_OBJECT_TYPE = "object_type";
-  
+
   //for Bookmark
   private static String EXTRA_BMK_CAT = "bookmark_category";
   private static String EXTRA_BMK_INDEX = "bookmark_index";
@@ -41,7 +38,7 @@ public class MapObjectActivity extends FragmentActivity
   private static String EXTRA_ADDRESS = "address";
   private static String EXTRA_LAT = "lat";
   private static String EXTRA_LON = "lon";
-  
+
   public static void startWithBookmark(Context context, int categoryIndex, int bookmarkIndex)
   {
     final Intent i = new Intent(context, MapObjectActivity.class);
@@ -50,7 +47,7 @@ public class MapObjectActivity extends FragmentActivity
     i.putExtra(EXTRA_BMK_INDEX, bookmarkIndex);
     context.startActivity(i);
   }
-  
+
   public static void startWithPoi(Context context, String name, String type, String address, double lat, double lon)
   {
     final Intent i = new Intent(context, MapObjectActivity.class);
@@ -62,7 +59,7 @@ public class MapObjectActivity extends FragmentActivity
     i.putExtra(EXTRA_LON, lon);
     context.startActivity(i);
   }
-  
+
   public static void startWithApiPoint(Context context, String name, String type, String address, double lat, double lon)
   {
     final Intent i = new Intent(context, MapObjectActivity.class);
@@ -72,7 +69,7 @@ public class MapObjectActivity extends FragmentActivity
     i.putExtra(EXTRA_LON, lon);
     context.startActivity(i);
   }
-  
+
   public static void startWithMyPosition(Context context, double lat, double lon)
   {
     final Intent i = new Intent(context, MapObjectActivity.class);
@@ -87,7 +84,7 @@ public class MapObjectActivity extends FragmentActivity
   {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_map_object);
-    
+
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
     {
       // http://stackoverflow.com/questions/6867076/getactionbar-returns-null
@@ -95,53 +92,58 @@ public class MapObjectActivity extends FragmentActivity
       if (bar != null)
         bar.setDisplayHomeAsUpEnabled(true);
     }
-    
+
     // Show the Up button in the action bar.
-    mFragment = (MapObjectFragment)getSupportFragmentManager().findFragmentById(R.id.mapObjFragment);
+    mMapObjectFragment = (MapObjectFragment)getSupportFragmentManager().findFragmentById(R.id.mapObjFragment);
+    mNavigationFragment = (SimpleNavigationFragment)getSupportFragmentManager().findFragmentById(R.id.simpleNavigationFragment);
+
     handleIntent(getIntent());
   }
-  
+
   @Override
   protected void onNewIntent(Intent intent)
   {
     super.onNewIntent(intent);
     handleIntent(intent);
   }
-  
+
   private void handleIntent(Intent intent)
   {
     final MapObjectType type = (MapObjectType) intent.getSerializableExtra(EXTRA_OBJECT_TYPE);
+
+    double lat  = intent.getDoubleExtra(EXTRA_LAT, 0);
+    double lon  = intent.getDoubleExtra(EXTRA_LON, 0);
+
     if (type == MapObjectType.BOOKMARK)
     {
       final int categoryIndex = intent.getIntExtra(EXTRA_BMK_CAT, -1);
       final int bmkIndex      = intent.getIntExtra(EXTRA_BMK_INDEX, -1);
-      mFragment.setForBookmark(BookmarkManager.getBookmarkManager(this).getBookmark(categoryIndex, bmkIndex));
-    } 
+
+      final Bookmark bmk = BookmarkManager.getBookmarkManager(this).getBookmark(categoryIndex, bmkIndex);
+      lat = bmk.getLat();
+      lon = bmk.getLon();
+      mMapObjectFragment.setForBookmark(bmk);
+    }
     else if (type == MapObjectType.API_POINT)
     {
       final String name    = intent.getStringExtra(EXTRA_NAME);
-      final double lat  = intent.getDoubleExtra(EXTRA_LAT, 0);
-      final double lon  = intent.getDoubleExtra(EXTRA_LON, 0);
-      
-      mFragment.setForApiPoint(name, lat, lon);
+
+      mMapObjectFragment.setForApiPoint(name, lat, lon);
     }
     else if (type == MapObjectType.POI)
     {
       final String name    = intent.getStringExtra(EXTRA_NAME);
       final String poiType = intent.getStringExtra(EXTRA_TYPE);
       final String address = intent.getStringExtra(EXTRA_ADDRESS);
-      
-      final double lat  = intent.getDoubleExtra(EXTRA_LAT, 0);
-      final double lon  = intent.getDoubleExtra(EXTRA_LON, 0);
-      mFragment.setForPoi(name, poiType, address, lat, lon);
+
+      mMapObjectFragment.setForPoi(name, poiType, address, lat, lon);
     }
     else if (type == MapObjectType.MY_POSITION)
     {
-      final double lat  = intent.getDoubleExtra(EXTRA_LAT, 0);
-      final double lon  = intent.getDoubleExtra(EXTRA_LON, 0);
-      mFragment.setForMyPosition(lat, lon);
+      mMapObjectFragment.setForMyPosition(lat, lon);
+      // TODO do not show directions and distance here
     }
-    
+    mNavigationFragment.setPoint(new ParcelablePointD(lon, lat));
   }
 
   @Override
@@ -157,9 +159,9 @@ public class MapObjectActivity extends FragmentActivity
     else
       return super.onOptionsItemSelected(item);
   }
-  
-  
-  
+
+
+
   ////
   //
   //    COPY PASTE!!!
@@ -196,8 +198,8 @@ public class MapObjectActivity extends FragmentActivity
     else
       return super.onCreateDialog(id);
   }
-  
-  
+
+
   @Override
   @Deprecated
   protected void onPrepareDialog(int id, Dialog dialog, Bundle args)
@@ -211,8 +213,8 @@ public class MapObjectActivity extends FragmentActivity
       super.onPrepareDialog(id, dialog, args);
     }
   }
-  
-  
+
+
   private void runProVersionMarketActivity()
   {
     try
@@ -232,7 +234,7 @@ public class MapObjectActivity extends FragmentActivity
       }
     }
   }
-  
+
   public void showProVersionBanner(final String message)
   {
     mProDialogMessage = message;
@@ -247,8 +249,8 @@ public class MapObjectActivity extends FragmentActivity
       }
     });
   }
-  
+
   private static final int PRO_VERSION_DIALOG = 110001;
   private String mProDialogMessage;
-  
+
 }

@@ -710,7 +710,7 @@ namespace android
 
      int width = m_work.GetNavigator().Screen().GetWidth();
      int height = m_work.GetNavigator().Screen().GetHeight();
-     
+
      m_bmBaloon->onScreenSize(width, height);
   }
 
@@ -1005,5 +1005,35 @@ extern "C"
   {
     const string url = g_framework->NativeFramework()->CodeGe0url(lat, lon, zoomLevel, jni::ToNativeString(env, name));
     return jni::ToJavaString(env, url);
+  }
+
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetDistanceAndAzimut(
+      JNIEnv * env, jclass clazz, jdouble merX, jdouble merY, jdouble cLat, jdouble cLon, jdouble north)
+  {
+    string distance;
+    double azimut = -1.0;
+    g_framework->NativeFramework()->GetDistanceAndAzimut(
+        m2::PointD(merX, merY), cLat, cLon, north, distance, azimut);
+
+    jclass klass = env->FindClass("com/mapswithme/maps/bookmarks/data/DistanceAndAzimut");
+    ASSERT ( klass, () );
+    jmethodID methodID = env->GetMethodID(
+        klass, "<init>",
+        "(Ljava/lang/String;D)V");
+    ASSERT ( methodID, () );
+
+    return env->NewObject(klass, methodID,
+                          jni::ToJavaString(env, distance.c_str()),
+                          static_cast<jdouble>(azimut));
+  }
+
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetDistanceAndAzimutFromLatLon(
+      JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jdouble cLat, jdouble cLon, jdouble north)
+  {
+    const double merY = MercatorBounds::LatToY(lat);
+    const double merX = MercatorBounds::LonToX(lon);
+    return Java_com_mapswithme_maps_Framework_nativeGetDistanceAndAzimut(env, clazz, merX, merY, cLat, cLon, north);
   }
 }
