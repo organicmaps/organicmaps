@@ -19,8 +19,7 @@
             android:id="@+id/degrees"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="-23.399437\n-52.090904" />
+            android:gravity="center"/>
 
         <include
             android:layout_margin="@dimen/margin_small"
@@ -53,13 +52,12 @@
             android:id="@+id/distance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="666km" />
+            android:gravity="center"/>
 
         <com.mapswithme.maps.ArrowImage
             android:id="@+id/arrow"
             android:layout_width="@dimen/arrow_nav_size"
-            android:layout_height="@dimen/arrow_nav_size" />
+            android:layout_height="@dimen/arrow_nav_size"/>
     </LinearLayout>
 
 </LinearLayout>

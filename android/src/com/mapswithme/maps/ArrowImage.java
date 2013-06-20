@@ -15,13 +15,21 @@ public class ArrowImage extends ImageView
 {
   static private String TAG = "ArrowImage";
 
-  private Paint m_paint;
-  private Path m_path;
-  private boolean m_drawArrow;
+  // Drawing params
+  private int mWidth;
+  private int mHeight;
+  private int mOffset;
+  private final static int BASE_OFFSET = 4;
 
-  private float m_angle;
-  private float m_currentAngle;
+  private Paint mPaint;
+  private Path mPath;
+  private boolean mDrawArrow;
 
+  private float mAngle;
+
+  //Animation params
+  private boolean mJustStarted = true;
+  private float mCurrentAngle;
   private final static long   UPDATE_RATE  = 60;
   private final static long   UPDATE_DELAY = 1000/UPDATE_RATE;
   private final static double ROTATION_SPEED = 120; // degrees per second
@@ -43,20 +51,20 @@ public class ArrowImage extends ImageView
   {
     super(context, attrs);
 
-    m_paint = new Paint();
-    m_paint.setFlags(m_paint.getFlags() | Paint.ANTI_ALIAS_FLAG);
-    m_paint.setStyle(Style.FILL);
+    mPaint = new Paint();
+    mPaint.setFlags(mPaint.getFlags() | Paint.ANTI_ALIAS_FLAG);
+    mPaint.setStyle(Style.FILL);
     //TODO set from resources
-    m_paint.setColor(Color.BLACK);
+    mPaint.setColor(Color.BLACK);
 
-    m_path = new Path();
+    mPath = new Path();
   }
 
   public void setFlag(Resources res, String packageName, String flag)
   {
     setVisibility(VISIBLE);
 
-    m_drawArrow = false;
+    mDrawArrow = false;
 
     // The aapt can't process resources with name "do". Hack with renaming.
     if (flag.equals("do"))
@@ -82,11 +90,18 @@ public class ArrowImage extends ImageView
     // TODO add filter
     setVisibility(VISIBLE);
     setImageDrawable(null);
+    mDrawArrow = true;
 
-    m_drawArrow = true;
-    m_angle = (float)(azimut / Math.PI * 180.0);
+    mAngle = (float)(azimut / Math.PI * 180.0);
 
-    animateRotation();
+    if (!mJustStarted)
+      animateRotation();
+    else
+    {
+      mCurrentAngle = mAngle; // to skip rotation from 0
+      mJustStarted   = false;
+    }
+
     invalidate();
   }
 
@@ -100,7 +115,7 @@ public class ArrowImage extends ImageView
   {
     setVisibility(INVISIBLE);
     setImageDrawable(null);
-    m_drawArrow = false;
+    mDrawArrow = false;
   }
 
 
@@ -109,29 +124,20 @@ public class ArrowImage extends ImageView
   {
     super.onDetachedFromWindow();
     removeCallbacks(mAnimateTask);
-    Log.d(TAG, "Detached");
   }
 
-  @Override
-  protected void onAttachedToWindow()
-  {
-    super.onAttachedToWindow();
-    Log.d(TAG, "Attached");
-  }
 
   private boolean step()
   {
-    final double diff = m_angle - m_currentAngle;
+    final double diff = mAngle - mCurrentAngle;
     if (Math.abs(diff) > ERR)
     {
       // Choosing the shortest way
       // at [0, 360] looped segment
       final double signum = -1 * Math.signum(diff) * Math.signum(Math.abs(diff) - 180);
-      m_currentAngle += signum * ROTATION_STEP;
-      if      (m_currentAngle < 0)   m_currentAngle = 360;
-      else if (m_currentAngle > 360) m_currentAngle = 0;
-
-      Log.d(TAG, String.format("mCA=%f mA=%f", m_currentAngle, m_angle));
+      mCurrentAngle += signum * ROTATION_STEP;
+      if      (mCurrentAngle < 0)   mCurrentAngle = 360;
+      else if (mCurrentAngle > 360) mCurrentAngle = 0;
       invalidate();
       return true;
     }
@@ -139,36 +145,47 @@ public class ArrowImage extends ImageView
   }
 
   @Override
+  protected void onSizeChanged(int w, int h, int oldw, int oldh)
+  {
+    super.onSizeChanged(w, h, oldw, oldh);
+
+    mOffset = (int) (BASE_OFFSET * getResources().getDisplayMetrics().density);
+    mWidth  = w - getPaddingLeft() - getPaddingRight() - 2*mOffset;
+    mHeight = h - getPaddingBottom() - getPaddingTop() - 2*mOffset;
+  }
+
+  @Override
   protected void onDraw(Canvas canvas)
   {
     super.onDraw(canvas);
+    if (mWidth <= 0 || mHeight <= 0) return;
 
-    if (m_drawArrow)
+    if (mDrawArrow)
     {
       canvas.save();
 
-      final float w = getWidth();
-      final float h = getHeight();
+      final float w = mWidth;
+      final float h = mHeight;
 
-      if (m_angle < 0.0)
-      {
-        canvas.drawCircle(w/2, h/2, Math.min(w/2, h/2) - 5, m_paint);
-      }
+      if (mAngle < 0.0)
+        canvas.drawCircle(w/2, h/2, Math.min(w/2, h/2) - 5, mPaint);
       else
       {
-        m_path.reset();
-        m_path.moveTo(w/3, h/2);
-        m_path.lineTo(0, h/2 - h/3);
-        m_path.lineTo(w, h/2);
-        m_path.lineTo(0, h/2 + h/3);
-        m_path.lineTo(w/3, h/2);
-        m_path.close();
+        mPath.reset();
+        mPath.moveTo(w/3, h/2);
+        mPath.lineTo(0, h/2 - h/3);
+        mPath.lineTo(w, h/2);
+        mPath.lineTo(0, h/2 + h/3);
+        mPath.lineTo(w/3, h/2);
+        mPath.close();
 
-        canvas.rotate(-m_currentAngle, w/2, h/2);
-        canvas.drawPath(m_path, m_paint);
+        canvas.translate(getPaddingLeft() + mOffset, getPaddingTop() + mOffset);
+        canvas.rotate(-mCurrentAngle, w/2, h/2);
+        canvas.drawPath(mPath, mPaint);
 
         canvas.restore();
       }
+
     }
   }
 }
