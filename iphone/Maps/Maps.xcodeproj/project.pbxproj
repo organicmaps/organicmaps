@@ -36,8 +36,16 @@
 		ED86770016A0793800D9A02A /* 64-pro.png in Resources */ = {isa = PBXBuildFile; fileRef = ED8676FC16A0793800D9A02A /* 64-pro.png */; };
 		ED86770116A0793800D9A02A /* 320-pro.png in Resources */ = {isa = PBXBuildFile; fileRef = ED8676FD16A0793800D9A02A /* 320-pro.png */; };
 		ED8B1A2116772AB4003CAD0A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED8B1A2016772AB4003CAD0A /* MessageUI.framework */; };
+		EDB811A3175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB811A2175E1A9C00E36BF2 /* TwoButtonsView.m */; };
+		EDB811A4175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB811A2175E1A9C00E36BF2 /* TwoButtonsView.m */; };
 		EDBB18B816972B0600AF0742 /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDBB18B716972B0600AF0742 /* libzlib.a */; };
 		EDBB18B916972B3000AF0742 /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDBB18B716972B0600AF0742 /* libzlib.a */; };
+		EDC5C543175F2CA600420E92 /* ShareActionSheet.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */; };
+		EDC5C544175F2CA600420E92 /* ShareActionSheet.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */; };
+		EDCB4E8E175E67120005AA35 /* PlacePreviewViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDCB4E8D175E67110005AA35 /* PlacePreviewViewController.mm */; };
+		EDCB4E8F175E67120005AA35 /* PlacePreviewViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDCB4E8D175E67110005AA35 /* PlacePreviewViewController.mm */; };
+		EDFC74D0177AE6C500FAF21F /* PlaceAndCompasView.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDFC74CF177AE6C500FAF21F /* PlaceAndCompasView.mm */; };
+		EDFC74D1177AE6C500FAF21F /* PlaceAndCompasView.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDFC74CF177AE6C500FAF21F /* PlaceAndCompasView.mm */; };
 		EE026F0611D6AC0D00645242 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
 		EE12020911CD464100ABDD5D /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1201FF11CD464100ABDD5D /* libbase.a */; };
 		EE12020A11CD464100ABDD5D /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020011CD464100ABDD5D /* libcoding.a */; };
@@ -1393,8 +1401,15 @@
 		ED8676FC16A0793800D9A02A /* 64-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "64-pro.png"; sourceTree = "<group>"; };
 		ED8676FD16A0793800D9A02A /* 320-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "320-pro.png"; sourceTree = "<group>"; };
 		ED8B1A2016772AB4003CAD0A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		EDB811A1175E1A9C00E36BF2 /* TwoButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoButtonsView.h; sourceTree = "<group>"; };
+		EDB811A2175E1A9C00E36BF2 /* TwoButtonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoButtonsView.m; sourceTree = "<group>"; };
 		EDBB18B716972B0600AF0742 /* libzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzlib.a; sourceTree = "<group>"; };
-		EDC894E41768A5D3000D3660 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EDC5C541175F2CA600420E92 /* ShareActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareActionSheet.h; sourceTree = "<group>"; };
+		EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ShareActionSheet.mm; sourceTree = "<group>"; };
+		EDCB4E8C175E67110005AA35 /* PlacePreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacePreviewViewController.h; sourceTree = "<group>"; };
+		EDCB4E8D175E67110005AA35 /* PlacePreviewViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlacePreviewViewController.mm; sourceTree = "<group>"; };
+		EDFC74CE177AE6C500FAF21F /* PlaceAndCompasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceAndCompasView.h; sourceTree = "<group>"; };
+		EDFC74CF177AE6C500FAF21F /* PlaceAndCompasView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlaceAndCompasView.mm; sourceTree = "<group>"; };
 		EE026F0511D6AC0D00645242 /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = classificator.txt; path = ../../data/classificator.txt; sourceTree = SOURCE_ROOT; };
 		EE1201FF11CD464100ABDD5D /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbase.a; sourceTree = SOURCE_ROOT; };
 		EE12020011CD464100ABDD5D /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcoding.a; sourceTree = SOURCE_ROOT; };
@@ -2187,6 +2202,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				EDFC74CE177AE6C500FAF21F /* PlaceAndCompasView.h */,
+				EDFC74CF177AE6C500FAF21F /* PlaceAndCompasView.mm */,
 				FA09E00F13F71F6C007E69CA /* SearchVC.h */,
 				FA09E01013F71F6C007E69CA /* SearchVC.mm */,
 				EE7F297C1219ECA300EB67A9 /* RenderBuffer.hpp */,
@@ -2209,6 +2226,10 @@
 				F7B90CD21521E6D100C054EE /* CustomNavigationView.mm */,
 				FAF457E415597BC100DCCC49 /* Framework.h */,
 				FAF457E615597D4600DCCC49 /* Framework.cpp */,
+				EDB811A1175E1A9C00E36BF2 /* TwoButtonsView.h */,
+				EDB811A2175E1A9C00E36BF2 /* TwoButtonsView.m */,
+				EDC5C541175F2CA600420E92 /* ShareActionSheet.h */,
+				EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -2437,6 +2458,8 @@
 				FA054611155C465E001F4E37 /* SelectSetVC.mm */,
 				FA5D4F151557F79900E7D8BB /* PlacePageVC.h */,
 				FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */,
+				EDCB4E8C175E67110005AA35 /* PlacePreviewViewController.h */,
+				EDCB4E8D175E67110005AA35 /* PlacePreviewViewController.mm */,
 				FA36B80315403A4F004560CC /* BalloonView.h */,
 				FA36B80415403A4F004560CC /* BalloonView.mm */,
 				FA36B80515403A4F004560CC /* BookmarksVC.h */,
@@ -4485,6 +4508,10 @@
 				F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 				CB252D6F16FF82C9001E41E9 /* Statistics.m in Sources */,
 				FAC23543171B2C09003BED96 /* EditDescriptionVC.mm in Sources */,
+				EDB811A3175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */,
+				EDCB4E8E175E67120005AA35 /* PlacePreviewViewController.mm in Sources */,
+				EDC5C543175F2CA600420E92 /* ShareActionSheet.mm in Sources */,
+				EDFC74D0177AE6C500FAF21F /* PlaceAndCompasView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4520,6 +4547,10 @@
 				F785EB4116386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 				CB252D7016FF82C9001E41E9 /* Statistics.m in Sources */,
 				FAC23544171B2C09003BED96 /* EditDescriptionVC.mm in Sources */,
+				EDB811A4175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */,
+				EDCB4E8F175E67120005AA35 /* PlacePreviewViewController.mm in Sources */,
+				EDC5C544175F2CA600420E92 /* ShareActionSheet.mm in Sources */,
+				EDFC74D1177AE6C500FAF21F /* PlaceAndCompasView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
