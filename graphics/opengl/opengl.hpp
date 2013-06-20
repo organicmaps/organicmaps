@@ -18,12 +18,13 @@
 
 #elif defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE)
   #include <TargetConditionals.h>
+  #include <Availability.h>
 
   #ifdef OMIM_OS_IPHONE
     #define USE_OPENGLES20_IF_AVAILABLE 1
     #include <OpenGLES/ES2/gl.h>
     #define OMIM_GL_ES
-    #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_7_0
+    #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_6_1
       #define NEED_OPENGL_SHADERSOURCE_CONST
     #endif
   #else
