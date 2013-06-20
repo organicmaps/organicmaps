@@ -141,8 +141,12 @@ public class MapObjectActivity extends FragmentActivity
     else if (type == MapObjectType.MY_POSITION)
     {
       mMapObjectFragment.setForMyPosition(lat, lon);
-      // TODO do not show directions and distance here
+      mNavigationFragment.setPoint(new ParcelablePointD(lon, lat));
+      mNavigationFragment.showArrow(false);
+      return;
     }
+
+    mNavigationFragment.showArrow(true);
     mNavigationFragment.setPoint(new ParcelablePointD(lon, lat));
   }
 

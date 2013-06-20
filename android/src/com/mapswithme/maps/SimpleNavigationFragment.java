@@ -4,8 +4,13 @@ import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -13,6 +18,7 @@ import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.ParcelablePointD;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 
 public class SimpleNavigationFragment extends Fragment implements LocationService.Listener
 {
@@ -23,13 +29,16 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
   private double mNorth = -1;
 
   //Views
-
-  // Right
+    // Right
   private ArrowImage mArrow;
   private TextView mDistance;
-  // Left
+    // Left
   private TextView mDegrees;
   private TextView mDMS;
+    // Containers
+  private View mRoot;
+  private View mStaticData;
+  private View mDynamicData;
 
 
 
@@ -39,22 +48,25 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
-    View view = inflater.inflate(R.layout.fragment_simple_navigation, container, false);
+    mRoot = inflater.inflate(R.layout.fragment_simple_navigation, container, false);
+    mStaticData = mRoot.findViewById(R.id.staticData);
+    mDynamicData = mRoot.findViewById(R.id.dynamicData);
     //Set up views
-    mArrow    = (ArrowImage) view.findViewById(R.id.arrow);
-    mDistance = (TextView)   view.findViewById(R.id.distance);
-    mDegrees  = (TextView)   view.findViewById(R.id.degrees);
-    mDMS      = (TextView)   view.findViewById(R.id.dms);
-
+    mArrow    = (ArrowImage) mRoot.findViewById(R.id.arrow);
+    mDistance = (TextView)   mRoot.findViewById(R.id.distance);
+    mDegrees  = (TextView)   mRoot.findViewById(R.id.degrees);
+    mDMS      = (TextView)   mRoot.findViewById(R.id.dms);
     updateViews();
 
-    return view;
+    setClickers();
+
+    return mRoot;
   }
 
   private void updateViews()
   {
     final Location lastKnown = mLocationService.getLastKnown();
-    if (lastKnown != null)
+    if (lastKnown != null && mArrow != null)
     {
       final DistanceAndAzimut da = Framework.getDistanceAndAzimutFromLatLon
                 (mPoint.y, mPoint.x, lastKnown.getLatitude(), lastKnown.getLongitude(), mNorth);
@@ -75,7 +87,7 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
     if (mPoint != null && mDegrees != null)
     {
       mDegrees.setText(UiUtils.formatLatLon(mPoint.y, mPoint.x));
-      // TODO add latLon to DMS conversion
+      mDMS.setText(UiUtils.formatLatLonToDMS(mPoint.y, mPoint.x));
     }
     else
     {
@@ -128,4 +140,91 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
     mLocationService = null;
   }
 
+  public void show()
+  {
+    UiUtils.show(mRoot);
+  }
+
+  public void hide()
+  {
+    UiUtils.hide(mRoot);
+  }
+
+  public void showCoordinats(boolean show)
+  {
+    if (show)
+      UiUtils.show(mStaticData);
+    else
+      UiUtils.hide(mStaticData);
+  }
+
+  public void showArrow(boolean show)
+  {
+    if (show)
+      UiUtils.show(mDynamicData);
+    else
+      UiUtils.hide(mDynamicData);
+  }
+
+  private static final int MENU_COPY_DEGR = 1;
+  private static final int MENU_COPY_DMS  = 2;
+  private static final int MENU_CANCEL    = 999;
+  @Override
+  public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
+  {
+    if (v == mStaticData)
+    {
+      // TODO add localizations
+      menu.add(Menu.NONE, MENU_COPY_DEGR, MENU_COPY_DEGR, String.format("Copy %s", mDegrees.getText().toString()));
+      menu.add(Menu.NONE, MENU_COPY_DMS, MENU_COPY_DEGR, String.format("Copy %s", mDMS.getText().toString()));
+      menu.add(Menu.NONE, MENU_CANCEL, MENU_CANCEL, android.R.string.cancel);
+    }
+
+    super.onCreateContextMenu(menu, v, menuInfo);
+  }
+
+  @Override
+  public boolean onContextItemSelected(MenuItem item)
+  {
+    final int ID = item.getItemId();
+    if (ID == MENU_COPY_DEGR)
+    {
+      final String text = mDegrees.getText().toString();
+      Utils.copyTextToClipboard(getActivity(), text);
+      // TODO add localization
+      Utils.toastShortcut(getActivity(), "Copied to Clipboard: " + text);
+      return true;
+    }
+    else if (ID == MENU_COPY_DMS)
+    {
+      final String text = mDMS.getText().toString();
+      Utils.copyTextToClipboard(getActivity(), text);
+      // TODO add localization
+      Utils.toastShortcut(getActivity(), "Copied to Clipboard: " + text);
+      return true;
+    }
+    else if (ID == MENU_CANCEL)
+      return true;
+
+    return super.onContextItemSelected(item);
+  }
+
+  private void showShareCoordinatesMenu()
+  {
+    registerForContextMenu(mStaticData);
+    mStaticData.showContextMenu();
+    unregisterForContextMenu(mStaticData);
+  }
+
+  private void setClickers()
+  {
+    mStaticData.setOnClickListener(new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        showShareCoordinatesMenu();
+      }
+    });
+  }
 }

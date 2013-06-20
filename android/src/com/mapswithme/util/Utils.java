@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -127,17 +129,33 @@ final public class Utils
   {
     return Build.VERSION.SDK_INT >= api;
   }
-  
+
   public static boolean apiLowerThan(int api)
   {
     return Build.VERSION.SDK_INT < api;
   }
-  
+
   public static void checkNotNull(Object object)
   {
     if (null == object) throw new NullPointerException("Argument here must not be NULL");
   }
-  
+
+  @SuppressWarnings("deprecation")
+  public static void copyTextToClipboard(Context context, String text)
+  {
+    if (apiLowerThan(11))
+    {
+      android.text.ClipboardManager clipbord = (android.text.ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+      clipbord.setText(text);
+    }
+    else
+    {
+      ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+      ClipData clip = ClipData.newPlainText("MapsWithMe: " + text, text);
+      clipboard.setPrimaryClip(clip);
+    }
+  }
+
   // utility class
   private Utils() {};
 }
