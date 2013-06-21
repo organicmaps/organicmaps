@@ -180,8 +180,6 @@
 		FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA29FDA9141E77F8004ADF66 /* Preferences.mm */; };
 		FA2EF9C713630C3B00E3E484 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2EF9C613630C3B00E3E484 /* libplatform.a */; };
 		FA34BECA1338D72F00FFB2A7 /* CustomAlertView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */; };
-		FA36B80B15403A4F004560CC /* BalloonView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA36B80415403A4F004560CC /* BalloonView.mm */; };
-		FA36B80C15403A4F004560CC /* BalloonView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA36B80415403A4F004560CC /* BalloonView.mm */; };
 		FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA36B80615403A4F004560CC /* BookmarksVC.mm */; };
 		FA36B80E15403A4F004560CC /* BookmarksVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA36B80615403A4F004560CC /* BookmarksVC.mm */; };
 		FA4135EA120A263C0062D5B4 /* CountriesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4135E2120A263C0062D5B4 /* CountriesViewController.mm */; };
@@ -253,12 +251,9 @@
 		FAB2D51E15DAB53F00C706C3 /* tail.png in Resources */ = {isa = PBXBuildFile; fileRef = FAB2D51415DAB53F00C706C3 /* tail.png */; };
 		FAB2D51F15DAB53F00C706C3 /* tail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAB2D51515DAB53F00C706C3 /* tail@2x.png */; };
 		FABF223E13FAA97A003D4D49 /* CompassView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FABF223D13FAA97A003D4D49 /* CompassView.mm */; };
-		FAC23543171B2C09003BED96 /* EditDescriptionVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAC23542171B2C09003BED96 /* EditDescriptionVC.mm */; };
-		FAC23544171B2C09003BED96 /* EditDescriptionVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAC23542171B2C09003BED96 /* EditDescriptionVC.mm */; };
 		FAD4906C13EFF61F005E7D43 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = FAD4906A13EFF61F005E7D43 /* search.png */; };
 		FAD4906D13EFF61F005E7D43 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAD4906B13EFF61F005E7D43 /* search@2x.png */; };
 		FAEA8B2A1437CA80002A6737 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEA8B291437CA80002A6737 /* libjansson.a */; };
-		FAEC232B1501299500E024BF /* SearchSuggestionsCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAEC232A1501299500E024BF /* SearchSuggestionsCell.mm */; };
 		FAF29847146EEF4A00FF0057 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF29846146EEF4A00FF0057 /* libprotobuf.a */; };
 		FAF30A95173AB23900818BF6 /* 00_roboto_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */; };
 		FAF30A96173AB23900818BF6 /* 00_roboto_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */; };
@@ -1335,7 +1330,6 @@
 		FAFB08F6151215EE0041901D /* LocationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA5C2A1144F135F005337F6 /* LocationManager.mm */; };
 		FAFB08F7151215EE0041901D /* GetActiveConnectionType.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA0B7E621487747B00CAB3F2 /* GetActiveConnectionType.mm */; };
 		FAFB08F8151215EE0041901D /* SearchCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA81AE3214D061BF00A0D70D /* SearchCell.mm */; };
-		FAFB08F9151215EE0041901D /* SearchSuggestionsCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAEC232A1501299500E024BF /* SearchSuggestionsCell.mm */; };
 		FAFB08FB151215EE0041901D /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020311CD464100ABDD5D /* libfreetype.a */; };
 		FAFB08FC151215EE0041901D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		FAFB08FD151215EE0041901D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -1519,8 +1513,6 @@
 		FA2EF9C613630C3B00E3E484 /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libplatform.a; sourceTree = SOURCE_ROOT; };
 		FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomAlertView.mm; sourceTree = "<group>"; };
 		FA34BEC91338D72F00FFB2A7 /* CustomAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAlertView.h; sourceTree = "<group>"; };
-		FA36B80315403A4F004560CC /* BalloonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BalloonView.h; path = Bookmarks/BalloonView.h; sourceTree = SOURCE_ROOT; };
-		FA36B80415403A4F004560CC /* BalloonView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BalloonView.mm; path = Bookmarks/BalloonView.mm; sourceTree = SOURCE_ROOT; };
 		FA36B80515403A4F004560CC /* BookmarksVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BookmarksVC.h; path = Bookmarks/BookmarksVC.h; sourceTree = SOURCE_ROOT; };
 		FA36B80615403A4F004560CC /* BookmarksVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BookmarksVC.mm; path = Bookmarks/BookmarksVC.mm; sourceTree = SOURCE_ROOT; };
 		FA4135E1120A263C0062D5B4 /* CountriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = CountriesViewController.h; path = Settings/CountriesViewController.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1597,13 +1589,9 @@
 		FAB2D51515DAB53F00C706C3 /* tail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tail@2x.png"; path = "Bookmarks/tail@2x.png"; sourceTree = SOURCE_ROOT; };
 		FABF223C13FAA97A003D4D49 /* CompassView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassView.h; sourceTree = "<group>"; };
 		FABF223D13FAA97A003D4D49 /* CompassView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CompassView.mm; sourceTree = "<group>"; };
-		FAC23541171B2C09003BED96 /* EditDescriptionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditDescriptionVC.h; path = Bookmarks/EditDescriptionVC.h; sourceTree = SOURCE_ROOT; };
-		FAC23542171B2C09003BED96 /* EditDescriptionVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = EditDescriptionVC.mm; path = Bookmarks/EditDescriptionVC.mm; sourceTree = SOURCE_ROOT; };
 		FAD4906A13EFF61F005E7D43 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
 		FAD4906B13EFF61F005E7D43 /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@2x.png"; sourceTree = "<group>"; };
 		FAEA8B291437CA80002A6737 /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjansson.a; sourceTree = SOURCE_ROOT; };
-		FAEC23291501299500E024BF /* SearchSuggestionsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSuggestionsCell.h; sourceTree = "<group>"; };
-		FAEC232A1501299500E024BF /* SearchSuggestionsCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchSuggestionsCell.mm; sourceTree = "<group>"; };
 		FAF29846146EEF4A00FF0057 /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libprotobuf.a; sourceTree = SOURCE_ROOT; };
 		FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 00_roboto_regular.ttf; path = ../../data/00_roboto_regular.ttf; sourceTree = "<group>"; };
 		FAF457E415597BC100DCCC49 /* Framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Framework.h; sourceTree = "<group>"; };
@@ -2218,8 +2206,6 @@
 				EED10A4411F78D120095FAD4 /* MapViewController.mm */,
 				FA81AE3114D061BF00A0D70D /* SearchCell.h */,
 				FA81AE3214D061BF00A0D70D /* SearchCell.mm */,
-				FAEC23291501299500E024BF /* SearchSuggestionsCell.h */,
-				FAEC232A1501299500E024BF /* SearchSuggestionsCell.mm */,
 				FABF223C13FAA97A003D4D49 /* CompassView.h */,
 				FABF223D13FAA97A003D4D49 /* CompassView.mm */,
 				F7B90CD11521E6D100C054EE /* CustomNavigationView.h */,
@@ -2447,8 +2433,6 @@
 		FA36B8011540388B004560CC /* Bookmarks */ = {
 			isa = PBXGroup;
 			children = (
-				FAC23541171B2C09003BED96 /* EditDescriptionVC.h */,
-				FAC23542171B2C09003BED96 /* EditDescriptionVC.mm */,
 				F785EB3E16386FC4003A38A8 /* BookmarkCell.h */,
 				F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */,
 				FA36B8171540466A004560CC /* Images */,
@@ -2460,8 +2444,6 @@
 				FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */,
 				EDCB4E8C175E67110005AA35 /* PlacePreviewViewController.h */,
 				EDCB4E8D175E67110005AA35 /* PlacePreviewViewController.mm */,
-				FA36B80315403A4F004560CC /* BalloonView.h */,
-				FA36B80415403A4F004560CC /* BalloonView.mm */,
 				FA36B80515403A4F004560CC /* BookmarksVC.h */,
 				FA36B80615403A4F004560CC /* BookmarksVC.mm */,
 				FAAEA7D4161D8D3100CCD661 /* BookmarksRootVC.h */,
@@ -4496,9 +4478,7 @@
 				FAA5C2A2144F135F005337F6 /* LocationManager.mm in Sources */,
 				FA0B7E631487747B00CAB3F2 /* GetActiveConnectionType.mm in Sources */,
 				FA81AE3314D061BF00A0D70D /* SearchCell.mm in Sources */,
-				FAEC232B1501299500E024BF /* SearchSuggestionsCell.mm in Sources */,
 				F7B90CD31521E6D200C054EE /* CustomNavigationView.mm in Sources */,
-				FA36B80B15403A4F004560CC /* BalloonView.mm in Sources */,
 				FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */,
 				FA5D4F191557F79900E7D8BB /* PlacePageVC.mm in Sources */,
 				FAF457E715597D4600DCCC49 /* Framework.cpp in Sources */,
@@ -4507,7 +4487,6 @@
 				FAAEA7D5161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
 				F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 				CB252D6F16FF82C9001E41E9 /* Statistics.m in Sources */,
-				FAC23543171B2C09003BED96 /* EditDescriptionVC.mm in Sources */,
 				EDB811A3175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */,
 				EDCB4E8E175E67120005AA35 /* PlacePreviewViewController.mm in Sources */,
 				EDC5C543175F2CA600420E92 /* ShareActionSheet.mm in Sources */,
@@ -4535,9 +4514,7 @@
 				FAFB08F6151215EE0041901D /* LocationManager.mm in Sources */,
 				FAFB08F7151215EE0041901D /* GetActiveConnectionType.mm in Sources */,
 				FAFB08F8151215EE0041901D /* SearchCell.mm in Sources */,
-				FAFB08F9151215EE0041901D /* SearchSuggestionsCell.mm in Sources */,
 				F7B90CD41521E6D200C054EE /* CustomNavigationView.mm in Sources */,
-				FA36B80C15403A4F004560CC /* BalloonView.mm in Sources */,
 				FA36B80E15403A4F004560CC /* BookmarksVC.mm in Sources */,
 				FA5D4F1A1557F79900E7D8BB /* PlacePageVC.mm in Sources */,
 				FAF457E815597D4600DCCC49 /* Framework.cpp in Sources */,
@@ -4546,7 +4523,6 @@
 				FAAEA7D6161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
 				F785EB4116386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 				CB252D7016FF82C9001E41E9 /* Statistics.m in Sources */,
-				FAC23544171B2C09003BED96 /* EditDescriptionVC.mm in Sources */,
 				EDB811A4175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */,
 				EDCB4E8F175E67120005AA35 /* PlacePreviewViewController.mm in Sources */,
 				EDC5C544175F2CA600420E92 /* ShareActionSheet.mm in Sources */,
@@ -4573,7 +4549,6 @@
 				FA5940D4171C964D0045C9BB /* ko */,
 				FA5940D5171C964D0045C9BB /* nl */,
 				FAF8E2EC1752E0F100D41090 /* pl */,
-				EDC894E41768A5D3000D3660 /* pt */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
