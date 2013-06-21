@@ -84,11 +84,7 @@ namespace graphics
     void (OPENGL_CALLING_CONVENTION * glGetShaderInfoLogFn)(GLuint shader, GLsizei bufSize, GLsizei *length, GLchar *infoLog);
     void (OPENGL_CALLING_CONVENTION * glGetShaderivFn)(GLuint shader, GLenum pname, GLint *params);
     void (OPENGL_CALLING_CONVENTION * glCompileShaderFn)(GLuint shader);
-    void (OPENGL_CALLING_CONVENTION * glShaderSourceFn)(GLuint shader, GLsizei count, const GLchar*
-#ifdef NEED_OPENGL_SHADERSOURCE_CONST
-                                                        const
-#endif
-                                                        *string, const GLint *length);
+    void (OPENGL_CALLING_CONVENTION * glShaderSourceFn)(GLuint shader, GLsizei count, const GLchar ** string, const GLint * length);
     GLuint (OPENGL_CALLING_CONVENTION * glCreateShaderFn)(GLenum type);
     void (OPENGL_CALLING_CONVENTION * glDeleteShaderFn)(GLuint shader);
 

@@ -18,21 +18,14 @@
 
 #elif defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE)
   #include <TargetConditionals.h>
-  #include <Availability.h>
 
   #ifdef OMIM_OS_IPHONE
     #define USE_OPENGLES20_IF_AVAILABLE 1
     #include <OpenGLES/ES2/gl.h>
     #define OMIM_GL_ES
-    #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_6_1
-      #define NEED_OPENGL_SHADERSOURCE_CONST
-    #endif
   #else
     #include <OpenGL/gl.h>
     #include <OpenGL/glext.h>
-    #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_8
-      #define NEED_OPENGL_SHADERSOURCE_CONST
-    #endif
   #endif
 
 #elif defined(OMIM_OS_ANDROID)
@@ -182,11 +175,7 @@ namespace graphics
     extern void (OPENGL_CALLING_CONVENTION * glGetShaderInfoLogFn)(GLuint shader, GLsizei bufSize, GLsizei *length, GLchar *infoLog);
     extern void (OPENGL_CALLING_CONVENTION * glGetShaderivFn)(GLuint shader, GLenum pname, GLint *params);
     extern void (OPENGL_CALLING_CONVENTION * glCompileShaderFn)(GLuint shader);
-    extern void (OPENGL_CALLING_CONVENTION * glShaderSourceFn)(GLuint shader, GLsizei count, const GLchar*
-#ifdef NEED_OPENGL_SHADERSOURCE_CONST
-                                                               const
-#endif
-                                                               *string, const GLint *length);
+    extern void (OPENGL_CALLING_CONVENTION * glShaderSourceFn)(GLuint shader, GLsizei count, const GLchar ** string, const GLint * length);
     extern GLuint (OPENGL_CALLING_CONVENTION * glCreateShaderFn)(GLenum type);
     extern void (OPENGL_CALLING_CONVENTION * glDeleteShaderFn)(GLuint shader);
 

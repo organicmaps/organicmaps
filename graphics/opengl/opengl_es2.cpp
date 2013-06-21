@@ -12,7 +12,6 @@
 #endif
 
 #ifdef OMIM_OS_IPHONE
-  #include <TargetConditionals.h>
   #include <OpenGLES/ES2/glext.h>
 #endif
 
@@ -113,7 +112,9 @@ namespace graphics
       glGetShaderInfoLogFn = &glGetShaderInfoLog;
       glGetShaderivFn = &glGetShaderiv;
       glCompileShaderFn = &glCompileShader;
-      glShaderSourceFn = &glShaderSource;
+      // hack to avoid failed compilation on iOS 7.0+
+      typedef void (OPENGL_CALLING_CONVENTION * glShaderSourceFn_Type)(GLuint shader, GLsizei count, const GLchar ** string, const GLint *length);
+      glShaderSourceFn = reinterpret_cast<glShaderSourceFn_Type>(&glShaderSource);
       glCreateShaderFn = &glCreateShader;
       glDeleteShaderFn = &glDeleteShader;
     }

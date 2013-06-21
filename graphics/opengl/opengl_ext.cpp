@@ -92,7 +92,9 @@ namespace graphics
       glGetShaderInfoLogFn = &glGetShaderInfoLog;
       glGetShaderivFn = &glGetShaderiv;
       glCompileShaderFn = &glCompileShader;
-      glShaderSourceFn = &glShaderSource;
+      // hack to avoid failed compilation on Mac OS X 10.8+
+      typedef void (OPENGL_CALLING_CONVENTION * glShaderSourceFn_Type)(GLuint shader, GLsizei count, const GLchar ** string, const GLint *length);
+      glShaderSourceFn = reinterpret_cast<glShaderSourceFn_Type>(&glShaderSource);
       glCreateShaderFn = &glCreateShader;
       glDeleteShaderFn = &glDeleteShader;
     }
