@@ -378,7 +378,6 @@ void Framework::LoadBookmarks()
 {
   if (!GetPlatform().IsPro())
     return;
-
   m_bmManager.LoadBookmarks();
 }
 
@@ -1664,4 +1663,15 @@ bool Framework::GetMapApiPoint(m2::PointD const & pxPoint, url_scheme::ApiPoint 
     }
   }
   return result;
+}
+
+string Framework::GenerateApiBackUrl(url_scheme::ApiPoint const & point)
+{
+  string res = GetMapApiBackUrl();
+  if (!res.empty() && res[res.size() -1] != '/')
+    res += '/';
+  res += "map?ll=" + strings::to_string(point.m_lat) + "," + strings::to_string(point.m_lon);
+  if (!point.m_name.empty())
+    res += "&n=" + point.m_name;
+  return res;
 }

@@ -13,7 +13,6 @@
 #include "bookmark_manager.hpp"
 #include "balloon_manager.hpp"
 
-#include "url_api.hpp"
 #include "mwm_url.hpp"
 
 #include "../defines.hpp"
@@ -464,4 +463,5 @@ public:
   string const & GetMapApiBackUrl() const { return m_ParsedMapApi.GetGlobalBackUrl(); }
   m2::RectD GetMapApiLatLonRect() const { return m_ParsedMapApi.GetLatLonRect(); }
   bool IsValidMapApi() const { return m_ParsedMapApi.IsValid(); }
+  string GenerateApiBackUrl(url_scheme::ApiPoint const & point);
 };
