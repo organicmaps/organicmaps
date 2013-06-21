@@ -1,6 +1,5 @@
 package com.mapswithme.maps;
 
-import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -30,17 +29,17 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
 
   //Views
     // Right
+  private boolean mShowDynamic = true;
   private ArrowImage mArrow;
   private TextView mDistance;
     // Left
+  private boolean mShowStatic = true;
   private TextView mDegrees;
   private TextView mDMS;
     // Containers
   private View mRoot;
   private View mStaticData;
   private View mDynamicData;
-
-
 
   public void             setPoint(ParcelablePointD point) { mPoint = point; }
   public ParcelablePointD getPoint()                       { return mPoint;  }
@@ -56,7 +55,6 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
     mDistance = (TextView)   mRoot.findViewById(R.id.distance);
     mDegrees  = (TextView)   mRoot.findViewById(R.id.degrees);
     mDMS      = (TextView)   mRoot.findViewById(R.id.dms);
-    updateViews();
 
     setClickers();
 
@@ -66,8 +64,9 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
   private void updateViews()
   {
     final Location lastKnown = mLocationService.getLastKnown();
-    if (lastKnown != null && mArrow != null)
+    if (lastKnown != null && mShowDynamic)
     {
+      UiUtils.show(mDynamicData);
       final DistanceAndAzimut da = Framework.getDistanceAndAzimutFromLatLon
                 (mPoint.y, mPoint.x, lastKnown.getLatitude(), lastKnown.getLongitude(), mNorth);
 
@@ -80,19 +79,16 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
       mDistance.setText(da.getDistance());
     }
     else
-    {
-      //TODO set view for no location
-    }
+      UiUtils.hide(mDynamicData);
 
-    if (mPoint != null && mDegrees != null)
+    if (mPoint != null && mShowStatic)
     {
+      UiUtils.show(mStaticData);
       mDegrees.setText(UiUtils.formatLatLon(mPoint.y, mPoint.x));
       mDMS.setText(UiUtils.formatLatLonToDMS(mPoint.y, mPoint.x));
     }
     else
-    {
-      // TODO hide?
-    }
+      UiUtils.hide(mStaticData);
   }
 
   @Override
@@ -125,19 +121,20 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
   }
 
   @Override
-  public void onAttach(Activity activity)
+  public void onPause()
   {
-    super.onAttach(activity);
-    mLocationService = ((MWMApplication)activity.getApplication()).getLocationService();
-    mLocationService.startUpdate(this);
+    mLocationService.stopUpdate(this);
+    mLocationService = null;
+    super.onPause();
   }
 
   @Override
-  public void onDetach()
+  public void onResume()
   {
-    super.onDetach();
-    mLocationService.stopUpdate(this);
-    mLocationService = null;
+    super.onResume();
+    mLocationService = ((MWMApplication)getActivity().getApplication()).getLocationService();
+    mLocationService.startUpdate(this);
+    updateViews();
   }
 
   public void show()
@@ -150,21 +147,25 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
     UiUtils.hide(mRoot);
   }
 
-  public void showCoordinats(boolean show)
+  public void showStaticData(boolean show)
   {
+    mShowStatic = show;
     if (show)
       UiUtils.show(mStaticData);
     else
       UiUtils.hide(mStaticData);
   }
 
-  public void showArrow(boolean show)
+  public void showDynamicData(boolean show)
   {
+    mShowDynamic = show;
+
     if (show)
       UiUtils.show(mDynamicData);
     else
       UiUtils.hide(mDynamicData);
   }
+
 
   private static final int MENU_COPY_DEGR = 1;
   private static final int MENU_COPY_DMS  = 2;

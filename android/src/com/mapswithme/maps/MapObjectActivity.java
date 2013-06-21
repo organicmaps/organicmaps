@@ -142,11 +142,11 @@ public class MapObjectActivity extends FragmentActivity
     {
       mMapObjectFragment.setForMyPosition(lat, lon);
       mNavigationFragment.setPoint(new ParcelablePointD(lon, lat));
-      mNavigationFragment.showArrow(false);
+      mNavigationFragment.showDynamicData(false);
       return;
     }
 
-    mNavigationFragment.showArrow(true);
+    mNavigationFragment.showDynamicData(true);
     mNavigationFragment.setPoint(new ParcelablePointD(lon, lat));
   }
 

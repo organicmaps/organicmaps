@@ -9,6 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MapObjectActivity" >
 
+
     <fragment
         android:id="@+id/simpleNavigationFragment"
         android:name="com.mapswithme.maps.SimpleNavigationFragment"

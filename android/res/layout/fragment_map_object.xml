@@ -18,17 +18,6 @@
     <include layout="@layout/horizontal_separator" />
 
     <TextView
-        android:id="@+id/latLon"
-        style="@style/Holo.TextAppearance.Medium.Light"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_margin="@dimen/margin_small"
-        android:layout_marginTop="@dimen/margin_medium" />
-
-    <include layout="@layout/horizontal_separator" />
-
-    <TextView
         android:id="@+id/groupType"
         style="@style/Holo.TextAppearance.Medium.Light"
         android:layout_width="match_parent"

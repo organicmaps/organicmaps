@@ -5,12 +5,12 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:gravity="center"
-    android:orientation="horizontal" >
+    android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/staticData"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:padding="@dimen/margin_small"
         android:layout_weight="1"
         android:background="@drawable/abs__item_background_holo_light"
@@ -35,8 +35,8 @@
 
     <LinearLayout
         android:id="@+id/dynamicData"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_margin="@dimen/margin_small"
         android:layout_weight="1"
         android:gravity="center"
