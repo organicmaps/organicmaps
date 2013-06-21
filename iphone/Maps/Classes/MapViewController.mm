@@ -2,10 +2,10 @@
 #import "SearchVC.h"
 #import "MapsAppDelegate.h"
 #import "EAGLView.h"
-#import "BalloonView.h"
 #import "BookmarksRootVC.h"
 #import "PlacePageVC.h"
 #import "GetActiveConnectionType.h"
+#import "PlacePreviewViewController.h"
 
 #import "../Settings/SettingsManager.h"
 
@@ -27,7 +27,6 @@
 
 #define FACEBOOK_ALERT_VIEW 1
 #define APPSTORE_ALERT_VIEW 2
-#define BALLOON_PROPOSAL_ALERT_VIEW 11
 #define ITUNES_URL @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%lld"
 #define FACEBOOK_URL @"http://www.facebook.com/MapsWithMe"
 #define FACEBOOK_SCHEME @"fb://profile/111923085594432"
@@ -98,7 +97,7 @@ const long long LITE_IDL = 431183278L;
 
   f.OnLocationUpdate(info);
 
-  [self showPopoverFromBalloonData];
+  [self showPopover];
 }
 
 - (void) onCompassUpdate:(location::CompassInfo const &)info
@@ -215,65 +214,15 @@ const long long LITE_IDL = 431183278L;
 
 - (IBAction)OnBookmarksClicked:(id)sender
 {
-  BookmarksRootVC * bVC = [[BookmarksRootVC alloc] initWithBalloonView:m_balloonView];
+  BookmarksRootVC * bVC = [[BookmarksRootVC alloc] init];
   UINavigationController * navC = [[UINavigationController alloc] initWithRootViewController:bVC];
   [self presentModalViewController:navC animated:YES];
   [bVC release];
   [navC release];
 }
 
-- (void) onBalloonClicked:(m2::PointD const &)pt withInfo:(search::AddressInfo const &)info
-{
-  // Disable bookmarks for free version
-  if (!GetPlatform().IsPro())
-  {
-    // Display banner for paid version
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"bookmarks_in_pro_version", nil)
-                                   message:nil
-                                   delegate:self
-                                   cancelButtonTitle:NSLocalizedString(@"cancel", nil)
-                                   otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
-    alert.tag = BALLOON_PROPOSAL_ALERT_VIEW;
-
-    [alert show];
-    [alert release];
-  }
-  else
-  {
-    PlacePageVC * placePageVC = nil;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-      UINavigationController * navC = [[UINavigationController alloc] init];
-      popover = [[UIPopoverController alloc] initWithContentViewController:navC];
-      popover.delegate = self;
-
-      placePageVC = [[PlacePageVC alloc] initWithBalloonView:m_balloonView];
-      [navC pushViewController:placePageVC animated:YES];
-      [navC release];
-
-      [popover setPopoverContentSize:CGSizeMake(320, 480)];
-      [self showPopoverFromBalloonData];
-    }
-    else
-    {
-      placePageVC = [[PlacePageVC alloc] initWithBalloonView:m_balloonView];
-      [self.navigationController pushViewController:placePageVC animated:YES];
-    }
-    Framework & f = GetFramework();
-    if (!IsValid(m_balloonView.editedBookmark))
-    {
-      int categoryPos = f.LastEditedCategory();
-      [m_balloonView addBookmarkToCategory:categoryPos];
-    }
-
-    [placePageVC release];
-  }
-}
-
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
-  [m_balloonView addOrEditBookmark];
-  [m_balloonView clear];
   [self destroyPopover];
   [self Invalidate];
 }
@@ -282,7 +231,7 @@ const long long LITE_IDL = 431183278L;
 {
   CGFloat const scaleFactor = self.view.contentScaleFactor;
   m2::PointD pxClicked(point.x * scaleFactor, point.y * scaleFactor);
-  GetFramework().GetBalloonManager().OnClick(m2::PointD(pxClicked.x, pxClicked.y), isLongClick == YES);
+  GetFramework().GetBalloonManager().OnClick(m2::PointD(pxClicked.x, pxClicked.y), isLongClick);
 }
 
 - (void) onSingleTap:(NSValue *)point
@@ -302,13 +251,7 @@ const long long LITE_IDL = 431183278L;
 
 - (void)showBalloonWithCategoryIndex:(int)cat andBookmarkIndex:(int)bm
 {
-  // TODO:
-}
-
-- (void) dealloc
-{
-  [m_balloonView release];
-  [super dealloc];
+  GetFramework().GetBalloonManager().ShowBookmark(BookmarkAndCategory(cat,bm));
 }
 
 - (id) initWithCoder: (NSCoder *)coder
@@ -318,9 +261,6 @@ const long long LITE_IDL = 431183278L;
   if ((self = [super initWithCoder:coder]))
   {
     self.title = NSLocalizedString(@"back", @"Back button in nav bar to show the map");
-
-    // Helper to display/hide pin on screen tap
-    m_balloonView = [[BalloonView alloc] initWithTarget:self];
 
     Framework & f = GetFramework();
 
@@ -368,6 +308,7 @@ const long long LITE_IDL = 431183278L;
     _isApiMode = NO;
 
     f.Invalidate();
+    f.LoadBookmarks();
   }
 
   NSLog(@"MapViewController initWithCoder Ended");
@@ -589,7 +530,7 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
 {
   [[MapsAppDelegate theApp].m_locationManager setOrientation:self.interfaceOrientation];
-  [self showPopoverFromBalloonData];
+  [self showPopover];
   [self Invalidate];
 }
 
@@ -688,20 +629,6 @@ NSInteger compareAddress(id l, id r, void * context)
     default:
       break;
   }
-
-  if (alertView.tag == BALLOON_PROPOSAL_ALERT_VIEW)
-  {
-    if (buttonIndex != alertView.cancelButtonIndex)
-    {
-      // Launch appstore
-      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
-      [[Statistics instance] logProposalReason:@"Balloon Touch" withAnswer:@"YES"];
-    }
-    else
-    {
-      [[Statistics instance] logProposalReason:@"Balloon Touch" withAnswer:@"NO"];
-    }
-  }
 }
 
 -(void) manageAlert:(NSInteger)buttonIndex andUrl:(NSURL*)url andDlgSetting:(dlg_settings::DialogT)set
@@ -731,34 +658,21 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void) destroyPopover
 {
-  [popover release];
-  popover = nil;
+  [m_popover release];
+  m_popover = nil;
 }
 
-//if save is NO, we need to delete bookmark
-- (void)dismissPopoverAndSaveBookmark:(BOOL)save
+-(void)showPopover
 {
-  if (IsValid(m_balloonView.editedBookmark))
-  {
-    if (save)
-      [m_balloonView addOrEditBookmark];
-    else
-      [m_balloonView deleteBookmark];
-    [m_balloonView clear];
-  }
-  [popover dismissPopoverAnimated:YES];
-  [self destroyPopover];
-  [self Invalidate];
-}
+  if (m_popover)
+    GetFramework().GetBalloonManager().Hide();
 
--(void)showPopoverFromBalloonData
-{
-  m2::PointD pt = GetFramework().GtoP(m2::PointD(m_balloonView.globalPosition.x, m_balloonView.globalPosition.y));
   double const sf = self.view.contentScaleFactor;
-  pt.x /= sf;
-  pt.y /= sf;
 
-  [popover presentPopoverFromRect:CGRectMake(pt.x, pt.y, 1, 1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+  Framework & f = GetFramework();
+  m2::PointD tmp = m2::PointD(f.GtoP(m2::PointD(m_popoverPos.x, m_popoverPos.y)));
+
+  [m_popover presentPopoverFromRect:CGRectMake(tmp.x / sf, tmp.y / sf, 1, 1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
 - (void)prepareForApi
@@ -796,24 +710,64 @@ NSInteger compareAddress(id l, id r, void * context)
   return (_isApiMode && [backUrl length] && [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:backUrl]]);
 }
 
+- (void)dismissPopover
+{
+  [m_popover dismissPopoverAnimated:YES];
+  [self destroyPopover];
+  [self Invalidate];
+}
+
 -(void)positionBallonClickedLat:(double)lat lon:(double)lon
 {
-  NSLog(@"Position");
+  CGPoint const p = CGPointMake(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
+  PlacePreviewViewController * preview = [[PlacePreviewViewController alloc] initWithPoint:p];
+  m_popoverPos = p;
+  [self pushViewController:preview];
+  [preview release];
 }
 
 -(void)poiBalloonClicked:(m2::PointD const &)pt info:(search::AddressInfo const &)info
 {
-  NSLog(@"poi");
+  PlacePreviewViewController * preview = [[PlacePreviewViewController alloc] initWith:info point:CGPointMake(pt.x, pt.y)];
+  m_popoverPos = CGPointMake(pt.x, pt.y);
+  [self pushViewController:preview];
+  [preview release];
 }
 
 -(void)apiBalloonClicked:(url_scheme::ApiPoint const &) apiPoint
 {
-  NSLog(@"api");
+  PlacePreviewViewController * apiPreview = [[PlacePreviewViewController alloc] initWithApiPoint:apiPoint];
+  m_popoverPos = CGPointMake(MercatorBounds::LonToX(apiPoint.m_lon), MercatorBounds::LatToY(apiPoint.m_lat));
+  [self pushViewController:apiPreview];
+  [apiPreview release];
 }
 
 -(void)bookmarkBalloonClicked:(BookmarkAndCategory const &) bmAndCat
 {
-  NSLog(@"bookmark");
+  PlacePageVC * vc = [[PlacePageVC alloc] initWithBookmark:bmAndCat];
+  Bookmark const * bm = GetFramework().GetBmCategory(bmAndCat.first)->GetBookmark(bmAndCat.second);
+  m_popoverPos = CGPointMake(bm->GetOrg().x, bm->GetOrg().y);
+  [self pushViewController:vc];
+  [vc release];
+}
+
+-(void)pushViewController:(UIViewController *)vc
+{
+  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+  {
+    UINavigationController * navC = [[UINavigationController alloc] init];
+    m_popover = [[UIPopoverController alloc] initWithContentViewController:navC];
+    m_popover.delegate = self;
+
+    [navC pushViewController:vc animated:YES];
+    [navC release];
+    navC.navigationBar.barStyle = UIBarStyleBlack;
+
+    [m_popover setPopoverContentSize:CGSizeMake(320, 480)];
+    [self showPopover];
+  }
+  else
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

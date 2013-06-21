@@ -1,21 +1,19 @@
 #import "AddSetVC.h"
-#import "BalloonView.h"
 #import "Framework.h"
 
 #define TEXT_FIELD_TAG 666
 
 @implementation AddSetVC
 
-- (id) initWithBalloonView:(BalloonView *)view
+- (id) initWithIndex:(size_t *)index;
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
   {
-    m_balloon = view;
-
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onSaveClicked)] autorelease];
     self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onCancelClicked)] autorelease];
     self.title = NSLocalizedString(@"add_new_set", @"Add New Bookmark Set dialog title");
+    m_index = index;
   }
   return self;
 }
@@ -31,20 +29,14 @@
   NSString * text = textField.text;
   if (text.length)
   {
-    m_balloon.setName = text;
-    [m_balloon deleteBookmark];
-
-    Framework & f = GetFramework();
-    size_t const pos = f.AddCategory([text UTF8String]);
-    [m_balloon addBookmarkToCategory:pos];
-
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-      [self.navigationController popToRootViewControllerAnimated:YES];
-    else
-    {
-      UIViewController * t = [self.navigationController.viewControllers objectAtIndex:1];
-      [self.navigationController popToViewController:t animated:YES];
-    }
+    *m_index = GetFramework().AddCategory([text UTF8String]);
+    NSArray * arr = self.navigationController.viewControllers;
+    for (UIViewController * v in arr)
+      if ([v isMemberOfClass:NSClassFromString(@"PlacePageVC")])
+      {
+        [self.navigationController popToViewController:v animated:YES];
+        break;
+      }
   }
 }
 

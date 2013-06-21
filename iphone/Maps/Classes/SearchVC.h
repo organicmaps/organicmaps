@@ -1,14 +1,12 @@
 #import <UIKit/UIKit.h>
 
 #import "LocationManager.h"
-#import "SearchSuggestionsCell.h"
-#import "BalloonView.h"
 
 class Framework;
 
 @interface SearchVC : UIViewController
     <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource,
-    LocationObserver, SearchSuggestionDelegate>
+    LocationObserver>
 {
   Framework * m_framework;
   LocationManager * m_locationManager;

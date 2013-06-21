@@ -1,10 +1,11 @@
 #import "PlacePageVC.h"
-#import "BalloonView.h"
 #import "SelectSetVC.h"
-#import "EditDescriptionVC.h"
 #import "Statistics.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
+#import "TwoButtonsView.h"
+#import "ShareActionSheet.h"
+#import "PlaceAndCompasView.h"
 
 #include "Framework.h"
 #include "../../search/result.hpp"
@@ -13,7 +14,6 @@
 @interface PinPickerView : UIView
 
 - (id)initWithImage:(UIImage *)image;
-
 + (CGFloat)viewWidth;
 + (CGFloat)viewHeight;
 
@@ -57,13 +57,12 @@ CGFloat const pMargin = 10;
 	return self;
 }
 
-// Enable accessibility for this view.
+//Enable accessibility for this view
 - (BOOL)isAccessibilityElement
 {
 	return YES;
 }
 
-// Return a string that describes this view.
 - (NSString *)accessibilityLabel
 {
 	return self.titleLabel.text;
@@ -72,6 +71,13 @@ CGFloat const pMargin = 10;
 @end
 
 #define TEXTFIELD_TAG 999
+#define TEXTVIEW_TAG 666
+#define COORDINATE_TAG 333
+#define MARGIN 20
+#define SMALLMARGIN 10
+#define DESCRIPTIONHEIGHT 140
+#define TWOBUTTONSHEIGHT 44
+#define CELLHEIGHT  44
 
 static NSString  * const g_colors [] =
 {
@@ -84,57 +90,135 @@ static NSString  * const g_colors [] =
   @"placemark-purple"
 };
 
+typedef enum {Editing, Saved} Mode;
+
 @interface PlacePageVC()
-@property (nonatomic, retain) UIView * viewWithPicker;
+{
+  int m_selectedRow;
+  Mode m_mode;
+  size_t m_categoryIndex;
+}
+
+@property (nonatomic, copy) UIView * viewWithPicker;
+
+@property(nonatomic, copy) NSString * pinTitle;
+// Currently displays bookmark description (notes)
+@property(nonatomic, copy) NSString * pinNotes;
+// Stores displayed bookmark icon file name
+@property(nonatomic, retain) NSString * pinColor;
+// If we clicked already existing bookmark, it will be here
+@property(nonatomic, assign) BookmarkAndCategory pinEditedBookmark;
+
+@property(nonatomic, assign) CGPoint pinGlobalPosition;
+@property(nonatomic, copy) NSString * pinType;
+@property (nonatomic, retain) NSArray * pinsArray;
+
+@property (nonatomic, retain) PlaceAndCompasView * placeAndCompass;
 @end
 
 @implementation PlacePageVC
 
-@synthesize pinsArray, viewWithPicker;
-
-- (id) initWithBalloonView:(BalloonView *)view
+- (id) initWithInfo:(search::AddressInfo const &)info point:(CGPoint)point
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
   {
-    m_balloon = view;
-    self.title = m_balloon.title;
+    char const * bestType = info.GetBestType();
+    char const * pinName = info.GetPinName().c_str();
+    [self initializeProperties:[NSString stringWithUTF8String:pinName ? pinName : ""]
+                         notes:@""
+                         color:@"placemark-red"
+                      category:MakeEmptyBookmarkAndCategory() point:point
+                          type:[NSString stringWithUTF8String: bestType ? bestType : ""]];
+    m_mode = Editing;
+    [self createPinPickerArray];
+  }
+  return self;
+}
 
-    NSMutableArray * viewArray = [[NSMutableArray alloc] init];
+- (id) initWithApiPoint:(url_scheme::ApiPoint const &)apiPoint
+{
+  self = [super initWithStyle:UITableViewStyleGrouped];
+  if (self)
+  {
+    m_mode = Editing;
+    [self initializeProperties:[NSString stringWithUTF8String:apiPoint.m_name.c_str()]
+                         notes:@""
+                         color:@"placemark-red"
+                      category:MakeEmptyBookmarkAndCategory()
+                         point:CGPointMake(MercatorBounds::LonToX(apiPoint.m_lon), MercatorBounds::LatToY(apiPoint.m_lat))
+                          type:@""];
+    [self createPinPickerArray];
+  }
+  return self;
+}
 
-    for (size_t i = 0; i < ARRAY_SIZE(g_colors); ++i)
-    {
+- (id) initWithBookmark:(BookmarkAndCategory)bmAndCat
+{
+  self = [super initWithStyle:UITableViewStyleGrouped];
+  if (self)
+  {
+    BookmarkCategory * cat = GetFramework().GetBmCategory(bmAndCat.first);
+    Bookmark * bm = cat->GetBookmark(bmAndCat.second);
+    search::AddressInfo info;
 
-      PinPickerView * pinView = [[PinPickerView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@.png", g_colors[i]]]];
-		  [viewArray addObject:pinView];
-      [pinView release];
-    }
-		self.pinsArray = viewArray;
-    [viewArray release];
+    CGPoint const pt = CGPointMake(bm->GetOrg().x, bm->GetOrg().y);
+    GetFramework().GetAddressInfoForGlobalPoint(bm->GetOrg(), info);
+
+
+    char const * c = info.GetBestType();
+
+    [self initializeProperties:[NSString stringWithUTF8String:bm->GetName().c_str()]
+                         notes:[NSString stringWithUTF8String:bm->GetDescription().c_str()]
+                         color:[NSString stringWithUTF8String:bm->GetType().c_str()]
+                      category:bmAndCat
+                         point:CGPointMake(pt.x, pt.y)
+                          type:[NSString stringWithUTF8String: c ? c : ""]];
+
+    m_mode = Saved;
+    [self createPinPickerArray];
+  }
+  return self;
+}
+
+- (id) initWithName:(NSString *)name andGlobalPoint:(CGPoint)point
+{
+  self = [super initWithStyle:UITableViewStyleGrouped];
+  if (self)
+  {
+    m_mode = Editing;
+    [self initializeProperties:name
+                         notes:@""
+                         color:@"placemark-red"
+                      category:MakeEmptyBookmarkAndCategory()
+                         point:point
+                          type:@""];
+    [self createPinPickerArray];
   }
   return self;
 }
 
 - (void) dealloc
 {
-  [pinsArray release];
-  [viewWithPicker release];
+  self.pinsArray = nil;
+  self.viewWithPicker = nil;
+
+  self.pinTitle = nil;
+  self.pinNotes = nil;
+  self.pinColor = nil;
+  self.pinType = nil;
+  self.placeAndCompass = nil;
   [super dealloc];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-  m_hideNavBar = YES;
-  self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
   [self.navigationController setNavigationBarHidden:NO animated:YES];
   // Update the table - we can display it after changing set or color
   [self.tableView reloadData];
 
-  // Should be set to YES only if Remove Pin was pressed
-  m_removePinOnClose = NO;
-
   // Automatically show keyboard if bookmark has default name
-  if ([m_balloon.title isEqualToString:NSLocalizedString(@"dropped_pin", nil)])
+  if ([_pinTitle isEqualToString:NSLocalizedString(@"dropped_pin", nil)])
     [[[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].contentView viewWithTag:TEXTFIELD_TAG] becomeFirstResponder];
 
   if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -142,36 +226,23 @@ static NSString  * const g_colors [] =
     CGSize size = CGSizeMake(320, 480);
     self.contentSizeForViewInPopover = size;
   }
-
-  [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged)  name:UIDeviceOrientationDidChangeNotification  object:nil];
-
   [super viewWillAppear:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+-(void)viewDidLoad
 {
-  if (m_hideNavBar && ![[MapsAppDelegate theApp].m_mapViewController shouldShowNavBar])
-      [self.navigationController setNavigationBarHidden:YES animated:YES];
-  // Handle 3 scenarios:
-  // 1. User pressed Remove Pin and goes back to the map - bookmark was deleted on click, do nothing
-  // 2. User goes back to the map by pressing Map (Back) button - save possibly edited title, add bookmark
-  // 3. User is changing Set or Color - save possibly edited title and update current balloon properties
-  if (!m_removePinOnClose)
-  {
-    UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    UITextField * f = (UITextField *)[cell viewWithTag:TEXTFIELD_TAG];
-    if (f && f.text.length)
-      m_balloon.title = f.text;
+  [super viewDidLoad];
+  self.title = self.pinTitle;
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification  object:nil];
+  if (m_mode == Editing)
+    [self addRightNavigationItemWithAction:@selector(save)];
+  else
+    [self addRightNavigationItemWithAction:@selector(edit)];
+}
 
-    // We're going back to the map
-    if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad && [self.navigationController.viewControllers indexOfObject:self] == NSNotFound)
-    {
-      [m_balloon addOrEditBookmark];
-      [m_balloon clear];
-    }
-  }
+-(void)viewDidUnload
+{
   [[NSNotificationCenter defaultCenter] removeObserver:self];
-  [super viewWillDisappear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -186,187 +257,114 @@ static NSString  * const g_colors [] =
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  switch (section)
+  if (m_mode == Editing)
+    switch (section)
+    {
+      //name
+      case 0: return 1;
+      //set
+      case 1: return 1;
+      //color picker
+      case 2: return 1;
+      //description
+      case 3: return 1;
+    }
+  else
+    switch (section)
+    {
+      //return zero, because want to use headers and footers
+      //coordinates cell
+      case 0: return 1;
+      case 1: return 0;
+      case 2: return 0;
+    }
+  return 0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  if (indexPath.section == 3 && m_mode == Editing)
+    return DESCRIPTIONHEIGHT;
+  return CELLHEIGHT;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+  if (section == 0 && m_mode == Saved)
+    return self.placeAndCompass;
+  if (section == 1 && [self.pinNotes length] && m_mode == Saved)
   {
-  case 0: return 3;
-  case 1: return 1;
-  case 2: return 1;
-  case 3: return 1;
-  default: return 0;
+    //Refactor we can do better
+    CGRect z = CGRectMake(0, 0, self.tableView.frame.size.width, [self getDescriptionHeight] + MARGIN);
+    UIView * view = [[[UIView alloc] initWithFrame:z] autorelease];
+    z.origin.x = SMALLMARGIN;
+    z.size.width -= SMALLMARGIN;
+    UITextView * textView = [[UITextView alloc] initWithFrame:z];
+    textView.scrollEnabled = NO;
+    textView.text = self.pinNotes;
+    textView.backgroundColor = [UIColor clearColor];
+    textView.font = [UIFont fontWithName:@"Helvetica" size:18];
+    textView.editable = NO;
+    [view addSubview:textView];
+    [textView release];
+    return view;
   }
+  return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+  if (section == 0 && m_mode == Saved)
+  {
+    if (!_placeAndCompass)
+      _placeAndCompass = [[PlaceAndCompasView alloc] initWithName:self.pinTitle placeSecondaryName:[NSString stringWithUTF8String:GetFramework().GetBmCategory(_pinEditedBookmark.first)->GetName().c_str()] placeGlobalPoint:_pinGlobalPosition width:self.tableView.frame.size.width];
+    return self.placeAndCompass.frame.size.height;
+  }
+  if (section == 1 && [self.pinNotes length] && m_mode == Saved)
+    return [self getDescriptionHeight] + MARGIN;
+  return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+  if (m_mode == Saved && section == 1)
+    return [[[TwoButtonsView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, TWOBUTTONSHEIGHT) leftButtonSelector:@selector(share) rightButtonSelector:@selector(remove) leftButtonTitle:NSLocalizedString(@"share", nil) rightButtontitle:NSLocalizedString(@"remove_pin", nil) target:self] autorelease];
+  return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+  if (section == 1  && m_mode == Saved)
+    return TWOBUTTONSHEIGHT;
+  return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell * cell = nil;
-  if (indexPath.section == 0)
-  {
-    NSString * cellId;
-    switch (indexPath.row)
-    {
-      case 0: cellId = @"NameCellId"; break;
-      case 1: cellId = @"SetCellId"; break;
-      default: cellId = @"ColorCellId"; break;
-    }
-    cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    if (!cell)
-    {
-      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellId] autorelease];
-      switch (indexPath.row)
-      {
-        case 0:
-        {
-          cell.textLabel.text = NSLocalizedString(@"name", @"Add bookmark dialog - bookmark name");
-          cell.selectionStyle = UITableViewCellSelectionStyleNone;
-          // Temporary, to init font and color
-          cell.detailTextLabel.text = @"temp string";
-          // Called to initialize frames and fonts
-          [cell layoutSubviews];
-          CGRect const leftR = cell.textLabel.frame;
-          CGFloat const padding = leftR.origin.x;
-          CGRect r = CGRectMake(padding + leftR.size.width + padding, leftR.origin.y,
-              cell.contentView.frame.size.width - 3 * padding - leftR.size.width, leftR.size.height);
-          UITextField * f = [[[UITextField alloc] initWithFrame:r] autorelease];
-          f.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-          f.enablesReturnKeyAutomatically = YES;
-          f.returnKeyType = UIReturnKeyDone;
-          f.clearButtonMode = UITextFieldViewModeWhileEditing;
-          f.autocorrectionType = UITextAutocorrectionTypeNo;
-          f.textAlignment = UITextAlignmentRight;
-          f.textColor = cell.detailTextLabel.textColor;
-          f.font = [cell.detailTextLabel.font fontWithSize:[cell.detailTextLabel.font pointSize]];
-          f.tag = TEXTFIELD_TAG;
-          f.delegate = self;
-          f.autocapitalizationType = UITextAutocapitalizationTypeWords;
-          // Reset temporary font
-          cell.detailTextLabel.text = nil;
-          [cell.contentView addSubview:f];
-        }
-        break;
-
-        case 1:
-          cell.textLabel.text = NSLocalizedString(@"set", @"Add bookmark dialog - bookmark set");
-          cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-          break;
-
-        case 2:
-          cell.textLabel.text = NSLocalizedString(@"color", @"Add bookmark dialog - bookmark color");
-          break;
-      }
-    }
-    // Update variable cell values
-    switch (indexPath.row)
-    {
-      case 0:
-        ((UITextField *)[cell.contentView viewWithTag:TEXTFIELD_TAG]).text = m_balloon.title;
-        break;
-
-      case 1:
-        cell.detailTextLabel.text = m_balloon.setName;
-        break;
-
-      case 2:
-        // Create a copy of view here because it can't be subview in map view and in a cell simultaneously
-        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:m_balloon.color]] autorelease];
-        break;
-    }
-  }
-  else if (indexPath.section == 1)
-  {
-    NSString * cellLabelText = NSLocalizedString(@"description", nil);
-    cell = [tableView dequeueReusableCellWithIdentifier:cellLabelText];
-    if (!cell)
-    {
-      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellLabelText] autorelease];
-      cell.textLabel.text = cellLabelText;
-      cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-    cell.detailTextLabel.text = m_balloon.notes;
-  }
-  else if (indexPath.section == 2)
-  {
-    cell = [tableView dequeueReusableCellWithIdentifier:@"SharePin"];
-    if (!cell)
-    {
-      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SharePin"] autorelease];
-      cell.textLabel.textAlignment = UITextAlignmentCenter;
-      cell.textLabel.text = NSLocalizedString(@"share", nil);
-    }
-  }
+  if (m_mode == Editing)
+    cell = [self cellForEditingModeWithTable:tableView cellForRowAtIndexPath:indexPath];
   else
- {
-    cell = [tableView dequeueReusableCellWithIdentifier:@"removePinCellId"];
-    if (!cell)
-    {
-      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"removePinCellId"] autorelease];
-      cell.textLabel.textAlignment = UITextAlignmentCenter;
-      cell.textLabel.text = NSLocalizedString(@"remove_pin", @"Place Page - Remove Pin button");
-    }
-  }
+    cell = [self cellForSaveModeWithTable:tableView cellForRowAtIndexPath:indexPath];
   return cell;
-}
-
-- (void)onRemoveClicked
-{
-  [m_balloon deleteBookmark];
-  [m_balloon clear];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-  if (indexPath.section == 0)
+  if (m_mode == Editing)
   {
-    switch (indexPath.row)
+    if (indexPath.section == 1)
     {
-    case 1:
-      {
-        m_hideNavBar = NO;
-        SelectSetVC * vc = [[SelectSetVC alloc] initWithBalloonView:m_balloon];
-        [self pushToNavigationControllerAndSetControllerToPopoverSize:vc];
-        [vc release];
-      }
-      break;
-
-    case 2:
-      {
-        [self createAndShowColorPicker];
-      }
-      break;
+      SelectSetVC * vc = [[[SelectSetVC alloc] initWithIndex:&m_categoryIndex] autorelease];
+      [self pushToNavigationControllerAndSetControllerToPopoverSize:vc];
     }
-  }
-  else if (indexPath.section == 1)
-  {
-    m_hideNavBar = NO;
-    EditDescriptionVC * vc = [[EditDescriptionVC alloc] initWithBalloonView:m_balloon];
-    [self pushToNavigationControllerAndSetControllerToPopoverSize:vc];
-    [vc release];
-  }
-  else if (indexPath.section == 2)
-  {
-    UIActionSheet * as = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"share", nil) delegate:self cancelButtonTitle:nil  destructiveButtonTitle:nil otherButtonTitles:nil];
-    if ([MFMessageComposeViewController canSendText])
-      [as addButtonWithTitle:NSLocalizedString(@"message", nil)];
-    if ([MFMailComposeViewController canSendMail])
-      [as addButtonWithTitle:NSLocalizedString(@"email", nil)];
-    [as addButtonWithTitle:NSLocalizedString(@"copy_link", nil)];
-    [as addButtonWithTitle:NSLocalizedString(@"cancel", nil)];
-    [as setCancelButtonIndex:as.numberOfButtons - 1];
-    [as showInView:self.view];
-    [as release];
-  }
-  else
-  {
-    m_removePinOnClose = YES;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-      [[MapsAppDelegate theApp].m_mapViewController dismissPopoverAndSaveBookmark:NO];
-    else
+    else if (indexPath.section == 2)
     {
-      // Remove pin
-      [self onRemoveClicked];
-      [self.navigationController popViewControllerAnimated:YES];
+      [self.view endEditing:YES];
+      [self createAndShowColorPicker];
     }
+    return;
   }
 }
 
@@ -374,13 +372,12 @@ static NSString  * const g_colors [] =
 {
   if (textField.text.length == 0)
     return YES;
-
   // Hide keyboard
   [textField resignFirstResponder];
 
-  if (![textField.text isEqualToString:m_balloon.title])
+  if (![textField.text isEqualToString:_pinTitle])
   {
-    m_balloon.title = textField.text;
+    self.pinTitle = textField.text;
     self.navigationController.title = textField.text;
   }
   return NO;
@@ -388,25 +385,7 @@ static NSString  * const g_colors [] =
 
 - (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-  UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-  UITextField * textF = (UITextField *)[cell viewWithTag:TEXTFIELD_TAG];
-  if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"email", nil)])
-  {
-    // Not really beutiful now, but ...
-    BOOL isMyPosition = [textF.text isEqualToString:NSLocalizedString(@"my_position", nil)];
-    NSString * shortUrl = [self generateShortUrlwithName:isMyPosition ? @"" : textF.text];
-
-    [self sendEmailWith:textF.text andUrl:shortUrl];
-  }
-  else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"message", nil)])
-  {
-    NSString * shortUrl = [self generateShortUrlwithName:@""];
-    [self sendMessageWith:textF.text andUrl:shortUrl];
-  }
-  else  if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"copy_link", nil)])
-  {
-    [UIPasteboard generalPasteboard].string = [self generateShortUrlwithName:textF.text];
-  }
+  [ShareActionSheet resolveActionSheetChoice:actionSheet buttonIndex:buttonIndex text:self.pinTitle view:self delegate:self scale:GetFramework().GetDrawScale() gX:_pinGlobalPosition.x gY:_pinGlobalPosition.y andMyPosition:NO];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
@@ -421,65 +400,12 @@ static NSString  * const g_colors [] =
   [self dismissModalViewControllerAnimated:YES];
 }
 
--(void)sendEmailWith:(NSString *)textFieldText andUrl:(NSString *)shortUrl
-{
-  MFMailComposeViewController * mailVC = [[[MFMailComposeViewController alloc] init] autorelease];
-  NSString * httpGe0Url = [shortUrl stringByReplacingCharactersInRange:NSMakeRange(0, 6) withString:@"http://ge0.me/"];
-
-  if ([textFieldText isEqualToString:NSLocalizedString(@"my_position", nil)])
-  {
-    search::AddressInfo info;
-    m2::PointD pt = m2::PointD(m_balloon.globalPosition.x, m_balloon.globalPosition.y);
-    GetFramework().GetAddressInfoForGlobalPoint(pt, info);
-    NSString * nameAndAddress = [NSString stringWithUTF8String:info.FormatNameAndAddress().c_str()];
-    [mailVC setMessageBody:[NSString stringWithFormat:NSLocalizedString(@"my_position_share_email", nil), nameAndAddress, shortUrl, httpGe0Url] isHTML:NO];
-    [mailVC setSubject:NSLocalizedString(@"my_position_share_email_subject", nil)];
-  }
-  else
-  {
-    [mailVC setMessageBody:[NSString stringWithFormat:NSLocalizedString(@"bookmark_share_email", nil), textFieldText, shortUrl, httpGe0Url] isHTML:NO];
-    [mailVC setSubject:NSLocalizedString(@"bookmark_share_email_subject", nil)];
-  }
-
-  mailVC.mailComposeDelegate = self;
-  [self presentModalViewController:mailVC animated:YES];
-}
-
--(void)sendMessageWith:(NSString *)textFieldText andUrl:(NSString *)shortUrl
-{
-  NSString * httpGe0Url = [shortUrl stringByReplacingCharactersInRange:NSMakeRange(0, 6) withString:@"http://ge0.me/"];
-  MFMessageComposeViewController * messageVC = [[[MFMessageComposeViewController alloc] init] autorelease];
-
-  if ([textFieldText isEqualToString:NSLocalizedString(@"my_position", nil)])
-    [messageVC setBody:[NSString stringWithFormat:NSLocalizedString(@"my_position_share_sms", nil), shortUrl, httpGe0Url]];
-  else
-    [messageVC setBody:[NSString stringWithFormat:NSLocalizedString(@"bookmark_share_sms", nil), shortUrl, httpGe0Url]];
-
-  messageVC.messageComposeDelegate = self;
-  [self presentModalViewController:messageVC animated:YES];
-}
-
--(BOOL)canShare
-{
-  return [MFMessageComposeViewController canSendText] || [MFMailComposeViewController canSendMail];
-}
-
--(NSString *)generateShortUrlwithName:(NSString *) name
-{
-  Framework & f = GetFramework();
-  return [NSString stringWithUTF8String:(f.CodeGe0url(MercatorBounds::YToLat(m_balloon.globalPosition.y),
-                                         MercatorBounds::XToLon(m_balloon.globalPosition.x),
-                                         f.GetBmCategory(m_balloon.editedBookmark.first)->GetBookmark(m_balloon.editedBookmark.second)->GetScale(),
-                                         [name UTF8String])).c_str()];
-}
-
 -(void)pushToNavigationControllerAndSetControllerToPopoverSize:(UIViewController *)vc
 {
   if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     [vc setContentSizeForViewInPopover:[self contentSizeForViewInPopover]];
   [self.navigationController pushViewController:vc animated:YES];
 }
-
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
 {
@@ -493,7 +419,7 @@ static NSString  * const g_colors [] =
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-	return [pinsArray count];
+	return [_pinsArray count];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -501,27 +427,24 @@ static NSString  * const g_colors [] =
 	return 1;
 }
 
-
 #pragma mark - UIPickerViewDelegate
-
-// tell the picker which view to use for a given component and row, we have an array of views to show
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row
           forComponent:(NSInteger)component reusingView:(UIView *)view
 {
-	return [pinsArray objectAtIndex:row];
+	return [_pinsArray objectAtIndex:row];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-  selectedRow = row;
+  m_selectedRow = row;
 }
 
 -(void)pickerDoneClicked
 {
-  if (![m_balloon.color isEqualToString:g_colors[selectedRow]])
+  if (![_pinColor isEqualToString:g_colors[m_selectedRow]])
   {
     [[Statistics instance] logEvent:@"Select Bookmark color"];
-    m_balloon.color = g_colors[selectedRow];
+    self.pinColor = g_colors[m_selectedRow];
     [self.tableView reloadData];
   }
   [self pickerCancelClicked];
@@ -530,7 +453,7 @@ static NSString  * const g_colors [] =
 -(void)pickerCancelClicked
 {
   self.tableView.scrollEnabled = YES;
-  [viewWithPicker removeFromSuperview];
+  [_viewWithPicker removeFromSuperview];
   self.viewWithPicker = nil;
 }
 
@@ -538,19 +461,18 @@ static NSString  * const g_colors [] =
 {
   double height, width;
   CGRect rect;
-  [self getScreenHeight:height width:width rect:rect];
+  [self getSuperView:height width:width rect:rect];
 
-  viewWithPicker = [[UIView alloc] initWithFrame:rect];
+  _viewWithPicker = [[UIView alloc] initWithFrame:rect];
   UIPickerView * picker = [[UIPickerView alloc] initWithFrame:CGRectMake(0.0, 0.0, 0.0, 0.0)];
   picker.delegate = self;
   picker.showsSelectionIndicator = YES;
   CGRect r = picker.frame;
   [picker setCenter:CGPointMake(width / 2, height - r.size.height / 2)];
-  [viewWithPicker addSubview:picker];
+  [_viewWithPicker addSubview:picker];
 
-  UIToolbar * pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, picker.frame.origin.y - 44, width, 44)];
+  UIToolbar * pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, picker.frame.origin.y - CELLHEIGHT, width, CELLHEIGHT)];
   pickerToolbar.barStyle = UIBarStyleBlackOpaque;
-  //[pickerToolbar sizeToFit];
 
   NSMutableArray *barItems = [[NSMutableArray alloc] init];
   UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(pickerDoneClicked)];
@@ -561,53 +483,23 @@ static NSString  * const g_colors [] =
   [pickerToolbar setItems:barItems animated:YES];
   [barItems release];
 
-
   [picker release];
-  [viewWithPicker addSubview:pickerToolbar];
+  [_viewWithPicker addSubview:pickerToolbar];
   [pickerToolbar release];
   if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
   {
     UIWindow* window = [UIApplication sharedApplication].keyWindow;
     if (!window)
       window = [[UIApplication sharedApplication].windows objectAtIndex:0];
-    [[[window subviews] objectAtIndex:0] addSubview:viewWithPicker];
+    [[[window subviews] objectAtIndex:0] addSubview:_viewWithPicker];
   }
   else
-  {
-    [self.view.superview addSubview:viewWithPicker];
-  }
-
+    [self.view.superview addSubview:_viewWithPicker];
   self.tableView.scrollEnabled = NO;
-
-  selectedRow = 0;
+  m_selectedRow = 0;
 }
 
--(void) orientationChanged
-{
-  if (viewWithPicker)
-  {
-    double height, width;
-    CGRect rect;
-    [self getScreenHeight:height width:width rect:rect];
-    [viewWithPicker setFrame:rect];
-
-    NSArray *subviews = [viewWithPicker subviews];
-
-    UIPickerView * p = nil;
-    UIToolbar * t = nil;
-    for (UIView *subview in subviews)
-    {
-      if ([subview isKindOfClass:[UIPickerView class]])
-        p = (UIPickerView *)subview;
-      else if ([subview isKindOfClass:[UIToolbar class]])
-        t = (UIToolbar *)subview;
-    }
-    [p setFrame:CGRectMake(0, height - p.frame.size.height, width, p.frame.size.height)];
-    [t setFrame:CGRectMake(0, p.frame.origin.y - 44, width, 44)];
-  }
-}
-
--(void)getScreenHeight:(double &)height width:(double &)width rect:(CGRect &)rect
+-(void)getSuperView:(double &)height width:(double &)width rect:(CGRect &)rect
 {
   if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
   {
@@ -616,7 +508,6 @@ static NSString  * const g_colors [] =
     width  = self.view.window.frame.size.width;
     if(!UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
       std::swap(height, width);
-
   }
   else
   {
@@ -626,4 +517,280 @@ static NSString  * const g_colors [] =
   }
 }
 
+-(void)addRightNavigationItemWithAction:(SEL)selector
+{
+  UIBarButtonItem * but;
+  if (m_mode == Saved)
+    but = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:selector];
+  else
+    but = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:selector];
+  self.navigationItem.rightBarButtonItem = but;
+  [but release];
+}
+
+-(void)save
+{
+  [self.view endEditing:YES];
+  m_mode = Saved;
+  UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+  if (!cell)
+    cell = [self.tableView dequeueReusableCellWithIdentifier:@"EditingNameCellId"];
+  UITextField * f = (UITextField *)[cell viewWithTag:TEXTFIELD_TAG];
+  self.pinTitle = f.text;
+  cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:3]];
+  if (!cell)
+    cell = [self.tableView dequeueReusableCellWithIdentifier:@"EditingDF"];
+  UITextView * t = (UITextView *)[cell viewWithTag:TEXTVIEW_TAG];
+  self.pinNotes = t.text;
+  [self savePin];
+  [self goToTheMap];
+  GetFramework().GetBalloonManager().Hide();
+}
+
+-(void)edit
+{
+  m_mode = Editing;
+  [self.tableView reloadData];
+  [self addRightNavigationItemWithAction:@selector(save)];
+}
+
+-(void)remove
+{
+  if (IsValid(_pinEditedBookmark))
+  {
+    BookmarkCategory * cat = GetFramework().GetBmCategory(_pinEditedBookmark.first);
+    if (cat->GetBookmarksCount() > _pinEditedBookmark.second)
+    {
+      cat->DeleteBookmark(_pinEditedBookmark.second);
+      cat->SaveToKMLFile();
+    }
+  }
+  [self goToTheMap];
+}
+
+-(void)share
+{
+  [ShareActionSheet showShareActionSheetInView:self.view withObject:self];
+}
+
+-(void)createPinPickerArray
+{
+  NSMutableArray * viewArray = [[NSMutableArray alloc] init];
+  for (size_t i = 0; i < ARRAY_SIZE(g_colors); ++i)
+  {
+    PinPickerView * pinView = [[PinPickerView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@.png", g_colors[i]]]];
+    [viewArray addObject:pinView];
+    [pinView release];
+  }
+  self.pinsArray = viewArray;
+  [viewArray release];
+}
+
+-(void)savePin
+{
+  Framework & f = GetFramework();
+  if (_pinEditedBookmark == MakeEmptyBookmarkAndCategory())
+    [self addBookmarkToCategory:m_categoryIndex];
+  else
+  {
+    BookmarkCategory * cat = f.GetBmCategory(_pinEditedBookmark.first);
+    if (_pinEditedBookmark.first != m_categoryIndex)
+    {
+      cat->DeleteBookmark(_pinEditedBookmark.second);
+      cat->SaveToKMLFile();
+      [self addBookmarkToCategory:m_categoryIndex];
+    }
+    else
+    {
+      Bookmark * bm = cat->GetBookmark(_pinEditedBookmark.second);
+      bm->SetName([self.pinTitle UTF8String]);
+      bm->SetType([self.pinColor UTF8String]);
+      bm->SetDescription([self.pinNotes UTF8String]);
+      cat->SaveToKMLFile();
+    }
+  }
+}
+
+-(void)addBookmarkToCategory:(size_t)index
+{
+  BookmarkCategory * cat = GetFramework().GetBmCategory(index);
+  Bookmark bm(m2::PointD(_pinGlobalPosition.x, _pinGlobalPosition.y), [self.pinTitle UTF8String], [self.pinColor UTF8String]);
+  bm.SetDescription([self.pinNotes UTF8String]);
+  cat->AddBookmark(bm);
+  cat->SaveToKMLFile();
+  _pinEditedBookmark = pair<int, int>(index, cat->GetBookmarksCount() - 1);
+}
+
+-(void)initializeProperties:(NSString *)name notes:(NSString *)notes color:(NSString *)color category:(BookmarkAndCategory) bmAndCat point:
+     (CGPoint)point type:(NSString *)type
+{
+  self.pinTitle = name;
+  self.pinNotes = notes;
+  self.pinColor = color;
+  self.pinEditedBookmark =bmAndCat;
+  m_categoryIndex = bmAndCat.first == - 1 ? GetFramework().LastEditedCategory():bmAndCat.first;
+  self.pinGlobalPosition = point;
+  self.pinType = type;
+}
+
+-(UITextView *)createTextFieldForCell:(UIFont *)font color:(UIColor *)color
+{
+  UITextView * txtView = [[[UITextView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 142.0)] autorelease];
+  txtView.delegate = self;
+  txtView.AutoresizingMask = UIViewAutoresizingFlexibleWidth;
+  txtView.textColor = color;
+  txtView.font = font;
+  txtView.backgroundColor = [UIColor clearColor];
+  txtView.tag = TEXTVIEW_TAG;
+  return txtView;
+}
+
+-(UITableViewCell *)cellForEditingModeWithTable:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  NSString * cellId;
+  switch (indexPath.section)
+  {
+    case 0: cellId = @"EditingNameCellId"; break;
+    case 1: cellId = @"EditingSetCellId"; break;
+    case 2: cellId = @"EditingColorCellId"; break;
+    default: cellId = @"EditingDF"; break;
+  }
+  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+  if (!cell)
+  {
+    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellId] autorelease];
+    if (indexPath.section == 0)
+    {
+      cell.textLabel.text = NSLocalizedString(@"name", @"Add bookmark dialog - bookmark name");
+      cell.selectionStyle = UITableViewCellSelectionStyleNone;
+      // Temporary, to init font and color
+      cell.detailTextLabel.text = @"temp string";
+      // Called to initialize frames and fonts
+      [cell layoutSubviews];
+      CGRect const leftR = cell.textLabel.frame;
+      CGFloat const padding = leftR.origin.x;
+      CGRect r = CGRectMake(padding + leftR.size.width + padding, leftR.origin.y,
+                            cell.contentView.frame.size.width - 3 * padding - leftR.size.width, leftR.size.height);
+      UITextField * f = [[[UITextField alloc] initWithFrame:r] autorelease];
+      f.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+      f.enablesReturnKeyAutomatically = YES;
+      f.returnKeyType = UIReturnKeyDone;
+      f.clearButtonMode = UITextFieldViewModeWhileEditing;
+      f.autocorrectionType = UITextAutocorrectionTypeNo;
+      f.textAlignment = UITextAlignmentRight;
+      f.textColor = cell.detailTextLabel.textColor;
+      f.font = [cell.detailTextLabel.font fontWithSize:[cell.detailTextLabel.font pointSize]];
+      f.tag = TEXTFIELD_TAG;
+      f.delegate = self;
+      f.autocapitalizationType = UITextAutocapitalizationTypeWords;
+      // Reset temporary font
+      cell.detailTextLabel.text = nil;
+      [cell.contentView addSubview:f];
+    }
+    else if (indexPath.section == 1)
+    {
+      cell.textLabel.text = NSLocalizedString(@"set", @"Add bookmark dialog - bookmark set");
+      cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    else if (indexPath.section == 2)
+    {
+      cell.textLabel.text = NSLocalizedString(@"color", @"Add bookmark dialog - bookmark color");
+    }
+    else if (indexPath.section == 3)
+    {
+      cell.selectionStyle = UITableViewCellSelectionStyleNone;
+      // Temporary, to init font and color
+      cell.detailTextLabel.text = @"temp string";
+      // Called to initialize frames and fonts
+      [cell layoutSubviews];
+      UITextView * txtView = [[[UITextView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 142.0)] autorelease];
+      txtView.delegate = self;
+      txtView.AutoresizingMask = UIViewAutoresizingFlexibleWidth;
+      txtView.textColor = cell.detailTextLabel.textColor;
+      txtView.font = [cell.detailTextLabel.font fontWithSize:[cell.detailTextLabel.font pointSize]];
+      txtView.backgroundColor = [UIColor clearColor];
+      txtView.tag = TEXTVIEW_TAG;
+      cell.detailTextLabel.text = @"";
+      [cell.contentView addSubview:txtView];
+      txtView.delegate = self;
+    }
+  }
+  switch (indexPath.section)
+  {
+    case 0:
+      ((UITextField *)[cell.contentView viewWithTag:TEXTFIELD_TAG]).text = self.pinTitle;
+      break;
+
+    case 1:
+      cell.detailTextLabel.text = [NSString stringWithUTF8String:GetFramework().GetBmCategory(m_categoryIndex)->GetName().c_str()];
+      break;
+
+    case 2:
+      cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:_pinColor]] autorelease];
+      break;
+    case 3:
+      UITextView * t = (UITextView *)[cell viewWithTag:TEXTVIEW_TAG];
+      t.text = self.pinNotes;
+      break;
+  }
+  return cell;
+}
+
+-(UITableViewCell *)cellForSaveModeWithTable:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  UITableViewCell * cell = nil;
+  if (indexPath.section == 0)
+  {
+    cell = [tableView dequeueReusableCellWithIdentifier:@"CoordinatesCELL"];
+    if (!cell)
+    {
+      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CoordinatesCELL"] autorelease];
+      cell.textLabel.text =  @"Temporary Name";
+      [cell layoutSubviews];
+      UITextField * f = [[UITextField alloc] initWithFrame:cell.contentView.frame];
+      f.tag = COORDINATE_TAG;
+      f.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+      f.returnKeyType = UIReturnKeyDone;
+      f.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+      f.font = [UIFont fontWithName:@"Helvetica" size:26];
+      f.textAlignment = UITextAlignmentCenter;
+      f.userInteractionEnabled = NO;
+      f.delegate = self;
+      [cell.contentView addSubview:f];
+      [f release];
+      cell.textLabel.text =  @"";
+      [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    }
+    UITextField * f = (UITextField *)[cell viewWithTag:COORDINATE_TAG];
+    f.text = [NSString stringWithFormat:@"%f %f", MercatorBounds::YToLat(self.pinGlobalPosition.y),
+                                                  MercatorBounds::XToLon(self.pinGlobalPosition.x)];
+  }
+  return cell;
+}
+
+-(void)orientationChanged
+{
+  [self.placeAndCompass drawView];
+  [self.tableView reloadData];
+}
+
+-(void)goToTheMap
+{
+  GetFramework().GetBalloonManager().Hide();
+  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    [[MapsAppDelegate theApp].m_mapViewController dismissPopover];
+  else
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+-(CGFloat)getDescriptionHeight
+{
+  return [self.pinNotes sizeWithFont:[UIFont fontWithName:@"Helvetica" size:18] constrainedToSize:CGSizeMake(self.tableView.frame.size.width - 3 * SMALLMARGIN, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+  if (textView.tag == TEXTVIEW_TAG)
+    self.pinNotes = textView.text;
+}
 @end

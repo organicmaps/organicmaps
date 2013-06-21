@@ -12,12 +12,11 @@
 
 @implementation BookmarksRootVC
 
-- (id) initWithBalloonView:(BalloonView *)view
+- (id) init
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
   {
-    m_balloon = view;
     self.title = NSLocalizedString(@"bookmarks", @"Boormarks - dialog title");
 
     self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc]

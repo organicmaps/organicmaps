@@ -1,21 +1,16 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MFMessageComposeViewController.h>
 #import <MessageUI/MFMailComposeViewController.h>
+#import "../../../map/bookmark.hpp"
 
-@class BalloonView;
 
-@interface PlacePageVC : UITableViewController <UITextFieldDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, UIPickerViewDelegate>
-{
-  BOOL m_hideNavBar;
-  // @TODO store as a property to retain reference
-  BalloonView * m_balloon;
-  // If YES, pin should be removed when closing this dialog
-  BOOL m_removePinOnClose;
-  int selectedRow;
-}
+namespace search { struct AddressInfo; }
+namespace url_scheme { struct ApiPoint; }
 
-@property (nonatomic, retain) NSArray * pinsArray;
+@interface PlacePageVC : UITableViewController <UITextFieldDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, UIPickerViewDelegate, UITextViewDelegate>
 
-- (id) initWithBalloonView:(BalloonView *)view;
-
+- (id) initWithInfo:(search::AddressInfo const &)info point:(CGPoint)point;
+- (id) initWithApiPoint:(url_scheme::ApiPoint const &)apiPoint;
+- (id) initWithBookmark:(BookmarkAndCategory)bmAndCat;
+- (id) initWithName:(NSString *)name andGlobalPoint:(CGPoint)point;
 @end

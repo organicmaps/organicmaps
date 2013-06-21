@@ -156,6 +156,7 @@ void InitLocalizedStrings()
 
   m_navController = [[UINavigationController alloc] initWithRootViewController:m_mapViewController];
   m_navController.navigationBarHidden = YES;
+  m_navController.delegate = self;
   m_window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   m_window.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   m_window.clearsContextBeforeDrawing = NO;
@@ -195,6 +196,7 @@ void InitLocalizedStrings()
     url_scheme::ApiPoint apiPoint;
     if (GetFramework().SetViewportByURL([[url.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] UTF8String], apiPoint));
     {
+      [[Statistics instance] logEvent:@"ge0(zero) Import"];
       [self showMap];
       [m_mapViewController prepareForApi];
       return YES;
@@ -247,14 +249,19 @@ void InitLocalizedStrings()
   [m_navController popToRootViewControllerAnimated:YES];
   if (![m_navController.visibleViewController isMemberOfClass:NSClassFromString(@"MapViewController")])
     [m_mapViewController dismissModalViewControllerAnimated:YES];
-  [m_mapViewController dismissPopoverAndSaveBookmark:YES];
   m_navController.navigationBarHidden = YES;
 }
 
--(void) showParsedBookmarkOnMap:(url_api::Request const &) request
+-(void) showParsedBookmarkOnMap:(url_scheme::ApiPoint const &) point
 {
   [self showMap];
-  GetFramework().GetBalloonManager().ShowUrlRequest(request);
+  GetFramework().GetBalloonManager().ShowApiPoint(point);
+}
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+  if ([viewController isMemberOfClass:NSClassFromString(@"MapViewController")] && ![m_mapViewController shouldShowNavBar])
+    [m_navController setNavigationBarHidden:YES animated:YES];
 }
 
 @end

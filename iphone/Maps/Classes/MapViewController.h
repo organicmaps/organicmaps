@@ -6,7 +6,6 @@
 
 
 namespace search { struct AddressInfo; }
-@class BalloonView;
 
 @interface MapViewController : UIViewController <LocationObserver, UIAlertViewDelegate, UIPopoverControllerDelegate>
 {
@@ -21,10 +20,11 @@ namespace search { struct AddressInfo; }
 	size_t m_StickyThreshold;
 	m2::PointD m_Pt1, m_Pt2;
 
-  BalloonView * m_balloonView;
   /// Temporary solution to improve long touch detection.
   m2::PointD m_touchDownPoint;
-  UIPopoverController * popover;
+  
+  UIPopoverController * m_popover;
+  CGPoint m_popoverPos;
 }
 
 - (void) SetupMeasurementSystem;
@@ -42,9 +42,10 @@ namespace search { struct AddressInfo; }
 - (void)showSearchResultAsBookmarkAtMercatorPoint:(m2::PointD const &)pt withInfo:(search::AddressInfo const &)info;
 - (void)showBalloonWithCategoryIndex:(int)cat andBookmarkIndex:(int)bm;
 
-- (void)dismissPopoverAndSaveBookmark:(BOOL)save;
 - (void)prepareForApi;
 - (BOOL)shouldShowNavBar;
+
+- (void)dismissPopover;
 
 @property (nonatomic, retain) IBOutlet UIButton * m_myPositionButton;
 @property (nonatomic, assign) BOOL isApiMode;

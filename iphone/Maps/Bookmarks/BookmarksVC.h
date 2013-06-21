@@ -2,8 +2,6 @@
 #import <MessageUI/MFMailComposeViewController.h>
 #import "LocationManager.h"
 
-@class BalloonView;
-
 @interface BookmarksVC : UITableViewController <LocationObserver, UITextFieldDelegate, MFMailComposeViewControllerDelegate>
 {
   LocationManager * m_locationManager;

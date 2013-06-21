@@ -1,17 +1,15 @@
 #import "SelectSetVC.h"
-#import "BalloonView.h"
 #import "Framework.h"
 #import "AddSetVC.h"
 
 @implementation SelectSetVC
 
-- (id) initWithBalloonView:(BalloonView *)view
+- (id) initWithIndex:(size_t *)index
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
   {
-    m_balloon = view;
-    
+    m_index = index;
     self.title = NSLocalizedString(@"bookmark_sets", @"Bookmark Sets dialog title");
   }
   return self;
@@ -54,7 +52,7 @@
     if (cat)
       cell.textLabel.text = [NSString stringWithUTF8String:cat->GetName().c_str()];
 
-    if (m_balloon.editedBookmark.first == indexPath.row)
+    if ((*m_index) == indexPath.row)
       cell.accessoryType = UITableViewCellAccessoryCheckmark;
     else
       cell.accessoryType = UITableViewCellAccessoryNone;
@@ -67,7 +65,7 @@
   [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
   if (indexPath.section == 0)
   {
-    AddSetVC * asVC = [[AddSetVC alloc] initWithBalloonView:m_balloon];
+    AddSetVC * asVC = [[AddSetVC alloc] initWithIndex:m_index];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
       [asVC setContentSizeForViewInPopover:[self contentSizeForViewInPopover]];
     [self.navigationController pushViewController:asVC animated:YES];
@@ -75,11 +73,8 @@
   }
   else
   {
-    [m_balloon deleteBookmark];
-    [m_balloon addBookmarkToCategory:indexPath.row];
-
+    *m_index = indexPath.row;
     [self.navigationController popViewControllerAnimated:YES];
   }
 }
-
 @end

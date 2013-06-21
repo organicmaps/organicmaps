@@ -1,13 +1,9 @@
 #import <UIKit/UIKit.h>
 
-@class BalloonView;
-
 @interface SelectSetVC : UITableViewController
 {
-  // @TODO store as a property to retain reference
-  BalloonView * m_balloon;
+  size_t * m_index;
 }
-
-- (id) initWithBalloonView:(BalloonView *)view;
+- (id) initWithIndex:(size_t *)index;
 
 @end

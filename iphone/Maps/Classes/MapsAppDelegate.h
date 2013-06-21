@@ -4,7 +4,7 @@
 @class SettingsManager;
 @class LocationManager;
 
-@interface MapsAppDelegate : NSObject <UIApplicationDelegate, UIAlertViewDelegate>
+@interface MapsAppDelegate : NSObject <UIApplicationDelegate, UIAlertViewDelegate, UINavigationControllerDelegate>
 {
   SettingsManager * m_settingsManager;
   NSInteger m_standbyCounter;
