@@ -53,4 +53,53 @@ bool FormatDistance(double m, string & res)
   }
 }
 
+string FormatLatLonAsDMSImpl(string const & posPost, string const & negPost,
+                             double value,bool roundSec)
+{
+   double i = 0.0;
+   double d = 0.0;
+   string postfix;
+   ostringstream sstream;
+   sstream << setfill('0');
+
+   // Degreess
+   d = modf(fabs(value), &i);
+   sstream << setw(2) << i << "°";
+   // Minutes
+   d = modf(d * 60, &i);
+   sstream << setw(2) << i << "′";
+   // Seconds
+   if (roundSec)
+   {
+     d = modf(round(d * 60), &i);
+     sstream << setw(2) << i;
+   }
+   else
+   {
+     d = modf(d * 60, &i);
+     sstream << setw(2) << setprecision(2) << i;
+     if (d > 1e-5)
+     {
+       ostringstream tstream;
+       tstream << setprecision(4) << d;
+       string dStr = tstream.str().substr(1, 5);
+       sstream << dStr;
+     }
+   }
+   sstream << "″";
+
+   if (value > 0)
+     postfix = posPost;
+   else if (value < 0)
+     postfix = negPost;
+   sstream << postfix;
+
+   return sstream.str();
+}
+
+string FormatLatLonAsDMS(double lat, double lon, bool roundSecToInt)
+{
+  return FormatLatLonAsDMSImpl("N", "S", lat, roundSecToInt) + " "  + FormatLatLonAsDMSImpl("E", "W", lon, roundSecToInt);
+}
+
 } // namespace MeasurementUtils

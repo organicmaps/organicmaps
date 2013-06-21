@@ -1,6 +1,9 @@
 #pragma once
 
 #include "../std/string.hpp"
+#include "../std/cmath.hpp"
+#include "../std/iomanip.hpp"
+#include "../std/sstream.hpp"
 
 namespace MeasurementUtils
 {
@@ -19,5 +22,7 @@ inline double YardToMiles(double yd) { return yd * 1760; }
 /// @param[out] res formatted string for search
 /// @return should be direction arrow drawed? false if distance is to small (< 1.0)
 bool FormatDistance(double m, string & res);
+
+string FormatLatLonAsDMS(double lat, double lon, bool roundSecToInt);
 
 }
