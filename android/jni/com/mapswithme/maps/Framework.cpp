@@ -5,6 +5,7 @@
 #include "../core/render_context.hpp"
 
 #include "../../../../../map/framework.hpp"
+#include "../../../../../map/measurement_utils.hpp"
 
 #include "../../../../../gui/controller.hpp"
 
@@ -1035,5 +1036,12 @@ extern "C"
     const double merY = MercatorBounds::LatToY(lat);
     const double merX = MercatorBounds::LonToX(lon);
     return Java_com_mapswithme_maps_Framework_nativeGetDistanceAndAzimut(env, clazz, merX, merY, cLat, cLon, north);
+  }
+
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_Framework_nativeLatLon2DMS(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
+  {
+    const string dms = MeasurementUtils::FormatLatLonAsDMS(lat, lon, false);
+    return jni::ToJavaString(env, dms);
   }
 }

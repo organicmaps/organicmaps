@@ -6,6 +6,8 @@ import android.view.View;
 
 import java.util.Locale;
 
+import com.mapswithme.maps.Framework;
+
 public final class UiUtils
 {
 
@@ -16,8 +18,7 @@ public final class UiUtils
 
   public static String formatLatLonToDMS(double lat, double lon)
   {
-    // TODO add native conversion method
-    return "40°26′47″N 079°58′36″W";
+    return Framework.latLon2DMS(lat, lon);
   }
 
   public static Drawable setCompoundDrawableBounds(Drawable d, int dimenId, Resources res)
