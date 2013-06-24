@@ -149,8 +149,17 @@ public enum Statistics
 
   public void trackApiCall(MWMRequest request)
   {
-    final String eventName = "used by " + request.getCallerInfo().packageName;
-    getEventBuilder().getSimpleNamedEvent(TAG_API + eventName).post();
+    if (request != null && request.getCallerInfo() != null)
+    {
+      ensureConfigured(MWMApplication.get());
+      //@formatter:off
+     getEventBuilder().reset()
+                      .setName("Api Called")
+                      .addParam("Caller Package", request.getCallerInfo().packageName)
+                      .getEvent()
+                      .post();
+     //@formatter:on
+    }
   }
 
   public void startActivity(Activity activity)
@@ -176,12 +185,12 @@ public enum Statistics
     }
   }
 
-  private void ensureConfigured(Activity activity)
+  private void ensureConfigured(Context context)
   {
     if (mEventBuilder == null || mStatisticsEngine == null)
     {
       // Engine
-      final String key = activity.getResources().getString(R.string.flurry_app_key);
+      final String key = context.getResources().getString(R.string.flurry_app_key);
       mStatisticsEngine = new FlurryEngine(DEBUG, key);
       mStatisticsEngine.configure(null, null);
       // Builder
