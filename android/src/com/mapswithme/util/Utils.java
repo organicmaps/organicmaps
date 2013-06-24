@@ -13,12 +13,13 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
-import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Build;
 import android.util.Log;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.os.Build;
+
+import com.mapswithme.maps.MWMApplication;
 
 final public class Utils
 {

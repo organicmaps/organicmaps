@@ -1,11 +1,8 @@
 package com.mapswithme.util.statistics;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Build;
 import android.util.Log;
 
@@ -23,11 +20,9 @@ public enum Statistics
   private final static String TAG_PROMO_DE = "PROMO-DE: ";
   private static String TAG_API = "API: ";
 
-  private final static String FILE_STAT_DATA  = "statistics.wtf";
-  private final static String PARAM_SESSIONS = "sessions";
-  private final static String PARAM_STAT_ENABLED = "stat_enabled";
-  private final static String PARAM_STAT_COLLECTED = "collected";
-  private final static String PARAM_STAT_COLLECTED_TIME = "collected_time";
+  private final static String KEY_SESSIONS = "sessions";
+  private final static String KEY_STAT_ENABLED = "stat_enabled";
+  private final static String KEY_STAT_COLLECTED = "collected";
 
   private final static int ACTIVE_USER_MIN_SESSION = 2;
   private final static long ACTIVE_USER_MIN_TIME = 30*24*3600;
@@ -203,7 +198,7 @@ public enum Statistics
   {
     final EventBuilder eventBuilder = getEventBuilder().reset();
     // Only for PRO
-    if (((MWMApplication)activity.getApplication()).isProVersion())
+    if (MWMApplication.get().isProVersion())
     {
       // Number of sets
       BookmarkManager manager = BookmarkManager.getBookmarkManager(activity);
@@ -230,39 +225,23 @@ public enum Statistics
 
   private boolean isStatisticsCollected(Context context)
   {
-    return getStatPrefs(context).getBoolean(PARAM_STAT_COLLECTED, false);
+    return MWMApplication.get().nativeGetBoolean(KEY_STAT_COLLECTED, false);
   }
 
-  @SuppressWarnings("unused")
-  private long getLastStatCollectionTime(Context context)
-  {
-    return getStatPrefs(context).getLong(PARAM_STAT_COLLECTED_TIME, 0);
-  }
-
-  @SuppressLint("CommitPrefEdits")
   private void setStatisticsCollected(Context context, boolean isCollected)
   {
-    final Editor editStat = getStatPrefs(context).edit().putBoolean(PARAM_STAT_COLLECTED, isCollected);
-    if (isCollected)
-      editStat.putLong(PARAM_STAT_COLLECTED_TIME, System.currentTimeMillis());
-
-    Utils.applyPrefs(editStat);
+    MWMApplication.get().nativeSetBoolean(KEY_STAT_COLLECTED, isCollected);
   }
 
   public boolean isStatisticsEnabled(Context context)
   {
-    // We don't track old devices (< 10%)
-    // as there is no reliable way to
-    // get installation time there.
-    if (Utils.apiLowerThan(9))
-      return false;
-
-    return getStatPrefs(context).getBoolean(PARAM_STAT_ENABLED, true);
+    return MWMApplication.get().nativeGetBoolean(KEY_STAT_ENABLED, true);
   }
 
   public void setStatEnabled(Context context, boolean isEnabled)
   {
-    Utils.applyPrefs(getStatPrefs(context).edit().putBoolean(PARAM_STAT_ENABLED, isEnabled));
+    final MWMApplication app = MWMApplication.get();
+    app.nativeSetBoolean(KEY_STAT_ENABLED, isEnabled);
     // We track if user turned on/off
     // statistics to understand data better.
     getEventBuilder().reset()
@@ -281,16 +260,10 @@ public enum Statistics
 
   private int incAndGetSessionsNumber(Context context)
   {
-    final SharedPreferences statPrefs = getStatPrefs(context);
-    final int currentSessionNumber = statPrefs.getInt(PARAM_SESSIONS, 0) + 1;
-    Utils.applyPrefs(statPrefs.edit().putInt(PARAM_SESSIONS, currentSessionNumber));
-
+    final MWMApplication app = MWMApplication.get();
+    final int currentSessionNumber = app.nativeGetInt(KEY_SESSIONS, 0) + 1;
+    app.nativeSetInt(KEY_SESSIONS, currentSessionNumber);
     return currentSessionNumber;
-  }
-
-  private SharedPreferences getStatPrefs(Context context)
-  {
-    return context.getSharedPreferences(FILE_STAT_DATA, Context.MODE_PRIVATE);
   }
 
   private final static String TAG = "MWMStat";
