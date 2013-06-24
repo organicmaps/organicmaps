@@ -20,7 +20,7 @@ SUBDIRS = 3party \
           gui \
           storage storage/storage_tests \
           search search/search_tests \
-          map map/map_tests map/benchmark_tool \
+          map map/map_tests map/benchmark_tool map/mwm_tests\
           generator generator/generator_tests \
           generator/generator_tool \
           qt_tstfrm \

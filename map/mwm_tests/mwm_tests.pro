@@ -1,6 +1,6 @@
 # Map library tests.
 
-TARGET = map_tests
+TARGET = mwm_tests
 CONFIG += console
 CONFIG -= app_bundle
 TEMPLATE = app
@@ -21,11 +21,5 @@ macx*: LIBS *= "-framework Foundation" "-framework IOKit"
 
 SOURCES += \
   ../../testing/testingmain.cpp \
-  kmz_unarchive_test.cpp \
-  navigator_test.cpp \
-  bookmarks_test.cpp \
-  geourl_test.cpp \
-  measurement_tests.cpp \
-  mwm_url_tests.cpp \
-  feature_processor_test.cpp \
-  ge0_parser_tests.cpp  \
+  mwm_foreach_test.cpp \
+  multithread_mwm_test.cpp \
