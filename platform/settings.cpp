@@ -225,6 +225,16 @@ namespace Settings
     return impl::FromStringScalar<int>(str, v);
   }
 
+  template <> string ToString<long long>(long long const & v)
+  {
+    return impl::ToStringScalar<long long>(v);
+  }
+
+  template <> bool FromString<long long>(string const & str, long long & v)
+  {
+    return impl::FromStringScalar<long long>(str, v);
+  }
+
   template <> string ToString<unsigned>(unsigned const & v)
   {
     return impl::ToStringScalar<unsigned>(v);

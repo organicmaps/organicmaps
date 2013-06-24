@@ -25,6 +25,9 @@ public class MWMApplication extends android.app.Application implements MapStorag
 {
   private final static String TAG = "MWMApplication";
 
+  private static MWMApplication mSelf;
+
+
   private LocationService m_location = null;
   private LocationState m_locationState = null;
   private MapStorage m_storage = null;
@@ -37,6 +40,23 @@ public class MWMApplication extends android.app.Application implements MapStorag
   // Set default string to Google Play page.
   private final static String m_defaultProURL = "http://play.google.com/store/apps/details?id=com.mapswithme.maps.pro";
   private String m_proVersionURL = m_defaultProURL;
+
+
+  public MWMApplication()
+  {
+    super();
+    mSelf = this;
+  }
+
+  /**
+   * Just for convenience.
+   *
+   * @return global MWMApp
+   */
+  public static MWMApplication get()
+  {
+    return mSelf;
+  }
 
   private void showDownloadToast(int resID, Index idx)
   {
@@ -243,4 +263,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
   public native void nativeSetBoolean(String name, boolean value);
   public native int nativeGetInt(String name, int defaultValue);
   public native void nativeSetInt(String name, int value);
+  public native long nativeGetLong(String name, long defaultValue);
+  public native void nativeSetLong(String name, long value);
 }

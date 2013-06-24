@@ -114,4 +114,21 @@ extern "C"
     (void)Settings::Set(jni::ToNativeString(env, name), value);
   }
 
+  JNIEXPORT jlong JNICALL
+  Java_com_mapswithme_maps_MWMApplication_nativeGetLong(JNIEnv * env, jobject thiz, jstring name, jlong defaultValue)
+  {
+    jlong value;
+    if (Settings::Get(jni::ToNativeString(env, name), value))
+      return value;
+
+    return defaultValue;
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMApplication_nativeSetLong(JNIEnv * env, jobject thiz, jstring name, jlong value)
+  {
+    (void)Settings::Set(jni::ToNativeString(env, name), value);
+  }
+
+
 }
