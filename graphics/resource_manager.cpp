@@ -275,6 +275,8 @@ namespace
     // glReadPixels instead of glFinish to synchronize.
     if (isGPUVersion("Imagination Technologies", "PowerVR SGX 540", "OpenGL ES 2.0"))
       m_useReadPixelsToSynchronize = true;
+    if (isGPU("Imagination Technologies", "PowerVR SGX 530", false))
+        m_useReadPixelsToSynchronize = true;
 #endif
 
     LOG(LINFO, ("selected", graphics::formatName(m_texRtFormat), "format for tile textures"));
