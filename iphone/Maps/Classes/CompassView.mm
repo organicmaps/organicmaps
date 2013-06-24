@@ -1,5 +1,7 @@
 #import "CompassView.h"
 
+#define DEFAULTCOLOR 168.0/255.0
+
 @implementation CompassView
 
 @synthesize angle;
@@ -13,6 +15,7 @@
     self.opaque = NO;
     self.clearsContextBeforeDrawing = YES;
     self.showArrow = NO;
+    _color = [[UIColor alloc] initWithRed:DEFAULTCOLOR green:DEFAULTCOLOR blue:DEFAULTCOLOR alpha:1.0];
   }
   return self;
 }
@@ -36,6 +39,8 @@
     // Draws an arrow looking to the right like this:
     // =>
     // and rotates it to given angle
+
+
     UIBezierPath * aPath = [UIBezierPath bezierPath];
 
     float const w = rect.size.width;
@@ -53,11 +58,16 @@
     [aPath applyTransform:matrix];
 
     // Set color: a8a8a8.
-    float const c = 168.0/255.0;
-    [[UIColor colorWithRed:c green:c blue:c alpha:1.0] setFill];
+    [self.color setFill];
     [aPath fill];
   }
   // Do not draw anything if showArrow property is not set
+}
+
+-(void)dealloc
+{
+  self.color = nil;
+  [super dealloc];
 }
 
 @end
