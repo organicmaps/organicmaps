@@ -42,7 +42,7 @@ public class SettingsActivity extends PreferenceActivity
 
     final Activity parent = this;
 
-    Preference pref = findPreference("StorageActivity");
+    Preference pref = findPreference(getString(R.string.pref_storage_activity));
     pref.setOnPreferenceClickListener(new OnPreferenceClickListener()
     {
       @Override
@@ -74,7 +74,8 @@ public class SettingsActivity extends PreferenceActivity
       }
     });
 
-    ListPreference lPref = (ListPreference) findPreference("MeasurementUnits");
+    ListPreference lPref = (ListPreference) findPreference(getString(R.string.pref_munits));
+
     lPref.setValue(String.valueOf(UnitLocale.getUnits()));
     lPref.setOnPreferenceChangeListener(new OnPreferenceChangeListener()
     {
@@ -87,22 +88,17 @@ public class SettingsActivity extends PreferenceActivity
     });
 
 
-    //Statistics preference
-    if (Utils.apiEqualOrGreaterThan(9))
+    CheckBoxPreference allowStatsPreference = (CheckBoxPreference) findPreference(getString(R.string.pref_allow_stat));
+    allowStatsPreference.setChecked(Statistics.INSTANCE.isStatisticsEnabled(this));
+    allowStatsPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener()
     {
-      CheckBoxPreference allowStatsPreference = (CheckBoxPreference) findPreference("allow_stats");
-      allowStatsPreference.setChecked(Statistics.INSTANCE.isStatisticsEnabled(this));
-      allowStatsPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener()
+      @Override
+      public boolean onPreferenceChange(Preference preference, Object newValue)
       {
-        @Override
-        public boolean onPreferenceChange(Preference preference, Object newValue)
-        {
-          Statistics.INSTANCE.setStatEnabled(getApplicationContext(), (Boolean)newValue);
-          return true;
-        }
-      });
-    }
-    // no else
+        Statistics.INSTANCE.setStatEnabled(getApplicationContext(), (Boolean) newValue);
+        return true;
+      }
+    });
   }
 
   @Override

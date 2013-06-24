@@ -2,15 +2,20 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <Preference
-        android:key="StorageActivity"
+        android:key="@string/pref_storage_activity"
         android:summary="@string/maps_storage_summary"
         android:title="@string/maps_storage" />
 
     <ListPreference
         android:entries="@array/measument_units"
         android:entryValues="@array/measument_units_values"
-        android:key="MeasurementUnits"
+        android:key="@string/pref_munits"
         android:summary="@string/measurement_units_summary"
         android:title="@string/measurement_units" />
+
+    <CheckBoxPreference
+        android:key="@string/pref_allow_stat"
+        android:summary="Let us make app better, Dude!"
+        android:title="Allow Statistics?" />
 
 </PreferenceScreen>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="pref_allow_stat">AllowStat</string>
+    <string name="pref_munits">MeasurementUnits</string>
+    <string name="pref_storage_activity">StorageActivity</string>
+
+</resources>
