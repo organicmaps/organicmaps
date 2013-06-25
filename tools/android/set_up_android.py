@@ -5,6 +5,7 @@ import shutil
 import getopt
 import sys
 
+
 def locate_sdk(sdkPath):
     if (not sdkPath):
         sdkPath = raw_input('Enter Android SDK path: ').strip()
@@ -16,8 +17,6 @@ def locate_sdk(sdkPath):
     else:
         print 'Incorrect SDK path.'
         exit(1)
-
-### !locate_sdk
 
 
 def locate_ndk(ndkPath):
@@ -32,32 +31,26 @@ def locate_ndk(ndkPath):
         print 'Incorrect NDK path.'
         exit(1)
 
-### !locate_ndk
-
 
 def update_assets():
     return os.system('./update_assets.sh')
 
-### !update_assets
 
-
-def replace_aapt(sdkDir, oldAaptName='aapt_backup'):
+def replace_aapt(sdkDir, oldAaptName='aapt2'):
     aaptPath = os.path.join(sdkDir, 'platform-tools', 'aapt')
     aaptOldPath = os.path.join(sdkDir, 'platform-tools', oldAaptName)
 
     # handle case of non-existing file
-    if os.path.exists(aaptPath):
+    if not os.path.exists(aaptOldPath):
         os.rename(aaptPath, aaptOldPath)
     else:
-        print 'aapt not found, skipping'
+        print 'aapt2 already exists, skipping'
 
     # copy new hacked aapt version
     curDir = os.getcwd()
     hackedAaptPath = os.path.join(curDir, 'aapt')
     print 'hacked path; %s' % hackedAaptPath
     print 'copied: %s' % shutil.copy(hackedAaptPath, aaptPath)
-
-### !replace_aapt
 
 
 def write_local_properties(sdkDir, ndkDir):
@@ -85,7 +78,6 @@ def write_local_properties(sdkDir, ndkDir):
         shutil.copy(locPropsOrigin, dst)
         print 'File created:', dst
 
-### !write_local_properties
 
 def usage():
     print "Usage: " + sys.argv[0] + " --sdk <SDK path> --ndk <NDK path>"
@@ -120,13 +112,4 @@ def run():
     write_local_properties(sdkDir, ndkDir)
     print '>>> Done!'
 
-### !run
-
-
-# RUN it!!!
 run()
-
-
-
-
-
