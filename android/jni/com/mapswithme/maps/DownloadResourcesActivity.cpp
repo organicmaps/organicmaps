@@ -231,7 +231,7 @@ extern "C"
     g_currentRequest.reset(HttpRequest::GetFile(
         curFile.m_urls, curFile.m_pathOnSdcard, curFile.m_fileSize,
         onFinish, onProgress,
-        64 * 1024, false));
+        512 * 1024, false));
   }
 
   JNIEXPORT void JNICALL
