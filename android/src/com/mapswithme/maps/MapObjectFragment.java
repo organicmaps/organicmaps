@@ -49,7 +49,8 @@ public class MapObjectFragment extends Fragment
   private static final int MENU_SHARE = 0x100;
 
   private TextView mNameTV;
-  private TextView mGroupTypeTV;
+  private TextView mGroupTV;
+  private TextView mTypeTV;
   private TextView mDescrTV;
 
   private Button mAddToBookmarks;
@@ -77,12 +78,13 @@ public class MapObjectFragment extends Fragment
     UiUtils.show(mEditBmk);
     UiUtils.hide(mOpenWith);
 
-    setTexts(bookmark.getName(), bookmark.getCategoryName(), bookmark.getBookmarkDescription(), bookmark.getLat(), bookmark.getLon());
+    setTexts(bookmark.getName(), null , bookmark.getCategoryName(), bookmark.getBookmarkDescription(), bookmark.getLat(), bookmark.getLon());
 
-    @SuppressWarnings("deprecation")
-    Drawable icon = new BitmapDrawable(bookmark.getIcon().getIcon());
-    mNameTV.setCompoundDrawables(UiUtils
-        .setCompoundDrawableBounds(icon, R.dimen.icon_size, getResources()), null, null, null);
+    final int circleSize = (int) (getResources().getDimension(R.dimen.margin_medium) + .5);
+    Drawable icon = UiUtils.drawCircleForPin(bookmark.getIcon().getType(), circleSize, getResources());
+
+    mGroupTV.setCompoundDrawables(UiUtils
+        .setCompoundDrawableBounds(icon, R.dimen.margin_medium, getResources()), null, null, null);
 
     mEditBmk.setCompoundDrawables(UiUtils
         .setCompoundDrawableBounds(R.drawable.edit_bookmark, R.dimen.icon_size, getResources()), null, null, null);
@@ -109,7 +111,7 @@ public class MapObjectFragment extends Fragment
     else
       UiUtils.hide(mOpenWith);
 
-    setTexts(name, null, null, lat, lon);
+    setTexts(name, null, null, null, lat, lon);
 
     mType = MapObjectType.API_POINT;
   }
@@ -120,7 +122,7 @@ public class MapObjectFragment extends Fragment
    UiUtils.hide(mEditBmk);
    UiUtils.hide(mOpenWith);
 
-   setTexts(name, type, null, lat, lon);
+   setTexts(name, type, null, null, lat, lon);
 
    mType = MapObjectType.POI;
   }
@@ -132,12 +134,12 @@ public class MapObjectFragment extends Fragment
    UiUtils.hide(mOpenWith);
 
    final String name = getString(R.string.my_position);
-   setTexts(name, "", null, lat, lon);
+   setTexts(name, null, null, null, lat, lon);
 
    mType = MapObjectType.MY_POSITION;
   }
 
-  private void setTexts(String name, String type, String descr, double lat, double lon)
+  private void setTexts(String name, String type, String group,String descr, double lat, double lon)
   {
     if (!TextUtils.isEmpty(name))
       mName = name;
@@ -146,14 +148,25 @@ public class MapObjectFragment extends Fragment
 
     mNameTV.setText(mName);
 
+    // Type of POI
     if (TextUtils.isEmpty(type))
-      UiUtils.hide(mGroupTypeTV);
+      UiUtils.hide(mTypeTV);
     else
     {
-      mGroupTypeTV.setText(type);
-      UiUtils.show(mGroupTypeTV);
+      mTypeTV.setText(type);
+      UiUtils.show(mTypeTV);
     }
 
+    // Group of BMK
+    if (TextUtils.isEmpty(group))
+      UiUtils.hide(mGroupTV);
+    else
+    {
+      mGroupTV.setText(group);
+      UiUtils.show(mGroupTV);
+    }
+
+    // Description of BMK
     if (TextUtils.isEmpty(descr))
       UiUtils.hide(mDescrTV);
     else
@@ -172,8 +185,9 @@ public class MapObjectFragment extends Fragment
     final View view = inflater.inflate(R.layout.fragment_map_object, container, false);
     // find views
     mNameTV      = (TextView) view.findViewById(R.id.name);
-    mGroupTypeTV = (TextView) view.findViewById(R.id.groupType);
     mDescrTV     = (TextView) view.findViewById(R.id.descr);
+    mGroupTV     = (TextView) view.findViewById(R.id.group);
+    mTypeTV      = (TextView) view.findViewById(R.id.type);
 
 
     mAddToBookmarks = (Button) view.findViewById(R.id.addToBookmarks);

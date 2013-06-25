@@ -1,8 +1,11 @@
 #include "measurement_utils.hpp"
 
 #include "../platform/settings.hpp"
-
 #include "../base/string_utils.hpp"
+
+#include "../std/cmath.hpp"
+#include "../std/iomanip.hpp"
+#include "../std/sstream.hpp"
 
 
 namespace MeasurementUtils
@@ -53,6 +56,8 @@ bool FormatDistance(double m, string & res)
   }
 }
 
+
+/// @todo change ostreamstring to something faster
 string FormatLatLonAsDMSImpl(string const & posPost, string const & negPost,
                              double value,bool roundSec)
 {

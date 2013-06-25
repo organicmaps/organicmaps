@@ -14,20 +14,22 @@
         android:id="@+id/simpleNavigationFragment"
         android:name="com.mapswithme.maps.SimpleNavigationFragment"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         tools:layout="@layout/fragment_simple_navigation" />
 
-    <include
-        android:layout_width="1dp"
+    <View
+        android:id="@+id/space"
+        android:background="@null"
         android:layout_height="match_parent"
-        layout="@layout/horizontal_separator" />
+        android:layout_width="@dimen/margin_large"
+        android:layout_weight="0"/>
 
     <fragment
         android:id="@+id/mapObjFragment"
         android:name="com.mapswithme.maps.MapObjectFragment"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         tools:layout="@layout/fragment_map_object" />
 

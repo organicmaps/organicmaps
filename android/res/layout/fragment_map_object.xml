@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="12dp" >
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/name"
@@ -11,22 +10,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_margin="@dimen/margin_small"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:drawablePadding="@dimen/margin_small" />
-
-    <include layout="@layout/horizontal_separator" />
-
-    <TextView
-        android:id="@+id/groupType"
-        style="@style/Holo.TextAppearance.Medium.Light"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_margin="@dimen/margin_small"
         android:layout_marginTop="@dimen/margin_medium" />
 
-    <include layout="@layout/horizontal_separator" />
+    <TextView
+        android:id="@+id/type"
+        style="@style/tagGreenText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:drawablePadding="@dimen/margin_small"
+        />
+
+    <TextView
+        android:id="@+id/group"
+        style="@style/Holo.TextAppearance.Medium.Light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:drawablePadding="@dimen/margin_small"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/descr"
@@ -34,12 +36,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_margin="@dimen/margin_small"
-        android:layout_marginTop="@dimen/margin_medium" />
+        android:layout_marginTop="@dimen/margin_small" />
 
-    <include layout="@layout/horizontal_separator" />
+    <!-- EMPTY VIEW - takes space between block. Margin doesn't work :( -->
 
-    <!-- EMPTY VIEW - takes space between block. Margin don't work :( -->
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_large"

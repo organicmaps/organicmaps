@@ -709,10 +709,8 @@ namespace android
      if (m_bmBaloon == NULL)
          return;
 
-     int width = m_work.GetNavigator().Screen().GetWidth();
-     int height = m_work.GetNavigator().Screen().GetHeight();
-
-     m_bmBaloon->onScreenSize(width, height);
+     ScreenBase screen = m_work.GetNavigator().Screen();
+     m_bmBaloon->onScreenSize(screen.GetWidth(), screen.GetHeight());
   }
 
   BookmarkBalloon * Framework::GetBookmarkBalloon()
@@ -1014,17 +1012,15 @@ extern "C"
   {
     string distance;
     double azimut = -1.0;
-    g_framework->NativeFramework()->GetDistanceAndAzimut(
-        m2::PointD(merX, merY), cLat, cLon, north, distance, azimut);
+    g_framework->NativeFramework()->GetDistanceAndAzimut(m2::PointD(merX, merY), cLat, cLon, north, distance, azimut);
 
-    jclass klass = env->FindClass("com/mapswithme/maps/bookmarks/data/DistanceAndAzimut");
-    ASSERT ( klass, () );
-    jmethodID methodID = env->GetMethodID(
-        klass, "<init>",
-        "(Ljava/lang/String;D)V");
+    jclass daClazz = env->FindClass("com/mapswithme/maps/bookmarks/data/DistanceAndAzimut");
+    ASSERT ( daClazz, () );
+
+    jmethodID methodID = env->GetMethodID(daClazz, "<init>", "(Ljava/lang/String;D)V");
     ASSERT ( methodID, () );
 
-    return env->NewObject(klass, methodID,
+    return env->NewObject(daClazz, methodID,
                           jni::ToJavaString(env, distance.c_str()),
                           static_cast<jdouble>(azimut));
   }
@@ -1041,7 +1037,6 @@ extern "C"
   JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_Framework_nativeLatLon2DMS(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
   {
-    const string dms = MeasurementUtils::FormatLatLonAsDMS(lat, lon, false);
-    return jni::ToJavaString(env, dms);
+    return jni::ToJavaString(env,  MeasurementUtils::FormatLatLonAsDMS(lat, lon, false));
   }
 }

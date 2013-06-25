@@ -11,26 +11,19 @@
         android:id="@+id/staticData"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_medium"
         android:layout_weight="1"
-        android:background="@drawable/abs__item_background_holo_light"
+        android:background="@drawable/spinner_background_holo_light"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:padding="@dimen/margin_small" >
 
         <TextView
             android:id="@+id/dms"
             style="@style/Holo.TextAppearance.Medium.Light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center|left"/>
-
-        <TextView
-            android:id="@+id/degrees"
-            style="@style/Holo.TextAppearance.Small.Light"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center|left"
-            android:textColor="@android:color/darker_gray"/>
+            android:gravity="center|left" />
     </LinearLayout>
 
     <LinearLayout
@@ -46,7 +39,8 @@
             android:id="@+id/distance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textStyle="bold" />
 
         <com.mapswithme.maps.ArrowImage
             android:id="@+id/arrow"

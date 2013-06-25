@@ -3,10 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/background_placepage"
     tools:context=".MapObjectActivity" >
 
 
@@ -14,18 +11,19 @@
         android:id="@+id/simpleNavigationFragment"
         android:name="com.mapswithme.maps.SimpleNavigationFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         tools:layout="@layout/fragment_simple_navigation" />
 
-    <include layout="@layout/horizontal_separator" />
 
     <fragment
         android:id="@+id/mapObjFragment"
         android:name="com.mapswithme.maps.MapObjectFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
+        android:layout_marginLeft="@dimen/margin_large"
+        android:layout_marginRight="@dimen/margin_large"
         tools:layout="@layout/fragment_map_object" />
 
 </LinearLayout>

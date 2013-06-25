@@ -12,4 +12,12 @@
         <item name="android:background">@null</item>
         <item name="android:padding">0dp</item>
     </style>
+    <style name="tagGreenText" parent="@style/Holo.TextAppearance.Medium.Light">
+        <item name="android:background">@color/base_green</item>
+        <item name="android:paddingBottom">@dimen/margin_tiny</item>
+        <item name="android:paddingLeft">@dimen/margin_small</item>
+        <item name="android:paddingRight">@dimen/margin_small</item>
+        <item name="android:paddingTop">@dimen/margin_tiny</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 </resources>

@@ -34,7 +34,6 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
   private TextView mDistance;
     // Left
   private boolean mShowStatic = true;
-  private TextView mDegrees;
   private TextView mDMS;
     // Containers
   private View mRoot;
@@ -52,8 +51,8 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
     mDynamicData = mRoot.findViewById(R.id.dynamicData);
     //Set up views
     mArrow    = (ArrowImage) mRoot.findViewById(R.id.arrow);
+    mArrow.setDrawCircle(true);
     mDistance = (TextView)   mRoot.findViewById(R.id.distance);
-    mDegrees  = (TextView)   mRoot.findViewById(R.id.degrees);
     mDMS      = (TextView)   mRoot.findViewById(R.id.dms);
 
     setClickers();
@@ -84,7 +83,6 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
     if (mPoint != null && mShowStatic)
     {
       UiUtils.show(mStaticData);
-      mDegrees.setText(UiUtils.formatLatLon(mPoint.y, mPoint.x));
       mDMS.setText(UiUtils.formatLatLonToDMS(mPoint.y, mPoint.x));
     }
     else
@@ -167,8 +165,8 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
   }
 
 
-  private static final int MENU_COPY_DEGR = 1;
-  private static final int MENU_COPY_DMS  = 2;
+  private static final int MENU_COPY_DMS  = 1;
+  private static final int MENU_COPY_DEGR = 2;
   private static final int MENU_CANCEL    = 999;
   @Override
   public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
@@ -176,8 +174,8 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
     if (v == mStaticData)
     {
       // TODO add localizations
-      menu.add(Menu.NONE, MENU_COPY_DEGR, MENU_COPY_DEGR, String.format("Copy %s", mDegrees.getText().toString()));
-      menu.add(Menu.NONE, MENU_COPY_DMS, MENU_COPY_DEGR, String.format("Copy %s", mDMS.getText().toString()));
+      menu.add(Menu.NONE, MENU_COPY_DEGR, MENU_COPY_DEGR, String.format("Copy %s", UiUtils.formatLatLon(mPoint.y, mPoint.x)));
+      menu.add(Menu.NONE, MENU_COPY_DMS, MENU_COPY_DMS, String.format("Copy %s", mDMS.getText().toString()));
       menu.add(Menu.NONE, MENU_CANCEL, MENU_CANCEL, android.R.string.cancel);
     }
 
@@ -188,26 +186,29 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
   public boolean onContextItemSelected(MenuItem item)
   {
     final int ID = item.getItemId();
+    String text = null;
     if (ID == MENU_COPY_DEGR)
     {
-      final String text = mDegrees.getText().toString();
-      Utils.copyTextToClipboard(getActivity(), text);
-      // TODO add localization
-      Utils.toastShortcut(getActivity(), "Copied to Clipboard: " + text);
-      return true;
+      text = UiUtils.formatLatLon(mPoint.y, mPoint.x);
     }
     else if (ID == MENU_COPY_DMS)
     {
-      final String text = mDMS.getText().toString();
+      text = mDMS.getText().toString();
+    }
+    else if (ID == MENU_CANCEL)
+      return true;
+    else
+      super.onContextItemSelected(item);
+
+    if (text != null)
+    {
       Utils.copyTextToClipboard(getActivity(), text);
       // TODO add localization
       Utils.toastShortcut(getActivity(), "Copied to Clipboard: " + text);
       return true;
     }
-    else if (ID == MENU_CANCEL)
-      return true;
 
-    return super.onContextItemSelected(item);
+    return false;
   }
 
   private void showShareCoordinatesMenu()
