@@ -168,10 +168,9 @@ public:
   /// Scans and loads all kml files with bookmarks in WritableDir.
   void LoadBookmarks();
 
-  /// @name Always returns existing or newly created bookmark category.
-  //@{
+  /// @return Created bookmark index in category.
   size_t AddBookmark(size_t categoryIndex, Bookmark & bm);
-  //@}
+  /// @return Created bookmark category index.
   size_t AddCategory(string const & categoryName);
 
   inline size_t GetBmCategoriesCount() const { return m_bmManager.GetBmCategoriesCount(); }
@@ -180,11 +179,9 @@ public:
 
   size_t LastEditedCategory();
 
-  /// @name Delete bookmarks category with all bookmarks.
+  /// Delete bookmarks category with all bookmarks.
   /// @return true if category was deleted
-  //@{
   bool DeleteBmCategory(size_t index);
-  //@}
 
   /// @name Get bookmark by touch.
   /// @param[in]  pixPt   Coordinates of touch point in pixels.
