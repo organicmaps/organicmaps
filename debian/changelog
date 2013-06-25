@@ -1,3 +1,11 @@
+mapswithme (2.4.0) unstable; urgency=low
+
+  * New upstream dataset
+  * Updated stylesheet
+  * Rendering engine performance improvement
+
+ -- Darafei A. Praliaskouski <komzpa@mapswith.me>  Tue, 25 Jun 2013 16:48:41 +0300
+
 mapswithme (2.3.4) unstable; urgency=low
 
   * New upstream dataset

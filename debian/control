@@ -1,7 +1,7 @@
 Source: mapswithme
 Section: utils
 Priority: extra
-Maintainer: Darafei A. Praliaskouski <komzpa@mapswithme.com>
+Maintainer: Darafei A. Praliaskouski <komzpa@mapswith.me>
 Build-Depends: debhelper (>= 8), qt4-qmake, mesa-common-dev, libqt4-dev, libqt4-opengl-dev, git
 Standards-Version: 3.9.3
 Homepage: http://mapswith.me/
@@ -13,6 +13,6 @@ Depends: dbus, ${shlibs:Depends}, ${misc:Depends}
 Description: Detailed Offline Maps of the Entire World
  The quickest offline maps of the entire world. Search and navigate maps fully offline. Maps work everywhere!
  Features:
- • ALL COUNTRIES, ALL CITIES. If you get the MapsWithMe Pro, the entire world is in your pocket. Even maps of the smallest islands!
- • REALLY FAST. No grey squares anymore! Our innovative map data compression method allows you to download maps in seconds, navigate through them smoothly.
- • OFFLINE SEARCH. Find everything you need of all the objects available on the map in a second! The auto-suggestion feature makes searching maps faster and easier.    
+ - ALL COUNTRIES, ALL CITIES. If you get the MapsWithMe Pro, the entire world is in your pocket. Even maps of the smallest islands!
+ - REALLY FAST. No grey squares anymore! Innovative map data compression method allows you to download maps in seconds, navigate through them smoothly.
+ - OFFLINE SEARCH. Find everything you need of all the objects available on the map in a second! The auto-suggestion feature makes searching maps faster and easier.
