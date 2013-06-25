@@ -18,7 +18,7 @@ public class ArrowImage extends ImageView
   private float mHeight;
 
   private final static float RAD_MULT = .33f;
-  private final float SQ2 = (float) Math.sqrt(2);
+  private final static float SQ2 = (float) Math.sqrt(2);
   private float mRad;
 
   private boolean mDrawArrow;
@@ -26,7 +26,7 @@ public class ArrowImage extends ImageView
   private Path mArrowPath;
 
   private boolean mDrawCircle = false;
-  private Paint mCirclePaint = new Paint();
+  private Paint mCirclePaint;
 
   // Animation params
   private boolean mJustStarted = true;
@@ -60,7 +60,8 @@ public class ArrowImage extends ImageView
 
     mArrowPath = new Path();
 
-    mCirclePaint.setColor(0xafFFFFFF);
+    mCirclePaint = new Paint();
+    mCirclePaint.setColor(0xAFFFFFFF);
     mCirclePaint.setAntiAlias(true);
   }
 
@@ -147,9 +148,9 @@ public class ArrowImage extends ImageView
       final double signum = -1 * Math.signum(diff) * Math.signum(Math.abs(diff) - 180);
       mCurrentAngle += signum * ROTATION_STEP;
       if (mCurrentAngle < 0)
-        mCurrentAngle = 360;
+        mCurrentAngle += 360;
       else if (mCurrentAngle > 360)
-        mCurrentAngle = 0;
+        mCurrentAngle -= 360;
       invalidate();
       return true;
     }
