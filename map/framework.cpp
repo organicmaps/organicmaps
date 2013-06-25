@@ -1412,7 +1412,7 @@ void Framework::AddBookmarkAndSetViewport(Bookmark & bm, m2::RectD const & viewP
   ShowRectExVisibleScale(viewPort);
 }
 
-bool Framework::SetViewportByURL(string const & url, url_api::Request & request)
+bool Framework::SetViewportByURL(string const & url, url_scheme::ApiPoint & balloonPoint)
 {
   if (strings::StartsWith(url, "geo"))
   {
@@ -1423,29 +1423,24 @@ bool Framework::SetViewportByURL(string const & url, url_api::Request & request)
 
     if (info.IsValid())
     {
-      // @TODO this is hack to kick-off release
-      request.m_points.push_back(url_api::Point());
-      url_api::Point & newPoint = request.m_points.back();
-
-      newPoint.m_name = m_stringsBundle.GetString("dropped_pin");
-      request.m_viewportLat = newPoint.m_lat = info.m_lat;
-      request.m_viewportLon = newPoint.m_lon = info.m_lon;
-      request.m_viewportZoomLevel = info.m_zoom;
+      balloonPoint.m_name = m_stringsBundle.GetString("dropped_pin");
+      balloonPoint.m_lat = info.m_lat;
+      balloonPoint.m_lon = info.m_lon;
       SetViewPortSync(info.GetViewport());
       return true;
     }
   }
   else if (strings::StartsWith(url, "ge0"))
   {
-    url_api::Ge0Parser parser;
-    if (parser.Parse(url, request))
+    url_scheme::Ge0Parser parser;
+    double zoomLevel;
+    if (parser.Parse(url, balloonPoint, zoomLevel))
     {
-      url_api::Point & point = request.m_points.front();
-      if (point.m_name.empty())
-        point.m_name = m_stringsBundle.GetString("dropped_pin");
+      if (balloonPoint.m_name.empty())
+        balloonPoint.m_name = m_stringsBundle.GetString("dropped_pin");
 
-      m2::PointD const center(MercatorBounds::LonToX(request.m_viewportLon), MercatorBounds::LatToY(request.m_viewportLat));
-      SetViewPortSync(scales::GetRectForLevel(request.m_viewportZoomLevel, center, 1));
+      m2::PointD const center(MercatorBounds::LonToX(balloonPoint.m_lon), MercatorBounds::LatToY(balloonPoint.m_lat));
+      SetViewPortSync(scales::GetRectForLevel(zoomLevel, center, 1));
       return true;
     }
   }
@@ -1456,23 +1451,11 @@ bool Framework::SetViewportByURL(string const & url, url_api::Request & request)
       // Can do better consider nav bar size
       SetViewPortSync(MercatorBounds::FromLatLonRect(m_ParsedMapApi.GetLatLonRect()));
 
-      // Populate request if request has only one point
-      // with this one point to show balloon.
-      // @todo: refactor to more general model, Point and ApiPoint must not exist together.
-      if (m_ParsedMapApi.GetPoints().size() == 1)
+      if (!m_ParsedMapApi.GetPoints().empty())
       {
-        url_scheme::ApiPoint const apiPoint = m_ParsedMapApi.GetPoints().front();
-        url_api::Point point;
-
-        request.m_viewportLat = point.m_lat = apiPoint.m_lat;
-        request.m_viewportLon = point.m_lon = apiPoint.m_lon;
-        point.m_name = apiPoint.m_title;
-        point.m_id = apiPoint.m_id;
-
-        request.m_points.push_back(point);
+        balloonPoint = m_ParsedMapApi.GetPoints().front();
+        return true;
       }
-
-      return true;
     }
   }
   return false;

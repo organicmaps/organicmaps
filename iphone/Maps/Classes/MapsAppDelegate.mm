@@ -62,16 +62,16 @@ void InitLocalizedStrings()
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-  UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+  UIPasteboard * pasteboard = [UIPasteboard generalPasteboard];
   if (GetPlatform().IsPro() && !m_didOpenedWithUrl)
   {
     NSString * url = [pasteboard.string stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     if ([url length])
     {
-      url_api::Request request;
-      if (GetFramework().SetViewportByURL([url UTF8String], request))
+      url_scheme::ApiPoint apiPoint;
+      if (GetFramework().SetViewportByURL([url UTF8String], apiPoint))
       {
-        [self showParsedBookmarkOnMap: request];
+        [self showParsedBookmarkOnMap:apiPoint];
         pasteboard.string = @"";
       }
     }
@@ -178,10 +178,10 @@ void InitLocalizedStrings()
   // geo scheme support, see http://tools.ietf.org/html/rfc5870
   if ([scheme isEqualToString:@"geo"] || [scheme isEqualToString:@"ge0"])
   {
-    url_api::Request request;
-    if (GetFramework().SetViewportByURL([[url.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] UTF8String], request))
+    url_scheme::ApiPoint apiPoint;
+    if (GetFramework().SetViewportByURL([[url.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] UTF8String], apiPoint))
     {
-      [self showParsedBookmarkOnMap: request];
+      [self showParsedBookmarkOnMap:apiPoint];
       m_didOpenedWithUrl = YES;
       if ([scheme isEqualToString:@"geo"])
         [[Statistics instance] logEvent:@"geo Import"];
@@ -192,8 +192,8 @@ void InitLocalizedStrings()
   }
   if ([scheme isEqualToString:@"mapswithme"])
   {
-    url_api::Request request;
-    if (GetFramework().SetViewportByURL([[url.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] UTF8String], request));
+    url_scheme::ApiPoint apiPoint;
+    if (GetFramework().SetViewportByURL([[url.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] UTF8String], apiPoint));
     {
       [self showMap];
       [m_mapViewController prepareForApi];
@@ -251,15 +251,12 @@ void InitLocalizedStrings()
   m_navController.navigationBarHidden = YES;
 }
 
--(void) showParsedBookmarkOnMap:(url_api::Request) request
+-(void) showParsedBookmarkOnMap:(url_scheme::ApiPoint const &)apiPoint
 {
   [self showMap];
-  m2::PointD point(MercatorBounds::LonToX(request.m_viewportLon),
-                   MercatorBounds::LatToY(request.m_viewportLat));
-  
-  NSString * name = [NSString stringWithUTF8String: request.m_points.front().m_name.c_str()];
-  
-  [m_mapViewController showBalloonWithText:name andGlobalPoint:point];
+  m2::PointD const globalPoint(MercatorBounds::LonToX(apiPoint.m_lon), MercatorBounds::LatToY(apiPoint.m_lat));
+  NSString * name = [NSString stringWithUTF8String:apiPoint.m_name.c_str()];
+  [m_mapViewController showBalloonWithText:name andGlobalPoint:globalPoint];
 }
 
 @end

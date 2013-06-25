@@ -19,7 +19,7 @@ UNIT_TEST(MapApiSmoke)
   TEST_EQUAL(api.GetPoints().size(), 1, ());
   TEST_EQUAL(api.GetPoints()[0].m_lat, 38.970559, ());
   TEST_EQUAL(api.GetPoints()[0].m_lon, -9.419289, ());
-  TEST_EQUAL(api.GetPoints()[0].m_title, "Point Name", ());
+  TEST_EQUAL(api.GetPoints()[0].m_name, "Point Name", ());
   TEST_EQUAL(api.GetPoints()[0].m_id, "", ());
   TEST_EQUAL(api.GetGlobalBackUrl(), "", ());
 }
@@ -47,7 +47,7 @@ UNIT_TEST(MapApiPointNameBeforeLatLon)
   ParsedMapApi api(Uri("mapswithme://map?n=Name&ll=1,2"));
   TEST(api.IsValid(), ());
   TEST_EQUAL(api.GetPoints().size(), 1, ());
-  TEST_EQUAL(api.GetPoints()[0].m_title, "", ());
+  TEST_EQUAL(api.GetPoints()[0].m_name, "", ());
 }
 
 UNIT_TEST(MapApiPointNameOverwritten)
@@ -55,7 +55,7 @@ UNIT_TEST(MapApiPointNameOverwritten)
   ParsedMapApi api(Uri("mapswithme://map?ll=1,2&n=A&N=B"));
   TEST(api.IsValid(), ());
   TEST_EQUAL(api.GetPoints().size(), 1, ());
-  TEST_EQUAL(api.GetPoints()[0].m_title, "B", ());
+  TEST_EQUAL(api.GetPoints()[0].m_name, "B", ());
 }
 
 UNIT_TEST(MapApiMultiplePoints)
@@ -65,11 +65,11 @@ UNIT_TEST(MapApiMultiplePoints)
   TEST_EQUAL(api.GetPoints().size(), 3, ());
   TEST_EQUAL(api.GetPoints()[0].m_lat, 1.1, ());
   TEST_EQUAL(api.GetPoints()[0].m_lon, 1.2, ());
-  TEST_EQUAL(api.GetPoints()[0].m_title, "A", ());
-  TEST_EQUAL(api.GetPoints()[1].m_title, "", ());
+  TEST_EQUAL(api.GetPoints()[0].m_name, "A", ());
+  TEST_EQUAL(api.GetPoints()[1].m_name, "", ());
   TEST_EQUAL(api.GetPoints()[1].m_lat, 2.1, ());
   TEST_EQUAL(api.GetPoints()[1].m_lon, 2.2, ());
-  TEST_EQUAL(api.GetPoints()[2].m_title, "C", ());
+  TEST_EQUAL(api.GetPoints()[2].m_name, "C", ());
   TEST_EQUAL(api.GetPoints()[2].m_lat, -3.1, ());
   TEST_EQUAL(api.GetPoints()[2].m_lon, -3.2, ());
 }
@@ -81,7 +81,7 @@ UNIT_TEST(MapApiInvalidPointLatLonButValidOtherParts)
   TEST_EQUAL(api.GetPoints().size(), 1, ());
   TEST_EQUAL(api.GetPoints()[0].m_lat, 2, ());
   TEST_EQUAL(api.GetPoints()[0].m_lon, 2, ());
-  TEST_EQUAL(api.GetPoints()[0].m_title, "B", ());
+  TEST_EQUAL(api.GetPoints()[0].m_name, "B", ());
 }
 
 UNIT_TEST(MapApiPointURLEncoded)
@@ -89,7 +89,7 @@ UNIT_TEST(MapApiPointURLEncoded)
   ParsedMapApi api(Uri("mwm://map?ll=1,2&n=%D0%9C%D0%B8%D0%BD%D1%81%D0%BA&id=http%3A%2F%2Fmap%3Fll%3D1%2C2%26n%3Dtest"));
   TEST(api.IsValid(), ());
   TEST_EQUAL(api.GetPoints().size(), 1, ());
-  TEST_EQUAL(api.GetPoints()[0].m_title, "\xd0\x9c\xd0\xb8\xd0\xbd\xd1\x81\xd0\xba", ());
+  TEST_EQUAL(api.GetPoints()[0].m_name, "\xd0\x9c\xd0\xb8\xd0\xbd\xd1\x81\xd0\xba", ());
   TEST_EQUAL(api.GetPoints()[0].m_id, "http://map?ll=1,2&n=test", ());
 }
 
@@ -216,7 +216,7 @@ string generatePartOfUrl(url_scheme::ApiPoint const & point)
 {
   stringstream stream;
   stream << "&ll=" << strings::ToString(point.m_lat)  << "," << strings::ToString(point.m_lon)
-         << "&n=" << point.m_title
+         << "&n=" << point.m_name
          << "&id=" << point.m_id;
   return stream.str();
 }
@@ -241,7 +241,7 @@ void generateRandomTest(size_t numberOfPoints, size_t stringLength)
     point.m_lat *= random.Generate() % 2 == 0 ? 1 : -1;
     point.m_lon = random.Generate() % 180;
     point.m_lon *= random.Generate() % 2 == 0 ? 1 : -1;
-    point.m_title = randomString(stringLength, i);
+    point.m_name = randomString(stringLength, i);
     point.m_id = randomString(stringLength, i);
     vect[i] = point;
   }
@@ -256,7 +256,7 @@ void generateRandomTest(size_t numberOfPoints, size_t stringLength)
   {
     TEST_EQUAL(points[i].m_lat, vect[i].m_lat, ());
     TEST_EQUAL(points[i].m_lon, vect[i].m_lon, ());
-    TEST_EQUAL(points[i].m_title, vect[i].m_title, ());
+    TEST_EQUAL(points[i].m_name, vect[i].m_name, ());
     TEST_EQUAL(points[i].m_id, vect[i].m_id, ());
   }
   TEST_EQUAL(api.GetApiVersion(), 1, ());

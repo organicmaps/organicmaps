@@ -3,17 +3,17 @@
 #include "../std/string.hpp"
 
 
-namespace url_api
+namespace url_scheme
 {
 
-struct Request;
+struct ApiPoint;
 
 class Ge0Parser
 {
 public:
   Ge0Parser();
 
-  bool Parse(string const & url, Request & request);
+  bool Parse(string const & url, url_scheme::ApiPoint & outPoint, double & outZoomLevel);
 
 protected:
   uint8_t DecodeBase64Char(char const c);

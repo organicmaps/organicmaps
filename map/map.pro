@@ -56,7 +56,6 @@ HEADERS += \
     geometry_processors.hpp \
     bookmark_manager.hpp \
     ge0_parser.hpp \
-    url_api.hpp \
 
 SOURCES += \
     feature_vec_model.cpp \

@@ -1,5 +1,5 @@
 #include "ge0_parser.hpp"
-#include "url_api.hpp"
+#include "mwm_url.hpp"
 
 #include "../api/internal/c/api-client-internals.h"
 
@@ -10,8 +10,10 @@
 #include "../base/math.hpp"
 #include "../base/string_utils.hpp"
 
+namespace url_scheme
+{
 
-url_api::Ge0Parser::Ge0Parser()
+Ge0Parser::Ge0Parser()
 {
   for (size_t i = 0; i < 256; ++i)
     m_base64ReverseCharTable[i] = 255;
@@ -22,7 +24,7 @@ url_api::Ge0Parser::Ge0Parser()
   }
 }
 
-bool url_api::Ge0Parser::Parse(string const & url, Request & request)
+bool Ge0Parser::Parse(string const & url, url_scheme::ApiPoint & outPoint, double & outZoomLevel)
 {
   // URL format:
   //
@@ -38,44 +40,36 @@ bool url_api::Ge0Parser::Parse(string const & url, Request & request)
   const int LATLON_LENGTH = NAME_POSITON_IN_URL - LATLON_POSITION - 1;
   const size_t MAX_NAME_LENGTH = 256;
 
-  request.Clear();
   if (url.size() < 16 || !strings::StartsWith(url, "ge0://"))
     return false;
 
   uint8_t const zoomI = DecodeBase64Char(url[ZOOM_POSITION]);
   if (zoomI > 63)
     return false;
-  request.m_viewportZoomLevel = DecodeZoom(zoomI);
+  outZoomLevel = DecodeZoom(zoomI);
 
-  request.m_points.push_back(url_api::Point());
-  url_api::Point & newPt = request.m_points.back();
+  DecodeLatLon(url.substr(LATLON_POSITION, LATLON_LENGTH), outPoint.m_lat, outPoint.m_lon);
 
-  DecodeLatLon(url.substr(LATLON_POSITION, LATLON_LENGTH), newPt.m_lat, newPt.m_lon);
-
-  ASSERT(MercatorBounds::ValidLon(newPt.m_lon), (newPt.m_lon));
-  ASSERT(MercatorBounds::ValidLat(newPt.m_lat), (newPt.m_lat));
-
-  request.m_viewportLat = newPt.m_lat;
-  request.m_viewportLon = newPt.m_lon;
+  ASSERT(MercatorBounds::ValidLon(outPoint.m_lon), (outPoint.m_lon));
+  ASSERT(MercatorBounds::ValidLat(outPoint.m_lat), (outPoint.m_lat));
 
   if (url.size() >= NAME_POSITON_IN_URL)
-    newPt.m_name = DecodeName(url.substr(NAME_POSITON_IN_URL,
-                                         min(url.size() - NAME_POSITON_IN_URL, MAX_NAME_LENGTH)));
+    outPoint.m_name = DecodeName(url.substr(NAME_POSITON_IN_URL, min(url.size() - NAME_POSITON_IN_URL, MAX_NAME_LENGTH)));
   return true;
 }
 
-uint8_t url_api::Ge0Parser::DecodeBase64Char(char const c)
+uint8_t Ge0Parser::DecodeBase64Char(char const c)
 {
   return m_base64ReverseCharTable[static_cast<uint8_t>(c)];
 }
 
-double url_api::Ge0Parser::DecodeZoom(uint8_t const zoomByte)
+double Ge0Parser::DecodeZoom(uint8_t const zoomByte)
 {
   //Coding zoom -  int newZoom = ((oldZoom - 4) * 4)
   return static_cast<double>(zoomByte) / 4 + 4;
 }
 
-void url_api::Ge0Parser::DecodeLatLon(string const & url, double & lat, double & lon)
+void Ge0Parser::DecodeLatLon(string const & url, double & lat, double & lon)
 {
   int latInt = 0, lonInt = 0;
   DecodeLatLonToInt(url, latInt, lonInt, url.size());
@@ -83,7 +77,7 @@ void url_api::Ge0Parser::DecodeLatLon(string const & url, double & lat, double &
   lon = DecodeLonFromInt(lonInt, (1 << MAPSWITHME_MAX_COORD_BITS) - 1);
 }
 
-void url_api::Ge0Parser::DecodeLatLonToInt(string const & url, int & lat, int & lon, int const bytes)
+void Ge0Parser::DecodeLatLonToInt(string const & url, int & lat, int & lon, int const bytes)
 {
   for(int i = 0, shift = MAPSWITHME_MAX_COORD_BITS - 3; i < bytes; ++i, shift -= 3)
   {
@@ -102,17 +96,17 @@ void url_api::Ge0Parser::DecodeLatLonToInt(string const & url, int & lat, int & 
   lon += middleOfSquare;
 }
 
-double url_api::Ge0Parser::DecodeLatFromInt(int const lat, int const maxValue)
+double Ge0Parser::DecodeLatFromInt(int const lat, int const maxValue)
 {
   return static_cast<double>(lat) / maxValue * 180 - 90;
 }
 
-double url_api::Ge0Parser::DecodeLonFromInt(int const lon, int const maxValue)
+double Ge0Parser::DecodeLonFromInt(int const lon, int const maxValue)
 {
   return static_cast<double>(lon) / (maxValue + 1.0) * 360.0 - 180;
 }
 
-string url_api::Ge0Parser::DecodeName(string name)
+string Ge0Parser::DecodeName(string name)
 {
   ValidateName(name);
   name = UrlDecode(name);
@@ -120,7 +114,7 @@ string url_api::Ge0Parser::DecodeName(string name)
   return name;
 }
 
-void url_api::Ge0Parser::SpacesToUnderscore(string & name)
+void Ge0Parser::SpacesToUnderscore(string & name)
 {
   for (size_t i = 0; i < name.size(); ++i)
     if (name[i] == ' ')
@@ -129,7 +123,7 @@ void url_api::Ge0Parser::SpacesToUnderscore(string & name)
       name[i] = ' ';
 }
 
-void url_api::Ge0Parser::ValidateName(string & name)
+void Ge0Parser::ValidateName(string & name)
 {
   if (name.empty())
     return;
@@ -147,7 +141,9 @@ void url_api::Ge0Parser::ValidateName(string & name)
     name.resize(name.size() - 2);
 }
 
-bool url_api::Ge0Parser::IsHexChar(char const a)
+bool Ge0Parser::IsHexChar(char const a)
 {
   return ((a >= '0' && a <= '9') || (a >= 'A' && a <= 'F') || (a >= 'a' && a <= 'f'));
 }
+
+} // namespace url_scheme

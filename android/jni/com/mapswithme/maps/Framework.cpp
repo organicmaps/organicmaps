@@ -601,8 +601,8 @@ namespace android
     {
       m2::PointD pivot(MercatorBounds::LonToX(apiPoint.m_lon),
                        MercatorBounds::LatToY(apiPoint.m_lat));
-      ActivatePopup(pivot, apiPoint.m_title, "", IMAGE_ARROW);
-      m_bmBaloon.get()->setOnClickListener(bind(&Framework::OnAcitvateApiPoint, this, _1, apiPoint));
+      ActivatePopup(pivot, apiPoint.m_name, "", IMAGE_ARROW);
+      m_bmBaloon.get()->setOnClickListener(bind(&Framework::OnActivateApiPoint, this, _1, apiPoint));
       return;
     }
     else
@@ -709,7 +709,7 @@ namespace android
      if (m_bmBaloon == NULL)
          return;
 
-     ScreenBase screen = m_work.GetNavigator().Screen();
+     ScreenBase const & screen = m_work.GetNavigator().Screen();
      m_bmBaloon->onScreenSize(screen.GetWidth(), screen.GetHeight());
   }
 
@@ -762,26 +762,21 @@ namespace android
     /// @todo this is weird hack, we should reconsider Android lifecycle handling design
     m_doLoadState = false;
 
-    url_api::Request request;
-    // if we have only one point
-    // and import is successful - show balloon
-    if (m_work.SetViewportByURL(url, request) && request.m_points.size() == 1)
+    url_scheme::ApiPoint apiPoint;
+    if (m_work.SetViewportByURL(url, apiPoint))
     {
-      //we need it only for one-point-call
-      url_api::Point const point = request.m_points.front();
-      m2::PointD pt(MercatorBounds::LonToX(request.m_viewportLon),
-                    MercatorBounds::LatToY(request.m_viewportLat));
-      ActivatePopup(pt, point.m_name, "", IMAGE_ARROW);
+      // we need it only for one-point-call
+      m2::PointD const globalPoint(MercatorBounds::LonToX(apiPoint.m_lon), MercatorBounds::LatToY(apiPoint.m_lat));
+      ActivatePopup(globalPoint, apiPoint.m_name, "", IMAGE_ARROW);
 
       // For geo and ge0 draw placemark
       if (!strings::StartsWith(url, "mapswithme"))
       {
-        m_work.DrawPlacemark(pt);
+        m_work.DrawPlacemark(globalPoint);
         m_work.Invalidate();
       }
 
-      url_scheme::ApiPoint const apiPoint {point.m_lat, point.m_lon, point.m_name, point.m_id};
-      m_bmBaloon.get()->setOnClickListener(bind(&Framework::OnAcitvateApiPoint, this, _1, apiPoint));
+      m_bmBaloon.get()->setOnClickListener(bind(&Framework::OnActivateApiPoint, this, _1, apiPoint));
 
       return true;
     }
@@ -799,9 +794,8 @@ namespace android
     m_bookmarkActivatedListener(bmkAndCat);
   }
 
-  void Framework::OnAcitvateApiPoint(gui::Element * e, url_scheme::ApiPoint const & apiPoint)
+  void Framework::OnActivateApiPoint(gui::Element * e, url_scheme::ApiPoint const & apiPoint)
   {
-    LOG(LERROR, ("POINT on api point listener", apiPoint.m_title, apiPoint.m_id));
     m_apiPointActivatedListener(apiPoint);
   }
 
@@ -879,7 +873,7 @@ extern "C"
                                                    "onApiPointActivated",
                                                    "(DDLjava/lang/String;Ljava/lang/String;)V");
 
-    jstring j_name = jni::ToJavaString(jniEnv, apiPoint.m_title);
+    jstring j_name = jni::ToJavaString(jniEnv, apiPoint.m_name);
     jstring j_id   = jni::ToJavaString(jniEnv, apiPoint.m_id);
     jniEnv->CallVoidMethod(*obj.get(), methodID, apiPoint.m_lat, apiPoint.m_lon, j_name, j_id);
   }

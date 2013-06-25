@@ -1,7 +1,7 @@
 #include "../../testing/testing.hpp"
 
 #include "../ge0_parser.hpp"
-#include "../url_api.hpp"
+#include "../mwm_url.hpp"
 
 #include "../../api/internal/c/api-client-internals.h"
 #include "../../api/src/c/api-client.h"
@@ -9,8 +9,8 @@
 #include "../../base/macros.hpp"
 
 
-using url_api::Ge0Parser;
-using url_api::Request;
+using url_scheme::Ge0Parser;
+using url_scheme::ApiPoint;
 
 namespace
 {
@@ -40,29 +40,30 @@ double GetLonEpsilon(int coordBytes)
 void TestSuccess(char const * s, double lat, double lon, double zoom, char const * name)
 {
   Ge0Parser parser;
-  Request request;
-  bool const result = parser.Parse(s, request);
+  ApiPoint apiPoint;
+  double parsedZoomLevel;
+  bool const result = parser.Parse(s, apiPoint, parsedZoomLevel);
 
   TEST(result, (s, zoom, lat, lon, name));
 
-  TEST_EQUAL(request.m_points.size(), 1, (s, zoom, lat, lon, name));
-  TEST_EQUAL(request.m_points[0].m_name, string(name), (s));
-  TEST_EQUAL(request.m_points[0].m_id, string(), (s));
+  TEST_EQUAL(apiPoint.m_name, string(name), (s));
+  TEST_EQUAL(apiPoint.m_id, string(), (s));
   double const latEps = GetLatEpsilon(9);
   double const lonEps = GetLonEpsilon(9);
-  TEST(fabs(request.m_points[0].m_lat - lat) <= latEps, (s, zoom, lat, lon, name));
-  TEST(fabs(request.m_points[0].m_lon - lon) <= lonEps, (s, zoom, lat, lon, name));
+  TEST(fabs(apiPoint.m_lat - lat) <= latEps, (s, zoom, lat, lon, name));
+  TEST(fabs(apiPoint.m_lon - lon) <= lonEps, (s, zoom, lat, lon, name));
 
-  TEST(fabs(request.m_viewportLat - lat) <= latEps, (s, zoom, lat, lon, name));
-  TEST(fabs(request.m_viewportLon - lon) <= lonEps, (s, zoom, lat, lon, name));
-  TEST_ALMOST_EQUAL(request.m_viewportZoomLevel, zoom, (s, zoom, lat, lon, name));
+  TEST(fabs(apiPoint.m_lat - lat) <= latEps, (s, zoom, lat, lon, name));
+  TEST(fabs(apiPoint.m_lon - lon) <= lonEps, (s, zoom, lat, lon, name));
+  TEST_ALMOST_EQUAL(parsedZoomLevel, zoom, (s, zoom, lat, lon, name));
 }
 
 void TestFailure(char const * s)
 {
   Ge0Parser parser;
-  Request request;
-  bool const result = parser.Parse(s, request);
+  ApiPoint apiPoint;
+  double zoomLevel;
+  bool const result = parser.Parse(s, apiPoint, zoomLevel);
   TEST_EQUAL(result, false, (s));
 }
 

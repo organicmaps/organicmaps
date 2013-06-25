@@ -10,7 +10,6 @@
 #include "feature_vec_model.hpp"
 #include "bookmark.hpp"
 #include "bookmark_manager.hpp"
-#include "url_api.hpp"
 #include "mwm_url.hpp"
 
 #include "../defines.hpp"
@@ -306,7 +305,8 @@ public:
   m2::PointD GetViewportCenter() const;
   void SetViewportCenter(m2::PointD const & pt);
 
-  bool SetViewportByURL(string const & url,  url_api::Request & request);
+  /// @param[out] outPoint is a point in url, where we need to show balloon
+  bool SetViewportByURL(string const & url, url_scheme::ApiPoint & balloonPoint);
 
   bool NeedRedraw() const;
   void SetNeedRedraw(bool flag);

@@ -89,7 +89,7 @@ namespace android
     // Balloon click callbacks
     void OnActivatePoi(gui::Element * e, ::Framework::AddressInfo const & addrInfo, m2::PointD const & globalPoint);
     void OnActivateBookmark(gui::Element * e, BookmarkAndCategory const & bmkAndCat);
-    void OnAcitvateApiPoint(gui::Element * e, url_scheme::ApiPoint const &  apiPoint);
+    void OnActivateApiPoint(gui::Element * e, url_scheme::ApiPoint const & apiPoint);
     void OnActivateMyPosition(gui::Element * e);
 
 

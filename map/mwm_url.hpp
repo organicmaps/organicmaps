@@ -10,7 +10,7 @@ struct ApiPoint
 {
   double m_lat;
   double m_lon;
-  string m_title;
+  string m_name;
   string m_id;
 };
 
