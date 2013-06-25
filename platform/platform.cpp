@@ -53,9 +53,9 @@ string Platform::MetaServerUrl() const
 string Platform::DefaultUrlsJSON() const
 {
   if (m_isPro)
-    return "[\"http://1st.default.server/\",\"http://2nd.default.server/\",\"http://3rd.default.server/\"]";
+    return "[\"http://v2s-1.mapswithme.com/\",\"http://v2s-2.mapswithme.com/\",\"http://v2s-3.mapswithme.com/\"]";
   else
-    return "[\"http://1st.default.server/\",\"http://2nd.default.server/\",\"http://3rd.default.server/\"]";
+    return "[\"http://v2-1.mapswithme.com/\",\"http://v2-2.mapswithme.com/\",\"http://v2-3.mapswithme.com/\"]";
 }
 
 void Platform::GetFontNames(FilesList & res) const
