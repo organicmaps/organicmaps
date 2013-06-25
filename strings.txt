@@ -2511,3 +2511,9 @@
     pl  =Pokaż więcej informacji
     uk = Докладніше
     pt = Mostrar informação adicional
+  [copied_to_clipboard]
+    en = Copied to Clipboard: %1$@
+    tags =ios,android
+    comment = Text for message when used successfully copied something
+    ru = Скопировано в буфер обмена: %1$@
+

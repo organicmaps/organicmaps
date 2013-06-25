@@ -469,3 +469,6 @@
 
 /* Text for the button that returns to caller application */
 "more_info" = "Zobrazit další informace";
+
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "Copied to Clipboard: %1$@";
