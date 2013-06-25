@@ -801,7 +801,7 @@ namespace android
 
   void Framework::OnAcitvateApiPoint(gui::Element * e, url_scheme::ApiPoint const & apiPoint)
   {
-    LOG(LERROR, ("POINT on api point listener", apiPoint.m_title, apiPoint.m_url));
+    LOG(LERROR, ("POINT on api point listener", apiPoint.m_title, apiPoint.m_id));
     m_apiPointActivatedListener(apiPoint);
   }
 
@@ -880,7 +880,7 @@ extern "C"
                                                    "(DDLjava/lang/String;Ljava/lang/String;)V");
 
     jstring j_name = jni::ToJavaString(jniEnv, apiPoint.m_title);
-    jstring j_id   = jni::ToJavaString(jniEnv, apiPoint.m_url);
+    jstring j_id   = jni::ToJavaString(jniEnv, apiPoint.m_id);
     jniEnv->CallVoidMethod(*obj.get(), methodID, apiPoint.m_lat, apiPoint.m_lon, j_name, j_id);
   }
 

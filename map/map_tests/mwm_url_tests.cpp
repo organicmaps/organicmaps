@@ -20,7 +20,7 @@ UNIT_TEST(MapApiSmoke)
   TEST_EQUAL(api.GetPoints()[0].m_lat, 38.970559, ());
   TEST_EQUAL(api.GetPoints()[0].m_lon, -9.419289, ());
   TEST_EQUAL(api.GetPoints()[0].m_title, "Point Name", ());
-  TEST_EQUAL(api.GetPoints()[0].m_url, "", ());
+  TEST_EQUAL(api.GetPoints()[0].m_id, "", ());
   TEST_EQUAL(api.GetGlobalBackUrl(), "", ());
 }
 
@@ -86,11 +86,11 @@ UNIT_TEST(MapApiInvalidPointLatLonButValidOtherParts)
 
 UNIT_TEST(MapApiPointURLEncoded)
 {
-  ParsedMapApi api(Uri("mwm://map?ll=1,2&n=%D0%9C%D0%B8%D0%BD%D1%81%D0%BA&u=http%3A%2F%2Fmap%3Fll%3D1%2C2%26n%3Dtest"));
+  ParsedMapApi api(Uri("mwm://map?ll=1,2&n=%D0%9C%D0%B8%D0%BD%D1%81%D0%BA&id=http%3A%2F%2Fmap%3Fll%3D1%2C2%26n%3Dtest"));
   TEST(api.IsValid(), ());
   TEST_EQUAL(api.GetPoints().size(), 1, ());
   TEST_EQUAL(api.GetPoints()[0].m_title, "\xd0\x9c\xd0\xb8\xd0\xbd\xd1\x81\xd0\xba", ());
-  TEST_EQUAL(api.GetPoints()[0].m_url, "http://map?ll=1,2&n=test", ());
+  TEST_EQUAL(api.GetPoints()[0].m_id, "http://map?ll=1,2&n=test", ());
 }
 
 UNIT_TEST(GlobalBackUrl)
@@ -217,7 +217,7 @@ string generatePartOfUrl(url_scheme::ApiPoint const & point)
   stringstream stream;
   stream << "&ll=" << strings::ToString(point.m_lat)  << "," << strings::ToString(point.m_lon)
          << "&n=" << point.m_title
-         << "&u=" << point.m_title;
+         << "&id=" << point.m_id;
   return stream.str();
 }
 
@@ -242,7 +242,7 @@ void generateRandomTest(size_t numberOfPoints, size_t stringLength)
     point.m_lon = random.Generate() % 180;
     point.m_lon *= random.Generate() % 2 == 0 ? 1 : -1;
     point.m_title = randomString(stringLength, i);
-    point.m_url = randomString(stringLength, i);
+    point.m_id = randomString(stringLength, i);
     vect[i] = point;
   }
   string result = "mapswithme://map?v=1";
@@ -257,7 +257,7 @@ void generateRandomTest(size_t numberOfPoints, size_t stringLength)
     TEST_EQUAL(points[i].m_lat, vect[i].m_lat, ());
     TEST_EQUAL(points[i].m_lon, vect[i].m_lon, ());
     TEST_EQUAL(points[i].m_title, vect[i].m_title, ());
-    TEST_EQUAL(points[i].m_url, vect[i].m_url, ());
+    TEST_EQUAL(points[i].m_id, vect[i].m_id, ());
   }
   TEST_EQUAL(api.GetApiVersion(), 1, ());
 }

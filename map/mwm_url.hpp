@@ -11,7 +11,7 @@ struct ApiPoint
   double m_lat;
   double m_lon;
   string m_title;
-  string m_url;
+  string m_id;
 };
 
 /// Handles [mapswithme|mwm]://map?params - everything related to displaying info on a map

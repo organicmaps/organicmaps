@@ -138,7 +138,7 @@ public final class MapsWithMeApi
                   .append(String.format(Locale.US, "%f,%f&", point.getLat(), point.getLon()));
 
         appendIfNotNull(urlBuilder, "n", point.getName());
-        appendIfNotNull(urlBuilder, "u", point.getId());
+        appendIfNotNull(urlBuilder, "id", point.getId());
       }
     }
 

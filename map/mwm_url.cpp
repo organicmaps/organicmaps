@@ -107,10 +107,10 @@ void ParsedMapApi::AddKeyValue(string key, string const & value)
     else
       LOG(LWARNING, ("Map API: Point name with no point. 'll' should come first!"));
   }
-  else if (key == "u")
+  else if (key == "id")
   {
     if (!m_points.empty())
-      m_points.back().m_url = value;
+      m_points.back().m_id = value;
     else
       LOG(LWARNING, ("Map API: Point url with no point. 'll' should come first!"));
   }

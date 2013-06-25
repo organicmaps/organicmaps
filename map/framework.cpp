@@ -1469,7 +1469,8 @@ bool Framework::SetViewportByURL(string const & url, url_api::Request & request)
 
         request.m_viewportLat = point.m_lat = apiPoint.m_lat;
         request.m_viewportLon = point.m_lon = apiPoint.m_lon;
-        point.m_name = apiPoint.m_title; point.m_id =  apiPoint.m_url;
+        point.m_name = apiPoint.m_title;
+        point.m_id =  apiPoint.m_id;
 
         request.m_points.push_back(point);
       }
