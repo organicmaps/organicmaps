@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+
     <style name="Widget.MapButtonZoom" parent="android:Widget.Holo.ImageButton">
         <item name="android:background">@null</item>
         <item name="android:layout_marginBottom">5dip</item>
@@ -8,16 +9,44 @@
         <item name="android:layout_marginTop">5dip</item>
         <item name="android:padding">0dp</item>
     </style>
+
     <style name="Widget.MapButtonBottom" parent="android:Widget.Holo.ImageButton">
         <item name="android:background">@null</item>
         <item name="android:padding">0dp</item>
     </style>
+
     <style name="tagGreenText" parent="@style/Holo.TextAppearance.Medium.Light">
         <item name="android:background">@color/base_green</item>
-        <item name="android:paddingBottom">@dimen/margin_tiny</item>
-        <item name="android:paddingLeft">@dimen/margin_small</item>
-        <item name="android:paddingRight">@dimen/margin_small</item>
-        <item name="android:paddingTop">@dimen/margin_tiny</item>
+        <item name="android:paddingLeft">@dimen/dp_x_3</item>
+        <item name="android:paddingRight">@dimen/dp_x_3</item>
+        <item name="android:paddingBottom">@dimen/dp_x_2</item>
+        <item name="android:paddingTop">@dimen/dp_x_2</item>
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
     </style>
+
+    <style name="tagGreenText.Small" parent="@style/tagGreenText">
+        <item name="android:textSize">@dimen/sp_x_3</item>
+        <item name="android:paddingBottom">@dimen/dp_x_1</item>
+        <item name="android:paddingTop">@dimen/dp_x_1</item>
+    </style>
+
+    <style name="tagGreenText.Large" parent="@style/tagGreenText">
+        <item name="android:textSize">@dimen/sp_x_5</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-light</item>
+    </style>
+
+     <style name="tagGreenText.Mid" parent="@style/tagGreenText">
+        <item name="android:textSize">@dimen/sp_x_4</item>
+    </style>
+
+    <style name="infoItem" parent="@style/Holo.TextAppearance.Large.Light">
+        <item name="android:textSize">@dimen/sp_x_5</item>
+        <item name="android:layout_marginTop">@dimen/dp_x_1</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-light</item>
+    </style>
+
 </resources>

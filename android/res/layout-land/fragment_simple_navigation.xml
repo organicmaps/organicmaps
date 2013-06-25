@@ -1,51 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:baselineAligned="false"
-    android:gravity="center"
-    android:orientation="vertical" >
+    android:background="@drawable/mappy" >
 
-    <LinearLayout
-        android:id="@+id/staticData"
+    <TextView
+        android:id="@+id/distance"
+        style="@style/tagGreenText.Large"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:layout_weight="1"
-        android:background="@drawable/spinner_background_holo_light"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="@dimen/margin_small" >
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center" />
 
-        <TextView
-            android:id="@+id/dms"
-            style="@style/Holo.TextAppearance.Medium.Light"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center|left" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/dynamicData"
+    <com.mapswithme.maps.ArrowImage
+        android:id="@+id/arrow"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/margin_small"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical" >
+        android:layout_height="match_parent"
+        android:layout_above="@+id/coords"
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/dp_x_14" />
 
-        <TextView
-            android:id="@+id/distance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/coords"
+        style="@style/tagGreenText.Mid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center" />
 
-        <com.mapswithme.maps.ArrowImage
-            android:id="@+id/arrow"
-            android:layout_width="@dimen/arrow_nav_size"
-            android:layout_height="@dimen/arrow_nav_size" />
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

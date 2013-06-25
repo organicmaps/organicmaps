@@ -12,7 +12,7 @@
         android:name="com.mapswithme.maps.SimpleNavigationFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="4"
         tools:layout="@layout/fragment_simple_navigation" />
 
 
@@ -21,9 +21,8 @@
         android:name="com.mapswithme.maps.MapObjectFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        android:layout_marginLeft="@dimen/margin_large"
-        android:layout_marginRight="@dimen/margin_large"
+        android:layout_weight="5"
+        android:layout_marginTop="@dimen/dp_x_4"
         tools:layout="@layout/fragment_map_object" />
 
 </LinearLayout>

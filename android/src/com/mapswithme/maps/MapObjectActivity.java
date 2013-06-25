@@ -111,13 +111,14 @@ public class MapObjectActivity extends FragmentActivity
   {
     final MapObjectType type = (MapObjectType) intent.getSerializableExtra(EXTRA_OBJECT_TYPE);
 
-    double lat  = intent.getDoubleExtra(EXTRA_LAT, 0);
-    double lon  = intent.getDoubleExtra(EXTRA_LON, 0);
+    double lat = intent.getDoubleExtra(EXTRA_LAT, 0);
+    double lon = intent.getDoubleExtra(EXTRA_LON, 0);
+    mNavigationFragment.setListenForLocation(true);
 
     if (type == MapObjectType.BOOKMARK)
     {
       final int categoryIndex = intent.getIntExtra(EXTRA_BMK_CAT, -1);
-      final int bmkIndex      = intent.getIntExtra(EXTRA_BMK_INDEX, -1);
+      final int bmkIndex = intent.getIntExtra(EXTRA_BMK_INDEX, -1);
 
       final Bookmark bmk = BookmarkManager.getBookmarkManager(this).getBookmark(categoryIndex, bmkIndex);
       lat = bmk.getLat();
@@ -126,13 +127,13 @@ public class MapObjectActivity extends FragmentActivity
     }
     else if (type == MapObjectType.API_POINT)
     {
-      final String name    = intent.getStringExtra(EXTRA_NAME);
+      final String name = intent.getStringExtra(EXTRA_NAME);
 
       mMapObjectFragment.setForApiPoint(name, lat, lon);
     }
     else if (type == MapObjectType.POI)
     {
-      final String name    = intent.getStringExtra(EXTRA_NAME);
+      final String name = intent.getStringExtra(EXTRA_NAME);
       final String poiType = intent.getStringExtra(EXTRA_TYPE);
       final String address = intent.getStringExtra(EXTRA_ADDRESS);
 
@@ -141,12 +142,9 @@ public class MapObjectActivity extends FragmentActivity
     else if (type == MapObjectType.MY_POSITION)
     {
       mMapObjectFragment.setForMyPosition(lat, lon);
-      mNavigationFragment.setPoint(new ParcelablePointD(lon, lat));
-      mNavigationFragment.showDynamicData(false);
-      return;
+      mNavigationFragment.setListenForLocation(false);
     }
 
-    mNavigationFragment.showDynamicData(true);
     mNavigationFragment.setPoint(new ParcelablePointD(lon, lat));
   }
 

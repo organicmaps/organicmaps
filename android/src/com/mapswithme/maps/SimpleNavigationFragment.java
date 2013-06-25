@@ -26,19 +26,12 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
   private ParcelablePointD mPoint = new ParcelablePointD(0, 0);
   private LocationService mLocationService;
   private double mNorth = -1;
+  private boolean mDoListenForLocation = true;
 
-  //Views
-    // Right
-  private boolean mShowDynamic = true;
   private ArrowImage mArrow;
   private TextView mDistance;
-    // Left
-  private boolean mShowStatic = true;
-  private TextView mDMS;
-    // Containers
+  private TextView mCoords;
   private View mRoot;
-  private View mStaticData;
-  private View mDynamicData;
 
   public void             setPoint(ParcelablePointD point) { mPoint = point; }
   public ParcelablePointD getPoint()                       { return mPoint;  }
@@ -47,46 +40,51 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
     mRoot = inflater.inflate(R.layout.fragment_simple_navigation, container, false);
-    mStaticData = mRoot.findViewById(R.id.staticData);
-    mDynamicData = mRoot.findViewById(R.id.dynamicData);
     //Set up views
-    mArrow    = (ArrowImage) mRoot.findViewById(R.id.arrow);
+    mArrow = (ArrowImage) mRoot.findViewById(R.id.arrow);
     mArrow.setDrawCircle(true);
-    mDistance = (TextView)   mRoot.findViewById(R.id.distance);
-    mDMS      = (TextView)   mRoot.findViewById(R.id.dms);
+    mDistance = (TextView) mRoot.findViewById(R.id.distance);
+    mCoords = (TextView) mRoot.findViewById(R.id.coords);
 
     setClickers();
 
     return mRoot;
   }
 
+  public void setListenForLocation(boolean doListen)
+  {
+    mDoListenForLocation = doListen;
+  }
+
   private void updateViews()
   {
-    final Location lastKnown = mLocationService.getLastKnown();
-    if (lastKnown != null && mShowDynamic)
+    if (mDoListenForLocation)
     {
-      UiUtils.show(mDynamicData);
-      final DistanceAndAzimut da = Framework.getDistanceAndAzimutFromLatLon
-                (mPoint.y, mPoint.x, lastKnown.getLatitude(), lastKnown.getLongitude(), mNorth);
+      final Location lastKnown = mLocationService.getLastKnown();
+      if (lastKnown != null)
+      {
+        final DistanceAndAzimut da = Framework.getDistanceAndAzimutFromLatLon
+                  (mPoint.y, mPoint.x, lastKnown.getLatitude(), lastKnown.getLongitude(), mNorth);
 
-      final double azimut = da.getAthimuth();
-      if (azimut >= 0)
-        mArrow.setAzimut(da.getAthimuth());
-      else
-        mArrow.clear();
+        final double azimut = da.getAthimuth();
+        if (azimut >= 0)
+          mArrow.setAzimut(da.getAthimuth());
+        else
+          mArrow.clear();
 
-      mDistance.setText(da.getDistance());
+        mDistance.setText(da.getDistance());
+      }
     }
     else
-      UiUtils.hide(mDynamicData);
-
-    if (mPoint != null && mShowStatic)
     {
-      UiUtils.show(mStaticData);
-      mDMS.setText(UiUtils.formatLatLonToDMS(mPoint.y, mPoint.x));
+      UiUtils.hide(mArrow);
+      UiUtils.hide(mDistance);
     }
-    else
-      UiUtils.hide(mStaticData);
+
+    if (mPoint != null)
+    {
+      mCoords.setText(UiUtils.formatLatLon(mPoint.y, mPoint.x));
+    }
   }
 
   @Override
@@ -98,8 +96,6 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    // copied from BookmarkListAdapter
-    // TODO made more general
     double north[] = { magneticNorth, trueNorth };
     mLocationService.correctCompassAngles(getActivity().getWindowManager().getDefaultDisplay(), north);
     final double ret = (north[1] >= 0.0 ? north[1] : north[0]);
@@ -121,8 +117,11 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
   @Override
   public void onPause()
   {
-    mLocationService.stopUpdate(this);
-    mLocationService = null;
+    if (mLocationService != null)
+    {
+      mLocationService.stopUpdate(this);
+      mLocationService = null;
+    }
     super.onPause();
   }
 
@@ -130,8 +129,11 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
   public void onResume()
   {
     super.onResume();
-    mLocationService = ((MWMApplication)getActivity().getApplication()).getLocationService();
-    mLocationService.startUpdate(this);
+    if (mDoListenForLocation)
+    {
+      mLocationService = ((MWMApplication)getActivity().getApplication()).getLocationService();
+      mLocationService.startUpdate(this);
+    }
     updateViews();
   }
 
@@ -145,37 +147,17 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
     UiUtils.hide(mRoot);
   }
 
-  public void showStaticData(boolean show)
-  {
-    mShowStatic = show;
-    if (show)
-      UiUtils.show(mStaticData);
-    else
-      UiUtils.hide(mStaticData);
-  }
-
-  public void showDynamicData(boolean show)
-  {
-    mShowDynamic = show;
-
-    if (show)
-      UiUtils.show(mDynamicData);
-    else
-      UiUtils.hide(mDynamicData);
-  }
-
-
   private static final int MENU_COPY_DMS  = 1;
   private static final int MENU_COPY_DEGR = 2;
   private static final int MENU_CANCEL    = 999;
   @Override
   public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
   {
-    if (v == mStaticData)
+    if (v == mCoords)
     {
-      // TODO add localizations
-      menu.add(Menu.NONE, MENU_COPY_DEGR, MENU_COPY_DEGR, String.format("Copy %s", UiUtils.formatLatLon(mPoint.y, mPoint.x)));
-      menu.add(Menu.NONE, MENU_COPY_DMS, MENU_COPY_DMS, String.format("Copy %s", mDMS.getText().toString()));
+      final String copyText = getResources().getString(android.R.string.copy);
+      menu.add(Menu.NONE, MENU_COPY_DEGR, MENU_COPY_DEGR, String.format("%s %s", copyText, UiUtils.formatLatLon(mPoint.y, mPoint.x)));
+      menu.add(Menu.NONE, MENU_COPY_DMS, MENU_COPY_DMS, String.format("%s %s", copyText, UiUtils.formatLatLonToDMS(mPoint.y, mPoint.x)));
       menu.add(Menu.NONE, MENU_CANCEL, MENU_CANCEL, android.R.string.cancel);
     }
 
@@ -193,7 +175,7 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
     }
     else if (ID == MENU_COPY_DMS)
     {
-      text = mDMS.getText().toString();
+      text = UiUtils.formatLatLonToDMS(mPoint.y, mPoint.x);
     }
     else if (ID == MENU_CANCEL)
       return true;
@@ -203,8 +185,7 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
     if (text != null)
     {
       Utils.copyTextToClipboard(getActivity(), text);
-      // TODO add localization
-      Utils.toastShortcut(getActivity(), "Copied to Clipboard: " + text);
+      Utils.toastShortcut(getActivity(), getString(R.string.copied_to_clipboard, text));
       return true;
     }
 
@@ -213,14 +194,14 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
 
   private void showShareCoordinatesMenu()
   {
-    registerForContextMenu(mStaticData);
-    mStaticData.showContextMenu();
-    unregisterForContextMenu(mStaticData);
+    registerForContextMenu(mCoords);
+    mCoords.showContextMenu();
+    unregisterForContextMenu(mCoords);
   }
 
   private void setClickers()
   {
-    mStaticData.setOnClickListener(new OnClickListener()
+    mCoords.setOnClickListener(new OnClickListener()
     {
       @Override
       public void onClick(View v)

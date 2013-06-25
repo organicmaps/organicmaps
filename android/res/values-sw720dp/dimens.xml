@@ -3,4 +3,19 @@
     <dimen name="activity_horizontal_margin">128dp</dimen>
     <dimen name="dialog_max_height">640dp</dimen>
 
+  <!--   <dimen name="dp_x_1">4dp</dimen>
+    <dimen name="dp_x_2">8dp</dimen>
+    <dimen name="dp_x_3">12dp</dimen>
+    <dimen name="dp_x_4">16dp</dimen>
+    <dimen name="dp_x_6">24dp</dimen>
+    <dimen name="dp_x_8">32dp</dimen>
+    <dimen name="dp_x_10">40dp</dimen>
+    <dimen name="dp_x_14">48dp</dimen>
+
+    <dimen name="sp_x_1">6dp</dimen>
+    <dimen name="sp_x_2">12p</dimen>
+    <dimen name="sp_x_3">18p</dimen>
+    <dimen name="sp_x_4">24p</dimen>
+    <dimen name="sp_x_5">30p</dimen> -->
+
 </resources>

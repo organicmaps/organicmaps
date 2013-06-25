@@ -20,8 +20,12 @@
     <dimen name="dp_x_10">40dp</dimen>
     <dimen name="dp_x_14">48dp</dimen>
 
+    <dimen name="sp_x_1">5dp</dimen>
+    <dimen name="sp_x_2">10sp</dimen>
+    <dimen name="sp_x_3">15sp</dimen>
+    <dimen name="sp_x_4">20sp</dimen>
+    <dimen name="sp_x_5">25sp</dimen>
+
+
     <dimen name="dialog_max_height">320dp</dimen>
-
-    <dimen name="arrow_nav_size">120dp</dimen>
-
 </resources>

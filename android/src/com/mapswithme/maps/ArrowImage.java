@@ -3,7 +3,6 @@ package com.mapswithme.maps;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
@@ -18,7 +17,7 @@ public class ArrowImage extends ImageView
   private float mWidth;
   private float mHeight;
 
-  private final static float RAD_MULT = .45f;
+  private final static float RAD_MULT = .33f;
   private final float SQ2 = (float) Math.sqrt(2);
   private float mRad;
 
@@ -32,7 +31,7 @@ public class ArrowImage extends ImageView
   // Animation params
   private boolean mJustStarted = true;
   private float mCurrentAngle;
-  private final static long   UPDATE_RATE = 60;
+  private final static long   UPDATE_RATE = 30;
   private final static long   UPDATE_DELAY = 1000 / UPDATE_RATE;
   private final static double ROTATION_SPEED = 120;
   private final static double ROTATION_STEP = ROTATION_SPEED / UPDATE_RATE;
@@ -55,9 +54,10 @@ public class ArrowImage extends ImageView
     super(context, attrs);
 
     mArrowPaint = new Paint();
-    mArrowPaint.setFlags(mArrowPaint.getFlags() | Paint.ANTI_ALIAS_FLAG);
     mArrowPaint.setStyle(Style.FILL);
-    mArrowPaint.setColor(Color.BLACK);
+    mArrowPaint.setColor(0xFF333333);
+    mArrowPaint.setAntiAlias(true);
+
     mArrowPath = new Path();
 
     mCirclePaint.setColor(0xafFFFFFF);
