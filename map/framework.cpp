@@ -1453,15 +1453,12 @@ bool Framework::SetViewportByURL(string const & url, url_api::Request & request)
   {
     if (m_ParsedMapApi.SetUriAndParse(url))
     {
-      m2::RectD z = GetMapApiRect();
-      //Can do better consider nav bar size
-      m2::RectD view(MercatorBounds::LonToX(z.minX()), MercatorBounds::LatToY(z.minY()),
-                     MercatorBounds::LonToX(z.maxX()), MercatorBounds::LatToY(z.maxY()));
-      SetViewPortSync(view);
+      // Can do better consider nav bar size
+      SetViewPortSync(MercatorBounds::FromLatLonRect(m_ParsedMapApi.GetLatLonRect()));
 
       // Populate request if request has only one point
       // with this one point to show balloon.
-      // @todo: refacotor to more general model, Point and ApiPoint must not exist together.
+      // @todo: refactor to more general model, Point and ApiPoint must not exist together.
       if (m_ParsedMapApi.GetPoints().size() == 1)
       {
         url_scheme::ApiPoint const apiPoint = m_ParsedMapApi.GetPoints().front();
@@ -1470,7 +1467,7 @@ bool Framework::SetViewportByURL(string const & url, url_api::Request & request)
         request.m_viewportLat = point.m_lat = apiPoint.m_lat;
         request.m_viewportLon = point.m_lon = apiPoint.m_lon;
         point.m_name = apiPoint.m_title;
-        point.m_id =  apiPoint.m_id;
+        point.m_id = apiPoint.m_id;
 
         request.m_points.push_back(point);
       }

@@ -173,7 +173,7 @@ UNIT_TEST(RectTest)
 {
   {
     ParsedMapApi api(Uri("mwm://map?ll=0,0"));
-    m2::RectD rect = api.GetRect();
+    m2::RectD rect = api.GetLatLonRect();
     TEST_EQUAL(rect.maxX(), 0, ());
     TEST_EQUAL(rect.maxY(), 0, ());
     TEST_EQUAL(rect.minX(), 0, ());
@@ -181,7 +181,7 @@ UNIT_TEST(RectTest)
   }
   {
     ParsedMapApi api(Uri("mwm://map?ll=0,0&ll=1,1&ll=2,2&ll=3,3&ll=4,4&ll=5,5&"));
-    m2::RectD rect = api.GetRect();
+    m2::RectD rect = api.GetLatLonRect();
     TEST_EQUAL(rect.maxX(), 5, ());
     TEST_EQUAL(rect.maxY(), 5, ());
     TEST_EQUAL(rect.minX(), 0, ());
@@ -189,7 +189,7 @@ UNIT_TEST(RectTest)
   }
   {
     ParsedMapApi api(Uri("mwm://map?ll=-90,90&ll=90,-90"));
-    m2::RectD rect = api.GetRect();
+    m2::RectD rect = api.GetLatLonRect();
     TEST_EQUAL(rect.maxX(), 90, ());
     TEST_EQUAL(rect.maxY(), 90, ());
     TEST_EQUAL(rect.minX(), -90, ());
@@ -197,7 +197,7 @@ UNIT_TEST(RectTest)
   }
   {
     ParsedMapApi api(Uri("mwm://map?ll=180,180&ll=0,0&ll=-180,-180"));
-    m2::RectD rect = api.GetRect();
+    m2::RectD rect = api.GetLatLonRect();
     TEST_EQUAL(rect.maxX(), 0, ());
     TEST_EQUAL(rect.maxY(), 0, ());
     TEST_EQUAL(rect.minX(), 0, ());
@@ -205,7 +205,7 @@ UNIT_TEST(RectTest)
   }
   {
     ParsedMapApi api(Uri("mwm://"));
-    m2::RectD rect = api.GetRect();
+    m2::RectD rect = api.GetLatLonRect();
     TEST(!rect.IsValid(), ());
   }
 }
@@ -276,14 +276,14 @@ UNIT_TEST(StressTestRandomTest)
 
 UNIT_TEST(MWMApiZoomLevelTest)
 {
-  m2::RectD const r1 = ParsedMapApi(Uri("mwm://map?ll=0,0")).GetRect();
-  m2::RectD const r2 = ParsedMapApi(Uri("mwm://map?z=14.5&ll=0,0")).GetRect();
+  m2::RectD const r1 = ParsedMapApi(Uri("mwm://map?ll=0,0")).GetLatLonRect();
+  m2::RectD const r2 = ParsedMapApi(Uri("mwm://map?z=14.5&ll=0,0")).GetLatLonRect();
   TEST_NOT_EQUAL(r1, r2, ());
-  m2::RectD const r3 = ParsedMapApi(Uri("mwm://map?ll=0,0&z=14")).GetRect();
+  m2::RectD const r3 = ParsedMapApi(Uri("mwm://map?ll=0,0&z=14")).GetLatLonRect();
   TEST_NOT_EQUAL(r2, r3, ());
   TEST_NOT_EQUAL(r1, r3, ());
-  m2::RectD const rEqualToR3 = ParsedMapApi(Uri("mwm://map?ll=0,0&z=14.000")).GetRect();
+  m2::RectD const rEqualToR3 = ParsedMapApi(Uri("mwm://map?ll=0,0&z=14.000")).GetLatLonRect();
   TEST_EQUAL(r3, rEqualToR3, ());
-  m2::RectD const rEqualToR1 = ParsedMapApi(Uri("mwm://map?ll=0,0&z=-23.43")).GetRect();
+  m2::RectD const rEqualToR1 = ParsedMapApi(Uri("mwm://map?ll=0,0&z=-23.43")).GetLatLonRect();
   TEST_EQUAL(r1, rEqualToR1, ());
 }

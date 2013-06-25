@@ -139,7 +139,7 @@ void ParsedMapApi::Reset()
   m_zoomLevel = 0.0;
 }
 
-m2::RectD ParsedMapApi::GetRect() const
+m2::RectD ParsedMapApi::GetLatLonRect() const
 {
   // Use zoom only for one point and ignore it for several points
   if (m_zoomLevel >= 1.0 && m_points.size() == 1)

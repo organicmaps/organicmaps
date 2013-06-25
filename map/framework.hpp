@@ -466,6 +466,6 @@ public:
   int GetMapApiVersion() const { return m_ParsedMapApi.GetApiVersion(); }
   string const & GetMapApiAppTitle() const { return m_ParsedMapApi.GetAppTitle(); }
   string const & GetMapApiBackUrl() const { return m_ParsedMapApi.GetGlobalBackUrl(); }
-  m2::RectD GetMapApiRect() const { return m_ParsedMapApi.GetRect(); }
+  m2::RectD GetMapApiLatLonRect() const { return m_ParsedMapApi.GetLatLonRect(); }
   bool IsValidMapApi() const { return m_ParsedMapApi.IsValid(); }
 };

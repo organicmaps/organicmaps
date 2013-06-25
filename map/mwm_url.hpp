@@ -26,7 +26,7 @@ public:
   string const & GetGlobalBackUrl() const { return m_globalBackUrl; }
   string const & GetAppTitle() const { return m_appTitle; }
   int GetApiVersion() const { return m_version; }
-  m2::RectD GetRect() const;
+  m2::RectD GetLatLonRect() const;
   void Reset();
 
 private:
