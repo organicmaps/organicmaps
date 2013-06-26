@@ -112,6 +112,7 @@ struct MaxValueCalc
 
 #define ZENC bits::ZigZagEncode
 #define MKSC(x) static_cast<signed char>(x)
+#define MKUC(x) static_cast<uint8_t>(x)
 
 UNIT_TEST(TrieBuilder_WriteNode_Smoke)
 {
@@ -134,27 +135,27 @@ UNIT_TEST(TrieBuilder_WriteNode_Smoke)
     3,                                                                      // Number of values
     '1', '2', '3',                                                          // Values
     BOOST_BINARY(10000001),                                                 // Child 1: header: [+leaf] [-supershort]  [2 symbols]
-    static_cast<uint8_t>(ZENC(MKSC('1'))), static_cast<uint8_t>(ZENC(MKSC('A') - MKSC('1'))), // Child 1: edge
+    MKUC(ZENC(MKSC('1'))), MKUC(ZENC(MKSC('A') - MKSC('1'))),               // Child 1: edge
     'i', '1',                                                               // Child 1: intermediate data
     1,                                                                      // Child 1: size
-    static_cast<uint8_t>(64 | ZENC(MKSC('B') - MKSC('1'))),                 // Child 2: header: [-leaf] [+supershort]
+    MKUC(64 | ZENC(MKSC('B') - MKSC('1'))),                                 // Child 2: header: [-leaf] [+supershort]
     'i', 'i', '2',                                                          // Child 2: intermediate data
     2,                                                                      // Child 2: size
     BOOST_BINARY(00000001),                                                 // Child 3: header: [-leaf] [-supershort]  [2 symbols]
-    static_cast<uint8_t>(ZENC(MKSC('z') - MKSC('B'))), 0,                   // Child 3: edge
+    MKUC(ZENC(MKSC('z') - MKSC('B'))), 0,                                   // Child 3: edge
     3,                                                                      // Child 3: size
     BOOST_BINARY(10111111),                                                 // Child 4: header: [+leaf] [-supershort]  [>= 63 symbols]
     69,                                                                     // Child 4: edgeSize - 1
-    static_cast<uint8_t>(ZENC(MKSC('a') - MKSC('z'))), 2,2,2,2,2,2,2,2,2,   // Child 4: edge
-    static_cast<uint8_t>(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,   // Child 4: edge
-    static_cast<uint8_t>(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,   // Child 4: edge
-    static_cast<uint8_t>(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,   // Child 4: edge
-    static_cast<uint8_t>(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,   // Child 4: edge
-    static_cast<uint8_t>(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,   // Child 4: edge
-    static_cast<uint8_t>(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,   // Child 4: edge
+    MKUC(ZENC(MKSC('a') - MKSC('z'))), 2,2,2,2,2,2,2,2,2,                   // Child 4: edge
+    MKUC(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,                   // Child 4: edge
+    MKUC(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,                   // Child 4: edge
+    MKUC(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,                   // Child 4: edge
+    MKUC(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,                   // Child 4: edge
+    MKUC(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,                   // Child 4: edge
+    MKUC(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,                   // Child 4: edge
     'i', '4',                                                               // Child 4: intermediate data
     4,                                                                      // Child 4: size
-    static_cast<uint8_t>(BOOST_BINARY(11000000) | ZENC(0)),                 // Child 5: header: [+leaf] [+supershort]
+    MKUC(BOOST_BINARY(11000000) | ZENC(0)),                                 // Child 5: header: [+leaf] [+supershort]
     '5', 'z'                                                                // Child 5: intermediate data
   };
 
