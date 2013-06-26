@@ -2517,3 +2517,14 @@
     comment = Text for message when used successfully copied something
     ru = Скопировано в буфер обмена: %1$@
 
+  [allow_statistics]
+    en = Enable Anonymous Usage Statistics
+    tags = ios,android
+    comment = Setting label for statistics turn on/off
+    ru = Разрешить анонимный сбор статистики
+
+  [allow_statistics_hint]
+    en = It helps us to build better application
+    tags = ios,android
+    comment = Hint near allow statictics checkbox
+    ru = Это помогает нам совершенствовать приложение
