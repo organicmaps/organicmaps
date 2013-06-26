@@ -15,6 +15,18 @@ override_dh_auto_configure:
 	qmake -r CONFIG+=no_downloader CONFIG+=production omim.pro 
 
 override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	out/production/base_tests
+	out/production/coding_tests
+	out/production/generator_tests
+	out/production/geometry_tests
+	out/production/indexer_tests
+	out/production/map_tests
+# platform tests commented out due to downloader tests
+#	out/production/platform_tests
+	out/production/search_tests
+	out/production/storage_tests
+endif
 
 .PHONY: override_dh_auto_configure
 
