@@ -6,20 +6,15 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Scanner;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences.Editor;
 import android.os.Build;
 import android.util.Log;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.mapswithme.maps.MWMApplication;
 
 final public class Utils
 {
@@ -114,15 +109,18 @@ final public class Utils
   {
     if (apiLowerThan(11))
     {
-      android.text.ClipboardManager clipbord = (android.text.ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+      android.text.ClipboardManager clipbord =
+          (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
       clipbord.setText(text);
     }
     else
     {
-      ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+      // This is different classes in different packages
+      android.content.ClipboardManager clipboard =
+           (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
       ClipData clip = ClipData.newPlainText("MapsWithMe: " + text, text);
       clipboard.setPrimaryClip(clip);
-  }
+    }
   }
 
   public static <K,V> String mapPrettyPrint(Map<K, V> map)

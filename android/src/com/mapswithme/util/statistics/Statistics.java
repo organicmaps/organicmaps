@@ -15,10 +15,10 @@ public enum Statistics
 
   private final static String TAG_PROMO_DE = "PROMO-DE: ";
 
-  private final static String KEY_STAT_ENABLED = "stat_enabled";
-  private final static String KEY_STAT_COLLECTED = "collected";
+  private final static String KEY_STAT_ENABLED = "StatisticsEnabled";
+  private final static String KEY_STAT_COLLECTED = "InitialStatisticsCollected";
 
-  private final static double ACTIVE_USER_MIN_FOREGROUND_TIME = 3 * 60; // 3 minutes
+  private final static double ACTIVE_USER_MIN_FOREGROUND_TIME = 5 * 60; // 5 minutes
 
   // Statistics
   private EventBuilder mEventBuilder;
