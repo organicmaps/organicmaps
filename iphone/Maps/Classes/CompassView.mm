@@ -54,10 +54,10 @@
 
     CGAffineTransform matrix = CGAffineTransformMakeTranslation(w2, w2);
     matrix = CGAffineTransformRotate(matrix, -angle);
-    matrix = CGAffineTransformTranslate(matrix, -w2, -w2);
+    matrix = CGAffineTransformTranslate(matrix, -w2 + w2 * 0.15, -w2 + w2 * 0.15);
+    matrix = CGAffineTransformScale(matrix, 0.85, 0.85);
     [aPath applyTransform:matrix];
 
-    // Set color: a8a8a8.
     [self.color setFill];
     [aPath fill];
   }
