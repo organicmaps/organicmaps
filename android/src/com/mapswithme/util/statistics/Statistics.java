@@ -1,38 +1,30 @@
 package com.mapswithme.util.statistics;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
 import android.util.Log;
-
-import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.api.MWMRequest;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.MathUtils;
-import com.mapswithme.util.Utils;
 
 public enum Statistics
 {
   INSTANCE;
 
   private final static String TAG_PROMO_DE = "PROMO-DE: ";
-  private static String TAG_API = "API: ";
 
-  private final static String KEY_SESSIONS = "sessions";
   private final static String KEY_STAT_ENABLED = "stat_enabled";
   private final static String KEY_STAT_COLLECTED = "collected";
 
-  private final static int ACTIVE_USER_MIN_SESSION = 2;
-  private final static long ACTIVE_USER_MIN_TIME = 30*24*3600;
+  private final static double ACTIVE_USER_MIN_FOREGROUND_TIME = 3 * 60; // 3 minutes
 
   // Statistics
   private EventBuilder mEventBuilder;
   private StatisticsEngine mStatisticsEngine;
   // Statistics params
   private boolean DEBUG = true;
-  private boolean mNewSession = true;
   // Statistics counters
   private int mBookmarksCreated= 0;
   private int mSharedTimes = 0;
@@ -166,24 +158,18 @@ public enum Statistics
   {
     ensureConfigured(activity);
     mStatisticsEngine.onStartSession(activity);
-    registerSession(activity);
+
+    if (doCollectStatistics(activity))
+      collectOneTimeStatistics(activity);
   }
 
-  private void registerSession(Activity activity)
+  private boolean doCollectStatistics(Context context)
   {
-    if (mNewSession)
-    {
-      final int currentSessionNumber = incAndGetSessionsNumber(activity);
-      if (isStatisticsEnabled(activity) && isActiveUser(activity, currentSessionNumber))
-      {
-        // If we haven't collected yet
-        // do it now.
-        if (!isStatisticsCollected(activity))
-          collectOneTimeStatistics(activity);
-      }
-      mNewSession = false;
-    }
+    return isStatisticsEnabled(context)
+        && !isStatisticsCollected(context)
+        && isActiveUser(context, MWMApplication.get().getForegroundTime());
   }
+
 
   private void ensureConfigured(Context context)
   {
@@ -223,6 +209,7 @@ public enum Statistics
         eventBuilder.addParam("Average number of bmks", String.valueOf(average));
       }
       eventBuilder.addParam("Categories count", String.valueOf(categoriesCount))
+                  .addParam("Foreground time", String.valueOf(MWMApplication.get().getForegroundTime()))
                   .setName("One time PRO stat");
 
       trackIfEnabled(activity, eventBuilder.getEvent());
@@ -260,19 +247,9 @@ public enum Statistics
       .post();
   }
 
-  @TargetApi(Build.VERSION_CODES.GINGERBREAD)
-  private boolean isActiveUser(Context context, int currentSessionNumber)
+  private boolean isActiveUser(Context context, double foregroundTime)
   {
-    return currentSessionNumber >= ACTIVE_USER_MIN_SESSION
-           || System.currentTimeMillis() - Utils.getInstallationTime(context) >= ACTIVE_USER_MIN_TIME;
-  }
-
-  private int incAndGetSessionsNumber(Context context)
-  {
-    final MWMApplication app = MWMApplication.get();
-    final int currentSessionNumber = app.nativeGetInt(KEY_SESSIONS, 0) + 1;
-    app.nativeSetInt(KEY_SESSIONS, currentSessionNumber);
-    return currentSessionNumber;
+    return foregroundTime > ACTIVE_USER_MIN_FOREGROUND_TIME;
   }
 
   private final static String TAG = "MWMStat";

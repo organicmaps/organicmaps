@@ -130,5 +130,19 @@ extern "C"
     (void)Settings::Set(jni::ToNativeString(env, name), value);
   }
 
+  JNIEXPORT jdouble JNICALL
+  Java_com_mapswithme_maps_MWMApplication_nativeGetDouble(JNIEnv * env, jobject thiz, jstring name, jdouble defaultValue)
+  {
+    jdouble value;
+    if (Settings::Get(jni::ToNativeString(env, name), value))
+      return value;
 
+    return defaultValue;
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMApplication_nativeSetDouble(JNIEnv * env, jobject thiz, jstring name, jdouble value)
+  {
+    (void)Settings::Set(jni::ToNativeString(env, name), value);
+  }
 }

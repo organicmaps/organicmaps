@@ -206,6 +206,11 @@ public class MWMApplication extends android.app.Application implements MapStorag
   /// Check if we have free space on storage (writable path).
   public native boolean hasFreeSpace(long size);
 
+  public double getForegroundTime()
+  {
+    return nativeGetDouble("AllForegroundTime", 0);
+  }
+
   public boolean isProVersion()
   {
     return m_isProVersion;
@@ -265,4 +270,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
   public native void nativeSetInt(String name, int value);
   public native long nativeGetLong(String name, long defaultValue);
   public native void nativeSetLong(String name, long value);
+
+  public native double nativeGetDouble(String name, double defaultValue);
+  public native void nativeSetDouble(String name, double value);
 }
