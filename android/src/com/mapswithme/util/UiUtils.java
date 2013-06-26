@@ -34,15 +34,18 @@ public final class UiUtils
     return d;
   }
 
-  public static void hide(View view)
+  public static void hide(View ... views)
   {
-    view.setVisibility(View.GONE);
+    for (View v : views)
+      v.setVisibility(View.GONE);
   }
 
-  public static void show(View view)
+  public static void show(View ... views)
   {
-    view.setVisibility(View.VISIBLE);
+    for (View v : views)
+      v.setVisibility(View.VISIBLE);
   }
+
 
   public static Drawable setCompoundDrawableBounds(int drawableId, int dimenId, Resources res)
   {
