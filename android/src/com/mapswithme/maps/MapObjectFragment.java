@@ -1,12 +1,15 @@
 package com.mapswithme.maps;
 
+import java.io.Serializable;
+
 import android.annotation.TargetApi;
-import android.graphics.drawable.BitmapDrawable;
+import android.app.ActionBar;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -32,8 +35,6 @@ import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
-import java.io.Serializable;
-
 public class MapObjectFragment extends Fragment
                                implements OnClickListener
 {
@@ -46,7 +47,9 @@ public class MapObjectFragment extends Fragment
     MY_POSITION
   }
 
-  private static final int MENU_SHARE = 0x100;
+  private static final int MENU_ADD   = 0x01;
+  private static final int MENU_EDIT  = 0x02;
+  private static final int MENU_SHARE = 0x10;
 
   private TextView mNameTV;
   private TextView mGroupTV;
@@ -84,7 +87,7 @@ public class MapObjectFragment extends Fragment
     Drawable icon = UiUtils.drawCircleForPin(bookmark.getIcon().getType(), circleSize, getResources());
 
     mGroupTV.setCompoundDrawables(UiUtils
-        .setCompoundDrawableBounds(icon, R.dimen.margin_medium, getResources()), null, null, null);
+        .setCompoundDrawableBounds(icon, R.dimen.dp_x_4, getResources()), null, null, null);
 
     mEditBmk.setCompoundDrawables(UiUtils
         .setCompoundDrawableBounds(R.drawable.edit_bookmark, R.dimen.icon_size, getResources()), null, null, null);
@@ -202,7 +205,7 @@ public class MapObjectFragment extends Fragment
     mEditBmk.setOnClickListener(this);
 
     mAddToBookmarks.setCompoundDrawables(UiUtils
-        .setCompoundDrawableBounds(R.drawable.placemark_red, R.dimen.icon_size, getResources()), null, null, null);
+        .setCompoundDrawableBounds(R.drawable.add_bookmark, R.dimen.icon_size, getResources()), null, null, null);
 
     if (Utils.apiEqualOrGreaterThan(11))
       UiUtils.hide(mShare);
@@ -214,6 +217,23 @@ public class MapObjectFragment extends Fragment
     }
 
     return view;
+  }
+
+  @Override
+  public void onResume()
+  {
+    super.onResume();
+
+    adaptUI();
+  }
+
+  private void adaptUI()
+  {
+    if (Utils.apiEqualOrGreaterThan(11))
+    {
+      getActivity().invalidateOptionsMenu();
+      UiUtils.hide(mAddToBookmarks, mEditBmk);
+    }
   }
 
   @Override
@@ -275,10 +295,27 @@ public class MapObjectFragment extends Fragment
   {
     super.onCreateOptionsMenu(menu, inflater);
 
-    final MenuItem shareMenu = menu.add(Menu.NONE, MENU_SHARE, 0, R.string.share);
-    shareMenu.setIcon(R.drawable.share);
+    if (MapObjectType.BOOKMARK.equals(mType))
+    {
+      final MenuItem editItem = menu.add(Menu.NONE, MENU_EDIT, MENU_EDIT, R.string.edit);
+      editItem.setIcon(R.drawable.edit_bookmark);
+      if (Utils.apiEqualOrGreaterThan(11))
+        editItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+    }
+    else
+    {
+      final MenuItem addItem = menu.add(Menu.NONE, MENU_ADD, MENU_ADD, R.string.add_to_bookmarks);
+      addItem.setIcon(R.drawable.add_bookmark);
+      if (Utils.apiEqualOrGreaterThan(11))
+        addItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+    }
+
+    final MenuItem shareItem = menu.add(Menu.NONE, MENU_SHARE, MENU_SHARE, R.string.share);
+    shareItem.setIcon(R.drawable.share);
     if (Utils.apiEqualOrGreaterThan(11))
-      shareMenu.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+      shareItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+    Log.d("MOA", "Type" + mType);
   }
 
   @Override
@@ -300,6 +337,10 @@ public class MapObjectFragment extends Fragment
       ShareAction.ACTIONS.get(itemId).shareMapObject(getActivity(), createMapObject());
       return true;
     }
+    else if (itemId == MENU_ADD)
+      onAddBookmarkClicked();
+    else if (itemId == MENU_EDIT)
+      onEditBookmarkClicked();
 
     return super.onOptionsItemSelected(item);
   }
