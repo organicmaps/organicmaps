@@ -15,7 +15,7 @@
 
     <CheckBoxPreference
         android:key="@string/pref_allow_stat"
-        android:summary="Let us make app better, Dude!"
-        android:title="Allow Statistics?" />
+        android:summary="@string/allow_statistics_hint"
+        android:title="@string/allow_statistics" />
 
 </PreferenceScreen>

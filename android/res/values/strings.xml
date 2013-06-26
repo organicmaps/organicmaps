@@ -307,4 +307,8 @@
 	<string name="more_info">Show More Info</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Copied to Clipboard: %1$s</string>
+	<!-- Setting label for statistics turn on/off -->
+	<string name="allow_statistics">Enable Anonymous Usage Statistics</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">It helps us to build better application</string>
 </resources>

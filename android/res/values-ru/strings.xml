@@ -289,4 +289,8 @@
 	<string name="more_info">Подробнее</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Скопировано в буфер обмена: %1$s</string>
+	<!-- Setting label for statistics turn on/off -->
+	<string name="allow_statistics">Разрешить анонимный сбор статистики</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">Это помогает нам совершенствовать приложение</string>
 </resources>
