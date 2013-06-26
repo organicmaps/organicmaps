@@ -215,34 +215,34 @@ namespace Settings
     return impl::FromStringScalar<double>(str, v);
   }
 
-  template <> string ToString<int>(int const & v)
+  template <> string ToString<int32_t>(int32_t const & v)
   {
-    return impl::ToStringScalar<int>(v);
+    return impl::ToStringScalar<int32_t>(v);
   }
 
-  template <> bool FromString<int>(string const & str, int & v)
+  template <> bool FromString<int32_t>(string const & str, int32_t & v)
   {
-    return impl::FromStringScalar<int>(str, v);
+    return impl::FromStringScalar<int32_t>(str, v);
   }
 
-  template <> string ToString<long long>(long long const & v)
+  template <> string ToString<int64_t>(int64_t const & v)
   {
-    return impl::ToStringScalar<long long>(v);
+    return impl::ToStringScalar<int64_t>(v);
   }
 
-  template <> bool FromString<long long>(string const & str, long long & v)
+  template <> bool FromString<int64_t>(string const & str, int64_t & v)
   {
-    return impl::FromStringScalar<long long>(str, v);
+    return impl::FromStringScalar<int64_t>(str, v);
   }
 
-  template <> string ToString<unsigned>(unsigned const & v)
+  template <> string ToString<uint32_t>(uint32_t const & v)
   {
-    return impl::ToStringScalar<unsigned>(v);
+    return impl::ToStringScalar<uint32_t>(v);
   }
 
-  template <> bool FromString<unsigned>(string const & str, unsigned & v)
+  template <> bool FromString<uint32_t>(string const & str, uint32_t & v)
   {
-    return impl::FromStringScalar<unsigned>(str, v);
+    return impl::FromStringScalar<uint32_t>(str, v);
   }
 
   namespace impl
