@@ -472,3 +472,9 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Скопировано в буфер обмена: %1$@";
+
+/* Setting label for statistics turn on/off */
+"allow_statistics" = "Разрешить анонимный сбор статистики";
+
+/* Hint near allow statictics checkbox */
+"allow_statistics_hint" = "Это помогает нам совершенствовать приложение";
