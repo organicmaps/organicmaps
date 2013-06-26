@@ -6,12 +6,15 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Scanner;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -138,6 +141,17 @@ final public class Utils
     // Replace last ', ' with ']'.
     sb.replace(sb.length() - 2, sb.length() - 1, "]");
     return sb.toString();
+  }
+
+  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+  public static MenuItem addMenuCompat(Menu menu, int id, int order, int titleResId, int iconResId)
+  {
+    final MenuItem mItem = menu.add(Menu.NONE, id, order, titleResId);
+    mItem.setIcon(iconResId);
+    if (apiEqualOrGreaterThan(11))
+      mItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+    return mItem;
   }
 
   // utility class

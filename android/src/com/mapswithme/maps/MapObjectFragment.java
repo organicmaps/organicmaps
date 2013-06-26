@@ -296,26 +296,11 @@ public class MapObjectFragment extends Fragment
     super.onCreateOptionsMenu(menu, inflater);
 
     if (MapObjectType.BOOKMARK.equals(mType))
-    {
-      final MenuItem editItem = menu.add(Menu.NONE, MENU_EDIT, MENU_EDIT, R.string.edit);
-      editItem.setIcon(R.drawable.edit_bookmark);
-      if (Utils.apiEqualOrGreaterThan(11))
-        editItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-    }
+      Utils.addMenuCompat(menu, MENU_EDIT, MENU_EDIT, R.string.edit, R.drawable.edit_bookmark);
     else
-    {
-      final MenuItem addItem = menu.add(Menu.NONE, MENU_ADD, MENU_ADD, R.string.add_to_bookmarks);
-      addItem.setIcon(R.drawable.add_bookmark);
-      if (Utils.apiEqualOrGreaterThan(11))
-        addItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-    }
+      Utils.addMenuCompat(menu, MENU_ADD, MENU_ADD, R.string.add_to_bookmarks, R.drawable.add_bookmark);
 
-    final MenuItem shareItem = menu.add(Menu.NONE, MENU_SHARE, MENU_SHARE, R.string.share);
-    shareItem.setIcon(R.drawable.share);
-    if (Utils.apiEqualOrGreaterThan(11))
-      shareItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-    Log.d("MOA", "Type" + mType);
+    Utils.addMenuCompat(menu, MENU_SHARE, MENU_SHARE, R.string.share, R.drawable.share);
   }
 
   @Override
