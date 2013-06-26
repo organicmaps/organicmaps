@@ -37,12 +37,12 @@ def update_assets():
 
 
 def replace_aapt(sdkDir, oldAaptName='aapt2'):
-    aaptPath = os.path.join(sdkDir, 'platform-tools', 'aapt')
-    aaptOldPath = os.path.join(sdkDir, 'platform-tools', oldAaptName)
+    aaptPath = os.path.join(sdkDir, 'build-tools/android-4.2.2', 'aapt')
+    aaptRealPath = os.path.join(sdkDir, 'build-tools/android-4.2.2', oldAaptName)
 
     # handle case of non-existing file
-    if not os.path.exists(aaptOldPath):
-        os.rename(aaptPath, aaptOldPath)
+    if not os.path.exists(aaptRealPath):
+        os.rename(aaptPath, aaptRealPath)
     else:
         print 'aapt2 already exists, skipping'
 
