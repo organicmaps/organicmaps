@@ -23,6 +23,8 @@
 #define COORDINATE_TAG 333
 #define COORDINATECOLOR 51.0/255.0
 
+typedef enum {APIPOINT, POI, MYPOSITION} Type;
+
 @interface PlacePreviewViewController()
 {
   Type m_previewType;

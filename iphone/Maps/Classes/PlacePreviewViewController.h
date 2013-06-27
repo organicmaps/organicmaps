@@ -12,8 +12,6 @@
 namespace search { struct AddressInfo; }
 namespace url_scheme { struct ApiPoint; }
 
-typedef enum {APIPOINT, POI, MYPOSITION} Type;
-
 @interface PlacePreviewViewController : UITableViewController <UIActionSheetDelegate, UIGestureRecognizerDelegate>
 -(id)initWith:(search::AddressInfo const &)info point:(CGPoint)point;
 -(id)initWithApiPoint:(url_scheme::ApiPoint const &)apiPoint;
