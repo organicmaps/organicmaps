@@ -175,9 +175,9 @@
   double width = [self getCurrentSuperViewWidth];
   [self.compass setShowArrow:YES];
   self.circle.frame = CGRectMake(width/2 - CIRCLEDIAMETER/2 - SMALLMARGIN, 2 * SMALLMARGIN, CIRCLEDIAMETER, CIRCLEDIAMETER);
-  self.compass.frame = CGRectMake(width/2 - COMPASSSIDE/2 - SMALLMARGIN, 2 * SMALLMARGIN + 10, COMPASSSIDE, COMPASSSIDE);
+  self.compass.frame = CGRectMake(width/2 - COMPASSSIDE/2 - SMALLMARGIN, 2 * SMALLMARGIN + (CIRCLEDIAMETER - COMPASSSIDE)/2 , COMPASSSIDE, COMPASSSIDE);
 
-  self.distanceLabel.frame = CGRectMake(0, COMPASSSIDE + 4 * SMALLMARGIN, width, 20);
+  self.distanceLabel.frame = CGRectMake(0, COMPASSSIDE + 5 * SMALLMARGIN, width, 20);
   [self.distanceLabel setTextAlignment:NSTextAlignmentCenter];
 
   if ([self.name length] == 0)

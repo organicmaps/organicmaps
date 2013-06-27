@@ -39,23 +39,36 @@
     // Draws an arrow looking to the right like this:
     // =>
     // and rotates it to given angle
+    /*
+           bottom
+         ___________
+         \    |    /
+          \   |   /
+           \  |--/--- heights
+            \ | /
+             \|/
 
+     */
 
     UIBezierPath * aPath = [UIBezierPath bezierPath];
 
     float const w = rect.size.width;
     float const w2 = w / 2.0;
     float const w3 = w / 3.0;
+    float const heights = w * 0.85;
+    float const halfBottom = (sqrt(w2 * w2 - (heights - w2) * (heights - w2)));
+    float const margin = w - heights;
+
     [aPath moveToPoint:CGPointMake(w3, w2)];
-    [aPath addLineToPoint:CGPointMake(0, w2 - w3)];
+    [aPath addLineToPoint:CGPointMake(margin, w2 - halfBottom)];
     [aPath addLineToPoint:CGPointMake(w, w2)];
-    [aPath addLineToPoint:CGPointMake(0, w2 + w3)];
+    [aPath addLineToPoint:CGPointMake(margin, w2 + halfBottom)];
     [aPath closePath];
 
     CGAffineTransform matrix = CGAffineTransformMakeTranslation(w2, w2);
     matrix = CGAffineTransformRotate(matrix, -angle);
-    matrix = CGAffineTransformTranslate(matrix, -w2 + w2 * 0.15, -w2 + w2 * 0.15);
-    matrix = CGAffineTransformScale(matrix, 0.85, 0.85);
+    matrix = CGAffineTransformTranslate(matrix, -w2 + 0.1 * w2, -w2 + 0.1 * w2);
+    matrix = CGAffineTransformScale(matrix, 0.9, 0.9);
     [aPath applyTransform:matrix];
 
     [self.color setFill];
