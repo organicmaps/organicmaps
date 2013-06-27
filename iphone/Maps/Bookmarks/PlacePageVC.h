@@ -7,7 +7,7 @@
 namespace search { struct AddressInfo; }
 namespace url_scheme { struct ApiPoint; }
 
-@interface PlacePageVC : UITableViewController <UITextFieldDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, UIPickerViewDelegate, UITextViewDelegate>
+@interface PlacePageVC : UITableViewController <UITextFieldDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, UIPickerViewDelegate, UITextViewDelegate, UIGestureRecognizerDelegate>
 
 - (id) initWithInfo:(search::AddressInfo const &)info point:(CGPoint)point;
 - (id) initWithApiPoint:(url_scheme::ApiPoint const &)apiPoint;

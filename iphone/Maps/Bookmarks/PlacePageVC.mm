@@ -78,6 +78,7 @@ CGFloat const pMargin = 10;
 #define DESCRIPTIONHEIGHT 140
 #define TWOBUTTONSHEIGHT 44
 #define CELLHEIGHT  44
+#define COORDINATECOLOR 51.0/255.0
 
 static NSString  * const g_colors [] =
 {
@@ -744,26 +745,17 @@ typedef enum {Editing, Saved} Mode;
     cell = [tableView dequeueReusableCellWithIdentifier:@"CoordinatesCELL"];
     if (!cell)
     {
-      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CoordinatesCELL"] autorelease];
-      cell.textLabel.text =  @"Temporary Name";
-      [cell layoutSubviews];
-      UITextField * f = [[UITextField alloc] initWithFrame:cell.contentView.frame];
-      f.tag = COORDINATE_TAG;
-      f.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-      f.returnKeyType = UIReturnKeyDone;
-      f.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-      f.font = [UIFont fontWithName:@"Helvetica" size:26];
-      f.textAlignment = UITextAlignmentCenter;
-      f.userInteractionEnabled = NO;
-      f.delegate = self;
-      [cell.contentView addSubview:f];
-      [f release];
-      cell.textLabel.text =  @"";
-      [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CoordinatesCELL"] autorelease];
+      cell.textLabel.textAlignment = UITextAlignmentCenter;
+      cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:26];
+      cell.textLabel.textColor = [UIColor colorWithRed:COORDINATECOLOR green:COORDINATECOLOR blue:COORDINATECOLOR alpha:1.0];
+      UILongPressGestureRecognizer * longTouch = [[[UILongPressGestureRecognizer alloc]
+                                            initWithTarget:self action:@selector(handleLongPress:)] autorelease];
+      longTouch.minimumPressDuration = 1.0;
+      longTouch.delegate = self;
+      [cell addGestureRecognizer:longTouch];
     }
-    UITextField * f = (UITextField *)[cell viewWithTag:COORDINATE_TAG];
-    f.text = [NSString stringWithFormat:@"%f %f", MercatorBounds::YToLat(self.pinGlobalPosition.y),
-                                                  MercatorBounds::XToLon(self.pinGlobalPosition.x)];
+    cell.textLabel.text = [self coordinatesToString];
   }
   return cell;
 }
@@ -793,4 +785,44 @@ typedef enum {Editing, Saved} Mode;
   if (textView.tag == TEXTVIEW_TAG)
     self.pinNotes = textView.text;
 }
+
+-(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+  if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
+  {
+    CGPoint p = [gestureRecognizer locationInView:self.tableView];
+    NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:p];
+    if (indexPath != nil)
+    {
+      [self becomeFirstResponder];
+      UIMenuController * menu = [UIMenuController sharedMenuController];
+      [menu setTargetRect:[self.tableView rectForRowAtIndexPath:indexPath] inView:self.tableView];
+      [menu setMenuVisible:YES animated:YES];
+    }
+  }
+}
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender
+{
+  if (action == @selector(copy:))
+    return YES;
+  return NO;
+}
+
+- (BOOL)canBecomeFirstResponder
+{
+  return YES;
+}
+
+- (void)copy:(id)sender
+{
+  [UIPasteboard generalPasteboard].string = [self coordinatesToString];
+}
+
+-(NSString *)coordinatesToString
+{
+  NSLocale * decimalPointLocale = [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] autorelease];
+  return [[[NSString alloc] initWithFormat:@"%@" locale:decimalPointLocale, [NSString stringWithFormat:@"%f %f", MercatorBounds::YToLat(self.pinGlobalPosition.y), MercatorBounds::XToLon(self.pinGlobalPosition.x)]] autorelease];
+}
+
 @end

@@ -14,7 +14,7 @@ namespace url_scheme { struct ApiPoint; }
 
 typedef enum {APIPOINT, POI, MYPOSITION} Type;
 
-@interface PlacePreviewViewController : UITableViewController <UIActionSheetDelegate>
+@interface PlacePreviewViewController : UITableViewController <UIActionSheetDelegate, UIGestureRecognizerDelegate>
 -(id)initWith:(search::AddressInfo const &)info point:(CGPoint)point;
 -(id)initWithApiPoint:(url_scheme::ApiPoint const &)apiPoint;
 -(id)initWithPoint:(CGPoint)point;

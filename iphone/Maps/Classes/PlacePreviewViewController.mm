@@ -21,6 +21,7 @@
 #define BALLOON_PROPOSAL_ALERT_VIEW 11
 #define TWOBUTTONSHEIGHT 44
 #define COORDINATE_TAG 333
+#define COORDINATECOLOR 51.0/255.0
 
 @interface PlacePreviewViewController()
 {
@@ -116,28 +117,17 @@
       cell = [tableView dequeueReusableCellWithIdentifier:@"CoordinatesCELL"];
       if (!cell)
       {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CoordinatesCELL"] autorelease];
-        cell.textLabel.text =  @"Temporary Name";
-        [cell layoutSubviews];
-        UITextField * f = [[UITextField alloc] initWithFrame:cell.contentView.frame];
-        f.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        f.returnKeyType = UIReturnKeyDone;
-        f.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        f.textColor = cell.textLabel.textColor;
-        f.font = [UIFont fontWithName:@"Helvetica" size:26];
-        f.textAlignment = UITextAlignmentCenter;
-        f.userInteractionEnabled = NO;
-        f.tag = COORDINATE_TAG;
-        [cell.contentView addSubview:f];
-        [f release];
-        cell.textLabel.text =  @"";
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CoordinatesCELL"] autorelease];
+        cell.textLabel.textAlignment = UITextAlignmentCenter;
+        cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:26];
+        cell.textLabel.textColor = [UIColor colorWithRed:COORDINATECOLOR green:COORDINATECOLOR blue:COORDINATECOLOR alpha:1.0];
+        UILongPressGestureRecognizer * longTouch = [[[UILongPressGestureRecognizer alloc]
+                                                     initWithTarget:self action:@selector(handleLongPress:)] autorelease];
+        longTouch.minimumPressDuration = 1.0;
+        longTouch.delegate = self;
+        [cell addGestureRecognizer:longTouch];
       }
-      UITextField * f = (UITextField *)[cell viewWithTag:COORDINATE_TAG];
-      if (m_previewType == APIPOINT)
-        f.text = [NSString stringWithFormat:@"%f %f", m_apiPoint.m_lat, m_apiPoint.m_lon];
-      else
-        f.text = [NSString stringWithFormat:@"%f %f", MercatorBounds::YToLat(m_point.y), MercatorBounds::XToLon(m_point.x)];
+      cell.textLabel.text = [self coordinatesToString];
     }
   }
   else
@@ -147,8 +137,6 @@
       cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ApiReturnCell"] autorelease];
     cell.textLabel.text = NSLocalizedString(@"more_info", nil);
   }
-  if (indexPath.section != 2)
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
   return cell;
 }
 
@@ -156,6 +144,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
   if (m_previewType == APIPOINT && indexPath.section == 2)
   {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -313,6 +302,50 @@
 {
   [self.placeAndCompass drawView];
   [self.tableView reloadData];
+}
+
+-(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+  if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
+  {
+    CGPoint p = [gestureRecognizer locationInView:self.tableView];
+    NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:p];
+    if (indexPath != nil)
+    {
+      [self becomeFirstResponder];
+      UIMenuController * menu = [UIMenuController sharedMenuController];
+      [menu setTargetRect:[self.tableView rectForRowAtIndexPath:indexPath] inView:self.tableView];
+      [menu setMenuVisible:YES animated:YES];
+    }
+  }
+}
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender
+{
+  if (action == @selector(copy:))
+    return YES;
+  return NO;
+}
+
+- (BOOL)canBecomeFirstResponder
+{
+  return YES;
+}
+
+- (void)copy:(id)sender
+{
+  [UIPasteboard generalPasteboard].string = [self coordinatesToString];
+}
+
+-(NSString *)coordinatesToString
+{
+  NSString * result = nil;
+  if (m_previewType == APIPOINT)
+    result = [NSString stringWithFormat:@"%f %f", m_apiPoint.m_lat, m_apiPoint.m_lon];
+  else
+    result = [NSString stringWithFormat:@"%f %f", MercatorBounds::YToLat(m_point.y), MercatorBounds::XToLon(m_point.x)];
+  NSLocale * decimalPointLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+  return [[[NSString alloc] initWithFormat:@"%@" locale:decimalPointLocale,result] autorelease];
 }
 
 -(void)dealloc
