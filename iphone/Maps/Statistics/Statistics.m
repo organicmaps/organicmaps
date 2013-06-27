@@ -33,10 +33,13 @@
 
 - (void)logProposalReason:(NSString *)reason withAnswer:(NSString *)answer
 {
-  NSDictionary * dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects: answer, nil]
-                                                    forKeys:[NSArray arrayWithObjects: @"Answer", nil]];
   NSString * screen = [NSString stringWithFormat:@"Open AppStore With Proposal on %@", reason];
-  [[Statistics instance] logEvent:screen withParameters:dict];
+  [[Statistics instance] logEvent:screen withParameters:@{@"Answer" : answer}];
+}
+
+- (void)logApiUsage:(NSString *)programName
+{
+  [[Statistics instance] logEvent:@"Api Usage" withParameters: @{@"Application Name" : programName}];
 }
 
 + (Statistics *) instance
