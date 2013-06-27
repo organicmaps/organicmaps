@@ -26,10 +26,14 @@
     self.leftButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [self.leftButton addTarget:target action:leftSel forControlEvents:UIControlEventTouchUpInside];
     [self.leftButton setTitle:leftTitle forState:UIControlStateNormal];
+    self.leftButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
+    self.leftButton.titleLabel.textAlignment = UITextAlignmentCenter;
 
     self.rightButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [self.rightButton addTarget:target action:rightSel forControlEvents:UIControlEventTouchUpInside];
     [self.rightButton setTitle:rightTitle forState:UIControlStateNormal];
+    self.rightButton.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
+    self.rightButton.titleLabel.textAlignment = UITextAlignmentCenter;
 
     [self addSubview:self.leftButton];
     [self addSubview:self.rightButton];
