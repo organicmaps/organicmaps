@@ -502,6 +502,7 @@ static void OnSearchResultCallback(search::Results const & res)
   // Suggestion cell was clicked
   if (m_suggestionsCount)
   {
+    [[Statistics instance] logEvent:@"Category Selection" withParameters:@{@"Category" : [categoriesNames objectAtIndex:realRowIndex]}];
     [self setSearchBoxText:[NSLocalizedString([categoriesNames objectAtIndex:realRowIndex], Search Suggestion) stringByAppendingString:@" "]];
     [m_table scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     return;
@@ -519,6 +520,13 @@ static void OnSearchResultCallback(search::Results const & res)
 
         search::AddressInfo info;
         info.MakeFrom(res);
+
+        if (scopeSection == 0)
+          [[Statistics instance] logEvent:@"Search Filter" withParameters:@{@"Filter Name" : @"Near Me"}];
+        else if (scopeSection == 1)
+          [[Statistics instance] logEvent:@"Search Filter" withParameters:@{@"Filter Name" : @"On the Screen"}];
+        else
+          [[Statistics instance] logEvent:@"Search Filter" withParameters:@{@"Filter Name" : @"Everywhere"}];
 
         [[MapsAppDelegate theApp].m_mapViewController showSearchResultAsBookmarkAtMercatorPoint:res.GetFeatureCenter() withInfo:info];
 

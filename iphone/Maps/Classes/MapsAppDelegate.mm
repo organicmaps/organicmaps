@@ -166,6 +166,14 @@ void InitLocalizedStrings()
 
   m_didOpenedWithUrl = NO;
 
+  if (GetPlatform().IsPro())
+  {
+    int val = 0;
+    if (Settings::Get("NumberOfBookmarksPerSession", val))
+      [[Statistics instance] logEvent:@"Bookmarks Per Session" withParameters:@{@"Number of bookmarks" : [NSNumber numberWithInt:val]}];
+    Settings::Set("NumberOfBookmarksPerSession", 0);
+  }
+
   return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
 }
 
@@ -196,7 +204,7 @@ void InitLocalizedStrings()
     url_scheme::ApiPoint apiPoint;
     if (GetFramework().SetViewportByURL([[url.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] UTF8String], apiPoint));
     {
-      [[Statistics instance] logEvent:@"ge0(zero) Import"];
+      [[Statistics instance] logApiUsage:sourceApplication];
       [self showMap];
       [m_mapViewController prepareForApi];
       return YES;

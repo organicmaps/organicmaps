@@ -9,6 +9,7 @@
 
 #include "Framework.h"
 #include "../../search/result.hpp"
+#include "../../platform/settings.hpp"
 
 
 @interface PinPickerView : UIView
@@ -98,6 +99,10 @@ typedef enum {Editing, Saved} Mode;
   int m_selectedRow;
   Mode m_mode;
   size_t m_categoryIndex;
+
+  //statistics purpose
+  size_t m_categoryIndexStatistics;
+  size_t m_numberOfCategories;
 }
 
 @property (nonatomic, copy) UIView * viewWithPicker;
@@ -446,6 +451,8 @@ typedef enum {Editing, Saved} Mode;
   {
     [[Statistics instance] logEvent:@"Select Bookmark color"];
     self.pinColor = g_colors[m_selectedRow];
+    if (!IsValid(self.pinEditedBookmark))
+      [[Statistics instance] logEvent:@"New Bookmark Color Changed"];
     [self.tableView reloadData];
   }
   [self pickerCancelClicked];
@@ -591,19 +598,51 @@ typedef enum {Editing, Saved} Mode;
 {
   Framework & f = GetFramework();
   if (_pinEditedBookmark == MakeEmptyBookmarkAndCategory())
+  {
+    if ([self.pinNotes length] != 0)
+      [[Statistics instance] logEvent:@"New Bookmark Description Field Occupancy" withParameters:@{@"Occupancy" : @"Filled"}];
+    else
+      [[Statistics instance] logEvent:@"New Bookmark Description Field Occupancy" withParameters:@{@"Occupancy" : @"Empty"}];
+
+    if (m_categoryIndexStatistics != m_categoryIndex)
+      [[Statistics instance] logEvent:@"New Bookmark Category" withParameters:@{@"Changed" : @"YES"}];
+    else
+      [[Statistics instance] logEvent:@"New Bookmark Category" withParameters:@{@"Changed" : @"NO"}];
+
+    if (m_numberOfCategories != GetFramework().GetBmCategoriesCount())
+      [[Statistics instance] logEvent:@"New Bookmark Category Set Was Created" withParameters:@{@"Created" : @"YES"}];
+    else
+      [[Statistics instance] logEvent:@"New Bookmark Category Set Was Created" withParameters:@{@"Created" : @"NO"}];
+
+    int value = 0;
+    if (Settings::Get("NumberOfBookmarksPerSession", value))
+      Settings::Set("NumberOfBookmarksPerSession", ++value);
     [self addBookmarkToCategory:m_categoryIndex];
+  }
   else
   {
     BookmarkCategory * cat = f.GetBmCategory(_pinEditedBookmark.first);
+    Bookmark * bm = cat->GetBookmark(_pinEditedBookmark.second);
+
+    if ([self.pinColor isEqualToString:[NSString stringWithUTF8String:bm->GetType().c_str()]])
+      [[Statistics instance] logEvent:@"Bookmark Color" withParameters:@{@"Changed" : @"NO"}];
+    else
+      [[Statistics instance] logEvent:@"Bookmark Color" withParameters:@{@"Changed" : @"YES"}];
+
+    if ([self.pinNotes isEqualToString:[NSString stringWithUTF8String:bm->GetDescription().c_str()]])
+      [[Statistics instance] logEvent:@"Bookmark Description Field" withParameters:@{@"Changed" : @"NO"}];
+    else
+      [[Statistics instance] logEvent:@"Bookmark Description Field" withParameters:@{@"Changed" : @"YES"}];
     if (_pinEditedBookmark.first != m_categoryIndex)
     {
+      [[Statistics instance] logEvent:@"Bookmark Category" withParameters:@{@"Changed" : @"YES"}];
       cat->DeleteBookmark(_pinEditedBookmark.second);
       cat->SaveToKMLFile();
       [self addBookmarkToCategory:m_categoryIndex];
     }
     else
     {
-      Bookmark * bm = cat->GetBookmark(_pinEditedBookmark.second);
+      [[Statistics instance] logEvent:@"Bookmark Category" withParameters:@{@"Changed" : @"NO"}];
       bm->SetName([self.pinTitle UTF8String]);
       bm->SetType([self.pinColor UTF8String]);
       bm->SetDescription([self.pinNotes UTF8String]);
@@ -632,6 +671,8 @@ typedef enum {Editing, Saved} Mode;
   m_categoryIndex = bmAndCat.first == - 1 ? GetFramework().LastEditedCategory():bmAndCat.first;
   self.pinGlobalPosition = point;
   self.pinType = type;
+  m_categoryIndexStatistics = m_categoryIndex;
+  m_numberOfCategories = GetFramework().GetBmCategoriesCount();
 }
 
 -(UITextView *)createTextFieldForCell:(UIFont *)font color:(UIColor *)color
