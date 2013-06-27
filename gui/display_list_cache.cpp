@@ -2,6 +2,7 @@
 
 #include "../graphics/display_list.hpp"
 #include "../graphics/glyph.hpp"
+#include "../graphics/depth_constants.hpp"
 
 namespace gui
 {
@@ -76,7 +77,7 @@ namespace gui
 
     /// @todo do not cache depth in display list. use separate vertex shader and uniform constant
     /// to specify it while rendering display list.
-    m_CacheScreen->drawSymbol(m2::PointD(0, 0), name, graphics::EPosAbove, graphics::maxDepth - 4);
+    m_CacheScreen->drawSymbol(m2::PointD(0, 0), name, graphics::EPosAbove, graphics::poiAndBookmarkDepth);
 
     m_CacheScreen->setDisplayList(0);
     m_CacheScreen->endFrame();

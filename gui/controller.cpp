@@ -43,11 +43,21 @@ namespace gui
     }
   }
 
+  namespace
+  {
+    bool DepthGreater(const shared_ptr<Element> & e1,
+                      const shared_ptr<Element> & e2)
+    {
+      return e1->depth() > e2->depth();
+    }
+  }
+
   bool Controller::OnTapStarted(m2::PointD const & pt)
   {
     elem_list_t l;
 
     SelectElements(pt, l, true);
+    l.sort(DepthGreater);
 
     /// selecting first hit-tested element from the list
     if (!l.empty())

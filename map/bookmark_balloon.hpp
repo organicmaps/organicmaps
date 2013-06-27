@@ -18,6 +18,7 @@ private:
   string m_bmkName;
   string m_bmkType;
   bool m_isPositionChecked;
+  bool m_needPadding;
 
   void setIsPositionChecked(bool isChecked);
   bool isPositionChecked() const;
@@ -42,7 +43,7 @@ public:
 
   BookmarkBalloon(Params const & p);
 
-  void showAnimated();
+  void showAnimated(bool needPadding);
   void hide();
 
   void setGlbPivot(m2::PointD const & pivot);

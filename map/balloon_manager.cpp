@@ -57,20 +57,20 @@ void BalloonManager::LocationChanged(location::GpsInfo const & info)
 
 void BalloonManager::OnPositionClicked(m2::PointD const & pt)
 {
-  Show(pt, m_f.GetStringsBundle().GetString("my_position"), "");
+  Show(pt, m_f.GetStringsBundle().GetString("my_position"), "", false);
 
   m_balloon->setOnClickListener(bind(&BalloonManager::OnActivateMyPosition, this, _1));
 
   m_updateForLocation = true;
 }
 
-void BalloonManager::Show(m2::PointD const & pt, string const & name, string const & type)
+void BalloonManager::Show(m2::PointD const & pt, string const & name, string const & type, bool needPadding)
 {
   m_updateForLocation = false;
 
   m_balloon->setGlbPivot(pt);
   m_balloon->setBookmarkCaption(name, type);
-  m_balloon->showAnimated();
+  m_balloon->showAnimated(needPadding);
 
   m_f.Invalidate();
 }
@@ -91,7 +91,7 @@ void BalloonManager::ShowAddress(m2::PointD const & pt, search::AddressInfo cons
   if (name.empty() && type.empty())
     name = m_f.GetStringsBundle().GetString("dropped_pin");
 
-  Show(pt, name, type);
+  Show(pt, name, type, false);
 
   m_balloon->setOnClickListener(bind(&BalloonManager::OnActivatePOI, this, _1, info));
 }
@@ -100,14 +100,14 @@ void BalloonManager::ShowApiPoint(url_scheme::ApiPoint const & apiPoint)
 {
   Show(m2::PointD(MercatorBounds::LonToX(apiPoint.m_lon),
                   MercatorBounds::LatToY(apiPoint.m_lat)),
-       apiPoint.m_name, "");
+       apiPoint.m_name, "", true);
   m_balloon->setOnClickListener(bind(&BalloonManager::OnActivateAPI, this, _1, apiPoint));
 }
 
 void BalloonManager::ShowBookmark(BookmarkAndCategory bmAndCat)
 {
   Bookmark const * pBM = m_f.GetBmCategory(bmAndCat.first)->GetBookmark(bmAndCat.second);
-  Show(pBM->GetOrg(), pBM->GetName(), "");
+  Show(pBM->GetOrg(), pBM->GetName(), "", true);
   m_balloon->setOnClickListener(bind(&BalloonManager::OnActivateBookmark, this, _1, bmAndCat));
 }
 
@@ -118,7 +118,7 @@ void BalloonManager::OnClick(m2::PointD const & pxPoint, bool isLongTouch)
   {
     Show(m2::PointD(MercatorBounds::LonToX(apiPoint.m_lon),
                     MercatorBounds::LatToY(apiPoint.m_lat)),
-         apiPoint.m_name, "");
+         apiPoint.m_name, "", true);
     m_balloon->setOnClickListener(bind(&BalloonManager::OnActivateAPI, this, _1, apiPoint));
   }
   else
@@ -131,9 +131,7 @@ void BalloonManager::OnClick(m2::PointD const & pxPoint, bool isLongTouch)
     {
     case Framework::BOOKMARK:
       {
-        Bookmark const * pBM = m_f.GetBmCategory(bmAndCat.first)->GetBookmark(bmAndCat.second);
-        Show(pBM->GetOrg(), pBM->GetName(), "");
-        m_balloon->setOnClickListener(bind(&BalloonManager::OnActivateBookmark, this, _1, bmAndCat));
+        ShowBookmark(bmAndCat);
         return;
       }
 

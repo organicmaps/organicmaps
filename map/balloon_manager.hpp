@@ -30,7 +30,7 @@ class BalloonManager
   void OnActivateAPI(gui::Element *, url_scheme::ApiPoint const & apiPoint);
   void OnActivateBookmark(gui::Element *, BookmarkAndCategory const & bmAndCat);
 
-  void Show(m2::PointD const & pt, string const & name, string const & type);
+  void Show(m2::PointD const & pt, string const & name, string const & type, bool needPadding);
 
 public:
   BalloonManager(Framework & f);

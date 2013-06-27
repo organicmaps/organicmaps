@@ -90,7 +90,8 @@ private:
 BookmarkBalloon::BookmarkBalloon(Params const & p)
  : Balloon(p),
    m_framework(p.m_framework),
-   m_isPositionChecked(true)
+   m_isPositionChecked(true),
+   m_needPadding(false)
 {
 }
 
@@ -169,7 +170,8 @@ void BookmarkBalloon::update()
   if (isVisible())
   {
     m2::PointD newPivot(m_framework->GtoP(m_glbPivot));
-    newPivot.y -= PopupPadding * visualScale();
+    if (m_needPadding)
+      newPivot.y -= PopupPadding * visualScale();
     setPivot(newPivot);
 
     if (checkPosition())
@@ -229,8 +231,9 @@ void BookmarkBalloon::cancelTask()
   }
 }
 
-void BookmarkBalloon::showAnimated()
+void BookmarkBalloon::showAnimated(bool needPadding)
 {
+  m_needPadding = needPadding;
   setPosition(graphics::EPosCenter);
   setIsPositionChecked(false);
 
