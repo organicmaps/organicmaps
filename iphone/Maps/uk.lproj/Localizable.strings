@@ -478,3 +478,6 @@
 
 /* Hint near allow statictics checkbox */
 "allow_statistics_hint" = "It helps us to build better application";
+
+/* place preview title */
+"info" = "Досьє";

@@ -2528,3 +2528,20 @@
     tags = ios,android
     comment = Hint near allow statictics checkbox
     ru = Это помогает нам совершенствовать приложение
+  [info]
+    en = Show More Info
+    tags = ios
+    comment = place preview title
+    ru = Информация
+    de = Info
+    fr = Info
+    it = Informazioni
+    es = Información
+    ko = 정보
+    ja = 情報
+    cs = Informace
+    nl = Info
+    zh-Hant = 简介
+    pl  = Informacje
+    uk = Досьє
+    pt = Info
