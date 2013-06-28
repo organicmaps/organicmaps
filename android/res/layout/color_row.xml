@@ -1,58 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp" >
+    android:layout_margin="@dimen/dp_x_1"
+    android:background="@null" >
 
     <ImageView
         android:id="@+id/row_color_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/row_name_container"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/row_name_container"
-        android:padding="5dp"
+        android:layout_centerInParent="true"
+        android:background="@null"
+        android:padding="@dimen/dp_x_1"
         android:src="@drawable/ic_launcher" />
 
-    <RadioButton
-        android:id="@+id/row_color_checked"
+    <ImageView
+        android:id="@+id/selected_mark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:visibility="invisible"
-        android:clickable="false" />
-
-    <LinearLayout
-        android:id="@+id/row_name_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/row_color_checked"
-        android:layout_toRightOf="@id/row_color_image"
-        android:orientation="vertical"
-        android:visibility="invisible" >
-
-        <TextView
-            android:id="@+id/row_color_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:singleLine="true"
-            android:text="sdfjdslkfjdsklf"
-            android:textSize="18sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:singleLine="true"
-            android:text="@string/color"
-            android:textColor="@android:color/darker_gray" />
-    </LinearLayout>
+        android:layout_alignBottom="@id/row_color_image"
+        android:layout_alignLeft="@id/row_color_image"
+        android:layout_alignRight="@id/row_color_image"
+        android:layout_alignTop="@id/row_color_image"
+        android:background="@null"
+        android:padding="@dimen/dp_x_2"
+        android:src="@android:drawable/ic_menu_mylocation" />
 
 </RelativeLayout>

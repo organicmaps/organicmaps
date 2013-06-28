@@ -14,7 +14,7 @@ public class BookmarkIconManager
   private Context mContext;
   private Bitmap mEmptyBitmap = null;
   private static String[] ICONS = {
-             "placemark-red", "placemark-blue", "placemark-purple",
+             "placemark-red", "placemark-blue", "placemark-purple", "placemark-yellow",
              "placemark-pink", "placemark-brown", "placemark-green", "placemark-orange"
          };
   private WeakHashMap<String, Bitmap> mIcons;

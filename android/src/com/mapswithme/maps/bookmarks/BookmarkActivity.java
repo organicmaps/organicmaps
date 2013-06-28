@@ -1,5 +1,7 @@
 package com.mapswithme.maps.bookmarks;
 
+import java.util.List;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -10,9 +12,16 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,8 +31,6 @@ import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
-
-import java.util.List;
 
 public class BookmarkActivity extends AbstractBookmarkActivity
 {
@@ -183,21 +190,39 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
   private Dialog createColorChooser()
   {
+
+
     final IconsAdapter adapter = new IconsAdapter(this, mIcons);
     adapter.chooseItem(mIcons.indexOf(mPin.getIcon()));
 
-    return new AlertDialog.Builder(this)
+    final GridView gView = new GridView(this);
+    gView.setAdapter(adapter);
+    gView.setNumColumns(4);
+    gView.setGravity(Gravity.CENTER);
+    final int padSide = (int) getResources().getDimension(R.dimen.dp_x_10);
+    final int padTopB = (int) getResources().getDimension(R.dimen.dp_x_8);
+    gView.setPadding(padSide, padTopB, padSide, padTopB);
+    LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+    gView.setLayoutParams(params);
+    gView.setItemChecked(adapter.getCheckedItemPosition(), true);
+
+    final Dialog d = new AlertDialog.Builder(this)
     .setTitle(R.string.bookmark_color)
-    .setSingleChoiceItems(adapter, adapter.getCheckedItemPosition(), new DialogInterface.OnClickListener()
+    .setView(gView)
+    .create();
+
+    gView.setOnItemClickListener(new OnItemClickListener()
     {
       @Override
-      public void onClick(DialogInterface dialog, int which)
+      public void onItemClick(AdapterView<?> arg0, View who, int pos, long id)
       {
-        updateColorChooser(mIcons.get(which));
-        dialog.dismiss();
-      }
-    })
-    .create();
+        updateColorChooser(mIcons.get(pos));
+        adapter.chooseItem(pos);
+        adapter.notifyDataSetChanged();
+        d.dismiss();
+      }});
+
+    return d;
   }
 
   @Override

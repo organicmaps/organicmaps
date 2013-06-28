@@ -3,6 +3,7 @@ package com.mapswithme.maps.bookmarks;
 import java.util.List;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Icon;
+import com.mapswithme.util.UiUtils;
 
 //SingleChoise list view don't add radiobutton to custom view
 public class IconsAdapter extends ArrayAdapter<Icon> implements Chooseable
@@ -30,30 +32,31 @@ public class IconsAdapter extends ArrayAdapter<Icon> implements Chooseable
     {
       LayoutInflater inflater = LayoutInflater.from(getContext());
       convertView = inflater.inflate(R.layout.color_row, parent, false);
-      convertView.setTag(new SpinnerViewHolder((TextView) convertView.findViewById(R.id.row_color_name),
-                                               (ImageView) convertView.findViewById(R.id.row_color_image),
-                                               (RadioButton)convertView.findViewById(R.id.row_color_checked)
-                                               ));
+      convertView.setTag(new SpinnerViewHolder((ImageView) convertView.findViewById(R.id.row_color_image),
+                                               (ImageView) convertView.findViewById(R.id.selected_mark)));
     }
     SpinnerViewHolder holder = (SpinnerViewHolder) convertView.getTag();
- //   holder.name.setText(getItem(position).getName());
-    holder.icon.setImageBitmap(getItem(position).getIcon());
-    holder.checked.setChecked(position == mCheckedPosition);
+    if (position == mCheckedPosition)
+      UiUtils.show(holder.tick);
+    else
+      UiUtils.hide(holder.tick);
+
+    final Resources res = getContext().getResources();
+    holder.icon.setImageDrawable(
+        UiUtils.drawCircleForPin(getItem(position).getType(), (int)res.getDimension(R.dimen.dp_x_16), res));
+
     return convertView;
   }
 
   private class SpinnerViewHolder
   {
-//    TextView name;
     ImageView icon;
-    RadioButton checked;
+    ImageView tick;
 
-    public SpinnerViewHolder(TextView name, ImageView icon, RadioButton check)
+    public SpinnerViewHolder(ImageView icon, ImageView tick)
     {
-//      this.name = name;
       this.icon = icon;
-      this.checked = check;
-      checked.setVisibility(View.VISIBLE);
+      this.tick = tick;
     }
 
   }
