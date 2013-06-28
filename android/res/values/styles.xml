@@ -49,4 +49,14 @@
         <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-light</item>
     </style>
 
+    <style name="labelGreen" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/base_green</item>
+        <item name="android:textSize">@dimen/sp_x_3</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="pinEditableParam" parent="Holo.EditText.Light">
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:layout_marginBottom">@dimen/dp_x_4</item>
+        <item name="android:textSize">@dimen/sp_x_4</item>
+    </style>
 </resources>

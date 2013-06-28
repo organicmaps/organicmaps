@@ -17,118 +17,87 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" >
+        android:layout_weight="1"
+        android:padding="@dimen/dp_x_3" >
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
+            <!-- NAME -->
+
+            <TextView
+                style="@style/labelGreen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/name" />
+
+            <include layout="@layout/green_separator"/>
+
             <EditText
                 android:id="@+id/pin_name"
+                style="@style/pinEditableParam"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:hint="@string/name"
-                android:imeOptions="actionDone"
                 android:singleLine="true" />
 
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1px"
-                android:background="@drawable/abs__list_divider_holo_light"/>
+            <!-- SET -->
 
-            <RelativeLayout
-                android:id="@+id/pin_sets"
-                android:layout_width="fill_parent"
+            <TextView
+                style="@style/labelGreen"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/list_selector_holo_light"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp" >
+                android:text="@string/set" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_toLeftOf="@+id/disclosure_image_cat"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical" >
+            <include layout="@layout/green_separator"/>
 
-                    <TextView
-                        android:id="@+id/pin_button_set_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:text="sdfjdslkfjdsklf"
-                        android:textSize="18sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/dp_x_4" >
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:text="@string/set"
-                        android:textColor="@android:color/darker_gray" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/pin_set_chooser"
+                    style="@style/pinEditableParam"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="0dp"
+                    android:background="@drawable/spinner_background_holo_light"
+                    android:focusable="false"/>
 
                 <ImageView
-                    android:id="@+id/disclosure_image_cat"
+                    android:id="@+id/color_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:src="@drawable/cell_arrow_black" />
-            </RelativeLayout>
+                    android:paddingLeft="@dimen/dp_x_4"
+                    android:layout_weight="0"
+                    android:background="@drawable/spinner_background_holo_light"
+                    android:src="@drawable/ic_location" />
+            </LinearLayout>
 
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1px"
-                android:background="@drawable/abs__list_divider_holo_light" />
+            <!-- DESCR -->
 
-            <RelativeLayout
-                android:id="@+id/pin_color_chooser"
-                android:layout_width="fill_parent"
+            <TextView
+                style="@style/labelGreen"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/list_selector_holo_light"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp" >
+                android:text="@string/description" />
 
-                <include
-                    android:layout_alignParentLeft="true"
-                    android:layout_toLeftOf="@+id/disclosure_image_color"
-                    layout="@layout/color_row"
-                    android:clickable="false"
-                    android:focusable="false" />
-
-                <ImageView
-                    android:id="@+id/disclosure_image_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/cell_arrow_black" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1px"
-                android:background="@drawable/abs__list_divider_holo_light" />
+            <include layout="@layout/green_separator"/>
 
             <EditText
                 android:id="@+id/pin_description"
+                style="@style/pinEditableParam"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:hint="@string/description"
-                android:imeOptions="actionDone" />
+                android:hint="@string/description" />
 
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1px"
-                android:background="@drawable/abs__list_divider_holo_light" />
+            <!-- BUTTONS -->
 
             <Button
                 android:layout_width="fill_parent"

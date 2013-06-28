@@ -23,12 +23,14 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -45,12 +47,15 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
   private Bookmark mPin;
   private EditText mName;
-  private TextView mSetName;
-  private int mCurrentCategoryId = -1;
-  private List<Icon> mIcons;
-  private ImageView mChooserImage;
   private EditText mDescr;
+  private TextView mSet;
+  private ImageView mPinImage;
+
+  private int mCurrentCategoryId = -1;
+
   private Icon mIcon = null;
+  private List<Icon> mIcons;
+
 
   public static void startWithBookmark(Context context, int category, int bookmark)
   {
@@ -88,27 +93,28 @@ public class BookmarkActivity extends AbstractBookmarkActivity
     }
 
     mIcon = icon;
-    mChooserImage.setImageBitmap(mIcon.getIcon());
+    mPinImage.setImageDrawable(UiUtils
+        .drawCircleForPin(mIcon.getName(), (int) getResources().getDimension(R.dimen.dp_x_6), getResources()));
   }
 
   private void refreshValuesInViews()
   {
     updateColorChooser(mPin.getIcon());
 
-    mSetName.setText(mPin.getCategoryName());
 
     Utils.setStringAndCursorToEnd(mName, mPin.getName());
-
+    mSet.setText(mPin.getCategoryName());
     mDescr.setText(mPin.getBookmarkDescription());
   }
 
   private void setUpViews()
   {
-    View colorChooser = findViewById(R.id.pin_color_chooser);
-    mChooserImage = (ImageView)colorChooser.findViewById(R.id.row_color_image);
     mIcons = mManager.getIcons();
 
-    colorChooser.setOnClickListener(new OnClickListener()
+    mSet = (TextView) findViewById(R.id.pin_set_chooser);
+    mPinImage = (ImageView)findViewById(R.id.color_image);
+
+    mPinImage.setOnClickListener(new OnClickListener()
     {
       @SuppressWarnings("deprecation")
       @Override
@@ -118,7 +124,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       }
     });
 
-    findViewById(R.id.pin_sets).setOnClickListener(new OnClickListener()
+    mSet.setOnClickListener(new OnClickListener()
     {
       @Override
       public void onClick(View v)
@@ -130,7 +136,6 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       }
     });
 
-    mSetName = (TextView) findViewById(R.id.pin_button_set_name);
     mName = (EditText) findViewById(R.id.pin_name);
     mDescr = (EditText)findViewById(R.id.pin_description);
 
