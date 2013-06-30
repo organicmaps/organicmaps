@@ -17,7 +17,7 @@
             android:id="@+id/showOnMap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_launcher_maps"
+            android:drawableLeft="@drawable/ic_launcher"
             android:text="@string/open_with_mapswithme" />
 
         <LinearLayout

@@ -21,6 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="@string/show_all"
-        android:drawableLeft="@drawable/ic_launcher_maps"/>
+        android:drawableLeft="@drawable/ic_launcher"/>
 
 </LinearLayout>
