@@ -116,7 +116,11 @@ void ParsedMapApi::AddKeyValue(string key, string const & value)
   }
   else if (key == "backurl")
   {
-    m_globalBackUrl = value;
+    // Fix missing :// in back url, it's important for iOS
+    if (value.find("://") == string::npos)
+      m_globalBackUrl = value + "://";
+    else
+      m_globalBackUrl = value;
   }
   else if (key == "v")
   {

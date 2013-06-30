@@ -96,6 +96,10 @@ UNIT_TEST(MapApiPointURLEncoded)
 UNIT_TEST(GlobalBackUrl)
 {
   {
+    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName&backurl=someTestAppBackUrl"));
+    TEST_EQUAL(api.GetGlobalBackUrl(), "someTestAppBackUrl://", ());
+  }
+  {
     ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName&backurl=ge0://"));
     TEST_EQUAL(api.GetGlobalBackUrl(), "ge0://", ());
   }
@@ -125,7 +129,7 @@ UNIT_TEST(GlobalBackUrl)
   }
   {
     ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName&backurl=%E6%88%91%E6%84%9Bmapswithme"));
-    TEST_EQUAL(api.GetGlobalBackUrl(), "我愛mapswithme", ());
+    TEST_EQUAL(api.GetGlobalBackUrl(), "我愛mapswithme://", ());
   }
 }
 
