@@ -2,14 +2,16 @@ package com.mapswithme.maps.bookmarks;
 
 import java.util.List;
 
+import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -17,15 +19,12 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
@@ -65,6 +64,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
     .putExtra(BookmarkActivity.PIN, new ParcelablePoint(category, bookmark)));
   }
 
+  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
   @Override
   public void onCreate(Bundle savedInstanceState)
   {
@@ -81,6 +81,37 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
     setTitle(mPin.getName());
     setUpViews();
+
+
+
+    if (Utils.apiEqualOrGreaterThan(11) && getActionBar() != null)
+    {
+      final ActionBar ab = getActionBar();
+      ab.setDisplayShowHomeEnabled(false);
+      ab.setDisplayShowTitleEnabled(false);
+      ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+
+      final View abView = getLayoutInflater().inflate(R.layout.done_delete, null);
+      ab.setCustomView(abView);
+
+      abView.findViewById(R.id.done).setOnClickListener(new OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          onOkClick(null);
+        }
+      });
+      abView.findViewById(R.id.delete).setOnClickListener(new OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          onDeleteClick(null);
+        }
+      });
+      UiUtils.hide(findViewById(R.id.btn_done), findViewById(R.id.btn_delete));
+    }
   }
 
 
@@ -112,9 +143,11 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   private void setUpViews()
   {
     mIcons = mManager.getIcons();
-
     mSet = (TextView) findViewById(R.id.pin_set_chooser);
     mPinImage = (ImageView)findViewById(R.id.color_image);
+
+    mName = (EditText) findViewById(R.id.pin_name);
+    mDescr = (EditText)findViewById(R.id.pin_description);
 
     mPinImage.setOnClickListener(new OnClickListener()
     {
@@ -131,15 +164,12 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       @Override
       public void onClick(View v)
       {
-        startActivityForResult(new Intent(BookmarkActivity.this,
-                                          ChooseBookmarkCategoryActivity.class)
-        .putExtra(PIN_SET, mCurrentCategoryId)
-        .putExtra(PIN, new ParcelablePoint(mPin.getCategoryId(), mPin.getBookmarkId())), REQUEST_CODE_SET);
+        startActivityForResult(new Intent(BookmarkActivity.this, ChooseBookmarkCategoryActivity.class)
+          .putExtra(PIN_SET, mCurrentCategoryId)
+          .putExtra(PIN, new ParcelablePoint(mPin.getCategoryId(), mPin.getBookmarkId())), REQUEST_CODE_SET);
       }
     });
 
-    mName = (EditText) findViewById(R.id.pin_name);
-    mDescr = (EditText)findViewById(R.id.pin_description);
 
     refreshValuesInViews();
 
@@ -149,18 +179,15 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       public void onTextChanged(CharSequence s, int start, int before, int count)
       {
         setTitle(s.toString());
-
         // Note! Do not set actual name here - saving process may be too long
         // see assignPinParams() instead.
       }
+
       @Override
-      public void beforeTextChanged(CharSequence s, int start, int count, int after)
-      {
-      }
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
       @Override
-      public void afterTextChanged(Editable s)
-      {
-      }
+      public void afterTextChanged(Editable s) {}
     });
   }
 
@@ -213,9 +240,9 @@ public class BookmarkActivity extends AbstractBookmarkActivity
     gView.setSelector(new ColorDrawable(Color.TRANSPARENT));
 
     final Dialog d = new AlertDialog.Builder(this)
-    .setTitle(R.string.bookmark_color)
-    .setView(gView)
-    .create();
+      .setTitle(R.string.bookmark_color)
+      .setView(gView)
+      .create();
 
     gView.setOnItemClickListener(new OnItemClickListener()
     {
