@@ -297,7 +297,7 @@ typedef enum {Editing, Saved} Mode;
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
   if (section == 0 && m_mode == Saved)
-    return self.placeAndCompass;
+    return [self getCompassView];
   if (section == 1 && [self.pinNotes length] && m_mode == Saved)
   {
     //Refactor we can do better
@@ -321,14 +321,10 @@ typedef enum {Editing, Saved} Mode;
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
   if (section == 0 && m_mode == Saved)
-  {
-    if (!_placeAndCompass)
-      _placeAndCompass = [[PlaceAndCompasView alloc] initWithName:self.pinTitle placeSecondaryName:[NSString stringWithUTF8String:GetFramework().GetBmCategory(_pinEditedBookmark.first)->GetName().c_str()] placeGlobalPoint:_pinGlobalPosition width:self.tableView.frame.size.width];
-    return self.placeAndCompass.frame.size.height;
-  }
+    return [self getCompassView].frame.size.height;
   if (section == 1 && [self.pinNotes length] && m_mode == Saved)
     return [self getDescriptionHeight] + MARGIN;
-  return 0;
+  return [self.tableView sectionHeaderHeight];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
@@ -342,7 +338,7 @@ typedef enum {Editing, Saved} Mode;
 {
   if (section == 1  && m_mode == Saved)
     return TWOBUTTONSHEIGHT;
-  return 0;
+  return [self.tableView sectionFooterHeight];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -864,6 +860,13 @@ typedef enum {Editing, Saved} Mode;
 {
   if (textView.tag == TEXTVIEW_TAG)
     self.pinNotes = textView.text;
+}
+
+-(PlaceAndCompasView *)getCompassView
+{
+  if (!self.placeAndCompass)
+    _placeAndCompass = [[PlaceAndCompasView alloc] initWithName:self.pinTitle placeSecondaryName:[NSString stringWithUTF8String:GetFramework().GetBmCategory(_pinEditedBookmark.first)->GetName().c_str()] placeGlobalPoint:_pinGlobalPosition width:self.tableView.frame.size.width];
+  return self.placeAndCompass;
 }
 
 @end

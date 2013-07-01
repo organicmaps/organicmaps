@@ -88,11 +88,10 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
 
 -(void)viewDidLoad
 {
+  [super viewDidLoad];
   self.navigationController.navigationBarHidden = NO;
   [self setTitle:NSLocalizedString(@"info", nil)];
   [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged)  name:UIDeviceOrientationDidChangeNotification  object:nil];
-
-  [super viewDidLoad];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -162,7 +161,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
   if (section == 0)
-    return self.placeAndCompass;
+    return [self getCompassView];
   return nil;
 }
 
@@ -180,35 +179,14 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
 {
   if (section == 1)
     return TWOBUTTONSHEIGHT;
-  return 0;
+  return [self.tableView sectionFooterHeight];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
   if (section == 0)
-  {
-    NSString * name = nil, * type = nil;
-    if (m_previewType == POI)
-    {
-      name = [NSString stringWithUTF8String:m_poiInfo.GetPinName().c_str()];
-      char const * c = m_poiInfo.GetBestType();
-      type = c ? [NSString stringWithUTF8String:c] : @"";
-    }
-    else if (m_previewType == APIPOINT)
-    {
-      name = [NSString stringWithUTF8String:m_apiPoint.m_name.c_str()];
-      type = @"";
-    }
-    else
-    {
-      name = NSLocalizedString(@"my_position", nil);
-      type = @"";
-    }
-    if (!_placeAndCompass)
-      _placeAndCompass = [[PlaceAndCompasView alloc] initWithName:name placeSecondaryName:type placeGlobalPoint:m_point width:self.tableView.frame.size.width];
-    return self.placeAndCompass.frame.size.height;
-  }
-  return 0;
+    return [self getCompassView].frame.size.height;
+  return [self.tableView sectionHeaderHeight];
 }
 
 -(void)share
@@ -359,6 +337,28 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
   return YES;
+}
+
+-(PlaceAndCompasView *)getCompassView
+{
+  if (!self.placeAndCompass)
+  {
+    NSString * name = nil;
+    NSString * type = @"";
+    if (m_previewType == POI)
+    {
+      name = [NSString stringWithUTF8String:m_poiInfo.GetPinName().c_str()];
+      char const * c = m_poiInfo.GetBestType();
+      type = c ? [NSString stringWithUTF8String:c] : @"";
+    }
+    else if (m_previewType == APIPOINT)
+      name = [NSString stringWithUTF8String:m_apiPoint.m_name.c_str()];
+    else
+      name = NSLocalizedString(@"my_position", nil);
+    if (!_placeAndCompass)
+      _placeAndCompass = [[PlaceAndCompasView alloc] initWithName:name placeSecondaryName:type placeGlobalPoint:m_point width:self.tableView.frame.size.width];
+  }
+  return self.placeAndCompass;
 }
 
 @end
