@@ -26,38 +26,12 @@
 
  ******************************************************************************/
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_4_3
-  #error "MapsWithMe supports iOS >= 4.3 only"
-#endif
+@class CityDetailViewController;
 
-// Wrapper for a pin on a map
-@interface MWMPin : NSObject
+@interface MasterViewController : UITableViewController
 
-// [required] pin latitude and longitude
-@property (nonatomic, assign) double lat;
-@property (nonatomic, assign) double lon;
-// [optional] pin title
-@property (nonatomic, retain) NSString * optionalTitle;
-// [optional] passed back to the app when pin is clicked, OR, if it's a valid url,
-// it will be opened from MapsWithMe after selecting "More Details..." for the pin
-@property (nonatomic, retain) NSString * optionalId;
-- (id) initWithLat:(double)lat lon:(double)lon title:(NSString *)title id:(NSString *)pinId;
-@end
-
-
-// MapsWithMe API interface
-@interface MWMApi : NSObject
-
-// returns YES if url is received from MapsWithMe and can be parsed
-+ (BOOL) isMapsWithMeUrl:(NSURL *)url;
-// returns nil if received url is invalid or not from MapsWithMe
-+ (MWMPin *) pinFromUrl:(NSURL *)url;
-// returns NO if MapsWithMe is not installed or outdated version doesn't support API calls
-+ (BOOL) isApiSupported;
-+ (BOOL) showLat:(double)lat lon:(double)lon title:(NSString *)optionalTitle id:(NSString *)optionalId;
-+ (BOOL) showPin:(MWMPin *)pin;
-+ (BOOL) showPins:(NSArray *)pins;
+@property (strong, nonatomic) CityDetailViewController * detailViewController;
 
 @end

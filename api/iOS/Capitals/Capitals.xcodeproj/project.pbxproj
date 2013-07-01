@@ -1,0 +1,382 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FA1792CE17784F000092B567 /* MapsWithMeAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1792CC17784F000092B567 /* MapsWithMeAPI.m */; };
+		FA776B4F17848A370023F7A0 /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA776B4D17848A370023F7A0 /* MasterViewController.xib */; };
+		FAA484EA178108970027B232 /* 114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA484E2178108970027B232 /* 114x114.png */; };
+		FAA484EB178108970027B232 /* 144x144.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA484E3178108970027B232 /* 144x144.png */; };
+		FAA484EC178108970027B232 /* 100x100.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA484E4178108970027B232 /* 100x100.png */; };
+		FAA484ED178108970027B232 /* 72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA484E5178108970027B232 /* 72x72.png */; };
+		FAA484EE178108970027B232 /* 58x58.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA484E6178108970027B232 /* 58x58.png */; };
+		FAA484EF178108970027B232 /* 57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA484E7178108970027B232 /* 57x57.png */; };
+		FAA484F0178108970027B232 /* 50x50.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA484E8178108970027B232 /* 50x50.png */; };
+		FAA484F1178108970027B232 /* 29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA484E9178108970027B232 /* 29x29.png */; };
+		FAD3DD4F177221B500B0735B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD3DD4E177221B500B0735B /* UIKit.framework */; };
+		FAD3DD51177221B500B0735B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD3DD50177221B500B0735B /* Foundation.framework */; };
+		FAD3DD53177221B500B0735B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD3DD52177221B500B0735B /* CoreGraphics.framework */; };
+		FAD3DD5B177221B500B0735B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD3DD5A177221B500B0735B /* main.m */; };
+		FAD3DD5F177221B500B0735B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD3DD5E177221B500B0735B /* AppDelegate.m */; };
+		FAD3DD61177221B500B0735B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FAD3DD60177221B500B0735B /* Default.png */; };
+		FAD3DD63177221B500B0735B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAD3DD62177221B500B0735B /* Default@2x.png */; };
+		FAD3DD65177221B500B0735B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAD3DD64177221B500B0735B /* Default-568h@2x.png */; };
+		FAD3DD68177221B500B0735B /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD3DD67177221B500B0735B /* MasterViewController.m */; };
+		FAD3DD7F1772246600B0735B /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD3DD7E1772246600B0735B /* City.m */; };
+		FAD3DD8317724D4A00B0735B /* CityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD3DD8117724D4A00B0735B /* CityDetailViewController.m */; };
+		FAD3DD8417724D4A00B0735B /* CityDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAD3DD8217724D4A00B0735B /* CityDetailViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		FA1792CC17784F000092B567 /* MapsWithMeAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapsWithMeAPI.m; path = ../src/MapsWithMeAPI.m; sourceTree = "<group>"; };
+		FA1792CD17784F000092B567 /* MapsWithMeAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapsWithMeAPI.h; path = ../src/MapsWithMeAPI.h; sourceTree = "<group>"; };
+		FA776B4D17848A370023F7A0 /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
+		FAA484E2178108970027B232 /* 114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 114x114.png; sourceTree = "<group>"; };
+		FAA484E3178108970027B232 /* 144x144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 144x144.png; sourceTree = "<group>"; };
+		FAA484E4178108970027B232 /* 100x100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 100x100.png; sourceTree = "<group>"; };
+		FAA484E5178108970027B232 /* 72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 72x72.png; sourceTree = "<group>"; };
+		FAA484E6178108970027B232 /* 58x58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 58x58.png; sourceTree = "<group>"; };
+		FAA484E7178108970027B232 /* 57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 57x57.png; sourceTree = "<group>"; };
+		FAA484E8178108970027B232 /* 50x50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 50x50.png; sourceTree = "<group>"; };
+		FAA484E9178108970027B232 /* 29x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 29x29.png; sourceTree = "<group>"; };
+		FAD3DD4B177221B500B0735B /* Capitals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Capitals.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAD3DD4E177221B500B0735B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		FAD3DD50177221B500B0735B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		FAD3DD52177221B500B0735B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		FAD3DD56177221B500B0735B /* Capitals-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Capitals-Info.plist"; sourceTree = "<group>"; };
+		FAD3DD5A177221B500B0735B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FAD3DD5C177221B500B0735B /* Capitals-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Capitals-Prefix.pch"; sourceTree = "<group>"; };
+		FAD3DD5D177221B500B0735B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		FAD3DD5E177221B500B0735B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		FAD3DD60177221B500B0735B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		FAD3DD62177221B500B0735B /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		FAD3DD64177221B500B0735B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		FAD3DD66177221B500B0735B /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
+		FAD3DD67177221B500B0735B /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		FAD3DD7D177223BB00B0735B /* City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = City.h; sourceTree = "<group>"; };
+		FAD3DD7E1772246600B0735B /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = City.m; sourceTree = "<group>"; };
+		FAD3DD8017724D4A00B0735B /* CityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityDetailViewController.h; sourceTree = "<group>"; };
+		FAD3DD8117724D4A00B0735B /* CityDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityDetailViewController.m; sourceTree = "<group>"; };
+		FAD3DD8217724D4A00B0735B /* CityDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityDetailViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FAD3DD48177221B500B0735B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAD3DD4F177221B500B0735B /* UIKit.framework in Frameworks */,
+				FAD3DD51177221B500B0735B /* Foundation.framework in Frameworks */,
+				FAD3DD53177221B500B0735B /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FA1792C7177843650092B567 /* MapsWithMe API */ = {
+			isa = PBXGroup;
+			children = (
+				FA1792CD17784F000092B567 /* MapsWithMeAPI.h */,
+				FA1792CC17784F000092B567 /* MapsWithMeAPI.m */,
+			);
+			name = "MapsWithMe API";
+			sourceTree = "<group>";
+		};
+		FAD3DD42177221B500B0735B = {
+			isa = PBXGroup;
+			children = (
+				FA1792C7177843650092B567 /* MapsWithMe API */,
+				FAD3DD54177221B500B0735B /* Capitals */,
+				FAD3DD4D177221B500B0735B /* Frameworks */,
+				FAD3DD4C177221B500B0735B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FAD3DD4C177221B500B0735B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FAD3DD4B177221B500B0735B /* Capitals.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FAD3DD4D177221B500B0735B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FAD3DD4E177221B500B0735B /* UIKit.framework */,
+				FAD3DD50177221B500B0735B /* Foundation.framework */,
+				FAD3DD52177221B500B0735B /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FAD3DD54177221B500B0735B /* Capitals */ = {
+			isa = PBXGroup;
+			children = (
+				FAD3DD5D177221B500B0735B /* AppDelegate.h */,
+				FAD3DD5E177221B500B0735B /* AppDelegate.m */,
+				FAD3DD7D177223BB00B0735B /* City.h */,
+				FAD3DD7E1772246600B0735B /* City.m */,
+				FAD3DD8017724D4A00B0735B /* CityDetailViewController.h */,
+				FAD3DD8117724D4A00B0735B /* CityDetailViewController.m */,
+				FAD3DD8217724D4A00B0735B /* CityDetailViewController.xib */,
+				FAD3DD66177221B500B0735B /* MasterViewController.h */,
+				FAD3DD67177221B500B0735B /* MasterViewController.m */,
+				FA776B4D17848A370023F7A0 /* MasterViewController.xib */,
+				FAD3DD55177221B500B0735B /* Supporting Files */,
+			);
+			path = Capitals;
+			sourceTree = "<group>";
+		};
+		FAD3DD55177221B500B0735B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FAA484E2178108970027B232 /* 114x114.png */,
+				FAA484E3178108970027B232 /* 144x144.png */,
+				FAA484E4178108970027B232 /* 100x100.png */,
+				FAA484E5178108970027B232 /* 72x72.png */,
+				FAA484E6178108970027B232 /* 58x58.png */,
+				FAA484E7178108970027B232 /* 57x57.png */,
+				FAA484E8178108970027B232 /* 50x50.png */,
+				FAA484E9178108970027B232 /* 29x29.png */,
+				FAD3DD56177221B500B0735B /* Capitals-Info.plist */,
+				FAD3DD5A177221B500B0735B /* main.m */,
+				FAD3DD5C177221B500B0735B /* Capitals-Prefix.pch */,
+				FAD3DD60177221B500B0735B /* Default.png */,
+				FAD3DD62177221B500B0735B /* Default@2x.png */,
+				FAD3DD64177221B500B0735B /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FAD3DD4A177221B500B0735B /* Capitals */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FAD3DD7A177221B500B0735B /* Build configuration list for PBXNativeTarget "Capitals" */;
+			buildPhases = (
+				FAD3DD47177221B500B0735B /* Sources */,
+				FAD3DD48177221B500B0735B /* Frameworks */,
+				FAD3DD49177221B500B0735B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Capitals;
+			productName = Capitals;
+			productReference = FAD3DD4B177221B500B0735B /* Capitals.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FAD3DD43177221B500B0735B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "MapsWithMe GmbH";
+			};
+			buildConfigurationList = FAD3DD46177221B500B0735B /* Build configuration list for PBXProject "Capitals" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = FAD3DD42177221B500B0735B;
+			productRefGroup = FAD3DD4C177221B500B0735B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FAD3DD4A177221B500B0735B /* Capitals */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FAD3DD49177221B500B0735B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAD3DD61177221B500B0735B /* Default.png in Resources */,
+				FAD3DD63177221B500B0735B /* Default@2x.png in Resources */,
+				FAD3DD65177221B500B0735B /* Default-568h@2x.png in Resources */,
+				FAD3DD8417724D4A00B0735B /* CityDetailViewController.xib in Resources */,
+				FAA484EA178108970027B232 /* 114x114.png in Resources */,
+				FAA484EB178108970027B232 /* 144x144.png in Resources */,
+				FAA484EC178108970027B232 /* 100x100.png in Resources */,
+				FAA484ED178108970027B232 /* 72x72.png in Resources */,
+				FAA484EE178108970027B232 /* 58x58.png in Resources */,
+				FAA484EF178108970027B232 /* 57x57.png in Resources */,
+				FAA484F0178108970027B232 /* 50x50.png in Resources */,
+				FAA484F1178108970027B232 /* 29x29.png in Resources */,
+				FA776B4F17848A370023F7A0 /* MasterViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FAD3DD47177221B500B0735B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAD3DD5B177221B500B0735B /* main.m in Sources */,
+				FAD3DD5F177221B500B0735B /* AppDelegate.m in Sources */,
+				FAD3DD68177221B500B0735B /* MasterViewController.m in Sources */,
+				FAD3DD7F1772246600B0735B /* City.m in Sources */,
+				FAD3DD8317724D4A00B0735B /* CityDetailViewController.m in Sources */,
+				FA1792CE17784F000092B567 /* MapsWithMeAPI.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		FA776B5117848EC50023F7A0 /* Production */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				COPY_PHASE_STRIP = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_NAME = "Capitals of the World";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Production;
+		};
+		FA776B5217848EC50023F7A0 /* Production */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Capitals/Capitals-Prefix.pch";
+				INFOPLIST_FILE = "Capitals/Capitals-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Production;
+		};
+		FAD3DD78177221B500B0735B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "Capitals of the World";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FAD3DD79177221B500B0735B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_NAME = "Capitals of the World";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FAD3DD7B177221B500B0735B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Capitals/Capitals-Prefix.pch";
+				INFOPLIST_FILE = "Capitals/Capitals-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		FAD3DD7C177221B500B0735B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Capitals/Capitals-Prefix.pch";
+				INFOPLIST_FILE = "Capitals/Capitals-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FAD3DD46177221B500B0735B /* Build configuration list for PBXProject "Capitals" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAD3DD78177221B500B0735B /* Debug */,
+				FAD3DD79177221B500B0735B /* Release */,
+				FA776B5117848EC50023F7A0 /* Production */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FAD3DD7A177221B500B0735B /* Build configuration list for PBXNativeTarget "Capitals" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAD3DD7B177221B500B0735B /* Debug */,
+				FAD3DD7C177221B500B0735B /* Release */,
+				FA776B5217848EC50023F7A0 /* Production */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FAD3DD43177221B500B0735B /* Project object */;
+}
