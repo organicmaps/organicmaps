@@ -540,16 +540,6 @@ typedef enum {Editing, Saved} Mode;
 {
   [self.view endEditing:YES];
   m_mode = Saved;
-  UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-  if (!cell)
-    cell = [self.tableView dequeueReusableCellWithIdentifier:@"EditingNameCellId"];
-  UITextField * f = (UITextField *)[cell viewWithTag:TEXTFIELD_TAG];
-  self.pinTitle = f.text;
-  cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:3]];
-  if (!cell)
-    cell = [self.tableView dequeueReusableCellWithIdentifier:@"EditingDF"];
-  UITextView * t = (UITextView *)[cell viewWithTag:TEXTVIEW_TAG];
-  self.pinNotes = t.text;
   [self savePin];
   [self goToTheMap];
   GetFramework().GetBalloonManager().Hide();
@@ -725,6 +715,7 @@ typedef enum {Editing, Saved} Mode;
       f.tag = TEXTFIELD_TAG;
       f.delegate = self;
       f.autocapitalizationType = UITextAutocapitalizationTypeWords;
+      [f addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
       // Reset temporary font
       cell.detailTextLabel.text = nil;
       [cell.contentView addSubview:f];
@@ -803,8 +794,11 @@ typedef enum {Editing, Saved} Mode;
 
 -(void)orientationChanged
 {
-  [self.placeAndCompass drawView];
-  [self.tableView reloadData];
+  if (m_mode == Saved)
+  {
+    [self.placeAndCompass drawView];
+    [self.tableView reloadData];
+  }
 }
 
 -(void)goToTheMap
@@ -819,12 +813,6 @@ typedef enum {Editing, Saved} Mode;
 -(CGFloat)getDescriptionHeight
 {
   return [self.pinNotes sizeWithFont:[UIFont fontWithName:@"Helvetica" size:18] constrainedToSize:CGSizeMake(self.tableView.frame.size.width - 3 * SMALLMARGIN, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-  if (textView.tag == TEXTVIEW_TAG)
-    self.pinNotes = textView.text;
 }
 
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
@@ -864,6 +852,18 @@ typedef enum {Editing, Saved} Mode;
 {
   NSLocale * decimalPointLocale = [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] autorelease];
   return [[[NSString alloc] initWithFormat:@"%@" locale:decimalPointLocale, [NSString stringWithFormat:@"%f %f", MercatorBounds::YToLat(self.pinGlobalPosition.y), MercatorBounds::XToLon(self.pinGlobalPosition.x)]] autorelease];
+}
+
+-(void)textFieldDidChange:(UITextField *)textField
+{
+  if (textField.tag == TEXTFIELD_TAG)
+    self.pinTitle = textField.text;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+  if (textView.tag == TEXTVIEW_TAG)
+    self.pinNotes = textView.text;
 }
 
 @end
