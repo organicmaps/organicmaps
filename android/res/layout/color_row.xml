@@ -12,6 +12,7 @@
         android:layout_centerInParent="true"
         android:background="@null"
         android:padding="@dimen/dp_x_1"
+        android:scaleType="centerInside"
         android:src="@drawable/ic_launcher" />
 
     <ImageView

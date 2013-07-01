@@ -49,6 +49,8 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
         Bookmark bmk = mManager.getBookmark(cab.x, cab.y);
         bmk.setCategoryId(position);
         getIntent().putExtra(BookmarkActivity.PIN, new ParcelablePoint(position, bmk.getBookmarkId()));
+
+        onBackPressed();
       }
     });
     setListAdapter(mAdapter = new ChooseBookmarkCategoryAdapter(this, getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1)));
@@ -137,6 +139,7 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
         public void onClick(View v)
         {
           createCategory();
+          onBackPressed();
         }
       });
 

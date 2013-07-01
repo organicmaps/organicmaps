@@ -13,7 +13,7 @@
         android:drawableLeft="@android:drawable/ic_input_add"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
-        android:padding="10dp"
+        android:padding="@dimen/dp_x_2"
         android:text="@string/add_new_set"
         android:textAppearance="@android:style/TextAppearance.Large"
         android:textColor="?android:textColorPrimary" />

@@ -25,6 +25,7 @@ public class ChooseBookmarkCategoryAdapter extends AbstractBookmarkCategoryAdapt
     if (convertView == null)
     {
       convertView = LayoutInflater.from(getContext()).inflate(R.layout.set_chooser_item, null);
+
       convertView.setTag(new SingleChoiceHolder((TextView) convertView.findViewById(R.id.sci_set_name),
           (RadioButton) convertView.findViewById(R.id.sci_checkbox)));
     }

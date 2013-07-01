@@ -7,7 +7,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -195,21 +197,20 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
   private Dialog createColorChooser()
   {
-
-
     final IconsAdapter adapter = new IconsAdapter(this, mIcons);
     adapter.chooseItem(mIcons.indexOf(mPin.getIcon()));
+
+    LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+    final int padSide = (int) getResources().getDimension(R.dimen.dp_x_8);
+    final int padTopB = (int) getResources().getDimension(R.dimen.dp_x_6);
 
     final GridView gView = new GridView(this);
     gView.setAdapter(adapter);
     gView.setNumColumns(4);
     gView.setGravity(Gravity.CENTER);
-    final int padSide = (int) getResources().getDimension(R.dimen.dp_x_10);
-    final int padTopB = (int) getResources().getDimension(R.dimen.dp_x_8);
     gView.setPadding(padSide, padTopB, padSide, padTopB);
-    LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
     gView.setLayoutParams(params);
-    gView.setItemChecked(adapter.getCheckedItemPosition(), true);
+    gView.setSelector(new ColorDrawable(Color.TRANSPARENT));
 
     final Dialog d = new AlertDialog.Builder(this)
     .setTitle(R.string.bookmark_color)
