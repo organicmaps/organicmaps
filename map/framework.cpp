@@ -27,8 +27,8 @@
 #include "../platform/platform.hpp"
 
 #include "../coding/internal/file_data.hpp"
-
 #include "../coding/zip_reader.hpp"
+#include "../coding/url_encode.hpp"
 
 #include "../geometry/angles.hpp"
 #include "../geometry/distance_on_sphere.hpp"
@@ -1662,11 +1662,14 @@ bool Framework::GetMapApiPoint(m2::PointD const & pxPoint, url_scheme::ApiPoint 
 
 string Framework::GenerateApiBackUrl(url_scheme::ApiPoint const & point)
 {
-  string res = GetMapApiBackUrl();
-  if (!res.empty() && res[res.size() -1] != '/')
-    res += '/';
-  res += "map?ll=" + strings::to_string(point.m_lat) + "," + strings::to_string(point.m_lon);
-  if (!point.m_name.empty())
-    res += "&n=" + point.m_name;
+  string res = m_ParsedMapApi.GetGlobalBackUrl();
+  if (!res.empty())
+  {
+    res += "pin?ll=" + strings::to_string(point.m_lat) + "," + strings::to_string(point.m_lon);
+    if (!point.m_name.empty())
+      res += "&n=" + UrlEncode(point.m_name);
+    if (!point.m_id.empty())
+      res += "&id=" + UrlEncode(point.m_id);
+  }
   return res;
 }

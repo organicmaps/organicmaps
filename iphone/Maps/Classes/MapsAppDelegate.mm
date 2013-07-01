@@ -65,11 +65,10 @@ void InitLocalizedStrings()
   UIPasteboard * pasteboard = [UIPasteboard generalPasteboard];
   if (GetPlatform().IsPro() && !m_didOpenedWithUrl)
   {
-    NSString * url = [pasteboard.string stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    if ([url length])
+    if (pasteboard.string.length)
     {
       url_scheme::ApiPoint apiPoint;
-      if (GetFramework().SetViewportByURL([url UTF8String], apiPoint))
+      if (GetFramework().SetViewportByURL([pasteboard.string UTF8String], apiPoint))
       {
         [self showParsedBookmarkOnMap:apiPoint];
         pasteboard.string = @"";
@@ -188,7 +187,7 @@ void InitLocalizedStrings()
   if ([scheme isEqualToString:@"geo"] || [scheme isEqualToString:@"ge0"])
   {
     url_scheme::ApiPoint apiPoint;
-    if (GetFramework().SetViewportByURL([[url.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] UTF8String], apiPoint))
+    if (GetFramework().SetViewportByURL([url.absoluteString UTF8String], apiPoint))
     {
       [self showParsedBookmarkOnMap:apiPoint];
       m_didOpenedWithUrl = YES;
@@ -202,7 +201,7 @@ void InitLocalizedStrings()
   if ([scheme isEqualToString:@"mapswithme"])
   {
     url_scheme::ApiPoint apiPoint;
-    if (GetFramework().SetViewportByURL([[url.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] UTF8String], apiPoint));
+    if (GetFramework().SetViewportByURL([url.absoluteString UTF8String], apiPoint));
     {
       [[Statistics instance] logApiUsage:sourceApplication];
       [self showMap];
