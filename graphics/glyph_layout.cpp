@@ -12,57 +12,6 @@
 
 namespace graphics
 {
-  double GlyphLayout::getKerning(GlyphLayoutElem const & prevElem,
-                                 GlyphMetrics const & prevMetrics,
-                                 GlyphLayoutElem const & curElem,
-                                 GlyphMetrics const & curMetrics)
-  {
-    double res = 0;
-    /// check, whether we should offset this symbol slightly
-    /// not to overlap the previous symbol
-
-    m2::AnyRectD prevSymRectAA(
-          prevElem.m_pt.Move(prevMetrics.m_height,
-                            -prevElem.m_angle.cos(),
-                             prevElem.m_angle.sin()), //< moving by angle = prevElem.m_angle - math::pi / 2
-          prevElem.m_angle,
-          m2::RectD(prevMetrics.m_xOffset,
-                    prevMetrics.m_yOffset,
-                    prevMetrics.m_xOffset + prevMetrics.m_width,
-                    prevMetrics.m_yOffset + prevMetrics.m_height));
-
-    m2::AnyRectD curSymRectAA(
-          curElem.m_pt.Move(curMetrics.m_height,
-                           -curElem.m_angle.cos(),
-                            curElem.m_angle.sin()), //< moving by angle = curElem.m_angle - math::pi / 2
-          curElem.m_angle,
-          m2::RectD(curMetrics.m_xOffset,
-                    curMetrics.m_yOffset,
-                    curMetrics.m_xOffset + curMetrics.m_width,
-                    curMetrics.m_yOffset + curMetrics.m_height)
-          );
-
-    if (prevElem.m_angle.val() == curElem.m_angle.val())
-      return res;
-
-    //m2::RectD prevLocalRect = prevSymRectAA.GetLocalRect();
-    m2::PointD pts[4];
-    prevSymRectAA.GetGlobalPoints(pts);
-    curSymRectAA.ConvertTo(pts, 4);
-
-    m2::RectD prevRectInCurSym(pts[0].x, pts[0].y, pts[0].x, pts[0].y);
-    prevRectInCurSym.Add(pts[1]);
-    prevRectInCurSym.Add(pts[2]);
-    prevRectInCurSym.Add(pts[3]);
-
-    m2::RectD const & curSymRect = curSymRectAA.GetLocalRect();
-
-    if (curSymRect.minX() < prevRectInCurSym.maxX())
-      res = prevRectInCurSym.maxX() - curSymRect.minX();
-
-    return res;
-  }
-
   GlyphLayout::GlyphLayout()
   {}
 
@@ -297,18 +246,10 @@ namespace graphics
     // but now we do scale tiles for the fixed layout.
     double offset = m_textOffset - m_path.pathOffset();
     if (offset < 0.0)
-    {
-      /// @todo Try to fix this heuristic.
-      if (offset > -3.0)
-        offset = 0.0;
-      else
-        return;
-    }
+      return;
 
     // find first visible glyph
     size_t symPos = 0;
-    //while (offset < 0 &&  symPos < count)
-    //  offset += m_metrics[symPos++].m_xAdvance;
 
     PathPoint glyphStartPt = m_path.offsetPoint(arrPathStart, offset);
 
@@ -317,8 +258,7 @@ namespace graphics
 
     m_firstVisible = symPos;
 
-    GlyphLayoutElem prevElem; // previous glyph, to compute kerning from
-    GlyphMetrics prevMetrics;
+    GlyphLayoutElem prevElem;
     bool hasPrevElem = false;
 
     // calculate base line offset
@@ -326,79 +266,40 @@ namespace graphics
 
     for (; symPos < count; ++symPos)
     {
+      // can we find this glyph in fonts?
       if (glyphStartPt.m_i == -1)
-      {
-        //LOG(LWARNING, ("Can't find glyph", symPos, count));
         return;
-      }
 
       GlyphMetrics const & metrics = m_metrics[symPos];
       GlyphLayoutElem & entry = m_entries[symPos];
 
-      // full advance, including possible kerning.
-      double fullGlyphAdvance = metrics.m_xAdvance;
-
       if (metrics.m_width != 0)
       {
-        double fullKern = 0;
-        bool pathIsTooBended = false;
 
-        int i = 0;
-        for (; i < 100; ++i)
-        {
-          PivotPoint pivotPt = m_path.findPivotPoint(glyphStartPt, metrics, fullKern);
+        PivotPoint pivotPt = m_path.findPivotPoint(glyphStartPt, metrics);
 
-          if (pivotPt.m_pp.m_i == -1)
-          {
-            //LOG(LWARNING, ("Path text pivot error for glyph", symPos, count));
-            return;
-          }
+        // do we still have space on path for this glyph?
+        if (pivotPt.m_pp.m_i == -1)
+          return;
 
-          entry.m_angle = pivotPt.m_angle;
-          double const centerOffset = metrics.m_xOffset + metrics.m_width / 2.0;
-          entry.m_pt = pivotPt.m_pp.m_pt.Move(-centerOffset,
-                                              entry.m_angle.sin(),
-                                              entry.m_angle.cos());
+        entry.m_angle = pivotPt.m_angle;
 
-          entry.m_pt = entry.m_pt.Move(blOffset,
-                                       -entry.m_angle.cos(),
-                                       entry.m_angle.sin());
-
-          // check if angle between letters is too big
-          if (hasPrevElem && (ang::GetShortestDistance(prevElem.m_angle.m_val, entry.m_angle.m_val) > 0.8))
-          {
-            pathIsTooBended = true;
-            break;
-          }
-
-          // check whether we should "kern"
-          double kern = 0.0;
-          if (hasPrevElem)
-          {
-            kern = getKerning(prevElem, prevMetrics, entry, metrics);
-            if (kern < 0.5)
-              kern = 0.0;
-
-            fullGlyphAdvance += kern;
-            fullKern += kern;
-          }
-          if (kern == 0.0)
-            break;
-        }
-
-        if (i == 100)
-          LOG(LINFO, ("100 iteration on computing kerning exceeded. possibly infinite loop occured"));
-
-        if (pathIsTooBended)
+        // is path too bended to be shown at all?
+        if (hasPrevElem && (ang::GetShortestDistance(prevElem.m_angle.m_val, entry.m_angle.m_val) > 0.5))
           break;
+
+        double const centerOffset = metrics.m_xOffset + metrics.m_width / 2.0;
+        entry.m_pt = pivotPt.m_pp.m_pt.Move(-centerOffset,
+                                            entry.m_angle.sin(),
+                                            entry.m_angle.cos());
+
+        entry.m_pt = entry.m_pt.Move(blOffset,
+                                     -entry.m_angle.cos(),
+                                     entry.m_angle.sin());
 
         // kerning should be computed for baseline centered glyph
         prevElem = entry;
-        prevMetrics = metrics;
         hasPrevElem = true;
-
-        // align to baseline
-        //entry.m_pt = entry.m_pt.Move(blOffset - kernOffset, entry.m_angle - math::pi / 2);
       }
       else
       {
@@ -413,7 +314,7 @@ namespace graphics
         }
       }
 
-      glyphStartPt = m_path.offsetPoint(glyphStartPt, fullGlyphAdvance);
+      glyphStartPt = m_path.offsetPoint(glyphStartPt, metrics.m_xAdvance);
 
       m_lastVisible = symPos + 1;
     }

@@ -115,9 +115,29 @@ namespace graphics
     return m_pv.offsetPoint(pp, offset);
   }
 
-  PivotPoint TextPath::findPivotPoint(PathPoint const & pp, GlyphMetrics const & sym, double kern) const
+  PivotPoint TextPath::findPivotPoint(PathPoint const & pp, GlyphMetrics const & sym) const
   {
-    return m_pv.findPivotPoint(pp, sym.m_xOffset + sym.m_width / 2.0, kern);
+    const PivotPoint ptStart = m_pv.findPivotPoint(pp, sym.m_xOffset - sym.m_width);
+    const PivotPoint ptEnd = m_pv.findPivotPoint(pp, sym.m_xOffset + sym.m_width * 2);
+    // both start and end are on the same segment, no need to calculate
+    if (ptStart.m_pp.m_i == ptEnd.m_pp.m_i)
+      return PivotPoint(ptStart.m_angle,
+                        PathPoint(ptStart.m_pp.m_i, ptStart.m_angle, (ptStart.m_pp.m_pt + ptEnd.m_pp.m_pt) / 2.0));
+    // points are on different segments, average the angle and middle point
+    const PivotPoint ptMid = m_pv.findPivotPoint(pp, sym.m_xOffset + sym.m_width / 2.0);
+    if ((ptStart.m_pp.m_i != -1) && (ptMid.m_pp.m_i != -1) && (ptEnd.m_pp.m_i != -1))
+    {
+      const ang::AngleD avgAngle(ang::GetMiddleAngle(ptStart.m_angle.val(), ptEnd.m_angle.val()));
+
+      return PivotPoint(avgAngle,
+                        PathPoint(ptMid.m_pp.m_i, ptMid.m_angle,
+                                  (ptStart.m_pp.m_pt +
+                                   ptMid.m_pp.m_pt + ptMid.m_pp.m_pt + // twice to compensate for long distance
+                                   ptEnd.m_pp.m_pt) / 4.0));
+    }
+    // if some of the pivot points are outside of the path, just take the middle value
+    else
+      return ptMid;
   }
 
   PathPoint const TextPath::front() const

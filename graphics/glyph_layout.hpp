@@ -54,11 +54,6 @@ namespace graphics
     double m_textLength;
     double m_textOffset;
 
-    double getKerning(GlyphLayoutElem const & prevElem,
-                      GlyphMetrics const & prevMetrics,
-                      GlyphLayoutElem const & curElem,
-                      GlyphMetrics const & curMetrics);
-
     void computeBoundRects();
 
     void recalcPivot();

@@ -86,9 +86,9 @@ namespace graphics
     return res;
   }
 
-  PivotPoint PathView::findPivotPoint(PathPoint const & pp, double advance, double kern) const
+  PivotPoint PathView::findPivotPoint(PathPoint const & pp, double advance) const
   {
-    PathPoint startPt = offsetPoint(pp, kern);
+    PathPoint startPt = pp;
 
     PivotPoint res;
     if (startPt.m_i == -1)

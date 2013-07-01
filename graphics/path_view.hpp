@@ -43,7 +43,7 @@ namespace graphics
     bool isReverse() const;
 
     PathPoint const offsetPoint(PathPoint const & pp, double offset) const;
-    PivotPoint findPivotPoint(PathPoint const & pp, double advance, double kern) const;
+    PivotPoint findPivotPoint(PathPoint const & pp, double advance) const;
 
     PathPoint const front() const;
   };

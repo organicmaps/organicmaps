@@ -87,7 +87,7 @@ namespace graphics
 
     while (true)
     {
-      PivotPoint pvPt = pv.findPivotPoint(pt, hw - 1, 0);
+      PivotPoint pvPt = pv.findPivotPoint(pt, hw - 1);
 
       if (pvPt.m_pp.m_i == -1)
         break;
