@@ -355,4 +355,10 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
   self.placeAndCompass = nil;
   [super dealloc];
 }
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+  return YES;
+}
+
 @end
