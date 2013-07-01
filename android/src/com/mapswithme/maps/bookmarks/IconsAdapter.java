@@ -18,6 +18,7 @@ import com.mapswithme.util.UiUtils;
 public class IconsAdapter extends ArrayAdapter<Icon> implements Chooseable
 {
   private int mCheckedPosition = 0;
+
   public IconsAdapter(Context context, List<Icon> list)
   {
     super(context, 0, 0, list);
@@ -26,6 +27,7 @@ public class IconsAdapter extends ArrayAdapter<Icon> implements Chooseable
   @Override
   public View getView(int position, View convertView, ViewGroup parent)
   {
+    final Resources res = getContext().getResources();
     if (convertView == null)
     {
       LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -35,11 +37,14 @@ public class IconsAdapter extends ArrayAdapter<Icon> implements Chooseable
     }
     SpinnerViewHolder holder = (SpinnerViewHolder) convertView.getTag();
     if (position == mCheckedPosition)
+    {
       UiUtils.show(holder.tick);
+      holder.tick.setImageDrawable(
+          UiUtils.drawCircle(0xCCFFFFFF, (int) res.getDimension(R.dimen.dp_x_8), res));
+    }
     else
       UiUtils.hide(holder.tick);
 
-    final Resources res = getContext().getResources();
     holder.icon.setImageDrawable(
         UiUtils.drawCircleForPin(getItem(position).getType(), (int)res.getDimension(R.dimen.dp_x_16), res));
 

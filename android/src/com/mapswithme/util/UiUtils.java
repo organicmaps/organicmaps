@@ -55,11 +55,9 @@ public final class UiUtils
     return setCompoundDrawableBounds(res.getDrawable(drawableId), dimenId, res);
   }
 
+
   public static Drawable drawCircleForPin(String type, int size, Resources res)
   {
-    final Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
-    final Paint paint = new Paint();
-
     //detect color by pin name
     int color = Color.BLACK;
     try
@@ -74,6 +72,16 @@ public final class UiUtils
       // We do nothing in this case
       // Just use RED
     }
+
+    return drawCircle(color, size, res);
+  }
+
+
+  public static Drawable drawCircle(int color, int size, Resources res)
+  {
+    final Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+    final Paint paint = new Paint();
+
     paint.setColor(color);
     paint.setAntiAlias(true);
 
@@ -92,16 +100,17 @@ public final class UiUtils
     else return defColor;
   }
 
+
   private static final Map<String, Integer> COLOR_MAP = new HashMap<String, Integer>();
   static {
-    COLOR_MAP.put("blue", Color.parseColor("#33B5E5"));
-    COLOR_MAP.put("brown", Color.parseColor("#A52A2A"));
-    COLOR_MAP.put("green", Color.parseColor("#669900"));
-    COLOR_MAP.put("orange", Color.parseColor("#FF8800"));
-    COLOR_MAP.put("pink", Color.parseColor("#FFC0CB"));
-    COLOR_MAP.put("purple", Color.parseColor("#9933CC"));
-    COLOR_MAP.put("red", Color.parseColor("#CC0000"));
-    COLOR_MAP.put("yellow", Color.parseColor("#FFFF00"));
+    COLOR_MAP.put("blue", Color.parseColor("#33ccff"));
+    COLOR_MAP.put("brown", Color.parseColor("#663300"));
+    COLOR_MAP.put("green", Color.parseColor("#66ff33"));
+    COLOR_MAP.put("orange", Color.parseColor("#ff6600"));
+    COLOR_MAP.put("pink", Color.parseColor("#ff33ff"));
+    COLOR_MAP.put("purple", Color.parseColor("#9933ff"));
+    COLOR_MAP.put("red", Color.parseColor("#ff3333"));
+    COLOR_MAP.put("yellow", Color.parseColor("#ffff33"));
   }
 
   // utility class

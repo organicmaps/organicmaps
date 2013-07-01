@@ -12,19 +12,13 @@
         android:layout_centerInParent="true"
         android:background="@null"
         android:padding="@dimen/dp_x_1"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_launcher" />
+        android:scaleType="centerInside" />
 
     <ImageView
         android:id="@+id/selected_mark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/row_color_image"
-        android:layout_alignLeft="@id/row_color_image"
-        android:layout_alignRight="@id/row_color_image"
-        android:layout_alignTop="@id/row_color_image"
-        android:background="@null"
-        android:padding="@dimen/dp_x_2"
-        android:src="@android:drawable/ic_menu_mylocation" />
+        android:layout_width="@dimen/dp_x_8"
+        android:layout_height="@dimen/dp_x_8"
+        android:layout_centerInParent="true"
+        android:background="@null" />
 
 </RelativeLayout>
