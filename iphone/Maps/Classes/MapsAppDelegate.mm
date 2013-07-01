@@ -198,7 +198,7 @@ void InitLocalizedStrings()
       return YES;
     }
   }
-  if ([scheme isEqualToString:@"mapswithme"])
+  if ([scheme isEqualToString:@"mapswithme"] || [scheme isEqualToString:@"mwm"])
   {
     url_scheme::ApiPoint apiPoint;
     if (GetFramework().SetViewportByURL([url.absoluteString UTF8String], apiPoint));
