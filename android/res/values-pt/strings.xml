@@ -296,4 +296,6 @@
 	<string name="copy_link">Copiar hiperligação</string>
 	<!-- Text for the button that returns to caller application -->
 	<string name="more_info">Mostrar informação adicional</string>
+	<!-- place preview title -->
+	<string name="info">Info</string>
 </resources>

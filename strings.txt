@@ -2545,3 +2545,8 @@
     pl  = Informacje
     uk = Досьє
     pt = Info
+  [done]
+    en = Done
+    tags = ios,android
+    comment = Used for bookmark editing
+    ru = Готово

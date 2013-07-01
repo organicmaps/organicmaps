@@ -298,4 +298,6 @@
 	<string name="copy_link">Kopiuj link</string>
 	<!-- Text for the button that returns to caller application -->
 	<string name="more_info">Pokaż więcej informacji</string>
+	<!-- place preview title -->
+	<string name="info">Informacje</string>
 </resources>

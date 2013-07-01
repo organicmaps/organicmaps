@@ -285,4 +285,6 @@
 	<string name="copy_link">Zkopírovat odkaz</string>
 	<!-- Text for the button that returns to caller application -->
 	<string name="more_info">Zobrazit další informace</string>
+	<!-- place preview title -->
+	<string name="info">Informace</string>
 </resources>

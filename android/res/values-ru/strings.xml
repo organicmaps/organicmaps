@@ -293,4 +293,8 @@
 	<string name="allow_statistics">Разрешить анонимный сбор статистики</string>
 	<!-- Hint near allow statictics checkbox -->
 	<string name="allow_statistics_hint">Это помогает нам совершенствовать приложение</string>
+	<!-- place preview title -->
+	<string name="info">Информация</string>
+	<!-- Used for bookmark editing -->
+	<string name="done">Готово</string>
 </resources>

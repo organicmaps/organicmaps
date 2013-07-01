@@ -289,4 +289,6 @@
 	<string name="copy_link">Копіювати посилання</string>
 	<!-- Text for the button that returns to caller application -->
 	<string name="more_info">Докладніше</string>
+	<!-- place preview title -->
+	<string name="info">Досьє</string>
 </resources>

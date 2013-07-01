@@ -273,4 +273,6 @@
 	<string name="copy_link">拷贝链接</string>
 	<!-- Text for the button that returns to caller application -->
 	<string name="more_info">显示更多信息\&quot;</string>
+	<!-- place preview title -->
+	<string name="info">简介</string>
 </resources>

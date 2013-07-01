@@ -3,4 +3,5 @@
   <color name="background_gray">#FFEEEEDD</color>
   <color name="background_placepage">#ECECEC</color>
   <color name="base_green">#66CC33</color>
+  <drawable name="semitransparent_white">#30FFFFFF</drawable>
 </resources>

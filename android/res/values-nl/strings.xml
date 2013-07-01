@@ -274,4 +274,6 @@
 	<string name="copy_link">Kopieer koppeling</string>
 	<!-- Text for the button that returns to caller application -->
 	<string name="more_info">Toon meer info</string>
+	<!-- place preview title -->
+	<string name="info">Info</string>
 </resources>

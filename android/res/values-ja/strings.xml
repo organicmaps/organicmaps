@@ -281,4 +281,6 @@
 	<string name="copy_link">リンクをコピー</string>
 	<!-- Text for the button that returns to caller application -->
 	<string name="more_info">詳細情報を表示</string>
+	<!-- place preview title -->
+	<string name="info">情報</string>
 </resources>
