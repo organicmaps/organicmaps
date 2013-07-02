@@ -4,9 +4,8 @@
 MapsWithMe Android API (hereinafter referred to as *"API Library"* or just *"library"*)
 provides interface for client application to perform next tasks:
 
-* Show one or set of the points on offline map of [MapsWithMe Application][linkMwm]
-* Send arbitrary [PendingIntent][linkPIntent] with point data when
-  user asks for more information by pressing "More Info" button in MapsWithMe Application
+* Show one or more points on offline map of [MapsWithMe Application][linkMwm]
+* Come back to the client application after selecting specific point on the map, by sending [PendingIntent][linkPIntent] with point data when user asks for more information by pressing "More Info" button in MapsWithMe Application
 
 Thus, you can provide two way communication between your appication and MapsWithMe,
 using MapsWithMe to show points of interest (POI) and providing more information in your app.
@@ -28,7 +27,7 @@ Core classes you will work with are:
 
 * [com.mapswithme.maps.api.MapsWithMeApi][linkApiClass] - static class with methods such as `showPointOnMap(Activity, double, double, String)` etc.
 * [com.mapswithme.maps.api.MWMPoint][linkPointClass] - model of POI, includes lat, lon, name, and id data.
-* [com.mapswithme.maps.api.MWMResponse][linkRespClass] -
+* [com.mapswithme.maps.api.MWMResponse][linkRespClass] - helps you to extract response from MapsWithMe by applying `MWMResponse.extractFromIntent(Intent)` to Intent. Contains MWMPoint data.
 
 ### Show Points on the Map
 
@@ -68,8 +67,8 @@ For multiple points use [MWMPoint][linkPointClass] class:
 
 ### Ask MapsWithMe to Call my App
 
-We support PendingIntent interaction (just like Android system
-NotificationManager does). You need to specify ID for each point to
+We support PendingIntent interaction (just like Android native
+NotificationManager does). You should specify ID for each point to
 diftiguish it leter, and PentingIntent that MapsWithMe send back to
 your application:
 
@@ -90,6 +89,7 @@ your application:
       MapsWithMeApi.showPointsOnMap(this, "This title says that user should choose some point", pendingIntent, points);
     }
 
+    //Code below shows general way to extract response data
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,27 +103,36 @@ your application:
     protected void onNewIntent(Intent intent)
     {
       super.onNewIntent(intent);
-      // if defined your activity as "SingleTop"- you should use onNewIntent
+      // if defined your activity as "SingleTop"- you should use onNewIntent callback
       handleIntent(intent);
     }
 
     void handleIntent(Intent intent)
     {
+      // Apply MWMResponse extraction method to intent
       final MWMResponse mwmResponse = MWMResponse.extractFromIntent(this, intent);
       // Here is your point that user selected
       final MWMPoint point = mwmResponse.getPoint();
       // Now, for instance you can do some work depending on point id
       processUserInteraction(point.getId());
     }
-
-## Docs [TODO add link to javadoc]
-
-## Sample Code [TODO add link to sample code]
-
-## FAQ [TODO to be defined]
+ 
+## Sample Code [TODO add link to sample code and application on Google Play]
 
 ## Support
 If you have any questions please email to [api@mapswith.me][linkSupport].
+
+-------------------------------------------------------------------------------
+## API Code License
+Copyright (c) 2013, MapsWithMe GmbH
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 [linkMwm]: http://mapswith.me/ "MapsWithMe"
 [linkPIntent]: http://developer.android.com/reference/android/app/PendingIntent.html "PendingIntent"

@@ -6,9 +6,8 @@
 provides interface for client application to perform next tasks:</p>
 
 <ul>
-<li>Show one or set of the points on offline map of <a href="http://mapswith.me/" title="MapsWithMe">MapsWithMe Application</a></li>
-<li>Send arbitrary <a href="http://developer.android.com/reference/android/app/PendingIntent.html" title="PendingIntent">PendingIntent</a> with point data when
-user asks for more information by pressing &quot;More Info&quot; button in MapsWithMe Application</li>
+<li>Show one or more points on offline map of <a href="http://mapswith.me/" title="MapsWithMe">MapsWithMe Application</a></li>
+<li>Come back to the client application after selecting specific point on the map, by sending <a href="http://developer.android.com/reference/android/app/PendingIntent.html" title="PendingIntent">PendingIntent</a> with point data when user asks for more information by pressing &quot;More Info&quot; button in MapsWithMe Application</li>
 </ul>
 
 <p>Thus, you can provide two way communication between your appication and MapsWithMe,
@@ -36,7 +35,7 @@ You don&#39;t need any additional permissions in your AndroidManifest.xml to use
 <ul>
 <li><a href="http://example.com" title="MapsWithMeApi.java">com.mapswithme.maps.api.MapsWithMeApi</a> - static class with methods such as <code>showPointOnMap(Activity, double, double, String)</code> etc.</li>
 <li><a href="http://example.com" title="MWMPoint.java">com.mapswithme.maps.api.MWMPoint</a> - model of POI, includes lat, lon, name, and id data.</li>
-<li><a href="http://example.com" title="MWMResponse.java">com.mapswithme.maps.api.MWMResponse</a> - </li>
+<li><a href="http://example.com" title="MWMResponse.java">com.mapswithme.maps.api.MWMResponse</a> - helps you to extract response from MapsWithMe by applying <code>MWMResponse.extractFromIntent(Intent)</code> to Intent. Contains MWMPoint data.</li>
 </ul>
 
 <h3>Show Points on the Map</h3>
@@ -78,8 +77,8 @@ You don&#39;t need any additional permissions in your AndroidManifest.xml to use
 
 <h3>Ask MapsWithMe to Call my App</h3>
 
-<p>We support PendingIntent interaction (just like Android system
-NotificationManager does). You need to specify ID for each point to
+<p>We support PendingIntent interaction (just like Android native
+NotificationManager does). You should specify ID for each point to
 diftiguish it leter, and PentingIntent that MapsWithMe send back to
 your application:</p>
 
@@ -100,6 +99,7 @@ void showMultiplePointsWithPendingIntent(List&lt;SomeDomainObject&gt; list, Pend
   MapsWithMeApi.showPointsOnMap(this, &quot;This title says that user should choose some point&quot;, pendingIntent, points);
 }
 
+//Code below shows general way to extract response data
 @Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -113,12 +113,13 @@ protected void onCreate(Bundle savedInstanceState) {
 protected void onNewIntent(Intent intent)
 {
   super.onNewIntent(intent);
-  // if defined your activity as &quot;SingleTop&quot;- you should use onNewIntent
+  // if defined your activity as &quot;SingleTop&quot;- you should use onNewIntent callback
   handleIntent(intent);
 }
 
 void handleIntent(Intent intent)
 {
+  // Apply MWMResponse extraction method to intent
   final MWMResponse mwmResponse = MWMResponse.extractFromIntent(this, intent);
   // Here is your point that user selected
   final MWMPoint point = mwmResponse.getPoint();
@@ -127,12 +128,24 @@ void handleIntent(Intent intent)
 }
 </code></pre>
 
-<h2>Docs [TODO add link to javadoc]</h2>
-
-<h2>Sample Code [TODO add link to sample code]</h2>
-
-<h2>FAQ [TODO to be defined]</h2>
+<h2>Sample Code [TODO add link to sample code and application on Google Play]</h2>
 
 <h2>Support</h2>
 
 <p>If you have any questions please email to <a href="mailto:api@mapswith.me" title="MapsWithMe Support Contact">api@mapswith.me</a>.</p>
+
+<hr>
+
+<h2>API Code License</h2>
+
+<p>Copyright (c) 2013, MapsWithMe GmbH
+All rights reserved.</p>
+
+<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p>
+
+<ul>
+<li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+<li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+</ul>
+
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
