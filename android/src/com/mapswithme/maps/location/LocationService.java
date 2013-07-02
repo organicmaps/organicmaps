@@ -1,5 +1,10 @@
 package com.mapswithme.maps.location;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+
 import android.content.Context;
 import android.hardware.GeomagneticField;
 import android.hardware.Sensor;
@@ -18,16 +23,15 @@ import android.view.Surface;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.LocationUtils;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.StubLogger;
 
 
 public class LocationService implements LocationListener, SensorEventListener, WifiLocation.Listener
 {
   private static final String TAG = "LocationService";
+
+  private Logger mLogger = StubLogger.get();//SimpleLogger.get(this.toString());
 
   /// These constants should correspond to values defined in platform/location.hpp
   /// Leave 0-value as no any error.
@@ -65,6 +69,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   public LocationService(MWMApplication application)
   {
+    mLogger.d("Creating locserivice");
     m_application = application;
 
     m_locationManager = (LocationManager) m_application.getSystemService(Context.LOCATION_SERVICE);
@@ -116,6 +121,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   public void startUpdate(Listener observer)
   {
+    mLogger.d("Start update", observer);
+
     m_observers.add(observer);
 
     if (!m_isActive)
@@ -222,6 +229,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   public void stopUpdate(Listener observer)
   {
+    mLogger.d("Stop update", observer);
+
     m_observers.remove(observer);
 
     // Stop only if no more observers are subscribed
@@ -237,8 +246,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
       m_magneticField = null;
       m_drivingHeading = -1.0;
       m_isActive = false;
-      // also reset location
-      m_lastLocation = null;
     }
   }
 
@@ -277,9 +284,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   private void emitLocation(Location l)
   {
-    //Log.d(TAG, "Location accepted");
-    notifyLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
     m_lastLocation = l;
+    notifyLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
   }
 
   /// Delta distance when we need to recreate GeomagneticField (to calculate declination).
@@ -288,8 +294,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
   @Override
   public void onLocationChanged(Location l)
   {
-    //printLocation(l);
-
+    mLogger.d("Location changed", l);
     // hack to avoid time zone troubles
     l.setTime(System.currentTimeMillis());
     if (LocationUtils.isFirstOneBetterLocation(l, m_lastLocation))

@@ -18,9 +18,13 @@ import com.mapswithme.maps.bookmarks.data.ParcelablePointD;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.StubLogger;
 
 public class SimpleNavigationFragment extends Fragment implements LocationService.Listener
 {
+
+  private Logger mLogger = StubLogger.get();//SimpleLogger.get(SimpleNavigationFragment.class.getSimpleName().toString());
 
   // Data
   private ParcelablePointD mPoint = new ParcelablePointD(0, 0);
@@ -58,9 +62,12 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
 
   private void updateViews()
   {
+    mLogger.d("Updating view");
+
     if (mDoListenForLocation)
     {
       final Location lastKnown = mLocationService.getLastKnown();
+      mLogger.d("Last known ", lastKnown);
       if (lastKnown != null)
       {
         final DistanceAndAzimut da = Framework.getDistanceAndAzimutFromLatLon
@@ -73,6 +80,12 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
           mArrow.clear();
 
         mDistance.setText(da.getDistance());
+        UiUtils.show(mDistance);
+      }
+      else
+      {
+        mArrow.clear();
+        UiUtils.hide(mDistance);
       }
     }
     else
@@ -92,6 +105,7 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
   {
     updateViews();
   }
+
 
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
