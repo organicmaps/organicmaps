@@ -884,15 +884,19 @@ void Framework::CheckMinGlobalRect(m2::AnyRectD & rect) const
     rect = minAnyRect;
 }
 
-void Framework::CheckMinVisibleScale(m2::RectD & rect) const
+bool Framework::CheckMinVisibleScale(m2::RectD & rect) const
 {
   int const worldS = scales::GetUpperWorldScale();
   if (scales::GetScaleLevel(rect) > worldS)
   {
     m2::PointD const c = rect.Center();
     if (!IsCountryLoaded(c))
+    {
       rect = scales::GetRectForLevel(worldS, c, 1.0);
+      return true;
+    }
   }
+  return false;
 }
 
 void Framework::ShowRect(m2::RectD const & r)
@@ -1456,9 +1460,10 @@ bool Framework::SetViewportByURL(string const & url, url_scheme::ApiPoint & ball
 
 void Framework::SetViewPortSync(m2::RectD rect)
 {
-  // This is tricky way to syncronize work and
-  // rendring threads.
-  CheckMinVisibleScale(rect);
+  // This is tricky way to syncronize work and rendring threads.
+  // Quick buben-fix to show correct rect in API when country is not downloaded
+  if (CheckMinVisibleScale(rect))
+    rect.Inflate(0.25, 0.25);
   m2::AnyRectD aRect(rect);
   CheckMinGlobalRect(aRect);
   m_animator.ChangeViewport(aRect, aRect, 0.0);

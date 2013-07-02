@@ -363,7 +363,8 @@ public:
 private:
   m2::AnyRectD ToRotated(m2::RectD const & rect) const;
   void CheckMinGlobalRect(m2::AnyRectD & rect) const;
-  void CheckMinVisibleScale(m2::RectD & rect) const;
+  /// @return true if rect was fixed to display downloaded zoom level (world map)
+  bool CheckMinVisibleScale(m2::RectD & rect) const;
   void ShowRectFixed(m2::AnyRectD const & rect);
 
 public:
