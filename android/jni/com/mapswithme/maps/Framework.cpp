@@ -686,6 +686,12 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeClearApiPoints(JNIEnv * env, jclass clazz)
+  {
+    g_framework->NativeFramework()->ClearMapApiPoints();
+  }
+
+  JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeConnectBalloonListeners(JNIEnv * env, jclass clazz, jobject l)
   {
     BalloonManager & manager = g_framework->GetBalloonManager();
