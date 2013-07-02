@@ -2547,6 +2547,6 @@
     pt = Info
   [done]
     en = Done
-    tags = ios,android
+    tags = android
     comment = Used for bookmark editing
     ru = Готово
