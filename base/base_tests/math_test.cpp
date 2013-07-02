@@ -2,6 +2,7 @@
 #include "../math.hpp"
 #include "../../std/limits.hpp"
 
+#include <boost/math/special_functions/next.hpp>
 
 UNIT_TEST(id)
 {
@@ -68,22 +69,14 @@ namespace
 // Returns the next representable floating point value without using conversion to integer.
 template <typename FloatT> FloatT NextFloat(FloatT const x, int dir = 1)
 {
-  FloatT d = dir * numeric_limits<FloatT>::denorm_min();
-  while (true)
-  {
-    FloatT y = x;
-    y += d;
-    if (x != y)
-      return y;
-    d *= 2;
-  }
+  return boost::math::float_advance(x, dir);
 }
 
 template <typename FloatT> void TestMaxULPs()
 {
   for (unsigned int logMaxULPs = 0; logMaxULPs <= 8; ++logMaxULPs)
   {
-    unsigned int const maxULPs = (logMaxULPs == 0 ? 0 : ((1 << logMaxULPs) - 1));
+    unsigned int const maxULPs = (1 << logMaxULPs) - 1;
     for (int base = -1; base <= 1; ++base)
     {
       for (int dir = -1; dir <= 1; dir += 2)

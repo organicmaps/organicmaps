@@ -11,8 +11,7 @@
 
 UNIT_TEST(Mercator_Grid)
 {
-  double const eps = 0.0000001;
-  for (int lat = -85; lat <= 85; ++lat)
+  for (int lat = -86; lat <= 86; ++lat)
   {
     for (int lon = -180; lon <= 180; ++lon)
     {
@@ -27,13 +26,6 @@ UNIT_TEST(Mercator_Grid)
 
       // x is actually lon unmodified.
       TEST_ALMOST_EQUAL(x, static_cast<double>(lon), ());
-
-      if (lat == 0)
-      {
-        // TODO: Investigate, how to make Mercator transform more precise.
-        // Error is to large for TEST_ALMOST_EQUAL(y, 0.0, ());
-        TEST_LESS(fabs(y), eps, (lat, y, lat1));
-      }
     }
   }
 }

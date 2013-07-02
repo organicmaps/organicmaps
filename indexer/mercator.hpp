@@ -43,13 +43,13 @@ struct MercatorBounds
 
   inline static double YToLat(double y)
   {
-    return my::RadToDeg(2.0 * atan(exp(my::DegToRad(y))) - math::pi / 2.0);
+    return my::RadToDeg(2.0 * atan(tanh(0.5 * my::DegToRad(y))));
   }
 
   inline static double LatToY(double lat)
   {
-    lat = my::clamp(lat, -86.0, 86.0);
-    double const res = my::RadToDeg(log(tan(my::DegToRad(45.0 + lat * 0.5))));
+    double const sinx = sin(my::DegToRad(my::clamp(lat, -86.0, 86.0)));
+    double const res = my::RadToDeg(0.5 * log((1.0 + sinx) / (1.0 - sinx)));
     return ClampY(res);
   }
 
