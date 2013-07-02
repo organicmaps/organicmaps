@@ -255,6 +255,7 @@ void InitLocalizedStrings()
 -(void)showMap
 {
   [m_navController popToRootViewControllerAnimated:YES];
+  [m_mapViewController dismissPopover];
   if (![m_navController.visibleViewController isMemberOfClass:NSClassFromString(@"MapViewController")])
     [m_mapViewController dismissModalViewControllerAnimated:YES];
   m_navController.navigationBarHidden = YES;
