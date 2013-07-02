@@ -819,9 +819,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     }
     //we use <merge> so we not sure of type here
     if (mapLp instanceof MarginLayoutParams)
-    {
       ((MarginLayoutParams)mapLp).setMargins(0, marginTopForMap, 0, 0);
-    }
   }
 
   @Override

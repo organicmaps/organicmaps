@@ -1,54 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <android.view.SurfaceView
         android:id="@+id/map_surfaceview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom|center_horizontal"/>
 
     <LinearLayout
         android:id="@+id/title_bar"
-        android:layout_height="@dimen/abs__action_bar_default_height"
         android:layout_width="match_parent"
+        android:layout_height="@dimen/abs__action_bar_default_height"
         android:layout_gravity="top|center_horizontal"
-        android:orientation="horizontal"
+        android:background="@drawable/abs__ab_solid_light_holo"
         android:gravity="center_vertical"
-        android:background="@drawable/abs__ab_solid_light_holo">
+        android:orientation="horizontal" >
 
         <LinearLayout
             android:id="@+id/up_block"
-            android:layout_height="match_parent"
             android:layout_width="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
+            android:layout_height="match_parent"
             android:addStatesFromChildren="true"
             android:background="@drawable/abs__item_background_holo_light"
-            android:clickable="true">
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="horizontal" >
 
             <ImageView
-                android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:src="@drawable/abs__ic_ab_back_holo_light"/>
+                android:layout_height="match_parent"
+                android:src="@drawable/abs__ic_ab_back_holo_light"
+                tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/app_icon"
-                android:layout_height="@dimen/abs__action_bar_default_height"
                 android:layout_width="@dimen/abs__action_bar_default_height"
-                android:paddingTop="@dimen/abs__action_bar_icon_vertical_padding"
+                android:layout_height="@dimen/abs__action_bar_default_height"
                 android:paddingBottom="@dimen/abs__action_bar_icon_vertical_padding"
-                android:scaleType="fitStart"/>
+                android:paddingTop="@dimen/abs__action_bar_icon_vertical_padding"
+                android:scaleType="fitStart"
+                tools:ignore="ContentDescription" />
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/app_title"
             style="@style/Holo.TextAppearance.Medium.Light"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
-            android:singleLine="true"/>
+            android:singleLine="true" />
     </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/navigation_buttons_container"
