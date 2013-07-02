@@ -1,3 +1,25 @@
+/*
+ Copyright (c) 2013, MapsWithMe GmbH All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list
+of conditions and the following disclaimer. Redistributions in binary form must
+reproduce the above copyright notice, this list of conditions and the following
+disclaimer in the documentation and/or other materials provided with the
+distribution. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
+OF SUCH DAMAGE.
+*/
 package com.mapswithme.capitals;
 
 import com.mapswithme.maps.api.MWMPoint;
@@ -16,9 +38,9 @@ public class City
   private final int elevation;
   private final String timeZone;
   private final String altNames;
-  
-  public City(String id, String name, double lat, double lon, 
-              String countryCode, int population, int elevation, 
+
+  public City(String id, String name, double lat, double lon,
+              String countryCode, int population, int elevation,
               String timeZone, String altNames)
   {
     this.id = id;
@@ -31,11 +53,11 @@ public class City
     this.timeZone = timeZone;
     this.altNames = altNames;
   }
-  
+
   @Override
   public String toString()     { return name; }
   public MWMPoint toMWMPoint() { return new MWMPoint(lat, lon, name, id); }
-  
+
   public String getId()          { return id; }
   public String getName()        { return name; }
   public double getLat()         { return lat; }
@@ -45,8 +67,8 @@ public class City
   public int    getElevation()   { return elevation; }
   public String getTimeZone()    { return timeZone; }
   public String getAltNames()    { return altNames; }
-  
-  
+
+
   public static City fromMWMPoint(MWMPoint point)
   {
     City result = null;
@@ -62,13 +84,13 @@ public class City
     }
     return result;
   }
-  
-  public static class CityComparator implements Comparator<City> 
+
+  public static class CityComparator implements Comparator<City>
   {
     @Override
     public int compare(City lhs, City rhs) { return lhs.getName().compareTo(rhs.getName()); }
   }
-  
+
   public static City[] CAPITALS = {new City("3041563", "Andorra la Vella", 42.50779, 1.52109, "AD", 20430, -9999, "Europe/Andorra", "ALV,Ando-la-Vyey,Andora,Andora la Vela,Andora la Velja,Andora lja Vehl'ja,Andoro Malnova,Andorra,Andorra Tuan,Andorra a Vella,Andorra la Biella,Andorra la Vella,Andorra la Vielha,Andorra-a-Velha,Andorra-la-Vel'ja,Andorra-la-Vielye,Andorre-la-Vieille,Andò-la-Vyèy,Andòrra la Vièlha,an dao er cheng,andolalabeya,andwra la fyla,Ανδόρρα,Андора ла Веля,Андора ла Веља,Андора ля Вэлья,Андорра-ла-Велья,אנדורה לה וולה,أندورا لا فيلا,አንዶራ ላ ቬላ,アンドラ・ラ・ヴェリャ,安道爾城,안도라라베야"),
     new City("292968", "Abu Dhabi", 24.46667, 54.36667, "AE", 603492, -9999, "Asia/Dubai", "AEbu Saby,AUH,Aboe Dhabi,Abou Dabi,Abu Dabi,Abu Dabis,Abu Daby,Abu Daibi,Abu Dhabi,Abu Dhabi emiraat,Abu Zabi,Abu Zaby,Abu Zabye,Abu Zabyo,Abu Ḍabi,Abu Ḑabi,Abu-Dabi,Abu-Dabi khot,Abu-Dabio,Abu-Dzabi,Abud Dhabi,Abú Dabí,Abú Daibí,Abú Dhabí,Abú Zabí,Abû Daby,Abū Dabī,Abū Z̧aby,Abū Z̧abye,Abū Z̧abyo,Abū Z̧abī,Ampou Ntampi,Emirato de Abu Dabi,Gorad Abu-Dabi,a bu zha bi,abu dhabi,abu-zabi,abudabi,abudhabi,abwzby,aputapi,xa bud abi,Äbu Saby,Əbu-Dabi,Αμπου Νταμπι,Αμπού Ντάμπι,Абу Даби,Абу-Даби,Абу-Даби хот,Абу-Дабі,Горад Абу-Дабі,Әбү-Дәби шәһәре,Աբու Դաբի,אבו דאבי,أبوظبي,ئەبووزەبی,ابوظبی,ابوظہبی,अबु धाबी,अबू धाबी,আবুধাবি,ਅਬੂ ਧਾਬੀ,ଆବୁଧାବି,அபுதாபி,ಅಬು ಧಾಬಿ,അബുദാബി,අබුඩාබි,อาบูดาบี,ཨ་པོའུ་དྷ་པེ།,အဘူဒါဘီမြို့,აბუ-ზაბი,አቡ ዳቢ,アブダビ,阿布扎比,아부다비"),
     new City("1138958", "Kabul", 34.52813, 69.17233, "AF", 3043532, -9999, "Asia/Kabul", "Cabool,Caboul,Cabul,Cabul - kabl,Cabul - کابل,Cabura,Cabúl,Caubul,Gorad Kabul,KBL,Kabil,Kaboel,Kabol,Kaboul,Kabul,Kabula,Kabulas,Kabuli,Kabulo,Kabura,Kabúl,Kabûl,Kampoul,Kobul,Kubha,Kábul,Kâbil,Kābol,ka bu er,kabl,kabul,kabula,kabuli,kaburu,kabwl,kapul,ke bu er,khabul,Καμπούλ,Горад Кабул,Кабул,Кобул,Քաբուլ,קאבול,كابل,كابۇل,کابل,کابول,काबुल,কাবুল,କାବୁଲ,காபூல்,ಕಾಬುಲ್,കാബൂൾ,คาบูล,ཁ་པལ།,ཁ་པུལ།,ქაბული,ካቡል,ទីក្រុងកាបូល,カブール,カーブル,喀布尔,카불"),
@@ -311,7 +333,7 @@ public class City
     new City("909137", "Lusaka", -15.40669, 28.28713, "ZM", 1267440, -9999, "Africa/Lusaka", "Gorad Lusaka,LUN,Lousaka,Louzaka,Lusaca,Lusaka,Lusako,Lúsaka,Lûsaka,lu sha ka,lucakka,lusaka,lwsaka,lwsqh,lwwsaka,rusaka,Λουσάκα,Горад Лусака,Лусака,Լուսակա,לוסקה,لوساكا,لوساکا,لووساکا,لۇساكا,लुसाका,লুসাকা,ਲੁਸਾਕਾ,ଲୁସାକ,லுசாக்கா,ลูซากา,ལུ་ས་ཀ།,ლუსაკა,ሉሳካ,ルサカ,路沙卡,루사카"),
     new City("890299", "Harare", -17.82772, 31.05337, "ZW", 1542813, -9999, "Africa/Harare", "Arare,Charare,Gorad Kharareh,HRE,Harare,Hararensis Urbs,Harareo,Hararė,Kharare,Salisbury,ha la lei,halale,harare,harary,hrarh,hrary,Χαράρε,Горад Харарэ,Хараре,Հարարե,הארארה,هارارى,هراره,هراري,ھارارې,ھەرارێ,ہرارے,हरारे,ਹਰਾਰੇ,ହାରାରେ,ஹராரே,ฮาราเร,ཧ་ར་རི།,ჰარარე,ሀራሬ,ハラレ,哈拉雷,하라레")
   };
-  
+
   static {
     // Sort'em all at class load!
     Arrays.sort(City.CAPITALS, new City.CityComparator());
