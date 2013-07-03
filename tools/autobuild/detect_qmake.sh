@@ -1,8 +1,8 @@
 # Add your path into this array
 KNOWN_QMAKE_PATHS=( \
-  ~/QtSDK/Desktop/Qt/4.8.1/gcc/bin/qmake \
   /Developer/Tools/qmake \
   ~/Developer/Qt-4.8.4/bin/qmake \
+  ~/Developer/Qt/5.1.0/clang_64/bin/qmake \
 )
 
 # Prints path to directory with found qmake binary or prints nothing if not found
