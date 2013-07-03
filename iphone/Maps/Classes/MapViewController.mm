@@ -689,18 +689,18 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void) clearApiBar
 {
-  self.navigationController.navigationBarHidden = YES;
   _isApiMode = NO;
   self.navigationController.navigationItem.title = @"";
   GetFramework().ClearMapApiPoints();
   [self Invalidate];
+  [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 -(void)returnToApiApp
 {
   NSString * backUrl = [NSString stringWithUTF8String:GetFramework().GetMapApiBackUrl().c_str()];
-  [self clearApiBar];
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:backUrl]];
+  [self clearApiBar];
 }
 
 -(BOOL) shouldShowNavBar
