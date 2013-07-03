@@ -15,7 +15,7 @@
 #import "PlaceAndCompasView.h"
 #import "CompassView.h"
 #import "MapsAppDelegate.h"
-#import "MapViewController.mm"
+#import "MapViewController.h"
 
 #include "../../../search/result.hpp"
 #include "../../../platform/platform.hpp"
