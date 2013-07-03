@@ -1,4 +1,5 @@
 # Project that just includes all other projects.
+cache()
 
 TEMPLATE = subdirs
 CONFIG += ordered
