@@ -135,7 +135,14 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
   {
     cell = [tableView dequeueReusableCellWithIdentifier:@"ApiReturnCell"];
     if (!cell)
+    {
       cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ApiReturnCell"] autorelease];
+      cell.textLabel.textAlignment = NSTextAlignmentCenter;
+      UIButton * tmp = [[UIButton buttonWithType:UIButtonTypeRoundedRect] autorelease];
+      [tmp setTitle:@"tmp" forState:UIControlStateNormal];
+      cell.textLabel.font = tmp.titleLabel.font;
+      cell.textLabel.textColor = tmp.titleLabel.textColor;
+    }
     cell.textLabel.text = NSLocalizedString(@"more_info", nil);
   }
   return cell;
