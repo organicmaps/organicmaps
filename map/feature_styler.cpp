@@ -5,6 +5,7 @@
 #include "../indexer/drawing_rules.hpp"
 #include "../indexer/feature.hpp"
 #include "../indexer/feature_visibility.hpp"
+#include "../indexer/scales.hpp"
 
 #ifdef OMIM_PRODUCTION
   #include "../indexer/drules_struct_lite.pb.h"
@@ -71,6 +72,13 @@ namespace di
     m_isCoastline = type.second;
 
     f.GetPreferredNames(m_primaryText, m_secondaryText);
+
+    // Draw only primary text for features on the World zoom level
+    if (zoom <= scales::GetUpperWorldScale() && !m_secondaryText.empty())
+    {
+      m_primaryText.swap(m_secondaryText);
+      m_secondaryText.clear();
+    }
 
     // Get house number if feature has one.
     string houseNumber = f.GetHouseNumber();
