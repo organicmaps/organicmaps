@@ -43,6 +43,7 @@ namespace search { struct AddressInfo; }
 - (void)showBalloonWithCategoryIndex:(int)cat andBookmarkIndex:(int)bm;
 
 - (void)prepareForApi;
+- (void)clearApiMode;
 - (BOOL)shouldShowNavBar;
 
 - (void)dismissPopover;

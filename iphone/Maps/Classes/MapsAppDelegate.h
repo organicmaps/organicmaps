@@ -29,4 +29,6 @@
 - (void)disableDownloadIndicator;
 - (void)enableDownloadIndicator;
 
+- (void)showMap;
+
 @end

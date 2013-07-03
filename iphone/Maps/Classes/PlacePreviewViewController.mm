@@ -14,6 +14,8 @@
 #import "Statistics.h"
 #import "PlaceAndCompasView.h"
 #import "CompassView.h"
+#import "MapsAppDelegate.h"
+#import "MapViewController.mm"
 
 #include "../../../search/result.hpp"
 #include "../../../platform/platform.hpp"
@@ -162,6 +164,8 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
       [[UIApplication sharedApplication] openURL:url];
     else
       [[UIApplication sharedApplication] openURL:[self getBackUrl]];
+    [[MapsAppDelegate theApp].m_mapViewController clearApiMode];
+    [[MapsAppDelegate theApp] showMap];
   }
 }
 

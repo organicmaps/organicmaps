@@ -687,20 +687,21 @@ NSInteger compareAddress(id l, id r, void * context)
   }
 }
 
-- (void) clearApiBar
+- (void) clearApiMode
 {
   _isApiMode = NO;
   self.navigationController.navigationItem.title = @"";
   GetFramework().ClearMapApiPoints();
   [self Invalidate];
   [self.navigationController setNavigationBarHidden:YES animated:YES];
+  GetFramework().GetBalloonManager().Hide();
 }
 
 -(void)returnToApiApp
 {
   NSString * backUrl = [NSString stringWithUTF8String:GetFramework().GetMapApiBackUrl().c_str()];
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:backUrl]];
-  [self clearApiBar];
+  [self clearApiMode];
 }
 
 -(BOOL) shouldShowNavBar
