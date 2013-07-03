@@ -206,6 +206,8 @@ void InitLocalizedStrings()
       [[Statistics instance] logApiUsage:sourceApplication];
       [self showMap];
       [m_mapViewController prepareForApi];
+      if (f.GetMapApiPoints().size() == 1)
+        [self showParsedBookmarkOnMap:apiPoint];
       return YES;
     }
   }
