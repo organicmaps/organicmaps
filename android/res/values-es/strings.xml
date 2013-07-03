@@ -275,6 +275,14 @@
 	<string name="copy_link">Copiar enlace</string>
 	<!-- Text for the button that returns to caller application -->
 	<string name="more_info">Mostrar más información</string>
+	<!-- Text for message when used successfully copied something -->
+	<string name="copied_to_clipboard">Copiado al portapapeles: %1$s</string>
+	<!-- Setting label for statistics turn on/off -->
+	<string name="allow_statistics">Permitir estadísticas de uso anónimas</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">Nos ayuda a desarrollar una mejor aplicación</string>
 	<!-- place preview title -->
 	<string name="info">Información</string>
+	<!-- Used for bookmark editing -->
+	<string name="done">Hecho</string>
 </resources>

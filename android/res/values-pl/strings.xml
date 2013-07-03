@@ -298,6 +298,14 @@
 	<string name="copy_link">Kopiuj link</string>
 	<!-- Text for the button that returns to caller application -->
 	<string name="more_info">Pokaż więcej informacji</string>
+	<!-- Text for message when used successfully copied something -->
+	<string name="copied_to_clipboard">Skopiowano do schowka: %1$s</string>
+	<!-- Setting label for statistics turn on/off -->
+	<string name="allow_statistics">Włącz anonimowe statystyki użytkowania</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">To pomaga nam zbudować lepszą aplikację</string>
 	<!-- place preview title -->
 	<string name="info">Informacje</string>
+	<!-- Used for bookmark editing -->
+	<string name="done">Zrobione</string>
 </resources>

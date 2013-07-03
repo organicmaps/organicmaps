@@ -285,6 +285,14 @@
 	<string name="copy_link">Zkopírovat odkaz</string>
 	<!-- Text for the button that returns to caller application -->
 	<string name="more_info">Zobrazit další informace</string>
+	<!-- Text for message when used successfully copied something -->
+	<string name="copied_to_clipboard">Zkop?rov?no do schr?nky: %1$s</string>
+	<!-- Setting label for statistics turn on/off -->
+	<string name="allow_statistics">Povolit anonymní statistiku používání</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">Pomůže nám to vytvořit lepší aplikaci</string>
 	<!-- place preview title -->
 	<string name="info">Informace</string>
+	<!-- Used for bookmark editing -->
+	<string name="done">Hotovo</string>
 </resources>

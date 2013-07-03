@@ -471,13 +471,16 @@
 "more_info" = "Pokaż więcej informacji";
 
 /* Text for message when used successfully copied something */
-"copied_to_clipboard" = "Copied to Clipboard: %1$@";
+"copied_to_clipboard" = "Skopiowano do schowka: %1$@";
 
 /* Setting label for statistics turn on/off */
-"allow_statistics" = "Enable Anonymous Usage Statistics";
+"allow_statistics" = "Włącz anonimowe statystyki użytkowania";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "It helps us to build better application";
+"allow_statistics_hint" = "To pomaga nam zbudować lepszą aplikację";
 
 /* place preview title */
 "info" = "Informacje";
+
+/* Used for bookmark editing */
+"done" = "Zrobione";

@@ -481,3 +481,6 @@
 
 /* place preview title */
 "info" = "Информация";
+
+/* Used for bookmark editing */
+"done" = "Готово";

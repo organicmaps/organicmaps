@@ -281,6 +281,14 @@
 	<string name="copy_link">リンクをコピー</string>
 	<!-- Text for the button that returns to caller application -->
 	<string name="more_info">詳細情報を表示</string>
+	<!-- Text for message when used successfully copied something -->
+	<string name="copied_to_clipboard">クリップボードにコピーしました：%1$s</string>
+	<!-- Setting label for statistics turn on/off -->
+	<string name="allow_statistics">匿名使用状況統計を有効にする。</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">今後のアプリケーションの開発に役立ちます</string>
 	<!-- place preview title -->
 	<string name="info">情報</string>
+	<!-- Used for bookmark editing -->
+	<string name="done">完了</string>
 </resources>

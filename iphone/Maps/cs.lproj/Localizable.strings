@@ -471,13 +471,16 @@
 "more_info" = "Zobrazit další informace";
 
 /* Text for message when used successfully copied something */
-"copied_to_clipboard" = "Copied to Clipboard: %1$@";
+"copied_to_clipboard" = "Zkop?rov?no do schr?nky: %1$@";
 
 /* Setting label for statistics turn on/off */
-"allow_statistics" = "Enable Anonymous Usage Statistics";
+"allow_statistics" = "Povolit anonymní statistiku používání";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "It helps us to build better application";
+"allow_statistics_hint" = "Pomůže nám to vytvořit lepší aplikaci";
 
 /* place preview title */
 "info" = "Informace";
+
+/* Used for bookmark editing */
+"done" = "Hotovo";

@@ -471,13 +471,16 @@
 "more_info" = "Докладніше";
 
 /* Text for message when used successfully copied something */
-"copied_to_clipboard" = "Copied to Clipboard: %1$@";
+"copied_to_clipboard" = "Скопіювати в буфер обміну: %1$@";
 
 /* Setting label for statistics turn on/off */
-"allow_statistics" = "Enable Anonymous Usage Statistics";
+"allow_statistics" = "Запустити анонімну статистику використання";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "It helps us to build better application";
+"allow_statistics_hint" = "Це допомагає нам створювати якісніші застосунки";
 
 /* place preview title */
 "info" = "Досьє";
+
+/* Used for bookmark editing */
+"done" = "Готово";

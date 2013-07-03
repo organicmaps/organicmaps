@@ -471,13 +471,16 @@
 "more_info" = "추가 정보 보기";
 
 /* Text for message when used successfully copied something */
-"copied_to_clipboard" = "Copied to Clipboard: %1$@";
+"copied_to_clipboard" = "클립보드에 복사됨: %1$@";
 
 /* Setting label for statistics turn on/off */
-"allow_statistics" = "Enable Anonymous Usage Statistics";
+"allow_statistics" = "익명 사용 통계 활성화";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "It helps us to build better application";
+"allow_statistics_hint" = "더 나은 애플리케이션 구축을 돕습니다.";
 
 /* place preview title */
 "info" = "정보";
+
+/* Used for bookmark editing */
+"done" = "완료";

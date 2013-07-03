@@ -2508,7 +2508,7 @@
     cs = Zobrazit další informace
     nl = Toon meer info
     zh-Hant = 显示更多信息"
-    pl  =Pokaż więcej informacji
+    pl = Pokaż więcej informacji
     uk = Докладніше
     pt = Mostrar informação adicional
   [copied_to_clipboard]
@@ -2516,18 +2516,52 @@
     tags =ios,android
     comment = Text for message when used successfully copied something
     ru = Скопировано в буфер обмена: %1$@
-
+    zh-Hant = 已複製到剪貼板：%1$@
+    it = Copiato sugli Appunti: %1$@
+    ko = 클립보드에 복사됨: %1$@
+    pt = Copiado para a Área de Transferência: %1$@
+    es = Copiado al portapapeles: %1$@
+    de = In die Zwischenablage kopiert: %1$@
+    fr = Copié dans le presse-papier: %1$@
+    ja = クリップボードにコピーしました：%1$@
+    cs = Zkop?rov?no do schr?nky: %1$@
+    nl = Op het klembord gekopieerd: %1$@
+    pl = Skopiowano do schowka: %1$@
+    uk = Скопіювати в буфер обміну: %1$@
   [allow_statistics]
     en = Enable Anonymous Usage Statistics
     tags = ios,android
     comment = Setting label for statistics turn on/off
     ru = Разрешить анонимный сбор статистики
-
+    ja = 匿名使用状況統計を有効にする。
+    cs = Povolit anonymní statistiku používání
+    pl = Włącz anonimowe statystyki użytkowania
+    uk = Запустити анонімну статистику використання
+    nl = Statistieken voor anoniem gebruik activeren
+    fr = Autorise les statistiques d'utilisation anonymes
+    de = Aktivieren Sie die anonyme Nutzerstatistik
+    pt = Ativar Estatísticas Anónimas de Utilização
+    es = Permitir estadísticas de uso anónimas
+    zh-Hant = 啟用匿名使用數據
+    it = Abilita la statistica d'uso anonima
+    ko = 익명 사용 통계 활성화
   [allow_statistics_hint]
     en = It helps us to build better application
     tags = ios,android
     comment = Hint near allow statictics checkbox
     ru = Это помогает нам совершенствовать приложение
+    ja = 今後のアプリケーションの開発に役立ちます
+    cs = Pomůže nám to vytvořit lepší aplikaci
+    pl = To pomaga nam zbudować lepszą aplikację
+    uk = Це допомагає нам створювати якісніші застосунки
+    nl = Dit helpt ons om betere toepassingen te ontwikkelen
+    fr = Cela nous aide à construire une meilleure application
+    de = Dies hilft uns, eine besser Applikation zu konzipieren
+    pt = Isto ajuda-nos a fazer aplicações melhores
+    es = Nos ayuda a desarrollar una mejor aplicación
+    zh-Hant = 它幫助我們打造更好的應用程序
+    it = Ci aiuta a creare un'applicazione migliore
+    ko = 더 나은 애플리케이션 구축을 돕습니다.
   [info]
     en = Show More Info
     tags = ios
@@ -2542,7 +2576,7 @@
     cs = Informace
     nl = Info
     zh-Hant = 简介
-    pl  = Informacje
+    pl = Informacje
     uk = Досьє
     pt = Info
   [done]
@@ -2550,3 +2584,16 @@
     tags = android
     comment = Used for bookmark editing
     ru = Готово
+    ja = 完了
+    cs = Hotovo
+    pl = Zrobione
+    uk = Готово
+    nl = Gedaan
+    fr = Terminé
+    de = Erledigt
+    pt = Feito
+    es = Hecho
+    zh-Hant = 完成
+    it = Fine
+    ko = 완료
+

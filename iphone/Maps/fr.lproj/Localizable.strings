@@ -471,13 +471,16 @@
 "more_info" = "Afficher plus de renseignements";
 
 /* Text for message when used successfully copied something */
-"copied_to_clipboard" = "Copied to Clipboard: %1$@";
+"copied_to_clipboard" = "Copié dans le presse-papier: %1$@";
 
 /* Setting label for statistics turn on/off */
-"allow_statistics" = "Enable Anonymous Usage Statistics";
+"allow_statistics" = "Autorise les statistiques d'utilisation anonymes";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "It helps us to build better application";
+"allow_statistics_hint" = "Cela nous aide à construire une meilleure application";
 
 /* place preview title */
 "info" = "Info";
+
+/* Used for bookmark editing */
+"done" = "Terminé";

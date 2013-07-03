@@ -273,6 +273,14 @@
 	<string name="copy_link">拷贝链接</string>
 	<!-- Text for the button that returns to caller application -->
 	<string name="more_info">显示更多信息\&quot;</string>
+	<!-- Text for message when used successfully copied something -->
+	<string name="copied_to_clipboard">已複製到剪貼板：%1$s</string>
+	<!-- Setting label for statistics turn on/off -->
+	<string name="allow_statistics">啟用匿名使用數據</string>
+	<!-- Hint near allow statictics checkbox -->
+	<string name="allow_statistics_hint">它幫助我們打造更好的應用程序</string>
 	<!-- place preview title -->
 	<string name="info">简介</string>
+	<!-- Used for bookmark editing -->
+	<string name="done">完成</string>
 </resources>

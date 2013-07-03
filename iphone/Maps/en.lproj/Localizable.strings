@@ -481,3 +481,6 @@
 
 /* place preview title */
 "info" = "Show More Info";
+
+/* Used for bookmark editing */
+"done" = "Done";

@@ -471,13 +471,16 @@
 "more_info" = "詳細情報を表示";
 
 /* Text for message when used successfully copied something */
-"copied_to_clipboard" = "Copied to Clipboard: %1$@";
+"copied_to_clipboard" = "クリップボードにコピーしました：%1$@";
 
 /* Setting label for statistics turn on/off */
-"allow_statistics" = "Enable Anonymous Usage Statistics";
+"allow_statistics" = "匿名使用状況統計を有効にする。";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "It helps us to build better application";
+"allow_statistics_hint" = "今後のアプリケーションの開発に役立ちます";
 
 /* place preview title */
 "info" = "情報";
+
+/* Used for bookmark editing */
+"done" = "完了";

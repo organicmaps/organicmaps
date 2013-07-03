@@ -471,13 +471,16 @@
 "more_info" = "显示更多信息\"";
 
 /* Text for message when used successfully copied something */
-"copied_to_clipboard" = "Copied to Clipboard: %1$@";
+"copied_to_clipboard" = "已複製到剪貼板：%1$@";
 
 /* Setting label for statistics turn on/off */
-"allow_statistics" = "Enable Anonymous Usage Statistics";
+"allow_statistics" = "啟用匿名使用數據";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "It helps us to build better application";
+"allow_statistics_hint" = "它幫助我們打造更好的應用程序";
 
 /* place preview title */
 "info" = "简介";
+
+/* Used for bookmark editing */
+"done" = "完成";
