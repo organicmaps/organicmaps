@@ -224,7 +224,6 @@ Framework::Framework()
   m_informationDisplay.enableDebugPoints(true);
 #endif
 
-  m_informationDisplay.enableCenter(true);
   m_informationDisplay.enableRuler(true);
   m_informationDisplay.setRulerParams(m_minRulerWidth, m_metresMinWidth, m_metresMaxWidth);
 
@@ -822,10 +821,6 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   m_informationDisplay.setScreen(m_navigator.Screen());
 
   m_informationDisplay.setDebugInfo(0, GetDrawScale());
-
-  m2::PointD const center = m_navigator.Screen().GlobalRect().GlobalCenter();
-  m_informationDisplay.setCenter(m2::PointD(MercatorBounds::XToLon(center.x),
-                                            MercatorBounds::YToLat(center.y)));
 
   m_informationDisplay.enableRuler(true);
 

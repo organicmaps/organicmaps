@@ -89,11 +89,9 @@ private:
   shared_ptr<CountryStatusDisplay> m_countryStatusDisplay;
   shared_ptr<CompassArrow> m_compassArrow;
   shared_ptr<location::State> m_locationState;
-  shared_ptr<gui::CachedTextView> m_centerLabel;
   shared_ptr<gui::CachedTextView> m_debugLabel;
 
   void InitRuler(Framework * fw);
-  void InitCenterLabel();
   void InitDebugLabel();
   void InitLocationState(Framework * fw);
   void InitCompassArrow(Framework * fw);
@@ -116,9 +114,6 @@ public:
 
   void enableRuler(bool doEnable);
   void setRulerParams(unsigned pxMinWidth, double metresMinWidth, double metresMaxWidth);
-
-  void enableCenter(bool doEnable);
-  void setCenter(m2::PointD const & latLongPt);
 
   void enableDebugInfo(bool doEnable);
   void setDebugInfo(double frameDuration, int currentScale);

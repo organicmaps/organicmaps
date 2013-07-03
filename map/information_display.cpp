@@ -42,12 +42,10 @@ InformationDisplay::InformationDisplay(Framework * fw)
   InitCountryStatusDisplay(fw);
   InitCompassArrow(fw);
   InitLocationState(fw);
-  InitCenterLabel();
   InitDebugLabel();
 
   enableDebugPoints(false);
   enableRuler(false);
-  enableCenter(false);
   enableDebugInfo(false);
   enableMemoryWarning(false);
   enableBenchmarkInfo(false);
@@ -112,17 +110,6 @@ void InformationDisplay::InitLocationState(Framework * fw)
   m_locationState.reset(new location::State(p));
 }
 
-void InformationDisplay::InitCenterLabel()
-{
-  gui::CachedTextView::Params p;
-
-  p.m_depth = graphics::rulerDepth;
-  p.m_position = graphics::EPosUnderLeft;
-  p.m_pivot = m2::PointD(0, 0);
-
-  m_centerLabel.reset(new gui::CachedTextView(p));
-}
-
 void InformationDisplay::InitDebugLabel()
 {
   gui::CachedTextView::Params p;
@@ -141,7 +128,6 @@ void InformationDisplay::setController(gui::Controller *controller)
   m_controller->AddElement(m_compassArrow);
   m_controller->AddElement(m_locationState);
   m_controller->AddElement(m_ruler);
-  m_controller->AddElement(m_centerLabel);
   m_controller->AddElement(m_debugLabel);
 }
 
@@ -176,11 +162,6 @@ void InformationDisplay::setDisplayRect(m2::RectI const & rect)
                            m_displayRect.maxY() - 4 * m_visualScale));
 
   m_ruler->setPivot(pt);
-
-  m2::PointD centerLabelPivot(m_displayRect.maxX() - 4 * m_visualScale,
-                             m_displayRect.maxY() - 30 * m_visualScale);
-
-  m_centerLabel->setPivot(centerLabelPivot);
 
   m2::PointD debugLabelPivot(m_displayRect.minX() + 10,
                              m_displayRect.minY() + 20 + 5 * m_visualScale);
@@ -228,26 +209,6 @@ void InformationDisplay::setVisualScale(double visualScale)
 
   m_ruler->setFont(gui::Element::EActive, m_fontDesc);
   m_debugLabel->setFont(gui::Element::EActive, m_fontDesc);
-  m_centerLabel->setFont(gui::Element::EActive, m_fontDesc);
-}
-
-void InformationDisplay::enableCenter(bool doEnable)
-{
-  m_centerLabel->setIsVisible(doEnable);
-}
-
-void InformationDisplay::setCenter(m2::PointD const & pt)
-{
-  m_centerPtLonLat = pt;
-
-  ostringstream out;
-
-  out << fixed << setprecision(4)
-      << m_centerPtLonLat.y
-      << ", "
-      << m_centerPtLonLat.x;
-
-  m_centerLabel->setText(out.str());
 }
 
 void InformationDisplay::enableDebugInfo(bool doEnable)
