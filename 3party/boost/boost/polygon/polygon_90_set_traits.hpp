@@ -20,8 +20,6 @@ namespace boost { namespace polygon{
   template <typename T>
   struct traits_by_concept<T, point_concept> { typedef point_traits<T> type; };
   template <typename T>
-  struct traits_by_concept<T, point_3d_concept> { typedef point_3d_traits<T> type; };
-  template <typename T>
   struct traits_by_concept<T, rectangle_concept> { typedef rectangle_traits<T> type; };
   template <typename T>
   struct traits_by_concept<T, segment_concept> { typedef segment_traits<T> type; };

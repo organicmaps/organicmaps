@@ -188,13 +188,17 @@ struct scoped_destructor_n
 
    void increment_size_backwards(size_type inc)
    {  m_n += inc;   m_p -= inc;  }
+
+   void shrink_forward(size_type inc)
+   {  m_n -= inc;   m_p += inc;  }
   
    ~scoped_destructor_n()
    {
       if(!m_p) return;
       value_type *raw_ptr = container_detail::to_raw_pointer(m_p);
-      for(size_type i = 0; i < m_n; ++i, ++raw_ptr)
+      while(m_n--){
          AllocTraits::destroy(m_a, raw_ptr);
+      }
    }
 
    private:
@@ -323,7 +327,7 @@ class allocator_destroyer_and_chain_builder
    void operator()(const typename A::pointer &p)
    {
       allocator_traits<A>::destroy(a_, container_detail::to_raw_pointer(p));
-      c_.push_front(p);
+      c_.push_back(p);
    }
 };
 
@@ -348,8 +352,7 @@ class allocator_multialloc_chain_node_deallocator
 
    ~allocator_multialloc_chain_node_deallocator()
    {
-      if(!c_.empty())
-         a_.deallocate_individual(boost::move(c_));
+      a_.deallocate_individual(c_);
    }
 };
 

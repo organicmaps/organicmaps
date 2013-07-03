@@ -46,11 +46,11 @@ namespace boost { namespace spirit { namespace karma
         call (OutputIterator& sink, U n, Policies const& p = Policies())
         {
             if (traits::test_nan(n)) {
-                return Policies::template nan<CharEncoding, Tag>(
+                return p.template nan<CharEncoding, Tag>(
                     sink, n, p.force_sign(n));
             }
             else if (traits::test_infinite(n)) {
-                return Policies::template inf<CharEncoding, Tag>(
+                return p.template inf<CharEncoding, Tag>(
                     sink, n, p.force_sign(n));
             }
             return p.template call<real_inserter>(sink, n, p);

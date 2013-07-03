@@ -18,8 +18,10 @@
 #include <boost/container/detail/workaround.hpp>
 #include <boost/container/container_fwd.hpp>
 #include <boost/container/detail/version_type.hpp>
-#include <boost/move/move.hpp>
-#include <boost/move/move_helpers.hpp>
+#include <boost/container/throw_exception.hpp>
+#include <boost/move/utility.hpp>
+#include <boost/move/iterator.hpp>
+#include <boost/move/detail/move_helpers.hpp>
 #include <boost/intrusive/pointer_traits.hpp>
 #include <boost/container/detail/utilities.hpp>
 #include <boost/container/detail/algorithms.hpp>
@@ -35,13 +37,11 @@
 #include <boost/container/detail/preprocessor.hpp>
 #endif
 
-#include <stdexcept>
 #include <iterator>
 #include <utility>
 #include <memory>
 #include <functional>
 #include <algorithm>
-#include <stdexcept>
 
 namespace boost {
 namespace container {
@@ -118,7 +118,7 @@ class list_const_iterator
    { return this->m_it->m_data;  }
 
    const_pointer   operator->() const
-   { return ::boost::intrusive::pointer_traits<const_pointer>::to_pointer(this->m_it->m_data); }
+   { return ::boost::intrusive::pointer_traits<const_pointer>::pointer_to(this->m_it->m_data); }
 
    //Increment / Decrement
    list_const_iterator& operator++()      
@@ -139,9 +139,6 @@ class list_const_iterator
 
    friend bool operator!= (const list_const_iterator& l, const list_const_iterator& r)
    {  return l.m_it != r.m_it;  }
-
-   IIterator &get()
-   {  return this->m_it;   }
 
    const IIterator &get() const
    {  return this->m_it;   }
@@ -186,9 +183,6 @@ class list_iterator
 
    list_iterator operator--(int)
    {  IIterator tmp = this->m_it; --*this; return list_iterator(tmp); }
-
-   IIterator &get()
-   {  return this->m_it;   }
 
    const IIterator &get() const
    {  return this->m_it;   }
@@ -303,10 +297,10 @@ class list
 
    //! <b>Effects</b>: Constructs a list taking the allocator as parameter.
    //!
-   //! <b>Throws</b>: If allocator_type's copy constructor throws.
+   //! <b>Throws</b>: Nothing
    //!
    //! <b>Complexity</b>: Constant.
-   explicit list(const allocator_type &a)
+   explicit list(const allocator_type &a) BOOST_CONTAINER_NOEXCEPT
       : AllocHolder(a)
    {}
 
@@ -398,7 +392,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Linear to the number of elements.
-   ~list()
+   ~list() BOOST_CONTAINER_NOEXCEPT
    {} //AllocHolder clears the list
 
    //! <b>Effects</b>: Makes *this contain the same elements as x.
@@ -498,7 +492,7 @@ class list
    //! <b>Throws</b>: If allocator's copy constructor throws.
    //!
    //! <b>Complexity</b>: Constant.
-   allocator_type get_allocator() const
+   allocator_type get_allocator() const BOOST_CONTAINER_NOEXCEPT
    {  return allocator_type(this->node_alloc()); }
 
    //! <b>Effects</b>: Returns a reference to the internal allocator.
@@ -508,7 +502,7 @@ class list
    //! <b>Complexity</b>: Constant.
    //!
    //! <b>Note</b>: Non-standard extension.
-   stored_allocator_type &get_stored_allocator()
+   stored_allocator_type &get_stored_allocator() BOOST_CONTAINER_NOEXCEPT
    {  return this->node_alloc(); }
 
    //! <b>Effects</b>: Returns a reference to the internal allocator.
@@ -518,7 +512,7 @@ class list
    //! <b>Complexity</b>: Constant.
    //!
    //! <b>Note</b>: Non-standard extension.
-   const stored_allocator_type &get_stored_allocator() const
+   const stored_allocator_type &get_stored_allocator() const BOOST_CONTAINER_NOEXCEPT
    {  return this->node_alloc(); }
 
    //////////////////////////////////////////////
@@ -532,7 +526,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   iterator begin()
+   iterator begin() BOOST_CONTAINER_NOEXCEPT
    { return iterator(this->icont().begin()); }
 
    //! <b>Effects</b>: Returns a const_iterator to the first element contained in the list.
@@ -540,7 +534,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator begin() const
+   const_iterator begin() const BOOST_CONTAINER_NOEXCEPT
    {  return this->cbegin();   }
 
    //! <b>Effects</b>: Returns an iterator to the end of the list.
@@ -548,7 +542,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   iterator end()
+   iterator end() BOOST_CONTAINER_NOEXCEPT
    {  return iterator(this->icont().end());  }
 
    //! <b>Effects</b>: Returns a const_iterator to the end of the list.
@@ -556,7 +550,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator end() const
+   const_iterator end() const BOOST_CONTAINER_NOEXCEPT
    {  return this->cend();  }
 
    //! <b>Effects</b>: Returns a reverse_iterator pointing to the beginning
@@ -565,7 +559,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   reverse_iterator rbegin()
+   reverse_iterator rbegin() BOOST_CONTAINER_NOEXCEPT
    {  return reverse_iterator(end());  }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the beginning
@@ -574,7 +568,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator rbegin() const
+   const_reverse_iterator rbegin() const BOOST_CONTAINER_NOEXCEPT
    {  return this->crbegin();  }
 
    //! <b>Effects</b>: Returns a reverse_iterator pointing to the end
@@ -583,7 +577,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   reverse_iterator rend()
+   reverse_iterator rend() BOOST_CONTAINER_NOEXCEPT
    {  return reverse_iterator(begin());   }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the end
@@ -592,7 +586,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator rend() const
+   const_reverse_iterator rend() const BOOST_CONTAINER_NOEXCEPT
    {  return this->crend();   }
 
    //! <b>Effects</b>: Returns a const_iterator to the first element contained in the list.
@@ -600,7 +594,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator cbegin() const
+   const_iterator cbegin() const BOOST_CONTAINER_NOEXCEPT
    {  return const_iterator(this->non_const_icont().begin());   }
 
    //! <b>Effects</b>: Returns a const_iterator to the end of the list.
@@ -608,7 +602,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator cend() const
+   const_iterator cend() const BOOST_CONTAINER_NOEXCEPT
    {  return const_iterator(this->non_const_icont().end());  }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the beginning
@@ -617,7 +611,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator crbegin() const
+   const_reverse_iterator crbegin() const BOOST_CONTAINER_NOEXCEPT
    {  return const_reverse_iterator(this->cend());  }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the end
@@ -626,7 +620,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator crend() const
+   const_reverse_iterator crend() const BOOST_CONTAINER_NOEXCEPT
    {  return const_reverse_iterator(this->cbegin());   }
 
    //////////////////////////////////////////////
@@ -640,7 +634,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   bool empty() const
+   bool empty() const BOOST_CONTAINER_NOEXCEPT
    {  return !this->size();  }
 
    //! <b>Effects</b>: Returns the number of the elements contained in the list.
@@ -648,7 +642,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   size_type size() const
+   size_type size() const BOOST_CONTAINER_NOEXCEPT
    {   return this->icont().size();   }
 
    //! <b>Effects</b>: Returns the largest possible size of the list.
@@ -656,7 +650,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   size_type max_size() const
+   size_type max_size() const BOOST_CONTAINER_NOEXCEPT
    {  return AllocHolder::max_size();  }
 
    //! <b>Effects</b>: Inserts or erases elements at the end such that
@@ -700,7 +694,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   reference front()            
+   reference front() BOOST_CONTAINER_NOEXCEPT
    { return *this->begin(); }
 
    //! <b>Requires</b>: !empty()
@@ -711,7 +705,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reference front() const
+   const_reference front() const BOOST_CONTAINER_NOEXCEPT
    { return *this->begin(); }
 
    //! <b>Requires</b>: !empty()
@@ -722,7 +716,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   reference back()             
+   reference back() BOOST_CONTAINER_NOEXCEPT
    { return *(--this->end()); }
 
    //! <b>Requires</b>: !empty()
@@ -733,7 +727,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reference back()  const
+   const_reference back() const BOOST_CONTAINER_NOEXCEPT
    { return *(--this->end()); }
 
    //////////////////////////////////////////////
@@ -939,8 +933,10 @@ class list
    {
       //Optimized allocation and construction
       insertion_functor func(this->icont(), p.get());
+      iterator before_p(p.get());
+      --before_p;
       this->allocate_many_and_construct(first, std::distance(first, last), func);
-      return iterator(func.inserted_first());
+      return ++before_p;
    }
    #endif
 
@@ -949,7 +945,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Amortized constant time.
-   void pop_front()             
+   void pop_front() BOOST_CONTAINER_NOEXCEPT
    {  this->erase(this->cbegin());      }
 
    //! <b>Effects</b>: Removes the last element from the list.
@@ -957,7 +953,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Amortized constant time.
-   void pop_back()              
+   void pop_back() BOOST_CONTAINER_NOEXCEPT
    {  const_iterator tmp = this->cend(); this->erase(--tmp);  }
 
    //! <b>Requires</b>: p must be a valid iterator of *this.
@@ -967,7 +963,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Amortized constant time.
-   iterator erase(const_iterator p)
+   iterator erase(const_iterator p) BOOST_CONTAINER_NOEXCEPT
    {  return iterator(this->icont().erase_and_dispose(p.get(), Destroyer(this->node_alloc()))); }
 
    //! <b>Requires</b>: first and last must be valid iterator to elements in *this.
@@ -977,7 +973,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Linear to the distance between first and last.
-   iterator erase(const_iterator first, const_iterator last)
+   iterator erase(const_iterator first, const_iterator last) BOOST_CONTAINER_NOEXCEPT
    {  return iterator(AllocHolder::erase_range(first.get(), last.get(), alloc_version())); }
 
    //! <b>Effects</b>: Swaps the contents of *this and x.
@@ -993,7 +989,7 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Linear to the number of elements in the list.
-   void clear()
+   void clear() BOOST_CONTAINER_NOEXCEPT
    {  AllocHolder::clear(alloc_version());  }
 
    //////////////////////////////////////////////
@@ -1003,13 +999,12 @@ class list
    //////////////////////////////////////////////
 
    //! <b>Requires</b>: p must point to an element contained
-   //!   by the list. x != *this
+   //!   by the list. x != *this. this' allocator and x's allocator shall compare equal
    //!
    //! <b>Effects</b>: Transfers all the elements of list x to this list, before the
    //!   the element pointed by p. No destructors or copy constructors are called.
    //!
-   //! <b>Throws</b>: std::runtime_error if this' allocator and x's allocator
-   //!   are not equal.
+   //! <b>Throws</b>: Nothing
    //!
    //! <b>Complexity</b>: Constant.
    //!
@@ -1017,19 +1012,18 @@ class list
    //!    this list. Iterators of this list and all the references are not invalidated.
    void splice(const_iterator p, list& x) BOOST_CONTAINER_NOEXCEPT
    {
-      BOOST_ASSERT(*this != x);
+      BOOST_ASSERT(this != &x);
       BOOST_ASSERT(this->node_alloc() == x.node_alloc());
       this->icont().splice(p.get(), x.icont());
    }
 
    //! <b>Requires</b>: p must point to an element contained
-   //!   by the list. x != *this
+   //!   by the list. x != *this. this' allocator and x's allocator shall compare equal
    //!
    //! <b>Effects</b>: Transfers all the elements of list x to this list, before the
    //!   the element pointed by p. No destructors or copy constructors are called.
    //!
-   //! <b>Throws</b>: std::runtime_error if this' allocator and x's allocator
-   //!   are not equal.
+   //! <b>Throws</b>: Nothing
    //!
    //! <b>Complexity</b>: Constant.
    //!
@@ -1040,13 +1034,13 @@ class list
 
    //! <b>Requires</b>: p must point to an element contained
    //!   by this list. i must point to an element contained in list x.
+   //!   this' allocator and x's allocator shall compare equal
    //!
    //! <b>Effects</b>: Transfers the value pointed by i, from list x to this list,
    //!   before the the element pointed by p. No destructors or copy constructors are called.
    //!   If p == i or p == ++i, this function is a null operation.
    //!
-   //! <b>Throws</b>: std::runtime_error if this' allocator and x's allocator
-   //!   are not equal.
+   //! <b>Throws</b>: Nothing
    //!
    //! <b>Complexity</b>: Constant.
    //!
@@ -1054,20 +1048,20 @@ class list
    //!   list. Iterators of this list and all the references are not invalidated.
    void splice(const_iterator p, list &x, const_iterator i) BOOST_CONTAINER_NOEXCEPT
    {
-      BOOST_ASSERT(*this != x);
+      //BOOST_ASSERT(this != &x);
       BOOST_ASSERT(this->node_alloc() == x.node_alloc());
       this->icont().splice(p.get(), x.icont(), i.get());
    }
 
    //! <b>Requires</b>: p must point to an element contained
    //!   by this list. i must point to an element contained in list x.
+   //!   this' allocator and x's allocator shall compare equal.
    //!
    //! <b>Effects</b>: Transfers the value pointed by i, from list x to this list,
    //!   before the the element pointed by p. No destructors or copy constructors are called.
    //!   If p == i or p == ++i, this function is a null operation.
    //!
-   //! <b>Throws</b>: std::runtime_error if this' allocator and x's allocator
-   //!   are not equal.
+   //! <b>Throws</b>: Nothing
    //!
    //! <b>Complexity</b>: Constant.
    //!
@@ -1078,12 +1072,12 @@ class list
 
    //! <b>Requires</b>: p must point to an element contained
    //!   by this list. first and last must point to elements contained in list x.
+   //!   this' allocator and x's allocator shall compare equal
    //!
    //! <b>Effects</b>: Transfers the range pointed by first and last from list x to this list,
    //!   before the the element pointed by p. No destructors or copy constructors are called.
    //!
-   //! <b>Throws</b>: std::runtime_error if this' allocator and x's allocator
-   //!   are not equal.
+   //! <b>Throws</b>: Nothing
    //!
    //! <b>Complexity</b>: Linear to the number of elements transferred.
    //!
@@ -1091,19 +1085,18 @@ class list
    //!   list. Iterators of this list and all the references are not invalidated.
    void splice(const_iterator p, list &x, const_iterator first, const_iterator last) BOOST_CONTAINER_NOEXCEPT
    {
-      BOOST_ASSERT(*this != x);
       BOOST_ASSERT(this->node_alloc() == x.node_alloc());
       this->icont().splice(p.get(), x.icont(), first.get(), last.get());
    }
 
    //! <b>Requires</b>: p must point to an element contained
    //!   by this list. first and last must point to elements contained in list x.
+   //!   this' allocator and x's allocator shall compare equal.
    //!
    //! <b>Effects</b>: Transfers the range pointed by first and last from list x to this list,
    //!   before the the element pointed by p. No destructors or copy constructors are called.
    //!
-   //! <b>Throws</b>: std::runtime_error if this' allocator and x's allocator
-   //!   are not equal.
+   //! <b>Throws</b>: Nothing
    //!
    //! <b>Complexity</b>: Linear to the number of elements transferred.
    //!
@@ -1114,13 +1107,12 @@ class list
 
    //! <b>Requires</b>: p must point to an element contained
    //!   by this list. first and last must point to elements contained in list x.
-   //!   n == std::distance(first, last)
+   //!   n == std::distance(first, last). this' allocator and x's allocator shall compare equal
    //!
    //! <b>Effects</b>: Transfers the range pointed by first and last from list x to this list,
    //!   before the the element pointed by p. No destructors or copy constructors are called.
    //!
-   //! <b>Throws</b>: std::runtime_error if this' allocator and x's allocator
-   //!   are not equal.
+   //! <b>Throws</b>:  Nothing
    //!
    //! <b>Complexity</b>: Constant.
    //!
@@ -1130,20 +1122,18 @@ class list
    //! <b>Note</b>: Non-standard extension
    void splice(const_iterator p, list &x, const_iterator first, const_iterator last, size_type n) BOOST_CONTAINER_NOEXCEPT
    {
-      BOOST_ASSERT(*this != x);
       BOOST_ASSERT(this->node_alloc() == x.node_alloc());
       this->icont().splice(p.get(), x.icont(), first.get(), last.get(), n);
    }
 
    //! <b>Requires</b>: p must point to an element contained
    //!   by this list. first and last must point to elements contained in list x.
-   //!   n == std::distance(first, last)
+   //!   n == std::distance(first, last). this' allocator and x's allocator shall compare equal
    //!
    //! <b>Effects</b>: Transfers the range pointed by first and last from list x to this list,
    //!   before the the element pointed by p. No destructors or copy constructors are called.
    //!
-   //! <b>Throws</b>: std::runtime_error if this' allocator and x's allocator
-   //!   are not equal.
+   //! <b>Throws</b>: Nothing
    //!
    //! <b>Complexity</b>: Constant.
    //!
@@ -1156,7 +1146,7 @@ class list
 
    //! <b>Effects</b>: Removes all the elements that compare equal to value.
    //!
-   //! <b>Throws</b>: Nothing.
+   //! <b>Throws</b>: If comparison throws.
    //!
    //! <b>Complexity</b>: Linear time. It performs exactly size() comparisons for equality.
    //!
@@ -1184,9 +1174,9 @@ class list
    //! <b>Effects</b>: Removes adjacent duplicate elements or adjacent
    //!   elements that are equal from the list.
    //!
-   //! <b>Throws</b>: Nothing.
+   //! <b>Throws</b>: If comparison throws.
    //!
-   //! <b>Complexity</b>: Linear time (size()-1 comparisons calls to pred()).
+   //! <b>Complexity</b>: Linear time (size()-1 comparisons equality comparisons).
    //!
    //! <b>Note</b>: The relative order of elements that are not removed is unchanged,
    //!   and iterators to elements that are not removed remain valid.
@@ -1198,7 +1188,7 @@ class list
    //!
    //! <b>Throws</b>: If pred throws.
    //!
-   //! <b>Complexity</b>: Linear time (size()-1 comparisons equality comparisons).
+   //! <b>Complexity</b>: Linear time (size()-1 comparisons calls to pred()).
    //!
    //! <b>Note</b>: The relative order of elements that are not removed is unchanged,
    //!   and iterators to elements that are not removed remain valid.
@@ -1216,7 +1206,7 @@ class list
    //!   that is, if an element from *this is equivalent to one from x, then the element
    //!   from *this will precede the one from x.
    //!
-   //! <b>Throws</b>: Nothing.
+   //! <b>Throws</b>: If comparison throws.
    //!
    //! <b>Complexity</b>: This function is linear time: it performs at most
    //!   size() + x.size() - 1 comparisons.
@@ -1230,7 +1220,7 @@ class list
    //!   that is, if an element from *this is equivalent to one from x, then the element
    //!   from *this will precede the one from x.
    //!
-   //! <b>Throws</b>: Nothing.
+   //! <b>Throws</b>: If comparison throws.
    //!
    //! <b>Complexity</b>: This function is linear time: it performs at most
    //!   size() + x.size() - 1 comparisons.
@@ -1245,22 +1235,18 @@ class list
    //!   in order into *this. The merge is stable; that is, if an element from *this is
    //!   equivalent to one from x, then the element from *this will precede the one from x.
    //!
-   //! <b>Throws</b>: Nothing.
+   //! <b>Throws</b>: If comp throws.
    //!
    //! <b>Complexity</b>: This function is linear time: it performs at most
    //!   size() + x.size() - 1 comparisons.
    //!
    //! <b>Note</b>: Iterators and references to *this are not invalidated.
    template <class StrictWeakOrdering>
-   void merge(list &x, StrictWeakOrdering comp)
+   void merge(list &x, const StrictWeakOrdering &comp)
    {
-      if((NodeAlloc&)*this == (NodeAlloc&)x){
-         this->icont().merge(x.icont(),
-            ValueCompareToNodeCompare<StrictWeakOrdering>(comp));
-      }
-      else{
-         throw std::runtime_error("list::merge called with unequal allocators");
-      }
+      BOOST_ASSERT(this->node_alloc() == x.node_alloc());
+      this->icont().merge(x.icont(),
+         ValueCompareToNodeCompare<StrictWeakOrdering>(comp));
    }
 
    //! <b>Requires</b>: p must be a comparison function that induces a strict weak
@@ -1271,7 +1257,7 @@ class list
    //!   in order into *this. The merge is stable; that is, if an element from *this is
    //!   equivalent to one from x, then the element from *this will precede the one from x.
    //!
-   //! <b>Throws</b>: Nothing.
+   //! <b>Throws</b>: If comp throws.
    //!
    //! <b>Complexity</b>: This function is linear time: it performs at most
    //!   size() + x.size() - 1 comparisons.
@@ -1284,7 +1270,7 @@ class list
    //! <b>Effects</b>: This function sorts the list *this according to std::less<value_type>.
    //!   The sort is stable, that is, the relative order of equivalent elements is preserved.
    //!
-   //! <b>Throws</b>: Nothing.
+   //! <b>Throws</b>: If comparison throws.
    //!
    //! <b>Notes</b>: Iterators and references are not invalidated.
    //!  
@@ -1296,7 +1282,7 @@ class list
    //! <b>Effects</b>: This function sorts the list *this according to std::less<value_type>.
    //!   The sort is stable, that is, the relative order of equivalent elements is preserved.
    //!
-   //! <b>Throws</b>: Nothing.
+   //! <b>Throws</b>: If comp throws.
    //!
    //! <b>Notes</b>: Iterators and references are not invalidated.
    //!
@@ -1318,7 +1304,7 @@ class list
    //! <b>Complexity</b>: This function is linear time.
    //!
    //! <b>Note</b>: Iterators and references are not invalidated
-   void reverse()
+   void reverse() BOOST_CONTAINER_NOEXCEPT
    {  this->icont().reverse(); }   
 
    /// @cond
@@ -1382,31 +1368,18 @@ class list
    class insertion_functor
    {
       Icont &icont_;
-      typedef typename Icont::iterator       iiterator;
       typedef typename Icont::const_iterator iconst_iterator;
-
       const iconst_iterator pos_;
-      iiterator ret_;
-      bool first_;
 
       public:
       insertion_functor(Icont &icont, typename Icont::const_iterator pos)
-         :  icont_(icont), pos_(pos), ret_(pos.unconst()), first_(true)
+         :  icont_(icont), pos_(pos)
       {}
 
       void operator()(Node &n)
       {
-         if(first_){
-            ret_ = this->icont_.insert(pos_, n);
-            first_ = false;
-         }
-         else{
-            this->icont_.insert(pos_, n);
-         }
+         this->icont_.insert(pos_, n);
       }
-
-      iiterator inserted_first() const
-      {  return ret_;   }
    };
 
    //Functors for member algorithm defaults
@@ -1483,15 +1456,14 @@ inline void swap(list<T, Allocator>& x, list<T, Allocator>& y)
 /// @cond
 
 }  //namespace container {
-/*
+
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
 template <class T, class Allocator>
 struct has_trivial_destructor_after_move<boost::container::list<T, Allocator> >
-{
-   static const bool value = has_trivial_destructor<Allocator>::value;
-};
-*/
+   : public ::boost::has_trivial_destructor_after_move<Allocator>
+{};
+
 namespace container {
 
 /// @endcond

@@ -21,6 +21,11 @@
 namespace boost { namespace geometry
 {
 
+// Silence warning C4512: assignment operator could not be generated
+#if defined(_MSC_VER)
+#pragma warning(push)  
+#pragma warning(disable : 4512)
+#endif
 
 /*!
 \brief View on a range, not modifying anything
@@ -46,6 +51,9 @@ private :
     Range& m_range;
 };
 
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 }} // namespace boost::geometry
 

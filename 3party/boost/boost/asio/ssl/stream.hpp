@@ -2,7 +2,7 @@
 // ssl/stream.hpp
 // ~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -20,10 +20,13 @@
 #if defined(BOOST_ASIO_ENABLE_OLD_SSL)
 # include <boost/asio/ssl/old/stream.hpp>
 #else // defined(BOOST_ASIO_ENABLE_OLD_SSL)
+# include <boost/asio/async_result.hpp>
 # include <boost/asio/detail/buffer_sequence_adapter.hpp>
 # include <boost/asio/detail/handler_type_requirements.hpp>
 # include <boost/asio/detail/noncopyable.hpp>
+# include <boost/asio/detail/type_traits.hpp>
 # include <boost/asio/ssl/context.hpp>
+# include <boost/asio/ssl/detail/buffered_handshake_op.hpp>
 # include <boost/asio/ssl/detail/handshake_op.hpp>
 # include <boost/asio/ssl/detail/io.hpp>
 # include <boost/asio/ssl/detail/read_op.hpp>
@@ -31,7 +34,6 @@
 # include <boost/asio/ssl/detail/stream_core.hpp>
 # include <boost/asio/ssl/detail/write_op.hpp>
 # include <boost/asio/ssl/stream_base.hpp>
-# include <boost/type_traits/remove_reference.hpp>
 #endif // defined(BOOST_ASIO_ENABLE_OLD_SSL)
 
 #include <boost/asio/detail/push_options.hpp>
@@ -87,7 +89,7 @@ public:
   typedef impl_struct* impl_type;
 
   /// The type of the next layer.
-  typedef typename boost::remove_reference<Stream>::type next_layer_type;
+  typedef typename remove_reference<Stream>::type next_layer_type;
 
   /// The type of the lowest layer.
   typedef typename next_layer_type::lowest_layer_type lowest_layer_type;
@@ -257,6 +259,43 @@ public:
     return core_.engine_.set_verify_mode(v, ec);
   }
 
+  /// Set the peer verification depth.
+  /**
+   * This function may be used to configure the maximum verification depth
+   * allowed by the stream.
+   *
+   * @param depth Maximum depth for the certificate chain verification that
+   * shall be allowed.
+   *
+   * @throws boost::system::system_error Thrown on failure.
+   *
+   * @note Calls @c SSL_set_verify_depth.
+   */
+  void set_verify_depth(int depth)
+  {
+    boost::system::error_code ec;
+    set_verify_depth(depth, ec);
+    boost::asio::detail::throw_error(ec, "set_verify_depth");
+  }
+
+  /// Set the peer verification depth.
+  /**
+   * This function may be used to configure the maximum verification depth
+   * allowed by the stream.
+   *
+   * @param depth Maximum depth for the certificate chain verification that
+   * shall be allowed.
+   *
+   * @param ec Set to indicate what error occurred, if any.
+   *
+   * @note Calls @c SSL_set_verify_depth.
+   */
+  boost::system::error_code set_verify_depth(
+      int depth, boost::system::error_code& ec)
+  {
+    return core_.engine_.set_verify_depth(depth, ec);
+  }
+
   /// Set the callback used to verify peer certificates.
   /**
    * This function is used to specify a callback function that will be called
@@ -343,6 +382,47 @@ public:
     return ec;
   }
 
+  /// Perform SSL handshaking.
+  /**
+   * This function is used to perform SSL handshaking on the stream. The
+   * function call will block until handshaking is complete or an error occurs.
+   *
+   * @param type The type of handshaking to be performed, i.e. as a client or as
+   * a server.
+   *
+   * @param buffers The buffered data to be reused for the handshake.
+   *
+   * @throws boost::system::system_error Thrown on failure.
+   */
+  template <typename ConstBufferSequence>
+  void handshake(handshake_type type, const ConstBufferSequence& buffers)
+  {
+    boost::system::error_code ec;
+    handshake(type, buffers, ec);
+    boost::asio::detail::throw_error(ec, "handshake");
+  }
+
+  /// Perform SSL handshaking.
+  /**
+   * This function is used to perform SSL handshaking on the stream. The
+   * function call will block until handshaking is complete or an error occurs.
+   *
+   * @param type The type of handshaking to be performed, i.e. as a client or as
+   * a server.
+   *
+   * @param buffers The buffered data to be reused for the handshake.
+   *
+   * @param ec Set to indicate what error occurred, if any.
+   */
+  template <typename ConstBufferSequence>
+  boost::system::error_code handshake(handshake_type type,
+      const ConstBufferSequence& buffers, boost::system::error_code& ec)
+  {
+    detail::io(next_layer_, core_,
+        detail::buffered_handshake_op<ConstBufferSequence>(type, buffers), ec);
+    return ec;
+  }
+
   /// Start an asynchronous SSL handshake.
   /**
    * This function is used to asynchronously perform an SSL handshake on the
@@ -359,15 +439,66 @@ public:
    * ); @endcode
    */
   template <typename HandshakeHandler>
-  void async_handshake(handshake_type type,
+  BOOST_ASIO_INITFN_RESULT_TYPE(HandshakeHandler,
+      void (boost::system::error_code))
+  async_handshake(handshake_type type,
       BOOST_ASIO_MOVE_ARG(HandshakeHandler) handler)
   {
     // If you get an error on the following line it means that your handler does
     // not meet the documented type requirements for a HandshakeHandler.
     BOOST_ASIO_HANDSHAKE_HANDLER_CHECK(HandshakeHandler, handler) type_check;
 
-    detail::async_io(next_layer_, core_, detail::handshake_op(type),
+    boost::asio::detail::async_result_init<
+      HandshakeHandler, void (boost::system::error_code)> init(
         BOOST_ASIO_MOVE_CAST(HandshakeHandler)(handler));
+
+    detail::async_io(next_layer_, core_,
+        detail::handshake_op(type), init.handler);
+
+    return init.result.get();
+  }
+
+  /// Start an asynchronous SSL handshake.
+  /**
+   * This function is used to asynchronously perform an SSL handshake on the
+   * stream. This function call always returns immediately.
+   *
+   * @param type The type of handshaking to be performed, i.e. as a client or as
+   * a server.
+   *
+   * @param buffers The buffered data to be reused for the handshake. Although
+   * the buffers object may be copied as necessary, ownership of the underlying
+   * buffers is retained by the caller, which must guarantee that they remain
+   * valid until the handler is called.
+   *
+   * @param handler The handler to be called when the handshake operation
+   * completes. Copies will be made of the handler as required. The equivalent
+   * function signature of the handler must be:
+   * @code void handler(
+   *   const boost::system::error_code& error, // Result of operation.
+   *   std::size_t bytes_transferred // Amount of buffers used in handshake.
+   * ); @endcode
+   */
+  template <typename ConstBufferSequence, typename BufferedHandshakeHandler>
+  BOOST_ASIO_INITFN_RESULT_TYPE(BufferedHandshakeHandler,
+      void (boost::system::error_code, std::size_t))
+  async_handshake(handshake_type type, const ConstBufferSequence& buffers,
+      BOOST_ASIO_MOVE_ARG(BufferedHandshakeHandler) handler)
+  {
+    // If you get an error on the following line it means that your handler does
+    // not meet the documented type requirements for a BufferedHandshakeHandler.
+    BOOST_ASIO_BUFFERED_HANDSHAKE_HANDLER_CHECK(
+        BufferedHandshakeHandler, handler) type_check;
+
+    boost::asio::detail::async_result_init<BufferedHandshakeHandler,
+      void (boost::system::error_code, std::size_t)> init(
+        BOOST_ASIO_MOVE_CAST(BufferedHandshakeHandler)(handler));
+
+    detail::async_io(next_layer_, core_,
+        detail::buffered_handshake_op<ConstBufferSequence>(type, buffers),
+        init.handler);
+
+    return init.result.get();
   }
 
   /// Shut down SSL on the stream.
@@ -410,14 +541,21 @@ public:
    * ); @endcode
    */
   template <typename ShutdownHandler>
-  void async_shutdown(BOOST_ASIO_MOVE_ARG(ShutdownHandler) handler)
+  BOOST_ASIO_INITFN_RESULT_TYPE(ShutdownHandler,
+      void (boost::system::error_code))
+  async_shutdown(BOOST_ASIO_MOVE_ARG(ShutdownHandler) handler)
   {
     // If you get an error on the following line it means that your handler does
     // not meet the documented type requirements for a ShutdownHandler.
     BOOST_ASIO_SHUTDOWN_HANDLER_CHECK(ShutdownHandler, handler) type_check;
 
-    detail::async_io(next_layer_, core_, detail::shutdown_op(),
+    boost::asio::detail::async_result_init<
+      ShutdownHandler, void (boost::system::error_code)> init(
         BOOST_ASIO_MOVE_CAST(ShutdownHandler)(handler));
+
+    detail::async_io(next_layer_, core_, detail::shutdown_op(), init.handler);
+
+    return init.result.get();
   }
 
   /// Write some data to the stream.
@@ -492,16 +630,23 @@ public:
    * ensure that all data is written before the blocking operation completes.
    */
   template <typename ConstBufferSequence, typename WriteHandler>
-  void async_write_some(const ConstBufferSequence& buffers,
+  BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
+      void (boost::system::error_code, std::size_t))
+  async_write_some(const ConstBufferSequence& buffers,
       BOOST_ASIO_MOVE_ARG(WriteHandler) handler)
   {
     // If you get an error on the following line it means that your handler does
     // not meet the documented type requirements for a WriteHandler.
     BOOST_ASIO_WRITE_HANDLER_CHECK(WriteHandler, handler) type_check;
 
-    detail::async_io(next_layer_, core_,
-        detail::write_op<ConstBufferSequence>(buffers),
+    boost::asio::detail::async_result_init<
+      WriteHandler, void (boost::system::error_code, std::size_t)> init(
         BOOST_ASIO_MOVE_CAST(WriteHandler)(handler));
+
+    detail::async_io(next_layer_, core_,
+        detail::write_op<ConstBufferSequence>(buffers), init.handler);
+
+    return init.result.get();
   }
 
   /// Read some data from the stream.
@@ -577,16 +722,23 @@ public:
    * operation completes.
    */
   template <typename MutableBufferSequence, typename ReadHandler>
-  void async_read_some(const MutableBufferSequence& buffers,
+  BOOST_ASIO_INITFN_RESULT_TYPE(ReadHandler,
+      void (boost::system::error_code, std::size_t))
+  async_read_some(const MutableBufferSequence& buffers,
       BOOST_ASIO_MOVE_ARG(ReadHandler) handler)
   {
     // If you get an error on the following line it means that your handler does
     // not meet the documented type requirements for a ReadHandler.
     BOOST_ASIO_READ_HANDLER_CHECK(ReadHandler, handler) type_check;
 
-    detail::async_io(next_layer_, core_,
-        detail::read_op<MutableBufferSequence>(buffers),
+    boost::asio::detail::async_result_init<
+      ReadHandler, void (boost::system::error_code, std::size_t)> init(
         BOOST_ASIO_MOVE_CAST(ReadHandler)(handler));
+
+    detail::async_io(next_layer_, core_,
+        detail::read_op<MutableBufferSequence>(buffers), init.handler);
+
+    return init.result.get();
   }
 
 private:

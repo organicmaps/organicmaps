@@ -21,9 +21,9 @@ namespace boost { namespace geometry
 namespace detail
 {
 
-template<typename ReturnType, typename Geometry, typename Strategy>
 struct calculate_null
 {
+    template<typename ReturnType, typename Geometry, typename Strategy>
     static inline ReturnType apply(Geometry const& , Strategy const&)
     {
         return ReturnType();

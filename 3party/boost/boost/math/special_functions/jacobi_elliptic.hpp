@@ -115,8 +115,8 @@ T jacobi_imp(const T& x, const T& k, T* cn, T* dn, const Policy& pol, const char
 
 } // namespace detail
 
-template <class T, class Policy>
-inline typename tools::promote_args<T>::type jacobi_elliptic(T k, T theta, T* pcn, T* pdn, const Policy&)
+template <class T, class U, class V, class Policy>
+inline typename tools::promote_args<T, U, V>::type jacobi_elliptic(T k, U theta, V* pcn, V* pdn, const Policy&)
 {
    BOOST_FPU_EXCEPTION_GUARD
    typedef typename tools::promote_args<T>::type result_type;
@@ -139,8 +139,8 @@ inline typename tools::promote_args<T>::type jacobi_elliptic(T k, T theta, T* pc
    return policies::checked_narrowing_cast<result_type, Policy>(sn, function);;
 }
 
-template <class T>
-inline typename tools::promote_args<T>::type jacobi_elliptic(T k, T theta, T* pcn, T* pdn)
+template <class T, class U, class V>
+inline typename tools::promote_args<T, U, V>::type jacobi_elliptic(T k, U theta, V* pcn, V* pdn)
 {
    return jacobi_elliptic(k, theta, pcn, pdn, policies::policy<>());
 }

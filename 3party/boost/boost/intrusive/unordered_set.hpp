@@ -122,10 +122,10 @@ class unordered_set_impl
    //!
    //! <b>Notes</b>: buckets array must be disposed only after
    //!   *this is disposed.
-   unordered_set_impl( const bucket_traits &b_traits
-                     , const hasher & hash_func = hasher()
-                     , const key_equal &equal_func = key_equal()
-                     , const value_traits &v_traits = value_traits())
+   explicit unordered_set_impl( const bucket_traits &b_traits
+                              , const hasher & hash_func = hasher()
+                              , const key_equal &equal_func = key_equal()
+                              , const value_traits &v_traits = value_traits())
       :  table_(b_traits, hash_func, equal_func, v_traits)
    {}
 
@@ -1193,10 +1193,10 @@ class unordered_multiset_impl
    //!
    //! <b>Notes</b>: buckets array must be disposed only after
    //!   *this is disposed.
-   unordered_multiset_impl ( const bucket_traits &b_traits
-                           , const hasher & hash_func = hasher()
-                           , const key_equal &equal_func = key_equal()
-                           , const value_traits &v_traits = value_traits())
+   explicit unordered_multiset_impl ( const bucket_traits &b_traits
+                                    , const hasher & hash_func = hasher()
+                                    , const key_equal &equal_func = key_equal()
+                                    , const value_traits &v_traits = value_traits())
       :  table_(b_traits, hash_func, equal_func, v_traits)
    {}
 

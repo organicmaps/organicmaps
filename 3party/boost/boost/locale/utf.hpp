@@ -29,7 +29,7 @@ namespace utf {
     /// \endcond
 
     ///
-    /// \brief The integral type type that can hold a Unicode code point
+    /// \brief The integral type that can hold a Unicode code point
     ///
     typedef uint32_t code_point;
 
@@ -219,16 +219,22 @@ namespace utf {
                 if(BOOST_LOCALE_UNLIKELY(p==e))
                     return incomplete;
                 tmp = *p++;
+                if (!is_trail(tmp))
+                    return illegal;
                 c = (c << 6) | ( tmp & 0x3F);
             case 2:
                 if(BOOST_LOCALE_UNLIKELY(p==e))
                     return incomplete;
                 tmp = *p++;
+                if (!is_trail(tmp))
+                    return illegal;
                 c = (c << 6) | ( tmp & 0x3F);
             case 1:
                 if(BOOST_LOCALE_UNLIKELY(p==e))
                     return incomplete;
                 tmp = *p++;
+                if (!is_trail(tmp))
+                    return illegal;
                 c = (c << 6) | ( tmp & 0x3F);
             }
 

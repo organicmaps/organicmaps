@@ -101,7 +101,7 @@ namespace boost { namespace proto
 #define BOOST_PROTO_UNARY_OP_IS_POSTFIX_0
 #define BOOST_PROTO_UNARY_OP_IS_POSTFIX_1 , int
 
-#ifdef BOOST_NO_RVALUE_REFERENCES
+#ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
 
 #define BOOST_PROTO_DEFINE_UNARY_OPERATOR(OP, TAG, TRAIT, DOMAIN, POST)                             \
     template<typename Arg>                                                                          \
@@ -325,7 +325,7 @@ namespace boost { namespace proto
     // can use BOOST_PROTO_DEFINE_OPERATORS to define Proto operator overloads that work
     // with their own terminal types.
 
-#ifdef BOOST_NO_RVALUE_REFERENCES
+#ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
 
     #define BOOST_PROTO_APPLY_UNARY_(TRAIT, ARG)                                                    \
         boost::mpl::and_<                                                                           \

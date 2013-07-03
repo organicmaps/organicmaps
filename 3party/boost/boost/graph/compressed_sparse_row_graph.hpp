@@ -37,7 +37,9 @@
 #include <boost/integer.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/mpl/if.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <boost/graph/graph_selectors.hpp>
+#include <boost/graph/detail/is_distributed_selector.hpp>
 #include <boost/graph/properties.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/functional/hash.hpp>
@@ -640,8 +642,6 @@ class compressed_sparse_row_graph<directedS, VertexProperty, EdgeProperty, Graph
                      const GlobalToLocal& global_to_local) {
     typedef compressed_sparse_row_graph Graph;
     typedef typename boost::graph_traits<Graph>::vertex_descriptor vertex_t;
-    typedef typename boost::graph_traits<Graph>::vertices_size_type vertex_num;
-    typedef typename boost::graph_traits<Graph>::edges_size_type edge_num;
     typedef std::vector<std::pair<vertex_t, vertex_t> > edge_vector_t;
     edge_vector_t new_edges(first, last);
     if (new_edges.empty()) return;
@@ -664,8 +664,6 @@ class compressed_sparse_row_graph<directedS, VertexProperty, EdgeProperty, Graph
                      const GlobalToLocal& global_to_local) {
     typedef compressed_sparse_row_graph Graph;
     typedef typename boost::graph_traits<Graph>::vertex_descriptor vertex_t;
-    typedef typename boost::graph_traits<Graph>::vertices_size_type vertex_num;
-    typedef typename boost::graph_traits<Graph>::edges_size_type edge_num;
     typedef std::pair<vertex_t, vertex_t> vertex_pair;
     typedef std::vector<
               boost::tuple<vertex_pair,
@@ -1162,7 +1160,6 @@ inline std::pair<typename BOOST_BIDIR_CSR_GRAPH_TYPE::in_edge_iterator,
                  typename BOOST_BIDIR_CSR_GRAPH_TYPE::in_edge_iterator>
 in_edges(Vertex v, const BOOST_BIDIR_CSR_GRAPH_TYPE& g)
 {
-  typedef typename BOOST_BIDIR_CSR_GRAPH_TYPE::edge_descriptor ed;
   typedef typename BOOST_BIDIR_CSR_GRAPH_TYPE::in_edge_iterator it;
   EdgeIndex v_row_start = g.m_backward.m_rowstart[v];
   EdgeIndex next_row_start = g.m_backward.m_rowstart[v + 1];
@@ -1322,8 +1319,9 @@ struct csr_property_map_helper<BOOST_CSR_GRAPH_TYPE, Tag, graph_property_tag> {
   typedef transform_value_property_map<detail::lookup_one_property_f<const plist_type, Tag>, all_const_type> const_type;
 };
 
+// disable_if isn't truly necessary but required to avoid ambiguity with specializations below
 template <BOOST_CSR_GRAPH_TEMPLATE_PARMS, typename Tag>
-struct property_map<BOOST_CSR_GRAPH_TYPE, Tag>:
+struct property_map<BOOST_CSR_GRAPH_TYPE, Tag, typename disable_if<detail::is_distributed_selector<Vertex> >::type>:
   csr_property_map_helper<
     BOOST_CSR_GRAPH_TYPE,
     Tag,
@@ -1365,40 +1363,39 @@ put(Tag tag,
     typename property_map<BOOST_CSR_GRAPH_TYPE, Tag>::key_type k,
     typename lookup_one_property<typename property_map<BOOST_CSR_GRAPH_TYPE, Tag>::plist_type, Tag>::type val) {
   typedef typename property_map<BOOST_CSR_GRAPH_TYPE, Tag>::all_tag all_tag;
-  typedef typename property_map<BOOST_CSR_GRAPH_TYPE, all_tag>::type outer_pm;
   lookup_one_property<typename property_map<BOOST_CSR_GRAPH_TYPE, Tag>::plist_type, Tag>::lookup(get(all_tag(), g, k), tag) = val;
 }
 
 template<BOOST_CSR_GRAPH_TEMPLATE_PARMS>
-struct property_map<BOOST_CSR_GRAPH_TYPE, vertex_index_t>
+struct property_map<BOOST_CSR_GRAPH_TYPE, vertex_index_t, typename disable_if<detail::is_distributed_selector<Vertex> >::type>
 {
   typedef typed_identity_property_map<Vertex> type;
   typedef type const_type;
 };
 
 template<BOOST_CSR_GRAPH_TEMPLATE_PARMS>
-struct property_map<BOOST_CSR_GRAPH_TYPE, edge_index_t>
+struct property_map<BOOST_CSR_GRAPH_TYPE, edge_index_t, typename disable_if<detail::is_distributed_selector<Vertex> >::type>
 {
   typedef detail::csr_edge_index_map<Vertex, EdgeIndex> type;
   typedef type const_type;
 };
 
 template<BOOST_CSR_GRAPH_TEMPLATE_PARMS>
-struct property_map<BOOST_CSR_GRAPH_TYPE, vertex_all_t>
+struct property_map<BOOST_CSR_GRAPH_TYPE, vertex_all_t, typename disable_if<detail::is_distributed_selector<Vertex> >::type>
 {
   typedef typename BOOST_CSR_GRAPH_TYPE::inherited_vertex_properties::vertex_map_type type;
   typedef typename BOOST_CSR_GRAPH_TYPE::inherited_vertex_properties::const_vertex_map_type const_type;
 };
 
 template<BOOST_CSR_GRAPH_TEMPLATE_PARMS>
-struct property_map<BOOST_CSR_GRAPH_TYPE, edge_all_t>
+struct property_map<BOOST_CSR_GRAPH_TYPE, edge_all_t, typename disable_if<detail::is_distributed_selector<Vertex> >::type>
 {
   typedef typename BOOST_CSR_GRAPH_TYPE::forward_type::inherited_edge_properties::edge_map_type type;
   typedef typename BOOST_CSR_GRAPH_TYPE::forward_type::inherited_edge_properties::const_edge_map_type const_type;
 };
 
 template<BOOST_CSR_GRAPH_TEMPLATE_PARMS>
-struct property_map<BOOST_CSR_GRAPH_TYPE, graph_all_t>
+struct property_map<BOOST_CSR_GRAPH_TYPE, graph_all_t, typename disable_if<detail::is_distributed_selector<Vertex> >::type>
 {
   typedef boost::ref_property_map<BOOST_CSR_GRAPH_TYPE*, typename BOOST_CSR_GRAPH_TYPE::graph_property_type> type;
   typedef boost::ref_property_map<BOOST_CSR_GRAPH_TYPE*, const typename BOOST_CSR_GRAPH_TYPE::graph_property_type> const_type;

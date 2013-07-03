@@ -33,8 +33,8 @@ References:
     http://www.cs.utexas.edu/users/moore/best-ideas/string-searching/
     http://www.cs.utexas.edu/~moore/publications/fstrpos.pdf
     
-Explanations:   boostinspect:noascii (test tool complains)
-    http://en.wikipedia.org/wiki/Boyer–Moore_string_search_algorithm
+Explanations:
+    http://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_string_search_algorithm
     http://www.movsd.com/bm.htm
     http://www.cs.ucdavis.edu/~gusfield/cs224f09/bnotes.pdf
 

@@ -133,7 +133,7 @@ namespace util {
         /// and [\a begin, \a code_point_end) would be valid input sequence, then \a incomplete is returned begin stays unchanged, for example
         /// for UTF-8 conversion a *begin = 0xc2, \a begin +1 = \a end is such situation.
         ///
-        /// if invalid input sequence found, i.e. there there is a sequence [\a begin, \a code_point_end) such as \a code_point_end <= \a end
+        /// if invalid input sequence found, i.e. there is a sequence [\a begin, \a code_point_end) such as \a code_point_end <= \a end
         /// that is illegal for this encoding, \a illegal is returned and begin stays unchanged. For example if *begin = 0xFF and begin < end
         /// for UTF-8, then \a illegal is returned.
         /// 

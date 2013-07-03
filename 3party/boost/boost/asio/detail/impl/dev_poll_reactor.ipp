@@ -2,7 +2,7 @@
 // detail/impl/dev_poll_reactor.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -19,8 +19,8 @@
 
 #if defined(BOOST_ASIO_HAS_DEV_POLL)
 
-#include <boost/assert.hpp>
 #include <boost/asio/detail/dev_poll_reactor.hpp>
+#include <boost/asio/detail/assert.hpp>
 #include <boost/asio/detail/throw_error.hpp>
 #include <boost/asio/error.hpp>
 
@@ -122,7 +122,7 @@ void dev_poll_reactor::fork_service(boost::asio::io_service::fork_event fork_ev)
 
     // The ops op_queue will always be empty because the fork_helper's set()
     // member function never returns false.
-    BOOST_ASSERT(ops.empty());
+    BOOST_ASIO_ASSERT(ops.empty());
   }
 }
 
@@ -163,14 +163,14 @@ void dev_poll_reactor::move_descriptor(socket_type,
 }
 
 void dev_poll_reactor::start_op(int op_type, socket_type descriptor,
-    dev_poll_reactor::per_descriptor_data&,
-    reactor_op* op, bool allow_speculative)
+    dev_poll_reactor::per_descriptor_data&, reactor_op* op,
+    bool is_continuation, bool allow_speculative)
 {
   boost::asio::detail::mutex::scoped_lock lock(mutex_);
 
   if (shutdown_)
   {
-    post_immediate_completion(op);
+    post_immediate_completion(op, is_continuation);
     return;
   }
 
@@ -183,7 +183,7 @@ void dev_poll_reactor::start_op(int op_type, socket_type descriptor,
         if (op->perform())
         {
           lock.unlock();
-          io_service_.post_immediate_completion(op);
+          io_service_.post_immediate_completion(op, is_continuation);
           return;
         }
       }

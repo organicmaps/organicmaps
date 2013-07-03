@@ -31,7 +31,7 @@ namespace impl
         @brief Skewness estimation
 
         The skewness of a sample distribution is defined as the ratio of the 3rd central moment and the \f$ 3/2 \f$-th power
-        of the 2nd central moment (the variance) of the sampless 3. The skewness can also be expressed by the simple moments:
+        of the 2nd central moment (the variance) of the samples 3. The skewness can also be expressed by the simple moments:
 
         \f[
             \hat{g}_1 =

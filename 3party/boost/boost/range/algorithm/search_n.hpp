@@ -20,8 +20,6 @@
 
 namespace boost
 {
-    namespace range
-    {
 
 namespace range_detail
 {
@@ -234,6 +232,8 @@ namespace range_detail
                                                 value, pred, cat_t());
     }
 } // namespace range_detail
+
+namespace range {
 
 /// \brief template function search
 ///

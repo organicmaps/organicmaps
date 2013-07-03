@@ -22,6 +22,10 @@
 #include <boost/spirit/home/support/iterators/ostream_iterator.hpp>
 #include <boost/spirit/home/support/unused.hpp>
 
+#if defined(BOOST_MSVC) && defined(BOOST_SPIRIT_UNICODE)
+#include <boost/spirit/home/support/char_encoding/unicode.hpp>
+#endif
+
 namespace boost { namespace spirit { namespace karma { namespace detail 
 {
     ///////////////////////////////////////////////////////////////////////////
@@ -64,7 +68,7 @@ namespace boost { namespace spirit { namespace karma { namespace detail
 
         template <typename T>
         void output(T const& value) 
-        { 
+        {
             // track position in the output 
             track_position_data.output(value);
         }
@@ -110,7 +114,7 @@ namespace boost { namespace spirit { namespace karma { namespace detail
         }
 
         void output() 
-        { 
+        {
             ++count; 
         }
         std::size_t get_count() const { return count; }
@@ -147,7 +151,7 @@ namespace boost { namespace spirit { namespace karma { namespace detail
 
         template <typename T>
         void output(T const&) 
-        { 
+        {
             // count characters, if appropriate
             if (NULL != count)
                 count->output();
@@ -172,24 +176,33 @@ namespace boost { namespace spirit { namespace karma { namespace detail
     ///////////////////////////////////////////////////////////////////////////
     class buffer_sink : boost::noncopyable
     {
+       // wchar_t is only 16-bits on Windows. If BOOST_SPIRIT_UNICODE is
+       // defined, the character type is 32-bits wide so we need to make
+       // sure the buffer is at least that wide.
+#if defined(BOOST_MSVC) && defined(BOOST_SPIRIT_UNICODE)
+       typedef spirit::char_encoding::unicode::char_type buffer_char_type;
+#else
+       typedef wchar_t buffer_char_type;
+#endif
+
     public:
         buffer_sink()
           : width(0) {}
 
         ~buffer_sink() 
-        { 
+        {
             tidy(); 
         }
 
         void enable(std::size_t width_) 
-        { 
+        {
             tidy();             // release existing buffer
             width = (width_ == std::size_t(-1)) ? 0 : width_;
             buffer.reserve(width); 
         }
 
         void tidy() 
-        { 
+        {
             buffer.clear(); 
             width = 0; 
         }
@@ -197,18 +210,18 @@ namespace boost { namespace spirit { namespace karma { namespace detail
         template <typename T>
         void output(T const& value)
         {
-            BOOST_STATIC_ASSERT(sizeof(T) <= sizeof(wchar_t));
+            BOOST_STATIC_ASSERT(sizeof(T) <= sizeof(buffer_char_type));
             buffer.push_back(value);
         }
 
         template <typename OutputIterator_>
         bool copy(OutputIterator_& sink, std::size_t maxwidth) const 
-        { 
+        {
 #if defined(BOOST_MSVC)
 #pragma warning(push)
 #pragma warning(disable: 4267)
 #endif
-            typename std::basic_string<wchar_t>::const_iterator end = 
+            typename std::basic_string<buffer_char_type>::const_iterator end = 
                 buffer.begin() + (std::min)(buffer.size(), maxwidth);
 
 #if defined(BOOST_MSVC)
@@ -219,12 +232,12 @@ namespace boost { namespace spirit { namespace karma { namespace detail
         }
         template <typename RestIterator>
         bool copy_rest(RestIterator& sink, std::size_t start_at) const 
-        { 
+        {
 #if defined(BOOST_MSVC)
 #pragma warning(push)
 #pragma warning(disable: 4267)
 #endif
-            typename std::basic_string<wchar_t>::const_iterator begin = 
+            typename std::basic_string<buffer_char_type>::const_iterator begin = 
                 buffer.begin() + (std::min)(buffer.size(), start_at);
 
 #if defined(BOOST_MSVC)
@@ -235,13 +248,13 @@ namespace boost { namespace spirit { namespace karma { namespace detail
         }
 
         std::size_t buffer_size() const 
-        { 
+        {
             return buffer.size();
         }
 
     private:
         std::size_t width;
-        std::basic_string<wchar_t> buffer;
+        std::basic_string<buffer_char_type> buffer;
     };
 
     ///////////////////////////////////////////////////////////////////////////
@@ -451,6 +464,9 @@ namespace boost { namespace spirit { namespace karma { namespace detail
 
         // plain output iterators are considered to be good all the time
         bool good() const { return true; }
+
+        // allow to access underlying output iterator
+        OutputIterator& base() { return *sink; }
 
     protected:
         // this is the wrapped user supplied output iterator

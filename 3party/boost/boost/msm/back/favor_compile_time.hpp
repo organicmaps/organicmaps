@@ -38,7 +38,8 @@ struct process_any_event_helper
         if ( ! finished && ::boost::any_cast<Event>(&any_event)!=0)
         {
             finished = true;
-            res = self->process_event(::boost::any_cast<Event>(any_event));
+            res = self->process_event_internal(::boost::any_cast<Event>(any_event),false);
+ 
         }
     }
 private:

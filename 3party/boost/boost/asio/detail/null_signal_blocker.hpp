@@ -2,7 +2,7 @@
 // detail/null_signal_blocker.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,9 +17,8 @@
 
 #include <boost/asio/detail/config.hpp>
 
-#if !defined(BOOST_HAS_THREADS) \
-  || defined(BOOST_ASIO_DISABLE_THREADS) \
-  || defined(BOOST_WINDOWS) \
+#if !defined(BOOST_ASIO_HAS_THREADS) \
+  || defined(BOOST_ASIO_WINDOWS) \
   || defined(__CYGWIN__) \
   || defined(__SYMBIAN32__)
 
@@ -62,9 +61,8 @@ public:
 
 #include <boost/asio/detail/pop_options.hpp>
 
-#endif // !defined(BOOST_HAS_THREADS)
-       // || defined(BOOST_ASIO_DISABLE_THREADS)
-       // || defined(BOOST_WINDOWS)
+#endif // !defined(BOOST_ASIO_HAS_THREADS)
+       // || defined(BOOST_ASIO_WINDOWS)
        // || defined(__CYGWIN__)
        // || defined(__SYMBIAN32__)
 

@@ -52,6 +52,7 @@ class file_mapping
    //!Does not throw
    file_mapping(BOOST_RV_REF(file_mapping) moved)
       :  m_handle(file_handle_t(ipcdetail::invalid_file()))
+      ,  m_mode(read_only)
    {  this->swap(moved);   }
 
    //!Moves the ownership of "moved"'s file mapping to *this.
@@ -95,13 +96,14 @@ class file_mapping
    //!Closes a previously opened file mapping. Never throws.
    void priv_close();
    file_handle_t  m_handle;
-   mode_t    m_mode;
-   std::string       m_filename;
+   mode_t         m_mode;
+   std::string    m_filename;
    /// @endcond
 };
 
 inline file_mapping::file_mapping()
    :  m_handle(file_handle_t(ipcdetail::invalid_file()))
+   ,  m_mode(read_only)
 {}
 
 inline file_mapping::~file_mapping()

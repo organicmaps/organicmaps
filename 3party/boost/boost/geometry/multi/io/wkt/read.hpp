@@ -19,6 +19,7 @@
 #include <boost/geometry/core/mutable_range.hpp>
 #include <boost/geometry/multi/core/tags.hpp>
 #include <boost/geometry/multi/core/point_type.hpp>
+#include <boost/geometry/multi/geometries/concepts/check.hpp>
 #include <boost/geometry/multi/io/wkt/detail/prefix.hpp>
 #include <boost/geometry/io/wkt/read.hpp>
 

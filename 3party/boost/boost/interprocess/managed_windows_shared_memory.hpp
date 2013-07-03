@@ -32,6 +32,17 @@
 namespace boost {
 namespace interprocess {
 
+namespace ipcdetail {
+
+template<class AllocationAlgorithm>
+struct wshmem_open_or_create
+{
+   typedef  ipcdetail::managed_open_or_create_impl
+      < windows_shared_memory, AllocationAlgorithm::Alignment, false, false> type;
+};
+
+}  //namespace ipcdetail {
+
 //!A basic managed windows shared memory creation class. Initializes the
 //!shared memory segment. Inherits all basic functionality from
 //!basic_managed_memory_impl<CharType, AllocationAlgorithm, IndexType>
@@ -52,18 +63,13 @@ template
 class basic_managed_windows_shared_memory
    : public ipcdetail::basic_managed_memory_impl
       < CharType, AllocationAlgorithm, IndexType
-      , ipcdetail::managed_open_or_create_impl
-         < windows_shared_memory
-         , AllocationAlgorithm::Alignment
-         , false>::ManagedOpenOrCreateUserOffset
-      >
+      , ipcdetail::wshmem_open_or_create<AllocationAlgorithm>::type::ManagedOpenOrCreateUserOffset>
 {
    /// @cond
    private:
    typedef ipcdetail::basic_managed_memory_impl
       <CharType, AllocationAlgorithm, IndexType,
-      ipcdetail::managed_open_or_create_impl
-         <windows_shared_memory, AllocationAlgorithm::Alignment, false>::ManagedOpenOrCreateUserOffset>   base_t;
+      ipcdetail::wshmem_open_or_create<AllocationAlgorithm>::type::ManagedOpenOrCreateUserOffset>   base_t;
    typedef ipcdetail::create_open_func<base_t>        create_open_func_t;
 
    basic_managed_windows_shared_memory *get_this_pointer()
@@ -85,7 +91,7 @@ class basic_managed_windows_shared_memory
    //!Creates shared memory and creates and places the segment manager.
    //!This can throw.
    basic_managed_windows_shared_memory
-      (create_only_t create_only, const char *name,
+      (create_only_t, const char *name,
      size_type size, const void *addr = 0, const permissions &perm = permissions())
       : m_wshm(create_only, name, size, read_write, addr,
                 create_open_func_t(get_this_pointer(), ipcdetail::DoCreate), perm)
@@ -96,7 +102,7 @@ class basic_managed_windows_shared_memory
    //!segment.
    //!This can throw.
    basic_managed_windows_shared_memory
-      (open_or_create_t open_or_create,
+      (open_or_create_t,
       const char *name, size_type size,
       const void *addr = 0,
       const permissions &perm = permissions())
@@ -108,7 +114,7 @@ class basic_managed_windows_shared_memory
    //!Connects to a created shared memory and its segment manager.
    //!This can throw.
    basic_managed_windows_shared_memory
-      (open_only_t open_only, const char* name, const void *addr = 0)
+      (open_only_t, const char* name, const void *addr = 0)
       : m_wshm(open_only, name, read_write, addr,
                 create_open_func_t(get_this_pointer(),
                 ipcdetail::DoOpen))
@@ -181,8 +187,7 @@ class basic_managed_windows_shared_memory
    }
 
    private:
-   ipcdetail::managed_open_or_create_impl< windows_shared_memory
-                                         , AllocationAlgorithm::Alignment, false> m_wshm;
+   typename ipcdetail::wshmem_open_or_create<AllocationAlgorithm>::type m_wshm;
    /// @endcond
 };
 

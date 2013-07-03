@@ -9,7 +9,6 @@
 #define BOOST_POLYGON_POLYGON_90_SET_DATA_HPP
 #include "isotropy.hpp"
 #include "point_concept.hpp"
-#include "point_3d_concept.hpp"
 #include "transform.hpp"
 #include "interval_concept.hpp"
 #include "rectangle_concept.hpp"

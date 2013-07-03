@@ -9,10 +9,12 @@
 #define GTL_GTL_HPP
 
 #ifdef __ICC
+#pragma warning (push)
 #pragma warning (disable:1125)
 #endif
 
 #ifdef WIN32
+#pragma warning (push)
 #pragma warning( disable: 4996 )
 #pragma warning( disable: 4800 )
 #endif
@@ -21,7 +23,13 @@
 #include "polygon.hpp"
 namespace gtl = boost::polygon;
 using namespace boost::polygon::operators;
-#if __ICC
-#pragma warning (default:1125)
+
+#ifdef WIN32
+#pragma warning (pop)
 #endif
+
+#ifdef __ICC
+#pragma warning (pop)
+#endif
+
 #endif

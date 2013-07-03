@@ -2,7 +2,7 @@
 // asio.hpp
 // ~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,6 +17,7 @@
 # pragma once
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
+#include <boost/asio/async_result.hpp>
 #include <boost/asio/basic_datagram_socket.hpp>
 #include <boost/asio/basic_deadline_timer.hpp>
 #include <boost/asio/basic_io_object.hpp>
@@ -40,12 +41,20 @@
 #include <boost/asio/buffers_iterator.hpp>
 #include <boost/asio/completion_condition.hpp>
 #include <boost/asio/connect.hpp>
+#include <boost/asio/coroutine.hpp>
 #include <boost/asio/datagram_socket_service.hpp>
 #include <boost/asio/deadline_timer_service.hpp>
 #include <boost/asio/deadline_timer.hpp>
 #include <boost/asio/error.hpp>
+#include <boost/asio/generic/basic_endpoint.hpp>
+#include <boost/asio/generic/datagram_protocol.hpp>
+#include <boost/asio/generic/raw_protocol.hpp>
+#include <boost/asio/generic/seq_packet_protocol.hpp>
+#include <boost/asio/generic/stream_protocol.hpp>
 #include <boost/asio/handler_alloc_hook.hpp>
+#include <boost/asio/handler_continuation_hook.hpp>
 #include <boost/asio/handler_invoke_hook.hpp>
+#include <boost/asio/handler_type.hpp>
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/address_v4.hpp>

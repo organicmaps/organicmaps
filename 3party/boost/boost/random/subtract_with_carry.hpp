@@ -7,7 +7,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: subtract_with_carry.hpp 80996 2012-10-16 03:11:52Z marshall $
+ * $Id: subtract_with_carry.hpp 83381 2013-03-09 22:55:05Z eric_niebler $
  *
  * Revision history
  *  2002-03-02  created
@@ -161,7 +161,7 @@ public:
                                         IntType, value)
     {
         typedef linear_congruential_engine<uint32_t,40014,0,2147483563> gen_t;
-        gen_t intgen(static_cast<boost::uint32_t>(value));
+        gen_t intgen(static_cast<boost::uint32_t>(value == 0 ? default_seed : value));
         detail::generator_seed_seq<gen_t> gen(intgen);
         seed(gen);
     }
@@ -392,7 +392,7 @@ public:
                                         boost::uint32_t, value)
     {
         typedef linear_congruential_engine<uint32_t, 40014, 0, 2147483563> gen_t;
-        gen_t intgen(value);
+        gen_t intgen(value == 0 ? default_seed : value);
         detail::generator_seed_seq<gen_t> gen(intgen);
         seed(gen);
     }

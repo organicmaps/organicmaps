@@ -21,7 +21,7 @@
 #include <boost/graph/graph_traits.hpp>
 
 // This file implements a utility for creating mappings from arbitrary
-// identifers to the vertices of a graph.
+// identifiers to the vertices of a graph.
 
 namespace boost {
 
@@ -104,7 +104,7 @@ namespace graph_detail {
     // Tag dispatch on random access containers (i.e., vectors). This function
     // basically requires a) that Container is vector<Label> and that Label
     // is an unsigned integral value. Note that this will resize the vector
-    // to accomodate indices.
+    // to accommodate indices.
     template <typename Container, typename Graph, typename Label, typename Prop>
     std::pair<typename graph_traits<Graph>::vertex_descriptor, bool>
     insert_labeled_vertex(Container& c, Graph& g, Label const& l, Prop const& p,
@@ -112,7 +112,7 @@ namespace graph_detail {
     {
         typedef typename graph_traits<Graph>::vertex_descriptor Vertex;
 
-        // If the label is out of bounds, resize the vector to accomodate.
+        // If the label is out of bounds, resize the vector to accommodate.
         // Resize by 2x the index so we don't cause quadratic insertions over
         // time.
         if(l >= c.size()) {
@@ -140,7 +140,7 @@ namespace graph_detail {
     // Tag dispatch on unique associative containers (i.e. maps).
     template <typename Container, typename Graph, typename Label, typename Prop>
     std::pair<typename graph_traits<Graph>::vertex_descriptor, bool>
-    insert_labeled_vertex(Container& c, Graph& g, Label const& l, Prop const&,
+    insert_labeled_vertex(Container& c, Graph& g, Label const& l, Prop const& p,
                           unique_associative_container_tag)
     {
         // Here, we actually have to try the insertion first, and only add
@@ -150,6 +150,7 @@ namespace graph_detail {
         std::pair<Iterator, bool> x = c.insert(std::make_pair(l, Vertex()));
         if(x.second) {
             x.first->second = add_vertex(g);
+            put(boost::vertex_all, g, x.first->second, p);
         }
         return std::make_pair(x.first->second, x.second);
     }
@@ -246,7 +247,7 @@ struct labeled_graph_types {
  * vertex labels and vertex descriptors.
  *
  * @todo This class is somewhat redundant for adjacency_list<*, vecS>  if
- * the intended label is an unsigned int (and perhpahs some other cases), but
+ * the intended label is an unsigned int (and perhaps some other cases), but
  * it does avoid some weird ambiguities (i.e. adding a vertex with a label that
  * does not match its target index).
  *
@@ -310,7 +311,7 @@ public:
         _map.insert(_map.end(), rng.first, rng.second);
     }
 
-    // Construct a grpah over n vertices, each of which receives a label from
+    // Construct a graph over n vertices, each of which receives a label from
     // the range [l, l + n). Note that the graph is not directly constructed
     // over the n vertices, but added sequentially. This constructor is
     // necessarily slower than the underlying counterpart.
@@ -544,8 +545,9 @@ inline bool label_vertex(typename LABELED_GRAPH::vertex_descriptor v,
 { return g.label_vertex(v, l); }
 
 template <LABELED_GRAPH_PARAMS>
-inline bool vertex_by_label(typename LABELED_GRAPH::label_type const l,
-                            LABELED_GRAPH& g)
+inline typename LABELED_GRAPH::vertex_descriptor
+vertex_by_label(typename LABELED_GRAPH::label_type const l,
+                LABELED_GRAPH& g)
 { return g.vertex(l); }
 //@}
 

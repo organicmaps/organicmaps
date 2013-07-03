@@ -16,6 +16,7 @@
 
 
 #include <boost/geometry/multi/core/tags.hpp>
+#include <boost/geometry/multi/geometries/concepts/check.hpp>
 #include <boost/geometry/algorithms/clear.hpp>
 
 

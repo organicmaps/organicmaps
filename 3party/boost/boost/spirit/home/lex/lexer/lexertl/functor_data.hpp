@@ -300,7 +300,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
             data (IterData const& data_, Iterator& first, Iterator const& last)
               : base_type(data_, first, last)
               , actions_(data_.actions_), hold_()
-              , value_(iterator_range<Iterator>(first, last))
+              , value_(iterator_range<Iterator>(last, last))
               , has_value_(false), has_hold_(false) {}
 
             // invoke attached semantic actions, if defined

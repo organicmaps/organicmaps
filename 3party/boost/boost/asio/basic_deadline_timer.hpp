@@ -2,7 +2,7 @@
 // basic_deadline_timer.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -16,6 +16,10 @@
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
 #include <boost/asio/detail/config.hpp>
+
+#if defined(BOOST_ASIO_HAS_BOOST_DATE_TIME) \
+  || defined(GENERATING_DOCUMENTATION)
+
 #include <cstddef>
 #include <boost/asio/basic_io_object.hpp>
 #include <boost/asio/deadline_timer_service.hpp>
@@ -492,13 +496,15 @@ public:
    * boost::asio::io_service::post().
    */
   template <typename WaitHandler>
-  void async_wait(BOOST_ASIO_MOVE_ARG(WaitHandler) handler)
+  BOOST_ASIO_INITFN_RESULT_TYPE(WaitHandler,
+      void (boost::system::error_code))
+  async_wait(BOOST_ASIO_MOVE_ARG(WaitHandler) handler)
   {
     // If you get an error on the following line it means that your handler does
     // not meet the documented type requirements for a WaitHandler.
     BOOST_ASIO_WAIT_HANDLER_CHECK(WaitHandler, handler) type_check;
 
-    this->service.async_wait(this->implementation,
+    return this->service.async_wait(this->implementation,
         BOOST_ASIO_MOVE_CAST(WaitHandler)(handler));
   }
 };
@@ -507,5 +513,8 @@ public:
 } // namespace boost
 
 #include <boost/asio/detail/pop_options.hpp>
+
+#endif // defined(BOOST_ASIO_HAS_BOOST_DATE_TIME)
+       // || defined(GENERATING_DOCUMENTATION)
 
 #endif // BOOST_ASIO_BASIC_DEADLINE_TIMER_HPP

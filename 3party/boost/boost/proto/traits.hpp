@@ -1137,7 +1137,7 @@ namespace boost { namespace proto
     /// \brief Return the value stored within the specified Proto
     /// terminal expression.
     ///
-    /// Return the the value stored within the specified Proto
+    /// Return the value stored within the specified Proto
     /// terminal expression. The value is returned by
     /// reference.
     ///

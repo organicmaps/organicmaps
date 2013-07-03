@@ -2,7 +2,7 @@
 // basic_waitable_timer.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -38,7 +38,8 @@ namespace asio {
  * If the wait() or async_wait() function is called on an expired timer, the
  * wait operation will complete immediately.
  *
- * Most applications will use the boost::asio::waitable_timer typedef.
+ * Most applications will use one of the boost::asio::steady_timer,
+ * boost::asio::system_timer or boost::asio::high_resolution_timer typedefs.
  *
  * @note This waitable timer functionality is for use with the C++11 standard
  * library's @c &lt;chrono&gt; facility, or with the Boost.Chrono library.
@@ -48,20 +49,20 @@ namespace asio {
  * @e Shared @e objects: Unsafe.
  *
  * @par Examples
- * Performing a blocking wait:
+ * Performing a blocking wait (C++11):
  * @code
  * // Construct a timer without setting an expiry time.
- * boost::asio::waitable_timer timer(io_service);
+ * boost::asio::steady_timer timer(io_service);
  *
  * // Set an expiry time relative to now.
- * timer.expires_from_now(boost::posix_time::seconds(5));
+ * timer.expires_from_now(std::chrono::seconds(5));
  *
  * // Wait for the timer to expire.
  * timer.wait();
  * @endcode
  *
  * @par 
- * Performing an asynchronous wait:
+ * Performing an asynchronous wait (C++11):
  * @code
  * void handler(const boost::system::error_code& error)
  * {
@@ -74,14 +75,14 @@ namespace asio {
  * ...
  *
  * // Construct a timer with an absolute expiry time.
- * boost::asio::waitable_timer timer(io_service,
- *     boost::posix_time::time_from_string("2005-12-07 23:59:59.000"));
+ * boost::asio::steady_timer timer(io_service,
+ *     std::chrono::steady_clock::now() + std::chrono::seconds(60));
  *
  * // Start an asynchronous wait.
  * timer.async_wait(handler);
  * @endcode
  *
- * @par Changing an active waitable_timer's expiry time
+ * @par Changing an active waitable timer's expiry time
  *
  * Changing the expiry time of a timer while there are pending asynchronous
  * waits causes those wait operations to be cancelled. To ensure that the action
@@ -499,13 +500,15 @@ public:
    * boost::asio::io_service::post().
    */
   template <typename WaitHandler>
-  void async_wait(BOOST_ASIO_MOVE_ARG(WaitHandler) handler)
+  BOOST_ASIO_INITFN_RESULT_TYPE(WaitHandler,
+      void (boost::system::error_code))
+  async_wait(BOOST_ASIO_MOVE_ARG(WaitHandler) handler)
   {
     // If you get an error on the following line it means that your handler does
     // not meet the documented type requirements for a WaitHandler.
     BOOST_ASIO_WAIT_HANDLER_CHECK(WaitHandler, handler) type_check;
 
-    this->service.async_wait(this->implementation,
+    return this->service.async_wait(this->implementation,
         BOOST_ASIO_MOVE_CAST(WaitHandler)(handler));
   }
 };

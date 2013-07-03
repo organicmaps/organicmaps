@@ -72,13 +72,20 @@ public:
     /// Copy constructor
     split_interval_map(const split_interval_map& src): base_type(src) {}
 
-    explicit split_interval_map(domain_mapping_type& base_pair): base_type()
+    explicit split_interval_map(const domain_mapping_type& base_pair): base_type()
     { this->add(base_pair); }
 
     explicit split_interval_map(const value_type& value_pair): base_type()
     { this->add(value_pair); }
 
-    /// Copy assignment operator
+    /// Assignment operator
+    split_interval_map& operator = (const split_interval_map& src)
+    { 
+        base_type::operator=(src);
+        return *this;
+    }
+
+    /// Assignment operator for base type
     template<class SubType>
     split_interval_map& operator =
         (const interval_base_map<SubType,DomainT,CodomainT,
@@ -94,7 +101,7 @@ public:
         this->_map.insert(src.begin(), src.end());
     }
 
-#   ifndef BOOST_NO_RVALUE_REFERENCES
+#   ifndef BOOST_ICL_NO_CXX11_RVALUE_REFERENCES
     //==========================================================================
     //= Move semantics
     //==========================================================================
@@ -112,7 +119,7 @@ public:
     }
 
     //==========================================================================
-#   endif // BOOST_NO_RVALUE_REFERENCES
+#   endif // BOOST_ICL_NO_CXX11_RVALUE_REFERENCES
 
 private:
     // Private functions that shall be accessible by the baseclass:

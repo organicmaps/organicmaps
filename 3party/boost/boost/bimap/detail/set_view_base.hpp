@@ -199,7 +199,7 @@ class set_view_base
     {
         return derived().base().replace(
             derived().template functor<iterator_to_base_>()(position),
-            value_type_(l,position->right)
+            ::boost::bimaps::relation::detail::copy_with_left_replaced(*position,l)
         );
     }
 
@@ -209,7 +209,7 @@ class set_view_base
     {
         return derived().base().replace(
             derived().template functor<iterator_to_base_>()(position),
-            value_type_(position->left,r)
+            ::boost::bimaps::relation::detail::copy_with_right_replaced(*position,r)
         );
     }
 

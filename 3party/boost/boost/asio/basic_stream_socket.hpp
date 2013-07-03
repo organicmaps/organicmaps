@@ -2,7 +2,7 @@
 // basic_stream_socket.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,6 +17,7 @@
 
 #include <boost/asio/detail/config.hpp>
 #include <cstddef>
+#include <boost/asio/async_result.hpp>
 #include <boost/asio/basic_socket.hpp>
 #include <boost/asio/detail/handler_type_requirements.hpp>
 #include <boost/asio/detail/throw_error.hpp>
@@ -166,6 +167,48 @@ public:
         BOOST_ASIO_MOVE_CAST(basic_stream_socket)(other));
     return *this;
   }
+
+  /// Move-construct a basic_stream_socket from a socket of another protocol
+  /// type.
+  /**
+   * This constructor moves a stream socket from one object to another.
+   *
+   * @param other The other basic_stream_socket object from which the move
+   * will occur.
+   *
+   * @note Following the move, the moved-from object is in the same state as if
+   * constructed using the @c basic_stream_socket(io_service&) constructor.
+   */
+  template <typename Protocol1, typename StreamSocketService1>
+  basic_stream_socket(
+      basic_stream_socket<Protocol1, StreamSocketService1>&& other,
+      typename enable_if<is_convertible<Protocol1, Protocol>::value>::type* = 0)
+    : basic_socket<Protocol, StreamSocketService>(
+        BOOST_ASIO_MOVE_CAST2(basic_stream_socket<
+          Protocol1, StreamSocketService1>)(other))
+  {
+  }
+
+  /// Move-assign a basic_stream_socket from a socket of another protocol type.
+  /**
+   * This assignment operator moves a stream socket from one object to another.
+   *
+   * @param other The other basic_stream_socket object from which the move
+   * will occur.
+   *
+   * @note Following the move, the moved-from object is in the same state as if
+   * constructed using the @c basic_stream_socket(io_service&) constructor.
+   */
+  template <typename Protocol1, typename StreamSocketService1>
+  typename enable_if<is_convertible<Protocol1, Protocol>::value,
+      basic_stream_socket>::type& operator=(
+        basic_stream_socket<Protocol1, StreamSocketService1>&& other)
+  {
+    basic_socket<Protocol, StreamSocketService>::operator=(
+        BOOST_ASIO_MOVE_CAST2(basic_stream_socket<
+          Protocol1, StreamSocketService1>)(other));
+    return *this;
+  }
 #endif // defined(BOOST_ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Send some data on the socket.
@@ -303,14 +346,17 @@ public:
    * std::vector.
    */
   template <typename ConstBufferSequence, typename WriteHandler>
-  void async_send(const ConstBufferSequence& buffers,
+  BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
+      void (boost::system::error_code, std::size_t))
+  async_send(const ConstBufferSequence& buffers,
       BOOST_ASIO_MOVE_ARG(WriteHandler) handler)
   {
     // If you get an error on the following line it means that your handler does
     // not meet the documented type requirements for a WriteHandler.
     BOOST_ASIO_WRITE_HANDLER_CHECK(WriteHandler, handler) type_check;
 
-    this->get_service().async_send(this->get_implementation(), buffers, 0,
+    return this->get_service().async_send(
+        this->get_implementation(), buffers, 0,
         BOOST_ASIO_MOVE_CAST(WriteHandler)(handler));
   }
 
@@ -352,7 +398,9 @@ public:
    * std::vector.
    */
   template <typename ConstBufferSequence, typename WriteHandler>
-  void async_send(const ConstBufferSequence& buffers,
+  BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
+      void (boost::system::error_code, std::size_t))
+  async_send(const ConstBufferSequence& buffers,
       socket_base::message_flags flags,
       BOOST_ASIO_MOVE_ARG(WriteHandler) handler)
   {
@@ -360,7 +408,8 @@ public:
     // not meet the documented type requirements for a WriteHandler.
     BOOST_ASIO_WRITE_HANDLER_CHECK(WriteHandler, handler) type_check;
 
-    this->get_service().async_send(this->get_implementation(), buffers, flags,
+    return this->get_service().async_send(
+        this->get_implementation(), buffers, flags,
         BOOST_ASIO_MOVE_CAST(WriteHandler)(handler));
   }
 
@@ -507,14 +556,16 @@ public:
    * std::vector.
    */
   template <typename MutableBufferSequence, typename ReadHandler>
-  void async_receive(const MutableBufferSequence& buffers,
+  BOOST_ASIO_INITFN_RESULT_TYPE(ReadHandler,
+      void (boost::system::error_code, std::size_t))
+  async_receive(const MutableBufferSequence& buffers,
       BOOST_ASIO_MOVE_ARG(ReadHandler) handler)
   {
     // If you get an error on the following line it means that your handler does
     // not meet the documented type requirements for a ReadHandler.
     BOOST_ASIO_READ_HANDLER_CHECK(ReadHandler, handler) type_check;
 
-    this->get_service().async_receive(this->get_implementation(),
+    return this->get_service().async_receive(this->get_implementation(),
         buffers, 0, BOOST_ASIO_MOVE_CAST(ReadHandler)(handler));
   }
 
@@ -558,7 +609,9 @@ public:
    * std::vector.
    */
   template <typename MutableBufferSequence, typename ReadHandler>
-  void async_receive(const MutableBufferSequence& buffers,
+  BOOST_ASIO_INITFN_RESULT_TYPE(ReadHandler,
+      void (boost::system::error_code, std::size_t))
+  async_receive(const MutableBufferSequence& buffers,
       socket_base::message_flags flags,
       BOOST_ASIO_MOVE_ARG(ReadHandler) handler)
   {
@@ -566,7 +619,7 @@ public:
     // not meet the documented type requirements for a ReadHandler.
     BOOST_ASIO_READ_HANDLER_CHECK(ReadHandler, handler) type_check;
 
-    this->get_service().async_receive(this->get_implementation(),
+    return this->get_service().async_receive(this->get_implementation(),
         buffers, flags, BOOST_ASIO_MOVE_CAST(ReadHandler)(handler));
   }
 
@@ -666,14 +719,16 @@ public:
    * std::vector.
    */
   template <typename ConstBufferSequence, typename WriteHandler>
-  void async_write_some(const ConstBufferSequence& buffers,
+  BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
+      void (boost::system::error_code, std::size_t))
+  async_write_some(const ConstBufferSequence& buffers,
       BOOST_ASIO_MOVE_ARG(WriteHandler) handler)
   {
     // If you get an error on the following line it means that your handler does
     // not meet the documented type requirements for a WriteHandler.
     BOOST_ASIO_WRITE_HANDLER_CHECK(WriteHandler, handler) type_check;
 
-    this->get_service().async_send(this->get_implementation(),
+    return this->get_service().async_send(this->get_implementation(),
         buffers, 0, BOOST_ASIO_MOVE_CAST(WriteHandler)(handler));
   }
 
@@ -777,14 +832,16 @@ public:
    * std::vector.
    */
   template <typename MutableBufferSequence, typename ReadHandler>
-  void async_read_some(const MutableBufferSequence& buffers,
+  BOOST_ASIO_INITFN_RESULT_TYPE(ReadHandler,
+      void (boost::system::error_code, std::size_t))
+  async_read_some(const MutableBufferSequence& buffers,
       BOOST_ASIO_MOVE_ARG(ReadHandler) handler)
   {
     // If you get an error on the following line it means that your handler does
     // not meet the documented type requirements for a ReadHandler.
     BOOST_ASIO_READ_HANDLER_CHECK(ReadHandler, handler) type_check;
 
-    this->get_service().async_receive(this->get_implementation(),
+    return this->get_service().async_receive(this->get_implementation(),
         buffers, 0, BOOST_ASIO_MOVE_CAST(ReadHandler)(handler));
   }
 };

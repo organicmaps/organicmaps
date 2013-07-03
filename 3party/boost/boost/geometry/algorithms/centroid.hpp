@@ -30,6 +30,7 @@
 
 #include <boost/geometry/algorithms/convert.hpp>
 #include <boost/geometry/algorithms/distance.hpp>
+#include <boost/geometry/algorithms/not_implemented.hpp>
 #include <boost/geometry/geometries/concepts/check.hpp>
 #include <boost/geometry/strategies/centroid.hpp>
 #include <boost/geometry/strategies/concepts/centroid_concept.hpp>
@@ -77,9 +78,9 @@ public:
 namespace detail { namespace centroid
 {
 
-template<typename Point, typename PointCentroid, typename Strategy>
 struct centroid_point
 {
+    template<typename Point, typename PointCentroid, typename Strategy>
     static inline void apply(Point const& point, PointCentroid& centroid,
             Strategy const&)
     {
@@ -127,9 +128,9 @@ struct centroid_box_calculator<Box, Point, DimensionCount, DimensionCount>
 };
 
 
-template<typename Box, typename Point, typename Strategy>
 struct centroid_box
 {
+    template<typename Box, typename Point, typename Strategy>
     static inline void apply(Box const& box, Point& centroid,
             Strategy const&)
     {
@@ -173,9 +174,10 @@ inline bool range_ok(Range const& range, Point& centroid)
 /*!
     \brief Calculate the centroid of a ring.
 */
-template<typename Ring, closure_selector Closure, typename Strategy>
+template <closure_selector Closure>
 struct centroid_range_state
 {
+    template<typename Ring, typename Strategy>
     static inline void apply(Ring const& ring,
             Strategy const& strategy, typename Strategy::state_type& state)
     {
@@ -196,21 +198,17 @@ struct centroid_range_state
     }
 };
 
-template<typename Range, typename Point, closure_selector Closure, typename Strategy>
+template <closure_selector Closure>
 struct centroid_range
 {
+    template<typename Range, typename Point, typename Strategy>
     static inline void apply(Range const& range, Point& centroid,
             Strategy const& strategy)
     {
         if (range_ok(range, centroid))
         {
             typename Strategy::state_type state;
-            centroid_range_state
-                <
-                    Range,
-                    Closure,
-                    Strategy
-                >::apply(range, strategy, state);
+            centroid_range_state<Closure>::apply(range, strategy, state);
             strategy.result(state, centroid);
         }
     }
@@ -222,20 +220,14 @@ struct centroid_range
     \note Because outer ring is clockwise, inners are counter clockwise,
     triangle approach is OK and works for polygons with rings.
 */
-template<typename Polygon, typename Strategy>
 struct centroid_polygon_state
 {
-    typedef typename ring_type<Polygon>::type ring_type;
-
+    template<typename Polygon, typename Strategy>
     static inline void apply(Polygon const& poly,
             Strategy const& strategy, typename Strategy::state_type& state)
     {
-        typedef centroid_range_state
-            <
-                ring_type,
-                geometry::closure<ring_type>::value,
-                Strategy
-            > per_ring;
+        typedef typename ring_type<Polygon>::type ring_type;
+        typedef centroid_range_state<geometry::closure<ring_type>::value> per_ring;
 
         per_ring::apply(exterior_ring(poly), strategy, state);
 
@@ -248,20 +240,16 @@ struct centroid_polygon_state
     }
 };
 
-template<typename Polygon, typename Point, typename Strategy>
 struct centroid_polygon
 {
+    template<typename Polygon, typename Point, typename Strategy>
     static inline void apply(Polygon const& poly, Point& centroid,
             Strategy const& strategy)
     {
         if (range_ok(exterior_ring(poly), centroid))
         {
             typename Strategy::state_type state;
-            centroid_polygon_state
-                <
-                    Polygon,
-                    Strategy
-                >::apply(poly, strategy, state);
+            centroid_polygon_state::apply(poly, strategy, state);
             strategy.result(state, centroid);
         }
     }
@@ -278,58 +266,35 @@ namespace dispatch
 
 template
 <
-    typename Tag,
     typename Geometry,
-    typename Point,
-    typename Strategy
+    typename Tag = typename tag<Geometry>::type
 >
-struct centroid {};
-
-template
-<
-    typename Geometry,
-    typename Point,
-    typename Strategy
->
-struct centroid<point_tag, Geometry, Point, Strategy>
-    : detail::centroid::centroid_point<Geometry, Point, Strategy>
+struct centroid: not_implemented<Tag>
 {};
 
-template
-<
-    typename Box,
-    typename Point,
-    typename Strategy
->
-struct centroid<box_tag, Box, Point, Strategy>
-    : detail::centroid::centroid_box<Box, Point, Strategy>
+template <typename Geometry>
+struct centroid<Geometry, point_tag>
+    : detail::centroid::centroid_point
 {};
 
-template <typename Ring, typename Point, typename Strategy>
-struct centroid<ring_tag, Ring, Point, Strategy>
-    : detail::centroid::centroid_range
-        <
-            Ring,
-            Point,
-            geometry::closure<Ring>::value,
-            Strategy
-        >
+template <typename Box>
+struct centroid<Box, box_tag>
+    : detail::centroid::centroid_box
 {};
 
-template <typename Linestring, typename Point, typename Strategy>
-struct centroid<linestring_tag, Linestring, Point, Strategy>
-    : detail::centroid::centroid_range
-        <
-            Linestring,
-            Point,
-            closed,
-            Strategy
-        >
+template <typename Ring>
+struct centroid<Ring, ring_tag>
+    : detail::centroid::centroid_range<geometry::closure<Ring>::value>
+{};
+
+template <typename Linestring>
+struct centroid<Linestring, linestring_tag>
+    : detail::centroid::centroid_range<closed>
  {};
 
-template <typename Polygon, typename Point, typename Strategy>
-struct centroid<polygon_tag, Polygon, Point, Strategy>
-    : detail::centroid::centroid_polygon<Polygon, Point, Strategy>
+template <typename Polygon>
+struct centroid<Polygon, polygon_tag>
+    : detail::centroid::centroid_polygon
  {};
 
 } // namespace dispatch
@@ -365,13 +330,7 @@ inline void centroid(Geometry const& geometry, Point& c,
 
     // Call dispatch apply method. That one returns true if centroid
     // should be taken from state.
-    dispatch::centroid
-        <
-            typename tag<Geometry>::type,
-            Geometry,
-            Point,
-            Strategy
-        >::apply(geometry, c, strategy);
+    dispatch::centroid<Geometry>::apply(geometry, c, strategy);
 }
 
 

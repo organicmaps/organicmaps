@@ -10,14 +10,13 @@
 #define BOOST_GEOMETRY_ALGORITHMS_UNION_HPP
 
 
-#include <boost/mpl/if.hpp>
-
 #include <boost/range/metafunctions.hpp>
 
 #include <boost/geometry/core/is_areal.hpp>
 #include <boost/geometry/core/point_order.hpp>
 #include <boost/geometry/core/reverse_dispatch.hpp>
 #include <boost/geometry/geometries/concepts/check.hpp>
+#include <boost/geometry/algorithms/not_implemented.hpp>
 #include <boost/geometry/algorithms/detail/overlay/overlay.hpp>
 
 
@@ -30,76 +29,68 @@ namespace dispatch
 
 template
 <
-    // tag dispatching:
-    typename TagIn1, typename TagIn2, typename TagOut,
-    // metafunction finetuning helpers:
-    bool Areal1, bool Areal2, bool ArealOut,
-    // real types
-    typename Geometry1, typename Geometry2,
-    bool Reverse1, bool Reverse2, bool ReverseOut,
-    typename OutputIterator,
-    typename GeometryOut,
-    typename Strategy
+    typename Geometry1, typename Geometry2, typename GeometryOut,
+    typename TagIn1 = typename tag<Geometry1>::type,
+    typename TagIn2 = typename tag<Geometry2>::type,
+    typename TagOut = typename tag<GeometryOut>::type,
+    bool Areal1 = geometry::is_areal<Geometry1>::value,
+    bool Areal2 = geometry::is_areal<Geometry2>::value,
+    bool ArealOut = geometry::is_areal<GeometryOut>::value,
+    bool Reverse1 = detail::overlay::do_reverse<geometry::point_order<Geometry1>::value>::value,
+    bool Reverse2 = detail::overlay::do_reverse<geometry::point_order<Geometry2>::value>::value,
+    bool ReverseOut = detail::overlay::do_reverse<geometry::point_order<GeometryOut>::value>::value,
+    bool Reverse = geometry::reverse_dispatch<Geometry1, Geometry2>::type::value
 >
-struct union_insert
-{
-    BOOST_MPL_ASSERT_MSG
-        (
-            false, NOT_OR_NOT_YET_IMPLEMENTED_FOR_THIS_GEOMETRY_TYPES
-            , (types<Geometry1, Geometry2, GeometryOut>)
-        );
-};
-
-
-template
-<
-    typename TagIn1, typename TagIn2, typename TagOut,
-    typename Geometry1, typename Geometry2,
-    bool Reverse1, bool Reverse2, bool ReverseOut,
-    typename OutputIterator,
-    typename GeometryOut,
-    typename Strategy
->
-struct union_insert
-    <
-        TagIn1, TagIn2, TagOut,
-        true, true, true,
-        Geometry1, Geometry2,
-        Reverse1, Reverse2, ReverseOut,
-        OutputIterator, GeometryOut,
-        Strategy
-    > : detail::overlay::overlay
-        <Geometry1, Geometry2, Reverse1, Reverse2, ReverseOut, OutputIterator, GeometryOut, overlay_union, Strategy>
+struct union_insert: not_implemented<TagIn1, TagIn2, TagOut>
 {};
 
 
+// If reversal is needed, perform it first
 
 template
 <
-    typename GeometryTag1, typename GeometryTag2, typename GeometryTag3,
-    bool Areal1, bool Areal2, bool ArealOut,
-    typename Geometry1, typename Geometry2,
-    bool Reverse1, bool Reverse2, bool ReverseOut,
-    typename OutputIterator, typename GeometryOut,
-    typename Strategy
+    typename Geometry1, typename Geometry2, typename GeometryOut,
+    typename TagIn1, typename TagIn2, typename TagOut,
+    bool Reverse1, bool Reverse2, bool ReverseOut
 >
-struct union_insert_reversed
+struct union_insert
+    <
+        Geometry1, Geometry2, GeometryOut,
+        TagIn1, TagIn2, TagOut,
+        true, true, true,
+        Reverse1, Reverse2, ReverseOut,
+        true
+    >: union_insert<Geometry2, Geometry1, GeometryOut>
 {
+    template <typename OutputIterator, typename Strategy>
     static inline OutputIterator apply(Geometry1 const& g1,
             Geometry2 const& g2, OutputIterator out,
             Strategy const& strategy)
     {
         return union_insert
             <
-                GeometryTag2, GeometryTag1, GeometryTag3,
-                Areal2, Areal1, ArealOut,
-                Geometry2, Geometry1,
-                Reverse2, Reverse1, ReverseOut,
-                OutputIterator, GeometryOut,
-                Strategy
+                Geometry2, Geometry1, GeometryOut
             >::apply(g2, g1, out, strategy);
     }
 };
+
+
+template
+<
+    typename Geometry1, typename Geometry2, typename GeometryOut,
+    typename TagIn1, typename TagIn2, typename TagOut,
+    bool Reverse1, bool Reverse2, bool ReverseOut
+>
+struct union_insert
+    <
+        Geometry1, Geometry2, GeometryOut,
+        TagIn1, TagIn2, TagOut,
+        true, true, true,
+        Reverse1, Reverse2, ReverseOut,
+        false
+    > : detail::overlay::overlay
+        <Geometry1, Geometry2, Reverse1, Reverse2, ReverseOut, GeometryOut, overlay_union>
+{};
 
 
 } // namespace dispatch
@@ -121,40 +112,10 @@ inline OutputIterator insert(Geometry1 const& geometry1,
             OutputIterator out,
             Strategy const& strategy)
 {
-    return boost::mpl::if_c
-        <
-            geometry::reverse_dispatch<Geometry1, Geometry2>::type::value,
-            dispatch::union_insert_reversed
-            <
-                typename tag<Geometry1>::type,
-                typename tag<Geometry2>::type,
-                typename tag<GeometryOut>::type,
-                geometry::is_areal<Geometry1>::value,
-                geometry::is_areal<Geometry2>::value,
-                geometry::is_areal<GeometryOut>::value,
-                Geometry1, Geometry2,
-                overlay::do_reverse<geometry::point_order<Geometry1>::value>::value,
-                overlay::do_reverse<geometry::point_order<Geometry2>::value>::value,
-                overlay::do_reverse<geometry::point_order<GeometryOut>::value>::value,
-                OutputIterator, GeometryOut,
-                Strategy
-            >,
-            dispatch::union_insert
-            <
-                typename tag<Geometry1>::type,
-                typename tag<Geometry2>::type,
-                typename tag<GeometryOut>::type,
-                geometry::is_areal<Geometry1>::value,
-                geometry::is_areal<Geometry2>::value,
-                geometry::is_areal<GeometryOut>::value,
-                Geometry1, Geometry2,
-                overlay::do_reverse<geometry::point_order<Geometry1>::value>::value,
-                overlay::do_reverse<geometry::point_order<Geometry2>::value>::value,
-                overlay::do_reverse<geometry::point_order<GeometryOut>::value>::value,
-                OutputIterator, GeometryOut,
-                Strategy
-            >
-        >::type::apply(geometry1, geometry2, out, strategy);
+    return dispatch::union_insert
+           <
+               Geometry1, Geometry2, GeometryOut
+           >::apply(geometry1, geometry2, out, strategy);
 }
 
 /*!

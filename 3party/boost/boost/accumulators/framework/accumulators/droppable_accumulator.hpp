@@ -215,7 +215,7 @@ namespace boost { namespace accumulators
         template<typename Args>
         void on_drop(Args const &args)
         {
-            // cache the result at the point this calcuation was dropped
+            // cache the result at the point this calculation was dropped
             BOOST_ASSERT(!this->has_result());
             this->set(this->Accumulator::result(args));
         }

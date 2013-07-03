@@ -21,7 +21,7 @@
 #include <utility>
 #include <functional>
 
-#include <boost/move/move.hpp>
+#include <boost/move/utility.hpp>
 #include <boost/intrusive/options.hpp>
 
 #include <boost/container/detail/version_type.hpp>
@@ -30,6 +30,8 @@
 #include <boost/container/allocator_traits.hpp>
 #include <boost/container/detail/mpl.hpp>
 #include <boost/container/detail/destroyers.hpp>
+#include <boost/container/detail/allocator_version_traits.hpp>
+#include <boost/detail/no_exceptions_support.hpp>
 
 #ifndef BOOST_CONTAINER_PERFECT_FORWARDING
 #include <boost/container/detail/preprocessor.hpp>
@@ -89,6 +91,7 @@ struct node_alloc_holder
    typedef typename ICont::const_iterator             icont_citerator;
    typedef allocator_destroyer<NodeAlloc>             Destroyer;
    typedef allocator_traits<NodeAlloc>                NodeAllocTraits;
+   typedef allocator_version_traits<NodeAlloc>        AllocVersionTraits;
 
    private:
    BOOST_COPYABLE_AND_MOVABLE(node_alloc_holder)
@@ -151,22 +154,10 @@ struct node_alloc_holder
    {  return allocator_traits_type::max_size(this->node_alloc());  }
 
    NodePtr allocate_one()
-   {  return this->allocate_one(alloc_version());   }
-
-   NodePtr allocate_one(allocator_v1)
-   {  return this->node_alloc().allocate(1);   }
-
-   NodePtr allocate_one(allocator_v2)
-   {  return this->node_alloc().allocate_one();   }
+   {  return AllocVersionTraits::allocate_one(this->node_alloc());   }
 
    void deallocate_one(const NodePtr &p)
-   {  return this->deallocate_one(p, alloc_version());   }
-
-   void deallocate_one(const NodePtr &p, allocator_v1)
-   {  this->node_alloc().deallocate(p, 1);   }
-
-   void deallocate_one(const NodePtr &p, allocator_v2)
-   {  this->node_alloc().deallocate_one(p);   }
+   {  AllocVersionTraits::deallocate_one(this->node_alloc(), p);  }
 
    #ifdef BOOST_CONTAINER_PERFECT_FORWARDING
 
@@ -235,40 +226,53 @@ struct node_alloc_holder
    }
 
    template<class FwdIterator, class Inserter>
-   FwdIterator allocate_many_and_construct
+   void allocate_many_and_construct
       (FwdIterator beg, difference_type n, Inserter inserter)
    {
       if(n){
+         /*
+         NodePtr p = this->allocate_one();
+         Deallocator node_deallocator(p, this->node_alloc());
+         ::boost::container::construct_in_place(this->node_alloc(), container_detail::addressof(p->m_data), it);
+         node_deallocator.release();
+         //This does not throw
+         typedef typename Node::hook_type hook_type;
+         ::new(static_cast<hook_type*>(container_detail::to_raw_pointer(p))) hook_type;
+         return (p);
+         */
          typedef typename NodeAlloc::multiallocation_chain multiallocation_chain;
 
          //Try to allocate memory in a single block
-         multiallocation_chain mem(this->node_alloc().allocate_individual(n));
-         int constructed = 0;
+         typedef typename multiallocation_chain::iterator multialloc_iterator;
+         multiallocation_chain mem;
+         this->node_alloc().allocate_individual(n, mem);
+         multialloc_iterator itbeg(mem.begin()), itlast(mem.last());
+         mem.clear();
          Node *p = 0;
+         NodeAlloc &nalloc = this->node_alloc();
          BOOST_TRY{
-               for(difference_type i = 0; i < n; ++i, ++beg, --constructed){
-               p = container_detail::to_raw_pointer(mem.pop_front());
+            while(n--){
+               p = container_detail::to_raw_pointer(&*itbeg);
+               ++itbeg;
                //This can throw
-               constructed = 0;
-               boost::container::construct_in_place(this->node_alloc(), container_detail::addressof(p->m_data), beg);
-               ++constructed;
+               Deallocator node_deallocator(p, nalloc);
+               boost::container::construct_in_place(nalloc, container_detail::addressof(p->m_data), beg);
+               ++beg;
+               node_deallocator.release();
                //This does not throw
                typedef typename Node::hook_type hook_type;
-               ::new(static_cast<hook_type*>(container_detail::to_raw_pointer(p))) hook_type;
+               ::new(static_cast<hook_type*>(p)) hook_type;
                //This can throw in some containers (predicate might throw)
                inserter(*p);
             }
          }
          BOOST_CATCH(...){
-            if(constructed){
-               allocator_traits<NodeAlloc>::destroy(this->node_alloc(), container_detail::to_raw_pointer(p));
-            }
-            this->node_alloc().deallocate_individual(boost::move(mem));
+            mem.incorporate_after(mem.last(), &*itbeg, &*itlast, n);
+            this->node_alloc().deallocate_individual(mem);
             BOOST_RETHROW
          }
          BOOST_CATCH_END
       }
-      return beg;
    }
 
    void clear(allocator_v1)
@@ -281,7 +285,7 @@ struct node_alloc_holder
       this->icont().clear_and_dispose(builder);
       //BOOST_STATIC_ASSERT((::boost::has_move_emulation_enabled<typename NodeAlloc::multiallocation_chain>::value == true));
       if(!chain.empty())
-         this->node_alloc().deallocate_individual(boost::move(chain));
+         this->node_alloc().deallocate_individual(chain);
    }
 
    icont_iterator erase_range(const icont_iterator &first, const icont_iterator &last, allocator_v1)
@@ -289,8 +293,13 @@ struct node_alloc_holder
 
    icont_iterator erase_range(const icont_iterator &first, const icont_iterator &last, allocator_v2)
    {
-      allocator_multialloc_chain_node_deallocator<NodeAlloc> chain_holder(this->node_alloc());
-      return this->icont().erase_and_dispose(first, last, chain_holder.get_chain_builder());
+      typedef typename NodeAlloc::multiallocation_chain multiallocation_chain;
+      NodeAlloc & nalloc = this->node_alloc();
+      multiallocation_chain chain;
+      allocator_destroyer_and_chain_builder<NodeAlloc> chain_builder(nalloc, chain);
+      icont_iterator ret_it = this->icont().erase_and_dispose(first, last, chain_builder);
+      nalloc.deallocate_individual(chain);
+      return ret_it;
    }
 
    template<class Key, class Comparator>

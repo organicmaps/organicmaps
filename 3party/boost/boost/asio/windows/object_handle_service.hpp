@@ -2,7 +2,7 @@
 // windows/object_handle_service.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 // Copyright (c) 2011 Boris Schaeling (boris@highscore.de)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -21,6 +21,7 @@
 #if defined(BOOST_ASIO_HAS_WINDOWS_OBJECT_HANDLE) \
   || defined(GENERATING_DOCUMENTATION)
 
+#include <boost/asio/async_result.hpp>
 #include <boost/asio/detail/win_object_handle_service.hpp>
 #include <boost/asio/error.hpp>
 #include <boost/asio/io_service.hpp>
@@ -141,10 +142,18 @@ public:
 
   /// Start an asynchronous wait.
   template <typename WaitHandler>
-  void async_wait(implementation_type& impl,
+  BOOST_ASIO_INITFN_RESULT_TYPE(WaitHandler,
+      void (boost::system::error_code))
+  async_wait(implementation_type& impl,
       BOOST_ASIO_MOVE_ARG(WaitHandler) handler)
   {
-    service_impl_.async_wait(impl, BOOST_ASIO_MOVE_CAST(WaitHandler)(handler));
+    boost::asio::detail::async_result_init<
+      WaitHandler, void (boost::system::error_code)> init(
+        BOOST_ASIO_MOVE_CAST(WaitHandler)(handler));
+
+    service_impl_.async_wait(impl, init.handler);
+
+    return init.result.get();
   }
 
 private:

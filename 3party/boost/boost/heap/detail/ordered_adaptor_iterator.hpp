@@ -64,8 +64,8 @@ class ordered_adaptor_iterator:
 
         bool operator()(size_t lhs, size_t rhs)
         {
-            assert(lhs <= Dispatcher::max_index(container));
-            assert(rhs <= Dispatcher::max_index(container));
+            BOOST_ASSERT(lhs <= Dispatcher::max_index(container));
+            BOOST_ASSERT(rhs <= Dispatcher::max_index(container));
             return ValueCompare::operator()(Dispatcher::get_internal_value(container, lhs),
                                             Dispatcher::get_internal_value(container, rhs));
         }
@@ -76,7 +76,7 @@ class ordered_adaptor_iterator:
 
 public:
     ordered_adaptor_iterator(void):
-        container(NULL), current_index(std::numeric_limits<size_t>::max()),
+        container(NULL), current_index((std::numeric_limits<size_t>::max)()),
         unvisited_nodes(compare_by_heap_value(NULL, ValueCompare()))
     {}
 

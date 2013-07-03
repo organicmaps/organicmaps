@@ -90,7 +90,7 @@ namespace boost { namespace spirit { namespace karma
             // without providing any attribute, as the generator doesn't 'know'
             // what to output. The following assertion fires if this situation
             // is detected in your code.
-            BOOST_SPIRIT_ASSERT_MSG(false, auto_not_usable_without_attribute, ());
+            BOOST_SPIRIT_ASSERT_FAIL(OutputIterator, auto_not_usable_without_attribute, ());
             return false;
         }
 

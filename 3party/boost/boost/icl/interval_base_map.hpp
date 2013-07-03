@@ -222,7 +222,7 @@ public:
         return *this; 
     }
 
-#   ifndef BOOST_NO_RVALUE_REFERENCES
+#   ifndef BOOST_ICL_NO_CXX11_RVALUE_REFERENCES
     //==========================================================================
     //= Move semantics
     //==========================================================================
@@ -244,7 +244,7 @@ public:
     }
 
     //==========================================================================
-#   endif // BOOST_NO_RVALUE_REFERENCES
+#   endif // BOOST_ICL_NO_CXX11_RVALUE_REFERENCES
 
     /** swap the content of containers */
     void swap(interval_base_map& object) { _map.swap(object._map); }

@@ -166,28 +166,37 @@ class bimap
     /*
     // The rest is computed in the core, because it is quite difficult to
     // expose a nice interface with so many metaprogramming stuff.
-    // Here it is the complete metadat list.
-
+    
     // Map by {side} metadata
 
     typedef -unspecified- {side}_tag;
     typedef -unspecified- {side}_data_type;
     typedef -unspecified- {side}_value_type;
     typedef -unspecified- {side}_key_type;
-    typedef -unspecified- {side}_iterator;
-    typedef -unspecified- {side}_const_iterator;
-
+    
+    // There are other typedefs for definitions of different map views
+    
     ------------------------------------------------------------------*/
 
     typedef BOOST_DEDUCED_TYPENAME ::boost::bimaps::detail::
           left_map_view_type<base_>::type  left_map;
     typedef BOOST_DEDUCED_TYPENAME ::boost::bimaps::detail::
          right_map_view_type<base_>::type right_map;
+	
+    typedef BOOST_DEDUCED_TYPENAME
+         left_map::iterator        left_iterator;
+    typedef BOOST_DEDUCED_TYPENAME
+         left_map::const_iterator  left_const_iterator;
 
     typedef BOOST_DEDUCED_TYPENAME
-         left_map::reference        left_reference;
+         right_map::iterator       right_iterator;
     typedef BOOST_DEDUCED_TYPENAME
-         left_map::const_reference  left_const_reference;
+         right_map::const_iterator right_const_iterator;
+
+    typedef BOOST_DEDUCED_TYPENAME
+         left_map::reference       left_reference;
+    typedef BOOST_DEDUCED_TYPENAME
+         left_map::const_reference left_const_reference;
 
     typedef BOOST_DEDUCED_TYPENAME
         right_map::reference       right_reference;
@@ -239,16 +248,19 @@ class bimap
          const allocator_type& al = allocator_type()) :
 
        base_::relation_set(
-           ::boost::multi_index::get<logic_relation_set_tag>(core)
+           ::boost::multi_index::get<
+               BOOST_DEDUCED_TYPENAME base_::logic_relation_set_tag>(core)
        ),
 
        core(first,last,ctor_args_list(),al),
 
        left (
-           ::boost::multi_index::get<logic_left_tag>(core)
+           ::boost::multi_index::get<
+               BOOST_DEDUCED_TYPENAME base_::logic_left_tag>(core)
        ),
        right (
-           ::boost::multi_index::get<logic_right_tag>(core)
+           ::boost::multi_index::get<
+               BOOST_DEDUCED_TYPENAME base_::logic_right_tag>(core)
        )
 
    {}
@@ -256,16 +268,19 @@ class bimap
    bimap(const bimap& x) :
 
        base_::relation_set(
-           ::boost::multi_index::get<logic_relation_set_tag>(core)
+           ::boost::multi_index::get<
+               BOOST_DEDUCED_TYPENAME base_::logic_relation_set_tag>(core)
        ),
 
        core(x.core),
 
        left (
-           ::boost::multi_index::get<logic_left_tag>(core)
+           ::boost::multi_index::get<
+               BOOST_DEDUCED_TYPENAME base_::logic_left_tag>(core)
        ),
        right (
-           ::boost::multi_index::get<logic_right_tag>(core)
+           ::boost::multi_index::get<
+               BOOST_DEDUCED_TYPENAME base_::logic_right_tag>(core)
        )
 
    {}
@@ -279,32 +294,28 @@ class bimap
     // Projection of iterators
 
     template< class IteratorType >
-    BOOST_DEDUCED_TYPENAME base_::left_iterator
-        project_left(IteratorType iter)
+    left_iterator project_left(IteratorType iter)
     {
         return core.template project<
             BOOST_DEDUCED_TYPENAME base_::logic_left_tag>(iter.base());
     }
 
     template< class IteratorType >
-    BOOST_DEDUCED_TYPENAME base_::left_const_iterator
-        project_left(IteratorType iter) const
+    left_const_iterator project_left(IteratorType iter) const
     {
         return core.template project<
             BOOST_DEDUCED_TYPENAME base_::logic_left_tag>(iter.base());
     }
 
     template< class IteratorType >
-    BOOST_DEDUCED_TYPENAME base_::right_iterator
-        project_right(IteratorType iter)
+    right_iterator project_right(IteratorType iter)
     {
         return core.template project<
             BOOST_DEDUCED_TYPENAME base_::logic_right_tag>(iter.base());
     }
 
     template< class IteratorType >
-    BOOST_DEDUCED_TYPENAME base_::right_const_iterator
-        project_right(IteratorType iter) const
+    right_const_iterator project_right(IteratorType iter) const
     {
         return core.template project<
             BOOST_DEDUCED_TYPENAME base_::logic_right_tag>(iter.base());

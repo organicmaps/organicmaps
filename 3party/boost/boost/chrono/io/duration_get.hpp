@@ -467,7 +467,7 @@ namespace boost
        * translation in other contexts, as e.g. days and weeks.
        *
        * @param facet the duration_units facet
-       * @param s start input stream iterator.
+       * @param i start input stream iterator.
        * @param e end input stream iterator.
        * @param ios a reference to a ios_base.
        * @param err the ios_base state.
@@ -484,11 +484,14 @@ namespace boost
         const string_type* k = chrono_detail::scan_keyword(i, e, units, units_end,
         //~ std::use_facet<std::ctype<CharT> >(loc),
             err);
+        if (err & (std::ios_base::badbit | std::ios_base::failbit))
+        {
+          return i;
+        }
         if (!facet.match_n_d_valid_unit(k))
         {
           err |= std::ios_base::failbit;
         }
-
         return i;
       }
 
@@ -499,7 +502,7 @@ namespace boost
        * translation in other contexts, as e.g. days and weeks.
        *
        * @param facet the duration_units facet
-       * @param s start input stream iterator.
+       * @param i start input stream iterator.
        * @param e end input stream iterator.
        * @param ios a reference to a ios_base.
        * @param err the ios_base state.
@@ -519,13 +522,15 @@ namespace boost
         const string_type* k = chrono_detail::scan_keyword(i, e, units, units_end,
         //~ std::use_facet<std::ctype<CharT> >(loc),
             err);
-
+        if (err & (std::ios_base::badbit | std::ios_base::failbit))
+        {
+          return i;
+        }
         if (!facet.match_valid_unit(k, rt))
         {
           err |= std::ios_base::failbit;
         }
         return i;
-
       }
     };
 

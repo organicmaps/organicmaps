@@ -202,7 +202,7 @@ class list_impl
    //!
    //! <b>Throws</b>: If real_value_traits::node_traits::node
    //!   constructor throws (this does not happen with predefined Boost.Intrusive hooks).
-   list_impl(const value_traits &v_traits = value_traits())
+   explicit list_impl(const value_traits &v_traits = value_traits())
       :  data_(v_traits)
    {
       this->priv_size_traits().set_size(size_type(0));
@@ -645,7 +645,7 @@ class list_impl
       }
       else{
          if(constant_time_size){
-            this->priv_size_traits().set_size(this->priv_size_traits().get_size() - n);
+            this->priv_size_traits().decrease(n);
          }
          node_algorithms::unlink(b.pointed_node(), e.pointed_node());
          return e.unconst();
@@ -886,11 +886,11 @@ class list_impl
    void splice(const_iterator p, list_impl& x)
    {
       if(!x.empty()){
-         size_traits &thist = this->priv_size_traits();
-         size_traits &xt = x.priv_size_traits();
          node_algorithms::transfer
             (p.pointed_node(), x.begin().pointed_node(), x.end().pointed_node());
-         thist.set_size(thist.get_size() + xt.get_size());
+         size_traits &thist = this->priv_size_traits();
+         size_traits &xt = x.priv_size_traits();
+         thist.increase(xt.get_size());
          xt.set_size(size_type(0));
       }
    }
@@ -916,9 +916,9 @@ class list_impl
    }
 
    //! <b>Requires</b>: p must be a valid iterator of *this.
-   //!   start and end must point to elements contained in list x.
+   //!   f and e must point to elements contained in list x.
    //!
-   //! <b>Effects</b>: Transfers the range pointed by start and end from list x to this list,
+   //! <b>Effects</b>: Transfers the range pointed by f and e from list x to this list,
    //!   before the the element pointed by p. No destructors or copy constructors are called.
    //!
    //! <b>Throws</b>: Nothing.
@@ -928,19 +928,19 @@ class list_impl
    //!
    //! <b>Note</b>: Iterators of values obtained from list x now point to elements of this
    //!   list. Iterators of this list and all the references are not invalidated.
-   void splice(const_iterator p, list_impl&x, const_iterator start, const_iterator end_)
+   void splice(const_iterator p, list_impl&x, const_iterator f, const_iterator e)
    {
       if(constant_time_size)
-         this->splice(p, x, start, end_, std::distance(start, end_));
+         this->splice(p, x, f, e, std::distance(f, e));
       else
-         this->splice(p, x, start, end_, 1);//distance is a dummy value
+         this->splice(p, x, f, e, 1);//distance is a dummy value
    }
 
    //! <b>Requires</b>: p must be a valid iterator of *this.
-   //!   start and end must point to elements contained in list x.
-   //!   n == std::distance(start, end)
+   //!   f and e must point to elements contained in list x.
+   //!   n == std::distance(f, e)
    //!
-   //! <b>Effects</b>: Transfers the range pointed by start and end from list x to this list,
+   //! <b>Effects</b>: Transfers the range pointed by f and e from list x to this list,
    //!   before the the element pointed by p. No destructors or copy constructors are called.
    //!
    //! <b>Throws</b>: Nothing.
@@ -949,19 +949,19 @@ class list_impl
    //!
    //! <b>Note</b>: Iterators of values obtained from list x now point to elements of this
    //!   list. Iterators of this list and all the references are not invalidated.
-   void splice(const_iterator p, list_impl&x, const_iterator start, const_iterator end_, difference_type n)
+   void splice(const_iterator p, list_impl&x, const_iterator f, const_iterator e, difference_type n)
    {
       if(n){
          if(constant_time_size){
+            BOOST_INTRUSIVE_INVARIANT_ASSERT(n == std::distance(f, e));
+            node_algorithms::transfer(p.pointed_node(), f.pointed_node(), e.pointed_node());
             size_traits &thist = this->priv_size_traits();
             size_traits &xt = x.priv_size_traits();
-            BOOST_INTRUSIVE_INVARIANT_ASSERT(n == std::distance(start, end_));
-            node_algorithms::transfer(p.pointed_node(), start.pointed_node(), end_.pointed_node());
-            thist.set_size(thist.get_size() + n);
-            xt.set_size(xt.get_size() - n);
+            thist.increase(n);
+            xt.decrease(n);
          }
          else{
-            node_algorithms::transfer(p.pointed_node(), start.pointed_node(), end_.pointed_node());
+            node_algorithms::transfer(p.pointed_node(), f.pointed_node(), e.pointed_node());
          }
       }
    }

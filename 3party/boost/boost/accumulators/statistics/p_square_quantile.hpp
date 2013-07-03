@@ -44,7 +44,7 @@ namespace impl
 
         For further details, see
 
-        R. Jain and I. Chlamtac, The P^2 algorithmus fordynamic calculation of quantiles and
+        R. Jain and I. Chlamtac, The P^2 algorithm for dynamic calculation of quantiles and
         histograms without storing observations, Communications of the ACM,
         Volume 28 (October), Number 10, 1985, p. 1076-1085.
 
@@ -105,7 +105,7 @@ namespace impl
             {
                 std::size_t sample_cell = 1; // k
 
-                // find cell k such that heights[k-1] <= args[sample] < heights[k] and ajust extreme values
+                // find cell k such that heights[k-1] <= args[sample] < heights[k] and adjust extreme values
                 if (args[sample] < this->heights[0])
                 {
                     this->heights[0] = args[sample];

@@ -62,7 +62,7 @@ struct tag
 {
     typedef typename traits::tag
         <
-			typename geometry::util::bare_type<Geometry>::type
+            typename geometry::util::bare_type<Geometry>::type
         >::type type;
 };
 

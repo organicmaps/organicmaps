@@ -93,8 +93,8 @@ class set_impl
    //! <b>Throws</b>: If value_traits::node_traits::node
    //!   constructor throws (this does not happen with predefined Boost.Intrusive hooks)
    //!   or the copy constructor of the value_compare object throws.
-   set_impl( const value_compare &cmp = value_compare()
-           , const value_traits &v_traits = value_traits())
+   explicit set_impl( const value_compare &cmp = value_compare()
+                    , const value_traits &v_traits = value_traits())
       :  tree_(cmp, v_traits)
    {}
 
@@ -1394,8 +1394,8 @@ class multiset_impl
    //! <b>Throws</b>: If value_traits::node_traits::node
    //!   constructor throws (this does not happen with predefined Boost.Intrusive hooks)
    //!   or the copy constructor/operator() of the value_compare object throws.
-   multiset_impl( const value_compare &cmp = value_compare()
-                , const value_traits &v_traits = value_traits())
+   explicit multiset_impl( const value_compare &cmp = value_compare()
+                         , const value_traits &v_traits = value_traits())
       :  tree_(cmp, v_traits)
    {}
 

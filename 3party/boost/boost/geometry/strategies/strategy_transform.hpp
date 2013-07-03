@@ -253,22 +253,22 @@ namespace detail
         return false;
     }
 
-	template <typename P, typename T>
-	inline bool cartesian_to_spherical_equatorial3(T x, T y, T z, P& p)
-	{
-		assert_dimension<P, 3>();
+    template <typename P, typename T>
+    inline bool cartesian_to_spherical_equatorial3(T x, T y, T z, P& p)
+    {
+        assert_dimension<P, 3>();
 
-		// http://en.wikipedia.org/wiki/List_of_canonical_coordinate_transformations#From_Cartesian_coordinates
-		T const r = sqrt(x * x + y * y + z * z);
-		set<2>(p, r);
-		set_from_radian<0>(p, atan2(y, x));
-		if (r > 0.0)
-		{
-			set_from_radian<1>(p, asin(z / r));
-			return true;
-		}
-		return false;
-	}
+        // http://en.wikipedia.org/wiki/List_of_canonical_coordinate_transformations#From_Cartesian_coordinates
+        T const r = sqrt(x * x + y * y + z * z);
+        set<2>(p, r);
+        set_from_radian<0>(p, atan2(y, x));
+        if (r > 0.0)
+        {
+            set_from_radian<1>(p, asin(z / r));
+            return true;
+        }
+        return false;
+    }
 
 } // namespace detail
 #endif // DOXYGEN_NO_DETAIL
@@ -383,11 +383,11 @@ struct from_cartesian_3_to_spherical_polar_3
 template <typename P1, typename P2>
 struct from_cartesian_3_to_spherical_equatorial_3
 {
-	inline bool apply(P1 const& p1, P2& p2) const
-	{
-		assert_dimension<P1, 3>();
-		return detail::cartesian_to_spherical_equatorial3(get<0>(p1), get<1>(p1), get<2>(p1), p2);
-	}
+    inline bool apply(P1 const& p1, P2& p2) const
+    {
+        assert_dimension<P1, 3>();
+        return detail::cartesian_to_spherical_equatorial3(get<0>(p1), get<1>(p1), get<2>(p1), p2);
+    }
 };
 
 #ifndef DOXYGEN_NO_STRATEGY_SPECIALIZATIONS
@@ -486,7 +486,7 @@ struct default_strategy<cartesian_tag, spherical_polar_tag, CoordSys1, CoordSys2
 template <typename CoordSys1, typename CoordSys2, typename P1, typename P2>
 struct default_strategy<cartesian_tag, spherical_equatorial_tag, CoordSys1, CoordSys2, 3, 3, P1, P2>
 {
-	typedef from_cartesian_3_to_spherical_equatorial_3<P1, P2> type;
+    typedef from_cartesian_3_to_spherical_equatorial_3<P1, P2> type;
 };
 
 

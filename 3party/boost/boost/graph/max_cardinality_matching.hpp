@@ -219,7 +219,12 @@ namespace boost
           vertex_state[u] = graph::detail::V_EVEN;
           out_edge_iterator_t ei, ei_end;
           for(boost::tie(ei,ei_end) = out_edges(u,g); ei != ei_end; ++ei)
-            even_edges.push_back( *ei );
+          {
+            if (target(*ei,g) != u)
+            {
+              even_edges.push_back( *ei );
+            }
+          }
         }
         else
           vertex_state[u] = graph::detail::V_UNREACHED;      
@@ -258,10 +263,16 @@ namespace boost
         if (vertex_state[w_prime] == graph::detail::V_UNREACHED)
         {
           vertex_state[w_prime] = graph::detail::V_ODD;
-          vertex_state[mate[w_prime]] = graph::detail::V_EVEN;
+          vertex_descriptor_t w_prime_mate = mate[w_prime];
+          vertex_state[w_prime_mate] = graph::detail::V_EVEN;
           out_edge_iterator_t ei, ei_end;
-          for( boost::tie(ei,ei_end) = out_edges(mate[w_prime], g); ei != ei_end; ++ei)
-            even_edges.push_back(*ei);
+          for( boost::tie(ei,ei_end) = out_edges(w_prime_mate, g); ei != ei_end; ++ei)
+          {
+            if (target(*ei,g) != w_prime_mate)
+            {
+              even_edges.push_back(*ei);
+            }
+          }
           pred[w_prime] = v;
         }
         
@@ -403,7 +414,12 @@ namespace boost
           bridge[v] = the_bridge;
           out_edge_iterator_t oei, oei_end;
           for(boost::tie(oei, oei_end) = out_edges(v,g); oei != oei_end; ++oei)
-            even_edges.push_back(*oei);
+          {
+            if (target(*oei,g) != v)
+            {
+              even_edges.push_back(*oei);
+            }
+          }
         }
       }
     }
@@ -529,7 +545,7 @@ namespace boost
         vertex_descriptor_t u = source(e,g);
         vertex_descriptor_t v = target(e,g);
       
-        if (get(mate,u) == get(mate,v))  
+        if (u != v && get(mate,u) == get(mate,v))  
         //only way equality can hold is if
         //   mate[u] == mate[v] == null_vertex
         {
@@ -606,6 +622,7 @@ namespace boost
         edge_descriptor_t e = *ei;
         vertex_descriptor_t u = source(e,g);
         vertex_descriptor_t v = target(e,g);
+        if (u == v) continue;
         edge_list.push_back(std::make_pair(u,v));
         edge_list.push_back(std::make_pair(v,u));
       }

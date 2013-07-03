@@ -2,7 +2,7 @@
 // basic_socket_iostream.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,9 +17,10 @@
 
 #include <boost/asio/detail/config.hpp>
 
-#if !defined(BOOST_NO_IOSTREAM)
+#if !defined(BOOST_ASIO_NO_IOSTREAM)
 
-#include <boost/utility/base_from_member.hpp>
+#include <istream>
+#include <ostream>
 #include <boost/asio/basic_socket_streambuf.hpp>
 #include <boost/asio/stream_socket_service.hpp>
 
@@ -37,9 +38,10 @@
 // A macro that should expand to:
 //   template <typename T1, ..., typename Tn>
 //   explicit basic_socket_iostream(T1 x1, ..., Tn xn)
-//     : basic_iostream<char>(&this->boost::base_from_member<
-//         basic_socket_streambuf<Protocol, StreamSocketService,
-//           Time, TimeTraits, TimerService> >::member)
+//     : std::basic_iostream<char>(
+//         &this->detail::socket_iostream_base<
+//           Protocol, StreamSocketService, Time,
+//           TimeTraits, TimerService>::streambuf_)
 //   {
 //     if (rdbuf()->connect(x1, ..., xn) == 0)
 //       this->setstate(std::ios_base::failbit);
@@ -49,9 +51,10 @@
 # define BOOST_ASIO_PRIVATE_CTR_DEF(z, n, data) \
   template <BOOST_PP_ENUM_PARAMS(n, typename T)> \
   explicit basic_socket_iostream(BOOST_PP_ENUM_BINARY_PARAMS(n, T, x)) \
-    : std::basic_iostream<char>(&this->boost::base_from_member< \
-        basic_socket_streambuf<Protocol, StreamSocketService, \
-          Time, TimeTraits, TimerService> >::member) \
+    : std::basic_iostream<char>( \
+        &this->detail::socket_iostream_base< \
+          Protocol, StreamSocketService, Time, \
+          TimeTraits, TimerService>::streambuf_) \
   { \
     this->setf(std::ios_base::unitbuf); \
     if (rdbuf()->connect(BOOST_PP_ENUM_PARAMS(n, x)) == 0) \
@@ -83,34 +86,69 @@
 
 namespace boost {
 namespace asio {
+namespace detail {
+
+// A separate base class is used to ensure that the streambuf is initialised
+// prior to the basic_socket_iostream's basic_iostream base class.
+template <typename Protocol, typename StreamSocketService,
+    typename Time, typename TimeTraits, typename TimerService>
+class socket_iostream_base
+{
+protected:
+  basic_socket_streambuf<Protocol, StreamSocketService,
+    Time, TimeTraits, TimerService> streambuf_;
+};
+
+}
 
 /// Iostream interface for a socket.
 template <typename Protocol,
     typename StreamSocketService = stream_socket_service<Protocol>,
+#if defined(BOOST_ASIO_HAS_BOOST_DATE_TIME) \
+  || defined(GENERATING_DOCUMENTATION)
     typename Time = boost::posix_time::ptime,
     typename TimeTraits = boost::asio::time_traits<Time>,
     typename TimerService = deadline_timer_service<Time, TimeTraits> >
+#else
+    typename Time = steady_timer::clock_type,
+    typename TimeTraits = steady_timer::traits_type,
+    typename TimerService = steady_timer::service_type>
+#endif
 class basic_socket_iostream
-  : public boost::base_from_member<
-      basic_socket_streambuf<Protocol, StreamSocketService,
-        Time, TimeTraits, TimerService> >,
+  : private detail::socket_iostream_base<Protocol,
+        StreamSocketService, Time, TimeTraits, TimerService>,
     public std::basic_iostream<char>
 {
+private:
+  // These typedefs are intended keep this class's implementation independent
+  // of whether it's using Boost.DateTime, Boost.Chrono or std::chrono.
+#if defined(BOOST_ASIO_HAS_BOOST_DATE_TIME)
+  typedef TimeTraits traits_helper;
+#else
+  typedef detail::chrono_time_traits<Time, TimeTraits> traits_helper;
+#endif
+
 public:
   /// The endpoint type.
   typedef typename Protocol::endpoint endpoint_type;
 
+#if defined(GENERATING_DOCUMENTATION)
   /// The time type.
   typedef typename TimeTraits::time_type time_type;
 
   /// The duration type.
   typedef typename TimeTraits::duration_type duration_type;
+#else
+  typedef typename traits_helper::time_type time_type;
+  typedef typename traits_helper::duration_type duration_type;
+#endif
 
   /// Construct a basic_socket_iostream without establishing a connection.
   basic_socket_iostream()
-    : std::basic_iostream<char>(&this->boost::base_from_member<
-        basic_socket_streambuf<Protocol, StreamSocketService,
-          Time, TimeTraits, TimerService> >::member)
+    : std::basic_iostream<char>(
+        &this->detail::socket_iostream_base<
+          Protocol, StreamSocketService, Time,
+          TimeTraits, TimerService>::streambuf_)
   {
     this->setf(std::ios_base::unitbuf);
   }
@@ -127,9 +165,10 @@ public:
 #elif defined(BOOST_ASIO_HAS_VARIADIC_TEMPLATES)
   template <typename... T>
   explicit basic_socket_iostream(T... x)
-    : std::basic_iostream<char>(&this->boost::base_from_member<
-        basic_socket_streambuf<Protocol, StreamSocketService,
-          Time, TimeTraits, TimerService> >::member)
+    : std::basic_iostream<char>(
+        &this->detail::socket_iostream_base<
+          Protocol, StreamSocketService, Time,
+          TimeTraits, TimerService>::streambuf_)
   {
     this->setf(std::ios_base::unitbuf);
     if (rdbuf()->connect(x...) == 0)
@@ -176,9 +215,9 @@ public:
   {
     return const_cast<basic_socket_streambuf<Protocol, StreamSocketService,
       Time, TimeTraits, TimerService>*>(
-        &this->boost::base_from_member<
-          basic_socket_streambuf<Protocol, StreamSocketService,
-            Time, TimeTraits, TimerService> >::member);
+        &this->detail::socket_iostream_base<
+          Protocol, StreamSocketService, Time,
+          TimeTraits, TimerService>::streambuf_);
   }
 
   /// Get the last error associated with the stream.
@@ -255,6 +294,6 @@ public:
 # undef BOOST_ASIO_PRIVATE_CONNECT_DEF
 #endif // !defined(BOOST_ASIO_HAS_VARIADIC_TEMPLATES)
 
-#endif // defined(BOOST_NO_IOSTREAM)
+#endif // !defined(BOOST_ASIO_NO_IOSTREAM)
 
 #endif // BOOST_ASIO_BASIC_SOCKET_IOSTREAM_HPP

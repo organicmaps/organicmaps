@@ -20,6 +20,7 @@
 
 #include <boost/interprocess/detail/atomic.hpp>
 #include <boost/interprocess/detail/os_thread_functions.hpp>
+#include <boost/interprocess/exceptions.hpp>
 #include <boost/type_traits/type_with_alignment.hpp>
 #include <boost/interprocess/detail/mpl.hpp>
 #include <boost/assert.hpp>

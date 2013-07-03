@@ -56,6 +56,12 @@ namespace boost
                   function,
                   "atanh requires x >= -1, but got x = %1%.", x, pol);
             }
+            else if(x > 1)
+            {
+               return policies::raise_domain_error<T>(
+                  function,
+                  "atanh requires x <= 1, but got x = %1%.", x, pol);
+            }
             else if(x < -1 + tools::epsilon<T>())
             {
                // -Infinity:
@@ -65,12 +71,6 @@ namespace boost
             {
                // Infinity:
                return policies::raise_overflow_error<T>(function, 0, pol);
-            }
-            else if(x > 1)
-            {
-               return policies::raise_domain_error<T>(
-                  function,
-                  "atanh requires x <= 1, but got x = %1%.", x, pol);
             }
             else if(abs(x) >= tools::forth_root_epsilon<T>())
             {

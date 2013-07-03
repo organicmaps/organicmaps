@@ -9,6 +9,8 @@ Copyright (c) 2009-2011: Joachim Faulhaber
 #ifndef  BOOST_ICL_IMPL_CONFIG_HPP_JOFA_091225
 #define  BOOST_ICL_IMPL_CONFIG_HPP_JOFA_091225
 
+#include <boost/icl/detail/boost_config.hpp>
+
 /*-----------------------------------------------------------------------------+
 | You can choose an implementation for the basic set and map classes.          |
 | Select at most ONE of the following defines to change the default            |
@@ -37,6 +39,19 @@ Copyright (c) 2009-2011: Joachim Faulhaber
 #   define ICL_IMPL_SPACE std
 #else
 #   define ICL_IMPL_SPACE std
+#endif
+
+/*-----------------------------------------------------------------------------+
+| MEMO 2012-12-30: Due to problems with new c++11 compilers and their          | 
+| implementation of rvalue references, ICL's move implementation will be       |
+| disabled for some new compilers for version 1.53.                            |
++-----------------------------------------------------------------------------*/
+#if defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+#   define BOOST_ICL_NO_CXX11_RVALUE_REFERENCES
+#elif defined(__clang__)
+#   define BOOST_ICL_NO_CXX11_RVALUE_REFERENCES
+#elif (defined(__GNUC__) && (__GNUC__ == 4) && (__GNUC_MINOR__ >= 7))
+#   define BOOST_ICL_NO_CXX11_RVALUE_REFERENCES
 #endif
 
 #include <boost/move/move.hpp>

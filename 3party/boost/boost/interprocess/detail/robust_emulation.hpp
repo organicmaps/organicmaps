@@ -197,8 +197,8 @@ class robust_spin_mutex
    bool lock_own_unique_file();
    bool robust_check();
    bool check_if_owner_dead_and_take_ownership_atomically();
-   bool is_owner_dead(boost::uint32_t owner);
-   void owner_to_filename(boost::uint32_t owner, std::string &s);
+   bool is_owner_dead(boost::uint32_t own);
+   void owner_to_filename(boost::uint32_t own, std::string &s);
    //The real mutex
    Mutex mtx;
    //The pid of the owner
@@ -309,9 +309,9 @@ inline bool robust_spin_mutex<Mutex>::timed_lock
 }
 
 template<class Mutex>
-inline void robust_spin_mutex<Mutex>::owner_to_filename(boost::uint32_t owner, std::string &s)
+inline void robust_spin_mutex<Mutex>::owner_to_filename(boost::uint32_t own, std::string &s)
 {
-   robust_emulation_helpers::create_and_get_robust_lock_file_path(s, owner);
+   robust_emulation_helpers::create_and_get_robust_lock_file_path(s, own);
 }
 
 template<class Mutex>
@@ -349,16 +349,16 @@ inline bool robust_spin_mutex<Mutex>::check_if_owner_dead_and_take_ownership_ato
 }
 
 template<class Mutex>
-inline bool robust_spin_mutex<Mutex>::is_owner_dead(boost::uint32_t owner)
+inline bool robust_spin_mutex<Mutex>::is_owner_dead(boost::uint32_t own)
 {
    //If owner is an invalid id, then it's clear it's dead
-   if(owner == (boost::uint32_t)get_invalid_process_id()){
+   if(own == (boost::uint32_t)get_invalid_process_id()){
       return true;
    }
 
    //Obtain the lock filename of the owner field
    std::string file;
-   this->owner_to_filename(owner, file);
+   this->owner_to_filename(own, file);
 
    //Now the logic is to open and lock it
    file_handle_t fhnd = open_existing_file(file.c_str(), read_write);

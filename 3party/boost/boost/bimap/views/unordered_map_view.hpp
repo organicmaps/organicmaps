@@ -43,7 +43,7 @@ class unordered_map_view
     public BOOST_BIMAP_MAP_VIEW_CONTAINER_ADAPTOR(
         unordered_map_adaptor,
         Tag,BimapType,
-        local_iterator_type_by,const_local_iterator_type_by
+        local_map_view_iterator,const_local_map_view_iterator
     ),
 
     public ::boost::bimaps::detail::map_view_base<
@@ -56,7 +56,7 @@ class unordered_map_view
     typedef BOOST_BIMAP_MAP_VIEW_CONTAINER_ADAPTOR(
         unordered_map_adaptor,
         Tag,BimapType,
-        local_iterator_type_by,const_local_iterator_type_by
+        local_map_view_iterator,const_local_map_view_iterator
 
     ) base_;
 

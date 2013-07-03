@@ -84,7 +84,7 @@ class managed_open_or_create_impl_device_holder<true, DeviceAbstraction>
    DeviceAbstraction dev;
 };
 
-template<class DeviceAbstraction, std::size_t MemAlignment = 0, bool FileBased = true, bool StoreDevice = true>
+template<class DeviceAbstraction, std::size_t MemAlignment, bool FileBased, bool StoreDevice>
 class managed_open_or_create_impl
    : public managed_open_or_create_impl_device_holder<StoreDevice, DeviceAbstraction>
 {
@@ -315,8 +315,13 @@ class managed_open_or_create_impl
       bool cow     = false;
       DeviceAbstraction dev;
 
-      if(type != DoOpen && size < ManagedOpenOrCreateUserOffset){
-         throw interprocess_exception(error_info(size_error));
+      if(type != DoOpen){
+         //Check if the requested size is enough to build the managed metadata
+         const std::size_t func_min_size = construct_func.get_min_size();
+         if( (std::size_t(-1) - ManagedOpenOrCreateUserOffset) < func_min_size ||
+             size < (func_min_size + ManagedOpenOrCreateUserOffset) ){
+            throw interprocess_exception(error_info(size_error));
+         }
       }
       //Check size can be represented by offset_t (used by truncate)
       if(type != DoOpen && !check_offset_t_size<FileBased>(size, file_like_t())){
@@ -366,8 +371,8 @@ class managed_open_or_create_impl
                      created     = false;
                      completed   = true;
                   }
-                  catch(interprocess_exception &ex){
-                     if(ex.get_error_code() != not_found_error){
+                  catch(interprocess_exception &e){
+                     if(e.get_error_code() != not_found_error){
                         throw;
                      }
                   }
@@ -461,6 +466,11 @@ class managed_open_or_create_impl
       }
    }
 
+   friend void swap(managed_open_or_create_impl &left, managed_open_or_create_impl &right)
+   {
+      left.swap(right);
+   }
+
    private:
    friend class interprocess_tester;
    void dont_close_on_destruction()
@@ -468,11 +478,6 @@ class managed_open_or_create_impl
 
    mapped_region     m_mapped_region;
 };
-
-template<class DeviceAbstraction>
-inline void swap(managed_open_or_create_impl<DeviceAbstraction> &x
-                ,managed_open_or_create_impl<DeviceAbstraction> &y)
-{  x.swap(y);  }
 
 }  //namespace ipcdetail {
 

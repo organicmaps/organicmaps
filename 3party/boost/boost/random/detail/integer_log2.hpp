@@ -7,7 +7,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: integer_log2.hpp 76145 2011-12-24 19:05:17Z danieljames $
+ * $Id: integer_log2.hpp 83381 2013-03-09 22:55:05Z eric_niebler $
  *
  */
 
@@ -22,12 +22,12 @@ namespace boost {
 namespace random {
 namespace detail {
 
-#if !defined(BOOST_NO_CONSTEXPR)
+#if !defined(BOOST_NO_CXX11_CONSTEXPR)
 #define BOOST_RANDOM_DETAIL_CONSTEXPR constexpr
 #elif defined(BOOST_MSVC)
 #define BOOST_RANDOM_DETAIL_CONSTEXPR __forceinline
 #elif defined(__GNUC__) && __GNUC__ >= 4
-#define BOOST_RANDOM_DETAIL_CONSTEXPR __attribute__((const)) __attribute__((always_inline))
+#define BOOST_RANDOM_DETAIL_CONSTEXPR inline __attribute__((const)) __attribute__((always_inline))
 #else
 #define BOOST_RANDOM_DETAIL_CONSTEXPR inline
 #endif
@@ -35,7 +35,7 @@ namespace detail {
 template<int Shift>
 struct integer_log2_impl
 {
-#if defined(BOOST_NO_CONSTEXPR)
+#if defined(BOOST_NO_CXX11_CONSTEXPR)
     template<class T>
     BOOST_RANDOM_DETAIL_CONSTEXPR static int apply(T t, int accum)
     {

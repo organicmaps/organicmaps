@@ -137,8 +137,8 @@ template
     typename Geometry,
     typename
     CoordinateType,
-	std::size_t Dimension,
-	typename IsPointer
+    std::size_t Dimension,
+    typename IsPointer
 >
 struct access
 {
@@ -153,7 +153,7 @@ template
     typename CoordinateType,
     std::size_t Index,
     std::size_t Dimension,
-	typename IsPointer
+    typename IsPointer
 >
 struct indexed_access
 {
@@ -260,13 +260,15 @@ struct signature_getset_index_dimension {};
 \tparam Dimension \tparam_dimension_required
 \tparam Geometry \tparam_geometry (usually a Point Concept)
 \param geometry \param_geometry (usually a point)
-\param dummy \qbk_skip
 \return The coordinate value of specified dimension of specified geometry
+
 \qbk{[include reference/core/get_point.qbk]}
 */
 template <std::size_t Dimension, typename Geometry>
 inline typename coordinate_type<Geometry>::type get(Geometry const& geometry
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
         , detail::signature_getset_dimension* dummy = 0
+#endif
         )
 {
     boost::ignore_unused_variable_warning(dummy);
@@ -277,7 +279,7 @@ inline typename coordinate_type<Geometry>::type get(Geometry const& geometry
             typename geometry::util::bare_type<Geometry>::type,
             typename coordinate_type<Geometry>::type,
             Dimension,
-			typename boost::is_pointer<Geometry>::type
+            typename boost::is_pointer<Geometry>::type
         > coord_access_type;
 
     return coord_access_type::get(geometry);
@@ -292,7 +294,6 @@ inline typename coordinate_type<Geometry>::type get(Geometry const& geometry
 \param geometry geometry to assign coordinate to
 \param geometry \param_geometry (usually a point)
 \param value The coordinate value to set
-\param dummy \qbk_skip
 \ingroup set
 
 \qbk{[include reference/core/set_point.qbk]}
@@ -300,7 +301,9 @@ inline typename coordinate_type<Geometry>::type get(Geometry const& geometry
 template <std::size_t Dimension, typename Geometry>
 inline void set(Geometry& geometry
         , typename coordinate_type<Geometry>::type const& value
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
         , detail::signature_getset_dimension* dummy = 0
+#endif        
         )
 {
     boost::ignore_unused_variable_warning(dummy);
@@ -311,7 +314,7 @@ inline void set(Geometry& geometry
             typename geometry::util::bare_type<Geometry>::type,
             typename coordinate_type<Geometry>::type,
             Dimension,
-			typename boost::is_pointer<Geometry>::type
+            typename boost::is_pointer<Geometry>::type
         > coord_access_type;
 
     coord_access_type::set(geometry, value);
@@ -325,7 +328,6 @@ inline void set(Geometry& geometry
 \tparam Dimension \tparam_dimension_required
 \tparam Geometry \tparam_box_or_segment
 \param geometry \param_geometry
-\param dummy \qbk_skip
 \return coordinate value
 \ingroup get
 
@@ -334,7 +336,9 @@ inline void set(Geometry& geometry
 */
 template <std::size_t Index, std::size_t Dimension, typename Geometry>
 inline typename coordinate_type<Geometry>::type get(Geometry const& geometry
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
         , detail::signature_getset_index_dimension* dummy = 0
+#endif        
         )
 {
     boost::ignore_unused_variable_warning(dummy);
@@ -346,7 +350,7 @@ inline typename coordinate_type<Geometry>::type get(Geometry const& geometry
             typename coordinate_type<Geometry>::type,
             Index,
             Dimension,
-			typename boost::is_pointer<Geometry>::type
+            typename boost::is_pointer<Geometry>::type
         > coord_access_type;
 
     return coord_access_type::get(geometry);
@@ -361,7 +365,6 @@ inline typename coordinate_type<Geometry>::type get(Geometry const& geometry
 \param geometry geometry to assign coordinate to
 \param geometry \param_geometry
 \param value The coordinate value to set
-\param dummy \qbk_skip
 \ingroup set
 
 \qbk{distinguish,with index}
@@ -370,7 +373,9 @@ inline typename coordinate_type<Geometry>::type get(Geometry const& geometry
 template <std::size_t Index, std::size_t Dimension, typename Geometry>
 inline void set(Geometry& geometry
         , typename coordinate_type<Geometry>::type const& value
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
         , detail::signature_getset_index_dimension* dummy = 0
+#endif
         )
 {
     boost::ignore_unused_variable_warning(dummy);
@@ -382,7 +387,7 @@ inline void set(Geometry& geometry
             typename coordinate_type<Geometry>::type,
             Index,
             Dimension,
-			typename boost::is_pointer<Geometry>::type
+            typename boost::is_pointer<Geometry>::type
         > coord_access_type;
 
     coord_access_type::set(geometry, value);

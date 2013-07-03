@@ -174,7 +174,7 @@ class circular_list_algorithms
       NodeTraits::set_previous(this_node, prev);
       NodeTraits::set_next(this_node, nxt_node);
       //nxt_node might be an alias for prev->next_
-      //so use it before update it before NodeTraits::set_next(prev, ...)
+      //so use it before NodeTraits::set_next(prev, ...)
       //is called and the reference changes it's value
       NodeTraits::set_previous(nxt_node, this_node);
       NodeTraits::set_next(prev, this_node);

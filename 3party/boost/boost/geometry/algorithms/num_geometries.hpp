@@ -17,7 +17,7 @@
 
 #include <cstddef>
 
-#include <boost/mpl/assert.hpp>
+#include <boost/geometry/algorithms/not_implemented.hpp>
 
 #include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/tags.hpp>
@@ -35,19 +35,22 @@ namespace dispatch
 {
 
 
-template <typename Tag, typename Geometry>
-struct num_geometries
-{
-    BOOST_MPL_ASSERT_MSG
-        (
-            false, NOT_OR_NOT_YET_IMPLEMENTED_FOR_THIS_GEOMETRY_TYPE
-            , (types<Geometry>)
-        );
-};
+template
+<
+    typename Geometry,
+    typename Tag = typename tag_cast
+                            <
+                                typename tag<Geometry>::type,
+                                single_tag,
+                                multi_tag
+                            >::type
+>
+struct num_geometries: not_implemented<Tag>
+{};
 
 
 template <typename Geometry>
-struct num_geometries<single_tag, Geometry>
+struct num_geometries<Geometry, single_tag>
 {
     static inline std::size_t apply(Geometry const&)
     {
@@ -76,16 +79,7 @@ inline std::size_t num_geometries(Geometry const& geometry)
 {
     concept::check<Geometry const>();
 
-    return dispatch::num_geometries
-        <
-            typename tag_cast
-                <
-                    typename tag<Geometry>::type,
-                    single_tag,
-                    multi_tag
-                >::type,
-            Geometry
-        >::apply(geometry);
+    return dispatch::num_geometries<Geometry>::apply(geometry);
 }
 
 

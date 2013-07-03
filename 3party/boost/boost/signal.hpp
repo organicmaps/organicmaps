@@ -10,6 +10,14 @@
 #ifndef BOOST_SIGNAL_HPP
 #define BOOST_SIGNAL_HPP
 
+#ifndef BOOST_SIGNALS_NO_DEPRECATION_WARNING
+# if defined(_MSC_VER) || defined(__BORLANDC__) || defined(__DMC__)
+#  pragma message ("Warning: Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING.")
+# elif defined(__GNUC__) || defined(__HP_aCC) || defined(__SUNPRO_CC) || defined(__IBMCPP__)
+#  warning                  "Boost.Signals is no longer being maintained and is now deprecated. Please switch to Boost.Signals2. To disable this warning message, define BOOST_SIGNALS_NO_DEPRECATION_WARNING."
+# endif
+#endif
+
 #ifndef BOOST_SIGNALS_MAX_ARGS
 #  define BOOST_SIGNALS_MAX_ARGS 10
 #endif

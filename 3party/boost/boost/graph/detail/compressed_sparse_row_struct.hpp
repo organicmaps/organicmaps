@@ -218,8 +218,6 @@ namespace detail {
       // the user has supplied the number of edges.
       edges_size_type numedges = numedges_or_zero;
       if (numedges == 0) {
-        typedef typename std::iterator_traits<InputIterator>::iterator_category
-          category;
         numedges = boost::graph::detail::reserve_count_for_single_pass(edge_begin, edge_end);
       }
       m_column.clear();
@@ -313,7 +311,6 @@ namespace detail {
       inherited_edge_properties::resize(numedges);
       EdgeIndex current_edge = 0;
       typedef typename boost::graph_traits<Graph>::vertex_descriptor g_vertex;
-      typedef typename boost::graph_traits<Graph>::edge_descriptor g_edge;
       typedef typename boost::graph_traits<Graph>::out_edge_iterator
         g_out_edge_iter;
 
@@ -347,7 +344,6 @@ namespace detail {
       // Flip sequence
       BidirectionalIterator first(last_sorted);
       BidirectionalIterator last(first_sorted);
-      typedef Vertex vertex_t;
       typedef Vertex vertex_num;
       typedef EdgeIndex edge_num;
       edge_num new_edge_count = std::distance(first, last);

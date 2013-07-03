@@ -202,13 +202,14 @@ bool has_parameters = false;
     boost::wave::util::retrieve_macrodefinition(*hit.trees.begin(),
         BOOST_WAVE_MACRO_DEFINITION_ID, macrodefinition, act_pos, true);
 
+    // get rid of trailing T_EOF
+    if (!macrodefinition.empty() && token_id(macrodefinition.back()) == T_EOF)
+        macrodefinition.pop_back();
+
 //  If no macrodefinition is given, and the macro string does not end with a
 //  '=', then the macro should be defined with the value '1'
-    if (0 == macrodefinition.size() &&
-        '=' != macrostring[macrostring.size()-1])
-    {
+    if (macrodefinition.empty() && '=' != macrostring[macrostring.size()-1])
         macrodefinition.push_back(token_type(T_INTLIT, "1", act_pos));
-    }
 
 // add the new macro to the macromap
     return ctx.add_macro_definition(macroname, has_parameters, macroparameters,
@@ -793,7 +794,7 @@ typename ContextT::position_type pos = act_token.get_position();
             char buffer[22];
 
                 using namespace std;    // for some systems sprintf is in namespace std
-                sprintf (buffer, "%d", pos.get_line());
+                sprintf (buffer, "%ld", pos.get_line());
 
                 pos.set_column(++column);                 // account for ' '
                 pending.push_back(result_type(T_INTLIT, buffer, pos));

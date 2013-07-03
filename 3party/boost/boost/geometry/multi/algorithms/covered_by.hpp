@@ -19,6 +19,7 @@
 #include <boost/geometry/multi/core/closure.hpp>
 #include <boost/geometry/multi/core/point_order.hpp>
 #include <boost/geometry/multi/core/tags.hpp>
+#include <boost/geometry/multi/geometries/concepts/check.hpp>
 #include <boost/geometry/multi/algorithms/within.hpp>
 
 

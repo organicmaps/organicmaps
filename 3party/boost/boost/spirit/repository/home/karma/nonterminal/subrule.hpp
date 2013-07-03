@@ -503,7 +503,7 @@ namespace boost { namespace spirit { namespace repository { namespace karma
         {
             // If you are seeing a compilation error here, you are trying
             // to use a subrule as a generator outside of a subrule group.
-            BOOST_SPIRIT_ASSERT_MSG(false
+            BOOST_SPIRIT_ASSERT_FAIL(OutputIterator
               , subrule_used_outside_subrule_group, (id_type));
 
             return false;
@@ -532,7 +532,7 @@ namespace boost { namespace spirit { namespace repository { namespace karma
         {
             // If you are seeing a compilation error here, you are trying
             // to use a subrule as a generator outside of a subrule group.
-            BOOST_SPIRIT_ASSERT_MSG(false
+            BOOST_SPIRIT_ASSERT_FAIL(OutputIterator
               , subrule_used_outside_subrule_group, (id_type));
 
             return false;

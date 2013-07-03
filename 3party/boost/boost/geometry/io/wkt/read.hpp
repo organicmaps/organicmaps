@@ -423,10 +423,21 @@ inline bool initialize(tokenizer const& tokens,
 
         handle_empty_z_m(it, tokens.end(), has_empty, has_z, has_m);
 
+// Silence warning C4127: conditional expression is constant
+#if defined(_MSC_VER)
+#pragma warning(push)  
+#pragma warning(disable : 4127)  
+#endif
+
         if (has_z && dimension<Geometry>::type::value < 3)
         {
             throw read_wkt_exception("Z only allowed for 3 or more dimensions", wkt);
         }
+
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
+
         if (has_empty)
         {
             check_end(it, tokens.end(), wkt);

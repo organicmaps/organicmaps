@@ -224,8 +224,8 @@ class rbtree_impl
    //! <b>Throws</b>: If value_traits::node_traits::node
    //!   constructor throws (this does not happen with predefined Boost.Intrusive hooks)
    //!   or the copy constructorof the value_compare object throws. Basic guarantee.
-   rbtree_impl( const value_compare &cmp = value_compare()
-              , const value_traits &v_traits = value_traits())
+   explicit rbtree_impl( const value_compare &cmp = value_compare()
+                       , const value_traits &v_traits = value_traits())
       :  data_(cmp, v_traits)
    {
       node_algorithms::init_header(this->priv_header_ptr());

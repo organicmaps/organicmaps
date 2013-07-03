@@ -116,30 +116,30 @@ namespace boost { namespace numeric {
         // Construction and destruction
 	  
 	  /// Default dense matrix constructor. Make a dense matrix of size (0,0)
-        BOOST_UBLAS_INLINE
-        matrix ():
-            matrix_container<self_type> (),
-            size1_ (0), size2_ (0), data_ () {}
-
+	    BOOST_UBLAS_INLINE
+	    matrix ():
+	        matrix_container<self_type> (),
+	        size1_ (0), size2_ (0), data_ () {}
+	
 	  /** Dense matrix constructor with defined size
 	   * \param size1 number of rows
 	   * \param size2 number of columns
 	   */
-        BOOST_UBLAS_INLINE
-        matrix (size_type size1, size_type size2):
-            matrix_container<self_type> (),
-            size1_ (size1), size2_ (size2), data_ (layout_type::storage_size (size1, size2)) {
-        }
-
+	    BOOST_UBLAS_INLINE
+	    matrix (size_type size1, size_type size2):
+	        matrix_container<self_type> (),
+	        size1_ (size1), size2_ (size2), data_ (layout_type::storage_size (size1, size2)) {
+	    }
+	
 	  /** Dense matrix constructor with defined size a initial value for all the matrix elements
 	   * \param size1 number of rows
 	   * \param size2 number of columns
 	   * \param init initial value assigned to all elements
 	   */
-        matrix (size_type size1, size_type size2, const value_type &init):
-            matrix_container<self_type> (),
-            size1_ (size1), size2_ (size2), data_ (layout_type::storage_size (size1, size2), init) {
-        }
+	    matrix (size_type size1, size_type size2, const value_type &init):
+	        matrix_container<self_type> (),
+	        size1_ (size1), size2_ (size2), data_ (layout_type::storage_size (size1, size2), init) {
+	    }
 
 	  /** Dense matrix constructor with defined size and an initial data array
 	   * \param size1 number of rows
@@ -225,29 +225,67 @@ namespace boost { namespace numeric {
         }
 
         // Element access
+    
+    /** Access a matrix element. Here we return a const reference
+     * \param i the first coordinate of the element. By default it's the row
+     * \param j the second coordinate of the element. By default it's the column
+     * \return a const reference to the element
+     */
         BOOST_UBLAS_INLINE
         const_reference operator () (size_type i, size_type j) const {
             return data () [layout_type::element (i, size1_, j, size2_)];
         }
+
+    /** Access a matrix element. Here we return a reference
+     * \param i the first coordinate of the element. By default it's the row
+     * \param j the second coordinate of the element. By default it's the column
+     * \return a reference to the element
+     */
         BOOST_UBLAS_INLINE
         reference at_element (size_type i, size_type j) {
             return data () [layout_type::element (i, size1_, j, size2_)];
         }
+
+    /** Access a matrix element. Here we return a reference
+     * \param i the first coordinate of the element. By default it's the row
+     * \param j the second coordinate of the element. By default it's the column
+     * \return a reference to the element
+     */
         BOOST_UBLAS_INLINE
         reference operator () (size_type i, size_type j) {
             return at_element (i, j);
         }
 
         // Element assignment
+
+    /** Change the value of a matrix element. Return back a reference to it
+     * \param i the first coordinate of the element. By default it's the row
+     * \param j the second coordinate of the element. By default it's the column
+     * \param t the new value of the element
+     * \return a reference to the newly changed element
+     */
         BOOST_UBLAS_INLINE
         reference insert_element (size_type i, size_type j, const_reference t) {
             return (at_element (i, j) = t);
         }
+
+    /** Erase the element 
+     * For most types (int, double, etc...) it means setting 0 (zero) the element at zero in fact.
+     * For user-defined types, it could be another value if you decided it. Your type in that case must
+     * contain a default null value.
+     * \param i the first coordinate of the element. By default it's the row
+     * \param j the second coordinate of the element. By default it's the column
+     */
         void erase_element (size_type i, size_type j) {
             at_element (i, j) = value_type/*zero*/();
         }
 
         // Zeroing
+    /** Erase all elements in the matrix
+     * For most types (int, double, etc...) it means writing 0 (zero) everywhere.
+     * For user-defined types, it could be another value if you decided it. Your type in that case must
+     * contain a default null value.
+     */
         BOOST_UBLAS_INLINE
         void clear () {
             std::fill (data ().begin (), data ().end (), value_type/*zero*/());

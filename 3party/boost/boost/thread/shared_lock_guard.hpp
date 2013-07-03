@@ -6,7 +6,8 @@
 #ifndef BOOST_THREAD_SHARED_LOCK_GUARD_HPP
 #define BOOST_THREAD_SHARED_LOCK_GUARD_HPP
 #include <boost/thread/detail/config.hpp>
-#include <boost/thread/locks.hpp>
+//#include <boost/thread/locks.hpp>
+#include <boost/thread/lock_options.hpp>
 #include <boost/thread/detail/delete.hpp>
 
 namespace boost

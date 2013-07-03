@@ -33,7 +33,7 @@ enum SourceCategory {
   SOURCE_CATEGORY_BITMASK = 0x1F
 };
 
-bool belongs(
+inline bool belongs(
     SourceCategory source_category,
     GeometryCategory geometry_category) {
   return (static_cast<std::size_t>(source_category) >>

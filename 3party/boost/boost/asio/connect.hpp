@@ -2,7 +2,7 @@
 // connect.hpp
 // ~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -16,6 +16,7 @@
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
 #include <boost/asio/detail/config.hpp>
+#include <boost/asio/async_result.hpp>
 #include <boost/asio/basic_socket.hpp>
 #include <boost/asio/error.hpp>
 
@@ -516,7 +517,9 @@ Iterator connect(basic_socket<Protocol, SocketService>& s,
  */
 template <typename Protocol, typename SocketService,
     typename Iterator, typename ComposedConnectHandler>
-void async_connect(basic_socket<Protocol, SocketService>& s,
+BOOST_ASIO_INITFN_RESULT_TYPE(ComposedConnectHandler,
+    void (boost::system::error_code, Iterator))
+async_connect(basic_socket<Protocol, SocketService>& s,
     Iterator begin, BOOST_ASIO_MOVE_ARG(ComposedConnectHandler) handler);
 
 /// Asynchronously establishes a socket connection by trying each endpoint in a
@@ -585,7 +588,9 @@ void async_connect(basic_socket<Protocol, SocketService>& s,
  */
 template <typename Protocol, typename SocketService,
     typename Iterator, typename ComposedConnectHandler>
-void async_connect(basic_socket<Protocol, SocketService>& s,
+BOOST_ASIO_INITFN_RESULT_TYPE(ComposedConnectHandler,
+    void (boost::system::error_code, Iterator))
+async_connect(basic_socket<Protocol, SocketService>& s,
     Iterator begin, Iterator end,
     BOOST_ASIO_MOVE_ARG(ComposedConnectHandler) handler);
 
@@ -693,7 +698,9 @@ void async_connect(basic_socket<Protocol, SocketService>& s,
  */
 template <typename Protocol, typename SocketService, typename Iterator,
     typename ConnectCondition, typename ComposedConnectHandler>
-void async_connect(basic_socket<Protocol, SocketService>& s, Iterator begin,
+BOOST_ASIO_INITFN_RESULT_TYPE(ComposedConnectHandler,
+    void (boost::system::error_code, Iterator))
+async_connect(basic_socket<Protocol, SocketService>& s, Iterator begin,
     ConnectCondition connect_condition,
     BOOST_ASIO_MOVE_ARG(ComposedConnectHandler) handler);
 
@@ -800,7 +807,9 @@ void async_connect(basic_socket<Protocol, SocketService>& s, Iterator begin,
  */
 template <typename Protocol, typename SocketService, typename Iterator,
     typename ConnectCondition, typename ComposedConnectHandler>
-void async_connect(basic_socket<Protocol, SocketService>& s,
+BOOST_ASIO_INITFN_RESULT_TYPE(ComposedConnectHandler,
+    void (boost::system::error_code, Iterator))
+async_connect(basic_socket<Protocol, SocketService>& s,
     Iterator begin, Iterator end, ConnectCondition connect_condition,
     BOOST_ASIO_MOVE_ARG(ComposedConnectHandler) handler);
 

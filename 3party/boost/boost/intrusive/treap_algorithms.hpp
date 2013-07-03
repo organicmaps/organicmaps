@@ -389,7 +389,6 @@ class treap_algorithms
    {
       rebalance_for_erasure(header, z, pcomp);
       tree_algorithms::erase(header, z);
-//      assert(check_invariant(header, pcomp));
       return z;
    }
 

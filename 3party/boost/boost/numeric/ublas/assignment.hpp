@@ -451,7 +451,7 @@ public:
 * \endcode
 * \sa begin2()
 */
-BOOST_UBLAS_INLINE begin1_manip  begin1() {
+inline begin1_manip  begin1() {
     return begin1_manip();
 }
 
@@ -495,7 +495,7 @@ public:
 * \endcode
 * \sa begin1() begin2_manip
 */
-BOOST_UBLAS_INLINE begin2_manip  begin2() {
+inline begin2_manip  begin2() {
     return begin2_manip();
 }
 
@@ -540,7 +540,7 @@ public:
 * \endcode
 * \sa next_column()
 */
-BOOST_UBLAS_INLINE next_row_manip  next_row() {
+inline next_row_manip  next_row() {
     return next_row_manip();
 }
 
@@ -584,7 +584,7 @@ public:
 * \endcode
 *
 */
-BOOST_UBLAS_INLINE next_column_manip next_column() {
+inline next_column_manip next_column() {
     return next_column_manip();
 }
 
@@ -885,27 +885,27 @@ namespace traverse_policy {
  // Traverse policy namespace
 namespace traverse_policy {
 
-    by_row_policy<DEFAULT_WRAP_POLICY> by_row() {
+    inline by_row_policy<DEFAULT_WRAP_POLICY> by_row() {
     return by_row_policy<DEFAULT_WRAP_POLICY>();
     }
 
-    by_row_policy<wrap> by_row_wrap() {
+    inline by_row_policy<wrap> by_row_wrap() {
         return by_row_policy<wrap>();
     }
 
-    by_row_policy<no_wrap> by_row_no_wrap() {
+    inline by_row_policy<no_wrap> by_row_no_wrap() {
         return by_row_policy<no_wrap>();
     }
 
-    by_column_policy<DEFAULT_WRAP_POLICY> by_column() {
+    inline by_column_policy<DEFAULT_WRAP_POLICY> by_column() {
         return by_column_policy<DEFAULT_WRAP_POLICY>();
     }
 
-    by_column_policy<wrap> by_column_wrap() {
+    inline by_column_policy<wrap> by_column_wrap() {
         return by_column_policy<wrap>();
     }
 
-    by_column_policy<no_wrap> by_column_no_wrap() {
+    inline by_column_policy<no_wrap> by_column_no_wrap() {
         return by_column_policy<no_wrap>();
     }
 

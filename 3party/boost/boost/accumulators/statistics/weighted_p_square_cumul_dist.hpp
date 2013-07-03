@@ -42,7 +42,7 @@ namespace impl
 
         For further details, see
 
-        R. Jain and I. Chlamtac, The P^2 algorithmus for dynamic calculation of quantiles and
+        R. Jain and I. Chlamtac, The P^2 algorithm for dynamic calculation of quantiles and
         histograms without storing observations, Communications of the ACM,
         Volume 28 (October), Number 10, 1985, p. 1076-1085.
 

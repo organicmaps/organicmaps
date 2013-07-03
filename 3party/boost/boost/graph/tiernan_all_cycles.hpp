@@ -64,7 +64,7 @@ namespace boost
 // basically modernized it to use real data structures (no more arrays and matrices).
 // Oh... and there's explicit control structures - not just gotos.
 //
-// The problem is definitely NP-complete, an an unbounded implementation of this
+// The problem is definitely NP-complete, an unbounded implementation of this
 // will probably run for quite a while on a large graph. The conclusions
 // of this paper also reference a Paton algorithm for undirected graphs as being
 // much more efficient (apparently based on spanning trees). Although not implemented,
@@ -85,7 +85,7 @@ namespace boost
 //         }
 
 /**
- * The default cycle visitor providse an empty visit function for cycle
+ * The default cycle visitor provides an empty visit function for cycle
  * visitors.
  */
 struct cycle_visitor
@@ -168,7 +168,7 @@ namespace detail
 
         // conditions for allowing a traversal along this edge are:
         // 1. the index of v must be greater than that at which the
-        //    the path is rooted (p.front()).
+        //    path is rooted (p.front()).
         // 2. the vertex v cannot already be in the path
         // 3. the vertex v cannot be closed to the vertex u
 

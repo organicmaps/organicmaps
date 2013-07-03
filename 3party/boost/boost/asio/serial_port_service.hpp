@@ -2,7 +2,7 @@
 // serial_port_service.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -22,6 +22,7 @@
 
 #include <cstddef>
 #include <string>
+#include <boost/asio/async_result.hpp>
 #include <boost/asio/detail/reactive_serial_port_service.hpp>
 #include <boost/asio/detail/win_iocp_serial_port_service.hpp>
 #include <boost/asio/error.hpp>
@@ -192,12 +193,19 @@ public:
 
   /// Start an asynchronous write.
   template <typename ConstBufferSequence, typename WriteHandler>
-  void async_write_some(implementation_type& impl,
+  BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
+      void (boost::system::error_code, std::size_t))
+  async_write_some(implementation_type& impl,
       const ConstBufferSequence& buffers,
       BOOST_ASIO_MOVE_ARG(WriteHandler) handler)
   {
-    service_impl_.async_write_some(impl, buffers,
+    detail::async_result_init<
+      WriteHandler, void (boost::system::error_code, std::size_t)> init(
         BOOST_ASIO_MOVE_CAST(WriteHandler)(handler));
+
+    service_impl_.async_write_some(impl, buffers, init.handler);
+
+    return init.result.get();
   }
 
   /// Read some data from the stream.
@@ -210,12 +218,19 @@ public:
 
   /// Start an asynchronous read.
   template <typename MutableBufferSequence, typename ReadHandler>
-  void async_read_some(implementation_type& impl,
+  BOOST_ASIO_INITFN_RESULT_TYPE(ReadHandler,
+      void (boost::system::error_code, std::size_t))
+  async_read_some(implementation_type& impl,
       const MutableBufferSequence& buffers,
       BOOST_ASIO_MOVE_ARG(ReadHandler) handler)
   {
-    service_impl_.async_read_some(impl, buffers,
+    detail::async_result_init<
+      ReadHandler, void (boost::system::error_code, std::size_t)> init(
         BOOST_ASIO_MOVE_CAST(ReadHandler)(handler));
+
+    service_impl_.async_read_some(impl, buffers, init.handler);
+
+    return init.result.get();
   }
 
 private:

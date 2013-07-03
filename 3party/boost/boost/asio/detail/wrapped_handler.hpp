@@ -2,7 +2,7 @@
 // detail/wrapped_handler.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,6 +17,7 @@
 
 #include <boost/asio/detail/bind_handler.hpp>
 #include <boost/asio/detail/handler_alloc_helpers.hpp>
+#include <boost/asio/detail/handler_cont_helpers.hpp>
 #include <boost/asio/detail/handler_invoke_helpers.hpp>
 
 #include <boost/asio/detail/push_options.hpp>
@@ -25,7 +26,26 @@ namespace boost {
 namespace asio {
 namespace detail {
 
-template <typename Dispatcher, typename Handler>
+struct is_continuation_delegated
+{
+  template <typename Dispatcher, typename Handler>
+  bool operator()(Dispatcher&, Handler& handler) const
+  {
+    return boost_asio_handler_cont_helpers::is_continuation(handler);
+  }
+};
+
+struct is_continuation_if_running
+{
+  template <typename Dispatcher, typename Handler>
+  bool operator()(Dispatcher& dispatcher, Handler&) const
+  {
+    return dispatcher.running_in_this_thread();
+  }
+};
+
+template <typename Dispatcher, typename Handler,
+    typename IsContinuation = is_continuation_delegated>
 class wrapped_handler
 {
 public:
@@ -181,34 +201,43 @@ public:
   Handler handler_;
 };
 
-template <typename Dispatcher, typename Handler>
+template <typename Dispatcher, typename Handler, typename IsContinuation>
 inline void* asio_handler_allocate(std::size_t size,
-    wrapped_handler<Dispatcher, Handler>* this_handler)
+    wrapped_handler<Dispatcher, Handler, IsContinuation>* this_handler)
 {
   return boost_asio_handler_alloc_helpers::allocate(
       size, this_handler->handler_);
 }
 
-template <typename Dispatcher, typename Handler>
+template <typename Dispatcher, typename Handler, typename IsContinuation>
 inline void asio_handler_deallocate(void* pointer, std::size_t size,
-    wrapped_handler<Dispatcher, Handler>* this_handler)
+    wrapped_handler<Dispatcher, Handler, IsContinuation>* this_handler)
 {
   boost_asio_handler_alloc_helpers::deallocate(
       pointer, size, this_handler->handler_);
 }
 
-template <typename Function, typename Dispatcher, typename Handler>
+template <typename Dispatcher, typename Handler, typename IsContinuation>
+inline bool asio_handler_is_continuation(
+    wrapped_handler<Dispatcher, Handler, IsContinuation>* this_handler)
+{
+  return IsContinuation()(this_handler->dispatcher_, this_handler->handler_);
+}
+
+template <typename Function, typename Dispatcher,
+    typename Handler, typename IsContinuation>
 inline void asio_handler_invoke(Function& function,
-    wrapped_handler<Dispatcher, Handler>* this_handler)
+    wrapped_handler<Dispatcher, Handler, IsContinuation>* this_handler)
 {
   this_handler->dispatcher_.dispatch(
       rewrapped_handler<Function, Handler>(
         function, this_handler->handler_));
 }
 
-template <typename Function, typename Dispatcher, typename Handler>
+template <typename Function, typename Dispatcher,
+    typename Handler, typename IsContinuation>
 inline void asio_handler_invoke(const Function& function,
-    wrapped_handler<Dispatcher, Handler>* this_handler)
+    wrapped_handler<Dispatcher, Handler, IsContinuation>* this_handler)
 {
   this_handler->dispatcher_.dispatch(
       rewrapped_handler<Function, Handler>(
@@ -229,6 +258,14 @@ inline void asio_handler_deallocate(void* pointer, std::size_t size,
 {
   boost_asio_handler_alloc_helpers::deallocate(
       pointer, size, this_handler->context_);
+}
+
+template <typename Dispatcher, typename Context>
+inline bool asio_handler_is_continuation(
+    rewrapped_handler<Dispatcher, Context>* this_handler)
+{
+  return boost_asio_handler_cont_helpers::is_continuation(
+      this_handler->handler_);
 }
 
 template <typename Function, typename Handler, typename Context>

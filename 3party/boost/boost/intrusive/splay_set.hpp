@@ -86,8 +86,8 @@ class splay_set_impl
    //! <b>Throws</b>: If value_traits::node_traits::node
    //!   constructor throws (this does not happen with predefined Boost.Intrusive hooks)
    //!   or the copy constructor of the value_compare object throws.
-   splay_set_impl( const value_compare &cmp = value_compare()
-           , const value_traits &v_traits = value_traits())
+   explicit splay_set_impl( const value_compare &cmp = value_compare()
+                          , const value_traits &v_traits = value_traits())
       :  tree_(cmp, v_traits)
    {}
 
@@ -1404,8 +1404,8 @@ class splay_multiset_impl
    //! <b>Throws</b>: If value_traits::node_traits::node
    //!   constructor throws (this does not happen with predefined Boost.Intrusive hooks)
    //!   or the copy constructor/operator() of the value_compare object throws.
-   splay_multiset_impl( const value_compare &cmp = value_compare()
-                , const value_traits &v_traits = value_traits())
+   explicit splay_multiset_impl( const value_compare &cmp = value_compare()
+                               , const value_traits &v_traits = value_traits())
       :  tree_(cmp, v_traits)
    {}
 

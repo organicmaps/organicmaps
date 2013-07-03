@@ -2,7 +2,7 @@
 // detail/hash_map.hpp
 // ~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -16,14 +16,14 @@
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
 #include <boost/asio/detail/config.hpp>
-#include <boost/assert.hpp>
 #include <list>
 #include <utility>
+#include <boost/asio/detail/assert.hpp>
 #include <boost/asio/detail/noncopyable.hpp>
 
-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
+#if defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
 # include <boost/asio/detail/socket_types.hpp>
-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
+#endif // defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
 
 #include <boost/asio/detail/push_options.hpp>
 
@@ -42,12 +42,12 @@ inline std::size_t calculate_hash_value(void* p)
     + (reinterpret_cast<std::size_t>(p) >> 3);
 }
 
-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
+#if defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
 inline std::size_t calculate_hash_value(SOCKET s)
 {
   return static_cast<std::size_t>(s);
 }
-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
+#endif // defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
 
 // Note: assumes K and V are POD types.
 template <typename K, typename V>
@@ -180,7 +180,8 @@ public:
   // Erase an entry from the map.
   void erase(iterator it)
   {
-    BOOST_ASSERT(it != values_.end());
+    BOOST_ASIO_ASSERT(it != values_.end());
+    BOOST_ASIO_ASSERT(num_buckets_ != 0);
 
     size_t bucket = calculate_hash_value(it->first) % num_buckets_;
     bool is_first = (it == buckets_[bucket].first);
@@ -244,6 +245,7 @@ private:
     if (num_buckets == num_buckets_)
       return;
     num_buckets_ = num_buckets;
+    BOOST_ASIO_ASSERT(num_buckets_ != 0);
 
     iterator end_iter = values_.end();
 

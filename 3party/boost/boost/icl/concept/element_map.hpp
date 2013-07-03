@@ -11,6 +11,7 @@ Copyright (c) 2010-2010: Joachim Faulhaber
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/icl/detail/on_absorbtion.hpp>
+#include <boost/icl/type_traits/unit_element.hpp>
 #include <boost/icl/type_traits/is_total.hpp>
 #include <boost/icl/type_traits/absorbs_identities.hpp>
 #include <boost/icl/type_traits/is_associative_element_container.hpp>

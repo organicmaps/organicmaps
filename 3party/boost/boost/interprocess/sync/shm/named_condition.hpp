@@ -145,12 +145,14 @@ class shm_named_condition
    typedef interprocess_condition internal_condition;
    #endif   //defined (BOOST_INTERPROCESS_NAMED_MUTEX_USES_POSIX_SEMAPHORES)
 
-   internal_condition m_cond;
+   internal_condition &internal_cond()
+   {  return *static_cast<internal_condition*>(m_shmem.get_user_address()); }
 
    friend class boost::interprocess::ipcdetail::interprocess_tester;
    void dont_close_on_destruction();
 
-   managed_open_or_create_impl<shared_memory_object> m_shmem;
+   typedef ipcdetail::managed_open_or_create_impl<shared_memory_object, 0, true, false> open_create_impl_t;
+   open_create_impl_t m_shmem;
 
    template <class T, class Arg> friend class boost::interprocess::ipcdetail::named_creation_functor;
    typedef boost::interprocess::ipcdetail::named_creation_functor<internal_condition> construct_func_t;
@@ -166,8 +168,7 @@ inline shm_named_condition::shm_named_condition(create_only_t, const char *name,
    :  m_shmem  (create_only
                ,name
                ,sizeof(internal_condition) +
-                  managed_open_or_create_impl<shared_memory_object>::
-                     ManagedOpenOrCreateUserOffset
+                  open_create_impl_t::ManagedOpenOrCreateUserOffset
                ,read_write
                ,0
                ,construct_func_t(DoCreate)
@@ -178,8 +179,7 @@ inline shm_named_condition::shm_named_condition(open_or_create_t, const char *na
    :  m_shmem  (open_or_create
                ,name
                ,sizeof(internal_condition) +
-                  managed_open_or_create_impl<shared_memory_object>::
-                     ManagedOpenOrCreateUserOffset
+                  open_create_impl_t::ManagedOpenOrCreateUserOffset
                ,read_write
                ,0
                ,construct_func_t(DoOpenOrCreate)
@@ -197,71 +197,29 @@ inline shm_named_condition::shm_named_condition(open_only_t, const char *name)
 inline void shm_named_condition::dont_close_on_destruction()
 {  interprocess_tester::dont_close_on_destruction(m_shmem);  }
 
-#if defined(BOOST_INTERPROCESS_NAMED_MUTEX_USES_POSIX_SEMAPHORES)
-
 inline void shm_named_condition::notify_one()
-{  m_cond.notify_one(); }
+{  this->internal_cond().notify_one(); }
 
 inline void shm_named_condition::notify_all()
-{  m_cond.notify_all(); }
+{  this->internal_cond().notify_all(); }
 
 template <typename L>
 inline void shm_named_condition::wait(L& lock)
-{  m_cond.wait(lock); }
+{  this->internal_cond().wait(lock); }
 
 template <typename L, typename Pr>
 inline void shm_named_condition::wait(L& lock, Pr pred)
-{  m_cond.wait(lock, pred); }
+{  this->internal_cond().wait(lock, pred); }
 
 template <typename L>
 inline bool shm_named_condition::timed_wait
    (L& lock, const boost::posix_time::ptime &abs_time)
-{  return m_cond.timed_wait(lock, abs_time); }
+{  return this->internal_cond().timed_wait(lock, abs_time); }
 
 template <typename L, typename Pr>
 inline bool shm_named_condition::timed_wait
    (L& lock, const boost::posix_time::ptime &abs_time, Pr pred)
-{  return m_cond.timed_wait(lock, abs_time, pred); }
-
-#else
-
-inline void shm_named_condition::notify_one()
-{  m_cond.notify_one();  }
-
-inline void shm_named_condition::notify_all()
-{  m_cond.notify_all();  }
-
-template <typename L>
-inline void shm_named_condition::wait(L& lock)
-{
-   internal_mutex_lock<L> internal_lock(lock);
-   m_cond.wait(internal_lock);
-}
-
-template <typename L, typename Pr>
-inline void shm_named_condition::wait(L& lock, Pr pred)
-{
-   internal_mutex_lock<L> internal_lock(lock);
-   m_cond.wait(internal_lock, pred);
-}
-
-template <typename L>
-inline bool shm_named_condition::timed_wait
-   (L& lock, const boost::posix_time::ptime &abs_time)
-{
-   internal_mutex_lock<L> internal_lock(lock);
-   return m_cond.timed_wait(internal_lock, abs_time);
-}
-
-template <typename L, typename Pr>
-inline bool shm_named_condition::timed_wait
-   (L& lock, const boost::posix_time::ptime &abs_time, Pr pred)
-{
-   internal_mutex_lock<L> internal_lock(lock);
-   return m_cond.timed_wait(internal_lock, abs_time, pred);
-}
-
-#endif
+{  return this->internal_cond().timed_wait(lock, abs_time, pred); }
 
 inline bool shm_named_condition::remove(const char *name)
 {  return shared_memory_object::remove(name); }

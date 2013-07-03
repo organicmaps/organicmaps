@@ -15,6 +15,7 @@
 #define BOOST_GEOMETRY_ALGORITHMS_DISTANCE_HPP
 
 
+#include <boost/concept_check.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/range.hpp>
 #include <boost/typeof/typeof.hpp>
@@ -55,6 +56,7 @@ struct point_to_point
     static inline typename return_type<Strategy>::type apply(P1 const& p1,
                 P2 const& p2, Strategy const& strategy)
     {
+        boost::ignore_unused_variable_warning(strategy);
         return strategy.apply(p1, p2);
     }
 };
@@ -369,7 +371,10 @@ struct distance
                     <
                         segment_tag,
                         Point,
-                        typename point_type<Linestring>::type
+                        typename point_type<Linestring>::type,
+                        typename cs_tag<Point>::type,
+                        typename cs_tag<typename point_type<Linestring>::type>::type,
+                        Strategy
                     >::type ps_strategy_type;
 
         return detail::distance::point_to_range

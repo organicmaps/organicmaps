@@ -2,7 +2,7 @@
 // ssl/detail/io.hpp
 // ~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -96,6 +96,7 @@ public:
     : next_layer_(next_layer),
       core_(core),
       op_(op),
+      start_(0),
       bytes_transferred_(0),
       handler_(BOOST_ASIO_MOVE_CAST(Handler)(handler))
   {
@@ -106,6 +107,7 @@ public:
     : next_layer_(other.next_layer_),
       core_(other.core_),
       op_(other.op_),
+      start_(other.start_),
       want_(other.want_),
       ec_(other.ec_),
       bytes_transferred_(other.bytes_transferred_),
@@ -117,6 +119,7 @@ public:
     : next_layer_(other.next_layer_),
       core_(other.core_),
       op_(other.op_),
+      start_(other.start_),
       want_(other.want_),
       ec_(other.ec_),
       bytes_transferred_(other.bytes_transferred_),
@@ -128,7 +131,7 @@ public:
   void operator()(boost::system::error_code ec,
       std::size_t bytes_transferred = ~std::size_t(0), int start = 0)
   {
-    switch (start)
+    switch (start_ = start)
     {
     case 1: // Called after at least one async operation.
       do
@@ -149,10 +152,10 @@ public:
           // cannot allow more than one read operation at a time on the
           // underlying transport. The pending_read_ timer's expiry is set to
           // pos_infin if a read is in progress, and neg_infin otherwise.
-          if (core_.pending_read_.expires_at() == boost::posix_time::neg_infin)
+          if (core_.pending_read_.expires_at() == core_.neg_infin())
           {
             // Prevent other read operations from being started.
-            core_.pending_read_.expires_at(boost::posix_time::pos_infin);
+            core_.pending_read_.expires_at(core_.pos_infin());
 
             // Start reading some data from the underlying transport.
             next_layer_.async_read_some(
@@ -176,10 +179,10 @@ public:
           // cannot allow more than one write operation at a time on the
           // underlying transport. The pending_write_ timer's expiry is set to
           // pos_infin if a write is in progress, and neg_infin otherwise.
-          if (core_.pending_write_.expires_at() == boost::posix_time::neg_infin)
+          if (core_.pending_write_.expires_at() == core_.neg_infin())
           {
             // Prevent other write operations from being started.
-            core_.pending_write_.expires_at(boost::posix_time::pos_infin);
+            core_.pending_write_.expires_at(core_.pos_infin());
 
             // Start writing all the data to the underlying transport.
             boost::asio::async_write(next_layer_,
@@ -234,7 +237,7 @@ public:
           core_.input_ = core_.engine_.put_input(core_.input_);
 
           // Release any waiting read operations.
-          core_.pending_read_.expires_at(boost::posix_time::neg_infin);
+          core_.pending_read_.expires_at(core_.neg_infin());
 
           // Try the operation again.
           continue;
@@ -242,7 +245,7 @@ public:
         case engine::want_output_and_retry:
 
           // Release any waiting write operations.
-          core_.pending_write_.expires_at(boost::posix_time::neg_infin);
+          core_.pending_write_.expires_at(core_.neg_infin());
 
           // Try the operation again.
           continue;
@@ -250,7 +253,7 @@ public:
         case engine::want_output:
 
           // Release any waiting write operations.
-          core_.pending_write_.expires_at(boost::posix_time::neg_infin);
+          core_.pending_write_.expires_at(core_.neg_infin());
 
           // Fall through to call handler.
 
@@ -275,6 +278,7 @@ public:
   Stream& next_layer_;
   stream_core& core_;
   Operation op_;
+  int start_;
   engine::want want_;
   boost::system::error_code ec_;
   std::size_t bytes_transferred_;
@@ -297,6 +301,14 @@ inline void asio_handler_deallocate(void* pointer, std::size_t size,
       pointer, size, this_handler->handler_);
 }
 
+template <typename Stream, typename Operation, typename Handler>
+inline bool asio_handler_is_continuation(
+    io_op<Stream, Operation, Handler>* this_handler)
+{
+  return this_handler->start_ == 0 ? true
+    : boost_asio_handler_cont_helpers::is_continuation(this_handler->handler_);
+}
+
 template <typename Function, typename Stream,
     typename Operation, typename Handler>
 inline void asio_handler_invoke(Function& function,
@@ -317,7 +329,7 @@ inline void asio_handler_invoke(const Function& function,
 
 template <typename Stream, typename Operation, typename Handler>
 inline void async_io(Stream& next_layer, stream_core& core,
-    const Operation& op, Handler handler)
+    const Operation& op, Handler& handler)
 {
   io_op<Stream, Operation, Handler>(
     next_layer, core, op, handler)(

@@ -86,7 +86,7 @@ public:
                                  Traits,Compare,Combine,Section,Interval,Alloc>& src)
     { this->assign(src); }
 
-    explicit interval_map(domain_mapping_type& base_pair): base_type()
+    explicit interval_map(const domain_mapping_type& base_pair): base_type()
     { this->add(base_pair); }
 
     explicit interval_map(const value_type& value_pair): base_type()
@@ -94,6 +94,13 @@ public:
 
 
     /// Assignment operator
+    interval_map& operator = (const interval_map& src)
+    { 
+        base_type::operator=(src);
+        return *this;
+    }
+
+    /// Assignment operator for base type
     template<class SubType>
     interval_map& operator =
         (const interval_base_map<SubType,DomainT,CodomainT,
@@ -113,7 +120,7 @@ public:
             prior_ = this->add(prior_, *it_); 
     }
 
-#   ifndef BOOST_NO_RVALUE_REFERENCES
+#   ifndef BOOST_ICL_NO_CXX11_RVALUE_REFERENCES
     //==========================================================================
     //= Move semantics
     //==========================================================================
@@ -131,7 +138,7 @@ public:
     }
 
     //==========================================================================
-#   endif // BOOST_NO_RVALUE_REFERENCES
+#   endif // BOOST_ICL_NO_CXX11_RVALUE_REFERENCES
 
 private:
     // Private functions that shall be accessible by the baseclass:

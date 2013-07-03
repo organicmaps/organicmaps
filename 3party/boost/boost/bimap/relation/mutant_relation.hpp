@@ -346,7 +346,7 @@ class mutant_relation : public
     {
         return ::boost::bimaps::relation::support::get<Tag>(*this);
     }
-
+    
     #ifndef BOOST_BIMAP_DISABLE_SERIALIZATION
 
     private:
@@ -421,6 +421,50 @@ bool operator>=(const detail::relation_storage<FirstType,SecondType,FM1> & a,
     return ( ( a.left  >  b.left  ) ||
              (( a.left == b.left ) && ( a.right >= b.right )));
 }
+
+namespace detail {
+
+template< class TA, class TB, class Info, bool force_mutable>
+mutant_relation<TA,TB,Info,force_mutable> 
+    copy_with_left_replaced(mutant_relation<TA,TB,Info,force_mutable> const& rel,
+        BOOST_DEDUCED_TYPENAME ::boost::call_traits< BOOST_DEDUCED_TYPENAME 
+            mutant_relation<TA,TB,Info,force_mutable>::left_value_type>
+                ::param_type l)
+{
+    return mutant_relation<TA,TB,Info,force_mutable>(l,rel.right,rel.info);
+}
+    
+template< class TA, class TB, bool force_mutable>
+mutant_relation<TA,TB,::boost::mpl::na,force_mutable>
+    copy_with_left_replaced(mutant_relation<TA,TB,::boost::mpl::na,force_mutable> const& rel,
+        BOOST_DEDUCED_TYPENAME ::boost::call_traits< BOOST_DEDUCED_TYPENAME 
+            mutant_relation<TA,TB,::boost::mpl::na,force_mutable>::left_value_type>
+                ::param_type l)
+{
+    return mutant_relation<TA,TB,::boost::mpl::na,force_mutable>(l,rel.right);  
+}
+    
+template< class TA, class TB, class Info, bool force_mutable>
+mutant_relation<TA,TB,Info,force_mutable> 
+    copy_with_right_replaced(mutant_relation<TA,TB,Info,force_mutable> const& rel,
+        BOOST_DEDUCED_TYPENAME ::boost::call_traits< BOOST_DEDUCED_TYPENAME 
+            mutant_relation<TA,TB,Info,force_mutable>::right_value_type>
+                ::param_type r)
+{
+    return mutant_relation<TA,TB,Info,force_mutable>(rel.left,r,rel.info);
+}
+    
+template< class TA, class TB, bool force_mutable>
+mutant_relation<TA,TB,::boost::mpl::na,force_mutable>
+    copy_with_right_replaced(mutant_relation<TA,TB,::boost::mpl::na,force_mutable> const& rel,
+        BOOST_DEDUCED_TYPENAME ::boost::call_traits< BOOST_DEDUCED_TYPENAME 
+            mutant_relation<TA,TB,::boost::mpl::na,force_mutable>::right_value_type>
+                ::param_type r)
+{
+    return mutant_relation<TA,TB,::boost::mpl::na,force_mutable>(rel.left,r);  
+}
+
+} // namespace detail
 
 } // namespace relation
 } // namespace bimaps

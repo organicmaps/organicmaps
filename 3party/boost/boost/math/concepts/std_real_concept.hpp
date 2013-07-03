@@ -67,6 +67,9 @@ public:
    std_real_concept(float c) : m_value(c){}
    std_real_concept(double c) : m_value(c){}
    std_real_concept(long double c) : m_value(c){}
+#ifdef BOOST_MATH_USE_FLOAT128
+   std_real_concept(__float128 c) : m_value(c){}
+#endif
 
    // Assignment:
    std_real_concept& operator=(char c) { m_value = c; return *this; }

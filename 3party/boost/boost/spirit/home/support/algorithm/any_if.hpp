@@ -181,7 +181,7 @@ namespace boost { namespace spirit
           , Last2 const& last2, F& f, mpl::false_)
         {
             typename result_of::attribute_value<First1, First2, Last2, Pred>::type
-                attribute = attribute_value<Pred, First1, Last2>(first2);
+                attribute = spirit::detail::attribute_value<Pred, First1, Last2>(first2);
 
             return f(*first1, attribute) ||
                 detail::any_if<Pred>(

@@ -1020,7 +1020,7 @@ class tree_algorithms
       if(hint == header || comp(key, hint)){
          node_ptr prev(hint);
          //Previous value should be less than the key
-         if(hint == begin_node(header)|| comp((prev = prev_node(hint)), key)){
+         if(hint == begin_node(header) || comp((prev = prev_node(hint)), key)){
             commit_data.link_left = unique(header) || !NodeTraits::get_left(hint);
             commit_data.node      = commit_data.link_left ? hint : prev;
             if(pdepth){

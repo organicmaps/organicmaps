@@ -20,6 +20,7 @@
 #include <boost/type_traits/is_floating_point.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/typeof/typeof.hpp>
+#include <boost/accumulators/accumulators_fwd.hpp>
 #include <boost/accumulators/numeric/functional_fwd.hpp>
 #include <boost/accumulators/numeric/detail/function1.hpp>
 #include <boost/accumulators/numeric/detail/function2.hpp>
@@ -166,6 +167,7 @@ namespace boost { namespace numeric
     {                                                                                           \
         op::Name const &Name = boost::detail::pod_singleton<op::Name>::instance;                \
     }                                                                                           \
+    BOOST_ACCUMULATORS_IGNORE_GLOBAL(Name)                                                      \
     /**/
 
     /// INTERNAL ONLY
@@ -416,6 +418,14 @@ namespace boost { namespace numeric
         op::as_max const &as_max = boost::detail::pod_singleton<op::as_max>::instance;
         op::as_zero const &as_zero = boost::detail::pod_singleton<op::as_zero>::instance;
         op::as_one const &as_one = boost::detail::pod_singleton<op::as_one>::instance;
+
+        BOOST_ACCUMULATORS_IGNORE_GLOBAL(min_assign)
+        BOOST_ACCUMULATORS_IGNORE_GLOBAL(max_assign)
+        BOOST_ACCUMULATORS_IGNORE_GLOBAL(average)
+        BOOST_ACCUMULATORS_IGNORE_GLOBAL(as_min)
+        BOOST_ACCUMULATORS_IGNORE_GLOBAL(as_max)
+        BOOST_ACCUMULATORS_IGNORE_GLOBAL(as_zero)
+        BOOST_ACCUMULATORS_IGNORE_GLOBAL(as_one)
     }
 
     ///////////////////////////////////////////////////////////////////////////////

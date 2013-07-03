@@ -2,7 +2,7 @@
 // detail/posix_event.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,10 +17,10 @@
 
 #include <boost/asio/detail/config.hpp>
 
-#if defined(BOOST_HAS_PTHREADS) && !defined(BOOST_ASIO_DISABLE_THREADS)
+#if defined(BOOST_ASIO_HAS_PTHREADS)
 
-#include <boost/assert.hpp>
 #include <pthread.h>
+#include <boost/asio/detail/assert.hpp>
 #include <boost/asio/detail/noncopyable.hpp>
 
 #include <boost/asio/detail/push_options.hpp>
@@ -46,7 +46,7 @@ public:
   template <typename Lock>
   void signal(Lock& lock)
   {
-    BOOST_ASSERT(lock.locked());
+    BOOST_ASIO_ASSERT(lock.locked());
     (void)lock;
     signalled_ = true;
     ::pthread_cond_signal(&cond_); // Ignore EINVAL.
@@ -56,7 +56,7 @@ public:
   template <typename Lock>
   void signal_and_unlock(Lock& lock)
   {
-    BOOST_ASSERT(lock.locked());
+    BOOST_ASIO_ASSERT(lock.locked());
     signalled_ = true;
     lock.unlock();
     ::pthread_cond_signal(&cond_); // Ignore EINVAL.
@@ -66,7 +66,7 @@ public:
   template <typename Lock>
   void clear(Lock& lock)
   {
-    BOOST_ASSERT(lock.locked());
+    BOOST_ASIO_ASSERT(lock.locked());
     (void)lock;
     signalled_ = false;
   }
@@ -75,7 +75,7 @@ public:
   template <typename Lock>
   void wait(Lock& lock)
   {
-    BOOST_ASSERT(lock.locked());
+    BOOST_ASIO_ASSERT(lock.locked());
     while (!signalled_)
       ::pthread_cond_wait(&cond_, &lock.mutex().mutex_); // Ignore EINVAL.
   }
@@ -95,6 +95,6 @@ private:
 # include <boost/asio/detail/impl/posix_event.ipp>
 #endif // defined(BOOST_ASIO_HEADER_ONLY)
 
-#endif // defined(BOOST_HAS_PTHREADS) && !defined(BOOST_ASIO_DISABLE_THREADS)
+#endif // defined(BOOST_ASIO_HAS_PTHREADS)
 
 #endif // BOOST_ASIO_DETAIL_POSIX_EVENT_HPP

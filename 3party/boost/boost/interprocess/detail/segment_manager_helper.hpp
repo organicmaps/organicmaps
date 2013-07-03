@@ -81,20 +81,17 @@ struct block_header
    unsigned char  m_value_alignment;
    unsigned char  m_alloc_type_sizeof_char;
 
-   block_header(size_type value_bytes
-               ,size_type value_alignment
-               ,unsigned char alloc_type
-               ,std::size_t sizeof_char
+   block_header(size_type val_bytes
+               ,size_type val_alignment
+               ,unsigned char al_type
+               ,std::size_t szof_char
                ,std::size_t num_char
                )
-      :  m_value_bytes(value_bytes)
+      :  m_value_bytes(val_bytes)
       ,  m_num_char((unsigned short)num_char)
-      ,  m_value_alignment((unsigned char)value_alignment)
-      ,  m_alloc_type_sizeof_char
-         ( (alloc_type << 5u) |
-           ((unsigned char)sizeof_char & 0x1F)   )
+      ,  m_value_alignment((unsigned char)val_alignment)
+      ,  m_alloc_type_sizeof_char( (al_type << 5u) | ((unsigned char)szof_char & 0x1F) )
    {};
-
 
    template<class T>
    block_header &operator= (const T& )
@@ -350,8 +347,9 @@ struct index_key
    public:
 
    //!Constructor of the key
-   index_key (const char_type *name, size_type length)
-      : mp_str(name), m_len(length) {}
+   index_key (const char_type *nm, size_type length)
+      : mp_str(nm), m_len(length)
+   {}
 
    //!Less than function for index ordering
    bool operator < (const index_key & right) const
@@ -372,8 +370,8 @@ struct index_key
                    to_raw_pointer(right.mp_str), m_len) == 0;
    }
 
-   void name(const CharT *name)
-   {  mp_str = name; }
+   void name(const CharT *nm)
+   {  mp_str = nm; }
 
    void name_length(size_type len)
    {  m_len = len; }

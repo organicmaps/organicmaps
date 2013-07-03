@@ -137,7 +137,7 @@ namespace boost { namespace spirit { namespace karma
             // providing any attribute, as the generator doesn't 'know' what
             // character to output. The following assertion fires if this
             // situation is detected in your code.
-            BOOST_SPIRIT_ASSERT_MSG(false, char_not_usable_without_attribute, ());
+            BOOST_SPIRIT_ASSERT_FAIL(CharParam, char_not_usable_without_attribute, ());
             return false;
         }
 
@@ -230,11 +230,11 @@ namespace boost { namespace spirit { namespace karma
         template <typename CharParam, typename Context>
         bool test(unused_type, CharParam&, Context&) const
         {
-            // It is not possible (doesn't make sense) to use char_ generators 
-            // without providing any attribute, as the generator doesn't 'know' 
+            // It is not possible (doesn't make sense) to use char_ generators
+            // without providing any attribute, as the generator doesn't 'know'
             // what to output. The following assertion fires if this situation
             // is detected in your code.
-            BOOST_SPIRIT_ASSERT_MSG(false
+            BOOST_SPIRIT_ASSERT_FAIL(CharParam
               , char_range_not_usable_without_attribute, ());
             return false;
         }
@@ -316,11 +316,11 @@ namespace boost { namespace spirit { namespace karma
         template <typename CharParam, typename Context>
         bool test(unused_type, CharParam&, Context&) const
         {
-            // It is not possible (doesn't make sense) to use char_ generators 
-            // without providing any attribute, as the generator doesn't 'know' 
+            // It is not possible (doesn't make sense) to use char_ generators
+            // without providing any attribute, as the generator doesn't 'know'
             // what to output. The following assertion fires if this situation
             // is detected in your code.
-            BOOST_SPIRIT_ASSERT_MSG(false
+            BOOST_SPIRIT_ASSERT_FAIL(CharParam
                , char_set_not_usable_without_attribute, ());
             return false;
         }

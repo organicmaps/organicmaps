@@ -25,6 +25,7 @@
 #include <boost/math/special_functions/fpclassify.hpp>
 #include <boost/math/bindings/detail/big_digamma.hpp>
 #include <boost/math/bindings/detail/big_lanczos.hpp>
+#include <boost/lexical_cast.hpp>
 
 
 namespace boost{ namespace math{ namespace ef{

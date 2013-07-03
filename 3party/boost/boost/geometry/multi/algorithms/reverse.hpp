@@ -21,7 +21,7 @@
 #include <boost/geometry/multi/algorithms/detail/modify.hpp>
 
 #include <boost/geometry/multi/core/tags.hpp>
-
+#include <boost/geometry/multi/geometries/concepts/check.hpp>
 
 
 namespace boost { namespace geometry
@@ -34,27 +34,21 @@ namespace dispatch
 
 
 template <typename Geometry>
-struct reverse<multi_linestring_tag, Geometry>
+struct reverse<Geometry, multi_linestring_tag>
     : detail::multi_modify
         <
             Geometry,
             detail::reverse::range_reverse
-                <
-                    typename boost::range_value<Geometry>::type
-                >
         >
 {};
 
 
 template <typename Geometry>
-struct reverse<multi_polygon_tag, Geometry>
+struct reverse<Geometry, multi_polygon_tag>
     : detail::multi_modify
         <
             Geometry,
             detail::reverse::polygon_reverse
-                <
-                    typename boost::range_value<Geometry>::type
-                >
         >
 {};
 

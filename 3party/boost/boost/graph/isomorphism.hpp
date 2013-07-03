@@ -222,7 +222,7 @@ namespace boost {
         recur:
         if (iter != ordered_edges.end()) {
           i = source(*iter, G1);
-          j = target(*iter, G2);
+          j = target(*iter, G1);
           if (dfs_num[i] > dfs_num_k) {
             G2_verts = vertices(G2);
             while (G2_verts.first != G2_verts.second) {
@@ -310,8 +310,8 @@ fi_adj_loop_k:++fi_adj.first;
           if (k.empty()) return false;
           const match_continuation& this_k = k.back();
           switch (this_k.position) {
-            case match_continuation::pos_G2_vertex_loop: {G2_verts = this_k.G2_verts; iter = this_k.iter; dfs_num_k = this_k.dfs_num_k; k.pop_back(); in_S[*G2_verts.first] = false; i = source(*iter, G1); j = target(*iter, G2); goto G2_loop_k;}
-            case match_continuation::pos_fi_adj_loop: {fi_adj = this_k.fi_adj; iter = this_k.iter; dfs_num_k = this_k.dfs_num_k; k.pop_back(); in_S[*fi_adj.first] = false; i = source(*iter, G1); j = target(*iter, G2); goto fi_adj_loop_k;}
+            case match_continuation::pos_G2_vertex_loop: {G2_verts = this_k.G2_verts; iter = this_k.iter; dfs_num_k = this_k.dfs_num_k; k.pop_back(); in_S[*G2_verts.first] = false; i = source(*iter, G1); j = target(*iter, G1); goto G2_loop_k;}
+            case match_continuation::pos_fi_adj_loop: {fi_adj = this_k.fi_adj; iter = this_k.iter; dfs_num_k = this_k.dfs_num_k; k.pop_back(); in_S[*fi_adj.first] = false; i = source(*iter, G1); j = target(*iter, G1); goto fi_adj_loop_k;}
             case match_continuation::pos_dfs_num: {k.pop_back(); goto return_point_false;}
             default: {
               BOOST_ASSERT(!"Bad position");
@@ -378,6 +378,14 @@ fi_adj_loop_k:++fi_adj.first;
     const Graph& m_g;
   };
 
+  // Count actual number of vertices, even in filtered graphs.
+  template <typename Graph>
+  size_t count_vertices(const Graph& g)
+  {
+      size_t n = 0;
+      BGL_FORALL_VERTICES_T(v, g, Graph) {(void)v; ++n;}
+      return n;
+  }
 
   template <typename Graph1, typename Graph2, typename IsoMapping, 
     typename Invariant1, typename Invariant2,
@@ -392,7 +400,7 @@ fi_adj_loop_k:++fi_adj.first;
     BOOST_CONCEPT_ASSERT(( VertexListGraphConcept<Graph1> ));
     BOOST_CONCEPT_ASSERT(( EdgeListGraphConcept<Graph1> ));
     BOOST_CONCEPT_ASSERT(( VertexListGraphConcept<Graph2> ));
-    BOOST_CONCEPT_ASSERT(( BidirectionalGraphConcept<Graph2> ));
+    //BOOST_CONCEPT_ASSERT(( BidirectionalGraphConcept<Graph2> ));
     
     typedef typename graph_traits<Graph1>::vertex_descriptor vertex1_t;
     typedef typename graph_traits<Graph2>::vertex_descriptor vertex2_t;
@@ -407,7 +415,7 @@ fi_adj_loop_k:++fi_adj.first;
     // Property map requirements
     BOOST_CONCEPT_ASSERT(( ReadWritePropertyMapConcept<IsoMapping, vertex1_t> ));
     typedef typename property_traits<IsoMapping>::value_type IsoMappingValue;
-    BOOST_STATIC_ASSERT((is_same<IsoMappingValue, vertex2_t>::value));
+    BOOST_STATIC_ASSERT((is_convertible<IsoMappingValue, vertex2_t>::value));
     
     BOOST_CONCEPT_ASSERT(( ReadablePropertyMapConcept<IndexMap1, vertex1_t> ));
     typedef typename property_traits<IndexMap1>::value_type IndexMap1Value;
@@ -417,9 +425,9 @@ fi_adj_loop_k:++fi_adj.first;
     typedef typename property_traits<IndexMap2>::value_type IndexMap2Value;
     BOOST_STATIC_ASSERT((is_convertible<IndexMap2Value, size_type>::value));
     
-    if (num_vertices(G1) != num_vertices(G2))
+    if (count_vertices(G1) != count_vertices(G2))
       return false;
-    if (num_vertices(G1) == 0 && num_vertices(G2) == 0)
+    if (count_vertices(G1) == 0 && count_vertices(G2) == 0)
       return true;
     
     detail::isomorphism_algo<Graph1, Graph2, IsoMapping, Invariant1,

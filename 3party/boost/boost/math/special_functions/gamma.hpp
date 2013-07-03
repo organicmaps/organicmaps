@@ -14,17 +14,6 @@
 #endif
 
 #include <boost/config.hpp>
-#ifdef BOOST_MSVC
-# pragma warning(push)
-# pragma warning(disable: 4127 4701)
-//  // For lexical_cast, until fixed in 1.35?
-//  // conditional expression is constant &
-//  // Potentially uninitialized local variable 'name' used
-#endif
-#include <boost/lexical_cast.hpp>
-#ifdef BOOST_MSVC
-# pragma warning(pop)
-#endif
 #include <boost/math/tools/series.hpp>
 #include <boost/math/tools/fraction.hpp>
 #include <boost/math/tools/precision.hpp>
@@ -49,12 +38,6 @@
 
 #include <boost/config/no_tr1/cmath.hpp>
 #include <algorithm>
-
-#ifdef BOOST_MATH_INSTRUMENT
-#include <iostream>
-#include <iomanip>
-#include <typeinfo>
-#endif
 
 #ifdef BOOST_MSVC
 # pragma warning(push)
@@ -179,14 +162,15 @@ T gamma_imp(T z, const Policy& pol, const Lanczos& l)
    else
    {
       result *= Lanczos::lanczos_sum(z);
+      T zgh = (z + static_cast<T>(Lanczos::g()) - boost::math::constants::half<T>());
+      T lzgh = log(zgh);
       BOOST_MATH_INSTRUMENT_VARIABLE(result);
       BOOST_MATH_INSTRUMENT_VARIABLE(tools::log_max_value<T>());
-      if(z * log(z) > tools::log_max_value<T>())
+      if(z * lzgh > tools::log_max_value<T>())
       {
          // we're going to overflow unless this is done with care:
-         T zgh = (z + static_cast<T>(Lanczos::g()) - boost::math::constants::half<T>());
          BOOST_MATH_INSTRUMENT_VARIABLE(zgh);
-         if(log(zgh) * z / 2 > tools::log_max_value<T>())
+         if(lzgh * z / 2 > tools::log_max_value<T>())
             return policies::raise_overflow_error<T>(function, "Result of tgamma is too large to represent.", pol);
          T hp = pow(zgh, (z / 2) - T(0.25));
          BOOST_MATH_INSTRUMENT_VARIABLE(hp);
@@ -199,7 +183,6 @@ T gamma_imp(T z, const Policy& pol, const Lanczos& l)
       }
       else
       {
-         T zgh = (z + static_cast<T>(Lanczos::g()) - boost::math::constants::half<T>());
          BOOST_MATH_INSTRUMENT_VARIABLE(zgh);
          BOOST_MATH_INSTRUMENT_VARIABLE(pow(zgh, z - boost::math::constants::half<T>()));
          BOOST_MATH_INSTRUMENT_VARIABLE(exp(zgh));
@@ -855,7 +838,7 @@ T gamma_incomplete_imp(T a, T x, bool normalised, bool invert,
    BOOST_ASSERT((p_derivative == 0) || (normalised == true));
 
    bool is_int, is_half_int;
-   bool is_small_a = (a < 30) && (a <= x + 1);
+   bool is_small_a = (a < 30) && (a <= x + 1) && (x < tools::log_max_value<T>());
    if(is_small_a)
    {
       T fa = floor(a);
@@ -1208,6 +1191,68 @@ T tgamma_delta_ratio_imp(T z, T delta, const Policy& pol)
 }
 
 template <class T, class Policy>
+T tgamma_ratio_imp(T x, T y, const Policy& pol)
+{
+   BOOST_MATH_STD_USING
+
+   if((x <= tools::min_value<T>()) || (boost::math::isinf)(x))
+      policies::raise_domain_error<T>("boost::math::tgamma_ratio<%1%>(%1%, %1%)", "Gamma function ratios only implemented for positive arguments (got a=%1%).", x, pol);
+   if((y <= tools::min_value<T>()) || (boost::math::isinf)(y))
+      policies::raise_domain_error<T>("boost::math::tgamma_ratio<%1%>(%1%, %1%)", "Gamma function ratios only implemented for positive arguments (got b=%1%).", y, pol);
+
+   if((x < max_factorial<T>::value) && (y < max_factorial<T>::value))
+   {
+      // Rather than subtracting values, lets just call the gamma functions directly:
+      return boost::math::tgamma(x, pol) / boost::math::tgamma(y, pol);
+   }
+   T prefix = 1;
+   if(x < 1)
+   {
+      if(y < 2 * max_factorial<T>::value)
+      {
+         // We need to sidestep on x as well, otherwise we'll underflow
+         // before we get to factor in the prefix term:
+         prefix /= x;
+         x += 1;
+         while(y >=  max_factorial<T>::value)
+         {
+            y -= 1;
+            prefix /= y;
+         }
+         return prefix * boost::math::tgamma(x, pol) / boost::math::tgamma(y, pol);
+      }
+      //
+      // result is almost certainly going to underflow to zero, try logs just in case:
+      //
+      return exp(boost::math::lgamma(x, pol) - boost::math::lgamma(y, pol));
+   }
+   if(y < 1)
+   {
+      if(x < 2 * max_factorial<T>::value)
+      {
+         // We need to sidestep on y as well, otherwise we'll overflow
+         // before we get to factor in the prefix term:
+         prefix *= y;
+         y += 1;
+         while(x >= max_factorial<T>::value)
+         {
+            x -= 1;
+            prefix *= x;
+         }
+         return prefix * boost::math::tgamma(x, pol) / boost::math::tgamma(y, pol);
+      }
+      //
+      // Result will almost certainly overflow, try logs just in case:
+      //
+      return exp(boost::math::lgamma(x, pol) - boost::math::lgamma(y, pol));
+   }
+   //
+   // Regular case, x and y both large and similar in magnitude:
+   //
+   return boost::math::tgamma_delta_ratio(x, y - x, pol);
+}
+
+template <class T, class Policy>
 T gamma_p_derivative_imp(T a, T x, const Policy& pol)
 {
    //
@@ -1360,7 +1405,7 @@ inline typename tools::promote_args<T1, T2>::type
    BOOST_FPU_EXCEPTION_GUARD
    typedef typename tools::promote_args<T1, T2>::type result_type;
    typedef typename policies::evaluation<result_type, Policy>::type value_type;
-   typedef typename lanczos::lanczos<value_type, Policy>::type evaluation_type;
+   // typedef typename lanczos::lanczos<value_type, Policy>::type evaluation_type;
    typedef typename policies::normalise<
       Policy, 
       policies::promote_float<false>, 
@@ -1489,7 +1534,7 @@ inline typename tools::promote_args<T1, T2>::type
    BOOST_FPU_EXCEPTION_GUARD
    typedef typename tools::promote_args<T1, T2>::type result_type;
    typedef typename policies::evaluation<result_type, Policy>::type value_type;
-   typedef typename lanczos::lanczos<value_type, Policy>::type evaluation_type;
+   // typedef typename lanczos::lanczos<value_type, Policy>::type evaluation_type;
    typedef typename policies::normalise<
       Policy, 
       policies::promote_float<false>, 
@@ -1520,7 +1565,7 @@ inline typename tools::promote_args<T1, T2>::type
    BOOST_FPU_EXCEPTION_GUARD
    typedef typename tools::promote_args<T1, T2>::type result_type;
    typedef typename policies::evaluation<result_type, Policy>::type value_type;
-   typedef typename lanczos::lanczos<value_type, Policy>::type evaluation_type;
+   // typedef typename lanczos::lanczos<value_type, Policy>::type evaluation_type;
    typedef typename policies::normalise<
       Policy, 
       policies::promote_float<false>, 
@@ -1551,7 +1596,7 @@ inline typename tools::promote_args<T1, T2>::type
    BOOST_FPU_EXCEPTION_GUARD
    typedef typename tools::promote_args<T1, T2>::type result_type;
    typedef typename policies::evaluation<result_type, Policy>::type value_type;
-   typedef typename lanczos::lanczos<value_type, Policy>::type evaluation_type;
+   // typedef typename lanczos::lanczos<value_type, Policy>::type evaluation_type;
    typedef typename policies::normalise<
       Policy, 
       policies::promote_float<false>, 
@@ -1609,7 +1654,7 @@ inline typename tools::promote_args<T1, T2>::type
       policies::discrete_quantile<>,
       policies::assert_undefined<> >::type forwarding_policy;
 
-   return policies::checked_narrowing_cast<result_type, forwarding_policy>(detail::tgamma_delta_ratio_imp(static_cast<value_type>(a), static_cast<value_type>(static_cast<value_type>(b) - static_cast<value_type>(a)), forwarding_policy()), "boost::math::tgamma_delta_ratio<%1%>(%1%, %1%)");
+   return policies::checked_narrowing_cast<result_type, forwarding_policy>(detail::tgamma_ratio_imp(static_cast<value_type>(a), static_cast<value_type>(b), forwarding_policy()), "boost::math::tgamma_delta_ratio<%1%>(%1%, %1%)");
 }
 template <class T1, class T2>
 inline typename tools::promote_args<T1, T2>::type 

@@ -21,7 +21,7 @@
 #endif
 
 #ifndef BOOST_LOCAL_FUNCTION_CONFIG_LOCALS_AS_TPARAMS
-#   ifdef BOOST_NO_LOCAL_CLASS_TEMPLATE_PARAMETERS
+#   ifdef BOOST_NO_CXX11_LOCAL_CLASS_TEMPLATE_PARAMETERS
 #       define BOOST_LOCAL_FUNCTION_CONFIG_LOCALS_AS_TPARAMS 0
 #   else
 #       define BOOST_LOCAL_FUNCTION_CONFIG_LOCALS_AS_TPARAMS 1
@@ -99,7 +99,7 @@ still allow to pass the local functions as template parameters.
 
 It is recommended to leave this macro undefined.
 In this case, the library will automatically define this macro to <c>0</c> if
-the Boost.Config macro <c>BOOST_NO_LOCAL_CLASS_TEMPLATE_PARAMETERS</c> is
+the Boost.Config macro <c>BOOST_NO_CXX11_LOCAL_CLASS_TEMPLATE_PARAMETERS</c> is
 defined for the specific compiler, and to <c>1</c> otherwise.
 
 @See @RefSect{getting_started, Getting Started} section,

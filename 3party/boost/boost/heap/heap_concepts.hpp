@@ -85,7 +85,8 @@ struct MutablePriorityQueue:
         BOOST_CONCEPT_ASSERT((boost::Assignable<typename MutablePriorityQueue::handle_type>));
 
         typename MutablePriorityQueue::value_type v;
-        typename MutablePriorityQueue::handle_type h = c.push(v);
+        typename MutablePriorityQueue::handle_type h  = c.push(v);
+        typename MutablePriorityQueue::handle_type h2 = c.push(v);
         c.update(h, v);
         c.increase(h, v);
         c.decrease(h, v);
@@ -93,9 +94,15 @@ struct MutablePriorityQueue:
         c.update(h);
         c.increase(h);
         c.decrease(h);
+
+        equal = (h == h2);
+        not_equal = (h != h2);
+
+        h2 = h;
     }
 
     C c;
+    bool equal, not_equal;
 };
 
 }}

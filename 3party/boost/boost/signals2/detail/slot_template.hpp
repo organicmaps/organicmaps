@@ -11,7 +11,7 @@
 
 // This file is included iteratively, and should not be protected from multiple inclusion
 
-#ifdef BOOST_NO_VARIADIC_TEMPLATES
+#ifdef BOOST_NO_CXX11_VARIADIC_TEMPLATES
 #define BOOST_SIGNALS2_NUM_ARGS BOOST_PP_ITERATION()
 #else
 #define BOOST_SIGNALS2_NUM_ARGS 1
@@ -42,7 +42,7 @@ namespace boost
       typedef R result_type;
       typedef typename mpl::identity<BOOST_SIGNALS2_SIGNATURE_FUNCTION_TYPE(BOOST_SIGNALS2_NUM_ARGS)>::type signature_type;
 
-#ifdef BOOST_NO_VARIADIC_TEMPLATES
+#ifdef BOOST_NO_CXX11_VARIADIC_TEMPLATES
 
 // typedef Tn argn_type;
 #define BOOST_SIGNALS2_MISC_STATEMENT(z, n, data) \
@@ -64,7 +64,7 @@ namespace boost
 
       BOOST_STATIC_CONSTANT(int, arity = BOOST_SIGNALS2_NUM_ARGS);
 
-#else // BOOST_NO_VARIADIC_TEMPLATES
+#else // BOOST_NO_CXX11_VARIADIC_TEMPLATES
 
       template<unsigned n> class arg
       {
@@ -73,7 +73,7 @@ namespace boost
       };
       BOOST_STATIC_CONSTANT(int, arity = sizeof...(Args));
 
-#endif // BOOST_NO_VARIADIC_TEMPLATES
+#endif // BOOST_NO_CXX11_VARIADIC_TEMPLATES
 
       template<typename F>
       BOOST_SIGNALS2_SLOT_CLASS_NAME(BOOST_SIGNALS2_NUM_ARGS)(const F& f)
@@ -81,7 +81,7 @@ namespace boost
         init_slot_function(f);
       }
       // copy constructors
-#ifdef BOOST_NO_VARIADIC_TEMPLATES
+#ifdef BOOST_NO_CXX11_VARIADIC_TEMPLATES
       template<BOOST_SIGNALS2_PREFIXED_SIGNATURE_TEMPLATE_DECL(BOOST_SIGNALS2_NUM_ARGS, Other), typename OtherSlotFunction>
       BOOST_SIGNALS2_SLOT_CLASS_NAME(BOOST_SIGNALS2_NUM_ARGS)(const BOOST_SIGNALS2_SLOT_CLASS_NAME(BOOST_SIGNALS2_NUM_ARGS)
         <BOOST_SIGNALS2_PREFIXED_SIGNATURE_TEMPLATE_INSTANTIATION(BOOST_SIGNALS2_NUM_ARGS, Other), OtherSlotFunction> &other_slot):
@@ -161,7 +161,7 @@ namespace boost
       SlotFunction _slot_function;
     };
 
-#ifdef BOOST_NO_VARIADIC_TEMPLATES
+#ifdef BOOST_NO_CXX11_VARIADIC_TEMPLATES
     namespace detail
     {
       template<unsigned arity, typename Signature, typename SlotFunction>

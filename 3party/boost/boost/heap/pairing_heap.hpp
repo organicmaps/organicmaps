@@ -10,6 +10,7 @@
 #define BOOST_HEAP_PAIRING_HEAP_HPP
 
 #include <algorithm>
+#include <utility>
 #include <vector>
 
 #include <boost/assert.hpp>
@@ -62,7 +63,7 @@ struct make_pairing_heap_base
             base_type(arg)
         {}
 
-#ifdef BOOST_HAS_RVALUE_REFS
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
         type(type const & rhs):
             base_type(rhs), allocator_type(rhs)
         {}
@@ -99,7 +100,7 @@ struct make_pairing_heap_base
  * the complexity analysis is yet unsolved. For details, consult:
  *
  * Pettie, Seth (2005), "Towards a final analysis of pairing heaps",
- * Proc. 46th Annual IEEE Symposium on Foundations of Computer Science, pp. 174–183
+ * Proc. 46th Annual IEEE Symposium on Foundations of Computer Science, pp. 174-183
  *
  * The template parameter T is the type to be managed by the container.
  * The user can specify additional options and if no options are provided default options are used.
@@ -240,7 +241,7 @@ public:
         size_holder::set_size(rhs.get_size());
     }
 
-#ifdef BOOST_HAS_RVALUE_REFS
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
     /// \copydoc boost::heap::priority_queue::priority_queue(priority_queue &&)
     pairing_heap(pairing_heap && rhs):
         super_t(std::move(rhs)), root(rhs.root)
@@ -356,7 +357,7 @@ public:
         return handle_type(n);
     }
 
-#if defined(BOOST_HAS_RVALUE_REFS) && !defined(BOOST_NO_VARIADIC_TEMPLATES)
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
     /**
      * \b Effects: Adds a new element to the priority queue. The element is directly constructed in-place. Returns handle to element.
      *
@@ -374,7 +375,7 @@ public:
 
         node_pointer n = allocator_type::allocate(1);
 
-        new(n) node(super_t::make_node(std::forward<T>(args)...));
+        new(n) node(super_t::make_node(std::forward<Args>(args)...));
 
         merge_node(n);
         return handle_type(n);
@@ -578,7 +579,7 @@ public:
         rhs.set_size(0);
         rhs.root = NULL;
 
-        super_t::set_stability_count(std::max(super_t::get_stability_count(),
+        super_t::set_stability_count((std::max)(super_t::get_stability_count(),
                                      rhs.get_stability_count()));
         rhs.set_stability_count(0);
     }
@@ -655,7 +656,7 @@ private:
 
     node_pointer merge_node_list(node_child_list & children)
     {
-        assert(!children.empty());
+        BOOST_HEAP_ASSERT(!children.empty());
         node_pointer merged = merge_first_pair(children);
         if (children.empty())
             return merged;
@@ -673,7 +674,7 @@ private:
 
     node_pointer merge_first_pair(node_child_list & children)
     {
-        assert(!children.empty());
+        BOOST_HEAP_ASSERT(!children.empty());
         node_pointer first_child = static_cast<node_pointer>(&children.front());
         children.pop_front();
         if (children.empty())

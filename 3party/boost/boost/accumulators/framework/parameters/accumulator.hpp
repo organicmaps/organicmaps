@@ -9,11 +9,13 @@
 #define BOOST_ACCUMULATORS_FRAMEWORK_PARAMETERS_ACCUMULATOR_HPP_EAN_31_10_2005
 
 #include <boost/parameter/keyword.hpp>
+#include <boost/accumulators/accumulators_fwd.hpp>
 
 namespace boost { namespace accumulators
 {
 
 BOOST_PARAMETER_KEYWORD(tag, accumulator)
+BOOST_ACCUMULATORS_IGNORE_GLOBAL(accumulator)
 
 }} // namespace boost::accumulators
 

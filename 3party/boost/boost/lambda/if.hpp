@@ -345,7 +345,7 @@ public:
 //      is true, the true_statement (again an lambda_functor) is executed
 //      otherwise, the false_statement (another lambda_functor) is executed. The
 //      result type of this is void. Note the trailing underscore after
-//      if_ and the the leading dot and the trailing underscore before
+//      if_ and the leading dot and the trailing underscore before
 //      and after .else_.
 //
 ///////////////////////////////////////////////////////////////////////////////

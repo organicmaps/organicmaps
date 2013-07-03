@@ -13,6 +13,7 @@
 #ifndef BOOST_VARIANT_DETAIL_BACKUP_HOLDER_HPP
 #define BOOST_VARIANT_DETAIL_BACKUP_HOLDER_HPP
 
+#include "boost/config.hpp"
 #include "boost/assert.hpp"
 
 namespace boost {
@@ -32,7 +33,7 @@ public: // structors
         delete backup_;
     }
 
-    explicit backup_holder(T* backup)
+    explicit backup_holder(T* backup) BOOST_NOEXCEPT
         : backup_(backup)
     {
     }
@@ -53,7 +54,7 @@ public: // modifiers
         return *this;
     }
 
-    void swap(backup_holder& rhs)
+    void swap(backup_holder& rhs) BOOST_NOEXCEPT
     {
         T* tmp = rhs.backup_;
         rhs.backup_ = this->backup_;
@@ -83,7 +84,7 @@ backup_holder<T>::backup_holder(const backup_holder&)
 }
 
 template <typename T>
-void swap(backup_holder<T>& lhs, backup_holder<T>& rhs)
+void swap(backup_holder<T>& lhs, backup_holder<T>& rhs) BOOST_NOEXCEPT
 {
     lhs.swap(rhs);
 }

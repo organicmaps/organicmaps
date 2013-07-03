@@ -12,7 +12,7 @@
 namespace boost{ namespace math{ namespace tools{ namespace detail{
 
 template <class T, class V>
-inline V evaluate_polynomial_c_imp(const T* a, const V&, const mpl::int_<0>*)
+inline V evaluate_polynomial_c_imp(const T*, const V&, const mpl::int_<0>*)
 {
    return static_cast<V>(0);
 }

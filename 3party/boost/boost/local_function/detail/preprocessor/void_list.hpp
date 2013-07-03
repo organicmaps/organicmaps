@@ -41,7 +41,7 @@
         BOOST_LOCAL_FUNCTION_DETAIL_PP_VOID_LIST_HANDLE_VOID_ \
     )(is_void_macro, token)
 
-#ifdef BOOST_NO_VARIADIC_MACROS
+#ifdef BOOST_NO_CXX11_VARIADIC_MACROS
 
 #define BOOST_LOCAL_FUNCTION_DETAIL_PP_VOID_LIST_(is_void_macro, seq) \
     BOOST_LOCAL_FUNCTION_DETAIL_PP_VOID_LIST_HANDLE_SEQ_(is_void_macro, seq)
@@ -49,7 +49,7 @@
 #else // VARIADICS
 
 // FUTURE: Replace this with BOOST_PP_VARIADIC_SIZE when and if
-// BOOST_PP_VARIAIDCS detection will match !BOOST_NO_VARIADIC_MACROS (for now
+// BOOST_PP_VARIAIDCS detection will match !BOOST_NO_CXX11_VARIADIC_MACROS (for now
 // Boost.Preprocessor and Boost.Config disagree on detecting compiler variadic
 // support while this VARIADIC_SIZE works on compilers not detected by PP).
 #if BOOST_MSVC
@@ -90,7 +90,7 @@
 // even if they support variadic macros. Therefore, always using void to
 // represent is more portable.
 
-#ifdef BOOST_NO_VARIADIC_MACROS
+#ifdef BOOST_NO_CXX11_VARIADIC_MACROS
 
 // Expand `void | (a)(b)...` to pp-list `NIL | (a, (b, NIL))`.
 #define BOOST_LOCAL_FUNCTION_DETAIL_PP_VOID_LIST(sign) \

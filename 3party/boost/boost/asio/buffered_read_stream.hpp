@@ -2,7 +2,7 @@
 // buffered_read_stream.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,13 +17,13 @@
 
 #include <boost/asio/detail/config.hpp>
 #include <cstddef>
-#include <boost/type_traits/remove_reference.hpp>
 #include <boost/asio/buffered_read_stream_fwd.hpp>
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/detail/bind_handler.hpp>
 #include <boost/asio/detail/buffer_resize_guard.hpp>
 #include <boost/asio/detail/buffered_stream_storage.hpp>
 #include <boost/asio/detail/noncopyable.hpp>
+#include <boost/asio/detail/type_traits.hpp>
 #include <boost/asio/error.hpp>
 #include <boost/asio/io_service.hpp>
 
@@ -50,7 +50,7 @@ class buffered_read_stream
 {
 public:
   /// The type of the next layer.
-  typedef typename boost::remove_reference<Stream>::type next_layer_type;
+  typedef typename remove_reference<Stream>::type next_layer_type;
 
   /// The type of the lowest layer.
   typedef typename next_layer_type::lowest_layer_type lowest_layer_type;
@@ -59,7 +59,7 @@ public:
   /// The default buffer size.
   static const std::size_t default_buffer_size = implementation_defined;
 #else
-  BOOST_STATIC_CONSTANT(std::size_t, default_buffer_size = 1024);
+  BOOST_ASIO_STATIC_CONSTANT(std::size_t, default_buffer_size = 1024);
 #endif
 
   /// Construct, passing the specified argument to initialise the next layer.

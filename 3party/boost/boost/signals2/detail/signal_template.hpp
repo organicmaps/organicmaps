@@ -13,7 +13,7 @@
 
 // This file is included iteratively, and should not be protected from multiple inclusion
 
-#ifdef BOOST_NO_VARIADIC_TEMPLATES
+#ifdef BOOST_NO_CXX11_VARIADIC_TEMPLATES
 #define BOOST_SIGNALS2_NUM_ARGS BOOST_PP_ITERATION()
 #else
 #define BOOST_SIGNALS2_NUM_ARGS 1
@@ -132,11 +132,11 @@ namespace boost
         typedef BOOST_SIGNALS2_EXTENDED_SLOT_TYPE(BOOST_SIGNALS2_NUM_ARGS) extended_slot_type;
         typedef typename nonvoid<typename slot_function_type::result_type>::type nonvoid_slot_result_type;
       private:
-#ifdef BOOST_NO_VARIADIC_TEMPLATES
+#ifdef BOOST_NO_CXX11_VARIADIC_TEMPLATES
         class slot_invoker;
-#else // BOOST_NO_VARIADIC_TEMPLATES
+#else // BOOST_NO_CXX11_VARIADIC_TEMPLATES
         typedef variadic_slot_invoker<nonvoid_slot_result_type, Args...> slot_invoker;
-#endif // BOOST_NO_VARIADIC_TEMPLATES
+#endif // BOOST_NO_CXX11_VARIADIC_TEMPLATES
         typedef slot_call_iterator_cache<nonvoid_slot_result_type, slot_invoker> slot_call_iterator_cache_type;
         typedef typename group_key<Group>::type group_key_type;
         typedef shared_ptr<connection_body<group_key_type, slot_type, Mutex> > connection_body_type;
@@ -311,7 +311,7 @@ namespace boost
         typedef Mutex mutex_type;
 
         // slot_invoker is passed to slot_call_iterator_t to run slots
-#ifdef BOOST_NO_VARIADIC_TEMPLATES
+#ifdef BOOST_NO_CXX11_VARIADIC_TEMPLATES
         class slot_invoker
         {
         public:
@@ -371,7 +371,7 @@ namespace boost
 #undef BOOST_SIGNALS2_M_ARG_NAMES
 #undef BOOST_SIGNALS2_M_ARG_NAME
 
-#endif // BOOST_NO_VARIADIC_TEMPLATES
+#endif // BOOST_NO_CXX11_VARIADIC_TEMPLATES
         // a struct used to optimize (minimize) the number of shared_ptrs that need to be created
         // inside operator()
         class invocation_state
@@ -618,7 +618,7 @@ namespace boost
         slot_call_iterator;
       typedef typename mpl::identity<BOOST_SIGNALS2_SIGNATURE_FUNCTION_TYPE(BOOST_SIGNALS2_NUM_ARGS)>::type signature_type;
 
-#ifdef BOOST_NO_VARIADIC_TEMPLATES
+#ifdef BOOST_NO_CXX11_VARIADIC_TEMPLATES
 
 // typedef Tn argn_type;
 #define BOOST_SIGNALS2_MISC_STATEMENT(z, n, data) \
@@ -640,7 +640,7 @@ namespace boost
 
       BOOST_STATIC_CONSTANT(int, arity = BOOST_SIGNALS2_NUM_ARGS);
 
-#else // BOOST_NO_VARIADIC_TEMPLATES
+#else // BOOST_NO_CXX11_VARIADIC_TEMPLATES
 
       template<unsigned n> class arg
       {
@@ -649,7 +649,7 @@ namespace boost
       };
       BOOST_STATIC_CONSTANT(int, arity = sizeof...(Args));
 
-#endif // BOOST_NO_VARIADIC_TEMPLATES
+#endif // BOOST_NO_CXX11_VARIADIC_TEMPLATES
 
       BOOST_SIGNALS2_SIGNAL_CLASS_NAME(BOOST_SIGNALS2_NUM_ARGS)(const combiner_type &combiner_arg = combiner_type(),
         const group_compare_type &group_compare = group_compare_type()):
@@ -714,6 +714,11 @@ namespace boost
       {
         return (*_pimpl).set_combiner(combiner_arg);
       }
+      void swap(BOOST_SIGNALS2_SIGNAL_CLASS_NAME(BOOST_SIGNALS2_NUM_ARGS) & other)
+      {
+        using std::swap;
+        swap(_pimpl, other._pimpl);
+      }
     protected:
       virtual shared_ptr<void> lock_pimpl() const
       {
@@ -723,6 +728,17 @@ namespace boost
       shared_ptr<impl_class>
         _pimpl;
     };
+
+#ifdef BOOST_NO_CXX11_VARIADIC_TEMPLATES
+    // free swap function for signalN classes, findable by ADL
+    template<BOOST_SIGNALS2_SIGNAL_TEMPLATE_DECL(BOOST_SIGNALS2_NUM_ARGS)>
+      void swap(
+        BOOST_SIGNALS2_SIGNAL_CLASS_NAME(BOOST_SIGNALS2_NUM_ARGS) <BOOST_SIGNALS2_SIGNAL_TEMPLATE_INSTANTIATION> &sig1,
+        BOOST_SIGNALS2_SIGNAL_CLASS_NAME(BOOST_SIGNALS2_NUM_ARGS) <BOOST_SIGNALS2_SIGNAL_TEMPLATE_INSTANTIATION> &sig2 )
+    {
+      sig1.swap(sig2);
+    };
+#endif
 
     namespace detail
     {
@@ -766,11 +782,11 @@ namespace boost
           <BOOST_SIGNALS2_SIGNAL_TEMPLATE_INSTANTIATION> > _weak_pimpl;
       };
 
-#ifndef BOOST_NO_VARIADIC_TEMPLATES
+#ifndef BOOST_NO_CXX11_VARIADIC_TEMPLATES
       template<int arity, typename Signature>
         class extended_signature: public variadic_extended_signature<Signature>
       {};
-#else // BOOST_NO_VARIADIC_TEMPLATES
+#else // BOOST_NO_CXX11_VARIADIC_TEMPLATES
       template<int arity, typename Signature>
         class extended_signature;
       // partial template specialization
@@ -810,7 +826,7 @@ namespace boost
           GroupCompare, SlotFunction, ExtendedSlotFunction, Mutex> type;
       };
 
-#endif // BOOST_NO_VARIADIC_TEMPLATES
+#endif // BOOST_NO_CXX11_VARIADIC_TEMPLATES
 
     } // namespace detail
   } // namespace signals2

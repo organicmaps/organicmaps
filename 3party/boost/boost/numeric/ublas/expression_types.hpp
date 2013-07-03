@@ -1,5 +1,4 @@
-//
-//  Copyright (c) 2000-2010
+//  Copyright (c) 2000-2013
 //  Joerg Walter, Mathias Koch. David Bellot
 //
 //  Distributed under the Boost Software License, Version 1.0. (See

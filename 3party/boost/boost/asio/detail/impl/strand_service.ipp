@@ -2,7 +2,7 @@
 // detail/impl/strand_service.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -38,7 +38,7 @@ struct strand_service::on_do_complete_exit
     impl_->mutex_.unlock();
 
     if (more_handlers)
-      owner_->post_private_immediate_completion(impl_);
+      owner_->post_immediate_completion(impl_, true);
   }
 };
 
@@ -85,6 +85,12 @@ void strand_service::construct(strand_service::implementation_type& impl)
   impl = implementations_[index].get();
 }
 
+bool strand_service::running_in_this_thread(
+    const implementation_type& impl) const
+{
+  return call_stack<strand_impl>::contains(impl) != 0;
+}
+
 bool strand_service::do_dispatch(implementation_type& impl, operation* op)
 {
   // If we are running inside the io_service, and no other handler already
@@ -112,13 +118,14 @@ bool strand_service::do_dispatch(implementation_type& impl, operation* op)
     impl->locked_ = true;
     impl->mutex_.unlock();
     impl->ready_queue_.push(op);
-    io_service_.post_immediate_completion(impl);
+    io_service_.post_immediate_completion(impl, false);
   }
 
   return false;
 }
 
-void strand_service::do_post(implementation_type& impl, operation* op)
+void strand_service::do_post(implementation_type& impl,
+    operation* op, bool is_continuation)
 {
   impl->mutex_.lock();
   if (impl->locked_)
@@ -134,7 +141,7 @@ void strand_service::do_post(implementation_type& impl, operation* op)
     impl->locked_ = true;
     impl->mutex_.unlock();
     impl->ready_queue_.push(op);
-    io_service_.post_immediate_completion(impl);
+    io_service_.post_immediate_completion(impl, is_continuation);
   }
 }
 

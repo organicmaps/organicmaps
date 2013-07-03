@@ -32,7 +32,7 @@ namespace dispatch
 {
 
 
-template <typename Tag, typename Geometry>
+template <typename Geometry, typename Tag = typename tag<Geometry>::type>
 struct num_interior_rings
 {
     static inline std::size_t apply(Geometry const& )
@@ -44,7 +44,7 @@ struct num_interior_rings
 
 
 template <typename Polygon>
-struct num_interior_rings<polygon_tag, Polygon>
+struct num_interior_rings<Polygon, polygon_tag>
 {
     static inline std::size_t apply(Polygon const& polygon)
     {
@@ -74,11 +74,7 @@ struct num_interior_rings<polygon_tag, Polygon>
 template <typename Geometry>
 inline std::size_t num_interior_rings(Geometry const& geometry)
 {
-    return dispatch::num_interior_rings
-        <
-            typename tag<Geometry>::type,
-            Geometry
-        >::apply(geometry);
+    return dispatch::num_interior_rings<Geometry>::apply(geometry);
 }
 
 

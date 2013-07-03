@@ -393,7 +393,7 @@ namespace boost { namespace proto
         };                                                                                          \
         /**/
 
-    #ifndef BOOST_NO_VARIADIC_TEMPLATES
+    #ifndef BOOST_NO_CXX11_VARIADIC_TEMPLATES
         #define BOOST_PROTO_EXTENDS_FUNCTION_CONST()                                                \
             BOOST_PROTO_EXTENDS_FUNCTION_()                                                         \
             BOOST_PROTO_DEFINE_FUN_OP_VARIADIC_IMPL_(BOOST_PROTO_CONST)                             \

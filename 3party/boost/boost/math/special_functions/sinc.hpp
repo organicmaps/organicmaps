@@ -36,36 +36,16 @@ namespace boost
     {
        namespace detail
        {
-#if        defined(__GNUC__) && (__GNUC__ < 3)
-        // gcc 2.x ignores function scope using declarations,
-        // put them in the scope of the enclosing namespace instead:
-
-        using    ::std::abs;
-        using    ::std::sqrt;
-        using    ::std::sin;
-
-        using    ::std::numeric_limits;
-#endif    /* defined(__GNUC__) && (__GNUC__ < 3) */
-
         // This is the "Sinus Cardinal" of index Pi.
 
         template<typename T>
         inline T    sinc_pi_imp(const T x)
         {
-#if defined(BOOST_NO_STDC_NAMESPACE) && !defined(__SUNPRO_CC)
-            using    ::abs;
-            using    ::sin;
-            using    ::sqrt;
-#else    /* BOOST_NO_STDC_NAMESPACE */
-            using    ::std::abs;
-            using    ::std::sin;
-            using    ::std::sqrt;
-#endif    /* BOOST_NO_STDC_NAMESPACE */
+            BOOST_MATH_STD_USING
 
-            // Note: this code is *not* thread safe!
-            static T const    taylor_0_bound = tools::epsilon<T>();
-            static T const    taylor_2_bound = sqrt(taylor_0_bound);
-            static T const    taylor_n_bound = sqrt(taylor_2_bound);
+            T const    taylor_0_bound = tools::epsilon<T>();
+            T const    taylor_2_bound = tools::root_epsilon<T>();
+            T const    taylor_n_bound = tools::forth_root_epsilon<T>();
 
             if    (abs(x) >= taylor_n_bound)
             {
@@ -110,28 +90,16 @@ namespace boost
           return detail::sinc_pi_imp(static_cast<result_type>(x));
        }
 
-#ifdef    BOOST_NO_TEMPLATE_TEMPLATES
-#else    /* BOOST_NO_TEMPLATE_TEMPLATES */
+#ifndef    BOOST_NO_TEMPLATE_TEMPLATES
         template<typename T, template<typename> class U>
         inline U<T>    sinc_pi(const U<T> x)
         {
-#if defined(BOOST_FUNCTION_SCOPE_USING_DECLARATION_BREAKS_ADL) || defined(__GNUC__)
-            using namespace std;
-#elif    defined(BOOST_NO_STDC_NAMESPACE) && !defined(__SUNPRO_CC)
-            using    ::abs;
-            using    ::sin;
-            using    ::sqrt;
-#else    /* BOOST_NO_STDC_NAMESPACE */
-            using    ::std::abs;
-            using    ::std::sin;
-            using    ::std::sqrt;
-#endif    /* BOOST_NO_STDC_NAMESPACE */
-
+            BOOST_MATH_STD_USING
             using    ::std::numeric_limits;
 
-            static T const    taylor_0_bound = tools::epsilon<T>();
-            static T const    taylor_2_bound = sqrt(taylor_0_bound);
-            static T const    taylor_n_bound = sqrt(taylor_2_bound);
+            T const    taylor_0_bound = tools::epsilon<T>();
+            T const    taylor_2_bound = tools::root_epsilon<T>();
+            T const    taylor_n_bound = tools::forth_root_epsilon<T>();
 
             if    (abs(x) >= taylor_n_bound)
             {

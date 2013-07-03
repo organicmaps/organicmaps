@@ -147,6 +147,7 @@ protected :
     typedef boost::numeric::ublas::matrix<coordinate_type> matrix_type;
     matrix_type m_matrix;
 
+public :
     inline ublas_transformer(
                 ct const& m_0_0, ct const& m_0_1, ct const& m_0_2, ct const& m_0_3,
                 ct const& m_1_0, ct const& m_1_1, ct const& m_1_2, ct const& m_1_3,
@@ -162,8 +163,6 @@ protected :
     }
 
     inline ublas_transformer() : m_matrix(4, 4) {}
-
-public :
 
     inline bool apply(P1 const& p1, P2& p2) const
     {
@@ -297,6 +296,7 @@ class scale_transformer<P1, P2, 3, 3> : public ublas_transformer<P1, P2, 3, 3>
 {
     typedef typename select_coordinate_type<P1, P2>::type coordinate_type;
 
+public :
     inline scale_transformer(coordinate_type const& scale_x,
                 coordinate_type const& scale_y,
                 coordinate_type const& scale_z)

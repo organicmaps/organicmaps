@@ -56,6 +56,10 @@ class named_creation_functor
          break;
       }
    }
+
+   std::size_t get_min_size() const
+   {  return sizeof(T);  }
+
    private:
    create_enum_t m_creation_type;
    Arg m_arg;

@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 54633 $
+//  Version     : $Revision: 81913 $
 //
 //  Description : defines model of formal parameter
 // ***************************************************************************
@@ -78,7 +78,7 @@ public:
     }
 
     // access methods
-    bool            has_argument() const                        { return m_actual_argument; }
+    bool            has_argument() const                        { return m_actual_argument!=0; }
     argument const& actual_argument() const                     { return *m_actual_argument; }
     argument_ptr    actual_argument()                           { return m_actual_argument; }
 

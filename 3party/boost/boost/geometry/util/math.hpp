@@ -44,17 +44,17 @@ struct equals
 template <typename Type>
 struct equals<Type, true>
 {
-	static inline Type get_max(Type const& a, Type const& b, Type const& c)
-	{
-		return (std::max)((std::max)(a, b), c);
-	}
+    static inline Type get_max(Type const& a, Type const& b, Type const& c)
+    {
+        return (std::max)((std::max)(a, b), c);
+    }
 
     static inline bool apply(Type const& a, Type const& b)
     {
-		if (a == b)
-		{
-			return true;
-		}
+        if (a == b)
+        {
+            return true;
+        }
 
         // See http://www.parashift.com/c++-faq-lite/newbie.html#faq-29.17,
         // FUTURE: replace by some boost tool or boost::test::close_at_tolerance
@@ -76,11 +76,11 @@ struct smaller<Type, true>
 {
     static inline bool apply(Type const& a, Type const& b)
     {
-		if (equals<Type, true>::apply(a, b))
-		{
-			return false;
-		}
-		return a < b;
+        if (equals<Type, true>::apply(a, b))
+        {
+            return false;
+        }
+        return a < b;
     }
 };
 
@@ -102,6 +102,15 @@ struct define_pi
     }
 };
 
+template <typename T>
+struct relaxed_epsilon
+{
+    static inline T apply(const T& factor)
+    {
+        return factor * std::numeric_limits<T>::epsilon();
+    }
+};
+
 
 } // namespace detail
 #endif
@@ -109,6 +118,12 @@ struct define_pi
 
 template <typename T>
 inline T pi() { return detail::define_pi<T>::apply(); }
+
+template <typename T>
+inline T relaxed_epsilon(T const& factor)
+{
+    return detail::relaxed_epsilon<T>::apply(factor);
+}
 
 
 // Maybe replace this by boost equals or boost ublas numeric equals or so

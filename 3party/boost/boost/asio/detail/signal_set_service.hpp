@@ -2,7 +2,7 @@
 // detail/signal_set_service.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -21,15 +21,16 @@
 #include <signal.h>
 #include <boost/asio/error.hpp>
 #include <boost/asio/io_service.hpp>
+#include <boost/asio/detail/addressof.hpp>
 #include <boost/asio/detail/handler_alloc_helpers.hpp>
 #include <boost/asio/detail/op_queue.hpp>
 #include <boost/asio/detail/signal_handler.hpp>
 #include <boost/asio/detail/signal_op.hpp>
 #include <boost/asio/detail/socket_types.hpp>
 
-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
+#if !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
 # include <boost/asio/detail/reactor.hpp>
-#endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
+#endif // !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
 
 #include <boost/asio/detail/push_options.hpp>
 
@@ -144,11 +145,11 @@ public:
 
   // Start an asynchronous operation to wait for a signal to be delivered.
   template <typename Handler>
-  void async_wait(implementation_type& impl, Handler handler)
+  void async_wait(implementation_type& impl, Handler& handler)
   {
     // Allocate and construct an operation to wrap the handler.
     typedef signal_handler<Handler> op;
-    typename op::ptr p = { boost::addressof(handler),
+    typename op::ptr p = { boost::asio::detail::addressof(handler),
       boost_asio_handler_alloc_helpers::allocate(
         sizeof(op), handler), 0 };
     p.p = new (p.v) op(handler);
@@ -181,7 +182,7 @@ private:
   // The io_service instance used for dispatching handlers.
   io_service_impl& io_service_;
 
-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
+#if !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
   // The type used for registering for pipe reactor notifications.
   class pipe_read_op;
 
@@ -190,7 +191,7 @@ private:
 
   // The per-descriptor reactor data used for the pipe.
   reactor::per_descriptor_data reactor_data_;
-#endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
+#endif // !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
 
   // A mapping from signal number to the registered signal sets.
   registration* registrations_[max_signal_number];

@@ -8,7 +8,9 @@
 #define BOOST_MATH_TOOLS_BIG_CONSTANT_HPP
 
 #include <boost/math/tools/config.hpp>
+#ifndef BOOST_MATH_NO_LEXICAL_CAST
 #include <boost/lexical_cast.hpp>
+#endif
 #include <boost/type_traits/is_convertible.hpp>
 
 namespace boost{ namespace math{ 
@@ -25,11 +27,13 @@ inline BOOST_CONSTEXPR_OR_CONST T make_big_value(long double v, const char*, mpl
 {
    return static_cast<T>(v);
 }
+#ifndef BOOST_MATH_NO_LEXICAL_CAST
 template <class T>
 inline T make_big_value(long double, const char* s, mpl::false_ const&, mpl::false_ const&)
 {
    return boost::lexical_cast<T>(s);
 }
+#endif
 template <class T>
 inline BOOST_CONSTEXPR const char* make_big_value(long double, const char* s, mpl::false_ const&, mpl::true_ const&)
 {

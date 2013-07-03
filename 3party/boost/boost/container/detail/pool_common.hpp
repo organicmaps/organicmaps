@@ -34,7 +34,7 @@ struct node_slist
    typedef slist_hook_t node_t;
 
    typedef typename bi::make_slist
-      <node_t, bi::linear<true>, bi::base_hook<slist_hook_t> >::type node_slist_t;
+      <node_t, bi::linear<true>, bi::cache_last<true>, bi::base_hook<slist_hook_t> >::type node_slist_t;
 };
 
 template<class T>

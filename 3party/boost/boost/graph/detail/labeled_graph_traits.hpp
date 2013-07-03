@@ -218,9 +218,9 @@ namespace graph_detail {
 #define LABELED_GRAPH_PARAMS typename G, typename L, typename S
 #define LABELED_GRAPH labeled_graph<G,L,S>
 
-// Specialize mutability traits for for the labeled graph.
+// Specialize mutability traits for the labeled graph.
 // This specialization depends on the mutability of the underlying graph type.
-// If the underlying graph is fully mutable, this this is also fully mutable.
+// If the underlying graph is fully mutable, this is also fully mutable.
 // Otherwise, it's different.
 template <LABELED_GRAPH_PARAMS>
 struct graph_mutability_traits< LABELED_GRAPH > {

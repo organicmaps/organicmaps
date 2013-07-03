@@ -2,7 +2,7 @@
 // detail/event.hpp
 // ~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,11 +17,11 @@
 
 #include <boost/asio/detail/config.hpp>
 
-#if !defined(BOOST_HAS_THREADS) || defined(BOOST_ASIO_DISABLE_THREADS)
+#if !defined(BOOST_ASIO_HAS_THREADS)
 # include <boost/asio/detail/null_event.hpp>
-#elif defined(BOOST_WINDOWS)
+#elif defined(BOOST_ASIO_WINDOWS)
 # include <boost/asio/detail/win_event.hpp>
-#elif defined(BOOST_HAS_PTHREADS)
+#elif defined(BOOST_ASIO_HAS_PTHREADS)
 # include <boost/asio/detail/posix_event.hpp>
 #else
 # error Only Windows and POSIX are supported!
@@ -31,11 +31,11 @@ namespace boost {
 namespace asio {
 namespace detail {
 
-#if !defined(BOOST_HAS_THREADS) || defined(BOOST_ASIO_DISABLE_THREADS)
+#if !defined(BOOST_ASIO_HAS_THREADS)
 typedef null_event event;
-#elif defined(BOOST_WINDOWS)
+#elif defined(BOOST_ASIO_WINDOWS)
 typedef win_event event;
-#elif defined(BOOST_HAS_PTHREADS)
+#elif defined(BOOST_ASIO_HAS_PTHREADS)
 typedef posix_event event;
 #endif
 

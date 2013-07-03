@@ -2,7 +2,7 @@
 // detail/strand_service.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -86,11 +86,15 @@ public:
 
   // Request the io_service to invoke the given handler.
   template <typename Handler>
-  void dispatch(implementation_type& impl, Handler handler);
+  void dispatch(implementation_type& impl, Handler& handler);
 
   // Request the io_service to invoke the given handler and return immediately.
   template <typename Handler>
-  void post(implementation_type& impl, Handler handler);
+  void post(implementation_type& impl, Handler& handler);
+
+  // Determine whether the strand is running in the current thread.
+  BOOST_ASIO_DECL bool running_in_this_thread(
+      const implementation_type& impl) const;
 
 private:
   // Helper function to dispatch a handler. Returns true if the handler should
@@ -98,7 +102,8 @@ private:
   BOOST_ASIO_DECL bool do_dispatch(implementation_type& impl, operation* op);
 
   // Helper fiunction to post a handler.
-  BOOST_ASIO_DECL void do_post(implementation_type& impl, operation* op);
+  BOOST_ASIO_DECL void do_post(implementation_type& impl,
+      operation* op, bool is_continuation);
 
   BOOST_ASIO_DECL static void do_complete(io_service_impl* owner,
       operation* base, const boost::system::error_code& ec,

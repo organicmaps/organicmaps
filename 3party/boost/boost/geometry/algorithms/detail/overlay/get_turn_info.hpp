@@ -20,6 +20,13 @@
 #include <boost/geometry/geometries/segment.hpp>
 
 
+// Silence warning C4127: conditional expression is constant
+#if defined(_MSC_VER)
+#pragma warning(push)  
+#pragma warning(disable : 4127)  
+#endif
+
+
 namespace boost { namespace geometry
 {
 
@@ -485,26 +492,26 @@ struct equal_opposite : public base_turn_handler
         typename DirInfo
     >
     static inline void apply(Point1 const& pi, Point2 const& qi,
-				/* by value: */ TurnInfo tp,
+                /* by value: */ TurnInfo tp,
                 OutputIterator& out,
                 IntersectionInfo const& intersection_info,
                 DirInfo const& dir_info)
     {
         // For equal-opposite segments, normally don't do anything.
-		if (AssignPolicy::include_opposite)
-		{
-			tp.method = method_equal;
-			for (int i = 0; i < 2; i++)
-			{
-				tp.operations[i].operation = operation_opposite;
-			}
-			for (unsigned int i = 0; i < intersection_info.count; i++)
-			{
-				geometry::convert(intersection_info.intersections[i], tp.point);
-				AssignPolicy::apply(tp, pi, qi, intersection_info, dir_info);
-				*out++ = tp;
-			}
-		}
+        if (AssignPolicy::include_opposite)
+        {
+            tp.method = method_equal;
+            for (int i = 0; i < 2; i++)
+            {
+                tp.operations[i].operation = operation_opposite;
+            }
+            for (unsigned int i = 0; i < intersection_info.count; i++)
+            {
+                geometry::convert(intersection_info.intersections[i], tp.point);
+                AssignPolicy::apply(tp, pi, qi, intersection_info, dir_info);
+                *out++ = tp;
+            }
+        }
     }
 };
 
@@ -678,10 +685,27 @@ private :
         typename IntersectionInfo
     >
     static inline bool set_tp(Point const& ri, Point const& rj, Point const& rk,
+                bool const handle_robustness, Point const& si, Point const& sj,
                 TurnInfo& tp, IntersectionInfo const& intersection_info)
     {
-        int const side_rk_r = SideStrategy::apply(ri, rj, rk);
-		operation_type blocked = operation_blocked;
+        int side_rk_r = SideStrategy::apply(ri, rj, rk);
+
+        if (handle_robustness)
+        {
+            int const side_rk_s = SideStrategy::apply(si, sj, rk);
+
+            // For Robustness: also calculate rk w.r.t. the other line. Because they are collinear opposite, that direction should be the reverse of the first direction.
+            // If this is not the case, we make it all-collinear, so zero
+            if (side_rk_r != 0 && side_rk_r != -side_rk_s)
+            {
+#ifdef BOOST_GEOMETRY_DEBUG_ROBUSTNESS
+                std::cout << "Robustness correction: " << side_rk_r << " / " << side_rk_s << std::endl;
+#endif
+                side_rk_r = 0;
+            }
+        }
+
+        operation_type blocked = operation_blocked;
         switch(side_rk_r)
         {
 
@@ -699,16 +723,16 @@ private :
                 // two operations blocked, so the whole point does not need
                 // to be generated.
                 // So return false to indicate nothing is to be done.
-				if (AssignPolicy::include_opposite)
-				{
-					tp.operations[Index].operation = operation_opposite;
-					blocked = operation_opposite;
-				}
-				else
-				{
-					return false;
-				}
-				break;
+                if (AssignPolicy::include_opposite)
+                {
+                    tp.operations[Index].operation = operation_opposite;
+                    blocked = operation_opposite;
+                }
+                else
+                {
+                    return false;
+                }
+                break;
         }
 
         // The other direction is always blocked when collinear opposite
@@ -747,7 +771,7 @@ public:
 
         // If P arrives within Q, there is a turn dependent on P
         if (dir_info.arrival[0] == 1
-            && set_tp<0>(pi, pj, pk, tp, intersection_info))
+            && set_tp<0>(pi, pj, pk, true, qi, qj, tp, intersection_info))
         {
             AssignPolicy::apply(tp, pi, qi, intersection_info, dir_info);
             *out++ = tp;
@@ -755,30 +779,30 @@ public:
 
         // If Q arrives within P, there is a turn dependent on Q
         if (dir_info.arrival[1] == 1
-            && set_tp<1>(qi, qj, qk, tp, intersection_info))
+            && set_tp<1>(qi, qj, qk, false, pi, pj, tp, intersection_info))
         {
             AssignPolicy::apply(tp, pi, qi, intersection_info, dir_info);
             *out++ = tp;
         }
 
-		if (AssignPolicy::include_opposite)
-		{
-	        // Handle cases not yet handled above
-			if ((dir_info.arrival[1] == -1 && dir_info.arrival[0] == 0)
-				|| (dir_info.arrival[0] == -1 && dir_info.arrival[1] == 0))
-			{
-				for (int i = 0; i < 2; i++)
-				{
-					tp.operations[i].operation = operation_opposite;
-				}
-				for (unsigned int i = 0; i < intersection_info.count; i++)
-				{
-					geometry::convert(intersection_info.intersections[i], tp.point);
-					AssignPolicy::apply(tp, pi, qi, intersection_info, dir_info);
-					*out++ = tp;
-				}
-			}
-		}
+        if (AssignPolicy::include_opposite)
+        {
+            // Handle cases not yet handled above
+            if ((dir_info.arrival[1] == -1 && dir_info.arrival[0] == 0)
+                || (dir_info.arrival[0] == -1 && dir_info.arrival[1] == 0))
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    tp.operations[i].operation = operation_opposite;
+                }
+                for (unsigned int i = 0; i < intersection_info.count; i++)
+                {
+                    geometry::convert(intersection_info.intersections[i], tp.point);
+                    AssignPolicy::apply(tp, pi, qi, intersection_info, dir_info);
+                    *out++ = tp;
+                }
+            }
+        }
 
     }
 };
@@ -846,13 +870,13 @@ struct assign_null_policy
     static bool const include_opposite = false;
 
     template 
-	<
-		typename Info,
-		typename Point1,
-		typename Point2,
-		typename IntersectionInfo,
-		typename DirInfo
-	>
+    <
+        typename Info,
+        typename Point1,
+        typename Point2,
+        typename IntersectionInfo,
+        typename DirInfo
+    >
     static inline void apply(Info& , Point1 const& , Point2 const&, IntersectionInfo const&, DirInfo const&)
     {}
 
@@ -1004,15 +1028,15 @@ struct get_turn_info
                     AssignPolicy::apply(tp, pi, qi, result.template get<0>(), result.template get<1>());
                     *out++ = tp;
                 }
-				else
-				{
+                else
+                {
                     equal_opposite
                         <
                             TurnInfo,
                             AssignPolicy
                         >::apply(pi, qi,
                             tp, out, result.template get<0>(), result.template get<1>());
-				}
+                }
             }
             break;
             case 'c' :
@@ -1090,5 +1114,9 @@ struct get_turn_info
 
 }} // namespace boost::geometry
 
+
+#if defined(_MSC_VER)
+#pragma warning(pop)  
+#endif
 
 #endif // BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_GET_TURN_INFO_HPP

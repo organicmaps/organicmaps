@@ -1,6 +1,6 @@
 // fwd.hpp Forward declarations of Boost.Math distributions.
 
-// Copyright Paul A. Bristow 2007, 2010.
+// Copyright Paul A. Bristow 2007, 2010, 2012.
 // Copyright John Maddock 2007.
 
 // Use, modification and distribution are subject to the
@@ -10,6 +10,8 @@
 
 #ifndef BOOST_MATH_DISTRIBUTIONS_FWD_HPP
 #define BOOST_MATH_DISTRIBUTIONS_FWD_HPP
+
+// 31 distributions at Boost 1.52
 
 namespace boost{ namespace math{
 
@@ -56,9 +58,6 @@ template <class RealType, class Policy>
 class inverse_gaussian_distribution;
 
 template <class RealType, class Policy>
-class inverse_uniform_distribution;
-
-template <class RealType, class Policy>
 class laplace_distribution;
 
 template <class RealType, class Policy>
@@ -71,10 +70,10 @@ template <class RealType, class Policy>
 class negative_binomial_distribution;
 
 template <class RealType, class Policy>
-class non_central_chi_squared_distribution;
+class non_central_beta_distribution;
 
 template <class RealType, class Policy>
-class non_central_beta_distribution;
+class non_central_chi_squared_distribution;
 
 template <class RealType, class Policy>
 class non_central_f_distribution;
@@ -93,6 +92,9 @@ class poisson_distribution;
 
 template <class RealType, class Policy>
 class rayleigh_distribution;
+
+template <class RealType, class Policy>
+class skew_normal_distribution;
 
 template <class RealType, class Policy>
 class students_t_distribution;
@@ -118,27 +120,27 @@ class weibull_distribution;
    typedef boost::math::extreme_value_distribution<Type, Policy> extreme_value;\
    typedef boost::math::fisher_f_distribution<Type, Policy> fisher_f;\
    typedef boost::math::gamma_distribution<Type, Policy> gamma;\
+   typedef boost::math::geometric_distribution<Type, Policy> geometric;\
+   typedef boost::math::hypergeometric_distribution<Type, Policy> hypergeometric;\
+   typedef boost::math::inverse_chi_squared_distribution<Type, Policy> inverse_chi_squared;\
+   typedef boost::math::inverse_gaussian_distribution<Type, Policy> inverse_gaussian;\
+   typedef boost::math::inverse_gamma_distribution<Type, Policy> inverse_gamma;\
    typedef boost::math::laplace_distribution<Type, Policy> laplace;\
    typedef boost::math::logistic_distribution<Type, Policy> logistic;\
    typedef boost::math::lognormal_distribution<Type, Policy> lognormal;\
    typedef boost::math::negative_binomial_distribution<Type, Policy> negative_binomial;\
+   typedef boost::math::non_central_beta_distribution<Type, Policy> non_central_beta;\
+   typedef boost::math::non_central_chi_squared_distribution<Type, Policy> non_central_chi_squared;\
+   typedef boost::math::non_central_f_distribution<Type, Policy> non_central_f;\
+   typedef boost::math::non_central_t_distribution<Type, Policy> non_central_t;\
    typedef boost::math::normal_distribution<Type, Policy> normal;\
    typedef boost::math::pareto_distribution<Type, Policy> pareto;\
    typedef boost::math::poisson_distribution<Type, Policy> poisson;\
    typedef boost::math::rayleigh_distribution<Type, Policy> rayleigh;\
+   typedef boost::math::skew_normal_distribution<Type, Policy> skew_normal;\
    typedef boost::math::students_t_distribution<Type, Policy> students_t;\
    typedef boost::math::triangular_distribution<Type, Policy> triangular;\
    typedef boost::math::uniform_distribution<Type, Policy> uniform;\
-   typedef boost::math::weibull_distribution<Type, Policy> weibull;\
-   typedef boost::math::non_central_chi_squared_distribution<Type, Policy> non_central_chi_squared;\
-   typedef boost::math::non_central_beta_distribution<Type, Policy> non_central_beta;\
-   typedef boost::math::non_central_f_distribution<Type, Policy> non_central_f;\
-   typedef boost::math::non_central_t_distribution<Type, Policy> non_central_t;\
-   typedef boost::math::hypergeometric_distribution<Type, Policy> hypergeometric;\
-   typedef boost::math::inverse_uniform_distribution<Type, Policy> inverse_uniform;\
-   typedef boost::math::geometric_distribution<Type, Policy> geometric;\
-   typedef boost::math::inverse_chi_squared_distribution<Type, Policy> inverse_chi_squared;\
-   typedef boost::math::inverse_gamma_distribution<Type, Policy> inverse_gamma;\
-   typedef boost::math::inverse_gaussian_distribution<Type, Policy> inverse_gaussian;\
+   typedef boost::math::weibull_distribution<Type, Policy> weibull;
 
 #endif // BOOST_MATH_DISTRIBUTIONS_FWD_HPP

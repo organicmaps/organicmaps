@@ -14,7 +14,9 @@
 #include <boost/chrono/thread_clock.hpp>
 #include <cassert>
 
+#if !defined(__VXWORKS__)
 # include <sys/times.h>
+#endif
 # include <pthread.h>
 # include <unistd.h>
 

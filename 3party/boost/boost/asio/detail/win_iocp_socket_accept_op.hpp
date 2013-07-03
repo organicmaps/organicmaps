@@ -2,7 +2,7 @@
 // detail/win_iocp_socket_accept_op.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -19,7 +19,7 @@
 
 #if defined(BOOST_ASIO_HAS_IOCP)
 
-#include <boost/utility/addressof.hpp>
+#include <boost/asio/detail/addressof.hpp>
 #include <boost/asio/detail/bind_handler.hpp>
 #include <boost/asio/detail/buffer_sequence_adapter.hpp>
 #include <boost/asio/detail/fenced_block.hpp>
@@ -80,7 +80,7 @@ public:
 
     // Take ownership of the operation object.
     win_iocp_socket_accept_op* o(static_cast<win_iocp_socket_accept_op*>(base));
-    ptr p = { boost::addressof(o->handler_), o, o };
+    ptr p = { boost::asio::detail::addressof(o->handler_), o, o };
 
     if (owner)
     {
@@ -131,7 +131,7 @@ public:
     // deallocated the memory here.
     detail::binder1<Handler, boost::system::error_code>
       handler(o->handler_, ec);
-    p.h = boost::addressof(handler.handler_);
+    p.h = boost::asio::detail::addressof(handler.handler_);
     p.reset();
 
     // Make the upcall if required.

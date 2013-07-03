@@ -18,12 +18,12 @@
 #include <string>
 
 #include <boost/array.hpp>
-#include <boost/concept/assert.hpp>
 #include <boost/range.hpp>
 #include <boost/typeof/typeof.hpp>
 
 #include <boost/geometry/algorithms/assign.hpp>
 #include <boost/geometry/algorithms/convert.hpp>
+#include <boost/geometry/algorithms/not_implemented.hpp>
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
 #include <boost/geometry/core/ring_type.hpp>
@@ -33,8 +33,18 @@
 
 #include <boost/geometry/io/wkt/detail/prefix.hpp>
 
+#include <boost/variant/apply_visitor.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/variant_fwd.hpp>
+
 namespace boost { namespace geometry
 {
+
+// Silence warning C4512: 'boost::geometry::wkt_manipulator<Geometry>' : assignment operator could not be generated
+#if defined(_MSC_VER)
+#pragma warning(push)  
+#pragma warning(disable : 4512)  
+#endif
 
 #ifndef DOXYGEN_NO_DETAIL
 namespace detail { namespace wkt
@@ -240,18 +250,12 @@ struct wkt_segment
 namespace dispatch
 {
 
-template <typename Tag, typename Geometry>
-struct wkt
-{
-   BOOST_MPL_ASSERT_MSG
-        (
-            false, NOT_YET_IMPLEMENTED_FOR_THIS_GEOMETRY_TYPE
-            , (types<Geometry>)
-        );
-};
+template <typename Geometry, typename Tag = typename tag<Geometry>::type>
+struct wkt: not_implemented<Tag>
+{};
 
 template <typename Point>
-struct wkt<point_tag, Point>
+struct wkt<Point, point_tag>
     : detail::wkt::wkt_point
         <
             Point,
@@ -260,7 +264,7 @@ struct wkt<point_tag, Point>
 {};
 
 template <typename Linestring>
-struct wkt<linestring_tag, Linestring>
+struct wkt<Linestring, linestring_tag>
     : detail::wkt::wkt_range
         <
             Linestring,
@@ -275,12 +279,12 @@ struct wkt<linestring_tag, Linestring>
 It is therefore streamed as a polygon
 */
 template <typename Box>
-struct wkt<box_tag, Box>
+struct wkt<Box, box_tag>
     : detail::wkt::wkt_box<Box>
 {};
 
 template <typename Segment>
-struct wkt<segment_tag, Segment>
+struct wkt<Segment, segment_tag>
     : detail::wkt::wkt_segment<Segment>
 {};
 
@@ -291,7 +295,7 @@ A ring is equivalent to a polygon without inner rings
 It is therefore streamed as a polygon
 */
 template <typename Ring>
-struct wkt<ring_tag, Ring>
+struct wkt<Ring, ring_tag>
     : detail::wkt::wkt_range
         <
             Ring,
@@ -304,13 +308,54 @@ struct wkt<ring_tag, Ring>
 \brief Specialization to stream polygon as WKT
 */
 template <typename Polygon>
-struct wkt<polygon_tag, Polygon>
+struct wkt<Polygon, polygon_tag>
     : detail::wkt::wkt_poly
         <
             Polygon,
             detail::wkt::prefix_polygon
         >
 {};
+
+
+template <typename Geometry>
+struct devarianted_wkt
+{
+    template <typename OutputStream>
+    static inline void apply(OutputStream& os, Geometry const& geometry)
+    {
+        wkt<Geometry>::apply(os, geometry);
+    }
+};
+
+template <BOOST_VARIANT_ENUM_PARAMS(typename T)>
+struct devarianted_wkt<variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
+{
+    template <typename OutputStream>
+    struct visitor: static_visitor<void>
+    {
+        OutputStream& m_os;
+
+        visitor(OutputStream& os)
+            : m_os(os)
+        {}
+
+        template <typename Geometry>
+        inline void operator()(Geometry const& geometry) const
+        {
+            devarianted_wkt<Geometry>::apply(m_os, geometry);
+        }
+    };
+
+    template <typename OutputStream>
+    static inline void apply(
+        OutputStream& os,
+        variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& geometry
+    )
+    {
+        apply_visitor(visitor<OutputStream>(os), geometry);
+    }
+};
+
 
 } // namespace dispatch
 #endif // DOXYGEN_NO_DISPATCH
@@ -340,11 +385,7 @@ public:
             std::basic_ostream<Char, Traits>& os,
             wkt_manipulator const& m)
     {
-        dispatch::wkt
-            <
-                typename tag<Geometry>::type,
-                Geometry
-            >::apply(os, m.m_geometry);
+        dispatch::devarianted_wkt<Geometry>::apply(os, m.m_geometry);
         os.flush();
         return os;
     }
@@ -370,6 +411,10 @@ inline wkt_manipulator<Geometry> wkt(Geometry const& geometry)
 
     return wkt_manipulator<Geometry>(geometry);
 }
+
+#if defined(_MSC_VER)
+#pragma warning(pop)  
+#endif
 
 }} // namespace boost::geometry
 

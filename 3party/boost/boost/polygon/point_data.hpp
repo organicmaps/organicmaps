@@ -1,104 +1,130 @@
-/*
-  Copyright 2008 Intel Corporation
+// Boost.Polygon library point_data.hpp header file
 
-  Use, modification and distribution are subject to the Boost Software License,
-  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-  http://www.boost.org/LICENSE_1_0.txt).
-*/
-#ifndef GTLPOINT_DATA_HPP
-#define GTLPOINT_DATA_HPP
+// Copyright (c) Intel Corporation 2008.
+// Copyright (c) 2008-2012 Simonson Lucanus.
+// Copyright (c) 2012-2012 Andrii Sydorchuk.
+
+// See http://www.boost.org for updates, documentation, and revision history.
+// Use, modification and distribution is subject to the Boost Software License,
+// Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
+#ifndef BOOST_POLYGON_POINT_DATA_HPP
+#define BOOST_POLYGON_POINT_DATA_HPP
 
 #include "isotropy.hpp"
+#include "point_concept.hpp"
 
-namespace boost { namespace polygon{
+namespace boost {
+namespace polygon {
 
-  template <typename T>
-  class point_data {
-  public:
-    typedef T coordinate_type;
-    inline point_data()
-#ifndef BOOST_POLYGON_MSVC
-      :coords_()
-#endif
-    {}
-    inline point_data(coordinate_type x, coordinate_type y)
-#ifndef BOOST_POLYGON_MSVC
-      :coords_()
-#endif
-    {
-      coords_[HORIZONTAL] = x; coords_[VERTICAL] = y;
-    }
-    inline point_data(const point_data& that)
-#ifndef BOOST_POLYGON_MSVC
-      :coords_()
-#endif
-    { (*this) = that; }
-    template <typename other>
-    point_data(const other& that)
-#ifndef BOOST_POLYGON_MSVC
-      :coords_()
-#endif
-    { (*this) = that; }
-    inline point_data& operator=(const point_data& that) {
-      coords_[0] = that.coords_[0]; coords_[1] = that.coords_[1]; return *this;
-    }
-    template<typename T1, typename T2>
-    inline point_data(const T1& x, const T2& y)
-#ifndef BOOST_POLYGON_MSVC
-      :coords_()
-#endif
-    {
-      coords_[HORIZONTAL] = (coordinate_type)x;
-      coords_[VERTICAL] = (coordinate_type)y;
-    }
-    template <typename T2>
-    inline point_data(const point_data<T2>& rvalue)
-#ifndef BOOST_POLYGON_MSVC
-      :coords_()
-#endif
-    {
-      coords_[HORIZONTAL] = (coordinate_type)(rvalue.x());
-      coords_[VERTICAL] = (coordinate_type)(rvalue.y());
-    }
-    template <typename T2>
-    inline point_data& operator=(const T2& rvalue);
-    inline bool operator==(const point_data& that) const {
-      return coords_[0] == that.coords_[0] && coords_[1] == that.coords_[1];
-    }
-    inline bool operator!=(const point_data& that) const {
-      return !((*this) == that);
-    }
-    inline bool operator<(const point_data& that) const {
-      return coords_[0] < that.coords_[0] ||
-        (coords_[0] == that.coords_[0] && coords_[1] < that.coords_[1]);
-    }
-    inline bool operator<=(const point_data& that) const { return !(that < *this); }
-    inline bool operator>(const point_data& that) const { return that < *this; }
-    inline bool operator>=(const point_data& that) const { return !((*this) < that); }
-    inline coordinate_type get(orientation_2d orient) const {
-      return coords_[orient.to_int()];
-    }
-    inline void set(orientation_2d orient, coordinate_type value) {
-      coords_[orient.to_int()] = value;
-    }
-    inline coordinate_type x() const {
-      return coords_[HORIZONTAL];
-    }
-    inline coordinate_type y() const {
-      return coords_[VERTICAL];
-    }
-    inline point_data& x(coordinate_type value) {
-      coords_[HORIZONTAL] = value;
-      return *this;
-    }
-    inline point_data& y(coordinate_type value) {
-      coords_[VERTICAL] = value;
-      return *this;
-    }
-  private:
-    coordinate_type coords_[2];
-  };
+template <typename T>
+class point_data {
+ public:
+  typedef T coordinate_type;
 
-}
-}
+  point_data()
+#ifndef BOOST_POLYGON_MSVC
+    : coords_()
 #endif
+  {}
+
+  point_data(coordinate_type x, coordinate_type y) {
+    coords_[HORIZONTAL] = x;
+    coords_[VERTICAL] = y;
+  }
+
+  explicit point_data(const point_data& that) {
+    coords_[0] = that.coords_[0];
+    coords_[1] = that.coords_[1];
+  }
+
+  point_data& operator=(const point_data& that) {
+    coords_[0] = that.coords_[0];
+    coords_[1] = that.coords_[1];
+    return *this;
+  }
+
+  template <typename PointType>
+  explicit point_data(const PointType& that) {
+    *this = that;
+  }
+
+  template <typename PointType>
+  point_data& operator=(const PointType& that) {
+    assign(*this, that);
+    return *this;
+  }
+
+  // TODO(asydorchuk): Deprecated.
+  template <typename CT>
+  point_data(const point_data<CT>& that) {
+    coords_[HORIZONTAL] = (coordinate_type)that.x();
+    coords_[VERTICAL] = (coordinate_type)that.y();
+  }
+
+  coordinate_type get(orientation_2d orient) const {
+    return coords_[orient.to_int()];
+  }
+
+  void set(orientation_2d orient, coordinate_type value) {
+    coords_[orient.to_int()] = value;
+  }
+
+  coordinate_type x() const {
+    return coords_[HORIZONTAL];
+  }
+
+  point_data& x(coordinate_type value) {
+    coords_[HORIZONTAL] = value;
+    return *this;
+  }
+
+  coordinate_type y() const {
+    return coords_[VERTICAL];
+  }
+
+  point_data& y(coordinate_type value) {
+    coords_[VERTICAL] = value;
+    return *this;
+  }
+
+  bool operator==(const point_data& that) const {
+    return (coords_[0] == that.coords_[0]) &&
+      (coords_[1] == that.coords_[1]);
+  }
+
+  bool operator!=(const point_data& that) const {
+    return !(*this == that);
+  }
+
+  bool operator<(const point_data& that) const {
+    return (coords_[0] < that.coords_[0]) ||
+      ((coords_[0] == that.coords_[0]) &&
+       (coords_[1] < that.coords_[1]));
+  }
+
+  bool operator<=(const point_data& that) const {
+    return !(that < *this);
+  }
+
+  bool operator>(const point_data& that) const {
+    return that < *this;
+  }
+
+  bool operator>=(const point_data& that) const {
+    return !(*this < that);
+  }
+
+ private:
+  coordinate_type coords_[2];
+};
+
+template <typename CType>
+struct geometry_concept< point_data<CType> > {
+  typedef point_concept type;
+};
+}  // polygon
+}  // boost
+
+#endif  // BOOST_POLYGON_POINT_DATA_HPP

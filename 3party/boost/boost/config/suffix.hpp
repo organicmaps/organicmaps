@@ -1,4 +1,5 @@
 //  Boost config.hpp configuration header file  ------------------------------//
+//	boostinspect:ndprecated_macros	-- tell the inspect tool to ignore this file
 
 //  Copyright (c) 2001-2003 John Maddock
 //  Copyright (c) 2001 Darin Adler
@@ -488,6 +489,18 @@ namespace boost{
 #  endif
 }
 #endif
+// same again for __int128:
+#if defined(BOOST_HAS_INT128) && defined(__cplusplus)
+namespace boost{
+#  ifdef __GNUC__
+   __extension__ typedef __int128 int128_type;
+   __extension__ typedef unsigned __int128 uint128_type;
+#  else
+   typedef __int128 int128_type;
+   typedef unsigned __int128 uint128_type;
+#  endif
+}
+#endif
 
 // BOOST_[APPEND_]EXPLICIT_TEMPLATE_[NON_]TYPE macros --------------------------//
 //
@@ -628,7 +641,8 @@ namespace std{ using ::type_info; }
 #  if defined(_MSC_VER)
 #    define BOOST_FORCEINLINE __forceinline
 #  elif defined(__GNUC__) && __GNUC__ > 3
-#    define BOOST_FORCEINLINE inline __attribute__ ((always_inline))
+     // Clang also defines __GNUC__ (as 4)
+#    define BOOST_FORCEINLINE inline __attribute__ ((__always_inline__))
 #  else
 #    define BOOST_FORCEINLINE inline
 #  endif
@@ -647,8 +661,8 @@ namespace std{ using ::type_info; }
 //  Use BOOST_NO_CXX11_HDR_UNORDERED_SET or BOOST_NO_CXX11_HDR_UNORDERED_MAP
 //           instead of BOOST_NO_STD_UNORDERED
 #if defined(BOOST_NO_CXX11_HDR_UNORDERED_MAP) || defined (BOOST_NO_CXX11_HDR_UNORDERED_SET)
-# ifndef BOOST_NO_STD_UNORDERED
-#  define BOOST_NO_STD_UNORDERED
+# ifndef BOOST_NO_CXX11_STD_UNORDERED
+#  define BOOST_NO_CXX11_STD_UNORDERED
 # endif
 #endif
 
@@ -658,7 +672,7 @@ namespace std{ using ::type_info; }
 #endif
 
 //  Use BOOST_NO_CXX11_HDR_ARRAY instead of BOOST_NO_0X_HDR_ARRAY
-#if defined(BOOST_NO_CXX11_HDR_ARRAY) && !defined(BOOST_NO_BOOST_NO_0X_HDR_ARRAY)
+#if defined(BOOST_NO_CXX11_HDR_ARRAY) && !defined(BOOST_NO_0X_HDR_ARRAY)
 #  define BOOST_NO_0X_HDR_ARRAY
 #endif
 //  Use BOOST_NO_CXX11_HDR_CHRONO instead of BOOST_NO_0X_HDR_CHRONO
@@ -827,9 +841,9 @@ namespace std{ using ::type_info; }
 #if defined(BOOST_NO_CXX11_STATIC_ASSERT) && !defined(BOOST_NO_STATIC_ASSERT)
 #  define BOOST_NO_STATIC_ASSERT
 #endif
-//  Use     BOOST_NO_CXX11_STD_UNORDERD instead of   BOOST_NO_STD_UNORDERD
-#if defined(BOOST_NO_CXX11_STD_UNORDERD) && !defined(BOOST_NO_STD_UNORDERD)
-#  define BOOST_NO_STD_UNORDERD
+//  Use     BOOST_NO_CXX11_STD_UNORDERED instead of   BOOST_NO_STD_UNORDERED
+#if defined(BOOST_NO_CXX11_STD_UNORDERED) && !defined(BOOST_NO_STD_UNORDERED)
+#  define BOOST_NO_STD_UNORDERED
 #endif
 //  Use     BOOST_NO_CXX11_UNICODE_LITERALS instead of   BOOST_NO_UNICODE_LITERALS
 #if defined(BOOST_NO_CXX11_UNICODE_LITERALS) && !defined(BOOST_NO_UNICODE_LITERALS)
@@ -859,27 +873,32 @@ namespace std{ using ::type_info; }
 // Helper macros BOOST_NOEXCEPT, BOOST_NOEXCEPT_IF, BOOST_NOEXCEPT_EXPR
 // These aid the transition to C++11 while still supporting C++03 compilers
 //
-#ifdef BOOST_NO_NOEXCEPT
+#ifdef BOOST_NO_CXX11_NOEXCEPT
 #  define BOOST_NOEXCEPT
+#  define BOOST_NOEXCEPT_OR_NOTHROW throw()
 #  define BOOST_NOEXCEPT_IF(Predicate)
 #  define BOOST_NOEXCEPT_EXPR(Expression) false
 #else
 #  define BOOST_NOEXCEPT noexcept
+#  define BOOST_NOEXCEPT_OR_NOTHROW noexcept
 #  define BOOST_NOEXCEPT_IF(Predicate) noexcept((Predicate))
 #  define BOOST_NOEXCEPT_EXPR(Expression) noexcept((Expression))
 #endif
-
 //
-// Normalize BOOST_NO_STATIC_ASSERT and (depricated) BOOST_HAS_STATIC_ASSERT:
-//
-#if !defined(BOOST_NO_STATIC_ASSERT) && !defined(BOOST_HAS_STATIC_ASSERT)
-#  define BOOST_HAS_STATIC_ASSERT
-#endif
+// Helper macro BOOST_FALLTHROUGH 
+// Fallback definition of BOOST_FALLTHROUGH macro used to mark intended 
+// fall-through between case labels in a switch statement. We use a definition 
+// that requires a semicolon after it to avoid at least one type of misuse even 
+// on unsupported compilers. 
+// 
+#ifndef BOOST_FALLTHROUGH 
+#  define BOOST_FALLTHROUGH ((void)0) 
+#endif 
 
 //
 // constexpr workarounds
 // 
-#if defined(BOOST_NO_CONSTEXPR)
+#if defined(BOOST_NO_CXX11_CONSTEXPR)
 #define BOOST_CONSTEXPR
 #define BOOST_CONSTEXPR_OR_CONST const
 #else
@@ -890,16 +909,23 @@ namespace std{ using ::type_info; }
 #define BOOST_STATIC_CONSTEXPR  static BOOST_CONSTEXPR_OR_CONST
 
 //
-// Set BOOST_HAS_RVALUE_REFS when BOOST_NO_RVALUE_REFERENCES is not defined
+// Set BOOST_HAS_STATIC_ASSERT when BOOST_NO_CXX11_STATIC_ASSERT is not defined
 //
-#if !defined(BOOST_NO_RVALUE_REFERENCES) && !defined(BOOST_HAS_RVALUE_REFS)
+#if !defined(BOOST_NO_CXX11_STATIC_ASSERT) && !defined(BOOST_HAS_STATIC_ASSERT)
+#  define BOOST_HAS_STATIC_ASSERT
+#endif
+
+//
+// Set BOOST_HAS_RVALUE_REFS when BOOST_NO_CXX11_RVALUE_REFERENCES is not defined
+//
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && !defined(BOOST_HAS_RVALUE_REFS)
 #define BOOST_HAS_RVALUE_REFS
 #endif
 
 //
-// Set BOOST_HAS_VARIADIC_TMPL when BOOST_NO_VARIADIC_TEMPLATES is not defined
+// Set BOOST_HAS_VARIADIC_TMPL when BOOST_NO_CXX11_VARIADIC_TEMPLATES is not defined
 //
-#if !defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(BOOST_HAS_VARIADIC_TMPL)
+#if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) && !defined(BOOST_HAS_VARIADIC_TMPL)
 #define BOOST_HAS_VARIADIC_TMPL
 #endif
 

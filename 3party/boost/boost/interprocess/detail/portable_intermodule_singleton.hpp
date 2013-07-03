@@ -222,11 +222,11 @@ struct thread_safe_global_map_dependant<managed_global_memory>
             //Create a unique current pid based lock file path
             create_and_get_singleton_lock_file_path(lck_str);
             //Open or create and lock file
-            int fd = open_or_create_and_lock_file(lck_str.c_str());
+            int fd_lockfile = open_or_create_and_lock_file(lck_str.c_str());
             //If failed, write a bad file descriptor to notify other modules that
             //something was wrong and unlink shared memory. Mark the function object
             //to tell caller to retry with another shared memory
-            if(fd < 0){
+            if(fd_lockfile < 0){
                this->register_lock_file(GMemMarkToBeRemoved);
                std::string s;
                get_map_name(s);
@@ -235,7 +235,7 @@ struct thread_safe_global_map_dependant<managed_global_memory>
             }
             //If successful, register the file descriptor
             else{
-               this->register_lock_file(fd);
+               this->register_lock_file(fd_lockfile);
             }
          }
          //If the fd was invalid (maybe a previous try failed) notify caller that

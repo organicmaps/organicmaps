@@ -36,22 +36,17 @@ struct list_map_view_base
 {
     typedef ::boost::bimaps::container_adaptor::list_map_adaptor
     <
-        BOOST_DEDUCED_TYPENAME BimapType::core_type::BOOST_NESTED_TEMPLATE index<Tag>::type,
-        BOOST_DEDUCED_TYPENAME ::boost::bimaps::support::
-                    iterator_type_by<Tag,BimapType>::type,
-        BOOST_DEDUCED_TYPENAME ::boost::bimaps::support::
-                    const_iterator_type_by<Tag,BimapType>::type,
-        BOOST_DEDUCED_TYPENAME ::boost::bimaps::support::
-                   reverse_iterator_type_by<Tag,BimapType>::type,
-        BOOST_DEDUCED_TYPENAME ::boost::bimaps::support::
-                   const_reverse_iterator_type_by<Tag,BimapType>::type,
+        BOOST_DEDUCED_TYPENAME BimapType::core_type::
+            BOOST_NESTED_TEMPLATE index<Tag>::type,
+        ::boost::bimaps::detail::              map_view_iterator<Tag,BimapType>,
+        ::boost::bimaps::detail::        const_map_view_iterator<Tag,BimapType>,
+        ::boost::bimaps::detail::      reverse_map_view_iterator<Tag,BimapType>,
+        ::boost::bimaps::detail::const_reverse_map_view_iterator<Tag,BimapType>,
         ::boost::bimaps::container_adaptor::support::iterator_facade_to_base
         <
-            BOOST_DEDUCED_TYPENAME ::boost::bimaps::support::
-                iterator_type_by<Tag,BimapType>::type,
-            BOOST_DEDUCED_TYPENAME ::boost::bimaps::support::
-                const_iterator_type_by<Tag,BimapType>::type
-
+            ::boost::bimaps::detail::      map_view_iterator<Tag,BimapType>,
+            ::boost::bimaps::detail::const_map_view_iterator<Tag,BimapType>
+            
         >,
         ::boost::mpl::na,
         ::boost::mpl::na,
@@ -64,7 +59,7 @@ struct list_map_view_base
         <
             Tag,
             BOOST_DEDUCED_TYPENAME BimapType::relation
-
+            
         >::type
 
     > type;

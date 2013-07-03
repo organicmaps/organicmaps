@@ -24,7 +24,9 @@
 // BOOST_IS_EMPTY(T) should evaluate to true if T is an empty class type (and not a union)
 // BOOST_HAS_TRIVIAL_CONSTRUCTOR(T) should evaluate to true if "T x;" has no effect
 // BOOST_HAS_TRIVIAL_COPY(T) should evaluate to true if T(t) <==> memcpy
+// BOOST_HAS_TRIVIAL_MOVE_CONSTRUCTOR(T) should evaluate to true if T(boost::move(t)) <==> memcpy
 // BOOST_HAS_TRIVIAL_ASSIGN(T) should evaluate to true if t = u <==> memcpy
+// BOOST_HAS_TRIVIAL_MOVE_ASSIGN(T) should evaluate to true if t = boost::move(u) <==> memcpy
 // BOOST_HAS_TRIVIAL_DESTRUCTOR(T) should evaluate to true if ~T() has no effect
 // BOOST_HAS_NOTHROW_CONSTRUCTOR(T) should evaluate to true if "T x;" can not throw
 // BOOST_HAS_NOTHROW_COPY(T) should evaluate to true if T(t) can not throw
@@ -79,8 +81,10 @@
 #   define BOOST_HAS_TYPE_TRAITS_INTRINSICS
 #endif
 
-#if defined(BOOST_MSVC) && defined(BOOST_MSVC_FULL_VER) && (BOOST_MSVC_FULL_VER >=140050215)
+#if (defined(BOOST_MSVC) && defined(BOOST_MSVC_FULL_VER) && (BOOST_MSVC_FULL_VER >=140050215))\
+         || (defined(BOOST_INTEL) && defined(_MSC_VER) && (_MSC_VER >= 1500))
 #   include <boost/type_traits/is_same.hpp>
+#   include <boost/type_traits/is_function.hpp>
 
 #   define BOOST_IS_UNION(T) __is_union(T)
 #   define BOOST_IS_POD(T) (__is_pod(T) && __has_trivial_constructor(T))
@@ -97,12 +101,17 @@
 #   define BOOST_IS_ABSTRACT(T) __is_abstract(T)
 #   define BOOST_IS_BASE_OF(T,U) (__is_base_of(T,U) && !is_same<T,U>::value)
 #   define BOOST_IS_CLASS(T) __is_class(T)
-#   define BOOST_IS_CONVERTIBLE(T,U) ((__is_convertible_to(T,U) || is_same<T,U>::value) && !__is_abstract(U))
+#   define BOOST_IS_CONVERTIBLE(T,U) ((__is_convertible_to(T,U) || (is_same<T,U>::value && !is_function<U>::value)) && !__is_abstract(U))
 #   define BOOST_IS_ENUM(T) __is_enum(T)
 //  This one doesn't quite always do the right thing:
 //  #   define BOOST_IS_POLYMORPHIC(T) __is_polymorphic(T)
 //  This one fails if the default alignment has been changed with /Zp:
 //  #   define BOOST_ALIGNMENT_OF(T) __alignof(T)
+
+#   if defined(_MSC_VER) && (_MSC_VER >= 1700)
+#       define BOOST_HAS_TRIVIAL_MOVE_CONSTRUCTOR(T) ((__has_trivial_move_constructor(T) || ::boost::is_pod<T>::value) && !::boost::is_volatile<T>::value)
+#       define BOOST_HAS_TRIVIAL_MOVE_ASSIGN(T) ((__has_trivial_move_assign(T) || ::boost::is_pod<T>::value) && ! ::boost::is_const<T>::value && !::boost::is_volatile<T>::value)
+#   endif
 
 #   define BOOST_HAS_TYPE_TRAITS_INTRINSICS
 #endif
@@ -180,6 +189,12 @@
 #   endif
 #   if __has_feature(is_polymorphic)
 #     define BOOST_IS_POLYMORPHIC(T) __is_polymorphic(T)
+#   endif
+#   if __has_feature(has_trivial_move_constructor)
+#     define BOOST_HAS_TRIVIAL_MOVE_CONSTRUCTOR(T) __has_trivial_move_constructor(T)
+#   endif
+#   if __has_feature(has_trivial_move_assign)
+#     define BOOST_HAS_TRIVIAL_MOVE_ASSIGN(T) __has_trivial_move_assign(T)
 #   endif
 #   define BOOST_ALIGNMENT_OF(T) __alignof(T)
 
@@ -281,6 +296,7 @@
 #endif
 
 #endif // BOOST_TT_INTRINSICS_HPP_INCLUDED
+
 
 
 

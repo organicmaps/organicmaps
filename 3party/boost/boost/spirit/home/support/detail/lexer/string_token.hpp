@@ -10,6 +10,7 @@
 #include "size_t.hpp"
 #include "consts.hpp" // num_chars, num_wchar_ts
 #include <string>
+#include <limits>
 
 namespace boost
 {
@@ -71,7 +72,7 @@ struct basic_string_token
     {
         const std::size_t max_chars_ = sizeof (CharT) == 1 ?
             num_chars : num_wchar_ts;
-        CharT curr_char_ = sizeof (CharT) == 1 ? -128 : 0;
+        CharT curr_char_ = (std::numeric_limits<CharT>::min)();
         string temp_;
         const CharT *curr_ = _charset.c_str ();
         const CharT *chars_end_ = curr_ + _charset.size ();

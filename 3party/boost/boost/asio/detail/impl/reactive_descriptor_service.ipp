@@ -2,7 +2,7 @@
 // detail/impl/reactive_descriptor_service.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,7 +17,7 @@
 
 #include <boost/asio/detail/config.hpp>
 
-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
+#if !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
 
 #include <boost/asio/error.hpp>
 #include <boost/asio/detail/reactive_descriptor_service.hpp>
@@ -177,7 +177,8 @@ boost::system::error_code reactive_descriptor_service::cancel(
 
 void reactive_descriptor_service::start_op(
     reactive_descriptor_service::implementation_type& impl,
-    int op_type, reactor_op* op, bool is_non_blocking, bool noop)
+    int op_type, reactor_op* op, bool is_continuation,
+    bool is_non_blocking, bool noop)
 {
   if (!noop)
   {
@@ -186,12 +187,12 @@ void reactive_descriptor_service::start_op(
           impl.descriptor_, impl.state_, true, op->ec_))
     {
       reactor_.start_op(op_type, impl.descriptor_,
-          impl.reactor_data_, op, is_non_blocking);
+          impl.reactor_data_, op, is_continuation, is_non_blocking);
       return;
     }
   }
 
-  reactor_.post_immediate_completion(op);
+  reactor_.post_immediate_completion(op, is_continuation);
 }
 
 } // namespace detail
@@ -200,6 +201,6 @@ void reactive_descriptor_service::start_op(
 
 #include <boost/asio/detail/pop_options.hpp>
 
-#endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
+#endif // !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
 
 #endif // BOOST_ASIO_DETAIL_IMPL_REACTIVE_DESCRIPTOR_SERVICE_IPP

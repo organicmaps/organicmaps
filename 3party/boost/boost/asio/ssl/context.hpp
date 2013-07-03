@@ -2,7 +2,7 @@
 // ssl/context.hpp
 // ~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -22,6 +22,7 @@
 # include <boost/asio/ssl/context_service.hpp>
 #else // defined(BOOST_ASIO_ENABLE_OLD_SSL)
 # include <string>
+# include <boost/asio/buffer.hpp>
 # include <boost/asio/io_service.hpp>
 # include <boost/asio/ssl/context_base.hpp>
 # include <boost/asio/ssl/detail/openssl_types.hpp>
@@ -109,6 +110,35 @@ public:
    */
   BOOST_ASIO_DECL impl_type impl();
 
+  /// Clear options on the context.
+  /**
+   * This function may be used to configure the SSL options used by the context.
+   *
+   * @param o A bitmask of options. The available option values are defined in
+   * the context_base class. The specified options, if currently enabled on the
+   * context, are cleared.
+   *
+   * @throws boost::system::system_error Thrown on failure.
+   *
+   * @note Calls @c SSL_CTX_clear_options.
+   */
+  BOOST_ASIO_DECL void clear_options(options o);
+
+  /// Clear options on the context.
+  /**
+   * This function may be used to configure the SSL options used by the context.
+   *
+   * @param o A bitmask of options. The available option values are defined in
+   * the context_base class. The specified options, if currently enabled on the
+   * context, are cleared.
+   *
+   * @param ec Set to indicate what error occurred, if any.
+   *
+   * @note Calls @c SSL_CTX_clear_options.
+   */
+  BOOST_ASIO_DECL boost::system::error_code clear_options(options o,
+      boost::system::error_code& ec);
+
   /// Set options on the context.
   /**
    * This function may be used to configure the SSL options used by the context.
@@ -166,6 +196,35 @@ public:
    */
   BOOST_ASIO_DECL boost::system::error_code set_verify_mode(
       verify_mode v, boost::system::error_code& ec);
+
+  /// Set the peer verification depth.
+  /**
+   * This function may be used to configure the maximum verification depth
+   * allowed by the context.
+   *
+   * @param depth Maximum depth for the certificate chain verification that
+   * shall be allowed.
+   *
+   * @throws boost::system::system_error Thrown on failure.
+   *
+   * @note Calls @c SSL_CTX_set_verify_depth.
+   */
+  BOOST_ASIO_DECL void set_verify_depth(int depth);
+
+  /// Set the peer verification depth.
+  /**
+   * This function may be used to configure the maximum verification depth
+   * allowed by the context.
+   *
+   * @param depth Maximum depth for the certificate chain verification that
+   * shall be allowed.
+   *
+   * @param ec Set to indicate what error occurred, if any.
+   *
+   * @note Calls @c SSL_CTX_set_verify_depth.
+   */
+  BOOST_ASIO_DECL boost::system::error_code set_verify_depth(
+      int depth, boost::system::error_code& ec);
 
   /// Set the callback used to verify peer certificates.
   /**
@@ -239,6 +298,35 @@ public:
   BOOST_ASIO_DECL boost::system::error_code load_verify_file(
       const std::string& filename, boost::system::error_code& ec);
 
+  /// Add certification authority for performing verification.
+  /**
+   * This function is used to add one trusted certification authority
+   * from a memory buffer.
+   *
+   * @param ca The buffer containing the certification authority certificate.
+   * The certificate must use the PEM format.
+   *
+   * @throws boost::system::system_error Thrown on failure.
+   *
+   * @note Calls @c SSL_CTX_get_cert_store and @c X509_STORE_add_cert.
+   */
+  BOOST_ASIO_DECL void add_certificate_authority(const const_buffer& ca);
+
+  /// Add certification authority for performing verification.
+  /**
+   * This function is used to add one trusted certification authority
+   * from a memory buffer.
+   *
+   * @param ca The buffer containing the certification authority certificate.
+   * The certificate must use the PEM format.
+   *
+   * @param ec Set to indicate what error occurred, if any.
+   *
+   * @note Calls @c SSL_CTX_get_cert_store and @c X509_STORE_add_cert.
+   */
+  BOOST_ASIO_DECL boost::system::error_code add_certificate_authority(
+      const const_buffer& ca, boost::system::error_code& ec);
+
   /// Configures the context to use the default directories for finding
   /// certification authority certificates.
   /**
@@ -299,6 +387,37 @@ public:
   BOOST_ASIO_DECL boost::system::error_code add_verify_path(
       const std::string& path, boost::system::error_code& ec);
 
+  /// Use a certificate from a memory buffer.
+  /**
+   * This function is used to load a certificate into the context from a buffer.
+   *
+   * @param certificate The buffer containing the certificate.
+   *
+   * @param format The certificate format (ASN.1 or PEM).
+   *
+   * @throws boost::system::system_error Thrown on failure.
+   *
+   * @note Calls @c SSL_CTX_use_certificate or SSL_CTX_use_certificate_ASN1.
+   */
+  BOOST_ASIO_DECL void use_certificate(
+      const const_buffer& certificate, file_format format);
+
+  /// Use a certificate from a memory buffer.
+  /**
+   * This function is used to load a certificate into the context from a buffer.
+   *
+   * @param certificate The buffer containing the certificate.
+   *
+   * @param format The certificate format (ASN.1 or PEM).
+   *
+   * @param ec Set to indicate what error occurred, if any.
+   *
+   * @note Calls @c SSL_CTX_use_certificate or SSL_CTX_use_certificate_ASN1.
+   */
+  BOOST_ASIO_DECL boost::system::error_code use_certificate(
+      const const_buffer& certificate, file_format format,
+      boost::system::error_code& ec);
+
   /// Use a certificate from a file.
   /**
    * This function is used to load a certificate into the context from a file.
@@ -330,6 +449,35 @@ public:
       const std::string& filename, file_format format,
       boost::system::error_code& ec);
 
+  /// Use a certificate chain from a memory buffer.
+  /**
+   * This function is used to load a certificate chain into the context from a
+   * buffer.
+   *
+   * @param chain The buffer containing the certificate chain. The certificate
+   * chain must use the PEM format.
+   *
+   * @throws boost::system::system_error Thrown on failure.
+   *
+   * @note Calls @c SSL_CTX_use_certificate and SSL_CTX_add_extra_chain_cert.
+   */
+  BOOST_ASIO_DECL void use_certificate_chain(const const_buffer& chain);
+
+  /// Use a certificate chain from a memory buffer.
+  /**
+   * This function is used to load a certificate chain into the context from a
+   * buffer.
+   *
+   * @param chain The buffer containing the certificate chain. The certificate
+   * chain must use the PEM format.
+   *
+   * @param ec Set to indicate what error occurred, if any.
+   *
+   * @note Calls @c SSL_CTX_use_certificate and SSL_CTX_add_extra_chain_cert.
+   */
+  BOOST_ASIO_DECL boost::system::error_code use_certificate_chain(
+      const const_buffer& chain, boost::system::error_code& ec);
+
   /// Use a certificate chain from a file.
   /**
    * This function is used to load a certificate chain into the context from a
@@ -358,6 +506,37 @@ public:
    */
   BOOST_ASIO_DECL boost::system::error_code use_certificate_chain_file(
       const std::string& filename, boost::system::error_code& ec);
+
+  /// Use a private key from a memory buffer.
+  /**
+   * This function is used to load a private key into the context from a buffer.
+   *
+   * @param private_key The buffer containing the private key.
+   *
+   * @param format The private key format (ASN.1 or PEM).
+   *
+   * @throws boost::system::system_error Thrown on failure.
+   *
+   * @note Calls @c SSL_CTX_use_PrivateKey or SSL_CTX_use_PrivateKey_ASN1.
+   */
+  BOOST_ASIO_DECL void use_private_key(
+      const const_buffer& private_key, file_format format);
+
+  /// Use a private key from a memory buffer.
+  /**
+   * This function is used to load a private key into the context from a buffer.
+   *
+   * @param private_key The buffer containing the private key.
+   *
+   * @param format The private key format (ASN.1 or PEM).
+   *
+   * @param ec Set to indicate what error occurred, if any.
+   *
+   * @note Calls @c SSL_CTX_use_PrivateKey or SSL_CTX_use_PrivateKey_ASN1.
+   */
+  BOOST_ASIO_DECL boost::system::error_code use_private_key(
+      const const_buffer& private_key, file_format format,
+      boost::system::error_code& ec);
 
   /// Use a private key from a file.
   /**
@@ -388,6 +567,39 @@ public:
    */
   BOOST_ASIO_DECL boost::system::error_code use_private_key_file(
       const std::string& filename, file_format format,
+      boost::system::error_code& ec);
+
+  /// Use an RSA private key from a memory buffer.
+  /**
+   * This function is used to load an RSA private key into the context from a
+   * buffer.
+   *
+   * @param private_key The buffer containing the RSA private key.
+   *
+   * @param format The private key format (ASN.1 or PEM).
+   *
+   * @throws boost::system::system_error Thrown on failure.
+   *
+   * @note Calls @c SSL_CTX_use_RSAPrivateKey or SSL_CTX_use_RSAPrivateKey_ASN1.
+   */
+  BOOST_ASIO_DECL void use_rsa_private_key(
+      const const_buffer& private_key, file_format format);
+
+  /// Use an RSA private key from a memory buffer.
+  /**
+   * This function is used to load an RSA private key into the context from a
+   * buffer.
+   *
+   * @param private_key The buffer containing the RSA private key.
+   *
+   * @param format The private key format (ASN.1 or PEM).
+   *
+   * @param ec Set to indicate what error occurred, if any.
+   *
+   * @note Calls @c SSL_CTX_use_RSAPrivateKey or SSL_CTX_use_RSAPrivateKey_ASN1.
+   */
+  BOOST_ASIO_DECL boost::system::error_code use_rsa_private_key(
+      const const_buffer& private_key, file_format format,
       boost::system::error_code& ec);
 
   /// Use an RSA private key from a file.
@@ -422,6 +634,37 @@ public:
   BOOST_ASIO_DECL boost::system::error_code use_rsa_private_key_file(
       const std::string& filename, file_format format,
       boost::system::error_code& ec);
+
+  /// Use the specified memory buffer to obtain the temporary Diffie-Hellman
+  /// parameters.
+  /**
+   * This function is used to load Diffie-Hellman parameters into the context
+   * from a buffer.
+   *
+   * @param dh The memory buffer containing the Diffie-Hellman parameters. The
+   * buffer must use the PEM format.
+   *
+   * @throws boost::system::system_error Thrown on failure.
+   *
+   * @note Calls @c SSL_CTX_set_tmp_dh.
+   */
+  BOOST_ASIO_DECL void use_tmp_dh(const const_buffer& dh);
+
+  /// Use the specified memory buffer to obtain the temporary Diffie-Hellman
+  /// parameters.
+  /**
+   * This function is used to load Diffie-Hellman parameters into the context
+   * from a buffer.
+   *
+   * @param dh The memory buffer containing the Diffie-Hellman parameters. The
+   * buffer must use the PEM format.
+   *
+   * @param ec Set to indicate what error occurred, if any.
+   *
+   * @note Calls @c SSL_CTX_set_tmp_dh.
+   */
+  BOOST_ASIO_DECL boost::system::error_code use_tmp_dh(
+      const const_buffer& dh, boost::system::error_code& ec);
 
   /// Use the specified file to obtain the temporary Diffie-Hellman parameters.
   /**
@@ -494,6 +737,12 @@ public:
       boost::system::error_code& ec);
 
 private:
+  struct bio_cleanup;
+  struct x509_cleanup;
+  struct evp_pkey_cleanup;
+  struct rsa_cleanup;
+  struct dh_cleanup;
+
   // Helper function used to set a peer certificate verification callback.
   BOOST_ASIO_DECL boost::system::error_code do_set_verify_callback(
       detail::verify_callback_base* callback, boost::system::error_code& ec);
@@ -509,6 +758,13 @@ private:
   // Callback used when the SSL implementation wants a password.
   BOOST_ASIO_DECL static int password_callback_function(
       char* buf, int size, int purpose, void* data);
+
+  // Helper function to set the temporary Diffie-Hellman parameters from a BIO.
+  BOOST_ASIO_DECL boost::system::error_code do_use_tmp_dh(
+      BIO* bio, boost::system::error_code& ec);
+
+  // Helper function to make a BIO from a memory buffer.
+  BOOST_ASIO_DECL BIO* make_buffer_bio(const const_buffer& b);
 
   // The underlying native implementation.
   native_handle_type handle_;

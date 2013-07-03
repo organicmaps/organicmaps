@@ -250,7 +250,7 @@ namespace boost { namespace program_options {
         }
 
         /** Does NOT set option name, because no option name makes sense */
-        virtual void set_option_name(const std::string& option_name){}
+        virtual void set_option_name(const std::string&) {}
 
         ~error_with_no_option_name() throw() {}
     };

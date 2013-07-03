@@ -2,7 +2,7 @@
 // basic_streambuf.hpp
 // ~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,18 +17,18 @@
 
 #include <boost/asio/detail/config.hpp>
 
-#if !defined(BOOST_NO_IOSTREAM)
+#if !defined(BOOST_ASIO_NO_IOSTREAM)
 
 #include <algorithm>
 #include <cstring>
 #include <stdexcept>
 #include <streambuf>
 #include <vector>
-#include <boost/limits.hpp>
-#include <boost/throw_exception.hpp>
 #include <boost/asio/basic_streambuf_fwd.hpp>
 #include <boost/asio/buffer.hpp>
+#include <boost/asio/detail/limits.hpp>
 #include <boost/asio/detail/noncopyable.hpp>
+#include <boost/asio/detail/throw_exception.hpp>
 
 #include <boost/asio/detail/push_options.hpp>
 
@@ -327,7 +327,7 @@ protected:
       else
       {
         std::length_error ex("boost::asio::streambuf too long");
-        boost::throw_exception(ex);
+        boost::asio::detail::throw_exception(ex);
       }
     }
 
@@ -365,6 +365,6 @@ inline std::size_t read_size_helper(
 
 #include <boost/asio/detail/pop_options.hpp>
 
-#endif // !defined(BOOST_NO_IOSTREAM)
+#endif // !defined(BOOST_ASIO_NO_IOSTREAM)
 
 #endif // BOOST_ASIO_BASIC_STREAMBUF_HPP

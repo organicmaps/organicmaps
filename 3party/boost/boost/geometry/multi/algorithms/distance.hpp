@@ -21,6 +21,7 @@
 #include <boost/geometry/multi/core/tags.hpp>
 #include <boost/geometry/multi/core/geometry_id.hpp>
 #include <boost/geometry/multi/core/point_type.hpp>
+#include <boost/geometry/multi/geometries/concepts/check.hpp>
 
 #include <boost/geometry/algorithms/distance.hpp>
 #include <boost/geometry/multi/algorithms/num_points.hpp>

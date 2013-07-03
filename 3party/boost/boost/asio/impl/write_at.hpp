@@ -2,7 +2,7 @@
 // impl/write_at.hpp
 // ~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -23,6 +23,7 @@
 #include <boost/asio/detail/consuming_buffers.hpp>
 #include <boost/asio/detail/dependent_type.hpp>
 #include <boost/asio/detail/handler_alloc_helpers.hpp>
+#include <boost/asio/detail/handler_cont_helpers.hpp>
 #include <boost/asio/detail/handler_invoke_helpers.hpp>
 #include <boost/asio/detail/handler_type_requirements.hpp>
 #include <boost/asio/detail/throw_error.hpp>
@@ -35,7 +36,7 @@ namespace asio {
 template <typename SyncRandomAccessWriteDevice, typename ConstBufferSequence,
     typename CompletionCondition>
 std::size_t write_at(SyncRandomAccessWriteDevice& d,
-    boost::uint64_t offset, const ConstBufferSequence& buffers,
+    uint64_t offset, const ConstBufferSequence& buffers,
     CompletionCondition completion_condition, boost::system::error_code& ec)
 {
   ec = boost::system::error_code();
@@ -58,7 +59,7 @@ std::size_t write_at(SyncRandomAccessWriteDevice& d,
 
 template <typename SyncRandomAccessWriteDevice, typename ConstBufferSequence>
 inline std::size_t write_at(SyncRandomAccessWriteDevice& d,
-    boost::uint64_t offset, const ConstBufferSequence& buffers)
+    uint64_t offset, const ConstBufferSequence& buffers)
 {
   boost::system::error_code ec;
   std::size_t bytes_transferred = write_at(
@@ -69,7 +70,7 @@ inline std::size_t write_at(SyncRandomAccessWriteDevice& d,
 
 template <typename SyncRandomAccessWriteDevice, typename ConstBufferSequence>
 inline std::size_t write_at(SyncRandomAccessWriteDevice& d,
-    boost::uint64_t offset, const ConstBufferSequence& buffers,
+    uint64_t offset, const ConstBufferSequence& buffers,
     boost::system::error_code& ec)
 {
   return write_at(d, offset, buffers, transfer_all(), ec);
@@ -78,7 +79,7 @@ inline std::size_t write_at(SyncRandomAccessWriteDevice& d,
 template <typename SyncRandomAccessWriteDevice, typename ConstBufferSequence,
     typename CompletionCondition>
 inline std::size_t write_at(SyncRandomAccessWriteDevice& d,
-    boost::uint64_t offset, const ConstBufferSequence& buffers,
+    uint64_t offset, const ConstBufferSequence& buffers,
     CompletionCondition completion_condition)
 {
   boost::system::error_code ec;
@@ -88,12 +89,12 @@ inline std::size_t write_at(SyncRandomAccessWriteDevice& d,
   return bytes_transferred;
 }
 
-#if !defined(BOOST_NO_IOSTREAM)
+#if !defined(BOOST_ASIO_NO_IOSTREAM)
 
 template <typename SyncRandomAccessWriteDevice, typename Allocator,
     typename CompletionCondition>
 std::size_t write_at(SyncRandomAccessWriteDevice& d,
-    boost::uint64_t offset, boost::asio::basic_streambuf<Allocator>& b,
+    uint64_t offset, boost::asio::basic_streambuf<Allocator>& b,
     CompletionCondition completion_condition, boost::system::error_code& ec)
 {
   std::size_t bytes_transferred = write_at(
@@ -104,7 +105,7 @@ std::size_t write_at(SyncRandomAccessWriteDevice& d,
 
 template <typename SyncRandomAccessWriteDevice, typename Allocator>
 inline std::size_t write_at(SyncRandomAccessWriteDevice& d,
-    boost::uint64_t offset, boost::asio::basic_streambuf<Allocator>& b)
+    uint64_t offset, boost::asio::basic_streambuf<Allocator>& b)
 {
   boost::system::error_code ec;
   std::size_t bytes_transferred = write_at(d, offset, b, transfer_all(), ec);
@@ -114,7 +115,7 @@ inline std::size_t write_at(SyncRandomAccessWriteDevice& d,
 
 template <typename SyncRandomAccessWriteDevice, typename Allocator>
 inline std::size_t write_at(SyncRandomAccessWriteDevice& d,
-    boost::uint64_t offset, boost::asio::basic_streambuf<Allocator>& b,
+    uint64_t offset, boost::asio::basic_streambuf<Allocator>& b,
     boost::system::error_code& ec)
 {
   return write_at(d, offset, b, transfer_all(), ec);
@@ -123,7 +124,7 @@ inline std::size_t write_at(SyncRandomAccessWriteDevice& d,
 template <typename SyncRandomAccessWriteDevice, typename Allocator,
     typename CompletionCondition>
 inline std::size_t write_at(SyncRandomAccessWriteDevice& d,
-    boost::uint64_t offset, boost::asio::basic_streambuf<Allocator>& b,
+    uint64_t offset, boost::asio::basic_streambuf<Allocator>& b,
     CompletionCondition completion_condition)
 {
   boost::system::error_code ec;
@@ -133,7 +134,7 @@ inline std::size_t write_at(SyncRandomAccessWriteDevice& d,
   return bytes_transferred;
 }
 
-#endif // !defined(BOOST_NO_IOSTREAM)
+#endif // !defined(BOOST_ASIO_NO_IOSTREAM)
 
 namespace detail
 {
@@ -144,13 +145,14 @@ namespace detail
   {
   public:
     write_at_op(AsyncRandomAccessWriteDevice& device,
-        boost::uint64_t offset, const ConstBufferSequence& buffers,
+        uint64_t offset, const ConstBufferSequence& buffers,
         CompletionCondition completion_condition, WriteHandler& handler)
       : detail::base_from_completion_cond<
           CompletionCondition>(completion_condition),
         device_(device),
         offset_(offset),
         buffers_(buffers),
+        start_(0),
         total_transferred_(0),
         handler_(BOOST_ASIO_MOVE_CAST(WriteHandler)(handler))
     {
@@ -162,6 +164,7 @@ namespace detail
         device_(other.device_),
         offset_(other.offset_),
         buffers_(other.buffers_),
+        start_(other.start_),
         total_transferred_(other.total_transferred_),
         handler_(other.handler_)
     {
@@ -172,6 +175,7 @@ namespace detail
         device_(other.device_),
         offset_(other.offset_),
         buffers_(other.buffers_),
+        start_(other.start_),
         total_transferred_(other.total_transferred_),
         handler_(BOOST_ASIO_MOVE_CAST(WriteHandler)(other.handler_))
     {
@@ -181,7 +185,7 @@ namespace detail
     void operator()(const boost::system::error_code& ec,
         std::size_t bytes_transferred, int start = 0)
     {
-      switch (start)
+      switch (start_ = start)
       {
         case 1:
         buffers_.prepare(this->check_for_completion(ec, total_transferred_));
@@ -205,9 +209,10 @@ namespace detail
 
   //private:
     AsyncRandomAccessWriteDevice& device_;
-    boost::uint64_t offset_;
+    uint64_t offset_;
     boost::asio::detail::consuming_buffers<
       const_buffer, ConstBufferSequence> buffers_;
+    int start_;
     std::size_t total_transferred_;
     WriteHandler handler_;
   };
@@ -220,7 +225,7 @@ namespace detail
   {
   public:
     write_at_op(AsyncRandomAccessWriteDevice& device,
-        boost::uint64_t offset, const boost::asio::mutable_buffers_1& buffers,
+        uint64_t offset, const boost::asio::mutable_buffers_1& buffers,
         CompletionCondition completion_condition,
         WriteHandler& handler)
       : detail::base_from_completion_cond<
@@ -228,6 +233,7 @@ namespace detail
         device_(device),
         offset_(offset),
         buffer_(buffers),
+        start_(0),
         total_transferred_(0),
         handler_(BOOST_ASIO_MOVE_CAST(WriteHandler)(handler))
     {
@@ -239,6 +245,7 @@ namespace detail
         device_(other.device_),
         offset_(other.offset_),
         buffer_(other.buffer_),
+        start_(other.start_),
         total_transferred_(other.total_transferred_),
         handler_(other.handler_)
     {
@@ -249,6 +256,7 @@ namespace detail
         device_(other.device_),
         offset_(other.offset_),
         buffer_(other.buffer_),
+        start_(other.start_),
         total_transferred_(other.total_transferred_),
         handler_(BOOST_ASIO_MOVE_CAST(WriteHandler)(other.handler_))
     {
@@ -259,7 +267,7 @@ namespace detail
         std::size_t bytes_transferred, int start = 0)
     {
       std::size_t n = 0;
-      switch (start)
+      switch (start_ = start)
       {
         case 1:
         n = this->check_for_completion(ec, total_transferred_);
@@ -282,8 +290,9 @@ namespace detail
 
   //private:
     AsyncRandomAccessWriteDevice& device_;
-    boost::uint64_t offset_;
+    uint64_t offset_;
     boost::asio::mutable_buffer buffer_;
+    int start_;
     std::size_t total_transferred_;
     WriteHandler handler_;
   };
@@ -296,7 +305,7 @@ namespace detail
   {
   public:
     write_at_op(AsyncRandomAccessWriteDevice& device,
-        boost::uint64_t offset, const boost::asio::const_buffers_1& buffers,
+        uint64_t offset, const boost::asio::const_buffers_1& buffers,
         CompletionCondition completion_condition,
         WriteHandler& handler)
       : detail::base_from_completion_cond<
@@ -304,6 +313,7 @@ namespace detail
         device_(device),
         offset_(offset),
         buffer_(buffers),
+        start_(0),
         total_transferred_(0),
         handler_(BOOST_ASIO_MOVE_CAST(WriteHandler)(handler))
     {
@@ -315,6 +325,7 @@ namespace detail
         device_(other.device_),
         offset_(other.offset_),
         buffer_(other.buffer_),
+        start_(other.start_),
         total_transferred_(other.total_transferred_),
         handler_(other.handler_)
     {
@@ -325,6 +336,7 @@ namespace detail
         device_(other.device_),
         offset_(other.offset_),
         buffer_(other.buffer_),
+        start_(other.start_),
         total_transferred_(other.total_transferred_),
         handler_(BOOST_ASIO_MOVE_CAST(WriteHandler)(other.handler_))
     {
@@ -335,7 +347,7 @@ namespace detail
         std::size_t bytes_transferred, int start = 0)
     {
       std::size_t n = 0;
-      switch (start)
+      switch (start_ = start)
       {
         case 1:
         n = this->check_for_completion(ec, total_transferred_);
@@ -358,8 +370,9 @@ namespace detail
 
   //private:
     AsyncRandomAccessWriteDevice& device_;
-    boost::uint64_t offset_;
+    uint64_t offset_;
     boost::asio::const_buffer buffer_;
+    int start_;
     std::size_t total_transferred_;
     WriteHandler handler_;
   };
@@ -372,13 +385,14 @@ namespace detail
   {
   public:
     write_at_op(AsyncRandomAccessWriteDevice& device,
-        boost::uint64_t offset, const boost::array<Elem, 2>& buffers,
+        uint64_t offset, const boost::array<Elem, 2>& buffers,
         CompletionCondition completion_condition, WriteHandler& handler)
       : detail::base_from_completion_cond<
           CompletionCondition>(completion_condition),
         device_(device),
         offset_(offset),
         buffers_(buffers),
+        start_(0),
         total_transferred_(0),
         handler_(BOOST_ASIO_MOVE_CAST(WriteHandler)(handler))
     {
@@ -390,6 +404,7 @@ namespace detail
         device_(other.device_),
         offset_(other.offset_),
         buffers_(other.buffers_),
+        start_(other.start_),
         total_transferred_(other.total_transferred_),
         handler_(other.handler_)
     {
@@ -400,6 +415,7 @@ namespace detail
         device_(other.device_),
         offset_(other.offset_),
         buffers_(other.buffers_),
+        start_(other.start_),
         total_transferred_(other.total_transferred_),
         handler_(BOOST_ASIO_MOVE_CAST(WriteHandler)(other.handler_))
     {
@@ -416,7 +432,7 @@ namespace detail
       std::size_t buffer_size0 = boost::asio::buffer_size(bufs[0]);
       std::size_t buffer_size1 = boost::asio::buffer_size(bufs[1]);
       std::size_t n = 0;
-      switch (start)
+      switch (start_ = start)
       {
         case 1:
         n = this->check_for_completion(ec, total_transferred_);
@@ -443,8 +459,9 @@ namespace detail
 
   //private:
     AsyncRandomAccessWriteDevice& device_;
-    boost::uint64_t offset_;
+    uint64_t offset_;
     boost::array<Elem, 2> buffers_;
+    int start_;
     std::size_t total_transferred_;
     WriteHandler handler_;
   };
@@ -459,13 +476,14 @@ namespace detail
   {
   public:
     write_at_op(AsyncRandomAccessWriteDevice& device,
-        boost::uint64_t offset, const std::array<Elem, 2>& buffers,
+        uint64_t offset, const std::array<Elem, 2>& buffers,
         CompletionCondition completion_condition, WriteHandler& handler)
       : detail::base_from_completion_cond<
           CompletionCondition>(completion_condition),
         device_(device),
         offset_(offset),
         buffers_(buffers),
+        start_(0),
         total_transferred_(0),
         handler_(BOOST_ASIO_MOVE_CAST(WriteHandler)(handler))
     {
@@ -477,6 +495,7 @@ namespace detail
         device_(other.device_),
         offset_(other.offset_),
         buffers_(other.buffers_),
+        start_(other.start_),
         total_transferred_(other.total_transferred_),
         handler_(other.handler_)
     {
@@ -487,6 +506,7 @@ namespace detail
         device_(other.device_),
         offset_(other.offset_),
         buffers_(other.buffers_),
+        start_(other.start_),
         total_transferred_(other.total_transferred_),
         handler_(BOOST_ASIO_MOVE_CAST(WriteHandler)(other.handler_))
     {
@@ -503,7 +523,7 @@ namespace detail
       std::size_t buffer_size0 = boost::asio::buffer_size(bufs[0]);
       std::size_t buffer_size1 = boost::asio::buffer_size(bufs[1]);
       std::size_t n = 0;
-      switch (start)
+      switch (start_ = start)
       {
         case 1:
         n = this->check_for_completion(ec, total_transferred_);
@@ -530,8 +550,9 @@ namespace detail
 
   //private:
     AsyncRandomAccessWriteDevice& device_;
-    boost::uint64_t offset_;
+    uint64_t offset_;
     std::array<Elem, 2> buffers_;
+    int start_;
     std::size_t total_transferred_;
     WriteHandler handler_;
   };
@@ -556,6 +577,17 @@ namespace detail
   {
     boost_asio_handler_alloc_helpers::deallocate(
         pointer, size, this_handler->handler_);
+  }
+
+  template <typename AsyncRandomAccessWriteDevice, typename ConstBufferSequence,
+      typename CompletionCondition, typename WriteHandler>
+  inline bool asio_handler_is_continuation(
+      write_at_op<AsyncRandomAccessWriteDevice, ConstBufferSequence,
+        CompletionCondition, WriteHandler>* this_handler)
+  {
+    return this_handler->start_ == 0 ? true
+      : boost_asio_handler_cont_helpers::is_continuation(
+          this_handler->handler_);
   }
 
   template <typename Function, typename AsyncRandomAccessWriteDevice,
@@ -585,7 +617,7 @@ namespace detail
   inline write_at_op<AsyncRandomAccessWriteDevice,
       ConstBufferSequence, CompletionCondition, WriteHandler>
   make_write_at_op(AsyncRandomAccessWriteDevice& d,
-      boost::uint64_t offset, const ConstBufferSequence& buffers,
+      uint64_t offset, const ConstBufferSequence& buffers,
       CompletionCondition completion_condition, WriteHandler handler)
   {
     return write_at_op<AsyncRandomAccessWriteDevice,
@@ -596,8 +628,10 @@ namespace detail
 
 template <typename AsyncRandomAccessWriteDevice, typename ConstBufferSequence,
     typename CompletionCondition, typename WriteHandler>
-inline void async_write_at(AsyncRandomAccessWriteDevice& d,
-    boost::uint64_t offset, const ConstBufferSequence& buffers,
+inline BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
+    void (boost::system::error_code, std::size_t))
+async_write_at(AsyncRandomAccessWriteDevice& d,
+    uint64_t offset, const ConstBufferSequence& buffers,
     CompletionCondition completion_condition,
     BOOST_ASIO_MOVE_ARG(WriteHandler) handler)
 {
@@ -605,29 +639,45 @@ inline void async_write_at(AsyncRandomAccessWriteDevice& d,
   // not meet the documented type requirements for a WriteHandler.
   BOOST_ASIO_WRITE_HANDLER_CHECK(WriteHandler, handler) type_check;
 
-  detail::make_write_at_op(
-    d, offset, buffers, completion_condition,
-      BOOST_ASIO_MOVE_CAST(WriteHandler)(handler))(
-        boost::system::error_code(), 0, 1);
+  detail::async_result_init<
+    WriteHandler, void (boost::system::error_code, std::size_t)> init(
+      BOOST_ASIO_MOVE_CAST(WriteHandler)(handler));
+
+  detail::write_at_op<AsyncRandomAccessWriteDevice, ConstBufferSequence,
+    CompletionCondition, BOOST_ASIO_HANDLER_TYPE(
+      WriteHandler, void (boost::system::error_code, std::size_t))>(
+        d, offset, buffers, completion_condition, init.handler)(
+          boost::system::error_code(), 0, 1);
+
+  return init.result.get();
 }
 
 template <typename AsyncRandomAccessWriteDevice, typename ConstBufferSequence,
     typename WriteHandler>
-inline void async_write_at(AsyncRandomAccessWriteDevice& d,
-    boost::uint64_t offset, const ConstBufferSequence& buffers,
+inline BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
+    void (boost::system::error_code, std::size_t))
+async_write_at(AsyncRandomAccessWriteDevice& d,
+    uint64_t offset, const ConstBufferSequence& buffers,
     BOOST_ASIO_MOVE_ARG(WriteHandler) handler)
 {
   // If you get an error on the following line it means that your handler does
   // not meet the documented type requirements for a WriteHandler.
   BOOST_ASIO_WRITE_HANDLER_CHECK(WriteHandler, handler) type_check;
 
-  detail::make_write_at_op(
-    d, offset, buffers, transfer_all(),
-      BOOST_ASIO_MOVE_CAST(WriteHandler)(handler))(
-        boost::system::error_code(), 0, 1);
+  detail::async_result_init<
+    WriteHandler, void (boost::system::error_code, std::size_t)> init(
+      BOOST_ASIO_MOVE_CAST(WriteHandler)(handler));
+
+  detail::write_at_op<AsyncRandomAccessWriteDevice, ConstBufferSequence,
+    detail::transfer_all_t, BOOST_ASIO_HANDLER_TYPE(
+      WriteHandler, void (boost::system::error_code, std::size_t))>(
+        d, offset, buffers, transfer_all(), init.handler)(
+          boost::system::error_code(), 0, 1);
+
+  return init.result.get();
 }
 
-#if !defined(BOOST_NO_IOSTREAM)
+#if !defined(BOOST_ASIO_NO_IOSTREAM)
 
 namespace detail
 {
@@ -685,6 +735,14 @@ namespace detail
         pointer, size, this_handler->handler_);
   }
 
+  template <typename Allocator, typename WriteHandler>
+  inline bool asio_handler_is_continuation(
+      write_at_streambuf_op<Allocator, WriteHandler>* this_handler)
+  {
+    return boost_asio_handler_cont_helpers::is_continuation(
+        this_handler->handler_);
+  }
+
   template <typename Function, typename Allocator, typename WriteHandler>
   inline void asio_handler_invoke(Function& function,
       write_at_streambuf_op<Allocator, WriteHandler>* this_handler)
@@ -712,8 +770,10 @@ namespace detail
 
 template <typename AsyncRandomAccessWriteDevice, typename Allocator,
     typename CompletionCondition, typename WriteHandler>
-inline void async_write_at(AsyncRandomAccessWriteDevice& d,
-    boost::uint64_t offset, boost::asio::basic_streambuf<Allocator>& b,
+inline BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
+    void (boost::system::error_code, std::size_t))
+async_write_at(AsyncRandomAccessWriteDevice& d,
+    uint64_t offset, boost::asio::basic_streambuf<Allocator>& b,
     CompletionCondition completion_condition,
     BOOST_ASIO_MOVE_ARG(WriteHandler) handler)
 {
@@ -721,27 +781,43 @@ inline void async_write_at(AsyncRandomAccessWriteDevice& d,
   // not meet the documented type requirements for a WriteHandler.
   BOOST_ASIO_WRITE_HANDLER_CHECK(WriteHandler, handler) type_check;
 
+  detail::async_result_init<
+    WriteHandler, void (boost::system::error_code, std::size_t)> init(
+      BOOST_ASIO_MOVE_CAST(WriteHandler)(handler));
+
   async_write_at(d, offset, b.data(), completion_condition,
-      detail::make_write_at_streambuf_op(
-        b, BOOST_ASIO_MOVE_CAST(WriteHandler)(handler)));
+    detail::write_at_streambuf_op<Allocator, BOOST_ASIO_HANDLER_TYPE(
+      WriteHandler, void (boost::system::error_code, std::size_t))>(
+        b, init.handler));
+
+  return init.result.get();
 }
 
 template <typename AsyncRandomAccessWriteDevice, typename Allocator,
     typename WriteHandler>
-inline void async_write_at(AsyncRandomAccessWriteDevice& d,
-    boost::uint64_t offset, boost::asio::basic_streambuf<Allocator>& b,
+inline BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
+    void (boost::system::error_code, std::size_t))
+async_write_at(AsyncRandomAccessWriteDevice& d,
+    uint64_t offset, boost::asio::basic_streambuf<Allocator>& b,
     BOOST_ASIO_MOVE_ARG(WriteHandler) handler)
 {
   // If you get an error on the following line it means that your handler does
   // not meet the documented type requirements for a WriteHandler.
   BOOST_ASIO_WRITE_HANDLER_CHECK(WriteHandler, handler) type_check;
 
+  detail::async_result_init<
+    WriteHandler, void (boost::system::error_code, std::size_t)> init(
+      BOOST_ASIO_MOVE_CAST(WriteHandler)(handler));
+
   async_write_at(d, offset, b.data(), transfer_all(),
-      detail::make_write_at_streambuf_op(
-        b, BOOST_ASIO_MOVE_CAST(WriteHandler)(handler)));
+    detail::write_at_streambuf_op<Allocator, BOOST_ASIO_HANDLER_TYPE(
+      WriteHandler, void (boost::system::error_code, std::size_t))>(
+        b, init.handler));
+
+  return init.result.get();
 }
 
-#endif // !defined(BOOST_NO_IOSTREAM)
+#endif // !defined(BOOST_ASIO_NO_IOSTREAM)
 
 } // namespace asio
 } // namespace boost

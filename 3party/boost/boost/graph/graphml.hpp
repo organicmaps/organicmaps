@@ -204,14 +204,14 @@ template<typename MutableGraph>
 const char* mutate_graph_impl<MutableGraph>::m_type_names[] = {"boolean", "int", "long", "float", "double", "string"};
 
 void BOOST_GRAPH_DECL
-read_graphml(std::istream& in, mutate_graph& g);
+read_graphml(std::istream& in, mutate_graph& g, size_t desired_idx);
 
 template<typename MutableGraph>
 void
-read_graphml(std::istream& in, MutableGraph& g, dynamic_properties& dp)
+read_graphml(std::istream& in, MutableGraph& g, dynamic_properties& dp, size_t desired_idx = 0)
 {
     mutate_graph_impl<MutableGraph> mg(g,dp);
-    read_graphml(in, mg);
+    read_graphml(in, mg, desired_idx);
 }
 
 template <typename Types>

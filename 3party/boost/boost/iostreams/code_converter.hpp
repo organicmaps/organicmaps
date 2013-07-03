@@ -393,7 +393,8 @@ std::streamsize code_converter<Device, Codevt, Alloc>::write
 
         switch (result) {
         case std::codecvt_base::partial:
-            partial = true; // Fall through.
+            partial = true;
+            BOOST_FALLTHROUGH;
         case std::codecvt_base::ok:
             total = static_cast<std::streamsize>(nint - s);
             break;

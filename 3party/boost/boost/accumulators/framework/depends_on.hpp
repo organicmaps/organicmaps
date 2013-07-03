@@ -356,7 +356,7 @@ namespace boost { namespace accumulators
             type;
         };
 
-        // BUGBUG work around a MPL bug wrt map insertion
+        // BUGBUG work around an MPL bug wrt map insertion
         template<typename FeatureMap, typename Feature>
         struct insert_feature
           : mpl::eval_if<

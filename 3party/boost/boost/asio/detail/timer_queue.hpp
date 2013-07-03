@@ -2,7 +2,7 @@
 // detail/timer_queue.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -18,10 +18,9 @@
 #include <boost/asio/detail/config.hpp>
 #include <cstddef>
 #include <vector>
-#include <boost/config.hpp>
-#include <boost/limits.hpp>
-#include <boost/cstdint.hpp>
+#include <boost/asio/detail/cstdint.hpp>
 #include <boost/asio/detail/date_time_fwd.hpp>
+#include <boost/asio/detail/limits.hpp>
 #include <boost/asio/detail/op_queue.hpp>
 #include <boost/asio/detail/timer_queue_base.hpp>
 #include <boost/asio/detail/wait_op.hpp>
@@ -288,7 +287,7 @@ private:
   {
     if (d.ticks() <= 0)
       return 0;
-    boost::int64_t msec = d.total_milliseconds();
+    int64_t msec = d.total_milliseconds();
     if (msec == 0)
       return 1;
     if (msec > max_duration)
@@ -302,7 +301,7 @@ private:
   {
     if (d.ticks() <= 0)
       return 0;
-    boost::int64_t usec = d.total_microseconds();
+    int64_t usec = d.total_microseconds();
     if (usec == 0)
       return 1;
     if (usec > max_duration)

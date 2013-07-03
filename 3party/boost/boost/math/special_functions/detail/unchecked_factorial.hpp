@@ -15,7 +15,9 @@
 #pragma warning(push) // Temporary until lexical cast fixed.
 #pragma warning(disable: 4127 4701)
 #endif
+#ifndef BOOST_MATH_NO_LEXICAL_CAST
 #include <boost/lexical_cast.hpp>
+#endif
 #ifdef BOOST_MSVC
 #pragma warning(pop)
 #endif
@@ -279,6 +281,8 @@ struct max_factorial<double>
       value = ::boost::math::max_factorial<long double>::value);
 };
 
+#ifndef BOOST_MATH_NO_LEXICAL_CAST
+
 template <class T>
 inline T unchecked_factorial(unsigned i BOOST_MATH_APPEND_EXPLICIT_TEMPLATE_TYPE_SPEC(T))
 {
@@ -402,6 +406,22 @@ struct max_factorial
 {
    BOOST_STATIC_CONSTANT(unsigned, value = 100);
 };
+
+#else // BOOST_MATH_NO_LEXICAL_CAST
+
+template <class T>
+inline T unchecked_factorial(unsigned i BOOST_MATH_APPEND_EXPLICIT_TEMPLATE_TYPE_SPEC(T))
+{
+   return 1;
+}
+
+template <class T>
+struct max_factorial
+{
+   BOOST_STATIC_CONSTANT(unsigned, value = 0);
+};
+
+#endif
 
 #ifndef BOOST_NO_INCLASS_MEMBER_INITIALIZATION
 template <class T>

@@ -2,7 +2,7 @@
 // impl/io_service.hpp
 // ~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -77,24 +77,37 @@ namespace boost {
 namespace asio {
 
 template <typename CompletionHandler>
-inline void io_service::dispatch(
-    BOOST_ASIO_MOVE_ARG(CompletionHandler) handler)
+inline BOOST_ASIO_INITFN_RESULT_TYPE(CompletionHandler, void ())
+io_service::dispatch(BOOST_ASIO_MOVE_ARG(CompletionHandler) handler)
 {
   // If you get an error on the following line it means that your handler does
   // not meet the documented type requirements for a CompletionHandler.
   BOOST_ASIO_COMPLETION_HANDLER_CHECK(CompletionHandler, handler) type_check;
 
-  impl_.dispatch(BOOST_ASIO_MOVE_CAST(CompletionHandler)(handler));
+  detail::async_result_init<
+    CompletionHandler, void ()> init(
+      BOOST_ASIO_MOVE_CAST(CompletionHandler)(handler));
+
+  impl_.dispatch(init.handler);
+
+  return init.result.get();
 }
 
 template <typename CompletionHandler>
-inline void io_service::post(BOOST_ASIO_MOVE_ARG(CompletionHandler) handler)
+inline BOOST_ASIO_INITFN_RESULT_TYPE(CompletionHandler, void ())
+io_service::post(BOOST_ASIO_MOVE_ARG(CompletionHandler) handler)
 {
   // If you get an error on the following line it means that your handler does
   // not meet the documented type requirements for a CompletionHandler.
   BOOST_ASIO_COMPLETION_HANDLER_CHECK(CompletionHandler, handler) type_check;
 
-  impl_.post(BOOST_ASIO_MOVE_CAST(CompletionHandler)(handler));
+  detail::async_result_init<
+    CompletionHandler, void ()> init(
+      BOOST_ASIO_MOVE_CAST(CompletionHandler)(handler));
+
+  impl_.post(init.handler);
+
+  return init.result.get();
 }
 
 template <typename Handler>

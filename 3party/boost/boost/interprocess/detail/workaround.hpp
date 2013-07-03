@@ -17,12 +17,14 @@
    #define BOOST_INTERPROCESS_WINDOWS
    #define BOOST_INTERPROCESS_FORCE_GENERIC_EMULATION
    #define BOOST_INTERPROCESS_HAS_KERNEL_BOOTTIME
+   //Define this to connect with shared memory created with versions < 1.54
+   //#define BOOST_INTERPROCESS_BOOTSTAMP_IS_LASTBOOTUPTIME
 #else
    #include <unistd.h>
 
    #if defined(_POSIX_THREAD_PROCESS_SHARED) && ((_POSIX_THREAD_PROCESS_SHARED - 0) > 0)
       //Cygwin defines _POSIX_THREAD_PROCESS_SHARED but does not implement it.
-      //Mac Os X >= Leopard defines _POSIX_THREAD_PROCESS_SHARED but does not seems to work.
+      //Mac Os X >= Leopard defines _POSIX_THREAD_PROCESS_SHARED but does not seem to work.
       #if !defined(__CYGWIN__) && !defined(__APPLE__)
          #define BOOST_INTERPROCESS_POSIX_PROCESS_SHARED
       #endif
@@ -110,6 +112,10 @@
 
    #if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__APPLE__)
       #define BOOST_INTERPROCESS_BSD_DERIVATIVE
+      //Some *BSD systems (OpenBSD & NetBSD) need sys/param.h before sys/sysctl.h, whereas
+      //others (FreeBSD & Darwin) need sys/types.h
+      #include <sys/types.h>
+      #include <sys/param.h>
       #include <sys/sysctl.h>
       #if defined(CTL_KERN) && defined (KERN_BOOTTIME)
          //#define BOOST_INTERPROCESS_HAS_KERNEL_BOOTTIME
@@ -117,7 +123,7 @@
    #endif
 #endif   //!defined(BOOST_INTERPROCESS_WINDOWS)
 
-#if    !defined(BOOST_NO_RVALUE_REFERENCES) && !defined(BOOST_NO_VARIADIC_TEMPLATES)
+#if    !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
    #define BOOST_INTERPROCESS_PERFECT_FORWARDING
 #endif
 
@@ -154,6 +160,17 @@
    #define BOOST_INTERPROCESS_NEVER_INLINE __attribute__((__noinline__))
 #endif
 
+#if defined(BOOST_NO_CXX11_NOEXCEPT)
+   #if defined(BOOST_MSVC)
+      #define BOOST_INTERPROCESS_NOEXCEPT throw()
+   #else
+      #define BOOST_INTERPROCESS_NOEXCEPT
+   #endif
+   #define BOOST_INTERPROCESS_NOEXCEPT_IF(x)
+#else
+   #define BOOST_INTERPROCESS_NOEXCEPT    noexcept
+   #define BOOST_INTERPROCESS_NOEXCEPT_IF(x) noexcept(x)
+#endif
 
 #include <boost/interprocess/detail/config_end.hpp>
 

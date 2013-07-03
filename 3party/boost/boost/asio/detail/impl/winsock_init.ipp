@@ -2,7 +2,7 @@
 // detail/impl/winsock_init.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,7 +17,7 @@
 
 #include <boost/asio/detail/config.hpp>
 
-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
+#if defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
 
 #include <boost/asio/detail/socket_types.hpp>
 #include <boost/asio/detail/winsock_init.hpp>
@@ -41,12 +41,25 @@ void winsock_init_base::startup(data& d,
   }
 }
 
+void winsock_init_base::manual_startup(data& d)
+{
+  if (::InterlockedIncrement(&d.init_count_) == 1)
+  {
+    ::InterlockedExchange(&d.result_, 0);
+  }
+}
+
 void winsock_init_base::cleanup(data& d)
 {
   if (::InterlockedDecrement(&d.init_count_) == 0)
   {
     ::WSACleanup();
   }
+}
+
+void winsock_init_base::manual_cleanup(data& d)
+{
+  ::InterlockedDecrement(&d.init_count_);
 }
 
 void winsock_init_base::throw_on_error(data& d)
@@ -66,6 +79,6 @@ void winsock_init_base::throw_on_error(data& d)
 
 #include <boost/asio/detail/pop_options.hpp>
 
-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
+#endif // defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
 
 #endif // BOOST_ASIO_DETAIL_IMPL_WINSOCK_INIT_IPP

@@ -134,25 +134,27 @@ public :
         segment_identifier const& sl = left.subject.seg_id;
         segment_identifier const& sr = right.subject.seg_id;
 
-        if (sl == sr
-            && geometry::math::equals(left.subject.enriched.distance
-                    , right.subject.enriched.distance))
+        if (sl == sr)
         {
             // Both left and right are located on the SAME segment.
-
-            // First check "real" intersection (crosses)
-            // -> distance zero due to precision, solve it by sorting
-            if (m_turn_points[left.index].method == method_crosses
-                && m_turn_points[right.index].method == method_crosses)
+            typedef typename geometry::coordinate_type<Geometry1>::type coordinate_type;
+            coordinate_type diff = geometry::math::abs(left.subject.enriched.distance - right.subject.enriched.distance);
+            if (diff < geometry::math::relaxed_epsilon<coordinate_type>(10))
             {
-                return consider_relative_order(left, right);
+                // First check "real" intersection (crosses)
+                // -> distance zero due to precision, solve it by sorting
+                if (m_turn_points[left.index].method == method_crosses
+                    && m_turn_points[right.index].method == method_crosses)
+                {
+                    return consider_relative_order(left, right);
+                }
+
+                // If that is not the case, cluster it later on.
+                // Indicate that this is necessary.
+                *m_clustered = true;
+
+                return left.subject.enriched.distance < right.subject.enriched.distance;
             }
-
-            // If that is not the case, cluster it later on.
-            // Indicate that this is necessary.
-            *m_clustered = true;
-
-            return left.index < right.index;
         }
         return sl == sr
             ? left.subject.enriched.distance < right.subject.enriched.distance

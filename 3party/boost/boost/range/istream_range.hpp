@@ -14,7 +14,7 @@
  */
 
 #include <iterator>
-#include <istream>
+#include <iosfwd>
 #include <boost/config.hpp>
 #include <boost/range/iterator_range.hpp>
 
@@ -27,8 +27,8 @@ namespace boost
         istream_range(std::basic_istream<Elem, Traits>& in)
         {
             return iterator_range<std::istream_iterator<Type, Elem, Traits> >(
-                std::istream_iterator<Type>(in),
-                std::istream_iterator<Type>());
+                std::istream_iterator<Type, Elem, Traits>(in),
+                std::istream_iterator<Type, Elem, Traits>());
         }
     } // namespace range
     using range::istream_range;

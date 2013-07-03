@@ -335,7 +335,7 @@ namespace boost
             else if(v > 3)
             { // Use normal distribution to calculate guess.
                value_type mean = (v > 1 / policies::get_epsilon<T, Policy>()) ? delta : delta * sqrt(v / 2) * tgamma_delta_ratio((v - 1) * 0.5f, T(0.5f));
-               value_type var = (v > 1 / policies::get_epsilon<T, Policy>()) ? 1 : (((delta * delta + 1) * v) / (v - 2) - mean * mean);
+               value_type var = (v > 1 / policies::get_epsilon<T, Policy>()) ? value_type(1) : (((delta * delta + 1) * v) / (v - 2) - mean * mean);
                if(p < q)
                   guess = quantile(normal_distribution<value_type, forwarding_policy>(mean, var), p);
                else

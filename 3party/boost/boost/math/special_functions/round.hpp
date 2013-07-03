@@ -17,15 +17,16 @@
 namespace boost{ namespace math{
 
 template <class T, class Policy>
-inline T round(const T& v, const Policy& pol)
+inline typename tools::promote_args<T>::type round(const T& v, const Policy& pol)
 {
    BOOST_MATH_STD_USING
+   typedef typename tools::promote_args<T>::type result_type;
    if(!(boost::math::isfinite)(v))
-      return policies::raise_rounding_error("boost::math::round<%1%>(%1%)", 0, v, v, pol);
-   return v < 0 ? static_cast<T>(ceil(v - 0.5f)) : static_cast<T>(floor(v + 0.5f));
+      return policies::raise_rounding_error("boost::math::round<%1%>(%1%)", 0, static_cast<result_type>(v), static_cast<result_type>(v), pol);
+   return v < 0 ? static_cast<result_type>(ceil(v - 0.5f)) : static_cast<result_type>(floor(v + 0.5f));
 }
 template <class T>
-inline T round(const T& v)
+inline typename tools::promote_args<T>::type round(const T& v)
 {
    return round(v, policies::policy<>());
 }

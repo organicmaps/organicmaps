@@ -25,14 +25,16 @@ namespace boost { namespace spirit { namespace karma { namespace detail
             indirect_iterator<Iterator>
           , typename boost::detail::iterator_traits<Iterator>::value_type
           , boost::forward_traversal_tag
-          , typename boost::detail::iterator_traits<Iterator>::value_type const&>
+          , typename boost::detail::iterator_traits<Iterator>::reference>
     {
         typedef typename boost::detail::iterator_traits<Iterator>::value_type
             base_value_type;
+        typedef typename boost::detail::iterator_traits<Iterator>::reference
+            base_reference_type;
 
         typedef boost::iterator_facade<
             indirect_iterator<Iterator>, base_value_type
-          , boost::forward_traversal_tag, base_value_type const&
+          , boost::forward_traversal_tag, base_reference_type
         > base_type;
 
     public:
@@ -56,7 +58,7 @@ namespace boost { namespace spirit { namespace karma { namespace detail
             return *iter_ == *other.iter_;
         }
 
-        typename base_type::reference dereference() const
+        base_reference_type dereference() const
         {
             return **iter_;
         }

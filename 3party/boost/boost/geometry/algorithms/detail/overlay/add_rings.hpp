@@ -75,15 +75,15 @@ inline OutputIterator add_rings(SelectionMap const& map,
             OutputIterator out)
 {
     typedef typename SelectionMap::const_iterator iterator;
-	typedef typename SelectionMap::mapped_type property_type;
-	typedef typename property_type::area_type area_type;
+    typedef typename SelectionMap::mapped_type property_type;
+    typedef typename property_type::area_type area_type;
 
-	area_type const zero = 0;
-	std::size_t const min_num_points = core_detail::closure::minimum_ring_size
-		<
-			geometry::closure
-				<
-					typename boost::range_value
+    area_type const zero = 0;
+    std::size_t const min_num_points = core_detail::closure::minimum_ring_size
+        <
+            geometry::closure
+                <
+                    typename boost::range_value
                         <
                             RingCollection const
                         >::type
@@ -117,15 +117,14 @@ inline OutputIterator add_rings(SelectionMap const& map,
                 }
             }
 
-			// Only add rings if they satisfy minimal requirements.
-			// This cannot be done earlier (during traversal), not
-			// everything is figured out yet (sum of positive/negative rings)
-			// TODO: individual rings can still contain less than 3 points.
-			if (geometry::num_points(result) >= min_num_points
-				&& math::larger(geometry::area(result), zero))
-			{
-				*out++ = result;
-			}
+            // Only add rings if they satisfy minimal requirements.
+            // This cannot be done earlier (during traversal), not
+            // everything is figured out yet (sum of positive/negative rings)
+            if (geometry::num_points(result) >= min_num_points
+                && math::larger(geometry::area(result), zero))
+            {
+                *out++ = result;
+            }
         }
     }
     return out;

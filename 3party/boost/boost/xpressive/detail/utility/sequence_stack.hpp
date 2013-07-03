@@ -115,7 +115,10 @@ private:
             }
 
             // grow exponentially
-            std::size_t new_size = (std::max)(count, static_cast<std::size_t>(this->current_chunk_->size() * 1.5));
+            std::size_t new_size = (std::max)(
+                count
+              , static_cast<std::size_t>(static_cast<double>(this->current_chunk_->size()) * 1.5)
+            );
 
             // Create a new expr and insert it into the list
             this->current_chunk_ = new chunk(new_size, t, count, this->current_chunk_, this->current_chunk_->next_);

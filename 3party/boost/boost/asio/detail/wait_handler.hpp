@@ -2,7 +2,7 @@
 // detail/wait_handler.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -16,6 +16,7 @@
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
 #include <boost/asio/detail/config.hpp>
+#include <boost/asio/detail/addressof.hpp>
 #include <boost/asio/detail/fenced_block.hpp>
 #include <boost/asio/detail/handler_alloc_helpers.hpp>
 #include <boost/asio/detail/handler_invoke_helpers.hpp>
@@ -46,7 +47,7 @@ public:
   {
     // Take ownership of the handler object.
     wait_handler* h(static_cast<wait_handler*>(base));
-    ptr p = { boost::addressof(h->handler_), h, h };
+    ptr p = { boost::asio::detail::addressof(h->handler_), h, h };
 
     BOOST_ASIO_HANDLER_COMPLETION((h));
 
@@ -58,7 +59,7 @@ public:
     // deallocated the memory here.
     detail::binder1<Handler, boost::system::error_code>
       handler(h->handler_, h->ec_);
-    p.h = boost::addressof(handler.handler_);
+    p.h = boost::asio::detail::addressof(handler.handler_);
     p.reset();
 
     // Make the upcall if required.

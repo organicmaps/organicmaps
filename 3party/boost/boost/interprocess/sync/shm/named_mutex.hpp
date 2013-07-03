@@ -107,8 +107,8 @@ class shm_named_mutex
    private:
    friend class ipcdetail::interprocess_tester;
    void dont_close_on_destruction();
-
-   ipcdetail::managed_open_or_create_impl<shared_memory_object> m_shmem;
+   typedef ipcdetail::managed_open_or_create_impl<shared_memory_object, 0, true, false> open_create_impl_t;
+   open_create_impl_t m_shmem;
    typedef ipcdetail::named_creation_functor<interprocess_mutex> construct_func_t;
    /// @endcond
 };
@@ -125,8 +125,7 @@ inline shm_named_mutex::shm_named_mutex(create_only_t, const char *name, const p
    :  m_shmem  (create_only
                ,name
                ,sizeof(interprocess_mutex) +
-                  ipcdetail::managed_open_or_create_impl<shared_memory_object>::
-                     ManagedOpenOrCreateUserOffset
+                  open_create_impl_t::ManagedOpenOrCreateUserOffset
                ,read_write
                ,0
                ,construct_func_t(ipcdetail::DoCreate)
@@ -137,8 +136,7 @@ inline shm_named_mutex::shm_named_mutex(open_or_create_t, const char *name, cons
    :  m_shmem  (open_or_create
                ,name
                ,sizeof(interprocess_mutex) +
-                  ipcdetail::managed_open_or_create_impl<shared_memory_object>::
-                     ManagedOpenOrCreateUserOffset
+                  open_create_impl_t::ManagedOpenOrCreateUserOffset
                ,read_write
                ,0
                ,construct_func_t(ipcdetail::DoOpenOrCreate)

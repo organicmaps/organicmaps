@@ -94,8 +94,8 @@ class segment_manager_base
    //!dynamic allocation
    //!
    //!Can throw
-   segment_manager_base(size_type size, size_type reserved_bytes)
-      :  MemoryAlgorithm(size, reserved_bytes)
+   segment_manager_base(size_type sz, size_type reserved_bytes)
+      :  MemoryAlgorithm(sz, reserved_bytes)
    {
       BOOST_ASSERT((sizeof(segment_manager_base<MemoryAlgorithm>) == sizeof(MemoryAlgorithm)));
    }
@@ -123,42 +123,43 @@ class segment_manager_base
    /// @cond
 
    //Experimental. Dont' use.
-   //!Allocates n_elements of
-   //!elem_size bytes. Throws bad_alloc on failure.
-   multiallocation_chain allocate_many(size_type elem_bytes, size_type num_elements)
+   //!Allocates n_elements of elem_bytes bytes. 
+   //!Throws bad_alloc on failure. chain.size() is not increased on failure.
+   void allocate_many(size_type elem_bytes, size_type n_elements, multiallocation_chain &chain)
    {
-      multiallocation_chain mem(MemoryAlgorithm::allocate_many(elem_bytes, num_elements));
-      if(mem.empty()) throw bad_alloc();
-      return boost::move(mem);
+      size_type prev_size = chain.size();
+      MemoryAlgorithm::allocate_many(elem_bytes, n_elements, chain);
+      if(!elem_bytes || chain.size() == prev_size){
+         throw bad_alloc();
+      }
    }
 
-   //!Allocates n_elements, each one of
-   //!element_lenghts[i]*sizeof_element bytes. Throws bad_alloc on failure.
-   multiallocation_chain allocate_many
-      (const size_type *element_lenghts, size_type n_elements, size_type sizeof_element = 1)
+   //!Allocates n_elements, each one of element_lengths[i]*sizeof_element bytes.
+   //!Throws bad_alloc on failure. chain.size() is not increased on failure.
+   void allocate_many(const size_type *element_lengths, size_type n_elements, size_type sizeof_element, multiallocation_chain &chain)
    {
-      multiallocation_chain mem(MemoryAlgorithm::allocate_many(element_lenghts, n_elements, sizeof_element));
-      if(mem.empty()) throw bad_alloc();
-      return boost::move(mem);
+      size_type prev_size = chain.size();
+      MemoryAlgorithm::allocate_many(element_lengths, n_elements, sizeof_element, chain);
+      if(!sizeof_element || chain.size() == prev_size){
+         throw bad_alloc();
+      }
    }
 
-   //!Allocates n_elements of
-   //!elem_size bytes. Returns a default constructed iterator on failure.
-   multiallocation_chain allocate_many
-      (size_type elem_bytes, size_type num_elements, std::nothrow_t)
-   {  return MemoryAlgorithm::allocate_many(elem_bytes, num_elements); }
+   //!Allocates n_elements of elem_bytes bytes. 
+   //!Non-throwing version. chain.size() is not increased on failure.
+   void allocate_many(std::nothrow_t, size_type elem_bytes, size_type n_elements, multiallocation_chain &chain)
+   {  MemoryAlgorithm::allocate_many(elem_bytes, n_elements, chain); }
 
    //!Allocates n_elements, each one of
-   //!element_lenghts[i]*sizeof_element bytes.
-   //!Returns a default constructed iterator on failure.
-   multiallocation_chain allocate_many
-      (const size_type *elem_sizes, size_type n_elements, size_type sizeof_element, std::nothrow_t)
-   {  return MemoryAlgorithm::allocate_many(elem_sizes, n_elements, sizeof_element); }
+   //!element_lengths[i]*sizeof_element bytes.
+   //!Non-throwing version. chain.size() is not increased on failure.
+   void allocate_many(std::nothrow_t, const size_type *elem_sizes, size_type n_elements, size_type sizeof_element, multiallocation_chain &chain)
+   {  MemoryAlgorithm::allocate_many(elem_sizes, n_elements, sizeof_element, chain); }
 
-   //!Deallocates elements pointed by the
-   //!multiallocation iterator range.
-   void deallocate_many(multiallocation_chain chain)
-   {  MemoryAlgorithm::deallocate_many(boost::move(chain)); }
+   //!Deallocates all elements contained in chain.
+   //!Never throws.
+   void deallocate_many(multiallocation_chain &chain)
+   {  MemoryAlgorithm::deallocate_many(chain); }
 
    /// @endcond
 
@@ -407,8 +408,8 @@ class segment_manager
    //!"size" is the size of the memory segment where
    //!the segment manager is being constructed.
    //!Can throw
-   explicit segment_manager(size_type size)
-      :  Base(size, priv_get_reserved_bytes())
+   explicit segment_manager(size_type segment_size)
+      :  Base(segment_size, priv_get_reserved_bytes())
       ,  m_header(static_cast<Base*>(get_this_pointer()))
    {
       (void) anonymous_instance;   (void) unique_instance;
@@ -717,16 +718,16 @@ class segment_manager
       //The name can't be null, no anonymous object can be found by name
       BOOST_ASSERT(name != 0);
       ipcdetail::placement_destroy<T> table;
-      size_type size;
+      size_type sz;
       void *ret;
 
       if(name == reinterpret_cast<const CharType*>(-1)){
-         ret = priv_generic_find<char> (typeid(T).name(), m_header.m_unique_index, table, size, is_intrusive_t(), lock);
+         ret = priv_generic_find<char> (typeid(T).name(), m_header.m_unique_index, table, sz, is_intrusive_t(), lock);
       }
       else{
-         ret = priv_generic_find<CharType> (name, m_header.m_named_index, table, size, is_intrusive_t(), lock);
+         ret = priv_generic_find<CharType> (name, m_header.m_named_index, table, sz, is_intrusive_t(), lock);
       }
-      return std::pair<T*, size_type>(static_cast<T*>(ret), size);
+      return std::pair<T*, size_type>(static_cast<T*>(ret), sz);
    }
 
    //!Tries to find a previous unique allocation. Returns the address

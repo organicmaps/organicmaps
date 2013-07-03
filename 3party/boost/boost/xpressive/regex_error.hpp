@@ -107,7 +107,7 @@ namespace detail
 }
 
 #define BOOST_XPR_ENSURE_(pred, code, msg)                                                          \
-    boost::xpressive::detail::ensure_(pred, code, msg, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__)  \
+    boost::xpressive::detail::ensure_(!!(pred), code, msg, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__)  \
     /**/
 
 }} // namespace boost::xpressive

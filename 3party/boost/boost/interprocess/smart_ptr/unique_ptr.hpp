@@ -82,7 +82,9 @@ template <class T, class D>
 class unique_ptr
 {
    /// @cond
-   struct nat {int for_bool_;};
+   struct nat  {int for_bool;};
+   struct nat2 {int for_nullptr;};
+   typedef int nat2::*nullptr_t;
    typedef typename ipcdetail::add_reference<D>::type deleter_reference;
    typedef typename ipcdetail::add_reference<const D>::type deleter_const_reference;
    /// @endcond
@@ -175,7 +177,7 @@ class unique_ptr
    //!
    //!Throws: nothing.
    template <class U, class E>
-   unique_ptr(BOOST_RV_REF_2_TEMPL_ARGS(unique_ptr, U, E) u,
+   unique_ptr(BOOST_RV_REF_BEG unique_ptr<U, E> BOOST_RV_REF_END u,
       typename ipcdetail::enable_if_c<
             ipcdetail::is_convertible<typename unique_ptr<U, E>::pointer, pointer>::value &&
             ipcdetail::is_convertible<E, D>::value &&
@@ -230,7 +232,7 @@ class unique_ptr
    //!
    //!Throws: nothing.
    template <class U, class E>
-   unique_ptr& operator=(BOOST_RV_REF_2_TEMPL_ARGS(unique_ptr, U, E) u)
+   unique_ptr& operator=(BOOST_RV_REF_BEG unique_ptr<U, E> BOOST_RV_REF_END u)
    {
       reset(u.release());
       ptr_.second() = boost::move(u.get_deleter());
@@ -246,7 +248,7 @@ class unique_ptr
    //!Returns: *this.
    //!
    //!Throws: nothing.
-   unique_ptr& operator=(int nat::*)
+   unique_ptr& operator=(nullptr_t)
    {
       reset();
       return *this;
@@ -286,7 +288,7 @@ class unique_ptr
    //!
    //!Throws: nothing.
    operator int nat::*() const
-   {  return ptr_.first() ? &nat::for_bool_ : 0;   }
+   {  return ptr_.first() ? &nat::for_bool : 0;   }
 
    //!Postcondition: get() == 0.
    //!
@@ -457,7 +459,7 @@ public:
     pointer get()        const {return ptr_.first();}
     deleter_reference       get_deleter()       {return ptr_.second();}
     deleter_const_reference get_deleter() const {return ptr_.second();}
-    operator int nat::*() const {return ptr_.first() ? &nat::for_bool_ : 0;}
+    operator int nat::*() const {return ptr_.first() ? &nat::for_bool : 0;}
 
     // modifiers
     pointer release()

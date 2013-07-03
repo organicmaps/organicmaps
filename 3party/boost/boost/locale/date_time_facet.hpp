@@ -37,7 +37,7 @@ namespace boost {
                     day,                        ///< The day of month, calendar specific, in Gregorian [1..31]
                     day_of_year,                ///< The number of day in year, starting from 1, in Gregorian  [1..366]
                     day_of_week,                ///< Day of week, Sunday=1, Monday=2,..., Saturday=7.
-                                                ///< Note that that updating this value respects local day of week, so for example,
+                                                ///< Note that updating this value respects local day of week, so for example,
                                                 ///< If first day of week is Monday and the current day is Tuesday then setting
                                                 ///< the value to Sunday (1) would forward the date by 5 days forward and not backward
                                                 ///< by two days as it could be expected if the numbers were taken as is.

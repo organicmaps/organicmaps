@@ -15,6 +15,7 @@
 #include <boost/range.hpp>
 #include <boost/parameter/keyword.hpp>
 #include <boost/mpl/placeholders.hpp>
+#include <boost/accumulators/accumulators_fwd.hpp>
 #include <boost/accumulators/framework/accumulator_base.hpp>
 #include <boost/accumulators/framework/extractor.hpp>
 #include <boost/accumulators/numeric/functional.hpp>
@@ -33,6 +34,9 @@ namespace boost { namespace accumulators
 //
 BOOST_PARAMETER_NESTED_KEYWORD(tag, density_cache_size, cache_size)
 BOOST_PARAMETER_NESTED_KEYWORD(tag, density_num_bins, num_bins)
+
+BOOST_ACCUMULATORS_IGNORE_GLOBAL(density_cache_size)
+BOOST_ACCUMULATORS_IGNORE_GLOBAL(density_num_bins)
 
 namespace impl
 {

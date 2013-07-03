@@ -2,7 +2,7 @@
 // ip/impl/address_v6.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -19,9 +19,9 @@
 #include <cstring>
 #include <stdexcept>
 #include <typeinfo>
-#include <boost/throw_exception.hpp>
 #include <boost/asio/detail/socket_ops.hpp>
 #include <boost/asio/detail/throw_error.hpp>
+#include <boost/asio/detail/throw_exception.hpp>
 #include <boost/asio/error.hpp>
 #include <boost/asio/ip/address_v6.hpp>
 
@@ -47,7 +47,7 @@ address_v6::address_v6(const address_v6::bytes_type& bytes,
     if (bytes[i] > 0xFF)
     {
       std::out_of_range ex("address_v6 from bytes_type");
-      boost::throw_exception(ex);
+      boost::asio::detail::throw_exception(ex);
     }
   }
 #endif // UCHAR_MAX > 0xFF
@@ -151,7 +151,7 @@ address_v4 address_v6::to_v4() const
   if (!is_v4_mapped() && !is_v4_compatible())
   {
     std::bad_cast ex;
-    boost::throw_exception(ex);
+    boost::asio::detail::throw_exception(ex);
   }
 
   address_v4::bytes_type v4_bytes = { { addr_.s6_addr[12],

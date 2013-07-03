@@ -7,7 +7,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: discrete_distribution.hpp 80996 2012-10-16 03:11:52Z marshall $
+ * $Id: discrete_distribution.hpp 83381 2013-03-09 22:55:05Z eric_niebler $
  */
 
 #ifndef BOOST_RANDOM_DISCRETE_DISTRIBUTION_HPP_INCLUDED

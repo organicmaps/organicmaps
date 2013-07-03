@@ -434,17 +434,24 @@ struct tracking_ptr
         return this->impl_->self_;
     }
 
-    #if defined(__SUNPRO_CC) && BOOST_WORKAROUND(__SUNPRO_CC, <= 0x530)
-    typedef bool unspecified_bool_type;
-    #else
-    typedef typename intrusive_ptr<element_type>::unspecified_bool_type unspecified_bool_type;
-    #endif
-
     // smart-pointer operators
-    operator unspecified_bool_type() const
+    #if defined(__SUNPRO_CC) && BOOST_WORKAROUND(__SUNPRO_CC, <= 0x530)
+
+    operator bool() const
     {
         return this->impl_;
     }
+
+    #else
+
+    typedef intrusive_ptr<element_type> tracking_ptr::* unspecified_bool_type;
+
+    operator unspecified_bool_type() const
+    {
+        return this->impl_ ? &tracking_ptr::impl_ : 0;
+    }
+
+    #endif
 
     bool operator !() const
     {

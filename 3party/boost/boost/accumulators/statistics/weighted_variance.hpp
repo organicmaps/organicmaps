@@ -64,7 +64,7 @@ namespace impl
             ,\quad n\ge2,\quad\hat{\sigma}_0^2 = 0.
         \f]
         where \f$\bar{w}_n\f$ is the sum of the \f$n\f$ weights \f$w_i\f$ and \f$\hat{\mu}_n\f$
-        the estimate of the mean of the weighted smaples. Note that the sample variance is not defined for
+        the estimate of the mean of the weighted samples. Note that the sample variance is not defined for
         \f$n <= 1\f$.
     */
     template<typename Sample, typename Weight, typename MeanFeature, typename Tag>

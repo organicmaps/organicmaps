@@ -467,7 +467,7 @@ struct cpp_regex_traits
     ///
     /// \attention Not currently used
     template<typename FwdIter>
-    string_type transform(FwdIter begin, FwdIter end) const
+    string_type transform(FwdIter, FwdIter) const
     {
         //string_type str(begin, end);
         //return this->transform(str.data(), str.data() + str.size());
@@ -483,7 +483,7 @@ struct cpp_regex_traits
     ///
     /// \attention Not currently used
     template<typename FwdIter>
-    string_type transform_primary(FwdIter begin, FwdIter end) const
+    string_type transform_primary(FwdIter, FwdIter ) const
     {
         BOOST_ASSERT(false); // TODO implement me
         return string_type();
@@ -495,7 +495,7 @@ struct cpp_regex_traits
     ///
     /// \attention Not currently used
     template<typename FwdIter>
-    string_type lookup_collatename(FwdIter begin, FwdIter end) const
+    string_type lookup_collatename(FwdIter, FwdIter) const
     {
         BOOST_ASSERT(false); // TODO implement me
         return string_type();

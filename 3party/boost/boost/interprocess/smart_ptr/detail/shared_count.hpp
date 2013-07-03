@@ -284,6 +284,7 @@ class weak_count
 
    weak_count & operator= (weak_count const & r) // nothrow
    {
+      m_px = r.m_px;
       counted_impl_ptr tmp = r.m_pi;
       if(tmp != 0) tmp->weak_add_ref();
       if(m_pi != 0) m_pi->weak_release();

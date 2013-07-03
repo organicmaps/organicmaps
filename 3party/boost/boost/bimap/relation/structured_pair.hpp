@@ -499,6 +499,50 @@ bool operator>=(const std::pair<F,S> & a,
 }
 
 
+namespace detail {
+
+template< class FirstType, class SecondType, class Info, class Layout>
+structured_pair<FirstType,SecondType,Info,Layout> 
+    copy_with_first_replaced(structured_pair<FirstType,SecondType,Info,Layout> const& p,
+        BOOST_DEDUCED_TYPENAME ::boost::call_traits< BOOST_DEDUCED_TYPENAME 
+            structured_pair<FirstType,SecondType,Info,Layout>::first_type>
+                ::param_type f)
+{
+    return structured_pair<FirstType,SecondType,Info,Layout>(f,p.second,p.info);
+}
+    
+template< class FirstType, class SecondType, class Layout>
+structured_pair<FirstType,SecondType,::boost::mpl::na,Layout> 
+    copy_with_first_replaced(structured_pair<FirstType,SecondType,::boost::mpl::na,Layout> const& p,
+        BOOST_DEDUCED_TYPENAME ::boost::call_traits< BOOST_DEDUCED_TYPENAME 
+            structured_pair<FirstType,SecondType,::boost::mpl::na,Layout>::first_type>
+                ::param_type f)
+{
+    return structured_pair<FirstType,SecondType,::boost::mpl::na,Layout>(f,p.second);
+}
+    
+template< class FirstType, class SecondType, class Info, class Layout>
+structured_pair<FirstType,SecondType,Info,Layout> 
+    copy_with_second_replaced(structured_pair<FirstType,SecondType,Info,Layout> const& p,
+        BOOST_DEDUCED_TYPENAME ::boost::call_traits< BOOST_DEDUCED_TYPENAME 
+            structured_pair<FirstType,SecondType,Info,Layout>::second_type>
+                ::param_type s)
+{
+    return structured_pair<FirstType,SecondType,Info,Layout>(p.first,s,p.info);
+}
+    
+template< class FirstType, class SecondType, class Layout>
+structured_pair<FirstType,SecondType,::boost::mpl::na,Layout> 
+    copy_with_second_replaced(structured_pair<FirstType,SecondType,::boost::mpl::na,Layout> const& p,
+        BOOST_DEDUCED_TYPENAME ::boost::call_traits< BOOST_DEDUCED_TYPENAME 
+            structured_pair<FirstType,SecondType,::boost::mpl::na,Layout>::second_type>
+                ::param_type s)
+{
+    return structured_pair<FirstType,SecondType,::boost::mpl::na,Layout>(p.first,s);
+}
+
+} // namespace detail
+
 
 } // namespace relation
 } // namespace bimaps

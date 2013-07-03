@@ -49,9 +49,9 @@ struct segments_tupled
     // Get the same type, but at least a double
     typedef typename select_most_precise<coordinate_type, double>::type rtype;
 
-	template <typename R>
+    template <typename R>
     static inline return_type segments_intersect(side_info const& sides,
-				    R const& r,
+                    R const& r,
                     coordinate_type const& dx1, coordinate_type const& dy1,
                     coordinate_type const& dx2, coordinate_type const& dy2,
                     segment_type1 const& s1, segment_type2 const& s2)

@@ -53,7 +53,7 @@ struct default_strategy
 {
     BOOST_MPL_ASSERT_MSG
         (
-            false, NOT_IMPLEMENTED_FOR_THIS_TYPES
+            false, NOT_IMPLEMENTED_FOR_THESE_TYPES
             , (types<GeometryContained, GeometryContaining>)
         );
 };

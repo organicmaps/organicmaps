@@ -10,13 +10,14 @@
 #ifndef BOOST_CHRONO_IO_DURATION_IO_HPP
 #define BOOST_CHRONO_IO_DURATION_IO_HPP
 
-#include <boost/chrono/chrono.hpp>
+#include <boost/chrono/duration.hpp>
 #include <boost/ratio/ratio_io.hpp>
 #include <boost/chrono/io/duration_style.hpp>
 #include <boost/chrono/io/ios_base_state.hpp>
 #include <boost/chrono/io/duration_put.hpp>
 #include <boost/chrono/io/duration_get.hpp>
 #include <boost/chrono/io/utility/manip_base.hpp>
+#include <boost/detail/no_exceptions_support.hpp>
 #include <locale>
 #include <iostream>
 
@@ -104,6 +105,8 @@ namespace boost
       }
 
     private:
+      duration_style_io_saver& operator=(duration_style_io_saver const& rhs) ;
+
       state_type& s_save_;
       aspect_type a_save_;
     };
@@ -118,16 +121,11 @@ namespace boost
     std::basic_ostream<CharT, Traits>&
     operator<<(std::basic_ostream<CharT, Traits>& os, const duration<Rep, Period>& d)
     {
-      typedef std::basic_string<CharT, Traits> string_type;
-#ifndef BOOST_NO_EXCEPTIONS
       bool failed = false;
-      try // BOOST_NO_EXCEPTIONS protected
-#endif
+      BOOST_TRY
       {
         std::ios_base::iostate err = std::ios_base::goodbit;
-#ifndef BOOST_NO_EXCEPTIONS
-        try // BOOST_NO_EXCEPTIONS protected
-#endif
+        BOOST_TRY
         {
           typename std::basic_ostream<CharT, Traits>::sentry opfx(os);
           if (bool(opfx))
@@ -146,31 +144,30 @@ namespace boost
             os.width(0);
           }
         }
-#ifndef BOOST_NO_EXCEPTIONS
-        catch (...) // BOOST_NO_EXCEPTIONS protected
+        BOOST_CATCH(...)
         {
           bool flag = false;
-          try // BOOST_NO_EXCEPTIONS protected
+          BOOST_TRY
           {
             os.setstate(std::ios_base::failbit);
           }
-          catch (std::ios_base::failure ) // BOOST_NO_EXCEPTIONS protected
+          BOOST_CATCH (std::ios_base::failure )
           {
             flag = true;
           }
+          BOOST_CATCH_END
           if (flag) throw;
         }
-#endif
+        BOOST_CATCH_END
         if (err) os.setstate(err);
         return os;
       }
-#ifndef BOOST_NO_EXCEPTIONS
-      catch (...) // BOOST_NO_EXCEPTIONS protected
+      BOOST_CATCH(...)
       {
         failed = true;
       }
+      BOOST_CATCH_END
       if (failed) os.setstate(std::ios_base::failbit | std::ios_base::badbit);
-#endif
       return os;
     }
 
@@ -186,9 +183,7 @@ namespace boost
     {
       std::ios_base::iostate err = std::ios_base::goodbit;
 
-#ifndef BOOST_NO_EXCEPTIONS
-      try // BOOST_NO_EXCEPTIONS protected
-#endif
+      BOOST_TRY
       {
         typename std::basic_istream<CharT, Traits>::sentry ipfx(is);
         if (bool(ipfx))
@@ -204,21 +199,21 @@ namespace boost
           }
         }
       }
-#ifndef BOOST_NO_EXCEPTIONS
-      catch (...) // BOOST_NO_EXCEPTIONS protected
+      BOOST_CATCH (...)
       {
         bool flag = false;
-        try // BOOST_NO_EXCEPTIONS protected
+        BOOST_TRY
         {
           is.setstate(std::ios_base::failbit);
         }
-        catch (std::ios_base::failure ) // BOOST_NO_EXCEPTIONS protected
+        BOOST_CATCH (std::ios_base::failure )
         {
           flag = true;
         }
-        if (flag) throw; // BOOST_NO_EXCEPTIONS protected
+        BOOST_CATCH_END
+        if (flag) { BOOST_RETHROW }
       }
-#endif
+      BOOST_CATCH_END
       if (err) is.setstate(err);
       return is;
     }

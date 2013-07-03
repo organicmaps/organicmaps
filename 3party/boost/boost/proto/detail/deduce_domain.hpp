@@ -44,7 +44,7 @@ namespace boost
             {
                 typedef Domain type;
                 typedef domain_<typename Domain::proto_super_domain> base;
-            #ifdef BOOST_NO_DECLTYPE
+            #ifdef BOOST_NO_CXX11_DECLTYPE
                 using base::deduce98;
                 static int const index = base::index + 1;
                 static typename sized_type<index>::type deduce98(domain_<Domain>*);
@@ -58,7 +58,7 @@ namespace boost
             struct domain_<not_a_domain>
             {
                 typedef not_a_domain type;
-            #ifdef BOOST_NO_DECLTYPE
+            #ifdef BOOST_NO_CXX11_DECLTYPE
                 static int const index = 1;
                 static sized_type<1>::type deduce98(void*);
             #else
@@ -86,7 +86,7 @@ namespace boost
             sized_type<4>::type default_test(domain_<default_domain>*, domain_<basic_default_domain>*);
             sized_type<4>::type default_test(domain_<basic_default_domain>*, domain_<basic_default_domain>*);
 
-        #ifdef BOOST_NO_DECLTYPE
+        #ifdef BOOST_NO_CXX11_DECLTYPE
             template<int N, typename Domain>
             struct nth_domain
               : nth_domain<N - 1, typename Domain::base>
@@ -116,7 +116,7 @@ namespace boost
             >
             struct common_domain2
             {
-            #ifdef BOOST_NO_DECLTYPE
+            #ifdef BOOST_NO_CXX11_DECLTYPE
                 static int const index = domain_<D0>::index - sizeof(domain_<D0>::deduce98((domain_<D1>*)0));
                 typedef typename nth_domain<index, domain_<D0> >::type type;
             #else

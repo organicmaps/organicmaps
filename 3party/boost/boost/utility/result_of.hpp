@@ -46,7 +46,7 @@
 
 #ifndef BOOST_RESULT_OF_USE_TR1
 #  ifndef BOOST_RESULT_OF_USE_DECLTYPE
-#    ifndef BOOST_NO_DECLTYPE_N3276 // this implies !defined(BOOST_NO_DECLTYPE)
+#    ifndef BOOST_NO_CXX11_DECLTYPE_N3276 // this implies !defined(BOOST_NO_CXX11_DECLTYPE)
 #      define BOOST_RESULT_OF_USE_DECLTYPE
 #    else
 #      define BOOST_RESULT_OF_USE_TR1
@@ -67,6 +67,13 @@ BOOST_MPL_HAS_XXX_TRAIT_DEF(result_type)
 template<typename F, typename FArgs, bool HasResultType> struct tr1_result_of_impl;
 
 #ifdef BOOST_NO_SFINAE_EXPR
+
+// There doesn't seem to be any other way to turn this off such that the presence of
+// the user-defined operator,() below doesn't cause spurious warning all over the place,
+// so unconditionally turn it off.
+#if BOOST_MSVC
+#  pragma warning(disable: 4913) // user defined binary operator ',' exists but no overload could convert all operands, default built-in binary operator ',' used
+#endif
 
 struct result_of_private_type {};
 

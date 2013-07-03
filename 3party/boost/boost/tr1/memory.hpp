@@ -13,7 +13,7 @@
 
 //
 // This header can get included by boost/shared_ptr.hpp which leads
-// to cyclic dependencies, the workaround is to forward declare all 
+// to cyclic dependencies, the workaround is to forward declare all
 // the boost components, and then include the actual headers afterwards.
 // This is fragile, but seems to work, and doesn't require modification
 // of boost/shared_ptr.hpp.
@@ -23,12 +23,12 @@ namespace boost{
 class bad_weak_ptr;
 template<class T> class weak_ptr;
 template<class T> class shared_ptr;
-template<class T> void swap(weak_ptr<T> & a, weak_ptr<T> & b);
-template<class T> void swap(shared_ptr<T> & a, shared_ptr<T> & b);
-template<class T, class U> shared_ptr<T> static_pointer_cast(shared_ptr<U> const & r);
-template<class T, class U> shared_ptr<T> dynamic_pointer_cast(shared_ptr<U> const & r);
-template<class T, class U> shared_ptr<T> const_pointer_cast(shared_ptr<U> const & r);
-template<class D, class T> D * get_deleter(shared_ptr<T> const & p);
+template<class T> void swap(weak_ptr<T> & a, weak_ptr<T> & b) BOOST_NOEXCEPT;
+template<class T> void swap(shared_ptr<T> & a, shared_ptr<T> & b) BOOST_NOEXCEPT;
+template<class T, class U> shared_ptr<T> static_pointer_cast(shared_ptr<U> const & r) BOOST_NOEXCEPT;
+template<class T, class U> shared_ptr<T> dynamic_pointer_cast(shared_ptr<U> const & r) BOOST_NOEXCEPT;
+template<class T, class U> shared_ptr<T> const_pointer_cast(shared_ptr<U> const & r) BOOST_NOEXCEPT;
+template<class D, class T> D * get_deleter(shared_ptr<T> const & p) BOOST_NOEXCEPT;
 template<class T> class enable_shared_from_this;
 
 namespace detail{

@@ -2,7 +2,7 @@
 // detail/old_win_sdk_compat.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,7 +17,7 @@
 
 #include <boost/asio/detail/config.hpp>
 
-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
+#if defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
 
 // Guess whether we are building against on old Platform SDK.
 #if !defined(IN6ADDR_ANY_INIT)
@@ -211,6 +211,6 @@ struct addrinfo_emulation
 # define IPPROTO_ICMPV6 58
 #endif
 
-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
+#endif // defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
 
 #endif // BOOST_ASIO_DETAIL_OLD_WIN_SDK_COMPAT_HPP

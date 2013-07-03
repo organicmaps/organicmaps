@@ -17,15 +17,16 @@
 namespace boost{ namespace math{
 
 template <class T, class Policy>
-inline T trunc(const T& v, const Policy& pol)
+inline typename tools::promote_args<T>::type trunc(const T& v, const Policy& pol)
 {
    BOOST_MATH_STD_USING
+   typedef typename tools::promote_args<T>::type result_type;
    if(!(boost::math::isfinite)(v))
-      return policies::raise_rounding_error("boost::math::trunc<%1%>(%1%)", 0, v, v, pol);
-   return (v >= 0) ? static_cast<T>(floor(v)) : static_cast<T>(ceil(v));
+      return policies::raise_rounding_error("boost::math::trunc<%1%>(%1%)", 0, static_cast<result_type>(v), static_cast<result_type>(v), pol);
+   return (v >= 0) ? static_cast<result_type>(floor(v)) : static_cast<result_type>(ceil(v));
 }
 template <class T>
-inline T trunc(const T& v)
+inline typename tools::promote_args<T>::type trunc(const T& v)
 {
    return trunc(v, policies::policy<>());
 }
@@ -42,9 +43,10 @@ template <class T, class Policy>
 inline int itrunc(const T& v, const Policy& pol)
 {
    BOOST_MATH_STD_USING
-   T r = boost::math::trunc(v, pol);
+   typedef typename tools::promote_args<T>::type result_type;
+   result_type r = boost::math::trunc(v, pol);
    if((r > (std::numeric_limits<int>::max)()) || (r < (std::numeric_limits<int>::min)()))
-      return static_cast<int>(policies::raise_rounding_error("boost::math::itrunc<%1%>(%1%)", 0, v, 0, pol));
+      return static_cast<int>(policies::raise_rounding_error("boost::math::itrunc<%1%>(%1%)", 0, static_cast<result_type>(v), 0, pol));
    return static_cast<int>(r);
 }
 template <class T>
@@ -57,9 +59,10 @@ template <class T, class Policy>
 inline long ltrunc(const T& v, const Policy& pol)
 {
    BOOST_MATH_STD_USING
-   T r = boost::math::trunc(v, pol);
+   typedef typename tools::promote_args<T>::type result_type;
+   result_type r = boost::math::trunc(v, pol);
    if((r > (std::numeric_limits<long>::max)()) || (r < (std::numeric_limits<long>::min)()))
-      return static_cast<long>(policies::raise_rounding_error("boost::math::ltrunc<%1%>(%1%)", 0, v, 0L, pol));
+      return static_cast<long>(policies::raise_rounding_error("boost::math::ltrunc<%1%>(%1%)", 0, static_cast<result_type>(v), 0L, pol));
    return static_cast<long>(r);
 }
 template <class T>
@@ -74,7 +77,8 @@ template <class T, class Policy>
 inline boost::long_long_type lltrunc(const T& v, const Policy& pol)
 {
    BOOST_MATH_STD_USING
-   T r = boost::math::trunc(v, pol);
+   typedef typename tools::promote_args<T>::type result_type;
+   result_type r = boost::math::trunc(v, pol);
    if((r > (std::numeric_limits<boost::long_long_type>::max)()) || (r < (std::numeric_limits<boost::long_long_type>::min)()))
       return static_cast<boost::long_long_type>(policies::raise_rounding_error("boost::math::lltrunc<%1%>(%1%)", 0, v, static_cast<boost::long_long_type>(0), pol));
    return static_cast<boost::long_long_type>(r);

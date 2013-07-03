@@ -2,7 +2,7 @@
 // detail/call_stack.hpp
 // ~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -100,6 +100,13 @@ public:
       elem = elem->next_;
     }
     return 0;
+  }
+
+  // Obtain the value at the top of the stack.
+  static Value* top()
+  {
+    context* elem = top_;
+    return elem ? elem->value_ : 0;
   }
 
 private:

@@ -75,7 +75,7 @@ namespace boost { namespace proto
       : is_env<T>
     {};
 
-#ifdef BOOST_NO_RVALUE_REFERENCES
+#ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
 
     /// INTERNAL ONLY
     ///

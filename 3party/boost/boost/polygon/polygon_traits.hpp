@@ -985,11 +985,12 @@ namespace boost { namespace polygon{
       area_type x1 = (area_type)x(previous);
       area_type x2 = (area_type)x(*begin_range);
 #ifdef BOOST_POLYGON_ICC
+#pragma warning (push)
 #pragma warning (disable:1572)
 #endif
       if(x1 != x2) {
 #ifdef BOOST_POLYGON_ICC
-#pragma warning (default:1572)
+#pragma warning (pop)
 #endif
         // do trapezoid area accumulation
         area += (x2 - x1) * (((area_type)y(*begin_range) - y_base) +
@@ -1136,42 +1137,36 @@ namespace boost { namespace polygon{
     typedef typename polygon_traits<polygon_type>::coordinate_type coordinate_type;
     typedef typename polygon_traits<polygon_type>::iterator_type iterator;
     typedef typename std::iterator_traits<iterator>::value_type point_type;
-    iterator iter, iter_end;
-    iter_end = end_points(polygon);
-    iter = begin_points(polygon);
-    point_type prev_pt = *iter;
-    std::size_t num = size(polygon);
-    std::size_t counts[2] = {0, 0};
-    for(std::size_t i = 0; i < num; ++i) {
-      if(i == num-1) iter = begin_points(polygon);
-      else ++iter;
-      point_type current_pt = *iter;
-      if(x(current_pt) ==
-         x(prev_pt)) {
-        unsigned int index = x(current_pt) >
-          x(point);
-        std::size_t increment = 0;
-        interval_data<coordinate_type> ivl(y(current_pt),
-                                           y(prev_pt));
-        if(contains(ivl, y(point), true)) {
-          if(x(current_pt) ==
-             x(point)) return consider_touch;
-          ++increment;
-          if(y(current_pt) !=
-             y(point) &&
-             y(prev_pt) !=
-             y(point)) {
-            ++increment;
+    coordinate_type point_x = x(point);
+    coordinate_type point_y = y(point);
+    bool inside = false;
+    for (iterator iter = begin_points(polygon); iter != end_points(polygon);) {
+      point_type curr_point = *iter;
+      ++iter;
+      point_type next_point = (iter == end_points(polygon)) ? *begin_points(polygon) : *iter;
+      if (x(curr_point) == x(next_point)) {
+        if (x(curr_point) > point_x) {
+          continue;
+        }
+        coordinate_type min_y = (std::min)(y(curr_point), y(next_point));
+        coordinate_type max_y = (std::max)(y(curr_point), y(next_point));
+        if (point_y > min_y && point_y < max_y) {
+          if (x(curr_point) == point_x) {
+            return consider_touch;
           }
-          counts[index] += increment;
+          inside ^= true;
+        }
+      } else {
+        coordinate_type min_x = (std::min)(x(curr_point), x(next_point));
+        coordinate_type max_x = (std::max)(x(curr_point), x(next_point));
+        if (point_x >= min_x && point_x <= max_x) {
+          if (y(curr_point) == point_y) {
+            return consider_touch;
+          }
         }
       }
-      prev_pt = current_pt;
     }
-    //odd count implies boundary condition
-    if(counts[0] % 2 || counts[1] % 2) return consider_touch;
-    //an odd number of edges to the left implies interior pt
-    return counts[winding(polygon) == COUNTERCLOCKWISE ? 0 : 1] % 4 != 0;
+    return inside;
   }
 
   //TODO: refactor to expose as user APIs

@@ -75,7 +75,7 @@ struct dimension
     : core_dispatch::dimension
         <
             typename tag<Geometry>::type,
-			typename geometry::util::bare_type<Geometry>::type
+            typename geometry::util::bare_type<Geometry>::type
         >
 {};
 

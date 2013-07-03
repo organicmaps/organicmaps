@@ -99,8 +99,10 @@ namespace boost {
 
       // if odd number of elements, treat last element
       if (first != last) { // odd number of elements
-        if (comp(first, min_result))
-          min_result = first, potential_min_result = last;
+        if (comp(first, min_result)) {
+          min_result = first;
+          potential_min_result = last;
+          }
         else if (comp(max_result, first))
           max_result = first;
       }

@@ -2,7 +2,7 @@
 // detail/win_event.hpp
 // ~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,9 +17,9 @@
 
 #include <boost/asio/detail/config.hpp>
 
-#if defined(BOOST_WINDOWS)
+#if defined(BOOST_ASIO_WINDOWS)
 
-#include <boost/assert.hpp>
+#include <boost/asio/detail/assert.hpp>
 #include <boost/asio/detail/noncopyable.hpp>
 #include <boost/asio/detail/socket_types.hpp>
 
@@ -46,7 +46,7 @@ public:
   template <typename Lock>
   void signal(Lock& lock)
   {
-    BOOST_ASSERT(lock.locked());
+    BOOST_ASIO_ASSERT(lock.locked());
     (void)lock;
     ::SetEvent(event_);
   }
@@ -55,7 +55,7 @@ public:
   template <typename Lock>
   void signal_and_unlock(Lock& lock)
   {
-    BOOST_ASSERT(lock.locked());
+    BOOST_ASIO_ASSERT(lock.locked());
     lock.unlock();
     ::SetEvent(event_);
   }
@@ -64,7 +64,7 @@ public:
   template <typename Lock>
   void clear(Lock& lock)
   {
-    BOOST_ASSERT(lock.locked());
+    BOOST_ASIO_ASSERT(lock.locked());
     (void)lock;
     ::ResetEvent(event_);
   }
@@ -73,7 +73,7 @@ public:
   template <typename Lock>
   void wait(Lock& lock)
   {
-    BOOST_ASSERT(lock.locked());
+    BOOST_ASIO_ASSERT(lock.locked());
     lock.unlock();
     ::WaitForSingleObject(event_, INFINITE);
     lock.lock();
@@ -93,6 +93,6 @@ private:
 # include <boost/asio/detail/impl/win_event.ipp>
 #endif // defined(BOOST_ASIO_HEADER_ONLY)
 
-#endif // defined(BOOST_WINDOWS)
+#endif // defined(BOOST_ASIO_WINDOWS)
 
 #endif // BOOST_ASIO_DETAIL_WIN_EVENT_HPP

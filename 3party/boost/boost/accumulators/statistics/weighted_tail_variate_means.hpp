@@ -37,7 +37,7 @@
 namespace boost
 {
     // for _BinaryOperatrion2 in std::inner_product below
-    // mutliplies two values and promotes the result to double
+    // multiplies two values and promotes the result to double
     namespace numeric { namespace functional
     {
         ///////////////////////////////////////////////////////////////////////////////

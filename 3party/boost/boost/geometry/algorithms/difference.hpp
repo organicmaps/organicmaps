@@ -56,19 +56,11 @@ inline OutputIterator difference_insert(Geometry1 const& geometry1,
     
     return geometry::dispatch::intersection_insert
         <
-            typename geometry::tag<Geometry1>::type,
-            typename geometry::tag<Geometry2>::type,
-            typename geometry::tag<GeometryOut>::type,
-            geometry::is_areal<Geometry1>::value,
-            geometry::is_areal<Geometry2>::value,
-            geometry::is_areal<GeometryOut>::value,
             Geometry1, Geometry2,
-            geometry::detail::overlay::do_reverse<geometry::point_order<Geometry1>::value>::value,
-            geometry::detail::overlay::do_reverse<geometry::point_order<Geometry2>::value, true>::value,
-            geometry::detail::overlay::do_reverse<geometry::point_order<GeometryOut>::value>::value,
-            OutputIterator, GeometryOut,
+            GeometryOut,
             overlay_difference,
-            Strategy
+            geometry::detail::overlay::do_reverse<geometry::point_order<Geometry1>::value>::value,
+            geometry::detail::overlay::do_reverse<geometry::point_order<Geometry2>::value, true>::value
         >::apply(geometry1, geometry2, out, strategy);
 }
 

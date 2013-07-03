@@ -61,13 +61,15 @@ struct fcontext_t
     void            *   fc_excpt_lst;
     void            *   fc_local_storage;
     fp_t                fc_fp;
+    boost::uint32_t     fc_dealloc;
 
     fcontext_t() :
         fc_greg(),
         fc_stack(),
         fc_excpt_lst( 0),
         fc_local_storage( 0),
-        fc_fp()
+        fc_fp(),
+        fc_dealloc( 0)
     {}
 };
 

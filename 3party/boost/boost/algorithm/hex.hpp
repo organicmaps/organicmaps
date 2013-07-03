@@ -10,12 +10,6 @@
 /*
     General problem - turn a sequence of integral types into a sequence of hexadecimal characters.
     - and back.
-
-TO DO:
-    1. these should really only work on integral types. (see the >> and << operations)
-        -- this is done, I think.
-    2. The 'value_type_or_char' struct is really a hack.
-        -- but it's a better hack now that it works with back_insert_iterators
 */
 
 /// \file  hex.hpp
@@ -42,11 +36,11 @@ namespace boost { namespace algorithm {
 /*! 
     \struct hex_decode_error 
     \brief  Base exception class for all hex decoding errors 
-    
+*/ /*!
     \struct non_hex_input    
     \brief  Thrown when a non-hex value (0-9, A-F) encountered when decoding.
                 Contains the offending character
-    
+*/ /*!    
     \struct not_enough_input 
     \brief  Thrown when the input sequence unexpectedly ends
     
@@ -69,18 +63,16 @@ namespace detail {
         return std::copy ( res, res + num_hex_digits, out );
         }
 
-// this needs to be in an un-named namespace because it is not a template
-// and might get included in several compilation units. This could cause
-// multiple definition errors at link time.
-    namespace {
-    unsigned hex_char_to_int ( char c ) {
-        if ( c >= '0' && c <= '9' ) return c - '0';
-        if ( c >= 'A' && c <= 'F' ) return c - 'A' + 10;
-        if ( c >= 'a' && c <= 'f' ) return c - 'a' + 10;
-        BOOST_THROW_EXCEPTION (non_hex_input() << bad_char (c));
-        return 0;     // keep dumb compilers happy
+    template <typename T>
+    unsigned char hex_char_to_int ( T val ) {
+        char c = static_cast<char> ( val );
+        unsigned retval = 0;
+        if      ( c >= '0' && c <= '9' ) retval = c - '0';
+        else if ( c >= 'A' && c <= 'F' ) retval = c - 'A' + 10;
+        else if ( c >= 'a' && c <= 'f' ) retval = c - 'a' + 10;
+        else BOOST_THROW_EXCEPTION (non_hex_input() << bad_char (c));
+        return retval;
         }
-    }    
 
 //  My own iterator_traits class.
 //  It is here so that I can "reach inside" some kinds of output iterators
@@ -134,7 +126,7 @@ namespace detail {
         for ( std::size_t i = 0; i < 2 * sizeof ( T ); ++i, ++first ) {
             if ( pred ( first, last )) 
                 BOOST_THROW_EXCEPTION (not_enough_input ());
-            res = ( 16 * res ) + hex_char_to_int (static_cast<char> (*first));
+            res = ( 16 * res ) + hex_char_to_int (*first);
             }
         
         *out = res;

@@ -2,7 +2,7 @@
 // detail/bind_handler.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,6 +17,7 @@
 
 #include <boost/asio/detail/config.hpp>
 #include <boost/asio/detail/handler_alloc_helpers.hpp>
+#include <boost/asio/detail/handler_cont_helpers.hpp>
 #include <boost/asio/detail/handler_invoke_helpers.hpp>
 
 #include <boost/asio/detail/push_options.hpp>
@@ -70,6 +71,14 @@ inline void asio_handler_deallocate(void* pointer, std::size_t size,
 {
   boost_asio_handler_alloc_helpers::deallocate(
       pointer, size, this_handler->handler_);
+}
+
+template <typename Handler, typename Arg1>
+inline bool asio_handler_is_continuation(
+    binder1<Handler, Arg1>* this_handler)
+{
+  return boost_asio_handler_cont_helpers::is_continuation(
+      this_handler->handler_);
 }
 
 template <typename Function, typename Handler, typename Arg1>
@@ -144,6 +153,14 @@ inline void asio_handler_deallocate(void* pointer, std::size_t size,
 {
   boost_asio_handler_alloc_helpers::deallocate(
       pointer, size, this_handler->handler_);
+}
+
+template <typename Handler, typename Arg1, typename Arg2>
+inline bool asio_handler_is_continuation(
+    binder2<Handler, Arg1, Arg2>* this_handler)
+{
+  return boost_asio_handler_cont_helpers::is_continuation(
+      this_handler->handler_);
 }
 
 template <typename Function, typename Handler, typename Arg1, typename Arg2>
@@ -224,6 +241,14 @@ inline void asio_handler_deallocate(void* pointer, std::size_t size,
 {
   boost_asio_handler_alloc_helpers::deallocate(
       pointer, size, this_handler->handler_);
+}
+
+template <typename Handler, typename Arg1, typename Arg2, typename Arg3>
+inline bool asio_handler_is_continuation(
+    binder3<Handler, Arg1, Arg2, Arg3>* this_handler)
+{
+  return boost_asio_handler_cont_helpers::is_continuation(
+      this_handler->handler_);
 }
 
 template <typename Function, typename Handler, typename Arg1, typename Arg2,
@@ -313,6 +338,15 @@ inline void asio_handler_deallocate(void* pointer, std::size_t size,
 {
   boost_asio_handler_alloc_helpers::deallocate(
       pointer, size, this_handler->handler_);
+}
+
+template <typename Handler, typename Arg1, typename Arg2, typename Arg3,
+    typename Arg4>
+inline bool asio_handler_is_continuation(
+    binder4<Handler, Arg1, Arg2, Arg3, Arg4>* this_handler)
+{
+  return boost_asio_handler_cont_helpers::is_continuation(
+      this_handler->handler_);
 }
 
 template <typename Function, typename Handler, typename Arg1, typename Arg2,
@@ -409,6 +443,15 @@ inline void asio_handler_deallocate(void* pointer, std::size_t size,
 {
   boost_asio_handler_alloc_helpers::deallocate(
       pointer, size, this_handler->handler_);
+}
+
+template <typename Handler, typename Arg1, typename Arg2, typename Arg3,
+    typename Arg4, typename Arg5>
+inline bool asio_handler_is_continuation(
+    binder5<Handler, Arg1, Arg2, Arg3, Arg4, Arg5>* this_handler)
+{
+  return boost_asio_handler_cont_helpers::is_continuation(
+      this_handler->handler_);
 }
 
 template <typename Function, typename Handler, typename Arg1, typename Arg2,

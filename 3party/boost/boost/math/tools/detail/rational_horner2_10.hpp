@@ -12,7 +12,7 @@
 namespace boost{ namespace math{ namespace tools{ namespace detail{
 
 template <class T, class U, class V>
-inline V evaluate_rational_c_imp(const T* a, const U* b, const V&, const mpl::int_<0>*)
+inline V evaluate_rational_c_imp(const T*, const U*, const V&, const mpl::int_<0>*)
 {
    return static_cast<V>(0);
 }

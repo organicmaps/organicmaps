@@ -13,7 +13,7 @@ namespace boost { namespace polygon{
   template <typename coordinate_type>
   inline void polygon_set_data<coordinate_type>::clean() const {
     if(dirty_) {
-      polygon_45_set_data<coordinate_type> tmp;
+      //polygon_45_set_data<coordinate_type> tmp;
       //very important:
       //the 45 degree algorithm does not satisfy
       //the precondition of arbitrary polygon formation
@@ -102,6 +102,7 @@ namespace boost { namespace polygon{
 //    if(linput_.downcast(l45) && rinput_.downcast(r45)) {
 //      //the op codes are screwed up between 45 and arbitrary
 //#ifdef BOOST_POLYGON_MSVC
+//#pragma warning (push)
 //#pragma warning (disable: 4127)
 //#endif
 //      if(op_type < 2)
@@ -111,7 +112,7 @@ namespace boost { namespace polygon{
 //      else
 //        l45.template applyAdaptiveBoolean_<2>(o45, r45);
 //#ifdef BOOST_POLYGON_MSVC
-//#pragma warning (default: 4127)
+//#pragma warning (pop)
 //#endif
 //      output_.insert(o45);
 //    } else {

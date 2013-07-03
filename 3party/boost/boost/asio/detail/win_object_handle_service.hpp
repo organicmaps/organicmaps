@@ -2,7 +2,7 @@
 // detail/win_object_handle_service.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 // Copyright (c) 2011 Boris Schaeling (boris@highscore.de)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -20,7 +20,7 @@
 
 #if defined(BOOST_ASIO_HAS_WINDOWS_OBJECT_HANDLE)
 
-#include <boost/utility/addressof.hpp>
+#include <boost/asio/detail/addressof.hpp>
 #include <boost/asio/detail/handler_alloc_helpers.hpp>
 #include <boost/asio/detail/wait_handler.hpp>
 #include <boost/asio/error.hpp>
@@ -134,7 +134,7 @@ public:
   {
     // Allocate and construct an operation to wrap the handler.
     typedef wait_handler<Handler> op;
-    typename op::ptr p = { boost::addressof(handler),
+    typename op::ptr p = { boost::asio::detail::addressof(handler),
       boost_asio_handler_alloc_helpers::allocate(
         sizeof(op), handler), 0 };
     p.p = new (p.v) op(handler);

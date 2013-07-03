@@ -2,7 +2,7 @@
 // detail/impl/win_iocp_socket_service_base.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -534,13 +534,13 @@ void win_iocp_socket_service_base::start_reactor_op(
 
   if (is_open(impl))
   {
-    r.start_op(op_type, impl.socket_, impl.reactor_data_, op, false);
+    r.start_op(op_type, impl.socket_, impl.reactor_data_, op, false, false);
     return;
   }
   else
     op->ec_ = boost::asio::error::bad_descriptor;
 
-  iocp_service_.post_immediate_completion(op);
+  iocp_service_.post_immediate_completion(op, false);
 }
 
 void win_iocp_socket_service_base::start_connect_op(
@@ -561,13 +561,13 @@ void win_iocp_socket_service_base::start_connect_op(
       {
         op->ec_ = boost::system::error_code();
         r.start_op(reactor::connect_op, impl.socket_,
-            impl.reactor_data_, op, false);
+            impl.reactor_data_, op, false, false);
         return;
       }
     }
   }
 
-  r.post_immediate_completion(op);
+  r.post_immediate_completion(op, false);
 }
 
 void win_iocp_socket_service_base::close_for_destruction(

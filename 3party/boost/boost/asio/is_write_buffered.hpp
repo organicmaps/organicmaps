@@ -2,7 +2,7 @@
 // is_write_buffered.hpp
 // ~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -48,7 +48,7 @@ public:
   /// written data.
   static const bool value;
 #else
-  BOOST_STATIC_CONSTANT(bool,
+  BOOST_ASIO_STATIC_CONSTANT(bool,
       value = sizeof(detail::is_write_buffered_helper((Stream*)0)) == 1);
 #endif
 };

@@ -190,22 +190,20 @@ class allocator
    //!preferred_elements. The number of actually allocated elements is
    //!will be assigned to received_size. The elements must be deallocated
    //!with deallocate(...)
-   multiallocation_chain allocate_many
-      (size_type elem_size, size_type num_elements)
+   void allocate_many(size_type elem_size, size_type num_elements, multiallocation_chain &chain)
    {
       if(size_overflows<sizeof(T)>(elem_size)){
          throw bad_alloc();
       }
-      return multiallocation_chain(mp_mngr->allocate_many(elem_size*sizeof(T), num_elements));
+      mp_mngr->allocate_many(elem_size*sizeof(T), num_elements, chain);
    }
 
    //!Allocates n_elements elements, each one of size elem_sizes[i]in a
    //!contiguous block
    //!of memory. The elements must be deallocated
-   multiallocation_chain allocate_many
-      (const size_type *elem_sizes, size_type n_elements)
+   void allocate_many(const size_type *elem_sizes, size_type n_elements, multiallocation_chain &chain)
    {
-      multiallocation_chain(mp_mngr->allocate_many(elem_sizes, n_elements, sizeof(T)));
+      mp_mngr->allocate_many(elem_sizes, n_elements, sizeof(T), chain);
    }
 
    //!Allocates many elements of size elem_size in a contiguous block
@@ -214,10 +212,8 @@ class allocator
    //!preferred_elements. The number of actually allocated elements is
    //!will be assigned to received_size. The elements must be deallocated
    //!with deallocate(...)
-   void deallocate_many(multiallocation_chain chain)
-   {
-      return mp_mngr->deallocate_many(chain.extract_multiallocation_chain());
-   }
+   void deallocate_many(multiallocation_chain &chain)
+   {  mp_mngr->deallocate_many(chain); }
 
    //!Allocates just one object. Memory allocated with this function
    //!must be deallocated only with deallocate_one().
@@ -231,9 +227,8 @@ class allocator
    //!preferred_elements. The number of actually allocated elements is
    //!will be assigned to received_size. Memory allocated with this function
    //!must be deallocated only with deallocate_one().
-   multiallocation_chain allocate_individual
-      (size_type num_elements)
-   {  return this->allocate_many(1, num_elements); }
+   void allocate_individual(size_type num_elements, multiallocation_chain &chain)
+   {  this->allocate_many(1, num_elements, chain); }
 
    //!Deallocates memory previously allocated with allocate_one().
    //!You should never use deallocate_one to deallocate memory allocated
@@ -247,8 +242,8 @@ class allocator
    //!preferred_elements. The number of actually allocated elements is
    //!will be assigned to received_size. Memory allocated with this function
    //!must be deallocated only with deallocate_one().
-   void deallocate_individual(multiallocation_chain chain)
-   {  return this->deallocate_many(boost::move(chain)); }
+   void deallocate_individual(multiallocation_chain &chain)
+   {  this->deallocate_many(chain); }
 
    //!Returns address of mutable object.
    //!Never throws

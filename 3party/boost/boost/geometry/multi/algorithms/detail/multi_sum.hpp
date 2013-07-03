@@ -23,15 +23,9 @@ namespace boost { namespace geometry
 namespace detail
 {
 
-template
-<
-    typename ReturnType,
-    typename MultiGeometry,
-    typename Strategy,
-    typename Policy
->
 struct multi_sum
 {
+    template <typename ReturnType, typename Policy, typename MultiGeometry, typename Strategy>
     static inline ReturnType apply(MultiGeometry const& geometry, Strategy const& strategy)
     {
         ReturnType sum = ReturnType();

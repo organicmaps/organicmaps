@@ -2,7 +2,7 @@
 // basic_signal_set.hpp
 // ~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -365,13 +365,15 @@ public:
    * boost::asio::io_service::post().
    */
   template <typename SignalHandler>
-  void async_wait(BOOST_ASIO_MOVE_ARG(SignalHandler) handler)
+  BOOST_ASIO_INITFN_RESULT_TYPE(SignalHandler,
+      void (boost::system::error_code, int))
+  async_wait(BOOST_ASIO_MOVE_ARG(SignalHandler) handler)
   {
     // If you get an error on the following line it means that your handler does
     // not meet the documented type requirements for a SignalHandler.
     BOOST_ASIO_SIGNAL_HANDLER_CHECK(SignalHandler, handler) type_check;
 
-    this->service.async_wait(this->implementation,
+    return this->service.async_wait(this->implementation,
         BOOST_ASIO_MOVE_CAST(SignalHandler)(handler));
   }
 };

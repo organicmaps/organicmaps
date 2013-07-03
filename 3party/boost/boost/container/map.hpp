@@ -22,7 +22,6 @@
 #include <utility>
 #include <functional>
 #include <memory>
-#include <stdexcept>
 #include <boost/container/detail/tree.hpp>
 #include <boost/container/detail/value_init.hpp>
 #include <boost/type_traits/has_trivial_destructor.hpp>
@@ -30,10 +29,12 @@
 #include <boost/container/detail/utilities.hpp>
 #include <boost/container/detail/pair.hpp>
 #include <boost/container/detail/type_traits.hpp>
-#include <boost/move/move.hpp>
-#include <boost/move/move_helpers.hpp>
+#include <boost/container/throw_exception.hpp>
+#include <boost/move/utility.hpp>
+#include <boost/move/detail/move_helpers.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/container/detail/value_init.hpp>
+#include <boost/detail/no_exceptions_support.hpp>
 
 namespace boost {
 namespace container {
@@ -229,7 +230,7 @@ class map
    //!   was passed to the object's constructor.
    //!
    //! <b>Complexity</b>: Constant.
-   allocator_type get_allocator() const
+   allocator_type get_allocator() const BOOST_CONTAINER_NOEXCEPT
    { return m_tree.get_allocator(); }
 
    //! <b>Effects</b>: Returns a reference to the internal allocator.
@@ -239,7 +240,7 @@ class map
    //! <b>Complexity</b>: Constant.
    //!
    //! <b>Note</b>: Non-standard extension.
-   stored_allocator_type &get_stored_allocator()
+   stored_allocator_type &get_stored_allocator() BOOST_CONTAINER_NOEXCEPT
    { return m_tree.get_stored_allocator(); }
 
    //! <b>Effects</b>: Returns a reference to the internal allocator.
@@ -249,7 +250,7 @@ class map
    //! <b>Complexity</b>: Constant.
    //!
    //! <b>Note</b>: Non-standard extension.
-   const stored_allocator_type &get_stored_allocator() const
+   const stored_allocator_type &get_stored_allocator() const BOOST_CONTAINER_NOEXCEPT
    { return m_tree.get_stored_allocator(); }
 
    //////////////////////////////////////////////
@@ -263,7 +264,7 @@ class map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   iterator begin()
+   iterator begin() BOOST_CONTAINER_NOEXCEPT
    { return m_tree.begin(); }
 
    //! <b>Effects</b>: Returns a const_iterator to the first element contained in the container.
@@ -271,7 +272,7 @@ class map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator begin() const
+   const_iterator begin() const BOOST_CONTAINER_NOEXCEPT
    { return this->cbegin(); }
 
    //! <b>Effects</b>: Returns an iterator to the end of the container.
@@ -279,7 +280,7 @@ class map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   iterator end()
+   iterator end() BOOST_CONTAINER_NOEXCEPT
    { return m_tree.end(); }
 
    //! <b>Effects</b>: Returns a const_iterator to the end of the container.
@@ -287,7 +288,7 @@ class map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator end() const
+   const_iterator end() const BOOST_CONTAINER_NOEXCEPT
    { return this->cend(); }
 
    //! <b>Effects</b>: Returns a reverse_iterator pointing to the beginning
@@ -296,7 +297,7 @@ class map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   reverse_iterator rbegin()
+   reverse_iterator rbegin() BOOST_CONTAINER_NOEXCEPT
    { return m_tree.rbegin(); }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the beginning
@@ -305,7 +306,7 @@ class map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator rbegin() const
+   const_reverse_iterator rbegin() const BOOST_CONTAINER_NOEXCEPT
    { return this->crbegin(); }
 
    //! <b>Effects</b>: Returns a reverse_iterator pointing to the end
@@ -314,7 +315,7 @@ class map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   reverse_iterator rend()
+   reverse_iterator rend() BOOST_CONTAINER_NOEXCEPT
    { return m_tree.rend(); }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the end
@@ -323,7 +324,7 @@ class map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator rend() const
+   const_reverse_iterator rend() const BOOST_CONTAINER_NOEXCEPT
    { return this->crend(); }
 
    //! <b>Effects</b>: Returns a const_iterator to the first element contained in the container.
@@ -331,7 +332,7 @@ class map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator cbegin() const
+   const_iterator cbegin() const BOOST_CONTAINER_NOEXCEPT
    { return m_tree.begin(); }
 
    //! <b>Effects</b>: Returns a const_iterator to the end of the container.
@@ -339,7 +340,7 @@ class map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator cend() const
+   const_iterator cend() const BOOST_CONTAINER_NOEXCEPT
    { return m_tree.end(); }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the beginning
@@ -348,7 +349,7 @@ class map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator crbegin() const
+   const_reverse_iterator crbegin() const BOOST_CONTAINER_NOEXCEPT
    { return m_tree.rbegin(); }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the end
@@ -357,7 +358,7 @@ class map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator crend() const
+   const_reverse_iterator crend() const BOOST_CONTAINER_NOEXCEPT
    { return m_tree.rend(); }
 
    //////////////////////////////////////////////
@@ -371,7 +372,7 @@ class map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   bool empty() const
+   bool empty() const BOOST_CONTAINER_NOEXCEPT
    { return m_tree.empty(); }
 
    //! <b>Effects</b>: Returns the number of the elements contained in the container.
@@ -379,7 +380,7 @@ class map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   size_type size() const
+   size_type size() const BOOST_CONTAINER_NOEXCEPT
    { return m_tree.size(); }
 
    //! <b>Effects</b>: Returns the largest possible size of the container.
@@ -387,7 +388,7 @@ class map
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   size_type max_size() const
+   size_type max_size() const BOOST_CONTAINER_NOEXCEPT
    { return m_tree.max_size(); }
 
    //////////////////////////////////////////////
@@ -423,7 +424,7 @@ class map
    {
       iterator i = this->find(k);
       if(i == this->end()){
-         throw std::out_of_range("key not found");
+         throw_out_of_range("map::at key not found");
       }
       return i->second;
    }
@@ -435,7 +436,7 @@ class map
    {
       const_iterator i = this->find(k);
       if(i == this->end()){
-         throw std::out_of_range("key not found");
+         throw_out_of_range("map::at key not found");
       }
       return i->second;
    }
@@ -621,7 +622,7 @@ class map
    //!   returns end().
    //!
    //! <b>Complexity</b>: Amortized constant time
-   iterator erase(const_iterator position)
+   iterator erase(const_iterator position) BOOST_CONTAINER_NOEXCEPT
    { return m_tree.erase(position); }
 
    //! <b>Effects</b>: Erases all elements in the container with key equivalent to x.
@@ -629,7 +630,7 @@ class map
    //! <b>Returns</b>: Returns the number of erased elements.
    //!
    //! <b>Complexity</b>: log(size()) + count(k)
-   size_type erase(const key_type& x)
+   size_type erase(const key_type& x) BOOST_CONTAINER_NOEXCEPT
    { return m_tree.erase(x); }
 
    //! <b>Effects</b>: Erases all the elements in the range [first, last).
@@ -637,7 +638,7 @@ class map
    //! <b>Returns</b>: Returns last.
    //!
    //! <b>Complexity</b>: log(size())+N where N is the distance from first to last.
-   iterator erase(const_iterator first, const_iterator last)
+   iterator erase(const_iterator first, const_iterator last) BOOST_CONTAINER_NOEXCEPT
    { return m_tree.erase(first, last); }
 
    //! <b>Effects</b>: Swaps the contents of *this and x.
@@ -653,7 +654,7 @@ class map
    //! <b>Postcondition</b>: size() == 0.
    //!
    //! <b>Complexity</b>: linear in size().
-   void clear()
+   void clear() BOOST_CONTAINER_NOEXCEPT
    { m_tree.clear(); }
 
    //////////////////////////////////////////////
@@ -827,15 +828,15 @@ inline bool operator<(const multimap<Key,T,Compare,Allocator>& x,
                       const multimap<Key,T,Compare,Allocator>& y);
 
 }  //namespace container {
-/*
+
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
 template <class K, class T, class C, class Allocator>
 struct has_trivial_destructor_after_move<boost::container::map<K, T, C, Allocator> >
 {
-   static const bool value = has_trivial_destructor<Allocator>::value && has_trivial_destructor<C>::value;
+   static const bool value = has_trivial_destructor_after_move<Allocator>::value && has_trivial_destructor_after_move<C>::value;
 };
-*/
+
 namespace container {
 
 /// @endcond
@@ -951,9 +952,9 @@ class multimap
    //!
    //! <b>Complexity</b>: Linear in N.
    template <class InputIterator>
-   multimap(ordered_range_t ordered_range_, InputIterator first, InputIterator last, const Compare& comp = Compare(),
+   multimap(ordered_range_t, InputIterator first, InputIterator last, const Compare& comp = Compare(),
          const allocator_type& a = allocator_type())
-      : m_tree(ordered_range_, first, last, comp, a)
+      : m_tree(ordered_range, first, last, comp, a)
    {}
 
    //! <b>Effects</b>: Copy constructs a multimap.
@@ -1016,7 +1017,7 @@ class multimap
    //!   was passed to the object's constructor.
    //!
    //! <b>Complexity</b>: Constant.
-   allocator_type get_allocator() const
+   allocator_type get_allocator() const BOOST_CONTAINER_NOEXCEPT
    { return m_tree.get_allocator(); }
 
    //! <b>Effects</b>: Returns a reference to the internal allocator.
@@ -1026,7 +1027,7 @@ class multimap
    //! <b>Complexity</b>: Constant.
    //!
    //! <b>Note</b>: Non-standard extension.
-   stored_allocator_type &get_stored_allocator()
+   stored_allocator_type &get_stored_allocator() BOOST_CONTAINER_NOEXCEPT
    { return m_tree.get_stored_allocator(); }
 
    //! <b>Effects</b>: Returns a reference to the internal allocator.
@@ -1036,7 +1037,7 @@ class multimap
    //! <b>Complexity</b>: Constant.
    //!
    //! <b>Note</b>: Non-standard extension.
-   const stored_allocator_type &get_stored_allocator() const
+   const stored_allocator_type &get_stored_allocator() const BOOST_CONTAINER_NOEXCEPT
    { return m_tree.get_stored_allocator(); }
 
    //////////////////////////////////////////////
@@ -1050,7 +1051,7 @@ class multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   iterator begin()
+   iterator begin() BOOST_CONTAINER_NOEXCEPT
    { return m_tree.begin(); }
 
    //! <b>Effects</b>: Returns a const_iterator to the first element contained in the container.
@@ -1058,7 +1059,7 @@ class multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator begin() const
+   const_iterator begin() const BOOST_CONTAINER_NOEXCEPT
    { return this->cbegin(); }
 
    //! <b>Effects</b>: Returns an iterator to the end of the container.
@@ -1066,7 +1067,7 @@ class multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   iterator end()
+   iterator end() BOOST_CONTAINER_NOEXCEPT
    { return m_tree.end(); }
 
    //! <b>Effects</b>: Returns a const_iterator to the end of the container.
@@ -1074,7 +1075,7 @@ class multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator end() const
+   const_iterator end() const BOOST_CONTAINER_NOEXCEPT
    { return this->cend(); }
 
    //! <b>Effects</b>: Returns a reverse_iterator pointing to the beginning
@@ -1083,7 +1084,7 @@ class multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   reverse_iterator rbegin()
+   reverse_iterator rbegin() BOOST_CONTAINER_NOEXCEPT
    { return m_tree.rbegin(); }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the beginning
@@ -1092,7 +1093,7 @@ class multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator rbegin() const
+   const_reverse_iterator rbegin() const BOOST_CONTAINER_NOEXCEPT
    { return this->crbegin(); }
 
    //! <b>Effects</b>: Returns a reverse_iterator pointing to the end
@@ -1101,7 +1102,7 @@ class multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   reverse_iterator rend()
+   reverse_iterator rend() BOOST_CONTAINER_NOEXCEPT
    { return m_tree.rend(); }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the end
@@ -1110,7 +1111,7 @@ class multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator rend() const
+   const_reverse_iterator rend() const BOOST_CONTAINER_NOEXCEPT
    { return this->crend(); }
 
    //! <b>Effects</b>: Returns a const_iterator to the first element contained in the container.
@@ -1118,7 +1119,7 @@ class multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator cbegin() const
+   const_iterator cbegin() const BOOST_CONTAINER_NOEXCEPT
    { return m_tree.begin(); }
 
    //! <b>Effects</b>: Returns a const_iterator to the end of the container.
@@ -1126,7 +1127,7 @@ class multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_iterator cend() const
+   const_iterator cend() const BOOST_CONTAINER_NOEXCEPT
    { return m_tree.end(); }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the beginning
@@ -1135,7 +1136,7 @@ class multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator crbegin() const
+   const_reverse_iterator crbegin() const BOOST_CONTAINER_NOEXCEPT
    { return m_tree.rbegin(); }
 
    //! <b>Effects</b>: Returns a const_reverse_iterator pointing to the end
@@ -1144,7 +1145,7 @@ class multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   const_reverse_iterator crend() const
+   const_reverse_iterator crend() const BOOST_CONTAINER_NOEXCEPT
    { return m_tree.rend(); }
 
    //////////////////////////////////////////////
@@ -1158,7 +1159,7 @@ class multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   bool empty() const
+   bool empty() const BOOST_CONTAINER_NOEXCEPT
    { return m_tree.empty(); }
 
    //! <b>Effects</b>: Returns the number of the elements contained in the container.
@@ -1166,7 +1167,7 @@ class multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   size_type size() const
+   size_type size() const BOOST_CONTAINER_NOEXCEPT
    { return m_tree.size(); }
 
    //! <b>Effects</b>: Returns the largest possible size of the container.
@@ -1174,7 +1175,7 @@ class multimap
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Constant.
-   size_type max_size() const
+   size_type max_size() const BOOST_CONTAINER_NOEXCEPT
    { return m_tree.max_size(); }
 
    //////////////////////////////////////////////
@@ -1317,7 +1318,7 @@ class multimap
    //!   returns end().
    //!
    //! <b>Complexity</b>: Amortized constant time
-   iterator erase(const_iterator position)
+   iterator erase(const_iterator position) BOOST_CONTAINER_NOEXCEPT
    { return m_tree.erase(position); }
 
    //! <b>Effects</b>: Erases all elements in the container with key equivalent to x.
@@ -1325,7 +1326,7 @@ class multimap
    //! <b>Returns</b>: Returns the number of erased elements.
    //!
    //! <b>Complexity</b>: log(size()) + count(k)
-   size_type erase(const key_type& x)
+   size_type erase(const key_type& x) BOOST_CONTAINER_NOEXCEPT
    { return m_tree.erase(x); }
 
    //! <b>Effects</b>: Erases all the elements in the range [first, last).
@@ -1333,7 +1334,7 @@ class multimap
    //! <b>Returns</b>: Returns last.
    //!
    //! <b>Complexity</b>: log(size())+N where N is the distance from first to last.
-   iterator erase(const_iterator first, const_iterator last)
+   iterator erase(const_iterator first, const_iterator last) BOOST_CONTAINER_NOEXCEPT
    { return m_tree.erase(first, last); }
 
    //! <b>Effects</b>: Swaps the contents of *this and x.
@@ -1349,7 +1350,7 @@ class multimap
    //! <b>Postcondition</b>: size() == 0.
    //!
    //! <b>Complexity</b>: linear in size().
-   void clear()
+   void clear() BOOST_CONTAINER_NOEXCEPT
    { m_tree.clear(); }
 
    //////////////////////////////////////////////
@@ -1486,15 +1487,15 @@ inline void swap(multimap<Key,T,Compare,Allocator>& x, multimap<Key,T,Compare,Al
 /// @cond
 
 }  //namespace container {
-/*
+
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
 template <class K, class T, class C, class Allocator>
 struct has_trivial_destructor_after_move<boost::container::multimap<K, T, C, Allocator> >
 {
-   static const bool value = has_trivial_destructor<Allocator>::value && has_trivial_destructor<C>::value;
+   static const bool value = has_trivial_destructor_after_move<Allocator>::value && has_trivial_destructor_after_move<C>::value;
 };
-*/
+
 namespace container {
 
 /// @endcond

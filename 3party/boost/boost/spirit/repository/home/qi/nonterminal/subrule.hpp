@@ -529,7 +529,7 @@ namespace boost { namespace spirit { namespace repository { namespace qi
         {
             // If you are seeing a compilation error here, you are trying
             // to use a subrule as a parser outside of a subrule group.
-            BOOST_SPIRIT_ASSERT_MSG(false
+            BOOST_SPIRIT_ASSERT_FAIL(Iterator
               , subrule_used_outside_subrule_group, (id_type));
 
             return false;
@@ -558,7 +558,7 @@ namespace boost { namespace spirit { namespace repository { namespace qi
         {
             // If you are seeing a compilation error here, you are trying
             // to use a subrule as a parser outside of a subrule group.
-            BOOST_SPIRIT_ASSERT_MSG(false
+            BOOST_SPIRIT_ASSERT_FAIL(Iterator
               , subrule_used_outside_subrule_group, (id_type));
 
             return false;

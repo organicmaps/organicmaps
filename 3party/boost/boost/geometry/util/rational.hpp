@@ -39,13 +39,13 @@ struct coordinate_cast<rational<T> >
         std::string before_part = source.substr(0, p);
         std::string const after_part = source.substr(p + 1);
 
-		negate = false;
+        negate = false;
 
-		if (before_part.size() > 0 && before_part[0] == '-')
-		{
-			negate = true;
-			before_part.erase(0, 1);
-		}
+        if (before_part.size() > 0 && before_part[0] == '-')
+        {
+            negate = true;
+            before_part.erase(0, 1);
+        }
         before = atol(before_part.c_str());
         after = atol(after_part.c_str());
         len = after_part.length();
@@ -71,9 +71,9 @@ struct coordinate_cast<rational<T> >
             split_parts(source, p, before, after, negate, len);
 
             return negate 
-			    ? -rational<T>(before, after)
-			    : rational<T>(before, after)
-			    ;
+                ? -rational<T>(before, after)
+                : rational<T>(before, after)
+                ;
 
         }
 
@@ -86,9 +86,9 @@ struct coordinate_cast<rational<T> >
         }
 
         return negate 
-			? -rational<T>(before) - rational<T>(after, den)
-			: rational<T>(before) + rational<T>(after, den)
-			;
+            ? -rational<T>(before) - rational<T>(after, den)
+            : rational<T>(before) + rational<T>(after, den)
+            ;
     }
 };
 

@@ -26,16 +26,9 @@ namespace detail
 {
 
 
-template
-<
-    typename ReturnType,
-    typename Polygon,
-    typename Strategy,
-    typename Policy
->
 class calculate_polygon_sum
 {
-    template <typename Rings>
+    template <typename ReturnType, typename Policy, typename Rings, typename Strategy>
     static inline ReturnType sum_interior_rings(Rings const& rings, Strategy const& strategy)
     {
         ReturnType sum = ReturnType();
@@ -47,10 +40,11 @@ class calculate_polygon_sum
     }
 
 public :
+    template <typename ReturnType, typename Policy, typename Polygon, typename Strategy>
     static inline ReturnType apply(Polygon const& poly, Strategy const& strategy)
     {
         return Policy::apply(exterior_ring(poly), strategy)
-            + sum_interior_rings(interior_rings(poly), strategy)
+            + sum_interior_rings<ReturnType, Policy>(interior_rings(poly), strategy)
             ;
     }
 };

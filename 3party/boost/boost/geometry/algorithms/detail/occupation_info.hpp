@@ -10,7 +10,7 @@
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_OCCUPATION_INFO_HPP
 
 #if ! defined(NDEBUG)
-  #define BOOST_GEOMETRY_DEBUG_BUFFER_OCCUPATION
+//  #define BOOST_GEOMETRY_DEBUG_BUFFER_OCCUPATION
 #endif
 
 #include <algorithm>
@@ -91,26 +91,26 @@ inline T calculate_angle(P1 const& from_point, P2 const& to_point)
 template <typename Iterator, typename Vector>
 inline Iterator advance_circular(Iterator it, Vector const& vector, segment_identifier& seg_id, bool forward = true)
 {
-	int const increment = forward ? 1 : -1;
-	if (it == boost::begin(vector) && increment < 0)
-	{
-		it = boost::end(vector);
+    int const increment = forward ? 1 : -1;
+    if (it == boost::begin(vector) && increment < 0)
+    {
+        it = boost::end(vector);
         seg_id.segment_index = boost::size(vector);
-	}
-	it += increment;
+    }
+    it += increment;
     seg_id.segment_index += increment;
-	if (it == boost::end(vector))
-	{
+    if (it == boost::end(vector))
+    {
         seg_id.segment_index = 0;
-		it = boost::begin(vector);
-	}
-	return it;
+        it = boost::begin(vector);
+    }
+    return it;
 }
 
 template <typename Point, typename T>
 struct angle_info
 {
-	typedef T angle_type;
+    typedef T angle_type;
     typedef Point point_type;
 
     segment_identifier seg_id;
@@ -125,70 +125,70 @@ struct angle_info
 template <typename AngleInfo>
 class occupation_info
 {
-	typedef std::vector<AngleInfo> collection_type;
+    typedef std::vector<AngleInfo> collection_type;
 
-	struct angle_sort
-	{
-		inline bool operator()(AngleInfo const& left, AngleInfo const& right) const
-		{
-			// In this case we can compare even double using equals
-			// return geometry::math::equals(left.angle, right.angle)
-			return left.angle == right.angle
-				? int(left.incoming) < int(right.incoming)
-				: left.angle < right.angle
-				;
-		}
-	};
+    struct angle_sort
+    {
+        inline bool operator()(AngleInfo const& left, AngleInfo const& right) const
+        {
+            // In this case we can compare even double using equals
+            // return geometry::math::equals(left.angle, right.angle)
+            return left.angle == right.angle
+                ? int(left.incoming) < int(right.incoming)
+                : left.angle < right.angle
+                ;
+        }
+    };
 
 public :
     collection_type angles;
 private :
     bool m_occupied;
-	bool m_calculated;
+    bool m_calculated;
 
-	inline bool is_occupied()
-	{
-		if (boost::size(angles) <= 1)
-		{
-			return false;
-		}
+    inline bool is_occupied()
+    {
+        if (boost::size(angles) <= 1)
+        {
+            return false;
+        }
 
-		std::sort(angles.begin(), angles.end(), angle_sort());
+        std::sort(angles.begin(), angles.end(), angle_sort());
 
-		typedef geometry::closing_iterator<collection_type const> closing_iterator;
-		closing_iterator vit(angles);
-		closing_iterator end(angles, true);
+        typedef geometry::closing_iterator<collection_type const> closing_iterator;
+        closing_iterator vit(angles);
+        closing_iterator end(angles, true);
 
-		closing_iterator prev = vit++;
-		for( ; vit != end; prev = vit++)
-		{
-			if (! geometry::math::equals(prev->angle, vit->angle)
-				&& ! prev->incoming
-				&& vit->incoming)
-			{
-				return false;
-			}
-		}
-		return true;
-	}
+        closing_iterator prev = vit++;
+        for( ; vit != end; prev = vit++)
+        {
+            if (! geometry::math::equals(prev->angle, vit->angle)
+                && ! prev->incoming
+                && vit->incoming)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 
 public :
     inline occupation_info()
         : m_occupied(false)
-		, m_calculated(false)
+        , m_calculated(false)
     {}
 
-	template <typename PointC, typename Point1, typename Point2>
-	inline void add(PointC const& map_point, Point1 const& direction_point, Point2 const& intersection_point,
+    template <typename PointC, typename Point1, typename Point2>
+    inline void add(PointC const& map_point, Point1 const& direction_point, Point2 const& intersection_point,
                     int turn_index, int operation_index,
                     segment_identifier const& seg_id, bool incoming)
-	{
+    {
         //std::cout << "-> adding angle " << geometry::wkt(direction_point) << " .. " << geometry::wkt(intersection_point) << " " << int(incoming) << std::endl;
-		if (geometry::equals(direction_point, intersection_point))
-		{
-			//std::cout << "EQUAL! Skipping" << std::endl;
-			return;
-		}
+        if (geometry::equals(direction_point, intersection_point))
+        {
+            //std::cout << "EQUAL! Skipping" << std::endl;
+            return;
+        }
 
         AngleInfo info;
         info.incoming = incoming;
@@ -200,18 +200,18 @@ public :
         info.direction_point = direction_point;
         angles.push_back(info);
 
-		m_calculated = false;
-	}
+        m_calculated = false;
+    }
 
-	inline bool occupied()
-	{
-		if (! m_calculated)
-		{
-			m_occupied = is_occupied();
-			m_calculated = true;
-		}
-		return m_occupied;
-	}
+    inline bool occupied()
+    {
+        if (! m_calculated)
+        {
+            m_occupied = is_occupied();
+            m_calculated = true;
+        }
+        return m_occupied;
+    }
 
     template <typename Turns, typename TurnSegmentIndices>
     inline void get_left_turns(
@@ -226,7 +226,7 @@ public :
 
 template <typename Point, typename Ring, typename Info>
 inline void add_incoming_and_outgoing_angles(Point const& map_point, Point const& intersection_point,
-				Ring const& ring, 
+                Ring const& ring, 
                 int turn_index,
                 int operation_index,
                 segment_identifier seg_id,
@@ -237,43 +237,43 @@ inline void add_incoming_and_outgoing_angles(Point const& map_point, Point const
             Ring const
         >::type iterator_type;
 
-	int const n = boost::size(ring);
-	if (seg_id.segment_index >= n || seg_id.segment_index < 0)
-	{
-		return;
-	}
+    int const n = boost::size(ring);
+    if (seg_id.segment_index >= n || seg_id.segment_index < 0)
+    {
+        return;
+    }
 
     segment_identifier real_seg_id = seg_id;
-	iterator_type it = boost::begin(ring) + seg_id.segment_index;
+    iterator_type it = boost::begin(ring) + seg_id.segment_index;
 
     // TODO: if we use turn-info ("to", "middle"), we know if to advance without resorting to equals
     relaxed_less<Point> comparator;
 
     if (comparator.equals(intersection_point, *it))
     {
-		// It should be equal only once. But otherwise we skip it (in "add")
-		it = advance_circular(it, ring, seg_id, false);
+        // It should be equal only once. But otherwise we skip it (in "add")
+        it = advance_circular(it, ring, seg_id, false);
     }
 
-	info.add(map_point, *it, intersection_point, turn_index, operation_index, real_seg_id, true);
+    info.add(map_point, *it, intersection_point, turn_index, operation_index, real_seg_id, true);
 
     if (comparator.equals(intersection_point, *it))
     {
-		it = advance_circular(it, ring, real_seg_id);
-	}
-	else
-	{
-		// Don't upgrade the ID
-		it = advance_circular(it, ring, seg_id);
-	}
-    for (int defensive_check = 0; 
-		comparator.equals(intersection_point, *it) && defensive_check < n; 
-		defensive_check++)
+        it = advance_circular(it, ring, real_seg_id);
+    }
+    else
     {
-		it = advance_circular(it, ring, real_seg_id);
+        // Don't upgrade the ID
+        it = advance_circular(it, ring, seg_id);
+    }
+    for (int defensive_check = 0; 
+        comparator.equals(intersection_point, *it) && defensive_check < n; 
+        defensive_check++)
+    {
+        it = advance_circular(it, ring, real_seg_id);
     }
 
-	info.add(map_point, *it, intersection_point, turn_index, operation_index, real_seg_id, false);
+    info.add(map_point, *it, intersection_point, turn_index, operation_index, real_seg_id, false);
 }
 
 
@@ -287,7 +287,7 @@ public :
     typedef std::map<Point, OccupationInfo, relaxed_less<Point> > map_type;
 
     map_type map;
-	std::set<int> turn_indices;
+    std::set<int> turn_indices;
 
     inline OccupationInfo& find_or_insert(Point const& point, Point& mapped_point)
     {

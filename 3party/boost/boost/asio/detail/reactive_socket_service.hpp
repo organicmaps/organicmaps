@@ -2,7 +2,7 @@
 // detail/reactive_socket_service.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -19,11 +19,11 @@
 
 #if !defined(BOOST_ASIO_HAS_IOCP)
 
-#include <boost/utility/addressof.hpp>
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/error.hpp>
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/socket_base.hpp>
+#include <boost/asio/detail/addressof.hpp>
 #include <boost/asio/detail/buffer_sequence_adapter.hpp>
 #include <boost/asio/detail/noncopyable.hpp>
 #include <boost/asio/detail/reactive_null_buffers_op.hpp>
@@ -97,6 +97,18 @@ public:
 
     impl.protocol_ = other_impl.protocol_;
     other_impl.protocol_ = endpoint_type().protocol();
+  }
+
+  // Move-construct a new socket implementation from another protocol type.
+  template <typename Protocol1>
+  void converting_move_construct(implementation_type& impl,
+      typename reactive_socket_service<
+        Protocol1>::implementation_type& other_impl)
+  {
+    this->base_move_construct(impl, other_impl);
+
+    impl.protocol_ = protocol_type(other_impl.protocol_);
+    other_impl.protocol_ = typename Protocol1::endpoint().protocol();
   }
 
   // Open a new socket implementation.
@@ -215,30 +227,36 @@ public:
   void async_send_to(implementation_type& impl,
       const ConstBufferSequence& buffers,
       const endpoint_type& destination, socket_base::message_flags flags,
-      Handler handler)
+      Handler& handler)
   {
+    bool is_continuation =
+      boost_asio_handler_cont_helpers::is_continuation(handler);
+
     // Allocate and construct an operation to wrap the handler.
     typedef reactive_socket_sendto_op<ConstBufferSequence,
         endpoint_type, Handler> op;
-    typename op::ptr p = { boost::addressof(handler),
+    typename op::ptr p = { boost::asio::detail::addressof(handler),
       boost_asio_handler_alloc_helpers::allocate(
         sizeof(op), handler), 0 };
     p.p = new (p.v) op(impl.socket_, buffers, destination, flags, handler);
 
     BOOST_ASIO_HANDLER_CREATION((p.p, "socket", &impl, "async_send_to"));
 
-    start_op(impl, reactor::write_op, p.p, true, false);
+    start_op(impl, reactor::write_op, p.p, is_continuation, true, false);
     p.v = p.p = 0;
   }
 
   // Start an asynchronous wait until data can be sent without blocking.
   template <typename Handler>
   void async_send_to(implementation_type& impl, const null_buffers&,
-      const endpoint_type&, socket_base::message_flags, Handler handler)
+      const endpoint_type&, socket_base::message_flags, Handler& handler)
   {
+    bool is_continuation =
+      boost_asio_handler_cont_helpers::is_continuation(handler);
+
     // Allocate and construct an operation to wrap the handler.
     typedef reactive_null_buffers_op<Handler> op;
-    typename op::ptr p = { boost::addressof(handler),
+    typename op::ptr p = { boost::asio::detail::addressof(handler),
       boost_asio_handler_alloc_helpers::allocate(
         sizeof(op), handler), 0 };
     p.p = new (p.v) op(handler);
@@ -246,7 +264,7 @@ public:
     BOOST_ASIO_HANDLER_CREATION((p.p, "socket",
           &impl, "async_send_to(null_buffers)"));
 
-    start_op(impl, reactor::write_op, p.p, false, false);
+    start_op(impl, reactor::write_op, p.p, is_continuation, false, false);
     p.v = p.p = 0;
   }
 
@@ -292,12 +310,15 @@ public:
   template <typename MutableBufferSequence, typename Handler>
   void async_receive_from(implementation_type& impl,
       const MutableBufferSequence& buffers, endpoint_type& sender_endpoint,
-      socket_base::message_flags flags, Handler handler)
+      socket_base::message_flags flags, Handler& handler)
   {
+    bool is_continuation =
+      boost_asio_handler_cont_helpers::is_continuation(handler);
+
     // Allocate and construct an operation to wrap the handler.
     typedef reactive_socket_recvfrom_op<MutableBufferSequence,
         endpoint_type, Handler> op;
-    typename op::ptr p = { boost::addressof(handler),
+    typename op::ptr p = { boost::asio::detail::addressof(handler),
       boost_asio_handler_alloc_helpers::allocate(
         sizeof(op), handler), 0 };
     int protocol = impl.protocol_.type();
@@ -310,7 +331,7 @@ public:
     start_op(impl,
         (flags & socket_base::message_out_of_band)
           ? reactor::except_op : reactor::read_op,
-        p.p, true, false);
+        p.p, is_continuation, true, false);
     p.v = p.p = 0;
   }
 
@@ -318,11 +339,14 @@ public:
   template <typename Handler>
   void async_receive_from(implementation_type& impl,
       const null_buffers&, endpoint_type& sender_endpoint,
-      socket_base::message_flags flags, Handler handler)
+      socket_base::message_flags flags, Handler& handler)
   {
+    bool is_continuation =
+      boost_asio_handler_cont_helpers::is_continuation(handler);
+
     // Allocate and construct an operation to wrap the handler.
     typedef reactive_null_buffers_op<Handler> op;
-    typename op::ptr p = { boost::addressof(handler),
+    typename op::ptr p = { boost::asio::detail::addressof(handler),
       boost_asio_handler_alloc_helpers::allocate(
         sizeof(op), handler), 0 };
     p.p = new (p.v) op(handler);
@@ -336,7 +360,7 @@ public:
     start_op(impl,
         (flags & socket_base::message_out_of_band)
           ? reactor::except_op : reactor::read_op,
-        p.p, false, false);
+        p.p, is_continuation, false, false);
     p.v = p.p = 0;
   }
 
@@ -373,11 +397,14 @@ public:
   // must be valid until the accept's handler is invoked.
   template <typename Socket, typename Handler>
   void async_accept(implementation_type& impl, Socket& peer,
-      endpoint_type* peer_endpoint, Handler handler)
+      endpoint_type* peer_endpoint, Handler& handler)
   {
+    bool is_continuation =
+      boost_asio_handler_cont_helpers::is_continuation(handler);
+
     // Allocate and construct an operation to wrap the handler.
     typedef reactive_socket_accept_op<Socket, Protocol, Handler> op;
-    typename op::ptr p = { boost::addressof(handler),
+    typename op::ptr p = { boost::asio::detail::addressof(handler),
       boost_asio_handler_alloc_helpers::allocate(
         sizeof(op), handler), 0 };
     p.p = new (p.v) op(impl.socket_, impl.state_, peer,
@@ -385,7 +412,7 @@ public:
 
     BOOST_ASIO_HANDLER_CREATION((p.p, "socket", &impl, "async_accept"));
 
-    start_accept_op(impl, p.p, peer.is_open());
+    start_accept_op(impl, p.p, is_continuation, peer.is_open());
     p.v = p.p = 0;
   }
 
@@ -401,18 +428,22 @@ public:
   // Start an asynchronous connect.
   template <typename Handler>
   void async_connect(implementation_type& impl,
-      const endpoint_type& peer_endpoint, Handler handler)
+      const endpoint_type& peer_endpoint, Handler& handler)
   {
+    bool is_continuation =
+      boost_asio_handler_cont_helpers::is_continuation(handler);
+
     // Allocate and construct an operation to wrap the handler.
-    typedef reactive_socket_connect_op<Handler> op;
-    typename op::ptr p = { boost::addressof(handler),
+    typedef reactive_socket_connect_op<Protocol, Handler> op;
+    typename op::ptr p = { boost::asio::detail::addressof(handler),
       boost_asio_handler_alloc_helpers::allocate(
         sizeof(op), handler), 0 };
-    p.p = new (p.v) op(impl.socket_, handler);
+    p.p = new (p.v) op(impl.socket_, peer_endpoint, handler);
 
     BOOST_ASIO_HANDLER_CREATION((p.p, "socket", &impl, "async_connect"));
 
-    start_connect_op(impl, p.p, peer_endpoint.data(), peer_endpoint.size());
+    start_connect_op(impl, p.p, is_continuation,
+        peer_endpoint.data(), peer_endpoint.size());
     p.v = p.p = 0;
   }
 };

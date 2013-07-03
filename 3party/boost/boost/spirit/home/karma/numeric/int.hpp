@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2011 Hartmut Kaiser
+//  Copyright (c) 2001-2012 Hartmut Kaiser
 //
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -41,7 +41,7 @@ namespace boost { namespace spirit
     namespace tag
     {
         template <typename T, unsigned Radix, bool force_sign>
-        struct int_generator 
+        struct int_generator
         {
             BOOST_SPIRIT_IS_TAG()
         };
@@ -252,7 +252,7 @@ namespace boost { namespace spirit { namespace karma
             // without providing any attribute, as the generator doesn't 'know'
             // what to output. The following assertion fires if this situation
             // is detected in your code.
-            BOOST_SPIRIT_ASSERT_MSG(false, int_not_usable_without_attribute, ());
+            BOOST_SPIRIT_ASSERT_FAIL(OutputIterator, int_not_usable_without_attribute, ());
             return false;
         }
 

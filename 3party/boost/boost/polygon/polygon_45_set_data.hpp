@@ -1551,6 +1551,7 @@ namespace boost { namespace polygon{
       l90sd.sort();
       r90sd.sort();
 #ifdef BOOST_POLYGON_MSVC
+#pragma warning (push)
 #pragma warning (disable: 4127)
 #endif
       if(op == 0) {
@@ -1567,7 +1568,7 @@ namespace boost { namespace polygon{
                                     r90sd.begin(), r90sd.end(), boolean_op::BinaryCount<boolean_op::BinaryXor>());
       }
 #ifdef BOOST_POLYGON_MSVC
-#pragma warning (default: 4127)
+#pragma warning (pop)
 #endif
       result.data_.clear();
       result.insert(output);
@@ -1678,6 +1679,7 @@ namespace boost { namespace polygon{
       }
       l90sd.sort();
 #ifdef BOOST_POLYGON_MSVC
+#pragma warning (push)
 #pragma warning (disable: 4127)
 #endif
       if(op == 0) {
@@ -1688,7 +1690,7 @@ namespace boost { namespace polygon{
         l90sd.self_xor();
       }
 #ifdef BOOST_POLYGON_MSVC
-#pragma warning (default: 4127)
+#pragma warning (pop)
 #endif
       result.data_.clear();
       result.insert(l90sd);

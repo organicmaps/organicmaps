@@ -2,7 +2,7 @@
 // detail/atomic_count.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,7 +17,7 @@
 
 #include <boost/asio/detail/config.hpp>
 
-#if !defined(BOOST_HAS_THREADS) || defined(BOOST_ASIO_DISABLE_THREADS)
+#if !defined(BOOST_ASIO_HAS_THREADS)
 // Nothing to include.
 #elif defined(BOOST_ASIO_HAS_STD_ATOMIC)
 # include <atomic>
@@ -29,7 +29,7 @@ namespace boost {
 namespace asio {
 namespace detail {
 
-#if !defined(BOOST_HAS_THREADS) || defined(BOOST_ASIO_DISABLE_THREADS)
+#if !defined(BOOST_ASIO_HAS_THREADS)
 typedef long atomic_count;
 inline void increment(atomic_count& a, long b) { a += b; }
 #elif defined(BOOST_ASIO_HAS_STD_ATOMIC)

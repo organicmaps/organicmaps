@@ -37,6 +37,7 @@
 #include <boost/graph/parallel/algorithm.hpp>
 #include <boost/graph/distributed/selector.hpp>
 #include <boost/graph/parallel/process_group.hpp>
+#include <boost/pending/container_traits.hpp>
 
 // Callbacks
 #include <boost/function/function2.hpp>
@@ -3427,7 +3428,7 @@ namespace boost {
     typedef typename graph_type::named_graph_mixin named_graph_mixin;
     BOOST_ASSERT(u.owner == g.processor());
     static_cast<named_graph_mixin&>(static_cast<graph_type&>(g))
-      .removing_vertex(u);
+      .removing_vertex(u, boost::graph_detail::iterator_stability(g.base().m_vertices));
     g.distribution().clear();
     remove_vertex(u.local, g.base());
   }

@@ -47,11 +47,11 @@ namespace boost { namespace spirit { namespace lex
         template <typename Env>
         struct result
         {
-            typedef typename
-                remove_const<
+            typedef typename remove_reference< 
+                typename remove_const<
                     typename mpl::at_c<typename Env::args_type, 4>::type
                 >::type
-            context_type;
+            >::type context_type;
             typedef typename context_type::base_iterator_type type;
         };
 

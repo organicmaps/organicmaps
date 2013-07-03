@@ -33,6 +33,7 @@
 
 #include <boost/geometry/algorithms/clear.hpp>
 #include <boost/geometry/algorithms/convert.hpp>
+#include <boost/geometry/algorithms/not_implemented.hpp>
 #include <boost/geometry/algorithms/num_interior_rings.hpp>
 
 
@@ -43,12 +44,11 @@ namespace boost { namespace geometry
 namespace detail { namespace simplify
 {
 
-template<typename Range, typename Strategy>
 struct simplify_range_insert
 {
-    template <typename OutputIterator, typename Distance>
+    template<typename Range, typename Strategy, typename OutputIterator, typename Distance>
     static inline void apply(Range const& range, OutputIterator out,
-                    Distance const& max_distance, Strategy const& strategy)
+                             Distance const& max_distance, Strategy const& strategy)
     {
         if (boost::size(range) <= 2 || max_distance < 0)
         {
@@ -62,12 +62,11 @@ struct simplify_range_insert
 };
 
 
-template<typename Range, typename Strategy>
 struct simplify_copy
 {
-    template <typename Distance>
+    template <typename Range, typename Strategy, typename Distance>
     static inline void apply(Range const& range, Range& out,
-                    Distance const& , Strategy const& )
+                             Distance const& , Strategy const& )
     {
         std::copy
             (
@@ -77,10 +76,10 @@ struct simplify_copy
 };
 
 
-template<typename Range, typename Strategy, std::size_t Minimum>
+template<std::size_t Minimum>
 struct simplify_range
 {
-    template <typename Distance>
+    template <typename Range, typename Strategy, typename Distance>
     static inline void apply(Range const& range, Range& out,
                     Distance const& max_distance, Strategy const& strategy)
     {
@@ -101,14 +100,11 @@ struct simplify_range
 
         if (boost::size(range) <= int(Minimum) || max_distance < 0.0)
         {
-            simplify_copy<Range, Strategy>::apply
-                (
-                    range, out, max_distance, strategy
-                );
+            simplify_copy::apply(range, out, max_distance, strategy);
         }
         else
         {
-            simplify_range_insert<Range, Strategy>::apply
+            simplify_range_insert::apply
                 (
                     range, std::back_inserter(out), max_distance, strategy
                 );
@@ -116,10 +112,9 @@ struct simplify_range
     }
 };
 
-template<typename Polygon, typename Strategy>
 struct simplify_polygon
 {
-    template <typename Distance>
+    template <typename Polygon, typename Strategy, typename Distance>
     static inline void apply(Polygon const& poly_in, Polygon& poly_out,
                     Distance const& max_distance, Strategy const& strategy)
     {
@@ -133,9 +128,9 @@ struct simplify_polygon
         // Note that if there are inner rings, and distance is too large,
         // they might intersect with the outer ring in the output,
         // while it didn't in the input.
-        simplify_range<ring_type, Strategy, Minimum>::apply(exterior_ring(poly_in),
-                        exterior_ring(poly_out),
-                        max_distance, strategy);
+        simplify_range<Minimum>::apply(exterior_ring(poly_in),
+                                       exterior_ring(poly_out),
+                                       max_distance, strategy);
 
         traits::resize
             <
@@ -154,8 +149,7 @@ struct simplify_polygon
             it_in != boost::end(rings_in);
             ++it_in, ++it_out)
         {
-            simplify_range<ring_type, Strategy, Minimum>::apply(*it_in,
-                        *it_out, max_distance, strategy);
+            simplify_range<Minimum>::apply(*it_in, *it_out, max_distance, strategy);
         }
     }
 };
@@ -169,15 +163,18 @@ struct simplify_polygon
 namespace dispatch
 {
 
-template <typename Tag, typename Geometry, typename Strategy>
-struct simplify
-{
-};
+template
+<
+    typename Geometry,
+    typename Tag = typename tag<Geometry>::type
+>
+struct simplify: not_implemented<Tag>
+{};
 
-template <typename Point, typename Strategy>
-struct simplify<point_tag, Point, Strategy>
+template <typename Point>
+struct simplify<Point, point_tag>
 {
-    template <typename Distance>
+    template <typename Distance, typename Strategy>
     static inline void apply(Point const& point, Point& out,
                     Distance const& , Strategy const& )
     {
@@ -186,22 +183,15 @@ struct simplify<point_tag, Point, Strategy>
 };
 
 
-template <typename Linestring, typename Strategy>
-struct simplify<linestring_tag, Linestring, Strategy>
-    : detail::simplify::simplify_range
-            <
-                Linestring,
-                Strategy,
-                2
-            >
+template <typename Linestring>
+struct simplify<Linestring, linestring_tag>
+    : detail::simplify::simplify_range<2>
 {};
 
-template <typename Ring, typename Strategy>
-struct simplify<ring_tag, Ring, Strategy>
+template <typename Ring>
+struct simplify<Ring, ring_tag>
     : detail::simplify::simplify_range
             <
-                Ring,
-                Strategy,
                 core_detail::closure::minimum_ring_size
                     <
                         geometry::closure<Ring>::value
@@ -209,38 +199,29 @@ struct simplify<ring_tag, Ring, Strategy>
             >
 {};
 
-template <typename Polygon, typename Strategy>
-struct simplify<polygon_tag, Polygon, Strategy>
+template <typename Polygon>
+struct simplify<Polygon, polygon_tag>
     : detail::simplify::simplify_polygon
-            <
-                Polygon,
-                Strategy
-            >
 {};
 
 
-template <typename Tag, typename Geometry, typename Strategy>
-struct simplify_insert
-{
-};
-
-
-template <typename Linestring, typename Strategy>
-struct simplify_insert<linestring_tag, Linestring, Strategy>
-    : detail::simplify::simplify_range_insert
-            <
-                Linestring,
-                Strategy
-            >
+template
+<
+    typename Geometry,
+    typename Tag = typename tag<Geometry>::type
+>
+struct simplify_insert: not_implemented<Tag>
 {};
 
-template <typename Ring, typename Strategy>
-struct simplify_insert<ring_tag, Ring, Strategy>
+
+template <typename Linestring>
+struct simplify_insert<Linestring, linestring_tag>
     : detail::simplify::simplify_range_insert
-            <
-                Ring,
-                Strategy
-            >
+{};
+
+template <typename Ring>
+struct simplify_insert<Ring, ring_tag>
+    : detail::simplify::simplify_range_insert
 {};
 
 
@@ -275,12 +256,7 @@ inline void simplify(Geometry const& geometry, Geometry& out,
 
     geometry::clear(out);
 
-    dispatch::simplify
-        <
-            typename tag<Geometry>::type,
-            Geometry,
-            Strategy
-        >::apply(geometry, out, max_distance, strategy);
+    dispatch::simplify<Geometry>::apply(geometry, out, max_distance, strategy);
 }
 
 
@@ -348,12 +324,7 @@ inline void simplify_insert(Geometry const& geometry, OutputIterator out,
     concept::check<Geometry const>();
     BOOST_CONCEPT_ASSERT( (geometry::concept::SimplifyStrategy<Strategy>) );
 
-    dispatch::simplify_insert
-        <
-            typename tag<Geometry>::type,
-            Geometry,
-            Strategy
-        >::apply(geometry, out, max_distance, strategy);
+    dispatch::simplify_insert<Geometry>::apply(geometry, out, max_distance, strategy);
 }
 
 /*!
@@ -387,12 +358,7 @@ inline void simplify_insert(Geometry const& geometry, OutputIterator out,
             point_type, ds_strategy_type
         > strategy_type;
 
-    dispatch::simplify_insert
-        <
-            typename tag<Geometry>::type,
-            Geometry,
-            strategy_type
-        >::apply(geometry, out, max_distance, strategy_type());
+    dispatch::simplify_insert<Geometry>::apply(geometry, out, max_distance, strategy_type());
 }
 
 }} // namespace detail::simplify

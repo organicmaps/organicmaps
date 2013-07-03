@@ -2,7 +2,7 @@
 // detail/descriptor_ops.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,7 +17,7 @@
 
 #include <boost/asio/detail/config.hpp>
 
-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
+#if !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
 
 #include <cstddef>
 #include <boost/system/error_code.hpp>
@@ -88,9 +88,9 @@ BOOST_ASIO_DECL bool non_blocking_write(int d,
 BOOST_ASIO_DECL int ioctl(int d, state_type& state, long cmd,
     ioctl_arg_type* arg, boost::system::error_code& ec);
 
-BOOST_ASIO_DECL int fcntl(int d, long cmd, boost::system::error_code& ec);
+BOOST_ASIO_DECL int fcntl(int d, int cmd, boost::system::error_code& ec);
 
-BOOST_ASIO_DECL int fcntl(int d, long cmd,
+BOOST_ASIO_DECL int fcntl(int d, int cmd,
     long arg, boost::system::error_code& ec);
 
 BOOST_ASIO_DECL int poll_read(int d,
@@ -110,6 +110,6 @@ BOOST_ASIO_DECL int poll_write(int d,
 # include <boost/asio/detail/impl/descriptor_ops.ipp>
 #endif // defined(BOOST_ASIO_HEADER_ONLY)
 
-#endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
+#endif // !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
 
 #endif // BOOST_ASIO_DETAIL_DESCRIPTOR_OPS_HPP

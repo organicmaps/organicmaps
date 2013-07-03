@@ -66,9 +66,9 @@ namespace core_dispatch
     struct coordinate_system<point_tag, Point>
     {
         typedef typename traits::coordinate_system
-			<
-			    typename geometry::util::bare_type<Point>::type
-			>::type type;
+            <
+                typename geometry::util::bare_type<Point>::type
+            >::type type;
     };
 
 
@@ -89,7 +89,7 @@ struct coordinate_system
     typedef typename core_dispatch::coordinate_system
         <
             typename tag<Geometry>::type,
-			typename geometry::util::bare_type<Geometry>::type
+            typename geometry::util::bare_type<Geometry>::type
         >::type type;
 };
 

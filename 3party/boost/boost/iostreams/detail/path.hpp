@@ -106,7 +106,7 @@ public:
     // worth working around).
     template<typename Path>
     typename sfinae<typename Path::external_string_type, path&>::type
-    	operator=(const Path& p)
+        operator=(const Path& p)
     {
         init(p.external_file_string());
         return *this;
@@ -116,7 +116,7 @@ public:
     // Assignment operator taking a boost::filesystem3::path
     template<typename Path>
     typename sfinae<typename Path::codecvt_type, path&>::type
-    	operator=(const Path& p)
+        operator=(const Path& p)
     {
         init(p.native());
         return *this;

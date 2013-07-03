@@ -123,6 +123,10 @@ namespace std {
 
 #endif
 
+// PGI compiler
+#ifdef __PGIC__
+#define BOOST_UBLAS_UNSUPPORTED_COMPILER 0
+#endif
 
 //  HP aCC C++ compiler
 #if defined (__HP_aCC) && ! defined (BOOST_STRICT_CONFIG)

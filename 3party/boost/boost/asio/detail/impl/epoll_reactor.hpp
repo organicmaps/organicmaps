@@ -2,7 +2,7 @@
 // detail/impl/epoll_reactor.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -44,7 +44,7 @@ void epoll_reactor::schedule_timer(timer_queue<Time_Traits>& queue,
 
   if (shutdown_)
   {
-    io_service_.post_immediate_completion(op);
+    io_service_.post_immediate_completion(op, false);
     return;
   }
 

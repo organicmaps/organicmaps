@@ -1,14 +1,8 @@
-//
-//  Copyright (c) 2000-2002
-//  Joerg Walter, Mathias Koch
+//  Copyright (c) 2000-2011 Joerg Walter, Mathias Koch, David Bellot
 //
 //  Distributed under the Boost Software License, Version 1.0. (See
 //  accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
-//
-//  The authors gratefully acknowledge the support of
-//  GeNeSys mbH & Co. KG in producing this work.
-//
 
 #ifndef _BOOST_UBLAS_EXCEPTION_
 #define _BOOST_UBLAS_EXCEPTION_
@@ -32,7 +26,7 @@ namespace boost { namespace numeric { namespace ublas {
 #if ! defined (BOOST_NO_EXCEPTIONS) && ! defined (BOOST_UBLAS_NO_EXCEPTIONS)
         // Inherit from standard exceptions as requested during review.
         : public std::runtime_error 
-	{
+    {
         explicit divide_by_zero (const char *s = "divide by zero") :
             std::runtime_error (s) {}
         void raise () {

@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 54633 $
+//  Version     : $Revision: 81913 $
 //
 //  Description : defines model of program environment variable
 // ***************************************************************************
@@ -74,7 +74,7 @@ public:
             res.reset();
     }
 
-    bool        has_value() const   { return m_data->m_value; }
+    bool        has_value() const   { return m_data->m_value!=0; }
     cstring     name() const        { return m_data->m_var_name; }
 
 protected:

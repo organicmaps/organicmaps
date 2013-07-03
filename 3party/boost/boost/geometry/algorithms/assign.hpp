@@ -123,8 +123,8 @@ inline void assign_zero(Geometry& geometry)
 
 /*!
 \brief Assigns one geometry to another geometry
-\details The assign algorithm assigns one geometry, e.g. a BOX, to another geometry, e.g. a RING. This only
-if it is possible and applicable.
+\details The assign algorithm assigns one geometry, e.g. a BOX, to another
+geometry, e.g. a RING. This only works if it is possible and applicable.
 \ingroup assign
 \tparam Geometry1 \tparam_geometry
 \tparam Geometry2 \tparam_geometry

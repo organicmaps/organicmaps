@@ -36,6 +36,8 @@ std::complex<T> atanh(const std::complex<T>& z)
    // Also "Abramowitz and Stegun. Handbook of Mathematical Functions."
    // at : http://jove.prohosting.com/~skripty/toc.htm
    //
+   // See also: https://svn.boost.org/trac/boost/ticket/7291
+   //
    
    static const T pi = boost::math::constants::pi<T>();
    static const T half_pi = pi / 2;
@@ -43,7 +45,7 @@ std::complex<T> atanh(const std::complex<T>& z)
    static const T two = static_cast<T>(2.0L);
    static const T four = static_cast<T>(4.0L);
    static const T zero = static_cast<T>(0);
-   static const T a_crossover = static_cast<T>(0.3L);
+   static const T log_two = boost::math::constants::ln_two<T>();
 
 #ifdef BOOST_MSVC
 #pragma warning(push)
@@ -82,45 +84,19 @@ std::complex<T> atanh(const std::complex<T>& z)
    else if((x > safe_lower) && (x < safe_upper) && (y > safe_lower) && (y < safe_upper))
    {
 
-      T xx = x*x;
       T yy = y*y;
-      T x2 = x * two;
-
+      T mxm1 = one - x;
       ///
       // The real part is given by:
       // 
-      // real(atanh(z)) == log((1 + x^2 + y^2 + 2x) / (1 + x^2 + y^2 - 2x))
+      // real(atanh(z)) == log1p(4*x / ((x-1)*(x-1) + y^2))
       // 
-      // However, when x is either large (x > 1/E) or very small
-      // (x < E) then this effectively simplifies
-      // to log(1), leading to wildly inaccurate results.  
-      // By dividing the above (top and bottom) by (1 + x^2 + y^2) we get:
-      //
-      // real(atanh(z)) == log((1 + (2x / (1 + x^2 + y^2))) / (1 - (-2x / (1 + x^2 + y^2))))
-      //
-      // which is much more sensitive to the value of x, when x is not near 1
-      // (remember we can compute log(1+x) for small x very accurately).
-      //
-      // The cross-over from one method to the other has to be determined
-      // experimentally, the value used below appears correct to within a 
-      // factor of 2 (and there are larger errors from other parts
-      // of the input domain anyway).
-      //
-      T alpha = two*x / (one + xx + yy);
-      if(alpha < a_crossover)
-      {
-         real = boost::math::log1p(alpha) - boost::math::log1p((boost::math::changesign)(alpha));
-      }
-      else
-      {
-         T xm1 = x - one;
-         real = boost::math::log1p(x2 + xx + yy) - std::log(xm1*xm1 + yy);
-      }
+      real = boost::math::log1p(four * x / (mxm1*mxm1 + yy));
       real /= four;
       if((boost::math::signbit)(z.real()))
          real = (boost::math::changesign)(real);
 
-      imag = std::atan2((y * two), (one - xx - yy));
+      imag = std::atan2((y * two), (mxm1*(one+x) - yy));
       imag /= two;
       if(z.imag() < 0)
          imag = (boost::math::changesign)(imag);
@@ -132,30 +108,31 @@ std::complex<T> atanh(const std::complex<T>& z)
       // underflow or overflow in the main formulas.
       //
       // Begin by working out the real part, we need to approximate
-      //    alpha = 2x / (1 + x^2 + y^2)
+      //    real = boost::math::log1p(4x / ((x-1)^2 + y^2))
       // without either overflow or underflow in the squared terms.
       //
-      T alpha = 0;
+      T mxm1 = one - x;
       if(x >= safe_upper)
       {
+         // x-1 = x to machine precision:
          if((boost::math::isinf)(x) || (boost::math::isinf)(y))
          {
-            alpha = 0;
+            real = 0;
          }
          else if(y >= safe_upper)
          {
-            // Big x and y: divide alpha through by x*y:
-            alpha = (two/y) / (x/y + y/x);
+            // Big x and y: divide through by x*y:
+            real = boost::math::log1p((four/y) / (x/y + y/x));
          }
          else if(y > one)
          {
             // Big x: divide through by x:
-            alpha = two / (x + y*y/x);
+            real = boost::math::log1p(four / (x + y*y/x));
          }
          else
          {
             // Big x small y, as above but neglect y^2/x:
-            alpha = two/x;
+            real = boost::math::log1p(four/x);
          }
       }
       else if(y >= safe_upper)
@@ -163,39 +140,25 @@ std::complex<T> atanh(const std::complex<T>& z)
          if(x > one)
          {
             // Big y, medium x, divide through by y:
-            alpha = (two*x/y) / (y + x*x/y);
+            real = boost::math::log1p((four*x/y) / (y + mxm1*mxm1/y));
          }
          else
          {
-            // Small x and y, whatever alpha is, it's too small to calculate:
-            alpha = 0;
+            // Small or medium x, large y:
+            real = four*x/y/y;
          }
       }
-      else
+      else if (x != one)
       {
-         // one or both of x and y are small, calculate divisor carefully:
-         T div = one;
-         if(x > safe_lower)
-            div += x*x;
+         // y is small, calculate divisor carefully:
+         T div = mxm1*mxm1;
          if(y > safe_lower)
             div += y*y;
-         alpha = two*x/div;
-      }
-      if(alpha < a_crossover)
-      {
-         real = boost::math::log1p(alpha) - boost::math::log1p((boost::math::changesign)(alpha));
+         real = boost::math::log1p(four*x/div);
       }
       else
-      {
-         // We can only get here as a result of small y and medium sized x,
-         // we can simply neglect the y^2 terms:
-         BOOST_ASSERT(x >= safe_lower);
-         BOOST_ASSERT(x <= safe_upper);
-         //BOOST_ASSERT(y <= safe_lower);
-         T xm1 = x - one;
-         real = std::log(1 + two*x + x*x) - std::log(xm1*xm1);
-      }
-      
+         real = boost::math::changesign(two * (std::log(y) - log_two));
+
       real /= four;
       if((boost::math::signbit)(z.real()))
          real = (boost::math::changesign)(real);
@@ -203,7 +166,7 @@ std::complex<T> atanh(const std::complex<T>& z)
       //
       // Now handle imaginary part, this is much easier,
       // if x or y are large, then the formula:
-      //    atan2(2y, 1 - x^2 - y^2)
+      //    atan2(2y, (1-x)*(1+x) - y^2)
       // evaluates to +-(PI - theta) where theta is negligible compared to PI.
       //
       if((x >= safe_upper) || (y >= safe_upper))
@@ -234,7 +197,7 @@ std::complex<T> atanh(const std::complex<T>& z)
          if((y == zero) && (x == one))
             imag = 0;
          else
-            imag = std::atan2(two*y, 1 - x*x);
+            imag = std::atan2(two*y, mxm1*(one+x));
       }
       imag /= two;
       if((boost::math::signbit)(z.imag()))

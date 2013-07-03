@@ -2,7 +2,7 @@
 // basic_socket.hpp
 // ~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -16,9 +16,11 @@
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
 #include <boost/asio/detail/config.hpp>
+#include <boost/asio/async_result.hpp>
 #include <boost/asio/basic_io_object.hpp>
 #include <boost/asio/detail/handler_type_requirements.hpp>
 #include <boost/asio/detail/throw_error.hpp>
+#include <boost/asio/detail/type_traits.hpp>
 #include <boost/asio/error.hpp>
 #include <boost/asio/socket_base.hpp>
 
@@ -171,6 +173,51 @@ public:
   {
     basic_io_object<SocketService>::operator=(
         BOOST_ASIO_MOVE_CAST(basic_socket)(other));
+    return *this;
+  }
+
+  // All sockets have access to each other's implementations.
+  template <typename Protocol1, typename SocketService1>
+  friend class basic_socket;
+
+  /// Move-construct a basic_socket from a socket of another protocol type.
+  /**
+   * This constructor moves a socket from one object to another.
+   *
+   * @param other The other basic_socket object from which the move will
+   * occur.
+   *
+   * @note Following the move, the moved-from object is in the same state as if
+   * constructed using the @c basic_socket(io_service&) constructor.
+   */
+  template <typename Protocol1, typename SocketService1>
+  basic_socket(basic_socket<Protocol1, SocketService1>&& other,
+      typename enable_if<is_convertible<Protocol1, Protocol>::value>::type* = 0)
+    : basic_io_object<SocketService>(other.get_io_service())
+  {
+    this->get_service().template converting_move_construct<Protocol1>(
+        this->get_implementation(), other.get_implementation());
+  }
+
+  /// Move-assign a basic_socket from a socket of another protocol type.
+  /**
+   * This assignment operator moves a socket from one object to another.
+   *
+   * @param other The other basic_socket object from which the move will
+   * occur.
+   *
+   * @note Following the move, the moved-from object is in the same state as if
+   * constructed using the @c basic_socket(io_service&) constructor.
+   */
+  template <typename Protocol1, typename SocketService1>
+  typename enable_if<is_convertible<Protocol1, Protocol>::value,
+      basic_socket>::type& operator=(
+        basic_socket<Protocol1, SocketService1>&& other)
+  {
+    basic_socket tmp(BOOST_ASIO_MOVE_CAST2(basic_socket<
+            Protocol1, SocketService1>)(other));
+    basic_io_object<SocketService>::operator=(
+        BOOST_ASIO_MOVE_CAST(basic_socket)(tmp));
     return *this;
   }
 #endif // defined(BOOST_ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
@@ -395,7 +442,7 @@ public:
    * CancelIoEx function is always used. This function does not have the
    * problems described above.
    */
-#if defined(BOOST_MSVC) && (BOOST_MSVC >= 1400) \
+#if defined(BOOST_ASIO_MSVC) && (BOOST_ASIO_MSVC >= 1400) \
   && (!defined(_WIN32_WINNT) || _WIN32_WINNT < 0x0600) \
   && !defined(BOOST_ASIO_ENABLE_CANCELIO)
   __declspec(deprecated("By default, this function always fails with "
@@ -443,7 +490,7 @@ public:
    * CancelIoEx function is always used. This function does not have the
    * problems described above.
    */
-#if defined(BOOST_MSVC) && (BOOST_MSVC >= 1400) \
+#if defined(BOOST_ASIO_MSVC) && (BOOST_ASIO_MSVC >= 1400) \
   && (!defined(_WIN32_WINNT) || _WIN32_WINNT < 0x0600) \
   && !defined(BOOST_ASIO_ENABLE_CANCELIO)
   __declspec(deprecated("By default, this function always fails with "
@@ -698,7 +745,9 @@ public:
    * @endcode
    */
   template <typename ConnectHandler>
-  void async_connect(const endpoint_type& peer_endpoint,
+  BOOST_ASIO_INITFN_RESULT_TYPE(ConnectHandler,
+      void (boost::system::error_code))
+  async_connect(const endpoint_type& peer_endpoint,
       BOOST_ASIO_MOVE_ARG(ConnectHandler) handler)
   {
     // If you get an error on the following line it means that your handler does
@@ -711,14 +760,21 @@ public:
       const protocol_type protocol = peer_endpoint.protocol();
       if (this->get_service().open(this->get_implementation(), protocol, ec))
       {
+        detail::async_result_init<
+          ConnectHandler, void (boost::system::error_code)> init(
+            BOOST_ASIO_MOVE_CAST(ConnectHandler)(handler));
+
         this->get_io_service().post(
             boost::asio::detail::bind_handler(
-              BOOST_ASIO_MOVE_CAST(ConnectHandler)(handler), ec));
-        return;
+              BOOST_ASIO_MOVE_CAST(BOOST_ASIO_HANDLER_TYPE(
+                ConnectHandler, void (boost::system::error_code)))(
+                  init.handler), ec));
+
+        return init.result.get();
       }
     }
 
-    this->get_service().async_connect(this->get_implementation(),
+    return this->get_service().async_connect(this->get_implementation(),
         peer_endpoint, BOOST_ASIO_MOVE_CAST(ConnectHandler)(handler));
   }
 
@@ -843,7 +899,7 @@ public:
    * ...
    * boost::asio::ip::tcp::socket::keep_alive option;
    * socket.get_option(option);
-   * bool is_set = option.get();
+   * bool is_set = option.value();
    * @endcode
    */
   template <typename GettableSocketOption>
@@ -891,7 +947,7 @@ public:
    * {
    *   // An error occurred.
    * }
-   * bool is_set = option.get();
+   * bool is_set = option.value();
    * @endcode
    */
   template <typename GettableSocketOption>

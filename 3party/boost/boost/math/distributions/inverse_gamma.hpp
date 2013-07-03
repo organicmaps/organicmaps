@@ -259,6 +259,9 @@ inline RealType cdf(const complemented2_type<inverse_gamma_distribution<RealType
    if(false == detail::check_inverse_gamma_x(function, c.param, &result, Policy()))
       return result;
 
+   if(c.param == 0)
+      return 1; // Avoid division by zero
+
    //result = 1. - gamma_q(shape, c.param / scale, Policy());
    result = gamma_p(shape, scale/c.param, Policy());
    return result;

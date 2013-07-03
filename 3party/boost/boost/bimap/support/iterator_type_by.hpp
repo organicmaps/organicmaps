@@ -21,14 +21,11 @@
 #include <boost/bimap/relation/detail/metadata_access_builder.hpp>
 #include <boost/bimap/relation/detail/static_access_builder.hpp>
 
-#include <boost/bimap/relation/support/pair_type_by.hpp>
-
-#include <boost/bimap/detail/map_view_iterator.hpp>
-
 /** \struct boost::bimaps::support::iterator_type_by
 
 \brief Metafunction to obtain the iterator type of the map view by one of the sides.
-
+These metafunctions can be used outside the bimap framework for other bimap 
+signature compatible classes.
 \code
 
 template< class Tag, class Bimap >
@@ -79,7 +76,6 @@ namespace boost {
 namespace bimaps {
 namespace support {
 
-
 // Implementation of iterator type by metafunction
 
 BOOST_BIMAP_SYMMETRIC_METADATA_ACCESS_BUILDER
@@ -101,122 +97,40 @@ BOOST_BIMAP_SYMMETRIC_METADATA_ACCESS_BUILDER
 
 // Implementation of reverse iterator type by metafunction
 
-BOOST_BIMAP_SYMMETRIC_STATIC_ACCESS_BUILDER
+BOOST_BIMAP_SYMMETRIC_METADATA_ACCESS_BUILDER
 (
-    core_reverse_iterator_type_by,
-    BimapCore,
-
-    typedef BOOST_DEDUCED_TYPENAME BimapCore::core_type::BOOST_NESTED_TEMPLATE
-        index<BOOST_DEDUCED_TYPENAME BimapCore::left_tag>
-            ::type::reverse_iterator type,
-
-    typedef BOOST_DEDUCED_TYPENAME BimapCore::core_type::BOOST_NESTED_TEMPLATE
-        index<BOOST_DEDUCED_TYPENAME BimapCore::right_tag>
-            ::type::reverse_iterator type
+    reverse_iterator_type_by,
+    left_reverse_iterator,
+    right_reverse_iterator
 )
-
-template< class Tag, class BimapCore >
-struct reverse_iterator_type_by
-{
-    typedef ::boost::bimaps::detail::map_view_iterator
-    <
-        Tag,
-        BOOST_DEDUCED_TYPENAME BimapCore::relation,
-        BOOST_DEDUCED_TYPENAME core_reverse_iterator_type_by<Tag,BimapCore>::type
-
-    > type;
-};
 
 // Implementation of const reverse iterator type by metafunction
 
-BOOST_BIMAP_SYMMETRIC_STATIC_ACCESS_BUILDER
+BOOST_BIMAP_SYMMETRIC_METADATA_ACCESS_BUILDER
 (
-    core_const_reverse_iterator_type_by,
-    BimapCore,
-
-    typedef BOOST_DEDUCED_TYPENAME BimapCore::core_type::BOOST_NESTED_TEMPLATE
-        index<BOOST_DEDUCED_TYPENAME BimapCore::left_tag>
-            ::type::const_reverse_iterator type,
-
-    typedef BOOST_DEDUCED_TYPENAME BimapCore::core_type::BOOST_NESTED_TEMPLATE
-        index<BOOST_DEDUCED_TYPENAME BimapCore::right_tag>
-            ::type::const_reverse_iterator type
+    const_reverse_iterator_type_by,
+    left_const_reverse_iterator,
+    right_const_reverse_iterator
 )
-
-template< class Tag, class BimapCore >
-struct const_reverse_iterator_type_by
-{
-
-    typedef ::boost::bimaps::detail::map_view_iterator
-    <
-        Tag,
-        BOOST_DEDUCED_TYPENAME BimapCore::relation,
-        BOOST_DEDUCED_TYPENAME core_const_reverse_iterator_type_by<Tag,BimapCore>::type
-
-    > type;
-};
 
 
 // Implementation of local iterator type by metafunction
 
-BOOST_BIMAP_SYMMETRIC_STATIC_ACCESS_BUILDER
+BOOST_BIMAP_SYMMETRIC_METADATA_ACCESS_BUILDER
 (
-    core_local_iterator_type_by,
-    BimapCore,
-
-    typedef BOOST_DEDUCED_TYPENAME BimapCore::core_type::BOOST_NESTED_TEMPLATE
-        index<BOOST_DEDUCED_TYPENAME BimapCore::left_tag>
-            ::type::local_iterator type,
-
-    typedef BOOST_DEDUCED_TYPENAME BimapCore::core_type::BOOST_NESTED_TEMPLATE
-        index<BOOST_DEDUCED_TYPENAME BimapCore::right_tag>
-            ::type::local_iterator type
+    local_iterator_type_by,
+    left_local_iterator,
+    right_local_iterator
 )
-
-
-template< class Tag, class BimapCore >
-struct local_iterator_type_by
-{
-
-    typedef ::boost::bimaps::detail::map_view_iterator
-    <
-        Tag,
-        BOOST_DEDUCED_TYPENAME BimapCore::relation,
-        BOOST_DEDUCED_TYPENAME core_local_iterator_type_by<Tag,BimapCore>::type
-
-    > type;
-};
-
 
 // Implementation of const local iterator type by metafunction
 
-BOOST_BIMAP_SYMMETRIC_STATIC_ACCESS_BUILDER
+BOOST_BIMAP_SYMMETRIC_METADATA_ACCESS_BUILDER
 (
-    core_const_local_iterator_type_by,
-    BimapCore,
-
-    typedef BOOST_DEDUCED_TYPENAME BimapCore::core_type::BOOST_NESTED_TEMPLATE
-        index<BOOST_DEDUCED_TYPENAME BimapCore::left_tag>
-            ::type::const_local_iterator type,
-
-    typedef BOOST_DEDUCED_TYPENAME BimapCore::core_type::BOOST_NESTED_TEMPLATE
-        index<BOOST_DEDUCED_TYPENAME BimapCore::right_tag>
-            ::type::const_local_iterator type
+    const_local_iterator_type_by,
+    left_const_local_iterator,
+    right_const_local_iterator
 )
-
-template< class Tag, class BimapCore >
-struct const_local_iterator_type_by
-{
-
-    typedef ::boost::bimaps::detail::map_view_iterator
-    <
-        Tag,
-        BOOST_DEDUCED_TYPENAME BimapCore::relation,
-        BOOST_DEDUCED_TYPENAME core_const_local_iterator_type_by<Tag,BimapCore>::type
-
-    > type;
-};
-
 
 } // namespace support
 } // namespace bimaps

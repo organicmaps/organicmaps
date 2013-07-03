@@ -392,7 +392,7 @@ template <class T, class Policy>
 T hypergeometric_pdf_factorial_imp(unsigned x, unsigned r, unsigned n, unsigned N, const Policy&)
 {
    BOOST_MATH_STD_USING
-   BOOST_ASSERT(N < boost::math::max_factorial<T>::value);
+   BOOST_ASSERT(N <= boost::math::max_factorial<T>::value);
    T result = boost::math::unchecked_factorial<T>(n);
    T num[3] = {
       boost::math::unchecked_factorial<T>(r),

@@ -23,11 +23,11 @@
 #include <functional>
 #include <memory>
 
-#include <boost/move/move.hpp>
-#include <boost/move/move_helpers.hpp>
+#include <boost/move/utility.hpp>
+#include <boost/move/detail/move_helpers.hpp>
 #include <boost/container/detail/mpl.hpp>
 #include <boost/container/detail/tree.hpp>
-#include <boost/move/move.hpp>
+#include <boost/move/utility.hpp>
 #ifndef BOOST_CONTAINER_PERFECT_FORWARDING
 #include <boost/container/detail/preprocessor.hpp>
 #endif
@@ -646,15 +646,15 @@ inline void swap(set<Key,Compare,Allocator>& x, set<Key,Compare,Allocator>& y)
 /// @cond
 
 }  //namespace container {
-/*
+
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
 template <class Key, class C, class Allocator>
 struct has_trivial_destructor_after_move<boost::container::set<Key, C, Allocator> >
 {
-   static const bool value = has_trivial_destructor<Allocator>::value && has_trivial_destructor<C>::value;
+   static const bool value = has_trivial_destructor_after_move<Allocator>::value && has_trivial_destructor_after_move<C>::value;
 };
-*/
+
 namespace container {
 
 // Forward declaration of operators < and ==, needed for friend declaration.
@@ -757,10 +757,10 @@ class multiset
    //!
    //! <b>Complexity</b>: Linear in N.
    template <class InputIterator>
-   multiset( ordered_range_t ordered_range_, InputIterator first, InputIterator last
+   multiset( ordered_range_t, InputIterator first, InputIterator last
            , const Compare& comp = Compare()
            , const allocator_type& a = allocator_type())
-      : m_tree(ordered_range_, first, last, comp, a)
+      : m_tree(ordered_range, first, last, comp, a)
    {}
 
    //! <b>Effects</b>: Copy constructs a multiset.
@@ -1259,15 +1259,15 @@ inline void swap(multiset<Key,Compare,Allocator>& x, multiset<Key,Compare,Alloca
 /// @cond
 
 }  //namespace container {
-/*
+
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
 template <class Key, class C, class Allocator>
 struct has_trivial_destructor_after_move<boost::container::multiset<Key, C, Allocator> >
 {
-   static const bool value = has_trivial_destructor<Allocator>::value && has_trivial_destructor<C>::value;
+   static const bool value = has_trivial_destructor_after_move<Allocator>::value && has_trivial_destructor_after_move<C>::value;
 };
-*/
+
 namespace container {
 
 /// @endcond

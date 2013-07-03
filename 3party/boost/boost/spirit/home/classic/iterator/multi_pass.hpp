@@ -194,7 +194,7 @@ class buf_id_check
         }
 
         // called to verify that everything is okay.
-        void check() const
+        void check_if_valid() const
         {
             if (buf_id != *shared_buf_id)
             {
@@ -226,7 +226,7 @@ class no_check
         no_check(no_check const&) {}
         void destroy() {}
         void swap(no_check&) {}
-        void check() const {}
+        void check_if_valid() const {}
         void clear_queue() {}
 };
 
@@ -1000,7 +1000,7 @@ reference
 multi_pass<InputT, InputPolicy, OwnershipPolicy, CheckingPolicy, StoragePolicy>::
 operator*() const
 {
-    CHP::check();
+    CHP::check_if_valid();
     return SP::dereference(*this);
 }
 
@@ -1034,7 +1034,7 @@ multi_pass<InputT, InputPolicy, OwnershipPolicy, CheckingPolicy, StoragePolicy>&
 multi_pass<InputT, InputPolicy, OwnershipPolicy, CheckingPolicy, StoragePolicy>::
 operator++()
 {
-    CHP::check();
+    CHP::check_if_valid();
     SP::increment(*this);
     return *this;
 }

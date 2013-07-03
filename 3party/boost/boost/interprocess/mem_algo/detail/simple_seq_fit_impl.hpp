@@ -145,27 +145,25 @@ class simple_seq_fit_impl
    /// @cond
 
    //!Multiple element allocation, same size
-   multiallocation_chain
-      allocate_many(size_type elem_bytes, size_type num_elements)
+   void allocate_many(size_type elem_bytes, size_type num_elements, multiallocation_chain &chain)
    {
       //-----------------------
       boost::interprocess::scoped_lock<interprocess_mutex> guard(m_header);
       //-----------------------
-      return algo_impl_t::allocate_many(this, elem_bytes, num_elements);
+      algo_impl_t::allocate_many(this, elem_bytes, num_elements, chain);
    }
 
    //!Multiple element allocation, different size
-   multiallocation_chain
-      allocate_many(const size_type *elem_sizes, size_type n_elements, size_type sizeof_element)
+   void allocate_many(const size_type *elem_sizes, size_type n_elements, size_type sizeof_element, multiallocation_chain &chain)
    {
       //-----------------------
       boost::interprocess::scoped_lock<interprocess_mutex> guard(m_header);
       //-----------------------
-      return algo_impl_t::allocate_many(this, elem_sizes, n_elements, sizeof_element);
+      algo_impl_t::allocate_many(this, elem_sizes, n_elements, sizeof_element, chain);
    }
 
    //!Multiple element deallocation
-   void deallocate_many(multiallocation_chain chain);
+   void deallocate_many(multiallocation_chain &chain);
 
    /// @endcond
 
@@ -331,11 +329,11 @@ simple_seq_fit_impl<MutexFamily, VoidPointer>
 
 template<class MutexFamily, class VoidPointer>
 inline simple_seq_fit_impl<MutexFamily, VoidPointer>::
-   simple_seq_fit_impl(size_type size, size_type extra_hdr_bytes)
+   simple_seq_fit_impl(size_type segment_size, size_type extra_hdr_bytes)
 {
    //Initialize sizes and counters
    m_header.m_allocated = 0;
-   m_header.m_size      = size;
+   m_header.m_size      = segment_size;
    m_header.m_extra_hdr_bytes = extra_hdr_bytes;
 
    //Initialize pointers
@@ -344,7 +342,7 @@ inline simple_seq_fit_impl<MutexFamily, VoidPointer>::
    m_header.m_root.m_next  = reinterpret_cast<block_ctrl*>
       ((reinterpret_cast<char*>(this) + block1_off));
    algo_impl_t::assert_alignment(ipcdetail::to_raw_pointer(m_header.m_root.m_next));
-   m_header.m_root.m_next->m_size  = (size - block1_off)/Alignment;
+   m_header.m_root.m_next->m_size  = (segment_size - block1_off)/Alignment;
    m_header.m_root.m_next->m_next  = &m_header.m_root;
 }
 
@@ -462,16 +460,16 @@ void *simple_seq_fit_impl<MutexFamily, VoidPointer>::
 }
 
 template<class MutexFamily, class VoidPointer>
-inline void simple_seq_fit_impl<MutexFamily, VoidPointer>::priv_add_segment(void *addr, size_type size)
+inline void simple_seq_fit_impl<MutexFamily, VoidPointer>::priv_add_segment(void *addr, size_type segment_size)
 {
    algo_impl_t::assert_alignment(addr);
    //Check size
-   BOOST_ASSERT(!(size < MinBlockSize));
-   if(size < MinBlockSize)
+   BOOST_ASSERT(!(segment_size < MinBlockSize));
+   if(segment_size < MinBlockSize)
       return;
    //Construct big block using the new segment
    block_ctrl *new_block   = static_cast<block_ctrl *>(addr);
-   new_block->m_size       = size/Alignment;
+   new_block->m_size       = segment_size/Alignment;
    new_block->m_next       = 0;
    //Simulate this block was previously allocated
    m_header.m_allocated   += new_block->m_size*Alignment;
@@ -653,8 +651,7 @@ inline std::pair<void*, bool> simple_seq_fit_impl<MutexFamily, VoidPointer>::
 
 template<class MutexFamily, class VoidPointer>
 inline typename simple_seq_fit_impl<MutexFamily, VoidPointer>::size_type
-simple_seq_fit_impl<MutexFamily, VoidPointer>::
-   size(const void *ptr) const
+simple_seq_fit_impl<MutexFamily, VoidPointer>::size(const void *ptr) const
 {
    //We need no synchronization since this block is not going
    //to be modified
@@ -744,7 +741,7 @@ void* simple_seq_fit_impl<MutexFamily, VoidPointer>::
 
 template<class MutexFamily, class VoidPointer>
 inline void simple_seq_fit_impl<MutexFamily, VoidPointer>::
-   deallocate_many(typename simple_seq_fit_impl<MutexFamily, VoidPointer>::multiallocation_chain chain)
+   deallocate_many(typename simple_seq_fit_impl<MutexFamily, VoidPointer>::multiallocation_chain &chain)
 {
    //-----------------------
    boost::interprocess::scoped_lock<interprocess_mutex> guard(m_header);

@@ -65,9 +65,9 @@ template <typename Point>
 struct coordinate_type<point_tag, Point>
 {
     typedef typename traits::coordinate_type
-		<
+        <
             typename geometry::util::bare_type<Point>::type
-		>::type type;
+        >::type type;
 };
 
 
@@ -85,11 +85,11 @@ struct coordinate_type<point_tag, Point>
 template <typename Geometry>
 struct coordinate_type
 {
-	typedef typename core_dispatch::coordinate_type
-				<
-					typename tag<Geometry>::type,
-					typename geometry::util::bare_type<Geometry>::type
-				>::type type;
+    typedef typename core_dispatch::coordinate_type
+                <
+                    typename tag<Geometry>::type,
+                    typename geometry::util::bare_type<Geometry>::type
+                >::type type;
 };
 
 template <typename Geometry>

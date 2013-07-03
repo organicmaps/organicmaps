@@ -87,9 +87,9 @@ class treap_set_impl
    //! <b>Throws</b>: If value_traits::node_traits::node
    //!   constructor throws (this does not happen with predefined Boost.Intrusive hooks)
    //!   or the copy constructor of the value_compare object throws.
-   treap_set_impl( const value_compare &cmp      = value_compare()
-                , const priority_compare &pcmp  = priority_compare()
-                , const value_traits &v_traits  = value_traits())
+   explicit treap_set_impl( const value_compare &cmp      = value_compare()
+                          , const priority_compare &pcmp  = priority_compare()
+                          , const value_traits &v_traits  = value_traits())
       :  tree_(cmp, pcmp, v_traits)
    {}
 
@@ -1498,9 +1498,9 @@ class treap_multiset_impl
    //! <b>Throws</b>: If value_traits::node_traits::node
    //!   constructor throws (this does not happen with predefined Boost.Intrusive hooks)
    //!   or the copy constructor of the value_compare/priority_compare objects throw.
-   treap_multiset_impl( const value_compare &cmp     = value_compare()
-                     , const priority_compare &pcmp = priority_compare()
-                     , const value_traits &v_traits = value_traits())
+   explicit treap_multiset_impl( const value_compare &cmp     = value_compare()
+                               , const priority_compare &pcmp = priority_compare()
+                               , const value_traits &v_traits = value_traits())
       :  tree_(cmp, pcmp, v_traits)
    {}
 

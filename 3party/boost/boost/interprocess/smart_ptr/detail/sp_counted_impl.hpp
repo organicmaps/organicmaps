@@ -63,7 +63,7 @@ struct scoped_ptr_dealloc_functor
    {  if (ptr) priv_deallocate(ptr, alloc_version());  }
 };
 
-  
+
 
 template<class A, class D>
 class sp_counted_impl_pd
@@ -122,7 +122,7 @@ class sp_counted_impl_pd
       this_pointer this_ptr (this);
       //Do it now!
       scoped_ptr< this_type, scoped_ptr_dealloc_functor<this_allocator> >
-         deleter(this_ptr, a_copy);
+         deleter_ptr(this_ptr, a_copy);
       typedef typename this_allocator::value_type value_type;
       ipcdetail::to_raw_pointer(this_ptr)->~value_type();
    }

@@ -68,6 +68,40 @@ class vector_set_view
         return *this;
     }
 
+        BOOST_DEDUCED_TYPENAME base_::const_reference
+        operator[](BOOST_DEDUCED_TYPENAME base_::size_type n) const
+    {
+        return this->template functor<BOOST_DEDUCED_TYPENAME base_::value_from_base>()(
+            this->base().operator[](n)
+        );
+    }
+
+    BOOST_DEDUCED_TYPENAME base_::const_reference
+        at(BOOST_DEDUCED_TYPENAME base_::size_type n) const
+    {
+        return this->template functor<BOOST_DEDUCED_TYPENAME base_::value_from_base>()(
+            this->base().at(n)
+        );
+    }
+
+    BOOST_DEDUCED_TYPENAME base_::reference
+        operator[](BOOST_DEDUCED_TYPENAME base_::size_type n)
+    {
+        return this->template functor<BOOST_DEDUCED_TYPENAME base_::value_from_base>()(
+            const_cast<BOOST_DEDUCED_TYPENAME base_::base_type::value_type &>(
+                this->base().operator[](n)
+        ));
+    }
+
+    BOOST_DEDUCED_TYPENAME base_::reference
+        at(BOOST_DEDUCED_TYPENAME base_::size_type n)
+    {
+        return this->template functor<BOOST_DEDUCED_TYPENAME base_::value_from_base>()(
+            const_cast<BOOST_DEDUCED_TYPENAME base_::base_type::value_type &>(
+                this->base().at(n)
+        ));
+    }
+    
     BOOST_BIMAP_VIEW_ASSIGN_IMPLEMENTATION(base_)
 
     BOOST_BIMAP_VIEW_FRONT_BACK_IMPLEMENTATION(base_)

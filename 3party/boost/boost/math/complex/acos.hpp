@@ -31,12 +31,13 @@ std::complex<T> acos(const std::complex<T>& z)
    //
 
    //
-   // These static constants should really be in a maths constants library:
+   // These static constants should really be in a maths constants library,
+   // note that we have tweaked a_crossover as per: https://svn.boost.org/trac/boost/ticket/7290
    //
    static const T one = static_cast<T>(1);
    //static const T two = static_cast<T>(2);
    static const T half = static_cast<T>(0.5L);
-   static const T a_crossover = static_cast<T>(1.5L);
+   static const T a_crossover = static_cast<T>(10);
    static const T b_crossover = static_cast<T>(0.6417L);
    static const T s_pi = boost::math::constants::pi<T>();
    static const T half_pi = s_pi / 2;
@@ -172,14 +173,16 @@ std::complex<T> acos(const std::complex<T>& z)
             }
             else
             {
-               real = 0;
+               // This deviates from Hull et al's paper as per https://svn.boost.org/trac/boost/ticket/7290
                if(((std::numeric_limits<T>::max)() / xp1) > xm1)
                {
                   // xp1 * xm1 won't overflow:
+                  real = y / std::sqrt(xm1*xp1);
                   imag = boost::math::log1p(xm1 + std::sqrt(xp1*xm1));
                }
                else
                {
+                  real = y / x;
                   imag = log_two + std::log(x);
                }
             }

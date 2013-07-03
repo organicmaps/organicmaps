@@ -9,6 +9,10 @@
 
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/properties.hpp>
+#include <boost/pending/property.hpp>
+#include <boost/property_map/transform_value_property_map.hpp>
+#include <boost/type_traits.hpp>
+#include <boost/mpl/if.hpp>
 
 namespace boost
 {
@@ -39,16 +43,16 @@ public:
     typedef typename lookup_one_property<VertexProp, vertex_bundle_t>::type vertex_bundled;
     typedef typename lookup_one_property<EdgeProp, edge_bundle_t>::type edge_bundled;
 
-private:
+public:
     // Embed indices into the vertex type.
-    typedef property<vertex_index_t, unsigned, vertex_property_type> vertex_property;
-    typedef property<edge_index_t, unsigned, edge_property_type> edge_property;
+    typedef property<vertex_index_t, unsigned, vertex_property_type> internal_vertex_property;
+    typedef property<edge_index_t, unsigned, edge_property_type> internal_edge_property;
 public:
     typedef adjacency_list<listS,
                 listS,
                 undirectedS,
-                vertex_property,
-                edge_property,
+                internal_vertex_property,
+                internal_edge_property,
                 GraphProp,
                 listS> graph_type;
 private:
@@ -151,7 +155,7 @@ public:
     { return make_index(boost::add_vertex(m_graph)); }
 
     vertex_descriptor add_vertex(vertex_property_type const& p)
-    { return make_index(boost::add_vertex(vertex_property(0u, p), m_graph)); }
+    { return make_index(boost::add_vertex(internal_vertex_property(0u, p), m_graph)); }
 
     void clear_vertex(vertex_descriptor v) {
         std::pair<out_edge_iterator, out_edge_iterator>
@@ -188,7 +192,7 @@ public:
     std::pair<edge_descriptor, bool>
     add_edge(vertex_descriptor u, vertex_descriptor v,
              edge_property_type const& p)
-    { return make_index(boost::add_edge(u, v, edge_property(0u, p), m_graph)); }
+    { return make_index(boost::add_edge(u, v, internal_edge_property(0u, p), m_graph)); }
 
     void remove_edge(vertex_descriptor u, vertex_descriptor v) {
         // find all edges, (u, v)
@@ -525,6 +529,30 @@ remove_in_edge_if(typename UNDIRECTED_GRAPH::vertex_descriptor v,
 template <UNDIRECTED_GRAPH_PARAMS, typename Property>
 struct property_map<UNDIRECTED_GRAPH, Property>: property_map<typename UNDIRECTED_GRAPH::graph_type, Property> {};
 
+template <UNDIRECTED_GRAPH_PARAMS>
+struct property_map<UNDIRECTED_GRAPH, vertex_all_t> {
+  typedef transform_value_property_map<
+            detail::remove_first_property,
+            typename property_map<typename UNDIRECTED_GRAPH::graph_type, vertex_all_t>::const_type>
+    const_type;
+  typedef transform_value_property_map<
+            detail::remove_first_property,
+            typename property_map<typename UNDIRECTED_GRAPH::graph_type, vertex_all_t>::type>
+    type;
+};
+
+template <UNDIRECTED_GRAPH_PARAMS>
+struct property_map<UNDIRECTED_GRAPH, edge_all_t> {
+  typedef transform_value_property_map<
+            detail::remove_first_property,
+            typename property_map<typename UNDIRECTED_GRAPH::graph_type, edge_all_t>::const_type>
+    const_type;
+  typedef transform_value_property_map<
+            detail::remove_first_property,
+            typename property_map<typename UNDIRECTED_GRAPH::graph_type, edge_all_t>::type>
+    type;
+};
+
 // PropertyGraph concepts
 template <UNDIRECTED_GRAPH_PARAMS, typename Property>
 inline typename property_map<UNDIRECTED_GRAPH, Property>::type
@@ -536,6 +564,26 @@ inline typename property_map<UNDIRECTED_GRAPH, Property>::const_type
 get(Property p, UNDIRECTED_GRAPH const& g)
 { return get(p, g.impl()); }
 
+template <UNDIRECTED_GRAPH_PARAMS>
+inline typename property_map<UNDIRECTED_GRAPH, vertex_all_t>::type
+get(vertex_all_t, UNDIRECTED_GRAPH& g)
+{ return typename property_map<UNDIRECTED_GRAPH, vertex_all_t>::type(detail::remove_first_property(), get(vertex_all, g.impl())); }
+
+template <UNDIRECTED_GRAPH_PARAMS>
+inline typename property_map<UNDIRECTED_GRAPH, vertex_all_t>::const_type
+get(vertex_all_t, UNDIRECTED_GRAPH const& g)
+{ return typename property_map<UNDIRECTED_GRAPH, vertex_all_t>::const_type(detail::remove_first_property(), get(vertex_all, g.impl())); }
+
+template <UNDIRECTED_GRAPH_PARAMS>
+inline typename property_map<UNDIRECTED_GRAPH, edge_all_t>::type
+get(edge_all_t, UNDIRECTED_GRAPH& g)
+{ return typename property_map<UNDIRECTED_GRAPH, edge_all_t>::type(detail::remove_first_property(), get(edge_all, g.impl())); }
+
+template <UNDIRECTED_GRAPH_PARAMS>
+inline typename property_map<UNDIRECTED_GRAPH, edge_all_t>::const_type
+get(edge_all_t, UNDIRECTED_GRAPH const& g)
+{ return typename property_map<UNDIRECTED_GRAPH, edge_all_t>::const_type(detail::remove_first_property(), get(edge_all, g.impl())); }
+
 template <UNDIRECTED_GRAPH_PARAMS, typename Property, typename Key>
 inline typename property_traits<
     typename property_map<
@@ -545,9 +593,39 @@ inline typename property_traits<
 get(Property p, UNDIRECTED_GRAPH const& g, Key const& k)
 { return get(p, g.impl(), k); }
 
+template <UNDIRECTED_GRAPH_PARAMS, typename Key>
+inline typename property_traits<
+    typename property_map<
+        typename UNDIRECTED_GRAPH::graph_type, vertex_all_t
+    >::const_type
+>::value_type
+get(vertex_all_t, UNDIRECTED_GRAPH const& g, Key const& k)
+{ return get(vertex_all, g.impl(), k).m_base; }
+
+template <UNDIRECTED_GRAPH_PARAMS, typename Key>
+inline typename property_traits<
+    typename property_map<
+        typename UNDIRECTED_GRAPH::graph_type, edge_all_t
+    >::const_type
+>::value_type
+get(edge_all_t, UNDIRECTED_GRAPH const& g, Key const& k)
+{ return get(edge_all, g.impl(), k).m_base; }
+
 template <UNDIRECTED_GRAPH_PARAMS, typename Property, typename Key, typename Value>
 inline void put(Property p, UNDIRECTED_GRAPH& g, Key const& k, Value const& v)
 { put(p, g.impl(), k, v); }
+
+template <UNDIRECTED_GRAPH_PARAMS, typename Key, typename Value>
+inline void put(vertex_all_t, UNDIRECTED_GRAPH& g, Key const& k, Value const& v)
+{ put(vertex_all, g.impl(), k,
+      typename UNDIRECTED_GRAPH::internal_vertex_property(get(vertex_index, g.impl(), k), v));
+}
+
+template <UNDIRECTED_GRAPH_PARAMS, typename Key, typename Value>
+inline void put(edge_all_t, UNDIRECTED_GRAPH& g, Key const& k, Value const& v)
+{ put(edge_all, g.impl(), k,
+      typename UNDIRECTED_GRAPH::internal_vertex_property(get(edge_index, g.impl(), k), v));
+}
 
 template <UNDIRECTED_GRAPH_PARAMS, class Property>
 inline typename graph_property<UNDIRECTED_GRAPH, Property>::type&

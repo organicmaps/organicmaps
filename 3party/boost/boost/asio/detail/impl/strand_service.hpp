@@ -2,7 +2,7 @@
 // detail/impl/strand_service.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -15,6 +15,7 @@
 # pragma once
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
+#include <boost/asio/detail/addressof.hpp>
 #include <boost/asio/detail/call_stack.hpp>
 #include <boost/asio/detail/completion_handler.hpp>
 #include <boost/asio/detail/fenced_block.hpp>
@@ -46,13 +47,13 @@ struct strand_service::on_dispatch_exit
     impl_->mutex_.unlock();
 
     if (more_handlers)
-      io_service_->post_immediate_completion(impl_);
+      io_service_->post_immediate_completion(impl_, false);
   }
 };
 
 template <typename Handler>
 void strand_service::dispatch(strand_service::implementation_type& impl,
-    Handler handler)
+    Handler& handler)
 {
   // If we are already in the strand then the handler can run immediately.
   if (call_stack<strand_impl>::contains(impl))
@@ -64,7 +65,7 @@ void strand_service::dispatch(strand_service::implementation_type& impl,
 
   // Allocate and construct an operation to wrap the handler.
   typedef completion_handler<Handler> op;
-  typename op::ptr p = { boost::addressof(handler),
+  typename op::ptr p = { boost::asio::detail::addressof(handler),
     boost_asio_handler_alloc_helpers::allocate(
       sizeof(op), handler), 0 };
   p.p = new (p.v) op(handler);
@@ -92,18 +93,21 @@ void strand_service::dispatch(strand_service::implementation_type& impl,
 // Request the io_service to invoke the given handler and return immediately.
 template <typename Handler>
 void strand_service::post(strand_service::implementation_type& impl,
-    Handler handler)
+    Handler& handler)
 {
+  bool is_continuation =
+    boost_asio_handler_cont_helpers::is_continuation(handler);
+
   // Allocate and construct an operation to wrap the handler.
   typedef completion_handler<Handler> op;
-  typename op::ptr p = { boost::addressof(handler),
+  typename op::ptr p = { boost::asio::detail::addressof(handler),
     boost_asio_handler_alloc_helpers::allocate(
       sizeof(op), handler), 0 };
   p.p = new (p.v) op(handler);
 
   BOOST_ASIO_HANDLER_CREATION((p.p, "strand", impl, "post"));
 
-  do_post(impl, p.p);
+  do_post(impl, p.p, is_continuation);
   p.v = p.p = 0;
 }
 

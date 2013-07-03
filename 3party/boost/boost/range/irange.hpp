@@ -100,7 +100,7 @@ namespace boost
         // While this design is less performant than some less
         // safe alternatives, the use of ranges and iterators to
         // perform counting will never be optimal anyhow, hence
-        // if optimal performance is desired a handcoded loop
+        // if optimal performance is desired a hand-coded loop
         // is the solution.
         template<typename Integer>
         class integer_iterator_with_step
@@ -217,7 +217,7 @@ namespace boost
         const std::ptrdiff_t sz = static_cast<std::ptrdiff_t>(step_size >= 0 ? step_size : -step_size);
         const Integer l = step_size >= 0 ? last : first;
         const Integer f = step_size >= 0 ? first : last;
-        const std::ptrdiff_t num_steps = (l + ((l-f) % sz) - f) / sz;
+        const std::ptrdiff_t num_steps = (l - f) / sz + ((l - f) % sz ? 1 : 0);
         BOOST_ASSERT(num_steps >= 0);
        
         return strided_integer_range<Integer>(

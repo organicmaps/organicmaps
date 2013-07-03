@@ -144,7 +144,8 @@ class named_sharable_mutex
    interprocess_sharable_mutex *mutex() const
    {  return static_cast<interprocess_sharable_mutex*>(m_shmem.get_user_address()); }
 
-   ipcdetail::managed_open_or_create_impl<shared_memory_object> m_shmem;
+   typedef ipcdetail::managed_open_or_create_impl<shared_memory_object, 0, true, false> open_create_impl_t;
+   open_create_impl_t m_shmem;
    typedef ipcdetail::named_creation_functor<interprocess_sharable_mutex> construct_func_t;
    /// @endcond
 };
@@ -159,8 +160,7 @@ inline named_sharable_mutex::named_sharable_mutex
    :  m_shmem  (create_only
                ,name
                ,sizeof(interprocess_sharable_mutex) +
-                  ipcdetail::managed_open_or_create_impl<shared_memory_object>::
-                     ManagedOpenOrCreateUserOffset
+                  open_create_impl_t::ManagedOpenOrCreateUserOffset
                ,read_write
                ,0
                ,construct_func_t(ipcdetail::DoCreate)
@@ -172,8 +172,7 @@ inline named_sharable_mutex::named_sharable_mutex
    :  m_shmem  (open_or_create
                ,name
                ,sizeof(interprocess_sharable_mutex) +
-                  ipcdetail::managed_open_or_create_impl<shared_memory_object>::
-                     ManagedOpenOrCreateUserOffset
+                  open_create_impl_t::ManagedOpenOrCreateUserOffset
                ,read_write
                ,0
                ,construct_func_t(ipcdetail::DoOpenOrCreate)

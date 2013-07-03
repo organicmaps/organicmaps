@@ -2,7 +2,7 @@
 // signal_set_service.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -16,6 +16,7 @@
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
 #include <boost/asio/detail/config.hpp>
+#include <boost/asio/async_result.hpp>
 #include <boost/asio/detail/signal_set_service.hpp>
 #include <boost/asio/error.hpp>
 #include <boost/asio/io_service.hpp>
@@ -96,11 +97,18 @@ public:
 
   // Start an asynchronous operation to wait for a signal to be delivered.
   template <typename SignalHandler>
-  void async_wait(implementation_type& impl,
+  BOOST_ASIO_INITFN_RESULT_TYPE(SignalHandler,
+      void (boost::system::error_code, int))
+  async_wait(implementation_type& impl,
       BOOST_ASIO_MOVE_ARG(SignalHandler) handler)
   {
-    service_impl_.async_wait(impl,
+    detail::async_result_init<
+      SignalHandler, void (boost::system::error_code, int)> init(
         BOOST_ASIO_MOVE_CAST(SignalHandler)(handler));
+
+    service_impl_.async_wait(impl, init.handler);
+
+    return init.result.get();
   }
 
 private:

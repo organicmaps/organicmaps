@@ -18,6 +18,9 @@
 #include <boost/mpl/if.hpp>
 #include <boost/range/functions.hpp>
 #include <boost/range/metafunctions.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/apply_visitor.hpp>
+#include <boost/variant/variant_fwd.hpp>
 
 #include <boost/geometry/core/closure.hpp>
 #include <boost/geometry/core/exterior_ring.hpp>
@@ -49,41 +52,33 @@ namespace boost { namespace geometry
 namespace detail { namespace area
 {
 
-template<typename Box, typename Strategy>
 struct box_area
 {
-    typedef typename coordinate_type<Box>::type return_type;
-
-    static inline return_type apply(Box const& box, Strategy const&)
+    template <typename Box, typename Strategy>
+    static inline typename coordinate_type<Box>::type
+    apply(Box const& box, Strategy const&)
     {
         // Currently only works for 2D Cartesian boxes
         assert_dimension<Box, 2>();
 
-        return_type const dx = get<max_corner, 0>(box)
-                - get<min_corner, 0>(box);
-        return_type const dy = get<max_corner, 1>(box)
-                - get<min_corner, 1>(box);
-
-        return dx * dy;
+        return (get<max_corner, 0>(box) - get<min_corner, 0>(box))
+             * (get<max_corner, 1>(box) - get<min_corner, 1>(box));
     }
 };
 
 
 template
 <
-    typename Ring,
     iterate_direction Direction,
-    closure_selector Closure,
-    typename Strategy
+    closure_selector Closure
 >
 struct ring_area
 {
-    BOOST_CONCEPT_ASSERT( (geometry::concept::AreaStrategy<Strategy>) );
-
-    typedef typename Strategy::return_type type;
-
-    static inline type apply(Ring const& ring, Strategy const& strategy)
+    template <typename Ring, typename Strategy>
+    static inline typename Strategy::return_type
+    apply(Ring const& ring, Strategy const& strategy)
     {
+        BOOST_CONCEPT_ASSERT( (geometry::concept::AreaStrategy<Strategy>) );
         assert_dimension<Ring, 2>();
 
         // Ignore warning (because using static method sometimes) on strategy
@@ -95,7 +90,7 @@ struct ring_area
         if (int(boost::size(ring))
                 < core_detail::closure::minimum_ring_size<Closure>::value)
         {
-            return type();
+            return typename Strategy::return_type();
         }
 
         typedef typename reversible_view<Ring const, Direction>::type rview_type;
@@ -136,71 +131,87 @@ namespace dispatch
 template
 <
     typename Geometry,
-    typename Strategy = typename strategy::area::services::default_strategy
-                                 <
-                                     typename cs_tag
-                                     <
-                                         typename point_type<Geometry>::type
-                                     >::type,
-                                     typename point_type<Geometry>::type
-                                 >::type,
     typename Tag = typename tag<Geometry>::type
 >
-struct area
-    : detail::calculate_null
-        <
-            typename Strategy::return_type,
-            Geometry,
-            Strategy
-        > {};
+struct area : detail::calculate_null
+{
+    template <typename Strategy>
+    static inline typename Strategy::return_type apply(Geometry const& geometry, Strategy const& strategy)
+    {
+        return calculate_null::apply<typename Strategy::return_type>(geometry, strategy);
+    }
+};
 
 
-template
-<
-    typename Geometry,
-    typename Strategy
->
-struct area<Geometry, Strategy, box_tag>
-    : detail::area::box_area<Geometry, Strategy>
+template <typename Geometry>
+struct area<Geometry, box_tag> : detail::area::box_area
 {};
 
 
-template
-<
-    typename Ring,
-    typename Strategy
->
-struct area<Ring, Strategy, ring_tag>
+template <typename Ring>
+struct area<Ring, ring_tag>
     : detail::area::ring_area
         <
-            Ring,
             order_as_direction<geometry::point_order<Ring>::value>::value,
-            geometry::closure<Ring>::value,
-            Strategy
+            geometry::closure<Ring>::value
         >
 {};
 
 
-template
-<
-    typename Polygon,
-    typename Strategy
->
-struct area<Polygon, Strategy, polygon_tag>
-    : detail::calculate_polygon_sum
-        <
+template <typename Polygon>
+struct area<Polygon, polygon_tag> : detail::calculate_polygon_sum
+{
+    template <typename Strategy>
+    static inline typename Strategy::return_type apply(Polygon const& polygon, Strategy const& strategy)
+    {
+        return calculate_polygon_sum::apply<
             typename Strategy::return_type,
-            Polygon,
-            Strategy,
             detail::area::ring_area
                 <
-                    typename ring_type<Polygon const>::type,
                     order_as_direction<geometry::point_order<Polygon>::value>::value,
-                    geometry::closure<Polygon>::value,
-                    Strategy
+                    geometry::closure<Polygon>::value
                 >
-        >
-{};
+            >(polygon, strategy);
+    }
+};
+
+
+template <typename Geometry>
+struct devarianted_area
+{
+    template <typename Strategy>
+    static inline typename Strategy::return_type apply(Geometry const& geometry,
+                                                       Strategy const& strategy)
+    {
+        return area<Geometry>::apply(geometry, strategy);
+    }
+};
+
+template <BOOST_VARIANT_ENUM_PARAMS(typename T)>
+struct devarianted_area<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
+{
+    template <typename Strategy>
+    struct visitor: boost::static_visitor<typename Strategy::return_type>
+    {
+        Strategy const& m_strategy;
+
+        visitor(Strategy const& strategy): m_strategy(strategy) {}
+
+        template <typename Geometry>
+        typename Strategy::return_type operator()(Geometry const& geometry) const
+        {
+            return devarianted_area<Geometry>::apply(geometry, m_strategy);
+        }
+    };
+
+    template <typename Strategy>
+    static inline typename Strategy::return_type
+    apply(boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& geometry,
+          Strategy const& strategy)
+    {
+        return boost::apply_visitor(visitor<Strategy>(strategy), geometry);
+    }
+};
 
 
 } // namespace dispatch
@@ -243,10 +254,7 @@ inline typename default_area_result<Geometry>::type area(Geometry const& geometr
 
     // detail::throw_on_empty_input(geometry);
         
-    return dispatch::area
-        <
-            Geometry
-        >::apply(geometry, strategy_type());
+    return dispatch::devarianted_area<Geometry>::apply(geometry, strategy_type());
 }
 
 /*!
@@ -281,11 +289,7 @@ inline typename Strategy::return_type area(
 
     // detail::throw_on_empty_input(geometry);
     
-    return dispatch::area
-        <
-            Geometry,
-            Strategy
-        >::apply(geometry, strategy);
+    return dispatch::devarianted_area<Geometry>::apply(geometry, strategy);
 }
 
 

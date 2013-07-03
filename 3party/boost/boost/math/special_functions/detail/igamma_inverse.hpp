@@ -341,7 +341,7 @@ struct gamma_p_inverse_func
       // flag is set, then Q(x) - q and it's derivatives.
       //
       typedef typename policies::evaluation<T, Policy>::type value_type;
-      typedef typename lanczos::lanczos<T, Policy>::type evaluation_type;
+      // typedef typename lanczos::lanczos<T, Policy>::type evaluation_type;
       typedef typename policies::normalise<
          Policy, 
          policies::promote_float<false>, 
@@ -378,7 +378,7 @@ struct gamma_p_inverse_func
          f2 = -f2;
       }
 
-      return boost::math::make_tuple(f - p, f1, f2);
+      return boost::math::make_tuple(static_cast<T>(f - p), f1, f2);
    }
 private:
    T a, p;

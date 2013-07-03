@@ -36,9 +36,20 @@ namespace boost {
 
 namespace interprocess {
 
+namespace ipcdetail {
+
+template<class AllocationAlgorithm>
+struct xsishmem_open_or_create
+{
+   typedef  ipcdetail::managed_open_or_create_impl                 //!FileBased, StoreDevice
+      < xsi_shared_memory_file_wrapper, AllocationAlgorithm::Alignment, false, true> type;
+};
+
+}  //namespace ipcdetail {
+
 //!A basic X/Open System Interface (XSI) shared memory named object creation class. Initializes the
 //!shared memory segment. Inherits all basic functionality from
-//!basic_managed_memory_impl<CharType, AllocationAlgorithm, IndexType>*/
+//!basic_managed_memory_impl<CharType, AllocationAlgorithm, IndexType>
 template
       <
          class CharType,
@@ -48,19 +59,15 @@ template
 class basic_managed_xsi_shared_memory
    : public ipcdetail::basic_managed_memory_impl
       <CharType, AllocationAlgorithm, IndexType
-      ,ipcdetail::managed_open_or_create_impl
-         < xsi_shared_memory_file_wrapper, AllocationAlgorithm::Alignment
-         , false, true>::ManagedOpenOrCreateUserOffset>
-   , private ipcdetail::managed_open_or_create_impl
-      <xsi_shared_memory_file_wrapper, AllocationAlgorithm::Alignment, false, true>
+      ,ipcdetail::xsishmem_open_or_create<AllocationAlgorithm>::type::ManagedOpenOrCreateUserOffset>
+   , private ipcdetail::xsishmem_open_or_create<AllocationAlgorithm>::type
 {
    /// @cond
    public:
    typedef xsi_shared_memory_file_wrapper device_type;
 
    public:
-   typedef ipcdetail::managed_open_or_create_impl
-      <xsi_shared_memory_file_wrapper, AllocationAlgorithm::Alignment, false, true>            base2_t;
+   typedef typename ipcdetail::xsishmem_open_or_create<AllocationAlgorithm>::type base2_t;
    typedef ipcdetail::basic_managed_memory_impl
       <CharType, AllocationAlgorithm, IndexType,
       base2_t::ManagedOpenOrCreateUserOffset>   base_t;
@@ -94,7 +101,7 @@ class basic_managed_xsi_shared_memory
 
    //!Creates shared memory and creates and places the segment manager.
    //!This can throw.
-   basic_managed_xsi_shared_memory(create_only_t create_only, const xsi_key &key,
+   basic_managed_xsi_shared_memory(create_only_t, const xsi_key &key,
                              std::size_t size, const void *addr = 0, const permissions& perm = permissions())
       : base_t()
       , base2_t(create_only, key, size, read_write, addr,
@@ -105,7 +112,7 @@ class basic_managed_xsi_shared_memory
    //!segment was not created. If segment was created it connects to the
    //!segment.
    //!This can throw.
-   basic_managed_xsi_shared_memory (open_or_create_t open_or_create,
+   basic_managed_xsi_shared_memory (open_or_create_t,
                               const xsi_key &key, std::size_t size,
                               const void *addr = 0, const permissions& perm = permissions())
       : base_t()
@@ -127,7 +134,7 @@ class basic_managed_xsi_shared_memory
 
    //!Connects to a created shared memory and its segment manager.
    //!This can throw.
-   basic_managed_xsi_shared_memory (open_only_t open_only, const xsi_key &key,
+   basic_managed_xsi_shared_memory (open_only_t, const xsi_key &key,
                                 const void *addr = 0)
       : base_t()
       , base2_t(open_only, key, read_write, addr,

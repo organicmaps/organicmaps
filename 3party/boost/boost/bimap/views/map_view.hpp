@@ -40,7 +40,7 @@ class map_view
     public BOOST_BIMAP_MAP_VIEW_CONTAINER_ADAPTOR(
         map_adaptor,
         Tag,BimapType,
-        reverse_iterator_type_by,const_reverse_iterator_type_by
+        reverse_map_view_iterator,const_reverse_map_view_iterator
     ),
     public ::boost::bimaps::detail::
         map_view_base< map_view<Tag,BimapType>,Tag,BimapType >,
@@ -50,7 +50,7 @@ class map_view
     typedef BOOST_BIMAP_MAP_VIEW_CONTAINER_ADAPTOR(
         map_adaptor,
         Tag,BimapType,
-        reverse_iterator_type_by,const_reverse_iterator_type_by
+        reverse_map_view_iterator,const_reverse_map_view_iterator
 
     ) base_;
 

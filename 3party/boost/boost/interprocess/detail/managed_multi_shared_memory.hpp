@@ -72,7 +72,7 @@ class basic_managed_multi_shared_memory
 
    typedef typename MemoryAlgorithm::void_pointer        void_pointer;
    typedef typename ipcdetail::
-      managed_open_or_create_impl<shared_memory_object, MemoryAlgorithm::Alignment>  managed_impl;
+      managed_open_or_create_impl<shared_memory_object, MemoryAlgorithm::Alignment, true, false>  managed_impl;
    typedef typename void_pointer::segment_group_id       segment_group_id;
    typedef typename base_t::size_type                   size_type;
 
@@ -211,9 +211,23 @@ class basic_managed_multi_shared_memory
          }
          return false;
       }
+
+      std::size_t get_min_size() const
+      {
+         const size_type sz = mp_frontend->get_segment_manager()->get_min_size();
+         if(sz > std::size_t(-1)){
+            //The minimum size is not representable by std::size_t
+            BOOST_ASSERT(false);
+            return std::size_t(-1);
+         }
+         else{
+            return static_cast<std::size_t>(sz);
+         }
+      }
+
       self_t * const    mp_frontend;
       type_t            m_type;
-      size_type       m_segment_number;
+      size_type         m_segment_number;
    };
 
    //!Functor to execute atomically when closing a shared memory segment.

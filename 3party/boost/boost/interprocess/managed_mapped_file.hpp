@@ -32,6 +32,16 @@
 
 namespace boost {
 namespace interprocess {
+namespace ipcdetail {
+
+template<class AllocationAlgorithm>
+struct mfile_open_or_create
+{
+   typedef  ipcdetail::managed_open_or_create_impl
+      < file_wrapper, AllocationAlgorithm::Alignment, true, false> type;
+};
+
+}  //namespace ipcdetail {
 
 //!A basic mapped file named object creation class. Initializes the
 //!mapped file. Inherits all basic functionality from
@@ -45,25 +55,19 @@ template
 class basic_managed_mapped_file
    : public ipcdetail::basic_managed_memory_impl
       <CharType, AllocationAlgorithm, IndexType
-      ,ipcdetail::managed_open_or_create_impl< ipcdetail::file_wrapper
-                                             , AllocationAlgorithm::Alignment>::ManagedOpenOrCreateUserOffset
-      >
+      ,ipcdetail::mfile_open_or_create<AllocationAlgorithm>::type::ManagedOpenOrCreateUserOffset>
 {
    /// @cond
    public:
    typedef ipcdetail::basic_managed_memory_impl
       <CharType, AllocationAlgorithm, IndexType,
-      ipcdetail::managed_open_or_create_impl
-         <ipcdetail::file_wrapper, AllocationAlgorithm::Alignment>::ManagedOpenOrCreateUserOffset
-      >   base_t;
+      ipcdetail::mfile_open_or_create<AllocationAlgorithm>::type::ManagedOpenOrCreateUserOffset>   base_t;
    typedef ipcdetail::file_wrapper device_type;
    typedef typename base_t::size_type              size_type;
 
    private:
 
    typedef ipcdetail::create_open_func<base_t>        create_open_func_t;
-   typedef ipcdetail::managed_open_or_create_impl< ipcdetail::file_wrapper
-                                                 , AllocationAlgorithm::Alignment> managed_open_or_create_type;
 
    basic_managed_mapped_file *get_this_pointer()
    {  return this;   }
@@ -82,7 +86,7 @@ class basic_managed_mapped_file
 
    //!Creates mapped file and creates and places the segment manager.
    //!This can throw.
-   basic_managed_mapped_file(create_only_t create_only, const char *name,
+   basic_managed_mapped_file(create_only_t, const char *name,
                              size_type size, const void *addr = 0, const permissions &perm = permissions())
       : m_mfile(create_only, name, size, read_write, addr,
                 create_open_func_t(get_this_pointer(), ipcdetail::DoCreate), perm)
@@ -92,7 +96,7 @@ class basic_managed_mapped_file
    //!segment was not created. If segment was created it connects to the
    //!segment.
    //!This can throw.
-   basic_managed_mapped_file (open_or_create_t open_or_create,
+   basic_managed_mapped_file (open_or_create_t,
                               const char *name, size_type size,
                               const void *addr = 0, const permissions &perm = permissions())
       : m_mfile(open_or_create, name, size, read_write, addr,
@@ -102,7 +106,7 @@ class basic_managed_mapped_file
 
    //!Connects to a created mapped file and its segment manager.
    //!This can throw.
-   basic_managed_mapped_file (open_only_t open_only, const char* name,
+   basic_managed_mapped_file (open_only_t, const char* name,
                               const void *addr = 0)
       : m_mfile(open_only, name, read_write, addr,
                 create_open_func_t(get_this_pointer(),
@@ -205,7 +209,7 @@ class basic_managed_mapped_file
    }
 
    private:
-   managed_open_or_create_type m_mfile;
+   typename ipcdetail::mfile_open_or_create<AllocationAlgorithm>::type m_mfile;
    /// @endcond
 };
 

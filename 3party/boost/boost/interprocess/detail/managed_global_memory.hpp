@@ -23,7 +23,7 @@
 #include <boost/interprocess/sync/spin/recursive_mutex.hpp>
 #include <boost/interprocess/detail/managed_memory_impl.hpp>
 #include <boost/interprocess/detail/managed_open_or_create_impl.hpp>
-#include <boost/interprocess/mem_algo/rbtree_best_fit.hpp> 
+#include <boost/interprocess/mem_algo/rbtree_best_fit.hpp>
 #include <boost/interprocess/indexes/iset_index.hpp>
 #include <boost/interprocess/creation_tags.hpp>
 #include <boost/interprocess/permissions.hpp>
@@ -47,7 +47,7 @@ struct intermodule_types
    struct open_or_create
    {
       typedef managed_open_or_create_impl
-            <Device, mem_algo::Alignment, FileBased> type;
+            <Device, mem_algo::Alignment, FileBased, false> type;
    };
 };
 

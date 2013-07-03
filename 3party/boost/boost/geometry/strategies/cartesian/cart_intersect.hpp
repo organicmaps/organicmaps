@@ -120,6 +120,22 @@ struct relate_cartesian_segments
         typedef side::side_by_triangle<coordinate_type> side;
         side_info sides;
 
+        coordinate_type const zero = 0;
+        bool const a_is_point = math::equals(dx_a, zero) && math::equals(dy_a, zero);
+        bool const b_is_point = math::equals(dx_b, zero) && math::equals(dy_b, zero);
+
+        if(a_is_point && b_is_point)
+        {
+            if(math::equals(get<1,0>(a), get<1,0>(b)) && math::equals(get<1,1>(a), get<1,1>(b)))
+            {
+                 Policy::degenerate(a, true);
+            }
+            else
+            {
+                return Policy::disjoint();                
+            }
+        }
+
         bool collinear_use_first = math::abs(dx_a) + math::abs(dx_b) >= math::abs(dy_a) + math::abs(dy_b);
 
         sides.set<0>
@@ -143,7 +159,7 @@ struct relate_cartesian_segments
 
         bool collinear = sides.collinear();
 
-        robustness_verify_collinear(a, b, sides, collinear);
+        robustness_verify_collinear(a, b, a_is_point, b_is_point, sides, collinear);
         robustness_verify_meeting(a, b, sides, collinear, collinear_use_first);
 
         if (sides.same<0>() || sides.same<1>())
@@ -156,12 +172,11 @@ struct relate_cartesian_segments
         }
 
         // Degenerate cases: segments of single point, lying on other segment, non disjoint
-        coordinate_type const zero = 0;
-        if (math::equals(dx_a, zero) && math::equals(dy_a, zero))
+        if (a_is_point)
         {
             return Policy::degenerate(a, true);
         }
-        if (math::equals(dx_b, zero) && math::equals(dy_b, zero))
+        if (b_is_point)
         {
             return Policy::degenerate(b, false);
         }
@@ -200,7 +215,7 @@ struct relate_cartesian_segments
                     return Policy::disjoint();
                 }
 
-                robustness_handle_meeting(a, b, sides, dx_a, dy_a, wx, wy, d, r);
+                //robustness_handle_meeting(a, b, sides, dx_a, dy_a, wx, wy, d, r);
 
                 if (robustness_verify_disjoint_at_one_collinear(a, b, sides))
                 {
@@ -280,11 +295,12 @@ private :
     }
 
     static inline void robustness_verify_collinear(
-                segment_type1 const& a, segment_type2 const& b,
+                segment_type1 const& , segment_type2 const& ,
+                bool a_is_point, bool b_is_point, 
                 side_info& sides,
                 bool& collinear)
     {
-        if ((sides.zero<0>() && ! sides.zero<1>()) || (sides.zero<1>() && ! sides.zero<0>()))
+        if ((sides.zero<0>() && ! b_is_point && ! sides.zero<1>()) || (sides.zero<1>() && ! a_is_point && ! sides.zero<0>()))
         {
             // If one of the segments is collinear, the other must be as well.
             // So handle it as collinear.
@@ -397,7 +413,7 @@ private :
         return false;
     }
 
-
+/*
     // If r is one, or zero, segments should meet and their endpoints.
     // Robustness issue: check if this is really the case.
     // It turns out to be no problem, see buffer test #rt_s1 (and there are many cases generated)
@@ -431,7 +447,7 @@ private :
             }
         }
     }
-
+*/
     template <std::size_t Dimension>
     static inline bool verify_disjoint(segment_type1 const& a,
                     segment_type2 const& b)

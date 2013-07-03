@@ -1,316 +1,469 @@
-/*
-  Copyright 2008 Intel Corporation
+// Boost.Polygon library point_concept.hpp header file
 
-  Use, modification and distribution are subject to the Boost Software License,
-  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-  http://www.boost.org/LICENSE_1_0.txt).
-*/
+// Copyright (c) Intel Corporation 2008.
+// Copyright (c) 2008-2012 Simonson Lucanus.
+// Copyright (c) 2012-2012 Andrii Sydorchuk.
+
+// See http://www.boost.org for updates, documentation, and revision history.
+// Use, modification and distribution is subject to the Boost Software License,
+// Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
 #ifndef BOOST_POLYGON_POINT_CONCEPT_HPP
 #define BOOST_POLYGON_POINT_CONCEPT_HPP
+
 #include "isotropy.hpp"
-#include "point_data.hpp"
 #include "point_traits.hpp"
 
-namespace boost { namespace polygon{
-  struct point_concept {};
+namespace boost {
+namespace polygon {
 
-  template <typename T>
-  struct is_point_concept { typedef gtl_no type; };
-  template <>
-  struct is_point_concept<point_concept> { typedef gtl_yes type; };
+struct point_concept {};
 
-  struct point_3d_concept;
-  template <>
-  struct is_point_concept<point_3d_concept> { typedef gtl_yes type; };
+template <typename ConceptType>
+struct is_point_concept {
+  typedef gtl_no type;
+};
 
-  template <typename T>
-  struct is_mutable_point_concept { typedef gtl_no type; };
-  template <>
-  struct is_mutable_point_concept<point_concept> { typedef gtl_yes type; };
+template <>
+struct is_point_concept<point_concept> {
+  typedef gtl_yes type;
+};
 
-  template <typename T, typename CT>
-  struct point_coordinate_type_by_concept { typedef void type; };
-  template <typename T>
-  struct point_coordinate_type_by_concept<T, gtl_yes> { typedef typename point_traits<T>::coordinate_type type; };
+template <typename ConceptType>
+struct is_mutable_point_concept {
+  typedef gtl_no type;
+};
 
-  template <typename T>
-  struct point_coordinate_type {
-      typedef typename point_coordinate_type_by_concept<T, typename is_point_concept<typename geometry_concept<T>::type>::type>::type type;
-  };
+template <>
+struct is_mutable_point_concept<point_concept> {
+  typedef gtl_yes type;
+};
 
-  template <typename T, typename CT>
-  struct point_difference_type_by_concept { typedef void type; };
-  template <typename T>
-  struct point_difference_type_by_concept<T, gtl_yes> {
-    typedef typename coordinate_traits<typename point_coordinate_type<T>::type>::coordinate_difference type; };
+template <typename GeometryType, typename BoolType>
+struct point_coordinate_type_by_concept {
+  typedef void type;
+};
 
-  template <typename T>
-  struct point_difference_type {
-      typedef typename point_difference_type_by_concept<
-            T, typename is_point_concept<typename geometry_concept<T>::type>::type>::type type;
-  };
+template <typename GeometryType>
+struct point_coordinate_type_by_concept<GeometryType, gtl_yes> {
+  typedef typename point_traits<GeometryType>::coordinate_type type;
+};
 
-  template <typename T, typename CT>
-  struct point_distance_type_by_concept { typedef void type; };
-  template <typename T>
-  struct point_distance_type_by_concept<T, gtl_yes> {
-    typedef typename coordinate_traits<typename point_coordinate_type<T>::type>::coordinate_distance type; };
+template <typename GeometryType>
+struct point_coordinate_type {
+  typedef typename point_coordinate_type_by_concept<
+    GeometryType,
+    typename is_point_concept<
+      typename geometry_concept<GeometryType>::type
+    >::type
+  >::type type;
+};
 
-  template <typename T>
-  struct point_distance_type {
-      typedef typename point_distance_type_by_concept<
-            T, typename is_point_concept<typename geometry_concept<T>::type>::type>::type type;
-  };
+template <typename GeometryType, typename BoolType>
+struct point_difference_type_by_concept {
+  typedef void type;
+};
 
-  struct y_pt_get : gtl_yes {};
+template <typename GeometryType>
+struct point_difference_type_by_concept<GeometryType, gtl_yes> {
+  typedef typename coordinate_traits<
+    typename point_traits<GeometryType>::coordinate_type
+  >::coordinate_difference type;
+};
 
-  template <typename T>
-  typename enable_if< typename gtl_and<y_pt_get, typename is_point_concept<typename geometry_concept<T>::type>::type>::type,
-                      typename point_coordinate_type<T>::type >::type
-  get(const T& point, orientation_2d orient) {
-    return point_traits<T>::get(point, orient);
-  }
+template <typename GeometryType>
+struct point_difference_type {
+  typedef typename point_difference_type_by_concept<
+    GeometryType,
+    typename is_point_concept<
+      typename geometry_concept<GeometryType>::type
+    >::type
+  >::type type;
+};
 
-  struct y_pt_set : gtl_yes {};
+template <typename GeometryType, typename BoolType>
+struct point_distance_type_by_concept {
+  typedef void type;
+};
 
-  template <typename T, typename coordinate_type>
-  typename enable_if< typename gtl_and<y_pt_set, typename is_mutable_point_concept<typename geometry_concept<T>::type>::type>::type,
-                      void>::type
-  set(T& point, orientation_2d orient, coordinate_type value) {
-    point_mutable_traits<T>::set(point, orient, value);
-  }
+template <typename GeometryType>
+struct point_distance_type_by_concept<GeometryType, gtl_yes> {
+  typedef typename coordinate_traits<
+    typename point_coordinate_type<GeometryType>::type
+  >::coordinate_distance type;
+};
 
-  struct y_pt_construct : gtl_yes {};
+template <typename GeometryType>
+struct point_distance_type {
+  typedef typename point_distance_type_by_concept<
+    GeometryType,
+    typename is_point_concept<
+      typename geometry_concept<GeometryType>::type
+    >::type
+  >::type type;
+};
 
-  template <typename T, typename coordinate_type1, typename coordinate_type2>
-  typename enable_if< typename gtl_and<y_pt_construct, typename is_mutable_point_concept<typename geometry_concept<T>::type>::type>::type,
-                      T>::type
-  construct(coordinate_type1 x_value, coordinate_type2 y_value) {
-    return point_mutable_traits<T>::construct(x_value, y_value);
-  }
+struct y_pt_get : gtl_yes {};
 
-  struct y_pt_assign : gtl_yes {};
+template <typename PointType>
+typename enable_if<
+  typename gtl_and<
+    y_pt_get,
+    typename is_point_concept<
+      typename geometry_concept<PointType>::type
+    >::type
+  >::type,
+  typename point_coordinate_type<PointType>::type
+>::type get(const PointType& point, orientation_2d orient) {
+  return point_traits<PointType>::get(point, orient);
+}
 
-  template <typename T1, typename T2>
-  typename enable_if<typename gtl_and_3<
-        y_pt_assign,
-        typename is_mutable_point_concept<typename geometry_concept<T1>::type>::type,
-        typename is_point_concept<typename geometry_concept<T2>::type>::type>::type,
-      T1>::type &
-  assign(T1& lvalue, const T2& rvalue) {
-    set(lvalue, HORIZONTAL, get(rvalue, HORIZONTAL));
-    set(lvalue, VERTICAL, get(rvalue, VERTICAL));
-    return lvalue;
-  }
+struct y_pt_set : gtl_yes {};
 
-  struct y_p_x : gtl_yes {};
+template <typename PointType>
+typename enable_if<
+  typename gtl_and<
+    y_pt_set,
+    typename is_mutable_point_concept<
+      typename geometry_concept<PointType>::type
+    >::type
+  >::type,
+  void
+>::type set(PointType& point, orientation_2d orient,
+    typename point_mutable_traits<PointType>::coordinate_type value) {
+  point_mutable_traits<PointType>::set(point, orient, value);
+}
 
-  template <typename point_type>
-  typename enable_if< typename gtl_and<y_p_x, typename is_point_concept<typename geometry_concept<point_type>::type>::type>::type,
-                      typename point_coordinate_type<point_type>::type >::type
-  x(const point_type& point) {
-    return get(point, HORIZONTAL);
-  }
+struct y_pt_construct : gtl_yes {};
 
-  struct y_p_y : gtl_yes {};
+template <typename PointType>
+typename enable_if<
+  typename gtl_and<
+    y_pt_construct,
+    typename is_mutable_point_concept<
+      typename geometry_concept<PointType>::type
+    >::type
+  >::type,
+PointType>::type construct(
+    typename point_mutable_traits<PointType>::coordinate_type x,
+    typename point_mutable_traits<PointType>::coordinate_type y) {
+  return point_mutable_traits<PointType>::construct(x, y);
+}
 
-  template <typename point_type>
-  typename enable_if< typename gtl_and<y_p_y, typename is_point_concept<typename geometry_concept<point_type>::type>::type>::type,
-                      typename point_coordinate_type<point_type>::type >::type
-  y(const point_type& point) {
-    return get(point, VERTICAL);
-  }
+struct y_pt_assign : gtl_yes {};
 
-  struct y_p_sx : gtl_yes {};
+template <typename PointType1, typename PointType2>
+typename enable_if<
+  typename gtl_and_3<
+    y_pt_assign,
+    typename is_mutable_point_concept<
+      typename geometry_concept<PointType1>::type
+    >::type,
+    typename is_point_concept<
+      typename geometry_concept<PointType2>::type
+    >::type
+>::type,
+PointType1>::type& assign(PointType1& lvalue, const PointType2& rvalue) {
+  set(lvalue, HORIZONTAL, get(rvalue, HORIZONTAL));
+  set(lvalue, VERTICAL, get(rvalue, VERTICAL));
+  return lvalue;
+}
 
-  template <typename point_type, typename coordinate_type>
-  typename enable_if<typename gtl_and<y_p_sx, typename is_mutable_point_concept<typename geometry_concept<point_type>::type>::type>::type,
-                      void>::type
-  x(point_type& point, coordinate_type value) {
-    set(point, HORIZONTAL, value);
-  }
+struct y_p_x : gtl_yes {};
 
-  struct y_p_sy : gtl_yes {};
+template <typename PointType>
+typename enable_if<
+  typename gtl_and<
+    y_p_x,
+    typename is_point_concept<
+      typename geometry_concept<PointType>::type
+    >::type
+  >::type,
+  typename point_coordinate_type<PointType>::type
+>::type x(const PointType& point) {
+  return get(point, HORIZONTAL);
+}
 
-  template <typename point_type, typename coordinate_type>
-  typename enable_if<typename gtl_and<y_p_sy, typename is_mutable_point_concept<typename geometry_concept<point_type>::type>::type>::type,
-                      void>::type
-  y(point_type& point, coordinate_type value) {
-    set(point, VERTICAL, value);
-  }
+struct y_p_y : gtl_yes {};
 
-  struct y_pt_equiv : gtl_yes {};
+template <typename PointType>
+typename enable_if<
+  typename gtl_and<
+    y_p_y,
+    typename is_point_concept<
+      typename geometry_concept<PointType>::type
+    >::type
+  >::type,
+  typename point_coordinate_type<PointType>::type
+>::type y(const PointType& point) {
+  return get(point, VERTICAL);
+}
 
-  template <typename T, typename T2>
-  typename enable_if<typename gtl_and_3<y_pt_equiv,
-        typename gtl_same_type<point_concept, typename geometry_concept<T>::type>::type,
-        typename is_point_concept<typename geometry_concept<T2>::type>::type>::type,
-      bool>::type
-  equivalence(const T& point1, const T2& point2) {
-    typename point_coordinate_type<T>::type x1 = x(point1);
-    typename point_coordinate_type<T2>::type x2 = get(point2, HORIZONTAL);
-    typename point_coordinate_type<T>::type y1 = get(point1, VERTICAL);
-    typename point_coordinate_type<T2>::type y2 = y(point2);
-    return x1 == x2 && y1 == y2;
-  }
+struct y_p_sx : gtl_yes {};
 
-  struct y_pt_man_dist : gtl_yes {};
+template <typename PointType>
+typename enable_if<
+  typename gtl_and<
+    y_p_sx,
+    typename is_mutable_point_concept<
+      typename geometry_concept<PointType>::type
+    >::type
+  >::type,
+void>::type x(PointType& point,
+    typename point_mutable_traits<PointType>::coordinate_type value) {
+  set(point, HORIZONTAL, value);
+}
 
-  template <typename point_type_1, typename point_type_2>
-  typename enable_if< typename gtl_and_3<
-        y_pt_man_dist,
-        typename gtl_same_type<point_concept, typename geometry_concept<point_type_1>::type>::type,
-        typename is_point_concept<typename geometry_concept<point_type_2>::type>::type>::type,
-      typename point_difference_type<point_type_1>::type>::type
-  manhattan_distance(const point_type_1& point1, const point_type_2& point2) {
-    return euclidean_distance(point1, point2, HORIZONTAL) + euclidean_distance(point1, point2, VERTICAL);
-  }
+struct y_p_sy : gtl_yes {};
 
-  struct y_pt_ed1 : gtl_yes {};
+template <typename PointType>
+typename enable_if<
+  typename gtl_and<
+    y_p_sy,
+    typename is_mutable_point_concept<
+      typename geometry_concept<PointType>::type
+    >::type
+  >::type,
+void>::type y(PointType& point,
+    typename point_mutable_traits<PointType>::coordinate_type value) {
+  set(point, VERTICAL, value);
+}
 
-  template <typename point_type_1, typename point_type_2>
-  typename enable_if< typename gtl_and_3<y_pt_ed1, typename is_point_concept<typename geometry_concept<point_type_1>::type>::type,
-  typename is_point_concept<typename geometry_concept<point_type_2>::type>::type>::type,
-  typename point_difference_type<point_type_1>::type>::type
-  euclidean_distance(const point_type_1& point1, const point_type_2& point2, orientation_2d orient) {
-    typename coordinate_traits<typename point_coordinate_type<point_type_1>::type>::coordinate_difference return_value =
+struct y_pt_equiv : gtl_yes {};
+
+template <typename PointType1, typename PointType2>
+typename enable_if<
+  typename gtl_and_3<
+    y_pt_equiv,
+    typename is_point_concept<
+      typename geometry_concept<PointType1>::type
+    >::type,
+    typename is_point_concept<
+      typename geometry_concept<PointType2>::type
+    >::type
+  >::type,
+bool>::type equivalence(
+    const PointType1& point1, const PointType2& point2) {
+  return (x(point1) == x(point2)) && (y(point1) == y(point2));
+}
+
+struct y_pt_man_dist : gtl_yes {};
+
+template <typename PointType1, typename PointType2>
+typename enable_if<
+  typename gtl_and_3<
+    y_pt_man_dist,
+    typename is_point_concept<
+      typename geometry_concept<PointType1>::type
+    >::type,
+    typename is_point_concept<
+      typename geometry_concept<PointType2>::type
+    >::type
+  >::type,
+typename point_difference_type<PointType1>::type>::type
+manhattan_distance(const PointType1& point1, const PointType2& point2) {
+  return euclidean_distance(point1, point2, HORIZONTAL) +
+         euclidean_distance(point1, point2, VERTICAL);
+}
+
+struct y_pt_ed1 : gtl_yes {};
+
+template <typename PointType1, typename PointType2>
+typename enable_if<
+  typename gtl_and_3<
+    y_pt_ed1,
+    typename is_point_concept<
+      typename geometry_concept<PointType1>::type
+    >::type,
+    typename is_point_concept<
+      typename geometry_concept<PointType2>::type
+    >::type
+  >::type,
+typename point_difference_type<PointType1>::type>::type
+euclidean_distance(
+    const PointType1& point1,
+    const PointType2& point2,
+    orientation_2d orient) {
+  typename point_difference_type<PointType1>::type dif =
       get(point1, orient) - get(point2, orient);
-    return return_value < 0 ? (typename coordinate_traits<typename point_coordinate_type<point_type_1>::type>::coordinate_difference)-return_value : return_value;
-  }
-
-  struct y_pt_ed2 : gtl_yes {};
-
-  template <typename point_type_1, typename point_type_2>
-  typename enable_if< typename gtl_and_3<y_pt_ed2, typename gtl_same_type<point_concept, typename geometry_concept<point_type_1>::type>::type,
-  typename gtl_same_type<point_concept, typename geometry_concept<point_type_2>::type>::type>::type,
-  typename point_distance_type<point_type_1>::type>::type
-  euclidean_distance(const point_type_1& point1, const point_type_2& point2) {
-    typedef typename point_coordinate_type<point_type_1>::type Unit;
-    return std::sqrt((double)(distance_squared(point1, point2)));
-  }
-
-  struct y_pt_eds : gtl_yes {};
-
-  template <typename point_type_1, typename point_type_2>
-  typename enable_if< typename gtl_and_3<
-        y_pt_eds,
-        typename is_point_concept<typename geometry_concept<point_type_1>::type>::type,
-        typename is_point_concept<typename geometry_concept<point_type_2>::type>::type>::type,
-      typename point_difference_type<point_type_1>::type>::type
-  distance_squared(const point_type_1& point1, const point_type_2& point2) {
-    typedef typename point_coordinate_type<point_type_1>::type Unit;
-    typename coordinate_traits<Unit>::coordinate_difference dx = euclidean_distance(point1, point2, HORIZONTAL);
-    typename coordinate_traits<Unit>::coordinate_difference dy = euclidean_distance(point1, point2, VERTICAL);
-    dx *= dx;
-    dy *= dy;
-    return dx + dy;
-  }
-
-  struct y_pt_convolve : gtl_yes {};
-
-  template <typename point_type_1, typename point_type_2>
-  typename enable_if< typename gtl_and_3<
-        y_pt_convolve,
-        typename is_mutable_point_concept<typename geometry_concept<point_type_1>::type>::type,
-        typename is_point_concept<typename geometry_concept<point_type_2>::type>::type>::type,
-      point_type_1>::type &
-  convolve(point_type_1& lvalue, const point_type_2& rvalue) {
-    x(lvalue, x(lvalue) + x(rvalue));
-    y(lvalue, y(lvalue) + y(rvalue));
-    return lvalue;
-  }
-
-  struct y_pt_deconvolve : gtl_yes {};
-
-  template <typename point_type_1, typename point_type_2>
-  typename enable_if< typename gtl_and_3<
-        y_pt_deconvolve,
-        typename is_mutable_point_concept<typename geometry_concept<point_type_1>::type>::type,
-        typename is_point_concept<typename geometry_concept<point_type_2>::type>::type>::type,
-      point_type_1>::type &
-  deconvolve(point_type_1& lvalue, const point_type_2& rvalue) {
-    x(lvalue, x(lvalue) - x(rvalue));
-    y(lvalue, y(lvalue) - y(rvalue));
-    return lvalue;
-  }
-
-  struct y_pt_scale_up : gtl_yes {};
-
-  template <typename point_type, typename coord_type>
-  typename enable_if< typename gtl_and<y_pt_scale_up, typename is_mutable_point_concept<typename geometry_concept<point_type>::type>::type>::type,
-                      point_type>::type &
-  scale_up(point_type& point, coord_type factor) {
-    typedef typename point_coordinate_type<point_type>::type Unit;
-    x(point, x(point) * (Unit)factor);
-    y(point, y(point) * (Unit)factor);
-    return point;
-  }
-
-  struct y_pt_scale_down : gtl_yes {};
-
-  template <typename point_type, typename coord_type>
-  typename enable_if< typename gtl_and<y_pt_scale_down, typename is_mutable_point_concept<typename geometry_concept<point_type>::type>::type>::type,
-                      point_type>::type &
-  scale_down(point_type& point, coord_type factor) {
-    typedef typename point_coordinate_type<point_type>::type Unit;
-    typedef typename coordinate_traits<Unit>::coordinate_distance dt;
-    x(point, scaling_policy<Unit>::round((dt)((dt)(x(point)) / (dt)factor)));
-    y(point, scaling_policy<Unit>::round((dt)((dt)(y(point)) / (dt)factor)));
-    return point;
-  }
-
-  struct y_pt_scale : gtl_yes {};
-
-  template <typename point_type, typename scaling_type>
-  typename enable_if< typename gtl_and<y_pt_scale, typename is_mutable_point_concept<typename geometry_concept<point_type>::type>::type>::type,
-                      point_type>::type &
-  scale(point_type& point, const scaling_type& scaling) {
-    typedef typename point_coordinate_type<point_type>::type Unit;
-    Unit x_(x(point)), y_(y(point));
-    scaling.scale(x_, y_);
-    x(point, x_);
-    y(point, y_);
-    return point;
-  }
-
-  struct y_pt_transform : gtl_yes {};
-
-  template <typename point_type, typename transformation_type>
-  typename enable_if< typename gtl_and<y_pt_transform, typename is_mutable_point_concept<typename geometry_concept<point_type>::type>::type>::type,
-                      point_type>::type &
-  transform(point_type& point, const transformation_type& transformation) {
-    typedef typename point_coordinate_type<point_type>::type Unit;
-    Unit x_(x(point)), y_(y(point));
-    transformation.transform(x_, y_);
-    x(point, x_);
-    y(point, y_);
-    return point;
-  }
-
-  struct y_pt_move : gtl_yes {};
-
-  template <typename point_type>
-  typename enable_if< typename gtl_and<y_pt_move, typename is_mutable_point_concept<typename geometry_concept<point_type>::type>::type>::type,
-                      point_type>::type &
-  move(point_type& point, orientation_2d orient,
-       typename point_coordinate_type<point_type>::type displacement) {
-    typedef typename point_coordinate_type<point_type>::type Unit;
-    Unit v(get(point, orient));
-    set(point, orient, v + displacement);
-    return point;
-  }
-
-  template <class T>
-  template <class T2>
-  point_data<T>& point_data<T>::operator=(const T2& rvalue) {
-    assign(*this, rvalue);
-    return *this;
-  }
-
-  template <typename T>
-  struct geometry_concept<point_data<T> > {
-    typedef point_concept type;
-  };
+  return (dif < 0) ? -dif : dif;
 }
+
+struct y_pt_eds : gtl_yes {};
+
+template <typename PointType1, typename PointType2>
+typename enable_if<
+  typename gtl_and_3<
+    y_pt_eds,
+    typename is_point_concept<
+      typename geometry_concept<PointType1>::type
+    >::type,
+    typename is_point_concept<
+      typename geometry_concept<PointType2>::type
+    >::type
+  >::type,
+typename point_difference_type<PointType1>::type>::type
+distance_squared(const PointType1& point1, const PointType2& point2) {
+  typename point_difference_type<PointType1>::type dx =
+      euclidean_distance(point1, point2, HORIZONTAL);
+  typename point_difference_type<PointType1>::type dy =
+      euclidean_distance(point1, point2, VERTICAL);
+  dx *= dx;
+  dy *= dy;
+  return dx + dy;
 }
-#endif
+
+struct y_pt_ed2 : gtl_yes {};
+
+template <typename PointType1, typename PointType2>
+typename enable_if<
+  typename gtl_and_3<
+    y_pt_ed2,
+    typename is_point_concept<
+      typename geometry_concept<PointType1>::type
+    >::type,
+    typename is_point_concept<
+      typename geometry_concept<PointType2>::type
+    >::type
+  >::type,
+typename point_distance_type<PointType1>::type>::type
+euclidean_distance(const PointType1& point1, const PointType2& point2) {
+  return (std::sqrt)(
+      static_cast<double>(distance_squared(point1, point2)));
+}
+
+struct y_pt_convolve : gtl_yes {};
+
+template <typename PointType1, typename PointType2>
+typename enable_if<
+  typename gtl_and_3<
+    y_pt_convolve,
+    typename is_mutable_point_concept<
+      typename geometry_concept<PointType1>::type
+    >::type,
+    typename is_point_concept<
+      typename geometry_concept<PointType2>::type
+    >::type
+  >::type,
+PointType1>::type& convolve(PointType1& lvalue, const PointType2& rvalue) {
+  x(lvalue, x(lvalue) + x(rvalue));
+  y(lvalue, y(lvalue) + y(rvalue));
+  return lvalue;
+}
+
+struct y_pt_deconvolve : gtl_yes {};
+
+template <typename PointType1, typename PointType2>
+typename enable_if<
+  typename gtl_and_3<
+    y_pt_deconvolve,
+    typename is_mutable_point_concept<
+      typename geometry_concept<PointType1>::type
+    >::type,
+    typename is_point_concept<
+      typename geometry_concept<PointType2>::type
+    >::type
+  >::type,
+PointType1>::type& deconvolve(PointType1& lvalue, const PointType2& rvalue) {
+  x(lvalue, x(lvalue) - x(rvalue));
+  y(lvalue, y(lvalue) - y(rvalue));
+  return lvalue;
+}
+
+struct y_pt_scale_up : gtl_yes {};
+
+template <typename PointType, typename CType>
+typename enable_if<
+  typename gtl_and<
+    y_pt_scale_up,
+    typename is_mutable_point_concept<
+      typename geometry_concept<PointType>::type
+    >::type
+  >::type,
+PointType>::type& scale_up(PointType& point, CType factor) {
+  typedef typename point_coordinate_type<PointType>::type Unit;
+  x(point, x(point) * (Unit)factor);
+  y(point, y(point) * (Unit)factor);
+  return point;
+}
+
+struct y_pt_scale_down : gtl_yes {};
+
+template <typename PointType, typename CType>
+typename enable_if<
+  typename gtl_and<
+    y_pt_scale_down,
+    typename is_mutable_point_concept<
+      typename geometry_concept<PointType>::type
+    >::type
+  >::type,
+PointType>::type& scale_down(PointType& point, CType factor) {
+  typedef typename point_coordinate_type<PointType>::type Unit;
+  typedef typename coordinate_traits<Unit>::coordinate_distance dt;
+  x(point, scaling_policy<Unit>::round((dt)(x(point)) / (dt)factor));
+  y(point, scaling_policy<Unit>::round((dt)(y(point)) / (dt)factor));
+  return point;
+}
+
+struct y_pt_scale : gtl_yes {};
+
+template <typename PointType, typename ScaleType>
+typename enable_if<
+  typename gtl_and<
+    y_pt_scale,
+    typename is_mutable_point_concept<
+      typename geometry_concept<PointType>::type
+    >::type
+  >::type,
+PointType>::type& scale(PointType& point, const ScaleType& scaling) {
+  typedef typename point_coordinate_type<PointType>::type Unit;
+  Unit x_coord(x(point));
+  Unit y_coord(y(point));
+  scaling.scale(x_coord, y_coord);
+  x(point, x_coord);
+  y(point, y_coord);
+  return point;
+}
+
+struct y_pt_transform : gtl_yes {};
+
+template <typename PointType, typename TransformType>
+typename enable_if<
+  typename gtl_and<
+    y_pt_transform,
+    typename is_mutable_point_concept<
+      typename geometry_concept<PointType>::type
+    >::type
+  >::type,
+PointType>::type& transform(PointType& point, const TransformType& transform) {
+  typedef typename point_coordinate_type<PointType>::type Unit;
+  Unit x_coord(x(point));
+  Unit y_coord(y(point));
+  transform.transform(x_coord, y_coord);
+  x(point, x_coord);
+  y(point, y_coord);
+  return point;
+}
+
+struct y_pt_move : gtl_yes {};
+
+template <typename PointType>
+typename enable_if<
+  typename gtl_and<
+    y_pt_move,
+    typename is_mutable_point_concept<
+      typename geometry_concept<PointType>::type
+    >::type
+  >::type,
+PointType>::type& move(PointType& point, orientation_2d orient,
+    typename point_coordinate_type<PointType>::type displacement) {
+  typedef typename point_coordinate_type<PointType>::type Unit;
+  Unit coord = get(point, orient);
+  set(point, orient, coord + displacement);
+  return point;
+}
+}  // polygon
+}  // boost
+
+#endif  // BOOST_POLYGON_POINT_CONCEPT_HPP

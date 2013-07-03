@@ -17,9 +17,9 @@
 
 #include <cstddef>
 
-#include <boost/mpl/assert.hpp>
-
 #include <boost/geometry/core/access.hpp>
+
+#include <boost/geometry/algorithms/not_implemented.hpp>
 
 #include <boost/geometry/geometries/concepts/check.hpp>
 
@@ -32,13 +32,12 @@ namespace detail { namespace overlaps
 
 template
 <
-    typename Box1,
-    typename Box2,
     std::size_t Dimension,
     std::size_t DimensionCount
 >
 struct box_box_loop
 {
+    template <typename Box1, typename Box2>
     static inline void apply(Box1 const& b1, Box2 const& b2,
             bool& overlaps, bool& one_in_two, bool& two_in_one)
     {
@@ -84,8 +83,6 @@ struct box_box_loop
 
         box_box_loop
             <
-                Box1,
-                Box2,
                 Dimension + 1,
                 DimensionCount
             >::apply(b1, b2, overlaps, one_in_two, two_in_one);
@@ -94,24 +91,19 @@ struct box_box_loop
 
 template
 <
-    typename Box1,
-    typename Box2,
     std::size_t DimensionCount
 >
-struct box_box_loop<Box1, Box2, DimensionCount, DimensionCount>
+struct box_box_loop<DimensionCount, DimensionCount>
 {
+    template <typename Box1, typename Box2>
     static inline void apply(Box1 const& , Box2 const&, bool&, bool&, bool&)
     {
     }
 };
 
-template
-<
-    typename Box1,
-    typename Box2
->
 struct box_box
 {
+    template <typename Box1, typename Box2>
     static inline bool apply(Box1 const& b1, Box2 const& b2)
     {
         bool overlaps = true;
@@ -119,8 +111,6 @@ struct box_box
         bool within2 = true;
         box_box_loop
             <
-                Box1,
-                Box2,
                 0,
                 dimension<Box1>::type::value
             >::apply(b1, b2, overlaps, within1, within2);
@@ -148,24 +138,18 @@ namespace dispatch
 
 template
 <
-    typename Tag1,
-    typename Tag2,
     typename Geometry1,
-    typename Geometry2
+    typename Geometry2,
+    typename Tag1 = typename tag<Geometry1>::type,
+    typename Tag2 = typename tag<Geometry2>::type
 >
-struct overlaps
-{
-    BOOST_MPL_ASSERT_MSG
-        (
-            false, NOT_OR_NOT_YET_IMPLEMENTED_FOR_THIS_GEOMETRY_TYPE
-            , (types<Geometry1, Geometry2>)
-        );
-};
+struct overlaps: not_implemented<Tag1, Tag2>
+{};
 
 
 template <typename Box1, typename Box2>
-struct overlaps<box_tag, box_tag, Box1, Box2>
-    : detail::overlaps::box_box<Box1, Box2>
+struct overlaps<Box1, Box2, box_tag, box_tag>
+    : detail::overlaps::box_box
 {};
 
 
@@ -190,8 +174,6 @@ inline bool overlaps(Geometry1 const& geometry1, Geometry2 const& geometry2)
 
     return dispatch::overlaps
         <
-            typename tag<Geometry1>::type,
-            typename tag<Geometry2>::type,
             Geometry1,
             Geometry2
         >::apply(geometry1, geometry2);

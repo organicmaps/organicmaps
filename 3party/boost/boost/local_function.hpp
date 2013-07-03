@@ -20,7 +20,7 @@
 
 // PUBLIC //
 
-#ifdef BOOST_NO_VARIADIC_MACROS
+#ifdef BOOST_NO_CXX11_VARIADIC_MACROS
 #   define BOOST_LOCAL_FUNCTION_ID(id, declarations) \
         BOOST_LOCAL_FUNCTION_AUX_DECL(id, 0 /* not within template */, \
                 BOOST_LOCAL_FUNCTION_AUX_PP_DECL_TRAITS( \
@@ -344,7 +344,7 @@ On C++11 compilers, there is no need to declare a local function lined because
 this library will automatically use C++11 specific features to inline the local
 function while always allowing to pass it as a template parameter.
 This optimization is automatically enabled when the Boost.Config macro
-<c>BOOST_NO_LOCAL_CLASS_TEMPLATE_PARAMETERS</c> is not defined but it also be
+<c>BOOST_NO_CXX11_LOCAL_CLASS_TEMPLATE_PARAMETERS</c> is not defined but it also be
 forced using @RefMacro{BOOST_LOCAL_FUNCTION_CONFIG_LOCALS_AS_TPARAMS}.
 
 The local function name can also be qualified by prefixing it with the

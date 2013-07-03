@@ -348,7 +348,7 @@ while_(CondT const& cond)
 //      While the condition (an lambda_functor) evaluates to true, statement
 //      (another lambda_functor) is executed. The statement is executed at least
 //      once. The result type of this is void. Note the trailing
-//      underscore after do_ and the the leading dot and the trailing
+//      underscore after do_ and the leading dot and the trailing
 //      underscore before and after .while_.
 //
 ///////////////////////////////////////////////////////////////////////////////

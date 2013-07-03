@@ -53,12 +53,10 @@ namespace boost
     {
       xalloc_key_initializer()
       {
-        std::cout << __FILE__ << ":" << __LINE__ << std::endl;
         if (!detail::xalloc_key_holder<T>::initialized)
         {
           detail::xalloc_key_holder<T>::value = std::ios_base::xalloc();
           detail::xalloc_key_holder<T>::initialized = true;
-          std::cout << __FILE__ << ":" << __LINE__ << " " << detail::xalloc_key_holder<T>::value <<std::endl;
         }
       }
     };
@@ -68,6 +66,8 @@ namespace boost
     template <typename Final, typename T>
     class ios_state_ptr
     {
+      ios_state_ptr& operator=(ios_state_ptr const& rhs) ;
+
     public:
       /**
        * The pointee type
@@ -81,8 +81,6 @@ namespace boost
       explicit ios_state_ptr(std::ios_base& ios) :
         ios_(ios)
       {
-        std::cout << __FILE__ << ":" << __LINE__ << std::endl;
-
       }
       /**
        * Nothing to do as xalloc index can not be removed.
@@ -280,6 +278,7 @@ namespace boost
         }
       }
 
+
     protected:
       std::ios_base& ios_;
       //static detail::xalloc_key_initializer<Final> xalloc_key_initializer_;
@@ -338,7 +337,6 @@ namespace boost
       ~ios_flags()
       {
       }
-
       /**
        * @Returns The format control information.
        */
@@ -422,6 +420,7 @@ namespace boost
       {
         return detail::xalloc_key_holder<Final>::value;
       }
+      ios_flags& operator=(ios_flags const& rhs) ;
 
       std::ios_base& ios_;
       //static detail::xalloc_key_initializer<Final> xalloc_key_initializer_;

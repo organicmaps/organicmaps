@@ -498,6 +498,29 @@ inline void set_section_unique_ids(Sections& sections)
     }
 }
 
+template <typename Sections>
+inline void enlargeSections(Sections& sections)
+{
+    // Robustness issue. Increase sections a tiny bit such that all points are really within (and not on border)
+    // Reason: turns might, rarely, be missed otherwise (case: "buffer_mp1")
+    // Drawback: not really, range is now completely inside the section. Section is a tiny bit too large,
+    // which might cause (a small number) of more comparisons
+    // TODO: make dimension-agnostic
+    for (typename boost::range_iterator<Sections>::type it = boost::begin(sections);
+        it != boost::end(sections);
+        ++it)
+    {
+        typedef typename boost::range_value<Sections>::type section_type;
+        typedef typename section_type::box_type box_type;
+        typedef typename geometry::coordinate_type<box_type>::type coordinate_type;
+        coordinate_type const reps = math::relaxed_epsilon(10.0);
+        geometry::set<0, 0>(it->bounding_box, geometry::get<0, 0>(it->bounding_box) - reps);
+        geometry::set<0, 1>(it->bounding_box, geometry::get<0, 1>(it->bounding_box) - reps);
+        geometry::set<1, 0>(it->bounding_box, geometry::get<1, 0>(it->bounding_box) + reps);
+        geometry::set<1, 1>(it->bounding_box, geometry::get<1, 1>(it->bounding_box) + reps);
+    }
+}
+
 
 }} // namespace detail::sectionalize
 #endif // DOXYGEN_NO_DETAIL
@@ -639,6 +662,7 @@ inline void sectionalize(Geometry const& geometry, Sections& sections, int sourc
     ring_id.source_index = source_index;
     sectionalizer_type::apply(geometry, sections, ring_id);
     detail::sectionalize::set_section_unique_ids(sections);
+    detail::sectionalize::enlargeSections(sections);
 }
 
 

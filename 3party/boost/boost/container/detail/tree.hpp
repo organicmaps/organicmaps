@@ -15,7 +15,7 @@
 #include <boost/container/detail/workaround.hpp>
 #include <boost/container/container_fwd.hpp>
 
-#include <boost/move/move.hpp>
+#include <boost/move/utility.hpp>
 #include <boost/intrusive/pointer_traits.hpp>
 #include <boost/type_traits/has_trivial_destructor.hpp>
 #include <boost/detail/no_exceptions_support.hpp>
@@ -28,6 +28,7 @@
 #include <boost/container/detail/pair.hpp>
 #include <boost/container/detail/type_traits.hpp>
 #include <boost/container/allocator_traits.hpp>
+#include <boost/detail/no_exceptions_support.hpp>
 #ifndef BOOST_CONTAINER_PERFECT_FORWARDING
 #include <boost/container/detail/preprocessor.hpp>
 #endif
@@ -247,19 +248,20 @@ class rbtree
       {
          if(NodePtr p = m_icont.unlink_leftmost_without_rebalance()){
             //First recycle a node (this can't throw)
-            try{
+            BOOST_TRY{
                //This can throw
                p->do_assign(other.m_data);
                return p;
             }
-            catch(...){
+            BOOST_CATCH(...){
                //If there is an exception destroy the whole source
                m_holder.destroy_node(p);
                while((p = m_icont.unlink_leftmost_without_rebalance())){
                   m_holder.destroy_node(p);
                }
-               throw;
+               BOOST_RETHROW
             }
+            BOOST_CATCH_END
          }
          else{
             return m_holder.create_node(other.m_data);
@@ -284,19 +286,20 @@ class rbtree
       {
          if(NodePtr p = m_icont.unlink_leftmost_without_rebalance()){
             //First recycle a node (this can't throw)
-            try{
+            BOOST_TRY{
                //This can throw
                p->do_move_assign(const_cast<Node &>(other).m_data);
                return p;
             }
-            catch(...){
+            BOOST_CATCH(...){
                //If there is an exception destroy the whole source
                m_holder.destroy_node(p);
                while((p = m_icont.unlink_leftmost_without_rebalance())){
                   m_holder.destroy_node(p);
                }
-               throw;
+               BOOST_RETHROW
             }
+            BOOST_CATCH_END
          }
          else{
             return m_holder.create_node(other.m_data);
@@ -1121,7 +1124,7 @@ class C, class A>
 struct has_trivial_destructor_after_move
    <boost::container::container_detail::rbtree<K, V, KOV, C, A> >
 {
-   static const bool value = has_trivial_destructor<A>::value && has_trivial_destructor<C>::value;
+   static const bool value = has_trivial_destructor_after_move<A>::value && has_trivial_destructor_after_move<C>::value;
 };
 */
 } //namespace boost  {

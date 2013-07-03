@@ -19,6 +19,7 @@
 #include <boost/range.hpp>
 
 #include <boost/geometry/multi/core/tags.hpp>
+#include <boost/geometry/multi/geometries/concepts/check.hpp>
 #include <boost/geometry/multi/core/ring_type.hpp>
 #include <boost/geometry/algorithms/detail/sections/range_by_section.hpp>
 

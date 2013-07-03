@@ -2,7 +2,7 @@
 // detail/descriptor_write_op.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,9 +17,9 @@
 
 #include <boost/asio/detail/config.hpp>
 
-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
+#if !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
 
-#include <boost/utility/addressof.hpp>
+#include <boost/asio/detail/addressof.hpp>
 #include <boost/asio/detail/bind_handler.hpp>
 #include <boost/asio/detail/buffer_sequence_adapter.hpp>
 #include <boost/asio/detail/descriptor_ops.hpp>
@@ -81,7 +81,7 @@ public:
   {
     // Take ownership of the handler object.
     descriptor_write_op* o(static_cast<descriptor_write_op*>(base));
-    ptr p = { boost::addressof(o->handler_), o, o };
+    ptr p = { boost::asio::detail::addressof(o->handler_), o, o };
 
     BOOST_ASIO_HANDLER_COMPLETION((o));
 
@@ -93,7 +93,7 @@ public:
     // deallocated the memory here.
     detail::binder2<Handler, boost::system::error_code, std::size_t>
       handler(o->handler_, o->ec_, o->bytes_transferred_);
-    p.h = boost::addressof(handler.handler_);
+    p.h = boost::asio::detail::addressof(handler.handler_);
     p.reset();
 
     // Make the upcall if required.
@@ -116,6 +116,6 @@ private:
 
 #include <boost/asio/detail/pop_options.hpp>
 
-#endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
+#endif // !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
 
 #endif // BOOST_ASIO_DETAIL_DESCRIPTOR_WRITE_OP_HPP

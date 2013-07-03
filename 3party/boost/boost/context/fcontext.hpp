@@ -11,6 +11,10 @@
 #include <stdint.h>
 #endif
 
+#if defined(_WIN32_WCE)
+typedef int intptr_t;
+#endif
+
 #include <boost/config.hpp>
 #include <boost/cstdint.hpp>
 
@@ -44,7 +48,7 @@
 # endif
 // arm
 #elif defined(__arm__) || defined(__thumb__) || defined(__TARGET_ARCH_ARM) \
-    || defined(__TARGET_ARCH_THUMB) || defined(_ARM)
+    || defined(__TARGET_ARCH_THUMB) || defined(_ARM) || defined(_M_ARM)
 # include <boost/context/detail/fcontext_arm.hpp>
 // mips
 #elif (defined(__mips) && __mips == 1) || defined(_MIPS_ISA_MIPS1) \
@@ -55,17 +59,15 @@
     || defined(__ppc__) || defined(_ARCH_PPC) || defined(__POWERPC__) \
     || defined(__PPCGECKO__) || defined(__PPCBROADWAY) || defined(_XENON)
 # include <boost/context/detail/fcontext_ppc.hpp>
+#elif defined(__sparc__) || defined(__sparc)
+// sparc or sparc64
+# include <boost/context/detail/fcontext_sparc.hpp>
 #else
 # error "platform not supported"
 #endif
 
 namespace boost {
 namespace context {
-namespace detail {
-
-extern "C" BOOST_CONTEXT_DECL void * BOOST_CONTEXT_CALLDECL align_stack( void * vp);
-
-}
 
 extern "C" BOOST_CONTEXT_DECL
 intptr_t BOOST_CONTEXT_CALLDECL jump_fcontext( fcontext_t * ofc, fcontext_t const* nfc, intptr_t vp, bool preserve_fpu = true);

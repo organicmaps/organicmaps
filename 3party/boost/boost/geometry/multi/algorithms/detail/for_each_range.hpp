@@ -21,6 +21,7 @@
 #include <boost/geometry/algorithms/detail/for_each_range.hpp>
 
 #include <boost/geometry/multi/core/tags.hpp>
+#include <boost/geometry/multi/geometries/concepts/check.hpp>
 
 
 namespace boost { namespace geometry

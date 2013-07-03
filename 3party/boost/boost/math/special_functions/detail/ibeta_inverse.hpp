@@ -35,12 +35,12 @@ struct temme_root_finder
       if(y == 0)
       {
          T big = tools::max_value<T>() / 4;
-         return boost::math::make_tuple(-big, -big);
+         return boost::math::make_tuple(static_cast<T>(-big), static_cast<T>(-big));
       }
       if(x == 0)
       {
          T big = tools::max_value<T>() / 4;
-         return boost::math::make_tuple(-big, big);
+         return boost::math::make_tuple(static_cast<T>(-big), big);
       }
       T f = log(x) + a * log(y) + t;
       T f1 = (1 / x) - (a / (y));
@@ -866,14 +866,16 @@ template <class T1, class T2, class T3>
 inline typename tools::promote_args<T1, T2, T3>::type 
    ibeta_inv(T1 a, T2 b, T3 p)
 {
-   return ibeta_inv(a, b, p, static_cast<T1*>(0), policies::policy<>());
+   typedef typename tools::promote_args<T1, T2, T3>::type result_type;
+   return ibeta_inv(a, b, p, static_cast<result_type*>(0), policies::policy<>());
 }
 
 template <class T1, class T2, class T3, class Policy>
 inline typename tools::promote_args<T1, T2, T3>::type 
    ibeta_inv(T1 a, T2 b, T3 p, const Policy& pol)
 {
-   return ibeta_inv(a, b, p, static_cast<T1*>(0), pol);
+   typedef typename tools::promote_args<T1, T2, T3>::type result_type;
+   return ibeta_inv(a, b, p, static_cast<result_type*>(0), pol);
 }
 
 template <class T1, class T2, class T3, class T4, class Policy>
@@ -922,16 +924,16 @@ template <class RT1, class RT2, class RT3>
 inline typename tools::promote_args<RT1, RT2, RT3>::type 
    ibetac_inv(RT1 a, RT2 b, RT3 q)
 {
-   typedef typename remove_cv<RT1>::type dummy;
-   return ibetac_inv(a, b, q, static_cast<dummy*>(0), policies::policy<>());
+   typedef typename tools::promote_args<RT1, RT2, RT3>::type result_type;
+   return ibetac_inv(a, b, q, static_cast<result_type*>(0), policies::policy<>());
 }
 
 template <class RT1, class RT2, class RT3, class Policy>
 inline typename tools::promote_args<RT1, RT2, RT3>::type
    ibetac_inv(RT1 a, RT2 b, RT3 q, const Policy& pol)
 {
-   typedef typename remove_cv<RT1>::type dummy;
-   return ibetac_inv(a, b, q, static_cast<dummy*>(0), pol);
+   typedef typename tools::promote_args<RT1, RT2, RT3>::type result_type;
+   return ibetac_inv(a, b, q, static_cast<result_type*>(0), pol);
 }
 
 } // namespace math

@@ -342,14 +342,14 @@ namespace boost
       /**
        * @return pointer to the start of valid units.
        */
-      virtual string_type* get_valid_units_start() const
+      virtual const string_type* get_valid_units_start() const
       {
         return detail::duration_units_default_holder<CharT>::valid_units_;
       }
       /**
        * @return pointer to the end of valid units.
        */
-      virtual string_type* get_valid_units_end() const
+      virtual const string_type* get_valid_units_end() const
       {
         return detail::duration_units_default_holder<CharT>::valid_units_ + 19 * (pfs_ + 1);
       }
@@ -978,6 +978,17 @@ namespace boost
                 duration_units_default_holder<CharT>::initialized_ = true;
               }
           }
+        ~duration_units_default_initializer_t()
+          {
+            if (duration_units_default_holder<CharT>::initialized_)
+            {
+              delete[] duration_units_default_holder<CharT>::n_d_valid_units_;
+              duration_units_default_holder<CharT>::n_d_valid_units_ = 0;
+              delete[] duration_units_default_holder<CharT>::valid_units_;
+              duration_units_default_holder<CharT>::valid_units_ = 0;
+              duration_units_default_holder<CharT>::initialized_ = false;
+            }
+        }
       };
       namespace /**/
       {

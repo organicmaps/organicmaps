@@ -2,7 +2,7 @@
 // detail/socket_types.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,7 +17,7 @@
 
 #include <boost/asio/detail/config.hpp>
 
-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
+#if defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
 # if defined(_WINSOCKAPI_) && !defined(_WINSOCK2API_)
 #  error WinSock.h has already been included
 # endif // defined(_WINSOCKAPI_) && !defined(_WINSOCK2API_)
@@ -81,7 +81,7 @@ namespace boost {
 namespace asio {
 namespace detail {
 
-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
+#if defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
 typedef SOCKET socket_type;
 const SOCKET invalid_socket = INVALID_SOCKET;
 const int socket_error_retval = SOCKET_ERROR;
@@ -107,6 +107,7 @@ typedef addrinfo addrinfo_type;
 typedef unsigned long ioctl_arg_type;
 typedef u_long u_long_type;
 typedef u_short u_short_type;
+typedef int signed_size_type;
 const int shutdown_receive = SD_RECEIVE;
 const int shutdown_send = SD_SEND;
 const int shutdown_both = SD_BOTH;
@@ -151,6 +152,11 @@ typedef addrinfo addrinfo_type;
 typedef int ioctl_arg_type;
 typedef uint32_t u_long_type;
 typedef uint16_t u_short_type;
+#if defined(BOOST_ASIO_HAS_SSIZE_T)
+typedef ssize_t signed_size_type;
+#else // defined(BOOST_ASIO_HAS_SSIZE_T)
+typedef int signed_size_type;
+#endif // defined(BOOST_ASIO_HAS_SSIZE_T)
 const int shutdown_receive = SHUT_RD;
 const int shutdown_send = SHUT_WR;
 const int shutdown_both = SHUT_RDWR;

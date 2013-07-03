@@ -24,11 +24,11 @@ namespace boost { namespace algorithm {
 using std::is_partitioned;      // Section 25.3.13
 #else
 /// \fn is_partitioned ( InputIterator first, InputIterator last, UnaryPredicate p )
-/// \brief Tests to see if a sequence is partititioned according to a predicate
+/// \brief Tests to see if a sequence is partitioned according to a predicate
 /// 
 /// \param first    The start of the input sequence
 /// \param last     One past the end of the input sequence
-/// \param p        The predicicate to test the values with
+/// \param p        The predicate to test the values with
 /// \note           This function is part of the C++2011 standard library.
 ///  We will use the standard one if it is available, 
 ///  otherwise we have our own implementation.
@@ -51,7 +51,7 @@ bool is_partitioned ( InputIterator first, InputIterator last, UnaryPredicate p 
 /// \brief Generates an increasing sequence of values, and stores them in the input Range.
 /// 
 /// \param r        The input range
-/// \param p        The predicicate to test the values with
+/// \param p        The predicate to test the values with
 ///
 template <typename Range, typename UnaryPredicate>
 bool is_partitioned ( const Range &r, UnaryPredicate p )

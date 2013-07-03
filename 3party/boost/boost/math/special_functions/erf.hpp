@@ -226,7 +226,7 @@ T erf_imp(T z, bool invert, const Policy& pol, const mpl::int_<53>& t)
             BOOST_MATH_BIG_CONSTANT(T, 53, -0.000322780120964605683831),
          };
          static const T Q[] = {    
-            1L,
+            BOOST_MATH_BIG_CONSTANT(T, 53, 1.0),
             BOOST_MATH_BIG_CONSTANT(T, 53, 0.455004033050794024546),
             BOOST_MATH_BIG_CONSTANT(T, 53, 0.0875222600142252549554),
             BOOST_MATH_BIG_CONSTANT(T, 53, 0.00858571925074406212772),
@@ -258,7 +258,7 @@ T erf_imp(T z, bool invert, const Policy& pol, const mpl::int_<53>& t)
             BOOST_MATH_BIG_CONSTANT(T, 53, 0.00180424538297014223957),
          };
          static const T Q[] = {    
-            1L,
+            BOOST_MATH_BIG_CONSTANT(T, 53, 1.0),
             BOOST_MATH_BIG_CONSTANT(T, 53, 1.84759070983002217845),
             BOOST_MATH_BIG_CONSTANT(T, 53, 1.42628004845511324508),
             BOOST_MATH_BIG_CONSTANT(T, 53, 0.578052804889902404909),
@@ -266,8 +266,14 @@ T erf_imp(T z, bool invert, const Policy& pol, const mpl::int_<53>& t)
             BOOST_MATH_BIG_CONSTANT(T, 53, 0.0113385233577001411017),
             BOOST_MATH_BIG_CONSTANT(T, 53, 0.337511472483094676155e-5),
          };
+         BOOST_MATH_INSTRUMENT_VARIABLE(Y);
+         BOOST_MATH_INSTRUMENT_VARIABLE(P[0]);
+         BOOST_MATH_INSTRUMENT_VARIABLE(Q[0]);
+         BOOST_MATH_INSTRUMENT_VARIABLE(z);
          result = Y + tools::evaluate_polynomial(P, T(z - 0.5)) / tools::evaluate_polynomial(Q, T(z - 0.5));
+         BOOST_MATH_INSTRUMENT_VARIABLE(result);
          result *= exp(-z * z) / z;
+         BOOST_MATH_INSTRUMENT_VARIABLE(result);
       }
       else if(z < 2.5f)
       {

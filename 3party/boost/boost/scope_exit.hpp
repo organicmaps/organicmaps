@@ -596,7 +596,7 @@ msvc_register_type<T, Organizer> typeof_register_type(const T&,
 #define BOOST_SCOPE_EXIT_AUX_TRAITS_HAS_THIS(traits) \
     BOOST_PP_TUPLE_ELEM(2, 1, traits)
 
-#ifndef BOOST_NO_LAMBDAS
+#ifndef BOOST_NO_CXX11_LAMBDAS
 
 namespace boost { namespace scope_exit { namespace aux {
 
@@ -677,7 +677,7 @@ private:
 #endif // Lambdas.
 
 #if defined(BOOST_SCOPE_EXIT_CONFIG_USE_LAMBDAS) && \
-        !defined(BOOST_NO_LAMBDAS) // Use lambda for SCOPE_EXIT (not just _ALL).
+        !defined(BOOST_NO_CXX11_LAMBDAS) // Use lambda for SCOPE_EXIT (not just _ALL).
 
 #define BOOST_SCOPE_EXIT_AUX_IMPL(id, ty, traits) \
     BOOST_SCOPE_EXIT_AUX_IMPL_LAMBDA(id, ty, traits)
@@ -758,7 +758,7 @@ private:
 
 // PUBLIC //
 
-#if defined(BOOST_NO_VARIADIC_MACROS) // No variadic macros (sequences only).
+#if defined(BOOST_NO_CXX11_VARIADIC_MACROS) // No variadic macros (sequences only).
 #   define BOOST_SCOPE_EXIT_ID(id, void_or_seq) \
         BOOST_SCOPE_EXIT_AUX_IMPL(id, BOOST_PP_EMPTY(), \
                 BOOST_SCOPE_EXIT_AUX_TRAITS( \
@@ -773,7 +773,7 @@ private:
 #   define BOOST_SCOPE_EXIT_TPL(void_or_seq) \
         BOOST_SCOPE_EXIT_ID_TPL(BOOST_LOCAL_FUNCTION_DETAIL_PP_LINE_COUNTER, \
                 void_or_seq)
-#   if !defined(BOOST_NO_LAMBDAS)
+#   if !defined(BOOST_NO_CXX11_LAMBDAS)
 #       define BOOST_SCOPE_EXIT_ALL_ID(id, seq) \
             BOOST_SCOPE_EXIT_AUX_IMPL_LAMBDA(id, \
                     /* C++11 allows to use typename outside templates so */ \
@@ -802,7 +802,7 @@ private:
 #   define BOOST_SCOPE_EXIT_TPL(...) \
         BOOST_SCOPE_EXIT_ID_TPL(BOOST_LOCAL_FUNCTION_DETAIL_PP_LINE_COUNTER, \
                 __VA_ARGS__)
-#   if !defined(BOOST_NO_LAMBDAS)
+#   if !defined(BOOST_NO_CXX11_LAMBDAS)
 #       define BOOST_SCOPE_EXIT_ALL_ID(id, ...) \
             BOOST_SCOPE_EXIT_AUX_IMPL_LAMBDA(id, \
                     /* C++11 allows to use typename outside templates so */ \
@@ -820,7 +820,7 @@ private:
 #endif // Variadics.
 
 #if defined(BOOST_SCOPE_EXIT_CONFIG_USE_LAMBDAS) && \
-        !defined(BOOST_NO_LAMBDAS) // Use lambdas for SCOPE_EXIT (not just ALL).
+        !defined(BOOST_NO_CXX11_LAMBDAS) // Use lambdas for SCOPE_EXIT (not just ALL).
 #   define BOOST_SCOPE_EXIT_END_ID(id) \
         ; /* lambdas ended with just `;` */
 #else // Not using lambdas.
@@ -864,7 +864,7 @@ Note how the end of the scope exit body must be marked by
 @Params
 @Param{capture_list,
 On compilers that support variadic macros (see also Boost.Config
-<c>BOOST_NO_VARIADIC_MACROS</c>)\, the capture list syntax is defined by the
+<c>BOOST_NO_CXX11_VARIADIC_MACROS</c>)\, the capture list syntax is defined by the
 following grammar:
 @code
     capture_list:
@@ -883,7 +883,7 @@ be used:
             void | capture_sequence
 @endcode
 Furthermore\, if @RefMacro{BOOST_SCOPE_EXIT_CONFIG_USE_LAMBDAS} is defined on
-C++11 compilers that support lambda functions (i.e.\, Boost.Config's <c>BOOST_NO_LAMBDAS</c> is not defined) then a semicolon <c>;</c> can be used instead of
+C++11 compilers that support lambda functions (i.e.\, Boost.Config's <c>BOOST_NO_CXX11_LAMBDAS</c> is not defined) then a semicolon <c>;</c> can be used instead of
 @RefMacro{BOOST_SCOPE_EXIT_END} and <c>this</c> can be used instead of
 <c>this_</c>:
 @code
@@ -1107,14 +1107,14 @@ Note how the end of the scope exit body declared by this macro must be marked
 by a semi-column <c>;</c> (and not by @RefMacro{BOOST_SCOPE_EXIT_END}).
 
 @Warning This macro is only available on C++11 compilers (specifically, on
-C++11 compilers that do not define the Boost.Config <c>BOOST_NO_LAMBDAS</c>
+C++11 compilers that do not define the Boost.Config <c>BOOST_NO_CXX11_LAMBDAS</c>
 macro).
 It is not defined on non-C++11 compilers so its use on non-C++11 compilers will generate a compiler error.
 
 @Params
 @Param{capture_list,
 On compilers that support variadic macros (see also Boost.Config
-<c>BOOST_NO_VARIADIC_MACROS</c>)\, the capture list syntax is defined by the
+<c>BOOST_NO_CXX11_VARIADIC_MACROS</c>)\, the capture list syntax is defined by the
 following grammar:
 @code
 capture_list:
@@ -1191,7 +1191,7 @@ provided for each expansion (see @RefMacro{BOOST_SCOPE_EXIT_ALL} for more
 information).
 As with @RefMacro{BOOST_SCOPE_EXIT_ALL}, this macro is only available on C++11
 compilers (specifically, on C++11 compilers that do not define the
-Boost.Config <c>BOOST_NO_LAMBDAS</c> macro).
+Boost.Config <c>BOOST_NO_CXX11_LAMBDAS</c> macro).
 
 @Params
 @Param{id,
@@ -1282,7 +1282,7 @@ portably use <c>__LINE__</c> to internally generate unique identifiers).
 @brief Force to use C++11 lambda functions to implement scope exits.
 
 If programmers define this configuration macro on a C++11 compiler for which
-the Boost.Config macro <c>BOOST_NO_LAMBDAS</c> is not defined, the
+the Boost.Config macro <c>BOOST_NO_CXX11_LAMBDAS</c> is not defined, the
 @RefMacro{BOOST_SCOPE_EXIT} and @RefMacro{BOOST_SCOPE_EXIT_TPL} macros will use
 C++11 lambda functions to declare scope exits.
 By default this macro is not defined.

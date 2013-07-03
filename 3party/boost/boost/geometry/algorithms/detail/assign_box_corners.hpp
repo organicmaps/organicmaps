@@ -67,6 +67,13 @@ inline void assign_box_corners(Box const& box,
             <max_corner, max_corner>(box, upper_right);
 }
 
+// Silence warning C4127: conditional expression is constant
+#if defined(_MSC_VER)
+#pragma warning(push)  
+#pragma warning(disable : 4127)  
+#endif
+
+
 template <bool Reverse, typename Box, typename Range>
 inline void assign_box_corners_oriented(Box const& box, Range& corners)
 {
@@ -81,6 +88,9 @@ inline void assign_box_corners_oriented(Box const& box, Range& corners)
         assign_box_corners(box, corners[0], corners[3], corners[1], corners[2]);
     }
 }
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 
 } // namespace detail

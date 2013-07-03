@@ -14,13 +14,20 @@
 #ifndef BOOST_GEOMETRY_STRATEGIES_SIDE_INFO_HPP
 #define BOOST_GEOMETRY_STRATEGIES_SIDE_INFO_HPP
 
-
+#include <cmath>
 #include <utility>
-
+#ifdef BOOST_GEOMETRY_DEBUG_INTERSECTION
+#include <iostream>
+#endif
 
 namespace boost { namespace geometry
 {
 
+// Silence warning C4127: conditional expression is constant
+#if defined(_MSC_VER)
+#pragma warning(push)  
+#pragma warning(disable : 4127)  
+#endif
 
 /*!
 \brief Class side_info: small class wrapping for sides (-1,0,1)
@@ -138,16 +145,16 @@ public :
         return sides[Which].first == 0 ? 0 : 1;
     }
 
-
+#ifdef BOOST_GEOMETRY_DEBUG_INTERSECTION
     inline void debug() const
     {
         std::cout << sides[0].first << " "
             << sides[0].second << " "
             << sides[1].first << " "
             << sides[1].second 
-			<< std::endl;
+            << std::endl;
     }
-
+#endif
 
     inline void reverse()
     {
@@ -159,6 +166,9 @@ public :
 
 };
 
+#if defined(_MSC_VER)
+#pragma warning(pop)  
+#endif
 
 }} // namespace boost::geometry
 

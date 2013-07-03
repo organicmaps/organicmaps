@@ -328,7 +328,7 @@ class voronoi_diagram {
     return vertices_.size();
   }
 
-  void _reserve(int num_sites) {
+  void _reserve(std::size_t num_sites) {
     cells_.reserve(num_sites);
     vertices_.reserve(num_sites << 1);
     edges_.reserve((num_sites << 2) + (num_sites << 1));

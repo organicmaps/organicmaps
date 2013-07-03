@@ -197,7 +197,7 @@ T quadratic_interpolate(const T& a, const T& b, T const& d,
    T A = safe_div(T(fd - fb), T(d - b), tools::max_value<T>());
    A = safe_div(T(A - B), T(d - a), T(0));
 
-   if(a == 0)
+   if(A == 0)
    {
       // failure to determine coefficients, try a secant step:
       return secant_interpolate(a, b, fa, fb);

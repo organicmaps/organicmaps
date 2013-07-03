@@ -22,6 +22,7 @@
 #include <boost/mpl/placeholders.hpp>
 #include <boost/parameter/keyword.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <boost/accumulators/accumulators_fwd.hpp>
 #include <boost/accumulators/framework/accumulator_base.hpp>
 #include <boost/accumulators/framework/extractor.hpp>
 #include <boost/accumulators/numeric/functional.hpp>
@@ -45,6 +46,9 @@ namespace boost { namespace accumulators
 //
 BOOST_PARAMETER_NESTED_KEYWORD(tag, pot_threshold_value, threshold_value)
 BOOST_PARAMETER_NESTED_KEYWORD(tag, pot_threshold_probability, threshold_probability)
+
+BOOST_ACCUMULATORS_IGNORE_GLOBAL(pot_threshold_value)
+BOOST_ACCUMULATORS_IGNORE_GLOBAL(pot_threshold_probability)
 
 namespace impl
 {

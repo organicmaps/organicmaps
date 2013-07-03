@@ -307,25 +307,31 @@ class basic_managed_memory_impl
 
    //Experimental. Don't use.
 
-   //!Allocates n_elements of elem_size bytes.
-   multiallocation_chain allocate_many(size_type elem_bytes, size_type num_elements)
-   {  return mp_header->allocate_many(elem_bytes, num_elements); }
+   //!Allocates n_elements of elem_bytes bytes. 
+   //!Throws bad_alloc on failure. chain.size() is not increased on failure.
+   void allocate_many(size_type elem_bytes, size_type n_elements, multiallocation_chain &chain)
+   {  mp_header->allocate_many(elem_bytes, n_elements, chain); }
 
-   //!Allocates n_elements, each one of elem_sizes[i] bytes.
-   multiallocation_chain allocate_many(const size_type *elem_sizes, size_type n_elements)
-   {  return mp_header->allocate_many(elem_sizes, n_elements); }
+   //!Allocates n_elements, each one of element_lengths[i]*sizeof_element bytes.
+   //!Throws bad_alloc on failure. chain.size() is not increased on failure.
+   void allocate_many(const size_type *element_lengths, size_type n_elements, size_type sizeof_element, multiallocation_chain &chain)
+   {  mp_header->allocate_many(element_lengths, n_elements, sizeof_element, chain); }
 
-   //!Allocates n_elements of elem_size bytes.
-   multiallocation_chain allocate_many(size_type elem_bytes, size_type num_elements, std::nothrow_t nothrow)
-   {  return mp_header->allocate_many(elem_bytes, num_elements, nothrow); }
+   //!Allocates n_elements of elem_bytes bytes. 
+   //!Non-throwing version. chain.size() is not increased on failure.
+   void allocate_many(std::nothrow_t, size_type elem_bytes, size_type n_elements, multiallocation_chain &chain)
+   {  mp_header->allocate_many(std::nothrow_t(), elem_bytes, n_elements, chain); }
 
-   //!Allocates n_elements, each one of elem_sizes[i] bytes.
-   multiallocation_chain allocate_many(const size_type *elem_sizes, size_type n_elements, std::nothrow_t nothrow)
-   {  return mp_header->allocate_many(elem_sizes, n_elements, nothrow); }
+   //!Allocates n_elements, each one of
+   //!element_lengths[i]*sizeof_element bytes.
+   //!Non-throwing version. chain.size() is not increased on failure.
+   void allocate_many(std::nothrow_t, const size_type *elem_sizes, size_type n_elements, size_type sizeof_element, multiallocation_chain &chain)
+   {  mp_header->allocate_many(std::nothrow_t(), elem_sizes, n_elements, sizeof_element, chain); }
 
-   //!Allocates n_elements, each one of elem_sizes[i] bytes.
-   void deallocate_many(multiallocation_chain chain)
-   {  return mp_header->deallocate_many(boost::move(chain)); }
+   //!Deallocates all elements contained in chain.
+   //!Never throws.
+   void deallocate_many(multiallocation_chain &chain)
+   {  mp_header->deallocate_many(chain); }
 
    /// @endcond
 
@@ -719,20 +725,40 @@ class basic_managed_memory_impl
 template<class BasicManagedMemoryImpl>
 class create_open_func
 {
+   typedef typename BasicManagedMemoryImpl::size_type size_type;
+
    public:
+
    create_open_func(BasicManagedMemoryImpl * const frontend, create_enum_t type)
       : m_frontend(frontend), m_type(type){}
 
-   bool operator()(void *addr, typename BasicManagedMemoryImpl::size_type size, bool created) const
+   bool operator()(void *addr, std::size_t size, bool created) const
    {
-      if(((m_type == DoOpen)   &&  created) ||
-         ((m_type == DoCreate) && !created))
+      if( ((m_type == DoOpen)   &&  created) ||
+          ((m_type == DoCreate) && !created) ||
+          //Check for overflow
+          size_type(-1) < size ){
          return false;
+      }
+      else if(created){
+         return m_frontend->create_impl(addr, static_cast<size_type>(size));
+      }
+      else{
+         return m_frontend->open_impl  (addr, static_cast<size_type>(size));
+      }
+   }
 
-      if(created)
-         return m_frontend->create_impl(addr, size);
-      else
-         return m_frontend->open_impl  (addr, size);
+   std::size_t get_min_size() const
+   {
+      const size_type sz = m_frontend->get_segment_manager()->get_min_size();
+      if(sz > std::size_t(-1)){
+         //The minimum size is not representable by std::size_t
+         BOOST_ASSERT(false);
+         return std::size_t(-1);
+      }
+      else{
+         return static_cast<std::size_t>(sz);
+      }
    }
 
    private:

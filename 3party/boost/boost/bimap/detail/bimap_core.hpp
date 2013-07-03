@@ -425,50 +425,6 @@ class bimap_core
     typedef BOOST_DEDUCED_TYPENAME right_index::iterator       right_core_iterator;
     typedef BOOST_DEDUCED_TYPENAME right_index::const_iterator right_core_const_iterator;
 
-    // Map by {side} iterator metadata
-    // --------------------------------------------------------------------
-    public:
-
-    //@{
-
-        typedef ::boost::bimaps::detail::map_view_iterator
-        <
-            left_tag,
-            relation,
-            left_core_iterator
-
-        > left_iterator;
-
-        typedef ::boost::bimaps::detail::map_view_iterator
-        <
-            right_tag,
-            relation,
-            right_core_iterator
-
-        > right_iterator;
-
-    //@}
-
-    //@{
-
-        typedef ::boost::bimaps::detail::const_map_view_iterator
-        <
-            left_tag,
-            relation,
-            left_core_const_iterator
-
-        > left_const_iterator;
-
-        typedef ::boost::bimaps::detail::const_map_view_iterator
-        <
-            right_tag,
-            relation,
-            right_core_const_iterator
-
-        > right_const_iterator;
-
-    //@}
-
     // Relation set view
 
     typedef BOOST_DEDUCED_TYPENAME ::boost::multi_index::index
@@ -512,6 +468,7 @@ struct right_map_view_type
             BOOST_DEDUCED_TYPENAME BimapBaseType::right_tag, BimapBaseType
         >::type type;
 };
+
 
 } // namespace detail
 } // namespace bimaps

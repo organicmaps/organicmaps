@@ -49,7 +49,7 @@ namespace boost {
             The result is a trimmed copy of the input
 
             \param Input An input sequence
-             \param IsSpace An unary predicate identifying spaces
+             \param IsSpace A unary predicate identifying spaces
             \return A trimmed copy of the input
         */
         template<typename SequenceT, typename PredicateT>
@@ -70,7 +70,7 @@ namespace boost {
             The input sequence is modified in-place.
 
             \param Input An input sequence
-            \param IsSpace An unary predicate identifying spaces
+            \param IsSpace A unary predicate identifying spaces
         */
         template<typename SequenceT, typename PredicateT>
         inline void trim_all_if(SequenceT& Input, PredicateT IsSpace)
@@ -126,7 +126,7 @@ namespace boost {
 
             \param Input An input sequence
             \param Fill A string used to fill the inner spaces
-            \param IsSpace An unary predicate identifying spaces
+            \param IsSpace A unary predicate identifying spaces
             \return A trimmed copy of the input
         */
         template<typename SequenceT, typename RangeT, typename PredicateT>
@@ -149,7 +149,7 @@ namespace boost {
 
             \param Input An input sequence
             \param Fill A string used to fill the inner spaces
-            \param IsSpace An unary predicate identifying spaces
+            \param IsSpace A unary predicate identifying spaces
         */
         template<typename SequenceT, typename RangeT, typename PredicateT>
         inline void trim_fill_if(SequenceT& Input, const RangeT& Fill, PredicateT IsSpace)

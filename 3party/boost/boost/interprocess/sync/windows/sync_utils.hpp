@@ -23,7 +23,13 @@
 #include <boost/interprocess/sync/scoped_lock.hpp>
 #include <boost/interprocess/sync/windows/winapi_semaphore_wrapper.hpp>
 #include <boost/interprocess/sync/windows/winapi_mutex_wrapper.hpp>
-#include <boost/unordered/unordered_map.hpp>
+
+//Shield against external warnings
+#include <boost/interprocess/detail/config_external_begin.hpp>
+   #include <boost/unordered/unordered_map.hpp>
+#include <boost/interprocess/detail/config_external_end.hpp>
+
+
 #include <boost/container/map.hpp>
 #include <cstddef>
 
@@ -71,7 +77,7 @@ class sync_id
    internal_type &internal_pod()
    {  return rand_;  }
 
-   const void *map_addr() const
+   const void *map_address() const
    {  return map_addr_;  }
 
    friend std::size_t hash_value(const sync_id &m)
@@ -94,7 +100,7 @@ class sync_handles
    struct address_less
    {
       bool operator()(sync_id const * const l, sync_id const * const r) const
-      {  return l->map_addr() <  r->map_addr(); }
+      {  return l->map_address() <  r->map_address(); }
    };
 
    typedef boost::unordered_map<sync_id, void*> umap_type;
@@ -156,11 +162,14 @@ class sync_handles
       umap_type::value_type v(id, (void*)0);
       scoped_lock<spin_mutex> lock(mtx_);
       umap_type::iterator it = umap_.insert(v).first;
-      map_[&it->first] = it;
       void *&hnd_val = it->second;
       if(!hnd_val){
+         map_[&it->first] = it;
          hnd_val = open_or_create_mutex(id);
          if(popen_created) *popen_created = true;
+      }
+      else if(popen_created){
+         *popen_created = false;
       }
       return hnd_val;
    }
@@ -170,11 +179,14 @@ class sync_handles
       umap_type::value_type v(id, (void*)0);
       scoped_lock<spin_mutex> lock(mtx_);
       umap_type::iterator it = umap_.insert(v).first;
-      map_[&it->first] = it;
       void *&hnd_val = it->second;
       if(!hnd_val){
+         map_[&it->first] = it;
          hnd_val = open_or_create_semaphore(id, initial_count);
          if(popen_created) *popen_created = true;
+      }
+      else if(popen_created){
+         *popen_created = false;
       }
       return hnd_val;
    }
@@ -195,13 +207,13 @@ class sync_handles
 
    void destroy_syncs_in_range(const void *addr, std::size_t size)
    {
-      sync_id low_id(addr);
-      sync_id hig_id(static_cast<const char*>(addr)+size);
+      const sync_id low_id(addr);
+      const sync_id hig_id(static_cast<const char*>(addr)+size);
       scoped_lock<spin_mutex> lock(mtx_);
       map_type::iterator itlow(map_.lower_bound(&low_id)),
                          ithig(map_.lower_bound(&hig_id));
       while(itlow != ithig){
-         void *hnd = umap_[*itlow->first];
+         void * const hnd = umap_[*itlow->first];
          winapi::close_handle(hnd);
          umap_.erase(*itlow->first);
          itlow = map_.erase(itlow);

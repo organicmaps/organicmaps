@@ -15,7 +15,6 @@
 #define BOOST_CHRONO_TYPEOF_CHRONO_HPP
 
 #include <boost/chrono/chrono.hpp>
-#define BOOST_TYPEOF_SILENT
 #include <boost/typeof/typeof.hpp>
 
 #include BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP()

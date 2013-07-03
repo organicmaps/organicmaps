@@ -13,6 +13,7 @@
 #include <boost/assert.hpp>
 #include <boost/circular_buffer.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <boost/accumulators/accumulators_fwd.hpp>
 #include <boost/accumulators/framework/extractor.hpp>
 #include <boost/accumulators/framework/depends_on.hpp>
 #include <boost/accumulators/framework/accumulator_base.hpp>
@@ -27,6 +28,8 @@ namespace boost { namespace accumulators
 ///////////////////////////////////////////////////////////////////////////////
 // tag::rolling_window::size named parameter
 BOOST_PARAMETER_NESTED_KEYWORD(tag, rolling_window_size, window_size)
+
+BOOST_ACCUMULATORS_IGNORE_GLOBAL(rolling_window_size)
 
 namespace impl
 {

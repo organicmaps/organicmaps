@@ -40,9 +40,21 @@
 #include <boost/geometry/core/point_order.hpp>
 #include <boost/geometry/geometries/concepts/check.hpp>
 
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/apply_visitor.hpp>
+#include <boost/variant/variant_fwd.hpp>
+
 
 namespace boost { namespace geometry
 {
+
+// Silence warning C4127: conditional expression is constant
+// Silence warning C4512: assignment operator could not be generated
+#if defined(_MSC_VER)
+#pragma warning(push)  
+#pragma warning(disable : 4127 4512)
+#endif
+
 
 #ifndef DOXYGEN_NO_DETAIL
 namespace detail { namespace conversion
@@ -377,6 +389,44 @@ struct convert<Polygon, Ring, polygon_tag, ring_tag, DimensionCount, false>
 };
 
 
+template <typename Geometry1, typename Geometry2>
+struct devarianted_convert
+{
+    static inline void apply(Geometry1 const& geometry1, Geometry2& geometry2)
+    {
+        concept::check_concepts_and_equal_dimensions<Geometry1 const, Geometry2>();
+        convert<Geometry1, Geometry2>::apply(geometry1, geometry2);
+    }
+};
+
+template <BOOST_VARIANT_ENUM_PARAMS(typename T), typename Geometry2>
+struct devarianted_convert<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>, Geometry2>
+{
+    struct visitor: static_visitor<void>
+    {
+        Geometry2& m_geometry2;
+
+        visitor(Geometry2& geometry2)
+            : m_geometry2(geometry2)
+        {}
+
+        template <typename Geometry1>
+        inline void operator()(Geometry1 const& geometry1) const
+        {
+            devarianted_convert<Geometry1, Geometry2>::apply(geometry1, m_geometry2);
+        }
+    };
+
+    static inline void apply(
+        boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& geometry1,
+        Geometry2& geometry2
+    )
+    {
+        apply_visitor(visitor(geometry2), geometry1);
+    }
+};
+
+
 } // namespace dispatch
 #endif // DOXYGEN_NO_DISPATCH
 
@@ -384,7 +434,7 @@ struct convert<Polygon, Ring, polygon_tag, ring_tag, DimensionCount, false>
 /*!
 \brief Converts one geometry to another geometry
 \details The convert algorithm converts one geometry, e.g. a BOX, to another
-geometry, e.g. a RING. This only if it is possible and applicable.
+geometry, e.g. a RING. This only works if it is possible and applicable.
 If the point-order is different, or the closure is different between two 
 geometry types, it will be converted correctly by explicitly reversing the 
 points or closing or opening the polygon rings.
@@ -399,13 +449,13 @@ points or closing or opening the polygon rings.
 template <typename Geometry1, typename Geometry2>
 inline void convert(Geometry1 const& geometry1, Geometry2& geometry2)
 {
-    concept::check_concepts_and_equal_dimensions<Geometry1 const, Geometry2>();
-
-    dispatch::convert<Geometry1, Geometry2>::apply(geometry1, geometry2);
+    dispatch::devarianted_convert<Geometry1, Geometry2>::apply(geometry1, geometry2);
 }
 
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 }} // namespace boost::geometry
-
 
 #endif // BOOST_GEOMETRY_ALGORITHMS_CONVERT_HPP

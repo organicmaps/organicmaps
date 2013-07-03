@@ -39,7 +39,7 @@ enum language_support {
     support_cpp11 = support_cpp0x,
 #endif
 
-    support_option_mask = 0xFFB0,
+    support_option_mask = 0xFFC0,
     support_option_emit_contnewlines = 0x0040,
     support_option_insert_whitespace = 0x0080,
     support_option_preserve_comments = 0x0100,

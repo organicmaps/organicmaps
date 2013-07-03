@@ -33,7 +33,7 @@
 #include "boost/preprocessor/repeat.hpp"
 #include "boost/type_traits/is_same.hpp"
 #include "boost/type_traits/has_nothrow_copy.hpp"
-#include "boost/variant/detail/has_nothrow_move.hpp"
+#include "boost/type_traits/is_nothrow_move_constructible.hpp"
 
 #if BOOST_WORKAROUND(BOOST_MSVC, >= 1400) 
 # pragma warning (push) 
@@ -163,7 +163,7 @@ visitation_impl_invoke(
 {
     typedef typename mpl::or_<
           NoBackupFlag
-        , has_nothrow_move_constructor<T>
+        , is_nothrow_move_constructible<T>
         , has_nothrow_copy<T>
         >::type never_uses_backup;
 

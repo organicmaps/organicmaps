@@ -1,6 +1,6 @@
 /*=============================================================================
     Copyright (c) 2001-2011 Joel de Guzman
-    Copyright (c) 2001-2011 Hartmut Kaiser
+    Copyright (c) 2001-2012 Hartmut Kaiser
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -517,6 +517,29 @@ namespace boost { namespace spirit { namespace traits
             if (!val)
                 return 0;
             return val.get();
+        }
+    };
+
+    namespace detail
+    {
+        struct attribute_size_visitor : static_visitor<std::size_t>
+        {
+            template <typename T>
+            std::size_t operator()(T const& val) const
+            {
+                return spirit::traits::size(val);
+            }
+        };
+    }
+
+    template <BOOST_VARIANT_ENUM_PARAMS(typename T)>
+    struct attribute_size<variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
+    {
+        typedef std::size_t type;
+
+        static type call(variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& val)
+        {
+            return apply_visitor(detail::attribute_size_visitor(), val);
         }
     };
 

@@ -162,6 +162,7 @@ public :
                 <
                     Strategy, Point, fp_point_type
                 >::apply(strategy);
+        boost::ignore_unused_variable_warning(fp_strategy);
 
         fp_point_type projected;
         geometry::convert(p1, projected);

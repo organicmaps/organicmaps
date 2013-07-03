@@ -61,8 +61,7 @@ class shm_named_condition_any
       :  m_shmem  (create_only
                   ,name
                   ,sizeof(internal_condition) +
-                     managed_open_or_create_impl<shared_memory_object>::
-                        ManagedOpenOrCreateUserOffset
+                     open_create_impl_t::ManagedOpenOrCreateUserOffset
                   ,read_write
                   ,0
                   ,construct_func_t(DoCreate)
@@ -79,8 +78,7 @@ class shm_named_condition_any
       :  m_shmem  (open_or_create
                   ,name
                   ,sizeof(internal_condition) +
-                     managed_open_or_create_impl<shared_memory_object>::
-                        ManagedOpenOrCreateUserOffset
+                     open_create_impl_t::ManagedOpenOrCreateUserOffset
                   ,read_write
                   ,0
                   ,construct_func_t(DoOpenOrCreate)
@@ -176,7 +174,8 @@ class shm_named_condition_any
    void dont_close_on_destruction()
    {  interprocess_tester::dont_close_on_destruction(m_shmem);  }
 
-   managed_open_or_create_impl<shared_memory_object> m_shmem;
+   typedef ipcdetail::managed_open_or_create_impl<shared_memory_object, 0, true, false> open_create_impl_t;
+   open_create_impl_t m_shmem;
 
    template <class T, class Arg> friend class boost::interprocess::ipcdetail::named_creation_functor;
    typedef boost::interprocess::ipcdetail::named_creation_functor<internal_condition> construct_func_t;

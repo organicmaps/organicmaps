@@ -42,8 +42,8 @@ struct compute_pythagoras
 {
     static inline T apply(Point1 const& p1, Point2 const& p2)
     {
-        T const c1 = boost::numeric_cast<T>(get<I-1>(p2));
-        T const c2 = boost::numeric_cast<T>(get<I-1>(p1));
+        T const c1 = boost::numeric_cast<T>(get<I-1>(p1));
+        T const c2 = boost::numeric_cast<T>(get<I-1>(p2));
         T const d = c1 - c2;
         return d * d + compute_pythagoras<Point1, Point2, I-1, T>::apply(p1, p2);
     }

@@ -442,11 +442,11 @@ class bk_max_flow {
               for(boost::tie(ei, e_end) = out_edges(current_node, m_g); ei != e_end; ++ei){
                 edge_descriptor in_edge = get(m_rev_edge_map, *ei);
                 vertex_descriptor other_node = source(in_edge, m_g);
-                if(get_tree(other_node) == tColorTraits::black() && has_parent(other_node)){
+                if(get_tree(other_node) == tColorTraits::black() && other_node != m_source){
                   if(get(m_res_cap_map, in_edge) > 0){
                     add_active_node(other_node);
                   }
-                  if(source(get_edge_to_parent(other_node), m_g) == current_node){
+                  if(has_parent(other_node) && source(get_edge_to_parent(other_node), m_g) == current_node){
                     //we are the parent of that node
                     //it has to find a new parent, too
                     set_no_parent(other_node);
@@ -483,11 +483,11 @@ class bk_max_flow {
               for(boost::tie(ei, e_end) = out_edges(current_node, m_g); ei != e_end; ++ei){
                 const edge_descriptor out_edge = *ei;
                 const vertex_descriptor other_node = target(out_edge, m_g);
-                if(get_tree(other_node) == tColorTraits::white() && has_parent(other_node)){
+                if(get_tree(other_node) == tColorTraits::white() && other_node != m_sink){
                   if(get(m_res_cap_map, out_edge) > 0){
                     add_active_node(other_node);
                   }
-                  if(target(get_edge_to_parent(other_node), m_g) == current_node){
+                  if(has_parent(other_node) && target(get_edge_to_parent(other_node), m_g) == current_node){
                     //we were it's parent, so it has to find a new one, too
                     set_no_parent(other_node);
                     m_child_orphans.push(other_node);
@@ -526,6 +526,9 @@ class bk_max_flow {
       inline void add_active_node(vertex_descriptor v){
         BOOST_ASSERT(get_tree(v) != tColorTraits::gray());
         if(get(m_in_active_list_map, v)){
+          if (m_last_grow_vertex == v) {
+              m_last_grow_vertex = graph_traits<Graph>::null_vertex();
+          }
           return;
         } else{
           put(m_in_active_list_map, v, true);

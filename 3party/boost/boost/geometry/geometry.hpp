@@ -87,5 +87,6 @@
 #include <boost/geometry/views/segment_view.hpp>
 
 #include <boost/geometry/io/io.hpp>
+#include <boost/geometry/io/svg/svg_mapper.hpp>
 
 #endif // BOOST_GEOMETRY_GEOMETRY_HPP

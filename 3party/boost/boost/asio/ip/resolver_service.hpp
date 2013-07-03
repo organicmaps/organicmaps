@@ -2,7 +2,7 @@
 // ip/resolver_service.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -16,6 +16,7 @@
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
 #include <boost/asio/detail/config.hpp>
+#include <boost/asio/async_result.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/asio/detail/resolver_service.hpp>
 #include <boost/asio/io_service.hpp>
@@ -104,11 +105,18 @@ public:
 
   /// Asynchronously resolve a query to a list of entries.
   template <typename ResolveHandler>
-  void async_resolve(implementation_type& impl, const query_type& query,
+  BOOST_ASIO_INITFN_RESULT_TYPE(ResolveHandler,
+      void (boost::system::error_code, iterator_type))
+  async_resolve(implementation_type& impl, const query_type& query,
       BOOST_ASIO_MOVE_ARG(ResolveHandler) handler)
   {
-    service_impl_.async_resolve(impl, query,
+    boost::asio::detail::async_result_init<
+      ResolveHandler, void (boost::system::error_code, iterator_type)> init(
         BOOST_ASIO_MOVE_CAST(ResolveHandler)(handler));
+
+    service_impl_.async_resolve(impl, query, init.handler);
+
+    return init.result.get();
   }
 
   /// Resolve an endpoint to a list of entries.
@@ -120,11 +128,18 @@ public:
 
   /// Asynchronously resolve an endpoint to a list of entries.
   template <typename ResolveHandler>
-  void async_resolve(implementation_type& impl, const endpoint_type& endpoint,
+  BOOST_ASIO_INITFN_RESULT_TYPE(ResolveHandler,
+      void (boost::system::error_code, iterator_type))
+  async_resolve(implementation_type& impl, const endpoint_type& endpoint,
       BOOST_ASIO_MOVE_ARG(ResolveHandler) handler)
   {
-    return service_impl_.async_resolve(impl, endpoint,
+    boost::asio::detail::async_result_init<
+      ResolveHandler, void (boost::system::error_code, iterator_type)> init(
         BOOST_ASIO_MOVE_CAST(ResolveHandler)(handler));
+
+    service_impl_.async_resolve(impl, endpoint, init.handler);
+
+    return init.result.get();
   }
 
 private:

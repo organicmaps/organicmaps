@@ -24,7 +24,7 @@
 #include <boost/interprocess/errors.hpp>
 #include <boost/interprocess/exceptions.hpp>
 #include <string>
-#include <cassert>
+#include <boost/assert.hpp>
 
 namespace boost {
 namespace interprocess {
@@ -145,7 +145,7 @@ inline void windows_named_sync::open_or_create
                      success = true;
                   }
                   winapi::get_file_size(m_file_hnd, filesize);
-                  assert(std::size_t(filesize) == sizeof_file_info);
+                  BOOST_ASSERT(std::size_t(filesize) == sizeof_file_info);
                }
                else{
                   void *buf = sync_interface.buffer_to_store_init_data_from_file();

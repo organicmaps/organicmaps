@@ -11,14 +11,26 @@
 #define BOOST_GRAPH_NAMED_GRAPH_HPP
 
 #include <boost/config.hpp>
-#include <boost/type_traits/remove_cv.hpp>
-#include <boost/type_traits/remove_reference.hpp>
-#include <boost/multi_index_container.hpp>
+#include <boost/static_assert.hpp>
+#include <boost/functional/hash.hpp>
+#include <boost/graph/graph_traits.hpp>
+#include <boost/graph/properties.hpp>
 #include <boost/multi_index/hashed_index.hpp>
 #include <boost/multi_index/member.hpp>
+#include <boost/multi_index_container.hpp>
 #include <boost/optional.hpp>
+#include <boost/pending/property.hpp> // for boost::lookup_one_property
+#include <boost/pending/container_traits.hpp>
 #include <boost/throw_exception.hpp>
+#include <boost/tuple/tuple.hpp> // for boost::make_tuple
+#include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/is_base_of.hpp>
+#include <boost/type_traits/remove_cv.hpp>
+#include <boost/type_traits/remove_reference.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <functional> // for std::equal_to
 #include <stdexcept> // for std::runtime_error
+#include <utility> // for std::pair
 
 namespace boost { namespace graph {
 
@@ -244,7 +256,8 @@ public:
 
   /// Notify the named_graph that we are removing the given
   /// vertex. The name of the vertex will be removed from the mapping.
-  void removing_vertex(Vertex vertex);
+  template <typename VertexIterStability>
+  void removing_vertex(Vertex vertex, VertexIterStability);
 
   /// Notify the named_graph that we are clearing the graph.
   /// This will clear out all of the name->vertex mappings
@@ -299,8 +312,10 @@ inline void BGL_NAMED_GRAPH::added_vertex(Vertex vertex)
 }
 
 template<BGL_NAMED_GRAPH_PARAMS>
-inline void BGL_NAMED_GRAPH::removing_vertex(Vertex vertex)
+template<typename VertexIterStability>
+inline void BGL_NAMED_GRAPH::removing_vertex(Vertex vertex, VertexIterStability)
 {
+  BOOST_STATIC_ASSERT_MSG ((boost::is_base_of<boost::graph_detail::stable_tag, VertexIterStability>::value), "Named graphs cannot use vecS as vertex container and remove vertices; the lack of vertex descriptor stability (which iterator stability is a proxy for) means that the name -> vertex mapping would need to be completely rebuilt after each deletion.  See https://svn.boost.org/trac/boost/ticket/7863 for more information and a test case.");
   typedef typename BGL_NAMED_GRAPH::vertex_name_type vertex_name_type;
   const vertex_name_type& vertex_name = extract_name(derived()[vertex]);
   named_vertices.erase(vertex_name);
@@ -352,8 +367,15 @@ find_vertex(typename BGL_NAMED_GRAPH::vertex_name_type const& name,
 
 /// Retrieve the vertex associated with the given name, or add a new
 /// vertex with that name if no such vertex is available.
+/// Note: This is enabled only when the vertex property type is different
+///       from the vertex name to avoid ambiguous overload problems with
+///       the add_vertex() function that takes a vertex property.
 template<BGL_NAMED_GRAPH_PARAMS>
-Vertex
+    typename disable_if<is_same<
+        typename BGL_NAMED_GRAPH::vertex_name_type,
+        VertexProperty
+    >,
+Vertex>::type
 add_vertex(typename BGL_NAMED_GRAPH::vertex_name_type const& name,
            BGL_NAMED_GRAPH& g)
 {
@@ -401,6 +423,35 @@ add_edge(typename BGL_NAMED_GRAPH::vertex_name_type const& u_name,
                   g.derived());
 }
 
+// Overloads to support EdgeMutablePropertyGraph graphs
+template <BGL_NAMED_GRAPH_PARAMS>
+std::pair<typename graph_traits<Graph>::edge_descriptor, bool>
+add_edge(typename BGL_NAMED_GRAPH::vertex_descriptor const& u,
+         typename BGL_NAMED_GRAPH::vertex_name_type const& v_name,
+         typename edge_property_type<Graph>::type const& p,
+         BGL_NAMED_GRAPH& g) {
+    return add_edge(u, add_vertex(v_name, g.derived()), p, g.derived());
+}
+
+template <BGL_NAMED_GRAPH_PARAMS>
+std::pair<typename graph_traits<Graph>::edge_descriptor, bool>
+add_edge(typename BGL_NAMED_GRAPH::vertex_name_type const& u_name,
+         typename BGL_NAMED_GRAPH::vertex_descriptor const& v,
+         typename edge_property_type<Graph>::type const& p,
+         BGL_NAMED_GRAPH& g) {
+    return add_edge(add_vertex(u_name, g.derived()), v, p, g.derived());
+}
+
+template <BGL_NAMED_GRAPH_PARAMS>
+std::pair<typename graph_traits<Graph>::edge_descriptor, bool>
+add_edge(typename BGL_NAMED_GRAPH::vertex_name_type const& u_name,
+         typename BGL_NAMED_GRAPH::vertex_name_type const& v_name,
+         typename edge_property_type<Graph>::type const& p,
+         BGL_NAMED_GRAPH& g) {
+    return add_edge(add_vertex(u_name, g.derived()),
+                    add_vertex(v_name, g.derived()), p, g.derived());
+}
+
 #undef BGL_NAMED_GRAPH
 #undef BGL_NAMED_GRAPH_PARAMS
 
@@ -441,7 +492,8 @@ struct maybe_named_graph<Graph, Vertex, VertexProperty, void>
 
   /// Notify the named_graph that we are removing the given
   /// vertex. This is a no-op.
-  void removing_vertex(Vertex) { }
+  template <typename VertexIterStability>
+  void removing_vertex(Vertex, VertexIterStability) { }
 
   /// Notify the named_graph that we are clearing the graph. This is a
   /// no-op.
@@ -472,7 +524,8 @@ struct maybe_named_graph
 
   /// Notify the named_graph that we are removing the given
   /// vertex. This is a no-op.
-  void removing_vertex(Vertex) { }
+  template <typename VertexIterStability>
+  void removing_vertex(Vertex, VertexIterStability) { }
 
   /// Notify the named_graph that we are clearing the graph. This is a
   /// no-op.

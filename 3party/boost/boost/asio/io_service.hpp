@@ -2,7 +2,7 @@
 // io_service.hpp
 // ~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -19,6 +19,7 @@
 #include <cstddef>
 #include <stdexcept>
 #include <typeinfo>
+#include <boost/asio/async_result.hpp>
 #include <boost/asio/detail/noncopyable.hpp>
 #include <boost/asio/detail/service_registry_fwd.hpp>
 #include <boost/asio/detail/wrapped_handler.hpp>
@@ -30,7 +31,7 @@
 # include <boost/asio/detail/task_io_service_fwd.hpp>
 #endif
 
-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
+#if defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
 # include <boost/asio/detail/winsock_init.hpp>
 #elif defined(__sun) || defined(__QNX__) || defined(__hpux) || defined(_AIX) \
   || defined(__osf__)
@@ -441,7 +442,8 @@ public:
    * throws an exception.
    */
   template <typename CompletionHandler>
-  void dispatch(BOOST_ASIO_MOVE_ARG(CompletionHandler) handler);
+  BOOST_ASIO_INITFN_RESULT_TYPE(CompletionHandler, void ())
+  dispatch(BOOST_ASIO_MOVE_ARG(CompletionHandler) handler);
 
   /// Request the io_service to invoke the given handler and return immediately.
   /**
@@ -466,7 +468,8 @@ public:
    * throws an exception.
    */
   template <typename CompletionHandler>
-  void post(BOOST_ASIO_MOVE_ARG(CompletionHandler) handler);
+  BOOST_ASIO_INITFN_RESULT_TYPE(CompletionHandler, void ())
+  post(BOOST_ASIO_MOVE_ARG(CompletionHandler) handler);
 
   /// Create a new handler that automatically dispatches the wrapped handler
   /// on the io_service.
@@ -600,7 +603,7 @@ public:
   friend bool has_service(io_service& ios);
 
 private:
-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
+#if defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
   detail::winsock_init<> init_;
 #elif defined(__sun) || defined(__QNX__) || defined(__hpux) || defined(_AIX) \
   || defined(__osf__)
