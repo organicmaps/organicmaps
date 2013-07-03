@@ -239,7 +239,7 @@ private:
   };
   struct RefPointer
   {
-    template <class T> typename T::value_type const & operator() (T const & t) const { return *t; }
+    template <class T> typename T::element_type const & operator() (T const & t) const { return *t; }
     template <class T> T const & operator() (T const * t) const { return *t; }
   };
 

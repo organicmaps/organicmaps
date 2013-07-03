@@ -339,23 +339,23 @@ namespace
   class IndexedValue
   {
   public:
-     typedef impl::PreResult2 value_type;
+     typedef impl::PreResult2 element_type;
 
   private:
     array<size_t, Query::m_qCount> m_ind;
 
     /// @todo Do not use shared_ptr for optimization issues.
     /// Need to rewrite std::unique algorithm.
-    shared_ptr<value_type> m_val;
+    shared_ptr<element_type> m_val;
 
   public:
-    explicit IndexedValue(value_type * v) : m_val(v)
+    explicit IndexedValue(element_type * v) : m_val(v)
     {
       for (size_t i = 0; i < m_ind.size(); ++i)
         m_ind[i] = numeric_limits<size_t>::max();
     }
 
-    value_type const & operator*() const { return *m_val; }
+    element_type const & operator*() const { return *m_val; }
 
     void SetIndex(size_t i, size_t v) { m_ind[i] = v; }
 
