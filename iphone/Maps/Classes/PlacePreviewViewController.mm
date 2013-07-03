@@ -140,7 +140,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
     {
       cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ApiReturnCell"] autorelease];
       cell.textLabel.textAlignment = NSTextAlignmentCenter;
-      UIButton * tmp = [[UIButton buttonWithType:UIButtonTypeRoundedRect] autorelease];
+      UIButton * tmp = [UIButton buttonWithType:UIButtonTypeRoundedRect];
       [tmp setTitle:@"tmp" forState:UIControlStateNormal];
       cell.textLabel.font = tmp.titleLabel.font;
       cell.textLabel.textColor = tmp.titleLabel.textColor;
