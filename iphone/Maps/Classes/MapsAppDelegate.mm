@@ -183,11 +183,12 @@ void InitLocalizedStrings()
          annotation:(id)annotation
 {
   NSString * scheme = url.scheme;
+  Framework & f = GetFramework();
   // geo scheme support, see http://tools.ietf.org/html/rfc5870
   if ([scheme isEqualToString:@"geo"] || [scheme isEqualToString:@"ge0"])
   {
     url_scheme::ApiPoint apiPoint;
-    if (GetFramework().SetViewportByURL([url.absoluteString UTF8String], apiPoint))
+    if (f.SetViewportByURL([url.absoluteString UTF8String], apiPoint))
     {
       [self showParsedBookmarkOnMap:apiPoint];
       m_didOpenedWithUrl = YES;
@@ -201,7 +202,7 @@ void InitLocalizedStrings()
   if ([scheme isEqualToString:@"mapswithme"] || [scheme isEqualToString:@"mwm"])
   {
     url_scheme::ApiPoint apiPoint;
-    if (GetFramework().SetViewportByURL([url.absoluteString UTF8String], apiPoint));
+    if (f.SetViewportByURL([url.absoluteString UTF8String], apiPoint));
     {
       [[Statistics instance] logApiUsage:sourceApplication];
       [self showMap];

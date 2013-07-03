@@ -675,40 +675,42 @@ NSInteger compareAddress(id l, id r, void * context)
   [m_popover presentPopoverFromRect:CGRectMake(tmp.x / sf, tmp.y / sf, 1, 1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
-- (void)prepareForApi
+- (void) prepareForApi
 {
   _isApiMode = YES;
   if ([self shouldShowNavBar])
   {
-    self.navigationController.navigationBarHidden = NO;
-    UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"back", nil) style: UIBarButtonItemStyleDone target:self action:@selector(returnToApiApp)] autorelease];
-    self.navigationItem.leftBarButtonItem = closeButton;
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"back", nil) style: UIBarButtonItemStyleDone target:self action:@selector(returnToApiApp)] autorelease];
     self.navigationItem.title = [NSString stringWithUTF8String:GetFramework().GetMapApiAppTitle().c_str()];
+    self.navigationController.navigationBarHidden = NO;
   }
 }
 
 - (void) clearApiMode
 {
   _isApiMode = NO;
-  self.navigationController.navigationItem.title = @"";
-  GetFramework().ClearMapApiPoints();
   [self Invalidate];
   [self.navigationController setNavigationBarHidden:YES animated:YES];
-  GetFramework().GetBalloonManager().Hide();
+  self.navigationController.navigationItem.title = @"";
+  Framework & f = GetFramework();
+  f.ClearMapApiPoints();
+  f.GetBalloonManager().Hide();
 }
 
--(void)returnToApiApp
++ (NSURL *) getBackUrl
 {
-  NSString * backUrl = [NSString stringWithUTF8String:GetFramework().GetMapApiBackUrl().c_str()];
-  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:backUrl]];
+  return [NSURL URLWithString:[NSString stringWithUTF8String:GetFramework().GetMapApiBackUrl().c_str()]];
+}
+
+-(void) returnToApiApp
+{
+  [[UIApplication sharedApplication] openURL:[MapViewController getBackUrl]];
   [self clearApiMode];
 }
 
 -(BOOL) shouldShowNavBar
 {
-  Framework & f = GetFramework();
-  NSString * backUrl = [NSString stringWithUTF8String:f.GetMapApiBackUrl().c_str()];
-  return (_isApiMode && [backUrl length] && [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:backUrl]]);
+  return (_isApiMode && [[UIApplication sharedApplication] canOpenURL:[MapViewController getBackUrl]]);
 }
 
 - (void)dismissPopover
