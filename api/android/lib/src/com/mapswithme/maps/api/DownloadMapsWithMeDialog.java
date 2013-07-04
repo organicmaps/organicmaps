@@ -22,30 +22,35 @@
 ******************************************************************************/
 package com.mapswithme.maps.api;
 
+import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
+import android.view.Window;
 
 import com.mapwithme.maps.api.R;
 
 public class DownloadMapsWithMeDialog extends Dialog implements android.view.View.OnClickListener
 {
 
-  public DownloadMapsWithMeDialog(Context context)
+  public DownloadMapsWithMeDialog(Activity activity)
   {
-    super(context);
+    super(activity);
 
-    setTitle(R.string.mapswithme);
+    requestWindowFeature(Window.FEATURE_NO_TITLE);
     setContentView(R.layout.dlg_install_mwm);
-    findViewById(R.id.download).setOnClickListener(this);
+
+    findViewById(R.id.btn_lite).setOnClickListener(this);
+    findViewById(R.id.btn_pro).setOnClickListener(this);
+
+    setOwnerActivity(activity);
   }
 
 
-  public void onDownloadButtonClicked()
+  public void onDownloadButtonClicked(String url)
   {
-    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(getContext().getString(R.string.downolad_url)));
+    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
     getContext().startActivity(i);
     dismiss();
   }
@@ -54,7 +59,9 @@ public class DownloadMapsWithMeDialog extends Dialog implements android.view.Vie
   @Override
   public void onClick(View v)
   {
-    if (v.getId() == R.id.download)
-      onDownloadButtonClicked();
+    String url = getContext().getString(R.string.url_lite);
+    if (v.getId() == R.id.btn_pro) url = getContext().getString(R.string.url_pro);
+
+    onDownloadButtonClicked(url);
   }
 }
