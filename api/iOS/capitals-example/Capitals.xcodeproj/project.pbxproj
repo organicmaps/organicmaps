@@ -32,8 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		FA1792CC17784F000092B567 /* MapsWithMeAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapsWithMeAPI.m; path = ../src/MapsWithMeAPI.m; sourceTree = "<group>"; };
-		FA1792CD17784F000092B567 /* MapsWithMeAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapsWithMeAPI.h; path = ../src/MapsWithMeAPI.h; sourceTree = "<group>"; };
+		FA1792CC17784F000092B567 /* MapsWithMeAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapsWithMeAPI.m; path = ../api/MapsWithMeAPI.m; sourceTree = "<group>"; };
+		FA1792CD17784F000092B567 /* MapsWithMeAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapsWithMeAPI.h; path = ../api/MapsWithMeAPI.h; sourceTree = "<group>"; };
 		FA776B4D17848A370023F7A0 /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
 		FAA484E2178108970027B232 /* 114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 114x114.png; sourceTree = "<group>"; };
 		FAA484E3178108970027B232 /* 144x144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 144x144.png; sourceTree = "<group>"; };
