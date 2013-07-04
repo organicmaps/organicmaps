@@ -948,3 +948,5 @@ office|government
 office|estate_agent
 office|lawyer
 office
+landuse|residential|rural
+landuse|residential|urban

@@ -20,6 +20,15 @@ way::* {
     icon-height: 16;
 }
 
+*{
+    icon-width: 16;
+    icon-height: 16;
+}
+
+*::int_name{
+	text-offset: 20;
+}
+
 node::* {
     text-anchor-vertical: top;
 }
@@ -31,7 +40,22 @@ area::* {
 
 area[natural=coastline]
 {
-	fill-color: #f1eee8;
+  fill-color: #f1eee8;
+}
+
+node[place][capital?]
+{
+  z-index: 20;
+}
+node[place=country]
+{
+  z-index: 30;
+}
+*[amenity],
+*[shop],
+*[office]
+{
+  text-position: center
 }
 
 area[landuse]::*,
@@ -135,8 +159,8 @@ node|z3[place=country]
   font-size:	12;
   text-color:	#404040;
 }
-area|z3[place=country]::d1p3,
-node|z3[place=country]::d1p3
+area|z3[place=country]::int_name,
+node|z3[place=country]::int_name
 {
   text:	int_name;
   font-size:	12;
@@ -149,6 +173,7 @@ line|z4[boundary=administrative][admin_level=2]
   z-index:	400;
   dashes:	3.12,3.12;
   linecap:	butt;
+  -x-kot-layer:	top;
 }
 node|z4[place=city][capital?]::int_name
 {
@@ -180,6 +205,7 @@ node|z4[place=state]
   text:	name;
   font-size:	11;
   text-color:	#c0c0b0;
+  z-index: 10;
 }
 node|z4[place=city][capital?]
 {
@@ -205,6 +231,7 @@ line|z5[boundary=administrative][admin_level=2]
   z-index:	400;
   dashes:	3.12,3.12;
   linecap:	butt;
+  -x-kot-layer:	top;
 }
 node|z5[place=city][capital?]
 {
@@ -243,8 +270,9 @@ node|z5[place=state]
   text:	name;
   font-size:	12;
   text-color:	#c0c0b0;
+  z-index: 10;
 }
-node|z5[place=city]::d1p3
+node|z5[place=city]::int_name
 {
   font-size:	10;
   text-halo-radius:	2;
@@ -277,6 +305,7 @@ line|z4-8[boundary=administrative][admin_level=4][border_type=state]::d3p2
   color:	#eeeedd;
   width:	1;
   z-index:	120;
+  -x-kot-layer:	top;
 }
 node|z6[place=country]
 {
@@ -305,20 +334,23 @@ line|z4-[boundary=administrative][admin_level=3]
   z-index:	123;
   dashes:	1,1;
   linecap:	butt;
+  -x-kot-layer:	top;
 }
 node|z6[place=state]
 {
   text:	name;
   font-size:	13;
   text-color:	#c0c0b0;
+  z-index: 10;
 }
 line|z6[boundary=administrative][admin_level=2]::d2p2
 {
   color:	#eeeedd;
   width:	1;
   z-index:	123;
+  -x-kot-layer:	top;
 }
-node|z6[place=country]::d1p3
+node|z6[place=country]::int_name
 {
   text:	int_name;
   font-size:	12;
@@ -330,7 +362,7 @@ line|z6[boundary=administrative][border_type=state]
   width:	1;
   z-index:	55;
 }
-node|z6[place=city]::d1p3
+node|z6[place=city]::int_name
 {
   font-size:	11;
   text-halo-radius:	2;
@@ -343,6 +375,7 @@ line|z6-[boundary=administrative][admin_level=3]::d2p2
   color:	#eeeedd;
   width:	1;
   z-index:	122;
+  -x-kot-layer:	top;
 }
 line|z6[boundary=administrative][admin_level=2]
 {
@@ -351,6 +384,7 @@ line|z6[boundary=administrative][admin_level=2]
   z-index:	124;
   dashes:	3.12,3.12;
   linecap:	butt;
+  -x-kot-layer:	top;
 }
 line|z4-6[boundary=administrative][admin_level=4]
 {
@@ -359,12 +393,14 @@ line|z4-6[boundary=administrative][admin_level=4]
   z-index:	121;
   dashes:	0.3,0.6;
   linecap:	butt;
+  -x-kot-layer:	top;
 }
 line|z7[boundary=administrative][admin_level=2]
 {
   color:	#eeeedd;
   width:	2.73;
   z-index:	124;
+  -x-kot-layer:	top;
 }
 line|z7-8[boundary=administrative][admin_level=4]
 {
@@ -373,6 +409,7 @@ line|z7-8[boundary=administrative][admin_level=4]
   z-index:	121;
   dashes:	0.3,0.6;
   linecap:	butt;
+  -x-kot-layer:	top;
 }
 node|z7[place=country]
 {
@@ -387,6 +424,7 @@ line|z7[boundary=administrative][admin_level=2]::d2p2
   z-index:	125;
   dashes:	5,5;
   linecap:	butt;
+  -x-kot-layer:	top;
 }
 line|z7[boundary=administrative][border_type=state]
 {
@@ -433,6 +471,7 @@ node|z7[place=state]
   text:	name;
   font-size:	14;
   text-color:	#c0c0b0;
+  z-index: 10;
 }
 line|z8[boundary=administrative][border_type=state]
 {
@@ -447,6 +486,7 @@ line|z8-11[boundary=administrative][admin_level=2]::d2p2
   z-index:	125;
   dashes:	3.12,3.12;
   linecap:	butt;
+  -x-kot-layer:	top;
 }
 line|z8[highway=trunk]
 {
@@ -461,12 +501,14 @@ line|z8[boundary=administrative][border_type=state]::d2p2
   z-index:	64;
   dashes:	1.25,0.25,0.25,0.25;
   linecap:	butt;
+  -x-kot-layer:	top;
 }
 line|z8-11[boundary=administrative][admin_level=2]
 {
   color:	#eeeedd;
   width:	3.12;
   z-index:	124;
+  -x-kot-layer:	top;
 }
 node|z8[place=state]
 {
@@ -475,6 +517,7 @@ node|z8[place=state]
   text:	name;
   text-color:	#b0b0a8;
   text-halo-color:	#eeeedd;
+  z-index: 10;
 }
 area|z15-[place=farm],
 node|z15-[place=farm],
@@ -525,7 +568,7 @@ line|z9[boundary=administrative][admin_level=4]::d2p2
 {
   color:	#eeeedd;
   width:	1.2;
-  z-index:	120;
+  -x-kot-layer:	top;
 }
 area|z12-[aeroway=aerodrome],
 area|z12-[aeroway=airport],
@@ -549,6 +592,7 @@ node|z9[place=state]
   text:	name;
   text-color:	#c0c0b0;
   text-halo-color:	#eeeedd;
+  z-index: 10;
 }
 line|z9[highway=motorway]
 {
@@ -560,9 +604,10 @@ line|z9[boundary=administrative][admin_level=4]
 {
   color:	#909090;
   width:	1;
-  z-index:	121;
+  z-index:	12;
   dashes:	0.3,0.6;
   linecap:	butt;
+  -x-kot-layer:	top;
 }
 node|z9[place=city]
 {
@@ -578,10 +623,10 @@ node|z9[place=county]
   font-size:	14;
   text-color:	#a0a0a0;
 }
-node|z9-11[place=city]::d1p3,
-node|z10-11[place=town]::d1p3,
-node|z14[place=town]::d1p3,
-node|z10-11[place=city][capital?]::d2p3
+node|z9-11[place=city]::int_name,
+node|z10-11[place=town]::int_name,
+node|z14[place=town]::int_name,
+node|z10-11[place=city][capital?]::int_name
 {
   font-size:	14;
   text-halo-radius:	2;
@@ -733,15 +778,15 @@ node|z12[place=town]
 }
 area|z11-[aeroway=apron],
 area|z12-[landuse=brownfield],
-area|z12[landuse=cemetery],
-area|z12[landuse=construction],
-area|z12[landuse=farmyard],
-area|z12[landuse=greenfield],
+area|z12-[landuse=cemetery],
+area|z12-[landuse=construction],
+area|z12-[landuse=farmyard],
+area|z12-[landuse=greenfield],
 area|z12-[landuse=industrial],
-area|z12[landuse=quarry],
+area|z12-[landuse=quarry],
 area|z12-[landuse=railway],
 {
-  fill-color:	#e8e4d4;
+  fill-color:	#DDDDCC;
 }
 node|z10-11[place=city][capital?]
 {
@@ -866,7 +911,7 @@ line|z12[railway=yard]
   width:	0.5;
   z-index:	228;
 }
-node|z12[place=city]::d1p3
+node|z12[place=city]::int_name
 {
   text:	int_name;
   font-size:	16;
@@ -1083,9 +1128,15 @@ area|z12-[landuse=residential]
 {
   fill-color:	#ede8d2;
 }
-area|z12-14[landuse=retail],
-area|z15-[landuse=retail]::d1p2,
-node|z15-[landuse=retail]::d1p2
+area|z12-[landuse=residential][residential=urban]
+{
+  fill-color:	#eeeeee;
+}
+area|z12-[landuse=residential][residential=rural]
+{
+  fill-color:	#FFFFCC;
+}
+area|z12-[landuse=retail]
 {
   fill-color:	#f8ecec;
 }
@@ -1152,14 +1203,23 @@ node|z12[place=suburb]
   text-color:	#909090;
   z-index: 20;
 }
+line|z10-11[highway=primary],
+line|z10-11[highway=trunk],
+line|z10-11[highway=motorway]
+{
+  font-size:	10;
+  text-halo-radius:	2;
+  text:	name;
+  text-color:	#303030;
+}
 line|z12-13[highway=primary],
-line|z12-13[highway=trunk]
+line|z12-13[highway=trunk],
+line|z12-13[highway=motorway]
 {
   font-size:	12;
   text-halo-radius:	2;
   text:	name;
   text-color:	#303030;
-  text-halo-color:	#ffc444;
 }
 area|z12-[aeroway=terminal]
 {
@@ -1640,14 +1700,13 @@ area|z17-[leisure=sports_centre],
 area|z17-[leisure=stadium],
 area|z17-[tourism=caravan_site],
 area|z17-[tourism=zoo],
-area|z13-15[highway=motorway_junction],
 node|z17-[amenity=shelter],
 node|z16-[amenity=townhall],
 node|z17-[leisure=sports_centre],
 node|z17-[leisure=stadium],
 node|z17-[tourism=caravan_site],
 node|z17-[tourism=zoo],
-node|z13-15[highway=motorway_junction]
+node|z13-[highway=motorway_junction]
 {
   font-size:	12;
   text-halo-radius:	2;
@@ -1800,13 +1859,6 @@ node|z13[place=city]
   text:	name;
   text-color:	#404040;
   text-halo-color:	#eeeedd;
-}
-area|z13[landuse=construction],
-area|z13-14[landuse=greenfield],
-area|z15-[landuse=greenfield]::d1p2,
-node|z15-[landuse=greenfield]::d1p2
-{
-  fill-color:	#d8d8c4;
 }
 line|z13[highway=track]
 {
@@ -2382,12 +2434,6 @@ line|z14[boundary=administrative][border_type=region]
   width:	1;
   z-index:	530;
   dashes:	12,4,4,4;
-}
-area|z14[landuse=construction],
-area|z15-[landuse=construction]::d1p2,
-node|z15-[landuse=construction]::d1p2
-{
-  fill-color:	#e0e0d0;
 }
 line|z14[waterway=canal]
 {
@@ -3320,7 +3366,7 @@ line|z15[highway=tertiary_link]
   color:	#ffff90;
   width:	9;
 }
-line|z15[highway=raceway]
+line|z15[highway=raceway]::out
 {
   color:	#e8e4d4;
   width:	6;
@@ -3935,7 +3981,7 @@ line|z16[boundary=administrative][border_type=country]
 {
   color:	#eeeedd;
   width:	6;
-  z-index:	943;
+  z-index:	933;
   -x-kot-layer:	top;
 }
 area|z17-[amenity=atm],
@@ -7008,9 +7054,12 @@ line[railway]
   text-position: line;
 }
 
-[highway=bus_stop],
-[railway=tram_stop],
-[railway=station]
+node[highway=bus_stop],
+node[railway=tram_stop],
+node[railway=station],
+way[highway=bus_stop],
+way[railway=tram_stop],
+way[railway=station]
 {
   text-position: center;
 }
