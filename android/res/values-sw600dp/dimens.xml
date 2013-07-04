@@ -3,19 +3,19 @@
     <dimen name="activity_horizontal_margin">128dp</dimen>
     <dimen name="dialog_max_height">560dp</dimen>
 
-    <dimen name="dp_x_1">8dp</dimen>
-    <dimen name="dp_x_2">16dp</dimen>
-    <dimen name="dp_x_3">24dp</dimen>
-    <dimen name="dp_x_4">32dp</dimen>
-    <dimen name="dp_x_6">48dp</dimen>
-    <dimen name="dp_x_8">64dp</dimen>
-    <dimen name="dp_x_10">80dp</dimen>
-    <dimen name="dp_x_14">96dp</dimen>
+    <dimen name="dp_x_1">6dp</dimen>
+    <dimen name="dp_x_2">12dp</dimen>
+    <dimen name="dp_x_3">18dp</dimen>
+    <dimen name="dp_x_4">24dp</dimen>
+    <dimen name="dp_x_6">36dp</dimen>
+    <dimen name="dp_x_8">48dp</dimen>
+    <dimen name="dp_x_10">60dp</dimen>
+    <dimen name="dp_x_14">84dp</dimen>
 
-    <dimen name="sp_x_1">12dp</dimen>
-    <dimen name="sp_x_2">24sp</dimen>
-    <dimen name="sp_x_3">36sp</dimen>
-    <dimen name="sp_x_4">48sp</dimen>
-    <dimen name="sp_x_5">60sp</dimen>
+    <dimen name="sp_x_1">10dp</dimen>
+    <dimen name="sp_x_2">20sp</dimen>
+    <dimen name="sp_x_3">30sp</dimen>
+    <dimen name="sp_x_4">40sp</dimen>
+    <dimen name="sp_x_5">50sp</dimen>
 
 </resources>
