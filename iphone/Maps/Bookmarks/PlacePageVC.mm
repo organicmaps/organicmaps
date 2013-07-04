@@ -847,7 +847,7 @@ typedef enum {Editing, Saved} Mode;
 -(NSString *)coordinatesToString
 {
   NSLocale * decimalPointLocale = [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] autorelease];
-  return [[[NSString alloc] initWithFormat:@"%@" locale:decimalPointLocale, [NSString stringWithFormat:@"%f %f", MercatorBounds::YToLat(self.pinGlobalPosition.y), MercatorBounds::XToLon(self.pinGlobalPosition.x)]] autorelease];
+  return [[[NSString alloc] initWithFormat:@"%@" locale:decimalPointLocale, [NSString stringWithFormat:@"%.05f %.05f", MercatorBounds::YToLat(self.pinGlobalPosition.y), MercatorBounds::XToLon(self.pinGlobalPosition.x)]] autorelease];
 }
 
 -(void)textFieldDidChange:(UITextField *)textField

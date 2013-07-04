@@ -330,9 +330,9 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
 {
   NSString * result = nil;
   if (m_previewType == APIPOINT)
-    result = [NSString stringWithFormat:@"%f %f", m_apiPoint.m_lat, m_apiPoint.m_lon];
+    result = [NSString stringWithFormat:@"%.05f %.05f", m_apiPoint.m_lat, m_apiPoint.m_lon];
   else
-    result = [NSString stringWithFormat:@"%f %f", MercatorBounds::YToLat(m_point.y), MercatorBounds::XToLon(m_point.x)];
+    result = [NSString stringWithFormat:@"%.05f %.05f", MercatorBounds::YToLat(m_point.y), MercatorBounds::XToLon(m_point.x)];
   NSLocale * decimalPointLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
   return [[[NSString alloc] initWithFormat:@"%@" locale:decimalPointLocale,result] autorelease];
 }
