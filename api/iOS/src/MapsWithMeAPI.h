@@ -55,6 +55,8 @@
 + (MWMPin *) pinFromUrl:(NSURL *)url;
 // returns NO if MapsWithMe is not installed or outdated version doesn't support API calls
 + (BOOL) isApiSupported;
+// Simply opens MapsWithMe app
++ (BOOL) showMap;
 // Displays given point on a map, title and id are optional
 // If id contains valid url, it will be opened from MapsWithMe after selecting "More Details..." for the pin
 + (BOOL) showLat:(double)lat lon:(double)lon title:(NSString *)optionalTitle id:(NSString *)optionalId;

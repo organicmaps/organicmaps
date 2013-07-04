@@ -127,6 +127,11 @@ static NSString * MWMUrlScheme = @"mapswithme://";
   return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:MWMUrlScheme]];
 }
 
++ (BOOL) showMap
+{
+  return [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[MWMUrlScheme stringByAppendingFormat:@"map?v=%d", MAPSWITHME_API_VERSION]]];
+}
+
 + (BOOL) showLat:(double)lat lon:(double)lon title:(NSString *)optionalTitle id:(NSString *)optionalId
 {
   MWMPin * pin = [[[MWMPin alloc] initWithLat:lat lon:lon title:optionalTitle id:optionalId] autorelease];
