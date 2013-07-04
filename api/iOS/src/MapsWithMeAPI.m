@@ -170,17 +170,9 @@ static NSString * MWMUrlScheme = @"mapswithme://";
 
   NSURL * url = [[NSURL alloc] initWithString:str];
   [str release];
-  if (url)
-  {
-    [[UIApplication sharedApplication] openURL:url];
-    [url release];
-    return YES;
-  }
-  else
-  {
-    NSLog(@"Can't generate correct url");
-    return NO;
-  }
+  BOOL const result = [[UIApplication sharedApplication] openURL:url];
+  [url release];
+  return result;
 }
 
 + (NSString *) detectBackUrlScheme

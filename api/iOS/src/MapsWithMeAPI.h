@@ -34,7 +34,6 @@
 
 // Wrapper for a pin on a map
 @interface MWMPin : NSObject
-
 // [required] pin latitude and longitude
 @property (nonatomic, assign) double lat;
 @property (nonatomic, assign) double lon;
@@ -56,8 +55,12 @@
 + (MWMPin *) pinFromUrl:(NSURL *)url;
 // returns NO if MapsWithMe is not installed or outdated version doesn't support API calls
 + (BOOL) isApiSupported;
+// Displays given point on a map, title and id are optional
+// If id contains valid url, it will be opened from MapsWithMe after selecting "More Details..." for the pin
 + (BOOL) showLat:(double)lat lon:(double)lon title:(NSString *)optionalTitle id:(NSString *)optionalId;
+// The same as above but using pin wrapper
 + (BOOL) showPin:(MWMPin *)pin;
+// Displays any number of pins
 + (BOOL) showPins:(NSArray *)pins;
 
 @end
