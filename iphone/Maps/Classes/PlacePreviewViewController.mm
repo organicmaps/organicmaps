@@ -157,15 +157,14 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
   [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
   if (m_previewType == APIPOINT && indexPath.section == 2)
   {
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSString * z = [NSString stringWithUTF8String:m_apiPoint.m_id.c_str()];
     NSURL * url = [NSURL URLWithString:z];
     if ([[UIApplication sharedApplication] canOpenURL:url])
       [[UIApplication sharedApplication] openURL:url];
     else
       [[UIApplication sharedApplication] openURL:[self getBackUrl]];
-    [[MapsAppDelegate theApp].m_mapViewController clearApiMode];
     [[MapsAppDelegate theApp] showMap];
+    [[MapsAppDelegate theApp].m_mapViewController clearApiMode];
   }
 }
 

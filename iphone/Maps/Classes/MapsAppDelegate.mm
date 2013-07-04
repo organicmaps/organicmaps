@@ -260,7 +260,7 @@ void InitLocalizedStrings()
   [m_mapViewController dismissPopover];
   if (![m_navController.visibleViewController isMemberOfClass:NSClassFromString(@"MapViewController")])
     [m_mapViewController dismissModalViewControllerAnimated:YES];
-  m_navController.navigationBarHidden = YES;
+  [m_navController setNavigationBarHidden:YES animated:YES];
 }
 
 -(void) showParsedBookmarkOnMap:(url_scheme::ApiPoint const &) point
