@@ -55,6 +55,13 @@ namespace qt
     //QTimer * m_animTimer;
     //size_t m_redrawInterval;
 
+    qreal m_ratio;
+
+    inline int L2D(int px) const { return px * m_ratio; }
+    inline m2::PointD GetDevicePoint(QMouseEvent * e) const;
+    DragEvent GetDragEvent(QMouseEvent * e) const;
+    RotateEvent GetRotateEvent(QPoint const & pt) const;
+
     Q_OBJECT
 
   signals:
@@ -90,8 +97,7 @@ namespace qt
     void CloseSearch();
 
     void SaveState();
-    /// @return false if can't load previously saved values
-    bool LoadState();
+    void LoadState();
 
     void UpdateNow();
     void UpdateAfterSettingsChanged();
@@ -104,9 +110,9 @@ namespace qt
     VideoTimer * CreateVideoTimer();
 
   protected:
-    void StartPressTask(double x, double y, unsigned ms);
+    void StartPressTask(m2::PointD const & pt, unsigned ms);
     void KillPressTask();
-    void OnPressTaskEvent(double x, double y, unsigned ms);
+    void OnPressTaskEvent(m2::PointD const & pt, unsigned ms);
 
   protected:
     /// @name Overriden from base_type.
@@ -137,7 +143,8 @@ namespace qt
     QScaleSlider * m_pScale;
 
     shared_ptr<ScheduledTask> m_scheduledTasks;
-    double m_taskX, m_taskY;
+    m2::PointD m_taskPoint;
+    bool m_wasLongClick, m_isCleanSingleClick;
 
     BalloonManager & GetBalloonManager() { return m_framework->GetBalloonManager(); }
   };

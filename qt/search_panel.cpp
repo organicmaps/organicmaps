@@ -56,10 +56,6 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   CHECK(connect(this, SIGNAL(SearchResultSignal(ResultsT *)),
                 this, SLOT(OnSearchResult(ResultsT *)), Qt::QueuedConnection), ());
 
-  /// @todo THis is not working on Qt5. QLineEdit doesn't get any input.
-  //setFocusPolicy(Qt::StrongFocus);
-  //setFocusProxy(m_pEditor);
-
   m_params.m_callback = bind(&SearchPanel::SearchResultThreadFunc, this, _1);
 }
 
@@ -206,7 +202,8 @@ void SearchPanel::OnSearchPanelItemClicked(int row, int)
 void SearchPanel::showEvent(QShowEvent *)
 {
   connect(m_pDrawWidget, SIGNAL(ViewportChanged()), this, SLOT(OnViewportChanged()));
-  OnSearchTextChanged(QString());
+
+  OnViewportChanged();
 }
 
 void SearchPanel::hideEvent(QHideEvent *)

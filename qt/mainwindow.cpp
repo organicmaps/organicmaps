@@ -153,25 +153,10 @@ void MainWindow::SaveState()
 
 void MainWindow::LoadState()
 {
-  pair<int, int> xAndY;
-  pair<int, int> widthAndHeight;
-  bool loaded = Settings::Get("MainWindowXY", xAndY) &&
-                Settings::Get("MainWindowSize", widthAndHeight);
-  if (loaded)
-  {
-    move(xAndY.first, xAndY.second);
-    resize(widthAndHeight.first, widthAndHeight.second);
+  // do always show on full screen
+  showMaximized();
 
-    loaded = m_pDrawWidget->LoadState();
-  }
-
-  if (!loaded)
-  {
-    showMaximized();
-    m_pDrawWidget->ShowAll();
-  }
-  else
-    m_pDrawWidget->UpdateNow();
+  m_pDrawWidget->LoadState();
 }
 
 namespace
@@ -346,7 +331,6 @@ void MainWindow::OnSearchButtonClicked()
     m_pDrawWidget->GetFramework().PrepareSearch(false);
 
     m_Docks[0]->show();
-    m_Docks[0]->widget()->setFocus();
   }
   else
   {
@@ -373,8 +357,8 @@ void MainWindow::ShowUpdateDialog()
 
 void MainWindow::CreateSearchBarAndPanel()
 {
-  CreatePanelImpl(0, Qt::RightDockWidgetArea, tr("Search"),
-                  QKeySequence(), 0);
+  CreatePanelImpl(0, Qt::RightDockWidgetArea, tr("Search"), QKeySequence(), 0);
+
   SearchPanel * panel = new SearchPanel(m_pDrawWidget, m_Docks[0]);
   m_Docks[0]->setWidget(panel);
 }
@@ -382,6 +366,7 @@ void MainWindow::CreateSearchBarAndPanel()
 void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name,
                                  QKeySequence const & hotkey, char const * slot)
 {
+  ASSERT_LESS(i, ARRAY_SIZE(m_Docks), ());
   m_Docks[i] = new QDockWidget(name, this);
 
   addDockWidget(area, m_Docks[i]);
@@ -390,7 +375,7 @@ void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString cons
   m_Docks[i]->hide();
 
   // register a hotkey to show panel
-  if (!hotkey.isEmpty())
+  if (slot && !hotkey.isEmpty())
   {
     QAction * pAct = new QAction(this);
     pAct->setShortcut(hotkey);

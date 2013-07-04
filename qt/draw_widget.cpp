@@ -25,6 +25,7 @@
 namespace qt
 {
   const unsigned LONG_TOUCH_MS = 1000;
+  const unsigned SHORT_TOUCH_MS = 250;
 
   QtVideoTimer::QtVideoTimer(TFrameFn frameFn)
     : ::VideoTimer(frameFn)
@@ -75,6 +76,7 @@ namespace qt
       m_isDrag(false),
       m_isRotate(false),
       //m_redrawInterval(100),
+      m_ratio(1.0),
       m_pScale(0)
   {
     // Initialize with some stubs for test.
@@ -116,28 +118,21 @@ namespace qt
     m_framework->SetupMeasurementSystem();
   }
 
-  bool DrawWidget::LoadState()
+  void DrawWidget::LoadState()
   {
-    pair<int, int> widthAndHeight;
-    if (!Settings::Get("DrawWidgetSize", widthAndHeight))
-      return false;
-
-   m_framework->OnSize(widthAndHeight.first, widthAndHeight.second);
-
-    if (!m_framework->LoadState())
-      return false;
-
     m_framework->LoadBookmarks();
 
-    UpdateScaleControl();
-    return true;
+    if (!m_framework->LoadState())
+      ShowAll();
+    else
+    {
+      UpdateNow();
+      UpdateScaleControl();
+    }
   }
 
   void DrawWidget::SaveState()
   {
-    pair<int, int> widthAndHeight(width(), height());
-    Settings::Set("DrawWidgetSize", widthAndHeight);
-
     m_framework->SaveState();
   }
 
@@ -249,8 +244,10 @@ namespace qt
 
       RenderPolicy::Params rpParams;
 
-      rpParams.m_screenWidth = QApplication::desktop()->geometry().width();
-      rpParams.m_screenHeight = QApplication::desktop()->geometry().height();
+      m_ratio = dynamic_cast<QApplication *>(qApp)->devicePixelRatio();
+      QRect const & geometry = QApplication::desktop()->geometry();
+      rpParams.m_screenWidth = L2D(geometry.width());
+      rpParams.m_screenHeight = L2D(geometry.height());
 
       rpParams.m_videoTimer = m_videoTimer.get();
       rpParams.m_useDefaultFB = true;
@@ -258,10 +255,10 @@ namespace qt
       rpParams.m_primaryRC = primaryRC;
       rpParams.m_skinName = "basic.skn";
 
-      if (QApplication::desktop()->physicalDpiX() < 180)
-        rpParams.m_density = graphics::EDensityMDPI;
-      else
+      if (m_ratio > 1.5)
         rpParams.m_density = graphics::EDensityXHDPI;
+      else
+        rpParams.m_density = graphics::EDensityMDPI;
 
       try
       {
@@ -325,13 +322,11 @@ namespace qt
     }
   }
 
-  void DrawWidget::StartPressTask(double x, double y, unsigned ms)
+  void DrawWidget::StartPressTask(m2::PointD const & pt, unsigned ms)
   {
-    m_taskX = x;
-    m_taskY = y;
-#ifndef OMIM_PRODUCTION
-    m_scheduledTasks.reset(new ScheduledTask(bind(&DrawWidget::OnPressTaskEvent, this, x, y, ms), ms));
-#endif
+    KillPressTask();
+
+    m_scheduledTasks.reset(new ScheduledTask(bind(&DrawWidget::OnPressTaskEvent, this, pt, ms), ms));
   }
 
   void DrawWidget::KillPressTask()
@@ -343,24 +338,31 @@ namespace qt
     }
   }
 
-  void DrawWidget::OnPressTaskEvent(double x, double y, unsigned ms)
+  void DrawWidget::OnPressTaskEvent(m2::PointD const & pt, unsigned ms)
   {
-    GetBalloonManager().OnClick(m2::PointD(x, y), true);
+    m_wasLongClick = (ms == LONG_TOUCH_MS);
+    GetBalloonManager().OnClick(pt, m_wasLongClick);
+  }
+
+  m2::PointD DrawWidget::GetDevicePoint(QMouseEvent * e) const
+  {
+    return m2::PointD(L2D(e->x()), L2D(e->y()));
+  }
+
+  DragEvent DrawWidget::GetDragEvent(QMouseEvent * e) const
+  {
+    return DragEvent(L2D(e->x()), L2D(e->y()));
+  }
+
+  RotateEvent DrawWidget::GetRotateEvent(QPoint const & pt) const
+  {
+    QPoint const center = rect().center();
+    return RotateEvent(L2D(center.x()), L2D(center.y()),
+                       L2D(pt.x()), L2D(pt.y()));
   }
 
   namespace
   {
-    DragEvent get_drag_event(QMouseEvent * e)
-    {
-      QPoint const p = e->pos();
-      return DragEvent(p.x(), p.y());
-    }
-
-    RotateEvent get_rotate_event(QPoint const & pt, QPoint const & centerPt)
-    {
-      return RotateEvent(centerPt.x(), centerPt.y(), pt.x(), pt.y());
-    }
-
     void add_string(QMenu & menu, string const & s)
     {
       (void)menu.addAction(QString::fromUtf8(s.c_str()));
@@ -373,25 +375,32 @@ namespace qt
 
     KillPressTask();
 
+    m2::PointD const pt = GetDevicePoint(e);
+
     if (e->button() == Qt::LeftButton)
     {
-      if (m_framework->GetGuiController()->OnTapStarted(m2::PointU(e->pos().x(), e->pos().y())))
+      if (m_framework->GetGuiController()->OnTapStarted(pt))
         return;
 
       if (e->modifiers() & Qt::ControlModifier)
       {
         // starting rotation
-        m_framework->StartRotate(get_rotate_event(e->pos(), this->rect().center()));
+        m_framework->StartRotate(GetRotateEvent(e->pos()));
 
         setCursor(Qt::CrossCursor);
         m_isRotate = true;
       }
       else
       {
-        StartPressTask(e->x(), e->y(), LONG_TOUCH_MS);
+        // init press task params
+        m_taskPoint = pt;
+        m_wasLongClick = false;
+        m_isCleanSingleClick = true;
+
+        StartPressTask(pt, LONG_TOUCH_MS);
 
         // starting drag
-        m_framework->StartDrag(get_drag_event(e));
+        m_framework->StartDrag(GetDragEvent(e));
 
         setCursor(Qt::CrossCursor);
         m_isDrag = true;
@@ -400,13 +409,11 @@ namespace qt
     else if (e->button() == Qt::RightButton)
     {
       // show feature types
-      QPoint const & qp = e->pos();
-      m2::PointD const pt(qp.x(), qp.y());
       QMenu menu;
 
       // Get POI under cursor or nearest address by point.
-      search::AddressInfo info;
       m2::PointD dummy;
+      search::AddressInfo info;
       if (m_framework->GetVisiblePOI(pt, dummy, info))
       {
         add_string(menu, "POI");
@@ -430,7 +437,7 @@ namespace qt
       add_string(menu, info.FormatAddress());
       add_string(menu, info.FormatTypes());
 
-      menu.exec(qp);
+      menu.exec(e->pos());
     }
   }
 
@@ -439,12 +446,13 @@ namespace qt
     QGLWidget::mouseDoubleClickEvent(e);
 
     KillPressTask();
+    m_isCleanSingleClick = false;
 
     if (e->button() == Qt::LeftButton)
     {
       StopDragging(e);
 
-      m_framework->ScaleToPoint(ScaleToPointEvent(e->pos().x(), e->pos().y(), 1.5));
+      m_framework->ScaleToPoint(ScaleToPointEvent(L2D(e->x()), L2D(e->y()), 1.5));
 
       UpdateScaleControl();
       emit ViewportChanged();
@@ -455,26 +463,36 @@ namespace qt
   {
     QGLWidget::mouseMoveEvent(e);
 
-    m2::PointD const pt(e->pos().x(), e->pos().y());
-
-    double const minDist = m_framework->GetVisualScale() * 10.0;
-    if (fabs(pt.x - m_taskX) > minDist || fabs(pt.y - m_taskY) > minDist)
+    m2::PointD const pt = GetDevicePoint(e);
+    if (!pt.EqualDxDy(m_taskPoint, m_framework->GetVisualScale() * 10.0))
+    {
+      // moved far from start point - do not show balloon
+      m_isCleanSingleClick = false;
       KillPressTask();
+    }
 
-    m_framework->GetGuiController()->OnTapMoved(pt);
+    if (m_framework->GetGuiController()->OnTapMoved(pt))
+      return;
 
     if (m_isDrag)
-      m_framework->DoDrag(get_drag_event(e));
+      m_framework->DoDrag(GetDragEvent(e));
 
     if (m_isRotate)
-      m_framework->DoRotate(get_rotate_event(e->pos(), rect().center()));
+      m_framework->DoRotate(GetRotateEvent(e->pos()));
   }
 
   void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
   {
     QGLWidget::mouseReleaseEvent(e);
 
-    m_framework->GetGuiController()->OnTapEnded(m2::PointU(e->pos().x(), e->pos().y()));
+    m2::PointD const pt = GetDevicePoint(e);
+    if (m_framework->GetGuiController()->OnTapEnded(pt))
+      return;
+
+    if (!m_wasLongClick && m_isCleanSingleClick)
+      StartPressTask(pt, SHORT_TOUCH_MS);
+    else
+      m_wasLongClick = false;
 
     StopDragging(e);
     StopRotating(e);
@@ -495,7 +513,7 @@ namespace qt
   {
     if (m_isRotate && (e->button() == Qt::LeftButton))
     {
-      m_framework->StopRotate(get_rotate_event(e->pos(), this->rect().center()));
+      m_framework->StopRotate(GetRotateEvent(e->pos()));
 
       setCursor(Qt::ArrowCursor);
       m_isRotate = false;
@@ -506,7 +524,7 @@ namespace qt
   {
     if (m_isRotate && (e->key() == Qt::Key_Control))
     {
-      m_framework->StopRotate(get_rotate_event(this->mapFromGlobal(QCursor::pos()), this->rect().center()));
+      m_framework->StopRotate(GetRotateEvent(mapFromGlobal(QCursor::pos())));
     }
   }
 
@@ -514,7 +532,7 @@ namespace qt
   {
     if (m_isDrag && e->button() == Qt::LeftButton)
     {
-      m_framework->StopDrag(get_drag_event(e));
+      m_framework->StopDrag(GetDragEvent(e));
 
       setCursor(Qt::ArrowCursor);
       m_isDrag = false;
@@ -530,14 +548,7 @@ namespace qt
   {
     if (!m_isDrag && !m_isRotate)
     {
-      // if we are inside the timer, cancel it
-      //if (m_timer->isActive())
-      //  m_timer->stop();
-
-      //m_timer->start(m_redrawInterval);
-
-      //m_framework->Scale(exp(e->delta() / 360.0));
-      m_framework->ScaleToPoint(ScaleToPointEvent(e->pos().x(), e->pos().y(), exp(e->delta() / 360.0)));
+      m_framework->ScaleToPoint(ScaleToPointEvent(L2D(e->x()), L2D(e->y()), exp(e->delta() / 360.0)));
 
       UpdateScaleControl();
       emit ViewportChanged();
