@@ -1420,6 +1420,7 @@ bool Framework::SetViewportByURL(string const & url, url_scheme::ApiPoint & ball
 
     if (info.IsValid())
     {
+      StopLocationFollow();
       balloonPoint.m_name = m_stringsBundle.GetString("dropped_pin");
       balloonPoint.m_lat = info.m_lat;
       balloonPoint.m_lon = info.m_lon;
@@ -1429,6 +1430,7 @@ bool Framework::SetViewportByURL(string const & url, url_scheme::ApiPoint & ball
   }
   else if (strings::StartsWith(url, "ge0"))
   {
+    StopLocationFollow();
     url_scheme::Ge0Parser parser;
     double zoomLevel;
     if (parser.Parse(url, balloonPoint, zoomLevel))
@@ -1445,6 +1447,7 @@ bool Framework::SetViewportByURL(string const & url, url_scheme::ApiPoint & ball
   {
     if (m_ParsedMapApi.SetUriAndParse(url))
     {
+      StopLocationFollow();
       // Can do better consider nav bar size
       SetViewPortSync(MercatorBounds::FromLatLonRect(m_ParsedMapApi.GetLatLonRect()));
 
