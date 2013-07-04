@@ -11,7 +11,7 @@
 
 UNIT_TEST(Mercator_Grid)
 {
-  for (int lat = -86; lat <= 86; ++lat)
+  for (int lat = -85; lat <= 85; ++lat)
   {
     for (int lon = -180; lon <= 180; ++lon)
     {
