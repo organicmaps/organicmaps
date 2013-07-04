@@ -89,7 +89,8 @@ static NSString  * const g_colors [] =
   @"placemark-green",
   @"placemark-orange",
   @"placemark-pink",
-  @"placemark-purple"
+  @"placemark-purple",
+  @"placemark-yellow"
 };
 
 typedef enum {Editing, Saved} Mode;
