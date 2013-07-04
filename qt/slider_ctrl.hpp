@@ -1,6 +1,11 @@
 #pragma once
 
-#include <QtWidgets/QSlider>
+#include <Qt>
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+  #include <QtGui/QSlider>
+#else
+  #include <QtWidgets/QSlider>
+#endif
 
 namespace qt
 {

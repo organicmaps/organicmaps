@@ -4,12 +4,19 @@
 
 #include <QtGui/QIcon>
 
-#include <QtWidgets/QTextBrowser>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QLabel>
-
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+  #include <QtGui/QTextBrowser>
+  #include <QtGui/QPushButton>
+  #include <QtGui/QHBoxLayout>
+  #include <QtGui/QVBoxLayout>
+  #include <QtGui/QLabel>
+#else
+  #include <QtWidgets/QTextBrowser>
+  #include <QtWidgets/QPushButton>
+  #include <QtWidgets/QHBoxLayout>
+  #include <QtWidgets/QVBoxLayout>
+  #include <QtWidgets/QLabel>
+#endif
 
 namespace qt
 {

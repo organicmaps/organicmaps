@@ -1,7 +1,12 @@
 #pragma once
 #include "../map/framework.hpp"
 
-#include <QtWidgets/QDialog>
+#include <Qt>
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+  #include <QtGui/QDialog>
+#else
+  #include <QtWidgets/QDialog>
+#endif
 
 class QTreeWidget;
 class QTreeWidgetItem;

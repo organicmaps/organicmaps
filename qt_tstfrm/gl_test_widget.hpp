@@ -6,8 +6,11 @@
 
 #include "../../map/qgl_render_context.hpp"
 
-#include <QtWidgets/QApplication>
-
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+  #include <QtGui/QApplication>
+#else
+  #include <QtWidgets/QApplication>
+#endif
 
 template<class T, bool (T::*)(QKeyEvent *)>
 struct key_event_fn_bind

@@ -9,13 +9,21 @@
 
 #include <QtGui/QBitmap>
 
-#include <QtWidgets/QHeaderView>
-#include <QtWidgets/QTableWidget>
-#include <QtWidgets/QLineEdit>
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QPushButton>
-
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+  #include <QtGui/QHeaderView>
+  #include <QtGui/QTableWidget>
+  #include <QtGui/QLineEdit>
+  #include <QtGui/QVBoxLayout>
+  #include <QtGui/QHBoxLayout>
+  #include <QtGui/QPushButton>
+#else
+  #include <QtWidgets/QHeaderView>
+  #include <QtWidgets/QTableWidget>
+  #include <QtWidgets/QLineEdit>
+  #include <QtWidgets/QVBoxLayout>
+  #include <QtWidgets/QHBoxLayout>
+  #include <QtWidgets/QPushButton>
+#endif
 
 namespace qt
 {
@@ -34,7 +42,12 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   m_pTable->setSelectionBehavior(QAbstractItemView::SelectRows);
   m_pTable->verticalHeader()->setVisible(false);
   m_pTable->horizontalHeader()->setVisible(false);
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+  m_pTable->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+#else
   m_pTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+#endif
+
   connect(m_pTable, SIGNAL(cellClicked(int, int)), this, SLOT(OnSearchPanelItemClicked(int,int)));
 
   m_pClearButton = new QPushButton(this);
@@ -72,40 +85,6 @@ namespace
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     return item;
   }
-
-  /*
-  QIcon draw_direction(double a)
-  {
-    int const dim = 64;
-
-    QPixmap pm(dim, dim);
-
-    QBitmap mask(dim, dim);
-    mask.clear();
-    pm.setMask(mask);
-
-    QPainter painter(&pm);
-    painter.setBackgroundMode(Qt::TransparentMode);
-
-    QMatrix m;
-    m.translate(dim/2, dim/2);
-    m.rotate(-a / math::pi * 180.0);
-    m.translate(-dim/2, -dim/2);
-
-    typedef QPointF P;
-    QPolygonF poly(5);
-    poly[0] = P(dim/3, dim/2);
-    poly[1] = P(0, dim/2 - dim/3);
-    poly[2] = P(dim, dim/2);
-    poly[3] = P(0, dim/2 + dim/3);
-    poly[4] = P(dim/3, dim/2);
-
-    painter.setBrush(Qt::black);
-    painter.drawPolygon(m.map(poly));
-
-    return pm;
-  }
-  */
 }
 
 void SearchPanel::OnSearchResult(ResultsT * res)

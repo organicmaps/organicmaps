@@ -6,13 +6,19 @@
 
 #include <QtGui/QIcon>
 
-#include <QtWidgets/QMenuBar>
-#include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QTextBrowser>
-
-
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+  #include <QtGui/QMenuBar>
+  #include <QtGui/QHBoxLayout>
+  #include <QtGui/QVBoxLayout>
+  #include <QtGui/QLabel>
+  #include <QtGui/QTextBrowser>
+#else
+  #include <QtWidgets/QMenuBar>
+  #include <QtWidgets/QHBoxLayout>
+  #include <QtWidgets/QVBoxLayout>
+  #include <QtWidgets/QLabel>
+  #include <QtWidgets/QTextBrowser>
+#endif
 
 AboutDialog::AboutDialog(QWidget * parent)
   : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint)

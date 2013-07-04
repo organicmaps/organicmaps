@@ -9,15 +9,25 @@
 
 #include <QtCore/QDateTime>
 
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QTreeWidget>
-#include <QtWidgets/QHeaderView>
-#include <QtWidgets/QMessageBox>
-#include <QtWidgets/QProgressBar>
-
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+  #include <QtGui/QVBoxLayout>
+  #include <QtGui/QHBoxLayout>
+  #include <QtGui/QLabel>
+  #include <QtGui/QPushButton>
+  #include <QtGui/QTreeWidget>
+  #include <QtGui/QHeaderView>
+  #include <QtGui/QMessageBox>
+  #include <QtGui/QProgressBar>
+#else
+  #include <QtWidgets/QVBoxLayout>
+  #include <QtWidgets/QHBoxLayout>
+  #include <QtWidgets/QLabel>
+  #include <QtWidgets/QPushButton>
+  #include <QtWidgets/QTreeWidget>
+  #include <QtWidgets/QHeaderView>
+  #include <QtWidgets/QMessageBox>
+  #include <QtWidgets/QProgressBar>
+#endif
 
 #define CHECK_FOR_UPDATE "Check for update"
 #define LAST_UPDATE_CHECK "Last update check: "
@@ -346,8 +356,13 @@ namespace qt
 
     m_tree->sortByColumn(KColumnIndexCountry, Qt::AscendingOrder);
     m_tree->setSortingEnabled(true);
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+    m_tree->header()->setResizeMode(KColumnIndexCountry, QHeaderView::ResizeToContents);
+    m_tree->header()->setResizeMode(KColumnIndexStatus, QHeaderView::ResizeToContents);
+#else
     m_tree->header()->setSectionResizeMode(KColumnIndexCountry, QHeaderView::ResizeToContents);
     m_tree->header()->setSectionResizeMode(KColumnIndexStatus, QHeaderView::ResizeToContents);
+#endif
   }
 
   void UpdateDialog::OnCountryChanged(TIndex const & index)
