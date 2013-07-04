@@ -32,7 +32,7 @@
         <activity android:name="com.mapswithme.maps.DownloadResourcesActivity"
                   android:label="@string/app_name"
                   android:screenOrientation="behind"
-                  android:theme="@style/MWMNoTitle"
+                  android:theme="@style/MWMMain"
                   android:configChanges="orientation|screenLayout|screenSize">
 
             <!-- standard "geo" scheme -->
@@ -72,7 +72,7 @@
         <activity android:name="com.mapswithme.maps.MWMActivity"
                   android:label="@string/app_name"
                   android:screenOrientation="behind"
-                  android:theme="@style/MWMNoTitle"
+                  android:theme="@style/MWMMain.NoBar"
                   android:launchMode="singleTask"
                   android:configChanges="orientation|screenLayout|screenSize">
         </activity>

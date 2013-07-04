@@ -46,13 +46,13 @@
         android:name="com.mapswithme.maps.MWMApplication"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Holo.Theme.Light" >
+        android:theme="@style/MWMMain" >
         <activity
             android:name="com.mapswithme.maps.DownloadResourcesActivity"
             android:configChanges="orientation|screenLayout|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="behind"
-            android:theme="@style/MWMNoTitle" >
+            android:theme="@style/MWMMain.NoBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -141,7 +141,7 @@
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="behind"
-            android:theme="@style/MWMNoTitle" >
+            android:theme="@style/MWMMain.NoBar" >
         </activity>
         <activity
             android:name="com.mapswithme.maps.DownloadUI"

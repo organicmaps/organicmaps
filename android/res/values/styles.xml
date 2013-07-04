@@ -39,7 +39,7 @@
         <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-light</item>
     </style>
 
-     <style name="tagGreenText.Mid" parent="@style/tagGreenText">
+    <style name="tagGreenText.Mid" parent="@style/tagGreenText">
         <item name="android:textSize">@dimen/sp_x_4</item>
     </style>
 
@@ -54,14 +54,19 @@
         <item name="android:textSize">@dimen/sp_x_3</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="pinEditableParam" parent="Holo.EditText.Light">
         <item name="android:imeOptions">actionDone</item>
         <item name="android:layout_marginBottom">@dimen/dp_x_4</item>
         <item name="android:textSize">@dimen/sp_x_4</item>
     </style>
 
+
+    <style name="MWMMain" parent="@style/Holo.Theme.Light"></style>
+    <style name="MWMMain.NoBar" parent="@style/Holo.Theme.Light.NoActionBar"></style>
+
     <!-- Dialog Holo.Light theme for Activity -->
-    <style name="MWMTheme.Dialog.Light" parent="@style/Holo.Theme.Light">
+    <style name="MWMTheme.Dialog.Light" parent="@style/MWMMain">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFrame">@null</item>
@@ -79,5 +84,6 @@
         <item name="borderlessButtonStyle">@style/Holo.Button.Borderless.Small.Light</item>
         <item name="listPreferredItemPaddingLeft">16dip</item>
         <item name="listPreferredItemPaddingRight">16dip</item>
-  </style>
+    </style>
+
 </resources>
