@@ -23,11 +23,11 @@ UNIT_TEST(ScheduledTask_Smoke)
 
   ScheduledTask t(bind(&add_int, ref(val), 10), 1000);
 
-  CHECK(val == 0, ());
+  TEST_EQUAL(val, 0, ());
 
   threads::Sleep(1100);
 
-  CHECK(val == 10, ());
+  TEST_EQUAL(val, 10, ());
 }
 
 UNIT_TEST(ScheduledTask_CancelInfinite)
@@ -46,13 +46,13 @@ UNIT_TEST(ScheduledTask_Cancel)
   ScheduledTask t0(bind(&add_int, ref(val), 10), 500);
   ScheduledTask t1(bind(&mul_int, ref(val), 2), 1000);
 
-  CHECK(val == 2, ());
+  TEST_EQUAL(val, 2, ());
 
   t0.Cancel();
 
   threads::Sleep(1100);
 
-  CHECK(val == 4, ());
+  TEST_EQUAL(val, 4, ());
 }
 
 UNIT_TEST(ScheduledTask_NoWaitInCancel)
@@ -68,5 +68,5 @@ UNIT_TEST(ScheduledTask_NoWaitInCancel)
 
   threads::Sleep(600);
 
-  CHECK(val == 15, (val));
+  TEST_EQUAL(val, 15, ());
 }
