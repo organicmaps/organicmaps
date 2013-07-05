@@ -4,6 +4,6 @@
     <string  name="down_lite">Download MapsWithMe Lite (free)</string>
     <string  name="down_pro">Download MapsWithMe Pro</string>
 
-    <string  name="url_pro">http://mapswith.me/download</string>
-    <string  name="url_lite">http://mapswith.me/download?lite</string>
+    <string  name="url_pro">http://mapswith.me/api_pro</string>
+    <string  name="url_lite">http://mapswith.me/api_lite</string>
 </resources>
