@@ -249,23 +249,18 @@ namespace qt
 
       RenderPolicy::Params rpParams;
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-      rpParams.m_screenWidth = QApplication::desktop()->geometry().width();
-      rpParams.m_screenHeight = QApplication::desktop()->geometry().height();
-      if (QApplication::desktop()->physicalDpiX() < 180)
-        rpParams.m_density = graphics::EDensityMDPI;
-      else
-        rpParams.m_density = graphics::EDensityXHDPI;
-#else
-      m_ratio = dynamic_cast<QApplication *>(qApp)->devicePixelRatio();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+      m_ratio = dynamic_cast(qApp)->devicePixelRatio();
+#endif
+
       QRect const & geometry = QApplication::desktop()->geometry();
       rpParams.m_screenWidth = L2D(geometry.width());
       rpParams.m_screenHeight = L2D(geometry.height());
-      if (m_ratio > 1.5)
+
+      if (m_ratio >= 1.5 || QApplication::desktop()->physicalDpiX() >= 180)
         rpParams.m_density = graphics::EDensityXHDPI;
       else
         rpParams.m_density = graphics::EDensityMDPI;
-#endif
 
       rpParams.m_videoTimer = m_videoTimer.get();
       rpParams.m_useDefaultFB = true;
