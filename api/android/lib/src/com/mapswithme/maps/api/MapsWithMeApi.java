@@ -31,18 +31,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
-
 public final class MapsWithMeApi
 {
 
   /**
    * Most detailed level, buildings and trees are seen.
    */
-  public static final double ZOOM_MIN = 1;
+  public static final double ZOOM_MAX = 19;
   /**
    * Least detailed level, continents are seen.
    */
-  public static final double ZOOM_MAX = 19;
+  public static final double ZOOM_MIN = 1;
+
 
   /**
    *  Shows single point on the map.

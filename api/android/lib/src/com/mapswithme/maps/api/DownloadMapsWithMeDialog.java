@@ -59,9 +59,7 @@ public class DownloadMapsWithMeDialog extends Dialog implements android.view.Vie
   @Override
   public void onClick(View v)
   {
-    String url = getContext().getString(R.string.url_lite);
-    if (v.getId() == R.id.btn_pro) url = getContext().getString(R.string.url_pro);
-
+    String url = getContext().getString(v.getId() == R.id.btn_lite ? R.string.url_lite : R.string.url_pro);
     onDownloadButtonClicked(url);
   }
 }
