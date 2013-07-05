@@ -264,6 +264,23 @@ void FeatureType::GetPreferredNames(string & defaultName, string & intName) cons
   }
 }
 
+void FeatureType::GetReadableName(string & name) const
+{
+  ParseCommon();
+
+  BestMatchedLangNames matcher;
+  ForEachNameRef(matcher);
+
+  if (!matcher.m_nativeName.empty())
+    name.swap(matcher.m_nativeName);
+  else if (!matcher.m_defaultName.empty())
+    name.swap(matcher.m_defaultName);
+  else if (!matcher.m_intName.empty())
+    name.swap(matcher.m_intName);
+  else
+    name.swap(matcher.m_englishName);
+}
+
 string FeatureType::GetHouseNumber() const
 {
   ParseCommon();

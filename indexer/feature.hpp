@@ -236,6 +236,8 @@ public:
   //@{
   /// Just get feature names.
   void GetPreferredNames(string & defaultName, string & intName) const;
+  /// Get one most suitable name for user.
+  void GetReadableName(string & name) const;
   bool GetName(int8_t lang, string & name) const;
   //@}
 

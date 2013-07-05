@@ -98,13 +98,13 @@ namespace
 
         if (IsInclude(d, types))
         {
-          string name, house;
-          f.GetPreferredNames(name, house /*dummy parameter*/);
-          house = f.GetHouseNumber();
+          string name;
+          f.GetReadableName(name);
+          string house = f.GetHouseNumber();
 
           // if geom type is not GEOM_POINT, result center point doesn't matter in future use
-          m2::PointD const pt = (types.GetGeoType() == feature::GEOM_POINT) ?
-                f.GetCenter() : m2::PointD();
+          m2::PointD const pt =
+              (types.GetGeoType() == feature::GEOM_POINT) ? f.GetCenter() : m2::PointD();
 
           // name, house are assigned like move semantics
           m_cont.push_back(FeatureInfoT(GetResultDistance(d, types), types, name, house, pt));
@@ -495,9 +495,10 @@ void Framework::GetAddressInfoForGlobalPoint(m2::PointD const & pt, search::Addr
   DoGetAddressInfo getAddress(pt, scale, GetChecker(), addressR);
 
   m_model.ForEachFeature(rect, getAddress, scale);
-
   getAddress.FillAddress(GetSearchEngine(), info);
-  GetLocality(pt, info);
+
+  /// @todo Temporarily commented - it's slow and not used in UI
+  //GetLocality(pt, info);
 }
 
 void Framework::GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, search::AddressInfo & info) const
@@ -519,7 +520,7 @@ void Framework::GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, se
   getAddress(ft);
   getAddress.FillAddress(GetSearchEngine(), info);
 
-  // @TODO Temporarily commented - it's slow and not used in UI
+  /// @todo Temporarily commented - it's slow and not used in UI
   //GetLocality(pt, info);
 }
 
