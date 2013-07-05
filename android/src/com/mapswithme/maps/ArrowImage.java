@@ -1,5 +1,7 @@
 package com.mapswithme.maps;
 
+import com.mapswithme.util.Utils;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -19,7 +21,6 @@ public class ArrowImage extends ImageView
 
   private final static float RAD_MULT = .33f;
   private final static float SQ2 = (float) Math.sqrt(2);
-  private float mRad;
 
   private boolean mDrawArrow;
   private Paint mArrowPaint;
@@ -29,6 +30,7 @@ public class ArrowImage extends ImageView
   private Paint mCirclePaint;
 
   // Animation params
+  private final static boolean ALLOW_ANIMATION = Utils.apiEqualOrGreaterThan(14);
   private boolean mJustStarted = true;
   private float mCurrentAngle;
   private final static long   UPDATE_RATE = 30;
@@ -104,10 +106,11 @@ public class ArrowImage extends ImageView
   {
     setVisibility(VISIBLE);
     setImageDrawable(null);
+
     mDrawArrow = true;
     mAngle = (float) (azimut / Math.PI * 180.0);
 
-    if (!mJustStarted)
+    if (ALLOW_ANIMATION && !mJustStarted)
       animateRotation();
     else
     {
@@ -143,14 +146,14 @@ public class ArrowImage extends ImageView
     final double diff = mAngle - mCurrentAngle;
     if (Math.abs(diff) > ERR)
     {
-      // Choosing the shortest way
-      // at [0, 360] looped segment
+      // Choosing the shortest way at [0, 360] looped segment
       final double signum = -1 * Math.signum(diff) * Math.signum(Math.abs(diff) - 180);
       mCurrentAngle += signum * ROTATION_STEP;
       if (mCurrentAngle < 0)
         mCurrentAngle += 360;
       else if (mCurrentAngle > 360)
         mCurrentAngle -= 360;
+
       invalidate();
       return true;
     }
@@ -165,15 +168,15 @@ public class ArrowImage extends ImageView
     mWidth = w - getPaddingLeft() - getPaddingRight();
     mHeight = h - getPaddingBottom() - getPaddingTop();
 
-    mRad = RAD_MULT * Math.min(w, h);
+    final float rad = RAD_MULT * Math.min(w, h);
     final float c0 = Math.min(h, w) / 2;
-    // calculate path
+
     mArrowPath.reset();
-    mArrowPath.moveTo(c0 + mRad, c0);
-    mArrowPath.lineTo((float) (c0 - mRad / SQ2), (float) (c0 + mRad / SQ2));
-    mArrowPath.lineTo((float) (c0 - mRad * SQ2 / 4), c0);
-    mArrowPath.lineTo((float) (c0 - mRad / SQ2), (float) (c0 - mRad / SQ2));
-    mArrowPath.lineTo(c0 + mRad, c0);
+    mArrowPath.moveTo(c0 + rad, c0);
+    mArrowPath.lineTo((float) (c0 - rad / SQ2), (float) (c0 + rad / SQ2));
+    mArrowPath.lineTo((float) (c0 - rad * SQ2 / 4), c0);
+    mArrowPath.lineTo((float) (c0 - rad / SQ2), (float) (c0 - rad / SQ2));
+    mArrowPath.lineTo(c0 + rad, c0);
     mArrowPath.close();
   }
 
