@@ -69,6 +69,11 @@ namespace threads
         m_mutex.Lock();
       }
 
+      bool TryLock()
+      {
+        return m_mutex.TryLock();
+      }
+
       void Unlock()
       {
         m_mutex.Unlock();
@@ -216,6 +221,13 @@ namespace threads
       void Lock()
       {
         ::WaitForSingleObject(m_mutex, INFINITE);
+      }
+
+      bool TryLock()
+      {
+        /// @todo I don't care :)
+        Lock();
+        return true;
       }
 
       void Unlock()

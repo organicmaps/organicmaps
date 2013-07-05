@@ -1,5 +1,7 @@
 #pragma once
 
+#include "assert.hpp"
+
 #include "../std/target_os.hpp"
 
 #if defined(OMIM_OS_BADA)
@@ -72,7 +74,16 @@ namespace threads
 #elif defined(OMIM_OS_WINDOWS_NATIVE)
       ::EnterCriticalSection(&m_Mutex);
 #else
-      ::pthread_mutex_lock(&m_Mutex);
+      VERIFY(0 == ::pthread_mutex_lock(&m_Mutex), ());
+#endif
+    }
+
+    bool TryLock()
+    {
+#if defined(OMIM_OS_WINDOWS_NATIVE)
+      return (TRUE == ::TryEnterCriticalSection(&m_Mutex));
+#else
+      return (0 == ::pthread_mutex_trylock(&m_Mutex));
 #endif
     }
 
@@ -83,7 +94,7 @@ namespace threads
 #elif defined(OMIM_OS_WINDOWS_NATIVE)
       ::LeaveCriticalSection(&m_Mutex);
 #else
-      ::pthread_mutex_unlock(&m_Mutex);
+      VERIFY(0 == ::pthread_mutex_unlock(&m_Mutex), ());
 #endif
     }
 

@@ -23,7 +23,9 @@ namespace threads
     void Wait();
     /// @return whether we are exiting by timeout.
     bool Wait(unsigned ms);
+
     void Lock();
+    bool TryLock();
     void Unlock();
   };
 

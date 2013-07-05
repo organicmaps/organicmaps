@@ -23,7 +23,7 @@ namespace threads
     };
   }
 
-  Condition::Condition() : m_pImpl(new impl::ConditionImpl)
+  Condition::Condition() : m_pImpl(new impl::ConditionImpl())
   {
     ::pthread_cond_init(&m_pImpl->m_Condition, 0);
   }
@@ -73,6 +73,11 @@ namespace threads
   void Condition::Lock()
   {
     m_pImpl->m_Mutex.Lock();
+  }
+
+  bool Condition::TryLock()
+  {
+    return m_pImpl->m_Mutex.TryLock();
   }
 
   void Condition::Unlock()
