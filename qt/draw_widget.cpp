@@ -250,7 +250,7 @@ namespace qt
       RenderPolicy::Params rpParams;
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-      m_ratio = dynamic_cast(qApp)->devicePixelRatio();
+      m_ratio = dynamic_cast<QApplication*>(qApp)->devicePixelRatio();
 #endif
 
       QRect const & geometry = QApplication::desktop()->geometry();
