@@ -6,21 +6,24 @@ provides interface for client application to perform next tasks:
 
 * Show one or more points on offline map of [MapsWithMe Application][linkMwm]
 * Come back to the client application after selecting specific point on the map, by sending [PendingIntent][linkPIntent] with point data when user asks for more information by pressing "More Info" button in MapsWithMe Application
+* Map screen brending : your application's icon and name (or custom title) will be placed at the top.
 
-Thus, you can provide two way communication between your appication and MapsWithMe,
+Thus, you can provide **two way communication between your appication and MapsWithMe**,
 using MapsWithMe to show points of interest (POI) and providing more information in your app.
 
-Please refer to [sample application][linkSample] for demo.
+Please refer to [sample application][linkSampleSource] for demo.
 
 ## Prerequisites
+
 It is supposed that you are familiar with Android Development, and you have Android SDK and Eclipse (or another IDE of your choice) installed.
 You should be familiar with concept of [Intents][linkIntents], [library projects][linkLibProj], and [PendingIntents][linkPIntent] (recommended) as well.
 Your application must target at least *android sdk version 7*.
+
 ## Integration
 First step is to clone [repository][linkRepo] or download it as an archive.
 
 When your are done you find two folders: *lib* and *sample-app-capitals*. First one is a library project that you should add to your project.
-You don't need any additional permissions in your AndroidManifest.xml to use API library, so you can write real code straight away.
+You don't need any additional permissions in your AndroidManifest.xml to use API library, so you can write real code straight away, calling for different `MapsWithMeApi` methods (more details below). 
 
 ##Classes Overview and HOW TO
 Core classes you will work with are:
@@ -69,8 +72,8 @@ For multiple points use [MWMPoint][linkPointClass] class:
 
 We support PendingIntent interaction (just like Android native
 NotificationManager does). You should specify ID for each point to
-diftiguish it leter, and PentingIntent that MapsWithMe send back to
-your application:
+diftiguish it leter, and PentingIntent that MapsWithMe will send back to
+your application when user press "More Info" button :
 
     // Here is how to pass points with ID ant PendingIntent
     void showMultiplePointsWithPendingIntent(List<SomeDomainObject> list, PendingIntent pendingIntent)
@@ -116,8 +119,25 @@ your application:
       // Now, for instance you can do some work depending on point id
       processUserInteraction(point.getId());
     }
- 
-## Sample Code [TODO add link to sample code and application on Google Play]
+
+## FAQ
+
+#### How should I detect if user has MapsWithMe installed?
+`MapsWithMeApi.isMapsWithMeInstalled(Context)` will return `true` if user has *Lite* or *Pro* version that supports API call installed.
+
+#### Which versions of MapsWithMe support API calls?
+Both *Lite* and *Pro* versions since 2.4.0 are support API calls.
+
+#### What will happen if I call for `MapsWithMeApi.showPoint()` but MapsWithMe application is not installed?
+Nothing serious. API library will show simple dialog with gentle offer to download MapsWithMe. You can see how it looks like below. ![Please install us](site/images/dlg.png)
+
+#### If user has both *Lite* and *Pro* versions which one will be called?
+MapsWithMe Pro will serve your request in the case if both *Lite* and *Pro* versions installed. 
+
+## Sample Code and Application
+
+* [Sample Application at Google Play][linkSampleGooglePlay]
+* [Sample Application Source Code][linkSampleSource]
 
 ## Support
 If you have any questions please email to [api@mapswith.me][linkSupport].
@@ -136,11 +156,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 [linkMwm]: http://mapswith.me/ "MapsWithMe"
 [linkPIntent]: http://developer.android.com/reference/android/app/PendingIntent.html "PendingIntent"
-[linkSample]: http://example.com "Sample Application"
-[linkRepo]: http://example.com "GitHub Repository"
+[linkRepo]: https://github.com/mapswithme/api-android "GitHub Repository"
 [linkLibProj]: http://developer.android.com/tools/projects/index.html#LibraryProjects "Android Library Project"
 [linkIntents]: http://developer.android.com/guide/components/intents-filters.html "Intents and Intent Filters"
 [linkSupport]: mailto:api@mapswith.me "MapsWithMe Support Contact"
-[linkApiClass]: http://example.com "MapsWithMeApi.java"
-[linkPointClass]: http://example.com "MWMPoint.java"
-[linkRespClass]: http://example.com "MWMResponse.java"
+[linkApiClass]: lib/src/com/mapswithme/maps/api/MapsWithMeApi.java "MapsWithMeApi.java"
+[linkPointClass]: lib/src/com/mapswithme/maps/api/MWMPoint.java "MWMPoint.java"
+[linkRespClass]: lib/src/com/mapswithme/maps/api/MWMResponse.java  "MWMResponse.java"
+[linkSampleSource]: sample-app-capitals "Api Source Code"
+[linkSampleGooglePlay]: http://example.com "Api Demo .apk"

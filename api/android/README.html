@@ -8,12 +8,13 @@ provides interface for client application to perform next tasks:</p>
 <ul>
 <li>Show one or more points on offline map of <a href="http://mapswith.me/" title="MapsWithMe">MapsWithMe Application</a></li>
 <li>Come back to the client application after selecting specific point on the map, by sending <a href="http://developer.android.com/reference/android/app/PendingIntent.html" title="PendingIntent">PendingIntent</a> with point data when user asks for more information by pressing &quot;More Info&quot; button in MapsWithMe Application</li>
+<li>Map screen brending : your application&#39;s icon and name (or custom title) will be placed at the top.</li>
 </ul>
 
-<p>Thus, you can provide two way communication between your appication and MapsWithMe,
+<p>Thus, you can provide <strong>two way communication between your appication and MapsWithMe</strong>,
 using MapsWithMe to show points of interest (POI) and providing more information in your app.</p>
 
-<p>Please refer to <a href="http://example.com" title="Sample Application">sample application</a> for demo.</p>
+<p>Please refer to <a href="sample-app-capitals" title="Api Source Code">sample application</a> for demo.</p>
 
 <h2>Prerequisites</h2>
 
@@ -23,19 +24,19 @@ Your application must target at least <em>android sdk version 7</em>.</p>
 
 <h2>Integration</h2>
 
-<p>First step is to clone <a href="http://example.com" title="GitHub Repository">repository</a> or download it as an archive.</p>
+<p>First step is to clone <a href="https://github.com/mapswithme/api-android" title="GitHub Repository">repository</a> or download it as an archive.</p>
 
 <p>When your are done you find two folders: <em>lib</em> and <em>sample-app-capitals</em>. First one is a library project that you should add to your project.
-You don&#39;t need any additional permissions in your AndroidManifest.xml to use API library, so you can write real code straight away.</p>
+You don&#39;t need any additional permissions in your AndroidManifest.xml to use API library, so you can write real code straight away, calling for different <code>MapsWithMeApi</code> methods (more details below). </p>
 
 <h2>Classes Overview and HOW TO</h2>
 
 <p>Core classes you will work with are:</p>
 
 <ul>
-<li><a href="http://example.com" title="MapsWithMeApi.java">com.mapswithme.maps.api.MapsWithMeApi</a> - static class with methods such as <code>showPointOnMap(Activity, double, double, String)</code> etc.</li>
-<li><a href="http://example.com" title="MWMPoint.java">com.mapswithme.maps.api.MWMPoint</a> - model of POI, includes lat, lon, name, and id data.</li>
-<li><a href="http://example.com" title="MWMResponse.java">com.mapswithme.maps.api.MWMResponse</a> - helps you to extract response from MapsWithMe by applying <code>MWMResponse.extractFromIntent(Intent)</code> to Intent. Contains MWMPoint data.</li>
+<li><a href="lib/src/com/mapswithme/maps/api/MapsWithMeApi.java" title="MapsWithMeApi.java">com.mapswithme.maps.api.MapsWithMeApi</a> - static class with methods such as <code>showPointOnMap(Activity, double, double, String)</code> etc.</li>
+<li><a href="lib/src/com/mapswithme/maps/api/MWMPoint.java" title="MWMPoint.java">com.mapswithme.maps.api.MWMPoint</a> - model of POI, includes lat, lon, name, and id data.</li>
+<li><a href="lib/src/com/mapswithme/maps/api/MWMResponse.java" title="MWMResponse.java">com.mapswithme.maps.api.MWMResponse</a> - helps you to extract response from MapsWithMe by applying <code>MWMResponse.extractFromIntent(Intent)</code> to Intent. Contains MWMPoint data.</li>
 </ul>
 
 <h3>Show Points on the Map</h3>
@@ -59,7 +60,7 @@ You don&#39;t need any additional permissions in your AndroidManifest.xml to use
 }
 </code></pre>
 
-<p>For multiple points use <a href="http://example.com" title="MWMPoint.java">MWMPoint</a> class:</p>
+<p>For multiple points use <a href="lib/src/com/mapswithme/maps/api/MWMPoint.java" title="MWMPoint.java">MWMPoint</a> class:</p>
 
 <pre><code>void showMultiplePoints(List&lt;SomeDomainObject&gt; list)
 {
@@ -79,8 +80,8 @@ You don&#39;t need any additional permissions in your AndroidManifest.xml to use
 
 <p>We support PendingIntent interaction (just like Android native
 NotificationManager does). You should specify ID for each point to
-diftiguish it leter, and PentingIntent that MapsWithMe send back to
-your application:</p>
+diftiguish it leter, and PentingIntent that MapsWithMe will send back to
+your application when user press &quot;More Info&quot; button :</p>
 
 <pre><code>// Here is how to pass points with ID ant PendingIntent
 void showMultiplePointsWithPendingIntent(List&lt;SomeDomainObject&gt; list, PendingIntent pendingIntent)
@@ -128,7 +129,30 @@ void handleIntent(Intent intent)
 }
 </code></pre>
 
-<h2>Sample Code [TODO add link to sample code and application on Google Play]</h2>
+<h2>FAQ</h2>
+
+<h4>How should I detect if user has MapsWithMe installed?</h4>
+
+<p><code>MapsWithMeApi.isMapsWithMeInstalled(Context)</code> will return <code>true</code> if user has <em>Lite</em> or <em>Pro</em> version that supports API call installed.</p>
+
+<h4>Which versions of MapsWithMe support API calls?</h4>
+
+<p>Both <em>Lite</em> and <em>Pro</em> versions since 2.4.0 are support API calls.</p>
+
+<h4>What will happen if I call for <code>MapsWithMeApi.showPoint()</code> but MapsWithMe application is not installed?</h4>
+
+<p>Nothing serious. API library will show simple dialog with gentle offer to download MapsWithMe. You can see how it looks like below. <img src="site/images/dlg.png" alt="Please install us"></p>
+
+<h4>If user has both <em>Lite</em> and <em>Pro</em> versions which one will be called?</h4>
+
+<p>MapsWithMe Pro will serve your request in the case if both <em>Lite</em> and <em>Pro</em> versions installed. </p>
+
+<h2>Sample Code and Application</h2>
+
+<ul>
+<li><a href="http://example.com" title="Api Demo .apk">Sample Application at Google Play</a></li>
+<li><a href="sample-app-capitals" title="Api Source Code">Sample Application Source Code</a></li>
+</ul>
 
 <h2>Support</h2>
 
