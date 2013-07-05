@@ -2,8 +2,7 @@
 
 ### Introduction
 
-MapsWithMe iOS API (hereinafter referred to as *API*)
-provides interface for client application to perform next tasks:
+MapsWithMe offline maps API for iOS (hereinafter referred to as *API*) provides interface for client application to perform next tasks:
 
 For version 1 (supported by MapsWithMe 2.4+)
 * Open [MapsWithMe Application][linkMwm]
@@ -11,9 +10,9 @@ For version 1 (supported by MapsWithMe 2.4+)
 * Show one or more points on offline map of [MapsWithMe][linkMwm] with *Back* button and client app name in the title
 * Come back to the client application:
  * after pressing *Back* button on the map
- * after selecting specific point on the map if user asks for more information by pressing *More Info* button in [MapsWithMe Application][linkMwm]
-* Open any given url or url scheme after selecting specific point on the map if user asks for more information by pressing *More Info* button in [MapsWithMe Application][linkMwm]
-* Automatically display *Download MapsWithMe* dialog if [MapsWithMe][linkMwm] is not installed.
+ * after selecting specific point on the map if user asks for more information by pressing *More Info* button in [MapsWithMe][linkMwm]
+* Open any given url or url scheme after selecting specific point on the map if user asks for more information by pressing *More Info* button in [MapsWithMe][linkMwm]
+* Automatically display [*Download MapsWithMe*][linkDownloadMWMDialog] dialog if [MapsWithMe][linkMwm] is not installed.
 
 In general, you can provide one or two way communication between your appication and MapsWithMe.
 
@@ -22,7 +21,7 @@ Please refer to [sample application][linkSample] for demo.
 ### Prerequisites
 
 * Your application must target at least *iOS version 4.3*
-* For two way communication, you should add unique URL scheme to your app (see below)
+* For two way communication, you should add unique [URL scheme][linkAppleCustomUrlSchemes] to your app (see below)
 
 ### Integration
 
@@ -32,15 +31,15 @@ When your are done you find two folders: *api* and *capitals-example*.
 First one contains .h and .m files which you need to include into your project. You can always modify them according to your needs.
 
 If you want to get results of API calls, please add unique URL scheme to your app. You can do it with [XCode][linkAddUrlScheme] or by editing Info.plist file in your project. To make things simple, use *mapswithme* keyword in scheme ID, like *my_mapswithme_scheme*, and create an unique scheme name (or use your existing one).
-*mapswithme* keyword in scheme ID simply helps API code to detect it automatically (but you can freely edit API wrapper code to implement anything you want).
+*mapswithme* keyword in scheme ID simply helps API code to detect it automatically. See more details in [Apple's documentation][linkAppleCustomUrlSchemes].
 
 *capitals-example* folder contains [sample application][linkSample] which demonstrates part of API features.
 
 ### API Calls Overview and HOW TO
 
 * All methods are static for *MWMApi* class, *BOOL* methods return *NO* if call is failed.
-* If id for given pin contains valid url, it will be opened from MapsWithMe after selecting "More Details" button.
-  For any other content, id will be simply passed back to the caller's *AppDelegate application:openURL:sourceApplication:annotation:* method
+* If id for given pin contains valid url, it will be opened from MapsWithMe after selecting *More Info* button.
+  For any other content, id will be simply passed back to the caller's [*AppDelegate application:openURL:sourceApplication:annotation:*][linkAppleDelegate] method
 
 #### Open [MapsWithMe Application][linkMwm]
 
@@ -62,7 +61,7 @@ The same as above but using pin wrapper:
 
     + (BOOL) showPin:(MWMPin *)pin;
 
-Pin wrapper is a simple helper to wrap pins:
+Pin wrapper is a simple helper to wrap pins displayed on the map:
 
     @interface MWMPin : NSObject
       @property (nonatomic, assign) double lat;
@@ -89,7 +88,7 @@ Example:
 
 #### Receiving results of API calls
 
-When users presses *Back* button in MapsWithMe, or selects *More Details* button, he is redirected back to your app.
+When users presses *Back* button in MapsWithMe, or selects *More Info* button, he is redirected back to your app.
 Here are helper methods to obtain API call results:
 
 Returns YES if url is received from MapsWithMe and can be parsed:
@@ -129,10 +128,9 @@ Alternatively, you can do nothing and use built-in dialog which will offer users
 
 ### Support
 
-If you have any questions, suggestions, feedbacks or found a bug, please drop us a line to [api@mapswith.me][linkSupport].
+Have a bug or feature request? [Please open a new issue][linkIssues].
 
-Sincerely yours,
-MapsWithMe Team
+If you have any questions, suggestions or feedbacks, please drop us a line to [api@mapswith.me][linkSupport].
 
 ------------------------------------------------------------------------------------------
 ### API Code is licensed under the BSD 2-Clause License
@@ -147,8 +145,12 @@ Redistribution and use in source and binary forms, with or without modification,
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-[linkMwm]: http://mapswith.me/ "MapsWithMe"
-[linkSample]: http://example.com "Sample Application"
-[linkRepo]: http://example.com "GitHub Repository"
-[linkAddUrlScheme]: http://img856.imageshack.us/img856/8608/dvbe.png "How to add url scheme in XCode"
+[linkMwm]: http://mapswith.me/ "MapsWithMe - offline Maps of the World"
+[linkSample]: https://github.com/mapswithme/api-ios/capitals-example "Sample Application"
+[linkRepo]: https://github.com/mapswithme/api-ios/ "GitHub Repository"
+[linkAddUrlScheme]: https://raw.github.com/mapswithme/api-ios/site-resources/add_custom_url_scheme.png "How to add url scheme in XCode"
+[linkDownloadMWMDialog]: https://raw.github.com/mapswithme/api-ios/site-resources/download_mwm_dialog.png "Donwload MapsWithMe Dialog"
+[linkIssues]: https://github.com/mapswithme/api-ios/issues/ "Post a bug or feature request"
 [linkSupport]: mailto:api@mapswith.me "MapsWithMe Support Contact"
+[linkAppleCustomUrlSchemes]: http://developer.apple.com/library/ios/#DOCUMENTATION/iPhone/Conceptual/iPhoneOSProgrammingGuide/AdvancedAppTricks/AdvancedAppTricks.html#//apple_ref/doc/uid/TP40007072-CH7-SW50 "Custom URL Scheme Apple documentation"
+[linkAppleDelegate]: http://developer.apple.com/library/ios/documentation/uikit/reference/UIApplicationDelegate_Protocol/Reference/Reference.html#//apple_ref/occ/intfm/UIApplicationDelegate/application:openURL:sourceApplication:annotation: "AppDelegate Handle custom URL Schemes"
