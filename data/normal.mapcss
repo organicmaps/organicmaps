@@ -20,13 +20,15 @@ way::* {
     icon-height: 16;
 }
 
-*{
+*
+{
     icon-width: 16;
     icon-height: 16;
 }
 
-*::int_name{
-	text-offset: 20;
+*::int_name
+{
+  text-offset: 20;
 }
 
 node::* {
@@ -43,14 +45,6 @@ area[natural=coastline]
   fill-color: #f1eee8;
 }
 
-node[place][capital?]
-{
-  z-index: 20;
-}
-node[place=country]
-{
-  z-index: 30;
-}
 *[amenity],
 *[shop],
 *[office]
@@ -58,15 +52,15 @@ node[place=country]
   text-position: center
 }
 
-area[landuse]::*,
-area[natural][natural!=water]::*,
-area[leisure]::*,
-area[place]::*,
-area[aeroway]::*,
-area[tourism][tourism!=attraction]::*,
-{fill-position: background}
-
-/* area[waterway]::*, */
+area[landuse],
+area[natural][natural!=water],
+area[leisure],
+area[place],
+area[aeroway],
+area[tourism][tourism!=attraction],
+{
+  fill-position: background;
+}
 
 line[highway]
 {
@@ -205,7 +199,7 @@ node|z4[place=state]
   text:	name;
   font-size:	11;
   text-color:	#c0c0b0;
-  z-index: 10;
+  z-index: -10;
 }
 node|z4[place=city][capital?]
 {
@@ -270,7 +264,7 @@ node|z5[place=state]
   text:	name;
   font-size:	12;
   text-color:	#c0c0b0;
-  z-index: 10;
+  z-index: -10;
 }
 node|z5[place=city]::int_name
 {
@@ -341,7 +335,7 @@ node|z6[place=state]
   text:	name;
   font-size:	13;
   text-color:	#c0c0b0;
-  z-index: 10;
+  z-index: -10;
 }
 line|z6[boundary=administrative][admin_level=2]::d2p2
 {
@@ -471,7 +465,7 @@ node|z7[place=state]
   text:	name;
   font-size:	14;
   text-color:	#c0c0b0;
-  z-index: 10;
+  z-index: -10;
 }
 line|z8[boundary=administrative][border_type=state]
 {
@@ -517,7 +511,7 @@ node|z8[place=state]
   text:	name;
   text-color:	#b0b0a8;
   text-halo-color:	#eeeedd;
-  z-index: 10;
+  z-index: -10;
 }
 area|z15-[place=farm],
 node|z15-[place=farm],
@@ -592,7 +586,7 @@ node|z9[place=state]
   text:	name;
   text-color:	#c0c0b0;
   text-halo-color:	#eeeedd;
-  z-index: 10;
+  z-index: -10;
 }
 line|z9[highway=motorway]
 {
@@ -2897,6 +2891,7 @@ node|z16[addr:housenumber][addr:street]
   text:	"addr:housenumber";
   font-size:	10;
   text-color:	#808070;
+  text-position: center;
 }
 line|z15-16[highway=motorway]::d1p2
 {
@@ -3336,7 +3331,8 @@ line|z15[waterway=ditch]
   z-index:	109;
 }
 line|z14-[highway=residential],
-line|z14-[highway=unclassified]
+line|z14-[highway=unclassified],
+line|z14-[highway=pedestrian]
 {
   font-size:	12;
   text-halo-radius:	2;
@@ -5529,6 +5525,7 @@ node|z17-[addr:housenumber][addr:street]
   text:	"addr:housenumber";
   font-size:	11;
   text-color:	#404040;
+  text-position: center;
 }
 line|z17-[waterway=lock]
 {
