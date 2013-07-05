@@ -55,7 +55,8 @@
             android:background="@drawable/btn_gray_selector"
             android:padding="6dp"
             android:text="@string/down_lite"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btn_pro"
@@ -67,7 +68,8 @@
             android:background="@drawable/btn_green_selector"
             android:padding="6dp"
             android:text="@string/down_pro"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textStyle="bold"/>
     </LinearLayout>
 
 </ScrollView>
