@@ -41,7 +41,7 @@ namespace graphics
 
     void draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m);
 
-    void selectOverlayElements(m2::PointD const & pt, list<shared_ptr<OverlayElement> > & res) const;
+    //void selectOverlayElements(m2::PointD const & pt, list<shared_ptr<OverlayElement> > & res) const;
     void selectOverlayElements(m2::RectD const & rect, list<shared_ptr<OverlayElement> > & res) const;
 
     void removeOverlayElement(shared_ptr<OverlayElement> const & oe, m2::RectD const & r);
