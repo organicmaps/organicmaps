@@ -442,7 +442,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
     ArrayAdapter<CharSequence> adapter =
         ArrayAdapter.createFromResource(this, R.array.search_modes, R.layout.simple_spinner_item);
-    adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     m_modesSpinner.setAdapter(adapter);
 
     // Default mode is AROUND_POSITION
