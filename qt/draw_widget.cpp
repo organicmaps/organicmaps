@@ -100,9 +100,12 @@ namespace qt
   void DrawWidget::PrepareShutdown()
   {
     KillPressTask();
+
     ASSERT(isValid(), ());
     makeCurrent();
+
     m_framework->PrepareToShutdown();
+
     m_videoTimer.reset();
   }
 
@@ -332,18 +335,23 @@ namespace qt
 
   void DrawWidget::StartPressTask(m2::PointD const & pt, unsigned ms)
   {
-    KillPressTask();
-
-    m_scheduledTasks.reset(new ScheduledTask(bind(&DrawWidget::OnPressTaskEvent, this, pt, ms), ms));
+    if (KillPressTask())
+      m_scheduledTasks.reset(new ScheduledTask(bind(&DrawWidget::OnPressTaskEvent, this, pt, ms), ms));
   }
 
-  void DrawWidget::KillPressTask()
+  bool DrawWidget::KillPressTask()
   {
     if (m_scheduledTasks)
     {
-      m_scheduledTasks->Cancel();
+      if (!m_scheduledTasks->Cancel())
+      {
+        // The task is already running - skip new task.
+        return false;
+      }
+
       m_scheduledTasks.reset();
     }
+    return true;
   }
 
   void DrawWidget::OnPressTaskEvent(m2::PointD const & pt, unsigned ms)

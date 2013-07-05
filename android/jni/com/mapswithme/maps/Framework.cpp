@@ -246,18 +246,23 @@ namespace android
 
   void Framework::StartTouchTask(double x, double y, unsigned ms)
   {
-    KillTouchTask();
-
-    m_scheduledTask.reset(new ScheduledTask(bind(&android::Framework::OnProcessTouchTask, this, x, y, ms), ms));
+    if (KillTouchTask())
+      m_scheduledTask.reset(new ScheduledTask(bind(&android::Framework::OnProcessTouchTask, this, x, y, ms), ms));
   }
 
-  void Framework::KillTouchTask()
+  bool Framework::KillTouchTask()
   {
     if (m_scheduledTask)
     {
-      m_scheduledTask->Cancel();
+      if (!m_scheduledTask->Cancel())
+      {
+        // The task is already running - skip new task.
+        return false;
+      }
+
       m_scheduledTask.reset();
     }
+    return true;
   }
 
   /// @param[in] mask Active pointers bits : 0x0 - no, 0x1 - (x1, y1), 0x2 - (x2, y2), 0x3 - (x1, y1)(x2, y2).

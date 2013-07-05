@@ -52,7 +52,7 @@ namespace android
     bool m_wasLongClick;
 
     void StartTouchTask(double x, double y, unsigned ms);
-    void KillTouchTask();
+    bool KillTouchTask();
     void OnProcessTouchTask(double x, double y, unsigned ms);
 
     string m_searchQuery;

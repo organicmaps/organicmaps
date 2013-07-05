@@ -111,7 +111,7 @@ namespace qt
 
   protected:
     void StartPressTask(m2::PointD const & pt, unsigned ms);
-    void KillPressTask();
+    bool KillPressTask();
     void OnPressTaskEvent(m2::PointD const & pt, unsigned ms);
 
   protected:
