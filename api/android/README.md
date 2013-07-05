@@ -6,9 +6,9 @@ provides interface for client application to perform next tasks:
 
 * Show one or more points on offline map of [MapsWithMe Application][linkMwm]
 * Come back to the client application after selecting specific point on the map, by sending [PendingIntent][linkPIntent] with point data when user asks for more information by pressing "More Info" button in MapsWithMe Application
-* Map screen brending : your application's icon and name (or custom title) will be placed at the top.
+* Map screen branding : your application's icon and name (or custom title) will be placed at the top.
 
-Thus, you can provide **two way communication between your appication and MapsWithMe**,
+Thus, you can provide **two way communication between your application and MapsWithMe**,
 using MapsWithMe to show points of interest (POI) and providing more information in your app.
 
 Please refer to [sample application][linkSampleSource] for demo.
@@ -72,7 +72,7 @@ For multiple points use [MWMPoint][linkPointClass] class:
 
 We support PendingIntent interaction (just like Android native
 NotificationManager does). You should specify ID for each point to
-diftiguish it leter, and PentingIntent that MapsWithMe will send back to
+distinguish it later, and PentingIntent that MapsWithMe will send back to
 your application when user press "More Info" button :
 
     // Here is how to pass points with ID ant PendingIntent
