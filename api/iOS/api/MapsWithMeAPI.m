@@ -44,22 +44,22 @@ static NSString * MWMUrlScheme = @"mapswithme://";
   return self;
 }
 
-- (id) initWithLat:(double)lat lon:(double)lon title:(NSString *)title id:(NSString *)pinId
+- (id) initWithLat:(double)lat lon:(double)lon title:(NSString *)title and:(NSString *)idOrUrl
 {
   if ((self = [super init]))
   {
     self.lat = lat;
     self.lon = lon;
-    self.optionalTitle = title;
-    self.optionalId = pinId;
+    self.title = title;
+    self.idOrUrl = idOrUrl;
   }
   return self;
 }
 
 - (void)dealloc
 {
-  self.optionalTitle = nil;
-  self.optionalId = nil;
+  self.title = nil;
+  self.idOrUrl = nil;
   [super dealloc];
 }
 @end
@@ -108,9 +108,9 @@ static NSString * MWMUrlScheme = @"mapswithme://";
           }
         }
         else if ([key isEqualToString:@"n"])
-          pin.optionalTitle = [[values objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+          pin.title = [[values objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         else if ([key isEqualToString:@"id"])
-          pin.optionalId = [[values objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+          pin.idOrUrl = [[values objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         else
           NSLog(@"Unsupported url parameters: %@", values);
       }
@@ -132,9 +132,9 @@ static NSString * MWMUrlScheme = @"mapswithme://";
   return [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[MWMUrlScheme stringByAppendingFormat:@"map?v=%d", MAPSWITHME_API_VERSION]]];
 }
 
-+ (BOOL) showLat:(double)lat lon:(double)lon title:(NSString *)optionalTitle id:(NSString *)optionalId
++ (BOOL) showLat:(double)lat lon:(double)lon title:(NSString *)title and:(NSString *)idOrUrl
 {
-  MWMPin * pin = [[[MWMPin alloc] initWithLat:lat lon:lon title:optionalTitle id:optionalId] autorelease];
+  MWMPin * pin = [[[MWMPin alloc] initWithLat:lat lon:lon title:title and:idOrUrl] autorelease];
   return [MWMApi showPin:pin];
 }
 
@@ -166,10 +166,10 @@ static NSString * MWMUrlScheme = @"mapswithme://";
     [str appendFormat:@"ll=%f,%f&", point.lat, point.lon];
     @autoreleasepool
     {
-      if (point.optionalTitle)
-        [str appendFormat:@"n=%@&", [point.optionalTitle stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-      if (point.optionalId)
-        [str appendFormat:@"id=%@&", [point.optionalId stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+      if (point.title)
+        [str appendFormat:@"n=%@&", [point.title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+      if (point.idOrUrl)
+        [str appendFormat:@"id=%@&", [point.idOrUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     }
   }
 
@@ -229,7 +229,7 @@ static NSString * mapsWithMeIsNotInstalledPage =
 {
   UIWebView * webView = [[[UIWebView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]] autorelease];
   // check that we have Internet connection and display fresh online page if possible
-  if (gethostbyname("google.com"))
+  if (gethostbyname("mapswith.me"))
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://mapswith.me/api_mwm_not_installed"]]];
   else
     [webView loadHTMLString:mapsWithMeIsNotInstalledPage baseURL:[NSURL URLWithString:@"http://mapswith.me/"]];

@@ -38,11 +38,11 @@
 @property (nonatomic, assign) double lat;
 @property (nonatomic, assign) double lon;
 // [optional] pin title
-@property (nonatomic, retain) NSString * optionalTitle;
+@property (nonatomic, retain) NSString * title;
 // [optional] passed back to the app when pin is clicked, OR, if it's a valid url,
 // it will be opened from MapsWithMe after selecting "More Details..." for the pin
-@property (nonatomic, retain) NSString * optionalId;
-- (id) initWithLat:(double)lat lon:(double)lon title:(NSString *)title id:(NSString *)pinId;
+@property (nonatomic, retain) NSString * idOrUrl;
+- (id) initWithLat:(double)lat lon:(double)lon title:(NSString *)title and:(NSString *)idOrUrl;
 @end
 
 
@@ -51,7 +51,7 @@
 
 // returns YES if url is received from MapsWithMe and can be parsed
 + (BOOL) isMapsWithMeUrl:(NSURL *)url;
-// returns nil if received url is invalid or not from MapsWithMe
+// returns nil if user didn't select any pin and simply pressed "Back" button
 + (MWMPin *) pinFromUrl:(NSURL *)url;
 // returns NO if MapsWithMe is not installed or outdated version doesn't support API calls
 + (BOOL) isApiSupported;
@@ -59,7 +59,7 @@
 + (BOOL) showMap;
 // Displays given point on a map, title and id are optional
 // If id contains valid url, it will be opened from MapsWithMe after selecting "More Details..." for the pin
-+ (BOOL) showLat:(double)lat lon:(double)lon title:(NSString *)optionalTitle id:(NSString *)optionalId;
++ (BOOL) showLat:(double)lat lon:(double)lon title:(NSString *)title and:(NSString *)idOrUrl;
 // The same as above but using pin wrapper
 + (BOOL) showPin:(MWMPin *)pin;
 // Displays any number of pins

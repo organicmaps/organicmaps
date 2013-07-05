@@ -44,7 +44,7 @@
   {
     NSString * pinId = [[[NSString alloc] initWithFormat:@"%ld", i] autorelease];
     // Note that url is empty - it means "More details" button for a pin in MapsWithMe will lead back to this example app
-    MWMPin * pin = [[[MWMPin alloc] initWithLat:CAPITALS[i].lat lon:CAPITALS[i].lon title:CAPITALS[i].name id:pinId] autorelease];
+    MWMPin * pin = [[[MWMPin alloc] initWithLat:CAPITALS[i].lat lon:CAPITALS[i].lon title:CAPITALS[i].name and:pinId] autorelease];
     [array addObject:pin];
   }
 

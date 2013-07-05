@@ -52,7 +52,7 @@
     pinId = [NSString stringWithFormat:@"http://en.wikipedia.org/wiki/%@", [self urlEncode:city->name]];
   else
     pinId = [NSString stringWithFormat:@"%ld", _cityIndex];
-  [MWMApi showLat:city->lat lon:city->lon title:city->name id:pinId];
+  [MWMApi showLat:city->lat lon:city->lon title:city->name and:pinId];
 }
 
 - (void)dealloc

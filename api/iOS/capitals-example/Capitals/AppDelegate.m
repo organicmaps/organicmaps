@@ -43,7 +43,7 @@
     MWMPin * pin = [MWMApi pinFromUrl:url];
     if (pin)
     {
-      size_t const cityId = [pin.optionalId integerValue];
+      size_t const cityId = [pin.idOrUrl integerValue];
       // display selected page based on passed id
       if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
       {
