@@ -1514,15 +1514,15 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot,
 
   {
     // It seems like we don't need to lock frame here.
-    // Locking of overlay and storing items as shared_ptr is enough here.
+    // Overlay locking and storing items as shared_ptr is enough here.
     //m_renderPolicy->FrameLock();
 
     m2::PointD const pt = m_navigator.ShiftPoint(pxPoint);
     double const halfSize = TOUCH_PIXEL_RADIUS * GetVisualScale();
 
     list<OEPointerT> candidates;
-    m2::RectD rect(pt.x - halfSize, pt.y - halfSize,
-                   pt.x + halfSize, pt.y + halfSize);
+    m2::RectD const rect(pt.x - halfSize, pt.y - halfSize,
+                         pt.x + halfSize, pt.y + halfSize);
 
     graphics::Overlay * frameOverlay = m_renderPolicy->FrameOverlay();
     frameOverlay->lock();

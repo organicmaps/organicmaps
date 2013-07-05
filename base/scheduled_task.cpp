@@ -32,8 +32,8 @@ void ScheduledTask::Routine::Do()
 }
 
 ScheduledTask::ScheduledTask(fn_t const & fn, unsigned ms)
+  : m_routine(new Routine(fn, ms, &m_cond))
 {
-  m_routine.reset(new Routine(fn, ms, &m_cond));
   m_thread.Create(m_routine.get());
 }
 

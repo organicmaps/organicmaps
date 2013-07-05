@@ -48,7 +48,7 @@ namespace android
 
     math::AvgVector<float, 3> m_sensors[2];
 
-    shared_ptr<ScheduledTask> m_scheduledTask;
+    scoped_ptr<ScheduledTask> m_scheduledTask;
     bool m_wasLongClick;
 
     void StartTouchTask(double x, double y, unsigned ms);

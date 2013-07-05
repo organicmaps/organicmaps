@@ -242,14 +242,6 @@ namespace graphics
     m_tree.ForEachInRect(rect, fn);
   }
 
-  /*
-  void Overlay::selectOverlayElements(m2::PointD const & pt, list<shared_ptr<OverlayElement> > & res) const
-  {
-    DoPreciseSelectByPoint fn(pt, &res);
-    m_tree.ForEachInRect(m2::RectD(pt - m2::PointD(1, 1), pt + m2::PointD(1, 1)), fn);
-  }
-  */
-
   void Overlay::replaceOverlayElement(shared_ptr<OverlayElement> const & oe)
   {
     bool isIntersect = false;
