@@ -113,7 +113,7 @@ namespace bookmark_impl
     string GetSupportedBMType(string const & s) const
     {
       static char const * icons[] = {
-          "placemark-red", "placemark-blue", "placemark-purple",
+          "placemark-red", "placemark-blue", "placemark-purple", "placemark-yellow",
           "placemark-pink", "placemark-brown", "placemark-green", "placemark-orange"
       };
 
@@ -357,6 +357,13 @@ char const * kmlHeader =
     "    <IconStyle>\n"
     "      <Icon>\n"
     "        <href>http://mapswith.me/placemarks/placemark-red.png</href>\n"
+    "      </Icon>\n"
+    "    </IconStyle>\n"
+    "  </Style>\n"
+    "  <Style id=\"placemark-yellow\">\n"
+    "    <IconStyle>\n"
+    "      <Icon>\n"
+    "        <href>http://mapswith.me/placemarks/placemark-yellow.png</href>\n"
     "      </Icon>\n"
     "    </IconStyle>\n"
     "  </Style>\n"
