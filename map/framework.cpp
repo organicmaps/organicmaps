@@ -1482,15 +1482,17 @@ bool Framework::IsBenchmarking() const
   return m_benchmarkEngine != 0;
 }
 
-shared_ptr<graphics::OverlayElement> GetClosestToPivot(list<shared_ptr<graphics::OverlayElement> > const & l,
-                                                       m2::PointD const & pxPoint)
+namespace
+{
+
+typedef shared_ptr<graphics::OverlayElement> OEPointerT;
+
+OEPointerT GetClosestToPivot(list<OEPointerT> const & l, m2::PointD const & pxPoint)
 {
   double dist = numeric_limits<double>::max();
-  shared_ptr<graphics::OverlayElement> res;
+  OEPointerT res;
 
-  for (list<shared_ptr<graphics::OverlayElement> >::const_iterator it = l.begin();
-       it != l.end();
-       ++it)
+  for (list<OEPointerT>::const_iterator it = l.begin(); it != l.end(); ++it)
   {
     double const curDist = pxPoint.SquareLength((*it)->pivot());
     if (curDist < dist)
@@ -1503,36 +1505,37 @@ shared_ptr<graphics::OverlayElement> GetClosestToPivot(list<shared_ptr<graphics:
   return res;
 }
 
+}
+
 bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot,
                               search::AddressInfo & info) const
 {
-  m_renderPolicy->FrameLock();
+  graphics::OverlayElement::UserInfo ui;
 
-  m2::PointD const pt = m_navigator.ShiftPoint(pxPoint);
-  double const halfSize = TOUCH_PIXEL_RADIUS * GetVisualScale();
-
-  typedef graphics::OverlayElement ElementT;
-
-  list<shared_ptr<ElementT> > candidates;
-  m2::RectD rect(pt.x - halfSize, pt.y - halfSize,
-                 pt.x + halfSize, pt.y + halfSize);
   {
+    // It seems like we don't need to lock frame here.
+    // Locking of overlay and storing items as shared_ptr is enough here.
+    //m_renderPolicy->FrameLock();
+
+    m2::PointD const pt = m_navigator.ShiftPoint(pxPoint);
+    double const halfSize = TOUCH_PIXEL_RADIUS * GetVisualScale();
+
+    list<OEPointerT> candidates;
+    m2::RectD rect(pt.x - halfSize, pt.y - halfSize,
+                   pt.x + halfSize, pt.y + halfSize);
+
     graphics::Overlay * frameOverlay = m_renderPolicy->FrameOverlay();
     frameOverlay->lock();
     frameOverlay->selectOverlayElements(rect, candidates);
     frameOverlay->unlock();
+
+    OEPointerT elem = GetClosestToPivot(candidates, pt);
+
+    if (elem)
+      ui = elem->userInfo();
+
+    //m_renderPolicy->FrameUnlock();
   }
-
-  shared_ptr<ElementT> elem = GetClosestToPivot(candidates, pt);
-
-  /// cloning element to avoid it's modification after FrameUnlock.
-
-  ElementT::UserInfo ui;
-
-  if (elem)
-    ui = elem->userInfo();
-
-  m_renderPolicy->FrameUnlock();
 
   if (ui.IsValid())
   {
