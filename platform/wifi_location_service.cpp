@@ -64,7 +64,7 @@ namespace location
       }
       else
         LOG(LWARNING, ("Location server is not available"));
-      /// free memory
+      // free memory
       delete &response;
     }
 

@@ -30,7 +30,6 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
                wifi_info_windows.cpp
   } else:macx* {
     OBJECTIVE_SOURCES += platform_mac.mm \
-                         wifi_info_mac.mm \
                          apple_video_timer.mm \
                          apple_location_service.mm
   } else:linux* {
