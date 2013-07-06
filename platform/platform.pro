@@ -19,7 +19,7 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
              location_service.cpp
   HEADERS += wifi_info.hpp \
              location_service.hpp
-  !macx* {
+  !macx-* {
     QT *= network
     SOURCES += http_thread_qt.cpp
     HEADERS += http_thread_qt.hpp
@@ -28,7 +28,7 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
   win32* {
     SOURCES += platform_win.cpp \
                wifi_info_windows.cpp
-  } else:macx* {
+  } else:macx-* {
     OBJECTIVE_SOURCES += platform_mac.mm \
                          apple_video_timer.mm \
                          apple_location_service.mm
@@ -43,7 +43,7 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
              pthread_video_timer.cpp
 }
 
-macx*|iphone* {
+macx-*|iphone* {
   HEADERS += http_thread_apple.h
   OBJECTIVE_SOURCES += http_thread_apple.mm
 }

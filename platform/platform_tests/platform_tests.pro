@@ -18,7 +18,7 @@ win32* {
   LIBS *= -lShell32
   win32-g++: LIBS *= -lpthread
 }
-macx* {
+macx-* {
   QT *= widgets # needed for QApplication with event loop, to test async events (downloader, etc.)
   LIBS *= "-framework Foundation" "-framework IOKit" "-framework QuartzCore"
 }

@@ -18,7 +18,7 @@ win32 {
   LIBS *= -lShell32
   win32-g++: LIBS *= -lpthread
 }
-macx*: LIBS *= "-framework Foundation"
+macx-*: LIBS *= "-framework Foundation"
 
 SOURCES += \
     features_loading.cpp \

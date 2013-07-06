@@ -70,7 +70,7 @@ linux* {
   INSTALLS += target desktop pixmaps icon128 OTHER_RES CLASSIFICATOR_RES MDPI_SKIN_RES XHDPI_SKIN_RES FONT_RES MWM_RES
 }
 
-macx* {
+macx-* {
   LIBS *= "-framework CoreLocation" "-framework Foundation" "-framework CoreWLAN" \
           "-framework QuartzCore" "-framework IOKit"
 

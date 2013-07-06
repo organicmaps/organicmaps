@@ -14,7 +14,7 @@ win32 {
   LIBS *= -lopengl32 -lshell32
   win32-g++: LIBS *= -lpthread
 }
-macx*: LIBS *= "-framework Foundation"
+macx-*: LIBS *= "-framework Foundation"
 
 SOURCES += \
     ../../testing/testingmain.cpp \

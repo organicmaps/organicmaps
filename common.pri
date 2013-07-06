@@ -161,7 +161,7 @@ win32-g++ {
   QMAKE_LFLAGS_RELEASE *= -O
 }
 
-macx* {
+macx-* {
   # minimum supported Mac OS X version
   QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.6
   QMAKE_CFLAGS *= -mmacosx-version-min=10.6
