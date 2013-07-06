@@ -1,5 +1,7 @@
 # Project that just includes all other projects.
-cache()
+greaterThan($$member($$split(QT_VERSION, "."), 0), 4) {
+  cache()
+}
 
 TEMPLATE = subdirs
 CONFIG += ordered
