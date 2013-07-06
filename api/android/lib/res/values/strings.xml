@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string  name="mwm_should_be_installed"><b><font fgcolor="#FF66CC33">MapsWithMe</font></b> app should be installed to view the map.</string>
-    <string  name="down_lite">Download MapsWithMe Lite (free)</string>
-    <string  name="down_pro">Download MapsWithMe Pro</string>
-
-    <string  name="url_pro">http://mapswith.me/api_pro</string>
-    <string  name="url_lite">http://mapswith.me/api_lite</string>
-</resources>

@@ -1,9 +1,0 @@
-bin/
-gen/
-.settings/
-
-.classpath
-.cproject
-.project
-local.properties
-lint.xml
