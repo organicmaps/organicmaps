@@ -103,11 +103,10 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
   }
 
   @Override
-  public void onLocationUpdated(long time, double lat, double lon, float accuracy)
+  public void onLocationUpdated(final Location l)
   {
     updateViews();
   }
-
 
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
