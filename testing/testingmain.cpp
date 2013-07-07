@@ -8,8 +8,13 @@
 #include "../std/target_os.hpp"
 
 #ifdef OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP
+  #include <Qt>
   #ifdef OMIM_OS_MAC // on Mac OS X native run loop works only for QApplication :(
-    #include <QtWidgets/QApplication>
+    #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+      #include <QtGui/QApplication>
+    #else
+      #include <QtWidgets/QApplication>
+    #endif
     #define QAPP QApplication
   #else
     #include <QtCore/QCoreApplication>

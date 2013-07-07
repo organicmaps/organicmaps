@@ -9,7 +9,7 @@ include($$ROOT_DIR/common.pri)
 TARGET = MapsWithMe
 TEMPLATE = app
 
-QT *= core gui opengl
+QT *= core widgets gui opengl
 
 win32* {
   LIBS += -lopengl32 -lws2_32 -lshell32 -liphlpapi
