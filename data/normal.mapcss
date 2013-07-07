@@ -47,7 +47,15 @@ area[natural=coastline]
 
 *[amenity],
 *[shop],
-*[office]
+*[office],
+*[historic],
+*[tourism],
+*[leisure],
+*[man_made],
+*[natural],
+*[place],
+*[power]
+*[sport]
 {
   text-position: center
 }
@@ -1017,12 +1025,9 @@ line|z12[highway=trunk]
   casing-width:	1;
   casing-color:	#d8a050;
 }
-area|z12-14[landuse=military],
-area|z15-[landuse=military]::d1p2,
-node|z15-[landuse=military]::d1p2
+area|z12-[landuse=military]
 {
   fill-color:	#d0d050;
-  fill-opacity:	0.5;
 }
 line|z12[railway=preserved]
 {
@@ -1161,16 +1166,13 @@ line|z12[boundary=administrative][border_type=country]
   z-index:	415;
   -x-kot-layer:	top;
 }
-area|z12-13[natural=volcano],
-area|z14-[natural=volcano]::d1p2,
-node|z12-13[natural=volcano],
-node|z14-[natural=volcano]::d1p2
+area|z12-[natural=volcano],
+node|z12-[natural=volcano]
 {
   icon-image:	vulcan.svg;
 }
-area|z13-14[landuse=farmyard],
-area|z12-[man_made=wastewater_plant],
-area|z15-[landuse=farmyard]::d1p2,
+area|z13-[landuse=farmyard],
+area|z12-[man_made=wastewater_plant]
 {
   fill-color:	#e4e4e4;
 }
@@ -1278,10 +1280,8 @@ area|z12-[natural=land]
 {
   fill-color:	#f8f8f8;
 }
-area|z12[natural=peak],
-area|z13[natural=peak]::d1p2,
-node|z12[natural=peak],
-node|z13[natural=peak]::d1p2
+area|z12-13[natural=peak],
+node|z12-13[natural=peak]
 {
   icon-image:	peak-mini.svg;
 }
@@ -1309,12 +1309,8 @@ line|z13[waterway=drain]
   width:	1.5;
   z-index:	77;
 }
-area|z13-14[landuse=landfill],
-area|z13-14[landuse=quarry],
-area|z15-[landuse=landfill]::d1p2,
-area|z15-[landuse=quarry]::d1p2,
-node|z15-[landuse=landfill]::d1p2,
-node|z15-[landuse=quarry]::d1p2
+area|z13-[landuse=landfill],
+area|z13-[landuse=quarry]
 {
   fill-color:	#e9dd72;
 }
@@ -1329,9 +1325,7 @@ line|z13-14[highway=byway]
   width:	1;
   z-index:	91;
 }
-area|z13-14[landuse=vineyard],
-area|z15-[landuse=vineyard]::d1p2,
-node|z15-[landuse=vineyard]::d1p2
+area|z13-[landuse=vineyard]
 {
   fill-color:	#d1ead1;
 }
@@ -1920,8 +1914,8 @@ line|z14[railway=abandoned]::d1p3
   z-index:	300;
   dashes:	4.5,4.5;
 }
-area|z14-[natural=peak]::d1p2,
-node|z14-[natural=peak]::d1p2
+area|z14-[natural=peak],
+node|z14-[natural=peak]
 {
   icon-image:	peak.svg;
 }
@@ -1947,8 +1941,8 @@ line|z14-[highway=tertiary]
   text:	name;
   text-color:	#404040;
 }
-area|z14-[natural=cave_entrance]::d1p2,
-node|z14-[natural=cave_entrance]::d1p2
+area|z14-[natural=cave_entrance],
+node|z14-[natural=cave_entrance]
 {
   icon-image:	cave_entrance.svg;
 }
@@ -2092,7 +2086,7 @@ line|z14[boundary=administrative][type=nation]
   z-index:	532;
   -x-kot-layer:	top;
 }
-line|z14[highway=motorway]::d1p2
+line|z14[highway=motorway]
 {
   color:	#f08800;
   width:	12;
@@ -2138,8 +2132,8 @@ line|z14[piste:type=sled]
   color:	#f0e0dc;
   width:	2.5;
 }
-line|z14[natural=spring]::d1p2,
-line|z14[waterway=river]::d1p2
+line|z14[natural=spring],
+line|z14[waterway=river]
 {
   color:	#B9D4D4;
   width:	4;
@@ -2462,8 +2456,8 @@ line|z14[boundary=administrative][border_type=county]
   z-index:	529;
   dashes:	4,20;
 }
-area|z14-[power=generator]::d1p2,
-node|z14-[power=generator]::d1p2
+area|z14-[power=generator],
+node|z14-[power=generator]
 {
   icon-image:	power_generic.svg;
 }
@@ -2501,7 +2495,7 @@ node|z14-[power=generator]
 {
   fill-color:	#bebebe;
 }
-line|z14[man_made=pier]::d1p2
+line|z14[man_made=pier]
 {
   color:	#d0d0d0;
   width:	0.8;
@@ -2527,6 +2521,7 @@ node|z12-[aeroway=aerodrome]
   text-color:	#005BE2;
   text-halo-color:	white;
   text-offset:  10;
+  text-position: point;
 }
 area|z12-[aeroway=airport]::int_name,
 area|z12-[aeroway=aerodrome]::int_name,
@@ -2893,7 +2888,7 @@ node|z16[addr:housenumber][addr:street]
   text-color:	#808070;
   text-position: center;
 }
-line|z15-16[highway=motorway]::d1p2
+line|z15-16[highway=motorway]
 {
   color:	#f08800;
   width:	16;
@@ -3235,8 +3230,7 @@ line|z15[highway=road]
   color:	#d0d0d0;
   width:	7;
 }
-area|z15-[landuse=garages]::d1p2,
-node|z15-[landuse=garages]::d1p2
+area|z15-[landuse=garages]
 {
   fill-color:	#e1e1e5;
 }
@@ -3501,11 +3495,6 @@ line|z15[railway=narrow_gauge]::d1p3
   dashes:	11,11;
   linecap:	butt;
 }
-area|z15[natural=pond]::d1p2,
-area|z16[waterway=dock]::d1p2
-{
-  z-index:	112;
-}
 line|z15[railway=funicular]
 {
   color:	#4c0f0f;
@@ -3562,7 +3551,7 @@ line|z15[boundary=administrative][admin_level=9]
   z-index:	672;
   dashes:	12,12;
 }
-line|z15[man_made=pier]::d1p2
+line|z15[man_made=pier]
 {
   color:	#d0d0d0;
   width:	1.6;
@@ -3798,8 +3787,8 @@ node|z15-[amenity=fuel]
 {
   icon-image:	petrolstation.svg;
 }
-area|z15-[leisure=nature_reserve]::d1p2,
-node|z15-[leisure=nature_reserve]::d1p2
+area|z15-[leisure=nature_reserve],
+node|z15-[leisure=nature_reserve]
 {
   icon-image:	bird.svg;
 }
@@ -3874,7 +3863,7 @@ node|z16[railway=tram_stop]::int_name
   text-halo-color:  white;
   z-index: 20;
 }
-line|z16[communication=line]::d1p2
+line|z16[communication=line]
 {
   color:	#f080f0;
   width:	0.4;
@@ -4130,7 +4119,7 @@ line|z16[highway=construction]
   dashes:	4,4;
   linecap:	butt;
 }
-line|z16[highway=byway]::d1p2
+line|z16[highway=byway]
 {
   color:	#c0a87c;
   width:	4;
@@ -4199,7 +4188,7 @@ line|z16[highway=footway][sac_scale=hiking]
   width:	1.2;
   z-index:	822;
 }
-line|z16[waterway=drain]::d1p2
+line|z16[waterway=drain]
 {
   width:	4;
   z-index:	110;
@@ -4369,8 +4358,8 @@ line|z16[railway=abandoned]
   z-index:	542;
   opacity:	0.4;
 }
-area|z16[aerialway=station]::d1p2,
-node|z16[aerialway=station]::d1p2
+area|z16[aerialway=station],
+node|z16[aerialway=station]
 {
   symbol-shape:	circle;
   symbol-fill-color:	#3050d8;
@@ -4772,7 +4761,7 @@ line|z16[highway=path][sac_scale][sac_scale=alpine_hiking]
   color:	blue;
   width:	1.2;
 }
-line|z16[barrier=city_wall]::d1p2
+line|z16[barrier=city_wall]
 {
   color:	#b0b0b0;
   width:	1;
@@ -4883,7 +4872,7 @@ line|z16[railway=disused]::d1p2
   z-index:	627;
   opacity:	0.7;
 }
-line|z16[waterway=stream]::d1p2
+line|z16[waterway=stream]
 {
   color:	#B9D4D4;
   width:	2;
@@ -5011,8 +5000,8 @@ line|z16[barrier=city_wall]
   width:	1;
   z-index:	897;
 }
-area|z16-[railway=platform]::d1p2,
-line|z16-[railway=platform]::d1p2
+area|z16-[railway=platform],
+line|z16-[railway=platform]
 {
   fill-color:	#bbbbbb;
 }
@@ -6090,7 +6079,7 @@ line|z17-[piste:lift=rope_tow]
   dashes:	8,8;
   linecap:	butt;
 }
-line|z17-[waterway=stream]::d1p2
+line|z17-[waterway=stream]
 {
   color:	#B9D4D4;
   width:	2.2;
