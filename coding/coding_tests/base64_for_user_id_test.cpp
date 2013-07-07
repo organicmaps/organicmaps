@@ -17,15 +17,8 @@ UNIT_TEST(Base64_Encode_User_Ids)
     "aW4gdGhlIHdvcmxkLjAw", ());
 }
 
-UNIT_TEST(Base64_Decode_User_Ids)
-{
-  TEST_EQUAL(decode("SGVsbG8sIHdvcmxkIQ"), "Hello, world!", ());
-  TEST_EQUAL(decode(""), "", ());
-  TEST_EQUAL(decode("JA"), "$", ());
-  TEST_EQUAL(decode("TWFwc1dpdGhNZSBpcyBhbiBvZmZsaW5lIG1hcHMgYXBwbGljYXRpb24gZm9yIGFueSBkZXZpY2Ug"
-             "aW4gdGhlIHdvcmxkLg"),
-             "MapsWithMe is an offline maps application for any device in the world.", ());
-}
+// Removed decode test, because boost behavior is undefined, and we don't actually need
+// to decode these oldscool ids in our own code. Our new code should use base64::Encode/Decode instead
 
 UNIT_TEST(Base64_QualityTest_User_Ids)
 {
