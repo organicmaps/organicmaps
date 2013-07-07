@@ -44,9 +44,11 @@ public class SimpleNavigationFragment extends Fragment implements LocationServic
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
     mRoot = inflater.inflate(R.layout.fragment_simple_navigation, container, false);
-    //Set up views
+
+    // Set up views
     mArrow = (ArrowImage) mRoot.findViewById(R.id.arrow);
     mArrow.setDrawCircle(true);
+    mArrow.setAnimation(true);
     mDistance = (TextView) mRoot.findViewById(R.id.distance);
     mCoords = (TextView) mRoot.findViewById(R.id.coords);
 

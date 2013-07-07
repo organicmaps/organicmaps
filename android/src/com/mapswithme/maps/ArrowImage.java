@@ -1,7 +1,5 @@
 package com.mapswithme.maps;
 
-import com.mapswithme.util.Utils;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -22,24 +20,37 @@ public class ArrowImage extends ImageView
   private final static float RAD_MULT = .33f;
   private final static float SQ2 = (float) Math.sqrt(2);
 
-  private boolean mDrawArrow;
   private Paint mArrowPaint;
   private Path mArrowPath;
-
-  private boolean mDrawCircle = false;
   private Paint mCirclePaint;
 
+  private final static int ALLOW_ANIMATION = 0x1;
+  private final static int DO_ANIMATION = 0x2;
+  private final static int DRAW_ARROW = 0x4;
+  private final static int DRAW_CIRCLE = 0x8;
+  private int m_flags = 0;
+
+  private boolean testFlag(int flag)
+  {
+    return (m_flags & flag) != 0;
+  }
+  private void setFlag(int flag, boolean value)
+  {
+    if (value)
+      m_flags |= flag;
+    else
+      m_flags &= (~flag);
+  }
+
   // Animation params
-  private final static boolean ALLOW_ANIMATION = Utils.apiEqualOrGreaterThan(14);
-  private boolean mJustStarted = true;
   private float mCurrentAngle;
+  private float mAngle;
+
   private final static long   UPDATE_RATE = 30;
   private final static long   UPDATE_DELAY = 1000 / UPDATE_RATE;
   private final static double ROTATION_SPEED = 120;
   private final static double ROTATION_STEP = ROTATION_SPEED / UPDATE_RATE;
   private final static double ERR = ROTATION_STEP;
-
-  private float mAngle;
 
   private Runnable mAnimateTask = new Runnable()
   {
@@ -71,7 +82,7 @@ public class ArrowImage extends ImageView
   {
     setVisibility(VISIBLE);
 
-    mDrawArrow = false;
+    setFlag(DRAW_ARROW, false);
 
     // The aapt can't process resources with name "do". Hack with renaming.
     if (flag.equals("do"))
@@ -94,7 +105,12 @@ public class ArrowImage extends ImageView
 
   public void setDrawCircle(boolean draw)
   {
-    mDrawCircle = draw;
+    setFlag(DRAW_CIRCLE, draw);
+  }
+
+  public void setAnimation(boolean allow)
+  {
+    setFlag(ALLOW_ANIMATION, allow);
   }
 
   public void setCircleColor(int color)
@@ -107,15 +123,15 @@ public class ArrowImage extends ImageView
     setVisibility(VISIBLE);
     setImageDrawable(null);
 
-    mDrawArrow = true;
+    setFlag(DRAW_ARROW, true);
     mAngle = (float) (azimut / Math.PI * 180.0);
 
-    if (ALLOW_ANIMATION && !mJustStarted)
+    if (testFlag(ALLOW_ANIMATION) && testFlag(DO_ANIMATION))
       animateRotation();
     else
     {
       mCurrentAngle = mAngle; // to skip rotation from 0
-      mJustStarted = false;
+      setFlag(DO_ANIMATION, true);
     }
 
     invalidate();
@@ -131,7 +147,7 @@ public class ArrowImage extends ImageView
   {
     setVisibility(INVISIBLE);
     setImageDrawable(null);
-    mDrawArrow = false;
+    setFlag(DRAW_ARROW, false);
   }
 
   @Override
@@ -187,7 +203,7 @@ public class ArrowImage extends ImageView
     if (mWidth <= 0 || mHeight <= 0)
       return;
 
-    if (mDrawArrow)
+    if (testFlag(DRAW_ARROW))
     {
       canvas.save();
 
@@ -197,7 +213,7 @@ public class ArrowImage extends ImageView
       canvas.translate((w - sSide) / 2, (h - sSide) / 2);
       canvas.rotate(-mCurrentAngle, sSide / 2, sSide / 2);
 
-      if (mDrawCircle)
+      if (testFlag(DRAW_CIRCLE))
       {
         final float rad = Math.min(w, h) / 2;
         canvas.drawCircle(rad, rad, rad, mCirclePaint);
