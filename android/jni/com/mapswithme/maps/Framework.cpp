@@ -5,6 +5,7 @@
 #include "../core/render_context.hpp"
 
 #include "../../../../../map/framework.hpp"
+#include "../../../../../map/measurement_utils.hpp"
 
 #include "../../../../../gui/controller.hpp"
 
