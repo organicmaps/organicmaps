@@ -63,43 +63,26 @@ extern "C"
   // Check if we need to download mandatory resource file.
   bool NeedToDownload(Platform & pl, string const & name, int size)
   {
-    uint64_t originSize = 0;
-    if (!pl.GetFileSizeByName(name, originSize))
+    try
     {
-      // no such file
-      return true;
-    }
+      ModelReaderPtr reader(pl.GetReader(name));
 
-    if (size == originSize)
-    {
-      // file is up-to-date
-      return false;
-    }
-
-    if (name == WORLD_FILE_NAME DATA_FILE_EXTENSION)
-    {
-      try
+      if (name == WORLD_FILE_NAME DATA_FILE_EXTENSION)
       {
-        FilesContainerR cont(pl.GetReader(name));
-        if (cont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
+        FilesContainerR cont(reader);
+        if (!cont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
         {
-          // World.mwm file has search index - can skip new version.
-          return false;
+          // World.mwm file doesn't have search index - need to download new one.
+          return true;
         }
       }
-      catch (RootException const &)
-      {
-        // Some error occurred when loading file.
-        return true;
-      }
-    }
-    else if (name == WORLD_COASTS_FILE_NAME DATA_FILE_EXTENSION)
-    {
-      // Skip WorldCoasts.mwm
+
+      // file exists - no need to download
       return false;
     }
-
-    // Do download otherwise.
+    catch (RootException const &)
+    {
+    }
     return true;
   }
 

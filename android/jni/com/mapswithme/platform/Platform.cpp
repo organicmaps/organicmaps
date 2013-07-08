@@ -3,7 +3,11 @@
 #include "../core/jni_helper.hpp"
 
 #include "../../../../../platform/settings.hpp"
+
 #include "../../../../../base/logging.hpp"
+#include "../../../../../base/stl_add.hpp"
+
+#include "../../../../../std/algorithm.hpp"
 
 
 string Platform::UniqueClientId() const
@@ -52,9 +56,8 @@ string Platform::UniqueClientId() const
 namespace android
 {
   void Platform::Initialize(JNIEnv * env,
-                            jstring apkPath,
-                            jstring storagePath,
-                            jstring tmpPath,
+                            jstring apkPath, jstring storagePath,
+                            jstring tmpPath, jstring obbGooglePath,
                             bool isPro)
   {
     m_resourcesDir = jni::ToNativeString(env, apkPath);
@@ -75,10 +78,19 @@ namespace android
 
     m_isPro = isPro;
 
-    LOG(LDEBUG, ("Apk path = ", m_resourcesDir));
-    LOG(LDEBUG, ("Writable path = ", m_writableDir));
-    LOG(LDEBUG, ("Temporary path = ", m_tmpDir));
-    LOG(LDEBUG, ("Settings path = ", m_settingsDir));
+    string const obbPath = jni::ToNativeString(env, obbGooglePath);
+    Platform::FilesList files;
+    GetFilesByExt(obbPath, ".obb", files);
+    m_extResFiles.clear();
+    for (size_t i = 0; i < files.size(); ++i)
+      m_extResFiles.push_back(obbPath + files[i]);
+
+    LOG(LINFO, ("Apk path = ", m_resourcesDir));
+    LOG(LINFO, ("Writable path = ", m_writableDir));
+    LOG(LINFO, ("Temporary path = ", m_tmpDir));
+    LOG(LINFO, ("Settings path = ", m_settingsDir));
+    LOG(LINFO, ("OBB Google path = ", obbPath));
+    LOG(LINFO, ("OBB Google files = ", files));
   }
 
   void Platform::OnExternalStorageStatusChanged(bool isAvailable)

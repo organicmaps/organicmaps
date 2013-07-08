@@ -21,7 +21,9 @@ public:
   DECLARE_EXCEPTION(LocateZipException, OpenException);
   DECLARE_EXCEPTION(InvalidZipException, OpenException);
 
-  ZipFileReader(string const & container, string const & file);
+  /// @param[in] logPageSize, logPageCount default values are equal with FileReader constructor.
+  ZipFileReader(string const & container, string const & file,
+                uint32_t logPageSize = 10, uint32_t logPageCount = 4);
 
   /// @note Size() returns compressed file size inside zip
   uint64_t UncompressedSize() const { return m_uncompressedFileSize; }

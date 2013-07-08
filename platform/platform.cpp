@@ -14,9 +14,11 @@ string Platform::ReadPathForFile(string const & file) const
     fullPath = m_resourcesDir + file;
     if (!IsFileExistsByFullPath(fullPath))
     {
-      fullPath = file;
-      if (!IsFileExistsByFullPath(fullPath))
-        MYTHROW(FileAbsentException, ("File doesn't exist", fullPath));
+      // default behaviour - assume that we have full path here
+      if (!IsFileExistsByFullPath(file))
+        MYTHROW(FileAbsentException, ("File doesn't exist", file));
+      else
+        return file;
     }
   }
   return fullPath;
@@ -60,19 +62,22 @@ void Platform::GetFontNames(FilesList & res) const
 {
   GetSystemFontNames(res);
 
-  // Do not search inside apk for the fonts in Android.
-  string const paths[] = {
-      WritableDir()
-#ifndef OMIM_OS_ANDROID
-    , ResourcesDir()
+  size_t n = 0;
+  string const * arrPaths[4];
+
+  arrPaths[n++] = &m_writableDir;
+#ifdef OMIM_OS_ANDROID
+  for (size_t i = 0; i < m_extResFiles.size(); ++i)
+    arrPaths[n++] = &m_extResFiles[i];
+#else
+  arrPaths[n++] = &m_resourcesDir;
 #endif
-                         };
 
   FilesList fonts;
-  for (size_t i = 0; i < ARRAY_SIZE(paths); ++i)
+  for (size_t i = 0; i < n; ++i)
   {
-    LOG(LDEBUG, ("Searching for fonts in", paths[i]));
-    GetFilesByExt(paths[i], ".ttf", fonts);
+    LOG(LDEBUG, ("Searching for fonts in", *(arrPaths[i])));
+    GetFilesByExt(*(arrPaths[i]), FONT_FILE_EXTENSION, fonts);
   }
 
   sort(fonts.begin(), fonts.end());

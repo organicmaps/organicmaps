@@ -2,6 +2,7 @@
 
 #define DATA_FILE_EXTENSION ".mwm"
 #define DATA_FILE_EXTENSION_TMP ".mwm.tmp"
+#define FONT_FILE_EXTENSION ".ttf"
 #define DATA_FILE_TAG "dat"
 #define GEOMETRY_FILE_TAG "geom"
 #define TRIANGLE_FILE_TAG "trg"

@@ -29,8 +29,12 @@ protected:
   /// Flag that it's a paid PRO version of app.
   bool m_isPro;
 
-  /// Internal function to use files from writable dir
-  /// if they override the same file in the resources dir
+  /// Extended resource files.
+  /// Used in Android only (downloaded zip files as a container).
+  vector<string> m_extResFiles;
+
+  /// Internal function to get full path for input file.
+  /// Uses m_writeableDir and m_resourcesDir.
   string ReadPathForFile(string const & file) const;
 
   /// Hash some unique string into uniform format.

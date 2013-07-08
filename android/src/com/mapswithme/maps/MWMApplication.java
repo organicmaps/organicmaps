@@ -126,10 +126,8 @@ public class MWMApplication extends android.app.Application implements MapStorag
     new File(extTmpPath).mkdirs();
 
     // init native framework
-    nativeInit(getApkPath(),
-               extStoragePath,
-               extTmpPath,
-               m_isProVersion);
+    nativeInit(getApkPath(), extStoragePath, extTmpPath,
+               getOBBGooglePath(), m_isProVersion);
 
     m_slotID = getMapStorage().subscribe(this);
 
@@ -203,6 +201,12 @@ public class MWMApplication extends android.app.Application implements MapStorag
     return storagePath.concat(String.format("/Android/data/%s/%s/", getPackageName(), folder));
   }
 
+  private String getOBBGooglePath()
+  {
+    final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+    return storagePath.concat(String.format("/Android/obb/%s/", getPackageName()));
+  }
+
   /// Check if we have free space on storage (writable path).
   public native boolean hasFreeSpace(long size);
 
@@ -241,9 +245,8 @@ public class MWMApplication extends android.app.Application implements MapStorag
     System.loadLibrary("mapswithme");
   }
 
-  private native void nativeInit(String apkPath,
-                                 String storagePath,
-                                 String tmpPath,
+  private native void nativeInit(String apkPath, String storagePath,
+                                 String tmpPath, String obbGooglePath,
                                  boolean isPro);
 
   public native boolean nativeIsBenchmarking();

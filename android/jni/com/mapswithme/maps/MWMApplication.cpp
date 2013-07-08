@@ -21,18 +21,13 @@
 extern "C"
 {
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMApplication_nativeInit(JNIEnv * env,
-                                                    jobject thiz,
-                                                    jstring apkPath,
-                                                    jstring storagePath,
-                                                    jstring tmpPath,
-                                                    jboolean isPro)
+  Java_com_mapswithme_maps_MWMApplication_nativeInit(
+      JNIEnv * env, jobject thiz,
+      jstring apkPath, jstring storagePath, jstring tmpPath, jstring obbGooglePath,
+      jboolean isPro)
   {
-    android::Platform::Instance().Initialize(env,
-                                             apkPath,
-                                             storagePath,
-                                             tmpPath,
-                                             isPro);
+    android::Platform::Instance().Initialize(
+        env, apkPath, storagePath, tmpPath, obbGooglePath, isPro);
 
     LOG(LDEBUG, ("Creating android::Framework instance ..."));
 
@@ -43,8 +38,7 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_MWMApplication_nativeIsBenchmarking(JNIEnv * env,
-                                                               jobject thiz)
+  Java_com_mapswithme_maps_MWMApplication_nativeIsBenchmarking(JNIEnv * env, jobject thiz)
   {
     return static_cast<jboolean>(g_framework->NativeFramework()->IsBenchmarking());
   }

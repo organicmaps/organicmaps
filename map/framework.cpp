@@ -630,6 +630,16 @@ void Framework::GetLocalMaps(vector<string> & outMaps) const
 {
   Platform & pl = GetPlatform();
   pl.GetFilesByExt(pl.WritableDir(), DATA_FILE_EXTENSION, outMaps);
+
+#ifdef OMIM_OS_ANDROID
+  // On Android World and WorldCoasts can be stored in alternative /Android/obb/ path.
+  char const * arrCheck[] = { WORLD_FILE_NAME DATA_FILE_EXTENSION,
+                              WORLD_COASTS_FILE_NAME DATA_FILE_EXTENSION };
+
+  for (size_t i = 0; i < ARRAY_SIZE(arrCheck); ++i)
+    if (find(outMaps.begin(), outMaps.end(), arrCheck[i]) == outMaps.end())
+      outMaps.push_back(arrCheck[i]);
+#endif
 }
 
 void Framework::PrepareToShutdown()

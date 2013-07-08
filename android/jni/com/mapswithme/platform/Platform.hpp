@@ -11,9 +11,8 @@ namespace android
   public:
 
     void Initialize(JNIEnv * env,
-                    jstring apkPath,
-                    jstring storagePath,
-                    jstring tmpPath,
+                    jstring apkPath, jstring storagePath,
+                    jstring tmpPath, jstring obbGooglePath,
                     bool isPro);
 
     void OnExternalStorageStatusChanged(bool isAvailable);

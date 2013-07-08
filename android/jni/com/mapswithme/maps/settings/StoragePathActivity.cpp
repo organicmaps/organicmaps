@@ -29,7 +29,9 @@ extern "C"
     Platform & pl = GetPlatform();
 
     // Get regexp like this: (\.mwm$|\.ttf$)
-    string const regexp = "(" "\\"DATA_FILE_EXTENSION"$" "|" "\\"BOOKMARKS_FILE_EXTENSION"$" "|" "\\.ttf$" ")";
+    string const regexp = "(" "\\"DATA_FILE_EXTENSION"$" "|"
+                              "\\"BOOKMARKS_FILE_EXTENSION"$" "|"
+                              "\\"FONT_FILE_EXTENSION"$" ")";
     Platform::FilesList files;
     pl.GetFilesByRegExp(from, regexp, files);
 

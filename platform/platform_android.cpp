@@ -3,12 +3,14 @@
 #include "constants.hpp"
 
 #include "../coding/zip_reader.hpp"
+#include "../coding/file_name_utils.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/thread.hpp"
 #include "../base/regexp.hpp"
+#include "../base/string_utils.hpp"
 
-#include <unistd.h>
+#include <unistd.h>     // for sysconf
 
 
 Platform::Platform()
@@ -16,26 +18,115 @@ Platform::Platform()
   /// @see initialization routine in android/jni/com/.../Platform.hpp
 }
 
-ModelReader * Platform::GetReader(string const & file) const
+namespace
 {
-  if (IsFileExistsByFullPath(m_writableDir + file))
+
+enum SourceT { EXTERNAL_RESOURCE, RESOURCE, WRITABLE_PATH, FULL_PATH };
+
+size_t GetSearchSources(string const & file, SourceT (&arr)[4])
+{
+  size_t ret = 0;
+  string const ext = my::GetFileExtension(file);
+  ASSERT ( !ext.empty(), () );
+
+  if (ext == DATA_FILE_EXTENSION)
   {
-    return new FileReader(ReadPathForFile(file),
-                          READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
+    if (strings::StartsWith(file, WORLD_COASTS_FILE_NAME) ||
+        strings::StartsWith(file, WORLD_FILE_NAME))
+    {
+      arr[ret++] = EXTERNAL_RESOURCE;
+    }
+    arr[ret++] = WRITABLE_PATH;
   }
-  if (IsFileExistsByFullPath(file))
+  else if (ext == FONT_FILE_EXTENSION)
   {
-    return new FileReader(ReadPathForFile(file),
-                          READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
+    // system fonts have absolute unix path
+    if (strings::StartsWith(file, "/"))
+      arr[ret++] = FULL_PATH;
+    else
+    {
+      arr[ret++] = EXTERNAL_RESOURCE;
+      arr[ret++] = WRITABLE_PATH;
+    }
   }
   else
-  {
-    ASSERT_EQUAL ( file.find("assets/"), string::npos, () );
+    arr[ret++] = RESOURCE;
 
-    /// @note If you push some maps to the bundle, it's better to set
-    /// better values for chunk size and chunks count. @see constants.hpp
-    return new ZipFileReader(m_resourcesDir, "assets/" + file);
+  return ret;
+}
+
+#ifdef DEBUG
+class DbgLogger
+{
+  string const & m_file;
+  SourceT m_src;
+public:
+  DbgLogger(string const & file) : m_file(file) {}
+  void SetSource(SourceT src) { m_src = src; }
+  ~DbgLogger()
+  {
+    LOG(LDEBUG, ("Source for file", m_file, "is", m_src));
   }
+};
+#endif
+
+}
+
+ModelReader * Platform::GetReader(string const & file) const
+{
+  SourceT sources[4];
+  size_t const n = GetSearchSources(file, sources);
+
+#ifdef DEBUG
+  DbgLogger logger(file);
+#endif
+
+  for (size_t i = 0; i < n; ++i)
+  {
+#ifdef DEBUG
+    logger.SetSource(sources[i]);
+#endif
+
+    switch (sources[i])
+    {
+    case EXTERNAL_RESOURCE:
+    {
+      for (size_t j = 0; j < m_extResFiles.size(); ++j)
+      {
+        try
+        {
+          return new ZipFileReader(m_extResFiles[j], file,
+                                   READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
+        }
+        catch (Reader::OpenException const &)
+        {
+        }
+      }
+      break;
+    }
+
+    case WRITABLE_PATH:
+    {
+      string const path = m_writableDir + file;
+      if (IsFileExistsByFullPath(path))
+        return new FileReader(path, READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
+      break;
+    }
+
+    case FULL_PATH:
+      if (IsFileExistsByFullPath(file))
+        return new FileReader(file);
+      break;
+
+    default:
+      ASSERT_EQUAL ( sources[i], RESOURCE, () );
+      ASSERT_EQUAL ( file.find("assets/"), string::npos, () );
+      return new ZipFileReader(m_resourcesDir, "assets/" + file);
+    }
+  }
+
+  MYTHROW(FileAbsentException, ("File not found", file));
+  return 0;
 }
 
 void Platform::GetFilesByRegExp(string const & directory, string const & regexp, FilesList & res)
