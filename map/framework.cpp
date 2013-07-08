@@ -518,7 +518,7 @@ string const GetFileName(string const & filePath)
   return ret;
 }
 
-string const GenerateValidAndUniqueFilePathForKLM(string const & fileName)
+string const GenerateValidAndUniqueFilePathForKML(string const & fileName)
 {
   string filePath = BookmarkCategory::RemoveInvalidSymbols(fileName);
   filePath = BookmarkCategory::GenerateUniqueFileName(GetPlatform().WritableDir(), filePath);
@@ -533,7 +533,7 @@ bool Framework::AddBookmarksFile(string const & filePath)
   string fileSavePath;
   if (fileExt == BOOKMARKS_FILE_EXTENSION)
   {
-    fileSavePath = GenerateValidAndUniqueFilePathForKLM(GetFileName(filePath));
+    fileSavePath = GenerateValidAndUniqueFilePathForKML(GetFileName(filePath));
     if (!my::CopyFileX(filePath, fileSavePath))
       return false;
   }
@@ -555,7 +555,7 @@ bool Framework::AddBookmarksFile(string const & filePath)
       if (kmlFileName.empty())
         return false;
 
-      fileSavePath = GenerateValidAndUniqueFilePathForKLM(kmlFileName);
+      fileSavePath = GenerateValidAndUniqueFilePathForKML(kmlFileName);
       ZipFileReader::UnzipFile(filePath, kmlFileName, fileSavePath);
     }
     catch (RootException const & e)

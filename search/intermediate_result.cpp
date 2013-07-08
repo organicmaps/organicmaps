@@ -290,6 +290,8 @@ bool PreResult2::StrictEqualF::operator() (PreResult2 const & r) const
 
 namespace
 {
+  /// @todo Using the criteria that may be inappropriate in some cases
+  /// ("highway" may be point and area objects - "bus_stop").
   class IsLinearChecker
   {
     uint8_t m_index[2];

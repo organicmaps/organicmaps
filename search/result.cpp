@@ -77,14 +77,10 @@ void AddressInfo::MakeFrom(Result const & res)
 {
   ASSERT_EQUAL ( res.GetResultType(), Result::RESULT_FEATURE, () );
 
-  // push the feature type
+  // push the feature type (may be empty for coordinates result)
   string const type = res.GetFeatureType();
   if (!type.empty())
     m_types.push_back(type);
-  else
-  {
-    ASSERT ( false, ("Search result with empty type") );
-  }
 
   // assign name if it's not equal with type
   string name = res.GetString();
