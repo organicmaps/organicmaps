@@ -23,6 +23,20 @@
  *  @version 4.2.0
  * 
  */
+
+/*!
+ *  @brief Enum for setting up log output level.
+ *  @since 4.2.2
+ *
+ */
+typedef enum {
+    FlurryLogLevelNone = 0,         //No output
+    FlurryLogLevelCriticalOnly,     //Default, outputs only critical log events
+    FlurryLogLevelDebug,            //Debug level, outputs critical and main log events
+    FlurryLogLevelAll               //Highest level, outputs all log events
+} FlurryLogLevel;
+
+
 @interface Flurry : NSObject {
 }
 
@@ -58,7 +72,7 @@
  *  FAQ for the iPhone SDK is located at <a href="http://wiki.flurry.com/index.php?title=IPhone_FAQ">
  *  Support Center - iPhone FAQ</a>.
  *
- *  @see #setDebugLogEnabled: for information on how to view debugging information on your console.
+ *  @see #setLogLevel: for information on how to view debugging information on your console.
  *
  *  @return The agent version of the Flurry SDK.
  *
@@ -75,7 +89,7 @@
  *
  *  @note This method must be called prior to invoking #startSession:.
  *
- *  @see #setDebugLogEnabled: for information on how to view debugging information on your console. \n
+ *  @see #setLogLevel: for information on how to view debugging information on your console. \n
  *  #logError:message:exception: for details on logging exceptions. \n
  *  #logError:message:error: for details on logging errors.
  *
@@ -88,14 +102,30 @@
  *  @since 2.7
  *
  *  This is an optional method that displays debug information related to the Flurry SDK.
- *  display information to the console. The default setting for this method is @c NO.
+ *  display information to the console. The default setting for this method is @c NO
+ *  which sets the log level to @c FlurryLogLevelCriticalOnly.
+ *  When set to @c YES the debug log level is set to @c FlurryLogLevelDebug
  *
- *  @note This method must be called prior to invoking #startSession:.
+ *  @note This method must be called prior to invoking #startSession:. If the method, setLogLevel is called later in the code, debug logging will be automatically enabled.
  *
  *  @param value @c YES to show debug logs, @c NO to omit debug logs.
  *
  */
-+ (void)setDebugLogEnabled:(BOOL)value;	
++ (void)setDebugLogEnabled:(BOOL)value;
+
+/*!
+ *  @brief Generates debug logs to console.
+ *  @since 4.2.2
+ *
+ *  This is an optional method that displays debug information related to the Flurry SDK.
+ *  display information to the console. The default setting for this method is @c FlurryLogLevelCriticalOnly.
+ *
+ *  @note Its good practice to call this method prior to invoking #startSession:. If debug logging is disabled earlier, this method will enable it.
+ *
+ *  @param value Log level
+ *
+ */
++ (void)setLogLevel:(FlurryLogLevel)value;
 
 /*!
  *  @brief Set the timeout for expiring a Flurry session.
@@ -149,7 +179,7 @@
  *  time specified in #setSessionContinueSeconds:. If the app is resumed in that period
  *  the session will continue, otherwise a new session will begin.
  *
- *  Crash reporting will not be enabled. See #startSession:enableCrashReporting: for
+ *  Crash reporting will not be enabled. See #setCrashReportingEnabled: for
  *  more information.
  * 
  *  @note If testing on a simulator, please be sure to send App to background via home
@@ -202,6 +232,31 @@
 
  */
 + (void) startSession:(NSString *)apiKey withOptions:(id)options;
+
+
+/*!
+ *  @brief Pauses a Flurry session.
+ *  @since 4.2.2
+ *
+ *  This method is useful in case of #setBackgroundSessionEnabled: set to YES. It can be
+ *  called when application finished all background tasks (such as playing music) to pause session.
+ *  If the app is resumed before time specified in #setSessionContinueSeconds:,
+ *  the session will continue, otherwise a new session will begin.
+ *
+ * @see #setSessionContinueSeconds: for details on setting a custom session timeout.
+ * @see #setBackgroundSessionEnabled: for details on setting a custom behaviour on resigning activity.
+ *
+ * @code
+ *  - (void)allBackgroundTasksFinished
+ {
+ // ....
+ [Flurry pauseBackgroundSession];
+ // ....
+ }
+ * @endcode
+ *
+ */
++ (void)pauseBackgroundSession;
 
 
 /** @name Event and Error Logging
@@ -637,7 +692,7 @@
  *  @param sendSessionReportsOnClose YES to send on close, NO to omit reporting on close.
  *
  */
-+ (void)setSessionReportsOnCloseEnabled:(BOOL)sendSessionReportsOnClose;	
++ (void)setSessionReportsOnCloseEnabled:(BOOL)sendSessionReportsOnClose;
 
 /*!
  *  @brief Set session to report when app is sent to the background.
@@ -649,6 +704,18 @@
  *
  */
 + (void)setSessionReportsOnPauseEnabled:(BOOL)setSessionReportsOnPauseEnabled;
+
+/*!
+ *  @brief Set session to support background execution.
+ *  @since 4.2.2
+ *
+ *  Use this method finish session data when the app is paused. The default value is taken looking at the UIBackgroundModes of application's Info.plist.
+ *  If UIBackgroundModes array is empty, equals @c NO, otherwise @c YES.
+ *
+ *  @param setBackgroundSessionEnabled NO to finish on resigning active, YES to omit finishing.
+ *
+ */
++ (void)setBackgroundSessionEnabled:(BOOL)setBackgroundSessionEnabled;
 
 /*!
  *  @brief Enable custom event logging.
