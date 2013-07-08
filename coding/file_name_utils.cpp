@@ -11,6 +11,12 @@ void GetNameWithoutExt(string & name)
     name.erase(i);
 }
 
+string GetFileExtension(string const & name)
+{
+  size_t const pos = name.find_last_of("./\\");
+  return ((pos != string::npos && name[pos] == '.') ? name.substr(pos) : string());
+}
+
 void GetNameFromFullPath(string & name)
 {
   string::size_type const i = name.find_last_of("/\\");

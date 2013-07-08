@@ -7,6 +7,8 @@ namespace my
 {
   /// Remove extension from file name.
   void GetNameWithoutExt(string & name);
+  /// @return File extension with the dot or empty string if no extension found.
+  string GetFileExtension(string const & name);
 
   /// Get file name from full path.
   void GetNameFromFullPath(string & name);

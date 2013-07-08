@@ -29,6 +29,7 @@
 #include "../coding/internal/file_data.hpp"
 #include "../coding/zip_reader.hpp"
 #include "../coding/url_encode.hpp"
+#include "../coding/file_name_utils.hpp"
 
 #include "../geometry/angles.hpp"
 #include "../geometry/distance_on_sphere.hpp"
@@ -501,32 +502,29 @@ void Framework::ClearBookmarks()
 
 namespace
 {
-// @return extension with a dot (or empty string if no extension is present)
+
+/// @return extension with a dot in lower case
 string const GetFileExt(string const & filePath)
 {
-  size_t const pos = filePath.rfind('.');
-  if (pos == string::npos)
-    return string();
-  string lowerCaseExtension = string(filePath, pos, filePath.size() - pos);
-  transform(lowerCaseExtension.begin(), lowerCaseExtension.end(), lowerCaseExtension.begin(), ::tolower);
-  return lowerCaseExtension;
+  string ext = my::GetFileExtension(filePath);
+  transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
+  return ext;
 }
 
 string const GetFileName(string const & filePath)
 {
-  size_t pos = filePath.rfind('/');
-  if (pos == string::npos)
-    return filePath;
-  ++pos;
-  return string(filePath, pos, filePath.size() - pos);
+  string ret = filePath;
+  my::GetNameFromFullPath(ret);
+  return ret;
 }
 
-string const GenerateValidandUniqFilePathForKLM(string const & filename)
+string const GenerateValidAndUniqueFilePathForKLM(string const & fileName)
 {
-  string filePath = BookmarkCategory::RemoveInvalidSymbols(filename);
+  string filePath = BookmarkCategory::RemoveInvalidSymbols(fileName);
   filePath = BookmarkCategory::GenerateUniqueFileName(GetPlatform().WritableDir(), filePath);
   return filePath;
 }
+
 }
 
 bool Framework::AddBookmarksFile(string const & filePath)
@@ -535,7 +533,7 @@ bool Framework::AddBookmarksFile(string const & filePath)
   string fileSavePath;
   if (fileExt == BOOKMARKS_FILE_EXTENSION)
   {
-    fileSavePath = GenerateValidandUniqFilePathForKLM( GetFileName(filePath) );
+    fileSavePath = GenerateValidAndUniqueFilePathForKLM(GetFileName(filePath));
     if (!my::CopyFileX(filePath, fileSavePath))
       return false;
   }
@@ -556,7 +554,8 @@ bool Framework::AddBookmarksFile(string const & filePath)
       }
       if (kmlFileName.empty())
         return false;
-      fileSavePath = GenerateValidandUniqFilePathForKLM(kmlFileName);
+
+      fileSavePath = GenerateValidAndUniqueFilePathForKLM(kmlFileName);
       ZipFileReader::UnzipFile(filePath, kmlFileName, fileSavePath);
     }
     catch (RootException const & e)
