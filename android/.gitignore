@@ -2,6 +2,7 @@ bin/
 gen/
 .settings/
 resbuilder/
+spoon-output/
 
 .classpath
 .cproject

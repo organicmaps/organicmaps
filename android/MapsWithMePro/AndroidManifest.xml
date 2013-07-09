@@ -38,6 +38,10 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+	  <!-- Used by instrumentation tests only. Do not include in production apps unless necessary! -->
+	  <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+	  <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
     <supports-screens
         android:largeScreens="true"
         android:xlargeScreens="true" />

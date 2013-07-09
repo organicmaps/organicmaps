@@ -33,11 +33,11 @@ public class MapObjectActivity extends FragmentActivity
   private static String EXTRA_BMK_CAT = "bookmark_category";
   private static String EXTRA_BMK_INDEX = "bookmark_index";
   //for POI and API point
-  private static String EXTRA_NAME = "name";
-  private static String EXTRA_TYPE = "type";
-  private static String EXTRA_ADDRESS = "address";
-  private static String EXTRA_LAT = "lat";
-  private static String EXTRA_LON = "lon";
+  public static final String EXTRA_NAME = "name";
+  public static final String EXTRA_TYPE = "type";
+  public static final String EXTRA_ADDRESS = "address";
+  public static final String EXTRA_LAT = "lat";
+  public static final String EXTRA_LON = "lon";
 
   public static void startWithBookmark(Context context, int categoryIndex, int bookmarkIndex)
   {
@@ -107,7 +107,7 @@ public class MapObjectActivity extends FragmentActivity
     handleIntent(intent);
   }
 
-  private void handleIntent(Intent intent)
+  public void handleIntent(Intent intent)
   {
     final MapObjectType type = (MapObjectType) intent.getSerializableExtra(EXTRA_OBJECT_TYPE);
 
