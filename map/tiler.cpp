@@ -2,6 +2,8 @@
 
 #include "../indexer/mercator.hpp"
 
+#include "../base/logging.hpp"
+
 
 Tiler::RectInfo::RectInfo()
   : m_tileScale(0), m_x(0), m_y(0)
@@ -62,7 +64,7 @@ int Tiler::getTileScale(ScreenBase const & s, int ts) const
   ScreenBase tmpS = s;
   tmpS.Rotate(-tmpS.GetAngle());
 
-  /// slightly smaller than original to produce "antialiasing" effect using bilinear filtration.
+  // slightly smaller than original to produce "antialiasing" effect using bilinear filtration.
   int const halfSize = static_cast<int>(ts / 1.05 / 2.0);
 
   m2::RectD glbRect;
@@ -73,7 +75,10 @@ int Tiler::getTileScale(ScreenBase const & s, int ts) const
 
   /// @todo Fix this for possible anisotropic scales in screen.
   double const glbRectSize = min(glbRect.SizeX(), glbRect.SizeY());
-  return my::rounds(log((MercatorBounds::maxX - MercatorBounds::minX) / glbRectSize) / log(2.0));
+
+  /// @todo Check this logic in future.
+  /// Now fix scale with minimum value because of scale check in Tiler::tiles function.
+  return max(1, my::rounds(log((MercatorBounds::maxX - MercatorBounds::minX) / glbRectSize) / log(2.0)));
 }
 
 void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt, size_t tileSize)
@@ -90,7 +95,6 @@ void Tiler::tiles(vector<RectInfo> & tiles, int depth)
   if (m_tileScale == 0)
     return;
 
-  /// clearing previous coverage
   tiles.clear();
 
   if (m_tileScale - depth < 0)
@@ -131,7 +135,7 @@ void Tiler::tiles(vector<RectInfo> & tiles, int depth)
       }
   }
 
-  /// sorting coverage elements
+  // sorting coverage elements
   sort(tiles.begin(), tiles.end(), LessByScaleAndDistance(m_centerPt));
 }
 
