@@ -65,7 +65,8 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
     ReaderPtr<Reader> r = GetPlatform().GetReader("about.html");
     string s;
     r.ReadAsString(s);
-    text = [NSString stringWithUTF8String:s.c_str()];
+    NSString * str = [NSString stringWithFormat:@"Version: %@ \n", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
+    text = [NSString stringWithFormat:@"%@%@", str, [NSString stringWithUTF8String:s.c_str()] ];
   }
 
   WebViewController * aboutViewController = [[WebViewController alloc] initWithHtml:text baseUrl:nil andTitleOrNil:NSLocalizedString(@"about", nil)];
