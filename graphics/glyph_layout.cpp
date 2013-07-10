@@ -246,7 +246,13 @@ namespace graphics
     // but now we do scale tiles for the fixed layout.
     double offset = m_textOffset - m_path.pathOffset();
     if (offset < 0.0)
-      return;
+    {
+      /// @todo Try to fix this heuristic.
+      if (offset > -3.0)
+        offset = 0.0;
+      else
+        return;
+    }
 
     // find first visible glyph
     size_t symPos = 0;
