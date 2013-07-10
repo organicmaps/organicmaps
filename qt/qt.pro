@@ -8,7 +8,7 @@ include($$ROOT_DIR/common.pri)
 
 TARGET = MapsWithMe
 TEMPLATE = app
-
+CONFIG += warn_on
 QT *= core widgets gui opengl
 
 win32* {

@@ -3,7 +3,7 @@ ROOT_DIR = ../..
 include($$ROOT_DIR/common.pri)
 
 TEMPLATE = lib
-CONFIG += staticlib
+CONFIG += staticlib warn_off
 SOURCES += \
     blocksort.c \
     bzlib.c \

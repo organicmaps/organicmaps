@@ -2,7 +2,7 @@
 
 TARGET = anim
 TEMPLATE = lib
-CONFIG += staticlib
+CONFIG += staticlib warn_on
 
 ROOT_DIR = ..
 DEPENDENCIES = geometry coding base expat

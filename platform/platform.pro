@@ -2,7 +2,7 @@
 
 TARGET = platform
 TEMPLATE = lib
-CONFIG += staticlib
+CONFIG += staticlib warn_on
 
 ROOT_DIR = ..
 DEPENDENCIES = coding base jansson

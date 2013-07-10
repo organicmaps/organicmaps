@@ -2,7 +2,7 @@
 
 TARGET = indexer
 TEMPLATE = lib
-CONFIG += staticlib
+CONFIG += staticlib warn_on
 INCLUDEPATH += ../3party/protobuf/src
 
 ROOT_DIR = ..

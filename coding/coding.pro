@@ -1,7 +1,7 @@
 # Coding project.
 TARGET = coding
 TEMPLATE = lib
-CONFIG += staticlib
+CONFIG += staticlib warn_on
 
 ROOT_DIR = ..
 DEPENDENCIES = base bzip2 zlib tomcrypt

@@ -2,7 +2,7 @@
 
 TARGET = gui
 TEMPLATE = lib
-CONFIG += staticlib
+CONFIG += staticlib warn_on
 
 ROOT_DIR = ..
 DEPENDENCIES = graphics geometry coding base expat zlib

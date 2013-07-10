@@ -1,7 +1,7 @@
 # Map library tests.
 
 TARGET = benchmark_tool
-CONFIG += console
+CONFIG += console warn_on
 CONFIG -= app_bundle
 TEMPLATE = app
 

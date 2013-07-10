@@ -2,7 +2,7 @@
 
 TARGET = storage
 TEMPLATE = lib
-CONFIG += staticlib
+CONFIG += staticlib warn_on
 
 ROOT_DIR = ..
 

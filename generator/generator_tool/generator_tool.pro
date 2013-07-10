@@ -8,7 +8,7 @@ include($$ROOT_DIR/common.pri)
 
 INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src
 
-CONFIG += console
+CONFIG += console warn_on
 CONFIG -= app_bundle
 TEMPLATE = app
 

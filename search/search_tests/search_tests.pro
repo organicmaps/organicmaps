@@ -1,7 +1,7 @@
 # Map library tests.
 
 TARGET = search_tests
-CONFIG += console
+CONFIG += console warn_on
 CONFIG -= app_bundle
 TEMPLATE = app
 

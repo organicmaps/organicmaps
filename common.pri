@@ -51,9 +51,6 @@ QMAKE_LIBDIR *= $$BINARIES_PATH
 # By default, do not include base QT classes in any project.
 QT -= core gui
 
-# Turn on compiler warnings.
-CONFIG += warn_on
-
 # Libraries' dependencies hack.
 win32-msvc*|symbian {
   LIB_EXT = .lib

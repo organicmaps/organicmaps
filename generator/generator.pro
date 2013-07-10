@@ -2,7 +2,7 @@
 
 TARGET = generator
 TEMPLATE = lib
-CONFIG += staticlib
+CONFIG += staticlib warn_on
 
 ROOT_DIR = ..
 DEPENDENCIES = storage indexer geometry coding base expat

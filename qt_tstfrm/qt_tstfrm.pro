@@ -1,6 +1,6 @@
 TARGET = qt_tstfrm
 TEMPLATE = lib
-CONFIG += staticlib
+CONFIG += staticlib warn_on
 
 ROOT_DIR = ..
 DEPENDENCIES = map graphics geometry coding base

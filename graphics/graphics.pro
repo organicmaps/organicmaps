@@ -2,7 +2,7 @@
 
 TARGET = graphics
 TEMPLATE = lib
-CONFIG += staticlib
+CONFIG += staticlib warn_on
 DEFINES += GRAPHICS_LIBRARY
 
 ROOT_DIR = ..

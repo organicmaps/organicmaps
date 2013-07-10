@@ -2,7 +2,7 @@
 
 TARGET = geometry
 TEMPLATE = lib
-CONFIG += staticlib
+CONFIG += staticlib warn_on
 
 ROOT_DIR = ..
 DEPENDENCIES = base
