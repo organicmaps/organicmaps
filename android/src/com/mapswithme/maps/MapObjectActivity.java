@@ -30,8 +30,8 @@ public class MapObjectActivity extends FragmentActivity
   public static String EXTRA_OBJECT_TYPE = "object_type";
 
   //for Bookmark
-  private static String EXTRA_BMK_CAT = "bookmark_category";
-  private static String EXTRA_BMK_INDEX = "bookmark_index";
+  public static final String EXTRA_BMK_CAT = "bookmark_category";
+  public static final  String EXTRA_BMK_INDEX = "bookmark_index";
   //for POI and API point
   public static final String EXTRA_NAME = "name";
   public static final String EXTRA_TYPE = "type";
