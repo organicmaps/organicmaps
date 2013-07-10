@@ -4,7 +4,7 @@
 
 # our own version variables
 VERSION_MAJOR = 2
-VERSION_MINOR = 3
+VERSION_MINOR = 4
 
 # qt's variable
 VERSION = $${VERSION_MAJOR}.$${VERSION_MINOR}
@@ -99,7 +99,7 @@ win32-msvc* {
   }
 }
 
-win32-msvc2010 {
+win32-msvc201* {
   # disable tr1 and c++0x features to avoid build errors
   DEFINES += _HAS_CPP0X=0
   DEFINES += BOOST_NO_CXX11_HDR_ARRAY BOOST_NO_CXX11_HDR_TYPEINDEX BOOST_NO_CXX11_SMART_PTR
@@ -116,7 +116,7 @@ unix|win32-g++ {
   *-clang {
     QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-conversion
   }
-  # experimental
+
   QMAKE_CFLAGS_RELEASE -= -O2
   QMAKE_CFLAGS_RELEASE += -O3
   QMAKE_CXXFLAGS_RELEASE -= -O2
