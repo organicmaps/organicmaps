@@ -22,6 +22,7 @@ class ScheduledTask
   public:
     Routine(fn_t const & fn, unsigned ms, threads::Condition * cond);
     virtual void Do();
+    virtual void Cancel();
   };
 
   scoped_ptr<Routine> m_routine;
@@ -32,7 +33,10 @@ public:
   /// Constructor by function and time in miliseconds.
   ScheduledTask(fn_t const & fn, unsigned ms);
 
-  /// Task could be cancelled before time elapses. This function is NON-blocking.
-  /// @return false If the task is already running.
-  bool Cancel();
+  /// @name Task could be cancelled before time elapses.
+  //@{
+  /// @return false If the task is already running or in some intermediate state.
+  bool CancelNoBlocking();
+  void CancelBlocking();
+  //@}
 };

@@ -336,20 +336,20 @@ namespace qt
   void DrawWidget::StartPressTask(m2::PointD const & pt, unsigned ms)
   {
     if (KillPressTask())
-      m_scheduledTasks.reset(new ScheduledTask(bind(&DrawWidget::OnPressTaskEvent, this, pt, ms), ms));
+      m_scheduledTask.reset(new ScheduledTask(bind(&DrawWidget::OnPressTaskEvent, this, pt, ms), ms));
   }
 
   bool DrawWidget::KillPressTask()
   {
-    if (m_scheduledTasks)
+    if (m_scheduledTask)
     {
-      if (!m_scheduledTasks->Cancel())
+      if (!m_scheduledTask->CancelNoBlocking())
       {
         // The task is already running - skip new task.
         return false;
       }
 
-      m_scheduledTasks.reset();
+      m_scheduledTask.reset();
     }
     return true;
   }

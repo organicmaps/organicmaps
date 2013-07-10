@@ -1,7 +1,9 @@
-#include "../scheduled_task.hpp"
-#include "../thread.hpp"
 #include "../../testing/testing.hpp"
+
+#include "../scheduled_task.hpp"
+
 #include "../../std/bind.hpp"
+
 
 namespace
 {
@@ -17,12 +19,16 @@ namespace
 }
 
 
+/// @todo Next tests are based on assumptions that some delays are suitable for
+/// performing needed checks, before a task will fire.
+
 UNIT_TEST(ScheduledTask_Smoke)
 {
   int val = 0;
 
   ScheduledTask t(bind(&add_int, ref(val), 10), 1000);
 
+  // Assume that t thread isn't fired yet.
   TEST_EQUAL(val, 0, ());
 
   threads::Sleep(1100);
@@ -34,9 +40,11 @@ UNIT_TEST(ScheduledTask_CancelInfinite)
 {
   int val = 2;
 
-  ScheduledTask t0(bind(&add_int, ref(val), 10), -1);
+  ScheduledTask t0(bind(&add_int, ref(val), 10), static_cast<unsigned>(-1));
 
-  t0.Cancel();
+  t0.CancelBlocking();
+
+  TEST_EQUAL(val, 2, ());
 }
 
 UNIT_TEST(ScheduledTask_Cancel)
@@ -48,7 +56,8 @@ UNIT_TEST(ScheduledTask_Cancel)
 
   TEST_EQUAL(val, 2, ());
 
-  t0.Cancel();
+  // Assume that t0 thread isn't fired yet.
+  t0.CancelBlocking();
 
   threads::Sleep(1100);
 
@@ -62,8 +71,9 @@ UNIT_TEST(ScheduledTask_NoWaitInCancel)
   ScheduledTask t0(bind(&add_int, ref(val), 10), 1000);
   ScheduledTask t1(bind(&mul_int, ref(val), 3), 500);
 
-  t0.Cancel();
+  t0.CancelBlocking();
 
+  // Assume that t1 thread isn't fired yet.
   val += 3;
 
   threads::Sleep(600);

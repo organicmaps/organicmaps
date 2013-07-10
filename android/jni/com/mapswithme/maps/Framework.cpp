@@ -247,7 +247,7 @@ namespace android
   {
     if (m_scheduledTask)
     {
-      if (!m_scheduledTask->Cancel())
+      if (!m_scheduledTask->CancelNoBlocking())
       {
         // The task is already running - skip new task.
         return false;

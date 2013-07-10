@@ -31,24 +31,32 @@ void ScheduledTask::Routine::Do()
   m_pCond->Unlock();
 }
 
+void ScheduledTask::Routine::Cancel()
+{
+  threads::IRoutine::Cancel();
+
+  m_pCond->Signal();
+  m_pCond->Unlock();
+}
+
 ScheduledTask::ScheduledTask(fn_t const & fn, unsigned ms)
   : m_routine(new Routine(fn, ms, &m_cond))
 {
   m_thread.Create(m_routine.get());
 }
 
-bool ScheduledTask::Cancel()
+bool ScheduledTask::CancelNoBlocking()
 {
   if (m_cond.TryLock())
   {
-    m_routine->Cancel();
-
-    m_cond.Signal();
-    m_cond.Unlock();
-
-    m_thread.Join();
+    m_thread.Cancel();
     return true;
   }
-
   return false;
+}
+
+void ScheduledTask::CancelBlocking()
+{
+  m_cond.Lock();
+  m_thread.Cancel();
 }

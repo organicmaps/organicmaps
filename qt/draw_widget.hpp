@@ -142,7 +142,7 @@ namespace qt
 
     QScaleSlider * m_pScale;
 
-    scoped_ptr<ScheduledTask> m_scheduledTasks;
+    scoped_ptr<ScheduledTask> m_scheduledTask;
     m2::PointD m_taskPoint;
     bool m_wasLongClick, m_isCleanSingleClick;
 
