@@ -529,7 +529,6 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
 {
-  [[MapsAppDelegate theApp].m_locationManager setOrientation:self.interfaceOrientation];
   [self showPopover];
   [self Invalidate];
 }

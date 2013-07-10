@@ -57,6 +57,7 @@ void InitLocalizedStrings()
 
 - (void) applicationWillEnterForeground: (UIApplication *) application
 {
+  [m_locationManager orientationChanged];
   [m_mapViewController OnEnterForeground];
 }
 

@@ -312,11 +312,6 @@ static void OnSearchResultCallback(search::Results const & res)
   numberOfRowsInEmptySearch = 0;
 }
 
-- (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
-{
-  [m_locationManager setOrientation:self.interfaceOrientation];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
   return YES;  // All orientations are supported.

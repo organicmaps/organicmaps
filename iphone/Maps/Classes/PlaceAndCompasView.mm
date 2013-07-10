@@ -256,11 +256,6 @@
   return  [text sizeWithFont:font constrainedToSize:CGSizeMake([self getCurrentSuperViewWidth] - 2 * MARGIN, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height + 2 * SMALLMARGIN;
 }
 
-- (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
-{
-  [m_locationManager setOrientation:(CLDeviceOrientation)fromInterfaceOrientation];
-}
-
 -(CGFloat) countHeight
 {
   if ([self.secondaryInfo length])

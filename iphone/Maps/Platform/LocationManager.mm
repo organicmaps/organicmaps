@@ -24,6 +24,7 @@
 
     m_lastLocationTime = nil;
     m_isCourse = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification  object:nil];
   }
   return self;
 }
@@ -33,6 +34,7 @@
   [m_observers release];
   [m_locationManager release];
   [m_lastLocationTime release];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 
   [super dealloc];
 }
@@ -202,11 +204,6 @@
   return YES;
 }
 
-- (void)setOrientation:(UIInterfaceOrientation)orientation
-{
-  m_locationManager.headingOrientation = (CLDeviceOrientation)orientation;
-}
-
 - (bool)getLat:(double &)lat Lon:(double &)lon
 {
   CLLocation * l = [self lastLocation];
@@ -249,6 +246,11 @@
 - (bool)lastLocationIsValid
 {
     return (([self lastLocation] != nil) && ([m_lastLocationTime timeIntervalSinceNow] > -300.0));
+}
+
+-(void)orientationChanged
+{
+  m_locationManager.headingOrientation = (CLDeviceOrientation)[UIDevice currentDevice].orientation;
 }
 
 @end

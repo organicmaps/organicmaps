@@ -402,11 +402,6 @@
   [super viewWillDisappear:animated];
 }
 
-- (void)didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
-{
-  [m_locationManager setOrientation:self.interfaceOrientation];
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
   if (textField.text.length == 0)
