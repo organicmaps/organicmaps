@@ -71,7 +71,7 @@ namespace graphics
 
     unsigned BaseTexture::current()
     {
-      int id;
+      int id = 0;
       OGLCHECK(glGetIntegerv(GL_TEXTURE_BINDING_2D, &id));
       return id;
     }

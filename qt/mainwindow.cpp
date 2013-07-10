@@ -300,6 +300,10 @@ void MainWindow::OnLocationError(location::TLocationError errorCode)
   case location::EDenied:
     m_pMyPositionAction->setChecked(false);
     break;
+
+  default:
+    ASSERT(false, ("Not handled location notification:", errorCode));
+    break;
   }
   m_pDrawWidget->GetFramework().OnLocationError(errorCode);
 }

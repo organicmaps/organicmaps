@@ -1,6 +1,7 @@
 #include "location_service.hpp"
 
 #include "../base/logging.hpp"
+#include "../base/macros.hpp"
 
 #include "../std/target_os.hpp"
 
@@ -94,6 +95,8 @@ public:
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
+  UNUSED_VALUE(manager);
+  UNUSED_VALUE(oldLocation);
   GpsInfo newInfo;
   [LocationManagerWrapper location:newLocation toGpsInfo:newInfo];
   m_service->OnLocationUpdate(newInfo);
@@ -102,6 +105,7 @@ public:
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {
+  UNUSED_VALUE(manager);
   LOG(LWARNING, ("locationManager failed with error", error.code, [error.description UTF8String]));
 
   if (error.code == kCLErrorDenied)

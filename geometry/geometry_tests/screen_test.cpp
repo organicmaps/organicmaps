@@ -70,7 +70,7 @@ UNIT_TEST(ScreenBase_X0Y0)
   screen.OnSize(10, 10, 300, 200);
   screen.SetFromRect(m2::AnyRectD(m2::RectD(0, 0, 300, 200)));
 
-  m2::PointD pxPt = screen.PtoG(m2::PointD(0, 0));
+//  m2::PointD pxPt = screen.PtoG(m2::PointD(0, 0));
 
   TEST(is_equal(m2::PointD(10, 210), screen.GtoP(m2::PointD(0, 0))), ());
 }
@@ -128,7 +128,7 @@ UNIT_TEST(ScreenBase_Rotate)
   s.Rotate(math::pi / 4);
 
   m2::RectD pxRect = s.PixelRect();
-  m2::AnyRectD glbRect = s.GlobalRect();
+//  m2::AnyRectD glbRect = s.GlobalRect();
 
   TEST(pxRect == m2::RectD(0, 0, 100, 200), ());
 }

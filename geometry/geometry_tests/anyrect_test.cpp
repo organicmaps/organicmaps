@@ -1,5 +1,3 @@
-#include "../../base/SRC_FIRST.hpp"
-
 #include "../../testing/testing.hpp"
 
 #include "../any_rect2d.hpp"
@@ -35,8 +33,11 @@ UNIT_TEST(AnyRect_TestConvertFrom)
 UNIT_TEST(AnyRect_ZeroRect)
 {
   m2::AnyRectD r0(m2::RectD(0, 0, 0, 0));
-  m2::AnyRectD r1(m2::Offset(r0, m2::PointD(300.0, 300.0)));
+  m2::PointD const centerPt(300.0, 300.0);
+  m2::AnyRectD r1(m2::Offset(r0, centerPt));
+  TEST_EQUAL(r1.GlobalCenter(), centerPt, ());
   m2::AnyRectD r2(m2::Inflate(r0, 2.0, 2.0));
+  TEST_EQUAL(r2.GetLocalRect(), m2::RectD(-2, -2, 2, 2), ());
 }
 
 UNIT_TEST(AnyRect_TestIntersection)

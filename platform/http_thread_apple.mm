@@ -4,6 +4,7 @@
 #include "platform.hpp"
 
 #include "../base/logging.hpp"
+#include "../base/macros.hpp"
 
 #ifdef OMIM_OS_IPHONE
   #include "../iphone/Maps/Classes/MapsAppDelegate.h"
@@ -112,6 +113,7 @@
 
 - (void) connection: (NSURLConnection *)connection didReceiveResponse: (NSURLResponse *)response
 {
+  UNUSED_VALUE(connection);
 	// This method is called when the server has determined that it
 	// has enough information to create the NSURLResponse.
 
@@ -157,6 +159,7 @@
 
 - (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
+  UNUSED_VALUE(connection);
   int64_t const length = [data length];
   m_downloadedBytes += length;
   m_callback->OnWrite(m_begRange + m_downloadedBytes - length, [data bytes], length);
@@ -164,12 +167,14 @@
 
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
+  UNUSED_VALUE(connection);
   LOG(LWARNING, ("Connection failed", [[error localizedDescription] cStringUsingEncoding:NSUTF8StringEncoding]));
   m_callback->OnFinish([error code], m_begRange, m_endRange);
 }
 
 - (void) connectionDidFinishLoading:(NSURLConnection *)connection
 {
+  UNUSED_VALUE(connection);
   m_callback->OnFinish(200, m_begRange, m_endRange);
 }
 

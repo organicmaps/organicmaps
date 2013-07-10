@@ -178,6 +178,10 @@ namespace qt
     case EDownloading:
       m_framework.DeleteCountry(countryIndex);
       break;
+
+    default:
+      ASSERT(false, ("We shouldn't be here"));
+      break;
     }
   }
 
@@ -277,6 +281,10 @@ namespace qt
         statusString = tr("Marked for download");
         rowColor = COLOR_INQUEUE;
         size = st.CountrySizeInBytes(index);
+        break;
+
+      default:
+        ASSERT(false, ("We shouldn't be here"));
         break;
       }
 

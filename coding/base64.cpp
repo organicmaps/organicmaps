@@ -4,9 +4,12 @@
 #include "../3party/tomcrypt/src/headers/tomcrypt_misc.h"
 #include "../base/assert.hpp"
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wreorder"
 #include <boost/archive/iterators/base64_from_binary.hpp>
 #include <boost/archive/iterators/binary_from_base64.hpp>
 #include <boost/archive/iterators/transform_width.hpp>
+#pragma GCC diagnostic pop
 
 using namespace boost::archive::iterators;
 typedef base64_from_binary<transform_width<string::const_iterator, 6, 8> > base64_t;

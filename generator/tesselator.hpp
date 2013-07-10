@@ -111,10 +111,11 @@ namespace tesselator
 
     list<ListInfo> m_triangles;
 
-    int m_isCCW;  // 0 - uninitialized; -1 - false; 1 - true
+//    int m_isCCW;  // 0 - uninitialized; -1 - false; 1 - true
 
   public:
-    TrianglesInfo() : m_isCCW(0) {}
+    TrianglesInfo()// : m_isCCW(0)
+    {}
 
     /// @name Making functions.
     //@{

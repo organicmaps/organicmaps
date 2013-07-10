@@ -27,7 +27,7 @@ namespace graphics
 
       OGLCHECK(glCompileShaderFn(m_handle));
 
-      GLint compileRes;
+      GLint compileRes = GL_FALSE;
       OGLCHECK(glGetShaderivFn(m_handle, GL_COMPILE_STATUS, &compileRes));
 
       if (compileRes == GL_FALSE)
