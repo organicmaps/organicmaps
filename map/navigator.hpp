@@ -66,10 +66,10 @@ public:
   m2::PointD ShiftPoint(m2::PointD const & pt) const;
 
 private:
-
   m2::RectD m_worldRect;
   unsigned m_pxMinWidth;
   double m_metresMinWidth;
+
   bool CheckMinScale(ScreenBase const & screen) const;
   bool CheckMaxScale(ScreenBase const & screen) const;
   bool CheckBorders(ScreenBase const & screen) const;

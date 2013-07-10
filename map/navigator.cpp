@@ -28,6 +28,8 @@ namespace
 
 Navigator::Navigator()
   : m_worldRect(MercatorBounds::FullRect()),
+    // set default values for this magic numbers like in Framework
+    m_pxMinWidth(60), m_metresMinWidth(10.0),
     m_InAction(false),
     m_DoSupportRotation(false)
 {
@@ -35,6 +37,8 @@ Navigator::Navigator()
 
 Navigator::Navigator(ScreenBase const & screen)
   : m_worldRect(MercatorBounds::FullRect()),
+    // set default values for this magic numbers like in Framework
+    m_pxMinWidth(60), m_metresMinWidth(10.0),
     m_StartScreen(screen),
     m_Screen(screen),
     m_InAction(false),
@@ -74,8 +78,7 @@ void Navigator::SetFromRect(m2::AnyRectD const & r)
 
 void Navigator::CenterViewport(m2::PointD const & p)
 {
-  /// Rounding center point to a pixel
-  /// boundary to obtain crisp centered picture.
+  // Rounding center point to a pixel boundary to obtain crisp centered picture.
   m2::PointD pt = m_Screen.GtoP(p);
   pt.x = ceil(pt.x);
   pt.y = ceil(pt.y);
@@ -168,14 +171,14 @@ ScreenBase const Navigator::ShrinkInto(ScreenBase const & screen, m2::RectD boun
 
 bool Navigator::CanRotateInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
-//  m2::RectD clipRect = screen.ClipRect();
-  //@TODO
+  /// @todo
   return false;
 }
 
 ScreenBase const Navigator::RotateInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
-  return screen; //@TODO
+  /// @todo
+  return screen;
 }
 
 ScreenBase const Navigator::ScaleInto(ScreenBase const & screen, m2::RectD boundRect)
@@ -337,7 +340,6 @@ m2::PointD Navigator::ShiftPoint(m2::PointD const & pt) const
 
 void Navigator::StartDrag(m2::PointD const & pt, double /*timeInSec*/)
 {
-  //LOG(LDEBUG, (pt.x, pt.y));
   m_StartPt1 = m_LastPt1 = pt;
   m_StartScreen = m_Screen;
   m_InAction = true;
@@ -347,8 +349,6 @@ void Navigator::DoDrag(m2::PointD const & pt, double /*timeInSec*/)
 {
   if (m_LastPt1 == pt)
     return;
-  //LOG(LDEBUG, (pt.x, pt.y));
-  //m_Screen = m_StartScreen;
 
   ScreenBase const s = ShrinkInto(m_StartScreen, m_worldRect);
 
@@ -379,14 +379,8 @@ void Navigator::DoDrag(m2::PointD const & pt, double /*timeInSec*/)
 
 void Navigator::StopDrag(m2::PointD const & pt, double timeInSec, bool /*animate*/)
 {
-  // TODO: animate.
-
-  // Ensure that final pos is reached.
   DoDrag(pt, timeInSec);
-  //ASSERT(m_LastPt1 == pt, (m_LastPt1.x, m_LastPt1.y, pt.x, pt.y));
-  //LOG(LDEBUG, (pt.x, pt.y));
   m_InAction = false;
-//  m_StartScreen = m_Screen;
 }
 
 bool Navigator::InAction() const
@@ -396,13 +390,12 @@ bool Navigator::InAction() const
 
 void Navigator::StartScale(m2::PointD const & pt1, m2::PointD const & pt2, double /*timeInSec*/)
 {
-  //LOG(LDEBUG, (pt1.x, pt1.y, pt2.x, pt2.y));
   m_StartScreen = m_Screen;
   m_StartPt1 = m_LastPt1 = pt1;
   m_StartPt2 = m_LastPt2 = pt2;
+
   m_DoCheckRotationThreshold = m_DoSupportRotation;
   m_IsRotatingDuringScale = false;
-
   m_InAction = true;
 }
 
@@ -444,22 +437,23 @@ void Navigator::ScaleToPoint(m2::PointD const & pt, double factor, double /*time
 
 bool Navigator::CheckMaxScale(ScreenBase const & screen) const
 {
-  m2::RectD r = screen.ClipRect();
-  // multiple by 2 to allow scale on zero level
-  double const maxSize = m_worldRect.SizeX();
-  return (r.SizeX() <= maxSize || r.SizeY() <= maxSize);
+  m2::RectD const r = screen.ClipRect();
+  return (r.SizeX() <= m_worldRect.SizeX() || r.SizeY() <= m_worldRect.SizeY());
 }
 
 bool Navigator::CheckMinScale(ScreenBase const & screen) const
 {
-  m2::PointD const pt0 = screen.PtoG(m_Screen.PixelRect().Center() - m2::PointD(m_pxMinWidth / 2, 0));
-  m2::PointD const pt1 = screen.PtoG(m_Screen.PixelRect().Center() + m2::PointD(m_pxMinWidth / 2, 0));
+  ASSERT_NOT_EQUAL(m_pxMinWidth, 0, ());
 
-  double lon0 = MercatorBounds::XToLon(pt0.x);
-  double lat0 = MercatorBounds::YToLat(pt0.y);
+  m2::PointD const px0 = m_Screen.PixelRect().Center();
+  m2::PointD const px1(m_pxMinWidth / 2.0, 0.0);
+  m2::PointD const gp0 = screen.PtoG(px0 - px1);
+  m2::PointD const gp1 = screen.PtoG(px0 + px1);
 
-  double lon1 = MercatorBounds::XToLon(pt1.x);
-  double lat1 = MercatorBounds::YToLat(pt1.y);
+  double const lon0 = MercatorBounds::XToLon(gp0.x);
+  double const lat0 = MercatorBounds::YToLat(gp0.y);
+  double const lon1 = MercatorBounds::XToLon(gp1.x);
+  double const lat1 = MercatorBounds::YToLat(gp1.y);
 
   return ms::DistanceOnEarth(lat0, lon0, lat1, lon1) >= (m_metresMinWidth - 1);
 }
@@ -497,28 +491,25 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
   if (!CheckMinScale(tmp))
     return false;
 
-  /// re-checking the borders, as we might violate them a bit (don't know why).
+  // re-checking the borders, as we might violate them a bit (don't know why).
   if (!CheckBorders(tmp))
     tmp = ScaleInto(tmp, m_worldRect);
 
   m_Screen = tmp;
-
   return true;
 }
 
 void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double /*timeInSec*/)
 {
-  //LOG(LDEBUG, (pt1.x, pt1.y, pt2.x, pt2.y));
   if (m_LastPt1 == pt1 && m_LastPt2 == pt2)
     return;
   if (pt1 == pt2)
     return;
 
   ScreenBase PrevScreen = m_Screen;
-
   m_Screen = m_StartScreen;
 
-  /// Checking for rotation threshold.
+  // Checking for rotation threshold.
   if (m_DoCheckRotationThreshold)
   {
     double s = pt1.Length(pt2) / m_StartPt1.Length(m_StartPt2);
@@ -551,7 +542,9 @@ void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double /
                  m_LastPt1, m_LastPt2,
                  pt1.Length(pt2) > m_LastPt1.Length(m_LastPt2),
                  m_IsRotatingDuringScale))
+  {
     m_Screen = PrevScreen;
+  }
 
   m_LastPt1 = pt1;
   m_LastPt2 = pt2;
@@ -560,11 +553,11 @@ void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double /
 void Navigator::StopScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec)
 {
   DoScale(pt1, pt2, timeInSec);
-  ASSERT(m_LastPt1 == pt1, (m_LastPt1.x, m_LastPt1.y, pt1.x, pt1.y));
-  ASSERT(m_LastPt2 == pt2, (m_LastPt2.x, m_LastPt2.y, pt2.x, pt2.y));
-  //LOG(LDEBUG, (pt1.x, pt1.y, pt2.x, pt2.y));
+
+  ASSERT_EQUAL(m_LastPt1, pt1, ());
+  ASSERT_EQUAL(m_LastPt2, pt2, ());
+
   m_InAction = false;
-//  m_StartScreen = m_Screen;
 }
 
 bool Navigator::IsRotatingDuringScale() const
