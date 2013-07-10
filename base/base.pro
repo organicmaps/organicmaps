@@ -10,7 +10,6 @@ include($$ROOT_DIR/common.pri)
 
 SOURCES += \
     base.cpp \
-    internal/debug_new.cpp \
     logging.cpp \
     thread.cpp \
     string_utils.cpp \
@@ -47,10 +46,7 @@ HEADERS += \
     exception.hpp \
     internal/message.hpp \
     internal/fast_mutex.hpp \
-    internal/debug_new.hpp \
     logging.hpp \
-    start_mem_debug.hpp \
-    stop_mem_debug.hpp \
     swap.hpp \
     thread.hpp \
     mutex.hpp \
