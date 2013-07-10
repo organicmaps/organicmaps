@@ -2,11 +2,15 @@
 
 #include "../measurement_utils.hpp"
 
+#include "../../platform/settings.hpp"
+
 
 using namespace MeasurementUtils;
 
 UNIT_TEST(Measurement_Smoke)
 {
+  Settings::Set("Units", Settings::Metric);
+
   typedef pair<double, char const *> PairT;
 
   PairT arr[] = {
