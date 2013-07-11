@@ -57,6 +57,9 @@ protected:
 
   size_t m_tileSize;
 
+  typedef pair<size_t, size_t> TileSizeT;
+  TileSizeT GetTileSizes() const;
+
   RenderPolicy::TRenderFn m_renderFn;
   graphics::Color m_bgColor;
   int m_sequenceID;

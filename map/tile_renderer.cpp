@@ -42,6 +42,13 @@ namespace
   };
 }
 
+TileRenderer::TileSizeT TileRenderer::GetTileSizes() const
+{
+  graphics::ResourceManager::TexturePoolParams const & params =
+      m_resourceManager->params().m_textureParams[graphics::ERenderTargetTexture];
+  return make_pair(params.m_texWidth, params.m_texHeight);
+}
+
 TileRenderer::TileRenderer(
     size_t tileSize,
     unsigned executorsCount,
@@ -64,8 +71,7 @@ TileRenderer::TileRenderer(
 
   LOG(LINFO, ("initializing ", m_queue.ExecutorsCount(), " rendering threads"));
 
-  int tileWidth = m_resourceManager->params().m_textureParams[graphics::ERenderTargetTexture].m_texWidth;
-  int tileHeight = m_resourceManager->params().m_textureParams[graphics::ERenderTargetTexture].m_texHeight;
+  TileSizeT const tileSz = GetTileSizes();
 
   for (unsigned i = 0; i < m_threadData.size(); ++i)
   {
@@ -94,7 +100,7 @@ TileRenderer::TileRenderer(
     m_threadData[i].m_threadSlot = params.m_threadSlot;
 
     m_threadData[i].m_dummyRT = m_resourceManager->createRenderTarget(2, 2);
-    m_threadData[i].m_depthBuffer = make_shared_ptr(new graphics::gl::RenderBuffer(tileWidth, tileHeight, true));
+    m_threadData[i].m_depthBuffer = make_shared_ptr(new graphics::gl::RenderBuffer(tileSz.first, tileSz.second, true));
   }
 
   m_queue.AddInitCommand(bind(&TileRenderer::InitializeThreadGL, this, _1));
@@ -125,8 +131,7 @@ void TileRenderer::InitializeThreadGL(core::CommandsQueue::Environment const & e
 
   ThreadData & threadData = m_threadData[env.threadNum()];
 
-  int tileWidth = m_resourceManager->params().m_textureParams[graphics::ERenderTargetTexture].m_texWidth;
-  int tileHeight = m_resourceManager->params().m_textureParams[graphics::ERenderTargetTexture].m_texHeight;
+  TileSizeT const tileSz = GetTileSizes();
 
   if (threadData.m_renderContext)
   {
@@ -134,7 +139,7 @@ void TileRenderer::InitializeThreadGL(core::CommandsQueue::Environment const & e
     threadData.m_renderContext->startThreadDrawing(threadData.m_threadSlot);
   }
   threadData.m_drawer = new Drawer(threadData.m_drawerParams);
-  threadData.m_drawer->onSize(tileWidth, tileHeight);
+  threadData.m_drawer->onSize(tileSz.first, tileSz.second);
   threadData.m_drawer->screen()->setDepthBuffer(threadData.m_depthBuffer);
 }
 
@@ -160,12 +165,14 @@ void TileRenderer::ReadPixels(graphics::PacketsQueue * glQueue, core::CommandsQu
 
   if (!env.isCancelled())
   {
-    unsigned tileWidth = m_resourceManager->params().m_textureParams[graphics::ERenderTargetTexture].m_texWidth;
-    unsigned tileHeight = m_resourceManager->params().m_textureParams[graphics::ERenderTargetTexture].m_texHeight;
+    TileSizeT const tileSz = GetTileSizes();
 
-    shared_ptr<vector<unsigned char> > buf = SharedBufferManager::instance().reserveSharedBuffer(tileWidth * tileHeight * 4);
-    drawer->screen()->readPixels(m2::RectU(0, 0, tileWidth, tileHeight), &(buf->at(0)), true);
-    SharedBufferManager::instance().freeSharedBuffer(tileWidth * tileHeight * 4, buf);
+    shared_ptr<vector<unsigned char> > buf =
+        SharedBufferManager::instance().reserveSharedBuffer(tileSz.first * tileSz.second * 4);
+
+    drawer->screen()->readPixels(m2::RectU(0, 0, tileSz.first, tileSz.second), &(buf->at(0)), true);
+
+    SharedBufferManager::instance().freeSharedBuffer(tileSz.first * tileSz.second * 4, buf);
   }
 }
 
@@ -191,10 +198,9 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   ScreenBase frameScreen;
 
-  unsigned tileWidth = m_resourceManager->params().m_textureParams[graphics::ERenderTargetTexture].m_texWidth;
-  unsigned tileHeight = m_resourceManager->params().m_textureParams[graphics::ERenderTargetTexture].m_texHeight;
+  TileSizeT const tileSz = GetTileSizes();
 
-  m2::RectI renderRect(1, 1, tileWidth - 1, tileHeight - 1);
+  m2::RectI renderRect(1, 1, tileSz.first - 1, tileSz.second - 1);
 
   frameScreen.OnSize(renderRect);
 
@@ -233,7 +239,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   frameScreen.PtoG(m2::RectD(renderRect), selectRect);
 
   // adjusting tileScale to look the same across devices with different tileWidth and visualScale values
-  int styleTileScale = max((rectInfo.m_tileScale + log(tileWidth / 256.0 / drawer->VisualScale()) / log(2.0)), 1.0);
+  int styleTileScale = max((rectInfo.m_tileScale + log(tileSz.first / 256.0 / drawer->VisualScale()) / log(2.0)), 1.0);
   m_renderFn(
         paintEvent,
         frameScreen,

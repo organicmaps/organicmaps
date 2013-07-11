@@ -69,16 +69,9 @@ void ScreenBase::SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & px
   UpdateDependentParameters();
 }
 
-void ScreenBase::SetFromRect(m2::AnyRectD const & GlobalRect)
+void ScreenBase::SetFromRect(m2::AnyRectD const & glbRect)
 {
-  double hScale = GlobalRect.GetLocalRect().SizeX() / m_PixelRect.SizeX();
-  double vScale = GlobalRect.GetLocalRect().SizeY() / m_PixelRect.SizeY();
-
-  m_Scale = max(hScale, vScale);
-  m_Angle = GlobalRect.Angle();
-  m_Org = GlobalRect.GlobalCenter();
-
-  UpdateDependentParameters();
+  SetFromRects(glbRect, m_PixelRect);
 }
 
 void ScreenBase::SetOrg(m2::PointD const & p)
@@ -249,21 +242,13 @@ bool IsPanningAndRotate(ScreenBase const & s1, ScreenBase const & s2)
   return p1.EqualDxDy(p2, 0.00001);
 }
 
-void ScreenBase::ExtractGtoPParams(math::Matrix<double, 3, 3> const & m, double &a, double &s, double &dx, double &dy)
+void ScreenBase::ExtractGtoPParams(math::Matrix<double, 3, 3> const & m,
+                                   double & a, double & s, double & dx, double & dy)
 {
   s = sqrt(m(0, 0) * m(0, 0) + m(0, 1) * m(0, 1));
-  double cosA = m(0, 0) / s;
-  double sinA = -m(0, 1) / s;
 
-  if (cosA != 0)
-    a = atan2(sinA, cosA);
-  else
-    if (sinA > 0)
-      a = math::pi / 2;
-    else
-      a = 3 * math::pi / 2;
+  a = ang::AngleIn2PI(atan2(-m(0, 1), m(0, 0)));
 
   dx = m(2, 0);
   dy = m(2, 1);
 }
-
