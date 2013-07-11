@@ -94,9 +94,7 @@ protected:
 
   double m_StartForegroundTime;
 
-  bool m_queryMaxScaleMode, m_drawPlacemark;
-
-  m2::PointD m_placemark;
+  bool m_queryMaxScaleMode;
 
   double const m_metresMinWidth;
   double const m_metresMaxWidth;
@@ -375,9 +373,6 @@ public:
   void ShowRectEx(m2::RectD const & rect);
   /// - Check minimal visible scale according to downloaded countries.
   void ShowRectExVisibleScale(m2::RectD rect);
-
-  void DrawPlacemark(m2::PointD const & pt);
-  void DisablePlacemark();
 
   void MemoryWarning();
   void EnterBackground();

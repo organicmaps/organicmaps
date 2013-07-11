@@ -614,7 +614,6 @@ namespace qt
 
   void DrawWidget::CloseSearch()
   {
-    m_framework->DisablePlacemark();
     setFocus();
   }
 

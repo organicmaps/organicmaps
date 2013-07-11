@@ -173,7 +173,6 @@ static void GetResourcesMaps(vector<string> & outMaps)
 Framework::Framework()
   : m_animator(this),
     m_queryMaxScaleMode(false),
-    m_drawPlacemark(false),
 
     /// @todo It's not a class state, so no need to store it in memory.
     /// Move this constants to Ruler (and don't store them at all).
@@ -835,9 +834,6 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   m_informationDisplay.doDraw(pDrawer);
 
-  if (m_drawPlacemark)
-    m_informationDisplay.drawPlacemark(pDrawer, DEFAULT_BOOKMARK_TYPE, m_navigator.GtoP(m_placemark));
-
   m_bmManager.DrawBookmarks(e);
   DrawMapApiPoints(e);
 
@@ -942,17 +938,6 @@ void Framework::ShowRectFixed(m2::AnyRectD const & r)
   m_navigator.SetFromRects(rect, etalonRect);
 
   Invalidate();
-}
-
-void Framework::DrawPlacemark(m2::PointD const & pt)
-{
-  m_drawPlacemark = true;
-  m_placemark = pt;
-}
-
-void Framework::DisablePlacemark()
-{
-  m_drawPlacemark = false;
 }
 
 void Framework::ClearAllCaches()
@@ -1627,10 +1612,8 @@ string Framework::CodeGe0url(double const lat, double const lon, double const zo
 
 void Framework::DrawMapApiPoints(shared_ptr<PaintEvent> const & e)
 {
-  Navigator & navigator = GetNavigator();
-  InformationDisplay & informationDisplay  = GetInformationDisplay();
   // get viewport limit rect
-  m2::AnyRectD const & glbRect = navigator.Screen().GlobalRect();
+  m2::AnyRectD const & glbRect = m_navigator.Screen().GlobalRect();
   Drawer * pDrawer = e->drawer();
 
   vector<url_scheme::ApiPoint> const & v = GetMapApiPoints();
@@ -1640,9 +1623,10 @@ void Framework::DrawMapApiPoints(shared_ptr<PaintEvent> const & e)
     m2::PointD const & org = m2::PointD(MercatorBounds::LonToX(v[i].m_lon),
                                         MercatorBounds::LatToY(v[i].m_lat));
     if (glbRect.IsPointInside(org))
-      //ToDo Use Custom Pins
-      //super magic hack!!! Only purple! Only hardcore
-      informationDisplay.drawPlacemark(pDrawer, "api_pin", navigator.GtoP(org));
+    {
+      /// @todo Use custom pins from 3-party app
+      m_informationDisplay.drawPlacemark(pDrawer, "api_pin", m_navigator.GtoP(org));
+    }
   }
 }
 
