@@ -3,7 +3,10 @@ gen/
 .settings/
 resbuilder/
 spoon-output/
+assets/
+obj/
 
+*.class
 .classpath
 .cproject
 .project
