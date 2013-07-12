@@ -3,25 +3,26 @@
 from com.android.monkeyrunner import MonkeyRunner, MonkeyDevice
 from random import randint, random
 import mutil as mu
-import sys, os
- 
+import sys
+import os
+
 outputdir = '../tests/monkey/output'
 id = 'default'
 
 if len(sys.argv) > 1:
-    #using specified id
+    # using specified id
     id = sys.argv[1]
-    snapshotname = 'snapshot_%d_' + id +'.png'
+    snapshotname = 'snapshot_%d_' + id + '.png'
     print 'Connecting to device %s' % id
     device = MonkeyRunner.waitForConnection(5, id)
-else :
+else:
     snapshotname = 'snapshot_%d.png'
     print 'Connecting ...'
     device = MonkeyRunner.waitForConnection(timeout=5)
 
 if not device:
     sys.exit("Could not connect to  device")
-else :
+else:
     print 'Connected'
 
 apkPath = '../MapsWithMePro/bin/MapsWithMePro-debug.apk'
@@ -37,9 +38,3 @@ print 'Starting activity %s' % activity
 device.startActivity(component=runComponent)
 
 mu.test(device, snapshotname)
-
-#
-###
-####
-######
- 
