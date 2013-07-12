@@ -74,8 +74,9 @@ protected:
           string const & role = p->childs[i].attrs["role"];
           if (type == "node")
             e.nodes.push_back(make_pair(ref, role));
-          else
+          else if (type == "way")
             e.ways.push_back(make_pair(ref, role));
+          // we just ignore type == "relation"
         }
         else if (p->childs[i].name == "tag")
         {
