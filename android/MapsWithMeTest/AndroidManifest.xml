@@ -4,8 +4,8 @@
     android:installLocation="preferExternal"
     android:sharedUserId="com.mapswithme"
     android:sharedUserLabel="@string/shared_user_label"
-    android:versionCode="244"
-    android:versionName="2.4.4" >
+    android:versionCode="243"
+    android:versionName="2.4.3" >
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -37,6 +37,10 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+	  <!-- Used by instrumentation tests only. Do not include in production apps unless necessary! -->
+	  <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+	  <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <supports-screens
         android:largeScreens="true"

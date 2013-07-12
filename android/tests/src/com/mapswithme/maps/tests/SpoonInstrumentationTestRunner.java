@@ -32,17 +32,17 @@ public class SpoonInstrumentationTestRunner extends InstrumentationTestRunner
         try
         {
           // Unlock the device so that the tests can input keystrokes.
-          ((KeyguardManager) app.getSystemService(KEYGUARD_SERVICE)) //
-              .newKeyguardLock(simpleName) //
+          ((KeyguardManager) app.getSystemService(KEYGUARD_SERVICE))
+              .newKeyguardLock(simpleName)
               .disableKeyguard();
           // Wake up the screen.
           ((PowerManager) app.getSystemService(POWER_SERVICE)) //
-              .newWakeLock(FULL_WAKE_LOCK | ACQUIRE_CAUSES_WAKEUP | ON_AFTER_RELEASE, simpleName) //
+              .newWakeLock(FULL_WAKE_LOCK | ACQUIRE_CAUSES_WAKEUP | ON_AFTER_RELEASE, simpleName)
               .acquire();
         }
         catch (SecurityException e)
         {
-          // because of kinlde we could just have this exception thrown
+          // because of Kinlde we could just have this exception thrown
         }
       }
     });
