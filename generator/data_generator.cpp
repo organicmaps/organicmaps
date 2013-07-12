@@ -41,10 +41,14 @@ public:
 
   void AddRelation(user_id_t id, RelationElement const & e)
   {
-    this->m_relations.Write(id, e);
+    const string relationType = e.GetType();
+    if (relationType == "multipolygon" || relationType == "route" || relationType == "boundary")
+    {
+      this->m_relations.Write(id, e);
 
-    add_id2rel_vector(this->m_nodes2rel, id, e.nodes);
-    add_id2rel_vector(this->m_ways2rel, id, e.ways);
+      add_id2rel_vector(this->m_nodes2rel, id, e.nodes);
+      add_id2rel_vector(this->m_ways2rel, id, e.ways);
+    }
   }
 
   void SaveIndex()
