@@ -18,7 +18,7 @@ CompassFilter::CompassFilter()
   // We can't assign it from location::CompassInfo::accuracy, because actually it's a
   // declination between magnetic and true north in Android
   // (and it may be very large in particular places on the Earth).
-  m_smoothingThreshold = ang::DegreeToRad(10);
+  m_smoothingThreshold = my::DegToRad(10);
 }
 
 void CompassFilter::OnCompassUpdate(location::CompassInfo const & info)

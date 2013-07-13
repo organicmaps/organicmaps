@@ -10,7 +10,7 @@
 namespace ang
 {
   template <typename T>
-  struct Angle
+  class Angle
   {
     T m_val;
     T m_sin;
@@ -45,10 +45,10 @@ namespace ang
       pt0 *= m;
 
       m_val = atan2(pt1.y - pt0.y, pt1.x - pt0.x);
-      m_sin = sin(m_val);
-      m_cos = cos(m_val);
+      m_sin = ::sin(m_val);
+      m_cos = ::cos(m_val);
 
-      return this;
+      return *this;
     }
   };
 
@@ -58,13 +58,9 @@ namespace ang
   template <typename T>
   Angle<T> const operator*(Angle<T> const & a, math::Matrix<T, 3, 3> const & m)
   {
-    m2::Point<T> pt0(0, 0);
-    m2::Point<T> pt1(a.cos(), a.sin());
-
-    pt1 *= m;
-    pt0 *= m;
-
-    return Angle<T>(atan2(pt1.y - pt0.y, pt1.x - pt0.x));
+    Angle<T> ret(a);
+    ret *= m;
+    return ret;
   }
 
   /// Returns an angle of vector [p1, p2] from x-axis directed to y-axis.
@@ -75,51 +71,13 @@ namespace ang
     return atan2(p2.y - p1.y, p2.x - p1.x);
   }
 
-  inline double RadToDegree(double rad)
-  {
-    return rad / math::pi * 180.0;
-  }
+  double AngleIn2PI(double ang);
 
-  inline double DegreeToRad(double degree)
-  {
-    return degree / 180.0 * math::pi;
-  }
+  /// @return Oriented angle (<= PI) from rad1 to rad2.
+  /// >0 - clockwise, <0 - counterclockwise
+  double GetShortestDistance(double rad1, double rad2);
 
-  inline double GetShortestDistance(double rad1, double rad2)
-  {
-    double period = 2 * math::pi;
-    rad1 = fmod(rad1, period);
-    rad2 = fmod(rad2, period);
-
-    double res = 0;
-
-    if (fabs(rad1 - rad2) > math::pi)
-    {
-      if (rad1 > rad2)
-        res = 2 * math::pi - (rad1 - rad2);
-      else
-        res = - 2 * math::pi + (rad2 - rad1);
-    }
-    else
-      res = rad2 - rad1;
-
-    return res;
-  }
-
-  inline double GetMiddleAngle(double a1, double a2)
-  {
-    double ang = (a1 + a2) / 2.0;
-
-    if (fabs(a1 - a2) > math::pi)
-    {
-      if (ang > 0.0)
-        ang -= math::pi;
-      else
-        ang += math::pi;
-
-    }
-    return ang;
-  }
+  double GetMiddleAngle(double a1, double a2);
 
   /// Average angle calcker. Can't find any suitable solution, so decided to do like this:
   /// Avg(i) = Avg(Avg(i-1), Ai);

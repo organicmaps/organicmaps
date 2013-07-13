@@ -15,6 +15,7 @@ SOURCES += \
   packer.cpp \
   robust_orientation.cpp \
   region2d/binary_operators.cpp \
+  angles.cpp \
 
 HEADERS += \
   rect2d.hpp \

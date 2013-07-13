@@ -8,7 +8,9 @@
 
 #include "../angles.hpp"
 
+
 using namespace test;
+using math::pi;
 
 UNIT_TEST(Atan)
 {
@@ -25,6 +27,16 @@ UNIT_TEST(Atan)
   TEST(is_equal_atan(-2, 1, math::pi - hh), ());
   TEST(is_equal_atan(-2, -1, hh - math::pi), ());
   TEST(is_equal_atan(2, -1, -hh), ());
+}
+
+UNIT_TEST(Atan2)
+{
+  TEST_ALMOST_EQUAL(atan2(1, 0), pi/2.0, ());
+  TEST_ALMOST_EQUAL(atan2(-1, 0), -pi/2.0, ());
+  TEST_ALMOST_EQUAL(atan2(0, 1), 0.0, ());
+  TEST_ALMOST_EQUAL(atan2(0, -1), pi, ());
+
+  TEST_ALMOST_EQUAL(atan2(1, 1), pi/4.0, ());
 }
 
 namespace
@@ -53,21 +65,11 @@ UNIT_TEST(Average)
   check_avg(arr2, ARRAY_SIZE(arr2), 0.0);
 }
 
-namespace
-{
-  bool is_equal(double val0, double val1, double eps)
-  {
-    return fabs(val0 - val1) < eps;
-  }
-}
-
 UNIT_TEST(ShortestDistance)
 {
-  double const eps = 1.0E-3;
+  TEST_ALMOST_EQUAL(ang::GetShortestDistance(0, math::pi), math::pi, ());
+  TEST_ALMOST_EQUAL(ang::GetShortestDistance(0, math::pi + 1), -math::pi + 1, ());
 
-  TEST(is_equal(ang::GetShortestDistance(0, math::pi), math::pi, eps), ());
-  TEST(is_equal(ang::GetShortestDistance(0, math::pi + 1), -math::pi + 1, eps), ());
-
-  TEST(is_equal(ang::GetShortestDistance(math::pi - 1, 0), -math::pi + 1, eps), ());
-  TEST(is_equal(ang::GetShortestDistance(math::pi + 1, 0), math::pi - 1, eps), ());
+  TEST_ALMOST_EQUAL(ang::GetShortestDistance(math::pi - 1, 0), -math::pi + 1, ());
+  TEST_ALMOST_EQUAL(ang::GetShortestDistance(math::pi + 1, 0), math::pi - 1, ());
 }

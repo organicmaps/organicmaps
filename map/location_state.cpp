@@ -472,7 +472,7 @@ namespace location
     if (isRunning)
       headingDelta = fabs(ang::GetShortestDistance(m_headingInterpolation->EndAngle(), m_compassFilter.GetHeadingRad()));
 
-    if (floor(ang::RadToDegree(headingDelta)) > 0)
+    if (floor(my::RadToDeg(headingDelta)) > 0)
       m_headingInterpolation->SetEndAngle(m_compassFilter.GetHeadingRad());
     else
     {
@@ -480,7 +480,7 @@ namespace location
       {
         headingDelta = fabs(ang::GetShortestDistance(m_drawHeading, m_compassFilter.GetHeadingRad()));
 
-        if (my::rounds(ang::RadToDegree(headingDelta)) > 0)
+        if (my::rounds(my::RadToDeg(headingDelta)) > 0)
         {
           if (m_headingInterpolation
           && !m_headingInterpolation->IsCancelled()

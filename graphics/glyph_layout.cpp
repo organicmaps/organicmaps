@@ -291,7 +291,7 @@ namespace graphics
         entry.m_angle = pivotPt.m_angle;
 
         // is path too bended to be shown at all?
-        if (hasPrevElem && (ang::GetShortestDistance(prevElem.m_angle.m_val, entry.m_angle.m_val) > 0.5))
+        if (hasPrevElem && (ang::GetShortestDistance(prevElem.m_angle.val(), entry.m_angle.val()) > 0.5))
           break;
 
         double const centerOffset = metrics.m_xOffset + metrics.m_width / 2.0;
