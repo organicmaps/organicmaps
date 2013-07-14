@@ -183,6 +183,9 @@ namespace gui
 
   void Controller::DrawFrame(graphics::Screen * screen)
   {
+    if (m_CacheScreen == NULL)
+      return;
+
     screen->beginFrame();
 
     math::Matrix<double, 3, 3> m = math::Identity<double, 3>();

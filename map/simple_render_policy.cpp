@@ -22,6 +22,8 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
   graphics::ResourceManager::TexturePoolParams tpp;
   graphics::ResourceManager::StoragePoolParams spp;
 
+  double k = VisualScale();
+
   spp = graphics::ResourceManager::StoragePoolParams(50000 * sizeof(graphics::gl::Vertex),
                                                      sizeof(graphics::gl::Vertex),
                                                      10000 * sizeof(unsigned short),
@@ -52,9 +54,19 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
 
   rmp.m_storageParams[spp.m_storageType] = spp;
 
+  spp = graphics::ResourceManager::StoragePoolParams(100 * sizeof(graphics::gl::Vertex),
+                                                     sizeof(graphics::gl::Vertex),
+                                                     200 * sizeof(unsigned short),
+                                                     sizeof(unsigned short),
+                                                     1,
+                                                     graphics::ETinyStorage,
+                                                     true);
 
-  tpp = graphics::ResourceManager::TexturePoolParams(512,
-                                                     256,
+  rmp.m_storageParams[spp.m_storageType] = spp;
+
+
+  tpp = graphics::ResourceManager::TexturePoolParams(512 * k,
+                                                     256 * k,
                                                      10,
                                                      rmp.m_texFormat,
                                                      graphics::ELargeTexture,
@@ -62,11 +74,20 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
 
   rmp.m_textureParams[tpp.m_textureType] = tpp;
 
-  tpp = graphics::ResourceManager::TexturePoolParams(512,
-                                                     256,
+  tpp = graphics::ResourceManager::TexturePoolParams(512 * k,
+                                                     256 * k,
                                                      5,
                                                      rmp.m_texFormat,
                                                      graphics::EMediumTexture,
+                                                     false);
+
+  rmp.m_textureParams[tpp.m_textureType] = tpp;
+
+  tpp = graphics::ResourceManager::TexturePoolParams(128 * k,
+                                                     128 * k,
+                                                     4,
+                                                     rmp.m_texFormat,
+                                                     graphics::ESmallTexture,
                                                      false);
 
   rmp.m_textureParams[tpp.m_textureType] = tpp;
@@ -98,8 +119,11 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
   dp.m_threadSlot = m_resourceManager->guiThreadSlot();
   dp.m_visualScale = VisualScale();
   dp.m_isSynchronized = true;
+  dp.m_renderContext = m_primaryRC;
 
   m_drawer.reset(new Drawer(dp));
+
+  InitCacheScreen();
 
   m_windowHandle.reset(new WindowHandle());
 
@@ -121,6 +145,7 @@ void SimpleRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
          glbRect);
 
   shared_ptr<graphics::Overlay> overlay(new graphics::Overlay());
+  overlay->setCouldOverlap(false);
 
   Drawer * pDrawer = e->drawer();
   graphics::Screen * pScreen = pDrawer->screen();

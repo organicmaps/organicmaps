@@ -35,7 +35,8 @@ SUBDIRS = 3party \
           indexer/indexer_tests \
           graphics/graphics_tests \
           gui/gui_tests \
-          qt
+          qt \
+          map_server
 } else {
   # libraries which are used on mobile devices
   SUBDIRS = 3party \
@@ -51,3 +52,7 @@ SUBDIRS = 3party \
             search \
             map \
 }
+
+SUBDIRS += \
+    map_server/map_server_tests \
+    map_server_utils
