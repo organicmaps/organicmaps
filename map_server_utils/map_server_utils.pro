@@ -12,7 +12,7 @@ include($$ROOT_DIR/common.pri)
 
 INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 
-DEPENDENCIES = jansson
+DEPENDENCIES = platform jansson
 
 SOURCES += \
     viewport.cpp \
