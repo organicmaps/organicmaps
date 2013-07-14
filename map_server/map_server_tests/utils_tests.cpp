@@ -4,7 +4,6 @@
 #include "../../graphics/defines.hpp"
 #include "../../platform/platform.hpp"
 #include "../../coding/reader.hpp"
-#include "../../coding/base64.hpp"
 
 #include "../../map_server_utils/request.hpp"
 #include "../../map_server_utils/response.hpp"
@@ -64,7 +63,6 @@ UNIT_TEST(get_response)
   inStream.read(responseData, length);
 
   string responseString(responseData, length);
-  responseString = base64::Decode(responseString);
   size_t responseSize = responseString.size();
 
   TEST_EQUAL(size, (uint64_t)responseSize, (""));

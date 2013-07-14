@@ -4,8 +4,6 @@
 #
 #-------------------------------------------------
 
-QT       += core gui opengl
-
 TARGET = map_server_tests
 CONFIG   += console warn_on
 CONFIG   -= app_bundle

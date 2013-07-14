@@ -4,7 +4,6 @@
 #
 #-------------------------------------------------
 
-QT       += core gui opengl
 TARGET = map_server
 CONFIG   += console warn_on
 CONFIG   -= app_bundle
@@ -15,6 +14,8 @@ DEPENDENCIES = map gui search storage indexer graphics platform anim geometry co
 
 ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
+
+QT       += core gui opengl
 
 INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 

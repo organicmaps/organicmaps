@@ -2,7 +2,6 @@
 #include "../../testing/testing.hpp"
 
 #include "../../coding/reader.hpp"
-#include "../../coding/base64.hpp"
 
 #include "../../platform/platform.hpp"
 
@@ -32,7 +31,7 @@ UNIT_TEST(generate_simle_map)
 
   QByteArray response = mapServer->readAll();
   string responseString(response.constData(), response.size());
-  responseString = base64::Decode(responseString);
+  responseString = responseString;
 
   ModelReader * reader = GetPlatform().GetReader("test.png");
   uint64_t size = reader->Size();
