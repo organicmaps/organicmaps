@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="MapsWithMePro" default="help">
+<project name="MapsWithMeTest" default="help">
 
     <property name="mwm.tools.dir" value="../../tools"/>
     <property name="mwm.data.dir" value="../../../data"/>

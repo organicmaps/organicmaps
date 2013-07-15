@@ -1124,5 +1124,5 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private native boolean nativeIsInChina(double lat, double lon);
 
-  private native boolean setViewPortByUrl(String url);
+  public native boolean setViewPortByUrl(String url);
 }

@@ -38,9 +38,9 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-	  <!-- Used by instrumentation tests only. Do not include in production apps unless necessary! -->
-	  <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
-	  <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <!-- Used by instrumentation tests only. Do not include in production apps unless necessary! -->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <supports-screens
         android:largeScreens="true"
@@ -204,6 +204,12 @@
             android:launchMode="singleTop"
             android:screenOrientation="behind" >
         </activity>
+
+        <receiver android:name="com.mapswithme.test.TestEventsReceiver" >
+            <intent-filter>
+                <action android:name="mwmtest" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
