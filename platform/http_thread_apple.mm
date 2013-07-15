@@ -98,6 +98,24 @@
   return self;
 }
 
+/// We cancel and don't support any redirects to avoid data corruption
+-(NSURLRequest *)connection:(NSURLConnection *)connection
+            willSendRequest:(NSURLRequest *)request
+           redirectResponse:(NSURLResponse *)redirectResponse
+{
+  if (!redirectResponse)
+  {
+    // Special case, system just normalizes request, it's not a real redirect
+    return request;
+  }
+  // In all other cases we are cancelling redirects
+  LOG(LWARNING, ("Canceling because of redirect from", [[[redirectResponse URL] absoluteString] UTF8String],
+      "to", [[[request URL] absoluteString] UTF8String]));
+  [connection cancel];
+  m_callback->OnFinish(-3, m_begRange, m_endRange);
+  return nil;
+}
+
 /// @return -1 if can't decode
 + (int64_t) getContentRange:(NSDictionary *)httpHeader
 {

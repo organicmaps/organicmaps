@@ -142,11 +142,11 @@ UNIT_TEST(DownloaderSimpleGet)
 
   observer.Reset();
   {
-    // permanent redirect success case
+    // We DO NOT SUPPORT redirects to avoid data corruption when downloading mwm files
     scoped_ptr<HttpRequest> request(HttpRequest::Get(TEST_URL_PERMANENT, onFinish, onProgress));
     QCoreApplication::exec();
-    observer.TestOk();
-    TEST_EQUAL(request->Data(), "Test1", ());
+    observer.TestFailed();
+    TEST_EQUAL(request->Data().size(), 0, (request->Data()));
   }
 
   observer.Reset();
