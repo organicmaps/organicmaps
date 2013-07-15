@@ -13,6 +13,10 @@ include($$ROOT_DIR/common.pri)
 
 QT *= core opengl
 
+linux*|win* {
+  QT *= network
+}
+
 win32* {
   LIBS *= -lShell32 -lOpengl32
   win32-g++: LIBS *= -lpthread
