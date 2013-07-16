@@ -70,11 +70,6 @@ namespace graphics
   {
   }
 
-  //void GlyphCache::addFont(const char *fileName)
-  //{
-  //  m_impl->addFont(fileName);
-  //}
-
   void GlyphCache::addFonts(vector<string> const & fontNames)
   {
     m_impl->addFonts(fontNames);

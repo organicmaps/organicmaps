@@ -87,7 +87,6 @@ namespace graphics
     GlyphCache(Params const & params);
 
     void reset();
-    //void addFont(char const * fileName);
     void addFonts(vector<string> const & fontNames);
 
     pair<Font*, int> getCharIDX(GlyphKey const & key);
