@@ -16,19 +16,15 @@ namespace
     "about.html",
     "resources-ldpi/basic.skn",
     "resources-ldpi/plus.png",
-    "resources-ldpi/right-arrow.png",
     "resources-ldpi/symbols.png",
     "resources-mdpi/basic.skn",
     "resources-mdpi/plus.png",
-    "resources-mdpi/right-arrow.png",
     "resources-mdpi/symbols.png",
     "resources-hdpi/basic.skn",
     "resources-hdpi/plus.png",
-    "resources-hdpi/right-arrow.png",
     "resources-hdpi/symbols.png",
     "resources-xhdpi/basic.skn",
     "resources-xhdpi/plus.png",
-    "resources-xhdpi/right-arrow.png",
     "resources-xhdpi/symbols.png",
     "categories.txt",
     "classificator.txt",
@@ -99,7 +95,6 @@ namespace
 UNIT_TEST(ApkReader_Multithreaded)
 {
   string const path = GetPlatform().WritableDir() + "../android/MapsWithMePro/bin/MapsWithMePro-production.apk";
-  //string const path = "/Users/viktor/Dropbox/Public/MapsWithMePro-230-130220.apk";
 
   uint64_t size;
   if (!my::GetFileSize(path, size))
