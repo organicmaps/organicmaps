@@ -104,10 +104,15 @@ string Platform::UniqueClientId() const
   if (IsFileExistsByFullPath("/etc/machine-id"))
     machineFile = "/etc/machine-id";
 
-  string content;
-  FileReader(machineFile).ReadAsString(content);
+  if (IsFileExistsByFullPath(machineFile))
+  {
+    string content;
+    FileReader(machineFile).ReadAsString(content);
+    return content.substr(0, 32);
+  }
+  else
+    return "n0dbus0n0lsb00000000000000000000";
 
-  return content.substr(0, 32);
 }
 
 void Platform::RunOnGuiThread(TFunctor const & fn)
