@@ -1,14 +1,23 @@
 #!/usr/bin/env monkeyrunner
+# coding=utf-8
 
 import sys
 
 from com.android.monkeyrunner import MonkeyRunner, MonkeyDevice
-from mapswithme import activity
-import mapswithme as mwm
+from mapswithme import *
 
+
+sampleTasks = (SearchTask('Minsk'),
+               SearchTask('London'),
+               SearchTask('еда'),
+               SearchTask('кино'),
+               SearchTask('drink'),
+               SearchTask('eat'),
+               SearchTask('tener'),
+               SearchTask('\"улица ленина\"'),
+               SearchTask('Berlin'))
 
 if len(sys.argv) > 1:
-    # using specified id
     id = sys.argv[1]
     print 'Connecting to device %s' % id
     device = MonkeyRunner.waitForConnection(5, id)
@@ -21,18 +30,10 @@ if not device:
 else:
     print 'Connected'
 
-apkPath = mwm.apkPath
-activity = mwm.activity
-package = mwm.package
-
 print 'Installing file %s' % apkPath
 
 device.installPackage(apkPath)
+
 device.wake()
-
-runComponent = package + '/' + activity
-print 'Starting activity %s' % activity
-device.startActivity(component=runComponent)
-
 #mu.dumb_test(device, package)
-mwm.follow_path(device, mwm.sampleUris)
+run_tasks(device, sampleTasks)

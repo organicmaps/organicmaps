@@ -2,6 +2,7 @@ package com.mapswithme.maps;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
@@ -12,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -33,6 +33,16 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 {
   private static String TAG = "SearchActivity";
   public static final String SEARCH_RESULT = "search_result";
+
+  public static final String EXTRA_SCOPE = "search_scope";
+  public static final String EXTRA_QUERY = "search_query";
+
+  public static void startForSearch(Context context, String query, int scope)
+  {
+    Intent i = new Intent(context, SearchActivity.class);
+    i.putExtra(EXTRA_SCOPE, scope).putExtra(EXTRA_QUERY, query);
+    context.startActivity(i);
+  }
 
   private static class SearchAdapter extends BaseAdapter
   {
@@ -488,6 +498,19 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
     // Create search list view adapter.
     setListAdapter(new SearchAdapter(this));
+
+
+    //checking search intent
+    final Intent intent = getIntent();
+    if (intent != null)
+    {
+      if (intent.hasExtra(EXTRA_QUERY))
+      {
+        m_searchBox.setText(intent.getStringExtra(EXTRA_QUERY));
+        m_modesSpinner.setSelection(intent.getIntExtra(EXTRA_SCOPE, 0));
+        runSearch();
+      }
+    }
   }
 
   @Override
