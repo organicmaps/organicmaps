@@ -127,12 +127,9 @@ unix|win32-g++ {
 }
 
 linux-g++* {
-#  QMAKE_CFLAGS_RELEASE   += -flto
-#  QMAKE_CXXFLAGS_RELEASE += -flto
-#  QMAKE_LFLAGS_RELEASE   += -flto
   QMAKE_CFLAGS *= -fdata-sections -ffunction-sections
   QMAKE_CXXFLAGS *= -fdata-sections -ffunction-sections
-  QMAKE_LFLAGS *= -Wl,--gc-sections
+  QMAKE_LFLAGS *= -Wl,--gc-sections -Wl,-Bsymbolic-functions
   QMAKE_CFLAGS_RELEASE *= -ffloat-store
   QMAKE_CXXFLAGS_RELEASE *= -ffloat-store
 
@@ -140,7 +137,7 @@ linux-g++* {
   CONFIG(production) {
     QMAKE_CFLAGS_RELEASE = -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security
     QMAKE_CXXFLAGS_RELEASE = -D_FORTIFY_SOURCE=2 -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security
-    QMAKE_LFLAGS = -Wl,-z,relro
+    QMAKE_LFLAGS *= -Wl,-z,relro
   }
 
 }
