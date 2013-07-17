@@ -49,7 +49,14 @@ void Platform::GetSystemFontNames(FilesList & res) const
     "FreeSans.ttf",
     "DejaVuSans.ttf",
     "arial.ttf",
-    "AbyssinicaSIL-R.ttf"
+    "AbyssinicaSIL-R.ttf",
+    "00_roboto_regular.ttf",
+    "01_dejavusans.ttf",
+    "02_wqy-microhei.ttf",
+    "03_jomolhari-id-a3d.ttf",
+    "04_padauk.ttf",
+    "05_khmeros.ttf",
+    "06_code2000.ttf"
   };
 
   char const * systemFontsPath[] = {
@@ -64,7 +71,8 @@ void Platform::GetSystemFontNames(FilesList & res) const
     "/usr/share/fonts/truetype/ttf-khmeros-core/",
     "/usr/share/fonts/truetype/tlwg/",
     "/usr/share/fonts/truetype/abyssinica/",
-    "/usr/share/fonts/truetype/paktype/"
+    "/usr/share/fonts/truetype/paktype/",
+    "/usr/share/fonts/truetype/mapswithme/"
   };
   
   const uint64_t fontSizeBlacklist[] = {

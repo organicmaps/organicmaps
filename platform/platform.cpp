@@ -71,10 +71,6 @@ void Platform::GetFontNames(FilesList & res) const
     arrPaths[n++] = &m_extResFiles[i];
 #else
   arrPaths[n++] = &m_resourcesDir;
-#ifdef OMIM_OS_LINUX
-  string packagedFontsPath = "/usr/share/fonts/truetype/mapswithme/";
-  arrPaths[n++] = &packagedFontsPath;
-#endif
 #endif
 
   FilesList fonts;
