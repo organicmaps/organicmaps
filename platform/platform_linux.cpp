@@ -66,8 +66,8 @@ Platform::Platform()
     else if (IsFileExistsByFullPath(path + "../share/eula.html"))
       m_resourcesDir = path + "../share";
     // installed version
-    else if (IsFileExistsByFullPath("/usr/share/MapsWithMe/eula.html"))
-      m_resourcesDir = "/usr/share/MapsWithMe";
+    else if (IsFileExistsByFullPath(path + "../share/MapsWithMe/eula.html"))
+      m_resourcesDir = path + "../share/MapsWithMe";
     // all-nearby installs
     else if (IsFileExistsByFullPath(path + "/eula.html"))
       m_resourcesDir = path;
