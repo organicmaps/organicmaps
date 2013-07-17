@@ -93,7 +93,7 @@ namespace qt
     setLayout(verticalLayout);
 
     setWindowTitle(tr("Geographical Regions"));
-    resize(600, 500);
+    resize(700, 600);
 
     // we want to receive all download progress and result events
     m_observerSlotId = GetStorage().Subscribe(bind(&UpdateDialog::OnCountryChanged, this, _1),
@@ -249,9 +249,10 @@ namespace qt
       switch (m_framework.GetCountryStatus(index))
       {
       case ENotDownloaded:
-        statusString = tr("Click to download");
-        rowColor = COLOR_NOTDOWNLOADED;
         size = st.CountrySizeInBytes(index);
+        if (size.second > 0)
+          statusString = tr("Click to download");
+        rowColor = COLOR_NOTDOWNLOADED;
         break;
 
       case EOnDisk:
