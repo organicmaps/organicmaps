@@ -29,6 +29,13 @@ void Platform::GetSystemFontNames(FilesList & res) const
     "Lohit-Bengali.ttf",
     "Lohit-Devanagari.ttf",
     "Lohit-Tamil.ttf",
+    "PakType Naqsh.ttf",
+    "wqy-microhei.ttc",
+    "Jomolhari.ttf",
+    "Jomolhari-alpha3c-0605331.ttf",
+    "Padauk.ttf",
+    "KhmerOS.ttf",
+    "Umpush.ttf",
     "DroidSansThai.ttf",
     "DroidSansArmenian.ttf",
     "DroidSansEthiopic-Regular.ttf",
@@ -39,15 +46,25 @@ void Platform::GetSystemFontNames(FilesList & res) const
     "LTe50872.ttf",
     "LTe50259.ttf",
     "DevanagariOTS.ttf",
+    "FreeSans.ttf",
     "DejaVuSans.ttf",
-    "arial.ttf"
+    "arial.ttf",
+    "AbyssinicaSIL-R.ttf"
   };
 
   char const * systemFontsPath[] = {
     "/system/fonts/",
     "/usr/share/fonts/truetype/roboto/",
     "/usr/share/fonts/truetype/droid/",
-    "/usr/share/fonts/truetype/ttf-dejavu/"
+    "/usr/share/fonts/truetype/ttf-dejavu/",
+    "/usr/share/fonts/truetype/wqy/",
+    "/usr/share/fonts/truetype/freefont/",
+    "/usr/share/fonts/truetype/padauk/",
+    "/usr/share/fonts/truetype/dzongkha/",
+    "/usr/share/fonts/truetype/ttf-khmeros-core/",
+    "/usr/share/fonts/truetype/tlwg/",
+    "/usr/share/fonts/truetype/abyssinica/",
+    "/usr/share/fonts/truetype/paktype/"
   };
   
   const uint64_t fontSizeBlacklist[] = {
@@ -75,16 +92,6 @@ void Platform::GetSystemFontNames(FilesList & res) const
           }
         }
       }
-    }
-  }
-
-  // Ignoring system fonts if broken Samsung Duos font detected
-  if (GetPlatform().GetFileSizeByName("/system/fonts/DroidSans.ttf", fileSize))
-  {
-    if (fileSize == 183560)
-    {
-      res.clear();
-      LOG(LINFO, ("Ignoring system fonts"));
     }
   }
 #endif
