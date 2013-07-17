@@ -15,9 +15,8 @@ namespace graphics
   static const int balloonBaseDepth = maxDepth - balloonContentInc;
 
   static const int compassDepth = balloonBaseDepth - 10;
-  static const int locationDepth = compassDepth - 10;
+  static const int rulerDepth = compassDepth;
+  static const int locationDepth = rulerDepth - 10;
   static const int poiAndBookmarkDepth = locationDepth - 10;
-
-  static const int countryStatusDepth = locationDepth - 10;
-  static const int rulerDepth = countryStatusDepth;
+  static const int countryStatusDepth = poiAndBookmarkDepth - 10;
 }
