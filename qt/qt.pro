@@ -23,14 +23,14 @@ win32*|linux* {
 }
 
 linux* {
-  DEFINES += NO_DOWNLOADER
-
-  isEmpty(PREFIX):PREFIX = /opt/MapsWithMe
+  isEmpty(PREFIX):PREFIX = /usr
   DEFINES += INSTALL_PREFIX=$$(PREFIX)
   BINDIR = $$PREFIX/bin
 
-  DATADIR = $$PREFIX/share
+  DATADIR = $$PREFIX/share/MapsWithMe
   RESDIR =  $$DATADIR
+
+  FONTSDIR = /usr/share/fonts/truetype/mapswithme/
 
   target.path = $$BINDIR
   desktop.path = /usr/share/applications/
@@ -38,7 +38,7 @@ linux* {
 
   OTHER_RES.path = $$RESDIR
   OTHER_RES.files = ../data/about.html ../data/eula.html ../data/welcome.html \
-                    ../data/countries.txt  \
+                    ../data/countries.txt \
                     ../data/languages.txt ../data/categories.txt \
                     ../data/packed_polygons.bin res/logo.png
   CLASSIFICATOR_RES.path = $$RESDIR
@@ -53,21 +53,24 @@ linux* {
   MDPI_SKIN_RES.files = ../data/resources-mdpi/basic.skn ../data/resources-mdpi/symbols.png
   XHDPI_SKIN_RES.path = $$RESDIR/resources-xhdpi
   XHDPI_SKIN_RES.files = ../data/resources-xhdpi/basic.skn ../data/resources-xhdpi/symbols.png
-  FONT_RES.path = $$RESDIR
+
+  FONT_RES.path = $$FONTSDIR
   FONT_RES.files = ../data/00_roboto_regular.ttf \
                    ../data/01_dejavusans.ttf \
                    ../data/02_wqy-microhei.ttf \
                    ../data/03_jomolhari-id-a3d.ttf \
                    ../data/04_padauk.ttf \
                    ../data/05_khmeros.ttf \
-                   ../data/06_code2000.ttf \
-                   ../data/fonts_blacklist.txt \
-                   ../data/fonts_whitelist.txt \
-                   ../data/unicode_blocks.txt
+                   ../data/06_code2000.ttf
+
+  OTHER_RES.files += ../data/fonts_blacklist.txt \
+                     ../data/fonts_whitelist.txt \
+                     ../data/unicode_blocks.txt
+
   MWM_RES.path = $$RESDIR
   MWM_RES.files = ../data/World.mwm ../data/WorldCoasts.mwm
 
-  INSTALLS += target desktop pixmaps icon128 OTHER_RES CLASSIFICATOR_RES MDPI_SKIN_RES XHDPI_SKIN_RES FONT_RES MWM_RES
+  INSTALLS += target desktop OTHER_RES CLASSIFICATOR_RES MDPI_SKIN_RES XHDPI_SKIN_RES FONT_RES MWM_RES
 }
 
 macx-* {
@@ -126,6 +129,7 @@ SOURCES += \
     info_dialog.cpp \
     preferences_dialog.cpp \
     search_panel.cpp \
+    update_dialog.cpp \
 
 HEADERS += \
     mainwindow.hpp \
@@ -137,16 +141,6 @@ HEADERS += \
     info_dialog.hpp \
     preferences_dialog.hpp \
     search_panel.hpp \
-
-RESOURCES += res/resources.qrc
-
-# removed for desktop releases
-!CONFIG(no_downloader) {
-
-  SOURCES += \
-    update_dialog.cpp \
-
-  HEADERS += \
     update_dialog.hpp \
 
-}
+RESOURCES += res/resources.qrc
