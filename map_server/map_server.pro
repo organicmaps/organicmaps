@@ -1,9 +1,3 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2013-07-13T08:23:48
-#
-#-------------------------------------------------
-
 TARGET = map_server
 CONFIG   += console warn_on
 CONFIG   -= app_bundle
@@ -15,7 +9,7 @@ DEPENDENCIES = map gui search storage indexer graphics platform anim geometry co
 ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
 
-QT       += core gui opengl
+QT       += core gui opengl network
 
 INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 

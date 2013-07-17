@@ -79,6 +79,7 @@ int main(int argc, char *argv[])
   pb->makeCurrent();
 
   Framework framework;
+  //framework.XorQueryMaxScaleMode();
 
   shared_ptr<srv::RenderContext> primaryRC(new srv::RenderContext());
 

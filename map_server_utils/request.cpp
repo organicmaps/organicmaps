@@ -88,7 +88,7 @@ namespace srv
   Request::Request(const Params & params)
   {
     m_params["viewport"] = ViewportToString(params.m_viewport);
-    m_params["density"] = ::Settings::ToString((int)params.m_density) ;
+    m_params["density"] = ::Settings::ToString((int)params.m_density);
   }
 
   Request::Request(request_params_t const & params)
