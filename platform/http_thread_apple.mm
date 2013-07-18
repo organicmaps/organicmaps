@@ -99,6 +99,7 @@
 }
 
 /// We cancel and don't support any redirects to avoid data corruption
+/// @TODO Display content to user - router is redirecting us somewhere
 -(NSURLRequest *)connection:(NSURLConnection *)connection
             willSendRequest:(NSURLRequest *)request
            redirectResponse:(NSURLResponse *)redirectResponse
@@ -140,11 +141,14 @@
   {
     NSInteger const statusCode = [(NSHTTPURLResponse *)response statusCode];
     LOG(LDEBUG, ("Got response with status code", statusCode));
-    if (statusCode < 200 || statusCode > 299)
+    // When we didn't ask for chunks, code should be 200
+    // When we asked for a chunk, code should be 206
+    bool const isChunk = !(m_begRange == 0 && m_endRange < 0);
+    if ((isChunk && statusCode != 206) || (!isChunk && statusCode != 200))
     {
-      LOG(LWARNING, ("Received HTTP error, canceling download", statusCode));
+      LOG(LWARNING, ("Received invalid HTTP status code, canceling download", statusCode));
       [m_connection cancel];
-      m_callback->OnFinish(statusCode, m_begRange, m_endRange);
+      m_callback->OnFinish(-4, m_begRange, m_endRange);
       return;
     }
     else if (m_expectedSize > 0)
@@ -164,7 +168,6 @@
         m_callback->OnFinish(-2, m_begRange, m_endRange);
         return;
       }
-      // @TODO Else display content to user - router is redirecting us somewhere
     }
   }
   else

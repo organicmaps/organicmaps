@@ -171,10 +171,13 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
       final int err = urlConnection.getResponseCode();
       // @TODO We can handle redirect (301, 302 and 307) here and display redirected page to user,
       // to avoid situation when downloading is always failed by "unknown" reason
-      if (err != HttpURLConnection.HTTP_OK && err != HttpURLConnection.HTTP_PARTIAL)
+      // When we didn't ask for chunks, code should be 200
+      // When we asked for a chunk, code should be 206
+      final boolean isChunk = !(m_beg == 0 && m_end < 0);
+      if ((isChunk && err != HttpURLConnection.HTTP_PARTIAL) || (!isChunk && err != HttpURLConnection.HTTP_OK))
       {
         // we've set error code so client should be notified about the error
-        m_httpErrorCode = err;
+        m_httpErrorCode = FILE_SIZE_CHECK_FAILED;
         Log.w(TAG, "Error for " + urlConnection.getURL() + ": Server replied with code " + err + ", aborting download.");
         return false;
       }

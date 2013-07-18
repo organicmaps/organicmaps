@@ -84,7 +84,10 @@ void HttpThread::OnHeadersReceived()
     return;
 
   int const httpStatusCode = m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-  if (httpStatusCode < 200 || httpStatusCode > 299)
+  // When we didn't ask for chunks, code should be 200
+  // When we asked for a chunk, code should be 206
+  bool const isChunk = !(m_begRange == 0 && m_endRange < 0);
+  if ((isChunk && httpStatusCode != 206) || (!isChunk && httpStatusCode != 200))
   {
     LOG(LWARNING, ("Http request to", m_reply->url().toEncoded().constData(), "aborted with HTTP code", httpStatusCode));
     m_reply->abort();
