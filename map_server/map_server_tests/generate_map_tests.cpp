@@ -5,8 +5,8 @@
 
 #include "../../platform/platform.hpp"
 
-#include "../../map_server_utils/request.hpp"
-#include "../../map_server_utils/viewport.hpp"
+#include "../../map_server/request.hpp"
+#include "../../map_server/viewport.hpp"
 
 #include <QtCore/QProcess>
 #include <QtCore/QByteArray>

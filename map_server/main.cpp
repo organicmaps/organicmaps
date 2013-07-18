@@ -1,7 +1,7 @@
 #include "render_context.hpp"
-#include "../map_server_utils/viewport.hpp"
-#include "../map_server_utils/request.hpp"
-#include "../map_server_utils/response.hpp"
+#include "viewport.hpp"
+#include "request.hpp"
+#include "response.hpp"
 
 #include "../graphics/resource_manager.hpp"
 

@@ -4,7 +4,7 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 DEPENDENCIES = map gui search storage indexer graphics platform anim geometry coding base \
-               map_server_utils bzip2 freetype expat fribidi tomcrypt jansson protobuf
+               bzip2 freetype expat fribidi tomcrypt jansson protobuf
 
 ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
@@ -19,7 +19,16 @@ macx* {
 }
 
 SOURCES += main.cpp \
-    render_context.cpp
+    render_context.cpp \
+    request.cpp \
+    response.cpp \
+    response_impl/response_cout.cpp \
+    viewport.cpp \
 
 HEADERS += \
-    render_context.hpp
+    render_context.hpp \
+    request.hpp \
+    response.hpp \
+    viewport.hpp \
+    response_impl/response_cout.hpp \
+

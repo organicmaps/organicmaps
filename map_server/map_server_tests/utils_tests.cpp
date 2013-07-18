@@ -5,9 +5,9 @@
 #include "../../platform/platform.hpp"
 #include "../../coding/reader.hpp"
 
-#include "../../map_server_utils/request.hpp"
-#include "../../map_server_utils/response.hpp"
-#include "../../map_server_utils/viewport.hpp"
+#include "../../map_server/request.hpp"
+#include "../../map_server/response.hpp"
+#include "../../map_server/viewport.hpp"
 
 #include "../../std/iostream.hpp"
 

@@ -11,7 +11,7 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 DEPENDENCIES = qt_tstfrm map indexer graphics platform geometry coding base expat freetype fribidi protobuf tomcrypt \
-               map_server_utils jansson
+               jansson
 
 ROOT_DIR = ../..
 include($$ROOT_DIR/common.pri)
