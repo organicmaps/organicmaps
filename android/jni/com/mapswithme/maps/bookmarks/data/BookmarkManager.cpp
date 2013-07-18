@@ -16,7 +16,8 @@ extern "C"
   Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_showBookmarkOnMap(
       JNIEnv * env, jobject thiz, jint c, jint b)
   {
-    frm()->ShowBookmark(*(frm()->GetBmCategory(c)->GetBookmark(b)));
+    BookmarkAndCategory bnc = BookmarkAndCategory(c,b);
+    frm()->ShowBookmark(*(frm()->GetBmCategory(c)->GetBookmark(b)), bnc);
     frm()->SaveState();
   }
 
