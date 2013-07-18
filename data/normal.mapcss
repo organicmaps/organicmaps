@@ -1680,21 +1680,32 @@ line|z13[aeroway=taxiway]
   casing-color:	#202020;
 }
 area|z17-[amenity=shelter],
+area|z17-[amenity=school],
+node|z17-[amenity=shelter],
+node|z17-[amenity=school]
+{
+  text-offset: 10;
+  font-size:	12;
+  text-halo-radius:	2;
+  text:	name;
+  text-color:	#404040;
+  text-halo-color:	white;
+}
+
+area|z16-[landuse=forest],
+area|z17-[tourism=zoo],
 area|z16-[amenity=townhall],
-area|z16-[landuse=forest][wood=deciduous],
+area|z17-[tourism=caravan_site],
 area|z17-[leisure=garden],
-area|z17-[leisure=park]
+area|z17-[leisure=park],
 area|z17-[leisure=sports_centre],
 area|z17-[leisure=stadium],
-area|z17-[tourism=caravan_site],
-area|z17-[tourism=zoo],
-node|z17-[amenity=shelter],
-node|z16-[amenity=townhall],
-node|z17-[leisure=sports_centre],
+node|z13-[highway=motorway_junction],
 node|z17-[leisure=stadium],
 node|z17-[tourism=caravan_site],
 node|z17-[tourism=zoo],
-node|z13-[highway=motorway_junction]
+node|z16-[amenity=townhall],
+node|z17-[leisure=sports_centre]
 {
   font-size:	12;
   text-halo-radius:	2;
@@ -1702,6 +1713,7 @@ node|z13-[highway=motorway_junction]
   text-color:	#404040;
   text-halo-color:	white;
 }
+
 area|z17-[leisure=garden]::int_name,
 area|z17-[leisure=park]::int_name
 {

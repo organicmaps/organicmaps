@@ -3760,6 +3760,15 @@ cont {
       name: "school"
       priority: 16000
     }
+    caption {
+      primary {
+        height: 12
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15000
+    }
     area {
       color: 0xFFEEDD
       priority: -16045
@@ -3771,6 +3780,15 @@ cont {
       name: "school"
       priority: 16000
     }
+    caption {
+      primary {
+        height: 12
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15000
+    }
     area {
       color: 0xFFEEDD
       priority: -16046
@@ -3781,6 +3799,15 @@ cont {
     symbol {
       name: "school"
       priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15000
     }
     area {
       color: 0xFFEEDD
@@ -3822,6 +3849,7 @@ cont {
         height: 12
         color: 0x444444
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 15000
     }
@@ -3837,6 +3865,7 @@ cont {
         height: 12
         color: 0x444444
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 15000
     }
@@ -3852,6 +3881,7 @@ cont {
         height: 12
         color: 0x444444
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 15000
     }
@@ -29492,6 +29522,7 @@ cont {
       primary {
         height: 16
         color: 0x222222
+        stroke_color: 0xFFFFFF
       }
       priority: 16000
     }
@@ -29506,6 +29537,7 @@ cont {
       primary {
         height: 16
         color: 0x222222
+        stroke_color: 0xFFFFFF
       }
       priority: 16000
     }
@@ -29520,6 +29552,7 @@ cont {
       primary {
         height: 16
         color: 0x222222
+        stroke_color: 0xFFFFFF
       }
       priority: 16000
     }
@@ -29534,6 +29567,7 @@ cont {
       primary {
         height: 16
         color: 0x222222
+        stroke_color: 0xFFFFFF
       }
       priority: 16000
     }
@@ -29600,6 +29634,7 @@ cont {
       primary {
         height: 16
         color: 0x222222
+        stroke_color: 0xFFFFFF
       }
       priority: 16000
     }
@@ -29614,6 +29649,7 @@ cont {
       primary {
         height: 16
         color: 0x222222
+        stroke_color: 0xFFFFFF
       }
       priority: 16000
     }
@@ -29628,6 +29664,7 @@ cont {
       primary {
         height: 16
         color: 0x222222
+        stroke_color: 0xFFFFFF
       }
       priority: 16000
     }
@@ -29642,6 +29679,7 @@ cont {
       primary {
         height: 16
         color: 0x222222
+        stroke_color: 0xFFFFFF
       }
       priority: 16000
     }
@@ -29820,6 +29858,7 @@ cont {
       primary {
         height: 16
         color: 0x222222
+        stroke_color: 0xFFFFFF
       }
       priority: 16000
     }
@@ -29834,6 +29873,7 @@ cont {
       primary {
         height: 16
         color: 0x222222
+        stroke_color: 0xFFFFFF
       }
       priority: 16000
     }
@@ -29848,6 +29888,7 @@ cont {
       primary {
         height: 16
         color: 0x222222
+        stroke_color: 0xFFFFFF
       }
       priority: 16000
     }
@@ -29862,6 +29903,7 @@ cont {
       primary {
         height: 16
         color: 0x222222
+        stroke_color: 0xFFFFFF
       }
       priority: 16000
     }
