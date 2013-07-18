@@ -197,11 +197,6 @@ bool CoverageGenerator::DoForceUpdate() const
   return m_stateInfo.m_needForceUpdate;
 }
 
-int CoverageGenerator::GetDrawScale() const
-{
-  return m_coverageInfo.m_tiler.tileScale();
-}
-
 ////////////////////////////////////////////////////
 ///           Benchmark support
 ////////////////////////////////////////////////////

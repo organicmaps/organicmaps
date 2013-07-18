@@ -80,8 +80,6 @@ public:
   bool IsEmptyDrawing() const;
   bool DoForceUpdate() const;
 
-  int GetDrawScale() const;
-
 private:
   //@{ Called only on android, with Single thread policy
   void InitializeThreadGL(shared_ptr<graphics::RenderContext> context,

@@ -12,8 +12,8 @@ public:
 
   struct RectInfo
   {
-    int m_tileScale; //< bounds / (2 ^ m_tileScale) is a size of the grid for a tile,
-                       //< could be larger than maximum model scale
+    int m_tileScale;    //< bounds / (2 ^ m_tileScale) is a size of the grid for a tile,
+                        //< could be larger than maximum model scale
     int m_x;
     int m_y;
 

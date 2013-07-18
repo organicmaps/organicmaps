@@ -57,6 +57,7 @@ HEADERS += \
     bookmark_manager.hpp \
     ge0_parser.hpp \
     balloon_manager.hpp \
+    scales_processor.hpp \
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -105,6 +106,7 @@ SOURCES += \
     ge0_parser.cpp \
     ../api/src/c/api-client.c \
     balloon_manager.cpp \
+    scales_processor.cpp \
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp

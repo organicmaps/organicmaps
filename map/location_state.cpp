@@ -148,31 +148,7 @@ namespace location
     switch (m_locationProcessMode)
     {
     case ELocationCenterAndScale:
-    {
-      int const rectScale = scales::GetScaleLevel(rect);
-      int setScale = -1;
-
-      // Correct rect scale if country isn't downloaded.
-      int const upperScale = scales::GetUpperWorldScale();
-      if (rectScale > upperScale && !m_framework->IsCountryLoaded(center))
-        setScale = upperScale;
-      else
-      {
-        // Correct scale if it's too small.
-        int const bestScale = scales::GetUpperScale() - 1;
-        if (rectScale > bestScale)
-          setScale = bestScale;
-      }
-
-      if (setScale != -1)
-      {
-        /// @todo Correct rect scale for best user experience.
-        /// The logic of GetRectForLevel differs from tile scale calculating logic
-        /// (@see initial_level in scales.cpp).
-        rect = scales::GetRectForLevel(setScale + 0.51, center, 1.0);
-      }
-
-      m_framework->ShowRectEx(rect);
+      m_framework->ShowRectExVisibleScale(rect, scales::GetUpperStyleScale()-2);
 
       SetIsCentered(true);
       CheckCompassRotation();
@@ -180,16 +156,13 @@ namespace location
 
       m_locationProcessMode = ELocationCenterOnly;
       break;
-    }
 
     case ELocationCenterOnly:
-
       m_framework->SetViewportCenter(center);
 
       SetIsCentered(true);
       CheckCompassRotation();
       CheckCompassFollowing();
-
       break;
 
     case ELocationDoNothing:

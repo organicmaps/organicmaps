@@ -1,4 +1,5 @@
 #include "tiler.hpp"
+#include "scales_processor.hpp"
 
 #include "../indexer/mercator.hpp"
 
@@ -61,24 +62,7 @@ bool operator==(Tiler::RectInfo const & l, Tiler::RectInfo const & r)
 
 int Tiler::getTileScale(ScreenBase const & s, int ts) const
 {
-  ScreenBase tmpS = s;
-  tmpS.Rotate(-tmpS.GetAngle());
-
-  // slightly smaller than original to produce "antialiasing" effect using bilinear filtration.
-  int const halfSize = static_cast<int>(ts / 1.05 / 2.0);
-
-  m2::RectD glbRect;
-  m2::PointD const pxCenter = tmpS.PixelRect().Center();
-  tmpS.PtoG(m2::RectD(pxCenter - m2::PointD(halfSize, halfSize),
-                      pxCenter + m2::PointD(halfSize, halfSize)),
-            glbRect);
-
-  /// @todo Fix this for possible anisotropic scales in screen.
-  double const glbRectSize = min(glbRect.SizeX(), glbRect.SizeY());
-
-  /// @todo Check this logic in future.
-  /// Now fix scale with minimum value because of scale check in Tiler::tiles function.
-  return max(1, my::rounds(log((MercatorBounds::maxX - MercatorBounds::minX) / glbRectSize) / log(2.0)));
+  return ScalesProcessor(ts).GetTileScaleBase(s);
 }
 
 void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt, size_t tileSize)

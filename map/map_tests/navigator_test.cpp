@@ -29,7 +29,8 @@
 
 UNIT_TEST(Navigator_Scale2Points)
 {
-  Navigator navigator;
+  ScalesProcessor scales;
+  Navigator navigator(scales);
 
   navigator.OnSize(0, 0, 200, 100);
   navigator.SetFromRect(m2::AnyRectD(m2::RectD(0, 0, 8, 4)));
@@ -67,22 +68,22 @@ namespace
 
 UNIT_TEST(Navigator_G2P_P2G)
 {
-  Navigator nav;
-  {
-    // Initialize.
-    nav.OnSize(0, 0, 200, 100);
-    nav.SetFromRect(m2::AnyRectD(m2::RectD(0, 0, 8, 4)));
-    TEST_EQUAL(nav.Screen().ClipRect(), m2::RectD(0, 0, 8, 4), ());
-  }
+  ScalesProcessor scales;
+  Navigator navigator(scales);
 
-  CheckNavigator(nav);
+  // Initialize.
+  navigator.OnSize(0, 0, 200, 100);
+  navigator.SetFromRect(m2::AnyRectD(m2::RectD(0, 0, 8, 4)));
+  TEST_EQUAL(navigator.Screen().ClipRect(), m2::RectD(0, 0, 8, 4), ());
 
-  nav.Scale(3.0);
-  CheckNavigator(nav);
+  CheckNavigator(navigator);
 
-  nav.Move(math::pi / 4.0, 3.0);
-  CheckNavigator(nav);
+  navigator.Scale(3.0);
+  CheckNavigator(navigator);
 
-  nav.Scale(1/3.0);
-  CheckNavigator(nav);
+  navigator.Move(math::pi / 4.0, 3.0);
+  CheckNavigator(navigator);
+
+  navigator.Scale(1/3.0);
+  CheckNavigator(navigator);
 }

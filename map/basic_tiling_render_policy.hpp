@@ -34,7 +34,6 @@ protected:
   shared_ptr<CoverageGenerator> m_CoverageGenerator;
 
   ScreenBase m_CurrentScreen;
-  int  m_DrawScale;
   bool m_IsEmptyModel;
   storage::TIndex m_countryIndex;
   bool m_IsNavigating;
@@ -75,8 +74,6 @@ public:
   bool IsTiling() const;
   bool IsEmptyModel() const;
   storage::TIndex GetCountryIndex() const;
-  int GetDrawScale(ScreenBase const & s) const;
-  size_t ScaleEtalonSize() const;
   size_t TileSize() const;
 
   void FrameLock();

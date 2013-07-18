@@ -1,6 +1,6 @@
 #include "navigator.hpp"
 
-#include "../indexer/cell_id.hpp"
+#include "../indexer/scales.hpp"
 
 #include "../platform/settings.hpp"
 
@@ -26,53 +26,38 @@ namespace
   }
 }
 
-Navigator::Navigator()
-  : m_worldRect(MercatorBounds::FullRect()),
-    // set default values for this magic numbers like in Framework
-    m_pxMinWidth(60), m_metresMinWidth(10.0),
+Navigator::Navigator(ScalesProcessor const & scales)
+  : m_scales(scales),
     m_InAction(false),
     m_DoSupportRotation(false)
 {
-}
-
-Navigator::Navigator(ScreenBase const & screen)
-  : m_worldRect(MercatorBounds::FullRect()),
-    // set default values for this magic numbers like in Framework
-    m_pxMinWidth(60), m_metresMinWidth(10.0),
-    m_StartScreen(screen),
-    m_Screen(screen),
-    m_InAction(false),
-    m_DoSupportRotation(false)
-{
-}
-
-void Navigator::SetMinScreenParams(unsigned pxMinWidth, double metresMinWidth)
-{
-  m_pxMinWidth = pxMinWidth;
-  m_metresMinWidth = metresMinWidth;
 }
 
 void Navigator::SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect)
 {
+  m2::RectD const & worldR = m_scales.GetWorldRect();
+
   m_Screen.SetFromRects(glbRect, pxRect);
-  m_Screen = ScaleInto(m_Screen, m_worldRect);
+  m_Screen = ScaleInto(m_Screen, worldR);
 
   if (!m_InAction)
   {
     m_StartScreen.SetFromRects(glbRect, pxRect);
-    m_StartScreen = ScaleInto(m_StartScreen, m_worldRect);
+    m_StartScreen = ScaleInto(m_StartScreen, worldR);
   }
 }
 
 void Navigator::SetFromRect(m2::AnyRectD const & r)
 {
+  m2::RectD const & worldR = m_scales.GetWorldRect();
+
   m_Screen.SetFromRect(r);
-  m_Screen = ScaleInto(m_Screen, m_worldRect);
+  m_Screen = ScaleInto(m_Screen, worldR);
 
   if (!m_InAction)
   {
     m_StartScreen.SetFromRect(r);
-    m_StartScreen = ScaleInto(m_StartScreen, m_worldRect);
+    m_StartScreen = ScaleInto(m_StartScreen, worldR);
   }
 }
 
@@ -105,7 +90,7 @@ bool Navigator::LoadState()
     return false;
 
   // additional check for valid rect
-  if (!MercatorBounds::FullRect().IsRectInside(rect.GetGlobalRect()))
+  if (!m_scales.GetWorldRect().IsRectInside(rect.GetGlobalRect()))
     return false;
 
   SetFromRect(rect);
@@ -114,14 +99,13 @@ bool Navigator::LoadState()
 
 void Navigator::OnSize(int x0, int y0, int w, int h)
 {
-  m_Screen.OnSize(x0, y0, w, h);
-  m_Screen = ShrinkAndScaleInto(m_Screen, m_worldRect);
+  m2::RectD const & worldR = m_scales.GetWorldRect();
 
-//  if (!m_InAction)
-//  {
-    m_StartScreen.OnSize(x0, y0, w, h);
-    m_StartScreen = ShrinkAndScaleInto(m_StartScreen, m_worldRect);
-//  }
+  m_Screen.OnSize(x0, y0, w, h);
+  m_Screen = ShrinkAndScaleInto(m_Screen, worldR);
+
+  m_StartScreen.OnSize(x0, y0, w, h);
+  m_StartScreen = ShrinkAndScaleInto(m_StartScreen, worldR);
 }
 
 m2::PointD Navigator::GtoP(m2::PointD const & pt) const
@@ -350,7 +334,7 @@ void Navigator::DoDrag(m2::PointD const & pt, double /*timeInSec*/)
   if (m_LastPt1 == pt)
     return;
 
-  ScreenBase const s = ShrinkInto(m_StartScreen, m_worldRect);
+  ScreenBase const s = ShrinkInto(m_StartScreen, m_scales.GetWorldRect());
 
   double dx = pt.x - m_StartPt1.x;
   double dy = pt.y - m_StartPt1.y;
@@ -437,31 +421,23 @@ void Navigator::ScaleToPoint(m2::PointD const & pt, double factor, double /*time
 
 bool Navigator::CheckMaxScale(ScreenBase const & screen) const
 {
-  m2::RectD const r = screen.ClipRect();
-  return (r.SizeX() <= m_worldRect.SizeX() || r.SizeY() <= m_worldRect.SizeY());
+  m2::RectD const & r = screen.ClipRect();
+  m2::RectD const & worldR = m_scales.GetWorldRect();
+
+  return (r.SizeX() <= worldR.SizeX() || r.SizeY() <= worldR.SizeY());
 }
 
 bool Navigator::CheckMinScale(ScreenBase const & screen) const
 {
-  ASSERT_NOT_EQUAL(m_pxMinWidth, 0, ());
-
-  m2::PointD const px0 = m_Screen.PixelRect().Center();
-  m2::PointD const px1(m_pxMinWidth / 2.0, 0.0);
-  m2::PointD const gp0 = screen.PtoG(px0 - px1);
-  m2::PointD const gp1 = screen.PtoG(px0 + px1);
-
-  double const lon0 = MercatorBounds::XToLon(gp0.x);
-  double const lat0 = MercatorBounds::YToLat(gp0.y);
-  double const lon1 = MercatorBounds::XToLon(gp1.x);
-  double const lat1 = MercatorBounds::YToLat(gp1.y);
-
-  return ms::DistanceOnEarth(lat0, lon0, lat1, lon1) >= (m_metresMinWidth - 1);
+  return (m_scales.GetDrawTileScale(screen) <= scales::GetUpperStyleScale());
 }
 
 bool Navigator::CheckBorders(ScreenBase const & screen) const
 {
-  m2::RectD const ScreenBounds = screen.ClipRect();
-  return ScreenBounds.IsRectInside(m_worldRect) || m_worldRect.IsRectInside(ScreenBounds);
+  m2::RectD const & r = screen.ClipRect();
+  m2::RectD const & worldR = m_scales.GetWorldRect();
+
+  return (r.IsRectInside(worldR) || worldR.IsRectInside(r));
 }
 
 bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
@@ -480,10 +456,12 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
   if (!skipMaxScaleAndBordersCheck && !CheckMaxScale(tmp))
     return false;
 
+  m2::RectD const & worldR = m_scales.GetWorldRect();
+
   if (!skipMaxScaleAndBordersCheck && !CheckBorders(tmp))
   {
-    if (CanShrinkInto(tmp, m_worldRect))
-      tmp = ShrinkInto(tmp, m_worldRect);
+    if (CanShrinkInto(tmp, worldR))
+      tmp = ShrinkInto(tmp, worldR);
     else
       return false;
   }
@@ -493,7 +471,7 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
 
   // re-checking the borders, as we might violate them a bit (don't know why).
   if (!CheckBorders(tmp))
-    tmp = ScaleInto(tmp, m_worldRect);
+    tmp = ScaleInto(tmp, worldR);
 
   m_Screen = tmp;
   return true;

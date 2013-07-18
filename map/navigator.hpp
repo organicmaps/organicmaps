@@ -1,18 +1,17 @@
 #pragma once
+#include "scales_processor.hpp"
 
 #include "../geometry/screenbase.hpp"
 
 #include "../base/matrix.hpp"
 
 
-// Calculates screen parameters in navigation (dragging, scaling, etc.).
+/// Calculates screen parameters in navigation (dragging, scaling, etc.).
 class Navigator
 {
 public:
-  Navigator();
-  explicit Navigator(ScreenBase const & screen);
+  explicit Navigator(ScalesProcessor const & scales);
 
-  void SetMinScreenParams(unsigned pxMinWidth, double metresMinWidth);
   void SetFromRect(m2::AnyRectD const & r);
   void CenterViewport(m2::PointD const & p);
   void SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect);
@@ -66,9 +65,7 @@ public:
   m2::PointD ShiftPoint(m2::PointD const & pt) const;
 
 private:
-  m2::RectD m_worldRect;
-  unsigned m_pxMinWidth;
-  double m_metresMinWidth;
+  ScalesProcessor const & m_scales;
 
   bool CheckMinScale(ScreenBase const & screen) const;
   bool CheckMaxScale(ScreenBase const & screen) const;

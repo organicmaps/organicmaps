@@ -8,6 +8,7 @@
 #include "navigator.hpp"
 #include "animator.hpp"
 #include "feature_vec_model.hpp"
+#include "scales_processor.hpp"
 
 #include "bookmark.hpp"
 #include "bookmark_manager.hpp"
@@ -85,6 +86,7 @@ protected:
 
   mutable scoped_ptr<search::Engine> m_pSearchEngine;
   model::FeaturesFetcher m_model;
+  ScalesProcessor m_scales;
   Navigator m_navigator;
   Animator m_animator;
 
@@ -241,7 +243,6 @@ public:
   /// Call it when you need do calculate pixel rect (not matter if m_renderPolicy == 0).
   /// @return 1.0 if m_renderPolicy == 0 (possible for Android).
   double GetVisualScale() const;
-  int GetScaleEtalonSize() const;
 
   void PrepareToShutdown();
 
@@ -251,10 +252,8 @@ public:
 
   void DrawModel(shared_ptr<PaintEvent> const & e,
                  ScreenBase const & screen,
-                 m2::RectD const & selectRect,
-                 m2::RectD const & clipRect,
-                 int scaleLevel,
-                 bool isTiling);
+                 m2::RectD const & renderRect,
+                 int baseScale);
 
 private:
   search::Engine * GetSearchEngine() const;
@@ -306,7 +305,6 @@ public:
 
   bool SetUpdatesEnabled(bool doEnable);
 
-  //double GetCurrentScale() const;
   int GetDrawScale() const;
 
   m2::PointD GetViewportCenter() const;
@@ -362,7 +360,7 @@ private:
   m2::AnyRectD ToRotated(m2::RectD const & rect) const;
   void CheckMinGlobalRect(m2::AnyRectD & rect) const;
   /// @return true if rect was fixed to display downloaded zoom level (world map)
-  bool CheckMinVisibleScale(m2::RectD & rect) const;
+  bool CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale = -1) const;
   void ShowRectFixed(m2::AnyRectD const & rect);
 
 public:
@@ -372,14 +370,11 @@ public:
   /// - Check for fixed scales from navigator.
   void ShowRectEx(m2::RectD const & rect);
   /// - Check minimal visible scale according to downloaded countries.
-  void ShowRectExVisibleScale(m2::RectD rect);
+  void ShowRectExVisibleScale(m2::RectD rect, int maxScale = -1);
 
   void MemoryWarning();
   void EnterBackground();
   void EnterForeground();
-
-  /// @TODO refactor to accept point and min visible length
-  //void CenterAndScaleViewport();
 
   /// Show all model by it's world rect.
   void ShowAll();

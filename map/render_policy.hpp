@@ -45,9 +45,7 @@ public:
   typedef function<void(shared_ptr<PaintEvent>,
                         ScreenBase const &,
                         m2::RectD const &,
-                        m2::RectD const &,
-                        int,
-                        bool)> TRenderFn;
+                        int)> TRenderFn;
 
   typedef function<bool (m2::PointD const &)> TEmptyModelFn;
   typedef function<storage::TIndex (m2::PointD const &)> TCountryIndexFn;
@@ -100,8 +98,10 @@ public:
   virtual void DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s) = 0;
   /// ending frame
   virtual void EndFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s);
+
   /// processing resize request
-  virtual m2::RectI const OnSize(int w, int h);
+  void OnSize(int w, int h);
+
   /// reacting on navigation actions
   /// @{
   virtual void StartDrag();
@@ -129,7 +129,6 @@ public:
   virtual bool NeedRedraw() const;
   virtual bool IsEmptyModel() const;
   virtual storage::TIndex GetCountryIndex() const { return storage::TIndex(); }
-  virtual int GetDrawScale(ScreenBase const & s) const = 0;
 
   bool DoForceUpdate() const;
   void SetForceUpdate(bool flag);
@@ -142,8 +141,6 @@ public:
   shared_ptr<Drawer> const & GetDrawer() const;
   shared_ptr<WindowHandle> const & GetWindowHandle() const;
   graphics::GlyphCache * GetGlyphCache() const;
-
-  virtual size_t ScaleEtalonSize() const = 0;
 
   double VisualScale() const;
   graphics::EDensity Density() const;

@@ -112,7 +112,7 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
 void SimpleRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
                                ScreenBase const & s)
 {
-  size_t const scaleEtalonSize = ScaleEtalonSize();
+  size_t const scaleEtalonSize = 512;
 
   m2::RectD glbRect;
   m2::PointD const pxCenter = s.PixelRect().Center();
@@ -129,20 +129,11 @@ void SimpleRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
   pScreen->beginFrame();
   pScreen->clear(m_bgColor);
 
-  m_renderFn(e, s, s.ClipRect(), s.ClipRect(), scales::GetScaleLevel(glbRect), false);
+  /// @todo Need to review this policy (using in Map server).
+  m_renderFn(e, s, s.PixelRect(), scales::GetScaleLevel(glbRect));
 
   overlay->draw(pScreen, math::Identity<double, 3>());
   pScreen->resetOverlay();
 
   pScreen->endFrame();
-}
-
-size_t SimpleRenderPolicy::ScaleEtalonSize() const
-{
-  return 512 + 256;
-}
-
-int SimpleRenderPolicy::GetDrawScale(ScreenBase const & s) const
-{
-  return 0;
 }

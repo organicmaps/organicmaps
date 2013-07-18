@@ -171,7 +171,8 @@ static void GetResourcesMaps(vector<string> & outMaps)
 }
 
 Framework::Framework()
-  : m_animator(this),
+  : m_navigator(m_scales),
+    m_animator(this),
     m_queryMaxScaleMode(false),
 
     /// @todo It's not a class state, so no need to store it in memory.
@@ -264,12 +265,7 @@ Framework::~Framework()
 
 double Framework::GetVisualScale() const
 {
-  return (m_renderPolicy ? m_renderPolicy->VisualScale() : 1);
-}
-
-int Framework::GetScaleEtalonSize() const
-{
-  return (m_renderPolicy ? m_renderPolicy->ScaleEtalonSize() : 512);
+  return m_scales.GetVisualScale();
 }
 
 void Framework::DeleteCountry(TIndex const & index)
@@ -489,9 +485,10 @@ void Framework::ShowBookmark(Bookmark const & bm)
   StopLocationFollow();
 
   double scale = bm.GetScale();
-  if (scale == -1.0) scale = 16.0;
+  if (scale == -1.0)
+    scale = scales::GetUpperStyleScale() - 2;
 
-  ShowRectExVisibleScale(scales::GetRectForLevel(scale, bm.GetOrg(), 1.0));
+  ShowRectExVisibleScale(m_scales.GetRectForDrawScale(scale, bm.GetOrg()));
 }
 
 void Framework::ClearBookmarks()
@@ -699,7 +696,7 @@ bool Framework::LoadState()
 }
 //@}
 
-/// Resize event from window.
+
 void Framework::OnSize(int w, int h)
 {
   if (w < 2) w = 2;
@@ -707,13 +704,18 @@ void Framework::OnSize(int w, int h)
 
   if (m_renderPolicy)
   {
-    m_informationDisplay.setDisplayRect(m2::RectI(m2::PointI(0, 0), m2::PointU(w, h)));
+    /// @todo Need to review this logic:
+    /// Tile size doesn't change in render policy now, but it depends from screen sizes.
 
-    m2::RectI const & viewPort = m_renderPolicy->OnSize(w, h);
+    m_informationDisplay.setDisplayRect(m2::RectI(0, 0, w, h));
 
-    m_navigator.OnSize(viewPort.minX(), viewPort.minY(), viewPort.SizeX(), viewPort.SizeY());
+    m_renderPolicy->OnSize(w, h);
+
+    m_navigator.OnSize(0, 0, w, h);
 
     m_balloonManager.ScreenSizeChanged(w, h);
+
+    m_scales.SetParams(w, h, m_renderPolicy->VisualScale());
   }
 
   m_width = w;
@@ -730,51 +732,36 @@ bool Framework::SetUpdatesEnabled(bool doEnable)
 
 int Framework::GetDrawScale() const
 {
-  if (m_renderPolicy)
-    return m_renderPolicy->GetDrawScale(m_navigator.Screen());
-  else
-    return 0;
+  return m_scales.GetDrawTileScale(m_navigator.Screen());
 }
-
-/*
-double Framework::GetCurrentScale() const
-{
-  m2::PointD textureCenter(m_navigator.Screen().PixelRect().Center());
-  m2::RectD glbRect;
-
-  unsigned scaleEtalonSize = GetPlatform().ScaleEtalonSize();
-  m_navigator.Screen().PtoG(m2::RectD(textureCenter - m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2),
-                                      textureCenter + m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2)),
-                            glbRect);
-  return scales::GetScaleLevelD(glbRect);
-}
-*/
 
 RenderPolicy::TRenderFn Framework::DrawModelFn()
 {
-  return bind(&Framework::DrawModel, this, _1, _2, _3, _4, _5, _6);
+  return bind(&Framework::DrawModel, this, _1, _2, _3, _4);
 }
 
-/// Actual rendering function.
 void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
                           ScreenBase const & screen,
-                          m2::RectD const & selectRect,
-                          m2::RectD const & clipRect,
-                          int scaleLevel,
-                          bool isTiling)
+                          m2::RectD const & renderRect,
+                          int baseScale)
 {
-  fwork::FeatureProcessor doDraw(clipRect, screen, e, scaleLevel);
+  m2::RectD selectRect;
+  m2::RectD clipRect;
+
+  double const inflationSize = m_scales.GetClipRectInflation();
+  screen.PtoG(m2::Inflate(m2::RectD(renderRect), inflationSize, inflationSize), clipRect);
+  screen.PtoG(m2::RectD(renderRect), selectRect);
+
+  int const drawScale = m_scales.GetDrawTileScale(baseScale);
+  fwork::FeatureProcessor doDraw(clipRect, screen, e, drawScale);
 
   try
   {
-    // limit scaleLevel to be not more than upperScale
     int const upperScale = scales::GetUpperScale();
-    int const scale = min((m_queryMaxScaleMode ? upperScale : scaleLevel), upperScale);
-
-    if (isTiling)
-      m_model.ForEachFeature_TileDrawing(selectRect, doDraw, scale);
+    if (drawScale <= upperScale)
+      m_model.ForEachFeature_TileDrawing(selectRect, doDraw, drawScale);
     else
-      m_model.ForEachFeature(selectRect, doDraw, scale);
+      m_model.ForEachFeature(selectRect, doDraw, upperScale);
   }
   catch (redraw_operation_cancelled const &)
   {}
@@ -889,18 +876,27 @@ void Framework::CheckMinGlobalRect(m2::AnyRectD & rect) const
     rect = minAnyRect;
 }
 
-bool Framework::CheckMinVisibleScale(m2::RectD & rect) const
+bool Framework::CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/) const
 {
+  m2::PointD const c = rect.Center();
   int const worldS = scales::GetUpperWorldScale();
-  if (scales::GetScaleLevel(rect) > worldS)
+  int const scale = m_scales.GetDrawTileScale(rect);
+
+  if (scale > worldS)
   {
-    m2::PointD const c = rect.Center();
     if (!IsCountryLoaded(c))
     {
-      rect = scales::GetRectForLevel(worldS, c, 1.0);
+      rect = m_scales.GetRectForDrawScale(worldS, c);
       return true;
     }
   }
+
+  if (maxScale != -1 && scale > maxScale)
+  {
+    rect = m_scales.GetRectForDrawScale(maxScale, c);
+    return true;
+  }
+
   return false;
 }
 
@@ -918,9 +914,9 @@ void Framework::ShowRectEx(m2::RectD const & rect)
   ShowRectFixed(ToRotated(rect));
 }
 
-void Framework::ShowRectExVisibleScale(m2::RectD rect)
+void Framework::ShowRectExVisibleScale(m2::RectD rect, int maxScale/* = -1*/)
 {
-  CheckMinVisibleScale(rect);
+  CheckMinMaxVisibleScale(rect, maxScale);
   ShowRectEx(rect);
 }
 
@@ -929,7 +925,7 @@ void Framework::ShowRectFixed(m2::AnyRectD const & r)
   m2::AnyRectD rect(r);
   CheckMinGlobalRect(rect);
 
-  double const halfSize = GetScaleEtalonSize() / 2.0;
+  double const halfSize = m_scales.GetTileSize() / 2.0;
   m2::RectD etalonRect(-halfSize, -halfSize, halfSize, halfSize);
 
   m2::PointD const pxCenter = m_navigator.Screen().PixelRect().Center();
@@ -969,39 +965,6 @@ void Framework::EnterForeground()
   m_StartForegroundTime = my::Timer::LocalTime();
 }
 
-/*
-/// @TODO refactor to accept point and min visible length
-void Framework::CenterAndScaleViewport()
-{
-  m2::PointD const pt = m_locationState.Position();
-  m_navigator.CenterViewport(pt);
-
-  m2::RectD const minRect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, m_metresMinWidth);
-  double const xMinSize = theMetersFactor * max(m_locationState.ErrorRadius(), minRect.SizeX());
-  double const yMinSize = theMetersFactor * max(m_locationState.ErrorRadius(), minRect.SizeY());
-
-  bool needToScale = false;
-
-  m2::RectD clipRect = GetCurrentViewport();
-  if (clipRect.SizeX() < clipRect.SizeY())
-    needToScale = clipRect.SizeX() > xMinSize * 3;
-  else
-    needToScale = clipRect.SizeY() > yMinSize * 3;
-
-  if (needToScale)
-  {
-    double const k = max(xMinSize / clipRect.SizeX(),
-                         yMinSize / clipRect.SizeY());
-
-    clipRect.Scale(k);
-    m_navigator.SetFromRect(m2::AnyRectD(clipRect));
-  }
-
-  Invalidate();
-}
-*/
-
-/// Show all model by it's world rect.
 void Framework::ShowAll()
 {
   SetMaxWorldRect();
@@ -1350,8 +1313,6 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
     m_renderPolicy->SetAnimController(m_animController.get());
 
     m_navigator.SetSupportRotation(m_renderPolicy->DoSupportRotation());
-    m_navigator.SetMinScreenParams(static_cast<unsigned>(m_minRulerWidth * m_renderPolicy->VisualScale()),
-                                   m_metresMinWidth);
 
     m_informationDisplay.setVisualScale(m_renderPolicy->VisualScale());
 
@@ -1433,7 +1394,7 @@ bool Framework::SetViewportByURL(string const & url, url_scheme::ApiPoint & ball
         balloonPoint.m_name = m_stringsBundle.GetString("dropped_pin");
 
       m2::PointD const center(MercatorBounds::LonToX(balloonPoint.m_lon), MercatorBounds::LatToY(balloonPoint.m_lat));
-      SetViewPortSync(scales::GetRectForLevel(zoomLevel, center, 1));
+      SetViewPortSync(m_scales.GetRectForDrawScale(zoomLevel, center));
       return true;
     }
   }
@@ -1457,10 +1418,8 @@ bool Framework::SetViewportByURL(string const & url, url_scheme::ApiPoint & ball
 
 void Framework::SetViewPortSync(m2::RectD rect)
 {
-  // This is tricky way to syncronize work and rendring threads.
-  // Quick buben-fix to show correct rect in API when country is not downloaded
-  if (CheckMinVisibleScale(rect))
-    rect.Inflate(0.25, 0.25);
+  CheckMinMaxVisibleScale(rect);
+
   m2::AnyRectD aRect(rect);
   CheckMinGlobalRect(aRect);
   m_animator.ChangeViewport(aRect, aRect, 0.0);

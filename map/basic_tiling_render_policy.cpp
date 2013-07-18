@@ -7,42 +7,18 @@
 #include "tile_renderer.hpp"
 #include "coverage_generator.hpp"
 #include "queued_renderer.hpp"
+#include "scales_processor.hpp"
 
-size_t BasicTilingRenderPolicy::CalculateTileSize(size_t screenWidth, size_t screenHeight)
-{
-  int const maxSz = max(screenWidth, screenHeight);
-
-  // we're calculating the tileSize based on (maxSz > 1024 ? rounded : ceiled)
-  // to the nearest power of two value of the maxSz
-
-  int const ceiledSz = 1 << static_cast<int>(ceil(log(double(maxSz + 1)) / log(2.0)));
-  int res = 0;
-
-  if (maxSz < 1024)
-    res = ceiledSz;
-  else
-  {
-    int const flooredSz = ceiledSz / 2;
-    // rounding to the nearest power of two.
-    if (ceiledSz - maxSz < maxSz - flooredSz)
-      res = ceiledSz;
-    else
-      res = flooredSz;
-  }
-
-  return min(max(res / 2, 256), 1024);
-}
 
 BasicTilingRenderPolicy::BasicTilingRenderPolicy(Params const & p,
                                                  bool doUseQueuedRenderer)
   : RenderPolicy(p, GetPlatform().IsPro(), GetPlatform().CpuCores() + 2),
-    m_DrawScale(0),
     m_IsEmptyModel(false),
     m_IsNavigating(false),
     m_WasAnimatingLastFrame(false),
     m_DoRecreateCoverage(false)
 {
-  m_TileSize = CalculateTileSize(p.m_screenWidth, p.m_screenHeight);
+  m_TileSize = ScalesProcessor::CalculateTileSize(p.m_screenWidth, p.m_screenHeight);
 
   LOG(LINFO, ("ScreenSize=", p.m_screenWidth, "x", p.m_screenHeight, ", TileSize=", m_TileSize));
 
@@ -113,7 +89,6 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
   FrameLock();
 
   m_CoverageGenerator->Draw(pDrawer->screen(), s);
-  m_DrawScale = m_CoverageGenerator->GetDrawScale();
 
   m_IsEmptyModel = m_CoverageGenerator->IsEmptyDrawing();
   if (m_IsEmptyModel)
@@ -205,11 +180,6 @@ bool BasicTilingRenderPolicy::IsTiling() const
   return true;
 }
 
-int BasicTilingRenderPolicy::GetDrawScale(ScreenBase const & s) const
-{
-  return m_DrawScale;
-}
-
 bool BasicTilingRenderPolicy::IsEmptyModel() const
 {
   return m_IsEmptyModel;
@@ -229,11 +199,6 @@ bool BasicTilingRenderPolicy::NeedRedraw() const
     return true;
 
   return false;
-}
-
-size_t BasicTilingRenderPolicy::ScaleEtalonSize() const
-{
-  return m_TileSize;
 }
 
 size_t BasicTilingRenderPolicy::TileSize() const

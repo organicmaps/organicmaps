@@ -59,11 +59,10 @@ void RenderPolicy::InitCacheScreen()
   m_cacheScreen = make_shared_ptr(new graphics::Screen(cp));
 }
 
-m2::RectI const RenderPolicy::OnSize(int w, int h)
+void RenderPolicy::OnSize(int w, int h)
 {
   m_cacheScreen->onSize(w, h);
   m_drawer->onSize(w, h);
-  return m2::RectI(0, 0, w, h);
 }
 
 void RenderPolicy::StartDrag()

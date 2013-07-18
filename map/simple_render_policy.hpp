@@ -9,8 +9,4 @@ public:
 
   void DrawFrame(shared_ptr<PaintEvent> const & paintEvent,
                  ScreenBase const & screenBase);
-
-  size_t ScaleEtalonSize() const;
-
-  int GetDrawScale(ScreenBase const & s) const;
 };
