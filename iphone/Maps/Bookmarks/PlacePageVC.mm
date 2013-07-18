@@ -640,12 +640,10 @@ typedef enum {Editing, Saved} Mode;
 
 -(void)addBookmarkToCategory:(size_t)index
 {
-  BookmarkCategory * cat = GetFramework().GetBmCategory(index);
   Bookmark bm(m2::PointD(_pinGlobalPosition.x, _pinGlobalPosition.y), [self.pinTitle UTF8String], [self.pinColor UTF8String]);
   bm.SetDescription([self.pinNotes UTF8String]);
-  cat->AddBookmark(bm);
-  cat->SaveToKMLFile();
-  _pinEditedBookmark = pair<int, int>(index, cat->GetBookmarksCount() - 1);
+
+  _pinEditedBookmark = pair<int, int>(index, GetFramework().AddBookmark(index, bm));
 }
 
 -(void)initializeProperties:(NSString *)name notes:(NSString *)notes color:(NSString *)color category:(BookmarkAndCategory) bmAndCat point:

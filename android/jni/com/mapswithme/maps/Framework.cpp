@@ -557,13 +557,7 @@ namespace android
 
   BookmarkAndCategory Framework::AddBookmark(size_t cat, Bookmark & bm)
   {
-    size_t const ind = m_work.AddBookmark(cat, bm);
-
-    BookmarkCategory * pCat = m_work.GetBmCategory(cat);
-    pCat->SetVisible(true);
-    pCat->SaveToKMLFile();
-
-    return BookmarkAndCategory(cat, ind);
+    return BookmarkAndCategory(cat, m_work.AddBookmark(cat, bm));
   }
 
   void Framework::ReplaceBookmark(BookmarkAndCategory const & ind, Bookmark & bm)

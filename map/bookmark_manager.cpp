@@ -76,15 +76,12 @@ void BookmarkManager::LoadBookmark(string const & filePath)
 size_t BookmarkManager::AddBookmark(size_t categoryIndex, Bookmark & bm)
 {
   bm.SetTimeStamp(time(0));
-  bm.SetScale(scales::GetScaleLevelD(m_framework.GetNavigator().Screen().GlobalRect().GetLocalRect()));
+  bm.SetScale(m_framework.GetDrawScale());
 
   BookmarkCategory * pCat = m_categories[categoryIndex];
   pCat->AddBookmark(bm);
-
-  // Immediately do save category for the new one
-  // (we need it for the last used category ID).
-  if (pCat->GetFileName().empty())
-    m_categories[categoryIndex]->SaveToKMLFile();
+  pCat->SetVisible(true);
+  pCat->SaveToKMLFile();
 
   m_lastCategoryUrl = pCat->GetFileName();
   return pCat->GetBookmarksCount() - 1;
