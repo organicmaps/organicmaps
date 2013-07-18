@@ -13,25 +13,43 @@ Depends: dbus, fonts-roboto|fonts-mapswithme, ttf-dejavu-core|fonts-mapswithme, 
 Description: Detailed Offline Maps of the Entire World
  The quickest offline maps of the entire world. Search and navigate maps fully 
  offline. Maps work everywhere!
+ .
  Features:
- - ALL COUNTRIES, ALL CITIES. If you get the MapsWithMe Pro, the entire world 
+ .
+  - ALL COUNTRIES, ALL CITIES.
+ If you get the MapsWithMe Pro, the entire world
  is in your pocket. Even maps of the smallest islands!
- - REALLY FAST. No grey squares anymore! Innovative map data compression method 
+ .
+  - REALLY FAST.
+ No grey squares anymore! Innovative map data compression method 
  allows you to download maps in seconds, navigate through them smoothly.
- - OFFLINE SEARCH. Find everything you need of all the objects available on the 
+ .
+  - OFFLINE SEARCH.
+ Find everything you need of all the objects available on the 
  map in a second! The auto-suggestion feature makes searching maps faster and 
  easier.
 
 Package: fonts-mapswithme
 Architecture: all
-Recommends: mapswithme
+Recommends: mapswithme, fontconfig
 Description: Fonts for MapsWithMe
  This package contains a set of truetype fonts that cover all characters used
- for showing labels on MapsWithMe.
+ for showing labels on MapsWithMe. Currently includes:
+  - Roboto Regular
+  - DejaVu Sans
+  - WenQuanYi Micro Hei
+  - Jomolhari
+  - Padauk
+  - KhmerOS
+  - Code2000
+ .
+ MapsWithMe will pull this package as a dependency in case your distro cannot 
+ provide enough fonts that will cover languages used on map display.
 
 Package: mapswithme-data
 Architecture: all
 Depends: mapswithme
 Description: Detailed Offline Maps of the Entire World
  This package contains basic world maps and other resources essential for 
- MapsWithMe application.
+ MapsWithMe application. It is not meant to be installed directly, but rather
+ be pulled in as a dependency of package mapswithme.

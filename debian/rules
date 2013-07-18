@@ -12,7 +12,7 @@
 %:
 	dh $@ 
 override_dh_auto_configure:
-	qmake -r CONFIG+=no_downloader CONFIG+=production omim.pro 
+	qmake -r CONFIG+=production omim.pro 
 
 override_dh_auto_test:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
