@@ -36,7 +36,7 @@ SUBDIRS = 3party \
           graphics/graphics_tests \
           gui/gui_tests \
           qt \
-          map_server map_server/map_server_tests \
+          map_server \
 } else {
   # libraries which are used on mobile devices
   SUBDIRS = 3party \
