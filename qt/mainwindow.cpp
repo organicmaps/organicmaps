@@ -237,7 +237,7 @@ void MainWindow::CreateNavigationBar()
 
     pToolBar->addSeparator();
 
-#ifndef NO_DOWNLOADER
+#ifndef OMIM_OS_LINUX
     // add my position button with "checked" behavior
 
     m_pMyPositionAction = pToolBar->addAction(QIcon(":/navig64/location.png"),
@@ -246,7 +246,7 @@ void MainWindow::CreateNavigationBar()
                                            SLOT(OnMyPosition()));
     m_pMyPositionAction->setCheckable(true);
     m_pMyPositionAction->setToolTip(tr("My Position"));
-#endif // NO_DOWNLOADER
+#endif
 
     // add view actions 1
     button_t arr[] = {
