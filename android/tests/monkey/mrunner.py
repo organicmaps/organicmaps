@@ -6,16 +6,20 @@ import sys
 from com.android.monkeyrunner import MonkeyRunner, MonkeyDevice
 from mapswithme import *
 
+enTask = [ShowGroupTask('Gr', 4 * 11), ShowGroupTask('Tha', 4 * 8)]
 
-sampleTasks = (SearchTask('Minsk'),
-               SearchTask('London'),
-               SearchTask('еда'),
-               SearchTask('кино'),
-               SearchTask('drink'),
-               SearchTask('eat'),
-               SearchTask('tener'),
-               SearchTask('\"улица ленина\"'),
-               SearchTask('Berlin'))
+deTask = [ShowGroupTask('Ger', 4 * 11)]
+
+ukTask = [ShowGroupTask('Uk', 4 * 9)]
+
+spTask = [ShowGroupTask('Sp', 4 * 14)]
+
+itTask = [ShowGroupTask('Italy', 4 * 10)]
+
+
+# This one to run
+sampleTasks = spTask
+
 
 if len(sys.argv) > 1:
     id = sys.argv[1]
@@ -33,7 +37,8 @@ else:
 print 'Installing file %s' % apkPath
 
 device.installPackage(apkPath)
+device.startActivity(package + '/' + activity)
 
 device.wake()
-#mu.dumb_test(device, package)
+# mu.dumb_test(device, package)
 run_tasks(device, sampleTasks)
