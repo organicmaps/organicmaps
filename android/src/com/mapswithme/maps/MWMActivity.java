@@ -76,7 +76,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   //showDialog(int, Bundle) available only form API 8
   private String mProDialogMessage;
 
-  private native void deactivatePopup();
+  public native void deactivatePopup();
 
   private LocationService getLocationService()
   {
@@ -173,6 +173,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public void OnRenderingInitialized()
   {
+    mRenderingInitialized = true;
+
     runOnUiThread(new Runnable()
     {
       @Override
@@ -186,6 +188,11 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       }
     });
 
+    runTasks();
+  }
+
+  private void runTasks()
+  {
     // Task are not UI-thread bounded,
     // if any task need UI-thread it should implicitly
     // use Activity.runOnUiThread().
@@ -309,6 +316,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   }
 
   private boolean m_needCheckUpdate = true;
+
+  private boolean mRenderingInitialized = false;
 
 
   private void checkUpdateMaps()
@@ -607,6 +616,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       MapTask mapTask = (MapTask) intent.getSerializableExtra(EXTRA_TASK);
       mTasks.add(mapTask);
       intent.removeExtra(EXTRA_TASK);
+
+      if (mRenderingInitialized)
+        runTasks();
     }
     setIntent(null);
   }
@@ -616,6 +628,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   {
     deactivatePopup();
     super.onStop();
+    mRenderingInitialized = false;
   }
 
   private void alignZoomButtons()
