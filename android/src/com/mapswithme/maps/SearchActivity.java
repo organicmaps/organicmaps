@@ -422,7 +422,31 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     m_location = ((MWMApplication) getApplication()).getLocationService();
 
     setContentView(R.layout.search_list_view);
+    setUpView();
+    // Create search list view adapter.
+    setListAdapter(new SearchAdapter(this));
 
+    nativeConnect();
+
+    //checking search intent
+    final Intent intent = getIntent();
+    if (intent != null && intent.hasExtra(EXTRA_QUERY))
+    {
+      m_searchBox.setText(intent.getStringExtra(EXTRA_QUERY));
+      m_modesSpinner.setSelection(intent.getIntExtra(EXTRA_SCOPE, 0));
+      runSearch();
+    }
+  }
+
+  @Override
+  protected void onDestroy()
+  {
+    nativeDisconnect();
+    super.onDestroy();
+  }
+
+  private void setUpView()
+  {
     m_progress = (ProgressBar) findViewById(R.id.search_progress);
 
     // Initialize search edit box processor.
@@ -495,30 +519,12 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       {
       }
     });
-
-    // Create search list view adapter.
-    setListAdapter(new SearchAdapter(this));
-
-
-    //checking search intent
-    final Intent intent = getIntent();
-    if (intent != null)
-    {
-      if (intent.hasExtra(EXTRA_QUERY))
-      {
-        m_searchBox.setText(intent.getStringExtra(EXTRA_QUERY));
-        m_modesSpinner.setSelection(intent.getIntExtra(EXTRA_SCOPE, 0));
-        runSearch();
-      }
-    }
   }
 
   @Override
   protected void onResume()
   {
     super.onResume();
-
-    nativeConnect();
 
     // Reset current mode flag - start first search.
     m_flags = 0;
@@ -536,8 +542,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   protected void onPause()
   {
     m_location.stopUpdate(this);
-
-    nativeDisconnect();
 
     super.onPause();
   }
