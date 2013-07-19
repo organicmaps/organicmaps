@@ -205,7 +205,7 @@
             android:screenOrientation="behind" >
         </activity>
 
-        <receiver android:name="com.mapswithme.test.TestEventsReceiver" >
+        <receiver android:name="com.mapswithme.test.MonkeyEventsReceiver" >
             <intent-filter>
                 <action android:name="mwmtest" />
             </intent-filter>
