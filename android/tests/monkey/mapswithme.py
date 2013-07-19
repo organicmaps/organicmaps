@@ -1,4 +1,5 @@
 # coding=utf-8
+import time
 
 from mutil import DeviceInfo
 from com.android.monkeyrunner import MonkeyRunner
@@ -10,13 +11,10 @@ mapactivity = 'com.mapswithme.maps.MWMActivity'
 
 
 def run_tasks(device, tasks):
+    # wait for initialization
     MonkeyRunner.sleep(5)
-    di = DeviceInfo(device)
-    for x in range(0, len(tasks)):
-        print tasks[x]
-        tasks[x].send(device)
-        MonkeyRunner.sleep(5)
-        device.takeSnapshot().writeToFile(di.get_screenshot_path(x))
+    for t in tasks:
+        t.send(device)
 
 
 class MWMTask:
@@ -38,6 +36,42 @@ class SearchTask(MWMTask):
         device.broadcastIntent(action='mwmtest',
                                extras={'task': self.task, 'search_query': str(self.query),
                                        'search_scope': str(self.scope)})
+        print 'Sent', self
+        MonkeyRunner.sleep(3)
+        di = DeviceInfo(device)
+        device.takeSnapshot().writeToFile(di.get_screenshot_path(self))
+
 
     def __str__(self):
-        return 'SearchTask %s %s' % (self.query, str(self.scope))
+        return 'search_%s_%s' % (self.query, str(self.scope))
+
+
+class ShowGroupTask(MWMTask):
+    task = 'task_bmk'
+    name = ''
+    duration = 0
+
+    def __init__(self, name, duration):
+        self.name = name
+        self.duration = duration
+
+    def send(self, device):
+        di = DeviceInfo(device)
+        # send intent
+        device.broadcastIntent(action='mwmtest',
+                               extras={'task': self.task, 'name': self.name})
+
+        start = time.time()
+        end = start + self.duration
+        now = start
+        print now, end, end - now
+        while now < end:
+            now = time.time()
+            filename = di.get_screenshot_path('%s_%s' % (self, now))
+            device.takeSnapshot().writeToFile(filename)
+            print 'Captured', filename
+            MonkeyRunner.sleep(0.7)
+
+
+    def __str__(self):
+        return 'group_show_%s_%s' % (self.name, str(self.duration))
