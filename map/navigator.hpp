@@ -115,6 +115,6 @@ private:
                  m2::PointD const & newPt2,
                  m2::PointD const & oldPt1,
                  m2::PointD const & oldPt2,
-                 bool skipMaxScaleAndBordersCheck,
+                 bool skipMinScaleAndBordersCheck,
                  bool doRotateScreen);
 };

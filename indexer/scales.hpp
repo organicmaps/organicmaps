@@ -3,13 +3,19 @@
 #include "../geometry/rect2d.hpp"
 #include "../geometry/point2d.hpp"
 
-int const UPPER_STYLE_SCALE = 19;
 
 namespace scales
 {
+  int const UPPER_STYLE_SCALE = 19;
+
+  /// Upper scale for data generation and indexer buckets.
   inline int GetUpperScale() { return 17; }
+  /// Upper scale according to drawing rules.
   inline int GetUpperStyleScale() { return UPPER_STYLE_SCALE; }
+  /// Upper scales for World visible styles and indexer buckets.
   inline int GetUpperWorldScale() { return 9; }
+  /// Upper scale for user comfort view (e.g. location zoom).
+  inline int GetUpperComfortScale() { return UPPER_STYLE_SCALE - 2; }
 
   double GetM2PFactor(int level);
 

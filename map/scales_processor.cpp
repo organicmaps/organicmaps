@@ -24,7 +24,7 @@ void ScalesProcessor::SetParams(int width, int height, double visualScale)
 
 m2::RectD const & ScalesProcessor::GetWorldRect() const
 {
-  static m2::RectD worldRect = MercatorBounds::FullRect();
+  static m2::RectD const worldRect = MercatorBounds::FullRect();
   return worldRect;
 }
 

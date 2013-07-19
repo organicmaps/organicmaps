@@ -148,7 +148,7 @@ namespace location
     switch (m_locationProcessMode)
     {
     case ELocationCenterAndScale:
-      m_framework->ShowRectExVisibleScale(rect, scales::GetUpperStyleScale()-2);
+      m_framework->ShowRectExVisibleScale(rect, scales::GetUpperComfortScale());
 
       SetIsCentered(true);
       CheckCompassRotation();

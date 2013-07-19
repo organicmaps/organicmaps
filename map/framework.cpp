@@ -486,7 +486,7 @@ void Framework::ShowBookmark(Bookmark const & bm)
 
   double scale = bm.GetScale();
   if (scale == -1.0)
-    scale = scales::GetUpperStyleScale() - 2;
+    scale = scales::GetUpperComfortScale();
 
   ShowRectExVisibleScale(m_scales.GetRectForDrawScale(scale, bm.GetOrg()));
 }

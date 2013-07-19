@@ -419,7 +419,7 @@ void Navigator::ScaleToPoint(m2::PointD const & pt, double factor, double /*time
   ScaleImpl(pt, endPt, pt, startPt, factor > 1, false);
 }
 
-bool Navigator::CheckMaxScale(ScreenBase const & screen) const
+bool Navigator::CheckMinScale(ScreenBase const & screen) const
 {
   m2::RectD const & r = screen.ClipRect();
   m2::RectD const & worldR = m_scales.GetWorldRect();
@@ -427,7 +427,7 @@ bool Navigator::CheckMaxScale(ScreenBase const & screen) const
   return (r.SizeX() <= worldR.SizeX() || r.SizeY() <= worldR.SizeY());
 }
 
-bool Navigator::CheckMinScale(ScreenBase const & screen) const
+bool Navigator::CheckMaxScale(ScreenBase const & screen) const
 {
   return (m_scales.GetDrawTileScale(screen) <= scales::GetUpperStyleScale());
 }
@@ -442,7 +442,7 @@ bool Navigator::CheckBorders(ScreenBase const & screen) const
 
 bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
                           m2::PointD const & oldPt1, m2::PointD const & oldPt2,
-                          bool skipMaxScaleAndBordersCheck,
+                          bool skipMinScaleAndBordersCheck,
                           bool doRotateScreen)
 {
   math::Matrix<double, 3, 3> newM = m_Screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1, oldPt2, newPt1, newPt2);
@@ -453,12 +453,12 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
   if (!doRotateScreen)
     tmp.Rotate(-(tmp.GetAngle() - oldAngle));
 
-  if (!skipMaxScaleAndBordersCheck && !CheckMaxScale(tmp))
+  if (!skipMinScaleAndBordersCheck && !CheckMinScale(tmp))
     return false;
 
   m2::RectD const & worldR = m_scales.GetWorldRect();
 
-  if (!skipMaxScaleAndBordersCheck && !CheckBorders(tmp))
+  if (!skipMinScaleAndBordersCheck && !CheckBorders(tmp))
   {
     if (CanShrinkInto(tmp, worldR))
       tmp = ShrinkInto(tmp, worldR);
@@ -466,7 +466,7 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
       return false;
   }
 
-  if (!CheckMinScale(tmp))
+  if (!CheckMaxScale(tmp))
     return false;
 
   // re-checking the borders, as we might violate them a bit (don't know why).
