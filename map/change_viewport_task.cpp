@@ -4,25 +4,22 @@
 ChangeViewportTask::ChangeViewportTask(m2::AnyRectD const & startRect,
                                        m2::AnyRectD const & endRect,
                                        double rotationSpeed,
-                                       Framework *framework)
-  : anim::AnyRectInterpolation(startRect,
-                               endRect,
-                               rotationSpeed,
-                               m_outRect),
+                                       Framework * framework)
+  : BaseT(startRect, endRect, rotationSpeed, m_outRect),
     m_framework(framework)
 {
 }
 
 void ChangeViewportTask::OnStep(double ts)
 {
-  anim::AnyRectInterpolation::OnStep(ts);
-  m_framework->GetNavigator().SetFromRect(m_outRect);
+  BaseT::OnStep(ts);
+  m_framework->ShowRectExVisibleScale(m_outRect.GetGlobalRect());
 }
 
 void ChangeViewportTask::OnEnd(double ts)
 {
-  anim::AnyRectInterpolation::OnEnd(ts);
-  m_framework->GetNavigator().SetFromRect(m_outRect);
+  BaseT::OnEnd(ts);
+  m_framework->ShowRectExVisibleScale(m_outRect.GetGlobalRect());
 }
 
 bool ChangeViewportTask::IsVisual() const

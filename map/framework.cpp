@@ -1379,7 +1379,7 @@ bool Framework::SetViewportByURL(string const & url, url_scheme::ApiPoint & ball
       balloonPoint.m_name = m_stringsBundle.GetString("dropped_pin");
       balloonPoint.m_lat = info.m_lat;
       balloonPoint.m_lon = info.m_lon;
-      SetViewPortSync(info.GetViewport());
+      SetViewPortASync(info.GetViewport());
       return true;
     }
   }
@@ -1394,7 +1394,7 @@ bool Framework::SetViewportByURL(string const & url, url_scheme::ApiPoint & ball
         balloonPoint.m_name = m_stringsBundle.GetString("dropped_pin");
 
       m2::PointD const center(MercatorBounds::LonToX(balloonPoint.m_lon), MercatorBounds::LatToY(balloonPoint.m_lat));
-      SetViewPortSync(m_scales.GetRectForDrawScale(zoomLevel, center));
+      SetViewPortASync(m_scales.GetRectForDrawScale(zoomLevel, center));
       return true;
     }
   }
@@ -1404,7 +1404,7 @@ bool Framework::SetViewportByURL(string const & url, url_scheme::ApiPoint & ball
     {
       StopLocationFollow();
       // Can do better consider nav bar size
-      SetViewPortSync(MercatorBounds::FromLatLonRect(m_ParsedMapApi.GetLatLonRect()));
+      SetViewPortASync(MercatorBounds::FromLatLonRect(m_ParsedMapApi.GetLatLonRect()));
 
       if (!m_ParsedMapApi.GetPoints().empty())
       {
@@ -1416,12 +1416,9 @@ bool Framework::SetViewportByURL(string const & url, url_scheme::ApiPoint & ball
   return false;
 }
 
-void Framework::SetViewPortSync(m2::RectD rect)
+void Framework::SetViewPortASync(m2::RectD const & r)
 {
-  CheckMinMaxVisibleScale(rect);
-
-  m2::AnyRectD aRect(rect);
-  CheckMinGlobalRect(aRect);
+  m2::AnyRectD const aRect(r);
   m_animator.ChangeViewport(aRect, aRect, 0.0);
 }
 

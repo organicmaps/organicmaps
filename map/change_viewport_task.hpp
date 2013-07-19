@@ -6,7 +6,7 @@ class Framework;
 
 class ChangeViewportTask : public anim::AnyRectInterpolation
 {
-private:
+  typedef anim::AnyRectInterpolation BaseT;
 
   Framework * m_framework;
   m2::AnyRectD m_outRect;
