@@ -4,9 +4,6 @@
 #include "../std/string.hpp"
 #include "../std/iostream.hpp"
 
-#include "viewport.hpp"
-#include "response.hpp"
-
 #include "../graphics/defines.hpp"
 
 namespace srv

@@ -3,8 +3,10 @@ CONFIG   += console warn_on
 CONFIG   -= app_bundle
 TEMPLATE = app
 
+DEFINES += QJSONRPC_BUILD
+
 DEPENDENCIES = map gui search storage indexer graphics platform anim geometry coding base \
-               bzip2 freetype expat fribidi tomcrypt jansson protobuf
+               bzip2 freetype expat fribidi tomcrypt jansson protobuf qjsonrpc
 
 ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
@@ -12,6 +14,7 @@ include($$ROOT_DIR/common.pri)
 QT       += core gui opengl network
 
 INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
+INCLUDEPATH += $$ROOT_DIR/3party/qjsonrpc/src
 
 macx* {
   LIBS *= "-framework Foundation" "-framework CoreWLAN" \
@@ -20,15 +23,10 @@ macx* {
 
 SOURCES += main.cpp \
     render_context.cpp \
-    request.cpp \
-    response.cpp \
-    response_impl/response_cout.cpp \
     viewport.cpp \
 
 HEADERS += \
+    main.hpp \
     render_context.hpp \
-    request.hpp \
-    response.hpp \
     viewport.hpp \
-    response_impl/response_cout.hpp \
 
