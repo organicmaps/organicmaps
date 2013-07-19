@@ -190,9 +190,7 @@ namespace m2
       Point<T> pts[4];
       GetGlobalPoints(pts);
 
-      Rect<T> res(pts[0].x, pts[0].y, pts[0].x, pts[0].y);
-
-      res.Add(pts[1]);
+      Rect<T> res(pts[0], pts[1]);
       res.Add(pts[2]);
       res.Add(pts[3]);
 
