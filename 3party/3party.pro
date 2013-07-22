@@ -2,9 +2,10 @@
 
 TEMPLATE = subdirs
 
-SUBDIRS = expat freetype fribidi zlib bzip2 jansson tomcrypt protobuf qjsonrpc
+SUBDIRS = expat freetype fribidi zlib bzip2 jansson tomcrypt protobuf
 
 !iphone*:!bada*:!android* {
   SUBDIRS += gflags \
-             sgitess
+             sgitess \
+             qjsonrpc
 }
