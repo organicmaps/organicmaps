@@ -12,7 +12,7 @@
 #include "../gui/controller.hpp"
 
 #include "../platform/platform.hpp"
-
+#include "../platform/settings.hpp"
 
 #include "../std/shared_ptr.hpp"
 
@@ -31,7 +31,7 @@
 MwmRpcService::MwmRpcService(QObject *parent)
 {
   LOG(LINFO, ("MwmRpcService started"));
-};
+}
 
 QString MwmRpcService::RenderBox(
     const QVariant bbox,
@@ -65,8 +65,8 @@ QString MwmRpcService::RenderBox(
   rpParams.m_primaryRC = primaryRC;
   rpParams.m_density = graphics::EDensityMDPI; // @todo - convert text to density
   rpParams.m_skinName = "basic.skn";
-  rpParams.m_screenWidth = 1000;
-  rpParams.m_screenHeight = 1000;
+  rpParams.m_screenWidth = width;
+  rpParams.m_screenHeight = height;
 
   try
   {
@@ -112,19 +112,29 @@ QString MwmRpcService::RenderBox(
   return QString(ba.toBase64());
 }
 
+void MwmRpcService::Exit()
+{
+  qApp->exit();
+}
+
 int main(int argc, char *argv[])
 {
   QApplication app(argc, argv);
-  QString serviceName;
-#if defined(Q_OS_WIN)
-  QDir tempDirectory(QDesktopServices::storageLocation(QDesktopServices::TempLocation));
-  serviceName = tempDirectory.absoluteFilePath("testservice");
-#else
-  serviceName = "/tmp/testservice";
-#endif
 
-  if (QFile::exists(serviceName)) {
-      if (!QFile::remove(serviceName)) {
+  string socketPath;
+
+  if (!Settings::Get("ServerSocketPath", socketPath))
+  {
+    socketPath = "/tmp/mwm-render-socket";
+    Settings::Set("ServerSocketPath", socketPath);
+  }
+
+  QString qSocketPath(socketPath.c_str());
+
+  if (QFile::exists(qSocketPath))
+  {
+      if (!QFile::remove(qSocketPath))
+      {
           qDebug() << "couldn't delete temporary service";
           return -1;
       }
@@ -133,7 +143,8 @@ int main(int argc, char *argv[])
   MwmRpcService service;
   QJsonRpcLocalServer rpcServer;
   rpcServer.addService(&service);
-  if (!rpcServer.listen(serviceName)) {
+  if (!rpcServer.listen(qSocketPath))
+  {
       qDebug() << "could not start server: " << rpcServer.errorString();
       return -1;
   }
