@@ -200,6 +200,20 @@
             android:launchMode="singleTop"
             android:screenOrientation="behind" >
         </activity>
+
+        <receiver
+            android:name="com.mapswithme.maps.background.ConnectivityChangedReceiver"
+            android:enabled="true"
+            android:exported="true" >
+
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.mapswithme.maps.background.WorkerService"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>
