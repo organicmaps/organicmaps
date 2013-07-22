@@ -202,7 +202,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
         // @TODO Else display received web page to user - router is redirecting us to some page
       }
 
-      return downloadFromStream(new BufferedInputStream(urlConnection.getInputStream()));
+      return downloadFromStream(new BufferedInputStream(urlConnection.getInputStream(), 65536));
     }
     catch (MalformedURLException ex)
     {
