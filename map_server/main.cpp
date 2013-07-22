@@ -49,6 +49,9 @@ QString MwmRpcService::RenderBox(
 
   shared_ptr<srv::RenderContext> primaryRC(new srv::RenderContext());
 
+  // @todo: set language from parameter
+//  Settings::SetCurrentLanguage(string(language.toAscii()));
+
   graphics::ResourceManager::Params rmParams;
   rmParams.m_rtFormat = graphics::Data8Bpp;
   rmParams.m_texFormat = graphics::Data8Bpp;
@@ -63,7 +66,7 @@ QString MwmRpcService::RenderBox(
   rpParams.m_useDefaultFB = true;
   rpParams.m_rmParams = rmParams;
   rpParams.m_primaryRC = primaryRC;
-  rpParams.m_density = graphics::EDensityMDPI; // @todo - convert text to density
+  graphics::convert(density.toAscii(), rpParams.m_density);
   rpParams.m_skinName = "basic.skn";
   rpParams.m_screenWidth = width;
   rpParams.m_screenHeight = height;
