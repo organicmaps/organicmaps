@@ -322,6 +322,12 @@ public:
     Invalidate(true);
   }
 
+  inline void SetQueryMaxScaleMode(bool mode)
+  {
+    m_queryMaxScaleMode = mode;
+    Invalidate(true);
+  }
+
   /// Get classificator types for nearest features.
   /// @param[in] pixPt Current touch point in device pixel coordinates.
   void GetFeatureTypes(m2::PointD pixPt, vector<string> & types) const;
