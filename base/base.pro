@@ -34,7 +34,6 @@ HEADERS += \
     SRC_FIRST.hpp \
     assert.hpp \
     const_helper.hpp \
-    internal/debug_new.hpp \
     internal/fast_mutex.hpp \
     math.hpp \
     pseudo_random.hpp \

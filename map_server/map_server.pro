@@ -1,4 +1,4 @@
-TARGET = map_server
+TARGET = MapsWithMe-server
 CONFIG   += console warn_on
 CONFIG   -= app_bundle
 TEMPLATE = app
@@ -10,6 +10,9 @@ DEPENDENCIES = map gui search storage indexer graphics platform anim geometry co
 
 ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
+
+target.path = /usr/bin
+INSTALLS += target
 
 QT       += core gui opengl network
 
