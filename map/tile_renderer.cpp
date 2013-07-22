@@ -225,7 +225,6 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   threadData.m_dummyRT->makeCurrent(glQueue);
 
   drawer->beginFrame();
-  drawer->clear(graphics::Color(m_bgColor.r, m_bgColor.g, m_bgColor.b, 0));
   drawer->screen()->setClipRect(renderRect);
   drawer->clear(m_bgColor);
 
