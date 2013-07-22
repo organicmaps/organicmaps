@@ -25,7 +25,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
   private long m_beg;
   private long m_end;
   private long m_expectedFileSize;
-  private String m_postBody;
+  private byte[] m_postBody;
   private String m_userAgent;
 
   private final int NOT_SET = -1;
@@ -44,7 +44,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
   native void onFinish(long httpCallbackID, long httpCode, long beg, long end);
 
   public DownloadChunkTask(long httpCallbackID, String url, long beg, long end,
-                           long expectedFileSize, String postBody, String userAgent)
+                           long expectedFileSize, byte[] postBody, String userAgent)
   {
     m_httpCallbackID = httpCallbackID;
     m_url = url;
@@ -153,15 +153,15 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
           urlConnection.setRequestProperty("Range", String.format("bytes=%d-", m_beg));
       }
 
-      if (m_postBody.length() > 0)
+      if (m_postBody != null)
       {
         urlConnection.setDoOutput(true);
-        byte[] utf8 = m_postBody.getBytes("UTF-8");
-        urlConnection.setFixedLengthStreamingMode(utf8.length);
+        urlConnection.setFixedLengthStreamingMode(m_postBody.length);
 
         final DataOutputStream os = new DataOutputStream(urlConnection.getOutputStream());
-        os.write(utf8);
+        os.write(m_postBody);
         os.flush();
+        m_postBody = null;
         Utils.closeStream(os);
       }
 

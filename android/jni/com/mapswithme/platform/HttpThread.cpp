@@ -24,20 +24,27 @@ public:
     jclass klass = env->FindClass("com/mapswithme/maps/downloader/DownloadChunkTask");
     ASSERT ( klass, () );
 
-    jmethodID methodId = env->GetMethodID(klass, "<init>", "(JLjava/lang/String;JJJLjava/lang/String;Ljava/lang/String;)V");
+    jmethodID methodId = env->GetMethodID(klass, "<init>", "(JLjava/lang/String;JJJ[BLjava/lang/String;)V");
     ASSERT ( methodId, () );
 
     // User id is always the same, so do not waste time on every chunk call
     static string uniqueUserId = GetPlatform().UniqueClientId();
 
+    jbyteArray postBody = 0;
+    size_t const postBodySize = pb.size();
+    if (postBodySize)
+    {
+      postBody = env->NewByteArray(postBodySize);
+      env->SetByteArrayRegion(postBody, 0, postBodySize, reinterpret_cast<jbyte const *>(pb.c_str()));
+    }
     m_self = env->NewGlobalRef(env->NewObject(klass,
                                               methodId,
                                               reinterpret_cast<jlong>(&cb),
                                               env->NewStringUTF(url.c_str()),
-                                              (jlong)beg,
-                                              (jlong)end,
-                                              (jlong)expectedFileSize,
-                                              env->NewStringUTF(pb.c_str()),
+                                              static_cast<jlong>(beg),
+                                              static_cast<jlong>(end),
+                                              static_cast<jlong>(expectedFileSize),
+                                              postBody,
                                               env->NewStringUTF(uniqueUserId.c_str())));
     ASSERT ( m_self, () );
 
