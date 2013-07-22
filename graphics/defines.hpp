@@ -19,6 +19,9 @@ namespace graphics
   /// get density name
   char const * convert(EDensity density);
 
+  /// get density from name
+  void convert(char const * name, EDensity & density);
+
   /// get resource name for specified density
   string const resourcePath(string const & name, EDensity density);
 
