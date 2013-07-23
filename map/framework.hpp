@@ -445,6 +445,8 @@ private:
   void SetViewPortASync(m2::RectD const & rect);
 
 public:
+  /// @name Api
+  //@{
   void MapApiSetUriAndParse(string const & url);
   bool GetMapApiPoint(m2::PointD const & pxPoint, url_scheme::ApiPoint & point);
   vector<url_scheme::ApiPoint> const & GetMapApiPoints() { return m_ParsedMapApi.GetPoints(); }
@@ -455,4 +457,11 @@ public:
   m2::RectD GetMapApiLatLonRect() const { return m_ParsedMapApi.GetLatLonRect(); }
   bool IsValidMapApi() const { return m_ParsedMapApi.IsValid(); }
   string GenerateApiBackUrl(url_scheme::ApiPoint const & point);
+  //@}
+
+  /// @name Map updates
+  //@{
+  bool IsDataVersionChanged();
+  void UpdateSavedDataVersion();
+  //@}
 };

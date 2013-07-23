@@ -1633,3 +1633,19 @@ string Framework::GenerateApiBackUrl(url_scheme::ApiPoint const & point)
   }
   return res;
 }
+
+bool Framework::IsDataVersionChanged()
+{
+  int64_t version;
+  if (Settings::Get("DataVersion", version))
+  {
+    return version != m_storage.GetCurrentDataVersion();
+  }
+  // no key in the settings, assume new version
+  return true;
+}
+
+void Framework::UpdateSavedDataVersion()
+{
+  Settings::Set("DataVersion", m_storage.GetCurrentDataVersion());
+}

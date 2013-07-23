@@ -124,5 +124,7 @@ namespace storage
     /// @param list is populated with oudated countries
     /// @return number of outdated countries in the list
     int GetOutdatedCountries(vector<Country> & list);
+
+    int64_t GetCurrentDataVersion();
   };
 }

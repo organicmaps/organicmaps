@@ -463,4 +463,9 @@ namespace storage
 
     return fListNoExt.size();
   }
+
+  int64_t Storage::GetCurrentDataVersion()
+  {
+    return m_currentVersion;
+  }
 }
