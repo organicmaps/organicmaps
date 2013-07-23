@@ -63,6 +63,11 @@ public class Framework
     return nativeLatLon2DMS(lat, lon);
   }
 
+  public static String getOutdatedCountriesString()
+  {
+    return nativeGetOutdatedCountriesString();
+  }
+
   /*
    *  "Implementation" - native methods
    */
@@ -76,6 +81,8 @@ public class Framework
 
   private native static void nativeConnectBalloonListeners(OnBalloonListener listener);
   private native static void nativeClearBalloonListeners();
+
+  private native static String nativeGetOutdatedCountriesString();
 
   private native static void nativeClearApiPoints();
 

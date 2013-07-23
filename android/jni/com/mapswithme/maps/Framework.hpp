@@ -128,6 +128,8 @@ namespace android
     bool SetViewportByUrl(string const & ulr);
 
     void DeactivatePopup();
+
+    string GetOutdatedCountriesString();
   };
 }
 

@@ -602,6 +602,23 @@ namespace android
   {
     GetBalloonManager().Hide();
   }
+
+  string Framework::GetOutdatedCountriesString()
+  {
+    vector<storage::Country> countries;
+    int count = m_work.Storage().GetOutdatedCountries(countries);
+    if (count == 0) return "";
+
+    string concated = "";
+    for (int i = 0; i < countries.size(); i++)
+    {
+      concated.append(countries[i].Name());
+      if (i < countries.size() - 1)
+        concated.append(", ");
+    }
+    return concated;
+  }
+
 }
 
 //============ GLUE CODE for com.mapswithme.maps.Framework class =============//
@@ -740,5 +757,11 @@ extern "C"
   Java_com_mapswithme_maps_Framework_nativeLatLon2DMS(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
   {
     return jni::ToJavaString(env,  MeasurementUtils::FormatLatLonAsDMS(lat, lon, false));
+  }
+
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetOutdatedCountriesString(JNIEnv * env, jclass clazz)
+  {
+    return jni::ToJavaString(env,  g_framework->GetOutdatedCountriesString());
   }
 }
