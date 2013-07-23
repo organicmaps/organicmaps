@@ -648,7 +648,11 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
       setSelection(0);
     }
     else
+    {
       super.onBackPressed();
+      // Always show map as parent
+      startActivity(new Intent(this, MWMActivity.class));
+    }
   }
 
   @Override

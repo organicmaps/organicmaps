@@ -1,22 +1,17 @@
 package com.mapswithme.maps.background;
 
-import java.util.List;
-
-import com.mapswithme.maps.R;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.SimpleLogger;
-
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
-import android.text.TextUtils;
+
+import com.mapswithme.maps.DownloadUI;
+import com.mapswithme.maps.R;
 
 public class Notifier
 {
-  private Logger l = SimpleLogger.get("MWMNotification");
-
-  private final static int ID_DEF = 0x0;
   private final static int ID_UPDATE_AVAIL = 0x1;
 
   private NotificationManager mNotificationManager;
@@ -28,37 +23,30 @@ public class Notifier
     mContext = context;
   }
 
-  public void placeNotification(String text)
+  public void placeUpdateAvailable(String forWhat)
   {
-    l.d("Noti", text);
-
-    final Notification notification = getBuilder()
-        .setContentText(text)
-        .setTicker(text)
-        .setContentTitle(text)
-        .build();
-
-    mNotificationManager.notify(ID_DEF, notification);
-  }
-
-  public void placeUpdateAvailable(List<CharSequence> forItems)
-  {
-    // TODO add real resources
-    final String forItemsStr = TextUtils.join(",", forItems);
+    // TODO: add real resources
     final String title = "Map Update Available ";
-    final String text = "New data available for " + forItemsStr;
+    final String text = "Updated maps: " + forWhat;
+
+    // Intent to start DownloadUI
+    final Intent i = new Intent(mContext, DownloadUI.class);
+    final PendingIntent pi = PendingIntent.getActivity(mContext, 0, i, Intent.FLAG_ACTIVITY_NEW_TASK);
+
     final Notification notification = getBuilder()
         .setContentTitle(title)
-        .setSubText(text)
+        .setContentText(text)
         .setTicker(title + text)
+        .setContentIntent(pi)
         .build();
 
     mNotificationManager.notify(ID_UPDATE_AVAIL, notification);
   }
 
+
   public NotificationCompat.Builder getBuilder()
   {
-    // TODO add default initialization
+    // TODO: add default initialization
     return new NotificationCompat.Builder(mContext)
       .setAutoCancel(true)
       .setSmallIcon(R.drawable.ic_launcher);

@@ -1,8 +1,5 @@
 package com.mapswithme.maps.background;
 
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.SimpleLogger;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +8,6 @@ import android.net.NetworkInfo;
 
 public class ConnectivityChangedReceiver extends BroadcastReceiver
 {
-  private final static Logger l = SimpleLogger.get("MWMConnect");
-
   @Override
   public void onReceive(Context context, Intent intent)
   {
@@ -30,7 +25,6 @@ public class ConnectivityChangedReceiver extends BroadcastReceiver
 
   public void onWiFiConnectionChanged(boolean isConnected, Context context)
   {
-     l.d("WiFi Connected", isConnected);
      if (isConnected)
      {
        WorkerService.startActionCheckUpdate(context);

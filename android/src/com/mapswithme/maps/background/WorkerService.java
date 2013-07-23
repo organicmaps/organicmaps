@@ -1,11 +1,13 @@
 package com.mapswithme.maps.background;
 
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.SimpleLogger;
-
 import android.app.IntentService;
-import android.content.Intent;
 import android.content.Context;
+import android.content.Intent;
+import android.text.TextUtils;
+
+import com.mapswithme.maps.Framework;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.StubLogger;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -17,7 +19,7 @@ public class WorkerService extends IntentService
   private static final String ACTION_PUSH_STATISTICS = "com.mapswithme.maps.action.stat";
   private static final String ACTION_CHECK_UPDATE = "com.mapswithme.maps.action.update";
 
-  private Logger l = SimpleLogger.get("MWMWorkerService");
+  private Logger mLogger = StubLogger.get();//SimpleLogger.get("MWMWorkerService");
   private Notifier mNotifier;
 
 
@@ -50,6 +52,12 @@ public class WorkerService extends IntentService
   public WorkerService()
   {
     super("WorkerService");
+  }
+
+  @Override
+  public void onCreate()
+  {
+    super.onCreate();
     mNotifier = new Notifier(this);
   }
 
@@ -69,13 +77,22 @@ public class WorkerService extends IntentService
 
   private void handleActionCheckUpdate()
   {
-    // TODO: Handle check for update
-    throw new UnsupportedOperationException("Not yet implemented");
+    mLogger.d("Trying to update");
+    if (!Framework.isDataVersionChanged()) return;
+
+    final String countriesToUpdate = Framework.getOutdatedCountriesString();
+    if (!TextUtils.isEmpty(countriesToUpdate))
+    {
+      mLogger.d("Update available! " + countriesToUpdate);
+      mNotifier.placeUpdateAvailable(countriesToUpdate);
+    }
+    // We are done with current version
+    Framework.updateSavedDataVersion();
+    mLogger.d("Version updated");
   }
 
   private void handleActionPushStat()
   {
-    // TODO: Handle stat push
-    throw new UnsupportedOperationException("Not yet implemented");
+    // TODO: add server call here
   }
 }
