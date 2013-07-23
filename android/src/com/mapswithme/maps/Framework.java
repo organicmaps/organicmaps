@@ -68,6 +68,16 @@ public class Framework
     return nativeGetOutdatedCountriesString();
   }
 
+  public static boolean isDataVersionChanged()
+  {
+    return nativeIsDataVersionChanged();
+  }
+
+  public static void updateSavedDataVersion()
+  {
+    nativeUpdateSavedDataVersion();
+  }
+
   /*
    *  "Implementation" - native methods
    */
@@ -83,6 +93,8 @@ public class Framework
   private native static void nativeClearBalloonListeners();
 
   private native static String nativeGetOutdatedCountriesString();
+  private native static boolean nativeIsDataVersionChanged();
+  private native static void nativeUpdateSavedDataVersion();
 
   private native static void nativeClearApiPoints();
 

@@ -764,4 +764,16 @@ extern "C"
   {
     return jni::ToJavaString(env,  g_framework->GetOutdatedCountriesString());
   }
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_Framework_nativeIsDataVersionChanged(JNIEnv * env, jclass clazz)
+  {
+    return g_framework->NativeFramework()->IsDataVersionChanged() ? JNI_TRUE : JNI_FALSE;
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeUpdateSavedDataVersion(JNIEnv * env, jclass clazz)
+  {
+    g_framework->NativeFramework()->UpdateSavedDataVersion();
+  }
 }
