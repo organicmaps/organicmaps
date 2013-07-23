@@ -120,5 +120,9 @@ namespace storage
     void NotifyStatusChanged(TIndex const & index) const;
 
     string GetFileDownloadUrl(string const & baseUrl, string const & fName) const;
+
+    /// @param list is populated with oudated countries
+    /// @return number of outdated countries in the list
+    int GetOutdatedCountries(vector<Country> & list);
   };
 }

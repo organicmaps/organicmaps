@@ -392,4 +392,75 @@ namespace storage
 
     return TIndex();
   }
+
+  bool IsNotUpdatable(string const & t)
+  {
+    return (t == WORLD_COASTS_FILE_NAME) || (t == WORLD_FILE_NAME);
+  }
+
+  string RemoveExt(string const & s)
+  {
+    return s.substr(0, s.find_last_of('.'));
+  }
+
+  class IsNotOutdatedFilter
+  {
+    Storage * const m_storage;
+
+  public:
+    IsNotOutdatedFilter(Storage * const storage)
+      : m_storage(storage)
+    {}
+
+    bool operator()(string const & fileName)
+    {
+      TIndex index = m_storage->FindIndexByFile(fileName);
+      TStatus res = m_storage->CountryStatus(index);
+
+      if (res == EUnknown)
+      {
+        Country const & c = m_storage->CountryByIndex(index);
+        LocalAndRemoteSizeT const size = c.Size();
+
+        if (size.first == 0)
+          return ENotDownloaded;
+
+        if (size.second == 0)
+          return EUnknown;
+
+        res = EOnDisk;
+        if (size.first != size.second)
+        {
+          /// @todo Do better version check, not just size comparison.
+
+          // Additional check for .ready file.
+          // Use EOnDisk status if it's good, or EOnDiskOutOfDate otherwise.
+          Platform const & pl = GetPlatform();
+          string const fName = pl.WritablePathForFile(c.GetFile().GetFileWithExt() + READY_FILE_EXTENSION);
+
+          uint64_t sz = 0;
+          if (!pl.GetFileSizeByFullPath(fName, sz) || sz != size.second)
+            res = EOnDiskOutOfDate;
+        }
+      }
+      return res != EOnDiskOutOfDate;
+    }
+  };
+
+  int Storage::GetOutdatedCountries(vector<Country> & list)
+  {
+    Platform & pl = GetPlatform();
+    Platform::FilesList fList;
+    pl.GetFilesByExt(pl.WritableDir(), DATA_FILE_EXTENSION, fList);
+
+    Platform::FilesList fListNoExt(fList.size());
+    transform(fList.begin(), fList.end(), fListNoExt.begin(), RemoveExt);
+    fListNoExt.erase(remove_if(fListNoExt.begin(), fListNoExt.end(), IsNotUpdatable), fListNoExt.end());
+    fListNoExt.erase(remove_if(fListNoExt.begin(), fListNoExt.end(), IsNotOutdatedFilter(this)), fListNoExt.end());
+
+    for (int i = 0; i < fListNoExt.size(); i++)
+      list.push_back(CountryByIndex(FindIndexByFile(fListNoExt[i])));
+
+    return fListNoExt.size();
+  }
 }
