@@ -17,7 +17,7 @@ extern "C"
       JNIEnv * env, jobject thiz, jint c, jint b)
   {
     BookmarkAndCategory bnc = BookmarkAndCategory(c,b);
-    frm()->ShowBookmark(*(frm()->GetBmCategory(c)->GetBookmark(b)), bnc);
+    frm()->ShowBookmark(bnc);
     frm()->SaveState();
   }
 

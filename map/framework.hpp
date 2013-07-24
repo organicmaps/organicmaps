@@ -199,7 +199,7 @@ public:
   BookmarkAndCategory GetBookmark(m2::PointD const & pxPoint, double visualScale) const;
   //@}
 
-  void ShowBookmark(Bookmark const & bm, BookmarkAndCategory bnc);
+  void ShowBookmark(BookmarkAndCategory bnc);
 
   void ClearBookmarks();
 

@@ -222,8 +222,7 @@
         if (bm)
         {
           // Same as "Close".
-          f.ShowBookmark(*bm);
-          [[MapsAppDelegate theApp].m_mapViewController showBalloonWithCategoryIndex:m_categoryIndex andBookmarkIndex:indexPath.row];
+          f.ShowBookmark(BookmarkAndCategory(m_categoryIndex, indexPath.row));
           [self dismissModalViewControllerAnimated:YES];
           [self.navigationController.visibleViewController dismissModalViewControllerAnimated:YES];
         }

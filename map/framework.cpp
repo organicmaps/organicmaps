@@ -480,18 +480,19 @@ BookmarkAndCategory Framework::GetBookmark(m2::PointD const & pxPoint, double vi
   return make_pair(retBookmarkCategory, retBookmark);
 }
 
-void Framework::ShowBookmark(Bookmark const & bm, BookmarkAndCategory bnc)
+void Framework::ShowBookmark(BookmarkAndCategory bnc)
 {
   StopLocationFollow();
 
   // show ballon above
   GetBalloonManager().ShowBookmark(bnc);
+  Bookmark const * bmk = m_bmManager.GetBmCategory(bnc.first)->GetBookmark(bnc.second);
 
-  double scale = bm.GetScale();
+  double scale = bmk->GetScale();
   if (scale == -1.0)
     scale = scales::GetUpperComfortScale();
 
-  ShowRectExVisibleScale(m_scales.GetRectForDrawScale(scale, bm.GetOrg()));
+  ShowRectExVisibleScale(m_scales.GetRectForDrawScale(scale, bmk->GetOrg()));
 }
 
 void Framework::ClearBookmarks()
