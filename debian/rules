@@ -12,7 +12,11 @@
 %:
 	dh $@ 
 override_dh_auto_configure:
-	qmake -r CONFIG+=production omim.pro 
+ifndef MWM_BUILD_TYPE
+	qmake -r CONFIG+=production omim.pro
+else
+	qmake -r CONFIG+=$(MWM_BUILD_TYPE) omim.pro
+endif
 
 override_dh_auto_test:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
