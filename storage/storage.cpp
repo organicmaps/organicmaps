@@ -405,21 +405,21 @@ namespace storage
 
   class IsNotOutdatedFilter
   {
-    Storage const * const m_storage;
+    Storage const & m_storage;
 
   public:
-    IsNotOutdatedFilter(Storage const * const storage)
+    IsNotOutdatedFilter(Storage const & storage)
       : m_storage(storage)
     {}
 
     bool operator()(string const & fileName)
     {
-      const TIndex index = m_storage->FindIndexByFile(fileName);
-      TStatus res = m_storage->CountryStatus(index);
+      const TIndex index = m_storage.FindIndexByFile(fileName);
+      TStatus res = m_storage.CountryStatus(index);
 
       if (res == EUnknown)
       {
-        Country const & c = m_storage->CountryByIndex(index);
+        Country const & c = m_storage.CountryByIndex(index);
         LocalAndRemoteSizeT const size = c.Size();
 
         if (size.first == 0)
@@ -456,7 +456,7 @@ namespace storage
     Platform::FilesList fListNoExt(fList.size());
     transform(fList.begin(), fList.end(), fListNoExt.begin(), RemoveExt);
     fListNoExt.erase(remove_if(fListNoExt.begin(), fListNoExt.end(), IsNotUpdatable), fListNoExt.end());
-    fListNoExt.erase(remove_if(fListNoExt.begin(), fListNoExt.end(), IsNotOutdatedFilter(this)), fListNoExt.end());
+    fListNoExt.erase(remove_if(fListNoExt.begin(), fListNoExt.end(), IsNotOutdatedFilter(*this)), fListNoExt.end());
 
     for (int i = 0; i < fListNoExt.size(); ++i)
       list.push_back(CountryByIndex(FindIndexByFile(fListNoExt[i])));
