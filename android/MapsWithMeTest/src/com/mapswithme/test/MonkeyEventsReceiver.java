@@ -22,7 +22,7 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
 {
 
 
-  static Logger l = SimpleLogger.get("MonkeyBusiness");
+  static Logger sLogger = SimpleLogger.get("MonkeyBusiness");
 
   @Override
   public void onReceive(Context context, Intent intent)
@@ -31,14 +31,14 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
     if (mapTask != null)
     {
       mapTask = mapTask.extract(intent);
-      l.d(mapTask.toString());
+      sLogger.d(mapTask.toString());
       intent = new Intent(context, MWMActivity.class);
       intent.putExtra(MWMActivity.EXTRA_TASK, mapTask);
       intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       context.startActivity(intent);
     }
     else
-      l.d("No task found");
+      sLogger.d("No task found");
   }
 
 
@@ -53,7 +53,8 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
 
   private static final Map<String, ExtractableMapTask> KEY_TO_TASK = new HashMap<String, ExtractableMapTask>(4);
 
-  static {
+  static 
+  {
     KEY_TO_TASK.put(TYPE_BOOKMARK, new ShowBookmarksTask());
     KEY_TO_TASK.put(TYPE_SEARCH, new SearchTask());
   }
@@ -62,14 +63,14 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
   @SuppressWarnings("serial")
   public static class SearchTask implements ExtractableMapTask
   {
-    String query;
-    int scope;
+    String mQuery;
+    int mScope;
 
     @Override
     public boolean run(MWMActivity target)
     {
-      l.d("Running me!", this, target);
-      SearchActivity.startForSearch(target, query, scope);
+      sLogger.d("Running me!", this, target);
+      SearchActivity.startForSearch(target, mQuery, mScope);
       return true;
     }
 
@@ -78,12 +79,13 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
     {
       SearchTask task = new SearchTask();
 
-      task.query = data.getStringExtra(SearchActivity.EXTRA_QUERY);
-      l.d("q: ", task.query);
+      task.mQuery = data.getStringExtra(SearchActivity.EXTRA_QUERY);
+      sLogger.d("q: ", task.mQuery);
 
       final String scopeStr = data.getStringExtra(SearchActivity.EXTRA_SCOPE);
-      l.d("s: ", scopeStr);
-      if (scopeStr != null) task.scope = Integer.parseInt(scopeStr);
+      sLogger.d("s: ", scopeStr);
+      if (scopeStr != null) 
+        task.mScope = Integer.parseInt(scopeStr);
 
       return task;
     }
@@ -91,14 +93,14 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
     @Override
     public String toString()
     {
-      return "SearchTask [query=" + query + ", scope=" + scope + "]";
+      return "SearchTask [query=" + mQuery + ", scope=" + mScope + "]";
     }
   }
 
   @SuppressWarnings("serial")
   public static class ShowBookmarksTask implements ExtractableMapTask
   {
-    String name;
+    String mName;
 
     @Override
     public boolean run(final MWMActivity target)
@@ -111,7 +113,7 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
       for (int i = 0; i < categoriesCount; i++)
       {
         categoryToShow = bmkManager.getCategoryById(i);
-        if (categoryToShow.getName().contains(name))
+        if (categoryToShow.getName().contains(mName))
           break;
         else
           categoryToShow = null;
@@ -120,43 +122,43 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
       if (categoryToShow != null)
       {
         final int catToShowId = categoryToShow.getId();
-        final Handler h = new Handler();
-        l.d("Found category:", categoryToShow.getName());
+        final Handler handler = new Handler();
+        sLogger.d("Found category:", categoryToShow.getName());
 
         class ShowBmkRunnable implements Runnable
         {
-          MWMActivity activity;
-          int bmkId;
-          int catId;
-          int maxCount;
+          MWMActivity mActivity;
+          int mBmkId;
+          int mCatId;
+          int mMaxCount;
 
           public ShowBmkRunnable(MWMActivity activity, int bmk, int cat, int count)
           {
-            this.activity = activity;
-            this.bmkId = bmk;
-            this.catId = cat;
-            this.maxCount = count;
+            mActivity = activity;
+            mBmkId = bmk;
+            mCatId = cat;
+            mMaxCount = count;
           }
 
           @Override
           public void run()
           {
-            l.d("Step!");
+            sLogger.d("Step!");
             // bring foreground
-            activity.startActivity(new Intent(activity, MWMActivity.class));
+            mActivity.startActivity(new Intent(mActivity, MWMActivity.class));
 
-            final Bookmark bookmark = bmkManager.getBookmark(catId, bmkId);
-            final BookmarkCategory category = bmkManager.getCategoryById(catId);
+            final Bookmark bookmark = bmkManager.getBookmark(mCatId, mBmkId);
+            final BookmarkCategory category = bmkManager.getCategoryById(mCatId);
             final String desc = bookmark.getBookmarkDescription();
 
             // Center camera at bookmark
-            bmkManager.showBookmarkOnMap(catId, bmkId);
+            bmkManager.showBookmarkOnMap(mCatId, mBmkId);
 
             // N2DP (Nataha to Dmitry Protocol)
             // Bookmark has no description: show map
             // Bookmark has '!' description: show balloon
             // Bookmark has '$' description: show place page
-            // TODO it is better to swap cases 1 and 3
+            // TODO: it is better to swap cases 1 and 3
             if (TextUtils.isEmpty(desc))
             {
               // if empty we hide group and ballon
@@ -174,19 +176,19 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
               else if (code == '$')
               {
                 //show place page
-                target.onBookmarkActivated(catId, bmkId);
+                target.onBookmarkActivated(mCatId, mBmkId);
               }
 
             }
             // do while have bookmarks to show
-            if (bmkId + 1 < maxCount)
-              h.postDelayed(new ShowBmkRunnable(activity, ++bmkId, catId, maxCount), 4000);
+            if (mBmkId + 1 < mMaxCount)
+              handler.postDelayed(new ShowBmkRunnable(mActivity, ++mBmkId, mCatId, mMaxCount), 4000);
           }
         }
-        h.postDelayed(new ShowBmkRunnable(target, 0, catToShowId, categoryToShow.getSize()), 0);
+        handler.postDelayed(new ShowBmkRunnable(target, 0, catToShowId, categoryToShow.getSize()), 0);
       }
       else
-        l.d("Cant find group name:", name);
+        sLogger.d("Cant find group name:", mName);
 
       return true;
     }
@@ -195,15 +197,15 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
     public ExtractableMapTask extract(Intent intent)
     {
       final ShowBookmarksTask task = new ShowBookmarksTask();
-      task.name = intent.getStringExtra("name");
-      l.d("Got", task);
+      task.mName = intent.getStringExtra("name");
+      sLogger.d("Got", task);
       return task;
     }
 
     @Override
     public String toString()
     {
-      return "ShowBookmarksTask [name=" + name + "]";
+      return "ShowBookmarksTask [name=" + mName + "]";
     }
   }
 
