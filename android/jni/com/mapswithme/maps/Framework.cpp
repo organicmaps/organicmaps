@@ -606,8 +606,9 @@ namespace android
   string Framework::GetOutdatedCountriesString()
   {
     vector<storage::Country> countries;
-    int count = m_work.Storage().GetOutdatedCountries(countries);
-    if (count == 0) return "";
+    int count = Storage().GetOutdatedCountries(countries);
+    if (count == 0)
+      return "";
 
     string concated = "";
     for (int i = 0; i < countries.size(); i++)
@@ -762,7 +763,7 @@ extern "C"
   JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetOutdatedCountriesString(JNIEnv * env, jclass clazz)
   {
-    return jni::ToJavaString(env,  g_framework->GetOutdatedCountriesString());
+    return jni::ToJavaString(env, g_framework->GetOutdatedCountriesString());
   }
 
   JNIEXPORT jboolean JNICALL

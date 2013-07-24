@@ -393,28 +393,28 @@ namespace storage
     return TIndex();
   }
 
-  bool IsNotUpdatable(string const & t)
+  static bool IsNotUpdatable(string const & t)
   {
     return (t == WORLD_COASTS_FILE_NAME) || (t == WORLD_FILE_NAME);
   }
 
-  string RemoveExt(string const & s)
+  static string RemoveExt(string const & s)
   {
     return s.substr(0, s.find_last_of('.'));
   }
 
   class IsNotOutdatedFilter
   {
-    Storage * const m_storage;
+    Storage const * const m_storage;
 
   public:
-    IsNotOutdatedFilter(Storage * const storage)
+    IsNotOutdatedFilter(Storage const * const storage)
       : m_storage(storage)
     {}
 
     bool operator()(string const & fileName)
     {
-      TIndex index = m_storage->FindIndexByFile(fileName);
+      const TIndex index = m_storage->FindIndexByFile(fileName);
       TStatus res = m_storage->CountryStatus(index);
 
       if (res == EUnknown)
@@ -447,7 +447,7 @@ namespace storage
     }
   };
 
-  int Storage::GetOutdatedCountries(vector<Country> & list)
+  int Storage::GetOutdatedCountries(vector<Country> & list) const
   {
     Platform & pl = GetPlatform();
     Platform::FilesList fList;
@@ -458,13 +458,13 @@ namespace storage
     fListNoExt.erase(remove_if(fListNoExt.begin(), fListNoExt.end(), IsNotUpdatable), fListNoExt.end());
     fListNoExt.erase(remove_if(fListNoExt.begin(), fListNoExt.end(), IsNotOutdatedFilter(this)), fListNoExt.end());
 
-    for (int i = 0; i < fListNoExt.size(); i++)
+    for (int i = 0; i < fListNoExt.size(); ++i)
       list.push_back(CountryByIndex(FindIndexByFile(fListNoExt[i])));
 
     return fListNoExt.size();
   }
 
-  int64_t Storage::GetCurrentDataVersion()
+  int64_t Storage::GetCurrentDataVersion() const
   {
     return m_currentVersion;
   }
