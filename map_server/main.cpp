@@ -31,27 +31,10 @@
 MwmRpcService::MwmRpcService(QObject *parent)
 {
   LOG(LINFO, ("MwmRpcService started"));
-}
+  m_pixelBuffer = shared_ptr<QGLPixelBuffer>(new QGLPixelBuffer(2048, 2048));
 
-QString MwmRpcService::RenderBox(
-    const QVariant bbox,
-    int width,
-    int height,
-    const QString &density,
-    const QString &language,
-    bool maxScaleMode
-    )
-{
-  LOG(LINFO, ("Render box started", width, height, maxScaleMode));
-
-  shared_ptr<QGLPixelBuffer> pb(new QGLPixelBuffer(QSize(width, height)));
-  pb->makeCurrent();
-
+  m_pixelBuffer->makeCurrent();
   shared_ptr<srv::RenderContext> primaryRC(new srv::RenderContext());
-
-  // @todo: set language from parameter
-//  Settings::SetCurrentLanguage(string(language.toAscii()));
-
   graphics::ResourceManager::Params rmParams;
   rmParams.m_rtFormat = graphics::Data8Bpp;
   rmParams.m_texFormat = graphics::Data8Bpp;
@@ -66,10 +49,10 @@ QString MwmRpcService::RenderBox(
   rpParams.m_useDefaultFB = true;
   rpParams.m_rmParams = rmParams;
   rpParams.m_primaryRC = primaryRC;
-  graphics::convert(density.toAscii(), rpParams.m_density);
+  rpParams.m_density = graphics::EDensityXHDPI;
   rpParams.m_skinName = "basic.skn";
-  rpParams.m_screenWidth = width;
-  rpParams.m_screenHeight = height;
+  rpParams.m_screenWidth = 2048;
+  rpParams.m_screenHeight = 2048;
 
   try
   {
@@ -80,16 +63,35 @@ QString MwmRpcService::RenderBox(
   {
     LOG(LERROR, ("OpenGL platform is unsupported, reason: ", e.what()));
   }
+
+}
+
+QString MwmRpcService::RenderBox(
+    const QVariant bbox,
+    int width,
+    int height,
+    const QString &density,
+    const QString &language,
+    bool maxScaleMode
+    )
+{
+  LOG(LINFO, ("Render box started", width, height, maxScaleMode));
+
+  // @todo: set density and language from parameter
+  // Settings::SetCurrentLanguage(string(language.toAscii()));
+  // graphics::convert(density.toAscii(), rpParams.m_density);
+
+  m_pixelBuffer->makeCurrent();
   m_framework.OnSize(width, height);
   m_framework.SetQueryMaxScaleMode(maxScaleMode);
 
   QVariantList box(bbox.value<QVariantList>());
   m2::AnyRectD requestBox(m2::RectD(
-    MercatorBounds::LonToX(box[0].toDouble()),
-    MercatorBounds::LatToY(box[1].toDouble()),
-    MercatorBounds::LonToX(box[2].toDouble()),
-    MercatorBounds::LatToY(box[3].toDouble())
-  ));
+                            MercatorBounds::LonToX(box[0].toDouble()),
+                            MercatorBounds::LatToY(box[1].toDouble()),
+                            MercatorBounds::LonToX(box[2].toDouble()),
+                            MercatorBounds::LatToY(box[3].toDouble())
+                         ));
   m_framework.GetNavigator().SetFromRect(requestBox);
 
   shared_ptr<PaintEvent> pe(new PaintEvent(m_framework.GetRenderPolicy()->GetDrawer().get()));
@@ -98,26 +100,24 @@ QString MwmRpcService::RenderBox(
   m_framework.DoPaint(pe);
   m_framework.EndPaint(pe);
 
-  pb->doneCurrent();
-
   QByteArray ba;
   QBuffer b(&ba);
   b.open(QIODevice::WriteOnly);
-  qApp->processEvents();
 
-  pb->toImage().save(&b, "PNG");
-
-  pb->makeCurrent();
-  m_framework.SetRenderPolicy(0);
-  pb->doneCurrent();
+  m_pixelBuffer->toImage().copy(0, m_pixelBuffer->height()-height, width, height).save(&b, "PNG");
 
   LOG(LINFO, ("Render box finished"));
   return QString(ba.toBase64());
 }
 
+bool MwmRpcService::Ping()
+{
+  return true;
+}
+
 void MwmRpcService::Exit()
 {
-  qApp->exit();
+  qApp->exit(0);
 }
 
 int main(int argc, char *argv[])
@@ -136,11 +136,11 @@ int main(int argc, char *argv[])
 
   if (QFile::exists(qSocketPath))
   {
-      if (!QFile::remove(qSocketPath))
-      {
-          qDebug() << "couldn't delete temporary service";
-          return -1;
-      }
+    if (!QFile::remove(qSocketPath))
+    {
+      qDebug() << "couldn't delete temporary service";
+      return -1;
+    }
   }
 
   MwmRpcService service;
@@ -148,8 +148,8 @@ int main(int argc, char *argv[])
   rpcServer.addService(&service);
   if (!rpcServer.listen(qSocketPath))
   {
-      qDebug() << "could not start server: " << rpcServer.errorString();
-      return -1;
+    qDebug() << "could not start server: " << rpcServer.errorString();
+    return -1;
   }
 
   return app.exec();
