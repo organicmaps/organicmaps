@@ -149,6 +149,7 @@ namespace android
     try
     {
       m_work.SetRenderPolicy(CreateRenderPolicy(rpParams));
+      m_work.InitGuiSubsystem();
       if (m_doLoadState)
         LoadState();
       else

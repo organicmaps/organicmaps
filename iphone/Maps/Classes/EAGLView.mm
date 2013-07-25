@@ -124,6 +124,7 @@
   Framework & f = GetFramework();
   f.OnSize(frameRect.size.width * vs, frameRect.size.height * vs);
   f.SetRenderPolicy(renderPolicy);
+  f.InitGuiSubsystem();
 
   NSLog(@"EAGLView initRenderPolicy Ended");
 }

@@ -841,7 +841,9 @@ void Framework::DoPaint(shared_ptr<PaintEvent> const & e)
   {
     m_renderPolicy->DrawFrame(e, m_navigator.Screen());
 
-    DrawAdditionalInfo(e);
+    // don't render additional elements if guiController wasn't initialized
+    if (m_guiController->GetCacheScreen() != NULL)
+      DrawAdditionalInfo(e);
   }
 }
 
@@ -1304,22 +1306,31 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 
   if (m_renderPolicy)
   {
-    gui::Controller::RenderParams rp(m_renderPolicy->Density(),
-                                     bind(&WindowHandle::invalidate,
-                                          renderPolicy->GetWindowHandle().get()),
-                                     m_renderPolicy->GetGlyphCache(),
-                                     m_renderPolicy->GetCacheScreen().get());
-
-    m_guiController->SetRenderParams(rp);
-
     m_renderPolicy->SetCountryIndexFn(bind(&Framework::GetCountryIndex, this, _1));
 
     m_renderPolicy->SetAnimController(m_animController.get());
 
     m_navigator.SetSupportRotation(m_renderPolicy->DoSupportRotation());
 
-    m_informationDisplay.setVisualScale(m_renderPolicy->VisualScale());
+    m_renderPolicy->SetRenderFn(DrawModelFn());
 
+    if (m_benchmarkEngine)
+      m_benchmarkEngine->Start();
+  }
+}
+
+void Framework::InitGuiSubsystem()
+{
+  if (m_renderPolicy)
+  {
+    gui::Controller::RenderParams rp(m_renderPolicy->Density(),
+                                     bind(&WindowHandle::invalidate,
+                                          m_renderPolicy->GetWindowHandle().get()),
+                                     m_renderPolicy->GetGlyphCache(),
+                                     m_renderPolicy->GetCacheScreen().get());
+
+    m_guiController->SetRenderParams(rp);
+    m_informationDisplay.setVisualScale(m_renderPolicy->VisualScale());
     m_balloonManager.RenderPolicyCreated(m_renderPolicy->Density());
 
     if (m_width != 0 && m_height != 0)
@@ -1327,11 +1338,6 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 
     // Do full invalidate instead of any "pending" stuff.
     Invalidate();
-
-    m_renderPolicy->SetRenderFn(DrawModelFn());
-
-    if (m_benchmarkEngine)
-      m_benchmarkEngine->Start();
   }
 }
 

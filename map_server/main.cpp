@@ -27,11 +27,12 @@
 #include <QFile>
 #include <QDir>
 
+#define TEXTURE_SIZE 2560
 
-MwmRpcService::MwmRpcService(QObject *parent)
+
+MwmRpcService::MwmRpcService(QObject * parent) : m_pixelBuffer(new QGLPixelBuffer(TEXTURE_SIZE, TEXTURE_SIZE))
 {
   LOG(LINFO, ("MwmRpcService started"));
-  m_pixelBuffer = shared_ptr<QGLPixelBuffer>(new QGLPixelBuffer(2048, 2048));
 
   m_pixelBuffer->makeCurrent();
   shared_ptr<srv::RenderContext> primaryRC(new srv::RenderContext());
@@ -41,27 +42,24 @@ MwmRpcService::MwmRpcService(QObject *parent)
   rmParams.m_texRtFormat = graphics::Data4Bpp;
   rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
 
-  RenderPolicy::Params rpParams;
+  m_videoTimer = new EmptyVideoTimer();
 
-  shared_ptr<VideoTimer> timer(new EmptyVideoTimer());
-
-  rpParams.m_videoTimer = timer.get();
-  rpParams.m_useDefaultFB = true;
-  rpParams.m_rmParams = rmParams;
-  rpParams.m_primaryRC = primaryRC;
-  rpParams.m_density = graphics::EDensityXHDPI;
-  rpParams.m_skinName = "basic.skn";
-  rpParams.m_screenWidth = 2048;
-  rpParams.m_screenHeight = 2048;
+  m_rpParams.m_videoTimer = m_videoTimer;
+  m_rpParams.m_useDefaultFB = true;
+  m_rpParams.m_rmParams = rmParams;
+  m_rpParams.m_primaryRC = primaryRC;
+  m_rpParams.m_density = graphics::EDensityXHDPI;
+  m_rpParams.m_skinName = "basic.skn";
+  m_rpParams.m_screenWidth = TEXTURE_SIZE;
+  m_rpParams.m_screenHeight = TEXTURE_SIZE;
 
   try
   {
-    m_framework.SetRenderPolicy(new SimpleRenderPolicy(rpParams));
-    m_framework.GetGuiController()->ResetRenderParams();
+    m_framework.SetRenderPolicy(new SimpleRenderPolicy(m_rpParams));
   }
   catch (graphics::gl::platform_unsupported const & e)
   {
-    LOG(LERROR, ("OpenGL platform is unsupported, reason: ", e.what()));
+    LOG(LCRITICAL, ("OpenGL platform is unsupported, reason: ", e.what()));
   }
 
 }
@@ -70,18 +68,25 @@ QString MwmRpcService::RenderBox(
     const QVariant bbox,
     int width,
     int height,
-    const QString &density,
-    const QString &language,
+    QString const & density,
+    QString const & language,
     bool maxScaleMode
     )
 {
   LOG(LINFO, ("Render box started", width, height, maxScaleMode));
 
-  // @todo: set density and language from parameter
+  // @todo: set language from parameter
   // Settings::SetCurrentLanguage(string(language.toAscii()));
-  // graphics::convert(density.toAscii(), rpParams.m_density);
 
-  m_pixelBuffer->makeCurrent();
+  graphics::EDensity requestDensity;
+  graphics::convert(density.toAscii(), requestDensity);
+  if (m_framework.GetRenderPolicy()->Density() != requestDensity)
+  {
+    m_rpParams.m_density = requestDensity;
+    m_framework.SetRenderPolicy(0);
+    m_framework.SetRenderPolicy(new SimpleRenderPolicy(m_rpParams));
+  };
+
   m_framework.OnSize(width, height);
   m_framework.SetQueryMaxScaleMode(maxScaleMode);
 
@@ -104,7 +109,7 @@ QString MwmRpcService::RenderBox(
   QBuffer b(&ba);
   b.open(QIODevice::WriteOnly);
 
-  m_pixelBuffer->toImage().copy(0, m_pixelBuffer->height()-height, width, height).save(&b, "PNG");
+  m_pixelBuffer->toImage().copy(0, TEXTURE_SIZE-height, width, height).save(&b, "PNG");
 
   LOG(LINFO, ("Render box finished"));
   return QString(ba.toBase64());

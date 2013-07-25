@@ -234,6 +234,7 @@ public:
   //@}
 
   void SetRenderPolicy(RenderPolicy * renderPolicy);
+  void InitGuiSubsystem();
   RenderPolicy * GetRenderPolicy() const;
 
   InformationDisplay & GetInformationDisplay();

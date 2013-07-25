@@ -274,12 +274,14 @@ namespace qt
       try
       {
         m_framework->SetRenderPolicy(CreateRenderPolicy(rpParams));
+        m_framework->InitGuiSubsystem();
       }
       catch (graphics::gl::platform_unsupported const & e)
       {
         LOG(LERROR, ("OpenGL platform is unsupported, reason: ", e.what()));
         /// @todo Show "Please Update Drivers" dialog and close the program.
       }
+
       catch (RootException const & e)
       {
         LOG(LERROR, (e.what()));
