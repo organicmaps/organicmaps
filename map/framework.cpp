@@ -756,7 +756,7 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
   screen.PtoG(m2::Inflate(m2::RectD(renderRect), inflationSize, inflationSize), clipRect);
   screen.PtoG(m2::RectD(renderRect), selectRect);
 
-  int const drawScale = m_scales.GetDrawTileScale(baseScale);
+  int const drawScale = m_queryMaxScaleMode ? scales::GetUpperScale() : m_scales.GetDrawTileScale(baseScale);
   fwork::FeatureProcessor doDraw(clipRect, screen, e, drawScale);
 
   try

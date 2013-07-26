@@ -12,25 +12,23 @@
 #include "../gui/controller.hpp"
 
 #include "../platform/platform.hpp"
-#include "../platform/settings.hpp"
 
 #include "../std/shared_ptr.hpp"
 
-#include "qjsonrpcservice.h"
+#include <qjsonrpcservice.h>
 
-#include <QGLPixelBuffer>
-#include <QtCore/QBuffer>
+#include "../../3party/gflags/src/gflags/gflags.h"
+
+#include <QtOpenGL/QGLPixelBuffer>
 #include <QtGui/QApplication>
-#include <QCoreApplication>
-#include <QDesktopServices>
-#include <QLocalServer>
-#include <QFile>
-#include <QDir>
+#include <QtCore/QBuffer>
+#include <QtCore/QFile>
 
-#define TEXTURE_SIZE 2560
+DEFINE_uint64(texture_size, 2560, "Texture size");
+DEFINE_string(listen, "/tmp/mwm-render-socket",
+                 "Path to socket to be listened");
 
-
-MwmRpcService::MwmRpcService(QObject * parent) : m_pixelBuffer(new QGLPixelBuffer(TEXTURE_SIZE, TEXTURE_SIZE))
+MwmRpcService::MwmRpcService(QObject * parent) : m_pixelBuffer(new QGLPixelBuffer(FLAGS_texture_size, FLAGS_texture_size))
 {
   LOG(LINFO, ("MwmRpcService started"));
 
@@ -50,8 +48,8 @@ MwmRpcService::MwmRpcService(QObject * parent) : m_pixelBuffer(new QGLPixelBuffe
   m_rpParams.m_primaryRC = primaryRC;
   m_rpParams.m_density = graphics::EDensityXHDPI;
   m_rpParams.m_skinName = "basic.skn";
-  m_rpParams.m_screenWidth = TEXTURE_SIZE;
-  m_rpParams.m_screenHeight = TEXTURE_SIZE;
+  m_rpParams.m_screenWidth = FLAGS_texture_size;
+  m_rpParams.m_screenHeight = FLAGS_texture_size;
 
   try
   {
@@ -61,11 +59,10 @@ MwmRpcService::MwmRpcService(QObject * parent) : m_pixelBuffer(new QGLPixelBuffe
   {
     LOG(LCRITICAL, ("OpenGL platform is unsupported, reason: ", e.what()));
   }
-
 }
 
 QString MwmRpcService::RenderBox(
-    const QVariant bbox,
+    QVariant const & bbox,
     int width,
     int height,
     QString const & density,
@@ -109,7 +106,7 @@ QString MwmRpcService::RenderBox(
   QBuffer b(&ba);
   b.open(QIODevice::WriteOnly);
 
-  m_pixelBuffer->toImage().copy(0, TEXTURE_SIZE-height, width, height).save(&b, "PNG");
+  m_pixelBuffer->toImage().copy(0, FLAGS_texture_size-height, width, height).save(&b, "PNG");
 
   LOG(LINFO, ("Render box finished"));
   return QString(ba.toBase64());
@@ -127,21 +124,16 @@ void MwmRpcService::Exit()
 
 int main(int argc, char *argv[])
 {
+  google::SetUsageMessage("Usage: MapsWithMe-server [-listen SOCKET]");
+  google::ParseCommandLineFlags(&argc, &argv, true);
+
   QApplication app(argc, argv);
 
-  string socketPath;
+  QString socketPath(FLAGS_listen.c_str());
 
-  if (!Settings::Get("ServerSocketPath", socketPath))
+  if (QFile::exists(socketPath))
   {
-    socketPath = "/tmp/mwm-render-socket";
-    Settings::Set("ServerSocketPath", socketPath);
-  }
-
-  QString qSocketPath(socketPath.c_str());
-
-  if (QFile::exists(qSocketPath))
-  {
-    if (!QFile::remove(qSocketPath))
+    if (!QFile::remove(socketPath))
     {
       qDebug() << "couldn't delete temporary service";
       return -1;
@@ -151,7 +143,7 @@ int main(int argc, char *argv[])
   MwmRpcService service;
   QJsonRpcLocalServer rpcServer;
   rpcServer.addService(&service);
-  if (!rpcServer.listen(qSocketPath))
+  if (!rpcServer.listen(socketPath))
   {
     qDebug() << "could not start server: " << rpcServer.errorString();
     return -1;
