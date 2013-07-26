@@ -14,7 +14,7 @@ SOURCES += \
   packer.cpp \
   robust_orientation.cpp \
   region2d/binary_operators.cpp \
-  angles.cpp \
+  angles.cpp
 
 HEADERS += \
   rect2d.hpp \
@@ -39,3 +39,4 @@ HEADERS += \
   region2d/binary_operators.hpp \
   region2d/boost_concept.hpp \
   avg_vector.hpp \
+    polyline2d.hpp

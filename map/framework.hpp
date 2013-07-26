@@ -39,6 +39,7 @@
 #include "../std/scoped_ptr.hpp"
 #include "../std/target_os.hpp"
 
+#include "track.hpp"
 
 //#define DRAW_TOUCH_POINTS
 
@@ -115,6 +116,8 @@ protected:
   scoped_ptr<gui::Controller> m_guiController;
   scoped_ptr<anim::Controller> m_animController;
   InformationDisplay m_informationDisplay;
+
+  Track m_testTrack;
 
   /// How many pixels around touch point are used to get bookmark or POI
   static const int TOUCH_PIXEL_RADIUS = 20;

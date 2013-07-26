@@ -804,6 +804,15 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   m_bmManager.DrawBookmarks(e);
   DrawMapApiPoints(e);
 
+  if (m_testTrack.IsVisible())
+  {
+    LOG(LDEBUG, ("Drawing track"));
+    m_testTrack.Draw(e);
+  }
+  else
+  {
+    LOG(LDEBUG, ("Track is not visible."));
+  }
   pScreen->endFrame();
 
   m_guiController->UpdateElements();
