@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.mapswithme.maps">
-    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="17"/>
+    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="18"/>
     <uses-feature android:glEsVersion="0x00020000" android:required="true" />
     <uses-feature android:required="true" android:name="android.hardware.touchscreen" />
     <uses-feature android:required="false" android:name="android.hardware.wifi" />
