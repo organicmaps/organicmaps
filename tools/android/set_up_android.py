@@ -37,20 +37,23 @@ def update_assets():
 
 
 def replace_aapt(sdkDir, oldAaptName='aapt2'):
-    aaptPath = os.path.join(sdkDir, 'build-tools/android-4.2.2', 'aapt')
-    aaptRealPath = os.path.join(sdkDir, 'build-tools/android-4.2.2', oldAaptName)
+    buildToolsPath = os.path.join(sdkDir, 'build-tools')
+    # Build tools now are in different folders for each version
+    for buildToolsVersion in os.listdir(buildToolsPath):
+        aaptPath = os.path.join(buildToolsPath, buildToolsVersion, 'aapt')
+        aaptRealPath = os.path.join(buildToolsPath, buildToolsVersion, oldAaptName)
 
-    # handle case of non-existing file
-    if not os.path.exists(aaptRealPath):
-        os.rename(aaptPath, aaptRealPath)
-    else:
-        print 'aapt2 already exists, skipping'
+        # handle case of non-existing file
+        if not os.path.exists(aaptRealPath):
+            os.rename(aaptPath, aaptRealPath)
+        else:
+            print 'aapt2 already exists, skipping'
 
-    # copy new hacked aapt version
-    curDir = os.getcwd()
-    hackedAaptPath = os.path.join(curDir, 'aapt')
-    print 'hacked path; %s' % hackedAaptPath
-    print 'copied: %s' % shutil.copy(hackedAaptPath, aaptPath)
+        # copy new hacked aapt version
+        curDir = os.getcwd()
+        hackedAaptPath = os.path.join(curDir, 'aapt')
+        print 'hacked path; %s' % hackedAaptPath
+        print 'copied: %s' % shutil.copy(hackedAaptPath, aaptPath)
 
 
 def write_local_properties(sdkDir, ndkDir):
