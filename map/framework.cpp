@@ -475,7 +475,7 @@ void Framework::ShowBookmark(BookmarkAndCategory bnc)
 
 void Framework::ClearBookmarks()
 {
-  m_bmManager.ClearBookmarks();
+  m_bmManager.ClearItems();
 }
 
 namespace
@@ -782,6 +782,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   Drawer * pDrawer = e->drawer();
   graphics::Screen * pScreen = pDrawer->screen();
 
+  // Begin frame
   pScreen->beginFrame();
 
   bool const isEmptyModel = m_renderPolicy->IsEmptyModel();
@@ -801,19 +802,12 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   m_informationDisplay.doDraw(pDrawer);
 
-  m_bmManager.DrawBookmarks(e);
   DrawMapApiPoints(e);
-
-  if (m_testTrack.IsVisible())
-  {
-    LOG(LDEBUG, ("Drawing track"));
-    m_testTrack.Draw(e);
-  }
-  else
-  {
-    LOG(LDEBUG, ("Track is not visible."));
-  }
   pScreen->endFrame();
+  // End frame
+
+  m_bmManager.Update(m_navigator);
+  m_bmManager.DrawItems(e);
 
   m_guiController->UpdateElements();
   m_guiController->DrawFrame(pScreen);
@@ -1312,6 +1306,7 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
   m_guiController->ResetRenderParams();
   m_renderPolicy.reset();
   m_renderPolicy.reset(renderPolicy);
+  m_bmManager.DeleteScreen();
 
   if (m_renderPolicy)
   {
@@ -1344,6 +1339,21 @@ void Framework::InitGuiSubsystem()
 
     if (m_width != 0 && m_height != 0)
       OnSize(m_width, m_height);
+
+    // init Bookmark manager
+    //@{
+    graphics::Screen::Params pr;
+    pr.m_resourceManager = m_renderPolicy->GetResourceManager();
+    pr.m_threadSlot = m_renderPolicy->GetResourceManager()->guiThreadSlot();
+    pr.m_renderContext = m_renderPolicy->GetRenderContext();
+
+    pr.m_doUnbindRT = false;
+    pr.m_storageType = graphics::EMediumStorage;
+    pr.m_textureType = graphics::ESmallTexture;
+    pr.m_isSynchronized = false;
+
+    m_bmManager.SetScreen(m_renderPolicy->CreateScreenWithParams(pr));
+    //@}
 
     // Do full invalidate instead of any "pending" stuff.
     Invalidate();

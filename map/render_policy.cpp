@@ -54,7 +54,12 @@ void RenderPolicy::InitCacheScreen()
   cp.m_resourceManager = m_resourceManager;
   cp.m_renderContext = m_primaryRC;
 
-  m_cacheScreen = make_shared_ptr(new graphics::Screen(cp));
+  m_cacheScreen = make_shared_ptr(CreateScreenWithParams(cp));
+}
+
+graphics::Screen * RenderPolicy::CreateScreenWithParams(graphics::Screen::Params const & params) const
+{
+ return new graphics::Screen(params);
 }
 
 void RenderPolicy::OnSize(int w, int h)

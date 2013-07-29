@@ -14,7 +14,7 @@
 
 
 BookmarkManager::BookmarkManager(Framework & f)
-  : m_framework(f)
+  : m_framework(f), m_bmScreen(0)
 {
   m_additionalPoiLayer = new BookmarkCategory("");
 }
@@ -22,7 +22,8 @@ BookmarkManager::BookmarkManager(Framework & f)
 BookmarkManager::~BookmarkManager()
 {
   delete m_additionalPoiLayer;
-  ClearBookmarks();
+  ClearItems();
+  DeleteScreen();
 }
 
 namespace
@@ -47,10 +48,16 @@ void BookmarkManager::DrawCategory(BookmarkCategory const * cat, shared_ptr<Pain
 {
   Navigator & navigator = m_framework.GetNavigator();
   InformationDisplay & informationDisplay  = m_framework.GetInformationDisplay();
+
   // get viewport limit rect
   m2::AnyRectD const & glbRect = navigator.Screen().GlobalRect();
   Drawer * pDrawer = e->drawer();
 
+ // Draw tracks. Only track with display list will be drawn
+  for (size_t i = 0; i < cat->GetTracksCount(); ++i)
+    cat->GetTrack(i)->Draw(e);
+
+  // Draw bookmarks
   for (size_t j = 0; j < cat->GetBookmarksCount(); ++j)
   {
     Bookmark const * bm = cat->GetBookmark(j);
@@ -60,9 +67,10 @@ void BookmarkManager::DrawCategory(BookmarkCategory const * cat, shared_ptr<Pain
     if (glbRect.IsPointInside(org))
       informationDisplay.drawPlacemark(pDrawer, bm->GetType().c_str(), navigator.GtoP(org));
   }
+
 }
 
-void BookmarkManager::ClearBookmarks()
+void BookmarkManager::ClearItems()
 {
   for_each(m_categories.begin(), m_categories.end(), DeleteFunctor());
   m_categories.clear();
@@ -70,14 +78,14 @@ void BookmarkManager::ClearBookmarks()
 
 void BookmarkManager::LoadBookmarks()
 {
-  ClearBookmarks();
+  ClearItems();
 
   string const dir = GetPlatform().WritableDir();
 
   Platform::FilesList files;
   Platform::GetFilesByExt(dir, BOOKMARKS_FILE_EXTENSION, files);
   for (size_t i = 0; i < files.size(); ++i)
-    LoadBookmark(dir + files[i]);
+    LoadBookmark(dir+files[i]);
 
   LoadState();
 }
@@ -87,7 +95,7 @@ void BookmarkManager::LoadBookmark(string const & filePath)
   BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(filePath);
   if (cat)
     m_categories.push_back(cat);
-}
+  }
 
 size_t BookmarkManager::AddBookmark(size_t categoryIndex, Bookmark & bm)
 {
@@ -128,7 +136,7 @@ size_t BookmarkManager::LastEditedBMCategory()
     m_categories.push_back(new BookmarkCategory(m_framework.GetStringsBundle().GetString("my_places")));
 
   return 0;
-}
+  }
 
 string BookmarkManager::LastEditedBMType() const
 {
@@ -146,16 +154,26 @@ size_t BookmarkManager::CreateBmCategory(string const & name)
   return (m_categories.size()-1);
 }
 
-void BookmarkManager::DrawBookmarks(shared_ptr<PaintEvent> const & e)
+void BookmarkManager::Update(Navigator & navigator)
 {
+  for (int i = 0; i < m_categories.size(); ++i)
+    for (int j = 0; j < m_categories[i]->GetTracksCount(); ++j)
+      m_categories[i]->GetTrack(j)->UpdateDisplayList(navigator, m_bmScreen);
+}
+
+void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e)
+{
+  e->drawer()->screen()->beginFrame();
+
   for (size_t i = 0; i < m_categories.size(); ++i)
   {
     if (GetBmCategory(i)->IsVisible())
       DrawCategory(m_categories[i], e);
   }
-
   if (m_additionalPoiLayer->IsVisible())
     DrawCategory(m_additionalPoiLayer, e);
+
+  e->drawer()->screen()->endFrame();
 }
 
 void BookmarkManager::DeleteBmCategory(CategoryIter i)
@@ -218,4 +236,25 @@ void BookmarkManager::AdditionalPoiLayerClear()
 bool BookmarkManager::IsAdditionalLayerPoi(const BookmarkAndCategory & bm) const
 {
   return (bm.first == additionalLayerCategory && bm.second >= 0);
+}
+
+void BookmarkManager::SetScreen(graphics::Screen * screen)
+{
+  DeleteScreen();
+  m_bmScreen = screen;
+}
+
+void BookmarkManager::DeleteScreen()
+{
+  if (m_bmScreen)
+  {
+    // Delete display lists for all tracks
+    for (int i = 0; i < m_categories.size(); ++i)
+      for (int j = 0; j < m_categories[i]->GetTracksCount(); ++j)
+        m_categories[i]->GetTrack(j)->DeleteDisplayList();
+
+
+    delete m_bmScreen;
+    m_bmScreen = 0;
+  }
 }

@@ -10,7 +10,7 @@ class Polyline2d
 {
 public:
   Polyline2d() {}
-  explicit Polyline2d(vector<Point<T> > points): m_points(points) {}
+  explicit Polyline2d(vector<Point<T> > const & points): m_points(points) {}
 
   // let it be public for now
   vector<Point<T> > m_points;

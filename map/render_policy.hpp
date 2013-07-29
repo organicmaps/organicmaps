@@ -161,6 +161,10 @@ public:
   graphics::Color const GetBgColor() const;
 
   shared_ptr<graphics::Screen> const & GetCacheScreen() const;
+  shared_ptr<graphics::ResourceManager> const & GetResourceManager() const { return m_resourceManager; }
+  shared_ptr<graphics::RenderContext> const & GetRenderContext() const { return m_primaryRC; }
+
+  graphics::Screen * CreateScreenWithParams(graphics::Screen::Params const & params) const;
 
 protected:
   void InitWindowsHandle(VideoTimer * timer, shared_ptr<graphics::RenderContext> context);

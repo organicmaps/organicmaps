@@ -11,6 +11,8 @@
 #include "../std/noncopyable.hpp"
 #include "../std/iostream.hpp"
 
+#include "track.hpp"
+
 
 class Bookmark
 {
@@ -49,8 +51,13 @@ public:
 
 class BookmarkCategory : private noncopyable
 {
-  string m_name;
+  /// @name Data
+  //@{
   vector<Bookmark *> m_bookmarks;
+  vector<Track *> m_tracks;
+  //@}
+
+  string m_name;
   bool m_visible;
   /// Stores file name from which category was loaded
   string m_file;
@@ -64,6 +71,7 @@ public:
   ~BookmarkCategory();
 
   void ClearBookmarks();
+  void ClearTracks();
 
   static string GetDefaultType();
 
@@ -71,6 +79,13 @@ public:
   //@{
   void AddBookmark(Bookmark const & bm);
   void ReplaceBookmark(size_t index, Bookmark const & bm);
+  //@}
+
+  /// @name Track routines
+  //@{
+  void AddTrack(Track const & track);
+  Track * GetTrack(size_t index) const;
+  inline size_t GetTracksCount()    const { return m_tracks.size(); }
   //@}
 
   void SetVisible(bool isVisible) { m_visible = isVisible; }

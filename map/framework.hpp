@@ -117,7 +117,6 @@ protected:
   scoped_ptr<anim::Controller> m_animController;
   InformationDisplay m_informationDisplay;
 
-  Track m_testTrack;
 
   /// How many pixels around touch point are used to get bookmark or POI
   static const int TOUCH_PIXEL_RADIUS = 20;

@@ -1,6 +1,8 @@
 #pragma once
 #include "bookmark.hpp"
 #include "events.hpp"
+#include "../std/scoped_ptr.hpp"
+#include "../graphics/screen.hpp"
 
 //special number for additional layer category
 const int additionalLayerCategory = -2;
@@ -14,6 +16,7 @@ class BookmarkManager : private noncopyable
   string m_lastType;
   Framework & m_framework;
   BookmarkCategory * m_additionalPoiLayer;
+  graphics::Screen * m_bmScreen;
 
   typedef vector<BookmarkCategory *>::iterator CategoryIter;
 
@@ -23,10 +26,10 @@ class BookmarkManager : private noncopyable
   void LoadState();
 
 public:
-  BookmarkManager(Framework & f);
+  BookmarkManager(Framework& f);
   ~BookmarkManager();
 
-  void ClearBookmarks();
+  void ClearItems();
 
   /// Scans and loads all kml files with bookmarks in WritableDir.
   void LoadBookmarks();
@@ -45,7 +48,8 @@ public:
   BookmarkCategory * GetBmCategory(size_t index) const;
 
   size_t CreateBmCategory(string const & name);
-  void DrawBookmarks(shared_ptr<PaintEvent> const & e);
+  void Update(Navigator & navigator);
+  void DrawItems(shared_ptr<PaintEvent> const & e);
 
   /// @name Delete bookmarks category with all bookmarks.
   /// @return true if category was deleted
@@ -63,4 +67,7 @@ public:
   bool IsAdditionalLayerPoi(const BookmarkAndCategory & bm) const;
   bool AdditionalLayerIsVisible() const { return m_additionalPoiLayer->IsVisible(); }
   size_t AdditionalLayerNumberOfPoi() const { return m_additionalPoiLayer->GetBookmarksCount(); }
+
+  void SetScreen(graphics::Screen * screen);
+  void DeleteScreen();
 };

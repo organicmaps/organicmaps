@@ -132,6 +132,7 @@ namespace
     BookmarkCategory & m_category;
 
     vector<string> m_tags;
+    GeometryType m_geometryType;
 
     string m_name;
     string m_type;

@@ -18,5 +18,6 @@ namespace graphics
   static const int rulerDepth = compassDepth;
   static const int locationDepth = rulerDepth - 10;
   static const int poiAndBookmarkDepth = locationDepth - 10;
+  static const int tracksDepth = poiAndBookmarkDepth - 10;
   static const int countryStatusDepth = poiAndBookmarkDepth - 10;
 }
