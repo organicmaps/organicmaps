@@ -22,7 +22,7 @@ UNIT_TEST(Timer_Seconds)
   for (int i = 0; i < 10000000; ++i) {}
   t2 = timer.ElapsedSeconds();
 
-  TEST_EQUAL(t1, t2, ("Timer values should be equal: compiler loop optimization!"));
+  TEST_ALMOST_EQUAL(t1, t2, ("Timer values should be equal: compiler loop optimization!"));
 #endif
 }
 
