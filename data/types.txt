@@ -950,3 +950,5 @@ office|lawyer
 office
 landuse|residential|rural
 landuse|residential|urban
+amenity|ferry_terminal
+amenity

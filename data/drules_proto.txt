@@ -1133,6 +1133,45 @@ cont {
   }
 }
 cont {
+  name: "amenity"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
   name: "amenity-atm"
   element {
     scale: 17
@@ -1312,21 +1351,48 @@ cont {
     scale: 17
     symbol {
       name: "bench"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
   element {
     scale: 18
     symbol {
       name: "bench"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
   element {
     scale: 19
     symbol {
       name: "bench"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
 }
@@ -1788,33 +1854,60 @@ cont {
     scale: 17
     symbol {
       name: "university"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFEEDD
-      priority: -16031
+      priority: -15998
     }
   }
   element {
     scale: 18
     symbol {
       name: "university"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFEEDD
-      priority: -16032
+      priority: -15998
     }
   }
   element {
     scale: 19
     symbol {
       name: "university"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFEEDD
-      priority: -16033
+      priority: -15998
     }
   }
 }
@@ -1882,21 +1975,48 @@ cont {
     scale: 17
     symbol {
       name: "drinking_water"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
   element {
     scale: 18
     symbol {
       name: "drinking_water"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
   element {
     scale: 19
     symbol {
       name: "drinking_water"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
 }
@@ -2003,6 +2123,64 @@ cont {
     scale: 19
     symbol {
       name: "fastfood"
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "amenity-ferry_terminal"
+  element {
+    scale: 16
+    symbol {
+      name: "slipway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "slipway"
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "slipway"
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "slipway"
       priority: 16002
     }
     caption {
@@ -2245,23 +2423,50 @@ cont {
   }
   element {
     scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
+    }
     area {
       color: 0xDDEECC
-      priority: 1001
+      priority: 1003
     }
   }
   element {
     scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
+    }
     area {
       color: 0xDDEECC
-      priority: 1001
+      priority: 1003
     }
   }
   element {
     scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
+    }
     area {
       color: 0xDDEECC
-      priority: 1001
+      priority: 1003
     }
   }
 }
@@ -2297,23 +2502,50 @@ cont {
   }
   element {
     scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
+    }
     area {
       color: 0xDDEECC
-      priority: 1001
+      priority: 1003
     }
   }
   element {
     scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
+    }
     area {
       color: 0xDDEECC
-      priority: 1001
+      priority: 1003
     }
   }
   element {
     scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
+    }
     area {
       color: 0xDDEECC
-      priority: 1001
+      priority: 1003
     }
   }
 }
@@ -2432,61 +2664,88 @@ cont {
     scale: 13
     area {
       color: 0xFFEEDD
-      priority: -16034
+      priority: -16031
     }
   }
   element {
     scale: 14
     area {
       color: 0xFFEEDD
-      priority: -16035
+      priority: -16032
     }
   }
   element {
     scale: 15
     area {
       color: 0xFFEEDD
-      priority: -16036
+      priority: -16033
     }
   }
   element {
     scale: 16
     area {
       color: 0xFFEEDD
-      priority: -16037
+      priority: -16034
     }
   }
   element {
     scale: 17
     symbol {
       name: "kindergarten2"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFEEDD
-      priority: -16038
+      priority: -15998
     }
   }
   element {
     scale: 18
     symbol {
       name: "kindergarten2"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFEEDD
-      priority: -16039
+      priority: -15998
     }
   }
   element {
     scale: 19
     symbol {
       name: "kindergarten2"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFEEDD
-      priority: -16040
+      priority: -15998
     }
   }
 }
@@ -2688,33 +2947,60 @@ cont {
     scale: 17
     symbol {
       name: "parking"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
     }
   }
   element {
     scale: 18
     symbol {
       name: "parking"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
     }
   }
   element {
     scale: 19
     symbol {
       name: "parking"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
     }
   }
 }
@@ -2742,33 +3028,60 @@ cont {
     scale: 17
     symbol {
       name: "parking_fee"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
     }
   }
   element {
     scale: 18
     symbol {
       name: "parking_fee"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
     }
   }
   element {
     scale: 19
     symbol {
       name: "parking_fee"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
     }
   }
 }
@@ -2796,33 +3109,60 @@ cont {
     scale: 17
     symbol {
       name: "parking"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
     }
   }
   element {
     scale: 18
     symbol {
       name: "parking"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
     }
   }
   element {
     scale: 19
     symbol {
       name: "parking"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
     }
   }
 }
@@ -2850,33 +3190,99 @@ cont {
     scale: 17
     symbol {
       name: "parking_fee"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
     }
   }
   element {
     scale: 18
     symbol {
       name: "parking_fee"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
     }
   }
   element {
     scale: 19
     symbol {
       name: "parking_fee"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
+    }
+  }
+}
+cont {
+  name: "amenity-parking-no-access"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
 }
@@ -2904,33 +3310,60 @@ cont {
     scale: 17
     symbol {
       name: "park_and_ride-permissive"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
     }
   }
   element {
     scale: 18
     symbol {
       name: "park_and_ride-permissive"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
     }
   }
   element {
     scale: 19
     symbol {
       name: "park_and_ride-permissive"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
     }
   }
 }
@@ -2947,21 +3380,48 @@ cont {
     scale: 17
     symbol {
       name: "parking-permissive"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
   element {
     scale: 18
     symbol {
       name: "parking-permissive"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
   element {
     scale: 19
     symbol {
       name: "parking-permissive"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
 }
@@ -2978,21 +3438,87 @@ cont {
     scale: 17
     symbol {
       name: "parking_fee"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
   element {
     scale: 18
     symbol {
       name: "parking_fee"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
   element {
     scale: 19
     symbol {
       name: "parking_fee"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "amenity-parking-private"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
 }
@@ -3020,33 +3546,60 @@ cont {
     scale: 17
     symbol {
       name: "parking"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
     }
   }
   element {
     scale: 18
     symbol {
       name: "parking"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
     }
   }
   element {
     scale: 19
     symbol {
       name: "parking"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
     }
   }
 }
@@ -3074,33 +3627,60 @@ cont {
     scale: 17
     symbol {
       name: "parking_fee"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
     }
   }
   element {
     scale: 18
     symbol {
       name: "parking_fee"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
     }
   }
   element {
     scale: 19
     symbol {
       name: "parking_fee"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFFFDD
-      priority: 1001
+      priority: 1003
     }
   }
 }
@@ -3730,88 +4310,88 @@ cont {
     scale: 13
     area {
       color: 0xFFEEDD
-      priority: -16041
+      priority: -16035
     }
   }
   element {
     scale: 14
     area {
       color: 0xFFEEDD
-      priority: -16042
+      priority: -16036
     }
   }
   element {
     scale: 15
     area {
       color: 0xFFEEDD
-      priority: -16043
+      priority: -16037
     }
   }
   element {
     scale: 16
     area {
       color: 0xFFEEDD
-      priority: -16044
+      priority: -16038
     }
   }
   element {
     scale: 17
     symbol {
       name: "school"
-      priority: 16000
+      priority: 16002
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x444444
         stroke_color: 0xFFFFFF
         offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
     area {
       color: 0xFFEEDD
-      priority: -16045
+      priority: -15998
     }
   }
   element {
     scale: 18
     symbol {
       name: "school"
-      priority: 16000
+      priority: 16002
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x444444
         stroke_color: 0xFFFFFF
         offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
     area {
       color: 0xFFEEDD
-      priority: -16046
+      priority: -15998
     }
   }
   element {
     scale: 19
     symbol {
       name: "school"
-      priority: 16000
+      priority: 16002
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x444444
         stroke_color: 0xFFFFFF
         offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
     area {
       color: 0xFFEEDD
-      priority: -16047
+      priority: -15998
     }
   }
 }
@@ -3842,48 +4422,48 @@ cont {
     scale: 17
     symbol {
       name: "shelter"
-      priority: 16000
+      priority: 16002
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x444444
         stroke_color: 0xFFFFFF
         offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
   }
   element {
     scale: 18
     symbol {
       name: "shelter"
-      priority: 16000
+      priority: 16002
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x444444
         stroke_color: 0xFFFFFF
         offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
   }
   element {
     scale: 19
     symbol {
       name: "shelter"
-      priority: 16000
+      priority: 16002
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x444444
         stroke_color: 0xFFFFFF
         offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
   }
 }
@@ -4191,33 +4771,36 @@ cont {
     scale: 17
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x444444
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
   }
   element {
     scale: 18
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x444444
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
   }
   element {
     scale: 19
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x444444
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
   }
 }
@@ -4227,61 +4810,88 @@ cont {
     scale: 13
     area {
       color: 0xFFEEDD
-      priority: -16048
+      priority: -16039
     }
   }
   element {
     scale: 14
     area {
       color: 0xFFEEDD
-      priority: -16049
+      priority: -16040
     }
   }
   element {
     scale: 15
     area {
       color: 0xFFEEDD
-      priority: -16050
+      priority: -16041
     }
   }
   element {
     scale: 16
     area {
       color: 0xFFEEDD
-      priority: -16051
+      priority: -16042
     }
   }
   element {
     scale: 17
     symbol {
       name: "university"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFEEDD
-      priority: -16052
+      priority: -15998
     }
   }
   element {
     scale: 18
     symbol {
       name: "university"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFEEDD
-      priority: -16053
+      priority: -15998
     }
   }
   element {
     scale: 19
     symbol {
       name: "university"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
     area {
       color: 0xFFEEDD
-      priority: -16054
+      priority: -15998
     }
   }
 }
@@ -7853,8 +8463,10 @@ cont {
       primary {
         height: 11
         color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
   }
   element {
@@ -7863,8 +8475,10 @@ cont {
       primary {
         height: 11
         color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
   }
   element {
@@ -7873,8 +8487,10 @@ cont {
       primary {
         height: 11
         color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
   }
 }
@@ -12872,13 +13488,13 @@ cont {
       priority: 0
       cap: BUTTCAP
     }
-    path_text {
+    caption {
       primary {
         height: 12
         color: 0x444444
         stroke_color: 0xFFFFFF
       }
-      priority: 16000
+      priority: 15000
     }
   }
   element {
@@ -12889,13 +13505,13 @@ cont {
       priority: 0
       cap: BUTTCAP
     }
-    path_text {
+    caption {
       primary {
         height: 12
         color: 0x444444
         stroke_color: 0xFFFFFF
       }
-      priority: 16000
+      priority: 15000
     }
   }
   element {
@@ -12906,13 +13522,13 @@ cont {
       priority: 0
       cap: BUTTCAP
     }
-    path_text {
+    caption {
       primary {
         height: 12
         color: 0x444444
         stroke_color: 0xFFFFFF
       }
-      priority: 16000
+      priority: 15000
     }
   }
   element {
@@ -12923,13 +13539,13 @@ cont {
       priority: 0
       cap: BUTTCAP
     }
-    path_text {
+    caption {
       primary {
         height: 12
         color: 0x444444
         stroke_color: 0xFFFFFF
       }
-      priority: 16000
+      priority: 15000
     }
   }
   element {
@@ -12940,13 +13556,13 @@ cont {
       priority: 0
       cap: BUTTCAP
     }
-    path_text {
+    caption {
       primary {
         height: 12
         color: 0x444444
         stroke_color: 0xFFFFFF
       }
-      priority: 16000
+      priority: 15000
     }
   }
   element {
@@ -12957,13 +13573,13 @@ cont {
       priority: 0
       cap: BUTTCAP
     }
-    path_text {
+    caption {
       primary {
         height: 12
         color: 0x444444
         stroke_color: 0xFFFFFF
       }
-      priority: 16000
+      priority: 15000
     }
   }
   element {
@@ -12974,13 +13590,13 @@ cont {
       priority: 0
       cap: BUTTCAP
     }
-    path_text {
+    caption {
       primary {
         height: 12
         color: 0x444444
         stroke_color: 0xFFFFFF
       }
-      priority: 16000
+      priority: 15000
     }
   }
 }
@@ -28192,13 +28808,15 @@ cont {
     caption {
       primary {
         height: 11
-        color: 0x000000
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
     area {
       color: 0xCCCCBB
-      priority: 1001
+      priority: 1003
     }
   }
   element {
@@ -28206,13 +28824,15 @@ cont {
     caption {
       primary {
         height: 11
-        color: 0x000000
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
     area {
       color: 0xCCCCBB
-      priority: 1001
+      priority: 1003
     }
   }
   element {
@@ -28220,13 +28840,15 @@ cont {
     caption {
       primary {
         height: 11
-        color: 0x000000
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
     area {
       color: 0xCCCCBB
-      priority: 1001
+      priority: 1003
     }
   }
 }
@@ -28236,21 +28858,21 @@ cont {
     scale: 12
     area {
       color: 0xDDEECC
-      priority: -16055
+      priority: -16043
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDEECC
-      priority: -16056
+      priority: -16044
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDEECC
-      priority: -16057
+      priority: -16045
     }
   }
   element {
@@ -28264,7 +28886,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16058
+      priority: -16046
     }
   }
   element {
@@ -28278,7 +28900,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16059
+      priority: -16047
     }
   }
   element {
@@ -28292,7 +28914,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16060
+      priority: -16048
     }
   }
   element {
@@ -28306,7 +28928,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16061
+      priority: -16049
     }
   }
   element {
@@ -28320,7 +28942,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16062
+      priority: -16050
     }
   }
 }
@@ -28424,21 +29046,21 @@ cont {
     scale: 12
     area {
       color: 0xDDDDCC
-      priority: -16063
+      priority: -16051
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDDDCC
-      priority: -16064
+      priority: -16052
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDDDCC
-      priority: -16065
+      priority: -16053
     }
   }
   element {
@@ -28452,7 +29074,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16066
+      priority: -16054
     }
   }
   element {
@@ -28466,7 +29088,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16067
+      priority: -16055
     }
   }
   element {
@@ -28480,7 +29102,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16068
+      priority: -16056
     }
   }
   element {
@@ -28494,7 +29116,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16069
+      priority: -16057
     }
   }
   element {
@@ -28508,7 +29130,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16070
+      priority: -16058
     }
   }
 }
@@ -28518,21 +29140,21 @@ cont {
     scale: 12
     area {
       color: 0xDDDDCC
-      priority: -16071
+      priority: -16059
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDDDCC
-      priority: -16072
+      priority: -16060
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDDDCC
-      priority: -16073
+      priority: -16061
     }
   }
   element {
@@ -28546,7 +29168,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16074
+      priority: -16062
     }
   }
   element {
@@ -28560,7 +29182,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16075
+      priority: -16063
     }
   }
   element {
@@ -28574,7 +29196,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16076
+      priority: -16064
     }
   }
   element {
@@ -28588,7 +29210,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16077
+      priority: -16065
     }
   }
   element {
@@ -28602,7 +29224,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16078
+      priority: -16066
     }
   }
 }
@@ -28612,21 +29234,21 @@ cont {
     scale: 12
     area {
       color: 0xDDDDCC
-      priority: -16079
+      priority: -16067
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDDDCC
-      priority: -16080
+      priority: -16068
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDDDCC
-      priority: -16081
+      priority: -16069
     }
   }
   element {
@@ -28640,7 +29262,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16082
+      priority: -16070
     }
   }
   element {
@@ -28654,7 +29276,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16083
+      priority: -16071
     }
   }
   element {
@@ -28668,7 +29290,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16084
+      priority: -16072
     }
   }
   element {
@@ -28682,7 +29304,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16085
+      priority: -16073
     }
   }
   element {
@@ -28696,7 +29318,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16086
+      priority: -16074
     }
   }
 }
@@ -28706,21 +29328,21 @@ cont {
     scale: 12
     area {
       color: 0xFFFFDD
-      priority: -16087
+      priority: -16075
     }
   }
   element {
     scale: 13
     area {
       color: 0xFFFFDD
-      priority: -16088
+      priority: -16076
     }
   }
   element {
     scale: 14
     area {
       color: 0xFFFFDD
-      priority: -16089
+      priority: -16077
     }
   }
   element {
@@ -28734,7 +29356,7 @@ cont {
     }
     area {
       color: 0xFFFFDD
-      priority: -16090
+      priority: -16078
     }
   }
   element {
@@ -28748,7 +29370,7 @@ cont {
     }
     area {
       color: 0xFFFFDD
-      priority: -16091
+      priority: -16079
     }
   }
   element {
@@ -28762,7 +29384,7 @@ cont {
     }
     area {
       color: 0xFFFFDD
-      priority: -16092
+      priority: -16080
     }
   }
   element {
@@ -28776,7 +29398,7 @@ cont {
     }
     area {
       color: 0xFFFFDD
-      priority: -16093
+      priority: -16081
     }
   }
   element {
@@ -28790,7 +29412,7 @@ cont {
     }
     area {
       color: 0xFFFFDD
-      priority: -16094
+      priority: -16082
     }
   }
 }
@@ -28800,56 +29422,56 @@ cont {
     scale: 12
     area {
       color: 0xCCEEAA
-      priority: -16095
+      priority: -16083
     }
   }
   element {
     scale: 13
     area {
       color: 0xCCEEAA
-      priority: -16096
+      priority: -16084
     }
   }
   element {
     scale: 14
     area {
       color: 0xCCEEAA
-      priority: -16097
+      priority: -16085
     }
   }
   element {
     scale: 15
     area {
       color: 0xCCEEAA
-      priority: -16098
+      priority: -16086
     }
   }
   element {
     scale: 16
     area {
       color: 0xCCEEAA
-      priority: -16099
+      priority: -16087
     }
   }
   element {
     scale: 17
     area {
       color: 0xCCEEAA
-      priority: -16100
+      priority: -16088
     }
   }
   element {
     scale: 18
     area {
       color: 0xCCEEAA
-      priority: -16101
+      priority: -16089
     }
   }
   element {
     scale: 19
     area {
       color: 0xCCEEAA
-      priority: -16102
+      priority: -16090
     }
   }
 }
@@ -28859,56 +29481,56 @@ cont {
     scale: 12
     area {
       color: 0xCCEEAA
-      priority: -16103
+      priority: -16091
     }
   }
   element {
     scale: 13
     area {
       color: 0xCCEEAA
-      priority: -16104
+      priority: -16092
     }
   }
   element {
     scale: 14
     area {
       color: 0xCCEEAA
-      priority: -16105
+      priority: -16093
     }
   }
   element {
     scale: 15
     area {
       color: 0xCCEEAA
-      priority: -16106
+      priority: -16094
     }
   }
   element {
     scale: 16
     area {
       color: 0xCCEEAA
-      priority: -16107
+      priority: -16095
     }
   }
   element {
     scale: 17
     area {
       color: 0xCCEEAA
-      priority: -16108
+      priority: -16096
     }
   }
   element {
     scale: 18
     area {
       color: 0xCCEEAA
-      priority: -16109
+      priority: -16097
     }
   }
   element {
     scale: 19
     area {
       color: 0xCCEEAA
-      priority: -16110
+      priority: -16098
     }
   }
 }
@@ -28918,56 +29540,56 @@ cont {
     scale: 12
     area {
       color: 0xCCEEAA
-      priority: -16111
+      priority: -16099
     }
   }
   element {
     scale: 13
     area {
       color: 0xCCEEAA
-      priority: -16112
+      priority: -16100
     }
   }
   element {
     scale: 14
     area {
       color: 0xCCEEAA
-      priority: -16113
+      priority: -16101
     }
   }
   element {
     scale: 15
     area {
       color: 0xCCEEAA
-      priority: -16114
+      priority: -16102
     }
   }
   element {
     scale: 16
     area {
       color: 0xCCEEAA
-      priority: -16115
+      priority: -16103
     }
   }
   element {
     scale: 17
     area {
       color: 0xCCEEAA
-      priority: -16116
+      priority: -16104
     }
   }
   element {
     scale: 18
     area {
       color: 0xCCEEAA
-      priority: -16117
+      priority: -16105
     }
   }
   element {
     scale: 19
     area {
       color: 0xCCEEAA
-      priority: -16118
+      priority: -16106
     }
   }
 }
@@ -28977,56 +29599,56 @@ cont {
     scale: 12
     area {
       color: 0xCCEEAA
-      priority: -16119
+      priority: -16107
     }
   }
   element {
     scale: 13
     area {
       color: 0xCCEEAA
-      priority: -16120
+      priority: -16108
     }
   }
   element {
     scale: 14
     area {
       color: 0xCCEEAA
-      priority: -16121
+      priority: -16109
     }
   }
   element {
     scale: 15
     area {
       color: 0xCCEEAA
-      priority: -16122
+      priority: -16110
     }
   }
   element {
     scale: 16
     area {
       color: 0xCCEEAA
-      priority: -16123
+      priority: -16111
     }
   }
   element {
     scale: 17
     area {
       color: 0xCCEEAA
-      priority: -16124
+      priority: -16112
     }
   }
   element {
     scale: 18
     area {
       color: 0xCCEEAA
-      priority: -16125
+      priority: -16113
     }
   }
   element {
     scale: 19
     area {
       color: 0xCCEEAA
-      priority: -16126
+      priority: -16114
     }
   }
 }
@@ -29036,21 +29658,21 @@ cont {
     scale: 12
     area {
       color: 0xDDDDCC
-      priority: -16127
+      priority: -16115
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDDDCC
-      priority: -16128
+      priority: -16116
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDDDCC
-      priority: -16129
+      priority: -16117
     }
   }
   element {
@@ -29064,7 +29686,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16130
+      priority: -16118
     }
   }
   element {
@@ -29078,7 +29700,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16131
+      priority: -16119
     }
   }
   element {
@@ -29092,7 +29714,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16132
+      priority: -16120
     }
   }
   element {
@@ -29106,7 +29728,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16133
+      priority: -16121
     }
   }
   element {
@@ -29120,7 +29742,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16134
+      priority: -16122
     }
   }
 }
@@ -29130,21 +29752,21 @@ cont {
     scale: 12
     area {
       color: 0xDDDD99
-      priority: -16135
+      priority: -16123
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDDD99
-      priority: -16136
+      priority: -16124
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDDD99
-      priority: -16137
+      priority: -16125
     }
   }
   element {
@@ -29158,7 +29780,7 @@ cont {
     }
     area {
       color: 0xDDDD99
-      priority: -16138
+      priority: -16126
     }
   }
   element {
@@ -29172,7 +29794,7 @@ cont {
     }
     area {
       color: 0xDDDD99
-      priority: -16139
+      priority: -16127
     }
   }
   element {
@@ -29186,7 +29808,7 @@ cont {
     }
     area {
       color: 0xDDDD99
-      priority: -16140
+      priority: -16128
     }
   }
   element {
@@ -29200,7 +29822,7 @@ cont {
     }
     area {
       color: 0xDDDD99
-      priority: -16141
+      priority: -16129
     }
   }
   element {
@@ -29214,7 +29836,7 @@ cont {
     }
     area {
       color: 0xDDDD99
-      priority: -16142
+      priority: -16130
     }
   }
 }
@@ -29224,21 +29846,21 @@ cont {
     scale: 12
     area {
       color: 0xDDDD99
-      priority: -16143
+      priority: -16131
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDDD99
-      priority: -16144
+      priority: -16132
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDDD99
-      priority: -16145
+      priority: -16133
     }
   }
   element {
@@ -29252,7 +29874,7 @@ cont {
     }
     area {
       color: 0xDDDD99
-      priority: -16146
+      priority: -16134
     }
   }
   element {
@@ -29266,7 +29888,7 @@ cont {
     }
     area {
       color: 0xDDDD99
-      priority: -16147
+      priority: -16135
     }
   }
   element {
@@ -29280,7 +29902,7 @@ cont {
     }
     area {
       color: 0xDDDD99
-      priority: -16148
+      priority: -16136
     }
   }
   element {
@@ -29294,7 +29916,7 @@ cont {
     }
     area {
       color: 0xDDDD99
-      priority: -16149
+      priority: -16137
     }
   }
   element {
@@ -29308,7 +29930,7 @@ cont {
     }
     area {
       color: 0xDDDD99
-      priority: -16150
+      priority: -16138
     }
   }
 }
@@ -29318,21 +29940,21 @@ cont {
     scale: 12
     area {
       color: 0xDDDDCC
-      priority: -16151
+      priority: -16139
     }
   }
   element {
     scale: 13
     area {
       color: 0xEEEEEE
-      priority: -16152
+      priority: -16140
     }
   }
   element {
     scale: 14
     area {
       color: 0xEEEEEE
-      priority: -16153
+      priority: -16141
     }
   }
   element {
@@ -29346,7 +29968,7 @@ cont {
     }
     area {
       color: 0xEEEEEE
-      priority: -16154
+      priority: -16142
     }
   }
   element {
@@ -29360,7 +29982,7 @@ cont {
     }
     area {
       color: 0xEEEEEE
-      priority: -16155
+      priority: -16143
     }
   }
   element {
@@ -29374,7 +29996,7 @@ cont {
     }
     area {
       color: 0xEEEEEE
-      priority: -16156
+      priority: -16144
     }
   }
   element {
@@ -29388,7 +30010,7 @@ cont {
     }
     area {
       color: 0xEEEEEE
-      priority: -16157
+      priority: -16145
     }
   }
   element {
@@ -29402,7 +30024,7 @@ cont {
     }
     area {
       color: 0xEEEEEE
-      priority: -16158
+      priority: -16146
     }
   }
 }
@@ -29412,56 +30034,56 @@ cont {
     scale: 12
     area {
       color: 0xDDEECC
-      priority: -16159
+      priority: -16147
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDEECC
-      priority: -16160
+      priority: -16148
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDEECC
-      priority: -16161
+      priority: -16149
     }
   }
   element {
     scale: 15
     area {
       color: 0xDDEECC
-      priority: -16162
+      priority: -16150
     }
   }
   element {
     scale: 16
     area {
       color: 0xDDEECC
-      priority: -16163
+      priority: -16151
     }
   }
   element {
     scale: 17
     area {
       color: 0xDDEECC
-      priority: -16164
+      priority: -16152
     }
   }
   element {
     scale: 18
     area {
       color: 0xDDEECC
-      priority: -16165
+      priority: -16153
     }
   }
   element {
     scale: 19
     area {
       color: 0xDDEECC
-      priority: -16166
+      priority: -16154
     }
   }
 }
@@ -29471,35 +30093,35 @@ cont {
     scale: 10
     area {
       color: 0xBBDDAA
-      priority: -16167
+      priority: -16155
     }
   }
   element {
     scale: 11
     area {
       color: 0xBBDDAA
-      priority: -16168
+      priority: -16156
     }
   }
   element {
     scale: 12
     area {
       color: 0xBBDDAA
-      priority: -16169
+      priority: -16157
     }
   }
   element {
     scale: 13
     area {
       color: 0xBBDDAA
-      priority: -16170
+      priority: -16158
     }
   }
   element {
     scale: 14
     area {
       color: 0xBBDDAA
-      priority: -16171
+      priority: -16159
     }
   }
   element {
@@ -29513,11 +30135,153 @@ cont {
     }
     area {
       color: 0xBBDDAA
-      priority: -16172
+      priority: -16160
     }
   }
   element {
     scale: 16
+    path_text {
+      primary {
+        height: 16
+        color: 0x222222
+        stroke_color: 0xFFFFFF
+      }
+      priority: 16000
+    }
+    area {
+      color: 0xBBDDAA
+      priority: -16161
+    }
+  }
+  element {
+    scale: 17
+    path_text {
+      primary {
+        height: 16
+        color: 0x222222
+        stroke_color: 0xFFFFFF
+      }
+      priority: 16000
+    }
+    area {
+      color: 0xBBDDAA
+      priority: -16162
+    }
+  }
+  element {
+    scale: 18
+    path_text {
+      primary {
+        height: 16
+        color: 0x222222
+        stroke_color: 0xFFFFFF
+      }
+      priority: 16000
+    }
+    area {
+      color: 0xBBDDAA
+      priority: -16163
+    }
+  }
+  element {
+    scale: 19
+    path_text {
+      primary {
+        height: 16
+        color: 0x222222
+        stroke_color: 0xFFFFFF
+      }
+      priority: 16000
+    }
+    area {
+      color: 0xBBDDAA
+      priority: -16164
+    }
+  }
+}
+cont {
+  name: "landuse-forest-coniferous"
+  element {
+    scale: 10
+    area {
+      color: 0xBBDDAA
+      priority: -16165
+    }
+  }
+  element {
+    scale: 11
+    area {
+      color: 0xBBDDAA
+      priority: -16166
+    }
+  }
+  element {
+    scale: 12
+    area {
+      color: 0xBBDDAA
+      priority: -16167
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 0xBBDDAA
+      priority: -16168
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 0xBBDDAA
+      priority: -16169
+    }
+  }
+  element {
+    scale: 15
+    path_text {
+      primary {
+        height: 12
+        color: 0x222222
+      }
+      priority: 16000
+    }
+    area {
+      color: 0xBBDDAA
+      priority: -16170
+    }
+  }
+  element {
+    scale: 16
+    path_text {
+      primary {
+        height: 16
+        color: 0x222222
+        stroke_color: 0xFFFFFF
+      }
+      priority: 16000
+    }
+    area {
+      color: 0xBBDDAA
+      priority: -16171
+    }
+  }
+  element {
+    scale: 17
+    path_text {
+      primary {
+        height: 16
+        color: 0x222222
+        stroke_color: 0xFFFFFF
+      }
+      priority: 16000
+    }
+    area {
+      color: 0xBBDDAA
+      priority: -16172
+    }
+  }
+  element {
+    scale: 18
     path_text {
       primary {
         height: 16
@@ -29532,7 +30296,7 @@ cont {
     }
   }
   element {
-    scale: 17
+    scale: 19
     path_text {
       primary {
         height: 16
@@ -29546,72 +30310,42 @@ cont {
       priority: -16174
     }
   }
+}
+cont {
+  name: "landuse-forest-deciduous"
   element {
-    scale: 18
-    path_text {
-      primary {
-        height: 16
-        color: 0x222222
-        stroke_color: 0xFFFFFF
-      }
-      priority: 16000
-    }
+    scale: 10
     area {
       color: 0xBBDDAA
       priority: -16175
     }
   }
   element {
-    scale: 19
-    path_text {
-      primary {
-        height: 16
-        color: 0x222222
-        stroke_color: 0xFFFFFF
-      }
-      priority: 16000
-    }
-    area {
-      color: 0xBBDDAA
-      priority: -16176
-    }
-  }
-}
-cont {
-  name: "landuse-forest-coniferous"
-  element {
-    scale: 10
-    area {
-      color: 0xBBDDAA
-      priority: -16177
-    }
-  }
-  element {
     scale: 11
     area {
       color: 0xBBDDAA
-      priority: -16178
+      priority: -16176
     }
   }
   element {
     scale: 12
     area {
       color: 0xBBDDAA
-      priority: -16179
+      priority: -16177
     }
   }
   element {
     scale: 13
     area {
       color: 0xBBDDAA
-      priority: -16180
+      priority: -16178
     }
   }
   element {
     scale: 14
     area {
       color: 0xBBDDAA
-      priority: -16181
+      priority: -16179
     }
   }
   element {
@@ -29625,11 +30359,41 @@ cont {
     }
     area {
       color: 0xBBDDAA
-      priority: -16182
+      priority: -16180
     }
   }
   element {
     scale: 16
+    path_text {
+      primary {
+        height: 16
+        color: 0x222222
+        stroke_color: 0xFFFFFF
+      }
+      priority: 16000
+    }
+    area {
+      color: 0xBBDDAA
+      priority: -16181
+    }
+  }
+  element {
+    scale: 17
+    path_text {
+      primary {
+        height: 16
+        color: 0x222222
+        stroke_color: 0xFFFFFF
+      }
+      priority: 16000
+    }
+    area {
+      color: 0xBBDDAA
+      priority: -16182
+    }
+  }
+  element {
+    scale: 18
     path_text {
       primary {
         height: 16
@@ -29644,7 +30408,7 @@ cont {
     }
   }
   element {
-    scale: 17
+    scale: 19
     path_text {
       primary {
         height: 16
@@ -29658,72 +30422,42 @@ cont {
       priority: -16184
     }
   }
+}
+cont {
+  name: "landuse-forest-mixed"
   element {
-    scale: 18
-    path_text {
-      primary {
-        height: 16
-        color: 0x222222
-        stroke_color: 0xFFFFFF
-      }
-      priority: 16000
-    }
+    scale: 10
     area {
       color: 0xBBDDAA
       priority: -16185
     }
   }
   element {
-    scale: 19
-    path_text {
-      primary {
-        height: 16
-        color: 0x222222
-        stroke_color: 0xFFFFFF
-      }
-      priority: 16000
-    }
-    area {
-      color: 0xBBDDAA
-      priority: -16186
-    }
-  }
-}
-cont {
-  name: "landuse-forest-deciduous"
-  element {
-    scale: 10
-    area {
-      color: 0xBBDDAA
-      priority: -16187
-    }
-  }
-  element {
     scale: 11
     area {
       color: 0xBBDDAA
-      priority: -16188
+      priority: -16186
     }
   }
   element {
     scale: 12
     area {
       color: 0xBBDDAA
-      priority: -16189
+      priority: -16187
     }
   }
   element {
     scale: 13
     area {
       color: 0xBBDDAA
-      priority: -16190
+      priority: -16188
     }
   }
   element {
     scale: 14
     area {
       color: 0xBBDDAA
-      priority: -16191
+      priority: -16189
     }
   }
   element {
@@ -29737,11 +30471,41 @@ cont {
     }
     area {
       color: 0xBBDDAA
-      priority: -16192
+      priority: -16190
     }
   }
   element {
     scale: 16
+    path_text {
+      primary {
+        height: 16
+        color: 0x222222
+        stroke_color: 0xFFFFFF
+      }
+      priority: 16000
+    }
+    area {
+      color: 0xBBDDAA
+      priority: -16191
+    }
+  }
+  element {
+    scale: 17
+    path_text {
+      primary {
+        height: 16
+        color: 0x222222
+        stroke_color: 0xFFFFFF
+      }
+      priority: 16000
+    }
+    area {
+      color: 0xBBDDAA
+      priority: -16192
+    }
+  }
+  element {
+    scale: 18
     path_text {
       primary {
         height: 16
@@ -29756,7 +30520,7 @@ cont {
     }
   }
   element {
-    scale: 17
+    scale: 19
     path_text {
       primary {
         height: 16
@@ -29768,148 +30532,6 @@ cont {
     area {
       color: 0xBBDDAA
       priority: -16194
-    }
-  }
-  element {
-    scale: 18
-    path_text {
-      primary {
-        height: 16
-        color: 0x222222
-        stroke_color: 0xFFFFFF
-      }
-      priority: 16000
-    }
-    area {
-      color: 0xBBDDAA
-      priority: -16195
-    }
-  }
-  element {
-    scale: 19
-    path_text {
-      primary {
-        height: 16
-        color: 0x222222
-        stroke_color: 0xFFFFFF
-      }
-      priority: 16000
-    }
-    area {
-      color: 0xBBDDAA
-      priority: -16196
-    }
-  }
-}
-cont {
-  name: "landuse-forest-mixed"
-  element {
-    scale: 10
-    area {
-      color: 0xBBDDAA
-      priority: -16197
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xBBDDAA
-      priority: -16198
-    }
-  }
-  element {
-    scale: 12
-    area {
-      color: 0xBBDDAA
-      priority: -16199
-    }
-  }
-  element {
-    scale: 13
-    area {
-      color: 0xBBDDAA
-      priority: -16200
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 0xBBDDAA
-      priority: -16201
-    }
-  }
-  element {
-    scale: 15
-    path_text {
-      primary {
-        height: 12
-        color: 0x222222
-      }
-      priority: 16000
-    }
-    area {
-      color: 0xBBDDAA
-      priority: -16202
-    }
-  }
-  element {
-    scale: 16
-    path_text {
-      primary {
-        height: 16
-        color: 0x222222
-        stroke_color: 0xFFFFFF
-      }
-      priority: 16000
-    }
-    area {
-      color: 0xBBDDAA
-      priority: -16203
-    }
-  }
-  element {
-    scale: 17
-    path_text {
-      primary {
-        height: 16
-        color: 0x222222
-        stroke_color: 0xFFFFFF
-      }
-      priority: 16000
-    }
-    area {
-      color: 0xBBDDAA
-      priority: -16204
-    }
-  }
-  element {
-    scale: 18
-    path_text {
-      primary {
-        height: 16
-        color: 0x222222
-        stroke_color: 0xFFFFFF
-      }
-      priority: 16000
-    }
-    area {
-      color: 0xBBDDAA
-      priority: -16205
-    }
-  }
-  element {
-    scale: 19
-    path_text {
-      primary {
-        height: 16
-        color: 0x222222
-        stroke_color: 0xFFFFFF
-      }
-      priority: 16000
-    }
-    area {
-      color: 0xBBDDAA
-      priority: -16206
     }
   }
 }
@@ -29926,7 +30548,7 @@ cont {
     }
     area {
       color: 0xEEEEEE
-      priority: -16207
+      priority: -16195
     }
   }
   element {
@@ -29940,7 +30562,7 @@ cont {
     }
     area {
       color: 0xEEEEEE
-      priority: -16208
+      priority: -16196
     }
   }
   element {
@@ -29954,7 +30576,7 @@ cont {
     }
     area {
       color: 0xEEEEEE
-      priority: -16209
+      priority: -16197
     }
   }
   element {
@@ -29968,7 +30590,7 @@ cont {
     }
     area {
       color: 0xEEEEEE
-      priority: -16210
+      priority: -16198
     }
   }
   element {
@@ -29982,7 +30604,7 @@ cont {
     }
     area {
       color: 0xEEEEEE
-      priority: -16211
+      priority: -16199
     }
   }
 }
@@ -29992,21 +30614,21 @@ cont {
     scale: 12
     area {
       color: 0xDDEECC
-      priority: -16212
+      priority: -16200
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDEECC
-      priority: -16213
+      priority: -16201
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDEECC
-      priority: -16214
+      priority: -16202
     }
   }
   element {
@@ -30020,7 +30642,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16215
+      priority: -16203
     }
   }
   element {
@@ -30034,7 +30656,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16216
+      priority: -16204
     }
   }
   element {
@@ -30048,7 +30670,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16217
+      priority: -16205
     }
   }
   element {
@@ -30062,7 +30684,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16218
+      priority: -16206
     }
   }
   element {
@@ -30076,7 +30698,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16219
+      priority: -16207
     }
   }
 }
@@ -30086,21 +30708,21 @@ cont {
     scale: 12
     area {
       color: 0xDDDDCC
-      priority: -16220
+      priority: -16208
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDDDCC
-      priority: -16221
+      priority: -16209
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDDDCC
-      priority: -16222
+      priority: -16210
     }
   }
   element {
@@ -30114,7 +30736,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16223
+      priority: -16211
     }
   }
   element {
@@ -30128,7 +30750,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16224
+      priority: -16212
     }
   }
   element {
@@ -30142,7 +30764,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16225
+      priority: -16213
     }
   }
   element {
@@ -30156,7 +30778,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16226
+      priority: -16214
     }
   }
   element {
@@ -30170,7 +30792,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16227
+      priority: -16215
     }
   }
 }
@@ -30233,21 +30855,21 @@ cont {
     scale: 12
     area {
       color: 0xDDDDCC
-      priority: -16228
+      priority: -16216
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDDDCC
-      priority: -16229
+      priority: -16217
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDDDCC
-      priority: -16230
+      priority: -16218
     }
   }
   element {
@@ -30261,7 +30883,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16231
+      priority: -16219
     }
   }
   element {
@@ -30275,7 +30897,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16232
+      priority: -16220
     }
   }
   element {
@@ -30289,7 +30911,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16233
+      priority: -16221
     }
   }
   element {
@@ -30303,7 +30925,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16234
+      priority: -16222
     }
   }
   element {
@@ -30317,7 +30939,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16235
+      priority: -16223
     }
   }
 }
@@ -30327,14 +30949,14 @@ cont {
     scale: 13
     area {
       color: 0xEEDD77
-      priority: -16236
+      priority: -16224
     }
   }
   element {
     scale: 14
     area {
       color: 0xEEDD77
-      priority: -16237
+      priority: -16225
     }
   }
   element {
@@ -30348,7 +30970,7 @@ cont {
     }
     area {
       color: 0xEEDD77
-      priority: -16238
+      priority: -16226
     }
   }
   element {
@@ -30362,7 +30984,7 @@ cont {
     }
     area {
       color: 0xEEDD77
-      priority: -16239
+      priority: -16227
     }
   }
   element {
@@ -30376,7 +30998,7 @@ cont {
     }
     area {
       color: 0xEEDD77
-      priority: -16240
+      priority: -16228
     }
   }
   element {
@@ -30390,7 +31012,7 @@ cont {
     }
     area {
       color: 0xEEDD77
-      priority: -16241
+      priority: -16229
     }
   }
   element {
@@ -30404,7 +31026,7 @@ cont {
     }
     area {
       color: 0xEEDD77
-      priority: -16242
+      priority: -16230
     }
   }
 }
@@ -30414,21 +31036,21 @@ cont {
     scale: 12
     area {
       color: 0xDDEECC
-      priority: -16243
+      priority: -16231
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDEECC
-      priority: -16244
+      priority: -16232
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDEECC
-      priority: -16245
+      priority: -16233
     }
   }
   element {
@@ -30442,7 +31064,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16246
+      priority: -16234
     }
   }
   element {
@@ -30456,7 +31078,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16247
+      priority: -16235
     }
   }
   element {
@@ -30470,7 +31092,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16248
+      priority: -16236
     }
   }
   element {
@@ -30484,7 +31106,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16249
+      priority: -16237
     }
   }
   element {
@@ -30498,7 +31120,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16250
+      priority: -16238
     }
   }
 }
@@ -30508,21 +31130,21 @@ cont {
     scale: 12
     area {
       color: 0xDDDD55
-      priority: -16251
+      priority: -16239
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDDD55
-      priority: -16252
+      priority: -16240
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDDD55
-      priority: -16253
+      priority: -16241
     }
   }
   element {
@@ -30536,7 +31158,7 @@ cont {
     }
     area {
       color: 0xDDDD55
-      priority: -16254
+      priority: -16242
     }
   }
   element {
@@ -30550,7 +31172,7 @@ cont {
     }
     area {
       color: 0xDDDD55
-      priority: -16255
+      priority: -16243
     }
   }
   element {
@@ -30564,7 +31186,7 @@ cont {
     }
     area {
       color: 0xDDDD55
-      priority: -16256
+      priority: -16244
     }
   }
   element {
@@ -30578,7 +31200,7 @@ cont {
     }
     area {
       color: 0xDDDD55
-      priority: -16257
+      priority: -16245
     }
   }
   element {
@@ -30592,7 +31214,7 @@ cont {
     }
     area {
       color: 0xDDDD55
-      priority: -16258
+      priority: -16246
     }
   }
 }
@@ -30655,21 +31277,21 @@ cont {
     scale: 12
     area {
       color: 0xDDDDCC
-      priority: -16259
+      priority: -16247
     }
   }
   element {
     scale: 13
     area {
       color: 0xEEDD77
-      priority: -16260
+      priority: -16248
     }
   }
   element {
     scale: 14
     area {
       color: 0xEEDD77
-      priority: -16261
+      priority: -16249
     }
   }
   element {
@@ -30683,7 +31305,7 @@ cont {
     }
     area {
       color: 0xEEDD77
-      priority: -16262
+      priority: -16250
     }
   }
   element {
@@ -30697,7 +31319,7 @@ cont {
     }
     area {
       color: 0xEEDD77
-      priority: -16263
+      priority: -16251
     }
   }
   element {
@@ -30711,7 +31333,7 @@ cont {
     }
     area {
       color: 0xEEDD77
-      priority: -16264
+      priority: -16252
     }
   }
   element {
@@ -30725,7 +31347,7 @@ cont {
     }
     area {
       color: 0xEEDD77
-      priority: -16265
+      priority: -16253
     }
   }
   element {
@@ -30739,7 +31361,7 @@ cont {
     }
     area {
       color: 0xEEDD77
-      priority: -16266
+      priority: -16254
     }
   }
 }
@@ -30749,21 +31371,21 @@ cont {
     scale: 12
     area {
       color: 0xDDDDCC
-      priority: -16267
+      priority: -16255
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDDDCC
-      priority: -16268
+      priority: -16256
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDDDCC
-      priority: -16269
+      priority: -16257
     }
   }
   element {
@@ -30777,7 +31399,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16270
+      priority: -16258
     }
   }
   element {
@@ -30791,7 +31413,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16271
+      priority: -16259
     }
   }
   element {
@@ -30805,7 +31427,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16272
+      priority: -16260
     }
   }
   element {
@@ -30819,7 +31441,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16273
+      priority: -16261
     }
   }
   element {
@@ -30833,7 +31455,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16274
+      priority: -16262
     }
   }
 }
@@ -30843,21 +31465,21 @@ cont {
     scale: 12
     area {
       color: 0xDDEECC
-      priority: -16275
+      priority: -16263
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDEECC
-      priority: -16276
+      priority: -16264
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDEECC
-      priority: -16277
+      priority: -16265
     }
   }
   element {
@@ -30871,7 +31493,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16278
+      priority: -16266
     }
   }
   element {
@@ -30885,7 +31507,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16279
+      priority: -16267
     }
   }
   element {
@@ -30899,7 +31521,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16280
+      priority: -16268
     }
   }
   element {
@@ -30913,7 +31535,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16281
+      priority: -16269
     }
   }
   element {
@@ -30927,7 +31549,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16282
+      priority: -16270
     }
   }
 }
@@ -31031,56 +31653,56 @@ cont {
     scale: 12
     area {
       color: 0xEEEEDD
-      priority: -16283
+      priority: -16271
     }
   }
   element {
     scale: 13
     area {
       color: 0xEEEEDD
-      priority: -16284
+      priority: -16272
     }
   }
   element {
     scale: 14
     area {
       color: 0xEEEEDD
-      priority: -16285
+      priority: -16273
     }
   }
   element {
     scale: 15
     area {
       color: 0xEEEEDD
-      priority: -16286
+      priority: -16274
     }
   }
   element {
     scale: 16
     area {
       color: 0xEEEEDD
-      priority: -16287
+      priority: -16275
     }
   }
   element {
     scale: 17
     area {
       color: 0xEEEEDD
-      priority: -16288
+      priority: -16276
     }
   }
   element {
     scale: 18
     area {
       color: 0xEEEEDD
-      priority: -16289
+      priority: -16277
     }
   }
   element {
     scale: 19
     area {
       color: 0xEEEEDD
-      priority: -16290
+      priority: -16278
     }
   }
 }
@@ -31090,56 +31712,56 @@ cont {
     scale: 12
     area {
       color: 0xFFFFCC
-      priority: -16291
+      priority: -16279
     }
   }
   element {
     scale: 13
     area {
       color: 0xFFFFCC
-      priority: -16292
+      priority: -16280
     }
   }
   element {
     scale: 14
     area {
       color: 0xFFFFCC
-      priority: -16293
+      priority: -16281
     }
   }
   element {
     scale: 15
     area {
       color: 0xFFFFCC
-      priority: -16294
+      priority: -16282
     }
   }
   element {
     scale: 16
     area {
       color: 0xFFFFCC
-      priority: -16295
+      priority: -16283
     }
   }
   element {
     scale: 17
     area {
       color: 0xFFFFCC
-      priority: -16296
+      priority: -16284
     }
   }
   element {
     scale: 18
     area {
       color: 0xFFFFCC
-      priority: -16297
+      priority: -16285
     }
   }
   element {
     scale: 19
     area {
       color: 0xFFFFCC
-      priority: -16298
+      priority: -16286
     }
   }
 }
@@ -31149,56 +31771,56 @@ cont {
     scale: 12
     area {
       color: 0xEEEEEE
-      priority: -16299
+      priority: -16287
     }
   }
   element {
     scale: 13
     area {
       color: 0xEEEEEE
-      priority: -16300
+      priority: -16288
     }
   }
   element {
     scale: 14
     area {
       color: 0xEEEEEE
-      priority: -16301
+      priority: -16289
     }
   }
   element {
     scale: 15
     area {
       color: 0xEEEEEE
-      priority: -16302
+      priority: -16290
     }
   }
   element {
     scale: 16
     area {
       color: 0xEEEEEE
-      priority: -16303
+      priority: -16291
     }
   }
   element {
     scale: 17
     area {
       color: 0xEEEEEE
-      priority: -16304
+      priority: -16292
     }
   }
   element {
     scale: 18
     area {
       color: 0xEEEEEE
-      priority: -16305
+      priority: -16293
     }
   }
   element {
     scale: 19
     area {
       color: 0xEEEEEE
-      priority: -16306
+      priority: -16294
     }
   }
 }
@@ -31208,21 +31830,21 @@ cont {
     scale: 12
     area {
       color: 0xFFEEEE
-      priority: -16307
+      priority: -16295
     }
   }
   element {
     scale: 13
     area {
       color: 0xFFEEEE
-      priority: -16308
+      priority: -16296
     }
   }
   element {
     scale: 14
     area {
       color: 0xFFEEEE
-      priority: -16309
+      priority: -16297
     }
   }
   element {
@@ -31236,7 +31858,7 @@ cont {
     }
     area {
       color: 0xFFEEEE
-      priority: -16310
+      priority: -16298
     }
   }
   element {
@@ -31250,7 +31872,7 @@ cont {
     }
     area {
       color: 0xFFEEEE
-      priority: -16311
+      priority: -16299
     }
   }
   element {
@@ -31264,7 +31886,7 @@ cont {
     }
     area {
       color: 0xFFEEEE
-      priority: -16312
+      priority: -16300
     }
   }
   element {
@@ -31278,7 +31900,7 @@ cont {
     }
     area {
       color: 0xFFEEEE
-      priority: -16313
+      priority: -16301
     }
   }
   element {
@@ -31292,7 +31914,7 @@ cont {
     }
     area {
       color: 0xFFEEEE
-      priority: -16314
+      priority: -16302
     }
   }
 }
@@ -31355,21 +31977,21 @@ cont {
     scale: 12
     area {
       color: 0xDDEECC
-      priority: -16315
+      priority: -16303
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDEECC
-      priority: -16316
+      priority: -16304
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDEECC
-      priority: -16317
+      priority: -16305
     }
   }
   element {
@@ -31383,7 +32005,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16318
+      priority: -16306
     }
   }
   element {
@@ -31397,7 +32019,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16319
+      priority: -16307
     }
   }
   element {
@@ -31411,7 +32033,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16320
+      priority: -16308
     }
   }
   element {
@@ -31425,7 +32047,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16321
+      priority: -16309
     }
   }
   element {
@@ -31439,7 +32061,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16322
+      priority: -16310
     }
   }
 }
@@ -31449,14 +32071,14 @@ cont {
     scale: 13
     area {
       color: 0xDDEEDD
-      priority: -16323
+      priority: -16311
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDEEDD
-      priority: -16324
+      priority: -16312
     }
   }
   element {
@@ -31470,7 +32092,7 @@ cont {
     }
     area {
       color: 0xDDEEDD
-      priority: -16325
+      priority: -16313
     }
   }
   element {
@@ -31484,7 +32106,7 @@ cont {
     }
     area {
       color: 0xDDEEDD
-      priority: -16326
+      priority: -16314
     }
   }
   element {
@@ -31498,7 +32120,7 @@ cont {
     }
     area {
       color: 0xDDEEDD
-      priority: -16327
+      priority: -16315
     }
   }
   element {
@@ -31512,7 +32134,7 @@ cont {
     }
     area {
       color: 0xDDEEDD
-      priority: -16328
+      priority: -16316
     }
   }
   element {
@@ -31526,7 +32148,7 @@ cont {
     }
     area {
       color: 0xDDEEDD
-      priority: -16329
+      priority: -16317
     }
   }
 }
@@ -31536,56 +32158,56 @@ cont {
     scale: 12
     area {
       color: 0xCCEEBB
-      priority: -16330
+      priority: -16318
     }
   }
   element {
     scale: 13
     area {
       color: 0xCCEEBB
-      priority: -16331
+      priority: -16319
     }
   }
   element {
     scale: 14
     area {
       color: 0xCCEEBB
-      priority: -16332
+      priority: -16320
     }
   }
   element {
     scale: 15
     area {
       color: 0xCCEEBB
-      priority: -16333
+      priority: -16321
     }
   }
   element {
     scale: 16
     area {
       color: 0xCCEEBB
-      priority: -16334
+      priority: -16322
     }
   }
   element {
     scale: 17
     area {
       color: 0xCCEEBB
-      priority: -16335
+      priority: -16323
     }
   }
   element {
     scale: 18
     area {
       color: 0xCCEEBB
-      priority: -16336
+      priority: -16324
     }
   }
   element {
     scale: 19
     area {
       color: 0xCCEEBB
-      priority: -16337
+      priority: -16325
     }
   }
 }
@@ -31595,56 +32217,56 @@ cont {
     scale: 12
     area {
       color: 0xCCEEBB
-      priority: -16338
+      priority: -16326
     }
   }
   element {
     scale: 13
     area {
       color: 0xCCEEBB
-      priority: -16339
+      priority: -16327
     }
   }
   element {
     scale: 14
     area {
       color: 0xCCEEBB
-      priority: -16340
+      priority: -16328
     }
   }
   element {
     scale: 15
     area {
       color: 0xCCEEBB
-      priority: -16341
+      priority: -16329
     }
   }
   element {
     scale: 16
     area {
       color: 0xCCEEBB
-      priority: -16342
+      priority: -16330
     }
   }
   element {
     scale: 17
     area {
       color: 0xCCEEBB
-      priority: -16343
+      priority: -16331
     }
   }
   element {
     scale: 18
     area {
       color: 0xCCEEBB
-      priority: -16344
+      priority: -16332
     }
   }
   element {
     scale: 19
     area {
       color: 0xCCEEBB
-      priority: -16345
+      priority: -16333
     }
   }
 }
@@ -31654,35 +32276,35 @@ cont {
     scale: 12
     area {
       color: 0xCCEEBB
-      priority: -16346
+      priority: -16334
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDBB99
-      priority: -16347
+      priority: -16335
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDBB99
-      priority: -16348
+      priority: -16336
     }
   }
   element {
     scale: 15
     area {
       color: 0xDDBB99
-      priority: -16349
+      priority: -16337
     }
   }
   element {
     scale: 16
     area {
       color: 0xDDBB99
-      priority: -16350
+      priority: -16338
     }
   }
   element {
@@ -31693,7 +32315,7 @@ cont {
     }
     area {
       color: 0xDDBB99
-      priority: -16351
+      priority: -16339
     }
   }
   element {
@@ -31704,7 +32326,7 @@ cont {
     }
     area {
       color: 0xDDBB99
-      priority: -16352
+      priority: -16340
     }
   }
   element {
@@ -31715,7 +32337,7 @@ cont {
     }
     area {
       color: 0xDDBB99
-      priority: -16353
+      priority: -16341
     }
   }
 }
@@ -31725,35 +32347,35 @@ cont {
     scale: 12
     area {
       color: 0xCCEEBB
-      priority: -16354
+      priority: -16342
     }
   }
   element {
     scale: 13
     area {
       color: 0xCCEEBB
-      priority: -16355
+      priority: -16343
     }
   }
   element {
     scale: 14
     area {
       color: 0xCCEEBB
-      priority: -16356
+      priority: -16344
     }
   }
   element {
     scale: 15
     area {
       color: 0xCCEEBB
-      priority: -16357
+      priority: -16345
     }
   }
   element {
     scale: 16
     area {
       color: 0xCCEEBB
-      priority: -16358
+      priority: -16346
     }
   }
   element {
@@ -31774,7 +32396,7 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16359
+      priority: -16347
     }
   }
   element {
@@ -31795,7 +32417,7 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16360
+      priority: -16348
     }
   }
   element {
@@ -31816,7 +32438,7 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16361
+      priority: -16349
     }
   }
 }
@@ -31826,35 +32448,35 @@ cont {
     scale: 12
     area {
       color: 0xCCEEBB
-      priority: -16362
+      priority: -16350
     }
   }
   element {
     scale: 13
     area {
       color: 0xCCEEBB
-      priority: -16363
+      priority: -16351
     }
   }
   element {
     scale: 14
     area {
       color: 0xCCEEBB
-      priority: -16364
+      priority: -16352
     }
   }
   element {
     scale: 15
     area {
       color: 0xCCEEBB
-      priority: -16365
+      priority: -16353
     }
   }
   element {
     scale: 16
     area {
       color: 0xCCEEBB
-      priority: -16366
+      priority: -16354
     }
   }
   element {
@@ -31865,7 +32487,7 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16367
+      priority: -16355
     }
   }
   element {
@@ -31876,7 +32498,7 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16368
+      priority: -16356
     }
   }
   element {
@@ -31887,7 +32509,7 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16369
+      priority: -16357
     }
   }
 }
@@ -31935,21 +32557,21 @@ cont {
     scale: 10
     area {
       color: 0xCCEEBB
-      priority: -16370
+      priority: -16358
     }
   }
   element {
     scale: 11
     area {
       color: 0xCCEEBB
-      priority: -16371
+      priority: -16359
     }
   }
   element {
     scale: 12
     area {
       color: 0xCCEEBB
-      priority: -16372
+      priority: -16360
     }
   }
   element {
@@ -31968,7 +32590,7 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16373
+      priority: -16361
     }
   }
   element {
@@ -31987,11 +32609,220 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16374
+      priority: -16362
     }
   }
   element {
     scale: 15
+    caption {
+      secondary {
+        height: 11
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+        offset_y: 20
+      }
+      primary {
+        height: 12
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+      }
+      priority: 15000
+    }
+    area {
+      color: 0xCCEEBB
+      priority: -16363
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      secondary {
+        height: 11
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+        offset_y: 20
+      }
+      primary {
+        height: 12
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+      }
+      priority: 15000
+    }
+    area {
+      color: 0xCCEEBB
+      priority: -16364
+    }
+  }
+  element {
+    scale: 17
+    caption {
+      secondary {
+        height: 11
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+        offset_y: 20
+      }
+      primary {
+        height: 12
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+      }
+      priority: 15000
+    }
+    area {
+      color: 0xCCEEBB
+      priority: -16365
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      secondary {
+        height: 11
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+        offset_y: 20
+      }
+      primary {
+        height: 12
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+      }
+      priority: 15000
+    }
+    area {
+      color: 0xCCEEBB
+      priority: -16366
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      secondary {
+        height: 11
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+        offset_y: 20
+      }
+      primary {
+        height: 12
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+      }
+      priority: 15000
+    }
+    area {
+      color: 0xCCEEBB
+      priority: -16367
+    }
+  }
+}
+cont {
+  name: "leisure-park-no-access"
+  element {
+    scale: 10
+    area {
+      color: 0xCCEEBB
+      priority: -16368
+    }
+  }
+  element {
+    scale: 11
+    area {
+      color: 0xCCEEBB
+      priority: -16369
+    }
+  }
+  element {
+    scale: 12
+    area {
+      color: 0xCCEEBB
+      priority: -16370
+    }
+  }
+  element {
+    scale: 13
+    caption {
+      secondary {
+        height: 11
+        color: 0x55AA00
+        offset_y: 20
+      }
+      primary {
+        height: 12
+        color: 0x55AA00
+      }
+      priority: 15000
+    }
+    area {
+      color: 0xCCEEBB
+      priority: -16371
+    }
+  }
+  element {
+    scale: 14
+    caption {
+      secondary {
+        height: 11
+        color: 0x55AA00
+        offset_y: 20
+      }
+      primary {
+        height: 12
+        color: 0x55AA00
+      }
+      priority: 15000
+    }
+    area {
+      color: 0xCCEEBB
+      priority: -16372
+    }
+  }
+  element {
+    scale: 15
+    caption {
+      secondary {
+        height: 11
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+        offset_y: 20
+      }
+      primary {
+        height: 12
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+      }
+      priority: 15000
+    }
+    area {
+      color: 0xCCEEBB
+      priority: -16373
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      secondary {
+        height: 11
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+        offset_y: 20
+      }
+      primary {
+        height: 12
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+      }
+      priority: 15000
+    }
+    area {
+      color: 0xCCEEBB
+      priority: -16374
+    }
+  }
+  element {
+    scale: 17
     caption {
       secondary {
         height: 11
@@ -32012,7 +32843,7 @@ cont {
     }
   }
   element {
-    scale: 16
+    scale: 18
     caption {
       secondary {
         height: 11
@@ -32033,7 +32864,7 @@ cont {
     }
   }
   element {
-    scale: 17
+    scale: 19
     caption {
       secondary {
         height: 11
@@ -32053,70 +32884,28 @@ cont {
       priority: -16377
     }
   }
+}
+cont {
+  name: "leisure-park-permissive"
   element {
-    scale: 18
-    caption {
-      secondary {
-        height: 11
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-        offset_y: 20
-      }
-      primary {
-        height: 12
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-      }
-      priority: 15000
-    }
+    scale: 10
     area {
       color: 0xCCEEBB
       priority: -16378
     }
   }
   element {
-    scale: 19
-    caption {
-      secondary {
-        height: 11
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-        offset_y: 20
-      }
-      primary {
-        height: 12
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-      }
-      priority: 15000
-    }
-    area {
-      color: 0xCCEEBB
-      priority: -16379
-    }
-  }
-}
-cont {
-  name: "leisure-park-no-access"
-  element {
-    scale: 10
-    area {
-      color: 0xCCEEBB
-      priority: -16380
-    }
-  }
-  element {
     scale: 11
     area {
       color: 0xCCEEBB
-      priority: -16381
+      priority: -16379
     }
   }
   element {
     scale: 12
     area {
       color: 0xCCEEBB
-      priority: -16382
+      priority: -16380
     }
   }
   element {
@@ -32135,7 +32924,7 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16383
+      priority: -16381
     }
   }
   element {
@@ -32154,11 +32943,53 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16384
+      priority: -16382
     }
   }
   element {
     scale: 15
+    caption {
+      secondary {
+        height: 11
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+        offset_y: 20
+      }
+      primary {
+        height: 12
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+      }
+      priority: 15000
+    }
+    area {
+      color: 0xCCEEBB
+      priority: -16383
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      secondary {
+        height: 11
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+        offset_y: 20
+      }
+      primary {
+        height: 12
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+      }
+      priority: 15000
+    }
+    area {
+      color: 0xCCEEBB
+      priority: -16384
+    }
+  }
+  element {
+    scale: 17
     caption {
       secondary {
         height: 11
@@ -32179,7 +33010,7 @@ cont {
     }
   }
   element {
-    scale: 16
+    scale: 18
     caption {
       secondary {
         height: 11
@@ -32200,7 +33031,7 @@ cont {
     }
   }
   element {
-    scale: 17
+    scale: 19
     caption {
       secondary {
         height: 11
@@ -32220,70 +33051,28 @@ cont {
       priority: -16387
     }
   }
+}
+cont {
+  name: "leisure-park-private"
   element {
-    scale: 18
-    caption {
-      secondary {
-        height: 11
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-        offset_y: 20
-      }
-      primary {
-        height: 12
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-      }
-      priority: 15000
-    }
+    scale: 10
     area {
       color: 0xCCEEBB
       priority: -16388
     }
   }
   element {
-    scale: 19
-    caption {
-      secondary {
-        height: 11
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-        offset_y: 20
-      }
-      primary {
-        height: 12
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-      }
-      priority: 15000
-    }
-    area {
-      color: 0xCCEEBB
-      priority: -16389
-    }
-  }
-}
-cont {
-  name: "leisure-park-permissive"
-  element {
-    scale: 10
-    area {
-      color: 0xCCEEBB
-      priority: -16390
-    }
-  }
-  element {
     scale: 11
     area {
       color: 0xCCEEBB
-      priority: -16391
+      priority: -16389
     }
   }
   element {
     scale: 12
     area {
       color: 0xCCEEBB
-      priority: -16392
+      priority: -16390
     }
   }
   element {
@@ -32302,7 +33091,7 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16393
+      priority: -16391
     }
   }
   element {
@@ -32321,11 +33110,53 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16394
+      priority: -16392
     }
   }
   element {
     scale: 15
+    caption {
+      secondary {
+        height: 11
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+        offset_y: 20
+      }
+      primary {
+        height: 12
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+      }
+      priority: 15000
+    }
+    area {
+      color: 0xCCEEBB
+      priority: -16393
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      secondary {
+        height: 11
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+        offset_y: 20
+      }
+      primary {
+        height: 12
+        color: 0x55AA00
+        stroke_color: 0xFFFFFF
+      }
+      priority: 15000
+    }
+    area {
+      color: 0xCCEEBB
+      priority: -16394
+    }
+  }
+  element {
+    scale: 17
     caption {
       secondary {
         height: 11
@@ -32346,7 +33177,7 @@ cont {
     }
   }
   element {
-    scale: 16
+    scale: 18
     caption {
       secondary {
         height: 11
@@ -32367,7 +33198,7 @@ cont {
     }
   }
   element {
-    scale: 17
+    scale: 19
     caption {
       secondary {
         height: 11
@@ -32387,215 +33218,6 @@ cont {
       priority: -16397
     }
   }
-  element {
-    scale: 18
-    caption {
-      secondary {
-        height: 11
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-        offset_y: 20
-      }
-      primary {
-        height: 12
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-      }
-      priority: 15000
-    }
-    area {
-      color: 0xCCEEBB
-      priority: -16398
-    }
-  }
-  element {
-    scale: 19
-    caption {
-      secondary {
-        height: 11
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-        offset_y: 20
-      }
-      primary {
-        height: 12
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-      }
-      priority: 15000
-    }
-    area {
-      color: 0xCCEEBB
-      priority: -16399
-    }
-  }
-}
-cont {
-  name: "leisure-park-private"
-  element {
-    scale: 10
-    area {
-      color: 0xCCEEBB
-      priority: -16400
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xCCEEBB
-      priority: -16401
-    }
-  }
-  element {
-    scale: 12
-    area {
-      color: 0xCCEEBB
-      priority: -16402
-    }
-  }
-  element {
-    scale: 13
-    caption {
-      secondary {
-        height: 11
-        color: 0x55AA00
-        offset_y: 20
-      }
-      primary {
-        height: 12
-        color: 0x55AA00
-      }
-      priority: 15000
-    }
-    area {
-      color: 0xCCEEBB
-      priority: -16403
-    }
-  }
-  element {
-    scale: 14
-    caption {
-      secondary {
-        height: 11
-        color: 0x55AA00
-        offset_y: 20
-      }
-      primary {
-        height: 12
-        color: 0x55AA00
-      }
-      priority: 15000
-    }
-    area {
-      color: 0xCCEEBB
-      priority: -16404
-    }
-  }
-  element {
-    scale: 15
-    caption {
-      secondary {
-        height: 11
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-        offset_y: 20
-      }
-      primary {
-        height: 12
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-      }
-      priority: 15000
-    }
-    area {
-      color: 0xCCEEBB
-      priority: -16405
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      secondary {
-        height: 11
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-        offset_y: 20
-      }
-      primary {
-        height: 12
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-      }
-      priority: 15000
-    }
-    area {
-      color: 0xCCEEBB
-      priority: -16406
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      secondary {
-        height: 11
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-        offset_y: 20
-      }
-      primary {
-        height: 12
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-      }
-      priority: 15000
-    }
-    area {
-      color: 0xCCEEBB
-      priority: -16407
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      secondary {
-        height: 11
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-        offset_y: 20
-      }
-      primary {
-        height: 12
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-      }
-      priority: 15000
-    }
-    area {
-      color: 0xCCEEBB
-      priority: -16408
-    }
-  }
-  element {
-    scale: 19
-    caption {
-      secondary {
-        height: 11
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-        offset_y: 20
-      }
-      primary {
-        height: 12
-        color: 0x55AA00
-        stroke_color: 0xFFFFFF
-      }
-      priority: 15000
-    }
-    area {
-      color: 0xCCEEBB
-      priority: -16409
-    }
-  }
 }
 cont {
   name: "leisure-pitch"
@@ -32603,56 +33225,56 @@ cont {
     scale: 12
     area {
       color: 0xCCEEBB
-      priority: -16410
+      priority: -16398
     }
   }
   element {
     scale: 13
     area {
       color: 0xCCEEBB
-      priority: -16411
+      priority: -16399
     }
   }
   element {
     scale: 14
     area {
       color: 0xCCEEBB
-      priority: -16412
+      priority: -16400
     }
   }
   element {
     scale: 15
     area {
       color: 0xCCEEBB
-      priority: -16413
+      priority: -16401
     }
   }
   element {
     scale: 16
     area {
       color: 0xCCEEBB
-      priority: -16414
+      priority: -16402
     }
   }
   element {
     scale: 17
     area {
       color: 0xCCEEBB
-      priority: -16415
+      priority: -16403
     }
   }
   element {
     scale: 18
     area {
       color: 0xCCEEBB
-      priority: -16416
+      priority: -16404
     }
   }
   element {
     scale: 19
     area {
       color: 0xCCEEBB
-      priority: -16417
+      priority: -16405
     }
   }
 }
@@ -32662,35 +33284,35 @@ cont {
     scale: 12
     area {
       color: 0xCCEEBB
-      priority: -16418
+      priority: -16406
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDBB99
-      priority: -16419
+      priority: -16407
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDBB99
-      priority: -16420
+      priority: -16408
     }
   }
   element {
     scale: 15
     area {
       color: 0xDDBB99
-      priority: -16421
+      priority: -16409
     }
   }
   element {
     scale: 16
     area {
       color: 0xDDBB99
-      priority: -16422
+      priority: -16410
     }
   }
   element {
@@ -32701,7 +33323,7 @@ cont {
     }
     area {
       color: 0xDDBB99
-      priority: -16423
+      priority: -16411
     }
   }
   element {
@@ -32712,7 +33334,7 @@ cont {
     }
     area {
       color: 0xDDBB99
-      priority: -16424
+      priority: -16412
     }
   }
   element {
@@ -32723,7 +33345,7 @@ cont {
     }
     area {
       color: 0xDDBB99
-      priority: -16425
+      priority: -16413
     }
   }
 }
@@ -32733,35 +33355,35 @@ cont {
     scale: 12
     area {
       color: 0xCCEEBB
-      priority: -16426
+      priority: -16414
     }
   }
   element {
     scale: 13
     area {
       color: 0xCCEEBB
-      priority: -16427
+      priority: -16415
     }
   }
   element {
     scale: 14
     area {
       color: 0xCCEEBB
-      priority: -16428
+      priority: -16416
     }
   }
   element {
     scale: 15
     area {
       color: 0xCCEEBB
-      priority: -16429
+      priority: -16417
     }
   }
   element {
     scale: 16
     area {
       color: 0xCCEEBB
-      priority: -16430
+      priority: -16418
     }
   }
   element {
@@ -32772,7 +33394,7 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16431
+      priority: -16419
     }
   }
   element {
@@ -32783,7 +33405,7 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16432
+      priority: -16420
     }
   }
   element {
@@ -32794,7 +33416,7 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16433
+      priority: -16421
     }
   }
 }
@@ -32804,35 +33426,35 @@ cont {
     scale: 12
     area {
       color: 0xCCEEBB
-      priority: -16434
+      priority: -16422
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDBB99
-      priority: -16435
+      priority: -16423
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDBB99
-      priority: -16436
+      priority: -16424
     }
   }
   element {
     scale: 15
     area {
       color: 0xDDBB99
-      priority: -16437
+      priority: -16425
     }
   }
   element {
     scale: 16
     area {
       color: 0xDDBB99
-      priority: -16438
+      priority: -16426
     }
   }
   element {
@@ -32843,7 +33465,7 @@ cont {
     }
     area {
       color: 0xDDBB99
-      priority: -16439
+      priority: -16427
     }
   }
   element {
@@ -32854,7 +33476,7 @@ cont {
     }
     area {
       color: 0xDDBB99
-      priority: -16440
+      priority: -16428
     }
   }
   element {
@@ -32865,7 +33487,7 @@ cont {
     }
     area {
       color: 0xDDBB99
-      priority: -16441
+      priority: -16429
     }
   }
 }
@@ -32875,28 +33497,28 @@ cont {
     scale: 13
     area {
       color: 0xDDBB99
-      priority: -16442
+      priority: -16430
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDBB99
-      priority: -16443
+      priority: -16431
     }
   }
   element {
     scale: 15
     area {
       color: 0xDDBB99
-      priority: -16444
+      priority: -16432
     }
   }
   element {
     scale: 16
     area {
       color: 0xDDBB99
-      priority: -16445
+      priority: -16433
     }
   }
   element {
@@ -32907,7 +33529,7 @@ cont {
     }
     area {
       color: 0xDDBB99
-      priority: -16446
+      priority: -16434
     }
   }
   element {
@@ -32918,7 +33540,7 @@ cont {
     }
     area {
       color: 0xDDBB99
-      priority: -16447
+      priority: -16435
     }
   }
   element {
@@ -32929,7 +33551,7 @@ cont {
     }
     area {
       color: 0xDDBB99
-      priority: -16448
+      priority: -16436
     }
   }
 }
@@ -32963,35 +33585,35 @@ cont {
     scale: 12
     area {
       color: 0xDDEECC
-      priority: -16449
+      priority: -16437
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDEECC
-      priority: -16450
+      priority: -16438
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDEECC
-      priority: -16451
+      priority: -16439
     }
   }
   element {
     scale: 15
     area {
       color: 0xDDEECC
-      priority: -16452
+      priority: -16440
     }
   }
   element {
     scale: 16
     area {
       color: 0xDDEECC
-      priority: -16453
+      priority: -16441
     }
   }
   element {
@@ -33006,7 +33628,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16454
+      priority: -16442
     }
   }
   element {
@@ -33021,7 +33643,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16455
+      priority: -16443
     }
   }
   element {
@@ -33036,7 +33658,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16456
+      priority: -16444
     }
   }
 }
@@ -33046,35 +33668,35 @@ cont {
     scale: 12
     area {
       color: 0xDDEECC
-      priority: -16457
+      priority: -16445
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDEECC
-      priority: -16458
+      priority: -16446
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDEECC
-      priority: -16459
+      priority: -16447
     }
   }
   element {
     scale: 15
     area {
       color: 0xDDEECC
-      priority: -16460
+      priority: -16448
     }
   }
   element {
     scale: 16
     area {
       color: 0xDDEECC
-      priority: -16461
+      priority: -16449
     }
   }
   element {
@@ -33089,7 +33711,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16462
+      priority: -16450
     }
   }
   element {
@@ -33104,7 +33726,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16463
+      priority: -16451
     }
   }
   element {
@@ -33119,7 +33741,7 @@ cont {
     }
     area {
       color: 0xDDEECC
-      priority: -16464
+      priority: -16452
     }
   }
 }
@@ -33181,56 +33803,56 @@ cont {
     scale: 12
     area {
       color: 0xDDEECC
-      priority: -16465
+      priority: -16453
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDEECC
-      priority: -16466
+      priority: -16454
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDEECC
-      priority: -16467
+      priority: -16455
     }
   }
   element {
     scale: 15
     area {
       color: 0xDDEECC
-      priority: -16468
+      priority: -16456
     }
   }
   element {
     scale: 16
     area {
       color: 0xDDEECC
-      priority: -16469
+      priority: -16457
     }
   }
   element {
     scale: 17
     area {
       color: 0xDDEECC
-      priority: -16470
+      priority: -16458
     }
   }
   element {
     scale: 18
     area {
       color: 0xDDEECC
-      priority: -16471
+      priority: -16459
     }
   }
   element {
     scale: 19
     area {
       color: 0xDDEECC
-      priority: -16472
+      priority: -16460
     }
   }
 }
@@ -33485,6 +34107,10 @@ cont {
       color: 0xDDDDDD
       priority: 1454
     }
+    area {
+      color: 0xFFEEEE
+      priority: 1455
+    }
     lines {
       width: 0.6
       color: 0xEEEEEE
@@ -33498,6 +34124,10 @@ cont {
       color: 0xDDDDDD
       priority: 1605
     }
+    area {
+      color: 0xFFEEEE
+      priority: 1606
+    }
     lines {
       width: 1.2
       color: 0xEEEEEE
@@ -33510,6 +34140,10 @@ cont {
       width: 0.4
       color: 0xDDDDDD
       priority: 1774
+    }
+    area {
+      color: 0xFFEEEE
+      priority: 1775
     }
     lines {
       width: 2.4
@@ -33529,6 +34163,10 @@ cont {
       color: 0xDDDDDD
       priority: 1854
     }
+    area {
+      color: 0xFFEEEE
+      priority: 1855
+    }
     lines {
       width: 2.4
       color: 0xEEEEEE
@@ -33547,6 +34185,10 @@ cont {
       color: 0xDDDDDD
       priority: 1854
     }
+    area {
+      color: 0xFFEEEE
+      priority: 1855
+    }
     lines {
       width: 2.4
       color: 0xEEEEEE
@@ -33564,6 +34206,10 @@ cont {
       width: 0.4
       color: 0xDDDDDD
       priority: 1854
+    }
+    area {
+      color: 0xFFEEEE
+      priority: 1855
     }
     lines {
       width: 2.4
@@ -33785,56 +34431,56 @@ cont {
     scale: 12
     area {
       color: 0xEEEEEE
-      priority: -16473
+      priority: -16461
     }
   }
   element {
     scale: 13
     area {
       color: 0xEEEEEE
-      priority: -16474
+      priority: -16462
     }
   }
   element {
     scale: 14
     area {
       color: 0xEEEEEE
-      priority: -16475
+      priority: -16463
     }
   }
   element {
     scale: 15
     area {
       color: 0xEEEEEE
-      priority: -16476
+      priority: -16464
     }
   }
   element {
     scale: 16
     area {
       color: 0xEEEEEE
-      priority: -16477
+      priority: -16465
     }
   }
   element {
     scale: 17
     area {
       color: 0xEEEEEE
-      priority: -16478
+      priority: -16466
     }
   }
   element {
     scale: 18
     area {
       color: 0xEEEEEE
-      priority: -16479
+      priority: -16467
     }
   }
   element {
     scale: 19
     area {
       color: 0xEEEEEE
-      priority: -16480
+      priority: -16468
     }
   }
 }
@@ -34301,42 +34947,42 @@ cont {
     scale: 14
     area {
       color: 0xEECC55
-      priority: -16481
+      priority: -16469
     }
   }
   element {
     scale: 15
     area {
       color: 0xEECC55
-      priority: -16482
+      priority: -16470
     }
   }
   element {
     scale: 16
     area {
       color: 0xEECC55
-      priority: -16483
+      priority: -16471
     }
   }
   element {
     scale: 17
     area {
       color: 0xEECC55
-      priority: -16484
+      priority: -16472
     }
   }
   element {
     scale: 18
     area {
       color: 0xEECC55
-      priority: -16485
+      priority: -16473
     }
   }
   element {
     scale: 19
     area {
       color: 0xEECC55
-      priority: -16486
+      priority: -16474
     }
   }
 }
@@ -34800,56 +35446,56 @@ cont {
     scale: 12
     area {
       color: 0xFFFFDD
-      priority: -16487
+      priority: -16475
     }
   }
   element {
     scale: 13
     area {
       color: 0xFFFFDD
-      priority: -16488
+      priority: -16476
     }
   }
   element {
     scale: 14
     area {
       color: 0xFFFFDD
-      priority: -16489
+      priority: -16477
     }
   }
   element {
     scale: 15
     area {
       color: 0xFFFFDD
-      priority: -16490
+      priority: -16478
     }
   }
   element {
     scale: 16
     area {
       color: 0xFFFFDD
-      priority: -16491
+      priority: -16479
     }
   }
   element {
     scale: 17
     area {
       color: 0xFFFFDD
-      priority: -16492
+      priority: -16480
     }
   }
   element {
     scale: 18
     area {
       color: 0xFFFFDD
-      priority: -16493
+      priority: -16481
     }
   }
   element {
     scale: 19
     area {
       color: 0xFFFFDD
-      priority: -16494
+      priority: -16482
     }
   }
 }
@@ -34974,98 +35620,98 @@ cont {
     scale: 6
     area {
       color: 0xFFFFFF
-      priority: -16495
+      priority: -16483
     }
   }
   element {
     scale: 7
     area {
       color: 0xFFFFFF
-      priority: -16496
+      priority: -16484
     }
   }
   element {
     scale: 8
     area {
       color: 0xFFFFFF
-      priority: -16497
+      priority: -16485
     }
   }
   element {
     scale: 9
     area {
       color: 0xFFFFFF
-      priority: -16498
+      priority: -16486
     }
   }
   element {
     scale: 10
     area {
       color: 0xFFFFFF
-      priority: -16499
+      priority: -16487
     }
   }
   element {
     scale: 11
     area {
       color: 0xFFFFFF
-      priority: -16500
+      priority: -16488
     }
   }
   element {
     scale: 12
     area {
       color: 0xFFFFFF
-      priority: -16501
+      priority: -16489
     }
   }
   element {
     scale: 13
     area {
       color: 0xFFFFFF
-      priority: -16502
+      priority: -16490
     }
   }
   element {
     scale: 14
     area {
       color: 0xFFFFFF
-      priority: -16503
+      priority: -16491
     }
   }
   element {
     scale: 15
     area {
       color: 0xFFFFFF
-      priority: -16504
+      priority: -16492
     }
   }
   element {
     scale: 16
     area {
       color: 0xFFFFFF
-      priority: -16505
+      priority: -16493
     }
   }
   element {
     scale: 17
     area {
       color: 0xFFFFFF
-      priority: -16506
+      priority: -16494
     }
   }
   element {
     scale: 18
     area {
       color: 0xFFFFFF
-      priority: -16507
+      priority: -16495
     }
   }
   element {
     scale: 19
     area {
       color: 0xFFFFFF
-      priority: -16508
+      priority: -16496
     }
   }
 }
@@ -35443,56 +36089,56 @@ cont {
     scale: 12
     area {
       color: 0xDDEECC
-      priority: -16509
+      priority: -16497
     }
   }
   element {
     scale: 13
     area {
       color: 0xDDEECC
-      priority: -16510
+      priority: -16498
     }
   }
   element {
     scale: 14
     area {
       color: 0xDDEECC
-      priority: -16511
+      priority: -16499
     }
   }
   element {
     scale: 15
     area {
       color: 0xDDEECC
-      priority: -16512
+      priority: -16500
     }
   }
   element {
     scale: 16
     area {
       color: 0xDDEECC
-      priority: -16513
+      priority: -16501
     }
   }
   element {
     scale: 17
     area {
       color: 0xDDEECC
-      priority: -16514
+      priority: -16502
     }
   }
   element {
     scale: 18
     area {
       color: 0xDDEECC
-      priority: -16515
+      priority: -16503
     }
   }
   element {
     scale: 19
     area {
       color: 0xDDEECC
-      priority: -16516
+      priority: -16504
     }
   }
 }
@@ -35790,21 +36436,21 @@ cont {
     scale: 10
     area {
       color: 0xBBDDDD
-      priority: 1091
+      priority: -15910
     }
   }
   element {
     scale: 11
     area {
       color: 0xBBDDDD
-      priority: 1091
+      priority: -15910
     }
   }
   element {
     scale: 12
     area {
       color: 0xBBDDDD
-      priority: 1091
+      priority: -15910
     }
   }
   element {
@@ -35818,7 +36464,7 @@ cont {
     }
     area {
       color: 0xBBDDDD
-      priority: 1091
+      priority: -15910
     }
   }
   element {
@@ -35832,7 +36478,7 @@ cont {
     }
     area {
       color: 0xBBDDDD
-      priority: 1091
+      priority: -15910
     }
   }
   element {
@@ -35846,7 +36492,7 @@ cont {
     }
     area {
       color: 0xBBDDDD
-      priority: 1091
+      priority: -15910
     }
   }
   element {
@@ -35860,7 +36506,7 @@ cont {
     }
     area {
       color: 0xBBDDDD
-      priority: 1091
+      priority: -15910
     }
   }
   element {
@@ -35874,7 +36520,7 @@ cont {
     }
     area {
       color: 0xBBDDDD
-      priority: 1091
+      priority: -15910
     }
   }
   element {
@@ -35888,7 +36534,7 @@ cont {
     }
     area {
       color: 0xBBDDDD
-      priority: 1091
+      priority: -15910
     }
   }
   element {
@@ -35902,7 +36548,7 @@ cont {
     }
     area {
       color: 0xBBDDDD
-      priority: 1091
+      priority: -15910
     }
   }
 }
@@ -35912,42 +36558,42 @@ cont {
     scale: 14
     area {
       color: 0xAACCBB
-      priority: -16517
+      priority: -16505
     }
   }
   element {
     scale: 15
     area {
       color: 0xAACCBB
-      priority: -16518
+      priority: -16506
     }
   }
   element {
     scale: 16
     area {
       color: 0xAACCBB
-      priority: -16519
+      priority: -16507
     }
   }
   element {
     scale: 17
     area {
       color: 0xAACCBB
-      priority: -16520
+      priority: -16508
     }
   }
   element {
     scale: 18
     area {
       color: 0xAACCBB
-      priority: -16521
+      priority: -16509
     }
   }
   element {
     scale: 19
     area {
       color: 0xAACCBB
-      priority: -16522
+      priority: -16510
     }
   }
 }
@@ -35957,56 +36603,56 @@ cont {
     scale: 12
     area {
       color: 0xAACCBB
-      priority: -16523
+      priority: -16511
     }
   }
   element {
     scale: 13
     area {
       color: 0xAACCBB
-      priority: -16524
+      priority: -16512
     }
   }
   element {
     scale: 14
     area {
       color: 0xAACCBB
-      priority: -16525
+      priority: -16513
     }
   }
   element {
     scale: 15
     area {
       color: 0xAACCBB
-      priority: -16526
+      priority: -16514
     }
   }
   element {
     scale: 16
     area {
       color: 0xAACCBB
-      priority: -16527
+      priority: -16515
     }
   }
   element {
     scale: 17
     area {
       color: 0xAACCBB
-      priority: -16528
+      priority: -16516
     }
   }
   element {
     scale: 18
     area {
       color: 0xAACCBB
-      priority: -16529
+      priority: -16517
     }
   }
   element {
     scale: 19
     area {
       color: 0xAACCBB
-      priority: -16530
+      priority: -16518
     }
   }
 }
@@ -36016,70 +36662,70 @@ cont {
     scale: 10
     area {
       color: 0xBBDDAA
-      priority: -16531
+      priority: -16519
     }
   }
   element {
     scale: 11
     area {
       color: 0xBBDDAA
-      priority: -16532
+      priority: -16520
     }
   }
   element {
     scale: 12
     area {
       color: 0xBBDDAA
-      priority: -16533
+      priority: -16521
     }
   }
   element {
     scale: 13
     area {
       color: 0xBBDDAA
-      priority: -16534
+      priority: -16522
     }
   }
   element {
     scale: 14
     area {
       color: 0xBBDDAA
-      priority: -16535
+      priority: -16523
     }
   }
   element {
     scale: 15
     area {
       color: 0xBBDDAA
-      priority: -16536
+      priority: -16524
     }
   }
   element {
     scale: 16
     area {
       color: 0xBBDDAA
-      priority: -16537
+      priority: -16525
     }
   }
   element {
     scale: 17
     area {
       color: 0xBBDDAA
-      priority: -16538
+      priority: -16526
     }
   }
   element {
     scale: 18
     area {
       color: 0xBBDDAA
-      priority: -16539
+      priority: -16527
     }
   }
   element {
     scale: 19
     area {
       color: 0xBBDDAA
-      priority: -16540
+      priority: -16528
     }
   }
 }
@@ -36089,70 +36735,70 @@ cont {
     scale: 10
     area {
       color: 0xBBDDAA
-      priority: -16541
+      priority: -16529
     }
   }
   element {
     scale: 11
     area {
       color: 0xBBDDAA
-      priority: -16542
+      priority: -16530
     }
   }
   element {
     scale: 12
     area {
       color: 0xBBDDAA
-      priority: -16543
+      priority: -16531
     }
   }
   element {
     scale: 13
     area {
       color: 0xBBDDAA
-      priority: -16544
+      priority: -16532
     }
   }
   element {
     scale: 14
     area {
       color: 0xBBDDAA
-      priority: -16545
+      priority: -16533
     }
   }
   element {
     scale: 15
     area {
       color: 0xBBDDAA
-      priority: -16546
+      priority: -16534
     }
   }
   element {
     scale: 16
     area {
       color: 0xBBDDAA
-      priority: -16547
+      priority: -16535
     }
   }
   element {
     scale: 17
     area {
       color: 0xBBDDAA
-      priority: -16548
+      priority: -16536
     }
   }
   element {
     scale: 18
     area {
       color: 0xBBDDAA
-      priority: -16549
+      priority: -16537
     }
   }
   element {
     scale: 19
     area {
       color: 0xBBDDAA
-      priority: -16550
+      priority: -16538
     }
   }
 }
@@ -36162,70 +36808,70 @@ cont {
     scale: 10
     area {
       color: 0xBBDDAA
-      priority: -16551
+      priority: -16539
     }
   }
   element {
     scale: 11
     area {
       color: 0xBBDDAA
-      priority: -16552
+      priority: -16540
     }
   }
   element {
     scale: 12
     area {
       color: 0xBBDDAA
-      priority: -16553
+      priority: -16541
     }
   }
   element {
     scale: 13
     area {
       color: 0xBBDDAA
-      priority: -16554
+      priority: -16542
     }
   }
   element {
     scale: 14
     area {
       color: 0xBBDDAA
-      priority: -16555
+      priority: -16543
     }
   }
   element {
     scale: 15
     area {
       color: 0xBBDDAA
-      priority: -16556
+      priority: -16544
     }
   }
   element {
     scale: 16
     area {
       color: 0xBBDDAA
-      priority: -16557
+      priority: -16545
     }
   }
   element {
     scale: 17
     area {
       color: 0xBBDDAA
-      priority: -16558
+      priority: -16546
     }
   }
   element {
     scale: 18
     area {
       color: 0xBBDDAA
-      priority: -16559
+      priority: -16547
     }
   }
   element {
     scale: 19
     area {
       color: 0xBBDDAA
-      priority: -16560
+      priority: -16548
     }
   }
 }
@@ -36235,70 +36881,70 @@ cont {
     scale: 10
     area {
       color: 0xBBDDAA
-      priority: -16561
+      priority: -16549
     }
   }
   element {
     scale: 11
     area {
       color: 0xBBDDAA
-      priority: -16562
+      priority: -16550
     }
   }
   element {
     scale: 12
     area {
       color: 0xBBDDAA
-      priority: -16563
+      priority: -16551
     }
   }
   element {
     scale: 13
     area {
       color: 0xBBDDAA
-      priority: -16564
+      priority: -16552
     }
   }
   element {
     scale: 14
     area {
       color: 0xBBDDAA
-      priority: -16565
+      priority: -16553
     }
   }
   element {
     scale: 15
     area {
       color: 0xBBDDAA
-      priority: -16566
+      priority: -16554
     }
   }
   element {
     scale: 16
     area {
       color: 0xBBDDAA
-      priority: -16567
+      priority: -16555
     }
   }
   element {
     scale: 17
     area {
       color: 0xBBDDAA
-      priority: -16568
+      priority: -16556
     }
   }
   element {
     scale: 18
     area {
       color: 0xBBDDAA
-      priority: -16569
+      priority: -16557
     }
   }
   element {
     scale: 19
     area {
       color: 0xBBDDAA
-      priority: -16570
+      priority: -16558
     }
   }
 }
@@ -38303,7 +38949,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16571
+      priority: -16559
     }
   }
   element {
@@ -38317,7 +38963,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16572
+      priority: -16560
     }
   }
   element {
@@ -38331,7 +38977,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16573
+      priority: -16561
     }
   }
   element {
@@ -38345,7 +38991,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16574
+      priority: -16562
     }
   }
   element {
@@ -38359,7 +39005,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16575
+      priority: -16563
     }
   }
   element {
@@ -38373,7 +39019,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16576
+      priority: -16564
     }
   }
 }
@@ -39388,7 +40034,7 @@ cont {
     scale: 11
     area {
       color: 0xDDDDCC
-      priority: -16577
+      priority: -16565
     }
   }
   element {
@@ -39403,7 +40049,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16578
+      priority: -16566
     }
   }
   element {
@@ -39424,7 +40070,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16579
+      priority: -16567
     }
   }
   element {
@@ -39445,7 +40091,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16580
+      priority: -16568
     }
   }
   element {
@@ -39466,7 +40112,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16581
+      priority: -16569
     }
   }
   element {
@@ -39487,7 +40133,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16582
+      priority: -16570
     }
   }
   element {
@@ -39508,7 +40154,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16583
+      priority: -16571
     }
   }
   element {
@@ -39529,7 +40175,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16584
+      priority: -16572
     }
   }
   element {
@@ -39550,7 +40196,7 @@ cont {
     }
     area {
       color: 0xDDDDCC
-      priority: -16585
+      priority: -16573
     }
   }
 }
@@ -54328,21 +54974,48 @@ cont {
     scale: 17
     symbol {
       name: "alpine_hut"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
   element {
     scale: 18
     symbol {
       name: "alpine_hut"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
   element {
     scale: 19
     symbol {
       name: "alpine_hut"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
 }
@@ -54366,21 +55039,48 @@ cont {
     scale: 17
     symbol {
       name: "viewpoint"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
   element {
     scale: 18
     symbol {
       name: "viewpoint"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
   element {
     scale: 19
     symbol {
       name: "viewpoint"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
 }
@@ -54420,45 +55120,48 @@ cont {
     scale: 17
     caption {
       primary {
-        height: 12
-        color: 0x333333
+        height: 11
+        color: 0x444444
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
     area {
       color: 0xFFEEDD
-      priority: 1001
+      priority: 1003
     }
   }
   element {
     scale: 18
     caption {
       primary {
-        height: 12
-        color: 0x333333
+        height: 11
+        color: 0x444444
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
     area {
       color: 0xFFEEDD
-      priority: 1001
+      priority: 1003
     }
   }
   element {
     scale: 19
     caption {
       primary {
-        height: 12
-        color: 0x333333
+        height: 11
+        color: 0x444444
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
     area {
       color: 0xFFEEDD
-      priority: 1001
+      priority: 1003
     }
   }
 }
@@ -54468,14 +55171,14 @@ cont {
     scale: 12
     area {
       color: 0xCCEEBB
-      priority: -16586
+      priority: -16574
     }
   }
   element {
     scale: 13
     area {
       color: 0xCCEEBB
-      priority: -16587
+      priority: -16575
     }
   }
   element {
@@ -54486,7 +55189,7 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16588
+      priority: -16576
     }
   }
   element {
@@ -54497,7 +55200,7 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16589
+      priority: -16577
     }
   }
   element {
@@ -54508,7 +55211,7 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16590
+      priority: -16578
     }
   }
   element {
@@ -54578,80 +55281,83 @@ cont {
     scale: 12
     area {
       color: 0xCCEEBB
-      priority: -16591
+      priority: -16579
     }
   }
   element {
     scale: 13
     area {
       color: 0xCCEEBB
-      priority: -16592
+      priority: -16580
     }
   }
   element {
     scale: 14
     area {
       color: 0xCCEEBB
-      priority: -16593
+      priority: -16581
     }
   }
   element {
     scale: 15
     area {
       color: 0xCCEEBB
-      priority: -16594
+      priority: -16582
     }
   }
   element {
     scale: 16
     area {
       color: 0xCCEEBB
-      priority: -16595
+      priority: -16583
     }
   }
   element {
     scale: 17
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x444444
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
     area {
       color: 0xCCEEBB
-      priority: -16596
+      priority: -15998
     }
   }
   element {
     scale: 18
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x444444
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
     area {
       color: 0xCCEEBB
-      priority: -16597
+      priority: -15998
     }
   }
   element {
     scale: 19
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x444444
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
     area {
       color: 0xCCEEBB
-      priority: -16598
+      priority: -15998
     }
   }
 }
@@ -54835,21 +55541,48 @@ cont {
     scale: 17
     symbol {
       name: "information"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
   element {
     scale: 18
     symbol {
       name: "information"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
   element {
     scale: 19
     symbol {
       name: "information"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
 }
@@ -54859,21 +55592,48 @@ cont {
     scale: 17
     symbol {
       name: "information"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
   element {
     scale: 18
     symbol {
       name: "information"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
   element {
     scale: 19
     symbol {
       name: "information"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
 }
@@ -55050,35 +55810,35 @@ cont {
     scale: 12
     area {
       color: 0xCCEEBB
-      priority: -16599
+      priority: -16584
     }
   }
   element {
     scale: 13
     area {
       color: 0xCCEEBB
-      priority: -16600
+      priority: -16585
     }
   }
   element {
     scale: 14
     area {
       color: 0xCCEEBB
-      priority: -16601
+      priority: -16586
     }
   }
   element {
     scale: 15
     area {
       color: 0xCCEEBB
-      priority: -16602
+      priority: -16587
     }
   }
   element {
     scale: 16
     area {
       color: 0xCCEEBB
-      priority: -16603
+      priority: -16588
     }
   }
   element {
@@ -55162,21 +55922,48 @@ cont {
     scale: 17
     symbol {
       name: "viewpoint"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
   element {
     scale: 18
     symbol {
       name: "viewpoint"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
   element {
     scale: 19
     symbol {
       name: "viewpoint"
-      priority: 16000
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0x444444
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
 }
@@ -55186,80 +55973,83 @@ cont {
     scale: 12
     area {
       color: 0xCCEEBB
-      priority: -16604
+      priority: -16589
     }
   }
   element {
     scale: 13
     area {
       color: 0xCCEEBB
-      priority: -16605
+      priority: -16590
     }
   }
   element {
     scale: 14
     area {
       color: 0xCCEEBB
-      priority: -16606
+      priority: -16591
     }
   }
   element {
     scale: 15
     area {
       color: 0xCCEEBB
-      priority: -16607
+      priority: -16592
     }
   }
   element {
     scale: 16
     area {
       color: 0xCCEEBB
-      priority: -16608
+      priority: -16593
     }
   }
   element {
     scale: 17
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x444444
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
     area {
       color: 0xCCEEBB
-      priority: -16609
+      priority: -15998
     }
   }
   element {
     scale: 18
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x444444
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
     area {
       color: 0xCCEEBB
-      priority: -16610
+      priority: -15998
     }
   }
   element {
     scale: 19
     caption {
       primary {
-        height: 12
+        height: 11
         color: 0x444444
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
-      priority: 15000
+      priority: 15002
     }
     area {
       color: 0xCCEEBB
-      priority: -16611
+      priority: -15998
     }
   }
 }

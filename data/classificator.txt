@@ -33,6 +33,7 @@ world  +
         drinking_water  -
         embassy  -
         fast_food  -
+        ferry_terminal  -
         fire_station  -
         fountain  -
         fuel  -

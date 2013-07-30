@@ -61,7 +61,7 @@ area[natural=coastline]
 }
 
 area[landuse],
-area[natural][natural!=water],
+area[natural],
 area[leisure],
 area[place],
 area[aeroway],
@@ -1714,6 +1714,11 @@ node|z17-[leisure=sports_centre]
   text-halo-color:	white;
 }
 
+node|z13-[highway=motorway_junction]
+{
+  text-position: center;
+}
+
 area|z17-[leisure=garden]::int_name,
 area|z17-[leisure=park]::int_name
 {
@@ -1931,6 +1936,17 @@ node|z14-[natural=peak]
 {
   icon-image:	peak.svg;
 }
+area|z14-[man_made=pier]
+{
+    fill-color: #f1eee8;
+    z-index: 488;
+}
+area|z16-[amenity=ferry_terminal],
+node|z16-[amenity=ferry_terminal]
+{
+    icon-image: slipway.svg;
+}
+
 line|z14[man_made=pier]::d1p3
 {
   color:	#e4e4e4;
@@ -2792,7 +2808,6 @@ line|z14[railway=funicular]
   width:	2.4;
   z-index:	205;
 }
-area|z16-[highway=motorway_junction]::d1p1,
 node|z16-[highway=motorway_junction]::d1p1
 {
   font-size:	12;
@@ -2800,6 +2815,7 @@ node|z16-[highway=motorway_junction]::d1p1
   text:	name;
   text-color:	#202020;
   text-halo-color:	white;
+  text-position: center;
 }
 line|z14[railway=spur]::d1p3
 {
@@ -3981,106 +3997,16 @@ line|z16[boundary=administrative][border_type=country]
   z-index:	933;
   -x-kot-layer:	top;
 }
-area|z17-[amenity=atm],
-area|z17-[amenity=bank],
-area|z17-[amenity=bar],
-area|z17-[amenity=bicycle_rental],
-area|z17-[amenity=bureau_de_change],
-area|z17-[amenity=bus_station],
-area|z17-[amenity=cafe],
-area|z17-[amenity=car_rental],
-area|z17-[amenity=car_sharing],
-area|z17-[amenity=cinema],
-area|z17-[amenity=doctors],
-area|z17-[amenity=embassy],
-area|z17-[amenity=fast_food],
-area|z17-[amenity=fire_station],
-area|z17-[amenity=fountain],
-area|z17-[amenity=fuel],
-area|z17-[amenity=hospital],
-area|z17-[amenity=hunting_stand],
-area|z17-[amenity=library],
-area|z17-[amenity=marketplace],
-area|z17-[amenity=nightclub],
-area|z17-[amenity=pharmacy],
-area|z17-[amenity=place_of_worship],
-area|z17-[amenity=police],
-area|z17-[amenity=post_box],
-area|z17-[amenity=post_office],
-area|z17-[amenity=pub],
-area|z17-[amenity=recycling],
-area|z17-[amenity=restaurant],
-area|z17-[amenity=speed_trap],
-area|z17-[amenity=taxi],
-area|z17-[amenity=telephone],
-area|z17-[amenity=theatre],
-area|z17-[amenity=toilets],
-area|z17-[historic=archaeological_site],
-area|z17-[historic=battlefield],
-area|z17-[historic=castle],
-area|z17-[historic=memorial],
-area|z17-[historic=monument],
-area|z17-[historic=museum],
-area|z17-[historic=ruins],
+area|z17-[amenity],
+area|z17-[historic],
 area|z17-[shop][shop!=no],
 area|z17-[office][office!=no],
-area|z17-[tourism=camp_site],
-area|z17-[tourism=guest_house],
-area|z17-[tourism=hostel],
-area|z17-[tourism=hotel],
-area|z17-[tourism=motel],
-area|z17-[tourism=museum],
-area|z17-[tourism=picnic_site],
-node|z17-[amenity=atm],
-node|z17-[amenity=bank],
-node|z17-[amenity=bar],
-node|z17-[amenity=bicycle_rental],
-node|z17-[amenity=bureau_de_change],
-node|z17-[amenity=bus_station],
-node|z17-[amenity=cafe],
-node|z17-[amenity=car_rental],
-node|z17-[amenity=car_sharing],
-node|z17-[amenity=cinema],
-node|z17-[amenity=doctors],
-node|z17-[amenity=embassy],
-node|z17-[amenity=fast_food],
-node|z17-[amenity=fire_station],
-node|z17-[amenity=fountain],
-node|z17-[amenity=fuel],
-node|z17-[amenity=hospital],
-node|z17-[amenity=hunting_stand],
-node|z17-[amenity=library],
-node|z17-[amenity=marketplace],
-node|z17-[amenity=nightclub],
-node|z17-[amenity=pharmacy],
-node|z17-[amenity=place_of_worship],
-node|z17-[amenity=police],
-node|z17-[amenity=post_box],
-node|z17-[amenity=post_office],
-node|z17-[amenity=pub],
-node|z17-[amenity=recycling],
-node|z17-[amenity=restaurant],
-node|z17-[amenity=speed_trap],
-node|z17-[amenity=taxi],
-node|z17-[amenity=telephone],
-node|z17-[amenity=theatre],
-node|z17-[amenity=toilets],
-node|z17-[historic=archaeological_site],
-node|z17-[historic=battlefield],
-node|z17-[historic=castle],
-node|z17-[historic=memorial],
-node|z17-[historic=monument],
-node|z17-[historic=museum],
-node|z17-[historic=ruins],
+area|z17-[tourism],
+node|z17-[amenity],
+node|z17-[historic],
 node|z17-[shop][shop!=no],
 node|z17-[office][office!=no],
-node|z17-[tourism=camp_site],
-node|z17-[tourism=guest_house],
-node|z17-[tourism=hostel],
-node|z17-[tourism=hotel],
-node|z17-[tourism=motel],
-node|z17-[tourism=museum],
-node|z17-[tourism=picnic_site]
+node|z17-[tourism]
 {
   font-size:	11;
   text-halo-radius:	2;
