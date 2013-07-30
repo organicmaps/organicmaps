@@ -1,27 +1,12 @@
 #include "render_context.hpp"
 
-#include "../graphics/resource_manager.hpp"
-
 #include "../map/render_policy.hpp"
-#include "../map/simple_render_policy.hpp"
 #include "../map/framework.hpp"
-
-#include "../gui/controller.hpp"
 
 #include "../platform/platform.hpp"
 
-
-#include "../std/shared_ptr.hpp"
-
 #include <qjsonrpcservice.h>
-
 #include <QGLPixelBuffer>
-#include <QtCore/QBuffer>
-#include <QtGui/QApplication>
-#include <QDesktopServices>
-#include <QLocalServer>
-#include <QFile>
-#include <QDir>
 
 namespace
 {
