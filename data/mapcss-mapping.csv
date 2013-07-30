@@ -950,3 +950,5 @@ office|lawyer;[office=lawyer];;name;int_name;949;
 office;[office];;name;int_name;950;
 landuse|residential|rural;[landuse=residential][residential=rural];;name;int_name;951;
 landuse|residential|urban;[landuse=residential][residential=urban];;name;int_name;952;
+amenity|ferry_terminal;[amenity=ferry_terminal];;name;int_name;953;
+amenity;[amenity];;name;int_name;954;
