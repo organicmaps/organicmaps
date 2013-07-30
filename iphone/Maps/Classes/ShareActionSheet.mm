@@ -13,6 +13,8 @@
 
 #include "../../search/result.hpp"
 
+#define GE0LENGTH 16
+
 @implementation ShareActionSheet
 +(void)showShareActionSheetInView:(id)view withObject:(id)del
 {
@@ -36,7 +38,7 @@
   if ([[as buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"email", nil)])
     [self sendEmailWith:text andUrl:shortUrl view:view delegate:del gX:gX gY:gY myPosition:myPos];
   else if ([[as buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"message", nil)])
-    [self sendMessageWith:text andUrl:shortUrl view:view delegate:del myPosition:myPos];
+    [self sendMessageWithUrl:[shortUrl substringWithRange:NSMakeRange(0, GE0LENGTH)] view:view delegate:del myPosition:myPos];
   else if ([[as buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"copy_link", nil)])
     [UIPasteboard generalPasteboard].string = [self generateShortUrlWithName:text scale:scale gX:gX gY:gY];
 }
@@ -69,7 +71,7 @@
   [view presentModalViewController:mailVC animated:YES];
 }
 
-+(void)sendMessageWith:(NSString *)textFieldText andUrl:(NSString *)shortUrl view:(id)view delegate:(id)del myPosition:(BOOL)myPos
++(void)sendMessageWithUrl:(NSString *)shortUrl view:(id)view delegate:(id)del myPosition:(BOOL)myPos
 {
   NSString * httpGe0Url = [shortUrl stringByReplacingCharactersInRange:NSMakeRange(0, 6) withString:@"http://ge0.me/"];
   MFMessageComposeViewController * messageVC = [[[MFMessageComposeViewController alloc] init] autorelease];

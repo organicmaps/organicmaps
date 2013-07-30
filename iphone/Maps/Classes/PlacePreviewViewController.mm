@@ -207,7 +207,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
 - (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
 {
   string name = "";
-  if (m_previewType == APIPOINT)
+  if (m_previewType == POI)
     name = m_poiInfo.GetPinName();
   else if (m_previewType == APIPOINT)
     name = m_apiPoint.m_name;
