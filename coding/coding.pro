@@ -8,7 +8,11 @@ DEPENDENCIES = base bzip2 zlib tomcrypt
 
 include($$ROOT_DIR/common.pri)
 
-INCLUDEPATH += ../3party/tomcrypt/src/headers ../3party/zlib
+INCLUDEPATH *= ../3party/tomcrypt/src/headers ../3party/zlib
+
+!linux*:android* {
+    INCLUDEPATH *= ../3party/expat/lib
+}
 
 SOURCES += \
     internal/file_data.cpp \

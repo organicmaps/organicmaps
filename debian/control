@@ -2,7 +2,7 @@ Source: mapswithme
 Section: utils
 Priority: extra
 Maintainer: Darafei A. Praliaskouski <komzpa@mapswith.me>
-Build-Depends: debhelper (>= 8), qt5-default|qt4-qmake, mesa-common-dev, qtbase5-dev|libqt4-dev, libqt5opengl5-dev|libqt4-opengl-dev, git, libssl-dev, ca-certificates
+Build-Depends: debhelper (>= 8), qt5-default|qt4-qmake, mesa-common-dev, qtbase5-dev|libqt4-dev, libqt5opengl5-dev|libqt4-opengl-dev, git, libssl-dev, ca-certificates, libexpat-dev
 Standards-Version: 3.9.3
 Homepage: http://mapswith.me/
 
@@ -34,7 +34,9 @@ Architecture: any
 Depends: fonts-roboto|fonts-mapswithme, ttf-dejavu-core|fonts-mapswithme, ttf-wqy-microhei|fonts-mapswithme, fonts-dzongkha|fonts-mapswithme, fonts-sil-padauk|fonts-mapswithme, fonts-khmeros-core|fonts-mapswithme, fonts-tlwg-umpush|fonts-mapswithme, fonts-sil-abyssinica|fonts-mapswithme, fonts-paktype|fonts-mapswithme, mapswithme-data, ${shlibs:Depends}, ${misc:Depends}
 Description: MapsWithMe server application
  This package contains server application for using MapsWithMe engine in 
- userless environments.
+ userless environments. Maps work everywhere!
+ .
+ If you're not a developer you probably don't need this package.
 
 Package: fonts-mapswithme
 Architecture: all
