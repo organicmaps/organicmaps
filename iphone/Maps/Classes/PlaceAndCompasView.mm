@@ -12,6 +12,9 @@
 #import "CompassView.h"
 #import "Framework.h"
 
+#include "../../../map/measurement_utils.hpp"
+#include "../../../geometry/distance_on_sphere.hpp"
+
 #define MARGIN 20
 #define SMALLMARGIN 5
 #define COMPASSSIDE 150
@@ -69,6 +72,17 @@
   self = [super initWithFrame:CGRectZero];
   if (self)
   {
+    m_xGlobal = point.x;
+    m_yGlobal = point.y;
+
+    _circle = [[CircleView alloc] init];
+
+    _distanceLabel = [[UILabel alloc] init];
+    self.distanceLabel.backgroundColor = [UIColor clearColor];
+
+    _compass = [[CompassView alloc] initWithFrame:CGRectZero];
+    self.compass.color = [UIColor blackColor];
+
     m_locationManager = [MapsAppDelegate theApp].m_locationManager;
     [m_locationManager start:self];
 
@@ -83,13 +97,6 @@
       _secondaryInfo = [[NSString alloc] initWithString:placeSecondaryName];
     }
     _screenWidth = width;
-
-    m_xGlobal = point.x;
-    m_yGlobal = point.y;
-
-
-    _compass = [[CompassView alloc] initWithFrame:CGRectZero];
-    self.compass.color = [UIColor blackColor];
 
     _nameView = [[UITextView alloc] initWithFrame:CGRectZero];
     self.nameView.text = self.name;
@@ -106,17 +113,13 @@
     self.secondaryInfoView.font = [UIFont fontWithName:@"Helvetica" size:SECONDNAMEFONTSIZE];
     self.secondaryInfoView.scrollEnabled = NO;
 
-    _circle = [[CircleView alloc] init];
-
-    _distanceLabel = [[UILabel alloc] init];
-    self.distanceLabel.backgroundColor = [UIColor clearColor];
-
-
     [self addSubview:self.circle];
     [self addSubview:self.nameView];
     [self addSubview:self.secondaryInfoView];
     [self addSubview:self.compass];
     [self addSubview:self.distanceLabel];
+
+    self.compass.angle = [self getAzimut];
 
     [self drawView];
   }
@@ -211,10 +214,12 @@
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
-  string distance;
-  double azimut;
-  GetFramework().GetDistanceAndAzimut(m2::PointD(m_xGlobal, m_yGlobal),
-                                      info.m_latitude, info.m_longitude, 0, distance, azimut);
+  double const d = ms::DistanceOnEarth(info.m_latitude, info.m_longitude,
+                                       MercatorBounds::YToLat(m_yGlobal),
+                                       MercatorBounds::XToLon(m_xGlobal));
+  string distance = "";
+  (void) MeasurementUtils::FormatDistance(d, distance);
+  self.distanceLabel.text = [NSString stringWithUTF8String:distance.c_str()];
 }
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
@@ -229,6 +234,14 @@
 
 -(BOOL)canShowArrow
 {
+  if  ([self getAzimut] >= 0.0)
+    return YES;
+  else
+    return NO;
+}
+
+-(double)getAzimut
+{
   double azimut = -1.0;
   double lat = 0.0, lon = 0.0;
 
@@ -236,19 +249,14 @@
   {
     double north = -1.0;
     [m_locationManager getNorthRad:north];
-
-    string distance;
-    GetFramework().GetDistanceAndAzimut(m2::PointD(m_xGlobal, m_yGlobal),
-                                        lat, lon, north, distance, azimut);
-
-    self.distanceLabel.text = [NSString stringWithUTF8String:distance.c_str()];
+    if (north >= 0.0)
+    {
+      azimut = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)),
+                            m2::PointD(m_xGlobal, m_yGlobal)) + north;
+      azimut = ang::AngleIn2PI(azimut);
+    }
   }
-
-  if  (azimut >= 0.0)
-    self.compass.angle = azimut;
-  else
-    return NO;
-  return YES;
+  return azimut;
 }
 
 -(double)getTextHeight:(NSString *)text font:(UIFont *)font
