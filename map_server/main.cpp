@@ -20,9 +20,15 @@
 #include "../../3party/gflags/src/gflags/gflags.h"
 
 #include <QtOpenGL/QGLPixelBuffer>
-#include <QtGui/QApplication>
 #include <QtCore/QBuffer>
 #include <QtCore/QFile>
+
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+  #include <QtGui/QApplication>
+#else
+  #include <QtWidgets/QApplication>
+#endif
+
 
 DEFINE_uint64(texture_size, 2560, "Texture size");
 DEFINE_string(listen, "/tmp/mwm-render-socket",
@@ -76,7 +82,7 @@ QString MwmRpcService::RenderBox(
   // Settings::SetCurrentLanguage(string(language.toAscii()));
 
   graphics::EDensity requestDensity;
-  graphics::convert(density.toAscii(), requestDensity);
+  graphics::convert(density.toUtf8(), requestDensity);
   if (m_framework.GetRenderPolicy()->Density() != requestDensity)
   {
     m_rpParams.m_density = requestDensity;
