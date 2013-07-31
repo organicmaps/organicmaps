@@ -10,9 +10,8 @@ include($$ROOT_DIR/common.pri)
 
 INCLUDEPATH *= ../3party/tomcrypt/src/headers ../3party/zlib
 
-!linux*:android* {
-    INCLUDEPATH *= ../3party/expat/lib
-}
+# use expat from the system on linux
+!linux*: INCLUDEPATH *= ../3party/expat/lib
 
 SOURCES += \
     internal/file_data.cpp \
