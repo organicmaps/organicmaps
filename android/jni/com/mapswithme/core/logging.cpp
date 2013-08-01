@@ -27,7 +27,7 @@ void AndroidLogMessage(LogLevel l, SrcPoint const & src, string const & s)
   }
 
   string const out = DebugPrint(src) + " " + s;
-  __android_log_print(pr, "MapsWithMe_JNI", out.c_str());
+  __android_log_write(pr, "MapsWithMe_JNI", out.c_str());
 }
 
 void AndroidAssertMessage(SrcPoint const & src, string const & s)
