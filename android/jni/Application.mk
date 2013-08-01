@@ -1,3 +1,4 @@
+NDK_TOOLCHAIN_VERSION := 4.8
 APP_PLATFORM := android-5
 
 ifeq (x$(NDK_ABI_TO_BUILD), x)
