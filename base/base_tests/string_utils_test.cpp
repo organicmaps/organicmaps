@@ -296,6 +296,12 @@ UNIT_TEST(SimpleTokenizer)
   }
 
   {
+    char const * s[] = {"27.535536", "53.884926" , "189"};
+    tokens.assign(&s[0], &s[0] + ARRAY_SIZE(s));
+    TestIter("27.535536,53.884926,189", ",", tokens);
+  }
+
+  {
     char const * s[] = {"1", "2"};
     tokens.assign(&s[0], &s[0] + ARRAY_SIZE(s));
     TestIter("/1/2/", "/", tokens);

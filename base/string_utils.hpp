@@ -79,12 +79,14 @@ class TokenizeIterator
   }
 
 public:
+  /// @warning string S must be not temporary!
   TokenizeIterator(string const & s, DelimFuncT const & delimFunc)
   : m_beg(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFunc(delimFunc)
   {
     move();
   }
 
+  /// @warning unistring S must be not temporary!
   TokenizeIterator(UniString const & s, DelimFuncT const & delimFunc)
   : m_beg(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFunc(delimFunc)
   {
