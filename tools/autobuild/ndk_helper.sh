@@ -24,7 +24,7 @@ GetNdkHost()
     return 0
   fi
   if [[ "${OSTYPE:0:6}" == "darwin" ]]; then
-    echo "darwin-x86"
+    echo "darwin-x86_64"
     return 0
   fi
   if [[ "$OSTYPE" == "msys" ]]; then
