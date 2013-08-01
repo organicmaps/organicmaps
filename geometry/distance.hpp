@@ -6,11 +6,14 @@
 #include "../std/limits.hpp"
 #include "../std/static_assert.hpp"
 
-// Similarly to namespace m2 - 2d math, this is a namespace for nd math.
-namespace mn
+
+namespace m2
 {
 
-template <typename PointT> class DistanceToLineSquare
+namespace impl
+{
+
+template <typename PointT> class CalculatedSection
 {
 private:
   // we do not support unsigned points!!!
@@ -22,13 +25,12 @@ public:
     m_P0 = p0;
     m_P1 = p1;
     m_D = m_P1 - m_P0;
-    m_D2 = DotProduct(m_D, m_D);
+    m_D2 = Length(m_D);
 
-    m_D2 = sqrt(m_D2);
     if (my::AlmostEqual(m_D2, 0.0))
     {
       // make zero vector - then all DotProduct will be equal to zero
-      m_D = m2::PointD(0, 0);
+      m_D = m2::PointD::Zero();
     }
     else
     {
@@ -37,31 +39,88 @@ public:
     }
   }
 
-  double operator() (PointT Y) const
+protected:
+  template <class VectorT> static double SquareLength(VectorT const & v)
   {
-    m2::PointD const YmP0 = Y - m_P0;
-    double const t = DotProduct(m_D, YmP0);
+    return DotProduct(v, v);
+  }
+  template <class VectorT> static double Length(VectorT const & v)
+  {
+    return sqrt(SquareLength(v));
+  }
+  double Distance(PointD const & v) const
+  {
+    return CrossProduct(v, m_D);
+  }
+
+  PointT m_P0, m_P1;
+  m2::PointD m_D;
+  double m_D2;
+};
+
+}
+
+template <typename PointT> class DistanceToLineSquare : public impl::CalculatedSection<PointT>
+{
+public:
+  double operator() (PointT const & Y) const
+  {
+    m2::PointD const YmP0 = Y - this->m_P0;
+    double const t = DotProduct(this->m_D, YmP0);
 
     if (t <= 0)
     {
       // Y is closest to P0.
-      return DotProduct(YmP0, YmP0);
+      return this->SquareLength(YmP0);
     }
-    if (t >= m_D2)
+    if (t >= this->m_D2)
     {
       // Y is closest to P1.
-      PointT const YmP1 = Y - m_P1;
-      return DotProduct(YmP1, YmP1);
+      return this->SquareLength(Y - this->m_P1);
     }
 
     // Closest point is interior to segment.
-    return my::sq(CrossProduct(YmP0, m_D));
+    return my::sq(this->Distance(YmP0));
   }
+};
 
-private:
-  PointT m_P0, m_P1;
-  m2::PointD m_D;
-  double m_D2;
+template <typename PointT> class ProjectionToSection : public impl::CalculatedSection<PointT>
+{
+public:
+  struct Result
+  {
+    m2::PointD m_pr;
+    double m_dist;
+
+    /// 0 - closest to P0;
+    /// 1 - closest to P1;
+    /// 2 - in the middle;
+    int m_type;
+
+    Result(m2::PointD const & pr, double dist, int type)
+      : m_pr(pr), m_dist(dist), m_type(type)
+    {
+    }
+  };
+
+  Result operator() (PointT const & Y) const
+  {
+    m2::PointD const YmP0 = Y - this->m_P0;
+    double const t = DotProduct(this->m_D, YmP0);
+
+    if (t <= 0)
+    {
+      // Y is closest to P0.
+      return Result(this->m_P0, this->Length(YmP0), 0);
+    }
+    if (t >= this->m_D2)
+    {
+      // Y is closest to P1.
+      return Result(this->m_P1, this->Length(Y - this->m_P1), 1);
+    }
+
+    return Result(this->m_D*t + this->m_P0, fabs(this->Distance(YmP0)), 2);
+  }
 };
 
 }

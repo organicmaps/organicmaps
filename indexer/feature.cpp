@@ -319,7 +319,7 @@ namespace
 
     static double GetDistance(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p)
     {
-      mn::DistanceToLineSquare<m2::PointD> calc;
+      m2::DistanceToLineSquare<m2::PointD> calc;
       calc.SetBounds(p1, p2);
       return sqrt(calc(p));
     }

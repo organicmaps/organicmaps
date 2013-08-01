@@ -140,7 +140,7 @@ namespace borders
         for (uint32_t i = 0; i < count; ++i)
         {
           typedef vector<m2::PointD> VectorT;
-          typedef mn::DistanceToLineSquare<m2::PointD> DistanceT;
+          typedef m2::DistanceToLineSquare<m2::PointD> DistanceT;
 
           VectorT const & in = borders[i].Data();
           VectorT out;

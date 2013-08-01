@@ -127,7 +127,7 @@ void TestPolylineEncode(string testName,
 vector<m2::PointU> SimplifyPoints(vector<m2::PointU> const & points, double eps)
 {
   vector<m2::PointU> simpPoints;
-  typedef mn::DistanceToLineSquare<m2::PointD> DistanceF;
+  typedef m2::DistanceToLineSquare<m2::PointD> DistanceF;
   DistanceF dist;
   SimplifyNearOptimal(20, points.begin(), points.end(), eps, dist,
                       AccumulateSkipSmallTrg<DistanceF, m2::PointU>(dist, simpPoints, eps));

@@ -28,7 +28,7 @@ namespace feature
     return AlmostEqual(p1, p2);
   }
 
-  class BoundsDistance : public mn::DistanceToLineSquare<m2::PointD>
+  class BoundsDistance : public m2::DistanceToLineSquare<m2::PointD>
   {
     m2::RectD const & m_rect;
     double m_eps;
@@ -52,7 +52,7 @@ namespace feature
         return std::numeric_limits<double>::max();
       }
 
-      return mn::DistanceToLineSquare<m2::PointD>::operator()(p);
+      return m2::DistanceToLineSquare<m2::PointD>::operator()(p);
     }
   };
 

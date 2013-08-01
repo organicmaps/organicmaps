@@ -355,7 +355,7 @@ namespace feature
       }
       else
       {
-        mn::DistanceToLineSquare<m2::PointD> dist;
+        m2::DistanceToLineSquare<m2::PointD> dist;
         feature::SimplifyPoints(dist, in, out, level);
       }
     }

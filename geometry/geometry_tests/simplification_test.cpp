@@ -18,7 +18,7 @@ namespace
 {
 
 typedef m2::PointD P;
-typedef mn::DistanceToLineSquare<m2::PointD> DistanceF;
+typedef m2::DistanceToLineSquare<m2::PointD> DistanceF;
 typedef BackInsertFunctor<vector<m2::PointD> > PointOutput;
 typedef void (* SimplifyFn)(m2::PointD const *, m2::PointD const *, double,
                             DistanceF, PointOutput);
