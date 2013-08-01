@@ -21,30 +21,31 @@ namespace m2
 
     Point() {}
     Point(T x_, T y_) : x(x_), y(y_) {}
-    template <typename U>
-    Point(Point<U> const & u) : x(u.x), y(u.y) {}
+    template <typename U> Point(Point<U> const & u) : x(u.x), y(u.y) {}
 
-    bool EqualDxDy(m2::Point<T> const & p, T eps) const
+    static Point<T> Zero() { return Point<T>(0, 0); }
+
+    bool EqualDxDy(Point<T> const & p, T eps) const
     {
       return ((fabs(x - p.x) < eps) && (fabs(y - p.y) < eps));
     }
 
-    double SquareLength(m2::Point<T> const & p) const
+    double SquareLength(Point<T> const & p) const
     {
       return math::sqr(x - p.x) + math::sqr(y - p.y);
     }
 
-    double Length(m2::Point<T> const & p) const
+    double Length(Point<T> const & p) const
     {
       return sqrt(SquareLength(p));
     }
 
-    m2::Point<T> Move(T len, T ang) const
+    Point<T> Move(T len, T ang) const
     {
-      return m2::Point<T>(x + len * cos(ang), y + len * sin(ang));
+      return Point<T>(x + len * cos(ang), y + len * sin(ang));
     }
 
-    m2::Point<T> Move(T len, T angSin, T angCos) const
+    Point<T> Move(T len, T angSin, T angCos) const
     {
       return m2::Point<T>(x + len * angCos, y + len * angSin);
     }
