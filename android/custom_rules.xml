@@ -43,9 +43,6 @@
       <arg value="${mwm.tools.dir}/autobuild/android.sh"/>
       <arg value="production"/>
     </exec>
-    <exec executable="touch">
-      <arg value="${jni.absolute.dir}/com/mapswithme/core/jni_helper.cpp"/>
-    </exec>
     <exec executable="${ndk.dir}/ndk-build${ndk.buildcommand.suffix}" failonerror="true">
       <arg value="NDK_DEBUG=0"/>
       <arg value="PRODUCTION=1"/>
@@ -119,9 +116,6 @@
       <arg value="${mwm.tools.dir}/autobuild/android.sh"/>
       <arg value="release"/>
     </exec>
-    <exec executable="touch">
-      <arg value="${jni.absolute.dir}/com/mapswithme/core/jni_helper.cpp"/>
-    </exec>
     <exec executable="${ndk.dir}/ndk-build${ndk.buildcommand.suffix}" failonerror="true">
       <arg value="NDK_DEBUG=0"/>
       <arg value="V=1"/>
@@ -135,9 +129,6 @@
     <exec executable="bash" failonerror="true">
       <arg value="${mwm.tools.dir}/autobuild/android.sh"/>
       <arg value="debug"/>
-    </exec>
-    <exec executable="touch">
-      <arg value="${jni.absolute.dir}/com/mapswithme/core/jni_helper.cpp"/>
     </exec>
     <exec executable="${ndk.dir}/ndk-build${ndk.buildcommand.suffix}" failonerror="true">
       <arg value="NDK_DEBUG=1"/>
