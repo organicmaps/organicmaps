@@ -174,7 +174,7 @@ LOCAL_SRC_FILES := \
 	nv_event/nv_event.cpp \
 	nv_time/nv_time.cpp
 
-LOCAL_LDLIBS := -llog -lGLESv2 ./obj/local/$(TARGET_ARCH_ABI)/libgnustl_static.a
+LOCAL_LDLIBS := -llog -lGLESv2
 
 LOCAL_LDLIBS += -Wl,--gc-sections
 
