@@ -277,6 +277,8 @@ namespace
       m_useReadPixelsToSynchronize = true;
     if (isGPU("Imagination Technologies", "PowerVR SGX 530", false))
         m_useReadPixelsToSynchronize = true;
+    if (isGPU("Imagination Technologies", "PowerVR SGX 531", false))
+        m_useReadPixelsToSynchronize = true;
 #endif
 
     LOG(LINFO, ("selected", graphics::formatName(m_texRtFormat), "format for tile textures"));
