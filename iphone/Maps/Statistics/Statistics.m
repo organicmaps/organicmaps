@@ -39,7 +39,10 @@
 
 - (void)logApiUsage:(NSString *)programName
 {
-  [[Statistics instance] logEvent:@"Api Usage" withParameters: @{@"Application Name" : programName}];
+  if (programName)
+    [[Statistics instance] logEvent:@"Api Usage" withParameters: @{@"Application Name" : programName}];
+  else
+    [[Statistics instance] logEvent:@"Api Usage" withParameters: @{@"Application Name" : @"Error passing nil as SourceApp name."}];
 }
 
 + (Statistics *) instance
