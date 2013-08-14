@@ -206,9 +206,11 @@ void InitLocalizedStrings()
     if (f.SetViewportByURL([url.absoluteString UTF8String], apiPoint));
     {
       [[Statistics instance] logApiUsage:sourceApplication];
-      [self showMap];
+      GetFramework().GetBalloonManager().Hide();
       if (f.GetMapApiPoints().size() == 1)
         [self showParsedBookmarkOnMap:apiPoint];
+      else
+        [self showMap];
       [m_mapViewController prepareForApi];
       return YES;
     }

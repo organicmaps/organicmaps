@@ -682,6 +682,7 @@ NSInteger compareAddress(id l, id r, void * context)
     self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"back", nil) style: UIBarButtonItemStyleDone target:self action:@selector(returnToApiApp)] autorelease];
     self.navigationItem.title = [NSString stringWithUTF8String:GetFramework().GetMapApiAppTitle().c_str()];
     self.navigationController.navigationBarHidden = NO;
+    [self dismissPopover];
   }
 }
 
