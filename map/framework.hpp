@@ -446,22 +446,21 @@ public:
   string CodeGe0url(Bookmark const * bmk, bool const addName);
   string CodeGe0url(double const lat, double const lon, double const zoomLevel, string const & name);
 
+  /// @name Api
+  //@{
 private:
   url_scheme::ParsedMapApi m_ParsedMapApi;
   void DrawMapApiPoints(shared_ptr<PaintEvent> const & e);
   void SetViewPortASync(m2::RectD const & rect);
 
 public:
-  /// @name Api
-  //@{
-  void MapApiSetUriAndParse(string const & url);
   bool GetMapApiPoint(m2::PointD const & pxPoint, url_scheme::ApiPoint & point);
   vector<url_scheme::ApiPoint> const & GetMapApiPoints() { return m_ParsedMapApi.GetPoints(); }
   void ClearMapApiPoints() { m_ParsedMapApi.Reset(); }
   int GetMapApiVersion() const { return m_ParsedMapApi.GetApiVersion(); }
   string const & GetMapApiAppTitle() const { return m_ParsedMapApi.GetAppTitle(); }
   string const & GetMapApiBackUrl() const { return m_ParsedMapApi.GetGlobalBackUrl(); }
-  m2::RectD GetMapApiLatLonRect() const { return m_ParsedMapApi.GetLatLonRect(); }
+  m2::RectD GetMapApiViewportRect() const;
   bool IsValidMapApi() const { return m_ParsedMapApi.IsValid(); }
   string GenerateApiBackUrl(url_scheme::ApiPoint const & point);
   //@}

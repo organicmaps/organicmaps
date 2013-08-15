@@ -11,6 +11,7 @@
 #include "../std/algorithm.hpp"
 #include "../std/bind.hpp"
 
+
 using namespace url_scheme;
 
 namespace
@@ -143,11 +144,26 @@ void ParsedMapApi::Reset()
   m_zoomLevel = 0.0;
 }
 
-m2::RectD ParsedMapApi::GetLatLonRect() const
+bool ParsedMapApi::GetViewport(m2::PointD & pt, double & zoom) const
 {
-  // Use zoom only for one point and ignore it for several points
   if (m_zoomLevel >= 1.0 && m_points.size() == 1)
-    return scales::GetRectForLevel(m_zoomLevel, m_showRect.Center(), 1.0);
+  {
+    zoom = min(static_cast<double>(scales::GetUpperComfortScale()), m_zoomLevel);
+    pt.x = MercatorBounds::LonToX(m_points.front().m_lon);
+    pt.y = MercatorBounds::LatToY(m_points.front().m_lat);
+    return true;
+  }
 
-  return m_showRect;
+  return false;
+}
+
+bool ParsedMapApi::GetViewportRect(m2::RectD & rect) const
+{
+  if (m_showRect.IsValid())
+  {
+    rect = MercatorBounds::FromLatLonRect(m_showRect);
+    return true;
+  }
+  else
+    return false;
 }

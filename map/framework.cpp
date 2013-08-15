@@ -1414,7 +1414,7 @@ bool Framework::SetViewportByURL(string const & url, url_scheme::ApiPoint & ball
     {
       StopLocationFollow();
       // Can do better consider nav bar size
-      SetViewPortASync(MercatorBounds::FromLatLonRect(m_ParsedMapApi.GetLatLonRect()));
+      SetViewPortASync(GetMapApiViewportRect());
 
       if (!m_ParsedMapApi.GetPoints().empty())
       {
@@ -1596,12 +1596,7 @@ void Framework::DrawMapApiPoints(shared_ptr<PaintEvent> const & e)
   }
 }
 
-void Framework::MapApiSetUriAndParse(string const & url)
-{
-  m_ParsedMapApi.SetUriAndParse(url);
-}
-
-//Dummy method. TODO create method that will run all layers without copy/past
+/// @todo Create method that will run all layers without copy/past
 bool Framework::GetMapApiPoint(m2::PointD const & pxPoint, url_scheme::ApiPoint & point)
 {
   int const sm = TOUCH_PIXEL_RADIUS * GetVisualScale();
@@ -1628,6 +1623,24 @@ bool Framework::GetMapApiPoint(m2::PointD const & pxPoint, url_scheme::ApiPoint 
     }
   }
   return result;
+}
+
+m2::RectD Framework::GetMapApiViewportRect() const
+{
+  double zoom;
+  m2::PointD center;
+  if (m_ParsedMapApi.GetViewport(center, zoom))
+  {
+    return m_scales.GetRectForDrawScale(zoom, center);
+  }
+  else
+  {
+    m2::RectD rect;
+    if (m_ParsedMapApi.GetViewportRect(rect))
+      return rect;
+
+    return m_scales.GetWorldRect();
+  }
 }
 
 string Framework::GenerateApiBackUrl(url_scheme::ApiPoint const & point)
