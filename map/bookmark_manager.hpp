@@ -11,14 +11,19 @@ class BookmarkManager : private noncopyable
 {
   vector<BookmarkCategory *> m_categories;
   string m_lastCategoryUrl;
+  string m_lastType;
   Framework & m_framework;
   BookmarkCategory * m_additionalPoiLayer;
 
   typedef vector<BookmarkCategory *>::iterator CategoryIter;
 
-  void drawCategory(BookmarkCategory const * cat, shared_ptr<PaintEvent> const & e);
+  void DrawCategory(BookmarkCategory const * cat, shared_ptr<PaintEvent> const & e);
+
+  void SaveState() const;
+  void LoadState();
+
 public:
-  BookmarkManager(Framework& f);
+  BookmarkManager(Framework & f);
   ~BookmarkManager();
 
   void ClearBookmarks();
@@ -29,8 +34,10 @@ public:
 
   /// Client should know where it adds bookmark
   size_t AddBookmark(size_t categoryIndex, Bookmark & bm);
+  void ReplaceBookmark(size_t catIndex, size_t bmIndex, Bookmark const & bm);
 
   size_t LastEditedBMCategory();
+  string LastEditedBMType() const;
 
   inline size_t GetBmCategoriesCount() const { return m_categories.size(); }
 

@@ -563,9 +563,7 @@ namespace android
 
   void Framework::ReplaceBookmark(BookmarkAndCategory const & ind, Bookmark & bm)
   {
-    BookmarkCategory * pCat = m_work.GetBmCategory(ind.first);
-    pCat->ReplaceBookmark(ind.second, bm);
-    pCat->SaveToKMLFile();
+    m_work.ReplaceBookmark(ind.first, ind.second, bm);
   }
 
   size_t Framework::ChangeBookmarkCategory(BookmarkAndCategory const & ind, size_t newCat)

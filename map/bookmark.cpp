@@ -105,27 +105,28 @@ namespace
   }
 }
 
-namespace bookmark_impl
+namespace
 {
+  static char const * s_arrSupportedColors[] =
+  {
+    "placemark-red", "placemark-blue", "placemark-purple", "placemark-yellow",
+    "placemark-pink", "placemark-brown", "placemark-green", "placemark-orange"
+  };
+
   class KMLParser
   {
     // Fixes icons which are not supported by MapsWithMe
     string GetSupportedBMType(string const & s) const
     {
-      static char const * icons[] = {
-          "placemark-red", "placemark-blue", "placemark-purple", "placemark-yellow",
-          "placemark-pink", "placemark-brown", "placemark-green", "placemark-orange"
-      };
-
       // Remove leading '#' symbol
       string const result = s.substr(1);
-      for (size_t i = 0; i < ARRAY_SIZE(icons); ++i)
-        if (result == icons[i])
+      for (size_t i = 0; i < ARRAY_SIZE(s_arrSupportedColors); ++i)
+        if (result == s_arrSupportedColors[i])
           return result;
 
       // Not recognized symbols are replaced with default one
       LOG(LWARNING, ("Icon", result, "for bookmark", m_name, "is not supported"));
-      return icons[0];
+      return s_arrSupportedColors[0];
     }
 
     BookmarkCategory & m_category;
@@ -273,10 +274,15 @@ namespace bookmark_impl
   };
 }
 
+string BookmarkCategory::GetDefaultType()
+{
+  return s_arrSupportedColors[0];
+}
+
 bool BookmarkCategory::LoadFromKML(ReaderPtr<Reader> const & reader)
 {
   ReaderSource<ReaderPtr<Reader> > src(reader);
-  bookmark_impl::KMLParser parser(*this);
+  KMLParser parser(*this);
   if (ParseXML(src, parser, true))
     return true;
   else

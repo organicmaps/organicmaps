@@ -178,6 +178,7 @@ public:
 
   /// @return Created bookmark index in category.
   size_t AddBookmark(size_t categoryIndex, Bookmark & bm);
+  void ReplaceBookmark(size_t catIndex, size_t bmIndex, Bookmark const & bm);
   /// @return Created bookmark category index.
   size_t AddCategory(string const & categoryName);
 
@@ -185,7 +186,8 @@ public:
   /// @returns 0 if category is not found
   BookmarkCategory * GetBmCategory(size_t index) const;
 
-  size_t LastEditedCategory();
+  size_t LastEditedBMCategory() { return m_bmManager.LastEditedBMCategory(); }
+  string LastEditedBMType() const { return m_bmManager.LastEditedBMType(); }
 
   /// Delete bookmarks category with all bookmarks.
   /// @return true if category was deleted
@@ -258,7 +260,7 @@ public:
 
 private:
   search::Engine * GetSearchEngine() const;
-  void AddBookmarkAndSetViewport(Bookmark & bm, m2::RectD const & viewPort);
+  //void AddBookmarkAndSetViewport(Bookmark & bm, m2::RectD const & viewPort);
 
 public:
   m2::RectD GetCurrentViewport() const;

@@ -89,15 +89,15 @@ extern "C"
     const m2::PointD glbPoint(MercatorBounds::LonToX(lon),
                               MercatorBounds::LatToY(lat));
 
-    /// @todo Add with the last pin's color.
-    Bookmark bmk(glbPoint, jni::ToNativeString(env, name), "placemark-red");
-    return g_framework->AddBookmark(frm()->LastEditedCategory(), bmk).second;
+    ::Framework * f = frm();
+    Bookmark bmk(glbPoint, jni::ToNativeString(env, name), f->LastEditedBMType());
+    return g_framework->AddBookmark(frm()->LastEditedBMCategory(), bmk).second;
   }
 
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetLastEditedCategory(
         JNIEnv * env, jobject thiz)
   {
-    return frm()->LastEditedCategory();
+    return frm()->LastEditedBMCategory();
   }
 }

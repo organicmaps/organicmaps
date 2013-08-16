@@ -117,7 +117,6 @@ typedef enum {Editing, Saved} Mode;
 @property(nonatomic, assign) BookmarkAndCategory pinEditedBookmark;
 
 @property(nonatomic, assign) CGPoint pinGlobalPosition;
-@property(nonatomic, copy) NSString * pinType;
 @property (nonatomic, retain) NSArray * pinsArray;
 
 @property (nonatomic, retain) PlaceAndCompasView * placeAndCompass;
@@ -130,13 +129,11 @@ typedef enum {Editing, Saved} Mode;
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
   {
-    char const * bestType = info.GetBestType();
     char const * pinName = info.GetPinName().c_str();
     [self initializeProperties:[NSString stringWithUTF8String:pinName ? pinName : ""]
                          notes:@""
-                         color:@"placemark-red"
-                      category:MakeEmptyBookmarkAndCategory() point:point
-                          type:[NSString stringWithUTF8String: bestType ? bestType : ""]];
+                         color:@""
+                         category:MakeEmptyBookmarkAndCategory() point:point];
     m_mode = Editing;
     [self createPinPickerArray];
   }
@@ -151,10 +148,9 @@ typedef enum {Editing, Saved} Mode;
     m_mode = Editing;
     [self initializeProperties:[NSString stringWithUTF8String:apiPoint.m_name.c_str()]
                          notes:@""
-                         color:@"placemark-red"
-                      category:MakeEmptyBookmarkAndCategory()
-                         point:CGPointMake(MercatorBounds::LonToX(apiPoint.m_lon), MercatorBounds::LatToY(apiPoint.m_lat))
-                          type:@""];
+                         color:@""
+                         category:MakeEmptyBookmarkAndCategory()
+                         point:CGPointMake(MercatorBounds::LonToX(apiPoint.m_lon), MercatorBounds::LatToY(apiPoint.m_lat))];
     [self createPinPickerArray];
   }
   return self;
@@ -165,22 +161,21 @@ typedef enum {Editing, Saved} Mode;
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
   {
-    BookmarkCategory * cat = GetFramework().GetBmCategory(bmAndCat.first);
-    Bookmark * bm = cat->GetBookmark(bmAndCat.second);
+    Framework const & f = GetFramework();
+
+    BookmarkCategory const * cat = f.GetBmCategory(bmAndCat.first);
+    Bookmark const * bm = cat->GetBookmark(bmAndCat.second);
     search::AddressInfo info;
 
     CGPoint const pt = CGPointMake(bm->GetOrg().x, bm->GetOrg().y);
-    GetFramework().GetAddressInfoForGlobalPoint(bm->GetOrg(), info);
+    f.GetAddressInfoForGlobalPoint(bm->GetOrg(), info);
 
-
-    char const * c = info.GetBestType();
 
     [self initializeProperties:[NSString stringWithUTF8String:bm->GetName().c_str()]
                          notes:[NSString stringWithUTF8String:bm->GetDescription().c_str()]
                          color:[NSString stringWithUTF8String:bm->GetType().c_str()]
-                      category:bmAndCat
-                         point:CGPointMake(pt.x, pt.y)
-                          type:[NSString stringWithUTF8String: c ? c : ""]];
+                         category:bmAndCat
+                         point:CGPointMake(pt.x, pt.y)];
 
     m_mode = Saved;
     [self createPinPickerArray];
@@ -196,10 +191,9 @@ typedef enum {Editing, Saved} Mode;
     m_mode = Editing;
     [self initializeProperties:name
                          notes:@""
-                         color:@"placemark-red"
-                      category:MakeEmptyBookmarkAndCategory()
-                         point:point
-                          type:@""];
+                         color:@""
+                         category:MakeEmptyBookmarkAndCategory()
+                         point:point];
     [self createPinPickerArray];
   }
   return self;
@@ -213,7 +207,6 @@ typedef enum {Editing, Saved} Mode;
   self.pinTitle = nil;
   self.pinNotes = nil;
   self.pinColor = nil;
-  self.pinType = nil;
   self.placeAndCompass = nil;
   [super dealloc];
 }
@@ -620,6 +613,7 @@ typedef enum {Editing, Saved} Mode;
       [[Statistics instance] logEvent:@"Bookmark Description Field" withParameters:@{@"Changed" : @"NO"}];
     else
       [[Statistics instance] logEvent:@"Bookmark Description Field" withParameters:@{@"Changed" : @"YES"}];
+
     if (_pinEditedBookmark.first != m_categoryIndex)
     {
       [[Statistics instance] logEvent:@"Bookmark Category" withParameters:@{@"Changed" : @"YES"}];
@@ -630,10 +624,10 @@ typedef enum {Editing, Saved} Mode;
     else
     {
       [[Statistics instance] logEvent:@"Bookmark Category" withParameters:@{@"Changed" : @"NO"}];
-      bm->SetName([self.pinTitle UTF8String]);
-      bm->SetType([self.pinColor UTF8String]);
-      bm->SetDescription([self.pinNotes UTF8String]);
-      cat->SaveToKMLFile();
+
+      Bookmark newBm(bm->GetOrg(), [self.pinTitle UTF8String], [self.pinColor UTF8String]);
+      newBm.SetDescription([self.pinNotes UTF8String]);
+      f.ReplaceBookmark(_pinEditedBookmark.first, _pinEditedBookmark.second, newBm);
     }
   }
 }
@@ -646,18 +640,19 @@ typedef enum {Editing, Saved} Mode;
   _pinEditedBookmark = pair<int, int>(index, GetFramework().AddBookmark(index, bm));
 }
 
--(void)initializeProperties:(NSString *)name notes:(NSString *)notes color:(NSString *)color category:(BookmarkAndCategory) bmAndCat point:
-     (CGPoint)point type:(NSString *)type
+-(void)initializeProperties:(NSString *)name notes:(NSString *)notes color:(NSString *)color category:(BookmarkAndCategory) bmAndCat point:(CGPoint)point
 {
+  Framework & f = GetFramework();
+
   self.pinTitle = name;
   self.pinNotes = notes;
-  self.pinColor = color;
-  self.pinEditedBookmark =bmAndCat;
-  m_categoryIndex = bmAndCat.first == - 1 ? GetFramework().LastEditedCategory():bmAndCat.first;
+  self.pinColor = (color.length == 0 ? [NSString stringWithUTF8String:f.LastEditedBMType().c_str()] : color);
+  self.pinEditedBookmark = bmAndCat;
+  m_categoryIndex = (bmAndCat.first == - 1 ? f.LastEditedBMCategory() : bmAndCat.first);
   self.pinGlobalPosition = point;
-  self.pinType = type;
+
   m_categoryIndexStatistics = m_categoryIndex;
-  m_numberOfCategories = GetFramework().GetBmCategoriesCount();
+  m_numberOfCategories = f.GetBmCategoriesCount();
 }
 
 -(UITextView *)createTextFieldForCell:(UIFont *)font color:(UIColor *)color

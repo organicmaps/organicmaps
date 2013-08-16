@@ -30,10 +30,10 @@ public:
 
   m2::PointD const & GetOrg() const { return m_org; }
   string const & GetName() const { return m_name; }
-  void SetName(string const & name) { m_name = name; }
+  //void SetName(string const & name) { m_name = name; }
   /// @return Now its a bookmark color - name of icon file
   string const & GetType() const { return m_type; }
-  void SetType(string const & type) { m_type = type; }
+  //void SetType(string const & type) { m_type = type; }
   m2::RectD GetViewport() const { return m2::RectD(m_org, m_org); }
 
   string const & GetDescription() const { return m_description; }
@@ -46,11 +46,6 @@ public:
   double GetScale() const { return m_scale; }
   void SetScale(double scale) { m_scale = scale; }
 };
-
-namespace bookmark_impl
-{
-  class KMLParser;
-}
 
 class BookmarkCategory : private noncopyable
 {
@@ -69,6 +64,8 @@ public:
   ~BookmarkCategory();
 
   void ClearBookmarks();
+
+  static string GetDefaultType();
 
   /// @name Theese functions are called from Framework only.
   //@{

@@ -371,14 +371,18 @@ void Framework::RemoveLocalMaps()
 
 void Framework::LoadBookmarks()
 {
-  if (!GetPlatform().IsPro())
-    return;
-  m_bmManager.LoadBookmarks();
+  if (GetPlatform().IsPro())
+    m_bmManager.LoadBookmarks();
 }
 
 size_t Framework::AddBookmark(size_t categoryIndex, Bookmark & bm)
 {
   return m_bmManager.AddBookmark(categoryIndex, bm);
+}
+
+void Framework::ReplaceBookmark(size_t catIndex, size_t bmIndex, Bookmark const & bm)
+{
+  m_bmManager.ReplaceBookmark(catIndex, bmIndex, bm);
 }
 
 size_t Framework::AddCategory(string const & categoryName)
@@ -403,11 +407,6 @@ namespace
 BookmarkCategory * Framework::GetBmCategory(size_t index) const
 {
   return m_bmManager.GetBmCategory(index);
-}
-
-size_t Framework::LastEditedCategory()
-{
-  return m_bmManager.LastEditedBMCategory();
 }
 
 bool Framework::DeleteBmCategory(size_t index)
@@ -1367,12 +1366,15 @@ anim::Controller * Framework::GetAnimController() const
   return m_animController.get();
 }
 
+/*
 void Framework::AddBookmarkAndSetViewport(Bookmark & bm, m2::RectD const & viewPort)
 {
-  size_t const catIndex = LastEditedCategory();
-  m_bmManager.AddBookmark(catIndex, bm);
+  bm.SetType(LastEditedBMType());
+  m_bmManager.AddBookmark(LastEditedBMCategory(), bm);
+
   ShowRectExVisibleScale(viewPort);
 }
+*/
 
 bool Framework::SetViewportByURL(string const & url, url_scheme::ApiPoint & balloonPoint)
 {
