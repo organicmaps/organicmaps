@@ -1,6 +1,7 @@
 
 package com.mapswithme.maps;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import com.mapswithme.maps.MapObjectFragment.MapObjectType;
@@ -79,16 +81,19 @@ public class MapObjectActivity extends FragmentActivity
     context.startActivity(i);
   }
 
+  @SuppressLint("NewApi")
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+    getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     setContentView(R.layout.activity_map_object);
+    // Keep screen awake
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
     {
       // http://stackoverflow.com/questions/6867076/getactionbar-returns-null
-      ActionBar bar = getActionBar();
+      final ActionBar bar = getActionBar();
       if (bar != null)
         bar.setDisplayHomeAsUpEnabled(true);
     }
@@ -153,7 +158,7 @@ public class MapObjectActivity extends FragmentActivity
   {
     if (item.getItemId() == android.R.id.home)
     {
-      InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+      final InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
       imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
       onBackPressed();
       return true;
@@ -223,13 +228,13 @@ public class MapObjectActivity extends FragmentActivity
     {
       startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse( ((MWMApplication)getApplication()).getProVersionURL() )));
     }
-    catch (Exception e1)
+    catch (final Exception e1)
     {
       try
       {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse( ((MWMApplication)getApplication()).getDefaultProVersionURL() )));
       }
-      catch (Exception e2)
+      catch (final Exception e2)
       {
         /// @todo Probably we should show some alert toast here?
         Log.w(this.toString(), "Can't run activity" + e2);
