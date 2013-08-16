@@ -16,6 +16,7 @@
 #import "CompassView.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
+#import "MWMApi.h"
 
 #include "../../../search/result.hpp"
 #include "../../../platform/platform.hpp"
@@ -98,7 +99,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return (m_previewType == APIPOINT && [self canOpenApiUrl]) ? 3 : 2;
+  return (m_previewType == APIPOINT && [MWMApi canOpenApiUrl:m_apiPoint]) ? 3 : 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -156,16 +157,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
 {
   [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
   if (m_previewType == APIPOINT && indexPath.section == 2)
-  {
-    NSString * z = [NSString stringWithUTF8String:m_apiPoint.m_id.c_str()];
-    NSURL * url = [NSURL URLWithString:z];
-    if ([[UIApplication sharedApplication] canOpenURL:url])
-      [[UIApplication sharedApplication] openURL:url];
-    else
-      [[UIApplication sharedApplication] openURL:[self getBackUrl]];
-    [[MapsAppDelegate theApp] showMap];
-    [[MapsAppDelegate theApp].m_mapViewController clearApiMode];
-  }
+    [MWMApi openAppWithPoint:m_apiPoint];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -269,16 +261,6 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
     else
       [[Statistics instance] logProposalReason:@"Balloon Touch" withAnswer:@"NO"];
   }
-}
-
--(BOOL)canOpenApiUrl
-{
-  NSString * z = [NSString stringWithUTF8String:m_apiPoint.m_id.c_str()];
-  if ([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:z]])
-    return YES;
-  if ([[UIApplication sharedApplication]canOpenURL:[self getBackUrl]])
-    return YES;
-  return NO;
 }
 
 -(NSURL *)getBackUrl

@@ -6,6 +6,7 @@
 #import "PlacePageVC.h"
 #import "GetActiveConnectionType.h"
 #import "PlacePreviewViewController.h"
+#import "MWMApi.h"
 
 #import "../Settings/SettingsManager.h"
 
@@ -739,6 +740,11 @@ NSInteger compareAddress(id l, id r, void * context)
 
 -(void)apiBalloonClicked:(url_scheme::ApiPoint const &) apiPoint
 {
+  if (GetFramework().GoBackOnBalloonClick() && [MWMApi canOpenApiUrl:apiPoint])
+  {
+    [MWMApi openAppWithPoint:apiPoint];
+    return;
+  }
   PlacePreviewViewController * apiPreview = [[PlacePreviewViewController alloc] initWithApiPoint:apiPoint];
   m_popoverPos = CGPointMake(MercatorBounds::LonToX(apiPoint.m_lon), MercatorBounds::LatToY(apiPoint.m_lat));
   [self pushViewController:apiPreview];
