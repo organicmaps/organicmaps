@@ -23,11 +23,11 @@ bool IsInvalidApiPoint(ApiPoint const & p) { return p.m_lat == INVALID_LAT_VALUE
 
 }  // unnames namespace
 
-ParsedMapApi::ParsedMapApi() : m_version(0), m_zoomLevel(0.0)
+ParsedMapApi::ParsedMapApi() : m_version(0), m_zoomLevel(0.0), m_goBackOnBalloonClick(false)
 {
 }
 
-ParsedMapApi::ParsedMapApi(Uri const & uri) : m_version(0), m_zoomLevel(0.0)
+ParsedMapApi::ParsedMapApi(Uri const & uri) : m_version(0), m_zoomLevel(0.0), m_goBackOnBalloonClick(false)
 {
   if (!Parse(uri))
     Reset();
@@ -132,6 +132,10 @@ void ParsedMapApi::AddKeyValue(string key, string const & value)
   {
     m_appTitle = value;
   }
+  else if (key == "balloonaction")
+  {
+    m_goBackOnBalloonClick = true;
+  }
 }
 
 void ParsedMapApi::Reset()
@@ -142,6 +146,7 @@ void ParsedMapApi::Reset()
   m_version = 0;
   m_showRect = m2::RectD();
   m_zoomLevel = 0.0;
+  m_goBackOnBalloonClick = false;
 }
 
 bool ParsedMapApi::GetViewport(m2::PointD & pt, double & zoom) const

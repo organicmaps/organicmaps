@@ -29,6 +29,7 @@ public:
   int GetApiVersion() const { return m_version; }
   m2::RectD GetLatLonRect() const { return m_showRect; }
   void Reset();
+  bool GoBackOnBalloonClick() const { return m_goBackOnBalloonClick; }
 
   /// @name Used in settings map viewport after invoking API.
   //@{
@@ -48,6 +49,7 @@ private:
   /// Zoom level in OSM format (e.g. from 1.0 to 20.0)
   /// Taken into an account when calculating viewport rect, but only if points count is == 1
   double m_zoomLevel;
+  bool m_goBackOnBalloonClick;
 };
 
 }

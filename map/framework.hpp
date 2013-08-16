@@ -465,6 +465,7 @@ public:
   m2::RectD GetMapApiViewportRect() const;
   bool IsValidMapApi() const { return m_ParsedMapApi.IsValid(); }
   string GenerateApiBackUrl(url_scheme::ApiPoint const & point);
+  bool GoBackOnBalloonClick() const { return m_ParsedMapApi.GoBackOnBalloonClick(); }
   //@}
 
   /// @name Map updates

@@ -291,3 +291,27 @@ UNIT_TEST(MWMApiZoomLevelTest)
   m2::RectD const rEqualToR1 = ParsedMapApi(Uri("mwm://map?ll=0,0&z=-23.43")).GetLatLonRect();
   TEST_EQUAL(r1, rEqualToR1, ());
 }
+
+UNIT_TEST(MWMApiBalloonActionDefaultTest)
+{
+  {
+    Uri uri("mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name");
+    ParsedMapApi api(uri);
+    TEST(!api.GoBackOnBalloonClick(), (""));
+  }
+  {
+    Uri uri("mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name&balloonAction=false");
+    ParsedMapApi api(uri);
+    TEST(api.GoBackOnBalloonClick(), (""));
+  }
+  {
+    Uri uri("mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name&balloonAction=true");
+    ParsedMapApi api(uri);
+    TEST(api.GoBackOnBalloonClick(), (""));
+  }
+  {
+    Uri uri("mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name&balloonAction=");
+    ParsedMapApi api(uri);
+    TEST(api.GoBackOnBalloonClick(), (""));
+  }
+}
