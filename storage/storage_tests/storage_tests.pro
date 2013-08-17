@@ -22,5 +22,4 @@ SOURCES += \
   ../../testing/testingmain.cpp \
   simple_tree_test.cpp \
   country_info_test.cpp \
-  generate_langs.cpp \
   storage_tests.cpp \
