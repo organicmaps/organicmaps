@@ -6,8 +6,6 @@ CONFIG += staticlib warn_on
 
 ROOT_DIR = ..
 
-DEPENDENCIES = indexer geometry coding base jansson
-
 include($$ROOT_DIR/common.pri)
 
 INCLUDEPATH += $$ROOT_DIR/3party/jansson/src

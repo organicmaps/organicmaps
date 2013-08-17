@@ -6,7 +6,6 @@ CONFIG += staticlib warn_on
 DEFINES += GRAPHICS_LIBRARY
 
 ROOT_DIR = ..
-DEPENDENCIES = geometry platform coding base freetype fribidi expat
 
 INCLUDEPATH += $$ROOT_DIR/3party/freetype/include $$ROOT_DIR/3party/agg
 

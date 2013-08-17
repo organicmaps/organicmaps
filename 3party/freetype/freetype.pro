@@ -4,7 +4,6 @@ INCLUDEPATH += ./include
 DEFINES += FT2_BUILD_LIBRARY \
 
 ROOT_DIR = ../..
-DEPENDENCIES =
 
 include($$ROOT_DIR/common.pri)
 

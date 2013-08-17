@@ -55,7 +55,10 @@ unix|win32-g++|bada-simulator {
 
 # Add libraries' dependencies.
 for(project, DEPENDENCIES) {
-  PRE_TARGETDEPS += $$BINARIES_PATH/$$LIB_PREFIX$$project$$LIB_EXT
+  equals(project,expat):linux* {
+  } else {
+    PRE_TARGETDEPS += $$BINARIES_PATH/$$LIB_PREFIX$$project$$LIB_EXT
+  }
   LIBS += -l$$project
 }
 

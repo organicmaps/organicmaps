@@ -6,7 +6,6 @@ CONFIG += staticlib warn_on
 INCLUDEPATH += ../3party/protobuf/src
 
 ROOT_DIR = ..
-DEPENDENCIES = geometry coding base expat protobuf
 
 include($$ROOT_DIR/common.pri)
 

@@ -1,6 +1,5 @@
 TARGET = gflags
 ROOT_DIR = ../..
-DEPENDENCIES =
 
 include($$ROOT_DIR/common.pri)
 

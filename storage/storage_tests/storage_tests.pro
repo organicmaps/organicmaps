@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = storage indexer platform coding base jansson tomcrypt expat
+DEPENDENCIES = storage indexer platform coding base jansson tomcrypt
 
 include($$ROOT_DIR/common.pri)
 

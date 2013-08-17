@@ -4,7 +4,6 @@ TEMPLATE = lib
 CONFIG += staticlib warn_on
 
 ROOT_DIR = ..
-DEPENDENCIES = base bzip2 zlib tomcrypt
 
 include($$ROOT_DIR/common.pri)
 

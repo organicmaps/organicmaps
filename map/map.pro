@@ -6,7 +6,6 @@ CONFIG += staticlib warn_on
 INCLUDEPATH += ../3party/protobuf/src
 
 ROOT_DIR = ..
-DEPENDENCIES = search gui graphics indexer anim geometry coding base expat
 
 # use expat from the system on linux
 !linux*: INCLUDEPATH *= ../3party/expat/lib

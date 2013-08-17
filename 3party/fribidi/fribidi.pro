@@ -6,7 +6,6 @@ CONFIG += staticlib
 INCLUDEPATH += ./lib
 
 ROOT_DIR = ../..
-DEPENDENCIES =
 
 include($$ROOT_DIR/common.pri)
 

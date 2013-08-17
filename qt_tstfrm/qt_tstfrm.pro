@@ -3,7 +3,6 @@ TEMPLATE = lib
 CONFIG += staticlib warn_on
 
 ROOT_DIR = ..
-DEPENDENCIES = map graphics geometry coding base
 
 include($$ROOT_DIR/common.pri)
 

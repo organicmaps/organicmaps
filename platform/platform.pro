@@ -5,7 +5,6 @@ TEMPLATE = lib
 CONFIG += staticlib warn_on
 
 ROOT_DIR = ..
-DEPENDENCIES = coding base jansson
 
 include($$ROOT_DIR/common.pri)
 
