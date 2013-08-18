@@ -2,14 +2,13 @@ package com.mapswithme.maps;
 
 import java.io.Serializable;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -30,11 +29,11 @@ import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
-import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
+@SuppressLint("NewApi")
 public class MapObjectFragment extends Fragment
                                implements OnClickListener
 {
@@ -84,7 +83,7 @@ public class MapObjectFragment extends Fragment
     setTexts(bookmark.getName(), null , bookmark.getCategoryName(), bookmark.getBookmarkDescription(), bookmark.getLat(), bookmark.getLon());
 
     final int circleSize = (int) (getResources().getDimension(R.dimen.margin_medium) + .5);
-    Drawable icon = UiUtils.drawCircleForPin(bookmark.getIcon().getType(), circleSize, getResources());
+    final Drawable icon = UiUtils.drawCircleForPin(bookmark.getIcon().getType(), circleSize, getResources());
 
     mGroupTV.setCompoundDrawables(UiUtils
         .setCompoundDrawableBounds(icon, R.dimen.dp_x_4, getResources()), null, null, null);
@@ -264,7 +263,7 @@ public class MapObjectFragment extends Fragment
     if ( !((MWMApplication)getActivity().getApplication()).isProVersion())
     {
       // TODO this cast if safe, but style is bad
-      MapObjectActivity activity = (MapObjectActivity) getActivity();
+      final MapObjectActivity activity = (MapObjectActivity) getActivity();
       activity.showProVersionBanner(getString(R.string.bookmarks_in_pro_version));
     }
     else
@@ -284,9 +283,8 @@ public class MapObjectFragment extends Fragment
 
   private void onOpenWithClicked()
   {
-    MWMRequest.getCurrentRequest().sendResponse(getActivity(), true);
-    ((MWMApplication)getActivity().getApplication()).getAppStateManager().transitionTo(SuppotedState.DEFAULT_MAP);
-    getActivity().finish();
+    MWMRequest.getCurrentRequest()
+    .sendResponseAndFinish(getActivity(), true);
   }
 
   @TargetApi(Build.VERSION_CODES.HONEYCOMB)

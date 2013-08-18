@@ -69,7 +69,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private ImageView mAppIcon;
   private TextView mAppTitle;
   // Map tasks that we run AFTER rendering initialized
-  private Stack<MapTask> mTasks = new Stack<MWMActivity.MapTask>();
+  private final Stack<MapTask> mTasks = new Stack<MWMActivity.MapTask>();
 
 
 
@@ -121,7 +121,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   public void checkShouldResumeLocationService()
   {
-    ImageButton v = mMyPositionButton;
+    final ImageButton v = mMyPositionButton;
     if (v != null)
     {
       final LocationState state = getLocationState();
@@ -260,7 +260,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   public void onMyPositionClicked(View v)
   {
     final LocationState state = mApplication.getLocationState();
-    ImageView vImage = (ImageView)v;
+    final ImageView vImage = (ImageView)v;
     if (!state.hasPosition())
     {
       if (!state.isFirstPosition())
@@ -388,7 +388,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       // Profile id is taken from http://graph.facebook.com/MapsWithMe
       startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/111923085594432")));
     }
-    catch (Exception e)
+    catch (final Exception e)
     {
       // Show Facebook page in browser.
       startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/MapsWithMe")));
@@ -397,8 +397,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private boolean isChinaISO(String iso)
   {
-    String arr[] = { "CN", "CHN", "HK", "HKG", "MO", "MAC" };
-    for (String s : arr)
+    final String arr[] = { "CN", "CHN", "HK", "HKG", "MO", "MAC" };
+    for (final String s : arr)
       if (iso.equalsIgnoreCase(s))
         return true;
     return false;
@@ -473,13 +473,13 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     {
       startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(mApplication.getProVersionURL())));
     }
-    catch (Exception e1)
+    catch (final Exception e1)
     {
       try
       {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(mApplication.getDefaultProVersionURL())));
       }
-      catch (Exception e2)
+      catch (final Exception e2)
       {
         /// @todo Probably we should show some alert toast here?
         Log.w(TAG, "Can't run activity" + e2);
@@ -586,7 +586,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     Framework.connectBalloonListeners(this);
 
-    Intent intent = getIntent();
+    final Intent intent = getIntent();
     // We need check for tasks both in onCreate and onNewIntent
     // because of bug in OS: https://code.google.com/p/android/issues/detail?id=38629
     addTask(intent);
@@ -613,7 +613,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         && intent.hasExtra(EXTRA_TASK)
         && ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0))
     {
-      MapTask mapTask = (MapTask) intent.getSerializableExtra(EXTRA_TASK);
+      final MapTask mapTask = (MapTask) intent.getSerializableExtra(EXTRA_TASK);
       mTasks.add(mapTask);
       intent.removeExtra(EXTRA_TASK);
 
@@ -634,14 +634,14 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private void alignZoomButtons()
   {
     // Get screen density
-    DisplayMetrics metrics = new DisplayMetrics();
+    final DisplayMetrics metrics = new DisplayMetrics();
     getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
     final double k = metrics.density;
     final int offs = (int)(53 * k); // height of button + half space between buttons.
     final int margin = (int)(5 * k);
 
-    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+    final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                                                                  LinearLayout.LayoutParams.WRAP_CONTENT);
     lp.setMargins(margin, (metrics.heightPixels / 4) - offs, margin, margin);
     findViewById(R.id.map_button_plus).setLayoutParams(lp);
@@ -673,14 +673,14 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
             {
               startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
             }
-            catch (Exception e1)
+            catch (final Exception e1)
             {
               // On older Android devices location settings are merged with security
               try
               {
                 startActivity(new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS));
               }
-              catch (Exception e2)
+              catch (final Exception e2)
               {
                 Log.w(TAG, "Can't run activity" + e2);
               }
@@ -754,7 +754,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    double angles[] = { magneticNorth, trueNorth };
+    final double angles[] = { magneticNorth, trueNorth };
     getLocationService().correctCompassAngles(getWindowManager().getDefaultDisplay(), angles);
     nativeCompassUpdated(time, angles[0], angles[1], accuracy);
   }
@@ -839,7 +839,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   public void onBackPressed()
   {
     if (getState() == SuppotedState.API_REQUEST)
-      getMwmApplication().getAppStateManager().transitionTo(SuppotedState.DEFAULT_MAP);
+      getMwmApplication()
+        .getAppStateManager()
+        .transitionTo(SuppotedState.DEFAULT_MAP);
 
     super.onBackPressed();
   }
@@ -945,7 +947,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       }
     };
 
-    IntentFilter filter = new IntentFilter();
+    final IntentFilter filter = new IntentFilter();
     filter.addAction(Intent.ACTION_MEDIA_MOUNTED);
     filter.addAction(Intent.ACTION_MEDIA_REMOVED);
     filter.addAction(Intent.ACTION_MEDIA_EJECT);
@@ -1070,9 +1072,17 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   public void onApiPointActivated(final double lat, final double lon, final String name, final String id)
   {
     if (MWMRequest.hasRequest())
-      MWMRequest.getCurrentRequest().setPointData(lat, lon, name, id);
-    // This is case for "mwm" scheme,
-    // if point is from "geo" or "ge0" - this is wrong. So we check here.
+    {
+      final MWMRequest request = MWMRequest.getCurrentRequest();
+      request.setPointData(lat, lon, name, id);
+
+      if (request.doReturnOnBalloonClick())
+      {
+        request.sendResponseAndFinish(this, true);
+        // we dont show MapObject in this case
+        return;
+      }
+    }
 
     runOnUiThread(new Runnable()
     {
