@@ -166,6 +166,10 @@ void Normalize(strings::UniString & s)
               case 0x3e: w(r,333,1); break;
               case 0x3f: w(r,1680,2); break;
               case 0x40: w(r,1678,2); break;
+              // @HACK Special case for Polish Ł
+              case 0x41: w(r,515,1); break;
+              // @HACK Special case for Polish ł
+              case 0x42: w(r,333,1); break;
               case 0x43: w(r,1122,1); break;
               case 0x44: w(r,1059,1); break;
               case 0x45: w(r,1122,1); break;

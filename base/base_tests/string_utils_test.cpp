@@ -339,6 +339,12 @@ UNIT_TEST(Normalize)
   TEST_EQUAL(us, result, ());
 }
 
+UNIT_TEST(Normalize_Polish)
+{
+  string const utf8 = "ąĄćłŁÓŻźŃĘęĆ";
+  TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), "aAclLOZzNEeC", ());
+}
+
 UNIT_TEST(UniString_Less)
 {
   strings::UniString s0 = strings::MakeUniString("Test");
