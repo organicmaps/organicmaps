@@ -1,0 +1,71 @@
+#import <UIKit/UIKit.h>
+#import "CircleView.h"
+#import <QuartzCore/QuartzCore.h>
+
+@interface CircleView()
+@property (nonatomic, retain) UIColor * circleColor;
+@end
+
+@implementation CircleView
+
+-(id)initWithFrame:(CGRect)frame andColor:(UIColor *)color
+{
+  self = [super initWithFrame:frame];
+  if (self)
+  {
+    self.circleColor = color;
+    self.opaque = NO;
+  }
+  return self;
+}
+
+- (void)drawRect:(CGRect)rect
+{
+  CGContextRef ctx = UIGraphicsGetCurrentContext();
+  CGContextAddEllipseInRect(ctx, rect);
+  CGContextSetFillColor(ctx, CGColorGetComponents([self.circleColor CGColor]));
+  CGContextFillPath(ctx);
+}
+
+-(void)dealloc
+{
+  self.circleColor = nil;
+  [super dealloc];
+}
+
++(UIView *)createViewWithCircleDiameter:(CGFloat)diameter andColor:(UIColor *)color
+{
+  UIView * circleView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, diameter, diameter)] autorelease];
+  circleView.backgroundColor = [UIColor clearColor];
+  CircleView * circle = [[[CircleView alloc] initWithFrame:CGRectMake(0.5, 0.5, diameter - 1, diameter - 1) andColor:color] autorelease];
+  [circleView addSubview:circle];
+  return circleView;
+}
+
++(UIImage *)createCircleImageWith:(CGFloat)diameter andColor:(UIColor *)color
+{
+  UIView * circle = [self createViewWithCircleDiameter:diameter andColor:color];
+  return [self imageWithView:circle];
+}
+
++(UIImage *)createCircleImageWith:(CGFloat)diameter andColor:(UIColor *)color andSubview:(UIView *)view
+{
+  UIView * circle = [self createViewWithCircleDiameter:diameter andColor:color];
+  [circle addSubview:view];
+  return [self imageWithView:circle];
+}
+
+
++(UIImage *) imageWithView:(UIView *)view
+{
+  UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 0.0);
+  [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+
+  UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
+
+  UIGraphicsEndImageContext();
+
+  return img;
+}
+
+@end

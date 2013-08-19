@@ -11,6 +11,7 @@
 #import "CompassView.h"
 #import "CompassView.h"
 #import "Framework.h"
+#import "CircleView.h"
 
 #include "../../../map/measurement_utils.hpp"
 #include "../../../geometry/distance_on_sphere.hpp"
@@ -23,28 +24,6 @@
 #define SECONDNAMEFONTSIZE 20
 #define CIRCLEDIAMETER 190
 
-@interface CircleView : UIView
-@end
-
-@implementation CircleView
-
--(id)initWithFrame:(CGRect)frame
-{
-  self = [super initWithFrame:frame];
-  if (self)
-    self.opaque = NO;
-  return self;
-}
-
-- (void)drawRect:(CGRect)rect
-{
-  CGContextRef ctx = UIGraphicsGetCurrentContext();
-  CGContextAddEllipseInRect(ctx, rect);
-  CGContextSetFillColor(ctx, CGColorGetComponents([[UIColor colorWithRed:255.0 green:255.0 blue:255.0 alpha:0.5] CGColor]));
-  CGContextFillPath(ctx);
-}
-
-@end
 
 @interface PlaceAndCompasView()
 {
@@ -75,7 +54,7 @@
     m_xGlobal = point.x;
     m_yGlobal = point.y;
 
-    _circle = [[CircleView alloc] init];
+    _circle = [[CircleView alloc] initWithFrame:CGRectZero andColor:[UIColor colorWithRed:255.0 green:255.0 blue:255.0 alpha:0.5]];
 
     _distanceLabel = [[UILabel alloc] init];
     self.distanceLabel.backgroundColor = [UIColor clearColor];

@@ -31,14 +31,14 @@
 		CB252D6E16FF82C9001E41E9 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB252D6A16FF82C8001E41E9 /* libFlurry.a */; };
 		CB252D6F16FF82C9001E41E9 /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.m */; };
 		CB252D7016FF82C9001E41E9 /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.m */; };
-		ED4653381785E5D10063856F /* placemark-yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = ED4653361785E5D00063856F /* placemark-yellow.png */; };
-		ED4653391785E5D10063856F /* placemark-yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED4653371785E5D10063856F /* placemark-yellow@2x.png */; };
-		ED46533A1785E5DA0063856F /* placemark-yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = ED4653361785E5D00063856F /* placemark-yellow.png */; };
-		ED46533B1785E5DD0063856F /* placemark-yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED4653371785E5D10063856F /* placemark-yellow@2x.png */; };
 		ED48BBB117BE6EA8003E7E92 /* MWMApi.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB017BE6EA8003E7E92 /* MWMApi.mm */; };
 		ED48BBB217BE6EA8003E7E92 /* MWMApi.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB017BE6EA8003E7E92 /* MWMApi.mm */; };
 		ED48BBC617C3C0F9003E7E92 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED48BBC517C3C0F9003E7E92 /* Security.framework */; };
 		ED48BBC717C3C105003E7E92 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED48BBC517C3C0F9003E7E92 /* Security.framework */; };
+		ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */; };
+		ED48BBBA17C2B1E2003E7E92 /* CircleView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB917C2B1E2003E7E92 /* CircleView.mm */; };
+		ED48BBBB17C2B1E2003E7E92 /* CircleView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB917C2B1E2003E7E92 /* CircleView.mm */; };
+		ED48BBC417C3B3BF003E7E92 /* ColorPickerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */; };
 		ED8676FE16A0793800D9A02A /* 22x29-pro.png in Resources */ = {isa = PBXBuildFile; fileRef = ED8676FA16A0793800D9A02A /* 22x29-pro.png */; };
 		ED8676FF16A0793800D9A02A /* 44x58-pro.png in Resources */ = {isa = PBXBuildFile; fileRef = ED8676FB16A0793800D9A02A /* 44x58-pro.png */; };
 		ED86770016A0793800D9A02A /* 64-pro.png in Resources */ = {isa = PBXBuildFile; fileRef = ED8676FC16A0793800D9A02A /* 64-pro.png */; };
@@ -130,34 +130,6 @@
 		F7E7BA4116723CD200B4492E /* hotel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA3F16723CD200B4492E /* hotel@2x.png */; };
 		F7FDD823147F30CC005900FA /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = F7FDD822147F30CC005900FA /* drules_proto.bin */; };
 		FA04373212CAB83F00017494 /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA04373112CAB83F00017494 /* libstorage.a */; };
-		FA0545F0155C22D4001F4E37 /* placemark-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545E0155C22D4001F4E37 /* placemark-blue.png */; };
-		FA0545F1155C22D4001F4E37 /* placemark-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545E0155C22D4001F4E37 /* placemark-blue.png */; };
-		FA0545F2155C22D4001F4E37 /* placemark-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545E1155C22D4001F4E37 /* placemark-blue@2x.png */; };
-		FA0545F3155C22D4001F4E37 /* placemark-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545E1155C22D4001F4E37 /* placemark-blue@2x.png */; };
-		FA0545F4155C22D4001F4E37 /* placemark-brown.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545E2155C22D4001F4E37 /* placemark-brown.png */; };
-		FA0545F5155C22D4001F4E37 /* placemark-brown.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545E2155C22D4001F4E37 /* placemark-brown.png */; };
-		FA0545F6155C22D4001F4E37 /* placemark-brown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545E3155C22D4001F4E37 /* placemark-brown@2x.png */; };
-		FA0545F7155C22D4001F4E37 /* placemark-brown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545E3155C22D4001F4E37 /* placemark-brown@2x.png */; };
-		FA0545F8155C22D4001F4E37 /* placemark-green.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545E4155C22D4001F4E37 /* placemark-green.png */; };
-		FA0545F9155C22D4001F4E37 /* placemark-green.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545E4155C22D4001F4E37 /* placemark-green.png */; };
-		FA0545FA155C22D4001F4E37 /* placemark-green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545E5155C22D4001F4E37 /* placemark-green@2x.png */; };
-		FA0545FB155C22D4001F4E37 /* placemark-green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545E5155C22D4001F4E37 /* placemark-green@2x.png */; };
-		FA0545FC155C22D4001F4E37 /* placemark-orange.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545E6155C22D4001F4E37 /* placemark-orange.png */; };
-		FA0545FD155C22D4001F4E37 /* placemark-orange.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545E6155C22D4001F4E37 /* placemark-orange.png */; };
-		FA0545FE155C22D4001F4E37 /* placemark-orange@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545E7155C22D4001F4E37 /* placemark-orange@2x.png */; };
-		FA0545FF155C22D4001F4E37 /* placemark-orange@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545E7155C22D4001F4E37 /* placemark-orange@2x.png */; };
-		FA054600155C22D4001F4E37 /* placemark-pink.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545E8155C22D4001F4E37 /* placemark-pink.png */; };
-		FA054601155C22D4001F4E37 /* placemark-pink.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545E8155C22D4001F4E37 /* placemark-pink.png */; };
-		FA054602155C22D4001F4E37 /* placemark-pink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545E9155C22D4001F4E37 /* placemark-pink@2x.png */; };
-		FA054603155C22D4001F4E37 /* placemark-pink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545E9155C22D4001F4E37 /* placemark-pink@2x.png */; };
-		FA054604155C22D4001F4E37 /* placemark-purple.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545EA155C22D4001F4E37 /* placemark-purple.png */; };
-		FA054605155C22D4001F4E37 /* placemark-purple.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545EA155C22D4001F4E37 /* placemark-purple.png */; };
-		FA054606155C22D4001F4E37 /* placemark-purple@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545EB155C22D4001F4E37 /* placemark-purple@2x.png */; };
-		FA054607155C22D4001F4E37 /* placemark-purple@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545EB155C22D4001F4E37 /* placemark-purple@2x.png */; };
-		FA054608155C22D4001F4E37 /* placemark-red.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545EC155C22D4001F4E37 /* placemark-red.png */; };
-		FA054609155C22D4001F4E37 /* placemark-red.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545EC155C22D4001F4E37 /* placemark-red.png */; };
-		FA05460A155C22D4001F4E37 /* placemark-red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545ED155C22D4001F4E37 /* placemark-red@2x.png */; };
-		FA05460B155C22D4001F4E37 /* placemark-red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545ED155C22D4001F4E37 /* placemark-red@2x.png */; };
 		FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA054611155C465E001F4E37 /* SelectSetVC.mm */; };
 		FA054613155C465E001F4E37 /* SelectSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA054611155C465E001F4E37 /* SelectSetVC.mm */; };
 		FA065FED128614C400FEA989 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */; };
@@ -1398,11 +1370,13 @@
 		CB252D6A16FF82C8001E41E9 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		CB252D6B16FF82C8001E41E9 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistics.h; sourceTree = "<group>"; };
 		CB252D6C16FF82C8001E41E9 /* Statistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Statistics.m; sourceTree = "<group>"; };
-		ED4653361785E5D00063856F /* placemark-yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placemark-yellow.png"; sourceTree = "<group>"; };
-		ED4653371785E5D10063856F /* placemark-yellow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placemark-yellow@2x.png"; sourceTree = "<group>"; };
 		ED48BBAF17BE6EA8003E7E92 /* MWMApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMApi.h; sourceTree = "<group>"; };
 		ED48BBB017BE6EA8003E7E92 /* MWMApi.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMApi.mm; sourceTree = "<group>"; };
 		ED48BBC517C3C0F9003E7E92 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		ED48BBB317C267F5003E7E92 /* ColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerView.h; sourceTree = "<group>"; };
+		ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ColorPickerView.mm; sourceTree = "<group>"; };
+		ED48BBB817C2B1E2003E7E92 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
+		ED48BBB917C2B1E2003E7E92 /* CircleView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CircleView.mm; sourceTree = "<group>"; };
 		ED8676FA16A0793800D9A02A /* 22x29-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "22x29-pro.png"; sourceTree = "<group>"; };
 		ED8676FB16A0793800D9A02A /* 44x58-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "44x58-pro.png"; sourceTree = "<group>"; };
 		ED8676FC16A0793800D9A02A /* 64-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "64-pro.png"; sourceTree = "<group>"; };
@@ -1485,20 +1459,6 @@
 		F7E7BA3F16723CD200B4492E /* hotel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hotel@2x.png"; sourceTree = "<group>"; };
 		F7FDD822147F30CC005900FA /* drules_proto.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto.bin; path = ../../data/drules_proto.bin; sourceTree = "<group>"; };
 		FA04373112CAB83F00017494 /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libstorage.a; sourceTree = SOURCE_ROOT; };
-		FA0545E0155C22D4001F4E37 /* placemark-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-blue.png"; path = "Bookmarks/placemark-blue.png"; sourceTree = SOURCE_ROOT; };
-		FA0545E1155C22D4001F4E37 /* placemark-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-blue@2x.png"; path = "Bookmarks/placemark-blue@2x.png"; sourceTree = SOURCE_ROOT; };
-		FA0545E2155C22D4001F4E37 /* placemark-brown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-brown.png"; path = "Bookmarks/placemark-brown.png"; sourceTree = SOURCE_ROOT; };
-		FA0545E3155C22D4001F4E37 /* placemark-brown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-brown@2x.png"; path = "Bookmarks/placemark-brown@2x.png"; sourceTree = SOURCE_ROOT; };
-		FA0545E4155C22D4001F4E37 /* placemark-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-green.png"; path = "Bookmarks/placemark-green.png"; sourceTree = SOURCE_ROOT; };
-		FA0545E5155C22D4001F4E37 /* placemark-green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-green@2x.png"; path = "Bookmarks/placemark-green@2x.png"; sourceTree = SOURCE_ROOT; };
-		FA0545E6155C22D4001F4E37 /* placemark-orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-orange.png"; path = "Bookmarks/placemark-orange.png"; sourceTree = SOURCE_ROOT; };
-		FA0545E7155C22D4001F4E37 /* placemark-orange@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-orange@2x.png"; path = "Bookmarks/placemark-orange@2x.png"; sourceTree = SOURCE_ROOT; };
-		FA0545E8155C22D4001F4E37 /* placemark-pink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-pink.png"; path = "Bookmarks/placemark-pink.png"; sourceTree = SOURCE_ROOT; };
-		FA0545E9155C22D4001F4E37 /* placemark-pink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-pink@2x.png"; path = "Bookmarks/placemark-pink@2x.png"; sourceTree = SOURCE_ROOT; };
-		FA0545EA155C22D4001F4E37 /* placemark-purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-purple.png"; path = "Bookmarks/placemark-purple.png"; sourceTree = SOURCE_ROOT; };
-		FA0545EB155C22D4001F4E37 /* placemark-purple@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-purple@2x.png"; path = "Bookmarks/placemark-purple@2x.png"; sourceTree = SOURCE_ROOT; };
-		FA0545EC155C22D4001F4E37 /* placemark-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-red.png"; path = "Bookmarks/placemark-red.png"; sourceTree = SOURCE_ROOT; };
-		FA0545ED155C22D4001F4E37 /* placemark-red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-red@2x.png"; path = "Bookmarks/placemark-red@2x.png"; sourceTree = SOURCE_ROOT; };
 		FA054610155C465E001F4E37 /* SelectSetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectSetVC.h; path = Bookmarks/SelectSetVC.h; sourceTree = SOURCE_ROOT; };
 		FA054611155C465E001F4E37 /* SelectSetVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SelectSetVC.mm; path = Bookmarks/SelectSetVC.mm; sourceTree = SOURCE_ROOT; };
 		FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources-iPad/MainWindow-iPad.xib"; sourceTree = SOURCE_ROOT; };
@@ -2233,6 +2193,10 @@
 				EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */,
 				ED48BBAF17BE6EA8003E7E92 /* MWMApi.h */,
 				ED48BBB017BE6EA8003E7E92 /* MWMApi.mm */,
+				ED48BBB317C267F5003E7E92 /* ColorPickerView.h */,
+				ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */,
+				ED48BBB817C2B1E2003E7E92 /* CircleView.h */,
+				ED48BBB917C2B1E2003E7E92 /* CircleView.mm */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -2490,22 +2454,6 @@
 				FAB2D51315DAB53F00C706C3 /* right@2x.png */,
 				FAB2D51415DAB53F00C706C3 /* tail.png */,
 				FAB2D51515DAB53F00C706C3 /* tail@2x.png */,
-				FA0545E0155C22D4001F4E37 /* placemark-blue.png */,
-				FA0545E1155C22D4001F4E37 /* placemark-blue@2x.png */,
-				FA0545E2155C22D4001F4E37 /* placemark-brown.png */,
-				FA0545E3155C22D4001F4E37 /* placemark-brown@2x.png */,
-				FA0545E4155C22D4001F4E37 /* placemark-green.png */,
-				FA0545E5155C22D4001F4E37 /* placemark-green@2x.png */,
-				FA0545E6155C22D4001F4E37 /* placemark-orange.png */,
-				FA0545E7155C22D4001F4E37 /* placemark-orange@2x.png */,
-				FA0545E8155C22D4001F4E37 /* placemark-pink.png */,
-				FA0545E9155C22D4001F4E37 /* placemark-pink@2x.png */,
-				FA0545EA155C22D4001F4E37 /* placemark-purple.png */,
-				FA0545EB155C22D4001F4E37 /* placemark-purple@2x.png */,
-				FA0545EC155C22D4001F4E37 /* placemark-red.png */,
-				FA0545ED155C22D4001F4E37 /* placemark-red@2x.png */,
-				ED4653361785E5D00063856F /* placemark-yellow.png */,
-				ED4653371785E5D10063856F /* placemark-yellow@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -3737,20 +3685,6 @@
 				FA8A71D6153D83C8005D9795 /* bookmarks-highlighted@2x.png in Resources */,
 				FA8A71D8153D83C8005D9795 /* bookmarks.png in Resources */,
 				FA8A71DA153D83C8005D9795 /* bookmarks@2x.png in Resources */,
-				FA0545F0155C22D4001F4E37 /* placemark-blue.png in Resources */,
-				FA0545F2155C22D4001F4E37 /* placemark-blue@2x.png in Resources */,
-				FA0545F4155C22D4001F4E37 /* placemark-brown.png in Resources */,
-				FA0545F6155C22D4001F4E37 /* placemark-brown@2x.png in Resources */,
-				FA0545F8155C22D4001F4E37 /* placemark-green.png in Resources */,
-				FA0545FA155C22D4001F4E37 /* placemark-green@2x.png in Resources */,
-				FA0545FC155C22D4001F4E37 /* placemark-orange.png in Resources */,
-				FA0545FE155C22D4001F4E37 /* placemark-orange@2x.png in Resources */,
-				FA054600155C22D4001F4E37 /* placemark-pink.png in Resources */,
-				FA054602155C22D4001F4E37 /* placemark-pink@2x.png in Resources */,
-				FA054604155C22D4001F4E37 /* placemark-purple.png in Resources */,
-				FA054606155C22D4001F4E37 /* placemark-purple@2x.png in Resources */,
-				FA054608155C22D4001F4E37 /* placemark-red.png in Resources */,
-				FA05460A155C22D4001F4E37 /* placemark-red@2x.png in Resources */,
 				FAB2D51615DAB53F00C706C3 /* arrow.png in Resources */,
 				FAB2D51715DAB53F00C706C3 /* arrow@2x.png in Resources */,
 				FAB2D51815DAB53F00C706C3 /* left.png in Resources */,
@@ -3808,8 +3742,6 @@
 				5797B6D516C931EE00FFE6D2 /* resources-mdpi in Resources */,
 				5797B6D716C931EE00FFE6D2 /* resources-xhdpi in Resources */,
 				FAF30A95173AB23900818BF6 /* 00_roboto_regular.ttf in Resources */,
-				ED4653381785E5D10063856F /* placemark-yellow.png in Resources */,
-				ED4653391785E5D10063856F /* placemark-yellow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4379,20 +4311,6 @@
 				FA8A71D7153D83C8005D9795 /* bookmarks-highlighted@2x.png in Resources */,
 				FA8A71D9153D83C8005D9795 /* bookmarks.png in Resources */,
 				FA8A71DB153D83C8005D9795 /* bookmarks@2x.png in Resources */,
-				FA0545F1155C22D4001F4E37 /* placemark-blue.png in Resources */,
-				FA0545F3155C22D4001F4E37 /* placemark-blue@2x.png in Resources */,
-				FA0545F5155C22D4001F4E37 /* placemark-brown.png in Resources */,
-				FA0545F7155C22D4001F4E37 /* placemark-brown@2x.png in Resources */,
-				FA0545F9155C22D4001F4E37 /* placemark-green.png in Resources */,
-				FA0545FB155C22D4001F4E37 /* placemark-green@2x.png in Resources */,
-				FA0545FD155C22D4001F4E37 /* placemark-orange.png in Resources */,
-				FA0545FF155C22D4001F4E37 /* placemark-orange@2x.png in Resources */,
-				FA054601155C22D4001F4E37 /* placemark-pink.png in Resources */,
-				FA054603155C22D4001F4E37 /* placemark-pink@2x.png in Resources */,
-				FA054605155C22D4001F4E37 /* placemark-purple.png in Resources */,
-				FA054607155C22D4001F4E37 /* placemark-purple@2x.png in Resources */,
-				FA054609155C22D4001F4E37 /* placemark-red.png in Resources */,
-				FA05460B155C22D4001F4E37 /* placemark-red@2x.png in Resources */,
 				FA9EFCC11609E42B002D6195 /* Default-568h@2x.png in Resources */,
 				FAAEA7D2161BD26600CCD661 /* synonyms.txt in Resources */,
 				FA140632162A44A5002BC1ED /* add.png in Resources */,
@@ -4419,8 +4337,6 @@
 				FA765AB51737BC6D00279CFF /* 64-lite.png in Resources */,
 				FA765AB61737BC6D00279CFF /* 320-lite.png in Resources */,
 				FAF30A96173AB23900818BF6 /* 00_roboto_regular.ttf in Resources */,
-				ED46533A1785E5DA0063856F /* placemark-yellow.png in Resources */,
-				ED46533B1785E5DD0063856F /* placemark-yellow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4516,6 +4432,8 @@
 				EDC5C543175F2CA600420E92 /* ShareActionSheet.mm in Sources */,
 				EDFC74D0177AE6C500FAF21F /* PlaceAndCompasView.mm in Sources */,
 				ED48BBB117BE6EA8003E7E92 /* MWMApi.mm in Sources */,
+				ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */,
+				ED48BBBA17C2B1E2003E7E92 /* CircleView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4553,6 +4471,8 @@
 				EDC5C544175F2CA600420E92 /* ShareActionSheet.mm in Sources */,
 				EDFC74D1177AE6C500FAF21F /* PlaceAndCompasView.mm in Sources */,
 				ED48BBB217BE6EA8003E7E92 /* MWMApi.mm in Sources */,
+				ED48BBBB17C2B1E2003E7E92 /* CircleView.mm in Sources */,
+				ED48BBC417C3B3BF003E7E92 /* ColorPickerView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
