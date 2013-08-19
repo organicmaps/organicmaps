@@ -27,7 +27,7 @@ import com.mapswithme.maps.MWMActivity.MapTask;
 import com.mapswithme.maps.MWMActivity.OpenUrlTask;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.Const;
-import com.mapswithme.maps.api.MWMRequest;
+import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.base.MapsWithMeBaseActivity;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.state.SuppotedState;
@@ -675,8 +675,8 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
       final String apiUrl = intent.getStringExtra(Const.EXTRA_URL);
       if (apiUrl != null)
       {
-        final MWMRequest request = MWMRequest.extractFromIntent(intent, getApplicationContext());
-        MWMRequest.setCurrentRequest(request);
+        final ParsedMmwRequest request = ParsedMmwRequest.extractFromIntent(intent, getApplicationContext());
+        ParsedMmwRequest.setCurrentRequest(request);
         Statistics.INSTANCE.trackApiCall(request);
         getMwmApplication().getAppStateManager().transitionTo(SuppotedState.API_REQUEST);
 

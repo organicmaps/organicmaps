@@ -10,10 +10,10 @@ import android.graphics.drawable.Drawable;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.state.SuppotedState;
 
-public class MWMRequest
+public class ParsedMmwRequest
 {
 
-  private static volatile MWMRequest sCurrentRequest;
+  private static volatile ParsedMmwRequest sCurrentRequest;
 
   // caller info
   private ApplicationInfo mCallerInfo;
@@ -37,13 +37,13 @@ public class MWMRequest
   private String mName;
   private String mId;
 
-  public static MWMRequest getCurrentRequest() { return sCurrentRequest; }
+  public static ParsedMmwRequest getCurrentRequest() { return sCurrentRequest; }
   public static boolean    hasRequest()        { return sCurrentRequest != null; }
-  public static void       setCurrentRequest(MWMRequest request) { sCurrentRequest = request; }
+  public static void       setCurrentRequest(ParsedMmwRequest request) { sCurrentRequest = request; }
 
-  public static MWMRequest extractFromIntent(Intent data, Context context)
+  public static ParsedMmwRequest extractFromIntent(Intent data, Context context)
   {
-    final MWMRequest request = new MWMRequest();
+    final ParsedMmwRequest request = new ParsedMmwRequest();
 
     request.mCallerInfo = data.getParcelableExtra(Const.EXTRA_CALLER_APP_INFO);
     request.mTitle = data.getStringExtra(Const.EXTRA_TITLE);
@@ -127,7 +127,7 @@ public class MWMRequest
   }
 
   /**
-   *  Do not use constructor externally. Use {@link MWMRequest#extractFromIntent(Intent, Context)} instead.
+   *  Do not use constructor externally. Use {@link ParsedMmwRequest#extractFromIntent(Intent, Context)} instead.
    */
-  private MWMRequest() {}
+  private ParsedMmwRequest() {}
 }

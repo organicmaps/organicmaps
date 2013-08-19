@@ -1,7 +1,7 @@
 package com.mapswithme.maps.state;
 
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.api.MWMRequest;
+import com.mapswithme.maps.api.ParsedMmwRequest;
 
 
 public class AppStateManager
@@ -19,7 +19,7 @@ public class AppStateManager
     if (state == SuppotedState.DEFAULT_MAP)
     {
       Framework.clearApiPoints();
-      MWMRequest.setCurrentRequest(null);
+      ParsedMmwRequest.setCurrentRequest(null);
     }
   }
 

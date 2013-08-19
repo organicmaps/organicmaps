@@ -36,7 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mapswithme.maps.Framework.OnBalloonListener;
-import com.mapswithme.maps.api.MWMRequest;
+import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.promo.ActivationSettings;
@@ -802,7 +802,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     final LayoutParams mapLp = mMapSurface.getLayoutParams();
     int marginTopForMap = 0;
 
-    if (state == SuppotedState.API_REQUEST && MWMRequest.hasRequest())
+    if (state == SuppotedState.API_REQUEST && ParsedMmwRequest.hasRequest())
     {
       // show title
       mTitleBar.findViewById(R.id.up_block).setOnClickListener(new OnClickListener()
@@ -814,7 +814,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         }
       });
 
-      final MWMRequest request = MWMRequest.getCurrentRequest();
+      final ParsedMmwRequest request = ParsedMmwRequest.getCurrentRequest();
       if (request.hasTitle())
         mAppTitle.setText(request.getTitle());
       else
@@ -1071,9 +1071,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public void onApiPointActivated(final double lat, final double lon, final String name, final String id)
   {
-    if (MWMRequest.hasRequest())
+    if (ParsedMmwRequest.hasRequest())
     {
-      final MWMRequest request = MWMRequest.getCurrentRequest();
+      final ParsedMmwRequest request = ParsedMmwRequest.getCurrentRequest();
       request.setPointData(lat, lon, name, id);
 
       if (request.doReturnOnBalloonClick())

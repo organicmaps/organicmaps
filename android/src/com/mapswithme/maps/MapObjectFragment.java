@@ -24,7 +24,7 @@ import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 
-import com.mapswithme.maps.api.MWMRequest;
+import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -103,7 +103,7 @@ public class MapObjectFragment extends Fragment
     UiUtils.show(mAddToBookmarks);
     UiUtils.hide(mEditBmk);
 
-    final MWMRequest request = MWMRequest.getCurrentRequest();
+    final ParsedMmwRequest request = ParsedMmwRequest.getCurrentRequest();
     if (request != null  && request.hasPendingIntent())
     {
       UiUtils.show(mOpenWith);
@@ -283,7 +283,7 @@ public class MapObjectFragment extends Fragment
 
   private void onOpenWithClicked()
   {
-    MWMRequest.getCurrentRequest()
+    ParsedMmwRequest.getCurrentRequest()
     .sendResponseAndFinish(getActivity(), true);
   }
 

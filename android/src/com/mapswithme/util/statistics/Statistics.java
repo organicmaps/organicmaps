@@ -5,7 +5,7 @@ import android.content.Context;
 import android.util.Log;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.MWMApplication;
-import com.mapswithme.maps.api.MWMRequest;
+import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.MathUtils;
 
@@ -139,7 +139,7 @@ public enum Statistics
     getEventBuilder().getSimpleNamedEvent(TAG_PROMO_DE + "promo code activated").post();
   }
 
-  public void trackApiCall(MWMRequest request)
+  public void trackApiCall(ParsedMmwRequest request)
   {
     if (request != null && request.getCallerInfo() != null)
     {
