@@ -97,6 +97,8 @@ public:
   void GtoP(m2::RectD const & gr, m2::RectD & sr) const;
   void PtoG(m2::RectD const & pr, m2::RectD & gr) const;
 
+  void GetTouchRect(m2::PointD const & pixPoint, double pixRadius, m2::AnyRectD & glbRect) const;
+
   math::Matrix<double, 3, 3> const & GtoPMatrix() const;
   math::Matrix<double, 3, 3> const & PtoGMatrix() const;
 

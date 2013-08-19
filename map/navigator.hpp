@@ -28,6 +28,8 @@ public:
   m2::PointD GtoP(m2::PointD const & pt) const;
   m2::PointD PtoG(m2::PointD const & pt) const;
 
+  void GetTouchRect(m2::PointD const & pixPoint, double pixRadius, m2::AnyRectD & glbRect) const;
+
   void StartDrag(m2::PointD const & pt, double timeInSec);
   void DoDrag(m2::PointD const & pt, double timeInSec);
   void StopDrag(m2::PointD const & pt, double timeInSec, bool animate);

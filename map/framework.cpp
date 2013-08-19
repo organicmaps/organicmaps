@@ -422,9 +422,9 @@ BookmarkAndCategory Framework::GetBookmark(m2::PointD const & pxPoint) const
 BookmarkAndCategory Framework::GetBookmark(m2::PointD const & pxPoint, double visualScale) const
 {
   // Get the global rect of touching area.
-  int const sm = TOUCH_PIXEL_RADIUS * visualScale;
-  m2::RectD rect(PtoG(m2::PointD(pxPoint.x - sm, pxPoint.y - sm)),
-                 PtoG(m2::PointD(pxPoint.x + sm, pxPoint.y + sm)));
+  m2::AnyRectD rect;
+  m_navigator.GetTouchRect(pxPoint, TOUCH_PIXEL_RADIUS * visualScale, rect);
+  m2::PointD const center = rect.GlobalCenter();
 
   int retBookmarkCategory = -1;
   int retBookmark = -1;
@@ -438,7 +438,7 @@ BookmarkAndCategory Framework::GetBookmark(m2::PointD const & pxPoint, double vi
       m2::PointD const pt = m_bmManager.AdditionalPoiLayerGetBookmark(i)->GetOrg();
       if (rect.IsPointInside(pt))
       {
-        double const d = rect.Center().SquareLength(pt);
+        double const d = center.SquareLength(pt);
         if (d < minD)
         {
           retBookmarkCategory = static_cast<int>(additionalLayerCategory);
@@ -463,7 +463,7 @@ BookmarkAndCategory Framework::GetBookmark(m2::PointD const & pxPoint, double vi
 
       if (rect.IsPointInside(pt))
       {
-        double const d = rect.Center().SquareLength(pt);
+        double const d = center.SquareLength(pt);
         if ((currentCategoryIsVisible && !returnBookmarkIsVisible) ||
             (d < minD))
         {
@@ -1601,9 +1601,10 @@ void Framework::DrawMapApiPoints(shared_ptr<PaintEvent> const & e)
 /// @todo Create method that will run all layers without copy/past
 bool Framework::GetMapApiPoint(m2::PointD const & pxPoint, url_scheme::ApiPoint & point)
 {
-  int const sm = TOUCH_PIXEL_RADIUS * GetVisualScale();
-  m2::RectD const rect(PtoG(m2::PointD(pxPoint.x - sm, pxPoint.y - sm)),
-                       PtoG(m2::PointD(pxPoint.x + sm, pxPoint.y + sm)));
+  m2::AnyRectD rect;
+  m_navigator.GetTouchRect(pxPoint, TOUCH_PIXEL_RADIUS * GetVisualScale(), rect);
+  m2::PointD const center = rect.GlobalCenter();
+
   double minD = numeric_limits<double>::max();
   bool result = false;
 
@@ -1615,7 +1616,7 @@ bool Framework::GetMapApiPoint(m2::PointD const & pxPoint, url_scheme::ApiPoint 
                                                 MercatorBounds::LatToY(vect[i].m_lat)));
     if (rect.IsPointInside(pt))
     {
-      double const d = rect.Center().SquareLength(pt);
+      double const d = center.SquareLength(pt);
       if (d < minD)
       {
         point = vect[i];

@@ -225,6 +225,13 @@ void ScreenBase::PtoG(m2::RectD const & pxRect, m2::RectD & glbRect) const
   glbRect = m2::RectD(PtoG(pxRect.LeftTop()), PtoG(pxRect.RightBottom()));
 }
 
+void ScreenBase::GetTouchRect(m2::PointD const & pixPoint, double pixRadius,
+                              m2::AnyRectD & glbRect) const
+{
+  double const r = pixRadius * m_Scale;
+  glbRect = m2::AnyRectD(PtoG(pixPoint), m_Angle, m2::RectD(-r, -r, r, r));
+}
+
 bool IsPanningAndRotate(ScreenBase const & s1, ScreenBase const & s2)
 {
   m2::RectD const & r1 = s1.GlobalRect().GetLocalRect();
