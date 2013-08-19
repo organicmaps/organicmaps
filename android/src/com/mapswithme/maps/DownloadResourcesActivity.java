@@ -1,5 +1,13 @@
 package com.mapswithme.maps;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -15,7 +23,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mapswithme.maps.MWMActivity.*;
+import com.mapswithme.maps.MWMActivity.MapTask;
+import com.mapswithme.maps.MWMActivity.OpenUrlTask;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.MWMRequest;
@@ -25,12 +34,6 @@ import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 public class DownloadResourcesActivity extends MapsWithMeBaseActivity
                                        implements LocationService.Listener, MapStorage.Listener
@@ -60,11 +63,12 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
 
   private MapTask mMapTaskToForward;
 
-  private IntentProcessor[] mIntentProcessors = {
+  private final IntentProcessor[] mIntentProcessors = {
       new GeoIntentProcessor(),
       new HttpGe0IntentProcessor(),
       new Ge0IntentProcessor(),
-      new MapsWithMeIntentProcessor()
+      new MapsWithMeIntentProcessor(),
+      new GooggleMapsIntentProcessor()
   };
 
   private void setDownloadMessage(int bytesToDownload)
@@ -247,7 +251,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
   public void showMapView()
   {
     // Continue with Main UI initialization (MWMActivity)
-    Intent mwmActivityIntent = new Intent(this, MWMActivity.class);
+    final Intent mwmActivityIntent = new Intent(this, MWMActivity.class);
 
     // Disable animation because MWMActivity should appear exactly over this one
     // Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
@@ -342,7 +346,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
         }
       }
     }
-    catch (ActivityNotFoundException ex)
+    catch (final ActivityNotFoundException ex)
     {
       Log.d(TAG, "Intent not found", ex);
     }
@@ -384,7 +388,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     if (getIntent() != null)
     {
       final Intent intent = getIntent();
-      for (IntentProcessor ip : mIntentProcessors)
+      for (final IntentProcessor ip : mIntentProcessors)
       {
         if (ip.isIntentSupported(intent))
         {
@@ -439,7 +443,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
               output = new FileOutputStream(tmpFile);
               input = resolver.openInputStream(data);
 
-              byte buffer[] = new byte[512 * 1024];
+              final byte buffer[] = new byte[512 * 1024];
               int read;
               while ((read = input.read(buffer)) != -1)
                 output.write(buffer, 0, read);
@@ -448,7 +452,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
               path = filePath;
             }
           }
-          catch (Exception ex)
+          catch (final Exception ex)
           {
             Log.w(TAG, "Attachment not found or io error: " + ex);
           }
@@ -461,7 +465,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
               if (output != null)
                 output.close();
             }
-            catch (IOException ex)
+            catch (final IOException ex)
             {
               Log.w(TAG, "Close stream error: " + ex);
             }
@@ -530,7 +534,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
   {
     if (errorCode == ERR_DOWNLOAD_SUCCESS)
     {
-      int res = startNextFileDownload(this);
+      final int res = startNextFileDownload(this);
       if (res == ERR_NO_MORE_FILES)
         finishFilesDownload(res);
     }
@@ -559,7 +563,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
           mLocationMsgView.setText(String.format(getString(R.string.download_location_map_up_to_date), name));
         else
         {
-          CheckBox checkBox = (CheckBox)findViewById(R.id.download_country_checkbox);
+          final CheckBox checkBox = (CheckBox)findViewById(R.id.download_country_checkbox);
           checkBox.setVisibility(View.VISIBLE);
 
           String msgViewText;
@@ -681,6 +685,36 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
       }
       return false;
     }
+  }
+
+  private class GooggleMapsIntentProcessor implements IntentProcessor
+  {
+
+    @Override
+    public boolean isIntentSupported(Intent intent)
+    {
+      return "maps.google.com".equals(intent.getData().getHost());
+    }
+
+    @Override
+    public boolean processIntent(Intent intent)
+    {
+      final Uri data = intent.getData();
+      if (data != null)
+      {
+        // We need to parse URL like:
+        // "http://maps.google.com/maps?q=loc:53.902132,27.5636453 (You)"
+
+        final Pattern p = Pattern.compile("(\\d+\\.?,?)+");
+        final Matcher m = p.matcher(data.getQueryParameter("q"));
+        final String ll = m.find() ? m.group() : "0,0";
+
+        mMapTaskToForward = new OpenUrlTask("geo://" + ll);
+        return true;
+      }
+      return false;
+    }
+
   }
 
   private native int getBytesToDownload();
