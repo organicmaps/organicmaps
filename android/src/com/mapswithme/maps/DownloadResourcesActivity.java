@@ -637,10 +637,14 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     @Override
     public boolean isIntentSupported(Intent intent)
     {
-      if ("http".equalsIgnoreCase(intent.getScheme()) && "ge0.me".equals(intent.getData().getHost()))
-        return true;
-      else
-        return false;
+      if ("http".equalsIgnoreCase(intent.getScheme()))
+      {
+        final Uri data = intent.getData();
+        if (data != null)
+          return "ge0.me".equals(data.getHost());
+      }
+
+      return false;
     }
 
     @Override
@@ -693,7 +697,8 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     @Override
     public boolean isIntentSupported(Intent intent)
     {
-      return "maps.google.com".equals(intent.getData().getHost());
+      final Uri data = intent.getData();
+      return (data != null && "maps.google.com".equals(data.getHost()));
     }
 
     @Override
