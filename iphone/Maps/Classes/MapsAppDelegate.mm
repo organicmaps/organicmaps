@@ -68,10 +68,10 @@ void InitLocalizedStrings()
   {
     if (pasteboard.string.length)
     {
-      url_scheme::ApiPoint apiPoint;
-      if (GetFramework().SetViewportByURL([pasteboard.string UTF8String], apiPoint))
+      url_scheme::ResultPoint point;
+      if (GetFramework().SetViewportByURL([pasteboard.string UTF8String], point))
       {
-        [self showParsedBookmarkOnMap:apiPoint];
+        [self showParsedBookmarkOnMap:point withPadding:NO];
         pasteboard.string = @"";
       }
     }
@@ -185,14 +185,16 @@ void InitLocalizedStrings()
 {
   NSString * scheme = url.scheme;
   Framework & f = GetFramework();
+
   // geo scheme support, see http://tools.ietf.org/html/rfc5870
   if ([scheme isEqualToString:@"geo"] || [scheme isEqualToString:@"ge0"])
   {
-    url_scheme::ApiPoint apiPoint;
-    if (f.SetViewportByURL([url.absoluteString UTF8String], apiPoint))
+    url_scheme::ResultPoint point;
+    if (f.SetViewportByURL([url.absoluteString UTF8String], point))
     {
-      [self showParsedBookmarkOnMap:apiPoint];
+      [self showParsedBookmarkOnMap:point withPadding:NO];
       m_didOpenedWithUrl = YES;
+
       if ([scheme isEqualToString:@"geo"])
         [[Statistics instance] logEvent:@"geo Import"];
       if ([scheme isEqualToString:@"ge0"])
@@ -200,17 +202,20 @@ void InitLocalizedStrings()
       return YES;
     }
   }
+
   if ([scheme isEqualToString:@"mapswithme"] || [scheme isEqualToString:@"mwm"])
   {
-    url_scheme::ApiPoint apiPoint;
+    url_scheme::ResultPoint apiPoint;
     if (f.SetViewportByURL([url.absoluteString UTF8String], apiPoint));
     {
       [[Statistics instance] logApiUsage:sourceApplication];
-      GetFramework().GetBalloonManager().Hide();
+
+      f.GetBalloonManager().Hide();
       if (f.GetMapApiPoints().size() == 1)
-        [self showParsedBookmarkOnMap:apiPoint];
+        [self showParsedBookmarkOnMap:apiPoint withPadding:YES];
       else
         [self showMap];
+
       [m_mapViewController prepareForApi];
       return YES;
     }
@@ -266,10 +271,10 @@ void InitLocalizedStrings()
   [m_navController setNavigationBarHidden:YES animated:YES];
 }
 
--(void) showParsedBookmarkOnMap:(url_scheme::ApiPoint const &) point
+-(void) showParsedBookmarkOnMap:(url_scheme::ResultPoint const &) point withPadding:(BOOL) padding
 {
   [self showMap];
-  GetFramework().GetBalloonManager().ShowApiPoint(point);
+  GetFramework().GetBalloonManager().ShowURLPoint(point, padding == YES);
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated

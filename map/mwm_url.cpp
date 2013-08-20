@@ -12,7 +12,14 @@
 #include "../std/bind.hpp"
 
 
-using namespace url_scheme;
+namespace url_scheme
+{
+
+void ResultPoint::Init()
+{
+  m_org = m2::PointD(MercatorBounds::LonToX(m_point.m_lon),
+                     MercatorBounds::LatToY(m_point.m_lat));
+}
 
 namespace
 {
@@ -171,4 +178,6 @@ bool ParsedMapApi::GetViewportRect(m2::RectD & rect) const
   }
   else
     return false;
+}
+
 }

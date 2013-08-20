@@ -1,5 +1,7 @@
 #include "../geometry/rect2d.hpp"
+
 #include "../std/string.hpp"
+
 
 namespace url_scheme
 {
@@ -13,6 +15,35 @@ struct ApiPoint
   string m_name;
   string m_id;
 };
+
+class ResultPoint
+{
+  ApiPoint m_point;
+  m2::PointD m_org;
+
+  void Init();
+
+public:
+  void MakeFrom(double lat, double lon)
+  {
+    m_point.m_lat = lat;
+    m_point.m_lon = lon;
+    Init();
+  }
+  void MakeFrom(url_scheme::ApiPoint const & pt)
+  {
+    m_point = pt;
+    Init();
+  }
+
+  /// Need to fix default name using "dropped_pin" in Framework.
+  string & GetName() { return m_point.m_name; }
+
+  m2::PointD GetOrg() const { return m_org; }
+  string const & GetName() const { return m_point.m_name; }
+  ApiPoint const & GetPoint() const { return m_point; }
+};
+
 
 /// Handles [mapswithme|mwm]://map?params - everything related to displaying info on a map
 class ParsedMapApi

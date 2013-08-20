@@ -31,22 +31,23 @@
 }
 
 +(void)resolveActionSheetChoice:(UIActionSheet *)as buttonIndex:(NSInteger)buttonIndex text:(NSString *)text
-                           view:(id)view delegate:(id)del scale:(double)scale gX:(double)gX gY:(double)gY
+                           view:(id)view delegate:(id)del gX:(double)gX gY:(double)gY
                   andMyPosition:(BOOL)myPos
 {
-  NSString * shortUrl = [self generateShortUrlWithName:text scale:scale gX:gX gY:gY];
+  NSString * shortUrl = [self generateShortUrlWithName:text gX:gX gY:gY];
   if ([[as buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"email", nil)])
     [self sendEmailWith:text andUrl:shortUrl view:view delegate:del gX:gX gY:gY myPosition:myPos];
   else if ([[as buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"message", nil)])
     [self sendMessageWithUrl:[shortUrl substringWithRange:NSMakeRange(0, GE0LENGTH)] view:view delegate:del myPosition:myPos];
   else if ([[as buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"copy_link", nil)])
-    [UIPasteboard generalPasteboard].string = [self generateShortUrlWithName:text scale:scale gX:gX gY:gY];
+    [UIPasteboard generalPasteboard].string = [self generateShortUrlWithName:text gX:gX gY:gY];
 }
 
-+(NSString *)generateShortUrlWithName:(NSString *)name scale:(double)scale gX:(double)gX gY:(double)gY
++(NSString *)generateShortUrlWithName:(NSString *)name gX:(double)gX gY:(double)gY
 {
   Framework & f = GetFramework();
-  string const s = f.CodeGe0url(MercatorBounds::YToLat(gY), MercatorBounds::XToLon(gX), scale, [(name ? name : @"") UTF8String]);
+  string const s = f.CodeGe0url(MercatorBounds::YToLat(gY), MercatorBounds::XToLon(gX),
+                                f.GetDrawScale(), [(name ? name : @"") UTF8String]);
   return [NSString stringWithUTF8String:s.c_str()];
 }
 

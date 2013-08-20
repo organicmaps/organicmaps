@@ -141,8 +141,9 @@ extern "C"
 
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_MWMActivity_setViewPortByUrl(JNIEnv * env, jobject thiz, jstring url)
+  Java_com_mapswithme_maps_MWMActivity_setViewPortByUrl(JNIEnv * env, jobject thiz,
+      jstring url, jboolean needPadding)
   {
-    return g_framework->SetViewportByUrl(jni::ToNativeString(env, url));
+    return g_framework->SetViewportByUrl(jni::ToNativeString(env, url), needPadding);
   }
 } // extern "C"

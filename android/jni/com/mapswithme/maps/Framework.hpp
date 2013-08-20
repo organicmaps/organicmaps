@@ -125,7 +125,7 @@ namespace android
 
     bool IsDownloadingActive();
 
-    bool SetViewportByUrl(string const & ulr);
+    bool SetViewportByUrl(string const & url, bool needPadding);
 
     void DeactivatePopup();
 

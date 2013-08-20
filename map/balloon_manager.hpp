@@ -14,7 +14,11 @@ class BookmarkBalloon;
 namespace location { class GpsInfo; }
 namespace gui { class Element; }
 namespace search { struct AddressInfo; }
-namespace url_scheme { struct ApiPoint; }
+namespace url_scheme
+{
+  struct ApiPoint;
+  class ResultPoint;
+}
 
 class BalloonManager
 {
@@ -27,7 +31,7 @@ class BalloonManager
   void OnPositionClicked(m2::PointD const & pt);
   void OnActivateMyPosition(gui::Element *);
   void OnActivatePOI(gui::Element *, search::AddressInfo const & info);
-  void OnActivateAPI(gui::Element *, url_scheme::ApiPoint const & apiPoint);
+  void OnActivateAPI(gui::Element *, url_scheme::ResultPoint const & apiPoint);
   void OnActivateBookmark(gui::Element *, BookmarkAndCategory const & bmAndCat);
 
   void Show(m2::PointD const & pt, string const & name, string const & type, bool needPadding);
@@ -40,7 +44,7 @@ public:
   void ScreenSizeChanged(int width, int height);
 
   void ShowAddress(m2::PointD const & pt, search::AddressInfo const & info);
-  void ShowApiPoint(url_scheme::ApiPoint const & apiPoint);
+  void ShowURLPoint(url_scheme::ResultPoint const & point, bool needPadding);
   void ShowBookmark(BookmarkAndCategory bmAndCat);
 
   void OnClick(m2::PointD const & pxPoint, bool isLongTouch);

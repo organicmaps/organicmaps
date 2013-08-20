@@ -302,7 +302,7 @@ typedef enum {Editing, Saved} Mode;
 
 - (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-  [ShareActionSheet resolveActionSheetChoice:actionSheet buttonIndex:buttonIndex text:self.pinTitle view:self delegate:self scale:GetFramework().GetDrawScale() gX:_pinGlobalPosition.x gY:_pinGlobalPosition.y andMyPosition:NO];
+  [ShareActionSheet resolveActionSheetChoice:actionSheet buttonIndex:buttonIndex text:self.pinTitle view:self delegate:self gX:_pinGlobalPosition.x gY:_pinGlobalPosition.y andMyPosition:NO];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error

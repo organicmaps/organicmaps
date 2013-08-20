@@ -69,7 +69,8 @@ public class MapObjectFragment extends Fragment
   //Bookmark
   private int mCategory;
   private int mBmkIndex;
-  private double mScale = MapObject.DEF_SCALE;
+  /// -1 means not initialized (not a bookmark) - C++ code takes Framework::GetDrawScale() for sharing.
+  private double mScale = -1.0;
 
   // General
   MapObjectType mType;

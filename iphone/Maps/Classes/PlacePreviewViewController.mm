@@ -204,7 +204,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
   else if (m_previewType == APIPOINT)
     name = m_apiPoint.m_name;
   BOOL const myPos = (m_previewType == MYPOSITION) ? YES : NO;
-  [ShareActionSheet resolveActionSheetChoice:actionSheet buttonIndex:buttonIndex text:[NSString stringWithUTF8String:name.c_str()] view:self delegate:self scale:GetFramework().GetDrawScale() gX:m_point.x gY:m_point.y andMyPosition:myPos];
+  [ShareActionSheet resolveActionSheetChoice:actionSheet buttonIndex:buttonIndex text:[NSString stringWithUTF8String:name.c_str()] view:self delegate:self gX:m_point.x gY:m_point.y andMyPosition:myPos];
 }
 
 -(void)addToBookmark

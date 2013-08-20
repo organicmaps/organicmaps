@@ -583,15 +583,15 @@ namespace android
     return m_work.Storage().IsDownloadInProgress();
   }
 
-  bool Framework::SetViewportByUrl(string const & url)
+  bool Framework::SetViewportByUrl(string const & url, bool needPadding)
   {
     /// @todo this is weird hack, we should reconsider Android lifecycle handling design
     m_doLoadState = false;
 
-    url_scheme::ApiPoint apiPoint;
-    if (m_work.SetViewportByURL(url, apiPoint))
+    url_scheme::ResultPoint point;
+    if (m_work.SetViewportByURL(url, point))
     {
-      GetBalloonManager().ShowApiPoint(apiPoint);
+      GetBalloonManager().ShowURLPoint(point, needPadding);
       return true;
     }
     return false;
@@ -721,7 +721,8 @@ extern "C"
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetGe0Url(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jdouble zoomLevel, jstring name)
   {
-    const string url = g_framework->NativeFramework()->CodeGe0url(lat, lon, zoomLevel, jni::ToNativeString(env, name));
+    double const scale = (zoomLevel > 0 ? zoomLevel : g_framework->NativeFramework()->GetDrawScale());
+    const string url = g_framework->NativeFramework()->CodeGe0url(lat, lon, scale, jni::ToNativeString(env, name));
     return jni::ToJavaString(env, url);
   }
 

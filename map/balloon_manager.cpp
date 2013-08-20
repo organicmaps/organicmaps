@@ -96,12 +96,10 @@ void BalloonManager::ShowAddress(m2::PointD const & pt, search::AddressInfo cons
   m_balloon->setOnClickListener(bind(&BalloonManager::OnActivatePOI, this, _1, info));
 }
 
-void BalloonManager::ShowApiPoint(url_scheme::ApiPoint const & apiPoint)
+void BalloonManager::ShowURLPoint(url_scheme::ResultPoint const & point, bool needPadding)
 {
-  Show(m2::PointD(MercatorBounds::LonToX(apiPoint.m_lon),
-                  MercatorBounds::LatToY(apiPoint.m_lat)),
-       apiPoint.m_name, "", true);
-  m_balloon->setOnClickListener(bind(&BalloonManager::OnActivateAPI, this, _1, apiPoint));
+  Show(point.GetOrg(), point.GetName(), "", needPadding);
+  m_balloon->setOnClickListener(bind(&BalloonManager::OnActivateAPI, this, _1, point));
 }
 
 void BalloonManager::ShowBookmark(BookmarkAndCategory bmAndCat)
@@ -113,12 +111,10 @@ void BalloonManager::ShowBookmark(BookmarkAndCategory bmAndCat)
 
 void BalloonManager::OnClick(m2::PointD const & pxPoint, bool isLongTouch)
 {
-  url_scheme::ApiPoint apiPoint;
+  url_scheme::ResultPoint apiPoint;
   if (m_f.GetMapApiPoint(pxPoint, apiPoint))
   {
-    Show(m2::PointD(MercatorBounds::LonToX(apiPoint.m_lon),
-                    MercatorBounds::LatToY(apiPoint.m_lat)),
-         apiPoint.m_name, "", true);
+    Show(apiPoint.GetOrg(), apiPoint.GetName(), "", true);
     m_balloon->setOnClickListener(bind(&BalloonManager::OnActivateAPI, this, _1, apiPoint));
   }
   else
@@ -177,9 +173,9 @@ void BalloonManager::OnActivatePOI(gui::Element *, search::AddressInfo const & i
   m_poiListener(m_balloon->glbPivot(), info);
 }
 
-void BalloonManager::OnActivateAPI(gui::Element *, url_scheme::ApiPoint const & apiPoint)
+void BalloonManager::OnActivateAPI(gui::Element *, url_scheme::ResultPoint const & apiPoint)
 {
-  m_apiListener(apiPoint);
+  m_apiListener(apiPoint.GetPoint());
 }
 
 void BalloonManager::OnActivateBookmark(gui::Element *, BookmarkAndCategory const & bmAndCat)

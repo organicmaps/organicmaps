@@ -1376,7 +1376,14 @@ void Framework::AddBookmarkAndSetViewport(Bookmark & bm, m2::RectD const & viewP
 }
 */
 
-bool Framework::SetViewportByURL(string const & url, url_scheme::ApiPoint & balloonPoint)
+void Framework::CheckParams(url_scheme::ResultPoint & point) const
+{
+  string & name = point.GetName();
+  if (name.empty())
+    name = m_stringsBundle.GetString("dropped_pin");
+}
+
+bool Framework::SetViewportByURL(string const & url, url_scheme::ResultPoint & point)
 {
   if (strings::StartsWith(url, "geo"))
   {
@@ -1384,29 +1391,30 @@ bool Framework::SetViewportByURL(string const & url, url_scheme::ApiPoint & ball
 
     Info info;
     ParseGeoURL(url, info);
-
     if (info.IsValid())
     {
       StopLocationFollow();
-      balloonPoint.m_name = m_stringsBundle.GetString("dropped_pin");
-      balloonPoint.m_lat = info.m_lat;
-      balloonPoint.m_lon = info.m_lon;
-      SetViewPortASync(info.GetViewport());
+
+      point.MakeFrom(info.m_lat, info.m_lon);
+      CheckParams(point);
+
+      SetViewPortASync(m_scales.GetRectForDrawScale(info.m_zoom, point.GetOrg()));
       return true;
     }
   }
   else if (strings::StartsWith(url, "ge0"))
   {
     StopLocationFollow();
-    url_scheme::Ge0Parser parser;
-    double zoomLevel;
-    if (parser.Parse(url, balloonPoint, zoomLevel))
-    {
-      if (balloonPoint.m_name.empty())
-        balloonPoint.m_name = m_stringsBundle.GetString("dropped_pin");
 
-      m2::PointD const center(MercatorBounds::LonToX(balloonPoint.m_lon), MercatorBounds::LatToY(balloonPoint.m_lat));
-      SetViewPortASync(m_scales.GetRectForDrawScale(zoomLevel, center));
+    url_scheme::Ge0Parser parser;
+    double zoom;
+    url_scheme::ApiPoint pt;
+    if (parser.Parse(url, pt, zoom))
+    {
+      point.MakeFrom(pt);
+      CheckParams(point);
+
+      SetViewPortASync(m_scales.GetRectForDrawScale(zoom, point.GetOrg()));
       return true;
     }
   }
@@ -1415,16 +1423,17 @@ bool Framework::SetViewportByURL(string const & url, url_scheme::ApiPoint & ball
     if (m_ParsedMapApi.SetUriAndParse(url))
     {
       StopLocationFollow();
-      // Can do better consider nav bar size
+
       SetViewPortASync(GetMapApiViewportRect());
 
       if (!m_ParsedMapApi.GetPoints().empty())
       {
-        balloonPoint = m_ParsedMapApi.GetPoints().front();
+        point.MakeFrom(m_ParsedMapApi.GetPoints().front());
         return true;
       }
     }
   }
+
   return false;
 }
 
@@ -1558,14 +1567,14 @@ StringsBundle const & Framework::GetStringsBundle()
   return m_stringsBundle;
 }
 
-string Framework::CodeGe0url(Bookmark const * bmk, bool const addName)
+string Framework::CodeGe0url(Bookmark const * bmk, bool addName)
 {
   double lat = MercatorBounds::YToLat(bmk->GetOrg().y);
   double lon = MercatorBounds::XToLon(bmk->GetOrg().x);
   return CodeGe0url(lat, lon, bmk->GetScale(), addName ? bmk->GetName() : "");
 }
 
-string Framework::CodeGe0url(double const lat, double const lon, double const zoomLevel, string const & name)
+string Framework::CodeGe0url(double lat, double lon, double zoomLevel, string const & name)
 {
   size_t const resultSize = MapsWithMe_GetMaxBufferSize(name.size());
 
@@ -1599,7 +1608,7 @@ void Framework::DrawMapApiPoints(shared_ptr<PaintEvent> const & e)
 }
 
 /// @todo Create method that will run all layers without copy/past
-bool Framework::GetMapApiPoint(m2::PointD const & pxPoint, url_scheme::ApiPoint & point)
+bool Framework::GetMapApiPoint(m2::PointD const & pxPoint, url_scheme::ResultPoint & point)
 {
   m2::AnyRectD rect;
   m_navigator.GetTouchRect(pxPoint, TOUCH_PIXEL_RADIUS * GetVisualScale(), rect);
@@ -1608,23 +1617,24 @@ bool Framework::GetMapApiPoint(m2::PointD const & pxPoint, url_scheme::ApiPoint 
   double minD = numeric_limits<double>::max();
   bool result = false;
 
-  vector <url_scheme::ApiPoint> const & vect = m_ParsedMapApi.GetPoints();
-
-  for (size_t i = 0; i < vect.size();++i)
+  vector<url_scheme::ApiPoint> const & v = m_ParsedMapApi.GetPoints();
+  for (size_t i = 0; i < v.size(); ++i)
   {
-    m2::PointD const pt = m2::PointD(m2::PointD(MercatorBounds::LonToX(vect[i].m_lon),
-                                                MercatorBounds::LatToY(vect[i].m_lat)));
-    if (rect.IsPointInside(pt))
+    url_scheme::ResultPoint pt;
+    pt.MakeFrom(v[i]);
+
+    if (rect.IsPointInside(pt.GetOrg()))
     {
-      double const d = center.SquareLength(pt);
+      double const d = center.SquareLength(pt.GetOrg());
       if (d < minD)
       {
-        point = vect[i];
+        point = pt;
         minD = d;
         result = true;
       }
     }
   }
+
   return result;
 }
 

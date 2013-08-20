@@ -1049,17 +1049,21 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   {
     private static final long serialVersionUID = 1L;
     private final String mUrl;
+    private final boolean mPadding;
 
-    public OpenUrlTask(String url)
+    /// @param[in] padding Pass true only for URL's with pins on map (API), otherwise - false.
+    public OpenUrlTask(String url, boolean padding)
     {
       Utils.checkNotNull(url);
+
       mUrl = url;
+      mPadding = padding;
     }
 
     @Override
     public boolean run(MWMActivity target)
     {
-      return target.setViewPortByUrl(mUrl);
+      return target.setViewPortByUrl(mUrl, mPadding);
     }
   }
 
@@ -1147,5 +1151,5 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private native boolean nativeIsInChina(double lat, double lon);
 
-  public native boolean setViewPortByUrl(String url);
+  public native boolean setViewPortByUrl(String url, boolean padding);
 }

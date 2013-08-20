@@ -313,8 +313,9 @@ public:
   m2::PointD GetViewportCenter() const;
   void SetViewportCenter(m2::PointD const & pt);
 
-  /// @param[out] outPoint is a point in url, where we need to show balloon
-  bool SetViewportByURL(string const & url, url_scheme::ApiPoint & balloonPoint);
+  /// @param[out] point is a point in url, where we need to show balloon
+  void CheckParams(url_scheme::ResultPoint & point) const;
+  bool SetViewportByURL(string const & url, url_scheme::ResultPoint & point);
 
   bool NeedRedraw() const;
   void SetNeedRedraw(bool flag);
@@ -445,8 +446,8 @@ public:
   shared_ptr<location::State> const & GetLocationState() const;
 
 public:
-  string CodeGe0url(Bookmark const * bmk, bool const addName);
-  string CodeGe0url(double const lat, double const lon, double const zoomLevel, string const & name);
+  string CodeGe0url(Bookmark const * bmk, bool addName);
+  string CodeGe0url(double lat, double lon, double zoomLevel, string const & name);
 
   /// @name Api
   //@{
@@ -456,7 +457,8 @@ private:
   void SetViewPortASync(m2::RectD const & rect);
 
 public:
-  bool GetMapApiPoint(m2::PointD const & pxPoint, url_scheme::ApiPoint & point);
+  bool GetMapApiPoint(m2::PointD const & pxPoint, url_scheme::ResultPoint & point);
+
   vector<url_scheme::ApiPoint> const & GetMapApiPoints() { return m_ParsedMapApi.GetPoints(); }
   void ClearMapApiPoints() { m_ParsedMapApi.Reset(); }
   int GetMapApiVersion() const { return m_ParsedMapApi.GetApiVersion(); }

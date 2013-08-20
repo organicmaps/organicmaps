@@ -19,18 +19,6 @@ namespace url_scheme
     m_zoom = scales::GetUpperScale();
   }
 
-  m2::RectD Info::GetViewport() const
-  {
-    ASSERT ( IsValid(), () );
-
-    return scales::GetRectForLevel(m_zoom, GetMercatorPoint(), 1.0);
-  }
-
-  m2::PointD Info::GetMercatorPoint() const
-  {
-    return m2::PointD(MercatorBounds::LonToX(m_lon), MercatorBounds::LatToY(m_lat));
-  }
-
   class DoGeoParse
   {
     Info & m_info;
