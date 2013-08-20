@@ -281,15 +281,12 @@ UNIT_TEST(StressTestRandomTest)
 UNIT_TEST(MWMApiZoomLevelTest)
 {
   m2::RectD const r1 = ParsedMapApi(Uri("mwm://map?ll=0,0")).GetLatLonRect();
-  m2::RectD const r2 = ParsedMapApi(Uri("mwm://map?z=14.5&ll=0,0")).GetLatLonRect();
-  TEST_NOT_EQUAL(r1, r2, ());
-  m2::RectD const r3 = ParsedMapApi(Uri("mwm://map?ll=0,0&z=14")).GetLatLonRect();
+  m2::RectD const r2 = ParsedMapApi(Uri("mwm://map?z=14&ll=0,0")).GetLatLonRect();
+  TEST_EQUAL(r1, r2, ());
+
+  m2::RectD const r3 = ParsedMapApi(Uri("mwm://map?ll=1,1&z=14")).GetLatLonRect();
   TEST_NOT_EQUAL(r2, r3, ());
   TEST_NOT_EQUAL(r1, r3, ());
-  m2::RectD const rEqualToR3 = ParsedMapApi(Uri("mwm://map?ll=0,0&z=14.000")).GetLatLonRect();
-  TEST_EQUAL(r3, rEqualToR3, ());
-  m2::RectD const rEqualToR1 = ParsedMapApi(Uri("mwm://map?ll=0,0&z=-23.43")).GetLatLonRect();
-  TEST_EQUAL(r1, rEqualToR1, ());
 }
 
 UNIT_TEST(MWMApiBalloonActionDefaultTest)
