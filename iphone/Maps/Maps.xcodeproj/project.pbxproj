@@ -37,6 +37,8 @@
 		ED46533B1785E5DD0063856F /* placemark-yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED4653371785E5D10063856F /* placemark-yellow@2x.png */; };
 		ED48BBB117BE6EA8003E7E92 /* MWMApi.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB017BE6EA8003E7E92 /* MWMApi.mm */; };
 		ED48BBB217BE6EA8003E7E92 /* MWMApi.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB017BE6EA8003E7E92 /* MWMApi.mm */; };
+		ED48BBC617C3C0F9003E7E92 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED48BBC517C3C0F9003E7E92 /* Security.framework */; };
+		ED48BBC717C3C105003E7E92 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED48BBC517C3C0F9003E7E92 /* Security.framework */; };
 		ED8676FE16A0793800D9A02A /* 22x29-pro.png in Resources */ = {isa = PBXBuildFile; fileRef = ED8676FA16A0793800D9A02A /* 22x29-pro.png */; };
 		ED8676FF16A0793800D9A02A /* 44x58-pro.png in Resources */ = {isa = PBXBuildFile; fileRef = ED8676FB16A0793800D9A02A /* 44x58-pro.png */; };
 		ED86770016A0793800D9A02A /* 64-pro.png in Resources */ = {isa = PBXBuildFile; fileRef = ED8676FC16A0793800D9A02A /* 64-pro.png */; };
@@ -1400,6 +1402,7 @@
 		ED4653371785E5D10063856F /* placemark-yellow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placemark-yellow@2x.png"; sourceTree = "<group>"; };
 		ED48BBAF17BE6EA8003E7E92 /* MWMApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMApi.h; sourceTree = "<group>"; };
 		ED48BBB017BE6EA8003E7E92 /* MWMApi.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMApi.mm; sourceTree = "<group>"; };
+		ED48BBC517C3C0F9003E7E92 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		ED8676FA16A0793800D9A02A /* 22x29-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "22x29-pro.png"; sourceTree = "<group>"; };
 		ED8676FB16A0793800D9A02A /* 44x58-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "44x58-pro.png"; sourceTree = "<group>"; };
 		ED8676FC16A0793800D9A02A /* 64-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "64-pro.png"; sourceTree = "<group>"; };
@@ -2128,6 +2131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED48BBC617C3C0F9003E7E92 /* Security.framework in Frameworks */,
 				EDBB18B816972B0600AF0742 /* libzlib.a in Frameworks */,
 				ED8B1A2116772AB4003CAD0A /* MessageUI.framework in Frameworks */,
 				EEFC0BBF12B5656A002914FF /* libfreetype.a in Frameworks */,
@@ -2163,6 +2167,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED48BBC717C3C105003E7E92 /* Security.framework in Frameworks */,
 				FAFCF64F169C9E8100BD77D2 /* MessageUI.framework in Frameworks */,
 				EDBB18B916972B3000AF0742 /* libzlib.a in Frameworks */,
 				FAFB08FB151215EE0041901D /* libfreetype.a in Frameworks */,
@@ -2244,6 +2249,7 @@
 		29B97314FDCFA39411CA2CEA /* Maps */ = {
 			isa = PBXGroup;
 			children = (
+				ED48BBC517C3C0F9003E7E92 /* Security.framework */,
 				CB252D6816FF82C8001E41E9 /* Statistics */,
 				FA36B8011540388B004560CC /* Bookmarks */,
 				FA34BEC71338D6DB00FFB2A7 /* Common */,
