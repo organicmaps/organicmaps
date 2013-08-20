@@ -269,6 +269,14 @@ namespace
             }
           }
         }
+        else if (count > 3 && m_tags[count-3] == "MultiGeometry")
+        {
+          if (prevTag == "Point")
+          {
+            if (currTag == "coordinates")
+              SetOrigin(value);
+          }
+        }
       }
     }
   };
