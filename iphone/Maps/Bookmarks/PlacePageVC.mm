@@ -6,70 +6,11 @@
 #import "TwoButtonsView.h"
 #import "ShareActionSheet.h"
 #import "PlaceAndCompasView.h"
+#import "CircleView.h"
 
 #include "Framework.h"
 #include "../../search/result.hpp"
 #include "../../platform/settings.hpp"
-
-
-@interface PinPickerView : UIView
-
-- (id)initWithImage:(UIImage *)image;
-+ (CGFloat)viewWidth;
-+ (CGFloat)viewHeight;
-
-@end
-
-@interface PinPickerView ()
-@property (nonatomic, retain) UILabel * titleLabel;
-@end
-
-@implementation PinPickerView
-
-CGFloat const pWidth = 200;
-CGFloat const pHeight = 36;
-CGFloat const pMargin = 10;
-
-+ (CGFloat)viewWidth
-{
-  return pWidth;
-}
-
-+ (CGFloat)viewHeight
-{
-  return pHeight;
-}
-
-- (id)initWithImage:(UIImage *)image
-{
-  self = [super initWithFrame:CGRectMake(0.0, 0.0, pWidth, pHeight)];
-	if (self)
-	{
-		CGFloat y = (self.bounds.size.height - image.size.height) / 2;
-    UIImageView * imageView = [[UIImageView alloc] initWithFrame:
-                              CGRectMake(pMargin,
-                                         y,
-                                         image.size.width,
-                                         image.size.height)];
-    imageView.image = image;
-    [self addSubview:imageView];
-    [imageView release];
-	}
-	return self;
-}
-
-//Enable accessibility for this view
-- (BOOL)isAccessibilityElement
-{
-	return YES;
-}
-
-- (NSString *)accessibilityLabel
-{
-	return self.titleLabel.text;
-}
-
-@end
 
 #define TEXTFIELD_TAG 999
 #define TEXTVIEW_TAG 666
@@ -80,18 +21,7 @@ CGFloat const pMargin = 10;
 #define TWOBUTTONSHEIGHT 44
 #define CELLHEIGHT  44
 #define COORDINATECOLOR 51.0/255.0
-
-static NSString  * const g_colors [] =
-{
-  @"placemark-red",
-  @"placemark-blue",
-  @"placemark-brown",
-  @"placemark-green",
-  @"placemark-orange",
-  @"placemark-pink",
-  @"placemark-purple",
-  @"placemark-yellow"
-};
+#define BUTTONDIAMETER 18
 
 typedef enum {Editing, Saved} Mode;
 
@@ -106,8 +36,6 @@ typedef enum {Editing, Saved} Mode;
   size_t m_numberOfCategories;
 }
 
-@property (nonatomic, copy) UIView * viewWithPicker;
-
 @property(nonatomic, copy) NSString * pinTitle;
 // Currently displays bookmark description (notes)
 @property(nonatomic, copy) NSString * pinNotes;
@@ -117,9 +45,10 @@ typedef enum {Editing, Saved} Mode;
 @property(nonatomic, assign) BookmarkAndCategory pinEditedBookmark;
 
 @property(nonatomic, assign) CGPoint pinGlobalPosition;
-@property (nonatomic, retain) NSArray * pinsArray;
 
 @property (nonatomic, retain) PlaceAndCompasView * placeAndCompass;
+
+@property (nonatomic, retain) UIView * pickerView;
 @end
 
 @implementation PlacePageVC
@@ -135,7 +64,6 @@ typedef enum {Editing, Saved} Mode;
                          color:@""
                          category:MakeEmptyBookmarkAndCategory() point:point];
     m_mode = Editing;
-    [self createPinPickerArray];
   }
   return self;
 }
@@ -151,7 +79,6 @@ typedef enum {Editing, Saved} Mode;
                          color:@""
                          category:MakeEmptyBookmarkAndCategory()
                          point:CGPointMake(MercatorBounds::LonToX(apiPoint.m_lon), MercatorBounds::LatToY(apiPoint.m_lat))];
-    [self createPinPickerArray];
   }
   return self;
 }
@@ -178,7 +105,6 @@ typedef enum {Editing, Saved} Mode;
                          point:CGPointMake(pt.x, pt.y)];
 
     m_mode = Saved;
-    [self createPinPickerArray];
   }
   return self;
 }
@@ -194,16 +120,13 @@ typedef enum {Editing, Saved} Mode;
                          color:@""
                          category:MakeEmptyBookmarkAndCategory()
                          point:point];
-    [self createPinPickerArray];
   }
   return self;
 }
 
 - (void) dealloc
 {
-  self.pinsArray = nil;
-  self.viewWithPicker = nil;
-
+  self.pickerView = nil;
   self.pinTitle = nil;
   self.pinNotes = nil;
   self.pinColor = nil;
@@ -356,10 +279,8 @@ typedef enum {Editing, Saved} Mode;
       [self pushToNavigationControllerAndSetControllerToPopoverSize:vc];
     }
     else if (indexPath.section == 2)
-    {
-      [self.view endEditing:YES];
-      [self createAndShowColorPicker];
-    }
+      [self showPicker];
+
     return;
   }
 }
@@ -403,98 +324,9 @@ typedef enum {Editing, Saved} Mode;
   [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
-{
-	return [PinPickerView viewWidth];
-}
-
-- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
-{
-	return [PinPickerView viewHeight];
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-	return [_pinsArray count];
-}
-
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
 	return 1;
-}
-
-#pragma mark - UIPickerViewDelegate
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row
-          forComponent:(NSInteger)component reusingView:(UIView *)view
-{
-	return [_pinsArray objectAtIndex:row];
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-  m_selectedRow = row;
-}
-
--(void)pickerDoneClicked
-{
-  if (![_pinColor isEqualToString:g_colors[m_selectedRow]])
-  {
-    [[Statistics instance] logEvent:@"Select Bookmark color"];
-    self.pinColor = g_colors[m_selectedRow];
-    if (!IsValid(self.pinEditedBookmark))
-      [[Statistics instance] logEvent:@"New Bookmark Color Changed"];
-    [self.tableView reloadData];
-  }
-  [self pickerCancelClicked];
-}
-
--(void)pickerCancelClicked
-{
-  self.tableView.scrollEnabled = YES;
-  [_viewWithPicker removeFromSuperview];
-  self.viewWithPicker = nil;
-}
-
--(void)createAndShowColorPicker
-{
-  double height, width;
-  CGRect rect;
-  [self getSuperView:height width:width rect:rect];
-
-  _viewWithPicker = [[UIView alloc] initWithFrame:rect];
-  UIPickerView * picker = [[UIPickerView alloc] initWithFrame:CGRectMake(0.0, 0.0, 0.0, 0.0)];
-  picker.delegate = self;
-  picker.showsSelectionIndicator = YES;
-  CGRect r = picker.frame;
-  [picker setCenter:CGPointMake(width / 2, height - r.size.height / 2)];
-  [_viewWithPicker addSubview:picker];
-
-  UIToolbar * pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, picker.frame.origin.y - CELLHEIGHT, width, CELLHEIGHT)];
-  pickerToolbar.barStyle = UIBarStyleBlackOpaque;
-
-  NSMutableArray *barItems = [[NSMutableArray alloc] init];
-  UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(pickerDoneClicked)];
-  UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(pickerCancelClicked)];
-  [barItems addObject:doneBtn];
-  [barItems addObject:cancelBtn];
-
-  [pickerToolbar setItems:barItems animated:YES];
-  [barItems release];
-
-  [picker release];
-  [_viewWithPicker addSubview:pickerToolbar];
-  [pickerToolbar release];
-  if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
-  {
-    UIWindow* window = [UIApplication sharedApplication].keyWindow;
-    if (!window)
-      window = [[UIApplication sharedApplication].windows objectAtIndex:0];
-    [[[window subviews] objectAtIndex:0] addSubview:_viewWithPicker];
-  }
-  else
-    [self.view.superview addSubview:_viewWithPicker];
-  self.tableView.scrollEnabled = NO;
-  m_selectedRow = 0;
 }
 
 -(void)getSuperView:(double &)height width:(double &)width rect:(CGRect &)rect
@@ -559,19 +391,6 @@ typedef enum {Editing, Saved} Mode;
 -(void)share
 {
   [ShareActionSheet showShareActionSheetInView:self.view withObject:self];
-}
-
--(void)createPinPickerArray
-{
-  NSMutableArray * viewArray = [[NSMutableArray alloc] init];
-  for (size_t i = 0; i < ARRAY_SIZE(g_colors); ++i)
-  {
-    PinPickerView * pinView = [[PinPickerView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@.png", g_colors[i]]]];
-    [viewArray addObject:pinView];
-    [pinView release];
-  }
-  self.pinsArray = viewArray;
-  [viewArray release];
 }
 
 -(void)savePin
@@ -653,6 +472,7 @@ typedef enum {Editing, Saved} Mode;
 
   m_categoryIndexStatistics = m_categoryIndex;
   m_numberOfCategories = f.GetBmCategoriesCount();
+  m_selectedRow = [ColorPickerView getColorIndex:self.pinColor];
 }
 
 -(UITextView *)createTextFieldForCell:(UIFont *)font color:(UIColor *)color
@@ -749,7 +569,7 @@ typedef enum {Editing, Saved} Mode;
       break;
 
     case 2:
-      cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:_pinColor]] autorelease];
+      cell.accessoryView = [[[UIImageView alloc] initWithImage:[CircleView createCircleImageWith:BUTTONDIAMETER andColor:[ColorPickerView buttonColor:m_selectedRow]]] autorelease];
       break;
     case 3:
       UITextView * t = (UITextView *)[cell viewWithTag:TEXTVIEW_TAG];
@@ -861,6 +681,53 @@ typedef enum {Editing, Saved} Mode;
   if (!self.placeAndCompass)
     _placeAndCompass = [[PlaceAndCompasView alloc] initWithName:self.pinTitle placeSecondaryName:[NSString stringWithUTF8String:GetFramework().GetBmCategory(_pinEditedBookmark.first)->GetName().c_str()] placeGlobalPoint:_pinGlobalPosition width:self.tableView.frame.size.width];
   return self.placeAndCompass;
+}
+
+-(void)showPicker
+{
+  double height, width;
+  CGRect rect;
+  [self getSuperView:height width:width rect:rect];
+  self.pickerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, width, height)] autorelease];
+  ColorPickerView * colorPicker = [[[ColorPickerView alloc] initWithWidth:min(height, width) andSelectButton:m_selectedRow] autorelease];
+  colorPicker.delegate = self;
+  CGRect r = colorPicker.frame;
+  r.origin.x = (self.pickerView.frame.size.width - colorPicker.frame.size.width) / 2;
+  r.origin.y = (self.pickerView.frame.size.height - colorPicker.frame.size.height) / 2;
+  colorPicker.frame = r;
+  [self.pickerView addSubview:colorPicker];
+  self.pickerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  [self.pickerView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
+  UITapGestureRecognizer * tap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPicker)] autorelease];
+  [self.pickerView addGestureRecognizer:tap];
+  if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
+  {
+    UIWindow * window = [UIApplication sharedApplication].keyWindow;
+    if (!window)
+      window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+    [[[window subviews] objectAtIndex:0] addSubview:self.pickerView];
+  }
+  else
+    [self.view.superview addSubview:self.pickerView];
+}
+
+-(void)dismissPicker
+{
+  [self.pickerView removeFromSuperview];
+}
+
+-(void)colorPicked:(size_t)colorIndex
+{
+  if (colorIndex != m_selectedRow)
+  {
+    [[Statistics instance] logEvent:@"Select Bookmark color"];
+    self.pinColor = [ColorPickerView colorName:colorIndex];
+    if (!IsValid(self.pinEditedBookmark))
+      [[Statistics instance] logEvent:@"New Bookmark Color Changed"];
+    [self.tableView reloadData];
+    m_selectedRow = colorIndex;
+  }
+  [self dismissPicker];
 }
 
 @end

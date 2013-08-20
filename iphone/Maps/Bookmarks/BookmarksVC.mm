@@ -5,6 +5,8 @@
 #import "BookmarkCell.h"
 #import "MapViewController.h"
 #import "Statistics.h"
+#import "CircleView.h"
+#import "ColorPickerView.h"
 
 #include "Framework.h"
 
@@ -14,6 +16,7 @@
 
 
 #define TEXTFIELD_TAG 999
+#define PINDIAMETER 18
 
 
 @implementation BookmarksVC
@@ -135,7 +138,7 @@
       if (bm)
       {
         bmCell.bmName.text = [NSString stringWithUTF8String:bm->GetName().c_str()];
-        bmCell.imageView.image = [UIImage imageNamed:[NSString stringWithUTF8String:bm->GetType().c_str()]];
+        bmCell.imageView.image = [CircleView createCircleImageWith:PINDIAMETER andColor:[ColorPickerView colorForName:[NSString stringWithUTF8String:bm->GetType().c_str()]]];
 
         CompassView * compass;
         // Try to reuse existing compass view
