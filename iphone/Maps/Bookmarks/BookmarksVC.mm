@@ -226,7 +226,6 @@
         {
           // Same as "Close".
           f.ShowBookmark(BookmarkAndCategory(m_categoryIndex, indexPath.row));
-          [self dismissModalViewControllerAnimated:YES];
           [self.navigationController.visibleViewController dismissModalViewControllerAnimated:YES];
         }
       }
