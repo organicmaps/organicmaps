@@ -63,19 +63,20 @@ void InitLocalizedStrings()
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-  UIPasteboard * pasteboard = [UIPasteboard generalPasteboard];
   if (GetPlatform().IsPro() && !m_didOpenedWithUrl)
   {
+    UIPasteboard * pasteboard = [UIPasteboard generalPasteboard];
     if (pasteboard.string.length)
     {
-      url_scheme::ResultPoint point;
-      if (GetFramework().SetViewportByURL([pasteboard.string UTF8String], point))
+      if (GetFramework().ShowMapForURL([pasteboard.string UTF8String]))
       {
-        [self showParsedBookmarkOnMap:point withPadding:NO];
+        [self showMap];
+
         pasteboard.string = @"";
       }
     }
   }
+
   m_didOpenedWithUrl = NO;
 }
 
@@ -189,33 +190,28 @@ void InitLocalizedStrings()
   // geo scheme support, see http://tools.ietf.org/html/rfc5870
   if ([scheme isEqualToString:@"geo"] || [scheme isEqualToString:@"ge0"])
   {
-    url_scheme::ResultPoint point;
-    if (f.SetViewportByURL([url.absoluteString UTF8String], point))
+    if (f.ShowMapForURL([url.absoluteString UTF8String]))
     {
-      [self showParsedBookmarkOnMap:point withPadding:NO];
       m_didOpenedWithUrl = YES;
 
       if ([scheme isEqualToString:@"geo"])
         [[Statistics instance] logEvent:@"geo Import"];
       if ([scheme isEqualToString:@"ge0"])
         [[Statistics instance] logEvent:@"ge0(zero) Import"];
+
+      [self showMap];
       return YES;
     }
   }
 
   if ([scheme isEqualToString:@"mapswithme"] || [scheme isEqualToString:@"mwm"])
   {
-    url_scheme::ResultPoint apiPoint;
-    if (f.SetViewportByURL([url.absoluteString UTF8String], apiPoint));
+    if (f.ShowMapForURL([url.absoluteString UTF8String]));
     {
+      m_didOpenedWithUrl = YES;
       [[Statistics instance] logApiUsage:sourceApplication];
 
-      f.GetBalloonManager().Hide();
-      if (f.GetMapApiPoints().size() == 1)
-        [self showParsedBookmarkOnMap:apiPoint withPadding:YES];
-      else
-        [self showMap];
-
+      [self showMap];
       [m_mapViewController prepareForApi];
       return YES;
     }
@@ -223,7 +219,7 @@ void InitLocalizedStrings()
 
   if ([scheme isEqualToString:@"file"])
   {
-     if (!GetFramework().AddBookmarksFile([[url relativePath] UTF8String]))
+     if (!f.AddBookmarksFile([[url relativePath] UTF8String]))
      {
        [self showLoadFileAlertIsSuccessful:NO];
        return NO;
@@ -269,12 +265,6 @@ void InitLocalizedStrings()
   if (![m_navController.visibleViewController isMemberOfClass:NSClassFromString(@"MapViewController")])
     [m_mapViewController dismissModalViewControllerAnimated:YES];
   [m_navController setNavigationBarHidden:YES animated:YES];
-}
-
--(void) showParsedBookmarkOnMap:(url_scheme::ResultPoint const &) point withPadding:(BOOL) padding
-{
-  [self showMap];
-  GetFramework().GetBalloonManager().ShowURLPoint(point, padding == YES);
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated

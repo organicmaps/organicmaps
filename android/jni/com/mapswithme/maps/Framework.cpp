@@ -583,18 +583,12 @@ namespace android
     return m_work.Storage().IsDownloadInProgress();
   }
 
-  bool Framework::SetViewportByUrl(string const & url, bool needPadding)
+  bool Framework::ShowMapForURL(string const & url)
   {
     /// @todo this is weird hack, we should reconsider Android lifecycle handling design
     m_doLoadState = false;
 
-    url_scheme::ResultPoint point;
-    if (m_work.SetViewportByURL(url, point))
-    {
-      GetBalloonManager().ShowURLPoint(point, needPadding);
-      return true;
-    }
-    return false;
+    return m_work.ShowMapForURL(url);
   }
 
   void Framework::DeactivatePopup()

@@ -611,7 +611,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     @Override
     public boolean processIntent(Intent intent)
     {
-      mMapTaskToForward = new OpenUrlTask(intent.getData().toString(), false);
+      mMapTaskToForward = new OpenUrlTask(intent.getData().toString());
       return true;
     }
   }
@@ -627,7 +627,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     @Override
     public boolean processIntent(Intent intent)
     {
-      mMapTaskToForward = new OpenUrlTask(intent.getData().toString(), false);
+      mMapTaskToForward = new OpenUrlTask(intent.getData().toString());
       return true;
     }
   }
@@ -654,7 +654,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
       if (data != null)
       {
         final String ge0Url = "ge0:/" + data.getPath();
-        mMapTaskToForward = new OpenUrlTask(ge0Url, false);
+        mMapTaskToForward = new OpenUrlTask(ge0Url);
         return true;
       }
       else
@@ -684,7 +684,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
         Statistics.INSTANCE.trackApiCall(request);
         getMwmApplication().getAppStateManager().transitionTo(SuppotedState.API_REQUEST);
 
-        mMapTaskToForward = new OpenUrlTask(apiUrl, true);
+        mMapTaskToForward = new OpenUrlTask(apiUrl);
         return true;
       }
       return false;
@@ -714,7 +714,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
         final Matcher m = p.matcher(data.getQueryParameter("q"));
         final String ll = m.find() ? m.group() : "0,0";
 
-        mMapTaskToForward = new OpenUrlTask("geo://" + ll, false);
+        mMapTaskToForward = new OpenUrlTask("geo://" + ll);
         return true;
       }
       return false;

@@ -1376,65 +1376,93 @@ void Framework::AddBookmarkAndSetViewport(Bookmark & bm, m2::RectD const & viewP
 }
 */
 
-void Framework::CheckParams(url_scheme::ResultPoint & point) const
+namespace
+{
+
+void CheckPointName(url_scheme::ResultPoint & point, StringsBundle const & bundle)
 {
   string & name = point.GetName();
   if (name.empty())
-    name = m_stringsBundle.GetString("dropped_pin");
+    name = bundle.GetString("dropped_pin");
 }
 
-bool Framework::SetViewportByURL(string const & url, url_scheme::ResultPoint & point)
-{
-  if (strings::StartsWith(url, "geo"))
-  {
-    using namespace url_scheme;
+}
 
+bool Framework::ShowMapForURL(string const & url)
+{
+  url_scheme::ResultPoint point;
+  m2::RectD rect;
+
+  enum ResultT { FAILED, NO_BALLOON, BALLOON, BALLOON_PADDING };
+  ResultT result = FAILED;
+
+  // always hide current balloon here
+  m_balloonManager.Hide();
+
+  using namespace url_scheme;
+  using namespace strings;
+
+  if (StartsWith(url, "geo"))
+  {
     Info info;
     ParseGeoURL(url, info);
     if (info.IsValid())
     {
-      StopLocationFollow();
-
       point.MakeFrom(info.m_lat, info.m_lon);
-      CheckParams(point);
+      CheckPointName(point, m_stringsBundle);
 
-      SetViewPortASync(m_scales.GetRectForDrawScale(info.m_zoom, point.GetOrg()));
-      return true;
+      rect = m_scales.GetRectForDrawScale(info.m_zoom, point.GetOrg());
+      result = BALLOON;
     }
   }
-  else if (strings::StartsWith(url, "ge0"))
+  else if (StartsWith(url, "ge0"))
   {
-    StopLocationFollow();
-
-    url_scheme::Ge0Parser parser;
+    Ge0Parser parser;
     double zoom;
-    url_scheme::ApiPoint pt;
+    ApiPoint pt;
+
     if (parser.Parse(url, pt, zoom))
     {
       point.MakeFrom(pt);
-      CheckParams(point);
+      CheckPointName(point, m_stringsBundle);
 
-      SetViewPortASync(m_scales.GetRectForDrawScale(zoom, point.GetOrg()));
-      return true;
+      rect = m_scales.GetRectForDrawScale(zoom, point.GetOrg());
+      result = BALLOON;
     }
   }
-  else if (strings::StartsWith(url, "mapswithme://") || strings::StartsWith(url, "mwm://"))
+  else if (StartsWith(url, "mapswithme://") || StartsWith(url, "mwm://"))
   {
     if (m_ParsedMapApi.SetUriAndParse(url))
     {
-      StopLocationFollow();
-
-      SetViewPortASync(GetMapApiViewportRect());
+      rect = GetMapApiViewportRect();
 
       if (!m_ParsedMapApi.GetPoints().empty())
       {
         point.MakeFrom(m_ParsedMapApi.GetPoints().front());
-        return true;
+        result = BALLOON_PADDING;
+      }
+      else
+      {
+        // show world rect without balloon
+        result = NO_BALLOON;
       }
     }
   }
 
-  return false;
+  if (result != FAILED)
+  {
+    // set viewport and stop follow mode if any
+    StopLocationFollow();
+    SetViewPortASync(rect);
+
+    // show balloon
+    if (result != NO_BALLOON)
+      m_balloonManager.ShowURLPoint(point, result == BALLOON_PADDING);
+
+    return true;
+  }
+  else
+    return false;
 }
 
 void Framework::SetViewPortASync(m2::RectD const & r)

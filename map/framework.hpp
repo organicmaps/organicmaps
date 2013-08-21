@@ -313,9 +313,8 @@ public:
   m2::PointD GetViewportCenter() const;
   void SetViewportCenter(m2::PointD const & pt);
 
-  /// @param[out] point is a point in url, where we need to show balloon
-  void CheckParams(url_scheme::ResultPoint & point) const;
-  bool SetViewportByURL(string const & url, url_scheme::ResultPoint & point);
+  /// Set correct viewport, parse API, show balloon.
+  bool ShowMapForURL(string const & url);
 
   bool NeedRedraw() const;
   void SetNeedRedraw(bool flag);
