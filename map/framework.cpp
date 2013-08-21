@@ -256,6 +256,9 @@ Framework::Framework()
   (void)GetSearchEngine();
 
   LOG(LDEBUG, ("Storage initialized"));
+
+  //Init guides manager
+  m_guidesManager.RestoreFromFile();
 }
 
 Framework::~Framework()
@@ -1712,4 +1715,9 @@ bool Framework::IsDataVersionChanged()
 void Framework::UpdateSavedDataVersion()
 {
   Settings::Set("DataVersion", m_storage.GetCurrentDataVersion());
+}
+
+guides::GuidesManager & Framework::GetGuidesManager()
+{
+  return m_guidesManager;
 }
