@@ -17,6 +17,7 @@
 #define BOOKMARKS_FILE_EXTENSION ".kml"
 
 #define COUNTRIES_FILE  "countries.txt"
+#define GUIDES_DATA_FILE  "guidesData.txt"
 
 #define WORLD_FILE_NAME "World"
 #define WORLD_COASTS_FILE_NAME "WorldCoasts"
