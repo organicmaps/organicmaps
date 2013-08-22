@@ -37,14 +37,15 @@ class GuidesManager
 //@{
 public:
   void UpdateGuidesData();
-  void RestoreFromFile();
-  bool GetGuideInfo(string const & countryId, GuideInfo & appInfo);
+  bool RestoreFromFile();
+  void SaveToFile() const;
+  bool GetGuideInfo(string const & countryId, GuideInfo & appInfo) const;
   bool ValidateAndParseGuidesData(string const & jsonData);
 
 private:
-  void   SaveToFile(string const & jsonData);
   void   OnFinish(downloader::HttpRequest & request);
-  string GetGuidesDataUrl();
+  string GetDataFileName() const;
+  string GetGuidesDataUrl() const;
 
   map<string, GuideInfo> m_countryToUrl;
   scoped_ptr<downloader::HttpRequest> m_httpRequest;

@@ -6,18 +6,30 @@
 
 #include "../base/logging.hpp"
 #include "../std/bind.hpp"
+#include "../std/iostream.hpp"
+#include "../std/target_os.hpp"
 
 #include "../../3party/jansson/myjansson.hpp"
 
+
+
 using namespace guides;
 
-void GuidesManager::RestoreFromFile()
+bool GuidesManager::RestoreFromFile()
 {
-  string data;
-  ReaderPtr<Reader> r(GetPlatform().GetReader(GUIDES_DATA_FILE));
-  r.ReadAsString(data);
+  string const fileName = GetDataFileName();
+  Platform & p = GetPlatform();
 
-  ValidateAndParseGuidesData(data);
+  // At least file in resources must exist
+  if (p.IsFileExistsByFullPath(p.ResourcesDir() + fileName))
+  {
+    string data;
+    ReaderPtr<Reader> r(p.GetReader(fileName));
+    r.ReadAsString(data);
+
+    return ValidateAndParseGuidesData(data);
+  }
+  return false;
 }
 
 void GuidesManager::UpdateGuidesData()
@@ -26,9 +38,9 @@ void GuidesManager::UpdateGuidesData()
   m_httpRequest.reset(downloader::HttpRequest::Get(GetGuidesDataUrl(), onFinish));
 }
 
-bool GuidesManager::GetGuideInfo(string const & countryId, GuideInfo & appInfo)
+bool GuidesManager::GetGuideInfo(string const & countryId, GuideInfo & appInfo) const
 {
-  map<string, GuideInfo>::iterator const it = m_countryToUrl.find(countryId);
+  map<string, GuideInfo>::const_iterator const it = m_countryToUrl.find(countryId);
 
   if (it != m_countryToUrl.end())
   {
@@ -38,10 +50,15 @@ bool GuidesManager::GetGuideInfo(string const & countryId, GuideInfo & appInfo)
   return false;
 }
 
-string GuidesManager::GetGuidesDataUrl()
+string GuidesManager::GetGuidesDataUrl() const
 {
   /// @todo add platform parametr
   return "http://third.server/guides.json";
+}
+
+string GuidesManager::GetDataFileName() const
+{
+  return OMIM_OS_NAME "-" GUIDES_DATA_FILE;
 }
 
 void GuidesManager::OnFinish(downloader::HttpRequest & request)
@@ -50,7 +67,7 @@ void GuidesManager::OnFinish(downloader::HttpRequest & request)
   {
     string const & data = request.Data();
     if(ValidateAndParseGuidesData(data))
-      SaveToFile(data);
+      SaveToFile();
     else
       LOG(LWARNING, ("Request data is invalid ", request.Data()));
   }
@@ -85,9 +102,35 @@ bool GuidesManager::ValidateAndParseGuidesData(string const & jsonData)
   }
 }
 
-void GuidesManager::SaveToFile(string const & jsonData)
+void GuidesManager::SaveToFile() const
 {
-  string const path = GetPlatform().WritableDir() + GUIDES_DATA_FILE;
+  string const path = GetPlatform().WritableDir() + GetDataFileName();
   FileWriter writer(path);
-  writer.Write(jsonData.data(), jsonData.size());
+
+  string const openJson  = "{";
+  string const closeJson = "}";
+  writer.Write(openJson.data(), openJson.size());
+
+  if (!m_countryToUrl.empty())
+  {
+    bool isFirst = true;
+    map<string, GuideInfo>::const_iterator it;
+    for (it = m_countryToUrl.begin(); it != m_countryToUrl.end(); ++it)
+    {
+      ostringstream node;
+      node << (isFirst ? "" : " ,");
+      isFirst = false;
+
+      GuideInfo info = it->second;
+      node << "\"" + it->first + "\": {"
+           << "\"name\": \""  << info.m_appName << "\", "
+           << "\"url\": \""   << info.m_appUrl  << "\", "
+           << "\"appId\": \"" << info.m_appId   << "\"}";
+
+      string const nodeStr = node.str();
+      writer.Write(nodeStr.data(), nodeStr.size());
+    }
+  }
+
+  writer.Write(closeJson.data(), closeJson.size());
 }

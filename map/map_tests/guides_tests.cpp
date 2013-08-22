@@ -57,12 +57,17 @@ UNIT_TEST(ParseDataTest)
   }
 }
 
-UNIT_TEST(RestoreFromFile)
+UNIT_TEST(SaveRestoreFromFile)
 {
-  // @todo put or create file with content
+
   guides::GuidesManager manager;
   guides::GuideInfo info;
-  manager.RestoreFromFile();
+
+  string strLondonIsle = "{\"London\": {\"name\": \"UK Travel Guide with Me\",\"url\": \"https://itunes.apple.com/app/uk-travel-guide-with-me/id687855665\",\"appId\": \"com.guideswithme.uk\"},\"Isle of Man\": {\"name\": \"UK Travel Guide with Me\",\"url\": \"https://play.google.com/store/apps/details?id=com.guidewithme.uk\",\"appId\": \"com.guideswithme.uk\"}}";
+  manager.ValidateAndParseGuidesData(strLondonIsle);
+  manager.SaveToFile();
+
+  TEST(manager.RestoreFromFile(), ("File must exist."));
 
   string validKeys[] = {"London", "Isle of Man"};
   guides::GuideInfo guidesArray [] =
