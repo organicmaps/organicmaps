@@ -17,19 +17,17 @@ using namespace guides;
 
 bool GuidesManager::RestoreFromFile()
 {
-  string const fileName = GetDataFileName();
-  Platform & p = GetPlatform();
-
-  // At least file in resources must exist
-  if (p.IsFileExistsByFullPath(p.ResourcesDir() + fileName))
+  try
   {
+    ReaderPtr<Reader> r(GetPlatform().GetReader(GetDataFileName()));
     string data;
-    ReaderPtr<Reader> r(p.GetReader(fileName));
     r.ReadAsString(data);
-
     return ValidateAndParseGuidesData(data);
   }
-  return false;
+  catch (FileAbsentException e)
+  {
+    return false;
+  }
 }
 
 void GuidesManager::UpdateGuidesData()
@@ -40,9 +38,9 @@ void GuidesManager::UpdateGuidesData()
 
 bool GuidesManager::GetGuideInfo(string const & countryId, GuideInfo & appInfo) const
 {
-  map<string, GuideInfo>::const_iterator const it = m_countryToUrl.find(countryId);
+  map<string, GuideInfo>::const_iterator const it = m_countryToInfoMapping.find(countryId);
 
-  if (it != m_countryToUrl.end())
+  if (it != m_countryToInfoMapping.end())
   {
     appInfo = it->second;
     return true;
@@ -52,13 +50,12 @@ bool GuidesManager::GetGuideInfo(string const & countryId, GuideInfo & appInfo) 
 
 string GuidesManager::GetGuidesDataUrl() const
 {
-  /// @todo add platform parametr
-  return "http://third.server/guides.json";
+  return "http://application.server/" + GetDataFileName();
 }
 
 string GuidesManager::GetDataFileName() const
 {
-  return OMIM_OS_NAME "-" GUIDES_DATA_FILE;
+  return OMIM_OS_NAME "-" GUIDES_DATA_FILE_SUFFIX;
 }
 
 void GuidesManager::OnFinish(downloader::HttpRequest & request)
@@ -66,7 +63,7 @@ void GuidesManager::OnFinish(downloader::HttpRequest & request)
   if (request.Status() == downloader::HttpRequest::ECompleted)
   {
     string const & data = request.Data();
-    if(ValidateAndParseGuidesData(data))
+    if (ValidateAndParseGuidesData(data))
       SaveToFile();
     else
       LOG(LWARNING, ("Request data is invalid ", request.Data()));
@@ -81,6 +78,8 @@ bool GuidesManager::ValidateAndParseGuidesData(string const & jsonData)
   {
     my::Json root(jsonData.c_str());
     void * iter  = json_object_iter(root.get());
+
+    map<string, GuideInfo> temp;
     while (iter)
     {
       char const * key = json_object_iter_key(iter);
@@ -90,10 +89,12 @@ bool GuidesManager::ValidateAndParseGuidesData(string const & jsonData)
       info.m_appId = json_string_value(json_object_get(value, "appId"));
       info.m_appName = json_string_value(json_object_get(value, "name"));
       info.m_appUrl = json_string_value(json_object_get(value, "url"));
-      m_countryToUrl[key] = info;
+      temp[key] = info;
 
       iter = json_object_iter_next(root.get(), iter);
     }
+
+    m_countryToInfoMapping.swap(temp);
     return true;
   }
   catch (my::Json::Exception const &)
@@ -111,11 +112,11 @@ void GuidesManager::SaveToFile() const
   string const closeJson = "}";
   writer.Write(openJson.data(), openJson.size());
 
-  if (!m_countryToUrl.empty())
+  if (!m_countryToInfoMapping.empty())
   {
     bool isFirst = true;
     map<string, GuideInfo>::const_iterator it;
-    for (it = m_countryToUrl.begin(); it != m_countryToUrl.end(); ++it)
+    for (it = m_countryToInfoMapping.begin(); it != m_countryToInfoMapping.end(); ++it)
     {
       ostringstream node;
       node << (isFirst ? "" : " ,");

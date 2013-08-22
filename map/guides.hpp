@@ -7,13 +7,12 @@
 #include "../platform/http_request.hpp"
 
 
-namespace guides {
+namespace guides
+{
 
 struct GuideInfo
 {
-  GuideInfo()
-    : m_appName(""), m_appUrl(""), m_appId("")
-  {}
+  GuideInfo() {}
 
   GuideInfo(string const & appName, string const & appUrl, string const & appId)
     : m_appName(appName), m_appUrl(appUrl), m_appId(appId)
@@ -47,7 +46,7 @@ private:
   string GetDataFileName() const;
   string GetGuidesDataUrl() const;
 
-  map<string, GuideInfo> m_countryToUrl;
+  map<string, GuideInfo> m_countryToInfoMapping;
   scoped_ptr<downloader::HttpRequest> m_httpRequest;
 //@}
 };

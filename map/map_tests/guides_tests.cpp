@@ -26,6 +26,12 @@ UNIT_TEST(ParseDataTest)
   manager.ValidateAndParseGuidesData(str);
   TEST(manager.GetGuideInfo(key, info), ("Has info for Guernsey"));
   TEST(!manager.GetGuideInfo("Minsk", info), ("Has not info for Minsk"));
+}
+
+UNIT_TEST(CorrectlyParseData)
+{
+  guides::GuidesManager manager;
+  guides::GuideInfo info;
 
   string strLondonIsle = "{\"London\": {\"name\": \"UK Travel Guide with Me\",\"url\": \"https://itunes.apple.com/app/uk-travel-guide-with-me/id687855665\",\"appId\": \"com.guideswithme.uk\"},\"Isle of Man\": {\"name\": \"UK Travel Guide with Me\",\"url\": \"https://play.google.com/store/apps/details?id=com.guidewithme.uk\",\"appId\": \"com.guideswithme.uk\"}}";
   string validKeys[] = {"London", "Isle of Man"};
@@ -54,6 +60,29 @@ UNIT_TEST(ParseDataTest)
     string key = validKeys[i];
     manager.GetGuideInfo(key, info);
     TEST((info == guidesArray[i]), (i));
+  }
+}
+
+UNIT_TEST(ComplexNames)
+{
+  guides::GuidesManager manager;
+  guides::GuideInfo info;
+
+  string strLondonIsle = "{\"Côte_d'Ivoire\": {\"name\": \"Côte_d'Ivoire Travel Guide with Me\",\"url\": \"https://itunes.apple.com/app/uk-travel-guide-with-me/id687855665\",\"appId\": \"com.guideswithme.uk\"},\"Беларусь\": {\"name\": \"UK Travel Guide with Me\",\"url\": \"https://play.google.com/store/apps/details?id=com.guidewithme.uk\",\"appId\": \"com.guideswithme.uk\"}}";
+  string validKeys[] = {"Côte_d'Ivoire", "Беларусь"};
+  string invalidKeys[] = {"Не Белурусь", "Côte_d'IvoireCôte_d'IvoireCôte_d'Ivoire"};
+
+  TEST(manager.ValidateAndParseGuidesData(strLondonIsle), ("MUST BE PARSED"));
+  for (int i = 0; i < ARRAY_SIZE(validKeys); ++i)
+  {
+    string key = validKeys[i];
+    TEST(manager.GetGuideInfo(key, info), ("Has info for:", key));
+  }
+
+  for (int i = 0; i < ARRAY_SIZE(invalidKeys); ++i)
+  {
+    string key = invalidKeys[i];
+    TEST(!manager.GetGuideInfo(key, info), ("Has no info for:", key));
   }
 }
 
