@@ -27,6 +27,7 @@ namespace storage
       : m_fileName(fName), m_remoteSize(remoteSize), m_price(price) {}
 
     string GetFileWithExt() const { return m_fileName + DATA_FILE_EXTENSION; }
+    string const & GetFileWithoutExt() const { return m_fileName; }
 
     uint32_t GetFileSize() const;
 

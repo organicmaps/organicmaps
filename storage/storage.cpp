@@ -117,6 +117,11 @@ namespace storage
     return NodeFromIndex(m_countries, index).Value().Flag();
   }
 
+  string const & Storage::CountryFileName(TIndex const & index) const
+  {
+    return NodeFromIndex(m_countries, index).Value().GetFile().GetFileWithoutExt();
+  }
+
   LocalAndRemoteSizeT Storage::CountrySizeInBytes(TIndex const & index) const
   {
     return CountryByIndex(index).Size();
