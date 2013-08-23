@@ -771,4 +771,29 @@ extern "C"
   {
     g_framework->NativeFramework()->UpdateSavedDataVersion();
   }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_updateGuidesData(JNIEnv * env, jclass clazz)
+  {
+    g_framework->NativeFramework()->GetGuidesManager().UpdateGuidesData();
+  }
+
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_Framework_getGuideInfoForCountry(JNIEnv * env, jclass clazz, jstring countryId)
+  {
+    guides::GuideInfo info;
+    guides::GuidesManager & gManager = g_framework->NativeFramework()->GetGuidesManager();
+
+    if (gManager.GetGuideInfo(jni::ToNativeString(env, countryId), info))
+    {
+      const jclass giClazz = env->FindClass("com/mapswithme/maps/guides/GuideInfo");
+      const jmethodID constrId = env->GetMethodID(giClazz, "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+
+      return env->NewObject(giClazz, constrId,
+                            jni::ToJavaString(env, info.m_appName),
+                            jni::ToJavaString(env, info.m_appId),
+                            jni::ToJavaString(env, info.m_appUrl));
+    }
+    return NULL;
+  }
 }
