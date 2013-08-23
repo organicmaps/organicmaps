@@ -24,8 +24,9 @@ bool GuidesManager::RestoreFromFile()
     r.ReadAsString(data);
     return ValidateAndParseGuidesData(data);
   }
-  catch (FileAbsentException e)
+  catch (exception e)
   {
+    LOG(LWARNING, ("Exception while restring from file", e.what()));
     return false;
   }
 }
@@ -50,7 +51,7 @@ bool GuidesManager::GetGuideInfo(string const & countryId, GuideInfo & appInfo) 
 
 string GuidesManager::GetGuidesDataUrl() const
 {
-  return "http://application.server/" + GetDataFileName();
+  return "http://application.server/rest/guides/v1/" + GetDataFileName();
 }
 
 string GuidesManager::GetDataFileName() const
@@ -93,12 +94,13 @@ bool GuidesManager::ValidateAndParseGuidesData(string const & jsonData)
 
       iter = json_object_iter_next(root.get(), iter);
     }
-
+    LOG(LDEBUG, ("Read guides data:", temp.size()));
     m_countryToInfoMapping.swap(temp);
     return true;
   }
   catch (my::Json::Exception const &)
   {
+    LOG(LDEBUG, ("Failded to read guides data."));
     return false;
   }
 }
