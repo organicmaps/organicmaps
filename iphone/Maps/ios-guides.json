@@ -1,0 +1,26 @@
+{
+    "UK_England":
+        {
+            "name": "UK Travel Guide with Me",
+            "url": "itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=687855665",
+            "appId": "guideswithme://"
+        },
+    "UK_Northern Ireland":
+        {
+            "name": "UK Travel Guide with Me",
+            "url": "itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=687855665",
+            "appId": "guideswithme://"
+        },
+    "UK_Scotland":
+        {
+            "name": "UK Travel Guide with Me",
+            "url": "itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=687855665",
+            "appId": "guideswithme://"
+        },
+    "UK_Wales":
+        {
+            "name": "UK Travel Guide with Me",
+            "url": "itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=687855665",
+            "appId": "guideswithme://"
+        }
+}
