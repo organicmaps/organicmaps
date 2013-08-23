@@ -258,7 +258,7 @@ Framework::Framework()
   LOG(LDEBUG, ("Storage initialized"));
 
   //Init guides manager
-  m_guidesManager.RestoreFromFile();
+  m_storage.GetGuideManager().RestoreFromFile();
 }
 
 Framework::~Framework()
@@ -1719,5 +1719,5 @@ void Framework::UpdateSavedDataVersion()
 
 guides::GuidesManager & Framework::GetGuidesManager()
 {
-  return m_guidesManager;
+  return m_storage.GetGuideManager();
 }

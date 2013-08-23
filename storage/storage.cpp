@@ -156,6 +156,8 @@ namespace storage
       return;
     }
 
+    m_guideManager.UpdateGuidesData();
+
     // remove it from failed list
     m_failedCountries.erase(index);
     // add it into the queue
@@ -473,4 +475,9 @@ namespace storage
   {
     return m_currentVersion;
   }
+
+   guides::GuidesManager & Storage::GetGuideManager()
+   {
+     return m_guideManager;
+   }
 }

@@ -2,6 +2,7 @@
 
 #include "country.hpp"
 #include "index.hpp"
+#include "guides.hpp"
 
 #include "../platform/http_request.hpp"
 
@@ -12,7 +13,6 @@
 #include "../std/set.hpp"
 #include "../std/function.hpp"
 #include "../std/scoped_ptr.hpp"
-
 
 namespace storage
 {
@@ -128,5 +128,9 @@ namespace storage
     int GetOutdatedCountries(vector<Country> & list) const;
 
     int64_t GetCurrentDataVersion() const;
+  private:
+    guides::GuidesManager m_guideManager;
+  public:
+    guides::GuidesManager & GetGuideManager();
   };
 }

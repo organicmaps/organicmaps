@@ -39,8 +39,6 @@
 #include "../std/scoped_ptr.hpp"
 #include "../std/target_os.hpp"
 
-#include "guides.hpp"
-
 
 //#define DRAW_TOUCH_POINTS
 
@@ -484,9 +482,6 @@ public:
   //@{
 public:
   guides::GuidesManager & GetGuidesManager();
-
-private:
-  guides::GuidesManager m_guidesManager;
   //@}
 
 };

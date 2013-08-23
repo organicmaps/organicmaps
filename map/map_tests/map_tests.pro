@@ -33,4 +33,3 @@ SOURCES += \
   mwm_url_tests.cpp \
   feature_processor_test.cpp \
   ge0_parser_tests.cpp  \
-  guides_tests.cpp \

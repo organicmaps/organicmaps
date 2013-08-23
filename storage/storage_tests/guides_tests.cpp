@@ -1,6 +1,6 @@
 #include "../../testing/testing.hpp"
 
-#include "../../map/guides.hpp"
+#include "../guides.hpp"
 
 UNIT_TEST(ValidTest)
 {
