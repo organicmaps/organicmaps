@@ -282,9 +282,12 @@ void InitLocalizedStrings()
   {
     if (buttonIndex != alertView.cancelButtonIndex)
     {
+      [[Statistics instance] logEvent:@"Download Guides Proposal" withParameters:@{@"Answer" : @"YES"}];
       NSURL * url = [NSURL URLWithString:self.lastGuidesUrl];
       [[UIApplication sharedApplication] openURL:url];
     }
+    else
+      [[Statistics instance] logEvent:@"Download Guides Proposal" withParameters:@{@"Answer" : @"NO"}];
   }
   else
     m_loadingAlertView = nil;
