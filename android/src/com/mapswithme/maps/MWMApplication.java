@@ -14,7 +14,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.mapswithme.maps.MapStorage.Index;
+import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.guides.GuideInfo;
+import com.mapswithme.maps.guides.GuidesUtils;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.state.AppStateManager;
 import com.mapswithme.maps.state.SuppotedState;
@@ -33,7 +36,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
   private MapStorage m_storage = null;
   private int m_slotID = 0;
 
-  private AppStateManager mAppStateManager = new AppStateManager();
+  private final AppStateManager mAppStateManager = new AppStateManager();
 
   private boolean m_isProVersion = false;
 
@@ -67,16 +70,35 @@ public class MWMApplication extends android.app.Application implements MapStorag
   @Override
   public void onCountryStatusChanged(Index idx)
   {
+    final Notifier notifier = new Notifier(this);
     switch (m_storage.countryStatus(idx))
     {
     case MapStorage.ON_DISK:
-      showDownloadToast(R.string.download_country_success, idx);
+      notifier.placeDownloadCompleted(idx, getMapStorage().countryName(idx));
+      tryNotifyGuideAvailable(idx);
       break;
 
     case MapStorage.DOWNLOAD_FAILED:
-      showDownloadToast(R.string.download_country_failed, idx);
+      notifier.placeDownloadFailed(idx, getMapStorage().countryName(idx));
       break;
     }
+  }
+
+  private void tryNotifyGuideAvailable(Index idx)
+  {
+      if (Utils.hasAnyGoogleStoreInstalled())
+      {
+        final String countryId = getMapStorage().countryFileNameByIndex(idx);
+        final GuideInfo info = Framework.getGuideInfoForCountry(countryId);
+
+        if (info != null && !GuidesUtils.isGuideInstalled(info.getAppId(), this))
+        {
+          final Notifier notifier = new Notifier(this);
+          notifier.placeGuideAvailable(info.getAppName(),
+                                       info.getAppId(),
+                                       getMapStorage().countryName(idx));
+        }
+      }
   }
 
   @Override
@@ -98,12 +120,12 @@ public class MWMApplication extends android.app.Application implements MapStorag
     // get url for PRO version
     if (!m_isProVersion)
     {
-      AssetManager assets = getAssets();
+      final AssetManager assets = getAssets();
       InputStream stream = null;
       try
       {
         stream = assets.open("app_info.txt");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 
         final String s = reader.readLine();
         if (s.length() > 0)
@@ -111,7 +133,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
         Log.i(TAG, "Pro version url: " + m_proVersionURL);
       }
-      catch (IOException ex)
+      catch (final IOException ex)
       {
         // suppress exceptions - pro version doesn't need app_info.txt
       }
@@ -177,7 +199,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
     {
       return getPackageManager().getApplicationInfo(getPackageName(), 0).sourceDir;
     }
-    catch (NameNotFoundException e)
+    catch (final NameNotFoundException e)
     {
       Log.e(TAG, "Can't get apk path from PackageManager");
       return "";

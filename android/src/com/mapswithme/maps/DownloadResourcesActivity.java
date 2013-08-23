@@ -68,7 +68,8 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
       new HttpGe0IntentProcessor(),
       new Ge0IntentProcessor(),
       new MapsWithMeIntentProcessor(),
-      new GooggleMapsIntentProcessor()
+      new GooggleMapsIntentProcessor(),
+      new OpenCountryTaskProcessor(),
   };
 
   private void setDownloadMessage(int bytesToDownload)
@@ -644,7 +645,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
           return "ge0.me".equals(data.getHost());
       }
 
-      return false;
+        return false;
     }
 
     @Override
@@ -718,6 +719,26 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
         return true;
       }
       return false;
+    }
+
+  }
+
+  public static String EXTRA_COUNTRY_INDEX = ".extra.index";
+  private class OpenCountryTaskProcessor implements IntentProcessor
+  {
+
+    @Override
+    public boolean isIntentSupported(Intent intent)
+    {
+      return intent.hasExtra(EXTRA_COUNTRY_INDEX);
+    }
+
+    @Override
+    public boolean processIntent(Intent intent)
+    {
+      final Index index = (Index) intent.getSerializableExtra(EXTRA_COUNTRY_INDEX);
+      mMapTaskToForward = new MWMActivity.ShowCountryTask(index);
+      return true;
     }
 
   }

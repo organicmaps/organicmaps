@@ -1,5 +1,7 @@
 package com.mapswithme.maps;
 
+import java.io.Serializable;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,8 +26,10 @@ public class MapStorage
     public void onCountryProgress(Index idx, long current, long total);
   };
 
-  public static class Index
+  public static class Index implements Serializable
   {
+    private static final long serialVersionUID = 1L;
+
     int mGroup;
     int mCountry;
     int mRegion;
@@ -56,7 +60,7 @@ public class MapStorage
 
     public Index getChild(int position)
     {
-      Index ret = new Index(mGroup, mCountry, mRegion);
+      final Index ret = new Index(mGroup, mCountry, mRegion);
 
       if (ret.mGroup == -1) ret.mGroup = position;
       else if (ret.mCountry == -1) ret.mCountry = position;
@@ -71,7 +75,7 @@ public class MapStorage
 
     public Index getParent()
     {
-      Index ret = new Index(mGroup, mCountry, mRegion);
+      final Index ret = new Index(mGroup, mCountry, mRegion);
 
       if (ret.mRegion != -1) ret.mRegion = -1;
       else if (ret.mCountry != -1) ret.mCountry = -1;
@@ -108,6 +112,7 @@ public class MapStorage
     }
   }
 
+  public native String countryFileNameByIndex(Index idx);
   public native int countriesCount(Index idx);
   public native int countryStatus(Index idx);
   public native long countryLocalSizeInBytes(Index idx);

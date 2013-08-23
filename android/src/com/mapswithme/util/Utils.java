@@ -3,14 +3,19 @@ package com.mapswithme.util;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
+import com.mapswithme.maps.MWMApplication;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.Log;
 import android.view.Menu;
@@ -31,7 +36,7 @@ final public class Utils
       {
         stream.close();
       }
-      catch (IOException e)
+      catch (final IOException e)
       {
         Log.e(TAG, "Can't close stream", e);
       }
@@ -40,7 +45,7 @@ final public class Utils
 
   public static String readStreamAsString(InputStream is)
   {
-    Scanner scanner = new Scanner(is).useDelimiter("\\A");
+    final Scanner scanner = new Scanner(is).useDelimiter("\\A");
     return scanner.hasNext() ? scanner.next() : "";
   }
 
@@ -48,6 +53,27 @@ final public class Utils
   {
     final boolean byAmazon = "Amazon".equalsIgnoreCase(Build.MANUFACTURER);
     return byAmazon;
+  }
+
+
+  public static boolean hasAnyGoogleStoreInstalled()
+  {
+    return hasAnyGoogleStoreInstalled(MWMApplication.get());
+  }
+
+  public static boolean hasAnyGoogleStoreInstalled(Context context)
+  {
+    final String GooglePlayStorePackageNameOld = "com.google.market";
+    final String GooglePlayStorePackageNameNew = "com.android.vending";
+    final PackageManager pm = context.getPackageManager();
+    final List<PackageInfo> packages = pm.getInstalledPackages(0);
+    for (final PackageInfo packageInfo : packages)
+    {
+      if (packageInfo.packageName.equals(GooglePlayStorePackageNameOld)
+          || packageInfo.packageName.equals(GooglePlayStorePackageNameNew))
+        return true;
+    }
+    return false;
   }
 
   // if enabled, screen will be turned off automatically by the system
@@ -62,10 +88,10 @@ final public class Utils
 
   public static float getAttributeDimension(Activity activity, int attr)
   {
-    android.util.TypedValue value = new android.util.TypedValue();
-    boolean b = activity.getTheme().resolveAttribute(attr, value, true);
+    final android.util.TypedValue value = new android.util.TypedValue();
+    final boolean b = activity.getTheme().resolveAttribute(attr, value, true);
     assert(b);
-    android.util.DisplayMetrics metrics = new android.util.DisplayMetrics();
+    final android.util.DisplayMetrics metrics = new android.util.DisplayMetrics();
     activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
     return value.getDimension(metrics);
   }
@@ -112,16 +138,16 @@ final public class Utils
   {
     if (apiLowerThan(11))
     {
-      android.text.ClipboardManager clipbord =
+      final android.text.ClipboardManager clipbord =
           (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
       clipbord.setText(text);
     }
     else
     {
       // This is different classes in different packages
-      android.content.ClipboardManager clipboard =
+      final android.content.ClipboardManager clipboard =
            (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-      ClipData clip = ClipData.newPlainText("MapsWithMe: " + text, text);
+      final ClipData clip = ClipData.newPlainText("MapsWithMe: " + text, text);
       clipboard.setPrimaryClip(clip);
     }
   }
@@ -131,8 +157,8 @@ final public class Utils
     if (map == null)   return "[null]";
     if (map.isEmpty()) return "[]";
 
-    StringBuilder sb = new StringBuilder("[");
-    for (K key : map.keySet())
+    final StringBuilder sb = new StringBuilder("[");
+    for (final K key : map.keySet())
       sb.append(String.valueOf(key))
         .append('=')
         .append(map.get(key))

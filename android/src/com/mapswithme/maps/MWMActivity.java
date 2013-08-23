@@ -36,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mapswithme.maps.Framework.OnBalloonListener;
+import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.location.LocationService;
@@ -1063,6 +1064,23 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     }
   }
 
+  public static class ShowCountryTask implements MapTask
+  {
+    private static final long serialVersionUID = 1L;
+    private final Index mIndex;
+
+    public ShowCountryTask(Index index)
+    {
+      mIndex = index;
+    }
+
+    @Override
+    public boolean run(MWMActivity target)
+    {
+      target.getMapStorage().showCountry(mIndex);
+      return true;
+    }
+  }
 
   ////
   //   NATIVE callbacks and methods
@@ -1131,6 +1149,12 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         MapObjectActivity.startWithMyPosition(getActivity(), lat, lon);
       }
     });
+  }
+
+  public static Intent createShowMapIntent(Context context, Index index)
+  {
+    return new Intent(context, DownloadResourcesActivity.class)
+      .putExtra(DownloadResourcesActivity.EXTRA_COUNTRY_INDEX, index);
   }
 
   private native void nativeStorageConnected();

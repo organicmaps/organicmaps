@@ -1,6 +1,7 @@
 package com.mapswithme.maps;
 
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
+import com.mapswithme.maps.guides.GuideInfo;
 
 /**
  *  This class wraps android::Framework.cpp class
@@ -77,6 +78,10 @@ public class Framework
   {
     nativeUpdateSavedDataVersion();
   }
+
+  public static native void updateGuidesData();
+
+  public static native GuideInfo getGuideInfoForCountry(String countryId);
 
   /*
    *  "Implementation" - native methods

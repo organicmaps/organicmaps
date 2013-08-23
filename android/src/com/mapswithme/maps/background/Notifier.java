@@ -8,14 +8,19 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
 import com.mapswithme.maps.DownloadUI;
+import com.mapswithme.maps.MWMActivity;
+import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.guides.GuidesUtils;
 
 public class Notifier
 {
   private final static int ID_UPDATE_AVAIL = 0x1;
+  private final static int ID_GUIDE_AVAIL  = 0x2;
+  private final static int ID_DOWNLOAD_STATUS  = 0x3;
 
-  private NotificationManager mNotificationManager;
-  private Context mContext;
+  private final NotificationManager mNotificationManager;
+  private final Context mContext;
 
   public Notifier(Context context)
   {
@@ -43,6 +48,36 @@ public class Notifier
     mNotificationManager.notify(ID_UPDATE_AVAIL, notification);
   }
 
+  public void placeDownloadCompleted(Index idx, String name)
+  {
+    final String title = mContext.getString(R.string.app_name);
+    final String content = mContext.getString(R.string.download_country_success, name);
+
+   placeDownloadNoti(title, content, idx);
+  }
+
+  public void placeDownloadFailed(Index idx, String name)
+  {
+    final String title = mContext.getString(R.string.app_name);
+    final String content = mContext.getString(R.string.download_country_failed, name);
+
+    placeDownloadNoti(title, content, idx);
+  }
+
+  private void placeDownloadNoti(String title, String content, Index idx)
+  {
+    final PendingIntent pi = PendingIntent
+        .getActivity(mContext, 0, MWMActivity.createShowMapIntent(mContext, idx), Intent.FLAG_ACTIVITY_NEW_TASK);
+
+    final Notification notification = getBuilder()
+        .setContentTitle(title)
+        .setContentText(content)
+        .setTicker(title + content)
+        .setContentIntent(pi)
+        .build();
+
+    mNotificationManager.notify(ID_DOWNLOAD_STATUS, notification);
+  }
 
   public NotificationCompat.Builder getBuilder()
   {
@@ -50,6 +85,26 @@ public class Notifier
     return new NotificationCompat.Builder(mContext)
       .setAutoCancel(true)
       .setSmallIcon(R.drawable.ic_launcher);
+  }
+
+  public void placeGuideAvailable(String guideName, String packageName, String country)
+  {
+    // TODO: Add string resources
+    final String title = String.format("Going to %s?", country);
+    final String content = String.format("%s will help you!", guideName);
+
+    final PendingIntent pi = PendingIntent
+        .getActivity(mContext, 0, GuidesUtils.getGoogleStoreIntentForPackage(packageName), 0);
+
+    final Notification guideNoti = new NotificationCompat.Builder(mContext)
+      .setAutoCancel(true)
+      .setSmallIcon(R.drawable.ic_notification)
+      .setContentIntent(pi)
+      .setContentTitle(title)
+      .setContentText(content)
+      .build();
+
+    mNotificationManager.notify(ID_GUIDE_AVAIL, guideNoti);
   }
 
 }
