@@ -8,6 +8,7 @@
 #include <sys/xattr.h>
 
 #include "Framework.h"
+#include "../../../storage/storage.hpp"
 #include "../../../platform/settings.hpp"
 #include "../../../platform/platform.hpp"
 
@@ -175,6 +176,8 @@ void InitLocalizedStrings()
     Settings::Set("NumberOfBookmarksPerSession", 0);
   }
 
+  [self subscribeToStorage];
+
   return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
 }
 
@@ -273,4 +276,31 @@ void InitLocalizedStrings()
     [m_navController setNavigationBarHidden:YES animated:YES];
 }
 
+-(void)subscribeToStorage
+{
+  {
+    typedef void (*TChangeFunc)(id, SEL, storage::TIndex const &);
+    SEL changeSel = @selector(OnCountryChange:);
+    TChangeFunc changeImpl = (TChangeFunc)[self methodForSelector:changeSel];
+
+    typedef void (*TProgressFunc)(id, SEL, storage::TIndex const &, pair<int64_t, int64_t> const &);
+    SEL emptySel = @selector(EmptyFunction:withProgress:);
+    TProgressFunc progressImpl = (TProgressFunc)[self methodForSelector:emptySel];
+
+    GetFramework().Storage().Subscribe(bind(changeImpl, self, changeSel, _1),
+                                     bind(progressImpl, self, emptySel, _1, _2));
+  }
+}
+
+- (void) OnCountryChange: (storage::TIndex const &)index
+{
+  if ( GetFramework().Storage().CountryStatus(index) == storage::EOnDisk)
+  {
+
+  }
+}
+
+- (void) EmptyFunction: (storage::TIndex const &) index withProgress: (pair<int64_t, int64_t> const &) progress
+{
+}
 @end
