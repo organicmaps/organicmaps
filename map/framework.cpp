@@ -1721,3 +1721,10 @@ guides::GuidesManager & Framework::GetGuidesManager()
 {
   return m_storage.GetGuideManager();
 }
+
+bool Framework::GetGuideInfo(storage::TIndex const & index, guides::GuideInfo & info)
+{
+  string guideId = m_storage.CountryFileName(index);
+  storage::TStatus t = GetCountryStatus(index);
+  return (t == storage::EOnDisk && GetGuidesManager().GetGuideInfo(guideId, info));
+}

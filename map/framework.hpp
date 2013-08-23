@@ -482,6 +482,7 @@ public:
   //@{
 public:
   guides::GuidesManager & GetGuidesManager();
+  bool GetGuideInfo(storage::TIndex const & index, guides::GuideInfo & info);
   //@}
 
 };

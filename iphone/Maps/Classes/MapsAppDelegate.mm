@@ -12,6 +12,8 @@
 #include "../../../platform/settings.hpp"
 #include "../../../platform/platform.hpp"
 
+#define NOTIFICATION_ALERT_VIEW_TAG 665
+
 /// Adds needed localized strings to C++ code
 /// @TODO Refactor localization mechanism to make it simpler
 void InitLocalizedStrings()
@@ -27,6 +29,10 @@ void InitLocalizedStrings()
   f.AddString("dropped_pin", [NSLocalizedString(@"dropped_pin", nil) UTF8String]);
   f.AddString("my_places", [NSLocalizedString(@"my_places", nil) UTF8String]);
 }
+
+@interface MapsAppDelegate()
+@property (nonatomic, retain) NSString * lastGuidesUrl;
+@end
 
 @implementation MapsAppDelegate
 
@@ -95,6 +101,7 @@ void InitLocalizedStrings()
   self.m_mapViewController = nil;
   [m_navController release];
   [m_window release];
+  self.lastGuidesUrl = nil;
   [super dealloc];
 
   // Global cleanup
@@ -181,6 +188,19 @@ void InitLocalizedStrings()
   return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
 }
 
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+  NSDictionary * dict = notification.userInfo;
+  if ([[dict objectForKey:@"Proposal"] isEqual:@"OpenGuides"])
+  {
+    self.lastGuidesUrl = [dict objectForKey:@"GuideUrl"];
+    UIAlertView * view = [[UIAlertView alloc] initWithTitle:@"Guide With Me" message:@"Get GuideWithMe, free travel guide on UK" delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
+    view.tag = NOTIFICATION_ALERT_VIEW_TAG;
+    [view show];
+    [view release];
+  }
+}
+
 // We don't support HandleOpenUrl as it's deprecated from iOS 4.2
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
@@ -258,7 +278,16 @@ void InitLocalizedStrings()
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-  m_loadingAlertView = nil;
+  if (alertView.tag == NOTIFICATION_ALERT_VIEW_TAG)
+  {
+    if (buttonIndex != alertView.cancelButtonIndex)
+    {
+      NSURL * url = [NSURL URLWithString:self.lastGuidesUrl];
+      [[UIApplication sharedApplication] openURL:url];
+    }
+  }
+  else
+    m_loadingAlertView = nil;
 }
 
 -(void)showMap
@@ -278,29 +307,40 @@ void InitLocalizedStrings()
 
 -(void)subscribeToStorage
 {
-  {
-    typedef void (*TChangeFunc)(id, SEL, storage::TIndex const &);
-    SEL changeSel = @selector(OnCountryChange:);
-    TChangeFunc changeImpl = (TChangeFunc)[self methodForSelector:changeSel];
+  typedef void (*TChangeFunc)(id, SEL, storage::TIndex const &);
+  SEL changeSel = @selector(OnCountryChange:);
+  TChangeFunc changeImpl = (TChangeFunc)[self methodForSelector:changeSel];
 
-    typedef void (*TProgressFunc)(id, SEL, storage::TIndex const &, pair<int64_t, int64_t> const &);
-    SEL emptySel = @selector(EmptyFunction:withProgress:);
-    TProgressFunc progressImpl = (TProgressFunc)[self methodForSelector:emptySel];
+  typedef void (*TProgressFunc)(id, SEL, storage::TIndex const &, pair<int64_t, int64_t> const &);
+  SEL emptySel = @selector(EmptyFunction:withProgress:);
+  TProgressFunc progressImpl = (TProgressFunc)[self methodForSelector:emptySel];
 
-    GetFramework().Storage().Subscribe(bind(changeImpl, self, changeSel, _1),
-                                     bind(progressImpl, self, emptySel, _1, _2));
-  }
+  GetFramework().Storage().Subscribe(bind(changeImpl, self, changeSel, _1),
+                                   bind(progressImpl, self, emptySel, _1, _2));
 }
 
 - (void) OnCountryChange: (storage::TIndex const &)index
 {
-  if ( GetFramework().Storage().CountryStatus(index) == storage::EOnDisk)
+  guides::GuideInfo appInfo;
+  if (GetFramework().GetGuideInfo(index, appInfo))
   {
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:[NSString stringWithUTF8String:appInfo.m_appId.c_str()]]])
+      return;
+    UILocalNotification * notification = [[UILocalNotification alloc] init];
+    notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
+    notification.repeatInterval = 0;
+    notification.timeZone = [NSTimeZone defaultTimeZone];
+    notification.soundName = UILocalNotificationDefaultSoundName;
+    notification.alertBody = @"Get GuideWithMe, free travel guide on UK";
 
+    notification.userInfo = @{@"Proposal" : @"OpenGuides", @"GuideUrl" : [NSString stringWithUTF8String:appInfo.m_appUrl.c_str()], @"GuideName" : [NSString stringWithUTF8String:appInfo.m_appName.c_str()]};
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    [notification release];
   }
 }
 
 - (void) EmptyFunction: (storage::TIndex const &) index withProgress: (pair<int64_t, int64_t> const &) progress
 {
 }
+
 @end
