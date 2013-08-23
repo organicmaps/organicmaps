@@ -81,24 +81,21 @@ public class Notifier
 
   public NotificationCompat.Builder getBuilder()
   {
-    // TODO: add default initialization
     return new NotificationCompat.Builder(mContext)
       .setAutoCancel(true)
-      .setSmallIcon(R.drawable.ic_launcher);
+      .setSmallIcon(R.drawable.ic_notification);
   }
 
   public void placeGuideAvailable(String guideName, String packageName, String country)
   {
     // TODO: Add string resources
-    final String title = String.format("Going to %s?", country);
-    final String content = String.format("%s will help you!", guideName);
+    final String title = mContext.getString(R.string.noti_guide_title, country);
+    final String content = mContext.getString(R.string.noti_guide_content, guideName);
 
     final PendingIntent pi = PendingIntent
         .getActivity(mContext, 0, GuidesUtils.getGoogleStoreIntentForPackage(packageName), 0);
 
-    final Notification guideNoti = new NotificationCompat.Builder(mContext)
-      .setAutoCancel(true)
-      .setSmallIcon(R.drawable.ic_notification)
+    final Notification guideNoti = getBuilder()
       .setContentIntent(pi)
       .setContentTitle(title)
       .setContentText(content)
