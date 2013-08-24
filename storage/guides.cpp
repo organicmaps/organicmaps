@@ -2,9 +2,13 @@
 
 #include "../../coding/file_writer.hpp"
 #include "../../coding/file_reader.hpp"
+
 #include "../../platform/platform.hpp"
+#include "../../platform/settings.hpp"
 
 #include "../base/logging.hpp"
+#include "../base/timer.hpp"
+
 #include "../std/bind.hpp"
 #include "../std/iostream.hpp"
 #include "../std/target_os.hpp"
@@ -12,6 +16,8 @@
 #include "../../3party/jansson/myjansson.hpp"
 
 
+#define GUIDE_UPDATE_TIME_KEY "guideUpdateTime"
+#define GUIDE_UPDATE_PERIOD 60 * 60 * 24
 
 using namespace guides;
 
@@ -33,8 +39,17 @@ bool GuidesManager::RestoreFromFile()
 
 void GuidesManager::UpdateGuidesData()
 {
-  downloader::HttpRequest::CallbackT onFinish = bind(&GuidesManager::OnFinish, this, _1);
-  m_httpRequest.reset(downloader::HttpRequest::Get(GetGuidesDataUrl(), onFinish));
+  if (m_httpRequest)
+    return;
+  double lastUpdateTime;
+  bool flag = Settings::Get(GUIDE_UPDATE_TIME_KEY, lastUpdateTime);
+  double const currentTime = my::Timer::LocalTime();
+  if (!flag || ((currentTime - lastUpdateTime) >= GUIDE_UPDATE_PERIOD))
+  {
+    Settings::Set(GUIDE_UPDATE_TIME_KEY, currentTime);
+    downloader::HttpRequest::CallbackT onFinish = bind(&GuidesManager::OnFinish, this, _1);
+    m_httpRequest.reset(downloader::HttpRequest::Get(GetGuidesDataUrl(), onFinish));
+  }
 }
 
 bool GuidesManager::GetGuideInfo(string const & countryId, GuideInfo & appInfo) const
@@ -71,6 +86,7 @@ void GuidesManager::OnFinish(downloader::HttpRequest & request)
   }
   else
     LOG(LWARNING, ("Request is failed to complete", request.Status()));
+  m_httpRequest.reset();
 }
 
 bool GuidesManager::ValidateAndParseGuidesData(string const & jsonData)
