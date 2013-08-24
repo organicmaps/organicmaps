@@ -109,7 +109,7 @@ namespace storage
     size_t CountriesCount(TIndex const & index) const;
     string const & CountryName(TIndex const & index) const;
     string const & CountryFlag(TIndex const & index) const;
-    //country file name without extension
+    /// @return Country file name without extension.
     string const & CountryFileName(TIndex const & index) const;
     LocalAndRemoteSizeT CountrySizeInBytes(TIndex const & index) const;
     TStatus CountryStatus(TIndex const & index) const;
@@ -127,10 +127,15 @@ namespace storage
     /// @return number of outdated countries in the list
     int GetOutdatedCountries(vector<Country> & list) const;
 
-    int64_t GetCurrentDataVersion() const;
+    int64_t GetCurrentDataVersion() const { return m_currentVersion; }
+
+    //@{
   private:
     guides::GuidesManager m_guideManager;
+
   public:
-    guides::GuidesManager & GetGuideManager();
+    guides::GuidesManager const & GetGuideManager() const { return m_guideManager; }
+    guides::GuidesManager & GetGuideManager() { return m_guideManager; }
+    //@}
   };
 }

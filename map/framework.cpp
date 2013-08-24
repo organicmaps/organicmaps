@@ -1717,16 +1717,10 @@ void Framework::UpdateSavedDataVersion()
   Settings::Set("DataVersion", m_storage.GetCurrentDataVersion());
 }
 
-guides::GuidesManager & Framework::GetGuidesManager()
+bool Framework::GetGuideInfo(storage::TIndex const & index, guides::GuideInfo & info) const
 {
-  return m_storage.GetGuideManager();
-}
-
-bool Framework::GetGuideInfo(storage::TIndex const & index, guides::GuideInfo & info)
-{
-  string guideId = m_storage.CountryFileName(index);
-  storage::TStatus t = GetCountryStatus(index);
-  return (t == storage::EOnDisk && GetGuidesManager().GetGuideInfo(guideId, info));
+  return (GetCountryStatus(index) == storage::EOnDisk &&
+          m_storage.GetGuideManager().GetGuideInfo(m_storage.CountryFileName(index), info));
 }
 
 void Framework::GetGuidesInfosWithDownloadedMaps(vector <guides::GuideInfo> & guides)

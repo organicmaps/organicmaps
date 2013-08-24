@@ -16,11 +16,13 @@
 #include "../../3party/jansson/myjansson.hpp"
 
 
-#define GUIDE_UPDATE_TIME_KEY "guideUpdateTime"
-#define GUIDE_ADVERTISE_KEY "GuideAdvertised: "
-#define GUIDE_UPDATE_PERIOD 60 * 60 * 24
+char const * GUIDE_UPDATE_TIME_KEY = "GuideUpdateTime";
+char const * GUIDE_ADVERTISE_KEY "GuideAdvertised:";
+int const GUIDE_UPDATE_PERIOD = 60 * 60 * 24;
 
-using namespace guides;
+
+namespace guides
+{
 
 bool GuidesManager::RestoreFromFile()
 {
@@ -31,9 +33,9 @@ bool GuidesManager::RestoreFromFile()
     r.ReadAsString(data);
     return ValidateAndParseGuidesData(data);
   }
-  catch (exception e)
+  catch (RootException const & ex)
   {
-    LOG(LWARNING, ("Exception while restring from file", e.what()));
+    LOG(LWARNING, (ex.Msg()));
     return false;
   }
 }
@@ -42,12 +44,15 @@ void GuidesManager::UpdateGuidesData()
 {
   if (m_httpRequest)
     return;
+
   double lastUpdateTime;
-  bool flag = Settings::Get(GUIDE_UPDATE_TIME_KEY, lastUpdateTime);
+  bool const flag = Settings::Get(GUIDE_UPDATE_TIME_KEY, lastUpdateTime);
+
   double const currentTime = my::Timer::LocalTime();
   if (!flag || ((currentTime - lastUpdateTime) >= GUIDE_UPDATE_PERIOD))
   {
     Settings::Set(GUIDE_UPDATE_TIME_KEY, currentTime);
+
     downloader::HttpRequest::CallbackT onFinish = bind(&GuidesManager::OnFinish, this, _1);
     m_httpRequest.reset(downloader::HttpRequest::Get(GetGuidesDataUrl(), onFinish));
   }
@@ -83,10 +88,11 @@ void GuidesManager::OnFinish(downloader::HttpRequest & request)
     if (ValidateAndParseGuidesData(data))
       SaveToFile();
     else
-      LOG(LWARNING, ("Request data is invalid ", request.Data()));
+      LOG(LWARNING, ("Request data is invalid:", request.Data()));
   }
   else
-    LOG(LWARNING, ("Request is failed to complete", request.Status()));
+    LOG(LWARNING, ("Request is failed to complete:", request.Status()));
+
   m_httpRequest.reset();
 }
 
@@ -111,13 +117,13 @@ bool GuidesManager::ValidateAndParseGuidesData(string const & jsonData)
 
       iter = json_object_iter_next(root.get(), iter);
     }
-    LOG(LDEBUG, ("Read guides data:", temp.size()));
+
     m_countryToInfoMapping.swap(temp);
     return true;
   }
   catch (my::Json::Exception const &)
   {
-    LOG(LDEBUG, ("Failded to read guides data."));
+    LOG(LWARNING, ("Failded to parse guides data."));
     return false;
   }
 }
@@ -139,9 +145,9 @@ void GuidesManager::SaveToFile() const
   string const path = GetPlatform().WritableDir() + GetDataFileName();
   FileWriter writer(path);
 
-  string const openJson  = "{";
-  string const closeJson = "}";
-  writer.Write(openJson.data(), openJson.size());
+  char braces[] = { '{', '}' };
+
+  writer.Write(&braces[0], 1);
 
   if (!m_countryToInfoMapping.empty())
   {
@@ -164,5 +170,7 @@ void GuidesManager::SaveToFile() const
     }
   }
 
-  writer.Write(closeJson.data(), closeJson.size());
+  writer.Write(&braces[1], 1);
+}
+
 }

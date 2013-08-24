@@ -470,14 +470,4 @@ namespace storage
 
     return fListNoExt.size();
   }
-
-  int64_t Storage::GetCurrentDataVersion() const
-  {
-    return m_currentVersion;
-  }
-
-   guides::GuidesManager & Storage::GetGuideManager()
-   {
-     return m_guideManager;
-   }
 }
