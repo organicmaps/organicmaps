@@ -6,4 +6,4 @@
 # Main purpose is transparently disable compression
 # for given file types inside .zip (.apk) file
 
-${0}2 "$@" -0 txt -0 bin -0 skn -0 html -0 png
+${0}2 "$@" -0 txt -0 bin -0 skn -0 html -0 png -0 json

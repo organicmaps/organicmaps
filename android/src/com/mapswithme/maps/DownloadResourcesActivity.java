@@ -645,7 +645,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
           return "ge0.me".equals(data.getHost());
       }
 
-        return false;
+      return false;
     }
 
     @Override

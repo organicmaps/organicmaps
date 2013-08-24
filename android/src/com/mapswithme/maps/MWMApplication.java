@@ -84,21 +84,21 @@ public class MWMApplication extends android.app.Application implements MapStorag
     }
   }
 
+  private native GuideInfo getGuideInfoForIndex(Index idx);
+
   private void tryNotifyGuideAvailable(Index idx)
   {
-      if (Utils.hasAnyGoogleStoreInstalled())
+    if (Utils.hasAnyGoogleStoreInstalled())
+    {
+      final GuideInfo info = getGuideInfoForIndex(idx);
+      if (info != null && !GuidesUtils.isGuideInstalled(info.getAppId(), this))
       {
-        final String countryId = getMapStorage().countryFileNameByIndex(idx);
-        final GuideInfo info = Framework.getGuideInfoForCountry(countryId);
-
-        if (info != null && !GuidesUtils.isGuideInstalled(info.getAppId(), this))
-        {
-          final Notifier notifier = new Notifier(this);
-          notifier.placeGuideAvailable(info.getAppName(),
-                                       info.getAppId(),
-                                       getMapStorage().countryName(idx));
-        }
+        final Notifier notifier = new Notifier(this);
+        notifier.placeGuideAvailable(info.getAppName(),
+            info.getAppId(),
+            getMapStorage().countryName(idx));
       }
+    }
   }
 
   @Override

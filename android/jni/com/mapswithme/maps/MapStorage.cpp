@@ -2,25 +2,6 @@
 #include "Framework.hpp"
 
 
-namespace storage
-{
-  jobject toJava(storage::TIndex const & idx)
-  {
-    JNIEnv * env = jni::GetEnv();
-
-    jclass klass = env->FindClass("com/mapswithme/maps/MapStorage$Index");
-    ASSERT(klass, ());
-
-    jmethodID methodID = env->GetMethodID(klass, "<init>", "(III)V");
-    ASSERT(methodID, ());
-
-    return env->NewObject(klass, methodID,
-                          static_cast<jint>(idx.m_group),
-                          static_cast<jint>(idx.m_country),
-                          static_cast<jint>(idx.m_region));
-  }
-}
-
 extern "C"
 {
   class IndexBinding
@@ -194,5 +175,29 @@ extern "C"
     for (int i = 0; i < count; ++i)
       env->SetObjectArrayElement(ret, i, env->NewStringUTF(v[i].c_str()));
     return ret;
+  }
+}
+
+namespace storage
+{
+  jobject toJava(TIndex const & idx)
+  {
+    JNIEnv * env = jni::GetEnv();
+
+    jclass klass = env->FindClass("com/mapswithme/maps/MapStorage$Index");
+    ASSERT(klass, ());
+
+    jmethodID methodID = env->GetMethodID(klass, "<init>", "(III)V");
+    ASSERT(methodID, ());
+
+    return env->NewObject(klass, methodID,
+                          static_cast<jint>(idx.m_group),
+                          static_cast<jint>(idx.m_country),
+                          static_cast<jint>(idx.m_region));
+  }
+
+  TIndex toNative(jobject idx)
+  {
+    return IndexBinding(idx).toNative();
   }
 }

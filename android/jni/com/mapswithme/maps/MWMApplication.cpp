@@ -6,6 +6,7 @@
  */
 
 #include "Framework.hpp"
+#include "MapStorage.hpp"
 
 #include "../core/jni_helper.hpp"
 
@@ -138,5 +139,23 @@ extern "C"
   Java_com_mapswithme_maps_MWMApplication_nativeSetDouble(JNIEnv * env, jobject thiz, jstring name, jdouble value)
   {
     (void)Settings::Set(jni::ToNativeString(env, name), value);
+  }
+
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_MWMApplication_getGuideInfoForIndex(JNIEnv * env, jclass clazz, jobject index)
+  {
+    guides::GuideInfo info;
+    if (g_framework->NativeFramework()->GetGuideInfo(storage::toNative(index), info))
+    {
+      const jclass giClazz = env->FindClass("com/mapswithme/maps/guides/GuideInfo");
+      const jmethodID constrId = env->GetMethodID(giClazz, "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+
+      return env->NewObject(giClazz, constrId,
+                            jni::ToJavaString(env, info.m_appName),
+                            jni::ToJavaString(env, info.m_appId),
+                            jni::ToJavaString(env, info.m_appUrl));
+    }
+
+    return 0;
   }
 }
