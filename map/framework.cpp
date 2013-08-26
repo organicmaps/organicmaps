@@ -1723,15 +1723,16 @@ bool Framework::GetGuideInfo(storage::TIndex const & index, guides::GuideInfo & 
           m_storage.GetGuideManager().GetGuideInfo(m_storage.CountryFileName(index), info));
 }
 
-void Framework::GetGuidesInfosWithDownloadedMaps(vector <guides::GuideInfo> & guides)
+void Framework::GetGuidesInfosWithDownloadedMaps(vector<guides::GuideInfo> & guides) const
 {
-  vector <string> maps;
+  vector<string> maps;
   GetLocalMaps(maps);
+
   for (size_t i = 0; i < maps.size(); ++i)
   {
     guides::GuideInfo tmp;
     my::GetNameWithoutExt(maps[i]);
-    if (GetGuidesManager().GetGuideInfo(maps[i], tmp))
+    if (m_storage.GetGuideManager().GetGuideInfo(maps[i], tmp))
       guides.push_back(tmp);
   }
 }

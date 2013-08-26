@@ -55,8 +55,6 @@ class CountryStatusDisplay;
 class BenchmarkEngine;
 
 
-
-
 /// Uncomment line to make fixed position settings and
 /// build version for screenshots.
 //#define FIXED_LOCATION
@@ -481,7 +479,7 @@ public:
   /// @name Guides
   //@{
 public:
-  guides::GuidesManager & GetGuidesManager();
+  guides::GuidesManager & GetGuidesManager() { return m_storage.GetGuideManager(); }
   bool GetGuideInfo(storage::TIndex const & index, guides::GuideInfo & info) const;
   void GetGuidesInfosWithDownloadedMaps(vector<guides::GuideInfo> & guides) const;
   //@}

@@ -86,12 +86,8 @@ public class Notifier
       .setSmallIcon(R.drawable.ic_notification);
   }
 
-  public void placeGuideAvailable(String guideName, String packageName, String country)
+  public void placeGuideAvailable(String packageName, String title, String content)
   {
-    // TODO: Add string resources
-    final String title = mContext.getString(R.string.noti_guide_title, country);
-    final String content = mContext.getString(R.string.noti_guide_content, guideName);
-
     final PendingIntent pi = PendingIntent
         .getActivity(mContext, 0, GuidesUtils.getGoogleStoreIntentForPackage(packageName), 0);
 

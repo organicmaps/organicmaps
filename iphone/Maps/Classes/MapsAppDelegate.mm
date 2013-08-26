@@ -8,9 +8,13 @@
 #include <sys/xattr.h>
 
 #include "Framework.h"
+
 #include "../../../storage/storage.hpp"
+
 #include "../../../platform/settings.hpp"
 #include "../../../platform/platform.hpp"
+#include "../../../platform/preferred_languages.hpp"
+
 
 #define NOTIFICATION_ALERT_VIEW_TAG 665
 
@@ -200,7 +204,7 @@ void InitLocalizedStrings()
   if ([[dict objectForKey:@"Proposal"] isEqual:@"OpenGuides"])
   {
     self.lastGuidesUrl = [dict objectForKey:@"GuideUrl"];
-    UIAlertView * view = [[UIAlertView alloc] initWithTitle:@"Guide With Me" message:@"Get GuideWithMe, free travel guide on UK" delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
+    UIAlertView * view = [[UIAlertView alloc] initWithTitle:[dict objectForKey:@"GuideTitle"] message:[dict objectForKey:@"GuideMessage"] delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
     view.tag = NOTIFICATION_ALERT_VIEW_TAG;
     [view show];
     [view release];
@@ -339,23 +343,35 @@ void InitLocalizedStrings()
 {
 }
 
--(BOOL) ShowNotificationWithGuideInfo:(guides::GuideInfo &)guide
+-(BOOL) ShowNotificationWithGuideInfo:(guides::GuideInfo const &)guide
 {
-  guides::GuidesManager guidesManager = GetFramework().GetGuidesManager();
-  bool wasAdvertised = guidesManager.WasAdvertised(guide.m_appId);
-  if (wasAdvertised || [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:[NSString stringWithUTF8String:guide.m_appId.c_str()]]])
+  guides::GuidesManager & guidesManager = GetFramework().GetGuidesManager();
+  string const appID = guide.GetAppID();
+
+  if (guidesManager.WasAdvertised(appID) ||
+      [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:[NSString stringWithUTF8String:appID.c_str()]]])
     return NO;
+
   UILocalNotification * notification = [[UILocalNotification alloc] init];
   notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
   notification.repeatInterval = 0;
   notification.timeZone = [NSTimeZone defaultTimeZone];
   notification.soundName = UILocalNotificationDefaultSoundName;
-  notification.alertBody = @"Get GuideWithMe, free travel guide on UK";
 
-  notification.userInfo = @{@"Proposal" : @"OpenGuides", @"GuideUrl" : [NSString stringWithUTF8String:guide.m_appUrl.c_str()], @"GuideName" : [NSString stringWithUTF8String:guide.m_appName.c_str()]};
+  string const lang = languages::CurrentLanguage();
+  NSString * message = [NSString stringWithUTF8String:guide.GetAdMessage(lang).c_str()];
+  notification.alertBody = message;
+  notification.userInfo = @{
+                            @"Proposal" : @"OpenGuides",
+                            @"GuideUrl" : [NSString stringWithUTF8String:guide.GetURL().c_str()],
+                            @"GuideTitle" : [NSString stringWithUTF8String:guide.GetAdTitle(lang).c_str()],
+                            @"GuideMessage" : message
+                            };
+
   [[UIApplication sharedApplication] scheduleLocalNotification:notification];
   [notification release];
-  guidesManager.SetWasAdvertised(guide.m_appId);
+
+  guidesManager.SetWasAdvertised(appID);
   return YES;
 }
 

@@ -5,7 +5,8 @@
 
 #include "../../../../../std/string.hpp"
 
-#define DEFAULT_LANG "en"
+
+static char const * DEFAULT_LANG = "en";
 
 /// This function is called from native c++ code
 string GetAndroidSystemLanguage()
@@ -18,27 +19,24 @@ string GetAndroidSystemLanguage()
   }
 
   jclass localeClass = env->FindClass("java/util/Locale");
-  ASSERT(localeClass, ("Can't find java class java/util/Locale"));
+  ASSERT(localeClass, ());
 
   jmethodID localeGetDefaultId = env->GetStaticMethodID(localeClass, "getDefault", "()Ljava/util/Locale;");
-  ASSERT(localeGetDefaultId, ("Can't find static java/util/Locale.getDefault() method"));
+  ASSERT(localeGetDefaultId, ());
 
   jobject localeInstance = env->CallStaticObjectMethod(localeClass, localeGetDefaultId);
-  ASSERT(localeInstance, ("Locale.getDefault() returned NULL"));
+  ASSERT(localeInstance, ());
 
   jmethodID localeGetLanguageId = env->GetMethodID(localeClass, "getLanguage", "()Ljava/lang/String;");
-  ASSERT(localeGetLanguageId, ("Can't find java/util/Locale.getLanguage() method"));
+  ASSERT(localeGetLanguageId, ());
 
   jstring langString = (jstring)env->CallObjectMethod(localeInstance, localeGetLanguageId);
-  ASSERT(langString, ("Locale.getLanguage() returned NULL"));
+  ASSERT(langString, ());
 
-  char const * langUtf8 = env->GetStringUTFChars(langString, 0);
-  string result(DEFAULT_LANG);
-  if (langUtf8 != 0)
-  {
-    result = langUtf8;
-    env->ReleaseStringUTFChars(langString, langUtf8);
-  }
+  string res = jni::ToNativeString(env, langString);
+  if (res.empty())
+    res = DEFAULT_LANG;
 
-  return result;
+  LOG(LDEBUG, ("System language:", res));
+  return res;
 }

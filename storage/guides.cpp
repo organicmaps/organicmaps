@@ -2,6 +2,7 @@
 
 #include "../../coding/file_writer.hpp"
 #include "../../coding/file_reader.hpp"
+#include "../../coding/internal/file_data.hpp"
 
 #include "../../platform/platform.hpp"
 #include "../../platform/settings.hpp"
@@ -16,13 +17,72 @@
 #include "../../3party/jansson/myjansson.hpp"
 
 
+namespace
+{
 char const * GUIDE_UPDATE_TIME_KEY = "GuideUpdateTime";
-char const * GUIDE_ADVERTISE_KEY "GuideAdvertised:";
+char const * GUIDE_ADVERTISE_KEY = "GuideAdvertised:";
 int const GUIDE_UPDATE_PERIOD = 60 * 60 * 24;
-
+}
 
 namespace guides
 {
+
+string GetStringImpl(json_t * j)
+{
+  char const * s = json_string_value(j);
+  return (s ? s : "");
+}
+
+string GuideInfo::GetString(char const * key) const
+{
+  return GetStringImpl(json_object_get(m_obj.get(), key));
+}
+
+string GuideInfo::GetAdForLang(string const & lang, char const * key) const
+{
+  json_t * jKey = json_object_get(m_obj.get(), key);
+  ASSERT(jKey, (key));
+
+  string s = GetStringImpl(json_object_get(jKey, lang.c_str()));
+  if (s.empty())
+  {
+    s = GetStringImpl(json_object_get(jKey, "en"));
+    ASSERT(!s.empty(), ());
+  }
+  return s;
+}
+
+string GuideInfo::GetURL() const
+{
+  return GetString("url");
+}
+
+string GuideInfo::GetAppID() const
+{
+  return GetString("appId");
+}
+
+string GuideInfo::GetAdTitle(string const & lang) const
+{
+  return GetAdForLang(lang, "adTitles");
+}
+
+string GuideInfo::GetAdMessage(string const & lang) const
+{
+  return GetAdForLang(lang, "adMessages");
+}
+
+bool GuideInfo::IsValid() const
+{
+  return (!GetURL().empty() && !GetAppID().empty());
+}
+
+string DebugPrint(GuideInfo const & r)
+{
+  ostringstream ss;
+  ss << "URL: " << r.GetURL() << "; ID: " << r.GetAppID();
+  return ss.str();
+}
 
 bool GuidesManager::RestoreFromFile()
 {
@@ -58,11 +118,10 @@ void GuidesManager::UpdateGuidesData()
   }
 }
 
-bool GuidesManager::GetGuideInfo(string const & countryId, GuideInfo & appInfo) const
+bool GuidesManager::GetGuideInfo(string const & id, GuideInfo & appInfo) const
 {
-  map<string, GuideInfo>::const_iterator const it = m_countryToInfoMapping.find(countryId);
-
-  if (it != m_countryToInfoMapping.end())
+  MapT::const_iterator const it = m_file2Info.find(id);
+  if (it != m_file2Info.end())
   {
     appInfo = it->second;
     return true;
@@ -80,13 +139,35 @@ string GuidesManager::GetDataFileName() const
   return OMIM_OS_NAME "-" GUIDES_DATA_FILE_SUFFIX;
 }
 
+string GuidesManager::GetDataFileFullPath() const
+{
+  return GetPlatform().WritableDir() + GetDataFileName();
+}
+
 void GuidesManager::OnFinish(downloader::HttpRequest & request)
 {
   if (request.Status() == downloader::HttpRequest::ECompleted)
   {
     string const & data = request.Data();
-    if (ValidateAndParseGuidesData(data))
-      SaveToFile();
+    if (ValidateAndParseGuidesData(data) && !m_file2Info.empty())
+    {
+      // Save only if file was parsed successfully and info exists!
+
+      string const path = GetDataFileFullPath();
+      try
+      {
+        FileWriter writer(path);
+        writer.Write(data.c_str(), data.size());
+      }
+      catch (Writer::Exception const & ex)
+      {
+        LOG(LWARNING, (ex.Msg()));
+
+        // Delete file in case of error
+        // (app will get the default one from bundle on start).
+        (void)my::DeleteFileX(path);
+      }
+    }
     else
       LOG(LWARNING, ("Request data is invalid:", request.Data()));
   }
@@ -98,79 +179,55 @@ void GuidesManager::OnFinish(downloader::HttpRequest & request)
 
 bool GuidesManager::ValidateAndParseGuidesData(string const & jsonData)
 {
+  typedef my::Json::Exception ParseException;
+
   try
   {
     my::Json root(jsonData.c_str());
-    void * iter  = json_object_iter(root.get());
+    void * iter = json_object_iter(root.get());
 
-    map<string, GuideInfo> temp;
+    MapT temp;
     while (iter)
     {
-      char const * key = json_object_iter_key(iter);
-      json_t * value = json_object_get(root.get(), key);
-
-      GuideInfo info;
-      info.m_appId = json_string_value(json_object_get(value, "appId"));
-      info.m_appName = json_string_value(json_object_get(value, "name"));
-      info.m_appUrl = json_string_value(json_object_get(value, "url"));
-      temp[key] = info;
+      json_t * entry = json_object_iter_value(iter);
+      if (entry)
+      {
+        GuideInfo info(entry);
+        if (info.IsValid())
+        {
+          json_t * keys = json_object_get(entry, "keys");
+          for (size_t i = 0; i < json_array_size(keys); ++i)
+          {
+            char const * key = json_string_value(json_array_get(keys, i));
+            if (key)
+              temp[key] = info;
+          }
+        }
+      }
 
       iter = json_object_iter_next(root.get(), iter);
     }
 
-    m_countryToInfoMapping.swap(temp);
+    m_file2Info.swap(temp);
     return true;
   }
-  catch (my::Json::Exception const &)
+  catch (ParseException const & ex)
   {
-    LOG(LWARNING, ("Failded to parse guides data."));
+    LOG(LWARNING, ("Failed to parse guides data:", ex.Msg()));
     return false;
   }
 }
 
-bool GuidesManager::WasAdvertised(string const & countryId)
+bool GuidesManager::WasAdvertised(string const & appID)
 {
   bool flag = false;
-  Settings::Get(GUIDE_ADVERTISE_KEY + countryId, flag);
+  Settings::Get(GUIDE_ADVERTISE_KEY + appID, flag);
   return flag;
 }
 
-void GuidesManager::SetWasAdvertised(string const & countryId)
+void GuidesManager::SetWasAdvertised(string const & appID)
 {
-  Settings::Set(GUIDE_ADVERTISE_KEY + countryId, true);
-}
-
-void GuidesManager::SaveToFile() const
-{
-  string const path = GetPlatform().WritableDir() + GetDataFileName();
-  FileWriter writer(path);
-
-  char braces[] = { '{', '}' };
-
-  writer.Write(&braces[0], 1);
-
-  if (!m_countryToInfoMapping.empty())
-  {
-    bool isFirst = true;
-    map<string, GuideInfo>::const_iterator it;
-    for (it = m_countryToInfoMapping.begin(); it != m_countryToInfoMapping.end(); ++it)
-    {
-      ostringstream node;
-      node << (isFirst ? "" : " ,");
-      isFirst = false;
-
-      GuideInfo info = it->second;
-      node << "\"" + it->first + "\": {"
-           << "\"name\": \""  << info.m_appName << "\", "
-           << "\"url\": \""   << info.m_appUrl  << "\", "
-           << "\"appId\": \"" << info.m_appId   << "\"}";
-
-      string const nodeStr = node.str();
-      writer.Write(nodeStr.data(), nodeStr.size());
-    }
-  }
-
-  writer.Write(&braces[1], 1);
+  Settings::Set(GUIDE_ADVERTISE_KEY + appID, true);
 }
 
 }

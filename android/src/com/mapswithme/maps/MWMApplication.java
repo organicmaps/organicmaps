@@ -91,12 +91,10 @@ public class MWMApplication extends android.app.Application implements MapStorag
     if (Utils.hasAnyGoogleStoreInstalled())
     {
       final GuideInfo info = getGuideInfoForIndex(idx);
-      if (info != null && !GuidesUtils.isGuideInstalled(info.getAppId(), this))
+      if (info != null && !GuidesUtils.isGuideInstalled(info.mAppId, this))
       {
         final Notifier notifier = new Notifier(this);
-        notifier.placeGuideAvailable(info.getAppName(),
-            info.getAppId(),
-            getMapStorage().countryName(idx));
+        notifier.placeGuideAvailable(info.mAppId, info.mTitle, info.mMessage);
       }
     }
   }

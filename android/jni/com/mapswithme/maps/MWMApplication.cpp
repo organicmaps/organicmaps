@@ -17,6 +17,7 @@
 #include "../../../../../map/dialog_settings.hpp"
 
 #include "../../../../../platform/settings.hpp"
+#include "../../../../../platform/preferred_languages.hpp"
 
 
 extern "C"
@@ -147,13 +148,16 @@ extern "C"
     guides::GuideInfo info;
     if (g_framework->NativeFramework()->GetGuideInfo(storage::toNative(index), info))
     {
-      const jclass giClazz = env->FindClass("com/mapswithme/maps/guides/GuideInfo");
-      const jmethodID constrId = env->GetMethodID(giClazz, "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+      const jclass giClass = env->FindClass("com/mapswithme/maps/guides/GuideInfo");
+      const jmethodID methodID = env->GetMethodID(giClass,
+          "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
 
-      return env->NewObject(giClazz, constrId,
-                            jni::ToJavaString(env, info.m_appName),
-                            jni::ToJavaString(env, info.m_appId),
-                            jni::ToJavaString(env, info.m_appUrl));
+      string const lang = languages::CurrentLanguage();
+      return env->NewObject(giClass, methodID,
+                            jni::ToJavaString(env, info.GetAppID()),
+                            jni::ToJavaString(env, info.GetURL()),
+                            jni::ToJavaString(env, info.GetAdTitle(lang)),
+                            jni::ToJavaString(env, info.GetAdMessage(lang)));
     }
 
     return 0;
