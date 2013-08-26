@@ -2596,11 +2596,3 @@
     zh-Hant = 完成
     it = Fine
     ko = 완료
-  [noti_guide_title]
-    en = %1$@ available
-    tags = android
-    comment = Title for "Guide available" notification
-  [noti_guide_content]
-    en = Get free travel guide on %1$@
-    tags = android
-    comment = Content for "Guide available" notification

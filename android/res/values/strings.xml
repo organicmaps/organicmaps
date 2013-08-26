@@ -315,8 +315,4 @@
 	<string name="info">Show More Info</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Done</string>
-	<!-- Title for "Guide available" notification -->
-	<string name="noti_guide_title">%1$s available</string>
-	<!-- Content for "Guide available" notification -->
-	<string name="noti_guide_content">Get free travel guide on %1$s</string>
 </resources>
