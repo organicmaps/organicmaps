@@ -40,6 +40,8 @@ public:
   void SaveToFile() const;
   bool GetGuideInfo(string const & countryId, GuideInfo & appInfo) const;
   bool ValidateAndParseGuidesData(string const & jsonData);
+  bool WasAdvertised(string const & countryId);
+  void SetWasAdvertised(string const & countryId);
 
 private:
   void   OnFinish(downloader::HttpRequest & request);

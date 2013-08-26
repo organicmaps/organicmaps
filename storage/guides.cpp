@@ -17,6 +17,7 @@
 
 
 #define GUIDE_UPDATE_TIME_KEY "guideUpdateTime"
+#define GUIDE_ADVERTISE_KEY "GuideAdvertised: "
 #define GUIDE_UPDATE_PERIOD 60 * 60 * 24
 
 using namespace guides;
@@ -119,6 +120,18 @@ bool GuidesManager::ValidateAndParseGuidesData(string const & jsonData)
     LOG(LDEBUG, ("Failded to read guides data."));
     return false;
   }
+}
+
+bool GuidesManager::WasAdvertised(string const & countryId)
+{
+  bool flag = false;
+  Settings::Get(GUIDE_ADVERTISE_KEY + countryId, flag);
+  return flag;
+}
+
+void GuidesManager::SetWasAdvertised(string const & countryId)
+{
+  Settings::Set(GUIDE_ADVERTISE_KEY + countryId, true);
 }
 
 void GuidesManager::SaveToFile() const
