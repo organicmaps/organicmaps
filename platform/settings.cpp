@@ -17,7 +17,7 @@
 #include "../std/iostream.hpp"
 
 
-#define DELIM_CHAR  '='
+static char const DELIM_CHAR = '=';
 
 namespace Settings
 {
@@ -45,15 +45,15 @@ namespace Settings
           m_values[key] = value;
       }
     }
-    catch (RootException const & e)
+    catch (RootException const & ex)
     {
-      LOG(LWARNING, ("Can't load", SETTINGS_FILE_NAME));
+      LOG(LWARNING, (ex.Msg()));
     }
   }
 
   void StringStorage::Save() const
   {
-    // @TODO add mutex
+    /// @todo Add mutex.
     try
     {
       FileWriter file(GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME));
@@ -66,10 +66,10 @@ namespace Settings
         file.Write(line.data(), line.size());
       }
     }
-    catch (RootException const &)
+    catch (RootException const & ex)
     {
       // Ignore all settings saving exceptions
-      LOG(LWARNING, ("Can't save", SETTINGS_FILE_NAME));
+      LOG(LWARNING, (ex.Msg()));
     }
   }
 
