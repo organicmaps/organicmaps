@@ -113,6 +113,7 @@ namespace storage
     string const & CountryFileName(TIndex const & index) const;
     LocalAndRemoteSizeT CountrySizeInBytes(TIndex const & index) const;
     TStatus CountryStatus(TIndex const & index) const;
+    TStatus CountryStatusEx(TIndex const & index) const;
     //m2::RectD CountryBounds(TIndex const & index) const;
 
     void DownloadCountry(TIndex const & index);
@@ -123,9 +124,8 @@ namespace storage
 
     string GetFileDownloadUrl(string const & baseUrl, string const & fName) const;
 
-    /// @param list is populated with oudated countries
-    /// @return number of outdated countries in the list
-    int GetOutdatedCountries(vector<Country> & list) const;
+    /// @param[out] res Populated with oudated countries.
+    void GetOutdatedCountries(vector<Country const *> & res) const;
 
     int64_t GetCurrentDataVersion() const { return m_currentVersion; }
 

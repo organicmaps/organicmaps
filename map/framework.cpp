@@ -285,38 +285,7 @@ void Framework::DeleteCountry(TIndex const & index)
 
 TStatus Framework::GetCountryStatus(TIndex const & index) const
 {
-  using namespace storage;
-
-  TStatus res = m_storage.CountryStatus(index);
-
-  if (res == EUnknown)
-  {
-    Country const & c = m_storage.CountryByIndex(index);
-    LocalAndRemoteSizeT const size = c.Size();
-
-    if (size.first == 0)
-      return ENotDownloaded;
-
-    if (size.second == 0)
-      return EUnknown;
-
-    res = EOnDisk;
-    if (size.first != size.second)
-    {
-      /// @todo Do better version check, not just size comparison.
-
-      // Additional check for .ready file.
-      // Use EOnDisk status if it's good, or EOnDiskOutOfDate otherwise.
-      Platform const & pl = GetPlatform();
-      string const fName = pl.WritablePathForFile(c.GetFile().GetFileWithExt() + READY_FILE_EXTENSION);
-
-      uint64_t sz = 0;
-      if (!pl.GetFileSizeByFullPath(fName, sz) || sz != size.second)
-        res = EOnDiskOutOfDate;
-    }
-  }
-
-  return res;
+  return m_storage.CountryStatusEx(index);
 }
 
 string Framework::GetCountryName(storage::TIndex const & index) const

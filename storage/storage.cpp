@@ -10,6 +10,7 @@
 #include "../coding/file_reader.hpp"
 #include "../coding/file_container.hpp"
 #include "../coding/url_encode.hpp"
+#include "../coding/file_name_utils.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/string_utils.hpp"
@@ -144,6 +145,39 @@ namespace storage
       return EDownloadFailed;
 
     return EUnknown;
+  }
+
+  TStatus Storage::CountryStatusEx(TIndex const & index) const
+  {
+    TStatus res = CountryStatus(index);
+    if (res == EUnknown)
+    {
+      Country const & c = CountryByIndex(index);
+      LocalAndRemoteSizeT const size = c.Size();
+
+      if (size.first == 0)
+        return ENotDownloaded;
+
+      if (size.second == 0)
+        return EUnknown;
+
+      res = EOnDisk;
+      if (size.first != size.second)
+      {
+        /// @todo Do better version check, not just size comparison.
+
+        // Additional check for .ready file.
+        // Use EOnDisk status if it's good, or EOnDiskOutOfDate otherwise.
+        Platform const & pl = GetPlatform();
+        string const fName = pl.WritablePathForFile(c.GetFile().GetFileWithExt() + READY_FILE_EXTENSION);
+
+        uint64_t sz = 0;
+        if (!pl.GetFileSizeByFullPath(fName, sz) || sz != size.second)
+          res = EOnDiskOutOfDate;
+      }
+    }
+
+    return res;
   }
 
   void Storage::DownloadCountry(TIndex const & index)
@@ -400,74 +434,36 @@ namespace storage
     return TIndex();
   }
 
-  static bool IsNotUpdatable(string const & t)
+  namespace
   {
-    return (t == WORLD_COASTS_FILE_NAME) || (t == WORLD_FILE_NAME);
-  }
-
-  static string RemoveExt(string const & s)
-  {
-    return s.substr(0, s.find_last_of('.'));
-  }
-
-  class IsNotOutdatedFilter
-  {
-    Storage const & m_storage;
-
-  public:
-    IsNotOutdatedFilter(Storage const & storage)
-      : m_storage(storage)
-    {}
-
-    bool operator()(string const & fileName)
+    bool IsNotUpdatable(string const & t)
     {
-      const TIndex index = m_storage.FindIndexByFile(fileName);
-      TStatus res = m_storage.CountryStatus(index);
-
-      if (res == EUnknown)
-      {
-        Country const & c = m_storage.CountryByIndex(index);
-        LocalAndRemoteSizeT const size = c.Size();
-
-        if (size.first == 0)
-          return ENotDownloaded;
-
-        if (size.second == 0)
-          return EUnknown;
-
-        res = EOnDisk;
-        if (size.first != size.second)
-        {
-          /// @todo Do better version check, not just size comparison.
-
-          // Additional check for .ready file.
-          // Use EOnDisk status if it's good, or EOnDiskOutOfDate otherwise.
-          Platform const & pl = GetPlatform();
-          string const fName = pl.WritablePathForFile(c.GetFile().GetFileWithExt() + READY_FILE_EXTENSION);
-
-          uint64_t sz = 0;
-          if (!pl.GetFileSizeByFullPath(fName, sz) || sz != size.second)
-            res = EOnDiskOutOfDate;
-        }
-      }
-      return res != EOnDiskOutOfDate;
+      return (t == WORLD_COASTS_FILE_NAME) || (t == WORLD_FILE_NAME);
     }
-  };
 
-  int Storage::GetOutdatedCountries(vector<Country> & list) const
+    class IsNotOutdatedFilter
+    {
+      Storage const & m_storage;
+    public:
+      IsNotOutdatedFilter(Storage const & storage) : m_storage(storage) {}
+      bool operator() (string const & file) const
+      {
+        return (m_storage.CountryStatusEx(m_storage.FindIndexByFile(file)) != EOnDiskOutOfDate);
+      }
+    };
+  }
+
+  void Storage::GetOutdatedCountries(vector<Country const *> & res) const
   {
     Platform & pl = GetPlatform();
     Platform::FilesList fList;
     pl.GetFilesByExt(pl.WritableDir(), DATA_FILE_EXTENSION, fList);
 
-    Platform::FilesList fListNoExt(fList.size());
-    transform(fList.begin(), fList.end(), fListNoExt.begin(), RemoveExt);
-    fListNoExt.erase(remove_if(fListNoExt.begin(), fListNoExt.end(), IsNotUpdatable), fListNoExt.end());
-    fListNoExt.erase(remove_if(fListNoExt.begin(), fListNoExt.end(), IsNotOutdatedFilter(*this)), fListNoExt.end());
+    for_each(fList.begin(), fList.end(), bind(&my::GetNameWithoutExt, _1));
+    fList.erase(remove_if(fList.begin(), fList.end(), &IsNotUpdatable), fList.end());
+    fList.erase(remove_if(fList.begin(), fList.end(), IsNotOutdatedFilter(*this)), fList.end());
 
-    for (int i = 0; i < fListNoExt.size(); ++i)
-      list.push_back(CountryByIndex(FindIndexByFile(fListNoExt[i])));
-
-    return fListNoExt.size();
+    for (size_t i = 0; i < fList.size(); ++i)
+      res.push_back(&CountryByIndex(FindIndexByFile(fList[i])));
   }
 }

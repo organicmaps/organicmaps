@@ -598,19 +598,17 @@ namespace android
 
   string Framework::GetOutdatedCountriesString()
   {
-    vector<storage::Country> countries;
-    int count = Storage().GetOutdatedCountries(countries);
-    if (count == 0)
-      return "";
+    vector<storage::Country const *> countries;
+    Storage().GetOutdatedCountries(countries);
 
-    string concated = "";
-    for (int i = 0; i < countries.size(); i++)
+    string res;
+    for (size_t i = 0; i < countries.size(); ++i)
     {
-      concated.append(countries[i].Name());
+      res += countries[i]->Name();
       if (i < countries.size() - 1)
-        concated.append(", ");
+        res += ", ";
     }
-    return concated;
+    return res;
   }
 
 }
