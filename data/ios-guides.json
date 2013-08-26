@@ -1,26 +1,36 @@
 {
-    "UK_England":
+    "UK":
         {
-            "name": "UK Travel Guide with Me",
             "url": "itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=687855665",
-            "appId": "guideswithme://"
-        },
-    "UK_Northern Ireland":
-        {
-            "name": "UK Travel Guide with Me",
-            "url": "itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=687855665",
-            "appId": "guideswithme://"
-        },
-    "UK_Scotland":
-        {
-            "name": "UK Travel Guide with Me",
-            "url": "itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=687855665",
-            "appId": "guideswithme://"
-        },
-    "UK_Wales":
-        {
-            "name": "UK Travel Guide with Me",
-            "url": "itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=687855665",
-            "appId": "guideswithme://"
+            "appId": "guideswithme://",
+            "adTitles": { "en": "UK GuideWithMe available",
+                          "nl": "VK GuideWithMe beschikbaar",
+				"uk": "Доступний GuideWithMe по Великобританії",
+				"zh": "英國GuideWithMe可用",
+				"cs": "Je k dispozici britský GuideWithMe",
+				"fr": "Le «GuideWithMe» du Royaume-Uni est disponible",
+				"it": "GuideWithMe UK disponibile",
+				"ja": "英国GuideWithMe提供中",
+				"ko": "영국 GuideWithMe를 이용하실 수 있습니다",
+				"pt": "GuideWithMe do Reino Unido disponível",
+				"es": "GuideWithMe del Reino Unido disponible",
+				"pl": "GuideWithMe Wielka Brytania dostępny",
+				"de": "Der britische GuideWithMe ist jetzt erhältlich",
+				"ru": "GuideWithMe по Великобритании" },
+            "adMessages": {	"en": "Get free travel guide on United Kingdom",
+				"nl": "Krijg een gratis reisgids voor het Verenigd Koninkrijk",
+				"uk": "Отримайте безкоштовний путівник по Великобританії",
+				"zh": "獲得免費的英國旅行指南",
+				"cs": "Pořiďte si bezplatného cestovního průvodce po Velké Británii",
+				"fr": "Obtenez le guide de voyage gratuit du Royaume-Uni",
+				"it": "Prendi la guida turistica gratuita sul Regno Unito",
+				"ja": "無料のイギリストラベルガイドを入手しよう",
+				"ko": "영국 여행 가이드를 무료로 얻으세요",
+				"pt": "Obtenha um guia de viagem gratuito no Reino Unido",
+				"es": "Consigue la guía de viaje gratis sobre el Reino Unido",
+				"pl": "Pobierz darmowy przewodnik turystyczny po Wielkiej Brytanii",
+				"de": "Hole dir den kostenlosen Reiseführer für das Vereinigte Königreich",
+				"ru": "Получите бесплатно путеводитель по стране" },
+            "keys": [ "UK_England", "UK_Northern Ireland", "UK_Scotland", "UK_Wales" ]
         }
 }
