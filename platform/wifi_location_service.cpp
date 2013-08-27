@@ -29,9 +29,9 @@ namespace location
         {
           bool success = false;
           my::Json root(response.Data().c_str());
-          if (json_is_object(root))
+          if (json_is_object(root.get()))
           {
-            json_t * location = json_object_get(root, "location");
+            json_t * location = json_object_get(root.get(), "location");
             if (json_is_object(location))
             {
               json_t * lat = json_object_get(location, "latitude");

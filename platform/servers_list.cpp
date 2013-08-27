@@ -21,16 +21,16 @@ bool ParseServerList(string const & jsonStr, vector<string> & outUrls)
   try
   {
     my::Json root(jsonStr.c_str());
-    for (size_t i = 0; i < json_array_size(root); ++i)
+    for (size_t i = 0; i < json_array_size(root.get()); ++i)
     {
-      char const * url = json_string_value(json_array_get(root, i));
+      char const * url = json_string_value(json_array_get(root.get(), i));
       if (url)
         outUrls.push_back(url);
     }
   }
-  catch (std::exception const & e)
+  catch (my::Json::Exception const & ex)
   {
-    LOG(LERROR, ("Can't parse server list json", e.what(), jsonStr));
+    LOG(LERROR, ("Can't parse server list json:", ex.Msg(), jsonStr));
   }
   return !outUrls.empty();
 }

@@ -114,15 +114,15 @@ int64_t LoadCountriesImpl(string const & jsonBuffer, ToDo & toDo)
   try
   {
     my::Json root(jsonBuffer.c_str());
-    version = json_integer_value(json_object_get(root, "v"));
-    json_t * children = json_object_get(root, "g");
+    version = json_integer_value(json_object_get(root.get(), "v"));
+    json_t * children = json_object_get(root.get(), "g");
     if (!children)
       MYTHROW(my::Json::Exception, ("Root country doesn't have any groups"));
     LoadGroupImpl(0, children, toDo);
   }
-  catch (my::Json::Exception const & e)
+  catch (my::Json::Exception const & ex)
   {
-    LOG(LERROR, (e.what()));
+    LOG(LERROR, (ex.Msg()));
     return -1;
   }
 
@@ -231,16 +231,19 @@ void SaveImpl(T const & v, json_t * jParent)
   size_t const siblingsCount = v.SiblingsCount();
   CHECK_GREATER(siblingsCount, 0, ());
 
-  my::Json jArray(json_array());
+  my::JsonHandle jArray;
+  jArray.AttachNew(json_array());
   for (size_t i = 0; i < siblingsCount; ++i)
   {
-    my::Json jCountry(json_object());
+    my::JsonHandle jCountry;
+    jCountry.AttachNew(json_object());
+
     string const strName = v[i].Value().Name();
     CHECK(!strName.empty(), ("Empty country name?"));
-    json_object_set_new(jCountry, "n", json_string(strName.c_str()));
+    json_object_set_new(jCountry.get(), "n", json_string(strName.c_str()));
     string const strFlag = v[i].Value().Flag();
     if (!strFlag.empty())
-      json_object_set_new(jCountry, "c", json_string(strFlag.c_str()));
+      json_object_set_new(jCountry.get(), "c", json_string(strFlag.c_str()));
 
     size_t countriesCount = v[i].Value().GetFilesCount();
     ASSERT_LESS_OR_EQUAL(countriesCount, 1, ());
@@ -249,30 +252,32 @@ void SaveImpl(T const & v, json_t * jParent)
       CountryFile const & file = v[i].Value().GetFile();
       int64_t const price = file.m_price;
       CHECK_GREATER_OR_EQUAL(price, 0, ("Invalid price"));
-      json_object_set_new(jCountry, "p", json_integer(price));
+      json_object_set_new(jCountry.get(), "p", json_integer(price));
       string const strFile = file.m_fileName;
       if (strFile != strName)
-        json_object_set_new(jCountry, "f", json_string(strFile.c_str()));
-      json_object_set_new(jCountry, "s", json_integer(file.m_remoteSize));
+        json_object_set_new(jCountry.get(), "f", json_string(strFile.c_str()));
+      json_object_set_new(jCountry.get(), "s", json_integer(file.m_remoteSize));
     }
 
     if (v[i].SiblingsCount())
-      SaveImpl(v[i], jCountry);
+      SaveImpl(v[i], jCountry.get());
 
-    json_array_append(jArray, jCountry);
+    json_array_append(jArray.get(), jCountry.get());
   }
 
-  json_object_set(jParent, "g", jArray);
+  json_object_set(jParent, "g", jArray.get());
 }
 
 bool SaveCountries(int64_t version, CountriesContainerT const & countries, string & jsonBuffer)
 {
-  jsonBuffer.clear();
-  my::Json root(json_object());
-  json_object_set_new(root, "v", json_integer(version));
-  json_object_set_new(root, "n", json_string("World"));
-  SaveImpl(countries, root);
-  char * res = json_dumps(root, JSON_PRESERVE_ORDER | JSON_COMPACT | JSON_INDENT(1));
+  my::JsonHandle root;
+  root.AttachNew(json_object());
+
+  json_object_set_new(root.get(), "v", json_integer(version));
+  json_object_set_new(root.get(), "n", json_string("World"));
+  SaveImpl(countries, root.get());
+
+  char * res = json_dumps(root.get(), JSON_PRESERVE_ORDER | JSON_COMPACT | JSON_INDENT(1));
   jsonBuffer = res;
   free(res);
   return true;

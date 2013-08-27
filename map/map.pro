@@ -10,7 +10,6 @@ ROOT_DIR = ..
 INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src
 # use expat from the system on linux
 !linux*: INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
-INCLUDEPATH *= $$ROOT_DIR/3party/jansson/src
 
 
 include($$ROOT_DIR/common.pri)

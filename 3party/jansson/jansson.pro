@@ -16,6 +16,7 @@ SOURCES += \
     src/memory.c \
     src/error.c \
     src/strconv.c \
+    jansson_handle.cpp \
 
 HEADERS += \
     myjansson.hpp \
@@ -25,3 +26,4 @@ HEADERS += \
     src/strbuffer.h \
     src/utf.h \
     src/jansson_config.h \
+    jansson_handle.hpp \

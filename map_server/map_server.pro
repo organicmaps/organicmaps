@@ -16,7 +16,6 @@ INSTALLS += target
 
 QT       += core gui opengl network
 
-INCLUDEPATH *= $$ROOT_DIR/3party/jansson/src
 INCLUDEPATH *= $$ROOT_DIR/3party/qjsonrpc/src
 INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src
 

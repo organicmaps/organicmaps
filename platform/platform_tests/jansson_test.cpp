@@ -11,8 +11,8 @@ UNIT_TEST(Jansson_Smoke)
       "\"accuracy\":22.0},\"access_token\":\"2:vC65Xv0mxMtsNVf4:hY5YSIkuFfnAU77z\"}";
 
   my::Json root(str);
-  TEST(json_is_object(root), ());
-  json_t * location = json_object_get(root, "location");
+  TEST(json_is_object(root.get()), ());
+  json_t * location = json_object_get(root.get(), "location");
   TEST(json_is_object(location), ());
 
   json_t * lat = json_object_get(location, "latitude");
