@@ -30,9 +30,7 @@ public class Notifier
 
   public void placeUpdateAvailable(String forWhat)
   {
-    // TODO: add real resources
-    final String title = "Map Update Available ";
-    final String text = "Updated maps: " + forWhat;
+    final String title = mContext.getString(R.string.advise_update_maps);
 
     // Intent to start DownloadUI
     final Intent i = new Intent(mContext, DownloadUI.class);
@@ -40,8 +38,8 @@ public class Notifier
 
     final Notification notification = getBuilder()
         .setContentTitle(title)
-        .setContentText(text)
-        .setTicker(title + text)
+        .setContentText(forWhat)
+        .setTicker(title + forWhat)
         .setContentIntent(pi)
         .build();
 
@@ -53,7 +51,7 @@ public class Notifier
     final String title = mContext.getString(R.string.app_name);
     final String content = mContext.getString(R.string.download_country_success, name);
 
-   placeDownloadNoti(title, content, idx);
+    placeDownloadNoti(title, content, idx);
   }
 
   public void placeDownloadFailed(Index idx, String name)
