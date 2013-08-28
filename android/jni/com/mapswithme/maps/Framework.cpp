@@ -23,6 +23,8 @@
 #include "../../../../../base/math.hpp"
 #include "../../../../../base/logging.hpp"
 
+#include "../../../../../platform/preferred_languages.hpp"
+
 
 const unsigned LONG_TOUCH_MS = 1000;
 const unsigned SHORT_TOUCH_MS = 250;
@@ -769,4 +771,51 @@ extern "C"
   {
     g_framework->NativeFramework()->UpdateSavedDataVersion();
   }
+
+  JNIEXPORT jobjectArray JNICALL
+  Java_com_mapswithme_maps_Framework_getGuideInfosForDownloadedMaps(JNIEnv * env, jclass clazz)
+  {
+    vector<guides::GuideInfo> infos;
+    g_framework->NativeFramework()->GetGuidesInfosWithDownloadedMaps(infos);
+
+    LOG(LDEBUG, ("Got maps:", infos));
+
+    if (infos.size() > 0)
+    {
+      const jclass giClass = env->FindClass("com/mapswithme/maps/guides/GuideInfo");
+      const jmethodID methodID = env->GetMethodID(giClass, "<init>",
+          "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+      const string lang = languages::CurrentLanguage();
+
+      jobjectArray jInfos = env->NewObjectArray(infos.size(), giClass, NULL);
+
+      for (int i = 0; i < infos.size(); ++i)
+      {
+        const guides::GuideInfo info = infos[i];
+        jobject jGuideInfo =  env->NewObject(giClass, methodID,
+            jni::ToJavaString(env, info.GetAppID()),
+            jni::ToJavaString(env, info.GetURL()), jni::ToJavaString(env, info.GetAdTitle(lang)),
+            jni::ToJavaString(env, info.GetAdMessage(lang)));
+
+        env->SetObjectArrayElement(jInfos, i, jGuideInfo);
+      }
+
+      return jInfos;
+    }
+
+    return NULL;
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_setWasAdvertised(JNIEnv * env, jclass clazz, jstring appId)
+  {
+    g_framework->NativeFramework()->GetGuidesManager().SetWasAdvertised(jni::ToNativeString(env, appId));
+  }
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_Framework_wasAdvertised(JNIEnv * env, jclass clazz, jstring appId)
+  {
+    return g_framework->NativeFramework()->GetGuidesManager().WasAdvertised(jni::ToNativeString(env, appId));
+  }
+
 }
