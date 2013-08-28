@@ -28,7 +28,10 @@ import com.mapswithme.maps.MWMActivity.OpenUrlTask;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.ParsedMmwRequest;
+import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.base.MapsWithMeBaseActivity;
+import com.mapswithme.maps.guides.GuideInfo;
+import com.mapswithme.maps.guides.GuidesUtils;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.ConnectionState;
@@ -251,6 +254,9 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
 
   public void showMapView()
   {
+    tryAdvertiseGuides();
+
+
     // Continue with Main UI initialization (MWMActivity)
     final Intent mwmActivityIntent = new Intent(this, MWMActivity.class);
 
@@ -268,6 +274,28 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     startActivity(mwmActivityIntent);
 
     finish();
+  }
+
+  private void tryAdvertiseGuides()
+  {
+    final GuideInfo[] gInfos = Framework.getGuideInfosForDownloadedMaps();
+    if (gInfos != null)
+    {
+      // iterate all guides until find not installed && not advertised one
+      for (final GuideInfo info : gInfos)
+      {
+        if (!GuidesUtils.isGuideInstalled(info.mAppId, this) && !Framework.wasAdvertised(info.mAppId))
+        {
+          final Notifier noty = new Notifier(this);
+          noty.placeGuideAvailable(info.mAppId, info.mTitle, info.mMessage);
+          Framework.setWasAdvertised(info.mAppId);
+          break;
+        }
+        // mark installed guides as advertised
+        else if (GuidesUtils.isGuideInstalled(info.mAppId, this))
+          Framework.setWasAdvertised(info.mAppId);
+      }
+    }
   }
 
   public void finishFilesDownload(int result)
