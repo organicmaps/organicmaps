@@ -786,6 +786,51 @@ namespace agg
         const Gamma* m_gamma;
     };
 
+    //=========================================================blender_rgb4444
+    struct blender_rgb4444
+    {
+        typedef rgba8 color_type;
+        typedef color_type::value_type value_type;
+        typedef color_type::calc_type calc_type;
+        typedef int16u pixel_type;
+
+        static AGG_INLINE void blend_pix(pixel_type* p,
+                                         unsigned cr, unsigned cg, unsigned cb,
+                                         unsigned alpha,
+                                         unsigned)
+        {
+            pixel_type rgb = *p;
+            calc_type r = (rgb >> 8) & 0xF0;
+            calc_type g = (rgb >> 4) & 0xF0;
+            calc_type b = rgb & 0xF0;
+            calc_type a = (rgb & 0xF) << 4;
+            calc_type r1 = color_type::lerp(r, cr, alpha);
+            calc_type g1 = color_type::lerp(g, cg, alpha);
+            calc_type b1 = color_type::lerp(b, cb, alpha);
+            calc_type a1 = color_type::prelerp(a, alpha, alpha);
+            *p = (pixel_type)
+                 (((r1 >> 4) << 12) |
+                  ((g1 >> 4) << 8) |
+                  ((b1 >> 4) << 4) |
+                  (a1 >> 4));
+        }
+
+        static AGG_INLINE pixel_type make_pix(unsigned r, unsigned g, unsigned b)
+        {
+            return (pixel_type)(((r & 0xF0) << 8) |
+                                ((g & 0xF0) << 4) |
+                                 (b & 0xF0) |
+                                  0xF);
+        }
+
+        static AGG_INLINE color_type make_color(pixel_type p)
+        {
+            return color_type((p >> 8) & 0xF0,
+                              (p >> 4) & 0xF0,
+                              p & 0xF0,
+                              (p & 0xF) << 4);
+        }
+    };
 
     
     //===========================================pixfmt_alpha_blend_rgb_packed
@@ -1217,6 +1262,7 @@ namespace agg
     typedef pixfmt_alpha_blend_rgb_packed<blender_rgbBBA_pre, rendering_buffer> pixfmt_rgbBBA_pre; //----pixfmt_rgbBBA_pre
     typedef pixfmt_alpha_blend_rgb_packed<blender_bgrABB_pre, rendering_buffer> pixfmt_bgrABB_pre; //----pixfmt_bgrABB_pre
 
+    typedef pixfmt_alpha_blend_rgb_packed<blender_rgb4444, rendering_buffer> pixfmt_rgb4444;
 
     //-----------------------------------------------------pixfmt_rgb555_gamma
     template<class Gamma> class pixfmt_rgb555_gamma : 
