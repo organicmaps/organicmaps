@@ -777,21 +777,21 @@ extern "C"
   {
     vector<guides::GuideInfo> infos;
     g_framework->NativeFramework()->GetGuidesInfosWithDownloadedMaps(infos);
+    const size_t mapsFound = infos.size();
 
     LOG(LDEBUG, ("Got maps:", infos));
-
-    if (infos.size() > 0)
+    if (mapsFound > 0)
     {
       const jclass giClass = env->FindClass("com/mapswithme/maps/guides/GuideInfo");
       const jmethodID methodID = env->GetMethodID(giClass, "<init>",
           "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
       const string lang = languages::CurrentLanguage();
 
-      jobjectArray jInfos = env->NewObjectArray(infos.size(), giClass, NULL);
+      jobjectArray jInfos = env->NewObjectArray(mapsFound, giClass, NULL);
 
-      for (int i = 0; i < infos.size(); ++i)
+      for (size_t i = 0; i < mapsFound; ++i)
       {
-        const guides::GuideInfo info = infos[i];
+        const guides::GuideInfo & info = infos[i];
         jobject jGuideInfo =  env->NewObject(giClass, methodID,
             jni::ToJavaString(env, info.GetAppID()),
             jni::ToJavaString(env, info.GetURL()), jni::ToJavaString(env, info.GetAdTitle(lang)),

@@ -279,21 +279,21 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
   private void tryAdvertiseGuides()
   {
     final GuideInfo[] gInfos = Framework.getGuideInfosForDownloadedMaps();
-    if (gInfos != null)
+    if (gInfos == null)
+      return;
+
+    // iterate all guides until find not installed && not advertised one
+    for (final GuideInfo info : gInfos)
     {
-      // iterate all guides until find not installed && not advertised one
-      for (final GuideInfo info : gInfos)
+      if (GuidesUtils.isGuideInstalled(info.mAppId, this))
+        Framework.setWasAdvertised(info.mAppId);
+      else if (!Framework.wasAdvertised(info.mAppId))
       {
-        if (!GuidesUtils.isGuideInstalled(info.mAppId, this) && !Framework.wasAdvertised(info.mAppId))
-        {
-          final Notifier noty = new Notifier(this);
-          noty.placeGuideAvailable(info.mAppId, info.mTitle, info.mMessage);
-          Framework.setWasAdvertised(info.mAppId);
-          break;
-        }
-        // mark installed guides as advertised
-        else if (GuidesUtils.isGuideInstalled(info.mAppId, this))
-          Framework.setWasAdvertised(info.mAppId);
+        final Notifier noty = new Notifier(this);
+        noty.placeGuideAvailable(info.mAppId, info.mTitle, info.mMessage);
+        Framework.setWasAdvertised(info.mAppId);
+
+        break;
       }
     }
   }
