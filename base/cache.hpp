@@ -58,12 +58,6 @@ namespace my
       return data.m_Value;
     }
 
-    bool HasKey(KeyT const & key) const
-    {
-      Data const & data = m_Cache[Index(key)];
-      return (data.m_Key == key);
-    }
-
     template <typename F>
     void ForEachValue(F f)
     {
