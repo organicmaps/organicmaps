@@ -156,8 +156,22 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   Storage & s = frm.Storage();
   
   string const & flag = s.CountryFlag(countryIndex);
-  if (!flag.empty())
+  guides::GuideInfo info;
+  if ((s.CountriesCount(countryIndex) == 0) && frm.GetGuideInfo(countryIndex, info))
+  {
+    cell.imageView.image = [UIImage imageNamed:@"guide_bag"];
+    [cell layoutSubviews];
+    UIButton * bt = [[[UIButton alloc] initWithFrame:cell.imageView.frame] autorelease];
+    bt.backgroundColor = [UIColor clearColor];
+    [bt addTarget:self action:@selector(showGuideAdvertise:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:bt];
+  }
+  else if (!flag.empty())
+  {
+    for (UIButton * v in cell.contentView.subviews)
+      [v removeFromSuperview];
     cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", flag.c_str()]];
+  }
 
   // do not show status for parent categories
   if (![cell.reuseIdentifier isEqual: @"ParentCell"])
@@ -478,6 +492,23 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
     if (cell)
       cell.detailTextLabel.text = [NSString stringWithFormat: NSLocalizedString(@"downloading_touch_to_cancel", nil), progress.first * 100 / progress.second];
   }
+}
+
+-(void)showGuideAdvertise:(UIButton *)bt
+{
+  UITableViewCell * cell = (UITableViewCell *)(bt.superview.superview);
+  UITableView * v = (UITableView *)self.view;
+  NSIndexPath * indexPath = [v indexPathForCell:cell];
+  TIndex const index = CalculateIndex(m_index, indexPath);
+  guides::GuideInfo info;
+  if (!GetFramework().GetGuideInfo(index, info));
+    return;
+  NSURL * guideUrl = [NSURL URLWithString:[NSString stringWithUTF8String:info.GetAppID().c_str()]];
+  UIApplication * app = [UIApplication sharedApplication];
+  if ([app canOpenURL:guideUrl])
+    [app openURL:guideUrl];
+  else
+    [app openURL:[NSURL URLWithString:[NSString stringWithUTF8String:info.GetURL().c_str()]]];
 }
 
 @end
