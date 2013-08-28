@@ -804,10 +804,10 @@ namespace agg
             calc_type g = (rgb >> 4) & 0xF0;
             calc_type b = rgb & 0xF0;
             calc_type a = (rgb & 0xF) << 4;
-            calc_type r1 = color_type::lerp(r, cr, alpha);
-            calc_type g1 = color_type::lerp(g, cg, alpha);
-            calc_type b1 = color_type::lerp(b, cb, alpha);
-            calc_type a1 = color_type::prelerp(a, alpha, alpha);
+            value_type r1 = color_type::lerp(r, cr, alpha);
+            value_type g1 = color_type::lerp(g, cg, alpha);
+            value_type b1 = color_type::lerp(b, cb, alpha);
+            value_type a1 = color_type::prelerp(a, alpha, alpha);
             *p = (pixel_type)
                  (((r1 & 0xF0) << 8) |
                   ((g1 & 0xF0) << 4) |
