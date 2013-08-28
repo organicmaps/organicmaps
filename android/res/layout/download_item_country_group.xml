@@ -3,17 +3,17 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp">
+    android:paddingLeft="4dp"
+    android:paddingRight="8dp" >
 
     <ImageView
         android:id="@+id/country_flag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dip"
-        android:scaleType="center"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:padding="5dip"
+        android:scaleType="center" />
 
     <ImageView
         android:id="@+id/disclosure_image"
@@ -21,15 +21,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/cell_arrow_black"/>
+        android:src="@drawable/cell_arrow_black" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/disclosure_image"
         android:layout_toRightOf="@+id/country_flag"
-        android:layout_centerVertical="true"
-        android:textAppearance="@style/Holo.TextAppearance.Large.Light"/>
+        android:textAppearance="@style/Holo.TextAppearance.Large.Light" />
 
 </RelativeLayout>

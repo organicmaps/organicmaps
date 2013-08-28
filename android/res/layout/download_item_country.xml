@@ -3,48 +3,68 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp">
+    android:paddingLeft="4dp"
+    android:paddingRight="8dp" >
 
-    <ImageView
-        android:id="@+id/country_flag"
+    <FrameLayout
+        android:id="@+id/flagOrGuide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dip"
-        android:scaleType="center"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:padding="5dip"
+        android:visibility="visible" >
+
+        <!-- Visible by defalut -->
+
+        <ImageView
+            android:id="@+id/country_flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="center"
+            android:visibility="visible" />
+
+        <!-- Invisible by default -->
+
+        <ImageView
+            android:id="@+id/guide_available"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="center"
+            android:visibility="gone" />
+    </FrameLayout>
 
     <ImageView
         android:id="@+id/show_country"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dip"
-        android:scaleType="center"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/goto_map"/>
+        android:padding="10dip"
+        android:scaleType="center"
+        android:src="@drawable/goto_map" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/show_country"
-        android:layout_toRightOf="@+id/country_flag">
+        android:layout_toRightOf="@+id/flagOrGuide"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/Holo.TextAppearance.Large.Light"/>
+            android:textAppearance="@style/Holo.TextAppearance.Large.Light" />
 
         <TextView
             android:id="@+id/summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/Holo.TextAppearance.Small.Light"/>
-
+            android:textAppearance="@style/Holo.TextAppearance.Small.Light" />
     </LinearLayout>
 
 </RelativeLayout>

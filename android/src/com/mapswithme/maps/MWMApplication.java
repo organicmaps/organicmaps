@@ -84,7 +84,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
     }
   }
 
-  private native GuideInfo getGuideInfoForIndex(Index idx);
+  public native GuideInfo getGuideInfoForIndex(Index idx);
 
   private void tryNotifyGuideAvailable(Index idx)
   {

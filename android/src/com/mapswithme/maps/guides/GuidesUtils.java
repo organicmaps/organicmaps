@@ -27,6 +27,7 @@ public class GuidesUtils
   {
     final Intent intent = new Intent(Intent.ACTION_VIEW);
     intent.setData(Uri.parse("market://details?id=" + packageName));
+    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET | Intent.FLAG_ACTIVITY_NO_HISTORY);
     return intent;
   }
 }

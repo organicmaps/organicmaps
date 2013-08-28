@@ -23,7 +23,10 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.base.MapsWithMeBaseListActivity;
+import com.mapswithme.maps.guides.GuideInfo;
+import com.mapswithme.maps.guides.GuidesUtils;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
 
@@ -43,17 +46,18 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
     private static final int TYPES_COUNT = 4;
     //@}
 
-    private LayoutInflater m_inflater;
-    private Activity m_context;
+    private final LayoutInflater m_inflater;
+    private final Activity m_context;
 
     private int m_slotID = 0;
-    private MapStorage m_storage;
+    private final MapStorage m_storage;
 
-    private String m_packageName;
+    private final String m_packageName;
 
     private static class CountryItem
     {
-      public String m_name;
+      public final String m_name;
+      public final Index  mIdx;
       public String m_flag;
 
       /// @see constants in MapStorage
@@ -61,9 +65,10 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
 
       public CountryItem(MapStorage storage, Index idx)
       {
+        mIdx = idx;
         m_name = storage.countryName(idx);
-
         m_flag = storage.countryFlag(idx);
+
         // The aapt can't process resources with name "do". Hack with renaming.
         if (m_flag.equals("do"))
           m_flag = "do_hack";
@@ -123,11 +128,11 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
     private Index m_idx = new Index();
     private CountryItem[] m_items = null;
 
-    private String m_kb;
-    private String m_mb;
+    private final String m_kb;
+    private final String m_mb;
 
-    private AlertDialog.Builder m_alert;
-    private DialogInterface.OnClickListener m_alertCancelHandler =
+    private final AlertDialog.Builder m_alert;
+    private final DialogInterface.OnClickListener m_alertCancelHandler =
         new DialogInterface.OnClickListener()
     {
       @Override
@@ -139,7 +144,7 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
 
     public DownloadAdapter(Activity context)
     {
-      MWMApplication app = (MWMApplication) context.getApplication();
+      final MWMApplication app = (MWMApplication) context.getApplication();
       m_storage = app.getMapStorage();
       m_packageName = app.getPackageName();
 
@@ -213,7 +218,7 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
 
     private boolean hasFreeSpace(long size)
     {
-      MWMApplication app = (MWMApplication) m_context.getApplication();
+      final MWMApplication app = (MWMApplication) m_context.getApplication();
       return app.hasFreeSpace(size);
     }
 
@@ -424,24 +429,26 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
 
     private static class ViewHolder
     {
-      public TextView m_name = null;
-      public TextView m_summary = null;
-      public ImageView m_flag = null;
-      public ImageView m_map = null;
+      public TextView  mName    = null;
+      public TextView  mSummary = null;
+      public ImageView mFlag    = null;
+      public ImageView mMap     = null;
+      public ImageView mGuide   = null;
 
       void initFromView(View v)
       {
-        m_name = (TextView) v.findViewById(R.id.title);
-        m_summary = (TextView) v.findViewById(R.id.summary);
-        m_flag = (ImageView) v.findViewById(R.id.country_flag);
-        m_map = (ImageView) v.findViewById(R.id.show_country);
+        mName = (TextView) v.findViewById(R.id.title);
+        mSummary = (TextView) v.findViewById(R.id.summary);
+        mFlag = (ImageView) v.findViewById(R.id.country_flag);
+        mMap = (ImageView) v.findViewById(R.id.show_country);
+        mGuide = (ImageView) v.findViewById(R.id.guide_available);
       }
     }
 
     /// Process "Map" button click in list view.
     private class MapClickListener implements OnClickListener
     {
-      private int m_position;
+      private final int m_position;
 
       public MapClickListener(int position) { m_position = position; }
 
@@ -518,7 +525,7 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
         case TYPE_COUNTRY_IN_PROCESS:
           convertView = m_inflater.inflate(R.layout.download_item_country, null);
           holder.initFromView(convertView);
-          holder.m_map.setVisibility(Button.INVISIBLE);
+          holder.mMap.setVisibility(Button.INVISIBLE);
           break;
 
         case TYPE_COUNTRY_READY:
@@ -535,18 +542,45 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
       }
 
       // set texts
-      holder.m_name.setText(m_items[position].m_name);
-      holder.m_name.setTextColor(m_items[position].getTextColor());
-      if (holder.m_summary != null)
-        holder.m_summary.setText(getSummary(position));
+      holder.mName.setText(m_items[position].m_name);
+      holder.mName.setTextColor(m_items[position].getTextColor());
+      if (holder.mSummary != null)
+        holder.mSummary.setText(getSummary(position));
 
       // attach to "Map" button if needed
-      if (holder.m_map != null && holder.m_map.getVisibility() == Button.VISIBLE)
-        holder.m_map.setOnClickListener(new MapClickListener(position));
+      if (holder.mMap != null && holder.mMap.getVisibility() == Button.VISIBLE)
+        holder.mMap.setOnClickListener(new MapClickListener(position));
 
-      // show flag if needed
-      if (holder.m_flag != null && holder.m_flag.getVisibility() == ImageView.VISIBLE)
-        setFlag(position, holder.m_flag);
+      // flag or guide
+      if (holder.mFlag != null)
+      {
+        if (holder.mGuide != null)
+          UiUtils.hide(holder.mGuide);
+        UiUtils.show(holder.mFlag);
+        setFlag(position, holder.mFlag);
+      }
+
+      final CountryItem item = getItem(position);
+      if (item.getType() == TYPE_COUNTRY_IN_PROCESS || item.getType() == TYPE_COUNTRY_READY)
+      {
+        final GuideInfo gi = MWMApplication.get().getGuideInfoForIndex(item.mIdx);
+        if (gi != null && !GuidesUtils.isGuideInstalled(gi.mAppId, m_context))
+        {
+          UiUtils.hide(holder.mFlag);
+          UiUtils.show(holder.mGuide);
+          holder.mGuide.setImageResource(R.drawable.ic_guide);
+
+          holder.mGuide.setOnClickListener(new OnClickListener()
+          {
+            @Override
+            public void onClick(View v)
+            {
+              m_context.startActivity(GuidesUtils.getGoogleStoreIntentForPackage(gi.mAppId));
+            }
+          });
+        }
+      }
+
 
       return convertView;
     }
@@ -591,7 +625,7 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
         assert(m_items[position].m_status == 3);
 
         // do update only one item's view; don't call notifyDataSetChanged
-        View v = list.getChildAt(position - list.getFirstVisiblePosition());
+        final View v = list.getChildAt(position - list.getFirstVisiblePosition());
         if (v != null)
         {
           final ViewHolder holder = (ViewHolder) v.getTag();
@@ -599,9 +633,9 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
           // This function actually is a callback from downloading engine and
           // when using cached views and holders, summary may be null
           // because of different ListView context.
-          if (holder != null && holder.m_summary != null)
+          if (holder != null && holder.mSummary != null)
           {
-            holder.m_summary.setText(String.format(m_context.getString(R.string.downloading_touch_to_cancel),
+            holder.mSummary.setText(String.format(m_context.getString(R.string.downloading_touch_to_cancel),
                                                    current * 100 / total));
             v.invalidate();
           }
@@ -695,7 +729,7 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
                 {
                   startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
                 }
-                catch (Exception ex)
+                catch (final Exception ex)
                 {
                   Log.e(TAG, "Can't run activity:" + ex);
                 }
