@@ -809,9 +809,9 @@ namespace agg
             calc_type b1 = color_type::lerp(b, cb, alpha);
             calc_type a1 = color_type::prelerp(a, alpha, alpha);
             *p = (pixel_type)
-                 (((r1 >> 4) << 12) |
-                  ((g1 >> 4) << 8) |
-                  ((b1 >> 4) << 4) |
+                 (((r1 & 0xF0) << 8) |
+                  ((g1 & 0xF0) << 4) |
+                  (b1 & 0xF0) |
                   (a1 >> 4));
         }
 
