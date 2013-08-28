@@ -345,26 +345,6 @@ UNIT_TEST(Normalize_Polish)
   TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), "aAclLOZzNEeC", ());
 }
 
-UNIT_TEST(UniString_Less)
-{
-  strings::UniString s0 = strings::MakeUniString("Test");
-  TEST(!(s0 < s0), ());
-  strings::UniString s1 = strings::MakeUniString("Test1");
-  TEST(s0 < s1, ());
-  strings::UniString s2 = strings::MakeUniString("Tast");
-  TEST(s2 < s1, ());
-  strings::UniString s3 = strings::MakeUniString("Tas");
-  TEST(s3 < s0, ());
-  strings::UniString s4 = strings::MakeUniString("Taste");
-  TEST(!(s0 < s4), ());
-  strings::UniString s5 = strings::MakeUniString("Tist");
-  TEST(s0 < s5, ());
-  strings::UniString s6 = strings::MakeUniString("Tis");
-  TEST(s0 < s6, ());
-  strings::UniString s7 = strings::MakeUniString("Tiste");
-  TEST(s0 < s7, ());
-}
-
 UNIT_TEST(UniStringToUtf8)
 {
   char const utf8Text[] = "У нас исходники хранятся в Utf8!";
@@ -385,4 +365,28 @@ UNIT_TEST(StartsWith)
   TEST(!StartsWith(s, "xyzabc"), ());
   TEST(!StartsWith(s, "ayz"), ());
   TEST(!StartsWith(s, "axy"), ());
+}
+
+UNIT_TEST(UniString_LessAndEqualsAndNotEquals)
+{
+  vector<strings::UniString> v;
+  v.push_back(strings::MakeUniString(""));
+  v.push_back(strings::MakeUniString("Tes"));
+  v.push_back(strings::MakeUniString("Test"));
+  v.push_back(strings::MakeUniString("TestT"));
+  v.push_back(strings::MakeUniString("TestTestTest"));
+  v.push_back(strings::MakeUniString("To"));
+  v.push_back(strings::MakeUniString("To!"));
+  for (size_t i = 0; i < v.size(); ++i)
+  {
+    TEST(v[i] == v[i], ());
+    TEST(!(v[i] < v[i]), ());
+    for (size_t j = i + 1; j < v.size(); ++j)
+    {
+      TEST(v[i] < v[j], ());
+      TEST(!(v[j] < v[i]), ());
+      TEST(v[i] != v[j], ());
+      TEST(v[j] != v[i], ());
+    }
+  }
 }
