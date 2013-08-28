@@ -25,10 +25,10 @@ public class ConnectivityChangedReceiver extends BroadcastReceiver
 
   public void onWiFiConnectionChanged(boolean isConnected, Context context)
   {
-     if (isConnected)
-     {
-       WorkerService.startActionCheckUpdate(context);
-       WorkerService.startActionPushStat(context);
-     }
+    if (isConnected)
+    {
+      WorkerService.startActionCheckUpdate(context);
+      WorkerService.startActionPushStat(context);
+    }
   }
 }

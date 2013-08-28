@@ -114,7 +114,7 @@ extern "C"
 
     storage::TIndex const idx = g_framework->Storage().FindIndexByFile(s);
     if (idx.IsValid())
-      return storage::toJava(idx);
+      return storage::ToJava(idx);
     else
       return 0;
   }
@@ -130,7 +130,7 @@ extern "C"
     JNIEnv * env = jni::GetEnv();
 
     jmethodID methodID = jni::GetJavaMethodID(env, *obj.get(), "onCountryStatusChanged", "(Lcom/mapswithme/maps/MapStorage$Index;)V");
-    env->CallVoidMethod(*obj.get(), methodID, storage::toJava(idx));
+    env->CallVoidMethod(*obj.get(), methodID, storage::ToJava(idx));
   }
 
   void ReportCountryProgress(shared_ptr<jobject> const & obj, storage::TIndex const & idx, pair<int64_t, int64_t> const & p)
@@ -141,7 +141,7 @@ extern "C"
     JNIEnv * env = jni::GetEnv();
 
     jmethodID methodID = jni::GetJavaMethodID(env, *obj.get(), "onCountryProgress", "(Lcom/mapswithme/maps/MapStorage$Index;JJ)V");
-    env->CallVoidMethod(*obj.get(), methodID, storage::toJava(idx), current, total);
+    env->CallVoidMethod(*obj.get(), methodID, storage::ToJava(idx), current, total);
   }
 
   JNIEXPORT jint JNICALL
@@ -180,7 +180,7 @@ extern "C"
 
 namespace storage
 {
-  jobject toJava(TIndex const & idx)
+  jobject ToJava(TIndex const & idx)
   {
     JNIEnv * env = jni::GetEnv();
 
@@ -196,7 +196,7 @@ namespace storage
                           static_cast<jint>(idx.m_region));
   }
 
-  TIndex toNative(jobject idx)
+  TIndex ToNative(jobject idx)
   {
     return IndexBinding(idx).toNative();
   }

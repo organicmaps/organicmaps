@@ -146,7 +146,7 @@ extern "C"
   Java_com_mapswithme_maps_MWMApplication_getGuideInfoForIndex(JNIEnv * env, jclass clazz, jobject index)
   {
     guides::GuideInfo info;
-    if (g_framework->NativeFramework()->GetGuideInfo(storage::toNative(index), info))
+    if (g_framework->NativeFramework()->GetGuideInfo(storage::ToNative(index), info))
     {
       const jclass giClass = env->FindClass("com/mapswithme/maps/guides/GuideInfo");
       const jmethodID methodID = env->GetMethodID(giClass,

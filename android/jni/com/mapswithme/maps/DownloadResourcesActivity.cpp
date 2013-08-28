@@ -270,7 +270,7 @@ extern "C"
 
     // Important thing. Return 0 if no any country.
     if (idx.IsValid())
-      return storage::toJava(idx);
+      return storage::ToJava(idx);
     else
       return 0;
   }

@@ -7,6 +7,6 @@
 
 namespace storage
 {
-  jobject toJava(TIndex const & idx);
-  TIndex toNative(jobject idx);
+  jobject ToJava(TIndex const & idx);
+  TIndex ToNative(jobject idx);
 }
