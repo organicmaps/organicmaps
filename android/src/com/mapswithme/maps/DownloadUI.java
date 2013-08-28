@@ -27,6 +27,7 @@ import com.mapswithme.maps.guides.GuideInfo;
 import com.mapswithme.maps.guides.GuidesUtils;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
 
@@ -131,6 +132,8 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
     private final String m_kb;
     private final String m_mb;
 
+    private final boolean mHasGoogleStore;
+
     private final AlertDialog.Builder m_alert;
     private final DialogInterface.OnClickListener m_alertCancelHandler =
         new DialogInterface.OnClickListener()
@@ -155,6 +158,8 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
       m_mb = context.getString(R.string.mb);
 
       m_alert = new AlertDialog.Builder(m_context);
+
+      mHasGoogleStore = Utils.hasAnyGoogleStoreInstalled();
 
       fillList();
     }
@@ -560,24 +565,34 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
         setFlag(position, holder.mFlag);
       }
 
-      final CountryItem item = getItem(position);
-      if (item.getType() == TYPE_COUNTRY_IN_PROCESS || item.getType() == TYPE_COUNTRY_READY)
-      {
-        final GuideInfo gi = MWMApplication.get().getGuideInfoForIndex(item.mIdx);
-        if (gi != null && !GuidesUtils.isGuideInstalled(gi.mAppId, m_context))
+      if (mHasGoogleStore)
         {
-          UiUtils.hide(holder.mFlag);
-          UiUtils.show(holder.mGuide);
-          holder.mGuide.setImageResource(R.drawable.ic_guide);
 
-          holder.mGuide.setOnClickListener(new OnClickListener()
+        final CountryItem item = getItem(position);
+        if (item.getType() == TYPE_COUNTRY_IN_PROCESS || item.getType() == TYPE_COUNTRY_READY)
+        {
+          final GuideInfo gi = MWMApplication.get().getGuideInfoForIndex(item.mIdx);
+          if (gi != null)
           {
-            @Override
-            public void onClick(View v)
+            UiUtils.hide(holder.mFlag);
+            UiUtils.show(holder.mGuide);
+            holder.mGuide.setImageResource(R.drawable.ic_guide);
+            holder.mGuide.setOnClickListener(new OnClickListener()
             {
-              m_context.startActivity(GuidesUtils.getGoogleStoreIntentForPackage(gi.mAppId));
-            }
-          });
+              @Override
+              public void onClick(View v)
+              {
+                final String packName = gi.mAppId;
+                if (GuidesUtils.isGuideInstalled(packName, m_context))
+                {
+                  final Intent i = m_context.getPackageManager().getLaunchIntentForPackage(packName);
+                  m_context.startActivity(i);
+                }
+                else
+                  m_context.startActivity(GuidesUtils.getGoogleStoreIntentForPackage(gi.mAppId));
+              }
+            });
+          }
         }
       }
 

@@ -278,6 +278,9 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
 
   private void tryAdvertiseGuides()
   {
+    if (!Utils.hasAnyGoogleStoreInstalled())
+      return;
+
     final GuideInfo[] gInfos = Framework.getGuideInfosForDownloadedMaps();
     if (gInfos == null)
       return;
