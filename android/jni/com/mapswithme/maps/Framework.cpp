@@ -1,5 +1,6 @@
 #include "Framework.hpp"
 #include "VideoTimer.hpp"
+#include "MapStorage.hpp"
 
 #include "../core/jni_helper.hpp"
 #include "../core/render_context.hpp"
@@ -26,9 +27,12 @@
 #include "../../../../../platform/preferred_languages.hpp"
 
 
+namespace
+{
 const unsigned LONG_TOUCH_MS = 1000;
 const unsigned SHORT_TOUCH_MS = 250;
 const double DOUBLE_TOUCH_S = SHORT_TOUCH_MS / 1000.0;
+}
 
 android::Framework * g_framework = 0;
 
@@ -772,33 +776,63 @@ extern "C"
     g_framework->NativeFramework()->UpdateSavedDataVersion();
   }
 
+  namespace
+  {
+
+  class GuideNative2Java
+  {
+    JNIEnv * m_env;
+    jclass m_giClass;
+    jmethodID m_methodID;
+    string m_lang;
+
+  public:
+    GuideNative2Java(JNIEnv * env) : m_env(env)
+    {
+      m_giClass = m_env->FindClass("com/mapswithme/maps/guides/GuideInfo");
+      m_methodID = m_env->GetMethodID(m_giClass,
+                "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+      m_lang = languages::CurrentLanguage();
+    }
+
+    jclass GetClass() const { return m_giClass; }
+
+    jobject GetGuide(guides::GuideInfo const & info) const
+    {
+      return m_env->NewObject(m_giClass, m_methodID,
+                            jni::ToJavaString(m_env, info.GetAppID()),
+                            jni::ToJavaString(m_env, info.GetURL()),
+                            jni::ToJavaString(m_env, info.GetAdTitle(m_lang)),
+                            jni::ToJavaString(m_env, info.GetAdMessage(m_lang)));
+    }
+  };
+
+  }
+
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_Framework_getGuideInfoForIndex(JNIEnv * env, jclass clazz, jobject index)
+  {
+    guides::GuideInfo info;
+    if (g_framework->NativeFramework()->GetGuideInfo(storage::ToNative(index), info))
+      return GuideNative2Java(env).GetGuide(info);
+
+    return NULL;
+  }
+
   JNIEXPORT jobjectArray JNICALL
   Java_com_mapswithme_maps_Framework_getGuideInfosForDownloadedMaps(JNIEnv * env, jclass clazz)
   {
     vector<guides::GuideInfo> infos;
     g_framework->NativeFramework()->GetGuidesInfosWithDownloadedMaps(infos);
-    const size_t mapsFound = infos.size();
 
-    LOG(LDEBUG, ("Got maps:", infos));
+    size_t const mapsFound = infos.size();
     if (mapsFound > 0)
     {
-      const jclass giClass = env->FindClass("com/mapswithme/maps/guides/GuideInfo");
-      const jmethodID methodID = env->GetMethodID(giClass, "<init>",
-          "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
-      const string lang = languages::CurrentLanguage();
+      GuideNative2Java getter(env);
 
-      jobjectArray jInfos = env->NewObjectArray(mapsFound, giClass, NULL);
-
+      jobjectArray jInfos = env->NewObjectArray(mapsFound, getter.GetClass(), NULL);
       for (size_t i = 0; i < mapsFound; ++i)
-      {
-        const guides::GuideInfo & info = infos[i];
-        jobject jGuideInfo =  env->NewObject(giClass, methodID,
-            jni::ToJavaString(env, info.GetAppID()),
-            jni::ToJavaString(env, info.GetURL()), jni::ToJavaString(env, info.GetAdTitle(lang)),
-            jni::ToJavaString(env, info.GetAdMessage(lang)));
-
-        env->SetObjectArrayElement(jInfos, i, jGuideInfo);
-      }
+        env->SetObjectArrayElement(jInfos, i, getter.GetGuide(infos[i]));
 
       return jInfos;
     }

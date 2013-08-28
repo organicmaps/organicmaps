@@ -1,5 +1,6 @@
 package com.mapswithme.maps;
 
+import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.guides.GuideInfo;
 
@@ -79,6 +80,7 @@ public class Framework
     nativeUpdateSavedDataVersion();
   }
 
+  public native static GuideInfo getGuideInfoForIndex(Index idx);
   public native static GuideInfo[] getGuideInfosForDownloadedMaps();
   public native static void        setWasAdvertised(String appId);
   public native static boolean     wasAdvertised(String appId);

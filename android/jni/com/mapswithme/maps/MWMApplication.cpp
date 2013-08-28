@@ -6,7 +6,6 @@
  */
 
 #include "Framework.hpp"
-#include "MapStorage.hpp"
 
 #include "../core/jni_helper.hpp"
 
@@ -17,7 +16,6 @@
 #include "../../../../../map/dialog_settings.hpp"
 
 #include "../../../../../platform/settings.hpp"
-#include "../../../../../platform/preferred_languages.hpp"
 
 
 extern "C"
@@ -140,26 +138,5 @@ extern "C"
   Java_com_mapswithme_maps_MWMApplication_nativeSetDouble(JNIEnv * env, jobject thiz, jstring name, jdouble value)
   {
     (void)Settings::Set(jni::ToNativeString(env, name), value);
-  }
-
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_MWMApplication_getGuideInfoForIndex(JNIEnv * env, jclass clazz, jobject index)
-  {
-    guides::GuideInfo info;
-    if (g_framework->NativeFramework()->GetGuideInfo(storage::ToNative(index), info))
-    {
-      const jclass giClass = env->FindClass("com/mapswithme/maps/guides/GuideInfo");
-      const jmethodID methodID = env->GetMethodID(giClass,
-          "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
-
-      string const lang = languages::CurrentLanguage();
-      return env->NewObject(giClass, methodID,
-                            jni::ToJavaString(env, info.GetAppID()),
-                            jni::ToJavaString(env, info.GetURL()),
-                            jni::ToJavaString(env, info.GetAdTitle(lang)),
-                            jni::ToJavaString(env, info.GetAdMessage(lang)));
-    }
-
-    return 0;
   }
 }

@@ -566,12 +566,11 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
       }
 
       if (mHasGoogleStore)
-        {
-
+      {
         final CountryItem item = getItem(position);
         if (item.getType() == TYPE_COUNTRY_IN_PROCESS || item.getType() == TYPE_COUNTRY_READY)
         {
-          final GuideInfo gi = MWMApplication.get().getGuideInfoForIndex(item.mIdx);
+          final GuideInfo gi = Framework.getGuideInfoForIndex(item.mIdx);
           if (gi != null)
           {
             UiUtils.hide(holder.mFlag);
@@ -595,7 +594,6 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
           }
         }
       }
-
 
       return convertView;
     }

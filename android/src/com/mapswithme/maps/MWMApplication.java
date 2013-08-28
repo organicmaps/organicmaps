@@ -84,13 +84,11 @@ public class MWMApplication extends android.app.Application implements MapStorag
     }
   }
 
-  public native GuideInfo getGuideInfoForIndex(Index idx);
-
   private void tryNotifyGuideAvailable(Index idx)
   {
     if (Utils.hasAnyGoogleStoreInstalled())
     {
-      final GuideInfo info = getGuideInfoForIndex(idx);
+      final GuideInfo info = Framework.getGuideInfoForIndex(idx);
       if (info != null && !GuidesUtils.isGuideInstalled(info.mAppId, this))
       {
         final Notifier notifier = new Notifier(this);
