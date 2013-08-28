@@ -334,8 +334,9 @@ void InitLocalizedStrings()
 
 - (void) OnCountryChange: (storage::TIndex const &)index
 {
+  Framework const & f = GetFramework();
   guides::GuideInfo guide;
-  if (GetFramework().GetGuideInfo(index, guide))
+  if (f.GetCountryStatus(index) == storage::EOnDisk && f.GetGuideInfo(index, guide))
     [self ShowNotificationWithGuideInfo:guide];
 }
 

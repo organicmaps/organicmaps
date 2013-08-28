@@ -1688,8 +1688,7 @@ void Framework::UpdateSavedDataVersion()
 
 bool Framework::GetGuideInfo(storage::TIndex const & index, guides::GuideInfo & info) const
 {
-  return (GetCountryStatus(index) == storage::EOnDisk &&
-          m_storage.GetGuideManager().GetGuideInfo(m_storage.CountryFileName(index), info));
+  return m_storage.GetGuideManager().GetGuideInfo(m_storage.CountryFileName(index), info);
 }
 
 void Framework::GetGuidesInfosWithDownloadedMaps(vector<guides::GuideInfo> & guides) const
