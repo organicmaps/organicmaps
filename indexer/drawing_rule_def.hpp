@@ -2,8 +2,6 @@
 
 #include "../base/buffer_vector.hpp"
 
-#include "../std/string.hpp"
-
 
 namespace drule
 {
@@ -22,9 +20,6 @@ namespace drule
     {
       return (m_scale == r.m_scale && m_type == r.m_type && m_index == r.m_index);
     }
-
-    string toString() const;
-    void fromString(string const & s);
 
     void SetPriority(int pr) { m_priority = pr; }
   };

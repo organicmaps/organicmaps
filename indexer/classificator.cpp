@@ -1,16 +1,12 @@
 #include "classificator.hpp"
 #include "tree_structure.hpp"
-#include "scales.hpp"
 
-#include "../coding/file_reader.hpp"
+#include "../base/macros.hpp"
+#include "../base/logging.hpp"
 
-#include "../base/assert.hpp"
-
-#include "../std/target_os.hpp"
 #include "../std/bind.hpp"
 #include "../std/algorithm.hpp"
 #include "../std/iterator.hpp"
-#include "../std/fstream.hpp"
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -31,11 +27,6 @@ ClassifObject * ClassifObject::Add(string const & s)
   return (p ? p : AddImpl(s));
 }
 
-void ClassifObject::AddCriterion(string const & s)
-{
-  Add('[' + s + ']');
-}
-
 ClassifObject * ClassifObject::Find(string const & s)
 {
   for (iter_t i = m_objs.begin(); i != m_objs.end(); ++i)
@@ -53,11 +44,6 @@ void ClassifObject::AddDrawRule(drule::Key const & k)
   m_drawRule.push_back(k);
 }
 
-bool ClassifObject::IsCriterion() const
-{
-  return (m_name[0] == '[');
-}
-
 ClassifObjectPtr ClassifObject::BinaryFind(string const & s) const
 {
   const_iter_t i = lower_bound(m_objs.begin(), m_objs.end(), s, less_name_t());
@@ -65,30 +51,6 @@ ClassifObjectPtr ClassifObject::BinaryFind(string const & s) const
     return ClassifObjectPtr(0, 0);
   else
     return ClassifObjectPtr(&(*i), distance(m_objs.begin(), i));
-}
-
-void ClassifObject::SavePolicy::Serialize(ostream & s) const
-{
-  ClassifObject const * p = Current();
-  for (size_t i = 0; i < p->m_drawRule.size(); ++i)
-    s << p->m_drawRule[i].toString() << "  ";
-}
-
-void ClassifObject::LoadPolicy::Serialize(string const & s)
-{
-  ClassifObject * p = Current();
-
-  // load drawing rule
-  drule::Key key;
-  key.fromString(s);
-
-  // mark as visible in rule's scale
-  p->m_visibility[key.m_scale] = true;
-
-  // mark objects visible on higher zooms as visible on upperScale, to get them into .mwm file
-  int const upperScale = scales::GetUpperScale();
-  if (key.m_scale > upperScale)
-    p->m_visibility[upperScale] = true;
 }
 
 void ClassifObject::LoadPolicy::Start(size_t i)
@@ -114,43 +76,6 @@ void ClassifObject::LoadPolicy::EndChilds()
   ClassifObject * p = Current();
   ASSERT ( p->m_objs.back().m_name.empty(), () );
   p->m_objs.pop_back();
-}
-
-void ClassifObject::VisSavePolicy::Serialize(ostream & s) const
-{
-  ClassifObject const * p = Current();
-
-  size_t const count = p->m_visibility.size();
-
-  string str;
-  str.resize(count);
-  for (size_t i = 0; i < count; ++i)
-    str[i] = p->m_visibility[i] ? '1' : '0';
-
-  s << str << "  ";
-}
-
-void ClassifObject::VisLoadPolicy::Name(string const & name) const
-{
-  UNUSED_VALUE(name);
-  // Assume that classificator doesn't changed for saved visibility.
-  ASSERT_EQUAL ( name, Current()->m_name, () );
-}
-
-void ClassifObject::VisLoadPolicy::Serialize(string const & s)
-{
-  ClassifObject * p = Current();
-
-  for (size_t i = 0; i < s.size(); ++i)
-    p->m_visibility[i] = (s[i] == '1');
-}
-
-void ClassifObject::VisLoadPolicy::Start(size_t i)
-{
-  if (i < Current()->m_objs.size())
-    base_type::Start(i);
-  else
-    m_stack.push_back(0); // dummy
 }
 
 void ClassifObject::Sort()
@@ -424,8 +349,6 @@ pair<int, int> ClassifObject::GetDrawScaleRange() const
 
 void Classificator::ReadClassificator(istream & s)
 {
-  m_root.Clear();
-
   ClassifObject::LoadPolicy policy(&m_root);
   tree::LoadTreeAsText(s, policy);
 
@@ -433,19 +356,6 @@ void Classificator::ReadClassificator(istream & s)
 
   char const * path[] = { "natural", "coastline" };
   m_coastType = GetTypeByPath(vector<string>(path, path + 2));
-}
-
-void Classificator::PrintClassificator(char const * fPath)
-{
-#ifndef OMIM_OS_BADA
-  ofstream file(fPath);
-
-  ClassifObject::SavePolicy policy(&m_root);
-  tree::SaveTreeAsText(file, policy);
-
-#else
-  ASSERT ( false, ("PrintClassificator uses only in indexer_tool") );
-#endif
 }
 
 void Classificator::SortClassificator()
@@ -481,7 +391,8 @@ void Classificator::ReadTypesMapping(istream & s)
 
 void Classificator::Clear()
 {
-  *this = Classificator();
+  ClassifObject("world").Swap(m_root);
+  m_mapping.Clear();
 }
 
 string Classificator::GetReadableObjectName(uint32_t type) const

@@ -11,7 +11,6 @@
 #include "../base/logging.hpp"
 
 #include "../std/iostream.hpp"
-#include "../std/fstream.hpp"
 
 
 namespace classificator

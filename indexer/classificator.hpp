@@ -3,12 +3,11 @@
 #include "types_mapping.hpp"
 #include "scales.hpp"
 
-#include "../base/base.hpp"
-
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
 #include "../std/iostream.hpp"
 #include "../std/bitset.hpp"
+#include "../std/noncopyable.hpp"
 
 
 class ClassifObject;
@@ -60,7 +59,6 @@ private:
   ClassifObject * AddImpl(string const & s);
 public:
   ClassifObject * Add(string const & s);
-  void AddCriterion(string const & s);
   ClassifObject * Find(string const & s);
 
   void AddDrawRule(drule::Key const & k);
@@ -71,12 +69,9 @@ public:
   ClassifObjectPtr BinaryFind(string const & s) const;
   //@}
 
-  void Clear() { m_objs.clear(); }
-
   void Sort();
   void Swap(ClassifObject & r);
 
-  bool IsCriterion() const;
   string const & GetName() const { return m_name; }
   ClassifObject const * GetObject(size_t i) const;
 
@@ -134,17 +129,6 @@ public:
     void End() { m_stack.pop_back(); }
   };
 
-  class SavePolicy : public BasePolicy
-  {
-  public:
-    SavePolicy(ClassifObject * pRoot) : BasePolicy(pRoot) {}
-
-    string Name() const { return Current()->m_name; }
-    void Serialize(ostream & s) const;
-
-    size_t BeginChilds() const { return Current()->m_objs.size(); }
-  };
-
   class LoadPolicy : public BasePolicy
   {
     typedef BasePolicy base_type;
@@ -152,32 +136,8 @@ public:
     LoadPolicy(ClassifObject * pRoot) : base_type(pRoot) {}
 
     void Name(string const & name) { Current()->m_name = name; }
-    void Serialize(string const & s);
-
     void Start(size_t i);
     void EndChilds();
-  };
-
-  class VisSavePolicy : public SavePolicy
-  {
-  public:
-    VisSavePolicy(ClassifObject * pRoot) : SavePolicy(pRoot) {}
-
-    void Serialize(ostream & s) const;
-  };
-
-  class VisLoadPolicy : public BasePolicy
-  {
-    typedef BasePolicy base_type;
-
-  public:
-    VisLoadPolicy(ClassifObject * pRoot) : BasePolicy(pRoot) {}
-
-    void Name(string const & name) const;
-    void Serialize(string const & s);
-
-    void Start(size_t i);
-    void EndChilds() {}
   };
   //@}
 
@@ -196,7 +156,7 @@ inline void swap(ClassifObject & r1, ClassifObject & r2)
   r1.Swap(r2);
 }
 
-class Classificator
+class Classificator : private noncopyable
 {
   ClassifObject m_root;
 
@@ -214,8 +174,6 @@ public:
   /// @name Serialization-like functions.
   //@{
   void ReadClassificator(istream & s);
-  void PrintClassificator(char const * fPath);
-
   void ReadTypesMapping(istream & s);
 
   void SortClassificator();

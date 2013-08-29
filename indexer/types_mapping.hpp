@@ -16,6 +16,7 @@ class IndexAndTypeMapping
   void Add(uint32_t ind, uint32_t type);
 
 public:
+  void Clear();
   void Load(istream & s);
 
   uint32_t GetType(uint32_t ind) const
