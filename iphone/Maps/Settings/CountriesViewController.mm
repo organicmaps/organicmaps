@@ -501,7 +501,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   NSIndexPath * indexPath = [v indexPathForCell:cell];
   TIndex const index = CalculateIndex(m_index, indexPath);
   guides::GuideInfo info;
-  if (!GetFramework().GetGuideInfo(index, info));
+  if (!GetFramework().GetGuideInfo(index, info))
     return;
   NSURL * guideUrl = [NSURL URLWithString:[NSString stringWithUTF8String:info.GetAppID().c_str()]];
   UIApplication * app = [UIApplication sharedApplication];
