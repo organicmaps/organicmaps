@@ -741,11 +741,19 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
       {
         // We need to parse URL like:
         // "http://maps.google.com/maps?q=loc:53.902132,27.5636453 (You)"
+        final String query = data.getQueryParameter("q");
 
-        final Pattern p = Pattern.compile("(\\d+\\.?,?)+");
-        final Matcher m = p.matcher(data.getQueryParameter("q"));
-        final String ll = m.find() ? m.group() : "0,0";
+        // TODO: Make maps.google.com URLs parsing in native code
+        // (with variety of different combinations).
+        String ll = "0,0";
+        if (query != null)
+        {
+          final Matcher m = Pattern.compile("(-?\\d+\\.?,?)+").matcher(query);
+          if (m.find())
+            ll = m.group();
+        }
 
+        Log.d(TAG, "URL coordinates: " + ll);
         mMapTaskToForward = new OpenUrlTask("geo://" + ll);
         return true;
       }
