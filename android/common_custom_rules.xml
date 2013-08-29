@@ -4,24 +4,10 @@
   <property name="arch" value="multiarch" />
   <property name="mwm.arch.name" value="${arch}"/>
 
-  <target name="-exclude-text-drules">
-    <exec executable="rm">
-      <arg value="${asset.absolute.dir}/drules_proto.txt"/>
-    </exec>
-  </target>
-  
-  <target name="-include-text-drules">
-    <exec executable="ln">
-      <arg value="-s"/>
-      <arg value="${mwm.data.dir}/drules_proto.txt"/>
-      <arg value="${asset.absolute.dir}/drules_proto.txt"/>
-    </exec>
+  <target name="release" depends="android_rules.release">
   </target>
 
-  <target name="release" depends="-include-text-drules, android_rules.release">
-  </target>
-
-  <target name="debug" depends="-include-text-drules, android_rules.debug">
+  <target name="debug" depends="android_rules.debug">
   </target>
 
   <target name="-setup-production">

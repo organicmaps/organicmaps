@@ -1,11 +1,6 @@
 #include "proto_to_styles.hpp"
 
-#ifdef OMIM_PRODUCTION
-  #include "../indexer/drules_struct_lite.pb.h"
-#else
-  #include "../indexer/drules_struct.pb.h"
-#endif
-
+#include "../indexer/drules_include.hpp"
 
 #include "../std/algorithm.hpp"
 

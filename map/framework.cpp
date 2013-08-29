@@ -228,7 +228,7 @@ Framework::Framework()
   m_informationDisplay.enableRuler(true);
   m_informationDisplay.setRulerParams(m_minRulerWidth, m_metresMinWidth, m_metresMaxWidth);
 
-#ifndef OMIM_PRODUCTION
+#ifdef DEBUG
   m_informationDisplay.enableDebugInfo(true);
 #endif
 

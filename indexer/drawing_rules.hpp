@@ -9,6 +9,7 @@
 #include "../std/array.hpp"
 #include "../std/string.hpp"
 #include "../std/iostream.hpp"
+#include "../std/target_os.hpp"
 
 
 class LineDefProto;
@@ -79,7 +80,7 @@ namespace drule
 
     BaseRule const * Find(Key const & k) const;
 
-#ifndef OMIM_PRODUCTION
+#ifdef OMIM_OS_DESKTOP
     void LoadFromTextProto(string const & buffer);
     static void SaveToBinaryProto(string const & buffer, ostream & s);
 #endif

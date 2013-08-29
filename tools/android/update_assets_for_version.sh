@@ -10,12 +10,9 @@ mkdir $DST
 
 files=(about.html resources-ldpi resources-mdpi resources-hdpi resources-xhdpi resources-xxhdpi categories.txt classificator.txt 
        types.txt fonts_blacklist.txt fonts_whitelist.txt languages.txt unicode_blocks.txt \ 
-       drules_proto.txt drules_proto.bin external_resources.txt packed_polygons.bin android-guides.json)
+       drules_proto.bin external_resources.txt packed_polygons.bin android-guides.json countries.txt)
 
 for item in ${files[*]}
 do
   ln -s $SRC/$item $DST/$item
 done
-
-# Separate case for World and countries list files without search support
-ln -s $SRC/countries.txt $DST/countries.txt

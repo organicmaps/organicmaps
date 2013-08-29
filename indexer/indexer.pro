@@ -86,17 +86,17 @@ HEADERS += \
     search_delimiters.hpp \
     mwm_set.hpp \
     categories_holder.hpp \
-    drules_struct.pb.h \
     string_file.hpp \
     feature_algo.hpp \
     mwm_version.hpp \
+    drules_include.hpp \
 
 OTHER_FILES += drules_struct.proto
 
-CONFIG(production) {
-    SOURCES += drules_struct_lite.pb.cc
-    HEADERS += drules_struct_lite.pb.h
-} else {
+macx-*|win32-*|linux-* {
   SOURCES += drules_struct.pb.cc
   HEADERS += drules_struct.pb.h
+} else {
+  SOURCES += drules_struct_lite.pb.cc
+  HEADERS += drules_struct_lite.pb.h
 }

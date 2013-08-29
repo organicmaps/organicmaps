@@ -50,19 +50,10 @@ namespace classificator
     //LOG(LINFO, ("Reading of drawing rules"));
     drule::RulesHolder & rules = drule::rules();
 
-#if defined(OMIM_PRODUCTION)
     // Load from proto buffer binary file.
     string buffer;
     ModelReaderPtr(p.GetReader(DRAWING_RULES_BIN_FILE)).ReadAsString(buffer);
-
     rules.LoadFromBinaryProto(buffer);
-#else
-    // Load from proto buffer text file.
-    string buffer;
-    ModelReaderPtr(p.GetReader(DRAWING_RULES_TXT_FILE)).ReadAsString(buffer);
-
-    rules.LoadFromTextProto(buffer);
-#endif
 
     LOG(LDEBUG, ("Reading of classificator finished"));
   }

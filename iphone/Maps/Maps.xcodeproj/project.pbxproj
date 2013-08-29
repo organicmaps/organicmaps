@@ -3007,7 +3007,6 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
-				FA40A8FF149B86E400AD1225 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -3026,7 +3025,6 @@
 				FAFB06AA151215EE0041901D /* Resources */,
 				FAFB08E8151215EE0041901D /* Sources */,
 				FAFB08FA151215EE0041901D /* Frameworks */,
-				FAFB0912151215EE0041901D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -4302,19 +4300,6 @@
 			shellPath = /bin/bash;
 			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nCONF=\"simulator\"\nif [[ \"$LOWERED_CONFIG\" == *production* || \"$LOWERED_CONFIG\" == *adhoc* ]]; then\n  CONF=\"production\"\nelif [[ \"$LOWERED_CONFIG\" == *debug* ]]; then\n  CONF=\"debug\"\nelif [[ \"$LOWERED_CONFIG\" == *release* ]]; then\n  if [[ \"$LOWERED_CONFIG\" == *simulator* ]]; then\n    CONF=\"simulator-release\"\n  else\n    CONF=\"release\"\n  fi\nfi\n\necho \"Building $CONF configuration\"\nbash \"$SRCROOT/../../tools/autobuild/ios.sh\" $CONF";
 		};
-		FA40A8FF149B86E400AD1225 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nif [[ \"$LOWERED_CONFIG\" != *production* && \"$LOWERED_CONFIG\" != *adhoc* ]]; then\n  echo \"Copy drules_proto.txt in non-production build\"\n  cp \"$SRCROOT/../../data/drules_proto.txt\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/\"\nfi";
-		};
 		FA78191C15C5F673009E0278 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4327,19 +4312,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
 			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nCONF=\"simulator\"\nif [[ \"$LOWERED_CONFIG\" == *production* || \"$LOWERED_CONFIG\" == *adhoc* ]]; then\n  CONF=\"production\"\nelif [[ \"$LOWERED_CONFIG\" == *debug* ]]; then\n  CONF=\"debug\"\nelif [[ \"$LOWERED_CONFIG\" == *release* ]]; then\n  CONF=\"release\"\nfi\n\necho \"Building $CONF configuration\"\nbash \"$SRCROOT/../../tools/autobuild/ios.sh\" $CONF";
-		};
-		FAFB0912151215EE0041901D /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nif [[ \"$LOWERED_CONFIG\" != *production* && \"$LOWERED_CONFIG\" != *adhoc* ]]; then\n  echo \"Copy drules_proto.txt in non-production build\"\n  cp \"$SRCROOT/../../data/drules_proto.txt\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/\"\nfi\nif [[ \"$LOWERED_CONFIG\" == *lite* ]]; then\n  echo \"Using World file without search index\"\n  mv \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/World.mwm.nosearch\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/World.mwm\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 

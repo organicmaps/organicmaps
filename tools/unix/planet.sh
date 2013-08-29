@@ -169,8 +169,6 @@ if [[ $1 == "--generate" || $1 == "--continue" || $1 == "--full" ]]; then
 
   wait
 
-  # Save World without search index
-  cp "$DATA_PATH/World.mwm" "$DATA_PATH/World.mwm.nosearch"
   # Generate search index for World
   $GENERATOR_TOOL -data_path=$DATA_PATH -generate_search_index -output=World
 

@@ -35,8 +35,7 @@
     </if>
   </target>
 
-  <target name="production" depends="-exclude-text-drules, -set-production-mode,                                                                                
-				     android_rules.-release-obfuscation-check, android_rules.-package, android_rules.-release-prompt-for-password, android_rules.-release-nosign"
+  <target name="production" depends="-set-production-mode, android_rules.-release-obfuscation-check, android_rules.-package, android_rules.-release-prompt-for-password, android_rules.-release-nosign"
           if="has.keystore" description="Production target - almost the same as release, but with real word config.">
     <!-- only create apk if *not* a library project -->
     <do-only-if-not-library elseText="Library project: do not create apk..." >

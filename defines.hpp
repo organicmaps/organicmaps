@@ -31,7 +31,6 @@
 
 #define EXTERNAL_RESOURCES_FILE "external_resources.txt"
 
-#define DRAWING_RULES_TXT_FILE "drules_proto.txt"
 #define DRAWING_RULES_BIN_FILE "drules_proto.bin"
 
 /// How many langs we're supporting on indexing stage

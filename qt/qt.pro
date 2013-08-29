@@ -43,12 +43,8 @@ linux* {
                     ../data/packed_polygons.bin res/logo.png
   CLASSIFICATOR_RES.path = $$RESDIR
   CLASSIFICATOR_RES.files = ../data/classificator.txt \
-                            ../data/types.txt
-  CONFIG(production) {
-    CLASSIFICATOR_RES.files += ../data/drules_proto.bin
-  } else {
-    CLASSIFICATOR_RES.files += ../data/drules_proto.txt
-  }
+                            ../data/types.txt \
+                            ../data/drules_proto.bin
   MDPI_SKIN_RES.path = $$RESDIR/resources-mdpi
   MDPI_SKIN_RES.files = ../data/resources-mdpi/basic.skn ../data/resources-mdpi/symbols.png
   XHDPI_SKIN_RES.path = $$RESDIR/resources-xhdpi
@@ -95,12 +91,8 @@ macx-* {
                     ../data/packed_polygons.bin
   CLASSIFICATOR_RES.path = Contents/Resources
   CLASSIFICATOR_RES.files = ../data/classificator.txt \
-                            ../data/types.txt
-  CONFIG(production) {
-    CLASSIFICATOR_RES.files += ../data/drules_proto.bin
-  } else {
-    CLASSIFICATOR_RES.files += ../data/drules_proto.txt
-  }
+                            ../data/types.txt \
+                            ../data/drules_proto.bin
   SKIN_RES.path = Contents/Resources
   SKIN_RES.files = ../data/resources-mdpi/basic.skn ../data/resources-mdpi/symbols.png
   FONT_RES.path = Contents/Resources

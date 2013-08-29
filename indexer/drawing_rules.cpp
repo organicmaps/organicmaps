@@ -1,14 +1,9 @@
-#include "../base/SRC_FIRST.hpp"
+#include "../std/target_os.hpp"
 
 #include "drawing_rules.hpp"
 #include "scales.hpp"
 #include "classificator.hpp"
-
-#ifdef OMIM_PRODUCTION
-  #include "drules_struct_lite.pb.h"
-#else
-  #include "drules_struct.pb.h"
-#endif
+#include "drules_include.hpp"
 
 #include "../std/bind.hpp"
 #include "../std/iterator_facade.hpp"
@@ -373,7 +368,7 @@ namespace
   };
 }
 
-#ifndef OMIM_PRODUCTION
+#ifdef OMIM_OS_DESKTOP
 void RulesHolder::LoadFromTextProto(string const & buffer)
 {
   Clean();
