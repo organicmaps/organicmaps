@@ -49,12 +49,12 @@ public:
   {
     Classificator const & c = classif();
 
-    char const * arr1[][1] = { { "building" }, { "oneway" } };
+    char const * arr1[][1] = { { "building" }, { "oneway" }, { "lit" } };
 
     for (size_t i = 0; i < ARRAY_SIZE(arr1); ++i)
       m_types.push_back(c.GetTypeByPath(vector<string>(arr1[i], arr1[i] + 1)));
   }
-  bool operator()(uint32_t t) const
+  bool operator() (uint32_t t) const
   {
     return (find(m_types.begin(), m_types.end(), t) != m_types.end());
   }
