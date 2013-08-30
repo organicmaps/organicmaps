@@ -1,33 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="MapsWithMe" default="help">
 
-  <property name="arch" value="multiarch" />
-
-  <condition property="build.type.multi">
-    <equals arg1="${arch}" arg2="multiarch"/>
-  </condition>
-
   <condition property="ndk.buildcommand.suffix" value=".cmd" else="">
     <os family="windows" />
   </condition>
-
-  <target name="-setup-architectures">
-
-    <if condition="${build.type.multi}">
-      <then>
-	<property name="mwm.ndk.abi" value="armeabi armeabi-v7a mips x86"/>
-      </then>
-      <else>
-	<property name="mwm.ndk.abi" value="${arch}"/>
-      </else>
-    </if>
-
-    <echo> ************************************************ </echo>
-    <echo> ***** BUILDING THE FOLLOWING ARCHITECTURES ***** </echo>
-    <echo> ***** ${mwm.ndk.abi}  </echo>
-    <echo> ************************************************ </echo>
-
-  </target>
 
   <property name="jni.absolute.dir" location="jni" />
 
@@ -37,9 +13,8 @@
     </exec>
   </target>
 
-  <target name="-ndk-production" depends="-setup-architectures">
+  <target name="-ndk-production">
     <exec executable="bash" failonerror="true">
-      <env key="NDK_ABI_TO_BUILD" value="${mwm.ndk.abi}"/>
       <arg value="${mwm.tools.dir}/autobuild/android.sh"/>
       <arg value="production"/>
     </exec>
@@ -111,7 +86,7 @@
     <record-build-info />
   </target>
 
-  <target name="-ndk-release" depends="-setup-architectures">
+  <target name="-ndk-release">
     <exec executable="bash" failonerror="true">
       <arg value="${mwm.tools.dir}/autobuild/android.sh"/>
       <arg value="release"/>
@@ -125,7 +100,7 @@
   <target name="release" depends="-ndk-release, android_rules.release">
   </target>
 
-  <target name="-ndk-debug" depends="-setup-architectures">
+  <target name="-ndk-debug">
     <exec executable="bash" failonerror="true">
       <arg value="${mwm.tools.dir}/autobuild/android.sh"/>
       <arg value="debug"/>

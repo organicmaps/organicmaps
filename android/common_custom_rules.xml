@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="MapsWithMe" default="help">
 
-  <property name="arch" value="multiarch" />
-  <property name="mwm.arch.name" value="${arch}"/>
-
   <target name="release" depends="android_rules.release">
   </target>
 
@@ -11,21 +8,21 @@
   </target>
 
   <target name="-setup-production">
-    <property name="out.final.file" location="${out.absolute.dir}/${ant.project.name}${mwm.market.name}-${mwm.arch.name}-production.apk"/>
-    <property name="out.packaged.file" location="${out.absolute.dir}/${ant.project.name}${mwm.market.name}-${mwm.arch.name}-production-unsigned.apk" />
-    <property name="out.unaligned.file" location="${out.absolute.dir}/${ant.project.name}${mwm.market.name}-${mwm.arch.name}-production-unaligned.apk" />
+    <property name="out.final.file" location="${out.absolute.dir}/${ant.project.name}${mwm.market.name}-production.apk"/>
+    <property name="out.packaged.file" location="${out.absolute.dir}/${ant.project.name}${mwm.market.name}-production-unsigned.apk" />
+    <property name="out.unaligned.file" location="${out.absolute.dir}/${ant.project.name}${mwm.market.name}-production-unaligned.apk" />
   </target>
 
   <target name="-setup-release">
-    <property name="out.final.file" location="${out.absolute.dir}/${ant.project.name}${mwm.market.name}-${mwm.arch.name}-release.apk" />
-    <property name="out.packaged.file" location="${out.absolute.dir}/${ant.project.name}${mwm.market.name}-${mwm.arch.name}-release-unsigned.apk" />
-    <property name="out.unaligned.file" location="${out.absolute.dir}/${ant.project.name}${mwm.market.name}-${mwm.arch.name}-release-unaligned.apk" />
+    <property name="out.final.file" location="${out.absolute.dir}/${ant.project.name}${mwm.market.name}-release.apk" />
+    <property name="out.packaged.file" location="${out.absolute.dir}/${ant.project.name}${mwm.market.name}-release-unsigned.apk" />
+    <property name="out.unaligned.file" location="${out.absolute.dir}/${ant.project.name}${mwm.market.name}-release-unaligned.apk" />
   </target>
 
   <target name="-setup-debug">
-    <property name="out.final.file" location="${out.absolute.dir}/${ant.project.name}${mwm.market.name}-${mwm.arch.name}-debug.apk" />
-    <property name="out.packaged.file" location="${out.absolute.dir}/${ant.project.name}${mwm.market.name}-${mwm.arch.name}-debug-unsigned.apk" />
-    <property name="out.unaligned.file" location="${out.absolute.dir}/${ant.project.name}${mwm.market.name}-${mwm.arch.name}-debug-unaligned.apk" />
+    <property name="out.final.file" location="${out.absolute.dir}/${ant.project.name}${mwm.market.name}-debug.apk" />
+    <property name="out.packaged.file" location="${out.absolute.dir}/${ant.project.name}${mwm.market.name}-debug-unsigned.apk" />
+    <property name="out.unaligned.file" location="${out.absolute.dir}/${ant.project.name}${mwm.market.name}-debug-unaligned.apk" />
   </target>
 
   <target name="-setup-amazon-market">
