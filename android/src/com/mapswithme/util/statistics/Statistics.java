@@ -3,11 +3,15 @@ package com.mapswithme.util.statistics;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.MathUtils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.SimpleLogger;
+import com.mapswithme.util.log.StubLogger;
 
 public enum Statistics
 {
@@ -24,7 +28,8 @@ public enum Statistics
   private EventBuilder mEventBuilder;
   private StatisticsEngine mStatisticsEngine;
   // Statistics params
-  private boolean DEBUG = true;
+  private final boolean DEBUG = false;
+  private final Logger mLogger = DEBUG ? SimpleLogger.get("MwmStatistics") : StubLogger.get();
   // Statistics counters
   private int mBookmarksCreated= 0;
   private int mSharedTimes = 0;
@@ -43,7 +48,12 @@ public enum Statistics
   public void trackIfEnabled(Context context, Event event)
   {
     if (isStatisticsEnabled(context))
+    {
       event.post();
+      mLogger.d("Posted event:", event);
+    }
+    else
+      mLogger.d("Skipped event:", event);
   }
 
   public void trackCountryDownload(Context context)
@@ -145,12 +155,12 @@ public enum Statistics
     {
       ensureConfigured(MWMApplication.get());
       //@formatter:off
-     getEventBuilder().reset()
-                      .setName("Api Called")
-                      .addParam("Caller Package", request.getCallerInfo().packageName)
-                      .getEvent()
-                      .post();
+     final Event event = getEventBuilder().reset()
+                      .setName("API called")
+                      .addParam("Caller ID", request.getCallerInfo().packageName)
+                      .getEvent();
      //@formatter:on
+     trackIfEnabled(MWMApplication.get(), event);
     }
   }
 
@@ -196,12 +206,12 @@ public enum Statistics
     if (MWMApplication.get().isProVersion())
     {
       // Number of sets
-      BookmarkManager manager = BookmarkManager.getBookmarkManager(activity);
+      final BookmarkManager manager = BookmarkManager.getBookmarkManager(activity);
       final int categoriesCount = manager.getCategoriesCount();
       if (categoriesCount > 0)
       {
         // Calculate average num of bmks in category
-        double[] sizes = new double[categoriesCount];
+        final double[] sizes = new double[categoriesCount];
         for (int catIndex = 0; catIndex < categoriesCount; catIndex++)
           sizes[catIndex] = manager.getCategoryById(catIndex).getSize();
         final double average = MathUtils.average(sizes);

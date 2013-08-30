@@ -1,5 +1,6 @@
 package com.mapswithme.util.log;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 public class SimpleLogger extends Logger
@@ -33,13 +34,7 @@ public class SimpleLogger extends Logger
 
   private static String join(Object ... args)
   {
-    final StringBuilder sb = new StringBuilder(" (");
-    if (args != null)
-    {
-      for (Object o : args)
-        sb.append(o).append(',');
-    }
-    return sb.toString() + ")";
+    return TextUtils.join(",", args);
   }
 
   private SimpleLogger() {};

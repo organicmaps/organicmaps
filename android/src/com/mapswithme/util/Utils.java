@@ -6,9 +6,8 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
 import com.mapswithme.maps.MWMApplication;
-
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ClipData;
@@ -17,6 +16,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -133,6 +133,7 @@ final public class Utils
     if (null == object) throw new NullPointerException("Argument here must not be NULL");
   }
 
+  @SuppressLint("NewApi")
   @SuppressWarnings("deprecation")
   public static void copyTextToClipboard(Context context, String text)
   {
@@ -154,19 +155,23 @@ final public class Utils
 
   public static <K,V> String mapPrettyPrint(Map<K, V> map)
   {
-    if (map == null)   return "[null]";
-    if (map.isEmpty()) return "[]";
+    if (map == null)
+      return "[null]";
+    if (map.isEmpty())
+      return "[]";
 
-    final StringBuilder sb = new StringBuilder("[");
+
+    String joined = "";
     for (final K key : map.keySet())
-      sb.append(String.valueOf(key))
-        .append('=')
-        .append(map.get(key))
-        .append(", ");
+    {
+      final String keyVal =  key + "=" + map.get(key);
+      if (joined.length() > 0)
+        joined = TextUtils.join(",", new Object[] { joined, keyVal });
+      else
+        joined = keyVal;
+    }
 
-    // Replace last ', ' with ']'.
-    sb.replace(sb.length() - 2, sb.length() - 1, "]");
-    return sb.toString();
+    return "[" + joined + "]";
   }
 
   @TargetApi(Build.VERSION_CODES.HONEYCOMB)
