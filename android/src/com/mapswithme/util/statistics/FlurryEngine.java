@@ -5,43 +5,38 @@ import com.mapswithme.util.Utils;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.provider.Settings.Secure;
 import android.util.Log;
 
 public class FlurryEngine extends StatisticsEngine
 {
 
   private boolean mDebug = false;
-  private String  mKey;
+  private final String  mKey;
 
   public FlurryEngine(boolean isDebug, String key)
   {
-    mKey     = key;
-    mDebug   = isDebug;
+    mKey   = key;
+    mDebug = isDebug;
   }
 
   @Override
   public void configure(Context context, Bundle params)
   {
     FlurryAgent.setUseHttps(true);
-    FlurryAgent.setCaptureUncaughtExceptions(true);
+    FlurryAgent.setUserId(Secure.ANDROID_ID);
 
     if (mDebug)
-    {
       FlurryAgent.setLogLevel(Log.DEBUG);
-      FlurryAgent.setLogEnabled(true);
-      FlurryAgent.setLogEvents(true);
-    }
     else
-    {
       FlurryAgent.setLogLevel(Log.ERROR);
-      FlurryAgent.setLogEnabled(true);
-      FlurryAgent.setLogEvents(false);
-    }
   }
 
   @Override
   public void onStartSession(Context context)
   {
+    Utils.checkNotNull(mKey);
+    Utils.checkNotNull(context);
     FlurryAgent.onStartSession(context, mKey);
   }
 
@@ -59,7 +54,6 @@ public class FlurryEngine extends StatisticsEngine
       FlurryAgent.logEvent(event.getName());
     else
       FlurryAgent.logEvent(event.getName(), event.getParams());
-    // TODO add logging?
   }
 
 }
