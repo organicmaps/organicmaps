@@ -69,7 +69,7 @@ mobile_api
 # android
 android/bin
 android/gen
-android/libs
+android/libs/*/
 android/obj
 android/.settings
 android/.classpath
