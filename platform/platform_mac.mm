@@ -88,11 +88,10 @@ string Platform::UniqueClientId() const
   io_registry_entry_t ioRegistryRoot = IORegistryEntryFromPath(kIOMasterPortDefault, "IOService:/");
   CFStringRef uuidCf = (CFStringRef) IORegistryEntryCreateCFProperty(ioRegistryRoot, CFSTR(kIOPlatformUUIDKey), kCFAllocatorDefault, 0);
   IOObjectRelease(ioRegistryRoot);
-  char buf[513];
-  CFStringGetCString(uuidCf, buf, 512, kCFStringEncodingUTF8);
+  char uidBuf[513];
+  CFStringGetCString(uuidCf, uidBuf, ARRAY_SIZE(uidBuf) - 1, kCFStringEncodingUTF8);
   CFRelease(uuidCf);
-
-  return HashUniqueID(buf);
+  return HashUniqueID(uidBuf);
 }
 
 static void PerformImpl(void * obj)
