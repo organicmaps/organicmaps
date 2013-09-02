@@ -132,8 +132,10 @@ public class LocationService implements LocationListener, SensorEventListener, W
       List<String> providers = getFilteredProviders();
       Log.d(TAG, "Enabled providers count = " + providers.size());
 
-      if (providers.size() == 0)
-        handleEmptyProvidersList(observer);
+      startWifiLocationUpdate();
+
+      if ((providers.size() == 0) && (m_wifiScanner == null))
+        observer.onLocationError(ERROR_DENIED);
       else
       {
         m_isActive = true;
@@ -181,6 +183,17 @@ public class LocationService implements LocationListener, SensorEventListener, W
     }
   }
 
+  private void startWifiLocationUpdate()
+  {
+    if (ConnectionState.isConnected(m_application) &&
+      ((WifiManager)m_application.getSystemService(Context.WIFI_SERVICE)).isWifiEnabled())
+    {
+      if (m_wifiScanner == null)
+        m_wifiScanner = new WifiLocation();
+      m_wifiScanner.StartScan(m_application, this);
+    }
+  }
+
   private List<String> getFilteredProviders()
   {
     List<String> allProviders = m_locationManager.getProviders(false);
@@ -212,19 +225,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
       if (m_magnetometer != null)
         m_sensorManager.registerListener(this, m_magnetometer, COMPASS_REFRESH_MKS);
     }
-  }
-
-  private void handleEmptyProvidersList(Listener observer)
-  {
-    if (ConnectionState.isConnected(m_application) &&
-        ((WifiManager)m_application.getSystemService(Context.WIFI_SERVICE)).isWifiEnabled())
-    {
-      if (m_wifiScanner == null)
-        m_wifiScanner = new WifiLocation();
-      m_wifiScanner.StartScan(m_application, this);
-    }
-    else
-      observer.onLocationError(ERROR_DENIED);
   }
 
   public void stopUpdate(Listener observer)
@@ -298,7 +298,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
     // Completely ignore locations without lat and lon
     if (l.getAccuracy() <= 0.)
       return;
-    
+
     // hack to avoid time zone troubles
     l.setTime(System.currentTimeMillis());
     if (LocationUtils.isFirstOneBetterLocation(l, m_lastLocation))
