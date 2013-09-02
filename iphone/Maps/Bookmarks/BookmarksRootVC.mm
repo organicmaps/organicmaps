@@ -219,7 +219,7 @@
   if (buttonIndex != alertView.cancelButtonIndex)
   {
     // Launch appstore
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
+    [APP openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
     [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"YES"];
   }
   else

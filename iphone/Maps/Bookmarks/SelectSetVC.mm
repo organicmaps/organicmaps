@@ -66,7 +66,7 @@
   if (indexPath.section == 0)
   {
     AddSetVC * asVC = [[AddSetVC alloc] initWithIndex:m_index];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    if (isIPad)
       [asVC setContentSizeForViewInPopover:[self contentSizeForViewInPopover]];
     [self.navigationController pushViewController:asVC animated:YES];
     [asVC release];

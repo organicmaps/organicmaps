@@ -77,7 +77,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
 -(void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+  if (isIPad)
     self.contentSizeForViewInPopover = CGSizeMake(320, 480);;
 }
 
@@ -255,7 +255,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
     if (buttonIndex != alertView.cancelButtonIndex)
     {
       // Launch appstore
-      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
+      [APP openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
       [[Statistics instance] logProposalReason:@"Balloon Touch" withAnswer:@"YES"];
     }
     else

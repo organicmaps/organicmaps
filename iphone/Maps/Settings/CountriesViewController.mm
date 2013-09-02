@@ -504,7 +504,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   if (!GetFramework().GetGuideInfo(index, info))
     return;
   NSURL * guideUrl = [NSURL URLWithString:[NSString stringWithUTF8String:info.GetAppID().c_str()]];
-  UIApplication * app = [UIApplication sharedApplication];
+  UIApplication * app = APP;
   if ([app canOpenURL:guideUrl])
     [app openURL:guideUrl];
   else

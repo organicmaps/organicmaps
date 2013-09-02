@@ -621,7 +621,7 @@ NSInteger compareAddress(id l, id r, void * context)
     case FACEBOOK_ALERT_VIEW:
     {
       NSString * url = [NSString stringWithFormat: FACEBOOK_SCHEME];
-      if (![[UIApplication sharedApplication] canOpenURL: [NSURL URLWithString: url]])
+      if (![APP canOpenURL: [NSURL URLWithString: url]])
         url = [NSString stringWithFormat: FACEBOOK_URL];
       [self manageAlert:buttonIndex andUrl:[NSURL URLWithString: url] andDlgSetting:dlg_settings::FacebookDlg];
       return;
@@ -643,7 +643,7 @@ NSInteger compareAddress(id l, id r, void * context)
     case 1:
     {
       dlg_settings::SaveResult(set, dlg_settings::OK);
-      [[UIApplication sharedApplication] openURL: url];
+      [APP openURL: url];
       break;
     }
     case 2:
@@ -705,13 +705,13 @@ NSInteger compareAddress(id l, id r, void * context)
 
 -(void) returnToApiApp
 {
-  [[UIApplication sharedApplication] openURL:[MapViewController getBackUrl]];
+  [APP openURL:[MapViewController getBackUrl]];
   [self clearApiMode];
 }
 
 -(BOOL) shouldShowNavBar
 {
-  return (_isApiMode && [[UIApplication sharedApplication] canOpenURL:[MapViewController getBackUrl]]);
+  return (_isApiMode && [APP canOpenURL:[MapViewController getBackUrl]]);
 }
 
 - (void)dismissPopover
@@ -762,7 +762,7 @@ NSInteger compareAddress(id l, id r, void * context)
 
 -(void)pushViewController:(UIViewController *)vc
 {
-  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+  if (isIPad)
   {
     UINavigationController * navC = [[UINavigationController alloc] init];
     m_popover = [[UIPopoverController alloc] initWithContentViewController:navC];

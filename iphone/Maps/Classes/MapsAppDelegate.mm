@@ -46,7 +46,7 @@ void InitLocalizedStrings()
 
 + (MapsAppDelegate *) theApp
 {
-  return (MapsAppDelegate *)[[UIApplication sharedApplication] delegate];
+  return (MapsAppDelegate *)[APP delegate];
 }
 
 - (void) applicationWillTerminate: (UIApplication *) application
@@ -115,7 +115,7 @@ void InitLocalizedStrings()
 - (void) disableStandby
 {
   ++m_standbyCounter;
-  [UIApplication sharedApplication].idleTimerDisabled = YES;
+  APP.idleTimerDisabled = YES;
 }
 
 - (void) enableStandby
@@ -123,7 +123,7 @@ void InitLocalizedStrings()
   --m_standbyCounter;
   if (m_standbyCounter <= 0)
   {
-    [UIApplication sharedApplication].idleTimerDisabled = NO;
+    APP.idleTimerDisabled = NO;
     m_standbyCounter = 0;
   }
 }
@@ -133,11 +133,11 @@ void InitLocalizedStrings()
   --m_activeDownloadsCounter;
   if (m_activeDownloadsCounter <= 0)
   {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    APP.networkActivityIndicatorVisible = NO;
     m_activeDownloadsCounter = 0;
-    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground)
+    if ([APP applicationState] == UIApplicationStateBackground)
     {
-      [[UIApplication sharedApplication] endBackgroundTask:m_backgroundTask];
+      [APP endBackgroundTask:m_backgroundTask];
       m_backgroundTask = UIBackgroundTaskInvalid;
     }
   }
@@ -146,7 +146,7 @@ void InitLocalizedStrings()
 - (void) enableDownloadIndicator
 {
   ++m_activeDownloadsCounter;
-  [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+  APP.networkActivityIndicatorVisible = YES;
 }
 
 // We process memory warnings in MapsViewController
@@ -294,7 +294,7 @@ void InitLocalizedStrings()
     {
       [[Statistics instance] logEvent:@"Download Guides Proposal" withParameters:@{@"Answer" : @"YES"}];
       NSURL * url = [NSURL URLWithString:self.lastGuidesUrl];
-      [[UIApplication sharedApplication] openURL:url];
+      [APP openURL:url];
     }
     else
       [[Statistics instance] logEvent:@"Download Guides Proposal" withParameters:@{@"Answer" : @"NO"}];
@@ -350,7 +350,7 @@ void InitLocalizedStrings()
   string const appID = guide.GetAppID();
 
   if (guidesManager.WasAdvertised(appID) ||
-      [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:[NSString stringWithUTF8String:appID.c_str()]]])
+      [APP canOpenURL:[NSURL URLWithString:[NSString stringWithUTF8String:appID.c_str()]]])
     return NO;
 
   UILocalNotification * notification = [[UILocalNotification alloc] init];
@@ -369,7 +369,7 @@ void InitLocalizedStrings()
                             @"GuideMessage" : message
                             };
 
-  [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+  [APP scheduleLocalNotification:notification];
   [notification release];
 
   guidesManager.SetWasAdvertised(appID);

@@ -15,18 +15,18 @@
 {
   NSString * z = [NSString stringWithUTF8String:apiPoint.m_id.c_str()];
   NSURL * url = [NSURL URLWithString:z];
-  if ([[UIApplication sharedApplication] canOpenURL:url])
-    [[UIApplication sharedApplication] openURL:url];
+  if ([APP canOpenURL:url])
+    [APP openURL:url];
   else
-    [[UIApplication sharedApplication] openURL:[MWMApi getBackUrl:apiPoint]];
+    [APP openURL:[MWMApi getBackUrl:apiPoint]];
 }
 
 +(BOOL)canOpenApiUrl:(url_scheme::ApiPoint const &)apiPoint
 {
   NSString * z = [NSString stringWithUTF8String:apiPoint.m_id.c_str()];
-  if ([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:z]])
+  if ([APP canOpenURL:[NSURL URLWithString:z]])
     return YES;
-  if ([[UIApplication sharedApplication]canOpenURL:[MWMApi getBackUrl:apiPoint]])
+  if ([APP canOpenURL:[MWMApi getBackUrl:apiPoint]])
     return YES;
   return NO;
 }

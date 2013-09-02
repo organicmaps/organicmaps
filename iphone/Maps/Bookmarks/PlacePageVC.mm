@@ -144,7 +144,7 @@ typedef enum {Editing, Saved} Mode;
   if ([_pinTitle isEqualToString:NSLocalizedString(@"dropped_pin", nil)])
     [[[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].contentView viewWithTag:TEXTFIELD_TAG] becomeFirstResponder];
 
-  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+  if (isIPad)
   {
     CGSize size = CGSizeMake(320, 480);
     self.contentSizeForViewInPopover = size;
@@ -319,7 +319,7 @@ typedef enum {Editing, Saved} Mode;
 
 -(void)pushToNavigationControllerAndSetControllerToPopoverSize:(UIViewController *)vc
 {
-  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+  if (isIPad)
     [vc setContentSizeForViewInPopover:[self contentSizeForViewInPopover]];
   [self.navigationController pushViewController:vc animated:YES];
 }
@@ -331,7 +331,7 @@ typedef enum {Editing, Saved} Mode;
 
 -(void)getSuperView:(double &)height width:(double &)width rect:(CGRect &)rect
 {
-  if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
+  if (isIPhone)
   {
     rect = [UIScreen mainScreen].bounds;
     height = self.view.window.frame.size.height;
@@ -614,7 +614,7 @@ typedef enum {Editing, Saved} Mode;
 -(void)goToTheMap
 {
   GetFramework().GetBalloonManager().Hide();
-  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+  if (isIPad)
     [[MapsAppDelegate theApp].m_mapViewController dismissPopover];
   else
     [self.navigationController popToRootViewControllerAnimated:YES];
@@ -700,11 +700,11 @@ typedef enum {Editing, Saved} Mode;
   [self.pickerView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
   UITapGestureRecognizer * tap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPicker)] autorelease];
   [self.pickerView addGestureRecognizer:tap];
-  if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
+  if (isIPhone)
   {
-    UIWindow * window = [UIApplication sharedApplication].keyWindow;
+    UIWindow * window = APP.keyWindow;
     if (!window)
-      window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+      window = [APP.windows objectAtIndex:0];
     [[[window subviews] objectAtIndex:0] addSubview:self.pickerView];
   }
   else
