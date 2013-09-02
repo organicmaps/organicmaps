@@ -70,7 +70,7 @@ public class Notifier
     final Notification notification = getBuilder()
         .setContentTitle(title)
         .setContentText(content)
-        .setTicker(title + content)
+        .setTicker(title + ": " + content)
         .setContentIntent(pi)
         .build();
 
