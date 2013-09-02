@@ -1,12 +1,12 @@
 package com.mapswithme.util.statistics;
 
-import com.flurry.android.FlurryAgent;
-import com.mapswithme.util.Utils;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.util.Log;
+
+import com.flurry.android.FlurryAgent;
+import com.mapswithme.util.Utils;
 
 public class FlurryEngine extends StatisticsEngine
 {
@@ -25,6 +25,8 @@ public class FlurryEngine extends StatisticsEngine
   {
     FlurryAgent.setUseHttps(true);
     FlurryAgent.setUserId(Secure.ANDROID_ID);
+
+    FlurryAgent.setReportLocation(false);
 
     if (mDebug)
       FlurryAgent.setLogLevel(Log.DEBUG);
