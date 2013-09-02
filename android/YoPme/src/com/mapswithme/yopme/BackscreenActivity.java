@@ -2,6 +2,8 @@ package com.mapswithme.yopme;
 
 import android.content.Context;
 import android.content.Intent;
+
+import com.mapswithme.maps.api.MWMPoint;
 import com.mapswithme.yopme.bs.Backscreen;
 import com.mapswithme.yopme.bs.MyLocationBackscreen;
 import com.mapswithme.yopme.bs.PoiLocationBackscreen;
@@ -16,7 +18,6 @@ public class BackscreenActivity extends BSActivity
 
   public enum Mode
   {
-    STUB,
     LOCATION,
     POI,
   }
@@ -55,10 +56,7 @@ public class BackscreenActivity extends BSActivity
           mBackscreenView = new MyLocationBackscreen(this);
           break;
         case POI:
-          mBackscreenView = new PoiLocationBackscreen(this);
-          break;
-        case STUB:
-          mBackscreenView = Backscreen.Stub.get();
+          mBackscreenView = new PoiLocationBackscreen(this, new MWMPoint(0, 0, "WTF"));
           break;
         default:
           throw new IllegalStateException();

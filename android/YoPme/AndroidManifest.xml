@@ -10,6 +10,8 @@
 
     <uses-permission
         android:name="com.yotadevices.framework.permission.ACCESS_BACKSCREEN" />
+    <uses-permission
+        android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"

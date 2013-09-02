@@ -9,8 +9,7 @@
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:src="@drawable/minsk_ink" />
+        android:layout_centerInParent="true" />
 
     <TextView
         android:id="@+id/poiText"
@@ -19,10 +18,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/dimen_2x"
-        android:background="#CCCC"
+        android:background="@drawable/text_background"
         android:gravity="center"
         android:padding="@dimen/dimen_3x"
-        android:text="Some POI"
         android:textColor="#000"
         android:textSize="@dimen/mid_text" />
 
