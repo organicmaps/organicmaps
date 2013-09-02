@@ -1361,6 +1361,7 @@
 		ED48BBB817C2B1E2003E7E92 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
 		ED48BBB917C2B1E2003E7E92 /* CircleView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CircleView.mm; sourceTree = "<group>"; };
 		ED48BBC517C3C0F9003E7E92 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		ED7F47F917D47FD20016850C /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		ED8676FA16A0793800D9A02A /* 22x29-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "22x29-pro.png"; sourceTree = "<group>"; };
 		ED8676FB16A0793800D9A02A /* 44x58-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "44x58-pro.png"; sourceTree = "<group>"; };
 		ED8676FC16A0793800D9A02A /* 64-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "64-pro.png"; sourceTree = "<group>"; };
@@ -2170,6 +2171,7 @@
 				ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */,
 				ED48BBB817C2B1E2003E7E92 /* CircleView.h */,
 				ED48BBB917C2B1E2003E7E92 /* CircleView.mm */,
+				ED7F47F917D47FD20016850C /* Config.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -4423,6 +4425,8 @@
 		1D6058940D05DD3E006BFB54 /* Simulator Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 			};
 			name = "Simulator Lite";
@@ -4518,6 +4522,8 @@
 		FA0686DF13578E1D004CFF81 /* Production Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 			};
 			name = "Production Lite";
@@ -4566,6 +4572,8 @@
 		FA1DE85A11E2235D00C6D69A /* Debug Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 			};
 			name = "Debug Lite";
@@ -4620,6 +4628,8 @@
 		FA1DE85C11E2236200C6D69A /* AdHoc Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 			};
 			name = "AdHoc Lite";
@@ -4668,6 +4678,8 @@
 		FAAB411A149BA83500C245B1 /* Simulator Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 			};
 			name = "Simulator Full";
@@ -4716,6 +4728,8 @@
 		FAAB411C149BA84700C245B1 /* Debug Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 			};
 			name = "Debug Full";
@@ -4770,6 +4784,8 @@
 		FAAB411E149BA85500C245B1 /* AdHoc Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 			};
 			name = "AdHoc Full";
@@ -4824,6 +4840,8 @@
 		FAAB4120149BA86000C245B1 /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 			};
 			name = "Production Full";
@@ -4875,6 +4893,8 @@
 		FABB561D149CD943006969C0 /* Release Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 			};
 			name = "Release Lite";
@@ -4926,6 +4946,8 @@
 		FABB561F149CD957006969C0 /* Release Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 			};
 			name = "Release Full";
@@ -4977,6 +4999,8 @@
 		FACFE54515F8F35600CE8B20 /* Simulator Full Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 			};
 			name = "Simulator Full Release";
@@ -4984,6 +5008,8 @@
 		FACFE54615F8F35600CE8B20 /* Simulator Full Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 			};
 			name = "Simulator Full Release";
@@ -4991,6 +5017,8 @@
 		FAFB0914151215EE0041901D /* Simulator Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 			};
 			name = "Simulator Lite";
@@ -4998,6 +5026,8 @@
 		FAFB0915151215EE0041901D /* Simulator Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 			};
 			name = "Simulator Full";
@@ -5005,6 +5035,8 @@
 		FAFB0916151215EE0041901D /* Debug Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 			};
 			name = "Debug Lite";
@@ -5012,6 +5044,8 @@
 		FAFB0917151215EE0041901D /* Debug Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 			};
 			name = "Debug Full";
@@ -5019,6 +5053,8 @@
 		FAFB0918151215EE0041901D /* AdHoc Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 			};
 			name = "AdHoc Lite";
@@ -5026,6 +5062,8 @@
 		FAFB0919151215EE0041901D /* Release Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 			};
 			name = "Release Lite";
@@ -5033,6 +5071,8 @@
 		FAFB091A151215EE0041901D /* AdHoc Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 			};
 			name = "AdHoc Full";
@@ -5040,6 +5080,8 @@
 		FAFB091B151215EE0041901D /* Release Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 			};
 			name = "Release Full";
@@ -5047,6 +5089,8 @@
 		FAFB091C151215EE0041901D /* Production Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 			};
 			name = "Production Lite";
@@ -5054,6 +5098,8 @@
 		FAFB091D151215EE0041901D /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 			};
 			name = "Production Full";

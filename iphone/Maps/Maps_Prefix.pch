@@ -2,6 +2,8 @@
 // Prefix header for all source files of the 'Maps' target in the 'Maps' project
 //
 
+#import "Config.h"
+
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
     #import <UIKit/UIKit.h>
