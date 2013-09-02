@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mapswithme.yopme"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="18" />
+
+    <uses-permission
+        android:name="com.yotadevices.framework.permission.ACCESS_BACKSCREEN" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="@string/com.yotadevices.BS_TITLE"
+            android:value="Sample API" />
+        <meta-data
+            android:name="@string/com.yotadevices.BS_ICON"
+            android:resource="@drawable/ic_launcher" />
+
+        <activity
+            android:name="com.mapswithme.yopme.YopmeFrontActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action
+                    android:name="android.intent.action.MAIN" />
+
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="com.mapswithme.yopme.BackscreenActivity" />
+
+        <uses-library
+            android:name="com.yotadevices.platinum" />
+    </application>
+
+</manifest>

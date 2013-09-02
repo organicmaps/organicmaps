@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/yota_width"
+    android:layout_height="@dimen/yota_height"
+    android:background="#FFF"
+    android:gravity="center" >
+
+    <ImageView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:src="@drawable/minsk_ink" />
+
+    <TextView
+        android:id="@+id/poiText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/dimen_2x"
+        android:background="#CCCC"
+        android:gravity="center"
+        android:padding="@dimen/dimen_3x"
+        android:text="Some POI"
+        android:textColor="#000"
+        android:textSize="@dimen/mid_text" />
+
+</RelativeLayout>
