@@ -1,10 +1,11 @@
 package com.mapswithme.yopme;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-
-import com.mapswithme.maps.api.MWMPoint;
-import com.mapswithme.yopme.bs.Backscreen;
+import android.location.Location;
+import android.location.LocationManager;
+import com.mapswithme.yopme.bs.BackscreenBase;
 import com.mapswithme.yopme.bs.MyLocationBackscreen;
 import com.mapswithme.yopme.bs.PoiLocationBackscreen;
 import com.yotadevices.sdk.BSActivity;
@@ -12,12 +13,13 @@ import com.yotadevices.sdk.BSMotionEvent;
 
 public class BackscreenActivity extends BSActivity
 {
-  private Backscreen mBackscreenView = Backscreen.Stub.get();
+  private BackscreenBase mBackscreenView;
 
   public final static String EXTRA_MODE = "com.mapswithme.yopme.mode";
 
   public enum Mode
   {
+    NONE,
     LOCATION,
     POI,
   }
@@ -26,6 +28,7 @@ public class BackscreenActivity extends BSActivity
   protected void onBSCreate()
   {
     super.onBSCreate();
+    restore();
     mBackscreenView.onCreate();
   }
 
@@ -34,6 +37,19 @@ public class BackscreenActivity extends BSActivity
   {
     super.onBSResume();
     mBackscreenView.onResume();
+  }
+
+  private void restore()
+  {
+    final State state = State.read(this);
+    if (state != null)
+    {
+      if (Mode.LOCATION == state.getMode())
+        mBackscreenView = new MyLocationBackscreen(this, state);
+      else if (Mode.POI == state.getMode())
+        mBackscreenView = new PoiLocationBackscreen(this, state);
+    }
+    // TODO: what to do with null?
   }
 
   @Override
@@ -50,19 +66,11 @@ public class BackscreenActivity extends BSActivity
 
     if (intent.hasExtra(EXTRA_MODE))
     {
-      switch ((Mode)intent.getSerializableExtra(EXTRA_MODE))
-      {
-        case LOCATION:
-          mBackscreenView = new MyLocationBackscreen(this);
-          break;
-        case POI:
-          mBackscreenView = new PoiLocationBackscreen(this, new MWMPoint(0, 0, "WTF"));
-          break;
-        default:
-          throw new IllegalStateException();
-      }
+      restore();
       mBackscreenView.invalidate();
     }
+    else if (intent.hasExtra(LocationManager.KEY_LOCATION_CHANGED))
+      mBackscreenView.onLocationChanged((Location)intent.getParcelableExtra(LocationManager.KEY_LOCATION_CHANGED));
   }
 
   public static void startInMode(Context context, Mode mode)
@@ -70,6 +78,13 @@ public class BackscreenActivity extends BSActivity
     final Intent i = new Intent(context, BackscreenActivity.class)
       .putExtra(EXTRA_MODE, mode);
     context.startService(i);
+  }
+
+  public static PendingIntent getLocationPendingIntent(Context context)
+  {
+    final Intent i = new Intent(context, BackscreenActivity.class);
+    final PendingIntent pi = PendingIntent.getService(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+    return pi;
   }
 
 }

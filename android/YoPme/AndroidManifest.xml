@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="15"
         android:targetSdkVersion="18" />
 
     <uses-permission
@@ -27,6 +27,7 @@
 
         <activity
             android:name="com.mapswithme.yopme.YopmeFrontActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
             android:label="@string/app_name" >
             <intent-filter>
                 <action

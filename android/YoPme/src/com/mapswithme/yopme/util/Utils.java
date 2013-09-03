@@ -1,5 +1,7 @@
 package com.mapswithme.yopme.util;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -26,6 +28,21 @@ public class Utils
 
     return (T) Proxy.newProxyInstance(clazz.getClassLoader(),
         new Class<?>[] { clazz }, handler);
+  }
+
+  public static void close(Closeable closeable)
+  {
+    if (closeable == null)
+      return;
+
+    try
+    {
+      closeable.close();
+    }
+    catch (final IOException e)
+    {
+      e.printStackTrace();
+    }
   }
 
   private Utils() {}

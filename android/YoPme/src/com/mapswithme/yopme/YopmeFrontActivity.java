@@ -20,13 +20,14 @@ public class YopmeFrontActivity extends Activity
   private Button     mSelectPoi;
   private TextView   mPoiText;
 
-  private State mState;
+  private State mState = new State();
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_yopme_main);
+
     setUpView();
   }
 
@@ -37,41 +38,22 @@ public class YopmeFrontActivity extends Activity
     restoreFromState();
   }
 
-  @Override
-  protected void onPause()
-  {
-    super.onPause();
-    saveToState();
-  }
-
-
-  private void saveToState()
+  private void saveState()
   {
     State.write(this, mState);
   }
 
   private void restoreFromState()
   {
-    mModeGroup.clearCheck();
-
-    final State st = new State();
-    if (State.read(this, st))
+    mModeGroup.check(-1);
+    final State st = State.read(this);
+    if (st != null)
     {
       mState = st;
-
       if (st.mMode == Mode.LOCATION)
         mModeGroup.check(R.id.modeLocation);
       else if (st.mMode == Mode.POI)
-      {
         mModeGroup.check(R.id.modePoi);
-      }
-    }
-    else
-    {
-      // Default initialization
-      mState = new State();
-      mState.mMode = Mode.LOCATION;
-      mModeGroup.check(R.id.modeLocation);
     }
   }
 
@@ -101,27 +83,34 @@ public class YopmeFrontActivity extends Activity
   @Override
   public void onCheckedChanged(RadioGroup group, int checkedId)
   {
-    if (mState == null)
-      return;
 
     if (checkedId == R.id.modeLocation)
     {
       BackscreenActivity.startInMode(getApplicationContext(), Mode.LOCATION);
-      mState.mMode = Mode.LOCATION;
-      // TODO: get address from MWM?
+      mState.setMode(Mode.LOCATION);
       mPoiText.setVisibility(View.GONE);
+      //TODO: get location name
+
       mSelectPoi.setEnabled(false);
+      saveState();
     }
     else if (checkedId == R.id.modePoi)
     {
-      BackscreenActivity.startInMode(getApplicationContext(), Mode.POI);
-      mState.mMode = Mode.POI;
-      mPoiText.setVisibility(View.VISIBLE);
-      mPoiText.setText(mState.mData.getPoint().getName());
+      if (mState.hasPoint())
+      {
+        BackscreenActivity.startInMode(getApplicationContext(), Mode.POI);
+        mPoiText.setText(mState.getPoint().getName());
+        mPoiText.setVisibility(View.VISIBLE);
+      }
+      mState.setMode(Mode.POI);
       mSelectPoi.setEnabled(true);
+      saveState();
     }
     else
-      throw new IllegalArgumentException("What?");
+    {
+      mPoiText.setVisibility(View.VISIBLE);
+      mPoiText.setText("Please select mode");
+      mSelectPoi.setEnabled(false);
+    }
   }
-
 }

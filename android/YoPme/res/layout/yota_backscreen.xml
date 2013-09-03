@@ -24,4 +24,23 @@
         android:textColor="#000"
         android:textSize="@dimen/mid_text" />
 
+    <FrameLayout
+        android:id="@+id/waitScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#C000"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/waitMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#FFF"
+            android:padding="@dimen/dimen_3x"
+            android:text="Please Wait ..."
+            android:textColor="#000"
+            android:textSize="@dimen/big_text" />
+    </FrameLayout>
+
 </RelativeLayout>
