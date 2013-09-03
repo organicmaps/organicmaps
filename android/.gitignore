@@ -5,6 +5,7 @@ resbuilder/
 spoon-output/
 assets/
 obj/
+3rd_party/api-android/
 
 *.class
 .classpath

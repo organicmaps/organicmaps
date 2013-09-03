@@ -18,7 +18,6 @@ public class YopmeFrontActivity extends Activity
 
   private RadioGroup mModeGroup;
   private Button     mSelectPoi;
-  @SuppressWarnings("unused")
   private TextView   mPoiText;
 
   private State mState;
