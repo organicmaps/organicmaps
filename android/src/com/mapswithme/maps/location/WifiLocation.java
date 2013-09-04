@@ -1,4 +1,5 @@
 package com.mapswithme.maps.location;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -21,7 +22,7 @@ import android.os.AsyncTask;
 
 public class WifiLocation extends BroadcastReceiver
 {
-  private final String MWM_GEOLOCATION_SERVER = "http://geolocation.server/";
+  private static final String MWM_GEOLOCATION_SERVER = "http://geolocation.server/";
 
   public interface Listener
   {
@@ -29,11 +30,11 @@ public class WifiLocation extends BroadcastReceiver
   }
 
   // @TODO support multiple listeners
-  private Listener m_observer = null;
+  private Listener mObserver = null;
 
-  private WifiManager m_wifi = null;
-  
-  private LocationManager m_locationManager = null;
+  private WifiManager mWifi = null;
+
+  private LocationManager mLocationManager = null;
 
   public WifiLocation()
   {
@@ -41,41 +42,41 @@ public class WifiLocation extends BroadcastReceiver
 
   // @TODO support multiple listeners
   // Returns true if was started successfully
-  public boolean StartScan(Context c, Listener l)
+  public boolean startScan(Context context, Listener l)
   {
-    m_observer = l;
-    if (m_wifi == null)
+    mObserver = l;
+    if (mWifi == null)
     {
-      m_wifi = (WifiManager) c.getSystemService(Context.WIFI_SERVICE);
-      c.registerReceiver(this, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
-      if (m_wifi.startScan())
+      mWifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+      context.registerReceiver(this, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+      if (mWifi.startScan())
         return true;
       else
       {
         // onReceive() will never be called on fail
-        c.unregisterReceiver(this);
-        m_wifi = null;
+        context.unregisterReceiver(this);
+        mWifi = null;
         return false;
       }
     }
     // Already in progress
     return true;
   }
-  
-  public void StopScan(Context c)
+
+  public void stopScan(Context context)
   {
-    c.unregisterReceiver(this);
-    m_wifi = null;
+    context.unregisterReceiver(this);
+    mWifi = null;
   }
 
   @Override
-  public void onReceive(Context c, Intent intent)
+  public void onReceive(Context context, Intent intent)
   {
     // Prepare JSON request with BSSIDs
     final StringBuilder json = new StringBuilder("{\"version\":\"2.0\"");
 
     boolean wifiHeaderAdded = false;
-    List<ScanResult> results = m_wifi.getScanResults();
+    List<ScanResult> results = mWifi.getScanResults();
     for (ScanResult r : results)
     {
       if (r.BSSID != null)
@@ -87,14 +88,17 @@ public class WifiLocation extends BroadcastReceiver
         }
         json.append("{\"mac\":\"");
         json.append(r.BSSID);
-        json.append("\",\"ssid\":\"");
-        json.append(r.SSID == null ? " " : r.SSID);
-        json.append("\",\"ss\":");
+        json.append("\",\"ss\":\"");
         json.append(String.valueOf(r.level));
-        json.append(",\"freq\":");
-        json.append(String.valueOf(r.frequency));
-        json.append(",\"caps\":\"");
-        json.append(r.capabilities);
+        if (Statistics.INSTANCE.isStatisticsEnabled(context))
+        {
+          json.append("\",\"ssid\":\"");
+          json.append(r.SSID == null ? " " : r.SSID);
+          json.append("\",\"freq\":");
+          json.append(String.valueOf(r.frequency));
+          json.append(",\"caps\":\"");
+          json.append(r.capabilities);
+        }
         json.append("\"},");
       }
     }
@@ -104,16 +108,16 @@ public class WifiLocation extends BroadcastReceiver
       json.append("]");
     }
 
-    if (m_locationManager == null)
-      m_locationManager = (LocationManager) c.getSystemService(Context.LOCATION_SERVICE);
-
-    Location l = m_locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-    if (l != null)
+    if (Statistics.INSTANCE.isStatisticsEnabled(context))
     {
+      if (mLocationManager == null)
+        mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+
+      Location l = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+      if (l != null)
+      {
         if (wifiHeaderAdded)
-        {
-            json.append(",");
-        }
+          json.append(",");
         json.append("\"gps\":{\"latitude\":");
         json.append(String.valueOf(l.getLatitude()));
         json.append(",\"longitude\":");
@@ -127,6 +131,7 @@ public class WifiLocation extends BroadcastReceiver
         json.append(",\"time\":");
         json.append(String.valueOf(l.getTime()));
         json.append("}");
+      }
     }
     json.append("}");
 
@@ -135,14 +140,14 @@ public class WifiLocation extends BroadcastReceiver
     new AsyncTask<String, Void, Boolean>()
     {
       // Result for Listener
-      private Location m_location = null;
+      private Location mLocation = null;
 
       @Override
       protected void onPostExecute(Boolean result)
       {
         // Notify event should be called on UI thread
-        if (m_observer != null && this.m_location != null)
-          m_observer.onWifiLocationUpdated(this.m_location);
+        if (mObserver != null && this.mLocation != null)
+          mObserver.onWifiLocationUpdated(this.mLocation);
       }
 
       @Override
@@ -171,11 +176,11 @@ public class WifiLocation extends BroadcastReceiver
           final double lon = jLocation.getDouble("longitude");
           final double acc = jLocation.getDouble("accuracy");
 
-          m_location = new Location("wifiscanner");
-          m_location.setAccuracy((float) acc);
-          m_location.setLatitude(lat);
-          m_location.setLongitude(lon);
-          m_location.setTime(java.lang.System.currentTimeMillis());
+          mLocation = new Location("wifiscanner");
+          mLocation.setAccuracy((float) acc);
+          mLocation.setLatitude(lat);
+          mLocation.setLongitude(lon);
+          mLocation.setTime(java.lang.System.currentTimeMillis());
 
           wr.close();
           rd.close();

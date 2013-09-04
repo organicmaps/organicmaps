@@ -54,7 +54,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   private WifiLocation m_wifiScanner = null;
 
-  private LocationManager m_locationManager;
+  private volatile LocationManager m_locationManager;
 
   private SensorManager m_sensorManager;
   private Sensor m_accelerometer = null;
@@ -190,14 +190,14 @@ public class LocationService implements LocationListener, SensorEventListener, W
     {
       if (m_wifiScanner == null)
         m_wifiScanner = new WifiLocation();
-      m_wifiScanner.StartScan(m_application, this);
+      m_wifiScanner.startScan(m_application, this);
     }
   }
 
   private void stopWifiLocationUpdate()
   {
     if (m_wifiScanner != null)
-      m_wifiScanner.StopScan(m_application);
+      m_wifiScanner.stopScan(m_application);
     m_wifiScanner = null;
   }
 
