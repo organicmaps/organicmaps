@@ -13,6 +13,7 @@ public class Const
   public static final String EXTRA_HAS_PENDING_INTENT = AUTHORITY + ".has_pen_intent";
   public static final String EXTRA_CALLER_PENDING_INTENT = AUTHORITY + ".pending_intent";
   public static final String EXTRA_RETURN_ON_BALLOON_CLICK = AUTHORITY + ".return_on_balloon_click";
+  public static final String EXTRA_PICK_POINT = AUTHORITY + ".pick_point";
 
 
   /* Response extras */

@@ -94,7 +94,7 @@ public class MapObjectFragment extends Fragment
 
     mCategory = bookmark.getCategoryId();
     mBmkIndex = bookmark.getBookmarkId();
-    mScale = bookmark.getScale();
+    mScale    = bookmark.getScale();
 
     mType = MapObjectType.BOOKMARK;
   }
@@ -225,6 +225,33 @@ public class MapObjectFragment extends Fragment
     super.onResume();
 
     adaptUI();
+
+    setUpPickPoint();
+  }
+
+  private void setUpPickPoint()
+  {
+    if (ParsedMmwRequest.hasRequest())
+    {
+      final ParsedMmwRequest request = ParsedMmwRequest.getCurrentRequest();
+      if (request.isPickPointMode())
+      {
+        UiUtils.show(mOpenWith);
+        request.setPointData(mLat, mLon, mName, "");
+
+        mOpenWith.setOnClickListener(new OnClickListener()
+        {
+          @Override
+          public void onClick(View v)
+          {
+            onOpenWithClicked();
+          }
+        });
+
+        return;
+      }
+    }
+    mOpenWith.setOnClickListener(this);
   }
 
   private void adaptUI()

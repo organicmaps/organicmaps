@@ -23,6 +23,8 @@ public class ParsedMmwRequest
   private PendingIntent mPendingIntent;
   // return on ballon click
   private boolean mReturnOnBalloonClick;
+  // pick point mode
+  private boolean mPickPoint;
 
   // response data
   private boolean mHasPoint;
@@ -30,9 +32,10 @@ public class ParsedMmwRequest
   private double mLon;
 
 
-  public double getLat()  { return mLat; }
-  public double getLon()  { return mLon; }
-  public String getName() { return mName;}
+  public double  getLat()          { return mLat; }
+  public double  getLon()          { return mLon; }
+  public String  getName()         { return mName;}
+  public boolean isPickPointMode() { return mPickPoint; }
 
   private String mName;
   private String mId;
@@ -48,6 +51,8 @@ public class ParsedMmwRequest
     request.mCallerInfo = data.getParcelableExtra(Const.EXTRA_CALLER_APP_INFO);
     request.mTitle = data.getStringExtra(Const.EXTRA_TITLE);
     request.mReturnOnBalloonClick = data.getBooleanExtra(Const.EXTRA_RETURN_ON_BALLOON_CLICK, false);
+    request.mPickPoint = data.getBooleanExtra(Const.EXTRA_PICK_POINT, false);
+
     if (data.getBooleanExtra(Const.EXTRA_HAS_PENDING_INTENT, false))
     {
       request.mPendingIntent = data.getParcelableExtra(Const.EXTRA_CALLER_PENDING_INTENT);
