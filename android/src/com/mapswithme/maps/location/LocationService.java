@@ -194,6 +194,13 @@ public class LocationService implements LocationListener, SensorEventListener, W
     }
   }
 
+  private void stopWifiLocationUpdate()
+  {
+    if (m_wifiScanner != null)
+      m_wifiScanner.StopScan(m_application);
+    m_wifiScanner = null;
+  }
+
   private List<String> getFilteredProviders()
   {
     List<String> allProviders = m_locationManager.getProviders(false);
@@ -232,6 +239,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
     mLogger.d("Stop update", observer);
 
     m_observers.remove(observer);
+
+    stopWifiLocationUpdate();
 
     // Stop only if no more observers are subscribed
     if (m_observers.size() == 0)

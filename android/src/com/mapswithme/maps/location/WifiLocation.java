@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.Location;
+import android.location.LocationManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
@@ -31,6 +32,8 @@ public class WifiLocation extends BroadcastReceiver
   private Listener m_observer = null;
 
   private WifiManager m_wifi = null;
+  
+  private LocationManager m_locationManager = null;
 
   public WifiLocation()
   {
@@ -58,14 +61,18 @@ public class WifiLocation extends BroadcastReceiver
     // Already in progress
     return true;
   }
+  
+  public void StopScan(Context c)
+  {
+    c.unregisterReceiver(this);
+    m_wifi = null;
+  }
 
   @Override
   public void onReceive(Context c, Intent intent)
   {
-    c.unregisterReceiver(this);
-
     // Prepare JSON request with BSSIDs
-    final StringBuilder json = new StringBuilder("{\"version\":\"1.1.0\"");
+    final StringBuilder json = new StringBuilder("{\"version\":\"2.0\"");
 
     boolean wifiHeaderAdded = false;
     List<ScanResult> results = m_wifi.getScanResults();
@@ -75,22 +82,51 @@ public class WifiLocation extends BroadcastReceiver
       {
         if (!wifiHeaderAdded)
         {
-          json.append(",\"wifi_towers\":[");
+          json.append(",\"wifi\":[");
           wifiHeaderAdded = true;
         }
-        json.append("{\"mac_address\":\"");
+        json.append("{\"mac\":\"");
         json.append(r.BSSID);
         json.append("\",\"ssid\":\"");
         json.append(r.SSID == null ? " " : r.SSID);
-        json.append("\",\"signal_strength\":");
+        json.append("\",\"ss\":");
         json.append(String.valueOf(r.level));
-        json.append("},");
+        json.append(",\"freq\":");
+        json.append(String.valueOf(r.frequency));
+        json.append(",\"caps\":\"");
+        json.append(r.capabilities);
+        json.append("\"},");
       }
     }
     if (wifiHeaderAdded)
     {
       json.deleteCharAt(json.length() - 1);
       json.append("]");
+    }
+
+    if (m_locationManager == null)
+      m_locationManager = (LocationManager) c.getSystemService(Context.LOCATION_SERVICE);
+
+    Location l = m_locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+    if (l != null)
+    {
+        if (wifiHeaderAdded)
+        {
+            json.append(",");
+        }
+        json.append("\"gps\":{\"latitude\":");
+        json.append(String.valueOf(l.getLatitude()));
+        json.append(",\"longitude\":");
+        json.append(String.valueOf(l.getLongitude()));
+        json.append(",\"accuracy\":");
+        json.append(String.valueOf(l.getAccuracy()));
+        json.append(",\"altitude\":");
+        json.append(String.valueOf(l.getAltitude()));
+        json.append(",\"speed\":");
+        json.append(String.valueOf(l.getSpeed()));
+        json.append(",\"time\":");
+        json.append(String.valueOf(l.getTime()));
+        json.append("}");
     }
     json.append("}");
 
@@ -107,7 +143,6 @@ public class WifiLocation extends BroadcastReceiver
         // Notify event should be called on UI thread
         if (m_observer != null && this.m_location != null)
           m_observer.onWifiLocationUpdated(this.m_location);
-        m_wifi = null;
       }
 
       @Override
