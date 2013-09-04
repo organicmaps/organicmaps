@@ -46,48 +46,48 @@ public class LocationService implements LocationListener, SensorEventListener, W
     public void onLocationError(int errorCode);
   };
 
-  private HashSet<Listener> m_observers = new HashSet<Listener>(10);
+  private HashSet<Listener> mObservers = new HashSet<Listener>(10);
 
   /// Used to filter locations from different providers
-  private Location m_lastLocation = null;
-  private double m_drivingHeading = -1.0;
+  private Location mLastLocation = null;
+  private double mDrivingHeading = -1.0;
 
-  private WifiLocation m_wifiScanner = null;
+  private WifiLocation mWifiScanner = null;
 
-  private volatile LocationManager m_locationManager;
+  private volatile LocationManager mLocationManager;
 
-  private SensorManager m_sensorManager;
-  private Sensor m_accelerometer = null;
-  private Sensor m_magnetometer = null;
+  private SensorManager mSensorManager;
+  private Sensor mAccelerometer = null;
+  private Sensor mMagnetometer = null;
   /// To calculate true north for compass
-  private GeomagneticField m_magneticField = null;
+  private GeomagneticField mMagneticField = null;
 
   /// true when LocationService is on
-  private boolean m_isActive = false;
+  private boolean mIsActive = false;
 
-  private MWMApplication m_application = null;
+  private MWMApplication mApplication = null;
 
   public LocationService(MWMApplication application)
   {
     mLogger.d("Creating locserivice");
-    m_application = application;
+    mApplication = application;
 
-    m_locationManager = (LocationManager) m_application.getSystemService(Context.LOCATION_SERVICE);
-    m_sensorManager = (SensorManager) m_application.getSystemService(Context.SENSOR_SERVICE);
+    mLocationManager = (LocationManager) mApplication.getSystemService(Context.LOCATION_SERVICE);
+    mSensorManager = (SensorManager) mApplication.getSystemService(Context.SENSOR_SERVICE);
 
-    if (m_sensorManager != null)
+    if (mSensorManager != null)
     {
-      m_accelerometer = m_sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-      m_magnetometer = m_sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+      mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+      mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
     }
   }
 
-  public Location getLastKnown() { return m_lastLocation; }
+  public Location getLastKnown() { return mLastLocation; }
 
   /*
   private void notifyOnError(int errorCode)
   {
-    Iterator<Listener> it = m_observers.iterator();
+    Iterator<Listener> it = mObservers.iterator();
     while (it.hasNext())
       it.next().onLocationError(errorCode);
   }
@@ -95,14 +95,14 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   private void notifyLocationUpdated(final Location l)
   {
-    Iterator<Listener> it = m_observers.iterator();
+    Iterator<Listener> it = mObservers.iterator();
     while (it.hasNext())
       it.next().onLocationUpdated(l);
   }
 
   private void notifyCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    Iterator<Listener> it = m_observers.iterator();
+    Iterator<Listener> it = mObservers.iterator();
     while (it.hasNext())
       it.next().onCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }
@@ -123,28 +123,28 @@ public class LocationService implements LocationListener, SensorEventListener, W
   {
     mLogger.d("Start update", observer);
 
-    m_observers.add(observer);
+    mObservers.add(observer);
 
-    if (!m_isActive)
+    if (!mIsActive)
     {
-      m_isGPSOff = false;
+      mIsGPSOff = false;
 
       List<String> providers = getFilteredProviders();
       Log.d(TAG, "Enabled providers count = " + providers.size());
 
       startWifiLocationUpdate();
 
-      if ((providers.size() == 0) && (m_wifiScanner == null))
+      if ((providers.size() == 0) && (mWifiScanner == null))
         observer.onLocationError(ERROR_DENIED);
       else
       {
-        m_isActive = true;
+        mIsActive = true;
 
         for (String provider : providers)
         {
           Log.d(TAG, "Connected to provider = " + provider);
           // Half of a second is more than enough, I think ...
-          m_locationManager.requestLocationUpdates(provider, 500, 0, this);
+          mLocationManager.requestLocationUpdates(provider, 500, 0, this);
         }
         registerSensorListeners();
 
@@ -163,8 +163,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
              lastKnownLocation = mostAccurateLocation;
         }
 
-        if (m_lastLocation != null && LocationUtils.isFirstOneBetterLocation(m_lastLocation, lastKnownLocation))
-          lastKnownLocation = m_lastLocation;
+        if (mLastLocation != null && LocationUtils.isFirstOneBetterLocation(mLastLocation, lastKnownLocation))
+          lastKnownLocation = mLastLocation;
         // ### location chosen
 
         // Pass last known location only in the end of all registerListener
@@ -178,40 +178,40 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
       }
 
-      if (m_isGPSOff)
+      if (mIsGPSOff)
         observer.onLocationError(ERROR_GPS_OFF);
     }
   }
 
   private void startWifiLocationUpdate()
   {
-    if (ConnectionState.isConnected(m_application) &&
-      ((WifiManager)m_application.getSystemService(Context.WIFI_SERVICE)).isWifiEnabled())
+    if (ConnectionState.isConnected(mApplication) &&
+      ((WifiManager)mApplication.getSystemService(Context.WIFI_SERVICE)).isWifiEnabled())
     {
-      if (m_wifiScanner == null)
-        m_wifiScanner = new WifiLocation();
-      m_wifiScanner.startScan(m_application, this);
+      if (mWifiScanner == null)
+        mWifiScanner = new WifiLocation();
+      mWifiScanner.startScan(mApplication, this);
     }
   }
 
   private void stopWifiLocationUpdate()
   {
-    if (m_wifiScanner != null)
-      m_wifiScanner.stopScan(m_application);
-    m_wifiScanner = null;
+    if (mWifiScanner != null)
+      mWifiScanner.stopScan(mApplication);
+    mWifiScanner = null;
   }
 
   private List<String> getFilteredProviders()
   {
-    List<String> allProviders = m_locationManager.getProviders(false);
+    List<String> allProviders = mLocationManager.getProviders(false);
     List<String> acceptedProviders = new ArrayList<String>(allProviders.size());
 
     for (String prov : allProviders)
     {
-      if (!m_locationManager.isProviderEnabled(prov) || prov.equals(LocationManager.PASSIVE_PROVIDER))
+      if (!mLocationManager.isProviderEnabled(prov) || prov.equals(LocationManager.PASSIVE_PROVIDER))
       {
         if (prov.equals(LocationManager.GPS_PROVIDER))
-          m_isGPSOff = true;
+          mIsGPSOff = true;
       }
       else
         acceptedProviders.add(prov);
@@ -222,15 +222,15 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   private void registerSensorListeners()
   {
-    if (m_sensorManager != null)
+    if (mSensorManager != null)
     {
       // How often compass is updated (may be SensorManager.SENSOR_DELAY_UI)
       final int COMPASS_REFRESH_MKS = SensorManager.SENSOR_DELAY_NORMAL;
 
-      if (m_accelerometer != null)
-        m_sensorManager.registerListener(this, m_accelerometer, COMPASS_REFRESH_MKS);
-      if (m_magnetometer != null)
-        m_sensorManager.registerListener(this, m_magnetometer, COMPASS_REFRESH_MKS);
+      if (mAccelerometer != null)
+        mSensorManager.registerListener(this, mAccelerometer, COMPASS_REFRESH_MKS);
+      if (mMagnetometer != null)
+        mSensorManager.registerListener(this, mMagnetometer, COMPASS_REFRESH_MKS);
     }
   }
 
@@ -238,23 +238,23 @@ public class LocationService implements LocationListener, SensorEventListener, W
   {
     mLogger.d("Stop update", observer);
 
-    m_observers.remove(observer);
+    mObservers.remove(observer);
 
     stopWifiLocationUpdate();
 
     // Stop only if no more observers are subscribed
-    if (m_observers.size() == 0)
+    if (mObservers.size() == 0)
     {
-      m_locationManager.removeUpdates(this);
-      if (m_sensorManager != null)
-        m_sensorManager.unregisterListener(this);
+      mLocationManager.removeUpdates(this);
+      if (mSensorManager != null)
+        mSensorManager.unregisterListener(this);
 
-      //m_lastLocation = null;
+      //mLastLocation = null;
 
       // reset current parameters to force initialize in the next startUpdate
-      m_magneticField = null;
-      m_drivingHeading = -1.0;
-      m_isActive = false;
+      mMagneticField = null;
+      mDrivingHeading = -1.0;
+      mIsActive = false;
     }
   }
 
@@ -267,7 +267,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
     for (String prov : providers)
     {
-      Location loc = m_locationManager.getLastKnownLocation(prov);
+      Location loc = mLocationManager.getLastKnownLocation(prov);
       final long timeNow = System.currentTimeMillis();
       if (loc != null && ((timeNow - loc.getTime()) <= LOCATION_EXPIRATION_TIME))
         locations.add(loc);
@@ -280,20 +280,20 @@ public class LocationService implements LocationListener, SensorEventListener, W
   {
     // Try to calculate user direction if he is moving and
     // we have previous close position.
-    if ((l.getSpeed() >= 1.0) && (t - m_lastLocation.getTime() <= MAXTIME_CALC_DIRECTIONS))
+    if ((l.getSpeed() >= 1.0) && (t - mLastLocation.getTime() <= MAXTIME_CALC_DIRECTIONS))
     {
       if (l.hasBearing())
-        m_drivingHeading = bearingToHeading(l.getBearing());
-      else if (m_lastLocation.distanceTo(l) > 5.0)
-        m_drivingHeading = bearingToHeading(m_lastLocation.bearingTo(l));
+        mDrivingHeading = bearingToHeading(l.getBearing());
+      else if (mLastLocation.distanceTo(l) > 5.0)
+        mDrivingHeading = bearingToHeading(mLastLocation.bearingTo(l));
     }
     else
-      m_drivingHeading = -1.0;
+      mDrivingHeading = -1.0;
   }
 
   private void emitLocation(Location l)
   {
-    m_lastLocation = l;
+    mLastLocation = l;
     notifyLocationUpdated(l);
   }
 
@@ -310,20 +310,20 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
     // hack to avoid time zone troubles
     l.setTime(System.currentTimeMillis());
-    if (LocationUtils.isFirstOneBetterLocation(l, m_lastLocation))
+    if (LocationUtils.isFirstOneBetterLocation(l, mLastLocation))
     {
       final long timeNow = System.currentTimeMillis();
-      if (m_lastLocation != null)
+      if (mLastLocation != null)
         calcDirection(l, timeNow);
 
       // Used for more precise compass updates
-      if (m_sensorManager != null)
+      if (mSensorManager != null)
       {
         // Recreate magneticField if location has changed significantly
-        if (m_magneticField == null ||
-            (m_lastLocation == null || l.distanceTo(m_lastLocation) > DISTANCE_TO_RECREATE_MAGNETIC_FIELD))
+        if (mMagneticField == null ||
+            (mLastLocation == null || l.distanceTo(mLastLocation) > DISTANCE_TO_RECREATE_MAGNETIC_FIELD))
         {
-          m_magneticField = new GeomagneticField((float)l.getLatitude(), (float)l.getLongitude(),
+          mMagneticField = new GeomagneticField((float)l.getLatitude(), (float)l.getLongitude(),
                                                  (float)l.getAltitude(), l.getTime());
         }
       }
@@ -354,15 +354,15 @@ public class LocationService implements LocationListener, SensorEventListener, W
     return ret;
   }
 
-  private float[] m_gravity = null;
-  private float[] m_geomagnetic = null;
+  private float[] mGravity = null;
+  private float[] mGeomagnetic = null;
 
-  private boolean m_isGPSOff;
+  private boolean mIsGPSOff;
 
   private void emitCompassResults(long time, double north, double trueNorth, double offset)
   {
-    if (m_drivingHeading >= 0.0)
-      notifyCompassUpdated(time, m_drivingHeading, m_drivingHeading, 0.0);
+    if (mDrivingHeading >= 0.0)
+      notifyCompassUpdated(time, mDrivingHeading, mDrivingHeading, 0.0);
     else
       notifyCompassUpdated(time, north, trueNorth, offset);
   }
@@ -376,18 +376,18 @@ public class LocationService implements LocationListener, SensorEventListener, W
     switch (event.sensor.getType())
     {
     case Sensor.TYPE_ACCELEROMETER:
-      m_gravity = updateCompassSensor(0, event.values);
+      mGravity = updateCompassSensor(0, event.values);
       break;
     case Sensor.TYPE_MAGNETIC_FIELD:
-      m_geomagnetic = updateCompassSensor(1, event.values);
+      mGeomagnetic = updateCompassSensor(1, event.values);
       break;
     }
 
-    if (m_gravity != null && m_geomagnetic != null)
+    if (mGravity != null && mGeomagnetic != null)
     {
       float R[] = new float[9];
       float I[] = new float[9];
-      if (SensorManager.getRotationMatrix(R, I, m_gravity, m_geomagnetic))
+      if (SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic))
       {
         orientation = new float[3];
         SensorManager.getOrientation(R, orientation);
@@ -398,7 +398,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
     {
       final double magneticHeading = correctAngle(orientation[0], 0.0);
 
-      if (m_magneticField == null)
+      if (mMagneticField == null)
       {
         // -1.0 - as default parameters
         emitCompassResults(event.timestamp, magneticHeading, -1.0, -1.0);
@@ -406,7 +406,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
       else
       {
         // positive 'offset' means the magnetic field is rotated east that much from true north
-        final double offset = m_magneticField.getDeclination() * Math.PI / 180.0;
+        final double offset = mMagneticField.getDeclination() * Math.PI / 180.0;
         final double trueHeading = correctAngle(magneticHeading, offset);
 
         emitCompassResults(event.timestamp, magneticHeading, trueHeading, offset);
@@ -420,7 +420,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
   public void correctCompassAngles(Display display, double angles[])
   {
     // Do not do any corrections if heading is from GPS service.
-    if (m_drivingHeading >= 0.0)
+    if (mDrivingHeading >= 0.0)
       return;
 
     // Correct compass angles due to orientation.
