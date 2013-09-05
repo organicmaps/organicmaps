@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.api.MWMPoint;
 import com.mapswithme.yopme.map.MapData;
 import com.mapswithme.yopme.map.MapDataProvider;
-import com.mapswithme.yopme.map.MockMapDataProvider;
+import com.mapswithme.yopme.map.MapRenderer;
 import com.yotadevices.sdk.BSActivity;
 import com.yotadevices.sdk.BSMotionEvent;
 import com.yotadevices.sdk.BSDrawer.Waveform;
@@ -57,7 +57,10 @@ public class BackscreenActivity extends BSActivity
   {
     super.onBSCreate();
 
-    mMapDataProvider = new MockMapDataProvider(this);
+    mMapDataProvider = new MapRenderer(
+        (int)getResources().getDimension(R.dimen.yota_width),
+            (int)getResources().getDimension(R.dimen.yota_width));
+
     setUpView();
   }
 
@@ -208,6 +211,10 @@ public class BackscreenActivity extends BSActivity
   public void updateData()
   {
     MapData data = null;
+
+    if (mMode == null)
+      return;
+
     if (mMode == Mode.LOCATION)
     {
       if (mLocation == null)
