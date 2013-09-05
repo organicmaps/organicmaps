@@ -15,6 +15,16 @@
 #include "../std/algorithm.hpp"
 #include "../std/auto_ptr.hpp"
 
+void BookmarkCategory::AddTrack(Track const & track)
+{
+  Track * t = new Track(track);
+  m_tracks.push_back(t);
+}
+
+Track * BookmarkCategory::GetTrack(size_t index) const
+{
+  return (index < m_tracks.size() ? m_tracks[index] : 0);
+}
 
 void BookmarkCategory::AddBookmark(Bookmark const & bm)
 {
@@ -107,6 +117,14 @@ namespace
 
 namespace
 {
+
+  enum GeometryType
+  {
+    UNKNOWN,
+    POINT,
+    LINE
+  };
+
   static char const * s_arrSupportedColors[] =
   {
     "placemark-red", "placemark-blue", "placemark-purple", "placemark-yellow",
@@ -133,6 +151,7 @@ namespace
 
     vector<string> m_tags;
     GeometryType m_geometryType;
+    vector<m2::PointD> m_points;
 
     string m_name;
     string m_type;
@@ -150,6 +169,9 @@ namespace
       m_type.clear();
       m_scale = -1.0;
       m_timeStamp = my::INVALID_TIME_STAMP;
+
+      m_points.clear();
+      m_geometryType = UNKNOWN;
     }
 
     void SetOrigin(string const & s)
@@ -171,21 +193,57 @@ namespace
       }
     }
 
+    void ParseLineCoordinates(string const & s)
+    {
+      double lon, lat;
+      strings::SimpleTokenizer cortegeIter(s, " \n\r\t");
+      LOG(LDEBUG,("Start Parsing", m_name, s));
+
+      while (cortegeIter)
+      {
+        string const token = *cortegeIter;
+        strings::SimpleTokenizer coordIter(token, ",");
+        if (coordIter)
+        {
+          if (strings::to_double(*coordIter, lon) && MercatorBounds::ValidLon(lon) && ++coordIter)
+          {
+            if (strings::to_double(*coordIter, lat) && MercatorBounds::ValidLat(lat))
+            {
+              m2::PointD const pt(m2::PointD(MercatorBounds::LonToX(lon),
+                                             MercatorBounds::LatToY(lat)));
+              m_points.push_back(pt);
+            }
+          }
+        }
+
+        ++cortegeIter;
+      }
+      LOG(LDEBUG,("End Parsing", m_name));
+    }
+
     bool MakeValid()
     { 
-      if (MercatorBounds::ValidX(m_org.x) && MercatorBounds::ValidY(m_org.y))
+      if (POINT == m_geometryType)
       {
-        // set default name
-        if (m_name.empty())
-          m_name = PointToString(m_org);
+        if (MercatorBounds::ValidX(m_org.x) && MercatorBounds::ValidY(m_org.y))
+        {
+          // set default name
+          if (m_name.empty())
+            m_name = PointToString(m_org);
 
-        // set default pin
-        if (m_type.empty())
-          m_type = "placemark-red";
+          // set default pin
+          if (m_type.empty())
+            m_type = "placemark-red";
 
+          return true;
+        }
+        return false;
+      }
+      else if (LINE == m_geometryType)
+      {
+        /// @todo real validation
         return true;
       }
-
       return false;
     }
 
@@ -209,11 +267,23 @@ namespace
 
       if (tag == "Placemark" && MakeValid())
       {
+        if (POINT == m_geometryType)
+        {
         Bookmark bm(m_org, m_name, m_type);
         bm.SetTimeStamp(m_timeStamp);
         bm.SetDescription(m_description);
         bm.SetScale(m_scale);
         m_category.AddBookmark(bm);
+        }
+        else if (LINE == m_geometryType)
+        {
+          Track::PolylineD poly(m_points);
+          Track track(poly);
+          track.SetName(m_name);
+          // add descr, style, timestamp
+          m_category.AddTrack(track);
+          LOG(LDEBUG, ("Track added", m_name));
+        }
         Reset();
       }
       m_tags.pop_back();
@@ -249,8 +319,15 @@ namespace
         {
           if (prevTag == "Point")
           {
+            m_geometryType = POINT;
             if (currTag == "coordinates")
               SetOrigin(value);
+          }
+          else if (prevTag == "LineString")
+          {
+            m_geometryType = LINE;
+            if (currTag == "coordinates")
+              ParseLineCoordinates(value);
           }
           else if (prevTag == "ExtendedData")
           {
@@ -449,6 +526,32 @@ void BookmarkCategory::SaveToKML(ostream & s)
 
     s << "  </Placemark>\n";
   }
+
+  // Saving tracks
+  for (size_t i = 0; i < GetTracksCount(); ++i)
+  {
+    Track const * track = GetTrack(i);
+
+    s << "  <Placemark>\n";
+    s << "    <name>";
+    SaveStringWithCDATA(s, track->GetName());
+    s << "</name>\n";
+
+    /// @todo add descr, style, timestamp
+
+    s << "<LineString>"
+      << "<coordinates>";
+
+    Track::PolylineD const & poly = track->GetPolyline();
+    for (size_t pIndex = 0; pIndex < poly.m_points.size(); ++pIndex)
+    {
+      s << PointToString(poly.m_points[pIndex]) << "\n";
+    }
+
+    s << "</coordinates></LineString>\n"
+      << "</Placemark>\n";
+  }
+  // !Saving tracks
 
   s << kmlFooter;
 }

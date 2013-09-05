@@ -249,8 +249,8 @@ void BookmarkManager::DeleteScreen()
   if (m_bmScreen)
   {
     // Delete display lists for all tracks
-    for (int i = 0; i < m_categories.size(); ++i)
-      for (int j = 0; j < m_categories[i]->GetTracksCount(); ++j)
+    for (size_t i = 0; i < m_categories.size(); ++i)
+      for (size_t j = 0; j < m_categories[i]->GetTracksCount(); ++j)
         m_categories[i]->GetTrack(j)->DeleteDisplayList();
 
 
