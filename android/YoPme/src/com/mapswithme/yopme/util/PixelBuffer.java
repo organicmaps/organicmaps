@@ -35,24 +35,24 @@ public class PixelBuffer
 		mHeight = height;
 	}
 	
-	public void Init() throws EglInitializeException 
+	public void init() 
 	{
 		mDisplay = mEgl.eglGetDisplay(EGL11.EGL_DEFAULT_DISPLAY);
 		if (mDisplay == EGL11.EGL_NO_DISPLAY)
-			throw new EglInitializeException("EGL error : No display", mEgl.eglGetError());
+			throw new EglOperationException("EGL error : No display", mEgl.eglGetError());
 		
 		int[] version = new int[2];
 		if (!mEgl.eglInitialize(mDisplay, version))
-			throw new EglInitializeException("EGL error : initialize fault", mEgl.eglGetError());
+			throw new EglOperationException("EGL error : initialize fault", mEgl.eglGetError());
 		
-		EGLConfig[] configs = GetConfigs();
+		EGLConfig[] configs = getConfigs();
 		for (int i = 0; i < configs.length; ++i)
 		{
-			mSurface = CreateSurface(configs[i]);
+			mSurface = createSurface(configs[i]);
 			if (mSurface == EGL_NO_SURFACE)
 				continue;
 			
-			mContext = CreateContext(configs[i]);
+			mContext = createContext(configs[i]);
 			if (mContext == EGL_NO_CONTEXT)
 			{
 				mEgl.eglDestroySurface(mDisplay, mSurface);
@@ -63,15 +63,15 @@ public class PixelBuffer
 		}
 		
 		if (mSurface == EGL_NO_SURFACE)
-			throw new EglInitializeException("EGL error : Surface not created", mEgl.eglGetError());
+			throw new EglOperationException("EGL error : Surface not created", mEgl.eglGetError());
 		
 		if (mContext == EGL_NO_CONTEXT)
-			throw new EglInitializeException("EGL error : Context not created", mEgl.eglGetError());
+			throw new EglOperationException("EGL error : Context not created", mEgl.eglGetError());
 		
 		Log.d(TAG, "Egl inited");
 	}
 	
-	public void Terminate()
+	public void terminate()
 	{
 		if (mDisplay != EGL_NO_DISPLAY)
 		{
@@ -90,25 +90,25 @@ public class PixelBuffer
 		Log.d(TAG, "Egl terminated");
 	}
 	
-	public void AttachToThread()
+	public void attachToThread()
 	{
 		Log.d(TAG, "Pixel buffer attached");
 		if (!mEgl.eglMakeCurrent(mDisplay, mSurface, mSurface, mContext))
-			throw new EglRuntimeException("EGL error : Context was not bind to thread", mEgl.eglGetError());
+			throw new EglOperationException("EGL error : Context was not bind to thread", mEgl.eglGetError());
 		
 		mGL = (GL11)mContext.getGL();
 	}
 	
-	public void DetachFromThread()
+	public void detachFromThread()
 	{
 		Log.d(TAG, "Pixel buffer detached");
 		if (!mEgl.eglMakeCurrent(mDisplay, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT))
-			throw new EglRuntimeException("EGL error : Context was not bind to thread", mEgl.eglGetError());
+			throw new EglOperationException("EGL error : Context was not bind to thread", mEgl.eglGetError());
 		
 		mGL = null;
 	}
 	
-	public Bitmap ReadBitmap()
+	public Bitmap readBitmap()
 	{
 		if (mEgl == null)
 			return Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_4444);
@@ -134,10 +134,10 @@ public class PixelBuffer
 		@Override
 		public int compare(EGLConfig lhs, EGLConfig rhs)
 		{
-			return GetWeight(lhs) - GetWeight(rhs);
+			return getWeight(lhs) - getWeight(rhs);
 		}
 		
-		private int GetWeight(EGLConfig config)
+		private int getWeight(EGLConfig config)
 		{
 			int[] value = new int[1];
 			mEgl.eglGetConfigAttrib(mDisplay, config, EGL_CONFIG_CAVEAT, value);
@@ -153,13 +153,13 @@ public class PixelBuffer
 		}
 	}
 	
-	private EGLContext CreateContext(EGLConfig config)
+	private EGLContext createContext(EGLConfig config)
 	{
 		int[] contextAttributes = new int[] {EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE};
 		return mEgl.eglCreateContext(mDisplay, config, EGL_NO_CONTEXT, contextAttributes);
 	}
 	
-	private EGLSurface CreateSurface(EGLConfig config)
+	private EGLSurface createSurface(EGLConfig config)
 	{
 		int[] surfaceAttribs = new int[] { EGL_HEIGHT, mHeight,
 										   EGL_WIDTH , mWidth,
@@ -168,7 +168,7 @@ public class PixelBuffer
 		return mEgl.eglCreatePbufferSurface(mDisplay, config, surfaceAttribs);
 	}
 	
-	private EGLConfig[] GetConfigs() throws EglInitializeException
+	private EGLConfig[] getConfigs()
 	{
 		EGLConfig[] configs = new EGLConfig[40];
 		int[] numConfigs = new int[] { 0 };
@@ -182,10 +182,10 @@ public class PixelBuffer
 								   EGL_NONE };
 		
 		if (!mEgl.eglChooseConfig(mDisplay, configAttributes, configs, 40, numConfigs))
-			throw new EglInitializeException("EGL error : config not choosed", mEgl.eglGetError());
+			throw new EglOperationException("EGL error : config not choosed", mEgl.eglGetError());
 		
 		if (numConfigs[0] == 0)
-			throw new EglInitializeException("EGL error : config not founded", mEgl.eglGetError());
+			throw new EglOperationException("EGL error : config not founded", mEgl.eglGetError());
 		
 		Log.d(TAG, "Config numbers = " + numConfigs[0]);
 		

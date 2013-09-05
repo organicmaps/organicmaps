@@ -1,19 +1,19 @@
 package com.mapswithme.yopme.util;
 
-public class EglRuntimeException extends RuntimeException
+public class EglOperationException extends RuntimeException
 {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public EglRuntimeException(String message, int errorCode)
+	public EglOperationException(String message, int errorCode)
 	{
 		super(message);
 		mErrorCode = errorCode;
 	}
 	
-	public int GetErrorCode()
+	public int getEglErrorCode()
 	{
 		return mErrorCode;
 	}
