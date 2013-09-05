@@ -4,7 +4,8 @@ import com.mapswithme.yopme.BackscreenActivity;
 import com.mapswithme.yopme.R;
 import com.mapswithme.yopme.State;
 import com.mapswithme.yopme.map.MapDataProvider;
-import com.mapswithme.yopme.map.MockMapDataProvider;
+import com.mapswithme.yopme.map.MapRenderer;
+import com.mapswithme.yopme.util.EglInitializeException;
 import com.yotadevices.sdk.BSActivity;
 import com.yotadevices.sdk.BSDrawer;
 import com.yotadevices.sdk.BSMotionEvent;
@@ -42,7 +43,14 @@ public abstract class BackscreenBase implements LocationListener
     mState = state;
     mResId = R.layout.yota_backscreen;
     //TODO: you know what to do with mocks
-    mMapDataProvider = new MockMapDataProvider(bsActivity);
+    try
+    {
+    	mMapDataProvider = MapRenderer.GetRenderer();
+    }
+    catch (EglInitializeException e)
+    {
+    	//TODO : do something
+    }
 
     setUpView();
     updateView(state);
