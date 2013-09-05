@@ -3,6 +3,7 @@ package com.mapswithme.yopme;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationManager;
@@ -57,9 +58,10 @@ public class BackscreenActivity extends BSActivity
   {
     super.onBSCreate();
 
+    final Resources res = getResources();
     mMapDataProvider = new MapRenderer(
-        (int)getResources().getDimension(R.dimen.yota_width),
-            (int)getResources().getDimension(R.dimen.yota_width));
+        (int)res.getDimension(R.dimen.yota_width),
+            (int)res.getDimension(R.dimen.yota_height));
 
     setUpView();
   }
