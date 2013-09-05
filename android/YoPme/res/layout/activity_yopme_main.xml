@@ -39,6 +39,7 @@
             android:id="@+id/modePoi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="@string/poi" />
 
         <RadioButton
@@ -55,7 +56,6 @@
         android:layout_below="@id/selectPoi"
         android:layout_marginTop="@dimen/dimen_4x"
         android:gravity="center_horizontal"
-        android:text="Белкалий"
         android:textSize="@dimen/mid_text" />
 
 </RelativeLayout>

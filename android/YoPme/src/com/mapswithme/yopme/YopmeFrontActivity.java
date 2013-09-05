@@ -1,9 +1,14 @@
 package com.mapswithme.yopme;
 
+import com.mapswithme.maps.api.MWMPoint;
+import com.mapswithme.maps.api.MWMResponse;
+import com.mapswithme.maps.api.MapsWithMeApi;
 import com.mapswithme.yopme.BackscreenActivity.Mode;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,7 +25,19 @@ public class YopmeFrontActivity extends Activity
   private Button     mSelectPoi;
   private TextView   mPoiText;
 
-  private State mState = new State();
+  private Mode mMode;
+  private final static String KEY_MODE = "key.mode";
+  private MWMPoint mPoint;
+  private final static String KEY_POINT = "key.point";
+
+  @Override
+  protected void onSaveInstanceState(Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+
+    outState.putSerializable(KEY_MODE, mMode);
+    outState.putSerializable(KEY_POINT, mPoint);
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -29,31 +46,40 @@ public class YopmeFrontActivity extends Activity
     setContentView(R.layout.activity_yopme_main);
 
     setUpView();
+
+    //restore
+    if (savedInstanceState != null)
+    {
+      mMode  = (Mode) savedInstanceState.getSerializable(KEY_MODE);
+      mPoint = (MWMPoint) savedInstanceState.getSerializable(KEY_POINT);
+
+     if (Mode.LOCATION == mMode)
+       setLocationView();
+     else if (Mode.POI == mMode)
+     {
+       setPoiView();
+       mPoiText.setText(mPoint.getName());
+     }
+    }
+
+    setUpListeners();
   }
 
   @Override
-  protected void onResume()
+  protected void onNewIntent(Intent intent)
   {
-    super.onResume();
-    restoreFromState();
-  }
+    super.onNewIntent(intent);
 
-  private void saveState()
-  {
-    State.write(this, mState);
-  }
-
-  private void restoreFromState()
-  {
-    mModeGroup.check(-1);
-    final State st = State.read(this);
-    if (st != null)
+    if (intent.hasExtra(EXTRA_PICK) && intent.getBooleanExtra(EXTRA_PICK, false))
     {
-      mState = st;
-      if (st.mMode == Mode.LOCATION)
-        mModeGroup.check(R.id.modeLocation);
-      else if (st.mMode == Mode.POI)
-        mModeGroup.check(R.id.modePoi);
+      final MWMResponse response = MWMResponse.extractFromIntent(this, intent);
+      if (response.hasPoint())
+      {
+        mPoint = response.getPoint();
+        mPoiText.setText(mPoint.getName());
+        BackscreenActivity.startInMode(this, Mode.POI, mPoint);
+      }
+
     }
   }
 
@@ -62,7 +88,10 @@ public class YopmeFrontActivity extends Activity
     mModeGroup = (RadioGroup) findViewById(R.id.mode);
     mSelectPoi = (Button) findViewById(R.id.selectPoi);
     mPoiText   = (TextView) findViewById(R.id.poi);
+  }
 
+  private void setUpListeners()
+  {
     mModeGroup.setOnCheckedChangeListener(this);
     mSelectPoi.setOnClickListener(this);
   }
@@ -77,40 +106,40 @@ public class YopmeFrontActivity extends Activity
   @Override
   public void onClick(View v)
   {
-    //TODO add mapswithme invocation
+    MapsWithMeApi.pickPoint(this, "Pick point", getPickPointPendingIntent());
+  }
+
+  private final static String EXTRA_PICK = ".pick_point";
+  private PendingIntent getPickPointPendingIntent()
+  {
+    final Intent i = new Intent(this, YopmeFrontActivity.class);
+    i.putExtra(EXTRA_PICK, true);
+    return PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
   }
 
   @Override
   public void onCheckedChanged(RadioGroup group, int checkedId)
   {
-
     if (checkedId == R.id.modeLocation)
     {
-      BackscreenActivity.startInMode(getApplicationContext(), Mode.LOCATION);
-      mState.setMode(Mode.LOCATION);
-      mPoiText.setVisibility(View.GONE);
-      //TODO: get location name
-
-      mSelectPoi.setEnabled(false);
-      saveState();
+      BackscreenActivity.startInMode(getApplicationContext(), Mode.LOCATION, null);
+      setLocationView();
     }
     else if (checkedId == R.id.modePoi)
-    {
-      if (mState.hasPoint())
-      {
-        BackscreenActivity.startInMode(getApplicationContext(), Mode.POI);
-        mPoiText.setText(mState.getPoint().getName());
-        mPoiText.setVisibility(View.VISIBLE);
-      }
-      mState.setMode(Mode.POI);
-      mSelectPoi.setEnabled(true);
-      saveState();
-    }
-    else
-    {
-      mPoiText.setVisibility(View.VISIBLE);
-      mPoiText.setText("Please select mode");
-      mSelectPoi.setEnabled(false);
-    }
+      setPoiView();
+  }
+
+  private void setPoiView()
+  {
+    mPoiText.setVisibility(View.VISIBLE);
+    mPoiText.setText(null);
+    mSelectPoi.setEnabled(true);
+  }
+
+  private void setLocationView()
+  {
+    mPoiText.setVisibility(View.GONE);
+    mPoiText.setText(null);
+    mSelectPoi.setEnabled(false);
   }
 }

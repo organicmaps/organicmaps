@@ -18,15 +18,14 @@ public class MockMapDataProvider implements MapDataProvider
   @Override
   public MapData getMyPositionData(double lat, double lon, double zoom)
   {
-    final MWMPoint point = new MWMPoint(0, 0, "Minsk");
+    final MWMPoint point = new MWMPoint(0, 0, "You are here!");
     return new MapData(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.minsk_ink), point);
   }
 
   @Override
   public MapData getPOIData(MWMPoint poi, double zoom)
   {
-    final MWMPoint point = new MWMPoint(0, 0, "Moskow");
-    return new MapData(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.msk_ink), point);
+    return new MapData(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.msk_ink), poi);
   }
 
 }
