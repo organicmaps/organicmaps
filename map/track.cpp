@@ -2,8 +2,10 @@
 #include "../graphics/screen.hpp"
 #include "../graphics/pen.hpp"
 #include "../graphics/depth_constants.hpp"
+#include "../geometry/distance.hpp"
 #include "drawer.hpp"
 #include "../base/timer.hpp"
+#include "../base/logging.hpp"
 
 Track::~Track()
 {
@@ -94,3 +96,15 @@ bool Track::IsViewportChanged(ScreenBase const & sb)
 
 m2::RectD Track::GetLimitRect() const { return m_polyline.GetLimitRect(); }
 size_t Track::Size() const { return m_polyline.m_points.size(); }
+
+double Track::GetShortestSquareDistance(m2::PointD const & point)
+{
+  double res = numeric_limits<double>::max();
+  m2::DistanceToLineSquare<m2::PointD> d;
+  for (size_t i = 0; i + 1 < m_polyline.m_points.size(); ++i)
+  {
+    d.SetBounds(m_polyline.m_points[i], m_polyline.m_points[i + 1]);
+    res = min(res, d(point));
+  }
+  return res;
+}

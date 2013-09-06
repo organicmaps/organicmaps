@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../geometry/polyline2d.hpp"
+#include "../geometry/point2d.hpp"
 #include "../graphics/color.hpp"
 #include "../graphics/display_list.hpp"
 #include "../graphics/screen.hpp"
@@ -50,6 +51,8 @@ public:
 
   double GetLength() const { return m_polyline.GetLength(); }
   PolylineD const & GetPolyline() const { return m_polyline; }
+
+  double GetShortestSquareDistance(m2::PointD const & point);
   //@}
 
 private:
