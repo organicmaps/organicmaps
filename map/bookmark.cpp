@@ -193,16 +193,16 @@ namespace
       }
     }
 
-    void ParseLineCoordinates(string const & s)
+    void ParseLineCoordinates(string const & s, string const & blockSeparator, string const & coordSeparator)
     {
       double lon, lat;
-      strings::SimpleTokenizer cortegeIter(s, " \n\r\t");
+      strings::SimpleTokenizer cortegeIter(s, blockSeparator.c_str());
       LOG(LDEBUG,("Start Parsing", m_name, s));
 
       while (cortegeIter)
       {
         string const token = *cortegeIter;
-        strings::SimpleTokenizer coordIter(token, ",");
+        strings::SimpleTokenizer coordIter(token, coordSeparator.c_str());
         if (coordIter)
         {
           if (strings::to_double(*coordIter, lon) && MercatorBounds::ValidLon(lon) && ++coordIter)
@@ -325,9 +325,15 @@ namespace
           }
           else if (prevTag == "LineString")
           {
+            LOG(LINFO,(prevTag, currTag));
             m_geometryType = LINE;
             if (currTag == "coordinates")
-              ParseLineCoordinates(value);
+              ParseLineCoordinates(value, " \n\r\t", ",");
+          }
+          else if (prevTag == "gx:Track")
+          {
+            if (currTag == "gx:coord")
+              ParseLineCoordinates(value, "\n\r\t", " ");
           }
           else if (prevTag == "ExtendedData")
           {
