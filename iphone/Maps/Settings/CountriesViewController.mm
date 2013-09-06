@@ -14,6 +14,7 @@
 
 #define MAX_3G_MEGABYTES (50)
 #define MB (1024*1024)
+#define GUIDE_TAG 123
 
 
 using namespace storage;
@@ -163,13 +164,15 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
     [cell layoutSubviews];
     UIButton * bt = [[[UIButton alloc] initWithFrame:cell.imageView.frame] autorelease];
     bt.backgroundColor = [UIColor clearColor];
+    bt.tag = GUIDE_TAG;
     [bt addTarget:self action:@selector(showGuideAdvertise:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:bt];
   }
   else if (!flag.empty())
   {
     for (UIButton * v in cell.contentView.subviews)
-      [v removeFromSuperview];
+      if (v.tag == GUIDE_TAG)
+        [v removeFromSuperview];
     cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", flag.c_str()]];
   }
 
