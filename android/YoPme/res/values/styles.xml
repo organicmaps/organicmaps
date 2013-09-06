@@ -1,20 +1,32 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    -->
-    <style name="AppBaseTheme" parent="android:Theme.Light">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
+    <style name="AppTheme" parent="android:Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/Ink.ActionBar</item>
+        <item name="android:icon">@null</item>
     </style>
 
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    <style name="Ink.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid"></style>
+
+    <style name="Plashka">
+        <item name="android:background">@drawable/plashka_selector</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingLeft">@dimen/dimen_4x</item>
+        <item name="android:paddingRight">@dimen/dimen_4x</item>
+    </style>
+
+    <style name="SmallText">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#666666</item>
+        <item name="android:fontFamily">"sans-serif"</item>
+    </style>
+
+    <style name="MidText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#333333</item>
+        <item name="android:fontFamily">"sans-serif-light"</item>
+        <item name="android:textStyle">normal</item>
     </style>
 
 </resources>

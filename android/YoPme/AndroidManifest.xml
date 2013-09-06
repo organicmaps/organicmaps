@@ -15,21 +15,22 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/ic_app"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <meta-data
             android:name="@string/com.yotadevices.BS_TITLE"
-            android:value="Sample API" />
+            android:value="@string/app_name" />
         <meta-data
             android:name="@string/com.yotadevices.BS_ICON"
-            android:resource="@drawable/ic_launcher" />
+            android:resource="@drawable/inc_icon" />
 
         <activity
             android:name="com.mapswithme.yopme.YopmeFrontActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:label="@string/app_name"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="sensorPortrait" >
             <intent-filter>
                 <action
                     android:name="android.intent.action.MAIN" />
@@ -44,6 +45,16 @@
 
         <uses-library
             android:name="com.yotadevices.platinum" />
+
+        <activity
+            android:name="com.mapswithme.yopme.ReferenceActivity"
+            android:label="@string/title_activity_reference"
+            android:parentActivityName="com.mapswithme.yopme.YopmeFrontActivity"
+            android:screenOrientation="sensorPortrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapswithme.yopme.YopmeFrontActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="yota_height">640px</dimen>
     <dimen name="yota_width">360px</dimen>
+    <dimen name="plashka">60dp</dimen>
     <dimen name="big_text">30sp</dimen>
     <dimen name="mid_text">24sp</dimen>
     <dimen name="dimen_1x">4dp</dimen>

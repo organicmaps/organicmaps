@@ -1,61 +1,79 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context=".YopmeFrontActivity" >
 
-    <Space
-        android:id="@+id/center"
+    <FrameLayout
+        android:id="@+id/me"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_centerInParent="true" />
+        android:layout_height="0dp"
+        android:layout_weight="1" >
 
-    <Button
-        android:id="@+id/selectPoi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/center"
-        android:layout_centerHorizontal="true"
-        android:paddingBottom="@dimen/dimen_4x"
-        android:paddingLeft="@dimen/dimen_3x"
-        android:paddingRight="@dimen/dimen_3x"
-        android:paddingTop="@dimen/dimen_4x"
-        android:text="@string/select_poi"
-        android:textSize="@dimen/big_text" />
-
-    <RadioGroup
-        android:id="@+id/mode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/center"
-        android:gravity="center"
-        android:orientation="horizontal" >
-
-        <RadioButton
-            android:id="@+id/modePoi"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/poi" />
+            android:layout_gravity="center"
+            android:src="@drawable/bg_selforiented" />
 
-        <RadioButton
-            android:id="@+id/modeLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/location" />
-    </RadioGroup>
+        <LinearLayout
+            style="@style/Plashka"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/plashka"
+            android:layout_gravity="bottom|center_horizontal" >
 
-    <TextView
+            <TextView
+                style="@style/MidText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/self_oriented" />
+
+            <TextView
+                style="@style/SmallText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/your_location_label" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
         android:id="@+id/poi"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/selectPoi"
-        android:layout_marginTop="@dimen/dimen_4x"
-        android:gravity="center_horizontal"
-        android:textSize="@dimen/mid_text" />
+        android:layout_height="0dp"
+        android:layout_weight="1" >
 
-</RelativeLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/bg_poioriented" />
+
+        <LinearLayout
+            style="@style/Plashka"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/plashka"
+            android:layout_gravity="bottom|center_horizontal" >
+
+            <TextView
+                style="@style/MidText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:drawablePadding="@dimen/dimen_3x"
+                android:drawableRight="@drawable/ic_arrow"
+                android:text="@string/self_oriented" />
+
+            <TextView
+                android:id="@+id/selectedLocation"
+                style="@style/SmallText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/take_your_poi" />
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

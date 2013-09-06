@@ -6,24 +6,24 @@ import com.mapswithme.maps.api.MapsWithMeApi;
 import com.mapswithme.yopme.BackscreenActivity.Mode;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 
 public class YopmeFrontActivity extends Activity
-                                implements OnClickListener, OnCheckedChangeListener
+                                implements OnClickListener
 {
-
-  private RadioGroup mModeGroup;
-  private Button     mSelectPoi;
-  private TextView   mPoiText;
+  private TextView   mSelectedLocation;
+  private View mMenu;
 
   private Mode mMode;
   private final static String KEY_MODE = "key.mode";
@@ -45,6 +45,13 @@ public class YopmeFrontActivity extends Activity
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_yopme_main);
 
+    final ActionBar actionBar = getActionBar();
+    actionBar.setDisplayShowTitleEnabled(false);
+    actionBar.setDisplayShowHomeEnabled(false);
+    actionBar.setDisplayUseLogoEnabled(false);
+    actionBar.setDisplayShowCustomEnabled(true);
+    actionBar.setCustomView(R.layout.action_bar_view);
+
     setUpView();
 
     //restore
@@ -56,13 +63,13 @@ public class YopmeFrontActivity extends Activity
      if (Mode.LOCATION == mMode)
        setLocationView();
      else if (Mode.POI == mMode)
-     {
-       setPoiView();
-       mPoiText.setText(mPoint.getName());
-     }
+       mSelectedLocation.setText(mPoint.getName());
     }
 
     setUpListeners();
+
+    if (isIntroNeeded())
+      showIntro();
   }
 
   @Override
@@ -76,7 +83,7 @@ public class YopmeFrontActivity extends Activity
       if (response.hasPoint())
       {
         mPoint = response.getPoint();
-        mPoiText.setText(mPoint.getName());
+        mSelectedLocation.setText(mPoint.getName());
         BackscreenActivity.startInMode(this, Mode.POI, mPoint);
       }
 
@@ -85,28 +92,46 @@ public class YopmeFrontActivity extends Activity
 
   private void setUpView()
   {
-    mModeGroup = (RadioGroup) findViewById(R.id.mode);
-    mSelectPoi = (Button) findViewById(R.id.selectPoi);
-    mPoiText   = (TextView) findViewById(R.id.poi);
+    mSelectedLocation   = (TextView) findViewById(R.id.selectedLocation);
+    mMenu = findViewById(R.id.menu);
   }
 
   private void setUpListeners()
   {
-    mModeGroup.setOnCheckedChangeListener(this);
-    mSelectPoi.setOnClickListener(this);
-  }
-
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu)
-  {
-    getMenuInflater().inflate(R.menu.yopme_main, menu);
-    return true;
+    findViewById(R.id.poi).setOnClickListener(this);
+    findViewById(R.id.me).setOnClickListener(this);
+    mMenu.setOnClickListener(this);
   }
 
   @Override
   public void onClick(View v)
   {
-    MapsWithMeApi.pickPoint(this, "Pick point", getPickPointPendingIntent());
+    if (R.id.me == v.getId())
+    {
+      BackscreenActivity.startInMode(getApplicationContext(), Mode.LOCATION, null);
+      setLocationView();
+    }
+    else if (R.id.poi == v.getId())
+      MapsWithMeApi.pickPoint(this, "Pick point", getPickPointPendingIntent());
+    else if (R.id.menu == v.getId())
+    {
+      final PopupMenu popupMenu = new PopupMenu(this, mMenu);
+      popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener()
+      {
+        @Override
+        public boolean onMenuItemClick(MenuItem item)
+        {
+          if (item.getItemId() == R.id.menu_help)
+          {
+            startActivity(new Intent(getApplicationContext(), ReferenceActivity.class));
+            return true;
+          }
+          return false;
+        }
+      });
+      popupMenu.inflate(R.menu.yopme_main);
+      popupMenu.show();
+    }
   }
 
   private final static String EXTRA_PICK = ".pick_point";
@@ -117,29 +142,38 @@ public class YopmeFrontActivity extends Activity
     return PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
   }
 
-  @Override
-  public void onCheckedChanged(RadioGroup group, int checkedId)
-  {
-    if (checkedId == R.id.modeLocation)
-    {
-      BackscreenActivity.startInMode(getApplicationContext(), Mode.LOCATION, null);
-      setLocationView();
-    }
-    else if (checkedId == R.id.modePoi)
-      setPoiView();
-  }
-
-  private void setPoiView()
-  {
-    mPoiText.setVisibility(View.VISIBLE);
-    mPoiText.setText(null);
-    mSelectPoi.setEnabled(true);
-  }
-
   private void setLocationView()
   {
-    mPoiText.setVisibility(View.GONE);
-    mPoiText.setText(null);
-    mSelectPoi.setEnabled(false);
+    mSelectedLocation.setText(getString(R.string.take_your_poi));
+  }
+
+  ImageView mIntro;
+  private void showIntro()
+  {
+    mIntro = new ImageView(this);
+    mIntro.setImageResource(R.drawable.introduction);
+    ((ViewGroup)getWindow().getDecorView()).addView(mIntro);
+    mIntro.setOnClickListener(new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        mIntro.setVisibility(View.GONE);
+        markIntroShown();
+      }
+    });
+  }
+
+  private final static String PREFS = "prefs.xml";
+  private final static String KEY_INTRO = "intro";
+
+  private boolean isIntroNeeded()
+  {
+    return getSharedPreferences(PREFS, 0).getBoolean(KEY_INTRO, true);
+  }
+
+  private void markIntroShown()
+  {
+    getSharedPreferences(PREFS, 0).edit().putBoolean(KEY_INTRO, false).apply();
   }
 }
