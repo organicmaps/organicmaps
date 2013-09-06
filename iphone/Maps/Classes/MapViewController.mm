@@ -691,8 +691,8 @@ NSInteger compareAddress(id l, id r, void * context)
 {
   _isApiMode = NO;
   [self Invalidate];
+  self.navigationItem.title = nil;
   [self.navigationController setNavigationBarHidden:YES animated:YES];
-  self.navigationController.navigationItem.title = @"";
   Framework & f = GetFramework();
   f.ClearMapApiPoints();
   f.GetBalloonManager().Hide();
