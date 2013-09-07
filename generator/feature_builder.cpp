@@ -220,7 +220,7 @@ void FeatureBuilder1::RemoveNameIfInvisible(int minS, int maxS)
   int64_t dummy;
   if (!m_Params.name.IsEmpty() && !GetCoastCell(dummy))
   {
-    pair<int, int> const range = GetDrawableScaleRangeForRules(GetFeatureBase(), RULE_TEXT);
+    pair<int, int> const range = GetDrawableScaleRangeForRules(GetFeatureBase(), RULE_ANY_TEXT);
     if (range.first > maxS || range.second < minS)
       m_Params.name.Clear();
   }

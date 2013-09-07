@@ -195,14 +195,15 @@ namespace
   {
     int m_scale;
     ClassifObject::FeatureGeoType m_ft;
-    bool m_arr[2];
+    bool m_arr[3];
 
   public:
     IsDrawableRulesChecker(int scale, feature::EGeomType ft, int rules)
       : m_scale(scale), m_ft(ClassifObject::FeatureGeoType(ft))
     {
-      m_arr[0] = rules & RULE_TEXT;
-      m_arr[1] = rules & RULE_SYMBOL;
+      m_arr[0] = rules & RULE_CAPTION;
+      m_arr[1] = rules & RULE_PATH_TEXT;
+      m_arr[2] = rules & RULE_SYMBOL;
     }
 
     typedef bool ResultType;
@@ -215,8 +216,9 @@ namespace
 
       for (size_t i = 0; i < keys.size(); ++i)
       {
-        if ((m_arr[0] && (keys[i].m_type == drule::caption || keys[i].m_type == drule::pathtext)) ||
-            (m_arr[1] && keys[i].m_type == drule::symbol))
+        if ((m_arr[0] && keys[i].m_type == drule::caption) ||
+            (m_arr[1] && keys[i].m_type == drule::pathtext) ||
+            (m_arr[2] && keys[i].m_type == drule::symbol))
         {
           res = true;
           return true;

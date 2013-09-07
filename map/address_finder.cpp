@@ -323,7 +323,7 @@ namespace
       if (m_scale > -1)
       {
         // we need features with texts for address lookup
-        pair<int, int> const r = GetDrawableScaleRangeForRules(types, RULE_TEXT | RULE_SYMBOL);
+        pair<int, int> const r = GetDrawableScaleRangeForRules(types, RULE_ANY_TEXT | RULE_SYMBOL);
         return my::between_s(r.first, r.second, m_scale);
       }
       else

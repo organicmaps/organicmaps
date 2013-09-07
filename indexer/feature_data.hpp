@@ -57,7 +57,7 @@ namespace feature
     EGeomType m_geoType;
 
   public:
-    TypesHolder() : m_size(0), m_geoType(GEOM_UNDEFINED) {}
+    TypesHolder(EGeomType geoType = GEOM_UNDEFINED) : m_size(0), m_geoType(geoType) {}
     TypesHolder(FeatureBase const & f);
 
     /// Accumulation function.

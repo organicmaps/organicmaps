@@ -46,7 +46,10 @@ namespace feature
   /// @name Get scale range when feature's text or symbol is visible.
   enum
   {
-    RULE_TEXT = 1, RULE_SYMBOL = 2
+    RULE_CAPTION = 1,
+    RULE_PATH_TEXT = 2,
+    RULE_ANY_TEXT = RULE_CAPTION | RULE_PATH_TEXT,
+    RULE_SYMBOL = 4
   };
 
   pair<int, int> GetDrawableScaleRangeForRules(TypesHolder const & types, int rules);
