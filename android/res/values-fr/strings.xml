@@ -179,7 +179,7 @@
 	<!-- Proposal to download Pro version with Bookmarks -->
 	<string name="bookmarks_in_pro_version">Les marques-page sont disponibles dans la version complète de MapsWithMe. Se la procurer maintenant?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
-	<string name="gps_is_disabled_long_text">GPS désactivé. Veuillez s\'il vous plaît la mettre en prise pour la commode utilisation du programme.</string>
+	<string name="gps_is_disabled_long_text">GPS désactivé. Veuillez s\'il vous plait l\'activer pour une utilisation plus commode de l\'application.</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Unités de mesure</string>
 	<!-- Detailed description of Measurement Units settings button -->

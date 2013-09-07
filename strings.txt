@@ -1662,7 +1662,7 @@
     cs = Navigace GPS deaktivována. Prosím povol ji v Nastavení.
     de = GPS ist deaktiviert. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.
     es = El GPS está inhabilitado. Por favor, activelo en los ajustes.
-    fr = GPS désactivé. Veuillez s'il vous plaît la mettre en prise pour la commode utilisation du programme.
+    fr = GPS désactivé. Veuillez s'il vous plait l'activer pour une utilisation plus commode de l'application.
     it = Il GPS è disabilitato. Cortesemente abilitalo nelle Impostazioni.
     ja = GPSが無効です。設定画面から有効にして下さい。
     ko = GPS가 사용 중지되었습니다. 설정에서 이를 작동시켜 주시기 바랍니다.
