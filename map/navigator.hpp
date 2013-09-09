@@ -66,6 +66,8 @@ public:
   /// so we should take it into an account
   m2::PointD ShiftPoint(m2::PointD const & pt) const;
 
+  ScalesProcessor const & GetScaleProcessor() const;
+
 private:
   ScalesProcessor const & m_scales;
 
