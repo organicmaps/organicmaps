@@ -1,9 +1,6 @@
 package com.mapswithme.yopme.map;
 
 import android.graphics.Bitmap;
-import android.opengl.GLES10;
-import android.util.Log;
-
 import com.mapswithme.maps.api.MWMPoint;
 import com.mapswithme.yopme.util.PixelBuffer;
 
@@ -30,7 +27,6 @@ public class MapRenderer implements MapDataProvider
 		if (mRenderer == null)
 		{
 			mRenderer = new MapRenderer(360, 640);
-			Log.d(TAG, "Renderer created");
 		}
 		return mRenderer;
 	}
@@ -38,28 +34,28 @@ public class MapRenderer implements MapDataProvider
 	@Override
 	public MapData getMyPositionData(double lat, double lon, double zoom)
 	{
-		mPixelBuffer.attachToThread();
-		//nativeRenderMap();
-		GLES10.glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
-		GLES10.glClear(GLES10.GL_COLOR_BUFFER_BIT);
-		Bitmap bmp = mPixelBuffer.readBitmap();
-		mPixelBuffer.detachFromThread();
-		Log.d(TAG, "Bitmap created");
-		return new MapData(bmp, new MWMPoint(0.0, 0.0, "Clear Image"));
+	  synchronized(MapRenderer.class)
+	  {
+  		mPixelBuffer.attachToThread();
+  		nativeRenderMap(lat, lon, zoom);
+  		Bitmap bmp = mPixelBuffer.readBitmap();
+  		mPixelBuffer.detachFromThread();
+  		return new MapData(bmp, new MWMPoint(lat, lon, ""));
+  	}
 	}
 
 	@Override
 	public MapData getPOIData(MWMPoint poi, double zoom)
 	{
-		mPixelBuffer.attachToThread();
-		//nativeRenderMap();
-		GLES10.glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
-		GLES10.glClear(GLES10.GL_COLOR_BUFFER_BIT);
-		Bitmap bmp = mPixelBuffer.readBitmap();
-		mPixelBuffer.detachFromThread();
-		Log.d(TAG, "Bitmap created");
-		return new MapData(bmp, poi);
+	  synchronized(MapRenderer.class)
+    {
+  		mPixelBuffer.attachToThread();
+  		nativeRenderMap(poi.getLat(), poi.getLon(), zoom);
+  		Bitmap bmp = mPixelBuffer.readBitmap();
+  		mPixelBuffer.detachFromThread();
+  		return new MapData(bmp, poi);
+    }
 	}
 	
-	//private native void nativeRenderMap();
+	private native void nativeRenderMap(double lat, double lon, double zoom);
 }
