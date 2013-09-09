@@ -100,7 +100,7 @@ public:
   virtual void EndFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s);
 
   /// processing resize request
-  void OnSize(int w, int h);
+  virtual void OnSize(int w, int h);
 
   /// reacting on navigation actions
   /// @{

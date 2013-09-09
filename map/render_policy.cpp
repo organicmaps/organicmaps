@@ -61,7 +61,8 @@ void RenderPolicy::InitCacheScreen()
 
 void RenderPolicy::OnSize(int w, int h)
 {
-  m_cacheScreen->onSize(w, h);
+  if (m_cacheScreen)
+    m_cacheScreen->onSize(w, h);
   m_drawer->onSize(w, h);
 }
 

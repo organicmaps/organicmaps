@@ -62,6 +62,7 @@ HEADERS += \
     ge0_parser.hpp \
     balloon_manager.hpp \
     scales_processor.hpp \
+    yopme_render_policy.hpp
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -111,6 +112,7 @@ SOURCES += \
     ../api/src/c/api-client.c \
     balloon_manager.cpp \
     scales_processor.cpp \
+    yopme_render_policy.cpp
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp
