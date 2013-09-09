@@ -1,13 +1,17 @@
 package com.mapswithme.yopme;
 
+import java.io.File;
+
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -59,9 +63,17 @@ public class BackscreenActivity extends BSActivity
     super.onBSCreate();
 
     final Resources res = getResources();
-    mMapDataProvider = new MapRenderer(
-        (int)res.getDimension(R.dimen.yota_width),
+    mMapDataProvider = new MapRenderer((int) res.getDimension(R.dimen.yota_width),
             (int)res.getDimension(R.dimen.yota_height));
+    
+    final String extStoragePath = getDataStoragePath();
+    final String extTmpPath = getTempPath();
+
+    // Create folders if they don't exist
+    new File(extStoragePath).mkdirs();
+    new File(extTmpPath).mkdirs();
+    
+    nativeInitPlatform(getApkPath(), extStoragePath, extTmpPath, "", true);
 
     setUpView();
   }
@@ -221,7 +233,8 @@ public class BackscreenActivity extends BSActivity
     {
       if (mLocation == null)
         return;
-      data = mMapDataProvider.getMyPositionData(mLocation.getLatitude(), mLocation.getLongitude(), mZoomLevel);
+      data = mMapDataProvider.getMyPositionData(mLocation.getLatitude(),
+      mLocation.getLongitude(), mZoomLevel);
     }
     else if (mMode == Mode.POI)
       data = mMapDataProvider.getPOIData(mPoint, mZoomLevel);
@@ -235,9 +248,8 @@ public class BackscreenActivity extends BSActivity
 
   public static void startInMode(Context context, Mode mode, MWMPoint point)
   {
-    final Intent i = new Intent(context, BackscreenActivity.class)
-      .putExtra(EXTRA_MODE, mode)
-      .putExtra(EXTRA_POINT, point);
+    final Intent i = new Intent(context, BackscreenActivity.class).putExtra(EXTRA_MODE, mode).putExtra(EXTRA_POINT,
+        point);
 
     context.startService(i);
   }
@@ -248,4 +260,48 @@ public class BackscreenActivity extends BSActivity
     final PendingIntent pi = PendingIntent.getService(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
     return pi;
   }
+  
+  public String getApkPath()
+  {
+    try
+    {
+      return getPackageManager().getApplicationInfo(getPackageName(), 0).sourceDir;
+    }
+    catch (final NameNotFoundException e)
+    {
+      return "";
+    }
+  }
+
+  public String getDataStoragePath()
+  {
+    return Environment.getExternalStorageDirectory().getAbsolutePath() + "/MapsWithMe/";
+  }
+
+  public String getTempPath()
+  {
+    // Can't use getExternalCacheDir() here because of API level = 7.
+    return getExtAppDirectoryPath("cache");
+  }
+
+  public String getExtAppDirectoryPath(String folder)
+  {
+    final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+    return storagePath.concat(String.format("/Android/data/%s/%s/", getPackageName(), folder));
+  }
+
+  private String getOBBGooglePath()
+  {
+    final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+    return storagePath.concat(String.format("/Android/obb/%s/", getPackageName()));
+  }
+
+  static 
+  {
+    System.loadLibrary("yopme");
+  }
+  
+  private native void nativeInitPlatform(String apkPath, String storagePath,
+                           String tmpPath, String obbGooglePath,
+                           boolean isPro);
 }
