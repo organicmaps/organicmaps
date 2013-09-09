@@ -28,14 +28,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="@string/self_oriented" />
+                android:text="@string/location_oriented" />
 
             <TextView
                 style="@style/SmallText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="@string/your_location_label" />
+                android:text="@string/location_label" />
         </LinearLayout>
     </FrameLayout>
 
@@ -64,7 +64,7 @@
                 android:layout_alignParentLeft="true"
                 android:drawablePadding="@dimen/dimen_3x"
                 android:drawableRight="@drawable/ic_arrow"
-                android:text="@string/self_oriented" />
+                android:text="@string/poi_oriented" />
 
             <TextView
                 android:id="@+id/selectedLocation"
@@ -72,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="@string/take_your_poi" />
+                android:text="@string/poi_label" />
         </LinearLayout>
     </FrameLayout>
 

@@ -11,18 +11,39 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true" />
 
-    <TextView
-        android:id="@+id/poiText"
+    <LinearLayout
+        android:id="@+id/poiInfo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/dimen_2x"
-        android:background="@drawable/text_background"
-        android:gravity="center"
-        android:padding="@dimen/dimen_3x"
-        android:textColor="#000"
-        android:textSize="@dimen/mid_text" />
+        android:layout_height="68dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/plashka_background"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/poiText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:gravity="left|center_vertical"
+            android:padding="@dimen/dimen_2x"
+            android:singleLine="true"
+            android:textColor="#000"
+            android:textSize="@dimen/mid_text" />
+
+        <TextView
+            android:id="@+id/poiDist"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:fontFamily="sans-serif"
+            android:gravity="right|center_vertical"
+            android:padding="@dimen/dimen_2x"
+            android:textColor="#000"
+            android:textSize="@dimen/mid_text" />
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/waitScreen"
@@ -33,14 +54,13 @@
 
         <TextView
             android:id="@+id/waitMsg"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="#FFF"
             android:padding="@dimen/dimen_3x"
-            android:text="Please Wait ..."
             android:textColor="#000"
-            android:textSize="@dimen/big_text" />
+            android:textSize="@dimen/mid_text" />
     </FrameLayout>
 
 </RelativeLayout>

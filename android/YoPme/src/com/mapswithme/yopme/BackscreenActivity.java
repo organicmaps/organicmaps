@@ -1,7 +1,9 @@
 package com.mapswithme.yopme;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.io.File;
-
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -44,16 +46,20 @@ public class BackscreenActivity extends BSActivity
   private CharSequence mMessage;
   private Bitmap mBitmap;
 
+  // @Save to state
   private MWMPoint mPoint;
   private Mode mMode;
   private double mZoomLevel = MapDataProvider.ZOOM_DEFAULT;
   private Location mLocation;
+  // @
 
   protected View mView;
   protected ImageView mMapView;
   protected TextView mPoiText;
+  protected TextView mPoiDist;
   protected TextView mWaitMessage;
   protected View mWaitScreen;
+  protected View mPoiInfo;
 
   protected MapDataProvider mMapDataProvider;
 
@@ -61,7 +67,7 @@ public class BackscreenActivity extends BSActivity
   protected void onBSCreate()
   {
     super.onBSCreate();
-    
+
     final String extStoragePath = getDataStoragePath();
     final String extTmpPath = getTempPath();
 
@@ -101,6 +107,7 @@ public class BackscreenActivity extends BSActivity
     mMode  = (Mode) savedInstanceState.getSerializable(EXTRA_MODE);
     mLocation  = (Location) savedInstanceState.getParcelable(EXTRA_LOCATION);
     mZoomLevel  = savedInstanceState.getDouble(EXTRA_ZOOM);
+
     Log.d(TAG, "State restored.");
   }
 
@@ -113,6 +120,7 @@ public class BackscreenActivity extends BSActivity
     outState.putSerializable(EXTRA_MODE, mMode);
     outState.putParcelable(EXTRA_LOCATION, mLocation);
     outState.putDouble(EXTRA_ZOOM, mZoomLevel);
+
     Log.d(TAG, "State saved.");
   }
 
@@ -146,9 +154,8 @@ public class BackscreenActivity extends BSActivity
       mPoint = (MWMPoint) intent.getSerializableExtra(EXTRA_POINT);
 
       updateData();
-      invalidate();
+      hideWaitMessage();
 
-      if (mMode == Mode.LOCATION)
         requestLocationUpdate();
     }
   }
@@ -159,8 +166,10 @@ public class BackscreenActivity extends BSActivity
 
     mMapView = (ImageView) mView.findViewById(R.id.map);
     mPoiText = (TextView) mView.findViewById(R.id.poiText);
+    mPoiDist = (TextView) mView.findViewById(R.id.poiDist);
     mWaitMessage = (TextView) mView.findViewById(R.id.waitMsg);
     mWaitScreen = mView.findViewById(R.id.waitScreen);
+    mPoiInfo     = mView.findViewById(R.id.poiInfo);
   }
 
   public void invalidate()
@@ -197,7 +206,8 @@ public class BackscreenActivity extends BSActivity
     else
       throw new IllegalStateException("No providers found.");
 
-    showWaitMessage("Waiting for location ...");
+    if (mMode == Mode.LOCATION)
+      showWaitMessage(getString(R.string.wait_msg));
   }
 
   private void onLocationUpdate(Location location)
@@ -224,8 +234,38 @@ public class BackscreenActivity extends BSActivity
     invalidate();
   }
 
+  private final static NumberFormat df = DecimalFormat.getInstance();
+  static
+  {
+    df.setRoundingMode(RoundingMode.DOWN);
+  }
+  private void setDistance(float distance)
+  {
+    if (distance < 0)
+      mPoiDist.setVisibility(View.GONE);
+    else
+    {
+      String suffix = "m";
+      double div = 1;
+      df.setMinimumFractionDigits(2);
+
+      if (distance >= 1000)
+      {
+        suffix = "km";
+        div = 1000;
+        if (distance >= 10000)
+          df.setMaximumFractionDigits(0);
+      }
+      mPoiDist.setText(df.format(distance/div) + suffix);
+      mPoiDist.setVisibility(View.VISIBLE);
+    }
+  }
+
   public void updateData()
   {
+    if (mZoomLevel < MapDataProvider.MIN_ZOOM)
+      mZoomLevel = MapDataProvider.MIN_ZOOM;
+
     MapData data = null;
 
     if (mMode == null)
@@ -233,25 +273,44 @@ public class BackscreenActivity extends BSActivity
 
     if (mMode == Mode.LOCATION)
     {
+      mPoiInfo.setVisibility(View.GONE);
       if (mLocation == null)
         return;
-      data = mMapDataProvider.getMyPositionData(mLocation.getLatitude(), mLocation.getLongitude(), mZoomLevel);
+
+      data = mMapDataProvider
+          .getMyPositionData(mLocation.getLatitude(), mLocation.getLongitude(), mZoomLevel);
     }
     else if (mMode == Mode.POI)
+    {
+      mPoiInfo.setVisibility(View.VISIBLE);
+
       data = mMapDataProvider.getPOIData(mPoint, mZoomLevel);
 
-    mBitmap = data.getBitmap();
-    mMessage = data.getPoint().getName();
+      if (mLocation != null && mPoint != null)
+      {
+        final Location poiLoc = new Location("");
+        poiLoc.setLatitude(mPoint.getLat());
+        poiLoc.setLongitude(mPoint.getLon());
+        setDistance(poiLoc.distanceTo(mLocation));
+      }
+    }
 
+    mBitmap = data.getBitmap();
     mMapView.setImageBitmap(mBitmap);
-    mPoiText.setText(mMessage);
+
+    if (mMode == Mode.POI)
+    {
+      mMessage = data.getPoint().getName();
+      mMessage = mPoint.getName();
+      mPoiText.setText(mMessage);
+    }
   }
 
   public static void startInMode(Context context, Mode mode, MWMPoint point)
   {
     final Intent i = new Intent(context, BackscreenActivity.class)
-                            .putExtra(EXTRA_MODE, mode)
-                            .putExtra(EXTRA_POINT, point);
+      .putExtra(EXTRA_MODE, mode)
+      .putExtra(EXTRA_POINT, point);
 
     context.startService(i);
   }

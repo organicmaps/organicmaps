@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 
@@ -26,8 +27,8 @@ public class YopmeFrontActivity extends Activity
   private View mMenu;
 
   private Mode mMode;
-  private final static String KEY_MODE = "key.mode";
   private MWMPoint mPoint;
+  private final static String KEY_MODE = "key.mode";
   private final static String KEY_POINT = "key.point";
 
   @Override
@@ -85,6 +86,8 @@ public class YopmeFrontActivity extends Activity
         mPoint = response.getPoint();
         mSelectedLocation.setText(mPoint.getName());
         BackscreenActivity.startInMode(this, Mode.POI, mPoint);
+
+        Toast.makeText(this, R.string.toast_poi, Toast.LENGTH_LONG).show();
       }
 
     }
@@ -109,6 +112,7 @@ public class YopmeFrontActivity extends Activity
     if (R.id.me == v.getId())
     {
       BackscreenActivity.startInMode(getApplicationContext(), Mode.LOCATION, null);
+      Toast.makeText(this, R.string.toast_your_location, Toast.LENGTH_LONG).show();
       setLocationView();
     }
     else if (R.id.poi == v.getId())
@@ -144,7 +148,7 @@ public class YopmeFrontActivity extends Activity
 
   private void setLocationView()
   {
-    mSelectedLocation.setText(getString(R.string.take_your_poi));
+    mSelectedLocation.setText(getString(R.string.poi_label));
   }
 
   ImageView mIntro;

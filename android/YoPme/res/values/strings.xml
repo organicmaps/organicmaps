@@ -4,9 +4,13 @@
     <string name="app_name">YoPme</string>
     <string name="menu_settings">Настройки</string>
     <string name="menu_help">Справка</string>
-    <string name="self_oriented">Ориентация по местоположению</string>
-    <string name="your_location_label">В центре экрана будет показано ваше местоположение</string>
-    <string name="take_your_poi">Выберите любое место</string>
+    <string name="wait_msg">Определение местоположения ...</string>
+    <string name="location_oriented">Карта с вашим местоположением</string>
+    <string name="location_label">В центре экрана будет показано ваше местоположение</string>
+    <string name="poi_oriented">Карта по выбору</string>
+    <string name="poi_label">В центе экрана будет показано выбранное вами место</string>
+    <string name="toast_your_location">Теперь ваше местоположение отображено на втором экране</string>
+    <string name="toast_poi">Теперь это место отображено на втором экране</string>
     <string name="title_activity_reference">YoPme</string>
     <string name="action_settings">Настройки</string>
 
