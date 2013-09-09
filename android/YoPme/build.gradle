@@ -1,0 +1,85 @@
+apply plugin: 'android'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+    compile project(':3rd_party:yota_sdk')
+    compile project(':3rd_party:api-android:lib')
+}
+
+
+apply plugin:'base'
+
+task ndkBuild(type:Exec) {
+  
+  clParts = ['ndk-build', '-j', Runtime.runtime.availableProcessors(), propNdkFlags]
+  println(clParts.join(" "))
+  commandLine clParts
+}
+
+task ndkBuildClean(type:Exec) {
+  commandLine 'ndk-build','clean'
+}
+
+task copyNativeLibs(type: Copy, dependsOn: 'ndkBuild') {
+  from(new File('libs')) { include '**/*.so' }
+  into new File(buildDir, 'native-libs')
+}
+
+tasks.withType(Compile) { compileTask -> compileTask.dependsOn ndkBuild }
+tasks.withType(Compile) { compileTask -> compileTask.dependsOn copyNativeLibs }
+
+clean.dependsOn 'cleanCopyNativeLibs'
+clean.dependsOn 'ndkBuildClean'
+
+tasks.withType(com.android.build.gradle.tasks.PackageApplication) { pkgTask ->
+  pkgTask.jniDir new File(buildDir, 'native-libs')
+}
+
+
+android {
+  
+    compileSdkVersion 18
+    buildToolsVersion "18.0.1"
+    project.archivesBaseName = propApkName + "_" + propVersionName
+    
+      signingConfigs {
+      
+          yopme {
+            storeFile file("key/android.key")
+            storePassword "***REMOVED***"
+            keyAlias "yopme"
+            keyPassword "***REMOVED***"
+          }
+        }
+      
+        buildTypes {
+      
+          debug { jniDebugBuild true }
+      
+          release { signingConfig signingConfigs.yopme }
+        }
+      
+        defaultConfig {
+          versionCode getVersionCode()
+          versionName getVersionName()
+          minSdkVersion 17
+          targetSdkVersion 18
+        }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+
+        instrumentTest.setRoot('tests')
+
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+}
