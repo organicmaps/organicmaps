@@ -5,7 +5,10 @@ resbuilder/
 spoon-output/
 assets/
 obj/
+.gradle/
+build/
 3rd_party/api-android/
+
 
 *.class
 .classpath
