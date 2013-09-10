@@ -13,5 +13,7 @@
     <string name="toast_poi">Теперь это место отображено на втором экране</string>
     <string name="title_activity_reference">YoPme</string>
     <string name="action_settings">Настройки</string>
+    <string name="roboto_light">"sans-serif-light"</string>
+    <string name="roboto_regular">"sans-serif"</string>
 
 </resources>
