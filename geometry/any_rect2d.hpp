@@ -108,6 +108,8 @@ namespace m2
       return m_rect.Center();
     }
 
+    T GetMaxSize() const { return max(m_rect.SizeX(), m_rect.SizeY()); }
+
     bool IsPointInside(Point<T> const & pt) const
     {
       return m_rect.IsPointInside(ConvertTo(pt));

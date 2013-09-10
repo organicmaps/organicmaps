@@ -46,9 +46,6 @@
 #include "../../api/src/c/api-client.h"
 
 
-/// How many pixels around touch point are used to get bookmark or POI
-#define TOUCH_PIXEL_RADIUS 20
-
 #define KMZ_EXTENSION ".kmz"
 
 #define DEFAULT_BOOKMARK_TYPE "placemark-red"

@@ -160,22 +160,16 @@ namespace
   };
 }
 
-void Framework::GetFeatureTypes(m2::PointD pt, vector<string> & types) const
+void Framework::GetFeatureTypes(m2::PointD const & pxPoint, vector<string> & types) const
 {
-  pt = m_navigator.ShiftPoint(pt);
+  m2::AnyRectD rect;
+  m_navigator.GetTouchRect(pxPoint, TOUCH_PIXEL_RADIUS * GetVisualScale(), rect);
 
-  int const sm = 20;
-  m2::RectD pixR(m2::PointD(pt.x - sm, pt.y - sm), m2::PointD(pt.x + sm, pt.y + sm));
+  // This scale should fit in geometry scales range.
+  int const scale = min(GetDrawScale(), scales::GetUpperScale());
 
-  m2::RectD glbR;
-  m_navigator.Screen().PtoG(pixR, glbR);
-
-  int const scale = GetDrawScale();
-  DoGetFeatureTypes getTypes(m_navigator.Screen().PtoG(pt),
-                             max(glbR.SizeX(), glbR.SizeY()) / 2.0,
-                             scale);
-
-  m_model.ForEachFeature(glbR, getTypes, scale);
+  DoGetFeatureTypes getTypes(rect.GlobalCenter(), rect.GetMaxSize() / 2.0, scale);
+  m_model.ForEachFeature(rect.GetGlobalRect(), getTypes, scale);
 
   getTypes.GetFeatureTypes(5, types);
 }

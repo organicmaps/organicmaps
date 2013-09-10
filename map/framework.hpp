@@ -118,6 +118,9 @@ protected:
   scoped_ptr<anim::Controller> m_animController;
   InformationDisplay m_informationDisplay;
 
+  /// How many pixels around touch point are used to get bookmark or POI
+  static const int TOUCH_PIXEL_RADIUS = 20;
+
   /// This function is called by m_storage to notify that country downloading is finished.
   /// @param[in] file Country file name (without extensions).
   void UpdateAfterDownload(string const & file);
@@ -333,8 +336,8 @@ public:
   }
 
   /// Get classificator types for nearest features.
-  /// @param[in] pixPt Current touch point in device pixel coordinates.
-  void GetFeatureTypes(m2::PointD pixPt, vector<string> & types) const;
+  /// @param[in] pxPoint Current touch point in device pixel coordinates.
+  void GetFeatureTypes(m2::PointD const & pxPoint, vector<string> & types) const;
 
   /// Get address information for point on map.
   inline void GetAddressInfoForPixelPoint(m2::PointD const & pxPoint, search::AddressInfo & info) const
