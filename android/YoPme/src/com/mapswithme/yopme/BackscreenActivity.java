@@ -247,15 +247,16 @@ public class BackscreenActivity extends BSActivity
     {
       String suffix = "m";
       double div = 1;
-      df.setMinimumFractionDigits(2);
+      df.setMinimumFractionDigits(0);
 
       if (distance >= 1000)
       {
         suffix = "km";
         div = 1000;
-        if (distance >= 10000)
-          df.setMaximumFractionDigits(0);
+        // do not show fraction for more than 10km
+        df.setMinimumFractionDigits(distance >= 10000 ? 0 : 2);
       }
+
       mPoiDist.setText(df.format(distance/div) + suffix);
       mPoiDist.setVisibility(View.VISIBLE);
     }

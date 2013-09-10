@@ -107,10 +107,10 @@ public class MapObjectFragment extends Fragment
     final ParsedMmwRequest request = ParsedMmwRequest.getCurrentRequest();
     if (request != null  && request.hasPendingIntent())
     {
-      if (request.hasCustomButtonName())
-        mOpenWith.setText(request.getCustomButtonName());
-      else
-        mOpenWith.setText(R.string.more_info);
+
+      mOpenWith.setText(request.hasCustomButtonName()
+                          ? request.getCustomButtonName()
+                          : getString(R.string.more_info));
 
       UiUtils.show(mOpenWith);
       mOpenWith.setCompoundDrawables(UiUtils
@@ -241,10 +241,9 @@ public class MapObjectFragment extends Fragment
       final ParsedMmwRequest request = ParsedMmwRequest.getCurrentRequest();
       if (request.isPickPointMode())
       {
-        if (request.hasCustomButtonName())
-          mOpenWith.setText(request.getCustomButtonName());
-        else
-          mOpenWith.setText(R.string.more_info);
+        mOpenWith.setText(request.hasCustomButtonName()
+            ? request.getCustomButtonName()
+            : getString(R.string.more_info));
 
         UiUtils.show(mOpenWith);
         mOpenWith.setCompoundDrawables(UiUtils
