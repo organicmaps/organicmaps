@@ -14,6 +14,7 @@ public class Const
   public static final String EXTRA_CALLER_PENDING_INTENT = AUTHORITY + ".pending_intent";
   public static final String EXTRA_RETURN_ON_BALLOON_CLICK = AUTHORITY + ".return_on_balloon_click";
   public static final String EXTRA_PICK_POINT = AUTHORITY + ".pick_point";
+  public static final String EXTRA_CUSTOM_BUTTON_NAME = AUTHORITY + ".custom_button_name";
 
 
   /* Response extras */

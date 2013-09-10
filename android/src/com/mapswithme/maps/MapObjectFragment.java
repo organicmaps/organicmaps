@@ -107,6 +107,11 @@ public class MapObjectFragment extends Fragment
     final ParsedMmwRequest request = ParsedMmwRequest.getCurrentRequest();
     if (request != null  && request.hasPendingIntent())
     {
+      if (request.hasCustomButtonName())
+        mOpenWith.setText(request.getCustomButtonName());
+      else
+        mOpenWith.setText(R.string.more_info);
+
       UiUtils.show(mOpenWith);
       mOpenWith.setCompoundDrawables(UiUtils
           .setCompoundDrawableBounds(request.getIcon(getActivity()), R.dimen.icon_size, getResources()), null, null, null);
@@ -236,9 +241,14 @@ public class MapObjectFragment extends Fragment
       final ParsedMmwRequest request = ParsedMmwRequest.getCurrentRequest();
       if (request.isPickPointMode())
       {
-        UiUtils.show(mOpenWith);
-        request.setPointData(mLat, mLon, mName, "");
+        if (request.hasCustomButtonName())
+          mOpenWith.setText(request.getCustomButtonName());
+        else
+          mOpenWith.setText(R.string.more_info);
 
+        UiUtils.show(mOpenWith);
+        mOpenWith.setCompoundDrawables(UiUtils
+            .setCompoundDrawableBounds(request.getIcon(getActivity()), R.dimen.icon_size, getResources()), null, null, null);
         mOpenWith.setOnClickListener(new OnClickListener()
         {
           @Override
@@ -248,6 +258,7 @@ public class MapObjectFragment extends Fragment
           }
         });
 
+        request.setPointData(mLat, mLon, mName, "");
         return;
       }
     }

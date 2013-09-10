@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.state.SuppotedState;
@@ -25,6 +26,8 @@ public class ParsedMmwRequest
   private boolean mReturnOnBalloonClick;
   // pick point mode
   private boolean mPickPoint;
+  // custom button name
+  private String mCustomButtonName;
 
   // response data
   private boolean mHasPoint;
@@ -36,6 +39,8 @@ public class ParsedMmwRequest
   public double  getLon()          { return mLon; }
   public String  getName()         { return mName;}
   public boolean isPickPointMode() { return mPickPoint; }
+  public boolean hasCustomButtonName() { return !TextUtils.isEmpty(mCustomButtonName); }
+  public String  getCustomButtonName() { return mCustomButtonName; }
 
   private String mName;
   private String mId;
@@ -52,6 +57,7 @@ public class ParsedMmwRequest
     request.mTitle = data.getStringExtra(Const.EXTRA_TITLE);
     request.mReturnOnBalloonClick = data.getBooleanExtra(Const.EXTRA_RETURN_ON_BALLOON_CLICK, false);
     request.mPickPoint = data.getBooleanExtra(Const.EXTRA_PICK_POINT, false);
+    request.mCustomButtonName = data.getStringExtra(Const.EXTRA_CUSTOM_BUTTON_NAME);
 
     if (data.getBooleanExtra(Const.EXTRA_HAS_PENDING_INTENT, false))
     {
