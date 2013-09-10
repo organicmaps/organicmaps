@@ -66,6 +66,7 @@ namespace yopme
     try
     {
       m_framework.SetRenderPolicy(new ::YopmeRP(rpParams));
+      m_framework.InitGuiSubsystem();
     }
     catch(RootException & e)
     {

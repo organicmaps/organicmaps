@@ -29,7 +29,9 @@ YopmeRP::YopmeRP(RenderPolicy::Params const & p)
   rmp.m_textureParams[ESmallTexture]        = GetTextureParam(128 * k, 2, rmp.m_texFormat, ESmallTexture);
 
   rmp.m_storageParams[ELargeStorage]        = GetStorageParam(50000, 100000, 15, ELargeStorage);
+  rmp.m_storageParams[EMediumStorage]       = GetStorageParam(6000, 9000, 1, EMediumStorage);
   rmp.m_storageParams[ESmallStorage]        = GetStorageParam(2000, 6000, 1, ESmallStorage);
+  rmp.m_storageParams[ETinyStorage]         = GetStorageParam(100, 200, 1, ETinyStorage);
 
   rmp.m_glyphCacheParams = graphics::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
                                                                        "fonts_whitelist.txt",
@@ -54,6 +56,7 @@ YopmeRP::YopmeRP(RenderPolicy::Params const & p)
   m_offscreenDrawer.reset(CreateDrawer(false, p.m_primaryRC, ELargeStorage, ELargeTexture));
   m_offscreenDrawer->screen()->setDepthBuffer(make_shared_ptr(new graphics::gl::RenderBuffer(p.m_screenWidth, p.m_screenHeight, true)));
 
+  InitCacheScreen();
   InitWindowsHandle(p.m_videoTimer, p.m_primaryRC);
 }
 
