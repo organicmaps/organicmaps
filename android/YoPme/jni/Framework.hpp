@@ -11,12 +11,12 @@ namespace yopme
     Framework(int width, int height);
     ~Framework();
 
-    void ShowRect(double lat, double lon, double zoom);
+    bool ShowRect(double lat, double lon, double zoom, bool needApiMark);
 
   private:
     void InitRenderPolicy();
     void TeardownRenderPolicy();
-    void RenderMap();
+    void RenderMap(m2::PointD markPoint, bool needApiMark);
 
   private:
     ::Framework m_framework;

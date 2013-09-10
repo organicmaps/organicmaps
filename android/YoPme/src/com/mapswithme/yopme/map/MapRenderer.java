@@ -38,7 +38,9 @@ public class MapRenderer implements MapDataProvider
 	  synchronized(MapRenderer.class)
 	  {
   		mPixelBuffer.attachToThread();
-  		nativeRenderMap(lat, lon, zoom);
+  		if (nativeRenderMap(lat, lon, zoom, false) == false)
+  		  return new MapData(null, new MWMPoint(lat, lon, ""));
+  		
   		Bitmap bmp = mPixelBuffer.readBitmap();
   		mPixelBuffer.detachFromThread();
   		return new MapData(bmp, new MWMPoint(lat, lon, ""));
@@ -51,7 +53,9 @@ public class MapRenderer implements MapDataProvider
 	  synchronized(MapRenderer.class)
     {
   		mPixelBuffer.attachToThread();
-  		nativeRenderMap(poi.getLat(), poi.getLon(), zoom);
+  		if (nativeRenderMap(poi.getLat(), poi.getLon(), zoom, true) == false)
+  		  return new MapData(null, poi);
+  		
   		Bitmap bmp = mPixelBuffer.readBitmap();
   		mPixelBuffer.detachFromThread();
   		return new MapData(bmp, poi);
@@ -59,5 +63,5 @@ public class MapRenderer implements MapDataProvider
 	}
 	
 	private native void nativeCreateFramework(int width, int height);
-	private native void nativeRenderMap(double lat, double lon, double zoom);
+	private native boolean nativeRenderMap(double lat, double lon, double zoom, boolean needApiMark);
 }
