@@ -14,7 +14,7 @@
     <LinearLayout
         android:id="@+id/poiInfo"
         android:layout_width="match_parent"
-        android:layout_height="68dp"
+        android:layout_height="34dp"
         android:layout_alignParentTop="true"
         android:background="@drawable/plashka_background"
         android:gravity="center_vertical"
@@ -26,23 +26,23 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:ellipsize="end"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="@string/roboto_light"
             android:gravity="left|center_vertical"
             android:padding="@dimen/dimen_2x"
             android:singleLine="true"
             android:textColor="#000"
-            android:textSize="@dimen/mid_text" />
+            android:textSize="@dimen/eink_mid_text" />
 
         <TextView
             android:id="@+id/poiDist"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@string/roboto_regular"
             android:gravity="right|center_vertical"
             android:padding="@dimen/dimen_2x"
             android:textColor="#000"
-            android:textSize="@dimen/mid_text" />
+            android:textSize="@dimen/eink_mid_text" />
     </LinearLayout>
 
     <FrameLayout
@@ -58,9 +58,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="#FFF"
+            android:fontFamily="@string/roboto_regular"
             android:padding="@dimen/dimen_3x"
             android:textColor="#000"
-            android:textSize="@dimen/mid_text" />
+            android:textSize="@dimen/eink_big_text" />
     </FrameLayout>
 
 </RelativeLayout>
