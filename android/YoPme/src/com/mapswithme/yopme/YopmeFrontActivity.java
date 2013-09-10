@@ -3,6 +3,7 @@ package com.mapswithme.yopme;
 import com.mapswithme.maps.api.MWMPoint;
 import com.mapswithme.maps.api.MWMResponse;
 import com.mapswithme.maps.api.MapsWithMeApi;
+import com.mapswithme.maps.api.MwmRequest;
 import com.mapswithme.yopme.BackscreenActivity.Mode;
 
 import android.os.Bundle;
@@ -116,7 +117,14 @@ public class YopmeFrontActivity extends Activity
       setLocationView();
     }
     else if (R.id.poi == v.getId())
-      MapsWithMeApi.pickPoint(this, "Pick point", getPickPointPendingIntent());
+    {
+      final MwmRequest request = new MwmRequest()
+                                   .setCustomButtonName(getString(R.string.pick_point_button_name))
+                                   .setPendingIntent(getPickPointPendingIntent())
+                                   .setTitle(getString(R.string.app_name))
+                                   .setPickPointMode(true);
+      MapsWithMeApi.sendRequest(this, request);
+    }
     else if (R.id.menu == v.getId())
     {
       final PopupMenu popupMenu = new PopupMenu(this, mMenu);
