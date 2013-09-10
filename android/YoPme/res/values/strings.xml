@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">YoPme</string>
+    <string name="app_name">MapsWithMe E-ink</string>
     <string name="menu_settings">Настройки</string>
     <string name="menu_help">Справка</string>
     <string name="wait_msg">Определение местоположения ...</string>
@@ -11,7 +11,8 @@
     <string name="poi_label">В центе экрана будет показано выбранное вами место</string>
     <string name="toast_your_location">Теперь ваше местоположение отображено на втором экране</string>
     <string name="toast_poi">Теперь это место отображено на втором экране</string>
-    <string name="title_activity_reference">YoPme</string>
+    <string name="pick_point_button_name">Показать на E-ink экране</string>
+    <string name="title_activity_reference">MapsWithMe E-ink</string>
     <string name="action_settings">Настройки</string>
     <string name="roboto_light">"sans-serif-light"</string>
     <string name="roboto_regular">"sans-serif"</string>
