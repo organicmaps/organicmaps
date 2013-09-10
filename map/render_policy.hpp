@@ -168,6 +168,21 @@ public:
   graphics::Color const GetBgColor() const;
 
   shared_ptr<graphics::Screen> const & GetCacheScreen() const;
+
+protected:
+  void InitWindowsHandle(VideoTimer * timer, shared_ptr<graphics::RenderContext> context);
+  Drawer * CreateDrawer(bool isDefaultFB,
+                        shared_ptr<graphics::RenderContext> context,
+                        graphics::EStorageType storageType,
+                        graphics::ETextureType textureType);
+  graphics::ResourceManager::StoragePoolParams GetStorageParam(size_t vertexCount,
+                                                               size_t indexCount,
+                                                               size_t batchSize,
+                                                               graphics::EStorageType type);
+  graphics::ResourceManager::TexturePoolParams GetTextureParam(size_t size,
+                                                               size_t initCount,
+                                                               graphics::DataFormat format,
+                                                               graphics::ETextureType type);
 };
 
 RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params);

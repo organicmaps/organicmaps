@@ -18,88 +18,17 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
   graphics::ResourceManager::Params rmp = p.m_rmParams;
 
   rmp.checkDeviceCaps();
-
-  ResourceManager::TexturePoolParams tpp;
-  ResourceManager::StoragePoolParams spp;
-
   int k = int(ceil(VisualScale()));
 
-  tpp = ResourceManager::TexturePoolParams(512,
-                                           512,
-                                           1,
-                                           rmp.m_texFormat,
-                                           ELargeTexture,
-                                           true);
+  rmp.m_textureParams[ELargeTexture]        = GetTextureParam(512, 1, rmp.m_texFormat, ELargeTexture);
+  rmp.m_textureParams[EMediumTexture]       = GetTextureParam(256 * k, 1, rmp.m_texFormat, EMediumTexture);
+  rmp.m_textureParams[ERenderTargetTexture] = GetTextureParam(TileSize(), 1, rmp.m_texRtFormat, ERenderTargetTexture);
+  rmp.m_textureParams[ESmallTexture]        = GetTextureParam(128 * k, 4, rmp.m_texFormat, ESmallTexture);
 
-  rmp.m_textureParams[tpp.m_textureType] = tpp;
-
-  tpp = ResourceManager::TexturePoolParams(256 * k,
-                                           256 * k,
-                                           1,
-                                           rmp.m_texFormat,
-                                           EMediumTexture,
-                                           true);
-
-  rmp.m_textureParams[tpp.m_textureType] = tpp;
-
-  tpp = ResourceManager::TexturePoolParams(TileSize(),
-                                           TileSize(),
-                                           1,
-                                           rmp.m_texRtFormat,
-                                           ERenderTargetTexture,
-                                           true);
-
-  rmp.m_textureParams[tpp.m_textureType] = tpp;
-
-  tpp = ResourceManager::TexturePoolParams(128 * k,
-                                           128 * k,
-                                           4,
-                                           rmp.m_texFormat,
-                                           ESmallTexture,
-                                           true);
-
-  rmp.m_textureParams[tpp.m_textureType] = tpp;
-
-  spp = ResourceManager::StoragePoolParams(50000 * sizeof(graphics::gl::Vertex),
-                                           sizeof(graphics::gl::Vertex),
-                                           100000 * sizeof(unsigned short),
-                                           sizeof(unsigned short),
-                                           5,
-                                           ELargeStorage,
-                                           true);
-
-  rmp.m_storageParams[spp.m_storageType] = spp;
-
-  spp = ResourceManager::StoragePoolParams(6000 * sizeof(graphics::gl::Vertex),
-                                           sizeof(graphics::gl::Vertex),
-                                           9000 * sizeof(unsigned short),
-                                           sizeof(unsigned short),
-                                           1,
-                                           EMediumStorage,
-                                           true);
-
-  rmp.m_storageParams[spp.m_storageType] = spp;
-
-  spp = ResourceManager::StoragePoolParams(2000 * sizeof(graphics::gl::Vertex),
-                                           sizeof(graphics::gl::Vertex),
-                                           4000 * sizeof(unsigned short),
-                                           sizeof(unsigned short),
-                                           5,
-                                           ESmallStorage,
-                                           true);
-
-  rmp.m_storageParams[spp.m_storageType] = spp;
-
-  spp = ResourceManager::StoragePoolParams(100 * sizeof(graphics::gl::Vertex),
-                                           sizeof(graphics::gl::Vertex),
-                                           200 * sizeof(unsigned short),
-                                           sizeof(unsigned short),
-                                           1,
-                                           ETinyStorage,
-                                           true);
-
-  rmp.m_storageParams[spp.m_storageType] = spp;
-
+  rmp.m_storageParams[ELargeStorage]        = GetStorageParam(50000, 100000, 5, ELargeStorage);
+  rmp.m_storageParams[EMediumStorage]       = GetStorageParam(6000, 9000, 1, EMediumStorage);
+  rmp.m_storageParams[ESmallStorage]        = GetStorageParam(2000, 4000, 5, ESmallStorage);
+  rmp.m_storageParams[ETinyStorage]         = GetStorageParam(100, 200, 5, ETinyStorage);
 
   rmp.m_glyphCacheParams = graphics::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
                                                                        "fonts_whitelist.txt",
@@ -121,27 +50,9 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
   GetPlatform().GetFontNames(fonts);
   m_resourceManager->addFonts(fonts);
 
-  Drawer::Params dp;
-
-  dp.m_frameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer(p.m_useDefaultFB));
-  dp.m_resourceManager = m_resourceManager;
-  dp.m_threadSlot = m_resourceManager->guiThreadSlot();
-  dp.m_visualScale = VisualScale();
-  dp.m_storageType = ESmallStorage;
-  dp.m_textureType = ESmallTexture;
-  dp.m_isSynchronized = false;
-  dp.m_renderContext = p.m_primaryRC;
-
-  m_drawer.reset(new Drawer(dp));
-
+  m_drawer.reset(CreateDrawer(p.m_useDefaultFB, p.m_primaryRC, ESmallStorage, ESmallTexture));
   InitCacheScreen();
-
-  m_windowHandle.reset(new WindowHandle());
-
-  m_windowHandle->setUpdatesEnabled(false);
-  m_windowHandle->setRenderPolicy(this);
-  m_windowHandle->setVideoTimer(p.m_videoTimer);
-  m_windowHandle->setRenderContext(p.m_primaryRC);
+  InitWindowsHandle(p.m_videoTimer, m_primaryRC);
 }
 
 TilingRenderPolicyMT::~TilingRenderPolicyMT()

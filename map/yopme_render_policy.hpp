@@ -13,5 +13,5 @@ public:
   virtual void OnSize(int w, int h);
 
 private:
-  shared_ptr<Drawer> m_pDrawer;
+  shared_ptr<Drawer> m_offscreenDrawer;
 };

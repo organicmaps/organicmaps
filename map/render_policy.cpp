@@ -252,6 +252,55 @@ shared_ptr<graphics::Screen> const & RenderPolicy::GetCacheScreen() const
   return m_cacheScreen;
 }
 
+void RenderPolicy::InitWindowsHandle(VideoTimer * timer, shared_ptr<graphics::RenderContext> context)
+{
+  m_windowHandle.reset(new WindowHandle());
+  m_windowHandle->setRenderPolicy(this);
+  m_windowHandle->setUpdatesEnabled(false);
+  m_windowHandle->setVideoTimer(timer);
+  m_windowHandle->setRenderContext(context);
+}
+
+Drawer * RenderPolicy::CreateDrawer(bool isDefaultFB,
+                                    shared_ptr<graphics::RenderContext> context,
+                                    graphics::EStorageType storageType,
+                                    graphics::ETextureType textureType)
+{
+  Drawer::Params dp;
+
+  dp.m_frameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer(isDefaultFB));
+  dp.m_resourceManager = m_resourceManager;
+  dp.m_threadSlot = m_resourceManager->guiThreadSlot();
+  dp.m_visualScale = VisualScale();
+  dp.m_storageType = storageType;
+  dp.m_textureType = textureType;
+  dp.m_isSynchronized = false;
+  dp.m_doUnbindRT = false;
+  dp.m_renderContext = context;
+
+  return new Drawer(dp);
+}
+
+graphics::ResourceManager::StoragePoolParams RenderPolicy::GetStorageParam(size_t vertexCount,
+                                                                           size_t indexCount,
+                                                                           size_t batchSize,
+                                                                           graphics::EStorageType type)
+{
+  return graphics::ResourceManager::StoragePoolParams(vertexCount * sizeof(graphics::gl::Vertex),
+                                                      sizeof(graphics::gl::Vertex),
+                                                      indexCount * sizeof(unsigned short),
+                                                      sizeof(unsigned short),
+                                                      batchSize, type, false);
+}
+
+graphics::ResourceManager::TexturePoolParams RenderPolicy::GetTextureParam(size_t size,
+                                                                           size_t initCount,
+                                                                           graphics::DataFormat format,
+                                                                           graphics::ETextureType type)
+{
+  return graphics::ResourceManager::TexturePoolParams(size, size, initCount, format, type, false);
+}
+
 RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params)
 {
 #ifdef OMIM_OS_ANDROID

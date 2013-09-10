@@ -13,53 +13,29 @@
 
 #include "../std/vector.hpp"
 
+using namespace graphics;
+
 YopmeRP::YopmeRP(RenderPolicy::Params const & p)
   : RenderPolicy(p, false, 1)
 {
   LOG(LDEBUG, ("Yopme render policy created"));
-  graphics::ResourceManager::Params rmp = p.m_rmParams;
+  ResourceManager::Params rmp = p.m_rmParams;
 
   rmp.checkDeviceCaps();
 
-  graphics::ResourceManager::TexturePoolParams tpp;
-  graphics::ResourceManager::StoragePoolParams spp;
-
   double k = VisualScale();
 
-  spp = graphics::ResourceManager::StoragePoolParams(50000 * sizeof(graphics::gl::Vertex),
-                                                     sizeof(graphics::gl::Vertex),
-                                                     10000 * sizeof(unsigned short),
-                                                     sizeof(unsigned short),
-                                                     15,
-                                                     graphics::ELargeStorage,
-                                                     false);
+  rmp.m_textureParams[ELargeTexture]        = GetTextureParam(512, 1, rmp.m_texFormat, ELargeTexture);
+  rmp.m_textureParams[ESmallTexture]        = GetTextureParam(128 * k, 2, rmp.m_texFormat, ESmallTexture);
 
-  rmp.m_storageParams[spp.m_storageType] = spp;
-
-  spp = graphics::ResourceManager::StoragePoolParams(2000 * sizeof(graphics::gl::Vertex),
-                                                     sizeof(graphics::gl::Vertex),
-                                                     6000 * sizeof(unsigned short),
-                                                     sizeof(unsigned short),
-                                                     1,
-                                                     graphics::ESmallStorage,
-                                                     false);
-
-  rmp.m_storageParams[spp.m_storageType] = spp;
-
-  tpp = graphics::ResourceManager::TexturePoolParams(512 * k,
-                                                     256 * k,
-                                                     1,
-                                                     rmp.m_texFormat,
-                                                     graphics::ELargeTexture,
-                                                     false);
-
-  rmp.m_textureParams[tpp.m_textureType] = tpp;
+  rmp.m_storageParams[ELargeStorage]        = GetStorageParam(50000, 100000, 15, ELargeStorage);
+  rmp.m_storageParams[ESmallStorage]        = GetStorageParam(2000, 6000, 1, ESmallStorage);
 
   rmp.m_glyphCacheParams = graphics::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
-                                                                 "fonts_whitelist.txt",
-                                                                 "fonts_blacklist.txt",
-                                                                 2 * 1024 * 1024,
-                                                                 Density());
+                                                                       "fonts_whitelist.txt",
+                                                                       "fonts_blacklist.txt",
+                                                                       2 * 1024 * 1024,
+                                                                       Density());
 
   rmp.m_renderThreadsCount = 0;
   rmp.m_threadSlotsCount = 1;
@@ -74,63 +50,43 @@ YopmeRP::YopmeRP(RenderPolicy::Params const & p)
   GetPlatform().GetFontNames(fonts);
   m_resourceManager->addFonts(fonts);
 
-  // init main drawer.
-  Drawer::Params dp;
-  dp.m_frameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer(p.m_useDefaultFB));
-  dp.m_resourceManager = m_resourceManager;
-  dp.m_threadSlot = m_resourceManager->guiThreadSlot();
-  dp.m_visualScale = VisualScale();
-  dp.m_isSynchronized = true;
-  dp.m_renderContext = m_primaryRC;
-  m_drawer.reset(new Drawer(dp));
-  m_drawer->onSize(p.m_screenWidth, p.m_screenHeight);
+  m_drawer.reset(CreateDrawer(p.m_useDefaultFB, p.m_primaryRC, ESmallStorage, ESmallTexture));
+  m_offscreenDrawer.reset(CreateDrawer(false, p.m_primaryRC, ELargeStorage, ELargeTexture));
+  m_offscreenDrawer->screen()->setDepthBuffer(make_shared_ptr(new graphics::gl::RenderBuffer(p.m_screenWidth, p.m_screenHeight, true)));
 
-  // init offscreen drawer
-  dp.m_frameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer());
-  dp.m_isSynchronized = false;
-  dp.m_doUnbindRT = false;
-  m_pDrawer.reset(new Drawer(dp));
-  m_pDrawer->onSize(p.m_screenWidth, p.m_screenHeight);
-  m_pDrawer->screen()->setDepthBuffer(make_shared_ptr(new graphics::gl::RenderBuffer(p.m_screenWidth, p.m_screenHeight, true)));
-
-  m_windowHandle.reset(new WindowHandle());
-  m_windowHandle->setUpdatesEnabled(false);
-  m_windowHandle->setRenderPolicy(this);
-  m_windowHandle->setVideoTimer(p.m_videoTimer);
-  m_windowHandle->setRenderContext(p.m_primaryRC);
+  InitWindowsHandle(p.m_videoTimer, p.m_primaryRC);
 }
 
 void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {
   shared_ptr<graphics::gl::BaseTexture> renderTarget;
-  ASSERT(m_pDrawer->screen()->width() == GetDrawer()->screen()->width(), ());
-  ASSERT(m_pDrawer->screen()->height() == GetDrawer()->screen()->height(), ());
 
-  int width = 0;
-  int height = 0;
+  int width = m_offscreenDrawer->screen()->width();
+  int height = m_offscreenDrawer->screen()->height();
+
+  ASSERT(width == GetDrawer()->screen()->width(), ());
+  ASSERT(height == GetDrawer()->screen()->height(), ());
+
   shared_ptr<graphics::Overlay> overlay(new graphics::Overlay());
   overlay->setCouldOverlap(true);
 
   { // offscreen rendering
-    graphics::Screen * pScreen = m_pDrawer->screen();
-    width = pScreen->width();
-    height = pScreen->height();
-
     m2::RectI renderRect(0, 0, width, height);
-    pScreen->setOverlay(overlay);
 
+    graphics::Screen * pScreen = m_offscreenDrawer->screen();
     renderTarget = m_resourceManager->createRenderTarget(width, height);
+
+    pScreen->setOverlay(overlay);
     pScreen->setRenderTarget(renderTarget);
     pScreen->beginFrame();
     pScreen->setClipRect(renderRect);
     pScreen->clear(m_bgColor);
 
-    shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_pDrawer.get()));
+    shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_offscreenDrawer.get()));
     m_renderFn(paintEvent, s, m2::RectD(renderRect), scales::GetScaleLevel(s.GlobalRect().GetGlobalRect()));
 
     pScreen->endFrame();
     pScreen->resetOverlay();
-
     pScreen->unbindRenderTarget();
   }
 
@@ -164,6 +120,6 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 void YopmeRP::OnSize(int w, int h)
 {
   RenderPolicy::OnSize(w, h);
-  m_pDrawer->onSize(w, h);
-  m_pDrawer->screen()->setDepthBuffer(make_shared_ptr(new graphics::gl::RenderBuffer(w, h, true)));
+  m_offscreenDrawer->onSize(w, h);
+  m_offscreenDrawer->screen()->setDepthBuffer(make_shared_ptr(new graphics::gl::RenderBuffer(w, h, true)));
 }
