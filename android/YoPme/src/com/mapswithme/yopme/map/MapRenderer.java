@@ -13,6 +13,7 @@ public class MapRenderer implements MapDataProvider
 	{
 		mPixelBuffer = new PixelBuffer(width, height);
 		mPixelBuffer.init();
+		nativeCreateFramework(width, height);
 	}
 	
 	public void terminate()
@@ -57,5 +58,6 @@ public class MapRenderer implements MapDataProvider
     }
 	}
 	
+	private native void nativeCreateFramework(int width, int height);
 	private native void nativeRenderMap(double lat, double lon, double zoom);
 }

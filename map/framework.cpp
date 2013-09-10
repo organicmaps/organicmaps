@@ -877,6 +877,14 @@ bool Framework::CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/)
   return false;
 }
 
+void Framework::ShowRect(double lat, double lon, double zoom)
+{
+  m2::RectD rect = m_scales.GetRectForDrawScale(zoom,
+                                                m2::PointD(MercatorBounds::LonToX(lon),
+                                                           MercatorBounds::LatToY(lat)));
+  ShowRectEx(rect);
+}
+
 void Framework::ShowRect(m2::RectD const & r)
 {
   m2::AnyRectD rect(r);

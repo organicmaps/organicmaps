@@ -13,11 +13,16 @@ namespace yopme
     Framework(int width, int height);
     ~Framework();
 
-    void ConfigureNavigator(double lat, double lon, double zoom);
+    void ShowRect(double lat, double lon, double zoom);
+
+  private:
+    void InitRenderPolicy();
+    void TeardownRenderPolicy();
     void RenderMap();
 
   private:
     ::Framework m_framework;
-    shared_ptr<VideoTimer> m_timer;
+    int m_width;
+    int m_height;
   };
 }

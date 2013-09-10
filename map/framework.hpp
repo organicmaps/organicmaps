@@ -374,6 +374,7 @@ private:
   void ShowRectFixed(m2::AnyRectD const & rect);
 
 public:
+  void ShowRect(double lat, double lon, double zoom);
   /// Set navigator viewport by rect as-is.
   void ShowRect(m2::RectD const & rect);
   /// - Use navigator rotate angle.

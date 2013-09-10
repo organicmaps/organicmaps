@@ -2,20 +2,43 @@
 
 #include "Stubs.hpp"
 
-#include "../../../base/logging.hpp"
-#include "../../../platform/platform.hpp"
-#include "../../../geometry/any_rect2d.hpp"
 #include "../../../map/events.hpp"
 #include "../../../map/navigator.hpp"
 #include "../../../map/yopme_render_policy.hpp"
+#include "../../../platform/platform.hpp"
+#include "../../../geometry/any_rect2d.hpp"
+#include "../../../base/logging.hpp"
 
 #include <android/log.h>
 
 namespace yopme
 {
+  static EmptyVideoTimer s_timer;
   Framework::Framework(int width, int height)
+    : m_width(width)
+    , m_height(height)
   {
-    m_timer.reset(new EmptyVideoTimer());
+    LOG(LDEBUG, ("Framework Constructor"));
+    // TODO move this in some method like ExternalStorageConnected
+    m_framework.AddLocalMaps();
+    LOG(LDEBUG, ("Local maps addeded"));
+  }
+
+  Framework::~Framework()
+  {
+    m_framework.PrepareToShutdown();
+  }
+
+  void Framework::ShowRect(double lat, double lon, double zoom)
+  {
+    m_framework.ShowRect(lat, lon, zoom);
+    InitRenderPolicy();
+    RenderMap();
+    TeardownRenderPolicy();
+  }
+
+  void Framework::InitRenderPolicy()
+  {
     shared_ptr<RenderContext> primaryRC(new RenderContext());
     graphics::ResourceManager::Params rmParams;
     rmParams.m_rtFormat = graphics::Data8Bpp;
@@ -25,49 +48,30 @@ namespace yopme
 
     RenderPolicy::Params rpParams;
 
-    rpParams.m_videoTimer = m_timer.get();
+    rpParams.m_videoTimer = &s_timer;
     rpParams.m_useDefaultFB = true;
     rpParams.m_rmParams = rmParams;
     rpParams.m_primaryRC = primaryRC;
     rpParams.m_density = graphics::EDensityXHDPI;
     rpParams.m_skinName = "basic.skn";
-    rpParams.m_screenWidth = width;
-    rpParams.m_screenHeight = height;
+    rpParams.m_screenWidth = m_width;
+    rpParams.m_screenHeight = m_height;
 
     try
     {
-      RenderPolicy * policy = new ::YopmeRP(rpParams);
-      m_framework.SetRenderPolicy(policy);
-      // TODO move this in some method like ExternalStorageConnected
-      m_framework.AddLocalMaps();
+      m_framework.SetRenderPolicy(new ::YopmeRP(rpParams));
     }
     catch(RootException & e)
     {
       LOG(LERROR, (e.what()));
     }
 
-    m_framework.OnSize(width, height);
+    m_framework.OnSize(m_width, m_height);
   }
 
-  Framework::~Framework()
+  void Framework::TeardownRenderPolicy()
   {
-    m_framework.PrepareToShutdown();
-  }
-
-  void Framework::ConfigureNavigator(double lat, double lon, double zoom)
-  {
-    Navigator & navigator = m_framework.GetNavigator();
-    ScalesProcessor const & scales = navigator.GetScaleProcessor();
-    m2::RectD rect = scales.GetRectForDrawScale(zoom, m2::PointD(lon, lat));
-
-    m2::PointD leftBottom = rect.LeftBottom();
-    m2::PointD rightTop = rect.RightTop();
-    m2::RectD pixelRect = m2::RectD(MercatorBounds::LonToX(leftBottom.x),
-                                    MercatorBounds::LatToY(leftBottom.y),
-                                    MercatorBounds::LonToX(rightTop.x),
-                                    MercatorBounds::LatToY(rightTop.y));
-
-    navigator.SetFromRect(m2::AnyRectD(pixelRect));
+    m_framework.SetRenderPolicy(0);
   }
 
   void Framework::RenderMap()

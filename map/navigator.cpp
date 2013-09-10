@@ -327,11 +327,6 @@ m2::PointD Navigator::ShiftPoint(m2::PointD const & pt) const
   return pt + m2::PointD(pxRect.minX(), pxRect.minY());
 }
 
-ScalesProcessor const & Navigator::GetScaleProcessor() const
-{
-  return m_scales;
-}
-
 void Navigator::StartDrag(m2::PointD const & pt, double /*timeInSec*/)
 {
   m_StartPt1 = m_LastPt1 = pt;

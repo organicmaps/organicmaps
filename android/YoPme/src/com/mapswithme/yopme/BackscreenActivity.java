@@ -61,10 +61,6 @@ public class BackscreenActivity extends BSActivity
   protected void onBSCreate()
   {
     super.onBSCreate();
-
-    final Resources res = getResources();
-    mMapDataProvider = new MapRenderer((int) res.getDimension(R.dimen.yota_width),
-            (int)res.getDimension(R.dimen.yota_height));
     
     final String extStoragePath = getDataStoragePath();
     final String extTmpPath = getTempPath();
@@ -74,6 +70,12 @@ public class BackscreenActivity extends BSActivity
     new File(extTmpPath).mkdirs();
     
     nativeInitPlatform(getApkPath(), extStoragePath, extTmpPath, "", true);
+    
+    /// !!! Create MapRenderer ONLY AFTER platform init !!!
+    //final Resources res = getResources();
+    //mMapDataProvider = new MapRenderer((int) res.getDimension(R.dimen.yota_width),
+    //                                   (int)res.getDimension(R.dimen.yota_height));
+    mMapDataProvider = MapRenderer.GetRenderer();
 
     setUpView();
   }
@@ -233,8 +235,7 @@ public class BackscreenActivity extends BSActivity
     {
       if (mLocation == null)
         return;
-      data = mMapDataProvider.getMyPositionData(mLocation.getLatitude(),
-      mLocation.getLongitude(), mZoomLevel);
+      data = mMapDataProvider.getMyPositionData(mLocation.getLatitude(), mLocation.getLongitude(), mZoomLevel);
     }
     else if (mMode == Mode.POI)
       data = mMapDataProvider.getPOIData(mPoint, mZoomLevel);
@@ -248,8 +249,9 @@ public class BackscreenActivity extends BSActivity
 
   public static void startInMode(Context context, Mode mode, MWMPoint point)
   {
-    final Intent i = new Intent(context, BackscreenActivity.class).putExtra(EXTRA_MODE, mode).putExtra(EXTRA_POINT,
-        point);
+    final Intent i = new Intent(context, BackscreenActivity.class)
+                            .putExtra(EXTRA_MODE, mode)
+                            .putExtra(EXTRA_POINT, point);
 
     context.startService(i);
   }
@@ -302,6 +304,6 @@ public class BackscreenActivity extends BSActivity
   }
   
   private native void nativeInitPlatform(String apkPath, String storagePath,
-                           String tmpPath, String obbGooglePath,
-                           boolean isPro);
+                                         String tmpPath, String obbGooglePath,
+                                         boolean isPro);
 }

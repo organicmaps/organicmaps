@@ -53,11 +53,11 @@ macx-* {
   QMAKE_BUNDLE_DATA += OTHER_RES CLASSIFICATOR_RES SKIN_RES FONT_RES MWM_RES
 }
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    glwidget.cpp
+SOURCES += main.cpp \
+           mainwindow.cpp \
+           glwidget.cpp \
 
 HEADERS  += mainwindow.hpp \
-    glwidget.hpp
+            glwidget.hpp \
 
 FORMS    += mainwindow.ui
