@@ -297,8 +297,7 @@ public class MapObjectFragment extends Fragment
 
   private void onAddBookmarkClicked()
   {
-    //TODO add normal PRO check
-    if ( !((MWMApplication)getActivity().getApplication()).isProVersion())
+    if (MWMApplication.get().isProVersion())
     {
       // TODO this cast if safe, but style is bad
       final MapObjectActivity activity = (MapObjectActivity) getActivity();

@@ -107,7 +107,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
   {
     super.onCreate();
 
-    m_isProVersion = getPackageName().endsWith(".pro");
+    m_isProVersion = getPackageName().contains(".pro");
 
     // http://stackoverflow.com/questions/1440957/httpurlconnection-getresponsecode-returns-1-on-second-invocation
     if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ECLAIR_MR1)
