@@ -122,14 +122,30 @@ public class WifiLocation extends BroadcastReceiver
         json.append(String.valueOf(l.getLatitude()));
         json.append(",\"longitude\":");
         json.append(String.valueOf(l.getLongitude()));
-        json.append(",\"accuracy\":");
-        json.append(String.valueOf(l.getAccuracy()));
-        json.append(",\"altitude\":");
-        json.append(String.valueOf(l.getAltitude()));
-        json.append(",\"speed\":");
-        json.append(String.valueOf(l.getSpeed()));
+        if (l.hasAccuracy())
+        {
+          json.append(",\"accuracy\":");
+          json.append(String.valueOf(l.getAccuracy()));
+        }
+        if (l.hasAltitude())
+        {
+          json.append(",\"altitude\":");
+          json.append(String.valueOf(l.getAltitude()));
+        }
+        if (l.hasSpeed())
+        {
+          json.append(",\"speed\":");
+          json.append(String.valueOf(l.getSpeed()));
+        }
+        if (l.hasBearing())
+        {
+          json.append(",\"bearing\":");
+          json.append(String.valueOf(l.getBearing()));
+        }
         json.append(",\"time\":");
         json.append(String.valueOf(l.getTime()));
+        json.append(",\"currentTime\":");
+        json.append(String.valueOf(System.currentTimeMillis()));
         json.append("}");
       }
     }
