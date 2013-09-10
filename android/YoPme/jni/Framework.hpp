@@ -3,8 +3,6 @@
 #include "../../../map/framework.hpp"
 #include "../../../platform/video_timer.hpp"
 
-#include "../../../std/shared_ptr.hpp"
-
 namespace yopme
 {
   class Framework
@@ -22,6 +20,7 @@ namespace yopme
 
   private:
     ::Framework m_framework;
+    EmptyVideoTimer m_timer;
     int m_width;
     int m_height;
   };

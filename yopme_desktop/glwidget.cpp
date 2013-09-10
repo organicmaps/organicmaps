@@ -1,61 +1,11 @@
 #include "glwidget.hpp"
 
-#include "../base/logging.hpp"
-#include "../graphics/render_context.hpp"
 #include "../map/qgl_render_context.hpp"
 #include "../map/simple_render_policy.hpp"
 #include "../map/yopme_render_policy.hpp"
 #include "../graphics/render_context.hpp"
-#include "../std/shared_ptr.hpp"
-#include "../platform/video_timer.hpp"
+#include "../graphics/render_context.hpp"
 #include "../platform/platform.hpp"
-
-namespace
-{
-  void empty()
-  {
-  }
-  class EmptyVideoTimer : public VideoTimer
-  {
-    typedef VideoTimer base_t;
-  public:
-    EmptyVideoTimer(TFrameFn func)
-      : base_t(bind(&empty))
-    {
-    }
-
-    ~EmptyVideoTimer() { stop(); }
-
-    void start()
-    {
-      if (m_state == EStopped)
-        m_state = ERunning;
-    }
-
-    void resume()
-    {
-      if (m_state == EPaused)
-      {
-        m_state = EStopped;
-        start();
-      }
-    }
-
-    void pause()
-    {
-      stop();
-      m_state = EPaused;
-    }
-
-    void stop()
-    {
-      if (m_state == ERunning)
-        m_state = EStopped;
-    }
-
-    void perform() {}
-  };
-}
 
 GLWidget::GLWidget(QWidget * parent)
   : QGLWidget(parent)
@@ -63,9 +13,13 @@ GLWidget::GLWidget(QWidget * parent)
   m_f.AddLocalMaps();
 }
 
+GLWidget::~GLWidget()
+{
+  m_f.PrepareToShutdown();
+}
+
 void GLWidget::initializeGL()
 {
-  EmptyVideoTimer * timer = new EmptyVideoTimer(bind(&QGLWidget::updateGL, this));
   shared_ptr<graphics::RenderContext> primaryRC(new qt::gl::RenderContext(this));
   graphics::ResourceManager::Params rmParams;
   rmParams.m_rtFormat = graphics::Data8Bpp;
@@ -75,7 +29,7 @@ void GLWidget::initializeGL()
 
   RenderPolicy::Params rpParams;
 
-  rpParams.m_videoTimer = timer;
+  rpParams.m_videoTimer = &m_timer;
   rpParams.m_useDefaultFB = true;
   rpParams.m_rmParams = rmParams;
   rpParams.m_primaryRC = primaryRC;
@@ -86,8 +40,8 @@ void GLWidget::initializeGL()
 
   try
   {
-    //m_f.SetRenderPolicy(new SimpleRenderPolicy(rpParams));
     m_f.SetRenderPolicy(new YopmeRP(rpParams));
+    m_f.InitGuiSubsystem();
   }
   catch (RootException & e)
   {

@@ -46,9 +46,7 @@ MwmRpcService::MwmRpcService(QObject * parent) : m_pixelBuffer(new QGLPixelBuffe
   rmParams.m_texRtFormat = graphics::Data4Bpp;
   rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
 
-  m_videoTimer = new EmptyVideoTimer();
-
-  m_rpParams.m_videoTimer = m_videoTimer;
+  m_rpParams.m_videoTimer = &m_videoTimer;
   m_rpParams.m_useDefaultFB = true;
   m_rpParams.m_rmParams = rmParams;
   m_rpParams.m_primaryRC = primaryRC;
@@ -65,6 +63,11 @@ MwmRpcService::MwmRpcService(QObject * parent) : m_pixelBuffer(new QGLPixelBuffe
   {
     LOG(LCRITICAL, ("OpenGL platform is unsupported, reason: ", e.what()));
   }
+}
+
+MwmRpcService::~MwmRpcService()
+{
+  m_framework.PrepareToShutdown();
 }
 
 QString MwmRpcService::RenderBox(

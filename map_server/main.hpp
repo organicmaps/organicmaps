@@ -2,60 +2,10 @@
 
 #include "../map/render_policy.hpp"
 #include "../map/framework.hpp"
-
-#include "../platform/platform.hpp"
+#include "../platform/video_timer.hpp"
 
 #include <qjsonrpcservice.h>
 #include <QGLPixelBuffer>
-
-namespace
-{
-  void empty()
-  {}
-
-  class EmptyVideoTimer : public VideoTimer
-  {
-  public:
-    EmptyVideoTimer()
-      : VideoTimer(bind(&empty))
-    {}
-
-    ~EmptyVideoTimer()
-    {
-      stop();
-    }
-
-    void start()
-    {
-      if (m_state == EStopped)
-        m_state = ERunning;
-    }
-
-    void resume()
-    {
-      if (m_state == EPaused)
-      {
-        m_state = EStopped;
-        start();
-      }
-    }
-
-    void pause()
-    {
-      stop();
-      m_state = EPaused;
-    }
-
-    void stop()
-    {
-      if (m_state == ERunning)
-        m_state = EStopped;
-    }
-
-    void perform()
-    {}
-  };
-}
 
 class MwmRpcService : public QJsonRpcService
 {
@@ -65,9 +15,10 @@ private:
     Framework m_framework;
     QGLPixelBuffer * m_pixelBuffer;
     RenderPolicy::Params m_rpParams;
-    VideoTimer * m_videoTimer;
+    EmptyVideoTimer m_videoTimer;
 public:
     MwmRpcService(QObject * parent = 0);
+    ~MwmRpcService();
 
 public Q_SLOTS:
     QString RenderBox(

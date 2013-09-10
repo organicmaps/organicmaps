@@ -1,27 +1,33 @@
 #include "Framework.hpp"
 
-#include "Stubs.hpp"
-
 #include "../../../map/events.hpp"
 #include "../../../map/navigator.hpp"
 #include "../../../map/yopme_render_policy.hpp"
 #include "../../../platform/platform.hpp"
 #include "../../../geometry/any_rect2d.hpp"
+#include "../../../graphics/opengl/gl_render_context.hpp"
 #include "../../../base/logging.hpp"
 
 #include <android/log.h>
 
+namespace
+{
+  class RenderContext: public graphics::gl::RenderContext
+  {
+  public:
+    virtual void makeCurrent() {}
+    virtual graphics::RenderContext * createShared() { return this; }
+  };
+}
+
 namespace yopme
 {
-  static EmptyVideoTimer s_timer;
   Framework::Framework(int width, int height)
     : m_width(width)
     , m_height(height)
   {
-    LOG(LDEBUG, ("Framework Constructor"));
     // TODO move this in some method like ExternalStorageConnected
     m_framework.AddLocalMaps();
-    LOG(LDEBUG, ("Local maps addeded"));
   }
 
   Framework::~Framework()
@@ -48,7 +54,7 @@ namespace yopme
 
     RenderPolicy::Params rpParams;
 
-    rpParams.m_videoTimer = &s_timer;
+    rpParams.m_videoTimer = &m_timer;
     rpParams.m_useDefaultFB = true;
     rpParams.m_rmParams = rmParams;
     rpParams.m_primaryRC = primaryRC;

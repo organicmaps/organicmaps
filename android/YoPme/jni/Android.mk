@@ -130,15 +130,13 @@ LOCAL_CFLAGS := -ffunction-sections -fdata-sections -Wno-psabi
 TARGET_PLATFORM := android-15
 
 # Add your headers below
-LOCAL_HEADER_FILES := Stubs.hpp \
-                      Framework.hpp \
+LOCAL_HEADER_FILES := Framework.hpp \
                       ../../jni/com/mapswithme/core/jni_helper.hpp \
                       ../../jni/com/mapswithme/core/logging.hpp \
                       ../../jni/com/mapswithme/platform/Platform.hpp \
 
 # Add your sources below
-LOCAL_SRC_FILES := Stubs.cpp \
-                   Framework.cpp \
+LOCAL_SRC_FILES := Framework.cpp \
                    MapRenderer.cpp \
                    BackscreenActivity.cpp \
                    ../../jni/com/mapswithme/core/logging.cpp \

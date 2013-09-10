@@ -37,6 +37,20 @@ public:
   virtual void stop() = 0;
 };
 
+class EmptyVideoTimer : public VideoTimer
+{
+  typedef VideoTimer base_t;
+public:
+  EmptyVideoTimer();
+  ~EmptyVideoTimer();
+
+  void start();
+  void resume();
+  void pause();
+  void stop();
+  void perform();
+};
+
 extern "C" VideoTimer * CreateIOSVideoTimer(VideoTimer::TFrameFn frameFn);
 extern "C" VideoTimer * CreateAppleVideoTimer(VideoTimer::TFrameFn frameFn);
 extern "C" VideoTimer * CreateWin32VideoTimer(VideoTimer::TFrameFn frameFn);
