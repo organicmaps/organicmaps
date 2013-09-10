@@ -64,4 +64,13 @@
             android:textSize="@dimen/eink_big_text" />
     </FrameLayout>
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="@dimen/dimen_1x"
+        android:layout_marginLeft="@dimen/dimen_1x"
+        android:src="@drawable/watermark" />
+
 </RelativeLayout>
