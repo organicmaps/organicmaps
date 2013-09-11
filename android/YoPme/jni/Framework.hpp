@@ -16,7 +16,7 @@ namespace yopme
   private:
     void InitRenderPolicy();
     void TeardownRenderPolicy();
-    void RenderMap(m2::PointD markPoint, bool needApiMark);
+    void RenderMap(const m2::PointD & markPoint, const string & symbolName);
 
   private:
     ::Framework m_framework;

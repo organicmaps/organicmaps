@@ -38,12 +38,12 @@ namespace yopme
   bool Framework::ShowRect(double lat, double lon, double zoom, bool needApiMark)
   {
     m2::PointD point(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
-    if (!m_framework.IsCountryLoaded(point) && zoom > 9.0)
+    if (!m_framework.IsCountryLoaded(point) && zoom > scales::GetUpperWorldScale())
       return false;
 
     m_framework.ShowRect(lat, lon, zoom);
     InitRenderPolicy();
-    RenderMap(point, needApiMark);
+    RenderMap(point, needApiMark ? "api_pin" : "current-position");
     TeardownRenderPolicy();
     return true;
   }
@@ -63,7 +63,7 @@ namespace yopme
     rpParams.m_useDefaultFB = true;
     rpParams.m_rmParams = rmParams;
     rpParams.m_primaryRC = primaryRC;
-    rpParams.m_density = graphics::EDensityXHDPI;
+    rpParams.m_density = graphics::EDensityMDPI;
     rpParams.m_skinName = "basic.skn";
     rpParams.m_screenWidth = m_width;
     rpParams.m_screenHeight = m_height;
@@ -86,19 +86,14 @@ namespace yopme
     m_framework.SetRenderPolicy(0);
   }
 
-  void Framework::RenderMap(m2::PointD markPoint, bool needApiMark)
+  void Framework::RenderMap(const m2::PointD & markPoint, const string & symbolName)
   {
     Drawer * drawer = m_framework.GetRenderPolicy()->GetDrawer().get();
     shared_ptr<PaintEvent> pe(new PaintEvent(drawer));
 
     m_framework.BeginPaint(pe);
     m_framework.DoPaint(pe);
-    if (needApiMark)
-    {
-      m2::PointD apiOrg = m_framework.GetNavigator().GtoP(markPoint);
-      m_framework.GetInformationDisplay().drawPlacemark(drawer, "api_pin", apiOrg);
-    }
-
+    m_framework.GetInformationDisplay().drawPlacemark(drawer, symbolName, m_framework.GtoP(markPoint));
     m_framework.EndPaint(pe);
   }
 } //yopme
