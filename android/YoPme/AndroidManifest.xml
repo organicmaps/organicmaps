@@ -55,6 +55,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mapswithme.yopme.YopmeFrontActivity" />
         </activity>
+        <activity
+            android:name="com.mapswithme.yopme.YopmePreference"
+            android:label="@string/menu_settings"
+            android:parentActivityName="com.mapswithme.yopme.YopmeFrontActivity"
+            android:screenOrientation="sensorPortrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapswithme.yopme.YopmeFrontActivity" />
+        </activity>
     </application>
 
 </manifest>

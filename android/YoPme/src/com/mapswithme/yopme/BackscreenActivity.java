@@ -1,19 +1,20 @@
 package com.mapswithme.yopme;
 
+import java.io.File;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.io.File;
+
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,9 +24,10 @@ import com.mapswithme.maps.api.MWMPoint;
 import com.mapswithme.yopme.map.MapData;
 import com.mapswithme.yopme.map.MapDataProvider;
 import com.mapswithme.yopme.map.MapRenderer;
+import com.mapswithme.yopme.util.Utils;
 import com.yotadevices.sdk.BSActivity;
-import com.yotadevices.sdk.BSMotionEvent;
 import com.yotadevices.sdk.BSDrawer.Waveform;
+import com.yotadevices.sdk.BSMotionEvent;
 import com.yotadevices.sdk.Constants.Gestures;
 
 public class BackscreenActivity extends BSActivity
@@ -62,6 +64,7 @@ public class BackscreenActivity extends BSActivity
   protected View mPoiInfo;
 
   protected MapDataProvider mMapDataProvider;
+  private LocationManager mLocationManager;
 
   @Override
   protected void onBSCreate()
@@ -74,9 +77,9 @@ public class BackscreenActivity extends BSActivity
     // Create folders if they don't exist
     new File(extStoragePath).mkdirs();
     new File(extTmpPath).mkdirs();
-    
+
     nativeInitPlatform(getApkPath(), extStoragePath, extTmpPath, "", true);
-    
+
     /// !!! Create MapRenderer ONLY AFTER platform init !!!
     //final Resources res = getResources();
     //mMapDataProvider = new MapRenderer((int) res.getDimension(R.dimen.yota_width),
@@ -84,6 +87,15 @@ public class BackscreenActivity extends BSActivity
     mMapDataProvider = MapRenderer.GetRenderer();
 
     setUpView();
+
+    mLocationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+  }
+
+  @Override
+  protected void onBSPause()
+  {
+    super.onBSPause();
+    mLocationManager.removeUpdates(getLocationPendingIntent(this));
   }
 
   @Override
@@ -136,6 +148,8 @@ public class BackscreenActivity extends BSActivity
       zoomIn();
     else if (action == Gestures.GESTURES_BS_RL)
       zoomOut();
+    else
+      return; // do not react on other events
 
     updateData();
     invalidate();
@@ -156,7 +170,7 @@ public class BackscreenActivity extends BSActivity
       updateData();
       hideWaitMessage();
 
-        requestLocationUpdate();
+      requestLocationUpdate();
     }
   }
 
@@ -197,24 +211,52 @@ public class BackscreenActivity extends BSActivity
 
   private void requestLocationUpdate()
   {
-    final LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+    final String updateIntervalStr = PreferenceManager.getDefaultSharedPreferences(this)
+      .getString(getString(R.string.pref_loc_update), "-1");
+    final long updateInterval = Long.parseLong(updateIntervalStr);
 
-    if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER))
-      lm.requestSingleUpdate(LocationManager.GPS_PROVIDER, BackscreenActivity.getLocationPendingIntent(this));
-    else if (lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
-      lm.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, BackscreenActivity.getLocationPendingIntent(this));
-    else
-      throw new IllegalStateException("No providers found.");
+    final String[] providers = {
+        LocationManager.GPS_PROVIDER,
+        LocationManager.NETWORK_PROVIDER,
+        LocationManager.PASSIVE_PROVIDER,
+    };
 
-    if (mMode == Mode.LOCATION)
+    // before requesting updates try to get last known in the first try
+    if (mLocation == null)
+    {
+      for (final String provider : providers)
+        if (mLocationManager.isProviderEnabled(provider))
+        {
+          final Location lastLocation = mLocationManager.getLastKnownLocation(provider);
+          if (lastLocation != null)
+            onLocationUpdate(lastLocation);
+        }
+    }
+
+    // then listen to updates
+    for (final String provider : providers)
+    {
+      if (mLocationManager.isProviderEnabled(provider))
+      {
+        if (updateInterval == -1)
+          mLocationManager.requestSingleUpdate(provider, getLocationPendingIntent(this));
+        else
+          mLocationManager.requestLocationUpdates(provider, updateInterval*1000, 0, getLocationPendingIntent(this));
+      }
+    }
+
+    if (mMode == Mode.LOCATION && mLocation == null)
       showWaitMessage(getString(R.string.wait_msg));
   }
 
   private void onLocationUpdate(Location location)
   {
-    hideWaitMessage();
-    mLocation = location;
+    if (Utils.isFirstOneBetterLocation(location, mLocation))
+      mLocation = location;
+    else
+      return;
 
+    hideWaitMessage();
     updateData();
     invalidate();
   }
@@ -322,7 +364,7 @@ public class BackscreenActivity extends BSActivity
     final PendingIntent pi = PendingIntent.getService(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
     return pi;
   }
-  
+
   public String getApkPath()
   {
     try
@@ -358,11 +400,11 @@ public class BackscreenActivity extends BSActivity
     return storagePath.concat(String.format("/Android/obb/%s/", getPackageName()));
   }
 
-  static 
+  static
   {
     System.loadLibrary("yopme");
   }
-  
+
   private native void nativeInitPlatform(String apkPath, String storagePath,
                                          String tmpPath, String obbGooglePath,
                                          boolean isPro);

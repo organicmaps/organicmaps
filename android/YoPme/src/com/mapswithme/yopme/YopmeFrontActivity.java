@@ -138,6 +138,11 @@ public class YopmeFrontActivity extends Activity
             startActivity(new Intent(getApplicationContext(), ReferenceActivity.class));
             return true;
           }
+          else if (item.getItemId() == R.id.menu_settings)
+          {
+            startActivity(new Intent(getApplicationContext(), YopmePreference.class));
+            return true;
+          }
           return false;
         }
       });

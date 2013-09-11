@@ -173,3 +173,4 @@ tools/twine/.git
 
 syntax: regexp
 (.*/)?\#[^/]*\#$
+android/YoPme/.gradletasknamecache

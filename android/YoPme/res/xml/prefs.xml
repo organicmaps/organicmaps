@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory
+        android:orderingFromXml="true"
+        android:title="@string/pref_update_title" >
+        <ListPreference
+            android:defaultValue="-1"
+            android:entries="@array/update_frequency"
+            android:entryValues="@array/update_frequency_values"
+            android:key="@string/pref_loc_update"
+            android:title="@string/location_update_frequency" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

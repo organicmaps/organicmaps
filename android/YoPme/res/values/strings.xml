@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">MapsWithMe E-ink</string>
+    <string name="title_activity_reference">MapsWithMe E-ink</string>
     <string name="menu_settings">Настройки</string>
     <string name="menu_help">Справка</string>
     <string name="wait_msg">Определение местоположения ...</string>
@@ -12,9 +13,14 @@
     <string name="toast_your_location">Теперь ваше местоположение отображено на втором экране</string>
     <string name="toast_poi">Теперь это место отображено на втором экране</string>
     <string name="pick_point_button_name">Показать на E-ink экране</string>
-    <string name="title_activity_reference">MapsWithMe E-ink</string>
-    <string name="action_settings">Настройки</string>
-    <string name="roboto_light">"sans-serif-light"</string>
-    <string name="roboto_regular">"sans-serif"</string>
+    <string name="location_update_frequency">Частота обновления</string>
+    <string name="pref_update_title">Обновление карты</string>
+
+    <string-array name="update_frequency">
+        <item>По нажатию</item>
+        <item>15 секунд</item>
+        <item>30 секунд</item>
+        <item>60 секунд</item>
+    </string-array>
 
 </resources>
