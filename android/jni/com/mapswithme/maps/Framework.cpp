@@ -852,4 +852,10 @@ extern "C"
     return g_framework->NativeFramework()->GetGuidesManager().WasAdvertised(jni::ToNativeString(env, appId));
   }
 
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_Framework_getDrawScale(JNIEnv * env, jclass clazz)
+  {
+    return static_cast<jint>(g_framework->NativeFramework()->GetDrawScale());
+  }
+
 }

@@ -8,6 +8,7 @@ import android.content.pm.ApplicationInfo;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.state.SuppotedState;
 
@@ -33,6 +34,7 @@ public class ParsedMmwRequest
   private boolean mHasPoint;
   private double mLat;
   private double mLon;
+  private double mZoomLevel;
 
 
   public double  getLat()          { return mLat; }
@@ -45,9 +47,9 @@ public class ParsedMmwRequest
   private String mName;
   private String mId;
 
-  public static ParsedMmwRequest getCurrentRequest() { return sCurrentRequest; }
-  public static boolean    hasRequest()        { return sCurrentRequest != null; }
-  public static void       setCurrentRequest(ParsedMmwRequest request) { sCurrentRequest = request; }
+  public static ParsedMmwRequest getCurrentRequest()                         { return sCurrentRequest; }
+  public static boolean          hasRequest()                                { return sCurrentRequest != null; }
+  public static void             setCurrentRequest(ParsedMmwRequest request) { sCurrentRequest = request; }
 
   public static ParsedMmwRequest extractFromIntent(Intent data, Context context)
   {
@@ -100,13 +102,16 @@ public class ParsedMmwRequest
   {
     if (hasPendingIntent())
     {
+      // set zoom level from framework
+      mZoomLevel = Framework.getDrawScale();
       final Intent i = new Intent();
       if (success)
       {
         i.putExtra(Const.EXTRA_MWM_RESPONSE_POINT_LAT, mLat)
          .putExtra(Const.EXTRA_MWM_RESPONSE_POINT_LON, mLon)
          .putExtra(Const.EXTRA_MWM_RESPONSE_POINT_NAME, mName)
-         .putExtra(Const.EXTRA_MWM_RESPONSE_POINT_ID, mId);
+         .putExtra(Const.EXTRA_MWM_RESPONSE_POINT_ID, mId)
+         .putExtra(Const.EXTRA_MWM_RESPONSE_ZOOM, mZoomLevel);
       }
       try
       {

@@ -23,6 +23,7 @@ public class Const
   public static final String EXTRA_MWM_RESPONSE_POINT_LAT = AUTHORITY + ".point_lat";
   public static final String EXTRA_MWM_RESPONSE_POINT_LON = AUTHORITY + ".point_lon";
   public static final String EXTRA_MWM_RESPONSE_POINT_ID = AUTHORITY + ".point_id";
+  public static final String EXTRA_MWM_RESPONSE_ZOOM = AUTHORITY + ".zoom_level";
 
 
   public static final String ACTION_MWM_REQUEST = AUTHORITY + ".request";

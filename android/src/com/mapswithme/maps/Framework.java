@@ -85,6 +85,8 @@ public class Framework
   public native static void        setWasAdvertised(String appId);
   public native static boolean     wasAdvertised(String appId);
 
+  public native static int getDrawScale();
+
   /*
    *  "Implementation" - native methods
    */
