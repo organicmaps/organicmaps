@@ -5,6 +5,7 @@ import com.mapswithme.maps.api.MWMResponse;
 import com.mapswithme.maps.api.MapsWithMeApi;
 import com.mapswithme.maps.api.MwmRequest;
 import com.mapswithme.yopme.BackscreenActivity.Mode;
+import com.mapswithme.yopme.map.MapDataProvider;
 
 import android.os.Bundle;
 import android.app.ActionBar;
@@ -86,7 +87,7 @@ public class YopmeFrontActivity extends Activity
       {
         mPoint = response.getPoint();
         mSelectedLocation.setText(mPoint.getName());
-        BackscreenActivity.startInMode(this, Mode.POI, mPoint);
+        BackscreenActivity.startInMode(this, Mode.POI, mPoint, response.getZoomLevel());
 
         Toast.makeText(this, R.string.toast_poi, Toast.LENGTH_LONG).show();
       }
@@ -112,7 +113,7 @@ public class YopmeFrontActivity extends Activity
   {
     if (R.id.me == v.getId())
     {
-      BackscreenActivity.startInMode(getApplicationContext(), Mode.LOCATION, null);
+      BackscreenActivity.startInMode(getApplicationContext(), Mode.LOCATION, null, MapDataProvider.COMFORT_ZOOM);
       Toast.makeText(this, R.string.toast_your_location, Toast.LENGTH_LONG).show();
       setLocationView();
     }

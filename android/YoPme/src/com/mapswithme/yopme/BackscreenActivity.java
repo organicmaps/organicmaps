@@ -34,7 +34,7 @@ public class BackscreenActivity extends BSActivity
 {
   public final static String EXTRA_MODE = "com.mapswithme.yopme.mode";
   public final static String EXTRA_POINT = "com.mapswithme.yopme.point";
-  public final static String EXTRA_ZOOM = "com.mapswithme.yopme.zoom";
+  public final static String EXTRA_ZOOM = "com.mapswithvme.yopme.zoom";
   public final static String EXTRA_LOCATION = "com.mapswithme.yopme.location";
 
   private final static String TAG = "YOPME";
@@ -145,9 +145,15 @@ public class BackscreenActivity extends BSActivity
     if (action == Gestures.GESTURES_BS_SINGLE_TAP)
       requestLocationUpdate();
     else if (action == Gestures.GESTURES_BS_LR)
-      zoomIn();
+    {
+      if (!zoomIn())
+        return;
+    }
     else if (action == Gestures.GESTURES_BS_RL)
-      zoomOut();
+    {
+      if (!zoomOut())
+        return;
+    }
     else
       return; // do not react on other events
 
@@ -166,10 +172,10 @@ public class BackscreenActivity extends BSActivity
     {
       mMode  = (Mode) intent.getSerializableExtra(EXTRA_MODE);
       mPoint = (MWMPoint) intent.getSerializableExtra(EXTRA_POINT);
+      mZoomLevel = intent.getDoubleExtra(EXTRA_ZOOM, MapDataProvider.COMFORT_ZOOM);
 
       updateData();
       hideWaitMessage();
-
       requestLocationUpdate();
     }
   }
@@ -191,16 +197,24 @@ public class BackscreenActivity extends BSActivity
     draw();
   }
 
-  private void zoomIn()
+  private boolean zoomIn()
   {
     if (mZoomLevel < MapDataProvider.MAX_ZOOM)
+    {
       ++mZoomLevel;
+      return true;
+    }
+    return false;
   }
 
-  private void zoomOut()
+  private boolean zoomOut()
   {
     if (mZoomLevel > MapDataProvider.MIN_ZOOM)
+    {
       --mZoomLevel;
+      return true;
+    }
+    return false;
   }
 
   protected void draw()
@@ -349,11 +363,12 @@ public class BackscreenActivity extends BSActivity
     }
   }
 
-  public static void startInMode(Context context, Mode mode, MWMPoint point)
+  public static void startInMode(Context context, Mode mode, MWMPoint point, double zoom)
   {
     final Intent i = new Intent(context, BackscreenActivity.class)
       .putExtra(EXTRA_MODE, mode)
-      .putExtra(EXTRA_POINT, point);
+      .putExtra(EXTRA_POINT, point)
+      .putExtra(EXTRA_ZOOM, zoom >= MapDataProvider.MIN_ZOOM ? zoom : MapDataProvider.ZOOM_DEFAULT);
 
     context.startService(i);
   }
