@@ -11,9 +11,13 @@ DEPENDENCIES = map gui search storage indexer graphics platform anim geometry co
 
 include($$ROOT_DIR/common.pri)
 
-QT       += core gui opengl
+QT       *= core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+win32*|linux* {
+  QT *= network
+}
 
 TARGET = yopme_desktop
 TEMPLATE = app
