@@ -6,21 +6,19 @@ dependencies {
     compile project(':3rd_party:api-android:lib')
 }
 
-
 apply plugin:'base'
 
 task ndkBuild(type:Exec) {
-  
-  clParts = ['ndk-build', '-j', Runtime.runtime.availableProcessors(), propNdkFlags]
+  clParts = (['ndk-build', '-j', Runtime.runtime.availableProcessors() + 1] + propNdkFlags.split(' ')).flatten()
   println(clParts.join(" "))
   commandLine clParts
 }
 
-task ndkBuildClean(type:Exec) {
+task ndkBuildClean(type:Exec, description: 'Cleaning native libraries.') {
   commandLine 'ndk-build','clean'
 }
 
-task copyNativeLibs(type: Copy, dependsOn: 'ndkBuild') {
+task copyNativeLibs(type: Copy, dependsOn: 'ndkBuild', description: 'Copying native libraries.') {
   from(new File('libs')) { include '**/*.so' }
   into new File(buildDir, 'native-libs')
 }
@@ -35,15 +33,17 @@ tasks.withType(com.android.build.gradle.tasks.PackageApplication) { pkgTask ->
   pkgTask.jniDir new File(buildDir, 'native-libs')
 }
 
+def getVersionName() { propVersionName }
+def getApkName()     { propApkName }
+def getBaseName()    { getApkName() + "_" + getVersionName() }
+
 
 android {
-  
     compileSdkVersion 18
     buildToolsVersion "18.0.1"
-    project.archivesBaseName = propApkName + "_" + propVersionName
+    project.archivesBaseName = getBaseName()
     
       signingConfigs {
-      
           yopme {
             storeFile file("key/android.key")
             storePassword "***REMOVED***"
@@ -53,9 +53,7 @@ android {
         }
       
         buildTypes {
-      
-          debug { jniDebugBuild true }
-      
+          debug   { jniDebugBuild true }
           release { signingConfig signingConfigs.yopme }
         }
       
