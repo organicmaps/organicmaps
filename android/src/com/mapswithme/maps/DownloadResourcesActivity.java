@@ -716,7 +716,9 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
         Statistics.INSTANCE.trackApiCall(request);
         getMwmApplication().getAppStateManager().transitionTo(SuppotedState.API_REQUEST);
 
-        mMapTaskToForward = new OpenUrlTask(apiUrl);
+        if (!request.isPickPointMode())
+          mMapTaskToForward = new OpenUrlTask(apiUrl);
+
         return true;
       }
       return false;
