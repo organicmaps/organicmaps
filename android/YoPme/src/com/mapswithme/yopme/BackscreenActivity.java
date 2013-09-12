@@ -32,12 +32,14 @@ import com.yotadevices.sdk.Constants.Gestures;
 
 public class BackscreenActivity extends BSActivity
 {
-  public final static String EXTRA_MODE = "com.mapswithme.yopme.mode";
-  public final static String EXTRA_POINT = "com.mapswithme.yopme.point";
-  public final static String EXTRA_ZOOM = "com.mapswithvme.yopme.zoom";
-  public final static String EXTRA_LOCATION = "com.mapswithme.yopme.location";
-
+  private final static String AUTHORITY  = "com.mapswithme.yopme";
   private final static String TAG = "YOPME";
+
+  public final static String EXTRA_MODE     = AUTHORITY + ".mode";
+  public final static String EXTRA_POINT    = AUTHORITY + ".point";
+  public final static String EXTRA_ZOOM     = AUTHORITY + ".zoom";
+  public final static String EXTRA_LOCATION = AUTHORITY + ".location";
+
 
   public enum Mode
   {
