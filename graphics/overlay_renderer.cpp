@@ -52,6 +52,18 @@ namespace graphics
     drawSymbol(params);
   }
 
+  void OverlayRenderer::drawCircle(CircleElement::Params & params)
+  {
+    shared_ptr<OverlayElement> oe(new CircleElement(params));
+
+    math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
+
+    if (!m_overlay.get())
+      oe->draw(this, id);
+    else
+      m_overlay->processOverlayElement(oe);
+  }
+
   void OverlayRenderer::drawCircle(m2::PointD const & pt,
                                    graphics::Circle::Info const & ci,
                                    EPosition pos,
@@ -64,14 +76,7 @@ namespace graphics
     params.m_pivot = pt;
     params.m_ci = ci;
 
-    shared_ptr<OverlayElement> oe(new CircleElement(params));
-
-    math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
-
-    if (!m_overlay.get())
-      oe->draw(this, id);
-    else
-      m_overlay->processOverlayElement(oe);
+    drawCircle(params);
   }
 
   void OverlayRenderer::drawText(FontDesc const & fontDesc,

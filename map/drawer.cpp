@@ -96,7 +96,16 @@ void Drawer::drawCircle(m2::PointD const & pt,
   graphics::Circle::Info ci;
   ConvertStyle(rule.m_rule->GetCircle(), m_visualScale, ci);
 
-  m_pScreen->drawCircle(pt, ci, pos, rule.m_depth);
+  graphics::CircleElement::Params params;
+
+  params.m_depth = rule.m_depth;
+  params.m_position = pos;
+  params.m_pivot = pt;
+  params.m_ci = ci;
+  params.m_userInfo.m_mwmID = id.first;
+  params.m_userInfo.m_offset = id.second;
+
+  m_pScreen->drawCircle(params);
 }
 
 void Drawer::drawSymbol(m2::PointD const & pt,

@@ -58,10 +58,11 @@ namespace graphics
                                       pivot() * m,
                                       position());
 
+
     r->drawTexturedPolygon(m2::PointD(0.0, 0.0), 0.0,
                           texRect.minX(), texRect.minY(), texRect.maxX(), texRect.maxY(),
                           posPt.x, posPt.y, posPt.x + texRect.SizeX(), posPt.y + texRect.SizeY(),
-                          graphics::maxDepth,
+                          depth(),
                           res->m_pipelineID);
   }
 
