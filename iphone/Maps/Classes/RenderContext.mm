@@ -1,12 +1,3 @@
-/*
- *  RenderContext.mm
- *  Maps
- *
- *  Created by Siarhei Rachytski on 8/14/10.
- *  Copyright 2010 OMIM. All rights reserved.
- *
- */
-
 #include "RenderContext.hpp"
 
 namespace iphone

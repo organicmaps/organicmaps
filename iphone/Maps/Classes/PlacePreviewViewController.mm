@@ -1,11 +1,3 @@
-//
-//  PlacePreviewViewController.m
-//  Maps
-//
-//  Created by Kirill on 04/06/2013.
-//  Copyright (c) 2013 MapsWithMe. All rights reserved.
-//
-
 #import "PlacePreviewViewController.h"
 #import "TwoButtonsView.h"
 #import "PlacePageVC.h"

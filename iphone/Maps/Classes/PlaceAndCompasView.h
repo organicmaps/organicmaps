@@ -1,11 +1,3 @@
-//
-//  PlaceAndCompasView.h
-//  Maps
-//
-//  Created by Kirill on 22/06/2013.
-//  Copyright (c) 2013 MapsWithMe. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #include "LocationManager.h"
 

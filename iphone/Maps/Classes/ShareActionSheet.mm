@@ -1,11 +1,3 @@
-//
-//  ShareActionSheet.m
-//  Maps
-//
-//  Created by Kirill on 05/06/2013.
-//  Copyright (c) 2013 MapsWithMe. All rights reserved.
-//
-
 #import "ShareActionSheet.h"
 #import "Framework.h"
 #import <MessageUI/MFMessageComposeViewController.h>

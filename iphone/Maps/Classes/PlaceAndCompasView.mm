@@ -1,11 +1,3 @@
-//
-//  PlaceAndCompasView.m
-//  Maps
-//
-//  Created by Kirill on 22/06/2013.
-//  Copyright (c) 2013 MapsWithMe. All rights reserved.
-//
-
 #import "PlaceAndCompasView.h"
 #import "MapsAppDelegate.h"
 #import "CompassView.h"
