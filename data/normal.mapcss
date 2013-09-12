@@ -54,7 +54,8 @@ area[natural=coastline]
 *[man_made],
 *[natural],
 *[place],
-*[power]
+*[power],
+*[landuse],
 *[sport]
 {
   text-position: center

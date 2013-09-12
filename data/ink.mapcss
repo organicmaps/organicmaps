@@ -1929,8 +1929,8 @@ line|z14[railway=construction]::d1p3
   dashes:   1.5,1.5,1.5,4.5;
   linecap:  butt;
 }
-area|z14-[power=generator][generator:type=photovoltaic]::d2p2,
-node|z14-[power=generator][generator:type=photovoltaic]::d2p2
+area|z14-[power=generator][generator:type=photovoltaic],
+node|z14-[power=generator][generator:type=photovoltaic]
 {
   icon-image:   power_photovoltaic.svg;
 }
@@ -2460,8 +2460,8 @@ line|z14[railway=preserved]
   width:    2.4;
   z-index:  200;
 }
-area|z14-[power=generator][power_source=hydro]::d2p2,
-node|z14-[power=generator][power_source=hydro]::d2p2
+area|z14-[power=generator][power_source=hydro],
+node|z14-[power=generator][power_source=hydro]
 {
   icon-image:   power_hydro.svg;
 }
@@ -2554,8 +2554,8 @@ line|z14[waterway=ditch]
   width:    0.3;
   z-index:  104;
 }
-area|z14-[power=generator][power_source=wind]::d2p2,
-node|z14-[power=generator][power_source=wind]::d2p2
+area|z14-[power=generator][power_source=wind],
+node|z14-[power=generator][power_source=wind]
 {
   icon-image:   power_wind.svg;
 }
@@ -6588,7 +6588,7 @@ area[area:highway=unclassified]
 {
     fill-color: #7;
 }
-
+ 
 line[highway=service]
 {
     casing-color: #6;
