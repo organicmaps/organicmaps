@@ -65,14 +65,13 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private ImageButton mMyPositionButton;
   private SurfaceView mMapSurface;
+
   // for API
   private View mTitleBar;
   private ImageView mAppIcon;
   private TextView mAppTitle;
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<MWMActivity.MapTask>();
-
-
 
   //showDialog(int, Bundle) available only form API 8
   private String mProDialogMessage;
@@ -248,7 +247,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   public void onBookmarksClicked(View v)
   {
-    if (!mApplication.isProVersion())
+    if (!mApplication.hasBookmarks())
     {
       showProVersionBanner(getString(R.string.bookmarks_in_pro_version));
     }

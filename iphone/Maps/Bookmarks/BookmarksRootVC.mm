@@ -231,7 +231,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
   // Disable bookmarks for free version
-  if (!GetPlatform().IsPro())
+  if (!GetPlatform().HasBookmarks())
   {
     // Display banner for paid version
     UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"bookmarks_in_pro_version", nil)

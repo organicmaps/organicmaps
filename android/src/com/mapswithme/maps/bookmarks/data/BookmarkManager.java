@@ -3,11 +3,11 @@ package com.mapswithme.maps.bookmarks.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mapswithme.util.statistics.Statistics;
-
 import android.content.Context;
 import android.graphics.Point;
 import android.util.Pair;
+
+import com.mapswithme.util.statistics.Statistics;
 
 public class BookmarkManager
 {
@@ -20,23 +20,15 @@ public class BookmarkManager
   private BookmarkManager(Context context)
   {
     mContext = context;
-    refreshList();
+    loadBookmarks();
     mIconManager = new BookmarkIconManager(context);
   }
 
   public static BookmarkManager getBookmarkManager(Context context)
   {
     if (sManager == null)
-    {
       sManager = new BookmarkManager(context.getApplicationContext());
-    }
-
     return sManager;
-  }
-
-  private void refreshList()
-  {
-    loadBookmarks();
   }
 
   private native void loadBookmarks();

@@ -297,7 +297,7 @@ public class MapObjectFragment extends Fragment
 
   private void onAddBookmarkClicked()
   {
-    if (MWMApplication.get().isProVersion())
+    if (!MWMApplication.get().hasBookmarks())
     {
       // TODO this cast if safe, but style is bad
       final MapObjectActivity activity = (MapObjectActivity) getActivity();

@@ -38,7 +38,8 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
   private final AppStateManager mAppStateManager = new AppStateManager();
 
-  private boolean m_isProVersion = false;
+  private boolean m_isPro = false;
+  private boolean m_isYota = false;
 
   // Set default string to Google Play page.
   private final static String m_defaultProURL = "http://play.google.com/store/apps/details?id=com.mapswithme.maps.pro";
@@ -107,14 +108,15 @@ public class MWMApplication extends android.app.Application implements MapStorag
   {
     super.onCreate();
 
-    m_isProVersion = getPackageName().contains(".pro");
+    m_isPro = getPackageName().contains(".pro");
+    m_isYota = Build.DEVICE.equals("yotaphone");
 
     // http://stackoverflow.com/questions/1440957/httpurlconnection-getresponsecode-returns-1-on-second-invocation
     if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ECLAIR_MR1)
       System.setProperty("http.keepAlive", "false");
 
     // get url for PRO version
-    if (!m_isProVersion)
+    if (!m_isPro)
     {
       final AssetManager assets = getAssets();
       InputStream stream = null;
@@ -145,7 +147,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
     // init native framework
     nativeInit(getApkPath(), extStoragePath, extTmpPath,
-               getOBBGooglePath(), m_isProVersion);
+               getOBBGooglePath(), m_isPro, m_isYota);
 
     m_slotID = getMapStorage().subscribe(this);
 
@@ -161,7 +163,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
     nativeAddLocalization("my_position", getString(R.string.my_position));
 
     // init BookmarkManager (automatically loads bookmarks)
-    if (m_isProVersion)
+    if (hasBookmarks())
       BookmarkManager.getBookmarkManager(getApplicationContext());
   }
 
@@ -235,7 +237,11 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
   public boolean isProVersion()
   {
-    return m_isProVersion;
+    return m_isPro;
+  }
+  public boolean hasBookmarks()
+  {
+    return m_isPro || m_isYota;
   }
 
   public String getProVersionURL()
@@ -265,7 +271,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
   private native void nativeInit(String apkPath, String storagePath,
                                  String tmpPath, String obbGooglePath,
-                                 boolean isPro);
+                                 boolean isPro, boolean isYota);
 
   public native boolean nativeIsBenchmarking();
 

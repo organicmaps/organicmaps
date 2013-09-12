@@ -9,11 +9,10 @@ namespace android
   class Platform : public ::Platform
   {
   public:
-
     void Initialize(JNIEnv * env,
                     jstring apkPath, jstring storagePath,
                     jstring tmpPath, jstring obbGooglePath,
-                    bool isPro);
+                    bool isPro, bool isYota);
 
     void OnExternalStorageStatusChanged(bool isAvailable);
 

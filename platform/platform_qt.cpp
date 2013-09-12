@@ -66,7 +66,7 @@ extern Platform & GetPlatform()
   public:
     PlatformQt()
     {
-      m_isPro = true;
+      m_flags.set();
     }
   };
 

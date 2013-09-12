@@ -44,8 +44,10 @@ Platform::Platform()
   m_tmpDir += "/tmp/";
 
   NSString * appID = [[bundle infoDictionary] objectForKey:@"CFBundleIdentifier"];
+
   // .travelguide corresponds to the Lite version without search
-  m_isPro = ([appID rangeOfString:@"com.mapswithme.travelguide"].location == NSNotFound);
+  m_flags[PRO_URL] = ([appID rangeOfString:@"com.mapswithme.travelguide"].location == NSNotFound);
+  m_flags[HAS_BOOKMARKS] = m_flags[HAS_ROTATION] = m_flags[PRO_URL];
 
   UIDevice * device = [UIDevice currentDevice];
   NSLog(@"Device: %@, SystemName: %@, SystemVersion: %@", device.model, device.systemName, device.systemVersion);

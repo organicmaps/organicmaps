@@ -74,7 +74,7 @@ void InitLocalizedStrings()
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-  if (GetPlatform().IsPro() && !m_didOpenedWithUrl)
+  if (!m_didOpenedWithUrl)
   {
     UIPasteboard * pasteboard = [UIPasteboard generalPasteboard];
     if (pasteboard.string.length)
@@ -179,7 +179,7 @@ void InitLocalizedStrings()
 
   m_didOpenedWithUrl = NO;
 
-  if (GetPlatform().IsPro())
+  if (GetPlatform().HasBookmarks())
   {
     int val = 0;
     if (Settings::Get("NumberOfBookmarksPerSession", val))

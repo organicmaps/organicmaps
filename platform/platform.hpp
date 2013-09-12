@@ -8,8 +8,10 @@
 #include "../std/vector.hpp"
 #include "../std/utility.hpp"
 #include "../std/function.hpp"
+#include "../std/bitset.hpp"
 
 #include "../defines.hpp"
+
 
 DECLARE_EXCEPTION(FileAbsentException, RootException);
 DECLARE_EXCEPTION(NotImplementedException, RootException);
@@ -26,8 +28,16 @@ protected:
   string m_tmpDir;
   /// Writable directory to store persistent application data
   string m_settingsDir;
-  /// Flag that it's a paid PRO version of app.
-  bool m_isPro;
+
+  enum
+  {
+    PRO_URL,
+    HAS_BOOKMARKS,
+    HAS_ROTATION,
+    FLAGS_COUNT // should always be the last one
+  };
+
+  bitset<FLAGS_COUNT> m_flags;
 
   /// Extended resource files.
   /// Used in Android only (downloaded zip files as a container).
@@ -123,7 +133,9 @@ public:
 
   string UniqueClientId() const;
 
-  inline bool IsPro() const { return m_isPro; }
+  inline bool IsPro() const { return m_flags[PRO_URL]; }
+  inline bool HasBookmarks() const { return m_flags[HAS_BOOKMARKS]; }
+  inline bool HasRotation() const { return m_flags[HAS_ROTATION]; }
 
   /// @return url for clients to download maps
   //@{

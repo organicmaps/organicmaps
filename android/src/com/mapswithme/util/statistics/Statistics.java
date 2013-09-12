@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
-import com.mapswithme.maps.R;
 import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.MathUtils;
@@ -201,16 +201,17 @@ public enum Statistics
 
   private void collectOneTimeStatistics(Activity activity)
   {
-    final EventBuilder eventBuilder = getEventBuilder().reset();
-    // Only for PRO
-    if (MWMApplication.get().isProVersion())
+    // Only when bookmarks available.
+    if (MWMApplication.get().hasBookmarks())
     {
+      final EventBuilder eventBuilder = getEventBuilder().reset();
+
       // Number of sets
       final BookmarkManager manager = BookmarkManager.getBookmarkManager(activity);
       final int categoriesCount = manager.getCategoriesCount();
       if (categoriesCount > 0)
       {
-        // Calculate average num of bmks in category
+        // Calculate average number of bookmarks in category
         final double[] sizes = new double[categoriesCount];
         for (int catIndex = 0; catIndex < categoriesCount; catIndex++)
           sizes[catIndex] = manager.getCategoryById(catIndex).getSize();
@@ -218,12 +219,14 @@ public enum Statistics
 
         eventBuilder.addParam("Average number of bmks", String.valueOf(average));
       }
+
       eventBuilder.addParam("Categories count", String.valueOf(categoriesCount))
                   .addParam("Foreground time", String.valueOf(MWMApplication.get().getForegroundTime()))
                   .setName("One time PRO stat");
 
       trackIfEnabled(activity, eventBuilder.getEvent());
     }
+
     // TODO add number of maps
     setStatisticsCollected(activity, true);
   }

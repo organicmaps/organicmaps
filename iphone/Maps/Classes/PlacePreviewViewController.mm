@@ -209,7 +209,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
 
 -(void)addToBookmark
 {
-  if (!GetPlatform().IsPro())
+  if (!GetPlatform().HasBookmarks())
   {
     // Display banner for paid version
     UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"bookmarks_in_pro_version", nil)

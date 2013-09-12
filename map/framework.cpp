@@ -340,7 +340,7 @@ void Framework::RemoveLocalMaps()
 
 void Framework::LoadBookmarks()
 {
-  if (GetPlatform().IsPro())
+  if (GetPlatform().HasBookmarks())
     m_bmManager.LoadBookmarks();
 }
 

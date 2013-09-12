@@ -58,7 +58,7 @@ namespace android
   void Platform::Initialize(JNIEnv * env,
                             jstring apkPath, jstring storagePath,
                             jstring tmpPath, jstring obbGooglePath,
-                            bool isPro)
+                            bool isPro, bool isYota)
   {
     m_resourcesDir = jni::ToNativeString(env, apkPath);
 
@@ -76,7 +76,9 @@ namespace android
 
     m_tmpDir = jni::ToNativeString(env, tmpPath);
 
-    m_isPro = isPro;
+    m_flags[PRO_URL] = isPro;
+    m_flags[HAS_BOOKMARKS] = isPro || isYota;
+    m_flags[HAS_ROTATION] = isPro;
 
     string const obbPath = jni::ToNativeString(env, obbGooglePath);
     Platform::FilesList files;

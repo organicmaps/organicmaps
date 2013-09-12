@@ -156,7 +156,7 @@ const long long LITE_IDL = 431183278L;
       return;
     }
     else
-      if (GetPlatform().IsPro())
+      if (GetPlatform().HasRotation())
       {
         if (ls->HasCompass())
         {
