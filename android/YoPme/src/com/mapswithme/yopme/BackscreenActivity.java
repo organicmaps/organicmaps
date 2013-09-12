@@ -226,7 +226,7 @@ public class BackscreenActivity extends BSActivity
   private void requestLocationUpdate()
   {
     final String updateIntervalStr = PreferenceManager.getDefaultSharedPreferences(this)
-      .getString(getString(R.string.pref_loc_update), "-1");
+      .getString(getString(R.string.pref_loc_update), YopmePreference.LOCATION_UPDATE_DEFAULT);
     final long updateInterval = Long.parseLong(updateIntervalStr);
 
     final String[] providers = {
@@ -234,6 +234,7 @@ public class BackscreenActivity extends BSActivity
         LocationManager.NETWORK_PROVIDER,
         LocationManager.PASSIVE_PROVIDER,
     };
+    final PendingIntent pi = getLocationPendingIntent(this);
 
     // before requesting updates try to get last known in the first try
     if (mLocation == null)
@@ -253,9 +254,9 @@ public class BackscreenActivity extends BSActivity
       if (mLocationManager.isProviderEnabled(provider))
       {
         if (updateInterval == -1)
-          mLocationManager.requestSingleUpdate(provider, getLocationPendingIntent(this));
+          mLocationManager.requestSingleUpdate(provider, pi);
         else
-          mLocationManager.requestLocationUpdates(provider, updateInterval*1000, 0, getLocationPendingIntent(this));
+          mLocationManager.requestLocationUpdates(provider, updateInterval*1000, 0, pi);
       }
     }
 

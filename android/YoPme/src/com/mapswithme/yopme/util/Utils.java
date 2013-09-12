@@ -60,7 +60,7 @@ public class Utils
     }
 
     // Check whether the new location fix is newer or older
-    final long timeDelta = firstLoc.getTime() - secondLoc.getTime();
+    final long timeDelta = (firstLoc.getElapsedRealtimeNanos() - secondLoc.getElapsedRealtimeNanos())/1000;
     final boolean isSignificantlyNewer = timeDelta > TWO_MINUTES;
     final boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES;
     final boolean isNewer = timeDelta > 0;

@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 public class YopmePreference extends PreferenceActivity
                              implements OnSharedPreferenceChangeListener
 {
+  public final static String LOCATION_UPDATE_DEFAULT = "-1";
 
   private ListPreference mLocationUpdatePref;
 
@@ -19,12 +20,15 @@ public class YopmePreference extends PreferenceActivity
   {
     super.onCreate(savedInstanceState);
     addPreferencesFromResource(R.xml.prefs);
-
     mLocationUpdatePref = (ListPreference) findPreference(getString(R.string.pref_loc_update));
+    updateSummary();
+  }
 
+  private void updateSummary()
+  {
     final String prefValue = PreferenceManager
       .getDefaultSharedPreferences(this)
-      .getString(getString(R.string.pref_loc_update), "-1");
+      .getString(getString(R.string.pref_loc_update), LOCATION_UPDATE_DEFAULT);
     final String summary = getResources()
       .getStringArray(R.array.update_frequency)[mLocationUpdatePref.findIndexOfValue(prefValue)];
 
@@ -36,7 +40,6 @@ public class YopmePreference extends PreferenceActivity
   protected void onResume()
   {
     super.onResume();
-
     getPreferenceScreen()
       .getSharedPreferences()
       .registerOnSharedPreferenceChangeListener(this);
@@ -45,9 +48,9 @@ public class YopmePreference extends PreferenceActivity
 
   @SuppressWarnings("deprecation")
   @Override
-  protected void onPause() {
+  protected void onPause()
+  {
       super.onPause();
-
       getPreferenceScreen()
         .getSharedPreferences()
         .unregisterOnSharedPreferenceChangeListener(this);
@@ -57,15 +60,7 @@ public class YopmePreference extends PreferenceActivity
   public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
   {
     if (key.equals(getString(R.string.pref_loc_update)))
-    {
-      final String prefValue = PreferenceManager
-        .getDefaultSharedPreferences(this)
-        .getString(getString(R.string.pref_loc_update), "Ololo");
-      final String summary = getResources()
-          .getStringArray(R.array.update_frequency)[mLocationUpdatePref.findIndexOfValue(prefValue)];
-
-      mLocationUpdatePref.setSummary(summary);
-    }
+      updateSummary();
   }
 
 
