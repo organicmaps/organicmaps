@@ -144,7 +144,7 @@ area|z10-[waterway=dock],
 area|z10-[waterway=riverbank],
 area|z14-[natural=bay],
 {
-  fill-color:   #B9D4D4;
+  fill-color:   #0;
   z-index: 100;
 }
 
@@ -662,7 +662,7 @@ line|z10-13[railway=rail]::raildash
 
 line|z10[waterway=river]
 {
-  color:    #B9D4D4;
+  color:    #0;
   width:    0.5;
 }
 line|z10[boundary=administrative][border_type=state]
@@ -866,7 +866,7 @@ node|z11-12[place=county]
 area|z13-[leisure=water_park],
 line|z11[waterway=river]
 {
-  color:    #B9D4D4;
+  color:    #0;
   width:    1;
 }
 line|z12[railway=construction]
@@ -915,7 +915,7 @@ line|z12[boundary=administrative][border_type=country]::d2p2
 }
 line|z12[waterway=river]
 {
-  color:    #B9D4D4;
+  color:    #0;
   width:    2.5;
 }
 area|z14-[natural=wetland],
@@ -1214,7 +1214,7 @@ line|z12[highway=tertiary_link]
 }
 line|z12[waterway=canal]
 {
-  color:    #B9D4D4;
+  color:    #2;
   width:    2.5;
 }
 line|z12[railway=disused]
@@ -1277,15 +1277,7 @@ area|z13-[landuse=vineyard]
 {
   fill-color:   #d1ead1;
 }
-line|z13[boundary=national_park]
-{
-  color:    #4ef94b;
-  linecap:  butt;
-  -x-kot-layer: top;
-  width:    2;
-  z-index:  443;
-  dashes:   12,4,4,4;
-}
+
 line|z13[boundary=administrative][border_type=country]
 {
   color:    yellow;
@@ -1308,7 +1300,7 @@ line|z13[highway=tertiary]
 }
 line|z13[waterway=river]
 {
-  color:    #B9D4D4;
+  color:    #0;
   width:    3;
 }
 node|z13[place=city][capital?]::int_name
@@ -1433,7 +1425,6 @@ line|z13[boundary=administrative][border_type=region]
 {
   color:    #f9574b;
   linecap:  butt;
-  -x-kot-layer: top;
   width:    1;
   z-index:  437;
   dashes:   12,4,4,4;
@@ -1505,7 +1496,6 @@ line|z13[boundary=administrative][border_type=country]::d2p2
 {
   color:    #f9574b;
   linecap:  butt;
-  -x-kot-layer: top;
   width:    2;
   z-index:  442;
   dashes:   12,12;
@@ -1553,7 +1543,6 @@ line|z13[boundary=administrative][admin_level=2]
   color:    #eeeedd;
   width:    6;
   z-index:  433;
-  -x-kot-layer: top;
 }
 line|z13[railway=construction]
 {
@@ -1567,7 +1556,6 @@ line|z13[boundary=administrative][border_type=state]
 {
   color:    #f9574b;
   linecap:  butt;
-  -x-kot-layer: top;
   width:    2;
   z-index:  438;
   dashes:   12,4,4,4;
@@ -1597,7 +1585,6 @@ line|z13[boundary=administrative][type=nation]::d2p2
 {
   color:    #f9574b;
   linecap:  butt;
-  -x-kot-layer: top;
   width:    2;
   z-index:  441;
   dashes:   12,12;
@@ -1696,7 +1683,6 @@ line|z13[boundary=administrative][admin_level=2]::d2p2
 {
   color:    #f9574b;
   linecap:  butt;
-  -x-kot-layer: top;
   width:    2;
   z-index:  434;
   dashes:   12,12;
@@ -1762,16 +1748,9 @@ line|z13[railway=light_rail]
   width:    1;
   z-index:  687;
 }
-line|z13[boundary=administrative][type=nation]
-{
-  color:    yellow;
-  width:    6;
-  z-index:  439;
-  -x-kot-layer: top;
-}
 line|z13[waterway=canal]
 {
-  color:    #B9D4D4;
+  color:    #2;
   width:    3;
 }
 line|z13[railway=rail]
@@ -1924,7 +1903,6 @@ line|z14[boundary=administrative][admin_level=6]
 {
   color:    #f9574b;
   linecap:  butt;
-  -x-kot-layer: top;
   width:    1;
   z-index:  521;
   dashes:   4,20;
@@ -2038,13 +2016,6 @@ line|z14-[piste:type=downhill][piste:difficulty=easy]
   color:    blue;
   width:    5;
 }
-line|z14[boundary=administrative][type=nation]
-{
-  color:    yellow;
-  width:    6;
-  z-index:  532;
-  -x-kot-layer: top;
-}
 line|z14[highway=motorway]
 {
   color:    #7;
@@ -2091,34 +2062,20 @@ line|z14[piste:type=sled]
 line|z14[natural=spring],
 line|z14[waterway=river]
 {
-  color:    #B9D4D4;
+  color:    #0;
   width:    4;
 }
-line|z14-[piste:type=downhill][piste:difficulty=intermediate]
-{
-  color:    #ff4040;
-  width:    5;
-}
+
 line|z14[boundary=administrative][border_type=country]
 {
   color:    yellow;
   width:    6;
   z-index:  533;
-  -x-kot-layer: top;
 }
 area|z15-[tourism=alpine_hut],
 node|z15-[tourism=alpine_hut]
 {
   icon-image:   alpine_hut.svg;
-}
-line|z14[boundary=national_park]
-{
-  color:    #4ef94b;
-  linecap:  butt;
-  -x-kot-layer: top;
-  width:    2;
-  z-index:  536;
-  dashes:   12,4,4,4;
 }
 line|z14[railway=preserved]::d1p3
 {
@@ -2147,7 +2104,6 @@ line|z14[boundary=administrative][admin_level=5]
 {
   color:    #f9574b;
   linecap:  butt;
-  -x-kot-layer: top;
   width:    1;
   z-index:  522;
   dashes:   12,12;
@@ -2179,14 +2135,6 @@ line|z14[highway=tertiary]
   color:    #b;
   width:    3;
   casing-color: #c8c860;
-}
-line|z14[waterway=stream][intermittent=yes]
-{
-  color:    #B9D4D4;
-  width:    1;
-  z-index:  100;
-  dashes:   2.4,0.8;
-  linecap:  butt;
 }
 line|z14[highway=track]
 {
@@ -2232,7 +2180,6 @@ line|z14[boundary=administrative][type=nation]::d2p2
 {
   color:    #f9574b;
   linecap:  butt;
-  -x-kot-layer: top;
   width:    2;
   z-index:  534;
   dashes:   12,12;
@@ -2287,7 +2234,8 @@ line|z14-[waterway=river]
 {
   text: name;
   font-size:    12;
-  text-color:   #5;
+  text-color:   #f;
+  text-halo-color: #0;
 }
 line|z14[railway=yard]::d1p2
 {
@@ -2305,7 +2253,6 @@ line|z14[boundary=administrative][admin_level=2]
   color:    #eeeedd;
   width:    6;
   z-index:  525;
-  -x-kot-layer: top;
 }
 line|z14[railway=rail]::d1p5
 {
@@ -2358,7 +2305,6 @@ line|z14[boundary=administrative][border_type=country]::d2p2
 {
   color:    #f9574b;
   linecap:  butt;
-  -x-kot-layer: top;
   width:    2;
   z-index:  535;
   dashes:   12,12;
@@ -2367,14 +2313,13 @@ line|z14[boundary=administrative][border_type=region]
 {
   color:    #f9574b;
   linecap:  butt;
-  -x-kot-layer: top;
   width:    1;
   z-index:  530;
   dashes:   12,4,4,4;
 }
 line|z14[waterway=canal]
 {
-  color:    #B9D4D4;
+  color:    #2;
   width:    4;
 }
 line|z14[highway=secondary]
@@ -2398,7 +2343,6 @@ line|z14[boundary=administrative][border_type=county]
 {
   color:    #f9574b;
   linecap:  butt;
-  -x-kot-layer: top;
   width:    1;
   z-index:  529;
   dashes:   4,20;
@@ -2541,7 +2485,6 @@ line|z14[boundary=administrative][border_type=state]
 {
   color:    #f9574b;
   linecap:  butt;
-  -x-kot-layer: top;
   width:    2;
   z-index:  531;
   dashes:   12,4,4,4;
@@ -2691,18 +2634,9 @@ line|z14[boundary=administrative][admin_level=2]::d2p2
 {
   color:    #f9574b;
   linecap:  butt;
-  -x-kot-layer: top;
   width:    2;
   z-index:  526;
   dashes:   12,12;
-}
-line|z14[waterway=stream][intermittent=ephemeral]
-{
-  color:    #B9D4D4;
-  width:    1;
-  z-index:  99;
-  dashes:   1.6,1.6;
-  linecap:  butt;
 }
 line|z14[man_made=pier]
 {
@@ -2777,19 +2711,9 @@ line|z15[boundary=administrative][border_type=county]
 {
   color:    #f9574b;
   linecap:  butt;
-  -x-kot-layer: top;
   width:    1;
   z-index:  686;
   dashes:   4,20;
-}
-line|z12-[railway=subway]
-{
-  color:    #0f0f4c;
-  width:    2;
-  z-index:  686;
-  dashes:   9.6,14.4;
-  linecap:  butt;
-  opacity: 0.4;
 }
 line|z15-16[man_made=cutline]
 {
@@ -2797,12 +2721,12 @@ line|z15-16[man_made=cutline]
 }
 line|z15[highway=footway]
 {
-  color:    #f;
+  color:    #9;
   width:    1;
 }
 line|z15[highway=path]
 {
-  color:    #f;
+  color:    #9;
   width:    2;
 }
 line|z15[highway=raceway]
@@ -2814,7 +2738,6 @@ line|z15[boundary=administrative][admin_level=2]::d2p2
 {
   color:    #f9574b;
   linecap:  butt;
-  -x-kot-layer: top;
   width:    2;
   z-index:  680;
   dashes:   12,12;
@@ -2930,7 +2853,7 @@ line|z15[highway=track]
 }
 line|z15[waterway=canal]
 {
-  color:    #B9D4D4;
+  color:    #2;
   width:    4;
 }
 node|z15-[place=village]::int_name
@@ -2991,7 +2914,6 @@ line|z15[boundary=administrative][admin_level=5]
 {
   color:    #f9574b;
   linecap:  butt;
-  -x-kot-layer: top;
   width:    1;
   z-index:  676;
   dashes:   12,12;
@@ -3037,17 +2959,9 @@ line|z15[boundary=administrative][border_type=region]
 {
   color:    #f9574b;
   linecap:  butt;
-  -x-kot-layer: top;
   width:    1;
   z-index:  688;
   dashes:   12,4,4,4;
-}
-line|z15[waterway=stream][intermittent=yes]
-{
-  color:    #B9D4D4;
-  width:    2;
-  dashes:   2.4,0.8;
-  linecap:  butt;
 }
 line|z15[railway=rail]
 {
@@ -3078,7 +2992,7 @@ line|z15[boundary=administrative][admin_level=8]
 {
   color:    #f9574b;
   linecap:  butt;
-  -x-kot-layer: top;
+
   width:    1;
   dashes:   12,4,4,4;
 }
@@ -3434,14 +3348,6 @@ line|z15[boundary=administrative][border_type=country]::d2p2
   z-index:  693;
   dashes:   12,12;
 }
-line|z15[waterway=stream][intermittent=ephemeral]
-{
-  color:    #B9D4D4;
-  width:    2;
-  z-index:  104;
-  dashes:   1.6,1.6;
-  linecap:  butt;
-}
 line|z15[railway=construction]
 {
   color:    #606060;
@@ -3487,7 +3393,7 @@ line|z15[highway=service]
 line|z15[natural=spring],
 line|z15[waterway=river]
 {
-  color:    #B9D4D4;
+  color:    #0;
   width:    5;
 }
 line|z15[aerialway=mixed_lift]
@@ -3595,10 +3501,6 @@ line|z15[highway=ford]
   z-index:  341;
   casing-width: 0.7;
   casing-color: #707070;
-}
-area|z15-[highway=footway][area?]
-{
-  fill-color:   #f8f0e8;
 }
 line|z15-[railway=monorail]::d1p2
 {
@@ -3711,7 +3613,7 @@ node|z15-[leisure=nature_reserve]
 area|z15-[building],
 node|z15-[building]
 {
-  fill-color:   #cdcdb4;
+  fill-color:   #a;
 }
 line|z15[railway=narrow_gauge]
 {
@@ -3752,10 +3654,6 @@ line|z15[railway=funicular]::d1p3
   color:    #4c0f0f;
   width:    0.5;
   z-index:  410;
-}
-area|z15-[highway=pedestrian][area?]
-{
-  fill-color:   #f0f0f0;
 }
 node|z17-[highway=bus_stop],
 node|z16[railway=tram_stop]
@@ -4170,11 +4068,11 @@ node|z16-[amenity=bicycle_rental]
 }
 line|z16[highway=pedestrian]
 {
-  color:    #e8e8e8;
+  color:    #9;
   z-index:  305;
   casing-width: 1;
   width:    4;
-  casing-color: #c0bc9c;
+  casing-color: #9;
 }
 line|z16[power=minor_line]
 {
@@ -4262,11 +4160,10 @@ line|z16-[waterway=stream]
 {
   text: name;
   font-size:    12;
-  text-color:   navy;
 }
 line|z16[highway=path]
 {
-  color:    #f;
+  color:    #9;
   width:    2;
 }
 line|z16[barrier=hedge]
@@ -4474,13 +4371,6 @@ node|z16-[amenity=fountain]
 {
   icon-image:   fountain.svg;
 }
-line|z16[waterway=stream][intermittent=yes]
-{
-  color:    #B9D4D4;
-  width:    2;
-  dashes:   2.4,0.8;
-  linecap:  butt;
-}
 line|z16[barrier=wall]
 {
   color:    #2;
@@ -4595,7 +4485,6 @@ line|z16[waterway=stream]
 {
   color:    #B9D4D4;
   width:    2;
-  z-index:  108;
 }
 area|z16-[amenity=place_of_worship],
 node|z16-[amenity=place_of_worship]
@@ -4623,7 +4512,7 @@ line|z16[highway=raceway]
 line|z16[natural=spring],
 line|z16[waterway=river]
 {
-  color:    #B9D4D4;
+  color:    #0;
   width:    8;
 }
 area|z16-[shop=hairdresser],
@@ -4898,14 +4787,6 @@ node|z16-[amenity=car_sharing]
 {
   icon-image:   car_sharing.svg;
 }
-line|z16[waterway=stream][intermittent=ephemeral]
-{
-  color:    #B9D4D4;
-  width:    2;
-  z-index:  106;
-  dashes:   1.6,1.6;
-  linecap:  butt;
-}
 line|z16[waterway=weir]
 {
   color:    #000044;
@@ -5095,8 +4976,7 @@ line|z17-[railway=rail]
 }
 line|z17-[highway=pedestrian]
 {
-  color:    #e8e8e8;
-  z-index:  305;
+  color:    #9;
   casing-width: 1;
   width:    7;
   casing-color: #c0bc9c;
@@ -5281,26 +5161,26 @@ line|z19-[highway=steps]
 line|z17[highway=service]
 {
   color:    #d;
-  width:    5;
+  width:    3;
 }
 
 line|z18-[highway=service]
 {
   color:    #d;
-  width:    7;
+  width:    5;
 }
 
 line|z17[highway=footway]::d1p2
 {
   width:  4;
   z-index:  692;
-  color:  #f;
+  color:  #9;
   linecap:  butt;
   dashes: 1,3;
 }
 line|z17-[highway=footway]
 {
-  color:    #f;
+  color:    #9;
   width:    5;
 }
 
@@ -5308,7 +5188,7 @@ line|z18[highway=footway]::d1p2
 {
   width:    8;
   z-index:  692;
-  color:    #f;
+  color:    #9;
   linecap:  butt;
   dashes:   1,3;
 }
@@ -5323,7 +5203,7 @@ line|z19-[highway=footway]::d1p2
 {
   width:    16;
   z-index:  692;
-  color:    #f;
+  color:    #9;
   linecap:  butt;
   dashes:   1,4;
 }
@@ -5385,7 +5265,7 @@ line|z17-[highway=construction]
 line|z17-[natural=spring],
 line|z17-[waterway=river]
 {
-  color:    #B9D4D4;
+  color:    #0;
   width:    16;
 }
 line|z17-[highway=raceway]
@@ -5843,7 +5723,7 @@ line|z17-[railway=rail]::d1p4
 }
 line|z17-[highway=path]
 {
-  color:    #f;
+  color:    #9;
   width:    3;
 }
 line|z17-[railway=spur]
@@ -5880,12 +5760,6 @@ line|z17-[railway=siding]
   color:    #333333;
   width:    2.4;
   z-index:  578;
-}
-line|z17-[highway=path][route=hiking]
-{
-  color:    red;
-  width:    0.8;
-  z-index:  879;
 }
 line|z17-[railway=disused]::d1p2
 {
@@ -5934,14 +5808,6 @@ area|z15-[historic=ship]
   fill-color:   #cdcdb4;
   text: name;
   font-size: 11;
-}
-line|z17-[waterway=stream][intermittent=yes]
-{
-  color:    #B9D4D4;
-  width:    2.2;
-  z-index:  108;
-  dashes:   2.4,0.8;
-  linecap:  butt;
 }
 line|z17-[highway=tertiary_link]
 {
@@ -6068,14 +5934,6 @@ line|z17-[boundary=administrative][admin_level=8]
   z-index:  964;
   dashes:   12,4,4,4;
 }
-line|z17-[waterway=stream][intermittent=ephemeral]
-{
-  color:    #B9D4D4;
-  width:    2.2;
-  z-index:  109;
-  dashes:   1.6,1.6;
-  linecap:  butt;
-}
 line|z17-[highway=cycleway]
 {
   color:    #90bc90;
@@ -6130,14 +5988,6 @@ line|z17-[boundary=administrative][border_type=country]
   z-index:  977;
   -x-kot-layer: top;
 }
-line|z17-[highway=path][sac_scale=difficult_alpine_hiking]
-{
-  color:    blue;
-  width:    0.8;
-  z-index:  889;
-  dashes:   0.08,1.2;
-  linecap:  butt;
-}
 line|z17-[boundary=administrative][admin_level=2]
 {
   color:    #eeeedd;
@@ -6164,11 +6014,6 @@ line|z17-[railway=yard]::d1p3
   z-index:  691;
   dashes:   7.2,16.8;
   linecap:  butt;
-}
-line|z17-[highway=path][sac_scale][sac_scale=alpine_hiking]
-{
-  color:    blue;
-  width:    0.8;
 }
 line|z17-[highway=tertiary]
 {
@@ -6253,7 +6098,6 @@ line|z19-[highway=living_street]
   width:    41;
 }
 
-line|z12-[railway=subway]                                         {width:3; color: #0f0f4c; z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
 node[railway=station][transport=subway]                           {text-color:  #3050d8; text-position: center;}
 node[railway=station][transport=subway]::int_name                 {text-color:  #3050d8; text-position: center;}
 
@@ -6264,13 +6108,7 @@ line[waterway=canal]
   z-index: 20;
 }
 
-area|z15-[area:highway=footway],
-area|z15-[area:highway=pedestrian],
-area|z15-[area:highway=path],
-area|z15-[area:highway=steps]
-{
-  fill-color:   #f;
-}
+
 
 line[highway=footway],
 line[highway=pedestrian],
@@ -6655,40 +6493,121 @@ line|z18-[lit]::lit
 *{text-color: black}
 *::int_name{text-color: black; text: ""}
 
+*[natural=water],
+*[natural=spring],
+*[water],
+*[waterway]
+{
+    text-color: white;
+    text-halo-color: black;
+    fill-color: #1;
+    color: #1;
+}
+
 line[highway=motorway],
 line[highway=motorway_link]
 {
-    casing-color: #5;
-    text-halo-color: #6;
+    casing-color: #0;
+    text-halo-color: #1;
+    color: #2;
     text-color: white;
 }
+area[area:highway=motorway],
+area[area:highway=motorway_link]
+{
+    fill-color: #2;
+}
+
 
 line[highway=trunk],
 line[highway=trunk_link]
 {
-    casing-color: #6;
-    text-halo-color: #7;
+    casing-color: #1;
+    text-halo-color: #2;
+    color: #3;
     text-color: white;
+}
+area[area:highway=trunk],
+area[area:highway=trunk_link]
+{
+    fill-color: #3;
 }
 
 line[highway=primary],
 line[highway=primary_link]
-{casing-color: #6}
+{
+    casing-color: #2;
+    text-halo-color: #3;
+    color: #4;
+    text-color: white;
+}
+area[area:highway=primary],
+area[area:highway=primary_link]
+{
+    fill-color: #4;
+}
 
 line[highway=secondary],
 line[highway=secondary_link]
-{casing-color: #8}
+{
+    casing-color: #3;
+    text-halo-color: #4;
+    color: #5;
+    text-color: white;
+}
+area[area:highway=secondary],
+area[area:highway=secondary_link]
+{
+    fill-color: #5;
+}
 
 line[highway=tertiary],
 line[highway=tertiary_link]
-{casing-color: #9}
+{
+    casing-color: #4;
+    text-halo-color: #5;
+    color: #6;
+    text-color: white;
+}
+area[area:highway=tertiary],
+area[area:highway=tertiary_link]
+{
+    fill-color: #6;
+}
 
 line[highway=residential],
 line[highway=unclassified]
-{casing-color: #a}
+{
+    casing-color: #5;
+    text-halo-color: #6;
+    color: #7;
+    text-color: white;
+}
+area[area:highway=residential],
+area[area:highway=unclassified]
+{
+    fill-color: #7;
+}
 
-line[highway=service],
-{casing-color: #c}
+line[highway=service]
+{
+    casing-color: #6;
+    text-halo-color: #7;
+    color: #8;
+    text-color: white;
+}
+area[area:highway=service]
+{
+    fill-color: #8;
+}
+
+area|z15-[area:highway=footway],
+area|z15-[area:highway=pedestrian],
+area|z15-[area:highway=path],
+area|z15-[area:highway=steps]
+{
+  fill-color:   #9;
+}
 
 line|z16-[highway=motorway]::centerline,
 line|z16-[highway=motorway_link]::centerline,
@@ -6700,13 +6619,19 @@ line|z16-[highway=secondary]::centerline,
 line|z16-[highway=secondary_link]::centerline,
 {
     width: 0.5;
-    color: #6;
+    color: #0;
     -x-kot-layer: top;
 }
 
-
-
 *[highway][area?]
-{fill-color: eval(prop("color")); width: 0; casing-width: 0}
+{
+    fill-color: eval(prop("color"));
+    width: 0;
+    casing-width: 0;
+}
 
-
+*[highway][area?]::*
+{
+    width: 0;
+    casing-width: 0;
+}
