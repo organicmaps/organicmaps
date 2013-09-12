@@ -20,7 +20,7 @@
         android:theme="@style/AppTheme" >
         <meta-data
             android:name="@string/com.yotadevices.BS_TITLE"
-            android:value="@string/app_name" />
+            android:resource="@string/app_name" />
         <meta-data
             android:name="@string/com.yotadevices.BS_ICON"
             android:resource="@drawable/inc_icon" />
