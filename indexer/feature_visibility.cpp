@@ -102,12 +102,21 @@ namespace
     int m_scale;
     ClassifObject::FeatureGeoType m_ft;
     drule::KeysT & m_keys;
+#ifdef DEBUG
     string & m_name;
+#endif
 
   public:
     DrawRuleGetter(int scale, feature::EGeomType ft,
-                  drule::KeysT & keys, string & name)
-      : m_scale(scale), m_ft(ClassifObject::FeatureGeoType(ft)), m_keys(keys), m_name(name)
+                  drule::KeysT & keys
+#ifdef DEBUG
+                   , string & name
+#endif
+                   )
+      : m_scale(scale), m_ft(ClassifObject::FeatureGeoType(ft)), m_keys(keys)
+#ifdef DEBUG
+    , m_name(name)
+#endif
     {
     }
 
@@ -137,7 +146,11 @@ pair<int, bool> GetDrawRule(FeatureBase const & f, int level,
   ASSERT ( keys.empty(), () );
   Classificator const & c = classif();
 
-  DrawRuleGetter doRules(level, types.GetGeoType(), keys, names);
+  DrawRuleGetter doRules(level, types.GetGeoType(), keys
+#ifdef DEBUG
+                         , names
+#endif
+                         );
   for (size_t i = 0; i < types.Size(); ++i)
     (void)c.ProcessObjects(types[i], doRules);
 
