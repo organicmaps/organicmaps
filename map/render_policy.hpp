@@ -175,6 +175,11 @@ protected:
                         shared_ptr<graphics::RenderContext> context,
                         graphics::EStorageType storageType,
                         graphics::ETextureType textureType);
+
+  size_t GetLargeTextureSize(bool useNpot);
+  size_t GetMediumTextureSize(bool useNpot);
+  size_t GetSmallTextureSize(bool useNpot);
+
   graphics::ResourceManager::StoragePoolParams GetStorageParam(size_t vertexCount,
                                                                size_t indexCount,
                                                                size_t batchSize,

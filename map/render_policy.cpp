@@ -281,6 +281,30 @@ Drawer * RenderPolicy::CreateDrawer(bool isDefaultFB,
   return new Drawer(dp);
 }
 
+size_t RenderPolicy::GetLargeTextureSize(bool useNpot)
+{
+  UNUSED_VALUE(useNpot);
+  return 512;
+}
+
+size_t RenderPolicy::GetMediumTextureSize(bool useNpot)
+{
+  uint32_t size = 256 * VisualScale();
+  if (useNpot)
+    return size;
+
+  return my::NextPowOf2(size);
+}
+
+size_t RenderPolicy::GetSmallTextureSize(bool useNpot)
+{
+  uint32_t size = 128 * VisualScale();
+  if (useNpot)
+    return size;
+
+  return my::NextPowOf2(size);
+}
+
 graphics::ResourceManager::StoragePoolParams RenderPolicy::GetStorageParam(size_t vertexCount,
                                                                            size_t indexCount,
                                                                            size_t batchSize,
@@ -298,6 +322,7 @@ graphics::ResourceManager::TexturePoolParams RenderPolicy::GetTextureParam(size_
                                                                            graphics::DataFormat format,
                                                                            graphics::ETextureType type)
 {
+  LOG(LDEBUG, ("Texture creating size = ", size));
   return graphics::ResourceManager::TexturePoolParams(size, size, initCount, format, type, false);
 }
 

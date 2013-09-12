@@ -11,25 +11,11 @@
 
 #include "../../base/logging.hpp"
 #include "../../base/shared_buffer_manager.hpp"
+#include "../../base/math.hpp"
 #include "../../std/bind.hpp"
 
 namespace graphics
 {
-  namespace
-  {
-    unsigned NextPowerOf2(unsigned n)
-    {
-      n = n - 1;
-      n |= (n >> 1);
-      n |= (n >> 2);
-      n |= (n >> 4);
-      n |= (n >> 8);
-      n |= (n >> 16);
-
-      return n + 1;
-    }
-  }
-
   namespace gl
   {
     typedef Texture<DATA_TRAITS, true> TDynamicTexture;
@@ -117,9 +103,9 @@ namespace graphics
           currentRect.setMinX(currentRect.minX() - maxRect.minX());
           currentRect.setMaxX(currentRect.maxX() - maxRect.minX());
 
-          size_t renderBufferSize = NextPowerOf2(currentRect.SizeX() *
-                                                 currentRect.SizeY() *
-                                                 sizeof(TDynamicTexture::pixel_t));
+          size_t renderBufferSize = my::NextPowOf2(currentRect.SizeX() *
+                                                   currentRect.SizeY() *
+                                                   sizeof(TDynamicTexture::pixel_t));
           SharedBufferManager::shared_buffer_ptr_t buffer = SharedBufferManager::instance().reserveSharedBuffer(renderBufferSize);
           TDynamicTexture::view_t bufferView = gil::interleaved_view(currentRect.SizeX(),
                                                                      currentRect.SizeY(),

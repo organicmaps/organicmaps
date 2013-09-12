@@ -210,6 +210,7 @@ namespace graphics
       int memoryUsage() const;
       int fixedMemoryUsage() const;
       void initScaleWeights();
+      bool canUseNPOTextures();
     };
 
   private:

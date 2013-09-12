@@ -20,11 +20,11 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
   graphics::ResourceManager::Params rmp = p.m_rmParams;
 
   rmp.checkDeviceCaps();
-  double k = VisualScale();
+  bool useNpot = rmp.canUseNPOTextures();
 
-  rmp.m_textureParams[ELargeTexture]        = GetTextureParam(512, 10, rmp.m_texFormat, ELargeTexture);
-  rmp.m_textureParams[EMediumTexture]       = GetTextureParam(256 * k, 5, rmp.m_texFormat, EMediumTexture);
-  rmp.m_textureParams[ESmallTexture]        = GetTextureParam(128 * k, 4, rmp.m_texFormat, ESmallTexture);
+  rmp.m_textureParams[ELargeTexture]        = GetTextureParam(GetLargeTextureSize(useNpot), 10, rmp.m_texFormat, ELargeTexture);
+  rmp.m_textureParams[EMediumTexture]       = GetTextureParam(GetMediumTextureSize(useNpot), 5, rmp.m_texFormat, EMediumTexture);
+  rmp.m_textureParams[ESmallTexture]        = GetTextureParam(GetSmallTextureSize(useNpot), 4, rmp.m_texFormat, ESmallTexture);
 
   rmp.m_storageParams[ELargeStorage]        = GetStorageParam(50000, 100000, 15, ELargeStorage);
   rmp.m_storageParams[EMediumStorage]       = GetStorageParam(5000, 10000, 100, EMediumStorage);

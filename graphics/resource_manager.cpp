@@ -287,6 +287,11 @@ namespace
       LOG(LINFO, ("using ReadPixels instead of glFinish to synchronize"));
   }
 
+  bool ResourceManager::Params::canUseNPOTextures()
+  {
+    return graphics::gl::HasExtension("GL_OES_texture_npot");
+  }
+
   void ResourceManager::loadSkinInfoAndTexture(string const & skinFileName, EDensity density)
   {
     try
