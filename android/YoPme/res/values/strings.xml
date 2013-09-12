@@ -15,6 +15,7 @@
     <string name="pick_point_button_name">Показать на E-ink экране</string>
     <string name="location_update_frequency">Частота обновления</string>
     <string name="pref_update_title">Обновление карты</string>
+    <string name="error_map_is_absent">Карта для данной местности не загружена. Загрузите ее в MapsWithMe на основном экране.</string>
 
     <string-array name="update_frequency">
         <item>По нажатию</item>

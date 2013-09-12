@@ -14,6 +14,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -68,6 +69,18 @@ public class BackscreenActivity extends BSActivity
   protected MapDataProvider mMapDataProvider;
   private LocationManager mLocationManager;
 
+  private final Runnable mInvalidateDrawable = new Runnable()
+  {
+    @Override
+    public void run()
+    {
+      draw();
+    }
+  };
+
+  private final Handler mHandler = new Handler();
+  private final static long REDRAW_MIN_INTERVAL = 333;
+
   @Override
   protected void onBSCreate()
   {
@@ -98,6 +111,7 @@ public class BackscreenActivity extends BSActivity
   {
     super.onBSPause();
     mLocationManager.removeUpdates(getLocationPendingIntent(this));
+    mHandler.removeCallbacks(mInvalidateDrawable);
   }
 
   @Override
@@ -196,7 +210,8 @@ public class BackscreenActivity extends BSActivity
 
   public void invalidate()
   {
-    draw();
+    mHandler.removeCallbacks(mInvalidateDrawable);
+    mHandler.postDelayed(mInvalidateDrawable, REDRAW_MIN_INTERVAL);
   }
 
   private boolean zoomIn()
@@ -357,6 +372,15 @@ public class BackscreenActivity extends BSActivity
 
     mBitmap = data.getBitmap();
     mMapView.setImageBitmap(mBitmap);
+
+    if (mBitmap == null)
+    {
+      // this means we dont have this map
+      showWaitMessage(getString(R.string.error_map_is_absent));
+      return;
+    }
+    else
+      hideWaitMessage();
 
     if (mMode == Mode.POI)
     {
