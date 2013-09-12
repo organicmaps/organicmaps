@@ -11,7 +11,7 @@
     es = Mas facil navegar con la version completa MapsWithMe con el buscador fuera de la Internet. Bajalo ya!
     fr = Plus de possibilités dans la version complète de MapsWithMe avec la recherche en hors ligne. Télécharger maintenant!
     it = Naviga più facilmente con la versione completa di MapsWithMe con la ricerca offline. Scaricala subito!
-    ja = MapsWithMe完全版ならオフラインサーチでさらにナビゲートが簡単です。今すぐご入手下さい！
+    ja = MapsWithMe完全版ならさらに便利なオフライン検索が利用可能です。ぜひお買い求めください。
     ko = 오프라인 검색 기능의 MapsWithMe의 풀버젼으로 보다 쉽게 검색하세요. 지금 구매하세요!
     nl = Navigeer makkelijker met MapsWithMe Pro met offline zoeken. Instelleer het nu!
     ru = Больше возможностей в полной версии MapsWithMe с офлайн поиском. Установить ее сейчас?
@@ -107,7 +107,7 @@
     es = Eliminar mapas antiguos y seguir
     fr = Effacer les anciennes cartes et continuer
     it = Cancella le vecchie mappe e procedi
-    ja = 古いマップを削除して次へ進む
+    ja = 古いマップを削除して処理を続行
     ko = 이전의 지도를 삭제하고 진행하기
     nl = Verwijder oude kaarten en ga door
     ru = Удалить старые карты и продолжить
@@ -200,7 +200,7 @@
     es = Error durante la descarga, iniciar otra vez
     fr = Erreur de téléchargement. Merci de recommencer.
     it = Download fallito, tocca di nuovo per un altro tentativo
-    ja = ダウンロードに失敗しました。もう一度試すにはタッチして下さい。
+    ja = ダウンロードが失敗しました。もう一度試すには画面をタッチしてください。
     ko = 다운로드에 실패하였습니다. 다시 두드려 시도하여 주십시요.
     nl = Download is afgebroken, klik om nog een keer te proberen
     ru = Ошибка загрузки. Нажмите, чтобы повторить попытку
@@ -216,7 +216,7 @@
     es = Descargado (%1$qu %2$@), apreté para eliminar
     fr = Téléchargé (%1$qu %2$@), appuyez pour effacer
     it = Scaricato (%1$qu %2$@), tocca per annullare
-    ja = (%1$qu %2$@)をダウンロードしました。削除するにはタッチして下さい。
+    ja = (%1$qu %2$@)をダウンロードしました。削除するには画面をタッチしてください。
     ko = (%1$qu %2$@)가 다운로드 되었습니다, 두드려 삭제하십시요.
     nl = (%1$qu %2$@) gedownload, klik om te verwijderen
     ru = Загружено (%1$qu %2$@), нажмите для удаления
@@ -232,7 +232,7 @@
     es = Descarga %qu%%, presionar para cancelar
     fr = Téléchargement en cours %qu%%, touchez pour stopper
     it = Download di %qu%%, tocca per annullare
-    ja = %qu%%をダウンロード中です。キャンセルするにはタッチして下さい。
+    ja = %qu%%をダウンロード中です。キャンセルするには画面をタッチしてください。
     ko = %qu%%를 다운로드 중, 두드려 취소하십시요
     nl = %qu%% downloaden, klik om te annuleren
     ru = Загружается %qu%%, нажмите, чтобы прервать
@@ -276,7 +276,7 @@
     comment = Text to show occasionaly with a proposal to Like our program on Facebook
     cs = Líbí se ti MapsWithMe? Pomoz svým přátelům a rodině dozvědět se o této aplikaci. Sdílej ji s nimi prostřednictvím Facebooku!
     de = Wenn ihnen unser Programm gefällt, teilen sie es bitte auf Facebook mit ihren Freunden.
-    ja = アプリの使い勝手はどうでしょうか？是非Facebookで友達にシェアしてください
+    ja = アプリの使い勝手はいかがでしょうか？ ぜひFacebookで友人にシェアしてください
     nl = Deel dit programma met uw vrienden op Facebook, als ons programma u bevalt.
     it = Ti stai divertendo MapsWithMe? Aiuta i tuoi amici e la famiglia a conoscere l'app, condividila con loro su Facebook!
     ru = Нравится MapsWithMe? Помогите вашим друзьям и родным узнать о приложении, поделитесь с ними на Фейсбуке!
@@ -292,7 +292,7 @@
     es = Si te gusta MapsWithMe, por favor apóyanos a nosotros en escribir una reseña. Si tienes cualquier problema, por favor completa un formulario especial, para que podamos contactar contigo.
     fr = Si Maps With Me vous plait, merci de nous soutenir en donnant votre avis. Si vous rencontrez des problèmes avec ce programme, merci de nous le faire savoir en remplissant le formulaire adéquat.
     it =  Se ti piace MapsWithMe, cortesemente sostienici, scrivendo una recensione. Se incontri problemi, faccelo sapere compilando l'apposito modulo.
-    ja = MapsWithMeを気に入って頂けた場合には評価をしてサポートして頂きますようお願いします。問題等がありましたら、特定のフォームを使って当社までご報告ください。
+    ja = MapsWithMeを気に入って頂けましたら、感想をぜひレビューで評価ください。問題等ございましたらフォームよりご報告いただければ幸いです。
     ko = MapsWithMe를 좋아하시면 평을 작성하여 주시기 바랍니다. 안건의 발생의 경우 특정 양식서를 작성하여 주시기 바랍니다.
     nl = Ondersteun MapsWithMe door een review te schrijven. Vul een speciaal formulier in als u problemen ondervindt
     ru = Если вам нравится MapsWithMe, пожалуйста, поддержите нас, написав отзыв. Если у вас возникли проблемы при использовании программы, пожалуйста, сообщите нам, заполнив специальную форму, чтобы мы могли связаться с вами.
@@ -349,7 +349,7 @@
     es = Los servicios de localización son necesarios para mostrar su posición actual en el mapa.
     fr = Vous avez besoin des services de localisation pour déterminer votre position sur la carte.
     it = I servizi di localizzazione sono necessari per visualizzare la tua posizione corrente sulla mappa.
-    ja = あなたの現在地をマップに表示するには位置情報サービスが必要です。
+    ja = マップに現在地を表示するには位置情報サービスを有効化してください。
     ko = 위치 서비스가 귀하의 현재의 지도상의 위치를 표시하기 위해 필요합니다.
     nl = Locatie Services zijn nodig om uw huidige locatie weer te geven op de kaart
     ru = Геолокация нужна для определения вашего местоположения на карте.
@@ -381,7 +381,7 @@
     es = Marcado para descarga, presionar para cancelar
     fr = Attendez avant de télécharger, touchez pour annuler
     it = Contrassegnato per il download, tocca per cancellare
-    ja = ダウンロードを始めます。キャンセルするにはタッチして下さい。
+    ja = ダウンロードを開始します。キャンセルするには画面をタッチしてください。
     ko = 다운로드로 표시하였습니다. 두드려 취소하십시요.
     nl = Kaarten
     ru = Поставлено в очередь на загрузку, нажмите для отмены
@@ -436,7 +436,7 @@
     es = No hay conexión al Internet
     fr = Pas de branchement internet
     it = Non è stata rilevata alcuna connessione Internet
-    ja = インターネット接続が見つかりません
+    ja = インターネットに接続されていません
     ko = 인터넷이 연결되지 않았습니다.
     nl = Geen Internet verbinding gedetecteerd
     ru = Отсутствует подключение к интернету
@@ -452,7 +452,7 @@
     es = No hay conexión WiFi. ¿Quieres descargar con el %@ operador (GPRS, EDGE or 3G)?
     fr = Pas de connection WiFi. Désirez vous télécharger par le réseau de téléphone mobile (GPRS, EDGE ou 3G)?
     it = Non è stata rilevata alcuna connessione WiFi. Vuoi utilizzare i dati cellulare (GPRS, EDGE o 3G) per scaricare %@?
-    ja = WiFi接続が見つかりません。GPRS、EDGE又は3G等のセルラーデータを使って%@をダウンロードしますか?
+    ja = WiFi接続が見つかりません。GPRS、EDGE、3G等の携帯電話回線で%@をダウンロードしますか？
     ko = WiFi 연결이 감지되지 않았습니다. %@를 다운로드하기 위해 휴대 자료(GPRS, EDGE 혹은 3G)를 사용하시겠습니까?
     nl = Geen WiFi verbinding gedetecteerd. Wilt u mobiele data (GPRS, EDGE of 3G) gebruiken om %@ te downloaden?
     ru = Нет WiFi соединения. Вы хотите скачать %@ через сотового оператора (GPRS, EDGE или 3G)?
@@ -473,7 +473,7 @@
     es = Por favor, permite los servicios de localización
     fr = Paramétrez les services de localisation de votre appareil, s'il vous plaît
     it = Cortesemente abilita i servizi di localizzazione
-    ja = 位置情報サービスを有効にして下さい。
+    ja = 位置情報サービスを有効化してください
     ko = 위치 서비스를 작동시켜 주십시요.
     nl = Schakel Locatie Services in
     ru = Пожалуйста, включите геолокацию в настройках телефона
@@ -489,7 +489,7 @@
     es = No hay espacio suficiente para realizar la descarga
     fr = Le disque est plein, merci de faire de la place pour permettre le téléchargement
     it = Cortesemente libera spazio sul tuo dispositivo prima per poter scaricare %@
-    ja = 位置情報サービスを有効にして下さい。
+    ja = %@をダウンロードするため、デバイスの空き容量を確認してください
     ko = 먼저 귀하의 장치에 어느 정도의 공간을 확보하여 %@를 다운로드하여 주십시요.
     nl = Maak ruimte vrij op uw apparaat om %@ te kunnen downloaden
     ru = Нет свободного места. Пожалуйста, удалите ненужные карты или приложения, чтобы загрузить %@
@@ -505,7 +505,7 @@
     es = Recordarme mas tarde
     fr = Rappelez moi plus tard
     it = Ricordamelo in seguito
-    ja = 後でリマインド
+    ja = 後で通知
     ko = 이후에 기억시키기
     nl = Herinner me later
     ru = Напомнить позже
@@ -521,7 +521,7 @@
     es = Luego
     fr = Plus tard
     it = Più tardi
-    ja = 後で
+    ja = 次の機会に
     ko = 후
     ru = Не сейчас
     uk = Не зараз
@@ -533,7 +533,7 @@
     comment = Don't show some dialog any more
     cs = Nikdy
     de = Nie
-    ja = 決して
+    ja = 今後表示しない
     nl = Nooit
     it = Mai
     ru = Не показывать
@@ -581,7 +581,7 @@
     es = Buscar está accesible solo en la versión MapWithMe Pro. ¿Instalar ahora mismo?
     fr = Seule la version Pro permet une recherche. Voulez-vous l'installer maintenant?
     it = La ricerca è disponibile solo nella versione completa di MapsWithMe. Scaricala subito!
-    ja = サーチ機能はMapsWithMeのプロ版でのみご使用頂けます。今すぐご入手になりますか？
+    ja = 検索機能はMapsWithMe完全版で利用可能です。ぜひお買い求めください。
     ko = 검색은 MapsWithMe의 프로 버젼에만 제공됩니다. 지금 받으시겠습니까?
     nl = Zoeken is alleen beschikbaar in de Pro versie van MapsWithMe. Wilt u hem nu installeren?
     ru = Поиск доступен только в полной версии MapsWithMe. Установите ее прямо сейчас!
@@ -597,7 +597,7 @@
     es = Buscar en el mapa
     fr = Rechercher sur la carte
     it = Ricerca Mappa
-    ja = マップから検索
+    ja = マップを検索
     ko = 지도 검색하기
     nl = Zoek Kaart
     ru = Поиск на карте
@@ -661,7 +661,7 @@
     es = Recomendamos usar WiFi para descarga de los países grandes
     fr = Nous vous recommandons d'utiliser le WiFi pour télécharger les grandes cartes
     it = Ti consigliamo di utilizzare il WiFi per scaricare mappe di grandi dimensioni
-    ja = 大きなマップをダウンロードするにはWiFiの使用をお勧めします。
+    ja = 大きなマップをダウンロードする際はWiFiの使用をおすすめします。
     ko = WiFi를 이용하여 큰 지도를 다운로드하는 것을 권하여 드립니다.
     nl = We raden WiFi aan om grote kaarten te downloaden
     ru = Мы рекомендуем загружать большие страны через WiFi
@@ -689,7 +689,7 @@
     es = ¿Cual sistema de medición prefieres?
     fr = Quel système de mesure préférez vous?
     it = Quale sistema di misura preferisci?
-    ja = どちらの測定システムを使いますか?
+    ja = どちらの距離単位を使いますか？
     ko = 어느 측정 시스템을 선호하십니까?
     nl = Welk meetstelsel heeft u liever?
     ru = Какую систему измерения вы предпочитаете?
@@ -705,7 +705,7 @@
     es = No se puede acceder a los servicios de localización. Por favor, activelo en los ajustes.
     fr = Tous les services de repérage sont désactivés. Veuillez s'il vous plaît la mettre en prise pour la commode utilisation du programme.
     it = Attualmente hai disattivati tutti i servizi di locazione per questo dispositivo o applicazione.  Cortesemente abilitali nelle Impostazioni.
-    ja = このデバイス、またはアプリケーションの位置情報サービスが全て無効になっています。設定画面から有効にして下さい。
+    ja = 端末の位置情報サービスが無効になっているか、このアプリケーションからの位置情報利用が制限されています。端末の設定を有効化してください。
     ko = 현재 이 장치나 애플리케이션을 위한 전 위치 서비스를 불능시키셨습니다. 설정에서 이를 작동시켜 주시기 바랍니다.
     nl = U heeft momenteel alle Locatie Services voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen
     ru = Геолокация выключена в настройках устройства. Пожалуйста, включите ее для удобного использования программы.
@@ -721,7 +721,7 @@
     es = Su dispositivo no es compatible con los servicios de localización
     fr = Votre appareil n'est pas compatible pour les services de repérage
     it = Il tuo dispositivo non supporta i servizi di localizzazione
-    ja = ご使用のデバイスは位置情報サービスをサポートしていません。
+    ja = ご使用中の端末は位置情報サービスをサポートしていません。
     ko = 귀하의장치가 위치 서비스를 지원하지 않습니다.
     nl = Uw apparaat ondersteunt geen Locatie Services
     ru = Ваше устройство не поддерживает геолокацию
@@ -737,7 +737,7 @@
     es = Ampliar la vista del país
     fr = Zoomer sur le pays désiré
     it = Zoom sul paese
-    ja = 国へズーム
+    ja = 特定の地域へズーム
     ko = 국가로 확대하여 주세요
     nl = Zoom in richting het land
     ru = Показать страну на карте
@@ -769,7 +769,7 @@
     es = Descargando^^%
     fr = Téléchargement en cours^^%
     it = Sto scaricando^^%
-    ja = ダウンロード中^^%
+    ja = ^^%をダウンロード中
     ko = 다운로드 중^^%
     nl = aan het downloaden^^%
     ru = Загружается^^%
@@ -785,7 +785,7 @@
     es = Descargar^
     fr = Charger^
     it = Scarica^
-    ja = ダウンロード^
+    ja = ^をダウンロード
     ko = 다운로드^
     ru = Загрузить^
     uk = Завантажити^
@@ -800,7 +800,7 @@
     es = Error durante la descarga^
     fr = Erreur de téléchargement^
     it = Lo scaricamento^è fallito
-    ja = ダウンロードに失敗しました^
+    ja = ^のダウンロードに失敗しました
     ko = 다운로드에 실패하였습니다^
     nl = Downloaden^is niet gelukt
     ru = Ошибка загрузки^
@@ -834,7 +834,7 @@
     es = Sobre MapsWithMe
     fr = Au sujet des cartes
     it = Informazioni su MapsWithMe
-    ja = 情報
+    ja = MapsWithMeについて
     ko = 소개
     nl = Over MapsWithMe
     ru = О программе
@@ -849,7 +849,7 @@
     es = Descargando %d%%, presionar para cancelar
     fr = Chargement en cours %d%%, toucher pour annuler
     it = Download di %d%%, tocca per cancellare
-    ja = %d%%をダウンロード中です。キャンセルするにはタッチして下さい。
+    ja = %d%%をダウンロード中です。キャンセルするには画面をタッチしてください。
     ko = %d%%를 다운로드 중, 두드려 취소하십시요
     nl = %d%% aan het downloaden, klik om te annuleren
     ru = Загружается %d%%, нажмите, чтобы прервать
@@ -864,7 +864,7 @@
     es = Descargado (%@), presionar para eliminar
     fr = Elle est chargée (%@), Appuyer pour effacer
     it = Scaricato (%@), tocca per cancellare
-    ja = (%@)をダウンロードしました。削除するにはタッチして下さい。
+    ja = (%@)をダウンロードしました。削除するには画面をタッチしてください。
     ko = (%@)가 다운로드 되었습니다, 두드려 삭제하십시요.
     nl = Downloaded (%@), klik om te verwijderen
     ru = Загружено (%@), нажмите для удаления
@@ -923,7 +923,7 @@
     es = Un acelerador de hardware OpenGL se requiere. Desafortunadamente, su dispositivo móvil no es compatible.
     fr = Le programme a besoin d`OpenGL pour travailler. Votre appareil n`est pas appuyé maleuresement.
     it = È necessaria una accelerazione hardware OpenGL. Purtroppo, il tuo dispositivo non è supportato.
-    ja = ハードウェアアクセラレーションされたOpenGLが必要です。残念ながらご使用のデバイスはサポートされていません。
+    ja = ハードウェアアクセラレーションされたOpenGLが必要です。残念ながらご利用中のデバイスではサポートされていません。
     ko = 하드웨어 촉진 OpenGL이 요구됩니다. 애석하게도 귀하의 장치는 지원되지 않습니다.
     nl = Een hardware geaccellereerde OpenGL is nodig. Jammer genoeg wordt uw apparaat niet ondersteund.
     ru = Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.
@@ -952,7 +952,7 @@
     es = La memoria SD/almacenamiento USB con los mapas descargados no está disponible
     fr = Les cartes téléchargées sont indisponibles
     it = La scheda/USB/di memoria SD con le mappe scaricate non è disponibile
-    ja = ダウンロード済みの地図はSDカード／USBストレージに保存する事はできません
+    ja = マップをダウンロードしたSDカード/USBストレージへ接続できません
     ko = 다운로드된지도와 SD 카드 / USB 저장 장치를 사용할 수 없습니다
     nl = SD kaart/USB opslag met gedownloade kaarten is niet beschikbaar
     ru = Загруженные карты недоступны
@@ -967,7 +967,7 @@
     es = Por favor desconectar el cable USB o insertar la memoria SD para usar MapsWithMe
     fr = Débranchez le câble USB ou insérez la carte SD
     it = Coortesemente scollega il cavo USB oppure inserisci la scheda di memoria per l'usco dell'app
-    ja = USBケーブルを抜くかMapsWithMeに使うメモリーカードを挿入してください
+    ja = MapsWithMeを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください
     ko = MapsWithMe를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오
     nl = Verwijder de USB kabel of plaats een geheugen kaart om MapsWithMe te gebruiken
     ru = Отключите USB кабель или вставьте SD-карту
@@ -982,7 +982,7 @@
     es = Por favor liberar espacio en la memoria SD/almacenamiento USB para usar la aplicación
     fr = L'espace disponible sur l'appareil est insuffisant pour l'utilisation du programme
     it = Libera prima dello spazio sulla scheda Sd/ memoria USB per usare l'app
-    ja = アプリを起動する前にSDカード/USBストレージの空き容量を増やしてください
+    ja = アプリを起動するにはSDカード/USBストレージの空き容量を確保する必要があります
     ko = 응용 프로그램을 사용하기 위해서는 첫째 SD 카드 / USB 저장 장치에 여유 공간을 확보하십시오
     nl = Maak eerst ruimte vrij op de SD kaart/USB opslag om de app te gebruiken
     ru = Недостаточно свободного места на SD карте/в памяти устройства для использования программы
@@ -997,7 +997,7 @@
     es = No hay suficiente memoria para iniciar la aplicación
     fr = Il ne suffit pas de memoire pour la mise en marche du programme
     it = Memoria insufficiente per lanciare l'app
-    ja = メモリ不足です。アプリを起動できません
+    ja = メモリ不足のためアプリを起動できません
     ko = 응용 프로그램을 실행하기위한 메모리가 충분하지 않다
     nl = Not genoeg geheugen om app te starten
     ru = Недостаточно памяти для запуска программы
@@ -1012,7 +1012,7 @@
     es = Por favor liberar %1$@ primero para descargar %2$@
     fr = Merci de faire  %1$@ de la place disponible pour télécharger %2$@
     it = Libera %1$@ sul dispositivo prima per poter scaricare %2$@
-    ja = デバイス上で%1$@解放することで%2$@ダウンロードすることができます
+    ja = %2$@をダウンロードするにはデバイスに%1$@の空き容量が必要です
     ko = %2$@를 다운로드하기 위해서는 먼저 장치에서 무료로 %1$@를주세요
     nl = Maak %1$@ aan ruimte vrij op uw apparaat om %2$@ te downloaden
     ru = Для загрузки %2$@ нужно %1$@ свободного места
@@ -1028,7 +1028,7 @@
     es = Antes de comenzar, permite que descarguemos en tu dispositivo un mapamundi general. \nSe requieren %.1f%@ de datos.
     fr = Avant que vous ne commenciez, laissez-nous télécharger la carte générale du monde sur votre appareil.\nCela prend %.1f%@ de données.
     it = Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %.1f%@.
-    ja = 開始前に一般的な世界地図をデバイスにダウンロードさせてください。これには%.1f%@の空き容量が必要です。
+    ja = 利用を開始する前におおまかな世界地図をダウンロードします。これには%.1f%@の空き容量が必要です。
     ko = 시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다. \n%.1f%@ 데이터가 필요합니다.
     nl = Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %.1f%@ in beslag.
     ru = Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство. \nЭто потребует %.1f%@ данных.
@@ -1058,7 +1058,7 @@
     es = Ir al mapa
     fr = Passer sur la carte
     it = Vai alla mappa
-    ja = 地図に移動
+    ja = マップを表示
     ko = 지도로 이동
     nl = Ga naar de Kaart
     ru = Перейти на карту
@@ -1073,7 +1073,7 @@
     es = Descargando %@. Puede ahora\nproceder al mapa
     fr = Téléchargement de %@.\nPasser sur la carte
     it = Sto scaricando %@. Puoi ora\nprocedere con la mappa.
-    ja = %@をダウンロード中\n地図に移動できます
+    ja = %@をダウンロードしました\nマップを表示可能です
     ko = %@다운로드. 이제지도를 진행할 수 있습니다.
     nl = %@ aan het downloaden. U kunt doorgaan\nnaar de kaart
     ru = Пока загружается %@ \nвы можете пользоваться приложением.
@@ -1119,7 +1119,7 @@
     es = Puede descargar el mapa de su ubicación actual
     fr = Vous pouvez télécharger la carte\nde votre position actuelle.
     it = Puoi scaricare la mappa\ndella tua posizione corrente.
-    ja = 現在地の地図を\nダウンロードできます
+    ja = 現在地のマップを\nダウンロードできます
     ko = 당신의 현재 위치의지도를 다운로드할 수 있습니다.
     nl = U kunt de kaart van\nuw huidige locatie downloaden
     ru = Вы можете загрузить карту\nвашего текущего местоположения.
@@ -1135,7 +1135,7 @@
     es = Puede actualizar el mapa de su ubicación actual
     fr = Vous pouvez renouveler la carte\nde votre position actuelle.
     it = Puoi aggiornare la mappa\ndella tua posizione corrente.
-    ja = 現在地の地図を\n更新できます
+    ja = 現在地のマップを\n更新できます
     ko = 귀하의 현재 위치의지도를 업데이트할 수 있습니다.
     nl = U kunt de kaart\nvan uw huidige locatie kunnen geupdate worden
     ru = Вы можете обновить карту\nвашего текущего местоположения.
@@ -1151,7 +1151,7 @@
     es = El mapa de su ubicación\nactual (%@) está actualizado
     fr = La carte de votre\nposition (%@) est déjà téléchargée
     it = La mappa della tua attuale\nposizione (%@) è aggiornata
-    ja = 現在地の地図は\n最新です (%@)
+    ja = 現在地のマップは\n最新です (%@)
     ko = 현재 위치 (%@)\n에서지도는 최신이다
     nl = De kaart op uw huidige\nlocatie (%@) is up-to-date
     ru = Карта местности, в которой\nвы находитесь (%@) уже загружена.
@@ -1227,7 +1227,7 @@
     es = Necesita los mapas actualizados para la función de búsqueda
     fr = Merci d'effacer les cartes anciennes pour faire fonctionner la recherche
     it = Hai bisogno di mappe aggiornate per la funzione di ricerca:
-    ja = 検索機能を利用するには地図を更新する必要があります
+    ja = 検索機能を利用するにはマップを更新する必要があります
     ko = 당신은 검색 기능에 대한 업데이트된지도 필요
     nl = Om de zoekfunctie te kunnen gebruiken moet u de kaarten updaten
     ru = Для функции поиска необходимо обновить устаревшие карты:
@@ -1244,7 +1244,7 @@
     es = Hay actualizaciones disponibles para estos mapas:
     fr = Le renouvellement est disponible pour les cartes suivantes:
     it = Aggiornamento disponibile per queste mappe:
-    ja = こちらの地図が更新できます：
+    ja = 以下のマップが更新されています:
     ko = 이지도에 사용할 수있는 업데이트 :
     nl = Update beschikbaar voor deze kaarten:
     ru = Доступно обновление для следующих карт:
@@ -1261,7 +1261,7 @@
     es = Ahora no necesita MapsWithMe Lite, la puede desinstalar.
     fr = Vous n'avez plus besoin de MapsWithMe Lite. Merci de l'effacer
     it = Non hai più bisogno di MapsWithMe Lite, quindi puoi disinstallarlo.
-    ja = MapsWithMe Liteはもう必要ありませんので削除してもかまいません
+    ja = MapsWithMe Liteは削除してもかまいません
     ko = 당신은 더 이상 MapsWithMe 라이트는 필요 없어, 당신은 그것을 제거할 수 있습니다.
     nl = U heeft MapsWithMe Lite niet meer nodig, dus u kunt de app deïnstalleren
     ru = MapsWithMe Lite больше не нужна. Рекомендуем ее удалить.
@@ -1312,7 +1312,7 @@
     es = Agregar un grupo nuevo
     fr = Ajouter une groupe
     it = Aggiungi un nuovo Set
-    ja = 新しいセットを追加
+    ja = 新しいセットを作成
     ko = 새로운 세트 추가
     nl = Voeg nieuwe Groep toe
     ru = Добавить группу
@@ -1345,7 +1345,7 @@
     es = Color del marcador
     fr = Couleur du signet
     it = Colore del Segnalibro
-    ja = ブックマークの色
+    ja = ブックマーク表示色
     ko = 색상 즐겨찾기에 추가
     nl = Bladwijzer Kleur
     ru = Цвет закладки
@@ -1362,7 +1362,7 @@
     es = Nombre del grupo de marcadores
     fr = Nom de la groupe
     it = Seleziona un nome del segnalibro
-    ja = ブックマークセット名
+    ja = ブックマークセット名称
     ko = 집합 이름을 즐겨찾기에 추가
     nl = Bladwijzer Groep Naam
     ru = Название группы
@@ -1412,7 +1412,7 @@
     de = Farbe
     fr = Couleur
     it = Colore
-    ja = 色
+    ja = 表示色
     ko = 색깔
     nl = Kleur
     ru = Цвет
@@ -1429,7 +1429,7 @@
     es = Etiqueta colocada
     fr = L'épingle déplacée
     it = Pin trascinato
-    ja = ドロップされたピン
+    ja = ドロップしたピン
     ko = 알수 없는 핀
     nl = Geplaatste Speld
     ru = Новая метка
@@ -1462,7 +1462,7 @@
     es = Nombre
     fr = Nom
     if = Nome
-    ja = 場所名
+    ja = 名称
     ko = 이름
     nl = Naam
     ru = Название
@@ -1530,7 +1530,7 @@
     es = Para añadir un marcador a cualquier lugar del mapa, presionar un punto y mantenerlo hasta que aparezca el menú contextual.
     fr = Ajoutez n'importe quel endroit sur la carte à vos favoris. Pour cela, touchez un point sur la carte et maintenez appuyé jusqu'à ce que le menu contextuel apparaisse.
     it = Per aggiungere un nuovo segnalibro qui, tocca qualsiasi punto della mappa e tieni premuto fino a quando non appare il pop-up.
-    ja = 地図上のあらゆる場所をブックマークに追加できます。地図上の場所をタッチして、コンテキストメニューが表示されるまで長押しするだけです。
+    ja = マップをタッチし続けるとその位置にポップアップが表示され、ブックマークを追加できます。
     ko = 지도상의 어떤 장소든지 즐겨찾기에 추가할 수 있습니다. 이를 위해서는 컨텍스트 메뉴가 나타날 때까지 지도상의 장소를 오래 누르시면 됩니다.
     nl = Voeg een plaats naar keuze op de kaart toe aan de bladwijzers. Om dat te doen, drukt u op een plek op de kaart en houd u het ingedrukt tot het contextmenu verschijnt.
     ru = Добавьте в избранное любое место на карте. Для этого нажмите на точку на карте и удерживайте, пока не появится контекстное меню.
@@ -1564,7 +1564,7 @@
     es = Almacenamiento de mapas
     fr = Sauvegarde des cartes
     it = Lista delle Mape
-    ja = 地図収納
+    ja = マップ保存先
     ko = 지도 저장소
     nl = Kaarten bewaren
     ru = Хранилище карт
@@ -1598,7 +1598,7 @@
     es = ¿Mover mapas?
     fr = Bouger les cartes?
     it = Vuoi spostare le mappe?
-    ja = 地図を移動しますか？
+    ja = マップを移動させますか？
     ko = 지도를 이동합니까?
     nl = Kaarten verplaatsen?
     ru = Переместить карты?
@@ -1615,7 +1615,7 @@
     es = Esto podría tardar varios minutos.\nPor favor, espera…
     fr = Cela peut prendre plusieurs minutes.\nVeuillez patienter…
     it = Questo può richiedere diversi minuti.\ncortesemente attendi...
-    ja = 数分かかる場合があります。\nお待ち下さい…
+    ja = 数分かかる場合があります。\nしばらくお待ち下さい…
     ko = 이 작업은 수 분 소요될 수 있습니다.\n잠시 기다리세요…
     nl = Dit kan enkele minuten duren.\nEven geduld…
     ru = Это может занять несколько минут.\nПожалуйста, подождите…
@@ -1630,7 +1630,7 @@
     cs = Viditelný
     de = Sichtbar
     it = Visibile
-    ja = 目に見える
+    ja = マップに表示
     ko = 눈에 보이는
     nl = Zichtbaar
     ru = Показывать на карте
@@ -1647,7 +1647,7 @@
     es = La opción de marcadores está disponible en la versión completa de MapsWithMe. ¿La quieres ya?
     fr = Les marques-page sont disponibles dans la version complète de MapsWithMe. Se la procurer maintenant?
     it = I segnalibri sono disponibili solo nella versione completa di MapsWithMe. Scaricalo subito!
-    ja = ブックマークはMapsWithMeの完全版でご利用いただけます。いますぐ取得されますか？
+    ja = ブックマーク機能はMapsWithMe完全版で利用可能です。ぜひお買い求めください。
     ko = MapsWithMe의 정식 버전에서는 즐겨찾기를 이용하실 수 있습니다. 지금 바로 구입하시겠습니까?
     nl = Bladwijzers zijn beschikbaar in de volledige versie van MapsWithMe. Wilt u die nu gelijk?
     ru = Закладки доступны только в полной верии MapsWithMe. Установите ее прямо сейчас!
@@ -1664,7 +1664,7 @@
     es = El GPS está inhabilitado. Por favor, activelo en los ajustes.
     fr = GPS désactivé. Veuillez s'il vous plait l'activer pour une utilisation plus commode de l'application.
     it = Il GPS è disabilitato. Cortesemente abilitalo nelle Impostazioni.
-    ja = GPSが無効です。設定画面から有効にして下さい。
+    ja = GPS機能が無効です。端末の設定画面から有効にしてください。
     ko = GPS가 사용 중지되었습니다. 설정에서 이를 작동시켜 주시기 바랍니다.
     nl = GPS is uitgeschakeld. Schakel ze in bij Instellingen.
     ru = GPS-позиционирование выключено. Пожалуйста, включите его в настройках для удобного использования программы.
@@ -1681,7 +1681,7 @@
     es = Unidades de medida
     fr = Unités de mesure
     it = Unità di misura
-    ja = 計測単位
+    ja = 距離計測単位
     ko = 측정 단위
     nl = Afstandseenheid
     ru = Единицы измерения
@@ -1715,7 +1715,7 @@
     es = Todos
     fr = Partout
     it = Ovunque
-    ja = どこにでも
+    ja = 全マップから検索
     ko = 모든 곳
     nl = Overal
     ru = Везде
@@ -1732,7 +1732,7 @@
     es = Cerca de mí
     fr = Près de moi
     it = Vicino a me
-    ja = 周辺情報
+    ja = 現在地周辺
     ko = 근처 검색
     nl = Dichtbij mij
     ru = Около меня
@@ -1749,7 +1749,7 @@
     es = En la pantalla
     fr = Sur l'écran
     it = Nella schermata
-    ja = 画面上
+    ja = マップ表示範囲
     ko = 화면에
     nl = Op het scherm
     ru = На экране
@@ -1766,7 +1766,7 @@
     es = comer
     fr = repas
     it = mangiare
-    ja = 飯
+    ja = 飲食
     ko = 음식
     nl = eten
     ru = еда
@@ -1783,7 +1783,7 @@
     es = transporte
     fr = transport
     it = transporto
-    ja = 輸送
+    ja = 交通機関
     ko = 수송
     nl = transport
     ru = транспорт
@@ -1800,7 +1800,7 @@
     es = gasolinera
     fr = station-service
     it = stazione di rifornimento
-    ja = 燃料
+    ja = ガソリンスタンド
     ko = 연료
     nl = benzine
     ru = заправка
@@ -1834,7 +1834,7 @@
     es = tienda
     fr = magasin
     it = negozio
-    ja = 店
+    ja = 買い物
     ko = 쇼핑
     nl = winkel
     ru = магазин
@@ -1901,7 +1901,7 @@
     es = atm
     fr = bancomat
     it = bancomat
-    ja = atm
+    ja = ATM
     ko = atm
     nl = geldautomaat
     ru = банкомат
@@ -1985,7 +1985,7 @@
     es = oficina de correos
     fr = poste
     it = posta
-    ja = 電子メール
+    ja = 郵便局
     ko = 우편
     nl = post
     ru = почта
@@ -2019,7 +2019,7 @@
     es = No se han encontrado resultados
     fr = Aucun résultat trouvé
     it = Nessun risultato trovato
-    ja = 結果が見つかりませんでした
+    ja = 検索結果が見つかりませんでした
     ko = 결과 없음
     nl = Geen resultaten gevonden
     ru = Нет результатов поиска
@@ -2053,7 +2053,7 @@
     es = Enviar por e-mail
     fr = Partager par e-mail
     it = Condividi via email
-    ja = Eメールでシェアする
+    ja = Eメールで共有
     ko = 이메일로 공유
     nl = Delen via e-mail
     ru = Послать по email
@@ -2070,7 +2070,7 @@
     es = Marcapáginas de MapsWithMe compartidos contigo
     fr = Signets MapsWithMe partagés avec vous
     it = Il segnalibri MapsWithMe è stato condiviso con te
-    ja = MapsWithMeブックマークでシェアされました。
+    ja = MapsWithMeの位置情報シェア
     ko = 귀하와 공유된 MapsWithMe 즐겨찾기
     nl = Bladwijzers van MapsWithMe met u gedeeld
     ru = С вами поделились закладками MapsWithMe
@@ -2087,7 +2087,7 @@
     es = ¡Hola!\n\nEn el archivo adjunto "%@.kmz", están mis marcadores de los mapas offline MapsWithMe. Por favor, ábrelo con MapsWithMe Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://www.mapswithme.com/get?kmz.\n\n¡Que disfrutes de MapsWithMe!
     fr = Bonjour,\n\nVous trouverez mes favoris des cartes hors-ligne MapsWithMe dans le fichier "%@.kmz:" ci-joint. Veuillez l'ouvrir si vous avez déjà installé MapsWithMe Pro. Sinon, téléchargez d'abord l'application pour appareil iOS ou Android depuis le lien http://www.mapswithme.com/get?kmz.\n\nAmusez-vous bien avec MapsWithMe!
     it = Ciao,\n\nQuesti sono i miei "preferiti" fra le mappe offline di MapsWithMe, che si trovano nel file allegato "%@.kmz". Il file può essere aperto se l'app MapsWithMe Pro è già stata installata. In caso contrario, occorre scaricare l'app per il tuo iOS o dispositivo Android dal link http://www.mapswithme.com/get?kmz.\n\nBuon divertimento con MapsWithMe!
-    ja = もしもし\n\nMapsWithMeオフライン地図で作成した私のブックマークを、添付ファイル"%@.kmz"でお送りします。MapsWithMe Proを既にインストールされている場合は、ファイルを開いてみてください。インストールがまだの場合は、まずはこちらのリンク http://www.mapswithme.com/get?kmz から、お使いのiOSまたはAndroid端末用のアプリをダウンロードしてください。\n\nMapsWithMeで楽しい時間をお過ごしください！
+    ja = MapsWithMeで作成したブックマークを添付ファイル"%@.kmz"で送付します。MapsWithMe Proがインストールされている端末でファイルを開いてみてください。インストールはこちらから http://www.mapswithme.com/get?kmz iOSまたはAndroidデバイスで利用可能です。\n\nMapsWithMeで楽しい時間をお過ごしください！
     ko = 안녕하세요.\n\n첨부된 "%@.kmz" 파일에 MapsWithMe 오프라인 지도로부터의 제 즐겨찾기가 있습니다. MapsWithMe 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://www.mapswithme.com/get?kmz 링크에서 다운로드하시기 바랍니다.\n\nMapsWithMe와 함께 즐거운 시간 되시기 바랍니다!
     nl = Hallo,\n\nHier zijn mijn bladwijzers uit de MapsWithMe offline kaarten, in het bijgevoegde "%@.kmz"-bestand. Open het bestand als u MapsWithMe Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://www.mapswithme.com/get?kmz.\n\nVeel plezier met MapsWithMe!
     ru = Здравствуйте!\n\nМои закладки из офлайн карт MapsWithMe находятся в прикрепленном файле "%@.kmz". Если у вас уже установлено приложение MapsWithMe Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  MapsWithMe Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.mapswithme.com/get?kmz\n\nСпасибо!
@@ -2121,7 +2121,7 @@
     es = ¡Los favoritos se han cargado con éxito! Puedes encontrarlos en el mapa o en la pantalla de Gestión de favoritos.
     fr = Favoris chargés avec succès ! Vous pouvez les trouver sur la carte ou sur l'écran de gestion des favoris.
     it = Segnalibri caricati con successo! Puoi trovare i segnalibri direttamente sulla mappa, oppure aprendo la schermata dedicata alla Gestione dei segnalibri.
-    ja = ブックマークが無事読み込まれました! ブックマークはマップ上またはブックマークマネージャー画面上にあります。
+    ja = ブックマークが読み込まれました! ブックマークはマップ上、またはブックマーク管理画面に表示されます。
     ko = 즐겨찾기가 성공적으로 로드되었습니다! 지도 또는 즐겨찾기 관리자 화면에서 찾으실 수 있습니다.
     nl = Bladwijzers met succes geüpload! U vindt ze op de kaart of op het scherm van de Bladwijzer Manager.
     ru = Закладки успешно загружены! Вы можете найти их на карте или на экране Менеджера Закладок.
@@ -2166,7 +2166,7 @@
     es = Tu ubicación aún no ha sido determinada
     fr = Votre position n'a pas encore été déterminée
     it = La tua posizione non è stata ancora stabilita
-    ja = 現在地がまだ決定されていません
+    ja = 現在の座標が未確定です
     ko = 귀하의 위치를 아직 알아내지 못 했습니다
     nl = Je plaats werd nog niet vastgesteld
     ru = Ваше местоположение еще не определено
@@ -2183,7 +2183,7 @@
     es = Descargar país (%@) de tu ubicación actual
     fr = Téléchargez le pays (%@) de votre position actuelle
     it = Scarica il paese (%@) della tua posizione attuale
-    ja = 現在地である国(%@)をダウンロード
+    ja = 現在の地域(%@)をダウンロード
     ko = 귀하께서 현재 계신 국가인 (%@)을(를) 다운로드
     nl = Download land (%@) waar je nu bent
     ru = Скачайте страну (%@) вашего текущего местоположения
@@ -2221,7 +2221,7 @@
     es = Lo sentimos, la configuración de Guardar Mapa está desactivada.
     fr = Nous sommes désolés, les paramètres de Map Storage sont désactivés.
     it = Siamo spiacenti, ma le impostazioni di archiviazione delle mappe sono disabilitate.
-    ja = 誠に恐れ入りますがマップストレージ設定は無効になっております。
+    ja = 恐れ入ります、マップストレージ設定が無効になっています。
     ko = 죄송합니다, 지도 스토리지 설정이 비활성화되어 있습니다.
     nl = Sorry, instellingen voor kaartopslag uitgeschakeld.
     ru = Извините, настройки места хранения карт сейчас недоступны.
@@ -2238,7 +2238,7 @@
     es = Se está descargando un país.
     fr = Le téléchargement du pays est en cours actuellement.
     it = Il download della nazione è in corso.
-    ja = 国のダウンロードは現在進行中です。
+    ja = ダウンロードを実行中です
     ko = 국가 다운로드가 지금 진행 중입니다.
     nl = Het downloaden van het land is nu aan de gang.
     ru = Идет процесс загрузки карт.
@@ -2255,7 +2255,7 @@
     es = ¡Ojalá disfrute mucho con MapsWithMe! Si le gusta, le agradeceremos que puntúe nuestra aplicación en el App Store. Es menos de un minuto y nos sería de gran ayuda. ¡Gracias por su apoyo!
     fr = Nous espérons que vous appréciez l'utilisation de MapsWithMe ! Si oui, veuillez évaluer l'application sur l'App Store. Cela prend moins d'une minute mais peut vraiment nous aider. Merci pour votre soutien !
     it = Confidiamo nel fatto che sia piacevole utilizzare MapsWithMe! In caso positivo, ti preghiamo di valutare o recensire l'app all'interno dell'app store. Ti porterà via meno di un minuto e la cosa ci aiuterebbe tantissimo. Grazie per il tuo sostegno!
-    ja = MapsWithMeのご利用をお楽しみください！もし、このアプリがお気に入りであれば、App Storeで評価もしくはレビューしてください。こちらはわずかな時間しか掛からず、皆様の評価やレビューはアプリの向上に役立ちます。ご支援を宜しくお願い致します！
+    ja = MapsWithMeの使い心地はいかがでしょうか。もしよろしければ、App Storeでレビューや評価をお知らせください。皆様からいただく一言が開発の励みになります。ご支援をよろしくお願いいたします！
     ko = MapsWithMe로 즐거운 시간을 보내시기 바랍니다! MapsWithMe가 마음에 드신다면 앱스토어에서 평가를 남겨 주시기 바랍니다. 평가하는 데는 1분이 채 걸리지 않지만 저희에게 큰 도움이 됩니다. 성원해 주셔서 감사합니다!
     nl = Ik hoop dat u veel plezier hebt met MapsWithMe! Zo ja, geef de app dan een cijfer in de App Store of schrijf een recensie. Dit duurt minder dan een minuut, maar kan ons echt helpen. Bedankt voor uw steun!
     ru = Надеемся, вам нравится пользоваться MapsWithMe! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!
@@ -2287,7 +2287,7 @@
     ru = Моя метка на карте. Жми %1$@ или %2$@
     ko = 지도에서 내 PIN을 참조하십시오. %1$@ 또는 %2$@ 열기
     it = Vedi pin sulla mappa. Apri %1$@ o %2$@
-    ja = 私のピンはマップのここに。%1$@ または %2$@ 開いてください
+    ja = 私のピン情報はこの位置です。リンク: %1$@ , %2$@
     de = Meine Nadel auf der Karte sehen. Klicke auf den Link %1$@ oder %2$@
     nl = Bekijk mijn pin op de kaart. Open %1$@ of %2$@
     cs = Značka na mapě otevřete %1$@ nebo %2$@
@@ -2303,7 +2303,7 @@
     ru = Смотри где я сейчас. Жми %1$@ или %2$@
     ko = 현재 위치를 알아 보십시오. %1$@ 또는 %2$@ 열기
     it = Vedi dove sono ora. Apri %1$@ o %2$@
-    ja = 私は今ここにいます。%1$@ または %2$@ を開いてください。
+    ja = 私は今ここにいます。リンク: %1$@ , %2$@
     de = Sieh, wo ich gerade bin. Klicke auf den Link %1$@ oder %2$@
     nl = Kijk waar ik nu ben. Open %1$@ of %2$@
     cs = Jsem zde. Otevřete %1$@ nebo %2$@
@@ -2319,7 +2319,7 @@
     ru = Смотри мою метку на карте MapsWithMe
     uk = Поглянь на мою позначку на карті MapsWithMe
     ko = MapsWithMe 지도에서 내 핀 보기
-    ja = MapsWithMeマップでピンを見る
+    ja = MapsWithMeでピン情報を確認
     it = Dai uno sguardo al mio pin sulla mappa di MapsWithMe
     es = Mira mi alfiler en el mapa de MapsWithMe
     nl = Kijk naar mijn pin op MapsWithMe kaart
@@ -2334,7 +2334,7 @@
     ru = Привет!\n\nОткрой эту ссылку %2$@ либо эту %3$@, для того, чтобы увидеть мою метку %1$@ на карте MapsWithMe.\n\nСпасибо.
     uk = Привіт,\n\nЯ позначив: %1$@ на MapsWithMe, офлайн картах світу. Натисни на це посилання %2$@ або на це посилання %3$@, щоб побачити місце на карті. \n\nДякую.
     ko = 안녕하세요.\n\n다음 위치에 표시를 하였습니다: 오프라인 세계 지도인 MapsWithMe에서 %1$@ . %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.
-    ja = こんにちは。\n\n世界のオフラインマップMapsWithMe でこの場所をピンで留めました： %1$@ 。リンク %2$@ または %3$@ クリックしてその場所をマップで確認してください。\n\nよろしくお願いします
+    ja = オフラインマップ MapsWithMe でこの位置にピンを作成しました: %1$@\n\nリンク %2$@ または %3$@ をクリックするとマップ上で確認できます。
     it = Ciao,\n\nHo segnato %1$@ su MapsWithMe, le mappe del mondo offline. Clicca su questo link %2$@ oppure su questo %3$@ per vedere il posto sulla mappa.\n\nGrazie.
     es = ¡Hola!\n\nMarqué con un alfiler: %1$@ en MapsWithMe, mapas del mundo sin conexión. Haz clic en este enlace %2$@ o este %3$@ para ver el sitio en el mapa.\n\nGracias.
     nl = Hoi,\n\nIk heb: %1$@ geprikt bij MapsWithMe, offline wereldkaarten. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.
@@ -2350,7 +2350,7 @@
     ru = Посмотри на карте MapsWithMe, где я сейчас нахожусь
     uk = Поглянь на моє поточне місцезнаходження на карті MapsWithMe
     ko = MapsWithMe 지도에서 제 현재 위치를 살펴 보시기 바랍니다
-    ja = MapsWithMeマップ上での自分の現在地を見る
+    ja = MapsWithMeで現在地を確認
     it = Guarda dove mi trovo attualmente sulla mappa MapsWithMe
     es = Mira mi ubicación actual en el mapa en MapsWithMe
     nl = Kijk naar mijn huidige locatie op MapsWithMe kaart
@@ -2366,7 +2366,7 @@
     ru = Привет!\n\nЯ сейчас здесь: %1$@. Чтобы увидеть это место на карте MapsWithMe, открой эту ссылку %2$@ или эту %3$@ \n\nСпасибо.
     uk = Привіт,\n\nЯ зараз тут: %1$@.  Натисни на це посилання %2$@ або на це посилання %3$@ щоб побачити місце на карті. \n\nДякую.
     ko = 안녕하세요.\n\n지금 다음 위치에 있습니다: %1$@ . %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.
-    ja = こんにちは。\n\n私は今ここにいます: %1$@ 。リンク %2$@ または %3$@  をクリックしてその場所をマップで確認してください。\n\nよろしくお願いします。
+    ja = 私は今ここにいます: %1$@\n\nリンクをクリックすると詳細がマップに表示されます。\n\n%2$@\n\n%3$@
     it = Ciao,\n\nSono qui adesso: %1$@. Clicca su questo link %2$@ oppure su questo %3$@ per vedere il posto sulla mappa.\n\nGrazie.
     es = Hola:\n\nAhora estoy aquí: %1$@. Haz clic en este enlace %2$@ o esta %3$@ para verlo en el mapa. \n\nGracias.
     nl = Hoi,\n\nMomenteel ben ik hier: %1$@. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.
@@ -2402,7 +2402,7 @@
     es = Compartir
     fr = Partager
     it = Condividi
-    ja = 共有
+    ja = その他の共有
     nl = Delen
     uk = Подiлитись
     zh-Hant = 分享
@@ -2523,7 +2523,7 @@
     es = Copiado al portapapeles: %1$@
     de = In die Zwischenablage kopiert: %1$@
     fr = Copié dans le presse-papier: %1$@
-    ja = クリップボードにコピーしました：%1$@
+    ja = クリップボードにコピーしました: %1$@
     cs = Zkop?rov?no do schr?nky: %1$@
     nl = Op het klembord gekopieerd: %1$@
     pl = Skopiowano do schowka: %1$@
@@ -2533,7 +2533,7 @@
     tags = ios,android
     comment = Setting label for statistics turn on/off
     ru = Разрешить анонимный сбор статистики
-    ja = 匿名使用状況統計を有効にする。
+    ja = 匿名の使用状況統計を有効にする
     cs = Povolit anonymní statistiku používání
     pl = Włącz anonimowe statystyki użytkowania
     uk = Запустити анонімну статистику використання
@@ -2550,7 +2550,7 @@
     tags = ios,android
     comment = Hint near allow statictics checkbox
     ru = Это помогает нам совершенствовать приложение
-    ja = 今後のアプリケーションの開発に役立ちます
+    ja = よりよいアプリケーションの開発にご協力ください
     cs = Pomůže nám to vytvořit lepší aplikaci
     pl = To pomaga nam zbudować lepszą aplikację
     uk = Це допомагає нам створювати якісніші застосунки

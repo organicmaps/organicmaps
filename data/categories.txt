@@ -55,7 +55,7 @@ fr:2bar|2bière|pub|repas
 it:2bar|2birra|pub|mangiare
 es:2bar|2pub|comer
 ko:바|술집|맥주|음료|음식
-ja:1バー|パブ|ビール|ドリンク|フード|飯
+ja:1バー|パブ|ビール|ドリンク|フード|飲食
 cs:2bar|pivo|pití|jídlo|voda|pitná voda|tekutiny
 nl:2bar|2pub|bier|drinken|eten
 zh:1酒吧|酒館|飲酒|PUB|吧台|飲食
@@ -71,7 +71,7 @@ fr:3café|3restaurant|manger|repas
 it:3caffè|3ristorante|pasto|mangiare
 es:3café|3restaurante|comer
 ko:1카페|레스토랑|음식
-ja:1カフェ|レストラン|食べ物|飯
+ja:1カフェ|レストラン|食べ物|飲食
 cs:3kavárna|restaurace|hospoda|jídlo
 nl:3café|3restaurant|3eten
 zh:2咖啡廳|咖啡|3cafe|餐廳|飲食
@@ -87,7 +87,7 @@ fr:4fast food|takeaway|café|restaurant|manger|repas
 it:4fast food|takeaway|caffè|ristorante|pasto|mangiare
 es:4comida rápida|restaurante|café|comer
 ko:1패스트 푸드|레스토랑|카페|테이크 아웃|푸드
-ja:1ファストフード|レストラン|カフェ|テイクアウト|フード|飯
+ja:1ファストフード|レストラン|カフェ|テイクアウト|フード|飲食
 cs:2rychlé občerstvení|4fastfood|kavárna|restaurace|jídlo
 nl:4fast food|3restaurant|3cafe|afhaaleten|3eten
 zh:1速食店|麥當勞|肯德雞|漢堡王|頂呱呱|薯條|速食|用餐|飲食
@@ -103,7 +103,7 @@ fr:3restaurant|3café|manger|repas
 it:3ristorante|3caffè|mangiare
 es:3restaurante|3café|comer
 ko:1레스토랑|카페|음식
-ja:1レストラン|カフェ|食べ物|飯
+ja:1レストラン|カフェ|食べ物|飲食
 cs:3restaurace|hospoda|kavárna|jídlo
 nl:3restaurant|3café|3eten
 zh:1餐廳|餐館|飯店|吃飯|餐點|早餐|午餐|晚餐|食堂|飲食|用餐
@@ -120,7 +120,7 @@ fr:3station-service|poste d’essence
 it:3stazione di rifornimento
 es:3gasolinera
 ko:1가스가 역|연료|가스
-ja:1ガスステーション|燃料|ガス
+ja:1ガスステーション|ガソリンスタンド|ガス
 cs:3čerpací stanice|2pumpa
 nl:3tankstation|2benzine
 zh:1加油站|2加氣站|汽油|加油|天然氣
@@ -136,7 +136,7 @@ fr:3boulangerie|magasin
 it:3panetteria|negozio
 es:3panadería|tienda
 ko:1베이커리|쇼핑
-ja:1ベーカリー|ショップ|店
+ja:1ベーカリー|ショップ|買い物
 cs:3pekárna|obchod
 nl:3bakker|winkel
 zh:1麵包店|2蛋糕店|烘焙|麵包|蛋糕|購物
@@ -152,7 +152,7 @@ fr:2magasin
 it:2negozio
 es:2tienda
 ko:1쇼핑|가게
-ja:1お買い物|店|ショップ
+ja:1お買い物|買い物|ショップ
 cs:2obchod
 nl:2winkel
 zh:1購物|店鋪|商店|雜貨店|便利商店
@@ -168,7 +168,7 @@ fr:3supermarché|magasin
 it:3supermercato|negozio
 es:3supermercado|tienda
 ko:1슈퍼마켓|쇼핑|가게
-ja:1スーパーマーケット|ショップ|お買い物|店
+ja:1スーパーマーケット|ショップ|お買い物|買い物
 cs:3supermarket|obchod
 nl:3supermarkt|winkel
 zh:1超級市場|市場|購物
@@ -184,7 +184,7 @@ fr:arrêt de bus|station|2bus|autobus|4transport
 it:fermata|autobus|4transporto
 es:parada de autobuses|4transporte
 ko:1수송|운송선|황홀|버스 정류장|버스|모선
-ja:1バス停は|交通|停留所|トランスポート|バス|乗合|輸送
+ja:1バス停は|交通|停留所|トランスポート|バス|乗合|交通機関
 cs:autobusová zastávka|4autobus|2bus|zastávka|stanice|doprava
 nl:bushalte|2bus|halte|4transport
 zh:1巴士站|巴士|運輸|交通|客運站|公車|公車站
@@ -200,7 +200,7 @@ fr:arrêt|station|tram|4transport
 it:fermata|tram|4transporto
 es:parada|4transporte
 ko:1트램|트램 정류장|교통|전차|수송|운송선|황홀
-ja:1トラム|トラムの停留所|交通|市電|トランスポート|移送|輸送
+ja:1トラム|トラムの停留所|交通|市電|トランスポート|移送|交通機関
 cs:tramvajová zastávka|3tramvaj|4zastávka|stanice|doprava
 nl:3tramhalte|4transport
 zh:1電車站|電車|運輸|交通|鐵路|大眾運輸
@@ -216,7 +216,7 @@ fr:gare|terminus|arrêt|station|bus|autobus|4transport
 it:autostazione|fermata|autobus|4transporto
 es:estación de autobuses|4transporte
 ko:1버스 정류장|버스|역|교통|모선|역|위치|수송|운송선|황홀
-ja:1駅|バス|輸送|持ち場|駅頭|バスステーション|バス|乗合|トランスポート|移送
+ja:1駅|バス|交通機関|持ち場|駅頭|バスステーション|バス|乗合|トランスポート|移送
 cs:autobusové nádraží|zastávka|bus|doprava
 nl:busstation|2bus|station|4transport
 zh:1巴士|巴士站|交通|運輸
@@ -232,7 +232,7 @@ fr:3gare|station|train|transport
 it:3stazione ferroviaria|3treno|transporto
 es:3estación de tren|3tren|transporte
 ko:1기차역|철도|철도|철도|역|교통|수송
-ja:1駅|鉄道|鉄道|電車|駅|輸送
+ja:1駅|鉄道|鉄道|電車|駅|交通機関
 cs:3železniční stanice|vlakové nádraží|2vlak|doprava
 nl:4station|4spoorwegen|spoor|3trein|4transport
 zh:1鐵道|鐵路|火車|火車站|高鐵站|運輸
@@ -248,7 +248,7 @@ fr:3métro|3rame|transport
 it:3metrò|transporto
 es:3metro|3subte|transporte
 ko:1지하철|교통|수송
-ja:1地下鉄|交通|輸送
+ja:1地下鉄|交通|交通機関
 cs:3metro|3podzemka|doprava
 nl:3metro|transport
 zh:1地鐵|2地下鐵|運輸
@@ -603,7 +603,7 @@ fr:3poste
 it:3posta
 es:4oficina de correos|3post
 ko:1우편
-ja:1電子メール
+ja:1郵便局
 cs:3pošta
 nl:3post
 zh:1郵局|郵筒
@@ -1352,7 +1352,7 @@ fr:3taxi|transport
 it:3taxi|3tassì|transporto
 es:3taxi|4colectivo|transporte
 ko:1택시로 가다|전세 영업 배|수송
-ja:1タクシー|輸送
+ja:1タクシー|交通機関
 cs:3taxi|doprava
 nl:3taxi|transport
 zh:1計程車|交通
@@ -1368,7 +1368,7 @@ fr:4marché|magasin
 it:4mercato|negozio
 es:4mercado|tienda
 ko:1시장|쇼핑
-ja:1市場|店
+ja:1市場|買い物
 cs:4tržiště|samoobsluha|market|obchod
 nl:4markt|winkel
 zh:1市場|市集|購物
@@ -1528,7 +1528,7 @@ fr:boutique de vêtements|magasin
 it:negozio di abbigliamento|negozio
 es:tienda de ropa|3ropa|tienda
 ko:1옷 가게|쇼핑
-ja:1洋服屋さん|店
+ja:1洋服屋さん|買い物
 cs:oblečení|obchod
 nl:kledingwinkel|4kleding
 zh:1買衣服|衣服
@@ -1560,7 +1560,7 @@ fr:vente voitures|magasin
 it:car negozio|negozio
 es:venta de coches|tienda
 ko:1자동차 가게|쇼핑
-ja:1カーショップ|店
+ja:1カーショップ|買い物
 cs:obchod s auty|obchod
 nl:auto winkel
 zh:1買車|購車
@@ -1576,7 +1576,7 @@ fr:kiosque|magasin
 it:chiosco|negozio
 es:quiosco|tienda
 ko:1정자|쇼핑
-ja:1キオスク|帷幄|店
+ja:1キオスク|帷幄|買い物
 cs:kiosk|obchod
 nl:kiosk|winkel
 zh:1小舖|小店|購物|商店|小攤|攤子|攤販
