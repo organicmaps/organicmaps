@@ -593,7 +593,7 @@ typedef enum {Editing, Saved} Mode;
       cell.textLabel.textColor = [UIColor colorWithRed:COORDINATECOLOR green:COORDINATECOLOR blue:COORDINATECOLOR alpha:1.0];
       UILongPressGestureRecognizer * longTouch = [[[UILongPressGestureRecognizer alloc]
                                             initWithTarget:self action:@selector(handleLongPress:)] autorelease];
-      longTouch.minimumPressDuration = 1.0;
+      longTouch.minimumPressDuration = 0.5;
       longTouch.delegate = self;
       [cell addGestureRecognizer:longTouch];
     }
