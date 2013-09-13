@@ -114,7 +114,7 @@ namespace di
 
     double priorityModifier;
     if (area != 0)
-      priorityModifier = min(1., area * 10000.); // making area larger so it's not lost on double conversions
+      priorityModifier = min(1.0, area * 10000.0); // making area larger so it's not lost on double conversions
     else
       priorityModifier = static_cast<double>(population) / 7E9;  // dividing by planet population to get priorityModifier < 1
 
@@ -132,6 +132,8 @@ namespace di
 
     size_t const count = keys.size();
     m_rules.resize(count);
+
+    bool hasSecondaryText = false;
 
     for (size_t i = 0; i < count; ++i)
     {
@@ -174,7 +176,7 @@ namespace di
       m_rules[i] = di::DrawRule(drule::rules().Find(keys[i]), depth, isTransparent);
 
       if (m_rules[i].m_rule->GetCaption(1) != 0)
-        m_hasSecondaryText = true;
+        hasSecondaryText = true;
 
       if ((m_geometryType == feature::GEOM_LINE) && !m_hasPathText && !m_primaryText.empty())
         if (m_rules[i].m_rule->GetCaption(0) != 0)
@@ -190,7 +192,7 @@ namespace di
           hasCaptionWithoutOffset = !(m_rules[i].m_rule->GetCaption(0)->has_offset_y() || m_rules[i].m_rule->GetCaption(0)->has_offset_x());
     }
 
-    if (!m_hasSecondaryText && !m_secondaryText.empty())
+    if (!hasSecondaryText && !m_secondaryText.empty())
     {
       m_primaryText.swap(m_secondaryText);
     }
@@ -343,7 +345,7 @@ namespace di
     if (m_secondaryText.empty())
       return m_primaryText;
     else
-      return m_primaryText + "      " + m_secondaryText;
+      return m_primaryText + "   " + m_secondaryText;
   }
 
   bool FeatureStyler::IsEmpty() const
