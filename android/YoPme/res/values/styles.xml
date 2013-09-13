@@ -9,7 +9,6 @@
 
     <style name="Plashka">
         <item name="android:background">@drawable/plashka_selector</item>
-        <item name="android:duplicateParentState">true</item>
         <item name="android:gravity">center_vertical|left</item>
         <item name="android:orientation">vertical</item>
         <item name="android:paddingLeft">@dimen/dimen_4x</item>

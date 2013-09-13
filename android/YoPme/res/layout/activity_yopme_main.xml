@@ -6,7 +6,6 @@
     tools:context=".YopmeFrontActivity" >
 
     <FrameLayout
-        android:id="@+id/me"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" >
@@ -18,6 +17,7 @@
             android:src="@drawable/bg_selforiented" />
 
         <LinearLayout
+            android:id="@+id/me"
             style="@style/Plashka"
             android:layout_width="match_parent"
             android:layout_height="@dimen/plashka"
@@ -40,7 +40,6 @@
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/poi"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" >
@@ -52,6 +51,7 @@
             android:src="@drawable/bg_poioriented" />
 
         <LinearLayout
+            android:id="@+id/poi"
             style="@style/Plashka"
             android:layout_width="match_parent"
             android:layout_height="@dimen/plashka"
