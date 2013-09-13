@@ -68,23 +68,19 @@ namespace di
 
     f.GetPreferredNames(m_primaryText, m_secondaryText);
 
-    // Draw only primary text for features on the World zoom level
+    // Draw only one text for features on the World zoom level in user's native language.
     if (zoom <= scales::GetUpperWorldScale() && !m_secondaryText.empty())
     {
       m_primaryText.swap(m_secondaryText);
       m_secondaryText.clear();
     }
 
-    // Get house number if feature has one.
-    string houseNumber = f.GetHouseNumber();
+    // Low zoom heuristics - don't show superlong names on World map.
+    if (zoom <= 5 && m_primaryText.size() > 50)
+      m_primaryText.clear();
 
-    if (!houseNumber.empty())
-    {
-      if (m_primaryText.empty() || houseNumber.find(m_primaryText) != string::npos)
-        houseNumber.swap(m_primaryText);
-      else
-        m_primaryText = m_primaryText + " (" + houseNumber + ")";
-    }
+    string houseNumber = f.GetHouseNumber();
+    bool const hasName = !m_primaryText.empty() || !houseNumber.empty();
 
     m_refText = f.GetRoadNumber();
 
@@ -97,14 +93,6 @@ namespace di
       m_popRank = min(upperBound, population) / upperBound / 4;
     }
 
-    // low zoom heuristics
-    if (zoom <= 5)
-    {
-      // hide superlong names on low zoom
-      if (m_primaryText.size() > 50)
-        m_primaryText.clear();
-    }
-
     double area = 0.0;
     if (m_geometryType != feature::GEOM_POINT)
     {
@@ -114,9 +102,15 @@ namespace di
 
     double priorityModifier;
     if (area != 0)
-      priorityModifier = min(1.0, area * 10000.0); // making area larger so it's not lost on double conversions
+    {
+      // making area larger so it's not lost on double conversions
+      priorityModifier = min(1.0, area * 10000.0);
+    }
     else
-      priorityModifier = static_cast<double>(population) / 7E9;  // dividing by planet population to get priorityModifier < 1
+    {
+      // dividing by planet population to get priorityModifier < 1
+      priorityModifier = static_cast<double>(population) / 7E9;
+    }
 
     drule::MakeUnique(keys);
 
@@ -148,7 +142,7 @@ namespace di
       if (keys[i].m_type == drule::symbol)
         hasIcon = true;
 
-      if ((keys[i].m_type == drule::caption && !m_primaryText.empty())
+      if ((keys[i].m_type == drule::caption && hasName)
        || (keys[i].m_type == drule::symbol)
        || (keys[i].m_type == drule::circle))
         m_hasPointStyles = true;
@@ -178,8 +172,10 @@ namespace di
       if (m_rules[i].m_rule->GetCaption(1) != 0)
         hasSecondaryText = true;
 
-      if ((m_geometryType == feature::GEOM_LINE) && !m_hasPathText && !m_primaryText.empty())
-        if (m_rules[i].m_rule->GetCaption(0) != 0)
+      CaptionDefProto const * pCap0 = m_rules[i].m_rule->GetCaption(0);
+      if (pCap0)
+      {
+        if (!m_hasPathText && hasName && (m_geometryType == feature::GEOM_LINE))
         {
           m_hasPathText = true;
 
@@ -187,14 +183,22 @@ namespace di
             m_fontSize = max(m_fontSize, GetTextFontSize(m_rules[i].m_rule));
         }
 
-      if (keys[i].m_type == drule::caption)
-        if (m_rules[i].m_rule->GetCaption(0) != 0)
-          hasCaptionWithoutOffset = !(m_rules[i].m_rule->GetCaption(0)->has_offset_y() || m_rules[i].m_rule->GetCaption(0)->has_offset_x());
+        if (keys[i].m_type == drule::caption)
+          hasCaptionWithoutOffset = !(pCap0->has_offset_y() || pCap0->has_offset_x());
+      }
     }
 
+    // User's language name is better if we don't have secondary text draw rule.
     if (!hasSecondaryText && !m_secondaryText.empty())
-    {
       m_primaryText.swap(m_secondaryText);
+
+    // Get or concat house number if feature has one.
+    if (!houseNumber.empty())
+    {
+      if (m_primaryText.empty() || houseNumber.find(m_primaryText) != string::npos)
+        houseNumber.swap(m_primaryText);
+      else
+        m_primaryText = m_primaryText + " (" + houseNumber + ")";
     }
 
     // placing a text on the path
@@ -215,6 +219,7 @@ namespace di
     }
 
     if (hasIcon && hasCaptionWithoutOffset)
+    {
       // we need to delete symbol style (single one due to MakeUnique call above)
       for (size_t i = 0; i < count; ++i)
       {
@@ -225,6 +230,7 @@ namespace di
           break;
         }
       }
+    }
 
     sort(m_rules.begin(), m_rules.end(), less_depth());
   }
@@ -342,6 +348,7 @@ namespace di
 
   string const FeatureStyler::GetPathName() const
   {
+    // Always concat names for linear features because we process only one draw rule now.
     if (m_secondaryText.empty())
       return m_primaryText;
     else
