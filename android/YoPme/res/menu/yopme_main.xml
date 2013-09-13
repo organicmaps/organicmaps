@@ -2,15 +2,18 @@
 
     <item
         android:id="@+id/menu_settings"
-        android:icon="@drawable/ic_menu"
         android:orderInCategory="100"
         android:showAsAction="always"
         android:title="@string/menu_settings"/>
     <item
         android:id="@+id/menu_help"
-        android:icon="@drawable/ic_menu"
         android:orderInCategory="101"
         android:showAsAction="always"
         android:title="@string/menu_help"/>
+    <item
+        android:id="@+id/menu_about"
+        android:orderInCategory="102"
+        android:showAsAction="always"
+        android:title="@string/about_title"/>
 
 </menu>

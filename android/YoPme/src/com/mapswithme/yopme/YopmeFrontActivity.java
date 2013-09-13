@@ -10,8 +10,11 @@ import com.mapswithme.yopme.map.MapDataProvider;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.text.SpannableString;
+import android.text.util.Linkify;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -134,14 +137,28 @@ public class YopmeFrontActivity extends Activity
         @Override
         public boolean onMenuItemClick(MenuItem item)
         {
-          if (item.getItemId() == R.id.menu_help)
+          final int itemId = item.getItemId();
+          if (itemId == R.id.menu_help)
           {
             startActivity(new Intent(getApplicationContext(), ReferenceActivity.class));
             return true;
           }
-          else if (item.getItemId() == R.id.menu_settings)
+          else if (itemId == R.id.menu_settings)
           {
             startActivity(new Intent(getApplicationContext(), YopmePreference.class));
+            return true;
+          }
+          else if (itemId == R.id.menu_about)
+          {
+            final SpannableString linkifiedAbout = new SpannableString(getString(R.string.about));
+            Linkify.addLinks(linkifiedAbout, Linkify.ALL);
+
+            new AlertDialog.Builder(YopmeFrontActivity.this)
+              .setTitle(R.string.about_title)
+              .setMessage(linkifiedAbout)
+              .create()
+              .show();
+
             return true;
           }
           return false;
