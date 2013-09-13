@@ -20,7 +20,6 @@ YopmeRP::YopmeRP(RenderPolicy::Params const & p)
   , m_drawApiPin(false)
   , m_drawMyPosition(false)
 {
-  LOG(LDEBUG, ("Yopme render policy created"));
   ResourceManager::Params rmp = p.m_rmParams;
 
   rmp.checkDeviceCaps();
@@ -130,16 +129,12 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 
     if (m_drawMyPosition)
     {
-      LOG(LINFO, ("UVRLOG : MyPosition is drawing ", m_myPositionPoint));
       graphics::Circle::Info info(8, graphics::Color(0, 0, 0, 255), true, 3, graphics::Color(255, 255, 255, 255));
       pScreen->drawCircle(m_myPositionPoint, info, graphics::EPosCenter, graphics::maxDepth);
     }
 
     if (m_drawApiPin)
-    {
-      LOG(LINFO, ("UVRLOG : Apipin is drawing ", m_apiPinPoint));
       pScreen->drawSymbol(m_apiPinPoint, "api_pin", graphics::EPosCenter, graphics::maxDepth);
-    }
 
     pScreen->endFrame();
   }

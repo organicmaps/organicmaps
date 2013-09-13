@@ -35,7 +35,8 @@ namespace yopme
     m_framework.PrepareToShutdown();
   }
 
-  bool Framework::ShowRect(double lat, double lon, double zoom, bool needApiMark, bool needMyLoc, double myLat, double myLon)
+  bool Framework::ShowRect(double lat, double lon, double zoom,
+                           bool needApiMark, bool needMyLoc, double myLat, double myLon)
   {
     m2::PointD point(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
     m2::PointD altPoint(MercatorBounds::LonToX(myLon), MercatorBounds::LatToY(myLat));
@@ -49,7 +50,8 @@ namespace yopme
     return true;
   }
 
-  void Framework::InitRenderPolicy(bool needApiPin, m2::PointD apiPinPoint, bool needMyLoc, m2::PointD myLocPoint)
+  void Framework::InitRenderPolicy(bool needApiPin, m2::PointD const & apiPinPoint,
+                                   bool needMyLoc, m2::PointD const & myLocPoint)
   {
     shared_ptr<RenderContext> primaryRC(new RenderContext());
     graphics::ResourceManager::Params rmParams;
