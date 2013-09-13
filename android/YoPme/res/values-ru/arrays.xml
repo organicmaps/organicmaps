@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="update_frequency">
+        <item>По нажатию</item>
+        <item>15 cекунд</item>
+        <item>30 cекунд</item>
+        <item>60 cекунд</item>
+    </string-array>
+
+</resources>
