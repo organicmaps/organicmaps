@@ -28,6 +28,7 @@ namespace yopme
   {
     // TODO move this in some method like ExternalStorageConnected
     m_framework.AddLocalMaps();
+    m_framework.LoadBookmarks();
   }
 
   Framework::~Framework()
