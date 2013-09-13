@@ -166,6 +166,32 @@
             android:label="@string/maps_storage"
             android:screenOrientation="behind" >
         </activity>
+		<activity
+            android:name="com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryActivity"
+            android:configChanges="orientation|screenLayout|screenSize"
+            android:label="@string/bookmark_sets"
+            android:screenOrientation="behind"
+            android:theme="@style/MWMTheme.Dialog.Light"
+            android:windowSoftInputMode="stateUnspecified|adjustResize" >
+        </activity>
+        <activity
+            android:name="com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity"
+            android:configChanges="orientation|screenLayout|screenSize"
+            android:label="@string/bookmarks"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.mapswithme.maps.bookmarks.BookmarkListActivity"
+            android:configChanges="orientation|screenLayout|screenSize"
+            android:label="@string/bookmarks"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.mapswithme.maps.bookmarks.BookmarkActivity"
+            android:configChanges="orientation|screenLayout|screenSize"
+            android:label="@string/bookmarks"
+            android:screenOrientation="behind" >
+        </activity>
         <activity
             android:name="com.mapswithme.maps.MapObjectActivity"
             android:launchMode="singleTop"
