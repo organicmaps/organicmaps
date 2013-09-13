@@ -12,9 +12,15 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.text.SpannableString;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,7 +31,7 @@ import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 
 public class YopmeFrontActivity extends Activity
-                                implements OnClickListener
+                                implements OnClickListener, SensorEventListener
 {
   private TextView   mSelectedLocation;
   private View mMenu;
@@ -57,6 +63,10 @@ public class YopmeFrontActivity extends Activity
     actionBar.setDisplayShowCustomEnabled(true);
     actionBar.setCustomView(R.layout.action_bar_view);
 
+    // sencors set up
+    sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+    accel = sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+
     setUpView();
 
     //restore
@@ -75,6 +85,20 @@ public class YopmeFrontActivity extends Activity
 
     if (isIntroNeeded())
       showIntro();
+  }
+
+  @Override
+  protected void onPause()
+  {
+    super.onPause();
+    sm.unregisterListener(this);
+  }
+
+  @Override
+  protected void onResume()
+  {
+    super.onResume();
+    sm.registerListener(this, accel, SensorManager.SENSOR_DELAY_NORMAL);
   }
 
   @Override
@@ -113,6 +137,12 @@ public class YopmeFrontActivity extends Activity
   @Override
   public void onClick(View v)
   {
+    if (!mClickable)
+    {
+      Log.d("SENSOR", "SKIPING CLICK");
+      return;
+    }
+
     if (R.id.me == v.getId())
     {
       BackscreenActivity.startInMode(getApplicationContext(), Mode.LOCATION, null, MapDataProvider.COMFORT_ZOOM);
@@ -208,5 +238,33 @@ public class YopmeFrontActivity extends Activity
   private void markIntroShown()
   {
     getSharedPreferences(PREFS, 0).edit().putBoolean(KEY_INTRO, false).apply();
+  }
+
+  @Override
+  public void onAccuracyChanged(Sensor sensor, int accuracy)
+  {
+  }
+
+  private long mLastTimeStamp;
+  private boolean mClickable = false;
+  private SensorManager sm;
+  private Sensor accel;
+
+  @Override
+  public void onSensorChanged(SensorEvent event)
+  {
+    // in nanos
+    final long interval = 1000;
+    // in radians/second
+    final float lowerBound = 1.0f;
+
+    final float yRotationSpeed = event.values[1];
+    if (Math.abs(yRotationSpeed) > lowerBound)
+    {
+      mLastTimeStamp = event.timestamp;
+      mClickable = false;
+    }
+    else if (event.timestamp - mLastTimeStamp > interval * 1000000)
+      mClickable = true;
   }
 }
