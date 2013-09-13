@@ -35,20 +35,21 @@ namespace yopme
     m_framework.PrepareToShutdown();
   }
 
-  bool Framework::ShowRect(double lat, double lon, double zoom, bool needApiMark)
+  bool Framework::ShowRect(double lat, double lon, double zoom, bool needApiMark, bool needMyLoc, double myLat, double myLon)
   {
     m2::PointD point(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
+    m2::PointD altPoint(MercatorBounds::LonToX(myLon), MercatorBounds::LatToY(myLat));
     if (!m_framework.IsCountryLoaded(point) && zoom > scales::GetUpperWorldScale())
       return false;
 
     m_framework.ShowRect(lat, lon, zoom);
-    InitRenderPolicy();
-    RenderMap(point, needApiMark ? "api_pin" : "current-position");
+    InitRenderPolicy(needApiMark, point, needMyLoc, altPoint);
+    RenderMap();
     TeardownRenderPolicy();
     return true;
   }
 
-  void Framework::InitRenderPolicy()
+  void Framework::InitRenderPolicy(bool needApiPin, m2::PointD apiPinPoint, bool needMyLoc, m2::PointD myLocPoint)
   {
     shared_ptr<RenderContext> primaryRC(new RenderContext());
     graphics::ResourceManager::Params rmParams;
@@ -70,15 +71,17 @@ namespace yopme
 
     try
     {
-      m_framework.SetRenderPolicy(new ::YopmeRP(rpParams));
+      YopmeRP * rp = new YopmeRP(rpParams);
+      m_framework.SetRenderPolicy(rp);
       m_framework.InitGuiSubsystem();
+      m_framework.OnSize(m_width, m_height);
+      rp->DrawApiPin(needApiPin, m_framework.GtoP(apiPinPoint));
+      rp->DrawMyLocation(needMyLoc, m_framework.GtoP(myLocPoint));
     }
     catch(RootException & e)
     {
       LOG(LERROR, (e.what()));
     }
-
-    m_framework.OnSize(m_width, m_height);
   }
 
   void Framework::TeardownRenderPolicy()
@@ -86,14 +89,13 @@ namespace yopme
     m_framework.SetRenderPolicy(0);
   }
 
-  void Framework::RenderMap(const m2::PointD & markPoint, const string & symbolName)
+  void Framework::RenderMap()
   {
     Drawer * drawer = m_framework.GetRenderPolicy()->GetDrawer().get();
     shared_ptr<PaintEvent> pe(new PaintEvent(drawer));
 
     m_framework.BeginPaint(pe);
     m_framework.DoPaint(pe);
-    m_framework.GetInformationDisplay().drawPlacemark(drawer, symbolName, m_framework.GtoP(markPoint));
     m_framework.EndPaint(pe);
   }
 } //yopme

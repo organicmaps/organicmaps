@@ -17,6 +17,8 @@ using namespace graphics;
 
 YopmeRP::YopmeRP(RenderPolicy::Params const & p)
   : RenderPolicy(p, false, 1)
+  , m_drawApiPin(false)
+  , m_drawMyPosition(false)
 {
   LOG(LDEBUG, ("Yopme render policy created"));
   ResourceManager::Params rmp = p.m_rmParams;
@@ -121,10 +123,23 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
     pScreen->clear(m_bgColor);
 
     pScreen->applyBlitStates();
-    pScreen->blit(&info, 1, true, graphics::maxDepth);
+    pScreen->blit(&info, 1, true, graphics::minDepth);
 
     pScreen->applyStates();
     drawOverlay->draw(pScreen, math::Identity<double, 3>());
+
+    if (m_drawMyPosition)
+    {
+      LOG(LINFO, ("UVRLOG : MyPosition is drawing ", m_myPositionPoint));
+      graphics::Circle::Info info(8, graphics::Color(0, 0, 0, 255), true, 3, graphics::Color(255, 255, 255, 255));
+      pScreen->drawCircle(m_myPositionPoint, info, graphics::EPosCenter, graphics::maxDepth);
+    }
+
+    if (m_drawApiPin)
+    {
+      LOG(LINFO, ("UVRLOG : Apipin is drawing ", m_apiPinPoint));
+      pScreen->drawSymbol(m_apiPinPoint, "api_pin", graphics::EPosCenter, graphics::maxDepth);
+    }
 
     pScreen->endFrame();
   }
@@ -135,4 +150,16 @@ void YopmeRP::OnSize(int w, int h)
   RenderPolicy::OnSize(w, h);
   m_offscreenDrawer->onSize(w, h);
   m_offscreenDrawer->screen()->setDepthBuffer(make_shared_ptr(new graphics::gl::RenderBuffer(w, h, true)));
+}
+
+void YopmeRP::DrawApiPin(bool isNeed, m2::PointD const & point)
+{
+  m_drawApiPin = isNeed;
+  m_apiPinPoint = point;
+}
+
+void YopmeRP::DrawMyLocation(bool isNeed, m2::PointD const & point)
+{
+  m_drawMyPosition = isNeed;
+  m_myPositionPoint = point;
 }
