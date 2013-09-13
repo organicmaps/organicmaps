@@ -3426,11 +3426,13 @@ node|z15-[leisure=nature_reserve]
 {
   icon-image:   bird.svg;
 }
-area|z15-[building],
-node|z15-[building]
+
+area|z15-[building]
 {
-  fill-color:   #a;
+  fill-color:   #1;
+  z-index: 500;
 }
+
 line|z15[railway=narrow_gauge]
 {
   color:    #333333;
@@ -6358,6 +6360,11 @@ area|z15-[area:highway=steps]
     casing-width: 0;
 }
 
+*[building]
+{
+    text-halo-color: #0;    
+    text-color: #f;
+}
 
 node[amenity!=bench][natural!=tree][!barrier][railway!=subway_entrance][!power][natural!=peak],
 area[amenity!=bench][natural!=tree][!barrier][railway!=subway_entrance][!power][natural!=peak]
