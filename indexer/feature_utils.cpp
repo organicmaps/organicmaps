@@ -72,7 +72,7 @@ public:
     int scaleNew = scale;
     CorrectScaleForVisibility(types, scaleNew);
 
-    return ((scale != scaleNew) ? scales::GetRectForLevel(scaleNew, rect.Center(), 1.0) : rect);
+    return ((scale != scaleNew) ? scales::GetRectForLevel(scaleNew, rect.Center()) : rect);
   }
 
   m2::RectD GetViewport(TypesHolder const & types, m2::RectD const & limitRect) const
@@ -86,7 +86,7 @@ public:
       scale = min(scale, GetScaleForType(types[i]));
 
     CorrectScaleForVisibility(types, scale);
-    return scales::GetRectForLevel(scale, limitRect.Center(), 1.0);
+    return scales::GetRectForLevel(scale, limitRect.Center());
   }
 
   uint8_t GetSearchRank(TypesHolder const & types, m2::PointD const & pt, uint32_t population) const

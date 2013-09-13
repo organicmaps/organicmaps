@@ -17,8 +17,6 @@ namespace scales
   /// Upper scale for user comfort view (e.g. location zoom).
   inline int GetUpperComfortScale() { return UPPER_STYLE_SCALE - 2; }
 
-  double GetM2PFactor(int level);
-
   double GetScaleLevelD(double ratio);
   double GetScaleLevelD(m2::RectD const & r);
   int GetScaleLevel(double ratio);
@@ -28,7 +26,7 @@ namespace scales
   double GetRationForLevel(double level);
 
   /// @return such rect, that GetScaleLevel(rect) == level
-  m2::RectD GetRectForLevel(double level, m2::PointD const & center, double X2YRatio);
+  m2::RectD GetRectForLevel(double level, m2::PointD const & center);
 
   double GetEpsilonForLevel(int level);
   double GetEpsilonForSimplify(int level);

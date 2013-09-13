@@ -13,7 +13,7 @@ public:
   ScalesProcessor();
   explicit ScalesProcessor(int tileSize);
 
-  void SetParams(int width, int height, double visualScale);
+  void SetParams(double visualScale, int tileSize);
 
   m2::RectD const & GetWorldRect() const;
   inline int GetTileSize() const { return m_tileSize; }

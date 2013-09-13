@@ -676,9 +676,6 @@ void Framework::OnSize(int w, int h)
 
   if (m_renderPolicy)
   {
-    /// @todo Need to review this logic:
-    /// Tile size doesn't change in render policy now, but it depends from screen sizes.
-
     m_informationDisplay.setDisplayRect(m2::RectI(0, 0, w, h));
 
     m_renderPolicy->OnSize(w, h);
@@ -687,7 +684,7 @@ void Framework::OnSize(int w, int h)
 
     m_balloonManager.ScreenSizeChanged(w, h);
 
-    m_scales.SetParams(w, h, m_renderPolicy->VisualScale());
+    m_scales.SetParams(m_renderPolicy->VisualScale(), m_renderPolicy->TileSize());
   }
 
   m_width = w;

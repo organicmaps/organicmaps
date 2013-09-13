@@ -254,7 +254,7 @@ Result PreResult2::GenerateFinalResult(
 
   case RESULT_LATLON:
     return Result(m_str, info.m_name, info.m_flag, string(), 0,
-                  scales::GetRectForLevel(scales::GetUpperScale(), m_center, 1.0), m_distance);
+                  scales::GetRectForLevel(scales::GetUpperScale(), m_center), m_distance);
 
   default:
     ASSERT_EQUAL ( m_resultType, RESULT_CATEGORY, () );

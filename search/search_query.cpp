@@ -1211,7 +1211,7 @@ void Query::SearchAddress()
         {
           params.ProcessAddressTokens();
 
-          SetViewportByIndex(mwmInfo, scales::GetRectForLevel(ADDRESS_SCALE, city.m_value.m_pt, 1.0), ADDRESS_RECT_ID);
+          SetViewportByIndex(mwmInfo, scales::GetRectForLevel(ADDRESS_SCALE, city.m_value.m_pt), ADDRESS_RECT_ID);
 
           /// @todo Hack - do not search for address in World.mwm; Do it better in future.
           bool const b = m_worldSearch;

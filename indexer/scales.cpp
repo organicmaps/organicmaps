@@ -8,25 +8,10 @@
 
 namespace scales
 {
-  /// @name This parameters should be tuned.
-  //@{
-  static const int INITIAL_LEVEL = 1;
-
-  double GetM2PFactor(int level)
-  {
-    int const base_scale = 14;
-    int const factor = 1 << my::Abs(level - base_scale);
-
-    if (level < base_scale)
-      return 1 / double(factor);
-    else
-      return factor;
-  }
-  //@}
 
   double GetScaleLevelD(double ratio)
   {
-    double const level = min(static_cast<double>(GetUpperScale()), log(ratio) / log(2.0) + INITIAL_LEVEL);
+    double const level = min(static_cast<double>(GetUpperScale()), log(ratio) / log(2.0));
     return (level < 0.0 ? 0.0 : level);
   }
 
@@ -52,20 +37,18 @@ namespace scales
 
   double GetRationForLevel(double level)
   {
-    if (level < INITIAL_LEVEL)
-      level = INITIAL_LEVEL;
-    return pow(2.0, level - INITIAL_LEVEL);
+    return max(0.0, pow(2.0, level));
   }
 
-  m2::RectD GetRectForLevel(double level, m2::PointD const & center, double X2YRatio)
+  m2::RectD GetRectForLevel(double level, m2::PointD const & center)
   {
-    double const dy = 2.0 * GetRationForLevel(level) / (1.0 + X2YRatio);
-    double const dx = X2YRatio * dy;
+    double const dy = GetRationForLevel(level);
+    double const dx = dy;
     ASSERT_GREATER ( dy, 0.0, () );
     ASSERT_GREATER ( dx, 0.0, () );
 
-    double const xL = (MercatorBounds::maxX - MercatorBounds::minX) / (2.0*dx);
-    double const yL = (MercatorBounds::maxY - MercatorBounds::minY) / (2.0*dy);
+    double const xL = (MercatorBounds::maxX - MercatorBounds::minX) / (2.0 * dx);
+    double const yL = (MercatorBounds::maxY - MercatorBounds::minY) / (2.0 * dy);
     ASSERT_GREATER ( xL, 0.0, () );
     ASSERT_GREATER ( yL, 0.0, () );
 

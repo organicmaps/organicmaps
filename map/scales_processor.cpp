@@ -7,7 +7,7 @@
 
 
 ScalesProcessor::ScalesProcessor()
-  : m_tileSize(512), m_visualScale(1.0)
+  : m_tileSize(256), m_visualScale(1.0)
 {
 }
 
@@ -16,9 +16,9 @@ ScalesProcessor::ScalesProcessor(int tileSize)
 {
 }
 
-void ScalesProcessor::SetParams(int width, int height, double visualScale)
+void ScalesProcessor::SetParams(double visualScale, int tileSize)
 {
-  m_tileSize = CalculateTileSize(width, height);
+  m_tileSize = tileSize;
   m_visualScale = visualScale;
 }
 

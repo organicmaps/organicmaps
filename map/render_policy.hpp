@@ -143,6 +143,7 @@ public:
   graphics::GlyphCache * GetGlyphCache() const;
 
   double VisualScale() const;
+  size_t TileSize() const { return 256; };
   graphics::EDensity Density() const;
   string const & SkinName() const;
 

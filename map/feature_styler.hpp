@@ -52,6 +52,7 @@ namespace di
     bool m_hasLineStyles;
     bool m_hasPointStyles;
     bool m_hasPathText;
+    bool m_hasSecondaryText;
     int m_geometryType;
 
     double m_visualScale;
