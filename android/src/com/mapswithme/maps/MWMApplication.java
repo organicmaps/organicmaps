@@ -244,6 +244,11 @@ public class MWMApplication extends android.app.Application implements MapStorag
     return m_isPro || m_isYota;
   }
 
+  public boolean isYota()
+  {
+    return m_isYota;
+  }
+
   public String getProVersionURL()
   {
     return m_proVersionURL;

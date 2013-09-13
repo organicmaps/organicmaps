@@ -372,7 +372,8 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
       }
       else
       {
-        if (getPackageIntent("com.mapswithme.maps") != null)
+        if (getPackageIntent("com.mapswithme.maps") != null
+            &&  !MWMApplication.get().isYota())
         {
           Toast.makeText(this, R.string.suggest_uninstall_lite, Toast.LENGTH_LONG).show();
         }
