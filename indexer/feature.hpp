@@ -243,8 +243,7 @@ public:
 
   uint8_t GetRank() const;
   uint32_t GetPopulation() const;
-
-  inline string GetRoadNumber() const { return m_Params.ref; }
+  string GetRoadNumber() const;
 
   double GetDistance(m2::PointD const & pt, int scale) const;
 

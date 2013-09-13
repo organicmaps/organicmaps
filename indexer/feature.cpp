@@ -308,6 +308,12 @@ uint32_t FeatureType::GetPopulation() const
   return (r == 0 ? 1 : static_cast<uint32_t>(pow(1.1, r)));
 }
 
+string FeatureType::GetRoadNumber() const
+{
+  ParseCommon();
+  return m_Params.ref;
+}
+
 namespace
 {
   class DoCalcDistance
