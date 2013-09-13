@@ -9,9 +9,9 @@ extern "C"
 	Java_com_mapswithme_yopme_BackscreenActivity_nativeInitPlatform(JNIEnv * env, jobject thiz,
 																	jstring apkPath, jstring storagePath,
 																	jstring tmpPath, jstring obbGooglePath,
-																	jboolean isPro)
+																	jboolean isPro, jboolean isYota)
 	{
-		android::Platform::Instance().Initialize(env, apkPath, storagePath, tmpPath, obbGooglePath, isPro);
+		android::Platform::Instance().Initialize(env, apkPath, storagePath, tmpPath, obbGooglePath, isPro, isYota);
 	}
 
 } // extern "C"

@@ -12,6 +12,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -93,7 +94,7 @@ public class BackscreenActivity extends BSActivity
     new File(extStoragePath).mkdirs();
     new File(extTmpPath).mkdirs();
 
-    nativeInitPlatform(getApkPath(), extStoragePath, extTmpPath, "", true);
+    nativeInitPlatform(getApkPath(), extStoragePath, extTmpPath, "", true, Build.DEVICE.equals("yotaphone"));
 
     /// !!! Create MapRenderer ONLY AFTER platform init !!!
     //final Resources res = getResources();
@@ -449,5 +450,5 @@ public class BackscreenActivity extends BSActivity
 
   private native void nativeInitPlatform(String apkPath, String storagePath,
                                          String tmpPath, String obbGooglePath,
-                                         boolean isPro);
+                                         boolean isPro, boolean isYota);
 }
