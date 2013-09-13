@@ -19,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 import android.widget.PopupMenu.OnMenuItemClickListener;
@@ -182,18 +181,17 @@ public class YopmeFrontActivity extends Activity
     mSelectedLocation.setText(getString(R.string.poi_label));
   }
 
-  ImageView mIntro;
   private void showIntro()
   {
-    mIntro = new ImageView(this);
-    mIntro.setImageResource(R.drawable.introduction);
-    ((ViewGroup)getWindow().getDecorView()).addView(mIntro);
-    mIntro.setOnClickListener(new OnClickListener()
+    final View intro =  View.inflate(this, R.layout.help, null);
+    intro.setBackgroundColor(0x80000000);
+    ((ViewGroup)getWindow().getDecorView()).addView(intro);
+    intro.setOnClickListener(new OnClickListener()
     {
       @Override
       public void onClick(View v)
       {
-        mIntro.setVisibility(View.GONE);
+        intro.setVisibility(View.GONE);
         markIntroShown();
       }
     });

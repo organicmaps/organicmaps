@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="42dp" >
+
+    <TextView
+        style="@style/HelpBigText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Жесты управления на втором экране" >
+    </TextView>
+
+    <TextView
+        style="@style/HelpSmallText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Приближение" >
+    </TextView>
+
+    <TextView
+        style="@style/HelpSmallText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_swiperight"
+        android:text="Отдаление" >
+    </TextView>
+
+    <TextView
+        style="@style/HelpSmallText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_tap"
+        android:text="Обновление\nинформации" >
+    </TextView>
+
+</LinearLayout>
