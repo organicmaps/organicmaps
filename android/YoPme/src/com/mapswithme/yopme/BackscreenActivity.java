@@ -360,7 +360,11 @@ public class BackscreenActivity extends BSActivity
     {
       mPoiInfo.setVisibility(View.VISIBLE);
 
-      data = mMapDataProvider.getPOIData(mPoint, mZoomLevel);
+
+      if (mLocation != null)
+        data = mMapDataProvider.getPOIData(mPoint, mZoomLevel, true, mLocation.getLatitude(), mLocation.getLongitude());
+      else
+        data = mMapDataProvider.getPOIData(mPoint, mZoomLevel, false, 0, 0);
 
       if (mLocation != null && mPoint != null)
       {
