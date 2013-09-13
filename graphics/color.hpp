@@ -20,6 +20,9 @@ namespace graphics
     static Color const fromXRGB(uint32_t _c, unsigned char _a = 0);
 
     Color const & operator /= (unsigned k);
+
+    static Color Black();
+    static Color White();
   };
 
   bool operator < (Color const & l, Color const & r);

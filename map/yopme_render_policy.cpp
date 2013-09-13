@@ -16,6 +16,13 @@
 
 using namespace graphics;
 
+namespace
+{
+  const int ApiPinDepth = maxDepth;
+  const int MyLocationDepth = maxDepth;
+  const int ApiPinLength = 5.0;
+}
+
 YopmeRP::YopmeRP(RenderPolicy::Params const & p)
   : RenderPolicy(p, false, 1)
   , m_drawApiPin(false)
@@ -35,17 +42,17 @@ YopmeRP::YopmeRP(RenderPolicy::Params const & p)
   rmp.m_storageParams[ESmallStorage]        = GetStorageParam(2000, 6000, 1, ESmallStorage);
   rmp.m_storageParams[ETinyStorage]         = GetStorageParam(100, 200, 1, ETinyStorage);
 
-  rmp.m_glyphCacheParams = graphics::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
-                                                                       "fonts_whitelist.txt",
-                                                                       "fonts_blacklist.txt",
-                                                                       2 * 1024 * 1024,
-                                                                       Density());
+  rmp.m_glyphCacheParams = ResourceManager::GlyphCacheParams("unicode_blocks.txt",
+                                                             "fonts_whitelist.txt",
+                                                             "fonts_blacklist.txt",
+                                                             2 * 1024 * 1024,
+                                                             Density());
 
   rmp.m_renderThreadsCount = 0;
   rmp.m_threadSlotsCount = 1;
   rmp.m_useSingleThreadedOGL = true;
 
-  m_resourceManager.reset(new graphics::ResourceManager(rmp, SkinName(), Density()));
+  m_resourceManager.reset(new ResourceManager(rmp, SkinName(), Density()));
 
   m_primaryRC->setResourceManager(m_resourceManager);
   m_primaryRC->startThreadDrawing(m_resourceManager->guiThreadSlot());
@@ -56,7 +63,7 @@ YopmeRP::YopmeRP(RenderPolicy::Params const & p)
 
   m_drawer.reset(CreateDrawer(p.m_useDefaultFB, p.m_primaryRC, ESmallStorage, ESmallTexture));
   m_offscreenDrawer.reset(CreateDrawer(false, p.m_primaryRC, ELargeStorage, ELargeTexture));
-  m_offscreenDrawer->screen()->setDepthBuffer(make_shared_ptr(new graphics::gl::RenderBuffer(p.m_screenWidth, p.m_screenHeight, true)));
+  m_offscreenDrawer->screen()->setDepthBuffer(make_shared_ptr(new gl::RenderBuffer(p.m_screenWidth, p.m_screenHeight, true)));
 
   InitCacheScreen();
   InitWindowsHandle(p.m_videoTimer, p.m_primaryRC);
@@ -64,7 +71,7 @@ YopmeRP::YopmeRP(RenderPolicy::Params const & p)
 
 void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {
-  shared_ptr<graphics::gl::BaseTexture> renderTarget;
+  shared_ptr<gl::BaseTexture> renderTarget;
 
   int width = m_offscreenDrawer->screen()->width();
   int height = m_offscreenDrawer->screen()->height();
@@ -72,13 +79,13 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
   ASSERT(width == GetDrawer()->screen()->width(), ());
   ASSERT(height == GetDrawer()->screen()->height(), ());
 
-  shared_ptr<graphics::Overlay> overlay(new graphics::Overlay());
+  shared_ptr<Overlay> overlay(new Overlay());
   overlay->setCouldOverlap(true);
 
   { // offscreen rendering
     m2::RectI renderRect(0, 0, width, height);
 
-    graphics::Screen * pScreen = m_offscreenDrawer->screen();
+    Screen * pScreen = m_offscreenDrawer->screen();
     renderTarget = m_resourceManager->createRenderTarget(width, height);
 
     pScreen->setOverlay(overlay);
@@ -106,14 +113,14 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
   }
 
   overlay->clip(m2::RectI(0, 0, width, height));
-  shared_ptr<graphics::Overlay> drawOverlay(new graphics::Overlay());
+  shared_ptr<Overlay> drawOverlay(new Overlay());
   drawOverlay->setCouldOverlap(false);
   drawOverlay->merge(*overlay);
 
   {
     // on screen rendering
-    graphics::Screen * pScreen = GetDrawer()->screen();
-    graphics::BlitInfo info;
+    Screen * pScreen = GetDrawer()->screen();
+    BlitInfo info;
     info.m_srcSurface = renderTarget;
     info.m_srcRect = m2::RectI(0, 0, width, height);
     info.m_texRect = m2::RectU(1, 1, width - 1, height - 1);
@@ -123,41 +130,43 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
     pScreen->clear(m_bgColor);
 
     pScreen->applyBlitStates();
-    pScreen->blit(&info, 1, true, graphics::minDepth);
+    pScreen->blit(&info, 1, true, minDepth);
 
     pScreen->applyStates();
     drawOverlay->draw(pScreen, math::Identity<double, 3>());
 
     if (m_drawMyPosition)
     {
-      graphics::Circle::Info info(8, graphics::Color(0, 0, 0, 255), true, 3, graphics::Color(255, 255, 255, 255));
-      pScreen->drawCircle(m_myPositionPoint, info, graphics::EPosCenter, graphics::maxDepth);
+      Circle::Info info(8, Color::Black(), true, 3, Color::White());
+      pScreen->drawCircle(m_myPositionPoint, info, EPosCenter, MyLocationDepth);
     }
 
     if (m_drawApiPin)
     {
-      Pen::Info outlineInfo(graphics::Color(255, 255, 255, 255), 5);
-      Pen::Info info(graphics::Color(0, 0, 0, 255), 3);
+      Pen::Info outlineInfo(Color::White(), 5);
+      Pen::Info info(Color::Black(), 3);
 
       uint32_t outlineID = pScreen->mapInfo(outlineInfo);
       uint32_t infoID = pScreen->mapInfo(info);
 
+      m2::PointD firstLineOffset(ApiPinLength, ApiPinLength);
       m2::PointD line1[2] =
       {
-        m_apiPinPoint - m2::PointD(5.0, 5.0),
-        m_apiPinPoint + m2::PointD(5.0, 5.0)
+        m_apiPinPoint - firstLineOffset,
+        m_apiPinPoint + firstLineOffset
       };
 
+      m2::PointD secondLineOffset(ApiPinLength, -ApiPinLength);
       m2::PointD line2[2] =
       {
-        m_apiPinPoint - m2::PointD(5.0, -5.0),
-        m_apiPinPoint + m2::PointD(5.0, -5.0)
+        m_apiPinPoint - secondLineOffset,
+        m_apiPinPoint + secondLineOffset
       };
 
-      pScreen->drawPath(line1, 2, 0.0, outlineID, graphics::maxDepth);
-      pScreen->drawPath(line2, 2, 0.0, outlineID, graphics::maxDepth);
-      pScreen->drawPath(line1, 2, 0.0, infoID, graphics::maxDepth);
-      pScreen->drawPath(line2, 2, 0.0, infoID, graphics::maxDepth);
+      pScreen->drawPath(line1, 2, 0.0, outlineID, ApiPinDepth);
+      pScreen->drawPath(line2, 2, 0.0, outlineID, ApiPinDepth);
+      pScreen->drawPath(line1, 2, 0.0, infoID, ApiPinDepth);
+      pScreen->drawPath(line2, 2, 0.0, infoID, ApiPinDepth);
     }
 
     pScreen->endFrame();
@@ -168,7 +177,7 @@ void YopmeRP::OnSize(int w, int h)
 {
   RenderPolicy::OnSize(w, h);
   m_offscreenDrawer->onSize(w, h);
-  m_offscreenDrawer->screen()->setDepthBuffer(make_shared_ptr(new graphics::gl::RenderBuffer(w, h, true)));
+  m_offscreenDrawer->screen()->setDepthBuffer(make_shared_ptr(new gl::RenderBuffer(w, h, true)));
 }
 
 void YopmeRP::DrawApiPin(bool isNeed, m2::PointD const & point)

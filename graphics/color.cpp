@@ -85,4 +85,14 @@ namespace graphics
   {
     return !(l != r);
   }
+
+  Color Color::Black()
+  {
+    return Color(0, 0, 0, 255);
+  }
+
+  Color Color::White()
+  {
+    return Color(255, 255, 255, 255);
+  }
 }
