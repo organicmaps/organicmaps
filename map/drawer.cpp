@@ -347,14 +347,16 @@ void Drawer::Draw(di::FeatureInfo const & fi)
       if (isArea)
       {
         bool const isFill = pRule->GetArea() != 0;
-        bool const hasSym = hasSymbol && ((pRule->GetType() & drule::way) != 0);
+        bool const isWay = (pRule->GetType() & drule::way) != 0;
 
         for (list<di::AreaInfo>::const_iterator i = fi.m_areas.begin(); i != fi.m_areas.end(); ++i)
         {
           if (isFill)
             drawArea(*i, di::DrawRule(pRule, depth, false));
-          else if (hasSym)
+          else if (hasSymbol && !isWay)
             drawSymbol(i->GetCenter(), graphics::EPosCenter, di::DrawRule(pRule, depth, false), id);
+          else if (isCircle && !isWay)
+            drawCircle(i->GetCenter(), graphics::EPosCenter, di::DrawRule(pRule, depth, false), id);
         }
       }
 
