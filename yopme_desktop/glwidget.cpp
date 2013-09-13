@@ -36,7 +36,7 @@ void GLWidget::initializeGL()
   rpParams.m_density = graphics::EDensityMDPI;
   rpParams.m_skinName = "basic.skn";
   rpParams.m_screenHeight = 640;
-  rpParams.m_screenWidth = 340;
+  rpParams.m_screenWidth = 360;
 
   try
   {
@@ -47,6 +47,8 @@ void GLWidget::initializeGL()
   {
     LOG(LERROR, (e.what()));
   }
+
+  resize(360, 640);
 }
 
 void GLWidget::resizeGL(int w, int h)
@@ -58,12 +60,7 @@ void GLWidget::resizeGL(int w, int h)
 
 void GLWidget::paintGL()
 {
-  m_f.GetNavigator().SetFromRect(m2::AnyRectD(
-                             m2::RectD(MercatorBounds::LonToX(26.90),
-                                       MercatorBounds::LatToY(53.42),
-                                       MercatorBounds::LonToX(27.80),
-                                       MercatorBounds::LatToY(54.64))));
-
+  m_f.ShowRect(53.54, 27.34, 11.0);
 
   shared_ptr<PaintEvent> e(new PaintEvent(m_f.GetRenderPolicy()->GetDrawer().get()));
   m_f.BeginPaint(e);

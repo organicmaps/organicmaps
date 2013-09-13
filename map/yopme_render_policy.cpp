@@ -86,7 +86,17 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
     pScreen->clear(m_bgColor);
 
     shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_offscreenDrawer.get()));
-    m_renderFn(paintEvent, s, m2::RectD(renderRect), scales::GetScaleLevel(s.GlobalRect().GetGlobalRect()));
+
+    size_t const scaleEtalonSize = 256;
+
+    m2::RectD glbRect;
+    m2::PointD const pxCenter = s.PixelRect().Center();
+
+    s.PtoG(m2::RectD(pxCenter - m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2),
+                     pxCenter + m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2)),
+           glbRect);
+
+    m_renderFn(paintEvent, s, m2::RectD(renderRect), scales::GetScaleLevel(glbRect));
 
     pScreen->endFrame();
     pScreen->resetOverlay();
