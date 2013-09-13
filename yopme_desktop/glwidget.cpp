@@ -40,8 +40,10 @@ void GLWidget::initializeGL()
 
   try
   {
-    m_f.SetRenderPolicy(new YopmeRP(rpParams));
+    YopmeRP * rp = new YopmeRP(rpParams);
+    m_f.SetRenderPolicy(rp);
     m_f.InitGuiSubsystem();
+    rp->DrawApiPin(true, m2::PointD(100, 100));
   }
   catch (RootException & e)
   {

@@ -8,6 +8,7 @@
 #include "../graphics/opengl/framebuffer.hpp"
 #include "../graphics/render_context.hpp"
 #include "../graphics/blitter.hpp"
+#include "../graphics/pen.hpp"
 #include "../graphics/display_list.hpp"
 #include "../platform/platform.hpp"
 
@@ -134,7 +135,30 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
     }
 
     if (m_drawApiPin)
-      pScreen->drawSymbol(m_apiPinPoint, "api_pin", graphics::EPosCenter, graphics::maxDepth);
+    {
+      Pen::Info outlineInfo(graphics::Color(255, 255, 255, 255), 5);
+      Pen::Info info(graphics::Color(0, 0, 0, 255), 3);
+
+      uint32_t outlineID = pScreen->mapInfo(outlineInfo);
+      uint32_t infoID = pScreen->mapInfo(info);
+
+      m2::PointD line1[2] =
+      {
+        m_apiPinPoint - m2::PointD(5.0, 5.0),
+        m_apiPinPoint + m2::PointD(5.0, 5.0)
+      };
+
+      m2::PointD line2[2] =
+      {
+        m_apiPinPoint - m2::PointD(5.0, -5.0),
+        m_apiPinPoint + m2::PointD(5.0, -5.0)
+      };
+
+      pScreen->drawPath(line1, 2, 0.0, outlineID, graphics::maxDepth);
+      pScreen->drawPath(line2, 2, 0.0, outlineID, graphics::maxDepth);
+      pScreen->drawPath(line1, 2, 0.0, infoID, graphics::maxDepth);
+      pScreen->drawPath(line2, 2, 0.0, infoID, graphics::maxDepth);
+    }
 
     pScreen->endFrame();
   }
