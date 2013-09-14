@@ -16,6 +16,9 @@ public:
   void DrawMyLocation(bool isNeed, m2::PointD const & point);
 
 private:
+  static void DrawCircle(graphics::Screen * pScreen, m2::PointD const & pt);
+  static void DrawCross(graphics::Screen * pScreen, m2::PointD const & pt);
+
   shared_ptr<Drawer> m_offscreenDrawer;
   bool m_drawApiPin;
   m2::PointD m_apiPinPoint; // in pixels

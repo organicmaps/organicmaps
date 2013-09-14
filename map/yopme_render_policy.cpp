@@ -1,8 +1,7 @@
 #include "yopme_render_policy.hpp"
 #include "window_handle.hpp"
+#include "scales_processor.hpp"
 
-#include "../base/matrix.hpp"
-#include "../indexer/scales.hpp"
 #include "../geometry/screenbase.hpp"
 
 #include "../graphics/opengl/framebuffer.hpp"
@@ -10,9 +9,13 @@
 #include "../graphics/blitter.hpp"
 #include "../graphics/pen.hpp"
 #include "../graphics/display_list.hpp"
+
 #include "../platform/platform.hpp"
 
+#include "../base/matrix.hpp"
+
 #include "../std/vector.hpp"
+
 
 using namespace graphics;
 
@@ -69,6 +72,40 @@ YopmeRP::YopmeRP(RenderPolicy::Params const & p)
   InitWindowsHandle(p.m_videoTimer, p.m_primaryRC);
 }
 
+void YopmeRP::DrawCircle(Screen * pScreen, m2::PointD const & pt)
+{
+  Circle::Info info(8, Color::Black(), true, 3, Color::White());
+  pScreen->drawCircle(pt, info, EPosCenter, MyLocationDepth);
+}
+
+void YopmeRP::DrawCross(Screen * pScreen, m2::PointD const & pt)
+{
+  Pen::Info outlineInfo(Color::White(), 5);
+  Pen::Info info(Color::Black(), 3);
+
+  uint32_t outlineID = pScreen->mapInfo(outlineInfo);
+  uint32_t infoID = pScreen->mapInfo(info);
+
+  m2::PointD firstLineOffset(ApiPinLength, ApiPinLength);
+  m2::PointD line1[2] =
+  {
+    pt - firstLineOffset,
+    pt + firstLineOffset
+  };
+
+  m2::PointD secondLineOffset(ApiPinLength, -ApiPinLength);
+  m2::PointD line2[2] =
+  {
+    pt - secondLineOffset,
+    pt + secondLineOffset
+  };
+
+  pScreen->drawPath(line1, 2, 0.0, outlineID, ApiPinDepth);
+  pScreen->drawPath(line2, 2, 0.0, outlineID, ApiPinDepth);
+  pScreen->drawPath(line1, 2, 0.0, infoID, ApiPinDepth);
+  pScreen->drawPath(line2, 2, 0.0, infoID, ApiPinDepth);
+}
+
 void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {
   shared_ptr<gl::BaseTexture> renderTarget;
@@ -96,16 +133,7 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 
     shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_offscreenDrawer.get()));
 
-    size_t const scaleEtalonSize = 256;
-
-    m2::RectD glbRect;
-    m2::PointD const pxCenter = s.PixelRect().Center();
-
-    s.PtoG(m2::RectD(pxCenter - m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2),
-                     pxCenter + m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2)),
-           glbRect);
-
-    m_renderFn(paintEvent, s, m2::RectD(renderRect), scales::GetScaleLevel(glbRect));
+    m_renderFn(paintEvent, s, m2::RectD(renderRect), ScalesProcessor().GetTileScaleBase(s));
 
     pScreen->endFrame();
     pScreen->resetOverlay();
@@ -136,38 +164,10 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
     drawOverlay->draw(pScreen, math::Identity<double, 3>());
 
     if (m_drawMyPosition)
-    {
-      Circle::Info info(8, Color::Black(), true, 3, Color::White());
-      pScreen->drawCircle(m_myPositionPoint, info, EPosCenter, MyLocationDepth);
-    }
+      DrawCircle(pScreen, m_myPositionPoint);
 
     if (m_drawApiPin)
-    {
-      Pen::Info outlineInfo(Color::White(), 5);
-      Pen::Info info(Color::Black(), 3);
-
-      uint32_t outlineID = pScreen->mapInfo(outlineInfo);
-      uint32_t infoID = pScreen->mapInfo(info);
-
-      m2::PointD firstLineOffset(ApiPinLength, ApiPinLength);
-      m2::PointD line1[2] =
-      {
-        m_apiPinPoint - firstLineOffset,
-        m_apiPinPoint + firstLineOffset
-      };
-
-      m2::PointD secondLineOffset(ApiPinLength, -ApiPinLength);
-      m2::PointD line2[2] =
-      {
-        m_apiPinPoint - secondLineOffset,
-        m_apiPinPoint + secondLineOffset
-      };
-
-      pScreen->drawPath(line1, 2, 0.0, outlineID, ApiPinDepth);
-      pScreen->drawPath(line2, 2, 0.0, outlineID, ApiPinDepth);
-      pScreen->drawPath(line1, 2, 0.0, infoID, ApiPinDepth);
-      pScreen->drawPath(line2, 2, 0.0, infoID, ApiPinDepth);
-    }
+      DrawCross(pScreen, m_apiPinPoint);
 
     pScreen->endFrame();
   }

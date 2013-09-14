@@ -6,6 +6,8 @@
 #include "../indexer/scales.hpp"
 
 
+/// Note! Default tile size value should be equal with
+/// the default value in RenderPolicy::TileSisze().
 ScalesProcessor::ScalesProcessor()
   : m_tileSize(256), m_visualScale(1.0)
 {

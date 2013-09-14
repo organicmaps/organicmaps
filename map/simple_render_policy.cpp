@@ -2,15 +2,16 @@
 #include "events.hpp"
 #include "drawer.hpp"
 #include "window_handle.hpp"
+#include "scales_processor.hpp"
 
 #include "../graphics/overlay.hpp"
 #include "../graphics/opengl/opengl.hpp"
 #include "../graphics/render_context.hpp"
 
-#include "../indexer/scales.hpp"
 #include "../geometry/screenbase.hpp"
 
 #include "../platform/platform.hpp"
+
 
 using namespace graphics;
 
@@ -59,15 +60,6 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
 void SimpleRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
                                ScreenBase const & s)
 {
-  size_t const scaleEtalonSize = 256;
-
-  m2::RectD glbRect;
-  m2::PointD const pxCenter = s.PixelRect().Center();
-
-  s.PtoG(m2::RectD(pxCenter - m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2),
-                   pxCenter + m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2)),
-         glbRect);
-
   shared_ptr<graphics::Overlay> overlay(new graphics::Overlay());
   overlay->setCouldOverlap(false);
 
@@ -78,8 +70,7 @@ void SimpleRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
   pScreen->beginFrame();
   pScreen->clear(m_bgColor);
 
-  /// @todo Need to review this policy (using in Map server).
-  m_renderFn(e, s, s.PixelRect(), scales::GetScaleLevel(glbRect));
+  m_renderFn(e, s, s.PixelRect(), ScalesProcessor().GetTileScaleBase(s));
 
   overlay->draw(pScreen, math::Identity<double, 3>());
   pScreen->resetOverlay();
