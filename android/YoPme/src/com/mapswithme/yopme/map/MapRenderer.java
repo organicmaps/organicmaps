@@ -37,25 +37,27 @@ public class MapRenderer implements MapDataProvider
 	{
 	  synchronized(MapRenderer.class)
 	  {
+	    final MWMPoint poi = new MWMPoint(lat, lon, "");
+
   		mPixelBuffer.attachToThread();
-  		if (nativeRenderMap(lat, lon, zoom, false, false, 0.0, 0.0) == false)
-  		  return new MapData(null, new MWMPoint(lat, lon, ""));
-  		
+  		if (nativeRenderMap(lat, lon, zoom, false, true, lat, lon) == false)
+  		  return new MapData(null, poi);
+
   		Bitmap bmp = mPixelBuffer.readBitmap();
   		mPixelBuffer.detachFromThread();
-  		return new MapData(bmp, new MWMPoint(lat, lon, ""));
+  		return new MapData(bmp, poi);
   	}
 	}
 
 	@Override
-	public MapData getPOIData(MWMPoint poi, double zoom, boolean myLocationDetected ,double myLat, double myLon)
+	public MapData getPOIData(MWMPoint poi, double zoom, boolean myLocationDetected, double myLat, double myLon)
 	{
 	  synchronized(MapRenderer.class)
     {
   		mPixelBuffer.attachToThread();
   		if (nativeRenderMap(poi.getLat(), poi.getLon(), zoom, true, myLocationDetected, myLat, myLon) == false)
   		  return new MapData(null, poi);
-  		
+
   		Bitmap bmp = mPixelBuffer.readBitmap();
   		mPixelBuffer.detachFromThread();
   		return new MapData(bmp, poi);
