@@ -17,11 +17,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mapswithme.location.LocationRequester;
 import com.mapswithme.maps.api.MWMPoint;
 import com.mapswithme.yopme.map.MapData;
 import com.mapswithme.yopme.map.MapDataProvider;
@@ -68,7 +68,7 @@ public class BackscreenActivity extends BSActivity
   protected View mPoiInfo;
 
   protected MapDataProvider mMapDataProvider;
-  private LocationManager mLocationManager;
+  private LocationRequester mLocationManager;
 
   private final Runnable mInvalidateDrawable = new Runnable()
   {
@@ -104,7 +104,7 @@ public class BackscreenActivity extends BSActivity
 
     setUpView();
 
-    mLocationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+    mLocationManager = new LocationRequester(this);
   }
 
   @Override
@@ -136,8 +136,6 @@ public class BackscreenActivity extends BSActivity
     mMode  = (Mode) savedInstanceState.getSerializable(EXTRA_MODE);
     mLocation  = (Location) savedInstanceState.getParcelable(EXTRA_LOCATION);
     mZoomLevel  = savedInstanceState.getDouble(EXTRA_ZOOM);
-
-    Log.d(TAG, "State restored.");
   }
 
   @Override
@@ -149,8 +147,6 @@ public class BackscreenActivity extends BSActivity
     outState.putSerializable(EXTRA_MODE, mMode);
     outState.putParcelable(EXTRA_LOCATION, mLocation);
     outState.putDouble(EXTRA_ZOOM, mZoomLevel);
-
-    Log.d(TAG, "State saved.");
   }
 
   @Override
@@ -192,7 +188,8 @@ public class BackscreenActivity extends BSActivity
       mZoomLevel = intent.getDoubleExtra(EXTRA_ZOOM, MapDataProvider.COMFORT_ZOOM);
 
       updateData();
-      hideWaitMessage();
+      invalidate();
+
       requestLocationUpdate();
     }
   }
@@ -247,36 +244,20 @@ public class BackscreenActivity extends BSActivity
       .getString(getString(R.string.pref_loc_update), YopmePreference.LOCATION_UPDATE_DEFAULT);
     final long updateInterval = Long.parseLong(updateIntervalStr);
 
-    final String[] providers = {
-        LocationManager.GPS_PROVIDER,
-        LocationManager.NETWORK_PROVIDER,
-        LocationManager.PASSIVE_PROVIDER,
-    };
-    final PendingIntent pi = getLocationPendingIntent(this);
-
     // before requesting updates try to get last known in the first try
     if (mLocation == null)
     {
-      for (final String provider : providers)
-        if (mLocationManager.isProviderEnabled(provider))
-        {
-          final Location lastLocation = mLocationManager.getLastKnownLocation(provider);
-          if (lastLocation != null)
-            onLocationUpdate(lastLocation);
-        }
+      final Location l = mLocationManager.getLastLocation();
+      if (l != null)
+        onLocationUpdate(l);
     }
 
     // then listen to updates
-    for (final String provider : providers)
-    {
-      if (mLocationManager.isProviderEnabled(provider))
-      {
-        if (updateInterval == -1)
-          mLocationManager.requestSingleUpdate(provider, pi);
-        else
-          mLocationManager.requestLocationUpdates(provider, updateInterval*1000, 0, pi);
-      }
-    }
+    final PendingIntent pi = getLocationPendingIntent(this);
+    if (updateInterval == -1)
+      mLocationManager.requestSingleUpdate(pi, 60*1000);
+    else
+      mLocationManager.requestLocationUpdates(updateInterval*1000, 5.0f, pi);
 
     if (mMode == Mode.LOCATION && mLocation == null)
       showWaitMessage(getString(R.string.wait_msg));
@@ -284,12 +265,11 @@ public class BackscreenActivity extends BSActivity
 
   private void onLocationUpdate(Location location)
   {
-    if (Utils.isFirstOneBetterLocation(location, mLocation))
+    if (LocationRequester.isFirstOneBetterLocation(location, mLocation))
       mLocation = location;
     else
       return;
 
-    hideWaitMessage();
     updateData();
     invalidate();
   }
@@ -298,15 +278,11 @@ public class BackscreenActivity extends BSActivity
   {
     mWaitMessage.setText(msg);
     mWaitScreen.setVisibility(View.VISIBLE);
-
-    invalidate();
   }
 
   private void hideWaitMessage()
   {
     mWaitScreen.setVisibility(View.GONE);
-
-    invalidate();
   }
 
   private final static NumberFormat df = DecimalFormat.getInstance();
@@ -360,7 +336,6 @@ public class BackscreenActivity extends BSActivity
     {
       mPoiInfo.setVisibility(View.VISIBLE);
 
-
       if (mLocation != null)
         data = mMapDataProvider.getPOIData(mPoint, mZoomLevel, true, mLocation.getLatitude(), mLocation.getLongitude());
       else
@@ -380,7 +355,7 @@ public class BackscreenActivity extends BSActivity
 
     if (mBitmap == null)
     {
-      // this means we dont have this map
+      // this means we don't have this map
       showWaitMessage(getString(R.string.error_map_is_absent));
       return;
     }
