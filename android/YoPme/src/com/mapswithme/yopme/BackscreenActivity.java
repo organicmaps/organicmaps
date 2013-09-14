@@ -290,7 +290,7 @@ public class BackscreenActivity extends BSActivity
   {
     df.setRoundingMode(RoundingMode.DOWN);
   }
-  private void setDistance(float distance)
+  private void setDistance(double distance)
   {
     if (distance < 0)
       mPoiDist.setVisibility(View.GONE);
@@ -298,14 +298,16 @@ public class BackscreenActivity extends BSActivity
     {
       String suffix = "m";
       double div = 1;
-      df.setMinimumFractionDigits(0);
+      df.setMaximumFractionDigits(0);
 
       if (distance >= 1000)
       {
         suffix = "km";
         div = 1000;
-        // do not show fraction for more than 10km
-        df.setMinimumFractionDigits(distance >= 10000 ? 0 : 2);
+
+        // set fraction digits only in [1..10) kilometers range
+        if (distance < 10000)
+          df.setMaximumFractionDigits(2);
       }
 
       mPoiDist.setText(df.format(distance/div) + suffix);
