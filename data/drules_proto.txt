@@ -9572,6 +9572,76 @@ cont {
   }
 }
 cont {
+  name: "highway-bus_stop"
+  element {
+    scale: 16
+    lines {
+      width: 0.6
+      color: 0xBB9944
+      priority: 31
+      cap: BUTTCAP
+    }
+    symbol {
+      name: "bus-mini"
+      priority: 16031
+    }
+    caption {
+      secondary {
+        height: 9
+        color: 0x3355DD
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      primary {
+        height: 10
+        color: 0x3355DD
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15031
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 0.6
+      color: 0xBB9944
+      priority: 31
+      cap: BUTTCAP
+    }
+    symbol {
+      name: "bus"
+      priority: 16031
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 0.6
+      color: 0xBB9944
+      priority: 31
+      cap: BUTTCAP
+    }
+    symbol {
+      name: "bus"
+      priority: 16031
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 0.6
+      color: 0xBB9944
+      priority: 31
+      cap: BUTTCAP
+    }
+    symbol {
+      name: "bus"
+      priority: 16031
+    }
+  }
+}
+cont {
   name: "highway-construction"
   element {
     scale: 13
@@ -54861,7 +54931,7 @@ cont {
     }
     area {
       color: 0xFFEEDD
-      priority: 1001
+      priority: -16574
     }
   }
   element {
@@ -54876,7 +54946,7 @@ cont {
     }
     area {
       color: 0xFFEEDD
-      priority: 1001
+      priority: -16575
     }
   }
   element {
@@ -54892,7 +54962,7 @@ cont {
     }
     area {
       color: 0xFFEEDD
-      priority: 1008
+      priority: -15993
     }
   }
   element {
@@ -54908,7 +54978,7 @@ cont {
     }
     area {
       color: 0xFFEEDD
-      priority: 1008
+      priority: -15993
     }
   }
   element {
@@ -54924,7 +54994,7 @@ cont {
     }
     area {
       color: 0xFFEEDD
-      priority: 1008
+      priority: -15993
     }
   }
 }
@@ -54934,14 +55004,14 @@ cont {
     scale: 12
     area {
       color: 0xCCEEBB
-      priority: -16574
+      priority: -16576
     }
   }
   element {
     scale: 13
     area {
       color: 0xCCEEBB
-      priority: -16575
+      priority: -16577
     }
   }
   element {
@@ -54952,7 +55022,7 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16576
+      priority: -16578
     }
   }
   element {
@@ -54963,7 +55033,7 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16577
+      priority: -16579
     }
   }
   element {
@@ -54974,7 +55044,7 @@ cont {
     }
     area {
       color: 0xCCEEBB
-      priority: -16578
+      priority: -16580
     }
   }
   element {
@@ -55044,35 +55114,35 @@ cont {
     scale: 12
     area {
       color: 0xCCEEBB
-      priority: -16579
+      priority: -16581
     }
   }
   element {
     scale: 13
     area {
       color: 0xCCEEBB
-      priority: -16580
+      priority: -16582
     }
   }
   element {
     scale: 14
     area {
       color: 0xCCEEBB
-      priority: -16581
+      priority: -16583
     }
   }
   element {
     scale: 15
     area {
       color: 0xCCEEBB
-      priority: -16582
+      priority: -16584
     }
   }
   element {
     scale: 16
     area {
       color: 0xCCEEBB
-      priority: -16583
+      priority: -16585
     }
   }
   element {
@@ -55573,35 +55643,35 @@ cont {
     scale: 12
     area {
       color: 0xCCEEBB
-      priority: -16584
+      priority: -16586
     }
   }
   element {
     scale: 13
     area {
       color: 0xCCEEBB
-      priority: -16585
+      priority: -16587
     }
   }
   element {
     scale: 14
     area {
       color: 0xCCEEBB
-      priority: -16586
+      priority: -16588
     }
   }
   element {
     scale: 15
     area {
       color: 0xCCEEBB
-      priority: -16587
+      priority: -16589
     }
   }
   element {
     scale: 16
     area {
       color: 0xCCEEBB
-      priority: -16588
+      priority: -16590
     }
   }
   element {
@@ -55736,35 +55806,35 @@ cont {
     scale: 12
     area {
       color: 0xCCEEBB
-      priority: -16589
+      priority: -16591
     }
   }
   element {
     scale: 13
     area {
       color: 0xCCEEBB
-      priority: -16590
+      priority: -16592
     }
   }
   element {
     scale: 14
     area {
       color: 0xCCEEBB
-      priority: -16591
+      priority: -16593
     }
   }
   element {
     scale: 15
     area {
       color: 0xCCEEBB
-      priority: -16592
+      priority: -16594
     }
   }
   element {
     scale: 16
     area {
       color: 0xCCEEBB
-      priority: -16593
+      priority: -16595
     }
   }
   element {
