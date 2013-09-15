@@ -85,6 +85,8 @@ namespace tools
 
   private:
 
+      bool m_needColorCorrection;
+
       QSvgRenderer m_svgRenderer;
 
       int m_baseLineOffset;
@@ -100,7 +102,7 @@ namespace tools
 
   public:
 
-      SkinGenerator();
+      SkinGenerator(bool needColorCorrection);
       //void processFont(string const & fileName, string const & skinName, vector<int8_t> const & fontSizes, int symbolScale);
       void processSymbols(string const & symbolsDir,
                           string const & skinName,
