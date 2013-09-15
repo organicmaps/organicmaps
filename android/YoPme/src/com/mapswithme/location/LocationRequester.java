@@ -47,14 +47,14 @@ public class LocationRequester implements Handler.Callback
     */
   public static boolean isFirstOneBetterLocation(Location firstLoc, Location secondLoc)
   {
+    if (firstLoc == null)
+      return false;
     if (secondLoc == null)
-    {
-      // A new location is always better than no location
       return true;
-    }
 
     // Check whether the new location fix is newer or older
-    final long timeDelta = (firstLoc.getElapsedRealtimeNanos() - secondLoc.getElapsedRealtimeNanos())/1000;
+    long timeDelta = firstLoc.getElapsedRealtimeNanos() - secondLoc.getElapsedRealtimeNanos();
+    timeDelta /= 1000;
     final boolean isSignificantlyNewer = timeDelta > TWO_MINUTES;
     final boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES;
     final boolean isNewer = timeDelta > 0;
@@ -71,15 +71,14 @@ public class LocationRequester implements Handler.Callback
 
     // Check whether the new location fix is more or less accurate
     final int accuracyDelta = (int) (firstLoc.getAccuracy() - secondLoc.getAccuracy());
-    // Relative diff, not absolute
+    // Relative difference, not absolute
     final boolean almostAsAccurate = Math.abs(accuracyDelta) <= 0.1*secondLoc.getAccuracy();
 
     final boolean isMoreAccurate = accuracyDelta < 0;
     final boolean isSignificantlyLessAccurate = accuracyDelta > 200;
 
     // Check if the old and new location are from the same provider
-    final boolean isFromSameProvider = isSameProvider(firstLoc.getProvider(),
-                                                secondLoc.getProvider());
+    final boolean isFromSameProvider = isSameProvider(firstLoc.getProvider(), secondLoc.getProvider());
 
     // Determine location quality using a combination of timeliness and accuracy
     if (isMoreAccurate)
@@ -88,6 +87,7 @@ public class LocationRequester implements Handler.Callback
       return true;
     else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider)
       return true;
+
     return false;
   }
 

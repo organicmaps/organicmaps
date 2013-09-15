@@ -42,7 +42,6 @@ public class BackscreenActivity extends BSActivity
   public final static String EXTRA_ZOOM     = AUTHORITY + ".zoom";
   public final static String EXTRA_LOCATION = AUTHORITY + ".location";
 
-
   public enum Mode
   {
     LOCATION,
@@ -52,12 +51,13 @@ public class BackscreenActivity extends BSActivity
   private CharSequence mMessage;
   private Bitmap mBitmap;
 
-  // @Save to state
-  private MWMPoint mPoint;
-  private Mode mMode;
+  /// @name Save to state.
+  //@{
+  private MWMPoint mPoint = null;
+  private Mode mMode = Mode.LOCATION;
   private double mZoomLevel = MapDataProvider.ZOOM_DEFAULT;
-  private Location mLocation;
-  // @
+  private Location mLocation = null;
+  //@}
 
   protected View mView;
   protected ImageView mMapView;
@@ -111,6 +111,7 @@ public class BackscreenActivity extends BSActivity
   protected void onBSPause()
   {
     super.onBSPause();
+
     mLocationManager.removeUpdates(getLocationPendingIntent(this));
     mHandler.removeCallbacks(mInvalidateDrawable);
   }
@@ -132,9 +133,10 @@ public class BackscreenActivity extends BSActivity
     if (savedInstanceState == null)
       return;
 
+    // Do not save and restore m_location! It's compared by getElapsedRealtimeNanos().
+
     mPoint = (MWMPoint) savedInstanceState.getSerializable(EXTRA_POINT);
     mMode  = (Mode) savedInstanceState.getSerializable(EXTRA_MODE);
-    mLocation  = (Location) savedInstanceState.getParcelable(EXTRA_LOCATION);
     mZoomLevel  = savedInstanceState.getDouble(EXTRA_ZOOM);
   }
 
@@ -145,7 +147,6 @@ public class BackscreenActivity extends BSActivity
 
     outState.putSerializable(EXTRA_POINT, mPoint);
     outState.putSerializable(EXTRA_MODE, mMode);
-    outState.putParcelable(EXTRA_LOCATION, mLocation);
     outState.putDouble(EXTRA_ZOOM, mZoomLevel);
   }
 
@@ -187,10 +188,10 @@ public class BackscreenActivity extends BSActivity
       mPoint = (MWMPoint) intent.getSerializableExtra(EXTRA_POINT);
       mZoomLevel = intent.getDoubleExtra(EXTRA_ZOOM, MapDataProvider.COMFORT_ZOOM);
 
+      requestLocationUpdate();
+
       updateData();
       invalidate();
-
-      requestLocationUpdate();
     }
   }
 

@@ -26,9 +26,7 @@ public class MapRenderer implements MapDataProvider
 	static public MapRenderer GetRenderer()
 	{
 		if (mRenderer == null)
-		{
 			mRenderer = new MapRenderer(360, 640);
-		}
 		return mRenderer;
 	}
 
