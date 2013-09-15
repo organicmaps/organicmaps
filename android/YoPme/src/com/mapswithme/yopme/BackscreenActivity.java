@@ -157,12 +157,12 @@ public class BackscreenActivity extends BSActivity
       requestLocationUpdate();
     else if (action == Gestures.GESTURES_BS_LR)
     {
-      if (!zoomIn())
+      if (!zoomOut())
         return;
     }
     else if (action == Gestures.GESTURES_BS_RL)
     {
-      if (!zoomOut())
+      if (!zoomIn())
         return;
     }
     else
