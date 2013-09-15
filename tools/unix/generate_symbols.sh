@@ -4,7 +4,7 @@ MY_PATH=`dirname $0`
 BINARY_PATH="$MY_PATH/../../../omim-build/out/debug/skin_generator"
 DATA_PATH="$MY_PATH/../../data"
 
-"$BINARY_PATH" --symbolWidth 22 --symbolHeight 22 \
+"$BINARY_PATH" --symbolWidth 19 --symbolHeight 19 \
     --symbolsDir "$DATA_PATH/styles/symbols" \
     --skinName "$DATA_PATH/resources-yota/basic" --skinSuffix="" \
     --colorCorrection true
