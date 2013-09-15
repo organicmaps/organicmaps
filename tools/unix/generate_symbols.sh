@@ -1,8 +1,13 @@
 #!/bin/bash
 set -e -u -x
 MY_PATH=`dirname $0`
-BINARY_PATH="$MY_PATH/../../../build-tools_only-release/out/release/skin_generator"
+BINARY_PATH="$MY_PATH/../../../omim-build/out/debug/skin_generator"
 DATA_PATH="$MY_PATH/../../data"
+
+"$BINARY_PATH" --symbolWidth 22 --symbolHeight 22 \
+    --symbolsDir "$DATA_PATH/styles/symbols" \
+    --skinName "$DATA_PATH/resources-yota/basic" --skinSuffix="" \
+    --colorCorrection true
 
 "$BINARY_PATH" --symbolWidth 16 --symbolHeight 16 \
     --symbolsDir "$DATA_PATH/styles/symbols" \
