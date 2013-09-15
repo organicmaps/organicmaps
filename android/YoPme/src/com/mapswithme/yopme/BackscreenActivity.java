@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,7 +27,6 @@ import com.mapswithme.maps.api.MWMPoint;
 import com.mapswithme.yopme.map.MapData;
 import com.mapswithme.yopme.map.MapDataProvider;
 import com.mapswithme.yopme.map.MapRenderer;
-import com.mapswithme.yopme.util.Utils;
 import com.yotadevices.sdk.BSActivity;
 import com.yotadevices.sdk.BSDrawer.Waveform;
 import com.yotadevices.sdk.BSMotionEvent;
@@ -47,9 +47,6 @@ public class BackscreenActivity extends BSActivity
     LOCATION,
     POI,
   }
-
-  private CharSequence mMessage;
-  private Bitmap mBitmap;
 
   /// @name Save to state.
   //@{
@@ -181,18 +178,23 @@ public class BackscreenActivity extends BSActivity
     super.onHandleIntent(intent);
 
     if (intent.hasExtra(LocationManager.KEY_LOCATION_CHANGED))
-      onLocationUpdate((Location) intent.getParcelableExtra(LocationManager.KEY_LOCATION_CHANGED));
+    {
+      if (updateWithLocation((Location) intent.getParcelableExtra(LocationManager.KEY_LOCATION_CHANGED)))
+        return;
+    }
     else if (intent.hasExtra(EXTRA_MODE))
     {
       mMode  = (Mode) intent.getSerializableExtra(EXTRA_MODE);
       mPoint = (MWMPoint) intent.getSerializableExtra(EXTRA_POINT);
       mZoomLevel = intent.getDoubleExtra(EXTRA_ZOOM, MapDataProvider.COMFORT_ZOOM);
-
-      requestLocationUpdate();
-
-      updateData();
-      invalidate();
     }
+
+    // Do always update data.
+    // This function is called from back screen menu without any extras.
+    requestLocationUpdate();
+
+    updateData();
+    invalidate();
   }
 
   public void setUpView()
@@ -204,7 +206,7 @@ public class BackscreenActivity extends BSActivity
     mPoiDist = (TextView) mView.findViewById(R.id.poiDist);
     mWaitMessage = (TextView) mView.findViewById(R.id.waitMsg);
     mWaitScreen = mView.findViewById(R.id.waitScreen);
-    mPoiInfo     = mView.findViewById(R.id.poiInfo);
+    mPoiInfo    = mView.findViewById(R.id.poiInfo);
   }
 
   public void invalidate()
@@ -247,11 +249,7 @@ public class BackscreenActivity extends BSActivity
 
     // before requesting updates try to get last known in the first try
     if (mLocation == null)
-    {
-      final Location l = mLocationManager.getLastLocation();
-      if (l != null)
-        onLocationUpdate(l);
-    }
+      mLocation = mLocationManager.getLastLocation();
 
     // then listen to updates
     final PendingIntent pi = getLocationPendingIntent(this);
@@ -259,20 +257,23 @@ public class BackscreenActivity extends BSActivity
       mLocationManager.requestSingleUpdate(pi, 60*1000);
     else
       mLocationManager.requestLocationUpdates(updateInterval*1000, 5.0f, pi);
+  }
 
-    if (mMode == Mode.LOCATION && mLocation == null)
-      showWaitMessage(getString(R.string.wait_msg));
+  private boolean updateWithLocation(Location location)
+  {
+    if (LocationRequester.isFirstOneBetterLocation(location, mLocation))
+    {
+      mLocation = location;
+      updateData();
+      invalidate();
+      return true;
+    }
+    return false;
   }
 
   private void onLocationUpdate(Location location)
   {
-    if (LocationRequester.isFirstOneBetterLocation(location, mLocation))
-      mLocation = location;
-    else
-      return;
-
-    updateData();
-    invalidate();
+    updateWithLocation(location);
   }
 
   private void showWaitMessage(CharSequence msg)
@@ -324,16 +325,22 @@ public class BackscreenActivity extends BSActivity
     MapData data = null;
 
     if (mMode == null)
+    {
+      Log.d(TAG, "Unknown mode");
       return;
+    }
 
     if (mMode == Mode.LOCATION)
     {
       mPoiInfo.setVisibility(View.GONE);
-      if (mLocation == null)
-        return;
 
-      data = mMapDataProvider
-          .getMyPositionData(mLocation.getLatitude(), mLocation.getLongitude(), mZoomLevel);
+      if (mLocation == null)
+      {
+        showWaitMessage(getString(R.string.wait_msg));
+        return;
+      }
+
+      data = mMapDataProvider.getMyPositionData(mLocation.getLatitude(), mLocation.getLongitude(), mZoomLevel);
     }
     else if (mMode == Mode.POI)
     {
@@ -353,10 +360,10 @@ public class BackscreenActivity extends BSActivity
       }
     }
 
-    mBitmap = data.getBitmap();
-    mMapView.setImageBitmap(mBitmap);
+    final Bitmap bitmap = data.getBitmap();
+    mMapView.setImageBitmap(bitmap);
 
-    if (mBitmap == null)
+    if (bitmap == null)
     {
       // this means we don't have this map
       showWaitMessage(getString(R.string.error_map_is_absent));
@@ -366,11 +373,7 @@ public class BackscreenActivity extends BSActivity
       hideWaitMessage();
 
     if (mMode == Mode.POI)
-    {
-      mMessage = data.getPoint().getName();
-      mMessage = mPoint.getName();
-      mPoiText.setText(mMessage);
-    }
+      mPoiText.setText(mPoint.getName());
   }
 
   public static void startInMode(Context context, Mode mode, MWMPoint point, double zoom)
