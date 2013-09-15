@@ -31,12 +31,15 @@ size_t GetSearchSources(string const & file, SourceT (&arr)[4])
 
   if (ext == DATA_FILE_EXTENSION)
   {
-    if (strings::StartsWith(file, WORLD_COASTS_FILE_NAME) ||
-        strings::StartsWith(file, WORLD_FILE_NAME))
-    {
+    bool const isWorld =
+        strings::StartsWith(file, WORLD_COASTS_FILE_NAME) ||
+        strings::StartsWith(file, WORLD_FILE_NAME);
+
+    if (isWorld)
       arr[ret++] = EXTERNAL_RESOURCE;
-    }
     arr[ret++] = WRITABLE_PATH;
+    if (isWorld)
+      arr[ret++] = RESOURCE;
   }
   else if (ext == FONT_FILE_EXTENSION)
   {
@@ -47,6 +50,7 @@ size_t GetSearchSources(string const & file, SourceT (&arr)[4])
     {
       arr[ret++] = EXTERNAL_RESOURCE;
       arr[ret++] = WRITABLE_PATH;
+      arr[ret++] = RESOURCE;
     }
   }
   else
