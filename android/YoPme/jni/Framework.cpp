@@ -36,19 +36,35 @@ namespace yopme
     m_framework.PrepareToShutdown();
   }
 
-  bool Framework::ShowRect(double lat, double lon, double zoom,
-                           bool needApiMark, bool needMyLoc, double myLat, double myLon)
+  bool Framework::ShowMyPosition(double lat, double lon, double zoom)
   {
-    m2::PointD point(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
-    m2::PointD altPoint(MercatorBounds::LonToX(myLon), MercatorBounds::LatToY(myLat));
-    if (!m_framework.IsCountryLoaded(point) && zoom > scales::GetUpperWorldScale())
+    m2::PointD position(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
+    if (!m_framework.IsCountryLoaded(position) && zoom > scales::GetUpperWorldScale())
       return false;
 
     m_framework.ShowRect(lat, lon, zoom);
-    InitRenderPolicy(needApiMark, point, needMyLoc, altPoint);
+    ShowRect(false, m2::PointD(), true, position);
+    return true;
+  }
+
+  bool Framework::ShowPoi(double lat, double lon, bool needMyLoc, double myLat, double myLoc, double zoom)
+  {
+    m2::PointD poi(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
+    if (!m_framework.IsCountryLoaded(poi) && zoom > scales::GetUpperWorldScale())
+      return false;
+
+    m_framework.ShowRect(lat, lon, zoom);
+    m2::PointD position(MercatorBounds::LonToX(myLoc), MercatorBounds::LatToY(myLat));
+    ShowRect(true, poi, needMyLoc, position);
+    return true;
+  }
+
+  void Framework::ShowRect(bool needApiPin, m2::PointD const & apiPinPoint,
+                           bool needMyLoc, m2::PointD const & myLocPoint)
+  {
+    InitRenderPolicy(needApiPin, apiPinPoint, needMyLoc, myLocPoint);
     RenderMap();
     TeardownRenderPolicy();
-    return true;
   }
 
   void Framework::InitRenderPolicy(bool needApiPin, m2::PointD const & apiPinPoint,
@@ -78,8 +94,8 @@ namespace yopme
       m_framework.SetRenderPolicy(rp);
       m_framework.InitGuiSubsystem();
       m_framework.OnSize(m_width, m_height);
-      rp->DrawApiPin(needApiPin, m_framework.GtoP(apiPinPoint));
-      rp->DrawMyLocation(needMyLoc, m_framework.GtoP(myLocPoint));
+      rp->SetDrawingApiPin(needApiPin, m_framework.GtoP(apiPinPoint));
+      rp->SetDrawingMyLocation(needMyLoc, m_framework.GtoP(myLocPoint));
     }
     catch(RootException & e)
     {

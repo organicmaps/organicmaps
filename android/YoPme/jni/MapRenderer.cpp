@@ -23,13 +23,21 @@ Java_com_mapswithme_yopme_map_MapRenderer_nativeCreateFramework(JNIEnv * env, jo
 }
 
 JNIEXPORT bool JNICALL
-Java_com_mapswithme_yopme_map_MapRenderer_nativeRenderMap(JNIEnv * env, jobject obj,
-                                                          double lat, double lon, double zoom,
-                                                          bool needApiMark, bool needMyLoc,
-                                                          double myLat, double myLon)
+Java_com_mapswithme_yopme_map_MapRenderer_nativeRenderMyPosition(JNIEnv * env, jobject obj,
+                                                                 double lat, double lon, double zoom)
 {
   ASSERT(s_framework != NULL, ());
-  return s_framework->ShowRect(lat, lon, zoom, needApiMark, needMyLoc, myLat, myLon);
+  return s_framework->ShowMyPosition(lat, lon, zoom);
+}
+
+JNIEXPORT bool JNICALL
+Java_com_mapswithme_yopme_map_MapRenderer_nativeRenderPoiMap(JNIEnv * env, jobject obj,
+                                                            double lat, double lon,
+                                                            bool needMyLoc, double myLat, double myLon,
+                                                            double zoom)
+{
+  ASSERT(s_framework != NULL, ());
+  return s_framework->ShowPoi(lat, lon, needMyLoc, myLat, myLon, zoom);
 }
 
 } // extern "C"

@@ -11,10 +11,12 @@ namespace yopme
     Framework(int width, int height);
     ~Framework();
 
-    bool ShowRect(double lat, double lon, double zoom,
-                  bool needApiMark, bool needMyLoc, double myLat, double myLoc);
+    bool ShowMyPosition(double lat, double lon, double zoom);
+    bool ShowPoi(double lat, double lon, bool needMyLoc, double myLat, double myLoc, double zoom);
 
   private:
+    void ShowRect(bool needApiPin, m2::PointD const & apiPinPoint,
+                  bool needMyLoc, m2::PointD const & myLocPoint);
     void InitRenderPolicy(bool needApiPin, m2::PointD const & apiPinPoint,
                           bool needMyLoc, m2::PointD const & myLocPoint);
 

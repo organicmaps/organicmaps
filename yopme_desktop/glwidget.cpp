@@ -43,7 +43,8 @@ void GLWidget::initializeGL()
     YopmeRP * rp = new YopmeRP(rpParams);
     m_f.SetRenderPolicy(rp);
     m_f.InitGuiSubsystem();
-    rp->DrawApiPin(true, m2::PointD(100, 100));
+    rp->SetDrawingApiPin(true, m2::PointD(100, 100));
+    rp->SetDrawingMyLocation(true, m2::PointD(200, 100));
   }
   catch (RootException & e)
   {

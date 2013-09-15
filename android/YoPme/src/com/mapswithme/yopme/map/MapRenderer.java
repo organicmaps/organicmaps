@@ -40,7 +40,7 @@ public class MapRenderer implements MapDataProvider
 	    final MWMPoint poi = new MWMPoint(lat, lon, "");
 
   		mPixelBuffer.attachToThread();
-  		if (nativeRenderMap(lat, lon, zoom, false, true, lat, lon) == false)
+  		if (nativeRenderMyPosition(poi.getLat(), poi.getLon(), zoom) == false)
   		  return new MapData(null, poi);
 
   		Bitmap bmp = mPixelBuffer.readBitmap();
@@ -55,7 +55,7 @@ public class MapRenderer implements MapDataProvider
 	  synchronized(MapRenderer.class)
     {
   		mPixelBuffer.attachToThread();
-  		if (nativeRenderMap(poi.getLat(), poi.getLon(), zoom, true, myLocationDetected, myLat, myLon) == false)
+  		if (nativeRenderPoiMap(poi.getLat(), poi.getLon(), myLocationDetected, myLat, myLon, zoom) == false)
   		  return new MapData(null, poi);
 
   		Bitmap bmp = mPixelBuffer.readBitmap();
@@ -65,7 +65,8 @@ public class MapRenderer implements MapDataProvider
 	}
 	
 	private native void nativeCreateFramework(int width, int height);
-	private native boolean nativeRenderMap(double lat, double lon, double zoom,
-	                                       boolean needApiMark, boolean needMyLocation,
-	                                       double myLat, double myLon);
+	private native boolean nativeRenderMyPosition(double lat, double lon, double zoom);
+	private native boolean nativeRenderPoiMap(double lat, double lon,
+	                                              boolean needMyLocation, double myLat, double myLon,
+	                                              double zoom);
 }
