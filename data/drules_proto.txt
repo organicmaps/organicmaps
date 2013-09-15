@@ -9575,12 +9575,6 @@ cont {
   name: "highway-bus_stop"
   element {
     scale: 16
-    lines {
-      width: 0.6
-      color: 0xBB9944
-      priority: 31
-      cap: BUTTCAP
-    }
     symbol {
       name: "bus-mini"
       priority: 16031
@@ -9603,41 +9597,68 @@ cont {
   }
   element {
     scale: 17
-    lines {
-      width: 0.6
-      color: 0xBB9944
-      priority: 31
-      cap: BUTTCAP
-    }
     symbol {
       name: "bus"
       priority: 16031
+    }
+    caption {
+      secondary {
+        height: 10
+        color: 0x3355DD
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      primary {
+        height: 11
+        color: 0x3355DD
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15031
     }
   }
   element {
     scale: 18
-    lines {
-      width: 0.6
-      color: 0xBB9944
-      priority: 31
-      cap: BUTTCAP
-    }
     symbol {
       name: "bus"
       priority: 16031
+    }
+    caption {
+      secondary {
+        height: 10
+        color: 0x3355DD
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      primary {
+        height: 11
+        color: 0x3355DD
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15031
     }
   }
   element {
     scale: 19
-    lines {
-      width: 0.6
-      color: 0xBB9944
-      priority: 31
-      cap: BUTTCAP
-    }
     symbol {
       name: "bus"
       priority: 16031
+    }
+    caption {
+      secondary {
+        height: 10
+        color: 0x3355DD
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      primary {
+        height: 11
+        color: 0x3355DD
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
+      priority: 15031
     }
   }
 }
@@ -51983,6 +52004,12 @@ cont {
       priority: 16000
     }
     caption {
+      secondary {
+        height: 12
+        color: 0x3355DD
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
       primary {
         height: 12
         color: 0x3355DD
@@ -51999,6 +52026,12 @@ cont {
       priority: 16000
     }
     caption {
+      secondary {
+        height: 12
+        color: 0x3355DD
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
       primary {
         height: 12
         color: 0x3355DD
@@ -52015,6 +52048,12 @@ cont {
       priority: 16000
     }
     caption {
+      secondary {
+        height: 12
+        color: 0x3355DD
+        stroke_color: 0xFFFFFF
+        offset_y: 10
+      }
       primary {
         height: 12
         color: 0x3355DD

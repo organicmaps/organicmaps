@@ -27,11 +27,6 @@ way::* {
     icon-height: 16;
 }
 
-*::int_name
-{
-  text-offset: 20;
-}
-
 node::* {
     text-anchor-vertical: top;
 }
@@ -67,7 +62,7 @@ area[natural],
 area[leisure],
 area[place],
 area[aeroway],
-area[tourism][tourism!=attraction],
+area[tourism],
 {
   fill-position: background;
 }
@@ -84,7 +79,8 @@ line[highway=track],
 line[highway=path],
 line[highway=steps],
 line[highway=cycleway],
-line[highway=construction]
+line[highway=construction],
+line[highway=bus_stop]
 {
     casing-width: 0;
 }
@@ -2547,7 +2543,7 @@ line|z15-16[man_made=cutline]
 }
 line|z15[highway=footway]
 {
-  color:    #e;
+  color:    #d;
   width:    1;
 }
 line|z15[highway=path]
@@ -3392,6 +3388,7 @@ node|z15[railway=tram_stop]
   text-color:   #3050d8;
   text-offset:  10;
 }
+
 area|z15-[amenity=fuel],
 node|z15-[amenity=fuel]
 {
@@ -3449,8 +3446,8 @@ line|z15[railway=funicular]::d1p3
   width:    0.5;
   z-index:  410;
 }
-node|z17-[highway=bus_stop],
-node|z16[railway=tram_stop]
+*|z17-[highway=bus_stop],
+*|z16[railway=tram_stop]
 {
   font-size:    11;
   text-halo-radius: 2;
@@ -4931,13 +4928,13 @@ line|z17[highway=footway]::d1p2
 {
   width:  4;
   z-index:  692;
-  color:  #e;
+  color:  #d;
   linecap:  butt;
   dashes: 1,3;
 }
 line|z17-[highway=footway]
 {
-  color:    #e;
+  color:    #d;
   width:    5;
 }
 
@@ -4945,7 +4942,7 @@ line|z18[highway=footway]::d1p2
 {
   width:    8;
   z-index:  692;
-  color:    #e;
+  color:    #d;
   linecap:  butt;
   dashes:   1,3;
 }
@@ -4960,7 +4957,7 @@ line|z19-[highway=footway]::d1p2
 {
   width:    16;
   z-index:  692;
-  color:    #e;
+  color:    #d;
   linecap:  butt;
   dashes:   1,4;
 }
@@ -6323,9 +6320,22 @@ node[amenity!=bench][natural!=tree][!barrier][railway!=subway_entrance][!power][
 area[amenity!=bench][natural!=tree][!barrier][railway!=subway_entrance][!power][natural!=peak]
 {
     symbol-shape: eval(cond(prop("icon-image"), "circle", ""));
-    symbol-size: 12;
+    symbol-size: 13;
     symbol-fill-color: #f; 
 } 
+node|z14[railway=station][transport=subway]
+{
+    symbol-size: 11;
+}
+node|z13[railway=station][transport=subway]
+{
+    symbol-size: 10;
+}
+node|z12[railway=station][transport=subway]
+{
+    symbol-size: 9;
+}
+
 
 *[highway]{color: white; text-color: black; text-halo-color: #f}
 area[area:highway]{fill-color: white}
@@ -6334,7 +6344,7 @@ area[area:highway]{fill-color: white}
 *[highway=pedestrian],
 *[highway=cycleway]
 {
-    color: #e;
+    color: #d;
 }
 
 *[highway][area?]
@@ -6348,5 +6358,5 @@ area|z15-[area:highway=pedestrian],
 area|z15-[area:highway=path],
 area|z15-[area:highway=steps]
 {
-    fill-color: #e;
+    fill-color: #d;
 }

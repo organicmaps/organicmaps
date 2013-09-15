@@ -82,7 +82,8 @@ line[highway=track],
 line[highway=path],
 line[highway=steps],
 line[highway=cycleway],
-line[highway=construction]
+line[highway=construction],
+line[highway=bus_stop]
 {
     casing-width: 0;
 }
@@ -3233,6 +3234,16 @@ node|z17-[railway=tram_stop]
   text-offset:  10;
   text-halo-color:  white;
 }
+area|z17-[railway=tram_stop]::int_name,
+node|z17-[railway=tram_stop]::int_name
+{
+  font-size:    12;
+  text-halo-radius: 2;
+  text: int_name;
+  text-color:   #3050d8;
+  text-offset:  10;
+  text-halo-color:  white;
+}
 line|z15[boundary=administrative][admin_level=7]
 {
   color:    #f9574b;
@@ -3870,8 +3881,8 @@ area|z15-[highway=pedestrian][area?]
 {
   fill-color:   #f0f0f0;
 }
-node|z17-[highway=bus_stop],
-node|z16[railway=tram_stop]
+*|z17-[highway=bus_stop],
+*|z16[railway=tram_stop]
 {
   font-size:    11;
   text-halo-radius: 2;
@@ -3881,8 +3892,8 @@ node|z16[railway=tram_stop]
   text-halo-color:  white;
   z-index: 20;
 }
-node|z17-[highway=bus_stop]::int_name,
-node|z16[railway=tram_stop]::int_name
+*|z17-[highway=bus_stop]::int_name,
+*|z16[railway=tram_stop]::int_name
 {
   font-size:  10;
   text-halo-radius: 2;
