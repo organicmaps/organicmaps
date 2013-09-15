@@ -6323,7 +6323,7 @@ node[amenity!=bench][natural!=tree][!barrier][railway!=subway_entrance][!power][
 area[amenity!=bench][natural!=tree][!barrier][railway!=subway_entrance][!power][natural!=peak]
 {
     symbol-shape: eval(cond(prop("icon-image"), "circle", ""));
-    symbol-size: 10;
+    symbol-size: 12;
     symbol-fill-color: #f; 
 } 
 
