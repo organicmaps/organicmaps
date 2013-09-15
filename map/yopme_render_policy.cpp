@@ -21,9 +21,68 @@ using namespace graphics;
 
 namespace
 {
-  const int ApiPinDepth = maxDepth;
+  const int ApiPinDepth = maxDepth - 10;
   const int MyLocationDepth = maxDepth;
   const int ApiPinLength = 5.0;
+
+  class CrossElement : public OverlayElement
+  {
+  public:
+    CrossElement(OverlayElement::Params const & params)
+      : OverlayElement(params)
+    {
+      m2::PointD offset(ApiPinLength, ApiPinLength);
+      m2::PointD const & pt = pivot();
+      m2::RectD r(pt - offset, pt + offset);
+
+      m_boundRects.push_back(m2::AnyRectD(r));
+      setIsFrozen(true);
+    }
+
+    vector<m2::AnyRectD> const & boundRects() const
+    {
+      return m_boundRects;
+    }
+
+    void draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const
+    {
+      Pen::Info outlineInfo(Color::White(), 5);
+      Pen::Info info(Color::Black(), 3);
+
+      uint32_t outlineID = r->mapInfo(outlineInfo);
+      uint32_t infoID = r->mapInfo(info);
+
+      m2::PointD const & pt = pivot();
+
+      m2::PointD firstLineOffset(ApiPinLength, ApiPinLength);
+      m2::PointD firstLine[2] =
+      {
+        pt - firstLineOffset,
+        pt + firstLineOffset
+      };
+
+      m2::PointD secondLineOffset(ApiPinLength, -ApiPinLength);
+      m2::PointD secondLine[2] =
+      {
+        pt - secondLineOffset,
+        pt + secondLineOffset
+      };
+
+      double d = depth();
+      r->drawPath(firstLine,  2, 0.0, outlineID, d);
+      r->drawPath(secondLine, 2, 0.0, outlineID, d);
+      r->drawPath(firstLine,  2, 0.0, infoID,    d);
+      r->drawPath(secondLine, 2, 0.0, infoID,    d);
+    }
+
+    void setTransformation(math::Matrix<double, 3, 3> const & m)
+    {
+      OverlayElement::setTransformation(m);
+    }
+
+  private:
+    vector<m2::AnyRectD> m_boundRects;
+  };
 }
 
 YopmeRP::YopmeRP(RenderPolicy::Params const & p)
@@ -81,32 +140,13 @@ void YopmeRP::DrawCircle(Screen * pScreen, m2::PointD const & pt)
   pScreen->drawCircle(pt, info, EPosCenter, MyLocationDepth);
 }
 
-void YopmeRP::DrawCross(Screen * pScreen, m2::PointD const & pt)
+void YopmeRP::InsertOverlayCross(m2::PointD pivot, Overlay * overlay)
 {
-  Pen::Info outlineInfo(Color::White(), 5);
-  Pen::Info info(Color::Black(), 3);
-
-  uint32_t outlineID = pScreen->mapInfo(outlineInfo);
-  uint32_t infoID = pScreen->mapInfo(info);
-
-  m2::PointD firstLineOffset(ApiPinLength, ApiPinLength);
-  m2::PointD line1[2] =
-  {
-    pt - firstLineOffset,
-    pt + firstLineOffset
-  };
-
-  m2::PointD secondLineOffset(ApiPinLength, -ApiPinLength);
-  m2::PointD line2[2] =
-  {
-    pt - secondLineOffset,
-    pt + secondLineOffset
-  };
-
-  pScreen->drawPath(line1, 2, 0.0, outlineID, ApiPinDepth);
-  pScreen->drawPath(line2, 2, 0.0, outlineID, ApiPinDepth);
-  pScreen->drawPath(line1, 2, 0.0, infoID, ApiPinDepth);
-  pScreen->drawPath(line2, 2, 0.0, infoID, ApiPinDepth);
+  OverlayElement::Params params;
+  params.m_depth = ApiPinDepth;
+  params.m_pivot = pivot;
+  params.m_position = graphics::EPosCenter;
+  overlay->processOverlayElement(make_shared_ptr(new CrossElement(params)));
 }
 
 void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
@@ -146,6 +186,10 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
   overlay->clip(m2::RectI(0, 0, width, height));
   shared_ptr<Overlay> drawOverlay(new Overlay());
   drawOverlay->setCouldOverlap(false);
+
+  if (m_drawApiPin)
+    InsertOverlayCross(m_apiPinPoint, drawOverlay.get());
+
   drawOverlay->merge(*overlay);
 
   {
@@ -169,9 +213,6 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
     if (m_drawMyPosition)
       DrawCircle(pScreen, m_myPositionPoint);
 
-    if (m_drawApiPin)
-      DrawCross(pScreen, m_apiPinPoint);
-
     pScreen->endFrame();
   }
 }
@@ -183,13 +224,13 @@ void YopmeRP::OnSize(int w, int h)
   m_offscreenDrawer->screen()->setDepthBuffer(make_shared_ptr(new gl::RenderBuffer(w, h, true)));
 }
 
-void YopmeRP::DrawApiPin(bool isNeed, m2::PointD const & point)
+void YopmeRP::SetDrawingApiPin(bool isNeed, m2::PointD const & point)
 {
   m_drawApiPin = isNeed;
   m_apiPinPoint = point;
 }
 
-void YopmeRP::DrawMyLocation(bool isNeed, m2::PointD const & point)
+void YopmeRP::SetDrawingMyLocation(bool isNeed, m2::PointD const & point)
 {
   m_drawMyPosition = isNeed;
   m_myPositionPoint = point;
