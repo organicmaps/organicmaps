@@ -6,7 +6,7 @@ using namespace scales;
 
 UNIT_TEST(ScaleLevel_Smoke)
 {
-  for (int level = 0; level < GetUpperScale(); ++level)
+  for (int level = 1; level < GetUpperScale(); ++level)
   {
     double const d = GetRationForLevel(level);
     int test = GetScaleLevel(d);

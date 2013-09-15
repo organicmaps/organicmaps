@@ -7,7 +7,7 @@
 
 
 /// Note! Default tile size value should be equal with
-/// the default value in RenderPolicy::TileSisze().
+/// the default value in RenderPolicy::TileSize().
 ScalesProcessor::ScalesProcessor()
   : m_tileSize(256), m_visualScale(1.0)
 {
