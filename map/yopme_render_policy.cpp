@@ -136,8 +136,20 @@ YopmeRP::YopmeRP(RenderPolicy::Params const & p)
 
 void YopmeRP::DrawCircle(Screen * pScreen, m2::PointD const & pt)
 {
-  Circle::Info info(8, Color::Black(), true, 3, Color::White());
-  pScreen->drawCircle(pt, info, EPosCenter, MyLocationDepth);
+  {
+    Circle::Info info(8, Color::Black(), true, 2, Color::White());
+    pScreen->drawCircle(pt, info, EPosCenter, MyLocationDepth - 5);
+  }
+
+  {
+    Circle::Info info(4, Color::Black(), true, 2, Color::White());
+    pScreen->drawCircle(pt, info, EPosCenter, MyLocationDepth);
+  }
+
+  {
+    Circle::Info info(2, Color::White(), false);
+    pScreen->drawCircle(pt, info, EPosCenter, MyLocationDepth);
+  }
 }
 
 void YopmeRP::InsertOverlayCross(m2::PointD pivot, Overlay * overlay)
