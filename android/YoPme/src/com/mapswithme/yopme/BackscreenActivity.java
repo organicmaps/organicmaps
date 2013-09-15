@@ -256,18 +256,32 @@ public class BackscreenActivity extends BSActivity
     if (updateInterval == -1)
       mLocationManager.requestSingleUpdate(pi, 60*1000);
     else
-      mLocationManager.requestLocationUpdates(updateInterval*1000, 5.0f, pi);
+    {
+      // according to the manual, minDistance doesn't save battery life
+      mLocationManager.requestLocationUpdates(updateInterval*1000, 0, pi);
+    }
+  }
+
+  private boolean areLocationsFarEnough(Location l1, Location l2)
+  {
+    if (l1 == null || l2 == null)
+      return true;
+
+    return l1.distanceTo(l2) > 5;
   }
 
   private boolean updateWithLocation(Location location)
   {
-    if (LocationRequester.isFirstOneBetterLocation(location, mLocation))
+    if (LocationRequester.isFirstOneBetterLocation(location, mLocation) &&
+        areLocationsFarEnough(location, mLocation))
     {
       mLocation = location;
+
       updateData();
       invalidate();
       return true;
     }
+
     return false;
   }
 
