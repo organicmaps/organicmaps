@@ -14,7 +14,7 @@
     <LinearLayout
         android:id="@+id/poiInfo"
         android:layout_width="match_parent"
-        android:layout_height="34dp"
+        android:layout_height="18dp"
         android:layout_alignParentTop="true"
         android:background="@drawable/plashka_background"
         android:gravity="center_vertical"
@@ -28,7 +28,6 @@
             android:ellipsize="end"
             android:fontFamily="@string/roboto_light"
             android:gravity="left|center_vertical"
-            android:padding="@dimen/dimen_2x"
             android:singleLine="true"
             android:textColor="#000"
             android:textSize="@dimen/eink_mid_text" />
@@ -40,7 +39,6 @@
             android:layout_weight="0"
             android:fontFamily="@string/roboto_regular"
             android:gravity="right|center_vertical"
-            android:padding="@dimen/dimen_2x"
             android:textColor="#000"
             android:textSize="@dimen/eink_mid_text" />
     </LinearLayout>
