@@ -246,7 +246,7 @@ public class YopmeFrontActivity extends Activity
   }
 
   private long mLastTimeStamp;
-  private boolean mClickable = false;
+  private boolean mClickable = true;
   private SensorManager sm;
   private Sensor accel;
 
