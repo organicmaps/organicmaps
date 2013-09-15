@@ -706,13 +706,14 @@ int Framework::GetDrawScale() const
 
 RenderPolicy::TRenderFn Framework::DrawModelFn()
 {
-  return bind(&Framework::DrawModel, this, _1, _2, _3, _4);
+  bool const isTiling = m_renderPolicy->IsTiling();
+  return bind(&Framework::DrawModel, this, _1, _2, _3, _4, isTiling);
 }
 
 void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
                           ScreenBase const & screen,
                           m2::RectD const & renderRect,
-                          int baseScale)
+                          int baseScale, bool isTilingQuery)
 {
   m2::RectD selectRect;
   m2::RectD clipRect;
@@ -727,10 +728,10 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
   try
   {
     int const upperScale = scales::GetUpperScale();
-    if (drawScale <= upperScale)
+    if (isTilingQuery && drawScale <= upperScale)
       m_model.ForEachFeature_TileDrawing(selectRect, doDraw, drawScale);
     else
-      m_model.ForEachFeature(selectRect, doDraw, upperScale);
+      m_model.ForEachFeature(selectRect, doDraw, min(upperScale, drawScale));
   }
   catch (redraw_operation_cancelled const &)
   {}

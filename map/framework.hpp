@@ -260,7 +260,7 @@ public:
   void DrawModel(shared_ptr<PaintEvent> const & e,
                  ScreenBase const & screen,
                  m2::RectD const & renderRect,
-                 int baseScale);
+                 int baseScale, bool isTilingQuery);
 
 private:
   search::Engine * GetSearchEngine() const;
