@@ -190,7 +190,11 @@ namespace di
 
     // User's language name is better if we don't have secondary text draw rule.
     if (!hasSecondaryText && !m_secondaryText.empty())
-      m_primaryText.swap(m_secondaryText);
+    {
+      f.GetReadableName(m_primaryText);
+      if (m_primaryText == m_secondaryText)
+        m_secondaryText.clear();
+    }
 
     // Get or concat house number if feature has one.
     if (!houseNumber.empty())

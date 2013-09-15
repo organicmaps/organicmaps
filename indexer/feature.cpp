@@ -231,6 +231,9 @@ struct BestMatchedLangNames
     {
       // There are many "junk" names in Arabian island.
       m_intName = name.substr(0, name.find_first_of(','));
+      // int_name should be used as name:en when name:en not found
+      if ((nativeCode == englishCode) && m_nativeName.empty())
+        m_nativeName = m_intName;
     }
     else if (code == englishCode)
       m_englishName = name;
