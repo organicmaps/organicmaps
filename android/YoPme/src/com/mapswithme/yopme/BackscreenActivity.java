@@ -179,7 +179,13 @@ public class BackscreenActivity extends BSActivity
 
     if (intent.hasExtra(LocationManager.KEY_LOCATION_CHANGED))
     {
-      if (updateWithLocation((Location) intent.getParcelableExtra(LocationManager.KEY_LOCATION_CHANGED)))
+      final Location l = (Location) intent.getParcelableExtra(LocationManager.KEY_LOCATION_CHANGED);
+      if (LocationRequester.isFirstOneBetterLocation(l, mLocation) &&
+          areLocationsFarEnough(l, mLocation))
+      {
+        mLocation = l;
+      }
+      else
         return;
     }
     else if (intent.hasExtra(EXTRA_MODE))
@@ -187,11 +193,12 @@ public class BackscreenActivity extends BSActivity
       mMode  = (Mode) intent.getSerializableExtra(EXTRA_MODE);
       mPoint = (MWMPoint) intent.getSerializableExtra(EXTRA_POINT);
       mZoomLevel = intent.getDoubleExtra(EXTRA_ZOOM, MapDataProvider.COMFORT_ZOOM);
+
+      requestLocationUpdate();
     }
 
     // Do always update data.
     // This function is called from back screen menu without any extras.
-    requestLocationUpdate();
 
     updateData();
     invalidate();
@@ -268,26 +275,6 @@ public class BackscreenActivity extends BSActivity
       return true;
 
     return l1.distanceTo(l2) > 5;
-  }
-
-  private boolean updateWithLocation(Location location)
-  {
-    if (LocationRequester.isFirstOneBetterLocation(location, mLocation) &&
-        areLocationsFarEnough(location, mLocation))
-    {
-      mLocation = location;
-
-      updateData();
-      invalidate();
-      return true;
-    }
-
-    return false;
-  }
-
-  private void onLocationUpdate(Location location)
-  {
-    updateWithLocation(location);
   }
 
   private void showWaitMessage(CharSequence msg)
