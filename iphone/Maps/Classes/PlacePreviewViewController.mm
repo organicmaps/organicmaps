@@ -51,6 +51,8 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
   {
     m_previewType = APIPOINT;
     m_apiPoint = apiPoint;
+    m_point.y = MercatorBounds::LatToY(apiPoint.m_lat);
+    m_point.x = MercatorBounds::LonToX(apiPoint.m_lon);
   }
   return self;
 }
