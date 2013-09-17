@@ -24,6 +24,7 @@ SUBDIRS = 3party \
           geometry/geometry_tests \
           platform/platform_tests \
           anim \
+          drape \
           graphics \
           gui \
           storage storage/storage_tests \
