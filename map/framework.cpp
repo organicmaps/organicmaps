@@ -1411,7 +1411,7 @@ bool Framework::ShowMapForURL(string const & url)
     {
       rect = GetMapApiViewportRect();
 
-      if (!m_ParsedMapApi.GetPoints().empty())
+      if (m_ParsedMapApi.GetPoints().size() == 1)
       {
         point.MakeFrom(m_ParsedMapApi.GetPoints().front());
         result = BALLOON_PADDING;
