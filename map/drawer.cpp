@@ -338,7 +338,7 @@ void Drawer::Draw(di::FeatureInfo const & fi)
     double const depth = rules[i].m_depth;
 
     bool const isCaption = pRule->GetCaption(0) != 0;
-    bool const hasSymbol = pRule->GetSymbol() != 0;
+    bool const isSymbol = pRule->GetSymbol() != 0;
     bool const isCircle = pRule->GetCircle() != 0;
 
     if (!isCaption)
@@ -347,15 +347,14 @@ void Drawer::Draw(di::FeatureInfo const & fi)
       if (isArea)
       {
         bool const isFill = pRule->GetArea() != 0;
-        bool const isWay = (pRule->GetType() & drule::way) != 0;
 
         for (list<di::AreaInfo>::const_iterator i = fi.m_areas.begin(); i != fi.m_areas.end(); ++i)
         {
           if (isFill)
             drawArea(*i, di::DrawRule(pRule, depth, false));
-          else if (hasSymbol && !isWay)
+          else if (isSymbol)
             drawSymbol(i->GetCenter(), graphics::EPosCenter, di::DrawRule(pRule, depth, false), id);
-          else if (isCircle && !isWay)
+          else if (isCircle)
             drawCircle(i->GetCenter(), graphics::EPosCenter, di::DrawRule(pRule, depth, false), id);
         }
       }
@@ -363,7 +362,7 @@ void Drawer::Draw(di::FeatureInfo const & fi)
       // draw point symbol
       if (!isPath && !isArea && ((pRule->GetType() & drule::node) != 0))
       {
-        if (hasSymbol)
+        if (isSymbol)
           drawSymbol(fi.m_point, graphics::EPosCenter, di::DrawRule(pRule, depth, false), id);
         else if (isCircle)
           drawCircle(fi.m_point, graphics::EPosCenter, di::DrawRule(pRule, depth, false), id);
