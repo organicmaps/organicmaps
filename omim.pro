@@ -37,6 +37,7 @@ SUBDIRS = 3party \
           graphics/graphics_tests \
           gui/gui_tests \
           qt \
+          drape_head \
           map_server \
           yopme_desktop
 } else {

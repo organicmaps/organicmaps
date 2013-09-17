@@ -9,6 +9,8 @@ TEMPLATE = lib
 CONFIG += staticlib warn_on
 DEFINES += DRAPE_ENGINE
 
+DEPENDENCIES = base
+
 ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
 
