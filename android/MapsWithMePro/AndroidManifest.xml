@@ -4,8 +4,8 @@
     android:installLocation="preferExternal"
     android:sharedUserId="com.mapswithme"
     android:sharedUserLabel="@string/shared_user_label"
-    android:versionCode="246"
-    android:versionName="2.4.6" >
+    android:versionCode="247"
+    android:versionName="2.4.7" >
 
     <uses-sdk
         android:minSdkVersion="7"
