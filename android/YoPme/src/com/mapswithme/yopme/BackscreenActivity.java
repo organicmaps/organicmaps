@@ -439,7 +439,7 @@ public class BackscreenActivity extends BSActivity
     }
   }
 
-  public String getDataStoragePath()
+  public static String getDataStoragePath()
   {
     return Environment.getExternalStorageDirectory().getAbsolutePath() + "/MapsWithMe/";
   }

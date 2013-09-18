@@ -1,20 +1,26 @@
 package com.mapswithme.yopme.map;
 
 import android.graphics.Bitmap;
-
 import com.mapswithme.yopme.PoiPoint;
+import com.mapswithme.yopme.map.MwmFilesObserver.EventType;
+import com.mapswithme.yopme.map.MwmFilesObserver.MwmFilesListener;
 import com.mapswithme.yopme.util.PixelBuffer;
 
-public class MapRenderer implements MapDataProvider
+public class MapRenderer implements MapDataProvider, MwmFilesListener
 {
 	private final static String TAG = "MapRenderer";
 	PixelBuffer mPixelBuffer = null;
+
+	private final MwmFilesObserver mFilesObserver;
 
 	public MapRenderer(int width, int height)
 	{
 		mPixelBuffer = new PixelBuffer(width, height);
 		mPixelBuffer.init();
 		nativeCreateFramework(width, height);
+
+		mFilesObserver = new MwmFilesObserver(this);
+		mFilesObserver.startWatching();
 	}
 
 	public void terminate()
@@ -68,4 +74,19 @@ public class MapRenderer implements MapDataProvider
 	private native boolean nativeRenderPoiMap(double lat, double lon,
 	                                              boolean needMyLocation, double myLat, double myLon,
 	                                              double zoom);
+
+	private native void nativeOnKmlFileUpdate();
+	private native void nativeOnMapFileUpdate();
+
+  @Override
+  public void onFileEvent(String path, EventType event)
+  {
+    synchronized (MapRenderer.class)
+    {
+      if (EventType.KML_FILE_EVENT  == event)
+        nativeOnKmlFileUpdate();
+      else if (EventType.MAP_FILE_EVENT == event)
+        nativeOnMapFileUpdate();
+    }
+  }
 }
