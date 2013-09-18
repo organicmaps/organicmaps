@@ -32,4 +32,4 @@ private:
   vector<UniformValue> m_uniforms;
 };
 
-void ApplyState(GLState state, WeakPointer<GpuProgram> program);
+void ApplyState(GLState state, ReferencePoiner<GpuProgram> program);

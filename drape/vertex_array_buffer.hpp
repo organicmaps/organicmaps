@@ -18,9 +18,9 @@ public:
   void Unbind();
   void Render();
 
-  void BuildVertexArray(WeakPointer<GpuProgram> program);
+  void BuildVertexArray(ReferencePoiner<GpuProgram> program);
 
-  WeakPointer<GLBuffer> GetBuffer(const BindingInfo & bindingInfo);
+  ReferencePoiner<GLBuffer> GetBuffer(const BindingInfo & bindingInfo);
 
   uint16_t GetAvailableVertexCount() const;
   uint16_t GetAvailableIndexCount() const;
@@ -29,9 +29,9 @@ public:
 
 private:
   int m_VAO;
-  typedef map<BindingInfo, StrongPointer<DataBuffer> > buffers_map_t;
+  typedef map<BindingInfo, OwnedPointer<DataBuffer> > buffers_map_t;
   buffers_map_t m_buffers;
 
-  StrongPointer<IndexBuffer> m_indexBuffer;
+  OwnedPointer<IndexBuffer> m_indexBuffer;
   uint32_t m_dataBufferSize;
 };

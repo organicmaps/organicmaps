@@ -4,7 +4,7 @@
 #include "gpu_program.hpp"
 
 #include "../std/string.hpp"
-#include "../std/shared_ptr.hpp"
+#include "../std/shared_array.hpp"
 
 class UniformValue
 {
@@ -21,7 +21,7 @@ public:
 
   UniformValue(const string & name, float * matrixValue);
 
-  void Apply(WeakPointer<GpuProgram> program);
+  void Apply(ReferencePoiner<GpuProgram> program);
 
   bool operator<(const UniformValue & other) const
   {
@@ -53,5 +53,5 @@ private:
   Type m_type;
   size_t m_componentCount;
 
-  shared_ptr<uint8_t> m_values;
+  shared_array<uint8_t> m_values;
 };

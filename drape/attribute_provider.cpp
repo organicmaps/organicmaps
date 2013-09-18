@@ -39,28 +39,28 @@ uint8_t AttributeProvider::GetStreamCount() const
 
 const void * AttributeProvider::GetRawPointer(uint8_t streamIndex)
 {
-  ASSERT(streamIndex < GetStreamCount(), ("Stream index = ", streamIndex, " out of range [0 : ", GetStreamCount(), ")"));
+  ASSERT_LESS(streamIndex, GetStreamCount(), ());
   CHECK_STREAMS;
   return m_streams[streamIndex].m_data.GetRaw();
 }
 
 const BindingInfo & AttributeProvider::GetBindingInfo(uint8_t streamIndex) const
 {
-  ASSERT(streamIndex < GetStreamCount(), ("Stream index = ", streamIndex, " out of range [0 : ", GetStreamCount(), ")"));
+  ASSERT_LESS(streamIndex, GetStreamCount(), ());
   CHECK_STREAMS;
   return m_streams[streamIndex].m_binding;
 }
 
 void AttributeProvider::Advance(uint16_t vertexCount)
 {
-  assert(m_vertexCount >= vertexCount);
+  ASSERT_LESS_OR_EQUAL(vertexCount, m_vertexCount, ());
   CHECK_STREAMS;
   for (size_t i = 0; i < GetStreamCount(); ++i)
   {
     const BindingInfo & info = m_streams[i].m_binding;
     uint32_t offset = vertexCount * info.GetElementSize();
     void * rawPointer = m_streams[i].m_data.GetRaw();
-    m_streams[i].m_data = WeakPointer<void>((void *)(((uint8_t *)rawPointer) + offset));
+    m_streams[i].m_data = ReferencePoiner<void>((void *)(((uint8_t *)rawPointer) + offset));
   }
 
   m_vertexCount -= vertexCount;
@@ -68,9 +68,9 @@ void AttributeProvider::Advance(uint16_t vertexCount)
 
 void AttributeProvider::InitStream(uint8_t streamIndex,
                                    const BindingInfo &bindingInfo,
-                                   WeakPointer<void> data)
+                                   ReferencePoiner<void> data)
 {
-  ASSERT(streamIndex < GetStreamCount(), ("Stream index = ", streamIndex, " out of range [0 : ", GetStreamCount(), ")"));
+  ASSERT_LESS(streamIndex, GetStreamCount(), ());
   AttributeStream s;
   s.m_binding = bindingInfo;
   s.m_data = data;

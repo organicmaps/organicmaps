@@ -128,7 +128,7 @@ UniformValue::UniformValue(const string & name, float * matrixValue)
   m_componentCount = 16;
 }
 
-void UniformValue::Apply(WeakPointer<GpuProgram> program)
+void UniformValue::Apply(ReferencePoiner<GpuProgram> program)
 {
   uint8_t location = program->GetUniformLocation(m_name);
   switch (m_type) {
@@ -148,5 +148,5 @@ void UniformValue::Apply(WeakPointer<GpuProgram> program)
 
 void UniformValue::Allocate(size_t byteCount)
 {
-  m_values = make_shared_ptr(new uint8_t[byteCount]);
+  m_values.reset(new uint8_t[byteCount]);
 }

@@ -7,7 +7,6 @@
 TARGET = drape
 TEMPLATE = lib
 CONFIG += staticlib warn_on
-DEFINES += DRAPE_ENGINE
 
 DEPENDENCIES = base
 

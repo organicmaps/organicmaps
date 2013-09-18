@@ -3,15 +3,15 @@
 #include <cassert>
 
 template <typename T>
-class WeakPointer
+class ReferencePoiner
 {
 public:
-  WeakPointer()
+  ReferencePoiner()
     : m_p(NULL)
   {
   }
 
-  WeakPointer(T * p)
+  ReferencePoiner(T * p)
     : m_p(p)
   {
   }
@@ -41,12 +41,12 @@ public:
     return m_p;
   }
 
-  bool operator != (const WeakPointer<T> & other) const
+  bool operator != (const ReferencePoiner<T> & other) const
   {
     return *m_p != *other.m_p;
   }
 
-  bool operator < (const WeakPointer<T> & other) const
+  bool operator < (const ReferencePoiner<T> & other) const
   {
     return *m_p < *other.m_p;
   }
@@ -56,23 +56,21 @@ private:
 };
 
 template <typename T>
-class StrongPointer
+class OwnedPointer
 {
 public:
-  StrongPointer()
+  OwnedPointer()
     : m_p(NULL)
   {
-
   }
 
-  StrongPointer(T * p)
+  OwnedPointer(T * p)
     : m_p(p)
   {
   }
 
-  ~StrongPointer()
+  ~OwnedPointer()
   {
-    //assert(m_p == NULL);
   }
 
   void Reset(T * p)
@@ -87,20 +85,20 @@ public:
     m_p = NULL;
   }
 
-  WeakPointer<T> GetWeakPointer()
+  ReferencePoiner<T> GetWeakPointer()
   {
-    return WeakPointer<T>(m_p);
+    return ReferencePoiner<T>(m_p);
   }
 
-  const WeakPointer<T> GetWeakPointer() const
+  const ReferencePoiner<T> GetWeakPointer() const
   {
-    return WeakPointer<T>(m_p);
+    return ReferencePoiner<T>(m_p);
   }
 
   template <typename U>
-  WeakPointer<U> GetWeakPointer()
+  ReferencePoiner<U> GetWeakPointer()
   {
-    return WeakPointer<U>(m_p);
+    return ReferencePoiner<U>(m_p);
   }
 
   bool IsNull()
@@ -128,12 +126,12 @@ public:
     return m_p;
   }
 
-  bool operator != (const StrongPointer<T> & other) const
+  bool operator != (const OwnedPointer<T> & other) const
   {
     return *m_p != *other.m_p;
   }
 
-  bool operator < (const StrongPointer<T> & other) const
+  bool operator < (const OwnedPointer<T> & other) const
   {
     return *m_p < *other.m_p;
   }

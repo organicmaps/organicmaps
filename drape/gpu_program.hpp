@@ -8,8 +8,8 @@
 class GpuProgram
 {
 public:
-  GpuProgram(WeakPointer<ShaderReference> vertexShader,
-             WeakPointer<ShaderReference> fragmentShader);
+  GpuProgram(ReferencePoiner<ShaderReference> vertexShader,
+             ReferencePoiner<ShaderReference> fragmentShader);
   ~GpuProgram();
 
   void Bind();

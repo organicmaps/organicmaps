@@ -2,20 +2,20 @@
 
 GLWidget::GLWidget()
 {
-  m_batcher = new Batcher(WeakPointer<IBatchFlush>(this));
+  m_batcher = new Batcher(ReferencePoiner<IBatchFlush>(this));
   m_programManager = new GpuProgramManager();
 }
 
-void GLWidget::FlushFullBucket(const GLState & state, StrongPointer<VertexArrayBuffer> bucket)
+void GLWidget::FlushFullBucket(const GLState & state, OwnedPointer<VertexArrayBuffer> bucket)
 {
-  WeakPointer<GpuProgram> program = m_programManager->GetProgram(state.GetProgramIndex());
+  ReferencePoiner<GpuProgram> program = m_programManager->GetProgram(state.GetProgramIndex());
   bucket->BuildVertexArray(program);
   m_frames[state].push_back(bucket);
 }
 
-void GLWidget::UseIncompleteBucket(const GLState &state, WeakPointer<VertexArrayBuffer> bucket)
+void GLWidget::UseIncompleteBucket(const GLState &state, ReferencePoiner<VertexArrayBuffer> bucket)
 {
-  WeakPointer<GpuProgram> program = m_programManager->GetProgram(state.GetProgramIndex());
+  ReferencePoiner<GpuProgram> program = m_programManager->GetProgram(state.GetProgramIndex());
   bucket->BuildVertexArray(program);
   renderBucket(state, bucket);
 }
@@ -25,7 +25,7 @@ void GLWidget::initializeGL()
   glClearColor(0.8, 0.8, 0.8, 1.0);
 
   GLFunctions::Init();
-  TextureBinding binding("", false, 0, WeakPointer<Texture>(NULL));
+  TextureBinding binding("", false, 0, ReferencePoiner<Texture>(NULL));
   GLState s(1, 0, binding);
   vector<UniformValue> & uniforms = s.GetUniformValues();
   uniforms.push_back(UniformValue("depth", 0.0f));
@@ -50,7 +50,7 @@ void GLWidget::initializeGL()
 
   uniforms.push_back(UniformValue("projectionMatrix", p));
 
-  StrongPointer<AttributeProvider> provider(new AttributeProvider(1, 4));
+  OwnedPointer<AttributeProvider> provider(new AttributeProvider(1, 4));
   BindingInfo info(1);
   BindingDecl & decl =  info.GetBindingDecl(0);
   decl.m_attributeName = "position";
@@ -67,7 +67,7 @@ void GLWidget::initializeGL()
      1.0,  1.0
   };
 
-  provider->InitStream(0, info, WeakPointer<void>(data));
+  provider->InitStream(0, info, ReferencePoiner<void>(data));
   m_batcher->InsertTriangleStrip(s, provider.GetWeakPointer());
 
   provider.Destroy();
@@ -92,9 +92,9 @@ void GLWidget::paintGL()
     m_batcher->RequestIncompleteBuckets();
 }
 
-void GLWidget::renderBucket(const GLState & state, WeakPointer<VertexArrayBuffer> bucket)
+void GLWidget::renderBucket(const GLState & state, ReferencePoiner<VertexArrayBuffer> bucket)
 {
-  WeakPointer<GpuProgram> program = m_programManager->GetProgram(state.GetProgramIndex());
+  ReferencePoiner<GpuProgram> program = m_programManager->GetProgram(state.GetProgramIndex());
   ApplyState(state, program);
   bucket->Render();
 }

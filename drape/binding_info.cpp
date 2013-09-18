@@ -2,25 +2,26 @@
 
 #include "../base/assert.hpp"
 
-#ifdef DEBUG
-#include "glIncludes.hpp"
-uint16_t sizeOfType(glConst type)
+namespace
 {
-  if (type == GLConst::GLByteType || type == GLConst::GLUnsignedByteType)
-    return sizeof(GLbyte);
-  else if (type == GLConst::GLShortType || type == GLConst::GLUnsignedShortType)
-    return sizeof(GLshort);
-  else if (type == GLConst::GLIntType || type == GLConst::GLUnsignedIntType)
-    return sizeof(GLint);
-  else if (type == GLConst::GLFloatType)
-    return sizeof(GLfloat);
-  else if (type == GLConst::GLDoubleType)
-    return sizeof(GLdouble);
+  #include "glIncludes.hpp"
+  uint16_t sizeOfType(glConst type)
+  {
+    if (type == GLConst::GLByteType || type == GLConst::GLUnsignedByteType)
+      return sizeof(GLbyte);
+    else if (type == GLConst::GLShortType || type == GLConst::GLUnsignedShortType)
+      return sizeof(GLshort);
+    else if (type == GLConst::GLIntType || type == GLConst::GLUnsignedIntType)
+      return sizeof(GLint);
+    else if (type == GLConst::GLFloatType)
+      return sizeof(GLfloat);
+    else if (type == GLConst::GLDoubleType)
+      return sizeof(GLdouble);
 
-  ASSERT(false, ());
-  return 0;
+    ASSERT(false, ());
+    return 0;
+  }
 }
-#endif
 
 BindingInfo::BindingInfo()
 {
@@ -44,13 +45,13 @@ uint16_t BindingInfo::GetCount() const
 
 const BindingDecl & BindingInfo::GetBindingDecl(uint16_t index) const
 {
-  ASSERT(index < m_size, ("Binding decl index = ", index, " out of range [0 : ", m_size, ")"));
+  ASSERT_LESS(index, m_size, ());
   return m_bindings[index];
 }
 
 BindingDecl & BindingInfo::GetBindingDecl(uint16_t index)
 {
-  ASSERT(index < m_size, ("Binding decl index = ", index, " out of range [0 : ", m_size, ")"));
+  ASSERT_LESS(index, m_size, ());
   return m_bindings[index];
 }
 

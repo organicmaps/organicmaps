@@ -33,7 +33,7 @@ vector<UniformValue> & GLState::GetUniformValues()
   return m_uniforms;
 }
 
-void ApplyState(GLState state, WeakPointer<GpuProgram> program)
+void ApplyState(GLState state, ReferencePoiner<GpuProgram> program)
 {
   TextureBinding & binding = state.GetTextureBinding();
   program->Bind();

@@ -56,13 +56,13 @@ private:
 class TextureBinding
 {
 public:
-  TextureBinding(const string & uniformName, bool isEnabled, uint8_t samplerBlock, WeakPointer<Texture> texture);
+  TextureBinding(const string & uniformName, bool isEnabled, uint8_t samplerBlock, ReferencePoiner<Texture> texture);
 
   void Bind(int8_t uniformLocation);
   bool IsEnabled() const;
   const string & GetUniformName() const;
   void SetIsEnabled(bool isEnabled);
-  void SetTexture(WeakPointer<Texture> texture);
+  void SetTexture(ReferencePoiner<Texture> texture);
 
   bool operator<(const TextureBinding & other) const
   {
@@ -75,5 +75,5 @@ private:
   string m_uniformName;
   bool m_isEnabled;
   uint8_t m_samplerBlock;
-  WeakPointer<Texture> m_texture;
+  ReferencePoiner<Texture> m_texture;
 };

@@ -32,12 +32,12 @@ namespace
   struct TrianglesListStrategy : public BaseStrategy
   {
   public:
-    uint16_t GetIndexCount(uint16_t vertexCount)
+    uint16_t GetIndexCount(uint16_t vertexCount) const
     {
       return vertexCount;
     }
 
-    uint16_t GetVertexCount(uint16_t indexCount)
+    uint16_t GetVertexCount(uint16_t indexCount) const
     {
       return indexCount;
     }
@@ -51,12 +51,12 @@ namespace
   struct TrianglesStripStrategy : public BaseStrategy
   {
   public:
-    uint16_t GetIndexCount(uint16_t vertexCount)
+    uint16_t GetIndexCount(uint16_t vertexCount) const
     {
       return 3* (vertexCount - 2);
     }
 
-    uint16_t GetVertexCount(uint16_t indexCount)
+    uint16_t GetVertexCount(uint16_t indexCount) const
     {
       return (indexCount / 3) + 2;
     }
@@ -71,12 +71,12 @@ namespace
   struct TrianglesFanStrategy : public BaseStrategy
   {
   public:
-    uint16_t GetIndexCount(uint16_t vertexCount)
+    uint16_t GetIndexCount(uint16_t vertexCount) const
     {
       return 3* (vertexCount - 2);
     }
 
-    uint16_t GetVertexCount(uint16_t indexCount)
+    uint16_t GetVertexCount(uint16_t indexCount) const
     {
       return (indexCount / 3) + 2;
     }
@@ -91,7 +91,7 @@ namespace
   };
 }
 
-Batcher::Batcher(WeakPointer<IBatchFlush> flushInterface)
+Batcher::Batcher(ReferencePoiner<IBatchFlush> flushInterface)
   : m_flushInterface(flushInterface)
 {
 }
@@ -104,14 +104,14 @@ Batcher::~Batcher()
 }
 
 template <typename strategy>
-void Batcher::InsertTriangles(const GLState & state, strategy s, WeakPointer<AttributeProvider> params)
+void Batcher::InsertTriangles(const GLState & state, strategy s, ReferencePoiner<AttributeProvider> params)
 {
   while (params->IsDataExists())
   {
     uint16_t vertexCount = params->GetVertexCount();
     uint16_t indexCount = s.GetIndexCount(vertexCount);
 
-    WeakPointer<VertexArrayBuffer> buffer = GetBuffer(state);
+    ReferencePoiner<VertexArrayBuffer> buffer = GetBuffer(state);
     uint16_t availableVertexCount = buffer->GetAvailableVertexCount();
     uint16_t availableIndexCount = buffer->GetAvailableIndexCount();
 
@@ -142,7 +142,7 @@ void Batcher::InsertTriangles(const GLState & state, strategy s, WeakPointer<Att
     /// upload data from params to GPU buffers
     for (size_t i = 0; i < params->GetStreamCount(); ++i)
     {
-      WeakPointer<GLBuffer> streamBuffer = buffer->GetBuffer(params->GetBindingInfo(i));
+      ReferencePoiner<GLBuffer> streamBuffer = buffer->GetBuffer(params->GetBindingInfo(i));
       streamBuffer->UploadData(params->GetRawPointer(i), vertexCount);
     }
 
@@ -152,17 +152,17 @@ void Batcher::InsertTriangles(const GLState & state, strategy s, WeakPointer<Att
   }
 }
 
-void Batcher::InsertTriangleList(const GLState & state, WeakPointer<AttributeProvider> params)
+void Batcher::InsertTriangleList(const GLState & state, ReferencePoiner<AttributeProvider> params)
 {
   InsertTriangles(state, TrianglesListStrategy(), params);
 }
 
-void Batcher::InsertTriangleStrip(const GLState & state, WeakPointer<AttributeProvider> params)
+void Batcher::InsertTriangleStrip(const GLState & state, ReferencePoiner<AttributeProvider> params)
 {
   InsertTriangles(state, TrianglesStripStrategy(), params);
 }
 
-void Batcher::InsertTriangleFan(const GLState & state, WeakPointer<AttributeProvider> params)
+void Batcher::InsertTriangleFan(const GLState & state, ReferencePoiner<AttributeProvider> params)
 {
   InsertTriangles(state, TrianglesFanStrategy(), params);
 }
@@ -173,13 +173,13 @@ void Batcher::RequestIncompleteBuckets()
     m_flushInterface->UseIncompleteBucket(it->first, it->second.GetWeakPointer());
 }
 
-WeakPointer<VertexArrayBuffer> Batcher::GetBuffer(const GLState & state)
+ReferencePoiner<VertexArrayBuffer> Batcher::GetBuffer(const GLState & state)
 {
   buckets_t::iterator it = m_buckets.find(state);
   if (it != m_buckets.end())
     return it->second.GetWeakPointer();
 
-  StrongPointer<VertexArrayBuffer> buffer(new VertexArrayBuffer(768, 512));
+  OwnedPointer<VertexArrayBuffer> buffer(new VertexArrayBuffer(768, 512));
   m_buckets.insert(make_pair(state, buffer));
   return buffer.GetWeakPointer();
 }

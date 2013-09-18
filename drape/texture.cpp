@@ -54,7 +54,7 @@ void Texture::Init(const TextureInfo &info, void * data)
 TextureBinding::TextureBinding(const std::string & uniformName,
                                bool isEnabled,
                                uint8_t samplerBlock,
-                               WeakPointer<Texture> texture)
+                               ReferencePoiner<Texture> texture)
   : m_uniformName(uniformName)
   , m_isEnabled(isEnabled)
   , m_samplerBlock(samplerBlock)
@@ -87,7 +87,7 @@ void TextureBinding::SetIsEnabled(bool isEnabled)
   m_isEnabled = isEnabled;
 }
 
-void TextureBinding::SetTexture(WeakPointer<Texture> texture)
+void TextureBinding::SetTexture(ReferencePoiner<Texture> texture)
 {
   m_texture = texture;
 }

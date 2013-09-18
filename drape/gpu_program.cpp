@@ -3,7 +3,7 @@
 
 #include "../base/assert.hpp"
 
-GpuProgram::GpuProgram(WeakPointer<ShaderReference> vertexShader, WeakPointer<ShaderReference> fragmentShader)
+GpuProgram::GpuProgram(ReferencePoiner<ShaderReference> vertexShader, ReferencePoiner<ShaderReference> fragmentShader)
 {
   vertexShader->Ref();
   fragmentShader->Ref();
@@ -13,8 +13,7 @@ GpuProgram::GpuProgram(WeakPointer<ShaderReference> vertexShader, WeakPointer<Sh
   GLFunctions::glAttachShader(m_programID, fragmentShader->GetID());
 
   string errorLog;
-  if (!GLFunctions::glLinkProgram(m_programID, errorLog))
-    ASSERT(false, ());
+  VERIFY(GLFunctions::glLinkProgram(m_programID, errorLog), ());
 
   GLFunctions::glDetachShader(m_programID, vertexShader->GetID());
   GLFunctions::glDetachShader(m_programID, fragmentShader->GetID());

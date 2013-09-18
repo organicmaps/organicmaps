@@ -6,10 +6,7 @@ namespace
 {
   inline GLboolean convert(bool v)
   {
-    if (v)
-      return GL_TRUE;
-
-    return GL_FALSE;
+    return (v == true) ? GL_TRUE : GL_FALSE;
   }
 
   /// VAO
@@ -155,8 +152,19 @@ void GLFunctions::Init()
 
 bool GLFunctions::glHasExtension(const string & name)
 {
-  string allExtensions(reinterpret_cast<char const * >(glGetString(GL_EXTENSIONS)));
-  return allExtensions.find(name) != string::npos;
+  const char * extensions = reinterpret_cast<char const * >(glGetString(GL_EXTENSIONS));
+  const char * extName = name.c_str();
+  const char * ptr = NULL;
+  while ((ptr = strstr(extensions, extName)) != NULL)
+  {
+    const char * end = ptr + strlen(extName);
+    if (isspace(*end) || *end == '\0')
+        return true;
+
+    extensions = ptr;
+  }
+
+  return false;
 }
 
 int GLFunctions::glGenVertexArray()
@@ -227,7 +235,7 @@ void GLFunctions::glShaderSource(uint32_t shaderID, const string & src)
   GLCHECK(glShaderSourceFn(shaderID, 1, &source, &length));
 }
 
-bool GLFunctions::glCompileShader(uint32_t shaderID, std::string &errorLog)
+bool GLFunctions::glCompileShader(uint32_t shaderID, string &errorLog)
 {
   ASSERT(glCompileShaderFn != NULL, ());
   ASSERT(glGetShaderivFn != NULL, ());

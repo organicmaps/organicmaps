@@ -39,7 +39,7 @@ void VertexArrayBuffer::Render()
   GLFunctions::glDrawElements(m_indexBuffer->GetCurrentSize());
 }
 
-void VertexArrayBuffer::BuildVertexArray(WeakPointer<GpuProgram> program)
+void VertexArrayBuffer::BuildVertexArray(ReferencePoiner<GpuProgram> program)
 {
   if (m_buffers.empty())
     return;
@@ -51,7 +51,7 @@ void VertexArrayBuffer::BuildVertexArray(WeakPointer<GpuProgram> program)
   for (; it != m_buffers.end(); ++it)
   {
     const BindingInfo & binding = it->first;
-    WeakPointer<DataBuffer> buffer = it->second.GetWeakPointer();
+    ReferencePoiner<DataBuffer> buffer = it->second.GetWeakPointer();
     buffer->Bind();
 
     for (uint16_t i = 0; i < binding.GetCount(); ++i)
@@ -76,12 +76,12 @@ void VertexArrayBuffer::BuildVertexArray(WeakPointer<GpuProgram> program)
   program->Unbind();
 }
 
-WeakPointer<GLBuffer> VertexArrayBuffer::GetBuffer(const BindingInfo & bindingInfo)
+ReferencePoiner<GLBuffer> VertexArrayBuffer::GetBuffer(const BindingInfo & bindingInfo)
 {
   buffers_map_t::iterator it = m_buffers.find(bindingInfo);
   if (it == m_buffers.end())
   {
-    StrongPointer<DataBuffer> buffer(new DataBuffer(bindingInfo.GetElementSize(), m_dataBufferSize));
+    OwnedPointer<DataBuffer> buffer(new DataBuffer(bindingInfo.GetElementSize(), m_dataBufferSize));
     m_buffers.insert(make_pair(bindingInfo, buffer));
     return buffer.GetWeakPointer<GLBuffer>();
   }
