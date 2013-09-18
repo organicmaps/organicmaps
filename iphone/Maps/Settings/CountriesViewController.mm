@@ -514,4 +514,9 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
     [app openURL:[NSURL URLWithString:[NSString stringWithUTF8String:info.GetURL().c_str()]]];
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+  return YES;
+}
+
 @end

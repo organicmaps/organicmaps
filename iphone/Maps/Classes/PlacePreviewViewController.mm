@@ -341,4 +341,9 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
   return self.placeAndCompass;
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+  return YES;
+}
+
 @end

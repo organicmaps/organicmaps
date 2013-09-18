@@ -425,4 +425,9 @@
   [self presentModalViewController:mailVC animated:YES];
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+  return YES;
+}
+
 @end

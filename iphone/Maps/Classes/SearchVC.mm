@@ -730,4 +730,10 @@ void setSearchType(search::SearchParams & params)
     }
   }
 }
+
+- (BOOL)prefersStatusBarHidden
+{
+  return YES;
+}
+
 @end
