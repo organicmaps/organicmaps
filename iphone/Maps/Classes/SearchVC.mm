@@ -228,6 +228,8 @@ static void OnSearchResultCallback(search::Results const & res)
 - (void)dealloc
 {
   g_searchVC = nil;
+  [m_indicator release];
+  [m_originalIndicatorView release];
   [m_searchBar release];
   [m_table release];
   [categoriesNames release];
@@ -238,26 +240,6 @@ static void OnSearchResultCallback(search::Results const & res)
 - (void)viewDidLoad
 {
   g_searchVC = self;
-}
-
-- (void)viewDidUnload
-{
-  g_searchVC = nil;
-  // to correctly free memory
-  [m_indicator release];
-  m_indicator = nil;
-  [m_originalIndicatorView release];
-  m_originalIndicatorView = nil;
-  [m_searchBar release];
-  m_searchBar = nil;
-  [m_table release];
-  m_table = nil;
-  [categoriesNames release];
-  categoriesNames = nil;
-  [_searchResults release];
-  _searchResults = nil;
-  
-  [super viewDidUnload];
 }
 
 // Banner dialog handler

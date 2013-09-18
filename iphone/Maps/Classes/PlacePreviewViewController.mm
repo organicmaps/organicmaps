@@ -75,12 +75,6 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
     self.contentSizeForViewInPopover = CGSizeMake(320, 480);;
 }
 
--(void)viewDidUnload
-{
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
-  [super viewDidUnload];
-}
-
 #pragma mark - Table view data source
 
 -(void)viewDidLoad
@@ -88,7 +82,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
   [super viewDidLoad];
   self.navigationController.navigationBarHidden = NO;
   [self setTitle:NSLocalizedString(@"info", nil)];
-  [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged)  name:UIDeviceOrientationDidChangeNotification  object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -315,6 +309,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
 
 -(void)dealloc
 {
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
   self.placeAndCompass = nil;
   [super dealloc];
 }

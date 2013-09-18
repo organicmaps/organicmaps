@@ -516,13 +516,6 @@ NSInteger compareAddress(id l, id r, void * context)
   [super didReceiveMemoryWarning];
 }
 
-- (void) viewDidUnload
-{
-  // to correctly release view on memory warnings
-  self.m_myPositionButton = nil;
-  [super viewDidUnload];
-}
-
 - (void) OnTerminate
 {
   GetFramework().SaveState();
@@ -778,5 +771,13 @@ NSInteger compareAddress(id l, id r, void * context)
   else
     [self.navigationController pushViewController:vc animated:YES];
 }
+
+- (void) dealloc
+{
+  [self destroyPopover];
+  self.m_myPositionButton = nil;
+  [super dealloc];
+}
+
 
 @end

@@ -120,12 +120,14 @@ typedef enum {Editing, Saved} Mode;
                          color:@""
                          category:MakeEmptyBookmarkAndCategory()
                          point:point];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification  object:nil];
   }
   return self;
 }
 
 - (void) dealloc
 {
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
   self.pickerView = nil;
   self.pinTitle = nil;
   self.pinNotes = nil;
@@ -156,16 +158,10 @@ typedef enum {Editing, Saved} Mode;
 {
   [super viewDidLoad];
   self.title = self.pinTitle;
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification  object:nil];
   if (m_mode == Editing)
     [self addRightNavigationItemWithAction:@selector(save)];
   else
     [self addRightNavigationItemWithAction:@selector(edit)];
-}
-
--(void)viewDidUnload
-{
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
