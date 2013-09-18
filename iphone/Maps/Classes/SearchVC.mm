@@ -279,9 +279,16 @@ static void OnSearchResultCallback(search::Results const & res)
     // show keyboard
     [m_searchBar becomeFirstResponder];
      m_searchBar.selectedScopeButtonIndex = scopeSection;
-    [self proceedSearchWithString:lastSearchRequest andForceSearch:YES];
   }
   [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+  // Relaunch search when view has appeared because of search indicator hack
+  // (we replace one control with another, and system calls unsupported method on it)
+  if (GetPlatform().IsPro())
+    [self proceedSearchWithString:lastSearchRequest andForceSearch:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
