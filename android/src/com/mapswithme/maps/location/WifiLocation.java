@@ -1,11 +1,13 @@
 package com.mapswithme.maps.location;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.BroadcastReceiver;
@@ -19,11 +21,18 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 
 import com.mapswithme.util.LocationUtils;
+import com.mapswithme.util.Utils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.SimpleLogger;
 import com.mapswithme.util.statistics.Statistics;
 
 public class WifiLocation extends BroadcastReceiver
 {
+  private Logger mLogger = SimpleLogger.get(this.toString());
+
   private static final String MWM_GEOLOCATION_SERVER = "http://geolocation.server/";
+  /// Limit received WiFi accuracy with 20 meters.
+  private static final double MIN_PASSED_ACCURACY = 20;
 
   public interface Listener
   {
@@ -150,8 +159,9 @@ public class WifiLocation extends BroadcastReceiver
     }
     json.append("}");
 
-    // From Honeycomb, networking calls should be always executed at non-UI
-    // thread
+    final String jsonString = json.toString();
+
+    // From Honeycomb, networking calls should be always executed at non-UI thread.
     new AsyncTask<String, Void, Boolean>()
     {
       // Result for Listener
@@ -170,16 +180,27 @@ public class WifiLocation extends BroadcastReceiver
       {
         // Send http POST to location service
         HttpURLConnection conn = null;
+        OutputStreamWriter wr = null;
+        BufferedReader rd = null;
+
         try
         {
           final URL url = new URL(MWM_GEOLOCATION_SERVER);
           conn = (HttpURLConnection) url.openConnection();
+          conn.setUseCaches(false);
+
+          // Write JSON query
+          mLogger.d("Post JSON request with length = ", jsonString.length());
           conn.setDoOutput(true);
-          OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-          wr.write(json.toString());
+
+          wr = new OutputStreamWriter(conn.getOutputStream());
+          wr.write(jsonString);
           wr.flush();
+          Utils.closeStream(wr);
+
           // Get the response
-          BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+          mLogger.d("Get JSON responce with code = ", conn.getResponseCode());
+          rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
           String line = null;
           String response = "";
           while ((line = rd.readLine()) != null)
@@ -192,29 +213,33 @@ public class WifiLocation extends BroadcastReceiver
           final double acc = jLocation.getDouble("accuracy");
 
           mLocation = new Location("wifiscanner");
-          mLocation.setAccuracy((float) acc);
+          mLocation.setAccuracy((float) Math.max(MIN_PASSED_ACCURACY, acc));
           mLocation.setLatitude(lat);
           mLocation.setLongitude(lon);
           LocationUtils.setLocationCurrentTime(mLocation);
 
-          wr.close();
-          rd.close();
           return true;
         }
-        catch (Exception e)
+        catch (IOException e)
         {
-          e.printStackTrace();
+          mLogger.d("Unable to get location from server: ", e);
+        }
+        catch (JSONException e)
+        {
+          mLogger.d("Unable to parse JSON responce: ", e);
         }
         finally
         {
           if (conn != null)
             conn.disconnect();
+
+          Utils.closeStream(wr);
+          Utils.closeStream(rd);
         }
 
         return false;
       }
 
-    }.execute(json.toString());
-
+    }.execute(jsonString);
   }
 }
