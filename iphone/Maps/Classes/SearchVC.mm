@@ -183,8 +183,26 @@ static void OnSearchResultCallback(search::Results const & res)
     params.SetPosition(lat, lon);
 }
 
+// Returns true if indicator was successfully replaced
+- (BOOL)hackIndicator:(NSArray *)views
+{
+  for (UIView * v in views)
+  {
+    if ([v isKindOfClass:[UITextField class]])
+    {
+      // Save textField to show/hide activity indicator in it
+      m_searchTextField = (UITextField *)v;
+      m_originalIndicatorView = [m_searchTextField.leftView retain];
+      m_indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+      m_indicator.bounds = m_originalIndicatorView.bounds;
+      return YES;
+    }
+  }
+  return NO;
+}
+
 - (void)loadView
-{    
+{
     m_searchBar = [[UISearchBar alloc] init];
     [m_searchBar sizeToFit];
     m_searchBar.showsScopeBar = YES;
@@ -197,20 +215,14 @@ static void OnSearchResultCallback(search::Results const & res)
     m_searchBar.placeholder = NSLocalizedString(@"search_map", @"Search box placeholder text");
     
     // Add search in progress indicator
-    for(UIView * v in m_searchBar.subviews)
+    if (![self hackIndicator:m_searchBar.subviews])
     {
-        if ([v isKindOfClass:[UITextField class]])
-        {
-            // Save textField to show/hide activity indicator in it
-            m_searchTextField = (UITextField *)v;
-            m_originalIndicatorView = [m_searchTextField.leftView retain];
-            m_indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            m_indicator.bounds = m_originalIndicatorView.bounds;
-            break;
-        }
+      // We are here on iOS 7+
+      for (UIView * v in m_searchBar.subviews)
+        if ([self hackIndicator:v.subviews])
+          break;
     }
 
-    
     m_table = [[UITableView alloc] init];
     m_table.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     m_table.delegate = self;
