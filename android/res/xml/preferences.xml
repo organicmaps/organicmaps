@@ -20,7 +20,7 @@
 
     <Preference
         android:key="@string/pref_yota"
-        android:summary="Some preferences for Yopme"
-        android:title="How to Yop It" />
+        android:summary="@string/yopme_pref_summary"
+        android:title="@string/yopme_pref_title" />
 
 </PreferenceScreen>

@@ -2596,3 +2596,18 @@
     zh-Hant = 完成
     it = Fine
     ko = 완료
+
+  [yopme_show_on_eink]
+    en = Show on E-Ink
+    tags = android
+    comment = Label for button in place page on yopme device
+
+  [yopme_pref_summary]
+    en = Some Yota settings here
+    tags = android
+    comment = Summary for preferences in MWM
+
+  [yopme_pref_title]
+    en = Yopme preferences
+    tags = android
+    comment = Title for yopme preferences in MWM

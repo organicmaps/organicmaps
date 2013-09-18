@@ -87,7 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_small"
-            android:text="Показать на E-Ink" />
+            android:text="@string/yopme_show_on_eink" />
     </LinearLayout>
 
 </ScrollView>
