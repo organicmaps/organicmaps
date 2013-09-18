@@ -12,4 +12,13 @@
             android:title="@string/location_update_frequency" />
     </PreferenceCategory>
 
+    <Preference
+        android:key="@string/menu_help"
+        android:title="@string/menu_help" >
+    </Preference>
+    <Preference
+        android:key="@string/pref_about"
+        android:title="@string/about_title" >
+    </Preference>
+
 </PreferenceScreen>

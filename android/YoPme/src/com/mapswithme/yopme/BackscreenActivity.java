@@ -23,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.location.LocationRequester;
-import com.mapswithme.maps.api.MWMPoint;
 import com.mapswithme.yopme.map.MapData;
 import com.mapswithme.yopme.map.MapDataProvider;
 import com.mapswithme.yopme.map.MapRenderer;
@@ -31,16 +30,26 @@ import com.yotadevices.sdk.BSActivity;
 import com.yotadevices.sdk.BSDrawer.Waveform;
 import com.yotadevices.sdk.BSMotionEvent;
 import com.yotadevices.sdk.Constants.Gestures;
+import com.yotadevices.sdk.utils.RotationAlgorithm;
 
 public class BackscreenActivity extends BSActivity
 {
-  private final static String AUTHORITY  = "com.mapswithme.yopme";
   private final static String TAG = "YOPME";
 
-  public final static String EXTRA_MODE     = AUTHORITY + ".mode";
-  public final static String EXTRA_POINT    = AUTHORITY + ".point";
-  public final static String EXTRA_ZOOM     = AUTHORITY + ".zoom";
-  public final static String EXTRA_LOCATION = AUTHORITY + ".location";
+  private final static String YOPME_AUTHORITY   = "com.mapswithme.yopme";
+  public  final static String ACTION_PREFERENCE = YOPME_AUTHORITY + ".preference";
+  public  final static String ACTION_SHOW_RECT  = YOPME_AUTHORITY + ".show_rect";
+  public  final static String ACTION_LOCATION   = YOPME_AUTHORITY + ".location";
+
+  public  final static String EXTRA_LAT    = YOPME_AUTHORITY + ".lat";
+  public  final static String EXTRA_LON    = YOPME_AUTHORITY + ".lon";
+  public  final static String EXTRA_ZOOM   = YOPME_AUTHORITY + ".zoom";
+  public  final static String EXTRA_NAME   = YOPME_AUTHORITY + ".name";
+  public  final static String EXTRA_MODE   = YOPME_AUTHORITY + ".mode";
+
+  public  final static String EXTRA_HAS_LOCATION   = YOPME_AUTHORITY + ".haslocation";
+  public  final static String EXTRA_MY_LAT   = YOPME_AUTHORITY + ".mylat";
+  public  final static String EXTRA_MY_LON   = YOPME_AUTHORITY + ".mylon";
 
   public enum Mode
   {
@@ -50,7 +59,7 @@ public class BackscreenActivity extends BSActivity
 
   /// @name Save to state.
   //@{
-  private MWMPoint mPoint = null;
+  private PoiPoint mPoint = null;
   private Mode mMode = Mode.LOCATION;
   private double mZoomLevel = MapDataProvider.ZOOM_DEFAULT;
   private Location mLocation = null;
@@ -78,6 +87,8 @@ public class BackscreenActivity extends BSActivity
 
   private final Handler mHandler = new Handler();
   private final static long REDRAW_MIN_INTERVAL = 333;
+
+  private static final String EXTRA_POINT = "point";
 
   @Override
   protected void onBSCreate()
@@ -132,7 +143,7 @@ public class BackscreenActivity extends BSActivity
 
     // Do not save and restore m_location! It's compared by getElapsedRealtimeNanos().
 
-    mPoint = (MWMPoint) savedInstanceState.getSerializable(EXTRA_POINT);
+    mPoint = (PoiPoint) savedInstanceState.getSerializable(EXTRA_POINT);
     mMode  = (Mode) savedInstanceState.getSerializable(EXTRA_MODE);
     mZoomLevel  = savedInstanceState.getDouble(EXTRA_ZOOM);
   }
@@ -177,24 +188,41 @@ public class BackscreenActivity extends BSActivity
   {
     super.onHandleIntent(intent);
 
+    final String action  = intent.getAction();
     if (intent.hasExtra(LocationManager.KEY_LOCATION_CHANGED))
     {
       final Location l = (Location) intent.getParcelableExtra(LocationManager.KEY_LOCATION_CHANGED);
-      if (LocationRequester.isFirstOneBetterLocation(l, mLocation) &&
-          areLocationsFarEnough(l, mLocation))
-      {
+      if (LocationRequester.isFirstOneBetterLocation(l, mLocation) && areLocationsFarEnough(l, mLocation))
         mLocation = l;
-      }
       else
         return;
     }
-    else if (intent.hasExtra(EXTRA_MODE))
+    else if (action != null && (ACTION_LOCATION + ACTION_SHOW_RECT).contains(action))
     {
-      mMode  = (Mode) intent.getSerializableExtra(EXTRA_MODE);
-      mPoint = (MWMPoint) intent.getSerializableExtra(EXTRA_POINT);
+      if (intent.getBooleanExtra(EXTRA_HAS_LOCATION, false))
+      {
+        // use location from MWM
+        final double myLat = intent.getDoubleExtra(EXTRA_MY_LAT, 0);
+        final double myLon = intent.getDoubleExtra(EXTRA_MY_LON, 0);
+        mLocation = new Location("MapsWithMe");
+        mLocation.setLatitude(myLat);
+        mLocation.setLongitude(myLon);
+      }
+
+      if (ACTION_LOCATION.equals(intent.getAction()))
+        mMode = Mode.LOCATION;
+      else if (ACTION_SHOW_RECT.equals(intent.getAction()))
+      {
+        mMode = Mode.POI;
+        final double lat  = intent.getDoubleExtra(EXTRA_LAT, 0);
+        final double lon  = intent.getDoubleExtra(EXTRA_LON, 0);
+        final String name = intent.getStringExtra(EXTRA_NAME);
+        mPoint = new PoiPoint(lat, lon, name);
+      }
       mZoomLevel = intent.getDoubleExtra(EXTRA_ZOOM, MapDataProvider.COMFORT_ZOOM);
 
       requestLocationUpdate();
+      RotationAlgorithm.getInstance(this).turnScreenOffIfRotated();
     }
 
     // Do always update data.
@@ -334,31 +362,25 @@ public class BackscreenActivity extends BSActivity
     if (mMode == Mode.LOCATION)
     {
       mPoiInfo.setVisibility(View.GONE);
-
       if (mLocation == null)
       {
         showWaitMessage(getString(R.string.wait_msg));
         return;
       }
-
-      data = mMapDataProvider.getMyPositionData(mLocation.getLatitude(), mLocation.getLongitude(), mZoomLevel);
+      data = mMapDataProvider
+          .getMyPositionData(mLocation.getLatitude(), mLocation.getLongitude(), mZoomLevel);
     }
     else if (mMode == Mode.POI)
     {
       mPoiInfo.setVisibility(View.VISIBLE);
-
       if (mLocation != null)
-        data = mMapDataProvider.getPOIData(mPoint, mZoomLevel, true, mLocation.getLatitude(), mLocation.getLongitude());
+        data = mMapDataProvider
+          .getPOIData(mPoint, mZoomLevel, true, mLocation.getLatitude(), mLocation.getLongitude());
       else
-        data = mMapDataProvider.getPOIData(mPoint, mZoomLevel, false, 0, 0);
+        data = mMapDataProvider
+          .getPOIData(mPoint, mZoomLevel, false, 0, 0);
 
-      if (mLocation != null && mPoint != null)
-      {
-        final Location poiLoc = new Location("");
-        poiLoc.setLatitude(mPoint.getLat());
-        poiLoc.setLongitude(mPoint.getLon());
-        setDistance(poiLoc.distanceTo(mLocation));
-      }
+      calculateDistance();
     }
 
     final Bitmap bitmap = data.getBitmap();
@@ -377,7 +399,18 @@ public class BackscreenActivity extends BSActivity
       mPoiText.setText(mPoint.getName());
   }
 
-  public static void startInMode(Context context, Mode mode, MWMPoint point, double zoom)
+  private void calculateDistance()
+  {
+    if (mLocation != null && mPoint != null)
+    {
+      final Location poiLoc = new Location("");
+      poiLoc.setLatitude(mPoint.getLat());
+      poiLoc.setLongitude(mPoint.getLon());
+      setDistance(poiLoc.distanceTo(mLocation));
+    }
+  }
+
+  public static void startInMode(Context context, Mode mode, PoiPoint point, double zoom)
   {
     final Intent i = new Intent(context, BackscreenActivity.class)
       .putExtra(EXTRA_MODE, mode)

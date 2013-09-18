@@ -1,6 +1,7 @@
 package com.mapswithme.yopme.map;
 
-import com.mapswithme.maps.api.MWMPoint;
+import com.mapswithme.yopme.PoiPoint;
+
 
 public interface MapDataProvider
 {
@@ -10,5 +11,5 @@ public interface MapDataProvider
   public final static double COMFORT_ZOOM = 17;
 
   MapData getMyPositionData(double lat, double lon, double zoom);
-  MapData getPOIData(MWMPoint poi, double zoom, boolean myLocationDetected, double myLat, double myLon);
+  MapData getPOIData(PoiPoint poi, double zoom, boolean myLocationDetected, double myLat, double myLon);
 }

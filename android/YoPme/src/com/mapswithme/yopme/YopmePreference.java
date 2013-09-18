@@ -1,11 +1,17 @@
 package com.mapswithme.yopme;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.ListPreference;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.text.SpannableString;
+import android.text.util.Linkify;
 
 public class YopmePreference extends PreferenceActivity
                              implements OnSharedPreferenceChangeListener
@@ -22,6 +28,34 @@ public class YopmePreference extends PreferenceActivity
     addPreferencesFromResource(R.xml.prefs);
     mLocationUpdatePref = (ListPreference) findPreference(getString(R.string.pref_loc_update));
     updateSummary();
+
+    findPreference(getString(R.string.pref_about)).setOnPreferenceClickListener(new OnPreferenceClickListener()
+    {
+      @Override
+      public boolean onPreferenceClick(Preference preference)
+      {
+        final SpannableString linkifiedAbout = new SpannableString(getString(R.string.about));
+        Linkify.addLinks(linkifiedAbout, Linkify.ALL);
+
+        new AlertDialog.Builder(YopmePreference.this)
+          .setTitle(R.string.about_title)
+          .setMessage(linkifiedAbout)
+          .create()
+          .show();
+
+        return true;
+      }
+    });
+
+    findPreference(getString(R.string.menu_help)).setOnPreferenceClickListener(new OnPreferenceClickListener()
+    {
+      @Override
+      public boolean onPreferenceClick(Preference preference)
+      {
+        startActivity(new Intent(getApplicationContext(), ReferenceActivity.class));
+        return true;
+      }
+    });
   }
 
   private void updateSummary()

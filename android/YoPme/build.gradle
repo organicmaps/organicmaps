@@ -3,7 +3,6 @@ apply plugin: 'android'
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     compile project(':3rd_party:yota_sdk')
-    compile project(':3rd_party:api-android:lib')
 }
 
 apply plugin:'base'

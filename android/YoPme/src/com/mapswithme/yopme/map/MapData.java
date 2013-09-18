@@ -2,7 +2,7 @@ package com.mapswithme.yopme.map;
 
 import java.io.Serializable;
 
-import com.mapswithme.maps.api.MWMPoint;
+import com.mapswithme.yopme.PoiPoint;
 
 import android.graphics.Bitmap;
 
@@ -11,21 +11,21 @@ public class MapData implements Serializable
   private static final long serialVersionUID = 1L;
 
   private final Bitmap mBitmap;
-  private final MWMPoint mPoint;
+  private final PoiPoint mPoint;
 
   public MapData()
   {
     mBitmap = null;
-    mPoint = new MWMPoint(0, 0, "Unknown");
+    mPoint = new PoiPoint(0, 0, "Unknown");
   }
 
-  public MapData(Bitmap bitmap, MWMPoint point)
+  public MapData(Bitmap bitmap, PoiPoint point)
   {
     this.mBitmap = bitmap;
     this.mPoint = point;
   }
 
-  public MWMPoint getPoint()
+  public PoiPoint getPoint()
   {
     return mPoint;
   }

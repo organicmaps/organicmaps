@@ -25,23 +25,17 @@
             android:name="@string/com.yotadevices.BS_ICON"
             android:resource="@drawable/inc_icon" />
 
-        <activity
-            android:name="com.mapswithme.yopme.YopmeFrontActivity"
-            android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
-            android:screenOrientation="sensorPortrait" >
+        <service
+            android:name="com.mapswithme.yopme.BackscreenActivity" >
             <intent-filter>
                 <action
-                    android:name="android.intent.action.MAIN" />
-
-                <category
-                    android:name="android.intent.category.LAUNCHER" />
+                    android:name="com.mapswithme.yopme.location" />
             </intent-filter>
-        </activity>
-
-        <service
-            android:name="com.mapswithme.yopme.BackscreenActivity" />
+            <intent-filter>
+                <action
+                    android:name="com.mapswithme.yopme.show_rect" />
+            </intent-filter>
+        </service>
 
         <uses-library
             android:name="com.yotadevices.platinum" />
@@ -49,20 +43,23 @@
         <activity
             android:name="com.mapswithme.yopme.ReferenceActivity"
             android:label="@string/title_activity_reference"
-            android:parentActivityName="com.mapswithme.yopme.YopmeFrontActivity"
+            android:parentActivityName="com.mapswithme.yopme.YopmePreference"
             android:screenOrientation="sensorPortrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mapswithme.yopme.YopmeFrontActivity" />
+                android:value="com.mapswithme.yopme.YopmePreference" />
         </activity>
         <activity
             android:name="com.mapswithme.yopme.YopmePreference"
             android:label="@string/menu_settings"
-            android:parentActivityName="com.mapswithme.yopme.YopmeFrontActivity"
             android:screenOrientation="sensorPortrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mapswithme.yopme.YopmeFrontActivity" />
+            <intent-filter>
+                <action
+                    android:name="com.mapswithme.yopme.preference" />
+
+                <category
+                    android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
     </application>
 
