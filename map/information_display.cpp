@@ -164,7 +164,7 @@ void InformationDisplay::setDisplayRect(m2::RectI const & rect)
   m_ruler->setPivot(pt);
 
   m2::PointD debugLabelPivot(m_displayRect.minX() + 10,
-                             m_displayRect.minY() + 20 + 5 * m_visualScale);
+                             m_displayRect.minY() + 50 + 5 * m_visualScale);
 
   m_debugLabel->setPivot(debugLabelPivot);
 }
