@@ -1,6 +1,4 @@
 package com.mapswithme.maps.location;
-import com.mapswithme.util.statistics.Statistics;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -20,6 +18,9 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 
+import com.mapswithme.util.LocationUtils;
+import com.mapswithme.util.statistics.Statistics;
+
 public class WifiLocation extends BroadcastReceiver
 {
   private static final String MWM_GEOLOCATION_SERVER = "http://geolocation.server/";
@@ -29,7 +30,6 @@ public class WifiLocation extends BroadcastReceiver
     public void onWifiLocationUpdated(Location l);
   }
 
-  // @TODO support multiple listeners
   private Listener mObserver = null;
 
   private WifiManager mWifi = null;
@@ -40,8 +40,7 @@ public class WifiLocation extends BroadcastReceiver
   {
   }
 
-  // @TODO support multiple listeners
-  // Returns true if was started successfully
+  /// @return true if was started successfully.
   public boolean startScan(Context context, Listener l)
   {
     mObserver = l;
@@ -113,7 +112,7 @@ public class WifiLocation extends BroadcastReceiver
       if (mLocationManager == null)
         mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
-      Location l = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+      final Location l = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
       if (l != null)
       {
         if (wifiHeaderAdded)
@@ -162,8 +161,8 @@ public class WifiLocation extends BroadcastReceiver
       protected void onPostExecute(Boolean result)
       {
         // Notify event should be called on UI thread
-        if (mObserver != null && this.mLocation != null)
-          mObserver.onWifiLocationUpdated(this.mLocation);
+        if (mObserver != null && mLocation != null)
+          mObserver.onWifiLocationUpdated(mLocation);
       }
 
       @Override
@@ -196,7 +195,7 @@ public class WifiLocation extends BroadcastReceiver
           mLocation.setAccuracy((float) acc);
           mLocation.setLatitude(lat);
           mLocation.setLongitude(lon);
-          mLocation.setTime(java.lang.System.currentTimeMillis());
+          LocationUtils.setLocationCurrentTime(mLocation);
 
           wr.close();
           rd.close();

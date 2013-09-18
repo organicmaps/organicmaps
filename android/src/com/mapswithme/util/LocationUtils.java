@@ -1,10 +1,12 @@
 package com.mapswithme.util;
 
-import android.location.Location;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+
+import android.annotation.SuppressLint;
+import android.location.Location;
+import android.os.SystemClock;
 
 /**
  * Locations utils from {@link http://developer.android.com/guide/topics/location/strategies.html}
@@ -12,7 +14,49 @@ import java.util.Comparator;
  */
 public class LocationUtils
 {
-  private static final int TWO_MINUTES = 1000 * 60 * 2;
+  private static final int TWO_MINUTES = 2 * 60 * 1000;
+  private static final long LOCATION_EXPIRATION_TIME = 5 * 60 * 1000;
+
+  @SuppressLint("NewApi")
+  public static boolean isNotExpired(Location l)
+  {
+    if (l != null)
+    {
+      long timeDiff;
+      if (Utils.apiEqualOrGreaterThan(17))
+        timeDiff = (SystemClock.elapsedRealtimeNanos() - l.getElapsedRealtimeNanos()) / 1000000;
+      else
+        timeDiff = System.currentTimeMillis() - l.getTime();
+      return (timeDiff <= LOCATION_EXPIRATION_TIME);
+    }
+    return false;
+  }
+
+  @SuppressLint("NewApi")
+  public static long timeDiffMillis(Location l1, Location l2)
+  {
+    if (Utils.apiEqualOrGreaterThan(17))
+      return (l1.getElapsedRealtimeNanos() - l2.getElapsedRealtimeNanos()) / 1000000;
+    else
+      return (l1.getTime() - l2.getTime());
+  }
+
+  @SuppressLint("NewApi")
+  public static void setLocationCurrentTime(Location l)
+  {
+    if (Utils.apiEqualOrGreaterThan(17))
+      l.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
+    l.setTime(System.currentTimeMillis());
+  }
+
+  /// Call this function before comparing or after getting location to
+  /// avoid troubles with invalid system time.
+  @SuppressLint("NewApi")
+  public static void hackLocationTime(Location l)
+  {
+    if (Utils.apiLowerThan(17))
+      l.setTime(System.currentTimeMillis());
+  }
 
   /** Determines whether one Location reading is better than the current Location fix
     * @param firstLoc  The new Location that you want to evaluate
@@ -20,47 +64,51 @@ public class LocationUtils
     */
   public static boolean isFirstOneBetterLocation(Location firstLoc, Location secondLoc)
   {
+    if (firstLoc == null)
+      return false;
     if (secondLoc == null)
-    {
-        // A new location is always better than no location
       return true;
-    }
 
     // Check whether the new location fix is newer or older
-    long timeDelta = firstLoc.getTime() - secondLoc.getTime();
-    boolean isSignificantlyNewer = timeDelta > TWO_MINUTES;
-    boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES;
-    boolean isNewer = timeDelta > 0;
+    final long timeDelta = timeDiffMillis(firstLoc, secondLoc);
 
-    // If it's been more than two minutes since the current location, use the new location
-    // because the user has likely moved
-    if (isSignificantlyNewer)
+    // If it's been more than two minutes since the current location,
+    // use the new location because the user has likely moved
+    if (timeDelta > TWO_MINUTES)
     {
+      // significantly newer
       return true;
-    // If the new location is more than two minutes older, it must be worse
     }
-    else if (isSignificantlyOlder)
+    else if (timeDelta < -TWO_MINUTES)
+    {
+      // significantly older
       return false;
+    }
 
     // Check whether the new location fix is more or less accurate
-    int accuracyDelta = (int) (firstLoc.getAccuracy() - secondLoc.getAccuracy());
-    // Relative diff, not absolute
-    boolean almostAsAccurate = Math.abs(accuracyDelta) <= 0.1*secondLoc.getAccuracy();
-
-    boolean isMoreAccurate = accuracyDelta < 0;
-    boolean isSignificantlyLessAccurate = accuracyDelta > 200;
-
-    // Check if the old and new location are from the same provider
-    boolean isFromSameProvider = isSameProvider(firstLoc.getProvider(),
-                                                secondLoc.getProvider());
+    final float accuracyDelta = firstLoc.getAccuracy() - secondLoc.getAccuracy();
+    // Relative difference, not absolute
+    final boolean almostAsAccurate = Math.abs(accuracyDelta) <= 0.1*secondLoc.getAccuracy();
 
     // Determine location quality using a combination of timeliness and accuracy
-    if (isMoreAccurate)
+    final boolean isNewer = timeDelta > 0;
+    if (accuracyDelta < 0)
+    {
+      // more accurate and has the same time order
       return true;
+    }
     else if (isNewer && almostAsAccurate)
+    {
+      // newer and has the same accuracy order
       return true;
-    else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider)
+    }
+    else if (isNewer && accuracyDelta <= 200 &&
+             isSameProvider(firstLoc.getProvider(), secondLoc.getProvider()))
+    {
+      // not significantly less accurate and from the same provider
       return true;
+    }
+
     return false;
   }
 
@@ -85,8 +133,7 @@ public class LocationUtils
       @Override
       public int compare(Location lhs, Location rhs)
       {
-        final float deltaAcc = rhs.getAccuracy() - lhs.getAccuracy();
-        return (int) (1 * Math.signum(deltaAcc));
+        return (int) (1 * Math.signum(rhs.getAccuracy() - lhs.getAccuracy()));
       }
     };
 
@@ -100,8 +147,7 @@ public class LocationUtils
       @Override
       public int compare(Location lhs, Location rhs)
       {
-        final long deltaTime = lhs.getTime() - rhs.getTime();
-        return (int) (1 * Math.signum(deltaTime));
+        return (int) (1 * Math.signum(timeDiffMillis(lhs, rhs)));
       }
     };
 

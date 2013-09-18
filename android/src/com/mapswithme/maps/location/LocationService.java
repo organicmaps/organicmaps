@@ -16,7 +16,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 
@@ -24,14 +23,12 @@ import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.StubLogger;
+import com.mapswithme.util.log.SimpleLogger;
 
 
 public class LocationService implements LocationListener, SensorEventListener, WifiLocation.Listener
 {
-  private static final String TAG = "LocationService";
-
-  private Logger mLogger = StubLogger.get();//SimpleLogger.get(this.toString());
+  private Logger mLogger = SimpleLogger.get(this.toString());
 
   /// These constants should correspond to values defined in platform/location.hpp
   /// Leave 0-value as no any error.
@@ -69,7 +66,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   public LocationService(MWMApplication application)
   {
-    mLogger.d("Creating locserivice");
     mApplication = application;
 
     mLocationManager = (LocationManager) mApplication.getSystemService(Context.LOCATION_SERVICE);
@@ -121,7 +117,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   public void startUpdate(Listener observer)
   {
-    mLogger.d("Start update", observer);
+    mLogger.d("Start update for listener: ", observer);
 
     mObservers.add(observer);
 
@@ -130,11 +126,11 @@ public class LocationService implements LocationListener, SensorEventListener, W
       mIsGPSOff = false;
 
       List<String> providers = getFilteredProviders();
-      Log.d(TAG, "Enabled providers count = " + providers.size());
+      mLogger.d("Enabled providers count = ", providers.size());
 
       startWifiLocationUpdate();
 
-      if ((providers.size() == 0) && (mWifiScanner == null))
+      if (providers.size() == 0 && mWifiScanner == null)
         observer.onLocationError(ERROR_DENIED);
       else
       {
@@ -142,7 +138,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
         for (String provider : providers)
         {
-          Log.d(TAG, "Connected to provider = " + provider);
+          mLogger.d("Connected to provider = ", provider);
+
           // Half of a second is more than enough, I think ...
           mLocationManager.requestLocationUpdates(provider, 500, 0, this);
         }
@@ -155,7 +152,9 @@ public class LocationService implements LocationListener, SensorEventListener, W
         if (notExpiredLocations.size() > 0)
         {
            final Location newestLocation = LocationUtils.getNewestLocation(notExpiredLocations);
+           mLogger.d("Last newest location: ", newestLocation);
            final Location mostAccurateLocation = LocationUtils.getMostAccurateLocation(notExpiredLocations);
+           mLogger.d("Last accurate location: ", mostAccurateLocation);
 
            if (LocationUtils.isFirstOneBetterLocation(newestLocation, mostAccurateLocation))
              lastKnownLocation = newestLocation;
@@ -163,19 +162,19 @@ public class LocationService implements LocationListener, SensorEventListener, W
              lastKnownLocation = mostAccurateLocation;
         }
 
-        if (mLastLocation != null && LocationUtils.isFirstOneBetterLocation(mLastLocation, lastKnownLocation))
+        if (LocationUtils.isNotExpired(mLastLocation) &&
+            LocationUtils.isFirstOneBetterLocation(mLastLocation, lastKnownLocation))
+        {
           lastKnownLocation = mLastLocation;
-        // ### location chosen
+        }
 
         // Pass last known location only in the end of all registerListener
         // in case, when we want to disconnect in listener.
         if (lastKnownLocation != null)
         {
-          //mark location with current time
-          lastKnownLocation.setTime(System.currentTimeMillis());
+          LocationUtils.hackLocationTime(lastKnownLocation);
           emitLocation(lastKnownLocation);
         }
-
       }
 
       if (mIsGPSOff)
@@ -236,22 +235,23 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   public void stopUpdate(Listener observer)
   {
-    mLogger.d("Stop update", observer);
+    mLogger.d("Stop update for listener: ", observer);
 
     mObservers.remove(observer);
-
-    stopWifiLocationUpdate();
 
     // Stop only if no more observers are subscribed
     if (mObservers.size() == 0)
     {
+      stopWifiLocationUpdate();
+
       mLocationManager.removeUpdates(this);
+
       if (mSensorManager != null)
         mSensorManager.unregisterListener(this);
 
       //mLastLocation = null;
 
-      // reset current parameters to force initialize in the next startUpdate
+      // Reset current parameters to force initialize in the next startUpdate
       mMagneticField = null;
       mDrivingHeading = -1.0;
       mIsActive = false;
@@ -259,18 +259,15 @@ public class LocationService implements LocationListener, SensorEventListener, W
   }
 
   private static final long MAXTIME_CALC_DIRECTIONS = 1000 * 10;
-  private static final long LOCATION_EXPIRATION_TIME = 5 * 60 * 1000; /* 5 minutes*/
 
   private List<Location> getAllNotExpiredLocations(List<String> providers)
   {
     List<Location> locations = new ArrayList<Location>(providers.size());
-
-    for (String prov : providers)
+    for (String pr : providers)
     {
-      Location loc = mLocationManager.getLastKnownLocation(prov);
-      final long timeNow = System.currentTimeMillis();
-      if (loc != null && ((timeNow - loc.getTime()) <= LOCATION_EXPIRATION_TIME))
-        locations.add(loc);
+      final Location l = mLocationManager.getLastKnownLocation(pr);
+      if (LocationUtils.isNotExpired(l))
+        locations.add(l);
     }
 
     return locations;
@@ -293,6 +290,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   private void emitLocation(Location l)
   {
+    mLogger.d("Location accepted: ", l);
+
     mLastLocation = l;
     notifyLocationUpdated(l);
   }
@@ -303,13 +302,13 @@ public class LocationService implements LocationListener, SensorEventListener, W
   @Override
   public void onLocationChanged(Location l)
   {
-    mLogger.d("Location changed", l);
+    mLogger.d("Location changed: ", l);
+
     // Completely ignore locations without lat and lon
-    if (l.getAccuracy() <= 0.)
+    if (l.getAccuracy() <= 0.0)
       return;
 
-    // hack to avoid time zone troubles
-    l.setTime(System.currentTimeMillis());
+    LocationUtils.hackLocationTime(l);
     if (LocationUtils.isFirstOneBetterLocation(l, mLastLocation))
     {
       final long timeNow = System.currentTimeMillis();
@@ -471,25 +470,24 @@ public class LocationService implements LocationListener, SensorEventListener, W
   @Override
   public void onAccuracyChanged(Sensor sensor, int accuracy)
   {
-    //Log.d(TAG, "Compass accuracy changed to " + String.valueOf(accuracy));
   }
 
   @Override
   public void onProviderDisabled(String provider)
   {
-    Log.d(TAG, "Disabled location provider: " + provider);
+    mLogger.d("Disabled location provider: ", provider);
   }
 
   @Override
   public void onProviderEnabled(String provider)
   {
-    Log.d(TAG, "Enabled location provider: " + provider);
+    mLogger.d("Enabled location provider: ", provider);
   }
 
   @Override
   public void onStatusChanged(String provider, int status, Bundle extras)
   {
-    Log.d(TAG, String.format("Status changed for location provider: %s to %d", provider, status));
+    mLogger.d("Status changed for location provider: ", provider, status);
   }
 
   @Override

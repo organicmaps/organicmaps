@@ -34,9 +34,9 @@ public class SimpleLogger extends Logger
 
   private static String join(Object ... args)
   {
-    return TextUtils.join(",", args);
+    return (args != null ? TextUtils.join(", ", args) : "");
   }
 
-  private SimpleLogger() {};
-  private SimpleLogger(String tag) { super(tag); };
+  private SimpleLogger() {}
+  private SimpleLogger(String tag) { super(tag); }
 }
