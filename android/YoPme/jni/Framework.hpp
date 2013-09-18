@@ -14,7 +14,8 @@ namespace yopme
     bool ShowMyPosition(double lat, double lon, double zoom);
     bool ShowPoi(double lat, double lon, bool needMyLoc, double myLat, double myLoc, double zoom);
 
-    ::Framework & NativeFramework() { return m_framework; }
+    void OnMapFileUpdate();
+    void OnKmlFileUpdate();
 
   private:
     void ShowRect(bool needApiPin, m2::PointD const & apiPinPoint,

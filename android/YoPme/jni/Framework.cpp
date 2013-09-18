@@ -117,4 +117,15 @@ namespace yopme
     m_framework.DoPaint(pe);
     m_framework.EndPaint(pe);
   }
+
+  void Framework::OnKmlFileUpdate()
+  {
+    m_framework.LoadBookmarks();
+  }
+
+  void Framework::OnMapFileUpdate()
+  {
+    m_framework.RemoveLocalMaps();
+    m_framework.AddLocalMaps();
+  }
 } //yopme

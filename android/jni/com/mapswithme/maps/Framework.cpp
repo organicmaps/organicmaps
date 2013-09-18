@@ -860,12 +860,7 @@ extern "C"
 
   JNIEXPORT jdoubleArray Java_com_mapswithme_maps_Framework_getScreenRectCenter(JNIEnv * env, jclass clazz)
   {
-    const m2::PointD center = g_framework
-        ->NativeFramework()
-        ->GetNavigator()
-        .Screen()
-        .GlobalRect()
-        .GlobalCenter();
+    const m2::PointD center = g_framework->NativeFramework()->GetViewportCenter();
 
     double latlon[] = {MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x)};
     jdoubleArray jLatLon = env->NewDoubleArray(2);
