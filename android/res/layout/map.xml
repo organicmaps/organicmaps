@@ -6,7 +6,7 @@
         android:id="@+id/map_surfaceview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="bottom|center_horizontal"/>
+        android:layout_gravity="bottom|center_horizontal" />
 
     <LinearLayout
         android:id="@+id/title_bar"
@@ -41,7 +41,6 @@
                 android:paddingTop="@dimen/abs__action_bar_icon_vertical_padding"
                 android:scaleType="fitStart"
                 tools:ignore="ContentDescription" />
-
         </LinearLayout>
 
         <TextView
@@ -98,16 +97,6 @@
             android:src="@drawable/myposition_button_normal" />
 
         <ImageButton
-            android:id="@+id/map_button_download"
-            style="@style/Widget.MapButtonBottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
-            android:contentDescription="@string/download_maps"
-            android:onClick="onDownloadClicked"
-            android:src="@drawable/download_button" />
-
-        <ImageButton
             android:id="@+id/map_button_search"
             style="@style/Widget.MapButtonBottom"
             android:layout_width="wrap_content"
@@ -118,6 +107,16 @@
             android:src="@drawable/search_button" />
 
         <ImageButton
+            android:id="@+id/map_button_download"
+            style="@style/Widget.MapButtonBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:contentDescription="@string/download_maps"
+            android:onClick="onDownloadClicked"
+            android:src="@drawable/download_button" />
+
+        <ImageButton
             android:id="@+id/map_button_bookmarks"
             style="@style/Widget.MapButtonBottom"
             android:layout_width="wrap_content"
@@ -126,6 +125,14 @@
             android:contentDescription="@string/bookmarks"
             android:onClick="onBookmarksClicked"
             android:src="@drawable/bookmarks_button" />
+
+        <ImageButton
+            android:id="@+id/yop_it"
+            style="@style/Widget.MapButtonBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_ptb_white" />
     </LinearLayout>
 
 </merge>

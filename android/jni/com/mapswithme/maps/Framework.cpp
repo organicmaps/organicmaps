@@ -858,4 +858,20 @@ extern "C"
     return static_cast<jint>(g_framework->NativeFramework()->GetDrawScale());
   }
 
+  JNIEXPORT jdoubleArray Java_com_mapswithme_maps_Framework_getScreenRectCenter(JNIEnv * env, jclass clazz)
+  {
+    const m2::PointD center = g_framework
+        ->NativeFramework()
+        ->GetNavigator()
+        .Screen()
+        .GlobalRect()
+        .GlobalCenter();
+
+    double latlon[] = {MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x)};
+    jdoubleArray jLatLon = env->NewDoubleArray(2);
+    env->SetDoubleArrayRegion(jLatLon, 0, 2, latlon);
+
+    return jLatLon;
+  }
+
 }

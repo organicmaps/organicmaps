@@ -45,7 +45,9 @@ import com.mapswithme.maps.promo.PromocodeActivationDialog;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.Yota;
 import com.nvidia.devtech.NvEventQueueActivity;
 
 public class MWMActivity extends NvEventQueueActivity implements LocationService.Listener, OnBalloonListener
@@ -65,6 +67,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private ImageButton mMyPositionButton;
   private SurfaceView mMapSurface;
+
+  private View mYopItButton;
 
   // for API
   private View mTitleBar;
@@ -582,6 +586,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     mAppTitle = (TextView) findViewById(R.id.app_title);
     mMapSurface = (SurfaceView) findViewById(R.id.map_surfaceview);
 
+    yotaSetup();
+
     alignZoomButtons();
 
     Framework.connectBalloonListeners(this);
@@ -590,6 +596,34 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     // We need check for tasks both in onCreate and onNewIntent
     // because of bug in OS: https://code.google.com/p/android/issues/detail?id=38629
     addTask(intent);
+  }
+
+  private void yotaSetup()
+  {
+    // yota setup
+    mYopItButton = findViewById(R.id.yop_it);
+    if (!Yota.isYota())
+      UiUtils.hide(mYopItButton);
+    else
+    {
+      mYopItButton.setOnClickListener(new OnClickListener()
+      {
+
+        @Override
+        public void onClick(View v)
+        {
+          final double[] latLon = Framework.getScreenRectCenter();
+          final double   zoom   = Framework.getDrawScale();
+
+          final LocationState locState = mApplication.getLocationState();
+
+          if (locState.hasPosition() && locState.isCentered())
+            Yota.showLocation(getApplicationContext(), zoom);
+          else
+            Yota.showPoi(getApplicationContext(), latLon[0], latLon[1], zoom, "", locState.hasPosition());
+        }
+      });
+    }
   }
 
   @Override

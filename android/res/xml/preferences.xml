@@ -18,4 +18,9 @@
         android:summary="@string/allow_statistics_hint"
         android:title="@string/allow_statistics" />
 
+    <Preference
+        android:key="@string/pref_yota"
+        android:summary="Some preferences for Yopme"
+        android:title="How to Yop It" />
+
 </PreferenceScreen>

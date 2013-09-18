@@ -32,6 +32,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.Yota;
 
 @SuppressLint("NewApi")
 public class MapObjectFragment extends Fragment
@@ -59,6 +60,7 @@ public class MapObjectFragment extends Fragment
   private Button mEditBmk;
   private Button mShare;
   private Button mOpenWith;
+  private Button mYotaP2B;
 
 
   //POI, API
@@ -202,6 +204,7 @@ public class MapObjectFragment extends Fragment
     mEditBmk        = (Button) view.findViewById(R.id.editBookmark);
     mOpenWith       = (Button) view.findViewById(R.id.openWith);
     mShare          = (Button) view.findViewById(R.id.share);
+    mYotaP2B        = (Button) view.findViewById(R.id.p2b);
 
     // set up listeners, drawables, visibility
     mAddToBookmarks.setOnClickListener(this);
@@ -221,7 +224,27 @@ public class MapObjectFragment extends Fragment
       UiUtils.show(mShare);
     }
 
+    yotaSetup();
+
     return view;
+  }
+
+  private void yotaSetup()
+  {
+    if (!Yota.isYota())
+      UiUtils.hide(mYotaP2B);
+    else
+    {
+      mYotaP2B.setOnClickListener(new OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          final boolean addLastKnown = MWMApplication.get().getLocationState().hasPosition();
+          Yota.showPoi(getActivity(), mLat, mLon, Framework.getDrawScale(), mName, addLastKnown);
+        }
+      });
+    }
   }
 
   @Override
@@ -336,6 +359,13 @@ public class MapObjectFragment extends Fragment
       Utils.addMenuCompat(menu, MENU_ADD, MENU_ADD, R.string.add_to_bookmarks, R.drawable.add_bookmark);
 
     Utils.addMenuCompat(menu, MENU_SHARE, MENU_SHARE, R.string.share, R.drawable.share);
+
+//    if (Yota.isYota())
+//    {
+//      menu.add(Menu.NONE, 0, 999, "Yota")
+//        .setIcon(R.drawable.ic_ptb_gray)
+//        .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+//    }
   }
 
   @Override

@@ -4,5 +4,6 @@
     <string name="pref_allow_stat">AllowStat</string>
     <string name="pref_munits">MeasurementUnits</string>
     <string name="pref_storage_activity">StorageActivity</string>
+    <string name="pref_yota">Yota</string>
 
 </resources>

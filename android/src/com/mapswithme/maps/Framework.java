@@ -86,6 +86,7 @@ public class Framework
   public native static boolean     wasAdvertised(String appId);
 
   public native static int getDrawScale();
+  public native static double[] getScreenRectCenter();
 
   /*
    *  "Implementation" - native methods

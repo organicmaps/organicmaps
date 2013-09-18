@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.Statistics;
 
 public class SettingsActivity extends PreferenceActivity
@@ -33,7 +34,7 @@ public class SettingsActivity extends PreferenceActivity
     if (Utils.apiEqualOrGreaterThan(11))
     {
       // http://stackoverflow.com/questions/6867076/getactionbar-returns-null
-      ActionBar bar = getActionBar();
+      final ActionBar bar = getActionBar();
       if (bar != null)
         bar.setDisplayHomeAsUpEnabled(true);
     }
@@ -42,7 +43,7 @@ public class SettingsActivity extends PreferenceActivity
 
     final Activity parent = this;
 
-    Preference pref = findPreference(getString(R.string.pref_storage_activity));
+    final Preference pref = findPreference(getString(R.string.pref_storage_activity));
     pref.setOnPreferenceClickListener(new OnPreferenceClickListener()
     {
       @Override
@@ -74,7 +75,7 @@ public class SettingsActivity extends PreferenceActivity
       }
     });
 
-    ListPreference lPref = (ListPreference) findPreference(getString(R.string.pref_munits));
+    final ListPreference lPref = (ListPreference) findPreference(getString(R.string.pref_munits));
 
     lPref.setValue(String.valueOf(UnitLocale.getUnits()));
     lPref.setOnPreferenceChangeListener(new OnPreferenceChangeListener()
@@ -88,7 +89,7 @@ public class SettingsActivity extends PreferenceActivity
     });
 
 
-    CheckBoxPreference allowStatsPreference = (CheckBoxPreference) findPreference(getString(R.string.pref_allow_stat));
+    final CheckBoxPreference allowStatsPreference = (CheckBoxPreference) findPreference(getString(R.string.pref_allow_stat));
     allowStatsPreference.setChecked(Statistics.INSTANCE.isStatisticsEnabled(this));
     allowStatsPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener()
     {
@@ -99,6 +100,25 @@ public class SettingsActivity extends PreferenceActivity
         return true;
       }
     });
+
+    yotaSetup();
+  }
+
+  private void yotaSetup()
+  {
+    final Preference yopPreference = findPreference(getString(R.string.pref_yota));
+    if (!Yota.isYota())
+      getPreferenceScreen().removePreference(yopPreference);
+    else
+      yopPreference.setOnPreferenceClickListener(new OnPreferenceClickListener()
+      {
+        @Override
+        public boolean onPreferenceClick(Preference preference)
+        {
+          SettingsActivity.this.startActivity(new Intent(Yota.ACTION_PREFERENCE));
+          return true;
+        }
+      });
   }
 
   @Override
@@ -122,7 +142,7 @@ public class SettingsActivity extends PreferenceActivity
   {
     if (item.getItemId() == android.R.id.home)
     {
-      InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+      final InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
       imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
       onBackPressed();
       return true;
