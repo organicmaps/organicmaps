@@ -26,67 +26,99 @@ public class LocationRequester implements Handler.Callback
   protected LocationManager mLocationManager;
   protected Handler mDelayedEventsHandler;
 
-  // Location settings
-  protected Set<String> mEnabledProviders = new HashSet<String>();
+  // Location
   private long mMinDistance = 0;
   private long mMinTime     = 0;
-  private boolean mIsListening = false;
-  private final boolean mCancelGpsIfNotFound = true;
-  private final Set<LocationListener> mListeners = new HashSet<LocationListener>();
-  private final static long MAX_TIME_FOR_GPS_FIX = 15*60*1000;
+  private boolean mIsListening      = false;
+  private boolean mCancelIfNotFound = true;
   private BatteryLevel mBatteryLevel;
-  // location settings
+
+  private final Set<String> mProviders = new HashSet<String>();
+  private final Set<LocationListener> mListeners = new HashSet<LocationListener>();
+  private Location mLocation;
+  private final static long MAX_TIME_FOR_SUBSCRIPTION_FIX = 15*60*1000;
+  // location
 
   // Handler messages
   private final static int WHAT_LOCATION_REQUEST_CANCELATION = 0x01;
-  private final static int WHAT_LOCATION_REQUEST_GPS_CANCELLATION = 0x02;
   // handler massages
 
-  public void addListener(LocationListener listener)
-  {
-    mListeners.add(listener);
-  }
-
-  public void removeListener(LocationListener listener)
-  {
-    mListeners.remove(listener);
-    if (mListeners.isEmpty())
-    {
-      stopListening();
-      Log.d(TAG, "No more listeners, stopping.");
-    }
-  }
-
-  public void setMinDistance(long minDistance)
-  {
-    mMinDistance = minDistance;
-  }
-
-  public void setMinTime(long minTime)
-  {
-    mMinTime = minTime;
-  }
-
-  public void setUpProviders()
-  {
-    final float batteryLevel = BatteryHelper.getBatteryLevel(mContext);
-
-    if (batteryLevel > BatteryHelper.BATTERY_LEVEL_LOW)
-    {
-      // GPS is expensive http://stackoverflow.com/a/4927117
-      mEnabledProviders.add(LocationManager.GPS_PROVIDER);
-    }
-    if (batteryLevel > BatteryHelper.BATTERY_LEVEL_CRITICAL)
-      mEnabledProviders.add(LocationManager.NETWORK_PROVIDER);
-    // passive provider is free
-    mEnabledProviders.add(LocationManager.PASSIVE_PROVIDER);
-
-    Log.d(TAG, "Set up providers: " + mEnabledProviders + " at battery level: " + batteryLevel);
-  }
-
+  // Intents
   private PendingIntent mGpsLocationIntent;
   private PendingIntent mNetworkLocationIntent;
   private PendingIntent mPassiveLocationIntent;
+
+  private final static String ACTION_LOCATION = ".location_request_action";
+  private final static IntentFilter LOCATION_FILTER = new IntentFilter(ACTION_LOCATION);
+  private final static String KEY_SOURCE = ".location_source";
+  private final static String EXTRA_IS_GPS = ".is_gps";
+  private final static String EXTRA_IS_NETWORK = ".is_network";
+  private final static String EXTRA_IS_PASSAIVE = ".is_passive";
+  // intents
+
+  // Receivers
+  private final BroadcastReceiver mLocationReciever = new BroadcastReceiver()
+  {
+    @Override
+    public void onReceive(Context context, Intent intent)
+    {
+      Log.d(TAG, "Got location update from : " + intent.getStringExtra(KEY_SOURCE));
+
+      for (final LocationListener listener: mListeners)
+      {
+        if (intent.hasExtra(LocationManager.KEY_LOCATION_CHANGED))
+        {
+          final Location l = (Location)intent.getParcelableExtra(LocationManager.KEY_LOCATION_CHANGED);
+          final boolean isLocationReallyChanged = isFirstOneBetterLocation(l, mLocation)
+                                                  && areLocationsFarEnough(l, mLocation);
+          if (isLocationReallyChanged)
+          {
+            listener.onLocationChanged(l);
+            mLocation = l;
+            if (mCancelIfNotFound)
+              postRequestCancelation(MAX_TIME_FOR_SUBSCRIPTION_FIX);
+          }
+        }
+
+        // TODO: add another events processing
+      }
+
+    }
+  };
+
+  private final BroadcastReceiver mBatteryReciever = new BroadcastReceiver() {
+
+    @Override
+    public void onReceive(Context context, Intent intent)
+    {
+      if (mIsListening)
+      {
+        final BatteryLevel newLevel = BatteryHelper.getBatteryLevelRange(mContext);
+        Log.d(TAG, "Got battery update");
+
+        if (newLevel != mBatteryLevel)
+        {
+          mBatteryLevel = newLevel;
+          setUpProviders();
+          stopListening();
+          startListening();
+          Log.d(TAG, "Changed providers list due to battery level update.");
+        }
+      }
+    }
+  }; // receivers
+
+  public LocationRequester(Context context)
+  {
+    mContext = context.getApplicationContext();
+    mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+    mDelayedEventsHandler = new Handler(this);
+
+    createPendingIntents();
+    setUpProviders();
+
+    mBatteryLevel = BatteryHelper.getBatteryLevelRange(mContext);
+  }
 
   private void createPendingIntents()
   {
@@ -114,73 +146,26 @@ public class LocationRequester implements Handler.Callback
     throw new IllegalArgumentException("WTF is " + provider + "?");
   }
 
-  private final static String ACTION_LOCATION = ".location_request_action";
-  private final static IntentFilter LOCATION_FILTER = new IntentFilter(ACTION_LOCATION);
-  private final static String KEY_SOURCE = ".location_source";
-  private final static String EXTRA_IS_GPS = ".is_gps";
-  private final static String EXTRA_IS_NETWORK = ".is_network";
-  private final static String EXTRA_IS_PASSAIVE = ".is_passive";
-
-  private final BroadcastReceiver mLocationReciever = new BroadcastReceiver()
+  public void setUpProviders()
   {
-    @Override
-    public void onReceive(Context context, Intent intent)
-    {
-      Log.d(TAG, "Got location update from : " + intent.getStringExtra(KEY_SOURCE));
+    final float batteryLevel = BatteryHelper.getBatteryLevel(mContext);
 
+    // GPS is expensive http://stackoverflow.com/a/4927117
+    if (batteryLevel > BatteryHelper.BATTERY_LEVEL_LOW)
+      mProviders.add(LocationManager.GPS_PROVIDER);
 
-      for (final LocationListener listener: mListeners)
-      {
-        if (intent.hasExtra(LocationManager.KEY_LOCATION_CHANGED))
-        {
-          listener.onLocationChanged((Location)intent.getParcelableExtra(LocationManager.KEY_LOCATION_CHANGED));
+    if (batteryLevel > BatteryHelper.BATTERY_LEVEL_CRITICAL)
+      mProviders.add(LocationManager.NETWORK_PROVIDER);
 
-          // if location is from GPS - do not cancel
-          if (EXTRA_IS_GPS.equals(intent.getStringExtra(KEY_SOURCE)))
-            mDelayedEventsHandler.removeMessages(WHAT_LOCATION_REQUEST_GPS_CANCELLATION);
-        }
-        // TODO: add provider status event etc.
-      }
-    }
-  };
+    // passive provider is "free"
+    mProviders.add(LocationManager.PASSIVE_PROVIDER);
 
-  private final BroadcastReceiver mBatteryReciever = new BroadcastReceiver() {
-
-    @Override
-    public void onReceive(Context context, Intent intent)
-    {
-      if (mIsListening)
-      {
-        final BatteryLevel newLevel = BatteryHelper.getBatteryLevelRange(mContext);
-        Log.d(TAG, "Got battery update");
-
-        if (newLevel != mBatteryLevel)
-        {
-          setUpProviders();
-          stopListening();
-          startListening();
-          mBatteryLevel = newLevel;
-          Log.d(TAG, "Changed providers list due to battery level update.");
-        }
-      }
-    }
-  };
-
-  public LocationRequester(Context context)
-  {
-    mContext = context.getApplicationContext();
-    mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
-    mDelayedEventsHandler = new Handler(this);
-
-    createPendingIntents();
-    setUpProviders();
-
-    mBatteryLevel = BatteryHelper.getBatteryLevelRange(mContext);
+    Log.d(TAG, "Set up providers: " + mProviders + " at battery level: " + batteryLevel);
   }
 
   public void startListening()
   {
-    for (final String provider: mEnabledProviders)
+    for (final String provider: mProviders)
     {
       if (mLocationManager.isProviderEnabled(provider))
       {
@@ -196,19 +181,13 @@ public class LocationRequester implements Handler.Callback
     mContext.registerReceiver(mBatteryReciever, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     mIsListening = true;
 
-    // GPS cancellation
-    mDelayedEventsHandler.removeMessages(WHAT_LOCATION_REQUEST_GPS_CANCELLATION);
-    if (mCancelGpsIfNotFound)
-    {
-      final Message msg = mDelayedEventsHandler.obtainMessage(WHAT_LOCATION_REQUEST_GPS_CANCELLATION);
-      mDelayedEventsHandler.sendMessageDelayed(msg, MAX_TIME_FOR_GPS_FIX);
-      Log.d(TAG, "Send GPS cancelation in ms:" + MAX_TIME_FOR_GPS_FIX);
-    }
+    if (mCancelIfNotFound)
+      postRequestCancelation(MAX_TIME_FOR_SUBSCRIPTION_FIX);
   }
 
   public void stopListening()
   {
-    for (final String provider : mEnabledProviders)
+    for (final String provider : mProviders)
     {
       mLocationManager.removeUpdates(getIntentForProvider(provider));
       Log.d(TAG, "Stopped listening to: " + provider);
@@ -283,10 +262,18 @@ public class LocationRequester implements Handler.Callback
     return false;
   }
 
-  public Location getLastLocation()
+  private boolean areLocationsFarEnough(Location l1, Location l2)
+  {
+    if (l1 == null || l2 == null)
+      return true;
+
+    return l1.distanceTo(l2) > 5;
+  }
+
+  public Location getLastKnownLocation()
   {
     Location res = null;
-    for (final String provider : mEnabledProviders)
+    for (final String provider : mProviders)
     {
       if (mLocationManager.isProviderEnabled(provider))
       {
@@ -300,9 +287,9 @@ public class LocationRequester implements Handler.Callback
 
   public void requestSingleUpdate(long delayMillis)
   {
-    if (mEnabledProviders.size() > 0)
+    if (mProviders.size() > 0)
     {
-      for (final String provider : mEnabledProviders)
+      for (final String provider : mProviders)
       {
         if (mLocationManager.isProviderEnabled(provider))
           mLocationManager.requestSingleUpdate(provider, getIntentForProvider(provider));
@@ -314,16 +301,16 @@ public class LocationRequester implements Handler.Callback
     Log.d(TAG, "Send single update request");
   }
 
-  public void removeUpdates(PendingIntent pi)
-  {
-    mLocationManager.removeUpdates(pi);
-  }
-
   private void postRequestCancelation(long delayMillis)
   {
-    final Message msg =
-        mDelayedEventsHandler.obtainMessage(WHAT_LOCATION_REQUEST_CANCELATION);
+    // remove old message
+    mDelayedEventsHandler.removeMessages(WHAT_LOCATION_REQUEST_CANCELATION);
+
+    final Message msg =mDelayedEventsHandler.obtainMessage(WHAT_LOCATION_REQUEST_CANCELATION);
+    // send new
     mDelayedEventsHandler.sendMessageDelayed(msg, delayMillis);
+
+    Log.d(TAG, "Postponed cancelation in: " + delayMillis + " ms");
   }
 
   @Override
@@ -335,13 +322,44 @@ public class LocationRequester implements Handler.Callback
       Log.d(TAG, "Removed all updates due to timeout");
       return true;
     }
-    else if (msg.what == WHAT_LOCATION_REQUEST_GPS_CANCELLATION)
-    {
-      mLocationManager.removeUpdates(mGpsLocationIntent);
-      Log.d(TAG, "Removed updates for GPS");
-      return true;
-    }
-
     return false;
+  }
+
+  public void addListener(LocationListener listener)
+  {
+    mListeners.add(listener);
+  }
+
+  public void removeListener(LocationListener listener)
+  {
+    mListeners.remove(listener);
+    if (mListeners.isEmpty())
+    {
+      stopListening();
+      Log.d(TAG, "No more listeners, stopping.");
+    }
+  }
+
+  public void setMinDistance(long minDistance)
+  {
+    mMinDistance = minDistance;
+  }
+
+  public void setMinTime(long minTime)
+  {
+    mMinTime = minTime;
+  }
+
+  public void setCancelIfNotFound(boolean doCancel)
+  {
+    mCancelIfNotFound = doCancel;
+
+    if (!doCancel)
+      mDelayedEventsHandler.removeMessages(WHAT_LOCATION_REQUEST_CANCELATION);
+  }
+
+  public void setLocation(Location location)
+  {
+    mLocation = location;
   }
 }

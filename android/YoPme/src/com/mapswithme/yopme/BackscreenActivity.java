@@ -226,6 +226,8 @@ public class BackscreenActivity extends BSActivity implements LocationListener
         mLocation = new Location("MapsWithMe");
         mLocation.setLatitude(myLat);
         mLocation.setLongitude(myLon);
+
+        mLocationRequester.setLocation(mLocation);
       }
 
       if (ACTION_LOCATION.equals(intent.getAction()))
@@ -309,7 +311,7 @@ public class BackscreenActivity extends BSActivity implements LocationListener
 
       // before requesting updates try to get last known in the first try
       if (mLocation == null)
-        mLocation = mLocationRequester.getLastLocation();
+        mLocation = mLocationRequester.getLastKnownLocation();
 
       // then listen to updates
       if (updateInterval == -1)
@@ -322,14 +324,6 @@ public class BackscreenActivity extends BSActivity implements LocationListener
         mLocationRequester.setUpProviders();
         mLocationRequester.startListening();
       }
-  }
-
-  private boolean areLocationsFarEnough(Location l1, Location l2)
-  {
-    if (l1 == null || l2 == null)
-      return true;
-
-    return l1.distanceTo(l2) > 5;
   }
 
   private void showWaitMessage(CharSequence msg)
@@ -494,7 +488,6 @@ public class BackscreenActivity extends BSActivity implements LocationListener
   @Override
   public void onLocationChanged(Location l)
   {
-    if (LocationRequester.isFirstOneBetterLocation(l, mLocation) && areLocationsFarEnough(l, mLocation))
       mLocation = l;
   }
 
