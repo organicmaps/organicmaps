@@ -23,12 +23,12 @@ import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.SimpleLogger;
+import com.mapswithme.util.log.StubLogger;
 
 
 public class LocationService implements LocationListener, SensorEventListener, WifiLocation.Listener
 {
-  private Logger mLogger = SimpleLogger.get(this.toString());
+  private Logger mLogger = StubLogger.get();//SimpleLogger.get(this.toString());
 
   /// These constants should correspond to values defined in platform/location.hpp
   /// Leave 0-value as no any error.

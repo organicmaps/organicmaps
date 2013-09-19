@@ -23,12 +23,12 @@ import android.os.AsyncTask;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.SimpleLogger;
+import com.mapswithme.util.log.StubLogger;
 import com.mapswithme.util.statistics.Statistics;
 
 public class WifiLocation extends BroadcastReceiver
 {
-  private Logger mLogger = SimpleLogger.get(this.toString());
+  private Logger mLogger = StubLogger.get();//SimpleLogger.get(this.toString());
 
   private static final String MWM_GEOLOCATION_SERVER = "http://geolocation.server/";
   /// Limit received WiFi accuracy with 20 meters.
