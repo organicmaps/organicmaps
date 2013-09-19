@@ -283,7 +283,7 @@
 "set" = "Groupe";
 
 /* Text hint in Bookmarks dialog, displayed if it's empty */
-"bookmarks_usage_hint" = "Ajoutez n'importe quel endroit sur la carte à vos favoris. Pour cela, touchez un point sur la carte et maintenez appuyé jusqu'à ce que le menu contextuel apparaisse.";
+"bookmarks_usage_hint" = "Ajoutez n'importe quel endroit sur la carte à vos favoris. Pour cela, touchez un point sur la carte et maintenez appuyé jusqu'à ce que le menu contextuel apparaisse.\n\nLes marque-pages provenant d'autres sources peuvent également être importés et affichés dans l'application MapsWithMe. Ouvrez les fichiers KML/KMZ marqués depuis votre boite email, Dropbox ou un lien internet.";
 
 /* Settings button in system menu */
 "settings" = "Réglages";

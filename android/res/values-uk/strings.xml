@@ -177,7 +177,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Група</string>
 	<!-- Text hint in Bookmarks dialog, displayed if it's empty -->
-	<string name="bookmarks_usage_hint">Додайте будь-яке місце на карті в закладки. Щоб зробити це, натисніть місце на карті і утримуйте, поки з\'явиться контекстне меню.</string>
+	<string name="bookmarks_usage_hint">Додайте будь-яке місце на карті в закладки. Щоб зробити це, натисніть місце на карті і утримуйте, поки з\'явиться контекстне меню.\n\nЗакладки з інших ресурсів також можна імпортувати для застосунка MapsWithMe. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Налаштування</string>
 	<!-- Header of settings activity where user defines storage path -->

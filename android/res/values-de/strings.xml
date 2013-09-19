@@ -169,7 +169,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Gruppe</string>
 	<!-- Text hint in Bookmarks dialog, displayed if it's empty -->
-	<string name="bookmarks_usage_hint">Fügen sie einen beliebigen Ort auf der Karte den Lesezeichen hinzu. Berühren sie dazu den Ort auf der Karte bis das Kontextmenü erscheint.</string>
+	<string name="bookmarks_usage_hint">Fügen sie einen beliebigen Ort auf der Karte den Lesezeichen hinzu. Berühren sie dazu den Ort auf der Karte bis das Kontextmenü erscheint.\n\nLesezeichen von anderen Quellen können ebenfalls importiert und in der MapsWithMe-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Pins aus einer E-Mail, Dropbox oder einem Weblink öffnen.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Einstellungen</string>
 	<!-- Header of settings activity where user defines storage path -->

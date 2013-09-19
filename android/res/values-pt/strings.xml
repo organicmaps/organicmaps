@@ -174,7 +174,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Conjunto</string>
 	<!-- Text hint in Bookmarks dialog, displayed if it's empty -->
-	<string name="bookmarks_usage_hint">Para adicionar um novo favorito aqui, toque em qualquer local do mapa e mantenha premido até que apareça o pop-up.</string>
+	<string name="bookmarks_usage_hint">Para adicionar um novo favorito aqui, toque em qualquer local do mapa e mantenha premido até que apareça o pop-up.\n\nOs marcadores de outras fontes também podem ser importados e exibidos na aplicação MapsWithMe. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Definições</string>
 	<!-- Header of settings activity where user defines storage path -->

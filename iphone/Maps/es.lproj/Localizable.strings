@@ -283,7 +283,7 @@
 "set" = "Grupo";
 
 /* Text hint in Bookmarks dialog, displayed if it's empty */
-"bookmarks_usage_hint" = "Para añadir un marcador a cualquier lugar del mapa, presionar un punto y mantenerlo hasta que aparezca el menú contextual.";
+"bookmarks_usage_hint" = "Para añadir un marcador a cualquier lugar del mapa, presionar un punto y mantenerlo hasta que aparezca el menú contextual.\n\nTambién se pueden importar y mostrar marcadores de otras fuentes en la aplicación MapsWithMe. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.";
 
 /* Settings button in system menu */
 "settings" = "Ajustes";

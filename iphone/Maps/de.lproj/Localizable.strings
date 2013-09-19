@@ -283,7 +283,7 @@
 "set" = "Gruppe";
 
 /* Text hint in Bookmarks dialog, displayed if it's empty */
-"bookmarks_usage_hint" = "Fügen sie einen beliebigen Ort auf der Karte den Lesezeichen hinzu. Berühren sie dazu den Ort auf der Karte bis das Kontextmenü erscheint.";
+"bookmarks_usage_hint" = "Fügen sie einen beliebigen Ort auf der Karte den Lesezeichen hinzu. Berühren sie dazu den Ort auf der Karte bis das Kontextmenü erscheint.\n\nLesezeichen von anderen Quellen können ebenfalls importiert und in der MapsWithMe-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Pins aus einer E-Mail, Dropbox oder einem Weblink öffnen.";
 
 /* Settings button in system menu */
 "settings" = "Einstellungen";

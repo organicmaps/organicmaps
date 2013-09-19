@@ -283,7 +283,7 @@
 "set" = "집합";
 
 /* Text hint in Bookmarks dialog, displayed if it's empty */
-"bookmarks_usage_hint" = "지도상의 어떤 장소든지 즐겨찾기에 추가할 수 있습니다. 이를 위해서는 컨텍스트 메뉴가 나타날 때까지 지도상의 장소를 오래 누르시면 됩니다.";
+"bookmarks_usage_hint" = "지도상의 어떤 장소든지 즐겨찾기에 추가할 수 있습니다. 이를 위해서는 컨텍스트 메뉴가 나타날 때까지 지도상의 장소를 오래 누르시면 됩니다.\n\n다른 소스에서 북마크는 MapsWithMe 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.";
 
 /* Settings button in system menu */
 "settings" = "설정";

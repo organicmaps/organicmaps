@@ -283,7 +283,7 @@
 "set" = "Groep";
 
 /* Text hint in Bookmarks dialog, displayed if it's empty */
-"bookmarks_usage_hint" = "Voeg een plaats naar keuze op de kaart toe aan de bladwijzers. Om dat te doen, drukt u op een plek op de kaart en houd u het ingedrukt tot het contextmenu verschijnt.";
+"bookmarks_usage_hint" = "Voeg een plaats naar keuze op de kaart toe aan de bladwijzers. Om dat te doen, drukt u op een plek op de kaart en houd u het ingedrukt tot het contextmenu verschijnt.\n\nBladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de MapsWithMe app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.";
 
 /* Settings button in system menu */
 "settings" = "Instellingen";
