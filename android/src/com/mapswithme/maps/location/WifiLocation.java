@@ -10,6 +10,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -19,8 +20,8 @@ import android.location.LocationManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.os.SystemClock;
 
-import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.StubLogger;
@@ -32,7 +33,7 @@ public class WifiLocation extends BroadcastReceiver
 
   private static final String MWM_GEOLOCATION_SERVER = "http://geolocation.server/";
   /// Limit received WiFi accuracy with 20 meters.
-  private static final double MIN_PASSED_ACCURACY = 20;
+  private static final double MIN_PASSED_ACCURACY_M = 20;
 
   public interface Listener
   {
@@ -75,6 +76,14 @@ public class WifiLocation extends BroadcastReceiver
   {
     context.unregisterReceiver(this);
     mWifi = null;
+  }
+
+  @SuppressLint("NewApi")
+  private void setLocationCurrentTime(Location l)
+  {
+    if (Utils.apiEqualOrGreaterThan(17))
+      l.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
+    l.setTime(System.currentTimeMillis());
   }
 
   @Override
@@ -199,7 +208,7 @@ public class WifiLocation extends BroadcastReceiver
           Utils.closeStream(wr);
 
           // Get the response
-          mLogger.d("Get JSON responce with code = ", conn.getResponseCode());
+          mLogger.d("Get JSON response with code = ", conn.getResponseCode());
           rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
           String line = null;
           String response = "";
@@ -213,10 +222,10 @@ public class WifiLocation extends BroadcastReceiver
           final double acc = jLocation.getDouble("accuracy");
 
           mLocation = new Location("wifiscanner");
-          mLocation.setAccuracy((float) Math.max(MIN_PASSED_ACCURACY, acc));
+          mLocation.setAccuracy((float) Math.max(MIN_PASSED_ACCURACY_M, acc));
           mLocation.setLatitude(lat);
           mLocation.setLongitude(lon);
-          LocationUtils.setLocationCurrentTime(mLocation);
+          setLocationCurrentTime(mLocation);
 
           return true;
         }

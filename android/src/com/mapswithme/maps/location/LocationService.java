@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.hardware.GeomagneticField;
 import android.hardware.Sensor;
@@ -16,12 +17,13 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.Display;
 import android.view.Surface;
 
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.util.ConnectionState;
-import com.mapswithme.util.LocationUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.StubLogger;
 
@@ -29,6 +31,11 @@ import com.mapswithme.util.log.StubLogger;
 public class LocationService implements LocationListener, SensorEventListener, WifiLocation.Listener
 {
   private Logger mLogger = StubLogger.get();//SimpleLogger.get(this.toString());
+
+  private static final double DEFAULT_SPEED_MpS = 5;
+  private static final float DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M = 1000;
+  private static final float MIN_SPEED_CALC_DIRECTION_MpS = 1;
+  private static final long LOCATION_EXPIRATION_TIME_MILLIS = 5 * 60 * 1000;
 
   /// These constants should correspond to values defined in platform/location.hpp
   /// Leave 0-value as no any error.
@@ -45,8 +52,11 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   private HashSet<Listener> mObservers = new HashSet<Listener>(10);
 
-  /// Used to filter locations from different providers
+  /// Last accepted location
   private Location mLastLocation = null;
+  /// System timestamp for the last location
+  private long mLastLocationTime;
+  /// Current heading if we are moving (-1.0 otherwise)
   private double mDrivingHeading = -1.0;
 
   private WifiLocation mWifiScanner = null;
@@ -103,17 +113,55 @@ public class LocationService implements LocationListener, SensorEventListener, W
       it.next().onCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }
 
-  /*
-  private void printLocation(Location l)
+  private static boolean isSameLocationProvider(String p1, String p2)
   {
-    final String p = l.getProvider();
-    Log.d(TAG, "Lat = " + l.getLatitude() +
-          "; Lon = " + l.getLongitude() +
-          "; Time = " + l.getTime() +
-          "; Acc = " + l.getAccuracy() +
-          "; Provider = " + (p != null ? p : ""));
+    if (p1 == null || p2 == null)
+      return false;
+    return p1.equals(p2);
   }
-   */
+
+  @SuppressLint("NewApi")
+  private double getLocationTimeDiffS(Location l)
+  {
+    if (Utils.apiEqualOrGreaterThan(17))
+      return (l.getElapsedRealtimeNanos() - mLastLocation.getElapsedRealtimeNanos()) * 1.0E-9;
+    else
+    {
+      long time = l.getTime();
+      long lastTime = mLastLocation.getTime();
+      if (!isSameLocationProvider(l.getProvider(), mLastLocation.getProvider()))
+      {
+        // Do compare current and previous system times in case when
+        // we have incorrect time settings on a device.
+        time = System.currentTimeMillis();
+        lastTime = mLastLocationTime;
+      }
+
+      return (time - lastTime) * 1.0E-3;
+    }
+  }
+
+  private boolean isLocationBetter(Location l)
+  {
+    if (l == null)
+      return false;
+    if (mLastLocation == null)
+      return true;
+
+    final double s = Math.max(DEFAULT_SPEED_MpS, (l.getSpeed() + mLastLocation.getSpeed()) / 2.0);
+    return (l.getAccuracy() < (mLastLocation.getAccuracy() + s * getLocationTimeDiffS(l)));
+  }
+
+  @SuppressLint("NewApi")
+  private static boolean isNotExpired(Location l, long t)
+  {
+    long timeDiff;
+    if (Utils.apiEqualOrGreaterThan(17))
+      timeDiff = (SystemClock.elapsedRealtimeNanos() - l.getElapsedRealtimeNanos()) / 1000000;
+    else
+      timeDiff = System.currentTimeMillis() - t;
+    return (timeDiff <= LOCATION_EXPIRATION_TIME_MILLIS);
+  }
 
   public void startUpdate(Listener observer)
   {
@@ -146,34 +194,23 @@ public class LocationService implements LocationListener, SensorEventListener, W
         registerSensorListeners();
 
         // Choose best location from available
-        List<Location> notExpiredLocations = getAllNotExpiredLocations(providers);
-        Location lastKnownLocation = null;
+        final Location l = getBestLastLocation(providers);
+        mLogger.d("Last location: ", l);
 
-        if (notExpiredLocations.size() > 0)
+        if (isLocationBetter(l))
         {
-           final Location newestLocation = LocationUtils.getNewestLocation(notExpiredLocations);
-           mLogger.d("Last newest location: ", newestLocation);
-           final Location mostAccurateLocation = LocationUtils.getMostAccurateLocation(notExpiredLocations);
-           mLogger.d("Last accurate location: ", mostAccurateLocation);
-
-           if (LocationUtils.isFirstOneBetterLocation(newestLocation, mostAccurateLocation))
-             lastKnownLocation = newestLocation;
-           else
-             lastKnownLocation = mostAccurateLocation;
+          // get last better location
+          emitLocation(l);
         }
-
-        if (LocationUtils.isNotExpired(mLastLocation) &&
-            LocationUtils.isFirstOneBetterLocation(mLastLocation, lastKnownLocation))
+        else if (mLastLocation != null && isNotExpired(mLastLocation, mLastLocationTime))
         {
-          lastKnownLocation = mLastLocation;
+          // notify UI about last valid location
+          notifyLocationUpdated(mLastLocation);
         }
-
-        // Pass last known location only in the end of all registerListener
-        // in case, when we want to disconnect in listener.
-        if (lastKnownLocation != null)
+        else
         {
-          LocationUtils.hackLocationTime(lastKnownLocation);
-          emitLocation(lastKnownLocation);
+          // forget about old location
+          mLastLocation = null;
         }
       }
 
@@ -258,32 +295,26 @@ public class LocationService implements LocationListener, SensorEventListener, W
     }
   }
 
-  private static final long MAXTIME_CALC_DIRECTIONS = 1000 * 10;
-
-  private List<Location> getAllNotExpiredLocations(List<String> providers)
+  private Location getBestLastLocation(List<String> providers)
   {
-    List<Location> locations = new ArrayList<Location>(providers.size());
+    Location res = null;
     for (String pr : providers)
     {
       final Location l = mLocationManager.getLastKnownLocation(pr);
-      if (LocationUtils.isNotExpired(l))
-        locations.add(l);
+      if (l != null && isNotExpired(l, l.getTime()))
+      {
+        if (res == null || res.getAccuracy() > l.getAccuracy())
+          res = l;
+      }
     }
-
-    return locations;
+    return res;
   }
 
-  private void calcDirection(Location l, long t)
+  private void calcDirection(Location l)
   {
-    // Try to calculate user direction if he is moving and
-    // we have previous close position.
-    if ((l.getSpeed() >= 1.0) && (t - mLastLocation.getTime() <= MAXTIME_CALC_DIRECTIONS))
-    {
-      if (l.hasBearing())
-        mDrivingHeading = bearingToHeading(l.getBearing());
-      else if (mLastLocation.distanceTo(l) > 5.0)
-        mDrivingHeading = bearingToHeading(mLastLocation.bearingTo(l));
-    }
+    // Try to calculate direction if we are moving
+    if (l.getSpeed() >= MIN_SPEED_CALC_DIRECTION_MpS && l.hasBearing())
+      mDrivingHeading = bearingToHeading(l.getBearing());
     else
       mDrivingHeading = -1.0;
   }
@@ -293,11 +324,10 @@ public class LocationService implements LocationListener, SensorEventListener, W
     mLogger.d("Location accepted: ", l);
 
     mLastLocation = l;
+    mLastLocationTime = System.currentTimeMillis();
+
     notifyLocationUpdated(l);
   }
-
-  /// Delta distance when we need to recreate GeomagneticField (to calculate declination).
-  private final static float DISTANCE_TO_RECREATE_MAGNETIC_FIELD = 1000.0f;
 
   @Override
   public void onLocationChanged(Location l)
@@ -308,19 +338,16 @@ public class LocationService implements LocationListener, SensorEventListener, W
     if (l.getAccuracy() <= 0.0)
       return;
 
-    LocationUtils.hackLocationTime(l);
-    if (LocationUtils.isFirstOneBetterLocation(l, mLastLocation))
+    if (isLocationBetter(l))
     {
-      final long timeNow = System.currentTimeMillis();
-      if (mLastLocation != null)
-        calcDirection(l, timeNow);
+      calcDirection(l);
 
       // Used for more precise compass updates
       if (mSensorManager != null)
       {
         // Recreate magneticField if location has changed significantly
         if (mMagneticField == null ||
-            (mLastLocation == null || l.distanceTo(mLastLocation) > DISTANCE_TO_RECREATE_MAGNETIC_FIELD))
+            (mLastLocation == null || l.distanceTo(mLastLocation) > DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M))
         {
           mMagneticField = new GeomagneticField((float)l.getLatitude(), (float)l.getLongitude(),
                                                  (float)l.getAltitude(), l.getTime());
