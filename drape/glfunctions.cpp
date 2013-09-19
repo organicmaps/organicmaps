@@ -161,7 +161,7 @@ bool GLFunctions::glHasExtension(const string & name)
     if (isspace(*end) || *end == '\0')
         return true;
 
-    extensions = ptr;
+    extensions = end;
   }
 
   return false;
