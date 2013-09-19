@@ -40,37 +40,44 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return YES;
+  return YES;
 }
 
 // Used to display add bookmarks hint
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-  return tableView.bounds.size.height / 3.;
+  CGFloat const offset = 10;
+
+  CGRect const rect = tableView.bounds;
+  // Use UILabel inside custom view to add padding on the left and right (there is no other way to do it)
+  if (!m_hint)
+  {
+    m_hint = [[UIView alloc] initWithFrame:rect];
+    m_hint.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    m_hint.backgroundColor = [UIColor clearColor];
+
+    UILabel * label = [[[UILabel alloc] initWithFrame:rect] autorelease];
+    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    label.backgroundColor = [UIColor clearColor];
+    label.text = NSLocalizedString(@"bookmarks_usage_hint", @"Text hint in Bookmarks dialog, displayed if it's empty");
+    label.textAlignment = UITextAlignmentCenter;
+    label.lineBreakMode = UILineBreakModeWordWrap;
+    label.numberOfLines = 0;
+    [m_hint addSubview:label];
+  }
+  UILabel * label = [m_hint.subviews objectAtIndex:0];
+  label.bounds = CGRectInset(rect, offset, offset);
+  [label sizeToFit];
+  m_hint.bounds = CGRectMake(0, 0, rect.size.width, label.bounds.size.height + 2 * offset);
+  label.center = CGPointMake(m_hint.bounds.size.width / 2, m_hint.bounds.size.height / 2);
+
+  return m_hint.bounds.size.height;
 }
 
 // Used to display hint when no any categories with bookmarks are present
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-  CGRect rect = tableView.bounds;
-  rect.size.height /= 3.;
-  // Use Label in custom view to add padding on the left and right (there is no other way to do it)
-  UIView * customView = [[[UIView alloc] initWithFrame:rect] autorelease];
-  customView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  customView.backgroundColor = [UIColor clearColor];
-
-  UILabel * hint = [[[UILabel alloc] initWithFrame:CGRectInset(rect, 40, 0)] autorelease];
-  // Orientation support
-  hint.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  hint.backgroundColor = [UIColor clearColor];
-  hint.text = NSLocalizedString(@"bookmarks_usage_hint", @"Text hint in Bookmarks dialog, displayed if it's empty");
-  hint.textAlignment = UITextAlignmentCenter;
-  hint.lineBreakMode = UILineBreakModeWordWrap;
-  hint.numberOfLines = 0;
-
-  [customView addSubview:hint];
-
-  return customView;
+  return m_hint;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -304,6 +311,7 @@
 -(void)dealloc
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
+  [m_hint release];
   [super dealloc];
 }
 
