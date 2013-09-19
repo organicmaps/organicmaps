@@ -52,6 +52,14 @@
             android:singleLine="true" />
     </LinearLayout>
 
+    <ImageButton
+        android:id="@+id/yop_it"
+        style="@style/Widget.MapButtonZoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:src="@drawable/ptb_selector_map" />
+
     <LinearLayout
         android:id="@+id/navigation_buttons_container"
         android:layout_width="wrap_content"
@@ -125,14 +133,6 @@
             android:contentDescription="@string/bookmarks"
             android:onClick="onBookmarksClicked"
             android:src="@drawable/bookmarks_button" />
-
-        <ImageButton
-            android:id="@+id/yop_it"
-            style="@style/Widget.MapButtonBottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_ptb_white" />
     </LinearLayout>
 
 </merge>
