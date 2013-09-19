@@ -5,13 +5,12 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.location.Location;
-import android.location.LocationManager;
+import android.location.LocationListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -32,7 +31,7 @@ import com.yotadevices.sdk.BSMotionEvent;
 import com.yotadevices.sdk.Constants.Gestures;
 import com.yotadevices.sdk.utils.RotationAlgorithm;
 
-public class BackscreenActivity extends BSActivity
+public class BackscreenActivity extends BSActivity implements LocationListener
 {
   private final static String TAG = "YOPME";
 
@@ -74,7 +73,7 @@ public class BackscreenActivity extends BSActivity
   protected View mPoiInfo;
 
   protected MapDataProvider mMapDataProvider;
-  private LocationRequester mLocationManager;
+  private LocationRequester mLocationRequester;
 
   private final Runnable mInvalidateDrawable = new Runnable()
   {
@@ -85,10 +84,28 @@ public class BackscreenActivity extends BSActivity
     }
   };
 
-  private final Handler mHandler = new Handler();
+  private final Runnable mRequestLocation = new Runnable()
+  {
+    @Override
+    public void run()
+    {
+      requestLocationUpdateImpl();
+    }
+  };
+
+  private final Handler mDeduplicateHandler = new Handler();
   private final static long REDRAW_MIN_INTERVAL = 333;
 
   private static final String EXTRA_POINT = "point";
+
+  @Override
+  protected void onBSTouchEnadle()
+  {
+    // subscribe for locations again
+    Log.d(TAG, "LocationRequester: touches were enabled, requbscribe to location");
+    requestLocationUpdate();
+    super.onBSTouchEnadle();
+  }
 
   @Override
   protected void onBSCreate()
@@ -112,22 +129,32 @@ public class BackscreenActivity extends BSActivity
 
     setUpView();
 
-    mLocationManager = new LocationRequester(this);
+    mLocationRequester = new LocationRequester(this);
+    mLocationRequester.addListener(this);
+  }
+
+  @Override
+  protected void onBSDestroy()
+  {
+    mLocationRequester.removeListener(this);
+    super.onBSDestroy();
   }
 
   @Override
   protected void onBSPause()
   {
     super.onBSPause();
+    mLocationRequester.stopListening();
 
-    mLocationManager.removeUpdates(getLocationPendingIntent(this));
-    mHandler.removeCallbacks(mInvalidateDrawable);
+    mDeduplicateHandler.removeCallbacks(mInvalidateDrawable);
+    mDeduplicateHandler.removeCallbacks(mRequestLocation);
   }
 
   @Override
   protected void onBSResume()
   {
     super.onBSResume();
+    requestLocationUpdate();
 
     updateData();
     invalidate();
@@ -189,15 +216,7 @@ public class BackscreenActivity extends BSActivity
     super.onHandleIntent(intent);
 
     final String action  = intent.getAction();
-    if (intent.hasExtra(LocationManager.KEY_LOCATION_CHANGED))
-    {
-      final Location l = (Location) intent.getParcelableExtra(LocationManager.KEY_LOCATION_CHANGED);
-      if (LocationRequester.isFirstOneBetterLocation(l, mLocation) && areLocationsFarEnough(l, mLocation))
-        mLocation = l;
-      else
-        return;
-    }
-    else if (action != null && (ACTION_LOCATION + ACTION_SHOW_RECT).contains(action))
+    if (action != null && (ACTION_LOCATION + ACTION_SHOW_RECT).contains(action))
     {
       if (intent.getBooleanExtra(EXTRA_HAS_LOCATION, false))
       {
@@ -246,8 +265,8 @@ public class BackscreenActivity extends BSActivity
 
   public void invalidate()
   {
-    mHandler.removeCallbacks(mInvalidateDrawable);
-    mHandler.postDelayed(mInvalidateDrawable, REDRAW_MIN_INTERVAL);
+    mDeduplicateHandler.removeCallbacks(mInvalidateDrawable);
+    mDeduplicateHandler.postDelayed(mInvalidateDrawable, REDRAW_MIN_INTERVAL);
   }
 
   private boolean zoomIn()
@@ -278,23 +297,31 @@ public class BackscreenActivity extends BSActivity
 
   private void requestLocationUpdate()
   {
+    mDeduplicateHandler.removeCallbacks(mRequestLocation);
+    mDeduplicateHandler.postDelayed(mRequestLocation, 300);
+  }
+
+  private void requestLocationUpdateImpl()
+  {
     final String updateIntervalStr = PreferenceManager.getDefaultSharedPreferences(this)
-      .getString(getString(R.string.pref_loc_update), YopmePreference.LOCATION_UPDATE_DEFAULT);
-    final long updateInterval = Long.parseLong(updateIntervalStr);
+        .getString(getString(R.string.pref_loc_update), YopmePreference.LOCATION_UPDATE_DEFAULT);
+      final long updateInterval = Long.parseLong(updateIntervalStr);
 
-    // before requesting updates try to get last known in the first try
-    if (mLocation == null)
-      mLocation = mLocationManager.getLastLocation();
+      // before requesting updates try to get last known in the first try
+      if (mLocation == null)
+        mLocation = mLocationRequester.getLastLocation();
 
-    // then listen to updates
-    final PendingIntent pi = getLocationPendingIntent(this);
-    if (updateInterval == -1)
-      mLocationManager.requestSingleUpdate(pi, 60*1000);
-    else
-    {
-      // according to the manual, minDistance doesn't save battery life
-      mLocationManager.requestLocationUpdates(updateInterval*1000, 0, pi);
-    }
+      // then listen to updates
+      if (updateInterval == -1)
+        mLocationRequester.requestSingleUpdate(60*1000);
+      else
+      {
+        // according to the manual, minDistance doesn't save battery life
+        mLocationRequester.setMinDistance(0);
+        mLocationRequester.setMinTime(updateInterval * 1000);
+        mLocationRequester.setUpProviders();
+        mLocationRequester.startListening();
+      }
   }
 
   private boolean areLocationsFarEnough(Location l1, Location l2)
@@ -420,13 +447,6 @@ public class BackscreenActivity extends BSActivity
     context.startService(i);
   }
 
-  public static PendingIntent getLocationPendingIntent(Context context)
-  {
-    final Intent i = new Intent(context, BackscreenActivity.class);
-    final PendingIntent pi = PendingIntent.getService(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
-    return pi;
-  }
-
   public String getApkPath()
   {
     try
@@ -470,4 +490,20 @@ public class BackscreenActivity extends BSActivity
   private native void nativeInitPlatform(String apkPath, String storagePath,
                                          String tmpPath, String obbGooglePath,
                                          boolean isPro, boolean isYota);
+
+  @Override
+  public void onLocationChanged(Location l)
+  {
+    if (LocationRequester.isFirstOneBetterLocation(l, mLocation) && areLocationsFarEnough(l, mLocation))
+      mLocation = l;
+  }
+
+  @Override
+  public void onProviderDisabled(String provider) {}
+
+  @Override
+  public void onProviderEnabled(String provider) {}
+
+  @Override
+  public void onStatusChanged(String provider, int status, Bundle extras) {}
 }
