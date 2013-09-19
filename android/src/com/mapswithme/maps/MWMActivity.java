@@ -19,7 +19,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -31,7 +30,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +44,6 @@ import com.mapswithme.maps.promo.PromocodeActivationDialog;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.ConnectionState;
-import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
 import com.nvidia.devtech.NvEventQueueActivity;
@@ -603,7 +601,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     // yota setup
     mYopItButton = findViewById(R.id.yop_it);
     if (!Yota.isYota())
-      UiUtils.hide(mYopItButton);
+      mYopItButton.setVisibility(View.INVISIBLE);
     else
     {
       mYopItButton.setOnClickListener(new OnClickListener()
@@ -670,18 +668,11 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private void alignZoomButtons()
   {
-    // Get screen density
-    final DisplayMetrics metrics = new DisplayMetrics();
-    getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-    final double k = metrics.density;
-    final int offs = (int)(53 * k); // height of button + half space between buttons.
-    final int margin = (int)(5 * k);
-
-    final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-    lp.setMargins(margin, (metrics.heightPixels / 4) - offs, margin, margin);
-    findViewById(R.id.map_button_plus).setLayoutParams(lp);
+    final View zoomPlusButton = findViewById(R.id.map_button_plus);
+    final RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) zoomPlusButton.getLayoutParams();
+    final int margin = (int) getResources().getDimension(R.dimen.zoom_margin);
+    final int marginTop = (int) getResources().getDimension(R.dimen.zoom_plus_top_margin);
+    lp.setMargins(margin, marginTop, margin, margin);
   }
 
   /// @name From Location interface
@@ -1209,3 +1200,4 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   public native boolean showMapForUrl(String url);
 }
+//

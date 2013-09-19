@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="zoom_plus_top_margin">20dp</dimen>
+
+</resources>

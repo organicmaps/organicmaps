@@ -4,13 +4,10 @@
     <dimen name="icon_size">24dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-
     <dimen name="margin_tiny">4dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="margin_large">32dp</dimen>
-
-
     <dimen name="dp_x_1">4dp</dimen>
     <dimen name="dp_x_2">8dp</dimen>
     <dimen name="dp_x_3">12dp</dimen>
@@ -21,12 +18,13 @@
     <dimen name="dp_x_14">56dp</dimen>
     <dimen name="dp_x_16">64dp</dimen>
     <dimen name="dp_x_20">80dp</dimen>
-
     <dimen name="sp_x_1">5dp</dimen>
     <dimen name="sp_x_2">10sp</dimen>
     <dimen name="sp_x_3">15sp</dimen>
     <dimen name="sp_x_4">20sp</dimen>
     <dimen name="sp_x_5">25sp</dimen>
-
     <dimen name="dialog_max_height">320dp</dimen>
+    <dimen name="zoom_plus_top_margin">40dp</dimen>
+    <dimen name="zoom_margin">5dp</dimen>
+
 </resources>

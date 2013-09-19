@@ -52,15 +52,7 @@
             android:singleLine="true" />
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/yop_it"
-        style="@style/Widget.MapButtonZoom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|right"
-        android:src="@drawable/ptb_selector_map" />
-
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/navigation_buttons_container"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
@@ -69,10 +61,21 @@
         android:orientation="vertical" >
 
         <ImageButton
+            android:id="@+id/yop_it"
+            style="@style/Widget.MapButtonZoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ptb_selector_map" />
+
+        <ImageButton
             android:id="@+id/map_button_plus"
             style="@style/Widget.MapButtonZoom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/yop_it"
+            android:layout_marginTop="@dimen/zoom_plus_top_margin"
             android:onClick="onPlusClicked"
             android:src="@drawable/zoom_in_button" />
 
@@ -81,9 +84,11 @@
             style="@style/Widget.MapButtonZoom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/map_button_plus"
             android:onClick="onMinusClicked"
             android:src="@drawable/zoom_out_button" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/map_butons_container"
