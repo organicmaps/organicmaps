@@ -54,7 +54,7 @@ public class LocationRequester implements Handler.Callback
 
     // Check whether the new location fix is newer or older
     long timeDelta = firstLoc.getElapsedRealtimeNanos() - secondLoc.getElapsedRealtimeNanos();
-    timeDelta /= 1000;
+    timeDelta /= 1000000;
     final boolean isSignificantlyNewer = timeDelta > TWO_MINUTES;
     final boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES;
     final boolean isNewer = timeDelta > 0;
