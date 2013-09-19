@@ -79,11 +79,27 @@ public class WifiLocation extends BroadcastReceiver
   }
 
   @SuppressLint("NewApi")
-  private void setLocationCurrentTime(Location l)
+  private static void appendID(StringBuilder json)
   {
+    json.append(",\"id\":{\"currentTime\":");
+    json.append(String.valueOf(System.currentTimeMillis()));
+
     if (Utils.apiEqualOrGreaterThan(17))
-      l.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
-    l.setTime(System.currentTimeMillis());
+    {
+      json.append(",\"elapsedRealtimeNanos\":");
+      json.append(String.valueOf(SystemClock.elapsedRealtimeNanos()));
+    }
+
+    json.append("}");
+  }
+
+  @SuppressLint("NewApi")
+  private static void setLocationCurrentTime(JSONObject jID, Location l) throws JSONException
+  {
+    l.setTime(jID.getLong("currentTime"));
+
+    if (Utils.apiEqualOrGreaterThan(17))
+      l.setElapsedRealtimeNanos(jID.getLong("elapsedRealtimeNanos"));
   }
 
   @Override
@@ -91,6 +107,7 @@ public class WifiLocation extends BroadcastReceiver
   {
     // Prepare JSON request with BSSIDs
     final StringBuilder json = new StringBuilder("{\"version\":\"2.0\"");
+    appendID(json);
 
     boolean wifiHeaderAdded = false;
     List<ScanResult> results = mWifi.getScanResults();
@@ -161,8 +178,6 @@ public class WifiLocation extends BroadcastReceiver
         }
         json.append(",\"time\":");
         json.append(String.valueOf(l.getTime()));
-        json.append(",\"currentTime\":");
-        json.append(String.valueOf(System.currentTimeMillis()));
         json.append("}");
       }
     }
@@ -199,6 +214,7 @@ public class WifiLocation extends BroadcastReceiver
           conn.setUseCaches(false);
 
           // Write JSON query
+          //mLogger.d("JSON request = ", jsonString);
           mLogger.d("Post JSON request with length = ", jsonString.length());
           conn.setDoOutput(true);
 
@@ -215,6 +231,8 @@ public class WifiLocation extends BroadcastReceiver
           while ((line = rd.readLine()) != null)
             response += line;
 
+          //mLogger.d("JSON response = ", response);
+
           final JSONObject jRoot = new JSONObject(response);
           final JSONObject jLocation = jRoot.getJSONObject("location");
           final double lat = jLocation.getDouble("latitude");
@@ -225,7 +243,7 @@ public class WifiLocation extends BroadcastReceiver
           mLocation.setAccuracy((float) Math.max(MIN_PASSED_ACCURACY_M, acc));
           mLocation.setLatitude(lat);
           mLocation.setLongitude(lon);
-          setLocationCurrentTime(mLocation);
+          setLocationCurrentTime(jRoot.getJSONObject("id"), mLocation);
 
           return true;
         }
