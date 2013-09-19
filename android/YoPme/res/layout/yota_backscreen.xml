@@ -18,7 +18,9 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/plashka_background"
         android:gravity="center_vertical"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp" >
 
         <TextView
             android:id="@+id/poiText"
@@ -30,7 +32,7 @@
             android:gravity="left|center_vertical"
             android:singleLine="true"
             android:textColor="#000"
-            android:textSize="@dimen/eink_mid_text" />
+            android:textSize="@dimen/eink_small_text" />
 
         <TextView
             android:id="@+id/poiDist"
