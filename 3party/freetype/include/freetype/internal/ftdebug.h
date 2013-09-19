@@ -247,16 +247,6 @@ FT_BEGIN_HEADER
   FT_BASE( void )
   ft_debug_init( void );
 
-
-#if defined( _MSC_VER )      /* Visual C++ (and Intel C++) */
-
-  /* We disable the warning `conditional expression is constant' here */
-  /* in order to compile cleanly with the maximum level of warnings.  */
-#pragma warning( disable : 4127 )
-
-#endif /* _MSC_VER */
-
-
 FT_END_HEADER
 
 #endif /* __FTDEBUG_H__ */

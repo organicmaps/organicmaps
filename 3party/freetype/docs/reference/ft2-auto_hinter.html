@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>FreeType-2.4.12 API Reference</title>
+<title>FreeType-2.5.0 API Reference</title>
 <style type="text/css">
   body { font-family: Verdana, Geneva, Arial, Helvetica, serif;
          color: #000000;
@@ -35,7 +35,7 @@
 <table align=center><tr><td><font size=-1>[<a href="ft2-index.html">Index</a>]</font></td>
 <td width="100%"></td>
 <td><font size=-1>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
-<center><h1>FreeType-2.4.12 API Reference</h1></center>
+<center><h1>FreeType-2.5.0 API Reference</h1></center>
 
 <center><h1>
 The auto-hinter
@@ -54,6 +54,7 @@ The auto-hinter
 <table align=center width="75%"><tr><td>
 <h4><a name="glyph-to-script-map">glyph-to-script-map</a></h4>
 <table align=center width="87%"><tr><td>
+<p><b>Experimental</b> <b>only</b></p>
 <p>The auto-hinter provides various script modules to hint glyphs. Examples of supported scripts are Latin or CJK. Before a glyph is auto-hinted, the Unicode character map of the font gets examined, and the script is then determined based on Unicode character ranges, see below.</p>
 <p>OpenType fonts, however, often provide much more glyphs than character codes (small caps, superscripts, ligatures, swashes, etc.), to be controlled by so-called &lsquo;features&rsquo;. Handling OpenType features can be quite complicated and thus needs a separate library on top of FreeType.</p>
 <p>The mapping between glyph indices and scripts (in the auto-hinter sense, see the <a href="ft2-auto_hinter.html#FT_AUTOHINTER_SCRIPT_XXX">FT_AUTOHINTER_SCRIPT_XXX</a> values) is stored as an array with &lsquo;num_glyphs&rsquo; elements, as found in the font's <a href="ft2-base_interface.html#FT_Face">FT_Face</a> structure. The &lsquo;glyph-to-script-map&rsquo; property returns a pointer to this array which can be modified as needed. Note that the modification should happen before the first glyph gets processed by the auto-hinter so that the global analysis of the font shapes actually uses the modified mapping.</p>
@@ -97,6 +98,7 @@ Defined in FT_AUTOHINTER_H (freetype/ftautoh.h).
 
 </pre></table><br>
 <table align=center width="87%"><tr><td>
+<p><b>Experimental</b> <b>only</b></p>
 <p>A list of constants used for the <a href="ft2-auto_hinter.html#glyph-to-script-map">glyph-to-script-map</a> property to specify the script submodule the auto-hinter should use for hinting a particular glyph.</p>
 </td></tr></table><br>
 <table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>values</b></em></td></tr><tr><td>
@@ -221,6 +223,7 @@ Defined in FT_AUTOHINTER_H (freetype/ftautoh.h).
 
 </pre></table><br>
 <table align=center width="87%"><tr><td>
+<p><b>Experimental</b> <b>only</b></p>
 <p>The data exchange structure for the <a href="ft2-auto_hinter.html#glyph-to-script-map">glyph-to-script-map</a> property.</p>
 </td></tr></table><br>
 </td></tr></table>
@@ -232,6 +235,7 @@ Defined in FT_AUTOHINTER_H (freetype/ftautoh.h).
 <table align=center width="75%"><tr><td>
 <h4><a name="fallback-script">fallback-script</a></h4>
 <table align=center width="87%"><tr><td>
+<p><b>Experimental</b> <b>only</b></p>
 <p>If no auto-hinter script module can be assigned to a glyph, a fallback script gets assigned to it (see also the <a href="ft2-auto_hinter.html#glyph-to-script-map">glyph-to-script-map</a> property). By default, this is <a href="ft2-auto_hinter.html#FT_AUTOHINTER_SCRIPT_XXX">FT_AUTOHINTER_SCRIPT_CJK</a>. Using the &lsquo;fallback-script&rsquo; property, this fallback value can be changed.</p>
 <pre class="colored">
   FT_Library  library;

@@ -200,7 +200,7 @@
     /* without volatile on `error' GCC 4.1.1. emits:                         */
     /*  warning: variable 'error' might be clobbered by 'longjmp' or 'vfork' */
     /* this warning seems spurious but ---                                   */
-    FT_Error volatile         error = FT_Err_Ok;
+    FT_Error volatile         error;
     FT_ValidatorRec volatile  valid;
 
 

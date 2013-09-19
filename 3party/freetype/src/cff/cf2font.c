@@ -143,7 +143,7 @@
     /* pointer to parsed font object */
     CFF_Decoder*  decoder = font->decoder;
 
-    FT_Bool  needExtraSetup = FALSE;
+    FT_Bool  needExtraSetup;
 
     /* character space units */
     CF2_Fixed  boldenX = font->syntheticEmboldeningAmountX;
@@ -157,7 +157,8 @@
 
     /* if a CID fontDict has changed, we need to recompute some cached */
     /* data                                                            */
-    needExtraSetup = font->lastSubfont != cf2_getSubfont( decoder );
+    needExtraSetup =
+      (FT_Bool)( font->lastSubfont != cf2_getSubfont( decoder ) );
 
     /* if ppem has changed, we need to recompute some cached data         */
     /* note: because of CID font matrix concatenation, ppem and transform */
@@ -170,7 +171,7 @@
     }
 
     /* copy hinted flag on each call */
-    font->hinted = font->renderingFlags & CF2_FlagsHinted;
+    font->hinted = (FT_Bool)( font->renderingFlags & CF2_FlagsHinted );
 
     /* determine if transform has changed;       */
     /* include Fontmatrix but ignore translation */
@@ -204,7 +205,8 @@
      */
     if ( font->stemDarkened != ( font->renderingFlags & CF2_FlagsDarkened ) )
     {
-      font->stemDarkened = font->renderingFlags & CF2_FlagsDarkened;
+      font->stemDarkened =
+        (FT_Bool)( font->renderingFlags & CF2_FlagsDarkened );
 
       /* blue zones depend on darkened flag */
       needExtraSetup = TRUE;
@@ -318,10 +320,10 @@
 
   /* equivalent to AdobeGetOutline */
   FT_LOCAL_DEF( FT_Error )
-  cf2_getGlyphWidth( CF2_Font           font,
-                     CF2_Buffer         charstring,
-                     const CF2_Matrix*  transform,
-                     CF2_F16Dot16*      glyphWidth )
+  cf2_getGlyphOutline( CF2_Font           font,
+                       CF2_Buffer         charstring,
+                       const CF2_Matrix*  transform,
+                       CF2_F16Dot16*      glyphWidth )
   {
     FT_Error  lastError = FT_Err_Ok;
 
@@ -331,7 +333,7 @@
     FT_Vector  advancePoint;
 #endif
 
-    CF2_Fixed  advWidth;
+    CF2_Fixed  advWidth = 0;
     FT_Bool    needWinding;
 
 
@@ -387,11 +389,11 @@
     /* finish storing client outline */
     cf2_outline_close( &font->outline );
 
+  exit:
     /* FreeType just wants the advance width; there is no translation */
     *glyphWidth = advWidth;
 
     /* free resources and collect errors from objects we've used */
-  exit:
     cf2_setError( &font->error, lastError );
 
     return font->error;

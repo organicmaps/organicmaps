@@ -86,12 +86,6 @@ FT_BEGIN_HEADER
         ftc_get_top_node_for_hash( ( cache ), ( hash ) )
 #endif
 
-#ifdef FT_CONFIG_OPTION_OLD_INTERNALS
-  FT_BASE( void )
-  ftc_node_destroy( FTC_Node     node,
-                    FTC_Manager  manager );
-#endif
-
 
   /*************************************************************************/
   /*************************************************************************/

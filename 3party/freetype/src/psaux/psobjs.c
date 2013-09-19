@@ -113,8 +113,8 @@
 
 
   static FT_Error
-  reallocate_t1_table( PS_Table  table,
-                       FT_Long   new_size )
+  reallocate_t1_table( PS_Table   table,
+                       FT_Offset  new_size )
   {
     FT_Memory  memory   = table->memory;
     FT_Byte*   old_base = table->block;

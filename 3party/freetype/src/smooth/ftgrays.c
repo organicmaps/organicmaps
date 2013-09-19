@@ -358,6 +358,14 @@ typedef ptrdiff_t  FT_PtrDist;
   } TCell;
 
 
+#if defined( _MSC_VER )      /* Visual C++ (and Intel C++) */
+  /* We disable the warning `structure was padded due to   */
+  /* __declspec(align())' in order to compile cleanly with */
+  /* the maximum level of warnings.                        */
+#pragma warning( push )
+#pragma warning( disable : 4324 )
+#endif /* _MSC_VER */
+
   typedef struct  gray_TWorker_
   {
     TCoord  ex, ey;
@@ -404,6 +412,10 @@ typedef ptrdiff_t  FT_PtrDist;
     TPos       ycount;
 
   } gray_TWorker, *gray_PWorker;
+
+#if defined( _MSC_VER )
+#pragma warning( pop )
+#endif
 
 
 #ifndef FT_STATIC_RASTER
@@ -630,7 +642,7 @@ typedef ptrdiff_t  FT_PtrDist;
                                  TPos    x2,
                                  TCoord  y2 )
   {
-    TCoord  ex1, ex2, fx1, fx2, delta, mod, lift, rem;
+    TCoord  ex1, ex2, fx1, fx2, delta, mod;
     long    p, first, dx;
     int     incr;
 
@@ -691,6 +703,9 @@ typedef ptrdiff_t  FT_PtrDist;
 
     if ( ex1 != ex2 )
     {
+      TCoord  lift, rem;
+
+
       p    = ONE_PIXEL * ( y2 - y1 + delta );
       lift = (TCoord)( p / dx );
       rem  = (TCoord)( p % dx );
@@ -1257,9 +1272,7 @@ typedef ptrdiff_t  FT_PtrDist;
                        TPos    area,
                        TCoord  acount )
   {
-    FT_Span*  span;
-    int       count;
-    int       coverage;
+    int  coverage;
 
 
     /* compute the coverage line's coverage, depending on the    */
@@ -1301,6 +1314,10 @@ typedef ptrdiff_t  FT_PtrDist;
 
     if ( coverage )
     {
+      FT_Span*  span;
+      int       count;
+
+
       /* see whether we can add this span to the current list */
       count = ras.num_gray_spans;
       span  = ras.gray_spans + count - 1;

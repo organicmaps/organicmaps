@@ -61,11 +61,12 @@ FT_BEGIN_HEADER
    *
    * @description:
    *   Thanks to Adobe, which contributed a new hinting (and parsing)
-   *   engine, an application can select between `freetype' and `adobe'.
+   *   engine, an application can select between `freetype' and `adobe' if
+   *   compiled with CFF_CONFIG_OPTION_OLD_ENGINE.  If this configuration
+   *   macro isn't defined, `hinting-engine' does nothing.
    *
-   *   Right now, the default engine is `freetype'.  However, this will
-   *   change: After a certain time of intensive testing it is planned to
-   *   make `adobe' the default due to its superior rendering results.
+   *   The default engine is `freetype' if CFF_CONFIG_OPTION_OLD_ENGINE is
+   *   defined, and `adobe' otherwise.
    *
    *   The following example code demonstrates how to select Adobe's hinting
    *   engine (omitting the error handling).

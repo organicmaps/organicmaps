@@ -22,6 +22,7 @@
 #include FT_INTERNAL_SFNT_H
 #include FT_TRUETYPE_TAGS_H
 #include FT_OUTLINE_H
+#include FT_TRUETYPE_DRIVER_H
 
 #include "ttsubpix.h"
 
@@ -286,25 +287,14 @@
 
 
   /* Don't do subpixel (ignore_x_mode) hinting; do normal hinting.         */
-#define PIXEL_HINTING_RULES_SIZE  1
+#define PIXEL_HINTING_RULES_SIZE  2
 
   const SPH_TweakRule  PIXEL_HINTING_Rules
                        [PIXEL_HINTING_RULES_SIZE] =
   {
     /* these characters are almost always safe */
-    { "-", 0, "", 0 },
-  };
-
-
-  /* According to Greg Hitchcock and the MS whitepaper, this should work   */
-  /* on all legacy MS fonts, but creates artifacts with some.  Only using  */
-  /* where absolutely necessary.                                           */
-#define SKIP_INLINE_DELTAS_RULES_SIZE  1
-
-  const SPH_TweakRule  SKIP_INLINE_DELTAS_Rules
-                       [SKIP_INLINE_DELTAS_RULES_SIZE] =
-  {
-    { "-", 0, "", 0 },
+    { "Courier New", 12, "Italic", 'z' },
+    { "Courier New", 11, "Italic", 'z' },
   };
 
 
@@ -320,42 +310,42 @@
 
   /* Skip Y moves that start with a point that is not on a Y pixel         */
   /* boundary and don't move that point to a Y pixel boundary.             */
-#define SKIP_NONPIXEL_Y_MOVES_RULES_SIZE  9
+#define SKIP_NONPIXEL_Y_MOVES_RULES_SIZE  4
 
   const SPH_TweakRule  SKIP_NONPIXEL_Y_MOVES_Rules
                        [SKIP_NONPIXEL_Y_MOVES_RULES_SIZE] =
   {
     /* fix vwxyz thinness*/
-    { "Consolas", 0, "Regular", 0 },
-    /* fix tiny gap at top of m */
-    { "Arial", 0, "Regular", 'm' },
+    { "Consolas", 0, "", 0 },
     /* Fix thin middle stems */
-    { "Core MS Legacy Fonts", 0, "Regular/Bold Class", 'N' },
-    { "Lucida Grande", 0, "", 'N' },
-    { "Lucida Grande", 0, "Bold", 'y' },
+    { "Core MS Legacy Fonts", 0, "Regular", 0 },
     /* Cyrillic small letter I */
-    { "Legacy Sans Fonts", 0, "", 0x438 },
-    { "Verdana Clones", 0, "",'N' },
-    /* Fix misshapen x */
-    { "Verdana", 0, "Bold", 'x' },
-    /* Fix misshapen s */
-    { "Tahoma", 0, "", 's' },
+    { "Legacy Sans Fonts", 0, "", 0 },
+    /* Fix artifacts with some Regular & Bold */
+    { "Verdana Clones", 0, "", 0 },
   };
 
 
-#define SKIP_NONPIXEL_Y_MOVES_RULES_EXCEPTIONS_SIZE  7
+#define SKIP_NONPIXEL_Y_MOVES_RULES_EXCEPTIONS_SIZE  1
 
   const SPH_TweakRule  SKIP_NONPIXEL_Y_MOVES_Rules_Exceptions
                        [SKIP_NONPIXEL_Y_MOVES_RULES_EXCEPTIONS_SIZE] =
   {
-    { "Tahoma", 0, "", 'N' },
-    { "Comic Sans MS", 0, "", 'N' },
-    { "Verdana", 0, "Regular/Bold Class", 'N' },
-    { "Verdana", 11, "Bold", 'x' },
-    /* Cyrillic small letter I */
-    { "Arial", 0, "", 0x438 },
-    { "Arial", 11, "Bold", 'N' },
-    { "Trebuchet MS", 0, "Bold", 0 },
+    /* Fixes < and > */
+    { "Courier New", 0, "Regular", 0 },
+  };
+
+
+  /* Skip Y moves that start with a point that is not on a Y pixel         */
+  /* boundary and don't move that point to a Y pixel boundary.             */
+#define SKIP_NONPIXEL_Y_MOVES_DELTAP_RULES_SIZE  2
+
+  const SPH_TweakRule  SKIP_NONPIXEL_Y_MOVES_DELTAP_Rules
+                       [SKIP_NONPIXEL_Y_MOVES_DELTAP_RULES_SIZE] =
+  {
+    /* Maintain thickness of diagonal in 'N' */
+    { "Times New Roman", 0, "Regular/Bold Class", 'N' },
+    { "Georgia", 0, "Regular/Bold Class", 'N' },
   };
 
 
@@ -399,16 +389,6 @@
   };
 
 
-  /* Allow a Direct_Move_X along X freedom vector if matched.              */
-#define ALLOW_X_DMOVEX_RULES_SIZE  1
-
-  const SPH_TweakRule  ALLOW_X_DMOVEX_Rules
-                       [ALLOW_X_DMOVEX_RULES_SIZE] =
-  {
-    { "-", 0, "Regular", 0 },
-  };
-
-
   /* Allow a Direct_Move along X freedom vector if matched.                */
 #define ALLOW_X_DMOVE_RULES_SIZE  1
 
@@ -417,17 +397,6 @@
   {
     /* Fixes vanishing diagonal in 4 */
     { "Verdana", 0, "Regular", '4' },
-  };
-
-
-  /* Allow a ZP2 move along freedom vector if matched;                     */
-  /* This is called from SHP, SHPIX, SHC, SHZ.                             */
-#define ALLOW_X_MOVE_ZP2_RULES_SIZE  1
-
-  const SPH_TweakRule  ALLOW_X_MOVE_ZP2_Rules
-                       [ALLOW_X_MOVE_ZP2_RULES_SIZE] =
-  {
-    { "-", 0, "", 0 },
   };
 
 
@@ -455,7 +424,8 @@
   const SPH_TweakRule  NORMAL_ROUND_Rules
                        [NORMAL_ROUND_RULES_SIZE] =
   {
-    /* Fix serif thickness */
+    /* Fix serif thickness for certain ppems */
+    /* Can probably be generalized somehow   */
     { "Courier New", 0, "", 0 },
   };
 
@@ -481,7 +451,7 @@
 
 
   /* Skip DELTAP instructions if matched.                                  */
-#define ALWAYS_SKIP_DELTAP_RULES_SIZE  15
+#define ALWAYS_SKIP_DELTAP_RULES_SIZE  23
 
   const SPH_TweakRule  ALWAYS_SKIP_DELTAP_Rules
                        [ALWAYS_SKIP_DELTAP_RULES_SIZE] =
@@ -491,7 +461,11 @@
     { "Trebuchet MS", 14, "Regular", 'e' },
     { "Trebuchet MS", 13, "Regular", 'e' },
     { "Trebuchet MS", 15, "Regular", 'e' },
+    { "Trebuchet MS", 0, "Italic", 'v' },
+    { "Trebuchet MS", 0, "Italic", 'w' },
+    { "Trebuchet MS", 0, "Regular", 'Y' },
     { "Arial", 11, "Regular", 's' },
+    /* prevent problems with '3' and others */
     { "Verdana", 10, "Regular", 0 },
     { "Verdana", 9, "Regular", 0 },
     /* Cyrillic small letter short I */
@@ -500,65 +474,36 @@
     { "Arial", 10, "Regular", '6' },
     { "Arial", 0, "Bold/BoldItalic Class", 'a' },
     /* Make horizontal stems consistent with the rest */
-    { "Arial", 24, "Bold", 's' },
-    { "Arial", 25, "Bold", 's' },
     { "Arial", 24, "Bold", 'a' },
     { "Arial", 25, "Bold", 'a' },
+    { "Arial", 24, "Bold", 's' },
+    { "Arial", 25, "Bold", 's' },
+    { "Arial", 34, "Bold", 's' },
+    { "Arial", 35, "Bold", 's' },
+    { "Arial", 36, "Bold", 's' },
+    { "Arial", 25, "Regular", 's' },
+    { "Arial", 26, "Regular", 's' },
   };
 
 
   /* Always do DELTAP instructions if matched.                             */
-#define ALWAYS_DO_DELTAP_RULES_SIZE  2
+#define ALWAYS_DO_DELTAP_RULES_SIZE  1
 
   const SPH_TweakRule  ALWAYS_DO_DELTAP_Rules
                        [ALWAYS_DO_DELTAP_RULES_SIZE] =
-  {
-    { "Verdana Clones", 17, "Regular Class", 'K' },
-    { "Verdana Clones", 17, "Regular Class", 'k' },
-  };
-
-
-  /* Do an extra RTG instruction in DELTAP if matched.                     */
-#define DELTAP_RTG_RULES_SIZE  1
-
-  static const SPH_TweakRule  DELTAP_RTG_Rules
-                              [DELTAP_RTG_RULES_SIZE] =
-  {
-    { "-", 0, "", 0 },
-  };
-
-
-  /* Force CVT distance to zero in MIRP.                                   */
-#define MIRP_CVT_ZERO_RULES_SIZE  1
-
-  static const SPH_TweakRule  MIRP_CVT_ZERO_Rules
-                              [MIRP_CVT_ZERO_RULES_SIZE] =
-  {
-    { "-", 0, "", 0 },
-  };
-
-
-  /* Skip moves that meet or exceed 1 pixel.                               */
-#define DELTAP_SKIP_EXAGGERATED_VALUES_RULES_SIZE  1
-
-  static const SPH_TweakRule  DELTAP_SKIP_EXAGGERATED_VALUES_Rules
-                              [DELTAP_SKIP_EXAGGERATED_VALUES_RULES_SIZE] =
   {
     { "-", 0, "", 0 },
   };
 
 
   /* Don't allow ALIGNRP after IUP.                                        */
-#define NO_ALIGNRP_AFTER_IUP_RULES_SIZE  4
+#define NO_ALIGNRP_AFTER_IUP_RULES_SIZE  1
 
   static const SPH_TweakRule  NO_ALIGNRP_AFTER_IUP_Rules
                               [NO_ALIGNRP_AFTER_IUP_RULES_SIZE] =
   {
     /* Prevent creation of dents in outline */
-    { "Courier New", 0, "Bold", 'C' },
-    { "Courier New", 0, "Bold", 'D' },
-    { "Courier New", 0, "Bold", 'Q' },
-    { "Courier New", 0, "Bold", '0' },
+    { "-", 0, "", 0 },
   };
 
 
@@ -573,16 +518,13 @@
 
 
   /* Don't allow CALL after IUP.                                           */
-#define NO_CALL_AFTER_IUP_RULES_SIZE  4
+#define NO_CALL_AFTER_IUP_RULES_SIZE  1
 
   static const SPH_TweakRule  NO_CALL_AFTER_IUP_Rules
                               [NO_CALL_AFTER_IUP_RULES_SIZE] =
   {
     /* Prevent creation of dents in outline */
-    { "Courier New", 0, "Bold", 'O' },
-    { "Courier New", 0, "Bold", 'Q' },
-    { "Courier New", 0, "Bold", 'k' },
-    { "Courier New", 0, "Bold Italic", 'M' },
+    { "-", 0, "", 0 },
   };
 
 
@@ -605,26 +547,13 @@
 
 
   /* Embolden these glyphs slightly.                                       */
-#define EMBOLDEN_RULES_SIZE  5
+#define EMBOLDEN_RULES_SIZE  2
 
   static const SPH_TweakRule  EMBOLDEN_Rules
                               [EMBOLDEN_RULES_SIZE] =
   {
-    { "Courier New", 12, "Italic", 'z' },
-    { "Courier New", 11, "Italic", 'z' },
-    { "Courier New", 10, "Italic", 'z' },
     { "Courier New", 0, "Regular", 0 },
     { "Courier New", 0, "Italic", 0 },
-  };
-
-
-  /* Do an extra RDTG instruction in DELTAP if matched.                    */
-#define DELTAP_RDTG_RULES_SIZE  1
-
-  static const SPH_TweakRule  DELTAP_RDTG_Rules
-                              [DELTAP_RDTG_RULES_SIZE] =
-  {
-    { "-", 0, "", 0 },
   };
 
 
@@ -998,12 +927,9 @@
     }
 
     TWEAK_RULES( ALLOW_X_DMOVE );
-    TWEAK_RULES( ALLOW_X_DMOVEX );
-    TWEAK_RULES( ALLOW_X_MOVE_ZP2 );
     TWEAK_RULES( ALWAYS_DO_DELTAP );
     TWEAK_RULES( ALWAYS_SKIP_DELTAP );
     TWEAK_RULES( DEEMBOLDEN );
-    TWEAK_RULES( DELTAP_SKIP_EXAGGERATED_VALUES );
     TWEAK_RULES( DO_SHPIX );
     TWEAK_RULES( EMBOLDEN );
     TWEAK_RULES( MIAP_HACK );
@@ -1012,12 +938,12 @@
     TWEAK_RULES( NO_CALL_AFTER_IUP );
     TWEAK_RULES( NO_DELTAP_AFTER_IUP );
     TWEAK_RULES( RASTERIZER_35 );
-    TWEAK_RULES( SKIP_INLINE_DELTAS );
     TWEAK_RULES( SKIP_IUP );
-    TWEAK_RULES( MIRP_CVT_ZERO );
 
     TWEAK_RULES( SKIP_OFFPIXEL_Y_MOVES );
     TWEAK_RULES_EXCEPTIONS( SKIP_OFFPIXEL_Y_MOVES );
+
+    TWEAK_RULES( SKIP_NONPIXEL_Y_MOVES_DELTAP );
 
     TWEAK_RULES( SKIP_NONPIXEL_Y_MOVES );
     TWEAK_RULES_EXCEPTIONS( SKIP_NONPIXEL_Y_MOVES );
@@ -1027,9 +953,9 @@
 
     if ( loader->exec->sph_tweak_flags & SPH_TWEAK_RASTERIZER_35 )
     {
-      if ( loader->exec->rasterizer_version != 35 )
+      if ( loader->exec->rasterizer_version != TT_INTERPRETER_VERSION_35 )
       {
-        loader->exec->rasterizer_version = 35;
+        loader->exec->rasterizer_version = TT_INTERPRETER_VERSION_35;
         loader->exec->size->cvt_ready    = FALSE;
 
         tt_size_ready_bytecode(
@@ -1037,7 +963,7 @@
           FT_BOOL( loader->load_flags & FT_LOAD_PEDANTIC ) );
       }
       else
-        loader->exec->rasterizer_version = 35;
+        loader->exec->rasterizer_version = TT_INTERPRETER_VERSION_35;
     }
     else
     {
@@ -1074,7 +1000,12 @@
     }
   }
 
-#endif /* TT_CONFIG_OPTION_SUBPIXEL_HINTING */
+#else /* !TT_CONFIG_OPTION_SUBPIXEL_HINTING */
+
+  /* ANSI C doesn't like empty source files */
+  typedef int  _tt_subpix_dummy;
+
+#endif /* !TT_CONFIG_OPTION_SUBPIXEL_HINTING */
 
 
 /* END */

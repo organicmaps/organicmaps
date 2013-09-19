@@ -3,7 +3,7 @@
 #
 
 
-# Copyright 1996-2000, 2002, 2003, 2006 by
+# Copyright 1996-2000, 2002, 2003, 2006, 2013 by
 # David Turner, Robert Wilhelm, and Werner Lemberg.
 #
 # This file is part of the FreeType project, and may only be used, modified,
@@ -31,7 +31,6 @@ install: $(PROJECT_LIBRARY)
 	$(MKINSTALLDIRS) $(DESTDIR)$(libdir)                               \
                          $(DESTDIR)$(libdir)/pkgconfig                     \
                          $(DESTDIR)$(includedir)/freetype2/freetype/config \
-                         $(DESTDIR)$(includedir)/freetype2/freetype/cache  \
                          $(DESTDIR)$(bindir)                               \
                          $(DESTDIR)$(datadir)/aclocal
 	$(LIBTOOL) --mode=install $(INSTALL)                             \

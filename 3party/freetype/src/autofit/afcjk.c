@@ -966,14 +966,15 @@
           /* can make a single edge.                                 */
           if ( link )
           {
-            AF_Segment  seg1 = edge->first;
-            AF_Segment  link1;
+            AF_Segment  seg1  = edge->first;
             FT_Pos      dist2 = 0;
 
 
             do
             {
-              link1 = seg1->link;
+              AF_Segment  link1 = seg1->link;
+
+
               if ( link1 )
               {
                 dist2 = AF_SEGMENT_DIST( link, link1 );

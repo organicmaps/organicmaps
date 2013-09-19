@@ -445,134 +445,6 @@
   }
 
 
-#ifdef FT_CONFIG_OPTION_OLD_INTERNALS
-
-  FT_CALLBACK_DEF( FT_Error )
-  tt_face_load_sfnt_header_stub( TT_Face      face,
-                                 FT_Stream    stream,
-                                 FT_Long      face_index,
-                                 SFNT_Header  header )
-  {
-    FT_UNUSED( face );
-    FT_UNUSED( stream );
-    FT_UNUSED( face_index );
-    FT_UNUSED( header );
-
-    return FT_THROW( Unimplemented_Feature );
-  }
-
-
-  FT_CALLBACK_DEF( FT_Error )
-  tt_face_load_directory_stub( TT_Face      face,
-                               FT_Stream    stream,
-                               SFNT_Header  header )
-  {
-    FT_UNUSED( face );
-    FT_UNUSED( stream );
-    FT_UNUSED( header );
-
-    return FT_THROW( Unimplemented_Feature );
-  }
-
-
-  FT_CALLBACK_DEF( FT_Error )
-  tt_face_load_hdmx_stub( TT_Face    face,
-                          FT_Stream  stream )
-  {
-    FT_UNUSED( face );
-    FT_UNUSED( stream );
-
-    return FT_THROW( Unimplemented_Feature );
-  }
-
-
-  FT_CALLBACK_DEF( void )
-  tt_face_free_hdmx_stub( TT_Face  face )
-  {
-    FT_UNUSED( face );
-  }
-
-
-  FT_CALLBACK_DEF( FT_Error )
-  tt_face_set_sbit_strike_stub( TT_Face    face,
-                                FT_UInt    x_ppem,
-                                FT_UInt    y_ppem,
-                                FT_ULong*  astrike_index )
-  {
-    /*
-     * We simply forge a FT_Size_Request and call the real function
-     * that does all the work.
-     *
-     * This stub might be called by libXfont in the X.Org Xserver,
-     * compiled against version 2.1.8 or newer.
-     */
-
-    FT_Size_RequestRec  req;
-
-
-    req.type           = FT_SIZE_REQUEST_TYPE_NOMINAL;
-    req.width          = (FT_F26Dot6)x_ppem;
-    req.height         = (FT_F26Dot6)y_ppem;
-    req.horiResolution = 0;
-    req.vertResolution = 0;
-
-    *astrike_index = 0x7FFFFFFFUL;
-
-    return tt_face_set_sbit_strike( face, &req, astrike_index );
-  }
-
-
-  FT_CALLBACK_DEF( FT_Error )
-  tt_face_load_sbit_stub( TT_Face    face,
-                          FT_Stream  stream )
-  {
-    FT_UNUSED( face );
-    FT_UNUSED( stream );
-
-    /*
-     *  This function was originally implemented to load the sbit table.
-     *  However, it has been replaced by `tt_face_load_eblc', and this stub
-     *  is only there for some rogue clients which would want to call it
-     *  directly (which doesn't make much sense).
-     */
-    return FT_THROW( Unimplemented_Feature );
-  }
-
-
-  FT_CALLBACK_DEF( void )
-  tt_face_free_sbit_stub( TT_Face  face )
-  {
-    /* nothing to do in this stub */
-    FT_UNUSED( face );
-  }
-
-
-  FT_CALLBACK_DEF( FT_Error )
-  tt_face_load_charmap_stub( TT_Face    face,
-                             void*      cmap,
-                             FT_Stream  input )
-  {
-    FT_UNUSED( face );
-    FT_UNUSED( cmap );
-    FT_UNUSED( input );
-
-    return FT_THROW( Unimplemented_Feature );
-  }
-
-
-  FT_CALLBACK_DEF( FT_Error )
-  tt_face_free_charmap_stub( TT_Face  face,
-                             void*    cmap )
-  {
-    FT_UNUSED( face );
-    FT_UNUSED( cmap );
-
-    return FT_Err_Ok;
-  }
-
-#endif /* FT_CONFIG_OPTION_OLD_INTERNALS */
-
-
 #ifdef TT_CONFIG_OPTION_EMBEDDED_BITMAPS
 #define PUT_EMBEDDED_BITMAPS( a )  a
 #else
@@ -596,9 +468,6 @@
 
     tt_face_load_any,
 
-    tt_face_load_sfnt_header_stub, /* FT_CONFIG_OPTION_OLD_INTERNALS */
-    tt_face_load_directory_stub,   /* FT_CONFIG_OPTION_OLD_INTERNALS */
-
     tt_face_load_head,
     tt_face_load_hhea,
     tt_face_load_cmap,
@@ -609,9 +478,6 @@
     tt_face_load_name,
     tt_face_free_name,
 
-    tt_face_load_hdmx_stub, /* FT_CONFIG_OPTION_OLD_INTERNALS */
-    tt_face_free_hdmx_stub, /* FT_CONFIG_OPTION_OLD_INTERNALS */
-
     tt_face_load_kern,
     tt_face_load_gasp,
     tt_face_load_pclt,
@@ -619,29 +485,16 @@
     /* see `ttload.h' */
     PUT_EMBEDDED_BITMAPS( tt_face_load_bhed ),
 
-    tt_face_set_sbit_strike_stub, /* FT_CONFIG_OPTION_OLD_INTERNALS */
-    tt_face_load_sbit_stub,       /* FT_CONFIG_OPTION_OLD_INTERNALS */
-
-    tt_find_sbit_image,   /* FT_CONFIG_OPTION_OLD_INTERNALS */
-    tt_load_sbit_metrics, /* FT_CONFIG_OPTION_OLD_INTERNALS */
-
     PUT_EMBEDDED_BITMAPS( tt_face_load_sbit_image ),
-
-    tt_face_free_sbit_stub, /* FT_CONFIG_OPTION_OLD_INTERNALS */
 
     /* see `ttpost.h' */
     PUT_PS_NAMES( tt_face_get_ps_name   ),
     PUT_PS_NAMES( tt_face_free_ps_names ),
 
-    tt_face_load_charmap_stub, /* FT_CONFIG_OPTION_OLD_INTERNALS */
-    tt_face_free_charmap_stub, /* FT_CONFIG_OPTION_OLD_INTERNALS */
-
     /* since version 2.1.8 */
-
     tt_face_get_kerning,
 
     /* since version 2.2 */
-
     tt_face_load_font_dir,
     tt_face_load_hmtx,
 

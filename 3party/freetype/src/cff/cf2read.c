@@ -105,7 +105,7 @@
   FT_LOCAL_DEF( FT_Bool )
   cf2_buf_isEnd( CF2_Buffer  buf )
   {
-    return buf->ptr >= buf->end;
+    return (FT_Bool)( buf->ptr >= buf->end );
   }
 
 

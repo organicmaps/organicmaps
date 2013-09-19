@@ -316,7 +316,7 @@
                           FT_UInt         bit_count,
                           FT_Memory       memory )
   {
-    FT_Error  error = FT_Err_Ok;
+    FT_Error  error;
     PS_Mask   mask;
 
 
@@ -583,12 +583,13 @@
                          FT_UInt       end_point )
   {
     FT_UInt  count = dim->masks.num_masks;
-    PS_Mask  mask;
 
 
     if ( count > 0 )
     {
-      mask            = dim->masks.masks + count - 1;
+      PS_Mask  mask = dim->masks.masks + count - 1;
+
+
       mask->end_point = end_point;
     }
   }
@@ -621,7 +622,7 @@
                               FT_UInt         end_point,
                               FT_Memory       memory )
   {
-    FT_Error  error = FT_Err_Ok;
+    FT_Error  error;
 
 
     /* reset current mask, if any */

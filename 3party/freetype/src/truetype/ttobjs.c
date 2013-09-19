@@ -21,6 +21,7 @@
 #include FT_INTERNAL_STREAM_H
 #include FT_TRUETYPE_TAGS_H
 #include FT_INTERNAL_SFNT_H
+#include FT_TRUETYPE_DRIVER_H
 
 #include "ttgload.h"
 #include "ttpload.h"
@@ -1259,11 +1260,17 @@
     if ( !TT_New_Context( driver ) )
       return FT_THROW( Could_Not_Find_Context );
 
+#ifdef TT_CONFIG_OPTION_SUBPIXEL_HINTING
+    driver->interpreter_version = TT_INTERPRETER_VERSION_38;
 #else
+    driver->interpreter_version = TT_INTERPRETER_VERSION_35;
+#endif
+
+#else /* !TT_USE_BYTECODE_INTERPRETER */
 
     FT_UNUSED( ttdriver );
 
-#endif
+#endif /* !TT_USE_BYTECODE_INTERPRETER */
 
     return FT_Err_Ok;
   }

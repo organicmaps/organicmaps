@@ -38,6 +38,7 @@
 #include FT_SERVICE_XFREE86_NAME_H
 #include FT_SERVICE_GLYPH_DICT_H
 #include FT_SERVICE_PROPERTIES_H
+#include FT_CFF_DRIVER_H
 
 
   /*************************************************************************/
@@ -590,7 +591,12 @@
       FT_UInt*  hinting_engine = (FT_UInt*)value;
 
 
-      driver->hinting_engine = *hinting_engine;
+#ifndef CFF_CONFIG_OPTION_OLD_ENGINE
+      if ( *hinting_engine != FT_CFF_HINTING_ADOBE )
+        error = FT_ERR( Unimplemented_Feature );
+      else
+#endif
+        driver->hinting_engine = *hinting_engine;
 
       return error;
     }
@@ -764,9 +770,6 @@
     cff_size_done,
     cff_slot_init,
     cff_slot_done,
-
-    ft_stub_set_char_sizes,  /* FT_CONFIG_OPTION_OLD_INTERNALS */
-    ft_stub_set_pixel_sizes, /* FT_CONFIG_OPTION_OLD_INTERNALS */
 
     cff_glyph_load,
 

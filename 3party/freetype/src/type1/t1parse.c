@@ -418,7 +418,7 @@
         goto Exit;
       }
 
-      size = parser->base_len - ( cur - parser->base_dict );
+      size = (FT_ULong)( parser->base_len - ( cur - parser->base_dict ) );
 
       if ( parser->in_memory )
       {

@@ -265,6 +265,9 @@
       FT_GlyphLoader_Adjust_Points( loader );
 
   Exit:
+    if ( error )
+      FT_GlyphLoader_Reset( loader );
+
     return error;
   }
 

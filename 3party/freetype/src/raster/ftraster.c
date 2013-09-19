@@ -453,8 +453,10 @@
 #define FRAC( x )     ( (x) & ( ras.precision - 1 ) )
 #define SCALED( x )   ( ( (ULong)(x) << ras.scale_shift ) - ras.precision_half )
 
-#define IS_BOTTOM_OVERSHOOT( x )  ( CEILING( x ) - x >= ras.precision_half )
-#define IS_TOP_OVERSHOOT( x )     ( x - FLOOR( x ) >= ras.precision_half )
+#define IS_BOTTOM_OVERSHOOT( x ) \
+          (Bool)( CEILING( x ) - x >= ras.precision_half )
+#define IS_TOP_OVERSHOOT( x )    \
+          (Bool)( x - FLOOR( x ) >= ras.precision_half )
 
   /* The most used variables are positioned at the top of the structure. */
   /* Thus, their offset can be coded with less opcodes, resulting in a   */
@@ -806,8 +808,7 @@
   static Bool
   End_Profile( RAS_ARGS Bool  overshoot )
   {
-    Long      h;
-    PProfile  oldProfile;
+    Long  h;
 
 
     h = (Long)( ras.top - ras.cProfile->offset );
@@ -821,6 +822,9 @@
 
     if ( h > 0 )
     {
+      PProfile  oldProfile;
+
+
       FT_TRACE6(( "Ending profile %p, start = %ld, height = %ld\n",
                   ras.cProfile, ras.cProfile->start, h ));
 
@@ -877,7 +881,7 @@
   Insert_Y_Turn( RAS_ARGS Int  y )
   {
     PLong  y_turns;
-    Int    y2, n;
+    Int    n;
 
 
     n       = ras.numTurns - 1;
@@ -891,7 +895,9 @@
     if ( n >= 0 && y > y_turns[n] )
       while ( n >= 0 )
       {
-        y2 = (Int)y_turns[n];
+        Int  y2 = (Int)y_turns[n];
+
+
         y_turns[n] = y;
         y = y2;
         n--;
@@ -927,7 +933,6 @@
   static Bool
   Finalize_Profile_Table( RAS_ARG )
   {
-    Int       bottom, top;
     UShort    n;
     PProfile  p;
 
@@ -939,6 +944,9 @@
     {
       while ( n > 0 )
       {
+        Int  bottom, top;
+
+
         if ( n > 1 )
           p->link = (PProfile)( p->offset + p->height );
         else
@@ -2032,8 +2040,6 @@
     int       i;
     unsigned  start;
 
-    PProfile  lastProfile;
-
 
     ras.fProfile = NULL;
     ras.joint    = FALSE;
@@ -2051,7 +2057,8 @@
 
     for ( i = 0; i < ras.outline.n_contours; i++ )
     {
-      Bool  o;
+      PProfile  lastProfile;
+      Bool      o;
 
 
       ras.state    = Unknown_State;
@@ -2275,8 +2282,6 @@
                                 PProfile    right )
   {
     Long   e1, e2;
-    int    c1, c2;
-    Byte   f1, f2;
     Byte*  target;
 
     FT_UNUSED( y );
@@ -2295,6 +2300,10 @@
 
     if ( e2 >= 0 && e1 < ras.bWidth )
     {
+      int   c1, c2;
+      Byte  f1, f2;
+
+
       if ( e1 < 0 )
         e1 = 0;
       if ( e2 >= ras.bWidth )
@@ -2518,21 +2527,24 @@
                                   PProfile    left,
                                   PProfile    right )
   {
-    Long   e1, e2;
-    PByte  bits;
-    Byte   f1;
-
     FT_UNUSED( left );
     FT_UNUSED( right );
 
 
     if ( x2 - x1 < ras.precision )
     {
+      Long  e1, e2;
+
+
       e1 = CEILING( x1 );
       e2 = FLOOR  ( x2 );
 
       if ( e1 == e2 )
       {
+        Byte   f1;
+        PByte  bits;
+
+
         bits = ras.bTarget + ( y >> 3 );
         f1   = (Byte)( 0x80 >> ( y & 7 ) );
 
@@ -2729,8 +2741,6 @@
   static void
   Vertical_Gray_Sweep_Step( RAS_ARG )
   {
-    Int     c1, c2;
-    PByte   pix, bit, bit2;
     short*  count = (short*)count_table;
     Byte*   grays;
 
@@ -2739,6 +2749,9 @@
 
     if ( ras.traceOfs > ras.gray_width )
     {
+      PByte  pix;
+
+
       pix   = ras.gTarget + ras.traceG + ras.gray_min_x * 4;
       grays = ras.grays;
 
@@ -2748,6 +2761,9 @@
         Int   last_cell  = last_pixel >> 2;
         Int   last_bit   = last_pixel & 3;
         Bool  over       = 0;
+
+        Int    c1, c2;
+        PByte  bit, bit2;
 
 
         if ( ras.gray_max_x >= last_cell && last_bit != 3 )
@@ -2841,7 +2857,6 @@
   {
     Long   e1, e2;
     PByte  pixel;
-    Byte   color;
 
 
     /* During the horizontal sweep, we only take care of drop-outs */
@@ -2895,6 +2910,9 @@
 
     if ( e1 >= 0 )
     {
+      Byte  color;
+
+
       if ( x2 - x1 >= ras.precision_half )
         color = ras.grays[2];
       else
@@ -3507,7 +3525,8 @@
 
 
         raster->buffer      = pool_base + ( ( sizeof ( *worker ) + 7 ) & ~7 );
-        raster->buffer_size = pool_base + pool_size - (char*)raster->buffer;
+        raster->buffer_size = (long)( pool_base + pool_size -
+                                        (char*)raster->buffer );
         raster->worker      = worker;
       }
       else

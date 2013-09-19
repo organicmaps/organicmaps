@@ -520,7 +520,7 @@
                   unsigned long  *alen )
   {
     unsigned long  i, j;
-    char           *fp, *dp;
+    char*          dp;
 
 
     *alen = 0;
@@ -531,7 +531,9 @@
     dp = list->field[0];
     for ( i = j = 0; i < list->used; i++ )
     {
-      fp = list->field[i];
+      char*  fp = list->field[i];
+
+
       while ( *fp )
         dp[j++] = *fp++;
 
@@ -1168,6 +1170,8 @@
     FT_Memory    memory;
     FT_Error     error = FT_Err_Ok;
 
+    FT_UNUSED( lineno );        /* only used in debug mode */
+
 
     if ( font == 0 || font->name == 0 || font->name[0] == 0 )
     {
@@ -1192,7 +1196,7 @@
 
     FT_MEM_COPY( name, font->name, len );
 
-    error = _bdf_list_split( &list, (char *)"-", name, len );
+    error = _bdf_list_split( &list, (char *)"-", name, (unsigned long)len );
     if ( error )
       goto Fail;
 
@@ -1300,6 +1304,8 @@
     bdf_property_t  *prop, *fp;
     FT_Memory       memory = font->memory;
     FT_Error        error  = FT_Err_Ok;
+
+    FT_UNUSED( lineno );        /* only used in debug mode */
 
 
     /* First, check whether the property already exists in the font. */

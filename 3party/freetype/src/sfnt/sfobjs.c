@@ -919,11 +919,7 @@
         FT_UInt  i, count;
 
 
-#ifndef FT_CONFIG_OPTION_OLD_INTERNALS
         count = face->sbit_num_strikes;
-#else
-        count = (FT_UInt)face->num_sbit_strikes;
-#endif
 
         if ( count > 0 )
         {
@@ -1124,7 +1120,6 @@
     }
 
     /* freeing the horizontal metrics */
-#ifndef FT_CONFIG_OPTION_OLD_INTERNALS
     {
       FT_Stream  stream = FT_FACE_STREAM( face );
 
@@ -1134,10 +1129,6 @@
       face->horz_metrics_size = 0;
       face->vert_metrics_size = 0;
     }
-#else
-    FT_FREE( face->horizontal.long_metrics );
-    FT_FREE( face->horizontal.short_metrics );
-#endif
 
     /* freeing the vertical ones, if any */
     if ( face->vertical_info )

@@ -117,12 +117,12 @@
           if ( p[0] == 'S' && ft_strncmp( (char*)p, "StartData", 9 ) == 0 )
           {
             /* save offset of binary data after `StartData' */
-            offset += p - buffer + 10;
+            offset += (FT_ULong)( p - buffer + 10 );
             goto Found;
           }
           else if ( p[1] == 's' && ft_strncmp( (char*)p, "/sfnts", 6 ) == 0 )
           {
-            offset += p - buffer + 7;
+            offset += (FT_ULong)( p - buffer + 7 );
             goto Found;
           }
         }

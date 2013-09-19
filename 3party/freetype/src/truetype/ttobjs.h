@@ -347,11 +347,12 @@ FT_BEGIN_HEADER
   /*                                                                       */
   typedef struct  TT_DriverRec_
   {
-    FT_DriverRec     root;
+    FT_DriverRec  root;
+
     TT_ExecContext   context;  /* execution context        */
     TT_GlyphZoneRec  zone;     /* glyph loader points zone */
 
-    void*            extension_component;
+    FT_UInt  interpreter_version;
 
   } TT_DriverRec;
 

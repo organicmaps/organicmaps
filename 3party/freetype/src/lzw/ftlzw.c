@@ -111,7 +111,7 @@
                     FT_Stream   source )
   {
     FT_LzwState  lzw   = &zip->lzw;
-    FT_Error     error = FT_Err_Ok;
+    FT_Error     error;
 
 
     zip->stream = stream;

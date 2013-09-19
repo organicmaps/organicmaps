@@ -17,7 +17,7 @@ AC_CONFIG_SRCDIR([ftconfig.in])
 
 # Don't forget to update docs/VERSION.DLL!
 
-version_info='16:1:10'
+version_info='16:2:10'
 AC_SUBST([version_info])
 ft_version=`echo $version_info | tr : .`
 AC_SUBST([ft_version])
@@ -254,11 +254,14 @@ AC_ARG_WITH([zlib],
   AS_HELP_STRING([--without-zlib],
                  [use internal zlib instead of system-wide]))
 if test x$with_zlib != xno && test -z "$LIBZ"; then
-  AC_CHECK_LIB([z], [gzsetparams], [AC_CHECK_HEADER([zlib.h], [LIBZ='-lz'])])
+  AC_CHECK_LIB([z],
+               [gzsetparams],
+               [AC_CHECK_HEADER([zlib.h], [LIBZ='-lz'])])
 fi
 if test x$with_zlib != xno && test -n "$LIBZ"; then
   SYSTEM_ZLIB=yes
 fi
+
 
 # check for system libbz2
 
@@ -267,11 +270,36 @@ AC_ARG_WITH([bzip2],
   AS_HELP_STRING([--without-bzip2],
                  [do not support bzip2 compressed fonts]))
 if test x$with_bzip2 != xno && test -z "$LIBBZ2"; then
-  AC_CHECK_LIB([bz2], [BZ2_bzDecompress], [AC_CHECK_HEADER([bzlib.h], [LIBBZ2='-lbz2'])])
+  AC_CHECK_LIB([bz2],
+               [BZ2_bzDecompress],
+               [AC_CHECK_HEADER([bzlib.h], [LIBBZ2='-lbz2'])])
 fi
 if test x$with_bzip2 != xno && test -n "$LIBBZ2"; then
   SYSTEM_LIBBZ2=yes
 fi
+
+
+# check for system libpng
+
+HAVE_LIBPNG=no
+AC_ARG_WITH([png],
+  AS_HELP_STRING([--without-png],
+                 [do not support png compressed OpenType embedded bitmaps]))
+if test x$with_png != xno; then
+  AC_MSG_CHECKING([for libpng])
+  if test -z "$LIBPNG_CFLAGS" -a -z "$LIBPNG_LDFLAGS"; then
+    if ! which libpng-config >/dev/null; then
+      AC_MSG_ERROR([`libpng-config' not found;
+either set the LIBPNG_CFLAGS and LIBPNG_LDFLAGS environment variables,
+or pass `--without-png' to the `configure' script.])
+    fi
+    LIBPNG_CFLAGS="`libpng-config --cflags`"
+    LIBPNG_LDFLAGS="`libpng-config --ldflags`"
+  fi
+  HAVE_LIBPNG=yes
+  AC_MSG_RESULT([$LIBPNG_LDFLAGS])
+fi
+
 
 # Some options handling SDKs/archs in CFLAGS should be copied
 # to LDFLAGS. Apple TechNote 2137 recommends to include these
@@ -708,6 +736,10 @@ fi
 if test x$SYSTEM_LIBBZ2 = xyes; then
   CFLAGS="$CFLAGS -DFT_CONFIG_OPTION_USE_BZIP2"
   LDFLAGS="$LDFLAGS $LIBBZ2"
+fi
+if test x$HAVE_LIBPNG = xyes; then
+  CFLAGS="$CFLAGS $LIBPNG_CFLAGS -DFT_CONFIG_OPTION_USE_PNG"
+  LDFLAGS="$LDFLAGS $LIBPNG_LDFLAGS"
 fi
 
 AC_SUBST([CFLAGS])

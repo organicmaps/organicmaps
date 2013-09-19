@@ -507,7 +507,7 @@
     FT_Error   error;
     char*      newpath = NULL;
     FT_Memory  memory;
-    FT_Long    base_file_len = ft_strlen( base_file_name );
+    FT_Long    base_file_len = (FT_Long)ft_strlen( base_file_name );
 
     FT_UNUSED( stream );
 
@@ -543,7 +543,7 @@
     FT_Error   error;
     char*      newpath = NULL;
     FT_Memory  memory;
-    FT_Long    base_file_len = ft_strlen( base_file_name );
+    FT_Long    base_file_len = (FT_Long)ft_strlen( base_file_name );
 
     FT_UNUSED( stream );
 

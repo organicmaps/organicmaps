@@ -120,7 +120,6 @@
   afm_stream_read_one( AFM_Stream  stream )
   {
     char*  str;
-    int    ch;
 
 
     afm_stream_skip_spaces( stream );
@@ -131,7 +130,9 @@
 
     while ( 1 )
     {
-      ch = AFM_GETC();
+      int  ch = AFM_GETC();
+
+
       if ( AFM_IS_SPACE( ch ) )
         break;
       else if ( AFM_IS_NEWLINE( ch ) )
@@ -160,7 +161,6 @@
   afm_stream_read_string( AFM_Stream  stream )
   {
     char*  str;
-    int    ch;
 
 
     afm_stream_skip_spaces( stream );
@@ -172,7 +172,9 @@
     /* scan to eol */
     while ( 1 )
     {
-      ch = AFM_GETC();
+      int  ch = AFM_GETC();
+
+
       if ( AFM_IS_NEWLINE( ch ) )
       {
         stream->status = AFM_STREAM_STATUS_EOL;

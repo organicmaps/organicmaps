@@ -1,11 +1,11 @@
 /***************************************************************************/
 /*                                                                         */
-/*  sfnt.c                                                                 */
+/*  pngshim.h                                                              */
 /*                                                                         */
-/*    Single object library component.                                     */
+/*    PNG Bitmap glyph support.                                            */
 /*                                                                         */
-/*  Copyright 1996-2006, 2013 by                                           */
-/*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
+/*  Copyright 2013 by Google, Inc.                                         */
+/*  Written by Stuart Gill and Behdad Esfahbod.                            */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
 /*  modified, and distributed under the terms of the FreeType project      */
@@ -16,28 +16,33 @@
 /***************************************************************************/
 
 
-#define FT_MAKE_OPTION_SINGLE_OBJECT
+#ifndef __PNGSHIM_H__
+#define __PNGSHIM_H__
+
 
 #include <ft2build.h>
-#include "sfntpic.c"
-#include "ttload.c"
-#include "ttmtx.c"
-#include "ttcmap.c"
-#include "ttkern.c"
-#include "sfobjs.c"
-#include "sfdriver.c"
+#include "ttload.h"
 
-#ifdef TT_CONFIG_OPTION_EMBEDDED_BITMAPS
-#include "pngshim.c"
-#include "ttsbit.c"
+
+FT_BEGIN_HEADER
+
+#ifdef FT_CONFIG_OPTION_USE_PNG
+
+  FT_LOCAL( FT_Error )
+  Load_SBit_Png( FT_Bitmap*       map,
+                 FT_Int           x_offset,
+                 FT_Int           y_offset,
+                 FT_Int           pix_bits,
+                 TT_SBit_Metrics  metrics,
+                 FT_Memory        memory,
+                 FT_Byte*         data,
+                 FT_UInt          png_len );
+
 #endif
 
-#ifdef TT_CONFIG_OPTION_POSTSCRIPT_NAMES
-#include "ttpost.c"
-#endif
+FT_END_HEADER
 
-#ifdef TT_CONFIG_OPTION_BDF
-#include "ttbdf.c"
-#endif
+#endif /* __PNGSHIM_H__ */
+
 
 /* END */

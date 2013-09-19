@@ -197,10 +197,6 @@
     pfr_slot_init,
     pfr_slot_done,
 
-#ifdef FT_CONFIG_OPTION_OLD_INTERNALS
-    ft_stub_set_char_sizes,
-    ft_stub_set_pixel_sizes,
-#endif
     pfr_slot_load,
 
     pfr_get_kerning,

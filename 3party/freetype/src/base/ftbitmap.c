@@ -279,6 +279,10 @@
     case FT_PIXEL_MODE_LCD_V:
       ystr *= 3;
       break;
+
+    case FT_PIXEL_MODE_BGRA:
+      /* We don't embolden color glyphs. */
+      return FT_Err_Ok;
     }
 
     error = ft_bitmap_assure_buffer( library->memory, bitmap, xstr, ystr );
@@ -371,6 +375,59 @@
   }
 
 
+  FT_Byte
+  ft_gray_for_premultiplied_srgb_bgra( const FT_Byte*  bgra )
+  {
+    FT_Long  a = bgra[3];
+    FT_Long  b = bgra[0];
+    FT_Long  g = bgra[1];
+    FT_Long  r = bgra[2];
+    FT_Long  l;
+
+
+    /*
+     * Luminosity for sRGB is defined using ~0.2126,0.7152,0.0722
+     * coefficients for RGB channels *on the linear colors*.
+     * A gamma of 2.2 is fair to assume.  And then, we need to
+     * undo the premultiplication too.
+     *
+     * http://accessibility.kde.org/hsl-adjusted.php
+     *
+     * We do the computation with integers only.
+     */
+
+    /* Undo premultification, get the number in a 16.16 form. */
+    b = FT_MulDiv( b, 65536, a );
+    g = FT_MulDiv( g, 65536, a );
+    r = FT_MulDiv( r, 65536, a );
+    a = a * 256;
+
+    /* Apply gamma of 2.0 instead of 2.2. */
+    b = FT_MulFix( b, b );
+    g = FT_MulFix( g, g );
+    r = FT_MulFix( r, r );
+
+    /* Apply coefficients. */
+    b = FT_MulFix( b,  4731 /* 0.0722 * 65536 */ );
+    g = FT_MulFix( g, 46871 /* 0.7152 * 65536 */ );
+    r = FT_MulFix( r, 13933 /* 0.2126 * 65536 */ );
+
+    l = r + g + b;
+
+    /*
+     * Final transparency can be determined this way:
+     *
+     * - If alpha is zero, we want 0.
+     * - If alpha is zero and luminosity is zero, we want 255.
+     * - If alpha is zero and luminosity is one, we want 0.
+     *
+     * So the formula is a * (1 - l).
+     */
+
+    return (FT_Byte)( FT_MulFix( 65535 - l, a ) >> 8 );
+  }
+
+
   /* documentation is in ftbitmap.h */
 
   FT_EXPORT_DEF( FT_Error )
@@ -396,6 +453,7 @@
     case FT_PIXEL_MODE_GRAY4:
     case FT_PIXEL_MODE_LCD:
     case FT_PIXEL_MODE_LCD_V:
+    case FT_PIXEL_MODE_BGRA:
       {
         FT_Int   pad;
         FT_Long  old_size;
@@ -608,6 +666,37 @@
       }
       break;
 
+    case FT_PIXEL_MODE_BGRA:
+      {
+        FT_Byte*  s       = source->buffer;
+        FT_Byte*  t       = target->buffer;
+        FT_Int    s_pitch = source->pitch;
+        FT_Int    t_pitch = target->pitch;
+        FT_Int    i;
+
+
+        target->num_grays = 256;
+
+        for ( i = source->rows; i > 0; i-- )
+        {
+          FT_Byte*  ss = s;
+          FT_Byte*  tt = t;
+          FT_Int    j;
+
+
+          for ( j = source->width; j > 0; j-- )
+          {
+            tt[0] = ft_gray_for_premultiplied_srgb_bgra( ss );
+
+            ss += 4;
+            tt += 1;
+          }
+
+          s += s_pitch;
+          t += t_pitch;
+        }
+      }
+      break;
 
     default:
       ;

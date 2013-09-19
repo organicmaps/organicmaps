@@ -34,14 +34,6 @@
 
 FT_BEGIN_HEADER
 
-#if defined( _MSC_VER )      /* Visual C++ (and Intel C++) */
-
-  /* we disable the warning `conditional expression is constant' here */
-  /* in order to compile cleanly with the maximum level of warnings   */
-#pragma warning( disable : 4127 )
-
-#endif /* _MSC_VER */
-
   /*
    * @macro:
    *   FT_FACE_FIND_SERVICE
@@ -653,7 +645,9 @@ FT_BEGIN_HEADER
   /*
    *  A magic number used within the services cache.
    */
-#define FT_SERVICE_UNAVAILABLE  ((FT_Pointer)~1)  /* magic number */
+
+  /* ensure that value `1' has the same width as a pointer */
+#define FT_SERVICE_UNAVAILABLE  ((FT_Pointer)~(FT_PtrDist)1)
 
 
   /*

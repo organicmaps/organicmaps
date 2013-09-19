@@ -218,10 +218,12 @@ FT_BEGIN_HEADER
 
 #endif /* 0 */
 
+#ifdef CFF_CONFIG_OPTION_OLD_ENGINE
   FT_LOCAL( FT_Error )
   cff_decoder_parse_charstrings( CFF_Decoder*  decoder,
                                  FT_Byte*      charstring_base,
                                  FT_ULong      charstring_len );
+#endif
 
   FT_LOCAL( FT_Error )
   cff_slot_load( CFF_GlyphSlot  glyph,

@@ -68,6 +68,15 @@
 #undef  SLOW
 #define SLOW  1  /* we can't use asm-optimized sources here! */
 
+#if defined( _MSC_VER )      /* Visual C++ (and Intel C++)   */
+  /* We disable the warning `conversion from XXX to YYY,     */
+  /* possible loss of data' in order to compile cleanly with */
+  /* the maximum level of warnings: zlib is non-FreeType     */
+  /* code.                                                   */
+#pragma warning( push )
+#pragma warning( disable : 4244 )
+#endif /* _MSC_VER */
+
   /* Urgh.  `inflate_mask' must not be declared twice -- C++ doesn't like
      this.  We temporarily disable it and load all necessary header files. */
 #define NO_INFLATE_MASK
@@ -86,6 +95,10 @@
 #include "infblock.c"
 #include "inflate.c"
 #include "adler32.c"
+
+#if defined( _MSC_VER )
+#pragma warning( pop )
+#endif
 
 #endif /* !FT_CONFIG_OPTION_SYSTEM_ZLIB */
 

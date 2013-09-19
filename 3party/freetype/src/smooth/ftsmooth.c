@@ -109,11 +109,13 @@
 #ifndef FT_CONFIG_OPTION_SUBPIXEL_RENDERING
     FT_Pos       height_org, width_org;
 #endif
-    FT_Bitmap*   bitmap;
-    FT_Memory    memory;
-    FT_Int       hmul = mode == FT_RENDER_MODE_LCD;
-    FT_Int       vmul = mode == FT_RENDER_MODE_LCD_V;
-    FT_Pos       x_shift, y_shift, x_left, y_top;
+    FT_Bitmap*   bitmap  = &slot->bitmap;
+    FT_Memory    memory  = render->root.memory;
+    FT_Int       hmul    = mode == FT_RENDER_MODE_LCD;
+    FT_Int       vmul    = mode == FT_RENDER_MODE_LCD_V;
+    FT_Pos       x_shift = 0;
+    FT_Pos       y_shift = 0;
+    FT_Pos       x_left, y_top;
 
     FT_Raster_Params  params;
 
@@ -174,9 +176,6 @@
     }
     else
       height = ( cbox.yMax - cbox.yMin ) >> 6;
-
-    bitmap = &slot->bitmap;
-    memory = render->root.memory;
 
 #ifndef FT_CONFIG_OPTION_SUBPIXEL_RENDERING
     width_org  = width;

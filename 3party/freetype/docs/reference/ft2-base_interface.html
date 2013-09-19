@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>FreeType-2.4.12 API Reference</title>
+<title>FreeType-2.5.0 API Reference</title>
 <style type="text/css">
   body { font-family: Verdana, Geneva, Arial, Helvetica, serif;
          color: #000000;
@@ -35,7 +35,7 @@
 <table align=center><tr><td><font size=-1>[<a href="ft2-index.html">Index</a>]</font></td>
 <td width="100%"></td>
 <td><font size=-1>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
-<center><h1>FreeType-2.4.12 API Reference</h1></center>
+<center><h1>FreeType-2.5.0 API Reference</h1></center>
 
 <center><h1>
 Base Interface
@@ -88,10 +88,10 @@ Defined in FT_FREETYPE_H (freetype/freetype.h).
 <table align=center width="87%"><tr><td>
 <p>A handle to a FreeType library instance. Each &lsquo;library&rsquo; is completely independent from the others; it is the &lsquo;root&rsquo; of a set of objects like fonts, faces, sizes, etc.</p>
 <p>It also embeds a memory manager (see <a href="ft2-system_interface.html#FT_Memory">FT_Memory</a>), as well as a scan-line converter object (see <a href="ft2-raster.html#FT_Raster">FT_Raster</a>).</p>
-<p>For multi-threading applications each thread should have its own FT_Library object.</p>
+<p>In multi-threaded applications, make sure that the same FT_Library object or any of its children doesn't get accessed in parallel.</p>
 </td></tr></table><br>
 <table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>note</b></em></td></tr><tr><td>
-<p>Library objects are normally created by <a href="ft2-base_interface.html#FT_Init_FreeType">FT_Init_FreeType</a>, and destroyed with <a href="ft2-base_interface.html#FT_Done_FreeType">FT_Done_FreeType</a>.</p>
+<p>Library objects are normally created by <a href="ft2-base_interface.html#FT_Init_FreeType">FT_Init_FreeType</a>, and destroyed with <a href="ft2-base_interface.html#FT_Done_FreeType">FT_Done_FreeType</a>. If you need reference-counting (cf. <a href="ft2-module_management.html#FT_Reference_Library">FT_Reference_Library</a>), use <a href="ft2-module_management.html#FT_New_Library">FT_New_Library</a> and <a href="ft2-module_management.html#FT_Done_Library">FT_Done_Library</a>.</p>
 </td></tr></table>
 </td></tr></table>
 <hr width="75%">
@@ -1510,6 +1510,7 @@ Defined in FT_FREETYPE_H (freetype/freetype.h).
 <table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>note</b></em></td></tr><tr><td>
 <p>In case you want to provide your own memory allocating routines, use <a href="ft2-module_management.html#FT_New_Library">FT_New_Library</a> instead, followed by a call to <a href="ft2-module_management.html#FT_Add_Default_Modules">FT_Add_Default_Modules</a> (or a series of calls to <a href="ft2-module_management.html#FT_Add_Module">FT_Add_Module</a>).</p>
 <p>For multi-threading applications each thread should have its own FT_Library object.</p>
+<p>If you need reference-counting (cf. <a href="ft2-module_management.html#FT_Reference_Library">FT_Reference_Library</a>), use <a href="ft2-module_management.html#FT_New_Library">FT_New_Library</a> and <a href="ft2-module_management.html#FT_Done_Library">FT_Done_Library</a>.</p>
 </td></tr></table>
 </td></tr></table>
 <hr width="75%">
@@ -1767,6 +1768,9 @@ Defined in FT_FREETYPE_H (freetype/freetype.h).
 </td></tr></table>
 <table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>return</b></em></td></tr><tr><td>
 <p>FreeType error code. 0&nbsp;means success.</p>
+</td></tr></table>
+<table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>note</b></em></td></tr><tr><td>
+<p>Use <a href="ft2-base_interface.html#FT_Done_Face">FT_Done_Face</a> to destroy the created <a href="ft2-base_interface.html#FT_Face">FT_Face</a> object (along with its slot and sizes).</p>
 </td></tr></table>
 </td></tr></table>
 <hr width="75%">
@@ -2480,6 +2484,8 @@ Defined in FT_FREETYPE_H (freetype/freetype.h).
 #define <a href="ft2-base_interface.html#FT_LOAD_XXX">FT_LOAD_MONOCHROME</a>                   ( 1L &lt;&lt; 12 )
 #define <a href="ft2-base_interface.html#FT_LOAD_XXX">FT_LOAD_LINEAR_DESIGN</a>                ( 1L &lt;&lt; 13 )
 #define <a href="ft2-base_interface.html#FT_LOAD_XXX">FT_LOAD_NO_AUTOHINT</a>                  ( 1L &lt;&lt; 15 )
+  /* Bits 16..19 are used by `FT_LOAD_TARGET_' */
+#define <a href="ft2-base_interface.html#FT_LOAD_XXX">FT_LOAD_COLOR</a>                        ( 1L &lt;&lt; 20 )
 
 </pre></table><br>
 <table align=center width="87%"><tr><td>
@@ -2548,6 +2554,9 @@ Defined in FT_FREETYPE_H (freetype/freetype.h).
 </td></tr>
 <tr valign=top><td><b>FT_LOAD_NO_AUTOHINT</b></td><td>
 <p>Disable auto-hinter. See also the note below.</p>
+</td></tr>
+<tr valign=top><td><b>FT_LOAD_COLOR</b></td><td>
+<p>This flag is used to request loading of color embedded-bitmap images. The resulting color bitmaps, if available, will have the <a href="ft2-basic_types.html#FT_Pixel_Mode">FT_PIXEL_MODE_BGRA</a> format. When the flag is not used and color bitmaps are found, they will be converted to 256-level gray bitmaps transparently. Those bitmaps will be in the <a href="ft2-basic_types.html#FT_Pixel_Mode">FT_PIXEL_MODE_GRAY</a> format.</p>
 </td></tr>
 </table>
 </td></tr></table>

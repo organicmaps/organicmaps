@@ -48,29 +48,6 @@ FT_BEGIN_HEADER
   FT_SqrtFixed( FT_Int32  x );
 
 
-#ifdef FT_CONFIG_OPTION_OLD_INTERNALS
-
-  /*************************************************************************/
-  /*                                                                       */
-  /* <Function>                                                            */
-  /*    FT_Sqrt32                                                          */
-  /*                                                                       */
-  /* <Description>                                                         */
-  /*    Computes the square root of an Int32 integer (which will be        */
-  /*    handled as an unsigned long value).                                */
-  /*                                                                       */
-  /* <Input>                                                               */
-  /*    x :: The value to compute the root for.                            */
-  /*                                                                       */
-  /* <Return>                                                              */
-  /*    The result of `sqrt(x)'.                                           */
-  /*                                                                       */
-  FT_EXPORT( FT_Int32 )
-  FT_Sqrt32( FT_Int32  x );
-
-#endif /* FT_CONFIG_OPTION_OLD_INTERNALS */
-
-
   /*************************************************************************/
   /*                                                                       */
   /* FT_MulDiv() and FT_MulFix() are declared in freetype.h.               */

@@ -329,12 +329,14 @@ FT_BEGIN_HEADER
   /*    It also embeds a memory manager (see @FT_Memory), as well as a     */
   /*    scan-line converter object (see @FT_Raster).                       */
   /*                                                                       */
-  /*    For multi-threading applications each thread should have its own   */
-  /*    FT_Library object.                                                 */
+  /*    In multi-threaded applications, make sure that the same FT_Library */
+  /*    object or any of its children doesn't get accessed in parallel.    */
   /*                                                                       */
   /* <Note>                                                                */
   /*    Library objects are normally created by @FT_Init_FreeType, and     */
-  /*    destroyed with @FT_Done_FreeType.                                  */
+  /*    destroyed with @FT_Done_FreeType.  If you need reference-counting  */
+  /*    (cf. @FT_Reference_Library), use @FT_New_Library and               */
+  /*    @FT_Done_Library.                                                  */
   /*                                                                       */
   typedef struct FT_LibraryRec_  *FT_Library;
 
@@ -1678,6 +1680,9 @@ FT_BEGIN_HEADER
   /*    For multi-threading applications each thread should have its own   */
   /*    FT_Library object.                                                 */
   /*                                                                       */
+  /*    If you need reference-counting (cf. @FT_Reference_Library), use    */
+  /*    @FT_New_Library and @FT_Done_Library.                              */
+  /*                                                                       */
   FT_EXPORT( FT_Error )
   FT_Init_FreeType( FT_Library  *alibrary );
 
@@ -1871,6 +1876,10 @@ FT_BEGIN_HEADER
   /*                                                                       */
   /* <Return>                                                              */
   /*    FreeType error code.  0~means success.                             */
+  /*                                                                       */
+  /* <Note>                                                                */
+  /*    Use @FT_Done_Face to destroy the created @FT_Face object (along    */
+  /*    with its slot and sizes).                                          */
   /*                                                                       */
   FT_EXPORT( FT_Error )
   FT_New_Face( FT_Library   library,
@@ -2523,6 +2532,14 @@ FT_BEGIN_HEADER
    *   FT_LOAD_NO_AUTOHINT ::
    *     Disable auto-hinter.  See also the note below.
    *
+   *   FT_LOAD_COLOR ::
+   *     This flag is used to request loading of color embedded-bitmap
+   *     images.  The resulting color bitmaps, if available, will have the
+   *     @FT_PIXEL_MODE_BGRA format.  When the flag is not used and color
+   *     bitmaps are found, they will be converted to 256-level gray
+   *     bitmaps transparently.  Those bitmaps will be in the
+   *     @FT_PIXEL_MODE_GRAY format.
+   *
    * @note:
    *   By default, hinting is enabled and the font's native hinter (see
    *   @FT_FACE_FLAG_HINTER) is preferred over the auto-hinter.  You can
@@ -2560,6 +2577,8 @@ FT_BEGIN_HEADER
 #define FT_LOAD_MONOCHROME                   ( 1L << 12 )
 #define FT_LOAD_LINEAR_DESIGN                ( 1L << 13 )
 #define FT_LOAD_NO_AUTOHINT                  ( 1L << 15 )
+  /* Bits 16..19 are used by `FT_LOAD_TARGET_' */
+#define FT_LOAD_COLOR                        ( 1L << 20 )
 
   /* */
 
@@ -3881,8 +3900,8 @@ FT_BEGIN_HEADER
    *
    */
 #define FREETYPE_MAJOR  2
-#define FREETYPE_MINOR  4
-#define FREETYPE_PATCH  12
+#define FREETYPE_MINOR  5
+#define FREETYPE_PATCH  0
 
 
   /*************************************************************************/

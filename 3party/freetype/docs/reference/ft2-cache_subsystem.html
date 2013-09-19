@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>FreeType-2.4.12 API Reference</title>
+<title>FreeType-2.5.0 API Reference</title>
 <style type="text/css">
   body { font-family: Verdana, Geneva, Arial, Helvetica, serif;
          color: #000000;
@@ -35,7 +35,7 @@
 <table align=center><tr><td><font size=-1>[<a href="ft2-index.html">Index</a>]</font></td>
 <td width="100%"></td>
 <td><font size=-1>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
-<center><h1>FreeType-2.4.12 API Reference</h1></center>
+<center><h1>FreeType-2.5.0 API Reference</h1></center>
 
 <center><h1>
 Cache Sub-System
@@ -350,7 +350,7 @@ Defined in FT_CACHE_H (freetype/ftcache.h).
 </td></tr></table>
 <table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>note</b></em></td></tr><tr><td>
 <p>The returned <a href="ft2-base_interface.html#FT_Face">FT_Face</a> object is always owned by the manager. You should never try to discard it yourself.</p>
-<p>The <a href="ft2-base_interface.html#FT_Face">FT_Face</a> object doesn't necessarily have a current size object (i.e., face-&gt;size can be 0). If you need a specific &lsquo;font size&rsquo;, use <a href="ft2-cache_subsystem.html#FTC_Manager_LookupSize">FTC_Manager_LookupSize</a> instead.</p>
+<p>The <a href="ft2-base_interface.html#FT_Face">FT_Face</a> object doesn't necessarily have a current size object (i.e., face-&gt;size can be&nbsp;0). If you need a specific &lsquo;font size&rsquo;, use <a href="ft2-cache_subsystem.html#FTC_Manager_LookupSize">FTC_Manager_LookupSize</a> instead.</p>
 <p>Never change the face's transformation matrix (i.e., never call the <a href="ft2-base_interface.html#FT_Set_Transform">FT_Set_Transform</a> function) on a returned face! If you need to transform glyphs, do it yourself after glyph loading.</p>
 <p>When you perform a lookup, out-of-memory errors are detected <i>within</i> the lookup and force incremental flushes of the cache until enough memory is released for the lookup to succeed.</p>
 <p>If a lookup fails with &lsquo;FT_Err_Out_Of_Memory&rsquo; the cache has already been completely flushed, and still no memory was available for the operation.</p>
@@ -732,7 +732,7 @@ Defined in FT_CACHE_H (freetype/ftcache.h).
 
 </pre></table><br>
 <table align=center width="87%"><tr><td>
-<p>A handle to an glyph image cache object. They are designed to hold many distinct glyph images while not exceeding a certain memory threshold.</p>
+<p>A handle to a glyph image cache object. They are designed to hold many distinct glyph images while not exceeding a certain memory threshold.</p>
 </td></tr></table><br>
 </td></tr></table>
 <hr width="75%">

@@ -217,52 +217,52 @@
   FT_LOCAL_DEF( FT_Bool )
   cf2_hint_isValid( const CF2_Hint  hint )
   {
-    return hint->flags != 0;
+    return (FT_Bool)( hint->flags != 0 );
   }
 
 
   static FT_Bool
   cf2_hint_isPair( const CF2_Hint  hint )
   {
-    return ( hint->flags                      &
-             ( CF2_PairBottom | CF2_PairTop ) ) != 0;
+    return (FT_Bool)( ( hint->flags                      &
+                        ( CF2_PairBottom | CF2_PairTop ) ) != 0 );
   }
 
 
   static FT_Bool
   cf2_hint_isPairTop( const CF2_Hint  hint )
   {
-    return ( hint->flags & CF2_PairTop ) != 0;
+    return (FT_Bool)( ( hint->flags & CF2_PairTop ) != 0 );
   }
 
 
   FT_LOCAL_DEF( FT_Bool )
   cf2_hint_isTop( const CF2_Hint  hint )
   {
-    return ( hint->flags                    &
-             ( CF2_PairTop | CF2_GhostTop ) ) != 0;
+    return (FT_Bool)( ( hint->flags                    &
+                        ( CF2_PairTop | CF2_GhostTop ) ) != 0 );
   }
 
 
   FT_LOCAL_DEF( FT_Bool )
   cf2_hint_isBottom( const CF2_Hint  hint )
   {
-    return ( hint->flags                          &
-             ( CF2_PairBottom | CF2_GhostBottom ) ) != 0;
+    return (FT_Bool)( ( hint->flags                          &
+                        ( CF2_PairBottom | CF2_GhostBottom ) ) != 0 );
   }
 
 
   static FT_Bool
   cf2_hint_isLocked( const CF2_Hint  hint )
   {
-    return ( hint->flags & CF2_Locked ) != 0;
+    return (FT_Bool)( ( hint->flags & CF2_Locked ) != 0 );
   }
 
 
   static FT_Bool
   cf2_hint_isSynthetic( const CF2_Hint  hint )
   {
-    return ( hint->flags & CF2_Synthetic ) != 0;
+    return (FT_Bool)( ( hint->flags & CF2_Synthetic ) != 0 );
   }
 
 
@@ -462,7 +462,8 @@
                  hintmap->edge[i].dsCoord + moveDown - downMinCounter )
           {
             move     = moveDown;
-            saveEdge = moveUp < -moveDown;  /* true if non-optimum move */
+            /* true if non-optimum move */
+            saveEdge = (FT_Bool)( moveUp < -moveDown );
           }
           else
           {

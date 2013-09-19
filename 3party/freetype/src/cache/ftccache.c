@@ -269,11 +269,7 @@
 
 
   /* remove a node from the cache manager */
-#ifdef FT_CONFIG_OPTION_OLD_INTERNALS
-  FT_BASE_DEF( void )
-#else
   FT_LOCAL_DEF( void )
-#endif
   ftc_node_destroy( FTC_Node     node,
                     FTC_Manager  manager )
   {

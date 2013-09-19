@@ -358,11 +358,9 @@
   count_faces_scalable( char*  fond_data )
   {
     AsscEntry*  assoc;
-    FamRec*     fond;
     short       i, face, face_all;
 
 
-    fond     = (FamRec*)fond_data;
     face_all = EndianS16_BtoN( *( (short *)( fond_data +
                                              sizeof ( FamRec ) ) ) ) + 1;
     assoc    = (AsscEntry*)( fond_data + sizeof ( FamRec ) + 2 );
@@ -800,7 +798,7 @@
     ResFileRefNum  res_ref;
     ResourceIndex  res_index;
     Handle         fond;
-    short          num_faces_in_res, num_faces_in_fond;
+    short          num_faces_in_res;
 
 
     if ( noErr != FT_FSPathMakeRes( pathname, &res_ref ) )
@@ -813,6 +811,9 @@
     num_faces_in_res = 0;
     for ( res_index = 1; ; ++res_index )
     {
+      short  num_faces_in_fond;
+
+
       fond = Get1IndResource( TTAG_FOND, res_index );
       if ( ResError() )
         break;

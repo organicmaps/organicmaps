@@ -122,6 +122,8 @@
     CF2_Outline   outline = (CF2_Outline)callbacks;
     CFF_Builder*  builder;
 
+    (void)params;        /* only used in debug mode */
+
 
     FT_ASSERT( outline && outline->decoder );
     FT_ASSERT( params->op == CF2_PathOpMoveTo );
@@ -350,7 +352,7 @@
       if ( error2 )
         return error2;
 
-      error2 = cf2_getGlyphWidth( font, &buf, &transform, &glyphWidth );
+      error2 = cf2_getGlyphOutline( font, &buf, &transform, &glyphWidth );
       if ( error2 )
         return FT_ERR( Invalid_File_Format );
 
@@ -561,7 +563,7 @@
 
     cff_free_glyph_data( decoder->builder.face,
                          (FT_Byte**)&buf->start,
-                         buf->end - buf->start );
+                         (FT_ULong)( buf->end - buf->start ) );
   }
 
 

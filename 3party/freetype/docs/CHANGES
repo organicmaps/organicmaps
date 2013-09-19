@@ -1,7 +1,82 @@
 
-CHANGES BETWEEN 2.4.11 and 2.4.12
+CHANGES BETWEEN 2.4.12 and 2.5
 
-  I. IMPORTANT CHANGES
+  I. IMPORTANT BUG FIXES
+
+    - The cache manager function `FTC_Manager_Reset'  didn't flush the
+      cache.
+
+
+  II. IMPORTANT CHANGES
+
+    - Behdad Esfahbod  (on behalf  of Google) contributed  support for
+      color embedded bitmaps (eg. color emoji).
+
+      A  new  load  flag,  FT_LOAD_COLOR, makes  FreeType  load  color
+      embedded-bitmaps, following this draft specification
+
+        https://color-emoji.googlecode.com/git/specification/v1.html
+
+      which defines two new SFNT  tables, `CBDT' and `CBLC' (named and
+      modeled  after  `EBDT'  and `EBLC',  respectively).   The  color
+      bitmaps  are  stored in  the  new  FT_PIXEL_MODE_BGRA format  to
+      represent BGRA  pre-multiplied sRGB  images.  If PNG  support is
+      available,  PNG color  images as  defined in  the same  proposed
+      specification are supported also.
+
+      Note that  color bitmaps  are converted  to grayscale  if client
+      didn't ask for color.
+
+    - As  announced in  the  previous release,  the  old FreeType  CFF
+      engine  is now  disabled by  default.  It  can be  conditionally
+      compiled     by     defining     the     configuration     macro
+      CFF_CONFIG_OPTION_OLD_ENGINE.
+
+    - As announced in the previous release,  all code related to macro
+      FT_CONFIG_OPTION_OLD_INTERNALS  has been removed,  thus becoming
+      obsolete.
+
+
+  III. MISCELLANEOUS
+
+    - The  property API  (`FT_Property_Get' and  `FT_Property_Set') is
+      now declared as stable.
+
+      The  exception,   however,  are  the   experimental  auto-hinter
+      properties `glyph-to-script-map' and `fallback-script' which are
+      subject to change in a forthcoming release.
+
+    - `ftview' has been updated to  support color embedded bitmaps; it
+      can be toggled on and off  with key `c'.  The small cache toggle
+      is now key `K'.
+
+    - It  is now  possible  to  control the  version  of the  TrueType
+      hinting engine  using the new `interpreter-version'  property of
+      the  `truetype' module:  Versions 35  and 38  (the default)  are
+      supported,  which  roughly  corresponds to  disable  and  enable
+      subpixel hinting support, respectively.
+
+      In  both  `ftview'  and  `ftdiff',  switching  between  the  two
+      versions  can be  done  with  key `H'.   In  the `ftbench'  demo
+      program, command line option `-H'  has been extended to activate
+      the non-default interpreter version.
+
+    - The `ttdebug' program has been further improved.  In particular,
+      it accepts a new command line  option `-H' to select the hinting
+      engine.
+
+    - Another round of TrueType subpixel hinting fixes.
+
+    - The `apinames' tool can now create an import file for NetWare.
+
+    - 64bit compilation of the new CFF engine was buggy.
+
+    - Some fixes to improve robustness in memory-tight situations.
+
+
+======================================================================
+
+CHANGES BETWEEN 2.4.11 and 2.4.12
 
     - We have another CFF parsing and hinting engine!  Written by Dave
       Arnold <darnold@adobe.com>,  this work  has been  contributed by

@@ -72,13 +72,13 @@
   t42_get_name_index( T42_Face    face,
                       FT_String*  glyph_name )
   {
-    FT_Int      i;
-    FT_String*  gname;
+    FT_Int  i;
 
 
     for ( i = 0; i < face->type1.num_glyphs; i++ )
     {
-      gname = face->type1.glyph_names[i];
+      FT_String*  gname = face->type1.glyph_names[i];
+
 
       if ( glyph_name[0] == gname[0] && !ft_strcmp( glyph_name, gname ) )
         return (FT_UInt)ft_atol( (const char *)face->type1.charstrings[i] );
@@ -230,10 +230,6 @@
     T42_GlyphSlot_Init,
     T42_GlyphSlot_Done,
 
-#ifdef FT_CONFIG_OPTION_OLD_INTERNALS
-    ft_stub_set_char_sizes,
-    ft_stub_set_pixel_sizes,
-#endif
     T42_GlyphSlot_Load,
 
     0,                 /* FT_Face_GetKerningFunc  */

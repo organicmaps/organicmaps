@@ -221,11 +221,6 @@
     cid_slot_init,
     cid_slot_done,
 
-#ifdef FT_CONFIG_OPTION_OLD_INTERNALS
-    ft_stub_set_char_sizes,
-    ft_stub_set_pixel_sizes,
-#endif
-
     cid_slot_load_glyph,
 
     0,                      /* FT_Face_GetKerningFunc  */

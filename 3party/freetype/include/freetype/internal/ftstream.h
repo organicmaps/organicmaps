@@ -486,37 +486,41 @@ FT_BEGIN_HEADER
 #define FT_STREAM_POS()           \
           FT_Stream_Pos( stream )
 
-#define FT_STREAM_SEEK( position )                           \
-          FT_SET_ERROR( FT_Stream_Seek( stream, position ) )
+#define FT_STREAM_SEEK( position )                               \
+          FT_SET_ERROR( FT_Stream_Seek( stream,                  \
+                                        (FT_ULong)(position) ) )
 
-#define FT_STREAM_SKIP( distance )                           \
-          FT_SET_ERROR( FT_Stream_Skip( stream, distance ) )
+#define FT_STREAM_SKIP( distance )                              \
+          FT_SET_ERROR( FT_Stream_Skip( stream,                 \
+                                        (FT_Long)(distance) ) )
 
-#define FT_STREAM_READ( buffer, count )                   \
-          FT_SET_ERROR( FT_Stream_Read( stream,           \
-                                        (FT_Byte*)buffer, \
-                                        count ) )
+#define FT_STREAM_READ( buffer, count )                       \
+          FT_SET_ERROR( FT_Stream_Read( stream,               \
+                                        (FT_Byte*)(buffer),   \
+                                        (FT_ULong)(count) ) )
 
-#define FT_STREAM_READ_AT( position, buffer, count )         \
-          FT_SET_ERROR( FT_Stream_ReadAt( stream,            \
-                                           position,         \
-                                           (FT_Byte*)buffer, \
-                                           count ) )
+#define FT_STREAM_READ_AT( position, buffer, count )            \
+          FT_SET_ERROR( FT_Stream_ReadAt( stream,               \
+                                          (FT_ULong)(position), \
+                                          (FT_Byte*)buffer,     \
+                                          (FT_ULong)(count) ) )
 
 #define FT_STREAM_READ_FIELDS( fields, object )                          \
           FT_SET_ERROR( FT_Stream_ReadFields( stream, fields, object ) )
 
 
-#define FT_FRAME_ENTER( size )                                       \
-          FT_SET_ERROR(                                              \
-            FT_DEBUG_INNER( FT_Stream_EnterFrame( stream, size ) ) )
+#define FT_FRAME_ENTER( size )                                           \
+          FT_SET_ERROR(                                                  \
+            FT_DEBUG_INNER( FT_Stream_EnterFrame( stream,                \
+                                                  (FT_ULong)(size) ) ) )
 
-#define FT_FRAME_EXIT()                 \
+#define FT_FRAME_EXIT()                                   \
           FT_DEBUG_INNER( FT_Stream_ExitFrame( stream ) )
 
 #define FT_FRAME_EXTRACT( size, bytes )                                       \
           FT_SET_ERROR(                                                       \
-            FT_DEBUG_INNER( FT_Stream_ExtractFrame( stream, size,             \
+            FT_DEBUG_INNER( FT_Stream_ExtractFrame( stream,                   \
+                                                    (FT_ULong)(size),         \
                                                     (FT_Byte**)&(bytes) ) ) )
 
 #define FT_FRAME_RELEASE( bytes )                                         \

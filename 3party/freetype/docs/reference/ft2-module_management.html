@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>FreeType-2.4.12 API Reference</title>
+<title>FreeType-2.5.0 API Reference</title>
 <style type="text/css">
   body { font-family: Verdana, Geneva, Arial, Helvetica, serif;
          color: #000000;
@@ -35,7 +35,7 @@
 <table align=center><tr><td><font size=-1>[<a href="ft2-index.html">Index</a>]</font></td>
 <td width="100%"></td>
 <td><font size=-1>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
-<center><h1>FreeType-2.4.12 API Reference</h1></center>
+<center><h1>FreeType-2.5.0 API Reference</h1></center>
 
 <center><h1>
 Module Management
@@ -356,7 +356,7 @@ Defined in FT_MODULE_H (freetype/ftmodapi.h).
 </td></tr></table><br>
 <table align=center width="87%"><tr bgcolor="#D6E8FF"><td><pre>
 
-  <a href="ft2-basic_types.html#FT_Error">FT_Error</a>
+  FT_EXPORT( <a href="ft2-basic_types.html#FT_Error">FT_Error</a> )
   <b>FT_Property_Set</b>( <a href="ft2-base_interface.html#FT_Library">FT_Library</a>        library,
                    <span class="keyword">const</span> <a href="ft2-basic_types.html#FT_String">FT_String</a>*  module_name,
                    <span class="keyword">const</span> <a href="ft2-basic_types.html#FT_String">FT_String</a>*  property_name,
@@ -397,7 +397,8 @@ Defined in FT_MODULE_H (freetype/ftmodapi.h).
   bar = 1;
   FT_Property_Set( library, "foo", "bar", &amp;bar );
 </pre>
-<p>It is not possible to set properties of the FreeType Cache sub-system with FT_Property_Set; use ?FTC_Property_Set? instead.</p>
+<p>Note that the FreeType Cache sub-system doesn't recognize module property changes. To avoid glyph lookup confusion within the cache you should call <a href="ft2-cache_subsystem.html#FTC_Manager_Reset">FTC_Manager_Reset</a> to completely flush the cache if a module property gets changed after <a href="ft2-cache_subsystem.html#FTC_Manager_New">FTC_Manager_New</a> has been called.</p>
+<p>It is not possible to set properties of the FreeType Cache sub-system itself with FT_Property_Set; use ?FTC_Property_Set? instead.</p>
 </td></tr></table>
 <table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>since</b></em></td></tr><tr><td>
 <p>2.4.11</p>
@@ -415,7 +416,7 @@ Defined in FT_MODULE_H (freetype/ftmodapi.h).
 </td></tr></table><br>
 <table align=center width="87%"><tr bgcolor="#D6E8FF"><td><pre>
 
-  <a href="ft2-basic_types.html#FT_Error">FT_Error</a>
+  FT_EXPORT( <a href="ft2-basic_types.html#FT_Error">FT_Error</a> )
   <b>FT_Property_Get</b>( <a href="ft2-base_interface.html#FT_Library">FT_Library</a>        library,
                    <span class="keyword">const</span> <a href="ft2-basic_types.html#FT_String">FT_String</a>*  module_name,
                    <span class="keyword">const</span> <a href="ft2-basic_types.html#FT_String">FT_String</a>*  property_name,

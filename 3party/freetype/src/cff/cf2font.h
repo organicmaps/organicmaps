@@ -99,10 +99,10 @@ FT_BEGIN_HEADER
 
 
   FT_LOCAL( FT_Error )
-  cf2_getGlyphWidth( CF2_Font           font,
-                     CF2_Buffer         charstring,
-                     const CF2_Matrix*  transform,
-                     CF2_F16Dot16*      glyphWidth );
+  cf2_getGlyphOutline( CF2_Font           font,
+                       CF2_Buffer         charstring,
+                       const CF2_Matrix*  transform,
+                       CF2_F16Dot16*      glyphWidth );
 
 
 FT_END_HEADER

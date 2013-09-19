@@ -456,7 +456,8 @@
       FTC_MruList_Reset( &manager->sizes );
       FTC_MruList_Reset( &manager->faces );
     }
-    /* XXX: FIXME: flush the caches? */
+
+    FTC_Manager_FlushN( manager, manager->num_nodes );
   }
 
 
@@ -473,7 +474,7 @@
     /* check node weights */
     if ( first )
     {
-      FT_ULong  weight = 0;
+      FT_Offset  weight = 0;
 
 
       node = first;
@@ -687,57 +688,6 @@
     if ( node && (FT_UInt)node->cache_index < manager->num_caches )
       node->ref_count--;
   }
-
-
-#ifdef FT_CONFIG_OPTION_OLD_INTERNALS
-
-  FT_EXPORT_DEF( FT_Error )
-  FTC_Manager_Lookup_Face( FTC_Manager  manager,
-                           FTC_FaceID   face_id,
-                           FT_Face     *aface )
-  {
-    return FTC_Manager_LookupFace( manager, face_id, aface );
-  }
-
-
-  FT_EXPORT( FT_Error )
-  FTC_Manager_Lookup_Size( FTC_Manager  manager,
-                           FTC_Font     font,
-                           FT_Face     *aface,
-                           FT_Size     *asize )
-  {
-    FTC_ScalerRec  scaler;
-    FT_Error       error;
-    FT_Size        size;
-    FT_Face        face;
-
-
-    scaler.face_id = font->face_id;
-    scaler.width   = font->pix_width;
-    scaler.height  = font->pix_height;
-    scaler.pixel   = TRUE;
-    scaler.x_res   = 0;
-    scaler.y_res   = 0;
-
-    error = FTC_Manager_LookupSize( manager, &scaler, &size );
-    if ( error )
-    {
-      face = NULL;
-      size = NULL;
-    }
-    else
-      face = size->face;
-
-    if ( aface )
-      *aface = face;
-
-    if ( asize )
-      *asize = size;
-
-    return error;
-  }
-
-#endif /* FT_CONFIG_OPTION_OLD_INTERNALS */
 
 
 /* END */

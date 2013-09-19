@@ -405,7 +405,7 @@
   remove_subset_prefix( FT_String*  name )
   {
     FT_Int32  idx             = 0;
-    FT_Int32  length          = strlen( name ) + 1;
+    FT_Int32  length          = (FT_Int32)strlen( name ) + 1;
     FT_Bool   continue_search = 1;
 
 
@@ -442,8 +442,8 @@
     FT_Int32  family_name_length, style_name_length;
 
 
-    family_name_length = strlen( family_name );
-    style_name_length  = strlen( style_name );
+    family_name_length = (FT_Int32)strlen( family_name );
+    style_name_length  = (FT_Int32)strlen( style_name );
 
     if ( family_name_length > style_name_length )
     {
@@ -1056,7 +1056,11 @@
 
 
     /* set default property values */
+#ifdef CFF_CONFIG_OPTION_OLD_ENGINE
     driver->hinting_engine    = FT_CFF_HINTING_FREETYPE;
+#else
+    driver->hinting_engine    = FT_CFF_HINTING_ADOBE;
+#endif
     driver->no_stem_darkening = FALSE;
 
     return FT_Err_Ok;

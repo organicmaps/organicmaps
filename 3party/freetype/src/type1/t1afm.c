@@ -122,7 +122,6 @@
 
     start = (FT_Byte*)stream->cursor;
     limit = (FT_Byte*)stream->limit;
-    p     = start;
 
     /* Figure out how long the width table is.          */
     /* This info is a little-endian short at offset 99. */

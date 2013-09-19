@@ -864,10 +864,6 @@ THE SOFTWARE.
     0,                          /* FT_Slot_InitFunc */
     0,                          /* FT_Slot_DoneFunc */
 
-#ifdef FT_CONFIG_OPTION_OLD_INTERNALS
-    ft_stub_set_char_sizes,
-    ft_stub_set_pixel_sizes,
-#endif
     BDF_Glyph_Load,
 
     0,                          /* FT_Face_GetKerningFunc  */

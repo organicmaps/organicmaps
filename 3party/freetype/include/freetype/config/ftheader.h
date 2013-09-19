@@ -344,6 +344,19 @@
   /*************************************************************************
    *
    * @macro:
+   *   FT_TRUETYPE_DRIVER_H
+   *
+   * @description:
+   *   A macro used in #include statements to name the file containing
+   *   structures and macros related to the TrueType driver module.
+   *
+   */
+#define FT_TRUETYPE_DRIVER_H  <freetype/ftttdrv.h>
+
+
+  /*************************************************************************
+   *
+   * @macro:
    *   FT_TYPE1_TABLES_H
    *
    * @description:
