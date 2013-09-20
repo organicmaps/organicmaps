@@ -1,21 +1,29 @@
 #include "../../testing/testing.hpp"
 #include "../approximate_string_match.hpp"
+
 #include "match_cost_mock.hpp"
+
+#include "../../indexer/search_delimiters.hpp"
+
+#include "../../base/stl_add.hpp"
+
 #include "../../std/memcpy.hpp"
+
+
+using namespace search;
+using namespace strings;
 
 namespace
 {
 
 uint32_t FullMatchCost(char const * a, char const * b, uint32_t maxCost = 1000)
 {
-  return ::search::StringMatchCost(a, strlen(a), b, strlen(b),
-                                   search::MatchCostMock<char>(), maxCost);
+  return StringMatchCost(a, strlen(a), b, strlen(b), MatchCostMock<char>(), maxCost);
 }
 
 uint32_t PrefixMatchCost(char const * a, char const * b)
 {
-  return ::search::StringMatchCost(a, strlen(a), b, strlen(b),
-                                   search::MatchCostMock<char>(), 1000, true);
+  return StringMatchCost(a, strlen(a), b, strlen(b), MatchCostMock<char>(), 1000, true);
 }
 
 }
@@ -66,4 +74,33 @@ UNIT_TEST(StringMatchCost_PrefixMatch)
   TEST_EQUAL(PrefixMatchCost("Hx", "Hello!"), 1, ());
   TEST_EQUAL(PrefixMatchCost("Helpo", "Hello!"), 1, ());
   TEST_EQUAL(PrefixMatchCost("Happo", "Hello!"), 3, ());
+}
+
+namespace
+{
+
+void TestEqual(vector<UniString> const v, char const * arr[])
+{
+  for (size_t i = 0; i < v.size(); ++i)
+  {
+    TEST_EQUAL(ToUtf8(v[i]), arr[i], ());
+    TEST_EQUAL(v[i], MakeUniString(arr[i]), ());
+  }
+}
+
+}
+
+UNIT_TEST(StringSplit_Smoke)
+{
+  vector<UniString> tokens;
+
+  {
+    string const s = "1/2";
+    UniString const s1 = NormalizeAndSimplifyString(s);
+    TEST_EQUAL(ToUtf8(s1), s, ());
+
+    char const * arr[] = { "1", "2" };
+    SplitUniString(s1, MakeBackInsertFunctor(tokens), Delimiters());
+    TestEqual(tokens, arr);
+  }
 }

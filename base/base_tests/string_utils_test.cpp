@@ -295,6 +295,11 @@ UNIT_TEST(SimpleTokenizer)
              " -\xD9\x87", tokens);
   }
 
+  {
+    char const * s[] = {"1", "2"};
+    tokens.assign(&s[0], &s[0] + ARRAY_SIZE(s));
+    TestIter("/1/2/", "/", tokens);
+  }
 }
 
 UNIT_TEST(LastUniChar)
