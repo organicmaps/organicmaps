@@ -484,3 +484,9 @@
 
 /* Used for bookmark editing */
 "done" = "Hecho";
+
+/* Summary for preferences in MWM */
+"yopme_pref_summary" = "Seleccione la configuración de la tarjeta de la pantalla";
+
+/* Title for yopme preferences in MWM */
+"yopme_pref_title" = "Configuración de la pantalla E-Ink";

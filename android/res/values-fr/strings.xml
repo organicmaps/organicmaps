@@ -283,4 +283,8 @@
 	<string name="info">Info</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Terminé</string>
+	<!-- Summary for preferences in MWM -->
+	<string name="yopme_pref_summary">Choisissez les réglages de la carte de l\&#39;écran E-Ink</string>
+	<!-- Title for yopme preferences in MWM -->
+	<string name="yopme_pref_title">Réglages de l\&#39;écran E-Ink</string>
 </resources>

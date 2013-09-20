@@ -297,4 +297,8 @@
 	<string name="info">Информация</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Готово</string>
+	<!-- Summary for preferences in MWM -->
+	<string name="yopme_pref_summary">Выберите настройки карты для E-Ink экрана</string>
+	<!-- Title for yopme preferences in MWM -->
+	<string name="yopme_pref_title">Настройки для E-Ink экрана</string>
 </resources>

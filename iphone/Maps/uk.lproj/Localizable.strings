@@ -484,3 +484,9 @@
 
 /* Used for bookmark editing */
 "done" = "Готово";
+
+/* Summary for preferences in MWM */
+"yopme_pref_summary" = "Оберіть E-Ink дисплей налаштування";
+
+/* Title for yopme preferences in MWM */
+"yopme_pref_title" = "Дисплей налаштування E-Ink";

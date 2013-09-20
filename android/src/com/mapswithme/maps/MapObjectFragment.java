@@ -341,7 +341,7 @@ public class MapObjectFragment extends Fragment
 
     if (Yota.isYota())
     {
-      menu.add(Menu.NONE, MENU_P2B, MENU_P2B, getString(R.string.yopme_show_on_eink))
+      menu.add(Menu.NONE, MENU_P2B, MENU_P2B, "")
         .setIcon(R.drawable.ic_ptb_gray)
         .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }

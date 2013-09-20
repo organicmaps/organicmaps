@@ -484,3 +484,9 @@
 
 /* Used for bookmark editing */
 "done" = "Done";
+
+/* Summary for preferences in MWM */
+"yopme_pref_summary" = "Choose E-Ink display settings";
+
+/* Title for yopme preferences in MWM */
+"yopme_pref_title" = "E-Ink display settings";

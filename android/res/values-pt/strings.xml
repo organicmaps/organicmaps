@@ -306,4 +306,8 @@
 	<string name="info">Info</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Feito</string>
+	<!-- Summary for preferences in MWM -->
+	<string name="yopme_pref_summary">Escolha as definições de apresentação E-Ink</string>
+	<!-- Title for yopme preferences in MWM -->
+	<string name="yopme_pref_title">Definições de apresentação E-ink</string>
 </resources>

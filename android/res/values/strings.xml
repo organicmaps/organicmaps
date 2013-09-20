@@ -315,10 +315,8 @@
 	<string name="info">Show More Info</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Done</string>
-	<!-- Label for button in place page on yopme device -->
-	<string name="yopme_show_on_eink">Show on E-Ink</string>
 	<!-- Summary for preferences in MWM -->
-	<string name="yopme_pref_summary">Some Yota settings here</string>
+	<string name="yopme_pref_summary">Choose E-Ink display settings</string>
 	<!-- Title for yopme preferences in MWM -->
-	<string name="yopme_pref_title">Yopme preferences</string>
+	<string name="yopme_pref_title">E-Ink display settings</string>
 </resources>

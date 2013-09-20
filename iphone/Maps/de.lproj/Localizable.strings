@@ -484,3 +484,9 @@
 
 /* Used for bookmark editing */
 "done" = "Erledigt";
+
+/* Summary for preferences in MWM */
+"yopme_pref_summary" = "Wählen Sie die Einstellungen der Karte für den E-Ink Bildschirm";
+
+/* Title for yopme preferences in MWM */
+"yopme_pref_title" = "Einstellungen für den E-Ink Bildschirm";

@@ -2597,17 +2597,32 @@
     it = Fine
     ko = 완료
 
-  [yopme_show_on_eink]
-    en = Show on E-Ink
-    tags = android
-    comment = Label for button in place page on yopme device
-
   [yopme_pref_summary]
-    en = Some Yota settings here
+    en = Choose E-Ink display settings
     tags = android
     comment = Summary for preferences in MWM
+    cz = Zvolit nastavení E-Ink obrazovky
+    de = Wählen Sie die Einstellungen der Karte für den E-Ink Bildschirm
+    es = Seleccione la configuración de la tarjeta de la pantalla
+    fr = Choisissez les réglages de la carte de l'écran E-Ink
+    it = Selezionate le impostazioni della carta per lo schermo e-ink
+    nl = Kies instellingen voor weergave van E-Ink
+    ru = Выберите настройки карты для E-Ink экрана
+    uk = Оберіть E-Ink дисплей налаштування
+    pl = Wybierz ustawienia wyświetlacza E-Ink
+    pt = Escolha as definições de apresentação E-Ink
 
   [yopme_pref_title]
-    en = Yopme preferences
+    en = E-Ink display settings
     tags = android
     comment = Title for yopme preferences in MWM
+    cz = Nastavení E-Ink obrazovky
+    de = Einstellungen für den E-Ink Bildschirm
+    es = Configuración de la pantalla E-Ink
+    fr = Réglages de l'écran E-Ink
+    it = Impostazioni dello schermo e-ink
+    nl = Instellingen voor weergave van E-Ink
+    ru = Настройки для E-Ink экрана
+    uk = Дисплей налаштування E-Ink
+    pl = Ustawienia wyświetlacza E-Ink
+    pt = Definições de apresentação E-ink

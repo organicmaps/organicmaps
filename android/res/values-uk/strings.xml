@@ -299,4 +299,8 @@
 	<string name="info">Досьє</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Готово</string>
+	<!-- Summary for preferences in MWM -->
+	<string name="yopme_pref_summary">Оберіть E-Ink дисплей налаштування</string>
+	<!-- Title for yopme preferences in MWM -->
+	<string name="yopme_pref_title">Дисплей налаштування E-Ink</string>
 </resources>

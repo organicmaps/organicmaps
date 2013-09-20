@@ -285,4 +285,8 @@
 	<string name="info">Información</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Hecho</string>
+	<!-- Summary for preferences in MWM -->
+	<string name="yopme_pref_summary">Seleccione la configuración de la tarjeta de la pantalla</string>
+	<!-- Title for yopme preferences in MWM -->
+	<string name="yopme_pref_title">Configuración de la pantalla E-Ink</string>
 </resources>
