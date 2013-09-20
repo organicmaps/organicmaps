@@ -19,19 +19,17 @@ import com.mapswithme.maps.location.LocationService;
 
 public class BookmarkListAdapter extends BaseAdapter implements LocationService.Listener
 {
-  private Activity mContext;
-  private BookmarkCategory mCategory;
+  private final Activity mContext;
+  private final BookmarkCategory mCategory;
   private double mNorth = -1;
-  private LocationService mLocation;
-  private DataChangedListener mDataChangedListener;
+  private final LocationService mLocation;
 
   public BookmarkListAdapter(Activity context, LocationService location,
-                             BookmarkCategory cat, DataChangedListener dcl)
+                             BookmarkCategory cat)
   {
     mContext = context;
     mLocation = location;
     mCategory = cat;
-    mDataChangedListener = dcl;
   }
 
   public void startLocationUpdate()
@@ -54,15 +52,15 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
       convertView.setTag(new PinHolder(convertView));
     }
 
-    Bookmark item = mCategory.getBookmark(position);
-    PinHolder holder = (PinHolder) convertView.getTag();
+    final Bookmark item = mCategory.getBookmark(position);
+    final PinHolder holder = (PinHolder) convertView.getTag();
     holder.name.setText(item.getName());
     holder.icon.setImageBitmap(item.getIcon().getIcon());
 
     final Location loc = mLocation.getLastKnown();
     if (loc != null)
     {
-      DistanceAndAzimut daa = item.getDistanceAndAzimut(loc.getLatitude(), loc.getLongitude(), mNorth);
+      final DistanceAndAzimut daa = item.getDistanceAndAzimut(loc.getLatitude(), loc.getLongitude(), mNorth);
       holder.distance.setText(daa.getDistance());
 
       if (daa.getAthimuth() >= 0.0)
@@ -78,17 +76,6 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
 
     //Log.d("lat lot", item.getLat() + " " + item.getLon());
     return convertView;
-  }
-
-  @Override
-  public void notifyDataSetChanged()
-  {
-    super.notifyDataSetChanged();
-
-    if (mDataChangedListener != null)
-    {
-      mDataChangedListener.onDataChanged(isEmpty() ? View.VISIBLE : View.GONE);
-    }
   }
 
   @Override
@@ -118,7 +105,7 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    double north[] = { magneticNorth, trueNorth };
+    final double north[] = { magneticNorth, trueNorth };
     mLocation.correctCompassAngles(mContext.getWindowManager().getDefaultDisplay(), north);
     final double ret = (north[1] >= 0.0 ? north[1] : north[0]);
 
@@ -151,10 +138,5 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
       name = (TextView) convertView.findViewById(R.id.pi_name);
       distance = (TextView) convertView.findViewById(R.id.pi_distance);
     }
-  }
-
-  public interface DataChangedListener
-  {
-    void onDataChanged(int vis);
   }
 }

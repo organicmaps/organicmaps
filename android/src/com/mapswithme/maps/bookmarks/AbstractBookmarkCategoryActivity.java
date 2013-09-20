@@ -18,8 +18,8 @@ public abstract class AbstractBookmarkCategoryActivity extends AbstractBookmarkL
   {
     if (menuInfo instanceof AdapterView.AdapterContextMenuInfo)
     {
-      AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-      if (info.position < getAdapter().getCount())
+      final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+      if (getAdapter().isActiveItem(info.position))
       {
         mSelectedPosition = info.position;
         menu.setHeaderTitle(mManager.getCategoryById(mSelectedPosition).getName());
@@ -31,7 +31,7 @@ public abstract class AbstractBookmarkCategoryActivity extends AbstractBookmarkL
   @Override
   public boolean onContextItemSelected(MenuItem item)
   {
-    int itemId = item.getItemId();
+    final int itemId = item.getItemId();
     if (itemId == R.id.set_edit)
     {
       startActivity(new Intent(this, BookmarkListActivity.class).

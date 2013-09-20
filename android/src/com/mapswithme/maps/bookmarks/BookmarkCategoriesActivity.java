@@ -10,7 +10,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.BookmarkListAdapter.DataChangedListener;
 
 public class BookmarkCategoriesActivity extends AbstractBookmarkCategoryActivity
 {
@@ -20,24 +19,22 @@ public class BookmarkCategoriesActivity extends AbstractBookmarkCategoryActivity
   {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.categories);
-    ListView listView = getListView();
-    listView.setAdapter(new BookmarkCategoriesAdapter(this, new DataChangedListener()
-    {
-      @Override
-      public void onDataChanged(int vis)
-      {
-        findViewById(R.id.bookmark_usage_hint).setVisibility(vis);
-      }
-    }));
+    final ListView listView = getListView();
+    final BookmarkCategoriesAdapter adapter = new BookmarkCategoriesAdapter(this);
+    listView.setAdapter(adapter);
     listView.setOnItemClickListener(new OnItemClickListener()
     {
 
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id)
       {
-        startActivity(new Intent(BookmarkCategoriesActivity.this, BookmarkListActivity.class)
-        .putExtra(BookmarkActivity.PIN_SET, position));
+        if (adapter.isActiveItem(position))
+        {
+          startActivity(new Intent(BookmarkCategoriesActivity.this, BookmarkListActivity.class)
+          .putExtra(BookmarkActivity.PIN_SET, position));
+        }
       }
+
     });
     registerForContextMenu(getListView());
   }
@@ -46,8 +43,11 @@ public class BookmarkCategoriesActivity extends AbstractBookmarkCategoryActivity
   public void onCreateContextMenu(ContextMenu menu, View v,
                                   ContextMenuInfo menuInfo)
   {
-    getMenuInflater().inflate(R.menu.bookmark_categories_context_menu, menu);
-    super.onCreateContextMenu(menu, v, menuInfo);
+    if (getAdapter().isActiveItem(((AdapterView.AdapterContextMenuInfo)menuInfo).position))
+    {
+      getMenuInflater().inflate(R.menu.bookmark_categories_context_menu, menu);
+      super.onCreateContextMenu(menu, v, menuInfo);
+    }
   }
 
   @Override

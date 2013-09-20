@@ -8,8 +8,8 @@ import android.widget.BaseAdapter;
 
 public abstract class AbstractBookmarkCategoryAdapter extends BaseAdapter
 {
-  private BookmarkManager mManager;
-  private Context mContext;
+  private final BookmarkManager mManager;
+  private final Context mContext;
 
   public AbstractBookmarkCategoryAdapter(Context context)
   {
@@ -30,13 +30,35 @@ public abstract class AbstractBookmarkCategoryAdapter extends BaseAdapter
   @Override
   public int getCount()
   {
-    return mManager.getCategoriesCount();
+    return mManager.getCategoriesCount() + 1;
   }
 
   @Override
   public long getItemId(int position)
   {
     return position;
+  }
+
+  public final static int ITEM = 0;
+  public final static int HELP = 1;
+  @Override
+  public int getItemViewType(int position)
+  {
+    if (position == getCount() - 1) return HELP;
+    return ITEM;
+  }
+
+  @Override
+  public int getViewTypeCount()
+  {
+    return 2;
+  }
+
+  public boolean isActiveItem(int position)
+  {
+    return getItemViewType(position) != HELP
+        && position < getCount()
+        && position >= 0;
   }
 
   @Override

@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    <TextView
-        android:id="@+id/bookmark_usage_hint"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:text="@string/bookmarks_usage_hint" />
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
 
     <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+        android:layout_height="match_parent" />
 
-</FrameLayout>
+</LinearLayout>

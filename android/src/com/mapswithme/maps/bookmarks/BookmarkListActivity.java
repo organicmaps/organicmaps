@@ -22,7 +22,6 @@ import android.widget.EditText;
 import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.BookmarkListAdapter.DataChangedListener;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
@@ -61,7 +60,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id)
       {
-        Intent i = new Intent(BookmarkListActivity.this, MWMActivity.class);
+        final Intent i = new Intent(BookmarkListActivity.this, MWMActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mManager.showBookmarkOnMap(setIndex, position);
         startActivity(i);
@@ -91,14 +90,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   {
     setListAdapter(mPinAdapter = new BookmarkListAdapter(this,
                                                          ((MWMApplication) getApplication()).getLocationService(),
-                                                         mEditedSet, new DataChangedListener()
-    {
-      @Override
-      public void onDataChanged(int vis)
-      {
-        findViewById(R.id.bookmark_usage_hint).setVisibility(vis);
-      }
-    }));
+                                                         mEditedSet));
 
     mPinAdapter.startLocationUpdate();
   }
@@ -152,13 +144,13 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
 
       if (menuInfo instanceof AdapterView.AdapterContextMenuInfo)
       {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         mSelectedPosition = info.position;
-        MenuInflater inflater = getMenuInflater();
+        final MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.pin_sets_context_menu, menu);
 
 
-        for (ShareAction sa : ShareAction.ACTIONS.values())
+        for (final ShareAction sa : ShareAction.ACTIONS.values())
         {
           if (sa.isSupported(this))
             menu.add(Menu.NONE, sa.getId(), sa.getId(), getResources().getString(sa.getNameResId()));
@@ -180,7 +172,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   @Override
   public boolean onContextItemSelected(MenuItem item)
   {
-    int itemId = item.getItemId();
+    final int itemId = item.getItemId();
     if (itemId == R.id.set_edit)
     {
       startPinActivity(mEditedSet.getId(), mSelectedPosition);
@@ -255,7 +247,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
     {
       startActivity(Intent.createChooser(intent, getString(R.string.share_by_email)));
     }
-    catch (Exception ex)
+    catch (final Exception ex)
     {
       Log.i(TAG, "Can't run E-Mail activity" + ex);
     }
@@ -268,7 +260,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   @Override
   public boolean onCreateOptionsMenu(Menu menu)
   {
-    MenuItem menuItem =  menu.add(Menu.NONE,
+    final MenuItem menuItem =  menu.add(Menu.NONE,
                          ID_SEND_BY_EMAIL,
                          ID_SEND_BY_EMAIL,
                          R.string.share_by_email);

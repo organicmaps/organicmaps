@@ -23,13 +23,6 @@
         android:layout_height="wrap_content"
         android:text="@string/bookmarks" />
 
-    <TextView
-        android:id="@+id/bookmark_usage_hint"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:text="@string/bookmarks_usage_hint" />
-
     <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"

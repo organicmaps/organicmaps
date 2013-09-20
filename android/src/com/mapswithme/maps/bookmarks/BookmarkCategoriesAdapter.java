@@ -10,21 +10,22 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.BookmarkListAdapter.DataChangedListener;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 
 public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
 {
-  private DataChangedListener mListener;
-  public BookmarkCategoriesAdapter(Context context, DataChangedListener dcl)
+  public BookmarkCategoriesAdapter(Context context)
   {
     super(context);
-    mListener = dcl;
   }
 
   @Override
   public View getView(int position, View convertView, ViewGroup parent)
   {
+    if (getItemViewType(position) == HELP)
+      return LayoutInflater.from(getContext()).inflate(R.layout.bookmark_hint, null);
+
+
     if (convertView == null)
     {
       convertView = LayoutInflater.from(getContext()).inflate(R.layout.bmk_category_item, null);
@@ -44,8 +45,8 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
       });
     }
 
-    PinSetHolder psh = (PinSetHolder) convertView.getTag();
-    BookmarkCategory set = getItem(position);
+    final PinSetHolder psh = (PinSetHolder) convertView.getTag();
+    final BookmarkCategory set = getItem(position);
     // category ID
     psh.categoryId = position;
     // name
@@ -68,16 +69,6 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
     {
       this.name = name;
       this.visibilityCheckBox = visibilityCheckBox;
-    }
-  }
-
-  @Override
-  public void notifyDataSetChanged()
-  {
-    super.notifyDataSetChanged();
-    if (mListener != null)
-    {
-      mListener.onDataChanged(isEmpty() ? View.VISIBLE : View.GONE);
     }
   }
 }
