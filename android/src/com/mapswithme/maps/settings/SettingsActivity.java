@@ -110,6 +110,7 @@ public class SettingsActivity extends PreferenceActivity
     if (!Yota.isYota())
       getPreferenceScreen().removePreference(yopPreference);
     else
+    {
       yopPreference.setOnPreferenceClickListener(new OnPreferenceClickListener()
       {
         @Override
@@ -119,6 +120,10 @@ public class SettingsActivity extends PreferenceActivity
           return true;
         }
       });
+      // we dont allow to change maps location
+      getPreferenceScreen()
+        .removePreference(findPreference(getString(R.string.pref_storage_activity)));
+    }
   }
 
   @Override
