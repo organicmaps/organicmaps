@@ -282,8 +282,8 @@
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "Seleziona";
 
-/* Text hint in Bookmarks dialog, displayed if it's empty */
-"bookmarks_usage_hint" = "Per aggiungere un nuovo segnalibro qui, tocca qualsiasi punto della mappa e tieni premuto fino a quando non appare il pop-up.\n\nPossono essere anche importati Preferiti da altre fonti e visualizzate nell'app MapsWithMe. Apri il file KML/KMZ con i pin salvati da una casella di posta, Dropbox o un link web.";
+/* Text hint in Bookmarks dialog */
+"bookmarks_usage_hint" = "Possono essere anche importati Preferiti da altre fonti e visualizzate nell'app MapsWithMe. Apri il file KML/KMZ con i pin salvati da una casella di posta, Dropbox o un link web.";
 
 /* Settings button in system menu */
 "settings" = "Impostazioni";

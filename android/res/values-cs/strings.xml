@@ -172,8 +172,8 @@
 	<string name="remove_pin">Odstranit špendlík</string>
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Skupina</string>
-	<!-- Text hint in Bookmarks dialog, displayed if it's empty -->
-	<string name="bookmarks_usage_hint">Přidej libovolné místo na mapě do Záložek. Klepni na mapě na vybrané místo a podrž ho, dokud se nezobrazí kontextové menu.\n\nV aplikaci MapsWithMe lze importovat a zobrazovat také záložky z jiných zdrojů. Otevřete soubor KML/KMZ pomocí PIN uloženého z e-mailu, Dropboxu nebo webového odkazu.</string>
+	<!-- Text hint in Bookmarks dialog -->
+	<string name="bookmarks_usage_hint">V aplikaci MapsWithMe lze importovat a zobrazovat také záložky z jiných zdrojů. Otevřete soubor KML/KMZ pomocí PIN uloženého z e-mailu, Dropboxu nebo webového odkazu.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Nastavení</string>
 	<!-- Header of settings activity where user defines storage path -->

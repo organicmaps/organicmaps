@@ -1522,22 +1522,22 @@
     pl = Zestaw
     pt = Conjunto
   [bookmarks_usage_hint]
-    en = To add a new bookmark here, tap on any place of the map and hold until the pop-up appears.\n\nBookmarks from other sources can also be imported and displayed in MapsWithMe. Open KML/KMZ file with saved pins from mail, Dropbox or weblink.
+    en = Bookmarks from other sources can also be imported and displayed in MapsWithMe. Open KML/KMZ file with saved pins from mail, Dropbox or weblink.
     tags = ios
-    comment = Text hint in Bookmarks dialog, displayed if it's empty
-    cs = Přidej libovolné místo na mapě do Záložek. Klepni na mapě na vybrané místo a podrž ho, dokud se nezobrazí kontextové menu.\n\nV aplikaci MapsWithMe lze importovat a zobrazovat také záložky z jiných zdrojů. Otevřete soubor KML/KMZ pomocí PIN uloženého z e-mailu, Dropboxu nebo webového odkazu.
-    de = Fügen sie einen beliebigen Ort auf der Karte den Lesezeichen hinzu. Berühren sie dazu den Ort auf der Karte bis das Kontextmenü erscheint.\n\nLesezeichen von anderen Quellen können ebenfalls importiert und in der MapsWithMe-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Pins aus einer E-Mail, Dropbox oder einem Weblink öffnen.
-    es = Para añadir un marcador a cualquier lugar del mapa, presionar un punto y mantenerlo hasta que aparezca el menú contextual.\n\nTambién se pueden importar y mostrar marcadores de otras fuentes en la aplicación MapsWithMe. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.
-    fr = Ajoutez n'importe quel endroit sur la carte à vos favoris. Pour cela, touchez un point sur la carte et maintenez appuyé jusqu'à ce que le menu contextuel apparaisse.\n\nLes marque-pages provenant d'autres sources peuvent également être importés et affichés dans l'application MapsWithMe. Ouvrez les fichiers KML/KMZ marqués depuis votre boite email, Dropbox ou un lien internet.
-    it = Per aggiungere un nuovo segnalibro qui, tocca qualsiasi punto della mappa e tieni premuto fino a quando non appare il pop-up.\n\nPossono essere anche importati Preferiti da altre fonti e visualizzate nell'app MapsWithMe. Apri il file KML/KMZ con i pin salvati da una casella di posta, Dropbox o un link web.
+    comment = Text hint in Bookmarks dialog
+    cs = V aplikaci MapsWithMe lze importovat a zobrazovat také záložky z jiných zdrojů. Otevřete soubor KML/KMZ pomocí PIN uloženého z e-mailu, Dropboxu nebo webového odkazu.
+    de = Lesezeichen von anderen Quellen können ebenfalls importiert und in der MapsWithMe-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Pins aus einer E-Mail, Dropbox oder einem Weblink öffnen.
+    es = También se pueden importar y mostrar marcadores de otras fuentes en la aplicación MapsWithMe. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.
+    fr = Les marque-pages provenant d'autres sources peuvent également être importés et affichés dans l'application MapsWithMe. Ouvrez les fichiers KML/KMZ marqués depuis votre boite email, Dropbox ou un lien internet.
+    it = Possono essere anche importati Preferiti da altre fonti e visualizzate nell'app MapsWithMe. Apri il file KML/KMZ con i pin salvati da una casella di posta, Dropbox o un link web.
     ja = マップをタッチし続けるとその位置にポップアップが表示され、ブックマークを追加できます。\n\nその他のソースからのブックマークもMapsWithMeアプリにインポートして表示出来ます。メール、Dropboxやウェブリンクから保存した暗証番号でKML/KMZファイルを開く。
-    ko = 지도상의 어떤 장소든지 즐겨찾기에 추가할 수 있습니다. 이를 위해서는 컨텍스트 메뉴가 나타날 때까지 지도상의 장소를 오래 누르시면 됩니다.\n\n다른 소스에서 북마크는 MapsWithMe 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.
-    nl = Voeg een plaats naar keuze op de kaart toe aan de bladwijzers. Om dat te doen, drukt u op een plek op de kaart en houd u het ingedrukt tot het contextmenu verschijnt.\n\nBladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de MapsWithMe app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.
-    ru = Добавьте в избранное любое место на карте. Для этого нажмите на точку на карте и удерживайте, пока не появится контекстное меню.\n\nВы также можете импортировать закладки из других источников и использовать их в MapsWithMe. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке. 
-    uk = Додайте будь-яке місце на карті в закладки. Щоб зробити це, натисніть місце на карті і утримуйте, поки з'явиться контекстне меню.\n\nЗакладки з інших ресурсів також можна імпортувати для застосунка MapsWithMe. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.
-    zh-Hant = 如要新增書籤 , 請按住地圖上的任何地方不放，直到有彈出視窗顯示選項。\n\n其他來源的書簽也可在MapsWithMe應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。
-    pl = Aby dodać nową zakładkę, naciśnij na dowolne miejsce na mapie i przytrzymaj do czasu aż pojawi się okienko.\n\nZakładki z innych źródeł mogą również być importowane i wyświetlane w aplikacji MapsWithMe. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.
-    pt = Para adicionar um novo favorito aqui, toque em qualquer local do mapa e mantenha premido até que apareça o pop-up.\n\nOs marcadores de outras fontes também podem ser importados e exibidos na aplicação MapsWithMe. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.
+    ko = 다른 소스에서 북마크는 MapsWithMe 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.
+    nl = Bladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de MapsWithMe app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.
+    ru = Вы также можете импортировать закладки из других источников и использовать их в MapsWithMe. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке. 
+    uk = Закладки з інших ресурсів також можна імпортувати для застосунка MapsWithMe. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.
+    zh-Hant = 其他來源的書簽也可在MapsWithMe應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。
+    pl = Zakładki z innych źródeł mogą również być importowane i wyświetlane w aplikacji MapsWithMe. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.
+    pt = Os marcadores de outras fontes também podem ser importados e exibidos na aplicação MapsWithMe. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.
   [settings]
     en = Settings
     tags = android

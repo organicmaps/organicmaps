@@ -282,8 +282,8 @@
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "Группа";
 
-/* Text hint in Bookmarks dialog, displayed if it's empty */
-"bookmarks_usage_hint" = "Добавьте в избранное любое место на карте. Для этого нажмите на точку на карте и удерживайте, пока не появится контекстное меню.\n\nВы также можете импортировать закладки из других источников и использовать их в MapsWithMe. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.";
+/* Text hint in Bookmarks dialog */
+"bookmarks_usage_hint" = "Вы также можете импортировать закладки из других источников и использовать их в MapsWithMe. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.";
 
 /* Settings button in system menu */
 "settings" = "Настройки";

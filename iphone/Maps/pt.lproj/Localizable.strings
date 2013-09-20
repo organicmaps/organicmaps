@@ -282,8 +282,8 @@
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "Conjunto";
 
-/* Text hint in Bookmarks dialog, displayed if it's empty */
-"bookmarks_usage_hint" = "Para adicionar um novo favorito aqui, toque em qualquer local do mapa e mantenha premido até que apareça o pop-up.\n\nOs marcadores de outras fontes também podem ser importados e exibidos na aplicação MapsWithMe. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.";
+/* Text hint in Bookmarks dialog */
+"bookmarks_usage_hint" = "Os marcadores de outras fontes também podem ser importados e exibidos na aplicação MapsWithMe. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.";
 
 /* Settings button in system menu */
 "settings" = "Definições";

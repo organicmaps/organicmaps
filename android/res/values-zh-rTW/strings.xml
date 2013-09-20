@@ -174,8 +174,8 @@
 	<string name="remove_pin">移除PIN</string>
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">收藏夾</string>
-	<!-- Text hint in Bookmarks dialog, displayed if it's empty -->
-	<string name="bookmarks_usage_hint">如要新增書籤 , 請按住地圖上的任何地方不放，直到有彈出視窗顯示選項。\n\n其他來源的書簽也可在MapsWithMe應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。</string>
+	<!-- Text hint in Bookmarks dialog -->
+	<string name="bookmarks_usage_hint">其他來源的書簽也可在MapsWithMe應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">設定</string>
 	<!-- Header of settings activity where user defines storage path -->

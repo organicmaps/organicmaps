@@ -175,8 +175,8 @@
 	<string name="remove_pin">Usuń znacznik</string>
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Zestaw</string>
-	<!-- Text hint in Bookmarks dialog, displayed if it's empty -->
-	<string name="bookmarks_usage_hint">Aby dodać nową zakładkę, naciśnij na dowolne miejsce na mapie i przytrzymaj do czasu aż pojawi się okienko.\n\nZakładki z innych źródeł mogą również być importowane i wyświetlane w aplikacji MapsWithMe. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.</string>
+	<!-- Text hint in Bookmarks dialog -->
+	<string name="bookmarks_usage_hint">Zakładki z innych źródeł mogą również być importowane i wyświetlane w aplikacji MapsWithMe. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Ustawienia</string>
 	<!-- Header of settings activity where user defines storage path -->

@@ -55,7 +55,7 @@
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">Pas de connection WiFi. Désirez vous télécharger par le réseau de téléphone mobile (GPRS, EDGE ou 3G)?</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
-	<string name="enable_location_services">Paramétrez les services de localisation de votre appareil, s\'il vous plaît</string>
+	<string name="enable_location_services">Paramétrez les services de localisation de votre appareil, s\&#39;il vous plaît</string>
 	<!-- Settings/Downloader - No free space dialog message -->
 	<string name="free_disk_space_for_country_x">Le disque est plein, merci de faire de la place pour permettre le téléchargement</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
@@ -67,7 +67,7 @@
 	<!-- View and button titles for accessibility -->
 	<string name="search">Recherche</string>
 	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">Seule la version Pro permet une recherche. Voulez-vous l\'installer maintenant?</string>
+	<string name="search_available_in_pro_version">Seule la version Pro permet une recherche. Voulez-vous l\&#39;installer maintenant?</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Rechercher sur la carte</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -77,15 +77,15 @@
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Oui</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
-	<string name="use_wifi_recommendation_text">Nous vous recommandons d\'utiliser le WiFi pour télécharger les grandes cartes</string>
+	<string name="use_wifi_recommendation_text">Nous vous recommandons d\&#39;utiliser le WiFi pour télécharger les grandes cartes</string>
 	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
 	<string name="new_map_data_format_upgrade_dialog">Nous avons mis à jour les cartes en les réduisant. Vous pouvez maintenant ne télécharger que la région ou le pays qui vous intéresse, cependant pour avoir les nouvelles cartes, il vous faut effacer toutes les anciennes cartes.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Quel système de mesure préférez vous?</string>
 	<!-- Location services are disabled by user alert - message -->
-	<string name="location_is_disabled_long_text">Tous les services de repérage sont désactivés. Veuillez s\'il vous plaît la mettre en prise pour la commode utilisation du programme.</string>
+	<string name="location_is_disabled_long_text">Tous les services de repérage sont désactivés. Veuillez s\&#39;il vous plaît la mettre en prise pour la commode utilisation du programme.</string>
 	<!-- Location Services are not available on the device alert - message -->
-	<string name="device_doesnot_support_location_services">Votre appareil n\'est pas compatible pour les services de repérage</string>
+	<string name="device_doesnot_support_location_services">Votre appareil n\&#39;est pas compatible pour les services de repérage</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Zoomer sur le pays désiré</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
@@ -108,7 +108,7 @@
 	<string name="download">Télécharger</string>
 	<string name="external_storage_is_not_available">Les cartes téléchargées sont indisponibles</string>
 	<string name="disconnect_usb_cable">Débranchez le câble USB ou insérez la carte SD</string>
-	<string name="not_enough_free_space_on_sdcard">L\'espace disponible sur l\'appareil est insuffisant pour l\'utilisation du programme</string>
+	<string name="not_enough_free_space_on_sdcard">L\&#39;espace disponible sur l\&#39;appareil est insuffisant pour l\&#39;utilisation du programme</string>
 	<string name="not_enough_memory">Il ne suffit pas de memoire pour la mise en marche du programme</string>
 	<string name="free_space_for_country">Merci de faire  %1$s de la place disponible pour télécharger %2$s</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -129,11 +129,11 @@
 	<string name="downloaded_touch_to_update">(%s) est téléchargé, touchez pour renouveler ou effacer</string>
 	<string name="update_mb_or_kb">Renouveler %s</string>
 	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Merci d\'effacer les cartes anciennes pour faire fonctionner la recherche</string>
+	<string name="search_update_maps">Merci d\&#39;effacer les cartes anciennes pour faire fonctionner la recherche</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Le renouvellement est disponible pour les cartes suivantes:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Vous n\'avez plus besoin de MapsWithMe Lite. Merci de l\'effacer</string>
+	<string name="suggest_uninstall_lite">Vous n\&#39;avez plus besoin de MapsWithMe Lite. Merci de l\&#39;effacer</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">Téléchargement de %s est accompli avec succès</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -153,7 +153,7 @@
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Couleur</string>
 	<!-- Unknown Dropped Pin title, when name can't be determined -->
-	<string name="dropped_pin">L\'épingle déplacée</string>
+	<string name="dropped_pin">L\&#39;épingle déplacée</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">Mes signets</string>
 	<!-- Add bookmark dialog - bookmark name -->
@@ -161,17 +161,17 @@
 	<!-- Add bookmark dialog - bookmark address -->
 	<string name="address">Adresse</string>
 	<!-- Place Page - Remove Pin button -->
-	<string name="remove_pin">Effacer l\'épingle</string>
+	<string name="remove_pin">Effacer l\&#39;épingle</string>
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Groupe</string>
-	<!-- Text hint in Bookmarks dialog, displayed if it's empty -->
-	<string name="bookmarks_usage_hint">Ajoutez n\'importe quel endroit sur la carte à vos favoris. Pour cela, touchez un point sur la carte et maintenez appuyé jusqu\'à ce que le menu contextuel apparaisse.\n\nLes marque-pages provenant d\'autres sources peuvent également être importés et affichés dans l\'application MapsWithMe. Ouvrez les fichiers KML/KMZ marqués depuis votre boite email, Dropbox ou un lien internet.</string>
+	<!-- Text hint in Bookmarks dialog -->
+	<string name="bookmarks_usage_hint">Les marque-pages provenant d\&#39;autres sources peuvent également être importés et affichés dans l\&#39;application MapsWithMe. Ouvrez les fichiers KML/KMZ marqués depuis votre boite email, Dropbox ou un lien internet.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Réglages</string>
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Sauvegarde des cartes</string>
 	<!-- Detailed description of Maps Storage settings button -->
-	<string name="maps_storage_summary">Sélectionnez l\'endroit où les cartes doivent être téléchargées</string>
+	<string name="maps_storage_summary">Sélectionnez l\&#39;endroit où les cartes doivent être téléchargées</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Bouger les cartes?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -179,7 +179,7 @@
 	<!-- Proposal to download Pro version with Bookmarks -->
 	<string name="bookmarks_in_pro_version">Les marques-page sont disponibles dans la version complète de MapsWithMe. Se la procurer maintenant?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
-	<string name="gps_is_disabled_long_text">GPS désactivé. Veuillez s\'il vous plait l\'activer pour une utilisation plus commode de l\'application.</string>
+	<string name="gps_is_disabled_long_text">GPS désactivé. Veuillez s\&#39;il vous plait l\&#39;activer pour une utilisation plus commode de l\&#39;application.</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Unités de mesure</string>
 	<!-- Detailed description of Measurement Units settings button -->
@@ -189,7 +189,7 @@
 	<!-- Do search near my position only -->
 	<string name="search_mode_nearme">Près de moi</string>
 	<!-- Do search in current viewport only -->
-	<string name="search_mode_viewport">Sur l\'écran</string>
+	<string name="search_mode_viewport">Sur l\&#39;écran</string>
 	<!-- Search Suggestion -->
 	<string name="food">repas</string>
 	<!-- Search Suggestion -->
@@ -228,15 +228,15 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Signets MapsWithMe partagés avec vous</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Bonjour,\n\nVous trouverez mes favoris des cartes hors-ligne MapsWithMe dans le fichier \&quot;%s.kmz:\&quot; ci-joint. Veuillez l\'ouvrir si vous avez déjà installé MapsWithMe Pro. Sinon, téléchargez d\'abord l\'application pour appareil iOS ou Android depuis le lien http://www.mapswithme.com/get?kmz.\n\nAmusez-vous bien avec MapsWithMe!</string>
+	<string name="share_bookmarks_email_body">Bonjour,\n\nVous trouverez mes favoris des cartes hors-ligne MapsWithMe dans le fichier \&quot;%s.kmz:\&quot; ci-joint. Veuillez l\&#39;ouvrir si vous avez déjà installé MapsWithMe Pro. Sinon, téléchargez d\&#39;abord l\&#39;application pour appareil iOS ou Android depuis le lien http://www.mapswithme.com/get?kmz.\n\nAmusez-vous bien avec MapsWithMe!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Chargement des favoris</string>
 	<!-- Kmz file successful loading -->
-	<string name="load_kmz_successful">Favoris chargés avec succès ! Vous pouvez les trouver sur la carte ou sur l\'écran de gestion des favoris.</string>
+	<string name="load_kmz_successful">Favoris chargés avec succès ! Vous pouvez les trouver sur la carte ou sur l\&#39;écran de gestion des favoris.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Chargement des favoris échoué. Le dossier peut être corrompu ou défectueux.</string>
 	<!-- Warning message when doing search around current position -->
-	<string name="unknown_current_position">Votre position n\'a pas encore été déterminée</string>
+	<string name="unknown_current_position">Votre position n\&#39;a pas encore été déterminée</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
 	<string name="download_location_country">Téléchargez le pays (%s) de votre position actuelle</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
@@ -246,7 +246,7 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Le téléchargement du pays est en cours actuellement.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Nous espérons que vous appréciez l\'utilisation de MapsWithMe ! Si oui, veuillez évaluer l\'application sur l\'App Store. Cela prend moins d\'une minute mais peut vraiment nous aider. Merci pour votre soutien !</string>
+	<string name="appStore_message">Nous espérons que vous appréciez l\&#39;utilisation de MapsWithMe ! Si oui, veuillez évaluer l\&#39;application sur l\&#39;App Store. Cela prend moins d\&#39;une minute mais peut vraiment nous aider. Merci pour votre soutien !</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Non, Merci</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
@@ -256,11 +256,11 @@
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Voir mon épingle sur la carte MapsWithMe</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Salut,\n\nJ\'ai épinglé: %1$s à MapsWithMe, les cartes du monde hors ligne. Clique sur ce lien %2$s ou sur celui-ci %3$s pour visualiser l\'endroit sur la carte.\n\nMerci.</string>
+	<string name="bookmark_share_email">Salut,\n\nJ\&#39;ai épinglé: %1$s à MapsWithMe, les cartes du monde hors ligne. Clique sur ce lien %2$s ou sur celui-ci %3$s pour visualiser l\&#39;endroit sur la carte.\n\nMerci.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Consultez ma localisation actuelle sur la carte MapsWithMe</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
-	<string name="my_position_share_email">Salut,\n\nJe me trouve actuellement là : %1$s. Clique sur ce lien %2$s ou sur celui-ci %3$s pour visualiser l\'endroit sur la carte.\n\nMerci.</string>
+	<string name="my_position_share_email">Salut,\n\nJe me trouve actuellement là : %1$s. Clique sur ce lien %2$s ou sur celui-ci %3$s pour visualiser l\&#39;endroit sur la carte.\n\nMerci.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Partager par message</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
@@ -276,7 +276,7 @@
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Copié dans le presse-papier: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Autorise les statistiques d\'utilisation anonymes</string>
+	<string name="allow_statistics">Autorise les statistiques d\&#39;utilisation anonymes</string>
 	<!-- Hint near allow statictics checkbox -->
 	<string name="allow_statistics_hint">Cela nous aide à construire une meilleure application</string>
 	<!-- place preview title -->

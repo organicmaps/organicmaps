@@ -282,8 +282,8 @@
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "Skupina";
 
-/* Text hint in Bookmarks dialog, displayed if it's empty */
-"bookmarks_usage_hint" = "Přidej libovolné místo na mapě do Záložek. Klepni na mapě na vybrané místo a podrž ho, dokud se nezobrazí kontextové menu.\n\nV aplikaci MapsWithMe lze importovat a zobrazovat také záložky z jiných zdrojů. Otevřete soubor KML/KMZ pomocí PIN uloženého z e-mailu, Dropboxu nebo webového odkazu.";
+/* Text hint in Bookmarks dialog */
+"bookmarks_usage_hint" = "V aplikaci MapsWithMe lze importovat a zobrazovat také záložky z jiných zdrojů. Otevřete soubor KML/KMZ pomocí PIN uloženého z e-mailu, Dropboxu nebo webového odkazu.";
 
 /* Settings button in system menu */
 "settings" = "Nastavení";
