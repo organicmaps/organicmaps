@@ -4,13 +4,12 @@
 namespace search
 {
 
-Result::Result(string const & str, string const & region,
+Result::Result(FeatureID const & id, m2::PointD const & fCenter,
+               string const & str, string const & region,
                string const & flag, string const & type,
-               uint32_t featureType, m2::RectD const & featureRect,
-               double distanceFromCenter)
-  : m_str(str), m_region(region), m_flag(flag), m_type(type),
-    m_featureRect(featureRect), m_featureType(featureType),
-    m_distanceFromCenter(distanceFromCenter)
+               uint32_t featureType, double distance)
+  : m_id(id), m_center(fCenter), m_str(str), m_region(region),
+    m_flag(flag), m_type(type), m_featureType(featureType), m_distance(distance)
 {
   // Features with empty names can be found after suggestion.
   if (m_str.empty())
@@ -18,6 +17,14 @@ Result::Result(string const & str, string const & region,
     //m_str = "-";
     m_str = type;
   }
+}
+
+Result::Result(m2::PointD const & fCenter,
+               string const & str, string const & region,
+               string const & flag, double distance)
+  : m_center(fCenter), m_str(str), m_region(region),
+    m_flag(flag), m_distance(distance)
+{
 }
 
 Result::Result(string const & str, string const & suggestionStr)
@@ -29,25 +36,28 @@ Result::ResultType Result::GetResultType() const
 {
   if (!m_suggestionStr.empty())
     return RESULT_SUGGESTION;
-  return RESULT_FEATURE;
+  if (m_id.IsValid())
+    return RESULT_FEATURE;
+  else
+    return RESULT_LATLON;
 }
 
-m2::RectD Result::GetFeatureRect() const
+FeatureID Result::GetFeatureID() const
 {
   ASSERT_EQUAL(GetResultType(), RESULT_FEATURE, ());
-  return m_featureRect;
+  return m_id;
+}
+
+double Result::GetDistance() const
+{
+  ASSERT_NOT_EQUAL(GetResultType(), RESULT_SUGGESTION, ());
+  return m_distance;
 }
 
 m2::PointD Result::GetFeatureCenter() const
 {
-  ASSERT_EQUAL(GetResultType(), RESULT_FEATURE, ());
-  return m_featureRect.Center();
-}
-
-double Result::GetDistanceFromCenter() const
-{
-  ASSERT_EQUAL(GetResultType(), RESULT_FEATURE, ());
-  return m_distanceFromCenter;
+  ASSERT_NOT_EQUAL(GetResultType(), RESULT_SUGGESTION, ());
+  return m_center;
 }
 
 char const * Result::GetSuggestionString() const
@@ -60,7 +70,7 @@ bool Result::operator== (Result const & r) const
 {
   return (m_str == r.m_str && m_region == r.m_region && m_featureType == r.m_featureType &&
           GetResultType() == r.GetResultType() &&
-          my::AlmostEqual(m_distanceFromCenter, r.m_distanceFromCenter));
+          my::AlmostEqual(m_distance, r.m_distance));
 }
 
 void Results::AddResultCheckExisting(Result const & r)
@@ -75,7 +85,7 @@ void Results::AddResultCheckExisting(Result const & r)
 
 void AddressInfo::MakeFrom(Result const & res)
 {
-  ASSERT_EQUAL ( res.GetResultType(), Result::RESULT_FEATURE, () );
+  ASSERT_NOT_EQUAL(res.GetResultType(), Result::RESULT_SUGGESTION, ());
 
   // push the feature type (may be empty for coordinates result)
   string const type = res.GetFeatureType();

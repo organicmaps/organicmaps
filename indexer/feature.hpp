@@ -148,21 +148,13 @@ class FeatureType : public FeatureBase
 {
   typedef FeatureBase base_type;
 
-  /// @name This params define unique id for feature.
-  //@{
-  size_t m_mwmID;
-  uint32_t m_offset;
-  //@}
+  FeatureID m_id;
 
 public:
   void Deserialize(feature::LoaderBase * pLoader, BufferT buffer);
 
-  inline void SetID(size_t mwmID, uint32_t offset)
-  {
-    m_mwmID = mwmID;
-    m_offset = offset;
-  }
-  inline pair<size_t, uint32_t> GetID() const { return make_pair(m_mwmID, m_offset); }
+  inline void SetID(FeatureID const & id) { m_id = id; }
+  inline FeatureID GetID() const { return m_id; }
 
   /// @name Parse functions. Do simple dispatching to m_pLoader.
   //@{

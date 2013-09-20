@@ -43,12 +43,12 @@ protected:
   void drawSymbol(m2::PointD const & pt,
                   graphics::EPosition pos,
                   di::DrawRule const & rule,
-                  di::FeatureInfo::FeatureID const & id);
+                  FeatureID const & id);
 
   void drawCircle(m2::PointD const & pt,
                   graphics::EPosition pos,
                   di::DrawRule const & rule,
-                  di::FeatureInfo::FeatureID const & id);
+                  FeatureID const & id);
 
   void drawPath(di::PathInfo const & path,
                 di::DrawRule const * rules,
@@ -61,7 +61,7 @@ protected:
                 graphics::EPosition pos,
                 di::FeatureStyler const & fs,
                 di::DrawRule const & rule,
-                di::FeatureInfo::FeatureID const & id);
+                FeatureID const & id);
 
   void drawPathText(di::PathInfo const & info,
                     di::FeatureStyler const & fs,

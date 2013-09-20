@@ -119,7 +119,7 @@ private:
         FeatureType feature;
 
         m_V.Get(offset, feature);
-        feature.SetID(m_mwmID, offset);
+        feature.SetID(FeatureID(m_mwmID, offset));
 
         m_F(feature);
       }

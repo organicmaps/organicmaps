@@ -193,12 +193,19 @@ namespace
 {
   bool LessByDistance(Result const & r1, Result const & r2)
   {
-    Result::ResultType const t1 = r1.GetResultType();
+    bool const isSuggest1 = r1.GetResultType() == Result::RESULT_SUGGESTION;
+    bool const isNotSuggest2 = r2.GetResultType() != Result::RESULT_SUGGESTION;
 
-    if (t1 == r2.GetResultType() && t1 == Result::RESULT_FEATURE)
-      return (r1.GetDistanceFromCenter() < r2.GetDistanceFromCenter());
-    else if (t1 == Result::RESULT_SUGGESTION)
-      return true;
+    if (isSuggest1)
+    {
+      // suggestions should always be on top
+      return isNotSuggest2;
+    }
+    else if (isNotSuggest2)
+    {
+      // we can't call GetDistance for suggestions
+      return (r1.GetDistance() < r2.GetDistance());
+    }
     else
       return false;
   }

@@ -66,27 +66,18 @@ public:
     }
   }
 
-  m2::RectD CorrectRectForScales(TypesHolder const & types, m2::RectD const & rect) const
+  int GetViewportScale(TypesHolder const & types) const
   {
-    int const scale = scales::GetScaleLevel(rect);
-    int scaleNew = scale;
-    CorrectScaleForVisibility(types, scaleNew);
+    int scale = GetDefaultScale();
 
-    return ((scale != scaleNew) ? scales::GetRectForLevel(scaleNew, rect.Center()) : rect);
-  }
-
-  m2::RectD GetViewport(TypesHolder const & types, m2::RectD const & limitRect) const
-  {
-    if (types.GetGeoType() != GEOM_POINT)
-      return CorrectRectForScales(types, limitRect);
-
-    int const upperScale = scales::GetUpperScale();
-    int scale = upperScale;
-    for (size_t i = 0; i < types.Size(); ++i)
-      scale = min(scale, GetScaleForType(types[i]));
+    if (types.GetGeoType() == GEOM_POINT)
+    {
+      for (size_t i = 0; i < types.Size(); ++i)
+        scale = min(scale, GetScaleForType(types[i]));
+    }
 
     CorrectScaleForVisibility(types, scale);
-    return scales::GetRectForLevel(scale, limitRect.Center());
+    return scale;
   }
 
   uint8_t GetSearchRank(TypesHolder const & types, m2::PointD const & pt, uint32_t population) const
@@ -101,7 +92,8 @@ public:
         population = max(population, static_cast<uint32_t>(10000));
       else if (types[i] == m_TypeState)
       {
-        m2::RectD usaRects[] = {
+        m2::RectD usaRects[] =
+        {
           // Continental part of USA
           m2::RectD(-125.73195962769162293, 25.168771674082393019,
                     -66.925073086214325713, 56.956377399113392812),
@@ -152,6 +144,7 @@ public:
   }
 
 private:
+  static int GetDefaultScale() { return scales::GetUpperComfortScale(); }
 
   // Returns width and height (lon and lat) for a given type.
   int GetScaleForType(uint32_t const type) const
@@ -181,7 +174,7 @@ private:
     if (IsEqual(type, m_TypeSmallVillage))
       return 14;
 
-    return scales::GetUpperScale();
+    return GetDefaultScale();
   }
 
   static uint32_t GetType(string const & s1,
@@ -214,9 +207,9 @@ FeatureEstimator const & GetFeatureEstimator()
 
 }  // namespace feature::impl
 
-m2::RectD GetFeatureViewport(TypesHolder const & types, m2::RectD const & limRect)
+int GetFeatureViewportScale(TypesHolder const & types)
 {
-  return impl::GetFeatureEstimator().GetViewport(types, limRect);
+  return impl::GetFeatureEstimator().GetViewportScale(types);
 }
 
 uint8_t GetSearchRank(TypesHolder const & types, m2::PointD const & pt, uint32_t population)

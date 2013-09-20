@@ -1,7 +1,11 @@
 #pragma once
+#include "../indexer/feature_decl.hpp"
+
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
+
 #include "../std/string.hpp"
+
 
 namespace search
 {
@@ -13,43 +17,59 @@ public:
   enum ResultType
   {
     RESULT_FEATURE,
+    RESULT_LATLON,
     RESULT_SUGGESTION
   };
 
-  Result(string const & str, string const & region,
+  /// For RESULT_FEATURE.
+  Result(FeatureID const & id, m2::PointD const & fCenter,
+         string const & str, string const & region,
          string const & flag, string const & type,
-         uint32_t featureType, m2::RectD const & featureRect,
-         double distanceFromCenter);
+         uint32_t featureType, double distance);
+
+  /// For RESULT_LATLON.
+  Result(m2::PointD const & fCenter,
+         string const & str, string const & region,
+         string const & flag, double distance);
+
+  /// For RESULT_SUGGESTION.
   Result(string const & str, string const & suggestionStr);
 
-  // String that is displayed in the GUI.
+  /// Strings that is displayed in the GUI.
+  //@{
   char const * GetString() const { return m_str.c_str(); }
   char const * GetRegionString() const { return m_region.c_str(); }
   char const * GetRegionFlag() const { return m_flag.empty() ? 0 : m_flag.c_str(); }
   char const * GetFeatureType() const { return m_type.c_str(); }
+  //@}
 
-  // Type of the result.
+  /// Type of the result.
   ResultType GetResultType() const;
 
-  // Rect of a feature, if GetResultType() == RESULT_FEATURE.
-  m2::RectD GetFeatureRect() const;
+  /// Feature id in mwm.
+  /// @precondition GetResultType() == RESULT_FEATURE
+  FeatureID GetFeatureID() const;
 
-  // Center point of a feature, if GetResultType() == RESULT_FEATURE.
+  /// Center point of a feature.
+  /// @precondition GetResultType() != RESULT_SUGGESTION
   m2::PointD GetFeatureCenter() const;
 
-  // Distance from the center of the screen, if GetResultType() == RESULT_FEATURE.
-  double GetDistanceFromCenter() const;
+  /// Distance from the current position or -1 if location is not detected.
+  /// @precondition GetResultType() != RESULT_SUGGESTION
+  double GetDistance() const;
 
-  // String to write in the search box.
+  /// String to write in the search box.
+  /// @precondition GetResultType() == RESULT_SUGGESTION
   char const * GetSuggestionString() const;
 
   bool operator== (Result const & r) const;
 
 private:
+  FeatureID m_id;
+  m2::PointD m_center;
   string m_str, m_region, m_flag, m_type;
-  m2::RectD m_featureRect;
   uint32_t m_featureType;
-  double m_distanceFromCenter;
+  double m_distance;
   string m_suggestionStr;
 };
 

@@ -4,25 +4,21 @@
 #include "path_info.hpp"
 #include "area_info.hpp"
 
-#include "../indexer/feature.hpp"
+#include "../indexer/feature_decl.hpp"
 
 #include "../geometry/point2d.hpp"
 
 #include "../std/list.hpp"
 
-namespace graphics
-{
-  class GlyphCache;
-}
 
+namespace graphics { class GlyphCache; }
+class FeatureType;
 class ScreenBase;
 
 namespace di
 {
   struct FeatureInfo
   {
-    typedef pair<size_t, uint32_t> FeatureID;
-
     FeatureStyler m_styler;
     FeatureID m_id;
 

@@ -91,7 +91,7 @@ void Drawer::drawSymbol(m2::PointD const & pt,
 void Drawer::drawCircle(m2::PointD const & pt,
                         graphics::EPosition pos,
                         di::DrawRule const & rule,
-                        di::FeatureInfo::FeatureID const & id)
+                        FeatureID const & id)
 {
   graphics::Circle::Info ci;
   ConvertStyle(rule.m_rule->GetCircle(), m_visualScale, ci);
@@ -102,8 +102,8 @@ void Drawer::drawCircle(m2::PointD const & pt,
   params.m_position = pos;
   params.m_pivot = pt;
   params.m_ci = ci;
-  params.m_userInfo.m_mwmID = id.first;
-  params.m_userInfo.m_offset = id.second;
+  params.m_userInfo.m_mwmID = id.m_mwm;
+  params.m_userInfo.m_offset = id.m_offset;
 
   m_pScreen->drawCircle(params);
 }
@@ -111,7 +111,7 @@ void Drawer::drawCircle(m2::PointD const & pt,
 void Drawer::drawSymbol(m2::PointD const & pt,
                         graphics::EPosition pos,
                         di::DrawRule const & rule,
-                        di::FeatureInfo::FeatureID const & id)
+                        FeatureID const & id)
 {
   graphics::Icon::Info info;
   ConvertStyle(rule.m_rule->GetSymbol(), info);
@@ -122,8 +122,8 @@ void Drawer::drawSymbol(m2::PointD const & pt,
   params.m_pivot = pt;
   params.m_info = info;
   params.m_renderer = m_pScreen.get();
-  params.m_userInfo.m_mwmID = id.first;
-  params.m_userInfo.m_offset = id.second;
+  params.m_userInfo.m_mwmID = id.m_mwm;
+  params.m_userInfo.m_offset = id.m_offset;
 
   m_pScreen->drawSymbol(params);
 }
@@ -204,7 +204,7 @@ void Drawer::drawText(m2::PointD const & pt,
                       graphics::EPosition pos,
                       di::FeatureStyler const & fs,
                       di::DrawRule const & rule,
-                      di::FeatureInfo::FeatureID const & id)
+                      FeatureID const & id)
 {
   graphics::FontDesc primaryFont;
   m2::PointD primaryOffset;
@@ -231,8 +231,8 @@ void Drawer::drawText(m2::PointD const & pt,
   params.m_auxLogText = strings::MakeUniString(fs.m_secondaryText);
   params.m_doSplit = true;
   params.m_useAllParts = false;
-  params.m_userInfo.m_mwmID = id.first;
-  params.m_userInfo.m_offset = id.second;
+  params.m_userInfo.m_mwmID = id.m_mwm;
+  params.m_userInfo.m_offset = id.m_offset;
 
   m_pScreen->drawTextEx(params);
 }
@@ -307,7 +307,7 @@ void Drawer::SetScale(int level)
 
 void Drawer::Draw(di::FeatureInfo const & fi)
 {
-  di::FeatureInfo::FeatureID const & id = fi.m_id;
+  FeatureID const & id = fi.m_id;
   buffer_vector<di::DrawRule, 8> const & rules = fi.m_styler.m_rules;
   buffer_vector<di::DrawRule, 8> pathRules;
 

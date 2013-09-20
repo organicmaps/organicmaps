@@ -4,7 +4,6 @@
 
 #include "../indexer/classificator.hpp"
 #include "../indexer/feature.hpp"
-#include "../indexer/feature_utils.hpp"
 #include "../indexer/mercator.hpp"
 #include "../indexer/scales.hpp"
 #include "../indexer/categories_holder.hpp"
@@ -91,26 +90,42 @@ template <class T> bool LessDistanceT(T const & r1, T const & r2)
   return (r1.m_distanceFromViewportCenter < r2.m_distanceFromViewportCenter);
 }
 
-PreResult1::PreResult1(uint32_t fID, uint8_t rank, m2::PointD const & center, size_t mwmID,
+PreResult1::PreResult1(FeatureID const & fID, uint8_t rank, m2::PointD const & center,
                        m2::PointD const & pos, m2::RectD const & viewport, int8_t viewportID)
-  : m_center(center),
-    m_mwmID(mwmID),
-    m_featureID(fID),
+  : m_id(fID),
     m_rank(rank),
     m_viewportID(viewportID)
 {
-  CalcParams(viewport, pos);
+  ASSERT(m_id.IsValid(), ());
+
+  CalcParams(center, viewport, pos);
 }
 
-void PreResult1::CalcParams(m2::RectD const & viewport, m2::PointD const & pos)
+PreResult1::PreResult1(m2::PointD const & center, m2::PointD const & pos, m2::RectD const & viewport)
 {
+  CalcParams(center, viewport, pos);
+}
+
+namespace
+{
+
+void AssertValid(m2::PointD const & p)
+{
+  ASSERT ( my::between_s(-180.0, 180.0, p.x), (p.x) );
+  ASSERT ( my::between_s(-180.0, 180.0, p.y), (p.y) );
+}
+
+}
+
+void PreResult1::CalcParams(m2::PointD const & fCenter, m2::RectD const & viewport, m2::PointD const & pos)
+{
+  AssertValid(fCenter);
+
   // Check if point is valid (see Query::empty_pos_value).
   if (pos.x > -500 && pos.y > -500)
   {
-    ASSERT ( my::between_s(-180.0, 180.0, pos.x), (pos.x) );
-    ASSERT ( my::between_s(-180.0, 180.0, pos.y), (pos.y) );
-
-    m_distance = ResultDistance(m_center, pos);
+    AssertValid(pos);
+    m_distance = ResultDistance(fCenter, pos);
   }
   else
   {
@@ -118,8 +133,8 @@ void PreResult1::CalcParams(m2::RectD const & viewport, m2::PointD const & pos)
     m_distance = -1.0;
   }
 
-  m_viewportDistance = ViewportDistance(viewport, m_center);
-  m_distanceFromViewportCenter = ResultDistance(m_center, viewport.Center());
+  m_viewportDistance = ViewportDistance(viewport, fCenter);
+  m_distanceFromViewportCenter = ResultDistance(fCenter, viewport.Center());
 }
 
 bool PreResult1::LessRank(PreResult1 const & r1, PreResult1 const & r2)
@@ -138,10 +153,10 @@ bool PreResult1::LessViewportDistance(PreResult1 const & r1, PreResult1 const & 
 }
 
 
-void PreResult2::CalcParams(m2::RectD const & viewport, m2::PointD const & pos)
+void PreResult2::CalcParams(m2::PointD const & fCenter, m2::RectD const & viewport, m2::PointD const & pos)
 {
   // dummy object to avoid copy-paste
-  PreResult1 res(0, 0, m_center, 0, pos, viewport, -1);
+  PreResult1 res(fCenter, pos, viewport);
 
   m_distance = res.m_distance;
   m_distanceFromViewportCenter = res.m_distanceFromViewportCenter;
@@ -151,24 +166,20 @@ void PreResult2::CalcParams(m2::RectD const & viewport, m2::PointD const & pos)
 PreResult2::PreResult2(FeatureType const & f, uint8_t rank,
                        m2::RectD const & viewport, m2::PointD const & pos,
                        string const & displayName, string const & fileName)
-  : m_types(f),
+  : m_id(f.GetID()),
+    m_types(f),
     m_str(displayName),
     m_resultType(RESULT_FEATURE),
     m_rank(rank)
 {
-  ASSERT ( !m_types.Empty(), () );
+  ASSERT(m_id.IsValid(), ());
+  ASSERT(!m_types.Empty(), ());
+
   m_types.SortBySpec();
 
-  m_featureRect = f.GetLimitRect(FeatureType::WORST_GEOMETRY);
-  m_center = m_featureRect.Center();
-
-  CalcParams(viewport, pos);
-
-  // get region info
-  if (!fileName.empty())
-    m_region.SetName(fileName);
-  else
-    m_region.SetPoint(m_center);
+  m2::PointD const fCenter = f.GetLimitRect(FeatureType::WORST_GEOMETRY).Center();
+  CalcParams(fCenter, viewport, pos);
+  m_region.SetParams(fileName, fCenter);
 }
 
 PreResult2::PreResult2(m2::RectD const & viewport, m2::PointD const & pos, double lat, double lon)
@@ -176,14 +187,9 @@ PreResult2::PreResult2(m2::RectD const & viewport, m2::PointD const & pos, doubl
     m_resultType(RESULT_LATLON),
     m_rank(255)
 {
-  m_center.x = MercatorBounds::LonToX(lon);
-  m_center.y = MercatorBounds::LatToY(lat);
-  m_featureRect.Add(m_center);
-
-  CalcParams(viewport, pos);
-
-  // get region info
-  m_region.SetPoint(m_center);
+  m2::PointD const fCenter(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
+  CalcParams(fCenter, viewport, pos);
+  m_region.SetParams(string(), fCenter);
 }
 
 PreResult2::PreResult2(string const & name, int penalty)
@@ -246,15 +252,14 @@ Result PreResult2::GenerateFinalResult(
   switch (m_resultType)
   {
   case RESULT_FEATURE:
-    return Result(m_str, info.m_name, info.m_flag, GetFeatureType(pCat, pTypes, lang)
+    return Result(m_id, GetCenter(), m_str, info.m_name, info.m_flag, GetFeatureType(pCat, pTypes, lang)
               #ifdef DEBUG
                   + ' ' + strings::to_string(static_cast<int>(m_rank))
               #endif
-                  , type, GetFinalViewport(), m_distance);
+                  , type, m_distance);
 
   case RESULT_LATLON:
-    return Result(m_str, info.m_name, info.m_flag, string(), 0,
-                  scales::GetRectForLevel(scales::GetUpperScale(), m_center), m_distance);
+    return Result(GetCenter(), m_str, info.m_name, info.m_flag, m_distance);
 
   default:
     ASSERT_EQUAL ( m_resultType, RESULT_CATEGORY, () );
@@ -282,7 +287,7 @@ bool PreResult2::StrictEqualF::operator() (PreResult2 const & r) const
   if (m_r.m_resultType == r.m_resultType && m_r.m_resultType == RESULT_FEATURE)
   {
     if (m_r.m_str == r.m_str && m_r.GetBestType() == r.GetBestType())
-      return (ResultDistance(m_r.m_center, r.m_center) < DIST_EQUAL_RESULTS);
+      return (ResultDistance(m_r.GetCenter(), r.GetCenter()) < DIST_EQUAL_RESULTS);
   }
 
   return false;
@@ -347,7 +352,7 @@ bool PreResult2::EqualLinearTypesF::operator() (PreResult2 const & r1, PreResult
   // Otherwise we will skip the results for different parts of the map.
   if (r1.m_resultType == r2.m_resultType && r1.m_str == r2.m_str &&
       //r1.m_viewportDistance == r2.m_viewportDistance &&
-      ResultDistance(r1.m_center, r2.m_center) < DIST_SAME_STREET)
+      ResultDistance(r1.GetCenter(), r2.GetCenter()) < DIST_SAME_STREET)
   {
     // filter equal linear features
     static IsLinearChecker checker;
@@ -415,19 +420,12 @@ string PreResult2::GetFeatureType(CategoriesHolder const * pCat,
   return classif().GetReadableObjectName(type);
 }
 
-m2::RectD PreResult2::GetFinalViewport() const
-{
-  m2::RectD r = feature::GetFeatureViewport(m_types, m_featureRect);
-  r.SetCenter(m_center);
-  return r;
-}
-
-void PreResult2::RegionInfo::GetRegion(
-    storage::CountryInfoGetter const * pInfo, storage::CountryInfo & info) const
+void PreResult2::RegionInfo::GetRegion(storage::CountryInfoGetter const * pInfo,
+                                       storage::CountryInfo & info) const
 {
   if (!m_file.empty())
     pInfo->GetRegionInfo(m_file, info);
-  else if (m_valid)
+  else
     pInfo->GetRegionInfo(m_point, info);
 }
 

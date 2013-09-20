@@ -432,13 +432,13 @@ namespace impl
     scoped_ptr<Index::FeaturesLoaderGuard> m_pFV;
 
     // For the best performance, incoming id's should be sorted by id.first (mwm file id).
-    void LoadFeature(pair<size_t, uint32_t> const & id,
-                     FeatureType & f, string & name, string & country)
+    void LoadFeature(FeatureID const & id, FeatureType & f, string & name, string & country)
     {
-      if (m_pFV.get() == 0 || m_pFV->GetID() != id.first)
-        m_pFV.reset(new Index::FeaturesLoaderGuard(*m_query.m_pIndex, id.first));
+      if (m_pFV.get() == 0 || m_pFV->GetID() != id.m_mwm)
+        m_pFV.reset(new Index::FeaturesLoaderGuard(*m_query.m_pIndex, id.m_mwm));
 
-      m_pFV->GetFeature(id.second, f);
+      m_pFV->GetFeature(id.m_offset, f);
+      f.SetID(id);
 
       m_query.GetBestMatchName(f, name);
 
@@ -466,7 +466,7 @@ namespace impl
                                   name, country);
     }
 
-    impl::PreResult2 * operator() (pair<size_t, uint32_t> const & id)
+    impl::PreResult2 * operator() (FeatureID const & id)
     {
       FeatureType feature;
       string name, country;
@@ -575,7 +575,7 @@ namespace
 
 void Query::AddResultFromTrie(TrieValueT const & val, size_t mwmID, int8_t viewportID)
 {
-  impl::PreResult1 res(val.m_featureId, val.m_rank, val.m_pt, mwmID,
+  impl::PreResult1 res(FeatureID(mwmID, val.m_featureId), val.m_rank, val.m_pt,
                        GetPosition(viewportID), GetViewport(viewportID), viewportID);
 
   for (size_t i = 0; i < m_qCount; ++i)
@@ -1834,7 +1834,7 @@ void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsig
     {
       if (m_cancel) break;
 
-      AddPreResult2(maker(make_pair(i, offsets[i][j])), indV);
+      AddPreResult2(maker(FeatureID(i, offsets[i][j])), indV);
     }
   }
 

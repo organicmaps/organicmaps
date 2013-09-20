@@ -16,7 +16,12 @@
 #include "../indexer/categories_holder.hpp"
 #include "../indexer/feature.hpp"
 #include "../indexer/scales.hpp"
+
+/// @todo Probably it's better to join this functionality.
+//@{
 #include "../indexer/feature_algo.hpp"
+#include "../indexer/feature_utils.hpp"
+//@}
 
 #include "../anim/controller.hpp"
 
@@ -1224,15 +1229,41 @@ bool Framework::GetCurrentPosition(double & lat, double & lon) const
 
 void Framework::ShowSearchResult(search::Result const & res)
 {
+  int scale;
+  m2::PointD center;
+
+  switch (res.GetResultType())
+  {
+  case search::Result::RESULT_FEATURE:
+  {
+    FeatureID const id = res.GetFeatureID();
+    Index::FeaturesLoaderGuard guard(m_model.GetIndex(), id.m_mwm);
+
+    FeatureType ft;
+    guard.GetFeature(id.m_offset, ft);
+
+    scale = feature::GetFeatureViewportScale(feature::TypesHolder(ft));
+    center = feature::GetCenter(ft, scale);
+    break;
+  }
+
+  case search::Result::RESULT_LATLON:
+    scale = scales::GetUpperComfortScale();
+    center = res.GetFeatureCenter();
+    break;
+
+  default:
+    ASSERT(false, ());
+    return;
+  }
+
   StopLocationFollow();
 
-  m2::RectD const rect = res.GetFeatureRect();
-
-  ShowRectExVisibleScale(rect);
+  ShowRectExVisibleScale(m_scales.GetRectForDrawScale(scale, center));
 
   search::AddressInfo info;
   info.MakeFrom(res);
-  m_balloonManager.ShowAddress(res.GetFeatureCenter(), info);
+  m_balloonManager.ShowAddress(center, info);
 }
 
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point,

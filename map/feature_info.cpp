@@ -1,4 +1,6 @@
 #include "feature_info.hpp"
+#include "../indexer/feature.hpp"
+
 
 namespace di
 {

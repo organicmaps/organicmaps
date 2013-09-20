@@ -410,10 +410,8 @@ static void OnSearchResultCallback(search::Results const & res)
   }
 
   search::Result const & r = [[_searchResults objectAtIndex:scopeSection] getWithPosition:realRowIndex];
-  switch (r.GetResultType())
+  if (r.GetResultType() != search::Result::RESULT_SUGGESTION)
   {
-    case search::Result::RESULT_FEATURE:
-    {
       SearchCell * cell = (SearchCell *)[tableView dequeueReusableCellWithIdentifier:@"FeatureCell"];
       if (!cell)
         cell = [[[SearchCell alloc] initWithReuseIdentifier:@"FeatureCell"] autorelease];
@@ -473,22 +471,14 @@ static void OnSearchResultCallback(search::Results const & res)
         compass.angle = azimut;
       }
       return cell;
-    }
-    break;
-
-    case search::Result::RESULT_SUGGESTION:
-    {
+  }
+  else
+  {
       UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"SuggestionCell"];
       if (!cell)
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SuggestionCell"] autorelease];
       cell.textLabel.text = [NSString stringWithUTF8String:r.GetString()];
       return cell;
-    }
-    break;
-
-    default:
-      ASSERT(false, ("Unsupported search result type"));
-    return nil;
   }
 }
 
@@ -507,11 +497,8 @@ static void OnSearchResultCallback(search::Results const & res)
   if (realRowIndex < (NSInteger)[[_searchResults objectAtIndex:scopeSection] getCount])
   {
     search::Result const & res = [[_searchResults objectAtIndex:scopeSection] getWithPosition:realRowIndex];
-    switch(res.GetResultType())
+    if (res.GetResultType() != search::Result::RESULT_SUGGESTION)
     {
-      // Zoom to the feature
-    case search::Result::RESULT_FEATURE:
-      {
         m_framework->ShowSearchResult(res);
 
         search::AddressInfo info;
@@ -527,14 +514,12 @@ static void OnSearchResultCallback(search::Results const & res)
         [[MapsAppDelegate theApp].m_mapViewController showSearchResultAsBookmarkAtMercatorPoint:res.GetFeatureCenter() withInfo:info];
 
         [self onCloseButton:nil];
-      }
-      break;
-
-    case search::Result::RESULT_SUGGESTION:
+    }
+    else
+    {
       [self setSearchBoxText:[NSString stringWithUTF8String:res.GetSuggestionString()]];
       // Remove blue selection from the row
       [tableView deselectRowAtIndexPath: indexPath animated:YES];
-      break;
     }
   }
 }
@@ -628,7 +613,7 @@ void setSearchType(search::SearchParams & params)
       UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
       NSInteger realRowIndex = [m_table indexPathForCell:cell].row;
       search::Result const & res = [[_searchResults objectAtIndex:scopeSection] getWithPosition:realRowIndex];
-      if (res.GetResultType() == search::Result::RESULT_FEATURE)
+      if (res.GetResultType() != search::Result::RESULT_SUGGESTION)
       {
         // Show compass only for cells without flags
         if ([cell.accessoryView isKindOfClass:[CompassView class]])

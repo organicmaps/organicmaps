@@ -1,4 +1,5 @@
 #pragma once
+#include "feature_decl.hpp"
 
 #include "../coding/multilang_utf8_string.hpp"
 #include "../coding/value_opt_string.hpp"

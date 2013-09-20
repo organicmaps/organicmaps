@@ -223,7 +223,7 @@ Java_com_mapswithme_maps_SearchActivity_nativeGetResult(
   jclass klass = env->FindClass("com/mapswithme/maps/SearchActivity$SearchAdapter$SearchResult");
   ASSERT ( klass, () );
 
-  if (res->GetResultType() == search::Result::RESULT_FEATURE)
+  if (res->GetResultType() != search::Result::RESULT_SUGGESTION)
   {
     jmethodID methodID = env->GetMethodID(
         klass, "<init>",

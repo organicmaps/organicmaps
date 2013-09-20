@@ -90,6 +90,7 @@ HEADERS += \
     feature_algo.hpp \
     mwm_version.hpp \
     drules_include.hpp \
+    feature_decl.hpp \
 
 OTHER_FILES += drules_struct.proto
 

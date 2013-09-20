@@ -119,7 +119,7 @@ void SearchPanel::OnSearchResult(ResultsT * res)
       m_pTable->setItem(rowCount, 1, create_item(QString::fromUtf8(e.GetString())));
       m_pTable->setItem(rowCount, 2, create_item(QString::fromUtf8(e.GetRegionString())));
 
-      if (e.GetResultType() == ResultT::RESULT_FEATURE)
+      if (e.GetResultType() != ResultT::RESULT_SUGGESTION)
       {
         // For debug purposes: add bookmarks for search results
         Bookmark bm(e.GetFeatureCenter(), e.GetString(), "placemark-red");
@@ -163,8 +163,10 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
 void SearchPanel::OnSearchPanelItemClicked(int row, int)
 {
   disconnect(m_pDrawWidget, SIGNAL(ViewportChanged()), this, SLOT(OnViewportChanged()));
+
   ASSERT_EQUAL(m_results.size(), static_cast<size_t>(m_pTable->rowCount()), ());
-  if (m_results[row].GetResultType() == ResultT::RESULT_FEATURE)
+
+  if (m_results[row].GetResultType() != ResultT::RESULT_SUGGESTION)
   {
     // center viewport on clicked item
     m_pDrawWidget->ShowSearchResult(m_results[row]);
@@ -175,6 +177,7 @@ void SearchPanel::OnSearchPanelItemClicked(int row, int)
     string const suggestion = m_results[row].GetSuggestionString();
     m_pEditor->setText(QString::fromUtf8(suggestion.c_str()));
   }
+
   connect(m_pDrawWidget, SIGNAL(ViewportChanged()), this, SLOT(OnViewportChanged()));
 }
 
