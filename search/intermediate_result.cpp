@@ -93,17 +93,19 @@ template <class T> bool LessDistanceT(T const & r1, T const & r2)
 PreResult1::PreResult1(FeatureID const & fID, uint8_t rank, m2::PointD const & center,
                        m2::PointD const & pos, m2::RectD const & viewport, int8_t viewportID)
   : m_id(fID),
+    m_center(center),
     m_rank(rank),
     m_viewportID(viewportID)
 {
   ASSERT(m_id.IsValid(), ());
 
-  CalcParams(center, viewport, pos);
+  CalcParams(viewport, pos);
 }
 
 PreResult1::PreResult1(m2::PointD const & center, m2::PointD const & pos, m2::RectD const & viewport)
+  : m_center(center)
 {
-  CalcParams(center, viewport, pos);
+  CalcParams(viewport, pos);
 }
 
 namespace
@@ -117,15 +119,15 @@ void AssertValid(m2::PointD const & p)
 
 }
 
-void PreResult1::CalcParams(m2::PointD const & fCenter, m2::RectD const & viewport, m2::PointD const & pos)
+void PreResult1::CalcParams(m2::RectD const & viewport, m2::PointD const & pos)
 {
-  AssertValid(fCenter);
+  AssertValid(m_center);
 
   // Check if point is valid (see Query::empty_pos_value).
   if (pos.x > -500 && pos.y > -500)
   {
     AssertValid(pos);
-    m_distance = ResultDistance(fCenter, pos);
+    m_distance = ResultDistance(m_center, pos);
   }
   else
   {
@@ -133,8 +135,8 @@ void PreResult1::CalcParams(m2::PointD const & fCenter, m2::RectD const & viewpo
     m_distance = -1.0;
   }
 
-  m_viewportDistance = ViewportDistance(viewport, fCenter);
-  m_distanceFromViewportCenter = ResultDistance(fCenter, viewport.Center());
+  m_viewportDistance = ViewportDistance(viewport, m_center);
+  m_distanceFromViewportCenter = ResultDistance(m_center, viewport.Center());
 }
 
 bool PreResult1::LessRank(PreResult1 const & r1, PreResult1 const & r2)
@@ -153,33 +155,42 @@ bool PreResult1::LessViewportDistance(PreResult1 const & r1, PreResult1 const & 
 }
 
 
-void PreResult2::CalcParams(m2::PointD const & fCenter, m2::RectD const & viewport, m2::PointD const & pos)
+void PreResult2::CalcParams(m2::RectD const & viewport, m2::PointD const & pos)
 {
   // dummy object to avoid copy-paste
-  PreResult1 res(fCenter, pos, viewport);
+  PreResult1 res(GetCenter(), pos, viewport);
 
   m_distance = res.m_distance;
   m_distanceFromViewportCenter = res.m_distanceFromViewportCenter;
   m_viewportDistance = res.m_viewportDistance;
 }
 
-PreResult2::PreResult2(FeatureType const & f, uint8_t rank,
+PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p,
                        m2::RectD const & viewport, m2::PointD const & pos,
                        string const & displayName, string const & fileName)
   : m_id(f.GetID()),
     m_types(f),
     m_str(displayName),
-    m_resultType(RESULT_FEATURE),
-    m_rank(rank)
+    m_resultType(RESULT_FEATURE)
 {
   ASSERT(m_id.IsValid(), ());
   ASSERT(!m_types.Empty(), ());
 
   m_types.SortBySpec();
 
-  m2::PointD const fCenter = f.GetLimitRect(FeatureType::WORST_GEOMETRY).Center();
-  CalcParams(fCenter, viewport, pos);
+  m_rank = p ? p->GetRank() : 0;
+
+  m2::PointD fCenter;
+  if (p && f.GetFeatureType() != feature::GEOM_POINT)
+  {
+    // Optimization tip - use precalculated center point if possible.
+    fCenter = p->GetCenter();
+  }
+  else
+    fCenter = f.GetLimitRect(FeatureType::WORST_GEOMETRY).Center();
+
   m_region.SetParams(fileName, fCenter);
+  CalcParams(viewport, pos);
 }
 
 PreResult2::PreResult2(m2::RectD const & viewport, m2::PointD const & pos, double lat, double lon)
@@ -188,8 +199,8 @@ PreResult2::PreResult2(m2::RectD const & viewport, m2::PointD const & pos, doubl
     m_rank(255)
 {
   m2::PointD const fCenter(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
-  CalcParams(fCenter, viewport, pos);
   m_region.SetParams(string(), fCenter);
+  CalcParams(viewport, pos);
 }
 
 PreResult2::PreResult2(string const & name, int penalty)

@@ -461,7 +461,7 @@ namespace impl
       LoadFeature(res.GetID(), feature, name, country);
 
       int8_t const viewportID = res.GetViewportID();
-      return new impl::PreResult2(feature, res.GetRank(),
+      return new impl::PreResult2(feature, &res,
                                   m_query.GetViewport(viewportID), m_query.GetPosition(viewportID),
                                   name, country);
     }
@@ -474,7 +474,6 @@ namespace impl
 
       if (!name.empty() && !country.empty())
       {
-        // this results will be with equal rank == 0
         return new impl::PreResult2(feature, 0,
                                     m_query.GetViewport(), m_query.GetPosition(),
                                     name, country);

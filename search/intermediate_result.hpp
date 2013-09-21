@@ -32,12 +32,13 @@ class PreResult1
   template <class T> friend bool LessDistanceT(T const & r1, T const & r2);
 
   FeatureID m_id;
+  m2::PointD m_center;
   double m_distance, m_distanceFromViewportCenter;
   uint8_t m_viewportDistance;
   uint8_t m_rank;
   int8_t m_viewportID;
 
-  void CalcParams(m2::PointD const & fCenter, m2::RectD const & viewport, m2::PointD const & pos);
+  void CalcParams(m2::RectD const & viewport, m2::PointD const & pos);
 
 public:
   PreResult1(FeatureID const & fID, uint8_t rank, m2::PointD const & center,
@@ -49,6 +50,7 @@ public:
   static bool LessViewportDistance(PreResult1 const & r1, PreResult1 const & r2);
 
   inline FeatureID GetID() const { return m_id; }
+  inline m2::PointD GetCenter() const { return m_center; }
   inline uint8_t GetRank() const { return m_rank; }
   inline int8_t GetViewportID() const { return m_viewportID; }
 };
@@ -58,7 +60,7 @@ public:
 /// Read and fill needed info for ranking and getting final results.
 class PreResult2
 {
-  void CalcParams(m2::PointD const & fCenter, m2::RectD const & viewport, m2::PointD const & pos);
+  void CalcParams(m2::RectD const & viewport, m2::PointD const & pos);
 
 public:
   enum ResultType
@@ -69,7 +71,7 @@ public:
   };
 
   // For RESULT_FEATURE.
-  PreResult2(FeatureType const & f, uint8_t rank,
+  PreResult2(FeatureType const & f, PreResult1 const * p,
              m2::RectD const & viewport, m2::PointD const & pos,
              string const & displayName, string const & fileName);
 
