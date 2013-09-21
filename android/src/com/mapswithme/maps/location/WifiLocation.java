@@ -16,7 +16,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.Location;
-import android.location.LocationManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
@@ -38,13 +37,12 @@ public class WifiLocation extends BroadcastReceiver
   public interface Listener
   {
     public void onWifiLocationUpdated(Location l);
+    public Location getLastGPSLocation();
   }
 
   private Listener mObserver = null;
 
   private WifiManager mWifi = null;
-
-  private LocationManager mLocationManager = null;
 
   public WifiLocation()
   {
@@ -144,10 +142,7 @@ public class WifiLocation extends BroadcastReceiver
 
     if (Statistics.INSTANCE.isStatisticsEnabled(context))
     {
-      if (mLocationManager == null)
-        mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-
-      final Location l = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+      final Location l = mObserver.getLastGPSLocation();
       if (l != null)
       {
         if (wifiHeaderAdded)

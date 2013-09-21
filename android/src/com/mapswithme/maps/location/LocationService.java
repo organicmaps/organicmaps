@@ -523,4 +523,10 @@ public class LocationService implements LocationListener, SensorEventListener, W
     if (l != null)
       onLocationChanged(l);
   }
+
+  @Override
+  public Location getLastGPSLocation()
+  {
+    return mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+  }
 }
