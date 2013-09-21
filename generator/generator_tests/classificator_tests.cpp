@@ -60,18 +60,28 @@ public:
       if (range.first == -1 || range.second == -1)
         LOG(LINFO, ("No styles:", type, m_c.GetFullObjectName(type)));
     }
+    else if (ftype::GetLevel(type) > 1)
+      LOG(LINFO, ("Type without any rules:", type, m_c.GetFullObjectName(type)));
   }
 };
+
+void ForEachObject(Classificator const & c, vector<string> const & path,
+                   EGeomType geomType, int rules)
+{
+  uint32_t const type = c.GetTypeByPath(path);
+  ClassifObject const * pObj = c.GetObject(type);
+
+  DoCheckStyles doCheck(c, geomType, rules);
+  doCheck(pObj, type);
+  pObj->ForEachObjectInTree(doCheck, type);
+}
 
 void ForEachObject(Classificator const & c, string const & name,
                    EGeomType geomType, int rules)
 {
-  vector<string> v;
-  v.push_back(name);
-  uint32_t const type = c.GetTypeByPath(v);
-
-  DoCheckStyles doCheck(c, geomType, rules);
-  c.GetObject(type)->ForEachObjectInTree(doCheck, type);
+  vector<string> path;
+  strings::Tokenize(name, "-", MakeBackInsertFunctor(path));
+  ForEachObject(c, path, geomType, rules);
 }
 
 void CheckPointStyles(Classificator const & c, string const & name)
@@ -91,6 +101,7 @@ UNIT_TEST(Classificator_DrawingRules)
   classificator::Load();
   Classificator const & c = classif();
 
+  LOG(LINFO, ("--------------- Point styles ---------------"));
   CheckPointStyles(c, "landuse");
   CheckPointStyles(c, "amenity");
   CheckPointStyles(c, "historic");
@@ -99,7 +110,13 @@ UNIT_TEST(Classificator_DrawingRules)
   CheckPointStyles(c, "shop");
   CheckPointStyles(c, "sport");
   CheckPointStyles(c, "tourism");
+  CheckPointStyles(c, "highway-bus_stop");
+  CheckPointStyles(c, "highway-motorway_junction");
+  CheckPointStyles(c, "railway-station");
+  CheckPointStyles(c, "railway-tram_stop");
+  CheckPointStyles(c, "railway-halt");
 
+  LOG(LINFO, ("--------------- Linear styles ---------------"));
   CheckLineStyles(c, "highway");
   CheckLineStyles(c, "waterway");
   //CheckLineStyles(c, "railway");
