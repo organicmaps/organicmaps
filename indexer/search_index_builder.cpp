@@ -348,16 +348,17 @@ public:
       ftype::TruncValue(type, 2);
 
       // Push to index only categorized types.
-      if (!m_categories.IsTypeExist(type))
-        continue;
-
-      // Do index only for visible types in mwm.
-      pair<int, int> const r = feature::GetDrawableScaleRange(type);
-      if (my::between_s(m_scales.first, m_scales.second, r.first) ||
-          my::between_s(m_scales.first, m_scales.second, r.second))
+      if (m_categories.IsTypeExist(type))
       {
-        inserter.AddToken(search::CATEGORIES_LANG,
-                          search::FeatureTypeToString(c.GetIndexForType(type)));
+        // Do index only for visible types in mwm.
+        pair<int, int> const r = feature::GetDrawableScaleRange(type);
+        CHECK(r.first <= r.second && r.first != -1, (r));
+
+        if (r.second >= m_scales.first && r.first <= m_scales.second)
+        {
+          inserter.AddToken(search::CATEGORIES_LANG,
+                            search::FeatureTypeToString(c.GetIndexForType(type)));
+        }
       }
     }
   }
