@@ -52,7 +52,7 @@ macx-* {
                    ../data/fonts_whitelist.txt \
                    ../data/unicode_blocks.txt
   MWM_RES.path = Contents/Resources
-  MWM_RES.files = ../data/World.mwm ../data/WorldCoasts.mwm ../data/Belarus.mwm
+  MWM_RES.files = ../data/World.mwm ../data/WorldCoasts.mwm
 
   QMAKE_BUNDLE_DATA += OTHER_RES CLASSIFICATOR_RES SKIN_RES FONT_RES MWM_RES
 }
