@@ -352,7 +352,7 @@ public:
       {
         // Do index only for visible types in mwm.
         pair<int, int> const r = feature::GetDrawableScaleRange(type);
-        CHECK(r.first <= r.second && r.first != -1, (r));
+        CHECK(r.first <= r.second && r.first != -1, (c.GetReadableObjectName(type)));
 
         if (r.second >= m_scales.first && r.first <= m_scales.second)
         {
