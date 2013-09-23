@@ -373,7 +373,8 @@ public class MapObjectFragment extends Fragment
     else if (itemId == MENU_P2B)
     {
       final boolean addLastKnown = MWMApplication.get().getLocationState().hasPosition();
-      Yota.showPoi(getActivity(), mLat, mLon, Framework.getDrawScale(), mName, addLastKnown);
+      Yota.showPoi(getActivity(), mLat, mLon, Framework.getDrawScale(),
+          mType == MapObjectType.MY_POSITION ? "" : mName, addLastKnown);
     }
 
     return super.onOptionsItemSelected(item);

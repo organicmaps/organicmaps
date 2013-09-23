@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -417,8 +418,12 @@ public class BackscreenActivity extends BSActivity implements LocationListener
       hideWaitMessage();
 
     if (mMode == Mode.POI)
+    {
       mPoiText.setText(mPoint.getName());
+      mPoiInfo.setVisibility(TextUtils.isEmpty(mPoint.getName()) ? View.GONE : View.VISIBLE);
+    }
   }
+
 
   private void calculateDistance()
   {
