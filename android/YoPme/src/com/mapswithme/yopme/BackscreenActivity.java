@@ -489,6 +489,9 @@ public class BackscreenActivity extends BSActivity implements LocationListener
   public void onLocationChanged(Location l)
   {
       mLocation = l;
+
+      updateData();
+      invalidate();
   }
 
   @Override
