@@ -14,7 +14,6 @@ import android.location.LocationListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -76,27 +75,6 @@ public class BackscreenActivity extends BSActivity implements LocationListener
   protected MapDataProvider mMapDataProvider;
   private LocationRequester mLocationRequester;
 
-  private final Runnable mInvalidateDrawable = new Runnable()
-  {
-    @Override
-    public void run()
-    {
-      draw();
-    }
-  };
-
-  private final Runnable mRequestLocation = new Runnable()
-  {
-    @Override
-    public void run()
-    {
-      requestLocationUpdateImpl();
-    }
-  };
-
-  private final Handler mDeduplicateHandler = new Handler();
-  private final static long REDRAW_MIN_INTERVAL = 333;
-
   private static final String EXTRA_POINT = "point";
 
   @Override
@@ -145,16 +123,17 @@ public class BackscreenActivity extends BSActivity implements LocationListener
   protected void onBSPause()
   {
     super.onBSPause();
-    mLocationRequester.stopListening();
 
-    mDeduplicateHandler.removeCallbacks(mInvalidateDrawable);
-    mDeduplicateHandler.removeCallbacks(mRequestLocation);
+    mLocationRequester.stopListening();
+    mLocationRequester.unregister();
   }
 
   @Override
   protected void onBSResume()
   {
     super.onBSResume();
+
+    mLocationRequester.register();
     requestLocationUpdate();
 
     updateData();
@@ -268,8 +247,7 @@ public class BackscreenActivity extends BSActivity implements LocationListener
 
   public void invalidate()
   {
-    mDeduplicateHandler.removeCallbacks(mInvalidateDrawable);
-    mDeduplicateHandler.postDelayed(mInvalidateDrawable, REDRAW_MIN_INTERVAL);
+    draw();
   }
 
   private boolean zoomIn()
@@ -300,12 +278,6 @@ public class BackscreenActivity extends BSActivity implements LocationListener
 
   private void requestLocationUpdate()
   {
-    mDeduplicateHandler.removeCallbacks(mRequestLocation);
-    mDeduplicateHandler.postDelayed(mRequestLocation, 300);
-  }
-
-  private void requestLocationUpdateImpl()
-  {
     final String updateIntervalStr = PreferenceManager.getDefaultSharedPreferences(this)
         .getString(getString(R.string.pref_loc_update), YopmePreference.LOCATION_UPDATE_DEFAULT);
       final long updateInterval = Long.parseLong(updateIntervalStr);
@@ -316,15 +288,9 @@ public class BackscreenActivity extends BSActivity implements LocationListener
 
       // then listen to updates
       if (updateInterval == -1)
-        mLocationRequester.requestSingleUpdate(60*1000);
+        mLocationRequester.startListening(60*1000, true);
       else
-      {
-        // according to the manual, minDistance doesn't save battery life
-        mLocationRequester.setMinDistance(0);
-        mLocationRequester.setMinTime(updateInterval * 1000);
-        mLocationRequester.setUpProviders();
-        mLocationRequester.startListening();
-      }
+        mLocationRequester.startListening(updateInterval*1000, false);
   }
 
   private void showWaitMessage(CharSequence msg)
@@ -343,29 +309,23 @@ public class BackscreenActivity extends BSActivity implements LocationListener
   {
     df.setRoundingMode(RoundingMode.DOWN);
   }
-  private void setDistance(double distance)
+  private void setDistance(float distance)
   {
-    if (distance < 0)
-      mPoiDist.setVisibility(View.GONE);
-    else
+    String suffix = "m";
+    double div = 1;
+    df.setMaximumFractionDigits(0);
+
+    if (distance >= 1000)
     {
-      String suffix = "m";
-      double div = 1;
-      df.setMaximumFractionDigits(0);
+      suffix = "km";
+      div = 1000;
 
-      if (distance >= 1000)
-      {
-        suffix = "km";
-        div = 1000;
-
-        // set fraction digits only in [1..10) kilometers range
-        if (distance < 10000)
-          df.setMaximumFractionDigits(2);
-      }
-
-      mPoiDist.setText(df.format(distance/div) + suffix);
-      mPoiDist.setVisibility(View.VISIBLE);
+      // set fraction digits only in [1..10) kilometers range
+      if (distance < 10000)
+        df.setMaximumFractionDigits(2);
     }
+
+    mPoiDist.setText(df.format(distance/div) + suffix);
   }
 
   public void updateData()
@@ -417,11 +377,13 @@ public class BackscreenActivity extends BSActivity implements LocationListener
     else
       hideWaitMessage();
 
-    if (mMode == Mode.POI)
+    if (mPoint != null && mMode == Mode.POI)
     {
       mPoiText.setText(mPoint.getName());
       mPoiInfo.setVisibility(TextUtils.isEmpty(mPoint.getName()) ? View.GONE : View.VISIBLE);
     }
+    else
+      mPoiInfo.setVisibility(View.GONE);
   }
 
 
@@ -432,7 +394,8 @@ public class BackscreenActivity extends BSActivity implements LocationListener
       final Location poiLoc = new Location("");
       poiLoc.setLatitude(mPoint.getLat());
       poiLoc.setLongitude(mPoint.getLon());
-      setDistance(poiLoc.distanceTo(mLocation));
+      final float dist = poiLoc.distanceTo(mLocation);
+      setDistance(dist);
     }
   }
 
