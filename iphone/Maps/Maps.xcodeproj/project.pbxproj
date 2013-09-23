@@ -3045,6 +3045,11 @@
 			attributes = {
 				LastUpgradeCheck = 0440;
 				ORGANIZATIONNAME = MapsWithMe;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = XMK5825GXK;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Maps" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -4425,6 +4430,8 @@
 		1D6058940D05DD3E006BFB54 /* Simulator Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
@@ -4510,7 +4517,6 @@
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-LStatistics";
 				PRODUCT_NAME = MapsWithMe;
-				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4522,6 +4528,8 @@
 		FA0686DF13578E1D004CFF81 /* Production Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
@@ -4572,6 +4580,8 @@
 		FA1DE85A11E2235D00C6D69A /* Debug Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
@@ -4616,7 +4626,6 @@
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-LStatistics";
 				PRODUCT_NAME = "MWM Beta Lite";
-				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4628,6 +4637,8 @@
 		FA1DE85C11E2236200C6D69A /* AdHoc Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
@@ -4678,6 +4689,8 @@
 		FAAB411A149BA83500C245B1 /* Simulator Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -4728,6 +4741,8 @@
 		FAAB411C149BA84700C245B1 /* Debug Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -4772,7 +4787,6 @@
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-LStatistics";
 				PRODUCT_NAME = "MWM Beta";
-				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4784,6 +4798,8 @@
 		FAAB411E149BA85500C245B1 /* AdHoc Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -4828,7 +4844,6 @@
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-LStatistics";
 				PRODUCT_NAME = MapsWithMe;
-				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4840,6 +4855,8 @@
 		FAAB4120149BA86000C245B1 /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -4893,6 +4910,8 @@
 		FABB561D149CD943006969C0 /* Release Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
@@ -4946,6 +4965,8 @@
 		FABB561F149CD957006969C0 /* Release Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -4999,6 +5020,8 @@
 		FACFE54515F8F35600CE8B20 /* Simulator Full Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
