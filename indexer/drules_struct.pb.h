@@ -20,11 +20,9 @@
 #endif
 
 #include <google/protobuf/generated_message_util.h>
-#include <google/protobuf/message.h>
+#include <google/protobuf/message_lite.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
-#include <google/protobuf/generated_enum_reflection.h>
-#include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 
 // Internal implementation detail -- do not call these.
@@ -56,16 +54,6 @@ const LineJoin LineJoin_MIN = ROUNDJOIN;
 const LineJoin LineJoin_MAX = NOJOIN;
 const int LineJoin_ARRAYSIZE = LineJoin_MAX + 1;
 
-const ::google::protobuf::EnumDescriptor* LineJoin_descriptor();
-inline const ::std::string& LineJoin_Name(LineJoin value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    LineJoin_descriptor(), value);
-}
-inline bool LineJoin_Parse(
-    const ::std::string& name, LineJoin* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<LineJoin>(
-    LineJoin_descriptor(), name, value);
-}
 enum LineCap {
   ROUNDCAP = 0,
   BUTTCAP = 1,
@@ -76,19 +64,9 @@ const LineCap LineCap_MIN = ROUNDCAP;
 const LineCap LineCap_MAX = SQUARECAP;
 const int LineCap_ARRAYSIZE = LineCap_MAX + 1;
 
-const ::google::protobuf::EnumDescriptor* LineCap_descriptor();
-inline const ::std::string& LineCap_Name(LineCap value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    LineCap_descriptor(), value);
-}
-inline bool LineCap_Parse(
-    const ::std::string& name, LineCap* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<LineCap>(
-    LineCap_descriptor(), name, value);
-}
 // ===================================================================
 
-class DashDotProto : public ::google::protobuf::Message {
+class DashDotProto : public ::google::protobuf::MessageLite {
  public:
   DashDotProto();
   virtual ~DashDotProto();
@@ -100,24 +78,24 @@ class DashDotProto : public ::google::protobuf::Message {
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
   static const DashDotProto& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const DashDotProto* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
 
   void Swap(DashDotProto* other);
 
   // implements Message ----------------------------------------------
 
   DashDotProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const DashDotProto& from);
   void MergeFrom(const DashDotProto& from);
   void Clear();
@@ -128,7 +106,6 @@ class DashDotProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -136,7 +113,7 @@ class DashDotProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
 
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
 
   // nested types ----------------------------------------------------
 
@@ -166,15 +143,17 @@ class DashDotProto : public ::google::protobuf::Message {
   inline void set_has_offset();
   inline void clear_has_offset();
 
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
   ::google::protobuf::RepeatedField< double > dd_;
   double offset_;
 
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
 
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
+  #else
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  #endif
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
 
@@ -183,7 +162,7 @@ class DashDotProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class PathSymProto : public ::google::protobuf::Message {
+class PathSymProto : public ::google::protobuf::MessageLite {
  public:
   PathSymProto();
   virtual ~PathSymProto();
@@ -195,24 +174,24 @@ class PathSymProto : public ::google::protobuf::Message {
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
   static const PathSymProto& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const PathSymProto* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
 
   void Swap(PathSymProto* other);
 
   // implements Message ----------------------------------------------
 
   PathSymProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const PathSymProto& from);
   void MergeFrom(const PathSymProto& from);
   void Clear();
@@ -223,7 +202,6 @@ class PathSymProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -231,7 +209,7 @@ class PathSymProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
 
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
 
   // nested types ----------------------------------------------------
 
@@ -272,8 +250,6 @@ class PathSymProto : public ::google::protobuf::Message {
   inline void set_has_offset();
   inline void clear_has_offset();
 
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
   ::std::string* name_;
   double step_;
   double offset_;
@@ -281,7 +257,11 @@ class PathSymProto : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
 
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
+  #else
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  #endif
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
 
@@ -290,7 +270,7 @@ class PathSymProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class LineRuleProto : public ::google::protobuf::Message {
+class LineRuleProto : public ::google::protobuf::MessageLite {
  public:
   LineRuleProto();
   virtual ~LineRuleProto();
@@ -302,24 +282,24 @@ class LineRuleProto : public ::google::protobuf::Message {
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
   static const LineRuleProto& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const LineRuleProto* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
 
   void Swap(LineRuleProto* other);
 
   // implements Message ----------------------------------------------
 
   LineRuleProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const LineRuleProto& from);
   void MergeFrom(const LineRuleProto& from);
   void Clear();
@@ -330,7 +310,6 @@ class LineRuleProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -338,7 +317,7 @@ class LineRuleProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
 
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
 
   // nested types ----------------------------------------------------
 
@@ -414,8 +393,6 @@ class LineRuleProto : public ::google::protobuf::Message {
   inline void set_has_cap();
   inline void clear_has_cap();
 
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
   double width_;
   ::DashDotProto* dashdot_;
   ::google::protobuf::uint32 color_;
@@ -427,7 +404,11 @@ class LineRuleProto : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
 
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
+  #else
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  #endif
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
 
@@ -436,7 +417,7 @@ class LineRuleProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class LineDefProto : public ::google::protobuf::Message {
+class LineDefProto : public ::google::protobuf::MessageLite {
  public:
   LineDefProto();
   virtual ~LineDefProto();
@@ -448,24 +429,24 @@ class LineDefProto : public ::google::protobuf::Message {
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
   static const LineDefProto& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const LineDefProto* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
 
   void Swap(LineDefProto* other);
 
   // implements Message ----------------------------------------------
 
   LineDefProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const LineDefProto& from);
   void MergeFrom(const LineDefProto& from);
   void Clear();
@@ -476,7 +457,6 @@ class LineDefProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -484,7 +464,7 @@ class LineDefProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
 
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
 
   // nested types ----------------------------------------------------
 
@@ -551,8 +531,6 @@ class LineDefProto : public ::google::protobuf::Message {
   inline void set_has_cap();
   inline void clear_has_cap();
 
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
   double width_;
   ::DashDotProto* dashdot_;
   ::google::protobuf::uint32 color_;
@@ -563,7 +541,11 @@ class LineDefProto : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
 
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
+  #else
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  #endif
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
 
@@ -572,7 +554,7 @@ class LineDefProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class AreaRuleProto : public ::google::protobuf::Message {
+class AreaRuleProto : public ::google::protobuf::MessageLite {
  public:
   AreaRuleProto();
   virtual ~AreaRuleProto();
@@ -584,24 +566,24 @@ class AreaRuleProto : public ::google::protobuf::Message {
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
   static const AreaRuleProto& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const AreaRuleProto* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
 
   void Swap(AreaRuleProto* other);
 
   // implements Message ----------------------------------------------
 
   AreaRuleProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const AreaRuleProto& from);
   void MergeFrom(const AreaRuleProto& from);
   void Clear();
@@ -612,7 +594,6 @@ class AreaRuleProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -620,7 +601,7 @@ class AreaRuleProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
 
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
 
   // nested types ----------------------------------------------------
 
@@ -658,8 +639,6 @@ class AreaRuleProto : public ::google::protobuf::Message {
   inline void set_has_priority();
   inline void clear_has_priority();
 
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
   ::LineDefProto* border_;
   ::google::protobuf::uint32 color_;
   ::google::protobuf::int32 priority_;
@@ -667,7 +646,11 @@ class AreaRuleProto : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
 
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
+  #else
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  #endif
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
 
@@ -676,7 +659,7 @@ class AreaRuleProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class SymbolRuleProto : public ::google::protobuf::Message {
+class SymbolRuleProto : public ::google::protobuf::MessageLite {
  public:
   SymbolRuleProto();
   virtual ~SymbolRuleProto();
@@ -688,24 +671,24 @@ class SymbolRuleProto : public ::google::protobuf::Message {
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
   static const SymbolRuleProto& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const SymbolRuleProto* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
 
   void Swap(SymbolRuleProto* other);
 
   // implements Message ----------------------------------------------
 
   SymbolRuleProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const SymbolRuleProto& from);
   void MergeFrom(const SymbolRuleProto& from);
   void Clear();
@@ -716,7 +699,6 @@ class SymbolRuleProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -724,7 +706,7 @@ class SymbolRuleProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
 
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
 
   // nested types ----------------------------------------------------
 
@@ -765,8 +747,6 @@ class SymbolRuleProto : public ::google::protobuf::Message {
   inline void set_has_priority();
   inline void clear_has_priority();
 
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
   ::std::string* name_;
   ::google::protobuf::int32 apply_for_type_;
   ::google::protobuf::int32 priority_;
@@ -774,7 +754,11 @@ class SymbolRuleProto : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
 
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
+  #else
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  #endif
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
 
@@ -783,7 +767,7 @@ class SymbolRuleProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class CaptionDefProto : public ::google::protobuf::Message {
+class CaptionDefProto : public ::google::protobuf::MessageLite {
  public:
   CaptionDefProto();
   virtual ~CaptionDefProto();
@@ -795,24 +779,24 @@ class CaptionDefProto : public ::google::protobuf::Message {
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
   static const CaptionDefProto& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const CaptionDefProto* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
 
   void Swap(CaptionDefProto* other);
 
   // implements Message ----------------------------------------------
 
   CaptionDefProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const CaptionDefProto& from);
   void MergeFrom(const CaptionDefProto& from);
   void Clear();
@@ -823,7 +807,6 @@ class CaptionDefProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -831,7 +814,7 @@ class CaptionDefProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
 
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
 
   // nested types ----------------------------------------------------
 
@@ -885,8 +868,6 @@ class CaptionDefProto : public ::google::protobuf::Message {
   inline void set_has_offset_y();
   inline void clear_has_offset_y();
 
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
   ::google::protobuf::int32 height_;
   ::google::protobuf::uint32 color_;
   ::google::protobuf::uint32 stroke_color_;
@@ -896,7 +877,11 @@ class CaptionDefProto : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
 
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
+  #else
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  #endif
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
 
@@ -905,7 +890,7 @@ class CaptionDefProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class CaptionRuleProto : public ::google::protobuf::Message {
+class CaptionRuleProto : public ::google::protobuf::MessageLite {
  public:
   CaptionRuleProto();
   virtual ~CaptionRuleProto();
@@ -917,24 +902,24 @@ class CaptionRuleProto : public ::google::protobuf::Message {
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
   static const CaptionRuleProto& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const CaptionRuleProto* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
 
   void Swap(CaptionRuleProto* other);
 
   // implements Message ----------------------------------------------
 
   CaptionRuleProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const CaptionRuleProto& from);
   void MergeFrom(const CaptionRuleProto& from);
   void Clear();
@@ -945,7 +930,6 @@ class CaptionRuleProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -953,7 +937,7 @@ class CaptionRuleProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
 
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
 
   // nested types ----------------------------------------------------
 
@@ -993,8 +977,6 @@ class CaptionRuleProto : public ::google::protobuf::Message {
   inline void set_has_priority();
   inline void clear_has_priority();
 
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
   ::CaptionDefProto* primary_;
   ::CaptionDefProto* secondary_;
   ::google::protobuf::int32 priority_;
@@ -1002,7 +984,11 @@ class CaptionRuleProto : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
 
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
+  #else
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  #endif
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
 
@@ -1011,7 +997,7 @@ class CaptionRuleProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class CircleRuleProto : public ::google::protobuf::Message {
+class CircleRuleProto : public ::google::protobuf::MessageLite {
  public:
   CircleRuleProto();
   virtual ~CircleRuleProto();
@@ -1023,24 +1009,24 @@ class CircleRuleProto : public ::google::protobuf::Message {
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
   static const CircleRuleProto& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const CircleRuleProto* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
 
   void Swap(CircleRuleProto* other);
 
   // implements Message ----------------------------------------------
 
   CircleRuleProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const CircleRuleProto& from);
   void MergeFrom(const CircleRuleProto& from);
   void Clear();
@@ -1051,7 +1037,6 @@ class CircleRuleProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1059,7 +1044,7 @@ class CircleRuleProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
 
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
 
   // nested types ----------------------------------------------------
 
@@ -1106,8 +1091,6 @@ class CircleRuleProto : public ::google::protobuf::Message {
   inline void set_has_priority();
   inline void clear_has_priority();
 
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
   double radius_;
   ::LineDefProto* border_;
   ::google::protobuf::uint32 color_;
@@ -1116,7 +1099,11 @@ class CircleRuleProto : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
 
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
+  #else
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  #endif
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
 
@@ -1125,7 +1112,7 @@ class CircleRuleProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class PathTextRuleProto : public ::google::protobuf::Message {
+class PathTextRuleProto : public ::google::protobuf::MessageLite {
  public:
   PathTextRuleProto();
   virtual ~PathTextRuleProto();
@@ -1137,24 +1124,24 @@ class PathTextRuleProto : public ::google::protobuf::Message {
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
   static const PathTextRuleProto& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const PathTextRuleProto* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
 
   void Swap(PathTextRuleProto* other);
 
   // implements Message ----------------------------------------------
 
   PathTextRuleProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const PathTextRuleProto& from);
   void MergeFrom(const PathTextRuleProto& from);
   void Clear();
@@ -1165,7 +1152,6 @@ class PathTextRuleProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1173,7 +1159,7 @@ class PathTextRuleProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
 
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
 
   // nested types ----------------------------------------------------
 
@@ -1213,8 +1199,6 @@ class PathTextRuleProto : public ::google::protobuf::Message {
   inline void set_has_priority();
   inline void clear_has_priority();
 
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
   ::CaptionDefProto* primary_;
   ::CaptionDefProto* secondary_;
   ::google::protobuf::int32 priority_;
@@ -1222,7 +1206,11 @@ class PathTextRuleProto : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
 
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
+  #else
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  #endif
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
 
@@ -1231,7 +1219,7 @@ class PathTextRuleProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class DrawElementProto : public ::google::protobuf::Message {
+class DrawElementProto : public ::google::protobuf::MessageLite {
  public:
   DrawElementProto();
   virtual ~DrawElementProto();
@@ -1243,24 +1231,24 @@ class DrawElementProto : public ::google::protobuf::Message {
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
   static const DrawElementProto& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const DrawElementProto* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
 
   void Swap(DrawElementProto* other);
 
   // implements Message ----------------------------------------------
 
   DrawElementProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const DrawElementProto& from);
   void MergeFrom(const DrawElementProto& from);
   void Clear();
@@ -1271,7 +1259,6 @@ class DrawElementProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1279,7 +1266,7 @@ class DrawElementProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
 
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
 
   // nested types ----------------------------------------------------
 
@@ -1364,8 +1351,6 @@ class DrawElementProto : public ::google::protobuf::Message {
   inline void set_has_path_text();
   inline void clear_has_path_text();
 
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
   ::google::protobuf::RepeatedPtrField< ::LineRuleProto > lines_;
   ::AreaRuleProto* area_;
   ::SymbolRuleProto* symbol_;
@@ -1377,7 +1362,11 @@ class DrawElementProto : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
 
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
+  #else
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  #endif
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
 
@@ -1386,7 +1375,7 @@ class DrawElementProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class ClassifElementProto : public ::google::protobuf::Message {
+class ClassifElementProto : public ::google::protobuf::MessageLite {
  public:
   ClassifElementProto();
   virtual ~ClassifElementProto();
@@ -1398,24 +1387,24 @@ class ClassifElementProto : public ::google::protobuf::Message {
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
   static const ClassifElementProto& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const ClassifElementProto* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
 
   void Swap(ClassifElementProto* other);
 
   // implements Message ----------------------------------------------
 
   ClassifElementProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const ClassifElementProto& from);
   void MergeFrom(const ClassifElementProto& from);
   void Clear();
@@ -1426,7 +1415,6 @@ class ClassifElementProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1434,7 +1422,7 @@ class ClassifElementProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
 
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
 
   // nested types ----------------------------------------------------
 
@@ -1469,15 +1457,17 @@ class ClassifElementProto : public ::google::protobuf::Message {
   inline void set_has_name();
   inline void clear_has_name();
 
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
   ::std::string* name_;
   ::google::protobuf::RepeatedPtrField< ::DrawElementProto > element_;
 
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
 
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
+  #else
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  #endif
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
 
@@ -1486,7 +1476,7 @@ class ClassifElementProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class ContainerProto : public ::google::protobuf::Message {
+class ContainerProto : public ::google::protobuf::MessageLite {
  public:
   ContainerProto();
   virtual ~ContainerProto();
@@ -1498,24 +1488,24 @@ class ContainerProto : public ::google::protobuf::Message {
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
   static const ContainerProto& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const ContainerProto* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
 
   void Swap(ContainerProto* other);
 
   // implements Message ----------------------------------------------
 
   ContainerProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const ContainerProto& from);
   void MergeFrom(const ContainerProto& from);
   void Clear();
@@ -1526,7 +1516,6 @@ class ContainerProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1534,7 +1523,7 @@ class ContainerProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
 
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
 
   // nested types ----------------------------------------------------
 
@@ -1555,14 +1544,16 @@ class ContainerProto : public ::google::protobuf::Message {
   // @@protoc_insertion_point(class_scope:ContainerProto)
  private:
 
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
   ::google::protobuf::RepeatedPtrField< ::ClassifElementProto > cont_;
 
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
 
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
+  #else
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  #endif
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
 
@@ -1804,7 +1795,11 @@ inline void LineRuleProto::clear_dashdot() {
   clear_has_dashdot();
 }
 inline const ::DashDotProto& LineRuleProto::dashdot() const {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  return dashdot_ != NULL ? *dashdot_ : *default_instance().dashdot_;
+#else
   return dashdot_ != NULL ? *dashdot_ : *default_instance_->dashdot_;
+#endif
 }
 inline ::DashDotProto* LineRuleProto::mutable_dashdot() {
   set_has_dashdot();
@@ -1864,7 +1859,11 @@ inline void LineRuleProto::clear_pathsym() {
   clear_has_pathsym();
 }
 inline const ::PathSymProto& LineRuleProto::pathsym() const {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  return pathsym_ != NULL ? *pathsym_ : *default_instance().pathsym_;
+#else
   return pathsym_ != NULL ? *pathsym_ : *default_instance_->pathsym_;
+#endif
 }
 inline ::PathSymProto* LineRuleProto::mutable_pathsym() {
   set_has_pathsym();
@@ -1996,7 +1995,11 @@ inline void LineDefProto::clear_dashdot() {
   clear_has_dashdot();
 }
 inline const ::DashDotProto& LineDefProto::dashdot() const {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  return dashdot_ != NULL ? *dashdot_ : *default_instance().dashdot_;
+#else
   return dashdot_ != NULL ? *dashdot_ : *default_instance_->dashdot_;
+#endif
 }
 inline ::DashDotProto* LineDefProto::mutable_dashdot() {
   set_has_dashdot();
@@ -2034,7 +2037,11 @@ inline void LineDefProto::clear_pathsym() {
   clear_has_pathsym();
 }
 inline const ::PathSymProto& LineDefProto::pathsym() const {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  return pathsym_ != NULL ? *pathsym_ : *default_instance().pathsym_;
+#else
   return pathsym_ != NULL ? *pathsym_ : *default_instance_->pathsym_;
+#endif
 }
 inline ::PathSymProto* LineDefProto::mutable_pathsym() {
   set_has_pathsym();
@@ -2144,7 +2151,11 @@ inline void AreaRuleProto::clear_border() {
   clear_has_border();
 }
 inline const ::LineDefProto& AreaRuleProto::border() const {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  return border_ != NULL ? *border_ : *default_instance().border_;
+#else
   return border_ != NULL ? *border_ : *default_instance_->border_;
+#endif
 }
 inline ::LineDefProto* AreaRuleProto::mutable_border() {
   set_has_border();
@@ -2440,7 +2451,11 @@ inline void CaptionRuleProto::clear_primary() {
   clear_has_primary();
 }
 inline const ::CaptionDefProto& CaptionRuleProto::primary() const {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  return primary_ != NULL ? *primary_ : *default_instance().primary_;
+#else
   return primary_ != NULL ? *primary_ : *default_instance_->primary_;
+#endif
 }
 inline ::CaptionDefProto* CaptionRuleProto::mutable_primary() {
   set_has_primary();
@@ -2478,7 +2493,11 @@ inline void CaptionRuleProto::clear_secondary() {
   clear_has_secondary();
 }
 inline const ::CaptionDefProto& CaptionRuleProto::secondary() const {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  return secondary_ != NULL ? *secondary_ : *default_instance().secondary_;
+#else
   return secondary_ != NULL ? *secondary_ : *default_instance_->secondary_;
+#endif
 }
 inline ::CaptionDefProto* CaptionRuleProto::mutable_secondary() {
   set_has_secondary();
@@ -2586,7 +2605,11 @@ inline void CircleRuleProto::clear_border() {
   clear_has_border();
 }
 inline const ::LineDefProto& CircleRuleProto::border() const {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  return border_ != NULL ? *border_ : *default_instance().border_;
+#else
   return border_ != NULL ? *border_ : *default_instance_->border_;
+#endif
 }
 inline ::LineDefProto* CircleRuleProto::mutable_border() {
   set_has_border();
@@ -2650,7 +2673,11 @@ inline void PathTextRuleProto::clear_primary() {
   clear_has_primary();
 }
 inline const ::CaptionDefProto& PathTextRuleProto::primary() const {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  return primary_ != NULL ? *primary_ : *default_instance().primary_;
+#else
   return primary_ != NULL ? *primary_ : *default_instance_->primary_;
+#endif
 }
 inline ::CaptionDefProto* PathTextRuleProto::mutable_primary() {
   set_has_primary();
@@ -2688,7 +2715,11 @@ inline void PathTextRuleProto::clear_secondary() {
   clear_has_secondary();
 }
 inline const ::CaptionDefProto& PathTextRuleProto::secondary() const {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  return secondary_ != NULL ? *secondary_ : *default_instance().secondary_;
+#else
   return secondary_ != NULL ? *secondary_ : *default_instance_->secondary_;
+#endif
 }
 inline ::CaptionDefProto* PathTextRuleProto::mutable_secondary() {
   set_has_secondary();
@@ -2799,7 +2830,11 @@ inline void DrawElementProto::clear_area() {
   clear_has_area();
 }
 inline const ::AreaRuleProto& DrawElementProto::area() const {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  return area_ != NULL ? *area_ : *default_instance().area_;
+#else
   return area_ != NULL ? *area_ : *default_instance_->area_;
+#endif
 }
 inline ::AreaRuleProto* DrawElementProto::mutable_area() {
   set_has_area();
@@ -2837,7 +2872,11 @@ inline void DrawElementProto::clear_symbol() {
   clear_has_symbol();
 }
 inline const ::SymbolRuleProto& DrawElementProto::symbol() const {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  return symbol_ != NULL ? *symbol_ : *default_instance().symbol_;
+#else
   return symbol_ != NULL ? *symbol_ : *default_instance_->symbol_;
+#endif
 }
 inline ::SymbolRuleProto* DrawElementProto::mutable_symbol() {
   set_has_symbol();
@@ -2875,7 +2914,11 @@ inline void DrawElementProto::clear_caption() {
   clear_has_caption();
 }
 inline const ::CaptionRuleProto& DrawElementProto::caption() const {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  return caption_ != NULL ? *caption_ : *default_instance().caption_;
+#else
   return caption_ != NULL ? *caption_ : *default_instance_->caption_;
+#endif
 }
 inline ::CaptionRuleProto* DrawElementProto::mutable_caption() {
   set_has_caption();
@@ -2913,7 +2956,11 @@ inline void DrawElementProto::clear_circle() {
   clear_has_circle();
 }
 inline const ::CircleRuleProto& DrawElementProto::circle() const {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  return circle_ != NULL ? *circle_ : *default_instance().circle_;
+#else
   return circle_ != NULL ? *circle_ : *default_instance_->circle_;
+#endif
 }
 inline ::CircleRuleProto* DrawElementProto::mutable_circle() {
   set_has_circle();
@@ -2951,7 +2998,11 @@ inline void DrawElementProto::clear_path_text() {
   clear_has_path_text();
 }
 inline const ::PathTextRuleProto& DrawElementProto::path_text() const {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  return path_text_ != NULL ? *path_text_ : *default_instance().path_text_;
+#else
   return path_text_ != NULL ? *path_text_ : *default_instance_->path_text_;
+#endif
 }
 inline ::PathTextRuleProto* DrawElementProto::mutable_path_text() {
   set_has_path_text();
@@ -3104,23 +3155,6 @@ ContainerProto::mutable_cont() {
 
 
 // @@protoc_insertion_point(namespace_scope)
-
-#ifndef SWIG
-namespace google {
-namespace protobuf {
-
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::LineJoin>() {
-  return ::LineJoin_descriptor();
-}
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::LineCap>() {
-  return ::LineCap_descriptor();
-}
-
-}  // namespace google
-}  // namespace protobuf
-#endif  // SWIG
 
 // @@protoc_insertion_point(global_scope)
 

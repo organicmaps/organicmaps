@@ -368,26 +368,6 @@ namespace
   };
 }
 
-#ifdef OMIM_OS_DESKTOP
-void RulesHolder::LoadFromTextProto(string const & buffer)
-{
-  Clean();
-
-  DoSetIndex doSet(*this);
-  google::protobuf::TextFormat::ParseFromString(buffer, &doSet.m_cont);
-
-  classif().GetMutableRoot()->ForEachObject(bind<void>(ref(doSet), _1));
-}
-
-void RulesHolder::SaveToBinaryProto(string const & buffer, ostream & s)
-{
-  ContainerProto cont;
-  google::protobuf::TextFormat::ParseFromString(buffer, &cont);
-
-  CHECK ( cont.SerializeToOstream(&s), ("Error in proto saving!") );
-}
-#endif
-
 void RulesHolder::LoadFromBinaryProto(string const & s)
 {
   Clean();

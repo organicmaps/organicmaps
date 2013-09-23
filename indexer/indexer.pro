@@ -94,10 +94,5 @@ HEADERS += \
 
 OTHER_FILES += drules_struct.proto
 
-macx-*|win32-*|linux-* {
-  SOURCES += drules_struct.pb.cc
-  HEADERS += drules_struct.pb.h
-} else {
-  SOURCES += drules_struct_lite.pb.cc
-  HEADERS += drules_struct_lite.pb.h
-}
+SOURCES += drules_struct.pb.cc
+HEADERS += drules_struct.pb.h

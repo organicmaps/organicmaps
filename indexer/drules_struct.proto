@@ -1,5 +1,4 @@
-// To generate LITE version uncomment line below
-//option optimize_for = LITE_RUNTIME;
+option optimize_for = LITE_RUNTIME;
 
 message DashDotProto
 {
@@ -93,11 +92,6 @@ message PathTextRuleProto
   optional CaptionDefProto secondary = 2;
   required int32 priority = 3;
 }
-
-// WayMarkerRule not used yet
-
-
-// Describe containers.
 
 message DrawElementProto
 {

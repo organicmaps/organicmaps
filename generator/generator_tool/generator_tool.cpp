@@ -29,10 +29,6 @@
 #include "../../std/iomanip.hpp"
 #include "../../std/numeric.hpp"
 
-// Use txt rules only in generator. @todo kill'em totally in the future!
-#define DRAWING_RULES_TEXT_FILE "drules_proto.txt"
-
-
 DEFINE_bool(generate_update, false,
               "If specified, update.maps file will be generated from cells in the data path");
 
@@ -91,20 +87,6 @@ int main(int argc, char ** argv)
 
   string const path =
       FLAGS_data_path.empty() ? pl.WritableDir() : AddSlashIfNeeded(FLAGS_data_path);
-
-  // Make a classificator
-  if (FLAGS_generate_classif)
-  {
-    drule::RulesHolder & rules = drule::rules();
-
-    string buffer;
-    ModelReaderPtr(pl.GetReader(DRAWING_RULES_TEXT_FILE)).ReadAsString(buffer);
-
-    rules.LoadFromTextProto(buffer);
-
-    ofstream s((path + DRAWING_RULES_BIN_FILE).c_str(), ios::out | ios::binary);
-    rules.SaveToBinaryProto(buffer, s);
-  }
 
   // Generating intermediate files
   if (FLAGS_preprocess_xml)

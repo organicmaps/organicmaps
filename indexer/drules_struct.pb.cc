@@ -10,416 +10,36 @@
 #include <google/protobuf/stubs/once.h>
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/wire_format_lite_inl.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
-
-namespace {
-
-const ::google::protobuf::Descriptor* DashDotProto_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  DashDotProto_reflection_ = NULL;
-const ::google::protobuf::Descriptor* PathSymProto_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  PathSymProto_reflection_ = NULL;
-const ::google::protobuf::Descriptor* LineRuleProto_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  LineRuleProto_reflection_ = NULL;
-const ::google::protobuf::Descriptor* LineDefProto_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  LineDefProto_reflection_ = NULL;
-const ::google::protobuf::Descriptor* AreaRuleProto_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  AreaRuleProto_reflection_ = NULL;
-const ::google::protobuf::Descriptor* SymbolRuleProto_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  SymbolRuleProto_reflection_ = NULL;
-const ::google::protobuf::Descriptor* CaptionDefProto_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  CaptionDefProto_reflection_ = NULL;
-const ::google::protobuf::Descriptor* CaptionRuleProto_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  CaptionRuleProto_reflection_ = NULL;
-const ::google::protobuf::Descriptor* CircleRuleProto_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  CircleRuleProto_reflection_ = NULL;
-const ::google::protobuf::Descriptor* PathTextRuleProto_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  PathTextRuleProto_reflection_ = NULL;
-const ::google::protobuf::Descriptor* DrawElementProto_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  DrawElementProto_reflection_ = NULL;
-const ::google::protobuf::Descriptor* ClassifElementProto_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  ClassifElementProto_reflection_ = NULL;
-const ::google::protobuf::Descriptor* ContainerProto_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  ContainerProto_reflection_ = NULL;
-const ::google::protobuf::EnumDescriptor* LineJoin_descriptor_ = NULL;
-const ::google::protobuf::EnumDescriptor* LineCap_descriptor_ = NULL;
-
-}  // namespace
-
-
-void protobuf_AssignDesc_drules_5fstruct_2eproto() {
-  protobuf_AddDesc_drules_5fstruct_2eproto();
-  const ::google::protobuf::FileDescriptor* file =
-    ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
-      "drules_struct.proto");
-  GOOGLE_CHECK(file != NULL);
-  DashDotProto_descriptor_ = file->message_type(0);
-  static const int DashDotProto_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DashDotProto, dd_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DashDotProto, offset_),
-  };
-  DashDotProto_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      DashDotProto_descriptor_,
-      DashDotProto::default_instance_,
-      DashDotProto_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DashDotProto, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DashDotProto, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(DashDotProto));
-  PathSymProto_descriptor_ = file->message_type(1);
-  static const int PathSymProto_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSymProto, name_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSymProto, step_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSymProto, offset_),
-  };
-  PathSymProto_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      PathSymProto_descriptor_,
-      PathSymProto::default_instance_,
-      PathSymProto_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSymProto, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSymProto, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(PathSymProto));
-  LineRuleProto_descriptor_ = file->message_type(2);
-  static const int LineRuleProto_offsets_[7] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, width_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, color_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, dashdot_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, priority_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, pathsym_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, join_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, cap_),
-  };
-  LineRuleProto_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      LineRuleProto_descriptor_,
-      LineRuleProto::default_instance_,
-      LineRuleProto_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(LineRuleProto));
-  LineDefProto_descriptor_ = file->message_type(3);
-  static const int LineDefProto_offsets_[6] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineDefProto, width_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineDefProto, color_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineDefProto, dashdot_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineDefProto, pathsym_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineDefProto, join_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineDefProto, cap_),
-  };
-  LineDefProto_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      LineDefProto_descriptor_,
-      LineDefProto::default_instance_,
-      LineDefProto_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineDefProto, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineDefProto, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(LineDefProto));
-  AreaRuleProto_descriptor_ = file->message_type(4);
-  static const int AreaRuleProto_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AreaRuleProto, color_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AreaRuleProto, border_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AreaRuleProto, priority_),
-  };
-  AreaRuleProto_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      AreaRuleProto_descriptor_,
-      AreaRuleProto::default_instance_,
-      AreaRuleProto_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AreaRuleProto, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AreaRuleProto, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(AreaRuleProto));
-  SymbolRuleProto_descriptor_ = file->message_type(5);
-  static const int SymbolRuleProto_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolRuleProto, name_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolRuleProto, apply_for_type_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolRuleProto, priority_),
-  };
-  SymbolRuleProto_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      SymbolRuleProto_descriptor_,
-      SymbolRuleProto::default_instance_,
-      SymbolRuleProto_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolRuleProto, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolRuleProto, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(SymbolRuleProto));
-  CaptionDefProto_descriptor_ = file->message_type(6);
-  static const int CaptionDefProto_offsets_[5] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionDefProto, height_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionDefProto, color_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionDefProto, stroke_color_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionDefProto, offset_x_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionDefProto, offset_y_),
-  };
-  CaptionDefProto_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      CaptionDefProto_descriptor_,
-      CaptionDefProto::default_instance_,
-      CaptionDefProto_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionDefProto, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionDefProto, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(CaptionDefProto));
-  CaptionRuleProto_descriptor_ = file->message_type(7);
-  static const int CaptionRuleProto_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionRuleProto, primary_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionRuleProto, secondary_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionRuleProto, priority_),
-  };
-  CaptionRuleProto_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      CaptionRuleProto_descriptor_,
-      CaptionRuleProto::default_instance_,
-      CaptionRuleProto_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionRuleProto, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionRuleProto, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(CaptionRuleProto));
-  CircleRuleProto_descriptor_ = file->message_type(8);
-  static const int CircleRuleProto_offsets_[4] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CircleRuleProto, radius_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CircleRuleProto, color_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CircleRuleProto, border_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CircleRuleProto, priority_),
-  };
-  CircleRuleProto_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      CircleRuleProto_descriptor_,
-      CircleRuleProto::default_instance_,
-      CircleRuleProto_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CircleRuleProto, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CircleRuleProto, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(CircleRuleProto));
-  PathTextRuleProto_descriptor_ = file->message_type(9);
-  static const int PathTextRuleProto_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathTextRuleProto, primary_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathTextRuleProto, secondary_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathTextRuleProto, priority_),
-  };
-  PathTextRuleProto_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      PathTextRuleProto_descriptor_,
-      PathTextRuleProto::default_instance_,
-      PathTextRuleProto_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathTextRuleProto, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathTextRuleProto, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(PathTextRuleProto));
-  DrawElementProto_descriptor_ = file->message_type(10);
-  static const int DrawElementProto_offsets_[7] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, scale_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, lines_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, area_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, symbol_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, caption_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, circle_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, path_text_),
-  };
-  DrawElementProto_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      DrawElementProto_descriptor_,
-      DrawElementProto::default_instance_,
-      DrawElementProto_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(DrawElementProto));
-  ClassifElementProto_descriptor_ = file->message_type(11);
-  static const int ClassifElementProto_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ClassifElementProto, name_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ClassifElementProto, element_),
-  };
-  ClassifElementProto_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      ClassifElementProto_descriptor_,
-      ClassifElementProto::default_instance_,
-      ClassifElementProto_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ClassifElementProto, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ClassifElementProto, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(ClassifElementProto));
-  ContainerProto_descriptor_ = file->message_type(12);
-  static const int ContainerProto_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ContainerProto, cont_),
-  };
-  ContainerProto_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      ContainerProto_descriptor_,
-      ContainerProto::default_instance_,
-      ContainerProto_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ContainerProto, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ContainerProto, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(ContainerProto));
-  LineJoin_descriptor_ = file->enum_type(0);
-  LineCap_descriptor_ = file->enum_type(1);
-}
-
-namespace {
-
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
-inline void protobuf_AssignDescriptorsOnce() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
-                 &protobuf_AssignDesc_drules_5fstruct_2eproto);
-}
-
-void protobuf_RegisterTypes(const ::std::string&) {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    DashDotProto_descriptor_, &DashDotProto::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    PathSymProto_descriptor_, &PathSymProto::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    LineRuleProto_descriptor_, &LineRuleProto::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    LineDefProto_descriptor_, &LineDefProto::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    AreaRuleProto_descriptor_, &AreaRuleProto::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    SymbolRuleProto_descriptor_, &SymbolRuleProto::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    CaptionDefProto_descriptor_, &CaptionDefProto::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    CaptionRuleProto_descriptor_, &CaptionRuleProto::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    CircleRuleProto_descriptor_, &CircleRuleProto::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    PathTextRuleProto_descriptor_, &PathTextRuleProto::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    DrawElementProto_descriptor_, &DrawElementProto::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    ClassifElementProto_descriptor_, &ClassifElementProto::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    ContainerProto_descriptor_, &ContainerProto::default_instance());
-}
-
-}  // namespace
 
 void protobuf_ShutdownFile_drules_5fstruct_2eproto() {
   delete DashDotProto::default_instance_;
-  delete DashDotProto_reflection_;
   delete PathSymProto::default_instance_;
-  delete PathSymProto_reflection_;
   delete LineRuleProto::default_instance_;
-  delete LineRuleProto_reflection_;
   delete LineDefProto::default_instance_;
-  delete LineDefProto_reflection_;
   delete AreaRuleProto::default_instance_;
-  delete AreaRuleProto_reflection_;
   delete SymbolRuleProto::default_instance_;
-  delete SymbolRuleProto_reflection_;
   delete CaptionDefProto::default_instance_;
-  delete CaptionDefProto_reflection_;
   delete CaptionRuleProto::default_instance_;
-  delete CaptionRuleProto_reflection_;
   delete CircleRuleProto::default_instance_;
-  delete CircleRuleProto_reflection_;
   delete PathTextRuleProto::default_instance_;
-  delete PathTextRuleProto_reflection_;
   delete DrawElementProto::default_instance_;
-  delete DrawElementProto_reflection_;
   delete ClassifElementProto::default_instance_;
-  delete ClassifElementProto_reflection_;
   delete ContainerProto::default_instance_;
-  delete ContainerProto_reflection_;
 }
 
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+void protobuf_AddDesc_drules_5fstruct_2eproto_impl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+#else
 void protobuf_AddDesc_drules_5fstruct_2eproto() {
   static bool already_here = false;
   if (already_here) return;
   already_here = true;
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\023drules_struct.proto\"*\n\014DashDotProto\022\n\n"
-    "\002dd\030\001 \003(\001\022\016\n\006offset\030\002 \001(\001\":\n\014PathSymProt"
-    "o\022\014\n\004name\030\001 \002(\t\022\014\n\004step\030\002 \002(\001\022\016\n\006offset\030"
-    "\003 \001(\001\"\257\001\n\rLineRuleProto\022\r\n\005width\030\001 \002(\001\022\r"
-    "\n\005color\030\002 \002(\r\022\036\n\007dashdot\030\003 \001(\0132\r.DashDot"
-    "Proto\022\020\n\010priority\030\004 \002(\005\022\036\n\007pathsym\030\005 \001(\013"
-    "2\r.PathSymProto\022\027\n\004join\030\006 \001(\0162\t.LineJoin"
-    "\022\025\n\003cap\030\007 \001(\0162\010.LineCap\"\234\001\n\014LineDefProto"
-    "\022\r\n\005width\030\001 \002(\001\022\r\n\005color\030\002 \002(\r\022\036\n\007dashdo"
-    "t\030\003 \001(\0132\r.DashDotProto\022\036\n\007pathsym\030\004 \001(\0132"
-    "\r.PathSymProto\022\027\n\004join\030\006 \001(\0162\t.LineJoin\022"
-    "\025\n\003cap\030\007 \001(\0162\010.LineCap\"O\n\rAreaRuleProto\022"
-    "\r\n\005color\030\001 \002(\r\022\035\n\006border\030\002 \001(\0132\r.LineDef"
-    "Proto\022\020\n\010priority\030\003 \002(\005\"I\n\017SymbolRulePro"
-    "to\022\014\n\004name\030\001 \002(\t\022\026\n\016apply_for_type\030\002 \001(\005"
-    "\022\020\n\010priority\030\003 \002(\005\"j\n\017CaptionDefProto\022\016\n"
-    "\006height\030\001 \002(\005\022\r\n\005color\030\002 \002(\r\022\024\n\014stroke_c"
-    "olor\030\003 \001(\r\022\020\n\010offset_x\030\004 \001(\005\022\020\n\010offset_y"
-    "\030\005 \001(\005\"l\n\020CaptionRuleProto\022!\n\007primary\030\001 "
-    "\002(\0132\020.CaptionDefProto\022#\n\tsecondary\030\002 \001(\013"
-    "2\020.CaptionDefProto\022\020\n\010priority\030\003 \002(\005\"a\n\017"
-    "CircleRuleProto\022\016\n\006radius\030\001 \002(\001\022\r\n\005color"
-    "\030\002 \002(\r\022\035\n\006border\030\003 \001(\0132\r.LineDefProto\022\020\n"
-    "\010priority\030\004 \002(\005\"m\n\021PathTextRuleProto\022!\n\007"
-    "primary\030\001 \002(\0132\020.CaptionDefProto\022#\n\tsecon"
-    "dary\030\002 \001(\0132\020.CaptionDefProto\022\020\n\010priority"
-    "\030\003 \002(\005\"\355\001\n\020DrawElementProto\022\r\n\005scale\030\001 \002"
-    "(\005\022\035\n\005lines\030\002 \003(\0132\016.LineRuleProto\022\034\n\004are"
-    "a\030\003 \001(\0132\016.AreaRuleProto\022 \n\006symbol\030\004 \001(\0132"
-    "\020.SymbolRuleProto\022\"\n\007caption\030\005 \001(\0132\021.Cap"
-    "tionRuleProto\022 \n\006circle\030\006 \001(\0132\020.CircleRu"
-    "leProto\022%\n\tpath_text\030\007 \001(\0132\022.PathTextRul"
-    "eProto\"G\n\023ClassifElementProto\022\014\n\004name\030\001 "
-    "\002(\t\022\"\n\007element\030\002 \003(\0132\021.DrawElementProto\""
-    "4\n\016ContainerProto\022\"\n\004cont\030\001 \003(\0132\024.Classi"
-    "fElementProto*4\n\010LineJoin\022\r\n\tROUNDJOIN\020\000"
-    "\022\r\n\tBEVELJOIN\020\001\022\n\n\006NOJOIN\020\002*3\n\007LineCap\022\014"
-    "\n\010ROUNDCAP\020\000\022\013\n\007BUTTCAP\020\001\022\r\n\tSQUARECAP\020\002", 1520);
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
-    "drules_struct.proto", &protobuf_RegisterTypes);
+#endif
   DashDotProto::default_instance_ = new DashDotProto();
   PathSymProto::default_instance_ = new PathSymProto();
   LineRuleProto::default_instance_ = new LineRuleProto();
@@ -449,16 +69,20 @@ void protobuf_AddDesc_drules_5fstruct_2eproto() {
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_drules_5fstruct_2eproto);
 }
 
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AddDesc_drules_5fstruct_2eproto_once_);
+void protobuf_AddDesc_drules_5fstruct_2eproto() {
+  ::google::protobuf::::google::protobuf::GoogleOnceInit(&protobuf_AddDesc_drules_5fstruct_2eproto_once_,
+                 &protobuf_AddDesc_drules_5fstruct_2eproto_impl);
+}
+#else
 // Force AddDescriptors() to be called at static initialization time.
 struct StaticDescriptorInitializer_drules_5fstruct_2eproto {
   StaticDescriptorInitializer_drules_5fstruct_2eproto() {
     protobuf_AddDesc_drules_5fstruct_2eproto();
   }
 } static_descriptor_initializer_drules_5fstruct_2eproto_;
-const ::google::protobuf::EnumDescriptor* LineJoin_descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return LineJoin_descriptor_;
-}
+#endif
 bool LineJoin_IsValid(int value) {
   switch(value) {
     case 0:
@@ -470,10 +94,6 @@ bool LineJoin_IsValid(int value) {
   }
 }
 
-const ::google::protobuf::EnumDescriptor* LineCap_descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return LineCap_descriptor_;
-}
 bool LineCap_IsValid(int value) {
   switch(value) {
     case 0:
@@ -494,7 +114,7 @@ const int DashDotProto::kOffsetFieldNumber;
 #endif  // !_MSC_VER
 
 DashDotProto::DashDotProto()
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
 }
 
@@ -502,7 +122,7 @@ void DashDotProto::InitAsDefaultInstance() {
 }
 
 DashDotProto::DashDotProto(const DashDotProto& from)
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -518,7 +138,11 @@ DashDotProto::~DashDotProto() {
 }
 
 void DashDotProto::SharedDtor() {
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
   if (this != default_instance_) {
+  #endif
   }
 }
 
@@ -527,13 +151,12 @@ void DashDotProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* DashDotProto::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return DashDotProto_descriptor_;
-}
-
 const DashDotProto& DashDotProto::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_drules_5fstruct_2eproto();
+#else
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();
+#endif
   return *default_instance_;
 }
 
@@ -549,7 +172,6 @@ void DashDotProto::Clear() {
   }
   dd_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
 }
 
 bool DashDotProto::MergePartialFromCodedStream(
@@ -602,8 +224,7 @@ bool DashDotProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
         break;
       }
     }
@@ -625,30 +246,6 @@ void DashDotProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteDouble(2, this->offset(), output);
   }
 
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* DashDotProto::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // repeated double dd = 1;
-  for (int i = 0; i < this->dd_size(); i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteDoubleToArray(1, this->dd(i), target);
-  }
-
-  // optional double offset = 2;
-  if (has_offset()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(2, this->offset(), target);
-  }
-
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
 }
 
 int DashDotProto::ByteSize() const {
@@ -668,27 +265,15 @@ int DashDotProto::ByteSize() const {
     total_size += 1 * this->dd_size() + data_size;
   }
 
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void DashDotProto::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const DashDotProto* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const DashDotProto*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void DashDotProto::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const DashDotProto*>(&from));
 }
 
 void DashDotProto::MergeFrom(const DashDotProto& from) {
@@ -699,13 +284,6 @@ void DashDotProto::MergeFrom(const DashDotProto& from) {
       set_offset(from.offset());
     }
   }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void DashDotProto::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
 }
 
 void DashDotProto::CopyFrom(const DashDotProto& from) {
@@ -724,17 +302,12 @@ void DashDotProto::Swap(DashDotProto* other) {
     dd_.Swap(&other->dd_);
     std::swap(offset_, other->offset_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata DashDotProto::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = DashDotProto_descriptor_;
-  metadata.reflection = DashDotProto_reflection_;
-  return metadata;
+::std::string DashDotProto::GetTypeName() const {
+  return "DashDotProto";
 }
 
 
@@ -747,7 +320,7 @@ const int PathSymProto::kOffsetFieldNumber;
 #endif  // !_MSC_VER
 
 PathSymProto::PathSymProto()
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
 }
 
@@ -755,7 +328,7 @@ void PathSymProto::InitAsDefaultInstance() {
 }
 
 PathSymProto::PathSymProto(const PathSymProto& from)
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -776,7 +349,11 @@ void PathSymProto::SharedDtor() {
   if (name_ != &::google::protobuf::internal::kEmptyString) {
     delete name_;
   }
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
   if (this != default_instance_) {
+  #endif
   }
 }
 
@@ -785,13 +362,12 @@ void PathSymProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* PathSymProto::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return PathSymProto_descriptor_;
-}
-
 const PathSymProto& PathSymProto::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_drules_5fstruct_2eproto();
+#else
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();
+#endif
   return *default_instance_;
 }
 
@@ -812,7 +388,6 @@ void PathSymProto::Clear() {
     offset_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
 }
 
 bool PathSymProto::MergePartialFromCodedStream(
@@ -827,9 +402,6 @@ bool PathSymProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_name()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->name().data(), this->name().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
         } else {
           goto handle_uninterpreted;
         }
@@ -875,8 +447,7 @@ bool PathSymProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
         break;
       }
     }
@@ -889,9 +460,6 @@ void PathSymProto::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // required string name = 1;
   if (has_name()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->name().data(), this->name().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
       1, this->name(), output);
   }
@@ -906,39 +474,6 @@ void PathSymProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteDouble(3, this->offset(), output);
   }
 
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* PathSymProto::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // required string name = 1;
-  if (has_name()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->name().data(), this->name().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->name(), target);
-  }
-
-  // required double step = 2;
-  if (has_step()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(2, this->step(), target);
-  }
-
-  // optional double offset = 3;
-  if (has_offset()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(3, this->offset(), target);
-  }
-
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
 }
 
 int PathSymProto::ByteSize() const {
@@ -963,27 +498,15 @@ int PathSymProto::ByteSize() const {
     }
 
   }
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void PathSymProto::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const PathSymProto* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const PathSymProto*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void PathSymProto::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const PathSymProto*>(&from));
 }
 
 void PathSymProto::MergeFrom(const PathSymProto& from) {
@@ -999,13 +522,6 @@ void PathSymProto::MergeFrom(const PathSymProto& from) {
       set_offset(from.offset());
     }
   }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void PathSymProto::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
 }
 
 void PathSymProto::CopyFrom(const PathSymProto& from) {
@@ -1026,17 +542,12 @@ void PathSymProto::Swap(PathSymProto* other) {
     std::swap(step_, other->step_);
     std::swap(offset_, other->offset_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata PathSymProto::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = PathSymProto_descriptor_;
-  metadata.reflection = PathSymProto_reflection_;
-  return metadata;
+::std::string PathSymProto::GetTypeName() const {
+  return "PathSymProto";
 }
 
 
@@ -1053,17 +564,27 @@ const int LineRuleProto::kCapFieldNumber;
 #endif  // !_MSC_VER
 
 LineRuleProto::LineRuleProto()
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
 }
 
 void LineRuleProto::InitAsDefaultInstance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  dashdot_ = const_cast< ::DashDotProto*>(
+      ::DashDotProto::internal_default_instance());
+#else
   dashdot_ = const_cast< ::DashDotProto*>(&::DashDotProto::default_instance());
+#endif
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  pathsym_ = const_cast< ::PathSymProto*>(
+      ::PathSymProto::internal_default_instance());
+#else
   pathsym_ = const_cast< ::PathSymProto*>(&::PathSymProto::default_instance());
+#endif
 }
 
 LineRuleProto::LineRuleProto(const LineRuleProto& from)
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -1085,7 +606,11 @@ LineRuleProto::~LineRuleProto() {
 }
 
 void LineRuleProto::SharedDtor() {
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
   if (this != default_instance_) {
+  #endif
     delete dashdot_;
     delete pathsym_;
   }
@@ -1096,13 +621,12 @@ void LineRuleProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* LineRuleProto::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return LineRuleProto_descriptor_;
-}
-
 const LineRuleProto& LineRuleProto::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_drules_5fstruct_2eproto();
+#else
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();
+#endif
   return *default_instance_;
 }
 
@@ -1127,7 +651,6 @@ void LineRuleProto::Clear() {
     cap_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
 }
 
 bool LineRuleProto::MergePartialFromCodedStream(
@@ -1222,8 +745,6 @@ bool LineRuleProto::MergePartialFromCodedStream(
                  input, &value)));
           if (::LineJoin_IsValid(value)) {
             set_join(static_cast< ::LineJoin >(value));
-          } else {
-            mutable_unknown_fields()->AddVarint(6, value);
           }
         } else {
           goto handle_uninterpreted;
@@ -1243,8 +764,6 @@ bool LineRuleProto::MergePartialFromCodedStream(
                  input, &value)));
           if (::LineCap_IsValid(value)) {
             set_cap(static_cast< ::LineCap >(value));
-          } else {
-            mutable_unknown_fields()->AddVarint(7, value);
           }
         } else {
           goto handle_uninterpreted;
@@ -1259,8 +778,7 @@ bool LineRuleProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
         break;
       }
     }
@@ -1283,7 +801,7 @@ void LineRuleProto::SerializeWithCachedSizes(
 
   // optional .DashDotProto dashdot = 3;
   if (has_dashdot()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
       3, this->dashdot(), output);
   }
 
@@ -1294,7 +812,7 @@ void LineRuleProto::SerializeWithCachedSizes(
 
   // optional .PathSymProto pathsym = 5;
   if (has_pathsym()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
       5, this->pathsym(), output);
   }
 
@@ -1310,60 +828,6 @@ void LineRuleProto::SerializeWithCachedSizes(
       7, this->cap(), output);
   }
 
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* LineRuleProto::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // required double width = 1;
-  if (has_width()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(1, this->width(), target);
-  }
-
-  // required uint32 color = 2;
-  if (has_color()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->color(), target);
-  }
-
-  // optional .DashDotProto dashdot = 3;
-  if (has_dashdot()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        3, this->dashdot(), target);
-  }
-
-  // required int32 priority = 4;
-  if (has_priority()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->priority(), target);
-  }
-
-  // optional .PathSymProto pathsym = 5;
-  if (has_pathsym()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        5, this->pathsym(), target);
-  }
-
-  // optional .LineJoin join = 6;
-  if (has_join()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      6, this->join(), target);
-  }
-
-  // optional .LineCap cap = 7;
-  if (has_cap()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      7, this->cap(), target);
-  }
-
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
 }
 
 int LineRuleProto::ByteSize() const {
@@ -1416,27 +880,15 @@ int LineRuleProto::ByteSize() const {
     }
 
   }
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void LineRuleProto::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const LineRuleProto* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const LineRuleProto*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void LineRuleProto::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const LineRuleProto*>(&from));
 }
 
 void LineRuleProto::MergeFrom(const LineRuleProto& from) {
@@ -1464,13 +916,6 @@ void LineRuleProto::MergeFrom(const LineRuleProto& from) {
       set_cap(from.cap());
     }
   }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void LineRuleProto::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
 }
 
 void LineRuleProto::CopyFrom(const LineRuleProto& from) {
@@ -1498,17 +943,12 @@ void LineRuleProto::Swap(LineRuleProto* other) {
     std::swap(join_, other->join_);
     std::swap(cap_, other->cap_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata LineRuleProto::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = LineRuleProto_descriptor_;
-  metadata.reflection = LineRuleProto_reflection_;
-  return metadata;
+::std::string LineRuleProto::GetTypeName() const {
+  return "LineRuleProto";
 }
 
 
@@ -1524,17 +964,27 @@ const int LineDefProto::kCapFieldNumber;
 #endif  // !_MSC_VER
 
 LineDefProto::LineDefProto()
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
 }
 
 void LineDefProto::InitAsDefaultInstance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  dashdot_ = const_cast< ::DashDotProto*>(
+      ::DashDotProto::internal_default_instance());
+#else
   dashdot_ = const_cast< ::DashDotProto*>(&::DashDotProto::default_instance());
+#endif
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  pathsym_ = const_cast< ::PathSymProto*>(
+      ::PathSymProto::internal_default_instance());
+#else
   pathsym_ = const_cast< ::PathSymProto*>(&::PathSymProto::default_instance());
+#endif
 }
 
 LineDefProto::LineDefProto(const LineDefProto& from)
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -1555,7 +1005,11 @@ LineDefProto::~LineDefProto() {
 }
 
 void LineDefProto::SharedDtor() {
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
   if (this != default_instance_) {
+  #endif
     delete dashdot_;
     delete pathsym_;
   }
@@ -1566,13 +1020,12 @@ void LineDefProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* LineDefProto::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return LineDefProto_descriptor_;
-}
-
 const LineDefProto& LineDefProto::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_drules_5fstruct_2eproto();
+#else
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();
+#endif
   return *default_instance_;
 }
 
@@ -1596,7 +1049,6 @@ void LineDefProto::Clear() {
     cap_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
 }
 
 bool LineDefProto::MergePartialFromCodedStream(
@@ -1675,8 +1127,6 @@ bool LineDefProto::MergePartialFromCodedStream(
                  input, &value)));
           if (::LineJoin_IsValid(value)) {
             set_join(static_cast< ::LineJoin >(value));
-          } else {
-            mutable_unknown_fields()->AddVarint(6, value);
           }
         } else {
           goto handle_uninterpreted;
@@ -1696,8 +1146,6 @@ bool LineDefProto::MergePartialFromCodedStream(
                  input, &value)));
           if (::LineCap_IsValid(value)) {
             set_cap(static_cast< ::LineCap >(value));
-          } else {
-            mutable_unknown_fields()->AddVarint(7, value);
           }
         } else {
           goto handle_uninterpreted;
@@ -1712,8 +1160,7 @@ bool LineDefProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
         break;
       }
     }
@@ -1736,13 +1183,13 @@ void LineDefProto::SerializeWithCachedSizes(
 
   // optional .DashDotProto dashdot = 3;
   if (has_dashdot()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
       3, this->dashdot(), output);
   }
 
   // optional .PathSymProto pathsym = 4;
   if (has_pathsym()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
       4, this->pathsym(), output);
   }
 
@@ -1758,55 +1205,6 @@ void LineDefProto::SerializeWithCachedSizes(
       7, this->cap(), output);
   }
 
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* LineDefProto::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // required double width = 1;
-  if (has_width()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(1, this->width(), target);
-  }
-
-  // required uint32 color = 2;
-  if (has_color()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->color(), target);
-  }
-
-  // optional .DashDotProto dashdot = 3;
-  if (has_dashdot()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        3, this->dashdot(), target);
-  }
-
-  // optional .PathSymProto pathsym = 4;
-  if (has_pathsym()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        4, this->pathsym(), target);
-  }
-
-  // optional .LineJoin join = 6;
-  if (has_join()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      6, this->join(), target);
-  }
-
-  // optional .LineCap cap = 7;
-  if (has_cap()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      7, this->cap(), target);
-  }
-
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
 }
 
 int LineDefProto::ByteSize() const {
@@ -1852,27 +1250,15 @@ int LineDefProto::ByteSize() const {
     }
 
   }
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void LineDefProto::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const LineDefProto* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const LineDefProto*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void LineDefProto::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const LineDefProto*>(&from));
 }
 
 void LineDefProto::MergeFrom(const LineDefProto& from) {
@@ -1897,13 +1283,6 @@ void LineDefProto::MergeFrom(const LineDefProto& from) {
       set_cap(from.cap());
     }
   }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void LineDefProto::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
 }
 
 void LineDefProto::CopyFrom(const LineDefProto& from) {
@@ -1930,17 +1309,12 @@ void LineDefProto::Swap(LineDefProto* other) {
     std::swap(join_, other->join_);
     std::swap(cap_, other->cap_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata LineDefProto::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = LineDefProto_descriptor_;
-  metadata.reflection = LineDefProto_reflection_;
-  return metadata;
+::std::string LineDefProto::GetTypeName() const {
+  return "LineDefProto";
 }
 
 
@@ -1953,16 +1327,21 @@ const int AreaRuleProto::kPriorityFieldNumber;
 #endif  // !_MSC_VER
 
 AreaRuleProto::AreaRuleProto()
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
 }
 
 void AreaRuleProto::InitAsDefaultInstance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  border_ = const_cast< ::LineDefProto*>(
+      ::LineDefProto::internal_default_instance());
+#else
   border_ = const_cast< ::LineDefProto*>(&::LineDefProto::default_instance());
+#endif
 }
 
 AreaRuleProto::AreaRuleProto(const AreaRuleProto& from)
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -1980,7 +1359,11 @@ AreaRuleProto::~AreaRuleProto() {
 }
 
 void AreaRuleProto::SharedDtor() {
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
   if (this != default_instance_) {
+  #endif
     delete border_;
   }
 }
@@ -1990,13 +1373,12 @@ void AreaRuleProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* AreaRuleProto::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return AreaRuleProto_descriptor_;
-}
-
 const AreaRuleProto& AreaRuleProto::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_drules_5fstruct_2eproto();
+#else
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();
+#endif
   return *default_instance_;
 }
 
@@ -2015,7 +1397,6 @@ void AreaRuleProto::Clear() {
     priority_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
 }
 
 bool AreaRuleProto::MergePartialFromCodedStream(
@@ -2075,8 +1456,7 @@ bool AreaRuleProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
         break;
       }
     }
@@ -2094,7 +1474,7 @@ void AreaRuleProto::SerializeWithCachedSizes(
 
   // optional .LineDefProto border = 2;
   if (has_border()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
       2, this->border(), output);
   }
 
@@ -2103,36 +1483,6 @@ void AreaRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->priority(), output);
   }
 
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* AreaRuleProto::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // required uint32 color = 1;
-  if (has_color()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->color(), target);
-  }
-
-  // optional .LineDefProto border = 2;
-  if (has_border()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, this->border(), target);
-  }
-
-  // required int32 priority = 3;
-  if (has_priority()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->priority(), target);
-  }
-
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
 }
 
 int AreaRuleProto::ByteSize() const {
@@ -2161,27 +1511,15 @@ int AreaRuleProto::ByteSize() const {
     }
 
   }
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void AreaRuleProto::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const AreaRuleProto* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const AreaRuleProto*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void AreaRuleProto::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const AreaRuleProto*>(&from));
 }
 
 void AreaRuleProto::MergeFrom(const AreaRuleProto& from) {
@@ -2197,13 +1535,6 @@ void AreaRuleProto::MergeFrom(const AreaRuleProto& from) {
       set_priority(from.priority());
     }
   }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void AreaRuleProto::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
 }
 
 void AreaRuleProto::CopyFrom(const AreaRuleProto& from) {
@@ -2227,17 +1558,12 @@ void AreaRuleProto::Swap(AreaRuleProto* other) {
     std::swap(border_, other->border_);
     std::swap(priority_, other->priority_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata AreaRuleProto::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = AreaRuleProto_descriptor_;
-  metadata.reflection = AreaRuleProto_reflection_;
-  return metadata;
+::std::string AreaRuleProto::GetTypeName() const {
+  return "AreaRuleProto";
 }
 
 
@@ -2250,7 +1576,7 @@ const int SymbolRuleProto::kPriorityFieldNumber;
 #endif  // !_MSC_VER
 
 SymbolRuleProto::SymbolRuleProto()
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
 }
 
@@ -2258,7 +1584,7 @@ void SymbolRuleProto::InitAsDefaultInstance() {
 }
 
 SymbolRuleProto::SymbolRuleProto(const SymbolRuleProto& from)
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -2279,7 +1605,11 @@ void SymbolRuleProto::SharedDtor() {
   if (name_ != &::google::protobuf::internal::kEmptyString) {
     delete name_;
   }
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
   if (this != default_instance_) {
+  #endif
   }
 }
 
@@ -2288,13 +1618,12 @@ void SymbolRuleProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* SymbolRuleProto::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return SymbolRuleProto_descriptor_;
-}
-
 const SymbolRuleProto& SymbolRuleProto::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_drules_5fstruct_2eproto();
+#else
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();
+#endif
   return *default_instance_;
 }
 
@@ -2315,7 +1644,6 @@ void SymbolRuleProto::Clear() {
     priority_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
 }
 
 bool SymbolRuleProto::MergePartialFromCodedStream(
@@ -2330,9 +1658,6 @@ bool SymbolRuleProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_name()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->name().data(), this->name().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
         } else {
           goto handle_uninterpreted;
         }
@@ -2378,8 +1703,7 @@ bool SymbolRuleProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
         break;
       }
     }
@@ -2392,9 +1716,6 @@ void SymbolRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // required string name = 1;
   if (has_name()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->name().data(), this->name().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
       1, this->name(), output);
   }
@@ -2409,39 +1730,6 @@ void SymbolRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->priority(), output);
   }
 
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* SymbolRuleProto::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // required string name = 1;
-  if (has_name()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->name().data(), this->name().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->name(), target);
-  }
-
-  // optional int32 apply_for_type = 2;
-  if (has_apply_for_type()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->apply_for_type(), target);
-  }
-
-  // required int32 priority = 3;
-  if (has_priority()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->priority(), target);
-  }
-
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
 }
 
 int SymbolRuleProto::ByteSize() const {
@@ -2470,27 +1758,15 @@ int SymbolRuleProto::ByteSize() const {
     }
 
   }
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void SymbolRuleProto::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const SymbolRuleProto* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const SymbolRuleProto*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void SymbolRuleProto::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const SymbolRuleProto*>(&from));
 }
 
 void SymbolRuleProto::MergeFrom(const SymbolRuleProto& from) {
@@ -2506,13 +1782,6 @@ void SymbolRuleProto::MergeFrom(const SymbolRuleProto& from) {
       set_priority(from.priority());
     }
   }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void SymbolRuleProto::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
 }
 
 void SymbolRuleProto::CopyFrom(const SymbolRuleProto& from) {
@@ -2533,17 +1802,12 @@ void SymbolRuleProto::Swap(SymbolRuleProto* other) {
     std::swap(apply_for_type_, other->apply_for_type_);
     std::swap(priority_, other->priority_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata SymbolRuleProto::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = SymbolRuleProto_descriptor_;
-  metadata.reflection = SymbolRuleProto_reflection_;
-  return metadata;
+::std::string SymbolRuleProto::GetTypeName() const {
+  return "SymbolRuleProto";
 }
 
 
@@ -2558,7 +1822,7 @@ const int CaptionDefProto::kOffsetYFieldNumber;
 #endif  // !_MSC_VER
 
 CaptionDefProto::CaptionDefProto()
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
 }
 
@@ -2566,7 +1830,7 @@ void CaptionDefProto::InitAsDefaultInstance() {
 }
 
 CaptionDefProto::CaptionDefProto(const CaptionDefProto& from)
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -2586,7 +1850,11 @@ CaptionDefProto::~CaptionDefProto() {
 }
 
 void CaptionDefProto::SharedDtor() {
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
   if (this != default_instance_) {
+  #endif
   }
 }
 
@@ -2595,13 +1863,12 @@ void CaptionDefProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* CaptionDefProto::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return CaptionDefProto_descriptor_;
-}
-
 const CaptionDefProto& CaptionDefProto::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_drules_5fstruct_2eproto();
+#else
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();
+#endif
   return *default_instance_;
 }
 
@@ -2620,7 +1887,6 @@ void CaptionDefProto::Clear() {
     offset_y_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
 }
 
 bool CaptionDefProto::MergePartialFromCodedStream(
@@ -2714,8 +1980,7 @@ bool CaptionDefProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
         break;
       }
     }
@@ -2751,44 +2016,6 @@ void CaptionDefProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->offset_y(), output);
   }
 
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* CaptionDefProto::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // required int32 height = 1;
-  if (has_height()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->height(), target);
-  }
-
-  // required uint32 color = 2;
-  if (has_color()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->color(), target);
-  }
-
-  // optional uint32 stroke_color = 3;
-  if (has_stroke_color()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->stroke_color(), target);
-  }
-
-  // optional int32 offset_x = 4;
-  if (has_offset_x()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->offset_x(), target);
-  }
-
-  // optional int32 offset_y = 5;
-  if (has_offset_y()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->offset_y(), target);
-  }
-
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
 }
 
 int CaptionDefProto::ByteSize() const {
@@ -2831,27 +2058,15 @@ int CaptionDefProto::ByteSize() const {
     }
 
   }
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void CaptionDefProto::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const CaptionDefProto* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const CaptionDefProto*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void CaptionDefProto::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const CaptionDefProto*>(&from));
 }
 
 void CaptionDefProto::MergeFrom(const CaptionDefProto& from) {
@@ -2873,13 +2088,6 @@ void CaptionDefProto::MergeFrom(const CaptionDefProto& from) {
       set_offset_y(from.offset_y());
     }
   }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void CaptionDefProto::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
 }
 
 void CaptionDefProto::CopyFrom(const CaptionDefProto& from) {
@@ -2902,17 +2110,12 @@ void CaptionDefProto::Swap(CaptionDefProto* other) {
     std::swap(offset_x_, other->offset_x_);
     std::swap(offset_y_, other->offset_y_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata CaptionDefProto::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = CaptionDefProto_descriptor_;
-  metadata.reflection = CaptionDefProto_reflection_;
-  return metadata;
+::std::string CaptionDefProto::GetTypeName() const {
+  return "CaptionDefProto";
 }
 
 
@@ -2925,17 +2128,27 @@ const int CaptionRuleProto::kPriorityFieldNumber;
 #endif  // !_MSC_VER
 
 CaptionRuleProto::CaptionRuleProto()
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
 }
 
 void CaptionRuleProto::InitAsDefaultInstance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  primary_ = const_cast< ::CaptionDefProto*>(
+      ::CaptionDefProto::internal_default_instance());
+#else
   primary_ = const_cast< ::CaptionDefProto*>(&::CaptionDefProto::default_instance());
+#endif
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  secondary_ = const_cast< ::CaptionDefProto*>(
+      ::CaptionDefProto::internal_default_instance());
+#else
   secondary_ = const_cast< ::CaptionDefProto*>(&::CaptionDefProto::default_instance());
+#endif
 }
 
 CaptionRuleProto::CaptionRuleProto(const CaptionRuleProto& from)
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -2953,7 +2166,11 @@ CaptionRuleProto::~CaptionRuleProto() {
 }
 
 void CaptionRuleProto::SharedDtor() {
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
   if (this != default_instance_) {
+  #endif
     delete primary_;
     delete secondary_;
   }
@@ -2964,13 +2181,12 @@ void CaptionRuleProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* CaptionRuleProto::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return CaptionRuleProto_descriptor_;
-}
-
 const CaptionRuleProto& CaptionRuleProto::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_drules_5fstruct_2eproto();
+#else
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();
+#endif
   return *default_instance_;
 }
 
@@ -2991,7 +2207,6 @@ void CaptionRuleProto::Clear() {
     priority_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
 }
 
 bool CaptionRuleProto::MergePartialFromCodedStream(
@@ -3049,8 +2264,7 @@ bool CaptionRuleProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
         break;
       }
     }
@@ -3063,13 +2277,13 @@ void CaptionRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // required .CaptionDefProto primary = 1;
   if (has_primary()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
       1, this->primary(), output);
   }
 
   // optional .CaptionDefProto secondary = 2;
   if (has_secondary()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
       2, this->secondary(), output);
   }
 
@@ -3078,38 +2292,6 @@ void CaptionRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->priority(), output);
   }
 
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* CaptionRuleProto::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // required .CaptionDefProto primary = 1;
-  if (has_primary()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, this->primary(), target);
-  }
-
-  // optional .CaptionDefProto secondary = 2;
-  if (has_secondary()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, this->secondary(), target);
-  }
-
-  // required int32 priority = 3;
-  if (has_priority()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->priority(), target);
-  }
-
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
 }
 
 int CaptionRuleProto::ByteSize() const {
@@ -3138,27 +2320,15 @@ int CaptionRuleProto::ByteSize() const {
     }
 
   }
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void CaptionRuleProto::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const CaptionRuleProto* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const CaptionRuleProto*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void CaptionRuleProto::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const CaptionRuleProto*>(&from));
 }
 
 void CaptionRuleProto::MergeFrom(const CaptionRuleProto& from) {
@@ -3174,13 +2344,6 @@ void CaptionRuleProto::MergeFrom(const CaptionRuleProto& from) {
       set_priority(from.priority());
     }
   }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void CaptionRuleProto::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
 }
 
 void CaptionRuleProto::CopyFrom(const CaptionRuleProto& from) {
@@ -3207,17 +2370,12 @@ void CaptionRuleProto::Swap(CaptionRuleProto* other) {
     std::swap(secondary_, other->secondary_);
     std::swap(priority_, other->priority_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata CaptionRuleProto::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = CaptionRuleProto_descriptor_;
-  metadata.reflection = CaptionRuleProto_reflection_;
-  return metadata;
+::std::string CaptionRuleProto::GetTypeName() const {
+  return "CaptionRuleProto";
 }
 
 
@@ -3231,16 +2389,21 @@ const int CircleRuleProto::kPriorityFieldNumber;
 #endif  // !_MSC_VER
 
 CircleRuleProto::CircleRuleProto()
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
 }
 
 void CircleRuleProto::InitAsDefaultInstance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  border_ = const_cast< ::LineDefProto*>(
+      ::LineDefProto::internal_default_instance());
+#else
   border_ = const_cast< ::LineDefProto*>(&::LineDefProto::default_instance());
+#endif
 }
 
 CircleRuleProto::CircleRuleProto(const CircleRuleProto& from)
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -3259,7 +2422,11 @@ CircleRuleProto::~CircleRuleProto() {
 }
 
 void CircleRuleProto::SharedDtor() {
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
   if (this != default_instance_) {
+  #endif
     delete border_;
   }
 }
@@ -3269,13 +2436,12 @@ void CircleRuleProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* CircleRuleProto::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return CircleRuleProto_descriptor_;
-}
-
 const CircleRuleProto& CircleRuleProto::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_drules_5fstruct_2eproto();
+#else
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();
+#endif
   return *default_instance_;
 }
 
@@ -3295,7 +2461,6 @@ void CircleRuleProto::Clear() {
     priority_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
 }
 
 bool CircleRuleProto::MergePartialFromCodedStream(
@@ -3371,8 +2536,7 @@ bool CircleRuleProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
         break;
       }
     }
@@ -3395,7 +2559,7 @@ void CircleRuleProto::SerializeWithCachedSizes(
 
   // optional .LineDefProto border = 3;
   if (has_border()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
       3, this->border(), output);
   }
 
@@ -3404,41 +2568,6 @@ void CircleRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->priority(), output);
   }
 
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* CircleRuleProto::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // required double radius = 1;
-  if (has_radius()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(1, this->radius(), target);
-  }
-
-  // required uint32 color = 2;
-  if (has_color()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->color(), target);
-  }
-
-  // optional .LineDefProto border = 3;
-  if (has_border()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        3, this->border(), target);
-  }
-
-  // required int32 priority = 4;
-  if (has_priority()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->priority(), target);
-  }
-
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
 }
 
 int CircleRuleProto::ByteSize() const {
@@ -3472,27 +2601,15 @@ int CircleRuleProto::ByteSize() const {
     }
 
   }
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void CircleRuleProto::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const CircleRuleProto* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const CircleRuleProto*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void CircleRuleProto::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const CircleRuleProto*>(&from));
 }
 
 void CircleRuleProto::MergeFrom(const CircleRuleProto& from) {
@@ -3511,13 +2628,6 @@ void CircleRuleProto::MergeFrom(const CircleRuleProto& from) {
       set_priority(from.priority());
     }
   }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void CircleRuleProto::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
 }
 
 void CircleRuleProto::CopyFrom(const CircleRuleProto& from) {
@@ -3542,17 +2652,12 @@ void CircleRuleProto::Swap(CircleRuleProto* other) {
     std::swap(border_, other->border_);
     std::swap(priority_, other->priority_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata CircleRuleProto::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = CircleRuleProto_descriptor_;
-  metadata.reflection = CircleRuleProto_reflection_;
-  return metadata;
+::std::string CircleRuleProto::GetTypeName() const {
+  return "CircleRuleProto";
 }
 
 
@@ -3565,17 +2670,27 @@ const int PathTextRuleProto::kPriorityFieldNumber;
 #endif  // !_MSC_VER
 
 PathTextRuleProto::PathTextRuleProto()
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
 }
 
 void PathTextRuleProto::InitAsDefaultInstance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  primary_ = const_cast< ::CaptionDefProto*>(
+      ::CaptionDefProto::internal_default_instance());
+#else
   primary_ = const_cast< ::CaptionDefProto*>(&::CaptionDefProto::default_instance());
+#endif
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  secondary_ = const_cast< ::CaptionDefProto*>(
+      ::CaptionDefProto::internal_default_instance());
+#else
   secondary_ = const_cast< ::CaptionDefProto*>(&::CaptionDefProto::default_instance());
+#endif
 }
 
 PathTextRuleProto::PathTextRuleProto(const PathTextRuleProto& from)
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -3593,7 +2708,11 @@ PathTextRuleProto::~PathTextRuleProto() {
 }
 
 void PathTextRuleProto::SharedDtor() {
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
   if (this != default_instance_) {
+  #endif
     delete primary_;
     delete secondary_;
   }
@@ -3604,13 +2723,12 @@ void PathTextRuleProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* PathTextRuleProto::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return PathTextRuleProto_descriptor_;
-}
-
 const PathTextRuleProto& PathTextRuleProto::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_drules_5fstruct_2eproto();
+#else
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();
+#endif
   return *default_instance_;
 }
 
@@ -3631,7 +2749,6 @@ void PathTextRuleProto::Clear() {
     priority_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
 }
 
 bool PathTextRuleProto::MergePartialFromCodedStream(
@@ -3689,8 +2806,7 @@ bool PathTextRuleProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
         break;
       }
     }
@@ -3703,13 +2819,13 @@ void PathTextRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // required .CaptionDefProto primary = 1;
   if (has_primary()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
       1, this->primary(), output);
   }
 
   // optional .CaptionDefProto secondary = 2;
   if (has_secondary()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
       2, this->secondary(), output);
   }
 
@@ -3718,38 +2834,6 @@ void PathTextRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->priority(), output);
   }
 
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* PathTextRuleProto::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // required .CaptionDefProto primary = 1;
-  if (has_primary()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, this->primary(), target);
-  }
-
-  // optional .CaptionDefProto secondary = 2;
-  if (has_secondary()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, this->secondary(), target);
-  }
-
-  // required int32 priority = 3;
-  if (has_priority()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->priority(), target);
-  }
-
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
 }
 
 int PathTextRuleProto::ByteSize() const {
@@ -3778,27 +2862,15 @@ int PathTextRuleProto::ByteSize() const {
     }
 
   }
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void PathTextRuleProto::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const PathTextRuleProto* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const PathTextRuleProto*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void PathTextRuleProto::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const PathTextRuleProto*>(&from));
 }
 
 void PathTextRuleProto::MergeFrom(const PathTextRuleProto& from) {
@@ -3814,13 +2886,6 @@ void PathTextRuleProto::MergeFrom(const PathTextRuleProto& from) {
       set_priority(from.priority());
     }
   }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void PathTextRuleProto::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
 }
 
 void PathTextRuleProto::CopyFrom(const PathTextRuleProto& from) {
@@ -3847,17 +2912,12 @@ void PathTextRuleProto::Swap(PathTextRuleProto* other) {
     std::swap(secondary_, other->secondary_);
     std::swap(priority_, other->priority_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata PathTextRuleProto::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = PathTextRuleProto_descriptor_;
-  metadata.reflection = PathTextRuleProto_reflection_;
-  return metadata;
+::std::string PathTextRuleProto::GetTypeName() const {
+  return "PathTextRuleProto";
 }
 
 
@@ -3874,20 +2934,45 @@ const int DrawElementProto::kPathTextFieldNumber;
 #endif  // !_MSC_VER
 
 DrawElementProto::DrawElementProto()
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
 }
 
 void DrawElementProto::InitAsDefaultInstance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  area_ = const_cast< ::AreaRuleProto*>(
+      ::AreaRuleProto::internal_default_instance());
+#else
   area_ = const_cast< ::AreaRuleProto*>(&::AreaRuleProto::default_instance());
+#endif
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  symbol_ = const_cast< ::SymbolRuleProto*>(
+      ::SymbolRuleProto::internal_default_instance());
+#else
   symbol_ = const_cast< ::SymbolRuleProto*>(&::SymbolRuleProto::default_instance());
+#endif
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  caption_ = const_cast< ::CaptionRuleProto*>(
+      ::CaptionRuleProto::internal_default_instance());
+#else
   caption_ = const_cast< ::CaptionRuleProto*>(&::CaptionRuleProto::default_instance());
+#endif
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  circle_ = const_cast< ::CircleRuleProto*>(
+      ::CircleRuleProto::internal_default_instance());
+#else
   circle_ = const_cast< ::CircleRuleProto*>(&::CircleRuleProto::default_instance());
+#endif
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  path_text_ = const_cast< ::PathTextRuleProto*>(
+      ::PathTextRuleProto::internal_default_instance());
+#else
   path_text_ = const_cast< ::PathTextRuleProto*>(&::PathTextRuleProto::default_instance());
+#endif
 }
 
 DrawElementProto::DrawElementProto(const DrawElementProto& from)
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -3908,7 +2993,11 @@ DrawElementProto::~DrawElementProto() {
 }
 
 void DrawElementProto::SharedDtor() {
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
   if (this != default_instance_) {
+  #endif
     delete area_;
     delete symbol_;
     delete caption_;
@@ -3922,13 +3011,12 @@ void DrawElementProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* DrawElementProto::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return DrawElementProto_descriptor_;
-}
-
 const DrawElementProto& DrawElementProto::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_drules_5fstruct_2eproto();
+#else
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();
+#endif
   return *default_instance_;
 }
 
@@ -3959,7 +3047,6 @@ void DrawElementProto::Clear() {
   }
   lines_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
 }
 
 bool DrawElementProto::MergePartialFromCodedStream(
@@ -4074,8 +3161,7 @@ bool DrawElementProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
         break;
       }
     }
@@ -4093,100 +3179,40 @@ void DrawElementProto::SerializeWithCachedSizes(
 
   // repeated .LineRuleProto lines = 2;
   for (int i = 0; i < this->lines_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
       2, this->lines(i), output);
   }
 
   // optional .AreaRuleProto area = 3;
   if (has_area()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
       3, this->area(), output);
   }
 
   // optional .SymbolRuleProto symbol = 4;
   if (has_symbol()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
       4, this->symbol(), output);
   }
 
   // optional .CaptionRuleProto caption = 5;
   if (has_caption()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
       5, this->caption(), output);
   }
 
   // optional .CircleRuleProto circle = 6;
   if (has_circle()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
       6, this->circle(), output);
   }
 
   // optional .PathTextRuleProto path_text = 7;
   if (has_path_text()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
       7, this->path_text(), output);
   }
 
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* DrawElementProto::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // required int32 scale = 1;
-  if (has_scale()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->scale(), target);
-  }
-
-  // repeated .LineRuleProto lines = 2;
-  for (int i = 0; i < this->lines_size(); i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, this->lines(i), target);
-  }
-
-  // optional .AreaRuleProto area = 3;
-  if (has_area()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        3, this->area(), target);
-  }
-
-  // optional .SymbolRuleProto symbol = 4;
-  if (has_symbol()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        4, this->symbol(), target);
-  }
-
-  // optional .CaptionRuleProto caption = 5;
-  if (has_caption()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        5, this->caption(), target);
-  }
-
-  // optional .CircleRuleProto circle = 6;
-  if (has_circle()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        6, this->circle(), target);
-  }
-
-  // optional .PathTextRuleProto path_text = 7;
-  if (has_path_text()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        7, this->path_text(), target);
-  }
-
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
 }
 
 int DrawElementProto::ByteSize() const {
@@ -4244,27 +3270,15 @@ int DrawElementProto::ByteSize() const {
         this->lines(i));
   }
 
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void DrawElementProto::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const DrawElementProto* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const DrawElementProto*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void DrawElementProto::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const DrawElementProto*>(&from));
 }
 
 void DrawElementProto::MergeFrom(const DrawElementProto& from) {
@@ -4290,13 +3304,6 @@ void DrawElementProto::MergeFrom(const DrawElementProto& from) {
       mutable_path_text()->::PathTextRuleProto::MergeFrom(from.path_text());
     }
   }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void DrawElementProto::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
 }
 
 void DrawElementProto::CopyFrom(const DrawElementProto& from) {
@@ -4339,17 +3346,12 @@ void DrawElementProto::Swap(DrawElementProto* other) {
     std::swap(circle_, other->circle_);
     std::swap(path_text_, other->path_text_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata DrawElementProto::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = DrawElementProto_descriptor_;
-  metadata.reflection = DrawElementProto_reflection_;
-  return metadata;
+::std::string DrawElementProto::GetTypeName() const {
+  return "DrawElementProto";
 }
 
 
@@ -4361,7 +3363,7 @@ const int ClassifElementProto::kElementFieldNumber;
 #endif  // !_MSC_VER
 
 ClassifElementProto::ClassifElementProto()
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
 }
 
@@ -4369,7 +3371,7 @@ void ClassifElementProto::InitAsDefaultInstance() {
 }
 
 ClassifElementProto::ClassifElementProto(const ClassifElementProto& from)
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -4388,7 +3390,11 @@ void ClassifElementProto::SharedDtor() {
   if (name_ != &::google::protobuf::internal::kEmptyString) {
     delete name_;
   }
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
   if (this != default_instance_) {
+  #endif
   }
 }
 
@@ -4397,13 +3403,12 @@ void ClassifElementProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* ClassifElementProto::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return ClassifElementProto_descriptor_;
-}
-
 const ClassifElementProto& ClassifElementProto::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_drules_5fstruct_2eproto();
+#else
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();
+#endif
   return *default_instance_;
 }
 
@@ -4423,7 +3428,6 @@ void ClassifElementProto::Clear() {
   }
   element_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
 }
 
 bool ClassifElementProto::MergePartialFromCodedStream(
@@ -4438,9 +3442,6 @@ bool ClassifElementProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_name()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->name().data(), this->name().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
         } else {
           goto handle_uninterpreted;
         }
@@ -4469,8 +3470,7 @@ bool ClassifElementProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
         break;
       }
     }
@@ -4483,49 +3483,16 @@ void ClassifElementProto::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // required string name = 1;
   if (has_name()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->name().data(), this->name().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
       1, this->name(), output);
   }
 
   // repeated .DrawElementProto element = 2;
   for (int i = 0; i < this->element_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
       2, this->element(i), output);
   }
 
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* ClassifElementProto::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // required string name = 1;
-  if (has_name()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->name().data(), this->name().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->name(), target);
-  }
-
-  // repeated .DrawElementProto element = 2;
-  for (int i = 0; i < this->element_size(); i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, this->element(i), target);
-  }
-
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
 }
 
 int ClassifElementProto::ByteSize() const {
@@ -4548,27 +3515,15 @@ int ClassifElementProto::ByteSize() const {
         this->element(i));
   }
 
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void ClassifElementProto::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const ClassifElementProto* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const ClassifElementProto*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void ClassifElementProto::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const ClassifElementProto*>(&from));
 }
 
 void ClassifElementProto::MergeFrom(const ClassifElementProto& from) {
@@ -4579,13 +3534,6 @@ void ClassifElementProto::MergeFrom(const ClassifElementProto& from) {
       set_name(from.name());
     }
   }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void ClassifElementProto::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
 }
 
 void ClassifElementProto::CopyFrom(const ClassifElementProto& from) {
@@ -4608,17 +3556,12 @@ void ClassifElementProto::Swap(ClassifElementProto* other) {
     std::swap(name_, other->name_);
     element_.Swap(&other->element_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata ClassifElementProto::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = ClassifElementProto_descriptor_;
-  metadata.reflection = ClassifElementProto_reflection_;
-  return metadata;
+::std::string ClassifElementProto::GetTypeName() const {
+  return "ClassifElementProto";
 }
 
 
@@ -4629,7 +3572,7 @@ const int ContainerProto::kContFieldNumber;
 #endif  // !_MSC_VER
 
 ContainerProto::ContainerProto()
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
 }
 
@@ -4637,7 +3580,7 @@ void ContainerProto::InitAsDefaultInstance() {
 }
 
 ContainerProto::ContainerProto(const ContainerProto& from)
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -4652,7 +3595,11 @@ ContainerProto::~ContainerProto() {
 }
 
 void ContainerProto::SharedDtor() {
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
   if (this != default_instance_) {
+  #endif
   }
 }
 
@@ -4661,13 +3608,12 @@ void ContainerProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* ContainerProto::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return ContainerProto_descriptor_;
-}
-
 const ContainerProto& ContainerProto::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_drules_5fstruct_2eproto();
+#else
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();
+#endif
   return *default_instance_;
 }
 
@@ -4680,7 +3626,6 @@ ContainerProto* ContainerProto::New() const {
 void ContainerProto::Clear() {
   cont_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
 }
 
 bool ContainerProto::MergePartialFromCodedStream(
@@ -4710,8 +3655,7 @@ bool ContainerProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
         break;
       }
     }
@@ -4724,30 +3668,10 @@ void ContainerProto::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // repeated .ClassifElementProto cont = 1;
   for (int i = 0; i < this->cont_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
       1, this->cont(i), output);
   }
 
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* ContainerProto::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // repeated .ClassifElementProto cont = 1;
-  for (int i = 0; i < this->cont_size(); i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, this->cont(i), target);
-  }
-
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
 }
 
 int ContainerProto::ByteSize() const {
@@ -4761,39 +3685,20 @@ int ContainerProto::ByteSize() const {
         this->cont(i));
   }
 
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void ContainerProto::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const ContainerProto* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const ContainerProto*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void ContainerProto::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const ContainerProto*>(&from));
 }
 
 void ContainerProto::MergeFrom(const ContainerProto& from) {
   GOOGLE_CHECK_NE(&from, this);
   cont_.MergeFrom(from.cont_);
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void ContainerProto::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
 }
 
 void ContainerProto::CopyFrom(const ContainerProto& from) {
@@ -4814,17 +3719,12 @@ void ContainerProto::Swap(ContainerProto* other) {
   if (other != this) {
     cont_.Swap(&other->cont_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata ContainerProto::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = ContainerProto_descriptor_;
-  metadata.reflection = ContainerProto_reflection_;
-  return metadata;
+::std::string ContainerProto::GetTypeName() const {
+  return "ContainerProto";
 }
 
 
