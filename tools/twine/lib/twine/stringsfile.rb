@@ -167,7 +167,7 @@ module Twine
             end
             @language_codes[1..-1].each do |lang|
               value = row.translations[lang]
-              if value && value != row.translations[dev_lang]
+              if value
                 if value[0,1] == ' ' || value[-1,1] == ' ' || (value[0,1] == '`' && value[-1,1] == '`')
                   value = '`' + value + '`'
                 end

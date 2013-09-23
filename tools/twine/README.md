@@ -157,6 +157,23 @@ It is easy to incorporate Twine right into your iOS and OS X app build processes
 
 Now, whenever you build your application, Xcode will automatically invoke Twine to make sure that your `.strings` files are up-to-date.
 
+## User Interface
+
+* [Twine TextMate 2 Bundle](https://github.com/mobiata/twine.tmbundle) — This [TextMate 2](https://github.com/textmate/textmate) bundle will make it easier for you to work with Twine strings files. In particular, it lets you use code folding to easily collapse and expand both strings and sections.
+* [twine_ui](https://github.com/Daij-Djan/twine_ui) — A user interface for Twine written by [Dominik Pich](https://github.com/Daij-Djan/). Consider using this if you would prefer to use Twine without dropping to a command line.
+
+## Contributors
+
+Many thanks to all of the contributors to the Twine project, including:
+
+* [Ishitoya Kentaro](https://github.com/kent013)
+* [Joseph Earl](https://github.com/JosephEarl)
+* [Kevin Everets](https://github.com/keverets)
+* [Kevin Wood](https://github.com/kwood)
+* [Mohammad Hejazi](https://github.com/MohammadHejazi)
+* [Robert Guo](http://www.robertguo.me/)
+
+
 [rubyzip]: http://rubygems.org/gems/rubyzip
 [git]: http://git-scm.org/
 [INI]: http://en.wikipedia.org/wiki/INI_file

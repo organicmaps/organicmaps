@@ -153,9 +153,11 @@ module Twine
 
         file_name = @options[:file_name] || default_file_name
         Dir.foreach(path) do |item|
-          lang = determine_language_given_path(item)
-          if lang
-            write_file(File.join(path, item, file_name), lang)
+          if File.directory?(item)
+            lang = determine_language_given_path(item)
+            if lang
+              write_file(File.join(path, item, file_name), lang)
+            end
           end
         end
       end

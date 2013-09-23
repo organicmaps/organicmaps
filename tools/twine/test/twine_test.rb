@@ -84,6 +84,14 @@ class TwineTest < Test::Unit::TestCase
     end
   end
 
+  def test_consume_string_file_5
+    Dir.mktmpdir do |dir|
+      output_path = File.join(dir, 'strings.txt')
+      Twine::Runner.run(%W(consume-string-file test/fixtures/strings-1.txt test/fixtures/en-2.po -o #{output_path} -l en -a))
+      assert_equal(File.read('test/fixtures/test-output-9.txt'), File.read(output_path))
+    end
+  end
+
   def test_generate_report_1
     Twine::Runner.run(%w(generate-report test/fixtures/strings-1.txt))
   end
