@@ -16,12 +16,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.location.LocationRequester;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.StubLogger;
 import com.mapswithme.yopme.map.MapData;
 import com.mapswithme.yopme.map.MapDataProvider;
 import com.mapswithme.yopme.map.MapRenderer;
@@ -64,6 +65,8 @@ public class BackscreenActivity extends BSActivity implements LocationListener
   private Location mLocation = null;
   //@}
 
+  private final Logger mLogger = StubLogger.get();
+
   protected View mView;
   protected ImageView mMapView;
   protected TextView mPoiText;
@@ -81,7 +84,7 @@ public class BackscreenActivity extends BSActivity implements LocationListener
   protected void onBSTouchEnadle()
   {
     // subscribe for locations again
-    Log.d(TAG, "LocationRequester: touches were enabled, requbscribe to location");
+    mLogger.d("LocationRequester: touches were enabled, requbscribe to location");
     requestLocationUpdate();
     super.onBSTouchEnadle();
   }
@@ -337,7 +340,7 @@ public class BackscreenActivity extends BSActivity implements LocationListener
 
     if (mMode == null)
     {
-      Log.d(TAG, "Unknown mode");
+      mLogger.d("Unknown mode");
       return;
     }
 

@@ -13,8 +13,9 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.StubLogger;
 import com.mapswithme.yopme.util.BatteryHelper;
 import com.mapswithme.yopme.util.BatteryHelper.BatteryLevel;
 
@@ -25,6 +26,8 @@ public class LocationRequester implements Handler.Callback
   protected Context mContext;
   protected LocationManager mLocationManager;
   protected Handler mDelayedEventsHandler;
+
+  private final Logger mLogger = StubLogger.get();
 
   // Location
   private boolean mIsRegistered = false;
@@ -56,7 +59,7 @@ public class LocationRequester implements Handler.Callback
     @Override
     public void onReceive(Context context, Intent intent)
     {
-      Log.d(TAG, "Got location update from : " + intent.getStringExtra(KEY_SOURCE));
+      mLogger.d("Got location update from : " + intent.getStringExtra(KEY_SOURCE));
 
       for (final LocationListener listener: mListeners)
       {
@@ -90,12 +93,12 @@ public class LocationRequester implements Handler.Callback
     public void onReceive(Context context, Intent intent)
     {
       mBatteryLevel = BatteryHelper.getBatteryLevelRange(mContext);
-      Log.d(TAG, "Got battery update, level: " + mBatteryLevel);
+      mLogger.d("Got battery update, level: " + mBatteryLevel);
 
       if (!canListenToLocation())
       {
         stopListening();
-        Log.d(TAG, "Stopped updated due to battery level update.");
+        mLogger.d("Stopped updated due to battery level update.");
       }
     }
   }; // receivers
@@ -160,7 +163,7 @@ public class LocationRequester implements Handler.Callback
         postRequestCancelation(MAX_TIME_FOR_SUBSCRIPTION_FIX);
       }
 
-      Log.d(TAG, "Registered provider: " + provider);
+      mLogger.d("Registered provider: " + provider);
     }
 
   }
@@ -173,7 +176,7 @@ public class LocationRequester implements Handler.Callback
       if (pi != null)
       {
         mLocationManager.removeUpdates(pi);
-        Log.d(TAG, "Stopped listening to: " + provider);
+        mLogger.d("Stopped listening to: " + provider);
       }
     }
   }
@@ -284,7 +287,7 @@ public class LocationRequester implements Handler.Callback
     final Message msg = mDelayedEventsHandler.obtainMessage(WHAT_LOCATION_REQUEST_CANCELATION);
     mDelayedEventsHandler.sendMessageDelayed(msg, delayMillis);
 
-    Log.d(TAG, "Postponed cancelation in: " + delayMillis + " ms");
+    mLogger.d("Postponed cancelation in: " + delayMillis + " ms");
   }
 
   @Override
@@ -293,7 +296,7 @@ public class LocationRequester implements Handler.Callback
     if (msg.what == WHAT_LOCATION_REQUEST_CANCELATION)
     {
       stopListening();
-      Log.d(TAG, "Removed all updates due to timeout");
+      mLogger.d("Removed all updates due to timeout");
       return true;
     }
     return false;
@@ -310,7 +313,7 @@ public class LocationRequester implements Handler.Callback
     if (mListeners.isEmpty())
     {
       stopListening();
-      Log.d(TAG, "No more listeners, stopping.");
+      mLogger.d("No more listeners, stopping.");
     }
   }
 
