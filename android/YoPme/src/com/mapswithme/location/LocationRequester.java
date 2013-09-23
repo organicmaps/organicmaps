@@ -170,7 +170,7 @@ public class LocationRequester implements Handler.Callback
       if (mLocationManager.isProviderEnabled(provider))
       {
         mLocationManager
-          .requestLocationUpdates(provider, mMinDistance, mMinDistance, getIntentForProvider(provider));
+          .requestLocationUpdates(provider, mMinTime, mMinDistance, getIntentForProvider(provider));
         Log.d(TAG, "Registered provider: " + provider);
       }
       else
