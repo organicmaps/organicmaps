@@ -11,7 +11,6 @@ namespace graphics
     CircledSymbol(SymbolElement::Params const & symbolElement,
                   CircleElement::Params const & circleElement);
 
-    vector<m2::AnyRectD> const & boundRects() const;
     void draw(OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const;
     void setTransformation(const math::Matrix<double, 3, 3> & m);
 
