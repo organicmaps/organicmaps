@@ -99,8 +99,8 @@ public class LocationRequester implements Handler.Callback
         if (newLevel != mBatteryLevel)
         {
           mBatteryLevel = newLevel;
-          setUpProviders();
           stopListening();
+          setUpProviders();
           startListening();
           Log.d(TAG, "Changed providers list due to battery level update.");
         }
