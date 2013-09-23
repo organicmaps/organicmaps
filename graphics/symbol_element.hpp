@@ -14,9 +14,10 @@ namespace graphics
     Icon::Info m_info;
     m2::RectU m_symbolRect;
 
-    mutable vector<m2::AnyRectD> m_boundRects;
-
     m2::AnyRectD const boundRect() const;
+
+  protected:
+    mutable vector<m2::AnyRectD> m_boundRects;
 
   public:
 

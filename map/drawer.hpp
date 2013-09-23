@@ -50,6 +50,12 @@ protected:
                   di::DrawRule const & rule,
                   FeatureID const & id);
 
+  void drawCircledSymbol(m2::PointD const & pt,
+                         graphics::EPosition pos,
+                         di::DrawRule const & symbolRule,
+                         di::DrawRule const & circleRule,
+                         FeatureID const & id);
+
   void drawPath(di::PathInfo const & path,
                 di::DrawRule const * rules,
                 size_t count);

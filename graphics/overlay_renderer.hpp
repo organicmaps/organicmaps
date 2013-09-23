@@ -45,6 +45,9 @@ namespace graphics
                     EPosition pos,
                     double depth);
 
+    void drawCircledSymbol(SymbolElement::Params const & symParams,
+                           CircleElement::Params const & circleParams);
+
     /// drawing straight text
     void drawText(FontDesc const & fontDesc,
                   m2::PointD const & pt,
