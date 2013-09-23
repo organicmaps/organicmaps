@@ -19,4 +19,10 @@
 	<string name="wait_msg">Determinando ubicación …</string>
 	<string name="about">MapsWithMe ofrece mapas de todas las ciudades de todos los países del mundo sin conexión a internet en dispositivos móviles con una segunda pantalla de tinta electrónica. Viaja sin problemas: dondequiera que estés, MapsWithMe te dará los mapas que necesites sin conexión a internet. Te sentirás más seguro en tus viajes, porque el mapa en la pantalla de tinta electrónica gasta muy poca batería.\nEstamos constantemente trabajando para añadir nuevas funciones, y nos encantaría oír tus sugerencias sobre cómo mejorar MapsWithMe. Si tienes algún problema con la aplicación, ponte en contacto con nosotros en support@mapswithme.com. ¡Respondemos a todos los mensajes!\n¿Te gusta MapsWithMe y quieres apoyarnos? Hay varias maneras simples y absolutamente gratuitas:\n- déjanos una reseña en tu Mercado de Aplicaciones\n- dale a \&quot;me gusta\&quot; en nuestra página de Facebook: http://www.facebook.com/mapswithme\n- o simplemente puedes recomendar MapsWithMe a tus padres, tus amigos, tus compañeros de trabajo... :)\nGracias por elegirnos. ¡Valoramos mucho tu apoyo!</string>
 	<string name="about_title">Acerca de</string>
+	<string name="zoom_in">Aumentar zoom</string>
+	<string name="zoom_out">Reducir zoom</string>
+	<string name="seconds">segundos</string>
+	<string name="gestures">Más gestos de tinta electrónica</string>
+	<string name="info_update">Actualización de información</string>
+	<string name="by_click">al hacer clic</string>
 </resources>

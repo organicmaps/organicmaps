@@ -11,14 +11,14 @@
         style="@style/HelpBigText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Жесты управления на втором экране" >
+        android:text="@string/gestures" >
     </TextView>
 
     <TextView
         style="@style/HelpSmallText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Приближение" >
+        android:text="@string/zoom_in" >
     </TextView>
 
     <TextView
@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_swiperight"
-        android:text="Отдаление" >
+        android:text="@string/zoom_out" >
     </TextView>
 
     <TextView
@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_tap"
-        android:text="Обновление\nинформации" >
+        android:text="@string/info_update" >
     </TextView>
 
 </LinearLayout>

@@ -171,6 +171,7 @@
     pl = MapsWithMe oferuje w trybie offline mapy wszystkich miast, wszystkich krajów świata dla urządzeń mobilnych z drugim wyświetlaczem E-Ink. Podróżuj z pełnym zaufaniem: gdziekolwiek jesteś, MapsWithMe rozwiązuje Twoje wszystkie potrzeby, związane z trasą, w trybie offline. Poczujesz się pewniej na swoich wycieczkach również dlatego, że mapa na ekranie E-Ink oszczędnie używa baterii telefonu.\nPonieważ zawsze pracujemy nad nowymi dodatkami, chcielibyśmy, abyś podzielił się z nami spostrzeżeniami i opiniami na temat MapsWithMe. Jeśli masz jakieś problemy z aplikacją, nie wahaj się z nami skontaktować na support@mapswithme.com. Odpowiemy na każde pytanie!\nLubisz MapsWithMe i chcesz nas wspierać? Oto kilka prostych i całkowicie darmowych sposobów:\n- Napisz opinię w App Market\n- Polub naszą stronę na Facebooku http://www.facebook.com/mapswithme\n- Lub po prostu powiedz o MapsWithMe mamie, przyjaciołom i kolegom :)\nDziękujemy, za wybranie naszej aplikacji. Wielce doceniamy Twoją pomoc!
     pt = A MapsWithMe oferece mapas offline de todas as cidades, de todos os países do mundo para dispositivos móveis com um segundo ecrã E-Ink. Viaje com toda a confiança: onde quer que esteja, a MapsWithMe responde a todas as suas necessidades de mapas offline. Irá sentir-se mais confiante nas suas viagens também porque o mapa no seu ecrã E-Ink utiliza a bateria do seu telemóvel de forma económica.\nEstamos sempre a trabalhar em novas funcionalidades e gostaríamos de saber a sua opinião sobre como acha que\npodemos melhorar a MapsWithMe. Se tiver quaisquer problemas com a aplicação não hesite em contactar-nos em\nsupport@mapswithme.com. Respondemos a todos os pedidos!\nGosta da MapsWithMe e quer dar-nos apoio? Existem algumas formas simples e completamente grátis:\n- deixe uma revisão no seu App Market\n- goste da nosssa página do Facebook http://www.facebook.com/mapswithme\n- ou fale simplesmente da MapsWithMe à sua mãe, amigos e colegas :)\nObrigado por ter estado connosco. Valorizamos muito o seu apoio!
     uk = MapsWithMe пропонує карти, в автоновному режимі, всіх міст, всіх країн світу для мобільних пристроїв з другим дисплеєм E-Ink. Подорожуйте з упевненістю: де б ви не були, MapsWithMe відповість на всі ваші потреби щодо карт в автономному режимі. Ви будете почувати себе більш впевнено у своїх поїздках ще й тому, що карта на E-Ink дисплеї використовує заряд батареї вашого телефону економно.\nМи завжди працюємо над новими функціями і хотіли б почути вашу думку щодо можливих шляхів покращення MapsWithMe. Якщо у вас виникли проблеми з програмою, не соромтеся звертатися до нас за адресою support@mapswithme.com. Ми відповідаємо на кожен запит! Подобається MapsWithMe і ви хочете підтримати нас? Є декілька простих і абсолютно безкоштовних способів:\n- залиште відгук на своєму App Market\n- натисніть Мені подобається на нашій сторінці у Facebook http://www.facebook.com/mapswithme\n- або просто розкажіть про MapsWithMe мамі, друзями і колегами :)\nСпасибі, що ви з нами. Ми дуже вдячні за вашу підтримку.
+
 [about_title]
     en = About
     cs = O programu
@@ -187,3 +188,76 @@
     pl = O programie
     pt = Sobre
 
+[zoom_in]
+    en = Zoom in
+    ru = Приближение
+    fr = Zoom avant
+    de = Vergrößern 
+    es = Aumentar zoom
+    it = Ingrandisci
+    cz = Přiblížit
+    nl = Zoom in
+    pl = Powiększ
+    pt = Ampliar
+    uk = Наближення
+
+[zoom_out]
+    en = Zoom out
+    ru = Отдаление
+    fr = Zoom arrière
+    de = Verkleinern
+    es = Reducir zoom
+    it = Reduce
+    cz = Odd-lot
+    nl = Zoom uit
+    pl = Pomniejsz
+    pt = Reduzir
+    uk = Віддалення
+
+[seconds]
+    en = seconds
+    ru = секунд
+    fr = secondes
+    de = sekunden
+    es = segundos
+    it = secondi
+    cz = sekundy
+    nl = sekunder
+    pl = sekunder
+    pt = segundos
+    uk = секунди
+
+[gestures]
+    en = Gesture controls on an E-Ink screen
+    ru = Жесты управления на E-Ink экране
+    fr = Commandes gestuelles  sur l'écran E-Ink
+    de = E-Ink gestures
+    es = Más gestos de tinta electrónica
+    it = Più movimenti di inchiostro elettronico
+    cz = Další gesta E-Ink
+    nl = Meer E-Ink gebaren
+    pl = Więcej gestów E-Ink
+    pt = Mais gestos E-Ink
+
+[info_update]
+    en = Info update
+    ru = Обновление информации
+    fr = Mise à jour
+    de = Info-Update
+    es = Actualización de información
+    it = Aggiornamento informazioni
+    cz = Aktualizovat informace
+    nl = Informatie-update
+    pl = Informacje o aktualizacji
+    pt = Atualização de Informação
+[by_click]
+    en = By clicking
+    ru = По клику
+    fr = Par une tape
+    de = Mit click
+    es = al hacer clic
+    it = per click
+    cz = získáte klepnutím
+    nl = door te klikken
+    pl = na kliknięcie
+    pt = ao clicar

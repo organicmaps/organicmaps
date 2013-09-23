@@ -19,4 +19,10 @@
 	<string name="wait_msg">A determinar a localização...</string>
 	<string name="about">A MapsWithMe oferece mapas offline de todas as cidades, de todos os países do mundo para dispositivos móveis com um segundo ecrã E-Ink. Viaje com toda a confiança: onde quer que esteja, a MapsWithMe responde a todas as suas necessidades de mapas offline. Irá sentir-se mais confiante nas suas viagens também porque o mapa no seu ecrã E-Ink utiliza a bateria do seu telemóvel de forma económica.\nEstamos sempre a trabalhar em novas funcionalidades e gostaríamos de saber a sua opinião sobre como acha que\npodemos melhorar a MapsWithMe. Se tiver quaisquer problemas com a aplicação não hesite em contactar-nos em\nsupport@mapswithme.com. Respondemos a todos os pedidos!\nGosta da MapsWithMe e quer dar-nos apoio? Existem algumas formas simples e completamente grátis:\n- deixe uma revisão no seu App Market\n- goste da nosssa página do Facebook http://www.facebook.com/mapswithme\n- ou fale simplesmente da MapsWithMe à sua mãe, amigos e colegas :)\nObrigado por ter estado connosco. Valorizamos muito o seu apoio!</string>
 	<string name="about_title">Sobre</string>
+	<string name="zoom_in">Ampliar</string>
+	<string name="zoom_out">Reduzir</string>
+	<string name="seconds">segundos</string>
+	<string name="gestures">Mais gestos E-Ink</string>
+	<string name="info_update">Atualização de Informação</string>
+	<string name="by_click">ao clicar</string>
 </resources>
