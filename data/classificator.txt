@@ -160,11 +160,6 @@ world  +
             {}
         bus_stop  -
         construction  -
-        crossing  +
-            island  -
-            uncontrolled  -
-            zebra  -
-            {}
         cycleway  +
             bridge  -
             permissive  -
@@ -329,11 +324,6 @@ world  +
             christian  -
             {}
         commercial  -
-        conservation  +
-            no-access  -
-            permissive  -
-            private  -
-            {}
         construction  -
         farm  -
         farmland  -
@@ -354,7 +344,6 @@ world  +
         military  -
         orchard  -
         quarry  -
-        raceway  -
         railway  -
         recreation_ground  -
         reservoir  -

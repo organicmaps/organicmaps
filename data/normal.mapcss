@@ -83,7 +83,8 @@ line[highway=path],
 line[highway=steps],
 line[highway=cycleway],
 line[highway=construction],
-line[highway=bus_stop]
+line[highway=bus_stop],
+line[highway=motorway_junction]
 {
     casing-width: 0;
 }
@@ -1443,7 +1444,9 @@ area|z14[place=farm],
 area|z13-15[place=islet],
 area|z17-[place=islet],
 node|z17-[aeroway=gate],
-node|z14-15[natural=bay]
+node|z14-15[natural=bay],
+area|z14-[landuse=field],
+area|z15-[landuse=residential]
 {
   text: name;
   font-size:    12;

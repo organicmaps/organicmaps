@@ -214,7 +214,7 @@ man_made|wastewater_plant;[man_made=wastewater_plant];;name;int_name;213;
 highway|trunk|motorroad;[highway=trunk][motorroad?];x;name;int_name;214;highway|trunk
 place|county;[place=county];;name;int_name;215;
 highway|footway|private;[highway=footway][access=private];;name;int_name;216;
-landuse|conservation;[landuse=conservation];;name;int_name;217;
+landuse|conservation;[landuse=conservation];x;name;int_name;217;
 highway|unclassified|junction;[highway=unclassified][junction?];x;name;int_name;218;highway|unclassified
 power|station;[power=station];;name;int_name;219;
 sport|swimming;[sport=swimming];;name;int_name;220;
@@ -308,7 +308,7 @@ highway|unsurfaced;[highway=unsurfaced];x;name;int_name;307;highway|unclassified
 highway|raceway;[highway=raceway];;name;int_name;308;
 highway|primary|tunnel;[highway=primary][tunnel?];;name;int_name;309;
 highway|primary_link|bridge;[highway=primary_link][bridge?];;name;int_name;310;
-landuse|conservation|private;[landuse=conservation][access=private];;name;int_name;311;
+landuse|conservation|private;[landuse=conservation][access=private];x;name;int_name;311;
 sport|equestrian;[sport=equestrian];;name;int_name;312;
 tourism|information|office;[tourism=information][office];;name;int_name;313;
 highway|footway|hiking;[highway=footway][sac_scale=hiking];;name;int_name;314;
@@ -559,7 +559,7 @@ landuse|runway;[landuse=runway];x;name;int_name;558;
 natural|farm;[natural=farm];x;name;int_name;559;landuse|farmland
 highway|unsurfaced|oneway;[highway=unsurfaced][oneway?];x;name;int_name;560;highway|unclassified
 highway|motorway_link|disused;[highway=motorway_link][disused?];x;name;int_name;561;
-highway|crossing|uncontrolled;[highway=crossing][crossing=uncontrolled];;name;int_name;562;
+highway|crossing|uncontrolled;[highway=crossing][crossing=uncontrolled];x;name;int_name;562;
 highway|track|junction;[highway=track][junction?];x;name;int_name;563;highway|track
 natural|lake;[natural=lake];;name;int_name;564;
 man_made|pipeline|sewage;[man_made=pipeline][type=sewage];x;name;int_name;565;man_made|pipeline
@@ -597,7 +597,7 @@ railway|incline;[railway=incline];x;name;int_name;596;
 boundary|administrative|region;[boundary=administrative][border_type=region];;name;int_name;597;
 highway|pedestrian|construction;[highway=pedestrian][construction?];x;name;int_name;598;highway|construction
 highway|path|t1;[highway=path][t1];x;name;int_name;599;highway|path
-landuse|raceway;[landuse=raceway];;name;int_name;600;
+landuse|raceway;[landuse=raceway];x;name;int_name;600;
 place|continent;[place=continent];;name;int_name;601;
 natural|farmland;[natural=farmland];x;name;int_name;602;landuse|farmland
 highway|footpath|private;[highway=footpath][access=private];x;name;int_name;603;highway|footway
@@ -673,12 +673,12 @@ highway|unsurfaced|area;[highway=unsurfaced][area?];x;name;int_name;672;
 highway|minor|tunnel;[highway=minor][tunnel?];x;name;int_name;673;highway|unclassified
 highway|minor|area;[highway=minor][area?];x;name;int_name;674;
 highway|track|grade4|permissive;[highway=track][tracktype=grade4][access=permissive];;name;int_name;675;
-highway|crossing|zebra;[highway=crossing][crossing=zebra];;name;int_name;676;
+highway|crossing|zebra;[highway=crossing][crossing=zebra];x;name;int_name;676;
 landuse|runway|dismantled;[landuse=runway][dismantled?];x;name;int_name;677;
 highway|bridleway|construction;[highway=bridleway][construction?];x;name;int_name;678;
 railway|planned|bridge;[railway=planned][bridge?];x;name;int_name;679;
 highway|service|embankment;[highway=service][embankment?];x;name;int_name;680;highway|service
-highway|crossing|island;[highway=crossing][crossing=island];;name;int_name;681;
+highway|crossing|island;[highway=crossing][crossing=island];x;name;int_name;681;
 highway|unclassified|cycleway;[highway=unclassified][cycleway];x;name;int_name;682;highway|unclassified
 highway|residential|cycleway;[highway=residential][cycleway];x;name;int_name;683;highway|residential
 natural|commercial;[natural=commercial];x;name;int_name;684;
@@ -839,8 +839,8 @@ highway|unsurfaced|disused;[highway=unsurfaced][disused?];x;name;int_name;838;hi
 highway|unsurfaced|junction;[highway=unsurfaced][junction?];x;name;int_name;839;highway|unclassified
 highway|unsurfaced|no-access;[highway=unsurfaced][access=no];x;name;int_name;840;highway|unclassified
 landuse|conservation|destination;[landuse=conservation][access=destination];x;name;int_name;841;
-landuse|conservation|no-access;[landuse=conservation][access=no];;name;int_name;842;
-landuse|conservation|permissive;[landuse=conservation][access=permissive];;name;int_name;843;
+landuse|conservation|no-access;[landuse=conservation][access=no];x;name;int_name;842;
+landuse|conservation|permissive;[landuse=conservation][access=permissive];x;name;int_name;843;
 landuse|scrub|coniferous;[landuse=scrub][wood=coniferous];x;name;int_name;844;
 landuse|scrub|mixed;[landuse=scrub][wood=mixed];x;name;int_name;845;
 leisure|dog_park|tennis;[leisure=dog_park][sport=tennis];;name;int_name;846;

@@ -214,7 +214,7 @@ man_made|wastewater_plant
 highway|trunk
 place|county
 highway|footway|private
-landuse|conservation
+mapswithme
 highway|unclassified
 power|station
 sport|swimming
@@ -308,7 +308,7 @@ highway|unclassified
 highway|raceway
 highway|primary|tunnel
 highway|primary_link|bridge
-landuse|conservation|private
+mapswithme
 sport|equestrian
 tourism|information|office
 highway|footway|hiking
@@ -559,7 +559,7 @@ mapswithme
 landuse|farmland
 highway|unclassified
 mapswithme
-highway|crossing|uncontrolled
+mapswithme
 highway|track
 natural|lake
 man_made|pipeline
@@ -597,7 +597,7 @@ mapswithme
 boundary|administrative|region
 highway|construction
 highway|path
-landuse|raceway
+mapswithme
 place|continent
 landuse|farmland
 highway|footway
@@ -673,12 +673,12 @@ mapswithme
 highway|unclassified
 mapswithme
 highway|track|grade4|permissive
-highway|crossing|zebra
+mapswithme
 mapswithme
 mapswithme
 mapswithme
 highway|service
-highway|crossing|island
+mapswithme
 highway|unclassified
 highway|residential
 mapswithme
@@ -839,8 +839,8 @@ highway|unclassified
 highway|unclassified
 highway|unclassified
 mapswithme
-landuse|conservation|no-access
-landuse|conservation|permissive
+mapswithme
+mapswithme
 mapswithme
 mapswithme
 leisure|dog_park|tennis
