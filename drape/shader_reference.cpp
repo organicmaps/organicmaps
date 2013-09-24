@@ -22,7 +22,7 @@ ShaderReference::ShaderReference(const string & shaderSource, Type type)
 {
 }
 
-int ShaderReference::GetID()
+int ShaderReference::GetID() const
 {
   return m_glID;
 }

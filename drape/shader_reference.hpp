@@ -13,7 +13,7 @@ public:
 
   ShaderReference(const string & shaderSource, Type type);
 
-  int GetID();
+  int GetID() const;
   void Ref();
   void Deref();
 
