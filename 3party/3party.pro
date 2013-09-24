@@ -8,7 +8,8 @@ SUBDIRS = freetype fribidi zlib bzip2 jansson tomcrypt protobuf
 !linux*: SUBDIRS *= expat
 
 !iphone*:!bada*:!android* {
-  SUBDIRS += gflags \
-             sgitess \
-             qjsonrpc
+  SUBDIRS += gflags   \
+             sgitess  \
+             qjsonrpc \
+             gmock    \
 }
