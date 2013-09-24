@@ -158,7 +158,6 @@
 		FA4135ED120A263C0062D5B4 /* SettingsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4135E7120A263C0062D5B4 /* SettingsManager.mm */; };
 		FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */; };
 		FA46DA2C12D4166E00968C36 /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
-		FA4B0A1415136C4C00758203 /* World.mwm.nosearch in Resources */ = {isa = PBXBuildFile; fileRef = FA4B0A1315136C4C00758203 /* World.mwm.nosearch */; };
 		FA5D4F191557F79900E7D8BB /* PlacePageVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */; };
 		FA5D4F1A1557F79900E7D8BB /* PlacePageVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */; };
 		FA64D9A913F975AD00350ECF /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA64D9A813F975AD00350ECF /* types.txt */; };
@@ -170,6 +169,7 @@
 		FA765AB41737BC6D00279CFF /* 44x58-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FA765AB01737BC6D00279CFF /* 44x58-lite.png */; };
 		FA765AB51737BC6D00279CFF /* 64-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FA765AB11737BC6D00279CFF /* 64-lite.png */; };
 		FA765AB61737BC6D00279CFF /* 320-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FA765AB21737BC6D00279CFF /* 320-lite.png */; };
+		FA7F4B0017F1FFE800FAB1B5 /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FAFF42291347F101009BBB14 /* World.mwm */; };
 		FA81AE3314D061BF00A0D70D /* SearchCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA81AE3214D061BF00A0D70D /* SearchCell.mm */; };
 		FA85F633145DDDC20090E1A0 /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA85F632145DDDC20090E1A0 /* packed_polygons.bin */; };
 		FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA87151A12B1518F00592DAF /* SystemConfiguration.framework */; };
@@ -1478,7 +1478,6 @@
 		FA4135E7120A263C0062D5B4 /* SettingsManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = SettingsManager.mm; path = Settings/SettingsManager.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = WorldCoasts.mwm; path = ../../data/WorldCoasts.mwm; sourceTree = "<group>"; };
 		FA46DA2B12D4166E00968C36 /* countries.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries.txt; path = ../../data/countries.txt; sourceTree = SOURCE_ROOT; };
-		FA4B0A1315136C4C00758203 /* World.mwm.nosearch */ = {isa = PBXFileReference; lastKnownFileType = file; name = World.mwm.nosearch; path = ../../data/World.mwm.nosearch; sourceTree = "<group>"; };
 		FA5940D2171C964D0045C9BB /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA5940D3171C964D0045C9BB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA5940D4171C964D0045C9BB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2324,7 +2323,6 @@
 				EEA615E9134C4968003A9827 /* 05_khmeros.ttf */,
 				EE164810135CEE49003B8A3E /* 06_code2000.ttf */,
 				FAFF42291347F101009BBB14 /* World.mwm */,
-				FA4B0A1315136C4C00758203 /* World.mwm.nosearch */,
 				FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */,
 				FAFCB63713367AD1001A5C59 /* about.html */,
 				EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */,
@@ -4173,6 +4171,7 @@
 				FAFB0886151215EE0041901D /* pn@2x.png in Resources */,
 				FAFB0887151215EE0041901D /* pr@2x.png in Resources */,
 				FAFB0888151215EE0041901D /* ps@2x.png in Resources */,
+				FA7F4B0017F1FFE800FAB1B5 /* World.mwm in Resources */,
 				FAFB0889151215EE0041901D /* pt@2x.png in Resources */,
 				FAFB088A151215EE0041901D /* pw@2x.png in Resources */,
 				FAFB088B151215EE0041901D /* py@2x.png in Resources */,
@@ -4264,7 +4263,6 @@
 				FAA3A878151279DE00C7904C /* 100-lite.png in Resources */,
 				FAA3A879151279DE00C7904C /* 114-lite.png in Resources */,
 				FAA3A87A151279DE00C7904C /* 144-lite.png in Resources */,
-				FA4B0A1415136C4C00758203 /* World.mwm.nosearch in Resources */,
 				FA68E1681525F92700077B9E /* Default-Landscape@2x.png in Resources */,
 				FA68E16A1525F92700077B9E /* Default-Portrait@2x.png in Resources */,
 				FA8A71D5153D83C8005D9795 /* bookmarks-highlighted.png in Resources */,
@@ -4541,6 +4539,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_IDENTIFIER = com.mapswithme.travelguide.debug;
 				CLANG_CXX_LIBRARY = "libstdc++";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2.4.7;
@@ -4700,6 +4699,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_IDENTIFIER = com.mapswithme.full.debug;
 				CLANG_CXX_LIBRARY = "libstdc++";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2.4.7;
@@ -4863,6 +4863,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_IDENTIFIER = com.mapswithme.travelguide.release;
 				CLANG_CXX_LIBRARY = "libstdc++";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2.4.7;
@@ -4917,6 +4918,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_IDENTIFIER = com.mapswithme.full.release;
 				CLANG_CXX_LIBRARY = "libstdc++";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2.4.7;
