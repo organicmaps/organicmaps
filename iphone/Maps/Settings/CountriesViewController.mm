@@ -157,7 +157,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   return iconType;
 }
 
-- (void) UpdateCell: (UITableViewCell *)cell forCountry: (TIndex const &)countryIndex
+- (void) UpdateCell:(UITableViewCell *)cell forCountry:(TIndex const &)countryIndex
 {
   cell.accessoryView = nil;
 
@@ -266,9 +266,9 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   if (cell == nil)
   {
   	if (hasChildren)
-    	cell = [[[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault reuseIdentifier:cellId] autorelease];
+    	cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId] autorelease];
   	else
-  		cell = [[[UITableViewCell alloc] initWithStyle: UITableViewCellStyleSubtitle reuseIdentifier:cellId] autorelease];
+  		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId] autorelease];
 	}
 
   if (hasChildren)
@@ -278,7 +278,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 
   cell.textLabel.text = [NSString stringWithUTF8String:s.CountryName(index).c_str()];
 
-  [self UpdateCell: cell forCountry: index];
+  [self UpdateCell:cell forCountry:index];
   return cell;
 }
 
@@ -461,13 +461,13 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   		case EDownloading:
 	    {
         // advise to stop download and delete country
-		UIActionSheet * popupQuery = [[UIActionSheet alloc] initWithTitle: countryName delegate: self
+        UIActionSheet * popupQuery = [[UIActionSheet alloc] initWithTitle:countryName delegate:self
             cancelButtonTitle: NSLocalizedString(@"do_nothing", nil)
             destructiveButtonTitle: NSLocalizedString(@"cancel_download", nil)
         		otherButtonTitles: nil];
 
-        [popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
-    		[popupQuery release];
+        [popupQuery showFromRect:[cell frame] inView:tableView animated:YES];
+        [popupQuery release];
         break;
     	}
 
@@ -487,22 +487,22 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   if (IsOurIndex(index, m_index))
   {
     UITableView * tableView = (UITableView *)self.view;
-    UITableViewCell * cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: RowFromIndex(index) inSection: 0]];
+    UITableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:RowFromIndex(index) inSection:0]];
 
     if (cell)
-      [self UpdateCell: cell forCountry: index];
+      [self UpdateCell:cell forCountry:index];
   }
 }
 
-- (void) OnDownload: (TIndex const &)index withProgress: (pair<int64_t, int64_t> const &)progress
+- (void) OnDownload:(TIndex const &)index withProgress:(pair<int64_t, int64_t> const &)progress
 {
   if (IsOurIndex(index, m_index))
   {
     UITableView * tableView = (UITableView *)self.view;
-    UITableViewCell * cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: RowFromIndex(index) inSection: 0]];
+    UITableViewCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:RowFromIndex(index) inSection:0]];
 
     if (cell)
-      cell.detailTextLabel.text = [NSString stringWithFormat: NSLocalizedString(@"downloading_touch_to_cancel", nil), progress.first * 100 / progress.second];
+      cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"downloading_touch_to_cancel", nil), progress.first * 100 / progress.second];
   }
 }
 
@@ -514,11 +514,10 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   if (!GetFramework().GetGuideInfo(index, info))
     return;
   NSURL * guideUrl = [NSURL URLWithString:[NSString stringWithUTF8String:info.GetAppID().c_str()]];
-  UIApplication * app = APP;
-  if ([app canOpenURL:guideUrl])
-    [app openURL:guideUrl];
+  if ([APP canOpenURL:guideUrl])
+    [APP openURL:guideUrl];
   else
-    [app openURL:[NSURL URLWithString:[NSString stringWithUTF8String:info.GetURL().c_str()]]];
+    [APP openURL:[NSURL URLWithString:[NSString stringWithUTF8String:info.GetURL().c_str()]]];
 }
 
 @end
