@@ -5,6 +5,6 @@
 class DataBuffer : public GLBuffer
 {
 public:
-  DataBuffer(uint16_t elementSize, uint16_t capacity);
+  DataBuffer(uint8_t elementSize, uint16_t capacity);
 };
 
