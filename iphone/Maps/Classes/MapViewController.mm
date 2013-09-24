@@ -461,8 +461,8 @@ NSInteger compareAddress(id l, id r, void * context)
 	[self stopCurrentAction];
 
   UITouch * theTouch = (UITouch*)[touches anyObject];
-  int tapCount = theTouch.tapCount;
-  int touchesCount = [[event allTouches] count];
+  NSUInteger const tapCount = theTouch.tapCount;
+  NSUInteger const touchesCount = [[event allTouches] count];
 
   Framework & f = GetFramework();
 
