@@ -157,18 +157,6 @@ static void OnSearchResultCallback(search::Results const & res)
   return self;
 }
 
-- (void)hideIndicator
-{
-  [m_indicator stopAnimating];
-  m_searchTextField.leftView = m_originalIndicatorView;
-}
-
-- (void)showIndicator
-{
-  m_searchTextField.leftView = m_indicator;
-  [m_indicator startAnimating];
-}
-
 - (void)fillSearchParams:(search::SearchParams &)params withText:(NSString *)queryString
 {
   params.m_query = [[queryString precomposedStringWithCompatibilityMapping] UTF8String];
@@ -183,24 +171,6 @@ static void OnSearchResultCallback(search::Results const & res)
     params.SetPosition(lat, lon);
 }
 
-// Returns true if indicator was successfully replaced
-- (BOOL)hackIndicator:(NSArray *)views
-{
-  for (UIView * v in views)
-  {
-    if ([v isKindOfClass:[UITextField class]])
-    {
-      // Save textField to show/hide activity indicator in it
-      m_searchTextField = (UITextField *)v;
-      m_originalIndicatorView = [m_searchTextField.leftView retain];
-      m_indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-      m_indicator.bounds = m_originalIndicatorView.bounds;
-      return YES;
-    }
-  }
-  return NO;
-}
-
 - (void)loadView
 {
     m_searchBar = [[UISearchBar alloc] init];
@@ -213,15 +183,6 @@ static void OnSearchResultCallback(search::Results const & res)
       [m_searchBar setText:g_lastSearchRequest];
     m_searchBar.delegate = self;
     m_searchBar.placeholder = NSLocalizedString(@"search_map", @"Search box placeholder text");
-    
-    // Add search in progress indicator
-    if (![self hackIndicator:m_searchBar.subviews])
-    {
-      // We are here on iOS 7+
-      for (UIView * v in m_searchBar.subviews)
-        if ([self hackIndicator:v.subviews])
-          break;
-    }
 
     m_table = [[UITableView alloc] init];
     m_table.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
@@ -240,8 +201,6 @@ static void OnSearchResultCallback(search::Results const & res)
 - (void)dealloc
 {
   g_searchVC = nil;
-  [m_indicator release];
-  [m_originalIndicatorView release];
   [m_searchBar release];
   [m_table release];
   [categoriesNames release];
@@ -533,7 +492,6 @@ static void OnSearchResultCallback(search::Results const & res)
   {
     if ([w isEndedNormal])
     {
-      [self hideIndicator];
        g_numberOfRowsInEmptySearch = 1;
       [m_table reloadData];
     }
@@ -583,18 +541,10 @@ void setSearchType(search::SearchParams & params)
   {
     [self fillSearchParams:params withText:m_searchBar.text];
     
-    //hack, fillSearch Params return invalid position
+    // hack, fillSearch Params return invalid position
     params.SetPosition(info.m_latitude, info.m_longitude);
     
-    if (m_framework->Search(params))
-    {
-      g_numberOfRowsInEmptySearch = 0;
-      [self showIndicator];
-    }
-    else
-    {
-      g_numberOfRowsInEmptySearch = 1;
-    }
+    g_numberOfRowsInEmptySearch = m_framework->Search(params) ? 0 : 1;
   }
 }
 
@@ -692,11 +642,7 @@ void setSearchType(search::SearchParams & params)
     params.SetForceSearch(true);
   }
   [self fillSearchParams:params withText:searchText];
-  if (m_framework->Search(params))
-  {
-    [self showIndicator];   
-  }
-  else
+  if (!m_framework->Search(params))
   {
     g_numberOfRowsInEmptySearch = 1;
     [m_table reloadData];
