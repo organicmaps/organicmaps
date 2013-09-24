@@ -157,7 +157,7 @@ typedef enum {Editing, Saved} Mode;
 -(void)viewDidLoad
 {
   [super viewDidLoad];
-  self.title = self.pinTitle;
+  self.title = NSLocalizedString(@"info", nil);
   if (m_mode == Editing)
     [self addRightNavigationItemWithAction:@selector(save)];
   else
