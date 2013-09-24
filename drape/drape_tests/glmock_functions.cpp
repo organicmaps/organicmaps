@@ -1,0 +1,23 @@
+#include "glmock_functions.hpp"
+
+namespace emul
+{
+  void GLMockFunctions::Init(int * argc, char **argv)
+  {
+    ::testing::InitGoogleMock(argc, argv);
+    m_mock = new GLMockFunctions();
+  }
+
+  void GLMockFunctions::Teardown()
+  {
+    delete m_mock;
+    m_mock = NULL;
+  }
+
+  GLMockFunctions & GLMockFunctions::Instance()
+  {
+    return *m_mock;
+  }
+
+  GLMockFunctions * GLMockFunctions::m_mock;
+}
