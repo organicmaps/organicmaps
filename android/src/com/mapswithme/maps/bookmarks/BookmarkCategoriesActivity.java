@@ -43,7 +43,8 @@ public class BookmarkCategoriesActivity extends AbstractBookmarkCategoryActivity
   public void onCreateContextMenu(ContextMenu menu, View v,
                                   ContextMenuInfo menuInfo)
   {
-    if (getAdapter().isActiveItem(((AdapterView.AdapterContextMenuInfo)menuInfo).position))
+    final BookmarkCategoriesAdapter adapter = (BookmarkCategoriesAdapter)getAdapter();
+    if (adapter.isActiveItem(((AdapterView.AdapterContextMenuInfo)menuInfo).position))
     {
       getMenuInflater().inflate(R.menu.bookmark_categories_context_menu, menu);
       super.onCreateContextMenu(menu, v, menuInfo);

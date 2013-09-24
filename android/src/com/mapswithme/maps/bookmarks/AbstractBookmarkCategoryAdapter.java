@@ -1,10 +1,10 @@
 package com.mapswithme.maps.bookmarks;
 
-import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-
 import android.content.Context;
 import android.widget.BaseAdapter;
+
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 
 public abstract class AbstractBookmarkCategoryAdapter extends BaseAdapter
 {
@@ -30,35 +30,13 @@ public abstract class AbstractBookmarkCategoryAdapter extends BaseAdapter
   @Override
   public int getCount()
   {
-    return mManager.getCategoriesCount() + 1;
+    return mManager.getCategoriesCount();
   }
 
   @Override
   public long getItemId(int position)
   {
     return position;
-  }
-
-  public final static int ITEM = 0;
-  public final static int HELP = 1;
-  @Override
-  public int getItemViewType(int position)
-  {
-    if (position == getCount() - 1) return HELP;
-    return ITEM;
-  }
-
-  @Override
-  public int getViewTypeCount()
-  {
-    return 2;
-  }
-
-  public boolean isActiveItem(int position)
-  {
-    return getItemViewType(position) != HELP
-        && position < getCount()
-        && position >= 0;
   }
 
   @Override

@@ -19,7 +19,8 @@ public abstract class AbstractBookmarkCategoryActivity extends AbstractBookmarkL
     if (menuInfo instanceof AdapterView.AdapterContextMenuInfo)
     {
       final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-      if (getAdapter().isActiveItem(info.position))
+      final BookmarkCategoriesAdapter adapter = (BookmarkCategoriesAdapter)getAdapter();
+      if (adapter.isActiveItem(info.position))
       {
         mSelectedPosition = info.position;
         menu.setHeaderTitle(mManager.getCategoryById(mSelectedPosition).getName());

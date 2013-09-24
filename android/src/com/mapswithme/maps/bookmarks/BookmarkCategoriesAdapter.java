@@ -19,6 +19,35 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
     super(context);
   }
 
+  private final static int ITEM = 0;
+  private final static int HELP = 1;
+
+  @Override
+  public int getCount()
+  {
+    return super.getCount() + 1;
+  }
+
+  @Override
+  public int getItemViewType(int position)
+  {
+    if (position == getCount() - 1) return HELP;
+    return ITEM;
+  }
+
+  @Override
+  public int getViewTypeCount()
+  {
+    return 2;
+  }
+
+  public boolean isActiveItem(int position)
+  {
+    return getItemViewType(position) != HELP
+        && position < getCount()
+        && position >= 0;
+  }
+
   @Override
   public View getView(int position, View convertView, ViewGroup parent)
   {
