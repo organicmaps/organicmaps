@@ -726,9 +726,4 @@ typedef enum {Editing, Saved} Mode;
   [self dismissPicker];
 }
 
-- (BOOL)prefersStatusBarHidden
-{
-  return YES;
-}
-
 @end
