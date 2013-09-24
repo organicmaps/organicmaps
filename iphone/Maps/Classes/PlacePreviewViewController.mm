@@ -39,6 +39,11 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
   {
     m_previewType = POI;
     m_poiInfo = search::AddressInfo(info);
+    // @TODO Better to have common logic for empty names. Here we have separate ifs in
+    // c++ balloon code, which display "Dropped Pin" label if GetPinName is empty,
+    // and similar if in this place
+    if (m_poiInfo.GetPinName().empty())
+      m_poiInfo.m_name = [NSLocalizedString(@"dropped_pin", nil) UTF8String];
     m_point = point;
   }
   return self;
