@@ -31,7 +31,7 @@ GLBuffer::~GLBuffer()
 
 void GLBuffer::UploadData(const void * data, uint16_t elementCount)
 {
-  ASSERT(m_capacity > elementCount + m_size, ("Not enough memory to upload ", elementCount, " elements"));
+  ASSERT(m_capacity >= elementCount + m_size, ("Not enough memory to upload ", elementCount, " elements"));
   Bind();
   GLFunctions::glBufferSubData(glTarget(m_t), elementCount * m_elementSize, data, m_size * m_elementSize);
   m_size += elementCount;
