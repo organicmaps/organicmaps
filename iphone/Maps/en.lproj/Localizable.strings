@@ -480,7 +480,7 @@
 "allow_statistics_hint" = "It helps us to build better application";
 
 /* place preview title */
-"info" = "Show More Info";
+"info" = "Info";
 
 /* Used for bookmark editing */
 "done" = "Done";
