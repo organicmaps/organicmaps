@@ -21,7 +21,7 @@ public:
   {
     return m_depthLayer < other.m_depthLayer
         || m_gpuProgramIndex < other.m_gpuProgramIndex
-        || m_texture < other.m_texture
+        //|| m_texture < other.m_texture
         || m_uniforms < other.m_uniforms;
   }
 
