@@ -11,22 +11,42 @@ namespace
       dstPointer[i] = values[i];
   }
 
-  template<typename T>
-  void ApplyScalar(int8_t location, T * pointer, size_t componentCount)
+  void ApplyInt(int8_t location, int32_t * pointer, size_t componentCount)
   {
     switch (componentCount)
     {
     case 1:
-      GLFunctions::glUniformValue(location, pointer[0]);
+      GLFunctions::glUniformValuei(location, pointer[0]);
       break;
     case 2:
-      GLFunctions::glUniformValue(location, pointer[0], pointer[1]);
+      GLFunctions::glUniformValuei(location, pointer[0], pointer[1]);
       break;
     case 3:
-      GLFunctions::glUniformValue(location, pointer[0], pointer[1], pointer[2]);
+      GLFunctions::glUniformValuei(location, pointer[0], pointer[1], pointer[2]);
       break;
     case 4:
-      GLFunctions::glUniformValue(location, pointer[0], pointer[1], pointer[2], pointer[3]);
+      GLFunctions::glUniformValuei(location, pointer[0], pointer[1], pointer[2], pointer[3]);
+      break;
+    default:
+      ASSERT(false, ());
+    }
+  }
+
+  void ApplyFloat(int8_t location, float * pointer, size_t componentCount)
+  {
+    switch (componentCount)
+    {
+    case 1:
+      GLFunctions::glUniformValuef(location, pointer[0]);
+      break;
+    case 2:
+      GLFunctions::glUniformValuef(location, pointer[0], pointer[1]);
+      break;
+    case 3:
+      GLFunctions::glUniformValuef(location, pointer[0], pointer[1], pointer[2]);
+      break;
+    case 4:
+      GLFunctions::glUniformValuef(location, pointer[0], pointer[1], pointer[2], pointer[3]);
       break;
     default:
       ASSERT(false, ());
@@ -133,10 +153,10 @@ void UniformValue::Apply(ReferencePoiner<GpuProgram> program)
   uint8_t location = program->GetUniformLocation(m_name);
   switch (m_type) {
   case Int:
-    ApplyScalar(location, CastMemory<int32_t>(), m_componentCount);
+    ApplyInt(location, CastMemory<int32_t>(), m_componentCount);
     break;
   case Float:
-    ApplyScalar(location, CastMemory<float>(), m_componentCount);
+    ApplyFloat(location, CastMemory<float>(), m_componentCount);
     break;
   case Matrix4x4:
     ApplyMatrix(location, CastMemory<float>());

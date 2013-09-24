@@ -69,7 +69,7 @@ void TextureBinding::Bind(int8_t uniformLocation)
 
   GLFunctions::glActiveTexture(m_samplerBlock);
   m_texture->Bind();
-  GLFunctions::glUniformValue(uniformLocation, (int32_t)m_texture->GetID());
+  GLFunctions::glUniformValuei(uniformLocation, (int32_t)m_texture->GetID());
 }
 
 bool TextureBinding::IsEnabled() const

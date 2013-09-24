@@ -52,5 +52,5 @@ void GpuProgram::ActivateSampler(uint8_t textureBlock, const string & samplerNam
 {
   ASSERT(GLFunctions::glGetCurrentProgram() == m_programID, ());
   int8_t location = GLFunctions::glGetUniformLocation(m_programID, samplerName);
-  GLFunctions::glUniformValue(location, textureBlock);
+  GLFunctions::glUniformValuei(location, textureBlock);
 }

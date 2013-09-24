@@ -66,32 +66,6 @@ namespace
   const int GLLinkStatus = GL_LINK_STATUS;
 }
 
-namespace GLConst
-{
-  const glConst GLArrayBuffer         = GL_ARRAY_BUFFER;
-  const glConst GLElementArrayBuffer  = GL_ELEMENT_ARRAY_BUFFER;
-
-  const glConst GLStaticDraw          = GL_STATIC_DRAW;
-  const glConst GLStreamDraw          = GL_STREAM_DRAW;
-  const glConst GLDynamicDraw         = GL_DYNAMIC_DRAW;
-
-  const glConst GLVertexShader        = GL_VERTEX_SHADER;
-  const glConst GLFragmentShader      = GL_FRAGMENT_SHADER;
-  const glConst GLCurrentProgram      = GL_CURRENT_PROGRAM;
-
-  const glConst GL8BitOnChannel       = GL_UNSIGNED_BYTE;
-  const glConst GL4BitOnChannel       = GL_UNSIGNED_SHORT_4_4_4_4;
-
-  const glConst GLByteType            = GL_BYTE;
-  const glConst GLUnsignedByteType    = GL_UNSIGNED_BYTE;
-  const glConst GLShortType           = GL_SHORT;
-  const glConst GLUnsignedShortType   = GL_UNSIGNED_SHORT;
-  const glConst GLIntType             = GL_INT;
-  const glConst GLUnsignedIntType     = GL_UNSIGNED_INT;
-  const glConst GLFloatType           = GL_FLOAT;
-  const glConst GLDoubleType          = GL_DOUBLE;
-}
-
 void GLFunctions::Init()
 {
   /// VAO
@@ -358,56 +332,56 @@ int8_t GLFunctions::glGetUniformLocation(uint32_t programID, const string & name
   return result;
 }
 
-void GLFunctions::glUniformValue(int8_t location, int32_t v)
+void GLFunctions::glUniformValuei(int8_t location, int32_t v)
 {
   ASSERT(glUniform1iFn != NULL, ());
   ASSERT(location != -1, ());
   GLCHECK(glUniform1iFn(location, v));
 }
 
-void GLFunctions::glUniformValue(int8_t location, int32_t v1, int32_t v2)
+void GLFunctions::glUniformValuei(int8_t location, int32_t v1, int32_t v2)
 {
   ASSERT(glUniform2iFn != NULL, ());
   ASSERT(location != -1, ());
   GLCHECK(glUniform2iFn(location, v1, v2));
 }
 
-void GLFunctions::glUniformValue(int8_t location, int32_t v1, int32_t v2, int32_t v3)
+void GLFunctions::glUniformValuei(int8_t location, int32_t v1, int32_t v2, int32_t v3)
 {
   ASSERT(glUniform3iFn != NULL, ());
   ASSERT(location != -1, ());
   GLCHECK(glUniform3iFn(location, v1, v2, v3));
 }
 
-void GLFunctions::glUniformValue(int8_t location, int32_t v1, int32_t v2, int32_t v3, int32_t v4)
+void GLFunctions::glUniformValuei(int8_t location, int32_t v1, int32_t v2, int32_t v3, int32_t v4)
 {
   ASSERT(glUniform4iFn != NULL, ());
   ASSERT(location != -1, ());
   GLCHECK(glUniform4iFn(location, v1, v2, v3, v4));
 }
 
-void GLFunctions::glUniformValue(int8_t location, float v)
+void GLFunctions::glUniformValuef(int8_t location, float v)
 {
   ASSERT(glUniform1fFn != NULL, ());
   ASSERT(location != -1, ());
   GLCHECK(glUniform1fFn(location, v));
 }
 
-void GLFunctions::glUniformValue(int8_t location, float v1, float v2)
+void GLFunctions::glUniformValuef(int8_t location, float v1, float v2)
 {
   ASSERT(glUniform2fFn != NULL, ());
   ASSERT(location != -1, ());
   GLCHECK(glUniform2fFn(location, v1, v2));
 }
 
-void GLFunctions::glUniformValue(int8_t location, float v1, float v2, float v3)
+void GLFunctions::glUniformValuef(int8_t location, float v1, float v2, float v3)
 {
   ASSERT(glUniform3fFn != NULL, ());
   ASSERT(location != -1, ());
   GLCHECK(glUniform3fFn(location, v1, v2, v3));
 }
 
-void GLFunctions::glUniformValue(int8_t location, float v1, float v2, float v3, float v4)
+void GLFunctions::glUniformValuef(int8_t location, float v1, float v2, float v3, float v4)
 {
   ASSERT(glUniform4fFn != NULL, ());
   ASSERT(location != -1, ());
@@ -465,4 +439,11 @@ uint32_t GLFunctions::glGetBindedTexture()
 void GLFunctions::glDrawElements(uint16_t indexCount)
 {
   GLCHECK(::glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, 0));
+}
+
+void CheckGLError()
+{
+  GLenum result = glGetError();
+  if (result != GL_NO_ERROR)
+    ASSERT(false, ());
 }

@@ -9,17 +9,17 @@
 class UniformValue
 {
 public:
-  UniformValue(const string & name, int32_t v);
-  UniformValue(const string & name, int32_t v1, int32_t v2);
-  UniformValue(const string & name, int32_t v1, int32_t v2, int32_t v3);
-  UniformValue(const string & name, int32_t v1, int32_t v2, int32_t v3, int32_t v4);
+  explicit UniformValue(const string & name, int32_t v);
+  explicit UniformValue(const string & name, int32_t v1, int32_t v2);
+  explicit UniformValue(const string & name, int32_t v1, int32_t v2, int32_t v3);
+  explicit UniformValue(const string & name, int32_t v1, int32_t v2, int32_t v3, int32_t v4);
 
-  UniformValue(const string & name, float v);
-  UniformValue(const string & name, float v1, float v2);
-  UniformValue(const string & name, float v1, float v2, float v3);
-  UniformValue(const string & name, float v1, float v2, float v3, float v4);
+  explicit UniformValue(const string & name, float v);
+  explicit UniformValue(const string & name, float v1, float v2);
+  explicit UniformValue(const string & name, float v1, float v2, float v3);
+  explicit UniformValue(const string & name, float v1, float v2, float v3, float v4);
 
-  UniformValue(const string & name, float * matrixValue);
+  explicit UniformValue(const string & name, float * matrixValue);
 
   void Apply(ReferencePoiner<GpuProgram> program);
 

@@ -1,39 +1,7 @@
 #pragma once
 
+#include "glconstants.hpp"
 #include "../std/string.hpp"
-
-typedef uint32_t glConst;
-
-namespace GLConst
-{
-  /// Buffer targets
-  extern const glConst GLArrayBuffer;
-  extern const glConst GLElementArrayBuffer;
-
-  /// BufferUsage
-  extern const glConst GLStaticDraw;
-  extern const glConst GLStreamDraw;
-  extern const glConst GLDynamicDraw;
-
-  /// ShaderType
-  extern const glConst GLVertexShader;
-  extern const glConst GLFragmentShader;
-  extern const glConst GLCurrentProgram;
-
-  /// Pixel type for texture upload
-  extern const glConst GL8BitOnChannel;
-  extern const glConst GL4BitOnChannel;
-
-  /// OpenGL types
-  extern const glConst GLByteType;
-  extern const glConst GLUnsignedByteType;
-  extern const glConst GLShortType;
-  extern const glConst GLUnsignedShortType;
-  extern const glConst GLIntType;
-  extern const glConst GLUnsignedIntType;
-  extern const glConst GLFloatType;
-  extern const glConst GLDoubleType;
-}
 
 class GLFunctions
 {
@@ -90,15 +58,15 @@ public:
                                        uint32_t offset);
 
   static int8_t glGetUniformLocation(uint32_t programID, const string & name);
-  static void glUniformValue(int8_t location, int32_t v);
-  static void glUniformValue(int8_t location, int32_t v1, int32_t v2);
-  static void glUniformValue(int8_t location, int32_t v1, int32_t v2, int32_t v3);
-  static void glUniformValue(int8_t location, int32_t v1, int32_t v2, int32_t v3, int32_t v4);
+  static void glUniformValuei(int8_t location, int32_t v);
+  static void glUniformValuei(int8_t location, int32_t v1, int32_t v2);
+  static void glUniformValuei(int8_t location, int32_t v1, int32_t v2, int32_t v3);
+  static void glUniformValuei(int8_t location, int32_t v1, int32_t v2, int32_t v3, int32_t v4);
 
-  static void glUniformValue(int8_t location, float v);
-  static void glUniformValue(int8_t location, float v1, float v2);
-  static void glUniformValue(int8_t location, float v1, float v2, float v3);
-  static void glUniformValue(int8_t location, float v1, float v2, float v3, float v4);
+  static void glUniformValuef(int8_t location, float v);
+  static void glUniformValuef(int8_t location, float v1, float v2);
+  static void glUniformValuef(int8_t location, float v1, float v2, float v3);
+  static void glUniformValuef(int8_t location, float v1, float v2, float v3, float v4);
 
   static void glUniformMatrix4x4Value(int8_t location, float * values);
 
@@ -115,3 +83,8 @@ public:
   // Draw support
   static void glDrawElements(uint16_t indexCount);
 };
+
+void CheckGLError();
+
+#define GLCHECK(x) do { (x); CheckGLError(); } while (false)
+#define GLCHECKCALL() do { CheckGLError(); } while (false)

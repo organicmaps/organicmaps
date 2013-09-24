@@ -17,8 +17,3 @@
   #include <GL/glext.h>
   #define OGL_ANDROID
 #endif
-
-void CheckGLError();
-
-#define GLCHECK(x) do { (x); CheckGLError(); } while (false)
-#define GLCHECKCALL() do { CheckGLError(); } while (false)
