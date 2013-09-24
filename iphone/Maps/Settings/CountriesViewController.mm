@@ -149,6 +149,15 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   }
 }
 
+// @TODO Refactor UI to use good icon for "zoom to the country" action
+- (UITableViewCellAccessoryType) getZoomIconType
+{
+  static const UITableViewCellAccessoryType iconType =
+      [UIDevice currentDevice].systemVersion.floatValue < 7.0 ? UITableViewCellAccessoryDetailDisclosureButton
+      : UITableViewCellAccessoryDetailButton;
+  return iconType;
+}
+
 - (void) UpdateCell: (UITableViewCell *)cell forCountry: (TIndex const &)countryIndex
 {
   cell.accessoryView = nil;
@@ -190,7 +199,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
       cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"downloaded_touch_to_delete", nil), [self GetStringForSize: s.CountrySizeInBytes(countryIndex).first]];
 
       // also add "sight" icon for centering on the country
-      cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+      cell.accessoryType = [self getZoomIconType];
       break;
 
     case EOnDiskOutOfDate:
@@ -201,7 +210,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
         cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"downloaded_touch_to_update", nil), [self GetStringForSize: s.CountrySizeInBytes(countryIndex).first]];
 
         // also add "sight" icon for centering on the country
-        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        cell.accessoryType = [self getZoomIconType];
         break;
 
     case EDownloading:
