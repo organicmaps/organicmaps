@@ -195,7 +195,8 @@
 // Display compass calibration dialog automatically
 - (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager
 {
-  if (!m_isTimerActive)
+  // Do not close calibration dialog on iOS 7+, as it's displayed in full screen mode
+  if ([UIDevice currentDevice].systemVersion.floatValue < 7.0 && !m_isTimerActive)
   {
     [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(onTimer:)
         userInfo:nil repeats:NO];
