@@ -154,7 +154,7 @@
   self.distanceLabel.frame = CGRectMake(0, COMPASSSIDE + 5 * SMALLMARGIN, width, 20);
   [self.distanceLabel setTextAlignment:NSTextAlignmentCenter];
 
-  if ([self.name length] == 0)
+  if (self.name.length == 0)
   {
     self.nameView.frame = CGRectZero;
     self.secondaryInfoView.frame = CGRectZero;
@@ -237,7 +237,7 @@
 
 -(CGFloat) countHeight
 {
-  if ([self.secondaryInfo length])
+  if (self.secondaryInfo.length)
     return self.secondaryInfoView.frame.origin.y + self.secondaryInfoView.frame.size.height + SMALLMARGIN;
   else
     return self.nameView.frame.origin.y + self.nameView.frame.size.height + SMALLMARGIN;

@@ -213,7 +213,7 @@ typedef enum {Editing, Saved} Mode;
     return [self getCompassView];
   if (section == 1 && [self.pinNotes length] && m_mode == Saved)
   {
-    //Refactor we can do better
+    // @TODO Refactor - we can do better
     CGRect z = CGRectMake(0, 0, self.tableView.frame.size.width, [self getDescriptionHeight] + MARGIN);
     UIView * view = [[[UIView alloc] initWithFrame:z] autorelease];
     z.origin.x = SMALLMARGIN;
