@@ -16,14 +16,6 @@ UNIT_TEST(Timer_Seconds)
 
   TEST_NOT_EQUAL(s, 0.0, ("Fictive, to prevent loop optimization"));
   TEST_NOT_EQUAL(t1, t2, ("Timer values should not be equal"));
-
-#ifndef DEBUG
-  t1 = timer.ElapsedSeconds();
-  for (int i = 0; i < 10000000; ++i) {}
-  t2 = timer.ElapsedSeconds();
-
-  TEST_ALMOST_EQUAL(t1, t2, ("Timer values should be equal: compiler loop optimization!"));
-#endif
 }
 
 UNIT_TEST(Timer_CurrentStringTime)
