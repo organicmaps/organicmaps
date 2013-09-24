@@ -1,4 +1,5 @@
 #include "glwidget.hpp"
+#include "../drape/utils/list_generator.hpp"
 
 GLWidget::GLWidget()
 {
@@ -25,12 +26,12 @@ void GLWidget::initializeGL()
   glClearColor(0.8, 0.8, 0.8, 1.0);
 
   GLFunctions::Init();
-  TextureBinding binding("", false, 0, ReferencePoiner<Texture>(NULL));
-  GLState s(1, 0, binding);
-  vector<UniformValue> & uniforms = s.GetUniformValues();
-  uniforms.push_back(UniformValue("depth", 0.0f));
-  uniforms.push_back(UniformValue("color", 0.0f, 0.65f, 0.35f, 1.0f));
+  glEnable(GL_DEPTH_TEST);
+  glDepthMask(GL_TRUE);
+  glDepthFunc(GL_LEQUAL);
+  glClearDepth(0.0);
 
+  vector<UniformValue> uniforms;
   float model[16] =
   {
     -1.0, 0.0,  0.0, 0.0,
@@ -50,27 +51,12 @@ void GLWidget::initializeGL()
 
   uniforms.push_back(UniformValue("projectionMatrix", p));
 
-  OwnedPointer<AttributeProvider> provider(new AttributeProvider(1, 4));
-  BindingInfo info(1);
-  BindingDecl & decl =  info.GetBindingDecl(0);
-  decl.m_attributeName = "position";
-  decl.m_componentCount = 2;
-  decl.m_componentType = GLConst::GLFloatType;
-  decl.m_offset = 0;
-  decl.m_stride = 0;
-
-  float data[2 * 4]=
-  {
-    -1.0, -1.0,
-     1.0, -1.0,
-    -1.0,  1.0,
-     1.0,  1.0
-  };
-
-  provider->InitStream(0, info, ReferencePoiner<void>(data));
-  m_batcher->InsertTriangleStrip(s, provider.GetWeakPointer());
-
-  provider.Destroy();
+  ListGenerator gen;
+  gen.SetDepth(0.5);
+  gen.SetProgram(1);
+  gen.SetViewport(-1.0f, -1.0f, 2.0f, 2.0f);
+  gen.SetUniforms(uniforms);
+  gen.Generate(1000, *m_batcher);
 }
 
 void GLWidget::paintGL()
