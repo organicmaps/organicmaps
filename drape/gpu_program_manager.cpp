@@ -5,19 +5,22 @@ namespace
 {
   const string SimpleVertexShader =
       "attribute vec2 position;\
-       uniform float depth;\
+       attribute float depth;\
+       attribute vec4 color; \
        uniform mat4 modelViewMatrix;\
        uniform mat4 projectionMatrix;\
+       varying vec4 vColor; \
        void main()\
        {\
          gl_Position = vec4(position.xy, depth, 1.0) * modelViewMatrix * projectionMatrix;\
+         vColor = color;\
        }";
 
   const string SimpleFragmentShader =
-       "uniform vec4 color;\
+       "varying vec4 vColor;\
         void main()\
         {\
-          gl_FragColor = color;\
+          gl_FragColor = vColor;\
         }";
 
   struct ShadersInfo
