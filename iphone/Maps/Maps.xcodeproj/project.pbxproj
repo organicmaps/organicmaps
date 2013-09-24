@@ -4507,8 +4507,7 @@
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				"LIBRARY_SEARCH_PATHS[arch=armv7]" = "\"$(SRCROOT)/../../../omim-iphone-production-armv7/out/production\"";
-				"LIBRARY_SEARCH_PATHS[arch=armv7s]" = "\"$(SRCROOT)/../../../omim-iphone-production-armv7s/out/production\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production-$(CURRENT_ARCH)/out/production\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-Wall",
@@ -4559,8 +4558,7 @@
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				"LIBRARY_SEARCH_PATHS[arch=armv7]" = "\"$(SRCROOT)/../../../omim-iphone-debug-armv7/out/debug\"";
-				"LIBRARY_SEARCH_PATHS[arch=armv7s]" = "\"$(SRCROOT)/../../../omim-iphone-debug-armv7s/out/debug\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug-$(CURRENT_ARCH)/out/debug\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-Wall",
@@ -4616,8 +4614,7 @@
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				"LIBRARY_SEARCH_PATHS[arch=armv7]" = "\"$(SRCROOT)/../../../omim-iphone-production-armv7/out/production\"";
-				"LIBRARY_SEARCH_PATHS[arch=armv7s]" = "\"$(SRCROOT)/../../../omim-iphone-production-armv7s/out/production\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production-$(CURRENT_ARCH)/out/production\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-Wall",
@@ -4720,8 +4717,7 @@
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				"LIBRARY_SEARCH_PATHS[arch=armv7]" = "\"$(SRCROOT)/../../../omim-iphone-debug-armv7/out/debug\"";
-				"LIBRARY_SEARCH_PATHS[arch=armv7s]" = "\"$(SRCROOT)/../../../omim-iphone-debug-armv7s/out/debug\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug-$(CURRENT_ARCH)/out/debug\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-Wall",
@@ -4777,8 +4773,7 @@
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				"LIBRARY_SEARCH_PATHS[arch=armv7]" = "\"$(SRCROOT)/../../../omim-iphone-production-armv7/out/production\"";
-				"LIBRARY_SEARCH_PATHS[arch=armv7s]" = "\"$(SRCROOT)/../../../omim-iphone-production-armv7s/out/production\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production-$(CURRENT_ARCH)/out/production\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-Wall",
@@ -4834,8 +4829,7 @@
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				"LIBRARY_SEARCH_PATHS[arch=armv7]" = "\"$(SRCROOT)/../../../omim-iphone-production-armv7/out/production\"";
-				"LIBRARY_SEARCH_PATHS[arch=armv7s]" = "\"$(SRCROOT)/../../../omim-iphone-production-armv7s/out/production\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production-$(CURRENT_ARCH)/out/production\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-Wall",
@@ -4889,8 +4883,7 @@
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				"LIBRARY_SEARCH_PATHS[arch=armv7]" = "\"$(SRCROOT)/../../../omim-iphone-release-armv7/out/release\"";
-				"LIBRARY_SEARCH_PATHS[arch=armv7s]" = "\"$(SRCROOT)/../../../omim-iphone-release-armv7s/out/release\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release-$(CURRENT_ARCH)/out/release\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-Wall",
@@ -4944,8 +4937,7 @@
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				"LIBRARY_SEARCH_PATHS[arch=armv7]" = "\"$(SRCROOT)/../../../omim-iphone-release-armv7/out/release\"";
-				"LIBRARY_SEARCH_PATHS[arch=armv7s]" = "\"$(SRCROOT)/../../../omim-iphone-release-armv7s/out/release\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release-$(CURRENT_ARCH)/out/release\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-Wall",
