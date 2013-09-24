@@ -7,7 +7,7 @@ fr:3bancomat|argent
 it:3bancomat|soldi
 es:3atm|dinero
 ko:atm|돈
-ja:atm|お金|マネー|金
+ja:1ATM|atm|お金|マネー|金|引き出し|預金|振り込み
 cs:3bankomat|spořitelna|peníze
 nl:3geldautomaat|geld
 zh:3atm|理財|錢|金錢
@@ -23,7 +23,7 @@ fr:3banque|argent
 it:3banca|soldi
 es:3banco|dinero
 ko:1은행|돈
-ja:1銀行|土手|バンク|お金|マネー|金
+ja:1銀行|バンク|お金|マネー|金|引き出し|預金|振り込み
 cs:3banka|peníze
 nl:3bank|geld
 zh:1銀行|錢
@@ -39,7 +39,7 @@ fr:3change|devises|argent
 it:3cambio valute|valuta|soldi
 es:3cambio de devisas|dinero
 ko:1환전|돈|교환을
-ja:1為替|マネー|お金|通貨|金
+ja:1為替|マネー|お金|通貨|金|両替
 cs:3směnárna|peníze
 nl:3geld wisselen|3wisselen|geld
 zh:1匯率|理財|外幣|兌換|貨幣
@@ -55,7 +55,7 @@ fr:2bar|2bière|pub|repas
 it:2bar|2birra|pub|mangiare
 es:2bar|2pub|comer
 ko:바|술집|맥주|음료|음식
-ja:1バー|パブ|ビール|ドリンク|フード|飲食
+ja:1居酒屋|バー|パブ|ビール|飲食|飲み屋|呑み屋|酒
 cs:2bar|pivo|pití|jídlo|voda|pitná voda|tekutiny
 nl:2bar|2pub|bier|drinken|eten
 zh:1酒吧|酒館|飲酒|PUB|吧台|飲食
@@ -71,7 +71,7 @@ fr:3café|3restaurant|manger|repas
 it:3caffè|3ristorante|pasto|mangiare
 es:3café|3restaurante|comer
 ko:1카페|레스토랑|음식
-ja:1カフェ|レストラン|食べ物|飲食
+ja:1カフェ|喫茶|食べ物|飲食|コーヒー|珈琲|お茶|茶|紅茶|食事|軽食
 cs:3kavárna|restaurace|hospoda|jídlo
 nl:3café|3restaurant|3eten
 zh:2咖啡廳|咖啡|3cafe|餐廳|飲食
@@ -87,7 +87,7 @@ fr:4fast food|takeaway|café|restaurant|manger|repas
 it:4fast food|takeaway|caffè|ristorante|pasto|mangiare
 es:4comida rápida|restaurante|café|comer
 ko:1패스트 푸드|레스토랑|카페|테이크 아웃|푸드
-ja:1ファストフード|レストラン|カフェ|テイクアウト|フード|飲食
+ja:1ファストフード|レストラン|テイクアウト|持ち帰り|軽食|飲食|食事
 cs:2rychlé občerstvení|4fastfood|kavárna|restaurace|jídlo
 nl:4fast food|3restaurant|3cafe|afhaaleten|3eten
 zh:1速食店|麥當勞|肯德雞|漢堡王|頂呱呱|薯條|速食|用餐|飲食
@@ -103,7 +103,7 @@ fr:3restaurant|3café|manger|repas
 it:3ristorante|3caffè|mangiare
 es:3restaurante|3café|comer
 ko:1레스토랑|카페|음식
-ja:1レストラン|カフェ|食べ物|飲食
+ja:1レストラン|食べ物|飲食|食事|2ファミレス
 cs:3restaurace|hospoda|kavárna|jídlo
 nl:3restaurant|3café|3eten
 zh:1餐廳|餐館|飯店|吃飯|餐點|早餐|午餐|晚餐|食堂|飲食|用餐
@@ -120,7 +120,7 @@ fr:3station-service|poste d’essence
 it:3stazione di rifornimento
 es:3gasolinera
 ko:1가스가 역|연료|가스
-ja:1ガスステーション|ガソリンスタンド|ガス
+ja:1ガソリンスタンド|ガスステーション|ガス|燃料|軽油|給油
 cs:3čerpací stanice|2pumpa
 nl:3tankstation|2benzine
 zh:1加油站|2加氣站|汽油|加油|天然氣
@@ -136,7 +136,7 @@ fr:3boulangerie|magasin
 it:3panetteria|negozio
 es:3panadería|tienda
 ko:1베이커리|쇼핑
-ja:1ベーカリー|ショップ|買い物
+ja:1パン屋|ベーカリー|パン|軽食|持ち帰り
 cs:3pekárna|obchod
 nl:3bakker|winkel
 zh:1麵包店|2蛋糕店|烘焙|麵包|蛋糕|購物
@@ -152,7 +152,7 @@ fr:2magasin
 it:2negozio
 es:2tienda
 ko:1쇼핑|가게
-ja:1お買い物|買い物|ショップ
+ja:1買い物|お買い物|ショップ|商店|雑貨
 cs:2obchod
 nl:2winkel
 zh:1購物|店鋪|商店|雜貨店|便利商店
@@ -168,7 +168,7 @@ fr:3supermarché|magasin
 it:3supermercato|negozio
 es:3supermercado|tienda
 ko:1슈퍼마켓|쇼핑|가게
-ja:1スーパーマーケット|ショップ|お買い物|買い物
+ja:1スーパーマーケット|ショップ|お買い物|買い物|商店
 cs:3supermarket|obchod
 nl:3supermarkt|winkel
 zh:1超級市場|市場|購物
@@ -184,7 +184,7 @@ fr:arrêt de bus|station|2bus|autobus|4transport
 it:fermata|autobus|4transporto
 es:parada de autobuses|4transporte
 ko:1수송|운송선|황홀|버스 정류장|버스|모선
-ja:1バス停は|交通|停留所|トランスポート|バス|乗合|交通機関
+ja:1バス停|停留所|トランスポート|バス|乗合|交通|交通機関
 cs:autobusová zastávka|4autobus|2bus|zastávka|stanice|doprava
 nl:bushalte|2bus|halte|4transport
 zh:1巴士站|巴士|運輸|交通|客運站|公車|公車站
@@ -200,7 +200,7 @@ fr:arrêt|station|tram|4transport
 it:fermata|tram|4transporto
 es:parada|4transporte
 ko:1트램|트램 정류장|교통|전차|수송|운송선|황홀
-ja:1トラム|トラムの停留所|交通|市電|トランスポート|移送|交通機関
+ja:1トラム|トラム停留所|市電|トランスポート|交通|交通機関|路面電車
 cs:tramvajová zastávka|3tramvaj|4zastávka|stanice|doprava
 nl:3tramhalte|4transport
 zh:1電車站|電車|運輸|交通|鐵路|大眾運輸
@@ -216,7 +216,7 @@ fr:gare|terminus|arrêt|station|bus|autobus|4transport
 it:autostazione|fermata|autobus|4transporto
 es:estación de autobuses|4transporte
 ko:1버스 정류장|버스|역|교통|모선|역|위치|수송|운송선|황홀
-ja:1駅|バス|交通機関|持ち場|駅頭|バスステーション|バス|乗合|トランスポート|移送
+ja:1バスステーション|バス|駅|交通機関|乗合|トランスポート|バス停|高速バス|乗車|停留所
 cs:autobusové nádraží|zastávka|bus|doprava
 nl:busstation|2bus|station|4transport
 zh:1巴士|巴士站|交通|運輸
@@ -232,7 +232,7 @@ fr:3gare|station|train|transport
 it:3stazione ferroviaria|3treno|transporto
 es:3estación de tren|3tren|transporte
 ko:1기차역|철도|철도|철도|역|교통|수송
-ja:1駅|鉄道|鉄道|電車|駅|交通機関
+ja:1鉄道駅|鉄道|電車|交通機関|交通|駅|鉄|電
 cs:3železniční stanice|vlakové nádraží|2vlak|doprava
 nl:4station|4spoorwegen|spoor|3trein|4transport
 zh:1鐵道|鐵路|火車|火車站|高鐵站|運輸
@@ -248,7 +248,7 @@ fr:3métro|3rame|transport
 it:3metrò|transporto
 es:3metro|3subte|transporte
 ko:1지하철|교통|수송
-ja:1地下鉄|交通|交通機関
+ja:1地下鉄|地下鉄駅|電車|鉄道|交通|交通機関|交通|鉄|電
 cs:3metro|3podzemka|doprava
 nl:3metro|transport
 zh:1地鐵|2地下鐵|運輸
@@ -264,7 +264,7 @@ fr:3atraction|3curiosités
 it:3attrattiva|3turistico
 es:3atracción turística|3turismo
 ko:1관광 명소|관 광|명소|관광
-ja:1観光スポット|観光|観光スポット|観光
+ja:1アトラクション|観光スポット|観光|名所|観光名所
 cs:3atrakce|3pamětihodnost|3zajímavost
 nl:3attractie|3toerisme
 zh:1景點|3旅遊景點|旅遊|3觀光景點|觀光|名勝
@@ -281,7 +281,7 @@ fr:3panorama|curiosités
 it:3panorama|turistico
 es:3vista panorámica|turismo
 ko:1관점|관 광|명소|관광
-ja:1視点|観光|観光スポット|観光
+ja:1観光スポット|見どころ|観光|名所|観光名所
 cs:3vyhlídka|pamětihodnost
 nl:4uitzicht|toerisme
 zh:1視野|景觀|景點|觀光|3旅遊景點
@@ -297,7 +297,7 @@ fr:4information|curiosités
 it:4informazione|turistico
 es:4información|turismo
 ko:1관광 정보|정보|명소|관광
-ja:1観光情報|情報|観光スポット|観光
+ja:1インフォメーション|観光情報|情報|案内
 cs:4infocentrum|4turistické informace|pamětihodnosti|Íčko
 nl:4toeristen informatie|4informatie|toerisme
 zh:2觀光諮詢|旅遊中心|旅遊問題|資訊|旅遊資訊
@@ -313,7 +313,7 @@ fr:3pique-nique|curiosités
 it:3picnic|turistico
 es:3picnic|turismo
 ko:1소풍 사이트|명소|피크닉|관광
-ja:1ピクニックサイトが|スポット|ピクニック|観光
+ja:1ピクニック|ピクニックサイト|観光|ハイキング
 cs:3piknik|picnic|picnik|pamětihodnost
 nl:3picnic locatie|toerisme
 zh:1野餐|旅遊
@@ -329,7 +329,7 @@ fr:4temple|église|cathédrale|curiosités
 it:4tempio|cattedrale|duomo|turistico
 es:4templo|lugar de culto|turismo
 ko:1예배 장소|사찰|볼거리|관광
-ja:1礼拝の場所|寺院|観光スポット|観光
+ja:1礼拝|寺院|神社|仏閣|教会|歴史|観光スポット|観光|お寺
 cs:4chrám|posvátné místo|pamětihodnost
 nl:tempel|4temple|toerisme
 zh:1寺廟|佛|景點|寺院|教堂|做禮拜|觀光|古蹟|歷史|拜拜|燒香|禱告|寺|精舍|禪寺
@@ -344,7 +344,7 @@ fr:banc
 it:panchina|panca
 es:banca
 ko:1벤치|작업대
-ja:ベンチ|縁台
+ja:ベンチ|縁台|椅子
 cs:lavička
 nl:bankje
 zh:1長板凳|板凳|長椅|長椅子|條凳
@@ -361,7 +361,7 @@ fr:4vélo|bicyclette
 it:4bicicletta|bici
 es:4bicicleta
 ko:1자전거
-ja:1自転車
+ja:1レンタサイクル|自転車|自転車レンタル|貸し自転車|貸自転車
 cs:4jízdní kolo|3kolo
 nl:4fietsverhuur
 zh:1自行車|腳踏車|單車
@@ -393,7 +393,7 @@ fr:3cinéma|ciné|divertissement
 it:3cinema|teatro|divertimento
 es:3cine|entretenimiento
 ko:1영화|엔터테인먼트
-ja:1シネマ|エンターテイメント
+ja:1映画館|シネマ|エンターテイメント|映画
 cs:3kino|biograf|zábava
 nl:3bioscoop|uitgaan
 zh:1電影院|電影|娛樂
@@ -425,7 +425,7 @@ fr:3eau potable
 it:4acqua potabile
 es:4agua potable
 ko:1식수|분수식 물마시는 곳
-ja:1飲料水|噴水式水飲み場
+ja:1水飲み場|飲料水|飲水|水
 cs:4pitná voda
 nl:4drinkwater
 zh:1飲用水|可喝的水|2飲水設施|喝水|口渴
@@ -459,7 +459,7 @@ fr:fontaine
 it:fontana|zampillo
 es:fuente
 ko:1분수|샘
-ja:1噴水|泉|泉水
+ja:1噴水|泉
 cs:kašna|fontána
 nl:fontein
 zh:1噴泉|2噴水池|噴水
@@ -475,7 +475,7 @@ fr:cimetière
 it:cimitero
 es:cementerio
 ko:1묘소
-ja:1墓地
+ja:1墓地|墓場|お墓|墓苑|霊場
 cs:hřbitov
 nl:begraafplaats
 zh:1墓地
@@ -492,7 +492,7 @@ fr:3hôpital|clinique
 it:3ospedale
 es:3hospital
 ko:1병원|병원|의사|의사가
-ja:1病院|クリニック|医師|医者
+ja:1病院|クリニック|医師|医者|ドクター|救急|診療
 cs:3nemocnice|klinika|pohotovost|zdravotnické centrum|3lékař|doktor
 nl:3ziekenhuis|kliniek|3dokter
 zh:1醫院|醫生|診所|醫療|診療
@@ -523,7 +523,7 @@ fr:jardin d'enfants|garderie d'enfants|pouponnière
 it:scuola materna
 es:kindergarden|preescolar
 ko:1유치원
-ja:1幼稚園
+ja:1幼稚園|保育園|託児|託児所
 cs:školka|mateřská škola|dětská školka|mateřská školka
 nl:kleuterschool
 zh:1幼稚園
@@ -555,7 +555,7 @@ fr:3parking
 it:3parcheggio
 es:3estacionamiento|3aparcamiento
 ko:1주차
-ja:1駐車場
+ja:1駐車場|パーキング|コインパーキング
 cs:3parkoviště
 nl:3parkeerplaats
 zh:1停車場|停車|泊車
@@ -571,7 +571,7 @@ fr:3pharmacie|3droguerie
 it:3farmacia
 es:3farmacia
 ko:1약국|약물 매장|약종상
-ja:1薬局|ドラッグストア|薬剤師|調剤|薬局の
+ja:1薬局|ドラッグストア|薬剤師|調剤|薬屋
 cs:3lékárna
 nl:3apotheek|verdeelstation
 zh:1藥局|成藥
@@ -587,7 +587,7 @@ fr:3boîte aux lettres
 it:3casella
 es:3buzón
 ko:1포스트 박스
-ja:1メールボックス
+ja:1郵便ポスト|ポスト|郵便局
 cs:3poštovní schránka|3schránka
 nl:3brievenbus|post
 zh:1郵筒|郵件
@@ -620,7 +620,7 @@ fr:déchet
 it:rifiuti
 es:reciclaje
 ko:1휴지통|휴지통|쓰레기
-ja:1ごみ箱|ゴミ|ごみ
+ja:1ごみ箱|ゴミ|ごみ|リサイクル|再利用|ダストボックス
 cs:koš|odpadkový koš|popelnice|uložiště odpadu
 nl:recycling|afval|prullenbak|vuilnis
 zh:1垃圾桶|垃圾|回收|回收場
@@ -652,7 +652,7 @@ fr:couvert
 it:riparo
 es:abrigo
 ko:1피난처
-ja:1避難所
+ja:1避難所|シェルター
 cs:přístřešek|úkryt
 nl:beschutting
 zh:1隱藏處
@@ -668,7 +668,7 @@ fr:2téléphone
 it:2telefono
 es:2teléfono
 ko:1전화
-ja:1電話
+ja:1公衆電話|電話|緑電話|電話ボックス
 cs:2telefon|telefonní budka|telefonní automat
 nl:2telefoon
 zh:1電話|2電話亭|2公共電話|3公用電話
@@ -684,7 +684,7 @@ fr:3théâtre|divertissement
 it:3teatro|divertimento
 es:3teatro|entretenimiento
 ko:1연극|엔터테인먼트
-ja:1劇場|エンターテイメント
+ja:1劇場|エンターテイメント|シアター
 cs:3divadlo|zábava
 nl:3theater|uitgaan
 zh:1劇場|戲院|劇院|娛樂
@@ -700,7 +700,7 @@ fr:WC|3toilette
 it:WC|3toilette
 es:3servicios sanitario|3lavabo|inodoro|baño
 ko:1화장실
-ja:1トイレ
+ja:1トイレ|お手洗い|便所|厠
 cs:3záchody|wc|toalety
 nl:3toilet|wc
 zh:1廁所|2洗手間|wc
@@ -748,7 +748,7 @@ fr:pays
 it:paese
 es:país
 ko:1나라
-ja:国
+ja:国|国家
 cs:země
 nl:land
 zh:國|國家
@@ -780,7 +780,7 @@ fr:ville|cité
 it:città
 es:pueblo
 ko:1타운|도시
-ja:町|市
+ja:町|村
 cs:město
 nl:dorp|stad
 zh:鎮|城鎮|鄉|鄉鎮
@@ -796,7 +796,7 @@ fr:capitale|ville|cité
 it:capitale|città
 es:capital|ciudad
 ko:1자본|시|도시
-ja:1首都|市
+ja:1首都|市|都市
 cs:hlavní město|metropole
 nl:hoofdstad|stad
 zh:1首都|城市|市
@@ -828,7 +828,7 @@ fr:province|état
 it:provincia|stato
 es:estado|provincia
 ko:1상태|지역
-ja:1状態|州
+ja:州
 cs:země|provincie|kraj
 nl:regio|provincie
 zh:省|州
@@ -844,7 +844,7 @@ fr:région
 it:regione
 es:región
 ko:1지방
-ja:1地域
+ja:1地方|地域
 cs:region|oblast|zóna|sektor
 nl:regio
 zh:1地區
@@ -860,7 +860,7 @@ fr:île
 it:isola
 es:isla
 ko:섬
-ja:島|小島
+ja:島|小島|島嶼|群島
 cs:ostrov
 nl:eiland
 zh:島|小島|島嶼
@@ -876,7 +876,7 @@ fr:arrondissement|quartier
 it:quartiere
 es:barrio
 ko:1교외|지역
-ja:1郊外|地区
+ja:1区|地区
 cs:předměstí|městská část|městská zóna
 nl:buitenwijken|wijk
 zh:1郊區|近郊
@@ -924,7 +924,7 @@ fr:endroit|région
 it:località|luogo|regione|area
 es:localidad
 ko:1장소
-ja:1地域
+ja:1地域|僻地
 cs:lokalita
 nl:lokaal
 zh:1當地|地方
@@ -956,7 +956,7 @@ fr:rivière|fleuve
 it:fiume
 es:río
 ko:강
-ja:川
+ja:河川|川|河|流域|河川流域
 cs:řeka
 nl:rivier
 zh:1河流|河
@@ -988,7 +988,7 @@ fr:course
 it:pista
 es:circuito
 ko:1경마장
-ja:1配線管
+ja:1レース場|レース
 cs:závodiště
 nl:racebaan
 zh:1跑道|賽道|2賽車道|賽車|2賽車場
@@ -1004,7 +1004,7 @@ fr:chemin
 it:sentiero|viottolo
 es:sendero
 ko:1경로
-ja:1パス
+ja:1歩道|小道|小路|小径|階段|獣道|遊歩道|パス
 cs:cesta
 nl:pad
 zh:1人行步道|步道
@@ -1020,7 +1020,7 @@ fr:rue|avenue|reulle
 it:via|strada|corso|vicolo
 es:calle|avenue|camino
 ko:1거리|가도
-ja:1ストリート|通り|街
+ja:1ストリート|通り|道路|辻|筋
 cs:ulice|cesta|silnice|ul
 nl:straat|st|str|laan
 zh:路|街
@@ -1033,6 +1033,7 @@ ru:3съезд
 uk:з'їзд|сполучення|переплетення
 de:Ausfahrt
 cs:dopravní uzel|3dálnice
+ja:1ジャンクション|料金所|高速道路|インターチェンジ
 nl:3uitgang|3kruising
 zh:1交流道|出口處|高速公路|公路
 pl:wyjazd|wyjście
@@ -1047,7 +1048,7 @@ fr:mont|montagne|sommet|pic
 it:monte|montagna|cima|picco
 es:cima|pico
 ko:1피크|산
-ja:1ピーク|山
+ja:1山頂|山|頂|頂上|峰
 cs:hora|pohoří
 nl:top|berg
 zh:1山峰|1山脈|山|峰
@@ -1063,7 +1064,7 @@ fr:bassin
 it:bacino
 es:cuenca
 ko:1연못
-ja:池
+ja:1水地|池|貯水所
 cs:voda
 nl:water
 zh:1水庫|盆地|休閒|大自然
@@ -1079,7 +1080,7 @@ fr:étang|bassin
 it:stagno|bacino
 es:estanque|aljibe
 ko:1연못이|연못
-ja:池
+ja:1池
 cs:rybník|vodní nádrž|voda
 nl:plas|water
 zh:潭|池塘
@@ -1111,7 +1112,7 @@ fr:forêt
 it:foresta
 es:bosque
 ko:숲
-ja:森
+ja:1森林|森|林|人工林|自然林
 cs:les
 nl:bos
 zh:1樹林|森林|樹木
@@ -1127,7 +1128,7 @@ fr:jardin
 it:giardino
 es:jardín
 ko:1정원
-ja:庭
+ja:1庭園|庭|園
 cs:zahrada
 nl:tuin
 zh:1花園
@@ -1160,7 +1161,7 @@ fr:3foyer|hôtel
 it:3ostello
 es:3albergue juvenil|4residencia
 ko:1호스텔
-ja:1ホステル
+ja:1ホステル|宿泊|宿|ホテル|民宿
 cs:3hostel|hotel|ubytovna|motel
 nl:3hostel|hotel|motel
 zh:1旅舍|旅館|青年旅舍|青年旅館|住宿|飯店|3汽車旅館|3motel
@@ -1176,7 +1177,7 @@ fr:2hôtel|foyer
 it:2hôtel|albergo|ostello
 es:2hotel|albergue juvenil|residencia
 ko:1호텔|호스텔
-ja:1ホテル|ホステル
+ja:1ホテル|宿|宿泊|旅館
 cs:2hotel|hostel|ubytovna|motel
 nl:2hotel|hostel|motel
 zh:1飯店|1汽車旅館|3motel|旅館|住宿|賓館|酒店|旅舍|招待所
@@ -1192,7 +1193,7 @@ fr:3coiffeure|salon
 it:4parrucchiera
 es:4peluquero
 ko:1이발사
-ja:1美容師
+ja:1美容師|床屋|髪|パーマ|散髪|理髪
 cs:4kadeřnictví|4holičství
 nl:3kapper
 zh:1理髮師|美髮師|髮型設計師
@@ -1208,7 +1209,7 @@ fr:3aéroport|3avion
 it:3aeroporto|4aeroplano
 es:3aeropuerto|3avión
 ko:1공항|비행기
-ja:1空港|飛行機
+ja:1空港
 cs:3letiště
 nl:3vliegveld|3vliegtuig
 zh:1機場|2航空站|3航空公司|2飛機場
@@ -1224,7 +1225,7 @@ fr:stade|4sport
 it:stadio|4sport
 es:estadio|4deporte
 ko:1경기장|스포츠
-ja:1スタジアム|スポーツ
+ja:1スタジアム|競技場|運動場
 cs:stadion|4sport
 nl:stadium|4sport
 zh:1體育中心|2運動場|2體育館|體育|運動
@@ -1240,7 +1241,7 @@ fr:aire de jeu
 it:campo giochi
 es:patio de recreo
 ko:1운동장
-ja:1遊び場
+ja:1児童公園|公園|遊び場
 cs:hřiště
 nl:speelplaats
 zh:1遊樂場
@@ -1256,7 +1257,7 @@ fr:centre sportif|sport
 it:centro sportivo|sport
 es:centro deportivo|deporte
 ko:1스포츠 센터|스포츠
-ja:1スポーツセンター|スポーツ
+ja:1スポーツセンター|スポーツ|体育館|総合体育館
 cs:sportovní centrum|sport
 nl:sportcentrum|sport
 zh:1體育中心|2體育館|體育|運動|健身
@@ -1272,7 +1273,7 @@ fr:terrain de golf|sport
 it:campo da golf|sport
 es:campo de golf|deporte
 ko:1골프장|스포츠
-ja:1ゴルフ場|スポーツ
+ja:1ゴルフコース|ゴルフ場|ゴルフクラブ|ゴルフ
 cs:golf
 nl:golfbaan|sport
 zh:3高爾夫球場|2高爾夫球|高爾夫|體育|運動
@@ -1288,7 +1289,7 @@ fr:terrain de sport|sport
 it:campo|sport
 es:terreno|deporte
 ko:스포츠 경내|스포츠
-ja:ピッチ|スポーツ
+ja:1運動場|スポーツ|トラック|球場
 cs:sport
 nl:veld|sport
 zh:2運動場|體育館|球場|2足球場|體育|運動|健身
@@ -1304,7 +1305,7 @@ fr:4piscine|sport
 it:4piscina|sport
 es:4piscina|deporte
 ko:1수영장|스포츠
-ja:1プール|スポーツ
+ja:1プール|スイミング|スイミングプール|水泳場|水泳
 cs:4koupaliště|3bazén|aquapark|4lázně
 nl:4zwembad|sport
 zh:2游泳池|游泳|玩水
@@ -1320,7 +1321,7 @@ fr:bâtiment
 it:edificio
 es:edificio
 ko:1건물
-ja:1建物
+ja:1建物|ビル
 cs:stavba
 nl:gebouw
 zh:1建築物
@@ -1336,7 +1337,7 @@ fr:4gendarmerie|4police|commissariat
 it:posto di polizia|4polizia
 es:4policía
 ko:1치안대|보안대|경찰
-ja:1警察|ポリス|察
+ja:1警察|ポリス|交番|お巡りさん|おまわりさん|通報
 cs:4policie|4bezpečnost
 nl:4politie
 zh:1警察局|警察|警員
@@ -1368,7 +1369,7 @@ fr:4marché|magasin
 it:4mercato|negozio
 es:4mercado|tienda
 ko:1시장|쇼핑
-ja:1市場|買い物
+ja:1市場|買い物|お買い物|食料品
 cs:4tržiště|samoobsluha|market|obchod
 nl:4markt|winkel
 zh:1市場|市集|購物
@@ -1384,7 +1385,7 @@ fr:3discothèque|3nuit-club|divertissement
 it:3night club|divertimento
 es:3discoteca|nightclub|entretenimiento
 ko:1나이트 클럽|엔터테인먼트
-ja:1ナイトクラブ|エンターテイメント
+ja:1ナイトクラブ|クラブ|ダンス|エンターテイメント
 cs:4noční klub|3disco|3klub|zábava
 nl:3nightclub|3disco|dansen|uitgaan
 zh:1夜店|2俱樂部|酒|喝酒|跳舞|舞|2夜生活|娛樂
@@ -1400,7 +1401,7 @@ fr:4ambassade
 it:4ambasciata
 es:4embajada
 ko:1대사관
-ja:1大使館|エンバシー
+ja:1大使館
 cs:4velvyslanectví|4ambasáda
 nl:4ambassade
 zh:1大使館|使館
@@ -1448,7 +1449,7 @@ fr:ruines|curiosités
 it:rovine|turistico
 es:ruinas|turismo
 ko:1유적|관광
-ja:1古跡|古蹟|廃墟|遺址|観光
+ja:1古跡|古蹟|廃墟|観光|城址|城跡
 cs:ruiny|zřícenina|pamětihodnost
 nl:ruïne|attractie|toerisme
 zh:1廢墟|古蹟|遺址|旅遊景點
@@ -1464,7 +1465,7 @@ fr:château|curiosités
 it:castello|turistico
 es:castillo|turismo
 ko:대저택|관광
-ja:城|観光
+ja:城|観光|お城|砦|城砦
 cs:zámek|atrakce|pamětihodnosti
 nl:kasteel|attractie|toerisme
 zh:城堡|堡|古蹟|歷史|旅遊景點
@@ -1480,7 +1481,7 @@ fr:site archéologique|curiosités
 it:sito archeologico|turistico
 es:sitio arqueológico|turismo
 ko:1발굴|관광
-ja:1発掘|観光
+ja:1考古遺跡|発掘|観光|発掘現場|考古学|遺跡
 cs:vykopávky|pamětihodnost
 nl:archeologische opgraving|attractie|toerisme
 zh:1考古遺址|考古|遺址|古蹟|歷史|旅遊景點
@@ -1496,7 +1497,7 @@ fr:golfe
 it:baia
 es:bahía
 ko:만
-ja:1ベイ|湾
+ja:1港湾|港|湾|みなと|船着場
 cs:záliv
 nl:baai
 zh:1海灣|灣|灣區
@@ -1512,7 +1513,7 @@ fr:source
 it:sorgente
 es:manantial
 ko:샘
-ja:泉
+ja:泉|湧水|湧き水
 cs:pramen
 nl:bron
 zh:1泉水|泉|玩水
@@ -1528,7 +1529,7 @@ fr:boutique de vêtements|magasin
 it:negozio di abbigliamento|negozio
 es:tienda de ropa|3ropa|tienda
 ko:1옷 가게|쇼핑
-ja:1洋服屋さん|買い物
+ja:1洋服|洋服屋さん|ショッピング|衣類|服|買い物
 cs:oblečení|obchod
 nl:kledingwinkel|4kleding
 zh:1買衣服|衣服
@@ -1544,7 +1545,7 @@ fr:3réparation automobile|3voiture
 it:3riparazione auto|auto|macchina|3automobile|vettura
 es:3reparaciones auto|coche|automóvil|3auto|carro
 ko:1자동차 수리|자동차|차|차량
-ja:1自動車修理|カー|車|自動車
+ja:1自動車修理|車|自動車|カー|リペア|修理|カーリペア
 cs:3auto opravna|auto|auta|Půjčení
 nl:3auto reparatie|auto|wagen
 zh:1汽車維修|維修|汽車|修理
@@ -1560,7 +1561,7 @@ fr:vente voitures|magasin
 it:car negozio|negozio
 es:venta de coches|tienda
 ko:1자동차 가게|쇼핑
-ja:1カーショップ|買い物
+ja:1カーディーラー|車|車販売|ディーラー
 cs:obchod s auty|obchod
 nl:auto winkel
 zh:1買車|購車
@@ -1576,7 +1577,7 @@ fr:kiosque|magasin
 it:chiosco|negozio
 es:quiosco|tienda
 ko:1정자|쇼핑
-ja:1キオスク|帷幄|買い物
+ja:1キオスク|買い物|売店
 cs:kiosk|obchod
 nl:kiosk|winkel
 zh:1小舖|小店|購物|商店|小攤|攤子|攤販
@@ -1592,7 +1593,7 @@ fr:4musée|curiosités
 it:4museo|turistico
 es:4museo|turismo
 ko:1박물관|관광
-ja:1博物館|観光
+ja:1博物館|美術館
 cs:4muzeum|pamětihodnosti
 nl:4museum|attractie|toerisme
 zh:1博物館|旅遊|觀光|景點|遊覽|歷史|旅遊景點
@@ -1608,7 +1609,7 @@ fr:maison d'hôtes|hôtel|foyer
 it:guest house|hôtel|albergo|ostello
 es:casa de huéspedes|hotel|albergue juvenil|residencia
 ko:1영빈관|호텔|호스텔
-ja:1ゲストハウス|ホテル|ホステル
+ja:1ゲストハウス|ホテル|ホステル|民宿
 cs:penzion|hotel|hostel|ubytovna
 nl:gasthuis|hotel|hostel
 zh:1賓館|旅館|飯店|酒店|旅舍|住宿|招待所
@@ -1624,7 +1625,7 @@ fr:3motel|hôtel|foyer
 it:3motel|hôtel|albergo|ostello
 es:3motel|hotel|albergue juvenil|residencia
 ko:1모텔|호텔|호스텔
-ja:1モーテル|ホテル|ホステル
+ja:1モーテル|ホテル
 cs:3motel|penzion|hotel|hostel|ubytovna
 nl:3motel|hotel|hostel
 zh:1汽車旅館|3motel|旅館|飯店|住宿|
@@ -1640,7 +1641,7 @@ fr:4camping
 it:4campeggio|campeggi|camping
 es:4campamento|cámping|acampar|acampada
 ko:1캠핑|캠프|캠프장|캠핑을
-ja:1キャンプ|キャンプ場|幕営|キャンピング
+ja:1キャンプ場|キャンプ|キャンピング|バーベキュー|テント場
 cs:4kempování|camping|kemp|camp
 nl:4camping|kamperen
 zh:露營|營地|營區|2露營區
@@ -1672,7 +1673,7 @@ fr:hôtel de montagne|refuge|chaumière alpine|hôtel
 it:hotel di montagna|baita|capanna|capanna di montagna|capanna alpina|hotel
 es:4cabaña|cabaña de los Alpes|hotel de montaña|hotel
 ko:1고산 오두막|산 호텔|호텔
-ja:1高山小屋|山のホテル|ホテル
+ja:1山小屋|高山小屋|ヒュッテ
 cs:4horská chata|horský hotel|hotel
 nl:3berghut|alpenhut|hotel
 zh:1山上住宿|飯店|旅館|住宿|旅舍|2高山住宿
@@ -1681,5 +1682,6 @@ pt:alojamento nas montanhas|cabana alpina|3pousada|motel
 
 office
 en:3office|company
+ja:1オフィス|事務所
 ru:2офис|компания|контора
 pt:2escritório|empresa
