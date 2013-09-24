@@ -28,7 +28,7 @@
 
 #define FACEBOOK_ALERT_VIEW 1
 #define APPSTORE_ALERT_VIEW 2
-#define ITUNES_URL @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%lld"
+#define ITUNES_URL @"itms-apps://itunes.apple.com/app/id%lld"
 #define FACEBOOK_URL @"http://www.facebook.com/MapsWithMe"
 #define FACEBOOK_SCHEME @"fb://profile/111923085594432"
 

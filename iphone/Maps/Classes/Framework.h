@@ -4,7 +4,7 @@
 #include "../../../map/framework.hpp"
 
 
-#define MAPSWITHME_PREMIUM_APPSTORE_URL @"itms://itunes.com/apps/mapswithmepro"
+#define MAPSWITHME_PREMIUM_APPSTORE_URL @"itms-apps://itunes.apple.com/app/id510623322"
 
 
 /// Creates framework at first access
