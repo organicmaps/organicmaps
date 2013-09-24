@@ -14,7 +14,6 @@
 
 #define MAX_3G_MEGABYTES (50)
 #define MB (1024*1024)
-#define GUIDE_TAG 123
 
 
 using namespace storage;
@@ -169,20 +168,21 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   guides::GuideInfo info;
   if ((s.CountriesCount(countryIndex) == 0) && frm.GetGuideInfo(countryIndex, info))
   {
-    cell.imageView.image = [UIImage imageNamed:@"guide_bag"];
-    [cell layoutSubviews];
-    UIButton * bt = [[[UIButton alloc] initWithFrame:cell.imageView.frame] autorelease];
-    bt.backgroundColor = [UIColor clearColor];
-    bt.tag = GUIDE_TAG;
-    [bt addTarget:self action:@selector(showGuideAdvertise:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.contentView addSubview:bt];
+    UIImageView * iv = cell.imageView;
+    if (iv.gestureRecognizers.count == 0)
+    {
+      UITapGestureRecognizer * gr = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showGuideAdvertise:)] autorelease];
+      [iv addGestureRecognizer:gr];
+    }
+    iv.tag = RowFromIndex(countryIndex);
+    iv.image = [UIImage imageNamed:@"guide_bag"];
+    iv.userInteractionEnabled = YES;
   }
-  else if (!flag.empty())
+  else
   {
-    for (UIButton * v in cell.contentView.subviews)
-      if (v.tag == GUIDE_TAG)
-        [v removeFromSuperview];
-    cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", flag.c_str()]];
+    cell.imageView.userInteractionEnabled = NO;
+    if (!flag.empty())
+      cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", flag.c_str()]];
   }
 
   // do not show status for parent categories
@@ -506,11 +506,9 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   }
 }
 
--(void)showGuideAdvertise:(UIButton *)bt
+- (void)showGuideAdvertise:(UITapGestureRecognizer *)gr
 {
-  UITableViewCell * cell = (UITableViewCell *)(bt.superview.superview);
-  UITableView * v = (UITableView *)self.view;
-  NSIndexPath * indexPath = [v indexPathForCell:cell];
+  NSIndexPath * indexPath = [NSIndexPath indexPathForRow:gr.view.tag inSection:0];
   TIndex const index = CalculateIndex(m_index, indexPath);
   guides::GuideInfo info;
   if (!GetFramework().GetGuideInfo(index, info))
