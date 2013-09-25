@@ -30,7 +30,7 @@ int ShaderReference::GetID() const
 void ShaderReference::Ref()
 {
   /// todo atomic compare
-  if (m_refCount)
+  if (m_refCount == 0)
   {
     m_glID = GLFunctions::glCreateShader(convert(m_type));
     GLFunctions::glShaderSource(m_glID, m_source);

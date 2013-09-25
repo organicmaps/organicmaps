@@ -10,63 +10,141 @@
 using ::testing::_;
 using ::testing::Return;
 using ::testing::AnyOf;
+using ::testing::IgnoreResult;
+using ::testing::Invoke;
 
 namespace
 {
-  class ShaderReferenceMock : public ShaderReference
+  template<typename T>
+  class MemoryComparer
   {
   public:
-    ShaderReferenceMock(const string & shaderSource, Type type)
-      : ShaderReference(shaderSource, type) {}
-
-    MOCK_CONST_METHOD0(GetID, int());
-    MOCK_METHOD0(Ref, void());
-    MOCK_METHOD0(Deref, void());
-  };
-
-  class GpuProgramMock : public GpuProgram
-  {
-  public:
-    GpuProgramMock()
-      : GpuProgram(ReferencePoiner<ShaderReference>(NULL),
-                   ReferencePoiner<ShaderReference>(NULL))
+    MemoryComparer(T * memory, uint32_t size)
+      : m_result(false)
+      , m_memory(memory)
+      , m_size(size)
     {
     }
 
-    GpuProgramMock(ReferencePoiner<ShaderReference> vertexShader,
-                   ReferencePoiner<ShaderReference> fragmentShader)
-      : GpuProgram(vertexShader, fragmentShader) {}
+    void Compare(int32_t id, T * memory)
+    {
+      m_result = memcmp(m_memory, memory, m_size) == 0;
+    }
 
-    MOCK_METHOD0(Bind, void());
-    MOCK_METHOD0(Unbind, void());
+    bool GetResult() const
+    {
+      return m_result;
+    }
 
-    MOCK_CONST_METHOD1(GetUniformLocation, int8_t(const string & uniformName));
+  private:
+    bool m_result;
+    T * m_memory;
+    uint32_t m_size;
   };
 }
 
 UNIT_TEST(UniformValueTest)
 {
-  ShaderReferenceMock s1("", ShaderReference::VertexShader);
-  ShaderReferenceMock s2("", ShaderReference::FragmentShader);
+  ShaderReference vertexShader("", ShaderReference::VertexShader);
+  ShaderReference fragmentShader("", ShaderReference::FragmentShader);
 
-  EXPECT_CALL(s1, Ref()).Times(1);
-  EXPECT_CALL(s2, Ref()).Times(1);
-  EXPECT_CALL(s1, GetID()).WillRepeatedly(Return(3));
-  EXPECT_CALL(s2, GetID()).WillRepeatedly(Return(4));
-  EXPECTGL(glCreateProgram()).WillOnce(Return(1));
-  EXPECTGL(glAttachShader(1, AnyOf(3, 4))).Times(2);
-  EXPECTGL(glLinkProgram(1, _)).Times(1);
-  EXPECTGL(glDetachShader(1, AnyOf(3, 4))).Times(2);
-  EXPECT_CALL(s1, Deref()).Times(1);
-  EXPECT_CALL(s2, Deref()).Times(1);
+  // vertexShader->Ref()
+  EXPECTGL(glCreateShader(GLConst::GLVertexShader)).WillOnce(Return(1));
+  EXPECTGL(glShaderSource(1, "")).Times(1);
+  EXPECTGL(glCompileShader(1, _)).WillOnce(Return(true));
+  // fragmentShader->Ref()
+  EXPECTGL(glCreateShader(GLConst::GLFragmentShader)).WillOnce(Return(2));
+  EXPECTGL(glShaderSource(2, "")).Times(1);
+  EXPECTGL(glCompileShader(2, _)).WillOnce(Return(true));
 
-  GpuProgramMock * mock = new GpuProgramMock(ReferencePoiner<ShaderReference>(&s1),
-                                             ReferencePoiner<ShaderReference>(&s2));
+  EXPECTGL(glCreateProgram()).WillOnce(Return(3));
+  EXPECTGL(glAttachShader(3, AnyOf(1, 2))).Times(2);
+  EXPECTGL(glLinkProgram(3, _)).WillOnce(Return(true));
+  EXPECTGL(glDetachShader(3, AnyOf(1, 2))).Times(2);
+  EXPECTGL(glDeleteShader(AnyOf(1, 2))).Times(2);
+
+  GpuProgram * program = new GpuProgram(ReferencePoiner<ShaderReference>(&vertexShader),
+                                        ReferencePoiner<ShaderReference>(&fragmentShader));
+
+  EXPECTGL(glUseProgram(3)).Times(1);
+  program->Bind();
 
   {
-    EXPECT_CALL(*mock, GetUniformLocation("position")).WillOnce(Return(3));
+    EXPECTGL(glGetUniformLocation(3, "position")).WillOnce(Return(3));
     EXPECTGL(glUniformValuei(3, 1)).Times(1);
     UniformValue v("position", 1);
-    v.Apply(ReferencePoiner<GpuProgram>((GpuProgram *)mock));
+    v.Apply(ReferencePoiner<GpuProgram>(program));
   }
+
+  {
+    EXPECTGL(glGetUniformLocation(3, "position")).WillOnce(Return(3));
+    EXPECTGL(glUniformValuei(3, 1, 2)).Times(1);
+    UniformValue v("position", 1, 2);
+    v.Apply(ReferencePoiner<GpuProgram>(program));
+  }
+
+  {
+    EXPECTGL(glGetUniformLocation(3, "position")).WillOnce(Return(3));
+    EXPECTGL(glUniformValuei(3, 1, 2, 3)).Times(1);
+    UniformValue v("position", 1, 2, 3);
+    v.Apply(ReferencePoiner<GpuProgram>(program));
+  }
+
+  {
+    EXPECTGL(glGetUniformLocation(3, "position")).WillOnce(Return(3));
+    EXPECTGL(glUniformValuei(3, 1, 2, 3, 4)).Times(1);
+    UniformValue v("position", 1, 2, 3, 4);
+    v.Apply(ReferencePoiner<GpuProgram>(program));
+  }
+
+  {
+    EXPECTGL(glGetUniformLocation(3, "position")).WillOnce(Return(3));
+    EXPECTGL(glUniformValuef(3, 1.0f)).Times(1);
+    UniformValue v("position", 1.0f);
+    v.Apply(ReferencePoiner<GpuProgram>(program));
+  }
+
+  {
+    EXPECTGL(glGetUniformLocation(3, "position")).WillOnce(Return(3));
+    EXPECTGL(glUniformValuef(3, 1.0f, 2.0f)).Times(1);
+    UniformValue v("position", 1.0f, 2.0f);
+    v.Apply(ReferencePoiner<GpuProgram>(program));
+  }
+
+  {
+    EXPECTGL(glGetUniformLocation(3, "position")).WillOnce(Return(3));
+    EXPECTGL(glUniformValuef(3, 1.0f, 2.0f, 3.0f)).Times(1);
+    UniformValue v("position", 1.0f, 2.0f, 3.0f);
+    v.Apply(ReferencePoiner<GpuProgram>(program));
+  }
+
+  {
+    EXPECTGL(glGetUniformLocation(3, "position")).WillOnce(Return(3));
+    EXPECTGL(glUniformValuef(3, 1.0f, 2.0f, 3.0f, 4.0f)).Times(1);
+    UniformValue v("position", 1.0f, 2.0f, 3.0f, 4.0f);
+    v.Apply(ReferencePoiner<GpuProgram>(program));
+  }
+
+  {
+    float matrix[16] =
+    {
+      1.0f, 0.0f, 0.0f, 0.0f,
+      0.0f, 1.0f, 0.0f, 0.0f,
+      0.0f, 0.0f, 1.0f, 0.0f,
+      0.0f, 0.0f, 0.0f, 1.0f
+    };
+
+    MemoryComparer<float> comparer(matrix, 16 * sizeof(float));
+
+    EXPECTGL(glGetUniformLocation(3, "viewModel")).WillOnce(Return(4));
+    EXPECTGL(glUniformMatrix4x4Value(4, _))
+        .WillOnce(Invoke(&comparer, &MemoryComparer<float>::Compare));
+    UniformValue v("viewModel", matrix);
+    v.Apply(ReferencePoiner<GpuProgram>(program));
+  }
+
+  EXPECTGL(glUseProgram(0)).Times(1);
+  EXPECTGL(glDeleteProgram(3)).Times(1);
+
+  delete program;
 }
