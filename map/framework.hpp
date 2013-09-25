@@ -111,8 +111,6 @@ protected:
 
   void StopLocationFollow();
 
-  //mutable threads::Mutex m_modelSyn;
-
   storage::Storage m_storage;
   scoped_ptr<gui::Controller> m_guiController;
   scoped_ptr<anim::Controller> m_animController;

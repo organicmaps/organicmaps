@@ -130,6 +130,8 @@ int MwmSet::AddImpl(string const & fileName, m2::RectD & rect)
   // this function can throw an exception for bad mwm file
   MwmInfo info;
   int const version = GetInfo(fileName, info);
+  if (version == -1)
+    return -1;
 
   info.m_status = MwmInfo::STATUS_ACTIVE;
 

@@ -105,8 +105,16 @@ namespace feature
     LoadBytes(src, m_langs);
 
     m_type = static_cast<MapType>(ReadVarInt<int32_t>(src));
-
     m_ver = ver;
+
+    if (!IsMWMSuitable())
+    {
+      // Actually, old versions of the app should read mwm header correct!
+      // This condition is also checked in adding mwm to the model.
+      return;
+    }
+
+    // Place all new serializable staff here.
   }
 
   void DataHeader::LoadVer1(ModelReaderPtr const & r)

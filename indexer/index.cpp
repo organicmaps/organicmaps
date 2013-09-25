@@ -44,18 +44,25 @@ int Index::GetInfo(string const & name, MwmInfo & info) const
   MwmValue value(name);
 
   feature::DataHeader const & h = value.GetHeader();
-  info.m_limitRect = h.GetBounds();
+  if (h.IsMWMSuitable())
+  {
+    info.m_limitRect = h.GetBounds();
 
-  pair<int, int> const scaleR = h.GetScaleRange();
-  info.m_minScale = static_cast<uint8_t>(scaleR.first);
-  info.m_maxScale = static_cast<uint8_t>(scaleR.second);
+    pair<int, int> const scaleR = h.GetScaleRange();
+    info.m_minScale = static_cast<uint8_t>(scaleR.first);
+    info.m_maxScale = static_cast<uint8_t>(scaleR.second);
 
-  return h.GetVersion();
+    return h.GetVersion();
+  }
+  else
+    return -1;
 }
 
 MwmValue * Index::CreateValue(string const & name) const
 {
-  return new MwmValue(name);
+  MwmValue * p = new MwmValue(name);
+  ASSERT(p->GetHeader().IsMWMSuitable(), ());
+  return p;
 }
 
 Index::Index()

@@ -35,14 +35,16 @@ void FeaturesFetcher::InitClassificator()
 int FeaturesFetcher::AddMap(string const & file)
 {
   int version = -1;
+
   try
   {
     m2::RectD r;
     version = m_multiIndex.Add(file, r);
 
-    // For debug purposes - add rect for countries only (press 'A' in map view).
-    //if (file.find("World") == string::npos)
+    if (version != -1)
       m_rect.Add(r);
+    else
+      LOG(LWARNING, ("Can't add map", file, "Probably it's already added or has newer data version."));
   }
   catch (RootException const & e)
   {

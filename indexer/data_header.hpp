@@ -67,7 +67,9 @@ namespace feature
       v3,         // March 2013 (store type index, instead of raw type in search data)
       lastVersion = v3
     };
+
     inline Version GetVersion() const { return m_ver; }
+    inline bool IsMWMSuitable() const { return (m_ver <= lastVersion); }
 
     /// @name Serialization
     //@{
@@ -77,7 +79,8 @@ namespace feature
     void LoadVer1(ModelReaderPtr const & r);
     //@}
 
-    enum MapType {
+    enum MapType
+    {
       world,
       worldcoasts,
       country

@@ -70,26 +70,29 @@ void Framework::AddMap(string const & file)
 {
   LOG(LINFO, ("Loading map:", file));
 
-  //threads::MutexGuard lock(m_modelSyn);
   int const version = m_model.AddMap(file);
-
-  // Now we do force delete of old (April 2011) maps.
-  if (version == feature::DataHeader::v1)
+  switch (version)
   {
+  case -1:
+    // Error in adding map - do nothing.
+    break;
+
+  case feature::DataHeader::v1:
+    // Now we do force delete of old (April 2011) maps.
     LOG(LINFO, ("Deleting old map:", file));
     RemoveMap(file);
     VERIFY ( my::DeleteFileX(GetPlatform().WritablePathForFile(file)), () );
-  }
-  else
-  {
+    break;
+
+  default:
     if (m_lowestMapVersion > version)
       m_lowestMapVersion = version;
+    break;
   }
 }
 
 void Framework::RemoveMap(string const & file)
 {
-  //threads::MutexGuard lock(m_modelSyn);
   m_model.RemoveMap(file);
 }
 
