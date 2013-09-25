@@ -2064,7 +2064,7 @@
 		FAF8FFFE1417D7E50024E8C1 /* sa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sa.png; path = ../../data/flags/sa.png; sourceTree = SOURCE_ROOT; };
 		FAF8FFFF1417D7E50024E8C1 /* sb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sb.png; path = ../../data/flags/sb.png; sourceTree = SOURCE_ROOT; };
 		FAFB091E151215EE0041901D /* MWM Dbg Lite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MWM Dbg Lite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FAFB0920151215EF0041901D /* MapsWithMe-Lite.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MapsWithMe-Lite.plist"; path = "MapsWithMe-Lite.plist"; sourceTree = "<group>"; };
+		FAFB0920151215EF0041901D /* MapsWithMe-Lite.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MapsWithMe-Lite.plist"; sourceTree = "<group>"; };
 		FAFCB63413366E78001A5C59 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		FAFCB63513366E78001A5C59 /* WebViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebViewController.mm; sourceTree = "<group>"; };
 		FAFCB63713367AD1001A5C59 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = about.html; path = ../../data/about.html; sourceTree = SOURCE_ROOT; };
@@ -3063,6 +3063,9 @@
 				ORGANIZATIONNAME = MapsWithMe;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = XMK5825GXK;
+					};
+					FAFB06A9151215EE0041901D = {
 						DevelopmentTeam = XMK5825GXK;
 					};
 				};
@@ -5049,6 +5052,8 @@
 		FACFE54615F8F35600CE8B20 /* Simulator Full Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -5058,6 +5063,8 @@
 		FAFB0914151215EE0041901D /* Simulator Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
@@ -5067,6 +5074,8 @@
 		FAFB0915151215EE0041901D /* Simulator Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -5076,6 +5085,8 @@
 		FAFB0916151215EE0041901D /* Debug Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
@@ -5085,6 +5096,8 @@
 		FAFB0917151215EE0041901D /* Debug Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -5094,6 +5107,8 @@
 		FAFB0918151215EE0041901D /* AdHoc Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
@@ -5103,6 +5118,8 @@
 		FAFB0919151215EE0041901D /* Release Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
@@ -5112,6 +5129,8 @@
 		FAFB091A151215EE0041901D /* AdHoc Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -5121,6 +5140,8 @@
 		FAFB091B151215EE0041901D /* Release Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -5130,6 +5151,8 @@
 		FAFB091C151215EE0041901D /* Production Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
@@ -5139,6 +5162,8 @@
 		FAFB091D151215EE0041901D /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
