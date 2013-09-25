@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import com.mapswithme.maps.MWMApplication;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -23,6 +23,8 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.mapswithme.maps.MWMApplication;
 
 final public class Utils
 {
@@ -51,8 +53,7 @@ final public class Utils
 
   public static boolean isAmazonDevice()
   {
-    final boolean byAmazon = "Amazon".equalsIgnoreCase(Build.MANUFACTURER);
-    return byAmazon;
+    return "Amazon".equalsIgnoreCase(Build.MANUFACTURER);
   }
 
 
