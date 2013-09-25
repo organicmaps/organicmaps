@@ -2064,7 +2064,7 @@
 		FAF8FFFE1417D7E50024E8C1 /* sa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sa.png; path = ../../data/flags/sa.png; sourceTree = SOURCE_ROOT; };
 		FAF8FFFF1417D7E50024E8C1 /* sb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sb.png; path = ../../data/flags/sb.png; sourceTree = SOURCE_ROOT; };
 		FAFB091E151215EE0041901D /* MWM Dbg Lite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MWM Dbg Lite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FAFB0920151215EF0041901D /* MapsWithMe-Lite.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MapsWithMe-Lite.plist"; path = "/Developer/omim/omim/iphone/Maps/MapsWithMe-Lite.plist"; sourceTree = "<absolute>"; };
+		FAFB0920151215EF0041901D /* MapsWithMe-Lite.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MapsWithMe-Lite.plist"; path = "MapsWithMe-Lite.plist"; sourceTree = "<group>"; };
 		FAFCB63413366E78001A5C59 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		FAFCB63513366E78001A5C59 /* WebViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebViewController.mm; sourceTree = "<group>"; };
 		FAFCB63713367AD1001A5C59 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = about.html; path = ../../data/about.html; sourceTree = SOURCE_ROOT; };
