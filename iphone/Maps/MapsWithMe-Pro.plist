@@ -50,9 +50,12 @@
 		<string>57-pro.png</string>
 		<string>58-pro.png</string>
 		<string>72-pro.png</string>
+		<string>76-pro.png</string>
 		<string>100-pro.png</string>
 		<string>114-pro.png</string>
+		<string>120-pro.png</string>
 		<string>144-pro.png</string>
+		<string>152-pro.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>${BUNDLE_IDENTIFIER}</string>

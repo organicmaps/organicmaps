@@ -17,9 +17,12 @@
 		<string>57-lite.png</string>
 		<string>58-lite.png</string>
 		<string>72-lite.png</string>
+		<string>76-lite.png</string>
 		<string>100-lite.png</string>
 		<string>114-lite.png</string>
+		<string>120-lite.png</string>
 		<string>144-lite.png</string>
+		<string>152-lite.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>${BUNDLE_IDENTIFIER}</string>
