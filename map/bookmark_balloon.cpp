@@ -115,11 +115,11 @@ bool BookmarkBalloon::checkPosition()
   bool result = false;
 
   ScreenBase const & screen =  m_framework->GetNavigator().Screen();
-  m2::PointD pixelPivotAtCurrentScreen = screen.GtoP(glbPivot());
-  // we devide pixel rect on 4 parts and estimate in wich part of screen hit pixel pivot of ballon
+  m2::PointD pxPivot= screen.GtoP(glbPivot());
+  // we divide pixel rect on 4 parts and estimate in wich part of screen hit pixel pivot of ballon
   // partIndex indicate number of part [0 : 3] from left to right
-  int partIndex = pixelPivotAtCurrentScreen.x / (screen.PixelRect().SizeX() / 4.0);
-  ASSERT(partIndex >= 0 && partIndex < 4, ("We check position only on firt show and pivot need to be on screen"));
+  int partIndex = pxPivot.x / (screen.PixelRect().SizeX() / 4.0);
+  // if partIndex not in [0 : 3] then ballon pivot in offscreen. In This case we stay position = EPosCenter
 
   graphics::EPosition newPosition = graphics::EPosCenter;
   if (partIndex == 0)
@@ -138,7 +138,7 @@ bool BookmarkBalloon::checkPosition()
   m2::PointD pixelOrg = screen.GtoP(globalOrg);
 
   double k = visualScale();
-  m2::RectD balloonRect = roughBoundRect();
+  m2::RectD const & balloonRect = roughBoundRect();
   if (balloonRect.minX() < 0)
   {
     pixelOrg.x += (balloonRect.minX() - AnimPadding * k);
