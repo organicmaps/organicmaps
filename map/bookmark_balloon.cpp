@@ -114,29 +114,31 @@ bool BookmarkBalloon::checkPosition()
 
   bool result = false;
 
-  bool needLayout = false;
-  m2::RectD balloonRect = roughBoundRect();
-  if (balloonRect.minX() < 0)
-  {
-    setPosition(graphics::EPosLeft);
-    needLayout = true;
-  }
-  if (m_framework->GetNavigator().Screen().GetWidth() < balloonRect.maxX())
-  {
-    setPosition(graphics::EPosRight);
-    needLayout = true;
-  }
-
-  if (needLayout)
-    layout();
-
   ScreenBase const & screen =  m_framework->GetNavigator().Screen();
+  m2::PointD pixelPivotAtCurrentScreen = screen.GtoP(glbPivot());
+  // we devide pixel rect on 4 parts and estimate in wich part of screen hit pixel pivot of ballon
+  // partIndex indicate number of part [0 : 3] from left to right
+  int partIndex = pixelPivotAtCurrentScreen.x / (screen.PixelRect().SizeX() / 4.0);
+  ASSERT(partIndex >= 0 && partIndex < 4, ("We check position only on firt show and pivot need to be on screen"));
+
+  graphics::EPosition newPosition = graphics::EPosCenter;
+  if (partIndex == 0)
+    newPosition = graphics::EPosLeft;
+  else if (partIndex == 3)
+    newPosition = graphics::EPosRight;
+
+  if (newPosition != position())
+  {
+    setPosition(newPosition);
+    layout();
+    result = true;
+  }
 
   m2::PointD globalOrg = screen.GetOrg();
   m2::PointD pixelOrg = screen.GtoP(globalOrg);
 
   double k = visualScale();
-  balloonRect = roughBoundRect();
+  m2::RectD balloonRect = roughBoundRect();
   if (balloonRect.minX() < 0)
   {
     pixelOrg.x += (balloonRect.minX() - AnimPadding * k);
@@ -161,7 +163,7 @@ bool BookmarkBalloon::checkPosition()
 
   m_framework->GetAnimator().MoveScreen(globalOrg, screen.PtoG(pixelOrg), 0.5);
 
-  return result || needLayout;
+  return result;
 }
 
 void BookmarkBalloon::update()
