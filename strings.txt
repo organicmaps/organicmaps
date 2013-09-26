@@ -2598,7 +2598,7 @@
     ko = 완료
 
   [yopme_pref_summary]
-    en = Choose E-Ink display settings
+    en = Choose backscreen settings
     tags = android
     comment = Summary for preferences in MWM
     cz = Zvolit nastavení E-Ink obrazovky
@@ -2607,13 +2607,13 @@
     fr = Choisissez les réglages de la carte de l'écran E-Ink
     it = Selezionate le impostazioni della carta per lo schermo e-ink
     nl = Kies instellingen voor weergave van E-Ink
-    ru = Выберите настройки карты для E-Ink экрана
+    ru = Выберите настройки карты на заднем экране
     uk = Оберіть E-Ink дисплей налаштування
     pl = Wybierz ustawienia wyświetlacza E-Ink
     pt = Escolha as definições de apresentação E-Ink
 
   [yopme_pref_title]
-    en = E-Ink display settings
+    en = Backscreen settings
     tags = android
     comment = Title for yopme preferences in MWM
     cz = Nastavení E-Ink obrazovky
@@ -2622,7 +2622,7 @@
     fr = Réglages de l'écran E-Ink
     it = Impostazioni dello schermo e-ink
     nl = Instellingen voor weergave van E-Ink
-    ru = Настройки для E-Ink экрана
+    ru = Настройки для заднего экрана
     uk = Дисплей налаштування E-Ink
     pl = Ustawienia wyświetlacza E-Ink
     pt = Definições de apresentação E-ink

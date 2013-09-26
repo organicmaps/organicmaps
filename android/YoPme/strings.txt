@@ -1,6 +1,6 @@
 [[YopMeStrings]]
   [app_name]
-    en = MapsWithMe E-ink
+    en = MapsWithMe
   [error_map_is_absent]
     en = Map for this area is not downloaded. Please download it in MapsWithMe on the main screen.
     ru = Карта для данной местности не загружена. Загрузите ее в MapsWithMe на основном экране.
@@ -74,8 +74,8 @@
     pt = Definições
     uk = Налаштування
   [pick_point_button_name]
-    en = Show on E-ink
-    ru = Показать на E-ink экране
+    en = Show on the backscreen
+    ru = Показать на заднем экране
     fr = Afficher sur la page E-ink
     de = Auf dem E-Ink-Bildschirm anzeigen
     es = Mostrar en la pantalla e-ink
@@ -228,8 +228,8 @@
     uk = секунди
 
 [gestures]
-    en = Gesture controls on an E-Ink screen
-    ru = Жесты управления на E-Ink экране
+    en = Gesture controls on the backscreen
+    ru = Жесты управления на заднем экране
     fr = Commandes gestuelles  sur l'écran E-Ink
     de = E-Ink gestures
     es = Más gestos de tinta electrónica
@@ -251,8 +251,8 @@
     pl = Informacje o aktualizacji
     pt = Atualização de Informação
 [by_click]
-    en = By clicking
-    ru = По клику
+    en = On touch only
+    ru = Только по тачу
     fr = Par une tape
     de = Mit click
     es = al hacer clic
