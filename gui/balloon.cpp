@@ -17,7 +17,7 @@ namespace gui
     static const int TopShadowMargin = 2;
     static const int BottomShadowMargin = 4;
     static const int LeftTextMargin = 1;
-    static const int RightTextMargin = 25;
+    static const int RightTextMargin = 3;
     static const int ArrowMargin = 16;
   }
 
@@ -439,8 +439,8 @@ namespace gui
     double k = visualScale();
     double textMargin = m_borderLImg.m_size.x + LeftTextMargin * k +
                         RightTextMargin * k;
-
-    double imageWidth = m_borderRImg.m_size.x;
+    
+    double imageWidth = m_borderRImg.m_size.x + m_imageView->roughBoundRect().SizeX();
     unsigned maxTextWidth = ceil(m_maxWidth - (textMargin + imageWidth));
     m_mainTextView->setMaxWidth(maxTextWidth);
     m_auxTextView->setMaxWidth(maxTextWidth);
