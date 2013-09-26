@@ -40,7 +40,7 @@ module Twine
               lang = match[1]
               lang = LANG_CODES.fetch(lang, lang)
               lang.sub!('-r', '-')
-              return lang
+              return lang =~ /land|port|v\d+|sw\d+/ ? nil : lang
             end
           end
         end
