@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../std/string.hpp"
+#include "../std/stdint.hpp"
 
 class ShaderReference
 {

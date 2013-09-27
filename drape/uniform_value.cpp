@@ -1,6 +1,7 @@
 #include "uniform_value.hpp"
 #include "glfunctions.hpp"
 #include "../base/assert.hpp"
+#include "../std/memcpy.hpp"
 
 namespace
 {

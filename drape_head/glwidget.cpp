@@ -56,11 +56,15 @@ void GLWidget::initializeGL()
   gen.SetProgram(1);
   gen.SetViewport(-1.0f, -1.0f, 2.0f, 2.0f);
   gen.SetUniforms(uniforms);
-  gen.Generate(1000, *m_batcher);
+  gen.Generate(3000, *m_batcher);
 }
 
 void GLWidget::paintGL()
 {
+  glClearDepth(1.0);
+  glDepthFunc(GL_LEQUAL);
+  glDepthMask(GL_TRUE);
+  glEnable(GL_DEPTH_TEST);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   if (!m_frames.empty())

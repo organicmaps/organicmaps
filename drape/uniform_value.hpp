@@ -5,6 +5,7 @@
 
 #include "../std/string.hpp"
 #include "../std/shared_array.hpp"
+#include "../std/memcpy.hpp"
 
 class UniformValue
 {

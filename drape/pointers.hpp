@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cassert>
+#include "../std/memcpy.hpp"
 
 template <typename T>
 class ReferencePoiner

@@ -1,19 +1,15 @@
 #pragma once
 
-#if defined(__APPLE__)
-  #include <TargetConditionals.h>
-  #if (TARGET_OS_IPHONE > 0)
-    #define USE_OPENGLES20_IF_AVAILABLE 1
-    #include <OpenGLES/ES2/gl.h>
-    #define OGL_IOS
-  #else
-    #include <OpenGL/gl.h>
-    #include <OpenGL/glext.h>
-    #define OGL_MAC
-  #endif
-#elif
+#include "../std/target_os.hpp"
+
+#if defined(OMIM_OS_IPHONE)
+  #define USE_OPENGLES20_IF_AVAILABLE 1
+  #include <OpenGLES/ES2/gl.h>
+#elif defined(OMIM_OS_MAC)
+  #include <OpenGL/gl.h>
+  #include <OpenGL/glext.h>
+#else
   #define GL_GLEXT_PROTOTYPES
   #include <GL/gl.h>
   #include <GL/glext.h>
-  #define OGL_ANDROID
 #endif

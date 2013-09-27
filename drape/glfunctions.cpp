@@ -1,6 +1,9 @@
 #include "glfunctions.hpp"
 #include "glIncludes.hpp"
 #include "../base/assert.hpp"
+#include "../base/logging.hpp"
+
+#include <cstring>
 
 namespace
 {
@@ -69,11 +72,15 @@ namespace
 void GLFunctions::Init()
 {
   /// VAO
-#if defined(OGL_MAC)
+#if defined(OMIM_OS_MAC)
   glGenVertexArraysFn = &glGenVertexArraysAPPLE;
   glBindVertexArrayFn = &glBindVertexArrayAPPLE;
   glDeleteVertexArrayFn = &glDeleteVertexArraysAPPLE;
-#elif defined(OGL_IOS) || defined(OGL_ANDROID)
+#elif defined(OMIM_OS_LINUX)
+  glGenVertexArraysFn = &::glGenVertexArrays;
+  glBindVertexArrayFn = &::glBindVertexArray;
+  glDeleteVertexArrayFn = &::glDeleteVertexArrays;
+#elif defined(OMIM_OS_MOBILE)
   glGenVertexArraysFn = &glGenVertexArraysOES;
   glBindVertexArrayFn = &glBindVertexArrayOES;
   glDeleteVertexArrayFn = &glDeleteVertexArraysOES;

@@ -3,6 +3,7 @@
 #include "pointers.hpp"
 
 #include "../std/string.hpp"
+#include "../std/stdint.hpp"
 
 struct TextureInfo
 {
