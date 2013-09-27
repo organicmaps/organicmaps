@@ -73,18 +73,6 @@
     pl = Ustawienia
     pt = Definições
     uk = Налаштування
-  [pick_point_button_name]
-    en = Show on the backscreen
-    ru = Показать на заднем экране
-    fr = Afficher sur la page E-ink
-    de = Auf dem E-Ink-Bildschirm anzeigen
-    es = Mostrar en la pantalla e-ink
-    it = Mostra sullo schermo E-ink
-    cz = Zobrazit na obrazovce s elektronickým inkoustem
-    nl = Weergegeven op het E-ink-scherm
-    pl = Wyświetl na ekranie E-ink
-    pt = Exibir no ecrã E-ink
-    uk = Відображення на електронному папері
   [poi_label]
     en = The place you selected will be displayed in the middle of the screen
     ru = В центе экрана будет показано выбранное вами место
@@ -122,7 +110,7 @@
     pt = Atualização do mapa
     uk = Оновлення карти
   [title_activity_reference]
-    en = MapsWithMe E-ink
+    en = MapsWithMe Back Screen
   [toast_poi]
     en = Now this place is displayed on the second screen
     ru = Теперь это место отображено на втором экране
@@ -214,18 +202,56 @@
     pt = Reduzir
     uk = Віддалення
 
-[seconds]
-    en = seconds
-    ru = секунд
-    fr = secondes
-    de = sekunden
-    es = segundos
-    it = secondi
-    cz = sekundy
-    nl = sekunder
-    pl = sekunder
-    pt = segundos
-    uk = секунди
+[seconds_15]
+    en = 15 seconds
+    ru = 15 секунд
+    fr = 15 secondes
+    de = 15 sekunden
+    es = 15 segundos
+    it = 15 secondi
+    cz = 15 sekundy
+    nl = 15 sekunder
+    pl = 15 sekunder
+    pt = 15 segundos
+    uk = 15 секунди
+
+[seconds_30]
+    en = 30 seconds
+    ru = 30 секунд
+    fr = 30 secondes
+    de = 30 sekunden
+    es = 30 segundos
+    it = 30 secondi
+    cz = 30 sekundy
+    nl = 30 sekunder
+    pl = 30 sekunder
+    pt = 30 segundos
+    uk = 30 секунди
+
+[seconds_60]
+    en = 60 seconds
+    ru = 60 секунд
+    fr = 60 secondes
+    de = 60 sekunden
+    es = 60 segundos
+    it = 60 secondi
+    cz = 60 sekundy
+    nl = 60 sekunder
+    pl = 60 sekunder
+    pt = 60 segundos
+    uk = 60 секунди
+
+[by_click]
+    en = On touch only
+    ru = Только по тачу
+    fr = Par une tape
+    de = Mit click
+    es = al hacer clic
+    it = per click
+    cz = získáte klepnutím
+    nl = door te klikken
+    pl = na kliknięcie
+    pt = ao clicar
 
 [gestures]
     en = Gesture controls on the backscreen
@@ -250,14 +276,4 @@
     nl = Informatie-update
     pl = Informacje o aktualizacji
     pt = Atualização de Informação
-[by_click]
-    en = On touch only
-    ru = Только по тачу
-    fr = Par une tape
-    de = Mit click
-    es = al hacer clic
-    it = per click
-    cz = získáte klepnutím
-    nl = door te klikken
-    pl = na kliknięcie
-    pt = ao clicar
+

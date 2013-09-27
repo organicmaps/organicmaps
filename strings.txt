@@ -2598,31 +2598,45 @@
     ko = 완료
 
   [yopme_pref_summary]
-    en = Choose backscreen settings
     tags = android
     comment = Summary for preferences in MWM
-    cz = Zvolit nastavení E-Ink obrazovky
-    de = Wählen Sie die Einstellungen der Karte für den E-Ink Bildschirm
-    es = Seleccione la configuración de la tarjeta de la pantalla
-    fr = Choisissez les réglages de la carte de l'écran E-Ink
-    it = Selezionate le impostazioni della carta per lo schermo e-ink
-    nl = Kies instellingen voor weergave van E-Ink
-    ru = Выберите настройки карты на заднем экране
-    uk = Оберіть E-Ink дисплей налаштування
-    pl = Wybierz ustawienia wyświetlacza E-Ink
-    pt = Escolha as definições de apresentação E-Ink
+    en = Back Screen Settings
+    ru = Выберите настройки заднего экрана
+    uk = Налаштування заднього екрану
+    es = Configuración de la pantalla trasera
+    pt = Configurações do Ecrã Posterior
+    pl = Ustawienia tylnego ekranu
+    it = Impostazioni Sfondo
+    nl = Instellingen voor achtergrondscherm
+    de = Hintergrund Einstellungen
+    cz = Nastavení zadní obrazovky
+    fr = Paramètres de l'écran arrière
 
   [yopme_pref_title]
-    en = Backscreen settings
     tags = android
     comment = Title for yopme preferences in MWM
-    cz = Nastavení E-Ink obrazovky
-    de = Einstellungen für den E-Ink Bildschirm
-    es = Configuración de la pantalla E-Ink
-    fr = Réglages de l'écran E-Ink
-    it = Impostazioni dello schermo e-ink
-    nl = Instellingen voor weergave van E-Ink
-    ru = Настройки для заднего экрана
-    uk = Дисплей налаштування E-Ink
-    pl = Ustawienia wyświetlacza E-Ink
-    pt = Definições de apresentação E-ink
+    en = Choose Back Screen settings
+    ru = Настройки заднего экрана
+    uk = Оберіть налаштування заднього екрану
+    es = Seleccione la сonfiguración de la pantalla trasera
+    fr = Choisissez les réglages de de l'écran arrière
+    pt = Escolha as definições de Ecrã Posterior
+    pl = Wybierz ustawienia tylnego ekranu
+    it = Selezionate le impostazioni  Sfondo
+    nl = Kies instellingen voor achtergrondscherm
+    cz = Zvolit nastavení zadní obrazovky
+    de = Wählen Sie die Hintergrund Einstellungen
+
+  [show_on_backscreen]
+    tags = android
+    comment = Hint for upper-right icon p2b
+    en = Show on Back screen
+    fr = Afficher sur l'écran arrière
+    de = Auf dem Hintergrund anzeigen
+    es = Mostrar en la pantalla trasera
+    it = Mostra Sfondo
+    cz = Zobrazit na zadní obrazovce
+    nl = Toon op achtergrondscherm
+    pl = Pokaż na tylnym ekranie
+    pt = Mostrar no Ecrã Posterior
+    uk = Показати на задньому екрані

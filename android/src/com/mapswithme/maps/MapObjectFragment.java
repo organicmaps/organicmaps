@@ -339,9 +339,14 @@ public class MapObjectFragment extends Fragment
 
     Utils.addMenuCompat(menu, MENU_SHARE, MENU_SHARE, R.string.share, R.drawable.share);
 
+    yotaSetup(menu);
+  }
+
+  private void yotaSetup(Menu menu)
+  {
     if (Yota.isYota())
     {
-      menu.add(Menu.NONE, MENU_P2B, MENU_P2B, "")
+      menu.add(Menu.NONE, MENU_P2B, MENU_P2B, getString(R.string.show_on_backscreen))
         .setIcon(R.drawable.ic_ptb_gray)
         .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }

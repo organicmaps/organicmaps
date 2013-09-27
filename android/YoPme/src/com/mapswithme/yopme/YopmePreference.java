@@ -16,7 +16,7 @@ import android.text.util.Linkify;
 public class YopmePreference extends PreferenceActivity
                              implements OnSharedPreferenceChangeListener
 {
-  public final static String LOCATION_UPDATE_DEFAULT = "-1";
+  public final static String LOCATION_UPDATE_DEFAULT = "15";
 
   private ListPreference mLocationUpdatePref;
 

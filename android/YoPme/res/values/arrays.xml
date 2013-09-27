@@ -2,10 +2,10 @@
 <resources>
 
     <string-array name="update_frequency">
-        <item>On Click</item>
-        <item>15 seconds</item>
-        <item>30 seconds</item>
-        <item>60 seconds</item>
+        <item>@string/seconds_15</item>
+        <item>@string/seconds_30</item>
+        <item>@string/seconds_60</item>
+        <item>@string/by_click</item>
     </string-array>
 
 </resources>

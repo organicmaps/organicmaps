@@ -5,7 +5,7 @@
         android:orderingFromXml="true"
         android:title="@string/pref_update_title" >
         <ListPreference
-            android:defaultValue="-1"
+            android:defaultValue="15"
             android:entries="@array/update_frequency"
             android:entryValues="@array/update_frequency_values"
             android:key="@string/pref_loc_update"
