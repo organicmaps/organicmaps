@@ -3,6 +3,7 @@ KNOWN_QMAKE_PATHS=( \
   /Developer/Tools/qmake \
   ~/Developer/Qt-4.8.4/bin/qmake \
   ~/Developer/Qt/5.1.0/clang_64/bin/qmake \
+  ~/Developer/Qt/5.1.1/clang_64/bin/qmake \
   ~/Developer/Qt511/5.1.1/clang_64/bin/qmake \
 )
 
