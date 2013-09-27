@@ -618,7 +618,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
           if (locState.hasPosition() && locState.isCentered())
             Yota.showLocation(getApplicationContext(), zoom);
           else
-            Yota.showPoi(getApplicationContext(), latLon[0], latLon[1], zoom, "", locState.hasPosition());
+            Yota.showMap(getApplicationContext(), latLon[0], latLon[1], zoom, null, locState.hasPosition());
         }
       });
     }

@@ -7,7 +7,6 @@ import android.annotation.TargetApi;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.ContextMenu;
@@ -23,6 +22,7 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
+import android.support.v4.app.Fragment;
 
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.bookmarks.BookmarkActivity;
@@ -378,8 +378,8 @@ public class MapObjectFragment extends Fragment
     else if (itemId == MENU_P2B)
     {
       final boolean addLastKnown = MWMApplication.get().getLocationState().hasPosition();
-      Yota.showPoi(getActivity(), mLat, mLon, Framework.getDrawScale(),
-          mType == MapObjectType.MY_POSITION ? "" : mName, addLastKnown);
+      Yota.showMap(getActivity(), mLat, mLon, Framework.getDrawScale(),
+          mType == MapObjectType.MY_POSITION ? null : mName, addLastKnown);
     }
 
     return super.onOptionsItemSelected(item);

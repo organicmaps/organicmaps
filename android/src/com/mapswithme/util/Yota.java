@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Build;
+import android.text.TextUtils;
 
 public class Yota
 {
@@ -24,6 +25,7 @@ public class Yota
   public  final static String EXTRA_ZOOM   = YOPME_AUTHORITY + ".zoom";
   public  final static String EXTRA_NAME   = YOPME_AUTHORITY + ".name";
   public  final static String EXTRA_MODE   = YOPME_AUTHORITY + ".mode";
+  public  final static String EXTRA_IS_POI   = YOPME_AUTHORITY + ".is_poi";
 
   public  final static String EXTRA_HAS_LOCATION   = YOPME_AUTHORITY + ".haslocation";
   public  final static String EXTRA_MY_LAT   = YOPME_AUTHORITY + ".mylat";
@@ -33,24 +35,28 @@ public class Yota
 
   public static void showLocation(Context context, double zoom)
   {
-    final Intent locationYotaIntent = populateIntent(ACTION_LOCATION, 0, 0, zoom, null, true);
+    final Intent locationYotaIntent = populateIntent(ACTION_LOCATION, 0, 0, zoom, null, true, false);
     context.startService(locationYotaIntent);
   }
 
-  public static void showPoi(Context context, double lat, double lon, double zoom, String name, boolean addLastKnown)
+  public static void showMap(Context context, double vpLat, double vpLon, double zoom, String name, boolean addLastKnown)
   {
-    final Intent poiYotaIntent = populateIntent(ACTION_SHOW_RECT, lat, lon, zoom, name, addLastKnown);
+    final Intent poiYotaIntent = populateIntent(ACTION_SHOW_RECT, vpLat, vpLon,
+                                                zoom, name, addLastKnown,
+                                                !TextUtils.isEmpty(name));
     context.startService(poiYotaIntent);
   }
 
   private static Intent populateIntent(String action, double lat, double lon,
-      double zoom, String name, boolean addLastKnow)
+                                       double zoom, String name,
+                                       boolean addLastKnow, boolean isPoi)
   {
     final Intent i = new Intent(action)
     .putExtra(EXTRA_LAT, lat)
     .putExtra(EXTRA_LON, lon)
     .putExtra(EXTRA_ZOOM, zoom)
-    .putExtra(EXTRA_NAME, name);
+    .putExtra(EXTRA_NAME, name)
+    .putExtra(EXTRA_IS_POI, isPoi);
 
     if (addLastKnow)
     {

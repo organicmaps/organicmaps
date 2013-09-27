@@ -46,6 +46,7 @@ public class BackscreenActivity extends BSActivity implements LocationListener
   public  final static String EXTRA_ZOOM   = YOPME_AUTHORITY + ".zoom";
   public  final static String EXTRA_NAME   = YOPME_AUTHORITY + ".name";
   public  final static String EXTRA_MODE   = YOPME_AUTHORITY + ".mode";
+  public  final static String EXTRA_IS_POI   = YOPME_AUTHORITY + ".is_poi";
 
   public  final static String EXTRA_HAS_LOCATION   = YOPME_AUTHORITY + ".haslocation";
   public  final static String EXTRA_MY_LAT   = YOPME_AUTHORITY + ".mylat";
@@ -63,6 +64,7 @@ public class BackscreenActivity extends BSActivity implements LocationListener
   private Mode mMode = Mode.LOCATION;
   private double mZoomLevel = MapDataProvider.ZOOM_DEFAULT;
   private Location mLocation = null;
+  private boolean  mIsPoi;
   //@}
 
   private final Logger mLogger = StubLogger.get();
@@ -221,6 +223,8 @@ public class BackscreenActivity extends BSActivity implements LocationListener
         final double lat  = intent.getDoubleExtra(EXTRA_LAT, 0);
         final double lon  = intent.getDoubleExtra(EXTRA_LON, 0);
         final String name = intent.getStringExtra(EXTRA_NAME);
+
+        mIsPoi = intent.getBooleanExtra(EXTRA_IS_POI, false);
         mPoint = new PoiPoint(lat, lon, name);
       }
       mZoomLevel = intent.getDoubleExtra(EXTRA_ZOOM, MapDataProvider.COMFORT_ZOOM);
@@ -352,18 +356,13 @@ public class BackscreenActivity extends BSActivity implements LocationListener
         showWaitMessage(getString(R.string.wait_msg));
         return;
       }
-      data = mMapDataProvider
-          .getMyPositionData(mLocation.getLatitude(), mLocation.getLongitude(), mZoomLevel);
+      data = mMapDataProvider.getMapData(getLocation(), mZoomLevel, null, getLocation());
     }
     else if (mMode == Mode.POI)
     {
       mPoiInfo.setVisibility(View.VISIBLE);
-      if (mLocation != null)
-        data = mMapDataProvider
-          .getPOIData(mPoint, mZoomLevel, true, mLocation.getLatitude(), mLocation.getLongitude());
-      else
-        data = mMapDataProvider
-          .getPOIData(mPoint, mZoomLevel, false, 0, 0);
+
+      data = mMapDataProvider.getMapData(mPoint, mZoomLevel, mIsPoi ? mPoint : null, getLocation());
 
       calculateDistance();
     }
@@ -445,6 +444,13 @@ public class BackscreenActivity extends BSActivity implements LocationListener
   {
     final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
     return storagePath.concat(String.format("/Android/obb/%s/", getPackageName()));
+  }
+
+  private PoiPoint getLocation()
+  {
+    if (mLocation == null)
+      return null;
+    return new PoiPoint(mLocation.getLatitude(), mLocation.getLongitude(), null);
   }
 
   static

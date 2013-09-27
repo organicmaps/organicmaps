@@ -37,43 +37,43 @@ public class MapRenderer implements MapDataProvider, MwmFilesListener
 		return mRenderer;
 	}
 
-	@Override
-	public MapData getMyPositionData(double lat, double lon, double zoom)
-	{
-	  synchronized(MapRenderer.class)
-	  {
-	    final PoiPoint poi = new PoiPoint(lat, lon, "");
-
-  		mPixelBuffer.attachToThread();
-  		if (nativeRenderMyPosition(poi.getLat(), poi.getLon(), zoom) == false)
-  		  return new MapData(null, poi);
-
-		final Bitmap bmp = mPixelBuffer.readBitmap();
-  		mPixelBuffer.detachFromThread();
-  		return new MapData(bmp, poi);
-  	}
-	}
-
-	@Override
-	public MapData getPOIData(PoiPoint poi, double zoom, boolean myLocationDetected, double myLat, double myLon)
-	{
-	  synchronized(MapRenderer.class)
+  @Override
+  public MapData getMapData(PoiPoint viewPortCenter, double zoom, PoiPoint poi, PoiPoint myLocation)
+  {
+    synchronized (MapRenderer.class)
     {
-  		mPixelBuffer.attachToThread();
-  		if (nativeRenderPoiMap(poi.getLat(), poi.getLon(), myLocationDetected, myLat, myLon, zoom) == false)
-  		  return new MapData(null, poi);
+      mPixelBuffer.attachToThread();
 
-		final Bitmap bmp = mPixelBuffer.readBitmap();
-  		mPixelBuffer.detachFromThread();
-  		return new MapData(bmp, poi);
+      final double vpLat = viewPortCenter.getLat();
+      final double vpLon = viewPortCenter.getLon();
+
+      final boolean hasPoi = poi != null;
+      final double poiLat = hasPoi ? poi.getLat() : 0;
+      final double poiLon = hasPoi ? poi.getLon() : 0;
+
+      final boolean hasLocation = myLocation != null;
+      final double myLat = hasLocation ? myLocation.getLat() : 0;
+      final double myLon = hasLocation ? myLocation.getLon() : 0;
+
+     if (nativeRenderMap(vpLat, vpLon, zoom,
+                         hasPoi, poiLat, poiLon,
+                         hasLocation, myLat, myLon))
+     {
+       final Bitmap bmp = mPixelBuffer.readBitmap();
+       mPixelBuffer.detachFromThread();
+       return new MapData(bmp, poi);
+     }
+     else
+       return new MapData(null, poi);
     }
-	}
+  }
 
-	private native void nativeCreateFramework(int width, int height);
-	private native boolean nativeRenderMyPosition(double lat, double lon, double zoom);
-	private native boolean nativeRenderPoiMap(double lat, double lon,
-	                                              boolean needMyLocation, double myLat, double myLon,
-	                                              double zoom);
+
+	private native void    nativeCreateFramework (int width,  int height);
+
+	private native boolean nativeRenderMap(double  vpLat,       double vpLon,  double zoom,
+	                                       boolean hasPoi,      double poiLat, double poiLon,
+	                                       boolean hasLocation, double myLat,  double myLon);
 
 	private native void nativeOnKmlFileUpdate();
 	private native void nativeOnMapFileUpdate();

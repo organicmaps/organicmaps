@@ -10,6 +10,5 @@ public interface MapDataProvider
   public final static double ZOOM_DEFAULT = 11;
   public final static double COMFORT_ZOOM = 17;
 
-  MapData getMyPositionData(double lat, double lon, double zoom);
-  MapData getPOIData(PoiPoint poi, double zoom, boolean myLocationDetected, double myLat, double myLon);
+  MapData getMapData(PoiPoint viewPortCenter, double zoom, PoiPoint poi, PoiPoint myLocation);
 }

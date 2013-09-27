@@ -36,26 +36,20 @@ namespace yopme
     m_framework.PrepareToShutdown();
   }
 
-  bool Framework::ShowMyPosition(double lat, double lon, double zoom)
+  bool Framework::ShowMap(double  vpLat,    double vpLon,  double zoom,
+                          bool hasPoi,      double poiLat, double poiLon,
+                          bool hasLocation, double myLat,  double myLon)
   {
-    m2::PointD position(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
-    if (!m_framework.IsCountryLoaded(position) && zoom > scales::GetUpperWorldScale())
+    m2::PointD viewPortCenter(MercatorBounds::LonToX(vpLon), MercatorBounds::LatToY(vpLat));
+
+    if (!m_framework.IsCountryLoaded(viewPortCenter) && (zoom > scales::GetUpperWorldScale()))
       return false;
 
-    m_framework.ShowRect(lat, lon, zoom);
-    ShowRect(false, m2::PointD(), true, position);
-    return true;
-  }
+    m_framework.ShowRect(vpLat, vpLon, zoom);
+    m2::PointD poi           (MercatorBounds::LonToX(poiLon), MercatorBounds::LatToY(poiLat));
+    m2::PointD myLocaiton    (MercatorBounds::LonToX(myLon), MercatorBounds::LatToY(myLat));
+    ShowRect(hasPoi, poi, hasLocation, myLocaiton);
 
-  bool Framework::ShowPoi(double lat, double lon, bool needMyLoc, double myLat, double myLoc, double zoom)
-  {
-    m2::PointD poi(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
-    if (!m_framework.IsCountryLoaded(poi) && zoom > scales::GetUpperWorldScale())
-      return false;
-
-    m_framework.ShowRect(lat, lon, zoom);
-    m2::PointD position(MercatorBounds::LonToX(myLoc), MercatorBounds::LatToY(myLat));
-    ShowRect(true, poi, needMyLoc, position);
     return true;
   }
 

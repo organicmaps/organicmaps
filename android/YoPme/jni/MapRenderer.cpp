@@ -23,21 +23,13 @@ Java_com_mapswithme_yopme_map_MapRenderer_nativeCreateFramework(JNIEnv * env, jo
 }
 
 JNIEXPORT bool JNICALL
-Java_com_mapswithme_yopme_map_MapRenderer_nativeRenderMyPosition(JNIEnv * env, jobject obj,
-                                                                 double lat, double lon, double zoom)
+Java_com_mapswithme_yopme_map_MapRenderer_nativeRenderMap(JNIEnv * env, jobject obj,
+                                             jdouble  vpLat,       jdouble vpLon,  jdouble zoom,
+                                             jboolean hasPoi,      jdouble poiLat, jdouble poiLon,
+                                             jboolean hasLocation, jdouble myLat,  jdouble myLon)
 {
   ASSERT(s_framework != NULL, ());
-  return s_framework->ShowMyPosition(lat, lon, zoom);
-}
-
-JNIEXPORT bool JNICALL
-Java_com_mapswithme_yopme_map_MapRenderer_nativeRenderPoiMap(JNIEnv * env, jobject obj,
-                                                            double lat, double lon,
-                                                            bool needMyLoc, double myLat, double myLon,
-                                                            double zoom)
-{
-  ASSERT(s_framework != NULL, ());
-  return s_framework->ShowPoi(lat, lon, needMyLoc, myLat, myLon, zoom);
+  return s_framework->ShowMap(vpLat, vpLon, zoom, hasPoi, poiLat, poiLon, hasLocation, myLat, myLon);
 }
 
 JNIEXPORT void JNICALL

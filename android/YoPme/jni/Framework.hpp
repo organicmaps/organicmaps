@@ -11,8 +11,9 @@ namespace yopme
     Framework(int width, int height);
     ~Framework();
 
-    bool ShowMyPosition(double lat, double lon, double zoom);
-    bool ShowPoi(double lat, double lon, bool needMyLoc, double myLat, double myLoc, double zoom);
+    bool ShowMap(double  vpLat,    double vpLon,  double zoom,
+                 bool hasPoi,      double poiLat, double poiLon,
+                 bool hasLocation, double myLat,  double myLon);
 
     void OnMapFileUpdate();
     void OnKmlFileUpdate();
