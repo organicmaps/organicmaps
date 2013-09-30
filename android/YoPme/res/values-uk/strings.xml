@@ -25,4 +25,6 @@
 	<string name="seconds_30">30 секунди</string>
 	<string name="seconds_60">60 секунди</string>
 	<string name="gestures">Рухи для заднього екрану</string>
+	<string name="category_application">Програма</string>
+	<string name="save_your_battery">З метою оптимізації використання батареї, радимо обрати найнижчу частоту регенерації зображення.</string>
 </resources>

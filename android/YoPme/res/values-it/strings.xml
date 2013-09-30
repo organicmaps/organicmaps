@@ -27,4 +27,5 @@
 	<string name="by_click">per click</string>
 	<string name="gestures">Segni dello sfondo</string>
 	<string name="info_update">Aggiornamento informazioni</string>
+	<string name="save_your_battery">Per ottimizzare il consumo della batteria ti consigliamo di scegliere la più bassa frequenza di aggiornamento della schermata.</string>
 </resources>

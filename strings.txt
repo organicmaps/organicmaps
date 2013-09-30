@@ -2600,8 +2600,23 @@
   [yopme_pref_summary]
     tags = android
     comment = Summary for preferences in MWM
-    en = Back Screen Settings
+    en = Choose Back Screen settings
     ru = Выберите настройки заднего экрана
+    uk = Оберіть налаштування заднього екрану
+  	es = Seleccione la сonfiguración de la pantalla trasera
+    pt = Escolha as definições de Ecrã Posterior
+    pl = Wybierz ustawienia tylnego ekranu
+    it = Selezionate le impostazioni  Sfondo
+    nl = Kies instellingen voor achtergrondscherm
+    de = Wählen Sie die Hintergrund Einstellungen
+    cz = Zvolit nastavení zadní obrazovky
+    fr = Choisissez les réglages de de l'écran arrière
+
+  [yopme_pref_title]
+    tags = android
+    comment = Title for yopme preferences in MWM
+    en = Back Screen Settings
+    ru = Настройки заднего экрана
     uk = Налаштування заднього екрану
     es = Configuración de la pantalla trasera
     pt = Configurações do Ecrã Posterior
@@ -2611,21 +2626,6 @@
     de = Hintergrund Einstellungen
     cz = Nastavení zadní obrazovky
     fr = Paramètres de l'écran arrière
-
-  [yopme_pref_title]
-    tags = android
-    comment = Title for yopme preferences in MWM
-    en = Choose Back Screen settings
-    ru = Настройки заднего экрана
-    uk = Оберіть налаштування заднього екрану
-    es = Seleccione la сonfiguración de la pantalla trasera
-    fr = Choisissez les réglages de de l'écran arrière
-    pt = Escolha as definições de Ecrã Posterior
-    pl = Wybierz ustawienia tylnego ekranu
-    it = Selezionate le impostazioni  Sfondo
-    nl = Kies instellingen voor achtergrondscherm
-    cz = Zvolit nastavení zadní obrazovky
-    de = Wählen Sie die Hintergrund Einstellungen
 
   [show_on_backscreen]
     tags = android

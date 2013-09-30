@@ -27,4 +27,6 @@
 	<string name="by_click">ao clicar</string>
 	<string name="gestures">Gestos do ecrã Posterior</string>
 	<string name="info_update">Atualização de Informação</string>
+	<string name="category_application">Aplicativo</string>
+	<string name="save_your_battery">De modo a otimizar a utilização da bateria, recomendamos que escolha a taxa de refrescamento mais baixa.</string>
 </resources>

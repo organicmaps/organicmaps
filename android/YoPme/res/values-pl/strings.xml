@@ -27,4 +27,6 @@
 	<string name="by_click">na kliknięcie</string>
 	<string name="gestures">Gesty tylnego ekranu</string>
 	<string name="info_update">Informacje o aktualizacji</string>
+	<string name="category_application">Program</string>
+	<string name="save_your_battery">Aby zoptymalizować użycie baterii, zalecamy wybranie najniższej częstotliwości odświeżania ekranu.</string>
 </resources>

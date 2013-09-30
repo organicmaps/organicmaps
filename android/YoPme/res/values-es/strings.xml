@@ -27,4 +27,5 @@
 	<string name="by_click">al hacer clic</string>
 	<string name="gestures">Gestos de la pantalla de Back</string>
 	<string name="info_update">Actualización de información</string>
+	<string name="category_application">Aplicación</string>
 </resources>

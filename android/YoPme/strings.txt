@@ -292,3 +292,27 @@
     pl = Informacje o aktualizacji
     pt = Atualização de Informação
 
+[category_application]
+    ru = Приложение
+    en = Application
+    fr = Application
+    uk = Програма
+    de =  Programm
+    es = Aplicación
+    nl = Programma
+    it  = Applicazione
+    pt = Aplicativo
+    pl = Program
+    cz = Aplikace
+
+[save_your_battery]
+    ru =  Для экономии расхода батареи, мы рекомендуем выбрать наименьшую частоту обновления экрана
+    en = In order to optimize battery usage, we recommend that you choose the lowest frequency of update.
+    nl  = Om het gebruik van de batterij te optimaliseren, raden wij u aan te kiezen voor de laagste refresh rate van uw scherm.
+    de = Um Ihre Akkunutzung zu optimieren, schlagen wir vor, dass Sie die niedrigste Ansicht-Aktualisierungsrate verwenden.
+    it = Per ottimizzare il consumo della batteria ti consigliamo di scegliere la più bassa frequenza di aggiornamento della schermata.
+    sp =  Para optimizar el uso de la batería, le recomendamos que seleccione la menor velocidad de actualización de pantalla.
+    uk = З метою оптимізації використання батареї, радимо обрати найнижчу частоту регенерації зображення.
+    pl = Aby zoptymalizować użycie baterii, zalecamy wybranie najniższej częstotliwości odświeżania ekranu.
+    pt= De modo a otimizar a utilização da bateria, recomendamos que escolha a taxa de refrescamento mais baixa.
+    cz = Chcete-li optimalizovat využití baterie, doporučujeme, abyste zvolili nejnižší obnovovací frekvenci obrazovky.

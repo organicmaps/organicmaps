@@ -27,4 +27,6 @@
 	<string name="by_click">Mit click</string>
 	<string name="gestures">Gesten für elektronische Hintergründe</string>
 	<string name="info_update">Info-Update</string>
+	<string name="category_application"> Programm</string>
+	<string name="save_your_battery">Um Ihre Akkunutzung zu optimieren, schlagen wir vor, dass Sie die niedrigste Ansicht-Aktualisierungsrate verwenden.</string>
 </resources>

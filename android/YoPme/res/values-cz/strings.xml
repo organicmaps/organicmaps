@@ -26,4 +26,6 @@
 	<string name="by_click">získáte klepnutím</string>
 	<string name="gestures">Gesta na zadním displeji</string>
 	<string name="info_update">Aktualizovat informace</string>
+	<string name="category_application">Aplikace</string>
+	<string name="save_your_battery">Chcete-li optimalizovat využití baterie, doporučujeme, abyste zvolili nejnižší obnovovací frekvenci obrazovky.</string>
 </resources>

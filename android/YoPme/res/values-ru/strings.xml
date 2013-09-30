@@ -27,4 +27,6 @@
 	<string name="by_click">Только по тачу</string>
 	<string name="gestures">Жесты управления задним экраном</string>
 	<string name="info_update">Обновление информации</string>
+	<string name="category_application">Приложение</string>
+	<string name="save_your_battery"> Для экономии расхода батареи, мы рекомендуем выбрать наименьшую частоту обновления экрана</string>
 </resources>

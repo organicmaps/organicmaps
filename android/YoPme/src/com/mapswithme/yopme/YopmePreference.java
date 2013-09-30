@@ -12,6 +12,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.text.SpannableString;
 import android.text.util.Linkify;
+import android.widget.Toast;
 
 public class YopmePreference extends PreferenceActivity
                              implements OnSharedPreferenceChangeListener
@@ -94,7 +95,12 @@ public class YopmePreference extends PreferenceActivity
   public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
   {
     if (key.equals(getString(R.string.pref_loc_update)))
+    {
       updateSummary();
+
+      Toast.makeText(this, getString(R.string.save_your_battery), Toast.LENGTH_LONG)
+        .show();
+    }
   }
 
 

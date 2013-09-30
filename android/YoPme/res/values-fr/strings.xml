@@ -27,4 +27,5 @@
 	<string name="by_click">Par une tape</string>
 	<string name="gestures">Commandes gestuelles de l\&#39;écran arriè</string>
 	<string name="info_update">Mise à jour</string>
+	<string name="category_application">Application</string>
 </resources>
