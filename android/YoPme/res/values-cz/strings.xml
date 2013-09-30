@@ -16,13 +16,13 @@
 	<string name="toast_poi">Nyní je toto místo zobrazeno na druhé obrazovce</string>
 	<string name="toast_your_location">Nyní je Vaše poloha zobrazena na druhé obrazovce</string>
 	<string name="wait_msg">Určování polohy...</string>
-	<string name="about">MapsWithMe nabízí offline mapy všech měst a všech zemí světa pro mobilní zařízení s druhým displejem E-Ink. Cestujte s dokonalou sebejistotou: ať už jste kdekoli, MapsWithMe vyřeší všechny Vaše potřeby offline map. Na svých výletech se budete cítit sebejistěji také proto, že mapy na displeji e elektronickým inkoustem E-Ink využívají energii baterie Vašeho telefonu úsporně.\nNeustále pracujeme na nových funkcích a rádi bychom od Vás slyšeli, co si myslíte, že by se mělo na MapsWithMe vylepšit. Pokud máte s touto aplikací nějaké problémy, pak neváhejte a kontaktujte nás na adrese support@mapswithme.com. Na každý dotaz odpovídáme!\nLíbí Vám MapsWithMe a chcete nás podpořit? Je několik jednoduchých a zcela bezplatných způsobů, jak to udělat:\n- Napište recenzi na App Market\n- dejte kladné hodnocení naší stránce na Facebooku: http://www.facebook.com/mapswithme\n- nebo prostě jen řekněte o MapsWithMe své mamince, přátelům a kolegům :)\nDěkujeme Vám, že zůstáváte s námi. Vaší podpory si velmi vážíme!</string>
+	<string name="about">MapsWithMe nabízí offline mapy všech měst a všech zemí světa pro mobilní zařízení s druhým displejem. Cestujte s dokonalou sebejistotou: ať už jste kdekoli, MapsWithMe vyřeší všechny Vaše potřeby offline map. Na svých cestách se budete cítit sebejistěji také proto, že mapa na zadním displeji využívá energii baterie Vašeho telefonu úsporněji.\n Neustále pracujeme na nových funkcích a rádi bychom od Vás slyšeli, co si myslíte, že by se mělo na MapsWithMe vylepšit. Pokud máte s touto aplikací nějaké problémy, pak neváhejte a kontaktujte nás na adrese support@mapswithme.com. Na každý dotaz odpovídáme!\n Líbí Vám MapsWithMe a chcete nás podpořit? Je několik jednoduchých a zcela bezplatných způsobů, jak to udělat:\n - Napište recenzi na App Market\n - dejte kladné hodnocení naší stránce na Facebooku: http://www.facebook.com/mapswithme\n - nebo prostě jen řekněte o MapsWithMe své mamince, přátelům a kolegům :)\n Děkujeme Vám, že zůstáváte s námi. Vaší podpory si velmi vážíme!</string>
 	<string name="zoom_in">Přiblížit</string>
 	<string name="zoom_out">Odd-lot</string>
 	<string name="seconds_15">15 sekundy</string>
 	<string name="seconds_30">30 sekundy</string>
 	<string name="seconds_60">60 sekundy</string>
 	<string name="by_click">získáte klepnutím</string>
-	<string name="gestures">Další gesta E-Ink</string>
+	<string name="gestures">Gesta na zadním displeji</string>
 	<string name="info_update">Aktualizovat informace</string>
 </resources>

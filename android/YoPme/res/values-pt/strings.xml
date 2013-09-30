@@ -16,7 +16,7 @@
 	<string name="toast_poi">Agora este local é exibido no segundo ecrã</string>
 	<string name="toast_your_location">Agora a sua localização é exibida no segundo ecrã</string>
 	<string name="wait_msg">A determinar a localização...</string>
-	<string name="about">A MapsWithMe oferece mapas offline de todas as cidades, de todos os países do mundo para dispositivos móveis com um segundo ecrã E-Ink. Viaje com toda a confiança: onde quer que esteja, a MapsWithMe responde a todas as suas necessidades de mapas offline. Irá sentir-se mais confiante nas suas viagens também porque o mapa no seu ecrã E-Ink utiliza a bateria do seu telemóvel de forma económica.\nEstamos sempre a trabalhar em novas funcionalidades e gostaríamos de saber a sua opinião sobre como acha que\npodemos melhorar a MapsWithMe. Se tiver quaisquer problemas com a aplicação não hesite em contactar-nos em\nsupport@mapswithme.com. Respondemos a todos os pedidos!\nGosta da MapsWithMe e quer dar-nos apoio? Existem algumas formas simples e completamente grátis:\n- deixe uma revisão no seu App Market\n- goste da nosssa página do Facebook http://www.facebook.com/mapswithme\n- ou fale simplesmente da MapsWithMe à sua mãe, amigos e colegas :)\nObrigado por ter estado connosco. Valorizamos muito o seu apoio!</string>
+	<string name="about">A MapsWithMe oferece mapas offline de todas as cidades, de todos os países do mundo para dispositivos móveis com um segundo ecrã. Viaje com toda a confiança: onde quer que esteja, a MapsWithMe responde a todas as suas necessidades de mapas offline. Irá sentir-se mais confiante nas suas viagens, também porque o mapa no ecrã Posterior utiliza a carga da bateria do seu telefone com moderação.\n Estamos sempre a trabalhar em novas funcionalidades e gostaríamos de saber a sua opinião sobre como acha que podemos melhorar a MapsWithMe. Se tiver quaisquer problemas com a aplicação não hesite em contactar-nos em\n support@mapswithme.com. Respondemos a todos os pedidos!\n Gosta da MapsWithMe e quer dar-nos apoio? Existem algumas formas simples e completamente grátis:\n - deixe uma revisão no seu App Market\n - goste da nosssa página do Facebook http://www.facebook.com/mapswithme\n - ou fale simplesmente da MapsWithMe à sua mãe, amigos e colegas :)\n Obrigado por ter estado connosco. Valorizamos muito o seu apoio!</string>
 	<string name="about_title">Sobre</string>
 	<string name="zoom_in">Ampliar</string>
 	<string name="zoom_out">Reduzir</string>
@@ -24,6 +24,6 @@
 	<string name="seconds_30">30 segundos</string>
 	<string name="seconds_60">60 segundos</string>
 	<string name="by_click">ao clicar</string>
-	<string name="gestures">Mais gestos E-Ink</string>
+	<string name="gestures">Gestos do ecrã Posterior</string>
 	<string name="info_update">Atualização de Informação</string>
 </resources>
