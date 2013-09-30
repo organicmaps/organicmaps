@@ -39,7 +39,7 @@
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">Якщо вам подобається наша програма, будь ласка порекомендуйте її своїм друзям на Facebook.</string>
 	<!-- Leave Review dialog title -->
-	<string name="leave_review_text">Якщо вам подобається MapsWithMe, будь ласка, підтримайте нас, написавши відгук. Якщо у вас виникли проблеми при використанні програми, будь ласка, повідомте нам, заповнивши спеціальну форму, щоб ми могли зв\&#39;язатися з вами.</string>
+	<string name="leave_review_text">Якщо вам подобається MapsWithMe, будь ласка, підтримайте нас, написавши відгук. Якщо у вас виникли проблеми при використанні програми, будь ласка, повідомте нам, заповнивши спеціальну форму, щоб ми могли зв\'язатися з вами.</string>
 	<!-- Settings/Downloader - size string -->
 	<string name="kb">КБ</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -61,7 +61,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<string name="no_internet_connection_detected">Відсутнє підключення до інтернету</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<string name="no_wifi_ask_cellular_download">Відсутнє WiFi з\&#39;єднання. Ви бажаєте завантажити %s через стільникового оператора (GPRS, EDGE або 3G)?</string>
+	<string name="no_wifi_ask_cellular_download">Відсутнє WiFi з\'єднання. Ви бажаєте завантажити %s через стільникового оператора (GPRS, EDGE або 3G)?</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">Будь ласка, увімкніть геолокацію в налаштуваннях телефону</string>
 	<!-- Settings/Downloader - No free space dialog message -->
@@ -118,8 +118,8 @@
 	<string name="download">Завантажити</string>
 	<string name="external_storage_is_not_available">Завантажені карти недоступні</string>
 	<string name="disconnect_usb_cable">Вимкніть USB кабель або вставте SD-карту</string>
-	<string name="not_enough_free_space_on_sdcard">Недостатньо вільного місця на SD карті / в пам\&#39;яті пристрою для використання програми</string>
-	<string name="not_enough_memory">Недостатньо пам\&#39;яті для запуску програми</string>
+	<string name="not_enough_free_space_on_sdcard">Недостатньо вільного місця на SD карті / в пам\'яті пристрою для використання програми</string>
+	<string name="not_enough_memory">Недостатньо пам\'яті для запуску програми</string>
 	<string name="free_space_for_country">Для завантаження %2$s треба %1$s вільного місця</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="download_resources">Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій. \nВона потребує %1$.1f%2$s даних.</string>
@@ -169,7 +169,7 @@
 	<!-- Default bookmarks set name -->
 	<string name="my_places">Мої Закладки</string>
 	<!-- Add bookmark dialog - bookmark name -->
-	<string name="name">Iм\&#39;я</string>
+	<string name="name">Iм\'я</string>
 	<!-- Add bookmark dialog - bookmark address -->
 	<string name="address">Адреса</string>
 	<!-- Place Page - Remove Pin button -->
@@ -181,7 +181,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Налаштування</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Пам\&#39;ять для карт</string>
+	<string name="maps_storage">Пам\'ять для карт</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Виберіть місце, куди повинні бути завантажені карти</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
