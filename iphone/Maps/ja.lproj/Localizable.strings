@@ -283,7 +283,7 @@
 "set" = "セット";
 
 /* Text hint in Bookmarks dialog */
-"bookmarks_usage_hint" = "マップをタッチし続けるとその位置にポップアップが表示され、ブックマークを追加できます。\n\nその他のソースからのブックマークもMapsWithMeアプリにインポートして表示出来ます。メール、Dropboxやウェブリンクから保存した暗証番号でKML/KMZファイルを開く。";
+"bookmarks_usage_hint" = "MapsWithMe以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。";
 
 /* Settings button in system menu */
 "settings" = "設定";

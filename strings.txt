@@ -1530,7 +1530,7 @@
     es = También se pueden importar y mostrar marcadores de otras fuentes en la aplicación MapsWithMe. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.
     fr = Les marque-pages provenant d'autres sources peuvent également être importés et affichés dans l'application MapsWithMe. Ouvrez les fichiers KML/KMZ marqués depuis votre boite email, Dropbox ou un lien internet.
     it = Possono essere anche importati Preferiti da altre fonti e visualizzate nell'app MapsWithMe. Apri il file KML/KMZ con i pin salvati da una casella di posta, Dropbox o un link web.
-    ja = マップをタッチし続けるとその位置にポップアップが表示され、ブックマークを追加できます。\n\nその他のソースからのブックマークもMapsWithMeアプリにインポートして表示出来ます。メール、Dropboxやウェブリンクから保存した暗証番号でKML/KMZファイルを開く。
+    ja = MapsWithMe以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。
     ko = 다른 소스에서 북마크는 MapsWithMe 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.
     nl = Bladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de MapsWithMe app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.
     ru = Вы также можете импортировать закладки из других источников и использовать их в MapsWithMe. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке. 
