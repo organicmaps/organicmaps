@@ -139,11 +139,6 @@ namespace graphics
       if (doTransformPivotOnly)
       {
         m2::PointD offsPt = offs + elem.m_pt;
-        m2::PointD fullPt = pv + offs + elem.m_pt;
-
-        offsPt.x -= fullPt.x - floor(fullPt.x);
-        offsPt.y -= fullPt.y - floor(fullPt.y);
-
         screen->drawStraightGlyph(pv, offsPt, glyph, depth);
       }
       else
