@@ -20,6 +20,7 @@
 	<string name="about_title">О программе</string>
 	<string name="zoom_in">Приближение</string>
 	<string name="zoom_out">Отдаление</string>
+	<string name="seconds_5">5 секунд</string>
 	<string name="seconds_15">15 секунд</string>
 	<string name="seconds_30">30 секунд</string>
 	<string name="seconds_60">60 секунд</string>

@@ -20,6 +20,7 @@
 	<string name="about_title">Sobre</string>
 	<string name="zoom_in">Ampliar</string>
 	<string name="zoom_out">Reduzir</string>
+	<string name="seconds_5">5 segundos</string>
 	<string name="seconds_15">15 segundos</string>
 	<string name="seconds_30">30 segundos</string>
 	<string name="seconds_60">60 segundos</string>

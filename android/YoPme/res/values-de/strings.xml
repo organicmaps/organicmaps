@@ -20,6 +20,7 @@
 	<string name="about_title">Über Karten</string>
 	<string name="zoom_in">Vergrößern</string>
 	<string name="zoom_out">Verkleinern</string>
+	<string name="seconds_5">5 sekunden</string>
 	<string name="seconds_15">15 sekunden</string>
 	<string name="seconds_30">30 sekunden</string>
 	<string name="seconds_60">60 sekunden</string>

@@ -20,6 +20,7 @@
 	<string name="about_title">Про програму</string>
 	<string name="zoom_in">Наближення</string>
 	<string name="zoom_out">Віддалення</string>
+	<string name="seconds_5">5 секунди</string>
 	<string name="seconds_15">15 секунди</string>
 	<string name="seconds_30">30 секунди</string>
 	<string name="seconds_60">60 секунди</string>

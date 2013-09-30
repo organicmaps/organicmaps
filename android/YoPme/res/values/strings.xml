@@ -22,6 +22,7 @@
 	<string name="about_title">About</string>
 	<string name="zoom_in">Zoom in</string>
 	<string name="zoom_out">Zoom out</string>
+	<string name="seconds_5">5 seconds</string>
 	<string name="seconds_15">15 seconds</string>
 	<string name="seconds_30">30 seconds</string>
 	<string name="seconds_60">60 seconds</string>

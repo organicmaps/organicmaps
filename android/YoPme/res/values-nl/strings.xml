@@ -20,6 +20,7 @@
 	<string name="about_title">Over</string>
 	<string name="zoom_in">Zoom in</string>
 	<string name="zoom_out">Zoom uit</string>
+	<string name="seconds_5">5 sekunder</string>
 	<string name="seconds_15">15 sekunder</string>
 	<string name="seconds_30">30 sekunder</string>
 	<string name="seconds_60">60 sekunder</string>

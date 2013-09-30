@@ -203,6 +203,19 @@
     pt = Reduzir
     uk = Віддалення
 
+[seconds_5]
+    en = 5 seconds
+    ru = 5 секунд
+    fr = 5 secondes
+    de = 5 sekunden
+    es = 5 segundos
+    it = 5 secondi
+    cz = 5 sekundy
+    nl = 5 sekunder
+    pl = 5 sekunder
+    pt = 5 segundos
+    uk = 5 секунди
+
 [seconds_15]
     en = 15 seconds
     ru = 15 секунд
