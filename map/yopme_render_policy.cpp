@@ -137,17 +137,17 @@ YopmeRP::YopmeRP(RenderPolicy::Params const & p)
 void YopmeRP::DrawCircle(Screen * pScreen, m2::PointD const & pt)
 {
   {
-    Circle::Info info(8, Color::Black(), true, 2, Color::White());
-    pScreen->drawCircle(pt, info, EPosCenter, MyLocationDepth - 5);
-  }
-
-  {
-    Circle::Info info(4, Color::Black(), true, 2, Color::White());
+    Circle::Info info(10, Color::White(), false);
     pScreen->drawCircle(pt, info, EPosCenter, MyLocationDepth);
   }
 
   {
-    Circle::Info info(2, Color::White(), false);
+    Circle::Info info(6, Color(100, 100, 100, 255), true, 2, Color::Black());
+    pScreen->drawCircle(pt, info, EPosCenter, MyLocationDepth);
+  }
+
+  {
+    Circle::Info info(2, Color::White(), true, 2, Color(160, 160, 160, 255));
     pScreen->drawCircle(pt, info, EPosCenter, MyLocationDepth);
   }
 }
@@ -222,6 +222,7 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
     pScreen->applyStates();
     drawOverlay->draw(pScreen, math::Identity<double, 3>());
 
+    pScreen->clear(m_bgColor, false);
     if (m_drawMyPosition)
       DrawCircle(pScreen, m_myPositionPoint);
 
