@@ -300,9 +300,9 @@
 	<!-- Used for bookmark editing -->
 	<string name="done">Erledigt</string>
 	<!-- Summary for preferences in MWM -->
-	<string name="yopme_pref_summary">Hintergrund Einstellungen</string>
+	<string name="yopme_pref_summary">Wählen Sie die rückseitigen Bildschirm-Einstellungen</string>
 	<!-- Title for yopme preferences in MWM -->
-	<string name="yopme_pref_title">Wählen Sie die Hintergrund Einstellungen</string>
+	<string name="yopme_pref_title">Rückseitige Bildschirm-Einstellungen</string>
 	<!-- Hint for upper-right icon p2b -->
-	<string name="show_on_backscreen">Auf dem Hintergrund anzeigen</string>
+	<string name="show_on_backscreen">Auf dem rückseitigen Bildschirm anzeigen</string>
 </resources>

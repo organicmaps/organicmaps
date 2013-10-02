@@ -8,7 +8,7 @@
     de = Karte für dieses Gebiet wurde nicht heruntergeladen. Bitte laden Sie diese im auf dem Hauptbildschirm von MapsWithMe herunter.
     es = No se ha descargado el mapa de esta área. Por favor, descárgala en MapsWithMen en la pantalla principal.
     it = La mappa di questa zona non è stata scaricata. Ti preghiamo di scaricarla su MapWithMe sulla schermata principale.
-    cz = Mapa této oblasti dosud není stažena. Stáhněte si ji prosím v MapsWithMe na hlavní obrazovce.
+    cs = Mapa této oblasti dosud není stažena. Stáhněte si ji prosím v MapsWithMe na hlavní obrazovce.
     nl = De kaart voor deze omgeving is niet gedownload. Wij verzoeken u de kaart in MapsWithMe op het hoofdscherm te downloaden.
     pl = Mapa tego obszaru nie została pobrana. Pobierz ją na głównym ekranie aplikacji MapsWithMe.
     pt = O mapa para esta área não foi descarregado. Por favor, descarregue-o em MapsWithMe no ecrã principal.
@@ -20,7 +20,7 @@
     de = Ihr Standort wird in der Bildschirm-Mitte angezeigt
     es = Tu ubicación se mostrará en el centro de la pantalla
     it = La tua posizione verrà mostrata al centro della schermat
-    cz = Vaše poloha bude zobrazena uprostřed obrazovky
+    cs = Vaše poloha bude zobrazena uprostřed obrazovky
     nl = Uw locatie zal worden getoond in het midden van het scherm
     pl = Twoja lokalizacja zostanie wyświetlona na środku ekranu
     pt = A sua localização será apresentada no meio do ecrã
@@ -32,7 +32,7 @@
     de = Karte mit ausgewählten Standorten
     es = Mapa con tu ubicación
     it = Mappa con la tua posizione
-    cz = Mapa s Vaší polohou
+    cs = Mapa s Vaší polohou
     nl = Kaart met uw locatie
     pl = Mapa z Twoją lokalizacją
     pt = Mapa com a sua localização
@@ -44,7 +44,7 @@
     de = Häufigkeit der Updates
     es = Frecuencia de actualización
     it = Frequenza di aggiornamento
-    cz = Frekvence aktualizací
+    cs = Frekvence aktualizací
     nl = Updatefrekwentie
     pl = Częstotliwość aktualizacji
     pt = Frequência de atualização
@@ -56,7 +56,7 @@
     de = Hilfe
     es = Ayuda
     it = Aiuto
-    cz = Nápověda
+    cs = Nápověda
     nl = Help
     pl = Pomoc
     pt = Ajuda
@@ -68,7 +68,7 @@
     de = Einstellungen
     es = Ajustes
     it = Impostazioni
-    cz = Nastavení
+    cs = Nastavení
     nl = Instellingen
     pl = Ustawienia
     pt = Definições
@@ -80,7 +80,7 @@
     de = Der gewählte Ort wird in der Mitte des Bildschirms angezeigt
     es = El lugar seleccionado se mostrará en el centro de la pantalla
     it = Il posto che hai selezionato sarà mostrato nel mezzo della schermo
-    cz = Místo, které jste vybrali, bude zobrazeno uprostřed obrazovky
+    cs = Místo, které jste vybrali, bude zobrazeno uprostřed obrazovky
     nl = De plaats die u heeft geselecteerd wordt weergegeven in het midden van het scherm
     pl = Wybrane miejsce zostanie wyświetlone na środku ekranu
     pt = O local que selecionou será exibido no meio do ecrã
@@ -92,7 +92,7 @@
     de = Karte mit ausgewählten Standorten
     es = Mapa de la ubicación seleccionada
     it = Mappa della posizione selezionata
-    cz = Mapa vybraného místa
+    cs = Mapa vybraného místa
     nl = Kaart van de geselecteerde locatie
     pl = Mapa wybranego miejsca
     pt = Mapa da localização selecionada
@@ -104,7 +104,7 @@
     de = Karten-Update
     es = Actualización del mapa
     it = Aggiornamento mappa
-    cz = Aktualizace mapy
+    cs = Aktualizace mapy
     nl = Bijwerken van kaart
     pl = Aktualizacja mapy
     pt = Atualização do mapa
@@ -118,7 +118,7 @@
     de = Nun wird dieser Ort auf dem zweiten Bildschirm angezeigt
     es = Ahora este lugar se muestra en la segunda pantalla
     it = Ora questo posto è mostrato sul secondo schermo
-    cz = Nyní je toto místo zobrazeno na druhé obrazovce
+    cs = Nyní je toto místo zobrazeno na druhé obrazovce
     nl = Nu wordt deze plaats weergegeven op het tweede scherm
     pl = To miejsce jest teraz wyświetlane na drugim ekranie
     pt = Agora este local é exibido no segundo ecrã
@@ -130,7 +130,7 @@
     de = Jetzt wird Ihr Standort auf dem zweiten Bildschirm angezeigt
     es = Ahora tu ubicación se muestra en la segunda pantalla
     it = Ora la tua posizione è mostrata sul secondo schermo
-    cz = Nyní je Vaše poloha zobrazena na druhé obrazovce
+    cs = Nyní je Vaše poloha zobrazena na druhé obrazovce
     nl = Nu wordt uw locatie weergegeven op het tweede scherm
     pl = Twoja lokalizacja jest teraz wyświetlana na drugim ekranie
     pt = Agora a sua localização é exibida no segundo ecrã
@@ -142,7 +142,7 @@
     de = Ort bestimmen …
     es = Determinando ubicación …
     it = Determino posizione attuale ...
-    cz = Určování polohy...
+    cs = Určování polohy...
     nl = Locatie bepalen…
     pl = Sprawdzam lokalizację...
     pt = A determinar a localização...
@@ -152,10 +152,10 @@
     en = MapsWithMe offers offline maps of all the cities, all countries of the world for mobile devices with a second display. Travel with full confidence: wherever you are, MapsWithMe addresses all your offline mapping needs. You will feel more confident on your trips also because the map on the Back screen uses your phone's battery charge sparingly.\n We are always working on new features and would love to hear from you on how you think we could improve MapsWithMe. If you have any problems with the app, don't hesitate to contact us at support@mapswithme.com. We respond to every request!\n Like MapsWithMe and want to support us? There are some simple and absolutely free ways:\n - leave a review at your App Market\n - like our Facebook page http://www.facebook.com/mapswithme\n - or just tell about MapsWithMe to your mom, friends and colleagues :) \nThank you for being with us. We appreciate your support very much!
     ru = MapsWithMe - это офлайновые карты всех городов и стран мира для мобильных устройств с дополнительным экраном. Путешествуйте с уверенностью: вы всегда будете знать, где вы находитесь, где ближайший ресторан или банкомат, магазин или автобусная остановка. Уверенности в поездках вам придаст и то, что карта на заднем экране экономно расходует заряд аккумулятора вашего телефона.\n Любые предложения и пожелания с благодарностью принимаются. Пишите нам, следите за нашими новостями:\n Facebook: http://www.facebook.com/mapswithme\n Google +: http://plus.google.com/116069636493953875937\n Twitter: @MapsWithMe \n Вам нравится MapsWithMe и вы хотите поддержать нас? Для этого есть несколько простых и совершенно бесплатных способов:\n - оставьте отзыв в магазине приложений\n - подпишитесь на новости нашей страницы на Facebook, нажмите Like\n - или просто расскажите о MapsWithMe своим друзьям, коллегам, родным.
     fr = MapsWithMe propose des cartes hors ligne de toutes les villes et de tous les pays du monde pour les dispositifs mobiles avec un second écran. Vous pouvez voyager en toute confiance : où que vous soyez, MapsWithMe répond à tous vos besoins de cartes hors ligne. Vous vous sentirez beaucoup plus serein lors de vos déplacements, entre autres parce que la carte sur l'écran arrière sollicite votre batterie avec parcimonie.\n Nous travaillons en permanence à de nouvelles fonctionnalités et aimerions beaucoup connaître votre avis sur la manière dont nous pourrions améliorer MapsWithMe. Si vous avez le moindre souci avec l'appli, n'hésitez pas à nous contacter à support@mapswithme.com. Nous répondons à toutes les demandes !\n Vous aimez MapsWithMe et souhaitez nous soutenir ? Voici quelques moyens à la fois simples et entièrement gratuits :\n - laisser une évaluation sur votre boutique d'applis\n - « aimer » notre page Facebook http://www.facebook.com/mapswithme\n - ou bien tout simplement parler de MapsWithMe à votre maman, vos amis et vos collègues :) \n Merci d'être avec nous. Votre soutien est grandement apprécié !
-    de = MapsWithMe bietet Offline-Landkarten aller Städte und Länder dieser Welt für mobile Geräte mit einem zweiten Display an. Reisen Sie vertrauensvoll: Wo auch immer Sie sich aufhalten, MapsWithMe erfüllt alle Ihre Anforderungen, die Sie an eine Offline-Landkarte haben. Da die Karte auf dem Hintergrund die Batterieladung Ihres Handys sparsam nutzt, werden Sie sich auf Ihren Reisen sicherer fühlen.\n Wir arbeiten fortlaufend an neuen Funktionen und möchten gerne von Ihnen hören, was wir tun können, um MapsWithMe zu verbessern. Falls Sie Probleme mit der App haben, zögern Sie bitte nicht, uns über support@mapswithme.com zu kontaktieren. Wir beantworten jede Anfrage! Ihnen gefällt MapsWithMe und Sie möchten uns unterstützen? Dies können Sie einfach und kostenlos tun:\n - Hinterlassen Sie eine Bewertung in Ihrem App-Markt\n - Liken Sie uns auf Facebook http://www.facebook.com/mapswithme\n - oder erzählen Sie einfach Ihrer Mama, Ihren Freunden und Kollegen von MapsWithMe :)\n Vielen Dank, dass Sie hier bei uns sind. Wir wissen Ihre Unterstützung sehr zu schätzen!\n
+    de = MapsWithMe bietet Offline-Landkarten aller Städte und Länder dieser Welt für mobile Geräte mit einem zweiten Display an. Reisen Sie vertrauensvoll: Wo auch immer Sie sich aufhalten, MapsWithMe erfüllt alle Ihre Anforderungen, die Sie an eine Offline-Landkarte haben. Sie werden sich sicherer auf Ihren Reisen fühlen, weil die Karte auf dem rückseitigen Bildschirm Ihren Handy-Akku nur sparsam nutzt.\n Wir arbeiten fortlaufend an neuen Funktionen und möchten gerne von Ihnen hören, was wir tun können, um MapsWithMe zu verbessern. Falls Sie Probleme mit der App haben, zögern Sie bitte nicht, uns über support@mapswithme.com zu kontaktieren. Wir beantworten jede Anfrage! Ihnen gefällt MapsWithMe und Sie möchten uns unterstützen? Dies können Sie einfach und kostenlos tun:\n - Hinterlassen Sie eine Bewertung in Ihrem App-Markt\n - Liken Sie uns auf Facebook http://www.facebook.com/mapswithme\n - oder erzählen Sie einfach Ihrer Mama, Ihren Freunden und Kollegen von MapsWithMe :)\n Vielen Dank, dass Sie hier bei uns sind. Wir wissen Ihre Unterstützung sehr zu schätzen!
     es = MapsWithMe ofrece mapas de todas las ciudades de todos los países del mundo sin conexión a internet en dispositivos móviles con una segunda pantalla de tinta electrónica. Viaja sin problemas: dondequiera que estés, MapsWithMe te dará los mapas que necesites sin conexión a internet. Tendrás más seguridad en tus viajes porque el mapa de la pantalla de Back utiliza la batería de tu teléfono con moderación.\n Estamos constantemente trabajando para añadir nuevas funciones, y nos encantaría oír tus sugerencias sobre cómo mejorar MapsWithMe. Si tienes algún problema con la aplicación, ponte en contacto con nosotros en support@mapswithme.com. ¡Respondemos a todos los mensajes!\n ¿Te gusta MapsWithMe y quieres apoyarnos? Hay varias maneras simples y absolutamente gratuitas:\n - déjanos una reseña en tu Mercado de Aplicaciones\n - dale a "me gusta" en nuestra página de Facebook: http://www.facebook.com/mapswithme\n - o simplemente puedes recomendar MapsWithMe a tus padres, tus amigos, tus compañeros de trabajo... :)\n Gracias por elegirnos. ¡Valoramos mucho tu apoyo!
     it = MapsWithMe offre le mappe online di tutte le città e di tutti i Paesi del mondo sui dispositivi mobili grazie ad un secondo schermo. Viaggia in tutta tranquillità: MapsWithMe soddisfa tutte le tue esigenze grazie alle mappe offline. Ti sentirai più sicuro durante i tuoi viaggi anche perché la mappa sullo sfondo usa con moderazione la batteria del tuo telefono.\n Siamo sempre al lavoro per studiare nuove funzionalità e gradiremmo avere la tua opinione su ciò che ritieni possa essere migliorato su MapsWithMe. Se dovessi avere dei problemi con l'app, contattaci all'indirizzo email: support@mapswithme.com. Rispondiamo a qualsiasi domanda!\n Ti piace MapsWithMe e vuoi supportarci? Ecco alcuni semplici modi gratuiti per farlo:\n - lascia una recensione sul tuo App Market\n - metti "mi piace" sulla nostra pagina di Facebook http://www.facebook.com/mapswithme\n - fai conoscere MapsWithMe a tua mamma, agli amici e ai colleghi :)\n Grazie per il tuo supporto, è davvero molto importante per noi!
-    cz = MapsWithMe nabízí offline mapy všech měst a všech zemí světa pro mobilní zařízení s druhým displejem. Cestujte s dokonalou sebejistotou: ať už jste kdekoli, MapsWithMe vyřeší všechny Vaše potřeby offline map. Na svých cestách se budete cítit sebejistěji také proto, že mapa na zadním displeji využívá energii baterie Vašeho telefonu úsporněji.\n Neustále pracujeme na nových funkcích a rádi bychom od Vás slyšeli, co si myslíte, že by se mělo na MapsWithMe vylepšit. Pokud máte s touto aplikací nějaké problémy, pak neváhejte a kontaktujte nás na adrese support@mapswithme.com. Na každý dotaz odpovídáme!\n Líbí Vám MapsWithMe a chcete nás podpořit? Je několik jednoduchých a zcela bezplatných způsobů, jak to udělat:\n - Napište recenzi na App Market\n - dejte kladné hodnocení naší stránce na Facebooku: http://www.facebook.com/mapswithme\n - nebo prostě jen řekněte o MapsWithMe své mamince, přátelům a kolegům :)\n Děkujeme Vám, že zůstáváte s námi. Vaší podpory si velmi vážíme!
+    cs = MapsWithMe nabízí offline mapy všech měst a všech zemí světa pro mobilní zařízení s druhým displejem. Cestujte s dokonalou sebejistotou: ať už jste kdekoli, MapsWithMe vyřeší všechny Vaše potřeby offline map. Na svých cestách se budete cítit sebejistěji také proto, že mapa na zadním displeji využívá energii baterie Vašeho telefonu úsporněji.\n Neustále pracujeme na nových funkcích a rádi bychom od Vás slyšeli, co si myslíte, že by se mělo na MapsWithMe vylepšit. Pokud máte s touto aplikací nějaké problémy, pak neváhejte a kontaktujte nás na adrese support@mapswithme.com. Na každý dotaz odpovídáme!\n Líbí Vám MapsWithMe a chcete nás podpořit? Je několik jednoduchých a zcela bezplatných způsobů, jak to udělat:\n - Napište recenzi na App Market\n - dejte kladné hodnocení naší stránce na Facebooku: http://www.facebook.com/mapswithme\n - nebo prostě jen řekněte o MapsWithMe své mamince, přátelům a kolegům :)\n Děkujeme Vám, že zůstáváte s námi. Vaší podpory si velmi vážíme!
     nl = MapsWithMe biedt offline kaarten van alle steden, alle landen van de wereld voor mobiele apparaten met een tweede display. Reis met vol vertrouwen: waar je ook bent, MapsWithMe adressert al je offline kaartbenodigdheden. U voelt u ook onderweg meer op uw gemak omdat de kaart op het achterscherm heel weinig batterij gebruikt.\n We werken altijd aan nieuwe functies en horen graag van jou hoe jij denkt waarin wij MapsWithMe kunnen verbeteren. Als je problemen hebt met de app, aarzel dan niet om contact op te nemen met ons via support@mapswithme.com.\n  We reageren op elk verzoek!\n Je vindt MapsWitmMe leuk en wilt ons ondersteunen? Er zijn een paar eenvoudige en absoluut gratis manieren:\n - Plaats een reactie bij uw App Market\n - Vind ons leuk op Facebookpagina: http://www.facebook.com/mapswithme\n - Of vertel ons over MapsWithMe aan je moeder, vrienden en collega’s :)\n Bedankt dat je met ons bent. We waarderen je steun ontzettend veel.
     pl = MapsWithMe oferuje w trybie offline mapy wszystkich miast, wszystkich krajów świata dla urządzeń mobilnych z drugim wyświetlaczem. Podróżuj z pełnym zaufaniem: gdziekolwiek jesteś, MapsWithMe rozwiązuje Twoje wszystkie potrzeby, związane z trasą, w trybie offline. Poczujesz się pewniej podczas podróży także dlatego, że mapa na tylnym ekranie rzadko korzysta z baterii telefonu.\n Ponieważ zawsze pracujemy nad nowymi dodatkami, chcielibyśmy, abyś podzielił się z nami spostrzeżeniami i opiniami na temat MapsWithMe. Jeśli masz jakieś problemy z aplikacją, nie wahaj się z nami skontaktować na support@mapswithme.com. Odpowiemy na każde pytanie!\n Lubisz MapsWithMe i chcesz nas wspierać? Oto kilka prostych i całkowicie darmowych sposobów:\n - Napisz opinię w App Market\n - Polub naszą stronę na Facebooku http://www.facebook.com/mapswithme\n - Lub po prostu powiedz o MapsWithMe mamie, przyjaciołom i kolegom :)\n Dziękujemy, za wybranie naszej aplikacji. Wielce doceniamy Twoją pomoc!
     pt = A MapsWithMe oferece mapas offline de todas as cidades, de todos os países do mundo para dispositivos móveis com um segundo ecrã. Viaje com toda a confiança: onde quer que esteja, a MapsWithMe responde a todas as suas necessidades de mapas offline. Irá sentir-se mais confiante nas suas viagens, também porque o mapa no ecrã Posterior utiliza a carga da bateria do seu telefone com moderação.\n Estamos sempre a trabalhar em novas funcionalidades e gostaríamos de saber a sua opinião sobre como acha que podemos melhorar a MapsWithMe. Se tiver quaisquer problemas com a aplicação não hesite em contactar-nos em\n support@mapswithme.com. Respondemos a todos os pedidos!\n Gosta da MapsWithMe e quer dar-nos apoio? Existem algumas formas simples e completamente grátis:\n - deixe uma revisão no seu App Market\n - goste da nosssa página do Facebook http://www.facebook.com/mapswithme\n - ou fale simplesmente da MapsWithMe à sua mãe, amigos e colegas :)\n Obrigado por ter estado connosco. Valorizamos muito o seu apoio!
@@ -184,7 +184,7 @@
     de = Vergrößern
     es = Aumentar zoom
     it = Ingrandisci
-    cz = Přiblížit
+    cs = Přiblížit
     nl = Zoom in
     pl = Powiększ
     pt = Ampliar
@@ -197,7 +197,7 @@
     de = Verkleinern
     es = Reducir zoom
     it = Reduce
-    cz = Odd-lot
+    cs = Odd-lot
     nl = Zoom uit
     pl = Pomniejsz
     pt = Reduzir
@@ -210,7 +210,7 @@
     de = 5 sekunden
     es = 5 segundos
     it = 5 secondi
-    cz = 5 sekundy
+    cs = 5 sekundy
     nl = 5 sekunder
     pl = 5 sekunder
     pt = 5 segundos
@@ -223,7 +223,7 @@
     de = 15 sekunden
     es = 15 segundos
     it = 15 secondi
-    cz = 15 sekundy
+    cs = 15 sekundy
     nl = 15 sekunder
     pl = 15 sekunder
     pt = 15 segundos
@@ -236,7 +236,7 @@
     de = 30 sekunden
     es = 30 segundos
     it = 30 secondi
-    cz = 30 sekundy
+    cs = 30 sekundy
     nl = 30 sekunder
     pl = 30 sekunder
     pt = 30 segundos
@@ -249,7 +249,7 @@
     de = 60 sekunden
     es = 60 segundos
     it = 60 secondi
-    cz = 60 sekundy
+    cs = 60 sekundy
     nl = 60 sekunder
     pl = 60 sekunder
     pt = 60 segundos
@@ -262,7 +262,7 @@
     de = Mit click
     es = al hacer clic
     it = per click
-    cz = získáte klepnutím
+    cs = získáte klepnutím
     nl = door te klikken
     pl = na kliknięcie
     pt = ao clicar
@@ -277,8 +277,8 @@
     pl = Gesty tylnego ekranu
     it = Segni dello sfondo
     nl = Bewegingen voor het achterscherm
-    cz = Gesta na zadním displeji
-    de = Gesten für elektronische Hintergründe
+    cs = Gesta na zadním displeji
+    de = Handbewegungen auf dem rückseitigen Bildschirm
 
 [info_update]
     en = Info update
@@ -287,7 +287,7 @@
     de = Info-Update
     es = Actualización de información
     it = Aggiornamento informazioni
-    cz = Aktualizovat informace
+    cs = Aktualizovat informace
     nl = Informatie-update
     pl = Informacje o aktualizacji
     pt = Atualização de Informação
@@ -303,11 +303,12 @@
     it  = Applicazione
     pt = Aplicativo
     pl = Program
-    cz = Aplikace
+    cs = Aplikace
 
 [save_your_battery]
     ru =  Для экономии расхода батареи, мы рекомендуем выбрать наименьшую частоту обновления экрана
     en = In order to optimize battery usage, we recommend that you choose the lowest frequency of update.
+    fr = Afin d'optimiser l'utilisation de votre batterie, nous vous recommandons de choisir le taux d'actualisation de l'image de votre écran le plus bas possible.
     nl  = Om het gebruik van de batterij te optimaliseren, raden wij u aan te kiezen voor de laagste refresh rate van uw scherm.
     de = Um Ihre Akkunutzung zu optimieren, schlagen wir vor, dass Sie die niedrigste Ansicht-Aktualisierungsrate verwenden.
     it = Per ottimizzare il consumo della batteria ti consigliamo di scegliere la più bassa frequenza di aggiornamento della schermata.
@@ -315,4 +316,4 @@
     uk = З метою оптимізації використання батареї, радимо обрати найнижчу частоту регенерації зображення.
     pl = Aby zoptymalizować użycie baterii, zalecamy wybranie najniższej częstotliwości odświeżania ekranu.
     pt= De modo a otimizar a utilização da bateria, recomendamos que escolha a taxa de refrescamento mais baixa.
-    cz = Chcete-li optimalizovat využití baterie, doporučujeme, abyste zvolili nejnižší obnovovací frekvenci obrazovky.
+    cs = Chcete-li optimalizovat využití baterie, doporučujeme, abyste zvolili nejnižší obnovovací frekvenci obrazovky.

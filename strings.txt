@@ -2601,41 +2601,42 @@
     tags = android
     comment = Summary for preferences in MWM
     en = Choose Back Screen settings
-    ru = Выберите настройки заднего экрана
+    ru = Выберите настройки дополнительного экрана
     uk = Оберіть налаштування заднього екрану
-  	es = Seleccione la сonfiguración de la pantalla trasera
+    es = Seleccione la сonfiguración de la pantalla trasera
     pt = Escolha as definições de Ecrã Posterior
     pl = Wybierz ustawienia tylnego ekranu
     it = Selezionate le impostazioni  Sfondo
     nl = Kies instellingen voor achtergrondscherm
-    de = Wählen Sie die Hintergrund Einstellungen
-    cz = Zvolit nastavení zadní obrazovky
+    de = Wählen Sie die rückseitigen Bildschirm-Einstellungen
+    cs = Zvolit nastavení zadní obrazovky
     fr = Choisissez les réglages de de l'écran arrière
 
   [yopme_pref_title]
     tags = android
     comment = Title for yopme preferences in MWM
     en = Back Screen Settings
-    ru = Настройки заднего экрана
+    ru = Настройки дополнительного экрана
     uk = Налаштування заднього екрану
     es = Configuración de la pantalla trasera
     pt = Configurações do Ecrã Posterior
     pl = Ustawienia tylnego ekranu
     it = Impostazioni Sfondo
     nl = Instellingen voor achtergrondscherm
-    de = Hintergrund Einstellungen
-    cz = Nastavení zadní obrazovky
+    de = Rückseitige Bildschirm-Einstellungen
+    cs = Nastavení zadní obrazovky
     fr = Paramètres de l'écran arrière
 
   [show_on_backscreen]
     tags = android
     comment = Hint for upper-right icon p2b
     en = Show on Back screen
+    ru = Показать на дополнительном экране
     fr = Afficher sur l'écran arrière
-    de = Auf dem Hintergrund anzeigen
+    de = Auf dem rückseitigen Bildschirm anzeigen
     es = Mostrar en la pantalla trasera
     it = Mostra Sfondo
-    cz = Zobrazit na zadní obrazovce
+    cs = Zobrazit na zadní obrazovce
     nl = Toon op achtergrondscherm
     pl = Pokaż na tylnym ekranie
     pt = Mostrar no Ecrã Posterior

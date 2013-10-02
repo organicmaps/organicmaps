@@ -307,9 +307,9 @@
 	<!-- Used for bookmark editing -->
 	<string name="done">Feito</string>
 	<!-- Summary for preferences in MWM -->
-	<string name="yopme_pref_summary">Configurações do Ecrã Posterior</string>
+	<string name="yopme_pref_summary">Escolha as definições de Ecrã Posterior</string>
 	<!-- Title for yopme preferences in MWM -->
-	<string name="yopme_pref_title">Escolha as definições de Ecrã Posterior</string>
+	<string name="yopme_pref_title">Configurações do Ecrã Posterior</string>
 	<!-- Hint for upper-right icon p2b -->
 	<string name="show_on_backscreen">Mostrar no Ecrã Posterior</string>
 </resources>

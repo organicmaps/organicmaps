@@ -298,7 +298,9 @@
 	<!-- Used for bookmark editing -->
 	<string name="done">Готово</string>
 	<!-- Summary for preferences in MWM -->
-	<string name="yopme_pref_summary">Выберите настройки заднего экрана</string>
+	<string name="yopme_pref_summary">Выберите настройки дополнительного экрана</string>
 	<!-- Title for yopme preferences in MWM -->
-	<string name="yopme_pref_title">Настройки заднего экрана</string>
+	<string name="yopme_pref_title">Настройки дополнительного экрана</string>
+	<!-- Hint for upper-right icon p2b -->
+	<string name="show_on_backscreen">Показать на дополнительном экране</string>
 </resources>

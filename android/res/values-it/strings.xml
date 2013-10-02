@@ -296,9 +296,9 @@
 	<!-- Used for bookmark editing -->
 	<string name="done">Fine</string>
 	<!-- Summary for preferences in MWM -->
-	<string name="yopme_pref_summary">Impostazioni Sfondo</string>
+	<string name="yopme_pref_summary">Selezionate le impostazioni  Sfondo</string>
 	<!-- Title for yopme preferences in MWM -->
-	<string name="yopme_pref_title">Selezionate le impostazioni  Sfondo</string>
+	<string name="yopme_pref_title">Impostazioni Sfondo</string>
 	<!-- Hint for upper-right icon p2b -->
 	<string name="show_on_backscreen">Mostra Sfondo</string>
 </resources>

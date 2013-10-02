@@ -295,4 +295,10 @@
 	<string name="info">Informace</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Hotovo</string>
+	<!-- Summary for preferences in MWM -->
+	<string name="yopme_pref_summary">Zvolit nastavení zadní obrazovky</string>
+	<!-- Title for yopme preferences in MWM -->
+	<string name="yopme_pref_title">Nastavení zadní obrazovky</string>
+	<!-- Hint for upper-right icon p2b -->
+	<string name="show_on_backscreen">Zobrazit na zadní obrazovce</string>
 </resources>

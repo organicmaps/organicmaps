@@ -285,9 +285,9 @@
 	<!-- Used for bookmark editing -->
 	<string name="done">Gedaan</string>
 	<!-- Summary for preferences in MWM -->
-	<string name="yopme_pref_summary">Instellingen voor achtergrondscherm</string>
+	<string name="yopme_pref_summary">Kies instellingen voor achtergrondscherm</string>
 	<!-- Title for yopme preferences in MWM -->
-	<string name="yopme_pref_title">Kies instellingen voor achtergrondscherm</string>
+	<string name="yopme_pref_title">Instellingen voor achtergrondscherm</string>
 	<!-- Hint for upper-right icon p2b -->
 	<string name="show_on_backscreen">Toon op achtergrondscherm</string>
 </resources>
