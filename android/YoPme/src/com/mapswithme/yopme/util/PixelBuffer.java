@@ -103,51 +103,22 @@ public class PixelBuffer
 
 	public void attachToThread()
 	{
-	  int attempt = 0;
-	  boolean succeed = false;
-
-	  while ((attempt < MAX_TRY) && !succeed)
-	  {
-	    succeed = EGL14.eglMakeCurrent(mDisplay, mSurface, mSurface, mContext);
-	    if (!succeed)
-	    {
-	      someSleep();
-	      ++attempt;
-	    }
-	    else
-	      Log.d(TAG, "Pixel buffer attached");
-	  }
-
-	  if (!succeed)
+    if (!EGL14.eglMakeCurrent(mDisplay, mSurface, mSurface, mContext))
     {
-      Log.d(TAG, "Throwed");
-      throw new EglOperationException("EGL error : Context was not binded to thread", EGL14.eglGetError());
+      terminate();
+      init();
+      if (!EGL14.eglMakeCurrent(mDisplay, mSurface, mSurface, mContext))
+        throw new EglOperationException("EGL error : Context was not binded to thread", EGL14.eglGetError());
     }
-
 	}
 
 	public void detachFromThread()
 	{
-	  int attempt = 0;
-	  boolean succeed = false;
-
-	  while ((attempt < MAX_TRY) && !succeed)
-	  {
-	    succeed = EGL14.eglMakeCurrent(mDisplay, EGL14.EGL_NO_SURFACE, EGL14.EGL_NO_SURFACE, EGL14.EGL_NO_CONTEXT);
-	    if (!succeed)
-	    {
-	      someSleep();
-	      ++attempt;
-	    }
-	    else
-	      Log.d(TAG, "Pixel buffer detached");
-	  }
-
-	  if (!succeed)
-	  {
-	    Log.d(TAG, "Throwed");
-      throw new EglOperationException("EGL error : Context was not binded to the thread", EGL14.eglGetError());
-	  }
+    if (!EGL14.eglMakeCurrent(mDisplay, EGL14.EGL_NO_SURFACE, EGL14.EGL_NO_SURFACE, EGL14.EGL_NO_CONTEXT))
+    {
+      terminate();
+      init();
+    }
 	}
 
 	public Bitmap readBitmap()

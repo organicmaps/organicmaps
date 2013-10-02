@@ -17,6 +17,12 @@ public class EglOperationException extends RuntimeException
 	{
 		return mErrorCode;
 	}
+  
+  @Override
+  public String toString()
+  {
+    return super.toString() + " EGL code = " + Integer.toHexString(mErrorCode);
+  }
 	
 	private int mErrorCode;
 }
