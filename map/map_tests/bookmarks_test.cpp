@@ -5,6 +5,7 @@
 #include "../../search/result.hpp"
 
 #include "../../platform/platform.hpp"
+#include "../../platform/preferred_languages.hpp"
 
 #include "../../coding/internal/file_data.hpp"
 
@@ -339,23 +340,25 @@ UNIT_TEST(Bookmarks_Getting)
 
 namespace
 {
-  void CheckPlace(Framework const & fm, double lat, double lon,
-                  char const * name,
-                  char const * st, char const * house,
-                  char const * typeEn, char const * typeRu)
+  struct POIInfo
+  {
+    char const * m_name;
+    char const * m_street;
+    char const * m_house;
+    char const * m_type;
+  };
+
+  void CheckPlace(Framework const & fm, double lat, double lon, POIInfo const & poi)
   {
     search::AddressInfo info;
     fm.GetAddressInfoForGlobalPoint(
           m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)), info);
 
-    TEST_EQUAL(info.m_name, name, ());
-    TEST_EQUAL(info.m_street, st, ());
-    TEST_EQUAL(info.m_house, house, ());
+    TEST_EQUAL(info.m_name, poi.m_name, ());
+    TEST_EQUAL(info.m_street, poi.m_street, ());
+    TEST_EQUAL(info.m_house, poi.m_house, ());
     TEST_EQUAL(info.m_types.size(), 1, ());
-
-    // assume that developers have English or Russian system language :)
-    char const * type = info.GetBestType();
-    TEST(type && (strcmp(type, typeEn) == 0 || strcmp(type, typeRu)), (type));
+    TEST(strcmp(info.GetBestType(), poi.m_type) == 0, ());
   }
 }
 
@@ -368,10 +371,20 @@ UNIT_TEST(Bookmarks_AddressInfo)
 
   fm.OnSize(800, 600);
 
-  CheckPlace(fm, 53.8964918, 27.555559,
-             "Планета Pizza", "улица Карла Маркса", "10", "cafe", "кафе");
-  CheckPlace(fm, 53.8964365, 27.5554007,
-             "Нц Шашек И Шахмат", "улица Карла Маркса", "10", "hotel", "гостиница");
+  // assume that developers have English or Russian system language :)
+  size_t const index = languages::CurrentLanguage() == "ru" ? 0 : 1;
+
+  POIInfo poi1[] = {
+    { "Планета Pizza", "улица Карла Маркса", "10", "кафе" },
+    { "Планета Pizza", "vul. Karla Marksa", "10", "cafe" }
+  };
+  CheckPlace(fm, 53.8964918, 27.555559, poi1[index]);
+
+  POIInfo poi2[] = {
+    { "Нц Шашек И Шахмат", "улица Карла Маркса", "10", "гостиница" },
+    { "Нц Шашек И Шахмат", "vul. Karla Marksa", "10", "hotel" }
+  };
+  CheckPlace(fm, 53.8964365, 27.5554007, poi2[index]);
 }
 
 UNIT_TEST(Bookmarks_IllegalFileName)
