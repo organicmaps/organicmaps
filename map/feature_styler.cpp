@@ -32,12 +32,12 @@ namespace di
 {
   uint32_t DrawRule::GetID(size_t threadSlot) const
   {
-    return (m_transparent ? m_rule->GetID2(threadSlot) : m_rule->GetID(threadSlot));
+    return m_rule->GetID(threadSlot);
   }
 
   void DrawRule::SetID(size_t threadSlot, uint32_t id) const
   {
-    m_transparent ? m_rule->SetID2(threadSlot, id) : m_rule->SetID(threadSlot, id);
+    m_rule->SetID(threadSlot, id);
   }
 
   FeatureStyler::FeatureStyler(FeatureType const & f,
@@ -115,7 +115,6 @@ namespace di
     drule::MakeUnique(keys);
 
     int layer = f.GetLayer();
-    bool isTransparent = false;
     if (layer == feature::LAYER_TRANSPARENT_TUNNEL)
       layer = 0;
 
@@ -167,7 +166,7 @@ namespace di
       if (!m_hasLineStyles && (keys[i].m_type == drule::line))
         m_hasLineStyles = true;
 
-      m_rules[i] = di::DrawRule(drule::rules().Find(keys[i]), depth, isTransparent);
+      m_rules[i] = di::DrawRule(drule::rules().Find(keys[i]), depth);
 
       if (m_rules[i].m_rule->GetCaption(1) != 0)
         hasSecondaryText = true;

@@ -186,9 +186,6 @@ void Drawer::drawPath(di::PathInfo const & path, di::DrawRule const * rules, siz
 
       infos[i] = &penInfos[i];
 
-      if (rules[i].m_transparent)
-        penInfos[i].m_color.a = 100;
-
       resIDs[i] = m_pScreen->invalidHandle();
     }
 
@@ -203,7 +200,7 @@ void Drawer::drawPath(di::PathInfo const & path, di::DrawRule const * rules, siz
       buffer_vector<m2::PointU, 8> rects;
       for (unsigned i = 0; i < count; ++i)
         rects.push_back(infos[i]->resourceSize());
-      LOG(LERROR, ("couldn't successfully pack a sequence of path styles as a whole :" , rects));
+      LOG(LERROR, ("couldn't successfully pack a sequence of path styles as a whole:" , rects));
 
       return;
     }
@@ -356,26 +353,27 @@ void Drawer::Draw(di::FeatureInfo const & fi)
   {
     drule::BaseRule const * pRule = rules[i].m_rule;
 
-    bool const hasSymbol = pRule->GetSymbol() != 0;
+    bool const isSymbol = pRule->GetSymbol() != 0;
     bool const isCaption = pRule->GetCaption(0) != 0;
+    bool const isCircle = pRule->GetCircle() != 0;
 
-    if (pSymbolRule == NULL && pRule->GetSymbol() != 0)
+    if (pSymbolRule == NULL && isSymbol)
     {
       pSymbolRule = pRule;
       symbolDepth = rules[i].m_depth;
     }
 
-    if (pCircleRule == NULL && pRule->GetCircle() != 0)
+    if (pCircleRule == NULL && isCircle)
     {
       pCircleRule = pRule;
       circleDepth = rules[i].m_depth;
     }
 
-    if (!isCaption && isPath && !hasSymbol && (pRule->GetLine() != 0))
+    if (!isCaption && isPath && !isSymbol && (pRule->GetLine() != 0))
       pathRules.push_back(rules[i]);
   }
 
-  isCircleAndSymbol = pSymbolRule != NULL && pCircleRule != NULL;
+  isCircleAndSymbol = (pSymbolRule != NULL) && (pCircleRule != NULL);
 
   if (!pathRules.empty())
   {
@@ -402,19 +400,19 @@ void Drawer::Draw(di::FeatureInfo const & fi)
         for (list<di::AreaInfo>::const_iterator i = fi.m_areas.begin(); i != fi.m_areas.end(); ++i)
         {
           if (isFill)
-            drawArea(*i, di::DrawRule(pRule, depth, false));
-          else if (isCircleAndSymbol)
+            drawArea(*i, di::DrawRule(pRule, depth));
+          else if (isCircleAndSymbol && isCircle)
           {
             drawCircledSymbol(i->GetCenter(),
                               graphics::EPosCenter,
-                              di::DrawRule(pSymbolRule, symbolDepth, false),
-                              di::DrawRule(pCircleRule, circleDepth, false),
+                              di::DrawRule(pSymbolRule, symbolDepth),
+                              di::DrawRule(pCircleRule, circleDepth),
                               id);
           }
           else if (isSymbol)
-            drawSymbol(i->GetCenter(), graphics::EPosCenter, di::DrawRule(pRule, depth, false), id);
+            drawSymbol(i->GetCenter(), graphics::EPosCenter, di::DrawRule(pRule, depth), id);
           else if (isCircle)
-            drawCircle(i->GetCenter(), graphics::EPosCenter, di::DrawRule(pRule, depth, false), id);
+            drawCircle(i->GetCenter(), graphics::EPosCenter, di::DrawRule(pRule, depth), id);
         }
       }
 
@@ -425,14 +423,14 @@ void Drawer::Draw(di::FeatureInfo const & fi)
         {
           drawCircledSymbol(fi.m_point,
                             graphics::EPosCenter,
-                            di::DrawRule(pSymbolRule, symbolDepth, false),
-                            di::DrawRule(pCircleRule, circleDepth, false),
+                            di::DrawRule(pSymbolRule, symbolDepth),
+                            di::DrawRule(pCircleRule, circleDepth),
                             id);
         }
         else if (isSymbol)
-          drawSymbol(fi.m_point, graphics::EPosCenter, di::DrawRule(pRule, depth, false), id);
+          drawSymbol(fi.m_point, graphics::EPosCenter, di::DrawRule(pRule, depth), id);
         else if (isCircle)
-          drawCircle(fi.m_point, graphics::EPosCenter, di::DrawRule(pRule, depth, false), id);
+          drawCircle(fi.m_point, graphics::EPosCenter, di::DrawRule(pRule, depth), id);
       }
     }
     else
@@ -461,20 +459,20 @@ void Drawer::Draw(di::FeatureInfo const & fi)
         if (isArea/* && isN*/)
         {
           for (list<di::AreaInfo>::const_iterator i = fi.m_areas.begin(); i != fi.m_areas.end(); ++i)
-            drawText(i->GetCenter(), textPosition, fi.m_styler, di::DrawRule(pRule, depth, false), id);
+            drawText(i->GetCenter(), textPosition, fi.m_styler, di::DrawRule(pRule, depth), id);
         }
 
         // draw way name
         if (isPath && !isArea && isN && !fi.m_styler.FilterTextSize(pRule))
         {
           for (list<di::PathInfo>::const_iterator i = fi.m_pathes.begin(); i != fi.m_pathes.end(); ++i)
-            drawPathText(*i, fi.m_styler, di::DrawRule(pRule, depth, false));
+            drawPathText(*i, fi.m_styler, di::DrawRule(pRule, depth));
         }
 
         // draw point text
         isN = ((pRule->GetType() & drule::node) != 0);
         if (!isPath && !isArea && isN)
-          drawText(fi.m_point, textPosition, fi.m_styler, di::DrawRule(pRule, depth, false), id);
+          drawText(fi.m_point, textPosition, fi.m_styler, di::DrawRule(pRule, depth), id);
       }
     }
   }

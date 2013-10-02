@@ -45,7 +45,7 @@ namespace feature
     LAYER_LOW = -11,
 
     LAYER_EMPTY = 0,
-    LAYER_TRANSPARENT_TUNNEL = 11,    // draw transparent road (tunnels)
+    LAYER_TRANSPARENT_TUNNEL = 11,
 
     LAYER_HIGH = 12
   };

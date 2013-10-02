@@ -21,15 +21,12 @@ namespace di
   {
     drule::BaseRule const * m_rule;
     double m_depth;
-    bool m_transparent;
 
     DrawRule() : m_rule(0) {}
     DrawRule(drule::BaseRule const * p,
-             double d,
-             bool tr)
+             double d)
       : m_rule(p),
-        m_depth(d),
-        m_transparent(tr)
+        m_depth(d)
     {}
 
     uint32_t GetID(size_t threadSlot) const;

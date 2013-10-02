@@ -129,11 +129,6 @@ namespace ftype
       {
         m_count = 0;
       }
-      ~do_find_name()
-      {
-        if (m_tunnel && m_params.layer < 0)
-          m_params.layer = feature::LAYER_TRANSPARENT_TUNNEL;
-      }
 
       bool GetLangByKey(string const & k, string & lang)
       {
