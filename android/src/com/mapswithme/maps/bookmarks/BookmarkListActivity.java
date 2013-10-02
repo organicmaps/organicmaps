@@ -235,13 +235,13 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
     }
 
     final Intent intent = new Intent(Intent.ACTION_SEND);
-    intent.setType("message/rfc822");
     intent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_bookmarks_email_subject));
     intent.putExtra(android.content.Intent.EXTRA_TEXT, String.format(getString(R.string.share_bookmarks_email_body), name));
 
     path = path + name + ".kmz";
     Log.d(TAG, "KMZ file path = " + path);
-    intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + path));
+    intent.putExtra(android.content.Intent.EXTRA_STREAM, Uri.parse("file://" + path));
+    intent.setType("application/vnd.google-earth.kmz");
 
     try
     {
