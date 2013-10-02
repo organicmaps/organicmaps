@@ -210,7 +210,9 @@ bool FeatureBuilder1::PreSerialize()
   }
 
   // Clear name for features with invisible texts.
-  RemoveNameIfInvisible();
+  // AlexZ: Commented this line to enable captions on subway exits, which
+  // are not drawn but should be visible in balloons and search results
+  //RemoveNameIfInvisible();
 
   return true;
 }
