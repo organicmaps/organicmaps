@@ -162,14 +162,9 @@ graphics::GlyphCache * RenderPolicy::GetGlyphCache() const
   return m_resourceManager->glyphCache(m_resourceManager->guiThreadSlot());
 }
 
-void RenderPolicy::SetRenderFn(TRenderFn renderFn)
+void RenderPolicy::SetRenderFn(TRenderFn const & renderFn)
 {
   m_renderFn = renderFn;
-}
-
-void RenderPolicy::SetCountryIndexFn(TCountryIndexFn const & fn)
-{
-  m_countryIndexFn = fn;
 }
 
 bool RenderPolicy::DoForceUpdate() const

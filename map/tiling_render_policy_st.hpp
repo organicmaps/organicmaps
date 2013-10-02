@@ -10,5 +10,5 @@ public:
 
   ~TilingRenderPolicyST();
 
-  void SetRenderFn(TRenderFn renderFn);
+  void SetRenderFn(TRenderFn const & renderFn);
 };

@@ -785,7 +785,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   bool const isEmptyModel = m_renderPolicy->IsEmptyModel();
 
   if (isEmptyModel)
-    m_informationDisplay.setEmptyCountryIndex(m_renderPolicy->GetCountryIndex());
+    m_informationDisplay.setEmptyCountryIndex(GetCountryIndex(GetViewportCenter()));
 
   m_informationDisplay.enableCountryStatusDisplay(isEmptyModel);
   m_informationDisplay.enableCompassArrow(m_navigator.Screen().GetAngle() != 0);
@@ -1314,8 +1314,6 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 
   if (m_renderPolicy)
   {
-    m_renderPolicy->SetCountryIndexFn(bind(&Framework::GetCountryIndex, this, _1));
-
     m_renderPolicy->SetAnimController(m_animController.get());
 
     m_navigator.SetSupportRotation(m_renderPolicy->DoSupportRotation());

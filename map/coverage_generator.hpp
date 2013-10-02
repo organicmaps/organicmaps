@@ -45,8 +45,7 @@ public:
                     shared_ptr<WindowHandle> const & windowHandle,
                     shared_ptr<graphics::RenderContext> const & primaryRC,
                     shared_ptr<graphics::ResourceManager> const & rm,
-                    graphics::PacketsQueue * glQueue,
-                    RenderPolicy::TCountryIndexFn const & countryIndexFn);
+                    graphics::PacketsQueue * glQueue);
 
   ~CoverageGenerator();
 
@@ -63,9 +62,6 @@ public:
   //}@
 
   void Draw(graphics::Screen * s, ScreenBase const & screen);
-
-  storage::TIndex GetCountryIndex(m2::PointD const & pt) const;
-  storage::TIndex GetCountryIndexAtCenter() const;
 
   //@{ Frame lock
   void Lock();
@@ -89,9 +85,7 @@ private:
                         shared_ptr<graphics::ResourceManager> resourceManager);
   //@}
 
-  void MergeTile(Tiler::RectInfo const & rectInfo,
-                        int sequenceID);
-  void CheckEmptyModel(int sequenceID);
+  void MergeTile(Tiler::RectInfo const & rectInfo, int sequenceID);
 
 private:
   void CoverScreenImpl(core::CommandsQueue::Environment const & env,
@@ -104,7 +98,6 @@ private:
 
   void InvalidateTilesImpl(m2::AnyRectD const & rect, int startScale);
 
-  void CheckEmptyModelImpl(int sequenceID);
   bool IsBackEmptyDrawing() const;
 
 private:
@@ -167,14 +160,6 @@ private:
 
     graphics::Overlay * m_overlay;
   } m_coverageInfo;
-
-  struct IndexInfo
-  {
-    IndexInfo(RenderPolicy::TCountryIndexFn indexFn);
-
-    RenderPolicy::TCountryIndexFn m_countryIndexFn;
-    storage::TIndex m_countryIndex;
-  } m_indexInfo;
 
   struct CachedCoverageInfo
   {

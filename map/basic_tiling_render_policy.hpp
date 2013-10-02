@@ -35,7 +35,6 @@ protected:
 
   ScreenBase m_CurrentScreen;
   bool m_IsEmptyModel;
-  storage::TIndex m_countryIndex;
   bool m_IsNavigating;
   bool m_WasAnimatingLastFrame;
   size_t m_TileSize;
@@ -73,7 +72,6 @@ public:
   bool NeedRedraw() const;
   bool IsTiling() const;
   bool IsEmptyModel() const;
-  storage::TIndex GetCountryIndex() const;
   size_t TileSize() const;
 
   void FrameLock();

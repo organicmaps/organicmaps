@@ -67,10 +67,8 @@ TilingRenderPolicyMT::~TilingRenderPolicyMT()
   m_TileRenderer.reset();
 }
 
-void TilingRenderPolicyMT::SetRenderFn(TRenderFn renderFn)
+void TilingRenderPolicyMT::SetRenderFn(TRenderFn const & renderFn)
 {
-  string skinName = SkinName();
-
   m_TileRenderer.reset(new TileRenderer(TileSize(),
                                         GetPlatform().CpuCores(),
                                         m_bgColor,
@@ -84,6 +82,5 @@ void TilingRenderPolicyMT::SetRenderFn(TRenderFn renderFn)
                                                   m_windowHandle,
                                                   m_primaryRC,
                                                   m_resourceManager,
-                                                  0,
-                                                  m_countryIndexFn));
+                                                  0));
 }

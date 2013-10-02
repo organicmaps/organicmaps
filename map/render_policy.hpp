@@ -2,8 +2,6 @@
 
 #include "drawer.hpp"
 
-#include "../storage/index.hpp"
-
 #include "../graphics/color.hpp"
 
 #include "../geometry/rect2d.hpp"
@@ -47,9 +45,6 @@ public:
                         m2::RectD const &,
                         int)> TRenderFn;
 
-  typedef function<bool (m2::PointD const &)> TEmptyModelFn;
-  typedef function<storage::TIndex (m2::PointD const &)> TCountryIndexFn;
-
 protected:
 
   graphics::Color m_bgColor;
@@ -60,7 +55,6 @@ protected:
   shared_ptr<WindowHandle> m_windowHandle;
   shared_ptr<Drawer> m_drawer;
   TRenderFn m_renderFn;
-  TCountryIndexFn m_countryIndexFn;
   bool m_doSupportRotation;
   bool m_doForceUpdate;
   m2::AnyRectD m_invalidRect;
@@ -118,9 +112,8 @@ public:
   /// @}
 
   /// the start point of rendering in renderpolicy.
-  virtual void SetRenderFn(TRenderFn renderFn);
+  virtual void SetRenderFn(TRenderFn const & renderFn);
 
-  void SetCountryIndexFn(TCountryIndexFn const & fn);
   void SetAnimController(anim::Controller * controller);
 
   bool DoSupportRotation() const;
@@ -128,7 +121,6 @@ public:
 
   virtual bool NeedRedraw() const;
   virtual bool IsEmptyModel() const;
-  virtual storage::TIndex GetCountryIndex() const { return storage::TIndex(); }
 
   bool DoForceUpdate() const;
   void SetForceUpdate(bool flag);

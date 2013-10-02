@@ -91,8 +91,6 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
   m_CoverageGenerator->Draw(pDrawer->screen(), s);
 
   m_IsEmptyModel = m_CoverageGenerator->IsEmptyDrawing();
-  if (m_IsEmptyModel)
-    m_countryIndex = m_CoverageGenerator->GetCountryIndexAtCenter();
 
   pDrawer->endFrame();
 }
@@ -183,11 +181,6 @@ bool BasicTilingRenderPolicy::IsTiling() const
 bool BasicTilingRenderPolicy::IsEmptyModel() const
 {
   return m_IsEmptyModel;
-}
-
-storage::TIndex BasicTilingRenderPolicy::GetCountryIndex() const
-{
-  return m_countryIndex;
 }
 
 bool BasicTilingRenderPolicy::NeedRedraw() const

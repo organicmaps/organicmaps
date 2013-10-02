@@ -1,10 +1,9 @@
-#include "../base/SRC_FIRST.hpp"
-#include "../platform/settings.hpp"
-#include "../platform/platform.hpp"
-
 #include "coverage_generator.hpp"
 #include "tile_renderer.hpp"
 #include "tile_set.hpp"
+
+#include "../platform/settings.hpp"
+#include "../platform/platform.hpp"
 
 #include "../graphics/opengl/gl_render_context.hpp"
 #include "../graphics/display_list.hpp"
@@ -13,14 +12,13 @@
 
 #include "../std/bind.hpp"
 
+
 CoverageGenerator::CoverageGenerator(TileRenderer * tileRenderer,
                                      shared_ptr<WindowHandle> const & windowHandle,
                                      shared_ptr<graphics::RenderContext> const & primaryRC,
                                      shared_ptr<graphics::ResourceManager> const & rm,
-                                     graphics::PacketsQueue * glQueue,
-                                     RenderPolicy::TCountryIndexFn const & countryIndexFn)
+                                     graphics::PacketsQueue * glQueue)
   : m_coverageInfo(tileRenderer)
-  , m_indexInfo(countryIndexFn)
   , m_queue(1)
   , m_windowHandle(windowHandle)
 {
@@ -133,11 +131,6 @@ void CoverageGenerator::MergeTile(Tiler::RectInfo const & rectInfo,
   m_queue.AddCommand(bind(&CoverageGenerator::MergeTileImpl, this, _1, rectInfo, sequenceID));
 }
 
-void CoverageGenerator::CheckEmptyModel(int sequenceID)
-{
-  m_queue.AddCommand(bind(&CoverageGenerator::CheckEmptyModelImpl, this, sequenceID));
-}
-
 void CoverageGenerator::FinishSequenceIfNeeded()
 {
   m_queue.AddCommand(bind(&CoverageGenerator::BenchmarkInfo::TryFinishSequence, &m_benchmarkInfo));
@@ -165,16 +158,6 @@ void CoverageGenerator::Draw(graphics::Screen * s, ScreenBase const & screen)
 
   if (m_benchmarkInfo.m_isBenchmarking)
     FinishSequenceIfNeeded();
-}
-
-storage::TIndex CoverageGenerator::GetCountryIndex(m2::PointD const & pt) const
-{
-  return m_indexInfo.m_countryIndexFn(pt);
-}
-
-storage::TIndex CoverageGenerator::GetCountryIndexAtCenter() const
-{
-  return m_indexInfo.m_countryIndex;
 }
 
 graphics::Overlay * CoverageGenerator::GetOverlay() const
@@ -226,11 +209,7 @@ void CoverageGenerator::CoverScreenImpl(core::CommandsQueue::Environment const &
 
   ComputeCoverTasks();
 
-  if (IsBackEmptyDrawing())
-    CheckEmptyModelImpl(sequenceID);
-
-  bool shouldSwap = !m_stateInfo.m_isPause && CacheCoverage(env);
-
+  bool const shouldSwap = !m_stateInfo.m_isPause && CacheCoverage(env);
   if (shouldSwap)
   {
     threads::MutexGuard g(m_stateInfo.m_mutex);
@@ -238,11 +217,12 @@ void CoverageGenerator::CoverScreenImpl(core::CommandsQueue::Environment const &
   }
   else
   {
-    /// we should skip all the following MergeTile commands
+    // we should skip all the following MergeTile commands
     ++m_stateInfo.m_sequenceID;
   }
 
   m_stateInfo.SetForceUpdate(!shouldSwap);
+
   m_windowHandle->invalidate();
 }
 
@@ -261,11 +241,7 @@ void CoverageGenerator::MergeTileImpl(core::CommandsQueue::Environment const & e
   m_backCoverage->m_renderLeafTilesCount = m_currentCoverage->m_renderLeafTilesCount;
   MergeSingleTile(rectInfo);
 
-  if (IsBackEmptyDrawing())
-    CheckEmptyModelImpl(sequenceID);
-
-  bool shouldSwap = !m_stateInfo.m_isPause && CacheCoverage(env);
-
+  bool const shouldSwap = !m_stateInfo.m_isPause && CacheCoverage(env);
   if (shouldSwap)
   {
     threads::MutexGuard g(m_stateInfo.m_mutex);
@@ -327,20 +303,6 @@ void CoverageGenerator::InvalidateTilesImpl(m2::AnyRectD const & r, int startSca
   tileCache.Unlock();
 
   MergeOverlay();
-}
-
-void CoverageGenerator::CheckEmptyModelImpl(int sequenceID)
-{
-  if (sequenceID < m_stateInfo.m_sequenceID)
-    return;
-
-  if (IsBackEmptyDrawing() || IsEmptyDrawing())
-  {
-    m2::PointD const centerPt = m_stateInfo.m_currentScreen.GlobalRect().GetGlobalRect().Center();
-    m_indexInfo.m_countryIndex = GetCountryIndex(centerPt);
-  }
-
-  m_windowHandle->invalidate();
 }
 
 ////////////////////////////////////////////////////////////
@@ -720,15 +682,6 @@ CoverageGenerator::CoverageInfo::CoverageInfo(TileRenderer *tileRenderer)
 CoverageGenerator::CoverageInfo::~CoverageInfo()
 {
   delete m_overlay;
-}
-
-////////////////////////////////////////////////////////////
-///                   IndexInfo
-////////////////////////////////////////////////////////////
-CoverageGenerator::IndexInfo::IndexInfo(RenderPolicy::TCountryIndexFn indexFn)
-  : m_countryIndexFn(indexFn)
-  , m_countryIndex()
-{
 }
 
 CoverageGenerator::CachedCoverageInfo::CachedCoverageInfo()

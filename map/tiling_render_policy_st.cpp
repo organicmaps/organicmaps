@@ -92,10 +92,9 @@ TilingRenderPolicyST::~TilingRenderPolicyST()
   LOG(LINFO, ("done reseting tileRenderer"));
 }
 
-void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
+void TilingRenderPolicyST::SetRenderFn(TRenderFn const & renderFn)
 {
-  int cpuCores = GetPlatform().CpuCores();
-  string skinName = SkinName();
+  int const cpuCores = GetPlatform().CpuCores();
 
   graphics::PacketsQueue ** queues = new graphics::PacketsQueue*[cpuCores];
 
@@ -120,6 +119,5 @@ void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
                                                   m_windowHandle,
                                                   m_primaryRC,
                                                   m_resourceManager,
-                                                  m_QueuedRenderer->GetPacketsQueue(cpuCores),
-                                                  m_countryIndexFn));
+                                                  m_QueuedRenderer->GetPacketsQueue(cpuCores)));
 }
