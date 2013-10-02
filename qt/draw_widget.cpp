@@ -588,9 +588,16 @@ namespace qt
     if (m_framework->GetCurrentPosition(lat, lon))
       params.SetPosition(lat, lon);
 
-    /// @todo This stuff doesn't work (QT4xx bug). Probably in QT5 ...
-    //QLocale loc = QApplication::keyboardInputLocale();
-    //params.SetInputLanguage(loc.name().toAscii().data());
+    // This stuff always returns system language (not keyboard input language).
+    /*
+    QInputMethod const * pIM = QApplication::inputMethod();
+    if (pIM)
+    {
+      string const lang = pIM->locale().name().toStdString();
+      LOG(LDEBUG, ("QT input language", lang));
+      params.SetInputLanguage(lang);
+    }
+    */
 
     return m_framework->Search(params);
   }
