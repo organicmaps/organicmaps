@@ -1,7 +1,7 @@
 line[highway]
 {
     casing-color: #B5944C;
-    casing-width: 0.5;
+    casing-width: 0.8;
 }
 line[highway=pedestrian],
 line[highway=footway],

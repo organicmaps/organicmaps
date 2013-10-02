@@ -633,6 +633,7 @@ world  +
         doityourself  -
         electronics  -
         florist  -
+        furniture  -
         garden_centre  -
         gift  -
         greengrocer  -

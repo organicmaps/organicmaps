@@ -952,3 +952,4 @@ landuse|residential|rural;[landuse=residential][residential=rural];;name;int_nam
 landuse|residential|urban;[landuse=residential][residential=urban];;name;int_name;952;
 amenity|ferry_terminal;[amenity=ferry_terminal];;name;int_name;953;
 amenity;[amenity];;name;int_name;954;
+shop|furniture;[shop=furniture];;name;int_name;955;

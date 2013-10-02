@@ -38,7 +38,6 @@ area[natural=coastline]
   fill-color: #f1eee8;
 }
 *[amenity],
-*[shop],
 *[office],
 *[historic],
 *[tourism],
@@ -63,6 +62,7 @@ area[tourism],
 }
 
 @import("include/base_roads.mapcss");
+@import("include/base_shop.mapcss");
 
 line[highway=bus_stop],
 line[highway=motorway_junction]
@@ -3280,12 +3280,10 @@ line|z16[boundary=administrative][border_type=country]
 }
 area|z17-[amenity],
 area|z17-[historic],
-area|z17-[shop][shop!=no],
 area|z17-[office][office!=no],
 area|z17-[tourism],
 node|z17-[amenity],
 node|z17-[historic],
-node|z17-[shop][shop!=no],
 node|z17-[office][office!=no],
 node|z17-[tourism]
 {
@@ -3389,11 +3387,7 @@ node|z16-[amenity=fast_food]
 {
   icon-image:   fastfood.svg;
 }
-area|z16-[shop=car_repair],
-node|z16-[shop=car_repair]
-{
-  icon-image:   car_repair.svg;
-}
+
 line|z16[boundary=administrative][border_type=country]::d2p2
 {
   color:    #f9574b;
@@ -3642,11 +3636,7 @@ line|z16[boundary=administrative][admin_level=8]
   z-index:  929;
   dashes:   12,4,4,4;
 }
-area|z16-[shop=kiosk],
-node|z16-[shop=kiosk]
-{
-  icon-image:   kiosk.svg;
-}
+
 line|z16[boundary=administrative][admin_level=6]
 {
   color:    #f9574b;
@@ -3804,11 +3794,7 @@ line|z16[railway=construction]::d1p3
   dashes:   4,4,4,12;
   linecap:  butt;
 }
-area|z16-[shop=bakery],
-node|z16-[shop=bakery]
-{
-  icon-image:   bakery.svg;
-}
+
 area|z16[amenity=taxi],
 area|z17-[amenity=taxi],
 node|z16[amenity=taxi],
@@ -3899,31 +3885,7 @@ line|z16[railway=funicular]::d1p3
   z-index:  651;
 }
 area|z16-[amenity=marketplace],
-area|z16-[shop=convenience],
-area|z16-[shop=mall],
-area|z17-[shop=florist],
-area|z17-[shop=butcher],
-area|z16-[shop=doityourself],
-area|z16-[shop=supermarket],
-area|z16-[shop=bicycle],
-area|z17-[shop=alcohol],
-area|z17-[shop=books],
-area|z17-[shop=electronics],
-area|z17-[shop=shoes],
-area|z16-[shop=department_store],
-node|z16-[amenity=marketplace],
-node|z16-[shop=convenience],
-node|z16-[shop=mall],
-node|z17-[shop=florist],
-node|z17-[shop=butcher],
-node|z17-[shop=doityourself],
-node|z16-[shop=supermarket],
-node|z16-[shop=bicycle],
-node|z17-[shop=alcohol],
-node|z17-[shop=books],
-node|z17-[shop=electronics],
-node|z17-[shop=shoes],
-node|z16-[shop=department_store],
+node|z16-[amenity=marketplace]
 {
   icon-image:   supermarket.svg;
 }
@@ -3984,11 +3946,6 @@ line|z16[waterway=river]
 {
   color:    #B9D4D4;
   width:    8;
-}
-area|z16-[shop=hairdresser],
-node|z16-[shop=hairdresser]
-{
-  icon-image:   hairdresser.svg;
 }
 area|z16-[railway=crossing],
 node|z16-[railway=crossing]
@@ -4293,11 +4250,7 @@ node|z16-[amenity=library],
 {
   icon-image:   library.svg;
 }
-area|z16-[shop=clothes],
-node|z16-[shop=clothes]
-{
-  icon-image:   clothes.svg;
-}
+
 line|z16[aerialway=gondola]
 {
   color:    #202020;
