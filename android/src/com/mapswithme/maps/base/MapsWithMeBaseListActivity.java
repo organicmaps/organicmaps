@@ -6,9 +6,8 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.ListActivity;
-import android.os.Build;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.MenuItem;
@@ -56,7 +55,7 @@ public class MapsWithMeBaseListActivity extends ListActivity
     if (Utils.apiEqualOrGreaterThan(11))
     {
       // http://stackoverflow.com/questions/6867076/getactionbar-returns-null
-      ActionBar bar = getActionBar();
+      final ActionBar bar = getActionBar();
       if (bar != null)
         bar.setDisplayHomeAsUpEnabled(true);
     }
@@ -86,8 +85,8 @@ public class MapsWithMeBaseListActivity extends ListActivity
   {
     if (item.getItemId() == android.R.id.home)
     {
-      InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-      imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+      final InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+      im.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
       onBackPressed();
       return true;
     }
