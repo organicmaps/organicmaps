@@ -2747,7 +2747,6 @@ node|z15-[leisure=nature_reserve]
 area|z15-[building]
 {
   fill-color:   #3;
-  z-index: 900;
 }
 
 line|z15[railway=narrow_gauge]
