@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -42,9 +43,19 @@ public class ContextMenu
       }
     });
 
+    String versionStr = "";
+    try
+    {
+      versionStr = parent.getPackageManager().getPackageInfo(parent.getPackageName(), 0).versionName;
+    }
+    catch (NameNotFoundException e)
+    {
+      e.printStackTrace();
+    }
+
     new AlertDialog.Builder(parent)
     .setView(alertDialogView)
-    .setTitle(R.string.about)
+    .setTitle(String.format(parent.getString(R.string.version), versionStr))
     .setPositiveButton(R.string.close, new DialogInterface.OnClickListener()
     {
       @Override
