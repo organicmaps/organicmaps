@@ -60,20 +60,25 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
 void SimpleRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
                                ScreenBase const & s)
 {
-  shared_ptr<graphics::Overlay> overlay(new graphics::Overlay());
-  overlay->setCouldOverlap(false);
+  m_overlay.reset(new graphics::Overlay());
 
   Drawer * pDrawer = e->drawer();
   graphics::Screen * pScreen = pDrawer->screen();
 
-  pScreen->setOverlay(overlay);
+  pScreen->setOverlay(m_overlay);
   pScreen->beginFrame();
   pScreen->clear(m_bgColor);
 
   m_renderFn(e, s, s.PixelRect(), ScalesProcessor().GetTileScaleBase(s));
 
-  overlay->draw(pScreen, math::Identity<double, 3>());
   pScreen->resetOverlay();
+  pScreen->clear(graphics::Color::White(), false, 1.0, true);
+  m_overlay->draw(pScreen, math::Identity<double, 3>());
 
   pScreen->endFrame();
+}
+
+graphics::Overlay * SimpleRenderPolicy::FrameOverlay() const
+{
+  return m_overlay.get();
 }
