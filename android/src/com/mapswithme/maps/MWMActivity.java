@@ -46,6 +46,7 @@ import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
+import com.mapswithme.util.statistics.Statistics;
 import com.nvidia.devtech.NvEventQueueActivity;
 
 public class MWMActivity extends NvEventQueueActivity implements LocationService.Listener, OnBalloonListener
@@ -619,6 +620,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
             Yota.showLocation(getApplicationContext(), zoom);
           else
             Yota.showMap(getApplicationContext(), latLon[0], latLon[1], zoom, null, locState.hasPosition());
+
+          Statistics.INSTANCE.trackBackscreenCall(getApplication(), "Map");
         }
       });
     }

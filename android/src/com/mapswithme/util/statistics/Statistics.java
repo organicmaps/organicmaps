@@ -56,6 +56,16 @@ public enum Statistics
       mLogger.d("Skipped event:", event);
   }
 
+  public void trackBackscreenCall(Context context, String from)
+  {
+    final Event event = getEventBuilder().reset()
+                         .setName("Yota back screen call")
+                         .addParam("from", from)
+                         .getEvent();
+
+    trackIfEnabled(context, event);
+  }
+
   public void trackCountryDownload(Context context)
   {
     trackIfEnabled(context, getEventBuilder().getSimpleNamedEvent("Country download"));

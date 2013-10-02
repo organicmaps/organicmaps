@@ -33,6 +33,7 @@ import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
+import com.mapswithme.util.statistics.Statistics;
 
 @SuppressLint("NewApi")
 public class MapObjectFragment extends Fragment
@@ -380,6 +381,8 @@ public class MapObjectFragment extends Fragment
       final boolean addLastKnown = MWMApplication.get().getLocationState().hasPosition();
       Yota.showMap(getActivity(), mLat, mLon, Framework.getDrawScale(),
           mType == MapObjectType.MY_POSITION ? null : mName, addLastKnown);
+
+      Statistics.INSTANCE.trackBackscreenCall(getActivity(), "PlacePage");
     }
 
     return super.onOptionsItemSelected(item);
