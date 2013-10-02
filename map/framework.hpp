@@ -368,19 +368,24 @@ public:
   virtual void EndPaint(shared_ptr<PaintEvent> const & e);
 
 private:
-  m2::AnyRectD ToRotated(m2::RectD const & rect) const;
-  void CheckMinGlobalRect(m2::AnyRectD & rect) const;
+  /// Always check rect in public function for minimal draw scale.
+  void CheckMinGlobalRect(m2::RectD & rect) const;
   /// @return true if rect was fixed to display downloaded zoom level (world map)
   bool CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale = -1) const;
-  void ShowRectFixed(m2::AnyRectD const & rect);
+
+  m2::AnyRectD ToRotated(m2::RectD const & rect) const;
+  void ShowRectFixed(m2::RectD const & rect);
 
 public:
+  /// Show rect for point and needed draw scale.
   void ShowRect(double lat, double lon, double zoom);
-  /// Set navigator viewport by rect as-is.
-  void ShowRect(m2::RectD const & rect);
+
+  /// Set navigator viewport by rect as-is (rect should be in screen viewport).
+  void ShowRect(m2::RectD rect);
+
   /// - Use navigator rotate angle.
-  /// - Check for fixed scales from navigator.
-  void ShowRectEx(m2::RectD const & rect);
+  /// - Check for fixed scales (rect scale matched on draw tile scale).
+  void ShowRectEx(m2::RectD rect);
   /// - Check minimal visible scale according to downloaded countries.
   void ShowRectExVisibleScale(m2::RectD rect, int maxScale = -1);
 

@@ -830,8 +830,6 @@ void Framework::SetViewportCenter(m2::PointD const & pt)
   Invalidate();
 }
 
-static int const theMetersFactor = 6;
-
 m2::AnyRectD Framework::ToRotated(m2::RectD const & rect) const
 {
   double const dx = rect.SizeX();
@@ -842,16 +840,11 @@ m2::AnyRectD Framework::ToRotated(m2::RectD const & rect) const
                       m2::RectD(-dx/2, -dy/2, dx/2, dy/2));
 }
 
-void Framework::CheckMinGlobalRect(m2::AnyRectD & rect) const
+void Framework::CheckMinGlobalRect(m2::RectD & rect) const
 {
-  m2::RectD const minRect = MercatorBounds::RectByCenterXYAndSizeInMeters(
-                                rect.GlobalCenter(), theMetersFactor * m_metresMinWidth);
-
-  m2::AnyRectD const minAnyRect = ToRotated(minRect);
-
-  /// @todo It would be better here to check only AnyRect ortho-sizes with minimal values.
-  if (minAnyRect.IsRectInside(rect))
-    rect = minAnyRect;
+  m2::RectD const minRect = m_scales.GetRectForDrawScale(scales::GetUpperStyleScale(), rect.Center());
+  if (minRect.IsRectInside(rect))
+    rect = minRect;
 }
 
 bool Framework::CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/) const
@@ -880,44 +873,41 @@ bool Framework::CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/)
 
 void Framework::ShowRect(double lat, double lon, double zoom)
 {
-  m2::RectD rect = m_scales.GetRectForDrawScale(zoom,
-                                                m2::PointD(MercatorBounds::LonToX(lon),
-                                                           MercatorBounds::LatToY(lat)));
-  ShowRectEx(rect);
+  m2::PointD center(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
+  ShowRectEx(m_scales.GetRectForDrawScale(zoom, center));
 }
 
-void Framework::ShowRect(m2::RectD const & r)
+void Framework::ShowRect(m2::RectD rect)
 {
-  m2::AnyRectD rect(r);
   CheckMinGlobalRect(rect);
 
-  m_navigator.SetFromRect(rect);
+  m_navigator.SetFromRect(m2::AnyRectD(rect));
   Invalidate();
 }
 
-void Framework::ShowRectEx(m2::RectD const & rect)
+void Framework::ShowRectEx(m2::RectD rect)
 {
-  ShowRectFixed(ToRotated(rect));
+  CheckMinGlobalRect(rect);
+
+  ShowRectFixed(rect);
 }
 
 void Framework::ShowRectExVisibleScale(m2::RectD rect, int maxScale/* = -1*/)
 {
   CheckMinMaxVisibleScale(rect, maxScale);
-  ShowRectEx(rect);
+
+  ShowRectFixed(rect);
 }
 
-void Framework::ShowRectFixed(m2::AnyRectD const & r)
+void Framework::ShowRectFixed(m2::RectD const & r)
 {
-  m2::AnyRectD rect(r);
-  CheckMinGlobalRect(rect);
-
   double const halfSize = m_scales.GetTileSize() / 2.0;
   m2::RectD etalonRect(-halfSize, -halfSize, halfSize, halfSize);
 
   m2::PointD const pxCenter = m_navigator.Screen().PixelRect().Center();
   etalonRect.Offset(pxCenter);
 
-  m_navigator.SetFromRects(rect, etalonRect);
+  m_navigator.SetFromRects(ToRotated(r), etalonRect);
 
   Invalidate();
 }
