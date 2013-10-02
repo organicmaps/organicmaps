@@ -26,9 +26,10 @@ namespace yopme
     : m_width(width)
     , m_height(height)
   {
-    // TODO move this in some method like ExternalStorageConnected
-    m_framework.AddLocalMaps();
-    m_framework.LoadBookmarks();
+    m_framework.OnSize(width, height);
+
+    OnMapFileUpdate();
+    OnKmlFileUpdate();
   }
 
   Framework::~Framework()
@@ -82,19 +83,12 @@ namespace yopme
     rpParams.m_screenWidth = m_width;
     rpParams.m_screenHeight = m_height;
 
-    try
-    {
-      YopmeRP * rp = new YopmeRP(rpParams);
-      m_framework.SetRenderPolicy(rp);
-      m_framework.InitGuiSubsystem();
-      m_framework.OnSize(m_width, m_height);
-      rp->SetDrawingApiPin(needApiPin, m_framework.GtoP(apiPinPoint));
-      rp->SetDrawingMyLocation(needMyLoc, m_framework.GtoP(myLocPoint));
-    }
-    catch(RootException & e)
-    {
-      LOG(LERROR, (e.what()));
-    }
+    YopmeRP * rp = new YopmeRP(rpParams);
+    m_framework.SetRenderPolicy(rp);
+    m_framework.InitGuiSubsystem();
+
+    rp->SetDrawingApiPin(needApiPin, m_framework.GtoP(apiPinPoint));
+    rp->SetDrawingMyLocation(needMyLoc, m_framework.GtoP(myLocPoint));
   }
 
   void Framework::TeardownRenderPolicy()

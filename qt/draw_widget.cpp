@@ -282,11 +282,6 @@ namespace qt
         /// @todo Show "Please Update Drivers" dialog and close the program.
       }
 
-      catch (RootException const & e)
-      {
-        LOG(LERROR, (e.what()));
-      }
-
       m_isInitialized = true;
     }
   }

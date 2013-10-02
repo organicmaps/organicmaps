@@ -682,17 +682,15 @@ void Framework::OnSize(int w, int h)
   if (w < 2) w = 2;
   if (h < 2) h = 2;
 
+  m_navigator.OnSize(0, 0, w, h);
+
   if (m_renderPolicy)
   {
     m_informationDisplay.setDisplayRect(m2::RectI(0, 0, w, h));
 
     m_renderPolicy->OnSize(w, h);
 
-    m_navigator.OnSize(0, 0, w, h);
-
     m_balloonManager.ScreenSizeChanged(w, h);
-
-    m_scales.SetParams(m_renderPolicy->VisualScale(), m_renderPolicy->TileSize());
   }
 
   m_width = w;
@@ -1319,6 +1317,8 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
     m_navigator.SetSupportRotation(m_renderPolicy->DoSupportRotation());
 
     m_renderPolicy->SetRenderFn(DrawModelFn());
+
+    m_scales.SetParams(m_renderPolicy->VisualScale(), m_renderPolicy->TileSize());
 
     if (m_benchmarkEngine)
       m_benchmarkEngine->Start();
