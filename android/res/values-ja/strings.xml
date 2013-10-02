@@ -291,4 +291,6 @@
 	<string name="info">情報</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">完了</string>
+	<!-- Prints version number in About dialog -->
+	<string name="version">バージョン： %s</string>
 </resources>

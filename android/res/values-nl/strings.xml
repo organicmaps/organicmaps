@@ -290,4 +290,6 @@
 	<string name="yopme_pref_title">Instellingen voor achtergrondscherm</string>
 	<!-- Hint for upper-right icon p2b -->
 	<string name="show_on_backscreen">Toon op achtergrondscherm</string>
+	<!-- Prints version number in About dialog -->
+	<string name="version">Versie: %s</string>
 </resources>

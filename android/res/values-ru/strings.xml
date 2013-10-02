@@ -303,4 +303,6 @@
 	<string name="yopme_pref_title">Настройки дополнительного экрана</string>
 	<!-- Hint for upper-right icon p2b -->
 	<string name="show_on_backscreen">Показать на дополнительном экране</string>
+	<!-- Prints version number in About dialog -->
+	<string name="version">Версия: %s</string>
 </resources>

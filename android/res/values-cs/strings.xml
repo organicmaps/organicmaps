@@ -301,4 +301,6 @@
 	<string name="yopme_pref_title">Nastavení zadní obrazovky</string>
 	<!-- Hint for upper-right icon p2b -->
 	<string name="show_on_backscreen">Zobrazit na zadní obrazovce</string>
+	<!-- Prints version number in About dialog -->
+	<string name="version">Verze: %s</string>
 </resources>

@@ -321,4 +321,6 @@
 	<string name="yopme_pref_title">Back Screen Settings</string>
 	<!-- Hint for upper-right icon p2b -->
 	<string name="show_on_backscreen">Show on Back screen</string>
+	<!-- Prints version number in About dialog -->
+	<string name="version">Version: %s</string>
 </resources>

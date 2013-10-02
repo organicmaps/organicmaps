@@ -305,4 +305,6 @@
 	<string name="yopme_pref_title">Налаштування заднього екрану</string>
 	<!-- Hint for upper-right icon p2b -->
 	<string name="show_on_backscreen">Показати на задньому екрані</string>
+	<!-- Prints version number in About dialog -->
+	<string name="version">Версія: %s</string>
 </resources>

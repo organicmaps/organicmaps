@@ -2641,3 +2641,21 @@
     pl = Pokaż na tylnym ekranie
     pt = Mostrar no Ecrã Posterior
     uk = Показати на задньому екрані
+
+  [version]
+    tags = android
+    comment = Prints version number in About dialog
+    en = Version: %@
+    ru = Версия: %@
+    uk = Версія: %@
+    es = Versión: %@
+    pt = Versão: %@
+    pl = Wersja: %@
+    it = Versione: %@
+    nl = Versie: %@
+    de = Version: %@
+    cs = Verze: %@
+    fr = Version: %@
+    ja = バージョン： %@
+    ko = 버전: %@
+    zh-Hant = 版本： %@

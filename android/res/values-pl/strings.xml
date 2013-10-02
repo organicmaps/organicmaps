@@ -314,4 +314,6 @@
 	<string name="yopme_pref_title">Ustawienia tylnego ekranu</string>
 	<!-- Hint for upper-right icon p2b -->
 	<string name="show_on_backscreen">Pokaż na tylnym ekranie</string>
+	<!-- Prints version number in About dialog -->
+	<string name="version">Wersja: %s</string>
 </resources>

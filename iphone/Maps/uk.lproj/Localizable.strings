@@ -493,3 +493,6 @@
 
 /* Hint for upper-right icon p2b */
 "show_on_backscreen" = "Показати на задньому екрані";
+
+/* Prints version number in About dialog */
+"version" = "Версія: %@";

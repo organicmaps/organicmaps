@@ -301,4 +301,6 @@
 	<string name="yopme_pref_title">Impostazioni Sfondo</string>
 	<!-- Hint for upper-right icon p2b -->
 	<string name="show_on_backscreen">Mostra Sfondo</string>
+	<!-- Prints version number in About dialog -->
+	<string name="version">Versione: %s</string>
 </resources>

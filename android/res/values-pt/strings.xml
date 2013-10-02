@@ -312,4 +312,6 @@
 	<string name="yopme_pref_title">Configurações do Ecrã Posterior</string>
 	<!-- Hint for upper-right icon p2b -->
 	<string name="show_on_backscreen">Mostrar no Ecrã Posterior</string>
+	<!-- Prints version number in About dialog -->
+	<string name="version">Versão: %s</string>
 </resources>

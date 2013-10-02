@@ -291,4 +291,6 @@
 	<string name="yopme_pref_title">Configuración de la pantalla trasera</string>
 	<!-- Hint for upper-right icon p2b -->
 	<string name="show_on_backscreen">Mostrar en la pantalla trasera</string>
+	<!-- Prints version number in About dialog -->
+	<string name="version">Versión: %s</string>
 </resources>
