@@ -70,7 +70,7 @@ void CountryStatusDisplay::cache()
 
   string const dn = displayName();
 
-  if (m_countryIdx != storage::TIndex())
+  if (m_countryIdx.IsValid())
   {
     switch (m_countryStatus)
     {
@@ -239,12 +239,15 @@ void CountryStatusDisplay::setCountryIndex(storage::TIndex const & idx)
   {
     m_countryIdx = idx;
 
-    m_storage->GetGroupAndCountry(idx, m_mapGroupName, m_mapName);
-    LOG(LDEBUG, (m_mapName, m_mapGroupName));
+    if (m_countryIdx.IsValid())
+    {
+      m_storage->GetGroupAndCountry(idx, m_mapGroupName, m_mapName);
+      LOG(LDEBUG, (m_mapName, m_mapGroupName));
 
-    UpdateStatusAndProgress();
+      UpdateStatusAndProgress();
 
-    m_notEnoughSpace = false;
+      m_notEnoughSpace = false;
+    }
 
     setIsDirtyLayout(true);
     invalidate();
