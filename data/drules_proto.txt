@@ -41823,6 +41823,7 @@ cont {
       secondary {
         height: 14
         color: 12303274
+        offset_y: 20
       }
       priority: 15000
     }
@@ -41837,6 +41838,7 @@ cont {
       secondary {
         height: 14
         color: 12303274
+        offset_y: 20
       }
       priority: 15000
     }
@@ -42246,6 +42248,7 @@ cont {
       secondary {
         height: 12
         color: 10066329
+        offset_y: 20
       }
       priority: 15000
     }
@@ -42262,6 +42265,7 @@ cont {
         height: 12
         color: 10066329
         stroke_color: 16777215
+        offset_y: 20
       }
       priority: 15000
     }
@@ -42278,6 +42282,7 @@ cont {
         height: 12
         color: 10066329
         stroke_color: 16777215
+        offset_y: 20
       }
       priority: 15000
     }
@@ -42844,6 +42849,7 @@ cont {
       secondary {
         height: 12
         color: 11184810
+        offset_y: 20
       }
       priority: 15033
     }
@@ -42858,6 +42864,7 @@ cont {
       secondary {
         height: 12
         color: 11184810
+        offset_y: 20
       }
       priority: 15033
     }
@@ -42872,6 +42879,7 @@ cont {
       secondary {
         height: 12
         color: 11184810
+        offset_y: 20
       }
       priority: 15033
     }
@@ -42886,6 +42894,7 @@ cont {
       secondary {
         height: 12
         color: 11184810
+        offset_y: 20
       }
       priority: 15033
     }
@@ -42900,6 +42909,7 @@ cont {
       secondary {
         height: 12
         color: 11184810
+        offset_y: 20
       }
       priority: 15033
     }
@@ -42914,6 +42924,7 @@ cont {
       secondary {
         height: 14
         color: 11184810
+        offset_y: 20
       }
       priority: 15033
     }
@@ -42928,6 +42939,7 @@ cont {
       secondary {
         height: 14
         color: 11184810
+        offset_y: 20
       }
       priority: 15033
     }
@@ -42942,6 +42954,7 @@ cont {
       secondary {
         height: 14
         color: 11184810
+        offset_y: 20
       }
       priority: 15033
     }
