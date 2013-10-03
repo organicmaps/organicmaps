@@ -217,7 +217,7 @@ cont {
     circle {
       radius: 2.0
       color: 2236962
-      priority: 15000
+      priority: 14000
     }
   }
   element {
@@ -225,7 +225,7 @@ cont {
     circle {
       radius: 2.0
       color: 3364317
-      priority: 15000
+      priority: 14000
     }
   }
   element {
@@ -233,7 +233,7 @@ cont {
     circle {
       radius: 3.0
       color: 3364317
-      priority: 15000
+      priority: 14000
     }
   }
   element {
@@ -241,7 +241,7 @@ cont {
     circle {
       radius: 4.0
       color: 3364317
-      priority: 15000
+      priority: 14000
     }
     path_text {
       primary {
@@ -257,7 +257,7 @@ cont {
     circle {
       radius: 3.2
       color: 3364317
-      priority: 15000
+      priority: 14000
     }
     path_text {
       primary {
@@ -273,7 +273,7 @@ cont {
     circle {
       radius: 3.2
       color: 3364317
-      priority: 15000
+      priority: 14000
     }
     path_text {
       primary {
@@ -289,7 +289,7 @@ cont {
     circle {
       radius: 3.2
       color: 3364317
-      priority: 15000
+      priority: 14000
     }
     path_text {
       primary {
@@ -5436,7 +5436,7 @@ cont {
     circle {
       radius: 1.2
       color: 7829367
-      priority: 15000
+      priority: 14000
     }
   }
   element {
@@ -5444,7 +5444,7 @@ cont {
     circle {
       radius: 1.6
       color: 7829367
-      priority: 15000
+      priority: 14000
     }
   }
   element {
@@ -5452,7 +5452,7 @@ cont {
     circle {
       radius: 1.6
       color: 7829367
-      priority: 15000
+      priority: 14000
     }
   }
   element {
@@ -5460,7 +5460,7 @@ cont {
     circle {
       radius: 1.6
       color: 7829367
-      priority: 15000
+      priority: 14000
     }
   }
 }
@@ -5471,7 +5471,7 @@ cont {
     circle {
       radius: 1.2
       color: 7829367
-      priority: 15000
+      priority: 14000
     }
   }
   element {
@@ -5479,7 +5479,7 @@ cont {
     circle {
       radius: 1.6
       color: 7829367
-      priority: 15000
+      priority: 14000
     }
   }
   element {
@@ -5487,7 +5487,7 @@ cont {
     circle {
       radius: 1.6
       color: 7829367
-      priority: 15000
+      priority: 14000
     }
   }
   element {
@@ -5495,7 +5495,7 @@ cont {
     circle {
       radius: 1.6
       color: 7829367
-      priority: 15000
+      priority: 14000
     }
   }
 }
@@ -5781,7 +5781,7 @@ cont {
     circle {
       radius: 1.2
       color: 7829367
-      priority: 15000
+      priority: 14000
     }
   }
   element {
@@ -5789,7 +5789,7 @@ cont {
     circle {
       radius: 1.6
       color: 7829367
-      priority: 15000
+      priority: 14000
     }
   }
   element {
@@ -5797,7 +5797,7 @@ cont {
     circle {
       radius: 1.6
       color: 7829367
-      priority: 15000
+      priority: 14000
     }
   }
   element {
@@ -5805,7 +5805,7 @@ cont {
     circle {
       radius: 1.6
       color: 7829367
-      priority: 15000
+      priority: 14000
     }
   }
 }
@@ -5816,7 +5816,7 @@ cont {
     circle {
       radius: 1.2
       color: 7829367
-      priority: 15000
+      priority: 14000
     }
   }
   element {
@@ -5824,7 +5824,7 @@ cont {
     circle {
       radius: 1.6
       color: 7829367
-      priority: 15000
+      priority: 14000
     }
   }
   element {
@@ -5832,7 +5832,7 @@ cont {
     circle {
       radius: 1.6
       color: 7829367
-      priority: 15000
+      priority: 14000
     }
   }
   element {
@@ -5840,7 +5840,7 @@ cont {
     circle {
       radius: 1.6
       color: 7829367
-      priority: 15000
+      priority: 14000
     }
   }
 }
@@ -9093,7 +9093,7 @@ cont {
     circle {
       radius: 2.0
       color: 2236962
-      priority: 15025
+      priority: 14025
     }
   }
   element {
@@ -9109,7 +9109,7 @@ cont {
     circle {
       radius: 2.0
       color: 2236962
-      priority: 15025
+      priority: 14025
     }
   }
   element {
@@ -9130,7 +9130,7 @@ cont {
     circle {
       radius: 2.0
       color: 2236962
-      priority: 15025
+      priority: 14025
     }
   }
 }
@@ -36687,7 +36687,7 @@ cont {
     circle {
       radius: 3.2
       color: 16777215
-      priority: 15000
+      priority: 14000
     }
   }
   element {
@@ -36695,7 +36695,7 @@ cont {
     circle {
       radius: 3.2
       color: 16777215
-      priority: 15000
+      priority: 14000
     }
   }
   element {
@@ -36703,7 +36703,7 @@ cont {
     circle {
       radius: 3.2
       color: 16777215
-      priority: 15000
+      priority: 14000
     }
   }
 }
