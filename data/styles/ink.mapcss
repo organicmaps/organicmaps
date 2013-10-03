@@ -50,8 +50,7 @@ area[natural=coastline]
 *[natural],
 *[place],
 *[power],
-*[landuse],
-*[sport]
+*[landuse]
 {
   text-position: center
 }
@@ -68,8 +67,8 @@ area[tourism],
 
 @import("include/base_roads.mapcss");
 @import("include/base_shop.mapcss");
+@import("include/base_sport.mapcss");
 
-line[highway=bus_stop],
 line[highway=motorway_junction]
 {
     casing-width: 0;
@@ -1238,14 +1237,10 @@ area|z16-[amenity=townhall],
 area|z17-[tourism=caravan_site],
 area|z17-[leisure=garden],
 area|z17-[leisure=park],
-area|z17-[leisure=sports_centre],
-area|z17-[leisure=stadium],
 node|z13-[highway=motorway_junction],
-node|z17-[leisure=stadium],
 node|z17-[tourism=caravan_site],
 node|z17-[tourism=zoo],
-node|z16-[amenity=townhall],
-node|z17-[leisure=sports_centre]
+node|z16-[amenity=townhall]
 {
   font-size:    12;
   text-halo-radius: 2;
@@ -1299,13 +1294,6 @@ node|z13[place=city][capital?]
   text: name;
   font-size:    24;
   text-color:   grey;
-}
-area|z13-[leisure=dog_park][sport=tennis],
-area|z13-[leisure=pitch][sport=tennis],
-area|z13-[leisure=playground][sport=tennis],
-area|z13-[leisure=playing_fields][sport=tennis]
-{
-  fill-color:   #ddb298;
 }
 line|z13[railway=narrow_gauge]
 {
@@ -1626,13 +1614,6 @@ line|z14-[piste:type=downhill][piste:difficulty=expert]
   color:    #f6800a;
   width:    5;
 }
-line|z14-[railway=tram]
-{
-    color: black;
-    width: 1;
-    -x-kot-layer: top;
-}
-
 line|z14[railway=monorail]::raildash,
 {
   color:    #590959;
@@ -2185,11 +2166,6 @@ line|z15[railway=siding]::d1p2
   width:    1.4;
   z-index:  396;
 }
-area|z15-16[railway=tram_stop],
-node|z15-16[railway=tram_stop]
-{
-  icon-image:   tramway-mini.svg;
-}
 line|z15[railway=preserved]
 {
   color:    #909090;
@@ -2300,17 +2276,6 @@ node|z15-16[place=village]
   text-halo-radius: 2;
   text: name;
   text-color:   #707070;
-}
-area|z15-[railway=halt],
-area|z17-[railway=tram_stop],
-node|z15-[railway=halt],
-node|z17-[railway=tram_stop]
-{
-  font-size:    12;
-  text-halo-radius: 2;
-  text: name;
-  text-color:   #3050d8;
-  text-offset:  10;
 }
 line|z15[boundary=administrative][admin_level=7]
 {
@@ -2721,18 +2686,6 @@ line|z15[boundary=administrative][border_type=country]
   z-index:  691;
   -x-kot-layer: top;
 }
-area|z16[highway=bus_stop],
-area|z15[railway=tram_stop],
-node|z16[highway=bus_stop],
-node|z15[railway=tram_stop]
-{
-  font-size:    10;
-  text-halo-radius: 2;
-  text: name;
-  text-color:   #3050d8;
-  text-offset:  10;
-}
-
 area|z15-[amenity=fuel],
 node|z15-[amenity=fuel]
 {
@@ -2783,16 +2736,6 @@ line|z15[railway=funicular]::d1p3
   color:    #4c0f0f;
   width:    0.5;
   z-index:  410;
-}
-*|z17-[highway=bus_stop],
-*|z16[railway=tram_stop]
-{
-  font-size:    11;
-  text-halo-radius: 2;
-  text: name;
-  text-color:   #3050d8;
-  text-offset:  10;
-  z-index: 20;
 }
 line|z16[communication=line]
 {
@@ -3171,11 +3114,6 @@ line|z16[railway=rail]
   color:    #e6e6e6;
   width:    2.4;
   z-index:  631;
-}
-area|z16-[railway=subway_entrance],
-node|z16-[railway=subway_entrance]
-{
-  icon-image:   subway.svg;
 }
 line|z16[piste:lift=rope_tow]
 {
@@ -3845,15 +3783,6 @@ line|z17-[boundary=administrative][border_type=county]
   z-index:  973;
   dashes:   4,20;
 }
-area|z17-[sport=gymnastics],
-area|z17-[sport=multi],
-area|z17-[sport=skiing],
-node|z17-[sport=gymnastics],
-node|z17-[sport=multi],
-node|z17-[sport=skiing]
-{
-  icon-image:   gymnastics-borderless.svg;
-}
 line|z17-[communication=line]::d1p2
 {
   color:    #f080f0;
@@ -3887,13 +3816,6 @@ line|z17-[railway=narrow_gauge]
   color:    #333333;
   width:    3.2;
   z-index:  569;
-}
-area|z17-[sport=diving],
-area|z17-[sport=scuba_diving],
-node|z17-[sport=diving],
-node|z17-[sport=scuba_diving]
-{
-  icon-image:   diving-borderless.svg;
 }
 line|z17-[waterway=canal]
 {
@@ -3936,11 +3858,6 @@ line|z17-[waterway=lock]
   z-index:  96;
   casing-width: 2;
   casing-color: #202020;
-}
-area|z17-[sport=cricket],
-node|z17-[sport=cricket]
-{
-  icon-image:   cricket-borderless.svg;
 }
 line|z17-[man_made=pipeline]::d1p2
 {
@@ -4063,11 +3980,6 @@ line|z17-[communication=line]
   z-index:  930;
   opacity:  0.5;
 }
-area|z17-[sport=equestrian],
-node|z17-[sport=equestrian]
-{
-  icon-image:   equestrian-borderless.svg;
-}
 line|z17-[boundary=administrative][border_type=suburb]
 {
   color:    #f9574b;
@@ -4115,11 +4027,6 @@ line|z17-[railway=spur]::d1p2
   color:    #e6e6e6;
   width:    1.36;
   z-index:  671;
-}
-area|z17-[sport=curling],
-node|z17-[sport=curling]
-{
-  icon-image:   curling-borderless.svg;
 }
 line|z17-[railway=preserved]::d1p2
 {
@@ -4185,15 +4092,6 @@ node|z17-[tourism=picnic_site]
 {
   icon-image:   picnic.svg;
 }
-area|z17-[sport=american_football],
-area|z17-[sport=australian_football],
-area|z17-[sport=football],
-node|z17-[sport=american_football],
-node|z17-[sport=australian_football],
-node|z17-[sport=football]
-{
-  icon-image:   football-borderless.svg;
-}
 area|z17-[railway=platform],
 line|z17-[railway=platform]
 {
@@ -4235,11 +4133,6 @@ line|z17-[railway=siding]::d1p3
   z-index:  692;
   dashes:   7.2,16.8;
   linecap:  butt;
-}
-area|z17-[sport=swimming],
-node|z17-[sport=swimming]
-{
-  icon-image:   swimming-borderless.svg;
 }
 area|z17-[amenity=kindergarten],
 node|z17-[amenity=kindergarten]
@@ -4643,8 +4536,6 @@ line|z17-[power=minor_line]
   opacity:  0.5;
 }
 
-node[railway=station][transport=subway]                           {text-color:  #3050d8; text-position: center;}
-
 area[waterway=riverbank],
 line[waterway=river],
 line[waterway=canal]
@@ -4691,25 +4582,6 @@ node|z17-[barrier=gate]
 {
   icon-image:   gate.svg;
 }
-area|z16[highway=bus_stop],
-node|z16[highway=bus_stop]
-{
-  icon-image:   bus-mini.svg;
-  z-index: 20;
-}
-area|z16-[amenity=bus_station],
-area|z17-[highway=bus_stop],
-node|z16-[amenity=bus_station],
-node|z17-[highway=bus_stop]
-{
-  icon-image:   bus.svg;
-  z-index: 20;
-}
-area|z17-[railway=tram_stop],
-node|z17-[railway=tram_stop]
-{
-  icon-image:   tramway.svg;
-}
 area|z17-[man_made=lighthouse],
 node|z17-[man_made=lighthouse]
 {
@@ -4746,40 +4618,6 @@ node|z16-[amenity=telephone]
 {
   icon-image:   telephone.svg;
 }
-
-area|z17-[sport=handball],
-node|z17-[sport=handball]
-{
-  icon-image:   handball-borderless.svg;
-}
-area|z17-[sport=golf],
-node|z17-[sport=golf],
-area|z17-[leisure=golf_course],
-node|z17-[leisure=golf_course]
-{
-  icon-image:   golfCourse.svg;
-}
-
-area|z17-[sport=baseball],
-node|z17-[sport=baseball]
-{
-  icon-image:   baseball-borderless.svg;
-}
-area|z17-[sport=athletics],
-node|z17-[sport=athletics]
-{
-  icon-image:   athletics-borderless.svg;
-}
-area|z17-[sport=bowls],
-node|z17-[sport=bowls]
-{
-  icon-image:   bowls-borderless.svg;
-}
-area|z17-[sport=archery],
-node|z17-[sport=archery]
-{
-  icon-image:   archery-borderless.svg;
-}
 area|z17-[amenity=school],
 node|z17-[amenity=school]
 {
@@ -4787,68 +4625,16 @@ node|z17-[amenity=school]
 }
 
 area|z14-16[railway=halt],
-area|z14-15[railway=station],
-node|z14-16[railway=halt],
-node|z14-15[railway=station],
+node|z14-16[railway=halt]
 {
   icon-image:   railway-station-mini.svg;
   z-index: 150;
 }
 
 area|z17-[railway=halt],
-area|z16-[railway=station],
-node|z17-[railway=halt],
-node|z16-[railway=station]
+node|z17-[railway=halt]
 {
   icon-image:   railway-station.svg;
-}
-
-node|z12[railway=station][transport=subway],
-area|z12[railway=station][transport=subway]
-{ 
-  font-size:    10;
-  text-halo-radius: 2;
-  text: name;
-  text-offset:  10;
-  z-index: 170;
-  -x-kot-layer: top;
-}
-node|z13-14[railway=station][transport=subway],
-area|z13-14[railway=station][transport=subway]
-{ 
-  font-size:    11;
-  text-halo-radius: 2;
-  text: name;
-  text-offset:  10;
-  z-index: 170;
-  -x-kot-layer: top;
-}
-node|z15-[railway=station][transport=subway],
-area|z15-[railway=station][transport=subway]
-{ 
-  font-size:    12;
-  text-halo-radius: 2;
-  text: name;
-  text-offset:  10;
-  z-index: 170;
-  -x-kot-layer: top;
-}
-area|z12-14[railway=station][transport=subway],
-node|z12-14[railway=station][transport=subway]
-{
-  icon-image:   subway-station-s.svg;
-}
-
-area|z15[railway=station][transport=subway],
-node|z15[railway=station][transport=subway]
-{
-  icon-image:   subway-station-m.svg;
-}
-
-area|z16-[railway=station][transport=subway],
-node|z16-[railway=station][transport=subway]
-{
-  icon-image:   subway-station-l.svg;
 }
 
 /* Eval magic */
@@ -4862,16 +4648,6 @@ line[waterway],
 line[railway]
 {
   text-position: line;
-}
-
-node[highway=bus_stop],
-node[railway=tram_stop],
-node[railway=station],
-way[highway=bus_stop],
-way[railway=tram_stop],
-way[railway=station]
-{
-  text-position: center;
 }
 
 line|z15-[bridge?]::bridgewhite,
@@ -4921,12 +4697,6 @@ line[access][access!=yes]::*
 {
   opacity:  0;
   casing-opacity:  0;
-}
-
-line|z15-[marking=sport]
-{
-    width: 0.5;
-    color: white;
 }
 line|z18-[lit]::lit
 {
@@ -5052,6 +4822,8 @@ line[highway=steps]
     text-color: white;
 }
 
+@import("include/base_publictransport.mapcss");
+
 *[building]
 {
     text-halo-color: #1;
@@ -5122,10 +4894,17 @@ area[area:highway]{fill-color: white}
     width: 0;
 }
 
+node[railway=station][transport=subway]                           {text-color:  #3050d8; text-position: center;}
+
 area|z15-[area:highway=footway],
 area|z15-[area:highway=pedestrian],
 area|z15-[area:highway=path],
 area|z15-[area:highway=steps]
 {
     fill-color: #d;
+}
+
+*::int_name
+{
+  text: "";
 }
