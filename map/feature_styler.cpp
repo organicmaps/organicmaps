@@ -16,7 +16,6 @@
 
 #include "../std/iterator_facade.hpp"
 
-
 namespace
 {
   struct less_depth
@@ -138,7 +137,8 @@ namespace di
            || (keys[i].m_type == drule::waymarker)))
         depth = (layer * drule::layer_base_priority) + fmod(depth, drule::layer_base_priority);
 
-      if (keys[i].m_type == drule::symbol)
+      if ((keys[i].m_type == drule::symbol)
+       || (keys[i].m_type == drule::circle))
         hasIcon = true;
 
       if ((keys[i].m_type == drule::caption && hasName)
@@ -223,15 +223,19 @@ namespace di
 
     if (hasIcon && hasCaptionWithoutOffset)
     {
-      // we need to delete symbol style (single one due to MakeUnique call above)
-      for (size_t i = 0; i < count; ++i)
+      // we need to delete symbol style and circle style
+      for (size_t i = 0; i < m_rules.size();)
       {
-        if (keys[i].m_type == drule::symbol)
+        if ((keys[i].m_type == drule::symbol)
+         || (keys[i].m_type == drule::circle))
         {
           m_rules[i] = m_rules[m_rules.size() - 1];
           m_rules.pop_back();
-          break;
+          keys[i] = keys[keys.size() - 1];
+          keys.pop_back();
         }
+        else
+          ++i;
       }
     }
 
