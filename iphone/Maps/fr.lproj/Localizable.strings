@@ -486,10 +486,10 @@
 "done" = "Terminé";
 
 /* Summary for preferences in MWM */
-"yopme_pref_summary" = "Paramètres de l'écran arrière";
+"yopme_pref_summary" = "Choisissez les réglages de de l'écran arrière";
 
 /* Title for yopme preferences in MWM */
-"yopme_pref_title" = "Choisissez les réglages de de l'écran arrière";
+"yopme_pref_title" = "Paramètres de l'écran arrière";
 
 /* Hint for upper-right icon p2b */
 "show_on_backscreen" = "Afficher sur l'écran arrière";

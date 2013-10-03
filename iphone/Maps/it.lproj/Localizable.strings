@@ -486,10 +486,10 @@
 "done" = "Fine";
 
 /* Summary for preferences in MWM */
-"yopme_pref_summary" = "Impostazioni Sfondo";
+"yopme_pref_summary" = "Selezionate le impostazioni Sfondo";
 
 /* Title for yopme preferences in MWM */
-"yopme_pref_title" = "Selezionate le impostazioni  Sfondo";
+"yopme_pref_title" = "Impostazioni Sfondo";
 
 /* Hint for upper-right icon p2b */
 "show_on_backscreen" = "Mostra Sfondo";

@@ -486,13 +486,13 @@
 "done" = "Готово";
 
 /* Summary for preferences in MWM */
-"yopme_pref_summary" = "Выберите настройки заднего экрана";
+"yopme_pref_summary" = "Выберите настройки дополнительного экрана";
 
 /* Title for yopme preferences in MWM */
-"yopme_pref_title" = "Настройки заднего экрана";
+"yopme_pref_title" = "Настройки дополнительного экрана";
 
 /* Hint for upper-right icon p2b */
-"show_on_backscreen" = "Show on Back screen";
+"show_on_backscreen" = "Показать на дополнительном экране";
 
 /* Prints version number in About dialog */
 "version" = "Версия: %@";

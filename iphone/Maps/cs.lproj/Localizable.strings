@@ -486,13 +486,13 @@
 "done" = "Hotovo";
 
 /* Summary for preferences in MWM */
-"yopme_pref_summary" = "Back Screen Settings";
+"yopme_pref_summary" = "Zvolit nastavení zadní obrazovky";
 
 /* Title for yopme preferences in MWM */
-"yopme_pref_title" = "Choose Back Screen settings";
+"yopme_pref_title" = "Nastavení zadní obrazovky";
 
 /* Hint for upper-right icon p2b */
-"show_on_backscreen" = "Show on Back screen";
+"show_on_backscreen" = "Zobrazit na zadní obrazovce";
 
 /* Prints version number in About dialog */
 "version" = "Verze: %@";

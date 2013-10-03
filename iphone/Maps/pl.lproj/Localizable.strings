@@ -486,10 +486,10 @@
 "done" = "Zrobione";
 
 /* Summary for preferences in MWM */
-"yopme_pref_summary" = "Ustawienia tylnego ekranu";
+"yopme_pref_summary" = "Wybierz ustawienia tylnego ekranu";
 
 /* Title for yopme preferences in MWM */
-"yopme_pref_title" = "Wybierz ustawienia tylnego ekranu";
+"yopme_pref_title" = "Ustawienia tylnego ekranu";
 
 /* Hint for upper-right icon p2b */
 "show_on_backscreen" = "Pokaż na tylnym ekranie";

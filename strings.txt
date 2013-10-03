@@ -2606,7 +2606,7 @@
     es = Seleccione la сonfiguración de la pantalla trasera
     pt = Escolha as definições de Ecrã Posterior
     pl = Wybierz ustawienia tylnego ekranu
-    it = Selezionate le impostazioni  Sfondo
+    it = Selezionate le impostazioni Sfondo
     nl = Kies instellingen voor achtergrondscherm
     de = Wählen Sie die rückseitigen Bildschirm-Einstellungen
     cs = Zvolit nastavení zadní obrazovky

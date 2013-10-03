@@ -486,13 +486,13 @@
 "done" = "Erledigt";
 
 /* Summary for preferences in MWM */
-"yopme_pref_summary" = "Hintergrund Einstellungen";
+"yopme_pref_summary" = "Wählen Sie die rückseitigen Bildschirm-Einstellungen";
 
 /* Title for yopme preferences in MWM */
-"yopme_pref_title" = "Wählen Sie die Hintergrund Einstellungen";
+"yopme_pref_title" = "Rückseitige Bildschirm-Einstellungen";
 
 /* Hint for upper-right icon p2b */
-"show_on_backscreen" = "Auf dem Hintergrund anzeigen";
+"show_on_backscreen" = "Auf dem rückseitigen Bildschirm anzeigen";
 
 /* Prints version number in About dialog */
 "version" = "Version: %@";
