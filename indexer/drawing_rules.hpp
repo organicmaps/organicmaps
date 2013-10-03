@@ -23,7 +23,7 @@ namespace drule
 {
   class BaseRule
   {
-    mutable buffer_vector<uint32_t, 4> m_id1, m_id2;
+    mutable buffer_vector<uint32_t, 4> m_id1;
     char m_type;      // obsolete for new styles, can be removed
 
   public:
@@ -39,14 +39,6 @@ namespace drule
 
     void MakeEmptyID(size_t threadSlot);
     void MakeEmptyID();
-
-    uint32_t GetID2(size_t threadSlot) const;
-
-    void SetID2(size_t threadSlot, uint32_t id) const;
-
-    void MakeEmptyID2(size_t threadSlot);
-
-    void MakeEmptyID2();
 
     void SetType(char type) { m_type = type; }
     inline char GetType() const { return m_type; }

@@ -23,9 +23,6 @@ void BaseRule::CheckCacheSize(size_t s)
 {
   m_id1.resize(s);
   MakeEmptyID();
-
-  m_id2.resize(s);
-  MakeEmptyID2();
 }
 
 uint32_t BaseRule::GetID(size_t threadSlot) const
@@ -50,30 +47,6 @@ void BaseRule::MakeEmptyID()
 {
   for (size_t i = 0; i < m_id1.size(); ++i)
     MakeEmptyID(i);
-}
-
-uint32_t BaseRule::GetID2(size_t threadSlot) const
-{
-  ASSERT(m_id2.size() > threadSlot, ());
-  return m_id2[threadSlot];
-}
-
-void BaseRule::SetID2(size_t threadSlot, uint32_t id) const
-{
-  ASSERT(m_id2.size() > threadSlot, ());
-  m_id2[threadSlot] = id;
-}
-
-void BaseRule::MakeEmptyID2(size_t threadSlot)
-{
-  ASSERT(m_id2.size() > threadSlot, ());
-  m_id2[threadSlot] = empty_id;
-}
-
-void BaseRule::MakeEmptyID2()
-{
-  for (size_t i = 0; i < m_id2.size(); ++i)
-    MakeEmptyID2(i);
 }
 
 LineDefProto const * BaseRule::GetLine() const
@@ -151,7 +124,6 @@ BaseRule const * RulesHolder::Find(Key const & k) const
 void RulesHolder::ClearCaches()
 {
   ForEachRule(bind(&BaseRule::MakeEmptyID, _4));
-  ForEachRule(bind(&BaseRule::MakeEmptyID2, _4));
 }
 
 void RulesHolder::ResizeCaches(size_t s)

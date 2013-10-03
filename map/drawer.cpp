@@ -49,8 +49,6 @@ namespace
     {
       if ((p->GetID(m_threadSlot) & 0xFF000000) == m_pipelineIDMask)
         p->MakeEmptyID(m_threadSlot);
-      if ((p->GetID2(m_threadSlot) & 0xFF000000) == m_pipelineIDMask)
-        p->MakeEmptyID2(m_threadSlot);
     }
   };
 }
