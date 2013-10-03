@@ -63,7 +63,7 @@ void GLWidget::resizeGL(int w, int h)
 
 void GLWidget::paintGL()
 {
-  m_f.ShowRect(53.54, 27.34, 11.0);
+  m_f.ShowRect(53.90, 27.54, 16.0);
 
   shared_ptr<PaintEvent> e(new PaintEvent(m_f.GetRenderPolicy()->GetDrawer().get()));
   m_f.BeginPaint(e);
