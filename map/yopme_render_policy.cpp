@@ -21,6 +21,7 @@ using namespace graphics;
 
 namespace
 {
+  const int DestinationDepthOffset = 10;
   const int ApiPinDepth = maxDepth - 10;
   const int MyLocationDepth = maxDepth;
   const int ApiPinLength = 5.0;
@@ -69,8 +70,8 @@ namespace
       };
 
       double d = depth();
-      r->drawPath(firstLine,  2, 0.0, outlineID, d);
-      r->drawPath(secondLine, 2, 0.0, outlineID, d);
+      r->drawPath(firstLine,  2, 0.0, outlineID, d - DestinationDepthOffset);
+      r->drawPath(secondLine, 2, 0.0, outlineID, d - DestinationDepthOffset);
       r->drawPath(firstLine,  2, 0.0, infoID,    d);
       r->drawPath(secondLine, 2, 0.0, infoID,    d);
     }
@@ -187,22 +188,26 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
     pScreen->clear(m_bgColor);
 
     shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_offscreenDrawer.get()));
-
     m_renderFn(paintEvent, s, m2::RectD(renderRect), ScalesProcessor().GetTileScaleBase(s));
 
-    pScreen->endFrame();
     pScreen->resetOverlay();
+
+    overlay->clip(m2::RectI(0, 0, width, height));
+    shared_ptr<Overlay> drawOverlay(new Overlay());
+    drawOverlay->setCouldOverlap(false);
+
+    if (m_drawApiPin)
+      InsertOverlayCross(m_apiPinPoint, drawOverlay.get());
+
+    drawOverlay->merge(*overlay);
+
+    pScreen->applyStates();
+    pScreen->clear(m_bgColor, false);
+    drawOverlay->draw(pScreen, math::Identity<double, 3>());
+
+    pScreen->endFrame();
     pScreen->unbindRenderTarget();
   }
-
-  overlay->clip(m2::RectI(0, 0, width, height));
-  shared_ptr<Overlay> drawOverlay(new Overlay());
-  drawOverlay->setCouldOverlap(false);
-
-  if (m_drawApiPin)
-    InsertOverlayCross(m_apiPinPoint, drawOverlay.get());
-
-  drawOverlay->merge(*overlay);
 
   {
     // on screen rendering
@@ -218,9 +223,6 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 
     pScreen->applyBlitStates();
     pScreen->blit(&info, 1, true, minDepth);
-
-    pScreen->applyStates();
-    drawOverlay->draw(pScreen, math::Identity<double, 3>());
 
     pScreen->clear(m_bgColor, false);
     if (m_drawMyPosition)
