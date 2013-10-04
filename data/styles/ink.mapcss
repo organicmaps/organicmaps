@@ -5063,6 +5063,15 @@ line[highway=steps]
   text-halo-color: #7;
 }
 
+*[waterway],
+*[place=ocean],
+*[place=sea],
+{
+    text-halo-color: #1;
+    text-color: #f;
+}
+
+
 *[amenity!=bench][natural!=tree][!barrier][railway!=subway_entrance][!power][natural!=peak]
 {
     symbol-shape: eval(cond(prop("icon-image"), "circle", ""));
@@ -5096,6 +5105,15 @@ area[area:highway]{fill-color: white}
 {
     color: #d;
 }
+
+*[boundary]
+{dashes: ""}
+
+*[boundary]::d2p2,
+*[boundary]::d2p1
+*[boundary]::*
+{dashes: ""}
+
 
 *[highway][area?]
 {
