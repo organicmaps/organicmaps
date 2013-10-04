@@ -38,7 +38,8 @@
         </service>
 
         <uses-library
-            android:name="com.yotadevices.platinum" />
+            android:name="com.yotadevices.platinum"
+            android:required="true" />
 
         <activity
             android:name="com.mapswithme.yopme.ReferenceActivity"
