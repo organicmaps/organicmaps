@@ -188,6 +188,13 @@ public class BackscreenActivity extends BSActivity implements LocationListener
       if (!zoomIn())
         return;
     }
+    else if (action == Gestures.GESTURES_BS_LRL || action == Gestures.GESTURES_BS_RLR)
+    {
+      if (mMode == Mode.LOCATION)
+        return; // we are already here
+      else
+        setToLocationMode();
+    }
     else
       return; // do not react on other events
 
@@ -203,31 +210,14 @@ public class BackscreenActivity extends BSActivity implements LocationListener
     final String action  = intent.getAction();
     if (action != null && (ACTION_LOCATION + ACTION_SHOW_RECT).contains(action))
     {
-      if (intent.getBooleanExtra(EXTRA_HAS_LOCATION, false))
-      {
-        // use location from MWM
-        final double myLat = intent.getDoubleExtra(EXTRA_MY_LAT, 0);
-        final double myLon = intent.getDoubleExtra(EXTRA_MY_LON, 0);
-        mLocation = new Location("MapsWithMe");
-        mLocation.setLatitude(myLat);
-        mLocation.setLongitude(myLon);
-
-        mLocationRequester.setLocation(mLocation);
-      }
+      extractLocation(intent);
+      extractZoom(intent);
 
       if (ACTION_LOCATION.equals(intent.getAction()))
-        mMode = Mode.LOCATION;
+        setToLocationMode();
       else if (ACTION_SHOW_RECT.equals(intent.getAction()))
-      {
-        mMode = Mode.POI;
-        final double lat  = intent.getDoubleExtra(EXTRA_LAT, 0);
-        final double lon  = intent.getDoubleExtra(EXTRA_LON, 0);
-        final String name = intent.getStringExtra(EXTRA_NAME);
+        setToPoiMode(intent);
 
-        mIsPoi = intent.getBooleanExtra(EXTRA_IS_POI, false);
-        mPoint = new PoiPoint(lat, lon, name);
-      }
-      mZoomLevel = intent.getDoubleExtra(EXTRA_ZOOM, MapDataProvider.COMFORT_ZOOM);
 
       requestLocationUpdate();
       RotationAlgorithm.getInstance(this).turnScreenOffIfRotated();
@@ -238,6 +228,44 @@ public class BackscreenActivity extends BSActivity implements LocationListener
 
     updateData();
     invalidate();
+  }
+
+  private void extractZoom(Intent intent)
+  {
+    mZoomLevel = intent.getDoubleExtra(EXTRA_ZOOM, MapDataProvider.COMFORT_ZOOM);
+  }
+
+  private void setToPoiMode(Intent intent)
+  {
+    mMode = Mode.POI;
+    final double lat  = intent.getDoubleExtra(EXTRA_LAT, 0);
+    final double lon  = intent.getDoubleExtra(EXTRA_LON, 0);
+    final String name = intent.getStringExtra(EXTRA_NAME);
+
+    mIsPoi = intent.getBooleanExtra(EXTRA_IS_POI, false);
+    mPoint = new PoiPoint(lat, lon, name);
+  }
+
+  private void setToLocationMode()
+  {
+    mMode = Mode.LOCATION;
+    mPoint = null;
+    mIsPoi = false;
+  }
+
+  private void extractLocation(Intent intent)
+  {
+    if (intent.getBooleanExtra(EXTRA_HAS_LOCATION, false))
+    {
+      // use location from MWM
+      final double myLat = intent.getDoubleExtra(EXTRA_MY_LAT, 0);
+      final double myLon = intent.getDoubleExtra(EXTRA_MY_LON, 0);
+      mLocation = new Location("MapsWithMe");
+      mLocation.setLatitude(myLat);
+      mLocation.setLongitude(myLon);
+
+      mLocationRequester.setLocation(mLocation);
+    }
   }
 
   public void setUpView()
