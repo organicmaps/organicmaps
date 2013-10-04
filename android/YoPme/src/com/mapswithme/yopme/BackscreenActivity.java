@@ -379,8 +379,6 @@ public class BackscreenActivity extends BSActivity implements LocationListener
 
     if (mMode == Mode.LOCATION)
     {
-      Utils.setViewVisibility(mPoiInfo, false);
-
       if (mLocation == null)
       {
         showWaitMessage(getString(R.string.wait_msg));
@@ -391,8 +389,6 @@ public class BackscreenActivity extends BSActivity implements LocationListener
     }
     else if (mMode == Mode.POI)
     {
-      Utils.setViewVisibility(mPoiInfo, true);
-
       data = mMapDataProvider.getMapData(mPoint, mZoomLevel, mIsPoi ? mPoint : null, getLocation());
       calculateDistance();
     }
@@ -411,11 +407,12 @@ public class BackscreenActivity extends BSActivity implements LocationListener
 
     if (mPoint != null && mMode == Mode.POI)
     {
-      mPoiText.setText(mPoint.getName());
-      mPoiInfo.setVisibility(TextUtils.isEmpty(mPoint.getName()) ? View.GONE : View.VISIBLE);
+      final CharSequence text = mPoint.getName();
+      mPoiText.setText(text);
+      Utils.setViewVisibility(mPoiInfo, !TextUtils.isEmpty(mPoint.getName()));
     }
     else
-      mPoiInfo.setVisibility(View.GONE);
+      Utils.setViewVisibility(mPoiInfo, false);
   }
 
   private void ensureCorrectZoomLevel()
