@@ -159,6 +159,7 @@ public class BackscreenActivity extends BSActivity implements LocationListener
     mPoint = (PoiPoint) savedInstanceState.getSerializable(EXTRA_POINT);
     mMode  = (Mode) savedInstanceState.getSerializable(EXTRA_MODE);
     mZoomLevel  = savedInstanceState.getDouble(EXTRA_ZOOM);
+    mIsPoi = savedInstanceState.getBoolean(EXTRA_IS_POI);
   }
 
   @Override
@@ -169,6 +170,7 @@ public class BackscreenActivity extends BSActivity implements LocationListener
     outState.putSerializable(EXTRA_POINT, mPoint);
     outState.putSerializable(EXTRA_MODE, mMode);
     outState.putDouble(EXTRA_ZOOM, mZoomLevel);
+    outState.putBoolean(EXTRA_IS_POI, mIsPoi);
   }
 
   @Override
