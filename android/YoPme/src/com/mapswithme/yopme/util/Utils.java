@@ -8,6 +8,7 @@ import java.lang.reflect.Proxy;
 import java.text.MessageFormat;
 
 import android.util.Log;
+import android.view.View;
 
 public class Utils
 {
@@ -43,6 +44,11 @@ public class Utils
     {
       e.printStackTrace();
     }
+  }
+
+  public static void setViewVisibility(View view, boolean isVisible)
+  {
+    view.setVisibility(isVisible ? View.VISIBLE : View.GONE);
   }
 
   private Utils() {}

@@ -26,6 +26,7 @@ import com.mapswithme.util.log.StubLogger;
 import com.mapswithme.yopme.map.MapData;
 import com.mapswithme.yopme.map.MapDataProvider;
 import com.mapswithme.yopme.map.MapRenderer;
+import com.mapswithme.yopme.util.Utils;
 import com.yotadevices.sdk.BSActivity;
 import com.yotadevices.sdk.BSDrawer.Waveform;
 import com.yotadevices.sdk.BSMotionEvent;
@@ -365,33 +366,34 @@ public class BackscreenActivity extends BSActivity implements LocationListener
 
   public void updateData()
   {
-    if (mZoomLevel < MapDataProvider.MIN_ZOOM)
-      mZoomLevel = MapDataProvider.MIN_ZOOM;
+    ensureCorrectZoomLevel();
 
-    MapData data = null;
 
     if (mMode == null)
     {
-      mLogger.d("Unknown mode");
+      mLogger.e("Unknown mode");
       return;
     }
 
+    MapData data = null;
+
     if (mMode == Mode.LOCATION)
     {
-      mPoiInfo.setVisibility(View.GONE);
+      Utils.setViewVisibility(mPoiInfo, false);
+
       if (mLocation == null)
       {
         showWaitMessage(getString(R.string.wait_msg));
         return;
       }
+
       data = mMapDataProvider.getMapData(getLocation(), mZoomLevel, null, getLocation());
     }
     else if (mMode == Mode.POI)
     {
-      mPoiInfo.setVisibility(View.VISIBLE);
+      Utils.setViewVisibility(mPoiInfo, true);
 
       data = mMapDataProvider.getMapData(mPoint, mZoomLevel, mIsPoi ? mPoint : null, getLocation());
-
       calculateDistance();
     }
 
@@ -400,7 +402,7 @@ public class BackscreenActivity extends BSActivity implements LocationListener
 
     if (bitmap == null)
     {
-      // this means we don't have this map
+      // that means we don't have this map
       showWaitMessage(getString(R.string.error_map_is_absent));
       return;
     }
@@ -414,6 +416,14 @@ public class BackscreenActivity extends BSActivity implements LocationListener
     }
     else
       mPoiInfo.setVisibility(View.GONE);
+  }
+
+  private void ensureCorrectZoomLevel()
+  {
+    if (mZoomLevel < MapDataProvider.MIN_ZOOM)
+      mZoomLevel = MapDataProvider.MIN_ZOOM;
+    else if (mZoomLevel > MapDataProvider.MAX_ZOOM)
+      mZoomLevel = MapDataProvider.MAX_ZOOM;
   }
 
 
