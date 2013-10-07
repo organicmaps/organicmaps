@@ -29,4 +29,5 @@
 	<string name="info_update">Mise à jour</string>
 	<string name="category_application">Application</string>
 	<string name="save_your_battery">Afin d\'optimiser l\'utilisation de votre batterie, nous vous recommandons de choisir le taux d\'actualisation de l\'image de votre écran le plus bas possible.</string>
+	<string name="show_my_location">Affichez mon emplacement</string>
 </resources>

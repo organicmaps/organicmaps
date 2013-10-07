@@ -31,4 +31,5 @@
 	<string name="info_update">Info update</string>
 	<string name="category_application">Application</string>
 	<string name="save_your_battery">In order to optimize battery usage, we recommend that you choose the lowest frequency of update.</string>
+	<string name="show_my_location">Show my location</string>
 </resources>

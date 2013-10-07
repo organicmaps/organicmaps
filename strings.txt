@@ -2601,7 +2601,7 @@
     tags = android
     comment = Summary for preferences in MWM
     en = Choose Back Screen settings
-    ru = Выберите настройки дополнительного экрана
+    ru = Выберите настройки второго экрана
     uk = Оберіть налаштування заднього екрану
     es = Seleccione la сonfiguración de la pantalla trasera
     pt = Escolha as definições de Ecrã Posterior
@@ -2616,7 +2616,7 @@
     tags = android
     comment = Title for yopme preferences in MWM
     en = Back Screen Settings
-    ru = Настройки дополнительного экрана
+    ru = Настройки второго экрана
     uk = Налаштування заднього екрану
     es = Configuración de la pantalla trasera
     pt = Configurações do Ecrã Posterior
@@ -2631,7 +2631,7 @@
     tags = android
     comment = Hint for upper-right icon p2b
     en = Show on Back screen
-    ru = Показать на дополнительном экране
+    ru = Показать на втором экране
     fr = Afficher sur l'écran arrière
     de = Auf dem rückseitigen Bildschirm anzeigen
     es = Mostrar en la pantalla trasera

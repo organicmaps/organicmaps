@@ -27,4 +27,5 @@
 	<string name="gestures">Рухи для заднього екрану</string>
 	<string name="category_application">Програма</string>
 	<string name="save_your_battery">З метою оптимізації використання батареї, радимо обрати найнижчу частоту регенерації зображення.</string>
+	<string name="show_my_location">Показати моє місцезнаходження</string>
 </resources>

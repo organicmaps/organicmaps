@@ -29,4 +29,5 @@
 	<string name="info_update">Atualização de Informação</string>
 	<string name="category_application">Aplicativo</string>
 	<string name="save_your_battery">De modo a otimizar a utilização da bateria, recomendamos que escolha a taxa de refrescamento mais baixa.</string>
+	<string name="show_my_location">Mostrar a minha localização</string>
 </resources>

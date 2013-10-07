@@ -29,4 +29,5 @@
 	<string name="info_update">Informacje o aktualizacji</string>
 	<string name="category_application">Program</string>
 	<string name="save_your_battery">Aby zoptymalizować użycie baterii, zalecamy wybranie najniższej częstotliwości odświeżania ekranu.</string>
+	<string name="show_my_location">Pokaż moją lokalizację</string>
 </resources>

@@ -298,11 +298,11 @@
 	<!-- Used for bookmark editing -->
 	<string name="done">Готово</string>
 	<!-- Summary for preferences in MWM -->
-	<string name="yopme_pref_summary">Выберите настройки дополнительного экрана</string>
+	<string name="yopme_pref_summary">Выберите настройки второго экрана</string>
 	<!-- Title for yopme preferences in MWM -->
-	<string name="yopme_pref_title">Настройки дополнительного экрана</string>
+	<string name="yopme_pref_title">Настройки второго экрана</string>
 	<!-- Hint for upper-right icon p2b -->
-	<string name="show_on_backscreen">Показать на дополнительном экране</string>
+	<string name="show_on_backscreen">Показать на втором экране</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Версия: %s</string>
 </resources>

@@ -31,8 +31,8 @@
     <style name="HelpBigText" parent="android:Widget.Holo.Light.TextView">
         <item name="android:fontFamily">@string/roboto_light</item>
         <item name="android:gravity">center</item>
-        <item name="android:paddingBottom">10dp</item>
-        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingTop">5dp</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">28dp</item>
     </style>
@@ -41,8 +41,8 @@
         <item name="android:drawableLeft">@drawable/ic_swipeleft</item>
         <item name="android:fontFamily">@string/roboto_light</item>
         <item name="android:gravity">center_vertical|left</item>
-        <item name="android:paddingBottom">10dp</item>
-        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingTop">5dp</item>
         <item name="android:drawablePadding">15dp</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">24dp</item>

@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="42dp" >
+    android:paddingLeft="42dp"
+    android:paddingRight="42dp" >
 
     <TextView
         style="@style/HelpBigText"
@@ -35,6 +36,15 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_tap"
         android:text="@string/info_update" >
+    </TextView>
+
+    <TextView
+        style="@style/HelpSmallText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_swipeleftright"
+        android:text="@string/show_my_location"
+        android:textSize="20dp" >
     </TextView>
 
 </LinearLayout>

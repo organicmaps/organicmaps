@@ -28,4 +28,5 @@
 	<string name="gestures">Bewegingen voor het achterscherm</string>
 	<string name="info_update">Informatie-update</string>
 	<string name="category_application">Programma</string>
+	<string name="show_my_location">Toon mijn locatie</string>
 </resources>
