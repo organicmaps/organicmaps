@@ -372,15 +372,25 @@ UNIT_TEST(Bookmarks_AddressInfo)
   fm.OnSize(800, 600);
 
   // assume that developers have English or Russian system language :)
-  size_t const index = languages::CurrentLanguage() == "ru" ? 0 : 1;
+  string const lang = languages::CurrentLanguage();
+  LOG(LINFO, ("Current language =", lang));
+
+  // default name (street in russian, category in english).
+  size_t index = 0;
+  if (lang == "ru")
+    index = 1;
+  if (lang == "en")
+    index = 2;
 
   POIInfo poi1[] = {
+    { "Планета Pizza", "улица Карла Маркса", "10", "cafe" },
     { "Планета Pizza", "улица Карла Маркса", "10", "кафе" },
     { "Планета Pizza", "vul. Karla Marksa", "10", "cafe" }
   };
   CheckPlace(fm, 53.8964918, 27.555559, poi1[index]);
 
   POIInfo poi2[] = {
+    { "Нц Шашек И Шахмат", "улица Карла Маркса", "10", "hotel" },
     { "Нц Шашек И Шахмат", "улица Карла Маркса", "10", "гостиница" },
     { "Нц Шашек И Шахмат", "vul. Karla Marksa", "10", "hotel" }
   };
