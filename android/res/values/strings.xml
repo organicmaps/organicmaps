@@ -272,15 +272,15 @@
 	<!-- No, thanks -->
 	<string name="no_thanks">No, thanks</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Look at my pin on MapsWithMe map. Open the link: %1$s or %2$s</string>
+	<string name="bookmark_share_sms">Hey, check out my pin at MapsWithMe! %1$s or %2$s Don\'t have offline maps installed? Download here: http://mapswith.me/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">See where I am now. Open the link: %1$s or %2$s</string>
+	<string name="my_position_share_sms">Hey, check out my current location at MapsWithMe! %1$s or %2$s Don\'t have offline maps? Download here: http://mapswith.me/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Look at my pin on MapsWithMe map</string>
+	<string name="bookmark_share_email_subject">Hey, check out my pin at MapsWithMe map!</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
 	<string name="bookmark_share_email">Hi,\n\nI pinned: %1$s at MapsWithMe, world offline maps. Click this link %2$s or this one %3$s to see the place on the map.\n\nThanks.</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Look at my current location on MapsWithMe map</string>
+	<string name="my_position_share_email_subject">Hey, check out my current location at MapsWithMe map!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Hi,\n\nI\'m here now: %1$s. Click this link %2$s or this one %3$s to see the place on the map.\n\nThanks.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->

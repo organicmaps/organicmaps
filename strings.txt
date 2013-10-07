@@ -2281,7 +2281,7 @@
     pl = Nie, dziękuję
     pt = Não, obrigado
   [bookmark_share_sms]
-    en = Look at my pin on MapsWithMe map. Open the link: %1$@ or %2$@
+    en = Hey, check out my pin at MapsWithMe! %1$@ or %2$@ Don't have offline maps installed? Download here: http://mapswith.me/get
     tags = ios,android
     comment = Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
     ru = Моя метка на карте. Жми %1$@ или %2$@
@@ -2297,7 +2297,7 @@
     pl = Mój znacznik w MapsWithMe %1$@ i %2$@
     pt = Veja o meu marcador no mapa do MapsWithMe. Abra a hiperligação: %1$@ ou %2$@
   [my_position_share_sms]
-    en = See where I am now. Open the link: %1$@ or %2$@
+    en = Hey, check out my current location at MapsWithMe! %1$@ or %2$@ Don't have offline maps? Download here: http://mapswith.me/get
     tags = ios,android
     comment = Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
     ru = Смотри где я сейчас. Жми %1$@ или %2$@
@@ -2313,7 +2313,7 @@
     pl = Zobacz gdzie jestem. Link %1$@ lub %2$@
     pt = Veja onde estou agora. Abra a hiperligação: %1$@ ou %2$@
   [bookmark_share_email_subject]
-    en = Look at my pin on MapsWithMe map
+    en = Hey, check out my pin at MapsWithMe map!
     tags = ios,android
     comment = Subject for emailed bookmark
     ru = Смотри мою метку на карте MapsWithMe
@@ -2344,7 +2344,7 @@
     pl = Cześć,\n\nDodałem znacznik w: %1$@ w aplikacji MapsWithMe, mapach offline całego świata. Naciśnij ten link %2$@ lub ten %3$@ by zobaczyć to miejsce na mapie.\n\nDziękuję.
     pt = Olá,\n\nFixei:%1$@ na MapsWithMe, mapas offline mundiais. Clique nesta ligação %2$@ ou nesta %3$@ para ver o local no mapa.\n\nObrigado.
   [my_position_share_email_subject]
-    en = Look at my current location on MapsWithMe map
+    en = Hey, check out my current location at MapsWithMe map!
     tags = ios,android
     comment = Subject for emailed position
     ru = Посмотри на карте MapsWithMe, где я сейчас нахожусь
