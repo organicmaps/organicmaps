@@ -4,8 +4,8 @@
     android:installLocation="preferExternal"
     android:sharedUserId="com.mapswithme"
     android:sharedUserLabel="@string/shared_user_label"
-    android:versionCode="247"
-    android:versionName="2.4.7" >
+    android:versionCode="248"
+    android:versionName="2.4.8" >
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -166,7 +166,7 @@
             android:label="@string/maps_storage"
             android:screenOrientation="behind" >
         </activity>
-		<activity
+        <activity
             android:name="com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryActivity"
             android:configChanges="orientation|screenLayout|screenSize"
             android:label="@string/bookmark_sets"
