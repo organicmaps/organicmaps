@@ -328,5 +328,5 @@
     sp = Mostrar mi ubicación
     de = Meinen Standort anzeigen
     nl = Toon mijn locatie
-    cz = Zobrazit mé umístění
+    cs = Zobrazit mé umístění
     pl = Pokaż moją lokalizację

@@ -29,4 +29,5 @@
 	<string name="info_update">Aktualizovat informace</string>
 	<string name="category_application">Aplikace</string>
 	<string name="save_your_battery">Chcete-li optimalizovat využití baterie, doporučujeme, abyste zvolili nejnižší obnovovací frekvenci obrazovky.</string>
+	<string name="show_my_location">Zobrazit mé umístění</string>
 </resources>
