@@ -43,8 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_swipeleftright"
-        android:text="@string/show_my_location"
-        android:textSize="20dp" >
+        android:text="@string/show_my_location" >
     </TextView>
 
 </LinearLayout>
