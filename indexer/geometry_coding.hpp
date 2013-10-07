@@ -12,8 +12,8 @@
 inline uint64_t EncodeDelta(m2::PointU const & actual, m2::PointU const & prediction)
 {
   return bits::BitwiseMerge(
-        bits::ZigZagEncode(static_cast<int32_t>(actual.x) - static_cast<int32_t>(prediction.x)),
-        bits::ZigZagEncode(static_cast<int32_t>(actual.y) - static_cast<int32_t>(prediction.y)));
+          bits::ZigZagEncode(static_cast<int32_t>(actual.x) - static_cast<int32_t>(prediction.x)),
+          bits::ZigZagEncode(static_cast<int32_t>(actual.y) - static_cast<int32_t>(prediction.y)));
 }
 
 inline m2::PointU DecodeDelta(uint64_t delta, m2::PointU const & prediction)
@@ -25,18 +25,19 @@ inline m2::PointU DecodeDelta(uint64_t delta, m2::PointU const & prediction)
 //@}
 
 
-/// Predict point p0 given previous (p1, p2).
+/// Predict next point for polyline with given previous points (p1, p2).
 m2::PointU PredictPointInPolyline(m2::PointU const & maxPoint,
                                   m2::PointU const & p1,
                                   m2::PointU const & p2);
 
-/// Predict point p0 given previous (p1, p2, p3).
+/// Predict next point for polyline with given previous points (p1, p2, p3).
 m2::PointU PredictPointInPolyline(m2::PointU const & maxPoint,
                                   m2::PointU const & p1,
                                   m2::PointU const & p2,
                                   m2::PointU const & p3);
 
-/// Predict point p0 given previous (p1, p2, p3).
+/// Predict point for neighbour triangle with given
+/// previous triangle (p1, p2, p3) and common edge (p1, p2).
 m2::PointU PredictPointInTriangle(m2::PointU const & maxPoint,
                                   m2::PointU const & p1,
                                   m2::PointU const & p2,

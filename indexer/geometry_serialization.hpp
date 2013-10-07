@@ -29,12 +29,12 @@ namespace serial
 
   /// @name Encode and Decode function types.
   //@{
-  typedef void (*EncodeFunT)( geo_coding::InPointsT const &,
-                              m2::PointU const &, m2::PointU const &,
-                              geo_coding::OutDeltasT &);
-  typedef void (*DecodeFunT)( geo_coding::InDeltasT const &,
-                              m2::PointU const &, m2::PointU const &,
-                              geo_coding::OutPointsT &);
+  typedef void (*EncodeFunT)(geo_coding::InPointsT const &,
+                             m2::PointU const &, m2::PointU const &,
+                             geo_coding::OutDeltasT &);
+  typedef void (*DecodeFunT)(geo_coding::InDeltasT const &,
+                             m2::PointU const &, m2::PointU const &,
+                             geo_coding::OutPointsT &);
   //@}
 
   typedef buffer_vector<uint64_t, 32> DeltasT;
@@ -196,9 +196,9 @@ namespace serial
   };
 
   void DecodeTriangles(geo_coding::InDeltasT const & deltas,
-                      m2::PointU const & basePoint,
-                      m2::PointU const & maxPoint,
-                      geo_coding::OutPointsT & triangles);
+                       m2::PointU const & basePoint,
+                       m2::PointU const & maxPoint,
+                       geo_coding::OutPointsT & triangles);
 
   template <class TSource>
   void LoadOuterTriangles(TSource & src, CodingParams const & params, OutPointsT & triangles)

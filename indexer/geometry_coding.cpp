@@ -60,7 +60,7 @@ m2::PointU PredictPointInTriangle(m2::PointU const & maxPoint,
                                   m2::PointU const & p2,
                                   m2::PointU const & p3)
 {
-  // parallelogramm prediction
+  // parallelogram prediction
   return ClampPoint(maxPoint, p1 + p2 - p3);
 }
 

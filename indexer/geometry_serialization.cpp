@@ -202,9 +202,9 @@ namespace serial
   }
 
   void DecodeTriangles(geo_coding::InDeltasT const & deltas,
-                      m2::PointU const & basePoint,
-                      m2::PointU const & maxPoint,
-                      geo_coding::OutPointsT & points)
+                       m2::PointU const & basePoint,
+                       m2::PointU const & maxPoint,
+                       geo_coding::OutPointsT & points)
   {
     size_t const count = deltas.size();
     ASSERT_GREATER ( count, 2, () );
@@ -220,6 +220,8 @@ namespace serial
 
     for (size_t i = 3; i < count;)
     {
+      // points 0, 1 - is a common edge
+      // point 2 - is an opposite point for new triangle to calculate prediction
       size_t trg[3];
 
       if (treeBits & 1)
@@ -253,11 +255,11 @@ namespace serial
       // push points
       points.push_back(points[trg[0]]);
       points.push_back(points[trg[1]]);
-      points.push_back( DecodeDelta(deltas[i] >> 2,
-                                    PredictPointInTriangle(maxPoint,
-                                                           points[trg[0]],
-                                                           points[trg[1]],
-                                                           points[trg[2]])));
+      points.push_back(DecodeDelta(deltas[i] >> 2,
+                                   PredictPointInTriangle(maxPoint,
+                                                          points[trg[0]],
+                                                          points[trg[1]],
+                                                          points[trg[2]])));
 
       // next step
       treeBits = deltas[i] & 3;
