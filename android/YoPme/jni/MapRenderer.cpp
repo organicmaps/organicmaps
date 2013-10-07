@@ -22,7 +22,7 @@ Java_com_mapswithme_yopme_map_MapRenderer_nativeCreateFramework(JNIEnv * env, jo
   s_framework.reset(new yopme::Framework(width, height));
 }
 
-JNIEXPORT bool JNICALL
+JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_yopme_map_MapRenderer_nativeRenderMap(JNIEnv * env, jobject obj,
                                              jdouble  vpLat,       jdouble vpLon,  jdouble zoom,
                                              jboolean hasPoi,      jdouble poiLat, jdouble poiLon,
