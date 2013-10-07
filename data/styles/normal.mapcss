@@ -1,34 +1,42 @@
-canvas {
+canvas
+{
     background-color: #f1eee8;
     fill-color: #B9D4D4;
     default-lines: false;
     default-points: false;
 }
-way::* {
+
+way::*
+{
     linejoin: round;
     linecap: round;
-    casing-linecap: none;
     text-position: line;
 }
-*::* {
+
+*::*
+{
     text-halo-color: white;
     text-anchor-horizontal: center;
     text-anchor-vertical: center;
     icon-width: 16;
     icon-height: 16;
 }
+
 *
 {
     icon-width: 16;
     icon-height: 16;
 }
+
 *::int_name
 {
   text-offset: 20;
 }
+
 node::* {
     text-anchor-vertical: top;
 }
+
 area::* {
     text-position: center;
     text-anchor-vertical: center;
@@ -65,6 +73,7 @@ area[tourism]
 }
 
 @import("include/base_roads.mapcss");
+/* @import("include/base_roads_UK.mapcss"); */
 @import("include/base_shop.mapcss");
 @import("include/base_sport.mapcss");
 @import("include/base_place.mapcss");
@@ -433,6 +442,7 @@ area|z12-[landuse=commercial],
 area|z12-[natural=heath]
 {
   fill-color:   #f8f8d8;
+  fill-position: background;
 }
 line|z12[boundary=administrative][border_type=region]
 {

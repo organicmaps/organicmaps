@@ -24,37 +24,31 @@ line|z7[highway=trunk]
 {
   color:    #eed4a6;
   width:    1;
-  linecap:  butt;
 }
 line|z7[highway=motorway]
 {
   color:    #efbb6e;
   width:    1;
-  linecap:  butt;
 }
 line|z8[highway=trunk]
 {
   color:    #f7d396;
   width:    2;
-  linecap:  butt;
 }
 line|z8[highway=motorway]
 {
   color:    #ef9721;
   width:    2;
-  linecap:  butt;
 }
 line|z9-10[highway=trunk]
 {
   color:    #ffc444;
   width:    2;
-  linecap:  butt;
 }
 line|z9[highway=motorway]
 {
   color:    #f08800;
   width:    3;
-  linecap:  butt;
 }
 line|z9-10[highway=secondary]
 {
@@ -65,32 +59,27 @@ line|z10[highway=motorway]
 {
   color:    #f08800;
   width:    4;
-  linecap:  butt;
 }
 line|z10-12[highway=byway]
 {
   color:    #c0a87c;
   width:    1;
   dashes:   4.5,3;
-  linecap:  butt;
 }
 line|z8-10[highway=primary]
 {
   color:    #FDE066;
   width:    1;
-  linecap:  butt;
 }
 line|z11[highway=primary]
 {
   color:    #FDE066;
   width:    2;
-  linecap:  butt;
 }
 line|z11[highway=trunk]
 {
   color:    #ffc444;
   width:    3;
-  linecap:  butt;
 }
 line|z11[highway=secondary]
 {
@@ -106,21 +95,18 @@ line|z11[highway=motorway]
 {
   color:    #f08800;
   width:    4;
-  casing-linecap:    butt;
   casing-color: #b87c04;
 }
 line|z12[highway=primary]
 {
   color:    #FDE066;
   width:    3;
-  casing-linecap:    butt;
   casing-color: #d8a050;
 }
 line|z12[highway=trunk]
 {
   color:    #ffc444;
   width:    3;
-  casing-linecap:    butt;
   casing-color: #d8a050;
 }
 line|z12[highway=tertiary]
@@ -133,7 +119,6 @@ line|z12[highway=secondary]
 {
   color:    #fffb80;
   width:    3;
-  casing-linecap:    butt;
   casing-color: #c8c860;
 }
 line|z10-11[highway=primary],
@@ -158,7 +143,6 @@ line|z12[highway=motorway]
 {
   color:    #f08800;
   width:    6;
-  casing-linecap:    butt;
   casing-color: #b87c04;
 }
 line|z12[highway=raceway]
@@ -185,7 +169,6 @@ line|z13[highway=secondary]
 {
   color:    #fffb80;
   width:    4;
-  casing-linecap:    butt;
   casing-color: #c8c860;
 }
 line|z13[highway=tertiary]
@@ -238,7 +221,6 @@ line|z13[highway=unclassified]
 {
   color:    white;
   width:    1;
-  linecap:  butt;
 }
 line|z13-14[highway=motorway]
 {
@@ -252,35 +234,30 @@ line|z13[highway=living_street]
 {
   color:    white;
   width:    1;
-  casing-linecap:    butt;
   casing-color: #c8c8af;
 }
 line|z13[highway=primary]
 {
   color:    #FDE066;
   width:    5;
-  casing-linecap:    butt;
   casing-color: #d8a050;
 }
 line|z13[highway=trunk]
 {
   color:    #ffc444;
   width:    5;
-  casing-linecap:    butt;
   casing-color: #d8a050;
 }
 line|z13[highway=motorway]
 {
   color:    #f08800;
   width:    8;
-  casing-linecap:    butt;
   casing-color: #b87c04;
 }
 line|z13[highway=track]
 {
   color:    #d79331;
   width:    1;
-  linecap:  butt;
 }
 line|z14[highway=cycleway]
 {
@@ -337,7 +314,6 @@ line|z14[highway=motorway]
 {
   color:    #f08800;
   width:    12;
-  casing-linecap:    butt;
   casing-color: #b87c04;
 }
 line|z14[highway=residential],
@@ -346,7 +322,6 @@ line|z14[highway=living_street]
 {
   color:    white;
   width:    3;
-  casing-linecap:    butt;
   casing-color: #c8c8af;
 }
 line|z14[highway=tertiary]
@@ -359,7 +334,6 @@ line|z14[highway=track]
 {
   color:    #d79331;
   width:    1;
-  linecap:  butt;
 }
 line|z14[highway=bridleway]
 {
@@ -392,7 +366,6 @@ line|z14[highway=secondary]
 {
   color:    #fffb80;
   width:    5;
-  casing-linecap:    butt;
   casing-color: #c8c860;
 }
 line|z14[highway=pedestrian]
@@ -404,14 +377,12 @@ line|z14[highway=primary]
 {
   color:    #FDE066;
   width:    7;
-  casing-linecap:    butt;
   casing-color: #d8a050;
 }
 line|z14[highway=trunk]
 {
   color:    #ffc444;
   width:    7;
-  casing-linecap:    butt;
   casing-color: #d8a050;
 }
 line|z10-12[highway=secondary_link]
@@ -453,7 +424,6 @@ line|z15-16[highway=motorway]
 {
   color:    #f08800;
   width:    16;
-  casing-linecap:    butt;
   casing-color: #b87c04;
 }
 line|z10-12[highway=trunk_link]
@@ -470,14 +440,12 @@ line|z14[highway=trunk_link]
 {
   color:    #ffc444;
   width:    4;
-  casing-linecap:    butt;
   casing-color: #d8a050;
 }
 line|z15[highway=primary]
 {
   color:    #FDE066;
   width:    8;
-  casing-linecap:    butt;
   casing-color: #d8a050;
 }
 line|z15[highway=trunk],
@@ -485,7 +453,6 @@ line|z15[highway=trunk_link]
 {
   color:    #ffc444;
   width:    8;
-  casing-linecap:    butt;
   casing-color: #d8a050;
 }
 line|z15[highway=track]
@@ -513,7 +480,6 @@ line|z15[highway=secondary]
 {
   color:    #fffb80;
   width:    7;
-  casing-linecap:    butt;
   casing-color: #c8c860;
 }
 line|z15[highway=road]
@@ -565,7 +531,8 @@ line|z15[highway=construction]
   width:    7;
   dashes:   4,4;
   linecap:  butt;
-}area|z15-[highway=byway][area?]
+}
+area|z15-[highway=byway][area?]
 {
   fill-color:   #efadaa;
 }
@@ -629,7 +596,6 @@ line|z15[highway=living_street]
 {
   color:    white;
   width:    4;
-  casing-linecap:    butt;
   casing-color: #c8c8af;
 }
 line|z15[highway=cycleway]
@@ -700,7 +666,6 @@ line|z16[highway=secondary]
 {
   color:    #fffb80;
   width:    11;
-  casing-linecap:    butt;
   casing-color: #c8c860;
 }
 line|z16[highway=raceway]::d2p3
@@ -815,7 +780,6 @@ line|z15-16[highway=primary]
 {
   color:    #FDE066;
   width:    14;
-  casing-linecap:    butt;
   casing-color: #d8a050;
 }
 line|z16[highway=trunk],
@@ -823,7 +787,6 @@ line|z16[highway=trunk_link]
 {
   color:    #ffc444;
   width:    14;
-  casing-linecap:    butt;
   casing-color: #d8a050;
 }
 line|z16[highway=steps]
@@ -840,7 +803,6 @@ line|z16[highway=living_street]
 {
   color:    white;
   width:    6;
-  casing-linecap:    butt;
   casing-color: #c8c8af;
 }
 line|z16[highway=footway][sac_scale=difficult_alpine_hiking]
@@ -1040,7 +1002,6 @@ line|z17-[highway=living_street]
 {
   color:    white;
   width:    8;
-  casing-linecap:    butt;
   casing-color: #c8c8af;
 }
 line|z17-[highway=path][sac_scale=mountain_hiking]
@@ -1083,7 +1044,6 @@ line|z17-[highway=secondary]
 {
   color:    #fffb80;
   width:    14;
-  casing-linecap:    butt;
   casing-color: #c8c860;
 }
 line|z17-[highway=bridleway]
@@ -1095,7 +1055,6 @@ line|z17-[highway=primary]
 {
   color:    #FDE066;
   width:    16;
-  casing-linecap:    butt;
   casing-color: #d8a050;
 }
 line|z17-[highway=trunk],
@@ -1103,7 +1062,6 @@ line|z17-[highway=trunk_link]
 {
   color:    #ffc444;
   width:    16;
-  casing-linecap:    butt;
   casing-color: #d8a050;
 }
 line|z17-[highway=ford]
@@ -1165,7 +1123,6 @@ line|z17-[highway=motorway]
 {
   color:    #f08800;
   width:    17;
-  casing-linecap:    butt;
   casing-color: #b87c04;
 }
 line|z17-[highway=road]
