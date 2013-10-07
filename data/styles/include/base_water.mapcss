@@ -468,3 +468,12 @@ line[waterway]
 {
   text-position: line;
 }
+area|z14-[natural=lake],
+area|z12-14[natural=pond],
+node|z14-[natural=lake],
+node|z12-14[natural=pond]
+{
+  text: name;
+  font-size:    12;
+  text-color:   #5070d0;
+}
