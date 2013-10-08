@@ -1,21 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 16.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="48px" height="64px" viewBox="0 0 48 64" enable-background="new 0 0 48 64" xml:space="preserve">
-<ellipse transform="matrix(0.168 0.9858 -0.9858 0.168 82.1781 21.0924)" opacity="0.5" fill="#808285" enable-background="new    " cx="28.594" cy="59.229" rx="2.5" ry="7.5"/>
-<polygon opacity="0.6" fill="#6D6E71" enable-background="new    " points="32,60 23,61 19,32 31,31 "/>
-<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-877.5933" y1="2455.8281" x2="-869.2554" y2="2456.5789" gradientTransform="matrix(1 0 0 -1 898.7251 2502.3555)">
-	<stop  offset="0" style="stop-color:#E6E6E6"/>
-	<stop  offset="1" style="stop-color:#C4C4C4"/>
-</linearGradient>
-<polygon fill="url(#SVGID_1_)" points="30,59 25,60 21,33 29,32 "/>
-<circle opacity="0.8" fill="#F4E206" enable-background="new    " cx="24" cy="21.917" r="20"/>
-<radialGradient id="SVGID_2_" cx="-875.2017" cy="2481.46" r="18.0152" fx="-883.8695" fy="2474.9109" gradientTransform="matrix(0.4111 0.9116 0.9116 -0.4111 -1877.5171 1839.0408)" gradientUnits="userSpaceOnUse">
-	<stop  offset="0" style="stop-color:#FFFFE8"/>
-	<stop  offset="0.248" style="stop-color:#FFFFFF"/>
-	<stop  offset="0.3718" style="stop-color:#FFFFBE"/>
-	<stop  offset="1" style="stop-color:#FFFF00"/>
-</radialGradient>
-<circle fill="url(#SVGID_2_)" cx="24" cy="21.916" r="18.015"/>
+<svg version="1" xmlns="http://www.w3.org/2000/svg" width="48" height="64">
+    <ellipse transform="matrix(.168 .986 -.986 .168 82.178 21.092)" opacity=".5" fill="#808285" enable-background="new" cx="28.594" cy="59.229" rx="2.5" ry="7.5"/>
+    <polygon opacity=".6" fill="#6D6E71" enable-background="new" points="32,60 23,61 19,32 31,31"/>
+    <linearGradient id="a" gradientUnits="userSpaceOnUse" x1="-877.593" y1="2455.828" x2="-869.255" y2="2456.579" gradientTransform="matrix(1 0 0 -1 898.725 2502.356)">
+        <stop offset="0" stop-color="#E6E6E6"/>
+        <stop offset="1" stop-color="#C4C4C4"/>
+    </linearGradient>
+    <polygon fill="url(#a)" points="30,59 25,60 21,33 29,32"/>
+    <circle opacity=".8" fill="#F4E206" enable-background="new" cx="24" cy="21.917" r="20"/>
+    <radialGradient id="b" cx="-875.202" cy="2481.46" r="18.015" fx="-883.87" fy="2474.911" gradientTransform="matrix(.411 .912 .912 -.411 -1877.517 1839.041)" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#FFFFE8"/>
+        <stop offset=".248" stop-color="#fff"/>
+        <stop offset=".372" stop-color="#FFFFBE"/>
+        <stop offset="1" stop-color="#ff0"/>
+    </radialGradient>
+    <circle fill="url(#b)" cx="24" cy="21.916" r="18.015"/>
 </svg>
