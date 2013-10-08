@@ -77,7 +77,7 @@ node|z17-[amenity=bus_station]::int_name
 area|z16[highway=bus_stop],
 node|z16[highway=bus_stop]
 {
-  icon-image: bus-mini.svg;
+  icon-image: symbols/bus-mini.svg;
   z-index: 20;
 }
 area|z16-[amenity=bus_station],
@@ -85,18 +85,18 @@ area|z17-[highway=bus_stop],
 node|z16-[amenity=bus_station],
 node|z17-[highway=bus_stop]
 {
-  icon-image: bus.svg;
+  icon-image: symbols/bus.svg;
   z-index: 20;
 }
 area|z17-[railway=tram_stop],
 node|z17-[railway=tram_stop]
 {
-  icon-image: tramway.svg;
+  icon-image: symbols/tramway.svg;
 }
 area|z15-16[railway=tram_stop],
 node|z15-16[railway=tram_stop]
 {
-  icon-image: tramway-mini.svg;
+  icon-image: symbols/tramway-mini.svg;
 }
 
 line|z15-[railway=tram]::d1p2
@@ -192,7 +192,7 @@ line|z12-[railway=subway]
 area|z16-[railway=subway_entrance],
 node|z16-[railway=subway_entrance]
 {
-  icon-image: subway.svg;
+  icon-image: symbols/subway.svg;
 }
 line|z12-[railway=subway]                                         {width:3; color: #0f0f4c; z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
 node[railway=station][transport=subway]                           {text-color: #3050d8; text-position: center;}
@@ -291,15 +291,15 @@ area|z15-[railway=station][transport=subway]::int_name
 area|z12-14[railway=station][transport=subway],
 node|z12-14[railway=station][transport=subway]
 {
-  icon-image: subway-station-s.svg;
+  icon-image: symbols/subway-station-s.svg;
 }
 area|z15[railway=station][transport=subway],
 node|z15[railway=station][transport=subway]
 {
-  icon-image: subway-station-m.svg;
+  icon-image: symbols/subway-station-m.svg;
 }
 area|z16-[railway=station][transport=subway],
 node|z16-[railway=station][transport=subway]
 {
-  icon-image: subway-station-l.svg;
+  icon-image: symbols/subway-station-l.svg;
 }

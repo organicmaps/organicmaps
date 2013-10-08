@@ -326,7 +326,7 @@ line|z16[waterway=stream][intermittent=yes]
 area|z17-[amenity=drinking_water],
 node|z17-[amenity=drinking_water]
 {
-  icon-image: drinking_water.svg;
+  icon-image: symbols/drinking_water.svg;
 }
 line|z16[man_made=breakwater]
 {

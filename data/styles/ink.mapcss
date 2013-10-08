@@ -245,7 +245,7 @@ node|z12-[aeroway=aerodrome],
 node|z12-[aeroway=airport],
 node|z12-[aeroway=aerodrome]
 {
-  icon-image: airport.svg;
+  icon-image: symbols/airport.svg;
 }
 line|z9[boundary=administrative][admin_level=4]
 {
@@ -602,7 +602,7 @@ line|z12[boundary=administrative][border_type=country]
 area|z12-[natural=volcano],
 node|z12-[natural=volcano]
 {
-  icon-image: vulcan.svg;
+  icon-image: symbols/vulcan.svg;
 }
 area|z13-[landuse=farmyard],
 area|z12-[man_made=wastewater_plant]
@@ -657,7 +657,7 @@ area|z12-[natural=land]
 area|z12-13[natural=peak],
 node|z12-13[natural=peak]
 {
-  icon-image: peak-mini.svg;
+  icon-image: symbols/peak-mini.svg;
 }
 area|z14-[natural=lake],
 area|z12-14[natural=pond],
@@ -1088,7 +1088,7 @@ line|z14[railway=abandoned]::d1p3
 area|z14-[natural=peak],
 node|z14-[natural=peak]
 {
-  icon-image: peak.svg;
+  icon-image: symbols/peak.svg;
 }
 area|z14-[man_made=pier]
 {
@@ -1098,7 +1098,7 @@ area|z14-[man_made=pier]
 area|z16-[amenity=ferry_terminal],
 node|z16-[amenity=ferry_terminal]
 {
-    icon-image: slipway.svg;
+    icon-image: symbols/slipway.svg;
 }
 
 line|z14[man_made=pier]::d1p3
@@ -1118,7 +1118,7 @@ line|z14[railway=narrow_gauge]::d1p3
 area|z14-[natural=cave_entrance],
 node|z14-[natural=cave_entrance]
 {
-  icon-image: cave_entrance.svg;
+  icon-image: symbols/cave_entrance.svg;
 }
 line|z14[railway=monorail]::d1p2
 {
@@ -1159,7 +1159,7 @@ line|z14[railway=construction]::d1p3
 area|z14-[power=generator][generator:type=photovoltaic],
 node|z14-[power=generator][generator:type=photovoltaic]
 {
-  icon-image: power_photovoltaic.svg;
+  icon-image: symbols/power_photovoltaic.svg;
 }
 line|z14-[railway=rail],
 node|z16-[aerialway=station]
@@ -1182,7 +1182,7 @@ line|z14[piste:lift=j-bar]::d2p2
 area|z14-[earthquake:damage=spontaneous_camp],
 node|z14-[earthquake:damage=spontaneous_camp]
 {
-  icon-image: earthquakecamp.svg;
+  icon-image: symbols/earthquakeCamp.svg;
 }
 line|z14[railway=construction]
 {
@@ -1267,7 +1267,7 @@ line|z14[boundary=administrative][border_type=country]
 area|z15-[tourism=alpine_hut],
 node|z15-[tourism=alpine_hut]
 {
-  icon-image: alpine_hut.svg;
+  icon-image: symbols/alpine_hut.svg;
 }
 line|z14[railway=preserved]::d1p3
 {
@@ -1284,7 +1284,7 @@ line|z14[man_made=cutline]
 area|z14-[amenity=shelter],
 node|z14-[amenity=shelter]
 {
-  icon-image: shelter.svg;
+  icon-image: symbols/shelter.svg;
 }
 line|z14[railway=siding]
 {
@@ -1471,7 +1471,7 @@ line|z14[boundary=administrative][border_type=county]
 area|z14-[power=generator],
 node|z14-[power=generator]
 {
-  icon-image: power_generic.svg;
+  icon-image: symbols/power_generic.svg;
 }
 line|z12-[mapswithme=grid]
 {
@@ -1545,7 +1545,7 @@ line|z14[railway=preserved]
 area|z14-[power=generator][power_source=hydro],
 node|z14-[power=generator][power_source=hydro]
 {
-  icon-image: power_hydro.svg;
+  icon-image: symbols/power_hydro.svg;
 }
 line|z14[railway=light_rail]::d1p3
 {
@@ -1580,7 +1580,7 @@ line|z14[railway=narrow_gauge]
 area|z16-[power=tower],
 node|z16-[power=tower]
 {
-  icon-image: power-tower.svg;
+  icon-image: symbols/power-tower.svg;
 }
 area|z14-[natural=beach]
 {
@@ -1609,7 +1609,7 @@ line|z14[waterway=ditch]
 area|z14-[power=generator][power_source=wind],
 node|z14-[power=generator][power_source=wind]
 {
-  icon-image: power_wind.svg;
+  icon-image: symbols/power_wind.svg;
 }
 line|z14[piste:lift=t-bar]::d2p3
 {
@@ -1825,7 +1825,7 @@ node|z15-[tourism=viewpoint],
 area|z15-[tourism=artwork],
 node|z15-[tourism=artwork]
 {
-  icon-image: viewpoint.svg;
+  icon-image: symbols/viewpoint.svg;
 }
 line|z15[railway=siding]::d1p2
 {
@@ -1920,7 +1920,7 @@ line|z15[railway=rail]::d1p4
 area|z15-[aeroway=helipad],
 node|z15-[aeroway=helipad]
 {
-  icon-image: helipad.svg;
+  icon-image: symbols/helipad.svg;
 }
 line|z15[boundary=administrative][admin_level=8]
 {
@@ -2348,12 +2348,12 @@ line|z15[boundary=administrative][border_type=country]
 area|z15-[amenity=fuel],
 node|z15-[amenity=fuel]
 {
-  icon-image: petrolstation.svg;
+  icon-image: symbols/petrolStation.svg;
 }
 area|z15-[leisure=nature_reserve],
 node|z15-[leisure=nature_reserve]
 {
-  icon-image: bird.svg;
+  icon-image: symbols/bird.svg;
 }
 
 area|z15-[building]
@@ -2407,7 +2407,7 @@ line|z16[communication=line]
 area|z16-[amenity=bureau_de_change],
 node|z16-[amenity=bureau_de_change]
 {
-  icon-image: bureau_de_change.svg;
+  icon-image: symbols/bureau_de_change.svg;
 }
 line|z16[boundary=administrative][admin_level=5]
 {
@@ -2463,7 +2463,7 @@ line|z16[railway=spur]
 area|z16-[amenity=restaurant],
 node|z16-[amenity=restaurant]
 {
-  icon-image: restaurant.svg;
+  icon-image: symbols/restaurant.svg;
 }
 line|z16[railway=funicular]
 {
@@ -2521,7 +2521,7 @@ line|z16[boundary=administrative][admin_level=10]
 area|z17-[amenity=atm],
 node|z17-[amenity=atm]
 {
-  icon-image: atm.svg;
+  icon-image: symbols/atm.svg;
 }
 line|z16[railway=light_rail]::d1p3
 {
@@ -2536,12 +2536,12 @@ area|z16-[historic=battlefield],
 node|z17-[military=bunker],
 node|z16-[historic=battlefield]
 {
-  icon-image: cannon.svg;
+  icon-image: symbols/cannon.svg;
 }
 area|z16-[amenity=hunting_stand],
 node|z16-[amenity=hunting_stand]
 {
-  icon-image: hunting_closed_high.svg;
+  icon-image: symbols/hunting_closed_high.svg;
 }
 line|z16[waterway=dam]
 {
@@ -2574,7 +2574,7 @@ line|z16[waterway=drain]
 area|z16-[amenity=fast_food],
 node|z16-[amenity=fast_food]
 {
-  icon-image: fastfood.svg;
+  icon-image: symbols/fastfood.svg;
 }
 line|z16[boundary=administrative][border_type=country]::d2p2
 {
@@ -2588,12 +2588,12 @@ line|z16[boundary=administrative][border_type=country]::d2p2
 area|z16-[amenity=bench],
 node|z16-[amenity=bench]
 {
-  icon-image: bench.svg;
+  icon-image: symbols/bench.svg;
 }
 area|z16-[power=pole],
 node|z16-[power=pole]
 {
-  icon-image: power-pole.svg;
+  icon-image: symbols/power-pole.svg;
 }
 area|z16-[natural=peak],
 node|z16-[natural=peak]
@@ -2710,7 +2710,7 @@ node|z16[aerialway=station]
 area|z16-[amenity=bicycle_rental],
 node|z16-[amenity=bicycle_rental]
 {
-  icon-image: bicycle_rental.svg;
+  icon-image: symbols/bicycle_rental.svg;
 }
 line|z16[power=minor_line]
 {
@@ -2722,12 +2722,12 @@ line|z16[power=minor_line]
 area|z16-[amenity=theatre],
 node|z16-[amenity=theatre]
 {
-  icon-image: theatre.svg;
+  icon-image: symbols/theatre.svg;
 }
 area|z16-[amenity=embassy],
 node|z16-[amenity=embassy]
 {
-  icon-image: embassy.svg;
+  icon-image: symbols/embassy.svg;
 }
 line|z16[railway=rail]::d1p3
 {
@@ -2740,14 +2740,14 @@ area|z16-[tourism=hostel],
 node|z16-[tourism=guest_house],
 node|z16-[tourism=hostel]
 {
-  icon-image: hostel.svg;
+  icon-image: symbols/hostel.svg;
 }
 area|z16-[tourism=hotel],
 area|z16-[tourism=motel],
 node|z16-[tourism=hotel],
 node|z16-[tourism=motel]
 {
-  icon-image: hotel.svg;
+  icon-image: symbols/hotel.svg;
 }
 line|z16[boundary=administrative][border_type=region]
 {
@@ -2795,7 +2795,7 @@ line|z16[barrier=hedge]
 area|z16-[amenity=restaurant][hotel],
 node|z16-[amenity=restaurant][hotel]
 {
-  icon-image: hotel_and_restaurant.svg;
+  icon-image: symbols/hotel_and_restaurant.svg;
 }
 line|z16[boundary=administrative][border_type=county]
 {
@@ -2842,7 +2842,7 @@ line|z16[railway=narrow_gauge]::d1p2
 area|z17-[amenity=toilets],
 node|z17-[amenity=toilets],
 {
-  icon-image: toilets.svg;
+  icon-image: symbols/toilets.svg;
 }
 line|z16[boundary=administrative][border_type=suburb]
 {
@@ -2866,7 +2866,7 @@ node|z16-[natural=volcano]
 area|z16-[railway=level_crossing],
 node|z16-[railway=level_crossing]
 {
-  icon-image: railway-crossing.svg;
+  icon-image: symbols/railway-crossing.svg;
 }
 line|z16[barrier=bollard],
 node|z16[barrier=block],
@@ -2923,7 +2923,7 @@ line|z16[boundary=administrative][type=nation]::d2p2
 area|z16-[amenity=fire_station],
 node|z16-[amenity=fire_station]
 {
-  icon-image: firebrigade.svg;
+  icon-image: symbols/firebrigade.svg;
 }
 line|z16[railway=construction]::d1p3
 {
@@ -2938,7 +2938,7 @@ area|z17-[amenity=taxi],
 node|z16[amenity=taxi],
 node|z17-[amenity=taxi]
 {
-  icon-image: taxi.svg;
+  icon-image: symbols/taxi.svg;
 }
 line|z16[railway=preserved]::d1p3
 {
@@ -2965,7 +2965,7 @@ line|z16[power=minor_line]::d1p3
 area|z16-[amenity=fountain],
 node|z16-[amenity=fountain]
 {
-  icon-image: fountain.svg;
+  icon-image: symbols/fountain.svg;
 }
 line|z16[barrier=wall]
 {
@@ -2989,7 +2989,7 @@ line|z16[railway=siding]
 area|z16-[amenity=car_rental],
 node|z16-[amenity=car_rental]
 {
-  icon-image: car_rental.svg;
+  icon-image: symbols/car_rental.svg;
 }
 line|z16[railway=siding]::d1p2
 {
@@ -3000,7 +3000,7 @@ line|z16[railway=siding]::d1p2
 area|z17-[amenity=drinking_water],
 node|z17-[amenity=drinking_water]
 {
-  icon-image: drinking_water.svg;
+  icon-image: symbols/drinking_water.svg;
 }
 line|z16[man_made=breakwater]
 {
@@ -3017,7 +3017,7 @@ line|z16[railway=funicular]::d1p3
 area|z16-[amenity=marketplace],
 node|z16-[amenity=marketplace]
 {
-  icon-image: supermarket.svg;
+  icon-image: symbols/supermarket.svg;
 }
 area|z16[amenity=pharmacy],
 area|z16-[amenity=doctors],
@@ -3026,7 +3026,7 @@ node|z16[amenity=pharmacy],
 node|z16-[amenity=doctors],
 node|z17-[amenity=pharmacy]
 {
-  icon-image: pharmacy.svg;
+  icon-image: symbols/pharmacy.svg;
 }
 line|z16[aerialway=cable_car]
 {
@@ -3056,7 +3056,7 @@ line|z16[waterway=stream]
 area|z16-[amenity=place_of_worship],
 node|z16-[amenity=place_of_worship]
 {
-  icon-image: religion.svg;
+  icon-image: symbols/religion.svg;
 }
 line|z16[barrier=retaining_wall]
 {
@@ -3072,24 +3072,24 @@ line|z16[waterway=river]
 area|z16-[railway=crossing],
 node|z16-[railway=crossing]
 {
-  icon-image: railway-crossing-small.svg;
+  icon-image: symbols/railway-crossing-small.svg;
 }
 area|z16-[barrier=lift_gate],
 node|z16-[barrier=lift_gate]
 {
-  icon-image: barrier.svg;
+  icon-image: symbols/barrier.svg;
 }
 area|z16-[amenity=bar],
 area|z16-[amenity=nightclub],
 node|z16-[amenity=bar],
 node|z16-[amenity=nightclub]
 {
-  icon-image: bar.svg;
+  icon-image: symbols/bar.svg;
 }
 area|z16-[historic=ruins],
 node|z16-[historic=ruins]
 {
-  icon-image: ruins.svg;
+  icon-image: symbols/ruins.svg;
 }
 line|z16[man_made=pier]
 {
@@ -3109,14 +3109,14 @@ line|z16[boundary=administrative][border_type=state]
 area|z16-[amenity=speed_trap],
 node|z16-[amenity=speed_trap]
 {
-  icon-image: speed_trap.svg;
+  icon-image: symbols/speed_trap.svg;
 }
 area|z16-[historic=memorial],
 area|z16-[historic=monument],
 node|z16-[historic=memorial],
 node|z16-[historic=monument]
 {
-  icon-image: memorial.svg;
+  icon-image: symbols/memorial.svg;
 }
 line|z16[boundary=administrative][admin_level=7]
 {
@@ -3184,7 +3184,7 @@ line|z16[railway=abandoned]::d1p2
 area|z16-[historic=castle],
 node|z16-[historic=castle]
 {
-  icon-image: castle.svg;
+  icon-image: symbols/castle.svg;
 }
 line|z16[waterway=canal]
 {
@@ -3202,7 +3202,7 @@ line|z16[barrier=hedge]
 area|z17-[amenity=police],
 node|z17-[amenity=police]
 {
-  icon-image: police.svg;
+  icon-image: symbols/police.svg;
 }
 line|z16[railway=construction]
 {
@@ -3224,7 +3224,7 @@ line|z16[boundary=administrative][border_type=city]
 area|z17-[amenity=hospital],
 node|z17-[amenity=hospital]
 {
-  icon-image: hospital.svg;
+  icon-image: symbols/hospital.svg;
 }
 line|z16[waterway=ditch]
 {
@@ -3240,7 +3240,7 @@ line|z16[railway=construction]::d1p2
 }
 node|z16-[natural=tree]
 {
-  icon-image: tree.svg;
+  icon-image: symbols/tree.svg;
 }
 line|z16[boundary=administrative][type=nation]
 {
@@ -3252,7 +3252,7 @@ line|z16[boundary=administrative][type=nation]
 area|z16-[amenity=cafe],
 node|z16-[amenity=cafe]
 {
-  icon-image: cafe.svg;
+  icon-image: symbols/cafe.svg;
   z-index: 1;
 }
 line|z16[man_made=pipeline]
@@ -3265,7 +3265,7 @@ line|z16[man_made=pipeline]
 area|z16-[amenity=car_sharing],
 node|z16-[amenity=car_sharing]
 {
-  icon-image: car_sharing.svg;
+  icon-image: symbols/car_sharing.svg;
 }
 line|z16[waterway=weir]
 {
@@ -3286,7 +3286,7 @@ line|z16[railway=preserved]
 area|z16-[amenity=cinema],
 node|z16-[amenity=cinema]
 {
-  icon-image: cinema.svg;
+  icon-image: symbols/cinema.svg;
 }
 area|z16-[historic=archaeological_site],
 area|z16-[historic=museum],
@@ -3295,7 +3295,7 @@ node|z16-[historic=archaeological_site],
 node|z16-[historic=museum],
 node|z16-[tourism=museum]
 {
-  icon-image: museum.svg;
+  icon-image: symbols/museum.svg;
 }
 line|z16[barrier=retaining_wall]
 {
@@ -3331,7 +3331,7 @@ line|z16[boundary=administrative][admin_level=9]
 area|z16-[amenity=post_office],
 node|z16-[amenity=post_office]
 {
-  icon-image: postoffice.svg;
+  icon-image: symbols/postoffice.svg;
 }
 line|z16[aerialway=mixed_lift]
 {
@@ -3362,7 +3362,7 @@ line|z16[railway=yard]::raildash
 area|z16-[amenity=library],
 node|z16-[amenity=library],
 {
-  icon-image: library.svg;
+  icon-image: symbols/library.svg;
 }
 line|z16[aerialway=gondola]
 {
@@ -3444,7 +3444,7 @@ line|z17-[communication=line]::d1p2
 area|z17-[leisure=playground],
 node|z17-[leisure=playground]
 {
-  icon-image: playground.svg;
+  icon-image: symbols/playground.svg;
 }
 line|z17-[railway=razed]::d1p3
 {
@@ -3567,12 +3567,12 @@ line|z17-[waterway=river]
 area|z14-[tourism=camp_site],
 node|z14-[tourism=camp_site]
 {
-  icon-image: campsite.svg;
+  icon-image: symbols/campSite.svg;
 }
 area|z17-[leisure=slipway],
 node|z17-[leisure=slipway]
 {
-  icon-image: slipway.svg;
+  icon-image: symbols/slipway.svg;
 }
 line|z17-[boundary=administrative][border_type=country]::d2p2
 {
@@ -3689,7 +3689,7 @@ area|z17-[amenity=university],
 node|z17-[amenity=college],
 node|z17-[amenity=university]
 {
-  icon-image: university.svg;
+  icon-image: symbols/university.svg;
 }
 line|z17-[boundary=administrative][border_type=city]
 {
@@ -3723,7 +3723,7 @@ line|z17-[aerialway=chair_lift]
 area|z17-[tourism=picnic_site],
 node|z17-[tourism=picnic_site]
 {
-  icon-image: picnic.svg;
+  icon-image: symbols/picnic.svg;
 }
 area|z17-[railway=platform],
 line|z17-[railway=platform]
@@ -3748,7 +3748,7 @@ line|z17-[communication=line][location=underground]
 area|z17-[man_made=windmill],
 node|z17-[man_made=windmill]
 {
-  icon-image: windmill.svg;
+  icon-image: symbols/windmill.svg;
 }
 line|z17-[boundary=administrative][admin_level=11]
 {
@@ -3770,7 +3770,7 @@ line|z17-[railway=siding]::d1p3
 area|z17-[amenity=kindergarten],
 node|z17-[amenity=kindergarten]
 {
-  icon-image: kindergarten2.svg;
+  icon-image: symbols/kindergarten2.svg;
 }
 line|z17-[route=ferry]
 {
@@ -3825,7 +3825,7 @@ line|z17-[man_made=pier]::d1p3
 area|z17-[tourism=information][information=guidepost],
 node|z17-[tourism=information][information=guidepost]
 {
-  icon-image: information-guidepost.svg;
+  icon-image: symbols/information-guidepost.svg;
 }
 line|z16-[barrier=fence]
 {
@@ -4201,66 +4201,66 @@ area|z15-[railway=station][!transport]
 area|z17-[tourism=information][office],
 node|z17-[tourism=information][office]
 {
-  icon-image: information-office.svg;
+  icon-image: symbols/information-office.svg;
 }
 area|z17-[barrier=gate],
 node|z17-[barrier=gate]
 {
-  icon-image: gate.svg;
+  icon-image: symbols/gate.svg;
 }
 area|z17-[man_made=lighthouse],
 node|z17-[man_made=lighthouse]
 {
-  icon-image: lighthouse.svg;
+  icon-image: symbols/lighthouse.svg;
 }
 area|z17-[tourism=information],
 node|z17-[tourism=information]
 {
-  icon-image: information.svg;
+  icon-image: symbols/information.svg;
 }
 
 area|z17-[amenity=post_box],
 node|z17-[amenity=post_box]
 {
-  icon-image: postbox.svg;
+  icon-image: symbols/postbox.svg;
 }
 area|z16-[amenity=bank],
 node|z16-[amenity=bank]
 {
-  icon-image: bank.svg;
+  icon-image: symbols/bank.svg;
   z-index: 5;
 }
 area|z16-[amenity=pub],
 node|z16-[amenity=pub]
 {
-  icon-image: pub.svg;
+  icon-image: symbols/pub.svg;
 }
 
 node|z17-[amenity=recycling]
 {
-  icon-image: recycling.svg;
+  icon-image: symbols/recycling.svg;
 }
 node|z16-[amenity=telephone]
 {
-  icon-image: telephone.svg;
+  icon-image: symbols/telephone.svg;
 }
 area|z17-[amenity=school],
 node|z17-[amenity=school]
 {
-  icon-image: school.svg;
+  icon-image: symbols/school.svg;
 }
 
 area|z14-16[railway=halt],
 node|z14-16[railway=halt]
 {
-  icon-image: railway-station-mini.svg;
+  icon-image: symbols/railway-station-mini.svg;
   z-index: 150;
 }
 
 area|z17-[railway=halt],
 node|z17-[railway=halt]
 {
-  icon-image: railway-station.svg;
+  icon-image: symbols/railway-station.svg;
 }
 
 /* Eval magic */
@@ -4315,7 +4315,7 @@ line|z16-[oneway?]::arrows
 {
   pattern-offset: 200;
   z-index: 1000;
-  pattern-image: arrow.svg;
+  pattern-image: symbols/arrow.svg;
   pattern-spacing: 234;
 }
 
