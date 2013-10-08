@@ -44,130 +44,130 @@ area|z10-[waterway=dock],
 area|z10-[waterway=riverbank],
 area|z14-[natural=bay],
 {
-  fill-color:   #B9D4D4;
+  fill-color: #B9D4D4;
   z-index: 100;
 }
 line|z10[waterway=river]
 {
-  color:    #B9D4D4;
-  width:    0.5;
+  color: #B9D4D4;
+  width: 0.5;
 }
 area|z13-[leisure=water_park],
 line|z11[waterway=river]
 {
-  color:    #B9D4D4;
-  width:    1;
+  color: #B9D4D4;
+  width: 1;
 }
 line|z12[waterway=river]
 {
-  color:    #B9D4D4;
-  width:    2.5;
+  color: #B9D4D4;
+  width: 2.5;
 }
 area|z14-[natural=wetland],
 area|z12-[natural=wetland][wetland=bog]
 {
-  fill-color:   #a0c3b8;
+  fill-color: #a0c3b8;
 }
 line|z12[waterway=drain]
 {
-  color:    #B9D4D4;
-  width:    1;
-  z-index:  67;
+  color: #B9D4D4;
+  width: 1;
+  z-index: 67;
 }
 line|z12[waterway=ditch]
 {
-  color:    #B9D4D4;
-  width:    0.3;
-  z-index:  68;
+  color: #B9D4D4;
+  width: 0.3;
+  z-index: 68;
 }
 line|z12[waterway=stream]
 {
-  color:    #B9D4D4;
-  width:    0.75;
-  z-index:  65;
+  color: #B9D4D4;
+  width: 0.75;
+  z-index: 65;
 }
 line|z12[waterway=canal]
 {
-  color:    #B9D4D4;
-  width:    2.5;
+  color: #B9D4D4;
+  width: 2.5;
 }
 line|z13[waterway=drain]
 {
-  color:    #B9D4D4;
-  width:    1.5;
-  z-index:  77;
+  color: #B9D4D4;
+  width: 1.5;
+  z-index: 77;
 }
 line|z13[waterway=river]
 {
-  color:    #B9D4D4;
-  width:    3;
+  color: #B9D4D4;
+  width: 3;
 }
 area|z13[natural=water]
 {
   text: name;
-  font-size:    10;
-  text-color:   navy;
+  font-size: 10;
+  text-color: navy;
 }
 area|z14[natural=water]
 {
   text: name;
-  font-size:    11;
-  text-color:   navy;
+  font-size: 11;
+  text-color: navy;
 }
 area|z15[natural=water]
 {
   text: name;
-  font-size:    12;
-  text-color:   navy;
+  font-size: 12;
+  text-color: navy;
 }
 area|z16-[natural=water]
 {
   text: name;
-  font-size:    16;
-  text-color:   navy;
+  font-size: 16;
+  text-color: navy;
 }
 line|z13[waterway=ditch]
 {
-  color:    #B9D4D4;
-  width:    0.4;
-  z-index:  78;
+  color: #B9D4D4;
+  width: 0.4;
+  z-index: 78;
 }
 line|z13[waterway=stream]
 {
-  color:    #B9D4D4;
-  width:    1;
-  z-index:  75;
+  color: #B9D4D4;
+  width: 1;
+  z-index: 75;
 }
 line|z13[waterway=canal]
 {
-  color:    #B9D4D4;
-  width:    3;
+  color: #B9D4D4;
+  width: 3;
 }
 line|z14[natural=spring],
 line|z14[waterway=river]
 {
-  color:    #B9D4D4;
-  width:    4;
+  color: #B9D4D4;
+  width: 4;
 }
 line|z14[waterway=stream][intermittent=yes]
 {
-  color:    #B9D4D4;
-  width:    1;
-  z-index:  100;
-  dashes:   2.4,0.8;
-  linecap:  butt;
+  color: #B9D4D4;
+  width: 1;
+  z-index: 100;
+  dashes: 2.4,0.8;
+  linecap: butt;
 }
 line|z14[waterway=dam]
 {
-  color:    #202020;
-  width:    0.38;
-  z-index:  124;
+  color: #202020;
+  width: 0.38;
+  z-index: 124;
 }
 line|z14[waterway=lock]
 {
-  color:    #f8f8f8;
-  width:    5;
-  z-index:  88;
+  color: #f8f8f8;
+  width: 5;
+  z-index: 88;
   casing-width: 0.5;
   casing-color: #202020;
 }
@@ -176,135 +176,135 @@ line|z14-[waterway=canal],
 line|z14-[waterway=river]
 {
   text: name;
-  font-size:    12;
-  text-color:   #507cea;
+  font-size: 12;
+  text-color: #507cea;
 }
 line|z14[waterway=canal]
 {
-  color:    #B9D4D4;
-  width:    4;
+  color: #B9D4D4;
+  width: 4;
 }
 line|z14[waterway=drain]
 {
-  color:    #B9D4D4;
-  width:    2.3;
+  color: #B9D4D4;
+  width: 2.3;
 }
 line|z14[waterway=ditch]
 {
-  color:    #B9D4D4;
-  width:    0.3;
-  z-index:  104;
+  color: #B9D4D4;
+  width: 0.3;
+  z-index: 104;
 }
 line|z14[waterway=stream]
 {
-  color:    #B9D4D4;
-  width:    1;
-  z-index:  101;
+  color: #B9D4D4;
+  width: 1;
+  z-index: 101;
 }
 line|z14[waterway=stream][intermittent=ephemeral]
 {
-  color:    #B9D4D4;
-  width:    1;
-  z-index:  99;
-  dashes:   1.6,1.6;
-  linecap:  butt;
+  color: #B9D4D4;
+  width: 1;
+  z-index: 99;
+  dashes: 1.6,1.6;
+  linecap: butt;
 }
 line|z14[waterway=weir]
 {
-  color:    #000044;
-  width:    0.25;
-  z-index:  123;
+  color: #000044;
+  width: 0.25;
+  z-index: 123;
 }
 line|z15[waterway=weir]
 {
-  color:    #000044;
-  width:    1;
-  z-index:  128;
+  color: #000044;
+  width: 1;
+  z-index: 128;
 }
 line|z15[waterway=canal]
 {
-  color:    #B9D4D4;
-  width:    4;
+  color: #B9D4D4;
+  width: 4;
 }
 line|z15[waterway=stream][intermittent=yes]
 {
-  color:    #B9D4D4;
-  width:    2;
-  dashes:   2.4,0.8;
-  linecap:  butt;
+  color: #B9D4D4;
+  width: 2;
+  dashes: 2.4,0.8;
+  linecap: butt;
 }
 line|z15[waterway=ditch]
 {
-  color:    #B9D4D4;
-  width:    0.6;
-  z-index:  109;
+  color: #B9D4D4;
+  width: 0.6;
+  z-index: 109;
 }
 line|z15[waterway=stream]
 {
-  color:    #B9D4D4;
-  width:    2;
-  z-index:  106;
+  color: #B9D4D4;
+  width: 2;
+  z-index: 106;
 }
 line|z15[waterway=stream][intermittent=ephemeral]
 {
-  color:    #B9D4D4;
-  width:    2;
-  z-index:  104;
-  dashes:   1.6,1.6;
-  linecap:  butt;
+  color: #B9D4D4;
+  width: 2;
+  z-index: 104;
+  dashes: 1.6,1.6;
+  linecap: butt;
 }
 line|z15[waterway=lock]
 {
-  color:    #f8f8f8;
-  width:    9;
-  z-index:  92;
+  color: #f8f8f8;
+  width: 9;
+  z-index: 92;
   casing-width: 0.5;
   casing-color: #202020;
 }
 line|z15[natural=spring],
 line|z15[waterway=river]
 {
-  color:    #B9D4D4;
-  width:    5;
+  color: #B9D4D4;
+  width: 5;
 }
 line|z15[waterway=drain]
 {
-  color:    #B9D4D4;
-  width:    2.8;
-  z-index:  108;
+  color: #B9D4D4;
+  width: 2.8;
+  z-index: 108;
   casing-width: 0.35;
   casing-color: #b0b0b0;
 }
 line|z15[waterway=dam]
 {
-  color:    #202020;
-  width:    1.5;
-  z-index:  129;
+  color: #202020;
+  width: 1.5;
+  z-index: 129;
 }
 line|z15[man_made=breakwater]
 {
-  color:    #707070;
-  width:    2;
+  color: #707070;
+  width: 2;
 }
 line|z16[waterway=lock]
 {
-  color:    #f8f8f8;
-  width:    10;
-  z-index:  94;
+  color: #f8f8f8;
+  width: 10;
+  z-index: 94;
   casing-width: 1;
   casing-color: #202020;
 }
 line|z16[waterway=dam]
 {
-  color:    #202020;
-  width:    3;
-  z-index:  131;
+  color: #202020;
+  width: 3;
+  z-index: 131;
 }
 line|z16[waterway=drain]
 {
-  width:    4;
-  z-index:  110;
-  color:    #B9D4D4;
+  width: 4;
+  z-index: 110;
+  color: #B9D4D4;
   casing-width: 0.6;
   casing-color: #b0b0b0;
 }
@@ -313,146 +313,146 @@ line|z16-[waterway=drain],
 line|z16-[waterway=stream]
 {
   text: name;
-  font-size:    12;
-  text-color:   navy;
+  font-size: 12;
+  text-color: navy;
 }
 line|z16[waterway=stream][intermittent=yes]
 {
-  color:    #B9D4D4;
-  width:    2;
-  dashes:   2.4,0.8;
-  linecap:  butt;
+  color: #B9D4D4;
+  width: 2;
+  dashes: 2.4,0.8;
+  linecap: butt;
 }
 area|z17-[amenity=drinking_water],
 node|z17-[amenity=drinking_water]
 {
-  icon-image:   drinking_water.svg;
+  icon-image: drinking_water.svg;
 }
 line|z16[man_made=breakwater]
 {
-  color:    #707070;
-  width:    4;
-  z-index:  854;
+  color: #707070;
+  width: 4;
+  z-index: 854;
 }
 area|z12-[man_made=wastewater_plant]
 {
-  fill-position:    background;
+  fill-position: background;
 }
 area|z12-[man_made=wastewater_plant]
 {
-  fill-color:   #e4e4e4;
+  fill-color: #e4e4e4;
 }
 line|z16[waterway=stream]
 {
-  color:    #B9D4D4;
-  width:    2;
-  z-index:  108;
+  color: #B9D4D4;
+  width: 2;
+  z-index: 108;
 }
 line|z16[natural=spring],
 line|z16[waterway=river]
 {
-  color:    #B9D4D4;
-  width:    8;
+  color: #B9D4D4;
+  width: 8;
 }
 line|z16[waterway=canal]
 {
-  color:    #B9D4D4;
-  width:    4.8;
+  color: #B9D4D4;
+  width: 4.8;
 }
 line|z16[waterway=ditch]
 {
-  color:    #B9D4D4;
-  width:    0.6;
-  z-index:  111;
+  color: #B9D4D4;
+  width: 0.6;
+  z-index: 111;
 }
 line|z16[waterway=stream][intermittent=ephemeral]
 {
-  color:    #B9D4D4;
-  width:    2;
-  z-index:  106;
-  dashes:   1.6,1.6;
-  linecap:  butt;
+  color: #B9D4D4;
+  width: 2;
+  z-index: 106;
+  dashes: 1.6,1.6;
+  linecap: butt;
 }
 line|z16[waterway=weir]
 {
-  color:    #000044;
-  width:    2;
-  z-index:  130;
+  color: #000044;
+  width: 2;
+  z-index: 130;
 }
 line|z17-[waterway=canal]
 {
-  width:    6.4;
-  color:    #B9D4D4;
+  width: 6.4;
+  color: #B9D4D4;
   casing-width: 0.8;
   casing-color: #b0b0b0;
 }
 line|z17-[waterway=lock]
 {
-  color:    #f8f8f8;
-  width:    12;
-  z-index:  96;
+  color: #f8f8f8;
+  width: 12;
+  z-index: 96;
   casing-width: 2;
   casing-color: #202020;
 }
 line|z17-[natural=spring],
 line|z17-[waterway=river]
 {
-  color:    #B9D4D4;
-  width:    16;
+  color: #B9D4D4;
+  width: 16;
 }
 line|z17-[waterway=weir]
 {
-  color:    #000044;
-  width:    3;
-  z-index:  132;
+  color: #000044;
+  width: 3;
+  z-index: 132;
 }
 line|z17-[waterway=ditch]
 {
-  color:    #B9D4D4;
-  width:    0.8;
-  z-index:  113;
+  color: #B9D4D4;
+  width: 0.8;
+  z-index: 113;
 }
 line|z17-[waterway=stream]
 {
-  color:    #B9D4D4;
-  width:    2.2;
-  z-index:  110;
+  color: #B9D4D4;
+  width: 2.2;
+  z-index: 110;
 }
 line|z17-[waterway=stream][intermittent=yes]
 {
-  color:    #B9D4D4;
-  width:    2.2;
-  z-index:  108;
-  dashes:   2.4,0.8;
-  linecap:  butt;
+  color: #B9D4D4;
+  width: 2.2;
+  z-index: 108;
+  dashes: 2.4,0.8;
+  linecap: butt;
 }
 line|z17-[man_made=breakwater]
 {
-  color:    #707070;
-  width:    6.4;
-  z-index:  913;
+  color: #707070;
+  width: 6.4;
+  z-index: 913;
 }
 line|z17-[waterway=stream][intermittent=ephemeral]
 {
-  color:    #B9D4D4;
-  width:    2.2;
-  z-index:  109;
-  dashes:   1.6,1.6;
-  linecap:  butt;
+  color: #B9D4D4;
+  width: 2.2;
+  z-index: 109;
+  dashes: 1.6,1.6;
+  linecap: butt;
 }
 line|z17-[waterway=drain]
 {
-  width:    6.4;
-  z-index:  112;
-  color:    #B9D4D4;
+  width: 6.4;
+  z-index: 112;
+  color: #B9D4D4;
   casing-width: 0.8;
   casing-color: #b0b0b0;
 }
 line|z17-[waterway=dam]
 {
-  color:    #202020;
-  width:    4;
-  z-index:  133;
+  color: #202020;
+  width: 4;
+  z-index: 133;
 }
 area[waterway=riverbank],
 line[waterway=river],
@@ -462,7 +462,7 @@ line[waterway=canal]
 }
 line[waterway]
 {
-  text-halo-color:  eval(prop("color"));
+  text-halo-color: eval(prop("color"));
 }
 line[waterway]
 {
@@ -474,6 +474,6 @@ node|z14-[natural=lake],
 node|z12-14[natural=pond]
 {
   text: name;
-  font-size:    12;
-  text-color:   #5070d0;
+  font-size: 12;
+  text-color: #5070d0;
 }
