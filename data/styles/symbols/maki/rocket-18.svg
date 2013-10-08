@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="18"
+   height="18"
+   id="svg4619"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="rocket-18.svg"
+   inkscape:export-filename="renders/rocket-18@2x.png"
+   inkscape:export-xdpi="180"
+   inkscape:export-ydpi="180">
+  <defs
+     id="defs4621" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="9.1669497"
+     inkscape:cy="11.33288"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="false"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1215"
+     inkscape:window-height="776"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     inkscape:snap-bbox="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4627"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="18,18"
+       id="guide4659" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="18,9"
+       id="guide4661" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="16,17"
+       id="guide4663" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="17,14"
+       id="guide4665" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="0,16"
+       id="guide4667" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="8,0"
+       id="guide4669" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="2,10"
+       id="guide4671" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="12,2"
+       id="guide4673" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata4624">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-1034.3622)">
+    <path
+       id="path3998"
+       transform="translate(0,1034.3622)"
+       d="M 16.53125 1 C 15.376152 0.95337344 12.042545 2.36375 9.53125 4.875 C 7.378712 7.0275 5.59375 10.25 5.59375 10.25 C 5.59375 10.9674 7.0324874 12.40625 7.75 12.40625 C 7.75 12.40625 10.784962 10.80885 12.9375 8.65625 C 15.80755 5.78625 17.413134 1.663 16.875 1.125 C 16.807733 1.057725 16.696264 1.0066609 16.53125 1 z M 12.5 4.25 C 13.190356 4.25 13.75 4.8096441 13.75 5.5 C 13.75 6.1903559 13.190356 6.75 12.5 6.75 C 11.809644 6.75 11.25 6.1903559 11.25 5.5 C 11.25 4.8096441 11.809644 4.25 12.5 4.25 z M 5 7 L 2 9.5 L 2 10 L 5 9 L 5.75 9 L 7 7 L 5 7 z M 11 11 L 9 12.25 L 9 13 L 8 16 L 8.5 16 L 11 13 L 11 11 z "
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-linejoin:round;stroke-linecap:round;opacity:0.3" />
+    <path
+       style="fill:#444444;fill-opacity:1;stroke:none"
+       d="M 16.53125 1 C 15.376152 0.95337344 12.042545 2.36375 9.53125 4.875 C 7.378712 7.0275 5.59375 10.25 5.59375 10.25 C 5.59375 10.9674 7.0324874 12.40625 7.75 12.40625 C 7.75 12.40625 10.784962 10.80885 12.9375 8.65625 C 15.80755 5.78625 17.413134 1.663 16.875 1.125 C 16.807733 1.057725 16.696264 1.0066609 16.53125 1 z M 12.5 4.25 C 13.190356 4.25 13.75 4.8096441 13.75 5.5 C 13.75 6.1903559 13.190356 6.75 12.5 6.75 C 11.809644 6.75 11.25 6.1903559 11.25 5.5 C 11.25 4.8096441 11.809644 4.25 12.5 4.25 z M 5 7 L 2 9.5 L 2 10 L 5 9 L 5.75 9 L 7 7 L 5 7 z M 11 11 L 9 12.25 L 9 13 L 8 16 L 8.5 16 L 11 13 L 11 11 z "
+       transform="translate(0,1034.3622)"
+       id="path3088" />
+  </g>
+</svg>
