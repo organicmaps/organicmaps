@@ -6,31 +6,31 @@
 area|z17-[shop][shop!=no],
 node|z17-[shop][shop!=no],
 {
-  font-size:    11;
+  font-size: 11;
   text-halo-radius: 2;
   text: name;
-  text-color:   #404040;
-  text-offset:  10;
-  text-halo-color:  white;
+  text-color: #404040;
+  text-offset: 10;
+  text-halo-color: white;
   z-index: 1;
 }
 
 area|z16-[shop=car_repair],
 node|z16-[shop=car_repair]
 {
-  icon-image:   car_repair.svg;
+  icon-image: car_repair.svg;
 }
 
 area|z16-[shop=kiosk],
 node|z16-[shop=kiosk]
 {
-  icon-image:   kiosk.svg;
+  icon-image: kiosk.svg;
 }
 
 area|z16-[shop=bakery],
 node|z16-[shop=bakery]
 {
-  icon-image:   bakery.svg;
+  icon-image: bakery.svg;
 }
 
 area|z16-[shop=convenience],
@@ -60,17 +60,17 @@ node|z16-[shop=department_store],
 area|z16-[shop=furniture],
 node|z16-[shop=furniture]
 {
-  icon-image:   supermarket.svg;
+  icon-image: supermarket.svg;
 }
 
 area|z16-[shop=hairdresser],
 node|z16-[shop=hairdresser]
 {
-  icon-image:   hairdresser.svg;
+  icon-image: hairdresser.svg;
 }
 
 area|z16-[shop=clothes],
 node|z16-[shop=clothes]
 {
-  icon-image:   clothes.svg;
+  icon-image: clothes.svg;
 }
