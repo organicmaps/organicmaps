@@ -1,15 +1,29 @@
 #include "track.hpp"
+#include "drawer.hpp"
+#include "events.hpp"
+#include "navigator.hpp"
+
 #include "../graphics/screen.hpp"
 #include "../graphics/pen.hpp"
 #include "../graphics/depth_constants.hpp"
+#include "../graphics/display_list.hpp"
+
 #include "../geometry/distance.hpp"
-#include "drawer.hpp"
+
 #include "../base/timer.hpp"
 #include "../base/logging.hpp"
+
 
 Track::~Track()
 {
   DeleteDisplayList();
+}
+
+Track * Track::CreatePersistent()
+{
+  Track * p = new Track();
+  p->Swap(*this);
+  return p;
 }
 
 void Track::DeleteDisplayList()
@@ -18,7 +32,6 @@ void Track::DeleteDisplayList()
   {
     delete m_dList;
     m_dList = 0;
-    LOG(LDEBUG, ("DisplayList deleted for track", m_name));
   }
 }
 
@@ -28,16 +41,14 @@ void Track::Draw(shared_ptr<PaintEvent> const & e)
   {
     graphics::Screen * screen = e->drawer()->screen();
     screen->drawDisplayList(m_dList, math::Identity<double, 3>());
-    LOG(LDEBUG, ("Drawing track:", GetName()));
   }
 }
 
 void Track::UpdateDisplayList(Navigator & navigator, graphics::Screen * dListScreen)
 {
   const bool isIntersect = navigator.Screen().GlobalRect().IsIntersect(m2::AnyRectD(GetLimitRect()));
-  if ( !(IsVisible() && isIntersect) )
+  if (!(IsVisible() && isIntersect))
   {
-    LOG(LDEBUG, ("No intresection, deleting dlist", GetName()));
     DeleteDisplayList();
     return;
   }
@@ -52,6 +63,7 @@ void Track::UpdateDisplayList(Navigator & navigator, graphics::Screen * dListScr
 
     dListScreen->beginFrame();
     dListScreen->setDisplayList(m_dList);
+
     // Clip and transform points
     /// @todo can we optimize memory allocation?
     vector<m2::PointD> pixPoints(m_polyline.m_points.size());
@@ -74,7 +86,7 @@ void Track::UpdateDisplayList(Navigator & navigator, graphics::Screen * dListScr
       else
         lastSuccessed = false;
     }
-    LOG(LDEBUG, ("Number of points in rect = ", countInRect));
+
     // Draw
     if (countInRect >= 2)
     {
@@ -88,16 +100,23 @@ void Track::UpdateDisplayList(Navigator & navigator, graphics::Screen * dListScr
   }
 }
 
-bool Track::IsViewportChanged(ScreenBase const & sb)
+bool Track::IsViewportChanged(ScreenBase const & sb) const
 {
   // check if viewport changed
   return m_screenBase != sb;
 }
 
-m2::RectD Track::GetLimitRect() const { return m_polyline.GetLimitRect(); }
-size_t Track::Size() const { return m_polyline.m_points.size(); }
+m2::RectD Track::GetLimitRect() const
+{
+  return m_polyline.GetLimitRect();
+}
 
-double Track::GetShortestSquareDistance(m2::PointD const & point)
+size_t Track::Size() const
+{
+  return m_polyline.m_points.size();
+}
+
+double Track::GetShortestSquareDistance(m2::PointD const & point) const
 {
   double res = numeric_limits<double>::max();
   m2::DistanceToLineSquare<m2::PointD> d;
@@ -107,4 +126,17 @@ double Track::GetShortestSquareDistance(m2::PointD const & point)
     res = min(res, d(point));
   }
   return res;
+}
+
+void Track::Swap(Track & rhs)
+{
+  swap(m_isVisible, rhs.m_isVisible);
+  swap(m_width, rhs.m_width);
+  swap(m_color, rhs.m_color);
+
+  m_name.swap(rhs.m_name);
+  m_polyline.Swap(rhs.m_polyline);
+
+  DeleteDisplayList();
+  rhs.DeleteDisplayList();
 }

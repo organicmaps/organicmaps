@@ -1,19 +1,31 @@
 #pragma once
 
 #include "../geometry/polyline2d.hpp"
-#include "../geometry/point2d.hpp"
-#include "../graphics/color.hpp"
-#include "../graphics/display_list.hpp"
-#include "../graphics/screen.hpp"
-#include "events.hpp"
-#include "navigator.hpp"
+#include "../geometry/screenbase.hpp"
 
-class Track
+#include "../graphics/color.hpp"
+
+#include "../std/shared_ptr.hpp"
+#include "../std/noncopyable.hpp"
+
+
+class Navigator;
+class PaintEvent;
+
+namespace graphics
+{
+  class Screen;
+  class DisplayList;
+  class PaintEvent;
+}
+
+
+class Track : private noncopyable
 {
 public:
   ~Track();
 
-  typedef m2::Polyline2d<double> PolylineD;
+  typedef m2::PolylineD PolylineD;
 
   Track()
     : m_isVisible(true), m_name("unnamed_track"), m_width(5),
@@ -27,6 +39,9 @@ public:
       m_polyline(polyline),
       m_dList(0)
   {}
+
+  /// @note Move semantics is used here.
+  Track * CreatePersistent();
 
   void Draw(shared_ptr<PaintEvent> const & e);
   void UpdateDisplayList(Navigator & navigator, graphics::Screen * dListScreen);
@@ -52,8 +67,10 @@ public:
   double GetLength() const { return m_polyline.GetLength(); }
   PolylineD const & GetPolyline() const { return m_polyline; }
 
-  double GetShortestSquareDistance(m2::PointD const & point);
+  double GetShortestSquareDistance(m2::PointD const & point) const;
   //@}
+
+  void Swap(Track & rhs);
 
 private:
   bool m_isVisible;
@@ -66,6 +83,6 @@ private:
   ScreenBase m_screenBase;
   graphics::DisplayList * m_dList;
 
-  bool IsViewportChanged(ScreenBase const & sb);
-  inline bool HasDisplayList() { return m_dList != NULL; }
+  bool IsViewportChanged(ScreenBase const & sb) const;
+  inline bool HasDisplayList() const { return m_dList != 0; }
 };

@@ -1,13 +1,17 @@
 #pragma once
 #include "bookmark.hpp"
-#include "events.hpp"
-#include "../std/scoped_ptr.hpp"
-#include "../graphics/screen.hpp"
 
-//special number for additional layer category
+#include "../std/scoped_ptr.hpp"
+
+
+/// Special number for additional layer category.
 const int additionalLayerCategory = -2;
 
 class Framework;
+class Navigator;
+class PaintEvent;
+namespace graphics { class Screen; }
+
 
 class BookmarkManager : private noncopyable
 {

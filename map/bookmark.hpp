@@ -11,7 +11,8 @@
 #include "../std/noncopyable.hpp"
 #include "../std/iostream.hpp"
 
-#include "track.hpp"
+
+class Track;
 
 
 class Bookmark
@@ -81,11 +82,12 @@ public:
   void ReplaceBookmark(size_t index, Bookmark const & bm);
   //@}
 
-  /// @name Track routines
+  /// @name Tracks routine.
   //@{
-  void AddTrack(Track const & track);
+  /// @note Move semantics is used here.
+  void AddTrack(Track & track);
   Track * GetTrack(size_t index) const;
-  inline size_t GetTracksCount()    const { return m_tracks.size(); }
+  inline size_t GetTracksCount() const { return m_tracks.size(); }
   //@}
 
   void SetVisible(bool isVisible) { m_visible = isVisible; }

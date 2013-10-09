@@ -3,23 +3,27 @@
 #include "point2d.hpp"
 #include "rect2d.hpp"
 
-namespace m2 {
+namespace m2
+{
 
 template <typename T>
-class Polyline2d
+class PolylineT
 {
 public:
-  Polyline2d() {}
-  explicit Polyline2d(vector<Point<T> > const & points): m_points(points) {}
+  PolylineT() {}
+  explicit PolylineT(vector<Point<T> > const & points) : m_points(points)
+  {
+    ASSERT_GREATER(m_points.size(), 1, ());
+  }
 
   // let it be public for now
   vector<Point<T> > m_points;
 
-  T GetLength() const
+  double GetLength() const
   {
     // @todo add cached value and lazy init
-    T dist = 0;
-    for (int i = 1; i < m_points.size(); ++i)
+    double dist = 0;
+    for (size_t i = 1; i < m_points.size(); ++i)
       dist += m_points[i-1].Length(m_points[i]);
     return dist;
   }
@@ -32,5 +36,16 @@ public:
       rect.Add(m_points[i]);
     return rect;
   }
+
+  void Clear() { m_points.clear(); }
+  void Add(Point<T> const & pt) { m_points.push_back(pt); }
+  void Swap(PolylineT & rhs)
+  {
+    m_points.swap(rhs.m_points);
+  }
+  size_t GetSize() const { return m_points.size(); }
 };
+
+typedef PolylineT<double> PolylineD;
+
 }

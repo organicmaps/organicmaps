@@ -1,4 +1,5 @@
 #include "bookmark.hpp"
+#include "track.hpp"
 
 #include "../indexer/mercator.hpp"
 
@@ -15,10 +16,10 @@
 #include "../std/algorithm.hpp"
 #include "../std/auto_ptr.hpp"
 
-void BookmarkCategory::AddTrack(Track const & track)
+
+void BookmarkCategory::AddTrack(Track & track)
 {
-  Track * t = new Track(track);
-  m_tracks.push_back(t);
+  m_tracks.push_back(track.CreatePersistent());
 }
 
 Track * BookmarkCategory::GetTrack(size_t index) const
@@ -59,12 +60,19 @@ void BookmarkCategory::AssignPrivateParams(size_t index, Bookmark & bm) const
 BookmarkCategory::~BookmarkCategory()
 {
   ClearBookmarks();
+  ClearTracks();
 }
 
 void BookmarkCategory::ClearBookmarks()
 {
   for_each(m_bookmarks.begin(), m_bookmarks.end(), DeleteFunctor());
   m_bookmarks.clear();
+}
+
+void BookmarkCategory::ClearTracks()
+{
+  for_each(m_tracks.begin(), m_tracks.end(), DeleteFunctor());
+  m_tracks.clear();
 }
 
 void BookmarkCategory::DeleteBookmark(size_t index)
@@ -113,10 +121,6 @@ namespace
     ss << lon << "," << lat;
     return ss.str();
   }
-}
-
-namespace
-{
 
   enum GeometryType
   {
@@ -151,7 +155,7 @@ namespace
 
     vector<string> m_tags;
     GeometryType m_geometryType;
-    vector<m2::PointD> m_points;
+    m2::PolylineD m_points;
 
     string m_name;
     string m_type;
@@ -170,15 +174,15 @@ namespace
       m_scale = -1.0;
       m_timeStamp = my::INVALID_TIME_STAMP;
 
-      m_points.clear();
+      m_points.Clear();
       m_geometryType = UNKNOWN;
     }
 
-    void SetOrigin(string const & s)
+    bool ParsePoint(string const & s, char const * delim, m2::PointD & pt)
     {
       // order in string is: lon, lat, z
 
-      strings::SimpleTokenizer iter(s, ", ");
+      strings::SimpleTokenizer iter(s, delim);
       if (iter)
       {
         double lon;
@@ -186,39 +190,39 @@ namespace
         {
           double lat;
           if (strings::to_double(*iter, lat) && MercatorBounds::ValidLat(lat))
-            m_org = m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
+          {
+            pt = m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
+            return true;
+          }
           else
-            LOG(LWARNING, ("Invalid coordinates", s, "while loading bookmark", m_name));
+            LOG(LWARNING, ("Invalid coordinates", s, "while loading", m_name));
         }
       }
+
+      return false;
     }
 
-    void ParseLineCoordinates(string const & s, string const & blockSeparator, string const & coordSeparator)
+    void SetOrigin(string const & s)
     {
-      double lon, lat;
-      strings::SimpleTokenizer cortegeIter(s, blockSeparator.c_str());
-      LOG(LDEBUG,("Start Parsing", m_name, s));
+      m_geometryType = POINT;
 
+      m2::PointD pt;
+      if (ParsePoint(s, ", \n\r\t", pt))
+        m_org = pt;
+    }
+
+    void ParseLineCoordinates(string const & s, char const * blockSeparator, char const * coordSeparator)
+    {
+      m_geometryType = LINE;
+
+      strings::SimpleTokenizer cortegeIter(s, blockSeparator);
       while (cortegeIter)
       {
-        string const token = *cortegeIter;
-        strings::SimpleTokenizer coordIter(token, coordSeparator.c_str());
-        if (coordIter)
-        {
-          if (strings::to_double(*coordIter, lon) && MercatorBounds::ValidLon(lon) && ++coordIter)
-          {
-            if (strings::to_double(*coordIter, lat) && MercatorBounds::ValidLat(lat))
-            {
-              m2::PointD const pt(m2::PointD(MercatorBounds::LonToX(lon),
-                                             MercatorBounds::LatToY(lat)));
-              m_points.push_back(pt);
-            }
-          }
-        }
-
+        m2::PointD pt;
+        if (ParsePoint(*cortegeIter, coordSeparator, pt))
+          m_points.Add(pt);
         ++cortegeIter;
       }
-      LOG(LDEBUG,("End Parsing", m_name));
     }
 
     bool MakeValid()
@@ -241,9 +245,9 @@ namespace
       }
       else if (LINE == m_geometryType)
       {
-        /// @todo real validation
-        return true;
+        return m_points.GetSize() > 1;
       }
+
       return false;
     }
 
@@ -265,27 +269,30 @@ namespace
     {
       ASSERT_EQUAL(m_tags.back(), tag, ());
 
-      if (tag == "Placemark" && MakeValid())
+      if (tag == "Placemark")
       {
-        if (POINT == m_geometryType)
+        if (MakeValid())
         {
-        Bookmark bm(m_org, m_name, m_type);
-        bm.SetTimeStamp(m_timeStamp);
-        bm.SetDescription(m_description);
-        bm.SetScale(m_scale);
-        m_category.AddBookmark(bm);
+          if (POINT == m_geometryType)
+          {
+            Bookmark bm(m_org, m_name, m_type);
+            bm.SetTimeStamp(m_timeStamp);
+            bm.SetDescription(m_description);
+            bm.SetScale(m_scale);
+            m_category.AddBookmark(bm);
+          }
+          else if (LINE == m_geometryType)
+          {
+            Track track(m_points);
+            track.SetName(m_name);
+            /// @todo Add description, style, timestamp
+            m_category.AddTrack(track);
+          }
         }
-        else if (LINE == m_geometryType)
-        {
-          Track::PolylineD poly(m_points);
-          Track track(poly);
-          track.SetName(m_name);
-          // add descr, style, timestamp
-          m_category.AddTrack(track);
-          LOG(LDEBUG, ("Track added", m_name));
-        }
+
         Reset();
       }
+
       m_tags.pop_back();
     }
 
@@ -319,14 +326,11 @@ namespace
         {
           if (prevTag == "Point")
           {
-            m_geometryType = POINT;
             if (currTag == "coordinates")
               SetOrigin(value);
           }
           else if (prevTag == "LineString")
           {
-            LOG(LINFO,(prevTag, currTag));
-            m_geometryType = LINE;
             if (currTag == "coordinates")
               ParseLineCoordinates(value, " \n\r\t", ",");
           }
@@ -543,21 +547,17 @@ void BookmarkCategory::SaveToKML(ostream & s)
     SaveStringWithCDATA(s, track->GetName());
     s << "</name>\n";
 
-    /// @todo add descr, style, timestamp
+    /// @todo Save description, style, timestamp
 
-    s << "<LineString>"
-      << "<coordinates>";
+    s << "    <LineString><coordinates>";
 
     Track::PolylineD const & poly = track->GetPolyline();
-    for (size_t pIndex = 0; pIndex < poly.m_points.size(); ++pIndex)
-    {
-      s << PointToString(poly.m_points[pIndex]) << "\n";
-    }
+    for (size_t pt = 0; pt < poly.m_points.size(); ++pt)
+      s << PointToString(poly.m_points[pt]) << " ";
 
-    s << "</coordinates></LineString>\n"
-      << "</Placemark>\n";
+    s << "    </coordinates></LineString>\n"
+      << "  </Placemark>\n";
   }
-  // !Saving tracks
 
   s << kmlFooter;
 }

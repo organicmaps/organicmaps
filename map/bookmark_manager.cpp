@@ -49,25 +49,24 @@ void BookmarkManager::DrawCategory(BookmarkCategory const * cat, shared_ptr<Pain
   Navigator & navigator = m_framework.GetNavigator();
   InformationDisplay & informationDisplay  = m_framework.GetInformationDisplay();
 
-  // get viewport limit rect
+  // Get viewport limit rect.
   m2::AnyRectD const & glbRect = navigator.Screen().GlobalRect();
   Drawer * pDrawer = e->drawer();
 
- // Draw tracks. Only track with display list will be drawn
+ // Draw tracks. Only track with display list will be drawn.
   for (size_t i = 0; i < cat->GetTracksCount(); ++i)
     cat->GetTrack(i)->Draw(e);
 
-  // Draw bookmarks
+  // Draw bookmarks.
   for (size_t j = 0; j < cat->GetBookmarksCount(); ++j)
   {
     Bookmark const * bm = cat->GetBookmark(j);
     m2::PointD const & org = bm->GetOrg();
 
-    // draw only visible bookmarks on screen
+    // Draw only visible bookmarks on screen.
     if (glbRect.IsPointInside(org))
       informationDisplay.drawPlacemark(pDrawer, bm->GetType().c_str(), navigator.GtoP(org));
   }
-
 }
 
 void BookmarkManager::ClearItems()
@@ -156,8 +155,8 @@ size_t BookmarkManager::CreateBmCategory(string const & name)
 
 void BookmarkManager::Update(Navigator & navigator)
 {
-  for (int i = 0; i < m_categories.size(); ++i)
-    for (int j = 0; j < m_categories[i]->GetTracksCount(); ++j)
+  for (size_t i = 0; i < m_categories.size(); ++i)
+    for (size_t j = 0; j < m_categories[i]->GetTracksCount(); ++j)
       m_categories[i]->GetTrack(j)->UpdateDisplayList(navigator, m_bmScreen);
 }
 
