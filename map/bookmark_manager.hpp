@@ -1,14 +1,11 @@
 #pragma once
 #include "bookmark.hpp"
 
-#include "../std/scoped_ptr.hpp"
-
 
 /// Special number for additional layer category.
 const int additionalLayerCategory = -2;
 
 class Framework;
-class Navigator;
 class PaintEvent;
 namespace graphics { class Screen; }
 
@@ -18,19 +15,23 @@ class BookmarkManager : private noncopyable
   vector<BookmarkCategory *> m_categories;
   string m_lastCategoryUrl;
   string m_lastType;
+
   Framework & m_framework;
+
   BookmarkCategory * m_additionalPoiLayer;
+
   graphics::Screen * m_bmScreen;
+  mutable double m_lastScale;
 
   typedef vector<BookmarkCategory *>::iterator CategoryIter;
 
-  void DrawCategory(BookmarkCategory const * cat, shared_ptr<PaintEvent> const & e);
+  void DrawCategory(BookmarkCategory const * cat, shared_ptr<PaintEvent> const & e) const;
 
   void SaveState() const;
   void LoadState();
 
 public:
-  BookmarkManager(Framework& f);
+  BookmarkManager(Framework & f);
   ~BookmarkManager();
 
   void ClearItems();
@@ -52,8 +53,7 @@ public:
   BookmarkCategory * GetBmCategory(size_t index) const;
 
   size_t CreateBmCategory(string const & name);
-  void Update(Navigator & navigator);
-  void DrawItems(shared_ptr<PaintEvent> const & e);
+  void DrawItems(shared_ptr<PaintEvent> const & e) const;
 
   /// @name Delete bookmarks category with all bookmarks.
   /// @return true if category was deleted

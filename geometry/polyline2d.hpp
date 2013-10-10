@@ -3,21 +3,23 @@
 #include "point2d.hpp"
 #include "rect2d.hpp"
 
+#include "../std/vector.hpp"
+
+
 namespace m2
 {
 
 template <typename T>
 class PolylineT
 {
+  vector<Point<T> > m_points;
+
 public:
   PolylineT() {}
   explicit PolylineT(vector<Point<T> > const & points) : m_points(points)
   {
     ASSERT_GREATER(m_points.size(), 1, ());
   }
-
-  // let it be public for now
-  vector<Point<T> > m_points;
 
   double GetLength() const
   {
@@ -43,7 +45,12 @@ public:
   {
     m_points.swap(rhs.m_points);
   }
+
   size_t GetSize() const { return m_points.size(); }
+
+  typedef typename vector<Point<T> >::const_iterator IterT;
+  IterT Begin() const { return m_points.begin(); }
+  IterT End() const { return m_points.end(); }
 };
 
 typedef PolylineT<double> PolylineD;

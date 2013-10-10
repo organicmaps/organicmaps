@@ -782,7 +782,6 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   Drawer * pDrawer = e->drawer();
   graphics::Screen * pScreen = pDrawer->screen();
 
-  // Begin frame
   pScreen->beginFrame();
 
   bool const isEmptyModel = m_renderPolicy->IsEmptyModel();
@@ -804,9 +803,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   DrawMapApiPoints(e);
   pScreen->endFrame();
-  // End frame
 
-  m_bmManager.Update(m_navigator);
   m_bmManager.DrawItems(e);
 
   m_guiController->UpdateElements();

@@ -1,7 +1,4 @@
 #include "track.hpp"
-#include "drawer.hpp"
-#include "events.hpp"
-#include "navigator.hpp"
 
 #include "../graphics/screen.hpp"
 #include "../graphics/pen.hpp"
@@ -26,105 +23,68 @@ Track * Track::CreatePersistent()
   return p;
 }
 
-void Track::DeleteDisplayList()
+void Track::DeleteDisplayList() const
 {
-  if (HasDisplayList())
+  if (m_dList)
   {
     delete m_dList;
     m_dList = 0;
   }
 }
 
-void Track::Draw(shared_ptr<PaintEvent> const & e)
+void Track::Draw(graphics::Screen * pScreen, MatrixT const & matrix) const
 {
-  if (HasDisplayList())
-  {
-    graphics::Screen * screen = e->drawer()->screen();
-    screen->drawDisplayList(m_dList, math::Identity<double, 3>());
-  }
+  pScreen->drawDisplayList(m_dList, matrix);
 }
 
-void Track::UpdateDisplayList(Navigator & navigator, graphics::Screen * dListScreen)
+namespace
 {
-  const bool isIntersect = navigator.Screen().GlobalRect().IsIntersect(m2::AnyRectD(GetLimitRect()));
-  if (!(IsVisible() && isIntersect))
-  {
-    DeleteDisplayList();
-    return;
-  }
 
-  if (!HasDisplayList() || IsViewportChanged(navigator.Screen()))
-  {
-    m_screenBase = navigator.Screen();
-    m2::AnyRectD const & screenRect = m_screenBase.GlobalRect();
+template <class T> class DoLeftProduct
+{
+  T const & m_t;
+public:
+  DoLeftProduct(T const & t) : m_t(t) {}
+  template <class X> X operator() (X const & x) const { return x * m_t; }
+};
 
-    DeleteDisplayList();
-    m_dList = dListScreen->createDisplayList();
-
-    dListScreen->beginFrame();
-    dListScreen->setDisplayList(m_dList);
-
-    // Clip and transform points
-    /// @todo can we optimize memory allocation?
-    vector<m2::PointD> pixPoints(m_polyline.m_points.size());
-    int countInRect = 0;
-    bool lastSuccessed = false;
-    for (int i = 1; i < m_polyline.m_points.size(); ++i)
-    {
-      m2::PointD & left = m_polyline.m_points[i-1];
-      m2::PointD & right = m_polyline.m_points[i];
-      m2::RectD segRect(left, right);
-
-      if (m2::AnyRectD(segRect).IsIntersect(screenRect))
-      {
-        if (!lastSuccessed)
-          pixPoints[countInRect++] = navigator.GtoP(m_polyline.m_points[i-1]);
-        /// @todo add only visible segments drawing to avoid phanot segments
-        pixPoints[countInRect++] = navigator.GtoP(m_polyline.m_points[i]);
-        lastSuccessed = true;
-      }
-      else
-        lastSuccessed = false;
-    }
-
-    // Draw
-    if (countInRect >= 2)
-    {
-      graphics::Pen::Info info(m_color, m_width);
-      uint32_t resId = dListScreen->mapInfo(info);
-      /// @todo add simplification
-      dListScreen->drawPath(&pixPoints[0], countInRect, 0, resId, graphics::tracksDepth);
-    }
-    dListScreen->setDisplayList(0);
-    dListScreen->endFrame();
-  }
 }
 
-bool Track::IsViewportChanged(ScreenBase const & sb) const
+void Track::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matrix) const
 {
-  // check if viewport changed
-  return m_screenBase != sb;
-}
+  DeleteDisplayList();
 
-m2::RectD Track::GetLimitRect() const
-{
-  return m_polyline.GetLimitRect();
-}
+  m_dList = dlScreen->createDisplayList();
 
-size_t Track::Size() const
-{
-  return m_polyline.m_points.size();
+  dlScreen->beginFrame();
+  dlScreen->setDisplayList(m_dList);
+
+  graphics::Pen::Info info(m_color, m_width);
+  uint32_t resId = dlScreen->mapInfo(info);
+
+  /// @todo add simplification
+  vector<m2::PointD> pts(m_polyline.GetSize());
+  transform(m_polyline.Begin(), m_polyline.End(), pts.begin(), DoLeftProduct<MatrixT>(matrix));
+
+  dlScreen->drawPath(pts.data(), pts.size(), 0, resId, graphics::tracksDepth);
+
+  dlScreen->setDisplayList(0);
+  dlScreen->endFrame();
 }
 
 double Track::GetShortestSquareDistance(m2::PointD const & point) const
 {
   double res = numeric_limits<double>::max();
   m2::DistanceToLineSquare<m2::PointD> d;
-  for (size_t i = 0; i + 1 < m_polyline.m_points.size(); ++i)
+
+  typedef PolylineD::IterT IterT;
+  IterT i = m_polyline.Begin();
+  for (IterT j = i+1; j != m_polyline.End(); ++i, ++j)
   {
-    d.SetBounds(m_polyline.m_points[i], m_polyline.m_points[i + 1]);
+    d.SetBounds(*i, *j);
     res = min(res, d(point));
   }
+
   return res;
 }
 
@@ -133,6 +93,7 @@ void Track::Swap(Track & rhs)
   swap(m_isVisible, rhs.m_isVisible);
   swap(m_width, rhs.m_width);
   swap(m_color, rhs.m_color);
+  swap(m_rect, rhs.m_rect);
 
   m_name.swap(rhs.m_name);
   m_polyline.Swap(rhs.m_polyline);
