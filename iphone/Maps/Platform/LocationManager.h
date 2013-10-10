@@ -19,7 +19,6 @@
   CLLocationManager * m_locationManager;
   BOOL m_isStarted;
   NSMutableSet * m_observers;
-  BOOL m_isTimerActive;
   NSDate * m_lastLocationTime;
   BOOL m_isCourse;
 }

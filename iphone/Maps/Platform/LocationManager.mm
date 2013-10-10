@@ -186,21 +186,10 @@
   }
 }
 
-- (void)onTimer:(NSTimer *)timer
-{
-  [m_locationManager dismissHeadingCalibrationDisplay];
-  m_isTimerActive = NO;
-}
-
-// Display compass calibration dialog automatically
 - (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager
 {
-  if (!m_isTimerActive)
-  {
-    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(onTimer:) userInfo:nil repeats:NO];
-    m_isTimerActive = YES;
-  }
-  return YES;
+  // Never display calibration dialog as it sucks on iOS 7
+  return NO;
 }
 
 - (bool)getLat:(double &)lat Lon:(double &)lon
