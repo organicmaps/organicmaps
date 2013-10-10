@@ -47,15 +47,14 @@ class Drawer;
 
 class PaintEvent
 {
-
   Drawer * m_drawer;
   core::CommandsQueue::Environment const * m_env;
   bool m_isCancelled;
   bool m_isEmptyDrawing;
 
 public:
-
   PaintEvent(Drawer * drawer, core::CommandsQueue::Environment const * env = 0);
+
   Drawer * drawer() const;
   void cancel();
   bool isCancelled() const;

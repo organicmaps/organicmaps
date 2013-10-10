@@ -1,10 +1,11 @@
 #include "screenbase.hpp"
-
-#include "../std/cmath.hpp"
-#include "../base/matrix.hpp"
-#include "../base/logging.hpp"
 #include "transformations.hpp"
 #include "angles.hpp"
+
+#include "../base/logging.hpp"
+
+#include "../std/cmath.hpp"
+
 
 ScreenBase::ScreenBase() :
     m_PixelRect(0, 0, 640, 480),
@@ -23,6 +24,14 @@ ScreenBase::ScreenBase(m2::RectI const & pxRect, m2::AnyRectD const & glbRect)
 {
   OnSize(pxRect);
   SetFromRect(glbRect);
+}
+
+ScreenBase::ScreenBase(ScreenBase const & s,
+                       m2::PointD const & org, double scale, double angle)
+  : m_PixelRect(s.m_PixelRect),
+    m_Scale(scale), m_Angle(angle), m_Org(org)
+{
+  UpdateDependentParameters();
 }
 
 void ScreenBase::UpdateDependentParameters()
@@ -115,55 +124,21 @@ void ScreenBase::OnSize(int x0, int y0, int w, int h)
   OnSize(m2::RectI(x0, y0, x0 + w, y0 + h));
 }
 
-math::Matrix<double, 3, 3> const & ScreenBase::GtoPMatrix() const
-{
-  return m_GtoP;
-}
-
-math::Matrix<double, 3, 3> const & ScreenBase::PtoGMatrix() const
-{
-  return m_PtoG;
-}
-
-m2::RectD const & ScreenBase::PixelRect() const
-{
-  return m_PixelRect;
-}
-
-m2::AnyRectD const & ScreenBase::GlobalRect() const
-{
-  return m_GlobalRect;
-}
-
-m2::RectD const & ScreenBase::ClipRect() const
-{
-  return m_ClipRect;
-}
-
 double ScreenBase::GetMinPixelRectSize() const
 {
   return min(m_PixelRect.SizeX(), m_PixelRect.SizeY());
 }
 
-double ScreenBase::GetScale() const
+void ScreenBase::SetScale(double scale)
 {
-  return m_Scale;
-}
-
-double ScreenBase::GetAngle() const
-{
-  return m_Angle.val();
+  m_Scale = scale;
+  UpdateDependentParameters();
 }
 
 void ScreenBase::SetAngle(double angle)
 {
   m_Angle = ang::AngleD(angle);
   UpdateDependentParameters();
-}
-
-m2::PointD const & ScreenBase::GetOrg() const
-{
-  return m_Org;
 }
 
 int ScreenBase::GetWidth() const
@@ -176,13 +151,14 @@ int ScreenBase::GetHeight() const
   return my::rounds(m_PixelRect.SizeY());
 }
 
-math::Matrix<double, 3, 3> const ScreenBase::CalcTransform(m2::PointD const & oldPt1, m2::PointD const & oldPt2,
-                                                           m2::PointD const & newPt1, m2::PointD const & newPt2)
+ScreenBase::MatrixT const
+ScreenBase::CalcTransform(m2::PointD const & oldPt1, m2::PointD const & oldPt2,
+                          m2::PointD const & newPt1, m2::PointD const & newPt2)
 {
   double s = newPt1.Length(newPt2) / oldPt1.Length(oldPt2);
   double a = ang::AngleTo(newPt1, newPt2) - ang::AngleTo(oldPt1, oldPt2);
 
-  math::Matrix<double, 3, 3> m =
+  MatrixT m =
       math::Shift(
           math::Scale(
               math::Rotate(
@@ -199,7 +175,7 @@ math::Matrix<double, 3, 3> const ScreenBase::CalcTransform(m2::PointD const & ol
   return m;
 }
 
-void ScreenBase::SetGtoPMatrix(math::Matrix<double, 3, 3> const & m)
+void ScreenBase::SetGtoPMatrix(MatrixT const & m)
 {
   m_GtoP = m;
   m_PtoG = math::Inverse(m_GtoP);
@@ -249,7 +225,7 @@ bool IsPanningAndRotate(ScreenBase const & s1, ScreenBase const & s2)
   return p1.EqualDxDy(p2, 0.00001);
 }
 
-void ScreenBase::ExtractGtoPParams(math::Matrix<double, 3, 3> const & m,
+void ScreenBase::ExtractGtoPParams(MatrixT const & m,
                                    double & a, double & s, double & dx, double & dy)
 {
   s = sqrt(m(0, 0) * m(0, 0) + m(0, 1) * m(0, 1));

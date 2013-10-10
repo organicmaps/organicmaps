@@ -1,10 +1,10 @@
-#include "../../base/SRC_FIRST.hpp"
-
 #include "equality.hpp"
 
 #include "../screenbase.hpp"
+#include "../transformations.hpp"
 
 #include "../../testing/testing.hpp"
+
 
 using namespace test;
 
@@ -21,7 +21,7 @@ namespace
     b1 = screen.GtoP(b1);
     b2 = screen.GtoP(b2);
 
-    /// check that we are in boundaries.
+    // check that we are in boundaries.
     TEST(my::between_s(0, width, my::rounds(b1.x)), ());
     TEST(my::between_s(0, width, my::rounds(b2.x)), ());
     TEST(my::between_s(0, height, my::rounds(b1.y)), ());
@@ -39,15 +39,15 @@ UNIT_TEST(ScreenBase_P2G2P)
   screen.OnSize(0, 0, 640, 480);
   screen.SetFromRect(m2::AnyRectD(m2::RectD(-100, -200, 500, 680)));
 
-  /// checking that PtoG(GtoP(p)) == p
+  // checking that PtoG(GtoP(p)) == p
 
   m2::PointD pp(10.0, 20.0);
   m2::PointD pg = screen.PtoG(pp);
-  TEST(pp.EqualDxDy(screen.GtoP(pg), 1.0E-10), ());
+  TEST(is_equal(pp, screen.GtoP(pg)), ());
 
   pg = m2::PointD(550, 440);
   pp = screen.GtoP(pg);
-  TEST(pg.EqualDxDy(screen.PtoG(pp), 1.0E-10), ());
+  TEST(is_equal(pg, screen.PtoG(pp)), ());
 }
 
 UNIT_TEST(ScreenBase_AxisOrientation)
@@ -70,8 +70,6 @@ UNIT_TEST(ScreenBase_X0Y0)
   screen.OnSize(10, 10, 300, 200);
   screen.SetFromRect(m2::AnyRectD(m2::RectD(0, 0, 300, 200)));
 
-//  m2::PointD pxPt = screen.PtoG(m2::PointD(0, 0));
-
   TEST(is_equal(m2::PointD(10, 210), screen.GtoP(m2::PointD(0, 0))), ());
 }
 
@@ -88,16 +86,6 @@ UNIT_TEST(ScreenBase_ChoosingMaxScale)
   TEST(is_equal(screen.GtoP(m2::PointD(200, 400)), m2::PointD(210, 10)), ());
 
   TEST(is_equal(screen.GtoP(m2::PointD(-200, 0)), m2::PointD(10, 210)), ());
-}
-
-UNIT_TEST(ScreenBase_ExtractGtoPParams)
-{
-
-}
-
-UNIT_TEST(ScreenBase_SetGtoPMatrix)
-{
-
 }
 
 UNIT_TEST(ScreenBase_CalcTransform)
@@ -127,8 +115,55 @@ UNIT_TEST(ScreenBase_Rotate)
   s.SetFromRect(m2::AnyRectD(m2::RectD(0, 0, 100, 200)));
   s.Rotate(math::pi / 4);
 
-  m2::RectD pxRect = s.PixelRect();
-//  m2::AnyRectD glbRect = s.GlobalRect();
+  TEST_EQUAL(s.PixelRect(), m2::RectD(0, 0, 100, 200), ());
+}
 
-  TEST(pxRect == m2::RectD(0, 0, 100, 200), ());
+UNIT_TEST(ScreenBase_CombineTransforms)
+{
+  ScreenBase s;
+  s.OnSize(0, 0, 640, 480);
+  s.SetFromRect(m2::AnyRectD(m2::RectD(50, 25, 55, 30)));
+  s.SetAngle(1.0);
+
+  m2::PointD g1(40, 50);
+  m2::PointD g2(60, 70);
+
+  m2::PointD p1 = s.GtoP(g1);
+  m2::PointD p2 = s.GtoP(g2);
+
+  m2::PointD const org = s.GtoP(m2::PointD(0, 0));
+  double const angle = s.GetAngle();
+  double const scale = s.GetScale();
+  double const fixedScale = 666.666;
+
+  ScreenBase sCopy(s, m2::PointD(0, 0), fixedScale, 0.0);
+
+  {
+    // GtoP matrix for scale only.
+    math::Matrix<double, 3, 3> m =
+        math::Shift(
+          math::Scale(math::Identity<double, 3>(),
+                      1.0 / fixedScale, -1.0 / fixedScale),
+          sCopy.PixelRect().Center());
+
+    TEST(is_equal(sCopy.GtoP(g1), g1 * m), ());
+    TEST(is_equal(sCopy.GtoP(g2), g2 * m), ());
+  }
+
+  // GtoP matrix to make full final transformation.
+  math::Matrix<double, 3, 3> m =
+      math::Shift(
+        math::Scale(
+          math::Rotate(
+            math::Shift(math::Identity<double, 3>(),
+                        -sCopy.PixelRect().Center()),
+            angle),
+          fixedScale / scale, fixedScale / scale),
+        org);
+
+  m2::PointD pp1 = sCopy.GtoP(g1) * m;
+  m2::PointD pp2 = sCopy.GtoP(g2) * m;
+
+  TEST(is_equal(p1, pp1), (p1, pp1));
+  TEST(is_equal(p2, pp2), (p2, pp2));
 }

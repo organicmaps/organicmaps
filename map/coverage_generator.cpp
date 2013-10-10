@@ -110,7 +110,7 @@ void CoverageGenerator::InvalidateTiles(m2::AnyRectD const & r, int startScale)
 
 void CoverageGenerator::CoverScreen(ScreenBase const & screen, bool doForce)
 {
-  if ((screen == m_stateInfo.m_currentScreen) && (!doForce))
+  if (screen == m_stateInfo.m_currentScreen && !doForce)
     return;
 
   if (m_stateInfo.m_sequenceID == numeric_limits<int>::max())

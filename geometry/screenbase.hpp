@@ -4,10 +4,15 @@
 #include "rect2d.hpp"
 #include "any_rect2d.hpp"
 
-#include "../base/math.hpp"
+#include "../base/matrix.hpp"
+
 
 class ScreenBase
 {
+public:
+  typedef math::Matrix<double, 3, 3> MatrixT;
+
+private:
   m2::RectD m_PixelRect;
 
   double m_Scale;
@@ -15,17 +20,16 @@ class ScreenBase
   m2::PointD m_Org;
 
 protected:
-
   /// @group Dependent parameters
   /// Global to Pixel conversion matrix.
   ///             |a11 a12 0|
   /// |x, y, 1| * |a21 a22 0| = |x', y', 1|
   ///             |a31 a32 1|
   /// @{
-  math::Matrix<double, 3, 3> m_GtoP;
+  MatrixT m_GtoP;
 
   /// Pixel to Global conversion matrix. Inverted GtoP matrix.
-  math::Matrix<double, 3, 3> m_PtoG;
+  MatrixT m_PtoG;
 
   /// Global Rect
   m2::AnyRectD m_GlobalRect;
@@ -40,9 +44,10 @@ protected:
   void UpdateDependentParameters();
 
 public:
-
   ScreenBase();
   ScreenBase(m2::RectI const & pxRect, m2::AnyRectD const & glbRect);
+  ScreenBase(ScreenBase const & s,
+             m2::PointD const & org, double scale, double angle);
 
   void SetFromRect(m2::AnyRectD const & rect);
   void SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect);
@@ -58,14 +63,13 @@ public:
   void OnSize(m2::RectI const & r);
   void OnSize(int x0, int y0, int w, int h);
 
-public:
+  double GetScale() const { return m_Scale; }
+  void SetScale(double scale);
 
-  double GetScale() const;
-
-  double GetAngle() const;
+  double GetAngle() const { return m_Angle.val(); }
   void SetAngle(double angle);
 
-  m2::PointD const & GetOrg() const;
+  m2::PointD const & GetOrg() const { return m_Org; }
 
   int GetWidth() const;
   int GetHeight() const;
@@ -99,24 +103,24 @@ public:
 
   void GetTouchRect(m2::PointD const & pixPoint, double pixRadius, m2::AnyRectD & glbRect) const;
 
-  math::Matrix<double, 3, 3> const & GtoPMatrix() const;
-  math::Matrix<double, 3, 3> const & PtoGMatrix() const;
+  MatrixT const & GtoPMatrix() const { return m_GtoP; }
+  MatrixT const & PtoGMatrix() const { return m_PtoG; }
 
-  m2::RectD const & PixelRect() const;
-  m2::AnyRectD const & GlobalRect() const;
-  m2::RectD const & ClipRect() const;
+  m2::RectD const & PixelRect() const { return m_PixelRect; }
+  m2::AnyRectD const & GlobalRect() const { return m_GlobalRect; }
+  m2::RectD const & ClipRect() const { return m_ClipRect; }
 
   double GetMinPixelRectSize() const;
 
   /// Compute arbitrary pixel transformation, that translates the (oldPt1, oldPt2) -> (newPt1, newPt2)
-  static math::Matrix<double, 3, 3> const CalcTransform(m2::PointD const & oldPt1, m2::PointD const & oldPt2,
-                                                        m2::PointD const & newPt1, m2::PointD const & newPt2);
+  static MatrixT const CalcTransform(m2::PointD const & oldPt1, m2::PointD const & oldPt2,
+                                     m2::PointD const & newPt1, m2::PointD const & newPt2);
 
   /// Setting GtoP matrix extracts the Angle and m_Org parameters, leaving PixelRect intact
-  void SetGtoPMatrix(math::Matrix<double, 3, 3> const & m);
+  void SetGtoPMatrix(MatrixT const & m);
 
   /// Extracting parameters from matrix, that is supposed to represent GtoP transformation
-  static void ExtractGtoPParams(math::Matrix<double, 3, 3> const & m, double & a, double & s, double & dx, double & dy);
+  static void ExtractGtoPParams(MatrixT const & m, double & a, double & s, double & dx, double & dy);
 
   bool operator != (ScreenBase const & src) const
   {

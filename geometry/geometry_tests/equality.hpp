@@ -27,7 +27,7 @@ namespace test
 
   inline bool is_equal(m2::PointD const & p1, m2::PointD const & p2)
   {
-    return p1.EqualDxDy(p2, 1.0E-10);
+    return p1.EqualDxDy(p2, 1.0E-8);
   }
 
   inline bool is_equal_center(m2::RectD const & r1, m2::RectD const & r2)
