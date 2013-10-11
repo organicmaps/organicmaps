@@ -295,7 +295,6 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
         final Notifier noty = new Notifier(this);
         noty.placeGuideAvailable(info.mAppId, info.mTitle, info.mMessage);
         Framework.setWasAdvertised(info.mAppId);
-
         break;
       }
     }
@@ -419,9 +418,9 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
 
   private boolean dispatchIntent()
   {
-    if (getIntent() != null)
+    final Intent intent = getIntent();
+    if (intent != null)
     {
-      final Intent intent = getIntent();
       for (final IntentProcessor ip : mIntentProcessors)
       {
         if (ip.isIntentSupported(intent))
@@ -431,6 +430,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
         }
       }
     }
+
     return false;
   }
 
@@ -639,7 +639,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     @Override
     public boolean isIntentSupported(Intent intent)
     {
-      return "geo".equals(intent.getScheme());
+      return ("geo".equals(intent.getScheme()) && intent.getData() != null);
     }
 
     @Override
@@ -655,7 +655,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     @Override
     public boolean isIntentSupported(Intent intent)
     {
-      return "ge0".equals(intent.getScheme());
+      return ("ge0".equals(intent.getScheme()) && intent.getData() != null);
     }
 
     @Override
@@ -691,8 +691,8 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
         mMapTaskToForward = new OpenUrlTask(ge0Url);
         return true;
       }
-      else
-        return false;
+
+      return false;
     }
   }
 
@@ -720,21 +720,32 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
 
         if (!request.isPickPointMode())
           mMapTaskToForward = new OpenUrlTask(apiUrl);
-
         return true;
       }
+
       return false;
     }
   }
 
   private class GooggleMapsIntentProcessor implements IntentProcessor
   {
-
     @Override
     public boolean isIntentSupported(Intent intent)
     {
       final Uri data = intent.getData();
       return (data != null && "maps.google.com".equals(data.getHost()));
+    }
+
+    private String extractCoordinates(String query, Pattern pattern)
+    {
+      String ll = null;
+      if (query != null)
+      {
+        final Matcher m = pattern.matcher(query);
+        if (m.find())
+          ll = m.group();
+      }
+      return ll;
     }
 
     @Override
@@ -743,27 +754,21 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
       final Uri data = intent.getData();
       if (data != null)
       {
-        // We need to parse URL like:
-        // "http://maps.google.com/maps?q=loc:53.902132,27.5636453 (You)"
-        final String query = data.getQueryParameter("q");
+        final Pattern pattern = Pattern.compile("(-?\\d+\\.?,?)+");
 
-        // TODO: Make maps.google.com URLs parsing in native code
-        // (with variety of different combinations).
-        String ll = "0,0";
-        if (query != null)
+        String ll = extractCoordinates(data.getQueryParameter("ll"), pattern);
+        if (ll == null)
+          ll = extractCoordinates(data.getQueryParameter("q"), pattern);
+        if (ll != null)
         {
-          final Matcher m = Pattern.compile("(-?\\d+\\.?,?)+").matcher(query);
-          if (m.find())
-            ll = m.group();
+          Log.d(TAG, "URL coordinates: " + ll);
+          mMapTaskToForward = new OpenUrlTask("geo://" + ll);
+          return true;
         }
-
-        Log.d(TAG, "URL coordinates: " + ll);
-        mMapTaskToForward = new OpenUrlTask("geo://" + ll);
-        return true;
       }
+
       return false;
     }
-
   }
 
   public static String EXTRA_COUNTRY_INDEX = ".extra.index";
@@ -783,7 +788,6 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
       mMapTaskToForward = new MWMActivity.ShowCountryTask(index);
       return true;
     }
-
   }
 
   private native int getBytesToDownload();
