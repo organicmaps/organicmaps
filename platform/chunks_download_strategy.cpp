@@ -121,7 +121,7 @@ int64_t ChunksDownloadStrategy::LoadOrInitChunks( string const & fName,
   }
   catch (RootException const & e)
   {
-    // Usually - file not exists. May be SourceOutOfBoundsException.
+    // Usually - file not exists or Reader::Exception.
     LOG(LDEBUG, (e.Msg()));
   }
 

@@ -1,39 +1,59 @@
 #pragma once
 
 #include "internal/xmlparser.h"
-#include "source.hpp"
 
 #include "../base/assert.hpp"
 
 
-static const size_t KMaxXMLFileBufferSize = 16384;
-
-template <typename XMLDispatcherT, typename SourceT>
-bool ParseXML(SourceT & source, XMLDispatcherT & dispatcher, bool useCharData = false)
+template <typename XMLDispatcherT, typename SequenceT>
+uint64_t ParseXMLSequence(SequenceT & source, XMLDispatcherT & dispatcher, bool useCharData = false)
 {
   // Create the parser
   XmlParser<XMLDispatcherT> parser(dispatcher, useCharData);
   if (!parser.Create())
-    return false;
+    return 0;
 
-  try
-  {
-    while (true)
-    {
-      char * buffer = static_cast<char *>(parser.GetBuffer(KMaxXMLFileBufferSize));
-      CHECK(buffer, ());
-      source.Read(buffer, KMaxXMLFileBufferSize);
-      if (!parser.ParseBuffer(KMaxXMLFileBufferSize, false))
-        return false;
-    }
-  }
-  catch (SourceOutOfBoundsException & e)
-  {
-    size_t const toRead = e.BytesRead();
-    // 0 - means Reader overflow (see ReaderSource::Read)
-    if (toRead == 0 || !parser.ParseBuffer(toRead, true))
-      return false;
-  }
+  int const BUFFER_SIZE = 16 * 1024;
 
-  return true;
+  uint64_t res = 0;
+  int readed;
+  do
+  {
+    char * buffer = static_cast<char *>(parser.GetBuffer(BUFFER_SIZE));
+    ASSERT(buffer, ());
+
+    readed = source.Read(buffer, BUFFER_SIZE);
+    if (readed == 0 || !parser.ParseBuffer(readed, false))
+      return res;
+
+    res += readed;
+  } while (readed == BUFFER_SIZE);
+
+  return res;
+}
+
+namespace
+{
+
+template <class SourceT> class SequenceAdapter
+{
+  SourceT & m_source;
+public:
+  SequenceAdapter(SourceT & source) : m_source(source) {}
+  uint64_t Read(void * p, uint64_t size)
+  {
+    uint64_t const correctSize = min(size, m_source.Size());
+    m_source.Read(p, correctSize);
+    return correctSize;
+  }
+};
+
+}
+
+template <typename XMLDispatcherT, typename SourceT>
+bool ParseXML(SourceT & source, XMLDispatcherT & dispatcher, bool useCharData = false)
+{
+  uint64_t const size = source.Size();
+  SequenceAdapter<SourceT> adapter(source);
+  return (ParseXMLSequence(adapter, dispatcher, useCharData) == size);
 }

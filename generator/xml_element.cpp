@@ -2,9 +2,11 @@
 
 #include "../coding/parse_xml.hpp"
 #include "../coding/reader.hpp"
-#include "../std/cstdio.hpp"
 
+#include "../std/cstdio.hpp"
 #include "../std/algorithm.hpp"
+#include "../std/limits.hpp"
+
 
 bool BaseOSMParser::is_our_tag(string const & name)
 {
@@ -62,7 +64,7 @@ void BaseOSMParser::Pop(string const &)
 
 struct StdinReader
 {
-  size_t Read(char * buffer, size_t bufferSize)
+  uint64_t Read(char * buffer, uint64_t bufferSize)
   {
     return fread(buffer, sizeof(char), bufferSize, stdin);
   }
@@ -72,11 +74,11 @@ struct StdinReader
 void ParseXMLFromStdIn(BaseOSMParser & parser)
 {
   StdinReader reader;
-  ParseXML(reader, parser);
+  (void)ParseXMLSequence(reader, parser);
 }
 
 void ParseXMLFromFile(FileReader const & reader, BaseOSMParser & parser)
 {
   ReaderSource<FileReader> src(reader);
-  ParseXML(src, parser);
+  CHECK(ParseXML(src, parser), ());
 }

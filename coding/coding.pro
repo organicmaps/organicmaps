@@ -53,7 +53,6 @@ HEADERS += \
     reader.hpp \
     diff.hpp \
     diff_patch_common.hpp \
-    source.hpp \
     lodepng.hpp \
     lodepng_io.hpp \
     lodepng_io_private.hpp \

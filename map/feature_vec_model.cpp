@@ -17,7 +17,7 @@ namespace model
 {
 
 // While reading any files (classificator or mwm), there are 2 types of possible exceptions:
-// Reader::Exception; FileAbsentException; SourceOutOfBoundsException.
+// Reader::Exception, FileAbsentException.
 // Let's process RootException everywhere, to supress such errors.
 
 void FeaturesFetcher::InitClassificator()

@@ -1,6 +1,5 @@
 #pragma once
 #include "endianness.hpp"
-#include "source.hpp"
 
 #include "../base/assert.hpp"
 #include "../base/logging.hpp"
@@ -180,23 +179,10 @@ public:
 
   void Read(void * p, size_t size)
   {
-    uint64_t const readerSize = m_reader.Size();
-    if (m_pos + size > readerSize)
-    {
-      size_t remainingSize = 0;
-      if (readerSize >= m_pos)
-      {
-        remainingSize = static_cast<size_t>(readerSize - m_pos);
-        m_reader.Read(m_pos, p, remainingSize);
-        m_pos = readerSize;
-      }
-      MYTHROW1(SourceOutOfBoundsException, remainingSize, ());
-    }
-    else
-    {
-      m_reader.Read(m_pos, p, size);
-      m_pos += size;
-    }
+    ASSERT(m_pos + size <= m_reader.Size(), (m_pos, size, m_reader.Size()));
+
+    m_reader.Read(m_pos, p, size);
+    m_pos += size;
   }
 
   void Skip(uint64_t size)
