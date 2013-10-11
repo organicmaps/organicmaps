@@ -6,6 +6,7 @@
 #include "../graphics/display_list.hpp"
 
 #include "../geometry/distance.hpp"
+#include "../geometry/simplification.hpp"
 
 #include "../base/timer.hpp"
 #include "../base/logging.hpp"
@@ -62,11 +63,18 @@ void Track::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matri
   graphics::Pen::Info info(m_color, m_width);
   uint32_t resId = dlScreen->mapInfo(info);
 
-  /// @todo add simplification
-  vector<m2::PointD> pts(m_polyline.GetSize());
-  transform(m_polyline.Begin(), m_polyline.End(), pts.begin(), DoLeftProduct<MatrixT>(matrix));
+  typedef buffer_vector<m2::PointD, 32> PointContainerT;
+  size_t const count = m_polyline.GetSize();
 
-  dlScreen->drawPath(pts.data(), pts.size(), 0, resId, graphics::tracksDepth);
+  PointContainerT pts1(count);
+  transform(m_polyline.Begin(), m_polyline.End(), pts1.begin(), DoLeftProduct<MatrixT>(matrix));
+
+  PointContainerT pts2;
+  pts2.reserve(count);
+  SimplifyDP(pts1.begin(), pts1.end(), math::sqr(m_width),
+             m2::DistanceToLineSquare<m2::PointD>(), MakeBackInsertFunctor(pts2));
+
+  dlScreen->drawPath(pts2.data(), pts2.size(), 0, resId, graphics::tracksDepth);
 
   dlScreen->setDisplayList(0);
   dlScreen->endFrame();
