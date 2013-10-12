@@ -13,7 +13,7 @@
 	<!-- Button text (should be short) -->
 	<string name="cancel">Annuleer</string>
 	<!-- Button which interrupts country download -->
-	<string name="cancel_download">Annulleer Download</string>
+	<string name="cancel_download">Download annuleer</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Verwijder</string>
 	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->

@@ -77,7 +77,7 @@
     it = Annulla il download
     ja = ダウンロードをキャンセル
     ko = 다운로드 취소하기
-    nl = Annulleer Download
+    nl = Download annuleer
     ru = Отменить загрузку
     uk = Вiдмiнити завантаження
     zh-Hant = 取消下載

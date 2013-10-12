@@ -22,7 +22,7 @@
 "cancel" = "Annuleer";
 
 /* Button which interrupts country download */
-"cancel_download" = "Annulleer Download";
+"cancel_download" = "Download annuleer";
 
 /* Button which deletes downloaded country */
 "delete" = "Verwijder";
