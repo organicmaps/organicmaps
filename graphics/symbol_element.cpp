@@ -44,7 +44,6 @@ namespace graphics
   m2::AnyRectD const SymbolElement::boundRect() const
   {
     m2::RectI texRect(m_symbolRect);
-    texRect.Inflate(-1, -1);
 
     m2::PointD sz(texRect.SizeX(), texRect.SizeY());
 
@@ -76,7 +75,6 @@ namespace graphics
     }
 
     m2::RectI texRect(res->m_texRect);
-    texRect.Inflate(-1, -1);
 
     m2::PointD sz(texRect.SizeX(), texRect.SizeY());
 

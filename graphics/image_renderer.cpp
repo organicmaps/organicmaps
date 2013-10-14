@@ -27,7 +27,6 @@ namespace graphics
     ASSERT(res->m_cat == Resource::EImage, ());
 
     m2::RectI texRect(res->m_texRect);
-    texRect.Inflate(-2, -2);
 
     m2::PointF pts[6] =
     {
