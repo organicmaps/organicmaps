@@ -18,14 +18,11 @@ way::*
   text-halo-color: white;
   text-anchor-horizontal: center;
   text-anchor-vertical: center;
-  icon-width: 16;
-  icon-height: 16;
 }
 
 *
 {
-  icon-width: 16;
-  icon-height: 16;
+  icon-fill-color: #444;
 }
 
 *::int_name
@@ -224,10 +221,8 @@ line|z9[boundary=administrative][admin_level=4]::d2p2
 }
 area|z12-[aeroway=aerodrome],
 area|z12-[aeroway=airport],
-area|z12-[aeroway=aerodrome],
 node|z12-[aeroway=aerodrome],
-node|z12-[aeroway=airport],
-node|z12-[aeroway=aerodrome]
+node|z12-[aeroway=airport]
 {
   icon-image: symbols/airport.svg;
 }
@@ -1616,11 +1611,6 @@ node|z16[amenity=parking][access?]
 {
   icon-image: symbols/parking-mini.svg;
 }
-area|z16-[amenity=parking][access=permissive],
-node|z16-[amenity=parking][access=permissive],
-{
-  icon-image: symbols/parking-permissive.svg;
-}
 area|z15-[tourism=viewpoint],
 node|z15-[tourism=viewpoint],
 area|z15-[tourism=artwork],
@@ -2104,11 +2094,6 @@ node|z15-[amenity=fuel]
 {
   icon-image: symbols/petrolStation.svg;
 }
-area|z15-[leisure=nature_reserve],
-node|z15-[leisure=nature_reserve]
-{
-  icon-image: symbols/bird.svg;
-}
 area|z15-[building],
 node|z15-[building]
 {
@@ -2284,11 +2269,13 @@ node|z16-[historic=battlefield]
 {
   icon-image: symbols/cannon.svg;
 }
+/*
 area|z16-[amenity=hunting_stand],
 node|z16-[amenity=hunting_stand]
 {
   icon-image: symbols/hunting_closed_high.svg;
 }
+*/
 line|z16[railway=spur]::d1p2
 {
   color: #e6e6e6;
@@ -2626,7 +2613,7 @@ line|z16[railway=construction]::d1p3
   dashes: 4,4,4,12;
   linecap: butt;
 }
-
+/*
 area|z16[amenity=taxi],
 area|z17-[amenity=taxi],
 node|z16[amenity=taxi],
@@ -2634,6 +2621,7 @@ node|z17-[amenity=taxi]
 {
   icon-image: symbols/taxi.svg;
 }
+*/
 line|z16[railway=preserved]::d1p3
 {
   color: #333333;
@@ -2786,11 +2774,13 @@ line|z16[boundary=administrative][border_type=state]
   z-index: 941;
   dashes: 12,4,4,4;
 }
+/*
 area|z16-[amenity=speed_trap],
 node|z16-[amenity=speed_trap]
 {
   icon-image: symbols/speed_trap.svg;
 }
+*/
 area|z16-[historic=memorial],
 area|z16-[historic=monument],
 node|z16-[historic=memorial],
@@ -2951,10 +2941,12 @@ node|z16-[amenity=cinema]
 {
   icon-image: symbols/cinema.svg;
 }
+/*
 area|z16-[historic=archaeological_site],
+node|z16-[historic=archaeological_site],
+*/
 area|z16-[historic=museum],
 area|z16-[tourism=museum],
-node|z16-[historic=archaeological_site],
 node|z16-[historic=museum],
 node|z16-[tourism=museum]
 {
@@ -3209,6 +3201,7 @@ node|z14-[tourism=camp_site]
 {
   icon-image: symbols/campSite.svg;
 }
+
 area|z17-[leisure=slipway],
 node|z17-[leisure=slipway]
 {
@@ -3222,13 +3215,6 @@ line|z17-[boundary=administrative][border_type=country]::d2p2
   width: 2;
   z-index: 979;
   dashes: 12,12;
-}
-area|z17-[amenity=parking][location=underground][fee?],
-area|z17-[amenity=parking][parking=multi-storey][fee?],
-node|z17-[amenity=parking][location=underground][fee?],
-node|z17-[amenity=parking][parking=multi-storey][fee?]
-{
-  icon-image: symbols/parking_roof_fee-permissive.svg;
 }
 line|z17-[railway=yard]
 {
@@ -3405,11 +3391,13 @@ line|z17-[communication=line][location=underground]
   dashes: 1.2,2,1.2,2,1.2,4.4;
   linecap: butt;
 }
+/*
 area|z17-[man_made=windmill],
 node|z17-[man_made=windmill]
 {
   icon-image: symbols/windmill.svg;
 }
+*/
 line|z17-[boundary=administrative][admin_level=11]
 {
   color: #f9574b;
@@ -3472,11 +3460,13 @@ line|z17-[man_made=pier]::d1p3
   width: 2.4;
   z-index: 916;
 }
+/*
 area|z17-[tourism=information][information=guidepost],
 node|z17-[tourism=information][information=guidepost]
 {
   icon-image: symbols/information-guidepost.svg;
 }
+*/
 line|z16-[barrier=fence]
 {
   color: #b0b0b0;
@@ -3817,12 +3807,14 @@ area|z15-[railway=station][!transport]
   z-index: 170;
 }
 /* POI icons */
-
+/*
 area|z17-[tourism=information][office],
 node|z17-[tourism=information][office]
 {
   icon-image: symbols/information-office.svg;
 }
+*/
+
 area|z17-[barrier=gate],
 node|z17-[barrier=gate]
 {
@@ -3833,6 +3825,7 @@ node|z16-[amenity=parking][parking=park_and_ride]
 {
   icon-image: symbols/park_and_ride-permissive.svg;
 }
+/*
 area|z17-[man_made=lighthouse],
 node|z17-[man_made=lighthouse]
 {
@@ -3843,6 +3836,7 @@ node|z17-[tourism=information]
 {
   icon-image: symbols/information.svg;
 }
+*/
 area|z17-[amenity=post_box],
 node|z17-[amenity=post_box]
 {
@@ -3935,3 +3929,4 @@ line|z18-[lit]::lit
   width: 0.3;
   color: yellow
 }
+@import("include/icons_maki.mapcss");

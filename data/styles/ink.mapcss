@@ -4522,6 +4522,8 @@ area[area:highway]{fill-color: white}
 
 node[railway=station][transport=subway]                           {text-color: #3050d8; text-position: center;}
 
+
+
 area|z15-[area:highway=footway],
 area|z15-[area:highway=pedestrian],
 area|z15-[area:highway=path],
@@ -4534,3 +4536,6 @@ area|z15-[area:highway=steps]
 {
   text: "";
 }
+
+@import("include/icons_maki.mapcss");
+* {icon-fill-color: black}

@@ -63,11 +63,13 @@ node|z16-[shop=furniture]
   icon-image: symbols/supermarket.svg;
 }
 
+/*
 area|z16-[shop=hairdresser],
 node|z16-[shop=hairdresser]
 {
   icon-image: symbols/hairdresser.svg;
 }
+*/
 
 area|z16-[shop=clothes],
 node|z16-[shop=clothes]

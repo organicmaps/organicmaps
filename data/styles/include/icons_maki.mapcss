@@ -1,0 +1,462 @@
+
+
+*|z16-[sport=american_football],
+*|z16-[sport=australian_football],
+{
+    icon-image: symbols/maki/america-football-18.svg;
+}
+*|z16-[sport=baseball]
+{
+    icon-image: symbols/maki/baseball-18.svg;
+}
+*|z16-[sport=basketball]
+{
+    icon-image: symbols/maki/basketball-18.svg;
+}
+
+*|z16-[tourism=gallery]
+{
+    icon-image: symbols/maki/art-gallery-18.svg;
+}
+
+
+
+*|z16-[amenity=bar],
+*|z16-[amenity=nightclub]
+{
+    icon-image: symbols/maki/bar-18.svg;
+    icon-fill-color: #428;
+}
+*|z16-[amenity=pub]
+{
+    icon-image: symbols/maki/beer-18.svg;
+    icon-fill-color: #428;
+}
+*|z16-[amenity=restaurant]
+{
+    icon-image: symbols/maki/restaurant-18.svg;
+    icon-fill-color: #428;
+}
+*|z16-[amenity=fast_food]
+{
+    icon-image: symbols/maki/fast-food-18.svg;
+    icon-fill-color: #428;
+}
+*|z16-[amenity=cafe]
+{
+    icon-image: symbols/maki/cafe-18.svg;
+    icon-fill-color: #428;
+}
+*|z12-[tourism=camp_site],
+*|z12-[tourism=caravan_site],
+*|z12-[tourism=picnic_site]
+{
+    icon-image: symbols/maki/campsite-18.svg;
+}
+
+*|z14-[earthquake:damage=spontaneous_camp]
+{
+    icon-image: symbols/maki/campsite-18.svg;
+    icon-fill-color: red;
+}
+
+*|z16-[landuse=cemetery],
+*|z16-[amenity=grave_yard]
+{
+    icon-image: symbols/maki/cemetery-18.svg;
+}
+*|z16-[amenity=cinema]
+{
+    icon-image: symbols/maki/cinema-18.svg;
+}
+
+*|z16-[sport=cricket]
+{
+    icon-image: symbols/maki/cricket-18.svg;
+}
+*|z16-[waterway=dam]
+{
+    icon-image: symbols/maki/dam-18.svg;
+}
+*|z16-[amenity=theatre]
+{
+    icon-image: symbols/maki/theatre-18.svg;
+}
+*|z16-[amenity=embassy]
+{
+    icon-image: symbols/maki/embassy-18.svg;
+}
+*|z16-[amenity=emergency_phone],
+*|z16-[emergency=phone]
+{
+    icon-image: symbols/maki/emergency-telephone-18.svg;
+}
+
+
+*|z16-[amenity=ferry_terminal],
+*|z16-[leisure=slipway],
+{
+    icon-image: symbols/maki/ferry-18.svg;
+}
+*|z16-[amenity=police]
+{
+    icon-image: symbols/maki/police-18.svg;
+}
+*|z16-[amenity=fire_station]
+{
+    icon-image: symbols/maki/fire-station-18.svg;
+}
+*|z15-[amenity=fuel]
+{
+    icon-image: symbols/maki/fuel-18.svg;
+    icon-fill-color: blue;
+}
+*|z16-[sport=golf],
+*|z16-[leisure=golf_course]
+{
+    icon-image: symbols/maki/golf-18.svg;
+}
+
+*|z16-[harbour][harbour!=no],
+*|z16-[seamark:type=harbour]
+{
+    icon-image: symbols/maki/harbor-18.svg;
+}
+*|z15-[aeroway=helipad]
+{
+    icon-image: symbols/maki/heliport-18.svg;
+}
+
+*|z16-[amenity=hotel],
+*|z16-[amenity=hostel],
+*|z16-[hotel],
+*|z16-[tourism=guest_house],
+*|z16-[tourism=hostel],
+*|z16-[tourism=hotel],
+*|z16-[tourism=motel]
+{
+    icon-image: symbols/maki/lodging-18.svg;
+}
+*|z16-[historic=monument],
+*|z16-[historic=memorial],
+{
+    icon-image: symbols/maki/monument-18.svg;
+}
+*|z16-[historic=museum],
+*|z16-[tourism=museum]
+{
+    icon-image: symbols/maki/museum-18.svg;
+}
+
+*|z16-[natural=tree]
+*|z16-[wood=deciduous]
+{
+    icon-image: symbols/maki/park2-18.svg;
+    text-offset: 10;
+    icon-fill-color: green;
+}
+*|z16-[wood=coniferous]
+{
+    icon-fill-color: green;
+    icon-image: symbols/maki/park-18.svg;
+}
+*|z16-[amenity=parking][access!=no],
+{
+    icon-image: symbols/maki/parking-18.svg;
+    icon-fill-color: blue;
+}
+*|z16-[amenity=parking][location=underground],
+*|z16-[amenity=parking][parking=multi-storey]
+{
+    icon-image: symbols/maki/parking-garage-18.svg;
+    icon-fill-color: blue;
+}
+*|z16-[amenity=parking][fee?]
+{
+    icon-fill-color: silver;
+}
+
+
+*|z16-[leisure=pitch],
+*|z16-[leisure=playground]
+{
+    icon-image: symbols/maki/pitch-18.svg;
+}
+
+*|z16-[amenity=pharmacy]
+{
+    icon-image: symbols/maki/pharmacy-18.svg;
+}
+
+*|z16-[barrier=bollard],
+*|z16-[barrier=block],
+{
+    icon-image: symbols/maki/roadblock-12.svg;
+}
+*|z16-[sport=skiing]
+{
+    icon-image: symbols/maki/skiing-18.svg;
+}
+*|z16-[sport=soccer],
+*|z16-[sport=football]
+{
+    icon-image: symbols/maki/soccer-18.svg;
+}
+*|z16-[sport=swimming]
+{
+    icon-image: symbols/maki/swimming-18.svg;
+    icon-fill-color: blue;
+}
+
+*|z16-[amenity=telephone]
+{
+    icon-image: symbols/maki/telephone-18.svg;
+}
+*|z16-[sport=tennis]
+{
+    icon-image: symbols/maki/tennis-18.svg;
+}
+*|z16-[amenity=toilets]
+{
+    icon-image: symbols/maki/toilets-18.svg;
+}
+*|z16-[amenity=drinking_water]
+{
+    icon-image: symbols/maki/water-18.svg;
+    icon-fill-color: blue;
+}
+*|z16-[amenity=recycling],
+*|z16-[amenity=waste_basket]
+{
+    icon-image: symbols/maki/waste-basket-18.svg;
+}
+*|z16-[amenity=zoo],
+*|z16-[shop=zoo]
+{
+    icon-image: symbols/maki/zoo-18.svg;
+}
+*|z15-[tourism=viewpoint],
+{
+    icon-image: symbols/maki/star-stroked-18.svg;
+}
+*|z15-[tourism=artwork],
+{
+    icon-image: symbols/maki/star-18.svg;
+}
+*|z12-[natural=volcano]
+{
+  icon-image: symbols/maki/triangle-12.svg;
+  icon-fill-color: red;
+}
+*|z12-[natural=cave_entrance]
+{
+  icon-image: symbols/maki/triangle-stroked-12.svg;
+}
+*|z12-[barrier=gate]
+{
+  icon-image: symbols/maki/square-stroked-12.svg;
+}
+
+/* shops */
+*|z16-[shop],
+*|z16-[amenity=marketplace]
+{
+    icon-fill-color: #D70;
+}
+*|z16-[amenity=marketplace],
+*|z16-[shop=convenience],
+*|z16-[shop=mall],
+*|z16-[shop=doityourself],
+*|z16-[shop=supermarket],
+*|z16-[shop=electronics],
+*|z16-[shop=shoes],
+*|z16-[shop=department_store],
+*|z16-[shop=kiosk],
+*|z16-[shop=furniture]
+{
+  icon-image: symbols/maki/shop-18.svg;
+}
+
+*|z16-[shop=bicycle]
+{
+    icon-image: symbols/maki/bicycle-18.svg;
+}
+*|z16-[shop=mall],
+*|z16-[shop=doityourself],
+*|z16-[shop=supermarket],
+*|z16-[shop=department_store]
+{
+  icon-image: symbols/maki/grocery-18.svg;
+}
+
+*|z16-[shop=bakery]
+{
+    icon-image: symbols/maki/bakery-18.svg;
+}
+
+*|z16-[shop=alcohol],
+*|z16-[shop=beverages]
+{
+    icon-image: symbols/maki/alcohol-shop-18.svg;
+}
+*|z16-[amenity=bank],
+*|z16-[amenity=atm],
+*|z16-[amenity=bureau_de_change]
+{
+    icon-image: symbols/maki/bank-18.svg;
+}
+
+*|z16-[shop=music],
+*|z16-[shop=musical_instrument]
+{
+    icon-image: symbols/maki/music-18.svg;
+}
+
+*|z16-[shop=florist]
+{
+    icon-image: symbols/maki/garden-18.svg;
+}
+
+*|z16-[shop=butcher]
+{
+    icon-image: symbols/maki/slaughterhouse-18.svg;
+}
+*|z16-[shop=books]
+{
+    icon-image: symbols/maki/library-18.svg;
+}
+
+/* social facilities */
+*|z16-[religion=christian]
+{
+    icon-image: symbols/maki/religious-christian-18.svg;
+}
+*|z16-[religion=jewish]
+{
+    icon-image: symbols/maki/religious-jewish-18.svg;
+}
+*|z16-[religion=muslim]
+{
+    icon-image: symbols/maki/religious-muslim-18.svg;
+}
+*|z16-[amenity=place_of_worship]
+{
+    icon-image: symbols/maki/place-of-worship-18.svg;
+}
+*|z16-[amenity=school],
+*|z16-[amenity=kindergarten]
+{
+    icon-image: symbols/maki/school-18.svg;
+    icon-fill-color: #A84;
+}
+
+*|z16-[amenity=prison]
+{
+    icon-image: symbols/maki/prison-18.svg;
+    icon-fill-color: #A84;
+}
+*|z16-[amenity=hospital],
+*|z16-[amenity=doctors]
+{
+    icon-image: symbols/maki/hospital-18.svg;
+    icon-fill-color: #A84;
+}
+*|z16-[amenity=post_office]
+{
+    icon-image: symbols/maki/post-18.svg;
+    icon-fill-color: #A84;
+}
+*|z16-[amenity=library]
+{
+    icon-image: symbols/maki/library-18.svg;
+    icon-fill-color: #A84;
+}
+*|z16-[amenity=college],
+*|z16-[amenity=university]
+{
+    icon-image: symbols/maki/college-18.svg;
+    icon-fill-color: #A84;
+}
+
+*|z16-[amenity=bicycle_rental],
+*|z16-[amenity=bicycle_parking]
+{
+    icon-image: symbols/maki/bicycle-18.svg;
+    icon-fill-color: #A84;
+}
+
+/* transport  */
+
+*|z12-[aeroway=aerodrome]
+{
+    icon-image: symbols/maki/airfield-18.svg;
+    icon-fill-color: #04d;
+}
+*|z12-[aeroway=airport]
+{
+    icon-image: symbols/maki/airport-18.svg;
+    icon-fill-color: #04d;
+}
+
+*|z14-15[railway=halt]
+{
+    icon-image: symbols/maki/rail-above-12.svg;
+    icon-fill-color: #04d;
+}
+*|z16-[railway=halt]
+{
+    icon-image: symbols/maki/rail-above-18.svg;
+    icon-fill-color: #04d;
+}
+*|z14[railway=station]
+{
+    icon-image: symbols/maki/rail-12.svg;
+}
+*|z15-[railway=station]
+{
+    icon-image: symbols/maki/rail-18.svg;
+}
+
+*|z16-[railway=tram_stop]
+{
+    icon-image: symbols/maki/rail-above-18.svg;
+    icon-fill-color: #04d;
+}
+
+*|z16-[highway=bus_stop]
+{
+    icon-image: symbols/maki/bus-18.svg;
+    icon-fill-color: #04d;
+}
+*|z16-[amenity=bus_station]
+{
+    icon-image: symbols/maki/bus-18.svg;
+    icon-fill-color: navy;
+}
+*|z12-[railway=station][!colour]
+{
+    icon-fill-color: #04d;
+}
+
+*|z12-14[railway=station][transport=subway]
+{
+    icon-image: symbols/maki/rail-underground-12.svg;
+    symbol-shape: circle;
+    symbol-size: 9;
+    symbol-fill-color: white;
+}
+*|z15-[railway=station][transport=subway]
+{
+    icon-image: symbols/maki/rail-underground-18.svg;
+    symbol-shape: circle;
+    symbol-size: 10;
+    symbol-fill-color: white;
+}
+
+*|z16-[railway=subway_entrance]
+{
+    icon-image: symbols/maki/rail-underground-18.svg;
+    symbol-shape: circle;
+    symbol-size: 10;
+    symbol-fill-color: white;
+}

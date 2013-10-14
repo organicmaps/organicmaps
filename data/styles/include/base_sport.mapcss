@@ -32,18 +32,18 @@ area|z13-[leisure=playing_fields][sport=tennis]
 
 area|z17-[sport=gymnastics],
 area|z17-[sport=multi],
-area|z17-[sport=skiing],
 node|z17-[sport=gymnastics],
-node|z17-[sport=multi],
-node|z17-[sport=skiing]
+node|z17-[sport=multi]
 {
   icon-image: symbols/gymnastics-borderless.svg;
 }
+/*
 area|z17-[leisure=playground],
 node|z17-[leisure=playground]
 {
   icon-image: symbols/playground.svg;
 }
+
 area|z17-[sport=diving],
 area|z17-[sport=scuba_diving],
 node|z17-[sport=diving],
@@ -51,11 +51,13 @@ node|z17-[sport=scuba_diving]
 {
   icon-image: symbols/diving-borderless.svg;
 }
+*/
 area|z17-[sport=cricket],
 node|z17-[sport=cricket]
 {
   icon-image: symbols/cricket-borderless.svg;
 }
+/*
 area|z17-[sport=equestrian],
 node|z17-[sport=equestrian]
 {
@@ -66,6 +68,7 @@ node|z17-[sport=curling]
 {
   icon-image: symbols/curling-borderless.svg;
 }
+*/
 area|z17-[sport=american_football],
 area|z17-[sport=australian_football],
 area|z17-[sport=football],
@@ -75,11 +78,13 @@ node|z17-[sport=football]
 {
   icon-image: symbols/football-borderless.svg;
 }
+/*
 area|z17-[sport=swimming],
 node|z17-[sport=swimming]
 {
   icon-image: symbols/swimming-borderless.svg;
 }
+*/
 area|z17-[sport=tennis],
 node|z17-[sport=tennis]
 {
@@ -90,11 +95,13 @@ node|z17-[sport=soccer]
 {
   icon-image: symbols/soccer-borderless.svg;
 }
+/*
 area|z17-[sport=shooting],
 node|z17-[sport=shooting]
 {
   icon-image: symbols/shooting-borderless.svg;
 }
+*/
 area|z17-[sport=handball],
 node|z17-[sport=handball]
 {
@@ -117,6 +124,7 @@ node|z17-[sport=athletics]
 {
   icon-image: symbols/athletics-borderless.svg;
 }
+/*
 area|z17-[sport=bowls],
 node|z17-[sport=bowls]
 {
@@ -127,6 +135,7 @@ node|z17-[sport=archery]
 {
   icon-image: symbols/archery-borderless.svg;
 }
+*/
 area|z17-[sport=basketball],
 node|z17-[sport=basketball]
 {
