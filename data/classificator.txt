@@ -21,7 +21,9 @@ world  +
         bank  -
         bar  -
         bench  -
+        bicycle_parking  -
         bicycle_rental  -
+        brothel  -
         bureau_de_change  -
         bus_station  -
         cafe  -
@@ -32,6 +34,7 @@ world  +
         doctors  -
         drinking_water  -
         embassy  -
+        emergency_phone  -
         fast_food  -
         ferry_terminal  -
         fire_station  -
@@ -66,6 +69,7 @@ world  +
         police  -
         post_box  -
         post_office  -
+        prison  -
         pub  -
         recycling  -
         restaurant  +
@@ -150,7 +154,11 @@ world  +
     earthquake:damage  +
         spontaneous_camp  -
         {}
+    emergency  +
+        phone  -
+        {}
     entrance  -
+    harbour  -
     highway  +
         bridleway  +
             bridge  -
@@ -601,7 +609,21 @@ world  +
             violet  -
             yellow  -
             {}
-        subway_entrance  -
+        subway_entrance  +
+            blue  -
+            brown  -
+            darkgreen  -
+            gray  -
+            green  -
+            grey  -
+            lightblue  -
+            lightgreen  -
+            orange  -
+            purple  -
+            red  -
+            violet  -
+            yellow  -
+            {}
         tram  +
             bridge  -
             tunnel  -
@@ -612,8 +634,16 @@ world  +
             tunnel  -
             {}
         {}
+    religion  +
+        christian  -
+        jewish  -
+        muslim  -
+        {}
     route  +
         ferry  -
+        {}
+    seamark:type  +
+        harbour  -
         {}
     shop  +
         alcohol  -
@@ -623,18 +653,21 @@ world  +
         books  -
         butcher  -
         car  -
+        car_parts  -
         car_repair  -
         chemist  -
         clothes  -
         computer  -
         confectionery  -
         convenience  -
+        copyshop  -
         department_store  -
         doityourself  -
         electronics  -
         florist  -
         furniture  -
         garden_centre  -
+        general  -
         gift  -
         greengrocer  -
         hairdresser  -
@@ -643,6 +676,8 @@ world  +
         kiosk  -
         mall  -
         mobile_phone  -
+        music  -
+        musical_instrument  -
         optician  -
         shoes  -
         supermarket  -
@@ -678,6 +713,7 @@ world  +
         attraction  -
         camp_site  -
         caravan_site  -
+        gallery  -
         guest_house  -
         hostel  -
         hotel  -
@@ -715,5 +751,9 @@ world  +
             tunnel  -
             {}
         weir  -
+        {}
+    wood  +
+        coniferous  -
+        deciduous  -
         {}
     {}
