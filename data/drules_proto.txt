@@ -1216,14 +1216,14 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "symbols/maki/bank-18.svg:#444444:::"
+      name: "symbols/nori/atm-18.svg:#444444:::"
       priority: 16000
     }
   }
   element {
     scale: 17
     symbol {
-      name: "symbols/maki/bank-18.svg:#444444:::"
+      name: "symbols/nori/atm-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -1239,7 +1239,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "symbols/maki/bank-18.svg:#444444:::"
+      name: "symbols/nori/atm-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -1255,7 +1255,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "symbols/maki/bank-18.svg:#444444:::"
+      name: "symbols/nori/atm-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -1388,16 +1388,9 @@ cont {
 cont {
   name: "amenity-bench"
   element {
-    scale: 16
-    symbol {
-      name: "symbols/bench.svg:#444444:::"
-      priority: 16000
-    }
-  }
-  element {
     scale: 17
     symbol {
-      name: "symbols/bench.svg:#444444:::"
+      name: "symbols/nori/bench-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -1413,7 +1406,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "symbols/bench.svg:#444444:::"
+      name: "symbols/nori/bench-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -1429,7 +1422,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "symbols/bench.svg:#444444:::"
+      name: "symbols/nori/bench-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -1603,14 +1596,14 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "symbols/maki/bank-18.svg:#444444:::"
+      name: "symbols/nori/bureau_de_change-18.svg:#444444:::"
       priority: 16000
     }
   }
   element {
     scale: 17
     symbol {
-      name: "symbols/maki/bank-18.svg:#444444:::"
+      name: "symbols/nori/bureau_de_change-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -1626,7 +1619,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "symbols/maki/bank-18.svg:#444444:::"
+      name: "symbols/nori/bureau_de_change-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -1642,7 +1635,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "symbols/maki/bank-18.svg:#444444:::"
+      name: "symbols/nori/bureau_de_change-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -1795,14 +1788,14 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "symbols/car_rental.svg:#444444:::"
+      name: "symbols/nori/car_rental-18.svg:#444444:::"
       priority: 16000
     }
   }
   element {
     scale: 17
     symbol {
-      name: "symbols/car_rental.svg:#444444:::"
+      name: "symbols/nori/car_rental-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -1818,7 +1811,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "symbols/car_rental.svg:#444444:::"
+      name: "symbols/nori/car_rental-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -1834,7 +1827,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "symbols/car_rental.svg:#444444:::"
+      name: "symbols/nori/car_rental-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -1851,18 +1844,7 @@ cont {
 cont {
   name: "amenity-car_sharing"
   element {
-    scale: 16
-    symbol {
-      name: "symbols/car_sharing.svg:#444444:::"
-      priority: 16000
-    }
-  }
-  element {
     scale: 17
-    symbol {
-      name: "symbols/car_sharing.svg:#444444:::"
-      priority: 16008
-    }
     caption {
       primary {
         height: 11
@@ -1875,10 +1857,6 @@ cont {
   }
   element {
     scale: 18
-    symbol {
-      name: "symbols/car_sharing.svg:#444444:::"
-      priority: 16008
-    }
     caption {
       primary {
         height: 11
@@ -1891,10 +1869,45 @@ cont {
   }
   element {
     scale: 19
-    symbol {
-      name: "symbols/car_sharing.svg:#444444:::"
-      priority: 16008
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
     }
+  }
+}
+cont {
+  name: "amenity-casino"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 19
     caption {
       primary {
         height: 11
@@ -2060,6 +2073,180 @@ cont {
   }
 }
 cont {
+  name: "amenity-community_centre"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/community_centre-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/community_centre-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/community_centre-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/community_centre-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+}
+cont {
+  name: "amenity-courthouse"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/courthouse-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/courthouse-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/courthouse-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/courthouse-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+}
+cont {
+  name: "amenity-dentist"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/dentist-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/dentist-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/dentist-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/dentist-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+}
+cont {
   name: "amenity-doctors"
   element {
     scale: 16
@@ -2122,14 +2309,14 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "symbols/maki/water-18.svg:#0000FF:::"
+      name: "symbols/nori/drinking_water-18.svg:#0000FF:::"
       priority: 16000
     }
   }
   element {
     scale: 17
     symbol {
-      name: "symbols/maki/water-18.svg:#0000FF:::"
+      name: "symbols/nori/drinking_water-18.svg:#0000FF:::"
       priority: 16008
     }
     caption {
@@ -2145,7 +2332,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "symbols/maki/water-18.svg:#0000FF:::"
+      name: "symbols/nori/drinking_water-18.svg:#0000FF:::"
       priority: 16008
     }
     caption {
@@ -2161,7 +2348,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "symbols/maki/water-18.svg:#0000FF:::"
+      name: "symbols/nori/drinking_water-18.svg:#0000FF:::"
       priority: 16008
     }
     caption {
@@ -2408,6 +2595,64 @@ cont {
   }
 }
 cont {
+  name: "amenity-fire_hydrant"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/fire_hydrant-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/fire_hydrant-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/fire_hydrant-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/fire_hydrant-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+}
+cont {
   name: "amenity-fire_station"
   element {
     scale: 16
@@ -2473,20 +2718,12 @@ cont {
       color: 12312029
       priority: 1096
     }
-    symbol {
-      name: "symbols/fountain.svg:#444444:::"
-      priority: 16095
-    }
   }
   element {
     scale: 17
     area {
       color: 12312029
       priority: 1009
-    }
-    symbol {
-      name: "symbols/fountain.svg:#444444:::"
-      priority: 16008
     }
     caption {
       primary {
@@ -2504,10 +2741,6 @@ cont {
       color: 12312029
       priority: 1009
     }
-    symbol {
-      name: "symbols/fountain.svg:#444444:::"
-      priority: 16008
-    }
     caption {
       primary {
         height: 11
@@ -2523,10 +2756,6 @@ cont {
     area {
       color: 12312029
       priority: 1009
-    }
-    symbol {
-      name: "symbols/fountain.svg:#444444:::"
-      priority: 16008
     }
     caption {
       primary {
@@ -2605,6 +2834,64 @@ cont {
   }
 }
 cont {
+  name: "amenity-gambling"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/gambling-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/gambling-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/gambling-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/gambling-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+}
+cont {
   name: "amenity-grave_yard"
   element {
     scale: 13
@@ -2634,7 +2921,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/maki/cemetery-18.svg:#444444:::"
+      name: "symbols/nori/grave_yard-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -2645,7 +2932,7 @@ cont {
       priority: 1009
     }
     symbol {
-      name: "symbols/maki/cemetery-18.svg:#444444:::"
+      name: "symbols/nori/grave_yard-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -2665,7 +2952,7 @@ cont {
       priority: 1009
     }
     symbol {
-      name: "symbols/maki/cemetery-18.svg:#444444:::"
+      name: "symbols/nori/grave_yard-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -2685,7 +2972,7 @@ cont {
       priority: 1009
     }
     symbol {
-      name: "symbols/maki/cemetery-18.svg:#444444:::"
+      name: "symbols/nori/grave_yard-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -2729,7 +3016,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/maki/religious-christian-18.svg:#444444:::"
+      name: "symbols/nori/grave_yard-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -2740,7 +3027,7 @@ cont {
       priority: 1009
     }
     symbol {
-      name: "symbols/maki/religious-christian-18.svg:#444444:::"
+      name: "symbols/nori/grave_yard-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -2760,7 +3047,7 @@ cont {
       priority: 1009
     }
     symbol {
-      name: "symbols/maki/religious-christian-18.svg:#444444:::"
+      name: "symbols/nori/grave_yard-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -2780,7 +3067,7 @@ cont {
       priority: 1009
     }
     symbol {
-      name: "symbols/maki/religious-christian-18.svg:#444444:::"
+      name: "symbols/nori/grave_yard-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -2799,14 +3086,14 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "symbols/maki/hospital-18.svg:#AA8844:::"
+      name: "symbols/nori/hospital-18.svg:#AA8844:::"
       priority: 16000
     }
   }
   element {
     scale: 17
     symbol {
-      name: "symbols/maki/hospital-18.svg:#AA8844:::"
+      name: "symbols/nori/hospital-18.svg:#AA8844:::"
       priority: 16008
     }
     caption {
@@ -2822,7 +3109,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "symbols/maki/hospital-18.svg:#AA8844:::"
+      name: "symbols/nori/hospital-18.svg:#AA8844:::"
       priority: 16008
     }
     caption {
@@ -2838,7 +3125,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "symbols/maki/hospital-18.svg:#AA8844:::"
+      name: "symbols/nori/hospital-18.svg:#AA8844:::"
       priority: 16008
     }
     caption {
@@ -2921,7 +3208,7 @@ cont {
       priority: -16034
     }
     symbol {
-      name: "symbols/maki/school-18.svg:#AA8844:::"
+      name: "symbols/nori/kindergarten-18.svg:#AA8844:::"
       priority: 16000
     }
   }
@@ -2932,7 +3219,7 @@ cont {
       priority: -15992
     }
     symbol {
-      name: "symbols/maki/school-18.svg:#AA8844:::"
+      name: "symbols/nori/kindergarten-18.svg:#AA8844:::"
       priority: 16008
     }
     caption {
@@ -2952,7 +3239,7 @@ cont {
       priority: -15992
     }
     symbol {
-      name: "symbols/maki/school-18.svg:#AA8844:::"
+      name: "symbols/nori/kindergarten-18.svg:#AA8844:::"
       priority: 16008
     }
     caption {
@@ -2972,7 +3259,65 @@ cont {
       priority: -15992
     }
     symbol {
-      name: "symbols/maki/school-18.svg:#AA8844:::"
+      name: "symbols/nori/kindergarten-18.svg:#AA8844:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+}
+cont {
+  name: "amenity-landury"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/dry_cleaning-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/dry_cleaning-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/dry_cleaning-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/dry_cleaning-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -3089,6 +3434,64 @@ cont {
     scale: 19
     symbol {
       name: "symbols/maki/shop-18.svg:#DD7700:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+}
+cont {
+  name: "amenity-money_transfer"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/money_transfer-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/money_transfer-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/money_transfer-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/money_transfer-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -3945,14 +4348,14 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "symbols/maki/pharmacy-18.svg:#444444:::"
+      name: "symbols/nori/pharmacy-18.svg:#444444:::"
       priority: 16000
     }
   }
   element {
     scale: 17
     symbol {
-      name: "symbols/maki/pharmacy-18.svg:#444444:::"
+      name: "symbols/nori/pharmacy-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -3968,7 +4371,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "symbols/maki/pharmacy-18.svg:#444444:::"
+      name: "symbols/nori/pharmacy-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -3984,7 +4387,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "symbols/maki/pharmacy-18.svg:#444444:::"
+      name: "symbols/nori/pharmacy-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -4117,9 +4520,16 @@ cont {
 cont {
   name: "amenity-post_box"
   element {
+    scale: 16
+    symbol {
+      name: "symbols/maki/post-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
     symbol {
-      name: "symbols/postbox.svg:#444444:::"
+      name: "symbols/maki/post-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -4135,7 +4545,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "symbols/postbox.svg:#444444:::"
+      name: "symbols/maki/post-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -4151,7 +4561,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "symbols/postbox.svg:#444444:::"
+      name: "symbols/maki/post-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -4286,14 +4696,14 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "symbols/maki/beer-18.svg:#442288:::"
+      name: "symbols/nori/pub-18.svg:#442288:::"
       priority: 16000
     }
   }
   element {
     scale: 17
     symbol {
-      name: "symbols/maki/beer-18.svg:#442288:::"
+      name: "symbols/nori/pub-18.svg:#442288:::"
       priority: 16008
     }
     caption {
@@ -4309,7 +4719,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "symbols/maki/beer-18.svg:#442288:::"
+      name: "symbols/nori/pub-18.svg:#442288:::"
       priority: 16008
     }
     caption {
@@ -4325,7 +4735,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "symbols/maki/beer-18.svg:#442288:::"
+      name: "symbols/nori/pub-18.svg:#442288:::"
       priority: 16008
     }
     caption {
@@ -4344,14 +4754,14 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "symbols/maki/waste-basket-18.svg:#444444:::"
+      name: "symbols/nori/recycling-18.svg:#444444:::"
       priority: 16000
     }
   }
   element {
     scale: 17
     symbol {
-      name: "symbols/maki/waste-basket-18.svg:#444444:::"
+      name: "symbols/nori/recycling-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -4367,7 +4777,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "symbols/maki/waste-basket-18.svg:#444444:::"
+      name: "symbols/nori/recycling-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -4383,7 +4793,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "symbols/maki/waste-basket-18.svg:#444444:::"
+      name: "symbols/nori/recycling-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -4727,30 +5137,55 @@ cont {
 cont {
   name: "amenity-shelter"
   element {
-    scale: 14
-    symbol {
-      name: "symbols/shelter.svg:#444444:::"
-      priority: 16000
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
     }
   }
   element {
-    scale: 15
-    symbol {
-      name: "symbols/shelter.svg:#444444:::"
-      priority: 16000
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
     }
   }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+}
+cont {
+  name: "amenity-shower"
   element {
     scale: 16
     symbol {
-      name: "symbols/shelter.svg:#444444:::"
+      name: "symbols/nori/shower-18.svg:#444444:::"
       priority: 16000
     }
   }
   element {
     scale: 17
     symbol {
-      name: "symbols/shelter.svg:#444444:::"
+      name: "symbols/nori/shower-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -4766,7 +5201,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "symbols/shelter.svg:#444444:::"
+      name: "symbols/nori/shower-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -4782,7 +5217,65 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "symbols/shelter.svg:#444444:::"
+      name: "symbols/nori/shower-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+}
+cont {
+  name: "amenity-social_facility"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/social_facility-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/social_facility-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/social_facility-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/social_facility-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -4838,7 +5331,18 @@ cont {
 cont {
   name: "amenity-taxi"
   element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/taxi-18.svg:#0044DD:::"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
+    symbol {
+      name: "symbols/nori/taxi-18.svg:#0044DD:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -4851,6 +5355,10 @@ cont {
   }
   element {
     scale: 18
+    symbol {
+      name: "symbols/nori/taxi-18.svg:#0044DD:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -4863,6 +5371,10 @@ cont {
   }
   element {
     scale: 19
+    symbol {
+      name: "symbols/nori/taxi-18.svg:#0044DD:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -5180,6 +5692,64 @@ cont {
     }
     symbol {
       name: "symbols/maki/college-18.svg:#AA8844:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+}
+cont {
+  name: "amenity-waste_basket"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/waste_basket-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/waste_basket-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/waste_basket-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/waste_basket-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -5790,6 +6360,37 @@ cont {
   }
 }
 cont {
+  name: "barrier-border_control"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/border_control-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/border_control-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/border_control-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/border_control-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+}
+cont {
   name: "barrier-city_wall"
   element {
     scale: 16
@@ -5893,34 +6494,6 @@ cont {
 }
 cont {
   name: "barrier-gate"
-  element {
-    scale: 12
-    symbol {
-      name: "symbols/maki/square-stroked-12.svg:#444444:::"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 13
-    symbol {
-      name: "symbols/maki/square-stroked-12.svg:#444444:::"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 14
-    symbol {
-      name: "symbols/maki/square-stroked-12.svg:#444444:::"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 15
-    symbol {
-      name: "symbols/maki/square-stroked-12.svg:#444444:::"
-      priority: 16000
-    }
-  }
   element {
     scale: 16
     symbol {
@@ -9359,6 +9932,130 @@ cont {
   }
 }
 cont {
+  name: "craft"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/craft-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/craft-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/craft-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/craft-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "craft-carpenter"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/carpenter-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/carpenter-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/carpenter-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/carpenter-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "craft-shoemaker"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/shoemaker-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/shoemaker-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/shoemaker-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/shoemaker-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "craft-tailor"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/tailor-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/tailor-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/tailor-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/tailor-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+}
+cont {
   name: "earthquake:damage-spontaneous_camp"
   element {
     scale: 14
@@ -9404,32 +10101,63 @@ cont {
   }
 }
 cont {
-  name: "emergency-phone"
+  name: "emergency-fire_hydrant"
   element {
     scale: 16
     symbol {
-      name: "symbols/maki/emergency-telephone-18.svg:#444444:::"
+      name: "symbols/nori/fire_hydrant-18.svg:#FF0000:::"
       priority: 16000
     }
   }
   element {
     scale: 17
     symbol {
-      name: "symbols/maki/emergency-telephone-18.svg:#444444:::"
+      name: "symbols/nori/fire_hydrant-18.svg:#FF0000:::"
       priority: 16000
     }
   }
   element {
     scale: 18
     symbol {
-      name: "symbols/maki/emergency-telephone-18.svg:#444444:::"
+      name: "symbols/nori/fire_hydrant-18.svg:#FF0000:::"
       priority: 16000
     }
   }
   element {
     scale: 19
     symbol {
-      name: "symbols/maki/emergency-telephone-18.svg:#444444:::"
+      name: "symbols/nori/fire_hydrant-18.svg:#FF0000:::"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "emergency-phone"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/maki/emergency-telephone-18.svg:#FF0000:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/maki/emergency-telephone-18.svg:#FF0000:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/maki/emergency-telephone-18.svg:#FF0000:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/maki/emergency-telephone-18.svg:#FF0000:::"
       priority: 16000
     }
   }
@@ -9512,6 +10240,68 @@ cont {
     scale: 19
     symbol {
       name: "symbols/maki/harbor-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "healthcare-dentist"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/dentist-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/dentist-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/dentist-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/dentist-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "healthcare-hospital"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/hospital-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/hospital-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/hospital-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/hospital-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -27576,6 +28366,93 @@ cont {
   }
 }
 cont {
+  name: "highway-street_lamp"
+  element {
+    scale: 16
+    lines {
+      width: 1.6
+      color: 12294468
+      priority: 0
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.6
+      color: 12294468
+      priority: -15000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    symbol {
+      name: "symbols/nori/street_lamp-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1.6
+      color: 12294468
+      priority: 0
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.6
+      color: 12294468
+      priority: -15000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    symbol {
+      name: "symbols/nori/street_lamp-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 1.6
+      color: 12294468
+      priority: 0
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.6
+      color: 12294468
+      priority: -15000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    symbol {
+      name: "symbols/nori/street_lamp-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.6
+      color: 12294468
+      priority: 0
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.6
+      color: 12294468
+      priority: -15000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    symbol {
+      name: "symbols/nori/street_lamp-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+}
+cont {
   name: "highway-tertiary"
   element {
     scale: 12
@@ -34962,18 +35839,7 @@ cont {
 cont {
   name: "historic-battlefield"
   element {
-    scale: 16
-    symbol {
-      name: "symbols/cannon.svg:#444444:::"
-      priority: 16000
-    }
-  }
-  element {
     scale: 17
-    symbol {
-      name: "symbols/cannon.svg:#444444:::"
-      priority: 16008
-    }
     caption {
       primary {
         height: 11
@@ -34986,10 +35852,6 @@ cont {
   }
   element {
     scale: 18
-    symbol {
-      name: "symbols/cannon.svg:#444444:::"
-      priority: 16008
-    }
     caption {
       primary {
         height: 11
@@ -35002,10 +35864,6 @@ cont {
   }
   element {
     scale: 19
-    symbol {
-      name: "symbols/cannon.svg:#444444:::"
-      priority: 16008
-    }
     caption {
       primary {
         height: 11
@@ -35020,18 +35878,7 @@ cont {
 cont {
   name: "historic-castle"
   element {
-    scale: 16
-    symbol {
-      name: "symbols/castle.svg:#444444:::"
-      priority: 16000
-    }
-  }
-  element {
     scale: 17
-    symbol {
-      name: "symbols/castle.svg:#444444:::"
-      priority: 16008
-    }
     caption {
       primary {
         height: 11
@@ -35044,10 +35891,6 @@ cont {
   }
   element {
     scale: 18
-    symbol {
-      name: "symbols/castle.svg:#444444:::"
-      priority: 16008
-    }
     caption {
       primary {
         height: 11
@@ -35060,10 +35903,6 @@ cont {
   }
   element {
     scale: 19
-    symbol {
-      name: "symbols/castle.svg:#444444:::"
-      priority: 16008
-    }
     caption {
       primary {
         height: 11
@@ -35252,18 +36091,7 @@ cont {
 cont {
   name: "historic-ruins"
   element {
-    scale: 16
-    symbol {
-      name: "symbols/ruins.svg:#444444:::"
-      priority: 16000
-    }
-  }
-  element {
     scale: 17
-    symbol {
-      name: "symbols/ruins.svg:#444444:::"
-      priority: 16008
-    }
     caption {
       primary {
         height: 11
@@ -35276,10 +36104,6 @@ cont {
   }
   element {
     scale: 18
-    symbol {
-      name: "symbols/ruins.svg:#444444:::"
-      priority: 16008
-    }
     caption {
       primary {
         height: 11
@@ -35292,10 +36116,6 @@ cont {
   }
   element {
     scale: 19
-    symbol {
-      name: "symbols/ruins.svg:#444444:::"
-      priority: 16008
-    }
     caption {
       primary {
         height: 11
@@ -38666,6 +39486,37 @@ cont {
   }
 }
 cont {
+  name: "leisure-beach_resort"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/beach_resort-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/beach_resort-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/beach_resort-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/beach_resort-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+}
+cont {
   name: "leisure-common"
   element {
     scale: 12
@@ -39889,7 +40740,7 @@ cont {
       priority: -16400
     }
     symbol {
-      name: "symbols/maki/pitch-18.svg:#444444:::"
+      name: "symbols/nori/playground-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -39900,7 +40751,7 @@ cont {
       priority: -16401
     }
     symbol {
-      name: "symbols/maki/pitch-18.svg:#444444:::"
+      name: "symbols/nori/playground-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -39911,7 +40762,7 @@ cont {
       priority: -16402
     }
     symbol {
-      name: "symbols/maki/pitch-18.svg:#444444:::"
+      name: "symbols/nori/playground-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -39922,7 +40773,7 @@ cont {
       priority: -16403
     }
     symbol {
-      name: "symbols/maki/pitch-18.svg:#444444:::"
+      name: "symbols/nori/playground-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -39964,7 +40815,7 @@ cont {
       priority: -16408
     }
     symbol {
-      name: "symbols/maki/tennis-18.svg:#444444:::"
+      name: "symbols/nori/playground-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -39975,7 +40826,7 @@ cont {
       priority: -16409
     }
     symbol {
-      name: "symbols/maki/tennis-18.svg:#444444:::"
+      name: "symbols/nori/playground-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -39986,7 +40837,7 @@ cont {
       priority: -16410
     }
     symbol {
-      name: "symbols/maki/tennis-18.svg:#444444:::"
+      name: "symbols/nori/playground-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -39997,7 +40848,7 @@ cont {
       priority: -16411
     }
     symbol {
-      name: "symbols/maki/tennis-18.svg:#444444:::"
+      name: "symbols/nori/playground-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -40555,6 +41406,37 @@ cont {
   }
 }
 cont {
+  name: "man_made-communication_tower"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/communication-tower-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/communication-tower-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/communication-tower-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/communication-tower-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+}
+cont {
   name: "man_made-cutline"
   element {
     scale: 12
@@ -40634,6 +41516,37 @@ cont {
       priority: 1268
       join: ROUNDJOIN
       cap: ROUNDCAP
+    }
+  }
+}
+cont {
+  name: "man_made-mast"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/communication-tower-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/communication-tower-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/communication-tower-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/communication-tower-18.svg:#444444:::"
+      priority: 16000
     }
   }
 }
@@ -41017,6 +41930,37 @@ cont {
   }
 }
 cont {
+  name: "man_made-storage_tank"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/storage_tank-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/storage_tank-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/storage_tank-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/storage_tank-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+}
+cont {
   name: "man_made-wastewater_plant"
   element {
     scale: 12
@@ -41072,6 +42016,192 @@ cont {
     area {
       color: 15658734
       priority: -16450
+    }
+  }
+}
+cont {
+  name: "man_made-water_tower"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/water_tower-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/water_tower-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/water_tower-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/water_tower-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "man_made-water_well"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/bucket-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/bucket-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/bucket-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/bucket-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "man_made-water_well-drinking_water"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/drinking_water_well-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/drinking_water_well-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/drinking_water_well-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/drinking_water_well-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "man_made-water_well-manual"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/pump-manual-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/pump-manual-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/pump-manual-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/pump-manual-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "man_made-water_well-powered"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/pump-powered-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/pump-powered-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/pump-powered-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/pump-powered-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "man_made-watermill"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/watermill-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/watermill-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/watermill-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/watermill-18.svg:#444444:::"
+      priority: 16000
     }
   }
 }
@@ -41452,30 +42582,6 @@ cont {
       priority: 1000
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-  }
-}
-cont {
-  name: "military-bunker"
-  element {
-    scale: 17
-    symbol {
-      name: "symbols/cannon.svg:#444444:::"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "symbols/cannon.svg:#444444:::"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "symbols/cannon.svg:#444444:::"
-      priority: 16000
     }
   }
 }
@@ -42458,14 +43564,14 @@ cont {
   element {
     scale: 12
     symbol {
-      name: "symbols/peak-mini.svg:#444444:::"
+      name: "symbols/maki/triangle-12.svg:#444444:::"
       priority: 16000
     }
   }
   element {
     scale: 13
     symbol {
-      name: "symbols/peak-mini.svg:#444444:::"
+      name: "symbols/maki/triangle-12.svg:#444444:::"
       priority: 16000
     }
     caption {
@@ -42480,7 +43586,7 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "symbols/peak.svg:#444444:::"
+      name: "symbols/maki/triangle-12.svg:#444444:::"
       priority: 16000
     }
     caption {
@@ -42495,7 +43601,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "symbols/peak.svg:#444444:::"
+      name: "symbols/maki/triangle-12.svg:#444444:::"
       priority: 16000
     }
     caption {
@@ -42510,7 +43616,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "symbols/peak.svg:#444444:::"
+      name: "symbols/maki/triangle-12.svg:#444444:::"
       priority: 16000
     }
     caption {
@@ -42525,7 +43631,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "symbols/peak.svg:#444444:::"
+      name: "symbols/maki/triangle-12.svg:#444444:::"
       priority: 16000
     }
     caption {
@@ -42540,7 +43646,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "symbols/peak.svg:#444444:::"
+      name: "symbols/maki/triangle-12.svg:#444444:::"
       priority: 16000
     }
     caption {
@@ -42555,7 +43661,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "symbols/peak.svg:#444444:::"
+      name: "symbols/maki/triangle-12.svg:#444444:::"
       priority: 16000
     }
     caption {
@@ -43740,7 +44846,18 @@ cont {
 cont {
   name: "office-government"
   element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/government-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
+    symbol {
+      name: "symbols/nori/government-18.svg:#444444:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -43753,6 +44870,10 @@ cont {
   }
   element {
     scale: 18
+    symbol {
+      name: "symbols/nori/government-18.svg:#444444:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -43765,6 +44886,10 @@ cont {
   }
   element {
     scale: 19
+    symbol {
+      name: "symbols/nori/government-18.svg:#444444:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -43804,6 +44929,64 @@ cont {
   }
   element {
     scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+}
+cont {
+  name: "office-ngo"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/ngo-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/ngo-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/ngo-18.svg:#444444:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/ngo-18.svg:#444444:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -47082,7 +48265,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47093,7 +48276,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47104,7 +48287,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47115,7 +48298,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47126,7 +48309,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47137,7 +48320,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47151,7 +48334,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47162,7 +48345,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47173,7 +48356,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47184,7 +48367,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47195,7 +48378,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47206,7 +48389,76 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "power-generator-nuclear"
+  element {
+    scale: 14
+    area {
+      color: 12303291
+      priority: 1001
+    }
+    symbol {
+      name: "symbols/nori/generator_nuclear-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 12303291
+      priority: 1001
+    }
+    symbol {
+      name: "symbols/nori/generator_nuclear-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 12303291
+      priority: 1001
+    }
+    symbol {
+      name: "symbols/nori/generator_nuclear-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 12303291
+      priority: 1001
+    }
+    symbol {
+      name: "symbols/nori/generator_nuclear-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 12303291
+      priority: 1001
+    }
+    symbol {
+      name: "symbols/nori/generator_nuclear-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 12303291
+      priority: 1001
+    }
+    symbol {
+      name: "symbols/nori/generator_nuclear-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47220,7 +48472,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47231,7 +48483,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47242,7 +48494,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47253,7 +48505,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47264,7 +48516,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47275,7 +48527,76 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "power-generator-solar"
+  element {
+    scale: 14
+    area {
+      color: 12303291
+      priority: 1001
+    }
+    symbol {
+      name: "symbols/nori/generator_solar-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 12303291
+      priority: 1001
+    }
+    symbol {
+      name: "symbols/nori/generator_solar-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 12303291
+      priority: 1001
+    }
+    symbol {
+      name: "symbols/nori/generator_solar-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 12303291
+      priority: 1001
+    }
+    symbol {
+      name: "symbols/nori/generator_solar-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 12303291
+      priority: 1001
+    }
+    symbol {
+      name: "symbols/nori/generator_solar-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 12303291
+      priority: 1001
+    }
+    symbol {
+      name: "symbols/nori/generator_solar-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47289,7 +48610,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator_wind-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47300,7 +48621,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator_wind-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47311,7 +48632,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator_wind-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47322,7 +48643,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator_wind-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47333,7 +48654,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator_wind-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47344,7 +48665,7 @@ cont {
       priority: 1001
     }
     symbol {
-      name: "symbols/power_generic.svg:#444444:::"
+      name: "symbols/nori/generator_wind-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -47828,28 +49149,28 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "symbols/power-tower.svg:#444444:::"
+      name: "symbols/nori/power_tower-12.svg:#444444:::"
       priority: 16000
     }
   }
   element {
     scale: 17
     symbol {
-      name: "symbols/power-tower.svg:#444444:::"
+      name: "symbols/nori/power_tower-12.svg:#444444:::"
       priority: 16000
     }
   }
   element {
     scale: 18
     symbol {
-      name: "symbols/power-tower.svg:#444444:::"
+      name: "symbols/nori/power_tower-12.svg:#444444:::"
       priority: 16000
     }
   }
   element {
     scale: 19
     symbol {
-      name: "symbols/power-tower.svg:#444444:::"
+      name: "symbols/nori/power_tower-12.svg:#444444:::"
       priority: 16000
     }
   }
@@ -63203,6 +64524,37 @@ cont {
   }
 }
 cont {
+  name: "religion-hindu"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/hindu-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/hindu-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/hindu-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/hindu-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+}
+cont {
   name: "religion-jewish"
   element {
     scale: 16
@@ -63540,14 +64892,14 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "symbols/maki/bakery-18.svg:#DD7700:::"
+      name: "symbols/nori/bakery-18.svg:#DD7700:::"
       priority: 16000
     }
   }
   element {
     scale: 17
     symbol {
-      name: "symbols/maki/bakery-18.svg:#DD7700:::"
+      name: "symbols/nori/bakery-18.svg:#DD7700:::"
       priority: 16008
     }
     caption {
@@ -63563,7 +64915,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "symbols/maki/bakery-18.svg:#DD7700:::"
+      name: "symbols/nori/bakery-18.svg:#DD7700:::"
       priority: 16008
     }
     caption {
@@ -63579,7 +64931,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "symbols/maki/bakery-18.svg:#DD7700:::"
+      name: "symbols/nori/bakery-18.svg:#DD7700:::"
       priority: 16008
     }
     caption {
@@ -63598,14 +64950,14 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "symbols/maki/alcohol-shop-18.svg:#DD7700:::"
+      name: "symbols/nori/beverages-18.svg:#DD7700:::"
       priority: 16000
     }
   }
   element {
     scale: 17
     symbol {
-      name: "symbols/maki/alcohol-shop-18.svg:#DD7700:::"
+      name: "symbols/nori/beverages-18.svg:#DD7700:::"
       priority: 16008
     }
     caption {
@@ -63621,7 +64973,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "symbols/maki/alcohol-shop-18.svg:#DD7700:::"
+      name: "symbols/nori/beverages-18.svg:#DD7700:::"
       priority: 16008
     }
     caption {
@@ -63637,7 +64989,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "symbols/maki/alcohol-shop-18.svg:#DD7700:::"
+      name: "symbols/nori/beverages-18.svg:#DD7700:::"
       priority: 16008
     }
     caption {
@@ -63772,14 +65124,14 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "symbols/maki/slaughterhouse-18.svg:#DD7700:::"
+      name: "symbols/nori/butcher-18.svg:#DD7700:::"
       priority: 16000
     }
   }
   element {
     scale: 17
     symbol {
-      name: "symbols/maki/slaughterhouse-18.svg:#DD7700:::"
+      name: "symbols/nori/butcher-18.svg:#DD7700:::"
       priority: 16008
     }
     caption {
@@ -63795,7 +65147,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "symbols/maki/slaughterhouse-18.svg:#DD7700:::"
+      name: "symbols/nori/butcher-18.svg:#DD7700:::"
       priority: 16008
     }
     caption {
@@ -63811,7 +65163,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "symbols/maki/slaughterhouse-18.svg:#DD7700:::"
+      name: "symbols/nori/butcher-18.svg:#DD7700:::"
       priority: 16008
     }
     caption {
@@ -63867,7 +65219,18 @@ cont {
 cont {
   name: "shop-car_parts"
   element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/car_parts-18.svg:#DD7700:::"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
+    symbol {
+      name: "symbols/nori/car_parts-18.svg:#DD7700:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -63880,6 +65243,10 @@ cont {
   }
   element {
     scale: 18
+    symbol {
+      name: "symbols/nori/car_parts-18.svg:#DD7700:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -63892,6 +65259,10 @@ cont {
   }
   element {
     scale: 19
+    symbol {
+      name: "symbols/nori/car_parts-18.svg:#DD7700:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -63908,14 +65279,14 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "symbols/car_repair.svg:#DD7700:::"
+      name: "symbols/nori/car_repair-18.svg:#DD7700:::"
       priority: 16000
     }
   }
   element {
     scale: 17
     symbol {
-      name: "symbols/car_repair.svg:#DD7700:::"
+      name: "symbols/nori/car_repair-18.svg:#DD7700:::"
       priority: 16008
     }
     caption {
@@ -63931,7 +65302,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "symbols/car_repair.svg:#DD7700:::"
+      name: "symbols/nori/car_repair-18.svg:#DD7700:::"
       priority: 16008
     }
     caption {
@@ -63947,7 +65318,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "symbols/car_repair.svg:#DD7700:::"
+      name: "symbols/nori/car_repair-18.svg:#DD7700:::"
       priority: 16008
     }
     caption {
@@ -64005,14 +65376,14 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "symbols/clothes.svg:#DD7700:::"
+      name: "symbols/nori/clothes-18.svg:#DD7700:::"
       priority: 16000
     }
   }
   element {
     scale: 17
     symbol {
-      name: "symbols/clothes.svg:#DD7700:::"
+      name: "symbols/nori/clothes-18.svg:#DD7700:::"
       priority: 16008
     }
     caption {
@@ -64028,7 +65399,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "symbols/clothes.svg:#DD7700:::"
+      name: "symbols/nori/clothes-18.svg:#DD7700:::"
       priority: 16008
     }
     caption {
@@ -64044,7 +65415,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "symbols/clothes.svg:#DD7700:::"
+      name: "symbols/nori/clothes-18.svg:#DD7700:::"
       priority: 16008
     }
     caption {
@@ -64061,7 +65432,18 @@ cont {
 cont {
   name: "shop-computer"
   element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/computer-18.svg:#DD7700:::"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
+    symbol {
+      name: "symbols/nori/computer-18.svg:#DD7700:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -64074,6 +65456,10 @@ cont {
   }
   element {
     scale: 18
+    symbol {
+      name: "symbols/nori/computer-18.svg:#DD7700:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -64086,6 +65472,10 @@ cont {
   }
   element {
     scale: 19
+    symbol {
+      name: "symbols/nori/computer-18.svg:#DD7700:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -64141,14 +65531,14 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "symbols/maki/shop-18.svg:#DD7700:::"
+      name: "symbols/nori/shop-18.svg:#DD7700:::"
       priority: 16000
     }
   }
   element {
     scale: 17
     symbol {
-      name: "symbols/maki/shop-18.svg:#DD7700:::"
+      name: "symbols/nori/shop-18.svg:#DD7700:::"
       priority: 16008
     }
     caption {
@@ -64164,7 +65554,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "symbols/maki/shop-18.svg:#DD7700:::"
+      name: "symbols/nori/shop-18.svg:#DD7700:::"
       priority: 16008
     }
     caption {
@@ -64180,7 +65570,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "symbols/maki/shop-18.svg:#DD7700:::"
+      name: "symbols/nori/shop-18.svg:#DD7700:::"
       priority: 16008
     }
     caption {
@@ -64350,6 +65740,64 @@ cont {
   }
 }
 cont {
+  name: "shop-dry_cleaning"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/dry_cleaning-18.svg:#DD7700:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/dry_cleaning-18.svg:#DD7700:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/dry_cleaning-18.svg:#DD7700:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/dry_cleaning-18.svg:#DD7700:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+}
+cont {
   name: "shop-electronics"
   element {
     scale: 16
@@ -64466,6 +65914,45 @@ cont {
   }
 }
 cont {
+  name: "shop-funeral_directors"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+}
+cont {
   name: "shop-furniture"
   element {
     scale: 16
@@ -64526,7 +66013,18 @@ cont {
 cont {
   name: "shop-garden_centre"
   element {
+    scale: 16
+    symbol {
+      name: "symbols/maki/garden-18.svg:#DD7700:::"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
+    symbol {
+      name: "symbols/maki/garden-18.svg:#DD7700:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -64539,6 +66037,10 @@ cont {
   }
   element {
     scale: 18
+    symbol {
+      name: "symbols/maki/garden-18.svg:#DD7700:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -64551,6 +66053,10 @@ cont {
   }
   element {
     scale: 19
+    symbol {
+      name: "symbols/maki/garden-18.svg:#DD7700:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -64682,7 +66188,18 @@ cont {
 cont {
   name: "shop-hairdresser"
   element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/hairdresser-18.svg:#DD7700:::"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
+    symbol {
+      name: "symbols/nori/hairdresser-18.svg:#DD7700:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -64695,6 +66212,10 @@ cont {
   }
   element {
     scale: 18
+    symbol {
+      name: "symbols/nori/hairdresser-18.svg:#DD7700:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -64707,6 +66228,10 @@ cont {
   }
   element {
     scale: 19
+    symbol {
+      name: "symbols/nori/hairdresser-18.svg:#DD7700:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -64721,7 +66246,18 @@ cont {
 cont {
   name: "shop-hardware"
   element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/hardware-18.svg:#DD7700:::"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
+    symbol {
+      name: "symbols/nori/hardware-18.svg:#DD7700:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -64734,6 +66270,10 @@ cont {
   }
   element {
     scale: 18
+    symbol {
+      name: "symbols/nori/hardware-18.svg:#DD7700:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -64746,6 +66286,10 @@ cont {
   }
   element {
     scale: 19
+    symbol {
+      name: "symbols/nori/hardware-18.svg:#DD7700:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -64915,7 +66459,18 @@ cont {
 cont {
   name: "shop-mobile_phone"
   element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/mobile_phone-18.svg:#DD7700:::"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
+    symbol {
+      name: "symbols/nori/mobile_phone-18.svg:#DD7700:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -64928,6 +66483,10 @@ cont {
   }
   element {
     scale: 18
+    symbol {
+      name: "symbols/nori/mobile_phone-18.svg:#DD7700:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -64940,6 +66499,68 @@ cont {
   }
   element {
     scale: 19
+    symbol {
+      name: "symbols/nori/mobile_phone-18.svg:#DD7700:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+}
+cont {
+  name: "shop-motorcycle"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/motorcycle-18.svg:#DD7700:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/motorcycle-18.svg:#DD7700:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/motorcycle-18.svg:#DD7700:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/motorcycle-18.svg:#DD7700:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -65095,6 +66716,122 @@ cont {
   }
   element {
     scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+}
+cont {
+  name: "shop-photo"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/photo-18.svg:#DD7700:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/photo-18.svg:#DD7700:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/photo-18.svg:#DD7700:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/photo-18.svg:#DD7700:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+}
+cont {
+  name: "shop-photo_studio"
+  element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/photo-18.svg:#DD7700:::"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "symbols/nori/photo-18.svg:#DD7700:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "symbols/nori/photo-18.svg:#DD7700:::"
+      priority: 16008
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15008
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "symbols/nori/photo-18.svg:#DD7700:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -65293,30 +67030,6 @@ cont {
   }
 }
 cont {
-  name: "sport-athletics"
-  element {
-    scale: 17
-    symbol {
-      name: "symbols/athletics-borderless.svg:#444444:::"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "symbols/athletics-borderless.svg:#444444:::"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "symbols/athletics-borderless.svg:#444444:::"
-      priority: 16000
-    }
-  }
-}
-cont {
   name: "sport-australian_football"
   element {
     scale: 16
@@ -65503,78 +67216,6 @@ cont {
   }
 }
 cont {
-  name: "sport-gymnastics"
-  element {
-    scale: 17
-    symbol {
-      name: "symbols/gymnastics-borderless.svg:#444444:::"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "symbols/gymnastics-borderless.svg:#444444:::"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "symbols/gymnastics-borderless.svg:#444444:::"
-      priority: 16000
-    }
-  }
-}
-cont {
-  name: "sport-handball"
-  element {
-    scale: 17
-    symbol {
-      name: "symbols/handball-borderless.svg:#444444:::"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "symbols/handball-borderless.svg:#444444:::"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "symbols/handball-borderless.svg:#444444:::"
-      priority: 16000
-    }
-  }
-}
-cont {
-  name: "sport-multi"
-  element {
-    scale: 17
-    symbol {
-      name: "symbols/gymnastics-borderless.svg:#444444:::"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "symbols/gymnastics-borderless.svg:#444444:::"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "symbols/gymnastics-borderless.svg:#444444:::"
-      priority: 16000
-    }
-  }
-}
-cont {
   name: "sport-skiing"
   element {
     scale: 16
@@ -65701,25 +67342,7 @@ cont {
 cont {
   name: "tourism-alpine_hut"
   element {
-    scale: 15
-    symbol {
-      name: "symbols/alpine_hut.svg:#444444:::"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "symbols/alpine_hut.svg:#444444:::"
-      priority: 16000
-    }
-  }
-  element {
     scale: 17
-    symbol {
-      name: "symbols/alpine_hut.svg:#444444:::"
-      priority: 16008
-    }
     caption {
       primary {
         height: 11
@@ -65732,10 +67355,6 @@ cont {
   }
   element {
     scale: 18
-    symbol {
-      name: "symbols/alpine_hut.svg:#444444:::"
-      priority: 16008
-    }
     caption {
       primary {
         height: 11
@@ -65748,10 +67367,6 @@ cont {
   }
   element {
     scale: 19
-    symbol {
-      name: "symbols/alpine_hut.svg:#444444:::"
-      priority: 16008
-    }
     caption {
       primary {
         height: 11
@@ -66380,7 +67995,18 @@ cont {
 cont {
   name: "tourism-information"
   element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/information-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
+    symbol {
+      name: "symbols/nori/information-18.svg:#444444:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -66393,6 +68019,10 @@ cont {
   }
   element {
     scale: 18
+    symbol {
+      name: "symbols/nori/information-18.svg:#444444:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -66405,6 +68035,10 @@ cont {
   }
   element {
     scale: 19
+    symbol {
+      name: "symbols/nori/information-18.svg:#444444:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -66419,7 +68053,18 @@ cont {
 cont {
   name: "tourism-information-guidepost"
   element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/information-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
+    symbol {
+      name: "symbols/nori/information-18.svg:#444444:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -66432,6 +68077,10 @@ cont {
   }
   element {
     scale: 18
+    symbol {
+      name: "symbols/nori/information-18.svg:#444444:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -66444,6 +68093,10 @@ cont {
   }
   element {
     scale: 19
+    symbol {
+      name: "symbols/nori/information-18.svg:#444444:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -66458,7 +68111,18 @@ cont {
 cont {
   name: "tourism-information-office"
   element {
+    scale: 16
+    symbol {
+      name: "symbols/nori/information-18.svg:#444444:::"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
+    symbol {
+      name: "symbols/nori/information-18.svg:#444444:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -66471,6 +68135,10 @@ cont {
   }
   element {
     scale: 18
+    symbol {
+      name: "symbols/nori/information-18.svg:#444444:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -66483,6 +68151,10 @@ cont {
   }
   element {
     scale: 19
+    symbol {
+      name: "symbols/nori/information-18.svg:#444444:::"
+      priority: 16008
+    }
     caption {
       primary {
         height: 11
@@ -66619,7 +68291,7 @@ cont {
       priority: -16575
     }
     symbol {
-      name: "symbols/maki/campsite-18.svg:#444444:::"
+      name: "symbols/nori/camp_site-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -66630,7 +68302,7 @@ cont {
       priority: -16576
     }
     symbol {
-      name: "symbols/maki/campsite-18.svg:#444444:::"
+      name: "symbols/nori/camp_site-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -66641,7 +68313,7 @@ cont {
       priority: -16577
     }
     symbol {
-      name: "symbols/maki/campsite-18.svg:#444444:::"
+      name: "symbols/nori/camp_site-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -66652,7 +68324,7 @@ cont {
       priority: -16578
     }
     symbol {
-      name: "symbols/maki/campsite-18.svg:#444444:::"
+      name: "symbols/nori/camp_site-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -66663,7 +68335,7 @@ cont {
       priority: -16579
     }
     symbol {
-      name: "symbols/maki/campsite-18.svg:#444444:::"
+      name: "symbols/nori/camp_site-18.svg:#444444:::"
       priority: 16000
     }
   }
@@ -66674,7 +68346,7 @@ cont {
       priority: -15992
     }
     symbol {
-      name: "symbols/maki/campsite-18.svg:#444444:::"
+      name: "symbols/nori/camp_site-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -66694,7 +68366,7 @@ cont {
       priority: -15992
     }
     symbol {
-      name: "symbols/maki/campsite-18.svg:#444444:::"
+      name: "symbols/nori/camp_site-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -66714,7 +68386,7 @@ cont {
       priority: -15992
     }
     symbol {
-      name: "symbols/maki/campsite-18.svg:#444444:::"
+      name: "symbols/nori/camp_site-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -66740,14 +68412,14 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "symbols/maki/star-stroked-18.svg:#444444:::"
+      name: "symbols/nori/viewpoint-18.svg:#444444:::"
       priority: 16000
     }
   }
   element {
     scale: 17
     symbol {
-      name: "symbols/maki/star-stroked-18.svg:#444444:::"
+      name: "symbols/nori/viewpoint-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -66763,7 +68435,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "symbols/maki/star-stroked-18.svg:#444444:::"
+      name: "symbols/nori/viewpoint-18.svg:#444444:::"
       priority: 16008
     }
     caption {
@@ -66779,7 +68451,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "symbols/maki/star-stroked-18.svg:#444444:::"
+      name: "symbols/nori/viewpoint-18.svg:#444444:::"
       priority: 16008
     }
     caption {

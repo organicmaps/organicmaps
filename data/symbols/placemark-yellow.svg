@@ -1,4 +1,4 @@
-<svg version="1" xmlns="http://www.w3.org/2000/svg" width="48" height="64">
+<svg version="1" xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 48 64" enable-background="new 0 0 48 64">
     <ellipse transform="matrix(.168 .986 -.986 .168 82.178 21.092)" opacity=".5" fill="#808285" enable-background="new" cx="28.594" cy="59.229" rx="2.5" ry="7.5"/>
     <polygon opacity=".6" fill="#6D6E71" enable-background="new" points="32,60 23,61 19,32 31,31"/>
     <linearGradient id="a" gradientUnits="userSpaceOnUse" x1="-877.593" y1="2455.828" x2="-869.255" y2="2456.579" gradientTransform="matrix(1 0 0 -1 898.725 2502.356)">

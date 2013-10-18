@@ -29,25 +29,33 @@ world  +
         cafe  -
         car_rental  -
         car_sharing  -
+        casino  -
         cinema  -
         college  -
+        community_centre  -
+        courthouse  -
+        dentist  -
         doctors  -
         drinking_water  -
         embassy  -
         emergency_phone  -
         fast_food  -
         ferry_terminal  -
+        fire_hydrant  -
         fire_station  -
         fountain  -
         fuel  -
+        gambling  -
         grave_yard  +
             christian  -
             {}
         hospital  -
         hunting_stand  -
         kindergarten  -
+        landury  -
         library  -
         marketplace  -
+        money_transfer  -
         nightclub  -
         parking  +
             fee  -
@@ -79,6 +87,8 @@ world  +
             {}
         school  -
         shelter  -
+        shower  -
+        social_facility  -
         speed_trap  -
         taxi  -
         telephone  -
@@ -86,6 +96,7 @@ world  +
         toilets  -
         townhall  -
         university  -
+        waste_basket  -
         {}
     area:highway  +
         cycleway  -
@@ -107,6 +118,7 @@ world  +
     barrier  +
         block  -
         bollard  -
+        border_control  -
         city_wall  -
         cycle_barrier  -
         fence  -
@@ -151,14 +163,24 @@ world  +
             underground  -
             {}
         {}
+    craft  +
+        carpenter  -
+        shoemaker  -
+        tailor  -
+        {}
     earthquake:damage  +
         spontaneous_camp  -
         {}
     emergency  +
+        fire_hydrant  -
         phone  -
         {}
     entrance  -
     harbour  -
+    healthcare  +
+        dentist  -
+        hospital  -
+        {}
     highway  +
         bridleway  +
             bridge  -
@@ -267,6 +289,7 @@ world  +
             bridge  -
             tunnel  -
             {}
+        street_lamp  -
         tertiary  +
             bridge  -
             tunnel  -
@@ -365,6 +388,7 @@ world  +
         vineyard  -
         {}
     leisure  +
+        beach_resort  -
         common  -
         dog_park  +
             tennis  -
@@ -403,14 +427,24 @@ world  +
     man_made  +
         breakwater  -
         cairn  -
+        communication_tower  -
         cutline  -
         lighthouse  -
+        mast  -
         pier  -
         pipeline  +
             overground  -
             {}
+        storage_tank  -
         survey_point  -
         wastewater_plant  -
+        water_tower  -
+        water_well  +
+            drinking_water  -
+            manual  -
+            powered  -
+            {}
+        watermill  -
         windmill  -
         {}
     mapswithme  +
@@ -469,6 +503,7 @@ world  +
         estate_agent  -
         government  -
         lawyer  -
+        ngo  -
         telecommunication  -
         {}
     oneway  -
@@ -516,7 +551,9 @@ world  +
     power  +
         generator  +
             hydro  -
+            nuclear  -
             photovoltaic  -
+            solar  -
             wind  -
             {}
         line  +
@@ -636,6 +673,7 @@ world  +
         {}
     religion  +
         christian  -
+        hindu  -
         jewish  -
         muslim  -
         {}
@@ -663,8 +701,10 @@ world  +
         copyshop  -
         department_store  -
         doityourself  -
+        dry_cleaning  -
         electronics  -
         florist  -
+        funeral_directors  -
         furniture  -
         garden_centre  -
         general  -
@@ -676,9 +716,12 @@ world  +
         kiosk  -
         mall  -
         mobile_phone  -
+        motorcycle  -
         music  -
         musical_instrument  -
         optician  -
+        photo  -
+        photo_studio  -
         shoes  -
         supermarket  -
         toys  -

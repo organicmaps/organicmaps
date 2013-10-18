@@ -29,7 +29,7 @@ area|z13-[leisure=playing_fields][sport=tennis]
 {
   fill-color: #ddb298;
 }
-
+/*
 area|z17-[sport=gymnastics],
 area|z17-[sport=multi],
 node|z17-[sport=gymnastics],
@@ -37,7 +37,7 @@ node|z17-[sport=multi]
 {
   icon-image: symbols/gymnastics-borderless.svg;
 }
-/*
+
 area|z17-[leisure=playground],
 node|z17-[leisure=playground]
 {
@@ -101,12 +101,13 @@ node|z17-[sport=shooting]
 {
   icon-image: symbols/shooting-borderless.svg;
 }
-*/
+
 area|z17-[sport=handball],
 node|z17-[sport=handball]
 {
   icon-image: symbols/handball-borderless.svg;
 }
+*/
 area|z17-[sport=golf],
 node|z17-[sport=golf],
 area|z17-[leisure=golf_course],
@@ -119,12 +120,13 @@ node|z17-[sport=baseball]
 {
   icon-image: symbols/baseball-borderless.svg;
 }
+/*
 area|z17-[sport=athletics],
 node|z17-[sport=athletics]
 {
   icon-image: symbols/athletics-borderless.svg;
 }
-/*
+
 area|z17-[sport=bowls],
 node|z17-[sport=bowls]
 {

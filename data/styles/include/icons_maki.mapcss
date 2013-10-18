@@ -69,7 +69,6 @@
 {
     icon-image: symbols/maki/cinema-18.svg;
 }
-
 *|z16-[sport=cricket]
 {
     icon-image: symbols/maki/cricket-18.svg;
@@ -92,7 +91,10 @@
     icon-image: symbols/maki/emergency-telephone-18.svg;
 }
 
-
+*|z16-[emergency]
+{
+    icon-fill-color: red;
+}
 *|z16-[amenity=ferry_terminal],
 *|z16-[leisure=slipway],
 {
@@ -243,6 +245,12 @@
 {
     icon-image: symbols/maki/star-18.svg;
 }
+
+*|z12-[natural=peak]
+{
+  icon-image: symbols/maki/triangle-12.svg;
+}
+
 *|z12-[natural=volcano]
 {
   icon-image: symbols/maki/triangle-12.svg;
@@ -252,7 +260,7 @@
 {
   icon-image: symbols/maki/triangle-stroked-12.svg;
 }
-*|z12-[barrier=gate]
+*|z16-[barrier=gate]
 {
   icon-image: symbols/maki/square-stroked-12.svg;
 }
@@ -312,7 +320,8 @@
     icon-image: symbols/maki/music-18.svg;
 }
 
-*|z16-[shop=florist]
+*|z16-[shop=florist],
+*|z16-[shop=garden_centre]
 {
     icon-image: symbols/maki/garden-18.svg;
 }
@@ -366,6 +375,10 @@
     icon-image: symbols/maki/post-18.svg;
     icon-fill-color: #A84;
 }
+*|z16-[amenity=post_box]
+{
+    icon-image: symbols/maki/post-18.svg;
+ }
 *|z16-[amenity=library]
 {
     icon-image: symbols/maki/library-18.svg;

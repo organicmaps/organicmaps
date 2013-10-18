@@ -4,6 +4,7 @@ canvas
   fill-color: #B9D4D4;
   default-lines: false;
   default-points: false;
+  -x-mapsithme-dpi: ldpi,mdpi,hdpi,xhdpi,xxhdpi;
 }
 
 way::*
@@ -1059,11 +1060,13 @@ line|z14[boundary=administrative][border_type=country]
   z-index: 533;
   -x-kot-layer: top;
 }
+/*
 area|z15-[tourism=alpine_hut],
 node|z15-[tourism=alpine_hut]
 {
   icon-image: symbols/alpine_hut.svg;
 }
+*/
 line|z14[boundary=national_park]
 {
   color: #4ef94b;
@@ -1088,11 +1091,13 @@ line|z14[man_made=cutline]
   z-index: 247;
   linecap: butt;
 }
+/*
 area|z14-[amenity=shelter],
 node|z14-[amenity=shelter]
 {
   icon-image: symbols/shelter.svg;
 }
+*/
 line|z14[railway=siding]
 {
   color: #909090;
@@ -2262,6 +2267,7 @@ line|z16[railway=light_rail]::d1p3
   dashes: 9.6,14.4;
   linecap: butt;
 }
+/*
 area|z17-[military=bunker],
 area|z16-[historic=battlefield],
 node|z17-[military=bunker],
@@ -2269,7 +2275,7 @@ node|z16-[historic=battlefield]
 {
   icon-image: symbols/cannon.svg;
 }
-/*
+
 area|z16-[amenity=hunting_stand],
 node|z16-[amenity=hunting_stand]
 {
@@ -2312,8 +2318,8 @@ line|z16[boundary=administrative][border_type=country]::d2p2
   z-index: 945;
   dashes: 12,12;
 }
-area|z16-[amenity=bench],
-node|z16-[amenity=bench]
+area|z17-[amenity=bench],
+node|z17-[amenity=bench]
 {
   icon-image: symbols/bench.svg;
 }
@@ -2644,11 +2650,13 @@ line|z16[power=minor_line]::d1p3
   dashes: 8,4;
   linecap: butt;
 }
+/*
 area|z16-[amenity=fountain],
 node|z16-[amenity=fountain]
 {
   icon-image: symbols/fountain.svg;
 }
+*/
 line|z16[barrier=wall]
 {
   color: #b0b0b0;
@@ -2754,11 +2762,6 @@ node|z16-[amenity=nightclub]
 {
   icon-image: symbols/bar.svg;
 }
-area|z16-[historic=ruins],
-node|z16-[historic=ruins]
-{
-  icon-image: symbols/ruins.svg;
-}
 line|z16[man_made=pier]
 {
   color: #d0d0d0;
@@ -2851,11 +2854,13 @@ line|z16[railway=abandoned]::d1p2
   z-index: 629;
   opacity: 0.4;
 }
+/*
 area|z16-[historic=castle],
 node|z16-[historic=castle]
 {
   icon-image: symbols/castle.svg;
 }
+*/
 line|z16[barrier=hedge]
 {
   color: #b0b0b0;
@@ -2921,11 +2926,13 @@ line|z16[man_made=pipeline]
   z-index: 874;
   opacity: 0.5;
 }
+/*
 area|z16-[amenity=car_sharing],
 node|z16-[amenity=car_sharing]
 {
   icon-image: symbols/car_sharing.svg;
 }
+*/
 line|z16[piste:lift=magic_carpet]
 {
   color: #101010;
@@ -3930,3 +3937,4 @@ line|z18-[lit]::lit
   color: yellow
 }
 @import("include/icons_maki.mapcss");
+@import("include/icons_nori.mapcss");

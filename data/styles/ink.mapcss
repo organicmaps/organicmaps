@@ -8,6 +8,7 @@ canvas {
     fill-color: #B9D4D4;
     default-lines: false;
     default-points: false;
+    -x-mapsithme-dpi: yota;
 }
 
 way::* {
@@ -22,14 +23,6 @@ way::* {
     text-halo-radius: 2;
     text-anchor-horizontal: center;
     text-anchor-vertical: center;
-    icon-width: 16;
-    icon-height: 16;
-}
-
-*
-{
-    icon-width: 16;
-    icon-height: 16;
 }
 
 node::* {
@@ -1264,11 +1257,6 @@ line|z14[boundary=administrative][border_type=country]
   width: 6;
   z-index: 533;
 }
-area|z15-[tourism=alpine_hut],
-node|z15-[tourism=alpine_hut]
-{
-  icon-image: symbols/alpine_hut.svg;
-}
 line|z14[railway=preserved]::d1p3
 {
   color: #505050;
@@ -2350,12 +2338,13 @@ node|z15-[amenity=fuel]
 {
   icon-image: symbols/petrolStation.svg;
 }
+/*
 area|z15-[leisure=nature_reserve],
 node|z15-[leisure=nature_reserve]
 {
   icon-image: symbols/bird.svg;
 }
-
+*/
 area|z15-[building]
 {
   fill-color: #3;
@@ -2531,6 +2520,7 @@ line|z16[railway=light_rail]::d1p3
   dashes: 9.6,14.4;
   linecap: butt;
 }
+/*
 area|z17-[military=bunker],
 area|z16-[historic=battlefield],
 node|z17-[military=bunker],
@@ -2538,11 +2528,13 @@ node|z16-[historic=battlefield]
 {
   icon-image: symbols/cannon.svg;
 }
+
 area|z16-[amenity=hunting_stand],
 node|z16-[amenity=hunting_stand]
 {
   icon-image: symbols/hunting_closed_high.svg;
 }
+*/
 line|z16[waterway=dam]
 {
   color: #202020;
@@ -2585,8 +2577,8 @@ line|z16[boundary=administrative][border_type=country]::d2p2
   z-index: 945;
   dashes: 12,12;
 }
-area|z16-[amenity=bench],
-node|z16-[amenity=bench]
+area|z17-[amenity=bench],
+node|z17-[amenity=bench]
 {
   icon-image: symbols/bench.svg;
 }
@@ -2962,11 +2954,13 @@ line|z16[power=minor_line]::d1p3
   dashes: 8,4;
   linecap: butt;
 }
+/*
 area|z16-[amenity=fountain],
 node|z16-[amenity=fountain]
 {
   icon-image: symbols/fountain.svg;
 }
+*/
 line|z16[barrier=wall]
 {
   color: #2;
@@ -3106,11 +3100,6 @@ line|z16[boundary=administrative][border_type=state]
   z-index: 941;
   dashes: 12,4,4,4;
 }
-area|z16-[amenity=speed_trap],
-node|z16-[amenity=speed_trap]
-{
-  icon-image: symbols/speed_trap.svg;
-}
 area|z16-[historic=memorial],
 area|z16-[historic=monument],
 node|z16-[historic=memorial],
@@ -3181,11 +3170,13 @@ line|z16[railway=abandoned]::d1p2
   z-index: 629;
   opacity: 0.4;
 }
+/*
 area|z16-[historic=castle],
 node|z16-[historic=castle]
 {
   icon-image: symbols/castle.svg;
 }
+*/
 line|z16[waterway=canal]
 {
   color: #B9D4D4;
@@ -3262,11 +3253,13 @@ line|z16[man_made=pipeline]
   z-index: 874;
   opacity: 0.5;
 }
+/*
 area|z16-[amenity=car_sharing],
 node|z16-[amenity=car_sharing]
 {
   icon-image: symbols/car_sharing.svg;
 }
+*/
 line|z16[waterway=weir]
 {
   color: #000044;
@@ -3288,6 +3281,7 @@ node|z16-[amenity=cinema]
 {
   icon-image: symbols/cinema.svg;
 }
+/*
 area|z16-[historic=archaeological_site],
 area|z16-[historic=museum],
 area|z16-[tourism=museum],
@@ -3297,6 +3291,7 @@ node|z16-[tourism=museum]
 {
   icon-image: symbols/museum.svg;
 }
+*/
 line|z16[barrier=retaining_wall]
 {
   color: #b0b0b0;
@@ -3745,11 +3740,13 @@ line|z17-[communication=line][location=underground]
   dashes: 1.2,2,1.2,2,1.2,4.4;
   linecap: butt;
 }
+/*
 area|z17-[man_made=windmill],
 node|z17-[man_made=windmill]
 {
   icon-image: symbols/windmill.svg;
 }
+*/
 line|z17-[boundary=administrative][admin_level=11]
 {
   color: #f9574b;
@@ -4208,11 +4205,13 @@ node|z17-[barrier=gate]
 {
   icon-image: symbols/gate.svg;
 }
+/*
 area|z17-[man_made=lighthouse],
 node|z17-[man_made=lighthouse]
 {
   icon-image: symbols/lighthouse.svg;
 }
+*/
 area|z17-[tourism=information],
 node|z17-[tourism=information]
 {
@@ -4538,4 +4537,5 @@ area|z15-[area:highway=steps]
 }
 
 @import("include/icons_maki.mapcss");
+@import("include/icons_nori.mapcss");
 * {icon-fill-color: black}
