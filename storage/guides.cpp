@@ -131,7 +131,11 @@ bool GuidesManager::GetGuideInfo(string const & id, GuideInfo & appInfo) const
 
 string GuidesManager::GetGuidesDataUrl() const
 {
+#ifdef DEBUG
+  return "http://application.server/rest/guides/debug/" + GetDataFileName();
+#else
   return "http://application.server/rest/guides/v1/" + GetDataFileName();
+#endif
 }
 
 string GuidesManager::GetDataFileName() const
