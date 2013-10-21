@@ -719,6 +719,7 @@ world  +
         music  -
         musical_instrument  -
         optician  -
+        outdoor  -
         photo  -
         photo_studio  -
         shoes  -

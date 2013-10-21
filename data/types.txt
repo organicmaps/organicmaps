@@ -1024,3 +1024,5 @@ shop|funeral_directors
 amenity|gambling
 amenity|casino
 amenity|shower
+shop|confectionery
+shop|outdoor

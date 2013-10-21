@@ -6,3 +6,11 @@
 {
     icon-image: symbols/neta/bollard-18.svg;
 }
+*|z16-[shop=shoes]
+{
+    icon-image: symbols/neta/shoes-18.svg;
+}
+*|z16-[barrier=lift_gate]
+{
+  icon-image: symbols/neta/lift_gate-18.svg;
+}

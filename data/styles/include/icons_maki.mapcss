@@ -265,7 +265,8 @@
   icon-image: symbols/maki/grocery-18.svg;
 }
 
-*|z16-[shop=bakery]
+*|z16-[shop=bakery],
+*|z16-[shop=confectionery]
 {
     icon-image: symbols/maki/bakery-18.svg;
 }
@@ -342,7 +343,7 @@
 }
 *|z16-[amenity=post_box]
 {
-    icon-image: symbols/maki/post-18.svg;
+    icon-image: symbols/maki/post-12.svg;
  }
 *|z16-[amenity=library]
 {

@@ -41,7 +41,8 @@
 {
     icon-image: symbols/nori/mobile_phone-18.svg;
 }
-*|z16-[shop=clothes]
+*|z16-[shop=clothes],
+*|z16-[shop=outdoor]
 {
     icon-image: symbols/nori/clothes-18.svg;
 }
