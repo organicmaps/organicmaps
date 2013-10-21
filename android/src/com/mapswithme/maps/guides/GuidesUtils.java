@@ -1,5 +1,6 @@
 package com.mapswithme.maps.guides;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -29,5 +30,17 @@ public class GuidesUtils
     intent.setData(Uri.parse("market://details?id=" + packageName));
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET | Intent.FLAG_ACTIVITY_NO_HISTORY);
     return intent;
+  }
+
+  public static void openOrDownloadGuide(GuideInfo info, Activity activity)
+  {
+    final String packName = info.mAppId;
+    if (GuidesUtils.isGuideInstalled(packName, activity))
+    {
+      final Intent i = activity.getPackageManager().getLaunchIntentForPackage(packName);
+      activity.startActivity(i);
+    }
+    else
+      activity.startActivity(GuidesUtils.getGoogleStoreIntentForPackage(info.mAppId));
   }
 }

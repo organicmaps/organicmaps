@@ -31,26 +31,26 @@ public class MapStorage
     private static final long serialVersionUID = 1L;
 
     int mGroup;
-    int mCountry;
-    int mRegion;
+    private int mCountry;
+    private int mRegion;
 
     public Index()
     {
       mGroup = -1;
-      mCountry = -1;
-      mRegion = -1;
+      setCountry(-1);
+      setRegion(-1);
     }
 
     public Index(int group, int country, int region)
     {
       mGroup = group;
-      mCountry = country;
-      mRegion = region;
+      setCountry(country);
+      setRegion(region);
     }
 
     public boolean isRoot()
     {
-      return (mGroup == -1 && mCountry == -1 && mRegion == -1);
+      return (mGroup == -1 && getCountry() == -1 && getRegion() == -1);
     }
 
     public boolean isValid()
@@ -60,14 +60,14 @@ public class MapStorage
 
     public Index getChild(int position)
     {
-      final Index ret = new Index(mGroup, mCountry, mRegion);
+      final Index ret = new Index(mGroup, getCountry(), getRegion());
 
       if (ret.mGroup == -1) ret.mGroup = position;
-      else if (ret.mCountry == -1) ret.mCountry = position;
+      else if (ret.getCountry() == -1) ret.setCountry(position);
       else
       {
-        assert(ret.mRegion == -1);
-        ret.mRegion = position;
+        assert(ret.getRegion() == -1);
+        ret.setRegion(position);
       }
 
       return ret;
@@ -75,10 +75,10 @@ public class MapStorage
 
     public Index getParent()
     {
-      final Index ret = new Index(mGroup, mCountry, mRegion);
+      final Index ret = new Index(mGroup, getCountry(), getRegion());
 
-      if (ret.mRegion != -1) ret.mRegion = -1;
-      else if (ret.mCountry != -1) ret.mCountry = -1;
+      if (ret.getRegion() != -1) ret.setRegion(-1);
+      else if (ret.getCountry() != -1) ret.setCountry(-1);
       else
       {
         assert(ret.mGroup != -1);
@@ -90,7 +90,7 @@ public class MapStorage
 
     public boolean isEqual(Index idx)
     {
-      return (mGroup == idx.mGroup && mCountry == idx.mCountry && mRegion == idx.mRegion);
+      return (mGroup == idx.mGroup && getCountry() == idx.getCountry() && getRegion() == idx.getRegion());
     }
 
     public boolean isChild(Index idx)
@@ -100,15 +100,35 @@ public class MapStorage
 
     public int getPosition()
     {
-      if (mRegion != -1) return mRegion;
-      else if (mCountry != -1) return mCountry;
+      if (getRegion() != -1) return getRegion();
+      else if (getCountry() != -1) return getCountry();
       else return mGroup;
     }
 
     @Override
     public String toString()
     {
-      return ("Index(" + mGroup + ", " + mCountry + ", " + mRegion + ")");
+      return ("Index(" + mGroup + ", " + getCountry() + ", " + getRegion() + ")");
+    }
+
+    public int getCountry()
+    {
+      return mCountry;
+    }
+
+    public void setCountry(int mCountry)
+    {
+      this.mCountry = mCountry;
+    }
+
+    public int getRegion()
+    {
+      return mRegion;
+    }
+
+    public void setRegion(int mRegion)
+    {
+      this.mRegion = mRegion;
     }
   }
 

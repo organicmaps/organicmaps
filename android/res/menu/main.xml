@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menuitem_about_dialog"
-          android:title="@string/about"
-          android:icon="@drawable/ic_menu_about"
-          android:showAsAction="ifRoom"/>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item android:id="@+id/menuitem_settings_activity"
-          android:title="@string/settings"
-          android:icon="@android:drawable/ic_menu_preferences"
-          android:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/menuitem_about_dialog"
+        android:icon="@drawable/ic_about"
+        android:showAsAction="ifRoom"
+        android:title="@string/about"/>
+    <item
+        android:id="@+id/menuitem_settings_activity"
+        android:icon="@drawable/ic_settings"
+        android:showAsAction="ifRoom"
+        android:title="@string/settings"/>
+
 </menu>
