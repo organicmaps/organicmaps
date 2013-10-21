@@ -1,0 +1,114 @@
+*|z16-[shop],
+*|z16-[craft],
+*|z16-[amenity=marketplace]
+{
+    icon-fill-color: #428;
+}
+
+
+*|z14-[earthquake:damage=spontaneous_camp]
+*|z16-[emergency],
+*|z16-[amenity=fire_station],
+*|z12-[natural=volcano]
+{
+    icon-fill-color: red;
+}
+
+*|z15-[amenity=fuel]
+{
+    icon-fill-color: blue;
+}
+
+*|z16-[amenity=parking][access!=no],
+*|z16-[amenity=parking][location=underground],
+*|z16-[amenity=parking][parking=multi-storey]
+{
+    icon-fill-color: blue;
+}
+*|z16-[amenity=parking][fee?]
+{
+    icon-fill-color: silver;
+}
+
+
+*|z16-[sport=swimming]
+{
+    icon-fill-color: blue;
+}
+
+*|z16-[amenity=drinking_water]
+{
+    icon-fill-color: blue;
+}
+
+*|z16-[natural=tree],
+*|z16-[wood=deciduous],
+*|z16-[wood=coniferous]
+{
+    icon-fill-color: green;
+}
+
+*|z16-[amenity=bank],
+*|z16-[amenity=atm],
+*|z16-[amenity=bureau_de_change],
+*|z16-[amenity=money_transfer]
+{
+    icon-fill-color: #040;
+}
+
+*|z16-[amenity=school],
+*|z16-[amenity=kindergarten],
+*|z16-[amenity=prison],
+*|z16-[amenity=post_office],
+*|z16-[amenity=library],
+*|z16-[amenity=college],
+*|z16-[amenity=university],
+*|z16-[amenity=bicycle_rental],
+*|z16-[amenity=bicycle_parking]
+{
+    icon-fill-color: #A84;
+}
+
+*|z12-[aeroway=aerodrome],
+*|z12-[aeroway=airport],
+*|z14-15[railway=halt],
+*|z16-[railway=halt],
+*|z16-[railway=tram_stop],
+*|z16-[highway=bus_stop],
+*|z12-[railway=station][!colour],
+*|z16-[amenity=taxi]
+{
+    icon-fill-color: #04d;
+}
+
+*|z16-[amenity=bus_station]
+{
+    icon-fill-color: navy;
+}
+
+*|z16-[amenity=hospital],
+*|z16-[amenity=doctors],
+*|z16-[healthcare=hospital],
+*|z16-[amenity=pharmacy],
+*|z16-[amenity=dentist],
+*|z16-[healthcare=dentist]
+{
+    icon-fill-color: #c0c;
+}
+
+*|z16-[barrier=block]
+{
+    icon-fill-color: red;
+}
+
+*|z16-[amenity=bar],
+*|z16-[amenity=nightclub],
+*|z16-[amenity=pub],
+*|z16-[amenity=restaurant],
+*|z16-[amenity=fast_food],
+*|z16-[amenity=cafe],
+*|z16-[shop=bakery]
+{
+    icon-fill-color: #D70;
+}
+

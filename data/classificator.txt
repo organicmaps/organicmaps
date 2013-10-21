@@ -642,7 +642,6 @@ world  +
             orange  -
             purple  -
             red  -
-            tunnel  -
             violet  -
             yellow  -
             {}

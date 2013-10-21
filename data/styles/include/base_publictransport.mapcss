@@ -199,7 +199,7 @@ line|z12-[railway=subway]                                         {width:3; colo
 node[railway=station][transport=subway]                           {text-color: #3050d8; text-position: center;}
 node[railway=station][transport=subway]::int_name                 {text-color: #3050d8; text-position: center;}
 
-line|z12-[railway=subway][colour]                                 {width:3; color: eval(tag("colour")); z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
+line|z12-[railway=subway][colour]                                 {width:3; color: eval(tag("colour")); z-index:16; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
 node[railway=station][transport=subway][colour]                   {icon-fill-color: eval(tag("colour"))}
 node[railway=subway_entrance][colour]                             {icon-fill-color: eval(tag("colour"))}
 
@@ -275,15 +275,15 @@ area|z13-14[railway=station][transport=subway]::int_name
   z-index: 170;
   -x-kot-layer: top;
 }
-*|z15-[railway=subway_entrance],
+*|z15-[railway=subway_entrance]
 { 
+  text-position: center;
   font-size: 10;
+  text-color: #3050d8;
   text-halo-radius: 2;
   text: name;
   text-offset: 10;
-  text-halo-color: #f8fcff;
   z-index: 170;
-  -x-kot-layer: top;
 }
 node|z15-[railway=station][transport=subway],
 area|z15-[railway=station][transport=subway]

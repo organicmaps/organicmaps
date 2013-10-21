@@ -289,7 +289,7 @@ leisure|slipway
 tourism|caravan_site
 place|state
 highway|path|private
-railway|subway|tunnel
+railway|subway
 barrier|city_wall
 place|farm
 boundary|administrative|11

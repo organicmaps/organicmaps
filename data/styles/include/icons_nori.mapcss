@@ -1,0 +1,301 @@
+
+/* money */
+*|z16-[amenity=atm]
+{
+    icon-image: symbols/nori/atm-18.svg;
+}
+*|z16-[amenity=bureau_de_change]
+{
+    icon-image: symbols/nori/bureau_de_change-18.svg;
+}
+*|z16-[amenity=money_transfer]
+{
+    icon-image: symbols/nori/money_transfer-18.svg;
+}
+
+/* shops */
+
+*|z16-[shop=bakery]
+{
+    icon-image: symbols/nori/bakery-18.svg;
+}
+/*
+*|z16-[shop=butcher]
+{
+    icon-image: symbols/nori/butcher-18.svg;
+}
+*/
+*|z16-[shop=beverages]
+{
+    icon-image: symbols/nori/beverages-18.svg;
+}
+*|z16-[shop=hairdresser]
+{
+    icon-image: symbols/nori/hairdresser-18.svg;
+}
+*|z16-[shop=hardware]
+{
+    icon-image: symbols/nori/hardware-18.svg;
+}
+*|z16-[shop=mobile_phone]
+{
+    icon-image: symbols/nori/mobile_phone-18.svg;
+}
+*|z16-[shop=clothes]
+{
+    icon-image: symbols/nori/clothes-18.svg;
+}
+*|z16-[shop=computer]
+{
+    icon-image: symbols/nori/computer-18.svg;
+}
+*|z16-[shop=convenience]
+{
+    icon-image: symbols/nori/shop-18.svg;
+}
+*|z16-[shop=car_parts]
+{
+    icon-image: symbols/nori/car_parts-18.svg;
+}
+*|z16-[craft]
+{
+    icon-image: symbols/nori/craft-18.svg;
+}
+*|z16-[craft=carpenter]
+{
+    icon-image: symbols/nori/carpenter-18.svg;
+}
+*|z16-[amenity=car_rental]
+{
+    icon-image: symbols/nori/car_rental-18.svg;
+}
+*|z16-[shop=car_repair]
+{
+    icon-image: symbols/nori/car_repair-18.svg;
+}
+*|z16-[amenity=pharmacy]
+{
+    icon-image: symbols/nori/pharmacy-18.svg;
+}
+*|z16-[shop=motorcycle]
+{
+    icon-image: symbols/nori/motorcycle-18.svg;
+}
+*|z16-[shop=tyres]
+{
+    icon-image: symbols/nori/tyres-18.svg;
+}
+*|z16-[shop=photo],
+*|z16-[shop=photo_studio],
+{
+    icon-image: symbols/nori/photo-18.svg;
+}
+*|z16-[shop=seafood]
+{
+    icon-image: symbols/nori/seafood-18.svg;
+}
+*|z16-[shop=shoe_repair],
+*|z16-[craft=shoemaker]
+{
+    icon-image: symbols/nori/shoemaker-18.svg;
+}
+*|z16-[amenity=studio]
+{
+    icon-image: symbols/nori/studio-18.svg;
+}
+*|z16-[craft=tailor]
+{
+    icon-image: symbols/nori/tailor-18.svg;
+}
+
+/* transport */
+
+*|z16-[amenity=taxi]
+{
+    icon-image: symbols/nori/taxi-18.svg;
+}
+
+/* physical world objects */
+
+*|z17-[amenity=bench]
+{
+    icon-image: symbols/nori/bench-18.svg;
+}
+*|z16-[man_made=water_well]
+{
+    icon-image: symbols/nori/bucket-18.svg;
+}
+*|z16-[leisure=beach_resort]
+{
+    icon-image: symbols/nori/beach_resort-18.svg;
+}
+*|z16-[amenity=waste_basket]
+{
+    icon-image: symbols/nori/waste_basket-18.svg;
+}
+*|z16-[man_made=watermill]
+{
+    icon-image: symbols/nori/watermill-18.svg;
+}
+*|z16-[man_made=water_tower]
+{
+    icon-image: symbols/nori/water_tower-18.svg;
+}
+*|z16-[man_made=communication_tower],
+*|z16-[man_made=mast]
+{
+    icon-image: symbols/nori/communication-tower-18.svg;
+}
+*|z16-[amenity=fire_hydrant],
+*|z16-[emergency=fire_hydrant]
+{
+    icon-image: symbols/nori/fire_hydrant-18.svg;
+}
+*|z16-[highway=street_lamp]
+{
+    icon-image: symbols/nori/street_lamp-18.svg;
+}
+*|z16-[amenity=drinking_water]
+{
+    icon-image: symbols/nori/drinking_water-18.svg;
+}
+*|z16-[man_made=water_well][drinking_water]
+{
+    icon-image: symbols/nori/drinking_water_well-18.svg;
+}
+*|z16-[amenity=recycling]
+{
+    icon-image: symbols/nori/recycling-18.svg;
+}
+
+/* energy */
+
+*|z14-[power=generator]
+{
+    icon-image: symbols/nori/generator-18.svg;
+}
+*|z14-[power=generator][power_source=nuclear]
+{
+    icon-image: symbols/nori/generator_nuclear-18.svg;
+}
+*|z14-[power=generator][power_source=solar]
+{
+    icon-image: symbols/nori/generator_solar-18.svg;
+}
+*|z14-[power=generator][power_source=wind]
+{
+    icon-image: symbols/nori/generator_wind-18.svg;
+}
+*|z16-[power=tower]
+{
+    icon-image: symbols/nori/power_tower-12.svg;
+}
+*|z16-[man_made=storage_tank]
+{
+    icon-image: symbols/nori/storage_tank-18.svg;
+}
+*|z16-[man_made=water_well][pump=manual]
+{
+    icon-image: symbols/nori/pump-manual-18.svg;
+}
+*|z16-[man_made=water_well][pump=powered]
+{
+    icon-image: symbols/nori/pump-powered-18.svg;
+}
+
+/* social and government */
+
+*|z16-[barrier=border_control]
+{
+    icon-image: symbols/nori/border_control-18.svg;
+}
+*|z16-[amenity=courthouse]
+{
+    icon-image: symbols/nori/courthouse-18.svg;
+}
+*|z16-[amenity=social_facility]
+{
+    icon-image: symbols/nori/social_facility-18.svg;
+}
+*|z16-[amenity=grave_yard]
+{
+    icon-image: symbols/nori/grave_yard-18.svg;
+}
+*|z16-[office=government]
+{
+    icon-image: symbols/nori/government-18.svg;
+}
+*|z16-[leisure=playground]
+{
+    icon-image: symbols/nori/playground-18.svg;
+}
+*|z16-[tourism=information]
+{
+    icon-image: symbols/nori/information-18.svg;
+}
+*|z16-[amenity=kindergarten]
+{
+    icon-image: symbols/nori/kindergarten-18.svg;
+}
+*|z16-[religion=hindu]
+{
+    icon-image: symbols/nori/hindu-18.svg;
+}
+*|z16-[office=ngo]
+{
+    icon-image: symbols/nori/ngo-18.svg;
+}
+
+/* recreation */
+
+*|z14-[tourism=picnic_site]
+{
+    icon-image: symbols/nori/camp_site-18.svg;
+}
+*|z16-[amenity=community_centre]
+{
+    icon-image: symbols/nori/community_centre-18.svg;
+}
+*|z15-[tourism=viewpoint]
+{
+    icon-image: symbols/nori/viewpoint-18.svg;
+}
+
+/* health */
+
+*|z16-[healthcare=hospital]
+{
+    icon-image: symbols/nori/hospital-18.svg;
+}
+*|z16-[amenity=dentist],
+*|z16-[healthcare=dentist]
+{
+    icon-image: symbols/nori/dentist-18.svg;
+}
+
+/* food */
+*|z16-[amenity=pub]
+{
+    icon-image: symbols/nori/pub-18.svg;
+}
+
+/* services */
+
+*|z16-[shop=dry_cleaning],
+*|z16-[amenity=landury]
+{
+    icon-image: symbols/nori/dry_cleaning-18.svg;
+}
+*|z16-[amenity=funeral_directors]
+{
+    icon-image: symbols/nori/funeral_directors-18.svg;
+}
+*|z16-[amenity=gambling],
+*|z16-[amenity=gambling]
+{
+    icon-image: symbols/nori/gambling-18.svg;
+}
+*|z16-[amenity=shower]
+{
+    icon-image: symbols/nori/shower-18.svg;
+}

@@ -1553,10 +1553,10 @@ line|z15[boundary=administrative][admin_level=2]::d2p2
   z-index: 680;
   dashes: 12,12;
 }
-area|z16[building],
-node|z16[building],
-area|z16[addr:housenumber][addr:street],
-node|z16[addr:housenumber][addr:street]
+area|z15-16[building],
+node|z15-16[building],
+area|z15-16[addr:housenumber][addr:street],
+node|z15-16[addr:housenumber][addr:street]
 {
   text: "addr:housenumber";
   font-size: 10;
@@ -1608,20 +1608,6 @@ line|z15-[piste:lift=j-bar]
 {
   color: #202020;
   width: 0.8;
-}
-area|z16[amenity=parking][!access],
-area|z16[amenity=parking][access?],
-node|z16[amenity=parking][!access],
-node|z16[amenity=parking][access?]
-{
-  icon-image: symbols/parking-mini.svg;
-}
-area|z15-[tourism=viewpoint],
-node|z15-[tourism=viewpoint],
-area|z15-[tourism=artwork],
-node|z15-[tourism=artwork]
-{
-  icon-image: symbols/viewpoint.svg;
 }
 line|z15[railway=siding]::d1p2
 {
@@ -2521,16 +2507,6 @@ area|z16-[railway=level_crossing],
 node|z16-[railway=level_crossing]
 {
   icon-image: symbols/railway-crossing.svg;
-}
-line|z16[barrier=bollard],
-node|z16[barrier=block],
-node|z16[barrier=bollard],
-node|z16[barrier=stile],
-node|z16[barrier=toll_booth]
-{
-  symbol-shape: circle;
-  symbol-fill-color: #707070;
-  symbol-size: 1.2;
 }
 line|z16[boundary=administrative][admin_level=2]::d2p2
 {
@@ -3573,16 +3549,6 @@ line|z17-[boundary=administrative][border_type=region]
   z-index: 974;
   dashes: 12,4,4,4;
 }
-line|z17-[barrier=bollard],
-node|z17-[barrier=block],
-node|z17-[barrier=bollard],
-node|z17-[barrier=stile],
-node|z17-[barrier=toll_booth]
-{
-  symbol-shape: circle;
-  symbol-fill-color: #707070;
-  symbol-size: 1.6;
-}
 line|z17-[boundary=administrative][border_type=state]
 {
   color: #f9574b;
@@ -3786,7 +3752,7 @@ line|z17-[power=minor_line]
   opacity: 0.5;
 }
 
-node|z17-[entrance]
+node|z16-[entrance]
 {
   symbol-shape: circle;
   symbol-fill-color: #202020;
@@ -3796,7 +3762,7 @@ node|z17-[entrance]
   text-offset-x: 6;
   z-index: 10;
 }
-node|z19-[entrance]::flats
+node|z17-[entrance]::flats
 {
   text: "addr:flats";
   font-size: 9;
@@ -3938,3 +3904,5 @@ line|z18-[lit]::lit
 }
 @import("include/icons_maki.mapcss");
 @import("include/icons_nori.mapcss");
+@import("include/icons_neta.mapcss");
+@import("include/icon_colors.mapcss");

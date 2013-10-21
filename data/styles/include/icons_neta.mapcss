@@ -1,0 +1,8 @@
+*|z16-[barrier=gate]
+{
+    icon-image: symbols/neta/entrance-18.svg;
+}
+*|z16-[barrier=bollard]
+{
+    icon-image: symbols/neta/bollard-18.svg;
+}

@@ -10,13 +10,13 @@
   <symbolStyle id="3" name="placemark-yellow">
     <resourceStyle x="28" y="0" width="14" height="20"/>
     </symbolStyle>
-  <symbolStyle id="4" name="placemark-purple">
+  <symbolStyle id="4" name="placemark-red">
     <resourceStyle x="42" y="0" width="14" height="20"/>
     </symbolStyle>
-  <symbolStyle id="5" name="placemark-brown">
+  <symbolStyle id="5" name="placemark-purple">
     <resourceStyle x="56" y="0" width="14" height="20"/>
     </symbolStyle>
-  <symbolStyle id="6" name="placemark-red">
+  <symbolStyle id="6" name="placemark-brown">
     <resourceStyle x="70" y="0" width="14" height="20"/>
     </symbolStyle>
   <symbolStyle id="7" name="placemark-pink">
@@ -112,89 +112,89 @@
   <symbolStyle id="37" name="symbols/nori/drinking_water_well-18.svg:#000000:::">
     <resourceStyle x="80" y="42" width="16" height="18"/>
     </symbolStyle>
-  <symbolStyle id="38" name="symbols/nori/butcher-18.svg:#000000:::">
+  <symbolStyle id="38" name="symbols/maki/toilets-18.svg:#000000:::">
     <resourceStyle x="96" y="42" width="16" height="18"/>
     </symbolStyle>
-  <symbolStyle id="39" name="symbols/maki/toilets-18.svg:#000000:::">
+  <symbolStyle id="39" name="symbols/nori/hardware-18.svg:#000000:::">
     <resourceStyle x="112" y="42" width="16" height="18"/>
     </symbolStyle>
-  <symbolStyle id="40" name="symbols/nori/hardware-18.svg:#000000:::">
+  <symbolStyle id="40" name="symbols/nori/viewpoint-18.svg:#000000:::">
     <resourceStyle x="128" y="42" width="16" height="18"/>
     </symbolStyle>
-  <symbolStyle id="41" name="symbols/nori/viewpoint-18.svg:#000000:::">
+  <symbolStyle id="41" name="symbols/nori/playground-18.svg:#000000:::">
     <resourceStyle x="144" y="42" width="16" height="18"/>
     </symbolStyle>
-  <symbolStyle id="42" name="symbols/nori/playground-18.svg:#000000:::">
+  <symbolStyle id="42" name="symbols/maki/ferry-18.svg:#000000:::">
     <resourceStyle x="160" y="42" width="16" height="18"/>
     </symbolStyle>
-  <symbolStyle id="43" name="symbols/maki/ferry-18.svg:#000000:::">
-    <resourceStyle x="176" y="42" width="16" height="18"/>
+  <symbolStyle id="43" name="symbols/nori/drinking_water-18.svg:#000000:::">
+    <resourceStyle x="176" y="42" width="14" height="18"/>
     </symbolStyle>
-  <symbolStyle id="44" name="symbols/nori/drinking_water-18.svg:#000000:::">
-    <resourceStyle x="192" y="42" width="14" height="18"/>
+  <symbolStyle id="44" name="symbols/nori/communication-tower-18.svg:#000000:::">
+    <resourceStyle x="190" y="42" width="14" height="18"/>
     </symbolStyle>
-  <symbolStyle id="45" name="symbols/nori/communication-tower-18.svg:#000000:::">
-    <resourceStyle x="206" y="42" width="14" height="18"/>
+  <symbolStyle id="45" name="symbols/nori/car_rental-18.svg:#000000:::">
+    <resourceStyle x="204" y="42" width="14" height="18"/>
     </symbolStyle>
-  <symbolStyle id="46" name="symbols/nori/car_rental-18.svg:#000000:::">
-    <resourceStyle x="220" y="42" width="14" height="18"/>
+  <symbolStyle id="46" name="symbols/nori/kindergarten-18.svg:#000000:::">
+    <resourceStyle x="218" y="42" width="14" height="18"/>
     </symbolStyle>
-  <symbolStyle id="47" name="symbols/nori/kindergarten-18.svg:#000000:::">
-    <resourceStyle x="234" y="42" width="14" height="18"/>
+  <symbolStyle id="47" name="symbols/maki/parking-garage-18.svg:#000000:::">
+    <resourceStyle x="232" y="42" width="14" height="18"/>
     </symbolStyle>
-  <symbolStyle id="48" name="symbols/power-pole.svg:#000000:::">
-    <resourceStyle x="248" y="42" width="5" height="5"/>
+  <symbolStyle id="48" name="symbols/nori/street_lamp-18.svg:#000000:::">
+    <resourceStyle x="246" y="42" width="10" height="18"/>
     </symbolStyle>
-  <symbolStyle id="49" name="symbols/maki/parking-garage-18.svg:#000000:::">
-    <resourceStyle x="0" y="60" width="14" height="18"/>
+  <symbolStyle id="49" name="symbols/maki/religious-christian-18.svg:#000000:::">
+    <resourceStyle x="0" y="60" width="12" height="18"/>
     </symbolStyle>
-  <symbolStyle id="50" name="symbols/maki/religious-christian-18.svg:#000000:::">
-    <resourceStyle x="14" y="60" width="12" height="18"/>
+  <symbolStyle id="50" name="symbols/nori/fire_hydrant-18.svg:#000000:::">
+    <resourceStyle x="12" y="60" width="12" height="18"/>
     </symbolStyle>
-  <symbolStyle id="51" name="symbols/nori/fire_hydrant-18.svg:#000000:::">
-    <resourceStyle x="26" y="60" width="12" height="18"/>
+  <symbolStyle id="51" name="symbols/nori/water_tower-18.svg:#000000:::">
+    <resourceStyle x="24" y="60" width="12" height="18"/>
     </symbolStyle>
-  <symbolStyle id="52" name="symbols/nori/water_tower-18.svg:#000000:::">
-    <resourceStyle x="38" y="60" width="12" height="18"/>
+  <symbolStyle id="52" name="symbols/nori/waste_basket-18.svg:#000000:::">
+    <resourceStyle x="36" y="60" width="12" height="18"/>
     </symbolStyle>
-  <symbolStyle id="53" name="symbols/nori/waste_basket-18.svg:#000000:::">
-    <resourceStyle x="50" y="60" width="12" height="18"/>
+  <symbolStyle id="53" name="symbols/maki/school-18.svg:#000000:::">
+    <resourceStyle x="48" y="60" width="18" height="16"/>
     </symbolStyle>
-  <symbolStyle id="54" name="symbols/nori/street_lamp-18.svg:#000000:::">
-    <resourceStyle x="62" y="60" width="10" height="18"/>
+  <symbolStyle id="54" name="symbols/nori/hindu-18.svg:#000000:::">
+    <resourceStyle x="66" y="60" width="18" height="16"/>
     </symbolStyle>
-  <symbolStyle id="55" name="symbols/maki/school-18.svg:#000000:::">
-    <resourceStyle x="72" y="60" width="18" height="16"/>
+  <symbolStyle id="55" name="symbols/maki/airport-18.svg:#000000:::">
+    <resourceStyle x="84" y="60" width="18" height="16"/>
     </symbolStyle>
-  <symbolStyle id="56" name="symbols/nori/hindu-18.svg:#000000:::">
-    <resourceStyle x="90" y="60" width="18" height="16"/>
+  <symbolStyle id="56" name="current-position">
+    <resourceStyle x="102" y="60" width="16" height="16"/>
     </symbolStyle>
-  <symbolStyle id="57" name="symbols/maki/airport-18.svg:#000000:::">
-    <resourceStyle x="108" y="60" width="18" height="16"/>
+  <symbolStyle id="57" name="symbols/maki/theatre-18.svg:#000000:::">
+    <resourceStyle x="118" y="60" width="16" height="16"/>
     </symbolStyle>
-  <symbolStyle id="58" name="current-position">
-    <resourceStyle x="126" y="60" width="16" height="16"/>
+  <symbolStyle id="58" name="symbols/maki/hospital-18.svg:#000000:::">
+    <resourceStyle x="134" y="60" width="16" height="16"/>
     </symbolStyle>
-  <symbolStyle id="59" name="symbols/maki/theatre-18.svg:#000000:::">
-    <resourceStyle x="142" y="60" width="16" height="16"/>
+  <symbolStyle id="59" name="symbols/maki/fire-station-18.svg:#000000:::">
+    <resourceStyle x="150" y="60" width="16" height="16"/>
     </symbolStyle>
-  <symbolStyle id="60" name="symbols/maki/hospital-18.svg:#000000:::">
-    <resourceStyle x="158" y="60" width="16" height="16"/>
+  <symbolStyle id="60" name="symbols/maki/baseball-18.svg:#000000:::">
+    <resourceStyle x="166" y="60" width="16" height="16"/>
     </symbolStyle>
-  <symbolStyle id="61" name="symbols/maki/fire-station-18.svg:#000000:::">
-    <resourceStyle x="174" y="60" width="16" height="16"/>
+  <symbolStyle id="61" name="symbols/maki/tennis-18.svg:#000000:::">
+    <resourceStyle x="182" y="60" width="16" height="16"/>
     </symbolStyle>
-  <symbolStyle id="62" name="symbols/maki/baseball-18.svg:#000000:::">
-    <resourceStyle x="190" y="60" width="16" height="16"/>
+  <symbolStyle id="62" name="symbols/campSite.svg:#000000:::">
+    <resourceStyle x="198" y="60" width="16" height="16"/>
     </symbolStyle>
-  <symbolStyle id="63" name="symbols/maki/tennis-18.svg:#000000:::">
-    <resourceStyle x="206" y="60" width="16" height="16"/>
+  <symbolStyle id="63" name="symbols/maki/dam-18.svg:#000000:::">
+    <resourceStyle x="214" y="60" width="16" height="16"/>
     </symbolStyle>
-  <symbolStyle id="64" name="symbols/maki/dam-18.svg:#000000:::">
-    <resourceStyle x="222" y="60" width="16" height="16"/>
+  <symbolStyle id="64" name="symbols/maki/alcohol-shop-18.svg:#000000:::">
+    <resourceStyle x="230" y="60" width="16" height="16"/>
     </symbolStyle>
-  <symbolStyle id="65" name="symbols/maki/alcohol-shop-18.svg:#000000:::">
-    <resourceStyle x="238" y="60" width="16" height="16"/>
+  <symbolStyle id="65" name="symbols/nori/beverages-18.svg:#000000:::">
+    <resourceStyle x="246" y="60" width="10" height="16"/>
     </symbolStyle>
   <symbolStyle id="66" name="symbols/nori/tailor-18.svg:#000000:::">
     <resourceStyle x="0" y="78" width="16" height="16"/>
@@ -211,34 +211,34 @@
   <symbolStyle id="70" name="symbols/nori/generator_nuclear-18.svg:#000000:::">
     <resourceStyle x="64" y="78" width="16" height="16"/>
     </symbolStyle>
-  <symbolStyle id="71" name="symbols/nori/computer-18.svg:#000000:::">
+  <symbolStyle id="71" name="symbols/earthquakeCamp.svg:#000000:::">
     <resourceStyle x="80" y="78" width="16" height="16"/>
     </symbolStyle>
-  <symbolStyle id="72" name="symbols/nori/generator-18.svg:#000000:::">
+  <symbolStyle id="72" name="symbols/nori/computer-18.svg:#000000:::">
     <resourceStyle x="96" y="78" width="16" height="16"/>
     </symbolStyle>
-  <symbolStyle id="73" name="symbols/maki/star-18.svg:#000000:::">
+  <symbolStyle id="73" name="symbols/nori/generator-18.svg:#000000:::">
     <resourceStyle x="112" y="78" width="16" height="16"/>
     </symbolStyle>
-  <symbolStyle id="74" name="symbols/maki/soccer-18.svg:#000000:::">
+  <symbolStyle id="74" name="symbols/maki/star-18.svg:#000000:::">
     <resourceStyle x="128" y="78" width="16" height="16"/>
     </symbolStyle>
-  <symbolStyle id="75" name="symbols/maki/harbor-18.svg:#000000:::">
+  <symbolStyle id="75" name="symbols/maki/soccer-18.svg:#000000:::">
     <resourceStyle x="144" y="78" width="16" height="16"/>
     </symbolStyle>
-  <symbolStyle id="76" name="symbols/nori/generator_solar-18.svg:#000000:::">
+  <symbolStyle id="76" name="symbols/maki/harbor-18.svg:#000000:::">
     <resourceStyle x="160" y="78" width="16" height="16"/>
     </symbolStyle>
   <symbolStyle id="77" name="symbols/nori/pub-18.svg:#000000:::">
     <resourceStyle x="176" y="78" width="16" height="16"/>
     </symbolStyle>
-  <symbolStyle id="78" name="symbols/nori/shop-18.svg:#000000:::">
+  <symbolStyle id="78" name="symbols/nori/generator_solar-18.svg:#000000:::">
     <resourceStyle x="192" y="78" width="16" height="16"/>
     </symbolStyle>
-  <symbolStyle id="79" name="symbols/maki/bar-18.svg:#000000:::">
+  <symbolStyle id="79" name="symbols/nori/shop-18.svg:#000000:::">
     <resourceStyle x="208" y="78" width="16" height="16"/>
     </symbolStyle>
-  <symbolStyle id="80" name="symbols/maki/star-stroked-18.svg:#000000:::">
+  <symbolStyle id="80" name="symbols/maki/bar-18.svg:#000000:::">
     <resourceStyle x="224" y="78" width="16" height="16"/>
     </symbolStyle>
   <symbolStyle id="81" name="symbols/maki/basketball-18.svg:#000000:::">
@@ -289,10 +289,10 @@
   <symbolStyle id="96" name="symbols/maki/golf-18.svg:#000000:::">
     <resourceStyle x="186" y="94" width="12" height="16"/>
     </symbolStyle>
-  <symbolStyle id="97" name="symbols/nori/hospital-18.svg:#000000:::">
+  <symbolStyle id="97" name="symbols/maki/restaurant-18.svg:#000000:::">
     <resourceStyle x="198" y="94" width="12" height="16"/>
     </symbolStyle>
-  <symbolStyle id="98" name="symbols/maki/restaurant-18.svg:#000000:::">
+  <symbolStyle id="98" name="symbols/nori/hospital-18.svg:#000000:::">
     <resourceStyle x="210" y="94" width="12" height="16"/>
     </symbolStyle>
   <symbolStyle id="99" name="symbols/maki/park2-18.svg:#000000:::">
@@ -301,8 +301,8 @@
   <symbolStyle id="100" name="symbols/maki/pitch-18.svg:#000000:::">
     <resourceStyle x="234" y="94" width="12" height="16"/>
     </symbolStyle>
-  <symbolStyle id="101" name="symbols/nori/beverages-18.svg:#000000:::">
-    <resourceStyle x="246" y="94" width="10" height="16"/>
+  <symbolStyle id="101" name="symbols/maki/rail-underground-12.svg:#000000:::">
+    <resourceStyle x="246" y="94" width="10" height="12"/>
     </symbolStyle>
   <symbolStyle id="102" name="symbols/maki/religious-muslim-18.svg:#000000:::">
     <resourceStyle x="0" y="110" width="18" height="14"/>
@@ -382,19 +382,19 @@
   <symbolStyle id="127" name="symbols/nori/bakery-18.svg:#000000:::">
     <resourceStyle x="156" y="124" width="18" height="12"/>
     </symbolStyle>
-  <symbolStyle id="128" name="symbols/postbox.svg:#000000:::">
+  <symbolStyle id="128" name="symbols/maki/campsite-18.svg:#000000:::">
     <resourceStyle x="174" y="124" width="16" height="12"/>
     </symbolStyle>
-  <symbolStyle id="129" name="symbols/maki/campsite-18.svg:#000000:::">
+  <symbolStyle id="129" name="symbols/maki/post-18.svg:#000000:::">
     <resourceStyle x="190" y="124" width="16" height="12"/>
     </symbolStyle>
-  <symbolStyle id="130" name="symbols/maki/post-18.svg:#000000:::">
+  <symbolStyle id="130" name="symbols/maki/fast-food-18.svg:#000000:::">
     <resourceStyle x="206" y="124" width="16" height="12"/>
     </symbolStyle>
-  <symbolStyle id="131" name="symbols/maki/fast-food-18.svg:#000000:::">
+  <symbolStyle id="131" name="symbols/nori/photo-18.svg:#000000:::">
     <resourceStyle x="222" y="124" width="16" height="12"/>
     </symbolStyle>
-  <symbolStyle id="132" name="symbols/nori/photo-18.svg:#000000:::">
+  <symbolStyle id="132" name="symbols/maki/slaughterhouse-18.svg:#000000:::">
     <resourceStyle x="238" y="124" width="16" height="12"/>
     </symbolStyle>
   <symbolStyle id="133" name="symbols/maki/college-18.svg:#000000:::">
@@ -415,38 +415,38 @@
   <symbolStyle id="138" name="symbols/maki/parking-18.svg:#000000:::">
     <resourceStyle x="70" y="138" width="12" height="12"/>
     </symbolStyle>
-  <symbolStyle id="139" name="symbols/maki/rail-underground-12.svg:#000000:::">
+  <symbolStyle id="139" name="symbols/maki/rail-above-12.svg:#000000:::">
     <resourceStyle x="82" y="138" width="10" height="12"/>
     </symbolStyle>
-  <symbolStyle id="140" name="symbols/maki/rail-above-12.svg:#000000:::">
+  <symbolStyle id="140" name="symbols/nori/power_tower-12.svg:#000000:::">
     <resourceStyle x="92" y="138" width="10" height="12"/>
     </symbolStyle>
-  <symbolStyle id="141" name="symbols/nori/power_tower-12.svg:#000000:::">
-    <resourceStyle x="102" y="138" width="10" height="12"/>
+  <symbolStyle id="141" name="symbols/maki/bank-18.svg:#000000:::">
+    <resourceStyle x="102" y="138" width="16" height="10"/>
     </symbolStyle>
-  <symbolStyle id="142" name="symbols/maki/bank-18.svg:#000000:::">
-    <resourceStyle x="112" y="138" width="16" height="10"/>
+  <symbolStyle id="142" name="symbols/railway-crossing.svg:#000000:::">
+    <resourceStyle x="118" y="138" width="16" height="10"/>
     </symbolStyle>
-  <symbolStyle id="143" name="symbols/railway-crossing.svg:#000000:::">
-    <resourceStyle x="128" y="138" width="16" height="10"/>
+  <symbolStyle id="143" name="symbols/maki/triangle-12.svg:#000000:::">
+    <resourceStyle x="134" y="138" width="12" height="10"/>
     </symbolStyle>
-  <symbolStyle id="144" name="symbols/maki/triangle-12.svg:#000000:::">
-    <resourceStyle x="144" y="138" width="12" height="10"/>
+  <symbolStyle id="144" name="symbols/maki/triangle-stroked-12.svg:#000000:::">
+    <resourceStyle x="146" y="138" width="12" height="10"/>
     </symbolStyle>
-  <symbolStyle id="145" name="symbols/maki/triangle-stroked-12.svg:#000000:::">
-    <resourceStyle x="156" y="138" width="12" height="10"/>
+  <symbolStyle id="145" name="symbols/maki/rail-12.svg:#000000:::">
+    <resourceStyle x="158" y="138" width="10" height="10"/>
     </symbolStyle>
-  <symbolStyle id="146" name="symbols/maki/rail-12.svg:#000000:::">
-    <resourceStyle x="168" y="138" width="10" height="10"/>
+  <symbolStyle id="146" name="symbols/arrow.svg::::">
+    <resourceStyle x="168" y="138" width="18" height="6"/>
     </symbolStyle>
-  <symbolStyle id="147" name="symbols/arrow.svg::::">
-    <resourceStyle x="178" y="138" width="18" height="6"/>
+  <symbolStyle id="147" name="symbols/railway-crossing-small.svg:#000000:::">
+    <resourceStyle x="186" y="138" width="10" height="6"/>
     </symbolStyle>
-  <symbolStyle id="148" name="symbols/railway-crossing-small.svg:#000000:::">
-    <resourceStyle x="196" y="138" width="10" height="6"/>
+  <symbolStyle id="148" name="symbols/power-pole.svg:#000000:::">
+    <resourceStyle x="196" y="138" width="5" height="5"/>
     </symbolStyle>
   <symbolStyle id="149" name="symbols/barrier.svg:#000000:::">
-    <resourceStyle x="206" y="138" width="18" height="4"/>
+    <resourceStyle x="201" y="138" width="18" height="4"/>
     </symbolStyle>
  </page>
     </skin>

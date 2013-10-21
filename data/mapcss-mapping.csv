@@ -289,7 +289,7 @@ leisure|slipway;[leisure=slipway];;name;int_name;288;
 tourism|caravan_site;[tourism=caravan_site];;name;int_name;289;
 place|state;[place=state];;name;int_name;290;
 highway|path|private;[highway=path][access=private];;name;int_name;291;
-railway|subway|tunnel;[railway=subway][tunnel?];;name;int_name;292;
+railway|subway|tunnel;[railway=subway][tunnel?];x;name;int_name;292;railway|subway
 barrier|city_wall;[barrier=city_wall];;name;int_name;293;
 place|farm;[place=farm];;name;int_name;294;
 boundary|administrative|11;[boundary=administrative][admin_level=11];;name;int_name;295;
