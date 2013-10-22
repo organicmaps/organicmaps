@@ -35,14 +35,6 @@ namespace
     }
   };
 
-  struct TestDrawSolidRect
-  {
-    void DoDraw(shared_ptr<graphics::Screen> p)
-    {
-      p->immDrawSolidRect(m2::RectF(0, 0, 100, 100), graphics::Color(255, 0, 0, 255));
-    }
-  };
-
   struct TestDrawLine
   {
     void DoDraw(shared_ptr<graphics::Screen> p)
@@ -1224,40 +1216,6 @@ namespace
               rand() % 10,
               true);
       }
-    }
-  };
-
-  struct TestDrawUtilsRect
-  {
-    void DoDraw(shared_ptr<graphics::Screen> p)
-    {
-      shared_ptr<graphics::gl::RGBA8Texture> texture(new graphics::gl::RGBA8Texture(512, 512));
-      texture->randomize();
-
-      p->immDrawRect(
-          m2::RectF(0, 0, 512, 512),
-          m2::RectF(0, 0, 1, 1),
-          texture,
-          true,
-          graphics::Color(255, 0, 0, 255),
-          false);
-    }
-  };
-
-  struct TestDrawUtilsRectFilledTexture
-  {
-    void DoDraw(shared_ptr<graphics::Screen> p)
-    {
-      shared_ptr<graphics::gl::RGBA8Texture> texture(new graphics::gl::RGBA8Texture(512, 512));
-      texture->fill(graphics::Color(0, 255, 0, 255));
-
-      p->immDrawRect(
-          m2::RectF(0, 0, 512, 512),
-          m2::RectF(0, 0, 1, 1),
-          texture,
-          true,
-          graphics::Color(255, 0, 0, 255),
-          false);
     }
   };
 

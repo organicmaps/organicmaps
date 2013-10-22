@@ -56,29 +56,6 @@ namespace graphics
               size_t s,
               bool isSubPixel,
               double depth);
-
-    void immDrawSolidRect(m2::RectF const & rect,
-                          Color const & color);
-
-    void immDrawRect(m2::RectF const & rect,
-                     m2::RectF const & texRect,
-                     shared_ptr<gl::BaseTexture> texture,
-                     bool hasTexture,
-                     Color const & color,
-                     bool hasColor);
-
-    void immDrawTexturedPrimitives(m2::PointF const * pts,
-                                   m2::PointF const * texPts,
-                                   size_t size,
-                                   shared_ptr<gl::BaseTexture> const & texture,
-                                   bool hasTexture,
-                                   Color const & color,
-                                   bool hasColor);
-
-    void immDrawTexturedRect(m2::RectF const & rect,
-                             m2::RectF const & texRect,
-                             shared_ptr<gl::BaseTexture> const & texture);
-
     /// @}
   };
 }

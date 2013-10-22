@@ -53,28 +53,6 @@ namespace graphics
         void dump();
       };
 
-      struct IMMDrawTexturedPrimitives : Command
-      {
-        buffer_vector<m2::PointF, 8> m_pts;
-        buffer_vector<m2::PointF, 8> m_texPts;
-        unsigned m_ptsCount;
-        shared_ptr<BaseTexture> m_texture;
-        bool m_hasTexture;
-        graphics::Color m_color;
-        bool m_hasColor;
-        shared_ptr<ResourceManager> m_resourceManager;
-
-        void perform();
-      };
-
-      struct IMMDrawTexturedRect : IMMDrawTexturedPrimitives
-      {
-        IMMDrawTexturedRect(m2::RectF const & rect,
-                            m2::RectF const & texRect,
-                            shared_ptr<BaseTexture> const & texture,
-                            shared_ptr<ResourceManager> const & rm);
-      };
-
       struct FreeStorage : public Command
       {
         TStoragePool * m_storagePool;
