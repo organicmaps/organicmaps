@@ -9,6 +9,7 @@
 #include "utils.hpp"
 #include "framebuffer.hpp"
 #include "renderbuffer.hpp"
+#include "base_texture.hpp"
 #include "program.hpp"
 #include "opengl.hpp"
 
@@ -142,6 +143,11 @@ namespace graphics
         processCommand(make_shared_ptr(new DiscardFramebuffer(doDiscardColor, doDiscardDepth)));
     }
 
+    void Renderer::copyFramebufferToImage(shared_ptr<BaseTexture> target)
+    {
+      processCommand(make_shared_ptr(new CopyFramebufferToImage(target)));
+    }
+
     void Renderer::endFrame()
     {
       CHECK(m_isRendering, ("endFrame called outside beginFrame/endFrame pair!"));
@@ -240,6 +246,16 @@ namespace graphics
       if (isDebugging())
         LOG(LINFO, ("performing FinishCommand command"));
       OGLCHECK(glFinish());
+    }
+
+    Renderer::CopyFramebufferToImage::CopyFramebufferToImage(shared_ptr<BaseTexture> target)
+      : m_target(target) {}
+
+    void Renderer::CopyFramebufferToImage::perform()
+    {
+      m_target->makeCurrent();
+      OGLCHECK(glCopyTexImage2D(GL_TEXTURE_2D, 0, DATA_TRAITS::gl_pixel_format_type,
+                                0, 0, m_target->width(), m_target->height(), 0));
     }
 
     Renderer::ReadPixels::ReadPixels(m2::RectU const & r, void * data)

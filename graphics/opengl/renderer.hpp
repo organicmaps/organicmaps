@@ -90,6 +90,15 @@ namespace graphics
         void perform();
       };
 
+      struct CopyFramebufferToImage : Command
+      {
+        shared_ptr<BaseTexture> m_target;
+
+        CopyFramebufferToImage(shared_ptr<BaseTexture> target);
+
+        void perform();
+      };
+
       virtual ~Renderer();
 
       struct Params
@@ -156,6 +165,7 @@ namespace graphics
       void resetDepthBuffer();
 
       void discardFramebuffer(bool doDiscardColor, bool doDiscardDepth);
+      void copyFramebufferToImage(shared_ptr<BaseTexture> target);
 
       /// @param clearRT - should we clear the renderTarget data (visible pixels)?
       /// @param clearDepth - should we clear depthBuffer data?

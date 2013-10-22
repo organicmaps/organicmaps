@@ -90,16 +90,11 @@ TileRenderer::TileRenderer(
     params.m_doUnbindRT = false;
     params.m_isSynchronized = false;
     params.m_renderContext = m_threadData[i].m_renderContext;
-  /*  params.m_isDebugging = true;
-    params.m_drawPathes = false ;
-    params.m_drawAreas = false;
-    params.m_drawTexts = false; */
 
     m_threadData[i].m_drawerParams = params;
     m_threadData[i].m_drawer = 0;
     m_threadData[i].m_threadSlot = params.m_threadSlot;
-
-    m_threadData[i].m_dummyRT = m_resourceManager->createRenderTarget(2, 2);
+    m_threadData[i].m_colorBuffer = make_shared_ptr(new graphics::gl::RenderBuffer(tileSz.first, tileSz.second, false));
     m_threadData[i].m_depthBuffer = make_shared_ptr(new graphics::gl::RenderBuffer(tileSz.first, tileSz.second, true));
   }
 
@@ -140,6 +135,7 @@ void TileRenderer::InitializeThreadGL(core::CommandsQueue::Environment const & e
   }
   threadData.m_drawer = new Drawer(threadData.m_drawerParams);
   threadData.m_drawer->onSize(tileSz.first, tileSz.second);
+  threadData.m_drawer->screen()->setRenderTarget(threadData.m_colorBuffer);
   threadData.m_drawer->screen()->setDepthBuffer(threadData.m_depthBuffer);
 }
 
@@ -213,17 +209,10 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   if (texturePool->IsCancelled())
     return;
 
-  drawer->screen()->setRenderTarget(tileTarget);
-
   shared_ptr<graphics::Overlay> tileOverlay(new graphics::Overlay());
   tileOverlay->setCouldOverlap(true);
 
   drawer->screen()->setOverlay(tileOverlay);
-
-  /// ensuring, that the render target is not bound as a texture
-
-  threadData.m_dummyRT->makeCurrent(glQueue);
-
   drawer->beginFrame();
   drawer->screen()->setClipRect(renderRect);
   drawer->clear(m_bgColor);
@@ -240,7 +229,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   if (!env.isCancelled())
     tileOverlay->clip(renderRect);
 
-  drawer->screen()->finish();
+  drawer->screen()->copyFramebufferToImage(tileTarget);
 
   if (m_resourceManager->useReadPixelsToSynchronize())
     ReadPixels(glQueue, env);

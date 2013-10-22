@@ -42,8 +42,8 @@ protected:
     Drawer * m_drawer;
     Drawer::Params m_drawerParams;
     unsigned m_threadSlot;
-    shared_ptr<graphics::gl::BaseTexture> m_dummyRT;
     shared_ptr<graphics::RenderContext> m_renderContext;
+    shared_ptr<graphics::gl::RenderBuffer> m_colorBuffer;
     shared_ptr<graphics::gl::RenderBuffer> m_depthBuffer;
   };
 
