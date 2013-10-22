@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@null"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:background="@null"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp">
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp" >
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:textAppearance="@style/Holo.TextAppearance.Large.Light"/>
+        android:layout_centerVertical="true"
+        android:textAppearance="@style/Holo.TextAppearance.Large.Light" />
 
     <ImageView
         android:id="@+id/disclosure_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:src="@drawable/cell_arrow_black"/>
+        android:layout_centerVertical="true"
+        android:padding="10dip"
+        android:src="@drawable/ic_next_item" />
 
 </RelativeLayout>

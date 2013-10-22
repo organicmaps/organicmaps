@@ -14,8 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_weight="0"
-        android:focusable="false"
-        android:button="@drawable/eye" />
+        android:button="@drawable/eye"
+        android:focusable="false" />
 
     <TextView
         android:id="@+id/psi_name"
@@ -32,6 +32,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:src="@drawable/cell_arrow_black" />
+        android:src="@drawable/ic_next_item" />
 
 </LinearLayout>

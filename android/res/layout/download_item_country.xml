@@ -56,7 +56,7 @@
             android:layout_centerVertical="true"
             android:padding="10dip"
             android:scaleType="center"
-            android:src="@drawable/ic_county_menu" />
+            android:src="@drawable/ic_country_menu" />
     </RelativeLayout>
 
     <ProgressBar

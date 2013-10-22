@@ -9,10 +9,10 @@
         android:id="@+id/pi_arrow"
         android:layout_width="34dip"
         android:layout_height="34dip"
-        android:layout_marginLeft="6dip"
-        android:scaleType="center"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="6dip"
+        android:scaleType="center" />
 
     <ImageView
         android:id="@+id/pi_pin_color"
@@ -39,7 +39,6 @@
         android:layout_toLeftOf="@id/pi_distance"
         android:layout_toRightOf="@id/pi_pin_color"
         android:singleLine="true"
-        android:text="sdkfjsdokfjsdfosdjfisdofjsdoifjsdofji"
         android:textAppearance="@style/Holo.TextAppearance.Large.Light" />
 
 </RelativeLayout>

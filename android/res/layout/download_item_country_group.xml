@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:paddingLeft="4dp"
-    android:paddingRight="8dp" >
+    android:paddingRight="4dp" >
 
     <ImageView
         android:id="@+id/country_flag"
@@ -21,7 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/cell_arrow_black" />
+        android:padding="10dip"
+        android:src="@drawable/ic_next_item" />
 
     <TextView
         android:id="@+id/title"
