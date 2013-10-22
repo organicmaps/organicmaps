@@ -85,6 +85,7 @@ namespace graphics
 
     extern void (OPENGL_CALLING_CONVENTION * glOrthoFn) (GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat zNear, GLfloat zFar);
     extern void (OPENGL_CALLING_CONVENTION * glDrawElementsFn) (GLenum mode, GLsizei count, GLenum type, const GLvoid *indices);
+    extern void (OPENGL_CALLING_CONVENTION * glFlushFn)();
 
     extern const GLenum GL_MODELVIEW_MWM;
     extern const GLenum GL_PROJECTION_MWM;

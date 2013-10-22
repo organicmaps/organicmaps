@@ -63,6 +63,7 @@ namespace graphics
       g_isSeparateBlendFuncSupported = HasExtension("GL_EXT_blend_func_separate");
 
       glBlendFuncSeparateFn = &glBlendFuncSeparateEXT;
+      glFlushFn = &glFlush;
 
       glActiveTextureFn = &glActiveTexture;
       glGetAttribLocationFn = &glGetAttribLocation;

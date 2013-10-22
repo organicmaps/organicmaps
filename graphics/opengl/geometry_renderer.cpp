@@ -126,7 +126,7 @@ namespace graphics
       /// resource update made in one thread to the another thread is
       /// to call the glFlush in thread, which modifies resource and then rebind
       /// resource in another threads that is using this resource, if any.
-      OGLCHECK(glFlush());
+      OGLCHECK(glFlushFn());
 
       static_cast<ManagedTexture*>(m_texture.get())->unlock();
     }
@@ -390,7 +390,7 @@ namespace graphics
         /// resource update made in one thread to the another thread is
         /// to call the glFlush in thread, which modifies resource and then rebind
         /// resource in another threads that is using this resource, if any.
-        OGLCHECK(glFlush());
+        OGLCHECK(glFlushFn());
       }
       else
         LOG(LDEBUG, ("no storage to unlock"));

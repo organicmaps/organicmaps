@@ -2,6 +2,7 @@
 
 // buffer objects extensions
 
+DEFINE_GL_RPOC("glFlush", glFlushFn);
 DEFINE_GL_PROC("glActiveTexture", glActiveTextureFn)
 DEFINE_GL_PROC("glGetAttribLocation", glGetAttribLocationFn)
 DEFINE_GL_PROC("glGetActiveAttrib", glGetActiveAttribFn)

@@ -103,6 +103,7 @@ namespace graphics
     void (OPENGL_CALLING_CONVENTION * glLoadMatrixfFn) (const GLfloat *m);
     void (OPENGL_CALLING_CONVENTION * glOrthoFn) (GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat zNear, GLfloat zFar);
     void (OPENGL_CALLING_CONVENTION * glDrawElementsFn) (GLenum mode, GLsizei count, GLenum type, const GLvoid *indices);
+    void (OPENGL_CALLING_CONVENTION * glFlushFn)();
 
     bool g_isBufferObjectsSupported = true;
     bool g_isMapBufferSupported = true;

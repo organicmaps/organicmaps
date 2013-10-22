@@ -19,6 +19,14 @@ namespace graphics
 {
   namespace gl
   {
+
+#ifndef OMIM_OS_IPHONE
+    namespace
+    {
+      void emptyFlushFn() {}
+    }
+#endif
+
     const int GL_FRAMEBUFFER_BINDING_MWM = GL_FRAMEBUFFER_BINDING;
     const int GL_FRAMEBUFFER_MWM = GL_FRAMEBUFFER;
     const int GL_FRAMEBUFFER_UNSUPPORTED_MWM = GL_FRAMEBUFFER_UNSUPPORTED;
@@ -57,6 +65,12 @@ namespace graphics
 #else
       glMapBufferFn = &glMapBufferOES;
       glUnmapBufferFn = &glUnmapBufferOES;
+#endif
+
+#ifdef OMIM_OS_IPHONE
+      glFlushFn = &glFlush;
+#else
+      glFlushFn = &emptyFlushFn;
 #endif
 
       g_isFramebufferSupported = true;
