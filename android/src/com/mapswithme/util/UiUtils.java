@@ -39,14 +39,20 @@ public final class UiUtils
 
   public static void hide(View ... views)
   {
-    for (View v : views)
+    for (final View v : views)
       v.setVisibility(View.GONE);
   }
 
   public static void show(View ... views)
   {
-    for (View v : views)
+    for (final View v : views)
       v.setVisibility(View.VISIBLE);
+  }
+
+  public static void invisible(View ... views)
+  {
+    for (final View v : views)
+      v.setVisibility(View.INVISIBLE);
   }
 
 
@@ -66,7 +72,7 @@ public final class UiUtils
       final String colorString = parts[parts.length - 1];
       color = colorByName(colorString, Color.BLACK);
     }
-    catch (Exception e)
+    catch (final Exception e)
     {
       e.printStackTrace();
       // We do nothing in this case

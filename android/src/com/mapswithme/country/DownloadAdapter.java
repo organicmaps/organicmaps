@@ -22,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MWMActivity.ShowCountryTask;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.MapStorage.Index;
@@ -89,9 +90,9 @@ class DownloadAdapter extends BaseAdapter
       //TODO introduce resources
       switch (mStatus)
       {
-      case MapStorage.ON_DISK:             return 0xFF00A144;
-      case MapStorage.ON_DISK_OUT_OF_DATE: return 0xFFFF69B4;
-      case MapStorage.NOT_DOWNLOADED:      return 0xFF000000;
+      case MapStorage.ON_DISK:             return 0xFF333333;
+      case MapStorage.ON_DISK_OUT_OF_DATE: return 0xFF000000;
+      case MapStorage.NOT_DOWNLOADED:      return 0xFF999999;
       case MapStorage.DOWNLOAD_FAILED:     return 0xFFFF0000;
       case MapStorage.DOWNLOADING:         return 0xFF342BB6;
       case MapStorage.IN_QUEUE:            return 0xFF5B94DE;
@@ -172,30 +173,33 @@ class DownloadAdapter extends BaseAdapter
   }
 
   /// Process list item click.
-  public boolean onItemClick(int position)
+  public boolean onItemClick(int position, View view)
   {
     if (mItems[position].mStatus < 0)
     {
       // expand next level
       mIdx = mIdx.getChild(position);
-
       fillList();
-      return true;
     }
     else
     {
-      processCountry(position);
+      if (getItemViewType(position) == TYPE_COUNTRY_READY)
+        showCountry(getItem(position).mCountryIdx);
+      else
+        onCountryMenuClicked(position, getItem(position), view);
+
       return false;
     }
+    return true;
   }
 
   private void showNotEnoughFreeSpaceDialog(String spaceNeeded, String countryName)
   {
     new AlertDialog.Builder(mContext)
-    .setMessage(String.format(mContext.getString(R.string.free_space_for_country), spaceNeeded, countryName))
-    .setNegativeButton(mContext.getString(R.string.close), m_alertCancelHandler)
-    .create()
-    .show();
+      .setMessage(String.format(mContext.getString(R.string.free_space_for_country), spaceNeeded, countryName))
+      .setNegativeButton(mContext.getString(R.string.close), m_alertCancelHandler)
+      .create()
+      .show();
   }
 
   private boolean hasFreeSpace(long size)
@@ -203,45 +207,6 @@ class DownloadAdapter extends BaseAdapter
     final MWMApplication app = (MWMApplication) mContext.getApplication();
     return app.hasFreeSpace(size);
   }
-
-  private void processCountry(int position)
-  {
-    final Index idx = mIdx.getChild(position);
-    final String name = mItems[position].mName;
-
-    // Get actual status here
-    switch (mStorage.countryStatus(idx))
-    {
-    case MapStorage.ON_DISK:
-        processOnDisk(idx, name);
-      break;
-
-    case MapStorage.ON_DISK_OUT_OF_DATE:
-        processOutOfDate(idx, name);
-      break;
-
-    case MapStorage.NOT_DOWNLOADED:
-      processNotDownloaded(idx, name);
-      break;
-
-    case MapStorage.DOWNLOAD_FAILED:
-      // Do not confirm downloading if status is failed, just start it
-      mStorage.downloadCountry(idx);
-      break;
-
-    case MapStorage.DOWNLOADING:
-        processDownloading(idx, name);
-      break;
-
-    case MapStorage.IN_QUEUE:
-      // Silently discard country from the queue
-      mStorage.deleteCountry(idx);
-      break;
-    }
-
-    // Actual status will be updated in "updateStatus" callback.
-  }
-
 
   private void processNotDownloaded(final Index idx, final String name)
   {
@@ -272,8 +237,6 @@ class DownloadAdapter extends BaseAdapter
     .create()
     .show();
   }
-
-
 
   private void processOutOfDate(final Index idx, final String name)
   {
@@ -481,7 +444,18 @@ class DownloadAdapter extends BaseAdapter
         });
       }
     }
+
     setItemText(position, holder);
+    convertView.setBackgroundResource(R.drawable.list_selector_holo_light);
+    final View fview = convertView;
+    convertView.setOnClickListener(new OnClickListener()
+    {
+      @Override
+      public void onClick(View view)
+      {
+        onItemClick(position, fview);
+      }
+    });
 
     return convertView;
   }
@@ -496,7 +470,7 @@ class DownloadAdapter extends BaseAdapter
       UiUtils.show(holder.mProgress);
     }
     else
-      UiUtils.hide(holder.mProgress);
+      UiUtils.invisible(holder.mProgress);
   }
 
 
@@ -572,11 +546,16 @@ class DownloadAdapter extends BaseAdapter
     }
   }
 
-  public void onCountryMenuClicked(int position, final CountryItem countryItem, View view)
+  private void showCountry(final Index countryIndex)
+  {
+    mStorage.showCountry(countryIndex);
+    mContext.finish();
+  }
+
+  private void onCountryMenuClicked(int position, final CountryItem countryItem, View anchor)
   {
     final int MENU_DELETE    = 0;
     final int MENU_UPDATE    = 1;
-    final int MENU_SHOW      = 2;
     final int MENU_GUIDE     = 3;
     final int MENU_DOWNLOAD  = 4;
     final int MENU_CANCEL    = 5;
@@ -593,30 +572,15 @@ class DownloadAdapter extends BaseAdapter
         final int id = item.getItemId();
 
         if (MENU_DELETE == id)
-        {
           processOnDisk(countryIndex, name);
-        }
         else if (MENU_UPDATE == id)
-        {
           processOutOfDate(countryIndex, name);
-        }
-        else if (MENU_SHOW == id)
-        {
-          mStorage.showCountry(countryIndex);
-          mContext.finish();
-        }
         else if (MENU_GUIDE == id)
-        {
           GuidesUtils.openOrDownloadGuide(Framework.getGuideInfoForIndex(countryIndex), mContext);
-        }
         else if (MENU_DOWNLOAD == id)
-        {
           processNotDownloaded(countryIndex, name);
-        }
         else if (MENU_CANCEL == id)
-        {
           processDownloading(countryIndex, name);
-        }
         else
           return false;
 
@@ -624,7 +588,7 @@ class DownloadAdapter extends BaseAdapter
       }
     };
 
-    view.setOnCreateContextMenuListener(new OnCreateContextMenuListener()
+    anchor.setOnCreateContextMenuListener(new OnCreateContextMenuListener()
     {
       @Override
       public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
@@ -632,13 +596,8 @@ class DownloadAdapter extends BaseAdapter
         menu.setHeaderTitle(countryItem.mName);
 
         if (status == MapStorage.ON_DISK || status == MapStorage.ON_DISK_OUT_OF_DATE)
-        {
           menu.add(0, MENU_DELETE, MENU_DELETE, mContext.getString(R.string.delete))
             .setOnMenuItemClickListener(menuItemClickListener);
-
-          menu.add(0, MENU_SHOW, MENU_SHOW, "Show") // TODO: add translation
-             .setOnMenuItemClickListener(menuItemClickListener);
-        }
 
         if (status == MapStorage.ON_DISK_OUT_OF_DATE)
         {
@@ -651,7 +610,8 @@ class DownloadAdapter extends BaseAdapter
           .setOnMenuItemClickListener(menuItemClickListener);
 
         if (mHasGoogleStore)
-        {   final GuideInfo info = Framework.getGuideInfoForIndex(countryItem.mCountryIdx);
+        {
+          final GuideInfo info = Framework.getGuideInfoForIndex(countryItem.mCountryIdx);
             if (info != null)
               menu.add(0, MENU_GUIDE, MENU_GUIDE, info.mTitle) // TODO: add translation
                 .setOnMenuItemClickListener(menuItemClickListener);
@@ -665,8 +625,8 @@ class DownloadAdapter extends BaseAdapter
       }
     });
 
-    view.showContextMenu();
-    view.setOnCreateContextMenuListener(null);
+    anchor.showContextMenu();
+    anchor.setOnCreateContextMenuListener(null);
   }
 
   private String getSizeString(long size)

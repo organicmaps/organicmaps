@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
+    <string name="robotoLight">sans-serif-light</string>
+
     <style name="Widget.MapButtonZoom" parent="android:Widget.Holo.ImageButton">
         <item name="android:background">@null</item>
         <item name="android:layout_marginBottom">5dip</item>
@@ -61,8 +63,8 @@
         <item name="android:textSize">@dimen/sp_x_4</item>
     </style>
 
-
     <style name="MWMMain" parent="@style/Holo.Theme.Light"></style>
+
     <style name="MWMMain.NoBar" parent="@style/Holo.Theme.Light.NoActionBar"></style>
 
     <!-- Dialog Holo.Light theme for Activity -->

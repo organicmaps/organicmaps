@@ -70,18 +70,6 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
   }
 
   @Override
-  protected void onListItemClick(ListView l, View v, int position, long id)
-  {
-    super.onListItemClick(l, v, position, id);
-
-    if (getDA().onItemClick(position))
-    {
-      // scroll list view to the top
-      setSelection(0);
-    }
-  }
-
-  @Override
   public void onCountryStatusChanged(final Index idx)
   {
     if (getDA().onCountryStatusChanged(idx) == MapStorage.DOWNLOAD_FAILED)

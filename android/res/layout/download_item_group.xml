@@ -3,9 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@null"
-    android:minHeight="?android:attr/listPreferredItemHeight"
-    android:paddingLeft="4dp"
-    android:paddingRight="4dp" >
+    android:minHeight="?android:attr/listPreferredItemHeight" >
 
     <TextView
         android:id="@+id/title"
@@ -13,6 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dp_x_3"
+        android:fontFamily="@string/robotoLight"
         android:textAppearance="@style/Holo.TextAppearance.Large.Light" />
 
     <ImageView
@@ -21,7 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:padding="10dip"
+        android:paddingLeft="@dimen/dp_x_3"
+        android:paddingRight="@dimen/dp_x_3"
         android:src="@drawable/ic_next_item" />
 
 </RelativeLayout>

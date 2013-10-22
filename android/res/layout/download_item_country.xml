@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="?android:attr/listPreferredItemHeight"
-    android:paddingLeft="4dp"
-    android:paddingRight="4dp" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="?android:attr/listPreferredItemHeight" >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center" >
 
         <FrameLayout
@@ -16,16 +14,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:padding="5dip"
-            android:visibility="visible" >
+            android:layout_centerVertical="true" >
 
             <ImageView
                 android:id="@+id/country_flag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="3dp"
+                android:paddingLeft="@dimen/dp_x_3"
+                android:paddingRight="@dimen/dp_x_3"
                 android:scaleType="center" />
 
             <!-- Invisible by default -->
@@ -35,6 +32,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|left"
+                android:paddingLeft="@dimen/dp_x_1"
+                android:paddingTop="@dimen/dp_x_1"
                 android:src="@drawable/ic_guide_mark" />
         </FrameLayout>
 
@@ -45,16 +44,19 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/country_menu"
             android:layout_toRightOf="@id/flagContainer"
+            android:fontFamily="@string/robotoLight"
             android:maxLines="2"
             android:textAppearance="@style/Holo.TextAppearance.Large.Light" />
 
         <ImageView
             android:id="@+id/country_menu"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:padding="10dip"
+            android:background="@drawable/list_selector_holo_light"
+            android:paddingLeft="@dimen/dp_x_3"
+            android:paddingRight="@dimen/dp_x_3"
             android:scaleType="center"
             android:src="@drawable/ic_country_menu" />
     </RelativeLayout>
@@ -65,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="-6dp"
+        android:layout_marginBottom="-7dp"
         android:max="100"
         android:padding="0dp" />
 
