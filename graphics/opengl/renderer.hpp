@@ -42,16 +42,6 @@ namespace graphics
         void perform();
       };
 
-      struct ReadPixels : Command
-      {
-        m2::RectU m_rect;
-        void * m_data;
-
-        ReadPixels(m2::RectU const & r, void * data);
-
-        void perform();
-      };
-
       struct ChangeFrameBuffer : Command
       {
         shared_ptr<FrameBuffer> m_frameBuffer;
@@ -70,23 +60,11 @@ namespace graphics
         void perform();
       };
 
-      struct UnbindRenderTarget : Command
-      {
-        shared_ptr<RenderTarget> m_renderTarget;
-        UnbindRenderTarget(shared_ptr<RenderTarget> const & renderTarget);
-        void perform();
-      };
-
       struct DiscardFramebuffer : Command
       {
         bool m_doDiscardColor;
         bool m_doDiscardDepth;
         DiscardFramebuffer(bool doDiscardColor, bool doDiscardDepth);
-        void perform();
-      };
-
-      struct FinishCommand : Command
-      {
         void perform();
       };
 
@@ -107,8 +85,6 @@ namespace graphics
         shared_ptr<ResourceManager> m_resourceManager;
         shared_ptr<FrameBuffer> m_frameBuffer;
         bool m_isDebugging;
-        bool m_doUnbindRT;
-        bool m_isSynchronized;
         PacketsQueue * m_renderQueue;
         int m_threadSlot;
         Params();
@@ -124,9 +100,6 @@ namespace graphics
       PacketsQueue * m_renderQueue;
 
       bool m_isDebugging;
-
-      bool m_doUnbindRT;
-      bool m_isSynchronized;
 
       bool m_isRendering;
 
@@ -158,8 +131,6 @@ namespace graphics
       shared_ptr<RenderTarget> const & renderTarget() const;
       void resetRenderTarget();
 
-      void unbindRenderTarget();
-
       void setDepthBuffer(shared_ptr<RenderBuffer> const & rt);
       shared_ptr<RenderBuffer> const & depthBuffer() const;
       void resetDepthBuffer();
@@ -178,9 +149,6 @@ namespace graphics
 
       unsigned int width() const;
       unsigned int height() const;
-
-      void finish(bool doForce = false);
-      void readPixels(m2::RectU const & r, void * data, bool doForce = false);
 
       bool isDebugging() const;
 

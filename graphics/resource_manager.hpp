@@ -179,7 +179,6 @@ namespace graphics
 
       /// check non-strict matching upon vendorName and rendererName
       bool isGPU(char const * vendorName, char const * rendererName, bool strictMatch) const;
-      bool isGPUVersion(char const * vendorName, char const * rendererName, char const * version);
 
     public:
 
@@ -187,7 +186,6 @@ namespace graphics
       DataFormat m_texFormat;
       DataFormat m_texRtFormat;
       bool m_useSingleThreadedOGL;
-      bool m_useReadPixelsToSynchronize;
 
       size_t m_videoMemoryLimit;
 
@@ -275,8 +273,6 @@ namespace graphics
     void updatePoolState();
 
     void cancel();
-
-    bool useReadPixelsToSynchronize() const;
 
     shared_ptr<graphics::gl::BaseTexture> createRenderTarget(unsigned w, unsigned h);
     gl::ProgramManager * programManager(int threadSlot);

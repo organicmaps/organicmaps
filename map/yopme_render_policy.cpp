@@ -182,7 +182,6 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
     renderTarget = m_resourceManager->createRenderTarget(width, height);
 
     pScreen->setOverlay(overlay);
-    pScreen->setRenderTarget(renderTarget);
     pScreen->beginFrame();
     pScreen->setClipRect(renderRect);
     pScreen->clear(m_bgColor);
@@ -206,7 +205,7 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
     drawOverlay->draw(pScreen, math::Identity<double, 3>());
 
     pScreen->endFrame();
-    pScreen->unbindRenderTarget();
+    pScreen->copyFramebufferToImage(renderTarget);
   }
 
   {
@@ -237,6 +236,7 @@ void YopmeRP::OnSize(int w, int h)
   RenderPolicy::OnSize(w, h);
   m_offscreenDrawer->onSize(w, h);
   m_offscreenDrawer->screen()->setDepthBuffer(make_shared_ptr(new gl::RenderBuffer(w, h, true)));
+  m_offscreenDrawer->screen()->setRenderTarget(make_shared_ptr(new gl::RenderBuffer(w, h, false)));
 }
 
 void YopmeRP::SetDrawingApiPin(bool isNeed, m2::PointD const & point)

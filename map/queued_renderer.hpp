@@ -43,11 +43,6 @@ private:
   /// pipeline starvation we should select them in a cyclic manner
   int m_CurrentPipeline;
 
-  /// This flag controls whether we should process only one pipeline at a frame.
-  /// This is necessary to improve the GUI responsiveness if we have a lot of
-  /// "heavy" commands in the pipeline.
-  bool m_ProcessSinglePipelineAtFrame;
-
   bool m_IsDebugging;
 
   shared_ptr<graphics::RenderContext> m_RenderContext;
@@ -69,7 +64,6 @@ public:
   void EndFrame();
 
   bool NeedRedraw() const;
-  void SetSinglePipelineProcessing(bool flag);
 
   graphics::PacketsQueue * GetPacketsQueue(int pipelineNum);
 };

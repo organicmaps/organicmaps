@@ -21,16 +21,12 @@ namespace graphics
 
     Renderer::Params::Params()
       : m_isDebugging(false),
-        m_doUnbindRT(false),
-        m_isSynchronized(true),
         m_renderQueue(0),
         m_threadSlot(-1)
     {}
 
     Renderer::Renderer(Params const & params)
       : m_isDebugging(params.m_isDebugging),
-        m_doUnbindRT(params.m_doUnbindRT),
-        m_isSynchronized(params.m_isSynchronized),
         m_isRendering(false),
         m_width(0),
         m_height(0),
@@ -91,20 +87,6 @@ namespace graphics
       return m_isRendering;
     }
 
-    Renderer::UnbindRenderTarget::UnbindRenderTarget(shared_ptr<RenderTarget> const & rt)
-      : m_renderTarget(rt)
-    {}
-
-    void Renderer::UnbindRenderTarget::perform()
-    {
-      m_renderTarget->detachFromFrameBuffer();
-    }
-
-    void Renderer::unbindRenderTarget()
-    {
-      processCommand(make_shared_ptr(new UnbindRenderTarget(m_renderTarget)));
-    }
-
     Renderer::ChangeMatrix::ChangeMatrix(EMatrix mt, math::Matrix<float, 4, 4> const & m)
       : m_matrixType(mt), m_matrix(m)
     {}
@@ -151,13 +133,6 @@ namespace graphics
     void Renderer::endFrame()
     {
       CHECK(m_isRendering, ("endFrame called outside beginFrame/endFrame pair!"));
-
-      if (m_doUnbindRT && m_renderTarget)
-        unbindRenderTarget();
-
-      if (m_isSynchronized)
-        finish();
-
       m_isRendering = false;
     }
 
@@ -241,13 +216,6 @@ namespace graphics
       processCommand(command);
     }
 
-    void Renderer::FinishCommand::perform()
-    {
-      if (isDebugging())
-        LOG(LINFO, ("performing FinishCommand command"));
-      OGLCHECK(glFinish());
-    }
-
     Renderer::CopyFramebufferToImage::CopyFramebufferToImage(shared_ptr<BaseTexture> target)
       : m_target(target) {}
 
@@ -256,35 +224,6 @@ namespace graphics
       m_target->makeCurrent();
       OGLCHECK(glCopyTexImage2D(GL_TEXTURE_2D, 0, DATA_TRAITS::gl_pixel_format_type,
                                 0, 0, m_target->width(), m_target->height(), 0));
-    }
-
-    Renderer::ReadPixels::ReadPixels(m2::RectU const & r, void * data)
-      : m_rect(r), m_data(data)
-    {}
-
-    void Renderer::ReadPixels::perform()
-    {
-      if (isDebugging())
-        LOG(LINFO, ("performing ReadPixels command"));
-
-      OGLCHECK(glReadPixels(m_rect.minX(),
-                            m_rect.minY(),
-                            m_rect.SizeX(),
-                            m_rect.SizeY(),
-                            GL_RGBA,
-                            GL_UNSIGNED_BYTE,
-                            m_data
-                            ));
-    }
-
-    void Renderer::readPixels(m2::RectU const & r, void * data, bool doForce)
-    {
-      processCommand(make_shared_ptr(new ReadPixels(r, data)), Packet::ECommand, doForce);
-    }
-
-    void Renderer::finish(bool doForce)
-    {
-      processCommand(make_shared_ptr(new FinishCommand()), Packet::ECommand, doForce);
     }
 
     Renderer::ChangeFrameBuffer::ChangeFrameBuffer(shared_ptr<FrameBuffer> const & fb)

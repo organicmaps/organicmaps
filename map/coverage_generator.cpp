@@ -70,8 +70,6 @@ void CoverageGenerator::InitializeThreadGL(shared_ptr<graphics::RenderContext> c
   params.m_resourceManager = resourceManager;
   params.m_renderQueue = glQueue;
 
-  params.m_doUnbindRT = false;
-  params.m_isSynchronized = false;
   params.m_threadSlot = resourceManager->cacheThreadSlot();
   params.m_renderContext = context;
   params.m_storageType = graphics::EMediumStorage;

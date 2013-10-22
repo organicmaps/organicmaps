@@ -48,11 +48,9 @@ void RenderPolicy::InitCacheScreen()
 {
   graphics::Screen::Params cp;
 
-  cp.m_doUnbindRT = false;
   cp.m_threadSlot = m_resourceManager->guiThreadSlot();
   cp.m_storageType = graphics::ETinyStorage;
   cp.m_textureType = graphics::ESmallTexture;
-  cp.m_isSynchronized = false;
   cp.m_resourceManager = m_resourceManager;
   cp.m_renderContext = m_primaryRC;
 
@@ -269,8 +267,6 @@ Drawer * RenderPolicy::CreateDrawer(bool isDefaultFB,
   dp.m_visualScale = VisualScale();
   dp.m_storageType = storageType;
   dp.m_textureType = textureType;
-  dp.m_isSynchronized = false;
-  dp.m_doUnbindRT = false;
   dp.m_renderContext = context;
 
   return new Drawer(dp);

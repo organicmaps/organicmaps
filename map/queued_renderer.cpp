@@ -10,7 +10,6 @@ QueuedRenderer::QueuedRenderer(int pipelinesCount,
     m_Pipelines[i].m_CouldExecutePartially = false;
   m_PipelinesCount = pipelinesCount;
   m_CurrentPipeline = 0;
-  m_ProcessSinglePipelineAtFrame = false;
   m_RenderContext = rc;
 }
 
@@ -66,8 +65,6 @@ void QueuedRenderer::DrawFrame()
     {
       /// next DrawFrame should start from another pipeline
       m_CurrentPipeline = (num + 1) % m_PipelinesCount;
-      if (m_ProcessSinglePipelineAtFrame)
-        break;
     }
   }
 }
@@ -229,9 +226,4 @@ graphics::PacketsQueue * QueuedRenderer::GetPacketsQueue(int pipelineNum)
 void QueuedRenderer::PrepareQueueCancellation(int pipelineNum)
 {
   m_Pipelines[pipelineNum].m_Queue.cancelFences();
-}
-
-void QueuedRenderer::SetSinglePipelineProcessing(bool flag)
-{
-  m_ProcessSinglePipelineAtFrame = flag;
 }

@@ -87,8 +87,6 @@ TileRenderer::TileRenderer(
     params.m_visualScale = visualScale;
     if (packetsQueues != 0)
       params.m_renderQueue = packetsQueues[i];
-    params.m_doUnbindRT = false;
-    params.m_isSynchronized = false;
     params.m_renderContext = m_threadData[i].m_renderContext;
 
     m_threadData[i].m_drawerParams = params;
@@ -145,31 +143,6 @@ void TileRenderer::FinalizeThreadGL(core::CommandsQueue::Environment const & env
 
   if (threadData.m_renderContext)
     threadData.m_renderContext->endThreadDrawing(threadData.m_threadSlot);
-}
-
-void TileRenderer::ReadPixels(graphics::PacketsQueue * glQueue, core::CommandsQueue::Environment const & env)
-{
-  ThreadData & threadData = m_threadData[env.threadNum()];
-
-  Drawer * drawer = threadData.m_drawer;
-
-  if (glQueue)
-  {
-    glQueue->processFn(bind(&TileRenderer::ReadPixels, this, (graphics::PacketsQueue*)0, ref(env)), true);
-    return;
-  }
-
-  if (!env.isCancelled())
-  {
-    TileSizeT const tileSz = GetTileSizes();
-
-    shared_ptr<vector<unsigned char> > buf =
-        SharedBufferManager::instance().reserveSharedBuffer(tileSz.first * tileSz.second * 4);
-
-    drawer->screen()->readPixels(m2::RectU(0, 0, tileSz.first, tileSz.second), &(buf->at(0)), true);
-
-    SharedBufferManager::instance().freeSharedBuffer(tileSz.first * tileSz.second * 4, buf);
-  }
 }
 
 void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
@@ -230,11 +203,6 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
     tileOverlay->clip(renderRect);
 
   drawer->screen()->copyFramebufferToImage(tileTarget);
-
-  if (m_resourceManager->useReadPixelsToSynchronize())
-    ReadPixels(glQueue, env);
-
-  drawer->screen()->unbindRenderTarget();
 
   if (!env.isCancelled())
   {

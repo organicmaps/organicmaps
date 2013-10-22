@@ -49,8 +49,6 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
   m_primaryRC->setResourceManager(m_resourceManager);
   m_primaryRC->startThreadDrawing(m_resourceManager->guiThreadSlot());
 
-  m_QueuedRenderer->SetSinglePipelineProcessing(m_resourceManager->useReadPixelsToSynchronize());
-
   Platform::FilesList fonts;
   GetPlatform().GetFontNames(fonts);
   m_resourceManager->addFonts(fonts);

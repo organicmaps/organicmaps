@@ -60,11 +60,9 @@ public:
 
     graphics::Screen::Params cp;
 
-    cp.m_doUnbindRT = false;
     cp.m_threadSlot = 0;
     cp.m_storageType = graphics::ETinyStorage;
     cp.m_textureType = graphics::ESmallTexture;
-    cp.m_isSynchronized = false;
     cp.m_resourceManager = base_t::m_resourceManager;
     cp.m_renderContext = base_t::m_primaryContext;
 

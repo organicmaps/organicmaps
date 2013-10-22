@@ -232,28 +232,10 @@ namespace
           && (m_rendererName.find(rendererName) != string::npos);
   }
 
-  bool ResourceManager::Params::isGPUVersion(char const * vendorName, char const * rendererName, char const * version)
-  {
-    LOG(LINFO, ("Version name =", m_versionName));
-    return (m_vendorName == string(vendorName))
-        && (m_rendererName == string(rendererName))
-        && (m_versionName == string(version));
-  }
-
   void ResourceManager::Params::checkDeviceCaps()
   {
     /// general case
     m_texRtFormat = graphics::Data4Bpp;
-    m_useReadPixelsToSynchronize = false;
-
-    if (isGPU("Vivante Corporation", "GC800 core", true))
-    {
-#ifndef __mips__
-      /// glMapBuffer doesn't work on this GPU on non-MIPS devices,
-      /// so we're switching to glBufferSubData.
-      graphics::gl::g_isMapBufferSupported = false;
-#endif
-    }
 
     if (isGPU("Qualcomm", "Adreno", false))
       m_texRtFormat = graphics::Data8Bpp;
@@ -270,21 +252,7 @@ namespace
       m_texRtFormat = graphics::Data8Bpp;
     }
 
-#ifdef OMIM_OS_ANDROID
-    // on PowerVR chips on Android glFinish doesn't work, so we should use
-    // glReadPixels instead of glFinish to synchronize.
-    if (isGPUVersion("Imagination Technologies", "PowerVR SGX 540", "OpenGL ES 2.0"))
-      m_useReadPixelsToSynchronize = true;
-    if (isGPU("Imagination Technologies", "PowerVR SGX 530", false))
-        m_useReadPixelsToSynchronize = true;
-    if (isGPU("Imagination Technologies", "PowerVR SGX 531", false))
-        m_useReadPixelsToSynchronize = true;
-#endif
-
     LOG(LINFO, ("selected", graphics::formatName(m_texRtFormat), "format for tile textures"));
-
-    if (m_useReadPixelsToSynchronize)
-      LOG(LINFO, ("using ReadPixels instead of glFinish to synchronize"));
   }
 
   bool ResourceManager::Params::canUseNPOTextures()
@@ -458,38 +426,6 @@ namespace
       m_threadSlots[i].m_glyphCache->addFonts(fontNames);
   }
 
-  /*
-  void ResourceManager::memoryWarning()
-  {
-  }
-
-  void ResourceManager::enterBackground()
-  {
-    threads::MutexGuard guard(m_mutex);
-
-    for (unsigned i = 0; i < m_texturePools.size(); ++i)
-      if (m_texturePools[i].get())
-        m_texturePools[i]->EnterBackground();
-
-    for (unsigned i = 0; i < m_storagePools.size(); ++i)
-      if (m_storagePools[i].get())
-        m_storagePools[i]->EnterBackground();
-  }
-
-  void ResourceManager::enterForeground()
-  {
-    threads::MutexGuard guard(m_mutex);
-
-    for (unsigned i = 0; i < m_texturePools.size(); ++i)
-      if (m_texturePools[i].get())
-        m_texturePools[i]->EnterForeground();
-
-    for (unsigned i = 0; i < m_storagePools.size(); ++i)
-      if (m_storagePools[i].get())
-        m_storagePools[i]->EnterForeground();
-  }
-  */
-
   shared_ptr<graphics::gl::BaseTexture> ResourceManager::createRenderTarget(unsigned w, unsigned h)
   {
     switch (m_params.m_rtFormat)
@@ -541,11 +477,6 @@ namespace
     for (unsigned i = 0; i < m_storagePools.size(); ++i)
       if (m_storagePools[i].get())
         m_storagePools[i]->Cancel();
-  }
-
-  bool ResourceManager::useReadPixelsToSynchronize() const
-  {
-    return m_params.m_useReadPixelsToSynchronize;
   }
 
   gl::ProgramManager * ResourceManager::programManager(int threadSlot)

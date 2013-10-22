@@ -78,8 +78,6 @@ protected:
                         Tiler::RectInfo const & rectInfo,
                         int sequenceID);
 
-  void ReadPixels(graphics::PacketsQueue * glQueue, core::CommandsQueue::Environment const & env);
-
 public:
 
   /// constructor.
