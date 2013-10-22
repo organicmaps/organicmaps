@@ -25,8 +25,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:scaleType="center"
-                android:src="@drawable/jp" />
+                android:padding="3dp"
+                android:scaleType="center" />
 
             <!-- Invisible by default -->
 
@@ -46,7 +46,6 @@
             android:layout_toLeftOf="@+id/country_menu"
             android:layout_toRightOf="@id/flagContainer"
             android:maxLines="2"
-            android:text="Andora Andora Andora Andora"
             android:textAppearance="@style/Holo.TextAppearance.Large.Light" />
 
         <ImageView
@@ -66,8 +65,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="-2dp"
+        android:layout_marginBottom="-6dp"
         android:max="100"
-        android:padding="0" />
+        android:padding="0dp" />
 
 </FrameLayout>

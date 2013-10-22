@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:padding="5dip"
+        android:padding="8dip"
         android:scaleType="center" />
 
     <ImageView
