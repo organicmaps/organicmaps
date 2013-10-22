@@ -141,7 +141,7 @@
             android:theme="@style/MWMMain.NoBar" >
         </activity>
         <activity
-            android:name="com.mapswithme.maps.DownloadUI"
+            android:name="com.mapswithme.country.DownloadUI"
             android:configChanges="orientation|screenLayout|screenSize"
             android:label="@string/download_maps"
             android:noHistory="true"
