@@ -34,7 +34,8 @@
                 android:layout_gravity="bottom|left"
                 android:paddingLeft="@dimen/dp_x_1"
                 android:paddingTop="@dimen/dp_x_1"
-                android:src="@drawable/ic_guide_mark" />
+                android:src="@drawable/ic_guide_mark"
+                android:visibility="invisible" />
         </FrameLayout>
 
         <TextView
