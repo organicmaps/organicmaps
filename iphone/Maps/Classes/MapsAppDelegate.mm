@@ -204,7 +204,7 @@ void InitLocalizedStrings()
   if ([[dict objectForKey:@"Proposal"] isEqual:@"OpenGuides"])
   {
     self.lastGuidesUrl = [dict objectForKey:@"GuideUrl"];
-    UIAlertView * view = [[UIAlertView alloc] initWithTitle:[dict objectForKey:@"GuideTitle"] message:[dict objectForKey:@"GuideMessage"] delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
+    UIAlertView * view = [[UIAlertView alloc] initWithTitle:[dict objectForKey:@"GuideTitle"] message:[dict objectForKey:@"GuideMessage"] delegate:self cancelButtonTitle:NSLocalizedString(@"later", nil) otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
     view.tag = NOTIFICATION_ALERT_VIEW_TAG;
     [view show];
     [view release];
