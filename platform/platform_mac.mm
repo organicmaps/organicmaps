@@ -49,7 +49,6 @@ Platform::Platform()
       ::mkdir(m_writableDir.c_str(), 0755);
     }
   }
-  [pool release];
 
   m_settingsDir = m_writableDir;
 
@@ -63,6 +62,8 @@ Platform::Platform()
   LOG(LDEBUG, ("Writable Directory:", m_writableDir));
   LOG(LDEBUG, ("Tmp Directory:", m_tmpDir));
   LOG(LDEBUG, ("Settings Directory:", m_settingsDir));
+
+  [pool release];
 }
 
 int Platform::CpuCores() const
