@@ -7,9 +7,9 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.MenuItem;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,7 +22,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MWMActivity.ShowCountryTask;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.MapStorage.Index;
@@ -51,8 +50,12 @@ class DownloadAdapter extends BaseAdapter
 
   private int mSlotID = 0;
   final MapStorage mStorage;
+  private Index mIdx = new Index();
 
-  private final String mPackageName;
+  private DownloadAdapter.CountryItem[] mItems = null;
+
+  private final boolean mHasGoogleStore;
+
 
   private static class CountryItem
   {
@@ -87,7 +90,6 @@ class DownloadAdapter extends BaseAdapter
 
     public int getTextColor()
     {
-      //TODO introduce resources
       switch (mStatus)
       {
       case MapStorage.ON_DISK:             return 0xFF333333;
@@ -118,45 +120,15 @@ class DownloadAdapter extends BaseAdapter
     }
   }
 
-  private Index mIdx = new Index();
-  private DownloadAdapter.CountryItem[] mItems = null;
-
-  private final String m_kb;
-  private final String m_mb;
-
-  private final boolean mHasGoogleStore;
-
-  private final AlertDialog.Builder mAlert;
-  private final DialogInterface.OnClickListener m_alertCancelHandler =
-      new DialogInterface.OnClickListener()
-  {
-    @Override
-    public void onClick(DialogInterface dlg, int which)
-    {
-      dlg.dismiss();
-    }
-  };
-
   public DownloadAdapter(Activity context)
   {
-    final MWMApplication app = (MWMApplication) context.getApplication();
-    mStorage = app.getMapStorage();
-    mPackageName = app.getPackageName();
-
+    mStorage = MWMApplication.get().getMapStorage();
     mContext = context;
     mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-    m_kb = context.getString(R.string.kb);
-    m_mb = context.getString(R.string.mb);
-
-    mAlert = new AlertDialog.Builder(mContext);
-
     mHasGoogleStore = Utils.hasAnyGoogleStoreInstalled();
-
     fillList();
   }
-
-
 
   /// Fill list for current m_group and m_country.
   private void fillList()
@@ -173,7 +145,7 @@ class DownloadAdapter extends BaseAdapter
   }
 
   /// Process list item click.
-  public boolean onItemClick(int position, View view)
+  public void onItemClick(int position, View view)
   {
     if (mItems[position].mStatus < 0)
     {
@@ -187,25 +159,28 @@ class DownloadAdapter extends BaseAdapter
         showCountry(getItem(position).mCountryIdx);
       else
         onCountryMenuClicked(position, getItem(position), view);
-
-      return false;
     }
-    return true;
   }
 
   private void showNotEnoughFreeSpaceDialog(String spaceNeeded, String countryName)
   {
     new AlertDialog.Builder(mContext)
       .setMessage(String.format(mContext.getString(R.string.free_space_for_country), spaceNeeded, countryName))
-      .setNegativeButton(mContext.getString(R.string.close), m_alertCancelHandler)
+      .setNegativeButton(mContext.getString(R.string.close), new DialogInterface.OnClickListener()
+      {
+        @Override
+        public void onClick(DialogInterface dlg, int which)
+        {
+          dlg.dismiss();
+        }
+      })
       .create()
       .show();
   }
 
   private boolean hasFreeSpace(long size)
   {
-    final MWMApplication app = (MWMApplication) mContext.getApplication();
-    return app.hasFreeSpace(size);
+    return MWMApplication.get().hasFreeSpace(size);
   }
 
   private void processNotDownloaded(final Index idx, final String name)
@@ -223,19 +198,19 @@ class DownloadAdapter extends BaseAdapter
   private void processDownloading(final Index idx, final String name)
   {
     // Confirm canceling
-    mAlert
-    .setTitle(name)
-    .setPositiveButton(R.string.cancel_download, new DialogInterface.OnClickListener()
-    {
-      @Override
-      public void onClick(DialogInterface dlg, int which)
+    new AlertDialog.Builder(mContext)
+      .setTitle(name)
+      .setPositiveButton(R.string.cancel_download, new DialogInterface.OnClickListener()
       {
-        mStorage.deleteCountry(idx);
-        dlg.dismiss();
-      }
-    })
-    .create()
-    .show();
+        @Override
+        public void onClick(DialogInterface dlg, int which)
+        {
+          mStorage.deleteCountry(idx);
+          dlg.dismiss();
+        }
+      })
+      .create()
+      .show();
   }
 
   private void processOutOfDate(final Index idx, final String name)
@@ -250,25 +225,23 @@ class DownloadAdapter extends BaseAdapter
     }
   }
 
-
-
   private void processOnDisk(final Index idx, final String name)
   {
     // Confirm deleting
-    mAlert
-    .setTitle(name)
-    .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener()
-    {
-      @Override
-      public void onClick(DialogInterface dlg, int which)
+    new AlertDialog.Builder(mContext)
+      .setTitle(name)
+      .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener()
       {
-        mStorage.deleteCountry(idx);
-        Statistics.INSTANCE.trackCountryDeleted(mContext);
-        dlg.dismiss();
-      }
-    })
-    .create()
-    .show();
+        @Override
+        public void onClick(DialogInterface dlg, int which)
+        {
+          mStorage.deleteCountry(idx);
+          Statistics.INSTANCE.trackCountryDeleted(mContext);
+          dlg.dismiss();
+        }
+      })
+      .create()
+      .show();
   }
 
   private void updateStatuses()
@@ -276,8 +249,6 @@ class DownloadAdapter extends BaseAdapter
     for (int i = 0; i < mItems.length; ++i)
     {
       final Index idx = mIdx.getChild(i);
-
-      assert(idx.isValid());
       if (idx.isValid())
         mItems[i].updateStatus(mStorage, idx);
     }
@@ -351,11 +322,11 @@ class DownloadAdapter extends BaseAdapter
 
   private static class ViewHolder
   {
-    public TextView      mName    = null;
-    public ImageView     mFlag    = null;
-    public ImageView     mGuide   = null;
-    public ProgressBar mProgress  = null;
-    public View      mCountryMenu = null;
+    public TextView      mName        = null;
+    public ImageView     mFlag        = null;
+    public ImageView     mGuide       = null;
+    public ProgressBar   mProgress    = null;
+    public View          mCountryMenu = null;
 
     void initFromView(View v)
     {
@@ -377,7 +348,7 @@ class DownloadAdapter extends BaseAdapter
     final Resources res = mContext.getResources();
 
     final String strID = mItems[position].mFlag;
-    final int id = res.getIdentifier(strID, "drawable", mPackageName);
+    final int id = res.getIdentifier(strID, "drawable", mContext.getPackageName());
     if (id > 0)
       v.setImageDrawable(res.getDrawable(id));
     else
@@ -387,7 +358,7 @@ class DownloadAdapter extends BaseAdapter
   @Override
   public View getView(final int position, View convertView, ViewGroup parent)
   {
-    DownloadAdapter.ViewHolder holder = null;
+    ViewHolder holder = null;
     final int type = getItemViewType(position);
 
     if (convertView == null)
@@ -417,14 +388,13 @@ class DownloadAdapter extends BaseAdapter
     }
     else
     {
-      holder = (DownloadAdapter.ViewHolder) convertView.getTag();
+      holder = (ViewHolder) convertView.getTag();
     }
 
     // for everything that has flag: regions + countries
     if (type != TYPE_GROUP)
     {
       setFlag(position, holder.mFlag);
-
 
       // this part if only for downloadable items
       if (type != TYPE_COUNTRY_GROUP)
@@ -534,8 +504,6 @@ class DownloadAdapter extends BaseAdapter
     final int position = getItemPosition(idx);
     if (position != -1)
     {
-      assert(mItems[position].mStatus == 3);
-
       // do update only one item's view; don't call notifyDataSetChanged
       final View v = list.getChildAt(position - list.getFirstVisiblePosition());
       if (v != null)
@@ -554,11 +522,11 @@ class DownloadAdapter extends BaseAdapter
 
   private void onCountryMenuClicked(int position, final CountryItem countryItem, View anchor)
   {
-    final int MENU_DELETE    = 0;
-    final int MENU_UPDATE    = 1;
-    final int MENU_GUIDE     = 3;
-    final int MENU_DOWNLOAD  = 4;
-    final int MENU_CANCEL    = 5;
+    final int MENU_DELETE   = 0;
+    final int MENU_UPDATE   = 1;
+    final int MENU_GUIDE    = 3;
+    final int MENU_DOWNLOAD = 4;
+    final int MENU_CANCEL   = 5;
 
     final int status = countryItem.mStatus;
     final Index countryIndex = countryItem.mCountryIdx;
@@ -602,12 +570,13 @@ class DownloadAdapter extends BaseAdapter
         if (status == MapStorage.ON_DISK_OUT_OF_DATE)
         {
           final String titleUpdate = formatStringWithSize(R.string.update_mb_or_kb, countryIndex);
-          menu.add(0, MENU_UPDATE, MENU_UPDATE, titleUpdate).setOnMenuItemClickListener(menuItemClickListener);
+          menu.add(0, MENU_UPDATE, MENU_UPDATE, titleUpdate)
+            .setOnMenuItemClickListener(menuItemClickListener);
         }
 
         if (status == MapStorage.DOWNLOADING || status == MapStorage.IN_QUEUE)
           menu.add(0, MENU_CANCEL, MENU_CANCEL, mContext.getString(R.string.cancel_download))
-          .setOnMenuItemClickListener(menuItemClickListener);
+            .setOnMenuItemClickListener(menuItemClickListener);
 
         if (mHasGoogleStore)
         {
@@ -620,7 +589,8 @@ class DownloadAdapter extends BaseAdapter
         if (status == MapStorage.NOT_DOWNLOADED || status == MapStorage.DOWNLOAD_FAILED)
         {
           final String titleDownload = formatStringWithSize(R.string.download_mb_or_kb, countryIndex);
-          menu.add(0, MENU_DOWNLOAD, MENU_DOWNLOAD, titleDownload).setOnMenuItemClickListener(menuItemClickListener);
+          menu.add(0, MENU_DOWNLOAD, MENU_DOWNLOAD, titleDownload)
+            .setOnMenuItemClickListener(menuItemClickListener);
         }
       }
     });
@@ -632,9 +602,9 @@ class DownloadAdapter extends BaseAdapter
   private String getSizeString(long size)
   {
     if (size > MB)
-      return (size + 512 * 1024) / MB + " " + m_mb;
+      return (size + 512 * 1024) / MB + " " + mContext.getString(R.string.mb);
     else
-      return (size + 1023) / 1024 + " " + m_kb;
+      return (size + 1023) / 1024 + " " + mContext.getString(R.string.kb);
   }
   private final static long MB = 1024 * 1024;
 }
