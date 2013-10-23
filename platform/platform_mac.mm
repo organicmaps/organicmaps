@@ -26,6 +26,13 @@ Platform::Platform()
   {
     // we're the console app, probably unit test, and path is our directory
     m_resourcesDir = bundlePath + "/../../data/";
+    if (!IsFileExistsByFullPath(m_resourcesDir))
+    {
+      // Check development environment without symlink but with git repo
+      string const repoPath = bundlePath + "/../../../omim/data/";
+      if (IsFileExistsByFullPath(repoPath))
+        m_resourcesDir = repoPath;
+    }
     m_writableDir = m_resourcesDir;
   }
   else
@@ -33,12 +40,17 @@ Platform::Platform()
     m_resourcesDir = resourcesPath + "/";
 
     // get writable path
-#ifndef OMIM_PRODUCTION
     // developers can have symlink to data folder
     char const * dataPath = "../../../../../data/";
     if (IsFileExistsByFullPath(m_resourcesDir + dataPath))
       m_writableDir = m_resourcesDir + dataPath;
-#endif
+    else
+    {
+      // Check development environment without symlink but with git repo
+      dataPath = "../../../../../../omim/data/";
+      if (IsFileExistsByFullPath(m_resourcesDir + dataPath))
+        m_writableDir = m_resourcesDir + dataPath;
+    }
 
     if (m_writableDir.empty())
     {
