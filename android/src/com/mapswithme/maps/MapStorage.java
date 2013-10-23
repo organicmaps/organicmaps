@@ -30,7 +30,7 @@ public class MapStorage
   {
     private static final long serialVersionUID = 1L;
 
-    int mGroup;
+    private int mGroup;
     private int mCountry;
     private int mRegion;
 
@@ -62,8 +62,10 @@ public class MapStorage
     {
       final Index ret = new Index(mGroup, getCountry(), getRegion());
 
-      if (ret.mGroup == -1) ret.mGroup = position;
-      else if (ret.getCountry() == -1) ret.setCountry(position);
+      if (ret.mGroup == -1)
+        ret.mGroup = position;
+      else if (ret.getCountry() == -1)
+        ret.setCountry(position);
       else
       {
         assert(ret.getRegion() == -1);
@@ -77,13 +79,12 @@ public class MapStorage
     {
       final Index ret = new Index(mGroup, getCountry(), getRegion());
 
-      if (ret.getRegion() != -1) ret.setRegion(-1);
-      else if (ret.getCountry() != -1) ret.setCountry(-1);
+      if (ret.getRegion() != -1)
+        ret.setRegion(-1);
+      else if (ret.getCountry() != -1)
+        ret.setCountry(-1);
       else
-      {
-        assert(ret.mGroup != -1);
         ret.mGroup = -1;
-      }
 
       return ret;
     }
