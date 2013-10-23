@@ -227,6 +227,7 @@ class DownloadAdapter extends BaseAdapter
     // Confirm canceling
     final Dialog dlg = new AlertDialog.Builder(mContext)
       .setTitle(name)
+      .setMessage(R.string.are_you_sure)
       .setPositiveButton(R.string.cancel_download, new DialogInterface.OnClickListener()
       {
         @Override
@@ -258,6 +259,7 @@ class DownloadAdapter extends BaseAdapter
     // Confirm deleting
     new AlertDialog.Builder(mContext)
       .setTitle(name)
+      .setMessage(R.string.are_you_sure)
       .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener()
       {
         @Override
@@ -567,9 +569,9 @@ class DownloadAdapter extends BaseAdapter
   {
     final int MENU_DELETE   = 0;
     final int MENU_UPDATE   = 1;
-    final int MENU_GUIDE    = 3;
-    final int MENU_DOWNLOAD = 4;
-    final int MENU_CANCEL   = 5;
+    final int MENU_DOWNLOAD = 2;
+    final int MENU_CANCEL   = 3;
+    final int MENU_GUIDE    = 4;
 
     final int status = countryItem.getStatus();
     final Index countryIndex = countryItem.mCountryIdx;
