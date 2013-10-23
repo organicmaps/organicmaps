@@ -607,8 +607,11 @@ class DownloadAdapter extends BaseAdapter
         menu.setHeaderTitle(countryItem.mName);
 
         if (status == MapStorage.ON_DISK || status == MapStorage.ON_DISK_OUT_OF_DATE)
-          menu.add(0, MENU_DELETE, MENU_DELETE, mContext.getString(R.string.delete))
-            .setOnMenuItemClickListener(menuItemClickListener);
+        {
+          final String titleDelete = mContext.getString(R.string.delete) + " "
+              + getSizeString(mStorage.countryLocalSizeInBytes(countryIndex));
+          menu.add(0, MENU_DELETE, MENU_DELETE, titleDelete).setOnMenuItemClickListener(menuItemClickListener);
+        }
 
         if (status == MapStorage.ON_DISK_OUT_OF_DATE)
         {
