@@ -12,5 +12,14 @@
 }
 *|z16-[barrier=lift_gate]
 {
-  icon-image: symbols/neta/lift_gate-18.svg;
+    icon-image: symbols/neta/lift_gate-18.svg;
+}
+*|z12-[railway=station][transport=subway]
+{
+    icon-image: symbols/neta/subway-18.svg;
+}
+*|z16-[railway=subway_entrance],
+*|z12-15[railway=station][transport=subway]
+{
+    icon-image: symbols/neta/subway-12.svg;
 }

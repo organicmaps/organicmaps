@@ -2,32 +2,42 @@
 *|z16-[craft],
 *|z16-[amenity=marketplace]
 {
-    icon-fill-color: #428;
+    icon-fill-color: #fff;
+    icon-color: #428;
+    symbol-fill-color: #428;
+    symbol-image: symbols/neta/circle-24.svg;
 }
 
 
 *|z14-[earthquake:damage=spontaneous_camp]
 *|z16-[emergency],
-*|z16-[amenity=fire_station],
+*|z16-[amenity=fire_station]
+{
+    icon-fill-color: #fff;
+    icon-color: red;
+    symbol-fill-color: red;
+    symbol-image: symbols/neta/circle-24.svg;
+}
+
 *|z12-[natural=volcano]
 {
     icon-fill-color: red;
 }
 
-*|z15-[amenity=fuel]
-{
-    icon-fill-color: blue;
-}
-
+*|z15-[amenity=fuel],
 *|z16-[amenity=parking][access!=no],
 *|z16-[amenity=parking][location=underground],
-*|z16-[amenity=parking][parking=multi-storey]
+*|z16-[amenity=parking][parking=multi-storey],
+*|z16-[amenity=bicycle_parking]
 {
-    icon-fill-color: blue;
+    icon-fill-color: #fff;
+    icon-color: blue;
+    symbol-fill-color: blue;
+    symbol-image: symbols/neta/square-24.svg;
 }
 *|z16-[amenity=parking][fee?]
 {
-    icon-fill-color: silver;
+    icon-color: silver;
 }
 
 
@@ -36,7 +46,8 @@
     icon-fill-color: blue;
 }
 
-*|z16-[amenity=drinking_water]
+*|z16-[amenity=drinking_water],
+*|z16-[man_made=water_well],
 {
     icon-fill-color: blue;
 }
@@ -53,7 +64,10 @@
 *|z16-[amenity=bureau_de_change],
 *|z16-[amenity=money_transfer]
 {
-    icon-fill-color: #040;
+    icon-fill-color: #fff;
+    icon-color: #040;
+    symbol-fill-color: #040;
+    symbol-image: symbols/neta/circle-24.svg;
 }
 
 *|z16-[amenity=school],
@@ -63,27 +77,48 @@
 *|z16-[amenity=library],
 *|z16-[amenity=college],
 *|z16-[amenity=university],
-*|z16-[amenity=bicycle_rental],
-*|z16-[amenity=bicycle_parking]
+*|z16-[amenity=bicycle_rental]
 {
-    icon-fill-color: #A84;
+    icon-fill-color: #fff;
+    icon-color: #A84;
+    symbol-fill-color: #A84;
+    symbol-image: symbols/neta/circle-24.svg;
 }
 
+*|z12-[railway=station][colour],
+*|z16-[railway=subway_entrance],
 *|z12-[aeroway=aerodrome],
 *|z12-[aeroway=airport],
 *|z14-15[railway=halt],
 *|z16-[railway=halt],
 *|z16-[railway=tram_stop],
 *|z16-[highway=bus_stop],
-*|z12-[railway=station][!colour],
+*|z12-[railway=station],
 *|z16-[amenity=taxi]
 {
-    icon-fill-color: #04d;
+    icon-fill-color: #fff;
+    icon-color: #04D;
+    symbol-fill-color: #04D;
+    symbol-image: symbols/neta/square-24.svg;
+}
+
+*|z16-[railway=subway_entrance],
+*|z12-15[railway=station][transport=subway],
+*|z14[railway=station],
+*|z14-15[railway=halt]
+{
+    icon-fill-color: #fff;
+    icon-color: #04D;
+    symbol-fill-color: #04D;
+    symbol-image: symbols/neta/square-18.svg;
 }
 
 *|z16-[amenity=bus_station]
 {
-    icon-fill-color: navy;
+    icon-fill-color: #fff;
+    icon-color: navy;
+    symbol-fill-color: #04D;
+    symbol-image: symbols/neta/square-24.svg;
 }
 
 *|z16-[amenity=hospital],
@@ -93,7 +128,10 @@
 *|z16-[amenity=dentist],
 *|z16-[healthcare=dentist]
 {
-    icon-fill-color: #c0c;
+    icon-fill-color: #fff;
+    icon-color: #c0c;
+    symbol-fill-color: #c0c;
+    symbol-image: symbols/neta/circle-24.svg;
 }
 
 *|z16-[barrier=block]
@@ -106,9 +144,44 @@
 *|z16-[amenity=pub],
 *|z16-[amenity=restaurant],
 *|z16-[amenity=fast_food],
-*|z16-[amenity=cafe],
-*|z16-[shop=bakery]
+*|z16-[amenity=cafe]
 {
-    icon-fill-color: #D70;
+    icon-fill-color: #fff;
+    icon-color: #D70;
+    symbol-fill-color: #D70;
+    symbol-image: symbols/neta/circle-24.svg;
 }
 
+*|z16-[amenity=police],
+*|z16-[amenity=museum],
+*|z16-[amenity=toilets],
+*|z16-[amenity=theatre],
+*|z16-[historic=museum],
+*|z16-[tourism=museum],
+*|z16-[amenity=hotel],
+*|z16-[amenity=hostel],
+*|z16-[hotel],
+*|z16-[tourism=guest_house],
+*|z16-[tourism=hostel],
+*|z16-[tourism=hotel],
+*|z16-[tourism=motel],
+*|z16-[amenity=gambling],
+*|z16-[amenity=casino],
+*|z16-[amenity=cinema],
+*|z16-[shop=dry_cleaning],
+*|z16-[amenity=landury],
+*|z16-[amenity=funeral_directors],
+*|z16-[office],
+*|z16-[amenity=social_facility],
+*|z16-[amenity=courthouse],
+*|z16-[amenity=community_centre],
+*|z16-[amenity=car_rental],
+*|z16-[amenity=embassy],
+*|z16-[amenity=place_of_worship],
+*|z16-[religion]
+{
+    icon-fill-color: #fff;
+    icon-color: #333;
+    symbol-fill-color: #333;
+    symbol-image: symbols/neta/circle-24.svg;
+}

@@ -283,7 +283,7 @@
 /* services */
 
 *|z16-[shop=dry_cleaning],
-*|z16-[amenity=landury]
+*|z16-[amenity=laundry]
 {
     icon-image: symbols/nori/dry_cleaning-18.svg;
 }
@@ -292,7 +292,7 @@
     icon-image: symbols/nori/funeral_directors-18.svg;
 }
 *|z16-[amenity=gambling],
-*|z16-[amenity=gambling]
+*|z16-[amenity=casino]
 {
     icon-image: symbols/nori/gambling-18.svg;
 }

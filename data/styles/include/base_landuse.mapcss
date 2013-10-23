@@ -250,10 +250,14 @@ node|z16-[natural=vineyard]
   text-color: #202020;
 }
 
-area|z13-[natural=glacier]
+/*
+FIX GENERATOR TO UNCOMMENT
+
+area|z6-13[natural=glacier]
 {
   fill-color: lightblue;
 }
+*/
 
 area|z14-[natural=beach]
 {

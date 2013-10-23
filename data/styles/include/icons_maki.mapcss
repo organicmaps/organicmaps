@@ -1,5 +1,3 @@
-
-
 *|z16-[sport=american_football],
 *|z16-[sport=australian_football],
 {
@@ -403,24 +401,18 @@
 *|z12-14[railway=station][transport=subway]
 {
     icon-image: symbols/maki/rail-underground-12.svg;
-    symbol-shape: circle;
-    symbol-size: 9;
-    symbol-fill-color: white;
 }
 *|z15-[railway=station][transport=subway]
 {
     icon-image: symbols/maki/rail-underground-18.svg;
-    symbol-shape: circle;
-    symbol-size: 10;
-    symbol-fill-color: white;
 }
 
 *|z16-[railway=subway_entrance]
 {
     icon-image: symbols/maki/rail-underground-18.svg;
-    symbol-shape: circle;
-    symbol-size: 10;
-    symbol-fill-color: white;
 }
 
-
+*|z16-[power=pole]
+{
+    icon-image: symbols/maki/cross-12.svg;
+}

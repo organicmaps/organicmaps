@@ -196,40 +196,49 @@ node|z16-[railway=subway_entrance]
 }
 
 line|z12-[railway=subway]                                         {width:3; color: #0f0f4c; z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
-node[railway=station][transport=subway]                           {text-color: #3050d8; text-position: center;}
-node[railway=station][transport=subway]::int_name                 {text-color: #3050d8; text-position: center;}
+node[railway=station][transport=subway]                           {text-color:  #3050d8; text-position: center;}
+node[railway=station][transport=subway]::int_name                 {text-color:  #3050d8; text-position: center;}
+node[railway=subway_entrance]                                     {text-color:  #3050d8; text-position: center;}
 
-line|z12-[railway=subway][colour]                                 {width:3; color: eval(tag("colour")); z-index:16; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
-node[railway=station][transport=subway][colour]                   {icon-fill-color: eval(tag("colour"))}
-node[railway=subway_entrance][colour]                             {icon-fill-color: eval(tag("colour"))}
+line|z12-[railway=subway][colour]                                 {width:3; color: eval(tag("colour")); z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
+node[railway=station][transport=subway][colour]                   {text-color:  eval(tag("colour"));}
+node[railway=station][transport=subway][colour]::int_name         {text-color:  eval(tag("colour"));}
+node[railway=subway_entrance][colour]                             {text-color:  eval(tag("colour"));}
 
 line|z12-[railway=subway][colour=red]                             {width:3; color: #DD0000; z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
-node[railway=station][transport=subway][colour=red]               {icon-fill-color: #D00}
-node[railway=subway_entrance][colour=red]                         {icon-fill-color: #D00}
+node[railway=station][transport=subway][colour=red]               {text-color:  #DD0000;}
+node[railway=station][transport=subway][colour=red]::int_name     {text-color:  #DD0000;}
+node[railway=station][transport=subway][colour=red]               {text-color:  #DD0000;}
 
 line|z12-[railway=subway][colour=blue]                            {width:3; color: #072889; z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
-node[railway=station][transport=subway][colour=blue]              {icon-fill-color: #139}
-node[railway=subway_entrance][colour=blue]                        {icon-fill-color: #139}
+node[railway=station][transport=subway][colour=blue]              {text-color:  #072889;}
+node[railway=station][transport=subway][colour=blue]::int_name    {text-color:  #072889;}
+node[railway==subway_entrance][colour=blue]                       {text-color:  #072889;}
 
 line|z12-[railway=subway][colour=purple]                          {width:3; color: #8B509C; z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
-node[railway=station][transport=subway][colour=purple]            {icon-fill-color: #859}
-node[railway=subway_entrance][colour=purple]                      {icon-fill-color: #859}
+node[railway=station][transport=subway][colour=purple]            {text-color:  #8B509C;}
+node[railway=station][transport=subway][colour=purple]::int_name  {text-color:  #8B509C;}
+node[railway=subway_entrance][colour=purple]                      {text-color:  #8B509C;}
 
 line|z12-[railway=subway][colour=orange]                          {width:3; color: #FF7700; z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
-node[railway=station][transport=subway][colour=orange]            {icon-fill-color: #870}
-node[railway=subway_entrance][colour=orange]                      {icon-fill-color: #870}
+node[railway=station][transport=subway][colour=orange]            {text-color:  #FF7700;}
+node[railway=station][transport=subway][colour=orange]::int_name  {text-color:  #FF7700;}
+node[railway=subway_entrance][colour=orange]                      {text-color:  #FF7700;}
 
 line|z12-[railway=subway][colour=green]                           {width:3; color: #006600; z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
-node[railway=station][transport=subway][colour=green]             {icon-fill-color: #060}
-node[railway=subway_entrance][colour=green]                       {icon-fill-color: #060}
+node[railway=station][transport=subway][colour=green]             {text-color:  #006600;}
+node[railway=station][transport=subway][colour=green]::int_name   {text-color:  #006600;}
+node[railway=subway_entrance][colour=green]                       {text-color:  #006600;}
 
 line|z12-[railway=subway][colour=brown]                           {width:3; color: #BB7700; z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
-node[railway=station][transport=subway][colour=brown]             {icon-fill-color: #B70}
-node[railway=subway_entrance][colour=brown]                       {icon-fill-color: #B70}
+node[railway=station][transport=subway][colour=brown]             {text-color:  #BB7700;}
+node[railway=station][transport=subway][colour=brown]::int_name   {text-color:  #BB7700;}
+node[railway=subway_entrance][colour=brown]                       {text-color:  #BB7700;}
 
 line|z12-[railway=subway][colour=yellow]                          {width:3; color: #F7C600; z-index:15; dashes:3,3; opacity:0.3; linecap: butt; -x-kot-layer: top;}
-node[railway=station][transport=subway][colour=yellow]            {icon-fill-color: #FC0}
-node[railway=subway_entrance][colour=yellow]                      {icon-fill-color: #FC0}
+node[railway=station][transport=subway][colour=yellow]            {text-color:  #F7C600;}
+node[railway=station][transport=subway][colour=yellow]::int_name  {text-color:  #F7C600;}
+node[railway=subway_entrance][colour=yellow]                      {text-color:  #F7C600;}
 
 node|z12[railway=station][transport=subway],
 area|z12[railway=station][transport=subway]

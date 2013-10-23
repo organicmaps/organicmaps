@@ -1018,7 +1018,7 @@ healthcare
 healthcare|dentist
 healthcare|hospital
 amenity|dentist
-amenity|landury
+amenity|laundry
 shop|dry_cleaning
 shop|funeral_directors
 amenity|gambling
@@ -1026,3 +1026,4 @@ amenity|casino
 amenity|shower
 shop|confectionery
 shop|outdoor
+railway|construction

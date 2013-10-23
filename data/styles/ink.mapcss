@@ -4088,8 +4088,6 @@ area[area:highway]{fill-color: white}
 
 node[railway=station][transport=subway]                           {text-color: #3050d8; text-position: center;}
 
-
-
 area|z15-[area:highway=footway],
 area|z15-[area:highway=pedestrian],
 area|z15-[area:highway=path],
@@ -4106,11 +4104,15 @@ area|z15-[area:highway=steps]
 @import("include/icons_maki.mapcss");
 @import("include/icons_nori.mapcss");
 @import("include/icons_neta.mapcss");
-* {icon-fill-color: black}
+@import("include/icon_colors.mapcss");
 
-*[amenity!=bench][natural!=tree][!barrier][railway!=subway_entrance][!power][natural!=peak]
+*
 {
-    symbol-shape: eval(cond(prop("icon-image"), "circle", ""));
-    symbol-size: 13;
-    symbol-fill-color: #f; 
+    icon-fill-color: #0;
+    icon-color: #f;
+    symbol-fill-color: #f;
+}
+*[natural!=tree][!barrier][power!=pole][power!=tower][natural!=peak]
+{
+    symbol-image: eval(any(prop("symbol-image"), "symbols/neta/circle-24.svg"));
 }

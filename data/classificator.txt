@@ -52,7 +52,7 @@ world  +
         hospital  -
         hunting_stand  -
         kindergarten  -
-        landury  -
+        laundry  -
         library  -
         marketplace  -
         money_transfer  -
@@ -570,6 +570,7 @@ world  +
             bridge  -
             tunnel  -
             {}
+        construction  -
         crossing  -
         disused  -
         funicular  +
