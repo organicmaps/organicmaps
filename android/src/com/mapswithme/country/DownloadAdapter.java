@@ -1,5 +1,7 @@
 package com.mapswithme.country;
 
+import java.lang.reflect.Field;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -348,14 +350,23 @@ class DownloadAdapter extends BaseAdapter
 
   private void setFlag(int position, ImageView v)
   {
-    final Resources res = mContext.getResources();
-
     final String strID = mItems[position].mFlag;
-    final int id = res.getIdentifier(strID, "drawable", mContext.getPackageName());
-    if (id > 0)
-      v.setImageDrawable(res.getDrawable(id));
-    else
-      Log.e(DownloadUI.TAG, "Failed to get resource id from: " + strID);
+
+    int id = -1;
+    try
+    {
+      // works faster than 'getIdentifier()'
+      id = R.drawable.class.getField(strID).getInt(null);
+
+      if (id > 0)
+        v.setImageResource(id);
+      else
+        Log.e(DownloadUI.TAG, "Failed to get resource id from: " + strID);
+    }
+    catch (final Exception e)
+    {
+      e.printStackTrace();
+    }
   }
 
   @Override
