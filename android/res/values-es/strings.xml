@@ -293,4 +293,5 @@
 	<string name="show_on_backscreen">Mostrar en la pantalla trasera</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Versión: %s</string>
+	<string name="are_you_sure">¿Seguro que desea continuar?</string>
 </resources>

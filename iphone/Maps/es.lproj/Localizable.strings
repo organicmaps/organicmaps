@@ -496,3 +496,5 @@
 
 /* Prints version number in About dialog */
 "version" = "Versión: %@";
+
+"are_you_sure" = "¿Seguro que desea continuar?";

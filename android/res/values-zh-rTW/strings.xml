@@ -285,4 +285,5 @@
 	<string name="done">完成</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">版本： %s</string>
+	<string name="are_you_sure">確定要繼續嗎？</string>
 </resources>

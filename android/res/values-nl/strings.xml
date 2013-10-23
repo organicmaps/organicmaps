@@ -292,4 +292,5 @@
 	<string name="show_on_backscreen">Toon op achtergrondscherm</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Versie: %s</string>
+	<string name="are_you_sure">Weet u zeker dat u wilt doorgaan?</string>
 </resources>

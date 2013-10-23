@@ -293,4 +293,5 @@
 	<string name="done">完了</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">バージョン： %s</string>
+	<string name="are_you_sure">本当に続けますか?</string>
 </resources>

@@ -316,4 +316,5 @@
 	<string name="show_on_backscreen">Pokaż na tylnym ekranie</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Wersja: %s</string>
+	<string name="are_you_sure">Czy na pewno kontynuować?</string>
 </resources>

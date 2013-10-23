@@ -307,4 +307,5 @@
 	<string name="show_on_backscreen">Показати на задньому екрані</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Версія: %s</string>
+	<string name="are_you_sure">Продовжити?</string>
 </resources>

@@ -496,3 +496,5 @@
 
 /* Prints version number in About dialog */
 "version" = "バージョン： %@";
+
+"are_you_sure" = "本当に続けますか?";

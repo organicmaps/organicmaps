@@ -289,4 +289,5 @@
 	<string name="done">완료</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">버전: %s</string>
+	<string name="are_you_sure">계속하겠습니까?</string>
 </resources>
