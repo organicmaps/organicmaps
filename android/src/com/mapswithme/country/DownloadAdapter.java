@@ -2,6 +2,7 @@ package com.mapswithme.country;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
@@ -164,7 +165,7 @@ class DownloadAdapter extends BaseAdapter
 
   private void showNotEnoughFreeSpaceDialog(String spaceNeeded, String countryName)
   {
-    new AlertDialog.Builder(mContext)
+    final Dialog dlg = new AlertDialog.Builder(mContext)
       .setMessage(String.format(mContext.getString(R.string.free_space_for_country), spaceNeeded, countryName))
       .setNegativeButton(mContext.getString(R.string.close), new DialogInterface.OnClickListener()
       {
@@ -174,8 +175,9 @@ class DownloadAdapter extends BaseAdapter
           dlg.dismiss();
         }
       })
-      .create()
-      .show();
+      .create();
+    dlg.setCanceledOnTouchOutside(true);
+    dlg.show();
   }
 
   private boolean hasFreeSpace(long size)
@@ -198,7 +200,7 @@ class DownloadAdapter extends BaseAdapter
   private void processDownloading(final Index idx, final String name)
   {
     // Confirm canceling
-    new AlertDialog.Builder(mContext)
+    final Dialog dlg = new AlertDialog.Builder(mContext)
       .setTitle(name)
       .setPositiveButton(R.string.cancel_download, new DialogInterface.OnClickListener()
       {
@@ -209,8 +211,9 @@ class DownloadAdapter extends BaseAdapter
           dlg.dismiss();
         }
       })
-      .create()
-      .show();
+      .create();
+    dlg.setCanceledOnTouchOutside(true);
+    dlg.show();
   }
 
   private void processOutOfDate(final Index idx, final String name)
@@ -400,7 +403,7 @@ class DownloadAdapter extends BaseAdapter
       if (type != TYPE_COUNTRY_GROUP)
       {
         populateForGuide(position, holder);
-        setUpProgress(holder, type);
+        setUpProgress(holder, type, position);
 
         // set country menu click listener
         final View fView = holder.mCountryMenu;
@@ -432,9 +435,9 @@ class DownloadAdapter extends BaseAdapter
 
 
 
-  private void setUpProgress(DownloadAdapter.ViewHolder holder, final int type)
+  private void setUpProgress(DownloadAdapter.ViewHolder holder, int type, int position)
   {
-    if (type == TYPE_COUNTRY_IN_PROCESS)
+    if (type == TYPE_COUNTRY_IN_PROCESS && getItem(position).mStatus != MapStorage.DOWNLOAD_FAILED)
     {
       holder.mProgress.setProgress(0);
       UiUtils.show(holder.mProgress);
