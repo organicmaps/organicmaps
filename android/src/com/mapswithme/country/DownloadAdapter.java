@@ -1,13 +1,15 @@
 package com.mapswithme.country;
 
-import java.lang.reflect.Field;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -56,18 +58,20 @@ class DownloadAdapter extends BaseAdapter
   private Index mIdx = new Index();
 
   private DownloadAdapter.CountryItem[] mItems = null;
+  private final ExecutorService executor =
+      Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
   private final boolean mHasGoogleStore;
 
 
-  private static class CountryItem
+  private class CountryItem
   {
     public final String mName;
     public final Index  mCountryIdx;
     public final String mFlag;
 
     /// @see constants in MapStorage
-    public int mStatus;
+    private Future<Integer> mStatusFuture;
 
     public CountryItem(MapStorage storage, Index idx)
     {
@@ -81,19 +85,37 @@ class DownloadAdapter extends BaseAdapter
       updateStatus(storage, idx);
     }
 
-    public void updateStatus(MapStorage storage, Index idx)
+    public int getStatus()
     {
-      if (idx.getCountry() == -1 || (idx.getRegion() == -1 && mFlag.length() == 0))
-        mStatus = MapStorage.GROUP;
-      else if (idx.getRegion() == -1 && storage.countriesCount(idx) > 0)
-        mStatus = MapStorage.COUNTRY;
-      else
-        mStatus = storage.countryStatus(idx);
+      try
+      {
+        return mStatusFuture.get();
+      }
+      catch (final Exception e)
+      {
+        throw new RuntimeException(e);
+      }
+    }
+
+    public void updateStatus(final MapStorage storage, final Index idx)
+    {
+      mStatusFuture = executor.submit(new Callable<Integer>()
+      {
+        @Override
+        public Integer call() throws Exception
+        {
+          if (idx.getCountry() == -1 || (idx.getRegion() == -1 && mFlag.length() == 0))
+            return MapStorage.GROUP;
+          else if (idx.getRegion() == -1 && storage.countriesCount(idx) > 0)
+            return MapStorage.COUNTRY;
+          else
+            return storage.countryStatus(idx);
+        }});
     }
 
     public int getTextColor()
     {
-      switch (mStatus)
+      switch (getStatus())
       {
       case MapStorage.ON_DISK:             return 0xFF333333;
       case MapStorage.ON_DISK_OUT_OF_DATE: return 0xFF000000;
@@ -108,7 +130,7 @@ class DownloadAdapter extends BaseAdapter
     /// Get item type for list view representation;
     public int getType()
     {
-      switch (mStatus)
+      switch (getStatus())
       {
       case MapStorage.GROUP:          return TYPE_GROUP;
       case MapStorage.COUNTRY:        return TYPE_COUNTRY_GROUP;
@@ -150,7 +172,7 @@ class DownloadAdapter extends BaseAdapter
   /// Process list item click.
   public void onItemClick(int position, View view)
   {
-    if (mItems[position].mStatus < 0)
+    if (mItems[position].getStatus() < 0)
     {
       // expand next level
       mIdx = mIdx.getChild(position);
@@ -448,7 +470,7 @@ class DownloadAdapter extends BaseAdapter
 
   private void setUpProgress(DownloadAdapter.ViewHolder holder, int type, int position)
   {
-    if (type == TYPE_COUNTRY_IN_PROCESS && getItem(position).mStatus != MapStorage.DOWNLOAD_FAILED)
+    if (type == TYPE_COUNTRY_IN_PROCESS && getItem(position).getStatus() != MapStorage.DOWNLOAD_FAILED)
     {
       holder.mProgress.setProgress(0);
       UiUtils.show(holder.mProgress);
@@ -507,7 +529,7 @@ class DownloadAdapter extends BaseAdapter
       // use this hard reset, because of caching different ViewHolders according to item's type
       notifyDataSetChanged();
 
-      return mItems[position].mStatus;
+      return mItems[position].getStatus();
     }
 
     return MapStorage.UNKNOWN;
@@ -542,7 +564,7 @@ class DownloadAdapter extends BaseAdapter
     final int MENU_DOWNLOAD = 4;
     final int MENU_CANCEL   = 5;
 
-    final int status = countryItem.mStatus;
+    final int status = countryItem.getStatus();
     final Index countryIndex = countryItem.mCountryIdx;
     final String name = countryItem.mName;
 
