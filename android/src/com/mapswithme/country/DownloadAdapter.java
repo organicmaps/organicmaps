@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -484,8 +485,14 @@ class DownloadAdapter extends BaseAdapter
   private void setItemText(int position, DownloadAdapter.ViewHolder holder)
   {
     // set texts
-    holder.mName.setText(mItems[position].mName);
-    holder.mName.setTextColor(mItems[position].getTextColor());
+    final CountryItem item = mItems[position];
+    holder.mName.setText(item.mName);
+    holder.mName.setTextColor(item.getTextColor());
+
+    if (getItemViewType(position) == TYPE_COUNTRY_READY)
+      holder.mName.setTypeface(holder.mName.getTypeface(), Typeface.BOLD);
+    else
+      holder.mName.setTypeface(holder.mName.getTypeface(), Typeface.NORMAL);
   }
 
 
