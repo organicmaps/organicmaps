@@ -25,7 +25,8 @@ SOURCES += \
     failure_reporter.cpp \
     glmock_functions.cpp \
     buffer_tests.cpp \
-    uniform_value_tests.cpp
+    uniform_value_tests.cpp \
+    attribute_provides_tests.cpp
 
 HEADERS += \
     glmock_functions.hpp

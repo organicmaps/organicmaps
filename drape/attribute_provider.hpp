@@ -35,7 +35,7 @@ private:
   vector<AttributeStream> m_streams;
 #ifdef DEBUG
   void CheckStreams() const;
-  void InitStream(uint8_t streamIndex);
+  void InitCheckStream(uint8_t streamIndex);
   vector<bool> m_checkInfo;
 #endif
 };

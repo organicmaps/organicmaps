@@ -4,7 +4,7 @@
 #ifdef DEBUG
   #define INIT_CHECK_INFO(x) m_checkInfo = vector<bool>((vector<bool>::size_type)(x), false);
   #define CHECK_STREAMS CheckStreams()
-  #define INIT_STREAM(x) InitStream((x))
+  #define INIT_STREAM(x) InitCheckStream((x))
 #else
   #include "../../base/macros.hpp"
   #define INIT_CHECK_INFO(x) UNUSED_VALUE((x))
@@ -28,7 +28,6 @@ bool AttributeProvider::IsDataExists() const
 
 uint16_t AttributeProvider::GetVertexCount() const
 {
-  CHECK_STREAMS;
   return m_vertexCount;
 }
 
@@ -85,7 +84,7 @@ void AttributeProvider::CheckStreams() const
          ("Not all streams initialized"));
 }
 
-void AttributeProvider::InitStream(uint8_t streamIndex)
+void AttributeProvider::InitCheckStream(uint8_t streamIndex)
 {
   m_checkInfo[streamIndex] = true;
 }
