@@ -880,12 +880,6 @@ line|z13[boundary=administrative][border_type=state]
   z-index: 438;
   dashes: 12,4,4,4;
 }
-node|z13[aerialway=station]
-{
-  symbol-shape: circle;
-  symbol-fill-color: #202020;
-  symbol-size: 2;
-}
 area|z13-15[natural=peak],
 node|z13-15[natural=peak]
 {
@@ -1567,12 +1561,6 @@ line|z14[waterway=stream]
   width: 1;
   z-index: 101;
 }
-node|z14[aerialway=station]
-{
-  symbol-shape: circle;
-  symbol-fill-color: #3050d8;
-  symbol-size: 2;
-}
 line|z14[boundary=administrative][admin_level=2]::d2p2
 {
   color: #f9574b;
@@ -1627,12 +1615,6 @@ line|z14[natural=glacier]
   color: lightblue;
   width: 0.8;
   z-index: 8;
-}
-node|z15[aerialway=station]
-{
-  symbol-shape: circle;
-  symbol-fill-color: #3050d8;
-  symbol-size: 3;
 }
 line|z14[railway=funicular]::d1p2
 {
@@ -2558,13 +2540,6 @@ line|z16[railway=abandoned]
   z-index: 542;
   opacity: 0.4;
 }
-area|z16[aerialway=station],
-node|z16[aerialway=station]
-{
-  symbol-shape: circle;
-  symbol-fill-color: #3050d8;
-  symbol-size: 4;
-}
 line|z16[power=minor_line]
 {
   color: white;
@@ -2681,16 +2656,6 @@ node|z16-[natural=volcano]
   text: name;
   font-size: 16;
   text-color: #202020;
-}
-line|z16[barrier=bollard],
-node|z16[barrier=block],
-node|z16[barrier=bollard],
-node|z16[barrier=stile],
-node|z16[barrier=toll_booth]
-{
-  symbol-shape: circle;
-  symbol-fill-color: #707070;
-  symbol-size: 1.2;
 }
 line|z16[boundary=administrative][admin_level=2]::d2p2
 {
@@ -3367,12 +3332,6 @@ line|z17-[railway=disused]::d1p3
   z-index: 677;
   dashes: 12,12;
 }
-node|z17-[man_made=cairn]
-{
-  symbol-shape: circle;
-  symbol-fill-color: white;
-  symbol-size: 3.2;
-}
 line|z17-[aerialway=chair_lift]
 {
   color: #202020;
@@ -3563,17 +3522,6 @@ line|z17-[boundary=administrative][border_type=region]
   z-index: 974;
   dashes: 12,4,4,4;
 }
-
-node|z17-[barrier=bollard],
-node|z17-[barrier=block],
-node|z17-[barrier=bollard],
-node|z17-[barrier=stile],
-node|z17-[barrier=toll_booth]
-{
-  symbol-shape: circle;
-  symbol-fill-color: #707070;
-  symbol-size: 1.6;
-}
 line|z17-[boundary=administrative][border_type=state]
 {
   color: #f9574b;
@@ -3641,14 +3589,6 @@ line|z17-[power=minor_line]::d1p2
   width: 0.8;
   dashes: 1.2,2,1.2,2,1.2,4.4;
   linecap: butt;
-}
-
-area|z17-[aerialway=station],
-node|z17-[aerialway=station]
-{
-  symbol-shape: circle;
-  symbol-fill-color: #3050d8;
-  symbol-size: 3.2;
 }
 line|z17-[railway=funicular]::d1p2
 {
@@ -3809,9 +3749,6 @@ line[waterway=canal]
 
 node|z17-[entrance]
 {
-  symbol-shape: circle;
-  symbol-fill-color: #202020;
-  symbol-size: 2;
   font-size: 9;
   text: ref;
   text-offset-x: 6;
@@ -4112,7 +4049,7 @@ area|z15-[area:highway=steps]
     icon-color: #f;
     symbol-fill-color: #f;
 }
-*[natural!=tree][!barrier][power!=pole][power!=tower][natural!=peak]
+*[natural!=tree][!barrier][power!=pole][power!=tower][natural!=peak][!entrance]
 {
     symbol-image: eval(any(prop("symbol-image"), "symbols/neta/circle-24.svg"));
 }

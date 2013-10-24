@@ -23,3 +23,7 @@
 {
     icon-image: symbols/neta/subway-12.svg;
 }
+node|z16-[entrance]
+{
+    icon-image: symbols/neta/circle-10.svg;
+}

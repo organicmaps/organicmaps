@@ -38,7 +38,6 @@ class AreaRuleProto;
 class SymbolRuleProto;
 class CaptionDefProto;
 class CaptionRuleProto;
-class CircleRuleProto;
 class PathTextRuleProto;
 class DrawElementProto;
 class ClassifElementProto;
@@ -997,121 +996,6 @@ class CaptionRuleProto : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class CircleRuleProto : public ::google::protobuf::MessageLite {
- public:
-  CircleRuleProto();
-  virtual ~CircleRuleProto();
-
-  CircleRuleProto(const CircleRuleProto& from);
-
-  inline CircleRuleProto& operator=(const CircleRuleProto& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const CircleRuleProto& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const CircleRuleProto* internal_default_instance() {
-    return default_instance_;
-  }
-  #endif
-
-  void Swap(CircleRuleProto* other);
-
-  // implements Message ----------------------------------------------
-
-  CircleRuleProto* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const CircleRuleProto& from);
-  void MergeFrom(const CircleRuleProto& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-
-  ::std::string GetTypeName() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required double radius = 1;
-  inline bool has_radius() const;
-  inline void clear_radius();
-  static const int kRadiusFieldNumber = 1;
-  inline double radius() const;
-  inline void set_radius(double value);
-
-  // required uint32 color = 2;
-  inline bool has_color() const;
-  inline void clear_color();
-  static const int kColorFieldNumber = 2;
-  inline ::google::protobuf::uint32 color() const;
-  inline void set_color(::google::protobuf::uint32 value);
-
-  // optional .LineDefProto border = 3;
-  inline bool has_border() const;
-  inline void clear_border();
-  static const int kBorderFieldNumber = 3;
-  inline const ::LineDefProto& border() const;
-  inline ::LineDefProto* mutable_border();
-  inline ::LineDefProto* release_border();
-  inline void set_allocated_border(::LineDefProto* border);
-
-  // required int32 priority = 4;
-  inline bool has_priority() const;
-  inline void clear_priority();
-  static const int kPriorityFieldNumber = 4;
-  inline ::google::protobuf::int32 priority() const;
-  inline void set_priority(::google::protobuf::int32 value);
-
-  // @@protoc_insertion_point(class_scope:CircleRuleProto)
- private:
-  inline void set_has_radius();
-  inline void clear_has_radius();
-  inline void set_has_color();
-  inline void clear_has_color();
-  inline void set_has_border();
-  inline void clear_has_border();
-  inline void set_has_priority();
-  inline void clear_has_priority();
-
-  double radius_;
-  ::LineDefProto* border_;
-  ::google::protobuf::uint32 color_;
-  ::google::protobuf::int32 priority_;
-
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
-  #else
-  friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
-  #endif
-  friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
-  friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
-
-  void InitAsDefaultInstance();
-  static CircleRuleProto* default_instance_;
-};
-// -------------------------------------------------------------------
-
 class PathTextRuleProto : public ::google::protobuf::MessageLite {
  public:
   PathTextRuleProto();
@@ -1318,15 +1202,6 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
   inline ::CaptionRuleProto* release_caption();
   inline void set_allocated_caption(::CaptionRuleProto* caption);
 
-  // optional .CircleRuleProto circle = 6;
-  inline bool has_circle() const;
-  inline void clear_circle();
-  static const int kCircleFieldNumber = 6;
-  inline const ::CircleRuleProto& circle() const;
-  inline ::CircleRuleProto* mutable_circle();
-  inline ::CircleRuleProto* release_circle();
-  inline void set_allocated_circle(::CircleRuleProto* circle);
-
   // optional .PathTextRuleProto path_text = 7;
   inline bool has_path_text() const;
   inline void clear_path_text();
@@ -1346,8 +1221,6 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
   inline void clear_has_symbol();
   inline void set_has_caption();
   inline void clear_has_caption();
-  inline void set_has_circle();
-  inline void clear_has_circle();
   inline void set_has_path_text();
   inline void clear_has_path_text();
 
@@ -1355,12 +1228,11 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
   ::AreaRuleProto* area_;
   ::SymbolRuleProto* symbol_;
   ::CaptionRuleProto* caption_;
-  ::CircleRuleProto* circle_;
   ::PathTextRuleProto* path_text_;
   ::google::protobuf::int32 scale_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
 
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
@@ -2544,118 +2416,6 @@ inline void CaptionRuleProto::set_priority(::google::protobuf::int32 value) {
 
 // -------------------------------------------------------------------
 
-// CircleRuleProto
-
-// required double radius = 1;
-inline bool CircleRuleProto::has_radius() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void CircleRuleProto::set_has_radius() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void CircleRuleProto::clear_has_radius() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void CircleRuleProto::clear_radius() {
-  radius_ = 0;
-  clear_has_radius();
-}
-inline double CircleRuleProto::radius() const {
-  return radius_;
-}
-inline void CircleRuleProto::set_radius(double value) {
-  set_has_radius();
-  radius_ = value;
-}
-
-// required uint32 color = 2;
-inline bool CircleRuleProto::has_color() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void CircleRuleProto::set_has_color() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void CircleRuleProto::clear_has_color() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void CircleRuleProto::clear_color() {
-  color_ = 0u;
-  clear_has_color();
-}
-inline ::google::protobuf::uint32 CircleRuleProto::color() const {
-  return color_;
-}
-inline void CircleRuleProto::set_color(::google::protobuf::uint32 value) {
-  set_has_color();
-  color_ = value;
-}
-
-// optional .LineDefProto border = 3;
-inline bool CircleRuleProto::has_border() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void CircleRuleProto::set_has_border() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void CircleRuleProto::clear_has_border() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void CircleRuleProto::clear_border() {
-  if (border_ != NULL) border_->::LineDefProto::Clear();
-  clear_has_border();
-}
-inline const ::LineDefProto& CircleRuleProto::border() const {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  return border_ != NULL ? *border_ : *default_instance().border_;
-#else
-  return border_ != NULL ? *border_ : *default_instance_->border_;
-#endif
-}
-inline ::LineDefProto* CircleRuleProto::mutable_border() {
-  set_has_border();
-  if (border_ == NULL) border_ = new ::LineDefProto;
-  return border_;
-}
-inline ::LineDefProto* CircleRuleProto::release_border() {
-  clear_has_border();
-  ::LineDefProto* temp = border_;
-  border_ = NULL;
-  return temp;
-}
-inline void CircleRuleProto::set_allocated_border(::LineDefProto* border) {
-  delete border_;
-  border_ = border;
-  if (border) {
-    set_has_border();
-  } else {
-    clear_has_border();
-  }
-}
-
-// required int32 priority = 4;
-inline bool CircleRuleProto::has_priority() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void CircleRuleProto::set_has_priority() {
-  _has_bits_[0] |= 0x00000008u;
-}
-inline void CircleRuleProto::clear_has_priority() {
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline void CircleRuleProto::clear_priority() {
-  priority_ = 0;
-  clear_has_priority();
-}
-inline ::google::protobuf::int32 CircleRuleProto::priority() const {
-  return priority_;
-}
-inline void CircleRuleProto::set_priority(::google::protobuf::int32 value) {
-  set_has_priority();
-  priority_ = value;
-}
-
-// -------------------------------------------------------------------
-
 // PathTextRuleProto
 
 // required .CaptionDefProto primary = 1;
@@ -2941,57 +2701,15 @@ inline void DrawElementProto::set_allocated_caption(::CaptionRuleProto* caption)
   }
 }
 
-// optional .CircleRuleProto circle = 6;
-inline bool DrawElementProto::has_circle() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
-}
-inline void DrawElementProto::set_has_circle() {
-  _has_bits_[0] |= 0x00000020u;
-}
-inline void DrawElementProto::clear_has_circle() {
-  _has_bits_[0] &= ~0x00000020u;
-}
-inline void DrawElementProto::clear_circle() {
-  if (circle_ != NULL) circle_->::CircleRuleProto::Clear();
-  clear_has_circle();
-}
-inline const ::CircleRuleProto& DrawElementProto::circle() const {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  return circle_ != NULL ? *circle_ : *default_instance().circle_;
-#else
-  return circle_ != NULL ? *circle_ : *default_instance_->circle_;
-#endif
-}
-inline ::CircleRuleProto* DrawElementProto::mutable_circle() {
-  set_has_circle();
-  if (circle_ == NULL) circle_ = new ::CircleRuleProto;
-  return circle_;
-}
-inline ::CircleRuleProto* DrawElementProto::release_circle() {
-  clear_has_circle();
-  ::CircleRuleProto* temp = circle_;
-  circle_ = NULL;
-  return temp;
-}
-inline void DrawElementProto::set_allocated_circle(::CircleRuleProto* circle) {
-  delete circle_;
-  circle_ = circle;
-  if (circle) {
-    set_has_circle();
-  } else {
-    clear_has_circle();
-  }
-}
-
 // optional .PathTextRuleProto path_text = 7;
 inline bool DrawElementProto::has_path_text() const {
-  return (_has_bits_[0] & 0x00000040u) != 0;
+  return (_has_bits_[0] & 0x00000020u) != 0;
 }
 inline void DrawElementProto::set_has_path_text() {
-  _has_bits_[0] |= 0x00000040u;
+  _has_bits_[0] |= 0x00000020u;
 }
 inline void DrawElementProto::clear_has_path_text() {
-  _has_bits_[0] &= ~0x00000040u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline void DrawElementProto::clear_path_text() {
   if (path_text_ != NULL) path_text_->::PathTextRuleProto::Clear();

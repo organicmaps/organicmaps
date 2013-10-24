@@ -683,12 +683,6 @@ line|z13[boundary=administrative][border_type=state]
   z-index: 438;
   dashes: 12,4,4,4;
 }
-node|z13[aerialway=station]
-{
-  symbol-shape: circle;
-  symbol-fill-color: #202020;
-  symbol-size: 2;
-}
 area|z13-15[natural=peak],
 node|z13-15[natural=peak]
 {
@@ -1378,12 +1372,6 @@ line|z14[railway=light_rail]::d1p2
   width: 1.7;
   z-index: 677;
 }
-node|z14[aerialway=station]
-{
-  symbol-shape: circle;
-  symbol-fill-color: #3050d8;
-  symbol-size: 2;
-}
 line|z14[boundary=administrative][admin_level=2]::d2p2
 {
   color: #f9574b;
@@ -1428,12 +1416,6 @@ line|z14[railway=spur]::d1p3
   z-index: 311;
   dashes: 3,6;
   linecap: butt;
-}
-node|z15[aerialway=station]
-{
-  symbol-shape: circle;
-  symbol-fill-color: #3050d8;
-  symbol-size: 3;
 }
 line|z14[railway=funicular]::d1p2
 {
@@ -2215,13 +2197,6 @@ line|z16[railway=abandoned]
   z-index: 542;
   opacity: 0.4;
 }
-area|z16[aerialway=station],
-node|z16[aerialway=station]
-{
-  symbol-shape: circle;
-  symbol-fill-color: #3050d8;
-  symbol-size: 4;
-}
 line|z16[power=minor_line]
 {
   color: white;
@@ -2993,12 +2968,6 @@ line|z17-[railway=disused]::d1p3
   z-index: 677;
   dashes: 12,12;
 }
-node|z17-[man_made=cairn]
-{
-  symbol-shape: circle;
-  symbol-fill-color: white;
-  symbol-size: 3.2;
-}
 line|z17-[aerialway=chair_lift]
 {
   color: #202020;
@@ -3261,13 +3230,6 @@ line|z17-[power=minor_line]::d1p2
   dashes: 1.2,2,1.2,2,1.2,4.4;
   linecap: butt;
 }
-area|z17-[aerialway=station],
-node|z17-[aerialway=station]
-{
-  symbol-shape: circle;
-  symbol-fill-color: #3050d8;
-  symbol-size: 3.2;
-}
 line|z17-[railway=funicular]::d1p2
 {
   color: #e6b7b7;
@@ -3385,9 +3347,6 @@ line|z17-[power=minor_line]
 
 node|z16-[entrance]
 {
-  symbol-shape: circle;
-  symbol-fill-color: #202020;
-  symbol-size: 2;
   font-size: 9;
   text: ref;
   text-offset-x: 6;

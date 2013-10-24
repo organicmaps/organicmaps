@@ -74,8 +74,7 @@ SOURCES += \
     brush.cpp \
     pipeline_manager.cpp \
     geometry_pipeline.cpp \
-    path_view.cpp \
-    circled_symbol.cpp
+    path_view.cpp
 
 HEADERS += \
     opengl/opengl.hpp \
@@ -146,7 +145,6 @@ HEADERS += \
     path_view.hpp \
     path.hpp \
     depth_constants.hpp \
-    circled_symbol.hpp
 
 win32* {
   SOURCES += opengl/opengl_win32.cpp

@@ -16,7 +16,6 @@ class LineDefProto;
 class AreaRuleProto;
 class SymbolRuleProto;
 class CaptionDefProto;
-class CircleRuleProto;
 
 
 namespace drule
@@ -47,7 +46,6 @@ namespace drule
     virtual AreaRuleProto const * GetArea() const;
     virtual SymbolRuleProto const * GetSymbol() const;
     virtual CaptionDefProto const * GetCaption(int) const;
-    virtual CircleRuleProto const * GetCircle() const;
   };
 
   class RulesHolder

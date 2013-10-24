@@ -213,30 +213,6 @@ cont {
 cont {
   name: "aerialway-station"
   element {
-    scale: 13
-    circle {
-      radius: 2.0
-      color: 16777215
-      priority: 14000
-    }
-  }
-  element {
-    scale: 14
-    circle {
-      radius: 2.0
-      color: 16777215
-      priority: 14000
-    }
-  }
-  element {
-    scale: 15
-    circle {
-      radius: 3.0
-      color: 16777215
-      priority: 14000
-    }
-  }
-  element {
     scale: 16
     caption {
       primary {
@@ -245,11 +221,6 @@ cont {
         stroke_color: 16777215
       }
       priority: 15000
-    }
-    circle {
-      radius: 4.0
-      color: 16777215
-      priority: 14000
     }
   }
   element {
@@ -262,11 +233,6 @@ cont {
       }
       priority: 15000
     }
-    circle {
-      radius: 3.2
-      color: 16777215
-      priority: 14000
-    }
   }
   element {
     scale: 18
@@ -278,11 +244,6 @@ cont {
       }
       priority: 15000
     }
-    circle {
-      radius: 3.2
-      color: 16777215
-      priority: 14000
-    }
   }
   element {
     scale: 19
@@ -293,11 +254,6 @@ cont {
         stroke_color: 16777215
       }
       priority: 15000
-    }
-    circle {
-      radius: 3.2
-      color: 16777215
-      priority: 14000
     }
   }
 }
@@ -7607,22 +7563,12 @@ cont {
       name: "symbols/maki/roadblock-12.svg:#000000:#FFFFFF:::"
       priority: 16000
     }
-    circle {
-      radius: 1.2
-      color: 16777215
-      priority: 14000
-    }
   }
   element {
     scale: 17
     symbol {
       name: "symbols/maki/roadblock-12.svg:#000000:#FFFFFF:::"
       priority: 16000
-    }
-    circle {
-      radius: 1.6
-      color: 16777215
-      priority: 14000
     }
   }
   element {
@@ -7631,22 +7577,12 @@ cont {
       name: "symbols/maki/roadblock-12.svg:#000000:#FFFFFF:::"
       priority: 16000
     }
-    circle {
-      radius: 1.6
-      color: 16777215
-      priority: 14000
-    }
   }
   element {
     scale: 19
     symbol {
       name: "symbols/maki/roadblock-12.svg:#000000:#FFFFFF:::"
       priority: 16000
-    }
-    circle {
-      radius: 1.6
-      color: 16777215
-      priority: 14000
     }
   }
 }
@@ -7658,22 +7594,12 @@ cont {
       name: "symbols/neta/bollard-18.svg:#000000:#FFFFFF:::"
       priority: 16000
     }
-    circle {
-      radius: 1.2
-      color: 16777215
-      priority: 14000
-    }
   }
   element {
     scale: 17
     symbol {
       name: "symbols/neta/bollard-18.svg:#000000:#FFFFFF:::"
       priority: 16000
-    }
-    circle {
-      radius: 1.6
-      color: 16777215
-      priority: 14000
     }
   }
   element {
@@ -7682,22 +7608,12 @@ cont {
       name: "symbols/neta/bollard-18.svg:#000000:#FFFFFF:::"
       priority: 16000
     }
-    circle {
-      radius: 1.6
-      color: 16777215
-      priority: 14000
-    }
   }
   element {
     scale: 19
     symbol {
       name: "symbols/neta/bollard-18.svg:#000000:#FFFFFF:::"
       priority: 16000
-    }
-    circle {
-      radius: 1.6
-      color: 16777215
-      priority: 14000
     }
   }
 }
@@ -8011,76 +7927,6 @@ cont {
       priority: 1932
       join: ROUNDJOIN
       cap: BUTTCAP
-    }
-  }
-}
-cont {
-  name: "barrier-stile"
-  element {
-    scale: 16
-    circle {
-      radius: 1.2
-      color: 16777215
-      priority: 14000
-    }
-  }
-  element {
-    scale: 17
-    circle {
-      radius: 1.6
-      color: 16777215
-      priority: 14000
-    }
-  }
-  element {
-    scale: 18
-    circle {
-      radius: 1.6
-      color: 16777215
-      priority: 14000
-    }
-  }
-  element {
-    scale: 19
-    circle {
-      radius: 1.6
-      color: 16777215
-      priority: 14000
-    }
-  }
-}
-cont {
-  name: "barrier-toll_booth"
-  element {
-    scale: 16
-    circle {
-      radius: 1.2
-      color: 16777215
-      priority: 14000
-    }
-  }
-  element {
-    scale: 17
-    circle {
-      radius: 1.6
-      color: 16777215
-      priority: 14000
-    }
-  }
-  element {
-    scale: 18
-    circle {
-      radius: 1.6
-      color: 16777215
-      priority: 14000
-    }
-  }
-  element {
-    scale: 19
-    circle {
-      radius: 1.6
-      color: 16777215
-      priority: 14000
     }
   }
 }
@@ -10701,7 +10547,20 @@ cont {
 cont {
   name: "entrance"
   element {
+    scale: 16
+    symbol {
+      name: "symbols/neta/circle-10.svg:#000000:#FFFFFF:::"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
+    symbol {
+      name: "symbols/neta/circle-10.svg:#000000:#FFFFFF:::"
+      apply_for_type: 1
+      priority: 16023
+    }
     caption {
       primary {
         height: 9
@@ -10710,15 +10569,15 @@ cont {
         offset_x: 6
       }
       priority: 15023
-    }
-    circle {
-      radius: 2.0
-      color: 16777215
-      priority: 14023
     }
   }
   element {
     scale: 18
+    symbol {
+      name: "symbols/neta/circle-10.svg:#000000:#FFFFFF:::"
+      apply_for_type: 1
+      priority: 16023
+    }
     caption {
       primary {
         height: 9
@@ -10728,14 +10587,14 @@ cont {
       }
       priority: 15023
     }
-    circle {
-      radius: 2.0
-      color: 16777215
-      priority: 14023
-    }
   }
   element {
     scale: 19
+    symbol {
+      name: "symbols/neta/circle-10.svg:#000000:#FFFFFF:::"
+      apply_for_type: 1
+      priority: 16023
+    }
     caption {
       primary {
         height: 9
@@ -10750,11 +10609,6 @@ cont {
         offset_y: 10
       }
       priority: 15023
-    }
-    circle {
-      radius: 2.0
-      color: 16777215
-      priority: 14023
     }
   }
 }
@@ -51640,33 +51494,6 @@ cont {
       priority: 1844
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-  }
-}
-cont {
-  name: "man_made-cairn"
-  element {
-    scale: 17
-    circle {
-      radius: 3.2
-      color: 16777215
-      priority: 14000
-    }
-  }
-  element {
-    scale: 18
-    circle {
-      radius: 3.2
-      color: 16777215
-      priority: 14000
-    }
-  }
-  element {
-    scale: 19
-    circle {
-      radius: 3.2
-      color: 16777215
-      priority: 14000
     }
   }
 }
