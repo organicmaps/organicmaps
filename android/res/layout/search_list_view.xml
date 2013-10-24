@@ -1,40 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp" >
 
     <RelativeLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
-		<EditText android:id="@+id/search_string"
-                  android:inputType="text"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:hint="@string/search_map"/>
+        <EditText
+            android:id="@+id/search_string"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_map"
+            android:inputType="text" />
 
-		<ProgressBar android:id="@+id/search_progress"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_centerVertical="true"
-                     android:layout_alignParentRight="true"
-                     android:layout_marginRight="8dp"
-                     style="@style/Holo.ProgressBar.Small"
-                     android:visibility="gone"/>
-
+        <ProgressBar
+            android:id="@+id/search_progress"
+            style="@style/Holo.ProgressBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:visibility="gone" />
     </RelativeLayout>
 
-    <Spinner android:id="@+id/search_modes_spinner"
-             android:layout_width="fill_parent"
-             android:layout_height="wrap_content"/>
+    <Spinner
+        android:id="@+id/search_modes_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
 
-    <ListView android:id="@android:id/list"
-              android:layout_width="match_parent"
-              android:layout_height="0dp"
-              android:layout_weight="1"/>
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:animationCache="false"
+        android:scrollingCache="false" />
 
 </LinearLayout>
