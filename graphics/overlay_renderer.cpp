@@ -5,6 +5,7 @@
 #include "path_text_element.hpp"
 #include "symbol_element.hpp"
 #include "circle_element.hpp"
+#include "circled_symbol.hpp"
 #include "overlay.hpp"
 #include "resource_manager.hpp"
 
@@ -77,6 +78,19 @@ namespace graphics
     params.m_ci = ci;
 
     drawCircle(params);
+  }
+
+  void OverlayRenderer::drawCircledSymbol(SymbolElement::Params const & symParams,
+                         CircleElement::Params const & circleParams)
+  {
+    shared_ptr<OverlayElement> oe(new CircledSymbol(symParams, circleParams));
+
+    math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
+
+    if (!m_overlay.get())
+      oe->draw(this, id);
+    else
+      m_overlay->processOverlayElement(oe);
   }
 
   void OverlayRenderer::drawText(FontDesc const & fontDesc,

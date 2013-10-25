@@ -21,6 +21,7 @@ void protobuf_ShutdownFile_drules_5fstruct_2eproto() {
   delete SymbolRuleProto::default_instance_;
   delete CaptionDefProto::default_instance_;
   delete CaptionRuleProto::default_instance_;
+  delete CircleRuleProto::default_instance_;
   delete PathTextRuleProto::default_instance_;
   delete DrawElementProto::default_instance_;
   delete ClassifElementProto::default_instance_;
@@ -47,6 +48,7 @@ void protobuf_AddDesc_drules_5fstruct_2eproto() {
   SymbolRuleProto::default_instance_ = new SymbolRuleProto();
   CaptionDefProto::default_instance_ = new CaptionDefProto();
   CaptionRuleProto::default_instance_ = new CaptionRuleProto();
+  CircleRuleProto::default_instance_ = new CircleRuleProto();
   PathTextRuleProto::default_instance_ = new PathTextRuleProto();
   DrawElementProto::default_instance_ = new DrawElementProto();
   ClassifElementProto::default_instance_ = new ClassifElementProto();
@@ -59,6 +61,7 @@ void protobuf_AddDesc_drules_5fstruct_2eproto() {
   SymbolRuleProto::default_instance_->InitAsDefaultInstance();
   CaptionDefProto::default_instance_->InitAsDefaultInstance();
   CaptionRuleProto::default_instance_->InitAsDefaultInstance();
+  CircleRuleProto::default_instance_->InitAsDefaultInstance();
   PathTextRuleProto::default_instance_->InitAsDefaultInstance();
   DrawElementProto::default_instance_->InitAsDefaultInstance();
   ClassifElementProto::default_instance_->InitAsDefaultInstance();
@@ -2379,6 +2382,288 @@ void CaptionRuleProto::Swap(CaptionRuleProto* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
+const int CircleRuleProto::kRadiusFieldNumber;
+const int CircleRuleProto::kColorFieldNumber;
+const int CircleRuleProto::kBorderFieldNumber;
+const int CircleRuleProto::kPriorityFieldNumber;
+#endif  // !_MSC_VER
+
+CircleRuleProto::CircleRuleProto()
+  : ::google::protobuf::MessageLite() {
+  SharedCtor();
+}
+
+void CircleRuleProto::InitAsDefaultInstance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  border_ = const_cast< ::LineDefProto*>(
+      ::LineDefProto::internal_default_instance());
+#else
+  border_ = const_cast< ::LineDefProto*>(&::LineDefProto::default_instance());
+#endif
+}
+
+CircleRuleProto::CircleRuleProto(const CircleRuleProto& from)
+  : ::google::protobuf::MessageLite() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void CircleRuleProto::SharedCtor() {
+  _cached_size_ = 0;
+  radius_ = 0;
+  color_ = 0u;
+  border_ = NULL;
+  priority_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+CircleRuleProto::~CircleRuleProto() {
+  SharedDtor();
+}
+
+void CircleRuleProto::SharedDtor() {
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
+  if (this != default_instance_) {
+  #endif
+    delete border_;
+  }
+}
+
+void CircleRuleProto::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const CircleRuleProto& CircleRuleProto::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_drules_5fstruct_2eproto();
+#else
+  if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();
+#endif
+  return *default_instance_;
+}
+
+CircleRuleProto* CircleRuleProto::default_instance_ = NULL;
+
+CircleRuleProto* CircleRuleProto::New() const {
+  return new CircleRuleProto;
+}
+
+void CircleRuleProto::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    radius_ = 0;
+    color_ = 0u;
+    if (has_border()) {
+      if (border_ != NULL) border_->::LineDefProto::Clear();
+    }
+    priority_ = 0;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+bool CircleRuleProto::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required double radius = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED64) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &radius_)));
+          set_has_radius();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(16)) goto parse_color;
+        break;
+      }
+
+      // required uint32 color = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_color:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &color_)));
+          set_has_color();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(26)) goto parse_border;
+        break;
+      }
+
+      // optional .LineDefProto border = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_border:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_border()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(32)) goto parse_priority;
+        break;
+      }
+
+      // required int32 priority = 4;
+      case 4: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_priority:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &priority_)));
+          set_has_priority();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void CircleRuleProto::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // required double radius = 1;
+  if (has_radius()) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(1, this->radius(), output);
+  }
+
+  // required uint32 color = 2;
+  if (has_color()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->color(), output);
+  }
+
+  // optional .LineDefProto border = 3;
+  if (has_border()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+      3, this->border(), output);
+  }
+
+  // required int32 priority = 4;
+  if (has_priority()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->priority(), output);
+  }
+
+}
+
+int CircleRuleProto::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required double radius = 1;
+    if (has_radius()) {
+      total_size += 1 + 8;
+    }
+
+    // required uint32 color = 2;
+    if (has_color()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->color());
+    }
+
+    // optional .LineDefProto border = 3;
+    if (has_border()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->border());
+    }
+
+    // required int32 priority = 4;
+    if (has_priority()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->priority());
+    }
+
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void CircleRuleProto::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const CircleRuleProto*>(&from));
+}
+
+void CircleRuleProto::MergeFrom(const CircleRuleProto& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_radius()) {
+      set_radius(from.radius());
+    }
+    if (from.has_color()) {
+      set_color(from.color());
+    }
+    if (from.has_border()) {
+      mutable_border()->::LineDefProto::MergeFrom(from.border());
+    }
+    if (from.has_priority()) {
+      set_priority(from.priority());
+    }
+  }
+}
+
+void CircleRuleProto::CopyFrom(const CircleRuleProto& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CircleRuleProto::IsInitialized() const {
+  if ((_has_bits_[0] & 0x0000000b) != 0x0000000b) return false;
+
+  if (has_border()) {
+    if (!this->border().IsInitialized()) return false;
+  }
+  return true;
+}
+
+void CircleRuleProto::Swap(CircleRuleProto* other) {
+  if (other != this) {
+    std::swap(radius_, other->radius_);
+    std::swap(color_, other->color_);
+    std::swap(border_, other->border_);
+    std::swap(priority_, other->priority_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::std::string CircleRuleProto::GetTypeName() const {
+  return "CircleRuleProto";
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
 const int PathTextRuleProto::kPrimaryFieldNumber;
 const int PathTextRuleProto::kSecondaryFieldNumber;
 const int PathTextRuleProto::kPriorityFieldNumber;
@@ -2644,6 +2929,7 @@ const int DrawElementProto::kLinesFieldNumber;
 const int DrawElementProto::kAreaFieldNumber;
 const int DrawElementProto::kSymbolFieldNumber;
 const int DrawElementProto::kCaptionFieldNumber;
+const int DrawElementProto::kCircleFieldNumber;
 const int DrawElementProto::kPathTextFieldNumber;
 #endif  // !_MSC_VER
 
@@ -2672,6 +2958,12 @@ void DrawElementProto::InitAsDefaultInstance() {
   caption_ = const_cast< ::CaptionRuleProto*>(&::CaptionRuleProto::default_instance());
 #endif
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  circle_ = const_cast< ::CircleRuleProto*>(
+      ::CircleRuleProto::internal_default_instance());
+#else
+  circle_ = const_cast< ::CircleRuleProto*>(&::CircleRuleProto::default_instance());
+#endif
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   path_text_ = const_cast< ::PathTextRuleProto*>(
       ::PathTextRuleProto::internal_default_instance());
 #else
@@ -2691,6 +2983,7 @@ void DrawElementProto::SharedCtor() {
   area_ = NULL;
   symbol_ = NULL;
   caption_ = NULL;
+  circle_ = NULL;
   path_text_ = NULL;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -2708,6 +3001,7 @@ void DrawElementProto::SharedDtor() {
     delete area_;
     delete symbol_;
     delete caption_;
+    delete circle_;
     delete path_text_;
   }
 }
@@ -2743,6 +3037,9 @@ void DrawElementProto::Clear() {
     }
     if (has_caption()) {
       if (caption_ != NULL) caption_->::CaptionRuleProto::Clear();
+    }
+    if (has_circle()) {
+      if (circle_ != NULL) circle_->::CircleRuleProto::Clear();
     }
     if (has_path_text()) {
       if (path_text_ != NULL) path_text_->::PathTextRuleProto::Clear();
@@ -2826,6 +3123,20 @@ bool DrawElementProto::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(50)) goto parse_circle;
+        break;
+      }
+
+      // optional .CircleRuleProto circle = 6;
+      case 6: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_circle:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_circle()));
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectTag(58)) goto parse_path_text;
         break;
       }
@@ -2890,6 +3201,12 @@ void DrawElementProto::SerializeWithCachedSizes(
       5, this->caption(), output);
   }
 
+  // optional .CircleRuleProto circle = 6;
+  if (has_circle()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+      6, this->circle(), output);
+  }
+
   // optional .PathTextRuleProto path_text = 7;
   if (has_path_text()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
@@ -2928,6 +3245,13 @@ int DrawElementProto::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->caption());
+    }
+
+    // optional .CircleRuleProto circle = 6;
+    if (has_circle()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->circle());
     }
 
     // optional .PathTextRuleProto path_text = 7;
@@ -2973,6 +3297,9 @@ void DrawElementProto::MergeFrom(const DrawElementProto& from) {
     if (from.has_caption()) {
       mutable_caption()->::CaptionRuleProto::MergeFrom(from.caption());
     }
+    if (from.has_circle()) {
+      mutable_circle()->::CircleRuleProto::MergeFrom(from.circle());
+    }
     if (from.has_path_text()) {
       mutable_path_text()->::PathTextRuleProto::MergeFrom(from.path_text());
     }
@@ -3000,6 +3327,9 @@ bool DrawElementProto::IsInitialized() const {
   if (has_caption()) {
     if (!this->caption().IsInitialized()) return false;
   }
+  if (has_circle()) {
+    if (!this->circle().IsInitialized()) return false;
+  }
   if (has_path_text()) {
     if (!this->path_text().IsInitialized()) return false;
   }
@@ -3013,6 +3343,7 @@ void DrawElementProto::Swap(DrawElementProto* other) {
     std::swap(area_, other->area_);
     std::swap(symbol_, other->symbol_);
     std::swap(caption_, other->caption_);
+    std::swap(circle_, other->circle_);
     std::swap(path_text_, other->path_text_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     std::swap(_cached_size_, other->_cached_size_);

@@ -78,6 +78,14 @@ message CaptionRuleProto
   required int32 priority = 3;
 }
 
+message CircleRuleProto
+{
+  required double radius = 1;
+  required uint32 color = 2;
+  optional LineDefProto border = 3;
+  required int32 priority = 4;
+}
+
 message PathTextRuleProto
 {
   required CaptionDefProto primary = 1;
@@ -92,6 +100,7 @@ message DrawElementProto
   optional AreaRuleProto area = 3;
   optional SymbolRuleProto symbol = 4;
   optional CaptionRuleProto caption = 5;
+  optional CircleRuleProto circle = 6;
   optional PathTextRuleProto path_text = 7;
 }
 

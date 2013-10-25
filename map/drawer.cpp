@@ -86,6 +86,26 @@ void Drawer::drawSymbol(m2::PointD const & pt,
   m_pScreen->drawSymbol(pt, symbolName, pos, depth);
 }
 
+void Drawer::drawCircle(m2::PointD const & pt,
+                        graphics::EPosition pos,
+                        di::DrawRule const & rule,
+                        FeatureID const & id)
+{
+  graphics::Circle::Info ci;
+  ConvertStyle(rule.m_rule->GetCircle(), m_visualScale, ci);
+
+  graphics::CircleElement::Params params;
+
+  params.m_depth = rule.m_depth;
+  params.m_position = pos;
+  params.m_pivot = pt;
+  params.m_ci = ci;
+  params.m_userInfo.m_mwmID = id.m_mwm;
+  params.m_userInfo.m_offset = id.m_offset;
+
+  m_pScreen->drawCircle(params);
+}
+
 void Drawer::drawSymbol(m2::PointD const & pt,
                         graphics::EPosition pos,
                         di::DrawRule const & rule,
@@ -104,6 +124,38 @@ void Drawer::drawSymbol(m2::PointD const & pt,
   params.m_userInfo.m_offset = id.m_offset;
 
   m_pScreen->drawSymbol(params);
+}
+
+void Drawer::drawCircledSymbol(m2::PointD const & pt,
+                               graphics::EPosition pos,
+                               di::DrawRule const & symbolRule,
+                               di::DrawRule const & circleRule,
+                               FeatureID const & id)
+{
+  graphics::Icon::Info info;
+  ConvertStyle(symbolRule.m_rule->GetSymbol(), info);
+
+  graphics::Circle::Info ci;
+  ConvertStyle(circleRule.m_rule->GetCircle(), m_visualScale, ci);
+
+  graphics::SymbolElement::Params symParams;
+  symParams.m_depth = symbolRule.m_depth;
+  symParams.m_position = pos;
+  symParams.m_pivot = pt;
+  symParams.m_info = info;
+  symParams.m_renderer = m_pScreen.get();
+  symParams.m_userInfo.m_mwmID = id.m_mwm;
+  symParams.m_userInfo.m_offset = id.m_offset;
+
+  graphics::CircleElement::Params circleParams;
+  circleParams.m_depth = circleRule.m_depth;
+  circleParams.m_position = pos;
+  circleParams.m_pivot = pt;
+  circleParams.m_ci = ci;
+  circleParams.m_userInfo.m_mwmID = id.m_mwm;
+  circleParams.m_userInfo.m_offset = id.m_offset;
+
+  m_pScreen->drawCircledSymbol(symParams, circleParams);
 }
 
 void Drawer::drawPath(di::PathInfo const & path, di::DrawRule const * rules, size_t count)
@@ -288,15 +340,38 @@ void Drawer::Draw(di::FeatureInfo const & fi)
 
   bool const isPath = !fi.m_pathes.empty();
   bool const isArea = !fi.m_areas.empty();
+  bool isCircleAndSymbol = false;
+  drule::BaseRule const * pCircleRule = NULL;
+  double circleDepth = graphics::minDepth;
+  drule::BaseRule const * pSymbolRule = NULL;
+  double symbolDepth = graphics::minDepth;
 
   // separating path rules from other
   for (size_t i = 0; i < rules.size(); ++i)
   {
     drule::BaseRule const * pRule = rules[i].m_rule;
 
-    if (isPath && (pRule->GetLine() != 0))
+    bool const isSymbol = pRule->GetSymbol() != 0;
+    bool const isCaption = pRule->GetCaption(0) != 0;
+    bool const isCircle = pRule->GetCircle() != 0;
+
+    if (pSymbolRule == NULL && isSymbol)
+    {
+      pSymbolRule = pRule;
+      symbolDepth = rules[i].m_depth;
+    }
+
+    if (pCircleRule == NULL && isCircle)
+    {
+      pCircleRule = pRule;
+      circleDepth = rules[i].m_depth;
+    }
+
+    if (!isCaption && isPath && !isSymbol && (pRule->GetLine() != 0))
       pathRules.push_back(rules[i]);
   }
+
+  isCircleAndSymbol = (pSymbolRule != NULL) && (pCircleRule != NULL);
 
   if (!pathRules.empty())
   {
@@ -311,6 +386,7 @@ void Drawer::Draw(di::FeatureInfo const & fi)
 
     bool const isCaption = pRule->GetCaption(0) != 0;
     bool const isSymbol = pRule->GetSymbol() != 0;
+    bool const isCircle = pRule->GetCircle() != 0;
 
     if (!isCaption)
     {
@@ -323,16 +399,36 @@ void Drawer::Draw(di::FeatureInfo const & fi)
         {
           if (isFill)
             drawArea(*i, di::DrawRule(pRule, depth));
+          else if (isCircleAndSymbol && isCircle)
+          {
+            drawCircledSymbol(i->GetCenter(),
+                              graphics::EPosCenter,
+                              di::DrawRule(pSymbolRule, symbolDepth),
+                              di::DrawRule(pCircleRule, circleDepth),
+                              id);
+          }
           else if (isSymbol)
             drawSymbol(i->GetCenter(), graphics::EPosCenter, di::DrawRule(pRule, depth), id);
+          else if (isCircle)
+            drawCircle(i->GetCenter(), graphics::EPosCenter, di::DrawRule(pRule, depth), id);
         }
       }
 
       // draw point symbol
       if (!isPath && !isArea && ((pRule->GetType() & drule::node) != 0))
       {
-        if (isSymbol)
+        if (isCircleAndSymbol)
+        {
+          drawCircledSymbol(fi.m_point,
+                            graphics::EPosCenter,
+                            di::DrawRule(pSymbolRule, symbolDepth),
+                            di::DrawRule(pCircleRule, circleDepth),
+                            id);
+        }
+        else if (isSymbol)
           drawSymbol(fi.m_point, graphics::EPosCenter, di::DrawRule(pRule, depth), id);
+        else if (isCircle)
+          drawCircle(fi.m_point, graphics::EPosCenter, di::DrawRule(pRule, depth), id);
       }
     }
     else

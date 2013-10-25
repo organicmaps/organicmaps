@@ -137,15 +137,18 @@ namespace di
            || (keys[i].m_type == drule::waymarker)))
         depth = (layer * drule::layer_base_priority) + fmod(depth, drule::layer_base_priority);
 
-      if (keys[i].m_type == drule::symbol)
+      if ((keys[i].m_type == drule::symbol)
+       || (keys[i].m_type == drule::circle))
         hasIcon = true;
 
       if ((keys[i].m_type == drule::caption && hasName)
-       || (keys[i].m_type == drule::symbol))
+       || (keys[i].m_type == drule::symbol)
+       || (keys[i].m_type == drule::circle))
         m_hasPointStyles = true;
 
       if ((keys[i].m_type == drule::caption)
        || (keys[i].m_type == drule::symbol)
+       || (keys[i].m_type == drule::circle)
        || (keys[i].m_type == drule::pathtext))
       {
         // show labels of larger objects first
@@ -220,10 +223,11 @@ namespace di
 
     if (hasIcon && hasCaptionWithoutOffset)
     {
-      // we need to delete symbol style
+      // we need to delete symbol style and circle style
       for (size_t i = 0; i < m_rules.size();)
       {
-        if (keys[i].m_type == drule::symbol)
+        if ((keys[i].m_type == drule::symbol)
+         || (keys[i].m_type == drule::circle))
         {
           m_rules[i] = m_rules[m_rules.size() - 1];
           m_rules.pop_back();

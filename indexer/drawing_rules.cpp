@@ -69,6 +69,11 @@ CaptionDefProto const * BaseRule::GetCaption(int) const
   return 0;
 }
 
+CircleRuleProto const * BaseRule::GetCircle() const
+{
+  return 0;
+}
+
 RulesHolder::~RulesHolder()
 {
   Clean();
@@ -204,6 +209,14 @@ namespace
     typedef CaptionT<CaptionRuleProto> Caption;
     typedef CaptionT<PathTextRuleProto> PathText;
 
+    class Circle : public BaseRule
+    {
+      CircleRuleProto m_circle;
+    public:
+      Circle(CircleRuleProto const & r) : m_circle(r) {}
+
+      virtual CircleRuleProto const * GetCircle() const { return &m_circle; }
+    };
   }
 
   class DoSetIndex
@@ -311,6 +324,9 @@ namespace
 
           if (de.has_caption())
             AddRule<Caption>(p, de.scale(), caption, de.caption());
+
+          if (de.has_circle())
+            AddRule<Circle>(p, de.scale(), circle, de.circle());
 
           if (de.has_path_text())
             AddRule<PathText>(p, de.scale(), pathtext, de.path_text());

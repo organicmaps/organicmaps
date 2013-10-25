@@ -99,6 +99,22 @@ void ConvertStyle(SymbolRuleProto const * pSrc, graphics::Icon::Info & dest)
   dest.m_name = pSrc->name();
 }
 
+void ConvertStyle(CircleRuleProto const * pSrc, double scale, graphics::Circle::Info & dest)
+{
+  dest = graphics::Circle::Info(pSrc->radius() * scale,
+                        ConvertColor(pSrc->color()));
+
+  if (pSrc->has_border())
+  {
+    graphics::Pen::Info pen;
+    ConvertStyle(&(pSrc->border()), scale, pen);
+
+    dest.m_isOutlined = true;
+    dest.m_outlineColor = pen.m_color;
+    dest.m_outlineWidth = pen.m_w;
+  }
+}
+
 void ConvertStyle(CaptionDefProto const * pSrc, double scale, graphics::FontDesc & dest, m2::PointD & offset)
 {
   // fonts smaller than 8px look "jumpy" on LDPI devices

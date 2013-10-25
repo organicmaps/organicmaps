@@ -213,47 +213,91 @@ cont {
 cont {
   name: "aerialway-station"
   element {
+    scale: 13
+    circle {
+      radius: 2.0
+      color: 2236962
+      priority: 14000
+    }
+  }
+  element {
+    scale: 14
+    circle {
+      radius: 2.0
+      color: 3364317
+      priority: 14000
+    }
+  }
+  element {
+    scale: 15
+    circle {
+      radius: 3.0
+      color: 3364317
+      priority: 14000
+    }
+  }
+  element {
     scale: 16
-    caption {
+    circle {
+      radius: 4.0
+      color: 3364317
+      priority: 14000
+    }
+    path_text {
       primary {
         height: 12
         color: 3364317
         stroke_color: 16777215
       }
-      priority: 15000
+      priority: 16000
     }
   }
   element {
     scale: 17
-    caption {
+    circle {
+      radius: 3.2
+      color: 3364317
+      priority: 14000
+    }
+    path_text {
       primary {
         height: 12
         color: 3364317
         stroke_color: 16777215
       }
-      priority: 15000
+      priority: 16000
     }
   }
   element {
     scale: 18
-    caption {
+    circle {
+      radius: 3.2
+      color: 3364317
+      priority: 14000
+    }
+    path_text {
       primary {
         height: 12
         color: 3364317
         stroke_color: 16777215
       }
-      priority: 15000
+      priority: 16000
     }
   }
   element {
     scale: 19
-    caption {
+    circle {
+      radius: 3.2
+      color: 3364317
+      priority: 14000
+    }
+    path_text {
       primary {
         height: 12
         color: 3364317
         stroke_color: 16777215
       }
-      priority: 15000
+      priority: 16000
     }
   }
 }
@@ -10048,11 +10092,6 @@ cont {
   name: "entrance"
   element {
     scale: 16
-    symbol {
-      name: "symbols/neta/circle-10.svg:#444444::::"
-      apply_for_type: 1
-      priority: 16016
-    }
     caption {
       primary {
         height: 9
@@ -10060,15 +10099,15 @@ cont {
         offset_x: 6
       }
       priority: 15016
+    }
+    circle {
+      radius: 2.0
+      color: 2236962
+      priority: 14016
     }
   }
   element {
     scale: 17
-    symbol {
-      name: "symbols/neta/circle-10.svg:#444444::::"
-      apply_for_type: 1
-      priority: 16016
-    }
     caption {
       primary {
         height: 9
@@ -10081,15 +10120,15 @@ cont {
         offset_y: 10
       }
       priority: 15016
+    }
+    circle {
+      radius: 2.0
+      color: 2236962
+      priority: 14016
     }
   }
   element {
     scale: 18
-    symbol {
-      name: "symbols/neta/circle-10.svg:#444444::::"
-      apply_for_type: 1
-      priority: 16016
-    }
     caption {
       primary {
         height: 9
@@ -10102,15 +10141,15 @@ cont {
         offset_y: 10
       }
       priority: 15016
+    }
+    circle {
+      radius: 2.0
+      color: 2236962
+      priority: 14016
     }
   }
   element {
     scale: 19
-    symbol {
-      name: "symbols/neta/circle-10.svg:#444444::::"
-      apply_for_type: 1
-      priority: 16016
-    }
     caption {
       primary {
         height: 9
@@ -10123,6 +10162,11 @@ cont {
         offset_y: 10
       }
       priority: 15016
+    }
+    circle {
+      radius: 2.0
+      color: 2236962
+      priority: 14016
     }
   }
 }
@@ -41288,6 +41332,33 @@ cont {
       priority: 1844
       join: ROUNDJOIN
       cap: ROUNDCAP
+    }
+  }
+}
+cont {
+  name: "man_made-cairn"
+  element {
+    scale: 17
+    circle {
+      radius: 3.2
+      color: 16777215
+      priority: 14000
+    }
+  }
+  element {
+    scale: 18
+    circle {
+      radius: 3.2
+      color: 16777215
+      priority: 14000
+    }
+  }
+  element {
+    scale: 19
+    circle {
+      radius: 3.2
+      color: 16777215
+      priority: 14000
     }
   }
 }
