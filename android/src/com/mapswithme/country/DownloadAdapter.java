@@ -11,6 +11,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -200,12 +201,7 @@ class DownloadAdapter extends BaseAdapter
       fillList();
     }
     else
-    {
-      if (getItemViewType(position) == TYPE_COUNTRY_READY)
-        showCountry(getItem(position).mCountryIdx);
-      else
         onCountryMenuClicked(position, getItem(position), view);
-    }
   }
 
   private void showNotEnoughFreeSpaceDialog(String spaceNeeded, String countryName)
@@ -507,6 +503,12 @@ class DownloadAdapter extends BaseAdapter
     holder.mName.setText(item.mName);
     holder.mName.setTypeface(item.getTypeface());
     holder.mName.setTextColor(item.getTextColor());
+
+    Drawable drawable = null;
+    if (getItem(position).getStatus() == MapStorage.ON_DISK_OUT_OF_DATE)
+      drawable = mContext.getResources().getDrawable(R.drawable.ic_update);
+
+    holder.mName.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
   }
 
   private void populateForGuide(int position, DownloadAdapter.ViewHolder holder)
@@ -578,7 +580,8 @@ class DownloadAdapter extends BaseAdapter
     final int MENU_UPDATE   = 1;
     final int MENU_DOWNLOAD = 2;
     final int MENU_CANCEL   = 3;
-    final int MENU_GUIDE    = 4;
+    final int MENU_SHOW     = 4;
+    final int MENU_GUIDE    = 5;
 
     final int status = countryItem.getStatus();
     final Index countryIndex = countryItem.mCountryIdx;
@@ -601,6 +604,8 @@ class DownloadAdapter extends BaseAdapter
           processNotDownloaded(countryIndex, name);
         else if (MENU_CANCEL == id)
           processDownloading(countryIndex, name);
+        else if (MENU_SHOW == id)
+          showCountry(countryIndex);
         else
           return false;
 
@@ -620,6 +625,9 @@ class DownloadAdapter extends BaseAdapter
           final String titleDelete = mContext.getString(R.string.delete) + " "
               + getSizeString(mStorage.countryLocalSizeInBytes(countryIndex));
           menu.add(0, MENU_DELETE, MENU_DELETE, titleDelete).setOnMenuItemClickListener(menuItemClickListener);
+
+          final String titleShow = mContext.getString(R.string.zoom_to_country);
+          menu.add(0, MENU_SHOW, MENU_SHOW, titleShow).setOnMenuItemClickListener(menuItemClickListener);
         }
 
         if (status == MapStorage.ON_DISK_OUT_OF_DATE)
