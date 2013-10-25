@@ -45,7 +45,6 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/country_menu"
             android:layout_toRightOf="@id/flagContainer"
-            android:fontFamily="@string/robotoLight"
             android:maxLines="2"
             android:textAppearance="@style/Holo.TextAppearance.Large.Light" />
 

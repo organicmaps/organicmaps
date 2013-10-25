@@ -51,19 +51,23 @@ class DownloadAdapter extends BaseAdapter
   private static final int TYPES_COUNT = 5;
   //@}
 
+  //{@ System
   private final LayoutInflater mInflater;
   private final Activity mContext;
+  private final ExecutorService executor =
+      Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+  private final boolean mHasGoogleStore;
+  //@}
 
+  //@{ Map
   private int mSlotID = 0;
   final MapStorage mStorage;
   private Index mIdx = new Index();
-
   private DownloadAdapter.CountryItem[] mItems = null;
-  private final ExecutorService executor =
-      Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+  //@}
 
-  private final boolean mHasGoogleStore;
-
+  private static final Typeface LIGHT = Typeface.create("sans-serif-light", Typeface.NORMAL);
+  private static final Typeface REGULAR = Typeface.create("sans-serif", Typeface.NORMAL);
 
   private class CountryItem
   {
@@ -71,7 +75,6 @@ class DownloadAdapter extends BaseAdapter
     public final Index  mCountryIdx;
     public final String mFlag;
 
-    /// @see constants in MapStorage
     private Future<Integer> mStatusFuture;
 
     public CountryItem(MapStorage storage, Index idx)
@@ -98,6 +101,9 @@ class DownloadAdapter extends BaseAdapter
       }
     }
 
+    /**
+     * Asynchronous blocking status update.
+     */
     public void updateStatus(final MapStorage storage, final Index idx)
     {
       mStatusFuture = executor.submit(new Callable<Integer>()
@@ -118,13 +124,27 @@ class DownloadAdapter extends BaseAdapter
     {
       switch (getStatus())
       {
-      case MapStorage.ON_DISK:             return 0xFF333333;
-      case MapStorage.ON_DISK_OUT_OF_DATE: return 0xFF000000;
-      case MapStorage.NOT_DOWNLOADED:      return 0xFF999999;
-      case MapStorage.DOWNLOAD_FAILED:     return 0xFFFF0000;
-      case MapStorage.DOWNLOADING:         return 0xFF342BB6;
-      case MapStorage.IN_QUEUE:            return 0xFF5B94DE;
-      default:                             return 0xFF000000;
+      case MapStorage.ON_DISK_OUT_OF_DATE:
+        return 0xFF666666;
+      case MapStorage.NOT_DOWNLOADED:
+        return 0xFF333333;
+      case MapStorage.DOWNLOAD_FAILED:
+        return 0xFFFF0000;
+      default:
+        return 0xFF000000;
+      }
+    }
+
+    public Typeface getTypeface()
+    {
+      switch (getStatus())
+      {
+        case MapStorage.NOT_DOWNLOADED:
+        case MapStorage.DOWNLOADING:
+        case MapStorage.DOWNLOAD_FAILED:
+          return LIGHT;
+        default:
+          return REGULAR;
       }
     }
 
@@ -360,11 +380,11 @@ class DownloadAdapter extends BaseAdapter
 
     void initFromView(View v)
     {
-      mName = (TextView) v.findViewById(R.id.title);
-      mFlag = (ImageView) v.findViewById(R.id.country_flag);
-      mGuide = (ImageView) v.findViewById(R.id.guide_available);
+      mName        = (TextView) v.findViewById(R.id.title);
+      mFlag        = (ImageView) v.findViewById(R.id.country_flag);
+      mGuide       = (ImageView) v.findViewById(R.id.guide_available);
       mCountryMenu = v.findViewById(R.id.country_menu);
-      mProgress = (ProgressBar) v.findViewById(R.id.download_progress);
+      mProgress    = (ProgressBar) v.findViewById(R.id.download_progress);
     }
   }
 
@@ -426,9 +446,7 @@ class DownloadAdapter extends BaseAdapter
       convertView.setTag(holder);
     }
     else
-    {
       holder = (ViewHolder) convertView.getTag();
-    }
 
     // for everything that has flag: regions + countries
     if (type != TYPE_GROUP)
@@ -482,22 +500,14 @@ class DownloadAdapter extends BaseAdapter
       UiUtils.invisible(holder.mProgress);
   }
 
-
-
   private void setItemText(int position, DownloadAdapter.ViewHolder holder)
   {
-    // set texts
+    // set text and style
     final CountryItem item = mItems[position];
     holder.mName.setText(item.mName);
+    holder.mName.setTypeface(item.getTypeface());
     holder.mName.setTextColor(item.getTextColor());
-
-    if (getItemViewType(position) == TYPE_COUNTRY_READY)
-      holder.mName.setTypeface(holder.mName.getTypeface(), Typeface.BOLD);
-    else
-      holder.mName.setTypeface(holder.mName.getTypeface(), Typeface.NORMAL);
   }
-
-
 
   private void populateForGuide(int position, DownloadAdapter.ViewHolder holder)
   {
@@ -534,13 +544,10 @@ class DownloadAdapter extends BaseAdapter
     if (position != -1)
     {
       mItems[position].updateStatus(mStorage, idx);
-
       // use this hard reset, because of caching different ViewHolders according to item's type
       notifyDataSetChanged();
-
       return mItems[position].getStatus();
     }
-
     return MapStorage.UNKNOWN;
   }
 
@@ -630,7 +637,7 @@ class DownloadAdapter extends BaseAdapter
         {
           final GuideInfo info = Framework.getGuideInfoForIndex(countryItem.mCountryIdx);
             if (info != null)
-              menu.add(0, MENU_GUIDE, MENU_GUIDE, info.mTitle) // TODO: add translation
+              menu.add(0, MENU_GUIDE, MENU_GUIDE, info.mTitle)
                 .setOnMenuItemClickListener(menuItemClickListener);
         }
 

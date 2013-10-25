@@ -30,7 +30,6 @@
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/disclosure_image"
         android:layout_toRightOf="@+id/country_flag"
-        android:fontFamily="@string/robotoLight"
         android:textAppearance="@style/Holo.TextAppearance.Large.Light" />
 
 </RelativeLayout>

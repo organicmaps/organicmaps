@@ -12,7 +12,6 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/dp_x_3"
-        android:fontFamily="@string/robotoLight"
         android:textAppearance="@style/Holo.TextAppearance.Large.Light" />
 
     <ImageView
