@@ -14,6 +14,7 @@
 
 #define MAX_3G_MEGABYTES (50)
 #define MB (1024*1024)
+#define BAG_TAG 664
 
 
 using namespace storage;
@@ -166,23 +167,25 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   
   string const & flag = s.CountryFlag(countryIndex);
   guides::GuideInfo info;
-  if ((s.CountriesCount(countryIndex) == 0) && frm.GetGuideInfo(countryIndex, info))
+
+  if (!flag.empty())
   {
-    UIImageView * iv = cell.imageView;
-    if (iv.gestureRecognizers.count == 0)
+    cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", flag.c_str()]];
+    [cell layoutSubviews];
+    for (UIView * v in cell.imageView.subviews)
+      if (v.tag == BAG_TAG)
+        [v removeFromSuperview];
+    if ((s.CountriesCount(countryIndex) == 0) && frm.GetGuideInfo(countryIndex, info))
     {
-      UITapGestureRecognizer * gr = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showGuideAdvertise:)] autorelease];
-      [iv addGestureRecognizer:gr];
+      UIImageView * im = [[[UIImageView alloc]  initWithImage:[UIImage imageNamed:@"ic_guide_mark"]] autorelease];
+      UIView * v = [[[UIView alloc] initWithFrame:im.frame] autorelease];
+      [v addSubview:im];
+      v.tag = BAG_TAG;
+      CGRect r = v.frame;
+      r = CGRectMake(0, cell.imageView.frame.size.height - v.frame.size.height, v.frame.size.width, v.frame.size.height);
+      v.frame = r;
+      [cell.imageView addSubview:v];
     }
-    iv.tag = RowFromIndex(countryIndex);
-    iv.image = [UIImage imageNamed:@"guide_bag"];
-    iv.userInteractionEnabled = YES;
-  }
-  else
-  {
-    cell.imageView.userInteractionEnabled = NO;
-    if (!flag.empty())
-      cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", flag.c_str()]];
   }
 
   // do not show status for parent categories
@@ -504,20 +507,6 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
     if (cell)
       cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"downloading_touch_to_cancel", nil), progress.first * 100 / progress.second];
   }
-}
-
-- (void)showGuideAdvertise:(UITapGestureRecognizer *)gr
-{
-  NSIndexPath * indexPath = [NSIndexPath indexPathForRow:gr.view.tag inSection:0];
-  TIndex const index = CalculateIndex(m_index, indexPath);
-  guides::GuideInfo info;
-  if (!GetFramework().GetGuideInfo(index, info))
-    return;
-  NSURL * guideUrl = [NSURL URLWithString:[NSString stringWithUTF8String:info.GetAppID().c_str()]];
-  if ([APP canOpenURL:guideUrl])
-    [APP openURL:guideUrl];
-  else
-    [APP openURL:[NSURL URLWithString:[NSString stringWithUTF8String:info.GetURL().c_str()]]];
 }
 
 @end
