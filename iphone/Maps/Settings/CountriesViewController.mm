@@ -10,6 +10,7 @@
 #include "GetActiveConnectionType.h"
 
 #include "../../platform/platform.hpp"
+#include "../../platform/preferred_languages.hpp"
 
 
 #define MAX_3G_MEGABYTES (50)
@@ -52,6 +53,19 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   else
     theirsFixed.m_group = -1;
   return ours == theirsFixed;
+}
+
+static bool getGuideName(string & name, storage::TIndex const & index)
+{
+  guides::GuideInfo info;
+  Framework & f = GetFramework();
+  if ((f.Storage().CountriesCount(index) == 0) && f.GetGuideInfo(index, info))
+  {
+    string const lang = languages::CurrentLanguage();
+    name = info.GetAdTitle(lang);
+    return true;
+  }
+  return false;
 }
 
 
@@ -285,61 +299,39 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   return cell;
 }
 
-// User confirmation after touching country
 - (void) actionSheet: (UIActionSheet *) actionSheet clickedButtonAtIndex: (NSInteger) buttonIndex
 {
   if (buttonIndex != actionSheet.cancelButtonIndex)
   {
-    Framework & frm = GetFramework();
-    switch (m_countryStatus)
+    Framework & f = GetFramework();
+    NSString * title = [actionSheet buttonTitleAtIndex:buttonIndex];
+    guides::GuideInfo info;
+    BOOL isGuideAvailable = f.GetGuideInfo(m_clickedIndex, info);
+    string const lang = languages::CurrentLanguage();
+    if (isGuideAvailable && [title isEqualToString:[NSString stringWithUTF8String:info.GetAdTitle(lang).c_str()]])
     {
-    case EOnDiskOutOfDate:
-      if (buttonIndex != 0)
-      {
-        [self TryDownloadCountry];
-        return;
-      }
-      break;
-
-    case ENotDownloaded:
-    case EDownloadFailed:
-      frm.Storage().DownloadCountry(m_clickedIndex);
-      return;
-
-    case EOnDisk:
-    case EDownloading:
-    case EInQueue:
-    case EUnknown:
-        break;
+      NSURL * guideUrl = [NSURL URLWithString:[NSString stringWithUTF8String:info.GetAppID().c_str()]];
+      if ([APP canOpenURL:guideUrl])
+        [APP openURL:guideUrl];
+      else
+        [APP openURL:[NSURL URLWithString:[NSString stringWithUTF8String:info.GetURL().c_str()]]];
     }
-
-    frm.DeleteCountry(m_clickedIndex);
-    // remove "zoom to country" icon
-    m_clickedCell.accessoryType = UITableViewCellAccessoryNone;
+    else if ([title hasPrefix:[NSString stringWithFormat:NSLocalizedString(@"download_mb_or_kb", nil), @""]]
+             || [title hasPrefix:[NSString stringWithFormat:NSLocalizedString(@"update_mb_or_kb", nil),@""]])
+      [self TryDownloadCountry];
+    else if ([title isEqualToString:NSLocalizedString(@"cancel_download", nil)] || [title isEqualToString:NSLocalizedString(@"delete", nil)])
+    {
+      f.DeleteCountry(m_clickedIndex);
+      m_clickedCell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    else
+      ASSERT ( false, () );
   }
 }
 
 - (void) DoDownloadCountry
 {
-  if (m_countryStatus == EOnDiskOutOfDate)
-  {
-    GetFramework().Storage().DownloadCountry(m_clickedIndex);
-  }
-  else
-  {
-    NSString * countryName = [[m_clickedCell textLabel] text];
-    NSString * strDownload = [NSString stringWithFormat:NSLocalizedString(@"download_mb_or_kb", nil), [self GetStringForSize: m_downloadSize]];
-
-    UIActionSheet * popupQuery = [[UIActionSheet alloc]
-                                  initWithTitle: countryName
-                                  delegate: self
-                                  cancelButtonTitle: NSLocalizedString(@"cancel", nil)
-                                  destructiveButtonTitle: nil
-                                  otherButtonTitles: strDownload, nil];
-
-    [popupQuery showFromRect: [m_clickedCell frame] inView: self.view animated: YES];
-    [popupQuery release];
-  }
+  GetFramework().Storage().DownloadCountry(m_clickedIndex);
 }
 
 // 3G warning confirmation handler
@@ -412,77 +404,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
     [newController release];
   }
   else
-  {
-		NSString * countryName = [[cell textLabel] text];
-
-    // pass parameters to dialog handlers
-    m_clickedIndex = index;
-    m_clickedCell = cell;
-    m_countryStatus = frm.GetCountryStatus(index);
-
-		switch (m_countryStatus)
-  	{
-  		case EOnDisk:
-    	{
-        // display confirmation popup
-    		UIActionSheet * popupQuery = [[[UIActionSheet alloc]
-                                       initWithTitle: countryName
-                                       delegate: self
-                                       cancelButtonTitle: NSLocalizedString(@"cancel", nil)
-                                       destructiveButtonTitle: NSLocalizedString(@"delete", nil)
-                                       otherButtonTitles: nil] autorelease];
-        [popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
-        break;
-    	}
-
-      case EOnDiskOutOfDate:
-      {
-        // advise to update or delete country
-        m_downloadSize = s.CountrySizeInBytes(index).second;
-
-        NSString * strUpdate = [NSString stringWithFormat:NSLocalizedString(@"update_mb_or_kb", nil), [self GetStringForSize: m_downloadSize]];
-
-        UIActionSheet * popupQuery = [[UIActionSheet alloc]
-                                      initWithTitle: countryName
-                                      delegate: self
-                                      cancelButtonTitle: NSLocalizedString(@"cancel", nil)
-                                      destructiveButtonTitle: NSLocalizedString(@"delete", nil)
-                                      otherButtonTitles: strUpdate, nil];
-
-        [popupQuery showFromRect: [cell frame] inView: self.view animated: YES];
-        [popupQuery release];
-        break;
-      }
-
-      case ENotDownloaded:
-      case EDownloadFailed:
-        // advise to download country
-        m_downloadSize = s.CountrySizeInBytes(index).second;
-        [self TryDownloadCountry];
-        break;
-
-  		case EDownloading:
-	    {
-        // advise to stop download and delete country
-        UIActionSheet * popupQuery = [[UIActionSheet alloc] initWithTitle:countryName delegate:self
-            cancelButtonTitle: NSLocalizedString(@"do_nothing", nil)
-            destructiveButtonTitle: NSLocalizedString(@"cancel_download", nil)
-        		otherButtonTitles: nil];
-
-        [popupQuery showFromRect:[cell frame] inView:tableView animated:YES];
-        [popupQuery release];
-        break;
-    	}
-
-      case EInQueue:
-        // cancel download
-        frm.DeleteCountry(index);
-        break;
-
-      default:
-        ASSERT ( false, () );
-  	}
-  }
+    [self createActionSheetForCountry:indexPath];
 }
 
 - (void) OnCountryChange: (TIndex const &)index
@@ -507,6 +429,98 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
     if (cell)
       cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"downloading_touch_to_cancel", nil), progress.first * 100 / progress.second];
   }
+}
+
+-(void)createActionSheetForCountry:(NSIndexPath *)indexPath
+{
+  UITableView * table = (UITableView *)(self.view);
+  UITableViewCell * cell = [table cellForRowAtIndexPath:indexPath];
+
+  Framework & frm = GetFramework();
+  m_clickedIndex = CalculateIndex(m_index, indexPath);
+  m_countryStatus = frm.GetCountryStatus(m_clickedIndex);
+  m_clickedCell = cell;
+  storage::Storage & s = GetFramework().Storage();
+  m_downloadSize = s.CountrySizeInBytes(m_clickedIndex).second;
+
+  NSMutableArray * buttonNames = [[[NSMutableArray alloc] init] autorelease];
+
+  bool canDelete = NO;
+
+  switch (m_countryStatus)
+  {
+    case EOnDisk:
+    {
+      canDelete = YES;
+      break;
+    }
+
+    case EOnDiskOutOfDate:
+      canDelete = YES;
+      [buttonNames addObject:[NSString stringWithFormat:NSLocalizedString(@"update_mb_or_kb", nil), [self GetStringForSize: m_downloadSize]]];
+      break;
+    case ENotDownloaded:
+      [buttonNames addObject:[NSString stringWithFormat:NSLocalizedString(@"download_mb_or_kb", nil), [self GetStringForSize: m_downloadSize]]];
+      break;
+
+    case EDownloadFailed:
+      [self DoDownloadCountry];
+      return;
+
+    case EDownloading:
+    {
+      // special one, with destructive button
+      string guideAdevertiseString;
+      NSString * guideAd = nil;
+      if (getGuideName(guideAdevertiseString, m_clickedIndex))
+        guideAd = [NSString stringWithUTF8String:guideAdevertiseString.c_str()];
+      UIActionSheet * actionSheet = [[[UIActionSheet alloc] initWithTitle:cell.textLabel.text delegate:self
+                                                        cancelButtonTitle: NSLocalizedString(@"do_nothing", nil)
+                                                   destructiveButtonTitle: NSLocalizedString(@"cancel_download", nil)
+                                                        otherButtonTitles: guideAd, nil] autorelease];
+      [actionSheet showFromRect:[cell frame] inView:table animated:YES];
+      return;
+    }
+
+    case EInQueue:
+    {
+      frm.DeleteCountry(m_clickedIndex);
+      return;
+    }
+
+    default:
+      ASSERT ( false, () );
+  }
+
+  UIActionSheet * as = [[[UIActionSheet alloc]
+                         initWithTitle: cell.textLabel.text
+                         delegate: self
+                         cancelButtonTitle: nil
+                         destructiveButtonTitle: nil
+                         otherButtonTitles: nil] autorelease];
+
+  for (NSString * str in buttonNames)
+    [as addButtonWithTitle:str];
+  size_t numOfButtons = [buttonNames count];
+  if (canDelete)
+  {
+    [as addButtonWithTitle:NSLocalizedString(@"delete", nil)];
+    as.destructiveButtonIndex = numOfButtons++;
+  }
+
+  string guideAdevertiseString;
+  if (getGuideName(guideAdevertiseString, m_clickedIndex))
+  {
+    string const lang = languages::CurrentLanguage();
+    [as addButtonWithTitle:[NSString stringWithUTF8String:guideAdevertiseString.c_str()]];
+    ++numOfButtons;
+  }
+  if (isIPhone)
+  {
+    [as addButtonWithTitle:NSLocalizedString(@"cancel", nil)];
+    as.cancelButtonIndex = numOfButtons;
+  }
+  [as showFromRect: [cell frame] inView:(UITableView *)self.view animated: YES];
 }
 
 @end
