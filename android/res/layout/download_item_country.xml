@@ -42,23 +42,12 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/country_menu"
-            android:layout_toRightOf="@id/flagContainer"
-            android:maxLines="2"
-            android:textAppearance="@style/Holo.TextAppearance.Large.Light" />
-
-        <ImageView
-            android:id="@+id/country_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/list_selector_holo_light"
-            android:paddingLeft="@dimen/dp_x_3"
+            android:layout_toRightOf="@id/flagContainer"
+            android:maxLines="2"
             android:paddingRight="@dimen/dp_x_3"
-            android:scaleType="center"
-            android:src="@drawable/ic_country_menu" />
+            android:textAppearance="@style/Holo.TextAppearance.Large.Light" />
     </RelativeLayout>
 
     <ProgressBar

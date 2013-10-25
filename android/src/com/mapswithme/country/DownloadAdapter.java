@@ -372,14 +372,12 @@ class DownloadAdapter extends BaseAdapter
     public ImageView     mFlag        = null;
     public ImageView     mGuide       = null;
     public ProgressBar   mProgress    = null;
-    public View          mCountryMenu = null;
 
     void initFromView(View v)
     {
       mName        = (TextView) v.findViewById(R.id.title);
       mFlag        = (ImageView) v.findViewById(R.id.country_flag);
       mGuide       = (ImageView) v.findViewById(R.id.guide_available);
-      mCountryMenu = v.findViewById(R.id.country_menu);
       mProgress    = (ProgressBar) v.findViewById(R.id.download_progress);
     }
   }
@@ -454,17 +452,6 @@ class DownloadAdapter extends BaseAdapter
       {
         populateForGuide(position, holder);
         setUpProgress(holder, type, position);
-
-        // set country menu click listener
-        final View fView = holder.mCountryMenu;
-        holder.mCountryMenu.setOnClickListener(new OnClickListener()
-        {
-          @Override
-          public void onClick(View v)
-          {
-            onCountryMenuClicked(position, getItem(position), fView);
-          }
-        });
       }
     }
 
