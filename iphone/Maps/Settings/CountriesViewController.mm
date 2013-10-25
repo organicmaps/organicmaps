@@ -5,6 +5,7 @@
 #import "WebViewController.h"
 #import "CustomAlertView.h"
 #import "DiskFreeSpace.h"
+#import "Statistics.h"
 
 #include "Framework.h"
 #include "GetActiveConnectionType.h"
@@ -139,8 +140,8 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   if (status == EOnDisk || status == EOnDiskOutOfDate)
   {
     frm.ShowCountry(index);
-
     [[[MapsAppDelegate theApp] settingsManager] hide];
+    [[Statistics instance] logEvent:@"Show Map From Download Countries Screen"];
   }
 }
 
@@ -311,10 +312,18 @@ static bool getGuideName(string & name, storage::TIndex const & index)
     if (isGuideAvailable && [title isEqualToString:[NSString stringWithUTF8String:info.GetAdTitle(lang).c_str()]])
     {
       NSURL * guideUrl = [NSURL URLWithString:[NSString stringWithUTF8String:info.GetAppID().c_str()]];
+      NSString * countryName = [NSString stringWithUTF8String:f.Storage().CountryName(m_clickedIndex).c_str()];
+      [[Statistics instance] logEvent:@"Open Guide Country" withParameters:@{@"Country Name" : countryName}];
       if ([APP canOpenURL:guideUrl])
+      {
         [APP openURL:guideUrl];
+        [[Statistics instance] logEvent:@"Open Guide Button" withParameters:@{@"Guide downloaded" : @"YES"}];
+      }
       else
+      {
         [APP openURL:[NSURL URLWithString:[NSString stringWithUTF8String:info.GetURL().c_str()]]];
+        [[Statistics instance] logEvent:@"Open Guide Button" withParameters:@{@"Guide downloaded" : @"NO"}];
+      }
     }
     else if ([title hasPrefix:[NSString stringWithFormat:NSLocalizedString(@"download_mb_or_kb", nil), @""]]
              || [title hasPrefix:[NSString stringWithFormat:NSLocalizedString(@"update_mb_or_kb", nil),@""]])
