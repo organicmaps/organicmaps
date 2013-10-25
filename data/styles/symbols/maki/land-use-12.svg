@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12">
-    <g transform="translate(0 -1040.362) translate(-672 -202)" color="#000">
-        <g>
-            <path d="m 633.69998,1246.3622 -3.4,3.4 1.7,0 0,3.4 5.1,0 0,-3.4 1.7,0 -3.4,-3.4 z m 10.2,0 0,1.7 -2.23125,0 -1.16875,1.275 0,3.825 5.1,0 0,-6.8 z m -10.2,10.2 -1.7,0 0,6.8 1.7,0 0,-1.7 1.7,0 0,1.7 1.7,0 0,-6.8 -1.7,0 z m 9.35,-1.7 -3.4,4.25 1.7,0 -1.7,2.55 2.55,0 0,1.7 1.7,0 0,-1.7 2.55,0 -1.7,-2.55 1.7,0 z" opacity=".3" fill="#fff" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" overflow="visible" enable-background="accumulate" transform="matrix(.588 0 0 .588 302.235 510.208)"/>
-            <path d="m 633.69998,1246.3622 -3.4,3.4 1.7,0 0,3.4 5.1,0 0,-3.4 1.7,0 -3.4,-3.4 z m 10.2,0 0,1.7 -2.23125,0 -1.16875,1.275 0,3.825 5.1,0 0,-6.8 z m -10.2,10.2 -1.7,0 0,6.8 1.7,0 0,-1.7 1.7,0 0,1.7 1.7,0 0,-6.8 -1.7,0 z m 9.35,-1.7 -3.4,4.25 1.7,0 -1.7,2.55 2.55,0 0,1.7 1.7,0 0,-1.7 2.55,0 -1.7,-2.55 1.7,0 z" fill="#444" overflow="visible" enable-background="accumulate" transform="matrix(.588 0 0 .588 302.235 510.208)"/>
-        </g>
-        <rect y="1242.362" x="672" height="12" width="12" opacity=".5" overflow="visible" enable-background="accumulate" fill="none"/>
-    </g>
-</svg>

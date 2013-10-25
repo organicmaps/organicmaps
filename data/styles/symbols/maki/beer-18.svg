@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-    <g color="#000" transform="translate(0 -1034.362)">
-        <path d="m 346,1244.3622 1.5,13 c 0.0577,0.5 0.5,1 1,1 l 6,0 c 0.5,0 0.94231,-0.5 1,-1 l 1.5,-13 z m 2,2 7,0 -0.4,3 -6.2,0 z" opacity=".3" fill="#fff" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" overflow="visible" enable-background="accumulate" transform="translate(-342 -208)"/>
-        <path d="m 346,1244.3622 1.5,13 c 0.0577,0.5 0.5,1 1,1 l 6,0 c 0.5,0 0.94231,-0.5 1,-1 l 1.5,-13 z m 2,2 7,0 -0.4,3 -6.2,0 z" fill="#444" overflow="visible" enable-background="accumulate" transform="translate(-342 -208)"/>
-    </g>
-</svg>

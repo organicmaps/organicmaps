@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12">
-    <g color="#000" transform="translate(0 -1040.362)">
-        <path d="m 363,1243.3622 1,8.5 c 0.0357,0.2857 0.21428,0.5 0.5,0.5 l 4,0 c 0.28572,0 0.44996,-0.2165 0.5,-0.5 l 1,-8.5 z m 1.5,1 4,0 -0.25,2 -3.5,0 z" opacity=".3" fill="#fff" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" overflow="visible" enable-background="accumulate" transform="translate(-360 -202)"/>
-        <path d="m 363,1243.3622 1,8.5 c 0.0357,0.2857 0.21428,0.5 0.5,0.5 l 4,0 c 0.28572,0 0.44996,-0.2165 0.5,-0.5 l 1,-8.5 z m 1.5,1 4,0 -0.25,2 -3.5,0 z" fill="#444" overflow="visible" enable-background="accumulate" transform="translate(-360 -202)"/>
-    </g>
-</svg>

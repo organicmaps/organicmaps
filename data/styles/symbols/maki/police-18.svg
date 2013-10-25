@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-    <g transform="translate(0 -1034.362) translate(-420 -88)" color="#000">
-        <g>
-            <path d="m 430,1124.8622 -1,0.5 0,1 5,0 0,-1 -1,-0.5 z m -1,2.5 c -0.0333,0.1627 0,0.3274 0,0.5 0,1.3807 1.11931,2.5 2.5,2.5 1.38069,0 2.5,-1.1193 2.5,-2.5 0,-0.1726 0,-0.5 0,-0.5 z m 0,4 c -1.08333,0 -1.98585,1.7917 -2,2.875 l 0,4.125 1.53125,0 4.46875,-7 z m 5.5,0 -4.46875,7 5.96875,0 0,-4.125 c 0,-1.0834 -0.41666,-2.875 -1.5,-2.875 z" opacity=".3" fill="#fff" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" overflow="visible" enable-background="accumulate" transform="translate(-2)"/>
-            <path d="m 430,1124.8622 -1,0.5 0,1 5,0 0,-1 -1,-0.5 z m -1,2.5 c -0.0333,0.1627 0,0.3274 0,0.5 0,1.3807 1.11931,2.5 2.5,2.5 1.38069,0 2.5,-1.1193 2.5,-2.5 0,-0.1726 0,-0.5 0,-0.5 z m 0,4 c -1.08333,0 -1.98585,1.7917 -2,2.875 l 0,4.125 1.53125,0 4.46875,-7 z m 5.5,0 -4.46875,7 5.96875,0 0,-4.125 c 0,-1.0834 -0.41666,-2.875 -1.5,-2.875 z" fill="#444" overflow="visible" enable-background="accumulate" transform="translate(-2)"/>
-        </g>
-        <rect width="18" height="18" x="420" y="1122.362" opacity=".5" overflow="visible" enable-background="accumulate" fill="none"/>
-    </g>
-</svg>

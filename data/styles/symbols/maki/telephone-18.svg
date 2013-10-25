@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-    <g transform="matrix(.75 0 0 .75 -240 -985.773)" color="#000">
-        <path transform="matrix(1.333 0 0 1.333 -295.999 961.029)" d="m 472.5,267 -8.5,8.5 0,2.5 1.3125,1.3125 3,-3 -0.8125,-0.8125 5,-5 0.8125,0.8125 3,-3 L 475,267 l -2.5,0 z m 4.1875,1.6875 -3,3 L 474,272 l 1,0 2,-2 0,-1 -0.3125,-0.3125 z m -8,8 -3,3 L 466,280 l 1,0 2,-2 0,-1 -0.3125,-0.3125 z" opacity=".3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" overflow="visible" enable-background="accumulate" fill="none"/>
-        <path d="m 472.5,267 -8.5,8.5 0,2.5 1.3125,1.3125 3,-3 -0.8125,-0.8125 5,-5 0.8125,0.8125 3,-3 L 475,267 l -2.5,0 z m 4.1875,1.6875 -3,3 L 474,272 l 1,0 2,-2 0,-1 -0.3125,-0.3125 z m -8,8 -3,3 L 466,280 l 1,0 2,-2 0,-1 -0.3125,-0.3125 z" transform="matrix(1.333 0 0 1.333 -295.999 961.029)" fill="#444" overflow="visible" enable-background="accumulate"/>
-        <rect width="24" height="24" x="320" y="1314.362" overflow="visible" enable-background="accumulate" fill="none"/>
-    </g>
-</svg>

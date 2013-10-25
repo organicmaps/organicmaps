@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12">
-    <g transform="translate(0 -1040.362) translate(-360 -298)">
-        <path transform="translate(-120 1050.362)" d="m 484,289.5 -2.5,2.5 2.5,0 0,-2.5 z m 3.5,0.5 -5.5,5.5 0,2 1,1 1,0 1,-1 0,-1 -1,-1 3.5,-3.5 1,1 1,0 1,-1 0,-1 -1,-1 -2,0 z" opacity=".3" color="#000" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" overflow="visible" enable-background="accumulate" fill="none"/>
-        <g transform="translate(0 23)">
-            <rect y="1314.362" x="320" height="24" width="24" color="#000" overflow="visible" enable-background="accumulate" fill="none" transform="matrix(.5 0 0 .5 200 658.18)"/>
-            <path transform="translate(-120 1027.362)" d="m 484,289.5 -2.5,2.5 2.5,0 0,-2.5 z m 3.5,0.5 -5.5,5.5 0,2 1,1 1,0 1,-1 0,-1 -1,-1 3.5,-3.5 1,1 1,0 1,-1 0,-1 -1,-1 -2,0 z" color="#000" fill="#444" overflow="visible" enable-background="accumulate"/>
-        </g>
-    </g>
-</svg>

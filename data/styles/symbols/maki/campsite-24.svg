@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-    <g transform="translate(0 -1028.362) translate(-162 -190)" color="#000">
-        <g font-family="Sans">
-            <path transform="translate(162 213) translate(0 1004.362)" d="M 12.5,5 C 12,4.9999 11.773906,5.2394 11.625,5.5 L 5.40625,17 4.0625,17 C 3.4759168,17 3,17.446005 3,18 c 0,0.553995 0.4759168,1 1.0625,1 L 6,19 l 13,0 1.9375,0 C 21.524083,19 22,18.553995 22,18 22,17.446005 21.524083,17 20.9375,17 L 19.59375,17 13.375,5.5 C 13.226094,5.2394 13,4.9999 12.5,5 z m 0,5 3.5,7 -7,0 z" style="text-indent:0;text-align:start;line-height:normal;text-transform:none;block-progression:tb;-inkscape-font-specification:Sans" opacity=".3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" overflow="visible" enable-background="accumulate" fill="none"/>
-            <path style="text-indent:0;text-align:start;line-height:normal;text-transform:none;block-progression:tb;-inkscape-font-specification:Sans" d="M 12.5,5 C 12,4.9999 11.773906,5.2394 11.625,5.5 L 5.40625,17 4.0625,17 C 3.4759168,17 3,17.446005 3,18 c 0,0.553995 0.4759168,1 1.0625,1 L 6,19 l 13,0 1.9375,0 C 21.524083,19 22,18.553995 22,18 22,17.446005 21.524083,17 20.9375,17 L 19.59375,17 13.375,5.5 C 13.226094,5.2394 13,4.9999 12.5,5 z m 0,5 3.5,7 -7,0 z" transform="translate(162 213) translate(0 1004.362)" fill="#444" overflow="visible" enable-background="accumulate"/>
-        </g>
-        <rect width="24" height="24" x="162" y="1218.362" opacity=".5" overflow="visible" enable-background="accumulate" fill="none"/>
-    </g>
-</svg>

@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-    <g transform="translate(0 -1028.362) translate(72 -118)" color="#000">
-        <g fill="#444" font-family="Sans">
-            <path style="text-indent:0;text-align:start;line-height:normal;text-transform:none;block-progression:tb;-inkscape-font-specification:Sans" d="m -56.375,1161.8622 c -0.5,-10e-5 -0.72609,0.2394 -0.875,0.5 l -8.5,14 c -0.0881,0.1543 -0.125,0.3274 -0.125,0.5 0,0.75 0.5,1.0002 1,1 l 17,0 c 0.5,2e-4 1,-0.25 1,-1 0,-0.1726 -0.0369,-0.3457 -0.125,-0.5 l -8.5,-14 c -0.14891,-0.2606 -0.375,-0.5001 -0.875,-0.5 z m 0,3 6.78125,11 -13.5625,0 z" opacity=".3" stroke="#fff" stroke-width="2" overflow="visible" enable-background="accumulate" transform="translate(-3.125 -11.5)"/>
-            <path d="m -56.375,1161.8622 c -0.5,-10e-5 -0.72609,0.2394 -0.875,0.5 l -8.5,14 c -0.0881,0.1543 -0.125,0.3274 -0.125,0.5 0,0.75 0.5,1.0002 1,1 l 17,0 c 0.5,2e-4 1,-0.25 1,-1 0,-0.1726 -0.0369,-0.3457 -0.125,-0.5 l -8.5,-14 c -0.14891,-0.2606 -0.375,-0.5001 -0.875,-0.5 z m 0,3 6.78125,11 -13.5625,0 z" style="text-indent:0;text-align:start;line-height:normal;text-transform:none;block-progression:tb;-inkscape-font-specification:Sans" overflow="visible" enable-background="accumulate" transform="translate(-3.125 -11.5)"/>
-        </g>
-        <rect width="24" height="24" x="-72" y="1146.362" opacity=".5" overflow="visible" enable-background="accumulate" fill="none"/>
-    </g>
-</svg>

@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-    <g transform="translate(0 -1034.362) translate(-264 -112)" color="#000">
-        <g>
-            <path transform="translate(-1) translate(-353 1122.362)" d="m 627.5,27 c -1.933,0 -3.5,0.671573 -3.5,1.5 l 0,2.5 c 0,0.828427 1.567,1.5 3.5,1.5 1.933,0 3.5,-0.671573 3.5,-1.5 l 0,-2.5 c 0,-0.828427 -1.567,-1.5 -3.5,-1.5 z m -3.5,5.5 0,6.5 c 0,0 1.00002,1 3.5,1 2.50002,0 3.5,-1 3.5,-1 l 0,-6.5 c 0,0.8284 -1.567,1.5 -3.5,1.5 -1.933,0 -3.5,-0.6716 -3.5,-1.5 z" opacity=".3" fill="#fff" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" overflow="visible" enable-background="accumulate"/>
-            <path d="m 627.5,27 c -1.933,0 -3.5,0.671573 -3.5,1.5 l 0,2.5 c 0,0.828427 1.567,1.5 3.5,1.5 1.933,0 3.5,-0.671573 3.5,-1.5 l 0,-2.5 c 0,-0.828427 -1.567,-1.5 -3.5,-1.5 z m -3.5,5.5 0,6.5 c 0,0 1.00002,1 3.5,1 2.50002,0 3.5,-1 3.5,-1 l 0,-6.5 c 0,0.8284 -1.567,1.5 -3.5,1.5 -1.933,0 -3.5,-0.6716 -3.5,-1.5 z m 2,2.5 c 0.45315,0.092 0.96548,0.15625 1.5,0.15625 0.53452,0 1.04685,-0.06405 1.5,-0.15625 l 0,3 c -0.45315,0.0922 -0.96548,0.15625 -1.5,0.15625 -0.53452,0 -1.04685,-0.06425 -1.5,-0.15625 z" transform="translate(-1) translate(-353 1122.362)" fill="#444" overflow="visible" enable-background="accumulate"/>
-        </g>
-        <rect y="1146.362" x="264" height="18" width="18" opacity=".5" overflow="visible" enable-background="accumulate" fill="none"/>
-    </g>
-</svg>

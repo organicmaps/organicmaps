@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-    <g transform="translate(0 -1028.362) translate(-476 -262)" color="#000">
-        <g>
-            <path d="m 477,1295.3622 1,1 -2,2 0,1 3,0.5 c 0,1.5 2.52937,0.6765 2.99995,3.5 l 5e-5,5 1,0 1,-4 1,4 1,0 0,-4 c 2,0 3,-1 4,-1 0,0 0.5,1.6502 0.5,2.5 0,0.8498 -0.5,2.5 -0.5,2.5 l 1,0 1.5,-4 1.5,4 1,0 c 0,0 0,-2.6667 0,-4 0,-0.5 -1,-1 -1,-1.5 0,-1.4121 1,-1.5 1,-2.5 0,-0.2838 0,-2.5 0,-3 0,-0.5 -0.5,-1 -1,-1 l -13,0 -1,-1 z" opacity=".3" fill="#fff" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" overflow="visible" enable-background="accumulate" transform="translate(2)"/>
-            <path d="m 477,1295.3622 1,1 -2,2 0,1 3,0.5 c 0,1.5 2.52937,0.6765 2.99995,3.5 l 5e-5,5 1,0 1,-4 1,4 1,0 0,-4 c 2,0 3,-1 4,-1 0,0 0.5,1.6502 0.5,2.5 0,0.8498 -0.5,2.5 -0.5,2.5 l 1,0 1.5,-4 1.5,4 1,0 c 0,0 0,-2.6667 0,-4 0,-0.5 -1,-1 -1,-1.5 0,-1.4121 1,-1.5 1,-2.5 0,-0.2838 0,-2.5 0,-3 0,-0.5 -0.5,-1 -1,-1 l -13,0 -1,-1 z" fill="#444" overflow="visible" enable-background="accumulate" transform="translate(2)"/>
-        </g>
-        <rect y="1290.362" x="476" height="24" width="24" opacity=".5" overflow="visible" enable-background="accumulate" fill="none"/>
-    </g>
-</svg>

@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-    <g transform="translate(0 -1034.362) translate(48 -136)" color="#000">
-        <g fill="#444" font-family="Sans">
-            <path style="text-indent:0;text-align:start;line-height:normal;text-transform:none;block-progression:tb;-inkscape-font-specification:Sans" d="m -38.49998,1173.3622 c -0.36111,0 -0.52441,0.1729 -0.63195,0.361 l -5.77777,10.5557 c -0.0636,0.1112 -0.0903,0.2364 -0.0903,0.3611 0,0.5417 0.36111,0.7224 0.72222,0.7222 l 11.55556,0 c 0.36111,2e-4 0.72222,-0.1805 0.72222,-0.7222 0,-0.1243 -0.0267,-0.2496 -0.0903,-0.3611 l -5.77778,-10.5557 c -0.10761,-0.1881 -0.27083,-0.361 -0.63194,-0.361 z" opacity=".3" stroke="#fff" stroke-width="2" overflow="visible" enable-background="accumulate"/>
-            <path d="m -38.49998,1173.3622 c -0.36111,0 -0.52441,0.1729 -0.63195,0.361 l -5.77777,10.5557 c -0.0636,0.1112 -0.0903,0.2364 -0.0903,0.3611 0,0.5417 0.36111,0.7224 0.72222,0.7222 l 11.55556,0 c 0.36111,2e-4 0.72222,-0.1805 0.72222,-0.7222 0,-0.1243 -0.0267,-0.2496 -0.0903,-0.3611 l -5.77778,-10.5557 c -0.10761,-0.1881 -0.27083,-0.361 -0.63194,-0.361 z" style="text-indent:0;text-align:start;line-height:normal;text-transform:none;block-progression:tb;-inkscape-font-specification:Sans" overflow="visible" enable-background="accumulate"/>
-        </g>
-        <rect y="1170.362" x="-48" height="18" width="18" opacity=".5" overflow="visible" enable-background="accumulate" fill="none"/>
-    </g>
-</svg>

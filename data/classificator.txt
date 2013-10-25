@@ -21,41 +21,30 @@ world  +
         bank  -
         bar  -
         bench  -
-        bicycle_parking  -
         bicycle_rental  -
-        brothel  -
         bureau_de_change  -
         bus_station  -
         cafe  -
         car_rental  -
         car_sharing  -
-        casino  -
         cinema  -
         college  -
-        community_centre  -
-        courthouse  -
-        dentist  -
         doctors  -
         drinking_water  -
         embassy  -
-        emergency_phone  -
         fast_food  -
         ferry_terminal  -
-        fire_hydrant  -
         fire_station  -
         fountain  -
         fuel  -
-        gambling  -
         grave_yard  +
             christian  -
             {}
         hospital  -
         hunting_stand  -
         kindergarten  -
-        laundry  -
         library  -
         marketplace  -
-        money_transfer  -
         nightclub  -
         parking  +
             fee  -
@@ -77,7 +66,6 @@ world  +
         police  -
         post_box  -
         post_office  -
-        prison  -
         pub  -
         recycling  -
         restaurant  +
@@ -87,8 +75,6 @@ world  +
             {}
         school  -
         shelter  -
-        shower  -
-        social_facility  -
         speed_trap  -
         taxi  -
         telephone  -
@@ -96,7 +82,6 @@ world  +
         toilets  -
         townhall  -
         university  -
-        waste_basket  -
         {}
     area:highway  +
         cycleway  -
@@ -118,7 +103,6 @@ world  +
     barrier  +
         block  -
         bollard  -
-        border_control  -
         city_wall  -
         cycle_barrier  -
         fence  -
@@ -163,24 +147,10 @@ world  +
             underground  -
             {}
         {}
-    craft  +
-        carpenter  -
-        shoemaker  -
-        tailor  -
-        {}
     earthquake:damage  +
         spontaneous_camp  -
         {}
-    emergency  +
-        fire_hydrant  -
-        phone  -
-        {}
     entrance  -
-    harbour  -
-    healthcare  +
-        dentist  -
-        hospital  -
-        {}
     highway  +
         bridleway  +
             bridge  -
@@ -289,7 +259,6 @@ world  +
             bridge  -
             tunnel  -
             {}
-        street_lamp  -
         tertiary  +
             bridge  -
             tunnel  -
@@ -388,7 +357,6 @@ world  +
         vineyard  -
         {}
     leisure  +
-        beach_resort  -
         common  -
         dog_park  +
             tennis  -
@@ -427,24 +395,14 @@ world  +
     man_made  +
         breakwater  -
         cairn  -
-        communication_tower  -
         cutline  -
         lighthouse  -
-        mast  -
         pier  -
         pipeline  +
             overground  -
             {}
-        storage_tank  -
         survey_point  -
         wastewater_plant  -
-        water_tower  -
-        water_well  +
-            drinking_water  -
-            manual  -
-            powered  -
-            {}
-        watermill  -
         windmill  -
         {}
     mapswithme  +
@@ -503,7 +461,6 @@ world  +
         estate_agent  -
         government  -
         lawyer  -
-        ngo  -
         telecommunication  -
         {}
     oneway  -
@@ -551,9 +508,7 @@ world  +
     power  +
         generator  +
             hydro  -
-            nuclear  -
             photovoltaic  -
-            solar  -
             wind  -
             {}
         line  +
@@ -570,7 +525,6 @@ world  +
             bridge  -
             tunnel  -
             {}
-        construction  -
         crossing  -
         disused  -
         funicular  +
@@ -643,24 +597,11 @@ world  +
             orange  -
             purple  -
             red  -
+            tunnel  -
             violet  -
             yellow  -
             {}
-        subway_entrance  +
-            blue  -
-            brown  -
-            darkgreen  -
-            gray  -
-            green  -
-            grey  -
-            lightblue  -
-            lightgreen  -
-            orange  -
-            purple  -
-            red  -
-            violet  -
-            yellow  -
-            {}
+        subway_entrance  -
         tram  +
             bridge  -
             tunnel  -
@@ -671,17 +612,8 @@ world  +
             tunnel  -
             {}
         {}
-    religion  +
-        christian  -
-        hindu  -
-        jewish  -
-        muslim  -
-        {}
     route  +
         ferry  -
-        {}
-    seamark:type  +
-        harbour  -
         {}
     shop  +
         alcohol  -
@@ -691,23 +623,18 @@ world  +
         books  -
         butcher  -
         car  -
-        car_parts  -
         car_repair  -
         chemist  -
         clothes  -
         computer  -
         confectionery  -
         convenience  -
-        copyshop  -
         department_store  -
         doityourself  -
-        dry_cleaning  -
         electronics  -
         florist  -
-        funeral_directors  -
         furniture  -
         garden_centre  -
-        general  -
         gift  -
         greengrocer  -
         hairdresser  -
@@ -716,13 +643,7 @@ world  +
         kiosk  -
         mall  -
         mobile_phone  -
-        motorcycle  -
-        music  -
-        musical_instrument  -
         optician  -
-        outdoor  -
-        photo  -
-        photo_studio  -
         shoes  -
         supermarket  -
         toys  -
@@ -757,7 +678,6 @@ world  +
         attraction  -
         camp_site  -
         caravan_site  -
-        gallery  -
         guest_house  -
         hostel  -
         hotel  -
@@ -795,9 +715,5 @@ world  +
             tunnel  -
             {}
         weir  -
-        {}
-    wood  +
-        coniferous  -
-        deciduous  -
         {}
     {}

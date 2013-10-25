@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-    <g transform="translate(0 -1034.362) translate(-342 -136)" color="#000">
-        <g fill="#444">
-            <path d="m 346.72222,1177.3622 c -0.40011,0 -0.72222,0.3221 -0.72222,0.7223 l 0,6.5555 c 0,0.4001 0.32211,0.7222 0.72222,0.7222 l 11.55556,0 c 0.40011,0 0.72222,-0.3221 0.72222,-0.7222 l 0,-6.5555 c 0,-0.4002 -0.32211,-0.7223 -0.72222,-0.7223 z m -0.22222,1.5 12,0 0,1.5 -12,0 z m 0.5,4 2,0 0,1.5 -2,0 z m 6,0.7777 5,0 0,0.7223 -5,0 z" opacity=".3" stroke="#fff" stroke-width="2" overflow="visible" enable-background="accumulate" transform="translate(-1 -2)"/>
-            <path d="m 346.72222,1177.3622 c -0.40011,0 -0.72222,0.3221 -0.72222,0.7223 l 0,6.5555 c 0,0.4001 0.32211,0.7222 0.72222,0.7222 l 11.55556,0 c 0.40011,0 0.72222,-0.3221 0.72222,-0.7222 l 0,-6.5555 c 0,-0.4002 -0.32211,-0.7223 -0.72222,-0.7223 z m -0.22222,1.5 12,0 0,1.5 -12,0 z m 0.5,4 2,0 0,1.5 -2,0 z m 6,0.7777 5,0 0,0.7223 -5,0 z" overflow="visible" enable-background="accumulate" transform="translate(-1 -2)"/>
-        </g>
-        <rect width="18" height="18" x="342" y="1170.362" opacity=".5" overflow="visible" enable-background="accumulate" fill="none"/>
-    </g>
-</svg>

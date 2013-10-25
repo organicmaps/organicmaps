@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-    <g transform="translate(0 -1034.362) translate(48 -112)" color="#000">
-        <g fill="#444" font-family="Sans">
-            <path d="m -38.5,1149.3622 c -0.36111,0 -0.51746,0.1869 -0.625,0.375 l -5.78125,10.5313 c -0.0636,0.1112 -0.09375,0.2503 -0.09375,0.375 0,0.5417 0.35764,0.7189 0.71875,0.7187 l 11.5625,0 c 0.36111,2e-4 0.71875,-0.177 0.71875,-0.7187 0,-0.1243 -0.03015,-0.2635 -0.09375,-0.375 l -5.78125,-10.5313 c -0.10761,-0.1881 -0.26389,-0.375 -0.625,-0.375 z m 0,2 4.5,8.5 -9,0 4.5,-8.5 z" style="text-indent:0;text-align:start;line-height:normal;text-transform:none;block-progression:tb;-inkscape-font-specification:Sans" opacity=".3" stroke="#fff" stroke-width="2" overflow="visible" enable-background="accumulate"/>
-            <path style="text-indent:0;text-align:start;line-height:normal;text-transform:none;block-progression:tb;-inkscape-font-specification:Sans" d="m -38.5,1149.3622 c -0.36111,0 -0.51746,0.1869 -0.625,0.375 l -5.78125,10.5313 c -0.0636,0.1112 -0.09375,0.2503 -0.09375,0.375 0,0.5417 0.35764,0.7189 0.71875,0.7187 l 11.5625,0 c 0.36111,2e-4 0.71875,-0.177 0.71875,-0.7187 0,-0.1243 -0.03015,-0.2635 -0.09375,-0.375 l -5.78125,-10.5313 c -0.10761,-0.1881 -0.26389,-0.375 -0.625,-0.375 z m 0,2 4.5,8.5 -9,0 4.5,-8.5 z" overflow="visible" enable-background="accumulate"/>
-        </g>
-        <rect y="1146.362" x="-48" height="18" width="18" opacity=".5" overflow="visible" enable-background="accumulate" fill="none"/>
-    </g>
-</svg>

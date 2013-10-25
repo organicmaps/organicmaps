@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12">
-    <g transform="translate(0 -1040.362) translate(30 -82)" color="#000">
-        <g>
-            <path d="m -28.4375,1123.3622 7.875,0 c 0.311625,0 0.5625,0.2509 0.5625,0.5625 l 0,7.875 c 0,0.3116 -0.250875,0.5625 -0.5625,0.5625 l -7.875,0 c -0.311625,0 -0.5625,-0.2509 -0.5625,-0.5625 l 0,-7.875 c 0,-0.3116 0.250875,-0.5625 0.5625,-0.5625 z" opacity=".3" stroke="#fff" stroke-width="2" overflow="visible" enable-background="accumulate" fill="none" transform="translate(1)"/>
-            <path d="m -28.4375,1123.3622 7.875,0 c 0.311625,0 0.5625,0.2509 0.5625,0.5625 l 0,7.875 c 0,0.3116 -0.250875,0.5625 -0.5625,0.5625 l -7.875,0 c -0.311625,0 -0.5625,-0.2509 -0.5625,-0.5625 l 0,-7.875 c 0,-0.3116 0.250875,-0.5625 0.5625,-0.5625 z" fill="#444" overflow="visible" enable-background="accumulate" transform="translate(1)"/>
-        </g>
-        <rect y="1122.362" x="-30" height="12" width="12" opacity=".5" overflow="visible" enable-background="accumulate" fill="none"/>
-    </g>
-</svg>

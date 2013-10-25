@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-    <g transform="translate(0 -1034.362) translate(-108 -184)" color="#000">
-        <g font-size="25.21" font-weight="bold" letter-spacing="0" word-spacing="0" font-family="Helvetica Neue">
-            <path d="m 115,1222.3622 0,10 2.125,0 0,-3.5625 0.90625,0 c 1.23958,0 2.20507,-0.274 2.875,-0.8437 0.67447,-0.5697 0.99999,-1.3932 1,-2.4688 -1e-5,-1.0345 -0.30404,-1.8242 -0.9375,-2.3437 -0.62891,-0.5241 -1.56901,-0.7812 -2.78125,-0.7813 z m 2.125,1.75 0.96875,0 c 0.57877,0 0.98112,0.1069 1.25,0.3438 0.27343,0.237 0.40624,0.597 0.40625,1.0937 -1e-5,0.4922 -0.14519,0.8652 -0.46875,1.125 -0.32358,0.2552 -0.81707,0.4063 -1.46875,0.4063 l -0.6875,0 z" style="text-indent:0;text-align:start;line-height:125%;text-transform:none;block-progression:tb;-inkscape-font-specification:Helvetica Neue Bold" opacity=".3" fill="#fff" stroke="#fff" stroke-width="2" stroke-linejoin="round" overflow="visible" enable-background="accumulate"/>
-            <path style="text-indent:0;text-align:start;line-height:125%;text-transform:none;block-progression:tb;-inkscape-font-specification:Helvetica Neue Bold" d="m 115,1222.3622 0,10 2.125,0 0,-3.5625 0.90625,0 c 1.23958,0 2.20507,-0.274 2.875,-0.8437 0.67447,-0.5697 0.99999,-1.3932 1,-2.4688 -1e-5,-1.0345 -0.30404,-1.8242 -0.9375,-2.3437 -0.62891,-0.5241 -1.56901,-0.7812 -2.78125,-0.7813 z m 2.125,1.75 0.96875,0 c 0.57877,0 0.98112,0.1069 1.25,0.3438 0.27343,0.237 0.40624,0.597 0.40625,1.0937 -1e-5,0.4922 -0.14519,0.8652 -0.46875,1.125 -0.32358,0.2552 -0.81707,0.4063 -1.46875,0.4063 l -0.6875,0 z" fill="#444" overflow="visible" enable-background="accumulate"/>
-        </g>
-        <rect y="1218.362" x="108" height="18" width="18" opacity=".5" overflow="visible" enable-background="accumulate" fill="none"/>
-    </g>
-</svg>

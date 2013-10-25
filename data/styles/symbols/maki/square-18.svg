@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-    <g transform="translate(0 -1034.362) translate(48 -88)" color="#000">
-        <g>
-            <rect ry="1" rx="1" y="1124.362" x="-45" height="13" width="13" opacity=".3" stroke="#fff" stroke-width="2" overflow="visible" enable-background="accumulate" fill="none"/>
-            <rect width="13" height="13" x="-45" y="1124.362" rx="1" ry="1" fill="#444" overflow="visible" enable-background="accumulate"/>
-        </g>
-        <rect width="18" height="18" x="-48" y="1122.362" opacity=".5" overflow="visible" enable-background="accumulate" fill="none"/>
-    </g>
-</svg>

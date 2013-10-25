@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12">
-    <g transform="translate(0 -1040.362) translate(-204 -178)" color="#000">
-        <g font-family="Sans">
-            <path style="text-indent:0;text-align:start;line-height:normal;text-transform:none;block-progression:tb;-inkscape-font-specification:Sans" d="m 211.53125,1221.3622 c -0.25,0 -0.36305,0.1197 -0.4375,0.25 l -2.85938,5.75 -0.73437,0 c -0.29329,0 -0.5,0.223 -0.5,0.5 0,0.277 0.20671,0.5 0.5,0.5 l 1.03125,0 6,0 0.9375,0 c 0.29329,0 0.53125,-0.223 0.53125,-0.5 0,-0.277 -0.23796,-0.5 -0.53125,-0.5 l -0.64063,0 -2.85937,-5.75 c -0.0745,-0.1303 -0.1875,-0.25 -0.4375,-0.25 z" opacity=".3" fill="#fff" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" overflow="visible" enable-background="accumulate" transform="translate(-1 -1)"/>
-            <path d="m 211.53125,1221.3622 c -0.25,0 -0.36305,0.1197 -0.4375,0.25 l -2.85938,5.75 -0.73437,0 c -0.29329,0 -0.5,0.223 -0.5,0.5 0,0.277 0.20671,0.5 0.5,0.5 l 1.03125,0 6,0 0.9375,0 c 0.29329,0 0.53125,-0.223 0.53125,-0.5 0,-0.277 -0.23796,-0.5 -0.53125,-0.5 l -0.64063,0 -2.85937,-5.75 c -0.0745,-0.1303 -0.1875,-0.25 -0.4375,-0.25 z m 0,2.5 1.5,3.5 -3,0 z" style="text-indent:0;text-align:start;line-height:normal;text-transform:none;block-progression:tb;-inkscape-font-specification:Sans" fill="#444" overflow="visible" enable-background="accumulate" transform="translate(-1 -1)"/>
-        </g>
-        <rect width="12" height="12" x="204" y="1218.362" opacity=".5" overflow="visible" enable-background="accumulate" fill="none"/>
-    </g>
-</svg>

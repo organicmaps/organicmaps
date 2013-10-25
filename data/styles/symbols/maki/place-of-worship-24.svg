@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-    <g transform="translate(0 -1028.362) translate(-6 -118)">
-        <path d="m 18.5,1150.3622 c 0,0 -2.5,1 -2.5,2 0,0.6667 0,1.3958 0,2 0,1 -2,1 -2,2 0,2.3333 0,9 0,9 l 9,0 c 0,0 0,-6.6667 0,-9 0,-1 -2,-1 -2,-2.1875 0,-0.6042 0,-1.2083 0,-1.8125 0,-1 -2.5,-2 -2.5,-2 z m -8.5,8 c 0,2.3333 0,7 0,7 l 2,0 c 0,0 0,-4.6667 0,-7 0,-1 -1,-1 -1,-1 0,0 -1,0 -1,1 z m 15,0 c 0,2.3333 0,7 0,7 l 2,0 c 0,0 0,-4.6667 0,-7 0,-1 -1,-1 -1,-1 0,0 -1,0 -1,1 z" opacity=".3" color="#000" fill="#fff" stroke="#fff" stroke-width="2" stroke-linejoin="round" overflow="visible" enable-background="accumulate"/>
-        <g transform="translate(0 24)">
-            <rect width="24" height="24" x="6" y="1122.362" opacity=".5" color="#000" overflow="visible" enable-background="accumulate" fill="none"/>
-        </g>
-        <path d="m 18.5,1150.3622 c 0,0 -2.5,1 -2.5,2 0,0.6667 0,1.3958 0,2 0,1 -2,1 -2,2 0,2.3333 0,9 0,9 l 9,0 c 0,0 0,-6.6667 0,-9 0,-1 -2,-1 -2,-2.1875 0,-0.6042 0,-1.2083 0,-1.8125 0,-1 -2.5,-2 -2.5,-2 z m -8.5,8 c 0,2.3333 0,7 0,7 l 2,0 c 0,0 0,-4.6667 0,-7 0,-1 -1,-1 -1,-1 0,0 -1,0 -1,1 z m 15,0 c 0,2.3333 0,7 0,7 l 2,0 c 0,0 0,-4.6667 0,-7 0,-1 -1,-1 -1,-1 0,0 -1,0 -1,1 z" color="#000" fill="#444" overflow="visible" enable-background="accumulate"/>
-    </g>
-</svg>

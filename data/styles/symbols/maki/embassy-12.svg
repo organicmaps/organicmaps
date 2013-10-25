@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12">
-    <g transform="translate(0 -1040.362) translate(-360 -202)" color="#000">
-        <path d="m 365.5,1244.3622 -2.5,1 0,8 1,0 0,-5 1.5,-0.5 2.5,1.5 2,-1 0,-3.5 -2,1 z" opacity=".3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" overflow="visible" enable-background="accumulate" fill="none"/>
-        <rect y="1242.362" x="360" height="12" width="12" opacity=".5" overflow="visible" enable-background="accumulate" fill="none"/>
-        <path d="m 365.5,1244.3622 -2.5,1 0,8 1,0 0,-5 1.5,-0.5 2.5,1.5 2,-1 0,-3.5 -2,1 z" fill="#444" overflow="visible" enable-background="accumulate"/>
-    </g>
-</svg>
