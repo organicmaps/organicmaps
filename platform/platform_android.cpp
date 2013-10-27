@@ -76,8 +76,25 @@ public:
 
 }
 
-ModelReader * Platform::GetReader(string const & file) const
+ModelReader * Platform::GetReader(string const & file, char const * searchScope) const
 {
+  // @TODO now we handle only two specific cases needed to release guides ads
+  string const strScope(searchScope);
+  if (strScope == "w")
+  {
+    string const path = m_writableDir + file;
+    if (IsFileExistsByFullPath(path))
+      return new FileReader(path, READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
+    MYTHROW(FileAbsentException, ("File not found", file));
+  }
+  else if (strScope == "r")
+  {
+    return new ZipFileReader(m_resourcesDir, "assets/" + file);
+  }
+  // @TODO refactor code below and some other parts too, like fonts and maps detection and loading,
+  // as it can be done much better
+
+
   SourceT sources[4];
   size_t const n = GetSearchSources(file, sources);
 

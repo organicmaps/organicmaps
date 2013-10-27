@@ -6,22 +6,26 @@
 #include "../base/logging.hpp"
 
 
-string Platform::ReadPathForFile(string const & file) const
+string Platform::ReadPathForFile(string const & file, char const * searchScope) const
 {
-  string fullPath = m_writableDir + file;
-  if (!IsFileExistsByFullPath(fullPath))
+  ASSERT(searchScope, ());
+
+  string const strScope(searchScope);
+  string fullPath;
+  for (size_t i = 0; i < strScope.size(); ++i)
   {
-    fullPath = m_resourcesDir + file;
-    if (!IsFileExistsByFullPath(fullPath))
+    switch (strScope[i])
     {
-      // default behaviour - assume that we have full path here
-      if (!IsFileExistsByFullPath(file))
-        MYTHROW(FileAbsentException, ("File doesn't exist", file));
-      else
-        return file;
+    case 'w': fullPath = m_writableDir + file; break;
+    case 'r': fullPath = m_resourcesDir + file; break;
+    case 'f': fullPath = file; break;
+    default : CHECK(false, ("Unsupported searchScope:", searchScope)); break;
     }
+    if (IsFileExistsByFullPath(fullPath))
+      return fullPath;
   }
-  return fullPath;
+
+  MYTHROW(FileAbsentException, ("File", file, "doesn't exist in the scope", searchScope));
 }
 
 string Platform::HashUniqueID(string const & s)

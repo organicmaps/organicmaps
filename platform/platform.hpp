@@ -45,7 +45,7 @@ protected:
 
   /// Internal function to get full path for input file.
   /// Uses m_writeableDir and m_resourcesDir.
-  string ReadPathForFile(string const & file) const;
+  string ReadPathForFile(string const & file, char const * searchScope) const;
 
   /// Hash some unique string into uniform format.
   static string HashUniqueID(string const & s);
@@ -76,8 +76,10 @@ public:
 
   /// @return reader for file decriptor.
   /// @throws FileAbsentException
-  /// @param[in] file descriptor which we want to read
-  ModelReader * GetReader(string const & file) const;
+  /// @param[in] file name or full path which we want to read, don't forget to free memory or wrap it to ReaderPtr
+  /// @param[in] searchScope looks for file in dirs in given order: [w]ritable, [r]esources, by [f]ull path
+  /// @TODO add [e]xternal resource scope for Android (obb support)
+  ModelReader * GetReader(string const & file, char const * searchScope = "wrf") const;
 
   /// @name File operations
   //@{
