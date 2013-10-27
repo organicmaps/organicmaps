@@ -1344,10 +1344,8 @@ void Framework::InitGuiSubsystem()
     pr.m_threadSlot = m_renderPolicy->GetResourceManager()->guiThreadSlot();
     pr.m_renderContext = m_renderPolicy->GetRenderContext();
 
-    pr.m_doUnbindRT = false;
     pr.m_storageType = graphics::EMediumStorage;
     pr.m_textureType = graphics::ESmallTexture;
-    pr.m_isSynchronized = false;
 
     m_bmManager.SetScreen(m_renderPolicy->CreateScreenWithParams(pr));
     //@}
