@@ -86,18 +86,42 @@ string DebugPrint(GuideInfo const & r)
 
 bool GuidesManager::RestoreFromFile()
 {
+  int resourcesVersion = -1, downloadedVersion = -1;
+  MapT fromResources, fromDownloaded;
+  Platform & pl = GetPlatform();
   try
   {
-    ReaderPtr<Reader> r(GetPlatform().GetReader(GetDataFileName()));
-    string data;
-    r.ReadAsString(data);
-    return ValidateAndParseGuidesData(data);
+    string json;
+    ReaderPtr<Reader>(pl.GetReader(GetDataFileName(), "r")).ReadAsString(json);
+    resourcesVersion = ValidateAndParseGuidesData(json, fromResources);
   }
-  catch (RootException const & ex)
+  catch (RootException const &)
   {
-    LOG(LWARNING, (ex.Msg()));
-    return false;
   }
+  try
+  {
+    string json;
+    ReaderPtr<Reader>(pl.GetReader(GetDataFileName(), "w")).ReadAsString(json);
+    downloadedVersion = ValidateAndParseGuidesData(json, fromDownloaded);
+  }
+  catch (RootException const &)
+  {
+  }
+
+  if (downloadedVersion > resourcesVersion)
+  {
+    m_version = downloadedVersion;
+    m_file2Info.swap(fromDownloaded);
+    return true;
+  }
+  else if (resourcesVersion > downloadedVersion || resourcesVersion >= 0)
+  {
+    m_version = resourcesVersion;
+    m_file2Info.swap(fromResources);
+    return true;
+  }
+  LOG(LWARNING, ("Guides descriptions were not loaded"));
+  return false;
 }
 
 void GuidesManager::UpdateGuidesData()
@@ -129,7 +153,7 @@ bool GuidesManager::GetGuideInfo(string const & id, GuideInfo & appInfo) const
   return false;
 }
 
-string GuidesManager::GetGuidesDataUrl() const
+string GuidesManager::GetGuidesDataUrl()
 {
 #ifdef DEBUG
   return "http://application.server/rest/guides/debug/" + GetDataFileName();
@@ -138,12 +162,12 @@ string GuidesManager::GetGuidesDataUrl() const
 #endif
 }
 
-string GuidesManager::GetDataFileName() const
+string GuidesManager::GetDataFileName()
 {
   return OMIM_OS_NAME "-" GUIDES_DATA_FILE_SUFFIX;
 }
 
-string GuidesManager::GetDataFileFullPath() const
+string GuidesManager::GetDataFileFullPath()
 {
   return GetPlatform().WritableDir() + GetDataFileName();
 }
@@ -153,10 +177,15 @@ void GuidesManager::OnFinish(downloader::HttpRequest & request)
   if (request.Status() == downloader::HttpRequest::ECompleted)
   {
     string const & data = request.Data();
-    if (ValidateAndParseGuidesData(data) && !m_file2Info.empty())
+    // Sanity check if we forgot to update json version on servers
+    MapT tmpGuides;
+    int const downloadedVersion = ValidateAndParseGuidesData(data, tmpGuides);
+    if (downloadedVersion > m_version && !m_file2Info.empty())
     {
+      // Load into the memory even if we fail to save it later
+      m_version = downloadedVersion;
+      m_file2Info.swap(tmpGuides);
       // Save only if file was parsed successfully and info exists!
-
       string const path = GetDataFileFullPath();
       try
       {
@@ -181,10 +210,11 @@ void GuidesManager::OnFinish(downloader::HttpRequest & request)
   m_httpRequest.reset();
 }
 
-bool GuidesManager::ValidateAndParseGuidesData(string const & jsonData)
+int GuidesManager::ValidateAndParseGuidesData(string const & jsonData, MapT & guidesInfo)
 {
-  typedef my::Json::Exception ParseException;
-
+  guidesInfo.clear();
+  // 0 means "version" key is absent in json
+  int version = 0;
   try
   {
     my::Json root(jsonData.c_str());
@@ -196,15 +226,20 @@ bool GuidesManager::ValidateAndParseGuidesData(string const & jsonData)
       json_t * entry = json_object_iter_value(iter);
       if (entry)
       {
-        GuideInfo info(entry);
-        if (info.IsValid())
+        if (json_is_integer(entry) && string(json_object_iter_key(iter)) == "version")
+          version = json_integer_value(entry);
+        else
         {
-          json_t * keys = json_object_get(entry, "keys");
-          for (size_t i = 0; i < json_array_size(keys); ++i)
+          GuideInfo info(entry);
+          if (info.IsValid())
           {
-            char const * key = json_string_value(json_array_get(keys, i));
-            if (key)
-              temp[key] = info;
+            json_t * keys = json_object_get(entry, "keys");
+            for (size_t i = 0; i < json_array_size(keys); ++i)
+            {
+              char const * key = json_string_value(json_array_get(keys, i));
+              if (key)
+                temp[key] = info;
+            }
           }
         }
       }
@@ -212,13 +247,13 @@ bool GuidesManager::ValidateAndParseGuidesData(string const & jsonData)
       iter = json_object_iter_next(root.get(), iter);
     }
 
-    m_file2Info.swap(temp);
-    return true;
+    guidesInfo.swap(temp);
+    return version;
   }
-  catch (ParseException const & ex)
+  catch (my::Json::Exception const & ex)
   {
     LOG(LWARNING, ("Failed to parse guides data:", ex.Msg()));
-    return false;
+    return -1;
   }
 }
 

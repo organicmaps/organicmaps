@@ -9,7 +9,6 @@
 
 #include "../../3party/jansson/jansson_handle.hpp"
 
-
 namespace guides
 {
 
@@ -35,9 +34,15 @@ public:
 
 string DebugPrint(GuideInfo const & r);
 
-
 class GuidesManager : private noncopyable
 {
+  /// For unit tests visibility
+  friend void UnitTest_Guides_SmokeTest();
+  friend void UnitTest_Guides_CorrectlyParseData();
+  friend void UnitTest_Guides_SaveRestoreFromFile();
+  friend void UnitTest_Guides_ComplexNames();
+  friend void UnitTest_Guides_CheckDataFiles();
+
 /// @name Guides managment
 //@{
 public:
@@ -53,19 +58,23 @@ public:
   void SetWasAdvertised(string const & appID);
   //@}
 
-  bool ValidateAndParseGuidesData(string const & jsonData);
-
-  /// Public visibility for unit tests only!
-  string GetDataFileFullPath() const;
-
 private:
+  typedef map<string, GuideInfo> MapT;
+
+  /// @param[in] guidesInfo filled with correct info about guides on success
+  /// @return -1 if failed to parse or json version number otherwise. 0 means version is absent in json.
+  int ValidateAndParseGuidesData(string const & jsonData, MapT & guidesInfo);
+
   void   OnFinish(downloader::HttpRequest & request);
-  string GetGuidesDataUrl() const;
-  string GetDataFileName() const;
+  static string GetGuidesDataUrl();
+  static string GetDataFileName();
+  static string GetDataFileFullPath();
 
   /// Map from mwm file name (key) to guide info.
-  typedef map<string, GuideInfo> MapT;
   MapT m_file2Info;
+
+  /// Loaded Guides json version
+  int m_version;
 
   scoped_ptr<downloader::HttpRequest> m_httpRequest;
 //@}

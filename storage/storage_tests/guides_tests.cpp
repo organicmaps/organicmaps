@@ -7,13 +7,17 @@
 #include "../../coding/file_writer.hpp"
 #include "../../coding/file_reader.hpp"
 
+// Needed for friend functions to work correctly
+namespace guides
+{
 
 UNIT_TEST(Guides_SmokeTest)
 {
-  guides::GuidesManager manager;
-  guides::GuideInfo info;
+  GuidesManager manager;
+  GuideInfo info;
 
-  string str =  "{ \"UK\": {"
+  string const str =  "{ \"version\": 2,"
+                  "\"UK\": {"
                   "\"url\": \"https://itunes.apple.com/app/uk-travel-guide-with-me/id687855665\","
                   "\"appId\": \"com.guideswithme.uk\","
                   "\"adTitles\": { \"en\": \"UK title\", \"ru\": \"ВБ заголовок\" },"
@@ -21,11 +25,14 @@ UNIT_TEST(Guides_SmokeTest)
                   "\"keys\": [ \"Guernsey\", \"Mercy\" ]"
                 "} }";
 
-  TEST(!manager.ValidateAndParseGuidesData("invalidtest"), ());
-  TEST(manager.ValidateAndParseGuidesData("{}"), ());
+  GuidesManager::MapT data;
+  TEST_EQUAL(-1, manager.ValidateAndParseGuidesData("invalidtest", data), ());
+  TEST_EQUAL(0, manager.ValidateAndParseGuidesData("{}", data), ());
+  manager.m_file2Info.swap(data);
   TEST(!manager.GetGuideInfo("Guernsey", info), ());
 
-  TEST(manager.ValidateAndParseGuidesData(str), ());
+  TEST_EQUAL(2, manager.ValidateAndParseGuidesData(str, data), ());
+  manager.m_file2Info.swap(data);
   TEST(manager.GetGuideInfo("Guernsey", info), ());
   TEST(info.IsValid(), ());
 
@@ -36,7 +43,7 @@ UNIT_TEST(Guides_SmokeTest)
   TEST_EQUAL(info.GetAdTitle("zh"), "UK title", ());
   TEST_EQUAL(info.GetAdMessage("zh"), "UK message", ());
 
-  guides::GuideInfo info1;
+  GuideInfo info1;
   TEST(manager.GetGuideInfo("Mercy", info1), ());
   TEST(info1.IsValid(), ());
   TEST_EQUAL(info, info1, ());
@@ -46,10 +53,11 @@ UNIT_TEST(Guides_SmokeTest)
 
 UNIT_TEST(Guides_CorrectlyParseData)
 {
-  guides::GuidesManager manager;
-  guides::GuideInfo info;
+  GuidesManager manager;
+  GuideInfo info;
 
-  string strLondonIsle =  "{ \"UK_1\": {"
+  string strLondonIsle =  "{ \"version\": 2,"
+                            "\"UK_1\": {"
                             "\"url\": \"https://itunes.apple.com/app/uk-travel-guide-with-me/id687855665\","
                             "\"appId\": \"com.guideswithme.uk\","
                             "\"adTitles\": { \"en\": \"UK title\", \"ru\": \"ВБ заголовок\" },"
@@ -66,7 +74,9 @@ UNIT_TEST(Guides_CorrectlyParseData)
   string validKeys[] = { "London", "Isle of Man" };
   string invalidKeys[] = { "london", "Lond", "Isle", "Man" };
 
-  TEST(manager.ValidateAndParseGuidesData(strLondonIsle), ());
+  GuidesManager::MapT data;
+  TEST_EQUAL(2, manager.ValidateAndParseGuidesData(strLondonIsle, data), ());
+  manager.m_file2Info.swap(data);
   for (size_t i = 0; i < ARRAY_SIZE(validKeys); ++i)
   {
     TEST(manager.GetGuideInfo(validKeys[i], info), (i));
@@ -93,10 +103,11 @@ UNIT_TEST(Guides_CorrectlyParseData)
 
 UNIT_TEST(Guides_ComplexNames)
 {
-  guides::GuidesManager manager;
-  guides::GuideInfo info;
+  GuidesManager manager;
+  GuideInfo info;
 
-  string strLondonIsle = "{\"Côte_d'Ivoire\": {"
+  string const strLondonIsle = "{ \"version\": 123456,"
+                            "\"Côte_d'Ivoire\": {"
                             "\"url\": \"https://itunes.apple.com/app/uk-travel-guide-with-me/id687855665\","
                             "\"appId\": \"com.guideswithme.uk\","
                             "\"adTitles\": { \"en\": \"Côte_d'Ivoire title\", \"ru\": \"КДВар заголовок\" },"
@@ -113,7 +124,9 @@ UNIT_TEST(Guides_ComplexNames)
   string validKeys[] = { "Côte_d'Ivoire", "Беларусь" };
   string invalidKeys[] = { "Не Беларусь", "Côte_d'IvoireCôte_d'IvoireCôte_d'Ivoire" };
 
-  TEST(manager.ValidateAndParseGuidesData(strLondonIsle), ());
+  GuidesManager::MapT data;
+  TEST_EQUAL(123456, manager.ValidateAndParseGuidesData(strLondonIsle, data), ());
+  manager.m_file2Info.swap(data);
   for (size_t i = 0; i < ARRAY_SIZE(validKeys); ++i)
   {
     TEST(manager.GetGuideInfo(validKeys[i], info), (i));
@@ -126,10 +139,11 @@ UNIT_TEST(Guides_ComplexNames)
 
 UNIT_TEST(Guides_SaveRestoreFromFile)
 {
-  guides::GuidesManager manager;
-  guides::GuideInfo info;
+  GuidesManager manager;
+  GuideInfo info;
 
-  string strLondonIsle =  "{ \"UK_1\": {"
+  string const strLondonIsle =  "{ \"version\": 2,"
+                            "\"UK_1\": {"
                             "\"url\": \"https://itunes.apple.com/app/uk-travel-guide-with-me/id687855665\","
                             "\"appId\": \"com.guideswithme.uk\","
                             "\"adTitles\": { \"en\": \"UK title\", \"ru\": \"ВБ заголовок\" },"
@@ -143,7 +157,9 @@ UNIT_TEST(Guides_SaveRestoreFromFile)
                             "\"keys\": [ \"Isle of Man\" ]"
                           "} }";
 
-  TEST(manager.ValidateAndParseGuidesData(strLondonIsle), ());
+  GuidesManager::MapT data;
+  TEST_EQUAL(2, manager.ValidateAndParseGuidesData(strLondonIsle, data), ());
+  manager.m_file2Info.swap(data);
 
   string const path = manager.GetDataFileFullPath();
   {
@@ -176,8 +192,8 @@ UNIT_TEST(Guides_CheckDataFiles)
   string const path = GetPlatform().WritableDir();
   string arr[] = { "android-guides.json", "ios-guides.json" };
 
-  guides::GuidesManager manager;
-  guides::GuideInfo info;
+  GuidesManager manager;
+  GuideInfo info;
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
   {
@@ -185,8 +201,12 @@ UNIT_TEST(Guides_CheckDataFiles)
     string str;
     reader.ReadAsString(str);
 
-    TEST(manager.ValidateAndParseGuidesData(str), ());
+    GuidesManager::MapT data;
+    TEST_LESS(0, manager.ValidateAndParseGuidesData(str, data), ());
+    manager.m_file2Info.swap(data);
     TEST(manager.GetGuideInfo("UK_England", info), ());
     TEST(info.IsValid(), ());
   }
 }
+
+} // namespace guides
