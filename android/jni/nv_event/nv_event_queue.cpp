@@ -20,7 +20,6 @@
 //
 //----------------------------------------------------------------------------------
 #define MODULE "NVEventQueue"
-#define DBG_DETAILED 1
 #include "../nv_debug/nv_debug.hpp"
 
 #include "nv_event_queue.hpp"

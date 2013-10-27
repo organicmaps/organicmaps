@@ -189,7 +189,7 @@ public:
       return;
     }
 
-    return jniEnv->CallVoidMethod(s_globalThiz, m_index);
+    jniEnv->CallVoidMethod(s_globalThiz, m_index);
   }
 
   const char* m_name;
