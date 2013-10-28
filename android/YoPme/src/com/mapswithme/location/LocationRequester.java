@@ -35,6 +35,7 @@ public class LocationRequester implements Handler.Callback
   private final Set<LocationListener> mListeners = new HashSet<LocationListener>();
   private Location mLocation;
   private final static long MAX_TIME_FOR_SUBSCRIPTION_FIX = 15*60*1000;
+  private final static float MIN_METRES_DISTANCE_FILTER = 5.0f;
   // location
 
   // Handler messages
@@ -159,7 +160,7 @@ public class LocationRequester implements Handler.Callback
       }
       else
       {
-        mLocationManager.requestLocationUpdates(provider, time, 0, pi);
+        mLocationManager.requestLocationUpdates(provider, time, MIN_METRES_DISTANCE_FILTER, pi);
         postRequestCancelation(MAX_TIME_FOR_SUBSCRIPTION_FIX);
       }
 
@@ -266,7 +267,7 @@ public class LocationRequester implements Handler.Callback
     if (l1 == null || l2 == null)
       return true;
 
-    return l1.distanceTo(l2) > 5;
+    return l1.distanceTo(l2) > MIN_METRES_DISTANCE_FILTER;
   }
 
   public Location getLastKnownLocation()
