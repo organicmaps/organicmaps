@@ -108,6 +108,7 @@ bool GuidesManager::RestoreFromFile()
   {
   }
 
+  ASSERT_GREATER(resourcesVersion, 0, ());
   if (downloadedVersion > resourcesVersion)
   {
     m_version = downloadedVersion;
