@@ -2,6 +2,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIAlertView.h>
 #import "../Classes/MapViewController.h"
+#import "Framework.h"
+#import "Statistics.h"
 
 #include "../../platform/settings.hpp"
 
@@ -53,6 +55,20 @@
       [alert show];
       [alert release];
     }
+
+    /*This code counts conversion Guides->MWM. We rely on setting with name "Units", and by the time this code will be executed, Framework->GuidesManager should be initialised*/
+    set<string> s;
+    GetFramework().GetGuidesManager().GetGuidesId(s);
+    NSMutableDictionary * guidesUrls = [[[NSMutableDictionary alloc] init] autorelease];
+    for (set<string>::iterator it = s.begin(); it != s.end();++it)
+    {
+      NSString * countryUrl = [NSString stringWithUTF8String:it->c_str()];
+      if ([APP canOpenURL:[NSURL URLWithString:countryUrl]])
+        guidesUrls[countryUrl] = @1;
+    }
+    if ([guidesUrls count])
+      [[Statistics instance] logEvent:@"Guides Downloaded before MWM" withParameters:guidesUrls];
+
     Settings::Set("Units", u);
   }
   else
