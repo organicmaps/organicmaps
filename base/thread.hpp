@@ -17,9 +17,6 @@ namespace threads
   private:
     bool m_isCancelled;
 
-  protected:
-    inline bool IsCancelled() const { return m_isCancelled; }
-
   public:
     IRoutine() : m_isCancelled(false) {}
     virtual ~IRoutine() {}
@@ -30,6 +27,7 @@ namespace threads
     /// Implement this function to respond to the cancellation event.
     /// Cancellation means that IRoutine should exit as fast as possible.
     virtual void Cancel() { m_isCancelled = true; }
+    inline bool IsCancelled() const { return m_isCancelled; }
   };
 
   class ThreadImpl;
