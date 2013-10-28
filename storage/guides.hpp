@@ -4,6 +4,7 @@
 
 #include "../std/string.hpp"
 #include "../std/map.hpp"
+#include "../std/set.hpp"
 #include "../std/scoped_ptr.hpp"
 #include "../std/noncopyable.hpp"
 
@@ -50,6 +51,7 @@ public:
 
   /// @param[in] id MWM file name without extension as a key.
   bool GetGuideInfo(string const & id, GuideInfo & appInfo) const;
+  void GetGuidesId(set<string> & s);
 
   /// @param[in] appID Guide app package id.
   //@{

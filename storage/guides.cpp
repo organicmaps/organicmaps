@@ -158,6 +158,12 @@ bool GuidesManager::GetGuideInfo(string const & id, GuideInfo & appInfo) const
   return false;
 }
 
+void GuidesManager::GetGuidesId(set<string> & s)
+{
+  for (MapT::iterator it = m_file2Info.begin(); it != m_file2Info.end();++it)
+    s.insert(it->second.GetAppID());
+}
+
 string GuidesManager::GetGuidesDataUrl()
 {
 #ifdef DEBUG
