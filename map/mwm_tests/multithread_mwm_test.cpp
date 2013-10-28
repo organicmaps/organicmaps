@@ -74,7 +74,7 @@ namespace
     srand(666);
 
     size_t const count = 20;
-    threads::ThreadPool pool(count);
+    threads::SimpleThreadPool pool(count);
 
     for (size_t i = 0; i < count; ++i)
       pool.Add(new FeaturesLoader(src));

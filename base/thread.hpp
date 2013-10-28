@@ -56,17 +56,17 @@ namespace threads
   };
 
   /// Simple threads container. Takes ownership for every added IRoutine.
-  class ThreadPool
+  class SimpleThreadPool
   {
     typedef pair<Thread *, IRoutine *> ValueT;
     vector<ValueT> m_pool;
 
-    ThreadPool(ThreadPool const &);
-    ThreadPool & operator=(Thread const &);
+    SimpleThreadPool(SimpleThreadPool const &);
+    SimpleThreadPool & operator=(Thread const &);
 
   public:
-    ThreadPool(size_t reserve = 0);
-    ~ThreadPool();
+    SimpleThreadPool(size_t reserve = 0);
+    ~SimpleThreadPool();
 
     void Add(IRoutine * pRoutine);
     void Join();

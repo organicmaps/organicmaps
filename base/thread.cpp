@@ -180,12 +180,12 @@ namespace threads
   }
 
 
-  ThreadPool::ThreadPool(size_t reserve)
+  SimpleThreadPool::SimpleThreadPool(size_t reserve)
   {
     m_pool.reserve(reserve);
   }
 
-  ThreadPool::~ThreadPool()
+  SimpleThreadPool::~SimpleThreadPool()
   {
     for (size_t i = 0; i < m_pool.size(); ++i)
     {
@@ -194,7 +194,7 @@ namespace threads
     }
   }
 
-  void ThreadPool::Add(IRoutine * pRoutine)
+  void SimpleThreadPool::Add(IRoutine * pRoutine)
   {
     ValueT v;
     v.first = new Thread();
@@ -205,13 +205,13 @@ namespace threads
     v.first->Create(pRoutine);
   }
 
-  void ThreadPool::Join()
+  void SimpleThreadPool::Join()
   {
     for (size_t i = 0; i < m_pool.size(); ++i)
       m_pool[i].first->Join();
   }
 
-  IRoutine * ThreadPool::GetRoutine(size_t i) const
+  IRoutine * SimpleThreadPool::GetRoutine(size_t i) const
   {
     return m_pool[i].second;
   }
