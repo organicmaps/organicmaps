@@ -8,7 +8,7 @@ obj/
 .gradle/
 build/
 3rd_party/api-android/
-
+RELEASE/
 
 *.class
 .classpath
