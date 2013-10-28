@@ -84,6 +84,12 @@ string DebugPrint(GuideInfo const & r)
   return ss.str();
 }
 
+void GuidesManager::RestoreFromParsedData(int version, MapT & guidesInfo)
+{
+  m_version = version;
+  m_file2Info.swap(guidesInfo);
+}
+
 bool GuidesManager::RestoreFromFile()
 {
   int resourcesVersion = -1, downloadedVersion = -1;
@@ -93,7 +99,7 @@ bool GuidesManager::RestoreFromFile()
   {
     string json;
     ReaderPtr<Reader>(pl.GetReader(GetDataFileName(), "r")).ReadAsString(json);
-    resourcesVersion = ValidateAndParseGuidesData(json, fromResources);
+    resourcesVersion = ParseGuidesData(json, fromResources);
   }
   catch (RootException const &)
   {
@@ -102,7 +108,7 @@ bool GuidesManager::RestoreFromFile()
   {
     string json;
     ReaderPtr<Reader>(pl.GetReader(GetDataFileName(), "w")).ReadAsString(json);
-    downloadedVersion = ValidateAndParseGuidesData(json, fromDownloaded);
+    downloadedVersion = ParseGuidesData(json, fromDownloaded);
   }
   catch (RootException const &)
   {
@@ -111,14 +117,12 @@ bool GuidesManager::RestoreFromFile()
   ASSERT_GREATER(resourcesVersion, 0, ());
   if (downloadedVersion > resourcesVersion)
   {
-    m_version = downloadedVersion;
-    m_file2Info.swap(fromDownloaded);
+    RestoreFromParsedData(downloadedVersion, fromDownloaded);
     return true;
   }
   else if (resourcesVersion > downloadedVersion || resourcesVersion >= 0)
   {
-    m_version = resourcesVersion;
-    m_file2Info.swap(fromResources);
+    RestoreFromParsedData(resourcesVersion, fromResources);
     return true;
   }
   LOG(LWARNING, ("Guides descriptions were not loaded"));
@@ -180,7 +184,7 @@ void GuidesManager::OnFinish(downloader::HttpRequest & request)
     string const & data = request.Data();
     // Sanity check if we forgot to update json version on servers
     MapT tmpGuides;
-    int const downloadedVersion = ValidateAndParseGuidesData(data, tmpGuides);
+    int const downloadedVersion = ParseGuidesData(data, tmpGuides);
     if (downloadedVersion > m_version && !m_file2Info.empty())
     {
       // Load into the memory even if we fail to save it later
@@ -211,7 +215,7 @@ void GuidesManager::OnFinish(downloader::HttpRequest & request)
   m_httpRequest.reset();
 }
 
-int GuidesManager::ValidateAndParseGuidesData(string const & jsonData, MapT & guidesInfo)
+int GuidesManager::ParseGuidesData(string const & jsonData, MapT & guidesInfo)
 {
   guidesInfo.clear();
   // 0 means "version" key is absent in json

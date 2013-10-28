@@ -26,13 +26,14 @@ UNIT_TEST(Guides_SmokeTest)
                 "} }";
 
   GuidesManager::MapT data;
-  TEST_EQUAL(-1, manager.ValidateAndParseGuidesData("invalidtest", data), ());
-  TEST_EQUAL(0, manager.ValidateAndParseGuidesData("{}", data), ());
-  manager.m_file2Info.swap(data);
+  int version;
+  TEST_EQUAL(-1, version = manager.ParseGuidesData("invalidtest", data), ());
+  TEST_EQUAL(0, version = manager.ParseGuidesData("{}", data), ());
+  manager.RestoreFromParsedData(version, data);
   TEST(!manager.GetGuideInfo("Guernsey", info), ());
 
-  TEST_EQUAL(2, manager.ValidateAndParseGuidesData(str, data), ());
-  manager.m_file2Info.swap(data);
+  TEST_EQUAL(2, version = manager.ParseGuidesData(str, data), ());
+  manager.RestoreFromParsedData(version, data);
   TEST(manager.GetGuideInfo("Guernsey", info), ());
   TEST(info.IsValid(), ());
 
@@ -75,8 +76,9 @@ UNIT_TEST(Guides_CorrectlyParseData)
   string invalidKeys[] = { "london", "Lond", "Isle", "Man" };
 
   GuidesManager::MapT data;
-  TEST_EQUAL(2, manager.ValidateAndParseGuidesData(strLondonIsle, data), ());
-  manager.m_file2Info.swap(data);
+  int version;
+  TEST_EQUAL(2, version = manager.ParseGuidesData(strLondonIsle, data), ());
+  manager.RestoreFromParsedData(version, data);
   for (size_t i = 0; i < ARRAY_SIZE(validKeys); ++i)
   {
     TEST(manager.GetGuideInfo(validKeys[i], info), (i));
@@ -125,8 +127,9 @@ UNIT_TEST(Guides_ComplexNames)
   string invalidKeys[] = { "Не Беларусь", "Côte_d'IvoireCôte_d'IvoireCôte_d'Ivoire" };
 
   GuidesManager::MapT data;
-  TEST_EQUAL(123456, manager.ValidateAndParseGuidesData(strLondonIsle, data), ());
-  manager.m_file2Info.swap(data);
+  int version;
+  TEST_EQUAL(123456, version = manager.ParseGuidesData(strLondonIsle, data), ());
+  manager.RestoreFromParsedData(version, data);
   for (size_t i = 0; i < ARRAY_SIZE(validKeys); ++i)
   {
     TEST(manager.GetGuideInfo(validKeys[i], info), (i));
@@ -158,8 +161,9 @@ UNIT_TEST(Guides_SaveRestoreFromFile)
                           "} }";
 
   GuidesManager::MapT data;
-  TEST_EQUAL(2, manager.ValidateAndParseGuidesData(strLondonIsle, data), ());
-  manager.m_file2Info.swap(data);
+  int version;
+  TEST_EQUAL(2, version = manager.ParseGuidesData(strLondonIsle, data), ());
+  manager.RestoreFromParsedData(version, data);
 
   string const path = manager.GetDataFileFullPath();
   {
@@ -202,8 +206,9 @@ UNIT_TEST(Guides_CheckDataFiles)
     reader.ReadAsString(str);
 
     GuidesManager::MapT data;
-    TEST_LESS(0, manager.ValidateAndParseGuidesData(str, data), ());
-    manager.m_file2Info.swap(data);
+    int version;
+    TEST_LESS(0, version = manager.ParseGuidesData(str, data), ());
+    manager.RestoreFromParsedData(version, data);
     TEST(manager.GetGuideInfo("UK_England", info), ());
     TEST(info.IsValid(), ());
   }
