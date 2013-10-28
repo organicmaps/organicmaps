@@ -497,4 +497,8 @@
 /* Prints version number in About dialog */
 "version" = "Versione: %@";
 
+/* Confirmation in downloading countries dialog */
 "are_you_sure" = "Sei sicuro di voler continuare?";
+
+/* Title for tracks category in bookmarks manager */
+"tracks" = "Tracciati";

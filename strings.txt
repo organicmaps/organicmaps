@@ -2660,18 +2660,38 @@
     ko = 버전: %@
     zh-Hant = 版本： %@
 
-   [are_you_sure]
-     en = Are you sure you want to continue?
-     cs = Určitě chcete pokračovat?
-     de = Möchten Sie wirklich fortfahren?
-     es = ¿Seguro que desea continuar?
-     fr = Souhaitez-vous vraiment continuer?
-     it = Sei sicuro di voler continuare?
-     ja = 本当に続けますか?
-     ko = 계속하겠습니까?
-     nl = Weet u zeker dat u wilt doorgaan?
-     uk = Продовжити?
-     zh-Hant = 確定要繼續嗎？
-     pl = Czy na pewno kontynuować?
-     pt = Tem a certeza de que pretende continuar?
-     ru = Вы уверены, что хотите продолжить?
+  [are_you_sure]
+    tags = android
+    comment = Confirmation in downloading countries dialog
+    en = Are you sure you want to continue?
+    cs = Určitě chcete pokračovat?
+    de = Möchten Sie wirklich fortfahren?
+    es = ¿Seguro que desea continuar?
+    fr = Souhaitez-vous vraiment continuer?
+    it = Sei sicuro di voler continuare?
+    ja = 本当に続けますか?
+    ko = 계속하겠습니까?
+    nl = Weet u zeker dat u wilt doorgaan?
+    uk = Продовжити?
+    zh-Hant = 確定要繼續嗎？
+    pl = Czy na pewno kontynuować?
+    pt = Tem a certeza de que pretende continuar?
+    ru = Вы уверены, что хотите продолжить?
+
+  [tracks]
+    tags = ios,android
+    comment = Title for tracks category in bookmarks manager
+    en = Tracks
+    ru = Треки
+    uk = Маршрути
+    es = Tracks
+    pt = Percursos
+    pl = Trasy
+    it = Tracciati
+    nl = Tracks
+    de = Tracks
+    cs = Stopy
+    fr = Parcours
+    ja = トラック
+    ko = 트랙
+    zh-Hant = 軌道

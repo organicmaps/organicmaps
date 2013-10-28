@@ -316,5 +316,8 @@
 	<string name="show_on_backscreen">Pokaż na tylnym ekranie</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Wersja: %s</string>
+	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">Czy na pewno kontynuować?</string>
+	<!-- Title for tracks category in bookmarks manager -->
+	<string name="tracks">Trasy</string>
 </resources>

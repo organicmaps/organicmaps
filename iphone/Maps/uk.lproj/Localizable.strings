@@ -497,4 +497,8 @@
 /* Prints version number in About dialog */
 "version" = "Версія: %@";
 
+/* Confirmation in downloading countries dialog */
 "are_you_sure" = "Продовжити?";
+
+/* Title for tracks category in bookmarks manager */
+"tracks" = "Маршрути";

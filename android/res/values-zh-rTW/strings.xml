@@ -285,5 +285,8 @@
 	<string name="done">完成</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">版本： %s</string>
+	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">確定要繼續嗎？</string>
+	<!-- Title for tracks category in bookmarks manager -->
+	<string name="tracks">軌道</string>
 </resources>

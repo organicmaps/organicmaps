@@ -307,5 +307,8 @@
 	<string name="show_on_backscreen">Auf dem rückseitigen Bildschirm anzeigen</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Version: %s</string>
+	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">Möchten Sie wirklich fortfahren?</string>
+	<!-- Title for tracks category in bookmarks manager -->
+	<string name="tracks">Tracks</string>
 </resources>

@@ -303,5 +303,8 @@
 	<string name="show_on_backscreen">Zobrazit na zadní obrazovce</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Verze: %s</string>
+	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">Určitě chcete pokračovat?</string>
+	<!-- Title for tracks category in bookmarks manager -->
+	<string name="tracks">Stopy</string>
 </resources>

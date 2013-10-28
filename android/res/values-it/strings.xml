@@ -37,9 +37,9 @@
 	<string name="downloading">In fase di download...</string>
 	<string name="get_it_now">Prendila ora</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Ti stai divertendo MapsWithMe? Aiuta i tuoi amici e la famiglia a conoscere l\'app, condividila con loro su Facebook!</string>
+	<string name="share_on_facebook_text">Ti stai divertendo MapsWithMe? Aiuta i tuoi amici e la famiglia a conoscere l\&#39;app, condividila con loro su Facebook!</string>
 	<!-- Leave Review dialog title -->
-	<string name="leave_review_text">Se ti piace MapsWithMe, cortesemente sostienici, scrivendo una recensione. Se incontri problemi, faccelo sapere compilando l\'apposito modulo.</string>
+	<string name="leave_review_text">Se ti piace MapsWithMe, cortesemente sostienici, scrivendo una recensione. Se incontri problemi, faccelo sapere compilando l\&#39;apposito modulo.</string>
 	<!-- Settings/Downloader - size string -->
 	<string name="kb">kB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -81,7 +81,7 @@
 	<!-- Search box placeholder text -->
 	<string name="search_map">Ricerca Mappa</string>
 	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">Non c\'è abbastanza spazio libero su disco</string>
+	<string name="not_enough_disk_space">Non c\&#39;è abbastanza spazio libero su disco</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">Tocca per scaricare</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
@@ -115,9 +115,9 @@
 	<string name="unsupported_phone">È necessaria una accelerazione hardware OpenGL. Purtroppo, il tuo dispositivo non è supportato.</string>
 	<string name="download">Carica</string>
 	<string name="external_storage_is_not_available">La scheda/USB/di memoria SD con le mappe scaricate non è disponibile</string>
-	<string name="disconnect_usb_cable">Coortesemente scollega il cavo USB oppure inserisci la scheda di memoria per l\'usco dell\'app</string>
-	<string name="not_enough_free_space_on_sdcard">Libera prima dello spazio sulla scheda Sd/ memoria USB per usare l\'app</string>
-	<string name="not_enough_memory">Memoria insufficiente per lanciare l\'app</string>
+	<string name="disconnect_usb_cable">Coortesemente scollega il cavo USB oppure inserisci la scheda di memoria per l\&#39;usco dell\&#39;app</string>
+	<string name="not_enough_free_space_on_sdcard">Libera prima dello spazio sulla scheda Sd/ memoria USB per usare l\&#39;app</string>
+	<string name="not_enough_memory">Memoria insufficiente per lanciare l\&#39;app</string>
 	<string name="free_space_for_country">Libera %1$s sul dispositivo prima per poter scaricare %2$s</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="download_resources">Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %1$.1f%2$s.</string>
@@ -173,7 +173,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Seleziona</string>
 	<!-- Text hint in Bookmarks dialog -->
-	<string name="bookmarks_usage_hint">Possono essere anche importati Preferiti da altre fonti e visualizzate nell\'app MapsWithMe. Apri il file KML/KMZ con i pin salvati da una casella di posta, Dropbox o un link web.</string>
+	<string name="bookmarks_usage_hint">Possono essere anche importati Preferiti da altre fonti e visualizzate nell\&#39;app MapsWithMe. Apri il file KML/KMZ con i pin salvati da una casella di posta, Dropbox o un link web.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Impostazioni</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -238,7 +238,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Il segnalibri MapsWithMe è stato condiviso con te</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Ciao,\n\nQuesti sono i miei \&quot;preferiti\&quot; fra le mappe offline di MapsWithMe, che si trovano nel file allegato \&quot;%s.kmz\&quot;. Il file può essere aperto se l\'app MapsWithMe Pro è già stata installata. In caso contrario, occorre scaricare l\'app per il tuo iOS o dispositivo Android dal link http://www.mapswithme.com/get?kmz.\n\nBuon divertimento con MapsWithMe!</string>
+	<string name="share_bookmarks_email_body">Ciao,\n\nQuesti sono i miei \&quot;preferiti\&quot; fra le mappe offline di MapsWithMe, che si trovano nel file allegato \&quot;%s.kmz\&quot;. Il file può essere aperto se l\&#39;app MapsWithMe Pro è già stata installata. In caso contrario, occorre scaricare l\&#39;app per il tuo iOS o dispositivo Android dal link http://www.mapswithme.com/get?kmz.\n\nBuon divertimento con MapsWithMe!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Caricamento segnalibri in corso</string>
 	<!-- Kmz file successful loading -->
@@ -258,7 +258,7 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Il download della nazione è in corso.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Confidiamo nel fatto che sia piacevole utilizzare MapsWithMe! In caso positivo, ti preghiamo di valutare o recensire l\'app all\'interno dell\'app store. Ti porterà via meno di un minuto e la cosa ci aiuterebbe tantissimo. Grazie per il tuo sostegno!</string>
+	<string name="appStore_message">Confidiamo nel fatto che sia piacevole utilizzare MapsWithMe! In caso positivo, ti preghiamo di valutare o recensire l\&#39;app all\&#39;interno dell\&#39;app store. Ti porterà via meno di un minuto e la cosa ci aiuterebbe tantissimo. Grazie per il tuo sostegno!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">No, grazie</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
@@ -288,9 +288,9 @@
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Copiato sugli Appunti: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Abilita la statistica d\'uso anonima</string>
+	<string name="allow_statistics">Abilita la statistica d\&#39;uso anonima</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Ci aiuta a creare un\'applicazione migliore</string>
+	<string name="allow_statistics_hint">Ci aiuta a creare un\&#39;applicazione migliore</string>
 	<!-- place preview title -->
 	<string name="info">Informazioni</string>
 	<!-- Used for bookmark editing -->
@@ -303,5 +303,8 @@
 	<string name="show_on_backscreen">Mostra Sfondo</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Versione: %s</string>
+	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">Sei sicuro di voler continuare?</string>
+	<!-- Title for tracks category in bookmarks manager -->
+	<string name="tracks">Tracciati</string>
 </resources>

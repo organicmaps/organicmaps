@@ -92,13 +92,13 @@
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">We recommend using WiFi to download large maps</string>
 	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">We\'ve updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.</string>
+	<string name="new_map_data_format_upgrade_dialog">We\&#39;ve updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Which measurement system do you prefer?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">You currently have all Location Services for this device or application disabled. Please enable them in Settings.</string>
 	<!-- Location Services are not available on the device alert - message -->
-	<string name="device_doesnot_support_location_services">Your device doesn\'t support Location Services</string>
+	<string name="device_doesnot_support_location_services">Your device doesn\&#39;t support Location Services</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Zoom to the country</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
@@ -149,7 +149,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Update available for these maps:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">You don\'t need MapsWithMe Lite any more, so you can uninstall it.</string>
+	<string name="suggest_uninstall_lite">You don\&#39;t need MapsWithMe Lite any more, so you can uninstall it.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">%s downloaded successfuly</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -256,7 +256,7 @@
 	<!-- resource for context menu -->
 	<string name="edit">Edit</string>
 	<!-- Warning message when doing search around current position -->
-	<string name="unknown_current_position">Your location hasn\'t been determined yet</string>
+	<string name="unknown_current_position">Your location hasn\&#39;t been determined yet</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
 	<string name="download_location_country">Download the country (%s) of your current location</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
@@ -272,9 +272,9 @@
 	<!-- No, thanks -->
 	<string name="no_thanks">No, thanks</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Hey, check out my pin at MapsWithMe! %1$s or %2$s Don\'t have offline maps installed? Download here: http://mapswith.me/get</string>
+	<string name="bookmark_share_sms">Hey, check out my pin at MapsWithMe! %1$s or %2$s Don\&#39;t have offline maps installed? Download here: http://mapswith.me/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Hey, check out my current location at MapsWithMe! %1$s or %2$s Don\'t have offline maps? Download here: http://mapswith.me/get</string>
+	<string name="my_position_share_sms">Hey, check out my current location at MapsWithMe! %1$s or %2$s Don\&#39;t have offline maps? Download here: http://mapswith.me/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Hey, check out my pin at MapsWithMe map!</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
@@ -282,7 +282,7 @@
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hey, check out my current location at MapsWithMe map!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
-	<string name="my_position_share_email">Hi,\n\nI\'m here now: %1$s. Click this link %2$s or this one %3$s to see the place on the map.\n\nThanks.</string>
+	<string name="my_position_share_email">Hi,\n\nI\&#39;m here now: %1$s. Click this link %2$s or this one %3$s to see the place on the map.\n\nThanks.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Share by message</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
@@ -323,5 +323,8 @@
 	<string name="show_on_backscreen">Show on Back screen</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Version: %s</string>
+	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">Are you sure you want to continue?</string>
+	<!-- Title for tracks category in bookmarks manager -->
+	<string name="tracks">Tracks</string>
 </resources>
