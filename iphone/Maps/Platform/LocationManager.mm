@@ -150,8 +150,7 @@
     newInfo.m_accuracy = 10.0;
     newInfo.m_timestamp = [newLocation.timestamp timeIntervalSince1970];
 
-    for (id observer in m_observers)
-      [observer onCompassUpdate:newInfo];
+    [self notifyCompassUpdate:newInfo];
   }
   else
     m_isCourse = NO;
@@ -171,8 +170,7 @@
     newInfo.m_accuracy = my::DegToRad(newHeading.headingAccuracy);
     newInfo.m_timestamp = [newHeading.timestamp timeIntervalSince1970];
 
-    for (id observer in m_observers)
-      [observer onCompassUpdate:newInfo];
+    [self notifyCompassUpdate:newInfo];
   }
 }
 
@@ -239,6 +237,13 @@
 -(void)orientationChanged
 {
   m_locationManager.headingOrientation = (CLDeviceOrientation)[UIDevice currentDevice].orientation;
+}
+
+-(void)notifyCompassUpdate:(location::CompassInfo const &)newInfo
+{
+  for (id observer in m_observers)
+    if ([observer respondsToSelector:@selector(onCompassUpdate:)])
+      [observer onCompassUpdate:newInfo];
 }
 
 @end
