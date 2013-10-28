@@ -38,7 +38,7 @@ def getBaseName()    { getApkName() + "_" + getVersionName() }
 
 
 android {
-    compileSdkVersion "Yota Platinum:Platinum Add-On:17"
+    compileSdkVersion 19
     buildToolsVersion "19.0.0"
     project.archivesBaseName = getBaseName()
     
