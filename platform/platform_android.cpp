@@ -76,18 +76,17 @@ public:
 
 }
 
-ModelReader * Platform::GetReader(string const & file, char const * searchScope) const
+ModelReader * Platform::GetReader(string const & file, string const & searchScope) const
 {
   // @TODO now we handle only two specific cases needed to release guides ads
-  string const strScope(searchScope);
-  if (strScope == "w")
+  if (searchScope == "w")
   {
     string const path = m_writableDir + file;
     if (IsFileExistsByFullPath(path))
       return new FileReader(path, READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
     MYTHROW(FileAbsentException, ("File not found", file));
   }
-  else if (strScope == "r")
+  else if (searchScope == "r")
   {
     return new ZipFileReader(m_resourcesDir, "assets/" + file);
   }

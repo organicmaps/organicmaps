@@ -6,15 +6,12 @@
 #include "../base/logging.hpp"
 
 
-string Platform::ReadPathForFile(string const & file, char const * searchScope) const
+string Platform::ReadPathForFile(string const & file, string const & searchScope) const
 {
-  ASSERT(searchScope, ());
-
-  string const strScope(searchScope);
   string fullPath;
-  for (size_t i = 0; i < strScope.size(); ++i)
+  for (size_t i = 0; i < searchScope.size(); ++i)
   {
-    switch (strScope[i])
+    switch (searchScope[i])
     {
     case 'w': fullPath = m_writableDir + file; break;
     case 'r': fullPath = m_resourcesDir + file; break;

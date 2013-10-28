@@ -72,7 +72,7 @@ bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
   }
 }
 
-ModelReader * Platform::GetReader(string const & file, char const * searchScope) const
+ModelReader * Platform::GetReader(string const & file, string const & searchScope) const
 {
   return new FileReader(ReadPathForFile(file, searchScope),
                         READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
