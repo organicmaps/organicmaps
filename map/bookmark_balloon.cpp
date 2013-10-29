@@ -201,14 +201,14 @@ void BookmarkBalloon::animTaskEnded(int animIndex)
   switch(animIndex)
   {
   case 0:
-    createTask(0.1, 1.05, 0.0, 0.0, 0.1, 1);
+    createTask(0.1, 0.95, 0.0, 0.0, 0.1, 1);
     isVisibleTextAndImage = false;
     break;
   case 1:
-    createTask(1.05, 0.95, -2.0, 5.0, 0.05, 2);
+    createTask(0.95, 0.9, 0.0, 3.0, 0.04, 2);
     break;
   case 2:
-    createTask(0.95, 1.0, 5.0, 0.0, 0.02, 3);
+    createTask(0.9, 1.0, 3.0, 0.0, 0.05, 3);
     break;
   }
 
