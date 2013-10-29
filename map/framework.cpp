@@ -262,8 +262,10 @@ Framework::Framework()
 
   LOG(LDEBUG, ("Storage initialized"));
 
+#ifndef OMIM_OS_DESKTOP
   //Init guides manager
   m_storage.GetGuideManager().RestoreFromFile();
+#endif
 }
 
 Framework::~Framework()
