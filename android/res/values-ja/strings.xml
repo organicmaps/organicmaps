@@ -297,4 +297,6 @@
 	<string name="are_you_sure">本当に続けますか?</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks">トラック</string>
+	<!-- Length of track in cell that describes route -->
+	<string name="length">距離</string>
 </resources>

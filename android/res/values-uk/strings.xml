@@ -311,4 +311,6 @@
 	<string name="are_you_sure">Продовжити?</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks">Маршрути</string>
+	<!-- Length of track in cell that describes route -->
+	<string name="length">Довжина</string>
 </resources>

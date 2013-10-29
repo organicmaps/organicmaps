@@ -307,4 +307,6 @@
 	<string name="are_you_sure">Určitě chcete pokračovat?</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks">Stopy</string>
+	<!-- Length of track in cell that describes route -->
+	<string name="length">Délka</string>
 </resources>

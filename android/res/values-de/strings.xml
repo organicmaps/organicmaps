@@ -311,4 +311,6 @@
 	<string name="are_you_sure">Möchten Sie wirklich fortfahren?</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks">Tracks</string>
+	<!-- Length of track in cell that describes route -->
+	<string name="length">Länge</string>
 </resources>

@@ -2695,3 +2695,20 @@
     ja = トラック
     ko = 트랙
     zh-Hant = 軌道
+  [length]
+    tags = ios,android
+    comment = Length of track in cell that describes route
+    en = Length
+    ru = Длина
+    uk = Довжина
+    es = Longitud
+    pt = Comprimento
+    pl = Długość
+    it = Lunghezza
+    nl = Lengte
+    de = Länge
+    cs = Délka
+    fr = Longueur
+    ja = 距離
+    ko = 길이
+    zh-Hant = 長度

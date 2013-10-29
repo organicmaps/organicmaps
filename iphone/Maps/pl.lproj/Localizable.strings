@@ -502,3 +502,6 @@
 
 /* Title for tracks category in bookmarks manager */
 "tracks" = "Trasy";
+
+/* Length of track in cell that describes route */
+"length" = "Długość";

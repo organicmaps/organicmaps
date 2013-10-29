@@ -320,4 +320,6 @@
 	<string name="are_you_sure">Czy na pewno kontynuować?</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks">Trasy</string>
+	<!-- Length of track in cell that describes route -->
+	<string name="length">Długość</string>
 </resources>

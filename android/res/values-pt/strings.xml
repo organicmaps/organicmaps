@@ -318,4 +318,6 @@
 	<string name="are_you_sure">Tem a certeza de que pretende continuar?</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks">Percursos</string>
+	<!-- Length of track in cell that describes route -->
+	<string name="length">Comprimento</string>
 </resources>

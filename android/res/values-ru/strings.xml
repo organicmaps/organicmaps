@@ -309,4 +309,6 @@
 	<string name="are_you_sure">Вы уверены, что хотите продолжить?</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks">Треки</string>
+	<!-- Length of track in cell that describes route -->
+	<string name="length">Длина</string>
 </resources>
