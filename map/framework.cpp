@@ -473,6 +473,12 @@ void Framework::ShowBookmark(BookmarkAndCategory bnc)
   ShowRectExVisibleScale(m_scales.GetRectForDrawScale(scale, bmk->GetOrg()));
 }
 
+void Framework::ShowTrack(Track const & track)
+{
+  StopLocationFollow();
+  ShowRectEx(track.GetLimitRect());
+}
+
 void Framework::ClearBookmarks()
 {
   m_bmManager.ClearItems();

@@ -206,6 +206,7 @@ public:
   //@}
 
   void ShowBookmark(BookmarkAndCategory bnc);
+  void ShowTrack(Track const & track);
 
   void ClearBookmarks();
 
