@@ -68,7 +68,7 @@ public:
   m2::RectD const & GetLimitRect() const { return m_rect; }
   //@}
 
-  double GetLength() const { return m_polyline.GetLength(); }
+  double GetLengthMeters() const;
   double GetShortestSquareDistance(m2::PointD const & point) const;
 
   void Swap(Track & rhs);

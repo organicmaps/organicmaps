@@ -1,5 +1,7 @@
 #include "track.hpp"
 
+#include "../indexer/mercator.hpp"
+
 #include "../graphics/screen.hpp"
 #include "../graphics/pen.hpp"
 #include "../graphics/depth_constants.hpp"
@@ -7,6 +9,7 @@
 
 #include "../geometry/distance.hpp"
 #include "../geometry/simplification.hpp"
+#include "../geometry/distance_on_sphere.hpp"
 
 #include "../base/timer.hpp"
 #include "../base/logging.hpp"
@@ -78,6 +81,25 @@ void Track::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matri
 
   dlScreen->setDisplayList(0);
   dlScreen->endFrame();
+}
+
+double Track::GetLengthMeters() const
+{
+  double res = 0.0;
+
+  PolylineD::IterT i = m_polyline.Begin();
+  double lat1 = MercatorBounds::YToLat(i->y);
+  double lon1 = MercatorBounds::XToLon(i->x);
+  for (++i; i != m_polyline.End(); ++i)
+  {
+    double const lat2 = MercatorBounds::YToLat(i->y);
+    double const lon2 = MercatorBounds::XToLon(i->x);
+    res += ms::DistanceOnEarth(lat1, lon1, lat2, lon2);
+    lat1 = lat2;
+    lon1 = lon2;
+  }
+
+  return res;
 }
 
 double Track::GetShortestSquareDistance(m2::PointD const & point) const
