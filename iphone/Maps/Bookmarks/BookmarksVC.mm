@@ -10,6 +10,7 @@
 
 #include "Framework.h"
 
+#include "../../../map/measurement_utils.hpp"
 #include "../../../geometry/distance_on_sphere.hpp"
 #include "../../../coding/zip_creator.hpp"
 #include "../../../coding/internal/file_data.hpp"
@@ -26,7 +27,6 @@
   int m_trackSection;
   int m_bookmarkSection;
   int m_shareSection;
-  int m_sectionNumber;
   int m_numberOfSections;
 }
 @end
@@ -53,9 +53,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  if ([MFMailComposeViewController canSendMail])
-   return 4;
-  return 3;
+  return m_numberOfSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -63,7 +61,7 @@
   if (section == 0)
     return 2;
   else if (section == m_trackSection)
-    return 1; //return GetFramework().GetBmCategory(m_categoryIndex)->trackCount ....
+    return GetFramework().GetBmCategory(m_categoryIndex)->GetTracksCount();
   else if (section == m_bookmarkSection)
     return GetFramework().GetBmCategory(m_categoryIndex)->GetBookmarksCount();
   else if (section == m_shareSection)
@@ -82,9 +80,9 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
   if (section == m_trackSection)
-    return @"Tracks";
+    return NSLocalizedString(@"tracks", nil);
   if (section == m_bookmarkSection)
-    return @"Bookmarks";
+    return NSLocalizedString(@"bookmarks", nil);
   return nil;
 }
 
@@ -149,18 +147,24 @@
     }
   }
 
-  if (indexPath.section == m_trackSection)
+  else if (indexPath.section == m_trackSection)
   {
     cell = [tableView dequeueReusableCellWithIdentifier:@"TrackCell"];
     if (!cell)
-      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"TrackCell"];
-    cell.textLabel.text = @"Track";
-    cell.detailTextLabel.text = @"220 km";
-    //get track colour
-    cell.imageView.image = [CircleView createCircleImageWith:PINDIAMETER andColor:[ColorPickerView colorForName:[NSString stringWithUTF8String:"placemark-blue"]]];
+      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"TrackCell"] autorelease];
+    Track const * tr = cat->GetTrack(indexPath.row);
+    cell.textLabel.text = [NSString stringWithUTF8String:tr->GetName().c_str()];
+    string dist;
+    if (MeasurementUtils::FormatDistance(tr->GetLengthMeters(), dist))
+      //Change Length before release!!!
+      cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"length", nil), [NSString  stringWithUTF8String:dist.c_str()]];
+    else
+      cell.detailTextLabel.text = nil;
+    const graphics::Color c = tr->GetColor();
+    cell.imageView.image = [CircleView createCircleImageWith:PINDIAMETER andColor:[UIColor colorWithRed:c.r/255.f green:c.g/255.f blue:c.b/255.f alpha:1.f]];
   }
-    // Second third, contains bookmarks list
-  if (indexPath.section == m_bookmarkSection)
+  // Contains bookmarks list
+  else if (indexPath.section == m_bookmarkSection)
   {
     BookmarkCell * bmCell = (BookmarkCell *)[tableView dequeueReusableCellWithIdentifier:@"BookmarksVCBookmarkItemCell"];
     if (!bmCell)
@@ -188,11 +192,13 @@
       else
         bmCell.bmDistance.text = nil;
     }
+    else
+      ASSERT(false, ("NULL bookmark"));
 
     cell = bmCell;
   }
 
-  if (indexPath.section == m_shareSection)
+  else if (indexPath.section == m_shareSection)
   {
     cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksExportCell"];
     if (!cell)
@@ -212,57 +218,61 @@
   [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 
   Framework & f = GetFramework();
-    if (indexPath.section == 0)
+  BookmarkCategory const * cat = f.GetBmCategory(m_categoryIndex);
+  ASSERT(cat, ("NULL category"));
+  if (indexPath.section == 0)
+  {
+    if (indexPath.row == 0)
     {
-      if (indexPath.row == 0)
+      // Edit name
+      // @TODO
+    }
+  }
+  else if (indexPath.section == m_trackSection)
+  {
+    if (cat)
+    {
+      Track const * tr = cat->GetTrack(indexPath.row);
+      ASSERT(tr, ("NULL track"));
+      if (tr)
       {
-        // Edit name
-        // @TODO
+        f.ShowTrack(*tr);
+        [self.navigationController.visibleViewController dismissModalViewControllerAnimated:YES];
       }
     }
-    else if (indexPath.section == m_trackSection)
+  }
+  else if (indexPath.section == m_bookmarkSection)
+  {
+    if (cat)
     {
-      //show track
-      NSLog(@"show track");
-    }
-
-    else if (indexPath.section == m_bookmarkSection)
-    {
-      BookmarkCategory const * cat = f.GetBmCategory(m_categoryIndex);
-      if (cat)
+      Bookmark const * bm = cat->GetBookmark(indexPath.row);
+      ASSERT(bm, ("NULL bookmark"));
+      if (bm)
       {
-        Bookmark const * bm = cat->GetBookmark(indexPath.row);
-        if (bm)
-        {
-          // Same as "Close".
-          f.ShowBookmark(BookmarkAndCategory(m_categoryIndex, indexPath.row));
-          [self.navigationController.visibleViewController dismissModalViewControllerAnimated:YES];
-        }
+        // Same as "Close".
+        f.ShowBookmark(BookmarkAndCategory(m_categoryIndex, indexPath.row));
+        [self.navigationController.visibleViewController dismissModalViewControllerAnimated:YES];
       }
     }
-
-    else if (indexPath.section == m_shareSection)
+  }
+  else if (indexPath.section == m_shareSection)
+  {
+    BookmarkCategory const * cat = GetFramework().GetBmCategory(m_categoryIndex);
+    if (cat)
     {
-      BookmarkCategory const * cat = GetFramework().GetBmCategory(m_categoryIndex);
-      if (cat)
-      {
-        NSString * filePath = [NSString stringWithUTF8String:cat->GetFileName().c_str()];
-        NSMutableString * catName = [NSMutableString stringWithUTF8String:cat->GetName().c_str()];
-        if (![catName length])
-          [catName setString:@"MapsWithMe"];
-        NSMutableString * kmzFile = [NSMutableString stringWithString:filePath];
-        [kmzFile replaceCharactersInRange:NSMakeRange([filePath length] - 1, 1) withString:@"z"];
-        if (CreateZipFromPathDeflatedAndDefaultCompression([filePath UTF8String], [kmzFile UTF8String]))
-        {
-          [self sendBookmarksWithExtension:@".kmz" andType:@"application/vnd.google-earth.kmz" andFile:kmzFile andCategory:catName];
-        }
-        else
-        {
-          [self sendBookmarksWithExtension:@".kml" andType:@"application/vnd.google-earth.kml+xml" andFile:filePath andCategory:catName];
-        }
-        my::DeleteFileX([kmzFile UTF8String]);
-      }
+      NSString * filePath = [NSString stringWithUTF8String:cat->GetFileName().c_str()];
+      NSMutableString * catName = [NSMutableString stringWithUTF8String:cat->GetName().c_str()];
+      if (![catName length])
+        [catName setString:@"MapsWithMe"];
+      NSMutableString * kmzFile = [NSMutableString stringWithString:filePath];
+      [kmzFile replaceCharactersInRange:NSMakeRange([filePath length] - 1, 1) withString:@"z"];
+      if (CreateZipFromPathDeflatedAndDefaultCompression([filePath UTF8String], [kmzFile UTF8String]))
+        [self sendBookmarksWithExtension:@".kmz" andType:@"application/vnd.google-earth.kmz" andFile:kmzFile andCategory:catName];
+      else
+        [self sendBookmarksWithExtension:@".kml" andType:@"application/vnd.google-earth.kml+xml" andFile:filePath andCategory:catName];
+      my::DeleteFileX([kmzFile UTF8String]);
     }
+  }
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
@@ -282,36 +292,30 @@
 {
   if (indexPath.section == m_trackSection || indexPath.section == m_bookmarkSection)
   {
-    BookmarkCategory * cat = nil;
-    if (indexPath.section == m_trackSection)
-    {
-      if (editingStyle == UITableViewCellEditingStyleDelete)
-      {
-        NSLog(@"Delete");
-      }
-    }
-    else
-    {
-      if (editingStyle == UITableViewCellEditingStyleDelete)
-      {
-        cat = GetFramework().GetBmCategory(m_categoryIndex);
-        if (cat)
-          cat->DeleteBookmark(indexPath.row);
-      }
-    }
+    BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);
     if (cat)
     {
+      if (editingStyle == UITableViewCellEditingStyleDelete)
+      {
+        if (indexPath.section == m_trackSection)
+          cat->DeleteTrack(indexPath.row);
+        else
+          cat->DeleteBookmark(indexPath.row);
+      }
       cat->SaveToKMLFile();
-      [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-      // Disable edit mode if no bookmarks are left
-      if (cat->GetBookmarksCount() /*+ tracks count*/ == 0)
+      size_t previousNumberOfSections  = m_numberOfSections;
+      [self calculateSections];
+      //We can delete the row with animation, if number of sections stay the same.
+      if (previousNumberOfSections == m_numberOfSections)
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+      else
+        [self.tableView reloadData];
+      if (cat->GetBookmarksCount() + cat->GetTracksCount() == 0)
       {
         self.navigationItem.rightBarButtonItem = nil;
         [self setEditing:NO animated:YES];
       }
     }
-    [self calculateSections];
-    [self.tableView reloadData];
   }
 }
 
@@ -334,7 +338,7 @@
     {
       BookmarkCell * cell = (BookmarkCell *)[cells objectAtIndex:i];
       NSIndexPath * indexPath = [table indexPathForCell:cell];
-      if (indexPath.section == 2)
+      if (indexPath.section == m_bookmarkSection)
       {
         Bookmark const * bm = cat->GetBookmark(indexPath.row);
         if (bm)
@@ -358,7 +362,7 @@
 
   // Display Edit button only if table is not empty
   BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);
-  if (cat && cat->GetBookmarksCount())
+  if (cat && (cat->GetBookmarksCount() + cat->GetTracksCount()))
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
   else
     self.navigationItem.rightBarButtonItem = nil;
@@ -382,7 +386,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
   [m_locationManager stop:self];
-
   // Save possibly edited set name
   UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
   NSString * newName = ((UITextField *)[cell.contentView viewWithTag:TEXTFIELD_TAG]).text;
@@ -396,7 +399,6 @@
 {
   if (textField.text.length == 0)
     return YES;
-
   // Hide keyboard
   [textField resignFirstResponder];
   [self renameBMCategoryIfChanged:textField.text];
@@ -418,7 +420,7 @@
 {
   size_t index = 1;
   BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);
-  if (YES)///count tracks
+  if (cat->GetTracksCount())
     m_trackSection = index++;
   else
     m_trackSection = EMPTY_SECTION;

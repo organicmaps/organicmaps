@@ -126,7 +126,7 @@
   {
     cell.textLabel.text = [NSString stringWithUTF8String:cat->GetName().c_str()];
     cell.imageView.image = [UIImage imageNamed:(cat->IsVisible() ? @"eye" : @"empty")];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", cat->GetBookmarksCount()];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", cat->GetBookmarksCount() + cat->GetTracksCount()];
   }
   return cell;
 }
