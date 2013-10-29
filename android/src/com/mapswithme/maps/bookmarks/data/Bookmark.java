@@ -2,21 +2,20 @@ package com.mapswithme.maps.bookmarks.data;
 
 import android.content.Context;
 
-import com.mapswithme.maps.MapObjectFragment.MapObjectType;
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MapObjectFragment.MapObjectType;
 import com.mapswithme.maps.R;
 
 public class Bookmark extends MapObject
 {
   private Icon mIcon;
   private Context mContext;
-  private ParcelablePointD mPosition;
-  private int mCategoryId = -1;
+  private int mCategoryId;
   private int mBookmark;
-  private double mMerX = Double.NaN;
-  private double mMerY = Double.NaN;
-  private double mLon = Double.NaN;
-  private double mLat = Double.NaN;
+  private double mMerX;
+  private double mMerY;
+  private double mLon;
+  private double mLat;
 
 
   Bookmark(Context context, int c, int b)
@@ -28,25 +27,6 @@ public class Bookmark extends MapObject
     getXY();
   }
 
-  private void getXY(ParcelablePointD position)
-  {
-    ParcelablePointD ll = p2g(position.x, position.y);
-    mMerX = ll.x;
-    mMerY = ll.y;
-  }
-
-  public static ParcelablePointD GtoP(ParcelablePointD p)
-  {
-    return g2p(p.x, p.y);
-  }
-
-  public static ParcelablePointD PtoG(ParcelablePointD p)
-  {
-    return p2g(p.x, p.y);
-  }
-
-  private static native ParcelablePointD g2p(double x, double y);
-  private static native ParcelablePointD p2g(double px, double py);
   private native ParcelablePointD getXY(int c, long b);
   private native String getName(int c, long b);
   private native String getIcon(int c, long b);
@@ -65,7 +45,7 @@ public class Bookmark extends MapObject
     return getScale(mCategoryId, mBookmark);
   }
 
-  void getXY()
+  private void getXY()
   {
     ParcelablePointD ll = getXY(mCategoryId, mBookmark);
     mMerX = ll.x;
@@ -75,18 +55,11 @@ public class Bookmark extends MapObject
     final double lat = (180.0/Math.PI)*(2.0 * Math.atan(Math.exp(yRad)) - Math.PI/2.0);
     mLat = lat;
     mLon = ll.x;
-
-    mPosition = g2p(mMerX, mMerY);
   }
 
   public DistanceAndAzimut getDistanceAndAzimut(double cLat, double cLon, double north)
   {
     return Framework.getDistanceAndAzimut(mMerX, mMerY, cLat, cLon, north);
-  }
-
-  public ParcelablePointD getPosition()
-  {
-    return g2p(mMerX, mMerY);
   }
 
   @Override

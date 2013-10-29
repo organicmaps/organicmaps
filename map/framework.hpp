@@ -211,17 +211,18 @@ public:
 
   bool AddBookmarksFile(string const & filePath);
 
-  //Additional Layer methods
+  /// @name Additional Layer methods.
+  //@{
   void AdditionalPoiLayerSetInvisible();
   void AdditionalPoiLayerSetVisible();
   void AdditionalPoiLayerAddPoi(Bookmark const & bm);
   Bookmark const * AdditionalPoiLayerGetBookmark(size_t index) const;
   Bookmark * AdditionalPoiLayerGetBookmark(size_t index);
-  void AdditionalPoiLayerDeleteBookmark(int index);
   void AdditionalPoiLayerClear();
   bool IsAdditionalLayerPoi(const BookmarkAndCategory & bm) const;
   bool AdditionalLayerIsVisible();
   size_t AdditionalLayerNumberOfPoi();
+  //@}
 
   inline m2::PointD PtoG(m2::PointD const & p) const { return m_navigator.PtoG(p); }
   inline m2::PointD GtoP(m2::PointD const & p) const { return m_navigator.GtoP(p); }

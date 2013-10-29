@@ -128,7 +128,7 @@ void BookmarkManager::DrawCategory(BookmarkCategory const * cat, shared_ptr<Pain
   // Draw tracks.
   for (size_t i = 0; i < cat->GetTracksCount(); ++i)
   {
-    Track * track = cat->GetTrack(i);
+    Track const * track = cat->GetTrack(i);
     if (track->HasDisplayList())
       track->Draw(pScreen, matrix.GetFinalG2P());
   }
@@ -316,11 +316,6 @@ Bookmark const * BookmarkManager::AdditionalPoiLayerGetBookmark(size_t index) co
 Bookmark * BookmarkManager::AdditionalPoiLayerGetBookmark(size_t index)
 {
   return m_additionalPoiLayer->GetBookmark(index);
-}
-
-void BookmarkManager::AdditionalPoiLayerDeleteBookmark(int index)
-{
-  m_additionalPoiLayer->DeleteBookmark(index);
 }
 
 void BookmarkManager::AdditionalPoiLayerClear()

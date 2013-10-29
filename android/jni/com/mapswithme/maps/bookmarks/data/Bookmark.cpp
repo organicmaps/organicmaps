@@ -19,12 +19,6 @@ namespace
 
 extern "C"
 {
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_Bookmark_g2p(JNIEnv * env, jobject thiz, jdouble x, jdouble y)
-  {
-    return jni::GetNewParcelablePointD(env, frm()->GtoP(m2::PointD(x, y)));
-  }
-
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_getName(
        JNIEnv * env, jobject thiz, jint cat, jlong bmk)
@@ -68,13 +62,6 @@ extern "C"
          JNIEnv * env, jobject thiz, jint oldCat, jint newCat, jlong bmk)
   {
     return g_framework->ChangeBookmarkCategory(BookmarkAndCategory(oldCat, bmk), newCat);
-  }
-
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_Bookmark_p2g(
-       JNIEnv * env, jobject thiz, jdouble px, jdouble py)
-  {
-    return jni::GetNewParcelablePointD(env, frm()->PtoG(m2::PointD(px, py)));
   }
 
   JNIEXPORT jobject JNICALL

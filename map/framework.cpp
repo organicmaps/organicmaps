@@ -412,7 +412,7 @@ BookmarkAndCategory Framework::GetBookmark(m2::PointD const & pxPoint, double vi
 
   if (m_bmManager.AdditionalLayerIsVisible())
   {
-    for (int i = 0; i < m_bmManager.AdditionalLayerNumberOfPoi(); ++i)
+    for (size_t i = 0; i < m_bmManager.AdditionalLayerNumberOfPoi(); ++i)
     {
       m2::PointD const pt = m_bmManager.AdditionalPoiLayerGetBookmark(i)->GetOrg();
       if (rect.IsPointInside(pt))
@@ -577,11 +577,6 @@ Bookmark const * Framework::AdditionalPoiLayerGetBookmark(size_t index) const
 Bookmark * Framework::AdditionalPoiLayerGetBookmark(size_t index)
 {
   return m_bmManager.AdditionalPoiLayerGetBookmark(index);
-}
-
-void Framework::AdditionalPoiLayerDeleteBookmark(int index)
-{
-  m_bmManager.AdditionalPoiLayerDeleteBookmark(index);
 }
 
 void Framework::AdditionalPoiLayerClear()

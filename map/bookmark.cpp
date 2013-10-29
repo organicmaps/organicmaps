@@ -22,7 +22,7 @@ void BookmarkCategory::AddTrack(Track & track)
   m_tracks.push_back(track.CreatePersistent());
 }
 
-Track * BookmarkCategory::GetTrack(size_t index) const
+Track const * BookmarkCategory::GetTrack(size_t index) const
 {
   return (index < m_tracks.size() ? m_tracks[index] : 0);
 }
@@ -75,17 +75,32 @@ void BookmarkCategory::ClearTracks()
   m_tracks.clear();
 }
 
-void BookmarkCategory::DeleteBookmark(size_t index)
+namespace
 {
-  if (index < m_bookmarks.size())
+
+template <class T> void DeleteItem(vector<T> & v, size_t i)
+{
+  if (i < v.size())
   {
-    delete m_bookmarks[index];
-    m_bookmarks.erase(m_bookmarks.begin() + index);
+    delete v[i];
+    v.erase(v.begin() + i);
   }
   else
   {
-    LOG(LWARNING, ("Trying to delete non-existing bookmark in category", GetName(), "at index", index));
+    LOG(LWARNING, ("Trying to delete non-existing item at index", i));
   }
+}
+
+}
+
+void BookmarkCategory::DeleteBookmark(size_t index)
+{
+  DeleteItem(m_bookmarks, index);
+}
+
+void BookmarkCategory::DeleteTrack(size_t index)
+{
+  DeleteItem(m_tracks, index);
 }
 
 Bookmark const * BookmarkCategory::GetBookmark(size_t index) const
@@ -96,16 +111,6 @@ Bookmark const * BookmarkCategory::GetBookmark(size_t index) const
 Bookmark * BookmarkCategory::GetBookmark(size_t index)
 {
   return (index < m_bookmarks.size() ? m_bookmarks[index] : 0);
-}
-
-int BookmarkCategory::GetBookmark(m2::PointD const org, double const squareDistance) const
-{
-  for (size_t i = 0; i < m_bookmarks.size(); ++i)
-  {
-    if (squareDistance >= org.SquareLength(m_bookmarks[i]->GetOrg()))
-      return static_cast<int>(i);
-  }
-  return -1;
 }
 
 namespace

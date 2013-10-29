@@ -86,8 +86,9 @@ public:
   //@{
   /// @note Move semantics is used here.
   void AddTrack(Track & track);
-  Track * GetTrack(size_t index) const;
+  Track const * GetTrack(size_t index) const;
   inline size_t GetTracksCount() const { return m_tracks.size(); }
+  void DeleteTrack(size_t index);
   //@}
 
   void SetVisible(bool isVisible) { m_visible = isVisible; }
@@ -101,9 +102,6 @@ public:
 
   Bookmark const * GetBookmark(size_t index) const;
   Bookmark * GetBookmark(size_t index);
-  /// @param[in] distance in metres between orgs
-  /// @returns -1 or index of found bookmark
-  int GetBookmark(m2::PointD const org, double const squareDistance) const;
 
   void DeleteBookmark(size_t index);
 
