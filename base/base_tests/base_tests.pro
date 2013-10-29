@@ -37,6 +37,7 @@ SOURCES += \
   string_format_test.cpp \
   regexp_test.cpp \
   scheduled_task_test.cpp \
+    thread_pool_tests.cpp
 
 HEADERS +=
 
