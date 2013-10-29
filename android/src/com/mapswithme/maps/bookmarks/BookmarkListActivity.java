@@ -60,10 +60,19 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id)
       {
-        final Intent i = new Intent(BookmarkListActivity.this, MWMActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        mManager.showBookmarkOnMap(setIndex, position);
-        startActivity(i);
+        final int type = mPinAdapter.getItemViewType(position);
+        if (type == BookmarkListAdapter.TYPE_BMK)
+        {
+          final Intent i = new Intent(BookmarkListActivity.this, MWMActivity.class);
+          i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+          mManager.showBookmarkOnMap(setIndex, position - 3); // TODO: this is not true
+          startActivity(i);
+        }
+        else
+        {
+          Utils.toastShortcut(BookmarkListActivity.this, mEditedSet.getTrack(position).getName() + position);
+          // TODO show map
+        }
       }
     });
     registerForContextMenu(getListView());

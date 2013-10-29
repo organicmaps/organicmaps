@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:paddingLeft="3dp"
+    android:paddingRight="3dp" >
+
+    <ImageView
+        android:id="@+id/pi_pin_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:padding="10dp"
+        android:src="@drawable/placemark_red" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/pi_pin_color"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/pi_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="my name is"
+            android:textAppearance="@style/Holo.TextAppearance.Large.Light" />
+
+        <TextView
+            android:id="@+id/pi_distance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="333"
+            android:textAppearance="@style/Holo.TextAppearance.Small.Light" />
+    </LinearLayout>
+
+</RelativeLayout>

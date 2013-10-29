@@ -1,6 +1,8 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.app.Activity;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +11,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mapswithme.maps.ArrowImage;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
+import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.util.UiUtils;
 
 
 public class BookmarkListAdapter extends BaseAdapter implements LocationService.Listener
@@ -42,39 +45,37 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
     mLocation.stopUpdate(this);
   }
 
+  @Override
+  public int getViewTypeCount()
+  {
+    return 2; // bookmark + track
+  }
+  final static int TYPE_TRACK = 0;
+  final static int TYPE_BMK   = 1;
+
+  @Override
+  public int getItemViewType(int position)
+  {
+    return position < mCategory.getTracksCount() ? TYPE_TRACK : TYPE_BMK;
+  }
 
   @Override
   public View getView(int position, View convertView, ViewGroup parent)
   {
+    final int type = getItemViewType(position);
     if (convertView == null)
     {
-      convertView = LayoutInflater.from(mContext).inflate(R.layout.bookmark_item, null);
+      final int lId = type == TYPE_BMK ? R.layout.list_item_bookmark : R.layout.list_item_track;
+      convertView = LayoutInflater.from(mContext).inflate(lId, null);
       convertView.setTag(new PinHolder(convertView));
     }
-
-    final Bookmark item = mCategory.getBookmark(position);
     final PinHolder holder = (PinHolder) convertView.getTag();
-    holder.name.setText(item.getName());
-    holder.icon.setImageBitmap(item.getIcon().getIcon());
 
-    final Location loc = mLocation.getLastKnown();
-    if (loc != null)
-    {
-      final DistanceAndAzimut daa = item.getDistanceAndAzimut(loc.getLatitude(), loc.getLongitude(), mNorth);
-      holder.distance.setText(daa.getDistance());
-
-      if (daa.getAthimuth() >= 0.0)
-        holder.arrow.setAzimut(daa.getAthimuth());
-      else
-        holder.arrow.clear();
-    }
+    if (type == TYPE_BMK)
+      holder.set(mCategory.getBookmark(position));
     else
-    {
-      holder.distance.setText("");
-      holder.arrow.clear();
-    }
+      holder.set(mCategory.getTrack(position));
 
-    //Log.d("lat lot", item.getLat() + " " + item.getLon());
     return convertView;
   }
 
@@ -124,19 +125,70 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
   {
   }
 
-  private static class PinHolder
+  private class PinHolder
   {
-    ArrowImage arrow;
     ImageView icon;
     TextView name;
     TextView distance;
 
     public PinHolder(View convertView)
     {
-      arrow = (ArrowImage) convertView.findViewById(R.id.pi_arrow);
       icon = (ImageView) convertView.findViewById(R.id.pi_pin_color);
       name = (TextView) convertView.findViewById(R.id.pi_name);
       distance = (TextView) convertView.findViewById(R.id.pi_distance);
+    }
+
+    void setName(Bookmark bmk)
+    {
+      name.setText(bmk.getName());
+    }
+
+    void setName(Track trk)
+    {
+      name.setText(trk.getName());
+    }
+
+    void setDistance(Bookmark bmk)
+    {
+      final Location loc = mLocation.getLastKnown();
+      if (loc != null)
+      {
+        final DistanceAndAzimut daa = bmk.getDistanceAndAzimut(loc.getLatitude(), loc.getLongitude(), mNorth);
+        distance.setText(daa.getDistance());
+      }
+      else
+        distance.setText(null);
+    }
+
+    void setDistance(Track trk)
+    {
+      distance.setText(trk.getLengthString());
+    }
+
+    void setIcon(Bookmark bmk)
+    {
+      icon.setImageBitmap(bmk.getIcon().getIcon());
+    }
+
+    void setIcon(Track trk)
+    {
+      final Resources res = mContext.getResources();
+      final Drawable circle = UiUtils.drawCircle(trk.getColor(), (int) (res.getDimension(R.dimen.icon_size)), res);
+      icon.setImageDrawable(circle);
+    }
+
+    void set(Bookmark bmk)
+    {
+      setName(bmk);
+      setDistance(bmk);
+      setIcon(bmk);
+    }
+
+    void set(Track track)
+    {
+      setName(track);
+      setDistance(track);
+      setIcon(track);
     }
   }
 }

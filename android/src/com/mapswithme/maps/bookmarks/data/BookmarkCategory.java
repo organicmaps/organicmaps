@@ -5,9 +5,9 @@ import android.content.Context;
 
 public class BookmarkCategory
 {
-  private int mId;
+  private final int mId;
   private String mName;
-  private Context mContext;
+  private final Context mContext;
   BookmarkCategory(Context c, int id)
   {
     mContext = c;
@@ -50,11 +50,26 @@ public class BookmarkCategory
 
   public int getSize()
   {
+    return getBookmarksCount() + getTracksCount();
+  }
+
+  public int getBookmarksCount()
+  {
     return getSize(mId);
+  }
+
+  public int getTracksCount()
+  {
+    return 3; //TODO add native
   }
 
   public Bookmark getBookmark(int b)
   {
-    return new Bookmark(mContext, mId, b);
+    return new Bookmark(mContext, mId, b - 3); //TODO remove - 3
+  }
+
+  public Track getTrack(int index)
+  {
+    return new Track(); // TODO: add native
   }
 }

@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="?android:attr/listPreferredItemHeight"
     android:paddingLeft="3dp"
     android:paddingRight="3dp" >
-
-    <com.mapswithme.maps.ArrowImage
-        android:id="@+id/pi_arrow"
-        android:layout_width="34dip"
-        android:layout_height="34dip"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="6dip"
-        android:scaleType="center" />
 
     <ImageView
         android:id="@+id/pi_pin_color"
@@ -24,21 +15,23 @@
         android:src="@drawable/placemark_red" />
 
     <TextView
-        android:id="@+id/pi_distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/pi_arrow"
-        android:textAppearance="@style/Holo.TextAppearance.Small.Light" />
-
-    <TextView
         android:id="@+id/pi_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/pi_distance"
+        android:layout_toLeftOf="@+id/pi_distance"
         android:layout_toRightOf="@id/pi_pin_color"
+        android:text="my name is"
         android:singleLine="true"
         android:textAppearance="@style/Holo.TextAppearance.Large.Light" />
+
+    <TextView
+        android:id="@+id/pi_distance"
+        android:text="2333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textAppearance="@style/Holo.TextAppearance.Small.Light" />
 
 </RelativeLayout>
