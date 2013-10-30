@@ -11,8 +11,9 @@ namespace threads
   class ThreadPool
   {
   public:
-    ThreadPool(size_t size, finish_routine_fn finishFn);
+    ThreadPool(size_t size, const finish_routine_fn & finishFn);
 
+    // ThreadPool will not delete routine. You can delete it in finish_routine_fn if need
     void AddTask(threads::IRoutine * routine);
     void Stop();
 

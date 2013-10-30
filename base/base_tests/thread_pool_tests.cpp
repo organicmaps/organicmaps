@@ -87,6 +87,7 @@ UNIT_TEST(ThreadPool_ExecutionTaskTest)
   vector<threads::IRoutine *> tasks;
   for (int i = 0; i < TASK_COUNT - 1; ++i)
     tasks.push_back(new CancelTestTask(true));
+  // CancelTastTask::Do method should not be called for last task
   tasks.push_back(new CancelTestTask(false));
 
   int finishCounter = 0;
@@ -96,6 +97,7 @@ UNIT_TEST(ThreadPool_ExecutionTaskTest)
   for (size_t i = 0; i < tasks.size(); ++i)
     pool.AddTask(tasks[i]);
 
+  // CancelTastTask::Do method should not be called for last task
   tasks.back()->Cancel();
   tasks.clear();
 

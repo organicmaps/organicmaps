@@ -5,6 +5,7 @@
 #include "../std/stdint.hpp"
 #include "../std/vector.hpp"
 #include "../std/utility.hpp"
+#include "../std/noncopyable.hpp"
 
 #ifdef OMIM_OS_WINDOWS
 #include "../std/windows.hpp" // for DWORD
@@ -54,13 +55,10 @@ namespace threads
   };
 
   /// Simple threads container. Takes ownership for every added IRoutine.
-  class SimpleThreadPool
+  class SimpleThreadPool : public noncopyable
   {
     typedef pair<Thread *, IRoutine *> ValueT;
     vector<ValueT> m_pool;
-
-    SimpleThreadPool(SimpleThreadPool const &);
-    SimpleThreadPool & operator=(Thread const &);
 
   public:
     SimpleThreadPool(size_t reserve = 0);

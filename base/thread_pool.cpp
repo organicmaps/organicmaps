@@ -15,7 +15,7 @@ namespace threads
     class PoolRoutine : public IRoutine
     {
     public:
-      PoolRoutine(pop_routine_fn popFn, finish_routine_fn finishFn)
+      PoolRoutine(const pop_routine_fn & popFn, const finish_routine_fn & finishFn)
         : m_popFn(popFn)
         , m_finishFn(finishFn)
       {
@@ -47,9 +47,9 @@ namespace threads
   class ThreadPool::Impl
   {
   public:
-    Impl(size_t size, finish_routine_fn finishFn)
+    Impl(size_t size, const finish_routine_fn & finishFn)
     {
-      m_threads.reserve(size);
+      m_threads.resize(size);
       for (size_t i = 0; i < size; ++i)
       {
         thread_info_t info = make_pair(new threads::Thread(), new PoolRoutine(bind(&ThreadPool::Impl::PopFront, this),
@@ -97,7 +97,7 @@ namespace threads
     vector<thread_info_t> m_threads;
   };
 
-  ThreadPool::ThreadPool(size_t size, finish_routine_fn finishFn)
+  ThreadPool::ThreadPool(size_t size, const finish_routine_fn & finishFn)
     : m_impl(new Impl(size, finishFn)) {}
 
   void ThreadPool::AddTask(threads::IRoutine * routine)
