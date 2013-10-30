@@ -1,5 +1,8 @@
 package com.mapswithme.maps.bookmarks;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -20,7 +23,8 @@ import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.UiUtils;
 
 
-public class BookmarkListAdapter extends BaseAdapter implements LocationService.Listener
+public class BookmarkListAdapter extends BaseAdapter
+                                  implements LocationService.Listener
 {
   private final Activity mContext;
   private final BookmarkCategory mCategory;
@@ -48,21 +52,54 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
   @Override
   public int getViewTypeCount()
   {
-    return 2; // bookmark + track
+    return 3; // bookmark + track + section
   }
   final static int TYPE_TRACK = 0;
   final static int TYPE_BMK   = 1;
+  final static int TYPE_SECTION   = 2;
 
   @Override
   public int getItemViewType(int position)
   {
-    return position < mCategory.getTracksCount() ? TYPE_TRACK : TYPE_BMK;
+    if (position == getBookmarksSectionPosition() || position == getTracksSectionPosition())
+      return TYPE_SECTION;
+
+    if (position > getBookmarksSectionPosition() && !isSectionEmpty(SECTION_BMKS))
+      return TYPE_BMK;
+    else if (position > getTracksSectionPosition() && !isSectionEmpty(SECTION_TRACKS))
+      return TYPE_TRACK;
+
+    throw new IllegalArgumentException("Position not found: " + position);
   }
 
   @Override
   public View getView(int position, View convertView, ViewGroup parent)
   {
     final int type = getItemViewType(position);
+
+    if (type == TYPE_SECTION)
+    {
+      View sectionView = null;
+      TextView sectionName = null;
+
+      if (convertView == null)
+      {
+        sectionView = LayoutInflater.from(mContext).inflate(R.layout.list_separator_base, null);
+        sectionName = (TextView)sectionView.findViewById(R.id.text);
+        sectionView.setTag(sectionName);
+      }
+      else
+      {
+        sectionView = convertView;
+        sectionName = (TextView) sectionView.getTag();
+      }
+
+      final int sectionIndex = getSectionForPosition(position);
+      sectionName.setText(getSections().get(sectionIndex));
+      return sectionView;
+    }
+
+
     if (convertView == null)
     {
       final int lId = type == TYPE_BMK ? R.layout.list_item_bookmark : R.layout.list_item_track;
@@ -72,9 +109,9 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
     final PinHolder holder = (PinHolder) convertView.getTag();
 
     if (type == TYPE_BMK)
-      holder.set(mCategory.getBookmark(position - mCategory.getTracksCount()));
+      holder.set((Bookmark)getItem(position));
     else
-      holder.set(mCategory.getTrack(position));
+      holder.set((Track)getItem(position));
 
     return convertView;
   }
@@ -82,16 +119,19 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
   @Override
   public int getCount()
   {
-    return mCategory.getSize();
+    return mCategory.getSize()
+        + (isSectionEmpty(SECTION_TRACKS) ? 0 : 1)
+        + (isSectionEmpty(SECTION_BMKS)   ? 0 : 1);
   }
 
   @Override
   public Object getItem(int position)
   {
     if (getItemViewType(position) == TYPE_TRACK)
-      return mCategory.getTrack(position);
+      return mCategory.getTrack(position - 1); // minus ONE section
     else
-      return mCategory.getBookmark(position - mCategory.getTracksCount());
+      return mCategory.getBookmark(position - 1
+          - (isSectionEmpty(SECTION_TRACKS) ? 0 : mCategory.getTracksCount() + 1));
   }
 
   @Override
@@ -193,5 +233,54 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
       setDistance(track);
       setIcon(track);
     }
+  }
+
+
+  private final static int SECTION_TRACKS = 0;
+  private final static int SECTION_BMKS = 1;
+
+  private int getTracksSectionPosition()
+  {
+    if (isSectionEmpty(SECTION_TRACKS))
+      return -1;
+
+    return 0;
+  }
+
+  private int getBookmarksSectionPosition()
+  {
+    if (isSectionEmpty(SECTION_BMKS))
+      return -1;
+
+    return mCategory.getTracksCount()
+        + (isSectionEmpty(SECTION_TRACKS) ? 0 : 1);
+  }
+
+  private List<String> getSections()
+  {
+    final List<String> sections = new ArrayList<String>();
+    sections.add(mContext.getString(R.string.tracks));
+    sections.add(mContext.getString(R.string.bookmarks));
+    return sections;
+  }
+
+  private int getSectionForPosition(int position)
+  {
+    if (position == getTracksSectionPosition())
+      return SECTION_TRACKS;
+    if (position == getBookmarksSectionPosition())
+      return SECTION_BMKS;
+
+    throw new IllegalArgumentException("There is no section in position " + position);
+  }
+
+  private boolean isSectionEmpty(int section)
+  {
+    if (section == SECTION_TRACKS)
+      return mCategory.getTracksCount() == 0;
+    if (section == SECTION_BMKS)
+      return mCategory.getBookmarksCount() == 0;
+
+    throw new IllegalArgumentException("There is no section with index " + section);
   }
 }

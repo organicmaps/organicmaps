@@ -64,6 +64,10 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       {
 
         final int type = mPinAdapter.getItemViewType(position);
+
+        if (type == BookmarkListAdapter.TYPE_SECTION)
+          return;
+
         if (type == BookmarkListAdapter.TYPE_BMK)
         {
           final Bookmark bmk = (Bookmark) mPinAdapter.getItem(position);
@@ -80,8 +84,8 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
         startActivity(i);
       }
     });
-    registerForContextMenu(getListView());
 
+    registerForContextMenu(getListView());
     adaptUiForOsVersion();
   }
 
