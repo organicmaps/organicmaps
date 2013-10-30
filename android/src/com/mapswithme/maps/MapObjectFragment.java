@@ -86,7 +86,7 @@ public class MapObjectFragment extends Fragment
 
     setTexts(bookmark.getName(), null , bookmark.getCategoryName(getActivity()), bookmark.getBookmarkDescription(), bookmark.getLat(), bookmark.getLon());
 
-    final int circleSize = (int) (getResources().getDimension(R.dimen.margin_medium) + .5);
+    final int circleSize = (int) (getResources().getDimension(R.dimen.circle_size) + .5);
     final Drawable icon = UiUtils.drawCircleForPin(bookmark.getIcon().getType(), circleSize, getResources());
 
     mGroupTV.setCompoundDrawables(UiUtils

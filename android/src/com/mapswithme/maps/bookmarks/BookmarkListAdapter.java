@@ -1,7 +1,9 @@
 package com.mapswithme.maps.bookmarks;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.res.Resources;
@@ -30,6 +32,9 @@ public class BookmarkListAdapter extends BaseAdapter
   private final BookmarkCategory mCategory;
   private double mNorth = -1;
   private final LocationService mLocation;
+
+  // reuse drawables
+  private final Map<String, Drawable> mBmkToCircle = new HashMap<String, Drawable>(8);
 
   public BookmarkListAdapter(Activity context, LocationService location,
                              BookmarkCategory cat)
@@ -210,13 +215,28 @@ public class BookmarkListAdapter extends BaseAdapter
 
     void setIcon(Bookmark bmk)
     {
-      icon.setImageBitmap(bmk.getIcon().getIcon());
+      final String key = bmk.getIcon().getType();
+      Drawable circle = null;
+
+      if (!mBmkToCircle.containsKey(key))
+      {
+        final Resources res = mContext.getResources();
+        final int circleSize = (int) (res.getDimension(R.dimen.circle_size) + .5);
+        circle = UiUtils.drawCircleForPin(key, circleSize, res);
+        mBmkToCircle.put(key, circle);
+      }
+      else
+        circle = mBmkToCircle.get(key);
+
+      icon.setImageDrawable(circle);
     }
 
     void setIcon(Track trk)
     {
       final Resources res = mContext.getResources();
-      final Drawable circle = UiUtils.drawCircle(trk.getColor(), (int) (res.getDimension(R.dimen.icon_size)), res);
+      final int circleSize = (int) (res.getDimension(R.dimen.circle_size) + .5);
+      // colors could be different, so dont use cache
+      final Drawable circle = UiUtils.drawCircle(trk.getColor(), circleSize, res);
       icon.setImageDrawable(circle);
     }
 

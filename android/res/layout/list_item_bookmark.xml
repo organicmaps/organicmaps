@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:layout_height="wrap_content"
+    android:minHeight="?android:attr/listPreferredItemHeight"
     android:paddingLeft="3dp"
     android:paddingRight="3dp" >
 
@@ -11,7 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:padding="10dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
         android:src="@drawable/placemark_red" />
 
     <TextView
@@ -23,8 +27,7 @@
         android:layout_toRightOf="@id/pi_pin_color"
         android:singleLine="true"
         android:textAppearance="@style/Holo.TextAppearance.Large.Light"
-        android:textColor="@color/text_primary"
-        />
+        android:textColor="@color/text_primary" />
 
     <TextView
         android:id="@+id/pi_distance"
