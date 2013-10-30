@@ -35,7 +35,6 @@ public class LocationRequester implements Handler.Callback
   private final Set<LocationListener> mListeners = new HashSet<LocationListener>();
   private Location mLocation;
   private final static long MAX_TIME_FOR_SUBSCRIPTION_FIX = 15*60*1000;
-  private final static float MIN_METRES_DISTANCE_FILTER = 5.0f;
   // location
 
   // Handler messages
@@ -160,7 +159,7 @@ public class LocationRequester implements Handler.Callback
       }
       else
       {
-        mLocationManager.requestLocationUpdates(provider, time, MIN_METRES_DISTANCE_FILTER, pi);
+        mLocationManager.requestLocationUpdates(provider, time, 0, pi);
         postRequestCancelation(MAX_TIME_FOR_SUBSCRIPTION_FIX);
       }
 
@@ -262,12 +261,15 @@ public class LocationRequester implements Handler.Callback
     return false;
   }
 
+  static private native boolean areLocationsFarEnough(double lat1, double lon1, double lat2, double lon2);
+
   private boolean areLocationsFarEnough(Location l1, Location l2)
   {
     if (l1 == null || l2 == null)
       return true;
 
-    return l1.distanceTo(l2) > MIN_METRES_DISTANCE_FILTER;
+    return areLocationsFarEnough(l1.getLatitude(), l1.getLongitude(),
+                                 l2.getLatitude(), l2.getLongitude());
   }
 
   public Location getLastKnownLocation()

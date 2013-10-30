@@ -3,9 +3,16 @@
 #include "../../../map/events.hpp"
 #include "../../../map/navigator.hpp"
 #include "../../../map/yopme_render_policy.hpp"
+
+#include "../../../indexer/mercator.hpp"
+
 #include "../../../platform/platform.hpp"
+
 #include "../../../geometry/any_rect2d.hpp"
+#include "../../../geometry/distance_on_sphere.hpp"
+
 #include "../../../graphics/opengl/gl_render_context.hpp"
+
 #include "../../../base/logging.hpp"
 
 #include <android/log.h>
@@ -116,4 +123,18 @@ namespace yopme
     m_framework.RemoveLocalMaps();
     m_framework.AddLocalMaps();
   }
+
+  bool Framework::AreLocationsFarEnough(double lat1, double lon1, double lat2, double lon2) const
+  {
+    double const sqPixLength =
+        m_framework.GtoP(m2::PointD(MercatorBounds::LonToX(lon1),
+                                    MercatorBounds::LatToY(lat1)))
+        .SquareLength(
+        m_framework.GtoP(m2::PointD(MercatorBounds::LonToX(lon2),
+                                    MercatorBounds::LatToY(lat2))));
+
+    // Pixel radius of location mark is 10 pixels.
+    return (sqPixLength > 100 && ms::DistanceOnEarth(lat1, lon1, lat2, lon2) > 5.0);
+  }
+
 } //yopme

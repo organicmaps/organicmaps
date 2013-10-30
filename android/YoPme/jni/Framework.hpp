@@ -18,6 +18,8 @@ namespace yopme
     void OnMapFileUpdate();
     void OnKmlFileUpdate();
 
+    bool AreLocationsFarEnough(double lat1, double lon1, double lat2, double lon2) const;
+
   private:
     void ShowRect(bool needApiPin, m2::PointD const & apiPinPoint,
                   bool needMyLoc, m2::PointD const & myLocPoint);

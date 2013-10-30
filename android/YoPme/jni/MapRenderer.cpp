@@ -46,4 +46,12 @@ Java_com_mapswithme_yopme_map_MapRenderer_nativeOnKmlFileUpdate(JNIEnv * env, jo
   s_framework->OnKmlFileUpdate();
 }
 
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_location_LocationRequester_areLocationsFarEnough(JNIEnv * env, jobject thiz,
+                                  jdouble lat1, jdouble lon1,
+                                  jdouble lat2, jdouble lon2)
+{
+  return (s_framework ? s_framework->AreLocationsFarEnough(lat1, lon1, lat2, lon2) : true);
+}
+
 } // extern "C"
