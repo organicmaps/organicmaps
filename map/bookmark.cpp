@@ -369,6 +369,16 @@ namespace
             if (currTag == "coordinates")
               SetOrigin(value);
           }
+          else if (prevTag == "LineString")
+          {
+            if (currTag == "coordinates")
+              ParseLineCoordinates(value, " \n\r\t", ",");
+          }
+          else if (prevTag == "gx:Track")
+          {
+            if (currTag == "gx:coord")
+              ParseLineCoordinates(value, "\n\r\t", " ");
+          }
         }
       }
     }
