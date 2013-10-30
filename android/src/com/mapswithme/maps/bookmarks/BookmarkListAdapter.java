@@ -72,7 +72,7 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
     final PinHolder holder = (PinHolder) convertView.getTag();
 
     if (type == TYPE_BMK)
-      holder.set(mCategory.getBookmark(position));
+      holder.set(mCategory.getBookmark(position - mCategory.getTracksCount()));
     else
       holder.set(mCategory.getTrack(position));
 
@@ -86,9 +86,12 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
   }
 
   @Override
-  public Bookmark getItem(int position)
+  public Object getItem(int position)
   {
-    return mCategory.getBookmark(position);
+    if (getItemViewType(position) == TYPE_TRACK)
+      return mCategory.getTrack(position);
+    else
+      return mCategory.getBookmark(position - mCategory.getTracksCount());
   }
 
   @Override

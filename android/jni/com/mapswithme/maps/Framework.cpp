@@ -617,6 +617,13 @@ namespace android
     return res;
   }
 
+  void Framework::ShowTrack(int category, int track)
+  {
+    Track const * nTrack = NativeFramework()->GetBmCategory(category)->GetTrack(track);
+    m_doLoadState = false;
+    NativeFramework()->ShowTrack(*nTrack);
+  }
+
 }
 
 //============ GLUE CODE for com.mapswithme.maps.Framework class =============//
@@ -867,6 +874,11 @@ extern "C"
     env->SetDoubleArrayRegion(jLatLon, 0, 2, latlon);
 
     return jLatLon;
+  }
+
+  JNIEXPORT void Java_com_mapswithme_maps_Framework_nativeShowTrackRect(JNIEnv * env, jclass clazz, jint cat, jint track)
+  {
+    g_framework->ShowTrack(cat, track);
   }
 
 }

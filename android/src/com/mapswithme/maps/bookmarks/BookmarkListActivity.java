@@ -19,12 +19,14 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
+import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.Utils;
 
@@ -60,19 +62,22 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id)
       {
+
         final int type = mPinAdapter.getItemViewType(position);
         if (type == BookmarkListAdapter.TYPE_BMK)
         {
-          final Intent i = new Intent(BookmarkListActivity.this, MWMActivity.class);
-          i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-          mManager.showBookmarkOnMap(setIndex, position - 3); // TODO: this is not true
-          startActivity(i);
+          final Bookmark bmk = (Bookmark) mPinAdapter.getItem(position);
+          mManager.showBookmarkOnMap(setIndex, bmk.getBookmarkId());
         }
         else
         {
-          Utils.toastShortcut(BookmarkListActivity.this, mEditedSet.getTrack(position).getName() + position);
-          // TODO show map
+          final Track track = (Track) mPinAdapter.getItem(position);
+          Framework.showTrackRect(track);
         }
+
+        final Intent i = new Intent(BookmarkListActivity.this, MWMActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
       }
     });
     registerForContextMenu(getListView());

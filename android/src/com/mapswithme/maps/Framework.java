@@ -2,6 +2,7 @@ package com.mapswithme.maps;
 
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
+import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.guides.GuideInfo;
 
 /**
@@ -79,6 +80,12 @@ public class Framework
   {
     nativeUpdateSavedDataVersion();
   }
+
+  public static void showTrackRect(Track track)
+  {
+    nativeShowTrackRect(track.getCategoryId(), track.getTrackId());
+  }
+  private static native void nativeShowTrackRect(int category, int track);
 
   public native static GuideInfo getGuideInfoForIndex(Index idx);
   public native static GuideInfo[] getGuideInfosForDownloadedMaps();

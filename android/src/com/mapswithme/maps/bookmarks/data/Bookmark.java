@@ -8,8 +8,7 @@ import com.mapswithme.maps.R;
 
 public class Bookmark extends MapObject
 {
-  private Icon mIcon;
-  private Context mContext;
+  private final Icon mIcon;
   private int mCategoryId;
   private int mBookmark;
   private double mMerX;
@@ -17,18 +16,21 @@ public class Bookmark extends MapObject
   private double mLon;
   private double mLat;
 
+  //{@ Populate on creation or lazily?
+  private String mName;
+  //{@
 
-  Bookmark(Context context, int c, int b)
+
+  /* package */ Bookmark(int categoryId, int bookmarkId, String name)
   {
-    mContext = context.getApplicationContext();
-    mCategoryId = c;
-    mBookmark = b;
+    mCategoryId = categoryId;
+    mBookmark = bookmarkId;
+    mName = name;
     mIcon = getIconInternal();
     getXY();
   }
 
   private native ParcelablePointD getXY(int c, long b);
-  private native String getName(int c, long b);
   private native String getIcon(int c, long b);
 
   private native double getScale(int category, long bookmark);
@@ -47,7 +49,7 @@ public class Bookmark extends MapObject
 
   private void getXY()
   {
-    ParcelablePointD ll = getXY(mCategoryId, mBookmark);
+    final ParcelablePointD ll = getXY(mCategoryId, mBookmark);
     mMerX = ll.x;
     mMerY = ll.y;
 
@@ -70,7 +72,7 @@ public class Bookmark extends MapObject
 
   private Icon getIconInternal()
   {
-    return BookmarkManager.getBookmarkManager(mContext).getIconByName((mCategoryId >= 0) ? getIcon(mCategoryId, mBookmark) : "");
+    return BookmarkManager.getBookmarkManager().getIconByName((mCategoryId >= 0) ? getIcon(mCategoryId, mBookmark) : "");
   }
 
   public Icon getIcon()
@@ -81,26 +83,19 @@ public class Bookmark extends MapObject
   @Override
   public String getName()
   {
-    if (mCategoryId >= 0 && BookmarkManager.getBookmarkManager(mContext).getCategoryById(mCategoryId).getSize() > mBookmark)
-    {
-      return getName(mCategoryId, mBookmark);
-    }
-    else
-    {
-      return "";
-    }
+    return mName;
   }
 
-  public String getCategoryName()
+  public String getCategoryName(Context context)
   {
     if (mCategoryId >= 0)
     {
-      return BookmarkManager.getBookmarkManager(mContext).getCategoryById(mCategoryId).getName();
+      return BookmarkManager.getBookmarkManager().getCategoryById(mCategoryId).getName();
     }
     else
     {
       mCategoryId = 0;
-      return mContext.getString(R.string.my_places);
+      return context.getString(R.string.my_places);
     }
   }
 
@@ -119,7 +114,10 @@ public class Bookmark extends MapObject
       icon = mIcon;
 
     if (!name.equals(getName()) || icon != mIcon || !descr.equals(getBookmarkDescription()))
+    {
       setBookmarkParams(mCategoryId, mBookmark, name, icon.getType(), descr);
+      mName = name;
+    }
   }
 
   public int getCategoryId()

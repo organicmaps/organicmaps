@@ -136,7 +136,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
 
     Utils.setStringAndCursorToEnd(mName, mPin.getName());
-    mSet.setText(mPin.getCategoryName());
+    mSet.setText(mPin.getCategoryName(this));
     mDescr.setText(mPin.getBookmarkDescription());
   }
 
@@ -227,7 +227,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
     final IconsAdapter adapter = new IconsAdapter(this, mIcons);
     adapter.chooseItem(mIcons.indexOf(mPin.getIcon()));
 
-    LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+    final LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
     final int padSide = (int) getResources().getDimension(R.dimen.dp_x_8);
     final int padTopB = (int) getResources().getDimension(R.dimen.dp_x_6);
 
@@ -264,7 +264,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
     if (requestCode == REQUEST_CODE_SET && resultCode == RESULT_OK)
     {
 
-      Point pin = ((ParcelablePoint)data.getParcelableExtra(PIN)).getPoint();
+      final Point pin = ((ParcelablePoint)data.getParcelableExtra(PIN)).getPoint();
       mPin = mManager.getBookmark(pin.x, pin.y);
       refreshValuesInViews();
 

@@ -7,6 +7,7 @@ import android.annotation.TargetApi;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.ContextMenu;
@@ -22,7 +23,6 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
-import android.support.v4.app.Fragment;
 
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.bookmarks.BookmarkActivity;
@@ -84,7 +84,7 @@ public class MapObjectFragment extends Fragment
     UiUtils.show(mEditBmk);
     UiUtils.hide(mOpenWith);
 
-    setTexts(bookmark.getName(), null , bookmark.getCategoryName(), bookmark.getBookmarkDescription(), bookmark.getLat(), bookmark.getLon());
+    setTexts(bookmark.getName(), null , bookmark.getCategoryName(getActivity()), bookmark.getBookmarkDescription(), bookmark.getLat(), bookmark.getLon());
 
     final int circleSize = (int) (getResources().getDimension(R.dimen.margin_medium) + .5);
     final Drawable icon = UiUtils.drawCircleForPin(bookmark.getIcon().getType(), circleSize, getResources());

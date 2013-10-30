@@ -8,19 +8,12 @@ public class BookmarkCategory
   private final int mId;
   private String mName;
   private final Context mContext;
+
   BookmarkCategory(Context c, int id)
   {
     mContext = c;
     mId = id;
   }
-
-  private native boolean isVisible(int id);
-  private native void setVisibility(int id, boolean v);
-
-  private native String getName(int id);
-  private native void setName(int old, String n);
-
-  private native int getSize(int id);
 
   public int getId()
   {
@@ -50,26 +43,39 @@ public class BookmarkCategory
 
   public int getSize()
   {
-    return getBookmarksCount() + getTracksCount();
+    return getSize(mId);
   }
 
   public int getBookmarksCount()
   {
-    return getSize(mId);
+    return getBookmarksCount(mId);
   }
 
   public int getTracksCount()
   {
-    return 3; //TODO add native
+    return getTracksCount(mId);
   }
 
-  public Bookmark getBookmark(int b)
+  public Bookmark getBookmark(int index)
   {
-    return new Bookmark(mContext, mId, b - 3); //TODO remove - 3
+    return getBookmark(mId, index, Bookmark.class);
   }
 
   public Track getTrack(int index)
   {
-    return new Track(); // TODO: add native
+    return getTrack(mId, index, Track.class);
   }
+
+  private native int getBookmarksCount(int id);
+  private native int getTracksCount(int id);
+  private native int getSize(int id);
+
+  private native Bookmark getBookmark(int id, int index, Class<Bookmark> bookmarkClazz);
+  private native Track    getTrack(int id, int index, Class<Track> trackClazz);
+
+  private native boolean isVisible(int id);
+  private native void    setVisibility(int id, boolean v);
+
+  private native String getName(int id);
+  private native void   setName(int old, String n);
 }

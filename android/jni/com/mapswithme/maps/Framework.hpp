@@ -130,6 +130,8 @@ namespace android
     void DeactivatePopup();
 
     string GetOutdatedCountriesString();
+
+    void ShowTrack(int category, int track);
   };
 }
 

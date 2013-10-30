@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.util.Pair;
 
+import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.util.statistics.Statistics;
 
 public class BookmarkManager
@@ -14,8 +15,8 @@ public class BookmarkManager
   private static BookmarkManager sManager;
   private List<Bookmark> mPins;
   private List<BookmarkCategory> mPinSets;
-  private Context mContext;
-  private BookmarkIconManager mIconManager;
+  private final Context mContext;
+  private final BookmarkIconManager mIconManager;
 
   private BookmarkManager(Context context)
   {
@@ -29,6 +30,11 @@ public class BookmarkManager
     if (sManager == null)
       sManager = new BookmarkManager(context.getApplicationContext());
     return sManager;
+  }
+
+  public static BookmarkManager getBookmarkManager()
+  {
+    return getBookmarkManager(MWMApplication.get());
   }
 
   private native void loadBookmarks();
@@ -81,7 +87,7 @@ public class BookmarkManager
 
   public Bookmark getBookmark(int cat, int bmk)
   {
-    return new Bookmark(mContext, cat, bmk);
+    return getCategoryById(cat).getBookmark(bmk);
   }
 
   private native int createCategory(String name);
