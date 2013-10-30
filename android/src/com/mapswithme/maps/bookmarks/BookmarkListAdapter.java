@@ -235,7 +235,6 @@ public class BookmarkListAdapter extends BaseAdapter
     }
   }
 
-
   private final static int SECTION_TRACKS = 0;
   private final static int SECTION_BMKS = 1;
 

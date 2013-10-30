@@ -59,6 +59,18 @@ extern "C"
     }
   }
 
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteTrack(
+      JNIEnv * env, jobject thiz, jint cat, jint trk)
+  {
+    BookmarkCategory * pCat = frm()->GetBmCategory(cat);
+    if (pCat)
+    {
+      pCat->DeleteTrack(trk);
+      pCat->SaveToKMLFile();
+    }
+  }
+
   JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_getBookmark(
       JNIEnv * env, jobject thiz, jdouble px, jdouble py)

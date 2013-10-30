@@ -44,6 +44,12 @@ public class BookmarkManager
     deleteBookmark(bmk.getCategoryId(), bmk.getBookmarkId());
   }
 
+  public void deleteTrack(Track track)
+  {
+    nativeDeleteTrack(track.getCategoryId(), track.getTrackId());
+  }
+  private native void nativeDeleteTrack(int cat, int trk);
+
   public int addBookmarkToLastEditedCategory(String name, double lat, double lon)
   {
     Statistics.INSTANCE.trackBookmarkCreated(mContext);

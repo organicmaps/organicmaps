@@ -164,28 +164,33 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       {
         final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         mSelectedPosition = info.position;
-        final MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.pin_sets_context_menu, menu);
 
-
-        for (final ShareAction sa : ShareAction.ACTIONS.values())
+        final int type = mPinAdapter.getItemViewType(mSelectedPosition);
+        if (type == BookmarkListAdapter.TYPE_BMK)
         {
-          if (sa.isSupported(this))
-            menu.add(Menu.NONE, sa.getId(), sa.getId(), getResources().getString(sa.getNameResId()));
-        }
+          final MenuInflater inflater = getMenuInflater();
+          inflater.inflate(R.menu.pin_sets_context_menu, menu);
 
-        menu.setHeaderTitle(mManager.getBookmark(mEditedSet.getId(), mSelectedPosition).getName());
+          for (final ShareAction sa : ShareAction.ACTIONS.values())
+          {
+            if (sa.isSupported(this))
+              menu.add(Menu.NONE, sa.getId(), sa.getId(), getResources().getString(sa.getNameResId()));
+          }
+          final Bookmark bmk = (Bookmark) mPinAdapter.getItem(mSelectedPosition);
+          menu.setHeaderTitle(bmk.getName());
+        }
+        else if (type == BookmarkListAdapter.TYPE_TRACK)
+        {
+          menu.add(Menu.NONE, MENU_DELETE_TRACK, MENU_DELETE_TRACK, getString(R.string.delete));
+          final Track trk = (Track) mPinAdapter.getItem(mSelectedPosition);
+          menu.setHeaderTitle(trk.getName());
+        }
       }
 
       super.onCreateContextMenu(menu, v, menuInfo);
     }
   }
-
-  private void startPinActivity(int cat, int bmk)
-  {
-    startActivity(new Intent(this, BookmarkActivity.class)
-    .putExtra(BookmarkActivity.PIN, new ParcelablePoint(cat, bmk)));
-  }
+  private final static int MENU_DELETE_TRACK = 0x42;
 
   @Override
   public boolean onContextItemSelected(MenuItem item)
@@ -197,8 +202,8 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
     }
     else if (itemId == R.id.set_delete)
     {
-      mManager.deleteBookmark(mEditedSet.getId(), mSelectedPosition);
-      ((BookmarkListAdapter) getListView().getAdapter()).notifyDataSetChanged();
+      mManager.deleteBookmark((Bookmark) mPinAdapter.getItem(mSelectedPosition));
+      mPinAdapter.notifyDataSetChanged();
     }
     else if (ShareAction.ACTIONS.containsKey(itemId))
     {
@@ -207,8 +212,20 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
 
       shareAction.shareMapObject(this, bmk);
     }
+    else if (itemId == MENU_DELETE_TRACK)
+    {
+      final Track track = (Track) mPinAdapter.getItem(mSelectedPosition);
+      mManager.deleteTrack(track);
+      mPinAdapter.notifyDataSetChanged();
+    }
 
     return super.onContextItemSelected(item);
+  }
+
+  private void startPinActivity(int cat, int bmk)
+  {
+    startActivity(new Intent(this, BookmarkActivity.class)
+    .putExtra(BookmarkActivity.PIN, new ParcelablePoint(cat, bmk)));
   }
 
   @Override
