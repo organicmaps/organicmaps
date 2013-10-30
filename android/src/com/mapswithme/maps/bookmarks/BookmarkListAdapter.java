@@ -205,7 +205,7 @@ public class BookmarkListAdapter extends BaseAdapter
 
     void setDistance(Track trk)
     {
-      distance.setText(trk.getLengthString());
+      distance.setText(mContext.getString(R.string.length) + " " + trk.getLengthString());
     }
 
     void setIcon(Bookmark bmk)

@@ -26,15 +26,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:text="my name is"
-            android:textAppearance="@style/Holo.TextAppearance.Large.Light" />
+            android:textAppearance="@style/Holo.TextAppearance.Large.Light"
+            android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/pi_distance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="333"
-            android:textAppearance="@style/Holo.TextAppearance.Small.Light" />
+            android:textAppearance="@style/Holo.TextAppearance.Small.Light"
+            android:textColor="@color/text_seconadary" />
     </LinearLayout>
 
 </RelativeLayout>

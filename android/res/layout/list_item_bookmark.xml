@@ -21,17 +21,19 @@
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/pi_distance"
         android:layout_toRightOf="@id/pi_pin_color"
-        android:text="my name is"
         android:singleLine="true"
-        android:textAppearance="@style/Holo.TextAppearance.Large.Light" />
+        android:textAppearance="@style/Holo.TextAppearance.Large.Light"
+        android:textColor="@color/text_primary"
+        />
 
     <TextView
         android:id="@+id/pi_distance"
-        android:text="2333"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:textAppearance="@style/Holo.TextAppearance.Small.Light" />
+        android:layout_marginRight="@dimen/dp_x_4"
+        android:textAppearance="@style/Holo.TextAppearance.Medium.Light"
+        android:textColor="@color/text_seconadary" />
 
 </RelativeLayout>
