@@ -26,7 +26,7 @@ import com.mapswithme.util.UiUtils;
 
 
 public class BookmarkListAdapter extends BaseAdapter
-                                  implements LocationService.Listener
+                                 implements LocationService.Listener
 {
   private final Activity mContext;
   private final BookmarkCategory mCategory;
@@ -98,12 +98,10 @@ public class BookmarkListAdapter extends BaseAdapter
         sectionView = convertView;
         sectionName = (TextView) sectionView.getTag();
       }
-
       final int sectionIndex = getSectionForPosition(position);
       sectionName.setText(getSections().get(sectionIndex));
       return sectionView;
     }
-
 
     if (convertView == null)
     {
@@ -133,7 +131,7 @@ public class BookmarkListAdapter extends BaseAdapter
   public Object getItem(int position)
   {
     if (getItemViewType(position) == TYPE_TRACK)
-      return mCategory.getTrack(position - 1); // minus ONE section
+      return mCategory.getTrack(position - 1);
     else
       return mCategory.getBookmark(position - 1
           - (isSectionEmpty(SECTION_TRACKS) ? 0 : mCategory.getTracksCount() + 1));
@@ -158,12 +156,9 @@ public class BookmarkListAdapter extends BaseAdapter
     mLocation.correctCompassAngles(mContext.getWindowManager().getDefaultDisplay(), north);
     final double ret = (north[1] >= 0.0 ? north[1] : north[0]);
 
-    // if difference is more than 1 degree
     if (mNorth == -1 || Math.abs(mNorth - ret) > 0.02)
     {
       mNorth = ret;
-      //Log.d(TAG, "Compass updated, north = " + m_north);
-
       notifyDataSetChanged();
     }
   }
