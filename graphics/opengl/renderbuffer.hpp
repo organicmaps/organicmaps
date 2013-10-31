@@ -2,6 +2,7 @@
 
 #include "../../std/shared_ptr.hpp"
 #include "../render_target.hpp"
+#include "../data_formats.hpp"
 
 namespace graphics
 {
@@ -19,7 +20,10 @@ namespace graphics
 
     public:
 
-      RenderBuffer(size_t width, size_t height, bool isDepthBuffer = false);
+      // Create depth buffer
+      RenderBuffer(size_t width, size_t height);
+      // Create color bufer
+      RenderBuffer(size_t width, size_t height, graphics::DataFormat format);
       ~RenderBuffer();
 
       unsigned int id() const;

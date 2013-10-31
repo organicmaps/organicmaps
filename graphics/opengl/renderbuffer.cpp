@@ -3,6 +3,7 @@
 #include "utils.hpp"
 
 #include "../../base/logging.hpp"
+#include "../../base/assert.hpp"
 
 #include "../../std/list.hpp"
 
@@ -10,22 +11,43 @@ namespace graphics
 {
   namespace gl
   {
-    RenderBuffer::RenderBuffer(size_t width, size_t height, bool isDepthBuffer)
-      : m_id(0), m_isDepthBuffer(isDepthBuffer), m_width(width), m_height(height)
+    RenderBuffer::RenderBuffer(size_t width, size_t height)
+      : m_id(0), m_isDepthBuffer(true), m_width(width), m_height(height)
     {
+      OGLCHECK(glGenRenderbuffersFn(1, &m_id));
+
+      makeCurrent();
+
+      OGLCHECK(glRenderbufferStorageFn(GL_RENDERBUFFER_MWM,
+                                       GL_DEPTH_COMPONENT16_MWM,
+                                       m_width,
+                                       m_height));
+    }
+
+    RenderBuffer::RenderBuffer(size_t width, size_t height, graphics::DataFormat format)
+      : m_id(0), m_isDepthBuffer(false), m_width(width), m_height(height)
+    {
+      OGLCHECK(glGenRenderbuffersFn(1, &m_id));
+
+      makeCurrent();
+
+      GLenum internalFormat;
+      switch(format)
       {
-        OGLCHECK(glGenRenderbuffersFn(1, &m_id));
-
-        makeCurrent();
-
-        GLenum target = GL_RENDERBUFFER_MWM;
-        GLenum internalFormat = m_isDepthBuffer ? GL_DEPTH_COMPONENT16_MWM : GL_RGBA8_MWM;
-
-        OGLCHECK(glRenderbufferStorageFn(target,
-                                         internalFormat,
-                                         m_width,
-                                         m_height));
+      case graphics::Data4Bpp:
+        internalFormat = GL_RGBA4_MWM;
+        break;
+      case graphics::Data8Bpp:
+        internalFormat = GL_RGBA8_MWM;
+        break;
+      default:
+        ASSERT(false, ("Incorrect color buffer format"));
       }
+
+      OGLCHECK(glRenderbufferStorageFn(GL_RENDERBUFFER_MWM,
+                                       internalFormat,
+                                       m_width,
+                                       m_height));
     }
 
     RenderBuffer::~RenderBuffer()
