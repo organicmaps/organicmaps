@@ -24,6 +24,7 @@ namespace graphics
     const int GL_DEPTH_COMPONENT16_MWM = GL_DEPTH_COMPONENT16;
     const int GL_DEPTH_COMPONENT24_MWM = GL_DEPTH_COMPONENT24;
     const int GL_RGBA8_MWM = GL_RGBA8;
+    const int GL_RGBA4_MWM = GL_RGBA4;
 
     const int GL_WRITE_ONLY_MWM = GL_WRITE_ONLY;
 

@@ -128,6 +128,7 @@ namespace graphics
     extern const int GL_DEPTH_COMPONENT16_MWM;
     extern const int GL_DEPTH_COMPONENT24_MWM;
     extern const int GL_RGBA8_MWM;
+    extern const int GL_RGBA4_MWM;
 
     extern void (OPENGL_CALLING_CONVENTION * glBindFramebufferFn) (GLenum target, GLuint framebuffer);
     extern void (OPENGL_CALLING_CONVENTION * glFramebufferTexture2DFn) (GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
