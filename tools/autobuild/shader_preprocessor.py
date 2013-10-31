@@ -18,7 +18,7 @@ def readIndexFile(filePath):
     f = open(filePath)
     gpuPrograms = dict()
     for line in f:
-        lineParts = line.strip('\n').split(" ")
+        lineParts = line.strip().split()
         if len(lineParts) != 3:
             print "Incorrect GPU program definition : " + line
             exit(10)
@@ -26,11 +26,11 @@ def readIndexFile(filePath):
         vertexShader   = next( f for f in lineParts if f.endswith(".vsh"))
         fragmentShader = next( f for f in lineParts if f.endswith(".fsh"))
 
-        if vertexShader == "":
+        if not vertexShader:
             print "Vertex shader not found in GPU program definition : " + line
             exit(11)
 
-        if fragmentShader == "":
+        if not fragmentShader:
             print "Fragment shader not found in GPU program definition : " + line
             exit(12)
 
@@ -43,33 +43,21 @@ def readIndexFile(filePath):
     return gpuPrograms
 
 def generateShaderIndexes(shaders):
-    shaderIndex = dict()
-    counter = 0
-    for shader in shaders:
-        shaderIndex[shader] = counter
-        counter = counter + 1
-
-    return shaderIndex
+    return dict((v, k) for k, v in enumerate(shaders))
 
 def generateProgramIndex(programs):
-    programIndex = dict()
-    counter = 0
-    for program in programs.keys():
-        programIndex[program] = counter
-        counter = counter + 1
-
-    return programIndex
+    return dict((v, k) for k, v in enumerate(programs))
 
 def definitionChanged(programIndex, defFilePath):
     if not os.path.isfile(defFilePath):
-        return 1
+        return True
 
     defContent = open(defFilePath, 'r').read()
     for program in programIndex.keys():
         if program not in defContent:
-            return 1
+            return True
 
-    return 0
+    return False
 
 def writeDefinitionFile(programIndex, defFilePath):
     file = open(defFilePath, 'w')
@@ -89,7 +77,7 @@ def writeDefinitionFile(programIndex, defFilePath):
     file.write("  };\n\n")
 
     for programName in programIndex.keys():
-        file.write("  extern const int " + programName + ";\n");
+        file.write("  extern const int %s;\n" % (programName));
 
     file.write("\n")
     file.write("  void InitGpuProgramsLib(map<int, ProgramInfo> & gpuIndex);\n")
@@ -97,19 +85,18 @@ def writeDefinitionFile(programIndex, defFilePath):
     file.close()
 
 def writeShader(outputFile, shaderFile, shaderDir):
-    outputFile.write("  static const char " + formatShaderSourceName(shaderFile) + "[] = \" \\" + "\n");
+    outputFile.write("  static const char %s[] = \" \\\n" % (formatShaderSourceName(shaderFile)));
     for line in open(os.path.join(shaderDir, shaderFile)):
-        clearLine = line.strip("\n")
-        outputFile.write("    " + clearLine + " \\" + "\n")
+        outputFile.write("    %s \\\n" % (line.rstrip()))
     outputFile.write("  \";\n\n")
 
 def writeShadersIndex(outputFile, shaderIndex):
     for shader in shaderIndex:
-        outputFile.write("  #define " + formatShaderIndexName(shader) + " " + str(shaderIndex[shader]) + "\n")
+        outputFile.write("  #define %s %s\n" % (formatShaderIndexName(shader), shaderIndex[shader]))
 
 def writeImplementationFile(programsDef, programIndex, shaderIndex, shaderDir, implFile, defFile):
     file = open(formatOutFilePath(shaderDir, implFile), 'w')
-    file.write("#include \"" + defFile + "\"\n\n")
+    file.write("#include \"%s\"\n\n" % (defFile))
     file.write("#include \"../std/utility.hpp\"\n\n")
     file.write("namespace gpu\n")
     file.write("{\n")
@@ -156,13 +143,13 @@ def writeImplementationFile(programsDef, programIndex, shaderIndex, shaderDir, i
 
 def validateDocumentation(shaders, shaderDir):
     docFiles = [file for file in os.listdir(os.path.join(shaderDir, "doc"))]
-    documentationValid = 1
+
+    undocumentedShaders = []
     for shader in shaders:
         if formatShaderDocName(shader) not in docFiles:
-            print "Can't find documentation for shader : %s" % (shader)
-            documentationValid = 0
-
-    if documentationValid == 0:
+            undocumentedShaders.append(shader)
+    if undocumentedShaders:
+        print "no documentation for shaders:", undocumentedShaders
         exit(20)
 
 if len(sys.argv) < 4:

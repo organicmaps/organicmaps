@@ -13,7 +13,7 @@ namespace
       gpu::InitGpuProgramsLib(m_mapping);
     }
 
-    const gpu::ProgramInfo & GetShaders(int program)
+    const gpu::ProgramInfo & GetShaders(int program) const
     {
       ASSERT(m_mapping.find(program) != m_mapping.end(), ());
       return m_mapping[program];
