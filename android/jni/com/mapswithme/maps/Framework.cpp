@@ -133,7 +133,6 @@ namespace android
     graphics::ResourceManager::Params rmParams;
 
     rmParams.m_videoMemoryLimit = 30 * 1024 * 1024;
-    rmParams.m_rtFormat = graphics::Data8Bpp;
     rmParams.m_texFormat = graphics::Data4Bpp;
 
     RenderPolicy::Params rpParams;

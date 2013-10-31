@@ -22,7 +22,6 @@ void GLWidget::initializeGL()
 {
   shared_ptr<graphics::RenderContext> primaryRC(new qt::gl::RenderContext(this));
   graphics::ResourceManager::Params rmParams;
-  rmParams.m_rtFormat = graphics::Data8Bpp;
   rmParams.m_texFormat = graphics::Data8Bpp;
   rmParams.m_texRtFormat = graphics::Data8Bpp;
   rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();

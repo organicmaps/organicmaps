@@ -201,8 +201,7 @@ namespace
 }
 
   ResourceManager::Params::Params()
-    : m_rtFormat(graphics::Data8Bpp),
-      m_texFormat(graphics::Data4Bpp),
+    : m_texFormat(graphics::Data4Bpp),
       m_texRtFormat(graphics::Data4Bpp),
       m_useSingleThreadedOGL(false),
       m_videoMemoryLimit(0),
@@ -247,10 +246,7 @@ namespace
       m_texRtFormat = graphics::Data8Bpp;
 
     if (isGPU("Imagination Technologies", "PowerVR MBX", false))
-    {
-      m_rtFormat = graphics::Data8Bpp;
       m_texRtFormat = graphics::Data8Bpp;
-    }
 
     LOG(LINFO, ("selected", graphics::formatName(m_texRtFormat), "format for tile textures"));
   }
@@ -428,7 +424,7 @@ namespace
 
   shared_ptr<graphics::gl::BaseTexture> ResourceManager::createRenderTarget(unsigned w, unsigned h)
   {
-    switch (m_params.m_rtFormat)
+    switch (m_params.m_texRtFormat)
     {
     case Data8Bpp:
       return make_shared_ptr(new gl::Texture<RGBA8Traits, false>(w, h));

@@ -70,13 +70,7 @@
 - (void)initRenderPolicy
 {
   NSLog(@"EAGLView initRenderPolicy Started");
-
-  // to avoid grid bug on 3G device
-  graphics::DataFormat rtFmt = graphics::Data4Bpp;
-  graphics::DataFormat texFmt = graphics::Data4Bpp;
-  if ([[NSString stringWithFormat:@"%s", glGetString(GL_RENDERER)] hasPrefix:@"PowerVR MBX"])
-    rtFmt = graphics::Data8Bpp;
-
+  
   typedef void (*drawFrameFn)(id, SEL);
   SEL drawFrameSel = @selector(drawFrame);
   drawFrameFn drawFrameImpl = (drawFrameFn)[self methodForSelector:drawFrameSel];
@@ -85,8 +79,7 @@
 
   graphics::ResourceManager::Params rmParams;
   rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
-  rmParams.m_rtFormat = rtFmt;
-  rmParams.m_texFormat = texFmt;
+  rmParams.m_texFormat = graphics::Data4Bpp;
 
   RenderPolicy::Params rpParams;
 

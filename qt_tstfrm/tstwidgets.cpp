@@ -27,8 +27,6 @@ namespace tst
     m_primaryContext = make_shared_ptr(new qt::gl::RenderContext(this));
 
     graphics::ResourceManager::Params rmp;
-
-    rmp.m_rtFormat = graphics::Data8Bpp;
     rmp.m_texFormat = graphics::Data8Bpp;
 
     rmp.m_videoMemoryLimit = 20 * 1024 * 1024;

@@ -181,8 +181,6 @@ namespace graphics
       bool isGPU(char const * vendorName, char const * rendererName, bool strictMatch) const;
 
     public:
-
-      DataFormat m_rtFormat;
       DataFormat m_texFormat;
       DataFormat m_texRtFormat;
       bool m_useSingleThreadedOGL;
