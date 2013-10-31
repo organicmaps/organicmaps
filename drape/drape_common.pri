@@ -1,3 +1,6 @@
+CMDRES = $$system(python ../tools/autobuild/shader_preprocessor.py $$PWD/shaders shader_index.txt shader_def)
+message($$CMDRES)
+
 SOURCES += \
     $$DRAPE_DIR/data_buffer.cpp \
     $$DRAPE_DIR/binding_info.cpp \
@@ -14,6 +17,7 @@ SOURCES += \
     $$DRAPE_DIR/glstate.cpp \
     $$DRAPE_DIR/glbuffer.cpp \
     $$DRAPE_DIR/utils/list_generator.cpp \
+    $$DRAPE_DIR/shader_def.cpp \
 
 HEADERS += \
     $$DRAPE_DIR/data_buffer.hpp \
@@ -34,3 +38,4 @@ HEADERS += \
     $$DRAPE_DIR/glfunctions.hpp \
     $$DRAPE_DIR/glbuffer.hpp \
     $$DRAPE_DIR/utils/list_generator.hpp \
+    $$DRAPE_DIR/shader_def.hpp \

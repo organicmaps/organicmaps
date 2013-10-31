@@ -1,57 +1,26 @@
 #include "gpu_program_manager.hpp"
 #include "../base/assert.hpp"
 
+#include "shader_def.hpp"
+
 namespace
 {
-  const string SimpleVertexShader =
-      "attribute vec2 position;\
-       attribute float depth;\
-       attribute vec4 color; \
-       uniform mat4 modelViewMatrix;\
-       uniform mat4 projectionMatrix;\
-       varying vec4 vColor; \
-       void main()\
-       {\
-         gl_Position = vec4(position.xy, depth, 1.0) * modelViewMatrix * projectionMatrix;\
-         vColor = color;\
-       }";
-
-  const string SimpleFragmentShader =
-       "varying vec4 vColor;\
-        void main()\
-        {\
-          gl_FragColor = vColor;\
-        }";
-
-  struct ShadersInfo
-  {
-    int32_t VertexShaderIndex;
-    int32_t FragmentShaderIndex;
-    string VertexShaderSource;
-    string FragmentShaderSource;
-  };
-
   class ShaderMapper
   {
   public:
     ShaderMapper()
     {
-      ShadersInfo info;
-      info.VertexShaderIndex = 1;
-      info.FragmentShaderIndex = 2;
-      info.FragmentShaderSource = SimpleFragmentShader;
-      info.VertexShaderSource = SimpleVertexShader;
-      m_mapping[1] = info;
+      gpu::InitGpuProgramsLib(m_mapping);
     }
 
-    const ShadersInfo & GetShaders(int program)
+    const gpu::ProgramInfo & GetShaders(int program)
     {
       ASSERT(m_mapping.find(program) != m_mapping.end(), ());
       return m_mapping[program];
     }
 
   private:
-    map<int, ShadersInfo> m_mapping;
+    map<int, gpu::ProgramInfo> m_mapping;
   };
 
   static ShaderMapper s_mapper;
@@ -81,13 +50,13 @@ ReferencePoiner<GpuProgram> GpuProgramManager::GetProgram(int index)
   if (it != m_programs.end())
     return it->second.GetWeakPointer();
 
-  ShadersInfo const & shaders = s_mapper.GetShaders(index);
-  ReferencePoiner<ShaderReference> vertexShader = GetShader(shaders.VertexShaderIndex,
-                                                        shaders.VertexShaderSource,
-                                                        ShaderReference::VertexShader);
-  ReferencePoiner<ShaderReference> fragmentShader = GetShader(shaders.FragmentShaderIndex,
-                                                          shaders.FragmentShaderSource,
-                                                          ShaderReference::FragmentShader);
+  gpu::ProgramInfo const & programInfo = s_mapper.GetShaders(index);
+  ReferencePoiner<ShaderReference> vertexShader = GetShader(programInfo.m_vertexIndex,
+                                                            programInfo.m_vertexSource,
+                                                            ShaderReference::VertexShader);
+  ReferencePoiner<ShaderReference> fragmentShader = GetShader(programInfo.m_fragmentIndex,
+                                                              programInfo.m_fragmentSource,
+                                                              ShaderReference::FragmentShader);
 
   OwnedPointer<GpuProgram> p(new GpuProgram(vertexShader, fragmentShader));
   m_programs.insert(std::make_pair(index, p));
