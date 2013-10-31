@@ -6,6 +6,7 @@
 #include "../coding/file_reader.hpp"
 #include "../coding/parse_xml.hpp"  // LoadFromKML
 #include "../coding/internal/file_data.hpp"
+#include "../coding/hex.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -15,7 +16,6 @@
 #include "../std/fstream.hpp"
 #include "../std/algorithm.hpp"
 #include "../std/auto_ptr.hpp"
-
 
 void BookmarkCategory::AddTrack(Track & track)
 {
@@ -115,6 +115,12 @@ Bookmark * BookmarkCategory::GetBookmark(size_t index)
 
 namespace
 {
+
+  string const PLACEMARK = "Placemark";
+  string const STYLE = "Style";
+  string const DOCUMENT =  "Document";
+  graphics::Color const DEFAULT_TRACK_COLOR = graphics::Color::fromARGB(0xFF33CCFF);
+
   string PointToString(m2::PointD const & org)
   {
     double const lon = MercatorBounds::XToLon(org.x);
@@ -161,6 +167,10 @@ namespace
     vector<string> m_tags;
     GeometryType m_geometryType;
     m2::PolylineD m_points;
+    graphics::Color m_trackColor;
+
+    string m_styleId;
+    map<string,graphics::Color> m_styleUrl2Color;
 
     string m_name;
     string m_type;
@@ -178,6 +188,9 @@ namespace
       m_type.clear();
       m_scale = -1.0;
       m_timeStamp = my::INVALID_TIME_STAMP;
+
+      m_trackColor = DEFAULT_TRACK_COLOR;
+      m_styleId = "";
 
       m_points.Clear();
       m_geometryType = UNKNOWN;
@@ -256,6 +269,28 @@ namespace
       return false;
     }
 
+    void ParseColor(string const & value)
+    {
+      string fromHex = FromHex(value);
+      ASSERT(fromHex.size() == 4, ("Invalid color passed"));
+      //Color positions in HEX – aabbggrr
+      m_trackColor = graphics::Color(fromHex[3], fromHex[2], fromHex[1], fromHex[0]);
+    }
+
+    bool GetColorForStyle(string const & styleUrl, graphics::Color & color)
+    {
+      if (styleUrl.empty())
+        return false;
+      // Remove leading '#' symbol
+      map<string, graphics::Color>::const_iterator it = m_styleUrl2Color.find(styleUrl.substr(1));
+      if (it != m_styleUrl2Color.end())
+      {
+        color = it->second;
+        return true;
+      }
+      return false;
+    }
+
   public:
     KMLParser(BookmarkCategory & cat) : m_category(cat)
     {
@@ -268,13 +303,25 @@ namespace
       return true;
     }
 
-    void AddAttr(string const &, string const &) {}
+    void AddAttr(string const & attr, string const & value)
+    {
+      string attrInLowerCase = attr;
+      strings::AsciiToLower(attrInLowerCase);
+      if (m_tags[m_tags.size() - 1] == "Style" && !value.empty() && attrInLowerCase == "id")
+        m_styleId = value;
+    }
+
+    string const & GetTagFromEnd(size_t n) const
+    {
+      ASSERT_LESS(n, m_tags.size(), ());
+      return m_tags[m_tags.size() - n - 1];
+    }
 
     void Pop(string const & tag)
     {
       ASSERT_EQUAL(m_tags.back(), tag, ());
 
-      if (tag == "Placemark")
+      if (tag == PLACEMARK)
       {
         if (MakeValid())
         {
@@ -290,12 +337,23 @@ namespace
           {
             Track track(m_points);
             track.SetName(m_name);
+            track.SetColor(m_trackColor);
             /// @todo Add description, style, timestamp
             m_category.AddTrack(track);
           }
         }
-
         Reset();
+      }
+      else if (tag == STYLE)
+      {
+        if (GetTagFromEnd(1) == DOCUMENT)
+        {
+          if (!m_styleId.empty())
+          {
+            m_styleUrl2Color[m_styleId] = m_trackColor;
+            m_trackColor = DEFAULT_TRACK_COLOR;
+          }
+        }
       }
 
       m_tags.pop_back();
@@ -311,23 +369,30 @@ namespace
         string const & currTag = m_tags[count - 1];
         string const & prevTag = m_tags[count - 2];
 
-        if (prevTag == "Document")
+        if (prevTag == DOCUMENT)
         {
           if (currTag == "name")
             m_category.SetName(value);
           else if (currTag == "visibility")
             m_category.SetVisible(value == "0" ? false : true);
         }
-        else if (prevTag == "Placemark")
+        else if (prevTag == PLACEMARK)
         {
           if (currTag == "name")
             m_name = value;
           else if (currTag == "styleUrl")
+          {
             m_type = GetSupportedBMType(value);
+            GetColorForStyle(value, m_trackColor);
+          }
           else if (currTag == "description")
             m_description = value;
         }
-        else if (count > 3 && m_tags[count-3] == "Placemark")
+        else if (prevTag == "LineStyle" && currTag == "color")
+        {
+          ParseColor(value);
+        }
+        else if (count > 3 && m_tags[count-3] == PLACEMARK)
         {
           if (prevTag == "Point")
           {
@@ -360,6 +425,10 @@ namespace
               if (m_timeStamp == my::INVALID_TIME_STAMP)
                 LOG(LWARNING, ("Invalid timestamp in Placemark:", value));
             }
+          }
+          else if (currTag == "styleUrl")
+          {
+            GetColorForStyle(value, m_trackColor);
           }
         }
         else if (count > 3 && m_tags[count-3] == "MultiGeometry")
