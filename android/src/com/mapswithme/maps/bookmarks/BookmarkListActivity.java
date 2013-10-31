@@ -198,7 +198,8 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
     final int itemId = item.getItemId();
     if (itemId == R.id.set_edit)
     {
-      startPinActivity(mEditedSet.getId(), mSelectedPosition);
+      final Bookmark bmk = (Bookmark) mPinAdapter.getItem(mSelectedPosition);
+      startPinActivity(mEditedSet.getId(), bmk.getBookmarkId());
     }
     else if (itemId == R.id.set_delete)
     {
@@ -208,8 +209,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
     else if (ShareAction.ACTIONS.containsKey(itemId))
     {
       final ShareAction shareAction = ShareAction.ACTIONS.get(itemId);
-      final Bookmark bmk = mManager.getBookmark(mEditedSet.getId(), mSelectedPosition);
-
+      final Bookmark bmk = (Bookmark) mPinAdapter.getItem(mSelectedPosition);
       shareAction.shareMapObject(this, bmk);
     }
     else if (itemId == MENU_DELETE_TRACK)
@@ -291,7 +291,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   // Menu routines
   private static final int ID_SEND_BY_EMAIL = 0x01;
 
-  @SuppressLint("InlinedApi")
+  @SuppressLint({ "InlinedApi", "NewApi" })
   @Override
   public boolean onCreateOptionsMenu(Menu menu)
   {

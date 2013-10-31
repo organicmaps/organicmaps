@@ -1,5 +1,6 @@
 package com.mapswithme.maps.base;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
@@ -43,7 +44,8 @@ public class MapsWithMeBaseActivity extends FragmentActivity
     super.onStop();
   }
 
-  @Override
+  @SuppressLint("NewApi")
+@Override
   protected void onCreate(Bundle arg0)
   {
     super.onCreate(arg0);
@@ -51,7 +53,7 @@ public class MapsWithMeBaseActivity extends FragmentActivity
     if (Utils.apiEqualOrGreaterThan(11))
     {
       // http://stackoverflow.com/questions/6867076/getactionbar-returns-null
-      ActionBar bar = getActionBar();
+      final ActionBar bar = getActionBar();
       if (bar != null)
         bar.setDisplayHomeAsUpEnabled(true);
     }
@@ -81,7 +83,7 @@ public class MapsWithMeBaseActivity extends FragmentActivity
   {
     if (item.getItemId() == android.R.id.home)
     {
-      InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+      final InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
       imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
       onBackPressed();
       return true;

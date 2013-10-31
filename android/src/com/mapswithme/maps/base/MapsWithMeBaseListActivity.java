@@ -1,10 +1,6 @@
 package com.mapswithme.maps.base;
 
-import com.mapswithme.maps.MWMApplication;
-import com.mapswithme.maps.state.SuppotedState;
-import com.mapswithme.util.Utils;
-import com.mapswithme.util.statistics.Statistics;
-
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Context;
@@ -13,9 +9,15 @@ import android.support.v4.app.ListFragment;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
+import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.state.SuppotedState;
+import com.mapswithme.util.Utils;
+import com.mapswithme.util.statistics.Statistics;
+
 /**
  * TODO use simple activity and {@link ListFragment} instead.
  */
+@SuppressLint("NewApi")
 public class MapsWithMeBaseListActivity extends ListActivity
 {
 

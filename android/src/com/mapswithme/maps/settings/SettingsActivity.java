@@ -1,5 +1,6 @@
 package com.mapswithme.maps.settings;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -24,7 +25,8 @@ public class SettingsActivity extends PreferenceActivity
 {
   private native boolean isDownloadingActive();
 
-  @SuppressWarnings("deprecation")
+  @SuppressLint("NewApi")
+@SuppressWarnings("deprecation")
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {

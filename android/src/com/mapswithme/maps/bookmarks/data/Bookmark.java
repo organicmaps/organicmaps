@@ -72,7 +72,8 @@ public class Bookmark extends MapObject
 
   private Icon getIconInternal()
   {
-    return BookmarkManager.getBookmarkManager().getIconByName((mCategoryId >= 0) ? getIcon(mCategoryId, mBookmark) : "");
+    return BookmarkManager.getBookmarkManager()
+        .getIconByName((mCategoryId >= 0) ? getIcon(mCategoryId, mBookmark) : "");
   }
 
   public Icon getIcon()

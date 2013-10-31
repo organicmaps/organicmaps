@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/cell_arrow_black"/>
+        android:src="@drawable/ic_next_item"/>
 
     <TextView
         android:id="@+id/name"

@@ -30,7 +30,6 @@
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:singleLine="true"
-            android:text="sdfjdslkfjdsklf"
             android:textSize="18sp" />
 
         <TextView

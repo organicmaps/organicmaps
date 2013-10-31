@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -46,14 +47,14 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
     private static final int TYPES_COUNT = 2;
     //@}
 
-    private LayoutInflater m_inflater;
-    private Activity m_context;
+    private final LayoutInflater m_inflater;
+    private final Activity m_context;
 
     private String m_currPath;
-    private String m_defPath;
+    private final String m_defPath;
     private long m_sizeNeeded;
 
-    private int m_listItemHeight;
+    private final int m_listItemHeight;
 
     public StoragePathAdapter(Activity context, String currPath, String defPath)
     {
@@ -66,9 +67,10 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
       m_listItemHeight = (int)Utils.getAttributeDimension(context, android.R.attr.listPreferredItemHeight);
     }
 
+    @SuppressLint("DefaultLocale")
     private String getSizeString(long size)
     {
-      String arrS[] = { "Kb", "Mb", "Gb" };
+      final String arrS[] = { "Kb", "Mb", "Gb" };
 
       long current = 1024;
       int i = 0;
@@ -91,7 +93,7 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
       long m_size;
     }
 
-    private List<StorageItem> m_items = new ArrayList<StorageItem>();
+    private final List<StorageItem> m_items = new ArrayList<StorageItem>();
     private int m_current = -1;
 
     private boolean isAvailable(int index)
@@ -142,11 +144,11 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
           if (findItemByPath(path) != -1)
             return false;
 
-          StatFs stat = new StatFs(path);
+          final StatFs stat = new StatFs(path);
           final long size = (long)stat.getAvailableBlocks() * (long)stat.getBlockSize();
           Log.i(TAG, "Available size = " + size);
 
-          StorageItem item = new StorageItem();
+          final StorageItem item = new StorageItem();
           item.m_path = path;
           item.m_size = size;
 
@@ -156,7 +158,7 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
         else
           Log.i(TAG, "File error for storage: " + path);
       }
-      catch (IllegalArgumentException ex)
+      catch (final IllegalArgumentException ex)
       {
         // Suppress exceptions for unavailable storages.
         Log.i(TAG, "StatFs error for storage: " + path);
@@ -182,11 +184,11 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
 
         while (true)
         {
-          String line = reader.readLine();
+          final String line = reader.readLine();
           if (line == null) break;
 
           // standard regexp for all possible whitespaces (space, tab, etc)
-          String[] arr = line.split("\\s+");
+          final String[] arr = line.split("\\s+");
 
           // split may return empty first strings
           int start = 0;
@@ -210,15 +212,15 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
               assert(mode == MOUNTS_MODE);
               Log.i(TAG, "Label = " + arr[start + 0] + "; Path = " + arr[start + 1]);
 
-              String prefixes[] = { "tmpfs", "/dev/block/vold", "/dev/fuse" };
-              for (String s : prefixes)
+              final String prefixes[] = { "tmpfs", "/dev/block/vold", "/dev/fuse" };
+              for (final String s : prefixes)
                 if (arr[start + 0].startsWith(s))
                   addStorage(arr[start + 1]);
             }
           }
         }
       }
-      catch (IOException e)
+      catch (final IOException e)
       {
         Log.w(TAG, "Can't read file: " + file);
       }
@@ -232,12 +234,12 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
     //@{
     private long getDirSize(String name)
     {
-      File dir = new File(name);
+      final File dir = new File(name);
       assert(dir.exists());
       assert(dir.isDirectory());
 
       long size = 0;
-      for (File f : dir.listFiles())
+      for (final File f : dir.listFiles())
       {
         assert(f.isFile());
         size += f.length();
@@ -252,7 +254,7 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
       assert(dir.exists());
       assert(dir.isDirectory());
 
-      for (File file : dir.listFiles())
+      for (final File file : dir.listFiles())
       {
         assert(file.isFile());
 
@@ -316,7 +318,7 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
           convertView.setMinimumHeight(m_listItemHeight);
         }
 
-        TextView v = (TextView) convertView;
+        final TextView v = (TextView) convertView;
         v.setText(m_context.getString(R.string.maps) + ": " + getSizeString(m_sizeNeeded));
         break;
       }
@@ -332,7 +334,7 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
           convertView.setMinimumHeight(m_listItemHeight);
         }
 
-        CheckedTextView v = (CheckedTextView) convertView;
+        final CheckedTextView v = (CheckedTextView) convertView;
         v.setText(item.m_path + ": " + getSizeString(item.m_size));
         v.setChecked(index == m_current);
         v.setEnabled((index == m_current) || isAvailable(index));
@@ -378,8 +380,8 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
 
     private class MoveFilesTask extends AsyncTask<String, Void, Boolean>
     {
-      private ProgressDialog m_dlg;
-      private String m_resPath;
+      private final ProgressDialog m_dlg;
+      private final String m_resPath;
 
       public MoveFilesTask(Activity context, String path)
       {
@@ -413,7 +415,7 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
         {
           m_dlg.dismiss();
         }
-        catch (Exception e)
+        catch (final Exception e)
         {
         }
 
@@ -429,7 +431,7 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
       {
         final String path = getFullPath(index);
 
-        File f = new File(path);
+        final File f = new File(path);
         if (!f.exists() && !f.mkdirs())
         {
           Log.e(TAG, "Can't create directory: " + path);
@@ -446,7 +448,7 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
           {
             Log.i(TAG, "Transfer data to storage: " + path);
 
-            MoveFilesTask task = new MoveFilesTask(m_context, m_items.get(index).m_path);
+            final MoveFilesTask task = new MoveFilesTask(m_context, m_items.get(index).m_path);
             task.execute(path);
 
             dlg.dismiss();

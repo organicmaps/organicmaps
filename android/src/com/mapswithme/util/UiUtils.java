@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -11,7 +12,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.util.Pair;
 import android.view.View;
 
 import com.mapswithme.maps.Framework;
@@ -99,6 +99,7 @@ public final class UiUtils
   }
 
 
+  @SuppressLint("DefaultLocale")
   public static final int colorByName(String name, int defColor)
   {
     if (COLOR_MAP.containsKey(name.trim().toLowerCase()))

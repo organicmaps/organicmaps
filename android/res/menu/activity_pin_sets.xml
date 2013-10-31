@@ -1,6 +1,0 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/pinsets_add"
-        android:title="@string/add_new_set"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
-</menu>

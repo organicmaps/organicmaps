@@ -16,13 +16,11 @@ public class BookmarkManager
   private List<Bookmark> mPins;
   private List<BookmarkCategory> mPinSets;
   private final Context mContext;
-  private final BookmarkIconManager mIconManager;
 
   private BookmarkManager(Context context)
   {
     mContext = context;
     loadBookmarks();
-    mIconManager = new BookmarkIconManager(context);
   }
 
   public static BookmarkManager getBookmarkManager(Context context)
@@ -81,12 +79,12 @@ public class BookmarkManager
 
   public Icon getIconByName(String name)
   {
-    return mIconManager.getIcon(name);
+    return BookmarkIconManager.getIcon(name);
   }
 
   public List<Icon> getIcons()
   {
-    return new ArrayList<Icon>(mIconManager.getAll().values());
+    return new ArrayList<Icon>(BookmarkIconManager.getAll().values());
   }
 
   public static native Point getBookmark(double px, double py);

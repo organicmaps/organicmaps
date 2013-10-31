@@ -1,5 +1,6 @@
 package com.mapswithme.maps;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
@@ -39,7 +40,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
   public static void startForSearch(Context context, String query, int scope)
   {
-    Intent i = new Intent(context, SearchActivity.class);
+    final Intent i = new Intent(context, SearchActivity.class);
     i.putExtra(EXTRA_SCOPE, scope).putExtra(EXTRA_QUERY, query);
     context.startActivity(i);
   }
@@ -407,6 +408,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   private ProgressBar m_progress;
   private Spinner m_modesSpinner;
 
+  @SuppressLint("NewApi")
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
@@ -414,7 +416,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
     if (Utils.apiEqualOrGreaterThan(11))
     {
-      ActionBar actionBar = getActionBar();
+      final ActionBar actionBar = getActionBar();
       if (actionBar != null)
         actionBar.hide();
     }
@@ -474,7 +476,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     // Initialize search modes spinner.
     m_modesSpinner = (Spinner) findViewById(R.id.search_modes_spinner);
 
-    ArrayAdapter<CharSequence> adapter =
+    final ArrayAdapter<CharSequence> adapter =
         ArrayAdapter.createFromResource(this, R.array.search_modes, R.layout.simple_spinner_item);
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     m_modesSpinner.setAdapter(adapter);
@@ -631,7 +633,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     if (isShowCategories())
       return;
 
-    double north[] = { magneticNorth, trueNorth };
+    final double north[] = { magneticNorth, trueNorth };
     m_location.correctCompassAngles(getWindowManager().getDefaultDisplay(), north);
     final double ret = (north[1] >= 0.0 ? north[1] : north[0]);
 

@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -38,6 +39,7 @@ import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
+@SuppressLint("StringFormatMatches")
 public class DownloadResourcesActivity extends MapsWithMeBaseActivity
                                        implements LocationService.Listener, MapStorage.Listener
 {

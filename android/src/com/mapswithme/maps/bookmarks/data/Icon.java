@@ -1,13 +1,12 @@
 package com.mapswithme.maps.bookmarks.data;
 
-import android.graphics.Bitmap;
 
 public class Icon
 {
   private final String mName;
   private final String mType;
 
-  public Icon(String Name, String type, Bitmap Icon)
+  public Icon(String Name, String type)
   {
     super();
     this.mName = Name;
