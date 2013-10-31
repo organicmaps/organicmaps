@@ -1,0 +1,2 @@
+SOLID_AREA_PROGRAM simple_vertex_shader.vsh solid_area_fragment_shader.fsh
+TEXTURING_PROGRAM texturing_vertex_shader.vsh texturing_fragment_shader.fsh

@@ -17,3 +17,12 @@ DRAPE_DIR = .
 include($$DRAPE_DIR/drape_common.pri)
 
 SOURCES += glfunctions.cpp
+
+OTHER_FILES += \
+    shaders/simple_vertex_shader.vsh \
+    shaders/solid_area_fragment_shader.fsh \
+    shaders/texturing_vertex_shader.vsh \
+    shaders/shader_index.txt \
+    shaders/texturing_fragment_shader.fsh
+
+HEADERS +=
