@@ -631,7 +631,21 @@ void BookmarkCategory::SaveToKML(ostream & s)
     SaveStringWithCDATA(s, track->GetName());
     s << "</name>\n";
 
-    /// @todo Save description, style, timestamp
+    s << "<Style><LineStyle>";
+    graphics::Color const & col = track->GetColor();
+    s << "<color>"
+      << NumToHex(col.a)
+      << NumToHex(col.b)
+      << NumToHex(col.g)
+      << NumToHex(col.r);
+    s << "</color>\n";
+
+    s << "<width>"
+      << track->GetWidth();
+    s << "</width>\n";
+
+    s << "</LineStyle></Style>\n";
+    // stop style saving
 
     s << "    <LineString><coordinates>";
 
