@@ -2,6 +2,8 @@
 
 #include "compass_filter.hpp"
 
+#include "../gui/element.hpp"
+
 #include "../platform/location.hpp"
 
 #include "../geometry/point2d.hpp"
@@ -11,19 +13,12 @@
 #include "../std/scoped_ptr.hpp"
 #include "../std/map.hpp"
 
-#include "../gui/element.hpp"
 
 class Framework;
 
-namespace anim
-{
-  class AngleInterpolation;
-}
+//namespace anim { class AngleInterpolation; }
 
-namespace graphics
-{
-  class DisplayList;
-}
+namespace graphics { class DisplayList; }
 
 namespace location
 {
@@ -71,8 +66,6 @@ namespace location
     ELocationProcessMode m_locationProcessMode;
     ECompassProcessMode m_compassProcessMode;
 
-    void FollowCompass();
-
     typedef gui::Element base_t;
 
     graphics::Color m_locationAreaColor;
@@ -108,7 +101,7 @@ namespace location
     mutable vector<m2::AnyRectD> m_boundRects;
     m2::RectD m_boundRect;
 
-    shared_ptr<anim::AngleInterpolation> m_headingInterpolation;
+    //shared_ptr<anim::AngleInterpolation> m_headingInterpolation;
 
     typedef map<int, TCompassStatusListener> TCompassStatusListeners;
     TCompassStatusListeners m_compassStatusListeners;
@@ -125,8 +118,11 @@ namespace location
                             m2::PointD const & globalPt1,
                             ScreenBase const & s);
 
-  public:
+    void CheckCompassRotation();
+    void CheckCompassFollowing();
+    void FollowCompass();
 
+  public:
     struct Params : base_t::Params
     {
       graphics::Color m_locationAreaColor;
@@ -171,9 +167,6 @@ namespace location
     void AnimateToPosition();
     void AnimateToPositionAndEnqueueFollowing();
     void AnimateToPositionAndEnqueueLocationProcessMode(location::ELocationProcessMode mode);
-
-    void CheckCompassRotation();
-    void CheckCompassFollowing();
 
     /// @name GPS location updates routine.
     //@{

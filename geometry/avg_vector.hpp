@@ -77,4 +77,35 @@ namespace math
         CalcAverage(arr);
     }
   };
+
+  // Compass smoothing parameters
+  // We're using technique described in
+  // http://windowsteamblog.com/windows_phone/b/wpdev/archive/2010/09/08/using-the-accelerometer-on-windows-phone-7.aspx
+  // In short it's a combination of low-pass filter to smooth the
+  // small orientation changes and a threshold filter to get big changes fast.
+  // k in the following formula: O(n) = O(n-1) + k * (I - O(n - 1));
+  // smoothed heading angle. doesn't always correspond to the m_headingAngle
+  // as we change the heading angle only if the delta between
+  // smoothedHeadingRad and new heading value is bigger than smoothingThreshold.
+  template <class T, size_t Dim> class LowPassVector
+  {
+    typedef array<T, Dim> ArrayT;
+    ArrayT m_val;
+    T m_factor;
+
+  public:
+    LowPassVector() : m_factor(0.5) {}
+    void SetFactor(T t) { m_factor = t; }
+
+    /// @param[in]  Next measurement.
+    /// @param[out] Average value.
+    void Next(T * arr)
+    {
+      for (size_t i = 0; i < Dim; ++i)
+      {
+        m_val[i] = m_val[i] + m_factor * (arr[i] - m_val[i]);
+        arr[i] = m_val[i];
+      }
+    }
+  };
 }

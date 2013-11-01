@@ -1,8 +1,6 @@
 #include "location_state.hpp"
 #include "navigator.hpp"
 #include "framework.hpp"
-#include "compass_filter.hpp"
-#include "change_viewport_task.hpp"
 #include "move_screen_task.hpp"
 
 #include "../graphics/display_list.hpp"
@@ -10,13 +8,11 @@
 #include "../graphics/pen.hpp"
 
 #include "../anim/controller.hpp"
-#include "../anim/angle_interpolation.hpp"
+//#include "../anim/angle_interpolation.hpp"
 
 #include "../gui/controller.hpp"
 
-#include "../platform/location.hpp"
 #include "../platform/platform.hpp"
-#include "../platform/settings.hpp"
 
 #include "../geometry/rect2d.hpp"
 #include "../geometry/transformations.hpp"
@@ -24,6 +20,7 @@
 #include "../indexer/mercator.hpp"
 
 #include "../base/logging.hpp"
+
 
 namespace location
 {
@@ -433,6 +430,7 @@ namespace location
 
   void State::CheckCompassRotation()
   {
+/*
 #ifndef OMIM_OS_IPHONE
 
     if (m_headingInterpolation)
@@ -479,8 +477,9 @@ namespace location
       m_headingInterpolation->Unlock();
 
 #else
+*/
     m_drawHeading = m_compassFilter.GetHeadingRad();
-#endif
+//#endif
   }
 
   void State::CheckCompassFollowing()

@@ -54,9 +54,12 @@ namespace android
     g_framework = this;
 
     m_videoTimer = new VideoTimer(bind(&Framework::CallRepaint, this));
+
+    /*
     size_t const measurementsCount = 5;
     m_sensors[0].SetCount(measurementsCount);
     m_sensors[1].SetCount(measurementsCount);
+    */
   }
 
   Framework::~Framework()

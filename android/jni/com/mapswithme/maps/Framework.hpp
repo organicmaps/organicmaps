@@ -46,7 +46,7 @@ namespace android
     double m_lastY1;
     //@}
 
-    math::AvgVector<float, 3> m_sensors[2];
+    math::LowPassVector<float, 3> m_sensors[2];
 
     scoped_ptr<ScheduledTask> m_scheduledTask;
     bool m_wasLongClick;
