@@ -55,6 +55,38 @@ UNIT_TEST(ThreadPool_CanceledTaskTest)
 
 namespace
 {
+  class EmptyPoolTask : public threads::IRoutine
+  {
+  public:
+    ~EmptyPoolTask()
+    {
+      TEST_EQUAL(IsCancelled(), true, ());
+    }
+
+    virtual void Do()
+    {
+      TEST_EQUAL(true, false, ());
+    }
+  };
+}
+
+UNIT_TEST(ThreadPool_StopOperationTest)
+{
+  int finishCounter = 0;
+  threads::Condition cond;
+  // in this case we have empty pool, and all tasks must be finish only on Stop method call
+  threads::ThreadPool pool(0, bind(&JoinFinishFunction, _1, ref(finishCounter), ref(cond)));
+
+  for (int i = 0; i < TASK_COUNT; ++i)
+    pool.AddTask(new EmptyPoolTask());
+
+  pool.Stop();
+
+  TEST_EQUAL(finishCounter, TASK_COUNT, ());
+}
+
+namespace
+{
   class CancelTestTask : public threads::IRoutine
   {
   public:
