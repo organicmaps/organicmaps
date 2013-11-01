@@ -89,6 +89,7 @@ namespace threads
         delete m_threads[i].first;
       }
 
+      m_threads.clear();
       m_tasks.ProcessList(bind(&ThreadPool::Impl::FinishTasksOnStop, this, _1));
       m_tasks.Clear();
     }
@@ -114,6 +115,11 @@ namespace threads
 
   ThreadPool::ThreadPool(size_t size, const finish_routine_fn & finishFn)
     : m_impl(new Impl(size, finishFn)) {}
+
+  ThreadPool::~ThreadPool()
+  {
+    delete m_impl;
+  }
 
   void ThreadPool::AddTask(threads::IRoutine * routine)
   {
