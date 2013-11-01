@@ -37,7 +37,7 @@
 	<string name="downloading">Téléchargement en cours…</string>
 	<string name="get_it_now">Installer</string>
 	<!-- Leave Review dialog title -->
-	<string name="leave_review_text">Si Maps With Me vous plait, merci de nous soutenir en donnant votre avis. Si vous rencontrez des problèmes avec ce programme, merci de nous le faire savoir en remplissant le formulaire adéquat.</string>
+	<string name="leave_review_text">Si MapsWithMe vous plait, merci de nous soutenir en donnant votre avis. Si vous rencontrez des problèmes avec ce programme, merci de nous le faire savoir en remplissant le formulaire adéquat.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilomètres</string>
 	<!-- Leave Review dialog - Review button -->

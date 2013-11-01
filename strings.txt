@@ -290,7 +290,7 @@
     cs = Pokud se ti MapsWithMe líbí, napiš nám, prosím, svůj názor. Pokud jsi nalezl/a nějaké chyby, dej nám, prosím, vědět vyplněním speciálního formuláře.
     de = Wenn Ihnen MapsWithMe gefällt, unterstützen Sie uns bitte, indem Sie Ihre Meinung hinterlassen. Wenn Sie Probleme bei der Benutzung des Programms haben, melden Sie uns diese bitte, indem Sie das entsprechende Formular ausfüllen.
     es = Si te gusta MapsWithMe, por favor apóyanos a nosotros en escribir una reseña. Si tienes cualquier problema, por favor completa un formulario especial, para que podamos contactar contigo.
-    fr = Si Maps With Me vous plait, merci de nous soutenir en donnant votre avis. Si vous rencontrez des problèmes avec ce programme, merci de nous le faire savoir en remplissant le formulaire adéquat.
+    fr = Si MapsWithMe vous plait, merci de nous soutenir en donnant votre avis. Si vous rencontrez des problèmes avec ce programme, merci de nous le faire savoir en remplissant le formulaire adéquat.
     it =  Se ti piace MapsWithMe, cortesemente sostienici, scrivendo una recensione. Se incontri problemi, faccelo sapere compilando l'apposito modulo.
     ja = MapsWithMeを気に入って頂けましたら、感想をぜひレビューで評価ください。問題等ございましたらフォームよりご報告いただければ幸いです。
     ko = MapsWithMe를 좋아하시면 평을 작성하여 주시기 바랍니다. 안건의 발생의 경우 특정 양식서를 작성하여 주시기 바랍니다.
@@ -826,7 +826,7 @@
     pt = Tente de novo
   [app_name]
     en = MapsWithMe
-    zh-Hant = Maps With Me 專業版
+    zh-Hant = MapsWithMe 專業版
   [about_menu_title]
     en = About MapsWithMe
     cs = O aplikaci MapsWithMe
