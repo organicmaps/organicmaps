@@ -495,13 +495,11 @@ namespace location
     if (!m_framework->GetNavigator().DoSupportRotation())
       return;
 
-    anim::Controller * controller = m_framework->GetAnimController();
-    anim::Controller::Guard guard(controller);
+    anim::Controller::Guard guard(m_framework->GetAnimController());
 
-    double startAngle = m_framework->GetNavigator().Screen().GetAngle();
-    double endAngle = -m_compassFilter.GetHeadingRad();
-
-    m_framework->GetAnimator().RotateScreen(startAngle, endAngle);
+    m_framework->GetAnimator().RotateScreen(
+          m_framework->GetNavigator().Screen().GetAngle(),
+          -m_compassFilter.GetHeadingRad());
   }
 
   void State::AnimateToPosition()

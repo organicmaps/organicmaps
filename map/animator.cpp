@@ -31,18 +31,26 @@ void Animator::RotateScreen(double startAngle, double endAngle)
   if (m_rotateScreenTask)
     m_rotateScreenTask->Lock();
 
-  if (m_rotateScreenTask
-  && !m_rotateScreenTask->IsCancelled()
-  && !m_rotateScreenTask->IsEnded())
+  bool const inProgress =
+      m_rotateScreenTask &&
+      !m_rotateScreenTask->IsCancelled() &&
+      !m_rotateScreenTask->IsEnded();
+
+  if (inProgress)
+  {
     m_rotateScreenTask->SetEndAngle(endAngle);
+  }
   else
   {
-    if (fabs(ang::GetShortestDistance(startAngle, endAngle)) > math::pi / 180.0)
+    double const eps = my::DegToRad(3.0);
+
+    if (fabs(ang::GetShortestDistance(startAngle, endAngle)) > eps)
     {
       if (m_rotateScreenTask)
       {
-        if (!m_rotateScreenTask->IsCancelled() && !m_rotateScreenTask->IsEnded())
+        if (inProgress)
           m_rotateScreenTask->Cancel();
+
         m_rotateScreenTask->Unlock();
         m_rotateScreenTask.reset();
       }
