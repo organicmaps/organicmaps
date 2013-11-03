@@ -15,8 +15,9 @@ namespace
 
     const gpu::ProgramInfo & GetShaders(int program) const
     {
-      ASSERT(m_mapping.find(program) != m_mapping.end(), ());
-      return m_mapping[program];
+      map<int, gpu::ProgramInfo>::const_iterator it = m_mapping.find(program);
+      ASSERT(it != m_mapping.end(), ());
+      return it->second;
     }
 
   private:
