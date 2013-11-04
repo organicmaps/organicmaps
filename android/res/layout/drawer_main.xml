@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android" >
 
+    <!-- add scroll view -->
+
     <Button
         android:id="@+id/map_button_search"
         style="@style/Widget.MapButtonDrawer"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/search_map"
         android:drawableLeft="@drawable/search_button"
@@ -14,21 +16,19 @@
     <Button
         android:id="@+id/map_button_download"
         style="@style/Widget.MapButtonDrawer"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/download_maps"
         android:drawableLeft="@drawable/download_button"
-        android:onClick="onDownloadClicked"
         android:text="@string/download_maps" />
 
     <Button
         android:id="@+id/map_button_bookmarks"
         style="@style/Widget.MapButtonDrawer"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/bookmarks"
         android:drawableLeft="@drawable/bookmarks_button"
-        android:onClick="onBookmarksClicked"
         android:text="@string/bookmarks" />
 
     <View
@@ -41,21 +41,19 @@
     <Button
         android:id="@+id/menuitem_settings_activity"
         style="@style/Widget.MapButtonDrawer"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/settings"
         android:drawableLeft="@drawable/ic_settings"
-        android:onClick="onBookmarksClicked"
         android:text="@string/settings" />
 
     <Button
         android:id="@+id/menuitem_about_dialog"
         style="@style/Widget.MapButtonDrawer"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/about"
         android:drawableLeft="@drawable/ic_about"
-        android:onClick="onBookmarksClicked"
         android:text="@string/about" />
 
 </merge>

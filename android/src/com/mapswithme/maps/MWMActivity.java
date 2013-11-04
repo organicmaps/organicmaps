@@ -254,16 +254,12 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     nativeScale(2.0 / 3);
   }
 
-  public void onBookmarksClicked(View v)
+  public void onBookmarksClicked()
   {
     if (!mApplication.hasBookmarks())
-    {
       showProVersionBanner(getString(R.string.bookmarks_in_pro_version));
-    }
     else
-    {
       startActivity(new Intent(this, BookmarkCategoriesActivity.class));
-    }
   }
 
   public void onMyPositionClicked(View v)
@@ -521,7 +517,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     startActivity(new Intent(this, SearchActivity.class));
   }
 
-  public void onSearchClicked(View v)
+  public void onSearchClicked()
   {
     if (!(mApplication.isProVersion() || ActivationSettings.isSearchActivated(this)))
     {
@@ -551,7 +547,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public boolean onSearchRequested()
   {
-    onSearchClicked(null);
+    onSearchClicked();
     return false;
   }
 
@@ -560,7 +556,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     startActivity(new Intent(this, DownloadUI.class));
   }
 
-  public void onDownloadClicked(View v)
+  public void onDownloadClicked()
   {
     runDownloadActivity();
   }
@@ -609,6 +605,29 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private void setUpDrawer()
   {
+    final OnClickListener drawerItemsClickListener = new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        final int id = v.getId();
+
+        if (R.id.menuitem_about_dialog == id)
+          ContextMenu.onItemSelected(R.id.menuitem_about_dialog, MWMActivity.this);
+        else if (R.id.menuitem_settings_activity == id)
+          ContextMenu.onItemSelected(R.id.menuitem_settings_activity, MWMActivity.this);
+        else if (R.id.map_button_bookmarks == id)
+          onBookmarksClicked();
+        else if (R.id.map_button_download == id)
+          onDownloadClicked();
+        else if (R.id.map_button_search == id)
+          onSearchClicked();
+
+        toggleDrawer();
+      }
+    };
+
+
     mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
     mMainDrawer = findViewById(R.id.left_drawer);
     mDrawerLayout.setOnTouchListener(new OnTouchListener()
@@ -623,33 +642,12 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       }
     });
 
-    findViewById(R.id.map_button_toggle_drawer).setOnClickListener(new OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        toggleDrawer();
-      }
-    });
-
-
-    findViewById(R.id.menuitem_about_dialog).setOnClickListener(new OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        ContextMenu.onItemSelected(R.id.menuitem_about_dialog, MWMActivity.this);
-      }
-    });
-
-    findViewById(R.id.menuitem_settings_activity).setOnClickListener(new OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        ContextMenu.onItemSelected(R.id.menuitem_settings_activity, MWMActivity.this);
-      }
-    });
+    findViewById(R.id.map_button_toggle_drawer).setOnClickListener(drawerItemsClickListener);
+    findViewById(R.id.menuitem_about_dialog).setOnClickListener(drawerItemsClickListener);
+    findViewById(R.id.menuitem_settings_activity).setOnClickListener(drawerItemsClickListener);
+    findViewById(R.id.map_button_bookmarks).setOnClickListener(drawerItemsClickListener);
+    findViewById(R.id.map_button_search).setOnClickListener(drawerItemsClickListener);
+    findViewById(R.id.map_button_download).setOnClickListener(drawerItemsClickListener);
   }
 
   private void yotaSetup()
