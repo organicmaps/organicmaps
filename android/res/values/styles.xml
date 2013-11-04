@@ -12,9 +12,15 @@
         <item name="android:padding">0dp</item>
     </style>
 
-    <style name="Widget.MapButtonBottom" parent="android:Widget.Holo.ImageButton">
+    <style name="Widget.MapButtonBottom" parent="android:Widget.Holo.Button">
         <item name="android:background">@null</item>
-        <item name="android:padding">0dp</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="Widget.MapButtonDrawer" parent="android:Widget.Holo.Button">
+        <item name="android:background">@null</item>
+        <item name="android:padding">@dimen/dp_x_3</item>
+        <item name="android:drawablePadding">@dimen/dp_x_3</item>
     </style>
 
     <style name="tagGreenText" parent="@style/Holo.TextAppearance.Medium.Light">

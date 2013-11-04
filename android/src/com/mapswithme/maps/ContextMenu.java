@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,8 +24,8 @@ public class ContextMenu
   {
     final String url = "file:///android_asset/about.html";
 
-    LayoutInflater inflater = LayoutInflater.from(parent);
-    View alertDialogView = inflater.inflate(R.layout.about, null);
+    final LayoutInflater inflater = LayoutInflater.from(parent);
+    final View alertDialogView = inflater.inflate(R.layout.about, null);
     final WebView myWebView = (WebView) alertDialogView.findViewById(R.id.webview_about);
 
     myWebView.setWebViewClient(new WebViewClient()
@@ -37,7 +36,7 @@ public class ContextMenu
         super.onPageFinished(view, url);
         UiUtils.show(myWebView);
 
-        AlphaAnimation aAnim = new AlphaAnimation(0, 1);
+        final AlphaAnimation aAnim = new AlphaAnimation(0, 1);
         aAnim.setDuration(750);
         myWebView.startAnimation(aAnim);
       }
@@ -48,7 +47,7 @@ public class ContextMenu
     {
       versionStr = parent.getPackageManager().getPackageInfo(parent.getPackageName(), 0).versionName;
     }
-    catch (NameNotFoundException e)
+    catch (final NameNotFoundException e)
     {
       e.printStackTrace();
     }
@@ -77,7 +76,7 @@ public class ContextMenu
 
   public static boolean onCreateOptionsMenu(Activity parent, Menu menu)
   {
-    MenuInflater inflater = parent.getMenuInflater();
+    final MenuInflater inflater = parent.getMenuInflater();
     inflater.inflate(R.menu.main, menu);
     return true;
   }
@@ -85,10 +84,14 @@ public class ContextMenu
   public static boolean onOptionsItemSelected(Activity parent, MenuItem item)
   {
     final int id = item.getItemId();
+    return onItemSelected(id, parent);
+  }
 
-    if (id == R.id.menuitem_about_dialog)
+  public static boolean onItemSelected(int itemId, Activity parent)
+  {
+    if (itemId == R.id.menuitem_about_dialog)
       onAboutDialogClicked(parent);
-    else if (id == R.id.menuitem_settings_activity)
+    else if (itemId == R.id.menuitem_settings_activity)
       onSettingsClicked(parent);
     else
       return false;

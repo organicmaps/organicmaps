@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <corners
+        android:bottomRightRadius="4dp"
+        android:topRightRadius="4dp" />
+
+    <solid android:color="@color/drawer_back" />
+
+</shape>

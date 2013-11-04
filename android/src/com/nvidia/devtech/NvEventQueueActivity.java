@@ -103,7 +103,6 @@ public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity
   {
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.map);
     final SurfaceView surfaceView = (SurfaceView) findViewById(R.id.map_surfaceview);
 
     final SurfaceHolder holder = surfaceView.getHolder();

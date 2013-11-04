@@ -18,14 +18,17 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.widget.DrawerLayout;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.ImageButton;
@@ -52,14 +55,12 @@ import com.nvidia.devtech.NvEventQueueActivity;
 
 public class MWMActivity extends NvEventQueueActivity implements LocationService.Listener, OnBalloonListener
 {
+  private final static String TAG = "MWMActivity";
   public static final String EXTRA_TASK = "map_task";
 
   private static final int PRO_VERSION_DIALOG = 110001;
   private static final String PRO_VERSION_DIALOG_MSG = "pro_version_dialog_msg";
   private static final int PROMO_DIALOG = 110002;
-  //VideoTimer m_timer;
-
-  private static String TAG = "MWMActivity";
 
   private MWMApplication mApplication = null;
   private BroadcastReceiver m_externalStorageReceiver = null;
@@ -77,7 +78,11 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<MWMActivity.MapTask>();
 
-  //showDialog(int, Bundle) available only form API 8
+  // Drawer
+  private DrawerLayout mDrawerLayout;
+  private View mMainDrawer;
+  //
+
   private String mProDialogMessage;
 
   public native void deactivatePopup();
@@ -569,7 +574,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
       getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
     }
-
+    setContentView(R.layout.activity_map);
     super.onCreate(savedInstanceState);
     mApplication = (MWMApplication)getApplication();
 
@@ -586,6 +591,10 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     mAppTitle = (TextView) findViewById(R.id.app_title);
     mMapSurface = (SurfaceView) findViewById(R.id.map_surfaceview);
 
+    //Drawer
+    setUpDrawer();
+    // drawer
+
     yotaSetup();
 
     alignZoomButtons();
@@ -596,6 +605,51 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     // We need check for tasks both in onCreate and onNewIntent
     // because of bug in OS: https://code.google.com/p/android/issues/detail?id=38629
     addTask(intent);
+  }
+
+  private void setUpDrawer()
+  {
+    mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+    mMainDrawer = findViewById(R.id.left_drawer);
+    mDrawerLayout.setOnTouchListener(new OnTouchListener()
+    {
+      @Override
+      public boolean onTouch(View v, MotionEvent event)
+      {
+        // we need to intercept touches to transform map
+        if (!mDrawerLayout.isDrawerVisible(mMainDrawer))
+          onTouchEvent(event);
+        return false;
+      }
+    });
+
+    findViewById(R.id.map_button_toggle_drawer).setOnClickListener(new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        toggleDrawer();
+      }
+    });
+
+
+    findViewById(R.id.menuitem_about_dialog).setOnClickListener(new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        ContextMenu.onItemSelected(R.id.menuitem_about_dialog, MWMActivity.this);
+      }
+    });
+
+    findViewById(R.id.menuitem_settings_activity).setOnClickListener(new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        ContextMenu.onItemSelected(R.id.menuitem_settings_activity, MWMActivity.this);
+      }
+    });
   }
 
   private void yotaSetup()
@@ -1063,6 +1117,26 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       unregisterReceiver(m_externalStorageReceiver);
       m_externalStorageReceiver = null;
     }
+  }
+
+
+  private void toggleDrawer()
+  {
+    if (mDrawerLayout.isDrawerOpen(mMainDrawer))
+      mDrawerLayout.closeDrawer(mMainDrawer);
+    else
+      mDrawerLayout.openDrawer(mMainDrawer);
+  }
+
+  @Override
+  public boolean onKeyUp(int keyCode, KeyEvent event)
+  {
+    if (KeyEvent.KEYCODE_MENU == keyCode)
+    {
+      toggleDrawer();
+      return true;
+    }
+    return super.onKeyUp(keyCode, event);
   }
 
   ////

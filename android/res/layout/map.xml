@@ -90,14 +90,13 @@
             android:src="@drawable/zoom_out_button" />
     </RelativeLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/map_butons_container"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginBottom="10dip"
-        android:layout_marginLeft="10dip"
-        android:gravity="bottom"
+        android:gravity="bottom|right"
         android:orientation="horizontal" >
 
         <ImageButton
@@ -105,39 +104,24 @@
             style="@style/Widget.MapButtonBottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="right"
             android:contentDescription="@string/my_position"
             android:onClick="onMyPositionClicked"
             android:src="@drawable/myposition_button_normal" />
 
         <ImageButton
-            android:id="@+id/map_button_search"
-            style="@style/Widget.MapButtonBottom"
+            android:id="@+id/map_button_toggle_drawer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
-            android:contentDescription="@string/search_map"
-            android:onClick="onSearchClicked"
-            android:src="@drawable/search_button" />
-
-        <ImageButton
-            android:id="@+id/map_button_download"
-            style="@style/Widget.MapButtonBottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
-            android:contentDescription="@string/download_maps"
-            android:onClick="onDownloadClicked"
-            android:src="@drawable/download_button" />
-
-        <ImageButton
-            android:id="@+id/map_button_bookmarks"
-            style="@style/Widget.MapButtonBottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
-            android:contentDescription="@string/bookmarks"
-            android:onClick="onBookmarksClicked"
-            android:src="@drawable/bookmarks_button" />
-    </LinearLayout>
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginLeft="0dp"
+            android:background="@drawable/drawer_button"
+            android:contentDescription="@string/my_position"
+            android:paddingBottom="@dimen/dp_x_4"
+            android:paddingLeft="0dp"
+            android:paddingRight="@dimen/dp_x_1"
+            android:paddingTop="@dimen/dp_x_4"
+            android:src="@drawable/ic_drawer" />
+    </FrameLayout>
 
 </merge>
