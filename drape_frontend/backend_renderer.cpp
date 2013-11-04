@@ -74,11 +74,24 @@ namespace df
   class BackendRenderer::Impl
   {
   public:
-    Impl(int cpuCoreCount, size_t tileSize)
-      : m_pool(cpuCoreCount, bind(&BackendRenderer::Impl::FinishTask, this, _1))
+    Impl(threads::ThreadPool * pool, size_t tileSize)
+      : m_pool(pool)
       , m_tileSize(tileSize)
     {
       /// TODO create batcher with thread thansfer interface
+    }
+
+    ~Impl()
+    {
+      m_pool->Stop();
+      delete m_pool;
+
+      typedef set<ReadMWMTask *>::iterator index_iter;
+      for (index_iter it = m_taskIndex.begin(); it != m_taskIndex.end(); ++it)
+        delete (*it);
+
+      m_taskIndex.clear();
+      ///TODO destroy MemoryFeatureIndex
     }
 
     void UpdateCoverage(const ScreenBase & screen)
@@ -140,6 +153,7 @@ namespace df
 
         /// TODO remove geometry from render loop
         /// TODO remove unflushed backets
+        /// TODO remove features from MemoryFeatureIndex
 
         delete readTask;
       }
@@ -154,7 +168,7 @@ namespace df
     {
       ReadMWMTask * task = new ReadMWMTask(info);
       m_taskIndex.insert(task);
-      m_pool.AddTask(task);
+      m_pool->AddTask(task);
     }
 
     void CancelTask(ReadMWMTask * task, bool removeFromIndex)
@@ -162,12 +176,13 @@ namespace df
       task->Cancel();
       if (removeFromIndex)
         m_taskIndex.erase(task);
+      /// TODO remove features from MemoryFeatureIndex
       if (task->IsFinished())
         delete task;
     }
 
   private:
-    threads::ThreadPool m_pool;
+    threads::ThreadPool * m_pool;
 
     ScreenBase m_currentViewport;
     set<ReadMWMTask *> m_taskIndex;
@@ -179,11 +194,16 @@ namespace df
   };
 
   BackendRenderer::BackendRenderer(int cpuCoreCount, size_t tileSize)
-    : m_impl(new Impl(cpuCoreCount, tileSize))
-    , m_queue(1)
+    : m_queue(1)
   {
+    m_impl = new Impl(new threads::ThreadPool(cpuCoreCount, bind(&BackendRenderer::FinishTask, this, _1)), tileSize);
     m_queue.AddInitCommand(bind(&InitRenderThread));
-    m_queue.AddFinCommand(bind(&BackendRenderer::Destroy, this, m_impl));
+  }
+
+  BackendRenderer::~BackendRenderer()
+  {
+    m_queue.Cancel();
+    delete m_impl;
   }
 
   void BackendRenderer::UpdateCoverage(const ScreenBase & screen)
@@ -196,8 +216,8 @@ namespace df
     m_queue.AddCommand(bind(&BackendRenderer::Impl::Resize, m_impl, m2::RectI(x0, y0, x0 + w, y0 + h)));
   }
 
-  void BackendRenderer::Destroy(Impl * impl)
+  void BackendRenderer::FinishTask(threads::IRoutine * routine)
   {
-    delete m_impl;
+    m_queue.AddCommand(bind(&BackendRenderer::Impl::FinishTask, m_impl, routine));
   }
 }
