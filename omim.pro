@@ -31,6 +31,7 @@ SUBDIRS = 3party \
           storage storage/storage_tests \
           search search/search_tests \
           map map/map_tests map/benchmark_tool map/mwm_tests\
+          drape_frontend \
           generator generator/generator_tests \
           generator/generator_tool \
           qt_tstfrm \
@@ -55,4 +56,5 @@ SUBDIRS = 3party \
             gui \
             search \
             map \
+            drape_frontend \
 }
