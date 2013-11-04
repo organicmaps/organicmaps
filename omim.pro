@@ -56,5 +56,4 @@ SUBDIRS = 3party \
             gui \
             search \
             map \
-            drape_frontend \
 }
