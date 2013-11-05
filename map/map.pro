@@ -47,7 +47,6 @@ HEADERS += \
     country_status_display.hpp \
     rotate_screen_task.hpp \
     compass_arrow.hpp \
-    compass_filter.hpp \
     animator.hpp \
     move_screen_task.hpp \
     change_viewport_task.hpp \
@@ -98,7 +97,6 @@ SOURCES += \
     country_status_display.cpp \
     rotate_screen_task.cpp \
     compass_arrow.cpp \
-    compass_filter.cpp \
     animator.cpp \
     move_screen_task.cpp \
     change_viewport_task.cpp \

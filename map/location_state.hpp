@@ -1,7 +1,5 @@
 #pragma once
 
-#include "compass_filter.hpp"
-
 #include "../gui/element.hpp"
 
 #include "../platform/location.hpp"
@@ -15,8 +13,6 @@
 
 
 class Framework;
-
-//namespace anim { class AngleInterpolation; }
 
 namespace graphics { class DisplayList; }
 
@@ -55,7 +51,6 @@ namespace location
     double m_errorRadius;   //< error radius in mercator
     m2::PointD m_position;  //< position in mercator
 
-    CompassFilter m_compassFilter;
     double m_drawHeading;
 
     bool m_hasPosition;
@@ -101,8 +96,6 @@ namespace location
     mutable vector<m2::AnyRectD> m_boundRects;
     m2::RectD m_boundRect;
 
-    //shared_ptr<anim::AngleInterpolation> m_headingInterpolation;
-
     typedef map<int, TCompassStatusListener> TCompassStatusListeners;
     TCompassStatusListeners m_compassStatusListeners;
     int m_currentSlotID;
@@ -118,7 +111,6 @@ namespace location
                             m2::PointD const & globalPt1,
                             ScreenBase const & s);
 
-    void CheckCompassRotation();
     void CheckCompassFollowing();
     void FollowCompass();
 

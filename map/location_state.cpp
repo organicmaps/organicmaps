@@ -37,6 +37,7 @@ namespace location
     : base_t(p),
       m_errorRadius(0),
       m_position(0, 0),
+      m_drawHeading(0.0),
       m_hasPosition(false),
       m_hasCompass(false),
       m_isCentered(false),
@@ -45,7 +46,6 @@ namespace location
       m_compassProcessMode(ECompassDoNothing),
       m_currentSlotID(0)
   {
-    m_drawHeading = m_compassFilter.GetHeadingRad();
     m_locationAreaColor = p.m_locationAreaColor;
     m_compassAreaColor = p.m_compassAreaColor;
     m_compassBorderColor = p.m_compassBorderColor;
@@ -148,7 +148,6 @@ namespace location
       m_framework->ShowRectExVisibleScale(rect, scales::GetUpperComfortScale());
 
       SetIsCentered(true);
-      CheckCompassRotation();
       CheckCompassFollowing();
 
       m_locationProcessMode = ELocationCenterOnly;
@@ -158,7 +157,6 @@ namespace location
       m_framework->SetViewportCenter(center);
 
       SetIsCentered(true);
-      CheckCompassRotation();
       CheckCompassFollowing();
       break;
 
@@ -173,9 +171,9 @@ namespace location
   {
     m_hasCompass = true;
 
-    m_compassFilter.OnCompassUpdate(info);
+    m_drawHeading =
+        ((info.m_trueHeading >= 0.0) ? info.m_trueHeading : info.m_magneticHeading);
 
-    CheckCompassRotation();
     CheckCompassFollowing();
 
     invalidate();
@@ -428,60 +426,6 @@ namespace location
     return (pt.SquareLength(pivot()) <= my::sq(radius));
   }
 
-  void State::CheckCompassRotation()
-  {
-/*
-#ifndef OMIM_OS_IPHONE
-
-    if (m_headingInterpolation)
-      m_headingInterpolation->Lock();
-
-    double headingDelta = 0;
-    bool isRunning = m_headingInterpolation
-                  && m_headingInterpolation->IsRunning();
-
-    if (isRunning)
-      headingDelta = fabs(ang::GetShortestDistance(m_headingInterpolation->EndAngle(), m_compassFilter.GetHeadingRad()));
-
-    if (floor(my::RadToDeg(headingDelta)) > 0)
-      m_headingInterpolation->SetEndAngle(m_compassFilter.GetHeadingRad());
-    else
-    {
-      if (!isRunning)
-      {
-        headingDelta = fabs(ang::GetShortestDistance(m_drawHeading, m_compassFilter.GetHeadingRad()));
-
-        if (my::rounds(my::RadToDeg(headingDelta)) > 0)
-        {
-          if (m_headingInterpolation
-          && !m_headingInterpolation->IsCancelled()
-          && !m_headingInterpolation->IsEnded())
-          {
-            m_headingInterpolation->Cancel();
-            m_headingInterpolation->Unlock();
-            m_headingInterpolation.reset();
-          }
-
-          m_headingInterpolation.reset(new anim::AngleInterpolation(m_drawHeading,
-                                                                    m_compassFilter.GetHeadingRad(),
-                                                                    m_framework->GetAnimator().GetRotationSpeed(),
-                                                                    m_drawHeading));
-
-          m_framework->GetAnimController()->AddTask(m_headingInterpolation);
-          return;
-        }
-      }
-    }
-
-    if (m_headingInterpolation)
-      m_headingInterpolation->Unlock();
-
-#else
-*/
-    m_drawHeading = m_compassFilter.GetHeadingRad();
-//#endif
-  }
-
   void State::CheckCompassFollowing()
   {
     if (m_hasCompass
@@ -499,7 +443,7 @@ namespace location
 
     m_framework->GetAnimator().RotateScreen(
           m_framework->GetNavigator().Screen().GetAngle(),
-          -m_compassFilter.GetHeadingRad());
+          -m_drawHeading);
   }
 
   void State::AnimateToPosition()
@@ -558,7 +502,7 @@ namespace location
   {
     SetCompassProcessMode(ECompassFollow);
     SetLocationProcessMode(ELocationCenterOnly);
-    CheckCompassRotation();
+
     CheckCompassFollowing();
     setState(EPressed);
   }
