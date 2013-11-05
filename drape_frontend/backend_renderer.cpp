@@ -101,7 +101,8 @@ namespace df
       vector<Tiler::RectInfo> tiles;
       m_tiler.tiles(tiles, 1);
 
-      if (!m_currentViewport.GlobalRect().IsIntersect(screen.GlobalRect()))
+      if (!m_currentViewport.GlobalRect().IsIntersect(screen.GlobalRect())
+          || screen.GetScale() != m_currentViewport.GetScale())
       {
         typedef set<ReadMWMTask *>::iterator index_iter;
         for (index_iter it = m_taskIndex.begin(); it != m_taskIndex.end(); ++it)
