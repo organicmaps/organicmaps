@@ -94,7 +94,10 @@ namespace math
     T m_factor;
 
   public:
-    LowPassVector() : m_factor(0.5) {}
+    LowPassVector() : m_factor(0.5)
+    {
+      m_val.assign(T());
+    }
     void SetFactor(T t) { m_factor = t; }
 
     /// @param[in]  Next measurement.
