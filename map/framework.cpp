@@ -852,28 +852,26 @@ void Framework::CheckMinGlobalRect(m2::RectD & rect) const
     rect = minRect;
 }
 
-bool Framework::CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/) const
+void Framework::CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/) const
 {
+  CheckMinGlobalRect(rect);
+
   m2::PointD const c = rect.Center();
   int const worldS = scales::GetUpperWorldScale();
-  int const scale = m_scales.GetDrawTileScale(rect);
 
-  if (scale > worldS)
+  int scale = m_scales.GetDrawTileScale(rect);
+  if (scale > worldS && !IsCountryLoaded(c))
   {
-    if (!IsCountryLoaded(c))
-    {
-      rect = m_scales.GetRectForDrawScale(worldS, c);
-      return true;
-    }
+    // country is not loaded - limit on world scale
+    rect = m_scales.GetRectForDrawScale(worldS, c);
+    scale = worldS;
   }
 
   if (maxScale != -1 && scale > maxScale)
   {
+    // limit on passed maximal scale
     rect = m_scales.GetRectForDrawScale(maxScale, c);
-    return true;
   }
-
-  return false;
 }
 
 void Framework::ShowRect(double lat, double lon, double zoom)

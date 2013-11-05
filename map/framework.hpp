@@ -374,8 +374,8 @@ public:
 private:
   /// Always check rect in public function for minimal draw scale.
   void CheckMinGlobalRect(m2::RectD & rect) const;
-  /// @return true if rect was fixed to display downloaded zoom level (world map)
-  bool CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale = -1) const;
+  /// Check for minimal draw scale and maximal logical scale (country is not loaded).
+  void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale = -1) const;
 
   m2::AnyRectD ToRotated(m2::RectD const & rect) const;
   void ShowRectFixed(m2::RectD const & rect);
