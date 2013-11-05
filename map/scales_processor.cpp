@@ -49,7 +49,7 @@ int ScalesProcessor::GetTileScaleBase(ScreenBase const & s) const
 
 int ScalesProcessor::GetTileScaleBase(m2::RectD const & r) const
 {
-  double const sz = min(r.SizeX(), r.SizeY());
+  double const sz = max(r.SizeX(), r.SizeY());
   return max(1, my::rounds(log((MercatorBounds::maxX - MercatorBounds::minX) / sz) / log(2.0)));
 }
 
