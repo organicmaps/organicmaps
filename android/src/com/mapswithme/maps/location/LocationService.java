@@ -244,13 +244,27 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
     for (String prov : allProviders)
     {
-      if (!mLocationManager.isProviderEnabled(prov) || prov.equals(LocationManager.PASSIVE_PROVIDER))
+      if (LocationManager.PASSIVE_PROVIDER.equals(prov))
+        continue;
+
+      if (!mLocationManager.isProviderEnabled(prov))
       {
-        if (prov.equals(LocationManager.GPS_PROVIDER))
+        if (LocationManager.GPS_PROVIDER.equals(prov))
           mIsGPSOff = true;
+        continue;
       }
-      else
-        acceptedProviders.add(prov);
+
+      if (Utils.apiLowerThan(11) &&
+          LocationManager.NETWORK_PROVIDER.equals(prov) &&
+          !ConnectionState.isConnected(mApplication))
+      {
+        // Do not use WiFi location provider.
+        // It returns very old last saved locations with the current time stamp.
+        mLogger.d("Disabled network location as a device isn't online.");
+        continue;
+      }
+
+      acceptedProviders.add(prov);
     }
 
     return acceptedProviders;
