@@ -1,8 +1,11 @@
 #include "backend_renderer.hpp"
 
 #include "render_thread.hpp"
+#include "tile_info.hpp"
+#include "memory_feature_index.hpp"
 
 #include "../map/tiler.hpp"
+#include "../map/scales_processor.hpp"
 
 #include "../geometry/screenbase.hpp"
 
@@ -21,19 +24,36 @@ namespace
   class ReadMWMTask : public threads::IRoutine
   {
   public:
-    ReadMWMTask(Tiler::RectInfo const & tileId)
-      : m_tileId(tileId)
+    ReadMWMTask(Tiler::RectInfo const & tileId, df::MemoryFeatureIndex & index)
+      : m_tileInfo(tileId.m_x, tileId.m_y, tileId.m_tileScale)
+      , m_isFinished(false)
+      , m_index(index)
     {
     }
 
-    Tiler::RectInfo const & GetTileID() const
+    df::TileInfo const & GetTileInfo() const
     {
-      return m_tileId;
+      return m_tileInfo;
     }
 
     virtual void Do()
     {
-      ///TODO read geometry
+      if (m_tileInfo.m_featureInfo.empty())
+        ReadTileIndex();
+
+      vector<size_t> indexesToRead;
+      m_index.ReadFeaturesRequest(m_tileInfo.m_featureInfo, indexesToRead);
+      for (size_t i = 0; i < indexesToRead.size(); ++i)
+      {
+        df::FeatureInfo & info = m_tileInfo.m_featureInfo[i];
+        ReadGeometry(info.m_id);
+        info.m_isOwner = true;
+      }
+    }
+
+    void PrepareToRestart()
+    {
+      m_isFinished = false;
     }
 
     void Finish()
@@ -47,8 +67,21 @@ namespace
     }
 
   private:
-    Tiler::RectInfo m_tileId;
+    void ReadTileIndex()
+    {
+      /// TODO read index specified by m_tileInfo(m_x & m_y & m_zoomLevel)
+      /// TODO insert readed FeatureIDs into m_tileInfo.m_featureInfo;
+    }
+
+    void ReadGeometry(const FeatureID & id)
+    {
+      ///TODO read geometry
+    }
+
+  private:
+    df::TileInfo m_tileInfo;
     bool m_isFinished;
+    df::MemoryFeatureIndex & m_index;
 
 #ifdef DEBUG
     dbg::ObjectTracker m_objTracker;
@@ -59,12 +92,14 @@ namespace
   {
     bool operator()(ReadMWMTask const * task, Tiler::RectInfo const & rectInfo) const
     {
-      return task->GetTileID() < rectInfo;
+      /// TODO remove RectInfo to TileInfo covertion after rewrite tiler on TileInfo returning
+      return task->GetTileInfo() < df::TileInfo(rectInfo.m_x, rectInfo.m_y, rectInfo.m_tileScale);
     }
 
     bool operator()(Tiler::RectInfo const & rectInfo, ReadMWMTask const * task) const
     {
-      return rectInfo < task->GetTileID();
+      /// TODO remove RectInfo to TileInfo covertion after rewrite tiler on TileInfo returning
+      return df::TileInfo(rectInfo.m_x, rectInfo.m_y, rectInfo.m_tileScale) < task->GetTileInfo();
     }
   };
 }
@@ -76,7 +111,7 @@ namespace df
   public:
     Impl(threads::ThreadPool * pool, size_t tileSize)
       : m_pool(pool)
-      , m_tileSize(tileSize)
+      , m_scaleProcessor(tileSize)
     {
       /// TODO create batcher with thread thansfer interface
     }
@@ -91,18 +126,17 @@ namespace df
         delete (*it);
 
       m_taskIndex.clear();
-      ///TODO destroy MemoryFeatureIndex
     }
 
     void UpdateCoverage(const ScreenBase & screen)
     {
-      m_tiler.seed(screen, screen.GlobalRect().GlobalCenter(), m_tileSize);
+      m_tiler.seed(screen, screen.GlobalRect().GlobalCenter(), m_scaleProcessor.GetTileSize());
 
       vector<Tiler::RectInfo> tiles;
       m_tiler.tiles(tiles, 1);
 
-      if (!m_currentViewport.GlobalRect().IsIntersect(screen.GlobalRect())
-          || screen.GetScale() != m_currentViewport.GetScale())
+      if (!m_currentViewport.GlobalRect().IsIntersect(screen.GlobalRect()) ||
+          m_scaleProcessor.GetTileScaleBase(m_currentViewport) != m_scaleProcessor.GetTileScaleBase(screen))
       {
         typedef set<ReadMWMTask *>::iterator index_iter;
         for (index_iter it = m_taskIndex.begin(); it != m_taskIndex.end(); ++it)
@@ -134,6 +168,8 @@ namespace df
         for (size_t i = 0; i < outdatedTasks.size(); ++i)
           CancelTask(outdatedTasks[i], true);
 
+        RestartExistTasks();
+
         for (size_t i = 0; i < inputRects.size(); ++i)
           CreateTask(inputRects[i]);
       }
@@ -154,7 +190,7 @@ namespace df
 
         /// TODO remove geometry from render loop
         /// TODO remove unflushed backets
-        /// TODO remove features from MemoryFeatureIndex
+        m_index.RemoveFeatures(readTask->GetTileInfo().m_featureInfo);
 
         delete readTask;
       }
@@ -167,7 +203,7 @@ namespace df
   private:
     void CreateTask(Tiler::RectInfo const & info)
     {
-      ReadMWMTask * task = new ReadMWMTask(info);
+      ReadMWMTask * task = new ReadMWMTask(info, m_index);
       m_taskIndex.insert(task);
       m_pool->AddTask(task);
     }
@@ -177,9 +213,19 @@ namespace df
       task->Cancel();
       if (removeFromIndex)
         m_taskIndex.erase(task);
-      /// TODO remove features from MemoryFeatureIndex
+      m_index.RemoveFeatures(task->GetTileInfo().m_featureInfo);
       if (task->IsFinished())
         delete task;
+    }
+
+    void RestartExistTasks()
+    {
+      typedef set<ReadMWMTask *>::iterator index_iter;
+      for (index_iter it = m_taskIndex.begin(); it != m_taskIndex.end(); ++it)
+      {
+        (*it)->PrepareToRestart();
+        m_pool->AddTask(*it);
+      }
     }
 
   private:
@@ -189,7 +235,9 @@ namespace df
     set<ReadMWMTask *> m_taskIndex;
 
     Tiler m_tiler;
-    size_t m_tileSize;
+    ScalesProcessor m_scaleProcessor;
+
+    MemoryFeatureIndex m_index;
 
     //Batcher * m_batcher;
   };
