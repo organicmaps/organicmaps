@@ -19,9 +19,9 @@
 	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
 	<string name="delete_old_maps">Smazat staré mapy a pokračovat</string>
 	<!-- Button to dismiss dialog forever -->
-	<string name="do_not_ask_me_again">Vícekrát nezobrazovat</string>
+	<string name="do_not_ask_me_again">Už se neptat</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
-	<string name="do_nothing">Nic neprovádět</string>
+	<string name="do_nothing">Pokračovat</string>
 	<string name="download_maps">Stáhnout mapy</string>
 	<!-- Settings/Downloader - Download confirmation button -->
 	<string name="download_x_kb">Stáhnout %qu kB</string>
@@ -59,9 +59,9 @@
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">Nenalezeno připojení k WiFi. Chceš použít mobilní sítě (GPRS, EDGE nebo 3G) pro stažení %s?</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
-	<string name="enable_location_services">Povol prosím Službu určování polohy</string>
+	<string name="enable_location_services">Prosím, povol Služby určování polohy</string>
 	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">Prosím, uvolni nějakou paměť v tvém zařízení, než začneš stahovat %s</string>
+	<string name="free_disk_space_for_country_x">Prosím, uvolni nějaké místo v tvém zařízení, než začneš stahovat %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">Upozornit mě později</string>
 	<!-- Update maps later/Buy pro version later button text -->
@@ -73,11 +73,11 @@
 	<!-- View and button titles for accessibility -->
 	<string name="search">Hledat</string>
 	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">Vyhledávání je dostupné jen v placené verzi MapsWithMe. Chceš ji teď stáhnout?</string>
+	<string name="search_available_in_pro_version">Vyhledávání je dostupné jen v placené verzi MapsWithMe. Stáhni si ji nyní!</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Prohledat mapu</string>
 	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">Nedostatek volné paměti</string>
+	<string name="not_enough_disk_space">Nedostatek volného úložného prostoru</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">Klepni pro stažení</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
@@ -85,7 +85,7 @@
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">Doporučujeme použít WiFi pro stahování větších map</string>
 	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">Aktualizovali jsme mapovou databázi a zmenšili data map. U větších zemí si nyní můžeš vybrat ke stažení pouze region/stát, který potřebuješ. Pokud však chceš používat nové mapy, měl/a bys odstranit všechny staré mapové podklady, které již byly staženy.</string>
+	<string name="new_map_data_format_upgrade_dialog">Aktualizovali jsme mapovou databázi a zmenšili objem map. U větších zemí si nyní můžeš vybrat ke stažení pouze region/stát, který potřebuješ. Pokud však chceš používat nové mapy, bude třeba odstranit všechny staré mapové podklady, které již byly staženy.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Jaký systém pro měření preferuješ?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -103,7 +103,7 @@
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Stahování^selhalo</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
-	<string name="try_again">Opakovat akci</string>
+	<string name="try_again">Zkusit znovu</string>
 	<string name="about_menu_title">O aplikaci MapsWithMe</string>
 	<string name="downloading_touch_to_cancel">Stahování %d%%, klepni pro zrušení</string>
 	<string name="downloaded_touch_to_delete">Staženo (%s), klepni pro smazání</string>
@@ -113,21 +113,21 @@
 	<string name="unsupported_phone">Je vyžadována hardwarová akcelerace OpenGL. Bohužel, tvé zařízení není podporováno.</string>
 	<string name="download">Stáhnout</string>
 	<string name="external_storage_is_not_available">SD karta/USB uložiště s uloženými mapami není k dispozici</string>
-	<string name="disconnect_usb_cable">Prosím odpoj USB kabel nebo vlož paměťovou kartu pro použití s MapsWithMe</string>
+	<string name="disconnect_usb_cable">Prosím, odpoj USB kabel nebo vlož paměťovou kartu pro použití s MapsWithMe</string>
 	<string name="not_enough_free_space_on_sdcard">Prosím, uvolni nejprve nějaký prostor na SD kartě/USB uložišti</string>
 	<string name="not_enough_memory">Nedostatek paměti ke spuštění aplikace</string>
-	<string name="free_space_for_country">Prosím uvolni nejprve %1$s v tvém zařízení, abys mohl/a stáhnout %2$s</string>
+	<string name="free_space_for_country">Prosím, uvolni nejprve %1$s v tvém zařízení, abys mohl/a stáhnout %2$s</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Předtím, než začnete, nám dovolte do vašeho zařízení stáhnout obecnou mapu světa. \nPotřebuje %1$.1f%2$s dat.</string>
-	<string name="getting_position">Získávání aktuální pozice</string>
+	<string name="download_resources">Ještě než začneš, bude třeba stáhnout obecnou mapu světa.\nZabere to %1$.1f%2$s ...</string>
+	<string name="getting_position">Získávání aktuální polohy</string>
 	<string name="download_resources_continue">Přejít na mapu</string>
-	<string name="downloading_country_can_proceed">Stahování %s. Nyní můžeš \npoužít na mapě.</string>
+	<string name="downloading_country_can_proceed">Stahování %s. Nyní můžeš\npřejít na mapu.</string>
 	<string name="download_country_ask">Stáhnout %s?</string>
 	<string name="update_country_ask">Aktualizovat %s?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">Můžeš stáhnout mapu\npro tvou aktuální polohu.</string>
+	<string name="download_location_map_proposal">Můžeš stáhnout mapu\npro svou aktuální polohu.</string>
 	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">Můžeš aktualizovat mapu\ntvé aktuální polohy.</string>
+	<string name="download_location_update_map_proposal">Můžeš aktualizovat mapu\nsvé aktuální polohy.</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="download_location_map_up_to_date">Mapa tvé aktuální\npolohy (%s) je aktuální.</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -139,9 +139,9 @@
 	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
 	<string name="search_update_maps">Pro funkci vyhledávání musíš aktualizovat mapy:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">Aktualizace je k dispozici pro tyto mapy:</string>
+	<string name="advise_update_maps">Je k dispozici aktualizace pro tyto mapy:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">MapsWithMe Lite už nyní nepotřebuješ, takže si ji můžeš klidně odinstalovat.</string>
+	<string name="suggest_uninstall_lite">Aplikaci MapsWithMe Lite už nyní nepotřebuješ, takže si ji můžeš klidně odinstalovat.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">Úspěšně staženo: %s</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -155,7 +155,7 @@
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">Jméno záložky</string>
 	<!-- Bookmark Sets dialog title -->
-	<string name="bookmark_sets">Skupina záložek</string>
+	<string name="bookmark_sets">Skupiny záložek</string>
 	<!-- Boormarks - dialog title -->
 	<string name="bookmarks">Záložky</string>
 	<!-- Add bookmark dialog - bookmark color -->
@@ -173,7 +173,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Skupina</string>
 	<!-- Text hint in Bookmarks dialog -->
-	<string name="bookmarks_usage_hint">V aplikaci MapsWithMe lze importovat a zobrazovat záložky z jiných zdrojů. Otevřete soubor KML/KMZ pomocí PIN uloženého z e-mailu, Dropboxu nebo webového odkazu.</string>
+	<string name="bookmarks_usage_hint">V MapsWithMe mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Nastavení</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -185,11 +185,11 @@
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Tato akce může trvat několik minut.\nProsím čekej…</string>
 	<!-- Show bookmarks from this category on a map or not -->
-	<string name="visible">Viditelný</string>
+	<string name="visible">Viditelné</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
 	<string name="bookmarks_in_pro_version">Záložky jsou dostupné jen v plné verzi MapsWithMe. Chceš ji nyní stáhnout?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
-	<string name="gps_is_disabled_long_text">Navigace GPS deaktivována. Prosím povol ji v Nastavení.</string>
+	<string name="gps_is_disabled_long_text">Navigace GPS deaktivována. Prosím, povol ji v Nastavení.</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Měřicí jednotky</string>
 	<!-- Detailed description of Measurement Units settings button -->
@@ -207,7 +207,7 @@
 	<!-- Search Suggestion -->
 	<string name="fuel">čerpací stanice</string>
 	<!-- Search Suggestion -->
-	<string name="parking">Parkoviště</string>
+	<string name="parking">parkoviště</string>
 	<!-- Search Suggestion -->
 	<string name="shop">obchod</string>
 	<string name="hotel">hotel</string>
@@ -238,7 +238,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Sdílené záložky MapsWithMe</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Ahoj!\n\nZde jsou mé záložky z offline map aplikace MapsWithMe v přiloženém \&quot;%s.kmz\&quot; souboru. Pokud máš již aplikaci MapsWithMe Pro nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro tvé iOS nebo Android zařízení z tohoto odkazu http://www.mapswithme.com/get?kmz.\n\nSkvěle se bav s MapsWithMe!</string>
+	<string name="share_bookmarks_email_body">Ahoj!\n\nZde jsou mé záložky z offline map aplikace MapsWithMe v přiloženém souboru \&quot;%s.kmz\&quot;. Pokud máš již aplikaci MapsWithMe Pro nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://www.mapswithme.com/get?kmz.\n\nSkvěle se bav s MapsWithMe!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Nahrávání záložek</string>
 	<!-- Kmz file successful loading -->
@@ -254,27 +254,27 @@
 	<!-- Warning message when viewport country isn't downloaded during search -->
 	<string name="download_viewport_country_to_search">Stahování země (%s), v níž hledáš</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
-	<string name="cant_change_this_setting">Litujeme, nastavení Uložení Map jsou zakázána.</string>
+	<string name="cant_change_this_setting">Promiň, nastavení uložení map je dočasně nedostupné.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Právě probíhá stahování země.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Doufáme, že se Vám užívání MapsWithMe líbí! Je-li tomu tak, ohodnoťte prosím naši aplikaci nebo na ni napište recenzi v App Store. Nezabere Vám to ani minutu, ale opravdu nám tím můžete pomoci. Děkujeme Vám za Vaši podporu!</string>
+	<string name="appStore_message">Doufáme, že se Ti používání MapsWithMe líbí! Je-li tomu tak, ohodnoť, prosím, naši aplikaci nebo na ni napiš recenzi v Obchodu s aplikacemi. Nezabere Ti to ani minutu, ale opravdu nám tím můžeš pomoci. Děkujeme Ti za Tvou podporu!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Ne, díky</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Značka na mapě otevřete %1$s nebo %2$s</string>
+	<string name="bookmark_share_sms">Koukni na mou značku na mapě. Otevři odkaz: %1$s nebo %2$s</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Jsem zde. Otevřete %1$s nebo %2$s</string>
+	<string name="my_position_share_sms">Koukni kde jsem. Otevři odkaz: %1$s nebo %2$s</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Podívej se na mou značku na mapě MapsWithMe</string>
+	<string name="bookmark_share_email_subject">Koukni na moji značku na mapě MapsWithMe</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Ahoj,\n\nUmístil jsem značku %1$s na MapsWithMe, světové mapy bez internetového připojení. Klikni na jeden z těchto odkazů %2$s , %3$s a uvidíš toto místo na mapě.\n\nDěkuji.</string>
+	<string name="bookmark_share_email">Ahoj,\n\nOznačil/a jsem: %1$s v MapsWithMe, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$s, %3$s a uvidíš toto místo na mapě.\n\nDíky.</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Podívejte se na moji aktuální polohu na mapě na MapsWithMe</string>
+	<string name="my_position_share_email_subject">Podívejte se na mou aktuální polohu na mapě na MapsWithMe</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
-	<string name="my_position_share_email">Ahoj,\n\nnyní jsem zde: %1$s . Klikni na jeden z těchto odkazů %2$s, %3$s a uvidíš toto místo na mapě.\n\nDěkuji.</string>
+	<string name="my_position_share_email">Ahoj,\n\nPrávě jsem tady: %1$s. Klepni na jeden z těchto odkazů %2$s, %3$s a uvidíš toto místo na mapě.\n\nDíky.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
-	<string name="share_by_message">Sdílet po zprávách</string>
+	<string name="share_by_message">Sdílet pomocí zprávy</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Sdílet</string>
 	<!-- iOS share by Message button text (including SMS) -->
@@ -286,25 +286,25 @@
 	<!-- Text for the button that returns to caller application -->
 	<string name="more_info">Zobrazit další informace</string>
 	<!-- Text for message when used successfully copied something -->
-	<string name="copied_to_clipboard">Zkop?rov?no do schr?nky: %1$s</string>
+	<string name="copied_to_clipboard">Zkopírováno do schránky: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Povolit anonymní statistiku používání</string>
+	<string name="allow_statistics">Povolit anonymní statistiky používání</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Pomůže nám to vytvořit lepší aplikaci</string>
+	<string name="allow_statistics_hint">Pomůže nám to vytvořit zlepšit aplikaci</string>
 	<!-- place preview title -->
-	<string name="info">Informace</string>
+	<string name="info">Více informací</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Hotovo</string>
 	<!-- Summary for preferences in MWM -->
-	<string name="yopme_pref_summary">Zvolit nastavení zadní obrazovky</string>
+	<string name="yopme_pref_summary">Zvolit nastavení Zadní obrazovky</string>
 	<!-- Title for yopme preferences in MWM -->
-	<string name="yopme_pref_title">Nastavení zadní obrazovky</string>
+	<string name="yopme_pref_title">Nastavení Zadní obrazovky</string>
 	<!-- Hint for upper-right icon p2b -->
-	<string name="show_on_backscreen">Zobrazit na zadní obrazovce</string>
+	<string name="show_on_backscreen">Zobrazit na Zadní obrazovce</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Verze: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
-	<string name="are_you_sure">Určitě chcete pokračovat?</string>
+	<string name="are_you_sure">Opravdu chceš pokračovat?</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks">Stopy</string>
 	<!-- Length of track in cell that describes route -->

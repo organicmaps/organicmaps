@@ -31,10 +31,10 @@
 "delete_old_maps" = "Smazat staré mapy a pokračovat";
 
 /* Button to dismiss dialog forever */
-"do_not_ask_me_again" = "Vícekrát nezobrazovat";
+"do_not_ask_me_again" = "Už se neptat";
 
 /* Button "do not interrupt download" if user touched actively downloading country */
-"do_nothing" = "Nic neprovádět";
+"do_nothing" = "Pokračovat";
 
 "download_maps" = "Stáhnout mapy";
 
@@ -100,10 +100,10 @@
 "ok" = "OK";
 
 /* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "Povol prosím Službu určování polohy";
+"enable_location_services" = "Prosím, povol Služby určování polohy";
 
 /* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "Prosím, uvolni nějakou paměť v tvém zařízení, než začneš stahovat %@";
+"free_disk_space_for_country_x" = "Prosím, uvolni nějaké místo v tvém zařízení, než začneš stahovat %@";
 
 /* Leave Review dialog - Not now button (remind me later) */
 "remind_me_later" = "Upozornit mě později";
@@ -121,13 +121,13 @@
 "search" = "Hledat";
 
 /* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "Vyhledávání je dostupné jen v placené verzi MapsWithMe. Chceš ji teď stáhnout?";
+"search_available_in_pro_version" = "Vyhledávání je dostupné jen v placené verzi MapsWithMe. Stáhni si ji nyní!";
 
 /* Search box placeholder text */
 "search_map" = "Prohledat mapu";
 
 /* Settings/Downloader - No free space dialog title */
-"not_enough_disk_space" = "Nedostatek volné paměti";
+"not_enough_disk_space" = "Nedostatek volného úložného prostoru";
 
 /* Settings/Downloader - info for not downloaded country */
 "touch_to_download" = "Klepni pro stažení";
@@ -139,7 +139,7 @@
 "use_wifi_recommendation_text" = "Doporučujeme použít WiFi pro stahování větších map";
 
 /* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
-"new_map_data_format_upgrade_dialog" = "Aktualizovali jsme mapovou databázi a zmenšili data map. U větších zemí si nyní můžeš vybrat ke stažení pouze region/stát, který potřebuješ. Pokud však chceš používat nové mapy, měl/a bys odstranit všechny staré mapové podklady, které již byly staženy.";
+"new_map_data_format_upgrade_dialog" = "Aktualizovali jsme mapovou databázi a zmenšili objem map. U větších zemí si nyní můžeš vybrat ke stažení pouze region/stát, který potřebuješ. Pokud však chceš používat nové mapy, bude třeba odstranit všechny staré mapové podklady, které již byly staženy.";
 
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Jaký systém pro měření preferuješ?";
@@ -166,7 +166,7 @@
 "country_status_download_failed" = "Stahování^selhalo";
 
 /* Button text for the button under the country_status_download_failed message */
-"try_again" = "Opakovat akci";
+"try_again" = "Zkusit znovu";
 
 "app_name" = "MapsWithMe";
 
@@ -188,32 +188,32 @@
 
 "external_storage_is_not_available" = "SD karta/USB uložiště s uloženými mapami není k dispozici";
 
-"disconnect_usb_cable" = "Prosím odpoj USB kabel nebo vlož paměťovou kartu pro použití s MapsWithMe";
+"disconnect_usb_cable" = "Prosím, odpoj USB kabel nebo vlož paměťovou kartu pro použití s MapsWithMe";
 
 "not_enough_free_space_on_sdcard" = "Prosím, uvolni nejprve nějaký prostor na SD kartě/USB uložišti";
 
 "not_enough_memory" = "Nedostatek paměti ke spuštění aplikace";
 
-"free_space_for_country" = "Prosím uvolni nejprve %1$@ v tvém zařízení, abys mohl/a stáhnout %2$@";
+"free_space_for_country" = "Prosím, uvolni nejprve %1$@ v tvém zařízení, abys mohl/a stáhnout %2$@";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Předtím, než začnete, nám dovolte do vašeho zařízení stáhnout obecnou mapu světa. \nPotřebuje %.1f%@ dat.";
+"download_resources" = "Ještě než začneš, bude třeba stáhnout obecnou mapu světa.\nZabere to %.1f%@ ...";
 
-"getting_position" = "Získávání aktuální pozice";
+"getting_position" = "Získávání aktuální polohy";
 
 "download_resources_continue" = "Přejít na mapu";
 
-"downloading_country_can_proceed" = "Stahování %@. Nyní můžeš \npoužít na mapě.";
+"downloading_country_can_proceed" = "Stahování %@. Nyní můžeš\npřejít na mapu.";
 
 "download_country_ask" = "Stáhnout %@?";
 
 "update_country_ask" = "Aktualizovat %@?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "Můžeš stáhnout mapu\npro tvou aktuální polohu.";
+"download_location_map_proposal" = "Můžeš stáhnout mapu\npro svou aktuální polohu.";
 
 /* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "Můžeš aktualizovat mapu\ntvé aktuální polohy.";
+"download_location_update_map_proposal" = "Můžeš aktualizovat mapu\nsvé aktuální polohy.";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "download_location_map_up_to_date" = "Mapa tvé aktuální\npolohy (%@) je aktuální.";
@@ -232,10 +232,10 @@
 "search_update_maps" = "Pro funkci vyhledávání musíš aktualizovat mapy:";
 
 /* Show popup notification on app start when we have out-of-date maps */
-"advise_update_maps" = "Aktualizace je k dispozici pro tyto mapy:";
+"advise_update_maps" = "Je k dispozici aktualizace pro tyto mapy:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "MapsWithMe Lite už nyní nepotřebuješ, takže si ji můžeš klidně odinstalovat.";
+"suggest_uninstall_lite" = "Aplikaci MapsWithMe Lite už nyní nepotřebuješ, takže si ji můžeš klidně odinstalovat.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "Úspěšně staženo: %@";
@@ -256,7 +256,7 @@
 "bookmark_set_name" = "Jméno záložky";
 
 /* Bookmark Sets dialog title */
-"bookmark_sets" = "Skupina záložek";
+"bookmark_sets" = "Skupiny záložek";
 
 /* Boormarks - dialog title */
 "bookmarks" = "Záložky";
@@ -283,7 +283,7 @@
 "set" = "Skupina";
 
 /* Text hint in Bookmarks dialog */
-"bookmarks_usage_hint" = "V aplikaci MapsWithMe lze importovat a zobrazovat záložky z jiných zdrojů. Otevřete soubor KML/KMZ pomocí PIN uloženého z e-mailu, Dropboxu nebo webového odkazu.";
+"bookmarks_usage_hint" = "V MapsWithMe mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.";
 
 /* Settings button in system menu */
 "settings" = "Nastavení";
@@ -301,13 +301,13 @@
 "wait_several_minutes" = "Tato akce může trvat několik minut.\nProsím čekej…";
 
 /* Show bookmarks from this category on a map or not */
-"visible" = "Viditelný";
+"visible" = "Viditelné";
 
 /* Proposal to download Pro version with Bookmarks */
 "bookmarks_in_pro_version" = "Záložky jsou dostupné jen v plné verzi MapsWithMe. Chceš ji nyní stáhnout?";
 
 /* Toast which is displayed when GPS has been deactivated */
-"gps_is_disabled_long_text" = "Navigace GPS deaktivována. Prosím povol ji v Nastavení.";
+"gps_is_disabled_long_text" = "Navigace GPS deaktivována. Prosím, povol ji v Nastavení.";
 
 /* Measurement units title in settings activity */
 "measurement_units" = "Měřicí jednotky";
@@ -334,7 +334,7 @@
 "fuel" = "čerpací stanice";
 
 /* Search Suggestion */
-"parking" = "Parkoviště";
+"parking" = "parkoviště";
 
 /* Search Suggestion */
 "shop" = "obchod";
@@ -381,7 +381,7 @@
 "share_bookmarks_email_subject" = "Sdílené záložky MapsWithMe";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Ahoj!\n\nZde jsou mé záložky z offline map aplikace MapsWithMe v přiloženém \"%@.kmz\" souboru. Pokud máš již aplikaci MapsWithMe Pro nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro tvé iOS nebo Android zařízení z tohoto odkazu http://www.mapswithme.com/get?kmz.\n\nSkvěle se bav s MapsWithMe!";
+"share_bookmarks_email_body" = "Ahoj!\n\nZde jsou mé záložky z offline map aplikace MapsWithMe v přiloženém souboru \"%@.kmz\". Pokud máš již aplikaci MapsWithMe Pro nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://www.mapswithme.com/get?kmz.\n\nSkvěle se bav s MapsWithMe!";
 
 /* message title of loading file */
 "load_kmz_title" = "Nahrávání záložek";
@@ -408,37 +408,37 @@
 "flurry_app_key" = "";
 
 /* Alert message that we can't run Map Storage settings due to some reasons. */
-"cant_change_this_setting" = "Litujeme, nastavení Uložení Map jsou zakázána.";
+"cant_change_this_setting" = "Promiň, nastavení uložení map je dočasně nedostupné.";
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "Právě probíhá stahování země.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Doufáme, že se Vám užívání MapsWithMe líbí! Je-li tomu tak, ohodnoťte prosím naši aplikaci nebo na ni napište recenzi v App Store. Nezabere Vám to ani minutu, ale opravdu nám tím můžete pomoci. Děkujeme Vám za Vaši podporu!";
+"appStore_message" = "Doufáme, že se Ti používání MapsWithMe líbí! Je-li tomu tak, ohodnoť, prosím, naši aplikaci nebo na ni napiš recenzi v Obchodu s aplikacemi. Nezabere Ti to ani minutu, ale opravdu nám tím můžeš pomoci. Děkujeme Ti za Tvou podporu!";
 
 /* No, thanks */
 "no_thanks" = "Ne, díky";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Značka na mapě otevřete %1$@ nebo %2$@";
+"bookmark_share_sms" = "Koukni na mou značku na mapě. Otevři odkaz: %1$@ nebo %2$@";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Jsem zde. Otevřete %1$@ nebo %2$@";
+"my_position_share_sms" = "Koukni kde jsem. Otevři odkaz: %1$@ nebo %2$@";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Podívej se na mou značku na mapě MapsWithMe";
+"bookmark_share_email_subject" = "Koukni na moji značku na mapě MapsWithMe";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Ahoj,\n\nUmístil jsem značku %1$@ na MapsWithMe, světové mapy bez internetového připojení. Klikni na jeden z těchto odkazů %2$@ , %3$@ a uvidíš toto místo na mapě.\n\nDěkuji.";
+"bookmark_share_email" = "Ahoj,\n\nOznačil/a jsem: %1$@ v MapsWithMe, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Podívejte se na moji aktuální polohu na mapě na MapsWithMe";
+"my_position_share_email_subject" = "Podívejte se na mou aktuální polohu na mapě na MapsWithMe";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
-"my_position_share_email" = "Ahoj,\n\nnyní jsem zde: %1$@ . Klikni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDěkuji.";
+"my_position_share_email" = "Ahoj,\n\nPrávě jsem tady: %1$@. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.";
 
 /* Android share by Message/SMS button text (including SMS) */
-"share_by_message" = "Sdílet po zprávách";
+"share_by_message" = "Sdílet pomocí zprávy";
 
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Sdílet";
@@ -471,34 +471,34 @@
 "more_info" = "Zobrazit další informace";
 
 /* Text for message when used successfully copied something */
-"copied_to_clipboard" = "Zkop?rov?no do schr?nky: %1$@";
+"copied_to_clipboard" = "Zkopírováno do schránky: %1$@";
 
 /* Setting label for statistics turn on/off */
-"allow_statistics" = "Povolit anonymní statistiku používání";
+"allow_statistics" = "Povolit anonymní statistiky používání";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Pomůže nám to vytvořit lepší aplikaci";
+"allow_statistics_hint" = "Pomůže nám to vytvořit zlepšit aplikaci";
 
 /* place preview title */
-"info" = "Informace";
+"info" = "Více informací";
 
 /* Used for bookmark editing */
 "done" = "Hotovo";
 
 /* Summary for preferences in MWM */
-"yopme_pref_summary" = "Zvolit nastavení zadní obrazovky";
+"yopme_pref_summary" = "Zvolit nastavení Zadní obrazovky";
 
 /* Title for yopme preferences in MWM */
-"yopme_pref_title" = "Nastavení zadní obrazovky";
+"yopme_pref_title" = "Nastavení Zadní obrazovky";
 
 /* Hint for upper-right icon p2b */
-"show_on_backscreen" = "Zobrazit na zadní obrazovce";
+"show_on_backscreen" = "Zobrazit na Zadní obrazovce";
 
 /* Prints version number in About dialog */
 "version" = "Verze: %@";
 
 /* Confirmation in downloading countries dialog */
-"are_you_sure" = "Určitě chcete pokračovat?";
+"are_you_sure" = "Opravdu chceš pokračovat?";
 
 /* Title for tracks category in bookmarks manager */
 "tracks" = "Stopy";

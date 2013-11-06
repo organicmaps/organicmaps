@@ -118,7 +118,7 @@
   [do_not_ask_me_again]
     en = Do not ask me again
     comment = Button to dismiss dialog forever
-    cs = Vícekrát nezobrazovat
+    cs = Už se neptat
     de = Nicht mehr fragen
     es = No volver a preguntar
     fr = Ne poser plus de questions
@@ -134,7 +134,7 @@
   [do_nothing]
     en = Continue
     comment = Button "do not interrupt download" if user touched actively downloading country
-    cs = Nic neprovádět
+    cs = Pokračovat
     de = Download fortsetzen
     es = Seguir descarga
     fr = Continuer de télécharger
@@ -468,7 +468,7 @@
   [enable_location_services]
     en = Please enable Location Services
     comment = not used? Search View - Location is disabled by user warning text
-    cs = Povol prosím Službu určování polohy
+    cs = Prosím, povol Služby určování polohy
     de = Aktivieren Sie bitte Ortungsdienste in den Einstellungen Ihres Geräts
     es = Por favor, permite los servicios de localización
     fr = Paramétrez les services de localisation de votre appareil, s'il vous plaît
@@ -484,7 +484,7 @@
   [free_disk_space_for_country_x]
     en = Please free some space on your device first in order to download %@
     comment = Settings/Downloader - No free space dialog message
-    cs = Prosím, uvolni nějakou paměť v tvém zařízení, než začneš stahovat %@
+    cs = Prosím, uvolni nějaké místo v tvém zařízení, než začneš stahovat %@
     de = Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um den Download durchführen zu können.
     es = No hay espacio suficiente para realizar la descarga
     fr = Le disque est plein, merci de faire de la place pour permettre le téléchargement
@@ -576,7 +576,7 @@
   [search_available_in_pro_version]
     en = Search is only available in the full version of MapsWithMe. Get it right now!
     comment = Search button pressed dialog title in the free version
-    cs = Vyhledávání je dostupné jen v placené verzi MapsWithMe. Chceš ji teď stáhnout?
+    cs = Vyhledávání je dostupné jen v placené verzi MapsWithMe. Stáhni si ji nyní!
     de = Die Suche ist nur in der Pro Version vorhanden. Möchten Sie sie jetzt installieren?
     es = Buscar está accesible solo en la versión MapWithMe Pro. ¿Instalar ahora mismo?
     fr = Seule la version Pro permet une recherche. Voulez-vous l'installer maintenant?
@@ -608,7 +608,7 @@
   [not_enough_disk_space]
     en = There is not enough free disk space
     comment = Settings/Downloader - No free space dialog title
-    cs = Nedostatek volné paměti
+    cs = Nedostatek volného úložného prostoru
     de = Kein Speicherplatz vorhanden
     es = No hay suficiente espacio libre
     fr = Le disque est plein
@@ -672,7 +672,7 @@
   [new_map_data_format_upgrade_dialog]
     en = We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.
     comment = NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2
-    cs = Aktualizovali jsme mapovou databázi a zmenšili data map. U větších zemí si nyní můžeš vybrat ke stažení pouze region/stát, který potřebuješ. Pokud však chceš používat nové mapy, měl/a bys odstranit všechny staré mapové podklady, které již byly staženy.
+    cs = Aktualizovali jsme mapovou databázi a zmenšili objem map. U větších zemí si nyní můžeš vybrat ke stažení pouze region/stát, který potřebuješ. Pokud však chceš používat nové mapy, bude třeba odstranit všechny staré mapové podklady, které již byly staženy.
     de = Wir haben die Karten aktualisiert und kleiner gemacht. Für grosse Länder können Sie ausgewälte Regionen einzeln herunterladen. Um die neuen Karten zu benutzen, löschen Sie bitte die alten.
     es = Hemos actualizado los datos de los mapas. Ahora puede seleccionar descargarse solo las regiones que necesites, pero para utilizar los nuevos mapas deberías antes borrar los anteriormente descargados.
     fr = Nous avons mis à jour les cartes en les réduisant. Vous pouvez maintenant ne télécharger que la région ou le pays qui vous intéresse, cependant pour avoir les nouvelles cartes, il vous faut effacer toutes les anciennes cartes.
@@ -811,7 +811,7 @@
   [try_again]
     en = Try Again
     comment = Button text for the button under the country_status_download_failed message
-    cs = Opakovat akci
+    cs = Zkusit znovu
     de = Nochmals versuchen
     es = Intentarla otra vez
     fr = Essayez encore une fois
@@ -962,7 +962,7 @@
     pt = Não está disponível um cartão SD/armazenamento USB com os mapas descarregados
   [disconnect_usb_cable]
     en = Please disconnect USB cable or insert memory card to use MapsWithMe
-    cs = Prosím odpoj USB kabel nebo vlož paměťovou kartu pro použití s MapsWithMe
+    cs = Prosím, odpoj USB kabel nebo vlož paměťovou kartu pro použití s MapsWithMe
     de = Bitte USB Kabel entfernen oder Speicherkarte einsetzen um MapsWithMe zu verwenden
     es = Por favor desconectar el cable USB o insertar la memoria SD para usar MapsWithMe
     fr = Débranchez le câble USB ou insérez la carte SD
@@ -1007,7 +1007,7 @@
     pt = Não há memória suficiente para executar a app
   [free_space_for_country]
     en = Please free %1$@ on your device first in order to download %2$@
-    cs = Prosím uvolni nejprve %1$@ v tvém zařízení, abys mohl/a stáhnout %2$@
+    cs = Prosím, uvolni nejprve %1$@ v tvém zařízení, abys mohl/a stáhnout %2$@
     de = Bitte zuerst %1$@ Platz schaffen um %2$@ herunterzuladen
     es = Por favor liberar %1$@ primero para descargar %2$@
     fr = Merci de faire  %1$@ de la place disponible pour télécharger %2$@
@@ -1023,7 +1023,7 @@
   [download_resources]
     en = Before you start let us download general world map into your device.\nIt needs %.1f%@ of data.
     comment = REMOVE THIS STRING AFTER REFACTORING
-    cs = Předtím, než začnete, nám dovolte do vašeho zařízení stáhnout obecnou mapu světa. \nPotřebuje %.1f%@ dat.
+    cs = Ještě než začneš, bude třeba stáhnout obecnou mapu světa.\nZabere to %.1f%@ ...
     de = Bevor Sie starten, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.\nEs wird %.1f%@ Speicherplatz benötigt.
     es = Antes de comenzar, permite que descarguemos en tu dispositivo un mapamundi general. \nSe requieren %.1f%@ de datos.
     fr = Avant que vous ne commenciez, laissez-nous télécharger la carte générale du monde sur votre appareil.\nCela prend %.1f%@ de données.
@@ -1038,7 +1038,7 @@
     pt = Antes de começar permita-nos que descarreguemos um mapa mundial geral para o seu dispositivo.\nÉ necessário %.1f%@ de dados.
   [getting_position]
     en = Getting current position
-    cs = Získávání aktuální pozice
+    cs = Získávání aktuální polohy
     de = Ermittle momentane Position
     es = Buscando su ubicación actual
     fr = Votre position est déterminé
@@ -1068,7 +1068,7 @@
     pt = Ir para o mapa
   [downloading_country_can_proceed]
     en = Downloading %@. You can now\nproceed to the map.
-    cs = Stahování %@. Nyní můžeš \npoužít na mapě.
+    cs = Stahování %@. Nyní můžeš\npřejít na mapu.
     de = Lade %@ herunter. Sie können jetzt\nzur Karte weitergehen.
     es = Descargando %@. Puede ahora\nproceder al mapa
     fr = Téléchargement de %@.\nPasser sur la carte
@@ -1114,7 +1114,7 @@
   [download_location_map_proposal]
     en = You can download the map\nof your current location.
     comment = REMOVE THIS STRING AFTER REFACTORING
-    cs = Můžeš stáhnout mapu\npro tvou aktuální polohu.
+    cs = Můžeš stáhnout mapu\npro svou aktuální polohu.
     de = Sie können die Karte von\nihrem aktuellen Ort herunterladen.
     es = Puede descargar el mapa de su ubicación actual
     fr = Vous pouvez télécharger la carte\nde votre position actuelle.
@@ -1130,7 +1130,7 @@
   [download_location_update_map_proposal]
     en = You can update the map\nof your current location.
     comment = REMOVE THIS_STRING AFTER REFACTORING
-    cs = Můžeš aktualizovat mapu\ntvé aktuální polohy.
+    cs = Můžeš aktualizovat mapu\nsvé aktuální polohy.
     de = Sie können die Karte von\nihrem aktuellen Ort aktualisieren.
     es = Puede actualizar el mapa de su ubicación actual
     fr = Vous pouvez renouveler la carte\nde votre position actuelle.
@@ -1239,7 +1239,7 @@
     en = Update available for these maps:
     tags = android
     comment = Show popup notification on app start when we have out-of-date maps
-    cs = Aktualizace je k dispozici pro tyto mapy:
+    cs = Je k dispozici aktualizace pro tyto mapy:
     de = Aktualisierung für diese Karten erhältlich:
     es = Hay actualizaciones disponibles para estos mapas:
     fr = Le renouvellement est disponible pour les cartes suivantes:
@@ -1256,7 +1256,7 @@
     en = You don't need MapsWithMe Lite any more, so you can uninstall it.
     tags = android
     comment = Show popup notification in Pro version that Lite can be deleted
-    cs = MapsWithMe Lite už nyní nepotřebuješ, takže si ji můžeš klidně odinstalovat.
+    cs = Aplikaci MapsWithMe Lite už nyní nepotřebuješ, takže si ji můžeš klidně odinstalovat.
     de = Sie benötigen MapsWithMe Lite nicht mehr, sie können es deinstallieren.
     es = Ahora no necesita MapsWithMe Lite, la puede desinstalar.
     fr = Vous n'avez plus besoin de MapsWithMe Lite. Merci de l'effacer
@@ -1374,7 +1374,7 @@
     en = Bookmark Sets
     tags = ios
     comment = Bookmark Sets dialog title
-    cs = Skupina záložek
+    cs = Skupiny záložek
     de = Lesezeichenmappe
     es = Grupos de marcadores
     fr = Groupes de signets
@@ -1525,7 +1525,7 @@
     en = Bookmarks from other sources can be imported and displayed in MapsWithMe. Open KML/KMZ file with saved pins from mail, Dropbox or weblink.
     tags = ios,android
     comment = Text hint in Bookmarks dialog
-    cs = V aplikaci MapsWithMe lze importovat a zobrazovat záložky z jiných zdrojů. Otevřete soubor KML/KMZ pomocí PIN uloženého z e-mailu, Dropboxu nebo webového odkazu.
+    cs = V MapsWithMe mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.
     de = Lesezeichen von anderen Quellen können importiert und in der MapsWithMe-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Pins aus einer E-Mail, Dropbox oder einem Weblink öffnen.
     es = Se pueden importar y mostrar marcadores de otras fuentes en la aplicación MapsWithMe. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.
     fr = Les marque-pages provenant d'autres sources peuvent être importés et affichés dans l'application MapsWithMe. Ouvrez les fichiers KML/KMZ marqués depuis votre boite email, Dropbox ou un lien internet.
@@ -1627,7 +1627,7 @@
     en = Visible
     tags = ios
     comment = Show bookmarks from this category on a map or not
-    cs = Viditelný
+    cs = Viditelné
     de = Sichtbar
     it = Visibile
     ja = マップに表示
@@ -1659,7 +1659,7 @@
     en = GPS is disabled. Please enable it in Settings.
     tags = android
     comment = Toast which is displayed when GPS has been deactivated
-    cs = Navigace GPS deaktivována. Prosím povol ji v Nastavení.
+    cs = Navigace GPS deaktivována. Prosím, povol ji v Nastavení.
     de = GPS ist deaktiviert. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.
     es = El GPS está inhabilitado. Por favor, activelo en los ajustes.
     fr = GPS désactivé. Veuillez s'il vous plait l'activer pour une utilisation plus commode de l'application.
@@ -1812,7 +1812,7 @@
     en = parking
     tags = ios,android
     comment = Search Suggestion
-    cs = Parkoviště
+    cs = parkoviště
     de = Parkplatz
     es = estacionamiento
     fr = parking
@@ -2082,7 +2082,7 @@
     en = Hello,\n\nHere are my bookmarks from MapsWithMe offline maps in the attached "%@.kmz" file. Please open it if you have MapsWithMe Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://www.mapswithme.com/get?kmz.\n\nHave a good time with MapsWithMe!
     tags = ios,android
     comment = Email text when sharing bookmarks category
-    cs = Ahoj!\n\nZde jsou mé záložky z offline map aplikace MapsWithMe v přiloženém "%@.kmz" souboru. Pokud máš již aplikaci MapsWithMe Pro nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro tvé iOS nebo Android zařízení z tohoto odkazu http://www.mapswithme.com/get?kmz.\n\nSkvěle se bav s MapsWithMe!
+    cs = Ahoj!\n\nZde jsou mé záložky z offline map aplikace MapsWithMe v přiloženém souboru "%@.kmz". Pokud máš již aplikaci MapsWithMe Pro nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://www.mapswithme.com/get?kmz.\n\nSkvěle se bav s MapsWithMe!
     de = Hallo,\n\nIn der angefügten „%@.kmz“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MapsWithMe. Falls Sie MapsWithMe Pro bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://www.mapswithme.com/get?kmz herunterladen.\n\nIch wünsche viel Vergnügen mit MapsWithMe!
     es = ¡Hola!\n\nEn el archivo adjunto "%@.kmz", están mis marcadores de los mapas offline MapsWithMe. Por favor, ábrelo con MapsWithMe Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://www.mapswithme.com/get?kmz.\n\n¡Que disfrutes de MapsWithMe!
     fr = Bonjour,\n\nVous trouverez mes favoris des cartes hors-ligne MapsWithMe dans le fichier "%@.kmz:" ci-joint. Veuillez l'ouvrir si vous avez déjà installé MapsWithMe Pro. Sinon, téléchargez d'abord l'application pour appareil iOS ou Android depuis le lien http://www.mapswithme.com/get?kmz.\n\nAmusez-vous bien avec MapsWithMe!
@@ -2216,7 +2216,7 @@
     en = Sorry, Map Storage settings are currently disabled.
     tags = android
     comment = Alert message that we can't run Map Storage settings due to some reasons.
-    cs = Litujeme, nastavení Uložení Map jsou zakázána.
+    cs = Promiň, nastavení uložení map je dočasně nedostupné.
     de = Es tut uns leid, die Einstellungen der Kartenspeicherung sind deaktiviert.
     es = Lo sentimos, la configuración de Guardar Mapa está desactivada.
     fr = Nous sommes désolés, les paramètres de Map Storage sont désactivés.
@@ -2250,7 +2250,7 @@
     en = Hope you enjoy using MapsWithMe! If so, please rate or review the app at the App Store. It takes less than a minute but can really help us. Thanks for your support!
     tags = ios
     comment = Message that will be shown in alert view, when we ask user to leave review on App Store
-    cs = Doufáme, že se Vám užívání MapsWithMe líbí! Je-li tomu tak, ohodnoťte prosím naši aplikaci nebo na ni napište recenzi v App Store. Nezabere Vám to ani minutu, ale opravdu nám tím můžete pomoci. Děkujeme Vám za Vaši podporu!
+    cs = Doufáme, že se Ti používání MapsWithMe líbí! Je-li tomu tak, ohodnoť, prosím, naši aplikaci nebo na ni napiš recenzi v Obchodu s aplikacemi. Nezabere Ti to ani minutu, ale opravdu nám tím můžeš pomoci. Děkujeme Ti za Tvou podporu!
     de = Wir hoffen, dass Ihnen die Verwendung von MapsWithMe Freude bereitet! Wenn ja, geben Sie bitte eine Bewertung oder einen Bericht für die App im App Store ab. Es dauert weniger als eine Minute, kann uns aber wirklich helfen. Danke für Ihre Unterstützung!
     es = ¡Ojalá disfrute mucho con MapsWithMe! Si le gusta, le agradeceremos que puntúe nuestra aplicación en el App Store. Es menos de un minuto y nos sería de gran ayuda. ¡Gracias por su apoyo!
     fr = Nous espérons que vous appréciez l'utilisation de MapsWithMe ! Si oui, veuillez évaluer l'application sur l'App Store. Cela prend moins d'une minute mais peut vraiment nous aider. Merci pour votre soutien !
@@ -2290,7 +2290,7 @@
     ja = 私のピン情報はこの位置です。リンク: %1$@ , %2$@
     de = Meine Nadel auf der Karte sehen. Klicke auf den Link %1$@ oder %2$@
     nl = Bekijk mijn pin op de kaart. Open %1$@ of %2$@
-    cs = Značka na mapě otevřete %1$@ nebo %2$@
+    cs = Koukni na mou značku na mapě. Otevři odkaz: %1$@ nebo %2$@
     fr = Voir ma punaise sur la carte. Ouvrir %1$@ ou %2$@
     uk = Моя мітка на карті. Іди %1$@ або %2$@
     es = Ve mi alfiler en mapa. Abre %1$@ o %2$@
@@ -2306,7 +2306,7 @@
     ja = 私は今ここにいます。リンク: %1$@ , %2$@
     de = Sieh, wo ich gerade bin. Klicke auf den Link %1$@ oder %2$@
     nl = Kijk waar ik nu ben. Open %1$@ of %2$@
-    cs = Jsem zde. Otevřete %1$@ nebo %2$@
+    cs = Koukni kde jsem. Otevři odkaz: %1$@ nebo %2$@
     fr = Localisez-moi maintenant. Ouvrir %1$@ ou %2$@
     uk = Глянь де я зараз. Іди %1$@ або %2$@
     es = Mira dónde estoy. Abre %1$@ o %2$@
@@ -2324,7 +2324,7 @@
     es = Mira mi alfiler en el mapa de MapsWithMe
     nl = Kijk naar mijn pin op MapsWithMe kaart
     fr = Voir mon épingle sur la carte MapsWithMe
-    cs = Podívej se na mou značku na mapě MapsWithMe
+    cs = Koukni na moji značku na mapě MapsWithMe
     de = Schau dir meine Nadel auf der MapsWithMe-Karte an
     pl = Obejrzyj mój znacznik na mapie w MapsWithMe
     pt = Veja o meu marcador no mapa do MapsWithMe.
@@ -2339,7 +2339,7 @@
     es = ¡Hola!\n\nMarqué con un alfiler: %1$@ en MapsWithMe, mapas del mundo sin conexión. Haz clic en este enlace %2$@ o este %3$@ para ver el sitio en el mapa.\n\nGracias.
     nl = Hoi,\n\nIk heb: %1$@ geprikt bij MapsWithMe, offline wereldkaarten. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.
     fr = Salut,\n\nJ'ai épinglé: %1$@ à MapsWithMe, les cartes du monde hors ligne. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour visualiser l'endroit sur la carte.\n\nMerci.
-    cs = Ahoj,\n\nUmístil jsem značku %1$@ na MapsWithMe, světové mapy bez internetového připojení. Klikni na jeden z těchto odkazů %2$@ , %3$@ a uvidíš toto místo na mapě.\n\nDěkuji.
+    cs = Ahoj,\n\nOznačil/a jsem: %1$@ v MapsWithMe, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.
     de = Hi,\n\nIch habe gepinnt: %1$@ auf MapsWithMe, Offline-Weltkarten. Klicke auf diesen Link %2$@ oder diesen %3$@, um den Ort auf der Karte zu sehen.\n\nVielen Dank.
     pl = Cześć,\n\nDodałem znacznik w: %1$@ w aplikacji MapsWithMe, mapach offline całego świata. Naciśnij ten link %2$@ lub ten %3$@ by zobaczyć to miejsce na mapie.\n\nDziękuję.
     pt = Olá,\n\nFixei:%1$@ na MapsWithMe, mapas offline mundiais. Clique nesta ligação %2$@ ou nesta %3$@ para ver o local no mapa.\n\nObrigado.
@@ -2355,7 +2355,7 @@
     es = Mira mi ubicación actual en el mapa en MapsWithMe
     nl = Kijk naar mijn huidige locatie op MapsWithMe kaart
     fr = Consultez ma localisation actuelle sur la carte MapsWithMe
-    cs = Podívejte se na moji aktuální polohu na mapě na MapsWithMe
+    cs = Podívejte se na mou aktuální polohu na mapě na MapsWithMe
     de = Sieh dir meinen aktuellen Standort auf der Karte MapsWithMe an
     pl = Zobacz moją aktualną lokalizację na mapie przy użyciu MapsWithMe
     pt = Veja a minha localização atual em MapsWithMe map
@@ -2371,7 +2371,7 @@
     es = Hola:\n\nAhora estoy aquí: %1$@. Haz clic en este enlace %2$@ o esta %3$@ para verlo en el mapa. \n\nGracias.
     nl = Hoi,\n\nMomenteel ben ik hier: %1$@. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.
     fr = Salut,\n\nJe me trouve actuellement là : %1$@. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour visualiser l'endroit sur la carte.\n\nMerci.
-    cs = Ahoj,\n\nnyní jsem zde: %1$@ . Klikni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDěkuji.
+    cs = Ahoj,\n\nPrávě jsem tady: %1$@. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.
     de = Hi,\n\nich bin gerade hier: %1$@ . Klicke auf diesen Link %2$@ oder diesen %3$@, um meinen Standort auf der Karte zu sehen.\n\nVielen Dank.
     pl = Cześć,\n\nJestem teraz tutaj: %1$@. Naciśnij na ten link %2$@ lub ten %3$@, aby zobaczyć to miejsce na mapie.\n\nDziękuję.
     pt = Olá,\n\n Estou aqui agora: %1$@. Clique nesta ligação %2$@ ou nesta %3$@ para ver o local no mapa.\n\nObrigado.
@@ -2380,7 +2380,7 @@
     tags = ios,android
     comment = Android share by Message/SMS button text (including SMS)
     ru = Отправить сообщением
-    cs = Sdílet po zprávách
+    cs = Sdílet pomocí zprávy
     de = Mit Benachrichtigung teilen
     es = Compartir por mensaje
     fr = Partager par message
@@ -2524,7 +2524,7 @@
     de = In die Zwischenablage kopiert: %1$@
     fr = Copié dans le presse-papier: %1$@
     ja = クリップボードにコピーしました: %1$@
-    cs = Zkop?rov?no do schr?nky: %1$@
+    cs = Zkopírováno do schránky: %1$@
     nl = Op het klembord gekopieerd: %1$@
     pl = Skopiowano do schowka: %1$@
     uk = Скопіювати в буфер обміну: %1$@
@@ -2534,7 +2534,7 @@
     comment = Setting label for statistics turn on/off
     ru = Разрешить анонимный сбор статистики
     ja = 匿名の使用状況統計を有効にする
-    cs = Povolit anonymní statistiku používání
+    cs = Povolit anonymní statistiky používání
     pl = Włącz anonimowe statystyki użytkowania
     uk = Запустити анонімну статистику використання
     nl = Statistieken voor anoniem gebruik activeren
@@ -2551,7 +2551,7 @@
     comment = Hint near allow statictics checkbox
     ru = Это помогает нам совершенствовать приложение
     ja = よりよいアプリケーションの開発にご協力ください
-    cs = Pomůže nám to vytvořit lepší aplikaci
+    cs = Pomůže nám to vytvořit zlepšit aplikaci
     pl = To pomaga nam zbudować lepszą aplikację
     uk = Це допомагає нам створювати якісніші застосунки
     nl = Dit helpt ons om betere toepassingen te ontwikkelen
@@ -2573,7 +2573,7 @@
     es = Información
     ko = 정보
     ja = 情報
-    cs = Informace
+    cs = Více informací
     nl = Info
     zh-Hant = 简介
     pl = Informacje
@@ -2609,7 +2609,7 @@
     it = Selezionate le impostazioni Sfondo
     nl = Kies instellingen voor achtergrondscherm
     de = Wählen Sie die rückseitigen Bildschirm-Einstellungen
-    cs = Zvolit nastavení zadní obrazovky
+    cs = Zvolit nastavení Zadní obrazovky
     fr = Choisissez les réglages de de l'écran arrière
 
   [yopme_pref_title]
@@ -2624,7 +2624,7 @@
     it = Impostazioni Sfondo
     nl = Instellingen voor achtergrondscherm
     de = Rückseitige Bildschirm-Einstellungen
-    cs = Nastavení zadní obrazovky
+    cs = Nastavení Zadní obrazovky
     fr = Paramètres de l'écran arrière
 
   [show_on_backscreen]
@@ -2636,7 +2636,7 @@
     de = Auf dem rückseitigen Bildschirm anzeigen
     es = Mostrar en la pantalla trasera
     it = Mostra Sfondo
-    cs = Zobrazit na zadní obrazovce
+    cs = Zobrazit na Zadní obrazovce
     nl = Toon op achtergrondscherm
     pl = Pokaż na tylnym ekranie
     pt = Mostrar no Ecrã Posterior
@@ -2664,7 +2664,7 @@
     tags = android
     comment = Confirmation in downloading countries dialog
     en = Are you sure you want to continue?
-    cs = Určitě chcete pokračovat?
+    cs = Opravdu chceš pokračovat?
     de = Möchten Sie wirklich fortfahren?
     es = ¿Seguro que desea continuar?
     fr = Souhaitez-vous vraiment continuer?
