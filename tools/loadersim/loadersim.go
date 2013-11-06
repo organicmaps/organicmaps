@@ -60,10 +60,16 @@ func (s *FetchSource) RecordChunkSpeed(seconds, speed float64) {
 
 	s.Manager.NumTotalChunks += 1
 	s.Manager.TimeTotalChunks += seconds
+
+	maxRecordedChunks := 10.0
+	if (s.Manager.NumTotalChunks > maxRecordedChunks) { // TODO: magic number, maximum number of recorded chunks (for decay)
+		s.Manager.TimeTotalChunks = s.Manager.TimeTotalChunks * maxRecordedChunks / s.Manager.NumTotalChunks
+		s.Manager.NumTotalChunks = maxRecordedChunks
+	}
 }
 
 func (s *FetchSource) RecordError(err error) {
-	s.ChunkSpeed = s.Manager.AverageChunkTime()
+	s.ChunkSpeed = s.Manager.AverageChunkSpeed()
 	s.LastSetTime = time.Now()
 	s.Status = SOURCE_BAD
 }
@@ -73,7 +79,7 @@ func (s *FetchSource) Score() float64 {
 
 	errorPenalty := float64(1.0)
 	if s.Status == SOURCE_BAD {
-		penaltyTime := time.Second*time.Duration(20*s.Manager.AverageChunkTime())
+		penaltyTime := time.Second * time.Duration(20 * s.Manager.AverageChunkTime()) // TODO: 20 - magic number, number of chunks to wait before checking server again
 		errorPenalty = 1.0 * s.Manager.UncertaintyBoost(timeSinceLastRecording - penaltyTime)
 	}
 	return s.EstimatedSpeed() * s.Boost * errorPenalty
@@ -111,7 +117,7 @@ func (m *FetchManager) CreateScheduler(path string, size int64) *FetchScheduler 
 
 func (m *FetchManager) PrintSources() {
 	for _, source := range m.Sources {
-		fmt.Printf("%v, status=%d spd=%5.0f espd=%5.0f last_speed=%5.0f score=%5.2f boost=%5.2f, Total=%5.0f Attempts=%d\n",
+		fmt.Printf("%v, status=%d spd=%5.0f espd=%5.0f last_speed=%5.0f score=%5.2f uncertaintyBoost=%5.2f, Total=%5.0f Attempts=%d\n",
 			source.Id,
 			source.Status,
 			source.ChunkSpeed/1024,
@@ -123,7 +129,7 @@ func (m *FetchManager) PrintSources() {
 			source.NumChunkAttempts)
 	}
 	if m.NumTotalChunks != 0 {
-		fmt.Printf("Average chunk time=%.2f\n", m.AverageChunkTime())
+		fmt.Printf("Average chunk time=%.2f, avg chunk speed=%.1f KBps\n", m.AverageChunkTime(), m.AverageChunkSpeed() / 1024)
 	}
 	fmt.Println()
 }
@@ -135,16 +141,13 @@ func (m *FetchManager) UncertaintyBoost(duration time.Duration) float64 {
 
 func (m *FetchManager) AverageChunkTime() float64 {
 	if m.NumTotalChunks == 0 {
-		return 10
+		return 1
 	}
 	return m.TimeTotalChunks / m.NumTotalChunks
 }
 
-func (m *FetchManager) AverageSpeed() float64 {
-	if m.TimeTotalChunks == 0 {
-		return 0
-	}
-	return float64(m.NumTotalChunks) * float64(m.ChunkSize) / m.TimeTotalChunks
+func (m *FetchManager) AverageChunkSpeed() float64 {
+	return float64(m.ChunkSize) / m.AverageChunkTime()
 }
 
 // GetSource finds an optimal source to use for fetching.
@@ -181,7 +184,7 @@ func (d *FetchManager) GetSource() *FetchSource {
 func (m *FetchManager) ReleaseSource(source *FetchSource) {
 	m.SourceMutex.Lock()
 	defer m.SourceMutex.Unlock()
-
+	
 	source.Status = SOURCE_IDLE
 }
 
@@ -261,6 +264,7 @@ func (t *FetchSchedulerTask) Run() {
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 		source.RecordError(err)
+		return
 	}
 
 	t.endTime = time.Now()
@@ -270,6 +274,7 @@ func (t *FetchSchedulerTask) Run() {
 	source.RecordChunkSpeed(loadDuration.Seconds(), speed)
 	source.TotalDownloaded += t.endPos - t.startPos
 	t.scheduler.Manager.ReleaseSource(source)
+
 	fmt.Printf("Done fetching task %d-%d, from %v, speed %.2f\n",
 		t.startPos, t.endPos, source.Host, speed/1024)
 }
@@ -286,7 +291,7 @@ func (t *FetchSchedulerTask) RunWithSource(source *FetchSource) error {
 		return err
 	}
 	if resp.StatusCode / 100 != 2 {
-		return fmt.Errorf("HTTP status %v", resp.Status)
+		return fmt.Errorf("HTTP status %v for %v", resp.Status, url)
 	}
 
 	// Speed limit algorithm works by limiting the maximal rate at which we
@@ -327,7 +332,7 @@ func (t *FetchSchedulerTask) RunWithSource(source *FetchSource) error {
 		momentarySpeed := float64(bytesRead) / 1024 / (elapsedTime + 1e-100)
 		//fmt.Printf("%v Momentary speed at %.2f: %.2f\n", source.Id, elapsedTime, momentarySpeed )
 
-		minAllowedSpeed := t.scheduler.Manager.AverageSpeed() / 20
+		minAllowedSpeed := t.scheduler.Manager.AverageChunkSpeed() / 20 // TODO: magic numbers, review, maybe mark server as bad
 		if elapsedTime > 16 && momentarySpeed < minAllowedSpeed {
 			return fmt.Errorf("Server %v too slow", source.Id)
 		}
