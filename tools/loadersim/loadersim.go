@@ -177,6 +177,7 @@ func (d *FetchManager) GetSource() *FetchSource {
 		selectedSource.NumChunkAttempts++
 	} else {
 		//fmt.Printf("Source not found\n")
+		// TODO
 	}
 	return selectedSource
 }
@@ -199,13 +200,21 @@ type FetchScheduler struct {
 	TaskDoneCh          chan *FetchSchedulerTask
 }
 
+func minInt64(a, b int64) int64 {
+	if a < b {
+		return a
+	}
+	return b
+}
+
 func (f *FetchScheduler) Fetch() {
 	// Create all the tasks.
 	for pos := int64(0); pos < f.FileSize; pos += f.Manager.ChunkSize {
+		
 		f.tasks = append(f.tasks, &FetchSchedulerTask{
 			scheduler: f,
 			startPos:  pos,
-			endPos:    pos + f.Manager.ChunkSize,
+			endPos:    minInt64(pos + f.Manager.ChunkSize, f.FileSize),
 		})
 		f.numOutstandingTasks++
 	}
@@ -299,7 +308,7 @@ func (t *FetchSchedulerTask) RunWithSource(source *FetchSource) error {
 	// buffering of the OS to perform reasonably efficiently wrt. packet transfer.
 	var speedLimitTicker *time.Ticker
 	bufferSize := 16*1024
-	if source.SpeedLimit != 0 {
+	if source.SpeedLimit != 0 {  // TODO: check if needed in production
 		tickInterval := time.Duration(float64(time.Second) * float64(bufferSize) / source.SpeedLimit)
 		speedLimitTicker = time.NewTicker(tickInterval)
 		defer speedLimitTicker.Stop()
@@ -349,6 +358,13 @@ func main() {
 	}
 	manager.Sources = []*FetchSource{
 		NewFetchSource(manager, "2", "second.server", 800*1024, 1000*1024, 3.0),
+	/*	NewFetchSource(manager, "3.1", "third.server", 350*1024, 0*1024, 1.0),
+		NewFetchSource(manager, "3.2", "third.server", 350*1024, 0*1024, 1.0),
+		NewFetchSource(manager, "3.3", "third.server", 350*1024, 0*1024, 1.0),
+		NewFetchSource(manager, "3.4", "third.server", 350*1024, 0*1024, 1.0),
+		NewFetchSource(manager, "3.5", "third.server", 350*1024, 0*1024, 1.0),
+		NewFetchSource(manager, "3.6", "third.server", 350*1024, 0*1024, 1.0),
+		NewFetchSource(manager, "3.7", "third.server", 350*1024, 0*1024, 1.0),*/
 		NewFetchSource(manager, "3", "third.server", 350*1024, 0*1024, 1.0),
 		NewFetchSource(manager, "4", "fourth.server", 160*1024, 0*1024, 1.0),
 		NewFetchSource(manager, "22", "first.server", 50*1024, 50*1024, 1.0),
@@ -356,7 +372,7 @@ func main() {
 	}
 
 	for i := 0; i < 10; i++ {
-		scheduler := manager.CreateScheduler("/direct/130310/Belarus.mwm", 57711744)
+		scheduler := manager.CreateScheduler("/direct/131031/Belarus.mwm", 67215188)
 		scheduler.Fetch()
 	}
 }
