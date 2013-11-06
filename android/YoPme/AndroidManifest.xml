@@ -12,6 +12,8 @@
         android:name="com.yotadevices.framework.permission.ACCESS_BACKSCREEN" />
     <uses-permission
         android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission
+        android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"

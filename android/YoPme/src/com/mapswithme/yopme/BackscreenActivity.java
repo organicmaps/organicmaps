@@ -14,11 +14,13 @@ import android.location.LocationListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mapswithme.location.LocationRequester;
 import com.mapswithme.util.log.Logger;
@@ -223,7 +225,8 @@ public class BackscreenActivity extends BSActivity implements LocationListener
 
 
       requestLocationUpdate();
-      RotationAlgorithm.getInstance(this).turnScreenOffIfRotated();
+
+      notifyBSUpdated();
     }
 
     // Do always update data.
@@ -231,6 +234,18 @@ public class BackscreenActivity extends BSActivity implements LocationListener
 
     updateData();
     invalidate();
+  }
+
+  private void notifyBSUpdated()
+  {
+    // lock-rotate
+    RotationAlgorithm.getInstance(this)
+      .turnScreenOffIfRotated(RotationAlgorithm.OPTION_NO_UNLOCK);
+    // show toast
+    Toast.makeText(this, R.string.application_is_updated_on_bs, Toast.LENGTH_SHORT).show();
+    // bzz-bzz
+    ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE))
+        .vibrate(getResources().getInteger(R.integer.vibration_time));
   }
 
   private void extractZoom(Intent intent)

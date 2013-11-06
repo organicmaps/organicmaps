@@ -8,7 +8,7 @@ dependencies {
 apply plugin:'base'
 
 task ndkBuild(type:Exec) {
-  clParts = (['ndk-build', '-j', Runtime.runtime.availableProcessors() + 1] + propNdkFlags.split(' ')).flatten()
+  def clParts = (['ndk-build', '-j', Runtime.runtime.availableProcessors() + 1] + propNdkFlags.split(' ')).flatten()
   println(clParts.join(" "))
   commandLine clParts
 }
@@ -39,7 +39,7 @@ def getBaseName()    { getApkName() + "_" + getVersionName() }
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.0"
+    buildToolsVersion "18.1.1"
     project.archivesBaseName = getBaseName()
     
       signingConfigs {
