@@ -15,6 +15,7 @@ const (
 	SOURCE_IDLE SourceStatus = iota
 	SOURCE_BUSY
 	SOURCE_BAD
+	SOURCE_FAILED
 )
 
 type FetchSource struct {
@@ -33,6 +34,7 @@ type FetchSource struct {
 	LastSetTime      time.Time
 	TotalDownloaded  int64
 	NumChunkAttempts int
+	NumRetries       int
 }
 
 func NewFetchSource(
@@ -47,6 +49,7 @@ func NewFetchSource(
 		Status:         SOURCE_IDLE,
 		ChunkSpeed:     chunkSpeed,
 		LastSetTime:    time.Now(),
+		NumRetries:     0,
 	}
 }
 
@@ -54,7 +57,7 @@ func (s *FetchSource) RecordChunkSpeed(seconds, speed float64) {
 	// We must have the decay otherwise each slow chunk throws off a
 	// well-performing server for a very long time.
 	decay := float64(0.5)
-	s.ChunkSpeed = (1-decay)*speed + decay*s.ChunkSpeed
+	s.ChunkSpeed = (1 - decay) * speed + decay * s.ChunkSpeed
 	s.LastSetTime = time.Now()
 	s.LastRecordedSpeed = speed
 
@@ -71,7 +74,11 @@ func (s *FetchSource) RecordChunkSpeed(seconds, speed float64) {
 func (s *FetchSource) RecordError(err error) {
 	s.ChunkSpeed = s.Manager.AverageChunkSpeed()
 	s.LastSetTime = time.Now()
+	s.NumRetries += 1
 	s.Status = SOURCE_BAD
+	if s.NumRetries > 3 {  // TODO: Magic number
+		s.Status = SOURCE_FAILED
+	}
 }
 
 func (s *FetchSource) Score() float64 {
@@ -117,7 +124,7 @@ func (m *FetchManager) CreateScheduler(path string, size int64) *FetchScheduler 
 
 func (m *FetchManager) PrintSources() {
 	for _, source := range m.Sources {
-		fmt.Printf("%v, status=%d spd=%5.0f espd=%5.0f last_speed=%5.0f score=%5.2f uncertaintyBoost=%5.2f, Total=%5.0f Attempts=%d, timeSinceLastSet=%5.1f\n",
+		fmt.Printf("%v, status=%d spd=%5.0f espd=%5.0f last_speed=%5.0f score=%5.2f uncertaintyBoost=%5.2f, Total=%5.0f Attempts=%d, timeSinceLastSet=%5.1f, numRetries=%d\n",
 			source.Id,
 			source.Status,
 			source.ChunkSpeed/1024,
@@ -127,7 +134,8 @@ func (m *FetchManager) PrintSources() {
 			m.UncertaintyBoost(time.Now().Sub(source.LastSetTime)),
 			float64(source.TotalDownloaded)/1024.0,
 			source.NumChunkAttempts,
-			time.Now().Sub(source.LastSetTime).Seconds())
+			time.Now().Sub(source.LastSetTime).Seconds(),
+			source.NumRetries)
 	}
 	if m.NumTotalChunks != 0 {
 		fmt.Printf("Average chunk time=%.2f, avg chunk speed=%.1f KBps\n", m.AverageChunkTime(), m.AverageChunkSpeed() / 1024)
@@ -160,11 +168,13 @@ func (m *FetchManager) GetSource() *FetchSource {
 
 	var selectedSource *FetchSource
 	for _, source := range m.Sources {
-		if source.Status == SOURCE_BUSY {
-			continue
-		}
-		if source.Status == SOURCE_BAD && time.Now().Sub(source.LastSetTime).Seconds() < 20 * m.AverageChunkTime() {
-			continue
+		switch source.Status {
+			case SOURCE_BUSY, SOURCE_FAILED:
+				continue
+			case SOURCE_BAD:
+				if time.Now().Sub(source.LastSetTime).Seconds() < 20 * m.AverageChunkTime() {
+					continue
+				}
 		}
 		if selectedSource == nil {
 			selectedSource = source
@@ -173,8 +183,8 @@ func (m *FetchManager) GetSource() *FetchSource {
 		if source.Score() > selectedSource.Score() {
 			selectedSource = source
 		}
-
 	}
+
 	if selectedSource != nil {
 		//fmt.Printf("Selected source %+v\n", *selectedSource)
 		selectedSource.Status = SOURCE_BUSY
@@ -191,6 +201,7 @@ func (m *FetchManager) ReleaseSource(source *FetchSource) {
 	defer m.SourceMutex.Unlock()
 	
 	source.Status = SOURCE_IDLE
+	source.NumRetries = 0
 }
 
 type FetchScheduler struct {
@@ -202,6 +213,7 @@ type FetchScheduler struct {
 	tasks               []*FetchSchedulerTask
 	numOutstandingTasks int
 	TaskDoneCh          chan *FetchSchedulerTask
+	WorkerDoneCh        chan bool
 }
 
 func minInt64(a, b int64) int64 {
@@ -214,7 +226,6 @@ func minInt64(a, b int64) int64 {
 func (f *FetchScheduler) Fetch() {
 	// Create all the tasks.
 	for pos := int64(0); pos < f.FileSize; pos += f.Manager.ChunkSize {
-		
 		f.tasks = append(f.tasks, &FetchSchedulerTask{
 			scheduler: f,
 			startPos:  pos,
@@ -224,13 +235,28 @@ func (f *FetchScheduler) Fetch() {
 	}
 	// Start the workers in the worker pool.
 	f.TaskDoneCh = make(chan *FetchSchedulerTask)
+	f.WorkerDoneCh = make(chan bool)
 	for i := 0; i < f.Manager.NumWorkers; i++ {
 		go f.WorkerLoop()
 	}
 	// Wait for all the tasks to complete.
-	for ; f.numOutstandingTasks > 0; f.numOutstandingTasks-- {
-		_ = <-f.TaskDoneCh
-		//fmt.Printf("Done task %d-%d\n", task.startPos, task.endPos)
+	numTasksDone := 0
+	numWorkersDone := 0
+	for {
+		select {
+			case <-f.TaskDoneCh:
+				numTasksDone += 1
+				if numTasksDone == f.numOutstandingTasks {
+					fmt.Println("Loading successful")
+					return
+				}
+			case <-f.WorkerDoneCh:
+				numWorkersDone += 1
+				if numWorkersDone == f.Manager.NumWorkers {
+					fmt.Println("Loading failed")
+					return
+				}
+		}
 	}
 }
 
@@ -246,8 +272,20 @@ func (f *FetchScheduler) GetTask() *FetchSchedulerTask {
 	return task
 }
 
+func (m *FetchManager) AllSourcesFailed() bool {
+	for _, source := range m.Sources {
+		if source.Status != SOURCE_FAILED {
+			return false
+		}
+	}
+	return true
+}
+
 func (f *FetchScheduler) WorkerLoop() {
 	for {
+		if f.Manager.AllSourcesFailed() {
+			f.WorkerDoneCh <- true
+		}
 		task := f.GetTask()
 		if task == nil {
 			return
@@ -361,12 +399,12 @@ func (t *FetchSchedulerTask) RunWithSource(source *FetchSource) error {
 
 func main() {
 	manager := &FetchManager{
-		ChunkSize:                    256 * 1024,
+		ChunkSize:                    16 * 1024,
 		NumWorkers:                   10,
 		UncertaintyBoostPerChunkTime: 1.1,
 	}
 	manager.Sources = []*FetchSource{
-		NewFetchSource(manager, "2", "second.server", 800*1024, 1000*1024, 3.0),
+		NewFetchSource(manager, "2", "xsecond.server", 800*1024, 1000*1024, 3.0),
 	/*	NewFetchSource(manager, "3.1", "third.server", 350*1024, 0*1024, 1.0),
 		NewFetchSource(manager, "3.2", "third.server", 350*1024, 0*1024, 1.0),
 		NewFetchSource(manager, "3.3", "third.server", 350*1024, 0*1024, 1.0),
@@ -374,13 +412,13 @@ func main() {
 		NewFetchSource(manager, "3.5", "third.server", 350*1024, 0*1024, 1.0),
 		NewFetchSource(manager, "3.6", "third.server", 350*1024, 0*1024, 1.0),
 		NewFetchSource(manager, "3.7", "third.server", 350*1024, 0*1024, 1.0),*/
-		NewFetchSource(manager, "3", "third.server", 350*1024, 0*1024, 1.0),
-		NewFetchSource(manager, "4", "fourth.server", 160*1024, 0*1024, 1.0),
-		NewFetchSource(manager, "22", "first.server", 50*1024, 50*1024, 1.0),
-		NewFetchSource(manager, "33", "us31.mapswithme.com", 1500*1024, 0*1024, 1.0),
+		NewFetchSource(manager, "3", "xthird.server", 350*1024, 0*1024, 1.0),
+		NewFetchSource(manager, "4", "xfourth.server", 160*1024, 0*1024, 1.0),
+		NewFetchSource(manager, "22", "xfirst.server", 50*1024, 50*1024, 1.0),
+		NewFetchSource(manager, "33", "xus31.mapswithme.com", 1500*1024, 0*1024, 1.0),
 	}
 
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 1; i++ {
 		scheduler := manager.CreateScheduler("/direct/131031/Belarus.mwm", 67215188)
 		scheduler.Fetch()
 	}
