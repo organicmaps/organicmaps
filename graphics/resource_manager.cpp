@@ -236,17 +236,17 @@ namespace
     /// general case
     m_texRtFormat = graphics::Data4Bpp;
 
-    /*if (isGPU("Qualcomm", "Adreno", false))
+    if (isGPU("Qualcomm", "Adreno", false))
       m_texRtFormat = graphics::Data8Bpp;
 
     if (isGPU("Samsung Electronics", "FIMG-3DSE", false))
-      m_texRtFormat = graphics::Data8Bpp;*/
+      m_texRtFormat = graphics::Data8Bpp;
 
     if (isGPU("Broadcom", "VideoCore IV HW", false))
       m_texRtFormat = graphics::Data8Bpp;
 
-    /*if (isGPU("Imagination Technologies", "PowerVR MBX", false))
-      m_texRtFormat = graphics::Data8Bpp;*/
+    if (isGPU("Imagination Technologies", "PowerVR MBX", false))
+      m_texRtFormat = graphics::Data8Bpp;
 
     LOG(LINFO, ("selected", graphics::formatName(m_texRtFormat), "format for tile textures"));
   }
