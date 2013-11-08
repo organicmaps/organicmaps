@@ -283,7 +283,7 @@
 "set" = "Groupe";
 
 /* Text hint in Bookmarks dialog */
-"bookmarks_usage_hint" = "Les marque-pages provenant d'autres sources peuvent également être importés et affichés dans l'application MapsWithMe. Ouvrez les fichiers KML/KMZ marqués depuis votre boite email, Dropbox ou un lien internet.";
+"bookmarks_usage_hint" = "Les marque-pages provenant d'autres sources peuvent être importés et affichés dans l'application MapsWithMe. Ouvrez les fichiers KML/KMZ marqués depuis votre boite email, Dropbox ou un lien internet.";
 
 /* Settings button in system menu */
 "settings" = "Réglages";

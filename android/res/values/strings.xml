@@ -181,7 +181,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Set</string>
 	<!-- Text hint in Bookmarks dialog -->
-	<string name="bookmarks_usage_hint">Bookmarks from other sources can also be imported and displayed in MapsWithMe. Open KML/KMZ file with saved pins from mail, Dropbox or weblink.</string>
+	<string name="bookmarks_usage_hint">Bookmarks from other sources can be imported and displayed in MapsWithMe. Open KML/KMZ file with saved pins from mail, Dropbox or weblink.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Settings</string>
 	<!-- Header of settings activity where user defines storage path -->

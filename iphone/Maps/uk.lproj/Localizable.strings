@@ -283,7 +283,7 @@
 "set" = "Група";
 
 /* Text hint in Bookmarks dialog */
-"bookmarks_usage_hint" = "Закладки з інших ресурсів також можна імпортувати для застосунка MapsWithMe. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.";
+"bookmarks_usage_hint" = "Закладки з інших ресурсів можна імпортувати для застосунка MapsWithMe. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.";
 
 /* Settings button in system menu */
 "settings" = "Налаштування";

@@ -283,7 +283,7 @@
 "set" = "Zestaw";
 
 /* Text hint in Bookmarks dialog */
-"bookmarks_usage_hint" = "Zakładki z innych źródeł mogą również być importowane i wyświetlane w aplikacji MapsWithMe. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.";
+"bookmarks_usage_hint" = "Zakładki z innych źródeł mogą być importowane i wyświetlane w aplikacji MapsWithMe. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.";
 
 /* Settings button in system menu */
 "settings" = "Ustawienia";

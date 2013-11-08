@@ -283,7 +283,7 @@
 "set" = "Skupina";
 
 /* Text hint in Bookmarks dialog */
-"bookmarks_usage_hint" = "V aplikaci MapsWithMe lze importovat a zobrazovat také záložky z jiných zdrojů. Otevřete soubor KML/KMZ pomocí PIN uloženého z e-mailu, Dropboxu nebo webového odkazu.";
+"bookmarks_usage_hint" = "V aplikaci MapsWithMe lze importovat a zobrazovat záložky z jiných zdrojů. Otevřete soubor KML/KMZ pomocí PIN uloženého z e-mailu, Dropboxu nebo webového odkazu.";
 
 /* Settings button in system menu */
 "settings" = "Nastavení";

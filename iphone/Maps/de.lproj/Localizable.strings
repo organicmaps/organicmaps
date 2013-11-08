@@ -283,7 +283,7 @@
 "set" = "Gruppe";
 
 /* Text hint in Bookmarks dialog */
-"bookmarks_usage_hint" = "Lesezeichen von anderen Quellen können ebenfalls importiert und in der MapsWithMe-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Pins aus einer E-Mail, Dropbox oder einem Weblink öffnen.";
+"bookmarks_usage_hint" = "Lesezeichen von anderen Quellen können importiert und in der MapsWithMe-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Pins aus einer E-Mail, Dropbox oder einem Weblink öffnen.";
 
 /* Settings button in system menu */
 "settings" = "Einstellungen";

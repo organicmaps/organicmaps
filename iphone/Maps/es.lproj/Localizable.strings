@@ -283,7 +283,7 @@
 "set" = "Grupo";
 
 /* Text hint in Bookmarks dialog */
-"bookmarks_usage_hint" = "También se pueden importar y mostrar marcadores de otras fuentes en la aplicación MapsWithMe. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.";
+"bookmarks_usage_hint" = "Se pueden importar y mostrar marcadores de otras fuentes en la aplicación MapsWithMe. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.";
 
 /* Settings button in system menu */
 "settings" = "Ajustes";

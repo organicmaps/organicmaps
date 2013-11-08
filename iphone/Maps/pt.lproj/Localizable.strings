@@ -283,7 +283,7 @@
 "set" = "Conjunto";
 
 /* Text hint in Bookmarks dialog */
-"bookmarks_usage_hint" = "Os marcadores de outras fontes também podem ser importados e exibidos na aplicação MapsWithMe. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.";
+"bookmarks_usage_hint" = "Os marcadores de outras fontes podem ser importados e exibidos na aplicação MapsWithMe. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.";
 
 /* Settings button in system menu */
 "settings" = "Definições";

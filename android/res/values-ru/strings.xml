@@ -177,7 +177,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Группа</string>
 	<!-- Text hint in Bookmarks dialog -->
-	<string name="bookmarks_usage_hint">Вы также можете импортировать закладки из других источников и использовать их в MapsWithMe. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.</string>
+	<string name="bookmarks_usage_hint">Закладки можно импортировать из MapsWithMe либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Настройки</string>
 	<!-- Header of settings activity where user defines storage path -->

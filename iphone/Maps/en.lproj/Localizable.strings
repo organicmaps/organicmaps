@@ -283,7 +283,7 @@
 "set" = "Set";
 
 /* Text hint in Bookmarks dialog */
-"bookmarks_usage_hint" = "Bookmarks from other sources can also be imported and displayed in MapsWithMe. Open KML/KMZ file with saved pins from mail, Dropbox or weblink.";
+"bookmarks_usage_hint" = "Bookmarks from other sources can be imported and displayed in MapsWithMe. Open KML/KMZ file with saved pins from mail, Dropbox or weblink.";
 
 /* Settings button in system menu */
 "settings" = "Settings";
