@@ -698,6 +698,7 @@ typedef enum {Editing, Saved} Mode;
   [self.pickerView addGestureRecognizer:tap];
   if (isIPhone)
   {
+    [self.view endEditing:YES];
     UIWindow * window = APP.keyWindow;
     if (!window)
       window = [APP.windows objectAtIndex:0];
