@@ -27,10 +27,10 @@
 		5797B6D616C931EE00FFE6D2 /* resources-mdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D316C931EE00FFE6D2 /* resources-mdpi */; };
 		5797B6D716C931EE00FFE6D2 /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D416C931EE00FFE6D2 /* resources-xhdpi */; };
 		5797B6D816C931EE00FFE6D2 /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D416C931EE00FFE6D2 /* resources-xhdpi */; };
-		CB252D6D16FF82C8001E41E9 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB252D6A16FF82C8001E41E9 /* libFlurry.a */; };
-		CB252D6E16FF82C9001E41E9 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB252D6A16FF82C8001E41E9 /* libFlurry.a */; };
 		CB252D6F16FF82C9001E41E9 /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.m */; };
 		CB252D7016FF82C9001E41E9 /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.m */; };
+		ED3B8DB4182CD96F001F124F /* libFlurry_4.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3B8DB3182CD96F001F124F /* libFlurry_4.3.0.a */; };
+		ED3B8DB5182CD96F001F124F /* libFlurry_4.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3B8DB3182CD96F001F124F /* libFlurry_4.3.0.a */; };
 		ED48BBB117BE6EA8003E7E92 /* MWMApi.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB017BE6EA8003E7E92 /* MWMApi.mm */; };
 		ED48BBB217BE6EA8003E7E92 /* MWMApi.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB017BE6EA8003E7E92 /* MWMApi.mm */; };
 		ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */; };
@@ -1355,9 +1355,9 @@
 		77DDA9A116D504F900804BDB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MapsWithMe-Pro.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MapsWithMe-Pro.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		CB252D6916FF82C8001E41E9 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
-		CB252D6A16FF82C8001E41E9 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		CB252D6B16FF82C8001E41E9 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistics.h; sourceTree = "<group>"; };
 		CB252D6C16FF82C8001E41E9 /* Statistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Statistics.m; sourceTree = "<group>"; };
+		ED3B8DB3182CD96F001F124F /* libFlurry_4.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_4.3.0.a; sourceTree = "<group>"; };
 		ED48BBAF17BE6EA8003E7E92 /* MWMApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMApi.h; sourceTree = "<group>"; };
 		ED48BBB017BE6EA8003E7E92 /* MWMApi.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMApi.mm; sourceTree = "<group>"; };
 		ED48BBB317C267F5003E7E92 /* ColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerView.h; sourceTree = "<group>"; };
@@ -2093,6 +2093,7 @@
 				EE12020F11CD464100ABDD5D /* libindexer.a in Frameworks */,
 				EE12021011CD464100ABDD5D /* libmap.a in Frameworks */,
 				EE12021211CD464100ABDD5D /* libgraphics.a in Frameworks */,
+				ED3B8DB4182CD96F001F124F /* libFlurry_4.3.0.a in Frameworks */,
 				FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */,
 				FA04373212CAB83F00017494 /* libstorage.a in Frameworks */,
 				EEF5745512DE1AD50082F472 /* libfribidi.a in Frameworks */,
@@ -2104,7 +2105,6 @@
 				FAF29847146EEF4A00FF0057 /* libprotobuf.a in Frameworks */,
 				EE5A34E6156FCB9500E34FFE /* libgui.a in Frameworks */,
 				EEFFB4E815DCDD8A00BACE1C /* libanim.a in Frameworks */,
-				CB252D6D16FF82C8001E41E9 /* libFlurry.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2129,6 +2129,7 @@
 				FAFB0906151215EE0041901D /* libindexer.a in Frameworks */,
 				FAFB0907151215EE0041901D /* libmap.a in Frameworks */,
 				FAFB0908151215EE0041901D /* libgraphics.a in Frameworks */,
+				ED3B8DB5182CD96F001F124F /* libFlurry_4.3.0.a in Frameworks */,
 				FAFB0909151215EE0041901D /* SystemConfiguration.framework in Frameworks */,
 				FAFB090A151215EE0041901D /* libstorage.a in Frameworks */,
 				FAFB090B151215EE0041901D /* libfribidi.a in Frameworks */,
@@ -2140,7 +2141,6 @@
 				FAFB0911151215EE0041901D /* libprotobuf.a in Frameworks */,
 				EE5A34E7156FCBD800E34FFE /* libgui.a in Frameworks */,
 				EEFFB4E915DCDD8A00BACE1C /* libanim.a in Frameworks */,
-				CB252D6E16FF82C9001E41E9 /* libFlurry.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2316,7 +2316,7 @@
 			isa = PBXGroup;
 			children = (
 				CB252D6916FF82C8001E41E9 /* Flurry.h */,
-				CB252D6A16FF82C8001E41E9 /* libFlurry.a */,
+				ED3B8DB3182CD96F001F124F /* libFlurry_4.3.0.a */,
 				CB252D6B16FF82C8001E41E9 /* Statistics.h */,
 				CB252D6C16FF82C8001E41E9 /* Statistics.m */,
 			);
@@ -4460,6 +4460,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "Simulator Lite";
 		};
@@ -4557,6 +4561,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "Production Lite";
 		};
@@ -4609,6 +4617,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "Debug Lite";
 		};
@@ -4665,6 +4677,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "AdHoc Lite";
 		};
@@ -4717,6 +4733,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "Simulator Full";
 		};
@@ -4769,6 +4789,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "Debug Full";
 		};
@@ -4825,6 +4849,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "AdHoc Full";
 		};
@@ -4881,6 +4909,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "Production Full";
 		};
@@ -4936,6 +4968,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "Release Lite";
 		};
@@ -4991,6 +5027,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "Release Full";
 		};
@@ -5046,6 +5086,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "Simulator Full Release";
 		};
@@ -5057,6 +5101,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "Simulator Full Release";
 		};
@@ -5068,6 +5116,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "Simulator Lite";
 		};
@@ -5079,6 +5131,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "Simulator Full";
 		};
@@ -5090,6 +5146,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "Debug Lite";
 		};
@@ -5101,6 +5161,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "Debug Full";
 		};
@@ -5112,6 +5176,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "AdHoc Lite";
 		};
@@ -5123,6 +5191,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "Release Lite";
 		};
@@ -5134,6 +5206,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "AdHoc Full";
 		};
@@ -5145,6 +5221,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "Release Full";
 		};
@@ -5156,6 +5236,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "Production Lite";
 		};
@@ -5167,6 +5251,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+				);
 			};
 			name = "Production Full";
 		};
