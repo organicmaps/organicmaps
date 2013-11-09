@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="17"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="19" />
 
     <uses-permission
         android:name="com.yotadevices.framework.permission.ACCESS_BACKSCREEN" />
