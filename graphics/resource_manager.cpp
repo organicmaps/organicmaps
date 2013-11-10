@@ -248,6 +248,13 @@ namespace
     if (isGPU("Imagination Technologies", "PowerVR MBX", false))
       m_texRtFormat = graphics::Data8Bpp;
 
+    m_rgba4RenderBuffer = false;
+#ifdef OMIM_OS_ANDROID
+    if (isGPU("NVIDIA Corporation", "NVIDIA Tegra", false))
+      m_rgba4RenderBuffer = true;
+#endif
+
+    LOG(LINFO, ("using GL_RGBA4 for color buffer : ", m_rgba4RenderBuffer));
     LOG(LINFO, ("selected", graphics::formatName(m_texRtFormat), "format for tile textures"));
   }
 

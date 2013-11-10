@@ -199,6 +199,8 @@ namespace graphics
       unsigned m_renderThreadsCount;
       unsigned m_threadSlotsCount;
 
+      bool m_rgba4RenderBuffer;
+
       Params();
 
       void distributeFreeMemory(int freeVideoMemory);

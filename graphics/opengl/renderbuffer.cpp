@@ -11,40 +11,22 @@ namespace graphics
 {
   namespace gl
   {
-    RenderBuffer::RenderBuffer(size_t width, size_t height)
-      : m_id(0), m_isDepthBuffer(true), m_width(width), m_height(height)
+    RenderBuffer::RenderBuffer(size_t width, size_t height, bool isDepthBuffer, bool isRgba4)
+      : m_id(0), m_isDepthBuffer(isDepthBuffer), m_width(width), m_height(height)
     {
       OGLCHECK(glGenRenderbuffersFn(1, &m_id));
 
       makeCurrent();
 
-      OGLCHECK(glRenderbufferStorageFn(GL_RENDERBUFFER_MWM,
-                                       GL_DEPTH_COMPONENT16_MWM,
-                                       m_width,
-                                       m_height));
-    }
+      GLenum target = GL_RENDERBUFFER_MWM;
+      GLenum internalFormat = m_isDepthBuffer ? GL_DEPTH_COMPONENT16_MWM : GL_RGBA8_MWM;
 
-    RenderBuffer::RenderBuffer(size_t width, size_t height, graphics::DataFormat format)
-      : m_id(0), m_isDepthBuffer(false), m_width(width), m_height(height)
-    {
-      OGLCHECK(glGenRenderbuffersFn(1, &m_id));
-
-      makeCurrent();
-
-      GLenum internalFormat;
-      switch(format)
-      {
-      case graphics::Data4Bpp:
+      if (m_isDepthBuffer == false && isRgba4 == true)
         internalFormat = GL_RGBA4_MWM;
-        break;
-      case graphics::Data8Bpp:
-        internalFormat = GL_RGBA8_MWM;
-        break;
-      default:
-        ASSERT(false, ("Incorrect color buffer format"));
-      }
 
-      OGLCHECK(glRenderbufferStorageFn(GL_RENDERBUFFER_MWM,
+      if (m_isDepthBuffer == false)
+        LOG(LINFO, ("Color buffer format : ", internalFormat));
+      OGLCHECK(glRenderbufferStorageFn(target,
                                        internalFormat,
                                        m_width,
                                        m_height));

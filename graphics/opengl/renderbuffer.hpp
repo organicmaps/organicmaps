@@ -21,9 +21,7 @@ namespace graphics
     public:
 
       // Create depth buffer
-      RenderBuffer(size_t width, size_t height);
-      // Create color bufer
-      RenderBuffer(size_t width, size_t height, graphics::DataFormat format);
+      RenderBuffer(size_t width, size_t height, bool isDepthBuffer = false, bool isRgba4 = false);
       ~RenderBuffer();
 
       unsigned int id() const;

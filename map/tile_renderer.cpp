@@ -92,9 +92,9 @@ TileRenderer::TileRenderer(
     m_threadData[i].m_drawerParams = params;
     m_threadData[i].m_drawer = 0;
     m_threadData[i].m_threadSlot = params.m_threadSlot;
-    m_threadData[i].m_colorBuffer = make_shared_ptr(new graphics::gl::RenderBuffer(tileSz.first, tileSz.second,
-                                                                                   m_resourceManager->params().m_texRtFormat));
-    m_threadData[i].m_depthBuffer = make_shared_ptr(new graphics::gl::RenderBuffer(tileSz.first, tileSz.second));
+    m_threadData[i].m_colorBuffer = make_shared_ptr(new graphics::gl::RenderBuffer(tileSz.first, tileSz.second, false,
+                                                                                   m_resourceManager->params().m_rgba4RenderBuffer));
+    m_threadData[i].m_depthBuffer = make_shared_ptr(new graphics::gl::RenderBuffer(tileSz.first, tileSz.second, true));
   }
 
   m_queue.AddInitCommand(bind(&TileRenderer::InitializeThreadGL, this, _1));

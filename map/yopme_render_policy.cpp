@@ -234,8 +234,8 @@ void YopmeRP::OnSize(int w, int h)
 {
   RenderPolicy::OnSize(w, h);
   m_offscreenDrawer->onSize(w, h);
-  m_offscreenDrawer->screen()->setDepthBuffer(make_shared_ptr(new gl::RenderBuffer(w, h)));
-  m_offscreenDrawer->screen()->setRenderTarget(make_shared_ptr(new gl::RenderBuffer(w, h, m_resourceManager->params().m_texRtFormat)));
+  m_offscreenDrawer->screen()->setDepthBuffer(make_shared_ptr(new gl::RenderBuffer(w, h, true)));
+  m_offscreenDrawer->screen()->setRenderTarget(make_shared_ptr(new gl::RenderBuffer(w, h, false)));
 }
 
 void YopmeRP::SetDrawingApiPin(bool isNeed, m2::PointD const & point)

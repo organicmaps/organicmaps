@@ -141,7 +141,7 @@
 	renderBuffer = make_shared_ptr(new iphone::RenderBuffer(renderContext, (CAEAGLLayer*)self.layer));
   
   screen->setRenderTarget(renderBuffer);
-  screen->setDepthBuffer(make_shared_ptr(new graphics::gl::RenderBuffer(width, height)));
+  screen->setDepthBuffer(make_shared_ptr(new graphics::gl::RenderBuffer(width, height, true)));
 
   GetFramework().OnSize(width, height);
   
