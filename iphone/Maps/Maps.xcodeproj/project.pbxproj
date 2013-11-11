@@ -58,6 +58,8 @@
 		EDC5C544175F2CA600420E92 /* ShareActionSheet.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */; };
 		EDCB4E8E175E67120005AA35 /* PlacePreviewViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDCB4E8D175E67110005AA35 /* PlacePreviewViewController.mm */; };
 		EDCB4E8F175E67120005AA35 /* PlacePreviewViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDCB4E8D175E67110005AA35 /* PlacePreviewViewController.mm */; };
+		EDF924DB183380CE00539672 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDF924DA183380CE00539672 /* FacebookSDK.framework */; };
+		EDF924DC183380CF00539672 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDF924DA183380CE00539672 /* FacebookSDK.framework */; };
 		EDFC74D0177AE6C500FAF21F /* PlaceAndCompasView.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDFC74CF177AE6C500FAF21F /* PlaceAndCompasView.mm */; };
 		EDFC74D1177AE6C500FAF21F /* PlaceAndCompasView.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDFC74CF177AE6C500FAF21F /* PlaceAndCompasView.mm */; };
 		EE026F0611D6AC0D00645242 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
@@ -1381,6 +1383,7 @@
 		EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ShareActionSheet.mm; sourceTree = "<group>"; };
 		EDCB4E8C175E67110005AA35 /* PlacePreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacePreviewViewController.h; sourceTree = "<group>"; };
 		EDCB4E8D175E67110005AA35 /* PlacePreviewViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlacePreviewViewController.mm; sourceTree = "<group>"; };
+		EDF924DA183380CE00539672 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		EDFC74CE177AE6C500FAF21F /* PlaceAndCompasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceAndCompasView.h; sourceTree = "<group>"; };
 		EDFC74CF177AE6C500FAF21F /* PlaceAndCompasView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlaceAndCompasView.mm; sourceTree = "<group>"; };
 		EE026F0511D6AC0D00645242 /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = classificator.txt; path = ../../data/classificator.txt; sourceTree = SOURCE_ROOT; };
@@ -2087,6 +2090,7 @@
 				46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */,
 				EEB7E22211E9079400080A68 /* CoreLocation.framework in Frameworks */,
 				EE12020911CD464100ABDD5D /* libbase.a in Frameworks */,
+				EDF924DB183380CE00539672 /* FacebookSDK.framework in Frameworks */,
 				EE12020A11CD464100ABDD5D /* libcoding.a in Frameworks */,
 				EE12020C11CD464100ABDD5D /* libexpat.a in Frameworks */,
 				EE12020E11CD464100ABDD5D /* libgeometry.a in Frameworks */,
@@ -2123,6 +2127,7 @@
 				FAFB0900151215EE0041901D /* QuartzCore.framework in Frameworks */,
 				FAFB0901151215EE0041901D /* CoreLocation.framework in Frameworks */,
 				FAFB0902151215EE0041901D /* libbase.a in Frameworks */,
+				EDF924DC183380CF00539672 /* FacebookSDK.framework in Frameworks */,
 				FAFB0903151215EE0041901D /* libcoding.a in Frameworks */,
 				FAFB0904151215EE0041901D /* libexpat.a in Frameworks */,
 				FAFB0905151215EE0041901D /* libgeometry.a in Frameworks */,
@@ -2299,6 +2304,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EDF924DA183380CE00539672 /* FacebookSDK.framework */,
 				ED8B1A2016772AB4003CAD0A /* MessageUI.framework */,
 				ED8B1A2016772AB4003CAD0A /* MessageUI.framework */,
 				EEB7E22111E9079400080A68 /* CoreLocation.framework */,
@@ -4457,6 +4463,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/FacebookSDK",
+					"$(inherited)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
@@ -4558,6 +4568,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/FacebookSDK",
+					"$(inherited)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
@@ -4614,6 +4628,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/FacebookSDK",
+					"$(inherited)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
@@ -4674,6 +4692,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/FacebookSDK",
+					"$(inherited)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
@@ -4730,6 +4752,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/FacebookSDK",
+					"$(inherited)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -4786,6 +4812,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/FacebookSDK",
+					"$(inherited)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -4846,6 +4876,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/FacebookSDK",
+					"$(inherited)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -4906,6 +4940,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/FacebookSDK",
+					"$(inherited)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -4965,6 +5003,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/FacebookSDK",
+					"$(inherited)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
@@ -5024,6 +5066,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/FacebookSDK",
+					"$(inherited)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -5083,6 +5129,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/FacebookSDK",
+					"$(inherited)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -5098,6 +5148,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/FacebookSDK",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -5113,6 +5167,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/FacebookSDK",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
@@ -5128,6 +5186,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/FacebookSDK",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -5143,6 +5205,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/FacebookSDK",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
@@ -5158,6 +5224,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/FacebookSDK",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -5173,6 +5243,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/FacebookSDK",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
@@ -5188,6 +5262,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/FacebookSDK",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
@@ -5203,6 +5281,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/FacebookSDK",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -5218,6 +5300,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/FacebookSDK",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
@@ -5233,6 +5319,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/FacebookSDK",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
@@ -5248,6 +5338,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/FacebookSDK",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";

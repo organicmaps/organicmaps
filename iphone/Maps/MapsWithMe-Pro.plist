@@ -81,6 +81,7 @@
 				<string>mapswithme</string>
 				<string>ge0</string>
 				<string>geo</string>
+				<string>fb185237551520383</string>
 			</array>
 		</dict>
 	</array>
@@ -154,5 +155,9 @@
 			</dict>
 		</dict>
 	</array>
+	<key>FacebookDisplayName</key>
+	<string>MapsWithMe, offline maps</string>
+	<key>FacebookAppID</key>
+	<string>185237551520383</string>
 </dict>
 </plist>

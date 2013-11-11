@@ -48,6 +48,7 @@
 				<string>mapswithme</string>
 				<string>ge0</string>
 				<string>geo</string>
+				<string>fb272257082798521</string>
 			</array>
 		</dict>
 	</array>
@@ -72,5 +73,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>FacebookDisplayName</key>
+	<string>MapsWithMe Lite, offline maps</string>
+	<key>FacebookAppID</key>
+	<string>272257082798521</string>
 </dict>
 </plist>
