@@ -7,6 +7,8 @@
 
 #include <sys/xattr.h>
 
+#import <FacebookSDK/FacebookSDK.h>
+
 #include "Framework.h"
 
 #include "../../../storage/storage.hpp"
@@ -87,6 +89,8 @@ void InitLocalizedStrings()
       }
     }
   }
+  [FBSettings setDefaultAppID:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FacebookAppID"]];
+  [FBAppEvents activateApp];
 
   m_didOpenedWithUrl = NO;
 }
