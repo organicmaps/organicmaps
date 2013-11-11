@@ -398,6 +398,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     super.onCreate(savedInstanceState);
 
     mApplication = (MWMApplication)getApplication();
+    mApplication.OnMwmStart(this);
 
     final boolean isPro = mApplication.isProVersion();
     if (checkLiteProPackages(isPro))

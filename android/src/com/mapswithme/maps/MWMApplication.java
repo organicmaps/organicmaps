@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.AssetManager;
 import android.os.Build;
@@ -21,6 +22,7 @@ import com.mapswithme.maps.guides.GuidesUtils;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.state.AppStateManager;
 import com.mapswithme.maps.state.SuppotedState;
+import com.mapswithme.util.FbUtil;
 import com.mapswithme.util.Utils;
 
 
@@ -305,4 +307,9 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
   public native double nativeGetDouble(String name, double defaultValue);
   public native void nativeSetDouble(String name, double value);
+
+  public void OnMwmStart(Context context)
+  {
+    FbUtil.activate(context);
+  }
 }
