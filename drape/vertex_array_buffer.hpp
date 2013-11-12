@@ -31,6 +31,7 @@ public:
 
 private:
   void Bind();
+  void BindBuffers();
 
 private:
   int m_VAO;
@@ -39,4 +40,6 @@ private:
 
   OwnedPointer<IndexBuffer> m_indexBuffer;
   uint32_t m_dataBufferSize;
+
+  ReferencePoiner<GpuProgram> m_program;
 };

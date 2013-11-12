@@ -1,11 +1,13 @@
 #include "vertex_array_buffer.hpp"
 #include "glfunctions.hpp"
+#include "glextensions_list.hpp"
 
 #include "../base/assert.hpp"
 
 VertexArrayBuffer::VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize)
   : m_VAO(0)
   , m_dataBufferSize(dataBufferSize)
+  , m_program(NULL)
 {
   m_indexBuffer.Reset(new IndexBuffer(indexBufferSize));
 }
@@ -23,6 +25,7 @@ VertexArrayBuffer::~VertexArrayBuffer()
     /// Build called only when VertexArrayBuffer fulled and transfer to FrontendRenderer
     /// but if user move screen before all geometry readed from MWM we delete VertexArrayBuffer on BackendRenderer
     /// in this case m_VAO will be equal a 0
+    /// also m_VAO == 0 will be on device that not support OES_vertex_array_object extension
     GLFunctions::glDeleteVertexArray(m_VAO);
   }
 }
@@ -31,43 +34,33 @@ void VertexArrayBuffer::Render()
 {
   if (!m_buffers.empty())
   {
-    Bind();
+    ASSERT(!m_program.IsNull(), ("Somebody not call Build. It's very bad. Very very bad"));
+    m_program->Bind();
+    /// if OES_vertex_array_object is supported than all bindings already saved in VAO
+    /// and we need only bind VAO. In Bind method have ASSERT("bind already called")
+    if (GLExtensionsList::Instance().IsSupported(GLExtensionsList::VertexArrayObject))
+      Bind();
+    else
+      BindBuffers();
+
     GLFunctions::glDrawElements(m_indexBuffer->GetCurrentSize());
   }
 }
 
 void VertexArrayBuffer::Build(ReferencePoiner<GpuProgram> program)
 {
-  ASSERT(m_VAO == 0, ("No-no-no! You can't rebuild VertexArrayBuffer"));
+  ASSERT(m_VAO == 0 && m_program.IsNull(), ("No-no-no! You can't rebuild VertexArrayBuffer"));
+  m_program = program;
+  /// if OES_vertex_array_object not supported, than buffers will be bind on each Render call
+  if (!GLExtensionsList::Instance().IsSupported(GLExtensionsList::VertexArrayObject))
+    return;
+
   if (m_buffers.empty())
     return;
 
   m_VAO = GLFunctions::glGenVertexArray();
   Bind();
-
-  buffers_map_t::iterator it = m_buffers.begin();
-  for (; it != m_buffers.end(); ++it)
-  {
-    const BindingInfo & binding = it->first;
-    ReferencePoiner<DataBuffer> buffer = it->second.GetWeakPointer();
-    buffer->Bind();
-
-    for (uint16_t i = 0; i < binding.GetCount(); ++i)
-    {
-      BindingDecl const & decl = binding.GetBindingDecl(i);
-      int8_t attributeLocation = program->GetAttributeLocation(decl.m_attributeName);
-      assert(attributeLocation != -1);
-      GLFunctions::glEnableVertexAttribute(attributeLocation);
-      GLFunctions::glVertexAttributePointer(attributeLocation,
-                                            decl.m_componentCount,
-                                            decl.m_componentType,
-                                            false,
-                                            decl.m_stride,
-                                            decl.m_offset);
-    }
-  }
-
-  m_indexBuffer->Bind();
+  BindBuffers();
 }
 
 ReferencePoiner<GLBuffer> VertexArrayBuffer::GetBuffer(const BindingInfo & bindingInfo)
@@ -128,4 +121,31 @@ void VertexArrayBuffer::Bind()
 {
   ASSERT(m_VAO != 0, ("You need to call Build method before bind it and render"));
   GLFunctions::glBindVertexArray(m_VAO);
+}
+
+void VertexArrayBuffer::BindBuffers()
+{
+  buffers_map_t::iterator it = m_buffers.begin();
+  for (; it != m_buffers.end(); ++it)
+  {
+    const BindingInfo & binding = it->first;
+    ReferencePoiner<DataBuffer> buffer = it->second.GetWeakPointer();
+    buffer->Bind();
+
+    for (uint16_t i = 0; i < binding.GetCount(); ++i)
+    {
+      BindingDecl const & decl = binding.GetBindingDecl(i);
+      int8_t attributeLocation = m_program->GetAttributeLocation(decl.m_attributeName);
+      assert(attributeLocation != -1);
+      GLFunctions::glEnableVertexAttribute(attributeLocation);
+      GLFunctions::glVertexAttributePointer(attributeLocation,
+                                            decl.m_componentCount,
+                                            decl.m_componentType,
+                                            false,
+                                            decl.m_stride,
+                                            decl.m_offset);
+    }
+  }
+
+  m_indexBuffer->Bind();
 }
