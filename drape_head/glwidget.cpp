@@ -10,14 +10,14 @@ GLWidget::GLWidget()
 void GLWidget::FlushFullBucket(const GLState & state, OwnedPointer<VertexArrayBuffer> bucket)
 {
   ReferencePoiner<GpuProgram> program = m_programManager->GetProgram(state.GetProgramIndex());
-  bucket->BuildVertexArray(program);
+  bucket->Build(program);
   m_frames[state].push_back(bucket);
 }
 
 void GLWidget::UseIncompleteBucket(const GLState &state, ReferencePoiner<VertexArrayBuffer> bucket)
 {
   ReferencePoiner<GpuProgram> program = m_programManager->GetProgram(state.GetProgramIndex());
-  bucket->BuildVertexArray(program);
+  bucket->Build(program);
   renderBucket(state, bucket);
 }
 

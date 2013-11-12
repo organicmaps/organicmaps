@@ -14,11 +14,13 @@ public:
   VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize);
   ~VertexArrayBuffer();
 
-  void Bind();
-  void Unbind();
+  ///{@
+  /// On devices where implemented OES_vertex_array_object extensions we use it for build VertexArrayBuffer
+  /// OES_vertex_array_object create OpenGL resource that belong only one GL context (which was created by)
+  /// by this reason Build/Bind and Render must be called only on Frontendrendere thread
   void Render();
-
-  void BuildVertexArray(ReferencePoiner<GpuProgram> program);
+  void Build(ReferencePoiner<GpuProgram> program);
+  ///@}
 
   ReferencePoiner<GLBuffer> GetBuffer(const BindingInfo & bindingInfo);
 
@@ -26,6 +28,9 @@ public:
   uint16_t GetAvailableIndexCount() const;
   uint16_t GetStartIndexValue() const;
   void UploadIndexes(uint16_t * data, uint16_t count);
+
+private:
+  void Bind();
 
 private:
   int m_VAO;

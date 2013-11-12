@@ -7,44 +7,42 @@ VertexArrayBuffer::VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBuff
   : m_VAO(0)
   , m_dataBufferSize(dataBufferSize)
 {
-  m_VAO = GLFunctions::glGenVertexArray();
   m_indexBuffer.Reset(new IndexBuffer(indexBufferSize));
 }
 
 VertexArrayBuffer::~VertexArrayBuffer()
 {
-  Unbind();
-
   buffers_map_t::iterator it = m_buffers.begin();
   for (; it != m_buffers.end(); ++it)
     it->second.Destroy();
 
   m_buffers.clear();
-  GLFunctions::glDeleteVertexArray(m_VAO);
-}
 
-void VertexArrayBuffer::Bind()
-{
-  GLFunctions::glBindVertexArray(m_VAO);
-}
-
-void VertexArrayBuffer::Unbind()
-{
-  GLFunctions::glBindVertexArray(0);
+  if (m_VAO != 0)
+  {
+    /// Build called only when VertexArrayBuffer fulled and transfer to FrontendRenderer
+    /// but if user move screen before all geometry readed from MWM we delete VertexArrayBuffer on BackendRenderer
+    /// in this case m_VAO will be equal a 0
+    GLFunctions::glDeleteVertexArray(m_VAO);
+  }
 }
 
 void VertexArrayBuffer::Render()
 {
-  Bind();
-  GLFunctions::glDrawElements(m_indexBuffer->GetCurrentSize());
+  if (!m_buffers.empty())
+  {
+    Bind();
+    GLFunctions::glDrawElements(m_indexBuffer->GetCurrentSize());
+  }
 }
 
-void VertexArrayBuffer::BuildVertexArray(ReferencePoiner<GpuProgram> program)
+void VertexArrayBuffer::Build(ReferencePoiner<GpuProgram> program)
 {
+  ASSERT(m_VAO == 0, ("No-no-no! You can't rebuild VertexArrayBuffer"));
   if (m_buffers.empty())
     return;
 
-  program->Bind();
+  m_VAO = GLFunctions::glGenVertexArray();
   Bind();
 
   buffers_map_t::iterator it = m_buffers.begin();
@@ -67,13 +65,9 @@ void VertexArrayBuffer::BuildVertexArray(ReferencePoiner<GpuProgram> program)
                                             decl.m_stride,
                                             decl.m_offset);
     }
-    buffer->Unbind();
   }
 
   m_indexBuffer->Bind();
-  Unbind();
-  m_indexBuffer->Unbind();
-  program->Unbind();
 }
 
 ReferencePoiner<GLBuffer> VertexArrayBuffer::GetBuffer(const BindingInfo & bindingInfo)
@@ -128,4 +122,10 @@ void VertexArrayBuffer::UploadIndexes(uint16_t * data, uint16_t count)
 {
   ASSERT(count <= m_indexBuffer->GetAvailableSize(), ());
   m_indexBuffer->UploadData(data, count);
+}
+
+void VertexArrayBuffer::Bind()
+{
+  ASSERT(m_VAO != 0, ("You need to call Build method before bind it and render"));
+  GLFunctions::glBindVertexArray(m_VAO);
 }
