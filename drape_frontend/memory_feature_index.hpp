@@ -7,14 +7,13 @@
 #include "../std/set.hpp"
 #include "../std/utility.hpp"
 #include "../std/vector.hpp"
+#include "../std/noncopyable.hpp"
 
 namespace df
 {
-  class MemoryFeatureIndex
+  class MemoryFeatureIndex : private noncopyable
   {
   public:
-    MemoryFeatureIndex();
-
     void ReadFeaturesRequest(const vector<FeatureInfo> & features, vector<size_t> & indexes);
     void RemoveFeatures(const vector<FeatureInfo> & features);
 

@@ -163,7 +163,7 @@ namespace
 
   void GenerateFeatures(vector<df::FeatureInfo> & features)
   {
-    for (int i = 0; i < 100; ++i)
+    for (int i = 0; i < 10000; ++i)
       features.push_back(df::FeatureInfo(FeatureID(0, rand())));
   }
 }

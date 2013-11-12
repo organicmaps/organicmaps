@@ -3,6 +3,7 @@
 #include "../indexer/feature_decl.hpp"
 
 #include "../std/vector.hpp"
+#include "../std/noncopyable.hpp"
 
 namespace df
 {
@@ -15,10 +16,9 @@ namespace df
     bool m_isOwner;
   };
 
-  class TileInfo
+  class TileInfo : private noncopyable
   {
   public:
-    //TileInfo() : m_x(-1), m_y(-1), m_zoomLevel(-1) {}
     TileInfo(int x, int y, int zoomLevel)
       : m_x(x), m_y(y), m_zoomLevel(zoomLevel) {}
 
