@@ -194,6 +194,10 @@ class DownloadAdapter extends BaseAdapter
   /// Process list item click.
   public void onItemClick(int position, View view)
   {
+    if (position >= mItems.length)
+      return; // we have reports at GP that it crashes.
+
+
     if (mItems[position].getStatus() < 0)
     {
       // expand next level
@@ -458,6 +462,7 @@ class DownloadAdapter extends BaseAdapter
     setItemText(position, holder);
     convertView.setBackgroundResource(R.drawable.list_selector_holo_light);
     final View fview = convertView;
+
     convertView.setOnClickListener(new OnClickListener()
     {
       @Override
@@ -491,9 +496,12 @@ class DownloadAdapter extends BaseAdapter
     holder.mName.setTypeface(item.getTypeface());
     holder.mName.setTextColor(item.getTextColor());
 
-    Drawable drawable = null;
-    if (getItem(position).getStatus() == MapStorage.ON_DISK_OUT_OF_DATE)
+    Drawable drawable = null; // by default county item has no icon
+    final int status = getItem(position).getStatus();
+    if (status == MapStorage.ON_DISK_OUT_OF_DATE) // out of date has Aquarius icon
       drawable = mContext.getResources().getDrawable(R.drawable.ic_update);
+    else if (status == MapStorage.ON_DISK)
+      drawable = mContext.getResources().getDrawable(R.drawable.ic_downloaded_country); // downloaded has Tick icon
 
     holder.mName.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
   }
@@ -561,7 +569,7 @@ class DownloadAdapter extends BaseAdapter
     mContext.finish();
   }
 
-  private void onCountryMenuClicked(int position, final CountryItem countryItem, View anchor)
+  private void onCountryMenuClicked(int position, final CountryItem countryItem, final View anchor)
   {
     final int MENU_DELETE   = 0;
     final int MENU_UPDATE   = 1;
