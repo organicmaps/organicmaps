@@ -308,7 +308,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
   public native double nativeGetDouble(String name, double defaultValue);
   public native void nativeSetDouble(String name, double value);
 
-  public void OnMwmStart(Context context)
+  public void onMwmStart(Context context)
   {
     FbUtil.activate(context);
   }
