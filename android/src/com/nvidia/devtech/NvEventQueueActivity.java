@@ -212,30 +212,30 @@ public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity
     if (!m_nativeLaunched || count == 0)
       return super.onTouchEvent(event);
 
-    final SurfaceView v = (SurfaceView) findViewById(R.id.map_surfaceview);
-    final int [] p = new int[2];
-
-    v.getLocationOnScreen(p);
-
     switch (count)
     {
     case 1:
     {
       m_lastPointerId = event.getPointerId(0);
 
-      final int x0 = (int)event.getX() - p[0];
-      final int y0 = (int)event.getY() - p[1];
+      final int x0 = (int)event.getX();
+      final int y0 = (int)event.getY();
 
-      return multiTouchEvent(event.getAction(), true, false,
-          x0, y0, 0, 0, event);
+
+      // we skip event near edge of drawer
+      if (x0 < 0.1f * Math.min(m_surfaceHeight, m_surfaceWidth))
+        return false;
+      else
+        return multiTouchEvent(event.getAction(), true, false,
+            x0, y0, 0, 0, event);
     }
     default:
       {
-        final int x0 = (int)event.getX(0) - p[0];
-        final int y0 = (int)event.getY(0) - p[1];
+        final int x0 = (int)event.getX(0);
+        final int y0 = (int)event.getY(0);
 
-        final int x1 = (int)event.getX(1) - p[0];
-        final int y1 = (int)event.getY(1) - p[1];
+        final int x1 = (int)event.getX(1);
+        final int y1 = (int)event.getY(1);
 
         if (event.getPointerId(0) == m_lastPointerId)
           return multiTouchEvent(event.getAction(), true, true,
