@@ -172,6 +172,31 @@ def validateDocumentation(shaders, shaderDir):
         print "no documentation for shaders:", undocumentedShaders
         exit(20)
 
+def writeEnumerationFile(shaderDir, shaders, outputFile):
+    file = open(outputFile, 'w')
+    vertexShaders = [s for s in shaders if s.endswith(".vsh")]
+    fragmentShaders = [s for s in shaders if s.endswith(".fsh")]
+
+    file.write("#pragma once\n\n")
+    file.write("#include \"../../std/vector.hpp\"\n")
+    file.write("#include \"../../std/string.hpp\"\n\n")
+    file.write("namespace gpu_test\n")
+    file.write("{\n")
+
+    file.write("  vector<string> VertexEnum;\n")
+    file.write("  vector<string> FragmentEnum;\n\n")
+
+    file.write("  void InitEnumeration()\n")
+    file.write("  {\n")
+
+    for s in vertexShaders:
+        file.write("    VertexEnum.push_back(\"%s\");\n" % (os.path.abspath(os.path.join(shaderDir, s))))
+    for s in fragmentShaders:
+        file.write("    FragmentEnum.push_back(\"%s\");\n" % (os.path.abspath(os.path.join(shaderDir, s))))
+
+    file.write("  }\n")
+    file.write("}\n")
+
 if len(sys.argv) < 4:
   print "Usage : " + sys.argv[0] + " <shader_dir> <index_file_name> <generate_file_name>"
   exit(1)
@@ -193,3 +218,6 @@ else:
     print "No need to update definition file"
 writeImplementationFile(programDefinition, programIndex, shaderIndex, shaderDir, implFile, definesFile)
 validateDocumentation(shaders, shaderDir)
+
+if len(sys.argv) > 4:
+    writeEnumerationFile(shaderDir, shaders, sys.argv[4])

@@ -11,6 +11,7 @@ CONFIG += staticlib warn_on
 DEPENDENCIES = base
 
 ROOT_DIR = ..
+SHADER_COMPILE_ARGS = $$PWD/shaders shader_index.txt shader_def
 include($$ROOT_DIR/common.pri)
 
 DRAPE_DIR = .

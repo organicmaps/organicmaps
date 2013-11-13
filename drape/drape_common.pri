@@ -1,4 +1,4 @@
-CMDRES = $$system(python ../tools/autobuild/shader_preprocessor.py $$PWD/shaders shader_index.txt shader_def)
+CMDRES = $$system(python ../tools/autobuild/shader_preprocessor.py $$SHADER_COMPILE_ARGS)
 message($$CMDRES)
 
 SOURCES += \
