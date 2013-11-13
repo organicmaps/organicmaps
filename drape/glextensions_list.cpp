@@ -3,9 +3,66 @@
 
 #include "../base/assert.hpp"
 
+#include "../std/string.hpp"
+
+#ifdef DEBUG
+  #include "../std/map.hpp"
+
+  class GLExtensionsList::Impl
+  {
+  public:
+    void CheckExtension(GLExtensionsList::ExtensionName const & enumName, const string & extName)
+    {
+      m_supportedMap[enumName] = GLFunctions::glHasExtension(extName);
+    }
+
+    bool IsSupported(GLExtensionsList::ExtensionName const & enumName) const
+    {
+      map<GLExtensionsList::ExtensionName, bool>::const_iterator it = m_supportedMap.find(enumName);
+      if (it != m_supportedMap.end())
+        return it->second;
+
+      ASSERT(false, ("Not all used extensions is checked"));
+      return false;
+    }
+
+  private:
+    map<GLExtensionsList::ExtensionName, bool> m_supportedMap;
+  };
+#else
+  #include "../std/set.hpp"
+
+  class GLExtensionsList::Impl
+  {
+  public:
+    void CheckExtension(GLExtensionsList::ExtensionName const & enumName, const string & extName)
+    {
+      if (GLFunctions::glHasExtension(extName))
+        m_supported.insert(enumName);
+    }
+
+    bool IsSupported(GLExtensionsList::ExtensionName const & enumName) const
+    {
+      if (m_supported.find(enumName) != m_supported.end())
+        return true;
+
+      return false;
+    }
+
+  private:
+    set<GLExtensionsList::ExtensionName> m_supported;
+  };
+#endif
+
 GLExtensionsList::GLExtensionsList()
+  : m_impl(new Impl())
 {
-  m_supportMap[VertexArrayObject] = GLFunctions::glHasExtension("GL_OES_vertex_array_object");
+  m_impl->CheckExtension(VertexArrayObject, "GL_OES_vertex_array_object");
+}
+
+GLExtensionsList::~GLExtensionsList()
+{
+  delete m_impl;
 }
 
 GLExtensionsList & GLExtensionsList::Instance()
@@ -14,8 +71,7 @@ GLExtensionsList & GLExtensionsList::Instance()
   return extList;
 }
 
-bool GLExtensionsList::IsSupported(const ExtensionName & extName)
+bool GLExtensionsList::IsSupported(const ExtensionName & extName) const
 {
-  ASSERT(m_supportMap.find(extName) != m_supportMap.end(), ("Not all used extensions is checked"));
-  return m_supportMap[extName];
+  return m_impl->IsSupported(extName);
 }

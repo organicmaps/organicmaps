@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../std/noncopyable.hpp"
-#include "../std/map.hpp"
 
 class GLExtensionsList : private noncopyable
 {
@@ -12,9 +11,13 @@ public:
   };
 
   static GLExtensionsList & Instance();
-  bool IsSupported(const ExtensionName & extName);
+  bool IsSupported(const ExtensionName & extName) const;
 
 private:
   GLExtensionsList();
-  map<ExtensionName, bool> m_supportMap;
+  ~GLExtensionsList();
+
+private:
+  class Impl;
+  Impl * m_impl;
 };
