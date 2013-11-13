@@ -100,15 +100,15 @@
     </style>
 
     <style name="Widget.MapButtonDrawer" parent="android:Widget.Holo.Button">
-        <item name="android:layout_height">@dimen/dp_x_12</item>
+        <item name="android:layout_height">@dimen/drawer_item_height</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@drawable/drawer_item_back_selector</item>
         <item name="android:textSize">@dimen/sp_x_4</item>
         <item name="android:drawablePadding">@dimen/dp_x_2</item>
         <item name="android:paddingRight">@dimen/dp_x_3</item>
         <item name="android:paddingLeft">@dimen/dp_x_2</item>
-        <item name="android:paddingTop">@dimen/dp_x_2</item>
-        <item name="android:paddingBottom">@dimen/dp_x_2</item>
+        <item name="android:paddingTop">@dimen/dp_x_1</item>
+        <item name="android:paddingBottom">@dimen/dp_x_1</item>
         <item name="android:gravity">left|center_vertical</item>
     </style>
 

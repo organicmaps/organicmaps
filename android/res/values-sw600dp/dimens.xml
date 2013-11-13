@@ -2,6 +2,8 @@
 
     <dimen name="activity_horizontal_margin">128dp</dimen>
     <dimen name="dialog_max_height">560dp</dimen>
+    <dimen name="drawer_width">400dp</dimen>
+    <dimen name="drawer_item_height">76dp</dimen>
 
     <dimen name="dp_x_1">6dp</dimen>
     <dimen name="dp_x_2">12dp</dimen>
@@ -13,10 +15,10 @@
     <dimen name="dp_x_12">72dp</dimen>
     <dimen name="dp_x_14">84dp</dimen>
 
-    <dimen name="sp_x_1">10dp</dimen>
-    <dimen name="sp_x_2">20sp</dimen>
-    <dimen name="sp_x_3">30sp</dimen>
-    <dimen name="sp_x_4">40sp</dimen>
-    <dimen name="sp_x_5">50sp</dimen>
+    <dimen name="sp_x_1">7dp</dimen>
+    <dimen name="sp_x_2">14sp</dimen>
+    <dimen name="sp_x_3">21sp</dimen>
+    <dimen name="sp_x_4">28sp</dimen>
+    <dimen name="sp_x_5">35sp</dimen>
 
 </resources>
