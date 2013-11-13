@@ -1,6 +1,13 @@
 import os
 import sys
 
+lowPDefine = "LOW_P"
+lowPSearch = "lowp"
+mediumPDefine = "MEDIUM_P"
+mediumPSearch = "mediump"
+highPDefine = "HIGH_P"
+highPSearch = "highp"
+
 def formatOutFilePath(baseDir, fileName):
     return os.path.join(baseDir, "..", fileName)
 
@@ -87,7 +94,10 @@ def writeDefinitionFile(programIndex, defFilePath):
 def writeShader(outputFile, shaderFile, shaderDir):
     outputFile.write("  static const char %s[] = \" \\\n" % (formatShaderSourceName(shaderFile)));
     for line in open(os.path.join(shaderDir, shaderFile)):
-        outputFile.write("    %s \\\n" % (line.rstrip()))
+        outputLine = line.rstrip().replace(lowPSearch, "\" " + lowPDefine + " \"")
+        outputLine = outputLine.replace(mediumPSearch, "\" " + mediumPDefine + " \"")
+        outputLine = outputLine.replace(highPSearch, "\" " + highPDefine+ " \"")
+        outputFile.write("    %s \\\n" % (outputLine))
     outputFile.write("  \";\n\n")
 
 def writeShadersIndex(outputFile, shaderIndex):
@@ -97,7 +107,17 @@ def writeShadersIndex(outputFile, shaderIndex):
 def writeImplementationFile(programsDef, programIndex, shaderIndex, shaderDir, implFile, defFile):
     file = open(formatOutFilePath(shaderDir, implFile), 'w')
     file.write("#include \"%s\"\n\n" % (defFile))
-    file.write("#include \"../std/utility.hpp\"\n\n")
+    file.write("#include \"../std/utility.hpp\"\n\n\n")
+    file.write("#if defined(OMIM_OS_DESKTOP)\n")
+    file.write("  #define %s\n" % (lowPDefine))
+    file.write("  #define %s\n" % (mediumPDefine))
+    file.write("  #define %s\n" % (highPDefine))
+    file.write("#else\n")
+    file.write("  #define %s %s\n" % (lowPDefine, lowPSearch))
+    file.write("  #define %s %s\n" % (mediumPDefine, mediumPSearch))
+    file.write("  #define %s %s\n" % (highPDefine, highPSearch))
+    file.write("#endif\n\n")
+
     file.write("namespace gpu\n")
     file.write("{\n")
 

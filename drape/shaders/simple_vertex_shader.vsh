@@ -1,9 +1,10 @@
-attribute mediump vec2 position;
-attribute mediump float depth;
+attribute vec2 position;
+attribute float depth;
 
-uniform mediump mat4 modelViewProjectionMatrix;
+uniform mat4 modelView;
+uniform mat4 projection;
 
 void main(void)
 {
-    gl_Position = modelViewProjectionMatrix * vec4(position, depth, 1.0);
+    gl_Position = vec4(position, depth, 1.0) * modelView * projection;
 }

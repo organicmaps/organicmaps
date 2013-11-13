@@ -2,22 +2,34 @@
 
 #include "../std/utility.hpp"
 
+
+#if defined(OMIM_OS_DESKTOP)
+  #define LOW_P
+  #define MEDIUM_P
+  #define HIGH_P
+#else
+  #define LOW_P lowp
+  #define MEDIUM_P mediump
+  #define HIGH_P highp
+#endif
+
 namespace gpu
 {
   static const char SIMPLE_VERTEX_SHADER_VSH[] = " \
-    attribute mediump vec2 position; \
-    attribute mediump float depth; \
+    attribute vec2 position; \
+    attribute float depth; \
      \
-    uniform mediump mat4 modelViewProjectionMatrix; \
+    uniform mat4 modelView; \
+    uniform mat4 projection; \
      \
     void main(void) \
     { \
-        gl_Position = modelViewProjectionMatrix * vec4(position, depth, 1.0); \
+        gl_Position = vec4(position, depth, 1.0) * modelView * projection; \
     } \
   ";
 
   static const char SOLID_AREA_FRAGMENT_SHADER_FSH[] = " \
-    uniform lowp vec4 color; \
+    uniform " LOW_P " vec4 color; \
      \
     void main(void) \
     { \
@@ -27,7 +39,7 @@ namespace gpu
 
   static const char TEXTURING_FRAGMENT_SHADER_FSH[] = " \
     uniform sampler2D textureUnit; \
-    varying highp vec4 varTexCoords; \
+    varying " HIGH_P " vec4 varTexCoords; \
      \
     void main(void) \
     { \
@@ -36,13 +48,13 @@ namespace gpu
   ";
 
   static const char TEXTURING_VERTEX_SHADER_VSH[] = " \
-    attribute mediump vec2 position; \
-    attribute mediump float depth; \
-    attribute mediump vec4 texCoords; \
+    attribute " MEDIUM_P " vec2 position; \
+    attribute " MEDIUM_P " float depth; \
+    attribute " MEDIUM_P " vec4 texCoords; \
      \
-    uniform highp mat4 modelViewProjectionMatrix; \
+    uniform " HIGH_P " mat4 modelViewProjectionMatrix; \
      \
-    varying highp vec4 varTexCoords; \
+    varying " HIGH_P " vec4 varTexCoords; \
      \
     void main(void) \
     { \

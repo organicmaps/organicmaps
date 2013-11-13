@@ -18,23 +18,6 @@ struct Vertex
   float m_y;
 };
 
-struct Color
-{
-  Color() {}
-  Color(float r, float g, float b, float a)
-    : m_r(r)
-    , m_g(g)
-    , m_b(b)
-    , m_a(a)
-  {
-  }
-
-  float m_r;
-  float m_g;
-  float m_b;
-  float m_a;
-};
-
 ListGenerator::ListGenerator()
   : m_depth(0.0f)
   , m_x(0.0f)
@@ -65,19 +48,6 @@ void ListGenerator::SetProgram(uint32_t program)
 void ListGenerator::SetUniforms(const vector<UniformValue> & uniforms)
 {
   m_uniforms = uniforms;
-}
-
-namespace
-{
-  float clamp01(float value)
-  {
-    return min(max(value, 0.0f), 1.0f);
-  }
-
-  float colorChannel()
-  {
-    return clamp01((rand() % 100) / 99.0f);
-  }
 }
 
 void ListGenerator::Generate(int count, Batcher & batcher)
@@ -111,15 +81,7 @@ void ListGenerator::Generate(int count, Batcher & batcher)
     }
   }
 
-  vector<Color> colors;
-  colors.reserve(vertexCount);
-  for (int i = 0; i < vertexCount; ++i)
-    colors.push_back(Color( colorChannel()
-                          , colorChannel()
-                          , colorChannel()
-                          , colorChannel()));
-
-  AttributeProvider provider(3, vertexCount);
+  AttributeProvider provider(2, vertexCount);
   {
     BindingInfo info(1);
     BindingDecl & decl = info.GetBindingDecl(0);
@@ -141,17 +103,6 @@ void ListGenerator::Generate(int count, Batcher & batcher)
     decl.m_stride = 0;
     vector<float> depthMemory(vertexCount, m_depth);
     provider.InitStream(1, info, &depthMemory[0]);
-  }
-
-  {
-    BindingInfo info(1);
-    BindingDecl & decl = info.GetBindingDecl(0);
-    decl.m_attributeName = "color";
-    decl.m_componentCount = 4;
-    decl.m_componentType = GLConst::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-    provider.InitStream(2, info, &colors[0]);
   }
 
   TextureBinding textureBinding("", false, 0, ReferencePoiner<Texture>(NULL));

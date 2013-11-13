@@ -1,6 +1,8 @@
 #include "glwidget.hpp"
 #include "../drape/utils/list_generator.hpp"
 
+#include "../drape/shader_def.hpp"
+
 GLWidget::GLWidget()
 {
   m_batcher = new Batcher(ReferencePoiner<IBatchFlush>(this));
@@ -40,7 +42,7 @@ void GLWidget::initializeGL()
      0.0, 0.0, -1.0, 1.0
   };
 
-  uniforms.push_back(UniformValue("modelViewMatrix", model));
+  uniforms.push_back(UniformValue("modelView", model));
   float p[16] =
   {
     0.5,  0.0, 0.0, 0.0,
@@ -49,14 +51,17 @@ void GLWidget::initializeGL()
     0.0,  0.0, 0.0, 1.0
   };
 
-  uniforms.push_back(UniformValue("projectionMatrix", p));
+  uniforms.push_back(UniformValue("projection", p));
+
+  float color[4] = { 1.0, 0.0, 0.0, 1.0 };
+  uniforms.push_back(UniformValue("color", color[0], color[1], color[2], color[3]));
 
   ListGenerator gen;
   gen.SetDepth(0.5);
-  gen.SetProgram(1);
+  gen.SetProgram(gpu::SOLID_AREA_PROGRAM);
   gen.SetViewport(-1.0f, -1.0f, 2.0f, 2.0f);
   gen.SetUniforms(uniforms);
-  gen.Generate(3000, *m_batcher);
+  gen.Generate(30, *m_batcher);
 }
 
 void GLWidget::paintGL()
