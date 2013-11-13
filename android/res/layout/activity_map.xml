@@ -12,19 +12,18 @@
         <include layout="@layout/map" />
     </FrameLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/left_drawer"
         android:layout_width="@dimen/drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="#C111"
-        android:orientation="vertical"
-        android:padding="@dimen/dp_x_3" >
+        android:paddingTop="@dimen/drawer_top_padding" >
 
         <include
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             layout="@layout/drawer_main" />
-    </LinearLayout>
+    </RelativeLayout>
 
 </android.support.v4.widget.DrawerLayout>

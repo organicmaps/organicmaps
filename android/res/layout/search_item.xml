@@ -4,7 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:paddingRight="?android:attr/scrollbarSize">
+    android:padding="@dimen/dp_x_2"
+    >
 
     <com.mapswithme.maps.ArrowImage
         android:id="@+id/country_flag"

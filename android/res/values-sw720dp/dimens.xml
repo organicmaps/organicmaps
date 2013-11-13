@@ -10,6 +10,7 @@
     <dimen name="dp_x_6">48dp</dimen>
     <dimen name="dp_x_8">64dp</dimen>
     <dimen name="dp_x_10">80dp</dimen>
+    <dimen name="dp_x_12">96dp</dimen>
     <dimen name="dp_x_14">112dp</dimen>
 
     <dimen name="sp_x_1">12dp</dimen>

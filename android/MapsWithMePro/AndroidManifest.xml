@@ -165,6 +165,7 @@
         </activity>
         <activity
             android:name="com.mapswithme.maps.SearchActivity"
+            android:theme="@style/MwmSearch"
             android:configChanges="orientation|screenLayout|screenSize"
             android:label="@string/search_map"
             android:noHistory="true"

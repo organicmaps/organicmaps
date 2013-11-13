@@ -351,7 +351,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   public void onConfigurationChanged(Configuration newConfig)
   {
     super.onConfigurationChanged(newConfig);
-    alignZoomButtons();
+    alignControls();
   }
 
   private void showDialogImpl(final int dlgID, int resMsg, DialogInterface.OnClickListener okListener)
@@ -593,7 +593,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     yotaSetup();
 
-    alignZoomButtons();
+    alignControls();
 
     Framework.connectBalloonListeners(this);
 
@@ -622,6 +622,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
           onDownloadClicked();
         else if (R.id.map_button_search == id)
           onSearchClicked();
+        else if (R.id.buy_pro == id)
+          runProVersionMarketActivity();
 
         toggleDrawer();
       }
@@ -648,6 +650,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     findViewById(R.id.map_button_bookmarks).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.map_button_search).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.map_button_download).setOnClickListener(drawerItemsClickListener);
+    findViewById(R.id.buy_pro).setOnClickListener(drawerItemsClickListener);
   }
 
   private void yotaSetup()
@@ -719,13 +722,15 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     mRenderingInitialized = false;
   }
 
-  private void alignZoomButtons()
+  private void alignControls()
   {
     final View zoomPlusButton = findViewById(R.id.map_button_plus);
     final RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) zoomPlusButton.getLayoutParams();
     final int margin = (int) getResources().getDimension(R.dimen.zoom_margin);
     final int marginTop = (int) getResources().getDimension(R.dimen.zoom_plus_top_margin);
     lp.setMargins(margin, marginTop, margin, margin);
+
+    mMainDrawer.setPadding(0, (int) getResources().getDimension(R.dimen.drawer_top_padding), 0, 0);
   }
 
   /// @name From Location interface
