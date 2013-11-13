@@ -12,7 +12,6 @@ public:
   virtual ~IBatchFlush() {}
 
   virtual void FlushFullBucket(const GLState & state, OwnedPointer<VertexArrayBuffer> backet) = 0;
-  virtual void UseIncompleteBucket(const GLState & state, ReferencePoiner<VertexArrayBuffer> backet) = 0;
 };
 
 class Batcher
@@ -24,8 +23,6 @@ public:
   void InsertTriangleList(const GLState & state, ReferencePoiner<AttributeProvider> params);
   void InsertTriangleStrip(const GLState & state, ReferencePoiner<AttributeProvider> params);
   void InsertTriangleFan(const GLState & state, ReferencePoiner<AttributeProvider> params);
-
-  void RequestIncompleteBuckets();
 
 private:
   template <typename strategy>

@@ -167,12 +167,6 @@ void Batcher::InsertTriangleFan(const GLState & state, ReferencePoiner<Attribute
   InsertTriangles(state, TrianglesFanStrategy(), params);
 }
 
-void Batcher::RequestIncompleteBuckets()
-{
-  for (buckets_t::iterator it = m_buckets.begin(); it != m_buckets.end(); ++it)
-    m_flushInterface->UseIncompleteBucket(it->first, it->second.GetWeakPointer());
-}
-
 ReferencePoiner<VertexArrayBuffer> Batcher::GetBuffer(const GLState & state)
 {
   buckets_t::iterator it = m_buckets.find(state);

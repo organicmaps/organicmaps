@@ -78,8 +78,6 @@ void GLWidget::paintGL()
       }
     }
   }
-  else
-    m_batcher->RequestIncompleteBuckets();
 }
 
 void GLWidget::renderBucket(const GLState & state, ReferencePoiner<VertexArrayBuffer> bucket)
