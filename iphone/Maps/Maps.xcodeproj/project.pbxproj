@@ -2204,7 +2204,6 @@
 		29B97314FDCFA39411CA2CEA /* Maps */ = {
 			isa = PBXGroup;
 			children = (
-				ED48BBC517C3C0F9003E7E92 /* Security.framework */,
 				CB252D6816FF82C8001E41E9 /* Statistics */,
 				FA36B8011540388B004560CC /* Bookmarks */,
 				FA34BEC71338D6DB00FFB2A7 /* Common */,
@@ -2304,6 +2303,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ED48BBC517C3C0F9003E7E92 /* Security.framework */,
 				EDF924DA183380CE00539672 /* FacebookSDK.framework */,
 				ED8B1A2016772AB4003CAD0A /* MessageUI.framework */,
 				ED8B1A2016772AB4003CAD0A /* MessageUI.framework */,
