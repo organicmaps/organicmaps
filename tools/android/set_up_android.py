@@ -40,6 +40,8 @@ def replace_aapt(sdkDir, oldAaptName='aapt2'):
     buildToolsPath = os.path.join(sdkDir, 'build-tools')
     # Build tools now are in different folders for each version
     for buildToolsVersion in os.listdir(buildToolsPath):
+        if not os.path.isdir(os.path.join(buildToolsPath, buildToolsVersion)):
+            continue
         aaptPath = os.path.join(buildToolsPath, buildToolsVersion, 'aapt')
         aaptRealPath = os.path.join(buildToolsPath, buildToolsVersion, oldAaptName)
 
