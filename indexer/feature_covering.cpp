@@ -22,13 +22,13 @@ class FeatureIntersector
 public:
   struct Trg
   {
-    m2::PointD m_A, m_B, m_C;
+    m2::PointD m_a, m_b, m_c;
     Trg(m2::PointD const & a, m2::PointD const & b, m2::PointD const & c)
-      : m_A(a), m_B(b), m_C(c) {}
+      : m_a(a), m_b(b), m_c(c) {}
   };
 
-  vector<m2::PointD> m_Polyline;
-  vector<Trg> m_Trg;
+  vector<m2::PointD> m_polyline;
+  vector<Trg> m_trg;
   m2::RectD m_rect;
 
   // Note:
@@ -52,17 +52,17 @@ public:
         return CELL_OBJECT_NO_INTERSECTION;
     }
 
-    for (size_t i = 0; i < m_Trg.size(); ++i)
+    for (size_t i = 0; i < m_trg.size(); ++i)
     {
       m2::RectD r;
-      r.Add(m_Trg[i].m_A);
-      r.Add(m_Trg[i].m_B);
-      r.Add(m_Trg[i].m_C);
+      r.Add(m_trg[i].m_a);
+      r.Add(m_trg[i].m_b);
+      r.Add(m_trg[i].m_c);
       if (!cellRect.IsIntersect(r))
         continue;
 
       CellObjectIntersection const res =
-          IntersectCellWithTriangle(cell, m_Trg[i].m_A, m_Trg[i].m_B, m_Trg[i].m_C);
+          IntersectCellWithTriangle(cell, m_trg[i].m_a, m_trg[i].m_b, m_trg[i].m_c);
 
       switch (res)
       {
@@ -76,16 +76,16 @@ public:
       }
     }
 
-    for (size_t i = 1; i < m_Polyline.size(); ++i)
+    for (size_t i = 1; i < m_polyline.size(); ++i)
     {
       CellObjectIntersection const res =
-          IntersectCellWithLine(cell, m_Polyline[i], m_Polyline[i-1]);
+          IntersectCellWithLine(cell, m_polyline[i], m_polyline[i-1]);
       switch (res)
       {
       case CELL_OBJECT_NO_INTERSECTION:
         break;
       case CELL_INSIDE_OBJECT:
-        ASSERT(false, (cell, i, m_Polyline));
+        ASSERT(false, (cell, i, m_polyline));
         return CELL_OBJECT_INTERSECT;
       case CELL_OBJECT_INTERSECT:
       case OBJECT_INSIDE_CELL:
@@ -107,12 +107,12 @@ public:
 
   void operator() (pair<double, double> const & pt)
   {
-    m_Polyline.push_back(ConvertPoint(pt.first, pt.second));
+    m_polyline.push_back(ConvertPoint(pt.first, pt.second));
   }
 
   void operator() (m2::PointD const & a, m2::PointD const & b, m2::PointD const & c)
   {
-    m_Trg.push_back(Trg(ConvertPoint(a.x, a.y),
+    m_trg.push_back(Trg(ConvertPoint(a.x, a.y),
                         ConvertPoint(b.x, b.y),
                         ConvertPoint(c.x, c.y)));
   }
@@ -129,12 +129,12 @@ vector<int64_t> CoverFeature(FeatureType const & f, int cellDepth, uint64_t cell
   f.ForEachPointRef(featureIntersector, FeatureType::BEST_GEOMETRY);
   f.ForEachTriangleRef(featureIntersector, FeatureType::BEST_GEOMETRY);
 
-  CHECK(!featureIntersector.m_Trg.empty() || !featureIntersector.m_Polyline.empty(), \
+  CHECK(!featureIntersector.m_trg.empty() || !featureIntersector.m_polyline.empty(), \
         (f.DebugString(FeatureType::BEST_GEOMETRY)));
 
-  if (featureIntersector.m_Trg.empty() && featureIntersector.m_Polyline.size() == 1)
+  if (featureIntersector.m_trg.empty() && featureIntersector.m_polyline.size() == 1)
   {
-    m2::PointD pt = featureIntersector.m_Polyline[0];
+    m2::PointD const pt = featureIntersector.m_polyline[0];
     return vector<int64_t>(
           1, RectId::FromXY(static_cast<uint32_t>(pt.x), static_cast<uint32_t>(pt.y),
                             RectId::DEPTH_LEVELS - 1).ToInt64(cellDepth));
