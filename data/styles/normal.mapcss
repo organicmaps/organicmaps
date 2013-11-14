@@ -350,14 +350,6 @@ line|z11[boundary=national_park]
   z-index: 154;
   dashes: 10,2,2,2;
 }
-line|z12[railway=construction]
-{
-  color: #404040;
-  width: 0.75;
-  z-index: 215;
-  dashes: 1,1;
-  linecap: butt;
-}
 line|z12[boundary=administrative][type=nation]
 {
   color: yellow;
@@ -687,14 +679,6 @@ line|z13[boundary=administrative][admin_level=2]
   z-index: 433;
   -x-kot-layer: top;
 }
-line|z13[railway=construction]
-{
-  color: #404040;
-  width: 1.35;
-  z-index: 224;
-  dashes: 1.5,1.5;
-  linecap: butt;
-}
 line|z13[boundary=administrative][border_type=state]
 {
   color: #f9574b;
@@ -942,14 +926,6 @@ line|z14[piste:lift=t-bar]
   font-size: 12;
   text-color: #202020;
 }
-line|z14[railway=construction]::d1p3
-{
-  color: #606060;
-  width: 1.7;
-  z-index: 296;
-  dashes: 1.5,1.5,1.5,4.5;
-  linecap: butt;
-}
 area|z14-[power=generator][generator:type=photovoltaic]::d2p2,
 node|z14-[power=generator][generator:type=photovoltaic]::d2p2
 {
@@ -978,14 +954,6 @@ area|z14-[earthquake:damage=spontaneous_camp],
 node|z14-[earthquake:damage=spontaneous_camp]
 {
   icon-image: earthquakecamp.svg;
-}
-line|z14[railway=construction]
-{
-  color: #606060;
-  width: 2.4;
-  z-index: 193;
-  dashes: 1.5,1.5;
-  linecap: butt;
 }
 line|z14[railway=spur]
 {
@@ -1171,12 +1139,6 @@ line|z14[railway=disused]
   width: 1.6;
   z-index: 196;
   opacity: 0.7;
-}
-line|z14[railway=construction]::d1p2
-{
-  color: #f2f2f2;
-  width: 1.7;
-  z-index: 279;
 }
 line|z14[railway=funicular]::d1p3
 {
@@ -1983,14 +1945,6 @@ line|z15[boundary=administrative][border_type=country]::d2p2
   z-index: 693;
   dashes: 12,12;
 }
-line|z15[railway=construction]
-{
-  color: #606060;
-  width: 3.2;
-  z-index: 281;
-  dashes: 3,3;
-  linecap: butt;
-}
 line|z15[boundary=administrative][admin_level=9]
 {
   color: #f9574b;
@@ -2071,12 +2025,6 @@ line|z15-[piste:lift=platter]::d1p2
   dashes: 1,40;
   linecap: butt;
 }
-line|z15[railway=construction]::d1p2
-{
-  color: #f2f2f2;
-  width: 2;
-  z-index: 381;
-}
 line|z15[boundary=administrative][type=nation]::d2p2
 {
   color: #f9574b;
@@ -2128,14 +2076,6 @@ line|z15[boundary=administrative][border_type=municipality]
   width: 1;
   z-index: 684;
   dashes: 12,4,4,4;
-}
-line|z15[railway=construction]::d1p3
-{
-  color: #606060;
-  width: 2;
-  z-index: 397;
-  dashes: 3,3,3,9;
-  linecap: butt;
 }
 line|z15[railway=siding]
 {
@@ -2618,14 +2558,6 @@ node|z16-[amenity=fire_station]
 {
   icon-image: firebrigade.svg;
 }
-line|z16[railway=construction]::d1p3
-{
-  color: #606060;
-  width: 2.4;
-  z-index: 641;
-  dashes: 4,4,4,12;
-  linecap: butt;
-}
 
 area|z16[amenity=taxi],
 area|z17-[amenity=taxi],
@@ -2879,14 +2811,6 @@ node|z17-[amenity=police]
 {
   icon-image: police.svg;
 }
-line|z16[railway=construction]
-{
-  color: #606060;
-  width: 3.2;
-  z-index: 538;
-  dashes: 4,4;
-  linecap: butt;
-}
 line|z16[boundary=administrative][border_type=city]
 {
   color: #f9574b;
@@ -2900,12 +2824,6 @@ area|z17-[amenity=hospital],
 node|z17-[amenity=hospital]
 {
   icon-image: hospital.svg;
-}
-line|z16[railway=construction]::d1p2
-{
-  color: #f2f2f2;
-  width: 2.4;
-  z-index: 625;
 }
 node|z16-[natural=tree]
 {
@@ -3107,12 +3025,6 @@ line|z17-[railway=razed]::d1p3
   width: 2;
   z-index: 678;
   dashes: 2.4,2.4,2.4,2.4,2.4,12;
-}
-line|z17-[railway=construction]::d1p2
-{
-  color: #f2f2f2;
-  width: 2;
-  z-index: 659;
 }
 line|z17-[railway=narrow_gauge]
 {
@@ -3496,14 +3408,6 @@ line|z17-[barrier=retaining_wall]
   width: 1;
   z-index: 957;
 }
-line|z17-[railway=construction]
-{
-  color: #606060;
-  width: 3.2;
-  z-index: 561;
-  dashes: 4,4;
-  linecap: butt;
-}
 line|z17-[railway=disused]
 {
   color: grey;
@@ -3536,14 +3440,6 @@ line|z17-[barrier=city_wall]
   color: #b0b0b0;
   width: 1;
   z-index: 959;
-}
-line|z17-[railway=construction]::d1p3
-{
-  color: #606060;
-  width: 2;
-  z-index: 674;
-  dashes: 4,4,4,12;
-  linecap: butt;
 }
 line|z17-[boundary=administrative][admin_level=10]
 {

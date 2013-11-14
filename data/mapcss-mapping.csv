@@ -368,7 +368,7 @@ railway|narrow_gauge|bridge;[railway=narrow_gauge][bridge?];;name;int_name;367;
 noexit|motorcar;[noexit=motorcar];x;name;int_name;368;
 highway|service|parking_aisle|tunnel;[highway=service][service=parking_aisle][tunnel?];x;name;int_name;369;highway|service|parking_aisle
 highway|bridleway|permissive;[highway=bridleway][access=permissive];;name;int_name;370;
-railway|construction;[railway=construction];x;name;int_name;371;
+railway|construction;[railway=construction];name;int_name;371;
 highway|primary_link|junction;[highway=primary_link][junction?];x;name;int_name;372;highway|primary_link
 landuse|greenhouse_horticulture;[landuse=greenhouse_horticulture];;name;int_name;373;
 highway|primary_link|motorroad;[highway=primary_link][motorroad?];x;name;int_name;374;highway|primary_link
