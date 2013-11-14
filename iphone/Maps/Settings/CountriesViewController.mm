@@ -325,8 +325,8 @@ static bool getGuideName(string & name, storage::TIndex const & index)
         [[Statistics instance] logEvent:@"Open Guide Button" withParameters:@{@"Guide downloaded" : @"NO"}];
       }
     }
-    else if ([title hasPrefix:[NSString stringWithFormat:NSLocalizedString(@"download_mb_or_kb", nil), @""]]
-             || [title hasPrefix:[NSString stringWithFormat:NSLocalizedString(@"update_mb_or_kb", nil),@""]])
+    else if ([title rangeOfString:[NSString stringWithFormat:NSLocalizedString(@"download_mb_or_kb", nil), @""]].location != NSNotFound
+             || [title rangeOfString:[NSString stringWithFormat:NSLocalizedString(@"update_mb_or_kb", nil), @""]].location != NSNotFound)
       [self TryDownloadCountry];
     else if ([title isEqualToString:NSLocalizedString(@"cancel_download", nil)] || [title isEqualToString:NSLocalizedString(@"delete", nil)])
     {
