@@ -7,6 +7,8 @@
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "Statistics.h"
+#import "Config.h"
+#import "UIKitCategories.h"
 
 #include "Framework.h"
 
@@ -45,17 +47,12 @@ SearchVC * g_searchVC = nil;
 
 - (BOOL)isEndMarker;
 - (BOOL)isEndedNormal;
+
 @end
 
 @implementation ResultsWrapper
 
 @synthesize searchString;
-
-- (void)dealloc
-{
-  [searchString release];
-  [super dealloc];
-}
 
 - (id)initWithResults:(search::Results const &)res
 {
@@ -110,7 +107,6 @@ static void OnSearchResultCallback(search::Results const & res)
     ResultsWrapper * w = [[ResultsWrapper alloc] initWithResults:res];
     [g_searchVC performSelectorOnMainThread:@selector(addResult:)
                                  withObject:w waitUntilDone:NO];
-    [w release];
   }
 }
 
@@ -148,7 +144,7 @@ static void OnSearchResultCallback(search::Results const & res)
                        @"post",
                        @"police",
                        nil];
-      _searchResults = [[NSMutableArray alloc] initWithObjects:[[[ResultsWrapper alloc] init]autorelease],[[[ResultsWrapper alloc] init]autorelease], [[[ResultsWrapper alloc] init]autorelease], nil];
+      _searchResults = [[NSMutableArray alloc] initWithObjects:[[ResultsWrapper alloc] init], [[ResultsWrapper alloc] init], [[ResultsWrapper alloc] init], nil];
       if (!g_lastSearchRequest)
       {
           g_lastSearchRequest = @"";
@@ -171,46 +167,71 @@ static void OnSearchResultCallback(search::Results const & res)
     params.SetPosition(lat, lon);
 }
 
-- (void)loadView
-{
-    m_searchBar = [[UISearchBar alloc] init];
-    [m_searchBar sizeToFit];
-    m_searchBar.showsScopeBar = YES;
-    m_searchBar.showsCancelButton = YES;
-    // restore previous search query
-    
-    if (g_lastSearchRequest)
-      [m_searchBar setText:g_lastSearchRequest];
-    m_searchBar.delegate = self;
-    m_searchBar.placeholder = NSLocalizedString(@"search_map", @"Search box placeholder text");
 
-    m_table = [[UITableView alloc] init];
-    m_table.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    m_table.delegate = self;
-    m_table.dataSource = self;
-    
-    [m_searchBar setScopeButtonTitles:[NSArray arrayWithObjects:
-                                              NSLocalizedString(@"search_mode_nearme", nil),
-                                              NSLocalizedString(@"search_mode_viewport", nil),
-                                              NSLocalizedString(@"search_mode_all", nil), nil]];
-    [self setSearchBarHeight];
-    [m_table setTableHeaderView:m_searchBar];
-    self.view = m_table;
+
+- (UISearchBar *)searchBar
+{
+  if (!_searchBar)
+  {
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.width - 80, 44)];
+    _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _searchBar.delegate = self;
+    _searchBar.placeholder = NSLocalizedString(@"search_map", @"Search box placeholder text");
+    _searchBar.barStyle = UISearchBarStyleDefault;
+    _searchBar.tintColor = [[UINavigationBar appearance] tintColor];
+
+    if (g_lastSearchRequest)
+      [_searchBar setText:g_lastSearchRequest];
+  }
+  return _searchBar;
 }
 
-- (void)dealloc
+- (ScopeView *)scopeView
 {
-  g_searchVC = nil;
-  [m_searchBar release];
-  [m_table release];
-  [categoriesNames release];
-  [_searchResults release];
-  [super dealloc];
+  if (!_scopeView)
+  {
+    UISegmentedControl * segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"search_mode_nearme", nil),
+                                                                                       NSLocalizedString(@"search_mode_viewport", nil),
+                                                                                       NSLocalizedString(@"search_mode_all", nil)]];
+    CGFloat width = IPAD ? 400 : 310;
+    segmentedControl.frame = CGRectMake(0, 0, width, 32);
+    if (SYSTEM_VERSION_IS_LESS_THAN(@"7"))
+      segmentedControl.tintColor = [[UINavigationBar appearance] tintColor];
+    else
+      segmentedControl.tintColor = [UIColor whiteColor];
+    segmentedControl.selectedSegmentIndex = GetDefaultSearchScope();
+    segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+    [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+    _scopeView = [[ScopeView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44) segmentedControl:segmentedControl];
+    _scopeView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _scopeView.backgroundColor = [[UINavigationBar appearance] tintColor];
+  }
+  return _scopeView;
+}
+
+- (void)segmentedControlValueChanged:(UISegmentedControl *)segmentedControl
+{
+  g_scopeSection = segmentedControl.selectedSegmentIndex;
+  // Save selected search mode for future launches
+  Settings::Set(SEARCH_MODE_SETTING, g_scopeSection);
+  [self proceedSearchWithString:self.searchBar.text andForceSearch:YES];
 }
 
 - (void)viewDidLoad
 {
   g_searchVC = self;
+
+  m_table = [[UITableView alloc] initWithFrame:self.view.bounds];
+  m_table.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  m_table.delegate = self;
+  m_table.dataSource = self;
+  m_table.contentInset = UIEdgeInsetsMake(self.scopeView.height, 0, 0, 0);
+  m_table.scrollIndicatorInsets = m_table.contentInset;
+
+  [self.view addSubview:m_table];
+  [self.view addSubview:self.scopeView];
+
+  self.navigationItem.titleView = self.searchBar;
 }
 
 // Banner dialog handler
@@ -226,7 +247,7 @@ static void OnSearchResultCallback(search::Results const & res)
     [[Statistics instance] logProposalReason:@"Search Screen" withAnswer:@"NO"];
 
   // Close view
-  [self dismissModalViewControllerAnimated:YES];
+  [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -242,16 +263,30 @@ static void OnSearchResultCallback(search::Results const & res)
                                     otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
 
     [alert show];
-    [alert release];
   }
   else
   {
     [m_locationManager start:self];
     // show keyboard
-    [m_searchBar becomeFirstResponder];
-     m_searchBar.selectedScopeButtonIndex = g_scopeSection;
+    [self.searchBar becomeFirstResponder];
   }
   [super viewWillAppear:animated];
+
+  [self performAfterDelay:0 block:^{
+    [self resizeNavigationBar];
+  }];
+}
+
+- (void)resizeNavigationBar
+{
+  CGFloat landscapeHeight = 32;
+  CGFloat portraitHeight = 44;
+  self.navigationController.navigationBar.height = portraitHeight;
+  if (UIDeviceOrientationIsLandscape(self.interfaceOrientation))
+    m_table.minY = portraitHeight - landscapeHeight;
+  else
+    m_table.minY = 0;
+  self.scopeView.minY = m_table.minY;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -262,14 +297,20 @@ static void OnSearchResultCallback(search::Results const & res)
     [self proceedSearchWithString:g_lastSearchRequest andForceSearch:YES];
 }
 
+
 - (void)viewWillDisappear:(BOOL)animated
 {
   [m_locationManager stop:self];
   
   // hide keyboard immediately
-  [m_searchBar resignFirstResponder];
+  [self.searchBar resignFirstResponder];
   [super viewWillDisappear:animated];
   g_numberOfRowsInEmptySearch = 0;
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)orientation  duration:(NSTimeInterval)duration
+{
+  [self resizeNavigationBar];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -281,37 +322,36 @@ static void OnSearchResultCallback(search::Results const & res)
 //*********** SearchBar handlers *******************************************
 - (void)searchBar:(UISearchBar *)sender textDidChange:(NSString *)searchText
 {
-  [g_lastSearchRequest release];
-  g_lastSearchRequest = [[NSString alloc] initWithString:m_searchBar.text];
+  g_lastSearchRequest = [[NSString alloc] initWithString:self.searchBar.text];
   [self clearCacheResults];
-  [self proceedSearchWithString:m_searchBar.text andForceSearch:YES];
+  [self proceedSearchWithString:self.searchBar.text andForceSearch:YES];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+  [searchBar resignFirstResponder];
 }
 
 - (void)onCloseButton:(id)sender
 {
-  [self dismissModalViewControllerAnimated:YES];
+  [self.navigationController popToRootViewControllerAnimated:YES];
 }
 //*********** End of SearchBar handlers *************************************
 //***************************************************************************
 
 - (void)setSearchBoxText:(NSString *)text
 {
-  m_searchBar.text = text;
+  self.searchBar.text = text;
   // Manually send text change notification if control has no focus,
   // OR if iOS 6 - it doesn't send textDidChange notification after text property update
-  if (![m_searchBar isFirstResponder]
+  if (![self.searchBar isFirstResponder]
       || [UIDevice currentDevice].systemVersion.floatValue > 5.999)
-    [self searchBar:m_searchBar textDidChange:text];
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-  return 1;
+    [self searchBar:self.searchBar textDidChange:text];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  m_suggestionsCount = m_searchBar.text.length ? 0 : 1;
+  m_suggestionsCount = self.searchBar.text.length ? 0 : 1;
   //No text in search show categories
   if (m_suggestionsCount)
   {
@@ -335,7 +375,7 @@ static void OnSearchResultCallback(search::Results const & res)
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell)
     {
-      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
 
     cell.textLabel.text =  NSLocalizedString([categoriesNames objectAtIndex:indexPath.row], nil);
@@ -344,12 +384,12 @@ static void OnSearchResultCallback(search::Results const & res)
     return cell;
   }
   //No search results
-  if ([m_searchBar.text length] != 0 && ![[_searchResults objectAtIndex:g_scopeSection] getCount] && g_numberOfRowsInEmptySearch)
+  if ([self.searchBar.text length] != 0 && ![[_searchResults objectAtIndex:g_scopeSection] getCount] && g_numberOfRowsInEmptySearch)
   {      
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"NoResultsCell"];
     if (!cell)
     {
-      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"NoResultsCell"] autorelease];
+      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"NoResultsCell"];
       cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.textLabel.text = NSLocalizedString(@"no_search_results_found", nil);
@@ -373,7 +413,7 @@ static void OnSearchResultCallback(search::Results const & res)
   {
       SearchCell * cell = (SearchCell *)[tableView dequeueReusableCellWithIdentifier:@"FeatureCell"];
       if (!cell)
-        cell = [[[SearchCell alloc] initWithReuseIdentifier:@"FeatureCell"] autorelease];
+        cell = [[SearchCell alloc] initWithReuseIdentifier:@"FeatureCell"];
 
       // Init common parameters
       cell.featureName.text = [NSString stringWithUTF8String:r.GetString()];
@@ -407,7 +447,7 @@ static void OnSearchResultCallback(search::Results const & res)
       if (flag && azimut < 0.0)
       {
         UIImage * flagImage = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", flag]];
-        UIImageView * imgView = [[[UIImageView alloc] initWithImage:flagImage] autorelease];
+        UIImageView * imgView = [[UIImageView alloc] initWithImage:flagImage];
         cell.accessoryView = imgView;
       }
       else
@@ -422,7 +462,6 @@ static void OnSearchResultCallback(search::Results const & res)
           float const h = (int)(m_table.rowHeight * 0.6);
           compass = [[CompassView alloc] initWithFrame:CGRectMake(0, 0, h, h)];
           cell.accessoryView = compass;
-          [compass release];
         }
 
         // Show arrow for valid azimut and if feature is not a continent (flag is exist)
@@ -435,7 +474,7 @@ static void OnSearchResultCallback(search::Results const & res)
   {
       UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"SuggestionCell"];
       if (!cell)
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SuggestionCell"] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SuggestionCell"];
       cell.textLabel.text = [NSString stringWithUTF8String:r.GetString()];
       return cell;
   }
@@ -533,13 +572,13 @@ void setSearchType(search::SearchParams & params)
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
   // Refresh search results with newer location.
-  if (![m_searchBar.text length])
+  if (![self.searchBar.text length])
       return;
   search::SearchParams params;
   setSearchType(params);
-  if (m_searchBar.text)
+  if (self.searchBar.text)
   {
-    [self fillSearchParams:params withText:m_searchBar.text];
+    [self fillSearchParams:params withText:self.searchBar.text];
     
     // hack, fillSearch Params return invalid position
     params.SetPosition(info.m_latitude, info.m_longitude);
@@ -583,37 +622,19 @@ void setSearchType(search::SearchParams & params)
 // Dismiss virtual keyboard when touching tableview
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-  [m_searchBar resignFirstResponder];
-  [self enableCancelButton];
+  [self.searchBar resignFirstResponder];
 }
 
 // Dismiss virtual keyboard when "Search" button is pressed
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-  [m_searchBar resignFirstResponder];
-  [self enableCancelButton];
+  [self.searchBar resignFirstResponder];
 }
 
 // Callback from suggestion cell, called when icon is selected
 - (void)onSuggestionSelected:(NSString *)suggestion
 {
   [self setSearchBoxText:[suggestion stringByAppendingString:@" "]];
-}
-
-//segmentedControl delegate
-- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
-{
-  g_scopeSection = selectedScope;
-  // Save selected search mode for future launches
-  Settings::Set(SEARCH_MODE_SETTING, g_scopeSection);
-  [self proceedSearchWithString:m_searchBar.text andForceSearch:YES];
-}
-
--(void)setSearchBarHeight
-{
-  CGRect r = m_searchBar.frame;
-  r.size.height *= 2;
-  [m_searchBar setFrame:r];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
@@ -625,7 +646,7 @@ void setSearchType(search::SearchParams & params)
 {
   for (int i = 0; i < [_searchResults count]; ++i)
   {
-    [_searchResults replaceObjectAtIndex:i withObject:[[[ResultsWrapper alloc] init] autorelease]];
+    [_searchResults replaceObjectAtIndex:i withObject:[[ResultsWrapper alloc] init]];
   }
 }
 
@@ -646,19 +667,6 @@ void setSearchType(search::SearchParams & params)
   {
     g_numberOfRowsInEmptySearch = 1;
     [m_table reloadData];
-  }
-}
-
--(void)enableCancelButton
-{
-  for (UIView *v in m_searchBar.subviews)
-  {
-    if ([v isKindOfClass:[UIButton class]])
-    {
-      UIButton *cancelButton = (UIButton*)v;
-      cancelButton.enabled = YES;
-      break;
-    }
   }
 }
 
