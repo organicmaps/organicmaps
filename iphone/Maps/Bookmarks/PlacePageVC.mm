@@ -357,7 +357,6 @@ typedef enum {Editing, Saved} Mode;
 -(void)save
 {
   [self.view endEditing:YES];
-  m_mode = Saved;
   [self savePin];
   [self goToTheMap];
   GetFramework().GetBalloonManager().Hide();
