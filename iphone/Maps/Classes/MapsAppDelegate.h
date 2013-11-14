@@ -1,16 +1,17 @@
 #import <UIKit/UIKit.h>
+#import "NavigationController.h"
 
 @class MapViewController;
 @class SettingsManager;
 @class LocationManager;
 
-@interface MapsAppDelegate : NSObject <UIApplicationDelegate, UIAlertViewDelegate, UINavigationControllerDelegate>
+@interface MapsAppDelegate : NSObject <UIApplicationDelegate, UIAlertViewDelegate>
 {
   SettingsManager * m_settingsManager;
   NSInteger m_standbyCounter;
   NSInteger m_activeDownloadsCounter;
   UIBackgroundTaskIdentifier m_backgroundTask;
-  UINavigationController * m_navController;
+  NavigationController * m_navController;
   UIWindow * m_window;
   UIAlertView * m_loadingAlertView;
   BOOL m_didOpenedWithUrl;

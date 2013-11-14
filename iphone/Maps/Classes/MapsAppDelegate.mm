@@ -7,6 +7,7 @@
 #import "AarkiContact.h"
 #import <MobileAppTracker/MobileAppTracker.h>
 #import "Config.h"
+#import "UIKitCategories.h"
 
 #include <sys/xattr.h>
 
@@ -168,10 +169,30 @@ void InitLocalizedStrings()
 //  NSLog(@"applicationDidReceiveMemoryWarning");
 //}
 
+- (void)customizeAppearance
+{
+  NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
+  attributes[UITextAttributeTextColor] = [UIColor whiteColor];
+  attributes[UITextAttributeTextShadowColor] = [UIColor clearColor];
+  if (SYSTEM_VERSION_IS_LESS_THAN(@"7")) {
+    //[[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bar-back-6"] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithColorCode:@"393655"]];
+  } else {
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bar-back-7"] forBarMetrics:UIBarMetricsDefault];
+    attributes[UITextAttributeFont] = [UIFont fontWithName:@"HelveticaNeue" size:17.5];
+    [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
+  }
+  [[UINavigationBar appearance] setTitleTextAttributes:attributes];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSLog(@"application didFinishLaunchingWithOptions");
-  [[Statistics instance] startSession];
+  bool statisticsEnabled;
+  if (!Settings::Get("StatisticsEnabled", statisticsEnabled))
+    statisticsEnabled = true;
+  if (statisticsEnabled)
+    [[Statistics instance] startSession];
 
   InitLocalizedStrings();
 
@@ -180,9 +201,8 @@ void InitLocalizedStrings()
   [Preferences setup:m_mapViewController];
   m_locationManager = [[LocationManager alloc] init];
 
-  m_navController = [[UINavigationController alloc] initWithRootViewController:m_mapViewController];
+  m_navController = [[NavigationController alloc] initWithRootViewController:m_mapViewController];
   m_navController.navigationBarHidden = YES;
-  m_navController.delegate = self;
   m_window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   m_window.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   m_window.clearsContextBeforeDrawing = NO;
@@ -201,6 +221,8 @@ void InitLocalizedStrings()
   }
 
   [self subscribeToStorage];
+
+  [self customizeAppearance];
 
   NSString * advertiserId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MobileAppTrackerAdvertiserId"];
   NSString * conversionKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MobileAppTrackerConversionKey"];
@@ -324,16 +346,8 @@ void InitLocalizedStrings()
 -(void)showMap
 {
   [m_navController popToRootViewControllerAnimated:YES];
+  [m_mapViewController.sideToolbar setMenuHidden:YES animated:NO];
   [m_mapViewController dismissPopover];
-  if (![m_navController.visibleViewController isMemberOfClass:NSClassFromString(@"MapViewController")])
-    [m_mapViewController dismissModalViewControllerAnimated:YES];
-  [m_navController setNavigationBarHidden:YES animated:YES];
-}
-
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-  if ([viewController isMemberOfClass:NSClassFromString(@"MapViewController")] && ![m_mapViewController shouldShowNavBar])
-    [m_navController setNavigationBarHidden:YES animated:YES];
 }
 
 -(void)subscribeToStorage
