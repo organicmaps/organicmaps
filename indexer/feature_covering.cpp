@@ -29,6 +29,7 @@ public:
 
   vector<m2::PointD> m_Polyline;
   vector<Trg> m_Trg;
+  m2::RectD m_rect;
 
   // Note:
   // 1. Here we don't need to differentiate between CELL_OBJECT_INTERSECT and OBJECT_INSIDE_CELL.
@@ -36,46 +37,72 @@ public:
   //    a performance penalty.
   covering::CellObjectIntersection operator() (RectId const & cell) const
   {
+    using namespace covering;
+
+    m2::RectD cellRect;
+    {
+      // Check for limit rect intersection.
+      pair<uint32_t, uint32_t> const xy = cell.XY();
+      uint32_t const r = cell.Radius();
+      ASSERT_GREATER_OR_EQUAL(xy.first, r, ());
+      ASSERT_GREATER_OR_EQUAL(xy.second, r, ());
+
+      cellRect = m2::RectD(xy.first - r, xy.second - r, xy.first + r, xy.second + r);
+      if (!cellRect.IsIntersect(m_rect))
+        return CELL_OBJECT_NO_INTERSECTION;
+    }
+
     for (size_t i = 0; i < m_Trg.size(); ++i)
     {
-      covering::CellObjectIntersection const res =
-          covering::IntersectCellWithTriangle(cell, m_Trg[i].m_A, m_Trg[i].m_B, m_Trg[i].m_C);
+      m2::RectD r;
+      r.Add(m_Trg[i].m_A);
+      r.Add(m_Trg[i].m_B);
+      r.Add(m_Trg[i].m_C);
+      if (!cellRect.IsIntersect(r))
+        continue;
+
+      CellObjectIntersection const res =
+          IntersectCellWithTriangle(cell, m_Trg[i].m_A, m_Trg[i].m_B, m_Trg[i].m_C);
+
       switch (res)
       {
-      case covering::CELL_OBJECT_NO_INTERSECTION:
+      case CELL_OBJECT_NO_INTERSECTION:
         break;
-      case covering::CELL_INSIDE_OBJECT:
-        return covering::CELL_INSIDE_OBJECT;
-      case covering::CELL_OBJECT_INTERSECT:
-      case covering::OBJECT_INSIDE_CELL:
-        return covering::CELL_OBJECT_INTERSECT;
+      case CELL_INSIDE_OBJECT:
+        return CELL_INSIDE_OBJECT;
+      case CELL_OBJECT_INTERSECT:
+      case OBJECT_INSIDE_CELL:
+        return CELL_OBJECT_INTERSECT;
       }
     }
+
     for (size_t i = 1; i < m_Polyline.size(); ++i)
     {
-      covering::CellObjectIntersection const res =
-          covering::IntersectCellWithLine(cell, m_Polyline[i], m_Polyline[i-1]);
+      CellObjectIntersection const res =
+          IntersectCellWithLine(cell, m_Polyline[i], m_Polyline[i-1]);
       switch (res)
       {
-      case covering::CELL_OBJECT_NO_INTERSECTION:
+      case CELL_OBJECT_NO_INTERSECTION:
         break;
-      case covering::CELL_INSIDE_OBJECT:
+      case CELL_INSIDE_OBJECT:
         ASSERT(false, (cell, i, m_Polyline));
-        return covering::CELL_OBJECT_INTERSECT;
-      case covering::CELL_OBJECT_INTERSECT:
-      case covering::OBJECT_INSIDE_CELL:
-        return covering::CELL_OBJECT_INTERSECT;
+        return CELL_OBJECT_INTERSECT;
+      case CELL_OBJECT_INTERSECT:
+      case OBJECT_INSIDE_CELL:
+        return CELL_OBJECT_INTERSECT;
       }
     }
-    return covering::CELL_OBJECT_NO_INTERSECTION;
+
+    return CELL_OBJECT_NO_INTERSECTION;
   }
 
   typedef CellIdConverter<MercatorBounds, RectId> CellIdConverterType;
 
-  static m2::PointD ConvertPoint(double x, double y)
+  m2::PointD ConvertPoint(double x, double y)
   {
-    return m2::PointD(CellIdConverterType::XToCellIdX(x),
-                      CellIdConverterType::YToCellIdY(y));
+    m2::PointD pt(CellIdConverterType::XToCellIdX(x), CellIdConverterType::YToCellIdY(y));
+    m_rect.Add(pt);
+    return pt;
   }
 
   void operator() (pair<double, double> const & pt)
