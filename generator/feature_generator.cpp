@@ -264,6 +264,20 @@ class MainFeaturesEmitter
 
   string m_srcCoastsFile;
   uint32_t m_coastType;
+  vector<uint32_t> m_islandTypes;
+
+  // Treat islands as coastlines, because they don't have fill area draw style.
+  bool IsIsland(FeatureBuilder1 const & fb) const
+  {
+    if (!fb.IsGeometryClosed())
+      return false;
+
+    for (size_t i = 0; i < m_islandTypes.size(); ++i)
+      if (fb.HasType(m_islandTypes[i]))
+        return true;
+
+    return false;
+  }
 
   template <class T1, class T2> class CombinedEmitter
   {
@@ -281,7 +295,8 @@ class MainFeaturesEmitter
 public:
   MainFeaturesEmitter(GenerateInfo const & info)
   {
-    m_coastType = classif().GetCoastType();
+    Classificator const & c = classif();
+    m_coastType = c.GetCoastType();
 
     m_srcCoastsFile = info.m_tmpDir + WORLD_COASTS_FILE_NAME + info.m_datFileSuffix;
 
@@ -297,6 +312,14 @@ public:
     }
     else
     {
+      char const * arr[][2] = {
+        { "place", "island" },
+        { "place", "islet" }
+      };
+
+      for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+        m_islandTypes.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2)));
+
       // 4-10 - level range for cells
       // 20000 - max points count per feature
       m_coasts.reset(new CoastlineFeaturesGenerator(m_coastType, 4, 10, 20000));
@@ -314,7 +337,7 @@ public:
   {
     if (m_coasts)
     {
-      if (fb.HasType(m_coastType))
+      if (fb.HasType(m_coastType) || IsIsland(fb))
       {
         CHECK ( fb.GetGeomType() != feature::GEOM_POINT, () );
 
