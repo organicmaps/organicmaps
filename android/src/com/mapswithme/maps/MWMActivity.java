@@ -19,6 +19,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -31,6 +32,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup.MarginLayoutParams;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -39,21 +41,24 @@ import android.widget.Toast;
 
 import com.mapswithme.country.DownloadUI;
 import com.mapswithme.maps.Framework.OnBalloonListener;
+import com.mapswithme.maps.MapObjectFragment.MapObjectType;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
+import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.promo.ActivationSettings;
 import com.mapswithme.maps.promo.PromocodeActivationDialog;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.Statistics;
 import com.nvidia.devtech.NvEventQueueActivity;
 
-public class MWMActivity extends NvEventQueueActivity implements LocationService.Listener, OnBalloonListener
+public class MWMActivity extends NvEventQueueActivity implements LocationService.Listener, OnBalloonListener, DrawerListener
 {
   private final static String TAG = "MWMActivity";
   public static final String EXTRA_TASK = "map_task";
@@ -624,6 +629,44 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
           onSearchClicked();
         else if (R.id.buy_pro == id)
           runProVersionMarketActivity();
+        else if (R.id.map_button_share_myposition == id)
+        {
+          final Location loc = MWMApplication.get().getLocationService().getLastKnown();
+          final MapObject myPosition = new MapObject()
+          {
+            @Override
+            public MapObjectType getType()
+            {
+              return MapObjectType.MY_POSITION;
+            }
+
+            @Override
+            public double getScale()
+            {
+              return Framework.getDrawScale();
+            }
+
+            @Override
+            public String getName()
+            {
+              return getString(R.string.my_position);
+            }
+
+            @Override
+            public double getLon()
+            {
+              return loc.getLongitude();
+            }
+
+            @Override
+            public double getLat()
+            {
+              // TODO Auto-generated method stub
+              return loc.getLatitude();
+            }
+          };
+          ShareAction.getAnyShare().shareMapObject(MWMActivity.this, myPosition);
+        }
 
         toggleDrawer();
       }
@@ -631,6 +674,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
 
     mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+    mDrawerLayout.setDrawerListener(this);
+
     mMainDrawer = findViewById(R.id.left_drawer);
     mDrawerLayout.setOnTouchListener(new OnTouchListener()
     {
@@ -650,6 +695,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     findViewById(R.id.map_button_bookmarks).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.map_button_search).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.map_button_download).setOnClickListener(drawerItemsClickListener);
+    findViewById(R.id.map_button_share_myposition).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.buy_pro).setOnClickListener(drawerItemsClickListener);
   }
 
@@ -1277,5 +1323,27 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private native boolean nativeIsInChina(double lat, double lon);
 
   public native boolean showMapForUrl(String url);
+
+  @Override
+  public void onDrawerClosed(View arg0)
+  {
+  }
+
+  @Override
+  public void onDrawerOpened(View arg0)
+  {
+  }
+
+  @Override
+  public void onDrawerSlide(View arg0, float arg1)
+  {
+  }
+
+  @Override
+  public void onDrawerStateChanged(int arg0)
+  {
+    final Button shareButton = (Button) findViewById(R.id.map_button_share_myposition);
+    shareButton.setEnabled(mApplication.getLocationService().getLastKnown() != null);
+  }
 }
 //

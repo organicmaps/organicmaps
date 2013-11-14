@@ -59,6 +59,15 @@
                 android:text="@string/about" />
 
             <View style="@style/drawerSeparator" />
+
+            <Button
+                android:id="@+id/map_button_share_myposition"
+                style="@style/Widget.MapButtonDrawer"
+                android:contentDescription="@string/about"
+                android:drawableLeft="@drawable/share"
+                android:text="@string/share" />
+
+            <View style="@style/drawerSeparator" />
         </LinearLayout>
     </ScrollView>
 
