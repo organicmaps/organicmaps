@@ -14,6 +14,7 @@ VertexArrayBuffer::VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBuff
 
 VertexArrayBuffer::~VertexArrayBuffer()
 {
+  m_indexBuffer.Destroy();
   buffers_map_t::iterator it = m_buffers.begin();
   for (; it != m_buffers.end(); ++it)
     it->second.Destroy();
