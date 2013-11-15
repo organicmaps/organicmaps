@@ -78,6 +78,7 @@ int main(int argc, char * argv[])
     {
       // Run the test.
       pTest->m_Fn();
+      emul::GLMockFunctions::ValidateAndClear();
 
       if (g_bLastTestOK)
       {
