@@ -4514,9 +4514,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "Simulator Lite";
@@ -4614,7 +4613,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -4622,9 +4621,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "Production Lite";
@@ -4677,7 +4675,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -4685,9 +4683,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "Debug Lite";
@@ -4744,7 +4741,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -4752,9 +4749,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "AdHoc Lite";
@@ -4807,7 +4803,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -4815,9 +4811,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "Simulator Full";
@@ -4870,7 +4865,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -4878,9 +4873,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "Debug Full";
@@ -4937,7 +4931,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -4945,9 +4939,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "AdHoc Full";
@@ -5004,7 +4997,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5012,9 +5005,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "Production Full";
@@ -5070,7 +5062,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5078,9 +5070,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "Release Lite";
@@ -5136,7 +5127,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5144,9 +5135,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "Release Full";
@@ -5202,7 +5192,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5210,9 +5200,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "Simulator Full Release";
@@ -5224,7 +5213,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5232,9 +5221,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "Simulator Full Release";
@@ -5246,7 +5234,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5254,9 +5242,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "Simulator Lite";
@@ -5268,7 +5255,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5276,9 +5263,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "Simulator Full";
@@ -5290,7 +5276,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5298,9 +5284,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "Debug Lite";
@@ -5312,7 +5297,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5320,9 +5305,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "Debug Full";
@@ -5334,7 +5318,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5342,9 +5326,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "AdHoc Lite";
@@ -5356,7 +5339,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5364,9 +5347,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "Release Lite";
@@ -5378,7 +5360,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5386,9 +5368,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "AdHoc Full";
@@ -5400,7 +5381,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5408,9 +5389,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "Release Full";
@@ -5422,7 +5402,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5430,9 +5410,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "Production Lite";
@@ -5444,7 +5423,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(SRCROOT)/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5452,9 +5431,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
-					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
 				);
 			};
 			name = "Production Full";
