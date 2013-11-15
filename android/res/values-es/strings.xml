@@ -59,7 +59,7 @@
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">Por favor, permite los servicios de localización</string>
 	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">No hay espacio suficiente para realizar la descarga</string>
+	<string name="free_disk_space_for_country_x">No hay espacio suficiente para realizar la descarga %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">Recordarme mas tarde</string>
 	<!-- Update maps later/Buy pro version later button text -->

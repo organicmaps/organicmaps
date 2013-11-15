@@ -490,8 +490,8 @@
     en = Please free some space on your device first in order to download %@
     comment = Settings/Downloader - No free space dialog message
     cs = Prosím, uvolni nějaké místo v tvém zařízení, než začneš stahovat %@
-    de = Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um den Download durchführen zu können.
-    es = No hay espacio suficiente para realizar la descarga
+    de = Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um den Download %@ durchführen zu können.
+    es = No hay espacio suficiente para realizar la descarga %@
     fr = Veuillez libérer un peu de place sur votre appareil pour télécharger %@
     it = Cortesemente libera spazio sul tuo dispositivo prima per poter scaricare %@
     ja = %@をダウンロードするため、デバイスの空き容量を確認してください

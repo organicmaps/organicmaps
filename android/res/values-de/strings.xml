@@ -61,7 +61,7 @@
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">Aktivieren Sie bitte Ortungsdienste in den Einstellungen Ihres Geräts</string>
 	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um den Download durchführen zu können.</string>
+	<string name="free_disk_space_for_country_x">Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um den Download %s durchführen zu können.</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">Errinern Sie mich später</string>
 	<!-- Update maps later/Buy pro version later button text -->

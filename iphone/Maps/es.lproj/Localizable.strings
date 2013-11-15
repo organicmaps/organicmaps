@@ -103,7 +103,7 @@
 "enable_location_services" = "Por favor, permite los servicios de localización";
 
 /* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "No hay espacio suficiente para realizar la descarga";
+"free_disk_space_for_country_x" = "No hay espacio suficiente para realizar la descarga %@";
 
 /* Leave Review dialog - Not now button (remind me later) */
 "remind_me_later" = "Recordarme mas tarde";
