@@ -21,7 +21,6 @@ public:
   uint16_t GetAvailableSize() const;
 
   void Bind();
-  void Unbind();
 
 private:
   Target m_t;
