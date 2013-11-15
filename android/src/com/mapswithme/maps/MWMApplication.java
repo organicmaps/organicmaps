@@ -24,6 +24,10 @@ import com.mapswithme.maps.state.AppStateManager;
 import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.FbUtil;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.SimpleLogger;
+import com.mapswithme.util.log.StubLogger;
+import com.mobileapptracker.MobileAppTracker;
 
 
 public class MWMApplication extends android.app.Application implements MapStorage.Listener
@@ -313,5 +317,44 @@ public class MWMApplication extends android.app.Application implements MapStorag
   public void onMwmStart(Context context)
   {
     FbUtil.activate(context);
+
+
+    //{@ TRACKERS
+    final boolean DEBUG = false;
+    final Logger logger = DEBUG ? SimpleLogger.get("MAT") : StubLogger.get();
+
+
+    final long DELTA = 60*1000;
+    final File mwmDir = new File(getDataStoragePath());
+    final boolean isNewUser = mwmDir.exists()
+        ?  (System.currentTimeMillis() - mwmDir.lastModified()) < DELTA
+            : true;
+
+    final String advId = getString(R.string.advertiser_id);
+    final String convKey = getString(R.string.conversion_key);
+    final boolean doTrack = !"FALSE".equalsIgnoreCase(advId);
+    if (doTrack)
+    {
+      final MobileAppTracker mat = new MobileAppTracker(this, advId, convKey);
+
+      if (DEBUG)
+      {
+        mat.setDebugMode(true);
+        mat.setAllowDuplicates(true);
+      }
+
+      if (isNewUser)
+      {
+        mat.trackInstall();
+        logger.d("MAT", "TRACK INSTALL");
+      }
+      else
+      {
+        mat.trackUpdate();
+        logger.d("MAT", "TRACK UPDATE");
+      }
+    }
+    //{@ trackers
+
   }
 }
