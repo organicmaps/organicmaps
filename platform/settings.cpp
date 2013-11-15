@@ -17,6 +17,8 @@
 #include "../std/iostream.hpp"
 
 
+#define FIRST_LAUNCH_KEY "FirstLaunchOnDate"
+
 static char const DELIM_CHAR = '=';
 
 namespace Settings
@@ -317,14 +319,19 @@ namespace Settings
 
   bool IsFirstLaunchForDate(int date)
   {
-    char const * key = "FirstLaunchOnDate";
     int savedDate;
-    if (!Get(key, savedDate) || savedDate < date)
+    if (!Get(FIRST_LAUNCH_KEY, savedDate) || savedDate < date)
     {
-      Set(key, date);
+      Set(FIRST_LAUNCH_KEY, date);
       return true;
     }
     else
       return false;
+  }
+
+  bool IsFirstLaunch()
+  {
+    int unused;
+    return !Get(FIRST_LAUNCH_KEY, unused);
   }
 }
