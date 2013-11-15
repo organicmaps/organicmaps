@@ -88,7 +88,6 @@ public class Framework
   private static native void nativeShowTrackRect(int category, int track);
 
   public native static GuideInfo getGuideInfoForIndex(Index idx);
-  public native static GuideInfo[] getGuideInfosForDownloadedMaps();
   public native static void        setWasAdvertised(String appId);
   public native static boolean     wasAdvertised(String appId);
 

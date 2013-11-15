@@ -256,9 +256,6 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
 
   public void showMapView()
   {
-    tryAdvertiseGuides();
-
-
     // Continue with Main UI initialization (MWMActivity)
     final Intent mwmActivityIntent = new Intent(this, MWMActivity.class);
 
@@ -276,30 +273,6 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     startActivity(mwmActivityIntent);
 
     finish();
-  }
-
-  private void tryAdvertiseGuides()
-  {
-    if (!Utils.hasAnyGoogleStoreInstalled())
-      return;
-
-    final GuideInfo[] gInfos = Framework.getGuideInfosForDownloadedMaps();
-    if (gInfos == null)
-      return;
-
-    // iterate all guides until find not installed && not advertised one
-    for (final GuideInfo info : gInfos)
-    {
-      if (GuidesUtils.isGuideInstalled(info.mAppId, this))
-        Framework.setWasAdvertised(info.mAppId);
-      else if (!Framework.wasAdvertised(info.mAppId))
-      {
-        final Notifier noty = new Notifier(this);
-        noty.placeGuideAvailable(info.mAppId, info.mTitle, info.mMessage);
-        Framework.setWasAdvertised(info.mAppId);
-        break;
-      }
-    }
   }
 
   public void finishFilesDownload(int result)

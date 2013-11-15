@@ -492,6 +492,5 @@ public:
 public:
   guides::GuidesManager & GetGuidesManager() { return m_storage.GetGuideManager(); }
   bool GetGuideInfo(storage::TIndex const & index, guides::GuideInfo & info) const;
-  void GetGuidesInfosWithDownloadedMaps(vector<guides::GuideInfo> & guides) const;
   //@}
 };

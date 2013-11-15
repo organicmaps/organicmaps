@@ -828,27 +828,6 @@ extern "C"
     return NULL;
   }
 
-  JNIEXPORT jobjectArray JNICALL
-  Java_com_mapswithme_maps_Framework_getGuideInfosForDownloadedMaps(JNIEnv * env, jclass clazz)
-  {
-    vector<guides::GuideInfo> infos;
-    g_framework->NativeFramework()->GetGuidesInfosWithDownloadedMaps(infos);
-
-    size_t const mapsFound = infos.size();
-    if (mapsFound > 0)
-    {
-      GuideNative2Java getter(env);
-
-      jobjectArray jInfos = env->NewObjectArray(mapsFound, getter.GetClass(), NULL);
-      for (size_t i = 0; i < mapsFound; ++i)
-        env->SetObjectArrayElement(jInfos, i, getter.GetGuide(infos[i]));
-
-      return jInfos;
-    }
-
-    return NULL;
-  }
-
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_setWasAdvertised(JNIEnv * env, jclass clazz, jstring appId)
   {

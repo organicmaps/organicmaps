@@ -193,12 +193,6 @@ void InitLocalizedStrings()
 
   [self subscribeToStorage];
 
-  std::vector<guides::GuideInfo> guides;
-  GetFramework().GetGuidesInfosWithDownloadedMaps(guides);
-  for (size_t i = 0; i < guides.size();++i)
-    if ([self ShowNotificationWithGuideInfo:guides[i]])
-      break;
-
   return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
 }
 
