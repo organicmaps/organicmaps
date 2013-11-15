@@ -7,6 +7,21 @@ using namespace emul;
 
 #define MOCK_CALL(f) GLMockFunctions::Instance().f;
 
+uint32_t GLFunctions::glGenVertexArray()
+{
+  return MOCK_CALL(glGenVertexArray());
+}
+
+void GLFunctions::glBindVertexArray(uint32_t vao)
+{
+  MOCK_CALL(glBindVertexArray(vao));
+}
+
+void GLFunctions::glDeleteVertexArray(uint32_t vao)
+{
+  MOCK_CALL(glDeleteVertexArray(vao));
+}
+
 uint32_t GLFunctions::glGenBuffer()
 {
   return MOCK_CALL(glGenBuffer());
@@ -84,7 +99,7 @@ void GLFunctions::glUseProgram(uint32_t programID)
 
 int8_t GLFunctions::glGetAttribLocation(uint32_t programID, const string & name)
 {
-  return 0;
+  return MOCK_CALL(glGetAttribLocation(programID, name));
 }
 
 void GLFunctions::glBindAttribLocation(uint32_t programID, uint8_t index, const string & name)
@@ -95,7 +110,7 @@ void GLFunctions::glBindAttribLocation(uint32_t programID, uint8_t index, const 
 /// enable vertex attribute binding. To get attributeLocation need to call glGetAttributeLocation
 void GLFunctions::glEnableVertexAttribute(int32_t attributeLocation)
 {
-
+  MOCK_CALL(glEnableVertexAttribute(attributeLocation));
 }
 
 void GLFunctions::glVertexAttributePointer(int32_t attrLocation,
@@ -105,7 +120,7 @@ void GLFunctions::glVertexAttributePointer(int32_t attrLocation,
                                            uint32_t stride,
                                            uint32_t offset)
 {
-
+  MOCK_CALL(glVertexAttributePointer(attrLocation, count, type, needNormalize, stride, offset));
 }
 
 int8_t GLFunctions::glGetUniformLocation(uint32_t programID, const string & name)
@@ -158,9 +173,14 @@ void GLFunctions::glUniformMatrix4x4Value(int8_t location, float * values)
   MOCK_CALL(glUniformMatrix4x4Value(location, values));
 }
 
-static uint32_t glGetCurrentProgram()
+uint32_t GLFunctions::glGetCurrentProgram()
 {
   return MOCK_CALL(glGetCurrentProgram());
+}
+
+bool GLFunctions::glHasExtension(string const & extName)
+{
+  return MOCK_CALL(glHasExtension(extName));
 }
 
 void CheckGLError() {}

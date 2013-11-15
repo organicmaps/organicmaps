@@ -19,5 +19,10 @@ namespace emul
     return *m_mock;
   }
 
+  void GLMockFunctions::ValidateAndClear()
+  {
+    ::testing::Mock::VerifyAndClear(m_mock);
+  }
+
   GLMockFunctions * GLMockFunctions::m_mock;
 }
