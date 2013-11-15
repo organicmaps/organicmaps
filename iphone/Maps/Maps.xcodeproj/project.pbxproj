@@ -27,6 +27,18 @@
 		5797B6D616C931EE00FFE6D2 /* resources-mdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D316C931EE00FFE6D2 /* resources-mdpi */; };
 		5797B6D716C931EE00FFE6D2 /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D416C931EE00FFE6D2 /* resources-xhdpi */; };
 		5797B6D816C931EE00FFE6D2 /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D416C931EE00FFE6D2 /* resources-xhdpi */; };
+		97ECD871183620CE00F77A46 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		97ECD872183625F900F77A46 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		97ECD87518362AC600F77A46 /* MobileAppTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87418362AC600F77A46 /* MobileAppTracker.framework */; };
+		97ECD87618362AC700F77A46 /* MobileAppTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87418362AC600F77A46 /* MobileAppTracker.framework */; };
+		97ECD87818362B3D00F77A46 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87718362B3D00F77A46 /* CoreTelephony.framework */; };
+		97ECD87A18362B5400F77A46 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87918362B5400F77A46 /* MobileCoreServices.framework */; };
+		97ECD87C1836584B00F77A46 /* libAarkiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87B1836584B00F77A46 /* libAarkiSDK.a */; };
+		97ECD87D1836584B00F77A46 /* libAarkiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87B1836584B00F77A46 /* libAarkiSDK.a */; };
+		97ECD87F1836594400F77A46 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87E1836594400F77A46 /* StoreKit.framework */; };
+		97ECD8801836594A00F77A46 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87E1836594400F77A46 /* StoreKit.framework */; };
+		97ECD881183674CA00F77A46 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87718362B3D00F77A46 /* CoreTelephony.framework */; };
+		97ECD8821836751100F77A46 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87918362B5400F77A46 /* MobileCoreServices.framework */; };
 		CB252D6F16FF82C9001E41E9 /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.m */; };
 		CB252D7016FF82C9001E41E9 /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.m */; };
 		ED3B8DB4182CD96F001F124F /* libFlurry_4.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3B8DB3182CD96F001F124F /* libFlurry_4.3.0.a */; };
@@ -1356,6 +1368,14 @@
 		5797B6D416C931EE00FFE6D2 /* resources-xhdpi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xhdpi"; path = "../../data/resources-xhdpi"; sourceTree = "<group>"; };
 		77DDA9A116D504F900804BDB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MapsWithMe-Pro.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MapsWithMe-Pro.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		97ECD86D1836200A00F77A46 /* Aarki.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aarki.h; sourceTree = "<group>"; };
+		97ECD86E1836200A00F77A46 /* AarkiContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AarkiContact.h; sourceTree = "<group>"; };
+		97ECD870183620CE00F77A46 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		97ECD87418362AC600F77A46 /* MobileAppTracker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MobileAppTracker.framework; sourceTree = "<group>"; };
+		97ECD87718362B3D00F77A46 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		97ECD87918362B5400F77A46 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		97ECD87B1836584B00F77A46 /* libAarkiSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAarkiSDK.a; sourceTree = "<group>"; };
+		97ECD87E1836594400F77A46 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		CB252D6916FF82C8001E41E9 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		CB252D6B16FF82C8001E41E9 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistics.h; sourceTree = "<group>"; };
 		CB252D6C16FF82C8001E41E9 /* Statistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Statistics.m; sourceTree = "<group>"; };
@@ -2079,6 +2099,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97ECD87F1836594400F77A46 /* StoreKit.framework in Frameworks */,
+				97ECD87A18362B5400F77A46 /* MobileCoreServices.framework in Frameworks */,
+				97ECD87818362B3D00F77A46 /* CoreTelephony.framework in Frameworks */,
+				97ECD871183620CE00F77A46 /* AdSupport.framework in Frameworks */,
 				ED48BBC617C3C0F9003E7E92 /* Security.framework in Frameworks */,
 				EDBB18B816972B0600AF0742 /* libzlib.a in Frameworks */,
 				ED8B1A2116772AB4003CAD0A /* MessageUI.framework in Frameworks */,
@@ -2094,6 +2118,7 @@
 				EE12020A11CD464100ABDD5D /* libcoding.a in Frameworks */,
 				EE12020C11CD464100ABDD5D /* libexpat.a in Frameworks */,
 				EE12020E11CD464100ABDD5D /* libgeometry.a in Frameworks */,
+				97ECD87C1836584B00F77A46 /* libAarkiSDK.a in Frameworks */,
 				EE12020F11CD464100ABDD5D /* libindexer.a in Frameworks */,
 				EE12021011CD464100ABDD5D /* libmap.a in Frameworks */,
 				EE12021211CD464100ABDD5D /* libgraphics.a in Frameworks */,
@@ -2105,6 +2130,7 @@
 				49DE1CA413437D7A00A93417 /* libbzip2.a in Frameworks */,
 				FA2EF9C713630C3B00E3E484 /* libplatform.a in Frameworks */,
 				FAAFD699139D9C6B000AE70C /* libsearch.a in Frameworks */,
+				97ECD87518362AC600F77A46 /* MobileAppTracker.framework in Frameworks */,
 				FAEA8B2A1437CA80002A6737 /* libjansson.a in Frameworks */,
 				FAF29847146EEF4A00FF0057 /* libprotobuf.a in Frameworks */,
 				EE5A34E6156FCB9500E34FFE /* libgui.a in Frameworks */,
@@ -2116,6 +2142,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97ECD8821836751100F77A46 /* MobileCoreServices.framework in Frameworks */,
+				97ECD8801836594A00F77A46 /* StoreKit.framework in Frameworks */,
+				97ECD881183674CA00F77A46 /* CoreTelephony.framework in Frameworks */,
+				97ECD872183625F900F77A46 /* AdSupport.framework in Frameworks */,
 				ED48BBC717C3C105003E7E92 /* Security.framework in Frameworks */,
 				FAFCF64F169C9E8100BD77D2 /* MessageUI.framework in Frameworks */,
 				EDBB18B916972B3000AF0742 /* libzlib.a in Frameworks */,
@@ -2142,8 +2172,10 @@
 				FAFB090D151215EE0041901D /* libbzip2.a in Frameworks */,
 				FAFB090E151215EE0041901D /* libplatform.a in Frameworks */,
 				FAFB090F151215EE0041901D /* libsearch.a in Frameworks */,
+				97ECD87618362AC700F77A46 /* MobileAppTracker.framework in Frameworks */,
 				FAFB0910151215EE0041901D /* libjansson.a in Frameworks */,
 				FAFB0911151215EE0041901D /* libprotobuf.a in Frameworks */,
+				97ECD87D1836584B00F77A46 /* libAarkiSDK.a in Frameworks */,
 				EE5A34E7156FCBD800E34FFE /* libgui.a in Frameworks */,
 				EEFFB4E915DCDD8A00BACE1C /* libanim.a in Frameworks */,
 			);
@@ -2204,6 +2236,7 @@
 		29B97314FDCFA39411CA2CEA /* Maps */ = {
 			isa = PBXGroup;
 			children = (
+				ED48BBC517C3C0F9003E7E92 /* Security.framework */,
 				CB252D6816FF82C8001E41E9 /* Statistics */,
 				FA36B8011540388B004560CC /* Bookmarks */,
 				FA34BEC71338D6DB00FFB2A7 /* Common */,
@@ -2305,6 +2338,10 @@
 			children = (
 				ED48BBC517C3C0F9003E7E92 /* Security.framework */,
 				EDF924DA183380CE00539672 /* FacebookSDK.framework */,
+				97ECD87E1836594400F77A46 /* StoreKit.framework */,
+				97ECD87918362B5400F77A46 /* MobileCoreServices.framework */,
+				97ECD87718362B3D00F77A46 /* CoreTelephony.framework */,
+				97ECD870183620CE00F77A46 /* AdSupport.framework */,
 				ED8B1A2016772AB4003CAD0A /* MessageUI.framework */,
 				ED8B1A2016772AB4003CAD0A /* MessageUI.framework */,
 				EEB7E22111E9079400080A68 /* CoreLocation.framework */,
@@ -2325,6 +2362,10 @@
 				ED3B8DB3182CD96F001F124F /* libFlurry_4.3.0.a */,
 				CB252D6B16FF82C8001E41E9 /* Statistics.h */,
 				CB252D6C16FF82C8001E41E9 /* Statistics.m */,
+				97ECD87B1836584B00F77A46 /* libAarkiSDK.a */,
+				97ECD86D1836200A00F77A46 /* Aarki.h */,
+				97ECD86E1836200A00F77A46 /* AarkiContact.h */,
+				97ECD87418362AC600F77A46 /* MobileAppTracker.framework */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -4464,8 +4505,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/FacebookSDK",
 					"$(inherited)",
+					"$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -4473,6 +4515,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "Simulator Lite";
@@ -4569,8 +4613,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/FacebookSDK",
 					"$(inherited)",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -4578,6 +4623,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "Production Lite";
@@ -4629,8 +4676,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/FacebookSDK",
 					"$(inherited)",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -4638,6 +4686,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "Debug Lite";
@@ -4693,8 +4743,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/FacebookSDK",
 					"$(inherited)",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -4702,6 +4753,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "AdHoc Lite";
@@ -4753,8 +4806,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/FacebookSDK",
 					"$(inherited)",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -4762,6 +4816,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "Simulator Full";
@@ -4813,8 +4869,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/FacebookSDK",
 					"$(inherited)",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -4822,6 +4879,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "Debug Full";
@@ -4877,8 +4936,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/FacebookSDK",
 					"$(inherited)",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -4886,6 +4946,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "AdHoc Full";
@@ -4941,8 +5003,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/FacebookSDK",
 					"$(inherited)",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -4950,6 +5013,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "Production Full";
@@ -5004,8 +5069,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/FacebookSDK",
 					"$(inherited)",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -5013,6 +5079,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "Release Lite";
@@ -5067,8 +5135,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/FacebookSDK",
 					"$(inherited)",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -5076,6 +5145,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "Release Full";
@@ -5130,8 +5201,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/FacebookSDK",
 					"$(inherited)",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -5139,6 +5211,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "Simulator Full Release";
@@ -5150,7 +5224,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -5158,6 +5233,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "Simulator Full Release";
@@ -5169,7 +5246,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -5177,6 +5255,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "Simulator Lite";
@@ -5188,7 +5268,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -5196,6 +5277,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "Simulator Full";
@@ -5207,7 +5290,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -5215,6 +5299,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "Debug Lite";
@@ -5226,7 +5312,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -5234,6 +5321,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "Debug Full";
@@ -5245,7 +5334,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -5253,6 +5343,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "AdHoc Lite";
@@ -5264,7 +5356,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -5272,6 +5365,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "Release Lite";
@@ -5283,7 +5378,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -5291,6 +5387,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "AdHoc Full";
@@ -5302,7 +5400,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -5310,6 +5409,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "Release Full";
@@ -5321,7 +5422,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -5329,6 +5431,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "Production Lite";
@@ -5340,7 +5444,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
+                    "$(SRCROOT)/FacebookSDK",
+					"${SRCROOT}/Statistics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -5348,6 +5453,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kirill/developer/projects/omim/iphone/Maps/Statistics,
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps",
+					"/Users/gogosapiens/Xcode\\ Projects/omim/iphone/Maps/Statistics",
 				);
 			};
 			name = "Production Full";

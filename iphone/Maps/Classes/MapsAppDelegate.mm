@@ -4,6 +4,9 @@
 #import "Preferences.h"
 #import "LocationManager.h"
 #import "Statistics.h"
+#import "AarkiContact.h"
+#import <MobileAppTracker/MobileAppTracker.h>
+#import "Config.h"
 
 #include <sys/xattr.h>
 
@@ -93,6 +96,12 @@ void InitLocalizedStrings()
   [FBAppEvents activateApp];
 
   m_didOpenedWithUrl = NO;
+
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:FIRST_LAUNCH_KEY])
+  {
+    NSString * appId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"AarkiClientSecurityKey"];
+    [AarkiContact registerApp:appId];
+  }
 }
 
 - (SettingsManager *)settingsManager
@@ -192,6 +201,17 @@ void InitLocalizedStrings()
   }
 
   [self subscribeToStorage];
+
+  NSString * advertiserId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MobileAppTrackerAdvertiserId"];
+  NSString * conversionKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MobileAppTrackerConversionKey"];
+  [[MobileAppTracker sharedManager] startTrackerWithMATAdvertiserId:advertiserId MATConversionKey:conversionKey];
+#if DEBUG
+  [[MobileAppTracker sharedManager] setDebugMode:YES];
+#endif
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:FIRST_LAUNCH_KEY])
+    [[MobileAppTracker sharedManager] trackInstall];
+  else
+    [[MobileAppTracker sharedManager] trackUpdate];
 
   return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
 }

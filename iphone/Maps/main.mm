@@ -1,7 +1,9 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <Foundation/NSThread.h>
+#import "Config.h"
 
+#include "../../platform/settings.hpp"
 #include "../../platform/platform.hpp"
 
 #include "../../base/logging.hpp"
@@ -37,6 +39,9 @@ int main(int argc, char * argv[])
     Dummy * dummy = [[Dummy alloc] autorelease];
     NSThread * thread = [[[NSThread alloc] initWithTarget:dummy selector:@selector(dummyThread:) object:nil] autorelease];
     [thread start];
+
+    [[NSUserDefaults standardUserDefaults] setBool:(Settings::IsFirstLaunch()) forKey:FIRST_LAUNCH_KEY];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 
     retVal = UIApplicationMain(argc, argv, nil, nil);
   }

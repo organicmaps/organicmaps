@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>FlurryKey</key>
-	<string>***REMOVED***</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -87,6 +85,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>${CURRENT_PROJECT_VERSION}</string>
+	<key>FlurryKey</key>
+	<string>***REMOVED***</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>
@@ -159,5 +159,11 @@
 	<string>MapsWithMe, offline maps</string>
 	<key>FacebookAppID</key>
 	<string>185237551520383</string>
+	<key>AarkiClientSecurityKey</key>
+	<string>2mWtcnLWDuXgdKEhYLmatwh3cby3</string>
+	<key>MobileAppTrackerConversionKey</key>
+	<string>***REMOVED***</string>
+	<key>MobileAppTrackerAdvertiserId</key>
+	<string>14130</string>
 </dict>
 </plist>
