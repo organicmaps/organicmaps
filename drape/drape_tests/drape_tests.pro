@@ -10,7 +10,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 DEFINES += OGL_TEST_ENABLED GTEST_DONT_DEFINE_TEST
 
-DEPENDENCIES = platform base gmock
+DEPENDENCIES = platform coding base gmock
 ROOT_DIR = ../..
 SHADER_COMPILE_ARGS = $$PWD/../shaders shader_index.txt shader_def $$PWD/enum_shaders.hpp
 include($$ROOT_DIR/common.pri)
