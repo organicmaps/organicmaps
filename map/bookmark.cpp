@@ -119,6 +119,10 @@ namespace
   string const PLACEMARK = "Placemark";
   string const STYLE = "Style";
   string const DOCUMENT =  "Document";
+  string const STYLE_MAP = "StyleMap";
+  string const STYLE_URL = "styleUrl";
+  string const PAIR = "Pair";
+
   graphics::Color const DEFAULT_TRACK_COLOR = graphics::Color::fromARGB(0xFF33CCFF);
 
   string PointToString(m2::PointD const & org)
@@ -170,7 +174,10 @@ namespace
     graphics::Color m_trackColor;
 
     string m_styleId;
-    map<string,graphics::Color> m_styleUrl2Color;
+    string m_mapStyleId;
+    string m_styleUrlKey;
+    map<string, graphics::Color> m_styleUrl2Color;
+    map<string, string> m_mapStyle2Style;
 
     string m_name;
     string m_type;
@@ -190,7 +197,9 @@ namespace
       m_timeStamp = my::INVALID_TIME_STAMP;
 
       m_trackColor = DEFAULT_TRACK_COLOR;
-      m_styleId = "";
+      m_styleId.clear();
+      m_mapStyleId.clear();
+      m_styleUrlKey.clear();
 
       m_points.Clear();
       m_geometryType = UNKNOWN;
@@ -273,7 +282,7 @@ namespace
     {
       string fromHex = FromHex(value);
       ASSERT(fromHex.size() == 4, ("Invalid color passed"));
-      //Color positions in HEX – aabbggrr
+      // Color positions in HEX – aabbggrr
       m_trackColor = graphics::Color(fromHex[3], fromHex[2], fromHex[1], fromHex[0]);
     }
 
@@ -281,6 +290,7 @@ namespace
     {
       if (styleUrl.empty())
         return false;
+
       // Remove leading '#' symbol
       map<string, graphics::Color>::const_iterator it = m_styleUrl2Color.find(styleUrl.substr(1));
       if (it != m_styleUrl2Color.end())
@@ -307,8 +317,16 @@ namespace
     {
       string attrInLowerCase = attr;
       strings::AsciiToLower(attrInLowerCase);
-      if (m_tags[m_tags.size() - 1] == "Style" && !value.empty() && attrInLowerCase == "id")
+
+      if (IsValidAttribute(STYLE, value, attrInLowerCase))
         m_styleId = value;
+      else if (IsValidAttribute(STYLE_MAP, value, attrInLowerCase))
+        m_mapStyleId = value;
+    }
+
+    bool IsValidAttribute(string const & type, string const & value, string const & attrInLowerCase) const
+    {
+      return (GetTagFromEnd(0) == type && !value.empty() && attrInLowerCase == "id");
     }
 
     string const & GetTagFromEnd(size_t n) const
@@ -368,6 +386,7 @@ namespace
       {
         string const & currTag = m_tags[count - 1];
         string const & prevTag = m_tags[count - 2];
+        string const ppTag = count > 3 ? m_tags[count - 3] : string();
 
         if (prevTag == DOCUMENT)
         {
@@ -382,8 +401,17 @@ namespace
             m_name = value;
           else if (currTag == "styleUrl")
           {
+            // Bookmark draw style.
             m_type = GetSupportedBMType(value);
-            GetColorForStyle(value, m_trackColor);
+
+            // Check if url is in styleMap map.
+            if (!GetColorForStyle(value, m_trackColor))
+            {
+              // Remove leading '#' symbol.
+              string styleId = m_mapStyle2Style[value.substr(1)];
+              if (!styleId.empty())
+                GetColorForStyle(styleId, m_trackColor);
+            }
           }
           else if (currTag == "description")
             m_description = value;
@@ -392,7 +420,16 @@ namespace
         {
           ParseColor(value);
         }
-        else if (count > 3 && m_tags[count-3] == PLACEMARK)
+        else if (ppTag == STYLE_MAP && prevTag == PAIR && currTag == STYLE_URL && m_styleUrlKey == "normal")
+        {
+          if (!m_mapStyleId.empty())
+            m_mapStyle2Style[m_mapStyleId] = value;
+        }
+        else if (ppTag == STYLE_MAP && prevTag == PAIR && currTag == "key")
+        {
+          m_styleUrlKey = value;
+        }
+        else if (ppTag == PLACEMARK)
         {
           if (prevTag == "Point")
           {
@@ -426,12 +463,12 @@ namespace
                 LOG(LWARNING, ("Invalid timestamp in Placemark:", value));
             }
           }
-          else if (currTag == "styleUrl")
+          else if (currTag == STYLE_URL)
           {
             GetColorForStyle(value, m_trackColor);
           }
         }
-        else if (count > 3 && m_tags[count-3] == "MultiGeometry")
+        else if (ppTag == "MultiGeometry")
         {
           if (prevTag == "Point")
           {
