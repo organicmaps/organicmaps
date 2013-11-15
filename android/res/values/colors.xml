@@ -4,7 +4,14 @@
   <color name="base_green">#66CC33</color>
   <color name="text_primary">#333333</color>
   <color name="text_seconadary">#999999</color>
-  <color name="drawer_back">#B111</color>
+
+  <color name="drawer_back">#F3F3F3</color>
+  <color name="drawer_green">#4CD964</color>
   <color name="drawer_back_inv">#AEEE</color>
+
+  <color name="drawer_text_active">#FFF</color>
+  <color name="drawer_text_inacative">#333333</color>
+  <color name="drawer_text_disabled">#999999</color>
+
   <drawable name="semitransparent_white">#30FFFFFF</drawable>
 </resources>

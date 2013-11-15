@@ -2,6 +2,7 @@
 <resources>
 
     <dimen name="drawer_width">240dp</dimen>
+    <dimen name="drawer_grad_left">237dp</dimen>
     <dimen name="drawer_item_height">50dp</dimen>
     <dimen name="drawer_top_padding">60dp</dimen>
     <dimen name="icon_size">24dp</dimen>

@@ -96,16 +96,21 @@
     <style name="drawerSeparator">
         <item name="android:layout_height">1dp</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:background">@drawable/abs__list_divider_holo_dark</item>
+        <item name="android:layout_marginRight">@dimen/dp_x_2</item>
+        <item name="android:layout_marginLeft">@dimen/dp_x_2</item>
+        <item name="android:background">@color/drawer_text_disabled</item>
     </style>
 
-    <style name="Widget.MapButtonDrawer" parent="android:Widget.Holo.Button">
+    <style name="Widget.MapButtonDrawer">
         <item name="android:layout_height">@dimen/drawer_item_height</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:background">@drawable/drawer_item_back_selector</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:maxWidth">@dimen/drawer_width</item>
+        <item name="android:background">@null</item>
+        <item name="android:duplicateParentState">true</item>
         <item name="android:textSize">@dimen/sp_x_4</item>
-        <item name="android:drawablePadding">@dimen/dp_x_2</item>
-        <item name="android:paddingRight">@dimen/dp_x_3</item>
+        <item name="android:textColor">@color/drawer_text_selector</item>
+        <item name="android:drawablePadding">@dimen/dp_x_1</item>
+        <item name="android:paddingRight">@dimen/dp_x_2</item>
         <item name="android:paddingLeft">@dimen/dp_x_2</item>
         <item name="android:paddingTop">@dimen/dp_x_1</item>
         <item name="android:paddingBottom">@dimen/dp_x_1</item>

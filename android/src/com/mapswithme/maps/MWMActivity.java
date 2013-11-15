@@ -32,7 +32,6 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup.MarginLayoutParams;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -617,9 +616,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       {
         final int id = v.getId();
 
-        if (R.id.menuitem_about_dialog == id)
-          ContextMenu.onItemSelected(R.id.menuitem_about_dialog, MWMActivity.this);
-        else if (R.id.menuitem_settings_activity == id)
+        if (R.id.menuitem_settings_activity == id)
           ContextMenu.onItemSelected(R.id.menuitem_settings_activity, MWMActivity.this);
         else if (R.id.map_button_bookmarks == id)
           onBookmarksClicked();
@@ -661,7 +658,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
             @Override
             public double getLat()
             {
-              // TODO Auto-generated method stub
               return loc.getLatitude();
             }
           };
@@ -690,13 +686,19 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     });
 
     findViewById(R.id.map_button_toggle_drawer).setOnClickListener(drawerItemsClickListener);
-    findViewById(R.id.menuitem_about_dialog).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.menuitem_settings_activity).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.map_button_bookmarks).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.map_button_search).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.map_button_download).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.map_button_share_myposition).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.buy_pro).setOnClickListener(drawerItemsClickListener);
+
+    final View searchView = findViewById(R.id.map_button_search);
+    final View bookmarksView = findViewById(R.id.map_button_bookmarks);
+
+    final boolean isPro = !mApplication.isProVersion();
+    searchView.setEnabled(isPro);
+    bookmarksView.setEnabled(isPro);
   }
 
   private void yotaSetup()
@@ -1342,7 +1344,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public void onDrawerStateChanged(int arg0)
   {
-    final Button shareButton = (Button) findViewById(R.id.map_button_share_myposition);
+    final View shareButton = findViewById(R.id.map_button_share_myposition);
     shareButton.setEnabled(mApplication.getLocationService().getLastKnown() != null);
   }
 }

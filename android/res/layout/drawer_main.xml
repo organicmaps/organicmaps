@@ -6,7 +6,8 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/buy_pro"
         android:layout_alignParentTop="true"
-        android:background="@null" >
+        android:background="@null"
+        android:paddingRight="3dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -14,69 +15,86 @@
             android:background="@null"
             android:orientation="vertical" >
 
-            <Button
+            <FrameLayout
                 android:id="@+id/map_button_search"
-                style="@style/Widget.MapButtonDrawer"
-                android:contentDescription="@string/search_map"
-                android:drawableLeft="@android:drawable/ic_menu_search"
-                android:onClick="onSearchClicked"
-                android:text="@string/search_map" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/drawer_item_back_selector" >
 
-            <View style="@style/drawerSeparator" />
+                <TextView
+                    style="@style/Widget.MapButtonDrawer"
+                    android:contentDescription="@string/search_map"
+                    android:drawableLeft="@drawable/ic_search"
+                    android:drawableRight="@drawable/ic_probadge"
+                    android:text="@string/search_map" />
+            </FrameLayout>
 
-            <Button
+            <FrameLayout
                 android:id="@+id/map_button_download"
-                style="@style/Widget.MapButtonDrawer"
-                android:contentDescription="@string/download_maps"
-                android:drawableLeft="@android:drawable/ic_menu_save"
-                android:text="@string/download_maps" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/drawer_item_back_selector" >
 
-            <View style="@style/drawerSeparator" />
+                <TextView
+                    style="@style/Widget.MapButtonDrawer"
+                    android:contentDescription="@string/download_maps"
+                    android:drawableLeft="@drawable/ic_map"
+                    android:text="@string/download_maps" />
+            </FrameLayout>
 
-            <Button
+            <FrameLayout
                 android:id="@+id/map_button_bookmarks"
-                style="@style/Widget.MapButtonDrawer"
-                android:contentDescription="@string/bookmarks"
-                android:drawableLeft="@android:drawable/ic_menu_myplaces"
-                android:text="@string/bookmarks" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/drawer_item_back_selector" >
 
-            <View style="@style/drawerSeparator" />
+                <TextView
+                    style="@style/Widget.MapButtonDrawer"
+                    android:contentDescription="@string/bookmarks"
+                    android:drawableLeft="@drawable/ic_bookmarks"
+                    android:drawableRight="@drawable/ic_probadge"
+                    android:text="@string/bookmarks" />
+            </FrameLayout>
 
-            <Button
+            <FrameLayout
                 android:id="@+id/menuitem_settings_activity"
-                style="@style/Widget.MapButtonDrawer"
-                android:contentDescription="@string/settings"
-                android:drawableLeft="@drawable/ic_settings"
-                android:text="@string/settings" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/drawer_item_back_selector" >
 
-            <View style="@style/drawerSeparator" />
+                <TextView
+                    style="@style/Widget.MapButtonDrawer"
+                    android:contentDescription="@string/settings"
+                    android:drawableLeft="@drawable/ic_settings"
+                    android:text="@string/settings" />
+            </FrameLayout>
 
-            <Button
-                android:id="@+id/menuitem_about_dialog"
-                style="@style/Widget.MapButtonDrawer"
-                android:contentDescription="@string/about"
-                android:drawableLeft="@drawable/ic_about"
-                android:text="@string/about" />
-
-            <View style="@style/drawerSeparator" />
-
-            <Button
+            <FrameLayout
                 android:id="@+id/map_button_share_myposition"
-                style="@style/Widget.MapButtonDrawer"
-                android:contentDescription="@string/about"
-                android:drawableLeft="@drawable/share"
-                android:text="@string/share" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/drawer_item_back_selector" >
 
-            <View style="@style/drawerSeparator" />
+                <TextView
+                    style="@style/Widget.MapButtonDrawer"
+                    android:contentDescription="@string/about"
+                    android:drawableLeft="@drawable/ic_send"
+                    android:text="@string/share" />
+            </FrameLayout>
         </LinearLayout>
     </ScrollView>
 
     <Button
         android:id="@+id/buy_pro"
+        android:textColor="@android:color/white"
+        android:background="@drawable/btn_buypro_normal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="Buy Pro!" />
+        android:layout_marginRight="@dimen/dp_x_8"
+        android:layout_marginLeft="@dimen/dp_x_8"
+        android:layout_marginBottom="@dimen/dp_x_8"
+        android:text="BECOME A PRO USER" />
 
 </merge>

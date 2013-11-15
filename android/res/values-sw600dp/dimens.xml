@@ -3,6 +3,7 @@
     <dimen name="activity_horizontal_margin">128dp</dimen>
     <dimen name="dialog_max_height">560dp</dimen>
     <dimen name="drawer_width">400dp</dimen>
+    <dimen name="drawer_grad_left">397dp</dimen>
     <dimen name="drawer_item_height">76dp</dimen>
 
     <dimen name="dp_x_1">6dp</dimen>
