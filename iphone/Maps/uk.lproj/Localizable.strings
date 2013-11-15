@@ -12,7 +12,7 @@
 /* Dialog text when paid version become available on the market. Showed only once. */
 "pro_version_available" = "Більше можливостей у повній версії MapsWithMe з офлайн пошуком. Встановити її зараз?";
 
-/* About button text (should be short! @todo - fix french) */
+/* About button text (should be short) */
 "about" = "Про програму";
 
 /* Button text (should be short) */

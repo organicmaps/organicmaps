@@ -6,7 +6,7 @@
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
 	<string name="pro_version_available">完整版的MapsWithMe特色在於更完善的離線搜尋，立即購買!</string>
-	<!-- About button text (should be short! @todo - fix french) -->
+	<!-- About button text (should be short) -->
 	<string name="about">關於</string>
 	<!-- Button text (should be short) -->
 	<string name="back">返回</string>

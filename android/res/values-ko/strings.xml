@@ -6,7 +6,7 @@
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
 	<string name="pro_version_available">오프라인 검색 기능의 MapsWithMe의 풀버젼으로 보다 쉽게 검색하세요. 지금 구매하세요!</string>
-	<!-- About button text (should be short! @todo - fix french) -->
+	<!-- About button text (should be short) -->
 	<string name="about">소개</string>
 	<!-- Button text (should be short) -->
 	<string name="back">뒤로</string>

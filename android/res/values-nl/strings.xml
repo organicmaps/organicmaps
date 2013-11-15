@@ -6,7 +6,7 @@
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
 	<string name="pro_version_available">Navigeer makkelijker met MapsWithMe Pro met offline zoeken. Instelleer het nu!</string>
-	<!-- About button text (should be short! @todo - fix french) -->
+	<!-- About button text (should be short) -->
 	<string name="about">Over</string>
 	<!-- Button text (should be short) -->
 	<string name="back">Terug</string>

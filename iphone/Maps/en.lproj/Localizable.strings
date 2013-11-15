@@ -12,7 +12,7 @@
 /* Dialog text when paid version become available on the market. Showed only once. */
 "pro_version_available" = "Navigate easier with the full version of MapsWithMe featuring offline search. Get it right now!";
 
-/* About button text (should be short! @todo - fix french) */
+/* About button text (should be short) */
 "about" = "About";
 
 /* Button text (should be short) */

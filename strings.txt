@@ -9,7 +9,7 @@
     cs = Získej více možností s plnou verzí MapsWithMe, zahrnující offline vyhledávání. Nainstaluj si ji nyní!
     de = Mehr Möglichkeiten in der vollen Version MapsWithMe mit Offline-Suche. Jetzt herunterladen!
     es = Mas facil navegar con la version completa MapsWithMe con el buscador fuera de la Internet. Bajalo ya!
-    fr = Plus de possibilités dans la version complète de MapsWithMe avec la recherche en hors ligne. Télécharger maintenant!
+    fr = Naviguez plus facilement avec la recherche hors ligne de la version complète de MapsWithMe. À installer !
     it = Naviga più facilmente con la versione completa di MapsWithMe con la ricerca offline. Scaricala subito!
     ja = MapsWithMe完全版ならさらに便利なオフライン検索が利用可能です。ぜひお買い求めください。
     ko = 오프라인 검색 기능의 MapsWithMe의 풀버젼으로 보다 쉽게 검색하세요. 지금 구매하세요!
@@ -21,11 +21,11 @@
     pt = Navegue mais facilmente com a versão completa do MapsWithMe com a funcionalidade de procura offline. Obtenha-a agora mesmo!
   [about]
     en = About
-    comment = About button text (should be short! @todo - fix french)
+    comment = About button text (should be short)
     cs = O programu
     de = Über Karten
     es = Acerca de
-    fr = Au sujet des cartes
+    fr = À propos
     it = Informazioni
     ja = 情報
     ko = 소개
@@ -121,7 +121,7 @@
     cs = Už se neptat
     de = Nicht mehr fragen
     es = No volver a preguntar
-    fr = Ne poser plus de questions
+    fr = Ne plus me demander
     it = Non me lo chiedere di nuovo
     ja = 以後、このメッセージを表示しない
     ko = 또 묻지 마세요.
@@ -137,7 +137,7 @@
     cs = Pokračovat
     de = Download fortsetzen
     es = Seguir descarga
-    fr = Continuer de télécharger
+    fr = Continuer
     it = Continua
     ja = 何もしない
     ko = 아무것도 하지 마세요
@@ -152,7 +152,7 @@
     cs = Stáhnout mapy
     de = Landkarten herunterladen
     es = Descargar mapas
-    fr = Télécharger les cartes
+    fr = Télécharger des cartes
     it = Scarica le mappe
     ja = マップをダウンロード
     ko = 지도 다운로드받기
@@ -168,7 +168,7 @@
     cs = Stáhnout %qu kB
     de = Herunterladen %qu kB
     es = Descargar %qu kB
-    fr = Télécharger %qu kB
+    fr = Télécharger %qu ko
     it = Scarica %qu MB
     ja = %quをダウンロード
     ko = %qu 다운로드하기
@@ -183,7 +183,7 @@
     cs = Stáhnout %qu MB
     de = Herunterladen %qu MB
     es = Descargar %qu MB
-    fr = Télécharger %qu MB
+    fr = Télécharger %qu Mo
     it = Scarica %qu MB
     ja = %quをダウンロード
     ko = %qu 다운로드하기
@@ -198,7 +198,7 @@
     cs = Stahování selhalo, zkus to znovu.
     de = Download fehlgeschlagen. Bitte versuchen Sie es erneut.
     es = Error durante la descarga, iniciar otra vez
-    fr = Erreur de téléchargement. Merci de recommencer.
+    fr = Échec du téléchargement. Veuillez réessayer.
     it = Download fallito, tocca di nuovo per un altro tentativo
     ja = ダウンロードが失敗しました。もう一度試すには画面をタッチしてください。
     ko = 다운로드에 실패하였습니다. 다시 두드려 시도하여 주십시요.
@@ -214,7 +214,7 @@
     cs = Staženo (%1$qu %2$@), klepni pro smazání.
     de = Heruntergeladen (%1$qu %2$@). Drücken, um zu löschen
     es = Descargado (%1$qu %2$@), apreté para eliminar
-    fr = Téléchargé (%1$qu %2$@), appuyez pour effacer
+    fr = Téléchargé (%1$qu %2$@), touchez pour effacer
     it = Scaricato (%1$qu %2$@), tocca per annullare
     ja = (%1$qu %2$@)をダウンロードしました。削除するには画面をタッチしてください。
     ko = (%1$qu %2$@)가 다운로드 되었습니다, 두드려 삭제하십시요.
@@ -230,7 +230,7 @@
     cs = Stahování %qu%%, klepni pro zrušení.
     de = Heruntergeladen %qu%%. Drücken, um abzubrechen
     es = Descarga %qu%%, presionar para cancelar
-    fr = Téléchargement en cours %qu%%, touchez pour stopper
+    fr = Téléchargement de %qu%%, touchez pour annuler
     it = Download di %qu%%, tocca per annullare
     ja = %qu%%をダウンロード中です。キャンセルするには画面をタッチしてください。
     ko = %qu%%를 다운로드 중, 두드려 취소하십시요
@@ -276,6 +276,7 @@
     comment = Text to show occasionaly with a proposal to Like our program on Facebook
     cs = Líbí se ti MapsWithMe? Pomoz svým přátelům a rodině dozvědět se o této aplikaci. Sdílej ji s nimi prostřednictvím Facebooku!
     de = Wenn ihnen unser Programm gefällt, teilen sie es bitte auf Facebook mit ihren Freunden.
+    fr = MapsWithMe vous plait ? Faites le connaître à vos amis et vos proches : partagez-le sur Facebook !
     ja = アプリの使い勝手はいかがでしょうか？ ぜひFacebookで友人にシェアしてください
     nl = Deel dit programma met uw vrienden op Facebook, als ons programma u bevalt.
     it = Ti stai divertendo MapsWithMe? Aiuta i tuoi amici e la famiglia a conoscere l'app, condividila con loro su Facebook!
@@ -290,8 +291,8 @@
     cs = Pokud se ti MapsWithMe líbí, napiš nám, prosím, svůj názor. Pokud jsi nalezl/a nějaké chyby, dej nám, prosím, vědět vyplněním speciálního formuláře.
     de = Wenn Ihnen MapsWithMe gefällt, unterstützen Sie uns bitte, indem Sie Ihre Meinung hinterlassen. Wenn Sie Probleme bei der Benutzung des Programms haben, melden Sie uns diese bitte, indem Sie das entsprechende Formular ausfüllen.
     es = Si te gusta MapsWithMe, por favor apóyanos a nosotros en escribir una reseña. Si tienes cualquier problema, por favor completa un formulario especial, para que podamos contactar contigo.
-    fr = Si MapsWithMe vous plait, merci de nous soutenir en donnant votre avis. Si vous rencontrez des problèmes avec ce programme, merci de nous le faire savoir en remplissant le formulaire adéquat.
-    it =  Se ti piace MapsWithMe, cortesemente sostienici, scrivendo una recensione. Se incontri problemi, faccelo sapere compilando l'apposito modulo.
+    fr = Si MapsWithMe vous plait, merci de nous soutenir en donnant votre avis. Si vous rencontez un problème, veuillez nous le signaler via le formulaire disponible.
+    it = Se ti piace MapsWithMe, cortesemente sostienici, scrivendo una recensione. Se incontri problemi, faccelo sapere compilando l'apposito modulo.
     ja = MapsWithMeを気に入って頂けましたら、感想をぜひレビューで評価ください。問題等ございましたらフォームよりご報告いただければ幸いです。
     ko = MapsWithMe를 좋아하시면 평을 작성하여 주시기 바랍니다. 안건의 발생의 경우 특정 양식서를 작성하여 주시기 바랍니다.
     nl = Ondersteun MapsWithMe door een review te schrijven. Vul een speciaal formulier in als u problemen ondervindt
@@ -303,6 +304,7 @@
   [kb]
     en = kB
     comment = Settings/Downloader - size string
+    fr = ko
     nl = KB
     ru = КБ
     it = kB
@@ -315,7 +317,7 @@
     cs = Kilometry
     de = Kilometer
     es = Kilómetros
-    fr = Kilomètres
+    fr = kilomètres
     it = Chilometri
     ja = キロメートル
     ko = 킬로미터
@@ -331,7 +333,7 @@
     cs = Zpětná vazba
     de = Meinung hinterlassen
     es = Escribir una opinión|comentario
-    fr = Donner mon opinion
+    fr = Rédiger un avis
     it = Lascia una recensione
     ja = 評価する
     ko = 평 남기기
@@ -347,7 +349,7 @@
     cs = Služby určování polohy jsou potřebné k zobrazení tvé aktuální pozice na mapě.
     de = Ortungsdienste sind notwendig, um Ihren Standort zu bestimmen.
     es = Los servicios de localización son necesarios para mostrar su posición actual en el mapa.
-    fr = Vous avez besoin des services de localisation pour déterminer votre position sur la carte.
+    fr = Le service de localisation est nécessaire pour déterminer votre position sur la carte.
     it = I servizi di localizzazione sono necessari per visualizzare la tua posizione corrente sulla mappa.
     ja = マップに現在地を表示するには位置情報サービスを有効化してください。
     ko = 위치 서비스가 귀하의 현재의 지도상의 위치를 표시하기 위해 필요합니다.
@@ -363,7 +365,7 @@
     cs = Mapy
     de = Karte
     es = Mapa
-    fr = Carte
+    fr = Cartes
     it = Mappe
     ja = マップ
     ko = 지도
@@ -379,7 +381,7 @@
     cs = Připraveno pro stažení, klepni pro zrušení.
     de = Wartet auf Download. Drücken, um abzubrechen
     es = Marcado para descarga, presionar para cancelar
-    fr = Attendez avant de télécharger, touchez pour annuler
+    fr = À télécharger, touchez pour annuler
     it = Contrassegnato per il download, tocca per cancellare
     ja = ダウンロードを開始します。キャンセルするには画面をタッチしてください。
     ko = 다운로드로 표시하였습니다. 두드려 취소하십시요.
@@ -392,6 +394,7 @@
   [mb]
     en = MB
     comment = Settings/Downloader - size string
+    fr = Mo
     ru = МБ
     uk = МБ
     it = MB
@@ -402,6 +405,7 @@
     comment = Choose measurement on first launch alert - choose imperial system button
     cs = Míle
     de = Meilen
+    fr = Miles
     es = Milla
     ja = マイル
     ko = 마일
@@ -434,7 +438,7 @@
     cs = Nenalezeno připojení k Internetu
     de = Keine Internetverbindung
     es = No hay conexión al Internet
-    fr = Pas de branchement internet
+    fr = Pas de connexion internet
     it = Non è stata rilevata alcuna connessione Internet
     ja = インターネットに接続されていません
     ko = 인터넷이 연결되지 않았습니다.
@@ -450,7 +454,7 @@
     cs = Nenalezeno připojení k WiFi. Chceš použít mobilní sítě (GPRS, EDGE nebo 3G) pro stažení %@?
     de = Keine WLAN-Verbindung. Möchten Sie %@ über das Mobilnetz (GPRS, EDGE oder 3G) herunterladen?
     es = No hay conexión WiFi. ¿Quieres descargar con el %@ operador (GPRS, EDGE or 3G)?
-    fr = Pas de connection WiFi. Désirez vous télécharger par le réseau de téléphone mobile (GPRS, EDGE ou 3G)?
+    fr = Pas de connexion WiFi. Désirez-vous télécharger par le réseau de téléphone mobile (GPRS, EDGE ou 3G) ?
     it = Non è stata rilevata alcuna connessione WiFi. Vuoi utilizzare i dati cellulare (GPRS, EDGE o 3G) per scaricare %@?
     ja = WiFi接続が見つかりません。GPRS、EDGE、3G等の携帯電話回線で%@をダウンロードしますか？
     ko = WiFi 연결이 감지되지 않았습니다. %@를 다운로드하기 위해 휴대 자료(GPRS, EDGE 혹은 3G)를 사용하시겠습니까?
@@ -462,6 +466,7 @@
     pt = Não detetada uma ligação WiFi. Pretende utilizar os dados por pacotes (GPRS, EDGE or 3G) para descarregar %@?
   [ok]
     en = OK
+    fr = OK
     zh-Hant = 好的
     pl = OK
     pt = OK
@@ -471,7 +476,7 @@
     cs = Prosím, povol Služby určování polohy
     de = Aktivieren Sie bitte Ortungsdienste in den Einstellungen Ihres Geräts
     es = Por favor, permite los servicios de localización
-    fr = Paramétrez les services de localisation de votre appareil, s'il vous plaît
+    fr = Veuillez activer le service de localisation
     it = Cortesemente abilita i servizi di localizzazione
     ja = 位置情報サービスを有効化してください
     ko = 위치 서비스를 작동시켜 주십시요.
@@ -487,7 +492,7 @@
     cs = Prosím, uvolni nějaké místo v tvém zařízení, než začneš stahovat %@
     de = Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um den Download durchführen zu können.
     es = No hay espacio suficiente para realizar la descarga
-    fr = Le disque est plein, merci de faire de la place pour permettre le téléchargement
+    fr = Veuillez libérer un peu de place sur votre appareil pour télécharger %@
     it = Cortesemente libera spazio sul tuo dispositivo prima per poter scaricare %@
     ja = %@をダウンロードするため、デバイスの空き容量を確認してください
     ko = 먼저 귀하의 장치에 어느 정도의 공간을 확보하여 %@를 다운로드하여 주십시요.
@@ -503,7 +508,7 @@
     cs = Upozornit mě později
     de = Errinern Sie mich später
     es = Recordarme mas tarde
-    fr = Rappelez moi plus tard
+    fr = Me le rappeler plus tard
     it = Ricordamelo in seguito
     ja = 後で通知
     ko = 이후에 기억시키기
@@ -533,6 +538,7 @@
     comment = Don't show some dialog any more
     cs = Nikdy
     de = Nie
+    fr = Jamais
     ja = 今後表示しない
     nl = Nooit
     it = Mai
@@ -547,7 +553,7 @@
     cs = Nahlásit chybu
     de = Problem melden
     es = Reportar un problema
-    fr = Signalez un problème
+    fr = Signaler un problème
     it = Segnala un problema
     ja = 問題を報告
     ko = 문제 보고하기
@@ -579,7 +585,7 @@
     cs = Vyhledávání je dostupné jen v placené verzi MapsWithMe. Stáhni si ji nyní!
     de = Die Suche ist nur in der Pro Version vorhanden. Möchten Sie sie jetzt installieren?
     es = Buscar está accesible solo en la versión MapWithMe Pro. ¿Instalar ahora mismo?
-    fr = Seule la version Pro permet une recherche. Voulez-vous l'installer maintenant?
+    fr = La recherche n'est disponible que dans la version complète. Voulez-vous l'installer maintenant ?
     it = La ricerca è disponibile solo nella versione completa di MapsWithMe. Scaricala subito!
     ja = 検索機能はMapsWithMe完全版で利用可能です。ぜひお買い求めください。
     ko = 검색은 MapsWithMe의 프로 버젼에만 제공됩니다. 지금 받으시겠습니까?
@@ -611,7 +617,7 @@
     cs = Nedostatek volného úložného prostoru
     de = Kein Speicherplatz vorhanden
     es = No hay suficiente espacio libre
-    fr = Le disque est plein
+    fr = Place libre insuffisante sur le disque
     it = Non c'è abbastanza spazio libero su disco
     ja = ディスクに十分な空き領域がありません
     ko = 디스크 공간이 부족합니다.
@@ -627,7 +633,7 @@
     cs = Klepni pro stažení
     de = Berühren, um herunterzuladen
     es = Presionar para descargar
-    fr = Pressez pour télécharger
+    fr = Touchez pour télécharger
     it = Tocca per scaricare
     ja = タッチしてダウンロード
     ko = 두드려 다운로드하세요
@@ -659,7 +665,7 @@
     cs = Doporučujeme použít WiFi pro stahování větších map
     de = Wir empfehlen Ihnen, grosse Länder über eine WLAN-Verbindung herunterzuladen
     es = Recomendamos usar WiFi para descarga de los países grandes
-    fr = Nous vous recommandons d'utiliser le WiFi pour télécharger les grandes cartes
+    fr = Nous recommandons d'utiliser le WiFi pour télécharger de grandes cartes
     it = Ti consigliamo di utilizzare il WiFi per scaricare mappe di grandi dimensioni
     ja = 大きなマップをダウンロードする際はWiFiの使用をおすすめします。
     ko = WiFi를 이용하여 큰 지도를 다운로드하는 것을 권하여 드립니다.
@@ -675,7 +681,7 @@
     cs = Aktualizovali jsme mapovou databázi a zmenšili objem map. U větších zemí si nyní můžeš vybrat ke stažení pouze region/stát, který potřebuješ. Pokud však chceš používat nové mapy, bude třeba odstranit všechny staré mapové podklady, které již byly staženy.
     de = Wir haben die Karten aktualisiert und kleiner gemacht. Für grosse Länder können Sie ausgewälte Regionen einzeln herunterladen. Um die neuen Karten zu benutzen, löschen Sie bitte die alten.
     es = Hemos actualizado los datos de los mapas. Ahora puede seleccionar descargarse solo las regiones que necesites, pero para utilizar los nuevos mapas deberías antes borrar los anteriormente descargados.
-    fr = Nous avons mis à jour les cartes en les réduisant. Vous pouvez maintenant ne télécharger que la région ou le pays qui vous intéresse, cependant pour avoir les nouvelles cartes, il vous faut effacer toutes les anciennes cartes.
+    fr = Nous avons réduit la taille des cartes. Concernant les pays vastes, vous pouvez désormais télécharger uniquement la zone que vous souhaitez. Cependant pour utiliser ces nouvelles cartes, il faut effacer les anciennes cartes téléchargées.
     nl = Wij hebben de kaart geupdate en hem verkleind. Met grote landen kunt u nu ervoor kiezen om allen de regio/staat te downloaden die u nodig heeft. Om de nieuwe kaarten te gebruiken moet u alle oude kaarten verwijderen.
     ru = Мы обновили карты и уменьшили их размер. Для больших стран вы сможете выборочно загружать нужные вам штаты или регионы. Однако, чтобы воспользоваться новыми картами, необходимо предварительно удалить старыe.
     uk = Ми оновили карти і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими картами, необхідно попередньо видалити старi.
@@ -687,7 +693,7 @@
     cs = Jaký systém pro měření preferuješ?
     de = Welches Messsystem ziehen Sie vor?
     es = ¿Cual sistema de medición prefieres?
-    fr = Quel système de mesure préférez vous?
+    fr = Quel système de mesure préférez-vous ?
     it = Quale sistema di misura preferisci?
     ja = どちらの距離単位を使いますか？
     ko = 어느 측정 시스템을 선호하십니까?
@@ -703,7 +709,7 @@
     cs = Aktuálně máš všechny možnosti pro určování polohy vypnuté. Prosím, povol je v Nastavení.
     de = Ortungsdienste sind inaktiv. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.
     es = No se puede acceder a los servicios de localización. Por favor, activelo en los ajustes.
-    fr = Tous les services de repérage sont désactivés. Veuillez s'il vous plaît la mettre en prise pour la commode utilisation du programme.
+    fr = Aucun service de localisation activé. Veuillez l'activer dans les réglages.
     it = Attualmente hai disattivati tutti i servizi di locazione per questo dispositivo o applicazione.  Cortesemente abilitali nelle Impostazioni.
     ja = 端末の位置情報サービスが無効になっているか、このアプリケーションからの位置情報利用が制限されています。端末の設定を有効化してください。
     ko = 현재 이 장치나 애플리케이션을 위한 전 위치 서비스를 불능시키셨습니다. 설정에서 이를 작동시켜 주시기 바랍니다.
@@ -719,7 +725,7 @@
     cs = Tvé zařízení nepodporuje služby pro určování polohy
     de = Ihr Gerät unterstützt keine Ortungsdienste
     es = Su dispositivo no es compatible con los servicios de localización
-    fr = Votre appareil n'est pas compatible pour les services de repérage
+    fr = Votre appareil ne dispose pas de service de localisation
     it = Il tuo dispositivo non supporta i servizi di localizzazione
     ja = ご使用中の端末は位置情報サービスをサポートしていません。
     ko = 귀하의장치가 위치 서비스를 지원하지 않습니다.
@@ -735,7 +741,7 @@
     cs = Zobrazit na mapě
     de = Das Land auf der Karte anzeigen
     es = Ampliar la vista del país
-    fr = Zoomer sur le pays désiré
+    fr = Zoomer sur le pays
     it = Zoom sul paese
     ja = 特定の地域へズーム
     ko = 국가로 확대하여 주세요
@@ -751,7 +757,7 @@
     cs = ^přidáno do fronty stahování.
     de = ^wird zur Download-Warteschleife hinzugefügt
     es = ^añadido a la cola de descarga
-    fr = ^ajouté à son tour de télécharger
+    fr = ^ajouté à la file d'attente de téléchargement
     it = ^ aggiunto alla coda di download.
     ja = ^をダウンロードキューに追加しました
     ko = ^는 다운로드 대기열에추가됩니다.
@@ -783,7 +789,7 @@
     cs = Stáhnout^
     de = Herunterladen^
     es = Descargar^
-    fr = Charger^
+    fr = Télécharger^
     it = Scarica^
     ja = ^をダウンロード
     ko = 다운로드^
@@ -798,7 +804,7 @@
     cs = Stahování^selhalo
     de = Download^fehlgeschlagen
     es = Error durante la descarga^
-    fr = Erreur de téléchargement^
+    fr = Échec du téléchargement^
     it = Lo scaricamento^è fallito
     ja = ^のダウンロードに失敗しました
     ko = 다운로드에 실패하였습니다^
@@ -814,7 +820,7 @@
     cs = Zkusit znovu
     de = Nochmals versuchen
     es = Intentarla otra vez
-    fr = Essayez encore une fois
+    fr = Réessayer
     it = Riprova
     ja = 再実行
     ko = 다시 시도
@@ -832,7 +838,7 @@
     cs = O aplikaci MapsWithMe
     de = Über MapsWithMe
     es = Sobre MapsWithMe
-    fr = Au sujet des cartes
+    fr = À propos de MapsWithMe
     it = Informazioni su MapsWithMe
     ja = MapsWithMeについて
     ko = 소개
@@ -847,7 +853,7 @@
     cs = Stahování %d%%, klepni pro zrušení
     de = Heruntergeladen %d%%. Berühren, um abzubrechen
     es = Descargando %d%%, presionar para cancelar
-    fr = Chargement en cours %d%%, toucher pour annuler
+    fr = Téléchargement de %d%%, touchez pour annuler
     it = Download di %d%%, tocca per cancellare
     ja = %d%%をダウンロード中です。キャンセルするには画面をタッチしてください。
     ko = %d%%를 다운로드 중, 두드려 취소하십시요
@@ -862,7 +868,7 @@
     cs = Staženo (%@), klepni pro smazání
     de = Heruntergeladen (%@). Berühren, um zu löschen
     es = Descargado (%@), presionar para eliminar
-    fr = Elle est chargée (%@), Appuyer pour effacer
+    fr = Téléchargé (%@), touchez pour effacer
     it = Scaricato (%@), tocca per cancellare
     ja = (%@)をダウンロードしました。削除するには画面をタッチしてください。
     ko = (%@)가 다운로드 되었습니다, 두드려 삭제하십시요.
@@ -892,7 +898,7 @@
     cs = Stáhnout %@
     de = Herunterladen %@
     es = Descargar %@
-    fr = Charger %@
+    fr = Télécharger %@
     it = Scarica %@
     ja = %@をダウンロード
     ko = %@ 다운로드하기
@@ -921,7 +927,7 @@
     cs = Je vyžadována hardwarová akcelerace OpenGL. Bohužel, tvé zařízení není podporováno.
     de = Das Programm braucht OpenGL um funktionnieren zu können. Leider wird ihr Gerät nicht unterschtüzt.
     es = Un acelerador de hardware OpenGL se requiere. Desafortunadamente, su dispositivo móvil no es compatible.
-    fr = Le programme a besoin d`OpenGL pour travailler. Votre appareil n`est pas appuyé maleuresement.
+    fr = Hélas, l'accélération OpenGL matérielle est nécessaire mais votre appareil n'en dispose pas.
     it = È necessaria una accelerazione hardware OpenGL. Purtroppo, il tuo dispositivo non è supportato.
     ja = ハードウェアアクセラレーションされたOpenGLが必要です。残念ながらご利用中のデバイスではサポートされていません。
     ko = 하드웨어 촉진 OpenGL이 요구됩니다. 애석하게도 귀하의 장치는 지원되지 않습니다.
@@ -950,7 +956,7 @@
     cs = SD karta/USB uložiště s uloženými mapami není k dispozici
     de = SD Karte/USB Speicher mit geladenen Karten nicht verfügbar
     es = La memoria SD/almacenamiento USB con los mapas descargados no está disponible
-    fr = Les cartes téléchargées sont indisponibles
+    fr = Les cartes téléchargées sur carte SD ou support USB sont indisponibles
     it = La scheda/USB/di memoria SD con le mappe scaricate non è disponibile
     ja = マップをダウンロードしたSDカード/USBストレージへ接続できません
     ko = 다운로드된지도와 SD 카드 / USB 저장 장치를 사용할 수 없습니다
@@ -965,7 +971,7 @@
     cs = Prosím, odpoj USB kabel nebo vlož paměťovou kartu pro použití s MapsWithMe
     de = Bitte USB Kabel entfernen oder Speicherkarte einsetzen um MapsWithMe zu verwenden
     es = Por favor desconectar el cable USB o insertar la memoria SD para usar MapsWithMe
-    fr = Débranchez le câble USB ou insérez la carte SD
+    fr = Veuillez débrancher le câble USB ou insérer la carte SD pour utiliser MapsWithMe
     it = Coortesemente scollega il cavo USB oppure inserisci la scheda di memoria per l'usco dell'app
     ja = MapsWithMeを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください
     ko = MapsWithMe를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오
@@ -980,7 +986,7 @@
     cs = Prosím, uvolni nejprve nějaký prostor na SD kartě/USB uložišti
     de = Bitte zuerst Speicherplatz auf SD Karte/USB Speicher freigeben um die Anwendung zu nutzen
     es = Por favor liberar espacio en la memoria SD/almacenamiento USB para usar la aplicación
-    fr = L'espace disponible sur l'appareil est insuffisant pour l'utilisation du programme
+    fr = Veuillez libérer un peu d'espace sur la carte SD ou le support USB pour utiliser l'application
     it = Libera prima dello spazio sulla scheda Sd/ memoria USB per usare l'app
     ja = アプリを起動するにはSDカード/USBストレージの空き容量を確保する必要があります
     ko = 응용 프로그램을 사용하기 위해서는 첫째 SD 카드 / USB 저장 장치에 여유 공간을 확보하십시오
@@ -995,7 +1001,7 @@
     cs = Nedostatek paměti ke spuštění aplikace
     de = Nicht genügend Speicher um die Anwendung zu starten
     es = No hay suficiente memoria para iniciar la aplicación
-    fr = Il ne suffit pas de memoire pour la mise en marche du programme
+    fr = Mémoire insuffisante pour lancer l'application
     it = Memoria insufficiente per lanciare l'app
     ja = メモリ不足のためアプリを起動できません
     ko = 응용 프로그램을 실행하기위한 메모리가 충분하지 않다
@@ -1010,7 +1016,7 @@
     cs = Prosím, uvolni nejprve %1$@ v tvém zařízení, abys mohl/a stáhnout %2$@
     de = Bitte zuerst %1$@ Platz schaffen um %2$@ herunterzuladen
     es = Por favor liberar %1$@ primero para descargar %2$@
-    fr = Merci de faire  %1$@ de la place disponible pour télécharger %2$@
+    fr = Veuillez libérer %1$@ avant de télécharger %2$@
     it = Libera %1$@ sul dispositivo prima per poter scaricare %2$@
     ja = %2$@をダウンロードするにはデバイスに%1$@の空き容量が必要です
     ko = %2$@를 다운로드하기 위해서는 먼저 장치에서 무료로 %1$@를주세요
@@ -1026,7 +1032,7 @@
     cs = Ještě než začneš, bude třeba stáhnout obecnou mapu světa.\nZabere to %.1f%@ ...
     de = Bevor Sie starten, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.\nEs wird %.1f%@ Speicherplatz benötigt.
     es = Antes de comenzar, permite que descarguemos en tu dispositivo un mapamundi general. \nSe requieren %.1f%@ de datos.
-    fr = Avant que vous ne commenciez, laissez-nous télécharger la carte générale du monde sur votre appareil.\nCela prend %.1f%@ de données.
+    fr = Avant de commencer, nous devons télécharger la carte générale du monde.\nCela occupera %.1f%@ de données.
     it = Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %.1f%@.
     ja = 利用を開始する前におおまかな世界地図をダウンロードします。これには%.1f%@の空き容量が必要です。
     ko = 시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다. \n%.1f%@ 데이터가 필요합니다.
@@ -1041,7 +1047,7 @@
     cs = Získávání aktuální polohy
     de = Ermittle momentane Position
     es = Buscando su ubicación actual
-    fr = Votre position est déterminé
+    fr = Détermination de votre position
     it = Ottieni la posizione corrente
     ja = 現在地を取得中
     ko = 현재 위치 얻기
@@ -1056,7 +1062,7 @@
     cs = Přejít na mapu
     de = Zur Karte
     es = Ir al mapa
-    fr = Passer sur la carte
+    fr = Aller sur la carte
     it = Vai alla mappa
     ja = マップを表示
     ko = 지도로 이동
@@ -1071,7 +1077,7 @@
     cs = Stahování %@. Nyní můžeš\npřejít na mapu.
     de = Lade %@ herunter. Sie können jetzt\nzur Karte weitergehen.
     es = Descargando %@. Puede ahora\nproceder al mapa
-    fr = Téléchargement de %@.\nPasser sur la carte
+    fr = Téléchargement de %@. Maintenant\nvous pouvez aller sur la carte.
     it = Sto scaricando %@. Puoi ora\nprocedere con la mappa.
     ja = %@をダウンロードしました\nマップを表示可能です
     ko = %@다운로드. 이제지도를 진행할 수 있습니다.
@@ -1086,7 +1092,7 @@
     cs = Stáhnout %@?
     de = %@ herunterladen?
     es = Descargar %@?
-    fr = Télécharger %@?
+    fr = Télécharger %@ ?
     it = Vuoi scaricare %@?
     ja = %@をダウンロードしますか？
     ko = %@다운로드?
@@ -1101,7 +1107,7 @@
     cs = Aktualizovat %@?
     de = %@ aktualisieren?
     es = Actualizar %@?
-    fr = Renouveler %@?
+    fr = Actualiser %@ ?
     it = Vuoi aggiornare %@?
     ja = %@を更新しますか？
     ko = %@업데이트?
@@ -1133,7 +1139,7 @@
     cs = Můžeš aktualizovat mapu\nsvé aktuální polohy.
     de = Sie können die Karte von\nihrem aktuellen Ort aktualisieren.
     es = Puede actualizar el mapa de su ubicación actual
-    fr = Vous pouvez renouveler la carte\nde votre position actuelle.
+    fr = Vous pouvez actualiser la carte\nde votre position actuelle.
     it = Puoi aggiornare la mappa\ndella tua posizione corrente.
     ja = 現在地のマップを\n更新できます
     ko = 귀하의 현재 위치의지도를 업데이트할 수 있습니다.
@@ -1149,7 +1155,7 @@
     cs = Mapa tvé aktuální\npolohy (%@) je aktuální.
     de = Die Karte von ihrem aktuellen\nOrt (%@) ist aktuell
     es = El mapa de su ubicación\nactual (%@) está actualizado
-    fr = La carte de votre\nposition (%@) est déjà téléchargée
+    fr = La carte de votre position\n(%@) est à jour
     it = La mappa della tua attuale\nposizione (%@) è aggiornata
     ja = 現在地のマップは\n最新です (%@)
     ko = 현재 위치 (%@)\n에서지도는 최신이다
@@ -1164,6 +1170,7 @@
     comment = REMOVE THIS STRING AFTER REFACTORING
     cs = Pauza
     es = Pausar
+    fr = Pause
     ja = 一時停止
     ko = 중지
     nl = Pauze
@@ -1194,7 +1201,7 @@
     cs = Staženo (%@), klepni pro smazání/aktualizaci
     de = Heruntergeladen (%@), berühren zum aktualisieren oder löschen
     es = Descargado (%@), presionar para actualizar o borrar
-    fr = (%@) est téléchargé, touchez pour renouveler ou effacer
+    fr = Téléchargé (%@), touchez pour actualiser ou effacer
     it = Scaricato (%@), tocca per aggiornare o cancellare
     ja = (%@)をダウンロードしました。タップして更新、削除できます
     ko = 다운로드 (%@), 터치를 업데이 트하거나 삭제하는 방법
@@ -1209,7 +1216,7 @@
     cs = Aktualizace %@
     de = Aktualisiere %@
     es = Actualizar %@
-    fr = Renouveler %@
+    fr = Actualiser %@
     it = Aggiorna %@
     ja = %@を更新
     ko = %@업데이트
@@ -1225,7 +1232,7 @@
     cs = Pro funkci vyhledávání musíš aktualizovat mapy:
     de = Sie benötigen aktualisierte Karten für die Suchfunktion
     es = Necesita los mapas actualizados para la función de búsqueda
-    fr = Merci d'effacer les cartes anciennes pour faire fonctionner la recherche
+    fr = Il faut actualiser les cartes pour la recherche :
     it = Hai bisogno di mappe aggiornate per la funzione di ricerca:
     ja = 検索機能を利用するにはマップを更新する必要があります
     ko = 당신은 검색 기능에 대한 업데이트된지도 필요
@@ -1242,7 +1249,7 @@
     cs = Je k dispozici aktualizace pro tyto mapy:
     de = Aktualisierung für diese Karten erhältlich:
     es = Hay actualizaciones disponibles para estos mapas:
-    fr = Le renouvellement est disponible pour les cartes suivantes:
+    fr = Mise à jour disponible pour ces cartes :
     it = Aggiornamento disponibile per queste mappe:
     ja = 以下のマップが更新されています:
     ko = 이지도에 사용할 수있는 업데이트 :
@@ -1259,7 +1266,7 @@
     cs = Aplikaci MapsWithMe Lite už nyní nepotřebuješ, takže si ji můžeš klidně odinstalovat.
     de = Sie benötigen MapsWithMe Lite nicht mehr, sie können es deinstallieren.
     es = Ahora no necesita MapsWithMe Lite, la puede desinstalar.
-    fr = Vous n'avez plus besoin de MapsWithMe Lite. Merci de l'effacer
+    fr = Vous n'avez plus besoin de MapsWithMe Lite et pouvez le supprimer.
     it = Non hai più bisogno di MapsWithMe Lite, quindi puoi disinstallarlo.
     ja = MapsWithMe Liteは削除してもかまいません
     ko = 당신은 더 이상 MapsWithMe 라이트는 필요 없어, 당신은 그것을 제거할 수 있습니다.
@@ -1276,7 +1283,7 @@
     cs = Úspěšně staženo: %@
     de = %@ erfolgreich heruntergeladen
     es = %@ se descargó exitosamente
-    fr = Téléchargement de %@ est accompli avec succès
+    fr = %@ : téléchargement réussi
     it = Scaricato %@ con successo
     ja = %@のダウンロードが成功しました
     ko = %@이 성공적으로 다운로드
@@ -1293,7 +1300,7 @@
     cs = Stahování selhalo: %@
     de = %@ herunterladen fehlgeschlagen
     es = %@ la descarga ha fallado
-    fr = Erreur de téléchargement de %@
+    fr = %@ : échec du téléchargement
     it = Il trasferimento di %@ non è riuscito
     ja = %@のダウンロードが失敗しました
     ko = %@다운로드가 실패했습니다
@@ -1310,7 +1317,7 @@
     cs = Přidat novou skupinu záložek
     de = Neue Gruppe hinzufügen
     es = Agregar un grupo nuevo
-    fr = Ajouter une groupe
+    fr = Ajouter un groupe de signets
     it = Aggiungi un nuovo Set
     ja = 新しいセットを作成
     ko = 새로운 세트 추가
@@ -1326,7 +1333,7 @@
     comment = Place Page - Add To Bookmarks button
     ru = Добавить в Закладки
     de = Zu den Lesezeichen hinzufügen
-    fr = Ajouter aux favoris
+    fr = Ajouter aux signets
     it = Aggiungi al Segnalibri
     es = Añadir a Favoritos
     ko = 즐겨찾기에 추가
@@ -1360,7 +1367,7 @@
     cs = Jméno záložky
     de = Name des Lesezeichens
     es = Nombre del grupo de marcadores
-    fr = Nom de la groupe
+    fr = Nom du groupe de signets
     it = Seleziona un nome del segnalibro
     ja = ブックマークセット名称
     ko = 집합 이름을 즐겨찾기에 추가
@@ -1427,7 +1434,7 @@
     cs = Špendlík
     de = Gesetzte Stecknadel
     es = Etiqueta colocada
-    fr = L'épingle déplacée
+    fr = Épingle placée
     it = Pin trascinato
     ja = ドロップしたピン
     ko = 알수 없는 핀
@@ -1444,7 +1451,7 @@
     cs = Moje místa
     de = Meine Orte
     es = Mis lugares
-    fr = Mes signets
+    fr = Mes lieux
     it = I miei luoghi
     ja = マイロケーション
     ko = 내 장소
@@ -1494,7 +1501,7 @@
     cs = Odstranit špendlík
     de = Stecknadel entfernen
     es = Quitar la etiqueta
-    fr = Effacer l'épingle
+    fr = Supprimer l'épingle
     it = Rimuovi il Pin
     ja = ピンを削除
     ko = 핀 제거
@@ -1528,7 +1535,7 @@
     cs = V MapsWithMe mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.
     de = Lesezeichen von anderen Quellen können importiert und in der MapsWithMe-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Pins aus einer E-Mail, Dropbox oder einem Weblink öffnen.
     es = Se pueden importar y mostrar marcadores de otras fuentes en la aplicación MapsWithMe. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.
-    fr = Les marque-pages provenant d'autres sources peuvent être importés et affichés dans l'application MapsWithMe. Ouvrez les fichiers KML/KMZ marqués depuis votre boite email, Dropbox ou un lien internet.
+    fr = Les signets provenant d'autres sources peuvent être importés et affichés dans MapsWithMe. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.
     it = Possono essere anche importati Preferiti da altre fonti e visualizzate nell'app MapsWithMe. Apri il file KML/KMZ con i pin salvati da una casella di posta, Dropbox o un link web.
     ja = MapsWithMe以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。
     ko = 다른 소스에서 북마크는 MapsWithMe 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.
@@ -1579,7 +1586,7 @@
     cs = Vyber místo, kam by měly být mapy stahovány
     de = Wählen Sie den Ort, wohin die Karten heruntergeladen werden sollen
     es = Seleccione el lugar donde deben descargarse los mapas
-    fr = Sélectionnez l'endroit où les cartes doivent être téléchargées
+    fr = Sélectionnez l'emplacement où les cartes doivent être enregistrées
     it = Seleziona il luogo in cui le mappe devono essere scaricate
     ja = マップのダウンロード先を選択してください
     ko = 지도가 다운로드될 곳을 선택합니다
@@ -1596,7 +1603,7 @@
     cs = Přesunout mapy?
     de = Karten verschieben?
     es = ¿Mover mapas?
-    fr = Bouger les cartes?
+    fr = Déplacer les cartes ?
     it = Vuoi spostare le mappe?
     ja = マップを移動させますか？
     ko = 지도를 이동합니까?
@@ -1629,6 +1636,7 @@
     comment = Show bookmarks from this category on a map or not
     cs = Viditelné
     de = Sichtbar
+    fr = Visible
     it = Visibile
     ja = マップに表示
     ko = 눈에 보이는
@@ -1645,7 +1653,7 @@
     cs = Záložky jsou dostupné jen v plné verzi MapsWithMe. Chceš ji nyní stáhnout?
     de = Lesezeichen stehen in der Vollversion von MapsWithMe zur Verfügung. Jetzt sofort besorgen?
     es = La opción de marcadores está disponible en la versión completa de MapsWithMe. ¿La quieres ya?
-    fr = Les marques-page sont disponibles dans la version complète de MapsWithMe. Se la procurer maintenant?
+    fr = Les signets sont seulement dans la version complète de MapsWithMe. L'installer maintenant ?
     it = I segnalibri sono disponibili solo nella versione completa di MapsWithMe. Scaricalo subito!
     ja = ブックマーク機能はMapsWithMe完全版で利用可能です。ぜひお買い求めください。
     ko = MapsWithMe의 정식 버전에서는 즐겨찾기를 이용하실 수 있습니다. 지금 바로 구입하시겠습니까?
@@ -1662,7 +1670,7 @@
     cs = Navigace GPS deaktivována. Prosím, povol ji v Nastavení.
     de = GPS ist deaktiviert. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.
     es = El GPS está inhabilitado. Por favor, activelo en los ajustes.
-    fr = GPS désactivé. Veuillez s'il vous plait l'activer pour une utilisation plus commode de l'application.
+    fr = GPS désactivé. Veuillez l'activer dans les réglages.
     it = Il GPS è disabilitato. Cortesemente abilitalo nelle Impostazioni.
     ja = GPS機能が無効です。端末の設定画面から有効にしてください。
     ko = GPS가 사용 중지되었습니다. 설정에서 이를 작동시켜 주시기 바랍니다.
@@ -1764,7 +1772,7 @@
     cs = jídlo
     de = Essen
     es = comer
-    fr = repas
+    fr = alimentation
     it = mangiare
     ja = 飲食
     ko = 음식
@@ -1798,7 +1806,7 @@
     cs = čerpací stanice
     de = Tankstelle
     es = gasolinera
-    fr = station-service
+    fr = carburant
     it = stazione di rifornimento
     ja = ガソリンスタンド
     ko = 연료
@@ -1865,7 +1873,7 @@
     cs = pamětihodnosti
     de = Sehenswürdigkeit
     es = turismo
-    fr = curiosités
+    fr = site touristique
     it = turistico
     ja = 観光
     ko = 관광
@@ -1899,7 +1907,7 @@
     cs = bankomat
     de = Geldautomat
     es = atm
-    fr = bancomat
+    fr = distributeur de billets
     it = bancomat
     ja = ATM
     ko = atm
@@ -1949,7 +1957,7 @@
     cs = nemocnice
     de = Spital
     es = hospital
-    fr = hôpital|clinique
+    fr = hôpital/clinique
     it = ospedale
     ja = 病院
     ko = 병원
@@ -1966,7 +1974,7 @@
     cs = záchody
     de = Toilette
     es = servicios sanitario
-    fr = toilette
+    fr = toilettes
     it = toilette
     ja = トイレ
     ko = 화장실
@@ -2000,7 +2008,7 @@
     cs = policie
     de = Polizeistation
     es = policía
-    fr = gendarmerie
+    fr = police/gendarmerie
     it = posto di polizia
     ja = 警察
     ko = 치안대
@@ -2051,7 +2059,7 @@
     cs = Sdílet emailem
     de = Per E-Mail teilen
     es = Enviar por e-mail
-    fr = Partager par e-mail
+    fr = Partager par courrier
     it = Condividi via email
     ja = Eメールで共有
     ko = 이메일로 공유
@@ -2085,7 +2093,7 @@
     cs = Ahoj!\n\nZde jsou mé záložky z offline map aplikace MapsWithMe v přiloženém souboru "%@.kmz". Pokud máš již aplikaci MapsWithMe Pro nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://www.mapswithme.com/get?kmz.\n\nSkvěle se bav s MapsWithMe!
     de = Hallo,\n\nIn der angefügten „%@.kmz“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MapsWithMe. Falls Sie MapsWithMe Pro bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://www.mapswithme.com/get?kmz herunterladen.\n\nIch wünsche viel Vergnügen mit MapsWithMe!
     es = ¡Hola!\n\nEn el archivo adjunto "%@.kmz", están mis marcadores de los mapas offline MapsWithMe. Por favor, ábrelo con MapsWithMe Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://www.mapswithme.com/get?kmz.\n\n¡Que disfrutes de MapsWithMe!
-    fr = Bonjour,\n\nVous trouverez mes favoris des cartes hors-ligne MapsWithMe dans le fichier "%@.kmz:" ci-joint. Veuillez l'ouvrir si vous avez déjà installé MapsWithMe Pro. Sinon, téléchargez d'abord l'application pour appareil iOS ou Android depuis le lien http://www.mapswithme.com/get?kmz.\n\nAmusez-vous bien avec MapsWithMe!
+    fr = Bonjour,\n\nVous trouverez mes signets des cartes hors-ligne MapsWithMe dans le fichier "%@.kmz:" ci-joint. Veuillez l'ouvrir si vous avez déjà installé MapsWithMe Pro. Sinon, téléchargez d'abord l'application pour appareil iOS ou Android depuis le lien http://www.mapswithme.com/get?kmz.\n\nAmusez-vous bien avec MapsWithMe !
     it = Ciao,\n\nQuesti sono i miei "preferiti" fra le mappe offline di MapsWithMe, che si trovano nel file allegato "%@.kmz". Il file può essere aperto se l'app MapsWithMe Pro è già stata installata. In caso contrario, occorre scaricare l'app per il tuo iOS o dispositivo Android dal link http://www.mapswithme.com/get?kmz.\n\nBuon divertimento con MapsWithMe!
     ja = MapsWithMeで作成したブックマークを添付ファイル"%@.kmz"で送付します。MapsWithMe Proがインストールされている端末でファイルを開いてみてください。インストールはこちらから http://www.mapswithme.com/get?kmz iOSまたはAndroidデバイスで利用可能です。\n\nMapsWithMeで楽しい時間をお過ごしください！
     ko = 안녕하세요.\n\n첨부된 "%@.kmz" 파일에 MapsWithMe 오프라인 지도로부터의 제 즐겨찾기가 있습니다. MapsWithMe 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://www.mapswithme.com/get?kmz 링크에서 다운로드하시기 바랍니다.\n\nMapsWithMe와 함께 즐거운 시간 되시기 바랍니다!
@@ -2102,7 +2110,7 @@
     cs = Nahrávání záložek
     de = Lesezeichen werden geladen
     es = Cargando favoritos
-    fr = Chargement des favoris
+    fr = Chargement des signets
     it = Caricamento segnalibri in corso
     ja = ブックマークの読み込み中
     ko = 즐겨찾기 로드
@@ -2119,7 +2127,7 @@
     cs = Záložky byly úspěšně nahrány! Můžeš je najít na mapě nebo na obrazovce Správce záložek.
     de = Lesezeichen erfolgreich geladen! Sie können diese nun auf Ihrer Karte oder im Lesezeichen-Manager sehen.
     es = ¡Los favoritos se han cargado con éxito! Puedes encontrarlos en el mapa o en la pantalla de Gestión de favoritos.
-    fr = Favoris chargés avec succès ! Vous pouvez les trouver sur la carte ou sur l'écran de gestion des favoris.
+    fr = Signets chargés avec succès ! Vous pouvez les trouver sur la carte ou sur l'écran de gestion des signets.
     it = Segnalibri caricati con successo! Puoi trovare i segnalibri direttamente sulla mappa, oppure aprendo la schermata dedicata alla Gestione dei segnalibri.
     ja = ブックマークが読み込まれました! ブックマークはマップ上、またはブックマーク管理画面に表示されます。
     ko = 즐겨찾기가 성공적으로 로드되었습니다! 지도 또는 즐겨찾기 관리자 화면에서 찾으실 수 있습니다.
@@ -2136,7 +2144,7 @@
     cs = Nahrávání záložek se nezdařilo. Soubor může být poškozený nebo vadný.
     de = Hochladen der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein.
     es = La carga de favoritos ha fallado. El archivo puede estar corrupto o ser defectuoso.
-    fr = Chargement des favoris échoué. Le dossier peut être corrompu ou défectueux.
+    fr = Échec du chargement des signets. Le fichier peut être corrompu ou défectueux.
     it = Caricamento dei segnalibri non riuscito. Il file potrebbe essere corrotto o difettoso.
     ja = ブックマークのアップロードに失敗しました。ファイルが破損していた、または問題があった可能性があります。
     ko = 즐겨찾기 업로드가 실패했습니다. 파일이 훼손되었거나 결함이 있을지도 모릅니다.
@@ -2151,6 +2159,7 @@
     tags = android
     comment = resource for context menu
     cs = Upravit
+    fr = Modifier
     ru = Редактировать
     it = Copia link
     uk = Редаґувати
@@ -2181,7 +2190,7 @@
     cs = Stahování země (%@) tvé aktuální polohy
     de = Land (%@) Ihres derzeitigen Standorts herunterladen
     es = Descargar país (%@) de tu ubicación actual
-    fr = Téléchargez le pays (%@) de votre position actuelle
+    fr = Télécharger le pays (%@) de votre position actuelle
     it = Scarica il paese (%@) della tua posizione attuale
     ja = 現在の地域(%@)をダウンロード
     ko = 귀하께서 현재 계신 국가인 (%@)을(를) 다운로드
@@ -2198,7 +2207,7 @@
     cs = Stahování země (%@), v níž hledáš
     de = Land (%@) herunterladen, von dem aus Sie suchen
     es = Descargar país (%@) en el que estás buscando
-    fr = Téléchargez le pays (%@) que vous recherchez sur
+    fr = Télécharger le pays (%@) que vous recherchez sur
     it = Scarica il paese (%@) che stai cercando
     ja = 現在マップで検索している国(%@)をダウンロード
     ko = 귀하께서 검색 중인 국가인 (%@)을(를) 다운로드
@@ -2219,7 +2228,7 @@
     cs = Promiň, nastavení uložení map je dočasně nedostupné.
     de = Es tut uns leid, die Einstellungen der Kartenspeicherung sind deaktiviert.
     es = Lo sentimos, la configuración de Guardar Mapa está desactivada.
-    fr = Nous sommes désolés, les paramètres de Map Storage sont désactivés.
+    fr = Désolé, les paramètres de stockage des cartes sont désactivés.
     it = Siamo spiacenti, ma le impostazioni di archiviazione delle mappe sono disabilitate.
     ja = 恐れ入ります、マップストレージ設定が無効になっています。
     ko = 죄송합니다, 지도 스토리지 설정이 비활성화되어 있습니다.
@@ -2236,7 +2245,7 @@
     cs = Právě probíhá stahování země.
     de = Der Download der Länder wird gerade ausgeführt.
     es = Se está descargando un país.
-    fr = Le téléchargement du pays est en cours actuellement.
+    fr = Téléchargement du pays actuellement en cours.
     it = Il download della nazione è in corso.
     ja = ダウンロードを実行中です
     ko = 국가 다운로드가 지금 진행 중입니다.
@@ -2253,7 +2262,7 @@
     cs = Doufáme, že se Ti používání MapsWithMe líbí! Je-li tomu tak, ohodnoť, prosím, naši aplikaci nebo na ni napiš recenzi v Obchodu s aplikacemi. Nezabere Ti to ani minutu, ale opravdu nám tím můžeš pomoci. Děkujeme Ti za Tvou podporu!
     de = Wir hoffen, dass Ihnen die Verwendung von MapsWithMe Freude bereitet! Wenn ja, geben Sie bitte eine Bewertung oder einen Bericht für die App im App Store ab. Es dauert weniger als eine Minute, kann uns aber wirklich helfen. Danke für Ihre Unterstützung!
     es = ¡Ojalá disfrute mucho con MapsWithMe! Si le gusta, le agradeceremos que puntúe nuestra aplicación en el App Store. Es menos de un minuto y nos sería de gran ayuda. ¡Gracias por su apoyo!
-    fr = Nous espérons que vous appréciez l'utilisation de MapsWithMe ! Si oui, veuillez évaluer l'application sur l'App Store. Cela prend moins d'une minute mais peut vraiment nous aider. Merci pour votre soutien !
+    fr = Nous espérons que vous appréciez MapsWithMe ! Si oui, merci de l'évaluer sur l'App Store. Cela prend un instant mais peut vraiment nous aider. Merci pour votre soutien !
     it = Confidiamo nel fatto che sia piacevole utilizzare MapsWithMe! In caso positivo, ti preghiamo di valutare o recensire l'app all'interno dell'app store. Ti porterà via meno di un minuto e la cosa ci aiuterebbe tantissimo. Grazie per il tuo sostegno!
     ja = MapsWithMeの使い心地はいかがでしょうか。もしよろしければ、App Storeでレビューや評価をお知らせください。皆様からいただく一言が開発の励みになります。ご支援をよろしくお願いいたします！
     ko = MapsWithMe로 즐거운 시간을 보내시기 바랍니다! MapsWithMe가 마음에 드신다면 앱스토어에서 평가를 남겨 주시기 바랍니다. 평가하는 데는 1분이 채 걸리지 않지만 저희에게 큰 도움이 됩니다. 성원해 주셔서 감사합니다!
@@ -2270,7 +2279,7 @@
     cs = Ne, díky
     de = Nein, Danke
     es = No, gracias
-    fr = Non, Merci
+    fr = Non, merci
     it = No, grazie
     ja = いいえ
     ko = 평가하지 않겠습니다
@@ -2291,7 +2300,7 @@
     de = Meine Nadel auf der Karte sehen. Klicke auf den Link %1$@ oder %2$@
     nl = Bekijk mijn pin op de kaart. Open %1$@ of %2$@
     cs = Koukni na mou značku na mapě. Otevři odkaz: %1$@ nebo %2$@
-    fr = Voir ma punaise sur la carte. Ouvrir %1$@ ou %2$@
+    fr = Regarde cette epingle sur la carte ! Ouvre %1$@ ou %2$@. Pas de carte hors-ligne ? A obtenir ici http://mapswith.me/get
     uk = Моя мітка на карті. Іди %1$@ або %2$@
     es = Ve mi alfiler en mapa. Abre %1$@ o %2$@
     pl = Mój znacznik w MapsWithMe %1$@ i %2$@
@@ -2307,7 +2316,7 @@
     de = Sieh, wo ich gerade bin. Klicke auf den Link %1$@ oder %2$@
     nl = Kijk waar ik nu ben. Open %1$@ of %2$@
     cs = Koukni kde jsem. Otevři odkaz: %1$@ nebo %2$@
-    fr = Localisez-moi maintenant. Ouvrir %1$@ ou %2$@
+    fr = Regarde ma position sur MapsWithMe ! Ouvre %1$@ ou %2$@. Pas de carte hors-ligne ? A obtenir ici http://mapswith.me/get
     uk = Глянь де я зараз. Іди %1$@ або %2$@
     es = Mira dónde estoy. Abre %1$@ o %2$@
     pl = Zobacz gdzie jestem. Link %1$@ lub %2$@
@@ -2323,7 +2332,7 @@
     it = Dai uno sguardo al mio pin sulla mappa di MapsWithMe
     es = Mira mi alfiler en el mapa de MapsWithMe
     nl = Kijk naar mijn pin op MapsWithMe kaart
-    fr = Voir mon épingle sur la carte MapsWithMe
+    fr = Regarde mon épingle sur la carte MapsWithMe
     cs = Koukni na moji značku na mapě MapsWithMe
     de = Schau dir meine Nadel auf der MapsWithMe-Karte an
     pl = Obejrzyj mój znacznik na mapie w MapsWithMe
@@ -2338,7 +2347,7 @@
     it = Ciao,\n\nHo segnato %1$@ su MapsWithMe, le mappe del mondo offline. Clicca su questo link %2$@ oppure su questo %3$@ per vedere il posto sulla mappa.\n\nGrazie.
     es = ¡Hola!\n\nMarqué con un alfiler: %1$@ en MapsWithMe, mapas del mundo sin conexión. Haz clic en este enlace %2$@ o este %3$@ para ver el sitio en el mapa.\n\nGracias.
     nl = Hoi,\n\nIk heb: %1$@ geprikt bij MapsWithMe, offline wereldkaarten. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.
-    fr = Salut,\n\nJ'ai épinglé: %1$@ à MapsWithMe, les cartes du monde hors ligne. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour visualiser l'endroit sur la carte.\n\nMerci.
+    fr = Salut,\n\nJ'ai épinglé %1$@ sur MapsWithMe, les cartes du monde hors ligne. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.
     cs = Ahoj,\n\nOznačil/a jsem: %1$@ v MapsWithMe, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.
     de = Hi,\n\nIch habe gepinnt: %1$@ auf MapsWithMe, Offline-Weltkarten. Klicke auf diesen Link %2$@ oder diesen %3$@, um den Ort auf der Karte zu sehen.\n\nVielen Dank.
     pl = Cześć,\n\nDodałem znacznik w: %1$@ w aplikacji MapsWithMe, mapach offline całego świata. Naciśnij ten link %2$@ lub ten %3$@ by zobaczyć to miejsce na mapie.\n\nDziękuję.
@@ -2354,7 +2363,7 @@
     it = Guarda dove mi trovo attualmente sulla mappa MapsWithMe
     es = Mira mi ubicación actual en el mapa en MapsWithMe
     nl = Kijk naar mijn huidige locatie op MapsWithMe kaart
-    fr = Consultez ma localisation actuelle sur la carte MapsWithMe
+    fr = Regarde ma localisation actuelle sur la carte MapsWithMe
     cs = Podívejte se na mou aktuální polohu na mapě na MapsWithMe
     de = Sieh dir meinen aktuellen Standort auf der Karte MapsWithMe an
     pl = Zobacz moją aktualną lokalizację na mapie przy użyciu MapsWithMe
@@ -2370,7 +2379,7 @@
     it = Ciao,\n\nSono qui adesso: %1$@. Clicca su questo link %2$@ oppure su questo %3$@ per vedere il posto sulla mappa.\n\nGrazie.
     es = Hola:\n\nAhora estoy aquí: %1$@. Haz clic en este enlace %2$@ o esta %3$@ para verlo en el mapa. \n\nGracias.
     nl = Hoi,\n\nMomenteel ben ik hier: %1$@. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.
-    fr = Salut,\n\nJe me trouve actuellement là : %1$@. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour visualiser l'endroit sur la carte.\n\nMerci.
+    fr = Salut,\n\nJe me trouve actuellement ici : %1$@. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.
     cs = Ahoj,\n\nPrávě jsem tady: %1$@. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.
     de = Hi,\n\nich bin gerade hier: %1$@ . Klicke auf diesen Link %2$@ oder diesen %3$@, um meinen Standort auf der Karte zu sehen.\n\nVielen Dank.
     pl = Cześć,\n\nJestem teraz tutaj: %1$@. Naciśnij na ten link %2$@ lub ten %3$@, aby zobaczyć to miejsce na mapie.\n\nDziękuję.
@@ -2447,6 +2456,7 @@
     tags = android
     comment = Promocode Activation dialog title
     de = Aktivierung des Aktionscodes
+    fr = Activation de code de promotion
     pl = Aktywacja kodu promocyjnego
     pt = Ativação do Código de Promoção
   [enter_promocode_hint]
@@ -2454,6 +2464,7 @@
     tags = android
     comment = Enter promo code hint
     de = Geben Sie den Aktionscode ein
+    fr = Entrer le code de promotion
     pl = Wprowadź kod promocyjny
     pt = Introduza o Código de Promoção
   [promocode_success]
@@ -2461,6 +2472,7 @@
     tags = android
     comment = Promocode Activation success message
     de = Aktionscode wurde aktiviert!
+    fr = Code de promotion activé !
     pl = Kod promocyjny został aktywowany!
     pt = O código de promoção está ativado!
   [promocode_error]
@@ -2468,6 +2480,7 @@
     tags = android
     comment = Promocode Activation connection/io error
     de = Verbindungsfehler: Bitte versuchen Sie es später erneut.
+    fr = Erreur de connexion. Veuillez recommencer ultérieurement.
     pl = Błąd połączenia. Proszę spróbować ponownie później.
     pt = Erro de ligação. Por favor tente de novo mais tarde.
   [promocode_failure]
@@ -2475,6 +2488,7 @@
     tags = android
     comment = Promocode Activation is invalid  message.
     de = Ungültiger Aktionscode. Bitte versuchen Sie es nochmals.
+    fr = Code de promotion non valide. Veuillez recommencer.
     pl = Błędny kod promocyjny. Spróbuj ponownie.
     pt = Código de promoção inválido. Por favor tente de novo.
   [copy_link]
@@ -2500,7 +2514,7 @@
     comment = Text for the button that returns to caller application
     ru = Подробнее
     de = Weitere Infos anzeigen
-    fr = Afficher plus de renseignements
+    fr = Afficher plus d'informations
     it = Mostra più informazioni
     es = Mostrar más información
     ko = 추가 정보 보기
@@ -2522,7 +2536,7 @@
     pt = Copiado para a Área de Transferência: %1$@
     es = Copiado al portapapeles: %1$@
     de = In die Zwischenablage kopiert: %1$@
-    fr = Copié dans le presse-papier: %1$@
+    fr = Copié dans le presse-papiers : %1$@
     ja = クリップボードにコピーしました: %1$@
     cs = Zkopírováno do schránky: %1$@
     nl = Op het klembord gekopieerd: %1$@
@@ -2538,7 +2552,7 @@
     pl = Włącz anonimowe statystyki użytkowania
     uk = Запустити анонімну статистику використання
     nl = Statistieken voor anoniem gebruik activeren
-    fr = Autorise les statistiques d'utilisation anonymes
+    fr = Autoriser les statistiques d'utilisation anonymes
     de = Aktivieren Sie die anonyme Nutzerstatistik
     pt = Ativar Estatísticas Anónimas de Utilização
     es = Permitir estadísticas de uso anónimas
@@ -2555,7 +2569,7 @@
     pl = To pomaga nam zbudować lepszą aplikację
     uk = Це допомагає нам створювати якісніші застосунки
     nl = Dit helpt ons om betere toepassingen te ontwikkelen
-    fr = Cela nous aide à construire une meilleure application
+    fr = Cela nous aide à améliorer l'application
     de = Dies hilft uns, eine besser Applikation zu konzipieren
     pt = Isto ajuda-nos a fazer aplicações melhores
     es = Nos ayuda a desarrollar una mejor aplicación
@@ -2568,7 +2582,7 @@
     comment = place preview title
     ru = Информация
     de = Info
-    fr = Info
+    fr = Infos
     it = Informazioni
     es = Información
     ko = 정보
@@ -2589,7 +2603,7 @@
     pl = Zrobione
     uk = Готово
     nl = Gedaan
-    fr = Terminé
+    fr = Fin
     de = Erledigt
     pt = Feito
     es = Hecho
@@ -2610,7 +2624,7 @@
     nl = Kies instellingen voor achtergrondscherm
     de = Wählen Sie die rückseitigen Bildschirm-Einstellungen
     cs = Zvolit nastavení Zadní obrazovky
-    fr = Choisissez les réglages de de l'écran arrière
+    fr = Choisissez les réglages de l'écran arrière
 
   [yopme_pref_title]
     tags = android
@@ -2655,7 +2669,7 @@
     nl = Versie: %@
     de = Version: %@
     cs = Verze: %@
-    fr = Version: %@
+    fr = Version : %@
     ja = バージョン： %@
     ko = 버전: %@
     zh-Hant = 版本： %@
@@ -2667,7 +2681,7 @@
     cs = Opravdu chceš pokračovat?
     de = Möchten Sie wirklich fortfahren?
     es = ¿Seguro que desea continuar?
-    fr = Souhaitez-vous vraiment continuer?
+    fr = Souhaitez-vous vraiment continuer ?
     it = Sei sicuro di voler continuare?
     ja = 本当に続けますか?
     ko = 계속하겠습니까?
