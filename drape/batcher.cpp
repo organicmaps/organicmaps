@@ -184,3 +184,11 @@ void Batcher::FinalizeBuffer(const GLState & state)
   m_flushInterface->FlushFullBucket(state, m_buckets[state]);
   m_buckets.erase(state);
 }
+
+void Batcher::Flush()
+{
+  for (buckets_t::const_iterator it = m_buckets.begin(); it != m_buckets.end(); ++it)
+    m_flushInterface->FlushFullBucket(it->first, it->second);
+
+  m_buckets.clear();
+}

@@ -23,6 +23,7 @@ public:
   void InsertTriangleList(const GLState & state, ReferencePoiner<AttributeProvider> params);
   void InsertTriangleStrip(const GLState & state, ReferencePoiner<AttributeProvider> params);
   void InsertTriangleFan(const GLState & state, ReferencePoiner<AttributeProvider> params);
+  void Flush();
 
 private:
   template <typename strategy>
