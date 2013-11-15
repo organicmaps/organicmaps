@@ -11,7 +11,7 @@ public:
   static bool glHasExtension(const string & name);
 
   /// VAO support
-  static int glGenVertexArray();
+  static uint32_t glGenVertexArray();
   static void glBindVertexArray(uint32_t vao);
   static void glDeleteVertexArray(uint32_t vao);
 

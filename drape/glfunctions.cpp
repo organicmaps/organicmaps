@@ -148,7 +148,7 @@ bool GLFunctions::glHasExtension(const string & name)
   return false;
 }
 
-int GLFunctions::glGenVertexArray()
+uint32_t GLFunctions::glGenVertexArray()
 {
   ASSERT(glGenVertexArraysFn != NULL, ());
   GLuint result = 0;
