@@ -318,20 +318,31 @@ public class MWMApplication extends android.app.Application implements MapStorag
   {
     FbUtil.activate(context);
 
+    trackInstallUpdate();
+  }
 
+  private void trackInstallUpdate()
+  {
     //{@ TRACKERS
     final boolean DEBUG = false;
     final Logger logger = DEBUG ? SimpleLogger.get("MAT") : StubLogger.get();
 
+    if (!Utils.hasAnyGoogleStoreInstalled(this))
+    {
+      logger.d("SKIPPING TRACKERS, DOES NOT HAVE GP");
+      return;
+    }
 
     final long DELTA = 60*1000;
     final File mwmDir = new File(getDataStoragePath());
+
     final boolean isNewUser = mwmDir.exists()
-        ?  (System.currentTimeMillis() - mwmDir.lastModified()) < DELTA
+            ? (System.currentTimeMillis() - mwmDir.lastModified()) < DELTA
             : true;
 
     final String advId = getString(R.string.advertiser_id);
     final String convKey = getString(R.string.conversion_key);
+
     final boolean doTrack = !"FALSE".equalsIgnoreCase(advId);
     if (doTrack)
     {
@@ -355,6 +366,5 @@ public class MWMApplication extends android.app.Application implements MapStorag
       }
     }
     //{@ trackers
-
   }
 }
