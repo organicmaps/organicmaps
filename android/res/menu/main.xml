@@ -3,12 +3,10 @@
 
     <item
         android:id="@+id/menuitem_about_dialog"
-        android:icon="@drawable/ic_about"
         android:showAsAction="ifRoom"
         android:title="@string/about"/>
     <item
         android:id="@+id/menuitem_settings_activity"
-        android:icon="@drawable/ic_settings"
         android:showAsAction="ifRoom"
         android:title="@string/settings"/>
 

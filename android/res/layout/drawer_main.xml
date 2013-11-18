@@ -25,7 +25,7 @@
                     style="@style/Widget.MapButtonDrawer"
 		                android:id="@+id/map_button_search"
                     android:contentDescription="@string/search_map"
-                    android:drawableLeft="@drawable/ic_search"
+                    android:drawableLeft="@drawable/ic_search_selector"
                     android:drawableRight="@drawable/ic_probadge"
                     android:text="@string/search_map" />
             </FrameLayout>
@@ -40,7 +40,7 @@
                     style="@style/Widget.MapButtonDrawer"
 		                android:id="@+id/map_button_download"
                     android:contentDescription="@string/download_maps"
-                    android:drawableLeft="@drawable/ic_map"
+                    android:drawableLeft="@drawable/ic_map_selector"
                     android:text="@string/download_maps" />
             </FrameLayout>
 
@@ -54,7 +54,7 @@
                     style="@style/Widget.MapButtonDrawer"
 		                android:id="@+id/map_button_bookmarks"
                     android:contentDescription="@string/bookmarks"
-                    android:drawableLeft="@drawable/ic_bookmarks"
+                    android:drawableLeft="@drawable/ic_bookmarks_selector"
                     android:drawableRight="@drawable/ic_probadge"
                     android:text="@string/bookmarks" />
             </FrameLayout>
@@ -68,7 +68,7 @@
                 <TextView
                     style="@style/Widget.MapButtonDrawer"
                     android:contentDescription="@string/settings"
-                    android:drawableLeft="@drawable/ic_settings"
+                    android:drawableLeft="@drawable/ic_settings_selector"
                     android:text="@string/settings" />
             </FrameLayout>
 
@@ -80,8 +80,8 @@
 
                 <TextView
                     style="@style/Widget.MapButtonDrawer"
-                    android:contentDescription="@string/about"
-                    android:drawableLeft="@drawable/ic_send"
+                    android:contentDescription="@string/share"
+                    android:drawableLeft="@drawable/ic_send_selector"
                     android:text="@string/share" />
             </FrameLayout>
         </LinearLayout>

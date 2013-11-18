@@ -75,9 +75,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/yop_it"
-            android:layout_marginTop="@dimen/zoom_plus_top_margin"
             android:onClick="onPlusClicked"
-            android:src="@drawable/zoom_in_button" />
+            android:src="@drawable/btn_map_controls_zoom_in" />
 
         <ImageButton
             android:id="@+id/map_button_minus"
@@ -87,7 +86,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/map_button_plus"
             android:onClick="onMinusClicked"
-            android:src="@drawable/zoom_out_button" />
+            android:src="@drawable/btn_map_controls_zoom_out" />
     </RelativeLayout>
 
     <FrameLayout
@@ -104,10 +103,10 @@
             style="@style/Widget.MapButtonBottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="right|center_vertical"
             android:contentDescription="@string/my_position"
             android:onClick="onMyPositionClicked"
-            android:src="@drawable/myposition_button_normal" />
+            android:src="@drawable/btn_map_controls_location_normal" />
 
         <ImageButton
             android:id="@+id/map_button_toggle_drawer"
@@ -115,13 +114,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
             android:layout_marginLeft="0dp"
-            android:background="@drawable/drawer_button"
+            android:background="@null"
             android:contentDescription="@string/my_position"
             android:paddingBottom="@dimen/dp_x_4"
             android:paddingLeft="0dp"
             android:paddingRight="@dimen/dp_x_1"
             android:paddingTop="@dimen/dp_x_4"
-            android:src="@drawable/ic_drawer" />
+            android:src="@drawable/btn_menu_tail" />
     </FrameLayout>
 
 </merge>

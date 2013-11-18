@@ -144,9 +144,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       // check if we need to start location observing
       int resID = 0;
       if (hasPosition)
-        resID = R.drawable.myposition_button_found;
+        resID = R.drawable.btn_map_controls_location_pressed;
       else if (state.isFirstPosition())
-        resID = R.drawable.myposition_button_normal;
+        resID = R.drawable.btn_map_controls_location_normal;
 
       if (resID != 0)
       {
@@ -154,7 +154,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         {
           state.startCompassFollowing();
 
-          v.setImageResource(R.drawable.myposition_button_follow);
+          v.setImageResource(R.drawable.btn_map_controls_rotationa);
         }
         else
           v.setImageResource(resID);
@@ -166,7 +166,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       }
       else
       {
-        v.setImageResource(R.drawable.myposition_button_normal);
+        v.setImageResource(R.drawable.btn_map_controls_location_normal);
         v.setSelected(false);
       }
     }
@@ -278,7 +278,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         // If first time pressed - start location observing:
 
         // Set the button state to "searching" first ...
-        vImage.setImageResource(R.drawable.myposition_button_normal);
+        vImage.setImageResource(R.drawable.btn_map_controls_location_normal);
         vImage.setSelected(true);
 
         // ... and then call startLocation, as there could be my_position button
@@ -305,7 +305,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
             {
               state.startCompassFollowing();
 
-              vImage.setImageResource(R.drawable.myposition_button_follow);
+              vImage.setImageResource(R.drawable.btn_map_controls_rotationa);
               vImage.setSelected(true);
               return;
             }
@@ -321,7 +321,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     stopLocation();
 
     // ... and then set button state to default.
-    vImage.setImageResource(R.drawable.myposition_button_normal);
+    vImage.setImageResource(R.drawable.btn_map_controls_location_normal);
     vImage.setSelected(false);
   }
 
@@ -619,11 +619,11 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
         if (R.id.menuitem_settings_activity == id)
           ContextMenu.onItemSelected(R.id.menuitem_settings_activity, MWMActivity.this);
-        else if (R.id.map_button_bookmarks == id)
+        else if (R.id.map_container_bookmarks == id)
           onBookmarksClicked();
-        else if (R.id.map_button_download == id)
+        else if (R.id.map_container_download == id)
           onDownloadClicked();
-        else if (R.id.map_button_search == id)
+        else if (R.id.map_container_search == id)
           onSearchClicked();
         else if (R.id.buy_pro == id)
           runProVersionMarketActivity();
@@ -703,9 +703,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     final TextView bookmarksView = (TextView) findViewById(R.id.map_button_bookmarks);
 
     final Resources res = getResources();
-    searchView.setCompoundDrawablesWithIntrinsicBounds(res.getDrawable(R.drawable.ic_search), null,
+    searchView.setCompoundDrawablesWithIntrinsicBounds(res.getDrawable(R.drawable.ic_search_selector), null,
         isPro ? null : res.getDrawable(R.drawable.ic_probadge), null);
-    bookmarksView.setCompoundDrawablesWithIntrinsicBounds(res.getDrawable(R.drawable.ic_bookmarks), null,
+    bookmarksView.setCompoundDrawablesWithIntrinsicBounds(res.getDrawable(R.drawable.ic_bookmarks_selector), null,
         isPro ? null : res.getDrawable(R.drawable.ic_probadge), null);
   }
 
@@ -784,7 +784,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     final RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) zoomPlusButton.getLayoutParams();
     final int margin = (int) getResources().getDimension(R.dimen.zoom_margin);
     final int marginTop = (int) getResources().getDimension(R.dimen.zoom_plus_top_margin);
-    lp.setMargins(margin, marginTop, margin, margin);
+    final int marginRight = (int) getResources().getDimension(R.dimen.zoom_margin_right);
+    lp.setMargins(margin, marginTop, marginRight, margin);
 
     mMainDrawer.setPadding(0, (int) getResources().getDimension(R.dimen.drawer_top_padding), 0, 0);
   }
@@ -854,14 +855,14 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     if (newStatus == 1)
     {
-      mMyPositionButton.setImageResource(R.drawable.myposition_button_follow);
+      mMyPositionButton.setImageResource(R.drawable.btn_map_controls_rotationa);
     }
     else
     {
       if (getLocationState().hasPosition())
-        mMyPositionButton.setImageResource(R.drawable.myposition_button_found);
+        mMyPositionButton.setImageResource(R.drawable.btn_map_controls_location_pressed);
       else
-        mMyPositionButton.setImageResource(R.drawable.myposition_button_normal);
+        mMyPositionButton.setImageResource(R.drawable.btn_map_controls_location_normal);
     }
 
     mMyPositionButton.setSelected(true);
@@ -885,8 +886,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   {
     if (getLocationState().isFirstPosition())
     {
-
-      mMyPositionButton.setImageResource(R.drawable.myposition_button_found);
+      mMyPositionButton.setImageResource(R.drawable.btn_map_controls_location_pressed);
       mMyPositionButton.setSelected(true);
     }
 
