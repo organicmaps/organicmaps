@@ -58,7 +58,8 @@
         android:layout_height="fill_parent"
         android:layout_gravity="right"
         android:gravity="top"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingRight="@dimen/zoom_margin_right" >
 
         <ImageButton
             android:id="@+id/yop_it"
@@ -95,6 +96,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginBottom="10dip"
+        android:layout_marginRight="@dimen/zoom_margin_right"
+        android:padding="0dp"
         android:gravity="bottom|right"
         android:orientation="horizontal" >
 

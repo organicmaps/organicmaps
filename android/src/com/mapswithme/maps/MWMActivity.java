@@ -784,8 +784,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     final RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) zoomPlusButton.getLayoutParams();
     final int margin = (int) getResources().getDimension(R.dimen.zoom_margin);
     final int marginTop = (int) getResources().getDimension(R.dimen.zoom_plus_top_margin);
-    final int marginRight = (int) getResources().getDimension(R.dimen.zoom_margin_right);
-    lp.setMargins(margin, marginTop, marginRight, margin);
+    lp.setMargins(margin, marginTop, margin, margin);
 
     mMainDrawer.setPadding(0, (int) getResources().getDimension(R.dimen.drawer_top_padding), 0, 0);
   }
