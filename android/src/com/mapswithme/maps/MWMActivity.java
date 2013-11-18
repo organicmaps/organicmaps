@@ -14,6 +14,7 @@ import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -685,20 +686,27 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       }
     });
 
+    findViewById(R.id.map_container_bookmarks).setOnClickListener(drawerItemsClickListener);
+    findViewById(R.id.map_container_search).setOnClickListener(drawerItemsClickListener);
+    findViewById(R.id.map_container_download).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.map_button_toggle_drawer).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.menuitem_settings_activity).setOnClickListener(drawerItemsClickListener);
-    findViewById(R.id.map_button_bookmarks).setOnClickListener(drawerItemsClickListener);
-    findViewById(R.id.map_button_search).setOnClickListener(drawerItemsClickListener);
-    findViewById(R.id.map_button_download).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.map_button_share_myposition).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.buy_pro).setOnClickListener(drawerItemsClickListener);
 
-    final View searchView = findViewById(R.id.map_button_search);
-    final View bookmarksView = findViewById(R.id.map_button_bookmarks);
 
-    final boolean isPro = !mApplication.isProVersion();
-    searchView.setEnabled(isPro);
-    bookmarksView.setEnabled(isPro);
+    final boolean isPro = mApplication.isProVersion();
+    findViewById(R.id.map_container_bookmarks).setEnabled(isPro);
+    findViewById(R.id.map_container_search).setEnabled(isPro);
+
+    final TextView searchView = (TextView) findViewById(R.id.map_button_search);
+    final TextView bookmarksView = (TextView) findViewById(R.id.map_button_bookmarks);
+
+    final Resources res = getResources();
+    searchView.setCompoundDrawablesWithIntrinsicBounds(res.getDrawable(R.drawable.ic_search), null,
+        isPro ? null : res.getDrawable(R.drawable.ic_probadge), null);
+    bookmarksView.setCompoundDrawablesWithIntrinsicBounds(res.getDrawable(R.drawable.ic_bookmarks), null,
+        isPro ? null : res.getDrawable(R.drawable.ic_probadge), null);
   }
 
   private void yotaSetup()
