@@ -431,7 +431,7 @@
   if ([MFMailComposeViewController canSendMail])
     m_shareSection = index++;
   else
-    m_bookmarkSection = EMPTY_SECTION;
+    m_shareSection = EMPTY_SECTION;
   m_numberOfSections = index;
 }
 
