@@ -6,12 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ListView;
 
-import com.mapswithme.maps.ContextMenu;
 import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.MapStorage.Index;
@@ -125,20 +120,5 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
   public void onCountryProgress(Index idx, long current, long total)
   {
     getDA().onCountryProgress(getListView(), idx, current, total);
-  }
-
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu)
-  {
-    return ContextMenu.onCreateOptionsMenu(this, menu);
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item)
-  {
-    if (ContextMenu.onOptionsItemSelected(this, item))
-      return true;
-    else
-      return super.onOptionsItemSelected(item);
   }
 }
