@@ -6,7 +6,8 @@
         android:id="@+id/map_surfaceview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="bottom|center_horizontal" />
+        android:layout_gravity="bottom|center_horizontal"
+        android:background="@android:color/transparent" />
 
     <LinearLayout
         android:id="@+id/title_bar"

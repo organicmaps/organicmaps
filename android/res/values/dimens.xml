@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="drawer_width">240dp</dimen>
-    <dimen name="drawer_grad_left">237dp</dimen>
+    <dimen name="drawer_width">300dp</dimen>
+    <dimen name="drawer_grad_left">297dp</dimen>
     <dimen name="drawer_item_height">56dp</dimen>
     <dimen name="drawer_top_padding">60dp</dimen>
     <dimen name="icon_size">24dp</dimen>
