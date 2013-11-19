@@ -1,6 +1,8 @@
 #pragma once
 
 #include "../std/stdint.hpp"
+#include "../std/string.hpp"
+#include "../std/sstream.hpp"
 
 namespace graphics
 {
@@ -34,4 +36,14 @@ namespace graphics
   inline int greenFromARGB(uint32_t c) {return (c >> 8) & 0xFF; }
   inline int blueFromARGB(uint32_t c)  {return (c & 0xFF);      }
   inline int alphaFromARGB(uint32_t c) {return (c >> 24) & 0xFF;}
+
+  string DebugPrint(Color const & c)
+  {
+    ostringstream os;
+    os << "r: " << (int)c.r << " ";
+    os << "g: " << (int)c.g << " ";
+    os << "b: " << (int)c.b << " ";
+    os << "alpha: " << (int)c.a;
+    return os.str();
+  }
 }
