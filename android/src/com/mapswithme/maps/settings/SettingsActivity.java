@@ -16,6 +16,7 @@ import android.preference.PreferenceActivity;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
+import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
@@ -23,10 +24,12 @@ import com.mapswithme.util.statistics.Statistics;
 
 public class SettingsActivity extends PreferenceActivity
 {
+  private final static String ZOOM_BUTTON_ENABLED = "ZoomButtonsEnabled";
+
   private native boolean isDownloadingActive();
 
   @SuppressLint("NewApi")
-@SuppressWarnings("deprecation")
+  @SuppressWarnings("deprecation")
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
@@ -103,6 +106,18 @@ public class SettingsActivity extends PreferenceActivity
       }
     });
 
+    final CheckBoxPreference enableZoomButtons = (CheckBoxPreference) findPreference(getString(R.string.pref_zoom_btns_enabled));
+    enableZoomButtons.setChecked(isZoomButtonsEnabled(MWMApplication.get()));
+    enableZoomButtons.setOnPreferenceChangeListener(new OnPreferenceChangeListener()
+    {
+      @Override
+      public boolean onPreferenceChange(Preference preference, Object newValue)
+      {
+        setZoomButtonEnabled(MWMApplication.get(), (Boolean)newValue);
+        return true;
+      }
+    });
+
     yotaSetup();
   }
 
@@ -156,5 +171,15 @@ public class SettingsActivity extends PreferenceActivity
     }
     else
       return super.onOptionsItemSelected(item);
+  }
+
+  public static boolean isZoomButtonsEnabled(MWMApplication app)
+  {
+    return app.nativeGetBoolean(ZOOM_BUTTON_ENABLED, true);
+  }
+
+  public static void setZoomButtonEnabled(MWMApplication app, boolean isEnabled)
+  {
+    app.nativeSetBoolean(ZOOM_BUTTON_ENABLED, isEnabled);
   }
 }

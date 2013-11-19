@@ -49,6 +49,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.promo.ActivationSettings;
 import com.mapswithme.maps.promo.PromocodeActivationDialog;
+import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.ConnectionState;
@@ -592,6 +593,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     mAppTitle = (TextView) findViewById(R.id.app_title);
     mMapSurface = (SurfaceView) findViewById(R.id.map_surfaceview);
 
+
     //Drawer
     setUpDrawer();
     // drawer
@@ -935,6 +937,11 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     startWatchingCompassStatusUpdate();
 
     startWatchingExternalStorage();
+
+    if (SettingsActivity.isZoomButtonsEnabled(mApplication))
+      UiUtils.show(findViewById(R.id.map_button_plus), findViewById(R.id.map_button_minus));
+    else
+      UiUtils.hide(findViewById(R.id.map_button_plus), findViewById(R.id.map_button_minus));
   }
 
   @Override

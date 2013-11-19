@@ -18,6 +18,11 @@
         android:summary="@string/allow_statistics_hint"
         android:title="@string/allow_statistics" />
 
+    <CheckBoxPreference
+        android:key="@string/pref_zoom_btns_enabled"
+        android:summary="Показывать или нет?"
+        android:title="Зумные кнопки" />
+
     <Preference
         android:key="@string/pref_yota"
         android:summary="@string/yopme_pref_summary"
