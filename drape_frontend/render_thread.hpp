@@ -2,5 +2,5 @@
 
 namespace df
 {
-  void InitRenderThread();
+  void InitRenderThread() {}
 }
