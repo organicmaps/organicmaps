@@ -43,6 +43,7 @@
 {
   if (!m_isStarted)
   {
+    //YES if location services are enabled; NO if they are not.
     if ([CLLocationManager locationServicesEnabled])
     {
       CLAuthorizationStatus authStatus = kCLAuthorizationStatusNotDetermined;
@@ -67,7 +68,7 @@
       }
     }
     else
-      [observer onLocationError:location::ENotSupported];
+      [observer onLocationError:location::EDenied];
   }
   else
   {
