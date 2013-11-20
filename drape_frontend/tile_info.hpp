@@ -16,13 +16,14 @@ namespace df
     bool m_isOwner;
   };
 
-  class TileInfo : private noncopyable
+  struct TileKey
   {
   public:
-    TileInfo(int x, int y, int zoomLevel)
+    TileKey() : m_x(-1), m_y(-1), m_zoomLevel(-1) {}
+    TileKey(int x, int y, int zoomLevel)
       : m_x(x), m_y(y), m_zoomLevel(zoomLevel) {}
 
-    bool operator < (const TileInfo & other) const
+    bool operator < (const TileKey & other) const
     {
       if (m_zoomLevel != other.m_zoomLevel)
         return m_zoomLevel < other.m_zoomLevel;
@@ -33,7 +34,25 @@ namespace df
       return false;
     }
 
-    int m_x, m_y, m_zoomLevel;
+    int m_x;
+    int m_y;
+    int m_zoomLevel;
+  };
+
+  class TileInfo : private noncopyable
+  {
+  public:
+    TileInfo(const TileKey & key)
+      : m_key(key) {}
+    TileInfo(int x, int y, int zoomLevel)
+      : m_key(x, y, zoomLevel) {}
+
+    bool operator < (const TileInfo & other) const
+    {
+      return m_key < other.m_key;
+    }
+
+    TileKey m_key;
     vector<FeatureInfo> m_featureInfo;
   };
 }
