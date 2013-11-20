@@ -37,7 +37,7 @@ namespace graphics
   inline int blueFromARGB(uint32_t c)  {return (c & 0xFF);      }
   inline int alphaFromARGB(uint32_t c) {return (c >> 24) & 0xFF;}
 
-  string DebugPrint(Color const & c)
+  inline string DebugPrint(Color const & c)
   {
     ostringstream os;
     os << "r: " << (int)c.r << " ";
