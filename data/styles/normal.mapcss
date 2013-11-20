@@ -328,8 +328,7 @@ line|z10[boundary=national_park]
 area|z13-[amenity=college],
 area|z13-[amenity=kindergarten],
 area|z13-[amenity=school],
-area|z13-[amenity=university],
-area|z15-[tourism=attraction]
+area|z13-[amenity=university]
 {
   fill-color: #f0e0dc;
 }
@@ -1635,7 +1634,6 @@ line|z15-[piste:lift=t-bar]::d2p2
   dashes: 0.8,40;
   linecap: butt;
 }
-area|z15-[tourism=attraction],
 node|z15-[tourism=attraction]
 {
   font-size: 12;
