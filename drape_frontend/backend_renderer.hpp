@@ -1,27 +1,32 @@
 #pragma once
 
-#include "../base/commands_queue.hpp"
 #include "../geometry/screenbase.hpp"
+
+#include "../std/function.hpp"
 
 namespace df
 {
+  class ThreadsCommutator;
+  class BackendRendererImpl;
+  class Message;
+
+  typedef function<void (Message *)> post_message_fn_t;
+
   class BackendRenderer
   {
   public:
-    BackendRenderer(int cpuCoreCount, size_t tileSize);
+    BackendRenderer(ThreadsCommutator * commutator,
+                    double visualScale,
+                    int surfaceWidth,
+                    int surfaceHeight);
+
     ~BackendRenderer();
 
     void UpdateCoverage(const ScreenBase & screen);
     void Resize(int x0, int y0, int w, int h);
 
   private:
-    void FinishTask(threads::IRoutine * routine);
-
-  private:
-    class Impl;
-    Impl * m_impl;
-
-  private:
-    core::CommandsQueue m_queue;
+    BackendRendererImpl * m_impl;
+    post_message_fn_t m_post;
   };
 }
