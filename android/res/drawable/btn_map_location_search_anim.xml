@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false" >
+
+    <item
+        android:drawable="@drawable/btn_map_controls_location_normal"
+        android:duration="150"/>
+    <item
+        android:drawable="@drawable/btn_map_controls_location_pressed"
+        android:duration="150"/>
+
+</animation-list>

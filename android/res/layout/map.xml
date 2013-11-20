@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/yop_it"
+            android:layout_centerVertical="true"
             android:onClick="onPlusClicked"
             android:src="@drawable/btn_map_controls_zoom_in" />
 

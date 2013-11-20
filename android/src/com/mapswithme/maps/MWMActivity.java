@@ -43,6 +43,7 @@ import com.mapswithme.country.DownloadUI;
 import com.mapswithme.maps.Framework.OnBalloonListener;
 import com.mapswithme.maps.MapObjectFragment.MapObjectType;
 import com.mapswithme.maps.MapStorage.Index;
+import com.mapswithme.maps.MyLocationButtonController.ButtonState;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -54,6 +55,7 @@ import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.ShareAction;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.Statistics;
@@ -72,7 +74,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private BroadcastReceiver m_externalStorageReceiver = null;
   private AlertDialog m_storageDisconnectedDialog = null;
 
-  private ImageButton mMyPositionButton;
+  private ImageButton mLocationButton;
   private SurfaceView mMapSurface;
 
   private View mYopItButton;
@@ -136,40 +138,29 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   public void checkShouldResumeLocationService()
   {
-    final ImageButton v = mMyPositionButton;
-    if (v != null)
+    final LocationState state = getLocationState();
+    final boolean hasPosition = state.hasPosition();
+    final boolean isFollowMode = (state.getCompassProcessMode() == LocationState.COMPASS_FOLLOW);
+
+    if (hasPosition || state.isFirstPosition())
     {
-      final LocationState state = getLocationState();
-      final boolean hasPosition = state.hasPosition();
-
-      // check if we need to start location observing
-      int resID = 0;
-      if (hasPosition)
-        resID = R.drawable.btn_map_controls_location_pressed;
-      else if (state.isFirstPosition())
-        resID = R.drawable.btn_map_controls_location_normal;
-
-      if (resID != 0)
+      if (hasPosition && isFollowMode)
       {
-        if (hasPosition && (state.getCompassProcessMode() == LocationState.COMPASS_FOLLOW))
-        {
-          state.startCompassFollowing();
-
-          v.setImageResource(R.drawable.btn_map_controls_rotationa);
-        }
-        else
-          v.setImageResource(resID);
-
-        v.setSelected(true);
-
-        // start observing in the end (button state can changed here from normal to found).
-        resumeLocation();
+        state.startCompassFollowing();
+        MyLocationButtonController.setButtonViewFromState(ButtonState.FOLLOW_MODE, mLocationButton);
       }
       else
       {
-        v.setImageResource(R.drawable.btn_map_controls_location_normal);
-        v.setSelected(false);
+        MyLocationButtonController.setButtonViewFromState(
+            hasPosition
+            ? ButtonState.HAS_LOCATION
+            : ButtonState.WAITING_LOCATION, mLocationButton);
       }
+      resumeLocation();
+    }
+    else
+    {
+      MyLocationButtonController.setButtonViewFromState(ButtonState.NO_LOCATION, mLocationButton);
     }
   }
 
@@ -271,59 +262,45 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   public void onMyPositionClicked(View v)
   {
     final LocationState state = mApplication.getLocationState();
-    final ImageView vImage = (ImageView)v;
-    if (!state.hasPosition())
+    if (state.hasPosition())
     {
-      if (!state.isFirstPosition())
+      if (state.isCentered())
       {
-        // If first time pressed - start location observing:
-
-        // Set the button state to "searching" first ...
-        vImage.setImageResource(R.drawable.btn_map_controls_location_normal);
-        vImage.setSelected(true);
-
-        // ... and then call startLocation, as there could be my_position button
-        // state changes in the startLocation.
-        startLocation();
+        if (mApplication.isProVersion() && state.hasCompass())
+        {
+          final boolean isFollowMode = (state.getCompassProcessMode() == LocationState.COMPASS_FOLLOW);
+          if (isFollowMode)
+          {
+            state.stopCompassFollowingAndRotateMap();
+          }
+          else
+          {
+            state.startCompassFollowing();
+            MyLocationButtonController.setButtonViewFromState(ButtonState.FOLLOW_MODE, mLocationButton);
+            return;
+          }
+        }
+      }
+      else
+      {
+        state.animateToPositionAndEnqueueLocationProcessMode(LocationState.LOCATION_CENTER_ONLY);
+        mLocationButton.setSelected(true);
         return;
       }
     }
     else
     {
-      if (!state.isCentered())
+      if (!state.isFirstPosition())
       {
-        state.animateToPositionAndEnqueueLocationProcessMode(LocationState.LOCATION_CENTER_ONLY);
-        vImage.setSelected(true);
+        MyLocationButtonController.setButtonViewFromState(ButtonState.WAITING_LOCATION, mLocationButton);
+        startLocation();
         return;
       }
-      else
-        if (mApplication.isProVersion())
-        {
-          // Check if we need to start compass following.
-          if (state.hasCompass())
-          {
-            if (state.getCompassProcessMode() != LocationState.COMPASS_FOLLOW)
-            {
-              state.startCompassFollowing();
-
-              vImage.setImageResource(R.drawable.btn_map_controls_rotationa);
-              vImage.setSelected(true);
-              return;
-            }
-            else
-              state.stopCompassFollowingAndRotateMap();
-          }
-        }
     }
-
-    // Turn off location search:
 
     // Stop location observing first ...
     stopLocation();
-
-    // ... and then set button state to default.
-    vImage.setImageResource(R.drawable.btn_map_controls_location_normal);
-    vImage.setSelected(false);
+    MyLocationButtonController.setButtonViewFromState(ButtonState.NO_LOCATION, mLocationButton);
   }
 
   private boolean m_needCheckUpdate = true;
@@ -587,7 +564,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     nativeConnectDownloadButton();
 
     //set up view
-    mMyPositionButton = (ImageButton) findViewById(R.id.map_button_myposition);
+    mLocationButton = (ImageButton) findViewById(R.id.map_button_myposition);
     mTitleBar = findViewById(R.id.title_bar);
     mAppIcon = (ImageView) findViewById(R.id.app_icon);
     mAppTitle = (TextView) findViewById(R.id.app_title);
@@ -853,20 +830,12 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   public void onCompassStatusChanged(int newStatus)
   {
-
     if (newStatus == 1)
-    {
-      mMyPositionButton.setImageResource(R.drawable.btn_map_controls_rotationa);
-    }
+      MyLocationButtonController.setButtonViewFromState(ButtonState.FOLLOW_MODE, mLocationButton);
+    else if (getLocationState().hasPosition())
+      MyLocationButtonController.setButtonViewFromState(ButtonState.HAS_LOCATION, mLocationButton);
     else
-    {
-      if (getLocationState().hasPosition())
-        mMyPositionButton.setImageResource(R.drawable.btn_map_controls_location_pressed);
-      else
-        mMyPositionButton.setImageResource(R.drawable.btn_map_controls_location_normal);
-    }
-
-    mMyPositionButton.setSelected(true);
+      MyLocationButtonController.setButtonViewFromState(ButtonState.NO_LOCATION, mLocationButton);
   }
 
   public void OnCompassStatusChanged(int newStatus)
@@ -886,10 +855,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   public void onLocationUpdated(final Location l)
   {
     if (getLocationState().isFirstPosition())
-    {
-      mMyPositionButton.setImageResource(R.drawable.btn_map_controls_location_pressed);
-      mMyPositionButton.setSelected(true);
-    }
+      MyLocationButtonController.setButtonViewFromState(ButtonState.HAS_LOCATION, mLocationButton);
 
     nativeLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy(), l.getAltitude(), l.getSpeed(), l.getBearing());
   }
@@ -1362,4 +1328,3 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     shareButton.setEnabled(mApplication.getLocationService().getLastKnown() != null);
   }
 }
-//
