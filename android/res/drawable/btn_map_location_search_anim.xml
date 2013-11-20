@@ -3,10 +3,10 @@
     android:oneshot="false" >
 
     <item
-        android:drawable="@drawable/btn_map_controls_location_normal"
+        android:drawable="@drawable/btn_location_normal"
         android:duration="150"/>
     <item
-        android:drawable="@drawable/btn_map_controls_location_pressed"
+        android:drawable="@drawable/btn_location_pressed"
         android:duration="150"/>
 
 </animation-list>

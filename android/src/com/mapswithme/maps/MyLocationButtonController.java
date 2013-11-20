@@ -21,9 +21,9 @@ public class MyLocationButtonController
   private final static Map<ButtonState, Integer> STATE_TO_RES = new HashMap<ButtonState, Integer>();
   static
   {
-    STATE_TO_RES.put(ButtonState.NO_LOCATION, R.drawable.btn_map_controls_location_normal);
-    STATE_TO_RES.put(ButtonState.HAS_LOCATION, R.drawable.btn_map_controls_location_pressed);
-    STATE_TO_RES.put(ButtonState.FOLLOW_MODE, R.drawable.btn_map_controls_rotationa);
+    STATE_TO_RES.put(ButtonState.NO_LOCATION, R.drawable.btn_location_normal);
+    STATE_TO_RES.put(ButtonState.HAS_LOCATION, R.drawable.btn_location_pressed);
+    STATE_TO_RES.put(ButtonState.FOLLOW_MODE, R.drawable.btn_location_rotation);
     STATE_TO_RES.put(ButtonState.WAITING_LOCATION, R.drawable.btn_map_location_search_anim); // TODO: real resource
   }
 

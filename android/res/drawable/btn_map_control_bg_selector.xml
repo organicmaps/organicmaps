@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/btn_map_controls_bg_pressed" android:state_pressed="true"/>
-    <item android:drawable="@drawable/btn_map_controls_bg_normal"/>
+    <item android:drawable="@drawable/btn_location_bg_pressed" android:state_pressed="true"/>
+    <item android:drawable="@drawable/btn_location_bg_normal"/>
 
 </selector>

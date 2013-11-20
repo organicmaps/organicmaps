@@ -78,7 +78,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:onClick="onPlusClicked"
-            android:src="@drawable/btn_map_controls_zoom_in" />
+            android:src="@drawable/btn_zoom_in" />
 
         <ImageButton
             android:id="@+id/map_button_minus"
@@ -88,7 +88,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/map_button_plus"
             android:onClick="onMinusClicked"
-            android:src="@drawable/btn_map_controls_zoom_out" />
+            android:src="@drawable/btn_zoom_out" />
     </RelativeLayout>
 
     <FrameLayout
@@ -124,7 +124,7 @@
             android:paddingLeft="0dp"
             android:paddingRight="@dimen/dp_x_1"
             android:paddingTop="@dimen/dp_x_4"
-            android:src="@drawable/btn_menu_tail" />
+            android:src="@drawable/btn_menu_tail_selector" />
     </FrameLayout>
 
 </merge>

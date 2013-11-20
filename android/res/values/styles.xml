@@ -4,7 +4,7 @@
     <string name="robotoLight">sans-serif-light</string>
 
     <style name="Widget.MapButtonZoom" parent="android:Widget.Holo.ImageButton">
-        <item name="android:background">@drawable/btn_map_control_bg_selector</item>
+        <item name="android:background">@drawable/btn_zoom_bg_selector</item>
         <item name="android:layout_margin">@dimen/zoom_margin</item>
         <item name="android:layout_marginBottom">@dimen/zoom_margin</item>
         <item name="android:padding">0dp</item>
