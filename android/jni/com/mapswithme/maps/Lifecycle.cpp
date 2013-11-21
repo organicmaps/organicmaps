@@ -170,11 +170,9 @@ int32_t NVEventAppInit(int32_t argc, char** argv)
 int32_t NVEventAppMain(int32_t argc, char** argv)
 {
   s_swapCount = 0;
-
   s_glesLoaded = false;
-  //s_glesAutopaused = false;
 
-  NVDEBUG( "App entering main loop");
+  NVDEBUG("Application entering main loop");
 
   while (NVEventStatusIsRunning())
   {
@@ -191,7 +189,6 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
 
           if ((ev->m_data.m_key.m_code == NV_KEYCODE_BACK)/* && !s_glesAutopaused*/)
           {
-//            s_glesAutopaused = true;
             renderFrame(false);
             NVEventDoneWithEvent(true);
           }
@@ -211,7 +208,6 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
 
           break;
         case NV_EVENT_TOUCH:
-//          if (!s_glesAutopaused)
           {
               switch (ev->m_data.m_touch.m_action)
               {
@@ -233,19 +229,8 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
             int maskOnly = (ev->m_data.m_multi.m_action & NV_MULTITOUCH_POINTER_MASK) >> (NV_MULTITOUCH_POINTER_SHIFT);
             int action = ev->m_data.m_multi.m_action & NV_MULTITOUCH_ACTION_MASK;
 
-/*            ostringstream out;
-            out << "mask: " << maskOnly
-                << ", action: " << action
-                << ", pts: " << ev->m_data.m_multi.m_x1 << " " << ev->m_data.m_multi.m_y1 << " "
-                             << ev->m_data.m_multi.m_x2 << " " << ev->m_data.m_multi.m_y2;
-
-            NVDEBUG(out.str().c_str());*/
-
-//            if (!s_glesAutopaused)
-//            {
-              g_framework->Touch(action, maskOnly, ev->m_data.m_multi.m_x1, ev->m_data.m_multi.m_y1,
-                                                   ev->m_data.m_multi.m_x2, ev->m_data.m_multi.m_y2);
-//            }
+            g_framework->Touch(action, maskOnly, ev->m_data.m_multi.m_x1, ev->m_data.m_multi.m_y1,
+                                                 ev->m_data.m_multi.m_x2, ev->m_data.m_multi.m_y2);
           }
           break;
 
@@ -257,11 +242,6 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
 
           g_framework->Resize(s_winWidth, s_winHeight);
           g_framework->NativeFramework()->Invalidate(true);
-	  /*          if (shouldLoadState)
-          {
-            g_framework->LoadState();
-            shouldLoadState = false;
-	    }*/
 
           NVDEBUG( "Surface create/resize event: %d x %d", s_winWidth, s_winHeight);
 
@@ -276,10 +256,6 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
 
         case NV_EVENT_FOCUS_LOST:
           NVDEBUG("Focus lost event");
-//          s_glesAutopaused = true;
-          /// need to investigate deeper, whether i could call it only once in a sequence of lifecycle events
-/*          if (g_framework)
-            g_framework->SaveState();*/
 
           renderFrame(false);
           break;
@@ -287,27 +263,17 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
         case NV_EVENT_PAUSE:
           NVDEBUG("Pause event");
 
-/*          if (g_framework)
-            g_framework->SaveState();*/
-
-          //s_glesAutopaused = true;
           renderFrame(false);
           break;
 
         case NV_EVENT_STOP:
           NVDEBUG("Stop event");
 
-/*          if (g_framework)
-            g_framework->SaveState();*/
-
           // As per Google's recommendation, we release GLES resources here
           ShutdownGLESResources();
           break;
         case NV_EVENT_QUIT:
           NVDEBUG("Quit event");
-
-/*          if (g_framework)
-            g_framework->SaveState();*/
 
           break;
         case NV_EVENT_ACCEL:

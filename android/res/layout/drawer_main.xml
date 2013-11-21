@@ -27,7 +27,7 @@
                     android:contentDescription="@string/search_map"
                     android:drawableLeft="@drawable/ic_search_selector"
                     android:drawableRight="@drawable/ic_probadge"
-                    android:text="@string/search_map" />
+                    android:text="@string/search" />
             </FrameLayout>
 
             <FrameLayout

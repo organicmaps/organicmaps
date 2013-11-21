@@ -209,6 +209,7 @@ public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity
   public boolean onTouchEvent(MotionEvent event)
   {
     final int count = event.getPointerCount();
+
     if (!m_nativeLaunched || count == 0)
       return super.onTouchEvent(event);
 
@@ -223,11 +224,14 @@ public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity
 
 
       // we skip event near edge of drawer
-      if (x0 < 0.1f * Math.min(m_surfaceHeight, m_surfaceWidth))
+      final int border = (int) (.5 + 0.1f
+          * Math.min(m_surfaceHeight, m_surfaceWidth)*getResources().getDisplayMetrics().density);
+
+      if (x0 < border)
         return false;
       else
-        return multiTouchEvent(event.getAction(), true, false,
-            x0, y0, 0, 0, event);
+        return multiTouchEvent(event.getAction(), true, false, x0, y0, 0, 0, event);
+
     }
     default:
       {
