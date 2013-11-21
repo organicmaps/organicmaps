@@ -8,8 +8,7 @@ namespace df
 {
   void ThreadsCommutator::RegisterThread(ThreadName name, MessageAcceptor * acceptor)
   {
-    ASSERT(m_acceptors.find(name) == m_acceptors.end(), ());
-    m_acceptors[name] = acceptor;
+    VERIFY(m_acceptors.insert(make_pair(name, acceptor)).second, ());
   }
 
   void ThreadsCommutator::PostMessage(ThreadName name, Message * message)

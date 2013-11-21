@@ -7,11 +7,7 @@
 #include "read_mwm_task.hpp"
 
 #include "message.hpp"
-#include "update_coverage_message.hpp"
-#include "resize_message.hpp"
-#include "task_finish_message.hpp"
-#include "drop_tile_message.hpp"
-#include "drop_coverage_message.hpp"
+#include "message_subclasses.hpp"
 
 #include "../geometry/screenbase.hpp"
 

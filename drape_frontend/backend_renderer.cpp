@@ -1,8 +1,7 @@
 #include "backend_renderer.hpp"
 
 #include "threads_commutator.hpp"
-#include "update_coverage_message.hpp"
-#include "resize_message.hpp"
+#include "message_subclasses.hpp"
 #include "impl/backend_renderer_impl.hpp"
 
 #include "../std/bind.hpp"

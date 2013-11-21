@@ -14,11 +14,7 @@ SOURCES += \
     message.cpp \
     threads_commutator.cpp \
     message_acceptor.cpp \
-    drop_tile_message.cpp \
     impl/backend_renderer_impl.cpp \
-    update_coverage_message.cpp \
-    resize_message.cpp \
-    task_finish_message.cpp \
     read_mwm_task.cpp
 
 HEADERS += \
@@ -31,10 +27,6 @@ HEADERS += \
     message.hpp \
     threads_commutator.hpp \
     message_acceptor.hpp \
-    drop_tile_message.hpp \
     impl/backend_renderer_impl.hpp \
-    update_coverage_message.hpp \
-    resize_message.hpp \
-    task_finish_message.hpp \
     read_mwm_task.hpp \
-    drop_coverage_message.hpp
+    message_subclasses.hpp
