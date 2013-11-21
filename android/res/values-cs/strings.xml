@@ -288,9 +288,9 @@
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Zkopírováno do schránky: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Povolit anonymní statistiky používání</string>
+	<string name="allow_statistics">Odesílat statistiky</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Pomůže nám to vytvořit zlepšit aplikaci</string>
+	<string name="allow_statistics_hint">Dovolte nám shromažďovat statistické údaje o využivání, abychom mohli aplikaci zlepšovat</string>
 	<!-- place preview title -->
 	<string name="info">Více informací</string>
 	<!-- Used for bookmark editing -->
@@ -309,4 +309,9 @@
 	<string name="tracks">Stopy</string>
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Délka</string>
+	<string name="share_my_location">Sdílet mé umístění</string>
+	<string name="become_a_pro">stát se Pro uživatelem</string>
+	<string name="menu_search">Vyhledávání</string>
+	<string name="pref_zoom_title">Nástroj přiblížení/oddálení</string>
+	<string name="pref_zoom_summary">Zobrazit na obrazovce</string>
 </resources>

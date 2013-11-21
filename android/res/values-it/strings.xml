@@ -309,4 +309,9 @@
 	<string name="tracks">Tracciati</string>
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Lunghezza</string>
+	<string name="share_my_location">Condividi la mia location</string>
+	<string name="become_a_pro">diventa un utente pro</string>
+	<string name="menu_search">Cerca</string>
+	<string name="pref_zoom_title">Zoom in avanti/indietro</string>
+	<string name="pref_zoom_summary">Condividi la mia location</string>
 </resources>

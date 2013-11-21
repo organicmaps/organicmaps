@@ -301,9 +301,9 @@
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Skopiowano do schowka: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Włącz anonimowe statystyki użytkowania</string>
+	<string name="allow_statistics">Prześlij statystyki</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">To pomaga nam zbudować lepszą aplikację</string>
+	<string name="allow_statistics_hint">Pozwól nam na zbieranie statystyk dotyczących używania aplikacji, abyśmy mogli ją udoskonalić</string>
 	<!-- place preview title -->
 	<string name="info">Informacje</string>
 	<!-- Used for bookmark editing -->
@@ -322,4 +322,9 @@
 	<string name="tracks">Trasy</string>
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Długość</string>
+	<string name="share_my_location">Udostępnij moją lokalizację</string>
+	<string name="become_a_pro">zostań użytkownikiem pro</string>
+	<string name="menu_search">Szukaj</string>
+	<string name="pref_zoom_title">Narzędzie do powiększania/zmniejszania</string>
+	<string name="pref_zoom_summary">Wyświetl na ekranie</string>
 </resources>

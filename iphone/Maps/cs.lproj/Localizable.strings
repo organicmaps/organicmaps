@@ -474,10 +474,10 @@
 "copied_to_clipboard" = "Zkopírováno do schránky: %1$@";
 
 /* Setting label for statistics turn on/off */
-"allow_statistics" = "Povolit anonymní statistiky používání";
+"allow_statistics" = "Odesílat statistiky";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Pomůže nám to vytvořit zlepšit aplikaci";
+"allow_statistics_hint" = "Dovolte nám shromažďovat statistické údaje o využivání, abychom mohli aplikaci zlepšovat";
 
 /* place preview title */
 "info" = "Více informací";
@@ -505,3 +505,13 @@
 
 /* Length of track in cell that describes route */
 "length" = "Délka";
+
+"share_my_location" = "Sdílet mé umístění";
+
+"become_a_pro" = "stát se Pro uživatelem";
+
+"menu_search" = "Vyhledávání";
+
+"pref_zoom_title" = "Nástroj přiblížení/oddálení";
+
+"pref_zoom_summary" = "Zobrazit na obrazovce";

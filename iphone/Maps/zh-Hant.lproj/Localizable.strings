@@ -505,3 +505,13 @@
 
 /* Length of track in cell that describes route */
 "length" = "長度";
+
+"share_my_location" = "分享我的位置";
+
+"become_a_pro" = "成為專業用戶";
+
+"menu_search" = "搜尋";
+
+"pref_zoom_title" = "放大/縮小工具";
+
+"pref_zoom_summary" = "在螢幕上顯示";

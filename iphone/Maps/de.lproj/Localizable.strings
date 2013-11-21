@@ -36,7 +36,7 @@
 /* Button "do not interrupt download" if user touched actively downloading country */
 "do_nothing" = "Download fortsetzen";
 
-"download_maps" = "Landkarten herunterladen";
+"download_maps" = "Karten herunterladen";
 
 /* Settings/Downloader - Download confirmation button */
 "download_x_kb" = "Herunterladen %qu kB";
@@ -474,10 +474,10 @@
 "copied_to_clipboard" = "In die Zwischenablage kopiert: %1$@";
 
 /* Setting label for statistics turn on/off */
-"allow_statistics" = "Aktivieren Sie die anonyme Nutzerstatistik";
+"allow_statistics" = "Statistiken senden";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Dies hilft uns, eine besser Applikation zu konzipieren";
+"allow_statistics_hint" = "Erlauben Sie uns das Sammeln von Nutzungsstatistiken zur Verbesserung der App";
 
 /* place preview title */
 "info" = "Info";
@@ -505,3 +505,13 @@
 
 /* Length of track in cell that describes route */
 "length" = "Länge";
+
+"share_my_location" = "Meinen Standort teilen";
+
+"become_a_pro" = "Pro-Benutzer werden";
+
+"menu_search" = "Suche";
+
+"pref_zoom_title" = "Tool zum Heran- und Herauszoomen";
+
+"pref_zoom_summary" = "Auf dem Bildschirm anzeigen";

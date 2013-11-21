@@ -22,7 +22,7 @@
 	<string name="do_not_ask_me_again">Nicht mehr fragen</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
 	<string name="do_nothing">Download fortsetzen</string>
-	<string name="download_maps">Landkarten herunterladen</string>
+	<string name="download_maps">Karten herunterladen</string>
 	<!-- Settings/Downloader - Download confirmation button -->
 	<string name="download_x_kb">Herunterladen %qu kB</string>
 	<!-- Settings/Downloader - Download confirmation button -->
@@ -292,9 +292,9 @@
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">In die Zwischenablage kopiert: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Aktivieren Sie die anonyme Nutzerstatistik</string>
+	<string name="allow_statistics">Statistiken senden</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Dies hilft uns, eine besser Applikation zu konzipieren</string>
+	<string name="allow_statistics_hint">Erlauben Sie uns das Sammeln von Nutzungsstatistiken zur Verbesserung der App</string>
 	<!-- place preview title -->
 	<string name="info">Info</string>
 	<!-- Used for bookmark editing -->
@@ -313,4 +313,9 @@
 	<string name="tracks">Tracks</string>
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Länge</string>
+	<string name="share_my_location">Meinen Standort teilen</string>
+	<string name="become_a_pro">Pro-Benutzer werden</string>
+	<string name="menu_search">Suche</string>
+	<string name="pref_zoom_title">Tool zum Heran- und Herauszoomen</string>
+	<string name="pref_zoom_summary">Auf dem Bildschirm anzeigen</string>
 </resources>

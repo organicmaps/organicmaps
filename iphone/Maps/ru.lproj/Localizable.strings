@@ -474,10 +474,10 @@
 "copied_to_clipboard" = "Скопировано в буфер обмена: %1$@";
 
 /* Setting label for statistics turn on/off */
-"allow_statistics" = "Разрешить анонимный сбор статистики";
+"allow_statistics" = "Сбор статистики";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Это помогает нам совершенствовать приложение";
+"allow_statistics_hint" = "Разрешить сбор статистики. Это помогает нам совершенствовать приложение.";
 
 /* place preview title */
 "info" = "Информация";
@@ -505,3 +505,13 @@
 
 /* Length of track in cell that describes route */
 "length" = "Длина";
+
+"share_my_location" = "Поделиться местоположением";
+
+"become_a_pro" = "СКАЧАТЬ ПОЛНУЮ ВЕРСИЮ";
+
+"menu_search" = "Поиск";
+
+"pref_zoom_title" = "Кнопки приближения/отдаления";
+
+"pref_zoom_summary" = "Показать на карте";

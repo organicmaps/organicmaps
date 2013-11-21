@@ -284,9 +284,9 @@
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">クリップボードにコピーしました: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">匿名の使用状況統計を有効にする</string>
+	<string name="allow_statistics">統計を送信</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">よりよいアプリケーションの開発にご協力ください</string>
+	<string name="allow_statistics_hint">アプリを向上できるよう、使用状況の統計を収集させてください</string>
 	<!-- place preview title -->
 	<string name="info">情報</string>
 	<!-- Used for bookmark editing -->
@@ -299,4 +299,9 @@
 	<string name="tracks">トラック</string>
 	<!-- Length of track in cell that describes route -->
 	<string name="length">距離</string>
+	<string name="share_my_location">位置情報を共有する</string>
+	<string name="become_a_pro">proユーザーになる</string>
+	<string name="menu_search">検索</string>
+	<string name="pref_zoom_title">ズームイン/アウトツール</string>
+	<string name="pref_zoom_summary">画面上に表示</string>
 </resources>

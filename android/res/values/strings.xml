@@ -308,9 +308,9 @@
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Copied to Clipboard: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Enable Anonymous Usage Statistics</string>
+	<string name="allow_statistics">Send Statistics</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">It helps us to build better application</string>
+	<string name="allow_statistics_hint">Allow us to collect usage statistics to improve the app</string>
 	<!-- place preview title -->
 	<string name="info">Info</string>
 	<!-- Used for bookmark editing -->
@@ -329,4 +329,9 @@
 	<string name="tracks">Tracks</string>
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Length</string>
+	<string name="share_my_location">Share my location</string>
+	<string name="become_a_pro">BECOME A PRO USER</string>
+	<string name="menu_search">Search</string>
+	<string name="pref_zoom_title">Zoom in/out buttons</string>
+	<string name="pref_zoom_summary">Display on the screen</string>
 </resources>

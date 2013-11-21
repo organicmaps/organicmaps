@@ -150,7 +150,7 @@
   [download_maps]
     en = Download Maps
     cs = Stáhnout mapy
-    de = Landkarten herunterladen
+    de = Karten herunterladen
     es = Descargar mapas
     fr = Télécharger des cartes
     it = Scarica le mappe
@@ -1731,7 +1731,7 @@
     zh-Hant = 任何地方
     pl = Wszędzie
     pt = Em toda a parte
-  [search_mode_nearme] 
+  [search_mode_nearme]
     en = Near Me
     tags = ios,android
     comment = Do search near my position only
@@ -2218,7 +2218,7 @@
     pl = Pobierz mapę kraju (%@), którego aktualnie poszukujesz
     pt = Descarregue o país (%@) em que está a fazer a procura
   [flurry_app_key]
-    en = 
+    en =
     tags = android
     comment = The app key for Flurry; needed in order for the Android library to build properly.
   [cant_change_this_setting]
@@ -2543,39 +2543,39 @@
     pl = Skopiowano do schowka: %1$@
     uk = Скопіювати в буфер обміну: %1$@
   [allow_statistics]
-    en = Enable Anonymous Usage Statistics
+    en = Send Statistics
     tags = ios,android
     comment = Setting label for statistics turn on/off
-    ru = Разрешить анонимный сбор статистики
-    ja = 匿名の使用状況統計を有効にする
-    cs = Povolit anonymní statistiky používání
-    pl = Włącz anonimowe statystyki użytkowania
-    uk = Запустити анонімну статистику використання
-    nl = Statistieken voor anoniem gebruik activeren
-    fr = Autoriser les statistiques d'utilisation anonymes
-    de = Aktivieren Sie die anonyme Nutzerstatistik
-    pt = Ativar Estatísticas Anónimas de Utilização
-    es = Permitir estadísticas de uso anónimas
+    ru = Сбор статистики
+    ja = 統計を送信
+    cs = Odesílat statistiky
+    pl =Prześlij statystyki
+    uk = Надіслати статистику
+    nl = Verstuur statistieken
+    fr =Envoyez des statistiques
+    de = Statistiken senden
+    pt = Enviar Estatísticas
+    es =Enviar estadísticas
     zh-Hant = 啟用匿名使用數據
     it = Abilita la statistica d'uso anonima
-    ko = 익명 사용 통계 활성화
+    ko = 통계 보내기
   [allow_statistics_hint]
-    en = It helps us to build better application
+    en = Allow us to collect usage statistics to improve the app
     tags = ios,android
     comment = Hint near allow statictics checkbox
-    ru = Это помогает нам совершенствовать приложение
-    ja = よりよいアプリケーションの開発にご協力ください
-    cs = Pomůže nám to vytvořit zlepšit aplikaci
-    pl = To pomaga nam zbudować lepszą aplikację
-    uk = Це допомагає нам створювати якісніші застосунки
-    nl = Dit helpt ons om betere toepassingen te ontwikkelen
-    fr = Cela nous aide à améliorer l'application
-    de = Dies hilft uns, eine besser Applikation zu konzipieren
-    pt = Isto ajuda-nos a fazer aplicações melhores
-    es = Nos ayuda a desarrollar una mejor aplicación
+    ru = Разрешить сбор статистики. Это помогает нам совершенствовать приложение.
+    ja = アプリを向上できるよう、使用状況の統計を収集させてください
+    cs = Dovolte nám shromažďovat statistické údaje o využivání, abychom mohli aplikaci zlepšovat
+    pl = Pozwól nam na zbieranie statystyk dotyczących używania aplikacji, abyśmy mogli ją udoskonalić
+    uk = Просимо дозволити нам збирати статистичні дані по використанню, щоб поліпшити застосунок
+    nl = Sta ons toe om gebruiksstatistieken te verzamelen om de app te verbeteren
+    fr = Autorisez-nous à collecter des statistiques d'utilisation pour améliorer l'appli
+    de = Erlauben Sie uns das Sammeln von Nutzungsstatistiken zur Verbesserung der App
+    pt = Permitir que recolhamos estatísticas de utilização para melhorar a aplicação
+    es = Permítenos recopilar estadísticas de uso para mejorar la aplicación
     zh-Hant = 它幫助我們打造更好的應用程序
     it = Ci aiuta a creare un'applicazione migliore
-    ko = 더 나은 애플리케이션 구축을 돕습니다.
+    ko = 앱을 개선하기 위해 사용 통계를 수집하도록 허용
   [info]
     en = Info
     tags = ios
@@ -2726,3 +2726,83 @@
     ja = 距離
     ko = 길이
     zh-Hant = 長度
+
+  [share_my_location]
+    en = Share my location
+    ru = Поделиться местоположением
+    uk = Поділитися моїм місцезнаходженням
+    es = Compartir mi ubicación
+    pt = Partilhar a minha localização
+    pl = Udostępnij moją lokalizację
+    it = Condividi la mia location
+    nl = Deel mijn locatie
+    de = Meinen Standort teilen
+    cs = Sdílet mé umístění
+    fr = Partagez mon emplacement
+    ja = 位置情報を共有する
+    ko = 내 위치 공유
+    zh-Hant = 分享我的位置
+
+  [become_a_pro]
+    en = BECOME A PRO USER
+    ru = СКАЧАТЬ ПОЛНУЮ ВЕРСИЮ
+    uk = Стати користувачем Про
+    es = convertirme en un usuario pro
+    pt = tornar-se um utilizador profissional
+    pl = zostań użytkownikiem pro
+    it = diventa un utente pro
+    nl = word een pro-gebruiker
+    de = Pro-Benutzer werden
+    cs = stát se Pro uživatelem
+    fr = Devenez un utilisateur pro
+    ja = proユーザーになる
+    ko = 프로 사용자 되기
+    zh-Hant = 成為專業用戶
+
+  [menu_search]
+    en = Search
+    ru = Поиск
+    uk = Пошук
+    es = Buscar
+    pt = Pesquisar
+    pl = Szukaj
+    it = Cerca
+    nl = Zoek
+    de = Suche
+    cs = Vyhledávání
+    fr = Recherchez
+    ja = 検索
+    ko = 검색
+    zh-Hant = 搜尋
+
+  [pref_zoom_title]
+    en = Zoom in/out buttons
+    ru = Кнопки приближения/отдаления
+    uk = Інструмент збільшення/зменшення
+    es = Herramienta de acercar/alejar zoom
+    pt = Ferramenta para aproximar/afastar
+    pl = Narzędzie do powiększania/zmniejszania
+    it = Zoom in avanti/indietro
+    nl = Tool voor in- en uitzoomen
+    de = Tool zum Heran- und Herauszoomen
+    cs = Nástroj přiblížení/oddálení
+    fr = Outil zoom avant / arrière
+    ja = ズームイン/アウトツール
+    ko = 확대/축소 도구
+    zh-Hant = 放大/縮小工具
+
+  [pref_zoom_summary]
+    en = Display on the screen
+    ru = Показать на карте
+    uk = Відображення на екрані
+    es = Visualización en la pantalla
+    pt = Mostrar no ecrã
+    pl = Wyświetl na ekranie
+    it = Condividi la mia location
+    nl = Weergave op het scherm
+    de = Auf dem Bildschirm anzeigen
+    cs = Zobrazit na obrazovce
+    fr = Afficher sur l'écran
+    ja = 画面上に表示
+    ko = 화면에 표시
+    zh-Hant = 在螢幕上顯示

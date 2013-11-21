@@ -474,10 +474,10 @@
 "copied_to_clipboard" = "Op het klembord gekopieerd: %1$@";
 
 /* Setting label for statistics turn on/off */
-"allow_statistics" = "Statistieken voor anoniem gebruik activeren";
+"allow_statistics" = "Verstuur statistieken";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Dit helpt ons om betere toepassingen te ontwikkelen";
+"allow_statistics_hint" = "Sta ons toe om gebruiksstatistieken te verzamelen om de app te verbeteren";
 
 /* place preview title */
 "info" = "Info";
@@ -505,3 +505,13 @@
 
 /* Length of track in cell that describes route */
 "length" = "Lengte";
+
+"share_my_location" = "Deel mijn locatie";
+
+"become_a_pro" = "word een pro-gebruiker";
+
+"menu_search" = "Zoek";
+
+"pref_zoom_title" = "Tool voor in- en uitzoomen";
+
+"pref_zoom_summary" = "Weergave op het scherm";

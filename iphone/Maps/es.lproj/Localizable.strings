@@ -474,10 +474,10 @@
 "copied_to_clipboard" = "Copiado al portapapeles: %1$@";
 
 /* Setting label for statistics turn on/off */
-"allow_statistics" = "Permitir estadísticas de uso anónimas";
+"allow_statistics" = "Enviar estadísticas";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Nos ayuda a desarrollar una mejor aplicación";
+"allow_statistics_hint" = "Permítenos recopilar estadísticas de uso para mejorar la aplicación";
 
 /* place preview title */
 "info" = "Información";
@@ -505,3 +505,13 @@
 
 /* Length of track in cell that describes route */
 "length" = "Longitud";
+
+"share_my_location" = "Compartir mi ubicación";
+
+"become_a_pro" = "convertirme en un usuario pro";
+
+"menu_search" = "Buscar";
+
+"pref_zoom_title" = "Herramienta de acercar/alejar zoom";
+
+"pref_zoom_summary" = "Visualización en la pantalla";

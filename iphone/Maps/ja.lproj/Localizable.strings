@@ -474,10 +474,10 @@
 "copied_to_clipboard" = "クリップボードにコピーしました: %1$@";
 
 /* Setting label for statistics turn on/off */
-"allow_statistics" = "匿名の使用状況統計を有効にする";
+"allow_statistics" = "統計を送信";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "よりよいアプリケーションの開発にご協力ください";
+"allow_statistics_hint" = "アプリを向上できるよう、使用状況の統計を収集させてください";
 
 /* place preview title */
 "info" = "情報";
@@ -505,3 +505,13 @@
 
 /* Length of track in cell that describes route */
 "length" = "距離";
+
+"share_my_location" = "位置情報を共有する";
+
+"become_a_pro" = "proユーザーになる";
+
+"menu_search" = "検索";
+
+"pref_zoom_title" = "ズームイン/アウトツール";
+
+"pref_zoom_summary" = "画面上に表示";

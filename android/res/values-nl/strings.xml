@@ -277,9 +277,9 @@
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Op het klembord gekopieerd: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Statistieken voor anoniem gebruik activeren</string>
+	<string name="allow_statistics">Verstuur statistieken</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Dit helpt ons om betere toepassingen te ontwikkelen</string>
+	<string name="allow_statistics_hint">Sta ons toe om gebruiksstatistieken te verzamelen om de app te verbeteren</string>
 	<!-- place preview title -->
 	<string name="info">Info</string>
 	<!-- Used for bookmark editing -->
@@ -298,4 +298,9 @@
 	<string name="tracks">Tracks</string>
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Lengte</string>
+	<string name="share_my_location">Deel mijn locatie</string>
+	<string name="become_a_pro">word een pro-gebruiker</string>
+	<string name="menu_search">Zoek</string>
+	<string name="pref_zoom_title">Tool voor in- en uitzoomen</string>
+	<string name="pref_zoom_summary">Weergave op het scherm</string>
 </resources>

@@ -474,10 +474,10 @@
 "copied_to_clipboard" = "클립보드에 복사됨: %1$@";
 
 /* Setting label for statistics turn on/off */
-"allow_statistics" = "익명 사용 통계 활성화";
+"allow_statistics" = "통계 보내기";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "더 나은 애플리케이션 구축을 돕습니다.";
+"allow_statistics_hint" = "앱을 개선하기 위해 사용 통계를 수집하도록 허용";
 
 /* place preview title */
 "info" = "정보";
@@ -505,3 +505,13 @@
 
 /* Length of track in cell that describes route */
 "length" = "길이";
+
+"share_my_location" = "내 위치 공유";
+
+"become_a_pro" = "프로 사용자 되기";
+
+"menu_search" = "검색";
+
+"pref_zoom_title" = "확대/축소 도구";
+
+"pref_zoom_summary" = "화면에 표시";

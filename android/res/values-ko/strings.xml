@@ -280,9 +280,9 @@
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">클립보드에 복사됨: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">익명 사용 통계 활성화</string>
+	<string name="allow_statistics">통계 보내기</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">더 나은 애플리케이션 구축을 돕습니다.</string>
+	<string name="allow_statistics_hint">앱을 개선하기 위해 사용 통계를 수집하도록 허용</string>
 	<!-- place preview title -->
 	<string name="info">정보</string>
 	<!-- Used for bookmark editing -->
@@ -295,4 +295,9 @@
 	<string name="tracks">트랙</string>
 	<!-- Length of track in cell that describes route -->
 	<string name="length">길이</string>
+	<string name="share_my_location">내 위치 공유</string>
+	<string name="become_a_pro">프로 사용자 되기</string>
+	<string name="menu_search">검색</string>
+	<string name="pref_zoom_title">확대/축소 도구</string>
+	<string name="pref_zoom_summary">화면에 표시</string>
 </resources>

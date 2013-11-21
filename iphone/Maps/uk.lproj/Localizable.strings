@@ -474,10 +474,10 @@
 "copied_to_clipboard" = "Скопіювати в буфер обміну: %1$@";
 
 /* Setting label for statistics turn on/off */
-"allow_statistics" = "Запустити анонімну статистику використання";
+"allow_statistics" = "Надіслати статистику";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Це допомагає нам створювати якісніші застосунки";
+"allow_statistics_hint" = "Просимо дозволити нам збирати статистичні дані по використанню, щоб поліпшити застосунок";
 
 /* place preview title */
 "info" = "Досьє";
@@ -505,3 +505,13 @@
 
 /* Length of track in cell that describes route */
 "length" = "Довжина";
+
+"share_my_location" = "Поділитися моїм місцезнаходженням";
+
+"become_a_pro" = "Стати користувачем Про";
+
+"menu_search" = "Пошук";
+
+"pref_zoom_title" = "Інструмент збільшення/зменшення";
+
+"pref_zoom_summary" = "Відображення на екрані";

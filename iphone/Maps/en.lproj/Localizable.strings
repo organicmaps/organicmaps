@@ -474,10 +474,10 @@
 "copied_to_clipboard" = "Copied to Clipboard: %1$@";
 
 /* Setting label for statistics turn on/off */
-"allow_statistics" = "Enable Anonymous Usage Statistics";
+"allow_statistics" = "Send Statistics";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "It helps us to build better application";
+"allow_statistics_hint" = "Allow us to collect usage statistics to improve the app";
 
 /* place preview title */
 "info" = "Info";
@@ -505,3 +505,13 @@
 
 /* Length of track in cell that describes route */
 "length" = "Length";
+
+"share_my_location" = "Share my location";
+
+"become_a_pro" = "BECOME A PRO USER";
+
+"menu_search" = "Search";
+
+"pref_zoom_title" = "Zoom in/out buttons";
+
+"pref_zoom_summary" = "Display on the screen";

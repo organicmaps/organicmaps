@@ -505,3 +505,13 @@
 
 /* Length of track in cell that describes route */
 "length" = "Lunghezza";
+
+"share_my_location" = "Condividi la mia location";
+
+"become_a_pro" = "diventa un utente pro";
+
+"menu_search" = "Cerca";
+
+"pref_zoom_title" = "Zoom in avanti/indietro";
+
+"pref_zoom_summary" = "Condividi la mia location";
