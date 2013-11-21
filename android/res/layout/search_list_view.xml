@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/dp_x_2"
+    android:paddingRight="@dimen/dp_x_2" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -10,8 +12,8 @@
         android:orientation="horizontal" >
 
         <EditText
-            style="@style/Holo.TextAppearance.Large.Light"
             android:id="@+id/search_string"
+            style="@style/Holo.TextAppearance.Large.Light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/search_map"
