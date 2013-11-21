@@ -627,9 +627,19 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       updateDistance();
   }
 
+
+  private final static long COMPAS_DELTA = 300;
+  private long mLastCompasUpdate;
+
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
+    // We dont want to update view too often, it is slow
+    if (System.currentTimeMillis() - mLastCompasUpdate < COMPAS_DELTA)
+      return;
+    else
+      mLastCompasUpdate = System.currentTimeMillis();
+
     if (isShowCategories())
       return;
 
