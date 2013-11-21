@@ -474,10 +474,10 @@
 "copied_to_clipboard" = "Copiato sugli Appunti: %1$@";
 
 /* Setting label for statistics turn on/off */
-"allow_statistics" = "Abilita la statistica d'uso anonima";
+"allow_statistics" = "Invia statistiche";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Ci aiuta a creare un'applicazione migliore";
+"allow_statistics_hint" = "Consentici di raccogliere le statistiche di utilizzo al fine di migliorare l'app";
 
 /* place preview title */
 "info" = "Informazioni";

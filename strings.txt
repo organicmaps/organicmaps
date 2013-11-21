@@ -2557,7 +2557,7 @@
     pt = Enviar Estatísticas
     es =Enviar estadísticas
     zh-Hant = 啟用匿名使用數據
-    it = Abilita la statistica d'uso anonima
+    it = Invia statistiche
     ko = 통계 보내기
   [allow_statistics_hint]
     en = Allow us to collect usage statistics to improve the app
@@ -2574,7 +2574,7 @@
     pt = Permitir que recolhamos estatísticas de utilização para melhorar a aplicação
     es = Permítenos recopilar estadísticas de uso para mejorar la aplicación
     zh-Hant = 它幫助我們打造更好的應用程序
-    it = Ci aiuta a creare un'applicazione migliore
+    it = Consentici di raccogliere le statistiche di utilizzo al fine di migliorare l'app
     ko = 앱을 개선하기 위해 사용 통계를 수집하도록 허용
   [info]
     en = Info

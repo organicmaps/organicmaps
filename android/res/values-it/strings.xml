@@ -288,9 +288,9 @@
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Copiato sugli Appunti: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Abilita la statistica d\&#39;uso anonima</string>
+	<string name="allow_statistics">Invia statistiche</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Ci aiuta a creare un\&#39;applicazione migliore</string>
+	<string name="allow_statistics_hint">Consentici di raccogliere le statistiche di utilizzo al fine di migliorare l\&#39;app</string>
 	<!-- place preview title -->
 	<string name="info">Informazioni</string>
 	<!-- Used for bookmark editing -->
