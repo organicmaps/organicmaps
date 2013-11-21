@@ -20,8 +20,8 @@
 
     <CheckBoxPreference
         android:key="@string/pref_zoom_btns_enabled"
-        android:summary="Показывать или нет?"
-        android:title="Зумные кнопки" />
+        android:summary="@string/pref_zoom_summary"
+        android:title="@string/pref_zoom_title" />
 
     <Preference
         android:key="@string/pref_yota"

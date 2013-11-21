@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import android.os.Environment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.telephony.TelephonyManager;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -33,6 +35,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup.MarginLayoutParams;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -55,6 +58,7 @@ import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.ShareAction;
+import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
@@ -686,6 +690,26 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         isPro ? null : res.getDrawable(R.drawable.ic_probadge), null);
     bookmarksView.setCompoundDrawablesWithIntrinsicBounds(res.getDrawable(R.drawable.ic_bookmarks_selector), null,
         isPro ? null : res.getDrawable(R.drawable.ic_probadge), null);
+
+
+    final Button buyProButton = (Button)findViewById(R.id.buy_pro);
+    if (isPro)
+      UiUtils.hide(buyProButton);
+    else
+    { // set bold style for PRO substring
+
+      final String[] tokens = {
+          "pro".toUpperCase(),
+          "полную".toUpperCase(),
+          "profissional".toUpperCase()
+      };
+
+      final StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
+      final CharSequence spannedText = StringUtils.setSpansForTokens(
+              getString(R.string.become_a_pro).toUpperCase(), boldSpan, tokens);
+
+      buyProButton.setText(spannedText);
+    }
   }
 
   private void yotaSetup()

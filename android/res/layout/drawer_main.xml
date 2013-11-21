@@ -24,10 +24,10 @@
                 <TextView
                     style="@style/Widget.MapButtonDrawer"
 		                android:id="@+id/map_button_search"
-                    android:contentDescription="@string/search_map"
+                    android:contentDescription="@string/menu_search"
                     android:drawableLeft="@drawable/ic_search_selector"
                     android:drawableRight="@drawable/ic_probadge"
-                    android:text="@string/search" />
+                    android:text="@string/menu_search" />
             </FrameLayout>
 
             <FrameLayout
@@ -82,7 +82,7 @@
                     style="@style/Widget.MapButtonDrawer"
                     android:contentDescription="@string/share"
                     android:drawableLeft="@drawable/ic_send_selector"
-                    android:text="@string/share" />
+                    android:text="@string/share_my_location" />
             </FrameLayout>
         </LinearLayout>
     </ScrollView>
@@ -100,6 +100,6 @@
         android:layout_marginBottom="@dimen/dp_x_8"
         android:layout_marginTop="@dimen/dp_x_6"
         android:padding="@dimen/dp_x_2"
-        android:text="@string/become_a_b_pro_b_user" />
+        android:text="@string/become_a_pro" />
 
 </merge>
