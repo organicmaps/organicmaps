@@ -1,10 +1,13 @@
 package com.mapswithme.yopme.map;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+
 import com.mapswithme.yopme.PoiPoint;
 import com.mapswithme.yopme.map.MwmFilesObserver.EventType;
 import com.mapswithme.yopme.map.MwmFilesObserver.MwmFilesListener;
 import com.mapswithme.yopme.util.PixelBuffer;
+import com.yotadevices.sdk.utils.BitmapUtils;
 
 public class MapRenderer implements MapDataProvider, MwmFilesListener
 {
@@ -38,7 +41,8 @@ public class MapRenderer implements MapDataProvider, MwmFilesListener
 	}
 
   @Override
-  public MapData getMapData(PoiPoint viewPortCenter, double zoom, PoiPoint poi, PoiPoint myLocation)
+  public MapData getMapData(Context context, PoiPoint viewPortCenter,
+                            double zoom, PoiPoint poi, PoiPoint myLocation)
   {
     synchronized (MapRenderer.class)
     {
@@ -59,7 +63,8 @@ public class MapRenderer implements MapDataProvider, MwmFilesListener
                          hasPoi, poiLat, poiLon,
                          hasLocation, myLat, myLon))
      {
-       final Bitmap bmp = mPixelBuffer.readBitmap();
+       Bitmap bmp = mPixelBuffer.readBitmap();
+       bmp = BitmapUtils.prepareImageForBS(context, bmp);
        mPixelBuffer.detachFromThread();
        return new MapData(bmp, poi);
      }
@@ -69,7 +74,7 @@ public class MapRenderer implements MapDataProvider, MwmFilesListener
   }
 
 
-	private native void    nativeCreateFramework (int width,  int height);
+	private native void    nativeCreateFramework(int width, int height);
 
 	private native boolean nativeRenderMap(double  vpLat,       double vpLon,  double zoom,
 	                                       boolean hasPoi,      double poiLat, double poiLon,

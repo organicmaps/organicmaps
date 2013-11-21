@@ -4,7 +4,14 @@ import java.nio.IntBuffer;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import javax.microedition.khronos.opengles.GL10;
+
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.opengl.EGL14;
 import android.opengl.EGLConfig;
 import android.opengl.EGLContext;
@@ -127,19 +134,30 @@ public class PixelBuffer
     GLES20.glPixelStorei(GLES20.GL_UNPACK_ALIGNMENT, 1);
 
     Log.d(TAG, "Read bitmap. Width = " + mWidth + ", Heigth = " + mHeight);
-    IntBuffer ib = IntBuffer.allocate(mWidth * mHeight);
-    GLES20.glReadPixels(0, 0, mWidth, mHeight, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, ib);
 
-    // Convert upside down mirror-reversed image to right-side up normal image.
-    final IntBuffer ibt = IntBuffer.allocate(ib.capacity());
-    for (int i = 0; i < mHeight; ++i)
-      for (int j = 0; j < mWidth; ++j)
-        ibt.put((mHeight-i-1)*mWidth + j, ib.get(i*mWidth + j));
+    int b[] = new int[mWidth * mHeight];
+    IntBuffer ib = IntBuffer.wrap(b);
+    ib.position(0);
+    GLES20.glReadPixels(0, 0, mWidth, mHeight, GL10.GL_RGBA, GL10.GL_UNSIGNED_BYTE, ib);
 
-    ib = null;
-    final Bitmap bmp = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_8888);
-    bmp.copyPixelsFromBuffer(ibt);
-    return bmp;
+    Bitmap glbitmap = Bitmap.createBitmap(b, mWidth, mHeight, Bitmap.Config.ARGB_8888);
+    ib = null; // we're done with ib
+    b = null; // we're done with b, so allow the memory to be freed
+
+    final float[] cmVals = { 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+
+    Paint paint = new Paint();
+    paint.setColorFilter(new ColorMatrixColorFilter(new ColorMatrix(cmVals)));
+
+    Bitmap bitmap = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(bitmap);
+    canvas.drawBitmap(glbitmap, 0, 0, paint);
+    glbitmap = null;
+
+    Matrix matrix = new Matrix();
+    matrix.preScale(1.0f, -1.0f);
+    return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
 	}
 
 	class ConfigSorter implements Comparator<EGLConfig>

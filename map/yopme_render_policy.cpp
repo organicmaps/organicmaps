@@ -199,7 +199,7 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 
     drawOverlay->merge(*overlay);
 
-    pScreen->applyStates();
+    pScreen->applySharpStates();
     pScreen->clear(m_bgColor, false);
     drawOverlay->draw(pScreen, math::Identity<double, 3>());
 
@@ -213,7 +213,7 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
     BlitInfo info;
     info.m_srcSurface = renderTarget;
     info.m_srcRect = m2::RectI(0, 0, width, height);
-    info.m_texRect = m2::RectU(1, 1, width - 1, height - 1);
+    info.m_texRect = m2::RectU(0, 0, width, height);
     info.m_matrix = math::Identity<double, 3>();
 
     pScreen->beginFrame();

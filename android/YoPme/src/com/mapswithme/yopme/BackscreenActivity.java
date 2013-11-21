@@ -402,11 +402,11 @@ public class BackscreenActivity extends BSActivity implements LocationListener
         return;
       }
 
-      data = mMapDataProvider.getMapData(getLocation(), mZoomLevel, null, getLocation());
+      data = mMapDataProvider.getMapData(this, getLocation(), mZoomLevel, null, getLocation());
     }
     else if (mMode == Mode.POI)
     {
-      data = mMapDataProvider.getMapData(mPoint, mZoomLevel, mIsPoi ? mPoint : null, getLocation());
+      data = mMapDataProvider.getMapData(this, mPoint, mZoomLevel, mIsPoi ? mPoint : null, getLocation());
       calculateDistance();
     }
 
