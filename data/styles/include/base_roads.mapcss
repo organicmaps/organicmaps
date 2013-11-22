@@ -1230,7 +1230,7 @@ line[highway=unclassified]
 }
 area|z15-[area:highway=living_street] 
 {
-    fill-color: #707070;
+  fill-color: #707070;
 }
 line[highway=living_street] {z-index: 50}
 area|z15-[area:highway=primary] {fill-color: #FDE066}
@@ -1247,10 +1247,16 @@ area[area:highway]
 {
   z-index: 400;
 }
+
+/* Should be at the end of all highway changes */
 line[highway]
 {
   text-halo-color: eval(prop("color"));
   text-position: line;
 }
 *[highway][area?]
-{fill-color: eval(prop("color")); width: 0; casing-width: 0}
+{
+  fill-color: eval(prop("color"));
+  width: 0;
+  casing-width: 0;
+}

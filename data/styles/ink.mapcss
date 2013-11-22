@@ -292,20 +292,6 @@ line|z10-11[route=ferry]
   dashes: 3,2;
   linecap: butt;
 }
-area|z12-[leisure=common],
-area|z12-[leisure=dog_park],
-area|z12-[leisure=garden],
-area|z12-[leisure=golf_course],
-area|z10-[leisure=park],
-area|z12-[leisure=pitch],
-area|z12-[leisure=playground],
-area|z12-[tourism=camp_site],
-area|z12-[tourism=caravan_site],
-area|z12-[tourism=picnic_site],
-area|z12-[tourism=zoo]
-{
-  fill-color: #cfecb7;
-}
 line|z10[boundary=administrative][border_type=state]::d2p2
 {
   color: #f9574b;
@@ -2029,7 +2015,7 @@ node|z15-[leisure=nature_reserve]
 area|z15-[building],
 node|z15-[building]
 {
-  fill-color: #cdcdb4;
+  fill-color: #bbbbbb;
 }
 line|z15[railway=narrow_gauge]
 {
@@ -3942,4 +3928,32 @@ node|z17-[entrance]
   symbol-shape: "";
   symbol-size: 0;
   text: "";
+}
+
+
+line[highway]
+{
+  casing-color: #6b6b6b;
+}
+
+line|z8-[highway=primary],
+line|z10-[highway=primary_link],
+line|z9-[highway=secondary],
+line|z10-[highway=secondary_link],
+area|z15-[area:highway=primary],
+area|z15-[area:highway=secondary]
+{
+  color: #d7d7d7;
+}
+
+/* Should be at the end of all highway changes */
+line[highway]
+{
+  text-halo-color: eval(prop("color"));
+}
+*[highway][area?]
+{
+  fill-color: eval(prop("color"));
+  width: 0;
+  casing-width: 0;
 }
