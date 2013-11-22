@@ -1,6 +1,6 @@
 line[highway=bus_stop]
 {
-    casing-width: 0;
+  casing-width: 0;
 }
 node[highway=bus_stop],
 node[railway=tram_stop],
