@@ -383,12 +383,6 @@ line|z12[railway=light_rail]
   width: 1;
   z-index: 668;
 }
-area|z15-[amenity=parking][!access],
-area|z15-[amenity=parking][access?]
-{
-  fill-color: #f8f8d8;
-  fill-position: background;
-}
 line|z12[boundary=administrative][border_type=region]
 {
   color: #f9574b;
@@ -1521,7 +1515,7 @@ node|z16[addr:housenumber][addr:street]
 {
   text: "addr:housenumber";
   font-size: 10;
-  text-color: #808070;
+  text-color: black;
   text-position: center;
 }
 line|z15[railway=disused]
@@ -1570,17 +1564,10 @@ line|z15-[piste:lift=j-bar]
   color: #202020;
   width: 0.8;
 }
-area|z16[amenity=parking][!access],
-area|z16[amenity=parking][access?],
-node|z16[amenity=parking][!access],
-node|z16[amenity=parking][access?]
+area|z16[amenity=parking],
+node|z16[amenity=parking],
 {
   icon-image: parking-mini.svg;
-}
-area|z16-[amenity=parking][access=permissive],
-node|z16-[amenity=parking][access=permissive],
-{
-  icon-image: parking-permissive.svg;
 }
 area|z15-[tourism=viewpoint],
 node|z15-[tourism=viewpoint],
@@ -3054,7 +3041,7 @@ node|z17-[addr:housenumber][addr:street]
 {
   text: "addr:housenumber";
   font-size: 11;
-  text-color: #404040;
+  text-color: black;
   text-position: center;
 }
 line|z17-[man_made=pipeline]::d1p2
@@ -3132,13 +3119,6 @@ line|z17-[boundary=administrative][border_type=country]::d2p2
   width: 2;
   z-index: 979;
   dashes: 12,12;
-}
-area|z17-[amenity=parking][location=underground][fee?],
-area|z17-[amenity=parking][parking=multi-storey][fee?],
-node|z17-[amenity=parking][location=underground][fee?],
-node|z17-[amenity=parking][parking=multi-storey][fee?]
-{
-  icon-image: parking_roof_fee-permissive.svg;
 }
 line|z17-[railway=yard]
 {
@@ -3271,29 +3251,15 @@ line|z17-[aerialway=chair_lift]
   color: #202020;
   width: 3.2;
 }
-area|z17-[amenity=parking][location=underground],
-area|z17-[amenity=parking][parking=multi-storey],
-node|z17-[amenity=parking][location=underground],
-node|z17-[amenity=parking][parking=multi-storey]
-{
-  icon-image: parking_roof-permissive.svg;
-}
 area|z17-[tourism=picnic_site],
 node|z17-[tourism=picnic_site]
 {
   icon-image: picnic.svg;
 }
-area|z17-[amenity=parking][!access],
-area|z17-[amenity=parking][access?],
-node|z17-[amenity=parking][!access],
-node|z17-[amenity=parking][access?]
+area|z17-[amenity=parking],
+node|z17-[amenity=parking]
 {
   icon-image: parking.svg;
-}
-area|z16-[amenity=parking][fee?],
-node|z16-[amenity=parking][fee?]
-{
-  icon-image: parking_fee.svg;
 }
 area|z17-[railway=platform],
 line|z17-[railway=platform]
@@ -3722,11 +3688,6 @@ node|z17-[barrier=gate]
 {
   icon-image: gate.svg;
 }
-area|z16-[amenity=parking][parking=park_and_ride],
-node|z16-[amenity=parking][parking=park_and_ride]
-{
-  icon-image: park_and_ride-permissive.svg;
-}
 area|z17-[man_made=lighthouse],
 node|z17-[man_made=lighthouse]
 {
@@ -3828,4 +3789,101 @@ line|z18-[lit]::lit
 {
   width: 0.3;
   color: yellow
+}
+
+/* ======================== Special ink cases ====================== */
+
+*[place][place!=state][place!=suburb]
+{
+  text-color: black;
+}
+
+node|z14-[natural=lake],
+node|z12-[natural=pond],
+node|z1-[place=ocean],
+node|z3-[place=sea]
+{
+  text-color: white;
+  text-halo-radius: 2;
+  text-halo-color: #6b6b6b;
+}
+
+node|z16-[amenity],
+area|z16-[amenity],
+node|z16-[historic],
+area|z16-[historic],
+node|z16-[office],
+area|z16-[office],
+node|z16-[tourism],
+area|z16-[tourism],
+node|z16-[shop],
+area|z16-[shop]
+{
+  text-color: black;
+}
+
+node|z16-[highway=bus_stop],
+node|z15-[railway],
+node|z12-[aeroway],
+area|z16-[highway=bus_stop],
+area|z15-[railway],
+area|z12-[aeroway]
+{
+  text-color: black;
+}
+
+line[highway]
+{
+  text-color: black;
+}
+
+line[railway=subway]
+{
+  width: 0;
+}
+
+*::int_name
+{
+  text: "";
+}
+
+line|z4-[boundary=administrative][admin_level=2]
+{
+  color: #6b6b6b;
+}
+line[boundary=administrative][admin_level!=2][admin_level!=3][admin_level!=4]
+{
+  width: 0;
+}
+
+area|z12-[landuse=basin],
+area|z12-[landuse=reservoir],
+area|z13-[leisure=swimming_pool],
+area|z13-[leisure=water_park],
+area[natural=ocean],
+area[natural=coastline],
+area|z10-[natural=lake],
+area|z10-[natural=pond],
+area|z10-[natural=water],
+area|z14-[natural=bay],
+area|z14-[natural=wetland],
+area|z12-[man_made=wastewater_plant],
+area|z10-[waterway=dock],
+area|z10-[waterway=riverbank]
+{
+  fill-color: #6b6b6b;
+}
+
+line|z14-[natural=spring],
+line|z10-[waterway=river],
+line|z12-[waterway=drain],
+line|z12-[waterway=ditch],
+line|z12-[waterway=stream],
+line|z12-[waterway=canal],
+line|z14-[waterway=dam],
+line|z14-[waterway=lock],
+line|z14-[waterway=weir]
+{
+  color: #6b6b6b;
+  casing-color: #6b6b6b;
 }
