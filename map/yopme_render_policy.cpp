@@ -92,7 +92,7 @@ YopmeRP::YopmeRP(RenderPolicy::Params const & p)
   , m_drawMyPosition(false)
 {
   LOG(LDEBUG, ("Yopme render policy created"));
-  //m_bgColor = graphics::Color(0x77, 0x77, 0x77, 0xFF);
+  m_bgColor = graphics::Color(0xFF, 0xFF, 0xFF, 0xFF);
 
   ResourceManager::Params rmp = p.m_rmParams;
 
