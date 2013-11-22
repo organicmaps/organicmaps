@@ -7,7 +7,6 @@ import com.mapswithme.yopme.PoiPoint;
 import com.mapswithme.yopme.map.MwmFilesObserver.EventType;
 import com.mapswithme.yopme.map.MwmFilesObserver.MwmFilesListener;
 import com.mapswithme.yopme.util.PixelBuffer;
-import com.yotadevices.sdk.utils.BitmapUtils;
 
 public class MapRenderer implements MapDataProvider, MwmFilesListener
 {
@@ -64,7 +63,10 @@ public class MapRenderer implements MapDataProvider, MwmFilesListener
                          hasLocation, myLat, myLon))
      {
        Bitmap bmp = mPixelBuffer.readBitmap();
-       bmp = BitmapUtils.prepareImageForBS(context, bmp);
+
+       // Decided not to use this stuff.
+       //bmp = BitmapUtils.prepareImageForBS(context, bmp);
+
        mPixelBuffer.detachFromThread();
        return new MapData(bmp, poi);
      }
