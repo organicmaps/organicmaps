@@ -74,7 +74,6 @@ namespace yopme
   {
     shared_ptr<RenderContext> primaryRC(new RenderContext());
     graphics::ResourceManager::Params rmParams;
-    rmParams.m_rtFormat = graphics::Data8Bpp;
     rmParams.m_texFormat = graphics::Data4Bpp;
     rmParams.m_texRtFormat = graphics::Data4Bpp;
     rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
