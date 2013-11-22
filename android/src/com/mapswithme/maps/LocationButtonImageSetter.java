@@ -5,7 +5,6 @@ import java.util.Map;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.widget.ImageButton;
 
 public class LocationButtonImageSetter
@@ -24,7 +23,7 @@ public class LocationButtonImageSetter
     STATE_TO_RES.put(ButtonState.NO_LOCATION, R.drawable.btn_location_normal);
     STATE_TO_RES.put(ButtonState.HAS_LOCATION, R.drawable.btn_location_pressed);
     STATE_TO_RES.put(ButtonState.FOLLOW_MODE, R.drawable.btn_location_rotation);
-    STATE_TO_RES.put(ButtonState.WAITING_LOCATION, R.drawable.btn_map_location_search_anim); // TODO: real resource
+    STATE_TO_RES.put(ButtonState.WAITING_LOCATION, R.drawable.btn_map_location_search_anim);
   }
 
   public static void setButtonViewFromState(ButtonState state, ImageButton button)
@@ -35,10 +34,7 @@ public class LocationButtonImageSetter
     button.setImageDrawable(draw);
 
     if (draw instanceof AnimationDrawable)
-    {
       ((AnimationDrawable)draw).start();
-      Log.d("LOCATION:", "STARTED ANIMATION");
-    }
   }
 
 }
