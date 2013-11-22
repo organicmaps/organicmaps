@@ -86,7 +86,7 @@ fi
 # If exit code is 255 and FAIL_ON_COASTS is true this means total fail or that coasts are not merged
 function merge_coasts() {
   # Strip coastlines from the planet to speed up the process
-  $FILTER_TOOL $PLANET_FILE --keep= --keep-ways="natural=coastline" -o=$COASTS_FILE
+  $FILTER_TOOL $PLANET_FILE --keep= --keep-ways="natural=coastline place=island place=islet" -o=$COASTS_FILE
   # Preprocess coastlines to separate intermediate directory
   $CONVERT_TOOL $COASTS_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTCOASTSDIR -use_light_nodes=true -preprocess_xml
   # Generate temporary coastlines file in the coasts intermediate dir
