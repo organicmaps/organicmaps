@@ -134,10 +134,10 @@ node|z17-[sport=basketball]
 }
 line|z15-[marking=sport]
 {
-    width: 0.5;
-    color: white;
+  width: 0.5;
+  color: white;
 }
 line|z15-[marking=sport][colour?]
 {
-    color: eval(tag("colour"));
+  color: eval(tag("colour"));
 }

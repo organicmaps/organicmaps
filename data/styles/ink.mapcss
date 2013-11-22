@@ -62,11 +62,9 @@ area[tourism]
 }
 
 @import("include/base_roads.mapcss");
-/* @import("include/base_roads_UK.mapcss"); */
 @import("include/base_shop.mapcss");
 @import("include/base_sport.mapcss");
 @import("include/base_place.mapcss");
-@import("include/base_landuse.mapcss");
 @import("include/base_water.mapcss");
 
 line[highway=motorway_junction]
@@ -91,8 +89,8 @@ line|z5[boundary=administrative][admin_level=2]
   linecap: butt;
   -x-kot-layer: top;
 }
-line|z5-8[boundary=administrative][admin_level=4]::d2p2,
-line|z4-8[boundary=administrative][admin_level=4][border_type=state]::d3p2
+line|z6-8[boundary=administrative][admin_level=4]::d2p2,
+line|z6-8[boundary=administrative][admin_level=4][border_type=state]::d3p2
 {
   color: #eeeedd;
   width: 1;
@@ -137,7 +135,7 @@ line|z6[boundary=administrative][admin_level=2]
   linecap: butt;
   -x-kot-layer: top;
 }
-line|z4-6[boundary=administrative][admin_level=4]
+line|z6[boundary=administrative][admin_level=4]
 {
   color: #a0a0a0;
   width: 0.2;
@@ -325,13 +323,6 @@ line|z10[boundary=national_park]
   z-index: 154;
   dashes: 5,1,1,1;
 }
-area|z13-[amenity=college],
-area|z13-[amenity=kindergarten],
-area|z13-[amenity=school],
-area|z13-[amenity=university]
-{
-  fill-color: #f0e0dc;
-}
 line|z11[boundary=administrative][border_type=state]::d2p2
 {
   color: #f9574b;
@@ -459,13 +450,6 @@ line|z12[railway=monorail]
   color: #d08080;
   width: 1;
   z-index: 226;
-}
-area|z13-[amenity=college],
-area|z13-[amenity=kindergarten],
-area|z13-[amenity=school],
-area|z13-[amenity=university]
-{
-  fill-position: background;
 }
 line|z12[railway=rail]
 {
@@ -693,7 +677,7 @@ node|z13-15[natural=peak]
   text-offset: 10;
   text: name;
   font-size: 12;
-  text-color: #404040;
+  text-color: black;
 }
 line|z13[boundary=administrative][type=nation]::d2p2
 {
@@ -845,7 +829,7 @@ node|z14-15[natural=volcano]
   text-offset: 10;
   text: name;
   font-size: 12;
-  text-color: #202020;
+  text-color: black;
 }
 line|z14[railway=abandoned]::d1p3
 {
@@ -917,7 +901,7 @@ line|z14[piste:lift=t-bar]
 {
   text: name;
   font-size: 12;
-  text-color: #202020;
+  text-color: black;
 }
 area|z14-[power=generator][generator:type=photovoltaic]::d2p2,
 node|z14-[power=generator][generator:type=photovoltaic]::d2p2
@@ -1451,7 +1435,7 @@ node|z16-[highway=motorway_junction]::d1p1
   font-size: 12;
   text-halo-radius: 2;
   text: name;
-  text-color: #202020;
+  text-color: black;
   text-halo-color: white;
   text-position: center;
 }
@@ -2447,7 +2431,7 @@ node|z16-[natural=volcano]
   text-offset: 10;
   text: name;
   font-size: 16;
-  text-color: #202020;
+  text-color: black;
 }
 area|z16-[railway=level_crossing],
 node|z16-[railway=level_crossing]
@@ -3796,6 +3780,14 @@ line|z18-[lit]::lit
 *[place][place!=state][place!=suburb]
 {
   text-color: black;
+  text-halo-color: white;
+}
+
+area|z14-[place=hamlet],
+area|z11-[place=village]
+{
+  fill-color: "";
+  fill-position: "";
 }
 
 node|z14-[natural=lake],
@@ -3806,6 +3798,35 @@ node|z3-[place=sea]
   text-color: white;
   text-halo-radius: 2;
   text-halo-color: #6b6b6b;
+}
+
+node|z1-[place=ocean]
+{
+  font-size: 9;
+}
+node|z2-[place=ocean]
+{
+  font-size: 10;
+}
+node|z5-[place=ocean]
+{
+  font-size: 11;
+}
+node|z7-[place=ocean]
+{
+  font-size: 12;
+}
+node|z3-[place=sea]
+{
+  font-size: 9;
+}
+node|z7-[place=sea]
+{
+  font-size: 11;
+}
+node|z9-[place=sea]
+{
+  font-size: 12;
 }
 
 node|z16-[amenity],
@@ -3823,10 +3844,10 @@ area|z16-[shop]
 }
 
 node|z16-[highway=bus_stop],
-node|z15-[railway],
+node|z12-[railway],
 node|z12-[aeroway],
 area|z16-[highway=bus_stop],
-area|z15-[railway],
+area|z12-[railway],
 area|z12-[aeroway]
 {
   text-color: black;
@@ -3847,13 +3868,23 @@ line[railway=subway]
   text: "";
 }
 
-line|z4-[boundary=administrative][admin_level=2]
+line|z4-[boundary=administrative][admin_level=2],
+line|z4-[boundary=administrative][admin_level=3]
+{
+  color: #6b6b6b;
+}
+line|z6-[boundary=administrative][admin_level=4]
 {
   color: #6b6b6b;
 }
 line[boundary=administrative][admin_level!=2][admin_level!=3][admin_level!=4]
 {
   width: 0;
+}
+
+area|z6-[natural=land]
+{
+  fill-color: #ffffff;
 }
 
 area|z12-[landuse=basin],
@@ -3872,6 +3903,9 @@ area|z10-[waterway=dock],
 area|z10-[waterway=riverbank]
 {
   fill-color: #6b6b6b;
+  text-color: white;
+  text-halo-radius: 2;
+  text-halo-color: #6b6b6b;
 }
 
 line|z14-[natural=spring],
@@ -3886,4 +3920,26 @@ line|z14-[waterway=weir]
 {
   color: #6b6b6b;
   casing-color: #6b6b6b;
+  text-color: white;
+  text-halo-radius: 2;
+  text-halo-color: #6b6b6b;
+}
+
+area|z12-[natural=scrub],
+area|z10-[natural=wood],
+area|z10-[landuse=forest]
+{
+  fill-color: #8d8d8d;
+}
+
+node|z16-[natural=tree]
+{
+  icon-image: "";
+  text: "";
+}
+node|z17-[entrance]
+{
+  symbol-shape: "";
+  symbol-size: 0;
+  text: "";
 }
