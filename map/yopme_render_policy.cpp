@@ -137,17 +137,47 @@ YopmeRP::YopmeRP(RenderPolicy::Params const & p)
 void YopmeRP::DrawCircle(Screen * pScreen, m2::PointD const & pt)
 {
   {
-    Circle::Info info(10, Color::White(), false);
+    Circle::Info info(8.0, Color::White(), true, 2.0, Color::Black());
     pScreen->drawCircle(pt, info, EPosCenter, MyLocationDepth);
   }
 
+  Pen::Info penInfo(Color::Black(), 2.0);
+  uint32_t penID = pScreen->mapInfo(penInfo);
+
+  Pen::Info boldPenInfo(Color::Black(), 5.0);
+  uint32_t boldPenID = pScreen->mapInfo(boldPenInfo);
+
+  Pen::Info outlinePenInfo(Color::White(), 3.0);
+  uint32_t outlinePenID = pScreen->mapInfo(outlinePenInfo);
+
+  const double offset = 12.0;
+
   {
-    Circle::Info info(6, Color(100, 100, 100, 255), true, 2, Color::Black());
-    pScreen->drawCircle(pt, info, EPosCenter, MyLocationDepth);
+    m2::PointD pts[2] =
+    {
+      m2::PointD(pt - m2::PointD(offset, 0.0)),
+      m2::PointD(pt - m2::PointD(-offset, 0.0))
+    };
+
+    pScreen->drawPath(pts, 2, 0.0, boldPenID, MyLocationDepth - 7);
+    pScreen->drawPath(pts, 2, 0.0, outlinePenID, MyLocationDepth - 5);
+    pScreen->drawPath(pts, 2, 0.0, penID, MyLocationDepth);
   }
 
   {
-    Circle::Info info(2, Color::White(), true, 2, Color(160, 160, 160, 255));
+    m2::PointD pts[2] =
+    {
+      m2::PointD(pt - m2::PointD(0.0, offset)),
+      m2::PointD(pt - m2::PointD(0.0, -offset))
+    };
+
+    pScreen->drawPath(pts, 2, 0.0, boldPenID, MyLocationDepth - 7);
+    pScreen->drawPath(pts, 2, 0.0, outlinePenID, MyLocationDepth - 5);
+    pScreen->drawPath(pts, 2, 0.0, penID, MyLocationDepth);
+  }
+
+  {
+    Circle::Info info(3.0, Color::White(), true, 3.0, Color::Black());
     pScreen->drawCircle(pt, info, EPosCenter, MyLocationDepth);
   }
 }
