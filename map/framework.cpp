@@ -791,7 +791,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
     m_informationDisplay.setEmptyCountryIndex(GetCountryIndex(GetViewportCenter()));
 
   m_informationDisplay.enableCountryStatusDisplay(isEmptyModel);
-  m_informationDisplay.enableCompassArrow(m_navigator.Screen().GetAngle() != 0);
+  m_informationDisplay.enableCompassArrow(!my::AlmostEqual(ang::AngleIn2PI(m_navigator.Screen().GetAngle()), 0.0));
   m_informationDisplay.setCompassArrowAngle(m_navigator.Screen().GetAngle());
 
   m_informationDisplay.setScreen(m_navigator.Screen());
