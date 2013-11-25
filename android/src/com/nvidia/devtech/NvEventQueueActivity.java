@@ -226,8 +226,9 @@ public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity
       // we skip event near edge of drawer
       final int border = (int) (.5 + 0.1f
           * Math.min(m_surfaceHeight, m_surfaceWidth)*getResources().getDisplayMetrics().density);
+      final int topRegion = (int) (m_surfaceHeight/3.0);
 
-      if (x0 < border)
+      if ((x0 < border) && (y0 > topRegion))
         return false;
       else
         return multiTouchEvent(event.getAction(), true, false, x0, y0, 0, 0, event);
