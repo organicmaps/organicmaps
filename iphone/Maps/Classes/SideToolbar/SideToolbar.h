@@ -20,6 +20,7 @@
 @property (readonly, nonatomic) BOOL isMenuHidden;
 
 @property (nonatomic) CGFloat menuShift;
+@property (nonatomic, readonly) CGFloat minimumMenuShift;
 @property (nonatomic, readonly) CGFloat maximumMenuShift;
 
 @end

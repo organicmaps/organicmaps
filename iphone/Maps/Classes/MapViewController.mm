@@ -688,6 +688,7 @@ NSInteger compareAddress(id l, id r, void * context)
     UIImageView * tailDark = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"side-toolbar-slide-view-dark"]];
     tailDark.maxX = toolbarButton.width;
     tailDark.midY = toolbarButton.height / 2 + tailShift;
+    tailDark.alpha = 0;
     tailDark.tag = SLIDE_VIEW_DARK_PART_TAG;
     [toolbarButton addSubview:tailDark];
 
@@ -695,8 +696,13 @@ NSInteger compareAddress(id l, id r, void * context)
     self.sideToolbar.slideView = toolbarButton;
 
     [self.sideToolbar addObserver:self forKeyPath:@"isMenuHidden" options:NSKeyValueObservingOptionNew context:nil];
+    [self.sideToolbar setMenuHidden:YES animated:NO];
   }
+}
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+  [super viewDidDisappear:animated];
   [self.sideToolbar setMenuHidden:YES animated:NO];
 }
 
@@ -708,6 +714,8 @@ NSInteger compareAddress(id l, id r, void * context)
   if (!Settings::Get("ZoomButtonsEnabled", zoomButtonsEnabled))
     zoomButtonsEnabled = false;
   self.zoomButtonsView.hidden = !zoomButtonsEnabled;
+
+  self.view.clipsToBounds = YES;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context

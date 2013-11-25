@@ -179,7 +179,7 @@ typedef NS_ENUM(NSUInteger, Section)
   if (self.isMenuHidden)
     self.hidden = YES;
   [UIView animateWithDuration:rotationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-    self.menuShift = self.isMenuHidden ? 0 : self.maximumMenuShift;
+    self.menuShift = self.isMenuHidden ? self.minimumMenuShift : self.maximumMenuShift;
   } completion:^(BOOL finished) {
     self.hidden = NO;
   }];
@@ -255,7 +255,7 @@ typedef NS_ENUM(NSUInteger, Section)
 - (void)setMenuHidden:(BOOL)hidden duration:(NSTimeInterval)duration
 {
   [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-    self.menuShift = hidden ? 0 : self.maximumMenuShift;
+    self.menuShift = hidden ? self.minimumMenuShift : self.maximumMenuShift;
   } completion:^(BOOL finished) {}];
   self.isMenuHidden = hidden;
 }
@@ -268,7 +268,7 @@ typedef NS_ENUM(NSUInteger, Section)
 
 - (void)setMenuShift:(CGFloat)menuShift
 {
-  menuShift = MIN(self.maximumMenuShift, MAX(0, menuShift));
+  menuShift = MIN(self.maximumMenuShift, MAX(self.minimumMenuShift, menuShift));
   self.minX = self.superview.width - menuShift;
   self.slideView.midX = self.minX - slideViewOffset.x;
   _menuShift = menuShift;
@@ -292,6 +292,11 @@ typedef NS_ENUM(NSUInteger, Section)
 }
 
 #pragma mark - Getters
+
+- (CGFloat)minimumMenuShift
+{
+  return 0;
+}
 
 - (CGFloat)maximumMenuShift
 {
