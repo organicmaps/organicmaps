@@ -1,0 +1,5 @@
+<resources>
+
+    <dimen name="zoom_plus_top_margin">50dp</dimen>
+
+</resources>

@@ -1,5 +1,6 @@
 <resources>
 
+    <dimen name="zoom_plus_top_margin">150dp</dimen>
     <dimen name="activity_horizontal_margin">128dp</dimen>
     <dimen name="dialog_max_height">640dp</dimen>
     <dimen name="drawer_item_height">96dp</dimen>

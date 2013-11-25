@@ -32,7 +32,7 @@
     <dimen name="sp_x_5">25sp</dimen>
 
     <dimen name="dialog_max_height">320dp</dimen>
-    <dimen name="zoom_plus_top_margin">40dp</dimen>
+    <dimen name="zoom_plus_top_margin">10dp</dimen>
     <dimen name="zoom_margin">5dp</dimen>
     <dimen name="zoom_margin_right">15dp</dimen>
 

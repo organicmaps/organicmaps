@@ -70,13 +70,19 @@
             android:layout_alignParentRight="true"
             android:src="@drawable/ptb_selector_map" />
 
+        <View
+            android:id="@+id/anchor_center"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerVertical="true" />
+
         <ImageButton
             android:id="@+id/map_button_plus"
             style="@style/Widget.MapButtonZoom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_below="@id/anchor_center"
             android:onClick="onPlusClicked"
             android:src="@drawable/btn_zoom_in" />
 
@@ -98,9 +104,9 @@
         android:layout_gravity="bottom"
         android:layout_marginBottom="10dip"
         android:layout_marginRight="@dimen/zoom_margin_right"
-        android:padding="0dp"
         android:gravity="bottom|right"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:padding="0dp" >
 
         <ImageButton
             android:id="@+id/map_button_myposition"
