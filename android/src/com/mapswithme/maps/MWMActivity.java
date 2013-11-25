@@ -660,7 +660,10 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       {
         // we need to intercept touches to transform map
         if (!mDrawerLayout.isDrawerVisible(mMainDrawer))
-          onTouchEvent(event);
+        {
+          if (onTouchEvent(event))
+            event.setAction(MotionEvent.ACTION_CANCEL);
+        }
         return false;
       }
     });
