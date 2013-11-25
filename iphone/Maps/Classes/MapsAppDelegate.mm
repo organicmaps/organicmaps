@@ -174,10 +174,8 @@ void InitLocalizedStrings()
   NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
   attributes[UITextAttributeTextColor] = [UIColor whiteColor];
   attributes[UITextAttributeTextShadowColor] = [UIColor clearColor];
-  if (SYSTEM_VERSION_IS_LESS_THAN(@"7")) {
-    //[[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bar-back-6"] forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithColorCode:@"393655"]];
-  } else {
+  [[UINavigationBar appearance] setTintColor:[UIColor colorWithColorCode:@"393655"]];
+  if (!SYSTEM_VERSION_IS_LESS_THAN(@"7")) {
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bar-back-7"] forBarMetrics:UIBarMetricsDefault];
     attributes[UITextAttributeFont] = [UIFont fontWithName:@"HelveticaNeue" size:17.5];
     [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];

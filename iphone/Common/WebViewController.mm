@@ -24,6 +24,8 @@
   self = [super initWithNibName:nil bundle:nil];
   if (self)
   {
+    htmlText = [htmlText stringByReplacingOccurrencesOfString:@"<body>" withString:@"<body><font face=\"helvetica\">"];
+    htmlText = [htmlText stringByReplacingOccurrencesOfString:@"</body>" withString:@"</font></body>"];
     self.m_htmlText = htmlText;
     self.m_url = url;
     if (title)
