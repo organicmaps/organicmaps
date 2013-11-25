@@ -98,6 +98,8 @@
 		97719D461843B6E500BDD815 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D441843B6DC00BDD815 /* MessageUI.framework */; };
 		97719D481843B6F200BDD815 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D471843B6F200BDD815 /* Security.framework */; };
 		97719D491843B6F700BDD815 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D471843B6F200BDD815 /* Security.framework */; };
+		97719D4B1843B86700BDD815 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97719D4A1843B86700BDD815 /* Main_iPad.storyboard */; };
+		97719D4C1843B86700BDD815 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97719D4A1843B86700BDD815 /* Main_iPad.storyboard */; };
 		978F9240183B660F000D6C7C /* SettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 978F9239183B660F000D6C7C /* SettingsViewController.mm */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		978F9241183B660F000D6C7C /* SettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 978F9239183B660F000D6C7C /* SettingsViewController.mm */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		978F9242183B660F000D6C7C /* SelectableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 978F923A183B660F000D6C7C /* SelectableCell.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -1470,6 +1472,7 @@
 		97719D411843AF1E00BDD815 /* ScopeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScopeView.m; sourceTree = "<group>"; };
 		97719D441843B6DC00BDD815 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		97719D471843B6F200BDD815 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		97719D4A1843B86700BDD815 /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPad.storyboard; sourceTree = "<group>"; };
 		978F9239183B660F000D6C7C /* SettingsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SettingsViewController.mm; path = Settings/SettingsViewController.mm; sourceTree = "<group>"; };
 		978F923A183B660F000D6C7C /* SelectableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectableCell.m; path = Settings/SelectableCell.m; sourceTree = "<group>"; };
 		978F923B183B660F000D6C7C /* SwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SwitchCell.m; path = Settings/SwitchCell.m; sourceTree = "<group>"; };
@@ -2646,6 +2649,7 @@
 				FA68E1661525F92700077B9E /* Default-Portrait@2x.png */,
 				FA0660011286168700FEA989 /* Default-Portrait.png */,
 				FA0660021286168700FEA989 /* Default-Landscape.png */,
+				97719D4A1843B86700BDD815 /* Main_iPad.storyboard */,
 				FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */,
 			);
 			name = "Resources-iPad";
@@ -3876,6 +3880,7 @@
 				FAF804D51417E3510024E8C1 /* ne@2x.png in Resources */,
 				FAF804D61417E3510024E8C1 /* nf@2x.png in Resources */,
 				FAF804D71417E3510024E8C1 /* ng@2x.png in Resources */,
+				97719D4B1843B86700BDD815 /* Main_iPad.storyboard in Resources */,
 				FAF804D81417E3510024E8C1 /* ni@2x.png in Resources */,
 				97719D301843AE1300BDD815 /* location-back.png in Resources */,
 				FAF804D91417E3510024E8C1 /* nl@2x.png in Resources */,
@@ -4310,6 +4315,7 @@
 				FAFB07B5151215EE0041901D /* tt.png in Resources */,
 				FAFB07B6151215EE0041901D /* tv.png in Resources */,
 				97719D231843ADD200BDD815 /* side-toolbar-icon-map.png in Resources */,
+				97719D4C1843B86700BDD815 /* Main_iPad.storyboard in Resources */,
 				FAFB07B7151215EE0041901D /* tw.png in Resources */,
 				FAFB07B8151215EE0041901D /* tz.png in Resources */,
 				FAFB07B9151215EE0041901D /* ua.png in Resources */,

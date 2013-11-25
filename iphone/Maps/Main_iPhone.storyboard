@@ -42,9 +42,9 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="Lbs-3q-Cdh">
-                                            <rect key="frame" x="212" y="8" width="79" height="27"/>
+                                            <rect key="frame" x="209" y="8" width="79" height="27"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                            <inset key="insetFor6xAndEarlier" minX="16" minY="-2" maxX="-16" maxY="2"/>
+                                            <inset key="insetFor6xAndEarlier" minX="19" minY="-2" maxX="-19" maxY="2"/>
                                         </switch>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Statistics" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gtj-7U-9yY">
                                             <rect key="frame" x="16" y="11" width="230" height="21"/>
