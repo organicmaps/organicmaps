@@ -43,6 +43,7 @@ bool EqualNoCase(string const & s1, string const & s2);
 
 UniString MakeUniString(string const & utf8s);
 string ToUtf8(UniString const & s);
+bool IsASCIIString(string const & str);
 
 inline string DebugPrint(UniString const & s)
 {

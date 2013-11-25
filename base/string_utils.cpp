@@ -147,6 +147,14 @@ string ToUtf8(UniString const & s)
   return result;
 }
 
+bool IsASCIIString(string const & str)
+{
+  for (size_t i = 0; i < str.size(); ++i)
+    if (str[i] < 0 || str[i] > 127)
+      return false;
+  return true;
+}
+
 bool StartsWith(string const & s1, char const * s2)
 {
   return (s1.compare(0, strlen(s2), s2) == 0);

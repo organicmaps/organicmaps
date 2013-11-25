@@ -401,3 +401,14 @@ UNIT_TEST(UniString_LessAndEqualsAndNotEquals)
     }
   }
 }
+
+UNIT_TEST(IsUtf8Test)
+{
+  TEST(!strings::IsASCIIString("Нет"), ());
+  TEST(!strings::IsASCIIString("Классненькие места в Жодино.kml"), ());
+  TEST(!strings::IsASCIIString("在Zhodino陰涼處.kml"), ());
+  TEST(!strings::IsASCIIString("מקום קריר בZhodino.kml"), ());
+
+  TEST(strings::IsASCIIString("YES"), ());
+  TEST(strings::IsASCIIString("Nice places in Zhodino.kml"), ());
+}
