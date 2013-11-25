@@ -237,7 +237,7 @@
       if (tr)
       {
         f.ShowTrack(*tr);
-        [self.navigationController.visibleViewController dismissModalViewControllerAnimated:YES];
+        [self.navigationController popToRootViewControllerAnimated:YES];
       }
     }
   }
@@ -251,7 +251,7 @@
       {
         // Same as "Close".
         f.ShowBookmark(BookmarkAndCategory(m_categoryIndex, indexPath.row));
-        [self.navigationController.visibleViewController dismissModalViewControllerAnimated:YES];
+        [self.navigationController popToRootViewControllerAnimated:YES];
       }
     }
   }

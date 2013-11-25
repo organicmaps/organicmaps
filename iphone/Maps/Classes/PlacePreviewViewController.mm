@@ -85,7 +85,6 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
 -(void)viewDidLoad
 {
   [super viewDidLoad];
-  self.navigationController.navigationBarHidden = NO;
   [self setTitle:NSLocalizedString(@"info", nil)];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification object:nil];
 }

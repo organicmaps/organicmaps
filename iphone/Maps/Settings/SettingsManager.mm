@@ -50,7 +50,6 @@ using namespace storage;
 {
   CountriesViewController * countriesController = [[[CountriesViewController alloc]
       initWithIndex:TIndex() andHeader:NSLocalizedString(@"download_maps", @"Settings/Downloader - Main downloader window title")] autorelease];
-  m_navigationController = [[UINavigationController alloc] initWithRootViewController:countriesController];
 
   Framework & f = GetFramework();
   // Subscribe to storage callbacks AND load country names after calling Storage::Subscribe()
@@ -68,7 +67,7 @@ using namespace storage;
                                      bind(progressImpl, self, progressSel, _1, _2));
   }
   // display controller only when countries are loaded
-  [prevController presentModalViewController:m_navigationController animated:YES];
+  [prevController.navigationController pushViewController:countriesController animated:YES];
 
   // We do force delete of old maps at startup from this moment.
   /*
@@ -92,7 +91,7 @@ using namespace storage;
 {
   GetFramework().Storage().Unsubscribe(m_slotID);
 
-  [m_navigationController dismissModalViewControllerAnimated:YES];
+  [m_navigationController popToRootViewControllerAnimated:YES];
   [m_navigationController release], m_navigationController = nil;
 }
 

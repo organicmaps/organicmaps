@@ -138,7 +138,6 @@ typedef enum {Editing, Saved} Mode;
 
 - (void)viewWillAppear:(BOOL)animated
 {
-  [self.navigationController setNavigationBarHidden:NO animated:YES];
   // Update the table - we can display it after changing set or color
   [self.tableView reloadData];
 

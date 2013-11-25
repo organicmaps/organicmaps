@@ -19,11 +19,6 @@
   {
     self.title = NSLocalizedString(@"bookmarks", @"Boormarks - dialog title");
 
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc]
-        initWithTitle:NSLocalizedString(@"maps", @"Bookmarks - Close bookmarks button")
-        style: UIBarButtonItemStyleDone
-        target:self
-        action:@selector(onCloseButton:)] autorelease];
     self.tableView.allowsSelectionDuringEditing = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(newCategoryAdded)
@@ -31,11 +26,6 @@
                                                object:nil];
   }
   return self;
-}
-
-- (void)onCloseButton:(id)sender
-{
-  [self dismissModalViewControllerAnimated:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -232,11 +222,12 @@
   else
     [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"NO"];
   // Close view
-  [self dismissModalViewControllerAnimated:YES];
+  [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+  [super viewWillAppear:animated];
   // Disable bookmarks for free version
   if (!GetPlatform().HasBookmarks())
   {
@@ -261,7 +252,6 @@
     // Always reload table - we can open it after deleting bookmarks in any category
     [self.tableView reloadData];
   }
-  [super viewWillAppear:animated];
 }
 
 // Used to remove active UITextField from the cell

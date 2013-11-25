@@ -72,24 +72,6 @@ static bool getGuideName(string & name, storage::TIndex const & index)
 
 @implementation CountriesViewController
 
-
-- (void) onAboutButton:(id)sender
-{
-  // display WebView with About text
-  NSString * text;
-  {
-    ReaderPtr<Reader> r = GetPlatform().GetReader("about.html");
-    string s;
-    r.ReadAsString(s);
-    NSString * str = [NSString stringWithFormat:@"Version: %@ \n", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
-    text = [NSString stringWithFormat:@"%@%@", str, [NSString stringWithUTF8String:s.c_str()] ];
-  }
-
-  WebViewController * aboutViewController = [[WebViewController alloc] initWithHtml:text baseUrl:nil andTitleOrNil:NSLocalizedString(@"about", nil)];
-  [self.navigationController pushViewController:aboutViewController animated:YES];
-  [aboutViewController release];
-}
-
 - (void) onCloseButton:(id)sender
 {
   [[[MapsAppDelegate theApp] settingsManager] hide];
@@ -102,16 +84,13 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   {
     self.navigationItem.title = header;
     // Show Close button only on the first page
-    if ([header compare:NSLocalizedString(@"download_maps", nil)] == NSOrderedSame)
-    {
-      UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"maps", nil) style: UIBarButtonItemStyleDone
-                                      target:self action:@selector(onCloseButton:)] autorelease];
-      self.navigationItem.leftBarButtonItem = closeButton;
-    }
-    UIBarButtonItem * aboutButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"about", nil) style: UIBarButtonItemStylePlain target:self action:@selector(onAboutButton:)] autorelease];
-    self.navigationItem.rightBarButtonItem = aboutButton;
   }
 	return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
 }
 
 - (void) loadView
