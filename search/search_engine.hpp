@@ -1,6 +1,7 @@
 #pragma once
 
 #include "params.hpp"
+#include "result.hpp"
 
 #include "../geometry/rect2d.hpp"
 
@@ -19,13 +20,13 @@ namespace search
 {
 
 class Query;
-class Results;
 
 class EngineData;
 
 class Engine
 {
   typedef function<void (Results const &)> SearchCallbackT;
+  Results m_searchResults;
 
 public:
   typedef Index IndexType;
@@ -41,6 +42,8 @@ public:
   void PrepareSearch(m2::RectD const & viewport,
                      bool hasPt, double lat, double lon);
   bool Search(SearchParams const & params, m2::RectD const & viewport);
+
+  void GetResults(Results & res);
 
   string GetCountryFile(m2::PointD const & pt);
   string GetCountryCode(m2::PointD const & pt);

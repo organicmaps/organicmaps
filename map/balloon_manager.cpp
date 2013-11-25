@@ -109,6 +109,17 @@ void BalloonManager::ShowBookmark(BookmarkAndCategory bmAndCat)
   m_balloon->setOnClickListener(bind(&BalloonManager::OnActivateBookmark, this, _1, bmAndCat));
 }
 
+void BalloonManager::ShowAdditionalLayerBookmark(size_t index)
+{
+  ASSERT(index < m_f.AdditionalLayerNumberOfPoi(), ());
+  Bookmark const * pBM = m_f.AdditionalPoiLayerGetBookmark(index);
+  Show(pBM->GetOrg(), pBM->GetName(), "", true);
+
+  search::AddressInfo info;
+  info.m_name = pBM->GetName();
+  m_balloon->setOnClickListener(bind(&BalloonManager::OnActivatePOI, this, _1, info));
+}
+
 void BalloonManager::OnClick(m2::PointD const & pxPoint, bool isLongTouch)
 {
   url_scheme::ResultPoint apiPoint;
@@ -128,6 +139,12 @@ void BalloonManager::OnClick(m2::PointD const & pxPoint, bool isLongTouch)
     case Framework::BOOKMARK:
       {
         ShowBookmark(bmAndCat);
+        return;
+      }
+
+    case Framework::ADDTIONAL_LAYER:
+      {
+        ShowAdditionalLayerBookmark(bmAndCat.second);
         return;
       }
 

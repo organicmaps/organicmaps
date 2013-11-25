@@ -46,6 +46,7 @@ public:
   void ShowAddress(m2::PointD const & pt, search::AddressInfo const & info);
   void ShowURLPoint(url_scheme::ResultPoint const & point, bool needPadding);
   void ShowBookmark(BookmarkAndCategory bmAndCat);
+  void ShowAdditionalLayerBookmark(size_t index);
 
   void OnClick(m2::PointD const & pxPoint, bool isLongTouch);
 

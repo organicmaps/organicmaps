@@ -1223,6 +1223,22 @@ bool Framework::GetCurrentPosition(double & lat, double & lon) const
 
 void Framework::ShowSearchResult(search::Result const & res)
 {
+#ifdef DO_NOT_INCLUDE_IN_RELEASE
+  search::Results searchRes;
+  GetSearchEngine()->GetResults(searchRes);
+
+  m_bmManager.AdditionalPoiLayerSetVisible();
+  m_bmManager.AdditionalPoiLayerClear();
+  size_t resIndex = numeric_limits<size_t>::max();
+  for (size_t i = 0; i < searchRes.GetCount(); ++i)
+  {
+    search::Result const & tmpRes = searchRes.GetResult(i);
+    m_bmManager.AdditionalPoiLayerAddPoi(Bookmark(tmpRes.GetFeatureCenter(), tmpRes.GetString(), "placemark-orange"));
+    if (res == tmpRes)
+      resIndex = i;
+  }
+#endif
+
   int scale;
   m2::PointD center;
 
@@ -1255,9 +1271,13 @@ void Framework::ShowSearchResult(search::Result const & res)
 
   ShowRectExVisibleScale(m_scales.GetRectForDrawScale(scale, center));
 
+#ifdef DO_NOT_INCLUDE_IN_RELEASE
+  m_balloonManager.ShowAdditionalLayerBookmark(resIndex);
+#else
   search::AddressInfo info;
   info.MakeFrom(res);
   m_balloonManager.ShowAddress(center, info);
+#endif
 }
 
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
@@ -1576,6 +1596,8 @@ Framework::BookmarkOrPoi Framework::GetBookmarkOrPoi(m2::PointD const & pxPoint,
   bmCat = GetBookmark(pxPoint);
   if (IsValid(bmCat))
     return Framework::BOOKMARK;
+  else if (m_bmManager.IsAdditionalLayerPoi(bmCat))
+    return Framework::ADDTIONAL_LAYER;
 
   if (GetVisiblePOI(pxPoint, pxPivot, info))
   {

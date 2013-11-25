@@ -359,7 +359,8 @@ public:
   {
     NOTHING_FOUND = 0,
     BOOKMARK = 1,
-    POI = 2
+    POI = 2,
+    ADDTIONAL_LAYER = 3
   };
 
   BookmarkOrPoi GetBookmarkOrPoi(m2::PointD const & pxPoint, m2::PointD & pxPivot,

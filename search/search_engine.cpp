@@ -1,5 +1,4 @@
 #include "search_engine.hpp"
-#include "result.hpp"
 #include "search_query.hpp"
 
 #include "../storage/country_info.hpp"
@@ -175,6 +174,12 @@ bool Engine::Search(SearchParams const & params, m2::RectD const & viewport)
   return true;
 }
 
+void Engine::GetResults(Results & res)
+{
+  threads::MutexGuard guard(m_searchMutex);
+  m_searchResults.Swap(res);
+}
+
 void Engine::SetViewportAsync(m2::RectD const & viewport, m2::RectD const & nearby)
 {
   // First of all - cancel previous query.
@@ -327,7 +332,10 @@ void Engine::SearchAsync()
   // Emit results even if search was canceled and we have something.
   size_t const count = res.GetCount();
   if (!m_pQuery->IsCanceled() || count > 0)
+  {
+    m_searchResults = res;
     EmitResults(params, res);
+  }
 
   // Make additional search in whole mwm when not enough results (only for non-empty query).
   if (!emptyQuery && !m_pQuery->IsCanceled() && count < RESULTS_COUNT)
@@ -344,7 +352,10 @@ void Engine::SearchAsync()
 
     // Emit if we have more results.
     if (res.GetCount() > count)
+    {
+      m_searchResults = res;
       EmitResults(params, res);
+    }
   }
 
   // Emit finish marker to client.
