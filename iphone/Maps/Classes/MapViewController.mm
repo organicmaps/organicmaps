@@ -7,6 +7,12 @@
 #import "GetActiveConnectionType.h"
 #import "PlacePreviewViewController.h"
 #import "MWMApi.h"
+#import "UIKitCategories.h"
+#import "SettingsViewController.h"
+#import "UIViewController+Navigation.h"
+#import "Config.h"
+#import "ShareActionSheet.h"
+
 
 #import "../Settings/SettingsManager.h"
 
@@ -24,6 +30,7 @@
 #include "../Statistics/Statistics.h"
 
 #include "../../../map/dialog_settings.hpp"
+#include "../../../platform/settings.hpp"
 
 
 #define FACEBOOK_ALERT_VIEW 1
@@ -35,10 +42,16 @@
 const long long PRO_IDL = 510623322L;
 const long long LITE_IDL = 431183278L;
 
+@interface MapViewController () <SideToolbarDelegate, UIActionSheetDelegate>
+
+@property (nonatomic) UIView * fadeView;
+@property (nonatomic) LocationButton * locationButton;
+
+@end
+
 
 @implementation MapViewController
 
-@synthesize m_myPositionButton;
 
 
 - (void) Invalidate
@@ -59,31 +72,29 @@ const long long LITE_IDL = 431183278L;
     case location::EDenied:
     {
       UIAlertView * alert = [[CustomAlertView alloc] initWithTitle:nil
-                                                       message:NSLocalizedString(@"location_is_disabled_long_text", @"Location services are disabled by user alert - message")
-                                                      delegate:nil 
-                                             cancelButtonTitle:NSLocalizedString(@"ok", @"Location Services are disabled by user alert - close alert button")
-                                             otherButtonTitles:nil];
+                                                           message:NSLocalizedString(@"location_is_disabled_long_text", @"Location services are disabled by user alert - message")
+                                                          delegate:nil
+                                                 cancelButtonTitle:NSLocalizedString(@"ok", @"Location Services are disabled by user alert - close alert button")
+                                                 otherButtonTitles:nil];
       [alert show];
-      [alert release];
       [[MapsAppDelegate theApp].m_locationManager stop:self];
     }
-    break;
+      break;
 
     case location::ENotSupported:
     {
       UIAlertView * alert = [[CustomAlertView alloc] initWithTitle:nil
-                                                       message:NSLocalizedString(@"device_doesnot_support_location_services", @"Location Services are not available on the device alert - message")
-                                                      delegate:nil
-                                             cancelButtonTitle:NSLocalizedString(@"ok", @"Location Services are not available on the device alert - close alert button")
-                                             otherButtonTitles:nil];
+                                                           message:NSLocalizedString(@"device_doesnot_support_location_services", @"Location Services are not available on the device alert - message")
+                                                          delegate:nil
+                                                 cancelButtonTitle:NSLocalizedString(@"ok", @"Location Services are not available on the device alert - close alert button")
+                                                 otherButtonTitles:nil];
       [alert show];
-      [alert release];
       [[MapsAppDelegate theApp].m_locationManager stop:self];
     }
-    break;
+      break;
 
-  default:
-    break;
+    default:
+      break;
   }
 }
 
@@ -93,7 +104,7 @@ const long long LITE_IDL = 431183278L;
 
   if (f.GetLocationState()->IsFirstPosition())
   {
-    [m_myPositionButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
+    [self.locationButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
   }
 
   f.OnLocationUpdate(info);
@@ -110,24 +121,24 @@ const long long LITE_IDL = 431183278L;
 {
   Framework & f = GetFramework();
   shared_ptr<location::State> ls = f.GetLocationState();
-  
+
   if (newStatus == location::ECompassFollow)
-    [m_myPositionButton setImage:[UIImage imageNamed:@"location-follow.png"] forState:UIControlStateSelected];
+    [self.locationButton setImage:[UIImage imageNamed:@"location-follow.png"] forState:UIControlStateSelected];
   else
   {
     if (ls->HasPosition())
-      [m_myPositionButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
+      [self.locationButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
     else
-      [m_myPositionButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
-    
-    m_myPositionButton.selected = YES;
+      [self.locationButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
+
+    self.locationButton.selected = YES;
   }
 }
 
 //********************************************************************************************
 //********************************************************************************************
 
-- (IBAction)OnMyPositionClicked:(id)sender
+- (void)OnMyPositionClicked:(id)sender
 {
   Framework & f = GetFramework();
   shared_ptr<location::State> ls = f.GetLocationState();
@@ -136,8 +147,9 @@ const long long LITE_IDL = 431183278L;
   {
     if (!ls->IsFirstPosition())
     {
-      m_myPositionButton.selected = YES;
-      [m_myPositionButton setImage:[UIImage imageNamed:@"location-search.png"] forState:UIControlStateSelected];
+      self.locationButton.selected = YES;
+      [self.locationButton setImage:[UIImage imageNamed:@"location-search.png"] forState:UIControlStateSelected];
+      [self.locationButton setSearching];
 
       ls->OnStartLocation();
 
@@ -152,7 +164,7 @@ const long long LITE_IDL = 431183278L;
     if (!ls->IsCentered())
     {
       ls->AnimateToPositionAndEnqueueLocationProcessMode(location::ELocationCenterOnly);
-      m_myPositionButton.selected = YES;
+      self.locationButton.selected = YES;
       return;
     }
     else
@@ -167,8 +179,8 @@ const long long LITE_IDL = 431183278L;
             else
               ls->AnimateToPositionAndEnqueueFollowing();
 
-            m_myPositionButton.selected = YES;
-            [m_myPositionButton setImage:[UIImage imageNamed:@"location-follow.png"] forState:UIControlStateSelected];
+            self.locationButton.selected = YES;
+            [self.locationButton setImage:[UIImage imageNamed:@"location-follow.png"] forState:UIControlStateSelected];
 
             return;
           }
@@ -178,18 +190,18 @@ const long long LITE_IDL = 431183278L;
             animController->Lock();
 
             f.GetInformationDisplay().locationState()->StopCompassFollowing();
-        
+
             double startAngle = f.GetNavigator().Screen().GetAngle();
             double endAngle = 0;
-       
+
             f.GetAnimator().RotateScreen(startAngle, endAngle);
-        
+
             animController->Unlock();
-        
+
             f.Invalidate();
           }
+        }
       }
-    }
   }
 
   ls->OnStopLocation();
@@ -197,29 +209,18 @@ const long long LITE_IDL = 431183278L;
   [[MapsAppDelegate theApp] enableStandby];
   [[MapsAppDelegate theApp].m_locationManager stop:self];
 
-  m_myPositionButton.selected = NO;
-  [m_myPositionButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
+  self.locationButton.selected = NO;
+  [self.locationButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
 }
 
-- (IBAction)OnSettingsClicked:(id)sender
+- (IBAction)zoomInPressed:(id)sender
 {
-  [[[MapsAppDelegate theApp] settingsManager] show:self];
+  GetFramework().Scale(3.0 / 2);
 }
 
-- (IBAction)OnSearchClicked:(id)sender
+- (IBAction)zoomOutPressed:(id)sender
 {
-  SearchVC * searchVC = [[SearchVC alloc] init];
-  [self presentModalViewController:searchVC animated:YES];
-  [searchVC release];
-}
-
-- (IBAction)OnBookmarksClicked:(id)sender
-{
-  BookmarksRootVC * bVC = [[BookmarksRootVC alloc] init];
-  UINavigationController * navC = [[UINavigationController alloc] initWithRootViewController:bVC];
-  [self presentModalViewController:navC animated:YES];
-  [bVC release];
-  [navC release];
+  GetFramework().Scale(2.0 / 3);
 }
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
@@ -305,7 +306,7 @@ const long long LITE_IDL = 431183278L;
     // restore previous screen position
     if (!f.LoadState())
       f.SetMaxWorldRect();
-    
+
     _isApiMode = NO;
 
     f.Invalidate();
@@ -386,7 +387,7 @@ NSInteger compareAddress(id l, id r, void * context)
 	{
     if (f.GetGuiController()->OnTapStarted(m_Pt1))
       return;
-    
+
 		f.StartDrag(DragEvent(m_Pt1.x, m_Pt1.y));
 		m_CurrentAction = DRAGGING;
 
@@ -402,6 +403,10 @@ NSInteger compareAddress(id l, id r, void * context)
 	}
 
 	m_isSticking = true;
+
+  if (!self.sideToolbar.isMenuHidden) {
+    [self.sideToolbar setMenuHidden:YES animated:YES];
+  }
 }
 
 - (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
@@ -419,7 +424,7 @@ NSInteger compareAddress(id l, id r, void * context)
 
   if (f.GetGuiController()->OnTapMoved(m_Pt1))
     return;
-  
+
 	if (m_isSticking)
 	{
 		if ((TempPt1.Length(m_Pt1) > m_StickyThreshold) || (TempPt2.Length(m_Pt2) > m_StickyThreshold))
@@ -437,21 +442,21 @@ NSInteger compareAddress(id l, id r, void * context)
 
 	switch (m_CurrentAction)
 	{
-	case DRAGGING:
-		f.DoDrag(DragEvent(m_Pt1.x, m_Pt1.y));
-//		needRedraw = true;
-		break;
-	case SCALING:
-		if ([[event allTouches] count] < 2)
-			[self stopCurrentAction];
-		else
-		{
-			f.DoScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
-//			needRedraw = true;
-		}
-		break;
-	case NOTHING:
-		return;
+    case DRAGGING:
+      f.DoDrag(DragEvent(m_Pt1.x, m_Pt1.y));
+      //		needRedraw = true;
+      break;
+    case SCALING:
+      if ([[event allTouches] count] < 2)
+        [self stopCurrentAction];
+      else
+      {
+        f.DoScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
+        //			needRedraw = true;
+      }
+      break;
+    case NOTHING:
+      return;
 	}
 }
 
@@ -470,7 +475,7 @@ NSInteger compareAddress(id l, id r, void * context)
   {
     // Cancel long-touch timer
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    
+
     // TapCount could be zero if it was a single long (or moving) tap.
     if (tapCount < 2)
     {
@@ -530,7 +535,7 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void) OnEnterBackground
 {
   [[Statistics instance] stopSession];
-  
+
   // Save state and notify about entering background.
 
   Framework & f = GetFramework();
@@ -556,15 +561,183 @@ NSInteger compareAddress(id l, id r, void * context)
   }
 }
 
-- (void) viewWillAppear:(BOOL)animated
+- (LocationButton *)locationButton
 {
-  [self Invalidate];
+  if (!_locationButton)
+  {
+    _locationButton = [[LocationButton alloc] initWithFrame:CGRectMake(4.5, 0, 60, 60)];
+    _locationButton.maxY = self.view.height - 3.5;
+    _locationButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+    [_locationButton addTarget:self action:@selector(OnMyPositionClicked:) forControlEvents:UIControlEventTouchUpInside];
+  }
+  return _locationButton;
+}
+
+- (UIView *)fadeView
+{
+  if (!_fadeView)
+  {
+    _fadeView = [[UIView alloc] initWithFrame:self.view.bounds];
+    _fadeView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+    _fadeView.alpha = 0;
+    _fadeView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+  }
+  return _fadeView;
+}
+
+- (SideToolbar *)sideToolbar
+{
+  if (!_sideToolbar)
+  {
+    _sideToolbar = [[SideToolbar alloc] initWithFrame:CGRectMake(self.view.width, 0, 260, self.view.height)];
+    _sideToolbar.delegate = self;
+  }
+  return _sideToolbar;
+}
+
+- (void)sideToolbar:(SideToolbar *)toolbar didPressButtonAtIndex:(NSInteger)buttonIndex
+{
+  if (buttonIndex == 0)
+  {
+    SearchVC * vc = [[SearchVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+  }
+  else if (buttonIndex == 1)
+  {
+    [[[MapsAppDelegate theApp] settingsManager] show:self];
+  }
+  else if (buttonIndex == 2)
+  {
+    BookmarksRootVC * vc = [[BookmarksRootVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+  }
+  else if (buttonIndex == 3)
+  {
+    SettingsViewController * vc = [self.mainStoryboard instantiateViewControllerWithIdentifier:NSStringFromClass([SettingsViewController class])];
+    [self.navigationController pushViewController:vc animated:YES];
+  }
+  else if (buttonIndex == 4)
+  {
+    [ShareActionSheet showShareActionSheetInView:self.view withObject:self];
+  }
+}
+
+- (void)sideToolbarDidUpdateShift:(SideToolbar *)toolbar
+{
+  self.fadeView.alpha = toolbar.menuShift / toolbar.maximumMenuShift;
+}
+
+- (void)sideToolbarDidPressBuyButton:(SideToolbar *)toolbar
+{
+  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+  CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
+  double latitude = location.coordinate.latitude;
+  double longitude = location.coordinate.longitude;
+  [ShareActionSheet resolveActionSheetChoice:actionSheet buttonIndex:buttonIndex text:@"" view:self delegate:self gX:latitude gY:longitude andMyPosition:YES];
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+  [[Statistics instance] logEvent:@"ge0(zero) MAIL Export"];
+  [self dismissModalViewControllerAnimated:YES];
+  [self.sideToolbar setMenuHidden:YES animated:YES];
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+  [[Statistics instance] logEvent:@"ge0(zero) MESSAGE Export"];
+  [self dismissModalViewControllerAnimated:YES];
+  [self.sideToolbar setMenuHidden:YES animated:YES];
+}
+
+- (void)toolbarButtonPressed:(id)sender
+{
+  [self.sideToolbar setMenuHidden:!self.sideToolbar.isMenuHidden animated:YES];
+}
+
+#define SLIDE_VIEW_DARK_PART_TAG 1
+
+- (void)viewWillAppear:(BOOL)animated
+{
   [super viewWillAppear:animated];
+
+  [self Invalidate];
+
+  if (!_sideToolbar)
+  {
+    [self.view addSubview:self.locationButton];
+    [self.view addSubview:self.fadeView];
+    [self.view addSubview:self.sideToolbar];
+
+    UIButton * toolbarButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.view.height - 72.5, 50, 70)];
+    toolbarButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+    toolbarButton.maxX = self.view.width;
+    [toolbarButton addTarget:self action:@selector(toolbarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+
+    CGFloat tailShift = 4;
+
+    UIImageView * tailLight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"side-toolbar-slide-view-light"]];
+    tailLight.maxX = toolbarButton.width;
+    tailLight.midY = toolbarButton.height / 2 + tailShift;
+    [toolbarButton addSubview:tailLight];
+
+    UIImageView * tailDark = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"side-toolbar-slide-view-dark"]];
+    tailDark.maxX = toolbarButton.width;
+    tailDark.midY = toolbarButton.height / 2 + tailShift;
+    tailDark.tag = SLIDE_VIEW_DARK_PART_TAG;
+    [toolbarButton addSubview:tailDark];
+
+    [self.view addSubview:toolbarButton];
+    self.sideToolbar.slideView = toolbarButton;
+
+    [self.sideToolbar addObserver:self forKeyPath:@"isMenuHidden" options:NSKeyValueObservingOptionNew context:nil];
+  }
+
+  [self.sideToolbar setMenuHidden:YES animated:NO];
+}
+
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+
+  bool zoomButtonsEnabled;
+  if (!Settings::Get("ZoomButtonsEnabled", zoomButtonsEnabled))
+    zoomButtonsEnabled = false;
+  self.zoomButtonsView.hidden = !zoomButtonsEnabled;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+  if (object == self.sideToolbar && [keyPath isEqualToString:@"isMenuHidden"])
+  {
+    [UIView animateWithDuration:0.25 animations:^{
+      if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
+        [self setNeedsStatusBarAppearanceUpdate];
+      self.fadeView.alpha = self.sideToolbar.isMenuHidden ? 0 : 1;
+      UIView * darkTail = [self.sideToolbar.slideView viewWithTag:SLIDE_VIEW_DARK_PART_TAG];
+      darkTail.alpha = self.sideToolbar.isMenuHidden ? 0 : 1;
+    }];
+  }
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+  return !self.sideToolbar.isMenuHidden;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation
+{
+  return UIStatusBarAnimationFade;
 }
 
 - (void) viewWillDisappear:(BOOL)animated
 {
   GetFramework().SetUpdatesEnabled(false);
+
   [super viewWillDisappear:animated];
 }
 
@@ -576,25 +749,23 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void)showAppStoreRatingMenu
 {
   UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"App Store"
-                                                      message:NSLocalizedString(@"appStore_message", nil)
+                                                       message:NSLocalizedString(@"appStore_message", nil)
                                                       delegate:self
-                                            cancelButtonTitle:NSLocalizedString(@"no_thanks", nil)
-                                            otherButtonTitles:NSLocalizedString(@"ok", nil), NSLocalizedString(@"remind_me_later", nil), nil];
+                                             cancelButtonTitle:NSLocalizedString(@"no_thanks", nil)
+                                             otherButtonTitles:NSLocalizedString(@"ok", nil), NSLocalizedString(@"remind_me_later", nil), nil];
   alertView.tag = APPSTORE_ALERT_VIEW;
   [alertView show];
-  [alertView release];
 }
 
 -(void)showFacebookRatingMenu
 {
   UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"Facebook"
-                                                      message:NSLocalizedString(@"share_on_facebook_text", nil)
-                                                     delegate:self
-                                            cancelButtonTitle:NSLocalizedString(@"no_thanks", nil)
-                                            otherButtonTitles:NSLocalizedString(@"ok", nil), NSLocalizedString(@"remind_me_later", nil),  nil];
+                                                       message:NSLocalizedString(@"share_on_facebook_text", nil)
+                                                      delegate:self
+                                             cancelButtonTitle:NSLocalizedString(@"no_thanks", nil)
+                                             otherButtonTitles:NSLocalizedString(@"ok", nil), NSLocalizedString(@"remind_me_later", nil),  nil];
   alertView.tag = FACEBOOK_ALERT_VIEW;
   [alertView show];
-  [alertView release];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -651,7 +822,6 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void) destroyPopover
 {
-  [m_popover release];
   m_popover = nil;
 }
 
@@ -673,7 +843,7 @@ NSInteger compareAddress(id l, id r, void * context)
   _isApiMode = YES;
   if ([self shouldShowNavBar])
   {
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"back", nil) style: UIBarButtonItemStyleDone target:self action:@selector(returnToApiApp)] autorelease];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"back", nil) style: UIBarButtonItemStyleDone target:self action:@selector(returnToApiApp)];
     self.navigationItem.title = [NSString stringWithUTF8String:GetFramework().GetMapApiAppTitle().c_str()];
     self.navigationController.navigationBarHidden = NO;
     [self dismissPopover];
@@ -720,7 +890,6 @@ NSInteger compareAddress(id l, id r, void * context)
   PlacePreviewViewController * preview = [[PlacePreviewViewController alloc] initWithPoint:p];
   m_popoverPos = p;
   [self pushViewController:preview];
-  [preview release];
 }
 
 -(void)poiBalloonClicked:(m2::PointD const &)pt info:(search::AddressInfo const &)info
@@ -728,7 +897,6 @@ NSInteger compareAddress(id l, id r, void * context)
   PlacePreviewViewController * preview = [[PlacePreviewViewController alloc] initWith:info point:CGPointMake(pt.x, pt.y)];
   m_popoverPos = CGPointMake(pt.x, pt.y);
   [self pushViewController:preview];
-  [preview release];
 }
 
 -(void)apiBalloonClicked:(url_scheme::ApiPoint const &) apiPoint
@@ -741,7 +909,6 @@ NSInteger compareAddress(id l, id r, void * context)
   PlacePreviewViewController * apiPreview = [[PlacePreviewViewController alloc] initWithApiPoint:apiPoint];
   m_popoverPos = CGPointMake(MercatorBounds::LonToX(apiPoint.m_lon), MercatorBounds::LatToY(apiPoint.m_lat));
   [self pushViewController:apiPreview];
-  [apiPreview release];
 }
 
 -(void)bookmarkBalloonClicked:(BookmarkAndCategory const &) bmAndCat
@@ -750,19 +917,17 @@ NSInteger compareAddress(id l, id r, void * context)
   Bookmark const * bm = GetFramework().GetBmCategory(bmAndCat.first)->GetBookmark(bmAndCat.second);
   m_popoverPos = CGPointMake(bm->GetOrg().x, bm->GetOrg().y);
   [self pushViewController:vc];
-  [vc release];
 }
 
 -(void)pushViewController:(UIViewController *)vc
 {
   if (isIPad)
   {
-    UINavigationController * navC = [[UINavigationController alloc] init];
+    NavigationController * navC = [[NavigationController alloc] init];
     m_popover = [[UIPopoverController alloc] initWithContentViewController:navC];
     m_popover.delegate = self;
 
     [navC pushViewController:vc animated:YES];
-    [navC release];
     navC.navigationBar.barStyle = UIBarStyleBlack;
 
     [m_popover setPopoverContentSize:CGSizeMake(320, 480)];
@@ -772,11 +937,9 @@ NSInteger compareAddress(id l, id r, void * context)
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void) dealloc
+- (void)dealloc
 {
   [self destroyPopover];
-  self.m_myPositionButton = nil;
-  [super dealloc];
 }
 
 

@@ -1,5 +1,7 @@
 #import <UIKit/UIKit.h>
 #import "LocationManager.h"
+#import "LocationButton.h"
+#import "SideToolbar.h"
 
 #include "../../geometry/point2d.hpp"
 #include "../../geometry/rect2d.hpp"
@@ -35,9 +37,6 @@ namespace search { struct AddressInfo; }
 - (void) OnEnterBackground;
 
 - (IBAction)OnMyPositionClicked:(id)sender;
-- (IBAction)OnSettingsClicked:(id)sender;
-- (IBAction)OnSearchClicked:(id)sender;
-- (IBAction)OnBookmarksClicked:(id)sender;
 
 - (void)showSearchResultAsBookmarkAtMercatorPoint:(m2::PointD const &)pt withInfo:(search::AddressInfo const &)info;
 - (void)showBalloonWithCategoryIndex:(int)cat andBookmarkIndex:(int)bm;
@@ -48,7 +47,9 @@ namespace search { struct AddressInfo; }
 
 - (void)dismissPopover;
 
-@property (nonatomic, retain) IBOutlet UIButton * m_myPositionButton;
 @property (nonatomic, assign) BOOL isApiMode;
+
+@property (retain, nonatomic) IBOutlet UIView * zoomButtonsView;
+@property (nonatomic) SideToolbar * sideToolbar;
 
 @end
