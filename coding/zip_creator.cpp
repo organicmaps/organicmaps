@@ -1,5 +1,7 @@
 #include "zip_creator.hpp"
 
+#include "../../base/string_utils.hpp"
+
 #include "../../coding/file_name_utils.hpp"
 #include "../../coding/internal/file_data.hpp"
 #include "../../coding/constants.hpp"
@@ -60,6 +62,9 @@ bool CreateZipFromPathDeflatedAndDefaultCompression(string const & filePath, str
   CreateTMZip(zipInfo.tmz_date);
   string fileName = filePath;
   my::GetNameFromFullPath(fileName);
+  if (!strings::IsASCIIString(fileName))
+    fileName = "MapsWithMe.kml";
+
   if (::zipOpenNewFileInZip(zip.Handle(), fileName.c_str(), &zipInfo,
                           NULL, 0, NULL, 0, "ZIP from MapsWithMe", Z_DEFLATED, Z_DEFAULT_COMPRESSION) < 0)
   {
