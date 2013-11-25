@@ -634,14 +634,15 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    // We dont want to update view too often, it is slow
+    if (isShowCategories())
+      return;
+
+    // We don't want to update view too often, it is slow
+    // and breaks click listeners
     if (System.currentTimeMillis() - mLastCompasUpdate < COMPAS_DELTA)
       return;
     else
       mLastCompasUpdate = System.currentTimeMillis();
-
-    if (isShowCategories())
-      return;
 
     final double north[] = { magneticNorth, trueNorth };
     m_location.correctCompassAngles(getWindowManager().getDefaultDisplay(), north);
@@ -651,8 +652,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     if (m_north == -1 || Math.abs(m_north - ret) > 0.02)
     {
       m_north = ret;
-      //Log.d(TAG, "Compass updated, north = " + m_north);
-
       updateDistance();
     }
   }

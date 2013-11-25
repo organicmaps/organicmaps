@@ -223,7 +223,22 @@ public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity
       final int y0 = (int)event.getY();
 
 
-      // we skip event near edge of drawer
+      // we skip event near edge of LEFT drawer
+      // ABOVE compas region
+      //
+      // Imagine that rect below is the screen.
+      //  ____________________
+      // |
+      // | <=>  <--- compass
+      // |
+      // |__(border, topRegion)
+      // |00|
+      // |00|
+      // |00|
+      // |00| <--- drawer touch zone
+      // |00|      event here are not passed to framework
+      // |00|
+      // ----------------------
       final int border = (int) (.5 + 0.1f
           * Math.min(m_surfaceHeight, m_surfaceWidth)*getResources().getDisplayMetrics().density);
       final int topRegion = (int) (m_surfaceHeight/3.0);
