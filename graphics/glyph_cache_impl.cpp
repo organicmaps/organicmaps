@@ -1,4 +1,5 @@
 #include "glyph_cache_impl.hpp"
+#include "freetype.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -248,7 +249,7 @@ namespace graphics
     // from routine, so add font to fonts array only in the end.
 
     FT_Face face;
-    FTCHECKRETURN(pFont->CreateFaceID(m_lib, &face), fileName);
+    FREETYPE_CHECK_RETURN(pFont->CreateFaceID(m_lib, &face), fileName);
 
     vector<FT_ULong> charcodes;
 
@@ -260,7 +261,7 @@ namespace graphics
     sort(charcodes.begin(), charcodes.end());
     charcodes.erase(unique(charcodes.begin(), charcodes.end()), charcodes.end());
 
-    FTCHECKRETURN(FT_Done_Face(face), fileName);
+    FREETYPE_CHECK_RETURN(FT_Done_Face(face), fileName);
 
     m_fonts.push_back(pFont);
 
@@ -419,22 +420,22 @@ namespace graphics
 
     if (!m_isDebugging)
     {
-      FTCHECK(FT_Init_FreeType(&m_lib));
+      FREETYPE_CHECK(FT_Init_FreeType(&m_lib));
 
       /// Initializing caches
-      FTCHECK(FTC_Manager_New(m_lib, 3, 10, params.m_maxSize, &RequestFace, 0, &m_manager));
+      FREETYPE_CHECK(FTC_Manager_New(m_lib, 3, 10, params.m_maxSize, &RequestFace, 0, &m_manager));
 
-      FTCHECK(FTC_ImageCache_New(m_manager, &m_normalGlyphCache));
-      FTCHECK(FTC_StrokedImageCache_New(m_manager, &m_strokedGlyphCache));
+      FREETYPE_CHECK(FTC_ImageCache_New(m_manager, &m_normalGlyphCache));
+      FREETYPE_CHECK(FTC_StrokedImageCache_New(m_manager, &m_strokedGlyphCache));
 
-      FTCHECK(FTC_ImageCache_New(m_manager, &m_normalMetricsCache));
-      FTCHECK(FTC_StrokedImageCache_New(m_manager, &m_strokedMetricsCache));
+      FREETYPE_CHECK(FTC_ImageCache_New(m_manager, &m_normalMetricsCache));
+      FREETYPE_CHECK(FTC_StrokedImageCache_New(m_manager, &m_strokedMetricsCache));
 
       /// Initializing stroker
-      FTCHECK(FT_Stroker_New(m_lib, &m_stroker));
+      FREETYPE_CHECK(FT_Stroker_New(m_lib, &m_stroker));
       FT_Stroker_Set(m_stroker, FT_Fixed(graphics::visualScale(params.m_density) * 2 * 64), FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
 
-      FTCHECK(FTC_CMapCache_New(m_manager, &m_charMapCache));
+      FREETYPE_CHECK(FTC_CMapCache_New(m_manager, &m_charMapCache));
     }
     else
     {
@@ -527,7 +528,7 @@ namespace graphics
 
     if (key.m_isMask)
     {
-      FTCHECK(FTC_StrokedImageCache_LookupScaler(
+      FREETYPE_CHECK(FTC_StrokedImageCache_LookupScaler(
           m_strokedMetricsCache,
           &fontScaler,
           m_stroker,
@@ -538,7 +539,7 @@ namespace graphics
     }
     else
     {
-      FTCHECK(FTC_ImageCache_LookupScaler(
+      FREETYPE_CHECK(FTC_ImageCache_LookupScaler(
         m_normalMetricsCache,
         &fontScaler,
         FT_LOAD_DEFAULT,
@@ -580,7 +581,7 @@ namespace graphics
 
     if (key.m_isMask)
     {
-      FTCHECK(FTC_StrokedImageCache_LookupScaler(
+      FREETYPE_CHECK(FTC_StrokedImageCache_LookupScaler(
           m_strokedGlyphCache,
           &fontScaler,
           m_stroker,
@@ -592,7 +593,7 @@ namespace graphics
     }
     else
     {
-      FTCHECK(FTC_ImageCache_LookupScaler(
+      FREETYPE_CHECK(FTC_ImageCache_LookupScaler(
           m_normalGlyphCache,
           &fontScaler,
           FT_LOAD_DEFAULT | FT_LOAD_RENDER,
@@ -610,7 +611,7 @@ namespace graphics
     bitmap->m_height = bitmapGlyph ? bitmapGlyph->bitmap.rows : 0;
     bitmap->m_pitch = bitmapGlyph ? bitmapGlyph->bitmap.pitch : 0;
 
-    if (bitmap->m_width * bitmap->m_height != 0)
+    if (bitmap->m_width && bitmap->m_height)
     {
       bitmap->m_data.resize(bitmap->m_pitch * bitmap->m_height);
       memcpy(&bitmap->m_data[0],

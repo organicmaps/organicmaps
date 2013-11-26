@@ -1,7 +1,7 @@
 #pragma once
 
 #include "glyph_cache.hpp"
-#include "ft2_debug.hpp"
+#include "freetype.hpp"
 
 #include "../base/string_utils.hpp"
 
@@ -11,7 +11,6 @@
 #include "../std/vector.hpp"
 #include "../std/shared_ptr.hpp"
 
-#include <freetype/ftsystem.h>
 
 namespace graphics
 {

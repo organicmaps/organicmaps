@@ -39,8 +39,8 @@ SOURCES += \
     skin_loader.cpp \
     resource_cache.cpp \
     glyph_cache.cpp \
+    freetype.cpp \
     glyph_cache_impl.cpp \
-    ft2_debug.cpp \
     geometry_batcher.cpp \
     text_renderer.cpp \
     path_renderer.cpp \
@@ -108,7 +108,7 @@ HEADERS += \
     glyph_cache.hpp \
     data_formats.hpp \
     glyph_cache_impl.hpp \
-    ft2_debug.hpp \
+    freetype.hpp \
     text_renderer.hpp \
     geometry_batcher.hpp \
     screen.hpp \
