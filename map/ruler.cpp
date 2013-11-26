@@ -182,6 +182,8 @@ void Ruler::layout()
     m_conversionFn = &MeasurementUtils::MetersToYards;
     break;
   }
+
+  update();
 }
 
 void Ruler::setMinPxWidth(unsigned minPxWidth)
@@ -302,8 +304,6 @@ vector<m2::AnyRectD> const & Ruler::boundRects() const
 
 void Ruler::cache()
 {
-  layout();
-
   graphics::Screen * cs = m_controller->GetCacheScreen();
 
   m_dl.reset();
