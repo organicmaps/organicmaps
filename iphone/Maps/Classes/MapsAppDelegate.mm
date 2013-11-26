@@ -171,7 +171,7 @@ void InitLocalizedStrings()
 
 - (void)customizeAppearance
 {
-  NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
+  NSMutableDictionary * attributes = [[NSMutableDictionary alloc] init];
   attributes[UITextAttributeTextColor] = [UIColor whiteColor];
   attributes[UITextAttributeTextShadowColor] = [UIColor clearColor];
   [[UINavigationBar appearance] setTintColor:[UIColor colorWithColorCode:@"393655"]];

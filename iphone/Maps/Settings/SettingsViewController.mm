@@ -10,7 +10,8 @@
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 
-typedef NS_ENUM(NSUInteger, Section) {
+typedef NS_ENUM(NSUInteger, Section)
+{
   SectionMetrics,
   SectionStatistics,
   SectionZoomButtons,
@@ -27,7 +28,7 @@ typedef NS_ENUM(NSUInteger, Section) {
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.title = @"Settings";
+  self.title = NSLocalizedString(@"settings", nil);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -73,7 +74,7 @@ typedef NS_ENUM(NSUInteger, Section) {
     if (!Settings::Get("StatisticsEnabled", on))
       on = true;
     customCell.switchButton.on = on;
-    customCell.titleLabel.text = @"Statistics";
+    customCell.titleLabel.text = NSLocalizedString(@"allow_statistics", nil);
     customCell.delegate = self;
   }
   else if (indexPath.section == SectionZoomButtons)
@@ -84,14 +85,14 @@ typedef NS_ENUM(NSUInteger, Section) {
     if (!Settings::Get("ZoomButtonsEnabled", on))
       on = false;
     customCell.switchButton.on = on;
-    customCell.titleLabel.text = @"Zoom buttons";
+    customCell.titleLabel.text = NSLocalizedString(@"pref_zoom_title", nil);
     customCell.delegate = self;
   }
   else if (indexPath.section == SectionAbout)
   {
     cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([LinkCell class])];
     LinkCell * customCell = (LinkCell *)cell;
-    customCell.titleLabel.text = NSLocalizedString(@"about", nil);
+    customCell.titleLabel.text = NSLocalizedString(@"about_menu_title", nil);
   }
 
   return cell;
@@ -126,7 +127,6 @@ Settings::Units unitsForIndex(NSInteger index)
     Settings::Units units = unitsForIndex(indexPath.row);
     Settings::Set("Units", units);
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:SectionMetrics] withRowAnimation:UITableViewRowAnimationNone];
-
     [[MapsAppDelegate theApp].m_mapViewController SetupMeasurementSystem];
   }
   else if (indexPath.section == SectionAbout)

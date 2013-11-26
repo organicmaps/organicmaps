@@ -42,7 +42,7 @@ typedef NS_ENUM(NSUInteger, Section)
                  NSLocalizedString(@"maps", nil),
                  NSLocalizedString(@"bookmarks", nil),
                  NSLocalizedString(@"settings", nil),
-                 @"Share my position"];
+                 NSLocalizedString(@"share_my_location", nil)];
 
   menuImageNames = @[@"side-toolbar-icon-search",
                      @"side-toolbar-icon-map",
@@ -190,7 +190,7 @@ typedef NS_ENUM(NSUInteger, Section)
   [indexSet addIndex:SectionBottomSpace];
   [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 
-  for (CALayer *backgroundLayer in self.backgroundView.layer.sublayers)
+  for (CALayer * backgroundLayer in self.backgroundView.layer.sublayers)
   {
     NSTimeInterval delay = backgroundLayer.frame.size.height > self.height ? rotationDuration : 0;
     [self performAfterDelay:delay block:^{

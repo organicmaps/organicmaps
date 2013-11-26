@@ -5,6 +5,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame segmentedControl:(UISegmentedControl *)segmentedControl;
 
-@property (readonly) UISegmentedControl *segmentedControl;
+@property (readonly) UISegmentedControl * segmentedControl;
 
 @end

@@ -3,6 +3,6 @@
 
 @interface LinkCell : UITableViewCell
 
-@property (retain, nonatomic) IBOutlet UILabel *titleLabel;
+@property (retain, nonatomic) IBOutlet UILabel * titleLabel;
 
 @end

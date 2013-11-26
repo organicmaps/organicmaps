@@ -12,7 +12,7 @@
 
 @interface SideToolbar : UIView
 
-@property (nonatomic, weak) UIView *slideView;
+@property (nonatomic, weak) UIView * slideView;
 
 @property (weak) id <SideToolbarDelegate> delegate;
 

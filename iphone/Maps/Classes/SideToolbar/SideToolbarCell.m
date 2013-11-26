@@ -4,8 +4,8 @@
 
 @interface SideToolbarCell ()
 
-@property (nonatomic) UIImageView *separator;
-@property (nonatomic) UIImageView *proMarker;
+@property (nonatomic) UIImageView * separator;
+@property (nonatomic) UIImageView * proMarker;
 
 @end
 
@@ -18,7 +18,6 @@
   self.backgroundColor = [UIColor clearColor];
 
   self.iconImageView.origin = CGPointMake(8, 6.5);
-  self.titleLabel.origin = CGPointMake(52, 12.5);
 
   UIView * highlightView = [[UIView alloc] initWithFrame:self.bounds];
   highlightView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.25];
@@ -59,6 +58,9 @@
   CGFloat shift = 8;
   self.separator.minX = shift;
   self.separator.width = self.width - 2 * shift;
+
+  self.titleLabel.midY = self.height / 2 - 2;
+  self.titleLabel.minX = 53;
 }
 
 - (void)setDisabled:(BOOL)disabled
@@ -84,7 +86,7 @@
   if (!_proMarker)
   {
     _proMarker = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"side-toolbar-cell-background-pro"]];
-    UILabel *label = [[UILabel alloc] initWithFrame:_proMarker.bounds];
+    UILabel * label = [[UILabel alloc] initWithFrame:_proMarker.bounds];
     label.minY = -0.5;
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.5];
@@ -110,9 +112,10 @@
 {
   if (!_titleLabel)
   {
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 160, 26)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 48)];
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.5];
+    _titleLabel.numberOfLines = 0;
   }
   return _titleLabel;
 }

@@ -88,11 +88,6 @@ static bool getGuideName(string & name, storage::TIndex const & index)
 	return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-  [super viewWillAppear:animated];
-}
-
 - (void) loadView
 {
 	CGRect appRect = [UIScreen mainScreen].applicationFrame;

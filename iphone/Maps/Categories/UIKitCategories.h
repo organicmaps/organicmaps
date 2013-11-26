@@ -10,8 +10,8 @@
 
 #define L(str) NSLocalizedString(str, nil)
 
-#define ALERT(str) UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:str delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil]; [alertView show];
-#define INFO(str) UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Info" message:str delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil]; [alertView show];
+#define ALERT(str) UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:str delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil]; [alertView show];
+#define INFO(str) UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"Info" message:str delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil]; [alertView show];
 
 @interface NSObject (Optimized)
 

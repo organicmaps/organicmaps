@@ -3,9 +3,4 @@
 
 @implementation SelectableCell
 
-- (void)awakeFromNib
-{
-
-}
-
 @end

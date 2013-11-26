@@ -54,7 +54,7 @@ const long long LITE_IDL = 431183278L;
 
 
 
-- (void) Invalidate
+- (void)Invalidate
 {
   Framework & f = GetFramework();
   if (!f.SetUpdatesEnabled(true))
@@ -112,7 +112,7 @@ const long long LITE_IDL = 431183278L;
   [self showPopover];
 }
 
-- (void) onCompassUpdate:(location::CompassInfo const &)info
+- (void)onCompassUpdate:(location::CompassInfo const &)info
 {
   GetFramework().OnCompassUpdate(info);
 }
@@ -749,7 +749,7 @@ NSInteger compareAddress(id l, id r, void * context)
   [super viewWillDisappear:animated];
 }
 
-- (void) SetupMeasurementSystem
+- (void)SetupMeasurementSystem
 {
   GetFramework().SetupMeasurementSystem();
 }

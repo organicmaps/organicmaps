@@ -48,18 +48,11 @@
     _buyButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 1, 0);
     _buyButton.contentMode = UIViewContentModeCenter;
     [_buyButton setBackgroundImage:buyImage forState:UIControlStateNormal];
-    [_buyButton setTitle:@"BECOME PRO USER" forState:UIControlStateNormal];
+    [_buyButton setTitle:NSLocalizedString(@"become_a_pro", nil) forState:UIControlStateNormal];
     [_buyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_buyButton addTarget:self action:@selector(buyButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
   }
   return _buyButton;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-  [super setSelected:selected animated:animated];
-
-  // Configure the view for the selected state
 }
 
 @end

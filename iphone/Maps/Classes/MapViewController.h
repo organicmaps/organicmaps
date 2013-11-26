@@ -1,3 +1,4 @@
+
 #import <UIKit/UIKit.h>
 #import "LocationManager.h"
 #import "LocationButton.h"
@@ -47,9 +48,9 @@ namespace search { struct AddressInfo; }
 
 - (void)dismissPopover;
 
-@property (nonatomic, assign) BOOL isApiMode;
+@property (nonatomic) BOOL isApiMode;
 
-@property (retain, nonatomic) IBOutlet UIView * zoomButtonsView;
+@property (weak, nonatomic) IBOutlet UIView * zoomButtonsView;
 @property (nonatomic) SideToolbar * sideToolbar;
 
 @end

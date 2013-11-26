@@ -372,7 +372,7 @@ static void OnSearchResultCallback(search::Results const & res)
   {
     static NSString *CellIdentifier = @"categoryCell";
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell)
     {
       cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
