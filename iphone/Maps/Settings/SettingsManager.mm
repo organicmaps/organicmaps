@@ -23,12 +23,13 @@ using namespace storage;
 - (UIViewController *) ControllerByIndex:(TIndex const &)index
 {
   NSArray * controllers = m_navigationController.viewControllers;
-  if (index.m_region != TIndex::INVALID && [controllers count] >= 3)
-    return [controllers objectAtIndex:2];
-  else if (index.m_country != TIndex::INVALID && [controllers count] >= 2)
-    return [controllers objectAtIndex:1];
-  else if (index.m_group != TIndex::INVALID && [controllers count] >= 1)
-    return [controllers objectAtIndex:0];
+  NSInteger count = [controllers count] - 1;
+  if (index.m_region != TIndex::INVALID && count >= 3)
+    return controllers[3];
+  else if (index.m_country != TIndex::INVALID && count >= 2)
+    return controllers[2];
+  else if (index.m_group != TIndex::INVALID && count >= 1)
+    return controllers[1];
   return nil;
 }
 
@@ -51,6 +52,7 @@ using namespace storage;
   CountriesViewController * countriesController = [[[CountriesViewController alloc]
       initWithIndex:TIndex() andHeader:NSLocalizedString(@"download_maps", @"Settings/Downloader - Main downloader window title")] autorelease];
 
+//  m_navigationController = [[UINavigationController alloc] initWithRootViewController:countriesController];
   Framework & f = GetFramework();
   // Subscribe to storage callbacks AND load country names after calling Storage::Subscribe()
   {
@@ -67,7 +69,8 @@ using namespace storage;
                                      bind(progressImpl, self, progressSel, _1, _2));
   }
   // display controller only when countries are loaded
-  [prevController.navigationController pushViewController:countriesController animated:YES];
+  m_navigationController = prevController.navigationController;
+  [m_navigationController pushViewController:countriesController animated:YES];
 
   // We do force delete of old maps at startup from this moment.
   /*
