@@ -70,7 +70,7 @@ public class BackscreenActivity extends BSActivity implements LocationListener
   private boolean  mIsPoi;
   //@}
 
-  private final Logger mLogger = StubLogger.get();
+  private final Logger mLogger = StubLogger.get(); // SimpleLogger.get("MWM_DBG");
 
   protected View mView;
   protected ImageView mMapView;
@@ -88,9 +88,10 @@ public class BackscreenActivity extends BSActivity implements LocationListener
   @Override
   protected void onBSTouchEnadle()
   {
-    // subscribe for locations again
-    mLogger.d("LocationRequester: touches were enabled, requbscribe to location");
+    // subscribe for locations again when touches were enabled
+    mLogger.d("onBSTouchEnadle : requestLocationUpdate");
     requestLocationUpdate();
+
     super.onBSTouchEnadle();
   }
 
@@ -141,11 +142,10 @@ public class BackscreenActivity extends BSActivity implements LocationListener
   {
     super.onBSResume();
 
+    mLogger.d("onBSResume : requestLocationUpdate");
+
     mLocationRequester.register();
     requestLocationUpdate();
-
-    updateData();
-    invalidate();
   }
 
   @Override
@@ -182,7 +182,10 @@ public class BackscreenActivity extends BSActivity implements LocationListener
     final Gestures action = motionEvent.getBSAction();
 
     if (action == Gestures.GESTURES_BS_SINGLE_TAP)
+    {
+      mLogger.d("onBSTouchEvent : requestLocationUpdate");
       requestLocationUpdate();
+    }
     else if (action == Gestures.GESTURES_BS_LR || action == Gestures.GESTURES_BS_SCROLL_LEFT)
     {
       if (!zoomOut())
@@ -203,6 +206,7 @@ public class BackscreenActivity extends BSActivity implements LocationListener
     else
       return; // do not react on other events
 
+    mLogger.d("onBSTouchEvent : invalidate");
     updateData();
     invalidate();
   }
@@ -223,15 +227,13 @@ public class BackscreenActivity extends BSActivity implements LocationListener
       else if (ACTION_SHOW_RECT.equals(intent.getAction()))
         setToPoiMode(intent);
 
-
+      mLogger.d("onHandleIntent : requestLocationUpdate");
       requestLocationUpdate();
 
       notifyBSUpdated();
     }
 
-    // Do always update data.
-    // This function is called from back screen menu without any extras.
-
+    mLogger.d("onHandleIntent : invalidate");
     updateData();
     invalidate();
   }
@@ -385,7 +387,6 @@ public class BackscreenActivity extends BSActivity implements LocationListener
   {
     ensureCorrectZoomLevel();
 
-
     if (mMode == null)
     {
       mLogger.e("Unknown mode");
@@ -519,6 +520,7 @@ public class BackscreenActivity extends BSActivity implements LocationListener
   {
     mLocation = l;
 
+    mLogger.d("onLocationChanged : invalidate");
     updateData();
     invalidate();
   }

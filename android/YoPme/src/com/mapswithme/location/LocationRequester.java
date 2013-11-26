@@ -21,25 +21,22 @@ import com.mapswithme.yopme.util.BatteryHelper.BatteryLevel;
 
 public class LocationRequester implements Handler.Callback
 {
-  private final static String TAG = LocationRequester.class.getSimpleName();
-
   protected Context mContext;
   protected LocationManager mLocationManager;
   protected Handler mDelayedEventsHandler;
 
-  private final Logger mLogger = StubLogger.get();
+  private final Logger mLogger = StubLogger.get(); // SimpleLogger.get("MWM_DBG");
 
   // Location
   private boolean mIsRegistered = false;
   private BatteryLevel mBatteryLevel;
   private final Set<LocationListener> mListeners = new HashSet<LocationListener>();
-  private Location mLocation;
+
+  private Location mLocation = null;
   private final static long MAX_TIME_FOR_SUBSCRIPTION_FIX = 15*60*1000;
-  // location
 
   // Handler messages
   private final static int WHAT_LOCATION_REQUEST_CANCELATION = 0x01;
-  // handler massages
 
   // Intents
   private PendingIntent mGpsLocationIntent;
@@ -51,7 +48,6 @@ public class LocationRequester implements Handler.Callback
   private final static String EXTRA_IS_GPS = ".is_gps";
   private final static String EXTRA_IS_NETWORK = ".is_network";
   private final static String EXTRA_IS_PASSAIVE = ".is_passive";
-  // intents
 
   // Receivers
   private final BroadcastReceiver mLocationReciever = new BroadcastReceiver()
@@ -70,6 +66,9 @@ public class LocationRequester implements Handler.Callback
                                                   && areLocationsFarEnough(l, mLocation);
           if (isLocationReallyChanged)
           {
+            mLogger.d("Old location: ", mLocation);
+            mLogger.d("New location: ", l);
+
             listener.onLocationChanged(l);
             mLocation = l;
             postRequestCancelation(MAX_TIME_FOR_SUBSCRIPTION_FIX);
@@ -78,7 +77,6 @@ public class LocationRequester implements Handler.Callback
 
         // TODO: add another events processing
       }
-
     }
   };
 
@@ -87,8 +85,8 @@ public class LocationRequester implements Handler.Callback
     return mBatteryLevel != BatteryLevel.CRITICAL;
   }
 
-  private final BroadcastReceiver mBatteryReciever = new BroadcastReceiver() {
-
+  private final BroadcastReceiver mBatteryReciever = new BroadcastReceiver()
+  {
     @Override
     public void onReceive(Context context, Intent intent)
     {
@@ -101,7 +99,7 @@ public class LocationRequester implements Handler.Callback
         mLogger.d("Stopped updated due to battery level update.");
       }
     }
-  }; // receivers
+  };
 
   public LocationRequester(Context context)
   {
@@ -281,6 +279,9 @@ public class LocationRequester implements Handler.Callback
       if (isFirstOneBetterLocation(l, res))
         res = l;
     }
+
+    // Save returning location to suppress useless drawings.
+    mLocation = res;
     return res;
   }
 
