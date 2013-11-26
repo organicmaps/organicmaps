@@ -22,7 +22,7 @@
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" id="1ei-bl-XIW">
-                        <rect key="frame" x="268" y="235" width="52" height="88"/>
+                        <rect key="frame" x="268" y="176" width="52" height="88"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VXD-8S-Q8b">
