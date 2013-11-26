@@ -150,7 +150,7 @@ string ToUtf8(UniString const & s)
 bool IsASCIIString(string const & str)
 {
   for (size_t i = 0; i < str.size(); ++i)
-    if (str[i] < 0 || str[i] > 127)
+    if (str[i] & 0x80)
       return false;
   return true;
 }
