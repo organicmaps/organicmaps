@@ -79,7 +79,7 @@ const long long LITE_IDL = 431183278L;
       [alert show];
       [[MapsAppDelegate theApp].m_locationManager stop:self];
     }
-      break;
+    break;
 
     case location::ENotSupported:
     {
@@ -91,7 +91,7 @@ const long long LITE_IDL = 431183278L;
       [alert show];
       [[MapsAppDelegate theApp].m_locationManager stop:self];
     }
-      break;
+    break;
 
     default:
       break;
@@ -215,12 +215,12 @@ const long long LITE_IDL = 431183278L;
 
 - (IBAction)zoomInPressed:(id)sender
 {
-  GetFramework().Scale(3.0 / 2);
+  GetFramework().Scale(2.0);
 }
 
 - (IBAction)zoomOutPressed:(id)sender
 {
-  GetFramework().Scale(2.0 / 3);
+  GetFramework().Scale(0.5);
 }
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
@@ -404,9 +404,8 @@ NSInteger compareAddress(id l, id r, void * context)
 
 	m_isSticking = true;
 
-  if (!self.sideToolbar.isMenuHidden) {
+  if (!self.sideToolbar.isMenuHidden)
     [self.sideToolbar setMenuHidden:YES animated:YES];
-  }
 }
 
 - (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
@@ -673,7 +672,7 @@ NSInteger compareAddress(id l, id r, void * context)
     [self.view addSubview:self.fadeView];
     [self.view addSubview:self.sideToolbar];
 
-    UIButton * toolbarButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.view.height - 72.5, 50, 70)];
+    UIButton * toolbarButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.view.height - 80, 50, 70)];
     toolbarButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
     toolbarButton.maxX = self.view.width;
     [toolbarButton addTarget:self action:@selector(toolbarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
