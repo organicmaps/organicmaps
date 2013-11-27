@@ -215,9 +215,11 @@ public class BackscreenActivity extends BSActivity implements LocationListener
     super.onHandleIntent(intent);
 
     final String action  = intent.getAction();
+    boolean doNotify = false;
+
     if (action != null && (ACTION_LOCATION + ACTION_SHOW_RECT).contains(action))
     {
-      notifyBSUpdated();
+      doNotify = true;
 
       extractLocation(intent);
       extractZoom(intent);
@@ -234,6 +236,9 @@ public class BackscreenActivity extends BSActivity implements LocationListener
     mLogger.d("onHandleIntent : invalidate");
     updateData();
     invalidate();
+
+    if (doNotify)
+      notifyBSUpdated();
   }
 
   private void notifyBSUpdated()
