@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, Section)
 
   disabledInTrial = @[@YES, @NO, @YES, @NO, @NO, @NO];
 
-  self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleHeight;
+  self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin;
   [self addGestureRecognizer:self.menuPanGesture];
 
   [self addSubview:self.backgroundView];

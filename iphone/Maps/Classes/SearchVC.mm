@@ -205,7 +205,11 @@ static void OnSearchResultCallback(search::Results const & res)
     [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
     _scopeView = [[ScopeView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44) segmentedControl:segmentedControl];
     _scopeView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _scopeView.backgroundColor = [UIColor colorWithColorCode:@"303e57"];
+
+    if (SYSTEM_VERSION_IS_LESS_THAN(@"7"))
+      _scopeView.backgroundColor = [[UINavigationBar appearance] tintColor];
+    else
+      _scopeView.backgroundColor = [UIColor colorWithColorCode:@"303e57"];
   }
   return _scopeView;
 }
