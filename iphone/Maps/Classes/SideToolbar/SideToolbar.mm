@@ -188,15 +188,15 @@ typedef NS_ENUM(NSUInteger, Section)
   NSMutableIndexSet * indexSet = [[NSMutableIndexSet alloc] init];
   [indexSet addIndex:SectionTopSpace];
   [indexSet addIndex:SectionBottomSpace];
-  [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+  [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationTop];
 
   for (CALayer * backgroundLayer in self.backgroundView.layer.sublayers)
   {
     NSTimeInterval delay = backgroundLayer.frame.size.height > self.height ? rotationDuration : 0;
     [self performAfterDelay:delay block:^{
-      CGRect rect = backgroundLayer.frame;
-      rect.size.height = self.height;
-      backgroundLayer.frame = rect;
+      CGRect frame = backgroundLayer.frame;
+      frame.size.height = self.height;
+      backgroundLayer.frame = frame;
     }];
   }
 }
