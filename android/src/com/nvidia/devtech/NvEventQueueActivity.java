@@ -205,6 +205,7 @@ public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity
 
   private int m_lastPointerId = 0;
 
+
   @Override
   public boolean onTouchEvent(MotionEvent event)
   {
@@ -222,49 +223,22 @@ public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity
       final int x0 = (int)event.getX();
       final int y0 = (int)event.getY();
 
-
-      // we skip event near edge of LEFT drawer
-      // ABOVE compas region
-      //
-      // Imagine that rect below is the screen.
-      //  ____________________
-      // |
-      // | <=>  <--- compass
-      // |
-      // |__(border, topRegion)
-      // |00|
-      // |00|
-      // |00|
-      // |00| <--- drawer touch zone
-      // |00|      event here are not passed to framework
-      // |00|
-      // ----------------------
-      final int border = (int) (.5 + 0.1f
-          * Math.min(m_surfaceHeight, m_surfaceWidth)*getResources().getDisplayMetrics().density);
-      final int topRegion = (int) (m_surfaceHeight/3.0);
-
-      if ((x0 < border) && (y0 > topRegion))
-        return false;
-      else
-        return multiTouchEvent(event.getAction(), true, false, x0, y0, 0, 0, event);
-
+      return multiTouchEvent(event.getAction(), true, false, x0, y0, 0, 0, event);
     }
     default:
-      {
-        final int x0 = (int)event.getX(0);
-        final int y0 = (int)event.getY(0);
+    {
+      final int x0 = (int)event.getX(0);
+      final int y0 = (int)event.getY(0);
 
-        final int x1 = (int)event.getX(1);
-        final int y1 = (int)event.getY(1);
+      final int x1 = (int)event.getX(1);
+      final int y1 = (int)event.getY(1);
 
-        if (event.getPointerId(0) == m_lastPointerId)
-          return multiTouchEvent(event.getAction(), true, true,
-              x0, y0, x1, y1, event);
-        else
-          return multiTouchEvent(event.getAction(), true, true,
-              x1, y1, x0, y0, event);
-
-      }
+      if (event.getPointerId(0) == m_lastPointerId)
+        return multiTouchEvent(event.getAction(), true, true,
+            x0, y0, x1, y1, event);
+      else
+        return multiTouchEvent(event.getAction(), true, true, x1, y1, x0, y0, event);
+    }
     }
   }
 

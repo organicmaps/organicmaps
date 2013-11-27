@@ -651,18 +651,12 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     mDrawerLayout.setDrawerListener(this);
 
     mMainDrawer = findViewById(R.id.left_drawer);
-    mDrawerLayout.setOnTouchListener(new OnTouchListener()
+    mMapSurface.setOnTouchListener(new OnTouchListener()
     {
       @Override
       public boolean onTouch(View v, MotionEvent event)
       {
-        // we need to intercept touches to transform map
-        if (!mDrawerLayout.isDrawerVisible(mMainDrawer))
-        {
-          if (onTouchEvent(event))
-            event.setAction(MotionEvent.ACTION_CANCEL);
-        }
-        return false;
+        return MWMActivity.this.onTouchEvent(event);
       }
     });
 

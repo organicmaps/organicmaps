@@ -4,7 +4,7 @@
 // Email:           tegradev@nvidia.com
 // Web:             http://developer.nvidia.com/category/zone/mobile-development
 //
-// Copyright 2009-2011 NVIDIA® Corporation 
+// Copyright 2009-2011 NVIDIAï¿½ Corporation
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -503,31 +503,6 @@ void NVEventOnRenderingInitialized()
 ///////////////////////////////////////////////////////////////////////////////
 // Input event-related Java to Native callback functions
 
-static jboolean NVEventTouchEvent(JNIEnv*  env, jobject  thiz, jint action, jint mx, jint my)
-{
-  {
-    NVEvent ev;
-    ev.m_type = NV_EVENT_TOUCH;
-    ev.m_data.m_touch.m_action = (NVEVENT_ACTION_UP == action)
-			       ? NV_TOUCHACTION_UP : (
-			         (NVEVENT_ACTION_DOWN == action) ? NV_TOUCHACTION_DOWN : NV_TOUCHACTION_MOVE);
-                                  ev.m_data.m_touch.m_x = mx;
-		                  ev.m_data.m_touch.m_y = my;
-    NVEventInsert(&ev);
-  }
-
-  return JNI_TRUE;
-}
-
-static jboolean NVEventLongClickEvent(JNIEnv * env, jobject thiz, jint x, jint y)
-{
-  NVEvent ev;
-  ev.m_type = NV_EVENT_LONG_CLICK;
-  ev.m_data.m_multi.m_x1 = x;
-  ev.m_data.m_multi.m_y1 = y;
-  NVEventInsert(&ev);
-  return JNI_TRUE;
-}
 
 static jboolean NVEventMultiTouchEvent(JNIEnv*  env, jobject  thiz, jint action, 
 									   jboolean hasFirst, jboolean hasSecond, jint mx1, jint my1, jint mx2, jint my2)
