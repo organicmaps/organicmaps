@@ -14,20 +14,13 @@
 
 @implementation PrefDelegate
 @synthesize m_controller;
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-  // User decided to override Imperial system with metric one
-  if (buttonIndex != 0)
-    Settings::Set("Units", Settings::Metric);
 
-  [m_controller SetupMeasurementSystem];
-
-  [self autorelease];
-}
 @end
 //***************************************************************************************
 
 @implementation Preferences
+
+// TODO: Export this logic to C++
 
 + (void)setup:(id)controller
 {
@@ -47,13 +40,6 @@
       // Will be released in delegate's callback itself
       PrefDelegate * d = [[PrefDelegate alloc] init];
       d.m_controller = controller;
-      UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"which_measurement_system", @"Choose measurement on first launch alert - title")
-                                                   message:nil
-                                                  delegate:d cancelButtonTitle:nil 
-                                         otherButtonTitles:NSLocalizedString(@"miles", @"Choose measurement on first launch alert - choose imperial system button"),
-                                         NSLocalizedString(@"kilometres", @"Choose measurement on first launch alert - choose metric system button"), nil];
-      [alert show];
-      [alert release];
     }
 
     /*This code counts conversion Guides->MWM. We rely on setting with name "Units", and by the time this code will be executed, Framework->GuidesManager should be initialised*/
