@@ -662,9 +662,9 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
 {
   CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
-  double latitude = location.coordinate.latitude;
-  double longitude = location.coordinate.longitude;
-  [ShareActionSheet resolveActionSheetChoice:actionSheet buttonIndex:buttonIndex text:@"" view:self delegate:self gX:latitude gY:longitude andMyPosition:YES];
+  double gX = MercatorBounds::LonToX(location.coordinate.longitude);
+  double gY = MercatorBounds::LatToY(location.coordinate.latitude);
+  [ShareActionSheet resolveActionSheetChoice:actionSheet buttonIndex:buttonIndex text:@"" view:self delegate:self gX:gX gY:gY andMyPosition:YES];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
