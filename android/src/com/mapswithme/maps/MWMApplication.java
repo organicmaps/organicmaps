@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.AssetManager;
 import android.os.Build;
@@ -314,20 +314,19 @@ public class MWMApplication extends android.app.Application implements MapStorag
   public native double nativeGetDouble(String name, double defaultValue);
   public native void nativeSetDouble(String name, double value);
 
-  public void onMwmStart(Context context)
+  public void onMwmStart(Activity activity)
   {
-    FbUtil.activate(context);
-
-    trackInstallUpdate();
+    FbUtil.activate(activity);
+    trackInstallUpdate(activity);
   }
 
-  private void trackInstallUpdate()
+  private void trackInstallUpdate(Activity activity)
   {
     //{@ TRACKERS
     final boolean DEBUG = false;
     final Logger logger = DEBUG ? SimpleLogger.get("MAT") : StubLogger.get();
 
-    if (!Utils.hasAnyGoogleStoreInstalled(this))
+    if (!Utils.hasAnyGoogleStoreInstalled(activity))
     {
       logger.d("SKIPPING TRACKERS, DOES NOT HAVE GP");
       return;
@@ -346,7 +345,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
     final boolean doTrack = !"FALSE".equalsIgnoreCase(advId);
     if (doTrack)
     {
-      final MobileAppTracker mat = new MobileAppTracker(this, advId, convKey);
+      final MobileAppTracker mat = new MobileAppTracker(activity, advId, convKey);
 
       if (DEBUG)
       {
