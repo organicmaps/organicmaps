@@ -584,12 +584,40 @@ NSInteger compareAddress(id l, id r, void * context)
   return _fadeView;
 }
 
+#define SLIDE_VIEW_DARK_PART_TAG 1
+
 - (SideToolbar *)sideToolbar
 {
   if (!_sideToolbar)
   {
     _sideToolbar = [[SideToolbar alloc] initWithFrame:CGRectMake(self.view.width, 0, 260, self.view.height)];
     _sideToolbar.delegate = self;
+
+
+    UIButton * toolbarButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.view.height - 80, 50, 70)];
+    toolbarButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+    toolbarButton.maxX = self.view.width;
+    [toolbarButton addTarget:self action:@selector(toolbarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+
+    CGFloat tailShift = 4;
+
+    UIImageView * tailLight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"side-toolbar-slide-view-light"]];
+    tailLight.maxX = toolbarButton.width;
+    tailLight.midY = toolbarButton.height / 2 + tailShift;
+    [toolbarButton addSubview:tailLight];
+
+    UIImageView * tailDark = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"side-toolbar-slide-view-dark"]];
+    tailDark.maxX = toolbarButton.width;
+    tailDark.midY = toolbarButton.height / 2 + tailShift;
+    tailDark.alpha = 0;
+    tailDark.tag = SLIDE_VIEW_DARK_PART_TAG;
+    [toolbarButton addSubview:tailDark];
+
+    [self.view addSubview:toolbarButton];
+
+    _sideToolbar.slideView = toolbarButton;
+
+    [_sideToolbar addObserver:self forKeyPath:@"isMenuHidden" options:NSKeyValueObservingOptionNew context:nil];
   }
   return _sideToolbar;
 }
@@ -658,51 +686,20 @@ NSInteger compareAddress(id l, id r, void * context)
   [self.sideToolbar setMenuHidden:!self.sideToolbar.isMenuHidden animated:YES];
 }
 
-#define SLIDE_VIEW_DARK_PART_TAG 1
-
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
 
   [self Invalidate];
 
-  if (!_sideToolbar)
-  {
-    [self.view addSubview:self.locationButton];
-    [self.view addSubview:self.fadeView];
-    [self.view addSubview:self.sideToolbar];
-
-    UIButton * toolbarButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.view.height - 80, 50, 70)];
-    toolbarButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-    toolbarButton.maxX = self.view.width;
-    [toolbarButton addTarget:self action:@selector(toolbarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-
-    CGFloat tailShift = 4;
-
-    UIImageView * tailLight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"side-toolbar-slide-view-light"]];
-    tailLight.maxX = toolbarButton.width;
-    tailLight.midY = toolbarButton.height / 2 + tailShift;
-    [toolbarButton addSubview:tailLight];
-
-    UIImageView * tailDark = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"side-toolbar-slide-view-dark"]];
-    tailDark.maxX = toolbarButton.width;
-    tailDark.midY = toolbarButton.height / 2 + tailShift;
-    tailDark.alpha = 0;
-    tailDark.tag = SLIDE_VIEW_DARK_PART_TAG;
-    [toolbarButton addSubview:tailDark];
-
-    [self.view addSubview:toolbarButton];
-    self.sideToolbar.slideView = toolbarButton;
-
-    [self.sideToolbar addObserver:self forKeyPath:@"isMenuHidden" options:NSKeyValueObservingOptionNew context:nil];
-    [self.sideToolbar setMenuHidden:YES animated:NO];
-  }
+  [self.sideToolbar setMenuHidden:YES animated:NO];
+  self.sideToolbar.slideView.minY = self.view.height - 80;
+  self.sideToolbar.slideView.maxX = self.view.width;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
   [super viewDidDisappear:animated];
-  [self.sideToolbar setMenuHidden:YES animated:NO];
 }
 
 - (void)viewDidLoad
@@ -715,6 +712,10 @@ NSInteger compareAddress(id l, id r, void * context)
   self.zoomButtonsView.hidden = !zoomButtonsEnabled;
 
   self.view.clipsToBounds = YES;
+
+  [self.view addSubview:self.locationButton];
+  [self.view addSubview:self.fadeView];
+  [self.view addSubview:self.sideToolbar];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
