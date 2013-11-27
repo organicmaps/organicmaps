@@ -199,12 +199,13 @@ static void OnSearchResultCallback(search::Results const & res)
       segmentedControl.tintColor = [[UINavigationBar appearance] tintColor];
     else
       segmentedControl.tintColor = [UIColor whiteColor];
+
     segmentedControl.selectedSegmentIndex = GetDefaultSearchScope();
     segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
     _scopeView = [[ScopeView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44) segmentedControl:segmentedControl];
     _scopeView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _scopeView.backgroundColor = [[UINavigationBar appearance] tintColor];
+    _scopeView.backgroundColor = [UIColor colorWithColorCode:@"303e57"];
   }
   return _scopeView;
 }
