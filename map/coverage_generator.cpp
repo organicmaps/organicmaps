@@ -346,11 +346,9 @@ void CoverageGenerator::ComputeCoverTasks()
     }
     else
     {
+      newRects.push_back(ri);
       if (m_coverageInfo.m_tiler.isLeaf(ri))
-      {
-        newRects.push_back(ri);
         ++m_backCoverage->m_renderLeafTilesCount;
-      }
     }
   }
 
