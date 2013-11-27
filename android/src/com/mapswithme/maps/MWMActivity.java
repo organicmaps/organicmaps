@@ -33,8 +33,6 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
-import android.view.ViewGroup.LayoutParams;
-import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -940,9 +938,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public void setViewFromState(SuppotedState state)
   {
-    final LayoutParams mapLp = mMapSurface.getLayoutParams();
-    int marginTopForMap = 0;
-
     if (state == SuppotedState.API_REQUEST && ParsedMmwRequest.hasRequest())
     {
       // show title
@@ -964,16 +959,12 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       mAppIcon.setImageDrawable(request.getIcon(this));
       mTitleBar.setVisibility(View.VISIBLE);
 
-      marginTopForMap = (int) getResources().getDimension(R.dimen.abs__action_bar_default_height);
     }
     else
     {
       // hide title
       mTitleBar.setVisibility(View.GONE);
     }
-    //we use <merge> so we not sure of type here
-    if (mapLp instanceof MarginLayoutParams)
-      ((MarginLayoutParams)mapLp).setMargins(0, marginTopForMap, 0, 0);
   }
 
   @Override
