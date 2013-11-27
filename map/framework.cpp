@@ -230,12 +230,7 @@ Framework::Framework()
   m_informationDisplay.enableDebugPoints(true);
 #endif
 
-  m_informationDisplay.enableRuler(true);
   m_informationDisplay.setRulerParams(m_minRulerWidth, m_metresMinWidth, m_metresMaxWidth);
-
-#ifdef DEBUG
-  m_informationDisplay.enableDebugInfo(true);
-#endif
 
   m_model.InitClassificator();
 
@@ -799,6 +794,9 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   m_informationDisplay.setDebugInfo(0, GetDrawScale());
 
   m_informationDisplay.enableRuler(true);
+#ifdef DEBUG
+  m_informationDisplay.enableDebugInfo(true);
+#endif
 
   m_informationDisplay.doDraw(pDrawer);
 
