@@ -756,9 +756,11 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     addTask(intent);
   }
 
+  private final static String EXTRA_CONSUMED = "mwm.extra.intent.processed";
   private void addTask(Intent intent)
   {
     if (intent != null
+        && !intent.getBooleanExtra(EXTRA_CONSUMED, false)
         && intent.hasExtra(EXTRA_TASK)
         && ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0))
     {
@@ -768,8 +770,10 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
       if (mRenderingInitialized)
         runTasks();
+
+      // mark intent as consumed
+      intent.putExtra(EXTRA_CONSUMED, true);
     }
-    setIntent(null);
   }
 
   @Override
