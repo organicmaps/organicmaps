@@ -14,13 +14,11 @@ import android.location.LocationListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mapswithme.location.LocationRequester;
 import com.mapswithme.util.log.Logger;
@@ -219,6 +217,8 @@ public class BackscreenActivity extends BSActivity implements LocationListener
     final String action  = intent.getAction();
     if (action != null && (ACTION_LOCATION + ACTION_SHOW_RECT).contains(action))
     {
+      notifyBSUpdated();
+
       extractLocation(intent);
       extractZoom(intent);
 
@@ -229,8 +229,6 @@ public class BackscreenActivity extends BSActivity implements LocationListener
 
       mLogger.d("onHandleIntent : requestLocationUpdate");
       requestLocationUpdate();
-
-      notifyBSUpdated();
     }
 
     mLogger.d("onHandleIntent : invalidate");
@@ -240,14 +238,9 @@ public class BackscreenActivity extends BSActivity implements LocationListener
 
   private void notifyBSUpdated()
   {
-    // lock-rotate
-    RotationAlgorithm.getInstance(this)
-      .turnScreenOffIfRotated(RotationAlgorithm.OPTION_NO_UNLOCK);
-    // show toast
-    Toast.makeText(this, R.string.application_is_updated_on_bs, Toast.LENGTH_SHORT).show();
-    // bzz-bzz
-    ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE))
-        .vibrate(getResources().getInteger(R.integer.vibration_time));
+    final RotationAlgorithm ra = RotationAlgorithm.getInstance(this);
+    ra.issueStandardToastAndVibration();
+    ra.turnScreenOffIfRotated(RotationAlgorithm.OPTION_NO_UNLOCK);
   }
 
   private void extractZoom(Intent intent)
