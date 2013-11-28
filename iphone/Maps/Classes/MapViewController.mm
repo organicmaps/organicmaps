@@ -100,21 +100,27 @@ const long long LITE_IDL = 431183278L;
 
 - (void) onLocationUpdate:(location::GpsInfo const &)info
 {
-  Framework & f = GetFramework();
-
-  if (f.GetLocationState()->IsFirstPosition())
+  // TODO: Remove this hack for location changing bug
+  if (self.navigationController.visibleViewController == self)
   {
-    [self.locationButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
+    Framework & f = GetFramework();
+
+    if (f.GetLocationState()->IsFirstPosition())
+    {
+      [self.locationButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
+    }
+
+    f.OnLocationUpdate(info);
+
+    [self showPopover];
   }
-
-  f.OnLocationUpdate(info);
-
-  [self showPopover];
 }
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
 {
-  GetFramework().OnCompassUpdate(info);
+  // TODO: Remove this hack for orientation changing bug
+  if (self.navigationController.visibleViewController == self)
+    GetFramework().OnCompassUpdate(info);
 }
 
 - (void) onCompassStatusChanged:(int) newStatus
