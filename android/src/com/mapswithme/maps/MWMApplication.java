@@ -95,7 +95,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
   {
     if (Utils.hasAnyGoogleStoreInstalled())
     {
-      final GuideInfo info = Framework.getGuideInfoForIndex(idx);
+      final GuideInfo info = Framework.getGuideInfoForIndexWithApiCheck(idx);
       if (info != null && !GuidesUtils.isGuideInstalled(info.mAppId, this)
           && !Framework.wasAdvertised(info.mAppId))
       {

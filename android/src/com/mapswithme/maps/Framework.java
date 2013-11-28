@@ -4,6 +4,7 @@ import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.guides.GuideInfo;
+import com.mapswithme.util.Utils;
 
 /**
  *  This class wraps android::Framework.cpp class
@@ -88,6 +89,15 @@ public class Framework
   private static native void nativeShowTrackRect(int category, int track);
 
   public native static GuideInfo getGuideInfoForIndex(Index idx);
+
+  public static GuideInfo getGuideInfoForIndexWithApiCheck(Index idx)
+  {
+    if (Utils.apiLowerThan(11))
+      return null;
+    else
+      return getGuideInfoForIndex(idx);
+  }
+
   public native static void        setWasAdvertised(String appId);
   public native static boolean     wasAdvertised(String appId);
 

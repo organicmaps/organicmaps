@@ -511,7 +511,7 @@ class DownloadAdapter extends BaseAdapter
     if (mHasGoogleStore)
     {
       final CountryItem item = getItem(position);
-      final GuideInfo gi = Framework.getGuideInfoForIndex(item.mCountryIdx);
+      final GuideInfo gi = Framework.getGuideInfoForIndexWithApiCheck(item.mCountryIdx);
       if (gi != null)
         UiUtils.show(holder.mGuide);
       else
@@ -594,7 +594,7 @@ class DownloadAdapter extends BaseAdapter
         else if (MENU_UPDATE == id)
           processOutOfDate(countryIndex, name);
         else if (MENU_GUIDE == id)
-          GuidesUtils.openOrDownloadGuide(Framework.getGuideInfoForIndex(countryIndex), mContext);
+          GuidesUtils.openOrDownloadGuide(Framework.getGuideInfoForIndexWithApiCheck(countryIndex), mContext);
         else if (MENU_DOWNLOAD == id)
           processNotDownloaded(countryIndex, name);
         else if (MENU_CANCEL == id)
@@ -638,7 +638,7 @@ class DownloadAdapter extends BaseAdapter
 
         if (mHasGoogleStore)
         {
-          final GuideInfo info = Framework.getGuideInfoForIndex(countryItem.mCountryIdx);
+          final GuideInfo info = Framework.getGuideInfoForIndexWithApiCheck(countryItem.mCountryIdx);
             if (info != null)
               menu.add(0, MENU_GUIDE, MENU_GUIDE, info.mTitle)
                 .setOnMenuItemClickListener(menuItemClickListener);
