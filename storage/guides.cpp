@@ -94,37 +94,34 @@ bool GuidesManager::RestoreFromFile()
 {
   int resourcesVersion = -1, downloadedVersion = -1;
   MapT fromResources, fromDownloaded;
-  Platform & pl = GetPlatform();
+
   try
   {
+    Platform & pl = GetPlatform();
+
     string json;
     ReaderPtr<Reader>(pl.GetReader(GetDataFileName(), "r")).ReadAsString(json);
     resourcesVersion = ParseGuidesData(json, fromResources);
-  }
-  catch (RootException const &)
-  {
-  }
-  try
-  {
-    string json;
+
     ReaderPtr<Reader>(pl.GetReader(GetDataFileName(), "w")).ReadAsString(json);
     downloadedVersion = ParseGuidesData(json, fromDownloaded);
   }
-  catch (RootException const &)
+  catch (RootException const & ex)
   {
+    LOG(LAWARNING, ("Failed to read guide info file:", ex.Msg()));
   }
 
-  ASSERT_GREATER(resourcesVersion, 0, ());
   if (downloadedVersion > resourcesVersion)
   {
     RestoreFromParsedData(downloadedVersion, fromDownloaded);
     return true;
   }
-  else if (resourcesVersion > downloadedVersion || resourcesVersion >= 0)
+  else if (resourcesVersion >= 0)
   {
     RestoreFromParsedData(resourcesVersion, fromResources);
     return true;
   }
+
   LOG(LWARNING, ("Guides descriptions were not loaded"));
   return false;
 }
@@ -188,15 +185,20 @@ void GuidesManager::OnFinish(downloader::HttpRequest & request)
   if (request.Status() == downloader::HttpRequest::ECompleted)
   {
     string const & data = request.Data();
-    // Sanity check if we forgot to update json version on servers
     MapT tmpGuides;
     int const downloadedVersion = ParseGuidesData(data, tmpGuides);
-    if (downloadedVersion > m_version && !m_file2Info.empty())
+
+    // Sanity check if we forgot to update json version on servers
+    if (downloadedVersion == -1)
     {
-      // Load into the memory even if we fail to save it later
+      LOG(LWARNING, ("Request data is invalid:", request.Data()));
+    }
+    else if (downloadedVersion > m_version)
+    {
+      // Load into the memory even if we will fail to save it on disk
       m_version = downloadedVersion;
       m_file2Info.swap(tmpGuides);
-      // Save only if file was parsed successfully and info exists!
+
       string const path = GetDataFileFullPath();
       try
       {
@@ -205,15 +207,13 @@ void GuidesManager::OnFinish(downloader::HttpRequest & request)
       }
       catch (Writer::Exception const & ex)
       {
-        LOG(LWARNING, (ex.Msg()));
+        LOG(LWARNING, ("Failed to write guide info file:", ex.Msg()));
 
         // Delete file in case of error
         // (app will get the default one from bundle on start).
         (void)my::DeleteFileX(path);
       }
     }
-    else
-      LOG(LWARNING, ("Request data is invalid:", request.Data()));
   }
   else
     LOG(LWARNING, ("Request is failed to complete:", request.Status()));
