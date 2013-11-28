@@ -108,7 +108,7 @@ bool GuidesManager::RestoreFromFile()
   }
   catch (RootException const & ex)
   {
-    LOG(LAWARNING, ("Failed to read guide info file:", ex.Msg()));
+    LOG(LWARNING, ("Failed to read guide info file:", ex.Msg()));
   }
 
   if (downloadedVersion > resourcesVersion)
