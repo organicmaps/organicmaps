@@ -14,6 +14,8 @@ import android.location.LocationListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
@@ -210,35 +212,37 @@ public class BackscreenActivity extends BSActivity implements LocationListener
   }
 
   @Override
-  protected void onHandleIntent(Intent intent)
+  protected void onHandleIntent(final Intent intent)
   {
     super.onHandleIntent(intent);
 
-    final String action  = intent.getAction();
-    boolean doNotify = false;
+    notifyBSUpdated();
 
-    if (action != null && (ACTION_LOCATION + ACTION_SHOW_RECT).contains(action))
+    new Handler(Looper.getMainLooper()).post(new Runnable()
     {
-      doNotify = true;
+      @Override
+      public void run()
+      {
+        final String action = intent.getAction();
+        if (action != null && (ACTION_LOCATION + ACTION_SHOW_RECT).contains(action))
+        {
+          extractLocation(intent);
+          extractZoom(intent);
 
-      extractLocation(intent);
-      extractZoom(intent);
+          if (ACTION_LOCATION.equals(intent.getAction()))
+            setToLocationMode();
+          else if (ACTION_SHOW_RECT.equals(intent.getAction()))
+            setToPoiMode(intent);
 
-      if (ACTION_LOCATION.equals(intent.getAction()))
-        setToLocationMode();
-      else if (ACTION_SHOW_RECT.equals(intent.getAction()))
-        setToPoiMode(intent);
+          mLogger.d("onHandleIntent : requestLocationUpdate");
+          requestLocationUpdate();
+        }
 
-      mLogger.d("onHandleIntent : requestLocationUpdate");
-      requestLocationUpdate();
-    }
-
-    mLogger.d("onHandleIntent : invalidate");
-    updateData();
-    invalidate();
-
-    if (doNotify)
-      notifyBSUpdated();
+        mLogger.d("onHandleIntent : invalidate");
+        updateData();
+        invalidate();
+      }
+    });
   }
 
   private void notifyBSUpdated()
