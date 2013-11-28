@@ -3,7 +3,7 @@
 #import "SideToolbarCell.h"
 #import "UIKitCategories.h"
 #import "BuyButtonCell.h"
-#include "../../platform/platform.hpp"
+#include "../../../../platform/platform.hpp"
 
 typedef NS_ENUM(NSUInteger, Section)
 {

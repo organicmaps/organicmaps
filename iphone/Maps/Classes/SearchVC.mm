@@ -284,6 +284,9 @@ static void OnSearchResultCallback(search::Results const & res)
 
 - (void)resizeNavigationBar
 {
+  if (SYSTEM_VERSION_IS_LESS_THAN(@"6") || IPAD)
+    return;
+
   CGFloat landscapeHeight = 32;
   CGFloat portraitHeight = 44;
   self.navigationController.navigationBar.height = portraitHeight;

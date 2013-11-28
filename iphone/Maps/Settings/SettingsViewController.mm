@@ -5,8 +5,8 @@
 #import "LinkCell.h"
 #import "WebViewController.h"
 #include "../../../platform/settings.hpp"
-#include "../../platform/platform.hpp"
-#include "../../platform/preferred_languages.hpp"
+#include "../../../platform/platform.hpp"
+#include "../../../platform/preferred_languages.hpp"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 
@@ -96,6 +96,16 @@ typedef NS_ENUM(NSUInteger, Section)
   }
 
   return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+  if (section == SectionStatistics)
+    return NSLocalizedString(@"allow_statistics_hint", nil);
+  else if (section == SectionZoomButtons)
+    return NSLocalizedString(@"pref_zoom_summary", nil);
+  else
+    return nil;
 }
 
 - (void)switchCell:(SwitchCell *)cell didChangeValue:(BOOL)value

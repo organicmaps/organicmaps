@@ -1,7 +1,7 @@
 
 #import "BuyButtonCell.h"
 #import "UIKitCategories.h"
-#include "../../platform/platform.hpp"
+#include "../../../../platform/platform.hpp"
 
 @interface BuyButtonCell ()
 

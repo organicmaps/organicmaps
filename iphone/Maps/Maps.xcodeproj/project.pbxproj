@@ -4827,6 +4827,7 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 				);
+				PROVISIONING_PROFILE = "";
 			};
 			name = "Simulator Lite";
 		};
@@ -4934,6 +4935,7 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 				);
+				PROVISIONING_PROFILE = "";
 			};
 			name = "Production Lite";
 		};
@@ -4996,6 +4998,7 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 				);
+				PROVISIONING_PROFILE = "";
 			};
 			name = "Debug Lite";
 		};
@@ -5062,6 +5065,7 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 				);
+				PROVISIONING_PROFILE = "";
 			};
 			name = "AdHoc Lite";
 		};
@@ -5124,6 +5128,7 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 				);
+				PROVISIONING_PROFILE = "";
 			};
 			name = "Simulator Full";
 		};
@@ -5186,6 +5191,7 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 				);
+				PROVISIONING_PROFILE = "";
 			};
 			name = "Debug Full";
 		};
@@ -5252,6 +5258,7 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 				);
+				PROVISIONING_PROFILE = "";
 			};
 			name = "AdHoc Full";
 		};
@@ -5318,6 +5325,7 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 				);
+				PROVISIONING_PROFILE = "";
 			};
 			name = "Production Full";
 		};
@@ -5383,6 +5391,7 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 				);
+				PROVISIONING_PROFILE = "";
 			};
 			name = "Release Lite";
 		};
@@ -5448,6 +5457,7 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 				);
+				PROVISIONING_PROFILE = "";
 			};
 			name = "Release Full";
 		};
@@ -5513,6 +5523,7 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 				);
+				PROVISIONING_PROFILE = "";
 			};
 			name = "Simulator Full Release";
 		};
