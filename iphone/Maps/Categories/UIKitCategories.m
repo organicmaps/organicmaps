@@ -5,8 +5,7 @@
 
 - (void)performAfterDelay:(NSTimeInterval)delay block:(void (^)(void))block
 {
-  block = [block copy];
-  [self performSelector:@selector(fireBlockAfterDelay:) withObject:block afterDelay:delay];
+  [self performSelector:@selector(fireBlockAfterDelay:) withObject:[block copy] afterDelay:delay];
 }
 
 - (void)fireBlockAfterDelay:(void (^)(void))block
@@ -19,17 +18,17 @@
 
 @implementation UIColor (HexColor)
 
-+ (UIColor *)colorWithColorCode:(NSString *)hexString {
++ (UIColor *)colorWithColorCode:(NSString *)hexString
+{
   NSString * cleanString = [hexString stringByReplacingOccurrencesOfString:@"#" withString:@""];
-  if (cleanString.length == 3) {
+  if (cleanString.length == 3)
     cleanString = [NSString stringWithFormat:@"%@%@%@%@%@%@",
                    [cleanString substringWithRange:NSMakeRange(0, 1)], [cleanString substringWithRange:NSMakeRange(0, 1)],
                    [cleanString substringWithRange:NSMakeRange(1, 1)], [cleanString substringWithRange:NSMakeRange(1, 1)],
                    [cleanString substringWithRange:NSMakeRange(2, 1)], [cleanString substringWithRange:NSMakeRange(2, 1)]];
-  }
-  if (cleanString.length == 6) {
+
+  if (cleanString.length == 6)
     cleanString = [cleanString stringByAppendingString:@"ff"];
-  }
 
   unsigned int baseValue;
   [[NSScanner scannerWithString:cleanString] scanHexInt:&baseValue];
@@ -139,7 +138,7 @@
 
 - (CGSize)size
 {
-  return CGSizeMake(self.frame.size.width, self.frame.size.height);
+  return self.frame.size;
 }
 
 - (void)setSize:(CGSize)size
