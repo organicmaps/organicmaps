@@ -281,7 +281,6 @@ static void OnSearchResultCallback(search::Results const & res)
 //  {
   [m_locationManager start:self];
     // show keyboard
-  [self.searchBar becomeFirstResponder];
 //  }
   [super viewWillAppear:animated];
 
@@ -308,6 +307,8 @@ static void OnSearchResultCallback(search::Results const & res)
   // (we replace one control with another, and system calls unsupported method on it)
   if (GetPlatform().IsPro())
     [self proceedSearchWithString:g_lastSearchRequest andForceSearch:YES];
+
+  [self.searchBar becomeFirstResponder];
 }
 
 
