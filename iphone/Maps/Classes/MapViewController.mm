@@ -98,7 +98,7 @@ const long long LITE_IDL = 431183278L;
   }
 }
 
-- (void) onLocationUpdate:(location::GpsInfo const &)info
+- (void)onLocationUpdate:(location::GpsInfo const &)info
 {
   // TODO: Remove this hack for location changing bug
   if (self.navigationController.visibleViewController == self)
@@ -123,13 +123,15 @@ const long long LITE_IDL = 431183278L;
     GetFramework().OnCompassUpdate(info);
 }
 
-- (void) onCompassStatusChanged:(int) newStatus
+- (void)onCompassStatusChanged:(int)newStatus
 {
   Framework & f = GetFramework();
   shared_ptr<location::State> ls = f.GetLocationState();
 
   if (newStatus == location::ECompassFollow)
+  {
     [self.locationButton setImage:[UIImage imageNamed:@"location-follow.png"] forState:UIControlStateSelected];
+  }
   else
   {
     if (ls->HasPosition())
@@ -603,6 +605,7 @@ NSInteger compareAddress(id l, id r, void * context)
     UIButton * toolbarButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.view.height - 80, 50, 70)];
     toolbarButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
     toolbarButton.maxX = self.view.width;
+    toolbarButton.minY = self.view.height - 80;
     [toolbarButton addTarget:self action:@selector(toolbarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 
     CGFloat tailShift = 4;
@@ -675,14 +678,17 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
-  [[Statistics instance] logEvent:@"ge0(zero) MAIL Export"];
-  [self dismissModalViewControllerAnimated:YES];
-  [self.sideToolbar setMenuHidden:YES animated:YES];
+  [self proccessShareActionCallbackWithEventName:@"ge0(zero) MAIL Export"];
 }
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 {
-  [[Statistics instance] logEvent:@"ge0(zero) MESSAGE Export"];
+  [self proccessShareActionCallbackWithEventName:@"ge0(zero) MESSAGE Export"];
+}
+
+- (void)proccessShareActionCallbackWithEventName:(NSString *)eventName
+{
+  [[Statistics instance] logEvent:eventName];
   [self dismissModalViewControllerAnimated:YES];
   [self.sideToolbar setMenuHidden:YES animated:YES];
 }
@@ -697,15 +703,12 @@ NSInteger compareAddress(id l, id r, void * context)
   [super viewWillAppear:animated];
 
   [self Invalidate];
-
-  [self.sideToolbar setMenuHidden:YES animated:NO];
-  self.sideToolbar.slideView.minY = self.view.height - 80;
-  self.sideToolbar.slideView.maxX = self.view.width;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
   [super viewDidDisappear:animated];
+  [self.sideToolbar setMenuHidden:YES animated:NO];
 }
 
 - (void)viewDidLoad
@@ -722,6 +725,8 @@ NSInteger compareAddress(id l, id r, void * context)
   [self.view addSubview:self.locationButton];
   [self.view addSubview:self.fadeView];
   [self.view addSubview:self.sideToolbar];
+
+  [self.sideToolbar setMenuHidden:YES animated:NO];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -955,6 +960,5 @@ NSInteger compareAddress(id l, id r, void * context)
 {
   [self destroyPopover];
 }
-
 
 @end
