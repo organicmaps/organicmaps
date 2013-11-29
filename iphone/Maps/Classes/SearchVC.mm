@@ -112,6 +112,13 @@ static void OnSearchResultCallback(search::Results const & res)
 
 /////////////////////////////////////////////////////////////////////
 
+@interface SearchVC ()
+
+@property (nonatomic) BOOL searching;
+@property (nonatomic) UIActivityIndicatorView *activityIndicator;
+
+@end
+
 @implementation SearchVC
 @synthesize searchResults = _searchResults;
 
@@ -121,11 +128,11 @@ static void OnSearchResultCallback(search::Results const & res)
   {
     m_framework = &GetFramework();
     m_locationManager = [MapsAppDelegate theApp].m_locationManager;
-    
+
     double lat, lon;
     bool const hasPt = [m_locationManager getLat:lat Lon:lon];
     m_framework->PrepareSearch(hasPt, lat, lon);
-      
+
     //mycode init array of categories
     categoriesNames = [[NSArray alloc] initWithObjects:
                        @"food",
@@ -144,11 +151,11 @@ static void OnSearchResultCallback(search::Results const & res)
                        @"post",
                        @"police",
                        nil];
-      _searchResults = [[NSMutableArray alloc] initWithObjects:[[ResultsWrapper alloc] init], [[ResultsWrapper alloc] init], [[ResultsWrapper alloc] init], nil];
-      if (!g_lastSearchRequest)
-      {
-          g_lastSearchRequest = @"";
-      }
+    _searchResults = [[NSMutableArray alloc] initWithObjects:[[ResultsWrapper alloc] init], [[ResultsWrapper alloc] init], [[ResultsWrapper alloc] init], nil];
+    if (!g_lastSearchRequest)
+    {
+      g_lastSearchRequest = @"";
+    }
   }
   return self;
 }
@@ -191,8 +198,8 @@ static void OnSearchResultCallback(search::Results const & res)
   if (!_scopeView)
   {
     UISegmentedControl * segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"search_mode_nearme", nil),
-                                                                                       NSLocalizedString(@"search_mode_viewport", nil),
-                                                                                       NSLocalizedString(@"search_mode_all", nil)]];
+                                                                                        NSLocalizedString(@"search_mode_viewport", nil),
+                                                                                        NSLocalizedString(@"search_mode_all", nil)]];
     CGFloat width = IPAD ? 400 : 310;
     segmentedControl.frame = CGRectMake(0, 0, width, 32);
     if (SYSTEM_VERSION_IS_LESS_THAN(@"7"))
@@ -233,6 +240,7 @@ static void OnSearchResultCallback(search::Results const & res)
   m_table.contentInset = UIEdgeInsetsMake(self.scopeView.height, 0, 0, 0);
   m_table.scrollIndicatorInsets = m_table.contentInset;
 
+  self.view.backgroundColor = [UIColor whiteColor];
   [self.view addSubview:m_table];
   [self.view addSubview:self.scopeView];
 
@@ -262,10 +270,10 @@ static void OnSearchResultCallback(search::Results const & res)
   {
     // Display banner for paid version
     UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"search_available_in_pro_version", nil)
-                                    message:nil
-                                    delegate:self
-                                    cancelButtonTitle:NSLocalizedString(@"cancel", nil)
-                                    otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
+                                                     message:nil
+                                                    delegate:self
+                                           cancelButtonTitle:NSLocalizedString(@"cancel", nil)
+                                           otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
 
     [alert show];
   }
@@ -284,9 +292,6 @@ static void OnSearchResultCallback(search::Results const & res)
 
 - (void)resizeNavigationBar
 {
-  if (SYSTEM_VERSION_IS_LESS_THAN(@"6") || IPAD)
-    return;
-
   CGFloat landscapeHeight = 32;
   CGFloat portraitHeight = 44;
   self.navigationController.navigationBar.height = portraitHeight;
@@ -309,7 +314,7 @@ static void OnSearchResultCallback(search::Results const & res)
 - (void)viewWillDisappear:(BOOL)animated
 {
   [m_locationManager stop:self];
-  
+
   // hide keyboard immediately
   [self.searchBar resignFirstResponder];
   [super viewWillDisappear:animated];
@@ -330,6 +335,7 @@ static void OnSearchResultCallback(search::Results const & res)
 //*********** SearchBar handlers *******************************************
 - (void)searchBar:(UISearchBar *)sender textDidChange:(NSString *)searchText
 {
+  self.searching = [searchText length] > 0;
   g_lastSearchRequest = [[NSString alloc] initWithString:self.searchBar.text];
   [self clearCacheResults];
   [self proceedSearchWithString:self.searchBar.text andForceSearch:YES];
@@ -393,7 +399,7 @@ static void OnSearchResultCallback(search::Results const & res)
   }
   //No search results
   if ([self.searchBar.text length] != 0 && ![[_searchResults objectAtIndex:g_scopeSection] getCount] && g_numberOfRowsInEmptySearch)
-  {      
+  {
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"NoResultsCell"];
     if (!cell)
     {
@@ -419,72 +425,72 @@ static void OnSearchResultCallback(search::Results const & res)
   search::Result const & r = [[_searchResults objectAtIndex:g_scopeSection] getWithPosition:realRowIndex];
   if (r.GetResultType() != search::Result::RESULT_SUGGESTION)
   {
-      SearchCell * cell = (SearchCell *)[tableView dequeueReusableCellWithIdentifier:@"FeatureCell"];
-      if (!cell)
-        cell = [[SearchCell alloc] initWithReuseIdentifier:@"FeatureCell"];
+    SearchCell * cell = (SearchCell *)[tableView dequeueReusableCellWithIdentifier:@"FeatureCell"];
+    if (!cell)
+      cell = [[SearchCell alloc] initWithReuseIdentifier:@"FeatureCell"];
 
-      // Init common parameters
-      cell.featureName.text = [NSString stringWithUTF8String:r.GetString()];
-      cell.featureCountry.text = [NSString stringWithUTF8String:r.GetRegionString()];
-      cell.featureType.text = [NSString stringWithUTF8String:r.GetFeatureType()];
+    // Init common parameters
+    cell.featureName.text = [NSString stringWithUTF8String:r.GetString()];
+    cell.featureCountry.text = [NSString stringWithUTF8String:r.GetRegionString()];
+    cell.featureType.text = [NSString stringWithUTF8String:r.GetFeatureType()];
 
-      // Get current position and compass "north" direction
-      double azimut = -1.0;
-      double lat, lon;
+    // Get current position and compass "north" direction
+    double azimut = -1.0;
+    double lat, lon;
 
-      if ([m_locationManager getLat:lat Lon:lon])
+    if ([m_locationManager getLat:lat Lon:lon])
+    {
+      double north = -1.0;
+      [m_locationManager getNorthRad:north];
+
+      string distance;
+      if (!m_framework->GetDistanceAndAzimut(r.GetFeatureCenter(),
+                                             lat, lon, north, distance, azimut))
       {
-        double north = -1.0;
-        [m_locationManager getNorthRad:north];
-
-        string distance;
-        if (!m_framework->GetDistanceAndAzimut(r.GetFeatureCenter(),
-                                               lat, lon, north, distance, azimut))
-        {
-          // do not draw arrow for far away features
-          azimut = -1.0;
-        }
-
-        cell.featureDistance.text = [NSString stringWithUTF8String:distance.c_str()];
+        // do not draw arrow for far away features
+        azimut = -1.0;
       }
+
+      cell.featureDistance.text = [NSString stringWithUTF8String:distance.c_str()];
+    }
+    else
+      cell.featureDistance.text = nil;
+
+    // Show flags only if it has one and no azimut to feature
+    char const * flag = r.GetRegionFlag();
+    if (flag && azimut < 0.0)
+    {
+      UIImage * flagImage = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", flag]];
+      UIImageView * imgView = [[UIImageView alloc] initWithImage:flagImage];
+      cell.accessoryView = imgView;
+    }
+    else
+    {
+      // Try to reuse existing compass view
+      CompassView * compass;
+      if ([cell.accessoryView isKindOfClass:[CompassView class]])
+        compass = (CompassView *)cell.accessoryView;
       else
-        cell.featureDistance.text = nil;
-
-      // Show flags only if it has one and no azimut to feature
-      char const * flag = r.GetRegionFlag();
-      if (flag && azimut < 0.0)
       {
-        UIImage * flagImage = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", flag]];
-        UIImageView * imgView = [[UIImageView alloc] initWithImage:flagImage];
-        cell.accessoryView = imgView;
+        // Create compass view
+        float const h = (int)(m_table.rowHeight * 0.6);
+        compass = [[CompassView alloc] initWithFrame:CGRectMake(0, 0, h, h)];
+        cell.accessoryView = compass;
       }
-      else
-      {
-        // Try to reuse existing compass view
-        CompassView * compass;
-        if ([cell.accessoryView isKindOfClass:[CompassView class]])
-          compass = (CompassView *)cell.accessoryView;
-        else
-        {
-          // Create compass view
-          float const h = (int)(m_table.rowHeight * 0.6);
-          compass = [[CompassView alloc] initWithFrame:CGRectMake(0, 0, h, h)];
-          cell.accessoryView = compass;
-        }
 
-        // Show arrow for valid azimut and if feature is not a continent (flag is exist)
-        compass.showArrow = (azimut >= 0.0 && flag) ? YES : NO;
-        compass.angle = azimut;
-      }
-      return cell;
+      // Show arrow for valid azimut and if feature is not a continent (flag is exist)
+      compass.showArrow = (azimut >= 0.0 && flag) ? YES : NO;
+      compass.angle = azimut;
+    }
+    return cell;
   }
   else
   {
-      UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"SuggestionCell"];
-      if (!cell)
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SuggestionCell"];
-      cell.textLabel.text = [NSString stringWithUTF8String:r.GetString()];
-      return cell;
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"SuggestionCell"];
+    if (!cell)
+      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SuggestionCell"];
+    cell.textLabel.text = [NSString stringWithUTF8String:r.GetString()];
+    return cell;
   }
 }
 
@@ -505,21 +511,21 @@ static void OnSearchResultCallback(search::Results const & res)
     search::Result const & res = [[_searchResults objectAtIndex:g_scopeSection] getWithPosition:realRowIndex];
     if (res.GetResultType() != search::Result::RESULT_SUGGESTION)
     {
-        m_framework->ShowSearchResult(res);
+      m_framework->ShowSearchResult(res);
 
-        search::AddressInfo info;
-        info.MakeFrom(res);
+      search::AddressInfo info;
+      info.MakeFrom(res);
 
-        if (g_scopeSection == 0)
-          [[Statistics instance] logEvent:@"Search Filter" withParameters:@{@"Filter Name" : @"Near Me"}];
-        else if (g_scopeSection == 1)
-          [[Statistics instance] logEvent:@"Search Filter" withParameters:@{@"Filter Name" : @"On the Screen"}];
-        else
-          [[Statistics instance] logEvent:@"Search Filter" withParameters:@{@"Filter Name" : @"Everywhere"}];
+      if (g_scopeSection == 0)
+        [[Statistics instance] logEvent:@"Search Filter" withParameters:@{@"Filter Name" : @"Near Me"}];
+      else if (g_scopeSection == 1)
+        [[Statistics instance] logEvent:@"Search Filter" withParameters:@{@"Filter Name" : @"On the Screen"}];
+      else
+        [[Statistics instance] logEvent:@"Search Filter" withParameters:@{@"Filter Name" : @"Everywhere"}];
 
-        [[MapsAppDelegate theApp].m_mapViewController showSearchResultAsBookmarkAtMercatorPoint:res.GetFeatureCenter() withInfo:info];
+      [[MapsAppDelegate theApp].m_mapViewController showSearchResultAsBookmarkAtMercatorPoint:res.GetFeatureCenter() withInfo:info];
 
-        [self onCloseButton:nil];
+      [self onCloseButton:nil];
     }
     else
     {
@@ -530,16 +536,46 @@ static void OnSearchResultCallback(search::Results const & res)
   }
 }
 
+- (void)setSearching:(BOOL)searching
+{
+  if (searching)
+    [self.activityIndicator startAnimating];
+  else
+    [self.activityIndicator stopAnimating];
+
+  [UIView animateWithDuration:0.15 animations:^{
+    self.activityIndicator.alpha = searching ? 1 : 0;
+    m_table.alpha = searching ? 0 : 1;
+  }];
+
+  _searching = searching;
+}
+
+- (UIActivityIndicatorView *)activityIndicator
+{
+  if (!_activityIndicator)
+  {
+    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    CGFloat activityX = self.view.width / 2;
+    CGFloat activityY = self.scopeView.maxY + ((self.view.height - KEYBOARD_HEIGHT) - self.scopeView.maxY) / 2;
+    _activityIndicator.center = CGPointMake(activityX, activityY);
+    _activityIndicator.alpha = 0;
+    [self.view addSubview:_activityIndicator];
+  }
+  return _activityIndicator;
+}
+
 // Called on UI thread from search threads
 - (void)addResult:(id)res
 {
   ResultsWrapper * w = (ResultsWrapper *)res;
-  
+
   if ([w isEndMarker])
   {
     if ([w isEndedNormal])
     {
-       g_numberOfRowsInEmptySearch = 1;
+      g_numberOfRowsInEmptySearch = 1;
+      self.searching = NO;
       [m_table reloadData];
     }
   }
@@ -570,7 +606,7 @@ void setSearchType(search::SearchParams & params)
   }
 }
 
-//****************************************************************** 
+//******************************************************************
 //*********** Location manager callbacks ***************************
 - (void)onLocationError:(location::TLocationError)errorCode
 {
@@ -581,16 +617,16 @@ void setSearchType(search::SearchParams & params)
 {
   // Refresh search results with newer location.
   if (![self.searchBar.text length])
-      return;
+    return;
   search::SearchParams params;
   setSearchType(params);
   if (self.searchBar.text)
   {
     [self fillSearchParams:params withText:self.searchBar.text];
-    
+
     // hack, fillSearch Params return invalid position
     params.SetPosition(info.m_latitude, info.m_longitude);
-    
+
     g_numberOfRowsInEmptySearch = m_framework->Search(params) ? 0 : 1;
   }
 }
@@ -618,14 +654,14 @@ void setSearchType(search::SearchParams & params)
           CompassView * compass = (CompassView *)cell.accessoryView;
           m2::PointD const center = res.GetFeatureCenter();
           compass.angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(lon),
-                                                MercatorBounds::LatToY(lat)), center) + northRad;
+                                                  MercatorBounds::LatToY(lat)), center) + northRad;
         }
       }
     }
   }
 }
 //*********** End of Location manager callbacks ********************
-//****************************************************************** 
+//******************************************************************
 
 // Dismiss virtual keyboard when touching tableview
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
