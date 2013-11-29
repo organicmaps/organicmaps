@@ -26,8 +26,6 @@ import android.telephony.TelephonyManager;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
@@ -970,21 +968,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         .transitionTo(SuppotedState.DEFAULT_MAP);
 
     super.onBackPressed();
-  }
-
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu)
-  {
-    return ContextMenu.onCreateOptionsMenu(this, menu);
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item)
-  {
-    if (ContextMenu.onOptionsItemSelected(this, item))
-      return true;
-    else
-      return super.onOptionsItemSelected(item);
   }
 
   // Initialized to invalid combination to force update on the first check

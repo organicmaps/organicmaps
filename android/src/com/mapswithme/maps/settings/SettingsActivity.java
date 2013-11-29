@@ -119,8 +119,6 @@ public class SettingsActivity extends PreferenceActivity
       }
     });
 
-
-
     pref = findPreference(getString(R.string.pref_about));
     pref.setOnPreferenceClickListener(new OnPreferenceClickListener()
     {
