@@ -6,5 +6,6 @@
     <string name="pref_storage_activity" translatable="false">StorageActivity</string>
     <string name="pref_yota" translatable="false">Yota</string>
     <string name="pref_zoom_btns_enabled" translatable="false">ZoomButtonsEnabled</string>
+    <string name="pref_about" translatable="false">AboutMapsWithMe</string>
 
 </resources>

@@ -16,6 +16,7 @@ import android.preference.PreferenceActivity;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
+import com.mapswithme.maps.ContextMenu;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
@@ -48,7 +49,7 @@ public class SettingsActivity extends PreferenceActivity
 
     final Activity parent = this;
 
-    final Preference pref = findPreference(getString(R.string.pref_storage_activity));
+    Preference pref = findPreference(getString(R.string.pref_storage_activity));
     pref.setOnPreferenceClickListener(new OnPreferenceClickListener()
     {
       @Override
@@ -114,6 +115,19 @@ public class SettingsActivity extends PreferenceActivity
       public boolean onPreferenceChange(Preference preference, Object newValue)
       {
         setZoomButtonEnabled(MWMApplication.get(), (Boolean)newValue);
+        return true;
+      }
+    });
+
+
+
+    pref = findPreference(getString(R.string.pref_about));
+    pref.setOnPreferenceClickListener(new OnPreferenceClickListener()
+    {
+      @Override
+      public boolean onPreferenceClick(Preference preference)
+      {
+        ContextMenu.onAboutDialogClicked(SettingsActivity.this);
         return true;
       }
     });

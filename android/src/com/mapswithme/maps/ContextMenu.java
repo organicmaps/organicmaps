@@ -20,7 +20,7 @@ import com.mapswithme.util.UiUtils;
 
 public class ContextMenu
 {
-  private static void onAboutDialogClicked(Activity parent)
+  public static void onAboutDialogClicked(Activity parent)
   {
     final String url = "file:///android_asset/about.html";
 

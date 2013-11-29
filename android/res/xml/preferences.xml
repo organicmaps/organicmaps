@@ -17,7 +17,6 @@
         android:key="@string/pref_allow_stat"
         android:summary="@string/allow_statistics_hint"
         android:title="@string/allow_statistics" />
-
     <CheckBoxPreference
         android:key="@string/pref_zoom_btns_enabled"
         android:summary="@string/pref_zoom_summary"
@@ -27,5 +26,9 @@
         android:key="@string/pref_yota"
         android:summary="@string/yopme_pref_summary"
         android:title="@string/yopme_pref_title" />
+
+    <Preference
+        android:key="@string/pref_about"
+        android:title="@string/about_menu_title" />
 
 </PreferenceScreen>
