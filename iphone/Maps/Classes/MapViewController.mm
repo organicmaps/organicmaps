@@ -635,8 +635,16 @@ NSInteger compareAddress(id l, id r, void * context)
 {
   if (buttonIndex == 0)
   {
-    SearchVC * vc = [[SearchVC alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    if (GetPlatform().IsPro())
+    {
+      SearchVC * vc = [[SearchVC alloc] init];
+      [self.navigationController pushViewController:vc animated:YES];
+    }
+    else
+    {
+      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
+      [[Statistics instance] logProposalReason:@"Search Screen" withAnswer:@"YES"];
+    }
   }
   else if (buttonIndex == 1)
   {
@@ -644,8 +652,16 @@ NSInteger compareAddress(id l, id r, void * context)
   }
   else if (buttonIndex == 2)
   {
-    BookmarksRootVC * vc = [[BookmarksRootVC alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    if (GetPlatform().IsPro())
+    {
+      BookmarksRootVC * vc = [[BookmarksRootVC alloc] init];
+      [self.navigationController pushViewController:vc animated:YES];
+    }
+    else
+    {
+      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
+      [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"YES"];
+    }
   }
   else if (buttonIndex == 3)
   {
