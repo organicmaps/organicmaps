@@ -20,6 +20,7 @@
 @interface UIColor (HexColor)
 
 + (UIColor *)colorWithColorCode:(NSString *)colorCode;
++ (UIColor *)applicationBackgroundColor;
 
 @end
 

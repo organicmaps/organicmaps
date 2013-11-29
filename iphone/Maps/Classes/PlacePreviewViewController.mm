@@ -9,6 +9,7 @@
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "MWMApi.h"
+#import "UIKitCategories.h"
 
 #include "../../../search/result.hpp"
 #include "../../../platform/platform.hpp"
@@ -87,6 +88,8 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
   [super viewDidLoad];
   [self setTitle:NSLocalizedString(@"info", nil)];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification object:nil];
+  self.tableView.backgroundView = nil;
+  self.tableView.backgroundColor = [UIColor applicationBackgroundColor];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

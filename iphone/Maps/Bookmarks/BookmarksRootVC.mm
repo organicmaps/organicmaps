@@ -1,6 +1,7 @@
 #import "BookmarksRootVC.h"
 #import "BookmarksVC.h"
 #import "Statistics.h"
+#import "UIKitCategories.h"
 
 #include "Framework.h"
 
@@ -223,6 +224,13 @@
     [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"NO"];
   // Close view
   [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+  self.tableView.backgroundView = nil;
+  self.tableView.backgroundColor = [UIColor applicationBackgroundColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated

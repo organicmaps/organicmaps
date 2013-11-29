@@ -7,6 +7,7 @@
 #import "Statistics.h"
 #import "CircleView.h"
 #import "ColorPickerView.h"
+#import "UIKitCategories.h"
 
 #include "Framework.h"
 
@@ -355,6 +356,13 @@
 
 //*********** End of Location manager callbacks ********************
 //******************************************************************
+
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+  self.tableView.backgroundView = nil;
+  self.tableView.backgroundColor = [UIColor applicationBackgroundColor];
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {

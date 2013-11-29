@@ -4,6 +4,7 @@
 #import "SelectableCell.h"
 #import "LinkCell.h"
 #import "WebViewController.h"
+#import "UIKitCategories.h"
 #include "../../../platform/settings.hpp"
 #include "../../../platform/platform.hpp"
 #include "../../../platform/preferred_languages.hpp"
@@ -29,6 +30,8 @@ typedef NS_ENUM(NSUInteger, Section)
 {
   [super viewDidLoad];
   self.title = NSLocalizedString(@"settings", nil);
+  self.tableView.backgroundView = nil;
+  self.tableView.backgroundColor = [UIColor applicationBackgroundColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated

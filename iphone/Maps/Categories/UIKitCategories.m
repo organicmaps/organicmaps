@@ -36,6 +36,11 @@
   return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
 }
 
++ (UIColor *)applicationBackgroundColor
+{
+  return [UIColor colorWithColorCode:@"efeff4"];
+}
+
 @end
 
 

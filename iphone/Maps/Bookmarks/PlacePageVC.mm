@@ -7,6 +7,7 @@
 #import "ShareActionSheet.h"
 #import "PlaceAndCompasView.h"
 #import "CircleView.h"
+#import "UIKitCategories.h"
 
 #include "Framework.h"
 #include "../../search/result.hpp"
@@ -161,6 +162,9 @@ typedef enum {Editing, Saved} Mode;
     [self addRightNavigationItemWithAction:@selector(save)];
   else
     [self addRightNavigationItemWithAction:@selector(edit)];
+
+  self.tableView.backgroundView = nil;
+  self.tableView.backgroundColor = [UIColor applicationBackgroundColor];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
