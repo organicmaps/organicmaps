@@ -103,6 +103,10 @@ public class WifiLocation extends BroadcastReceiver
   @Override
   public void onReceive(Context context, Intent intent)
   {
+    // Reproduce on Kindle Fire that onReceive is called after unregisterReceiver.
+    if (mWifi == null)
+      return;
+
     // Prepare JSON request with BSSIDs
     final StringBuilder json = new StringBuilder("{\"version\":\"2.0\"");
     appendID(json);
