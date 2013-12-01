@@ -2,6 +2,7 @@
 #import "NavigationController.h"
 #import "MapsAppDelegate.h"
 #import "UIViewController+Navigation.h"
+#import "MapViewController.h"
 
 @interface NavigationController () <UINavigationControllerDelegate>
 

@@ -108,8 +108,8 @@
 		978F9245183B660F000D6C7C /* SwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 978F923B183B660F000D6C7C /* SwitchCell.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		978F9247183B6671000D6C7C /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 978F9246183B6671000D6C7C /* Main_iPhone.storyboard */; };
 		978F9248183B6671000D6C7C /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 978F9246183B6671000D6C7C /* Main_iPhone.storyboard */; };
-		978F9253183BD530000D6C7C /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 978F9252183BD530000D6C7C /* NavigationController.m */; };
-		978F9254183BD530000D6C7C /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 978F9252183BD530000D6C7C /* NavigationController.m */; };
+		978F9253183BD530000D6C7C /* NavigationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 978F9252183BD530000D6C7C /* NavigationController.mm */; };
+		978F9254183BD530000D6C7C /* NavigationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 978F9252183BD530000D6C7C /* NavigationController.mm */; };
 		97ECD871183620CE00F77A46 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		97ECD872183625F900F77A46 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		97ECD87518362AC600F77A46 /* MobileAppTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87418362AC600F77A46 /* MobileAppTracker.framework */; };
@@ -128,8 +128,8 @@
 		97F61767183D0A72009919E2 /* btn-zoom-out@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F61763183D0A72009919E2 /* btn-zoom-out@2x.png */; };
 		97F6176C183E3EFC009919E2 /* side-toolbar-slide-view-light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F6176B183E3EFC009919E2 /* side-toolbar-slide-view-light@2x.png */; };
 		97F6176D183E3EFC009919E2 /* side-toolbar-slide-view-light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F6176B183E3EFC009919E2 /* side-toolbar-slide-view-light@2x.png */; };
-		97F61781183E6172009919E2 /* LocationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F6177F183E6172009919E2 /* LocationButton.m */; };
-		97F61782183E6172009919E2 /* LocationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F6177F183E6172009919E2 /* LocationButton.m */; };
+		97F61781183E6172009919E2 /* LocationButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97F6177F183E6172009919E2 /* LocationButton.mm */; };
+		97F61782183E6172009919E2 /* LocationButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97F6177F183E6172009919E2 /* LocationButton.mm */; };
 		97F61784183E62A6009919E2 /* location-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F61783183E62A6009919E2 /* location-back@2x.png */; };
 		97F61785183E62A6009919E2 /* location-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F61783183E62A6009919E2 /* location-back@2x.png */; };
 		97F61794183E7445009919E2 /* LinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F61793183E7445009919E2 /* LinkCell.m */; };
@@ -1482,7 +1482,7 @@
 		978F923F183B660F000D6C7C /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = Settings/SettingsViewController.h; sourceTree = "<group>"; };
 		978F9246183B6671000D6C7C /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		978F9251183BD530000D6C7C /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
-		978F9252183BD530000D6C7C /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
+		978F9252183BD530000D6C7C /* NavigationController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NavigationController.mm; sourceTree = "<group>"; };
 		97ECD86D1836200A00F77A46 /* Aarki.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aarki.h; sourceTree = "<group>"; };
 		97ECD86E1836200A00F77A46 /* AarkiContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AarkiContact.h; sourceTree = "<group>"; };
 		97ECD870183620CE00F77A46 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -1494,7 +1494,7 @@
 		97F61762183D0A72009919E2 /* btn-zoom-in@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-zoom-in@2x.png"; sourceTree = "<group>"; };
 		97F61763183D0A72009919E2 /* btn-zoom-out@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-zoom-out@2x.png"; sourceTree = "<group>"; };
 		97F6176B183E3EFC009919E2 /* side-toolbar-slide-view-light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "side-toolbar-slide-view-light@2x.png"; sourceTree = "<group>"; };
-		97F6177F183E6172009919E2 /* LocationButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationButton.m; sourceTree = "<group>"; };
+		97F6177F183E6172009919E2 /* LocationButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LocationButton.mm; sourceTree = "<group>"; };
 		97F61780183E6172009919E2 /* LocationButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationButton.h; sourceTree = "<group>"; };
 		97F61783183E62A6009919E2 /* location-back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-back@2x.png"; sourceTree = "<group>"; };
 		97F6178F183E742E009919E2 /* LinkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LinkCell.h; path = Settings/LinkCell.h; sourceTree = "<group>"; };
@@ -2298,7 +2298,7 @@
 			children = (
 				9747277618328E65006B7CB7 /* SideToolbar */,
 				978F9251183BD530000D6C7C /* NavigationController.h */,
-				978F9252183BD530000D6C7C /* NavigationController.m */,
+				978F9252183BD530000D6C7C /* NavigationController.mm */,
 				EDFC74CE177AE6C500FAF21F /* PlaceAndCompasView.h */,
 				EDFC74CF177AE6C500FAF21F /* PlaceAndCompasView.mm */,
 				FA09E00F13F71F6C007E69CA /* SearchVC.h */,
@@ -2314,7 +2314,7 @@
 				1D3623240D0F684500981E51 /* MapsAppDelegate.h */,
 				1D3623250D0F684500981E51 /* MapsAppDelegate.mm */,
 				97F61780183E6172009919E2 /* LocationButton.h */,
-				97F6177F183E6172009919E2 /* LocationButton.m */,
+				97F6177F183E6172009919E2 /* LocationButton.mm */,
 				46F8A2EB10EB63040045521A /* MapViewController.h */,
 				EED10A4411F78D120095FAD4 /* MapViewController.mm */,
 				FA81AE3114D061BF00A0D70D /* SearchCell.h */,
@@ -4695,11 +4695,11 @@
 				FA4135EA120A263C0062D5B4 /* CountriesViewController.mm in Sources */,
 				FA4135ED120A263C0062D5B4 /* SettingsManager.mm in Sources */,
 				EE7F29811219ECA300EB67A9 /* RenderBuffer.mm in Sources */,
-				978F9253183BD530000D6C7C /* NavigationController.m in Sources */,
+				978F9253183BD530000D6C7C /* NavigationController.mm in Sources */,
 				EE7F29821219ECA300EB67A9 /* RenderContext.mm in Sources */,
 				FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */,
 				FA34BECA1338D72F00FFB2A7 /* CustomAlertView.mm in Sources */,
-				97F61781183E6172009919E2 /* LocationButton.m in Sources */,
+				97F61781183E6172009919E2 /* LocationButton.mm in Sources */,
 				FA09E01113F71F6C007E69CA /* SearchVC.mm in Sources */,
 				9747264318323080006B7CB7 /* UIKitCategories.m in Sources */,
 				97719D421843AF1E00BDD815 /* ScopeView.m in Sources */,
@@ -4746,11 +4746,11 @@
 				FAFB08ED151215EE0041901D /* CountriesViewController.mm in Sources */,
 				FAFB08EE151215EE0041901D /* SettingsManager.mm in Sources */,
 				FAFB08EF151215EE0041901D /* RenderBuffer.mm in Sources */,
-				978F9254183BD530000D6C7C /* NavigationController.m in Sources */,
+				978F9254183BD530000D6C7C /* NavigationController.mm in Sources */,
 				FAFB08F0151215EE0041901D /* RenderContext.mm in Sources */,
 				FAFB08F1151215EE0041901D /* WebViewController.mm in Sources */,
 				FAFB08F2151215EE0041901D /* CustomAlertView.mm in Sources */,
-				97F61782183E6172009919E2 /* LocationButton.m in Sources */,
+				97F61782183E6172009919E2 /* LocationButton.mm in Sources */,
 				FAFB08F3151215EE0041901D /* SearchVC.mm in Sources */,
 				9747264418323080006B7CB7 /* UIKitCategories.m in Sources */,
 				97719D431843AF1E00BDD815 /* ScopeView.m in Sources */,

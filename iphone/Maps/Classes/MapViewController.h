@@ -51,6 +51,6 @@ namespace search { struct AddressInfo; }
 @property (nonatomic) BOOL isApiMode;
 
 @property (weak, nonatomic) IBOutlet UIView * zoomButtonsView;
-@property (nonatomic) SideToolbar * sideToolbar;
+@property (nonatomic, strong) SideToolbar * sideToolbar;
 
 @end
