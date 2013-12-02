@@ -426,9 +426,7 @@ world  +
         cliff  -
         coastline  -
         glacier  -
-        grass  -
-        greenfield  -
-        greenhouse_horticulture  -
+        grassland  -
         heath  -
         lake  -
         land  -

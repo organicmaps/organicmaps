@@ -471,7 +471,7 @@ area:highway|steps
 mapswithme
 mapswithme
 highway|construction
-natural|grass
+natural|grassland
 mapswithme
 mapswithme
 piste:lift|platter
@@ -856,8 +856,8 @@ man_made|pipeline
 mapswithme|grid
 mapswithme
 mapswithme
-natural|greenfield
-natural|greenhouse_horticulture
+mapswithme
+landuse|greenhouse_horticulture
 natural|salt_pond
 mapswithme
 railway|incline|bridge
@@ -953,3 +953,4 @@ landuse|residential|urban
 amenity|ferry_terminal
 amenity
 shop|furniture
+natural|grassland

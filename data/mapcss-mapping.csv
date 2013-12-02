@@ -471,7 +471,7 @@ highway|steps|area;[highway=steps][area?];x;name;int_name;470;area:highway|steps
 railway|proposed;[railway=proposed];x;name;int_name;471;
 highway|tertiary|construction;[highway=tertiary][construction?];x;name;int_name;472;
 landuse|wood|deciduous;[landuse=wood][wood=deciduous];x;name;int_name;473;highway|construction
-natural|grass;[natural=grass];;name;int_name;474;natural|wood
+natural|grass;[natural=grass];x;name;int_name;474;natural|grassland
 highway|road|area;[highway=road][area?];x;name;int_name;475;
 highway|tertiary|area;[highway=tertiary][area?];x;name;int_name;476;
 piste:lift|platter;[piste:lift=platter];;name;int_name;477;
@@ -856,8 +856,8 @@ man_made|pipeline|sewage|overground;[man_made=pipeline][type=sewage][location=ov
 mapswithme|grid;[mapswithme=grid];;name;int_name;856;
 natural|farmyard;[natural=farmyard];x;name;int_name;857;
 natural|garages;[natural=garages];x;name;int_name;858;
-natural|greenfield;[natural=greenfield];;name;int_name;859;
-natural|greenhouse_horticulture;[natural=greenhouse_horticulture];;name;int_name;860;
+natural|greenfield;[natural=greenfield];x;name;int_name;859;
+natural|greenhouse_horticulture;[natural=greenhouse_horticulture];x;name;int_name;860;landuse|greenhouse_horticulture
 natural|salt_pond;[natural=salt_pond];;name;int_name;861;
 natural|street;[natural=street];x;name;int_name;862;
 railway|incline|bridge;[railway=incline][bridge?];;name;int_name;863;
@@ -953,3 +953,4 @@ landuse|residential|urban;[landuse=residential][residential=urban];;name;int_nam
 amenity|ferry_terminal;[amenity=ferry_terminal];;name;int_name;953;
 amenity;[amenity];;name;int_name;954;
 shop|furniture;[shop=furniture];;name;int_name;955;
+natural|grassland;[natural=grassland];;name;int_name;956;
