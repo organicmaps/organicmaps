@@ -20,11 +20,13 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.telephony.TelephonyManager;
 import android.text.style.StyleSpan;
 import android.util.Log;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
@@ -647,8 +649,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
     mDrawerLayout.setDrawerListener(this);
-
     mMainDrawer = findViewById(R.id.left_drawer);
+    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
     mMapSurface.setOnTouchListener(new OnTouchListener()
     {
       @Override
@@ -658,10 +661,42 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       }
     });
 
+    final SimpleOnGestureListener gestureListener = new SimpleOnGestureListener()
+    {
+      @Override
+      public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
+      {
+        final float dX = e2.getX() - e1.getX();
+        if (dX > 0) // scroll is right
+        {
+          final float dY = e2.getY() - e1.getY();
+          if (Math.abs(dX) > Math.abs(dY)) // is closer to horizontal
+          {
+            toggleDrawer();
+            return true;
+          }
+        }
+        return false;
+      }
+    };
+
+    final GestureDetectorCompat detector = new GestureDetectorCompat(this, gestureListener);
+    final View toggleDrawer = findViewById(R.id.map_button_toggle_drawer);
+
+    toggleDrawer.setOnTouchListener(new OnTouchListener()
+    {
+
+      @Override
+      public boolean onTouch(View v, MotionEvent event)
+      {
+        return detector.onTouchEvent(event);
+      }
+    });
+
     findViewById(R.id.map_container_bookmarks).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.map_container_search).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.map_container_download).setOnClickListener(drawerItemsClickListener);
-    findViewById(R.id.map_button_toggle_drawer).setOnClickListener(drawerItemsClickListener);
+    toggleDrawer.setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.menuitem_settings_activity).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.map_button_share_myposition).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.buy_pro).setOnClickListener(drawerItemsClickListener);
@@ -1304,11 +1339,13 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public void onDrawerClosed(View arg0)
   {
+    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
   }
 
   @Override
   public void onDrawerOpened(View arg0)
   {
+    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
   }
 
   @Override
