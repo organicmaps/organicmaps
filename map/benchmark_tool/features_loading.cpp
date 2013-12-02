@@ -44,8 +44,7 @@ namespace
       m_timer.Reset();
 
       drule::KeysT keys;
-      string names;       // for debug use only, in release it's empty
-      (void)feature::GetDrawRule(ft, m_scale, keys, names);
+      (void)feature::GetDrawRule(ft, m_scale, keys);
 
       if (!keys.empty())
       {

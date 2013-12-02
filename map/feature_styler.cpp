@@ -52,8 +52,7 @@ namespace di
       m_rect(rect)
   {
     drule::KeysT keys;
-    string names;       // for debug use only, in release it's empty
-    pair<int, bool> type = feature::GetDrawRule(f, zoom, keys, names);
+    pair<int, bool> type = feature::GetDrawRule(f, zoom, keys);
 
     // don't try to do anything to invisible feature
     if (keys.empty())

@@ -102,32 +102,18 @@ namespace
     int m_scale;
     ClassifObject::FeatureGeoType m_ft;
     drule::KeysT & m_keys;
-#ifdef DEBUG
-    string & m_name;
-#endif
 
   public:
     DrawRuleGetter(int scale, feature::EGeomType ft,
-                  drule::KeysT & keys
-#ifdef DEBUG
-                   , string & name
-#endif
-                   )
+                  drule::KeysT & keys)
       : m_scale(scale), m_ft(ClassifObject::FeatureGeoType(ft)), m_keys(keys)
-#ifdef DEBUG
-    , m_name(name)
-#endif
     {
     }
 
     typedef bool ResultType;
 
-    void operator() (ClassifObject const * p)
+    void operator() (ClassifObject const *)
     {
-#ifdef DEBUG
-      if (!m_name.empty()) m_name += '-';
-      m_name += p->GetName();
-#endif
     }
     bool operator() (ClassifObject const * p, bool & res)
     {
@@ -139,22 +125,31 @@ namespace
 }
 
 pair<int, bool> GetDrawRule(FeatureBase const & f, int level,
-                            drule::KeysT & keys, string & names)
+                            drule::KeysT & keys)
 {
   feature::TypesHolder types(f);
 
   ASSERT ( keys.empty(), () );
   Classificator const & c = classif();
 
-  DrawRuleGetter doRules(level, types.GetGeoType(), keys
-#ifdef DEBUG
-                         , names
-#endif
-                         );
+  DrawRuleGetter doRules(level, types.GetGeoType(), keys);
   for (size_t i = 0; i < types.Size(); ++i)
     (void)c.ProcessObjects(types[i], doRules);
 
   return make_pair(types.GetGeoType(), types.Has(c.GetCoastType()));
+}
+
+void GetDrawRule(vector<uint32_t> const & types, int level, int geoType,
+                 drule::KeysT & keys)
+
+{
+  ASSERT ( keys.empty(), () );
+  Classificator const & c = classif();
+
+  DrawRuleGetter doRules(level, EGeomType(geoType), keys);
+
+  for (size_t i = 0; i < types.size(); ++i)
+    (void)c.ProcessObjects(types[i], doRules);
 }
 
 namespace

@@ -58,7 +58,9 @@ namespace feature
 
   /// @return (geometry type, is coastline)
   pair<int, bool> GetDrawRule(FeatureBase const & f, int level,
-                              drule::KeysT & keys, string & names);
+                              drule::KeysT & keys);
+  void GetDrawRule(vector<uint32_t> const & types, int level, int geoType,
+                   drule::KeysT & keys);
 
   /// Used to check whether user types belong to particular classificator set.
   class TypeSetChecker
