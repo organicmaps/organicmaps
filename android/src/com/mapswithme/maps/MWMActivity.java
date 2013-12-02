@@ -587,6 +587,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private void setUpDrawer()
   {
+    final boolean isPro = mApplication.isProVersion();
     final OnClickListener drawerItemsClickListener = new OnClickListener()
     {
       @Override
@@ -597,11 +598,21 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         if (R.id.menuitem_settings_activity == id)
           ContextMenu.onItemSelected(R.id.menuitem_settings_activity, MWMActivity.this);
         else if (R.id.map_container_bookmarks == id)
-          onBookmarksClicked();
+        {
+          if (isPro)
+            onBookmarksClicked();
+          else
+            runProVersionMarketActivity();
+        }
         else if (R.id.map_container_download == id)
           onDownloadClicked();
         else if (R.id.map_container_search == id)
-          onSearchClicked();
+        {
+          if (isPro)
+            onSearchClicked();
+          else
+            runProVersionMarketActivity();
+        }
         else if (R.id.buy_pro == id)
           runProVersionMarketActivity();
         else if (R.id.map_button_share_myposition == id)
@@ -702,9 +713,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     findViewById(R.id.buy_pro).setOnClickListener(drawerItemsClickListener);
 
 
-    final boolean isPro = mApplication.isProVersion();
-    findViewById(R.id.map_container_bookmarks).setEnabled(isPro);
-    findViewById(R.id.map_container_search).setEnabled(isPro);
 
     final TextView searchView = (TextView) findViewById(R.id.map_button_search);
     final TextView bookmarksView = (TextView) findViewById(R.id.map_button_bookmarks);
