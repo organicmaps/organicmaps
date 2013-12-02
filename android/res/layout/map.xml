@@ -53,14 +53,6 @@
             android:src="@drawable/btn_zoom_out" />
     </RelativeLayout>
 
-    <View
-        android:layout_width="30dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="left"
-        android:layout_marginTop="60dp"
-        android:background="@color/transparent"
-        android:clickable="true" />
-
     <FrameLayout
         android:id="@+id/map_butons_container"
         android:layout_width="match_parent"
