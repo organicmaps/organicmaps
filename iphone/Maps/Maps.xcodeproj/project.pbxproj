@@ -110,6 +110,10 @@
 		978F9248183B6671000D6C7C /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 978F9246183B6671000D6C7C /* Main_iPhone.storyboard */; };
 		978F9253183BD530000D6C7C /* NavigationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 978F9252183BD530000D6C7C /* NavigationController.mm */; };
 		978F9254183BD530000D6C7C /* NavigationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 978F9252183BD530000D6C7C /* NavigationController.mm */; };
+		97D40C06184CF5F100A1D572 /* ImagesLite.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D40C04184CF5F100A1D572 /* ImagesLite.xcassets */; };
+		97D40C08184CFA4100A1D572 /* ImagesPro.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D40C07184CFA4100A1D572 /* ImagesPro.xcassets */; };
+		97D40C0A184D031900A1D572 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D40C09184D031900A1D572 /* Images.xcassets */; };
+		97D40C0B184D031900A1D572 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D40C09184D031900A1D572 /* Images.xcassets */; };
 		97ECD871183620CE00F77A46 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		97ECD872183625F900F77A46 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		97ECD87518362AC600F77A46 /* MobileAppTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87418362AC600F77A46 /* MobileAppTracker.framework */; };
@@ -235,10 +239,6 @@
 		FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA054611155C465E001F4E37 /* SelectSetVC.mm */; };
 		FA054613155C465E001F4E37 /* SelectSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA054611155C465E001F4E37 /* SelectSetVC.mm */; };
 		FA065FED128614C400FEA989 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */; };
-		FA065FFF1286167A00FEA989 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA065FFD1286167A00FEA989 /* Default@2x.png */; };
-		FA0660001286167A00FEA989 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FA065FFE1286167A00FEA989 /* Default.png */; };
-		FA0660031286168700FEA989 /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0660011286168700FEA989 /* Default-Portrait.png */; };
-		FA0660041286168700FEA989 /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0660021286168700FEA989 /* Default-Landscape.png */; };
 		FA09E01113F71F6C007E69CA /* SearchVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA09E01013F71F6C007E69CA /* SearchVC.mm */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		FA0B7E631487747B00CAB3F2 /* GetActiveConnectionType.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA0B7E621487747B00CAB3F2 /* GetActiveConnectionType.mm */; };
 		FA140651162A6288002BC1ED /* empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA14064D162A6288002BC1ED /* empty@2x.png */; };
@@ -250,12 +250,6 @@
 		FA140657162A6288002BC1ED /* eye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA140650162A6288002BC1ED /* eye@2x.png */; };
 		FA140658162A6288002BC1ED /* eye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA140650162A6288002BC1ED /* eye@2x.png */; };
 		FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA29FDA9141E77F8004ADF66 /* Preferences.mm */; };
-		FA2CF90E17F32A960017F83D /* 76-pro.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2CF90B17F32A960017F83D /* 76-pro.png */; };
-		FA2CF90F17F32A960017F83D /* 120-pro.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2CF90C17F32A960017F83D /* 120-pro.png */; };
-		FA2CF91017F32A960017F83D /* 152-pro.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2CF90D17F32A960017F83D /* 152-pro.png */; };
-		FA2CF91417F32AA50017F83D /* 76-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2CF91117F32AA50017F83D /* 76-lite.png */; };
-		FA2CF91517F32AA50017F83D /* 120-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2CF91217F32AA50017F83D /* 120-lite.png */; };
-		FA2CF91617F32AA50017F83D /* 152-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2CF91317F32AA50017F83D /* 152-lite.png */; };
 		FA2EF9C713630C3B00E3E484 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2EF9C613630C3B00E3E484 /* libplatform.a */; };
 		FA34BECA1338D72F00FFB2A7 /* CustomAlertView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */; };
 		FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA36B80615403A4F004560CC /* BookmarksVC.mm */; };
@@ -267,10 +261,6 @@
 		FA5D4F191557F79900E7D8BB /* PlacePageVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */; };
 		FA5D4F1A1557F79900E7D8BB /* PlacePageVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */; };
 		FA64D9A913F975AD00350ECF /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA64D9A813F975AD00350ECF /* types.txt */; };
-		FA68E1671525F92700077B9E /* Default-Landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA68E1651525F92700077B9E /* Default-Landscape@2x.png */; };
-		FA68E1681525F92700077B9E /* Default-Landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA68E1651525F92700077B9E /* Default-Landscape@2x.png */; };
-		FA68E1691525F92700077B9E /* Default-Portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA68E1661525F92700077B9E /* Default-Portrait@2x.png */; };
-		FA68E16A1525F92700077B9E /* Default-Portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA68E1661525F92700077B9E /* Default-Portrait@2x.png */; };
 		FA765AB31737BC6D00279CFF /* 22x29-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FA765AAF1737BC6D00279CFF /* 22x29-lite.png */; };
 		FA765AB41737BC6D00279CFF /* 44x58-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FA765AB01737BC6D00279CFF /* 44x58-lite.png */; };
 		FA765AB51737BC6D00279CFF /* 64-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FA765AB11737BC6D00279CFF /* 64-lite.png */; };
@@ -281,24 +271,6 @@
 		FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA87151A12B1518F00592DAF /* SystemConfiguration.framework */; };
 		FA8F8938132D5DB00048E3FE /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8F8937132D5DB00048E3FE /* libtomcrypt.a */; };
 		FA99CB73147089B100689A9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA99CB71147089B100689A9A /* Localizable.strings */; };
-		FA9EFCBF1609E150002D6195 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA9EFCBE1609E150002D6195 /* Default-568h@2x.png */; };
-		FA9EFCC11609E42B002D6195 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA9EFCBE1609E150002D6195 /* Default-568h@2x.png */; };
-		FAA3A8621512799C00C7904C /* 29-pro.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA3A8591512799500C7904C /* 29-pro.png */; };
-		FAA3A8631512799C00C7904C /* 50-pro.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA3A85A1512799500C7904C /* 50-pro.png */; };
-		FAA3A8641512799C00C7904C /* 57-pro.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA3A85B1512799600C7904C /* 57-pro.png */; };
-		FAA3A8651512799C00C7904C /* 58-pro.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA3A85C1512799700C7904C /* 58-pro.png */; };
-		FAA3A8661512799C00C7904C /* 72-pro.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA3A85D1512799800C7904C /* 72-pro.png */; };
-		FAA3A8671512799C00C7904C /* 100-pro.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA3A85E1512799900C7904C /* 100-pro.png */; };
-		FAA3A8681512799C00C7904C /* 114-pro.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA3A85F1512799A00C7904C /* 114-pro.png */; };
-		FAA3A86A1512799C00C7904C /* 144-pro.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA3A8611512799B00C7904C /* 144-pro.png */; };
-		FAA3A873151279DE00C7904C /* 29-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA3A86B151279D700C7904C /* 29-lite.png */; };
-		FAA3A874151279DE00C7904C /* 50-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA3A86C151279D700C7904C /* 50-lite.png */; };
-		FAA3A875151279DE00C7904C /* 57-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA3A86D151279D800C7904C /* 57-lite.png */; };
-		FAA3A876151279DE00C7904C /* 58-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA3A86E151279D900C7904C /* 58-lite.png */; };
-		FAA3A877151279DE00C7904C /* 72-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA3A86F151279DA00C7904C /* 72-lite.png */; };
-		FAA3A878151279DE00C7904C /* 100-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA3A870151279DB00C7904C /* 100-lite.png */; };
-		FAA3A879151279DE00C7904C /* 114-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA3A871151279DC00C7904C /* 114-lite.png */; };
-		FAA3A87A151279DE00C7904C /* 144-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA3A872151279DD00C7904C /* 144-lite.png */; };
 		FAA5C2A2144F135F005337F6 /* LocationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA5C2A1144F135F005337F6 /* LocationManager.mm */; };
 		FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA614B7155F16950031C345 /* AddSetVC.mm */; };
 		FAA614B9155F16950031C345 /* AddSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA614B7155F16950031C345 /* AddSetVC.mm */; };
@@ -828,10 +800,6 @@
 		FAFB06AB151215EE0041901D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD73870D9D96C1002E5188 /* MainWindow.xib */; };
 		FAFB06AC151215EE0041901D /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
 		FAFB06AE151215EE0041901D /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */; };
-		FAFB06AF151215EE0041901D /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA065FFD1286167A00FEA989 /* Default@2x.png */; };
-		FAFB06B0151215EE0041901D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FA065FFE1286167A00FEA989 /* Default.png */; };
-		FAFB06B1151215EE0041901D /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0660011286168700FEA989 /* Default-Portrait.png */; };
-		FAFB06B2151215EE0041901D /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0660021286168700FEA989 /* Default-Landscape.png */; };
 		FAFB06BE151215EE0041901D /* unicode_blocks.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */; };
 		FAFB06BF151215EE0041901D /* fonts_blacklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */; };
 		FAFB06C0151215EE0041901D /* fonts_whitelist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */; };
@@ -1483,6 +1451,9 @@
 		978F9246183B6671000D6C7C /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		978F9251183BD530000D6C7C /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		978F9252183BD530000D6C7C /* NavigationController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NavigationController.mm; sourceTree = "<group>"; };
+		97D40C04184CF5F100A1D572 /* ImagesLite.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ImagesLite.xcassets; sourceTree = SOURCE_ROOT; };
+		97D40C07184CFA4100A1D572 /* ImagesPro.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ImagesPro.xcassets; sourceTree = SOURCE_ROOT; };
+		97D40C09184D031900A1D572 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = SOURCE_ROOT; };
 		97ECD86D1836200A00F77A46 /* Aarki.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aarki.h; sourceTree = "<group>"; };
 		97ECD86E1836200A00F77A46 /* AarkiContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AarkiContact.h; sourceTree = "<group>"; };
 		97ECD870183620CE00F77A46 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -1598,10 +1569,6 @@
 		FA054610155C465E001F4E37 /* SelectSetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectSetVC.h; path = Bookmarks/SelectSetVC.h; sourceTree = SOURCE_ROOT; };
 		FA054611155C465E001F4E37 /* SelectSetVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SelectSetVC.mm; path = Bookmarks/SelectSetVC.mm; sourceTree = SOURCE_ROOT; };
 		FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources-iPad/MainWindow-iPad.xib"; sourceTree = SOURCE_ROOT; };
-		FA065FFD1286167A00FEA989 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = SOURCE_ROOT; };
-		FA065FFE1286167A00FEA989 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
-		FA0660011286168700FEA989 /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = SOURCE_ROOT; };
-		FA0660021286168700FEA989 /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape.png"; sourceTree = SOURCE_ROOT; };
 		FA09E00F13F71F6C007E69CA /* SearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchVC.h; sourceTree = "<group>"; };
 		FA09E01013F71F6C007E69CA /* SearchVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchVC.mm; sourceTree = "<group>"; };
 		FA0B7E621487747B00CAB3F2 /* GetActiveConnectionType.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GetActiveConnectionType.mm; sourceTree = "<group>"; };
@@ -1611,12 +1578,6 @@
 		FA140650162A6288002BC1ED /* eye@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "eye@2x.png"; path = "Bookmarks/eye@2x.png"; sourceTree = SOURCE_ROOT; };
 		FA29FDA8141E77F8004ADF66 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Preferences.h; path = Settings/Preferences.h; sourceTree = "<group>"; };
 		FA29FDA9141E77F8004ADF66 /* Preferences.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Preferences.mm; path = Settings/Preferences.mm; sourceTree = "<group>"; };
-		FA2CF90B17F32A960017F83D /* 76-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "76-pro.png"; sourceTree = "<group>"; };
-		FA2CF90C17F32A960017F83D /* 120-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "120-pro.png"; sourceTree = "<group>"; };
-		FA2CF90D17F32A960017F83D /* 152-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "152-pro.png"; sourceTree = "<group>"; };
-		FA2CF91117F32AA50017F83D /* 76-lite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "76-lite.png"; sourceTree = "<group>"; };
-		FA2CF91217F32AA50017F83D /* 120-lite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "120-lite.png"; sourceTree = "<group>"; };
-		FA2CF91317F32AA50017F83D /* 152-lite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "152-lite.png"; sourceTree = "<group>"; };
 		FA2EF9C613630C3B00E3E484 /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libplatform.a; sourceTree = SOURCE_ROOT; };
 		FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomAlertView.mm; sourceTree = "<group>"; };
 		FA34BEC91338D72F00FFB2A7 /* CustomAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAlertView.h; sourceTree = "<group>"; };
@@ -1635,8 +1596,6 @@
 		FA5D4F151557F79900E7D8BB /* PlacePageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlacePageVC.h; path = Bookmarks/PlacePageVC.h; sourceTree = SOURCE_ROOT; };
 		FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PlacePageVC.mm; path = Bookmarks/PlacePageVC.mm; sourceTree = SOURCE_ROOT; };
 		FA64D9A813F975AD00350ECF /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = types.txt; path = ../../data/types.txt; sourceTree = SOURCE_ROOT; };
-		FA68E1651525F92700077B9E /* Default-Landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x.png"; sourceTree = "<group>"; };
-		FA68E1661525F92700077B9E /* Default-Portrait@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x.png"; sourceTree = "<group>"; };
 		FA765AAF1737BC6D00279CFF /* 22x29-lite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "22x29-lite.png"; sourceTree = "<group>"; };
 		FA765AB01737BC6D00279CFF /* 44x58-lite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "44x58-lite.png"; sourceTree = "<group>"; };
 		FA765AB11737BC6D00279CFF /* 64-lite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "64-lite.png"; sourceTree = "<group>"; };
@@ -1648,23 +1607,6 @@
 		FA8F8937132D5DB00048E3FE /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtomcrypt.a; sourceTree = SOURCE_ROOT; };
 		FA971562150920C600916690 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA99CB72147089B100689A9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		FA9EFCBE1609E150002D6195 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		FAA3A8591512799500C7904C /* 29-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "29-pro.png"; sourceTree = "<group>"; };
-		FAA3A85A1512799500C7904C /* 50-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "50-pro.png"; sourceTree = "<group>"; };
-		FAA3A85B1512799600C7904C /* 57-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "57-pro.png"; sourceTree = "<group>"; };
-		FAA3A85C1512799700C7904C /* 58-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "58-pro.png"; sourceTree = "<group>"; };
-		FAA3A85D1512799800C7904C /* 72-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "72-pro.png"; sourceTree = "<group>"; };
-		FAA3A85E1512799900C7904C /* 100-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100-pro.png"; sourceTree = "<group>"; };
-		FAA3A85F1512799A00C7904C /* 114-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "114-pro.png"; sourceTree = "<group>"; };
-		FAA3A8611512799B00C7904C /* 144-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "144-pro.png"; sourceTree = "<group>"; };
-		FAA3A86B151279D700C7904C /* 29-lite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "29-lite.png"; sourceTree = "<group>"; };
-		FAA3A86C151279D700C7904C /* 50-lite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "50-lite.png"; sourceTree = "<group>"; };
-		FAA3A86D151279D800C7904C /* 57-lite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "57-lite.png"; sourceTree = "<group>"; };
-		FAA3A86E151279D900C7904C /* 58-lite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "58-lite.png"; sourceTree = "<group>"; };
-		FAA3A86F151279DA00C7904C /* 72-lite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "72-lite.png"; sourceTree = "<group>"; };
-		FAA3A870151279DB00C7904C /* 100-lite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100-lite.png"; sourceTree = "<group>"; };
-		FAA3A871151279DC00C7904C /* 114-lite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "114-lite.png"; sourceTree = "<group>"; };
-		FAA3A872151279DD00C7904C /* 144-lite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "144-lite.png"; sourceTree = "<group>"; };
 		FAA4B13E13EC1C8C00BCAB63 /* DiskFreeSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiskFreeSpace.h; sourceTree = "<group>"; };
 		FAA5C2A0144F135F005337F6 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationManager.h; path = Platform/LocationManager.h; sourceTree = "<group>"; };
 		FAA5C2A1144F135F005337F6 /* LocationManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LocationManager.mm; path = Platform/LocationManager.mm; sourceTree = "<group>"; };
@@ -2389,12 +2331,6 @@
 				97F61786183E63D8009919E2 /* Location Button */,
 				ED5D141B181AA8C900B51FB1 /* ic_guide_mark.png */,
 				ED5D141C181AA8C900B51FB1 /* ic_guide_mark@2x.png */,
-				FA2CF91117F32AA50017F83D /* 76-lite.png */,
-				FA2CF91217F32AA50017F83D /* 120-lite.png */,
-				FA2CF91317F32AA50017F83D /* 152-lite.png */,
-				FA2CF90B17F32A960017F83D /* 76-pro.png */,
-				FA2CF90C17F32A960017F83D /* 120-pro.png */,
-				FA2CF90D17F32A960017F83D /* 152-pro.png */,
 				ED9CC5EE17CA18770051642E /* ios-guides.json */,
 				FA765AAF1737BC6D00279CFF /* 22x29-lite.png */,
 				FA765AB01737BC6D00279CFF /* 44x58-lite.png */,
@@ -2408,27 +2344,11 @@
 				ED8676FB16A0793800D9A02A /* 44x58-pro.png */,
 				ED8676FC16A0793800D9A02A /* 64-pro.png */,
 				ED8676FD16A0793800D9A02A /* 320-pro.png */,
-				FAA3A86B151279D700C7904C /* 29-lite.png */,
-				FAA3A86C151279D700C7904C /* 50-lite.png */,
-				FAA3A86D151279D800C7904C /* 57-lite.png */,
-				FAA3A86E151279D900C7904C /* 58-lite.png */,
-				FAA3A86F151279DA00C7904C /* 72-lite.png */,
-				FAA3A870151279DB00C7904C /* 100-lite.png */,
-				FAA3A871151279DC00C7904C /* 114-lite.png */,
-				FAA3A872151279DD00C7904C /* 144-lite.png */,
-				FAA3A8591512799500C7904C /* 29-pro.png */,
-				FAA3A85A1512799500C7904C /* 50-pro.png */,
-				FAA3A85B1512799600C7904C /* 57-pro.png */,
-				FAA3A85C1512799700C7904C /* 58-pro.png */,
-				FAA3A85D1512799800C7904C /* 72-pro.png */,
-				FAA3A85E1512799900C7904C /* 100-pro.png */,
-				FAA3A85F1512799A00C7904C /* 114-pro.png */,
-				FAA3A8611512799B00C7904C /* 144-pro.png */,
+				97D40C09184D031900A1D572 /* Images.xcassets */,
+				97D40C04184CF5F100A1D572 /* ImagesLite.xcassets */,
+				97D40C07184CFA4100A1D572 /* ImagesPro.xcassets */,
 				FA8F930C150184280057B215 /* Suggestion Icons */,
 				FA99CB71147089B100689A9A /* Localizable.strings */,
-				FA9EFCBE1609E150002D6195 /* Default-568h@2x.png */,
-				FA065FFD1286167A00FEA989 /* Default@2x.png */,
-				FA065FFE1286167A00FEA989 /* Default.png */,
 				978F9246183B6671000D6C7C /* Main_iPhone.storyboard */,
 				28AD73870D9D96C1002E5188 /* MainWindow.xib */,
 			);
@@ -2646,10 +2566,6 @@
 		FA065FEB128614C300FEA989 /* Resources-iPad */ = {
 			isa = PBXGroup;
 			children = (
-				FA68E1651525F92700077B9E /* Default-Landscape@2x.png */,
-				FA68E1661525F92700077B9E /* Default-Portrait@2x.png */,
-				FA0660011286168700FEA989 /* Default-Portrait.png */,
-				FA0660021286168700FEA989 /* Default-Landscape.png */,
 				97719D4A1843B86700BDD815 /* Main_iPad.storyboard */,
 				FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */,
 			);
@@ -3408,10 +3324,6 @@
 				28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */,
 				EE026F0611D6AC0D00645242 /* classificator.txt in Resources */,
 				FA065FED128614C400FEA989 /* MainWindow-iPad.xib in Resources */,
-				FA065FFF1286167A00FEA989 /* Default@2x.png in Resources */,
-				FA0660001286167A00FEA989 /* Default.png in Resources */,
-				FA0660031286168700FEA989 /* Default-Portrait.png in Resources */,
-				FA0660041286168700FEA989 /* Default-Landscape.png in Resources */,
 				FA46DA2C12D4166E00968C36 /* countries.txt in Resources */,
 				EE583CBB12F773F00042CBE3 /* unicode_blocks.txt in Resources */,
 				EEFE7C1412F8C9E1006AF8C3 /* fonts_blacklist.txt in Resources */,
@@ -3473,7 +3385,6 @@
 				FAF8005F1417D7E50024E8C1 /* by.png in Resources */,
 				FAF800601417D7E50024E8C1 /* bz.png in Resources */,
 				FAF800611417D7E50024E8C1 /* ca.png in Resources */,
-				FA2CF90F17F32A960017F83D /* 120-pro.png in Resources */,
 				FAF800621417D7E50024E8C1 /* cc.png in Resources */,
 				FAF800631417D7E50024E8C1 /* cd.png in Resources */,
 				FAF800641417D7E50024E8C1 /* cf.png in Resources */,
@@ -3547,7 +3458,6 @@
 				FAF800A41417D7E50024E8C1 /* in.png in Resources */,
 				FAF800A51417D7E50024E8C1 /* io.png in Resources */,
 				97719D241843ADD200BDD815 /* side-toolbar-icon-search.png in Resources */,
-				FA2CF91017F32A960017F83D /* 152-pro.png in Resources */,
 				FAF800A61417D7E50024E8C1 /* iq.png in Resources */,
 				FAF800A71417D7E50024E8C1 /* ir.png in Resources */,
 				FAF800A81417D7E50024E8C1 /* is.png in Resources */,
@@ -3672,6 +3582,7 @@
 				FAF801151417D7E50024E8C1 /* th.png in Resources */,
 				FAF801161417D7E50024E8C1 /* tj.png in Resources */,
 				FAF801171417D7E50024E8C1 /* tk.png in Resources */,
+				97D40C0A184D031900A1D572 /* Images.xcassets in Resources */,
 				FAF801181417D7E50024E8C1 /* tl.png in Resources */,
 				FAF801191417D7E50024E8C1 /* tm.png in Resources */,
 				FAF8011A1417D7E50024E8C1 /* tn.png in Resources */,
@@ -3730,7 +3641,6 @@
 				FAF804481417E3510024E8C1 /* be@2x.png in Resources */,
 				FAF804491417E3510024E8C1 /* bf@2x.png in Resources */,
 				FAF8044A1417E3510024E8C1 /* bg@2x.png in Resources */,
-				FA2CF90E17F32A960017F83D /* 76-pro.png in Resources */,
 				FAF8044B1417E3510024E8C1 /* bh@2x.png in Resources */,
 				FAF8044C1417E3510024E8C1 /* bi@2x.png in Resources */,
 				FAF8044D1417E3510024E8C1 /* bj@2x.png in Resources */,
@@ -3850,6 +3760,7 @@
 				FAF804B71417E3510024E8C1 /* ls@2x.png in Resources */,
 				97719D0A1843ACDA00BDD815 /* nav-bar-back-7.png in Resources */,
 				FAF804B81417E3510024E8C1 /* lt@2x.png in Resources */,
+				97D40C08184CFA4100A1D572 /* ImagesPro.xcassets in Resources */,
 				FAF804B91417E3510024E8C1 /* lu@2x.png in Resources */,
 				FAF804BA1417E3510024E8C1 /* lv@2x.png in Resources */,
 				FAF804BB1417E3510024E8C1 /* ly@2x.png in Resources */,
@@ -3981,18 +3892,7 @@
 				FA85F633145DDDC20090E1A0 /* packed_polygons.bin in Resources */,
 				FA99CB73147089B100689A9A /* Localizable.strings in Resources */,
 				F7FDD823147F30CC005900FA /* drules_proto.bin in Resources */,
-				FAA3A8621512799C00C7904C /* 29-pro.png in Resources */,
-				FAA3A8631512799C00C7904C /* 50-pro.png in Resources */,
-				FAA3A8641512799C00C7904C /* 57-pro.png in Resources */,
-				FAA3A8651512799C00C7904C /* 58-pro.png in Resources */,
-				FAA3A8661512799C00C7904C /* 72-pro.png in Resources */,
-				FAA3A8671512799C00C7904C /* 100-pro.png in Resources */,
-				FAA3A8681512799C00C7904C /* 114-pro.png in Resources */,
-				FAA3A86A1512799C00C7904C /* 144-pro.png in Resources */,
 				97719D1E1843ADD200BDD815 /* side-toolbar-cell-separator.png in Resources */,
-				FA68E1671525F92700077B9E /* Default-Landscape@2x.png in Resources */,
-				FA68E1691525F92700077B9E /* Default-Portrait@2x.png in Resources */,
-				FA9EFCBF1609E150002D6195 /* Default-568h@2x.png in Resources */,
 				FAAEA7D1161BD26600CCD661 /* synonyms.txt in Resources */,
 				FA140651162A6288002BC1ED /* empty@2x.png in Resources */,
 				FA140653162A6288002BC1ED /* empty.png in Resources */,
@@ -4049,10 +3949,6 @@
 				FAFB06AB151215EE0041901D /* MainWindow.xib in Resources */,
 				FAFB06AC151215EE0041901D /* classificator.txt in Resources */,
 				FAFB06AE151215EE0041901D /* MainWindow-iPad.xib in Resources */,
-				FAFB06AF151215EE0041901D /* Default@2x.png in Resources */,
-				FAFB06B0151215EE0041901D /* Default.png in Resources */,
-				FAFB06B1151215EE0041901D /* Default-Portrait.png in Resources */,
-				FAFB06B2151215EE0041901D /* Default-Landscape.png in Resources */,
 				FAFB06BE151215EE0041901D /* unicode_blocks.txt in Resources */,
 				9747276818328D07006B7CB7 /* side-toolbar-icon-search@2x.png in Resources */,
 				FAFB06BF151215EE0041901D /* fonts_blacklist.txt in Resources */,
@@ -4209,9 +4105,9 @@
 				FAFB0751151215EE0041901D /* la.png in Resources */,
 				FAFB0752151215EE0041901D /* lb.png in Resources */,
 				FAFB0753151215EE0041901D /* lc.png in Resources */,
-				FA2CF91417F32AA50017F83D /* 76-lite.png in Resources */,
 				FAFB0754151215EE0041901D /* li.png in Resources */,
 				FAFB0755151215EE0041901D /* lk.png in Resources */,
+				97D40C0B184D031900A1D572 /* Images.xcassets in Resources */,
 				FAFB0756151215EE0041901D /* lr.png in Resources */,
 				FAFB0757151215EE0041901D /* ls.png in Resources */,
 				FAFB0758151215EE0041901D /* lt.png in Resources */,
@@ -4219,7 +4115,6 @@
 				FAFB075A151215EE0041901D /* lv.png in Resources */,
 				FAFB075B151215EE0041901D /* ly.png in Resources */,
 				FAFB075C151215EE0041901D /* ma.png in Resources */,
-				FA2CF91517F32AA50017F83D /* 120-lite.png in Resources */,
 				FAFB075D151215EE0041901D /* mc.png in Resources */,
 				FAFB075E151215EE0041901D /* md.png in Resources */,
 				FAFB075F151215EE0041901D /* me.png in Resources */,
@@ -4269,7 +4164,6 @@
 				FAFB0789151215EE0041901D /* pr.png in Resources */,
 				FAFB078A151215EE0041901D /* ps.png in Resources */,
 				FAFB078B151215EE0041901D /* pt.png in Resources */,
-				FA2CF91617F32AA50017F83D /* 152-lite.png in Resources */,
 				FAFB078C151215EE0041901D /* pw.png in Resources */,
 				FAFB078D151215EE0041901D /* py.png in Resources */,
 				FAFB078E151215EE0041901D /* qa.png in Resources */,
@@ -4431,6 +4325,7 @@
 				97719D391843AE6F00BDD815 /* btn-zoom-in.png in Resources */,
 				FAFB0820151215EE0041901D /* ge@2x.png in Resources */,
 				FAFB0821151215EE0041901D /* gf@2x.png in Resources */,
+				97D40C06184CF5F100A1D572 /* ImagesLite.xcassets in Resources */,
 				FAFB0822151215EE0041901D /* gg@2x.png in Resources */,
 				FAFB0823151215EE0041901D /* gh@2x.png in Resources */,
 				FAFB0824151215EE0041901D /* gi@2x.png in Resources */,
@@ -4621,18 +4516,7 @@
 				FAFB08D3151215EE0041901D /* packed_polygons.bin in Resources */,
 				FAFB08D4151215EE0041901D /* Localizable.strings in Resources */,
 				FAFB08DB151215EE0041901D /* drules_proto.bin in Resources */,
-				FAA3A873151279DE00C7904C /* 29-lite.png in Resources */,
-				FAA3A874151279DE00C7904C /* 50-lite.png in Resources */,
-				FAA3A875151279DE00C7904C /* 57-lite.png in Resources */,
-				FAA3A876151279DE00C7904C /* 58-lite.png in Resources */,
-				FAA3A877151279DE00C7904C /* 72-lite.png in Resources */,
-				FAA3A878151279DE00C7904C /* 100-lite.png in Resources */,
-				FAA3A879151279DE00C7904C /* 114-lite.png in Resources */,
 				978F9248183B6671000D6C7C /* Main_iPhone.storyboard in Resources */,
-				FAA3A87A151279DE00C7904C /* 144-lite.png in Resources */,
-				FA68E1681525F92700077B9E /* Default-Landscape@2x.png in Resources */,
-				FA68E16A1525F92700077B9E /* Default-Portrait@2x.png in Resources */,
-				FA9EFCC11609E42B002D6195 /* Default-568h@2x.png in Resources */,
 				FAAEA7D2161BD26600CCD661 /* synonyms.txt in Resources */,
 				97719D2D1843ADD200BDD815 /* side-toolbar-slide-view-light.png in Resources */,
 				FA140652162A6288002BC1ED /* empty@2x.png in Resources */,
@@ -4815,6 +4699,8 @@
 		1D6058940D05DD3E006BFB54 /* Simulator Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4923,6 +4809,8 @@
 		FA0686DF13578E1D004CFF81 /* Production Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4986,6 +4874,8 @@
 		FA1DE85A11E2235D00C6D69A /* Debug Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5053,6 +4943,8 @@
 		FA1DE85C11E2236200C6D69A /* AdHoc Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5116,6 +5008,8 @@
 		FAAB411A149BA83500C245B1 /* Simulator Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5179,6 +5073,8 @@
 		FAAB411C149BA84700C245B1 /* Debug Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5246,6 +5142,8 @@
 		FAAB411E149BA85500C245B1 /* AdHoc Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5313,6 +5211,8 @@
 		FAAB4120149BA86000C245B1 /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5379,6 +5279,8 @@
 		FABB561D149CD943006969C0 /* Release Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5445,6 +5347,8 @@
 		FABB561F149CD957006969C0 /* Release Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5511,6 +5415,8 @@
 		FACFE54515F8F35600CE8B20 /* Simulator Full Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5533,6 +5439,8 @@
 		FACFE54615F8F35600CE8B20 /* Simulator Full Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5554,6 +5462,8 @@
 		FAFB0914151215EE0041901D /* Simulator Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5575,6 +5485,8 @@
 		FAFB0915151215EE0041901D /* Simulator Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5596,6 +5508,8 @@
 		FAFB0916151215EE0041901D /* Debug Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5617,6 +5531,8 @@
 		FAFB0917151215EE0041901D /* Debug Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5638,6 +5554,8 @@
 		FAFB0918151215EE0041901D /* AdHoc Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5659,6 +5577,8 @@
 		FAFB0919151215EE0041901D /* Release Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5680,6 +5600,8 @@
 		FAFB091A151215EE0041901D /* AdHoc Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5701,6 +5623,8 @@
 		FAFB091B151215EE0041901D /* Release Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5722,6 +5646,8 @@
 		FAFB091C151215EE0041901D /* Production Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5743,6 +5669,8 @@
 		FAFB091D151215EE0041901D /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
