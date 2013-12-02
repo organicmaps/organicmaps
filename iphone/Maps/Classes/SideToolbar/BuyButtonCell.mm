@@ -36,20 +36,35 @@
 
 + (CGFloat)cellHeight
 {
-  return GetPlatform().IsPro() ? 0 : 70;
+  return GetPlatform().IsPro() ? 0 : (IPAD ? 92 : 80);
 }
 
 - (UIButton *)buyButton
 {
   if (!_buyButton)
   {
-    UIImage * buyImage = [UIImage imageNamed:@"side-toolbar-button-become-pro"];
-    _buyButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buyImage.size.width, buyImage.size.height)];
-    _buyButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 1, 0);
-    _buyButton.contentMode = UIViewContentModeCenter;
+    UIImage * buyImage = [[UIImage imageNamed:@"side-toolbar-button-become-pro"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
+    _buyButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buyImage.size.width, buyImage.size.height + 6)];
+    _buyButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 2, 0);
+    _buyButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    _buyButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    _buyButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16];
     [_buyButton setBackgroundImage:buyImage forState:UIControlStateNormal];
-    [_buyButton setTitle:NSLocalizedString(@"become_a_pro", nil) forState:UIControlStateNormal];
-    [_buyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+
+    NSString *proText = [NSLocalizedString(@"become_a_pro", nil) uppercaseString];
+    NSRange boldRange = [proText rangeOfString:@"pro" options:NSCaseInsensitiveSearch];
+    if (boldRange.location == NSNotFound)
+      boldRange = [proText rangeOfString:@"полную" options:NSCaseInsensitiveSearch];
+    if (boldRange.location == NSNotFound)
+      boldRange = [proText rangeOfString:@"про" options:NSCaseInsensitiveSearch];
+
+    NSDictionary *attributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
+    NSMutableAttributedString *attributedProText = [[NSMutableAttributedString alloc] initWithString:proText attributes:attributes];
+    CGFloat size = _buyButton.titleLabel.font.pointSize;
+    [attributedProText addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:size] range:boldRange];
+
+    [_buyButton setAttributedTitle:attributedProText forState:UIControlStateNormal];
+
     [_buyButton addTarget:self action:@selector(buyButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
   }
   return _buyButton;

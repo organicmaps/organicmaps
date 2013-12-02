@@ -97,6 +97,17 @@ typedef NS_ENUM(NSUInteger, Section)
       customCell.disabled = [disabledInTrial[indexPath.row] boolValue];
 
     customCell.iconImageView.image = [UIImage imageNamed:menuImageNames[indexPath.row]];
+    NSInteger wordsCount = [[menuTitles[indexPath.row] componentsSeparatedByString:@" "] count];
+    if (wordsCount > 1)
+    {
+      customCell.titleLabel.numberOfLines = 0;
+      customCell.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    }
+    else
+    {
+      customCell.titleLabel.numberOfLines = 1;
+      customCell.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    }
     customCell.titleLabel.text = menuTitles[indexPath.row];
 
     cell = customCell;

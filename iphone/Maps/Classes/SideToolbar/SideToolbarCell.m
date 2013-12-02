@@ -28,6 +28,8 @@
   [self.contentView addSubview:self.proMarker];
   [self.contentView addSubview:self.separator];
 
+  self.titleLabel.textColor = [UIColor whiteColor];
+
   return self;
 }
 
@@ -65,8 +67,8 @@
 
 - (void)setDisabled:(BOOL)disabled
 {
-  self.titleLabel.textColor = disabled ? [UIColor lightGrayColor] : [UIColor whiteColor];
   self.proMarker.hidden = !disabled;
+  self.titleLabel.width = disabled ? 140 : 200;
   _disabled = disabled;
 }
 
@@ -112,10 +114,9 @@
 {
   if (!_titleLabel)
   {
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 48)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 48)];
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.5];
-    _titleLabel.numberOfLines = 0;
   }
   return _titleLabel;
 }
