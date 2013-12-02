@@ -32,7 +32,7 @@
     if (isMetric)
     {
       u = Settings::Metric;
-      [controller SetupMeasurementSystem];
+      [controller setupMeasurementSystem];
     }      
     else
     {
@@ -58,7 +58,7 @@
     Settings::Set("Units", u);
   }
   else
-    [controller SetupMeasurementSystem];
+    [controller setupMeasurementSystem];
 }
 
 @end

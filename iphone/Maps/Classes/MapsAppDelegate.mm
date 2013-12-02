@@ -57,12 +57,12 @@ void InitLocalizedStrings()
 
 - (void) applicationWillTerminate: (UIApplication *) application
 {
-	[m_mapViewController OnTerminate];
+	[m_mapViewController onTerminate];
 }
 
 - (void) applicationDidEnterBackground: (UIApplication *) application
 {
-	[m_mapViewController OnEnterBackground];
+	[m_mapViewController onEnterBackground];
   if(m_activeDownloadsCounter)
   {
     m_backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
@@ -75,7 +75,7 @@ void InitLocalizedStrings()
 - (void) applicationWillEnterForeground: (UIApplication *) application
 {
   [m_locationManager orientationChanged];
-  [m_mapViewController OnEnterForeground];
+  [m_mapViewController onEnterForeground];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -194,7 +194,7 @@ void InitLocalizedStrings()
 
   InitLocalizedStrings();
 
-  [m_mapViewController OnEnterForeground];
+  [m_mapViewController onEnterForeground];
 
   [Preferences setup:m_mapViewController];
   m_locationManager = [[LocationManager alloc] init];

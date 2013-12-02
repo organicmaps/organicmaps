@@ -30,14 +30,14 @@ namespace search { struct AddressInfo; }
   CGPoint m_popoverPos;
 }
 
-- (void)SetupMeasurementSystem;
+- (void)setupMeasurementSystem;
 
 // called when app is terminated by system
-- (void)OnTerminate;
-- (void)OnEnterForeground;
-- (void)OnEnterBackground;
+- (void)onTerminate;
+- (void)onEnterForeground;
+- (void)onEnterBackground;
 
-- (IBAction)OnMyPositionClicked:(id)sender;
+- (IBAction)onMyPositionClicked:(id)sender;
 
 - (void)showSearchResultAsBookmarkAtMercatorPoint:(m2::PointD const &)pt withInfo:(search::AddressInfo const &)info;
 - (void)showBalloonWithCategoryIndex:(int)cat andBookmarkIndex:(int)bm;

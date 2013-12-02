@@ -14,8 +14,8 @@
 typedef NS_ENUM(NSUInteger, Section)
 {
   SectionMetrics,
-  SectionStatistics,
   SectionZoomButtons,
+  SectionStatistics,
   SectionAbout,
   SectionCount
 };
@@ -140,7 +140,7 @@ Settings::Units unitsForIndex(NSInteger index)
     Settings::Units units = unitsForIndex(indexPath.row);
     Settings::Set("Units", units);
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:SectionMetrics] withRowAnimation:UITableViewRowAnimationNone];
-    [[MapsAppDelegate theApp].m_mapViewController SetupMeasurementSystem];
+    [[MapsAppDelegate theApp].m_mapViewController setupMeasurementSystem];
   }
   else if (indexPath.section == SectionAbout)
   {
