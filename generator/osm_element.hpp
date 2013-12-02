@@ -6,6 +6,7 @@
 #include "ways_merger.hpp"
 
 #include "../indexer/feature_visibility.hpp"
+#include "../indexer/classificator.hpp"
 
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
@@ -238,6 +239,36 @@ protected:
     ft.SetAreaAddHoles(processor.GetHoles());
   }
 
+  class UselessSingleTypes
+  {
+    vector<uint32_t> m_types;
+
+    bool IsUseless(uint32_t t) const
+    {
+      return (find(m_types.begin(), m_types.end(), t) != m_types.end());
+    }
+
+  public:
+    UselessSingleTypes()
+    {
+      Classificator const & c = classif();
+
+      char const * arr[][1] = { { "oneway" }, { "lit" } };
+      for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+        m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 1)));
+    }
+
+    bool IsValid(vector<uint32_t> const & types) const
+    {
+      size_t const count = types.size();
+      size_t uselessCount = 0;
+      for (size_t i = 0; i < count; ++i)
+        if (IsUseless(types[i]))
+          ++uselessCount;
+      return (count > uselessCount);
+    }
+  };
+
   bool ParseType(XMLElement * p, uint64_t & id, FeatureParams & fValue)
   {
     CHECK ( strings::to_uint64(p->attrs["id"], id), (p->attrs["id"]) );
@@ -262,7 +293,8 @@ protected:
     fValue.FinishAddingTypes();
 
     // unrecognized feature by classificator
-    return fValue.IsValid();
+    static UselessSingleTypes checker;
+    return fValue.IsValid() && checker.IsValid(fValue.m_Types);
   }
 
   class multipolygons_emitter

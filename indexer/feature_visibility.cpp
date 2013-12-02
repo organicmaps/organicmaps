@@ -138,34 +138,6 @@ namespace
   };
 }
 
-namespace
-{
-  class UselessCheckPatch
-  {
-    uint32_t m_oneway, m_highway;
-
-  public:
-    UselessCheckPatch(Classificator const & c)
-    {
-      vector<string> v;
-      v.push_back("oneway");
-      m_oneway = c.GetTypeByPath(v);
-
-      v.clear();
-      v.push_back("highway");
-      m_highway = c.GetTypeByPath(v);
-    }
-
-    bool IsHighway(uint32_t t) const
-    {
-      ftype::TruncValue(t, 1);
-      return (t == m_highway);
-    }
-
-    bool IsOneway(uint32_t t) const { return (t == m_oneway); }
-  };
-}
-
 pair<int, bool> GetDrawRule(FeatureBase const & f, int level,
                             drule::KeysT & keys, string & names)
 {
@@ -174,28 +146,13 @@ pair<int, bool> GetDrawRule(FeatureBase const & f, int level,
   ASSERT ( keys.empty(), () );
   Classificator const & c = classif();
 
-  static UselessCheckPatch patch(c);
-
-  bool hasHighway = false;
-  for (size_t i = 0; i < types.Size(); ++i)
-    if (patch.IsHighway(types[i]))
-    {
-      hasHighway = true;
-      break;
-    }
-
   DrawRuleGetter doRules(level, types.GetGeoType(), keys
 #ifdef DEBUG
                          , names
 #endif
                          );
   for (size_t i = 0; i < types.Size(); ++i)
-  {
-    if (!hasHighway && patch.IsOneway(types[i]))
-      continue;
-
     (void)c.ProcessObjects(types[i], doRules);
-  }
 
   return make_pair(types.GetGeoType(), types.Has(c.GetCoastType()));
 }
