@@ -30,12 +30,12 @@ namespace search { struct AddressInfo; }
   CGPoint m_popoverPos;
 }
 
-- (void) SetupMeasurementSystem;
+- (void)SetupMeasurementSystem;
 
 // called when app is terminated by system
-- (void) OnTerminate;
-- (void) OnEnterForeground;
-- (void) OnEnterBackground;
+- (void)OnTerminate;
+- (void)OnEnterForeground;
+- (void)OnEnterBackground;
 
 - (IBAction)OnMyPositionClicked:(id)sender;
 

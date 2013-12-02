@@ -107,9 +107,7 @@ const long long LITE_IDL = 431183278L;
     Framework & f = GetFramework();
 
     if (f.GetLocationState()->IsFirstPosition())
-    {
       [self.locationButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
-    }
 
     f.OnLocationUpdate(info);
 
@@ -245,12 +243,12 @@ const long long LITE_IDL = 431183278L;
   GetFramework().GetBalloonManager().OnClick(m2::PointD(pxClicked.x, pxClicked.y), isLongClick);
 }
 
-- (void) onSingleTap:(NSValue *)point
+- (void)onSingleTap:(NSValue *)point
 {
   [self processMapClickAtPoint:[point CGPointValue] longClick:NO];
 }
 
-- (void) onLongTap:(NSValue *)point
+- (void)onLongTap:(NSValue *)point
 {
   [self processMapClickAtPoint:[point CGPointValue] longClick:YES];
 }
@@ -265,7 +263,7 @@ const long long LITE_IDL = 431183278L;
   GetFramework().GetBalloonManager().ShowBookmark(BookmarkAndCategory(cat,bm));
 }
 
-- (id) initWithCoder: (NSCoder *)coder
+- (id)initWithCoder: (NSCoder *)coder
 {
   NSLog(@"MapViewController initWithCoder Started");
 
@@ -331,7 +329,7 @@ NSInteger compareAddress(id l, id r, void * context)
 	return l < r;
 }
 
-- (void) updatePointsFromEvent:(UIEvent*)event
+- (void)updatePointsFromEvent:(UIEvent*)event
 {
 	NSSet * allTouches = [event allTouches];
 
@@ -364,7 +362,7 @@ NSInteger compareAddress(id l, id r, void * context)
   }
 }
 
-- (void) stopCurrentAction
+- (void)stopCurrentAction
 {
 	switch (m_CurrentAction)
 	{
@@ -381,7 +379,7 @@ NSInteger compareAddress(id l, id r, void * context)
 	m_CurrentAction = NOTHING;
 }
 
-- (void) touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
+- (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
 {
   // To cancel single tap timer
   UITouch * theTouch = (UITouch *)[touches anyObject];
@@ -417,7 +415,7 @@ NSInteger compareAddress(id l, id r, void * context)
     [self.sideToolbar setMenuHidden:YES animated:YES];
 }
 
-- (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
+- (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
 {
   m2::PointD const TempPt1 = m_Pt1;
 	m2::PointD const TempPt2 = m_Pt2;
@@ -468,7 +466,7 @@ NSInteger compareAddress(id l, id r, void * context)
 	}
 }
 
-- (void) touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event
+- (void)touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event
 {
 	[self updatePointsFromEvent:event];
 	[self stopCurrentAction];
@@ -510,7 +508,7 @@ NSInteger compareAddress(id l, id r, void * context)
   }
 }
 
-- (void) touchesCancelled:(NSSet*)touches withEvent:(UIEvent*)event
+- (void)touchesCancelled:(NSSet*)touches withEvent:(UIEvent*)event
 {
   [NSObject cancelPreviousPerformRequestsWithTarget:self];
 
@@ -518,29 +516,29 @@ NSInteger compareAddress(id l, id r, void * context)
   [self stopCurrentAction];
 }
 
-- (BOOL) shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation) interfaceOrientation
+- (BOOL)shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation) interfaceOrientation
 {
 	return YES; // We support all orientations
 }
 
-- (void) didReceiveMemoryWarning
+- (void)didReceiveMemoryWarning
 {
 	GetFramework().MemoryWarning();
   [super didReceiveMemoryWarning];
 }
 
-- (void) OnTerminate
+- (void)OnTerminate
 {
   GetFramework().SaveState();
 }
 
-- (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
+- (void)didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
 {
   [self showPopover];
   [self Invalidate];
 }
 
-- (void) OnEnterBackground
+- (void)OnEnterBackground
 {
   [[Statistics instance] stopSession];
 
@@ -552,7 +550,7 @@ NSInteger compareAddress(id l, id r, void * context)
   f.EnterBackground();
 }
 
-- (void) OnEnterForeground
+- (void)OnEnterForeground
 {
   // Notify about entering foreground (should be called on the first launch too).
   GetFramework().EnterForeground();
@@ -771,7 +769,7 @@ NSInteger compareAddress(id l, id r, void * context)
   return UIStatusBarAnimationFade;
 }
 
-- (void) viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
   GetFramework().SetUpdatesEnabled(false);
 
@@ -832,7 +830,7 @@ NSInteger compareAddress(id l, id r, void * context)
   }
 }
 
--(void) manageAlert:(NSInteger)buttonIndex andUrl:(NSURL*)url andDlgSetting:(dlg_settings::DialogT)set
+- (void)manageAlert:(NSInteger)buttonIndex andUrl:(NSURL*)url andDlgSetting:(dlg_settings::DialogT)set
 {
   switch (buttonIndex)
   {
@@ -857,12 +855,12 @@ NSInteger compareAddress(id l, id r, void * context)
   }
 }
 
-- (void) destroyPopover
+- (void)destroyPopover
 {
   m_popover = nil;
 }
 
--(void)showPopover
+- (void)showPopover
 {
   if (m_popover)
     GetFramework().GetBalloonManager().Hide();
@@ -875,7 +873,7 @@ NSInteger compareAddress(id l, id r, void * context)
   [m_popover presentPopoverFromRect:CGRectMake(tmp.x / sf, tmp.y / sf, 1, 1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
-- (void) prepareForApi
+- (void)prepareForApi
 {
   _isApiMode = YES;
   if ([self shouldShowNavBar])
@@ -888,7 +886,7 @@ NSInteger compareAddress(id l, id r, void * context)
   }
 }
 
-- (void) clearApiMode
+- (void)clearApiMode
 {
   _isApiMode = NO;
   [self Invalidate];
