@@ -46,6 +46,7 @@ const long long LITE_IDL = 431183278L;
 
 @property (nonatomic) UIView * fadeView;
 @property (nonatomic) LocationButton * locationButton;
+@property (nonatomic, strong) UINavigationBar * apiNavigationBar;
 
 @end
 
@@ -738,6 +739,7 @@ NSInteger compareAddress(id l, id r, void * context)
 
   self.view.clipsToBounds = YES;
 
+  [self.view addSubview:self.apiNavigationBar];
   [self.view addSubview:self.locationButton];
   [self.view addSubview:self.fadeView];
   [self.view addSubview:self.sideToolbar];
@@ -878,9 +880,10 @@ NSInteger compareAddress(id l, id r, void * context)
   _isApiMode = YES;
   if ([self shouldShowNavBar])
   {
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"back", nil) style: UIBarButtonItemStyleDone target:self action:@selector(returnToApiApp)];
-    self.navigationItem.title = [NSString stringWithUTF8String:GetFramework().GetMapApiAppTitle().c_str()];
-    self.navigationController.navigationBarHidden = NO;
+    self.apiNavigationBar.topItem.title = [NSString stringWithUTF8String:GetFramework().GetMapApiAppTitle().c_str()];
+    [UIView animateWithDuration:0.3 animations:^{
+      self.apiNavigationBar.alpha = 1;
+    }];
     [self dismissPopover];
   }
 }
@@ -889,8 +892,9 @@ NSInteger compareAddress(id l, id r, void * context)
 {
   _isApiMode = NO;
   [self Invalidate];
-  self.navigationItem.title = nil;
-  [self.navigationController setNavigationBarHidden:YES animated:YES];
+  [UIView animateWithDuration:0.3 animations:^{
+      self.apiNavigationBar.alpha = 0;
+  }];
   Framework & f = GetFramework();
   f.ClearMapApiPoints();
   f.GetBalloonManager().Hide();
@@ -970,6 +974,21 @@ NSInteger compareAddress(id l, id r, void * context)
   }
   else
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (UINavigationBar *)apiNavigationBar
+{
+  if (!_apiNavigationBar)
+  {
+    CGFloat height = SYSTEM_VERSION_IS_LESS_THAN(@"7") ? 44 : 64;
+    _apiNavigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.width, height)];
+    UINavigationItem * item = [[UINavigationItem alloc] init];
+    _apiNavigationBar.items = @[item];
+    _apiNavigationBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _apiNavigationBar.topItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"back", nil) style: UIBarButtonItemStyleDone target:self action:@selector(returnToApiApp)];
+    _apiNavigationBar.alpha = 0;
+  }
+  return _apiNavigationBar;
 }
 
 - (void)dealloc

@@ -24,15 +24,8 @@
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-  if ([viewController isMemberOfClass:[MapViewController class]])
-  {
-    MapViewController * mapViewController = [MapsAppDelegate theApp].m_mapViewController;
-    [navigationController setNavigationBarHidden:![mapViewController shouldShowNavBar] animated:YES];
-  }
-  else
-  {
-    [navigationController setNavigationBarHidden:NO animated:animated];
-  }
+  [navigationController setNavigationBarHidden:[viewController isMemberOfClass:[MapViewController class]] animated:animated];
+
   if ([navigationController.viewControllers count] > 1)
     [viewController showBackButton];
 }
