@@ -2001,7 +2001,7 @@
     zh-Hant = 旅遊景點
     pl = osobliwości miasta
     pt = vistas
-    hu = látványosság
+    hu = látnivaló
   [entertainment]
     en = entertainment
     tags = ios,android

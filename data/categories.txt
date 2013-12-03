@@ -200,7 +200,7 @@ nl:bushalte|2bus|halte|4transport
 zh:1巴士站|巴士|運輸|交通|客運站|公車|公車站
 pl:przystanek autobusowy|autobus|4transport
 pt:paragem de autocarro|via férrea|transporte
-hu:buszmegálló|2busz|megálló|4közlekedés|szállítás
+hu:buszmegálló|2busz|megálló|4közlekedés
 
 railway-tram_stop
 en:tram stop|3tram|stop|4transport
@@ -217,7 +217,7 @@ nl:3tramhalte|4transport
 zh:1電車站|電車|運輸|交通|鐵路|大眾運輸
 pl:przystanek tramwajowy|tramwaj|transport
 pt:paragem de elétrico|via férrea|transporte
-hu:villamosmegálló|3villamos|megálló|4közlekedés|szállítás
+hu:villamosmegálló|3villamos|megálló|4közlekedés
 
 amenity-bus_station
 en:bus station|2bus|station|4transport
@@ -234,7 +234,7 @@ nl:busstation|2bus|station|4transport
 zh:1巴士|巴士站|交通|運輸
 pl:Stacja autobusowa|Zajezdnia|transport
 pt:estação rodoviária|4transporte
-hu:buszpályaudvar|2busz|megálló|4közlekedés|szállítás
+hu:buszpályaudvar|2busz|megálló|4közlekedés
 
 railway-station
 en:3train station|4railway|railroad|3train|4station|4transport
@@ -251,7 +251,7 @@ nl:4station|4spoorwegen|spoor|3trein|4transport
 zh:1鐵道|鐵路|火車|火車站|高鐵站|運輸
 pl:dworzec kolejowy|stacja kolejowa|transport
 pt:estação de comboios|caminhos-de-ferro|transporte
-hu:3vonatmegálló|4vonat|4megálló|4közlekedés|szállítás
+hu:3vonatmegálló|4vonat|4megálló|4közlekedés
 
 railway-subway_entrance|railway-station-subway
 en:3subway|3tube|3metro|3underground|transport
@@ -268,7 +268,7 @@ nl:3metro|transport
 zh:1地鐵|2地下鐵|運輸
 pl:3metro|kolej podziemna|transport
 pt:metro|transporte
-hu:3földalatti|3metro|közlekedés|szállítás
+hu:3földalatti|3metro|közlekedés
 
 tourism-attraction
 en:3attraction|3tourism|3sights
@@ -303,7 +303,7 @@ nl:4uitzicht|toerisme
 zh:1視野|景觀|景點|觀光|3旅遊景點
 pl:3punkt widokowy|widok|krajobraz|osobliwości miasta
 pt:4ponto de vista|turismo|vistas
-hu:4kilátó|kirándulás|látványosság|túrizmus
+hu:4kilátó|kirándulás|látványosság|látnivaló|túrizmus
 
 tourism-information
 en:4tourist information|4information|sights
@@ -320,7 +320,7 @@ nl:4toeristen informatie|4informatie|toerisme
 zh:2觀光諮詢|旅遊中心|旅遊問題|資訊|旅遊資訊
 pl:4informacja turystyczna|punkt informacji|osobliwości miasta
 pt:4informações turísticas|4informação|vistas
-hu:4túrista információ|4információ|látványosság
+hu:4túrista információ|4információ|látványosság|látnivaló
 
 tourism-picnic_site
 en:3picnic site|sights
@@ -337,7 +337,7 @@ nl:3picnic locatie|toerisme
 zh:1野餐|旅遊
 pl:4pole piknikowe|plener|piknik|osobliwości miasta
 pt:4local de piquenique|vistas
-hu:3piknikező hely|látványosság
+hu:3piknikező hely|látványosság|látnivaló
 
 amenity-place_of_worship
 en:place of worship|4temple|sights
@@ -354,7 +354,7 @@ nl:tempel|4temple|toerisme
 zh:1寺廟|佛|景點|寺院|教堂|做禮拜|觀光|古蹟|歷史|拜拜|燒香|禱告|寺|精舍|禪寺
 pl:4świątynia|kościół|turystyka|osobliwości miasta
 pt:local de culto|4templo|vistas
-hu:templom|látványosság
+hu:templom|látványosság|látnivaló
 
 amenity-bench
 en:bench
@@ -1527,7 +1527,7 @@ nl:monument|attractie|toerisme
 zh:1紀念碑|紀念塔|紀念館|旅遊景點
 pl:3pomnik historyczny|osobliwości miasta
 pt:monumento|turismo|vistas
-hu:szobor|emlékmű|túrizmus|látványosság
+hu:szobor|emlékmű|túrizmus|látványosság|látnivaló
 
 historic-ruins
 en:ruins|attraction|tourism|sights
