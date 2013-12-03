@@ -1427,6 +1427,7 @@
 		573D1AF3165252760093A55D /* location-follow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-follow@2x.png"; sourceTree = "<group>"; };
 		5797B6D316C931EE00FFE6D2 /* resources-mdpi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-mdpi"; path = "../../data/resources-mdpi"; sourceTree = "<group>"; };
 		5797B6D416C931EE00FFE6D2 /* resources-xhdpi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xhdpi"; path = "../../data/resources-xhdpi"; sourceTree = "<group>"; };
+		772923C9184E0440008C1EDC /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
 		77DDA9A116D504F900804BDB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MapsWithMe-Pro.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MapsWithMe-Pro.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		9747264118323080006B7CB7 /* UIKitCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIKitCategories.m; path = Categories/UIKitCategories.m; sourceTree = "<group>"; };
@@ -3387,6 +3388,7 @@
 				nl,
 				pl,
 				pt,
+				hu,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			projectDirPath = "";
@@ -4802,6 +4804,7 @@
 				FA5940D4171C964D0045C9BB /* ko */,
 				FA5940D5171C964D0045C9BB /* nl */,
 				FAF8E2EC1752E0F100D41090 /* pl */,
+				772923C9184E0440008C1EDC /* hu */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

@@ -19,6 +19,7 @@
     zh-Hant = 完整版的MapsWithMe特色在於更完善的離線搜尋，立即購買!
     pl = Nawigacja staje się prostsza kiedy masz pełną wersję aplikację MapsWithMe wraz z wyszukiwaniem offline. Pobierz już teraz!
     pt = Navegue mais facilmente com a versão completa do MapsWithMe com a funcionalidade de procura offline. Obtenha-a agora mesmo!
+    hu = További lehetőségek a MapsWithMe teljes verziójában. Töltse le most!
   [about]
     en = About
     comment = About button text (should be short)
@@ -35,6 +36,7 @@
     zh-Hant = 關於
     pl = O programie
     pt = Sobre
+    hu = A programról
   [back]
     en = Back
     comment = Button text (should be short)
@@ -51,6 +53,7 @@
     zh-Hant = 返回
     pl = Wróć
     pt = Voltar
+    hu = Vissza
   [cancel]
     en = Cancel
     comment = Button text (should be short)
@@ -67,6 +70,7 @@
     zh-Hant = 取消
     pl = Anuluj
     pt = Cancelar
+    hu = Mégse
   [cancel_download]
     en = Cancel Download
     comment = Button which interrupts country download
@@ -83,6 +87,7 @@
     zh-Hant = 取消下載
     pl = Anuluj pobieranie
     pt = Cancelar Descarga
+    hu = Letöltés megszakítása
   [delete]
     en = Delete
     comment = Button which deletes downloaded country
@@ -99,6 +104,7 @@
     zh-Hant = 刪除
     pl = Usuń
     pt = Eliminar
+    hu = Törlés
   [delete_old_maps]
     en = Delete old maps and proceed
     comment = Button in iOS Downloader, displayed only when upgrading from v1 to v2
@@ -115,6 +121,7 @@
     zh-Hant = 刪除舊的地圖並繼續
     pl = Usuń stare mapy i kontynuuj
     pt = Eliminar mapas antigos e continuar
+    hu = Régi térképek törlése és folytatás
   [do_not_ask_me_again]
     en = Do not ask me again
     comment = Button to dismiss dialog forever
@@ -131,6 +138,7 @@
     zh-Hant = 別再問我
     pl = Nie pytaj ponownie
     pt = Não volte a perguntar-me
+    hu = Ne kérdezze többször
   [do_nothing]
     en = Continue
     comment = Button "do not interrupt download" if user touched actively downloading country
@@ -147,6 +155,7 @@
     zh-Hant = 繼續
     pl = Kontynuuj
     pt = Continuar
+    hu = Folytatás
   [download_maps]
     en = Download Maps
     cs = Stáhnout mapy
@@ -162,6 +171,7 @@
     pl = Pobierz mapy
     zh-Hant = 下載地圖
     pt = Descarregar mapas
+    hu = Térképek letöltése
   [download_x_kb]
     en = Download %qu kB
     comment = Settings/Downloader - Download confirmation button
@@ -177,6 +187,7 @@
     zh-Hant = 下載 %qu kB
     pl = Pobierz %qu kB
     pt = Descarregar %qu kB
+    hu = %qu kB letöltése
   [download_x_mb]
     en = Download %qu MB
     comment = Settings/Downloader - Download confirmation button
@@ -192,6 +203,7 @@
     zh-Hant = 下載 %qu MB
     pl = Pobierz %qu MB
     pt = Descarregar %qu MB
+    hu = %qu MB letöltése
   [download_has_failed]
     en = Download has failed, touch again for one more try
     comment = Settings/Downloader - info for country when download fails
@@ -208,6 +220,7 @@
     zh-Hant = 下載失敗，請再試一次
     pl = Pobieranie nie powiodło się. Naciśnij, aby spróbować ponownie.
     pt = A descarga falhou, toque novamente para tentar uma vez mais.
+    hu = Letöltés sikertelen. Kérjük próbálja újra!
   [downloaded_x_y_touch_to_delete]
     en = Downloaded (%1$qu %2$@), touch to delete
     comment = Settings/Downloader - info for downloaded country
@@ -224,6 +237,7 @@
     zh-Hant = 已下載的 (%qu %@), 輕觸以刪除
     pl = Pobrano (%1$qu %2$@). Naciśnij, aby usunąć.
     pt = Descarregado (%1$qu %2$@), toque para eliminar.
+    hu = Letöltve (%1$qu %2$@), érintse meg a törléshez
   [downloading_x_touch_to_cancel]
     en = Downloading %qu%%, touch to cancel
     comment = Settings/Downloader - country info current download progress
@@ -240,6 +254,7 @@
     zh-Hant = 正在下載 %qu%%, 輕觸以取消
     pl = Pobieranie %qu%%. Naciśnij, aby anulować.
     pt = A descarregar %qu%%, toque para cancelar.
+    hu = %qu%% töltése, leállításhoz érintse meg.
   [downloading]
     en = Downloading…
     comment = Settings/Downloader - info for country which started downloading
@@ -256,6 +271,7 @@
     zh-Hant = 下載中…
     pl = Pobieranie…
     pt = A descarregar…
+    hu = Letöltés...
   [get_it_now]
     en = Get it now
     cs = Získat nyní
@@ -271,6 +287,7 @@
     zh-Hant = 馬上取得
     pl = Pobierz teraz
     pt = Obtenha agora
+    hu = Telepítés most
   [share_on_facebook_text]
     en = Are you enjoying MapsWithMe? Help your friends and family learn about the app, share it with them on Facebook!
     comment = Text to show occasionaly with a proposal to Like our program on Facebook
@@ -285,6 +302,7 @@
     zh-Hant = 喜歡MapsWithMe嗎？幫助您的朋友和家人了解應用程式，透過Facebook分享給他們吧！
     pl = Podoba ci się korzystanie z MapsWithMe? Pomóż swoim przyjaciołom i rodzinie w dowiedzeniu się czegoś więcej o aplikacji, udostępnij na Facebooku!
     pt = Está a gostar do MapsWithMe? Ajude os seus amigos e família a conhecer a app, partilhe-a com eles no Facebook!
+    hu = Tetszik a MapsWithMe? Ajánlja barátainak és családtagjainak, ossza meg velük Facebook-on!
   [leave_review_text]
     en = If you like MapsWithMe, please support us by writing a review. If you face any issues, please let us know by filling in a special form.
     comment = Leave Review dialog title
@@ -301,6 +319,7 @@
     zh-Hant = 如果您喜歡MapsWithMe，請支持我們並幫我們寫寫評論。如果您遇到任何問題，請填寫表單讓我們知道。
     pl = Jeśli podoba ci się aplikacja MapsWithMe, to wesprzyj nas i napisz recenzję. Jeśli masz problemy z poprawnym korzystaniem z aplikacji, to daj nam znać wypełniając specjalny formularz.
     pt = Se gosta do MapsWithMe, por favor apoie-nos escrevendo uma revisão. Se encontrar quaisquer problemas por favor contacte-nos preenchendo um formulário especial.
+    hu = Ha tetszik Önnek a MapsWithMe, kérjük támogasson minket ajánlás írásával. Ha probléma adódik, kérjük tájékoztasson minket a formanyomtatványon keresztül.
   [kb]
     en = kB
     comment = Settings/Downloader - size string
@@ -311,6 +330,7 @@
     uk = КБ
     pl = KB
     pt = kB
+    hu = kB
   [kilometres]
     en = Kilometres
     comment = Choose measurement on first launch alert - choose metric system button
@@ -327,6 +347,7 @@
     zh-Hant = 公里
     pl = Kilometry
     pt = Quilómetros
+    hu = Kilométer
   [leave_a_review]
     en = Leave a Review
     comment = Leave Review dialog - Review button
@@ -343,6 +364,7 @@
     zh-Hant = 發表評論
     pl = Napisz recenzję
     pt = Deixe uma revisão
+    hu = Ajánlás írása
   [location_services_are_needed_desc]
     en = Location Services are needed to display your current position on the map.
     comment = Location purpose text description
@@ -359,6 +381,7 @@
     zh-Hant = 定位服務需要在地圖上顯示您的目前位置
     pl = Usługi lokalizacji są potrzebne do wyświetlania twojej aktualnej pozycji na mapie.
     pt = São necessários os serviços de localização para apresentar a sua posição atual no mapa.
+    hu = Helyzetmeghatározó szolgáltatás szükséges az aktuális pozíció térképen történő megjelenítéséhez.
   [maps]
     en = Maps
     comment = View and button titles for accessibility
@@ -375,6 +398,7 @@
     zh-Hant = 地圖
     pl = Mapy
     pt = Mapas
+    hu = Térképek
   [marked_for_downloading]
     en = Marked for downloading, touch to cancel
     comment = Settings/Downloader - info for country in the download queue
@@ -391,6 +415,7 @@
     zh-Hant = 標記為下載，輕觸以取消
     pl = Oznaczono jako do pobrania. Naciśnij, aby anulować
     pt = Marcado para descarga, toque para cancelar
+    hu = Letöltésre kijelölve, elvetéshez érintse meg
   [mb]
     en = MB
     comment = Settings/Downloader - size string
@@ -400,6 +425,7 @@
     it = MB
     pl = MB
     pt = MB
+    hu = MB
   [miles]
     en = Miles
     comment = Choose measurement on first launch alert - choose imperial system button
@@ -416,6 +442,7 @@
     zh-Hant = 英哩
     pl = Mile
     pt = Milhas
+    hu = Mérföld
   [my_position]
     en = My Position
     comment = View and button titles for accessibility
@@ -432,6 +459,7 @@
     zh-Hant = 我的位置
     pl = Moja pozycja
     pt = A minha posição
+    hu = Saját helyzet
   [no_internet_connection_detected]
     en = No Internet connection detected
     comment = Settings/Downloader - No internet connection dialog title
@@ -448,6 +476,7 @@
     zh-Hant = 無網路連線
     pl = Nie wykryto połączenia z Internetem
     pt = Não foi detetada uma ligação à Internet
+    hu = Nem találtam internet kapcsolatot
   [no_wifi_ask_cellular_download]
     en = No WiFi connection detected. Would you like to use cellular data (GPRS, EDGE or 3G) to download %@?
     comment = Settings/Downloader - 3G download warning dialog title
@@ -464,12 +493,14 @@
     zh-Hant = 未發現WiFi訊號!您想使用其他的網路連線方式(GPRS, EDGE 或 3G)來下載嗎 %@？
     pl = Nie wykryto połączenia z siecią WiFi. Czy chciałbyś skorzystać z trybu sieci danych (GPRS, EDGE lub 3G), aby pobrać %@?
     pt = Não detetada uma ligação WiFi. Pretende utilizar os dados por pacotes (GPRS, EDGE or 3G) para descarregar %@?
+    hu = Nem találtam WiFi kapcsolatot. Használjunk mobil kapcsolatot (GPRS, EDGE vagy 3G) %@ letöltéséhez?
   [ok]
     en = OK
     fr = OK
     zh-Hant = 好的
     pl = OK
     pt = OK
+    hu = OK
   [enable_location_services]
     en = Please enable Location Services
     comment = not used? Search View - Location is disabled by user warning text
@@ -486,6 +517,7 @@
     zh-Hant = 請啟動位置服務
     pl = Proszę włączyć usługi lokalizacji
     pt = Por favor active os Serviços de Localização
+    hu = Kérjük kapcsolja be a helyzetmeghatározó szolgáltatást
   [free_disk_space_for_country_x]
     en = Please free some space on your device first in order to download %@
     comment = Settings/Downloader - No free space dialog message
@@ -501,6 +533,7 @@
     uk = Немає вільного місця. Будь ласка, видаліть непотрібні карти або програми, щоб завантажити %@
     zh-Hant = 如要下載%@ ，請先釋放一些空間!
     pt = Por favor liberte primeiro algum espaço no seu dispositivo para descarregar %@
+    hu = Kérjük szabadítson fel helyet az eszközön, hogy le tudja tölteni %@-t
   [remind_me_later]
     en = Remind me later
     tags = ios,android
@@ -518,6 +551,7 @@
     zh-Hant = 稍後提醒我
     pl = Przypomnij mi później
     pt = Lembrar-me mais tarde
+    hu = Emlékeztessen később
   [later]
     en = Later
     comment = Update maps later/Buy pro version later button text
@@ -533,6 +567,7 @@
     zh-Hant = 稍後
     pl = Później
     pt = Mais tarde
+    hu = Később
   [never]
     en = Never
     comment = Don't show some dialog any more
@@ -547,6 +582,7 @@
     zh-Hant = 不再提醒
     pl = Nigdy
     pt = Nunca
+    hu = Soha
   [report_an_issue]
     en = Report an issue
     comment = Leave Review dialog - Complain button (goes to support site)
@@ -563,6 +599,7 @@
     zh-Hant = 回饋問題
     pl = Zgłoś błąd
     pt = Reelatar um problema
+    hu = Hiba jelentése
   [search]
     en = Search
     comment = View and button titles for accessibility
@@ -579,6 +616,7 @@
     zh-Hant = 搜尋
     pl = Szukaj
     pt = Procura
+    hu = Keresés
   [search_available_in_pro_version]
     en = Search is only available in the full version of MapsWithMe. Get it right now!
     comment = Search button pressed dialog title in the free version
@@ -595,6 +633,7 @@
     zh-Hant = 搜尋功能僅適用於MapsWithMe專業完整版。馬上購買！
     pl = Szukanie jest dostępne tylko w pełnej wersji MapsWithMe. Pobierz już teraz!
     pt = A procura apenas está disponível na versão completa do MapsWithMe. Obtenha-a agora mesmo!
+    hu = Keresés csak a MapsWithMe teljes verziójában érhető el. Vásárolja meg most!
   [search_map]
     en = Search Map
     comment = Search box placeholder text
@@ -611,6 +650,7 @@
     zh-Hant = 搜尋地圖
     pl = Szukaj mapy
     pt = Procurar mapa
+    hu = Keresés a térképen
   [not_enough_disk_space]
     en = There is not enough free disk space
     comment = Settings/Downloader - No free space dialog title
@@ -627,6 +667,7 @@
     zh-Hant = 沒有足夠的儲存空間
     pl = Nie ma wystarczającej ilości wolnego miejsca
     pt = Não há espaço livre suficiente em disco
+    hu = Nincs elég szabad hely a lemezen
   [touch_to_download]
     en = Touch to download
     comment = Settings/Downloader - info for not downloaded country
@@ -643,6 +684,7 @@
     zh-Hant = 輕觸後下載
     pl = Naciśnij, aby pobrać.
     pt = Toque para descarregar
+    hu = Érintse meg letöltéshez
   [use_cellular_data]
     en = Yes
     comment = Settings/Downloader - 3G download warning dialog confirm button
@@ -659,6 +701,7 @@
     zh-Hant = 是的
     pl = Tak
     pt = Sim
+    hu = Igen
   [use_wifi_recommendation_text]
     en = We recommend using WiFi to download large maps
     comment = Settings/Downloader - No internet connection dialog message
@@ -675,6 +718,7 @@
     zh-Hant = 我們建議透過WiFi連線來下載較大的地圖
     pl = Zalecamy korzystanie z WiFi przy pobieraniu dużych map
     pt = Recomendamos a utilização de WiFi para descarregar grandes mapas
+    hu = WiFi használatát javasoljuk nagy térképek letöltéséhez
   [new_map_data_format_upgrade_dialog]
     en = We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.
     comment = NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2
@@ -687,6 +731,7 @@
     uk = Ми оновили карти і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими картами, необхідно попередньо видалити старi.
     zh-Hant = “我們已經更新並縮小了地圖資料，而較大的國家，您可以只選擇您所需的地區/國家來下載即可。如果您要使用新地圖，則需先刪除先前已下載的圖資後方能使用!”
     pl = Zaktualizowaliśmy dane map i zmniejszyliśmy ich rozmiar. W przypadku większych krajów możesz teraz pobrać tylko te regiony/stany, które są ci potrzebne. Jednak by korzystać z nowych map powinieneś skasować wszystkie stare mapy, które kiedyś pobrałeś.
+    hu = Frissítettük a térképadatokat. Nagyobb országokban most egyes régiók külön is letölthetőek. Az új térképek használata előtt kérjük törölje le a régi térképeket.
   [which_measurement_system]
     en = Which measurement system do you prefer?
     comment = Choose measurement on first launch alert - title
@@ -703,6 +748,7 @@
     zh-Hant = 您偏好哪種測量單位系統？
     pl = Który system miar bardziej ci odpowiada?
     pt = Que sistema de medidas prefere?
+    hu = Milyen mértékegységet használjunk?
   [location_is_disabled_long_text]
     en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
     comment = Location services are disabled by user alert - message
@@ -719,6 +765,7 @@
     zh-Hant = 您目前裝置所有的定位服務或相關應用程式是處於停用的狀態，請從系統設定中選擇啟用。
     pl = Usługi lokalizacji są aktualnie wyłączone dla tego urządzenia lub aplikacji. Proszę włączyć je w ustawieniach.
     pt = Atualmente tem todos os Serviços de Localização para este dispositivo ou aplicação desativados. Por favor ative-os nas Definições.
+    hu = Ezen az eszközön jelenleg minden helyzetmeghatározó szolgáltatás ki van kapcsolva. Kérjük kapcsolja be ezeket a Beállítások között.
   [device_doesnot_support_location_services]
     en = Your device doesn't support Location Services
     comment = Location Services are not available on the device alert - message
@@ -735,6 +782,7 @@
     zh-Hant = 你的裝置不支援定位服務唷!
     pl = Twoje urządzenie nie wspiera usług lokalizacji
     pt = O seu dispositivo não suporta os Serviços de Localização
+    hu = Az eszköz nem támogatja a helyzetmeghatározó szolgáltatásokat
   [zoom_to_country]
     en = Zoom to the country
     comment = View and button titles for accessibility
@@ -751,6 +799,7 @@
     zh-Hant = 放大到全國檢視
     pl = Przybliż na kraj
     pt = Zoom no país
+    hu = Nagyítson az országra
   [country_status_added_to_queue]
     en = ^is added to the downloading queue.
     comment = Message to display at the center of the screen when the country is added to the downloading queue
@@ -767,6 +816,7 @@
     zh-Hant = ^已加入到下載佇列中
     pl = ^dodano do kolejki pobierania.
     pt = ^é adicionado à fila de descargas.
+    hu = ^-t hozzáadtuk a letöltési sorhoz.
   [country_status_downloading]
     en = Downloading^^%
     comment = Message to display at the center of the screen when the country is downloading
@@ -783,6 +833,7 @@
     zh-Hant = 下載中^^%
     pl = Pobieranie^^%
     pt = A descarregar^^%
+    hu = ^^% letöltése folyamatban
   [country_status_download]
     en = Download^
     comment = Button text for the button at the center of the screen when the country is not downloaded
@@ -798,6 +849,7 @@
     zh-Hant = 下載^
     pl = Pobierz^
     pt = Descarga^
+    hu = Letöltés^
   [country_status_download_failed]
     en = Downloading^has failed
     comment = Message to display at the center of the screen when the country download has failed
@@ -814,6 +866,7 @@
     zh-Hant = 下載^失敗
     pl = Pobieranie^nie powiodło się
     pt = A descarga^falhou
+    hu = ^ letöltése sikertelen
   [try_again]
     en = Try Again
     comment = Button text for the button under the country_status_download_failed message
@@ -830,6 +883,7 @@
     zh-Hant = 再試一次
     pl = Spróbuj ponownie
     pt = Tente de novo
+    hu = Újrapróbálkozás
   [app_name]
     en = MapsWithMe
     zh-Hant = MapsWithMe 專業版
@@ -848,6 +902,7 @@
     zh-Hant = 關於 MapsWithMe
     pl = O aplikacji MapsWithMe
     pt = Sobre o MapsWithMe
+    hu = A MapsWithMe programról
   [downloading_touch_to_cancel]
     en = Downloading %d%%, touch to cancel
     cs = Stahování %d%%, klepni pro zrušení
@@ -863,6 +918,7 @@
     zh-Hant = 正在下載 %d%%, 輕觸以取消
     pl = Pobieranie %d%%. Naciśnij, aby anulować.
     pt = A descarregar %d%%, toque para cancelar
+    hu = %d%% letöltése, elvetéshez érintse meg
   [downloaded_touch_to_delete]
     en = Downloaded (%@), touch to delete
     cs = Staženo (%@), klepni pro smazání
@@ -878,6 +934,7 @@
     zh-Hant = 已下載的 (%@), 輕觸以刪除
     pl = Pobrano (%@). Naciśnij, aby usunąć.
     pt = Descarregado (%@), toque para eliminar
+    hu = Letölve (%@), érintse meg törléshez
   [connection_settings]
     en = Connection Settings
     cs = Nastavení připojení
@@ -893,6 +950,7 @@
     zh-Hant = 連線設定
     pl = Ustawienia połączenia
     pt = Definições de Ligação
+    hu = Kapcsolat beállítások
   [download_mb_or_kb]
     en = Download %@
     cs = Stáhnout %@
@@ -907,6 +965,7 @@
     zh-Hant = 下載 %@
     pl = Pobierz %@
     pt = Descarga %@
+    hu = Letöltés %@
   [close]
     en = Close
     cs = Zavřít
@@ -922,6 +981,7 @@
     zh-Hant = 關閉
     pl = Zamknij
     pt = Fechar
+    hu = Bezár
   [unsupported_phone]
     en = A hardware accelerated OpenGL is required. Unfortunately, your device is not supported.
     cs = Je vyžadována hardwarová akcelerace OpenGL. Bohužel, tvé zařízení není podporováno.
@@ -937,6 +997,7 @@
     zh-Hant = 需要OpenGL硬體加速功能的支援。但很不幸的，您的裝置並不支援此功能!
     pl = OpenGL wymaga odpowiedniego urządzenia. Niestety twoje urządzenie nie wspiera tej technologii.
     pt = É necessário um OpenGL acelerado por hardware. Infelizmente o seu dispositivo não é suportado.
+    hu = Hardware-s gyorsítású OpenGL szükséges. Sajnos az Ön eszköze nem támogatott.
   [download]
     en = Download
     cs = Stáhnout
@@ -951,6 +1012,7 @@
     zh-Hant = 下載
     pl = Pobierz
     pt = Descarga
+    hu = Letöltés
   [external_storage_is_not_available]
     en = SD card/USB storage with downloaded maps is not available
     cs = SD karta/USB uložiště s uloženými mapami není k dispozici
@@ -966,6 +1028,7 @@
     zh-Hant = SD 卡/USB 無法有效儲存下載的地圖
     pl = Karta SD/Pamięć USB z pobranymi mapami nie jest dostępna
     pt = Não está disponível um cartão SD/armazenamento USB com os mapas descarregados
+    hu = Nem található téképeket tartalmazó SD kártya / USB tároló
   [disconnect_usb_cable]
     en = Please disconnect USB cable or insert memory card to use MapsWithMe
     cs = Prosím, odpoj USB kabel nebo vlož paměťovou kartu pro použití s MapsWithMe
@@ -981,6 +1044,7 @@
     zh-Hant = 請拔除USB線或插入SD卡以使用MapsWithMe
     pl = Proszę odłączyć kabel USB albo włożyć kartę pamięci by korzystać z MapsWithMe
     pt = Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar MapsWithMe
+    hu = Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a MapsWithMe használatához
   [not_enough_free_space_on_sdcard]
     en = Please free some space on SD card/USB storage first in order to use the app
     cs = Prosím, uvolni nejprve nějaký prostor na SD kartě/USB uložišti
@@ -996,6 +1060,7 @@
     zh-Hant = 如要繼續使用，請先釋放一些SD卡/ USB儲存空間
     pl = Proszę zwolnić trochę pamięci na karcie SD/pamięci USB, aby korzystać z aplikacji
     pt = Por favor liberte primeiro algum espaço no cartão SD/armazenamento USB para utilizar a app
+    hu = Kérjük szabadítson fel helyet az SD kártyán / USB tárolón az alkalmazás használatához!
   [not_enough_memory]
     en = Not enough memory to launch app
     cs = Nedostatek paměti ke spuštění aplikace
@@ -1011,6 +1076,7 @@
     zh-Hant = 沒有足夠的記憶體以啟用程式
     pl = Za mało pamięci by uruchomić aplikację
     pt = Não há memória suficiente para executar a app
+    hu = Nincs elegendő memória az alkalmazás futtatásához
   [free_space_for_country]
     en = Please free %1$@ on your device first in order to download %2$@
     cs = Prosím, uvolni nejprve %1$@ v tvém zařízení, abys mohl/a stáhnout %2$@
@@ -1026,6 +1092,7 @@
     zh-Hant = 請先釋放 %@ 系統空間以下載 %@
     pl = Proszę zwolnić %1$@ na swoim urządzeniu zanim rozpoczniesz pobieranie $2$@
     pt = Por favor liberte primeiro %1$@ no seu dispositivo para descarregar %2$@
+    hu = Kérjük szabadítson fel %1$@-t az eszközön $2$@ letöltéséhez!
   [download_resources]
     en = Before you start let us download general world map into your device.\nIt needs %.1f%@ of data.
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -1042,6 +1109,7 @@
     zh-Hant =  在您開始之前 ， 先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %.1f%@ 。
     pl = Zanim rozpoczniesz pozwól nam na pobranie ogólnej mapy świata na swoje urządzenie.\n Wymaga to %.1f%@ danych.
     pt = Antes de começar permita-nos que descarreguemos um mapa mundial geral para o seu dispositivo.\nÉ necessário %.1f%@ de dados.
+    hu = Első használat előtt letöltjük a világtérképet.\n %.1f%@ tárolóhely szükséges.
   [getting_position]
     en = Getting current position
     cs = Získávání aktuální polohy
@@ -1057,6 +1125,7 @@
     zh-Hant = 取得目前所在位置
     pl = Otrzymywanie informacji o aktualnej pozycji
     pt = A obter a posição atual
+    hu = Aktuális pozíció meghatározása...
   [download_resources_continue]
     en = Go to Map
     cs = Přejít na mapu
@@ -1072,6 +1141,7 @@
     zh-Hant = 跳到地圖
     pl = Idź do mapy
     pt = Ir para o mapa
+    hu = Térképhez ugrás
   [downloading_country_can_proceed]
     en = Downloading %@. You can now\nproceed to the map.
     cs = Stahování %@. Nyní můžeš\npřejít na mapu.
@@ -1087,6 +1157,7 @@
     zh-Hant = 正在下載 %@. 您現在 可以繼續使用地圖了
     pl = Pobieranie %@. Możesz teraz\notworzyć mapę.
     pt = A descarregar %@. Pode agora\ncontinuar para o mapa.
+    hu = %@ letöltése. Mos továbbléphet \n a térképhez.
   [download_country_ask]
     en = Download %@?
     cs = Stáhnout %@?
@@ -1102,6 +1173,7 @@
     zh-Hant = 下載 %@?
     pl = Pobrać %@?
     pt = Descarregar %@?
+    hu = Letöltsem %@-t?
   [update_country_ask]
     en = Update %@?
     cs = Aktualizovat %@?
@@ -1117,6 +1189,7 @@
     zh-Hant = 更新 %@?
     pl = Zaktualizować %@?
     pt = Atualizar %@?
+    hu = Frissítsem %@-t?
   [download_location_map_proposal]
     en = You can download the map\nof your current location.
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -1133,6 +1206,7 @@
     zh-Hant = 您可以下載目前所在位置的地圖。
     pl = Możesz pobrać mapę terenu\nwokół twojej aktualnej pozycji.
     pt = Pode descarregar o mapa\nda sua posição atual.
+    hu = Letöltheti az aktuális \npozícióhoz tartozó térképet.
   [download_location_update_map_proposal]
     en = You can update the map\nof your current location.
     comment = REMOVE THIS_STRING AFTER REFACTORING
@@ -1149,6 +1223,7 @@
     zh-Hant = 您可以更新目前所在位置的地圖。
     pl = Możesz zaktualizować mapę terenu\nwokół twojej aktualnej pozycji.
     pt = Pode atualizar o mapa\nda sua posição atual.
+    hu = Frissítheti az aktuális pozícióhoz \ntartozó térképet.
   [download_location_map_up_to_date]
     en = The map at your current\nlocation (%@) is up-to-date
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -1165,6 +1240,7 @@
     zh-Hant = 您目前所在位置 (%@) \n的地圖已是最新圖資 !
     pl = Mapa wokół twojej aktualnej\npozycji (%@) jest aktualna
     pt = O mapa da sua localização\natual (%@) está atualizado
+    hu = A jelenlegi pozícióhoz tartozó \n térkép (%@) naprakész.
   [pause]
     en = Pause
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -1180,6 +1256,7 @@
     zh-Hant = 暫停
     pl = Pauza
     pt = Pausa
+    hu = Szünet
   [continue_download]
     en = Continue
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -1196,6 +1273,7 @@
     zh-Hant = 繼續
     pl = Kontynuuj
     pt = Continuar
+    hu = Folytatás
   [downloaded_touch_to_update]
     en = Downloaded (%@), touch to update or delete
     cs = Staženo (%@), klepni pro smazání/aktualizaci
@@ -1211,6 +1289,7 @@
     zh-Hant = 下載 (%@), 輕觸以更新或刪除
     pl = Pobrano (%@). Naciśnij, aby zaktualizować lub usunąć.
     pt = Descarregado (%@), toque para atualizar ou eliminar
+    hu = Letölve (%@) , érintse meg frissítéshez vagy törléshez
   [update_mb_or_kb]
     en = Update %@
     cs = Aktualizace %@
@@ -1225,6 +1304,7 @@
     zh-Hant = 更新 %@
     pl = Aktualizacja %@
     pt = Atualizar %@
+    hu = %@ frissítése
   [search_update_maps]
     en = You need updated maps for search function:
     tags = android
@@ -1242,6 +1322,7 @@
     zh-Hant = 您需要更新地圖以使用搜尋功能：
     pl = Musisz posiadać zaktualizowane mapy, aby korzystać z funkcji szukania
     pt = Precisa de mapas atualizados para a função de procura:
+    hu = Frissített térképekre lesz szüksége a kereséshez:
   [advise_update_maps]
     en = Update available for these maps:
     tags = android
@@ -1259,6 +1340,7 @@
     zh-Hant = 以下為可用的更新地圖：
     pl = Aktualizacja dostępna dla tych map:
     pt = Atualização disponível para estes mapas:
+    hu = Az aktuális térképhez elérhető frissítések:
   [suggest_uninstall_lite]
     en = You don't need MapsWithMe Lite any more, so you can uninstall it.
     tags = android
@@ -1276,6 +1358,7 @@
     zh-Hant = 你再也不需要 MapsWithMe Lite了,所以您可以移除它!
     pl = Nie potrzebujesz już więcej MapsWithMe Lite, więc możesz je usunąć.
     pt = Não precisa mais do MapsWithMe Lite, podendo portanto desinstalá-la.
+    hu = Már nincs szüksége a MapsWithMe lite alkalmazásra, nyugodtan letörölheti.
   [download_country_success]
     en = %@ downloaded successfuly
     tags = android
@@ -1293,6 +1376,7 @@
     zh-Hant = %@ 已成功下載
     pl = %@ pobrano pomyślnie
     pt = %@ descarregado com sucesso
+    hu = %@ letöltése sikeres
   [download_country_failed]
     en = %@ download has failed
     tags = android
@@ -1310,6 +1394,7 @@
     zh-Hant = %@ 下載失敗
     pl = %@ pobieranie nie powiodło się
     pt = %@ descarga falhou
+    hu = %@ letöltése sikertelen
   [add_new_set]
     en = Add new Set
     tags = ios
@@ -1327,6 +1412,7 @@
     zh-Hant = 新增收藏夾
     pl = Dodaj nowy zestaw
     pt = Adicionar novo conjunto
+    hu = Új csoport létrehozása
   [add_to_bookmarks]
     en = Add to Bookmarks
     tags = ios,android
@@ -1343,6 +1429,7 @@
     zh-Hant = 添加到書簽
     pl = Dodaj do zakładek
     uk = Додати в закладки
+    hu = Könyvjelzőkhöz hozzáadás
   [bookmark_color]
     en = Bookmark Color
     tags = ios
@@ -1360,6 +1447,7 @@
     zh-Hant = 書籤顏色
     pl = Kolor zakładki
     pt = Cor de favoritos
+    hu = Könyvjelző színe
   [bookmark_set_name]
     en = Bookmark Set Name
     tags = ios
@@ -1377,6 +1465,7 @@
     zh-Hant = 收藏夾名稱
     pl = Nazwa zestawu zakładek
     pt = Nome do conjunto dos favoritos
+    hu = Könyvjelzőcsoport neve
   [bookmark_sets]
     en = Bookmark Sets
     tags = ios
@@ -1394,6 +1483,7 @@
     zh-Hant = 收藏夾
     pl = Zestawy zakładek
     pt = Conjuntos de favoritos
+    hu = Könyvjelzőcsoportok
   [bookmarks]
     en = Bookmarks
     tags = ios
@@ -1411,6 +1501,7 @@
     zh-Hant = 書籤
     pl = Zakładki
     pt = Favoritos
+    hu = Könyvjelzők
   [color]
     en = Color
     tags = ios
@@ -1427,6 +1518,7 @@
     zh-Hant = 顏色
     pl = Kolor
     pt = Cor
+    hu = Szín
   [dropped_pin]
     en = Dropped Pin
     tags = ios
@@ -1444,6 +1536,7 @@
     zh-Hant = 設下PIN
     pl = Znacznik
     pt = Marcador posicionado
+    hu = Beszúrt jelző
   [my_places]
     en = My Places
     tags = ios
@@ -1461,6 +1554,7 @@
     zh-Hant = 我的地點
     pl = Moje miejsca
     pt = Os meus locais
+    hu = Saját helyeim
   [name]
     en = Name
     tags = ios
@@ -1477,6 +1571,7 @@
     zh-Hant = 名字
     pl = Nazwa
     pt = Nome
+    hu = Név
   [address]
     en = Address
     tags = ios
@@ -1494,6 +1589,7 @@
     zh-Hant = 位址
     pl = Adres
     pt = Endereço
+    hu = Cím
   [remove_pin]
     en = Remove Pin
     tags = ios
@@ -1511,6 +1607,7 @@
     zh-Hant = 移除PIN
     pl = Usuń znacznik
     pt = Retirar o marcador
+    hu = Jelző törlése
   [set]
     en = Set
     tags = ios
@@ -1528,6 +1625,7 @@
     zh-Hant = 收藏夾
     pl = Zestaw
     pt = Conjunto
+    hu = Csoport
   [bookmarks_usage_hint]
     en = Bookmarks from other sources can be imported and displayed in MapsWithMe. Open KML/KMZ file with saved pins from mail, Dropbox or weblink.
     tags = ios,android
@@ -1545,6 +1643,7 @@
     zh-Hant = 其他來源的書簽也可在MapsWithMe應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。
     pl = Zakładki z innych źródeł mogą być importowane i wyświetlane w aplikacji MapsWithMe. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.
     pt = Os marcadores de outras fontes podem ser importados e exibidos na aplicação MapsWithMe. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.
+    hu = Más forrásokból származó könyvjelzőket is beolvashat a MapsWithMe programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.
   [settings]
     en = Settings
     tags = android
@@ -1562,6 +1661,7 @@
     zh-Hant = 設定
     pl = Ustawienia
     pt = Definições
+    hu = Beállítások
   [maps_storage]
     en = Maps storage
     tags = android
@@ -1579,6 +1679,7 @@
     zh-Hant = 地圖儲存
     pl = Pamięć map
     pt = Armazenamento dos mapas
+    hu = Térképek tárolása
   [maps_storage_summary]
     en = Select the place where maps should be downloaded to
     tags = android
@@ -1596,6 +1697,7 @@
     zh-Hant = 請選擇下載地圖後要放的位置
     pl = Wybierz lokalizację, w której mają być zapisywane pobierane mapy
     pt = Selecione o local para onde os mapas devem ser descarregados
+    hu = Válassza ki, hogy hova töltsük le a térképeket
   [move_maps]
     en = Move maps?
     tags = android
@@ -1613,6 +1715,7 @@
     zh-Hant = 移動地圖？
     pl = Przenieść mapy?
     pt = Mover mapas?
+    hu = Áthelyezzük a térképeket?
   [wait_several_minutes]
     en = This can take several minutes.\nPlease wait…
     tags = android
@@ -1630,6 +1733,7 @@
     zh-Hant = 這可能需要幾分鐘\n請稍候...
     pl = TO może zająć kilka minut.\nProszę czekać…
     pt = Isto pode demorar alguns minutos.\nPor favor aguarde…
+    hu = Ez több percig is eltarthat.\nKérjük várjon...
   [visible]
     en = Visible
     tags = ios
@@ -1646,6 +1750,7 @@
     zh-Hant = 看得到的
     pl = Widoczne
     pt = Visível
+    hu = látható
   [bookmarks_in_pro_version]
     en = Bookmarks are only available in the full version of MapsWithMe. Get it right now!
     tags = ios
@@ -1663,6 +1768,7 @@
     zh-Hant = 書籤是MapsWithMe完整版本才有的功能，馬上購買?
     pl = Zakładki są dostępne tylko w pełnej wersji MapsWithMe. Pobierz już teraz!
     pt = Os favoritos apenas estão disponíveis na versão completa de MapsWithMe. Obtenha-a agora mesmo!
+    hu = Könyvjelzők csak a MapsWithMe teljes verziójában érhetőek el. Vásárolja meg most!
   [gps_is_disabled_long_text]
     en = GPS is disabled. Please enable it in Settings.
     tags = android
@@ -1680,6 +1786,7 @@
     zh-Hant = GPS 目前是關閉的，請在系統中設定為開啟使用
     pl = GPS jest wyłączony. Proszę włączyć go w ustawieniach.
     pt = O GPS está desativado. Por favor ative-o nas Definições.
+    hu = GPS kikapcsolva. Kérjük kapcsolja be a Beállítások között.
   [measurement_units]
     en = Measurement Units
     tags = ios,android
@@ -1697,6 +1804,7 @@
     zh-Hant = 測量單位
     pl = Jednostki miary
     pt = Unidades de medida
+    hu = Mértékegységek
   [measurement_units_summary]
     en = Choose between miles and kilometres
     tags = ios,android
@@ -1714,6 +1822,7 @@
     zh-Hant = 請選擇公里或英哩
     pl = Wybierz pomiędzy milami, a kilometrami
     pt = Escolha entre milhas e quilómetros
+    hu = Válasszon kilométer és mérföld között
   [search_mode_all]
     en = Everywhere
     tags = ios,android
@@ -1731,6 +1840,7 @@
     zh-Hant = 任何地方
     pl = Wszędzie
     pt = Em toda a parte
+    hu = Mindenütt
   [search_mode_nearme]
     en = Near Me
     tags = ios,android
@@ -1748,6 +1858,7 @@
     zh-Hant = 我的附近
     pl = W pobliżu mnie
     pt = Perto de mim
+    hu = A közelben
   [search_mode_viewport]
     en = On the Screen
     tags = ios,android
@@ -1765,6 +1876,7 @@
     zh-Hant = 畫面中的地圖
     pl = Na ekranie
     pt = No ecrã
+    hu = A képernyőn
   [food]
     en = food
     tags = ios,android
@@ -1782,6 +1894,7 @@
     zh-Hant = 飲食
     pl = jedzenie
     pt = alimentação
+    hu = élelmiszer
   [transport]
     en = transport
     tags = ios,android
@@ -1799,6 +1912,7 @@
     zh-Hant = 運輸
     pl = transport
     pt = transporte
+    hu = közlekedés
   [fuel]
     en = gas
     tags = ios,android
@@ -1816,6 +1930,7 @@
     zh-Hant = 加油站
     pl = stacja benzynowa
     pt = combustível
+    hu = benzinkút
   [parking]
     en = parking
     tags = ios,android
@@ -1833,6 +1948,7 @@
     zh-Hant = 停車場
     pl = parking
     pt = estacionamento
+    hu = parkoló
   [shop]
     en = shop
     tags = ios,android
@@ -1850,6 +1966,7 @@
     zh-Hant = 購物
     pl = sklep
     pt = compras
+    hu = bolt
   [hotel]
     en = hotel
     tags = ios,android
@@ -1866,6 +1983,7 @@
     zh-Hant = 飯店
     pl = hotel
     pt = hotel
+    hu = szálloda
   [tourism]
     en = sights
     tags = ios,android
@@ -1883,6 +2001,7 @@
     zh-Hant = 旅遊景點
     pl = osobliwości miasta
     pt = vistas
+    hu = látványosság
   [entertainment]
     en = entertainment
     tags = ios,android
@@ -1900,6 +2019,7 @@
     zh-Hant = 娛樂
     pl = rozrywka
     pt = entretenimento
+    hu = szórakozás
   [atm]
     en = atm
     tags = ios,android
@@ -1916,6 +2036,7 @@
     uk = банкомат
     pl = bankomat
     pt = multibanco
+    hu = pénzautomata
   [bank]
     en = bank
     tags = ios,android
@@ -1933,6 +2054,7 @@
     zh-Hant = 銀行
     pl = bank
     pt = banco
+    hu = bank
   [pharmacy]
     en = pharmacy
     tags = ios,android
@@ -1950,6 +2072,7 @@
     zh-Hant = 藥局
     pl = apteka
     pt = farmácia
+    hu = gyógyszertár
   [hospital]
     en = hospital
     tags = ios,android
@@ -1967,6 +2090,7 @@
     zh-Hant = 醫院
     pl = szpital
     pt = hospital
+    hu = kórház
   [toilet]
     en = toilet
     tags = ios,android
@@ -1984,6 +2108,7 @@
     zh-Hant = 廁所
     pl = toaleta
     pt = WC
+    hu = mosdó
   [post]
     en = post
     tags = ios,android
@@ -2001,6 +2126,7 @@
     zh-Hant = 郵筒
     pl = poczta
     pt = correios
+    hu = posta
   [police]
     en = police
     tags = ios,android
@@ -2018,6 +2144,7 @@
     zh-Hant = 警察局
     pl = policja
     pt = polícia
+    hu = rendőrség
   [no_search_results_found]
     en = No results found
     tags = ios,android
@@ -2035,6 +2162,7 @@
     zh-Hant = 找不到搜尋結果
     pl = Nie znaleziono
     pt = Não foram encontrados resultados
+    hu = Nincs keresési találat
   [description]
     en = Notes
     tags = ios,android
@@ -2052,6 +2180,7 @@
     zh-Hant = 描述說明
     pl = Notatki
     pt = Notas
+    hu = Jegyzetek
   [share_by_email]
     en = Share by email
     tags = ios,android
@@ -2069,6 +2198,7 @@
     zh-Hant = 以 email 分享
     pl = Udostępnij przez email
     pt = Partilhar por e-mail
+    hu = Megosztás email-en
   [share_bookmarks_email_subject]
     en = MapsWithMe bookmarks has been shared with you
     tags = ios,android
@@ -2086,6 +2216,7 @@
     zh-Hant = 您已分享了 MapsWithMe 書籤
     pl = Udostępniono ci zakładkę z MapsWithMe
     pt = Os favoritos do MapsWithMe foram partilhados consigo
+    hu = Egy MapsWithMe könyvjelzőt osztottak meg Önnel
   [share_bookmarks_email_body]
     en = Hello,\n\nHere are my bookmarks from MapsWithMe offline maps in the attached "%@.kmz" file. Please open it if you have MapsWithMe Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://www.mapswithme.com/get?kmz.\n\nHave a good time with MapsWithMe!
     tags = ios,android
@@ -2103,6 +2234,7 @@
     zh-Hant = 哈囉!\n\n這是我的MapsWithe離線地圖中所夾帶的 "%@.kmz" 書籤檔案。若您已安裝MapsWithMe專業版的話請開啟它，否則請先從 http://www.mapswithme.com/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用MapsWithMe愉快!
     pl = Cześć,\n\nOto moje zakładki pochodzące z aplikacji MapsWithMe wraz z załączonymi mapami offline w pliku "%@.kmz". Proszę otwórz to jeśli posiadasz zainstalowaną aplikację MapsWithMe Pro. Jeśli nie, najpierw pobierz ją na swoje urządzenie z systemem iOS lub Android pod tym linkiem: http://www.mapswithme.com/get?kmz. \n\nBaw się dobrze z MapsWithMe!
     pt = Olá,\n\nAqui estão os meus favoritos dos mapas offline do MapsWithMe, anexados no ficheiro "%@.kmz". Por favor abra-os se já tiver instalado o MapsWithMe Pro. Caso contrário, descarregue primeiro a app para o seu dispositivo iOS ou Android a partir desta hiperligação: http://www.mapswithme.com/get?kmz.\n\nDisfrute do MapsWithMe!
+    hu = Üdvözlöm!\n\nA mellékelt "%@.kmz" fájl tartalmazza a MapsWithMe könyvjelzőimet. Kérem nyissa meg, ha a MapsWithMe már telepítve van. Ha még nincs, akkor innen töltheti le: http://www.mapswithme.com/get?kmz. \n\nSok sikert a program használatához!
   [load_kmz_title]
     en = Loading Bookmarks
     tags = ios,android
@@ -2120,6 +2252,7 @@
     zh-Hant = 正在載入書籤...
     pl = Wczytywanie zakładek
     pt = A carregar favoritos
+    hu = Könyvjelzők letöltése
   [load_kmz_successful]
     en = Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.
     tags = ios,android
@@ -2137,6 +2270,7 @@
     zh-Hant = 書籤上傳成功! 您可以在地圖上或是書籤管理畫面中找到書籤。
     pl = Zakładki wczytane pomyślnie! Możesz znaleźć je na mapie lub w menedżerze zakładek.
     pt = Favoritos carregados com sucesso! Pode encontrá-los no mapa ou no ecrã de gestão dos favoritos.
+    hu = Könyvjelzők letöltése sikeres! Megtalálja őket a térképen vagy a Könyvjelzők kezelése menüben.
   [load_kmz_failed]
     en = Bookmarks upload failed. The file may be corrupted or defective.
     tags = ios,android
@@ -2154,6 +2288,7 @@
     zh-Hant = 書籤上傳失敗! 檔案可能有毀損或是不完全。
     pl = Przesyłanie zakładek nie powiodło się. Plik może być uszkodzony lub posiadać defekty.
     pt = Falha no envio dos favoritos. O ficheiro pode estar corrompido ou com defeito.
+    hu = Könyvjelzők feltöltése sikertelen. A fájl sérült lehet.
   [edit]
     en = Edit
     tags = android
@@ -2166,6 +2301,7 @@
     zh-Hant = 編輯
     pl = Edytuj
     pt = Editar
+    hu = Szerkeszt
   [unknown_current_position]
     en = Your location hasn't been determined yet
     tags = ios,android
@@ -2183,6 +2319,7 @@
     zh-Hant = 您的位置尚未定未完成
     pl = Twoja lokalizacja nie została jeszcze określona
     pt = A sua localização ainda não foi determinada
+    hu = Még nem határoztuk meg az aktuális helyzetét
   [download_location_country]
     en = Download the country (%@) of your current location
     tags = ios,android
@@ -2200,6 +2337,7 @@
     zh-Hant = 下載您目前所在位置的國家 (%@) 地圖
     pl = Pobierz mapę kraju (%@), w którym aktualnie przebywasz
     pt = Descarregue o país (%@) da sua localização atual
+    hu = Töltse le az aktuális helyzet országát (%@) 
   [download_viewport_country_to_search]
     en = Download the country (%@) you are searching on
     tags = ios,android
@@ -2217,6 +2355,7 @@
     zh-Hant = 下載您正在搜尋的國家 (%@) 地圖
     pl = Pobierz mapę kraju (%@), którego aktualnie poszukujesz
     pt = Descarregue o país (%@) em que está a fazer a procura
+    hu = Töltse le a keresés országát (%@) 
   [flurry_app_key]
     en =
     tags = android
@@ -2238,6 +2377,7 @@
     zh-Hant = 很抱歉, 地圖儲存設定目前是停用的狀態!
     pl = Przepraszamy, ustawienia pamięci mapy są aktualnie wyłączone.
     pt = Lamentamos, as definições do Map Storage estão atualmente desativadas.
+    hu = Sajnáljuk, a térképek tárolása jelenleg ki van kapcsolva.
   [downloading_is_active]
     en = Country download is in progress now.
     tags = android
@@ -2255,6 +2395,7 @@
     zh-Hant = 國家地圖正在進行下載
     pl = Pobieranie mapy kraju jest w toku.
     pt = A descarga do país está atualmente em progresso.
+    hu = Országletöltés folyamatban.
   [appStore_message]
     en = Hope you enjoy using MapsWithMe! If so, please rate or review the app at the App Store. It takes less than a minute but can really help us. Thanks for your support!
     tags = ios
@@ -2272,6 +2413,7 @@
     zh-Hant = 祝您使用 MapsWithMe愉快! 方便的話，請到App Store幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持!
     pl = Mamy nadzieję, że podoba ci się aplikacja MapsWithMe! Jeśli tak to proszę oceń ją lub napisz recenzję w AppStore. To zajmie ci mniej niż minutę, a bardzo nam pomoże. Dziękujemy za wsparcie!
     pt = Esperamos que esteja a disfrutar da utilização do MapsWithMe! Se assim for, por favor classifique ou dê a sua opinião sobre a app na App Store. Vai demorar menos de um minuto mas pode mesmo ajudar-nos. Obrigado pelo seu apoio!
+    hu = Reméljük élvezi a MapsWithMe használatát. Ha igen, kérjük írjon ajánlást az App Store-ban! Kevesebb mint egy perc, és valóban segít nekünk. Köszönjük!
   [no_thanks]
     en = No, thanks
     tags = ios,android
@@ -2289,6 +2431,7 @@
     zh-Hant = 不, 謝了!
     pl = Nie, dziękuję
     pt = Não, obrigado
+    hu = Köszönöm, nem
   [bookmark_share_sms]
     en = Hey, check out my pin at MapsWithMe! %1$@ or %2$@ Don't have offline maps installed? Download here: http://mapswith.me/get
     tags = ios,android
@@ -2305,6 +2448,7 @@
     es = Ve mi alfiler en mapa. Abre %1$@ o %2$@
     pl = Mój znacznik w MapsWithMe %1$@ i %2$@
     pt = Veja o meu marcador no mapa do MapsWithMe. Abra a hiperligação: %1$@ ou %2$@
+    hu = Nézd meg a MapsWithMe jelzőt! %1$@ vagy %2$@ A program letöltése: http://mapswith.me/get
   [my_position_share_sms]
     en = Hey, check out my current location at MapsWithMe! %1$@ or %2$@ Don't have offline maps? Download here: http://mapswith.me/get
     tags = ios,android
@@ -2321,6 +2465,7 @@
     es = Mira dónde estoy. Abre %1$@ o %2$@
     pl = Zobacz gdzie jestem. Link %1$@ lub %2$@
     pt = Veja onde estou agora. Abra a hiperligação: %1$@ ou %2$@
+    hu = Nézd meg a MapsWithMe helyzetemet! %1$@ vagy %2$@ A program letöltése: http://mapswith.me/get
   [bookmark_share_email_subject]
     en = Hey, check out my pin at MapsWithMe map!
     tags = ios,android
@@ -2337,6 +2482,7 @@
     de = Schau dir meine Nadel auf der MapsWithMe-Karte an
     pl = Obejrzyj mój znacznik na mapie w MapsWithMe
     pt = Veja o meu marcador no mapa do MapsWithMe.
+    hu = Nézze meg a MapsWithMe jelzőmet
   [bookmark_share_email]
     en = Hi,\n\nI pinned: %1$@ at MapsWithMe, world offline maps. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
     comment = Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me
@@ -2352,6 +2498,7 @@
     de = Hi,\n\nIch habe gepinnt: %1$@ auf MapsWithMe, Offline-Weltkarten. Klicke auf diesen Link %2$@ oder diesen %3$@, um den Ort auf der Karte zu sehen.\n\nVielen Dank.
     pl = Cześć,\n\nDodałem znacznik w: %1$@ w aplikacji MapsWithMe, mapach offline całego świata. Naciśnij ten link %2$@ lub ten %3$@ by zobaczyć to miejsce na mapie.\n\nDziękuję.
     pt = Olá,\n\nFixei:%1$@ na MapsWithMe, mapas offline mundiais. Clique nesta ligação %2$@ ou nesta %3$@ para ver o local no mapa.\n\nObrigado.
+    hu = Üdvözlöm, \n\nleszúrtam egy MapsWithMe jelzőt: %1$@. Kattintson erre a hivatkozásra %2$@ vagy erre %3$@ hogy lássa a helyet a térképen.\n\nKöszönöm.
   [my_position_share_email_subject]
     en = Hey, check out my current location at MapsWithMe map!
     tags = ios,android
@@ -2368,6 +2515,7 @@
     de = Sieh dir meinen aktuellen Standort auf der Karte MapsWithMe an
     pl = Zobacz moją aktualną lokalizację na mapie przy użyciu MapsWithMe
     pt = Veja a minha localização atual em MapsWithMe map
+    hu = Nézze meg a helyzetemet a MapsWithMe térképen!
  [my_position_share_email]
     en = Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
     tags = ios,android
@@ -2384,6 +2532,7 @@
     de = Hi,\n\nich bin gerade hier: %1$@ . Klicke auf diesen Link %2$@ oder diesen %3$@, um meinen Standort auf der Karte zu sehen.\n\nVielen Dank.
     pl = Cześć,\n\nJestem teraz tutaj: %1$@. Naciśnij na ten link %2$@ lub ten %3$@, aby zobaczyć to miejsce na mapie.\n\nDziękuję.
     pt = Olá,\n\n Estou aqui agora: %1$@. Clique nesta ligação %2$@ ou nesta %3$@ para ver o local no mapa.\n\nObrigado.
+    hu = Üdvözlöm!\n\nJelenleg itt vagyok: %1$@ Kattintson erre a hivatkozásra %2$@ vagy erre %3$@, hogy lássa a helyet a térképen.\n\nKöszönöm.
   [share_by_message]
     en = Share by message
     tags = ios,android
@@ -2401,6 +2550,7 @@
     ko = 메시지로 공유
     pl = Udostępnij przez wiadomość
     pt = Partilhar por mensagem
+    hu = Megosztás üzenetben
   [share]
     en = Share
     tags = ios,android
@@ -2418,6 +2568,7 @@
     ko = 공유
     pl = Udostępnij
     pt = Partilhar
+    hu = Megosztás
   [message]
     en = Message
     tags = ios,android
@@ -2435,6 +2586,7 @@
     ko = 메시지
     pl = Wiadomość
     pt = Mensagem
+    hu = Üzenet
   [email]
     en = E-Mail
     tags = ios,android
@@ -2451,6 +2603,7 @@
     ko = 이메일
     pl = E-mail
     pt = E-Mail
+    hu = Email
   [promocode_activation]
     en = Promo Code Activation
     tags = android
@@ -2467,6 +2620,7 @@
     fr = Entrer le code de promotion
     pl = Wprowadź kod promocyjny
     pt = Introduza o Código de Promoção
+    hu = Akciós kód aktiváláshoz
   [promocode_success]
     en = Promo code is activated!
     tags = android
@@ -2475,6 +2629,7 @@
     fr = Code de promotion activé !
     pl = Kod promocyjny został aktywowany!
     pt = O código de promoção está ativado!
+    hu = Promóciós kód aktiválva!
   [promocode_error]
     en = Connection error. Please try again later.
     tags = android
@@ -2483,6 +2638,7 @@
     fr = Erreur de connexion. Veuillez recommencer ultérieurement.
     pl = Błąd połączenia. Proszę spróbować ponownie później.
     pt = Erro de ligação. Por favor tente de novo mais tarde.
+    hu = Kapcsolati hiba. Kérjük próbálja újra később.
   [promocode_failure]
     en = Invalid promo code. Please try again.
     tags = android
@@ -2491,6 +2647,7 @@
     fr = Code de promotion non valide. Veuillez recommencer.
     pl = Błędny kod promocyjny. Spróbuj ponownie.
     pt = Código de promoção inválido. Por favor tente de novo.
+    hu = Érvénytelen kód. Kérjük próbálja újra.
   [copy_link]
     en = Copy Link
     tags = ios
@@ -2508,6 +2665,7 @@
     ru = Скопировать ссылку
     pl = Kopiuj link
     pt = Copiar hiperligação
+    hu = Hivatkozás másolása
   [more_info]
     en = Show More Info
     tags = ios,android
@@ -2525,6 +2683,7 @@
     pl = Pokaż więcej informacji
     uk = Докладніше
     pt = Mostrar informação adicional
+    hu = Mutasson több adatot
   [copied_to_clipboard]
     en = Copied to Clipboard: %1$@
     tags =ios,android
@@ -2542,6 +2701,7 @@
     nl = Op het klembord gekopieerd: %1$@
     pl = Skopiowano do schowka: %1$@
     uk = Скопіювати в буфер обміну: %1$@
+    hu = A vágólapra másolva: %1$@
   [allow_statistics]
     en = Send Statistics
     tags = ios,android
@@ -2559,6 +2719,7 @@
     zh-Hant = 啟用匿名使用數據
     it = Invia statistiche
     ko = 통계 보내기
+    hu = Statisztika küldése
   [allow_statistics_hint]
     en = Allow us to collect usage statistics to improve the app
     tags = ios,android
@@ -2576,6 +2737,7 @@
     zh-Hant = 它幫助我們打造更好的應用程序
     it = Consentici di raccogliere le statistiche di utilizzo al fine di migliorare l'app
     ko = 앱을 개선하기 위해 사용 통계를 수집하도록 허용
+    hu = Használati adatok gyűjtésének jóváhagyása a program továbbfejlesztéséhez.
   [info]
     en = Info
     tags = ios
@@ -2593,6 +2755,7 @@
     pl = Informacje
     uk = Досьє
     pt = Info
+    hu = Info
   [done]
     en = Done
     tags = android
@@ -2610,6 +2773,7 @@
     zh-Hant = 完成
     it = Fine
     ko = 완료
+    hu = Kész
 
   [yopme_pref_summary]
     tags = android
@@ -2625,6 +2789,7 @@
     de = Wählen Sie die rückseitigen Bildschirm-Einstellungen
     cs = Zvolit nastavení Zadní obrazovky
     fr = Choisissez les réglages de l'écran arrière
+    hu = Válassza ki a hátoldali képernyő-beállításokat
 
   [yopme_pref_title]
     tags = android
@@ -2640,6 +2805,7 @@
     de = Rückseitige Bildschirm-Einstellungen
     cs = Nastavení Zadní obrazovky
     fr = Paramètres de l'écran arrière
+    hu = Hátoldali képernyő-beállítások
 
   [show_on_backscreen]
     tags = android
@@ -2655,6 +2821,7 @@
     pl = Pokaż na tylnym ekranie
     pt = Mostrar no Ecrã Posterior
     uk = Показати на задньому екрані
+    hu = Mutassa a vissza képernyőn
 
   [version]
     tags = android
@@ -2673,6 +2840,7 @@
     ja = バージョン： %@
     ko = 버전: %@
     zh-Hant = 版本： %@
+    hu = Verzió: %@
 
   [are_you_sure]
     tags = android
@@ -2691,6 +2859,7 @@
     pl = Czy na pewno kontynuować?
     pt = Tem a certeza de que pretende continuar?
     ru = Вы уверены, что хотите продолжить?
+    hu = Valóban folytatni akarja?
 
   [tracks]
     tags = ios,android
@@ -2709,6 +2878,7 @@
     ja = トラック
     ko = 트랙
     zh-Hant = 軌道
+    hu = Csoportok
   [length]
     tags = ios,android
     comment = Length of track in cell that describes route
@@ -2726,6 +2896,7 @@
     ja = 距離
     ko = 길이
     zh-Hant = 長度
+    hu = Hossz
 
   [share_my_location]
     en = Share my location
@@ -2742,6 +2913,7 @@
     ja = 位置情報を共有する
     ko = 내 위치 공유
     zh-Hant = 分享我的位置
+    hu = Helyzetem megosztása
 
   [become_a_pro]
     en = BECOME A PRO USER
@@ -2758,6 +2930,7 @@
     ja = proユーザーになる
     ko = 프로 사용자 되기
     zh-Hant = 成為專業用戶
+    hu = LEGYEN PRO FELHASZNÁLÓ
 
   [menu_search]
     en = Search
@@ -2774,6 +2947,7 @@
     ja = 検索
     ko = 검색
     zh-Hant = 搜尋
+    hu = Keresés
 
   [pref_zoom_title]
     en = Zoom in/out buttons
@@ -2790,6 +2964,7 @@
     ja = ズームイン/アウトツール
     ko = 확대/축소 도구
     zh-Hant = 放大/縮小工具
+    hu = Nagyítás / kicsinyítés gombok
 
   [pref_zoom_summary]
     en = Display on the screen
@@ -2806,3 +2981,4 @@
     ja = 画面上に表示
     ko = 화면에 표시
     zh-Hant = 在螢幕上顯示
+    hu = Mutassa a kijelzőn
