@@ -3792,21 +3792,21 @@ line[railway]
 line|z15-[bridge?]::bridgewhite,
 line|z15-[tunnel?]::tunnelwhite,
 {
-  z-index: 3;
+  z-index: 30;
   casing-width: eval(prop("width")/2+4);
   casing-linecap: butt;
   casing-color: white;
 }
 line|z15-[bridge?]::bridgeblack
 {
-  z-index: 2;
+  z-index: 25;
   casing-width: eval(prop("width")/2+5);
   casing-linecap: butt;
   casing-color: #707070;
 }
 line|z15-[tunnel?]::tunnelblack
 {
-  z-index: 2;
+  z-index: 25;
   casing-width: eval(prop("width")/2+5);
   casing-linecap: butt;
   casing-color: #707070;
