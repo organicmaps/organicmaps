@@ -3869,16 +3869,24 @@ line[boundary=administrative][admin_level!=2][admin_level!=3][admin_level!=4]
 }
 
 area|z6-[natural=land]
+area|z6-[place=island]
+area|z6-[place=islet]
 {
   fill-color: #ffffff;
+  z-index: -5;
+  fill-position: foreground;
+}
+
+area[natural=coastline]
+{
+  fill-color: #6b6b6b;
+  z-index: -10;
 }
 
 area|z12-[landuse=basin],
 area|z12-[landuse=reservoir],
 area|z13-[leisure=swimming_pool],
 area|z13-[leisure=water_park],
-area[natural=ocean],
-area[natural=coastline],
 area|z10-[natural=lake],
 area|z10-[natural=pond],
 area|z10-[natural=water],
@@ -3892,6 +3900,7 @@ area|z10-[waterway=riverbank]
   text-color: white;
   text-halo-radius: 2;
   text-halo-color: #6b6b6b;
+  z-index: 10;
 }
 
 line|z14-[natural=spring],

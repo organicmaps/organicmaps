@@ -121,3 +121,88 @@ UNIT_TEST(Classificator_DrawingRules)
   CheckLineStyles(c, "waterway");
   //CheckLineStyles(c, "railway");
 }
+
+namespace
+{
+
+pair<int, int> GetMinMax(int level, vector<uint32_t> const & types)
+{
+  pair<int, int> res(numeric_limits<int>::max(), numeric_limits<int>::min());
+
+  drule::KeysT keys;
+  feature::GetDrawRule(types, level, feature::FEATURE_TYPE_AREA, keys);
+
+  for (size_t i = 0; i < keys.size(); ++i)
+  {
+    if (keys[i].m_type != drule::area)
+      continue;
+
+    if (keys[i].m_priority < res.first)
+      res.first = keys[i].m_priority;
+    if (keys[i].m_priority > res.second)
+      res.second = keys[i].m_priority;
+  }
+
+  return res;
+}
+
+}
+
+// Check area drawing priority according to the types order below (from downmost to upmost).
+// If someone is desagree with this order, please, refer to VNG :)
+// natural-coastline
+// place-island = natural-land
+// natural-wood,scrub,heath,grassland = landuse-grass,farm,farmland,forest
+// natural-water,lake = landuse-basin
+
+UNIT_TEST(Classificator_AreaPriority)
+{
+  classificator::Load();
+  Classificator const & c = classif();
+
+  vector<vector<uint32_t> > types;
+
+  char const * arrT[][2] =
+  {
+    // 0
+    {"natural", "coastline"},
+    // 1
+    //{"waterway", "riverbank"}, - it's not a good idea to place it here
+    // 2
+    {"place", "island"}, {"natural", "land"},
+    // 3
+    {"natural", "wood"}, {"natural", "scrub"}, {"natural", "heath"}, {"natural", "grassland"},
+    {"landuse", "grass"}, {"landuse", "farm"}, {"landuse", "farmland"}, {"landuse", "forest"},
+    // 4
+    //{"leisure", "park"}, {"leisure", "garden"}, - maybe next time (too tricky to do it now)
+    // 5
+    {"natural", "water"}, {"natural", "lake"}, {"landuse", "basin"}
+  };
+  size_t arrI[] = { 1, 2, 8, 3 };
+
+  size_t ind = 0;
+  for (size_t i = 0; i < ARRAY_SIZE(arrI); ++i)
+  {
+    types.push_back(vector<uint32_t>());
+    types.back().reserve(arrI[i]);
+
+    for (size_t j = 0; j < arrI[i]; ++j)
+    {
+      types.back().push_back(c.GetTypeByPath(vector<string>(arrT[ind], arrT[ind] + 2)));
+      ++ind;
+    }
+  }
+
+  TEST_EQUAL(ind, ARRAY_SIZE(arrT), ());
+
+  for (int level = scales::GetUpperWorldScale() + 1; level <= scales::GetUpperStyleScale(); ++level)
+  {
+    pair<int, int> minmax = GetMinMax(level, types[0]);
+    for (size_t i = 1; i < types.size(); ++i)
+    {
+      pair<int, int> const mm = GetMinMax(level, types[i]);
+      TEST_LESS(minmax.second, mm.first, (i));
+      minmax = mm;
+    }
+  }
+}
