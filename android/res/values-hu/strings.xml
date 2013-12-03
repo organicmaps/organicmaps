@@ -34,7 +34,7 @@
 	<!-- Settings/Downloader - country info current download progress -->
 	<string name="downloading_x_touch_to_cancel">%qu%% töltése, leállításhoz érintse meg.</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
-	<string name="downloading">Letöltés...</string>
+	<string name="downloading">Letöltés…</string>
 	<string name="get_it_now">Telepítés most</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">Tetszik a MapsWithMe? Ajánlja barátainak és családtagjainak, ossza meg velük Facebook-on!</string>
@@ -124,7 +124,7 @@
 	<string name="free_space_for_country">Kérjük szabadítson fel %1$s-t az eszközön $2$@ letöltéséhez!</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="download_resources">Első használat előtt letöltjük a világtérképet.\n %1$.1f%2$s tárolóhely szükséges.</string>
-	<string name="getting_position">Aktuális pozíció meghatározása...</string>
+	<string name="getting_position">Aktuális pozíció meghatározása…</string>
 	<string name="download_resources_continue">Térképhez ugrás</string>
 	<string name="downloading_country_can_proceed">%s letöltése. Mos továbbléphet \n a térképhez.</string>
 	<string name="download_country_ask">Letöltsem %s-t?</string>
@@ -188,7 +188,7 @@
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Áthelyezzük a térképeket?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
-	<string name="wait_several_minutes">Ez több percig is eltarthat.\nKérjük várjon...</string>
+	<string name="wait_several_minutes">Ez több percig is eltarthat.\nKérjük várjon…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">látható</string>
 	<!-- Proposal to download Pro version with Bookmarks -->

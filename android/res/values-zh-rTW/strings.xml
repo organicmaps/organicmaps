@@ -185,7 +185,7 @@
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">移動地圖？</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
-	<string name="wait_several_minutes">這可能需要幾分鐘\n請稍候...</string>
+	<string name="wait_several_minutes">這可能需要幾分鐘\n請稍候…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">看得到的</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
@@ -240,7 +240,7 @@
 	<!-- Email text when sharing bookmarks category -->
 	<string name="share_bookmarks_email_body">哈囉!\n\n這是我的MapsWithe離線地圖中所夾帶的 \&quot;%s.kmz\&quot; 書籤檔案。若您已安裝MapsWithMe專業版的話請開啟它，否則請先從 http://www.mapswithme.com/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用MapsWithMe愉快!</string>
 	<!-- message title of loading file -->
-	<string name="load_kmz_title">正在載入書籤...</string>
+	<string name="load_kmz_title">正在載入書籤…</string>
 	<!-- Kmz file successful loading -->
 	<string name="load_kmz_successful">書籤上傳成功! 您可以在地圖上或是書籤管理畫面中找到書籤。</string>
 	<!-- Kml file loading failed -->

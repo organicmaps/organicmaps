@@ -54,7 +54,7 @@
 "downloading_x_touch_to_cancel" = "%qu%% töltése, leállításhoz érintse meg.";
 
 /* Settings/Downloader - info for country which started downloading */
-"downloading" = "Letöltés...";
+"downloading" = "Letöltés…";
 
 "get_it_now" = "Telepítés most";
 
@@ -199,7 +199,7 @@
 /* REMOVE THIS STRING AFTER REFACTORING */
 "download_resources" = "Első használat előtt letöltjük a világtérképet.\n %.1f%@ tárolóhely szükséges.";
 
-"getting_position" = "Aktuális pozíció meghatározása...";
+"getting_position" = "Aktuális pozíció meghatározása…";
 
 "download_resources_continue" = "Térképhez ugrás";
 
@@ -298,7 +298,7 @@
 "move_maps" = "Áthelyezzük a térképeket?";
 
 /* Ask to wait user several minutes (some long process in modal dialog). */
-"wait_several_minutes" = "Ez több percig is eltarthat.\nKérjük várjon...";
+"wait_several_minutes" = "Ez több percig is eltarthat.\nKérjük várjon…";
 
 /* Show bookmarks from this category on a map or not */
 "visible" = "látható";

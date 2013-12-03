@@ -298,7 +298,7 @@
 "move_maps" = "移動地圖？";
 
 /* Ask to wait user several minutes (some long process in modal dialog). */
-"wait_several_minutes" = "這可能需要幾分鐘\n請稍候...";
+"wait_several_minutes" = "這可能需要幾分鐘\n請稍候…";
 
 /* Show bookmarks from this category on a map or not */
 "visible" = "看得到的";
@@ -384,7 +384,7 @@
 "share_bookmarks_email_body" = "哈囉!\n\n這是我的MapsWithe離線地圖中所夾帶的 \"%@.kmz\" 書籤檔案。若您已安裝MapsWithMe專業版的話請開啟它，否則請先從 http://www.mapswithme.com/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用MapsWithMe愉快!";
 
 /* message title of loading file */
-"load_kmz_title" = "正在載入書籤...";
+"load_kmz_title" = "正在載入書籤…";
 
 /* Kmz file successful loading */
 "load_kmz_successful" = "書籤上傳成功! 您可以在地圖上或是書籤管理畫面中找到書籤。";

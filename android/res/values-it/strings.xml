@@ -34,7 +34,7 @@
 	<!-- Settings/Downloader - country info current download progress -->
 	<string name="downloading_x_touch_to_cancel">Download di %qu%%, tocca per annullare</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
-	<string name="downloading">In fase di download...</string>
+	<string name="downloading">In fase di download…</string>
 	<string name="get_it_now">Prendila ora</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">Ti stai divertendo MapsWithMe? Aiuta i tuoi amici e la famiglia a conoscere l\&#39;app, condividila con loro su Facebook!</string>
@@ -183,7 +183,7 @@
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Vuoi spostare le mappe?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
-	<string name="wait_several_minutes">Questo può richiedere diversi minuti.\ncortesemente attendi...</string>
+	<string name="wait_several_minutes">Questo può richiedere diversi minuti.\ncortesemente attendi…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Visibile</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
