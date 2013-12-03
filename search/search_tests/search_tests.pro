@@ -19,10 +19,11 @@ win32 {
 
 SOURCES += \
     ../../testing/testingmain.cpp \
-    keyword_matcher_test.cpp \
-    keyword_lang_matcher_test.cpp \
-    latlon_match_test.cpp \
-    string_match_test.cpp \
+    #keyword_matcher_test.cpp \
+    #keyword_lang_matcher_test.cpp \
+    #latlon_match_test.cpp \
+    #string_match_test.cpp \
+    house_detector_tests.cpp \
 
 HEADERS += \
     match_cost_mock.hpp \
