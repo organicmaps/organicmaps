@@ -1,7 +1,7 @@
 #import "ShareActionSheet.h"
 #import "Framework.h"
-#import <MessageUI/MFMessageComposeViewController.h>
-#import <MessageUI/MFMailComposeViewController.h>
+#import "MessageComposeViewController.h"
+#import "MailComposeViewController.h"
 
 #include "../../search/result.hpp"
 
@@ -11,9 +11,9 @@
 +(void)showShareActionSheetInView:(id)view withObject:(id)del
 {
   UIActionSheet * as = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"share", nil) delegate:del cancelButtonTitle:nil  destructiveButtonTitle:nil otherButtonTitles:nil];
-  if ([MFMessageComposeViewController canSendText])
+  if ([MessageComposeViewController canSendText])
     [as addButtonWithTitle:NSLocalizedString(@"message", nil)];
-  if ([MFMailComposeViewController canSendMail])
+  if ([MailComposeViewController canSendMail])
     [as addButtonWithTitle:NSLocalizedString(@"email", nil)];
   [as addButtonWithTitle:NSLocalizedString(@"copy_link", nil)];
   [as addButtonWithTitle:NSLocalizedString(@"cancel", nil)];
@@ -45,7 +45,7 @@
 
 +(void)sendEmailWith:(NSString *)textFieldText andUrl:(NSString *)shortUrl view:(id)view delegate:(id)del gX:(double)gX gY:(double)gY myPosition:(BOOL)myPos
 {
-  MFMailComposeViewController * mailVC = [[[MFMailComposeViewController alloc] init] autorelease];
+  MailComposeViewController * mailVC = [[[MailComposeViewController alloc] init] autorelease];
   NSString * httpGe0Url = [shortUrl stringByReplacingCharactersInRange:NSMakeRange(0, 6) withString:@"http://ge0.me/"];
   if (myPos)
   {
@@ -67,7 +67,7 @@
 +(void)sendMessageWithUrl:(NSString *)shortUrl view:(id)view delegate:(id)del myPosition:(BOOL)myPos
 {
   NSString * httpGe0Url = [shortUrl stringByReplacingCharactersInRange:NSMakeRange(0, 6) withString:@"http://ge0.me/"];
-  MFMessageComposeViewController * messageVC = [[[MFMessageComposeViewController alloc] init] autorelease];
+  MessageComposeViewController * messageVC = [[[MessageComposeViewController alloc] init] autorelease];
 
   if (myPos)
     [messageVC setBody:[NSString stringWithFormat:NSLocalizedString(@"my_position_share_sms", nil), shortUrl, httpGe0Url]];

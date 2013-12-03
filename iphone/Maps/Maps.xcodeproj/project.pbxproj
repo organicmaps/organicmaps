@@ -24,6 +24,8 @@
 		5797B6D616C931EE00FFE6D2 /* resources-mdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D316C931EE00FFE6D2 /* resources-mdpi */; };
 		5797B6D716C931EE00FFE6D2 /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D416C931EE00FFE6D2 /* resources-xhdpi */; };
 		5797B6D816C931EE00FFE6D2 /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D416C931EE00FFE6D2 /* resources-xhdpi */; };
+		97387546184E475000170BC4 /* MessageComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97387545184E475000170BC4 /* MessageComposeViewController.m */; };
+		97387547184E475000170BC4 /* MessageComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97387545184E475000170BC4 /* MessageComposeViewController.m */; };
 		9747264318323080006B7CB7 /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.m */; };
 		9747264418323080006B7CB7 /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.m */; };
 		9747276318328D07006B7CB7 /* side-toolbar-icon-bookmarks@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9747275B18328D07006B7CB7 /* side-toolbar-icon-bookmarks@2x.png */; };
@@ -114,6 +116,8 @@
 		97D40C08184CFA4100A1D572 /* ImagesPro.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D40C07184CFA4100A1D572 /* ImagesPro.xcassets */; };
 		97D40C0A184D031900A1D572 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D40C09184D031900A1D572 /* Images.xcassets */; };
 		97D40C0B184D031900A1D572 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D40C09184D031900A1D572 /* Images.xcassets */; };
+		97D40C0E184E389000A1D572 /* MailComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97D40C0D184E389000A1D572 /* MailComposeViewController.m */; };
+		97D40C0F184E389000A1D572 /* MailComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97D40C0D184E389000A1D572 /* MailComposeViewController.m */; };
 		97ECD871183620CE00F77A46 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		97ECD872183625F900F77A46 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		97ECD87518362AC600F77A46 /* MobileAppTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87418362AC600F77A46 /* MobileAppTracker.framework */; };
@@ -1398,6 +1402,8 @@
 		772923C9184E0440008C1EDC /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
 		77DDA9A116D504F900804BDB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MapsWithMe-Pro.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MapsWithMe-Pro.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		97387544184E475000170BC4 /* MessageComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageComposeViewController.h; sourceTree = "<group>"; };
+		97387545184E475000170BC4 /* MessageComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageComposeViewController.m; sourceTree = "<group>"; };
 		9747264118323080006B7CB7 /* UIKitCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIKitCategories.m; path = Categories/UIKitCategories.m; sourceTree = "<group>"; };
 		9747264218323080006B7CB7 /* UIKitCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIKitCategories.h; path = Categories/UIKitCategories.h; sourceTree = "<group>"; };
 		9747275B18328D07006B7CB7 /* side-toolbar-icon-bookmarks@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "side-toolbar-icon-bookmarks@2x.png"; sourceTree = "<group>"; };
@@ -1454,6 +1460,8 @@
 		97D40C04184CF5F100A1D572 /* ImagesLite.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ImagesLite.xcassets; sourceTree = SOURCE_ROOT; };
 		97D40C07184CFA4100A1D572 /* ImagesPro.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ImagesPro.xcassets; sourceTree = SOURCE_ROOT; };
 		97D40C09184D031900A1D572 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = SOURCE_ROOT; };
+		97D40C0C184E389000A1D572 /* MailComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MailComposeViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		97D40C0D184E389000A1D572 /* MailComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailComposeViewController.m; sourceTree = "<group>"; };
 		97ECD86D1836200A00F77A46 /* Aarki.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aarki.h; sourceTree = "<group>"; };
 		97ECD86E1836200A00F77A46 /* AarkiContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AarkiContact.h; sourceTree = "<group>"; };
 		97ECD870183620CE00F77A46 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -1492,9 +1500,9 @@
 		EDB811A2175E1A9C00E36BF2 /* TwoButtonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoButtonsView.m; sourceTree = "<group>"; };
 		EDBB18B716972B0600AF0742 /* libzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzlib.a; sourceTree = "<group>"; };
 		EDC5C541175F2CA600420E92 /* ShareActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareActionSheet.h; sourceTree = "<group>"; };
-		EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ShareActionSheet.mm; sourceTree = "<group>"; };
+		EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = ShareActionSheet.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EDCB4E8C175E67110005AA35 /* PlacePreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacePreviewViewController.h; sourceTree = "<group>"; };
-		EDCB4E8D175E67110005AA35 /* PlacePreviewViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlacePreviewViewController.mm; sourceTree = "<group>"; };
+		EDCB4E8D175E67110005AA35 /* PlacePreviewViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = PlacePreviewViewController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EDF924DA183380CE00539672 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		EDFC74CE177AE6C500FAF21F /* PlaceAndCompasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceAndCompasView.h; sourceTree = "<group>"; };
 		EDFC74CF177AE6C500FAF21F /* PlaceAndCompasView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlaceAndCompasView.mm; sourceTree = "<group>"; };
@@ -1581,8 +1589,8 @@
 		FA2EF9C613630C3B00E3E484 /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libplatform.a; sourceTree = SOURCE_ROOT; };
 		FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomAlertView.mm; sourceTree = "<group>"; };
 		FA34BEC91338D72F00FFB2A7 /* CustomAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAlertView.h; sourceTree = "<group>"; };
-		FA36B80515403A4F004560CC /* BookmarksVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BookmarksVC.h; path = Bookmarks/BookmarksVC.h; sourceTree = SOURCE_ROOT; };
-		FA36B80615403A4F004560CC /* BookmarksVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BookmarksVC.mm; path = Bookmarks/BookmarksVC.mm; sourceTree = SOURCE_ROOT; };
+		FA36B80515403A4F004560CC /* BookmarksVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = BookmarksVC.h; path = Bookmarks/BookmarksVC.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		FA36B80615403A4F004560CC /* BookmarksVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = BookmarksVC.mm; path = Bookmarks/BookmarksVC.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FA4135E1120A263C0062D5B4 /* CountriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = CountriesViewController.h; path = Settings/CountriesViewController.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FA4135E2120A263C0062D5B4 /* CountriesViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = CountriesViewController.mm; path = Settings/CountriesViewController.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FA4135E6120A263C0062D5B4 /* SettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsManager.h; path = Settings/SettingsManager.h; sourceTree = SOURCE_ROOT; };
@@ -1593,8 +1601,8 @@
 		FA5940D3171C964D0045C9BB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA5940D4171C964D0045C9BB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA5940D5171C964D0045C9BB /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
-		FA5D4F151557F79900E7D8BB /* PlacePageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlacePageVC.h; path = Bookmarks/PlacePageVC.h; sourceTree = SOURCE_ROOT; };
-		FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PlacePageVC.mm; path = Bookmarks/PlacePageVC.mm; sourceTree = SOURCE_ROOT; };
+		FA5D4F151557F79900E7D8BB /* PlacePageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PlacePageVC.h; path = Bookmarks/PlacePageVC.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = PlacePageVC.mm; path = Bookmarks/PlacePageVC.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FA64D9A813F975AD00350ECF /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = types.txt; path = ../../data/types.txt; sourceTree = SOURCE_ROOT; };
 		FA765AAF1737BC6D00279CFF /* 22x29-lite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "22x29-lite.png"; sourceTree = "<group>"; };
 		FA765AB01737BC6D00279CFF /* 44x58-lite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "44x58-lite.png"; sourceTree = "<group>"; };
@@ -2241,6 +2249,10 @@
 				9747277618328E65006B7CB7 /* SideToolbar */,
 				978F9251183BD530000D6C7C /* NavigationController.h */,
 				978F9252183BD530000D6C7C /* NavigationController.mm */,
+				97D40C0C184E389000A1D572 /* MailComposeViewController.h */,
+				97D40C0D184E389000A1D572 /* MailComposeViewController.m */,
+				97387544184E475000170BC4 /* MessageComposeViewController.h */,
+				97387545184E475000170BC4 /* MessageComposeViewController.m */,
 				EDFC74CE177AE6C500FAF21F /* PlaceAndCompasView.h */,
 				EDFC74CF177AE6C500FAF21F /* PlaceAndCompasView.mm */,
 				FA09E00F13F71F6C007E69CA /* SearchVC.h */,
@@ -4602,6 +4614,7 @@
 				FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */,
 				FAAEA7D5161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
 				F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */,
+				97387546184E475000170BC4 /* MessageComposeViewController.m in Sources */,
 				978F9242183B660F000D6C7C /* SelectableCell.m in Sources */,
 				CB252D6F16FF82C9001E41E9 /* Statistics.m in Sources */,
 				9747277D18328E65006B7CB7 /* SideToolbarCell.m in Sources */,
@@ -4614,6 +4627,7 @@
 				EDFC74D0177AE6C500FAF21F /* PlaceAndCompasView.mm in Sources */,
 				ED48BBB117BE6EA8003E7E92 /* MWMApi.mm in Sources */,
 				ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */,
+				97D40C0E184E389000A1D572 /* MailComposeViewController.m in Sources */,
 				ED48BBBA17C2B1E2003E7E92 /* CircleView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4653,6 +4667,7 @@
 				FAA614B9155F16950031C345 /* AddSetVC.mm in Sources */,
 				FAAEA7D6161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
 				F785EB4116386FC4003A38A8 /* BookmarkCell.mm in Sources */,
+				97387547184E475000170BC4 /* MessageComposeViewController.m in Sources */,
 				978F9243183B660F000D6C7C /* SelectableCell.m in Sources */,
 				CB252D7016FF82C9001E41E9 /* Statistics.m in Sources */,
 				9747277E18328E65006B7CB7 /* SideToolbarCell.m in Sources */,
@@ -4665,6 +4680,7 @@
 				EDFC74D1177AE6C500FAF21F /* PlaceAndCompasView.mm in Sources */,
 				ED48BBB217BE6EA8003E7E92 /* MWMApi.mm in Sources */,
 				ED48BBBB17C2B1E2003E7E92 /* CircleView.mm in Sources */,
+				97D40C0F184E389000A1D572 /* MailComposeViewController.m in Sources */,
 				ED48BBC417C3B3BF003E7E92 /* ColorPickerView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

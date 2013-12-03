@@ -1,6 +1,6 @@
 #import <UIKit/UIKit.h>
-#import <MessageUI/MFMessageComposeViewController.h>
-#import <MessageUI/MFMailComposeViewController.h>
+#import "MessageComposeViewController.h"
+#import "MailComposeViewController.h"
 #import "ColorPickerView.h"
 #import "../../../map/bookmark.hpp"
 

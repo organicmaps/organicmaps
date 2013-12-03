@@ -8,6 +8,7 @@
 #import "CircleView.h"
 #import "ColorPickerView.h"
 #import "UIKitCategories.h"
+#import "MailComposeViewController.h"
 
 #include "Framework.h"
 
@@ -276,7 +277,7 @@
   }
 }
 
-- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+- (void)mailComposeController:(MailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
   [self dismissModalViewControllerAnimated:YES];
   [[Statistics instance] logEvent:@"KML Export"];
@@ -415,7 +416,7 @@
 
 - (void) sendBookmarksWithExtension:(NSString *) fileExtension andType:(NSString *)mimeType andFile:(NSString *)filePath andCategory:(NSString *)catName
 {
-  MFMailComposeViewController * mailVC = [[[MFMailComposeViewController alloc] init] autorelease];
+  MailComposeViewController * mailVC = [[[MailComposeViewController alloc] init] autorelease];
   mailVC.mailComposeDelegate = self;
   [mailVC setSubject:NSLocalizedString(@"share_bookmarks_email_subject", nil)];
   NSData * myData = [[[NSData alloc] initWithContentsOfFile:filePath] autorelease];
@@ -436,7 +437,7 @@
     m_bookmarkSection = index++;
   else
     m_bookmarkSection = EMPTY_SECTION;
-  if ([MFMailComposeViewController canSendMail])
+  if ([MailComposeViewController canSendMail])
     m_shareSection = index++;
   else
     m_shareSection = EMPTY_SECTION;

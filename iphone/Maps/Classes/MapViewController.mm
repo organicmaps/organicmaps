@@ -806,12 +806,12 @@ const long long LITE_IDL = 431183278L;
   [ShareActionSheet resolveActionSheetChoice:actionSheet buttonIndex:buttonIndex text:@"" view:self delegate:self gX:gX gY:gY andMyPosition:YES];
 }
 
-- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+- (void)mailComposeController:(MailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
   [self proccessShareActionCallbackWithEventName:@"ge0(zero) MAIL Export"];
 }
 
-- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+- (void)messageComposeViewController:(MessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 {
   [self proccessShareActionCallbackWithEventName:@"ge0(zero) MESSAGE Export"];
 }

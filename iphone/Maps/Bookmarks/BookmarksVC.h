@@ -1,5 +1,5 @@
 #import <UIKit/UIKit.h>
-#import <MessageUI/MFMailComposeViewController.h>
+#import "MailComposeViewController.h"
 #import "LocationManager.h"
 
 @interface BookmarksVC : UITableViewController <LocationObserver, UITextFieldDelegate, MFMailComposeViewControllerDelegate>

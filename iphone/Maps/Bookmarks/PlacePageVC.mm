@@ -304,13 +304,13 @@ typedef enum {Editing, Saved} Mode;
   [ShareActionSheet resolveActionSheetChoice:actionSheet buttonIndex:buttonIndex text:self.pinTitle view:self delegate:self gX:_pinGlobalPosition.x gY:_pinGlobalPosition.y andMyPosition:NO];
 }
 
-- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+- (void)mailComposeController:(MailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
   [[Statistics instance] logEvent:@"ge0(zero) MAIL Export"];
   [self dismissModalViewControllerAnimated:YES];
 }
 
--(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+-(void)messageComposeViewController:(MessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 {
   [[Statistics instance] logEvent:@"ge0(zero) MESSAGE Export"];
   [self dismissModalViewControllerAnimated:YES];
