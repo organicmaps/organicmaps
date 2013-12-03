@@ -247,42 +247,11 @@ static void OnSearchResultCallback(search::Results const & res)
   self.navigationItem.titleView = self.searchBar;
 }
 
-//// Banner dialog handler
-//- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-//{
-//  if (buttonIndex != alertView.cancelButtonIndex)
-//  {
-//    // Launch appstore
-//    [APP openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
-//    [[Statistics instance] logProposalReason:@"Search Screen" withAnswer:@"YES"];
-//  }
-//  else
-//    [[Statistics instance] logProposalReason:@"Search Screen" withAnswer:@"NO"];
-//
-//  // Close view
-//  [self.navigationController popToRootViewControllerAnimated:YES];
-//}
-
 - (void)viewWillAppear:(BOOL)animated
 {
-//  // Disable search for free version
-//  if (!GetPlatform().IsPro())
-//  {
-//    // Display banner for paid version
-//    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"search_available_in_pro_version", nil)
-//                                                     message:nil
-//                                                    delegate:self
-//                                           cancelButtonTitle:NSLocalizedString(@"cancel", nil)
-//                                           otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
-//
-//    [alert show];
-//  }
-//  else
-//  {
-  [m_locationManager start:self];
-    // show keyboard
-//  }
   [super viewWillAppear:animated];
+
+  [m_locationManager start:self];
 
   [self performAfterDelay:0 block:^{
     [self resizeNavigationBar];
@@ -310,7 +279,6 @@ static void OnSearchResultCallback(search::Results const & res)
 
   [self.searchBar becomeFirstResponder];
 }
-
 
 - (void)viewWillDisappear:(BOOL)animated
 {
