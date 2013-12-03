@@ -294,6 +294,6 @@
 	<string name="share_my_location">分享我的位置</string>
 	<string name="become_a_pro">成為專業用戶</string>
 	<string name="menu_search">搜尋</string>
-	<string name="pref_zoom_title">放大/縮小工具</string>
+	<string name="pref_zoom_title">縮放按鈕</string>
 	<string name="pref_zoom_summary">在螢幕上顯示</string>
 </resources>

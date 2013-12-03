@@ -302,6 +302,6 @@
 	<string name="share_my_location">Compartir mi ubicación</string>
 	<string name="become_a_pro">convertirme en un usuario pro</string>
 	<string name="menu_search">Buscar</string>
-	<string name="pref_zoom_title">Herramienta de acercar/alejar zoom</string>
+	<string name="pref_zoom_title">Botones de zoom</string>
 	<string name="pref_zoom_summary">Visualización en la pantalla</string>
 </resources>

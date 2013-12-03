@@ -316,6 +316,6 @@
 	<string name="share_my_location">Meinen Standort teilen</string>
 	<string name="become_a_pro">Pro-Benutzer werden</string>
 	<string name="menu_search">Suche</string>
-	<string name="pref_zoom_title">Tool zum Heran- und Herauszoomen</string>
+	<string name="pref_zoom_title">Zoom-Tasten</string>
 	<string name="pref_zoom_summary">Auf dem Bildschirm anzeigen</string>
 </resources>

@@ -302,6 +302,6 @@
 	<string name="share_my_location">位置情報を共有する</string>
 	<string name="become_a_pro">proユーザーになる</string>
 	<string name="menu_search">検索</string>
-	<string name="pref_zoom_title">ズームイン/アウトツール</string>
+	<string name="pref_zoom_title">ズームボタン</string>
 	<string name="pref_zoom_summary">画面上に表示</string>
 </resources>

@@ -332,6 +332,6 @@
 	<string name="share_my_location">Share my location</string>
 	<string name="become_a_pro">BECOME A PRO USER</string>
 	<string name="menu_search">Search</string>
-	<string name="pref_zoom_title">Zoom in/out buttons</string>
+	<string name="pref_zoom_title">Zoom buttons</string>
 	<string name="pref_zoom_summary">Display on the screen</string>
 </resources>

@@ -2950,21 +2950,21 @@
     hu = Keresés
 
   [pref_zoom_title]
-    en = Zoom in/out buttons
-    ru = Кнопки приближения/отдаления
-    uk = Інструмент збільшення/зменшення
-    es = Herramienta de acercar/alejar zoom
-    pt = Ferramenta para aproximar/afastar
-    pl = Narzędzie do powiększania/zmniejszania
-    it = Zoom in avanti/indietro
-    nl = Tool voor in- en uitzoomen
-    de = Tool zum Heran- und Herauszoomen
-    cs = Nástroj přiblížení/oddálení
-    fr = Outil zoom avant / arrière
-    ja = ズームイン/アウトツール
-    ko = 확대/축소 도구
-    zh-Hant = 放大/縮小工具
-    hu = Nagyítás / kicsinyítés gombok
+    en = Zoom buttons
+    ru = Кнопки масштаба
+    uk = Кнопки трансфокації
+    es = Botones de zoom
+    pt = Botões de zoom
+    pl = Przyciski powiększania
+    it = Pulsanti per lo zoom
+    nl = Zoomknoppen
+    de = Zoom-Tasten
+    cs = Tlačítka přiblížení/oddálení
+    fr = Boutons zoom
+    ja = ズームボタン
+    ko = 확대/축소 버튼
+    zh-Hant = 縮放按鈕
+    hu = Nagyítás/kicsinyítés gombok
 
   [pref_zoom_summary]
     en = Display on the screen

@@ -316,6 +316,6 @@
 	<string name="share_my_location">Поділитися моїм місцезнаходженням</string>
 	<string name="become_a_pro">Стати користувачем Про</string>
 	<string name="menu_search">Пошук</string>
-	<string name="pref_zoom_title">Інструмент збільшення/зменшення</string>
+	<string name="pref_zoom_title">Кнопки трансфокації</string>
 	<string name="pref_zoom_summary">Відображення на екрані</string>
 </resources>
