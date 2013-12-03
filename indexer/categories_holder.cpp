@@ -70,8 +70,10 @@ void CategoriesHolder::LoadFromStream(istream & s)
 
   Classificator const & c = classif();
 
+  int lineNumber = 0;
   while (s.good())
   {
+    ++lineNumber;
     getline(s, line);
     strings::SimpleTokenizer iter(line, ":|");
 
@@ -88,7 +90,12 @@ void CategoriesHolder::LoadFromStream(istream & s)
           strings::Tokenize(*iter, "-", MakeBackInsertFunctor(v));
 
           // get classificator type
-          types.push_back(c.GetTypeByPath(v));
+          uint32_t const type = c.GetTypeByPathSafe(v);
+          if (type != 0)
+            types.push_back(type);
+          else
+            LOG(LWARNING, ("Invalid type:", v, "at line:", lineNumber));
+
           ++iter;
         }
 
@@ -104,10 +111,11 @@ void CategoriesHolder::LoadFromStream(istream & s)
           state = EParseTypes;
           continue;
         }
+
         int8_t const langCode = StringUtf8Multilang::GetLangIndex(*iter);
         if (langCode == StringUtf8Multilang::UNSUPPORTED_LANGUAGE_CODE)
         {
-          LOG(LWARNING, ("Invalid language code:", *iter));
+          LOG(LWARNING, ("Invalid language code:", *iter, "at line:", lineNumber));
           continue;
         }
 
@@ -119,7 +127,7 @@ void CategoriesHolder::LoadFromStream(istream & s)
 
           if (name.m_name.empty())
           {
-            LOG(LWARNING, ("Empty category name"));
+            LOG(LWARNING, ("Empty category name at line:", lineNumber));
             continue;
           }
 

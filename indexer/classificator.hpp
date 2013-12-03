@@ -181,9 +181,14 @@ public:
 
   void Clear();
 
-  /// Return type by path in classificator tree, example:
+  /// Return type by path in classificator tree, for example
   /// path = ["natural", "caostline"].
+  //@{
+  /// @return 0 in case of nonexisting type
+  uint32_t GetTypeByPathSafe(vector<string> const & path) const;
+  /// Shows ASSERT in case of nonexisting type
   uint32_t GetTypeByPath(vector<string> const & path) const;
+  //@}
 
   uint32_t GetIndexForType(uint32_t t) const { return m_mapping.GetIndex(t); }
   uint32_t GetTypeForIndex(uint32_t i) const { return m_mapping.GetType(i); }

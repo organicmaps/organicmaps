@@ -363,7 +363,7 @@ void Classificator::SortClassificator()
   GetMutableRoot()->Sort();
 }
 
-uint32_t Classificator::GetTypeByPath(vector<string> const & path) const
+uint32_t Classificator::GetTypeByPathSafe(vector<string> const & path) const
 {
   ClassifObject const * p = GetRoot();
 
@@ -373,7 +373,8 @@ uint32_t Classificator::GetTypeByPath(vector<string> const & path) const
   while (i < path.size())
   {
     ClassifObjectPtr ptr = p->BinaryFind(path[i]);
-    ASSERT ( ptr, ("Invalid path in Classificator::GetTypeByPath", path) );
+    if (!ptr)
+      return 0;
 
     ftype::PushValue(type, ptr.GetIndex());
 
@@ -381,6 +382,13 @@ uint32_t Classificator::GetTypeByPath(vector<string> const & path) const
     p = ptr.get();
   }
 
+  return type;
+}
+
+uint32_t Classificator::GetTypeByPath(vector<string> const & path) const
+{
+  uint32_t const type = GetTypeByPathSafe(path);
+  ASSERT_NOT_EQUAL(type, 0, (path));
   return type;
 }
 
