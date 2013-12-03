@@ -95,20 +95,26 @@ bool GuidesManager::RestoreFromFile()
   int resourcesVersion = -1, downloadedVersion = -1;
   MapT fromResources, fromDownloaded;
 
+  // Do not merge this blocks into one try-catch. Try to read from 2 sources independently.
+  Platform & pl = GetPlatform();
   try
   {
-    Platform & pl = GetPlatform();
-
     string json;
     ReaderPtr<Reader>(pl.GetReader(GetDataFileName(), "r")).ReadAsString(json);
     resourcesVersion = ParseGuidesData(json, fromResources);
+  }
+  catch (RootException const &)
+  {
+  }
 
+  try
+  {
+    string json;
     ReaderPtr<Reader>(pl.GetReader(GetDataFileName(), "w")).ReadAsString(json);
     downloadedVersion = ParseGuidesData(json, fromDownloaded);
   }
-  catch (RootException const & ex)
+  catch (RootException const &)
   {
-    LOG(LWARNING, ("Failed to read guide info file:", ex.Msg()));
   }
 
   if (downloadedVersion > resourcesVersion)
@@ -122,7 +128,7 @@ bool GuidesManager::RestoreFromFile()
     return true;
   }
 
-  LOG(LWARNING, ("Guides descriptions were not loaded"));
+  LOG(LWARNING, ("Guides descriptions were not loaded from bundle"));
   return false;
 }
 
