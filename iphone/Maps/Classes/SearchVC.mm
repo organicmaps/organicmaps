@@ -515,11 +515,6 @@ static void OnSearchResultCallback(search::Results const & res)
   else
     [self.activityIndicator stopAnimating];
 
-  [UIView animateWithDuration:0.15 animations:^{
-    self.activityIndicator.alpha = searching ? 1 : 0;
-    m_table.alpha = searching ? 0 : 1;
-  }];
-
   _searching = searching;
 }
 
@@ -528,11 +523,10 @@ static void OnSearchResultCallback(search::Results const & res)
   if (!_activityIndicator)
   {
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    CGFloat activityX = self.view.width / 2;
-    CGFloat activityY = self.scopeView.maxY + ((self.view.height - KEYBOARD_HEIGHT) - self.scopeView.maxY) / 2;
-    _activityIndicator.center = CGPointMake(activityX, activityY);
-    _activityIndicator.alpha = 0;
-    [self.view addSubview:_activityIndicator];
+    _activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    _activityIndicator.center = CGPointMake(self.searchBar.width - 45, self.searchBar.height / 2);
+    _activityIndicator.backgroundColor = [UIColor whiteColor];
+    [self.searchBar addSubview:_activityIndicator];
   }
   return _activityIndicator;
 }
