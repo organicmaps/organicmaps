@@ -143,7 +143,7 @@ typedef NS_ENUM(NSUInteger, Section)
 
 - (CGFloat)topSpaceRatio
 {
-  return IPAD ? 0.7 : 0.65;
+  return IPAD ? 0.7 : 0.5;
 }
 
 - (CGFloat)bottomSpaceRatio
@@ -248,7 +248,7 @@ typedef NS_ENUM(NSUInteger, Section)
     CGFloat absV = ABS(velocity);
     absV = MIN(maxV, MAX(minV, absV));
 
-    CGFloat magnetPercent = 0.25;
+    CGFloat magnetPercent = 0.1;
     CGFloat percent = self.menuShift / self.maximumMenuShift;
 
     if (percent < magnetPercent && absV < 2 * minV)
