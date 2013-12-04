@@ -260,10 +260,13 @@ static void OnSearchResultCallback(search::Results const & res)
 
 - (void)resizeNavigationBar
 {
+  if (SYSTEM_VERSION_IS_LESS_THAN(@"6") || IPAD)
+    return;
+
   CGFloat landscapeHeight = 32;
   CGFloat portraitHeight = 44;
   self.navigationController.navigationBar.height = portraitHeight;
-  if (UIDeviceOrientationIsLandscape(self.interfaceOrientation) && !IPAD)
+  if (UIDeviceOrientationIsLandscape(self.interfaceOrientation))
     m_table.minY = portraitHeight - landscapeHeight;
   else
     m_table.minY = 0;
