@@ -2,10 +2,6 @@
 #import "MessageComposeViewController.h"
 #import "UIKitCategories.h"
 
-@interface MessageComposeViewController ()
-
-@end
-
 @implementation MessageComposeViewController
 
 - (void)viewDidLoad
