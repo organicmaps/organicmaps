@@ -174,6 +174,8 @@ void InitLocalizedStrings()
     attributes[UITextAttributeFont] = [UIFont fontWithName:@"HelveticaNeue" size:17.5];
     [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
   }
+  if ([[UINavigationBar appearance] respondsToSelector:@selector(setShadowImage:)])
+    [[UINavigationBar appearance] setShadowImage:[[[UIImage alloc] init] autorelease]];
   [[UINavigationBar appearance] setTitleTextAttributes:attributes];
 }
 

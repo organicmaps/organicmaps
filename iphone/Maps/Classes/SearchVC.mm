@@ -216,7 +216,7 @@ static void OnSearchResultCallback(search::Results const & res)
     if (SYSTEM_VERSION_IS_LESS_THAN(@"7"))
       _scopeView.backgroundColor = [[UINavigationBar appearance] tintColor];
     else
-      _scopeView.backgroundColor = [UIColor colorWithColorCode:@"303e57"];
+      _scopeView.backgroundColor = [UIColor colorWithColorCode:@"28384b"];
   }
   return _scopeView;
 }
