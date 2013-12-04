@@ -41,6 +41,11 @@
   return [UIColor colorWithColorCode:@"efeff4"];
 }
 
++ (UIColor *)navigationBarColor
+{
+  return [UIColor colorWithColorCode:@"28384b"];
+}
+
 @end
 
 
@@ -144,6 +149,21 @@
 - (void)setSize:(CGSize)size
 {
   self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, size.width, size.height);
+}
+
+@end
+
+
+@implementation UIApplication (URLs)
+
+
+- (void)openProVersion
+{
+  NSURL * url = [NSURL URLWithString:MAPSWITHME_PREMIUM_LOCAL_URL];
+  if ([[UIApplication sharedApplication] canOpenURL:url])
+    [[UIApplication sharedApplication] openURL:url];
+  else
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
 }
 
 @end

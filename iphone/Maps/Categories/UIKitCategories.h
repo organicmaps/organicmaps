@@ -21,6 +21,7 @@
 
 + (UIColor *)colorWithColorCode:(NSString *)colorCode;
 + (UIColor *)applicationBackgroundColor;
++ (UIColor *)navigationBarColor;
 
 @end
 
@@ -37,5 +38,12 @@
 @property (nonatomic) CGFloat width;
 @property (nonatomic) CGFloat height;
 @property (nonatomic) CGSize size;
+
+@end
+
+
+@interface UIApplication (URLs)
+
+- (void)openProVersion;
 
 @end
