@@ -498,8 +498,6 @@ const long long LITE_IDL = 431183278L;
 
 - (void)onEnterBackground
 {
-  [[Statistics instance] stopSession];
-
   // Save state and notify about entering background.
 
   Framework & f = GetFramework();
@@ -727,7 +725,7 @@ const long long LITE_IDL = 431183278L;
     }
     else
     {
-      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
+      [[UIApplication sharedApplication] openProVersion];
       [[Statistics instance] logProposalReason:@"Search Screen" withAnswer:@"YES"];
     }
   }
@@ -744,7 +742,7 @@ const long long LITE_IDL = 431183278L;
     }
     else
     {
-      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
+      [[UIApplication sharedApplication] openProVersion];
       [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"YES"];
     }
   }
@@ -766,7 +764,7 @@ const long long LITE_IDL = 431183278L;
 
 - (void)sideToolbarDidPressBuyButton:(SideToolbar *)toolbar
 {
-  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
+  [[UIApplication sharedApplication] openProVersion];
 }
 
 #pragma mark - UIKitViews delegates

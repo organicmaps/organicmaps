@@ -250,7 +250,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
     if (buttonIndex != alertView.cancelButtonIndex)
     {
       // Launch appstore
-      [APP openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
+      [[UIApplication sharedApplication] openProVersion];
       [[Statistics instance] logProposalReason:@"Balloon Touch" withAnswer:@"YES"];
     }
     else
