@@ -374,38 +374,38 @@ hu:pad
 
 
 amenity-bicycle_rental
-en:4bicycle
-ru:4велосипед
-uk:4велосипед|прокат
-de:4Fahrrad|Velo
-fr:4vélos|bicyclettes|cycles
-it:4bicicletta|bici
-es:4bicicleta
-ko:1자전거
-ja:1レンタサイクル|自転車|自転車レンタル|貸し自転車|貸自転車
-cs:4jízdní kolo|3kolo
-nl:4fietsverhuur
-zh:1自行車|腳踏車|單車
-pl:4rower
-pt:4bicicleta
-hu:4kerékpár
+en:4bicycle rental|cycle|bike|3rental
+ru:4велопрокат|велосипед|3прокат
+uk:4велопрокат|велосипед|3прокат
+de:3Fahrradverleih|Fahrrad|Velo|3Verleih
+fr:location de vélos|4vélos|bicyclettes|cycles|3location
+it:noleggio biciclette|4bicicletta|bici|3noleggio
+es:alquiler de bicicletas|4bicicleta|3alquiler
+ko:1자전거 대여|1임대의
+ja:レンタサイクル|自転車|自転車レンタル|貸し自転車|貸自転車|1レンタル
+cs:2půjčovna kol|4jízdní kolo|3kolo|3pronájem|3nájemné
+nl:4fietsverhuur|2huur
+zh:1自行車出租|腳踏車|單車|租金|租錢
+pl:4Wynajem rowerów|4rower|3Wynajem
+pt:aluguel de bicicletas|4bicicleta|3aluguel
+hu:4kerékpárkölcsönző|kerékpár|3bérlet
 
 amenity-car_sharing|amenity-car_rental
-en:3car rental|car
-ru:4прокат авто|3авто|3машина
-uk:4прокат авто|3авто|3машина
-de:3Autoverleih|Auto|Farzeug Mieten
-fr:4location de voiture|voiture
-it:3noleggio di automobili
-es:3coche compartido
-ko:1자동차 공유|자동차|자동차 임대
-ja:1カーシェアリング|車|レンタカー
-cs:3půjčovna aut|3auto
-nl:3autoverhuur|auto
-zh:1租車|出租
-pl:4wypożyczalnia samochodów|samochód|auto
-pt:3aluguer de automóveis|carro
-hu:3gépkocsi-kölcsönző|kocsi
+en:3car rental|car|rental|sharing
+ru:4прокат авто|3авто|3машина|прокат
+uk:4прокат авто|3авто|3машина|прокат
+de:3Autoverleih|Auto|Farzeug Mieten|Verleih
+fr:4location de voiture|voiture|location
+it:3noleggio di automobili|noleggio
+es:3coche compartido|alquiler
+ko:1자동차 공유|자동차|자동차 임대|임대의
+ja:1カーシェアリング|車|レンタカー|レンタル
+cs:3půjčovna aut|auto|pronájem|nájemné
+nl:3autoverhuur|auto|huur
+zh:1租車|出租|租金|租錢
+pl:Wynajem samochodów|samochód|auto|Wynajem
+pt:aluguel de automóveis|carro|aluguel
+hu:3gépkocsi-kölcsönző|kocsi|bérlet
 
 amenity-cinema
 en:3cinema|entertainment
@@ -1664,6 +1664,23 @@ zh:1買車|購車
 pl:3salon samochodowy|samochody
 pt:loja de carros
 hu:gépkocsi bolt|kocsi
+
+shop-bicycle
+en:4bicycle shop|cycle|bike|shop
+ru:4веломагазин|велосипед|магазин
+uk:4веломагазін|велосипед|магазин
+de:3Fahrradladen|Fahrrad|Velo|Laden
+fr:magasin de vélo|4vélos|bicyclettes|cycles
+it:negozio di biciclette|bicicletta|bici
+es:bicicletería|bicicleta|tienda
+ko:자전거 가게|쇼핑
+ja:自転車屋|レンタサイクル|自転車|買い物
+cs:3cyklistický obchod|jízdní kolo|3kolo|obchod
+nl:4fietsenwinkel|winkel
+zh:1自行車店|腳踏車|單車|商店
+pl:sklep rowerowy|4rower|sklep
+pt:loja de bicicletas|4bicicleta
+hu:4kerékpár üzlet|kerékpár|kocsi
 
 shop-kiosk
 en:kiosk|shop
