@@ -142,8 +142,8 @@
 		97F61785183E62A6009919E2 /* location-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F61783183E62A6009919E2 /* location-back@2x.png */; };
 		97F61794183E7445009919E2 /* LinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F61793183E7445009919E2 /* LinkCell.m */; };
 		97F61795183E7445009919E2 /* LinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F61793183E7445009919E2 /* LinkCell.m */; };
-		CB252D6F16FF82C9001E41E9 /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.m */; };
-		CB252D7016FF82C9001E41E9 /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.m */; };
+		CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
+		CB252D7016FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
 		ED3B8DB4182CD96F001F124F /* libFlurry_4.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3B8DB3182CD96F001F124F /* libFlurry_4.3.0.a */; };
 		ED3B8DB5182CD96F001F124F /* libFlurry_4.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3B8DB3182CD96F001F124F /* libFlurry_4.3.0.a */; };
 		ED48BBB117BE6EA8003E7E92 /* MWMApi.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB017BE6EA8003E7E92 /* MWMApi.mm */; };
@@ -1480,7 +1480,7 @@
 		97F61793183E7445009919E2 /* LinkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LinkCell.m; path = Settings/LinkCell.m; sourceTree = "<group>"; };
 		CB252D6916FF82C8001E41E9 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		CB252D6B16FF82C8001E41E9 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistics.h; sourceTree = "<group>"; };
-		CB252D6C16FF82C8001E41E9 /* Statistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Statistics.m; sourceTree = "<group>"; };
+		CB252D6C16FF82C8001E41E9 /* Statistics.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Statistics.mm; sourceTree = "<group>"; };
 		ED3B8DB3182CD96F001F124F /* libFlurry_4.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_4.3.0.a; sourceTree = "<group>"; };
 		ED48BBAF17BE6EA8003E7E92 /* MWMApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMApi.h; sourceTree = "<group>"; };
 		ED48BBB017BE6EA8003E7E92 /* MWMApi.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMApi.mm; sourceTree = "<group>"; };
@@ -2536,7 +2536,7 @@
 				CB252D6916FF82C8001E41E9 /* Flurry.h */,
 				ED3B8DB3182CD96F001F124F /* libFlurry_4.3.0.a */,
 				CB252D6B16FF82C8001E41E9 /* Statistics.h */,
-				CB252D6C16FF82C8001E41E9 /* Statistics.m */,
+				CB252D6C16FF82C8001E41E9 /* Statistics.mm */,
 				97ECD87B1836584B00F77A46 /* libAarkiSDK.a */,
 				97ECD86D1836200A00F77A46 /* Aarki.h */,
 				97ECD86E1836200A00F77A46 /* AarkiContact.h */,
@@ -4616,7 +4616,7 @@
 				F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 				97387546184E475000170BC4 /* MessageComposeViewController.m in Sources */,
 				978F9242183B660F000D6C7C /* SelectableCell.m in Sources */,
-				CB252D6F16FF82C9001E41E9 /* Statistics.m in Sources */,
+				CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */,
 				9747277D18328E65006B7CB7 /* SideToolbarCell.m in Sources */,
 				978F9244183B660F000D6C7C /* SwitchCell.m in Sources */,
 				EDB811A3175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */,
@@ -4669,7 +4669,7 @@
 				F785EB4116386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 				97387547184E475000170BC4 /* MessageComposeViewController.m in Sources */,
 				978F9243183B660F000D6C7C /* SelectableCell.m in Sources */,
-				CB252D7016FF82C9001E41E9 /* Statistics.m in Sources */,
+				CB252D7016FF82C9001E41E9 /* Statistics.mm in Sources */,
 				9747277E18328E65006B7CB7 /* SideToolbarCell.m in Sources */,
 				978F9245183B660F000D6C7C /* SwitchCell.m in Sources */,
 				EDB811A4175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */,

@@ -163,12 +163,6 @@ void InitLocalizedStrings()
   APP.networkActivityIndicatorVisible = YES;
 }
 
-// We process memory warnings in MapsViewController
-//- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
-//{
-//  NSLog(@"applicationDidReceiveMemoryWarning");
-//}
-
 - (void)customizeAppearance
 {
   NSMutableDictionary * attributes = [[NSMutableDictionary alloc] init];
@@ -186,11 +180,8 @@ void InitLocalizedStrings()
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSLog(@"application didFinishLaunchingWithOptions");
-  bool statisticsEnabled;
-  if (!Settings::Get("StatisticsEnabled", statisticsEnabled))
-    statisticsEnabled = true;
-  if (statisticsEnabled)
-    [[Statistics instance] startSession];
+
+  [[Statistics instance] startSession];
 
   InitLocalizedStrings();
 
