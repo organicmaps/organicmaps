@@ -7,7 +7,6 @@
 #include "../geometry/distance.hpp"
 #include "../geometry/distance_on_sphere.hpp"
 
-#include "../std/iostream.hpp"
 #include "../std/set.hpp"
 #include "../std/bind.hpp"
 
@@ -15,9 +14,55 @@
 namespace search
 {
 
+string affics1[] =
+{
+  "аллея", "бульвар", "набережная",
+  "переулок", "площадь",  "проезд",
+  "проспект", "шоссе", "тупик", "улица"
+};
+
+string affics2[] =
+{
+  "ал.", "бул.", "наб.", "пер.",
+  "пл.", "пр.", "просп.", "ш.",
+  "туп.", "ул."
+};
+
+void GetStreetName(strings::SimpleTokenizer iter, string & streetName)
+{
+  while(iter)
+  {
+    bool flag = true;
+    for (size_t i = 0; i < ARRAY_SIZE(affics2); ++i)
+    {
+      if (*iter == affics2[i] || *iter == affics1[i])
+      {
+        flag = false;
+        break;
+      }
+    }
+    if (flag)
+      streetName += *iter;
+    ++iter;
+  }
+}
+
 int const BUILDING_PROCESS_SCALE = 15;
 double const STREET_CONNECTION_LENGTH_M = 25.0;
 
+void House::InitHouseNumberAndSuffix()
+{
+  m_suffix = "";
+  m_intNumber = 0;
+  for (int i = 0; i < m_number.size(); ++i)
+    if (m_number[i] < '0' || m_number[i] > '9')
+    {
+      strings::to_int(m_number.substr(0, i), m_intNumber);
+      m_suffix = m_number.substr(i, m_number.size() - i);
+      return;
+    }
+  strings::to_int(m_number, m_intNumber);
+}
 
 struct StreetCreator
 {
@@ -75,6 +120,13 @@ m2::RectD Street::GetLimitRect(double offsetMeters) const
   return rect;
 }
 
+void Street::SetName(string const & name)
+{
+  m_name = name;
+  strings::SimpleTokenizer iter(name, " -");
+  GetStreetName(iter, m_processedName);
+  strings::MakeLowerCase(m_processedName);
+}
 
 HouseDetector::HouseDetector(Index const * pIndex)
   : m_loader(pIndex), m_end2st(LessWithEpsilon(&m_epsMercator)), m_streetNum(0)
@@ -96,7 +148,7 @@ void HouseDetector::FillQueue(queue<Street *> & q, Street const * street, bool i
   for (IterT it = range.first; it != range.second; ++it)
   {
     /// @todo create clever street names compare functions
-    if (it->second->m_number == -1 && street->m_name == it->second->m_name)
+    if (it->second->m_number == -1 && street->GetName() == it->second->GetName())
     {
       it->second->m_number = m_streetNum;
       q.push(it->second);
@@ -137,7 +189,7 @@ void HouseDetector::LoadStreets(vector<FeatureID> & ids)
         continue;
 
       Street * st = new Street();
-      st->m_name = name;
+      st->SetName(name);
       f.ForEachPoint(StreetCreator(st), FeatureType::BEST_GEOMETRY);
 
       m_id2st[ids[i]] = st;
@@ -258,7 +310,7 @@ void HouseDetector::ReadHouse(FeatureType const & f, Street * st, ProjectionCalc
     map<FeatureID, House *>::iterator const it = m_id2house.find(f.GetID());
 
     m2::PointD const pt = (it == m_id2house.end()) ?
-          f.GetLimitRect(BUILDING_PROCESS_SCALE).Center() : it->second->m_point;
+          f.GetLimitRect(BUILDING_PROCESS_SCALE).Center() : it->second->GetPosition();
 
     HouseProjection pr;
     if (calc.GetProjection(pt, pr))
@@ -266,9 +318,7 @@ void HouseDetector::ReadHouse(FeatureType const & f, Street * st, ProjectionCalc
       House * p;
       if (it == m_id2house.end())
       {
-        p = new House();
-        p->m_point = pt;
-        p->m_number = f.GetHouseNumber();
+        p = new House(f.GetHouseNumber(), pt);
         m_id2house[f.GetID()] = p;
       }
       else
@@ -312,7 +362,7 @@ void HouseDetector::MatchAllHouses(string const & houseNumber, vector<HouseProje
     for (size_t i = 0; i < st->m_houses.size(); ++i)
     {
       House const * house = st->m_houses[i].m_house;
-      if (house->m_number == houseNumber && s.count(house) == 0)
+      if (house->GetNumber() == houseNumber && s.count(house) == 0)
       {
         res.push_back(st->m_houses[i]);
         s.insert(house);

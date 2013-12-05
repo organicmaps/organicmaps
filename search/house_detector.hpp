@@ -7,11 +7,11 @@
 
 #include "../std/string.hpp"
 #include "../std/queue.hpp"
+#include "../std/iostream.hpp"
 
 
 namespace search
 {
-
 class FeatureLoader
 {
   Index const * m_pIndex;
@@ -29,10 +29,31 @@ public:
   template <class ToDo> void ForEachInRect(m2::RectD const & rect, ToDo toDo);
 };
 
-struct House
+class House
 {
   string m_number;
   m2::PointD m_point;
+  int m_intNumber;
+  string m_suffix;
+
+  void InitHouseNumberAndSuffix();
+public:
+  string const & GetNumber() const { return m_number; }
+  m2::PointD const & GetPosition() const { return m_point; }
+
+  House(string const & number, m2::PointD const & point)
+  {
+    m_number = number;
+    m_point = point;
+    InitHouseNumberAndSuffix();
+  }
+
+  inline static bool LessHouseNumber(House const & h1, House const & h2)
+  {
+    if (h1.m_intNumber == h2.m_intNumber)
+      return h1.m_suffix < h2.m_suffix;
+    return h1.m_intNumber < h2.m_intNumber;
+  }
 };
 
 struct HouseProjection
@@ -41,16 +62,22 @@ struct HouseProjection
   m2::PointD m_proj;
   double m_distance;
 
-  static bool LessDistance(HouseProjection const & r1, HouseProjection const & r2)
+  inline static bool LessDistance(HouseProjection const & r1, HouseProjection const & r2)
   {
     return r1.m_distance < r2.m_distance;
   }
 };
 
 // many features combines to street
-struct Street
+class Street
 {
   string m_name;
+  string m_processedName;
+
+public:
+  void SetName(string const & name);
+  string const & GetName() const { return m_name; }
+
   vector<m2::PointD> m_points;
 
   vector<HouseProjection> m_houses;
@@ -61,6 +88,11 @@ struct Street
 
   /// Get limit rect for street with ortho offset to the left and right.
   m2::RectD GetLimitRect(double offsetMeters) const;
+
+  inline static bool IsSameStreets(Street const & s1, Street const & s2)
+  {
+    return s1.m_processedName == s2.m_processedName;
+  }
 };
 
 class HouseDetector
@@ -103,6 +135,7 @@ private:
   void SetMetres2Mercator(double factor);
 
 public:
+
   HouseDetector(Index const * pIndex);
 
   void LoadStreets(vector<FeatureID> & ids);
