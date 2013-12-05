@@ -156,14 +156,13 @@
 
 @implementation UIApplication (URLs)
 
-
 - (void)openProVersion
 {
   NSURL * url = [NSURL URLWithString:MAPSWITHME_PREMIUM_LOCAL_URL];
-  if ([[UIApplication sharedApplication] canOpenURL:url])
-    [[UIApplication sharedApplication] openURL:url];
+  if ([self canOpenURL:url])
+    [self openURL:url];
   else
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
+    [self openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
 }
 
 @end
