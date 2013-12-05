@@ -534,6 +534,7 @@ const long long LITE_IDL = 431183278L;
 - (void)viewDidDisappear:(BOOL)animated
 {
   [super viewDidDisappear:animated];
+
   [self.sideToolbar setMenuHidden:YES animated:NO];
 }
 
@@ -641,7 +642,7 @@ const long long LITE_IDL = 431183278L;
   if (!_locationButton)
   {
     _locationButton = [[LocationButton alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
-    _locationButton.center = CGPointMake(30, self.view.height - 28);
+    _locationButton.center = CGPointMake(28, self.view.height - 28);
     _locationButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
     [_locationButton addTarget:self action:@selector(onMyPositionClicked:) forControlEvents:UIControlEventTouchUpInside];
   }
