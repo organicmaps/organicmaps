@@ -12,8 +12,6 @@
 
     <style name="Widget.MapButtonBottom" parent="android:Widget.Holo.ImageButton">
         <item name="android:background">@drawable/btn_map_control_bg_selector</item>
-        <item name="android:layout_margin">0dp</item>
-        <item name="android:padding">0dp</item>
     </style>
 
     <style name="tagGreenText" parent="@style/Holo.TextAppearance.Medium.Light">
@@ -121,6 +119,7 @@
         <item name="android:paddingTop">@dimen/dp_x_1</item>
         <item name="android:paddingBottom">@dimen/dp_x_1</item>
         <item name="android:gravity">left|center_vertical</item>
+        <item name="android:fontFamily">@string/robotoLight</item>
     </style>
 
 </resources>

@@ -58,18 +58,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="0dp"
-        android:layout_marginRight="@dimen/zoom_margin_right"
-        android:gravity="bottom|right"
-        android:orientation="horizontal"
-        android:padding="0dp" >
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:gravity="bottom|left"
+        android:orientation="horizontal" >
 
         <ImageButton
             android:id="@+id/map_button_myposition"
             style="@style/Widget.MapButtonBottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
+            android:layout_gravity="left|bottom"
+            android:layout_marginBottom="@dimen/dp_x_2"
+            android:layout_marginLeft="@dimen/dp_x_2"
             android:contentDescription="@string/my_position"
             android:onClick="onMyPositionClicked"
             android:src="@drawable/btn_map_controls_location_normal" />
@@ -78,13 +79,11 @@
             android:id="@+id/map_button_toggle_drawer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left|center_vertical"
-            android:layout_marginLeft="0dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginBottom="@dimen/dp_x_2"
             android:background="@null"
             android:contentDescription="@string/my_position"
-            android:paddingBottom="@dimen/dp_x_4"
-            android:paddingLeft="0dp"
-            android:paddingRight="@dimen/dp_x_1"
+            android:paddingLeft="@dimen/dp_x_2"
             android:paddingTop="@dimen/dp_x_6"
             android:src="@drawable/btn_menu_tail_selector" />
     </FrameLayout>

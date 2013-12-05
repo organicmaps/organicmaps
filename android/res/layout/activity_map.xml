@@ -28,14 +28,19 @@
             android:id="@+id/left_drawer"
             android:layout_width="@dimen/drawer_width"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="@drawable/drawer_back"
-            android:paddingTop="@dimen/drawer_top_padding" >
+            android:layout_gravity="end"
+            android:background="@drawable/drawer_back" >
 
             <include
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 layout="@layout/drawer_main" />
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:background="#000033" />
         </RelativeLayout>
     </android.support.v4.widget.DrawerLayout>
 

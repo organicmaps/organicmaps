@@ -638,13 +638,16 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       @Override
       public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
       {
+        if (mDrawerLayout.isDrawerOpen(mMainDrawer))
+          return false;
+
         final float dX = e2.getX() - e1.getX();
-        if (dX > 0) // scroll is right
+        if (dX < 0) // scroll is left
         {
           final float dY = e2.getY() - e1.getY();
           if (Math.abs(dX) > Math.abs(dY)) // is closer to horizontal
           {
-            toggleDrawer();
+              mDrawerLayout.openDrawer(mMainDrawer);
             return true;
           }
         }
@@ -786,7 +789,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     final int marginTop = (int) getResources().getDimension(R.dimen.zoom_plus_top_margin);
     lp.setMargins(margin, marginTop, margin, margin);
 
-    mMainDrawer.setPadding(0, (int) getResources().getDimension(R.dimen.drawer_top_padding), 0, 0);
+    findViewById(R.id.scroll_up).setPadding(0, (int) getResources().getDimension(R.dimen.drawer_top_padding), 0, 0);
   }
 
   /// @name From Location interface
