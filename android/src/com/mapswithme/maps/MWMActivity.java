@@ -43,11 +43,9 @@ import android.widget.Toast;
 import com.mapswithme.country.DownloadUI;
 import com.mapswithme.maps.Framework.OnBalloonListener;
 import com.mapswithme.maps.LocationButtonImageSetter.ButtonState;
-import com.mapswithme.maps.MapObjectFragment.MapObjectType;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
-import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.promo.ActivationSettings;
 import com.mapswithme.maps.promo.PromocodeActivationDialog;
@@ -618,39 +616,11 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         else if (R.id.map_button_share_myposition == id)
         {
           final Location loc = MWMApplication.get().getLocationService().getLastKnown();
-          final MapObject myPosition = new MapObject()
-          {
-            @Override
-            public MapObjectType getType()
-            {
-              return MapObjectType.MY_POSITION;
-            }
-
-            @Override
-            public double getScale()
-            {
-              return Framework.getDrawScale();
-            }
-
-            @Override
-            public String getName()
-            {
-              return getString(R.string.my_position);
-            }
-
-            @Override
-            public double getLon()
-            {
-              return loc.getLongitude();
-            }
-
-            @Override
-            public double getLat()
-            {
-              return loc.getLatitude();
-            }
-          };
-          ShareAction.getAnyShare().shareMapObject(MWMActivity.this, myPosition);
+          final String geoUrl = Framework.getGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
+          final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
+          final String body = getString(R.string.my_position_share_sms, geoUrl, httpUrl);
+          // we use shortest message we can have here
+          ShareAction.getAnyShare().shareWithText(getActivity(), body,"");
         }
 
         toggleDrawer();
