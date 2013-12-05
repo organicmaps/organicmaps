@@ -81,6 +81,7 @@ const long long LITE_IDL = 431183278L;
     default:
       break;
   }
+  [self.locationButton setImage:[UIImage imageNamed:@"LocationDefault"] forState:UIControlStateSelected];
 }
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info
