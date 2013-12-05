@@ -640,8 +640,8 @@ const long long LITE_IDL = 431183278L;
 {
   if (!_locationButton)
   {
-    _locationButton = [[LocationButton alloc] initWithFrame:CGRectMake(4.5, 0, 60, 60)];
-    _locationButton.maxY = self.view.height - 3.5;
+    _locationButton = [[LocationButton alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
+    _locationButton.center = CGPointMake(30, self.view.height - 28);
     _locationButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
     [_locationButton addTarget:self action:@selector(onMyPositionClicked:) forControlEvents:UIControlEventTouchUpInside];
   }
@@ -669,13 +669,13 @@ const long long LITE_IDL = 431183278L;
     _sideToolbar = [[SideToolbar alloc] initWithFrame:CGRectMake(self.view.width, 0, 260, self.view.height)];
     _sideToolbar.delegate = self;
 
-    UIButton * toolbarButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.view.height - 80, 50, 70)];
+    UIButton * toolbarButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 70)];
     toolbarButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
     toolbarButton.maxX = self.view.width;
-    toolbarButton.minY = self.view.height - 80;
+    toolbarButton.midY = self.view.height - 35;
     [toolbarButton addTarget:self action:@selector(toolbarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 
-    CGFloat tailShift = 4;
+    CGFloat tailShift = 7;
 
     UIImageView * tailLight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SlideViewLight"]];
     tailLight.maxX = toolbarButton.width;
