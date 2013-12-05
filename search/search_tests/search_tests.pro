@@ -6,7 +6,8 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES =  search platform indexer geometry coding base
+DEPENDENCIES = search platform indexer geometry coding base \
+               protobuf
 
 include($$ROOT_DIR/common.pri)
 
@@ -16,6 +17,8 @@ win32 {
   LIBS += -lShell32
   win32-g++: LIBS += -lpthread
 }
+
+macx-*: LIBS *= "-framework Foundation" "-framework IOKit"
 
 SOURCES += \
     ../../testing/testingmain.cpp \
