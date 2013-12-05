@@ -48,21 +48,12 @@
     _buyButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 2, 0);
     _buyButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _buyButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _buyButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16];
+    _buyButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
     [_buyButton setBackgroundImage:buyImage forState:UIControlStateNormal];
 
-    NSString *proText = [NSLocalizedString(@"become_a_pro", nil) uppercaseString];
-    NSRange boldRange = [proText rangeOfString:@"pro" options:NSCaseInsensitiveSearch];
-    if (boldRange.location == NSNotFound)
-      boldRange = [proText rangeOfString:@"полную" options:NSCaseInsensitiveSearch];
-    if (boldRange.location == NSNotFound)
-      boldRange = [proText rangeOfString:@"про" options:NSCaseInsensitiveSearch];
-
-    NSDictionary *attributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
-    NSMutableAttributedString *attributedProText = [[NSMutableAttributedString alloc] initWithString:proText attributes:attributes];
-    CGFloat size = _buyButton.titleLabel.font.pointSize;
-    [attributedProText addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:size] range:boldRange];
-
+    NSString * proText = NSLocalizedString(@"become_a_pro", nil);
+    NSDictionary * attributes = @{ NSForegroundColorAttributeName : [UIColor whiteColor] };
+    NSAttributedString * attributedProText = [[NSAttributedString alloc] initWithString:proText attributes:attributes];
     [_buyButton setAttributedTitle:attributedProText forState:UIControlStateNormal];
 
     [_buyButton addTarget:self action:@selector(buyButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
