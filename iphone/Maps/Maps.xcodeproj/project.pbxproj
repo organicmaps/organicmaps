@@ -2232,9 +2232,6 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				9747278618339113006B7CB7 /* Navigation Bar */,
-				9747274218328BD5006B7CB7 /* Side Toolbar Menu */,
-				97F61786183E63D8009919E2 /* Location Button */,
 				ED5D141B181AA8C900B51FB1 /* ic_guide_mark.png */,
 				ED5D141C181AA8C900B51FB1 /* ic_guide_mark@2x.png */,
 				ED9CC5EE17CA18770051642E /* ios-guides.json */,
@@ -2293,13 +2290,6 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
-		9747274218328BD5006B7CB7 /* Side Toolbar Menu */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Side Toolbar Menu";
-			sourceTree = "<group>";
-		};
 		9747277618328E65006B7CB7 /* SideToolbar */ = {
 			isa = PBXGroup;
 			children = (
@@ -2313,13 +2303,6 @@
 			path = SideToolbar;
 			sourceTree = "<group>";
 		};
-		9747278618339113006B7CB7 /* Navigation Bar */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Navigation Bar";
-			sourceTree = "<group>";
-		};
 		978F924D183BB5D6000D6C7C /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -2331,13 +2314,6 @@
 				97F61793183E7445009919E2 /* LinkCell.m */,
 			);
 			name = Cells;
-			sourceTree = "<group>";
-		};
-		97F61786183E63D8009919E2 /* Location Button */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Location Button";
 			sourceTree = "<group>";
 		};
 		CB252D6816FF82C8001E41E9 /* Statistics */ = {
