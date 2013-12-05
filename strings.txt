@@ -2918,7 +2918,7 @@
   [become_a_pro]
     en = Upgrade
     ru = Скачать PRO
-    uk = Купити версію PRO
+    uk = Купити PRO
     es = Obtener PRO
     pt = Obter PRO
     pl = Uaktualnij

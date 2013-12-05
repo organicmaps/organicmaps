@@ -691,21 +691,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     final Button buyProButton = (Button)findViewById(R.id.buy_pro);
     if (isPro)
       UiUtils.hide(buyProButton);
-    else
-    { // set bold style for PRO substring
-
-      final String[] tokens = {
-          "pro".toUpperCase(),
-          "полную".toUpperCase(),
-          "profissional".toUpperCase()
-      };
-
-      final StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
-      final CharSequence spannedText = StringUtils.setSpansForTokens(
-              getString(R.string.become_a_pro).toUpperCase(), boldSpan, tokens);
-
-      buyProButton.setText(spannedText);
-    }
   }
 
   private void yotaSetup()

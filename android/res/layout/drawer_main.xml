@@ -102,6 +102,7 @@
         android:paddingRight="@dimen/dp_x_6"
         android:paddingTop="@dimen/dp_x_2"
         android:text="@string/become_a_pro"
+        android:textSize="@dimen/sp_x_4"
         android:textColor="@android:color/white" />
 
 </merge>
