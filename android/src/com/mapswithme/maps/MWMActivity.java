@@ -344,15 +344,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     .setCancelable(false)
     .setMessage(getString(resMsg))
     .setPositiveButton(getString(R.string.ok), okListener)
-    .setNeutralButton(getString(R.string.never), new DialogInterface.OnClickListener()
-    {
-      @Override
-      public void onClick(DialogInterface dlg, int which)
-      {
-        dlg.dismiss();
-        mApplication.submitDialogResult(dlgID, MWMApplication.NEVER);
-      }
-    })
     .setNegativeButton(getString(R.string.later), new DialogInterface.OnClickListener()
     {
       @Override
