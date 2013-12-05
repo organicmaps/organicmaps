@@ -182,7 +182,7 @@ namespace
   public:
     class TypeChecker
     {
-      vector<uint32_t> m_localities, m_streets, m_buildings;
+      vector<uint32_t> m_localities, m_streets;
       int m_localityScale;
 
       template <size_t count, size_t ind>
@@ -234,10 +234,6 @@ namespace
           { "highway", "service" }
         };
 
-        char const * arrBuilding[][1] = {
-          { "building" }
-        };
-
         FillMatch(arrLocalities, m_localities);
         m_localityScale = 0;
         for (size_t i = 0; i < m_localities.size(); ++i)
@@ -247,7 +243,6 @@ namespace
         }
 
         FillMatch(arrStreet, m_streets);
-        FillMatch(arrBuilding, m_buildings);
       }
 
       int GetLocalitySearchScale() const { return m_localityScale; }
