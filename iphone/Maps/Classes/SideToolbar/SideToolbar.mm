@@ -44,11 +44,11 @@ typedef NS_ENUM(NSUInteger, Section)
                  NSLocalizedString(@"settings", nil),
                  NSLocalizedString(@"share_my_location", nil)];
 
-  menuImageNames = @[@"side-toolbar-icon-search",
-                     @"side-toolbar-icon-map",
-                     @"side-toolbar-icon-bookmarks",
-                     @"side-toolbar-icon-settings",
-                     @"side-toolbar-icon-share"];
+  menuImageNames = @[@"IconSearch",
+                     @"IconMap",
+                     @"IconBookmarks",
+                     @"IconSettings",
+                     @"IconShare"];
 
   disabledInTrial = @[@YES, @NO, @YES, @NO, @NO, @NO];
 

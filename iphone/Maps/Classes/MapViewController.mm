@@ -91,7 +91,7 @@ const long long LITE_IDL = 431183278L;
     Framework & f = GetFramework();
 
     if (f.GetLocationState()->IsFirstPosition())
-      [self.locationButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
+      [self.locationButton setImage:[UIImage imageNamed:@"LocationSelected"] forState:UIControlStateSelected];
 
     f.OnLocationUpdate(info);
 
@@ -113,14 +113,14 @@ const long long LITE_IDL = 431183278L;
 
   if (newStatus == location::ECompassFollow)
   {
-    [self.locationButton setImage:[UIImage imageNamed:@"location-follow.png"] forState:UIControlStateSelected];
+    [self.locationButton setImage:[UIImage imageNamed:@"LocationFollow"] forState:UIControlStateSelected];
   }
   else
   {
     if (ls->HasPosition())
-      [self.locationButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
+      [self.locationButton setImage:[UIImage imageNamed:@"LocationSelected"] forState:UIControlStateSelected];
     else
-      [self.locationButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
+      [self.locationButton setImage:[UIImage imageNamed:@"LocationDefault"] forState:UIControlStateSelected];
 
     self.locationButton.selected = YES;
   }
@@ -173,7 +173,7 @@ const long long LITE_IDL = 431183278L;
     if (!ls->IsFirstPosition())
     {
       self.locationButton.selected = YES;
-      [self.locationButton setImage:[UIImage imageNamed:@"location-search.png"] forState:UIControlStateSelected];
+      [self.locationButton setImage:[UIImage imageNamed:@"LocationSearch"] forState:UIControlStateSelected];
       [self.locationButton setSearching];
 
       ls->OnStartLocation();
@@ -205,7 +205,7 @@ const long long LITE_IDL = 431183278L;
               ls->AnimateToPositionAndEnqueueFollowing();
 
             self.locationButton.selected = YES;
-            [self.locationButton setImage:[UIImage imageNamed:@"location-follow.png"] forState:UIControlStateSelected];
+            [self.locationButton setImage:[UIImage imageNamed:@"LocationFollow"] forState:UIControlStateSelected];
 
             return;
           }
@@ -235,7 +235,7 @@ const long long LITE_IDL = 431183278L;
   [[MapsAppDelegate theApp].m_locationManager stop:self];
 
   self.locationButton.selected = NO;
-  [self.locationButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
+  [self.locationButton setImage:[UIImage imageNamed:@"LocationDefault"] forState:UIControlStateSelected];
 }
 
 - (IBAction)zoomInPressed:(id)sender
@@ -676,12 +676,12 @@ const long long LITE_IDL = 431183278L;
 
     CGFloat tailShift = 4;
 
-    UIImageView * tailLight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"side-toolbar-slide-view-light"]];
+    UIImageView * tailLight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SlideViewLight"]];
     tailLight.maxX = toolbarButton.width;
     tailLight.midY = toolbarButton.height / 2 + tailShift;
     [toolbarButton addSubview:tailLight];
 
-    UIImageView * tailDark = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"side-toolbar-slide-view-dark"]];
+    UIImageView * tailDark = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SlideViewDark"]];
     tailDark.maxX = toolbarButton.width;
     tailDark.midY = toolbarButton.height / 2 + tailShift;
     tailDark.alpha = 0;

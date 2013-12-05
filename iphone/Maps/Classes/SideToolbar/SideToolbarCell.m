@@ -76,7 +76,7 @@
 {
   if (!_separator)
   {
-    UIImage * separatorImage = [[UIImage imageNamed:@"side-toolbar-cell-separator"] resizableImageWithCapInsets:UIEdgeInsetsZero];
+    UIImage * separatorImage = [[UIImage imageNamed:@"ToolbarCellSeparator"] resizableImageWithCapInsets:UIEdgeInsetsZero];
     _separator = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, separatorImage.size.height)];
     _separator.image = separatorImage;
   }
@@ -87,7 +87,7 @@
 {
   if (!_proMarker)
   {
-    _proMarker = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"side-toolbar-cell-background-pro"]];
+    _proMarker = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ToolbarCellBackgroundPro"]];
     UILabel * label = [[UILabel alloc] initWithFrame:_proMarker.bounds];
     label.minY = -0.5;
     label.backgroundColor = [UIColor clearColor];
