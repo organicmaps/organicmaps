@@ -333,6 +333,9 @@ const long long LITE_IDL = 431183278L;
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+  if (!self.sideToolbar.isMenuHidden)
+    return;
+
   // To cancel single tap timer
   UITouch * theTouch = (UITouch *)[touches anyObject];
   if (theTouch.tapCount > 1)
@@ -369,6 +372,9 @@ const long long LITE_IDL = 431183278L;
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+  if (!self.sideToolbar.isMenuHidden)
+    return;
+
   m2::PointD const TempPt1 = m_Pt1;
 	m2::PointD const TempPt2 = m_Pt2;
 
@@ -420,6 +426,12 @@ const long long LITE_IDL = 431183278L;
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+  if (!self.sideToolbar.isMenuHidden)
+  {
+    [self.sideToolbar setMenuHidden:YES animated:YES];
+    return;
+  }
+
 	[self updatePointsFromEvent:event];
 	[self stopCurrentAction];
 
