@@ -71,8 +71,6 @@ UNIT_TEST(PointProjectionTests_Smoke)
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
   {
     p.SetBounds(arr[i][1], arr[i][2]);
-    m2::ProjectionToSection<P>::Result const res = p(arr[i][0]);
-    TEST(m2::AlmostEqual(res.m_pr, arr[i][3]), (i));
-    TEST_ALMOST_EQUAL(res.m_dist, res.m_pr.Length(arr[i][0]), ());
+    TEST(m2::AlmostEqual(p(arr[i][0]), arr[i][3]), (i));
   }
 }

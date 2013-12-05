@@ -278,6 +278,17 @@ namespace m2
     }
   }
 
+  template <typename PointT>
+  int GetOrientation(PointT const & p1, PointT const & p2, PointT const & pt)
+  {
+    double const sa = CrossProduct(p1 - pt, p2 - pt);
+    if (sa > 0.0)
+      return 1;
+    if (sa < 0.0)
+      return -1;
+    return 0;
+  }
+
   template <typename T> string DebugPrint(m2::Point<T> const & p)
   {
     ostringstream out;
@@ -286,9 +297,10 @@ namespace m2
     return out.str();
   }
 
-  template <typename T> bool AlmostEqual(m2::Point<T> const & a, m2::Point<T> const & b)
+  template <typename T>
+  bool AlmostEqual(m2::Point<T> const & a, m2::Point<T> const & b, unsigned int maxULPs = 256)
   {
-    return my::AlmostEqual(a.x, b.x) && my::AlmostEqual(a.y, b.y);
+    return my::AlmostEqual(a.x, b.x, maxULPs) && my::AlmostEqual(a.y, b.y, maxULPs);
   }
 
   template <class TArchive, class PointT>
@@ -321,4 +333,15 @@ namespace m2
   typedef Point<uint64_t> PointU64;
   typedef Point<int32_t> PointI;
   typedef Point<int64_t> PointI64;
+}
+
+namespace my
+{
+
+template <typename T>
+bool AlmostEqual(m2::Point<T> const & p1, m2::Point<T> const & p2, unsigned int maxULPs = 256)
+{
+  return m2::AlmostEqual(p1, p2, maxULPs);
+}
+
 }

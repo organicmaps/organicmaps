@@ -39,6 +39,8 @@ public:
     }
   }
 
+  double GetLength() const { return m_D2; }
+
 protected:
   template <class VectorT> static double SquareLength(VectorT const & v)
   {
@@ -87,23 +89,7 @@ public:
 template <typename PointT> class ProjectionToSection : public impl::CalculatedSection<PointT>
 {
 public:
-  struct Result
-  {
-    m2::PointD m_pr;
-    double m_dist;
-
-    /// 0 - closest to P0;
-    /// 1 - closest to P1;
-    /// 2 - in the middle;
-    int m_type;
-
-    Result(m2::PointD const & pr, double dist, int type)
-      : m_pr(pr), m_dist(dist), m_type(type)
-    {
-    }
-  };
-
-  Result operator() (PointT const & Y) const
+  m2::PointD operator() (PointT const & Y) const
   {
     m2::PointD const YmP0 = Y - this->m_P0;
     double const t = DotProduct(this->m_D, YmP0);
@@ -111,15 +97,15 @@ public:
     if (t <= 0)
     {
       // Y is closest to P0.
-      return Result(this->m_P0, this->Length(YmP0), 0);
+      return this->m_P0;
     }
     if (t >= this->m_D2)
     {
       // Y is closest to P1.
-      return Result(this->m_P1, this->Length(Y - this->m_P1), 1);
+      return this->m_P1;
     }
 
-    return Result(this->m_D*t + this->m_P0, fabs(this->Distance(YmP0)), 2);
+    return this->m_D*t + this->m_P0;
   }
 };
 
