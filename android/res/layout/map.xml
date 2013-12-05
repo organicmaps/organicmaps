@@ -82,7 +82,7 @@
             android:layout_marginLeft="0dp"
             android:background="@null"
             android:contentDescription="@string/my_position"
-            android:paddingBottom="@dimen/dp_x_6"
+            android:paddingBottom="@dimen/dp_x_4"
             android:paddingLeft="0dp"
             android:paddingRight="@dimen/dp_x_1"
             android:paddingTop="@dimen/dp_x_6"
