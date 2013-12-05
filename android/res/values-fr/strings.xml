@@ -325,7 +325,7 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Longueur</string>
 	<string name="share_my_location">Partagez mon emplacement</string>
-	<string name="become_a_pro">Devenez un utilisateur pro</string>
+	<string name="become_a_pro">Mettre à niveau</string>
 	<string name="menu_search">Recherchez</string>
 	<string name="pref_zoom_title">Boutons zoom</string>
 	<string name="pref_zoom_summary">Afficher sur l\&#39;écran</string>

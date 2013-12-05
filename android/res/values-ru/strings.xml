@@ -312,7 +312,7 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Длина</string>
 	<string name="share_my_location">Поделиться местоположением</string>
-	<string name="become_a_pro">СКАЧАТЬ ПОЛНУЮ ВЕРСИЮ</string>
+	<string name="become_a_pro">Скачать PRO</string>
 	<string name="menu_search">Поиск</string>
 	<string name="pref_zoom_title">Кнопки масштаба</string>
 	<string name="pref_zoom_summary">Показать на карте</string>

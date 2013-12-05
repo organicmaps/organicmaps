@@ -2916,21 +2916,21 @@
     hu = Helyzetem megosztása
 
   [become_a_pro]
-    en = BECOME A PRO USER
-    ru = СКАЧАТЬ ПОЛНУЮ ВЕРСИЮ
-    uk = Стати користувачем Про
-    es = convertirme en un usuario pro
-    pt = tornar-se um utilizador profissional
-    pl = zostań użytkownikiem pro
-    it = diventa un utente pro
-    nl = word een pro-gebruiker
-    de = Pro-Benutzer werden
-    cs = stát se Pro uživatelem
-    fr = Devenez un utilisateur pro
-    ja = proユーザーになる
-    ko = 프로 사용자 되기
-    zh-Hant = 成為專業用戶
-    hu = LEGYEN PRO FELHASZNÁLÓ
+    en = Upgrade
+    ru = Скачать PRO
+    uk = Купити версію PRO
+    es = Obtener PRO
+    pt = Obter PRO
+    pl = Uaktualnij
+    it = Aggiorna
+    nl = Upgrade
+    de = Upgrade
+    cs = Provést upgrade
+    fr = Mettre à niveau
+    ja = アップグレード
+    ko = 업그레이드
+    zh-Hant = 升級
+    hu = Frissítés most
 
   [menu_search]
     en = Search
