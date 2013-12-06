@@ -36,4 +36,6 @@
     <dimen name="zoom_margin">5dp</dimen>
     <dimen name="zoom_margin_right">4dp</dimen>
 
+    <dimen name="map_controls_margin">7dp</dimen>
+
 </resources>
