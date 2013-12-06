@@ -50,7 +50,9 @@
     UILabel * label = [[[UILabel alloc] initWithFrame:rect] autorelease];
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     label.backgroundColor = [UIColor clearColor];
-    label.text = NSLocalizedString(@"bookmarks_usage_hint", @"Text hint in Bookmarks dialog, displayed if it's empty");
+    bool const showDetailedHint = !GetFramework().GetBmCategoriesCount();
+    label.text = showDetailedHint ? NSLocalizedString(@"bookmarks_usage_hint", nil)
+                                  : NSLocalizedString(@"bookmarks_usage_hint_import_only", nil);
     label.textAlignment = UITextAlignmentCenter;
     label.lineBreakMode = UILineBreakModeWordWrap;
     label.numberOfLines = 0;
