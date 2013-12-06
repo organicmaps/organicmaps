@@ -43,6 +43,7 @@ public class Notifier
         .setContentIntent(pi)
         .build();
 
+    mNotificationManager.cancel(ID_UPDATE_AVAIL);
     mNotificationManager.notify(ID_UPDATE_AVAIL, notification);
   }
 
