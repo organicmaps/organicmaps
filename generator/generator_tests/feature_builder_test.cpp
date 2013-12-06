@@ -53,7 +53,7 @@ UNIT_TEST(FBuilder_ManyTypes)
   fb1.SetParams(params);
   fb1.SetCenter(m2::PointD(0, 0));
 
-  TEST(fb1.DoCorrect(), ());
+  TEST(fb1.RemoveInvalidTypes(), ());
   TEST(fb1.CheckValid(), ());
 
   FeatureBuilder1::buffer_t buffer;

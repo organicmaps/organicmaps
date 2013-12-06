@@ -33,9 +33,11 @@ namespace feature
 
   enum EHeaderTypeMask
   {
-    HEADER_GEOM_POINT = 0,
-    HEADER_GEOM_LINE = 1U << 5,
-    HEADER_GEOM_AREA = 1U << 6
+    /// Coding geometry feature type in 2 bits.
+    HEADER_GEOM_POINT = 0,          /// point feature (addinfo = rank)
+    HEADER_GEOM_LINE = 1U << 5,     /// linear feature (addinfo = ref)
+    HEADER_GEOM_AREA = 1U << 6,     /// area feature (addinfo = house)
+    HEADER_GEOM_POINT_EX = 3U << 5  /// point feature (addinfo = house)
   };
 
   static const int max_types_count = HEADER_TYPE_MASK + 1;
@@ -125,57 +127,59 @@ struct FeatureParamsBase
   void AddHouseNumber(string const & s);
 
   template <class TSink>
-  void Write(TSink & sink, uint8_t header, feature::EGeomType type) const
+  void Write(TSink & sink, uint8_t header) const
   {
-    if (header & feature::HEADER_HAS_NAME)
+    using namespace feature;
+
+    if (header & HEADER_HAS_NAME)
       name.Write(sink);
 
-    if (header & feature::HEADER_HAS_LAYER)
+    if (header & HEADER_HAS_LAYER)
       WriteToSink(sink, layer);
 
-    if (header & feature::HEADER_HAS_ADDINFO)
+    if (header & HEADER_HAS_ADDINFO)
     {
-      switch (type)
+      switch (header & HEADER_GEOTYPE_MASK)
       {
-      case feature::GEOM_POINT:
+      case HEADER_GEOM_POINT:
         WriteToSink(sink, rank);
         break;
-      case feature::GEOM_LINE:
+      case HEADER_GEOM_LINE:
         utils::WriteString(sink, ref);
         break;
-      case feature::GEOM_AREA:
+      case HEADER_GEOM_AREA:
+      case HEADER_GEOM_POINT_EX:
         house.Write(sink);
         break;
-      default:
-        ASSERT(false, ("Undefined geometry type"));
       }
     }
   }
 
   template <class TSrc>
-  void Read(TSrc & src, uint8_t header, feature::EGeomType type)
+  void Read(TSrc & src, uint8_t header)
   {
-    if (header & feature::HEADER_HAS_NAME)
+    using namespace feature;
+
+    if (header & HEADER_HAS_NAME)
       name.Read(src);
 
-    if (header & feature::HEADER_HAS_LAYER)
+    if (header & HEADER_HAS_LAYER)
       layer = ReadPrimitiveFromSource<int8_t>(src);
 
-    if (header & feature::HEADER_HAS_ADDINFO)
+    if (header & HEADER_HAS_ADDINFO)
     {
-      switch (type)
+      switch (header & HEADER_GEOTYPE_MASK)
       {
-      case feature::GEOM_POINT:
+      case HEADER_GEOM_POINT:
         rank = ReadPrimitiveFromSource<uint8_t>(src);
         break;
-      case feature::GEOM_LINE:
+      case HEADER_GEOM_LINE:
         utils::ReadString(src, ref);
         break;
-      case feature::GEOM_AREA:
+      case HEADER_GEOM_AREA:
+      case HEADER_GEOM_POINT_EX:
         house.Read(src);
         break;
-      default:
-        ASSERT(false, ("Undefined geometry type"));
       }
     }
   }
@@ -185,16 +189,13 @@ class FeatureParams : public FeatureParamsBase
 {
   typedef FeatureParamsBase BaseT;
 
-  bool m_geomTypes[3];
+  uint8_t m_geomType;
 
 public:
   typedef vector<uint32_t> types_t;
   types_t m_Types;
 
-  FeatureParams()
-  {
-    m_geomTypes[0] = m_geomTypes[1] = m_geomTypes[2] = false;
-  }
+  FeatureParams() : m_geomType(0xFF) {}
 
   /// Assign parameters except geometry type.
   /// Geometry is independent state and it's set by FeatureType's geometry functions.
@@ -206,9 +207,8 @@ public:
 
   inline bool IsValid() const { return !m_Types.empty(); }
 
-  inline void SetGeomType(feature::EGeomType t) { m_geomTypes[t] = true; }
-  inline void RemoveGeomType(feature::EGeomType t) { m_geomTypes[t] = false; }
-
+  void SetGeomType(feature::EGeomType t);
+  void SetGeomTypePointEx();
   feature::EGeomType GetGeomType() const;
   uint8_t GetTypeMask() const;
 
@@ -245,7 +245,7 @@ public:
     for (size_t i = 0; i < m_Types.size(); ++i)
       WriteVarUint(sink, GetIndexForType(m_Types[i]));
 
-    BaseT::Write(sink, header, GetGeomType());
+    BaseT::Write(sink, header);
   }
 
   template <class TSrc> void Read(TSrc & src)
@@ -253,17 +253,13 @@ public:
     using namespace feature;
 
     uint8_t const header = ReadPrimitiveFromSource<uint8_t>(src);
-
-    uint8_t const type = (header & HEADER_GEOTYPE_MASK);
-    if (type & HEADER_GEOM_LINE) SetGeomType(GEOM_LINE);
-    if (type & HEADER_GEOM_AREA) SetGeomType(GEOM_AREA);
-    if (type == HEADER_GEOM_POINT) SetGeomType(GEOM_POINT);
+    m_geomType = header & HEADER_GEOTYPE_MASK;
 
     size_t const count = (header & HEADER_TYPE_MASK) + 1;
     for (size_t i = 0; i < count; ++i)
       m_Types.push_back(GetTypeForIndex(ReadVarUint<uint32_t>(src)));
 
-    BaseT::Read(src, header, GetGeomType());
+    BaseT::Read(src, header);
   }
 
 private:

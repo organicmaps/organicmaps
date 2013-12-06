@@ -95,24 +95,13 @@ void FeatureBuilder1::AddPolygon(vector<m2::PointD> & poly)
   m_Polygons.back().swap(poly);
 }
 
-void FeatureBuilder1::DoCorrectForType(EGeomType type)
-{
-  if (m_Params.GetGeomType() == type &&
-      !IsDrawableLike(m_Params.m_Types, static_cast<FeatureGeoType>(type)))
-  {
-    m_Params.RemoveGeomType(type);
-  }
-}
-
-bool FeatureBuilder1::DoCorrect()
+bool FeatureBuilder1::RemoveInvalidTypes()
 {
   if (!m_Params.FinishAddingTypes())
     return false;
 
-  DoCorrectForType(GEOM_AREA);
-  DoCorrectForType(GEOM_LINE);
-
-  return (m_Params.GetGeomType() != GEOM_UNDEFINED);
+  return feature::RemoveNoDrawableTypes(m_Params.m_Types,
+                                        static_cast<FeatureGeoType>(m_Params.GetGeomType()));
 }
 
 FeatureBase FeatureBuilder1::GetFeatureBase() const
@@ -167,27 +156,27 @@ namespace
 
 bool FeatureBuilder1::PreSerialize()
 {
-  if (!m_Params.IsValid()) return false;
-  static const int8_t defaultCode = StringUtf8Multilang::GetLangIndex("default");
-  static const int8_t intCode = StringUtf8Multilang::GetLangIndex("int_name");
+  if (!m_Params.IsValid())
+    return false;
+
+  /// @todo Do not use flats info. Maybe in future.
+  m_Params.flats.clear();
 
   switch (m_Params.GetGeomType())
   {
   case GEOM_POINT:
-    // If we don't have name and have house number, than replace them.
-    if (m_Params.name.IsEmpty() && !m_Params.house.IsEmpty())
-      m_Params.name.AddString(defaultCode, m_Params.house.Get());
-
-    // We need refs for motorway's junctions. Try to update name always, not only for junctions.
-    if (m_Params.name.IsEmpty() && (!m_Params.ref.empty() || m_Params.flats.empty()))
+    // Store house number like HEADER_GEOM_POINT_EX.
+    if (!m_Params.house.IsEmpty())
     {
-      m_Params.name.AddString(defaultCode, m_Params.ref);
-      m_Params.name.AddString(intCode, m_Params.flats);
+      m_Params.SetGeomTypePointEx();
+      m_Params.rank = 0;
     }
 
-    m_Params.house.Clear();
+    // Store ref's in name field (used in "highway-motorway_junction").
+    if (m_Params.name.IsEmpty() && !m_Params.ref.empty())
+      m_Params.name.AddString(0, m_Params.ref);
+
     m_Params.ref.clear();
-    m_Params.flats.clear();
     break;
 
   case GEOM_LINE:
@@ -196,7 +185,7 @@ bool FeatureBuilder1::PreSerialize()
 
     // We need refs for road's numbers.
     if (!checkHighway.IsEqualV(m_Params.m_Types))
-      m_Params.ref = string();
+      m_Params.ref.clear();
 
     m_Params.rank = 0;
     m_Params.house.Clear();
@@ -269,7 +258,6 @@ bool FeatureBuilder1::CheckValid() const
   CHECK(m_Params.CheckValid(), (*this));
 
   EGeomType const type = m_Params.GetGeomType();
-  CHECK ( type != GEOM_UNDEFINED, (*this) );
 
   points_t const & poly = GetGeometry();
 
@@ -429,11 +417,17 @@ bool FeatureBuilder2::IsDrawableInRange(int lowS, int highS) const
 bool FeatureBuilder2::PreSerialize(buffers_holder_t const & data)
 {
   // make flags actual before header serialization
-  if (data.m_ptsMask == 0 && data.m_innerPts.empty())
-    m_Params.RemoveGeomType(GEOM_LINE);
-
-  if (data.m_trgMask == 0 && data.m_innerTrg.empty())
-    m_Params.RemoveGeomType(GEOM_AREA);
+  EGeomType const geoType = m_Params.GetGeomType();
+  if (geoType == GEOM_LINE)
+  {
+    if (data.m_ptsMask == 0 && data.m_innerPts.empty())
+      return false;
+  }
+  else if (geoType == GEOM_AREA)
+  {
+    if (data.m_trgMask == 0 && data.m_innerTrg.empty())
+      return false;
+  }
 
   // we don't need empty features without geometry
   return base_type::PreSerialize();
@@ -495,14 +489,13 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
 
   uint8_t const h = m_Params.GetTypeMask();
 
-  if (h & HEADER_GEOM_LINE)
+  if (h == HEADER_GEOM_LINE)
   {
     bitSink.Write(ptsCount, 4);
     if (ptsCount == 0)
       bitSink.Write(data.m_ptsMask, 4);
   }
-
-  if (h & HEADER_GEOM_AREA)
+  else if (h == HEADER_GEOM_AREA)
   {
     bitSink.Write(trgCount, 4);
     if (trgCount == 0)
@@ -511,7 +504,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
 
   bitSink.Finish();
 
-  if (h & HEADER_GEOM_LINE)
+  if (h == HEADER_GEOM_LINE)
   {
     if (ptsCount > 0)
     {
@@ -540,8 +533,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
       serial::WriteVarUintArray(data.m_ptsOffset, sink);
     }
   }
-
-  if (h & HEADER_GEOM_AREA)
+  else if (h == HEADER_GEOM_AREA)
   {
     if (trgCount > 0)
       serial::SaveInnerTriangles(data.m_innerTrg, params, sink);

@@ -45,11 +45,10 @@ public:
   inline bool PopExactType(uint32_t type) { return m_Params.PopExactType(type); }
   inline void SetType(uint32_t type) { m_Params.SetType(type); }
 
-  /// Check for feature visibility according to it's types.
-  /// If feature is invisible, it's not correct.
-  /// This fuction is called after it's classificator types manipulating.
-  void DoCorrectForType(feature::EGeomType type);
-  bool DoCorrect();
+  /// Check classificator types for their compatibility with feature geometry type.
+  /// Need to call when using any classificator types manipulating.
+  /// @return false If no any valid types.
+  bool RemoveInvalidTypes();
 
   /// Clear name if it's not visible in scale range [minS, maxS].
   void RemoveNameIfInvisible(int minS = 0, int maxS = 1000);
@@ -214,8 +213,8 @@ public:
     buffers_holder_t() : m_ptsMask(0), m_trgMask(0), m_ptsSimpMask(0) {}
   };
 
-  bool IsLine() const { return (m_Params.GetTypeMask() & feature::HEADER_GEOM_LINE) != 0; }
-  bool IsArea() const { return (m_Params.GetTypeMask() & feature::HEADER_GEOM_AREA) != 0; }
+  bool IsLine() const { return (m_Params.GetTypeMask() == feature::HEADER_GEOM_LINE); }
+  bool IsArea() const { return (m_Params.GetTypeMask() == feature::HEADER_GEOM_AREA); }
   bool IsDrawableInRange(int lowS, int highS) const;
 
   points_t const & GetOuterPoly() const { return GetGeometry(); }

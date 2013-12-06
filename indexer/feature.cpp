@@ -48,16 +48,11 @@ void FeatureBase::ParseCommon() const
 
 feature::EGeomType FeatureBase::GetFeatureType() const
 {
-  uint8_t const h = (Header() & HEADER_GEOTYPE_MASK);
-
-  if (h & HEADER_GEOM_AREA)
-    return GEOM_AREA;
-  else if (h & HEADER_GEOM_LINE)
-    return GEOM_LINE;
-  else
+  switch (Header() & HEADER_GEOTYPE_MASK)
   {
-    ASSERT ( h == HEADER_GEOM_POINT, (h) );
-    return GEOM_POINT;
+  case HEADER_GEOM_LINE: return GEOM_LINE;
+  case HEADER_GEOM_AREA: return GEOM_AREA;
+  default: return GEOM_POINT;
   }
 }
 
@@ -287,7 +282,7 @@ void FeatureType::GetReadableName(string & name) const
 string FeatureType::GetHouseNumber() const
 {
   ParseCommon();
-  return (GetFeatureType() == GEOM_AREA ? m_Params.house.Get() : string());
+  return m_Params.house.Get();
 }
 
 bool FeatureType::GetName(int8_t lang, string & name) const

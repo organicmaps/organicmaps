@@ -37,12 +37,9 @@ void LoaderCurrent::ParseCommon()
   ArrayByteSource source(DataPtr() + m_CommonOffset);
 
   uint8_t const h = Header();
+  m_pF->m_Params.Read(source, h);
 
-  EGeomType const type = m_pF->GetFeatureType();
-
-  m_pF->m_Params.Read(source, h, type);
-
-  if (type == GEOM_POINT)
+  if (m_pF->GetFeatureType() == GEOM_POINT)
   {
     m_pF->m_Center = serial::LoadPoint(source, GetDefCodingParams());
     m_pF->m_LimitRect.Add(m_pF->m_Center);
@@ -103,20 +100,16 @@ void LoaderCurrent::ParseHeader2()
 
   BitSource bitSource(DataPtr() + m_Header2Offset);
 
-  uint8_t const h = (Header() & HEADER_GEOTYPE_MASK);
-
-  if (h & HEADER_GEOM_LINE)
+  uint8_t const typeMask = Header() & HEADER_GEOTYPE_MASK;
+  if (typeMask == HEADER_GEOM_LINE)
   {
     ptsCount = bitSource.Read(4);
     if (ptsCount == 0)
       ptsMask = bitSource.Read(4);
     else
-    {
       ASSERT_GREATER ( ptsCount, 1, () );
-    }
   }
-
-  if (h & HEADER_GEOM_AREA)
+  else if (typeMask == HEADER_GEOM_AREA)
   {
     trgCount = bitSource.Read(4);
     if (trgCount == 0)
@@ -127,7 +120,7 @@ void LoaderCurrent::ParseHeader2()
 
   serial::CodingParams const & cp = GetDefCodingParams();
 
-  if (h & HEADER_GEOM_LINE)
+  if (typeMask == HEADER_GEOM_LINE)
   {
     if (ptsCount > 0)
     {
@@ -153,8 +146,7 @@ void LoaderCurrent::ParseHeader2()
       ReadOffsets(src, ptsMask, m_ptsOffsets);
     }
   }
-
-  if (h & HEADER_GEOM_AREA)
+  else if (typeMask == HEADER_GEOM_AREA)
   {
     if (trgCount > 0)
     {
@@ -184,7 +176,7 @@ void LoaderCurrent::ParseHeader2()
 uint32_t LoaderCurrent::ParseGeometry(int scale)
 {
   uint32_t sz = 0;
-  if (Header() & HEADER_GEOM_LINE)
+  if ((Header() & HEADER_GEOTYPE_MASK) == HEADER_GEOM_LINE)
   {
     size_t const count = m_pF->m_Points.size();
     if (count < 2)
@@ -236,7 +228,7 @@ uint32_t LoaderCurrent::ParseGeometry(int scale)
 uint32_t LoaderCurrent::ParseTriangles(int scale)
 {
   uint32_t sz = 0;
-  if (Header() & HEADER_GEOM_AREA)
+  if ((Header() & HEADER_GEOTYPE_MASK) == HEADER_GEOM_AREA)
   {
     if (m_pF->m_Triangles.empty())
     {

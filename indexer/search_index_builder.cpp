@@ -219,10 +219,10 @@ class FeatureInserter
     SkipIndexing()
     {
       // Get features which shoud be skipped in any case.
-      char const * arrSkip2[][2] = {
-        { "building", "address" }
-      };
+      char const * arrSkip1[][1] = { { "entrance" } };
+      char const * arrSkip2[][2] = { { "building", "address" } };
 
+      FillTypes(arrSkip1, m_skipFeatures);
       FillTypes(arrSkip2, m_skipFeatures);
 
       // Get features which shoud be skipped without names.

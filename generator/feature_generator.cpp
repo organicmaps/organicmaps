@@ -359,10 +359,13 @@ public:
         fb.PopExactType(Type(NATURAL_LAND));
         fb.PopExactType(coastType);
       }
-      else if (fb.HasType(Type(PLACE_ISLAND)) || fb.HasType(Type(PLACE_ISLET)))
+      else if ((fb.HasType(Type(PLACE_ISLAND)) || fb.HasType(Type(PLACE_ISLET))) &&
+               fb.GetGeomType() == feature::GEOM_AREA)
+      {
         fb.AddType(Type(NATURAL_LAND));
+      }
 
-      if (fb.DoCorrect())
+      if (fb.RemoveInvalidTypes())
       {
         if (m_world)
           (*m_world)(fb);

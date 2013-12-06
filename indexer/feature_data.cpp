@@ -110,7 +110,7 @@ string FeatureParamsBase::DebugString() const
 
 void FeatureParamsBase::AddHouseName(string const & s)
 {
-  house.Set(house.IsEmpty() ? s : house.Get() + " \"" + s + "\"");
+  house.Set(house.IsEmpty() ? s : house.Get() + ", " + s);
 }
 
 void FeatureParamsBase::AddHouseNumber(string const & ss)
@@ -122,27 +122,42 @@ void FeatureParamsBase::AddHouseNumber(string const & ss)
   if (strings::to_uint64(s, n))
     s = strings::to_string(n);
 
-  house.Set(house.IsEmpty() ? s : s + " \"" + house.Get() + "\"");
+  house.Set(house.IsEmpty() ? s : s + ", " + house.Get());
+}
+
+void FeatureParams::SetGeomType(feature::EGeomType t)
+{
+  switch (t)
+  {
+  case GEOM_POINT: m_geomType = HEADER_GEOM_POINT; break;
+  case GEOM_LINE: m_geomType = HEADER_GEOM_LINE; break;
+  case GEOM_AREA: m_geomType = HEADER_GEOM_AREA; break;
+  }
+}
+
+void FeatureParams::SetGeomTypePointEx()
+{
+  ASSERT_EQUAL(m_geomType, HEADER_GEOM_POINT, ());
+  ASSERT(!house.IsEmpty(), ());
+
+  m_geomType = HEADER_GEOM_POINT_EX;
 }
 
 feature::EGeomType FeatureParams::GetGeomType() const
 {
-  // Geometry types can be combined.
-  // We define exact type for priority : starting from GEOM_AREA.
-
-  if (m_geomTypes[GEOM_AREA]) return GEOM_AREA;
-  if (m_geomTypes[GEOM_LINE]) return GEOM_LINE;
-  if (m_geomTypes[GEOM_POINT]) return GEOM_POINT;
-  return GEOM_UNDEFINED;
+  CHECK_NOT_EQUAL(m_geomType, 0xFF, ());
+  switch (m_geomType)
+  {
+  case HEADER_GEOM_LINE: return GEOM_LINE;
+  case HEADER_GEOM_AREA: return GEOM_AREA;
+  default: return GEOM_POINT;
+  }
 }
 
 uint8_t FeatureParams::GetTypeMask() const
 {
-  uint8_t h = 0;
-  if (m_geomTypes[GEOM_POINT]) h |= HEADER_GEOM_POINT;
-  if (m_geomTypes[GEOM_LINE]) h |= HEADER_GEOM_LINE;
-  if (m_geomTypes[GEOM_AREA]) h |= HEADER_GEOM_AREA;
-  return h;
+  CHECK_NOT_EQUAL(m_geomType, 0xFF, ());
+  return m_geomType;
 }
 
 void FeatureParams::AddTypes(FeatureParams const & rhs, uint32_t skipType2)
@@ -209,7 +224,7 @@ bool FeatureParams::operator == (FeatureParams const & rhs) const
 bool FeatureParams::CheckValid() const
 {
   CHECK(!m_Types.empty() && m_Types.size() <= max_types_count, ());
-  CHECK(GetGeomType() != GEOM_UNDEFINED, ());
+  CHECK_NOT_EQUAL(m_geomType, 0xFF, ());
 
   return FeatureParamsBase::CheckValid();
 }
@@ -224,16 +239,17 @@ uint8_t FeatureParams::GetHeader() const
   if (layer != 0)
     header |= HEADER_HAS_LAYER;
 
-  header |= GetTypeMask();
+  uint8_t const typeMask = GetTypeMask();
+  header |= typeMask;
 
   // Geometry type for additional info is only one.
-  switch (GetGeomType())
+  switch (GetTypeMask())
   {
-  case GEOM_POINT: if (rank != 0) header |= HEADER_HAS_ADDINFO; break;
-  case GEOM_LINE: if (!ref.empty()) header |= HEADER_HAS_ADDINFO; break;
-  case GEOM_AREA: if (!house.IsEmpty()) header |= HEADER_HAS_ADDINFO; break;
-  default:
-    ASSERT(false, ("Undefined geometry type"));
+  case HEADER_GEOM_POINT: if (rank != 0) header |= HEADER_HAS_ADDINFO; break;
+  case HEADER_GEOM_LINE: if (!ref.empty()) header |= HEADER_HAS_ADDINFO; break;
+  case HEADER_GEOM_AREA:
+  case HEADER_GEOM_POINT_EX:
+    if (!house.IsEmpty()) header |= HEADER_HAS_ADDINFO; break;
   }
 
   return header;
