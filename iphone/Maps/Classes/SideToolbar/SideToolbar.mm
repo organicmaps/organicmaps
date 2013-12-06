@@ -39,7 +39,7 @@ typedef NS_ENUM(NSUInteger, Section)
   self = [super initWithFrame:frame];
 
   menuTitles = @[NSLocalizedString(@"search", nil),
-                 NSLocalizedString(@"maps", nil),
+                 NSLocalizedString(@"download_maps", nil),
                  NSLocalizedString(@"bookmarks", nil),
                  NSLocalizedString(@"settings", nil),
                  NSLocalizedString(@"share_my_location", nil)];
