@@ -81,8 +81,8 @@
 		97F61782183E6172009919E2 /* LocationButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97F6177F183E6172009919E2 /* LocationButton.mm */; };
 		97F61794183E7445009919E2 /* LinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F61793183E7445009919E2 /* LinkCell.m */; };
 		97F61795183E7445009919E2 /* LinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F61793183E7445009919E2 /* LinkCell.m */; };
-		CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
-		CB252D7016FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
+		CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		CB252D7016FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		ED3B8DB4182CD96F001F124F /* libFlurry_4.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3B8DB3182CD96F001F124F /* libFlurry_4.3.0.a */; };
 		ED3B8DB5182CD96F001F124F /* libFlurry_4.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3B8DB3182CD96F001F124F /* libFlurry_4.3.0.a */; };
 		ED48BBB117BE6EA8003E7E92 /* MWMApi.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB017BE6EA8003E7E92 /* MWMApi.mm */; };
@@ -2140,19 +2140,15 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				9747277618328E65006B7CB7 /* SideToolbar */,
+				97B4E9271851DAB300BEC5D7 /* Custom Views */,
 				978F9251183BD530000D6C7C /* NavigationController.h */,
 				978F9252183BD530000D6C7C /* NavigationController.mm */,
 				97D40C0C184E389000A1D572 /* MailComposeViewController.h */,
 				97D40C0D184E389000A1D572 /* MailComposeViewController.m */,
 				97387544184E475000170BC4 /* MessageComposeViewController.h */,
 				97387545184E475000170BC4 /* MessageComposeViewController.m */,
-				EDFC74CE177AE6C500FAF21F /* PlaceAndCompasView.h */,
-				EDFC74CF177AE6C500FAF21F /* PlaceAndCompasView.mm */,
 				FA09E00F13F71F6C007E69CA /* SearchVC.h */,
 				FA09E01013F71F6C007E69CA /* SearchVC.mm */,
-				97719D401843AF1E00BDD815 /* ScopeView.h */,
-				97719D411843AF1E00BDD815 /* ScopeView.m */,
 				EE7F297C1219ECA300EB67A9 /* RenderBuffer.hpp */,
 				EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */,
 				EE16192B126E374500622BD0 /* RenderContext.hpp */,
@@ -2161,28 +2157,16 @@
 				46F26CD710F623BA00ECCA39 /* EAGLView.mm */,
 				1D3623240D0F684500981E51 /* MapsAppDelegate.h */,
 				1D3623250D0F684500981E51 /* MapsAppDelegate.mm */,
-				97F61780183E6172009919E2 /* LocationButton.h */,
-				97F6177F183E6172009919E2 /* LocationButton.mm */,
 				46F8A2EB10EB63040045521A /* MapViewController.h */,
 				EED10A4411F78D120095FAD4 /* MapViewController.mm */,
 				FA81AE3114D061BF00A0D70D /* SearchCell.h */,
 				FA81AE3214D061BF00A0D70D /* SearchCell.mm */,
-				FABF223C13FAA97A003D4D49 /* CompassView.h */,
-				FABF223D13FAA97A003D4D49 /* CompassView.mm */,
-				F7B90CD11521E6D100C054EE /* CustomNavigationView.h */,
-				F7B90CD21521E6D100C054EE /* CustomNavigationView.mm */,
 				FAF457E415597BC100DCCC49 /* Framework.h */,
 				FAF457E615597D4600DCCC49 /* Framework.cpp */,
-				EDB811A1175E1A9C00E36BF2 /* TwoButtonsView.h */,
-				EDB811A2175E1A9C00E36BF2 /* TwoButtonsView.m */,
 				EDC5C541175F2CA600420E92 /* ShareActionSheet.h */,
 				EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */,
 				ED48BBAF17BE6EA8003E7E92 /* MWMApi.h */,
 				ED48BBB017BE6EA8003E7E92 /* MWMApi.mm */,
-				ED48BBB317C267F5003E7E92 /* ColorPickerView.h */,
-				ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */,
-				ED48BBB817C2B1E2003E7E92 /* CircleView.h */,
-				ED48BBB917C2B1E2003E7E92 /* CircleView.mm */,
 				ED7F47F917D47FD20016850C /* Config.h */,
 			);
 			path = Classes;
@@ -2314,6 +2298,30 @@
 				97F61793183E7445009919E2 /* LinkCell.m */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		97B4E9271851DAB300BEC5D7 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				9747277618328E65006B7CB7 /* SideToolbar */,
+				ED48BBB317C267F5003E7E92 /* ColorPickerView.h */,
+				ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */,
+				ED48BBB817C2B1E2003E7E92 /* CircleView.h */,
+				ED48BBB917C2B1E2003E7E92 /* CircleView.mm */,
+				FABF223C13FAA97A003D4D49 /* CompassView.h */,
+				FABF223D13FAA97A003D4D49 /* CompassView.mm */,
+				F7B90CD11521E6D100C054EE /* CustomNavigationView.h */,
+				F7B90CD21521E6D100C054EE /* CustomNavigationView.mm */,
+				EDB811A1175E1A9C00E36BF2 /* TwoButtonsView.h */,
+				EDB811A2175E1A9C00E36BF2 /* TwoButtonsView.m */,
+				EDFC74CE177AE6C500FAF21F /* PlaceAndCompasView.h */,
+				EDFC74CF177AE6C500FAF21F /* PlaceAndCompasView.mm */,
+				97719D401843AF1E00BDD815 /* ScopeView.h */,
+				97719D411843AF1E00BDD815 /* ScopeView.m */,
+				97F61780183E6172009919E2 /* LocationButton.h */,
+				97F6177F183E6172009919E2 /* LocationButton.mm */,
+			);
+			name = "Custom Views";
 			sourceTree = "<group>";
 		};
 		CB252D6816FF82C8001E41E9 /* Statistics */ = {

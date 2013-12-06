@@ -22,6 +22,19 @@
   }
 }
 
+- (void)logLatitude:(double)latitude longitude:(double)longitude horizontalAccuracy:(double)horizontalAccuracy verticalAccuracy:(double)verticalAccuracy
+{
+  if (self.enabled)
+  {
+    static NSDate *lastUpdate;
+    if (!lastUpdate || [[NSDate date] timeIntervalSinceDate:lastUpdate] > (60 * 60 * 3))
+    {
+      lastUpdate = [NSDate date];
+      [Flurry setLatitude:latitude longitude:longitude horizontalAccuracy:horizontalAccuracy verticalAccuracy:verticalAccuracy];
+    }
+  }
+}
+
 - (void)logEvent:(NSString *)eventName
 {
   if (self.enabled)

@@ -97,6 +97,11 @@ const long long LITE_IDL = 431183278L;
     f.OnLocationUpdate(info);
 
     [self showPopover];
+
+    [[Statistics instance] logLatitude:info.m_latitude
+                             longitude:info.m_longitude
+                    horizontalAccuracy:info.m_horizontalAccuracy
+                      verticalAccuracy:info.m_verticalAccuracy];
   }
 }
 
