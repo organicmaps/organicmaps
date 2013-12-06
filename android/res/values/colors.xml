@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <color name="background_placepage">#ECECEC</color>
-  <color name="base_green">#66CC33</color>
+  <color name="base_green">#4CD950</color>
   <color name="text_primary">#333333</color>
   <color name="text_seconadary">#999999</color>
 
