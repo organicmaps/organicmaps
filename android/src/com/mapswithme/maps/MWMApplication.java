@@ -297,6 +297,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
   static public final int OK = 0;
   static public final int LATER = 1;
+  static public final int NEVER = 2;
   public native void submitDialogResult(int dlg, int res);
   /// @}
 
