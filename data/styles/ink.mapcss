@@ -3869,8 +3869,6 @@ line[boundary=administrative][admin_level!=2][admin_level!=3][admin_level!=4]
 }
 
 area|z6-[natural=land]
-area|z6-[place=island]
-area|z6-[place=islet]
 {
   fill-color: #ffffff;
   z-index: -5;

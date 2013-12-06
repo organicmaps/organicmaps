@@ -223,7 +223,7 @@ public:
     m_Types.assign(b, e);
   }
 
-  void FinishAddingTypes();
+  bool FinishAddingTypes();
 
   void SetType(uint32_t t);
   bool PopAnyType(uint32_t & t);

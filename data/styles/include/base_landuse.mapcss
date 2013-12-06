@@ -1,8 +1,6 @@
 area[landuse],
 area[natural],
-area[leisure],
-area[place=island],
-area[place=islet]
+area[leisure]
 {
   fill-position: background;
 }
@@ -13,18 +11,14 @@ area[natural=coastline]
   z-index: -10;
 }
 
-area|z6-11[natural=land],
-area|z6-11[place=island],
-area|z6-11[place=islet]
+area|z6-11[natural=land]
 {
-  fill-color: #f1eee8;
+  fill-color: #EEEEDD;
   z-index: -9;
 }
-area|z12-[natural=land],
-area|z12-[place=island],
-area|z12-[place=islet]
+area|z12-[natural=land]
 {
-  fill-color: #f8f8f8;
+  fill-color: #EEEEDD;
   z-index: -9;
 }
 

@@ -253,7 +253,8 @@ void FeatureMergeProcessor::DoMerge(FeatureEmitterIFace & emitter)
     if (m_last.NotEmpty() && m_last.EqualGeometry(curr))
     {
       // curr is equal with m_last by geometry - just add new type to m_last
-      m_last.AddType(type);
+      if (!m_last.HasType(type))
+        m_last.AddType(type);
     }
     else
     {

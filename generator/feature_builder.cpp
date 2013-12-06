@@ -106,6 +106,9 @@ void FeatureBuilder1::DoCorrectForType(EGeomType type)
 
 bool FeatureBuilder1::DoCorrect()
 {
+  if (!m_Params.FinishAddingTypes())
+    return false;
+
   DoCorrectForType(GEOM_AREA);
   DoCorrectForType(GEOM_LINE);
 

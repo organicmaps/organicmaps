@@ -263,21 +263,6 @@ class MainFeaturesEmitter
   scoped_ptr<FeaturesCollector> m_coastsHolder;
 
   string m_srcCoastsFile;
-  uint32_t m_coastType;
-  vector<uint32_t> m_islandTypes;
-
-  // Treat islands as coastlines, because they don't have fill area draw style.
-  bool IsIsland(FeatureBuilder1 const & fb) const
-  {
-    if (!fb.IsGeometryClosed())
-      return false;
-
-    for (size_t i = 0; i < m_islandTypes.size(); ++i)
-      if (fb.HasType(m_islandTypes[i]))
-        return true;
-
-    return false;
-  }
 
   template <class T1, class T2> class CombinedEmitter
   {
@@ -292,13 +277,39 @@ class MainFeaturesEmitter
     }
   };
 
+  enum TypeIndex
+  {
+    NATURAL_COASTLINE,
+    NATURAL_LAND,
+    PLACE_ISLAND,
+    PLACE_ISLET,
+
+    TYPES_COUNT
+  };
+  uint32_t m_types[TYPES_COUNT];
+
+  inline uint32_t Type(TypeIndex i) const { return m_types[i]; }
+
 public:
   MainFeaturesEmitter(GenerateInfo const & info)
   {
     Classificator const & c = classif();
-    m_coastType = c.GetCoastType();
+
+    char const * arr[][2] = {
+      { "natural", "coastline" },
+      { "natural", "land" },
+      { "place", "island" },
+      { "place", "islet" }
+    };
+    STATIC_ASSERT(ARRAY_SIZE(arr) == TYPES_COUNT);
+
+    for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+      m_types[i] = c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2));
 
     m_srcCoastsFile = info.m_tmpDir + WORLD_COASTS_FILE_NAME + info.m_datFileSuffix;
+
+    CHECK(!info.m_makeCoasts || !info.m_createWorld,
+          ("We can't do make_coasts and generate_world at the same time"));
 
     if (!info.m_makeCoasts)
     {
@@ -312,17 +323,9 @@ public:
     }
     else
     {
-      char const * arr[][2] = {
-        { "place", "island" },
-        { "place", "islet" }
-      };
-
-      for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
-        m_islandTypes.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2)));
-
       // 4-10 - level range for cells
       // 20000 - max points count per feature
-      m_coasts.reset(new CoastlineFeaturesGenerator(m_coastType, 4, 10, 20000));
+      m_coasts.reset(new CoastlineFeaturesGenerator(Type(NATURAL_COASTLINE), 4, 10, 20000));
 
       m_coastsHolder.reset(new FeaturesCollector(m_srcCoastsFile));
     }
@@ -335,28 +338,41 @@ public:
 
   void operator() (FeatureBuilder1 fb)
   {
+    uint32_t const coastType = Type(NATURAL_COASTLINE);
+    bool const hasCoast = fb.HasType(coastType);
+
     if (m_coasts)
     {
-      if (fb.HasType(m_coastType) || IsIsland(fb))
+      if (hasCoast)
       {
         CHECK ( fb.GetGeomType() != feature::GEOM_POINT, () );
 
         // leave only coastline type
-        fb.SetType(m_coastType);
+        fb.SetType(coastType);
         (*m_coasts)(fb);
       }
     }
-
-    // remove coastline type
-    if (!fb.PopExactType(m_coastType) && fb.DoCorrect())
+    else
     {
-      if (m_world)
-        (*m_world)(fb);
+      if (hasCoast)
+      {
+        fb.PopExactType(Type(NATURAL_LAND));
+        fb.PopExactType(coastType);
+      }
+      else if (fb.HasType(Type(PLACE_ISLAND)) || fb.HasType(Type(PLACE_ISLET)))
+        fb.AddType(Type(NATURAL_LAND));
 
-      if (m_countries)
-        (*m_countries)(fb);
+      if (fb.DoCorrect())
+      {
+        if (m_world)
+          (*m_world)(fb);
+
+        if (m_countries)
+          (*m_countries)(fb);
+      }
     }
   }
+
   /// @return false if coasts are not merged and FLAG_fail_on_coasts is set
   bool Finish()
   {

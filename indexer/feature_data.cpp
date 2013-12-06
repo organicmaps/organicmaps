@@ -163,12 +163,15 @@ void FeatureParams::AddTypes(FeatureParams const & rhs, uint32_t skipType2)
   }
 }
 
-void FeatureParams::FinishAddingTypes()
+bool FeatureParams::FinishAddingTypes()
 {
   sort(m_Types.begin(), m_Types.end());
   m_Types.erase(unique(m_Types.begin(), m_Types.end()), m_Types.end());
+
   if (m_Types.size() > max_types_count)
     m_Types.resize(max_types_count);
+
+  return !m_Types.empty();
 }
 
 void FeatureParams::SetType(uint32_t t)
