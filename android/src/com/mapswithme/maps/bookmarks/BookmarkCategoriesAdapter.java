@@ -52,8 +52,12 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
   public View getView(int position, View convertView, ViewGroup parent)
   {
     if (getItemViewType(position) == HELP)
-      return LayoutInflater.from(getContext()).inflate(R.layout.bookmark_hint, null);
-
+    {
+      final View hintView = LayoutInflater.from(getContext()).inflate(R.layout.bookmark_hint, null);
+      if (super.getCount() > 0)
+        ((TextView)hintView.findViewById(R.id.bookmarks_usage_hint)).setText(R.string.bookmarks_usage_hint_import_only);
+      return hintView;
+    }
 
     if (convertView == null)
     {
