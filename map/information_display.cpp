@@ -158,8 +158,8 @@ void InformationDisplay::setDisplayRect(m2::RectI const & rect)
 {
   m_displayRect = rect;
 
-  m2::PointD pt(m2::PointD(m_displayRect.maxX() - 5 * m_visualScale,
-                           m_displayRect.maxY() - 4 * m_visualScale));
+  m2::PointD pt(m2::PointD(m_displayRect.maxX() - 30 * m_visualScale,
+                           m_displayRect.maxY() - 10 * m_visualScale));
 
   m_ruler->setPivot(pt);
 
