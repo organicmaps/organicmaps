@@ -282,8 +282,11 @@
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "Conjunto";
 
-/* Text hint in Bookmarks dialog */
-"bookmarks_usage_hint" = "Os marcadores de outras fontes podem ser importados e exibidos na aplicação MapsWithMe. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.";
+/* Text hint in Bookmarks dialog when no any bookmarks are added */
+"bookmarks_usage_hint" = "Ainda não tem marcadores.\nToque em qualquer lugar no mapa para adicionar um marcador.\nOs marcadores de outras fontes também podem ser importados e exibidos na aplicação MapsWithMe. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.";
+
+/* Text hint in Bookmarks dialog when at least one bookmark is added */
+"bookmarks_usage_hint_import_only" = "Os marcadores de outras fontes podem ser importados e exibidos na aplicação MapsWithMe. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.";
 
 /* Settings button in system menu */
 "settings" = "Definições";

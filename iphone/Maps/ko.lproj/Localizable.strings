@@ -282,8 +282,11 @@
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "집합";
 
-/* Text hint in Bookmarks dialog */
-"bookmarks_usage_hint" = "다른 소스에서 북마크는 MapsWithMe 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.";
+/* Text hint in Bookmarks dialog when no any bookmarks are added */
+"bookmarks_usage_hint" = "즐겨찾기가 없습니다.\n즐겨찾기를 추가하도록 지도에 어떤 장소를 누릅니다.\n다른 소스에서 북마크는 MapsWithMe 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.";
+
+/* Text hint in Bookmarks dialog when at least one bookmark is added */
+"bookmarks_usage_hint_import_only" = "다른 소스에서 북마크는 MapsWithMe 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.";
 
 /* Settings button in system menu */
 "settings" = "설정";

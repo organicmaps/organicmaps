@@ -282,8 +282,11 @@
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "Skupina";
 
-/* Text hint in Bookmarks dialog */
-"bookmarks_usage_hint" = "V MapsWithMe mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.";
+/* Text hint in Bookmarks dialog when no any bookmarks are added */
+"bookmarks_usage_hint" = "Zatím nemáte žádné záložky.\nZáložku můžete přidat poklepáním na jakékoli místo na mapě.\nV MapsWithMe také mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.";
+
+/* Text hint in Bookmarks dialog when at least one bookmark is added */
+"bookmarks_usage_hint_import_only" = "V MapsWithMe mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.";
 
 /* Settings button in system menu */
 "settings" = "Nastavení";

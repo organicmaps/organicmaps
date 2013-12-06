@@ -282,8 +282,11 @@
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "セット";
 
-/* Text hint in Bookmarks dialog */
-"bookmarks_usage_hint" = "MapsWithMe以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。";
+/* Text hint in Bookmarks dialog when no any bookmarks are added */
+"bookmarks_usage_hint" = "未だブックマークがありません。\nマップ上をタップすればブックマークを追加できます。\nMapsWithMe以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。";
+
+/* Text hint in Bookmarks dialog when at least one bookmark is added */
+"bookmarks_usage_hint_import_only" = "MapsWithMe以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。";
 
 /* Settings button in system menu */
 "settings" = "設定";

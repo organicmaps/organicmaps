@@ -282,8 +282,11 @@
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "Groep";
 
-/* Text hint in Bookmarks dialog */
-"bookmarks_usage_hint" = "Bladwijzers uit andere bronnen kunnen worden geïmporteerd en weergegeven in de MapsWithMe app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.";
+/* Text hint in Bookmarks dialog when no any bookmarks are added */
+"bookmarks_usage_hint" = "Je hebt nog geen bladwijzers.\nTik op een plek op de kaart om een bladwijzer toe te voegen.\nBladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de MapsWithMe app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.";
+
+/* Text hint in Bookmarks dialog when at least one bookmark is added */
+"bookmarks_usage_hint_import_only" = "Bladwijzers uit andere bronnen kunnen worden geïmporteerd en weergegeven in de MapsWithMe app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.";
 
 /* Settings button in system menu */
 "settings" = "Instellingen";

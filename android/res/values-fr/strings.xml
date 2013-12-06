@@ -177,8 +177,10 @@
 	<string name="remove_pin">Supprimer l\&#39;épingle</string>
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Groupe</string>
-	<!-- Text hint in Bookmarks dialog -->
-	<string name="bookmarks_usage_hint">Les signets provenant d\&#39;autres sources peuvent être importés et affichés dans MapsWithMe. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.</string>
+	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
+	<string name="bookmarks_usage_hint">Vous n\&#39;avez encore aucun favori.\nTapotez n\&#39;importe où sur la carte pour ajouter un favori.\nLes signets provenant d\&#39;autres sources peuvent également être importés et affichés dans MapsWithMe. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.</string>
+	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
+	<string name="bookmarks_usage_hint_import_only">Les signets provenant d\&#39;autres sources peuvent être importés et affichés dans MapsWithMe. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Réglages</string>
 	<!-- Header of settings activity where user defines storage path -->

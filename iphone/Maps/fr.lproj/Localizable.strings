@@ -282,8 +282,11 @@
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "Groupe";
 
-/* Text hint in Bookmarks dialog */
-"bookmarks_usage_hint" = "Les signets provenant d'autres sources peuvent être importés et affichés dans MapsWithMe. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.";
+/* Text hint in Bookmarks dialog when no any bookmarks are added */
+"bookmarks_usage_hint" = "Vous n'avez encore aucun favori.\nTapotez n'importe où sur la carte pour ajouter un favori.\nLes signets provenant d'autres sources peuvent également être importés et affichés dans MapsWithMe. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.";
+
+/* Text hint in Bookmarks dialog when at least one bookmark is added */
+"bookmarks_usage_hint_import_only" = "Les signets provenant d'autres sources peuvent être importés et affichés dans MapsWithMe. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.";
 
 /* Settings button in system menu */
 "settings" = "Réglages";

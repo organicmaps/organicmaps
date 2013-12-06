@@ -170,8 +170,10 @@
 	<string name="remove_pin">ピンを削除</string>
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">セット</string>
-	<!-- Text hint in Bookmarks dialog -->
-	<string name="bookmarks_usage_hint">MapsWithMe以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。</string>
+	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
+	<string name="bookmarks_usage_hint">未だブックマークがありません。\nマップ上をタップすればブックマークを追加できます。\nMapsWithMe以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。</string>
+	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
+	<string name="bookmarks_usage_hint_import_only">MapsWithMe以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">設定</string>
 	<!-- Header of settings activity where user defines storage path -->

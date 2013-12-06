@@ -282,8 +282,11 @@
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "Группа";
 
-/* Text hint in Bookmarks dialog */
-"bookmarks_usage_hint" = "Закладки можно импортировать из MapsWithMe либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.";
+/* Text hint in Bookmarks dialog when no any bookmarks are added */
+"bookmarks_usage_hint" = "У вас пока нет закладок.\nВыберите любое место на карте, чтобы добавить его в закладки.\nТак же закладки можно импортировать из MapsWithMe либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.";
+
+/* Text hint in Bookmarks dialog when at least one bookmark is added */
+"bookmarks_usage_hint_import_only" = "Закладки можно импортировать из MapsWithMe либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.";
 
 /* Settings button in system menu */
 "settings" = "Настройки";
