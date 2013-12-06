@@ -43,7 +43,7 @@
 {
   if (!_buyButton)
   {
-    UIImage * buyImage = [[UIImage imageNamed:@"ButtonBecomePro"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
+    UIImage * buyImage = [[UIImage imageNamed:@"ButtonBecomePro"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 14, 14, 14)];
     _buyButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buyImage.size.width, buyImage.size.height + 6)];
     _buyButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 2, 0);
     _buyButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
