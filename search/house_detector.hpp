@@ -37,14 +37,15 @@ class House
   string m_suffix;
 
   void InitHouseNumberAndSuffix();
+
 public:
   string const & GetNumber() const { return m_number; }
+  int GetIntNumber() const { return m_intNumber; }
   m2::PointD const & GetPosition() const { return m_point; }
 
   House(string const & number, m2::PointD const & point)
+    : m_number(number), m_point(point), m_intNumber(-1)
   {
-    m_number = number;
-    m_point = point;
     InitHouseNumberAndSuffix();
   }
 
@@ -54,6 +55,11 @@ public:
       return h1.m_suffix < h2.m_suffix;
     return h1.m_intNumber < h2.m_intNumber;
   }
+
+  bool operator<(House const & h) const
+  {
+    return LessHouseNumber(*this, h);
+  }
 };
 
 struct HouseProjection
@@ -61,6 +67,10 @@ struct HouseProjection
   House const * m_house;
   m2::PointD m_proj;
   double m_distance;
+  /// Distance in mercator, from street beginning to projection on street
+  double m_streetDistance;
+  /// false - to the left, true - to the right from projection segment
+  bool m_projectionSign;
 
   inline static bool LessDistance(HouseProjection const & r1, HouseProjection const & r2)
   {
@@ -79,12 +89,13 @@ public:
   string const & GetName() const { return m_name; }
 
   vector<m2::PointD> m_points;
-
   vector<HouseProjection> m_houses;
   bool m_housesReaded;
   int m_number;
 
   Street() : m_housesReaded(false), m_number(-1) {}
+
+  void SortHousesProjection();
 
   /// Get limit rect for street with ortho offset to the left and right.
   m2::RectD GetLimitRect(double offsetMeters) const;
@@ -135,6 +146,7 @@ private:
   void SetMetres2Mercator(double factor);
 
 public:
+  typedef map<FeatureID, Street *>::iterator IterM;
 
   HouseDetector(Index const * pIndex);
 
@@ -146,6 +158,14 @@ public:
   void ReadAllHouses(double offsetMeters);
 
   void MatchAllHouses(string const & houseNumber, vector<HouseProjection> & res);
+  vector<House> GetHouseForName(string const & houseName);
+
+  pair<IterM, IterM> GetAllStreets();
+  void SimpleFilter(string const & houseNumber, vector<House> & res);
 };
+
+void LongestSubsequence(vector<HouseProjection> const & houses,
+                        vector<HouseProjection> & result);
+void GetAllHousesForStreet(pair <search::HouseDetector::IterM, search::HouseDetector::IterM> range, map<House, double> & m);
 
 }

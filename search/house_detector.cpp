@@ -128,6 +128,19 @@ void Street::SetName(string const & name)
   strings::MakeLowerCase(m_processedName);
 }
 
+namespace
+{
+bool LessDistance(HouseProjection const & p1, HouseProjection const & p2)
+{
+  return p1.m_streetDistance < p2.m_streetDistance;
+}
+}
+
+void Street::SortHousesProjection()
+{
+  sort(m_houses.begin(), m_houses.end(), &LessDistance);
+}
+
 HouseDetector::HouseDetector(Index const * pIndex)
   : m_loader(pIndex), m_end2st(LessWithEpsilon(&m_epsMercator)), m_streetNum(0)
 {
@@ -158,7 +171,7 @@ void HouseDetector::FillQueue(queue<Street *> & q, Street const * street, bool i
 
 void HouseDetector::Bfs(Street * st)
 {
-  queue <Street *> q;
+  queue<Street *> q;
   q.push(st);
   st->m_number = m_streetNum;
   while(!q.empty())
@@ -251,7 +264,7 @@ double GetDistanceMeters(m2::PointD const & p1, m2::PointD const & p2)
 
 class ProjectionCalcToStreet
 {
-  Street const * m_street;
+  vector<m2::PointD> const & m_points;
   double m_distanceMeters;
 
   typedef m2::ProjectionToSection<m2::PointD> ProjectionT;
@@ -259,24 +272,25 @@ class ProjectionCalcToStreet
 
 public:
   ProjectionCalcToStreet(Street const * st, double distanceMeters)
-    : m_street(st), m_distanceMeters(distanceMeters)
+    : m_points(st->m_points), m_distanceMeters(distanceMeters)
   {
   }
 
-  bool GetProjection(m2::PointD const & pt, HouseProjection & proj)
+  void Initialize()
   {
-    if (m_calcs.empty())
+    if (m_calcs.empty() && !m_points.empty())
     {
-      for (size_t i = 1; i < m_street->m_points.size(); ++i)
+      m_calcs.reserve(m_points.size() - 1);
+      for (size_t i = 1; i < m_points.size(); ++i)
       {
         m_calcs.push_back(ProjectionT());
-        m_calcs.back().SetBounds(m_street->m_points[i-1], m_street->m_points[i]);
+        m_calcs.back().SetBounds(m_points[i-1], m_points[i]);
       }
     }
+  }
 
-    m2::PointD resPt;
-    double dist = numeric_limits<double>::max();
-    double resDist = numeric_limits<double>::max();
+  void CalculateProjectionParameters(m2::PointD const & pt, m2::PointD & resPt, double & dist, double & resDist, size_t & ind)
+  {
     for (size_t i = 0; i < m_calcs.size(); ++i)
     {
       m2::PointD const proj = m_calcs[i](pt);
@@ -285,13 +299,33 @@ public:
       {
         resPt = proj;
         resDist = dist;
+        ind = i;
       }
     }
+  }
+
+  bool GetProjection(m2::PointD const & pt, HouseProjection & proj)
+  {
+    Initialize();
+
+    m2::PointD resPt;
+    double dist = numeric_limits<double>::max();
+    double resDist = numeric_limits<double>::max();
+    size_t ind;
+
+    CalculateProjectionParameters(pt, resPt, dist, resDist, ind);
 
     if (resDist <= m_distanceMeters)
     {
       proj.m_proj = resPt;
-      proj.m_distance = dist;
+      proj.m_distance = resDist;
+
+      proj.m_streetDistance = 0.0;
+      for (size_t i = 0; i < ind; ++i)
+        proj.m_streetDistance += m_calcs[i].GetLength();
+
+      proj.m_streetDistance += m_points[ind].Length(proj.m_proj);
+      proj.m_projectionSign = m2::GetOrientation(m_points[ind], m_points[ind+1], pt) >= 0;
       return true;
     }
     else
@@ -305,7 +339,7 @@ template <class ProjectionCalcT>
 void HouseDetector::ReadHouse(FeatureType const & f, Street * st, ProjectionCalcT & calc)
 {
   static HouseChecker checker;
-  if (checker.IsHouse(feature::TypesHolder(f)))
+  if (checker.IsHouse(feature::TypesHolder(f)) && !f.GetHouseNumber().empty())
   {
     map<FeatureID, House *>::iterator const it = m_id2house.find(f.GetID());
 
@@ -342,6 +376,7 @@ void HouseDetector::ReadHouses(Street * st, double offsetMeters)
   m_loader.ForEachInRect(st->GetLimitRect(offsetMeters),
                          bind(&HouseDetector::ReadHouse<ProjectionCalcToStreet>, this, _1, st, ref(calcker)));
 
+  st->SortHousesProjection();
   st->m_housesReaded = true;
 }
 
@@ -356,9 +391,10 @@ void HouseDetector::MatchAllHouses(string const & houseNumber, vector<HouseProje
   /// @temporary decision to avoid duplicating houses
   set<House const *> s;
 
-  for (map<FeatureID, Street *>::iterator it = m_id2st.begin(); it != m_id2st.end();++it)
+  for (IterM it = m_id2st.begin(); it != m_id2st.end();++it)
   {
     Street const * st = it->second;
+
     for (size_t i = 0; i < st->m_houses.size(); ++i)
     {
       House const * house = st->m_houses[i].m_house;
@@ -369,6 +405,208 @@ void HouseDetector::MatchAllHouses(string const & houseNumber, vector<HouseProje
       }
     }
   }
+}
+
+
+
+namespace
+{
+struct LS
+{
+  size_t prevDecreasePos, decreaseValue;
+  size_t prevIncreasePos, increaseValue;
+
+  LS() {}
+  LS(size_t i)
+  {
+    prevDecreasePos = i;
+    decreaseValue = 1;
+    prevIncreasePos = i;
+    increaseValue = 1;
+  }
+};
+}
+
+void LongestSubsequence(vector<HouseProjection> const & houses,
+                                       vector<HouseProjection> & result)
+{
+  if (houses.size() < 2)
+  {
+    result = houses;
+    return;
+  }
+  vector<LS> v(houses.size());
+  for (size_t i = 0; i < v.size(); ++i)
+    v[i] = LS(i);
+
+  size_t res = 0;
+  size_t pos = 0;
+  for (size_t i = 0; i + 1 < houses.size(); ++i)
+  {
+    for (size_t j = i + 1; j < houses.size(); ++j)
+    {
+      if (House::LessHouseNumber(*houses[i].m_house, *houses[j].m_house) && v[i].increaseValue + 1 > v[j].increaseValue)
+      {
+        v[j].increaseValue = v[i].increaseValue + 1;
+        v[j].prevIncreasePos = i;
+      }
+      if (!House::LessHouseNumber(*houses[i].m_house, *houses[j].m_house) && v[i].decreaseValue + 1 > v[j].decreaseValue)
+      {
+        v[j].decreaseValue = v[i].decreaseValue + 1;
+        v[j].prevDecreasePos = i;
+      }
+      size_t m = max(v[j].increaseValue, v[j].decreaseValue);
+      if (m > res)
+      {
+        res = m;
+        pos = j;
+      }
+    }
+  }
+
+  result.resize(res);
+  bool increasing = true;
+  if (v[pos].increaseValue < v[pos].decreaseValue)
+    increasing = false;
+
+  while (res > 0)
+  {
+    result[res - 1] = houses[pos];
+    --res;
+    if (increasing)
+      pos = v[pos].prevIncreasePos;
+    else
+      pos = v[pos].prevDecreasePos;
+  }
+}
+
+
+pair<HouseDetector::IterM, HouseDetector::IterM> HouseDetector::GetAllStreets()
+{
+  return pair<HouseDetector::IterM, HouseDetector::IterM> (m_id2st.begin(), m_id2st.end());
+}
+
+void AddHouseToMap(search::HouseProjection const & proj, map<search::House, double> & m)
+{
+  map<search::House, double>::iterator const it = m.find(*proj.m_house);
+  if (it != m.end())
+  {
+    if (it->second > proj.m_distance)
+    {
+      m.erase(it);
+      m.insert(std::pair<search::House, double> (*proj.m_house, proj.m_distance));
+    }
+  }
+  else
+    m.insert(std::pair<search::House, double> (*proj.m_house, proj.m_distance));
+}
+
+/// @ Simple filter. Delete only houses with same house names. If names are equal take house with smaller distance to projection
+void HouseDetector::SimpleFilter(string const & houseNumber, vector<House> & res)
+{
+  map<search::House, double> result;
+  /// @not release version should think about how to return 5 houses for 5 streets.
+  for (search::HouseDetector::IterM it = m_id2st.begin(); it != m_id2st.end(); ++it)
+  {
+    Street * st = it->second;
+    for (size_t i = 0; i < st->m_houses.size(); ++i)
+      if (st->m_houses[i].m_house->GetNumber() == houseNumber)
+        AddHouseToMap(st->m_houses[i], result);
+  }
+  for (map<search::House, double>::iterator it = result.begin(); it != result.end(); ++it)
+    res.push_back(it->first);
+}
+
+//filtering house from street
+
+bool cmpH(search::HouseProjection const & h, bool isOdd)
+{
+  int x = h.m_house->GetIntNumber();
+  if ((x % 2 == 1) && isOdd)
+    return false;
+  if (x % 2 == 0 && !isOdd)
+    return false;
+  return true;
+}
+
+void createKMLString(map<search::House, double> & m)
+{
+  for (map<search::House, double>::iterator it = m.begin(); it != m.end(); ++it)
+  {
+    cout << "<Placemark>"
+         << "<name>" << it->first.GetNumber() <<  "</name>" <<
+
+         "<Point><coordinates>" <<
+
+            MercatorBounds::XToLon(it->first.GetPosition().x) <<
+
+            "," <<
+
+            MercatorBounds::YToLat(it->first.GetPosition().y) <<
+
+        "</coordinates></Point>" <<
+       "</Placemark>" << endl;
+  }
+}
+
+void ProccessHouses(vector <search::HouseProjection> & houses, vector <search::HouseProjection> & result, bool isOdd, map<search::House, double> & m)
+{
+  houses.erase(remove_if(houses.begin(), houses.end(), bind(&cmpH, _1, isOdd)), houses.end());
+  result.clear();
+  LongestSubsequence(houses, result);
+  for_each(result.begin(), result.end(), bind(&AddHouseToMap, _1, ref(m)));
+}
+
+//valid only if only one street in class
+void GetAllHousesForStreet(pair <search::HouseDetector::IterM, search::HouseDetector::IterM> range, map<search::House, double> & m)
+{
+  for (search::HouseDetector::IterM it = range.first; it != range.second; ++it)
+  {
+    vector <search::HouseProjection> left, right;
+    search::Street * st = it->second;
+    double r = numeric_limits<double>::max();
+    size_t index = numeric_limits<size_t>::max();
+    for (size_t i = 0; i < st->m_houses.size(); ++i)
+    {
+      double dist = st->m_houses[i].m_distance;
+      if (st->m_houses[i].m_projectionSign)
+        left.push_back(st->m_houses[i]);
+      else
+        right.push_back(st->m_houses[i]);
+      if (r > dist && st->m_houses[i].m_proj != st->m_points.front() && st->m_houses[i].m_proj != st->m_points.back())
+      {
+        index = i;
+        r = dist;
+      }
+    }
+
+    if (index >= st->m_houses.size())
+    {
+      cout << "WARNING!" << endl;
+      continue;
+    }
+    cout << endl;
+    bool leftOdd, rightOdd;
+    if (!st->m_houses[index].m_projectionSign)
+    {
+      rightOdd = false;
+      if (st->m_houses[index].m_house->GetIntNumber() % 2 == 1)
+        rightOdd = true;
+      leftOdd = !rightOdd;
+    }
+    else
+    {
+      leftOdd = false;
+      if (st->m_houses[index].m_house->GetIntNumber() % 2 == 1)
+        leftOdd = true;
+      rightOdd = !leftOdd;
+    }
+
+    vector <search::HouseProjection> leftRes, rightRes;
+    ProccessHouses(right, rightRes, rightOdd, m);
+    ProccessHouses(left, leftRes, leftOdd, m);
+  }
+  //createKMLString(m);
 }
 
 }

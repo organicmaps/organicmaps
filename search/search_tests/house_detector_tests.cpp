@@ -12,7 +12,6 @@
 
 #include "../../std/iostream.hpp"
 
-
 UNIT_TEST(LESS_WITH_EPSILON)
 {
   double q = 3.0 * 360.0 / 40.0E06;
