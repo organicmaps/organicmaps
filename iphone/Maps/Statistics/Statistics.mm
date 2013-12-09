@@ -26,7 +26,7 @@
 {
   if (self.enabled)
   {
-    static NSDate *lastUpdate;
+    static NSDate * lastUpdate;
     if (!lastUpdate || [[NSDate date] timeIntervalSinceDate:lastUpdate] > (60 * 60 * 3))
     {
       lastUpdate = [NSDate date];

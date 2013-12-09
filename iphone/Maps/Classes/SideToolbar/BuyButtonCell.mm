@@ -50,12 +50,9 @@
     _buyButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     _buyButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
     [_buyButton setBackgroundImage:buyImage forState:UIControlStateNormal];
-
-    NSString * proText = NSLocalizedString(@"become_a_pro", nil);
-    NSDictionary * attributes = @{ NSForegroundColorAttributeName : [UIColor whiteColor] };
-    NSAttributedString * attributedProText = [[NSAttributedString alloc] initWithString:[proText uppercaseString] attributes:attributes];
-    [_buyButton setAttributedTitle:attributedProText forState:UIControlStateNormal];
-
+    NSString * proText = [NSLocalizedString(@"become_a_pro", nil) uppercaseString];
+    [_buyButton setTitle:proText forState:UIControlStateNormal];
+    [_buyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_buyButton addTarget:self action:@selector(buyButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
   }
   return _buyButton;
