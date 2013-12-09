@@ -12,8 +12,8 @@
   self = [super initWithFrame:frame];
 
   self.contentMode = UIViewContentModeCenter;
-  [super setImage:[UIImage imageNamed:@"location-back"] forState:UIControlStateNormal];
-  [self setImage:[UIImage imageNamed:@"location"] forState:UIControlStateSelected];
+  [super setImage:[UIImage imageNamed:@"LocationBackground"] forState:UIControlStateNormal];
+  [self setImage:[UIImage imageNamed:@"LocationDefault"] forState:UIControlStateSelected];
 
   return self;
 }

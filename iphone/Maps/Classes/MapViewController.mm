@@ -690,7 +690,7 @@ const long long LITE_IDL = 431183278L;
     UIButton * toolbarButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 70)];
     toolbarButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
     toolbarButton.maxX = self.view.width;
-    toolbarButton.midY = self.view.height - 35.5;
+    toolbarButton.midY = self.view.height - 35;
     [toolbarButton addTarget:self action:@selector(toolbarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 
     CGFloat tailShift = 7;
