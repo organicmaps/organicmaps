@@ -19,7 +19,7 @@
   self.backgroundColor = [UIColor clearColor];
 
   if (!GetPlatform().IsPro())
-    [self.contentView addSubview:self.buyButton];
+    [self addSubview:self.buyButton];
 
   return self;
 }
