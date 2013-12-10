@@ -772,7 +772,10 @@ const long long LITE_IDL = 431183278L;
   }
   else if (buttonIndex == 4)
   {
-    [ShareActionSheet showShareActionSheetInView:self.view withObject:self];
+    if ([MapsAppDelegate theApp].m_locationManager.lastLocation)
+      [ShareActionSheet showShareActionSheetInView:self.view withObject:self];
+    else
+      [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"unknown_current_position", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil] show];
   }
 }
 
