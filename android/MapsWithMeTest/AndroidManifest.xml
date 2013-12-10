@@ -159,7 +159,9 @@
             android:configChanges="orientation|screenLayout|screenSize"
             android:label="@string/search_map"
             android:noHistory="true"
-            android:screenOrientation="behind" >
+            android:screenOrientation="behind"
+            android:theme="@style/MwmSearch"
+            android:windowSoftInputMode="stateVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.mapswithme.maps.settings.SettingsActivity"
@@ -205,9 +207,33 @@
             android:screenOrientation="behind" >
         </activity>
 
-        <receiver android:name="com.mapswithme.test.MonkeyEventsReceiver" >
+        <receiver
+            android:name="com.mapswithme.test.MonkeyEventsReceiver"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="mwmtest" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.mapswithme.maps.background.ConnectivityChangedReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.mapswithme.maps.background.WorkerService"
+            android:exported="false" >
+        </service>
+
+        <!-- Mobile Apps Tracking -->
+        <receiver
+            android:name="com.mobileapptracker.Tracker"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>
         </receiver>
     </application>

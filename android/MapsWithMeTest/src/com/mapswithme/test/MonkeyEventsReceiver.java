@@ -53,7 +53,7 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
 
   private static final Map<String, ExtractableMapTask> KEY_TO_TASK = new HashMap<String, ExtractableMapTask>(4);
 
-  static 
+  static
   {
     KEY_TO_TASK.put(TYPE_BOOKMARK, new ShowBookmarksTask());
     KEY_TO_TASK.put(TYPE_SEARCH, new SearchTask());
@@ -67,24 +67,36 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
     int mScope;
 
     @Override
-    public boolean run(MWMActivity target)
+    public boolean run(final MWMActivity target)
     {
       sLogger.d("Running me!", this, target);
-      SearchActivity.startForSearch(target, mQuery, mScope);
+      target.onMyPositionClicked(null);
+      final Handler delayHandler = new Handler();
+
+      delayHandler.postDelayed(new Runnable()
+      {
+
+        @Override
+        public void run()
+        {
+          SearchActivity.startForSearch(target, mQuery, mScope);
+        }
+      }, 1500);
+
       return true;
     }
 
     @Override
     public ExtractableMapTask extract(Intent data)
     {
-      SearchTask task = new SearchTask();
+      final SearchTask task = new SearchTask();
 
       task.mQuery = data.getStringExtra(SearchActivity.EXTRA_QUERY);
       sLogger.d("q: ", task.mQuery);
 
       final String scopeStr = data.getStringExtra(SearchActivity.EXTRA_SCOPE);
       sLogger.d("s: ", scopeStr);
-      if (scopeStr != null) 
+      if (scopeStr != null)
         task.mScope = Integer.parseInt(scopeStr);
 
       return task;
