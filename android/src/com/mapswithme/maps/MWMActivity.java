@@ -616,11 +616,28 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         else if (R.id.map_button_share_myposition == id)
         {
           final Location loc = MWMApplication.get().getLocationService().getLastKnown();
-          final String geoUrl = Framework.getGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
-          final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
-          final String body = getString(R.string.my_position_share_sms, geoUrl, httpUrl);
-          // we use shortest message we can have here
-          ShareAction.getAnyShare().shareWithText(getActivity(), body,"");
+          if (loc != null)
+          {
+            final String geoUrl = Framework.getGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
+            final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
+            final String body = getString(R.string.my_position_share_sms, geoUrl, httpUrl);
+            // we use shortest message we can have here
+            ShareAction.getAnyShare().shareWithText(getActivity(), body,"");
+          }
+          else
+          {
+            new AlertDialog.Builder(MWMActivity.this)
+            .setMessage(R.string.unknown_current_position)
+            .setCancelable(true)
+            .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
+            {
+              @Override
+              public void onClick(DialogInterface dialog, int which)
+              {
+                dialog.dismiss();
+              }})
+            .create().show();
+          }
         }
 
         toggleDrawer();
@@ -1322,7 +1339,5 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public void onDrawerStateChanged(int arg0)
   {
-    final View shareButton = findViewById(R.id.map_button_share_myposition);
-    shareButton.setEnabled(mApplication.getLocationService().getLastKnown() != null);
   }
 }
