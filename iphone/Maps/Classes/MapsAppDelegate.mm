@@ -218,9 +218,6 @@ void InitLocalizedStrings()
   NSString * advertiserId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MobileAppTrackerAdvertiserId"];
   NSString * conversionKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MobileAppTrackerConversionKey"];
   [[MobileAppTracker sharedManager] startTrackerWithMATAdvertiserId:advertiserId MATConversionKey:conversionKey];
-#if DEBUG
-  [[MobileAppTracker sharedManager] setDebugMode:YES];
-#endif
   if ([[NSUserDefaults standardUserDefaults] boolForKey:FIRST_LAUNCH_KEY])
     [[MobileAppTracker sharedManager] trackInstall];
   else
