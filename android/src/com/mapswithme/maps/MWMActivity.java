@@ -15,7 +15,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Typeface;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,7 +23,6 @@ import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.telephony.TelephonyManager;
-import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.KeyEvent;
@@ -54,7 +52,6 @@ import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.ShareAction;
-import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
@@ -597,7 +594,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
           ContextMenu.onItemSelected(R.id.menuitem_settings_activity, MWMActivity.this);
         else if (R.id.map_container_bookmarks == id)
         {
-          if (isPro)
+          if (isPro || Yota.isYota())
             onBookmarksClicked();
           else
             runProVersionMarketActivity();
