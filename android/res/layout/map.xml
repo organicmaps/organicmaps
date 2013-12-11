@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@drawable/ptb_selector_map" />
+            android:src="@drawable/btn_yota_ptb" />
 
         <View
             android:id="@+id/anchor_center"
