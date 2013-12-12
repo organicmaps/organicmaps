@@ -2,15 +2,48 @@
 #import "Framework.h"
 #import "MessageComposeViewController.h"
 #import "MailComposeViewController.h"
+#import "Statistics.h"
 
 #include "../../search/result.hpp"
 
-#define GE0LENGTH 16
+@implementation ShareInfo
+
+- (instancetype)initWithText:(NSString *)text gX:(double)gX gY:(double)gY myPosition:(BOOL)myPosition
+{
+  self = [super init];
+
+  self.text = text ? text : @"";
+  self.gX = gX;
+  self.gY = gY;
+  self.myPosition = myPosition;
+
+  return self;
+}
+
+@end
+
+@interface ShareActionSheet () <UIActionSheetDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate>
+
+@property ShareInfo * info;
+@property (weak) UIViewController * viewController;
+
+@end
 
 @implementation ShareActionSheet
-+(void)showShareActionSheetInView:(id)view withObject:(id)del
+
+- (instancetype)initWithInfo:(ShareInfo *)info viewController:(UIViewController *)viewController
 {
-  UIActionSheet * as = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"share", nil) delegate:del cancelButtonTitle:nil  destructiveButtonTitle:nil otherButtonTitles:nil];
+  self = [super init];
+
+  self.info = info;
+  self.viewController = viewController;
+
+  return self;
+}
+
+- (void)show
+{
+  UIActionSheet * as = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"share", nil) delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
 
   if ([MessageComposeViewController canSendText])
     [as addButtonWithTitle:NSLocalizedString(@"message", nil)];
@@ -19,64 +52,57 @@
   [as addButtonWithTitle:NSLocalizedString(@"copy_link", nil)];
   [as addButtonWithTitle:NSLocalizedString(@"cancel", nil)];
   [as setCancelButtonIndex:as.numberOfButtons - 1];
-  [as showInView:view];
-  [as release];
+  [as showInView:self.viewController.view];
 }
 
-+ (BOOL)canUseGmailApp
+#define GE0_URL_LENGTH 16
+
+- (void)actionSheet:(UIActionSheet *)as willDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+  Framework & f = GetFramework();
+  string const s = f.CodeGe0url(MercatorBounds::YToLat(self.info.gY), MercatorBounds::XToLon(self.info.gX), f.GetDrawScale(), [self.info.text UTF8String]);
+  NSString * shortUrl = [NSString stringWithUTF8String:s.c_str()];
+
+  if ([[as buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"email", nil)])
+    [self sendEmailWithUrl:shortUrl];
+  else if ([[as buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"message", nil)])
+    [self sendMessageWithUrl:[shortUrl substringWithRange:NSMakeRange(0, GE0_URL_LENGTH)]];
+  else if ([[as buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"copy_link", nil)])
+    [UIPasteboard generalPasteboard].string = shortUrl;
+}
+
+- (BOOL)canUseGmailApp
 {
   // This is not official google api
   return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"googlegmail://"]];
 }
 
-+(void)resolveActionSheetChoice:(UIActionSheet *)as buttonIndex:(NSInteger)buttonIndex text:(NSString *)text
-                           view:(id)view delegate:(id)del gX:(double)gX gY:(double)gY
-                  andMyPosition:(BOOL)myPos
+- (void)sendEmailWithUrl:(NSString *)shortUrl
 {
-  NSString * shortUrl = [self generateShortUrlWithName:text gX:gX gY:gY];
-  if ([[as buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"email", nil)])
-    [self sendEmailWith:text andUrl:shortUrl view:view delegate:del gX:gX gY:gY myPosition:myPos];
-  else if ([[as buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"message", nil)])
-    [self sendMessageWithUrl:[shortUrl substringWithRange:NSMakeRange(0, GE0LENGTH)] view:view delegate:del myPosition:myPos];
-  else if ([[as buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"copy_link", nil)])
-    [UIPasteboard generalPasteboard].string = [self generateShortUrlWithName:text gX:gX gY:gY];
-}
-
-+(NSString *)generateShortUrlWithName:(NSString *)name gX:(double)gX gY:(double)gY
-{
-  Framework & f = GetFramework();
-  string const s = f.CodeGe0url(MercatorBounds::YToLat(gY), MercatorBounds::XToLon(gX),
-                                f.GetDrawScale(), [(name ? name : @"") UTF8String]);
-  return [NSString stringWithUTF8String:s.c_str()];
-}
-
-+(void)sendEmailWith:(NSString *)textFieldText andUrl:(NSString *)shortUrl view:(id)view delegate:(id)del gX:(double)gX gY:(double)gY myPosition:(BOOL)myPos
-{
-
   NSString * subject;
   NSString * body;
   NSString * httpGe0Url = [shortUrl stringByReplacingCharactersInRange:NSMakeRange(0, 6) withString:@"http://ge0.me/"];
-  if (myPos)
+  if (self.info.myPosition)
   {
     search::AddressInfo info;
-    GetFramework().GetAddressInfoForGlobalPoint(m2::PointD(gX, gY), info);
+    GetFramework().GetAddressInfoForGlobalPoint(m2::PointD(self.info.gX, self.info.gY), info);
     NSString * nameAndAddress = [NSString stringWithUTF8String:info.FormatNameAndAddress().c_str()];
     body = [NSString stringWithFormat:NSLocalizedString(@"my_position_share_email", nil), nameAndAddress, shortUrl, httpGe0Url];
     subject = NSLocalizedString(@"my_position_share_email_subject", nil);
   }
   else
   {
-    body = [NSString stringWithFormat:NSLocalizedString(@"bookmark_share_email", nil), textFieldText, shortUrl, httpGe0Url];
+    body = [NSString stringWithFormat:NSLocalizedString(@"bookmark_share_email", nil), self.info.text, shortUrl, httpGe0Url];
     subject = NSLocalizedString(@"bookmark_share_email_subject", nil);
   }
 
   if ([MailComposeViewController canSendMail])
   {
-    MailComposeViewController * mailVC = [[[MailComposeViewController alloc] init] autorelease];
+    MailComposeViewController * mailVC = [[MailComposeViewController alloc] init];
     [mailVC setMessageBody:body isHTML:NO];
     [mailVC setSubject:subject];
-    mailVC.mailComposeDelegate = del;
-    [view presentModalViewController:mailVC animated:YES];
+    mailVC.mailComposeDelegate = self;
+    [self.viewController presentModalViewController:mailVC animated:YES];
   }
   else if ([self canUseGmailApp])
   {
@@ -87,17 +113,30 @@
   }
 }
 
-+(void)sendMessageWithUrl:(NSString *)shortUrl view:(id)view delegate:(id)del myPosition:(BOOL)myPos
+- (void)sendMessageWithUrl:(NSString *)shortUrl
 {
   NSString * httpGe0Url = [shortUrl stringByReplacingCharactersInRange:NSMakeRange(0, 6) withString:@"http://ge0.me/"];
-  MessageComposeViewController * messageVC = [[[MessageComposeViewController alloc] init] autorelease];
-
-  if (myPos)
+  MessageComposeViewController * messageVC = [[MessageComposeViewController alloc] init];
+  if (self.info.myPosition)
     [messageVC setBody:[NSString stringWithFormat:NSLocalizedString(@"my_position_share_sms", nil), shortUrl, httpGe0Url]];
   else
     [messageVC setBody:[NSString stringWithFormat:NSLocalizedString(@"bookmark_share_sms", nil), shortUrl, httpGe0Url]];
-  messageVC.messageComposeDelegate = del;
-  [view presentModalViewController:messageVC animated:YES];
+  messageVC.messageComposeDelegate = self;
+  [self.viewController presentModalViewController:messageVC animated:YES];
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+  [self.viewController dismissModalViewControllerAnimated:YES];
+  if (result == MessageComposeResultSent)
+    [[Statistics instance] logEvent:@"ge0(zero) MESSAGE Export"];
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+  [self.viewController dismissModalViewControllerAnimated:YES];
+  if (result == MFMailComposeResultSent || result == MFMailComposeResultSaved)
+    [[Statistics instance] logEvent:@"ge0(zero) MAIL Export"];
 }
 
 @end

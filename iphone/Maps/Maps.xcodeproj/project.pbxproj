@@ -105,8 +105,8 @@
 		EDB811A4175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB811A2175E1A9C00E36BF2 /* TwoButtonsView.m */; };
 		EDBB18B816972B0600AF0742 /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDBB18B716972B0600AF0742 /* libzlib.a */; };
 		EDBB18B916972B3000AF0742 /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDBB18B716972B0600AF0742 /* libzlib.a */; };
-		EDC5C543175F2CA600420E92 /* ShareActionSheet.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */; };
-		EDC5C544175F2CA600420E92 /* ShareActionSheet.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */; };
+		EDC5C543175F2CA600420E92 /* ShareActionSheet.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		EDC5C544175F2CA600420E92 /* ShareActionSheet.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		EDCB4E8E175E67120005AA35 /* PlacePreviewViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDCB4E8D175E67110005AA35 /* PlacePreviewViewController.mm */; };
 		EDCB4E8F175E67120005AA35 /* PlacePreviewViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDCB4E8D175E67110005AA35 /* PlacePreviewViewController.mm */; };
 		EDF924DB183380CE00539672 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDF924DA183380CE00539672 /* FacebookSDK.framework */; };

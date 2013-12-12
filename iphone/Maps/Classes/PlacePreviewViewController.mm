@@ -29,6 +29,8 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
   CGPoint m_point;
 }
 @property (nonatomic, retain) PlaceAndCompasView * placeAndCompass;
+@property (retain) ShareActionSheet * shareActionSheet;
+
 @end
 
 @implementation PlacePreviewViewController
@@ -186,12 +188,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
   return [self.tableView sectionHeaderHeight];
 }
 
--(void)share
-{
-  [ShareActionSheet showShareActionSheetInView:self.view withObject:self];
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
+- (void)share
 {
   string name = "";
   if (m_previewType == POI)
@@ -199,7 +196,11 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
   else if (m_previewType == APIPOINT)
     name = m_apiPoint.m_name;
   BOOL const myPos = (m_previewType == MYPOSITION) ? YES : NO;
-  [ShareActionSheet resolveActionSheetChoice:actionSheet buttonIndex:buttonIndex text:[NSString stringWithUTF8String:name.c_str()] view:self delegate:self gX:m_point.x gY:m_point.y andMyPosition:myPos];
+
+  NSString * text = [NSString stringWithUTF8String:name.c_str()];
+  ShareInfo * info = [[ShareInfo alloc] initWithText:text gX:m_point.x gY:m_point.y myPosition:myPos];
+  self.shareActionSheet = [[ShareActionSheet alloc] initWithInfo:info viewController:self];
+  [self.shareActionSheet show];
 }
 
 -(void)addToBookmark
@@ -229,18 +230,6 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
     [self.navigationController pushViewController:p animated:YES];
     [p release];
   }
-}
-
-- (void)mailComposeController:(MailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
-{
-  [[Statistics instance] logEvent:@"ge0(zero) MAIL Export"];
-  [self dismissModalViewControllerAnimated:YES];
-}
-
--(void)messageComposeViewController:(MessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
-{
-  [[Statistics instance] logEvent:@"ge0(zero) MESSAGE Export"];
-  [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

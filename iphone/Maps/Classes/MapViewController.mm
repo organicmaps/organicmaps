@@ -35,11 +35,12 @@
 const long long PRO_IDL = 510623322L;
 const long long LITE_IDL = 431183278L;
 
-@interface MapViewController () <SideToolbarDelegate, UIActionSheetDelegate>
+@interface MapViewController () <SideToolbarDelegate>
 
 @property (nonatomic) UIView * fadeView;
 @property (nonatomic) LocationButton * locationButton;
 @property (nonatomic, strong) UINavigationBar * apiNavigationBar;
+@property ShareActionSheet * shareActionSheet;
 
 @end
 
@@ -772,10 +773,20 @@ const long long LITE_IDL = 431183278L;
   }
   else if (buttonIndex == 4)
   {
-    if ([MapsAppDelegate theApp].m_locationManager.lastLocation)
-      [ShareActionSheet showShareActionSheetInView:self.view withObject:self];
+    CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
+    if (location)
+    {
+      double gX = MercatorBounds::LonToX(location.coordinate.longitude);
+      double gY = MercatorBounds::LatToY(location.coordinate.latitude);
+      ShareInfo * info = [[ShareInfo alloc] initWithText:nil gX:gX gY:gY myPosition:YES];
+      self.shareActionSheet = [[ShareActionSheet alloc] initWithInfo:info viewController:self];
+      [self.shareActionSheet show];
+      [self.sideToolbar setMenuHidden:YES animated:YES];
+    }
     else
+    {
       [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"unknown_current_position", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil] show];
+    }
   }
 }
 
@@ -816,31 +827,6 @@ const long long LITE_IDL = 431183278L;
     default:
       break;
   }
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-  CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
-  double gX = MercatorBounds::LonToX(location.coordinate.longitude);
-  double gY = MercatorBounds::LatToY(location.coordinate.latitude);
-  [ShareActionSheet resolveActionSheetChoice:actionSheet buttonIndex:buttonIndex text:@"" view:self delegate:self gX:gX gY:gY andMyPosition:YES];
-}
-
-- (void)mailComposeController:(MailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
-{
-  [self proccessShareActionCallbackWithEventName:@"ge0(zero) MAIL Export"];
-}
-
-- (void)messageComposeViewController:(MessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
-{
-  [self proccessShareActionCallbackWithEventName:@"ge0(zero) MESSAGE Export"];
-}
-
-- (void)proccessShareActionCallbackWithEventName:(NSString *)eventName
-{
-  [[Statistics instance] logEvent:eventName];
-  [self dismissModalViewControllerAnimated:YES];
-  [self.sideToolbar setMenuHidden:YES animated:YES];
 }
 
 - (void)toolbarButtonPressed:(id)sender

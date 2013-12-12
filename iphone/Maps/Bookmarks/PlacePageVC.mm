@@ -50,6 +50,8 @@ typedef enum {Editing, Saved} Mode;
 @property (nonatomic, retain) PlaceAndCompasView * placeAndCompass;
 
 @property (nonatomic, retain) UIView * pickerView;
+@property (retain) ShareActionSheet * shareActionSheet;
+
 @end
 
 @implementation PlacePageVC
@@ -299,23 +301,6 @@ typedef enum {Editing, Saved} Mode;
   return NO;
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-  [ShareActionSheet resolveActionSheetChoice:actionSheet buttonIndex:buttonIndex text:self.pinTitle view:self delegate:self gX:_pinGlobalPosition.x gY:_pinGlobalPosition.y andMyPosition:NO];
-}
-
-- (void)mailComposeController:(MailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
-{
-  [[Statistics instance] logEvent:@"ge0(zero) MAIL Export"];
-  [self dismissModalViewControllerAnimated:YES];
-}
-
--(void)messageComposeViewController:(MessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
-{
-  [[Statistics instance] logEvent:@"ge0(zero) MESSAGE Export"];
-  [self dismissModalViewControllerAnimated:YES];
-}
-
 -(void)pushToNavigationControllerAndSetControllerToPopoverSize:(UIViewController *)vc
 {
   if (isIPad)
@@ -386,9 +371,11 @@ typedef enum {Editing, Saved} Mode;
   [self goToTheMap];
 }
 
--(void)share
+- (void)share
 {
-  [ShareActionSheet showShareActionSheetInView:self.view withObject:self];
+  ShareInfo * info = [[ShareInfo alloc] initWithText:self.pinTitle gX:_pinGlobalPosition.x gY:_pinGlobalPosition.y myPosition:NO];
+  self.shareActionSheet = [[ShareActionSheet alloc] initWithInfo:info viewController:self];
+  [self.shareActionSheet show];
 }
 
 -(void)savePin
