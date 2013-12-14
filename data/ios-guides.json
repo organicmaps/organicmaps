@@ -1,5 +1,44 @@
 {
-  "version":2,
+  "version":3,
+  "New Zealand":{
+    "url":"itms-apps://itunes.apple.com/app/id779605195",
+    "appId":"guidewithme-newzealand://",
+    "adTitles":{
+  "en":"Go to Travel Guide",
+  "nl":"Ga naar Reisgids",
+  "uk":"Обирайте путівник",
+  "zh":"常備旅行指南",
+  "cs":"Přejděte k cestovnímu průvodci",
+  "fr":"Aller au guide de voyage",
+  "it":"Vai alla guida turistica",
+  "ja":"旅行ガイドに進む",
+  "ko":"여행 가이드로 이동",
+  "pt":"Ir para Guia de Viagem",
+  "es":"Ir a la guía de viaje",
+  "pl":"Przejdź do przewodnika turystycznego",
+  "de":"Besuchen Sie Travel Guide",
+  "ru":"Перейти к путеводителю"
+    },
+    "adMessages":{
+  "en":"NZ: free offline travel guide",
+  "nl":"Nieuw Zeeland: gratis offline reisgids",
+  "uk":"Нова Зеландія: безкоштовні путівники оф-лайн.",
+  "zh":"新西蘭：免費離線旅行指南",
+  "cs":"Nový Zéland: bezplatný off-line turistický průvodce",
+  "fr":"Nouvelle Zélande: guide de voyage gratuit hors ligne",
+  "it":"Nuova Zelanda: guida turistica gratuita offline",
+  "ja":"ニュージーランド：無料オフライン旅行ガイド",
+  "ko":"뉴질랜드: 무료 오프라인 여행 가이드",
+  "pt":"Nova Zelândia: guia de viagem grátis offline",
+  "es":"Nueva Zelanda: guía de viaje offline gratis",
+  "pl":"Nowa Zelandia: bezpłatny przewodnik turystyczny dostępny w trybie offline",
+  "de":"Neuseeland: kostenloser Offline-Reiseführer",
+  "ru":"Новая Зеландия: бесплатный оффлайновый гид"
+    },
+    "keys":[
+        "New Zealand"
+      ]
+   },
   "UK":{
     "url":"itms-apps://itunes.apple.com/app/id687855665",
     "appId":"guidewithme-uk://",
