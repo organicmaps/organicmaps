@@ -1,7 +1,8 @@
 #include "gpu_program_manager.hpp"
-#include "../base/assert.hpp"
-
 #include "shader_def.hpp"
+
+#include "../base/stl_add.hpp"
+#include "../base/assert.hpp"
 
 namespace
 {
@@ -27,52 +28,40 @@ namespace
   static ShaderMapper s_mapper;
 }
 
-GpuProgramManager::GpuProgramManager()
-{
-}
-
 GpuProgramManager::~GpuProgramManager()
 {
-  shader_map_t::iterator sit = m_shaders.begin();
-  for (; sit != m_shaders.end(); ++sit)
-  {
-    sit->second->Deref();
-    sit->second.Destroy();
-  }
-
-  program_map_t::iterator pit = m_programs.begin();
-  for (; pit != m_programs.end(); ++pit)
-    pit->second.Destroy();
+  GetRangeDeletor(m_programs, MasterPointerDeleter())();
+  GetRangeDeletor(m_shaders, MasterPointerDeleter())();
 }
 
-ReferencePoiner<GpuProgram> GpuProgramManager::GetProgram(int index)
+RefPointer<GpuProgram> GpuProgramManager::GetProgram(int index)
 {
   program_map_t::iterator it = m_programs.find(index);
   if (it != m_programs.end())
-    return it->second.GetWeakPointer();
+    return it->second.GetRefPointer();
 
   gpu::ProgramInfo const & programInfo = s_mapper.GetShaders(index);
-  ReferencePoiner<ShaderReference> vertexShader = GetShader(programInfo.m_vertexIndex,
-                                                            programInfo.m_vertexSource,
-                                                            ShaderReference::VertexShader);
-  ReferencePoiner<ShaderReference> fragmentShader = GetShader(programInfo.m_fragmentIndex,
-                                                              programInfo.m_fragmentSource,
-                                                              ShaderReference::FragmentShader);
+  RefPointer<Shader> vertexShader = GetShader(programInfo.m_vertexIndex,
+                                              programInfo.m_vertexSource,
+                                              Shader::VertexShader);
+  RefPointer<Shader> fragmentShader = GetShader(programInfo.m_fragmentIndex,
+                                                programInfo.m_fragmentSource,
+                                                Shader::FragmentShader);
 
-  OwnedPointer<GpuProgram> p(new GpuProgram(vertexShader, fragmentShader));
-  m_programs.insert(std::make_pair(index, p));
-  return p.GetWeakPointer();
+  MasterPointer<GpuProgram> & result = m_programs[index];
+  result.Reset(new GpuProgram(vertexShader, fragmentShader));
+  return result.GetRefPointer();
 }
 
-ReferencePoiner<ShaderReference> GpuProgramManager::GetShader(int index, const string & source, ShaderReference::Type t)
+RefPointer<Shader> GpuProgramManager::GetShader(int index, const string & source, Shader::Type t)
 {
   shader_map_t::iterator it = m_shaders.find(index);
   if (it == m_shaders.end())
   {
-    OwnedPointer<ShaderReference> r(new ShaderReference(source, t));
-    r->Ref();
-    m_shaders.insert(std::make_pair(index, r));
+    MasterPointer<Shader> & shader = m_shaders[index];
+    shader.Reset(new Shader(source, t));
+    return shader.GetRefPointer();
   }
-
-  return m_shaders[index].GetWeakPointer();
+  else
+    return it->second.GetRefPointer();
 }

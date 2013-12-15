@@ -3,7 +3,7 @@
 #include "../std/string.hpp"
 #include "../std/stdint.hpp"
 
-class ShaderReference
+class Shader
 {
 public:
   enum Type
@@ -12,11 +12,10 @@ public:
     FragmentShader
   };
 
-  ShaderReference(const string & shaderSource, Type type);
+  Shader(const string & shaderSource, Type type);
+  ~Shader();
 
   int GetID() const;
-  void Ref();
-  void Deref();
 
 private:
   const string m_source;

@@ -2,12 +2,13 @@
 #include "glfunctions.hpp"
 #include "glextensions_list.hpp"
 
+#include "../base/stl_add.hpp"
 #include "../base/assert.hpp"
 
 VertexArrayBuffer::VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize)
   : m_VAO(0)
   , m_dataBufferSize(dataBufferSize)
-  , m_program(NULL)
+  , m_program()
 {
   m_indexBuffer.Reset(new IndexBuffer(indexBufferSize));
 }
@@ -15,11 +16,7 @@ VertexArrayBuffer::VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBuff
 VertexArrayBuffer::~VertexArrayBuffer()
 {
   m_indexBuffer.Destroy();
-  buffers_map_t::iterator it = m_buffers.begin();
-  for (; it != m_buffers.end(); ++it)
-    it->second.Destroy();
-
-  m_buffers.clear();
+  GetRangeDeletor(m_buffers, MasterPointerDeleter());
 
   if (m_VAO != 0)
   {
@@ -48,7 +45,7 @@ void VertexArrayBuffer::Render()
   }
 }
 
-void VertexArrayBuffer::Build(ReferencePoiner<GpuProgram> program)
+void VertexArrayBuffer::Build(RefPointer<GpuProgram> program)
 {
   ASSERT(m_VAO == 0 && m_program.IsNull(), ("No-no-no! You can't rebuild VertexArrayBuffer"));
   m_program = program;
@@ -64,17 +61,17 @@ void VertexArrayBuffer::Build(ReferencePoiner<GpuProgram> program)
   BindBuffers();
 }
 
-ReferencePoiner<GLBuffer> VertexArrayBuffer::GetBuffer(const BindingInfo & bindingInfo)
+RefPointer<GLBuffer> VertexArrayBuffer::GetBuffer(const BindingInfo & bindingInfo)
 {
   buffers_map_t::iterator it = m_buffers.find(bindingInfo);
   if (it == m_buffers.end())
   {
-    OwnedPointer<DataBuffer> buffer(new DataBuffer(bindingInfo.GetElementSize(), m_dataBufferSize));
-    m_buffers.insert(make_pair(bindingInfo, buffer));
-    return buffer.GetWeakPointer<GLBuffer>();
+    MasterPointer<DataBuffer> & buffer = m_buffers[bindingInfo];
+    buffer.Reset(new DataBuffer(bindingInfo.GetElementSize(), m_dataBufferSize));
+    return buffer.GetRefPointer();
   }
 
-  return it->second.GetWeakPointer<GLBuffer>();
+  return it->second.GetRefPointer();
 }
 
 uint16_t VertexArrayBuffer::GetAvailableIndexCount() const
@@ -130,7 +127,7 @@ void VertexArrayBuffer::BindBuffers()
   for (; it != m_buffers.end(); ++it)
   {
     const BindingInfo & binding = it->first;
-    ReferencePoiner<DataBuffer> buffer = it->second.GetWeakPointer();
+    RefPointer<DataBuffer> buffer = it->second.GetRefPointer();
     buffer->Bind();
 
     for (uint16_t i = 0; i < binding.GetCount(); ++i)

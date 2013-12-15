@@ -22,7 +22,7 @@ public:
 
   explicit UniformValue(const string & name, float * matrixValue);
 
-  void Apply(ReferencePoiner<GpuProgram> program);
+  void Apply(RefPointer<GpuProgram> program);
 
   bool operator<(const UniformValue & other) const
   {

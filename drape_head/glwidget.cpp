@@ -3,24 +3,38 @@
 
 #include "../drape/shader_def.hpp"
 
+#include "../base/stl_add.hpp"
+
+namespace
+{
+  struct Deleter
+  {
+    void operator()(pair<const GLState, vector<MasterPointer<VertexArrayBuffer> > > & value)
+    {
+      GetRangeDeletor(value.second, MasterPointerDeleter())();
+    }
+  };
+}
+
 GLWidget::GLWidget()
 {
-  m_batcher = new Batcher(ReferencePoiner<IBatchFlush>(this));
+  m_batcher = new Batcher(MakeStackRefPointer((IBatchFlush *)this));
   m_programManager = new GpuProgramManager();
 }
 
-void GLWidget::FlushFullBucket(const GLState & state, OwnedPointer<VertexArrayBuffer> bucket)
+GLWidget::~GLWidget()
 {
-  ReferencePoiner<GpuProgram> program = m_programManager->GetProgram(state.GetProgramIndex());
-  bucket->Build(program);
-  m_frames[state].push_back(bucket);
+  GetRangeDeletor(m_frames, Deleter())();
+  delete m_batcher;
+  delete m_programManager;
 }
 
-void GLWidget::UseIncompleteBucket(const GLState &state, ReferencePoiner<VertexArrayBuffer> bucket)
+void GLWidget::FlushFullBucket(const GLState & state, TransferPointer<VertexArrayBuffer> bucket)
 {
-  ReferencePoiner<GpuProgram> program = m_programManager->GetProgram(state.GetProgramIndex());
-  bucket->Build(program);
-  renderBucket(state, bucket);
+  RefPointer<GpuProgram> program = m_programManager->GetProgram(state.GetProgramIndex());
+  MasterPointer<VertexArrayBuffer> masterBucket(bucket);
+  masterBucket->Build(program);
+  m_frames[state].push_back(masterBucket);
 }
 
 void GLWidget::initializeGL()
@@ -62,6 +76,7 @@ void GLWidget::initializeGL()
   gen.SetViewport(-1.0f, -1.0f, 2.0f, 2.0f);
   gen.SetUniforms(uniforms);
   gen.Generate(30, *m_batcher);
+  m_batcher->Flush();
 }
 
 void GLWidget::paintGL()
@@ -79,15 +94,15 @@ void GLWidget::paintGL()
     {
       for (size_t i = 0; i < it->second.size(); ++i)
       {
-        renderBucket(it->first, it->second[i].GetWeakPointer());
+        renderBucket(it->first, it->second[i].GetRefPointer());
       }
     }
   }
 }
 
-void GLWidget::renderBucket(const GLState & state, ReferencePoiner<VertexArrayBuffer> bucket)
+void GLWidget::renderBucket(const GLState & state, RefPointer<VertexArrayBuffer> bucket)
 {
-  ReferencePoiner<GpuProgram> program = m_programManager->GetProgram(state.GetProgramIndex());
+  RefPointer<GpuProgram> program = m_programManager->GetProgram(state.GetProgramIndex());
   ApplyState(state, program);
   bucket->Render();
 }

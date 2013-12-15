@@ -53,8 +53,8 @@ UNIT_TEST(UniformValueTest)
   const int32_t positionLoc = 10;
   const int32_t modelViewLoc = 11;
 
-  ShaderReference vertexShader("", ShaderReference::VertexShader);
-  ShaderReference fragmentShader("", ShaderReference::FragmentShader);
+  Shader vertexShader("", Shader::VertexShader);
+  Shader fragmentShader("", Shader::FragmentShader);
 
   float matrix[16] =
   {
@@ -122,54 +122,54 @@ UNIT_TEST(UniformValueTest)
     EXPECTGL(glDeleteProgram(ProgramID));
   }
 
-  GpuProgram * program = new GpuProgram(ReferencePoiner<ShaderReference>(&vertexShader),
-                                        ReferencePoiner<ShaderReference>(&fragmentShader));
+  GpuProgram * program = new GpuProgram(MakeStackRefPointer(&vertexShader),
+                                        MakeStackRefPointer(&fragmentShader));
 
   program->Bind();
 
   {
     UniformValue v("position", 1);
-    v.Apply(ReferencePoiner<GpuProgram>(program));
+    v.Apply(MakeStackRefPointer(program));
   }
 
   {
     UniformValue v("position", 1, 2);
-    v.Apply(ReferencePoiner<GpuProgram>(program));
+    v.Apply(MakeStackRefPointer(program));
   }
 
   {
     UniformValue v("position", 1, 2, 3);
-    v.Apply(ReferencePoiner<GpuProgram>(program));
+    v.Apply(MakeStackRefPointer(program));
   }
 
   {
     UniformValue v("position", 1, 2, 3, 4);
-    v.Apply(ReferencePoiner<GpuProgram>(program));
+    v.Apply(MakeStackRefPointer(program));
   }
 
   {
     UniformValue v("position", 1.0f);
-    v.Apply(ReferencePoiner<GpuProgram>(program));
+    v.Apply(MakeStackRefPointer(program));
   }
 
   {
     UniformValue v("position", 1.0f, 2.0f);
-    v.Apply(ReferencePoiner<GpuProgram>(program));
+    v.Apply(MakeStackRefPointer(program));
   }
 
   {
     UniformValue v("position", 1.0f, 2.0f, 3.0f);
-    v.Apply(ReferencePoiner<GpuProgram>(program));
+    v.Apply(MakeStackRefPointer(program));
   }
 
   {
     UniformValue v("position", 1.0f, 2.0f, 3.0f, 4.0f);
-    v.Apply(ReferencePoiner<GpuProgram>(program));
+    v.Apply(MakeStackRefPointer(program));
   }
 
   {
     UniformValue v("viewModel", matrix);
-    v.Apply(ReferencePoiner<GpuProgram>(program));
+    v.Apply(MakeStackRefPointer(program));
   }
 
   delete program;

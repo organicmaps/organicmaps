@@ -9,7 +9,7 @@ SOURCES += \
     $$DRAPE_DIR/vertex_array_buffer.cpp \
     $$DRAPE_DIR/uniform_value.cpp \
     $$DRAPE_DIR/texture.cpp \
-    $$DRAPE_DIR/shader_reference.cpp \
+    $$DRAPE_DIR/shader.cpp \
     $$DRAPE_DIR/index_buffer.cpp \
     $$DRAPE_DIR/gpu_program.cpp \
     $$DRAPE_DIR/gpu_program_manager.cpp \
@@ -28,7 +28,7 @@ HEADERS += \
     $$DRAPE_DIR/vertex_array_buffer.hpp \
     $$DRAPE_DIR/uniform_value.hpp \
     $$DRAPE_DIR/texture.hpp \
-    $$DRAPE_DIR/shader_reference.hpp \
+    $$DRAPE_DIR/shader.hpp \
     $$DRAPE_DIR/pointers.hpp \
     $$DRAPE_DIR/index_buffer.hpp \
     $$DRAPE_DIR/gpu_program.hpp \

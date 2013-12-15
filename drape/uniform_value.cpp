@@ -149,7 +149,7 @@ UniformValue::UniformValue(const string & name, float * matrixValue)
   m_componentCount = 16;
 }
 
-void UniformValue::Apply(ReferencePoiner<GpuProgram> program)
+void UniformValue::Apply(RefPointer<GpuProgram> program)
 {
   uint8_t location = program->GetUniformLocation(m_name);
   switch (m_type) {

@@ -90,9 +90,10 @@ void ListGenerator::Generate(int count, Batcher & batcher)
     decl.m_componentType = GLConst::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(0, info, &vertexes[0]);
+    provider.InitStream(0, info, MakeStackRefPointer(&vertexes[0]));
   }
 
+  vector<float> depthMemory(vertexCount, m_depth);
   {
     BindingInfo info(1);
     BindingDecl & decl = info.GetBindingDecl(0);
@@ -101,12 +102,11 @@ void ListGenerator::Generate(int count, Batcher & batcher)
     decl.m_componentType = GLConst::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    vector<float> depthMemory(vertexCount, m_depth);
-    provider.InitStream(1, info, &depthMemory[0]);
+    provider.InitStream(1, info, MakeStackRefPointer(&depthMemory[0]));
   }
 
-  TextureBinding textureBinding("", false, 0, ReferencePoiner<Texture>(NULL));
+  TextureBinding textureBinding("", false, 0, RefPointer<Texture>());
   GLState state(m_programIndex, (int16_t)m_depth, textureBinding);
   state.GetUniformValues() = m_uniforms;
-  batcher.InsertTriangleList(state, &provider);
+  batcher.InsertTriangleList(state, MakeStackRefPointer(&provider));
 }

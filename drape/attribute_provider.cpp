@@ -59,7 +59,7 @@ void AttributeProvider::Advance(uint16_t vertexCount)
     const BindingInfo & info = m_streams[i].m_binding;
     uint32_t offset = vertexCount * info.GetElementSize();
     void * rawPointer = m_streams[i].m_data.GetRaw();
-    m_streams[i].m_data = ReferencePoiner<void>((void *)(((uint8_t *)rawPointer) + offset));
+    m_streams[i].m_data = MakeStackRefPointer((void *)(((uint8_t *)rawPointer) + offset));
   }
 
   m_vertexCount -= vertexCount;
@@ -67,7 +67,7 @@ void AttributeProvider::Advance(uint16_t vertexCount)
 
 void AttributeProvider::InitStream(uint8_t streamIndex,
                                    const BindingInfo &bindingInfo,
-                                   ReferencePoiner<void> data)
+                                   RefPointer<void> data)
 {
   ASSERT_LESS(streamIndex, GetStreamCount(), ());
   AttributeStream s;

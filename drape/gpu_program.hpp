@@ -1,6 +1,6 @@
 #pragma once
 
-#include "shader_reference.hpp"
+#include "shader.hpp"
 #include "pointers.hpp"
 
 #include "../std/string.hpp"
@@ -8,8 +8,8 @@
 class GpuProgram
 {
 public:
-  GpuProgram(ReferencePoiner<ShaderReference> vertexShader,
-             ReferencePoiner<ShaderReference> fragmentShader);
+  GpuProgram(RefPointer<Shader> vertexShader,
+             RefPointer<Shader> fragmentShader);
   ~GpuProgram();
 
   void Bind();

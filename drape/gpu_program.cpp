@@ -3,11 +3,8 @@
 
 #include "../base/assert.hpp"
 
-GpuProgram::GpuProgram(ReferencePoiner<ShaderReference> vertexShader, ReferencePoiner<ShaderReference> fragmentShader)
+GpuProgram::GpuProgram(RefPointer<Shader> vertexShader, RefPointer<Shader> fragmentShader)
 {
-  vertexShader->Ref();
-  fragmentShader->Ref();
-
   m_programID = GLFunctions::glCreateProgram();
   GLFunctions::glAttachShader(m_programID, vertexShader->GetID());
   GLFunctions::glAttachShader(m_programID, fragmentShader->GetID());
@@ -17,9 +14,6 @@ GpuProgram::GpuProgram(ReferencePoiner<ShaderReference> vertexShader, ReferenceP
 
   GLFunctions::glDetachShader(m_programID, vertexShader->GetID());
   GLFunctions::glDetachShader(m_programID, fragmentShader->GetID());
-
-  vertexShader->Deref();
-  fragmentShader->Deref();
 }
 
 GpuProgram::~GpuProgram()

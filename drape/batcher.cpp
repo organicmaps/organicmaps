@@ -91,7 +91,7 @@ namespace
   };
 }
 
-Batcher::Batcher(ReferencePoiner<IBatchFlush> flushInterface)
+Batcher::Batcher(RefPointer<IBatchFlush> flushInterface)
   : m_flushInterface(flushInterface)
 {
 }
@@ -104,14 +104,14 @@ Batcher::~Batcher()
 }
 
 template <typename strategy>
-void Batcher::InsertTriangles(const GLState & state, strategy s, ReferencePoiner<AttributeProvider> params)
+void Batcher::InsertTriangles(const GLState & state, strategy s, RefPointer<AttributeProvider> params)
 {
   while (params->IsDataExists())
   {
     uint16_t vertexCount = params->GetVertexCount();
     uint16_t indexCount = s.GetIndexCount(vertexCount);
 
-    ReferencePoiner<VertexArrayBuffer> buffer = GetBuffer(state);
+    RefPointer<VertexArrayBuffer> buffer = GetBuffer(state);
     uint16_t availableVertexCount = buffer->GetAvailableVertexCount();
     uint16_t availableIndexCount = buffer->GetAvailableIndexCount();
 
@@ -142,7 +142,7 @@ void Batcher::InsertTriangles(const GLState & state, strategy s, ReferencePoiner
     /// upload data from params to GPU buffers
     for (size_t i = 0; i < params->GetStreamCount(); ++i)
     {
-      ReferencePoiner<GLBuffer> streamBuffer = buffer->GetBuffer(params->GetBindingInfo(i));
+      RefPointer<GLBuffer> streamBuffer = buffer->GetBuffer(params->GetBindingInfo(i));
       streamBuffer->UploadData(params->GetRawPointer(i), vertexCount);
     }
 
@@ -152,43 +152,45 @@ void Batcher::InsertTriangles(const GLState & state, strategy s, ReferencePoiner
   }
 }
 
-void Batcher::InsertTriangleList(const GLState & state, ReferencePoiner<AttributeProvider> params)
+void Batcher::InsertTriangleList(const GLState & state, RefPointer<AttributeProvider> params)
 {
   InsertTriangles(state, TrianglesListStrategy(), params);
 }
 
-void Batcher::InsertTriangleStrip(const GLState & state, ReferencePoiner<AttributeProvider> params)
+void Batcher::InsertTriangleStrip(const GLState & state, RefPointer<AttributeProvider> params)
 {
   InsertTriangles(state, TrianglesStripStrategy(), params);
 }
 
-void Batcher::InsertTriangleFan(const GLState & state, ReferencePoiner<AttributeProvider> params)
+void Batcher::InsertTriangleFan(const GLState & state, RefPointer<AttributeProvider> params)
 {
   InsertTriangles(state, TrianglesFanStrategy(), params);
 }
 
-ReferencePoiner<VertexArrayBuffer> Batcher::GetBuffer(const GLState & state)
+RefPointer<VertexArrayBuffer> Batcher::GetBuffer(const GLState & state)
 {
   buckets_t::iterator it = m_buckets.find(state);
   if (it != m_buckets.end())
-    return it->second.GetWeakPointer();
+    return it->second.GetRefPointer();
 
-  OwnedPointer<VertexArrayBuffer> buffer(new VertexArrayBuffer(768, 512));
+  MasterPointer<VertexArrayBuffer> buffer(new VertexArrayBuffer(768, 512));
   m_buckets.insert(make_pair(state, buffer));
-  return buffer.GetWeakPointer();
+  return buffer.GetRefPointer();
 }
 
 void Batcher::FinalizeBuffer(const GLState & state)
 {
+  ///@TODO
   ASSERT(m_buckets.find(state) != m_buckets.end(), ("Have no bucket for finalize with given state"));
-  m_flushInterface->FlushFullBucket(state, m_buckets[state]);
+  m_flushInterface->FlushFullBucket(state, m_buckets[state].Move());
   m_buckets.erase(state);
 }
 
 void Batcher::Flush()
 {
-  for (buckets_t::const_iterator it = m_buckets.begin(); it != m_buckets.end(); ++it)
-    m_flushInterface->FlushFullBucket(it->first, it->second);
+  ///@TODO
+  for (buckets_t::iterator it = m_buckets.begin(); it != m_buckets.end(); ++it)
+    m_flushInterface->FlushFullBucket(it->first, it->second.Move());
 
   m_buckets.clear();
 }

@@ -9,9 +9,9 @@ class GLWidget : public QGLWidget, public IBatchFlush
 {
 public:
   GLWidget();
+  ~GLWidget();
 
-  virtual void FlushFullBucket(const GLState & state, OwnedPointer<VertexArrayBuffer> bucket);
-  virtual void UseIncompleteBucket(const GLState & state, ReferencePoiner<VertexArrayBuffer> bucket);
+  virtual void FlushFullBucket(const GLState & state, TransferPointer<VertexArrayBuffer> bucket);
 
 protected:
   void initializeGL();
@@ -19,10 +19,10 @@ protected:
   void resizeGL(int w, int h);
 
 private:
-  void renderBucket(const GLState & state, ReferencePoiner<VertexArrayBuffer> bucket);
+  void renderBucket(const GLState & state, RefPointer<VertexArrayBuffer> bucket);
 
 private:
-  typedef map<GLState, vector<OwnedPointer<VertexArrayBuffer> > > frames_t;
+  typedef map<GLState, vector<MasterPointer<VertexArrayBuffer> > > frames_t;
   frames_t m_frames;
 
 private:

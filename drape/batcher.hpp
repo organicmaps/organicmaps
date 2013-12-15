@@ -1,5 +1,6 @@
 #pragma once
 
+#include "pointers.hpp"
 #include "glstate.hpp"
 #include "vertex_array_buffer.hpp"
 #include "attribute_provider.hpp"
@@ -11,33 +12,33 @@ class IBatchFlush
 public:
   virtual ~IBatchFlush() {}
 
-  virtual void FlushFullBucket(const GLState & state, OwnedPointer<VertexArrayBuffer> backet) = 0;
+  virtual void FlushFullBucket(const GLState & state, TransferPointer<VertexArrayBuffer> backet) = 0;
 };
 
 class Batcher
 {
 public:
-  Batcher(ReferencePoiner<IBatchFlush> flushInterface);
+  Batcher(RefPointer<IBatchFlush> flushInterface);
   ~Batcher();
 
-  void InsertTriangleList(const GLState & state, ReferencePoiner<AttributeProvider> params);
-  void InsertTriangleStrip(const GLState & state, ReferencePoiner<AttributeProvider> params);
-  void InsertTriangleFan(const GLState & state, ReferencePoiner<AttributeProvider> params);
+  void InsertTriangleList(const GLState & state, RefPointer<AttributeProvider> params);
+  void InsertTriangleStrip(const GLState & state, RefPointer<AttributeProvider> params);
+  void InsertTriangleFan(const GLState & state, RefPointer<AttributeProvider> params);
   void Flush();
 
 private:
   template <typename strategy>
-  void InsertTriangles(const GLState & state, strategy s, ReferencePoiner<AttributeProvider> params);
+  void InsertTriangles(const GLState & state, strategy s, RefPointer<AttributeProvider> params);
 
-  ReferencePoiner<VertexArrayBuffer> GetBuffer(const GLState & state);
+  RefPointer<VertexArrayBuffer> GetBuffer(const GLState & state);
   /// return true if GLBuffer is finished
-  bool UploadBufferData(ReferencePoiner<GLBuffer> vertexBuffer, ReferencePoiner<AttributeProvider> params);
+  bool UploadBufferData(RefPointer<GLBuffer> vertexBuffer, RefPointer<AttributeProvider> params);
   void FinalizeBuffer(const GLState & state);
 
 private:
-  ReferencePoiner<IBatchFlush> m_flushInterface;
+  RefPointer<IBatchFlush> m_flushInterface;
 
 private:
-  typedef map<GLState, OwnedPointer<VertexArrayBuffer> > buckets_t;
+  typedef map<GLState, MasterPointer<VertexArrayBuffer> > buckets_t;
   buckets_t m_buckets;
 };

@@ -19,10 +19,10 @@ public:
   /// OES_vertex_array_object create OpenGL resource that belong only one GL context (which was created by)
   /// by this reason Build/Bind and Render must be called only on Frontendrendere thread
   void Render();
-  void Build(ReferencePoiner<GpuProgram> program);
+  void Build(RefPointer<GpuProgram> program);
   ///@}
 
-  ReferencePoiner<GLBuffer> GetBuffer(const BindingInfo & bindingInfo);
+  RefPointer<GLBuffer> GetBuffer(const BindingInfo & bindingInfo);
 
   uint16_t GetAvailableVertexCount() const;
   uint16_t GetAvailableIndexCount() const;
@@ -35,11 +35,11 @@ private:
 
 private:
   int m_VAO;
-  typedef map<BindingInfo, OwnedPointer<DataBuffer> > buffers_map_t;
+  typedef map<BindingInfo, MasterPointer<DataBuffer> > buffers_map_t;
   buffers_map_t m_buffers;
 
-  OwnedPointer<IndexBuffer> m_indexBuffer;
+  MasterPointer<IndexBuffer> m_indexBuffer;
   uint32_t m_dataBufferSize;
 
-  ReferencePoiner<GpuProgram> m_program;
+  RefPointer<GpuProgram> m_program;
 };

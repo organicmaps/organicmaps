@@ -20,19 +20,20 @@ namespace
   class VAOAcceptor : public IBatchFlush
   {
   public:
-    VAOAcceptor(ReferencePoiner<GpuProgram> program)
+    VAOAcceptor(RefPointer<GpuProgram> program)
       : m_program(program)
     {
     }
 
-    virtual void FlushFullBucket(const GLState & state, OwnedPointer<VertexArrayBuffer> bucket)
+    virtual void FlushFullBucket(const GLState & state, TransferPointer<VertexArrayBuffer> bucket)
     {
-      bucket->Build(m_program);
-      bucket.Destroy();
+      MasterPointer<VertexArrayBuffer> masterBucket(bucket);
+      masterBucket->Build(m_program);
+      masterBucket.Destroy();
     }
 
   private:
-    ReferencePoiner<GpuProgram> m_program;
+    RefPointer<GpuProgram> m_program;
   };
 
   struct MemoryComparer
@@ -98,7 +99,7 @@ UNIT_TEST(BatchLists_Test)
 
   GpuProgramManager * pm = new GpuProgramManager();
   VAOAcceptor acceptor(pm->GetProgram(0));
-  Batcher batcher(ReferencePoiner<IBatchFlush>((IBatchFlush *)&acceptor));
+  Batcher batcher(RefPointer<IBatchFlush>(MakeStackRefPointer((IBatchFlush *)&acceptor)));
 
   {
     InSequence vaoSeq;
@@ -144,7 +145,7 @@ UNIT_TEST(BatchLists_Test)
     EXPECTGL(glDeleteProgram(ProgramID));
   }
 
-  GLState state(0, 0, TextureBinding("", false, 0, ReferencePoiner<Texture>(NULL)));
+  GLState state(0, 0, TextureBinding("", false, 0, RefPointer<Texture>()));
 
   BindingInfo binding(1);
   BindingDecl & decl = binding.GetBindingDecl(0);
@@ -155,9 +156,9 @@ UNIT_TEST(BatchLists_Test)
   decl.m_stride = 0;
 
   AttributeProvider provider(1, 10);
-  provider.InitStream(0, binding, ReferencePoiner<void>(data));
+  provider.InitStream(0, binding, MakeStackRefPointer(data));
 
-  batcher.InsertTriangleList(state, ReferencePoiner<AttributeProvider>(&provider));
+  batcher.InsertTriangleList(state, MakeStackRefPointer(&provider));
   batcher.Flush();
 
   delete pm;

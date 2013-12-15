@@ -57,24 +57,24 @@ private:
 class TextureBinding
 {
 public:
-  TextureBinding(const string & uniformName, bool isEnabled, uint8_t samplerBlock, ReferencePoiner<Texture> texture);
+  TextureBinding(const string & uniformName, bool isEnabled, uint8_t samplerBlock, RefPointer<Texture> texture);
 
   void Bind(int8_t uniformLocation);
   bool IsEnabled() const;
   const string & GetUniformName() const;
   void SetIsEnabled(bool isEnabled);
-  void SetTexture(ReferencePoiner<Texture> texture);
+  void SetTexture(RefPointer<Texture> texture);
 
   bool operator<(const TextureBinding & other) const
   {
     return m_isEnabled < other.m_isEnabled
         || m_samplerBlock < other.m_samplerBlock
-        || m_texture < other.m_texture;
+        || m_texture.IsContentLess(other.m_texture);
   }
 
 private:
   string m_uniformName;
   bool m_isEnabled;
   uint8_t m_samplerBlock;
-  ReferencePoiner<Texture> m_texture;
+  RefPointer<Texture> m_texture;
 };
