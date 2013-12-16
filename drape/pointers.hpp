@@ -20,8 +20,6 @@
         return;
 
       ++m_countMap[p];
-      int x = m_countMap[p];
-      x++;
     }
 
     void Deref(void * p)
@@ -33,10 +31,7 @@
       ASSERT(it != m_countMap.end(), ());
       ASSERT(it->second > 0, ());
 
-      it->second--;
-      int x = it->second;
-      x++;
-      if (it->second == 0)
+      if (--it->second == 0)
         m_countMap.erase(it);
     }
 
@@ -47,9 +42,7 @@
 
       map_t::iterator it = m_countMap.find(p);
       ASSERT(it != m_countMap.end(), ());
-      int count = it->second;
-      if (count < 100)
-        ASSERT(it->second == 1, ());
+      ASSERT(it->second == 1, ());
     }
 
   private:
@@ -89,13 +82,6 @@ protected:
     REF_POINTER(m_p);
   }
 
-  DrapePointer<T> & operator = (DrapePointer<T> const & other)
-  {
-    m_p = other.m_p;
-    REF_POINTER(m_p);
-    return *this;
-  }
-
   void Destroy()
   {
     DESTROY_POINTER(m_p);
@@ -114,6 +100,9 @@ protected:
   T * GetRaw()                { return m_p; }
   T const * GetRaw() const    { return m_p; }
   T * GetNonConstRaw() const  { return m_p; }
+
+private:
+  DrapePointer<T> & operator = (DrapePointer<T> const & /*other*/) { ASSERT(false, ()); return *this; }
 
 private:
   T * m_p;
@@ -197,6 +186,12 @@ class MasterPointer : public DrapePointer<T>
 public:
   MasterPointer() : base_t() {}
   MasterPointer(T * p) : base_t(p) {}
+  MasterPointer(const MasterPointer<T> & other)
+  {
+    ASSERT(GetRaw() == NULL, ());
+    base_t::Reset(other.GetNonConstRaw());
+  }
+
   MasterPointer(TransferPointer<T> & transferPointer)
   {
     Reset(transferPointer.GetRaw());
@@ -206,6 +201,13 @@ public:
   ~MasterPointer()
   {
     base_t::Reset(NULL);
+  }
+
+  MasterPointer<T> & operator= (const MasterPointer<T> & other)
+  {
+    ASSERT(GetRaw() == NULL, ());
+    base_t::Reset(other.GetNonConstRaw());
+    return *this;
   }
 
   RefPointer<T> GetRefPointer() const
