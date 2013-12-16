@@ -194,8 +194,6 @@ typedef NS_ENUM(NSUInteger, Section)
   } completion:^(BOOL finished) {
     self.hidden = NO;
   }];
-  CGFloat contentHeight = [self topSpaceHeight] + [SideToolbarCell cellHeight] * [menuTitles count] + [self bottomSpaceHeight] + [BuyButtonCell cellHeight];
-  self.tableView.scrollEnabled = contentHeight > self.tableView.height;
   NSMutableIndexSet * indexSet = [[NSMutableIndexSet alloc] init];
   [indexSet addIndex:SectionTopSpace];
   [indexSet addIndex:SectionBottomSpace];
@@ -331,6 +329,7 @@ typedef NS_ENUM(NSUInteger, Section)
     _tableView.dataSource = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.backgroundColor = [UIColor clearColor];
+    _tableView.alwaysBounceVertical = NO;
   }
   return _tableView;
 }
