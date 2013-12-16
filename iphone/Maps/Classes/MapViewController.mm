@@ -792,7 +792,7 @@ const long long LITE_IDL = 431183278L;
 
 - (void)sideToolbarDidUpdateShift:(SideToolbar *)toolbar
 {
-  self.fadeView.alpha = toolbar.menuShift / toolbar.maximumMenuShift;
+  self.fadeView.alpha = toolbar.menuShift / (toolbar.maximumMenuShift - toolbar.minimumMenuShift);
 }
 
 - (void)sideToolbarDidPressBuyButton:(SideToolbar *)toolbar

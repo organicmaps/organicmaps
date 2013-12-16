@@ -247,16 +247,7 @@ typedef NS_ENUM(NSUInteger, Section)
     BOOL isPositive = velocity > 0;
     CGFloat absV = ABS(velocity);
     absV = MIN(maxV, MAX(minV, absV));
-
-    CGFloat magnetPercent = 0.1;
-    CGFloat percent = self.menuShift / self.maximumMenuShift;
-
-    if (percent < magnetPercent && absV < 2 * minV)
-      [self setMenuHidden:YES animated:YES];
-    else if (percent > 1 - magnetPercent && absV < 2 * minV)
-      [self setMenuHidden:NO animated:YES];
-    else
-      [self setMenuHidden:isPositive duration:(300 / absV)];
+    [self setMenuHidden:isPositive duration:(300 / absV)];
   }
   [self.delegate sideToolbarDidUpdateShift:self];
 }
