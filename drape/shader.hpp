@@ -21,5 +21,4 @@ private:
   const string m_source;
   Type m_type;
   uint32_t m_glID;
-  int32_t m_refCount;
 };

@@ -18,7 +18,6 @@ Shader::Shader(const string & shaderSource, Type type)
   : m_source(shaderSource)
   , m_type(type)
   , m_glID(0)
-  , m_refCount(0)
 {
   m_glID = GLFunctions::glCreateShader(convert(m_type));
   GLFunctions::glShaderSource(m_glID, m_source);
