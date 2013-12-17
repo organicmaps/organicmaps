@@ -34,6 +34,14 @@ public enum Statistics
   private int mBookmarksCreated= 0;
   private int mSharedTimes = 0;
 
+  // Native statistics client
+  private final StatsClient client = new StatsClient();
+
+
+  public void trackSearchQuery(final String query)
+  {
+    client.trackSearchQuery(query);
+  }
 
   private Statistics()
   {

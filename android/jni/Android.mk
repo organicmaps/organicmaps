@@ -113,6 +113,11 @@ LOCAL_MODULE := map
 LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libmap.a
 include $(PREBUILT_STATIC_LIBRARY)
 
+include $(CLEAR_VARS)
+LOCAL_MODULE := stats_client
+LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libstats_client.a
+include $(PREBUILT_STATIC_LIBRARY)
+
 ########################### Main MapsWithMe module ############################
 
 include $(CLEAR_VARS)
@@ -120,7 +125,7 @@ include $(CLEAR_VARS)
 #LOCAL_CPP_FEATURES += exceptions rtti
 
 LOCAL_MODULE := mapswithme
-LOCAL_STATIC_LIBRARIES := map gui search storage indexer graphics platform anim geometry coding base expat freetype fribidi zlib bzip2 jansson tomcrypt protobuf
+LOCAL_STATIC_LIBRARIES := stats_client map gui search storage indexer graphics platform anim geometry coding base expat freetype fribidi zlib bzip2 jansson tomcrypt protobuf
 LOCAL_CFLAGS := -ffunction-sections -fdata-sections -Wno-psabi
 
 TARGET_PLATFORM := android-5
@@ -163,6 +168,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/MapStorage.cpp \
 	com/mapswithme/maps/DownloadResourcesActivity.cpp \
 	com/mapswithme/maps/SearchActivity.cpp \
+	com/mapswithme/maps/StatsClient.cpp \
 	com/mapswithme/maps/settings/StoragePathActivity.cpp \
 	com/mapswithme/maps/settings/UnitLocale.cpp \
 	com/mapswithme/platform/Platform.cpp \
