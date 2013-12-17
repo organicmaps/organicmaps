@@ -95,4 +95,9 @@
   return instance;
 }
 
+- (void)logSearchQuery:(NSString *)query
+{
+  m_client.Search([query UTF8String]);
+}
+
 @end

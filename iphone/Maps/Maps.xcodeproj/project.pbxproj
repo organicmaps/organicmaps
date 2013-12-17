@@ -4491,7 +4491,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-LStatistics";
+				OTHER_LDFLAGS = "-lstats_client";
 				PRODUCT_NAME = "MWM Dbg Lite";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -4536,7 +4536,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-LStatistics";
+				OTHER_LDFLAGS = "-lstats_client";
 				PRODUCT_NAME = MapsWithMe;
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -4601,7 +4601,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-LStatistics";
+				OTHER_LDFLAGS = "-lstats_client";
 				PRODUCT_NAME = "MWM Dbg Lite";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -4670,7 +4670,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-LStatistics";
+				OTHER_LDFLAGS = "-lstats_client";
 				PRODUCT_NAME = "MWM Beta Lite";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -4735,7 +4735,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-LStatistics";
+				OTHER_LDFLAGS = "-lstats_client";
 				PRODUCT_NAME = "MWM Dbg";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -4800,7 +4800,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-LStatistics";
+				OTHER_LDFLAGS = "-lstats_client";
 				PRODUCT_NAME = "MWM Dbg";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -4869,7 +4869,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-LStatistics";
+				OTHER_LDFLAGS = "-lstats_client";
 				PRODUCT_NAME = "MWM Beta";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -4938,7 +4938,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-LStatistics";
+				OTHER_LDFLAGS = "-lstats_client";
 				PRODUCT_NAME = MapsWithMe;
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -5006,7 +5006,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-LStatistics";
+				OTHER_LDFLAGS = "-lstats_client";
 				PRODUCT_NAME = "MWM Rel Lite";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -5074,7 +5074,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-LStatistics";
+				OTHER_LDFLAGS = "-lstats_client";
 				PRODUCT_NAME = "MWM Rel";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -5142,7 +5142,7 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-LStatistics";
+				OTHER_LDFLAGS = "-lstats_client";
 				PRODUCT_NAME = "MWM Rel";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
