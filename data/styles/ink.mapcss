@@ -22,12 +22,6 @@ way::*
   icon-height: 16;
 }
 
-*
-{
-  icon-width: 16;
-  icon-height: 16;
-}
-
 *::int_name
 {
   text-offset: 20;
@@ -881,14 +875,6 @@ line|z14[boundary=administrative][admin_level=6]
   z-index: 521;
   dashes: 4,20;
 }
-line|z14[piste:lift=j-bar],
-line|z14[piste:lift=platter],
-line|z14[piste:lift=t-bar]
-{
-  text: name;
-  font-size: 12;
-  text-color: black;
-}
 area|z14-[power=generator][generator:type=photovoltaic]::d2p2,
 node|z14-[power=generator][generator:type=photovoltaic]::d2p2
 {
@@ -1535,7 +1521,7 @@ line|z15-[piste:lift=j-bar]
   width: 0.8;
 }
 area|z16[amenity=parking],
-node|z16[amenity=parking],
+node|z16[amenity=parking]
 {
   icon-image: parking-mini.svg;
 }
@@ -3700,7 +3686,7 @@ node|z17-[amenity=school]
 area|z14-16[railway=halt],
 area|z14-15[railway=station],
 node|z14-16[railway=halt],
-node|z14-15[railway=station],
+node|z14-15[railway=station]
 {
   icon-image: railway-station-mini.svg;
   z-index: 150;
@@ -3721,7 +3707,7 @@ line[railway]
   text-position: line;
 }
 line|z15-[bridge?]::bridgewhite,
-line|z15-[tunnel?]::tunnelwhite,
+line|z15-[tunnel?]::tunnelwhite
 {
   z-index: 3;
   casing-width: eval(prop("width")/2+4);
@@ -3750,15 +3736,30 @@ line|z16-[oneway?]::arrows
   pattern-image: arrow.svg;
   pattern-spacing: 234;
 }
+
+/* Review roads styles for different access. Opacity == 0 is useless. */
+/*
 line[access][access!=yes]::*
 {
   opacity: 0;
   casing-opacity: 0;
 }
+*/
+
 line|z18-[lit]::lit
 {
   width: 0.3;
   color: yellow
+}
+
+/* Do not draw railway and waterway tunnels */
+line[railway][railway!=tram][railway!=monorail][railway!=funicular][tunnel?]::*,
+line[waterway][tunnel?]::*
+{
+  font-size: 0;
+  text: "";
+  width: 0;
+  casing-width: 0;
 }
 
 /* ======================== Special ink cases ====================== */
