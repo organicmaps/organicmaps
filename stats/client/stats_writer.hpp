@@ -2,10 +2,6 @@
 
 #include "../../std/string.hpp"
 
-#include <google/protobuf/message.h>
-
-#include <leveldb/db.h>
-
 #include "../common/wire.pb.h"
 
 namespace stats
@@ -18,7 +14,7 @@ public:
 
   bool Store(Event const & e);
 
-  ~StatsWriter() { delete m_db; }
+  ~StatsWriter() {}
 
   template<class T>
   bool Write(T const & m)
@@ -36,7 +32,7 @@ private:
 
 private:
   unsigned int m_cnt;
-  leveldb::DB * m_db;
+  void * m_db; // @todo Replace with ours impl
   string m_path;
   unsigned long long m_uid;
 };

@@ -6,13 +6,9 @@ CONFIG += staticlib
 
 ROOT_DIR = ../..
 include($$ROOT_DIR/common.pri)
-INCLUDEPATH += $$ROOT_DIR/3party/leveldb/include \
-               $$ROOT_DIR/3party/protobuf/src \
-               $$ROOT_DIR/3party/cityhash/src \
+INCLUDEPATH += $$ROOT_DIR/3party/protobuf/src
 
-
-DEPENDENCIES = base protobuf leveldb cityhash
-
+DEPENDENCIES = base protobuf
 
 SOURCES += \
     stats_client.cpp \
@@ -22,7 +18,6 @@ SOURCES += \
 HEADERS += \
     stats_client.hpp \
     stats_writer.hpp \
-    leveldb_reader.hpp \
     ../common/wire.pb.h \
 
 OTHER_FILES += ../common/wire.proto

@@ -6,5 +6,5 @@ CONFIG += ordered
 SUBDIRS = client
 
 !iphone*:!bada*:!android* {
-  SUBDIRS += client/client_tests
+  SUBDIRS +=
 }
