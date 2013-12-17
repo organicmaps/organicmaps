@@ -10,7 +10,11 @@ namespace df
       // in perfect world GetType never return this type
       // for this you need call SetType on subclass constructor
       Unknown,
+      TileReadStarted,
+      TileReadEnded,
+      FlushTile,
       DropTile,
+      MapShapeReaded,
       DropCoverage,
       UpdateCoverage,
       Resize,

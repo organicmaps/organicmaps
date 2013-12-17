@@ -6,6 +6,10 @@
 #include "../geometry/rect2d.hpp"
 #include "../geometry/screenbase.hpp"
 
+#include "../drape/glstate.hpp"
+#include "../drape/pointers.hpp"
+
+class VertexArrayBuffer;
 namespace threads { class IRoutine; }
 
 namespace df
@@ -16,14 +20,58 @@ namespace df
     DropCoverageMessage() { SetType(DropCoverage); }
   };
 
-  class DropTileMessage : public Message
+  class BaseTileMessage : public Message
   {
   public:
-    DropTileMessage(const TileKey & tileKey) : m_tileKey(tileKey) {}
+    BaseTileMessage(const TileKey & key, Message::Type type)
+      : m_tileKey(key)
+    {
+      SetType(type);
+    }
+
     const TileKey & GetKey() const { return m_tileKey; }
 
   private:
     TileKey m_tileKey;
+  };
+
+  class TileReadStartMessage : public BaseTileMessage
+  {
+  public:
+    TileReadStartMessage(const TileKey & key)
+      : BaseTileMessage(key, Message::TileReadStarted) {}
+  };
+
+  class TileReadEndMessage : public BaseTileMessage
+  {
+  public:
+    TileReadEndMessage(const TileKey & key)
+      : BaseTileMessage(key, Message::TileReadEnded) {}
+  };
+
+  class DropTileMessage : public BaseTileMessage
+  {
+  public:
+    DropTileMessage(const TileKey & key)
+      : BaseTileMessage(key, Message::DropTile) {}
+  };
+
+  class FlushTileMessage : public BaseTileMessage
+  {
+  public:
+    FlushTileMessage(const TileKey & key, const GLState state, TransferPointer<VertexArrayBuffer> buffer)
+      : BaseTileMessage(key, Message::FlushTile)
+      , m_state(state)
+      , m_buffer(buffer)
+    {
+    }
+
+    const GLState & GetState() const { return m_state; }
+
+
+  private:
+    GLState m_state;
+    TransferPointer<VertexArrayBuffer> m_buffer;
   };
 
   class ResizeMessage : public Message
