@@ -2,6 +2,8 @@
 
 #include "message_acceptor.hpp"
 #include "memory_feature_index.hpp"
+#include "engine_context.hpp"
+#include "batchers_pool.hpp"
 
 #include "../map/scales_processor.hpp"
 #include "../map/tiler.hpp"
@@ -33,6 +35,9 @@ namespace df
     void UpdateCoverage(const ScreenBase & screen);
     void Resize(m2::RectI const & rect);
     void FinishTask(threads::IRoutine * routine);
+    void TileReadStarted(const TileKey & key);
+    void TileReadEnded(const TileKey & key);
+    void ShapeReaded(const TileKey & key, MapShape const * shape);
 
   private:
     void CreateTask(Tiler::RectInfo const & info);
@@ -43,15 +48,25 @@ namespace df
     ScreenBase m_currentViewport;
     set<ReadMWMTask *> m_taskIndex;
 
-    MemoryFeatureIndex m_index;
+    /////////////////////////////////////////
+    /// Calculate rect for read from MWM
     Tiler m_tiler;
     ScalesProcessor m_scaleProcessor;
+    /////////////////////////////////////////
+
+    /////////////////////////////////////////
+    /// Read features and
+    /// transfer it to batchers
+    MemoryFeatureIndex m_index;
+    EngineContext m_engineContext;
+    BatchersPool * m_batchersPool;
+    /////////////////////////////////////////
 
     /////////////////////////////////////////
     //           MessageAcceptor           //
     /////////////////////////////////////////
   private:
-    void AcceptMessage(Message *message);
+    void AcceptMessage(Message * message);
 
       /////////////////////////////////////////
       //             ThreadPart              //
@@ -60,13 +75,14 @@ namespace df
     void StartThread();
     void StopThread();
     void ThreadMain();
+    void ReleaseResources();
     virtual void Do();
 
     void PostToRenderThreads(Message * message);
 
   private:
     threads::Thread m_selfThread;
-    threads::ThreadPool * m_pool;
+    threads::ThreadPool * m_threadPool;
     ThreadsCommutator * m_commutator;
   };
 }

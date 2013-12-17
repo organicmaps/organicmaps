@@ -8,6 +8,7 @@
 
 #include "message.hpp"
 #include "message_subclasses.hpp"
+#include "map_shape.hpp"
 
 #include "../geometry/screenbase.hpp"
 
@@ -45,30 +46,23 @@ namespace df
                                            double visualScale,
                                            int surfaceWidth,
                                            int surfaceHeight)
-    : m_commutator(commutator)
+    : m_engineContext(commutator)
+    , m_commutator(commutator)
   {
     m_scaleProcessor.SetParams(visualScale, ScalesProcessor::CalculateTileSize(surfaceWidth, surfaceHeight));
 
     m_commutator->RegisterThread(ThreadsCommutator::ResourceUploadThread, this);
-    m_pool = new threads::ThreadPool(max(1, GetPlatform().CpuCores() - 2), bind(&PostFinishTask, commutator, _1));
 
-    /// TODO create batcher with thread thansfer interface
+    int readerCount = max(1, GetPlatform().CpuCores() - 2);
+    m_threadPool = new threads::ThreadPool(readerCount, bind(&PostFinishTask, commutator, _1));
+    m_batchersPool = new BatchersPool(readerCount, bind(&BackendRendererImpl::PostToRenderThreads, this, _1));
+
     StartThread();
   }
 
   BackendRendererImpl::~BackendRendererImpl()
   {
     StopThread();
-    CloseQueue();
-
-    m_pool->Stop();
-    delete m_pool;
-
-    typedef set<ReadMWMTask *>::iterator index_iter;
-    for (index_iter it = m_taskIndex.begin(); it != m_taskIndex.end(); ++it)
-      delete (*it);
-
-    m_taskIndex.clear();
   }
 
   void BackendRendererImpl::UpdateCoverage(const ScreenBase & screen)
@@ -128,10 +122,6 @@ namespace df
       ASSERT(m_taskIndex.find(readTask) == m_taskIndex.end(), ());
       CancelTask(readTask, false, true);
     }
-    else
-    {
-      /// TODO flush geometry backet on frontend renderer
-    }
   }
 
   void BackendRendererImpl::Resize(m2::RectI const & rect)
@@ -141,9 +131,11 @@ namespace df
 
   void BackendRendererImpl::CreateTask(Tiler::RectInfo const & info)
   {
-    ReadMWMTask * task = new ReadMWMTask(TileKey(info.m_x, info.m_y, info.m_tileScale), m_index);
+    ReadMWMTask * task = new ReadMWMTask(TileKey(info.m_x, info.m_y, info.m_tileScale),
+                                         m_index,
+                                         m_engineContext);
     m_taskIndex.insert(task);
-    m_pool->AddTask(task);
+    m_threadPool->AddTask(task);
   }
 
   void BackendRendererImpl::CancelTask(ReadMWMTask * task, bool removefromIndex, bool postToRenderer)
@@ -167,7 +159,7 @@ namespace df
     for (index_iter it = m_taskIndex.begin(); it != m_taskIndex.end(); ++it)
     {
       (*it)->PrepareToRestart();
-      m_pool->AddTask(*it);
+      m_threadPool->AddTask(*it);
     }
   }
 
@@ -187,6 +179,11 @@ namespace df
     case Message::TaskFinish:
       FinishTask(static_cast<TaskFinishMessage *>(message)->GetRoutine());
       break;
+    case Message::TileReadStarted:
+    case Message::TileReadEnded:
+    case Message::MapShapeReaded:
+      m_batchersPool->AcceptMessage(message);
+      break;
     default:
       ASSERT(false, ());
       break;
@@ -203,7 +200,9 @@ namespace df
 
   void BackendRendererImpl::StopThread()
   {
-    m_selfThread.Cancel();
+    IRoutine::Cancel();
+    CloseQueue();
+    m_selfThread.Join();
   }
 
   void BackendRendererImpl::ThreadMain()
@@ -212,6 +211,22 @@ namespace df
 
     while (!IsCancelled())
       ProcessSingleMessage(true);
+
+    ReleaseResources();
+  }
+
+  void BackendRendererImpl::ReleaseResources()
+  {
+    m_threadPool->Stop();
+    delete m_threadPool;
+
+    delete m_batchersPool;
+
+    typedef set<ReadMWMTask *>::iterator index_iter;
+    for (index_iter it = m_taskIndex.begin(); it != m_taskIndex.end(); ++it)
+      delete (*it);
+
+    m_taskIndex.clear();
   }
 
   void BackendRendererImpl::Do()
