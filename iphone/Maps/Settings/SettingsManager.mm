@@ -90,12 +90,10 @@ using namespace storage;
 }
 
 // Hides all opened settings windows
-- (void) hide
+- (void)hide
 {
   GetFramework().Storage().Unsubscribe(m_slotID);
-
   [m_navigationController popToRootViewControllerAnimated:YES];
-  [m_navigationController release], m_navigationController = nil;
 }
 
 /*
