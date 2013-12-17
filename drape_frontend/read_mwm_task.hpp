@@ -2,6 +2,7 @@
 
 #include "tile_info.hpp"
 #include "memory_feature_index.hpp"
+#include "engine_context.hpp"
 
 #include "../base/thread.hpp"
 #include "../base/object_tracker.hpp"
@@ -11,7 +12,9 @@ namespace df
   class ReadMWMTask : public threads::IRoutine
   {
   public:
-    ReadMWMTask(TileKey const & tileKey, df::MemoryFeatureIndex & index);
+    ReadMWMTask(TileKey const & tileKey,
+                MemoryFeatureIndex & index,
+                EngineContext & context);
 
     virtual void Do();
 
@@ -26,9 +29,10 @@ namespace df
     void ReadGeometry(const FeatureID & id);
 
   private:
-    df::TileInfo m_tileInfo;
+    TileInfo m_tileInfo;
     bool m_isFinished;
-    df::MemoryFeatureIndex & m_index;
+    MemoryFeatureIndex & m_index;
+    EngineContext & m_context;
 
   #ifdef DEBUG
     dbg::ObjectTracker m_objTracker;
