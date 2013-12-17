@@ -776,7 +776,7 @@ extern "C"
   JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_Framework_nativeIsDataVersionChanged(JNIEnv * env, jclass clazz)
   {
-    return g_framework->NativeFramework()->IsDataVersionChanged() ? JNI_TRUE : JNI_FALSE;
+    return g_framework->NativeFramework()->IsDataVersionUpdated() ? JNI_TRUE : JNI_FALSE;
   }
 
   JNIEXPORT void JNICALL

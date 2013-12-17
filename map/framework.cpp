@@ -1,4 +1,4 @@
-#include "framework.hpp"
+﻿#include "framework.hpp"
 #include "feature_processor.hpp"
 #include "drawer.hpp"
 #include "benchmark_provider.hpp"
@@ -1712,12 +1712,12 @@ string Framework::GenerateApiBackUrl(url_scheme::ApiPoint const & point)
   return res;
 }
 
-bool Framework::IsDataVersionChanged()
+bool Framework::IsDataVersionUpdated()
 {
-  int64_t version;
-  if (Settings::Get("DataVersion", version))
+  int64_t storedVersion;
+  if (Settings::Get("DataVersion", storedVersion))
   {
-    return version != m_storage.GetCurrentDataVersion();
+    return storedVersion < m_storage.GetCurrentDataVersion();
   }
   // no key in the settings, assume new version
   return true;

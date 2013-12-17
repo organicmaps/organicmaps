@@ -483,7 +483,7 @@ public:
 
   /// @name Map updates
   //@{
-  bool IsDataVersionChanged();
+  bool IsDataVersionUpdated();
   void UpdateSavedDataVersion();
   //@}
 
