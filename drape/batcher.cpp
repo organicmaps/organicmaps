@@ -91,8 +91,7 @@ namespace
   };
 }
 
-Batcher::Batcher(RefPointer<IBatchFlush> flushInterface)
-  : m_flushInterface(flushInterface)
+Batcher::Batcher()
 {
 }
 
@@ -167,6 +166,17 @@ void Batcher::InsertTriangleFan(const GLState & state, RefPointer<AttributeProvi
   InsertTriangles(state, TrianglesFanStrategy(), params);
 }
 
+void Batcher::StartSession(const flush_fn & flusher)
+{
+  m_flushInterface = flusher;
+}
+
+void Batcher::EndSession()
+{
+  Flush();
+  m_flushInterface = flush_fn();
+}
+
 RefPointer<VertexArrayBuffer> Batcher::GetBuffer(const GLState & state)
 {
   buckets_t::iterator it = m_buckets.find(state);
@@ -180,17 +190,15 @@ RefPointer<VertexArrayBuffer> Batcher::GetBuffer(const GLState & state)
 
 void Batcher::FinalizeBuffer(const GLState & state)
 {
-  ///@TODO
   ASSERT(m_buckets.find(state) != m_buckets.end(), ("Have no bucket for finalize with given state"));
-  m_flushInterface->FlushFullBucket(state, m_buckets[state].Move());
+  m_flushInterface(state, m_buckets[state].Move());
   m_buckets.erase(state);
 }
 
 void Batcher::Flush()
 {
-  ///@TODO
   for (buckets_t::iterator it = m_buckets.begin(); it != m_buckets.end(); ++it)
-    m_flushInterface->FlushFullBucket(it->first, it->second.Move());
+    m_flushInterface(it->first, it->second.Move());
 
   m_buckets.clear();
 }

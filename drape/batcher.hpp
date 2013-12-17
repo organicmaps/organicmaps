@@ -6,25 +6,21 @@
 #include "attribute_provider.hpp"
 
 #include "../std/map.hpp"
-
-class IBatchFlush
-{
-public:
-  virtual ~IBatchFlush() {}
-
-  virtual void FlushFullBucket(const GLState & state, TransferPointer<VertexArrayBuffer> backet) = 0;
-};
+#include "../std/function.hpp"
 
 class Batcher
 {
 public:
-  Batcher(RefPointer<IBatchFlush> flushInterface);
+  Batcher();
   ~Batcher();
 
   void InsertTriangleList(const GLState & state, RefPointer<AttributeProvider> params);
   void InsertTriangleStrip(const GLState & state, RefPointer<AttributeProvider> params);
   void InsertTriangleFan(const GLState & state, RefPointer<AttributeProvider> params);
-  void Flush();
+
+  typedef function<void (const GLState &, TransferPointer<VertexArrayBuffer> )> flush_fn;
+  void StartSession(const flush_fn & flusher);
+  void EndSession();
 
 private:
   template <typename strategy>
@@ -34,9 +30,10 @@ private:
   /// return true if GLBuffer is finished
   bool UploadBufferData(RefPointer<GLBuffer> vertexBuffer, RefPointer<AttributeProvider> params);
   void FinalizeBuffer(const GLState & state);
+  void Flush();
 
 private:
-  RefPointer<IBatchFlush> m_flushInterface;
+  flush_fn m_flushInterface;
 
 private:
   typedef map<GLState, MasterPointer<VertexArrayBuffer> > buckets_t;
