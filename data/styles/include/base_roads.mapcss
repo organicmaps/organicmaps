@@ -602,10 +602,12 @@ line|z15[highway=cycleway]
 {
   color: #90bc90;
   width: 1;
-}area|z15-[highway=pedestrian][area?]
+}
+area|z15-[highway=pedestrian][area?]
 {
   fill-color: #f0f0f0;
 }
+line|z16[highway=footway][sac_scale=demanding_mountain_hiking],
 line|z16[highway=path][sac_scale=demanding_mountain_hiking]
 {
   color: red;
@@ -635,16 +637,12 @@ line|z16[highway=byway]
   color: #c0a87c;
   width: 4;
 }
-line|z16[highway=path][route=hiking]
-{
-  color: red;
-  width: 1.2;
-}
 line|z16[highway=cycleway]
 {
   color: #90bc90;
   width: 2;
 }
+line|z16[highway=path][route=hiking],
 line|z16[highway=footway][sac_scale=hiking]
 {
   color: red;
@@ -680,13 +678,6 @@ line|z16[highway=pedestrian]
   width: 4;
   casing-color: #c0bc9c;
 }
-line|z16[highway=footway][sac_scale=demanding_mountain_hiking]
-{
-  color: red;
-  width: 1.2;
-  dashes: 0.16,2.4;
-  linecap: butt;
-}
 line|z16[highway=secondary]
 {
   font-size: 14;
@@ -694,6 +685,7 @@ line|z16[highway=secondary]
   text: name;
   text-color: #404040;
 }
+line|z16[highway=footway][sac_scale=mountain_hiking],
 line|z16[highway=path][sac_scale=mountain_hiking]
 {
   color: red;
@@ -706,6 +698,7 @@ line|z16[highway=path]
   color: silver;
   width: 2;
 }
+line|z16[highway=footway][sac_scale=difficult_alpine_hiking],
 line|z16[highway=path][sac_scale=difficult_alpine_hiking]
 {
   color: blue;
@@ -718,18 +711,7 @@ line|z16[highway=footway]
   color: #d0ccbc;
   width: 2;
 }
-line|z16[highway=footway][sac_scale=mountain_hiking]
-{
-  color: red;
-  width: 1.2;
-  dashes: 2,2;
-  linecap: butt;
-}
-line|z16[highway=path][sac_scale][sac_scale=alpine_hiking]
-{
-  color: blue;
-  width: 1.2;
-}
+line|z16[highway=path][sac_scale=alpine_hiking],
 line|z16[highway=footway][sac_scale=alpine_hiking]
 {
   color: blue;
@@ -740,6 +722,7 @@ line|z16[highway=service]
   color: white;
   width: 5;
 }
+line|z16[highway=path][sac_scale=demanding_alpine_hiking],
 line|z16[highway=footway][sac_scale=demanding_alpine_hiking]
 {
   color: blue;
@@ -751,7 +734,6 @@ line|z16[highway=raceway]
 {
   color: white;
   width: 6.8;
-
 }
 line|z16[highway=tertiary]
 {
@@ -768,13 +750,6 @@ line|z16-[highway=motorway_link]
 {
   color: #f08800;
   width: 12;
-}
-line|z16[highway=path][sac_scale=demanding_alpine_hiking]
-{
-  color: blue;
-  width: 1.2;
-  dashes: 2,2;
-  linecap: butt;
 }
 line|z15-16[highway=primary]
 {
@@ -804,13 +779,6 @@ line|z16[highway=living_street]
   color: white;
   width: 6;
   casing-color: #c8c8af;
-}
-line|z16[highway=footway][sac_scale=difficult_alpine_hiking]
-{
-  color: blue;
-  width: 1.2;
-  dashes: 0.16,2.4;
-  linecap: butt;
 }
 line|z16[highway=raceway]::d2p2
 {
@@ -927,7 +895,10 @@ line|z17-[highway=service]
   color: white;
   width: 7;
 }
-line|z17[highway=footway]::dashes
+
+/* Footway with sac_scale is absolutely different type (hiking path, not the pedestrian in the city) */
+
+line|z17[highway=footway][!sac_scale]::dashes
 {
   width: 4;
   z-index: 692;
@@ -935,12 +906,12 @@ line|z17[highway=footway]::dashes
   linecap: butt;
   dashes: 1,3;
 }
-line|z17-[highway=footway]
+line|z17-[highway=footway][!sac_scale]
 {
   color: #d0ccbc;
   width: 5;
 }
-line|z18[highway=footway]::dashes
+line|z18[highway=footway][!sac_scale]::dashes
 {
   width: 8;
   z-index: 692;
@@ -948,13 +919,13 @@ line|z18[highway=footway]::dashes
   linecap: butt;
   dashes: 1,3;
 }
-line|z18[highway=footway],
+line|z18[highway=footway][!sac_scale],
 line|z18[highway=service],
 line|z18[highway=pedestrian]
 {
   width: 9;
 }
-line|z19-[highway=footway]::dashes
+line|z19-[highway=footway][!sac_scale]::dashes
 {
   width: 16;
   z-index: 692;
@@ -962,12 +933,13 @@ line|z19-[highway=footway]::dashes
   linecap: butt;
   dashes: 1,4;
 }
-line|z19-[highway=footway],
+line|z19-[highway=footway][!sac_scale],
 line|z19-[highway=service],
 line|z19-[highway=pedestrian]
 {
   width: 17;
 }
+line|z17-[highway=footway][sac_scale=demanding_alpine_hiking],
 line|z17-[highway=path][sac_scale=demanding_alpine_hiking]
 {
   color: blue;
@@ -975,6 +947,7 @@ line|z17-[highway=path][sac_scale=demanding_alpine_hiking]
   dashes: 4,4;
   linecap: butt;
 }
+line|z17-[highway=footway][sac_scale=demanding_mountain_hiking],
 line|z17-[highway=path][sac_scale=demanding_mountain_hiking]
 {
   color: red;
@@ -1004,16 +977,12 @@ line|z17-[highway=living_street]
   width: 8;
   casing-color: #c8c8af;
 }
+line|z17-[highway=footway][sac_scale=mountain_hiking],
 line|z17-[highway=path][sac_scale=mountain_hiking]
 {
   color: red;
   width: 0.8;
   dashes: 4,4;
-  linecap: butt;
-}
-line|z17-[highway=footway][sac_scale=demanding_mountain_hiking]
-{
-  color: red;
   linecap: butt;
 }
 line|z17-[highway=raceway]::d2p3
@@ -1080,34 +1049,16 @@ line|z17-[highway=path]
   color: silver;
   width: 3;
 }
-line|z17-[highway=path][route=hiking]
-{
-  color: red;
-  width: 0.8;
-}
+line|z17-[highway=path][route=hiking],
 line|z17-[highway=footway][sac_scale=hiking]
 {
   color: red;
   width: 0.8;
 }
-line|z17-[highway=footway][sac_scale=alpine_hiking]
-{
-  color: blue;
-}
-line|z17-[highway=footway][sac_scale=difficult_alpine_hiking]
-{
-  color: blue;
-  linecap: butt;
-}
 line|z17-[highway=tertiary_link]
 {
   color: #ffff90;
   width: 12;
-}
-line|z17-[highway=footway][sac_scale=demanding_alpine_hiking]
-{
-  color: blue;
-  linecap: butt;
 }
 line|z17-[highway=track]
 {
@@ -1137,6 +1088,7 @@ line|z17-[highway=secondary]
   text: name;
   text-color: #404040;
 }
+line|z17-[highway=footway][sac_scale=difficult_alpine_hiking],
 line|z17-[highway=path][sac_scale=difficult_alpine_hiking]
 {
   color: blue;
@@ -1144,7 +1096,8 @@ line|z17-[highway=path][sac_scale=difficult_alpine_hiking]
   dashes: 0.08,1.2;
   linecap: butt;
 }
-line|z17-[highway=path][sac_scale][sac_scale=alpine_hiking]
+line|z17-[highway=path][sac_scale=alpine_hiking],
+line|z17-[highway=footway][sac_scale=alpine_hiking]
 {
   color: blue;
   width: 0.8;
@@ -1154,11 +1107,6 @@ line|z17-[highway=tertiary]
   color: #ffff90;
   width: 12;
   casing-color: #c8c860;
-}
-line|z17-[highway=footway][sac_scale=mountain_hiking]
-{
-  color: red;
-  linecap: butt;
 }
 line|z18[highway=motorway],
 line|z18[highway=motorway_link],

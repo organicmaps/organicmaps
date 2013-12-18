@@ -347,7 +347,7 @@ railway|tram|bridge;[railway=tram][bridge?];;name;int_name;346;
 piste:type|downhill|advanced;[piste:type=downhill][piste:difficulty=advanced];;name;int_name;347;
 sport|shooting;[sport=shooting];;name;int_name;348;
 place|country;[place=country];;name;int_name;349;
-highway|path|alpine_hiking;[highway=path][sac_scale][sac_scale=alpine_hiking];;name;int_name;350;
+highway|path|alpine_hiking;[highway=path][sac_scale=alpine_hiking];;name;int_name;350;
 highway|footway|destination;[highway=footway][access=destination];x;name;int_name;351;highway|footway
 sport|scuba_diving;[sport=scuba_diving];;name;int_name;352;
 highway|cycleway|permissive;[highway=cycleway][access=permissive];;name;int_name;353;
