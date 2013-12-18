@@ -238,66 +238,66 @@ cont {
   }
   element {
     scale: 16
+    caption {
+      primary {
+        height: 12
+        color: 3364317
+        stroke_color: 16777215
+      }
+      priority: 15000
+    }
     circle {
       radius: 4.0
       color: 3364317
       priority: 14000
     }
-    path_text {
+  }
+  element {
+    scale: 17
+    caption {
       primary {
         height: 12
         color: 3364317
         stroke_color: 16777215
       }
-      priority: 16000
+      priority: 15000
     }
-  }
-  element {
-    scale: 17
     circle {
       radius: 3.2
       color: 3364317
       priority: 14000
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3364317
-        stroke_color: 16777215
-      }
-      priority: 16000
     }
   }
   element {
     scale: 18
-    circle {
-      radius: 3.2
-      color: 3364317
-      priority: 14000
-    }
-    path_text {
+    caption {
       primary {
         height: 12
         color: 3364317
         stroke_color: 16777215
       }
-      priority: 16000
+      priority: 15000
+    }
+    circle {
+      radius: 3.2
+      color: 3364317
+      priority: 14000
     }
   }
   element {
     scale: 19
-    circle {
-      radius: 3.2
-      color: 3364317
-      priority: 14000
-    }
-    path_text {
+    caption {
       primary {
         height: 12
         color: 3364317
         stroke_color: 16777215
       }
-      priority: 16000
+      priority: 15000
+    }
+    circle {
+      radius: 3.2
+      color: 3364317
+      priority: 14000
     }
   }
 }
@@ -9147,6 +9147,16 @@ cont {
 cont {
   name: "highway-footway"
   element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 14535867
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 1.0
@@ -9265,6 +9275,16 @@ cont {
 cont {
   name: "highway-footway-alpine_hiking"
   element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 14535867
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 1.0
@@ -9295,28 +9315,17 @@ cont {
   element {
     scale: 17
     lines {
-      width: 5.0
+      width: 0.8
       color: 255
       priority: 1026
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
-    lines {
-      width: 4.0
-      color: 14535867
-      dashdot {
-        dd: 1.0
-        dd: 3.0
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
     path_text {
       primary {
         height: 12
         color: 0
-        stroke_color: 14535867
+        stroke_color: 255
       }
       priority: 16026
     }
@@ -9324,28 +9333,17 @@ cont {
   element {
     scale: 18
     lines {
-      width: 9.0
+      width: 0.8
       color: 255
       priority: 1026
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
-    lines {
-      width: 8.0
-      color: 14535867
-      dashdot {
-        dd: 1.0
-        dd: 3.0
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
     path_text {
       primary {
         height: 12
         color: 0
-        stroke_color: 14535867
+        stroke_color: 255
       }
       priority: 16026
     }
@@ -9353,28 +9351,17 @@ cont {
   element {
     scale: 19
     lines {
-      width: 17.0
+      width: 0.8
       color: 255
       priority: 1026
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
-    lines {
-      width: 16.0
-      color: 14535867
-      dashdot {
-        dd: 1.0
-        dd: 4.0
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
     path_text {
       primary {
         height: 12
         color: 0
-        stroke_color: 14535867
+        stroke_color: 255
       }
       priority: 16026
     }
@@ -9382,6 +9369,13 @@ cont {
 }
 cont {
   name: "highway-footway-area"
+  element {
+    scale: 14
+    area {
+      color: 14535867
+      priority: 1027
+    }
+  }
   element {
     scale: 15
     area {
@@ -9485,6 +9479,16 @@ cont {
 }
 cont {
   name: "highway-footway-bridge"
+  element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 14535867
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
   element {
     scale: 15
     lines {
@@ -9674,6 +9678,16 @@ cont {
 cont {
   name: "highway-footway-demanding_alpine_hiking"
   element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 14535867
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 1.0
@@ -9708,20 +9722,13 @@ cont {
   element {
     scale: 17
     lines {
-      width: 5.0
+      width: 0.8
       color: 255
-      priority: 1026
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 4.0
-      color: 14535867
       dashdot {
-        dd: 1.0
-        dd: 3.0
+        dd: 4.0
+        dd: 4.0
       }
-      priority: 1736
+      priority: 1026
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -9729,7 +9736,7 @@ cont {
       primary {
         height: 12
         color: 0
-        stroke_color: 14535867
+        stroke_color: 255
       }
       priority: 16026
     }
@@ -9737,20 +9744,13 @@ cont {
   element {
     scale: 18
     lines {
-      width: 9.0
+      width: 0.8
       color: 255
-      priority: 1026
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 8.0
-      color: 14535867
       dashdot {
-        dd: 1.0
-        dd: 3.0
+        dd: 4.0
+        dd: 4.0
       }
-      priority: 1736
+      priority: 1026
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -9758,7 +9758,7 @@ cont {
       primary {
         height: 12
         color: 0
-        stroke_color: 14535867
+        stroke_color: 255
       }
       priority: 16026
     }
@@ -9766,20 +9766,13 @@ cont {
   element {
     scale: 19
     lines {
-      width: 17.0
+      width: 0.8
       color: 255
-      priority: 1026
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 16.0
-      color: 14535867
       dashdot {
-        dd: 1.0
+        dd: 4.0
         dd: 4.0
       }
-      priority: 1736
+      priority: 1026
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -9787,7 +9780,7 @@ cont {
       primary {
         height: 12
         color: 0
-        stroke_color: 14535867
+        stroke_color: 255
       }
       priority: 16026
     }
@@ -9796,6 +9789,16 @@ cont {
 cont {
   name: "highway-footway-demanding_mountain_hiking"
   element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 14535867
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 1.0
@@ -9830,351 +9833,11 @@ cont {
   element {
     scale: 17
     lines {
-      width: 5.0
-      color: 16711680
-      priority: 1026
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 4.0
-      color: 14535867
-      dashdot {
-        dd: 1.0
-        dd: 3.0
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 14535867
-      }
-      priority: 16026
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 9.0
-      color: 16711680
-      priority: 1026
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 8.0
-      color: 14535867
-      dashdot {
-        dd: 1.0
-        dd: 3.0
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 14535867
-      }
-      priority: 16026
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 17.0
-      color: 16711680
-      priority: 1026
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 16.0
-      color: 14535867
-      dashdot {
-        dd: 1.0
-        dd: 4.0
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 14535867
-      }
-      priority: 16026
-    }
-  }
-}
-cont {
-  name: "highway-footway-difficult_alpine_hiking"
-  element {
-    scale: 15
-    lines {
-      width: 1.0
-      color: 14535867
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 1.2
-      color: 255
-      dashdot {
-        dd: 1.0
-        dd: 2.4
-      }
-      priority: 1026
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 255
-      }
-      priority: 16026
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 5.0
-      color: 255
-      priority: 1026
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 4.0
-      color: 14535867
-      dashdot {
-        dd: 1.0
-        dd: 3.0
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 14535867
-      }
-      priority: 16026
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 9.0
-      color: 255
-      priority: 1026
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 8.0
-      color: 14535867
-      dashdot {
-        dd: 1.0
-        dd: 3.0
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 14535867
-      }
-      priority: 16026
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 17.0
-      color: 255
-      priority: 1026
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 16.0
-      color: 14535867
-      dashdot {
-        dd: 1.0
-        dd: 4.0
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 14535867
-      }
-      priority: 16026
-    }
-  }
-}
-cont {
-  name: "highway-footway-hiking"
-  element {
-    scale: 15
-    lines {
-      width: 1.0
-      color: 14535867
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 2.0
-      color: 14535867
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 14535867
-      }
-      priority: 16026
-    }
-  }
-  element {
-    scale: 17
-    lines {
       width: 0.8
       color: 16711680
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 4.0
-      color: 14535867
       dashdot {
         dd: 1.0
-        dd: 3.0
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 14535867
-      }
-      priority: 16026
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 0.8
-      color: 16711680
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 8.0
-      color: 14535867
-      dashdot {
-        dd: 1.0
-        dd: 3.0
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 14535867
-      }
-      priority: 16026
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 0.8
-      color: 16711680
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 16.0
-      color: 14535867
-      dashdot {
-        dd: 1.0
-        dd: 4.0
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 14535867
-      }
-      priority: 16026
-    }
-  }
-}
-cont {
-  name: "highway-footway-mountain_hiking"
-  element {
-    scale: 15
-    lines {
-      width: 1.0
-      color: 14535867
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 1.2
-      color: 16711680
-      dashdot {
-        dd: 2.0
-        dd: 2.0
+        dd: 1.2
       }
       priority: 1026
       join: ROUNDJOIN
@@ -10190,51 +9853,15 @@ cont {
     }
   }
   element {
-    scale: 17
-    lines {
-      width: 5.0
-      color: 16711680
-      priority: 1026
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 4.0
-      color: 14535867
-      dashdot {
-        dd: 1.0
-        dd: 3.0
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 14535867
-      }
-      priority: 16026
-    }
-  }
-  element {
     scale: 18
     lines {
-      width: 9.0
+      width: 0.8
       color: 16711680
-      priority: 1026
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 8.0
-      color: 14535867
       dashdot {
         dd: 1.0
-        dd: 3.0
+        dd: 1.2
       }
-      priority: 1736
+      priority: 1026
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -10242,7 +9869,7 @@ cont {
       primary {
         height: 12
         color: 0
-        stroke_color: 14535867
+        stroke_color: 16711680
       }
       priority: 16026
     }
@@ -10250,20 +9877,58 @@ cont {
   element {
     scale: 19
     lines {
-      width: 17.0
+      width: 0.8
       color: 16711680
+      dashdot {
+        dd: 1.0
+        dd: 1.2
+      }
       priority: 1026
       join: ROUNDJOIN
       cap: BUTTCAP
     }
+    path_text {
+      primary {
+        height: 12
+        color: 0
+        stroke_color: 16711680
+      }
+      priority: 16026
+    }
+  }
+}
+cont {
+  name: "highway-footway-difficult_alpine_hiking"
+  element {
+    scale: 14
     lines {
-      width: 16.0
+      width: 1.0
+      color: 14535867
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.0
+      color: 14535867
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 2.0
       color: 14535867
       dashdot {
         dd: 1.0
-        dd: 4.0
+        dd: 2.4
       }
-      priority: 1736
+      priority: 1026
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -10276,9 +9941,291 @@ cont {
       priority: 16026
     }
   }
+  element {
+    scale: 17
+    lines {
+      width: 0.8
+      color: 255
+      dashdot {
+        dd: 1.0
+        dd: 1.2
+      }
+      priority: 1026
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0
+        stroke_color: 255
+      }
+      priority: 16026
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 0.8
+      color: 255
+      dashdot {
+        dd: 1.0
+        dd: 1.2
+      }
+      priority: 1026
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0
+        stroke_color: 255
+      }
+      priority: 16026
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 0.8
+      color: 255
+      dashdot {
+        dd: 1.0
+        dd: 1.2
+      }
+      priority: 1026
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0
+        stroke_color: 255
+      }
+      priority: 16026
+    }
+  }
+}
+cont {
+  name: "highway-footway-hiking"
+  element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 14535867
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.0
+      color: 14535867
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 2.0
+      color: 14535867
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0
+        stroke_color: 14535867
+      }
+      priority: 16026
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 0.8
+      color: 16711680
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0
+        stroke_color: 16711680
+      }
+      priority: 16026
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 0.8
+      color: 16711680
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0
+        stroke_color: 16711680
+      }
+      priority: 16026
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 0.8
+      color: 16711680
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0
+        stroke_color: 16711680
+      }
+      priority: 16026
+    }
+  }
+}
+cont {
+  name: "highway-footway-mountain_hiking"
+  element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 14535867
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.0
+      color: 14535867
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 2.0
+      color: 14535867
+      dashdot {
+        dd: 2.0
+        dd: 2.0
+      }
+      priority: 1026
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0
+        stroke_color: 14535867
+      }
+      priority: 16026
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 0.8
+      color: 16711680
+      dashdot {
+        dd: 4.0
+        dd: 4.0
+      }
+      priority: 1026
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0
+        stroke_color: 16711680
+      }
+      priority: 16026
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 0.8
+      color: 16711680
+      dashdot {
+        dd: 4.0
+        dd: 4.0
+      }
+      priority: 1026
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0
+        stroke_color: 16711680
+      }
+      priority: 16026
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 0.8
+      color: 16711680
+      dashdot {
+        dd: 4.0
+        dd: 4.0
+      }
+      priority: 1026
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0
+        stroke_color: 16711680
+      }
+      priority: 16026
+    }
+  }
 }
 cont {
   name: "highway-footway-no-access"
+  element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 14535867
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
   element {
     scale: 15
     lines {
@@ -10398,6 +10345,16 @@ cont {
 cont {
   name: "highway-footway-permissive"
   element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 14535867
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 1.0
@@ -10516,6 +10473,16 @@ cont {
 cont {
   name: "highway-footway-private"
   element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 14535867
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 1.0
@@ -10633,6 +10600,16 @@ cont {
 }
 cont {
   name: "highway-footway-tunnel"
+  element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 14535867
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
   element {
     scale: 15
     lines {
@@ -14087,6 +14064,16 @@ cont {
 cont {
   name: "highway-path"
   element {
+    scale: 14
+    lines {
+      width: 2.0
+      color: 13421772
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 2.0
@@ -14171,6 +14158,16 @@ cont {
 }
 cont {
   name: "highway-path-alpine_hiking"
+  element {
+    scale: 14
+    lines {
+      width: 2.0
+      color: 13421772
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
   element {
     scale: 15
     lines {
@@ -14257,6 +14254,16 @@ cont {
 cont {
   name: "highway-path-bicycle"
   element {
+    scale: 14
+    lines {
+      width: 2.0
+      color: 13421772
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 2.0
@@ -14341,6 +14348,16 @@ cont {
 }
 cont {
   name: "highway-path-bicycle-bridge"
+  element {
+    scale: 14
+    lines {
+      width: 2.0
+      color: 13421772
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
   element {
     scale: 15
     lines {
@@ -14496,6 +14513,16 @@ cont {
 }
 cont {
   name: "highway-path-bicycle-tunnel"
+  element {
+    scale: 14
+    lines {
+      width: 2.0
+      color: 13421772
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
   element {
     scale: 15
     lines {
@@ -14672,6 +14699,16 @@ cont {
 cont {
   name: "highway-path-bridge"
   element {
+    scale: 14
+    lines {
+      width: 2.0
+      color: 13421772
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 2.0
@@ -14827,6 +14864,16 @@ cont {
 cont {
   name: "highway-path-demanding_alpine_hiking"
   element {
+    scale: 14
+    lines {
+      width: 2.0
+      color: 13421772
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 2.0
@@ -14927,6 +14974,16 @@ cont {
 }
 cont {
   name: "highway-path-demanding_mountain_hiking"
+  element {
+    scale: 14
+    lines {
+      width: 2.0
+      color: 13421772
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
   element {
     scale: 15
     lines {
@@ -15029,6 +15086,16 @@ cont {
 cont {
   name: "highway-path-difficult_alpine_hiking"
   element {
+    scale: 14
+    lines {
+      width: 2.0
+      color: 13421772
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 2.0
@@ -15130,6 +15197,16 @@ cont {
 cont {
   name: "highway-path-hiking"
   element {
+    scale: 14
+    lines {
+      width: 2.0
+      color: 13421772
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 2.0
@@ -15215,6 +15292,16 @@ cont {
 cont {
   name: "highway-path-horse"
   element {
+    scale: 14
+    lines {
+      width: 2.0
+      color: 13421772
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 2.0
@@ -15299,6 +15386,16 @@ cont {
 }
 cont {
   name: "highway-path-mountain_hiking"
+  element {
+    scale: 14
+    lines {
+      width: 2.0
+      color: 13421772
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
   element {
     scale: 15
     lines {
@@ -15401,6 +15498,16 @@ cont {
 cont {
   name: "highway-path-no-access"
   element {
+    scale: 14
+    lines {
+      width: 2.0
+      color: 13421772
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 2.0
@@ -15485,6 +15592,16 @@ cont {
 }
 cont {
   name: "highway-path-permissive"
+  element {
+    scale: 14
+    lines {
+      width: 2.0
+      color: 13421772
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
   element {
     scale: 15
     lines {
@@ -15571,6 +15688,16 @@ cont {
 cont {
   name: "highway-path-private"
   element {
+    scale: 14
+    lines {
+      width: 2.0
+      color: 13421772
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 2.0
@@ -15655,6 +15782,16 @@ cont {
 }
 cont {
   name: "highway-path-tunnel"
+  element {
+    scale: 14
+    lines {
+      width: 2.0
+      color: 13421772
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
   element {
     scale: 15
     lines {
@@ -37335,13 +37472,6 @@ cont {
       join: ROUNDJOIN
       cap: BUTTCAP
     }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-      }
-      priority: 16000
-    }
   }
   element {
     scale: 15
@@ -37523,13 +37653,6 @@ cont {
       priority: 1000
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-      }
-      priority: 16000
     }
   }
   element {
@@ -37732,13 +37855,6 @@ cont {
       priority: 1000
       join: ROUNDJOIN
       cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-      }
-      priority: 16000
     }
   }
   element {
@@ -41442,287 +41558,6 @@ cont {
   }
 }
 cont {
-  name: "railway-abandoned-tunnel"
-  element {
-    scale: 12
-    lines {
-      width: 0.25
-      color: 3015424955
-      priority: 1213
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 0.55
-      color: 3015424955
-      priority: 1231
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.6
-      color: 2579217339
-      priority: 1187
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.0
-      color: 2579217339
-      dashdot {
-        dd: 4.5
-        dd: 4.5
-      }
-      priority: 1306
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 2583691263
-      priority: 1268
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 3.2
-      color: 2579217339
-      priority: 1274
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.0
-      color: 2579217339
-      dashdot {
-        dd: 9.0
-        dd: 9.0
-      }
-      priority: 1369
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 2583691263
-      priority: 1341
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 3.2
-      color: 2579217339
-      priority: 1494
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.4
-      color: 2579217339
-      dashdot {
-        dd: 12.0
-        dd: 12.0
-      }
-      priority: 1627
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.4
-      color: 2583691263
-      priority: 1592
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.4
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.4
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 3.2
-      color: 2579217339
-      priority: 1528
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.0
-      color: 2579217339
-      dashdot {
-        dd: 12.0
-        dd: 12.0
-      }
-      priority: 1699
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 2583691263
-      priority: 1656
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 3.2
-      color: 2579217339
-      priority: 1528
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.0
-      color: 2579217339
-      dashdot {
-        dd: 12.0
-        dd: 12.0
-      }
-      priority: 1699
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 2583691263
-      priority: 1656
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 3.2
-      color: 2579217339
-      priority: 1528
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.0
-      color: 2579217339
-      dashdot {
-        dd: 12.0
-        dd: 12.0
-      }
-      priority: 1699
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 2583691263
-      priority: 1656
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-}
-cont {
   name: "railway-crossing"
   element {
     scale: 16
@@ -43251,287 +43086,6 @@ cont {
   }
 }
 cont {
-  name: "railway-light_rail-tunnel"
-  element {
-    scale: 12
-    lines {
-      width: 1.0
-      color: 10083737
-      priority: 1670
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.0
-      color: 10083737
-      priority: 1722
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 2.4
-      color: 21760
-      priority: 1670
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.7
-      color: 21760
-      dashdot {
-        dd: 3.8
-        dd: 5.4
-      }
-      priority: 1722
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.7
-      color: 12316398
-      priority: 1693
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 3.2
-      color: 17408
-      priority: 1670
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.0
-      color: 17408
-      dashdot {
-        dd: 7.6
-        dd: 10.8
-      }
-      priority: 1722
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 12316398
-      priority: 1693
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 3.2
-      color: 17408
-      priority: 1670
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.0
-      color: 17408
-      dashdot {
-        dd: 9.6
-        dd: 14.4
-      }
-      priority: 1722
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 12316398
-      priority: 1693
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 3.2
-      color: 17408
-      priority: 1546
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.0
-      color: 17408
-      dashdot {
-        dd: 9.6
-        dd: 14.4
-      }
-      priority: 1713
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 12316398
-      priority: 1667
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 3.2
-      color: 17408
-      priority: 1546
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.0
-      color: 17408
-      dashdot {
-        dd: 9.6
-        dd: 14.4
-      }
-      priority: 1713
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 12316398
-      priority: 1667
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 3.2
-      color: 17408
-      priority: 1546
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.0
-      color: 17408
-      dashdot {
-        dd: 9.6
-        dd: 14.4
-      }
-      priority: 1713
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 12316398
-      priority: 1667
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-}
-cont {
   name: "railway-monorail"
   element {
     scale: 12
@@ -44533,14 +44087,14 @@ cont {
       cap: ROUNDCAP
     }
     lines {
-      width: 10.0
+      width: 11.2
       color: 16777215
       priority: 1007
       join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
-      width: 12.0
+      width: 13.2
       color: 7829367
       priority: 1004
       join: ROUNDJOIN
@@ -44575,14 +44129,14 @@ cont {
       cap: ROUNDCAP
     }
     lines {
-      width: 10.0
+      width: 11.2
       color: 16777215
       priority: 1007
       join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
-      width: 12.0
+      width: 13.2
       color: 7829367
       priority: 1004
       join: ROUNDJOIN
@@ -44711,287 +44265,6 @@ cont {
       width: 12.0
       color: 7829367
       priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-}
-cont {
-  name: "railway-narrow_gauge-tunnel"
-  element {
-    scale: 12
-    lines {
-      width: 1.0
-      color: 13421772
-      priority: 1219
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.0
-      color: 11184810
-      priority: 1239
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 2.4
-      color: 6710886
-      priority: 1193
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.7
-      color: 4473924
-      dashdot {
-        dd: 5.5
-        dd: 5.5
-      }
-      priority: 1312
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.7
-      color: 15658734
-      priority: 1277
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 3.2
-      color: 3355443
-      priority: 1283
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.0
-      color: 3355443
-      dashdot {
-        dd: 11.0
-        dd: 11.0
-      }
-      priority: 1375
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 15658734
-      priority: 1346
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 3.2
-      color: 3355443
-      priority: 1500
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.0
-      color: 3355443
-      dashdot {
-        dd: 14.0
-        dd: 14.0
-      }
-      priority: 1632
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 15658734
-      priority: 1601
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 3.2
-      color: 3355443
-      priority: 1540
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.0
-      color: 3355443
-      dashdot {
-        dd: 14.4
-        dd: 14.4
-      }
-      priority: 1708
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 15658734
-      priority: 1661
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 3.2
-      color: 3355443
-      priority: 1540
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.0
-      color: 3355443
-      dashdot {
-        dd: 14.4
-        dd: 14.4
-      }
-      priority: 1708
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 15658734
-      priority: 1661
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 3.2
-      color: 3355443
-      priority: 1540
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.0
-      color: 3355443
-      dashdot {
-        dd: 14.4
-        dd: 14.4
-      }
-      priority: 1708
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 15658734
-      priority: 1661
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -45367,14 +44640,14 @@ cont {
       cap: ROUNDCAP
     }
     lines {
-      width: 10.0
+      width: 11.2
       color: 16777215
       priority: 1007
       join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
-      width: 12.0
+      width: 13.2
       color: 7829367
       priority: 1004
       join: ROUNDJOIN
@@ -45503,287 +44776,6 @@ cont {
       width: 12.0
       color: 7829367
       priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-}
-cont {
-  name: "railway-preserved-tunnel"
-  element {
-    scale: 12
-    lines {
-      width: 1.0
-      color: 13421772
-      priority: 1222
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.35
-      color: 12303291
-      priority: 1242
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 2.4
-      color: 10066329
-      priority: 1196
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.7
-      color: 5592405
-      dashdot {
-        dd: 4.5
-        dd: 4.5
-      }
-      priority: 1315
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.7
-      color: 15658734
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 3.2
-      color: 10066329
-      priority: 1286
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.0
-      color: 3355443
-      dashdot {
-        dd: 9.0
-        dd: 9.0
-      }
-      priority: 1378
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 15658734
-      priority: 1349
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 3.2
-      color: 10066329
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.0
-      color: 3355443
-      dashdot {
-        dd: 12.0
-        dd: 12.0
-      }
-      priority: 1635
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 15658734
-      priority: 1604
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 3.2
-      color: 10066329
-      priority: 1543
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.0
-      color: 3355443
-      dashdot {
-        dd: 12.0
-        dd: 12.0
-      }
-      priority: 1710
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 15658734
-      priority: 1664
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 3.2
-      color: 10066329
-      priority: 1543
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.0
-      color: 3355443
-      dashdot {
-        dd: 12.0
-        dd: 12.0
-      }
-      priority: 1710
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 15658734
-      priority: 1664
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 3.2
-      color: 10066329
-      priority: 1543
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.0
-      color: 3355443
-      dashdot {
-        dd: 12.0
-        dd: 12.0
-      }
-      priority: 1710
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 15658734
-      priority: 1664
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -46378,355 +45370,6 @@ cont {
   }
 }
 cont {
-  name: "railway-rail-tunnel"
-  element {
-    scale: 10
-    lines {
-      width: 1.0
-      color: 13421772
-      priority: 1156
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 1.0
-      color: 13421772
-      priority: 1156
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 1.0
-      color: 13421772
-      priority: 1216
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.85
-      color: 12303291
-      priority: 1236
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 3.0
-      color: 8947848
-      priority: 1190
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.8
-      color: 15658734
-      priority: 1274
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.8
-      color: 8947848
-      dashdot {
-        dd: 4.5
-        dd: 4.5
-      }
-      priority: 1309
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16190
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 4.0
-      color: 6710886
-      priority: 1280
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.4
-      color: 15658734
-      priority: 1343
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.4
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.4
-      color: 6710886
-      dashdot {
-        dd: 9.0
-        dd: 9.0
-      }
-      priority: 1346
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.4
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16280
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 2.4
-      color: 15658734
-      priority: 1598
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 4.0
-      color: 6710886
-      priority: 1497
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.4
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.4
-      color: 6710886
-      dashdot {
-        dd: 12.0
-        dd: 12.0
-      }
-      priority: 1630
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.4
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16598
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 4.4
-      color: 6710886
-      priority: 1537
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 3.2
-      color: 15658734
-      priority: 1658
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 13.2
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 3.2
-      color: 6710886
-      dashdot {
-        dd: 12.0
-        dd: 12.0
-      }
-      priority: 1705
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 11.2
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16537
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 4.4
-      color: 6710886
-      priority: 1537
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 3.2
-      color: 15658734
-      priority: 1658
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 13.2
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 3.2
-      color: 6710886
-      dashdot {
-        dd: 12.0
-        dd: 12.0
-      }
-      priority: 1705
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 11.2
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16537
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 4.4
-      color: 6710886
-      priority: 1537
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 3.2
-      color: 15658734
-      priority: 1658
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 13.2
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 3.2
-      color: 6710886
-      dashdot {
-        dd: 12.0
-        dd: 12.0
-      }
-      priority: 1705
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 11.2
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16537
-    }
-  }
-}
-cont {
   name: "railway-razed"
   element {
     scale: 16
@@ -47122,14 +45765,14 @@ cont {
       cap: ROUNDCAP
     }
     lines {
-      width: 9.4
+      width: 10.4
       color: 16777215
       priority: 1007
       join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
-      width: 11.4
+      width: 12.4
       color: 7829367
       priority: 1004
       join: ROUNDJOIN
@@ -47206,14 +45849,14 @@ cont {
       cap: ROUNDCAP
     }
     lines {
-      width: 9.36
+      width: 10.4
       color: 16777215
       priority: 1007
       join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
-      width: 11.36
+      width: 12.4
       color: 7829367
       priority: 1004
       join: ROUNDJOIN
@@ -47248,14 +45891,14 @@ cont {
       cap: ROUNDCAP
     }
     lines {
-      width: 9.36
+      width: 10.4
       color: 16777215
       priority: 1007
       join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
-      width: 11.36
+      width: 12.4
       color: 7829367
       priority: 1004
       join: ROUNDJOIN
@@ -47290,287 +45933,16 @@ cont {
       cap: ROUNDCAP
     }
     lines {
-      width: 9.36
+      width: 10.4
       color: 16777215
       priority: 1007
       join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
-      width: 11.36
+      width: 12.4
       color: 7829367
       priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-}
-cont {
-  name: "railway-siding-tunnel"
-  element {
-    scale: 13
-    lines {
-      width: 1.0
-      color: 12303291
-      priority: 1251
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.6
-      color: 10066329
-      priority: 1208
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.0
-      color: 4473924
-      dashdot {
-        dd: 3.0
-        dd: 6.0
-      }
-      priority: 1326
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 15658734
-      priority: 1297
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 2.4
-      color: 3355443
-      priority: 1300
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.4
-      color: 3355443
-      dashdot {
-        dd: 6.0
-        dd: 12.0
-      }
-      priority: 1393
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.4
-      color: 15658734
-      priority: 1364
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 11.4
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 9.4
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 2.4
-      color: 3355443
-      priority: 1511
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.2
-      color: 3355443
-      dashdot {
-        dd: 8.0
-        dd: 16.0
-      }
-      priority: 1647
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.2
-      color: 15658734
-      priority: 1618
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 11.2
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 9.2
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 2.4
-      color: 3355443
-      priority: 1557
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.36
-      color: 3355443
-      dashdot {
-        dd: 7.2
-        dd: 16.8
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.36
-      color: 15658734
-      priority: 1682
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 11.36
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 9.36
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 2.4
-      color: 3355443
-      priority: 1557
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.36
-      color: 3355443
-      dashdot {
-        dd: 7.2
-        dd: 16.8
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.36
-      color: 15658734
-      priority: 1682
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 11.36
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 9.36
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 2.4
-      color: 3355443
-      priority: 1557
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.36
-      color: 3355443
-      dashdot {
-        dd: 7.2
-        dd: 16.8
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.36
-      color: 15658734
-      priority: 1682
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 11.36
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 9.36
-      color: 16777215
-      priority: 1007
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -47983,267 +46355,6 @@ cont {
       width: 11.36
       color: 7829367
       priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-}
-cont {
-  name: "railway-spur-tunnel"
-  element {
-    scale: 14
-    lines {
-      width: 1.6
-      color: 12303291
-      priority: 1202
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.0
-      color: 15658734
-      dashdot {
-        dd: 3.0
-        dd: 6.0
-      }
-      priority: 1320
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 10066329
-      priority: 1291
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 2.4
-      color: 6710886
-      priority: 1297
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.4
-      color: 6710886
-      dashdot {
-        dd: 6.0
-        dd: 12.0
-      }
-      priority: 1387
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.4
-      color: 15658734
-      priority: 1358
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 11.4
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 9.4
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 2.4
-      color: 6710886
-      priority: 1505
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.2
-      color: 3355443
-      dashdot {
-        dd: 8.0
-        dd: 16.0
-      }
-      priority: 1641
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.2
-      color: 15658734
-      priority: 1612
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 11.2
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 9.2
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 2.4
-      color: 3355443
-      priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.36
-      color: 3355443
-      dashdot {
-        dd: 7.2
-        dd: 16.8
-      }
-      priority: 1731
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.36
-      color: 15658734
-      priority: 1676
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 11.36
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 9.36
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 2.4
-      color: 3355443
-      priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.36
-      color: 3355443
-      dashdot {
-        dd: 7.2
-        dd: 16.8
-      }
-      priority: 1731
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.36
-      color: 15658734
-      priority: 1676
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 11.36
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 9.36
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 2.4
-      color: 3355443
-      priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.36
-      color: 3355443
-      dashdot {
-        dd: 7.2
-        dd: 16.8
-      }
-      priority: 1731
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.36
-      color: 15658734
-      priority: 1676
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 11.36
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 9.36
-      color: 16777215
-      priority: 1007
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -50433,14 +48544,14 @@ cont {
       cap: ROUNDCAP
     }
     lines {
-      width: 10.0
+      width: 11.2
       color: 16777215
       priority: 1007
       join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
-      width: 12.0
+      width: 13.2
       color: 7829367
       priority: 1004
       join: ROUNDJOIN
@@ -50674,7 +48785,7 @@ cont {
       cap: ROUNDCAP
     }
     lines {
-      width: 12.0
+      width: 13.2
       color: 7829367
       dashdot {
         dd: 5.0
@@ -50685,7 +48796,7 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 10.0
+      width: 11.2
       color: 16777215
       priority: 1007
       join: ROUNDJOIN
@@ -51407,287 +49518,6 @@ cont {
       width: 11.36
       color: 7829367
       priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-}
-cont {
-  name: "railway-yard-tunnel"
-  element {
-    scale: 12
-    lines {
-      width: 0.5
-      color: 4473924
-      priority: 1234
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 0.85
-      color: 4473924
-      priority: 1248
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.6
-      color: 4473924
-      priority: 1205
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.0
-      color: 4473924
-      dashdot {
-        dd: 3.0
-        dd: 6.0
-      }
-      priority: 1323
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 15658734
-      priority: 1294
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 2.4
-      color: 3355443
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.4
-      color: 3355443
-      dashdot {
-        dd: 6.0
-        dd: 12.0
-      }
-      priority: 1390
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.4
-      color: 15658734
-      priority: 1361
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 11.4
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 9.4
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 11.2
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.2
-      color: 15658734
-      priority: 1615
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.4
-      color: 3355443
-      priority: 1508
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 9.2
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.2
-      color: 3355443
-      dashdot {
-        dd: 8.0
-        dd: 16.0
-      }
-      priority: 1644
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 2.4
-      color: 3355443
-      priority: 1554
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.36
-      color: 3355443
-      dashdot {
-        dd: 7.2
-        dd: 16.8
-      }
-      priority: 1734
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.36
-      color: 15658734
-      priority: 1679
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 11.36
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 9.36
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 2.4
-      color: 3355443
-      priority: 1554
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.36
-      color: 3355443
-      dashdot {
-        dd: 7.2
-        dd: 16.8
-      }
-      priority: 1734
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.36
-      color: 15658734
-      priority: 1679
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 11.36
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 9.36
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 2.4
-      color: 3355443
-      priority: 1554
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 1.36
-      color: 3355443
-      dashdot {
-        dd: 7.2
-        dd: 16.8
-      }
-      priority: 1734
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.36
-      color: 15658734
-      priority: 1679
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 11.36
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 9.36
-      color: 16777215
-      priority: 1007
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -54986,269 +52816,6 @@ cont {
   }
 }
 cont {
-  name: "waterway-canal-tunnel"
-  element {
-    scale: 12
-    lines {
-      width: 2.5
-      color: 6710886
-      priority: 1023
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 3.0
-      color: 6710886
-      priority: 1023
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 4.0
-      color: 6710886
-      priority: 1023
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16023
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 4.0
-      color: 6710886
-      priority: 1023
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 14.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16023
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 4.8
-      color: 6710886
-      priority: 1023
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.8
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 14.8
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16023
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 8.0
-      color: 6710886
-      priority: 1022
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 8.0
-      color: 6710886
-      priority: -15000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 6.4
-      color: 6710886
-      priority: 1023
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 14.4
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 16.4
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16023
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 8.0
-      color: 6710886
-      priority: 1022
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 8.0
-      color: 6710886
-      priority: -15000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 6.4
-      color: 6710886
-      priority: 1023
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 14.4
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 16.4
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16023
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 8.0
-      color: 6710886
-      priority: 1022
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 8.0
-      color: 6710886
-      priority: -15000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 6.4
-      color: 6710886
-      priority: 1023
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 14.4
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 16.4
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16023
-    }
-  }
-}
-cont {
   name: "waterway-dam"
   element {
     scale: 14
@@ -55415,211 +52982,6 @@ cont {
       priority: 1118
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16118
-    }
-  }
-}
-cont {
-  name: "waterway-ditch-tunnel"
-  element {
-    scale: 12
-    lines {
-      width: 0.3
-      color: 6710886
-      priority: 1066
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 0.4
-      color: 6710886
-      priority: 1075
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 0.3
-      color: 6710886
-      priority: 1098
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 0.6
-      color: 6710886
-      priority: 1106
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 8.6
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.6
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 0.6
-      color: 6710886
-      priority: 1112
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 8.6
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.6
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16112
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 0.8
-      color: 6710886
-      priority: 1118
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 8.8
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.8
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16118
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 0.8
-      color: 6710886
-      priority: 1118
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 8.8
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.8
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16118
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 0.8
-      color: 6710886
-      priority: 1118
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 8.8
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.8
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
     }
     path_text {
       primary {
@@ -55878,281 +53240,6 @@ cont {
       priority: 1115
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16115
-    }
-  }
-}
-cont {
-  name: "waterway-drain-tunnel"
-  element {
-    scale: 12
-    lines {
-      width: 1.0
-      color: 6710886
-      priority: 1063
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.5
-      color: 6710886
-      priority: 1072
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 2.3
-      color: 6710886
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 3.5
-      color: 6710886
-      priority: 1103
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 3.5
-      color: 6710886
-      priority: -15000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 2.8
-      color: 6710886
-      priority: 1104
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 10.8
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 12.8
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 5.2
-      color: 6710886
-      priority: 1108
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 5.2
-      color: 6710886
-      priority: -15000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 4.0
-      color: 6710886
-      priority: 1109
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 14.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16109
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 8.0
-      color: 6710886
-      priority: 1114
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 8.0
-      color: 6710886
-      priority: -15000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 6.4
-      color: 6710886
-      priority: 1115
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 14.4
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 16.4
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16115
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 8.0
-      color: 6710886
-      priority: 1114
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 8.0
-      color: 6710886
-      priority: -15000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 6.4
-      color: 6710886
-      priority: 1115
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 14.4
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 16.4
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16115
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 8.0
-      color: 6710886
-      priority: 1114
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 8.0
-      color: 6710886
-      priority: -15000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 6.4
-      color: 6710886
-      priority: 1115
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 14.4
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 16.4
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
     }
     path_text {
       primary {
@@ -56451,247 +53538,6 @@ cont {
       priority: 1023
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16023
-    }
-  }
-}
-cont {
-  name: "waterway-river-tunnel"
-  element {
-    scale: 10
-    lines {
-      width: 0.5
-      color: 6710886
-      priority: 1023
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 1.0
-      color: 6710886
-      priority: 1023
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 2.5
-      color: 6710886
-      priority: 1023
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 3.0
-      color: 6710886
-      priority: 1023
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 4.0
-      color: 6710886
-      priority: 1023
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16023
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 5.0
-      color: 6710886
-      priority: 1023
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 13.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 15.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16023
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 8.0
-      color: 6710886
-      priority: 1023
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 16.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 18.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16023
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 16.0
-      color: 6710886
-      priority: 1023
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 24.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 26.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16023
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 16.0
-      color: 6710886
-      priority: 1023
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 24.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 26.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16023
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 16.0
-      color: 6710886
-      priority: 1023
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 24.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 26.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
     }
     path_text {
       primary {
@@ -57166,211 +54012,6 @@ cont {
         stroke_color: 6710886
       }
       priority: 16104
-    }
-  }
-}
-cont {
-  name: "waterway-stream-tunnel"
-  element {
-    scale: 12
-    lines {
-      width: 0.75
-      color: 6710886
-      priority: 1060
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.0
-      color: 6710886
-      priority: 1069
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 6710886
-      priority: 1095
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 2.0
-      color: 6710886
-      priority: 1101
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 2.0
-      color: 6710886
-      priority: 1104
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 12.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16104
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 2.2
-      color: 6710886
-      priority: 1109
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 10.2
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 12.2
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16109
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 2.2
-      color: 6710886
-      priority: 1109
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 10.2
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 12.2
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16109
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 2.2
-      color: 6710886
-      priority: 1109
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 10.2
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 12.2
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 16777215
-        stroke_color: 6710886
-      }
-      priority: 16109
     }
   }
 }
