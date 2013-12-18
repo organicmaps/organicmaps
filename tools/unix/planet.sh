@@ -86,7 +86,7 @@ fi
 # If exit code is 255 and FAIL_ON_COASTS is true this means total fail or that coasts are not merged
 function merge_coasts() {
   # Strip coastlines from the planet to speed up the process
-  $FILTER_TOOL $PLANET_FILE --keep= --keep-ways="natural=coastline place=island place=islet" -o=$COASTS_FILE
+  $FILTER_TOOL $PLANET_FILE --keep= --keep-ways="natural=coastline" -o=$COASTS_FILE
   # Preprocess coastlines to separate intermediate directory
   $CONVERT_TOOL $COASTS_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTCOASTSDIR -use_light_nodes=true -preprocess_xml
   # Generate temporary coastlines file in the coasts intermediate dir
@@ -149,6 +149,7 @@ if [[ $1 == "--generate" || $1 == "--continue" || $1 == "--full" ]]; then
 
   PARAMS_WITH_SEARCH="$PARAMS -generate_search_index"
   # additional exceptions for long-generated countries
+  $GENERATOR_TOOL $PARAMS_WITH_SEARCH "-output=Greenland" &
   $GENERATOR_TOOL $PARAMS_WITH_SEARCH "-output=Russia_Far Eastern" &
   for file in $DATA_PATH/*.mwm.tmp; do
     if [[ "$file" == *minsk-pass*  ]]; then
@@ -157,9 +158,13 @@ if [[ $1 == "--generate" || $1 == "--continue" || $1 == "--full" ]]; then
     if [[ "$file" == *World*  ]]; then
       continue
     fi
+    if [[ "$file" == *Greenland* ]]; then
+      continue
+    fi
     if [[ "$file" == *Russia_Far\ Eastern* ]]; then
       continue
     fi
+
     filename=$(basename "$file")
     extension="${filename##*.}"
     filename="${filename%.*.*}"
