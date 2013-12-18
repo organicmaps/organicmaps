@@ -23,12 +23,4 @@ bool Client::Search(string const & query)
   return m_writer->Write(s);
 }
 
-bool Client::DropPin(long long latlong, string const & label)
-{
-  PinDrop p;
-  p.set_latlong(latlong);
-  p.set_label(label);
-  return m_writer->Write(p);
-}
-
 }  // namespace stats

@@ -8,8 +8,7 @@ namespace stats
 {
 
 StatsWriter::StatsWriter(string const & uniqueClientId, string const & dbPath)
-  : m_cnt(0), m_db(0), m_path(dbPath),
-    m_uid(0)
+  : m_cnt(0), m_db(0), m_path(dbPath), m_uid(0)
 {
 }
 

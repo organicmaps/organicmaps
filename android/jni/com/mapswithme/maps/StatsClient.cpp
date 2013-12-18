@@ -3,19 +3,18 @@
 
 extern "C"
 {
-  static stats::Client * m_client = 0;
+  static stats::Client * g_client = 0;
 
   stats::Client * NativeStat()
   {
-    if (!m_client)
-      m_client = new stats::Client();
-    return m_client;
+    if (!g_client)
+      g_client = new stats::Client();
+    return g_client;
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_util_StatsClient_trackSearchQuery(JNIEnv * env, jobject thiz, jstring query)
+  Java_com_mapswithme_util_StatsClient_trackSearchQuery(JNIEnv * env, jclass clazz, jstring query)
   {
-    NativeStat()->Search(jni::ToNativeString(env, query));
-    return true;
+    return NativeStat()->Search(jni::ToNativeString(env, query));
   }
 }

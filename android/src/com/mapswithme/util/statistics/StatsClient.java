@@ -2,5 +2,7 @@ package com.mapswithme.util.statistics;
 
 public class StatsClient
 {
-  public native boolean trackSearchQuery(String query);
+  public static native boolean trackSearchQuery(String query);
+
+  private StatsClient() {}
 }
