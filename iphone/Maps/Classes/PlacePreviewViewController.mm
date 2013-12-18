@@ -178,14 +178,14 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
 {
   if (section == 1)
     return TWOBUTTONSHEIGHT;
-  return [self.tableView sectionFooterHeight];
+  return 8;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
   if (section == 0)
     return [self getCompassView].frame.size.height;
-  return [self.tableView sectionHeaderHeight];
+  return 14;
 }
 
 - (void)share
