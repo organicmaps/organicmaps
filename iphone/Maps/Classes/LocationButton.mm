@@ -5,6 +5,7 @@
 @implementation LocationButton
 {
   UIImageView * topImageView;
+  BOOL searching;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -15,7 +16,15 @@
   [super setImage:[UIImage imageNamed:@"LocationBackground"] forState:UIControlStateNormal];
   [self setImage:[UIImage imageNamed:@"LocationDefault"] forState:UIControlStateSelected];
 
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+
   return self;
+}
+
+- (void)willEnterForeground:(NSNotification *)notification
+{
+  if (searching)
+    [self setSearching];
 }
 
 - (void)setImage:(UIImage *)image forState:(UIControlState)state
@@ -24,6 +33,7 @@
   topImageView = [[UIImageView alloc] initWithImage:image];
   [self addSubview:topImageView];
   topImageView.center = CGPointMake(self.width / 2, self.height / 2);
+  searching = NO;
 }
 
 - (void)setSearching
@@ -35,6 +45,7 @@
   animation.duration = count * loopDuration;
   animation.repeatCount = count;
   [topImageView.layer addAnimation:animation forKey:@"rotation"];
+  searching = YES;
 }
 
 @end
