@@ -5,7 +5,7 @@
 #include "../drape/batcher.hpp"
 #include "../drape/gpu_program_manager.hpp"
 
-class GLWidget : public QGLWidget, public IBatchFlush
+class GLWidget : public QGLWidget
 {
 public:
   GLWidget();

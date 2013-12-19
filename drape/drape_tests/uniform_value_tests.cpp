@@ -1,6 +1,8 @@
 #include "../../testing/testing.hpp"
 
+#include "../gpu_program_manager.hpp"
 #include "../gpu_program.hpp"
+#include "../shader_def.hpp"
 #include "../uniform_value.hpp"
 
 #include "glmock_functions.hpp"
@@ -53,9 +55,6 @@ UNIT_TEST(UniformValueTest)
   const int32_t positionLoc = 10;
   const int32_t modelViewLoc = 11;
 
-  Shader vertexShader("", Shader::VertexShader);
-  Shader fragmentShader("", Shader::FragmentShader);
-
   float matrix[16] =
   {
     1.0f, 0.0f, 0.0f, 0.0f,
@@ -70,11 +69,11 @@ UNIT_TEST(UniformValueTest)
     InSequence seq;
     // vertexShader->Ref()
     EXPECTGL(glCreateShader(GLConst::GLVertexShader)).WillOnce(Return(VertexShaderID));
-    EXPECTGL(glShaderSource(VertexShaderID, "")).Times(1);
+    EXPECTGL(glShaderSource(VertexShaderID, _)).Times(1);
     EXPECTGL(glCompileShader(VertexShaderID, _)).WillOnce(Return(true));
     // fragmentShader->Ref()
     EXPECTGL(glCreateShader(GLConst::GLFragmentShader)).WillOnce(Return(FragmentShaderID));
-    EXPECTGL(glShaderSource(FragmentShaderID, "")).Times(1);
+    EXPECTGL(glShaderSource(FragmentShaderID, _)).Times(1);
     EXPECTGL(glCompileShader(FragmentShaderID, _)).WillOnce(Return(true));
 
     EXPECTGL(glCreateProgram()).WillOnce(Return(ProgramID));
@@ -86,8 +85,6 @@ UNIT_TEST(UniformValueTest)
     EXPECTGL(glDetachShader(ProgramID, VertexShaderID));
     EXPECTGL(glDetachShader(ProgramID, FragmentShaderID));
 
-    EXPECTGL(glDeleteShader(VertexShaderID));
-    EXPECTGL(glDeleteShader(FragmentShaderID));
     EXPECTGL(glUseProgram(ProgramID));
 
     EXPECTGL(glGetUniformLocation(ProgramID, "position")).WillOnce(Return(positionLoc));
@@ -120,57 +117,61 @@ UNIT_TEST(UniformValueTest)
 
     EXPECTGL(glUseProgram(0));
     EXPECTGL(glDeleteProgram(ProgramID));
+
+    EXPECTGL(glDeleteShader(VertexShaderID));
+    EXPECTGL(glDeleteShader(FragmentShaderID));
   }
 
-  GpuProgram * program = new GpuProgram(MakeStackRefPointer(&vertexShader),
-                                        MakeStackRefPointer(&fragmentShader));
+  GpuProgramManager * manager = new GpuProgramManager();
+  RefPointer<GpuProgram> program = manager->GetProgram(gpu::SOLID_AREA_PROGRAM);
 
   program->Bind();
 
   {
     UniformValue v("position", 1);
-    v.Apply(MakeStackRefPointer(program));
+    v.Apply(program);
   }
 
   {
     UniformValue v("position", 1, 2);
-    v.Apply(MakeStackRefPointer(program));
+    v.Apply(program);
   }
 
   {
     UniformValue v("position", 1, 2, 3);
-    v.Apply(MakeStackRefPointer(program));
+    v.Apply(program);
   }
 
   {
     UniformValue v("position", 1, 2, 3, 4);
-    v.Apply(MakeStackRefPointer(program));
+    v.Apply(program);
   }
 
   {
     UniformValue v("position", 1.0f);
-    v.Apply(MakeStackRefPointer(program));
+    v.Apply(program);
   }
 
   {
     UniformValue v("position", 1.0f, 2.0f);
-    v.Apply(MakeStackRefPointer(program));
+    v.Apply(program);
   }
 
   {
     UniformValue v("position", 1.0f, 2.0f, 3.0f);
-    v.Apply(MakeStackRefPointer(program));
+    v.Apply(program);
   }
 
   {
     UniformValue v("position", 1.0f, 2.0f, 3.0f, 4.0f);
-    v.Apply(MakeStackRefPointer(program));
+    v.Apply(program);
   }
 
   {
     UniformValue v("viewModel", matrix);
-    v.Apply(MakeStackRefPointer(program));
+    v.Apply(program);
   }
 
-  delete program;
+  program = RefPointer<GpuProgram>();
+  delete manager;
 }

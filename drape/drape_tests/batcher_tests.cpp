@@ -3,8 +3,13 @@
 #include "../glconstants.hpp"
 #include "../batcher.hpp"
 #include "../gpu_program_manager.hpp"
+#include "../shader_def.hpp"
 
 #include "glmock_functions.hpp"
+
+#include "../../base/stl_add.hpp"
+#include "../../std/bind.hpp"
+#include "../../std/scoped_ptr.hpp"
 
 #include <gmock/gmock.h>
 
@@ -17,22 +22,16 @@ using testing::AnyOf;
 
 namespace
 {
-  class VAOAcceptor : public IBatchFlush
+  struct VAOAcceptor
   {
-  public:
-    VAOAcceptor(RefPointer<GpuProgram> program)
-      : m_program(program)
-    {
-    }
-
     virtual void FlushFullBucket(const GLState & state, TransferPointer<VertexArrayBuffer> bucket)
     {
       MasterPointer<VertexArrayBuffer> masterBucket(bucket);
       masterBucket->Build(m_program);
-      masterBucket.Destroy();
+      m_vao.push_back(masterBucket);
     }
 
-  private:
+    vector<MasterPointer<VertexArrayBuffer> > m_vao;
     RefPointer<GpuProgram> m_program;
   };
 
@@ -97,9 +96,8 @@ UNIT_TEST(BatchLists_Test)
     EXPECTGL(glDeleteShader(AnyOf(10, 11))).Times(2);
   }
 
-  GpuProgramManager * pm = new GpuProgramManager();
-  VAOAcceptor acceptor(pm->GetProgram(0));
-  Batcher batcher(RefPointer<IBatchFlush>(MakeStackRefPointer((IBatchFlush *)&acceptor)));
+  scoped_ptr<GpuProgramManager> pm(new GpuProgramManager());
+  Batcher batcher;
 
   {
     InSequence vaoSeq;
@@ -140,7 +138,7 @@ UNIT_TEST(BatchLists_Test)
     // delete bucket
     EXPECTGL(glDeleteBuffer(IndexBufferID));
     EXPECTGL(glDeleteBuffer(DataBufferID));
-    EXPECTGL(glDeleteVertexArray(VaoID));
+    EXPECTGL(glDeleteVertexArray(3));
     EXPECTGL(glUseProgram(0));
     EXPECTGL(glDeleteProgram(ProgramID));
   }
@@ -158,8 +156,12 @@ UNIT_TEST(BatchLists_Test)
   AttributeProvider provider(1, 10);
   provider.InitStream(0, binding, MakeStackRefPointer(data));
 
+  VAOAcceptor vaoAcceptor;
+  vaoAcceptor.m_program = pm->GetProgram(gpu::SOLID_AREA_PROGRAM);
+  batcher.StartSession(bind(&VAOAcceptor::FlushFullBucket, &vaoAcceptor, _1, _2));
   batcher.InsertTriangleList(state, MakeStackRefPointer(&provider));
-  batcher.Flush();
+  batcher.EndSession();
 
-  delete pm;
+  for (size_t i = 0; i < vaoAcceptor.m_vao.size(); ++i)
+    vaoAcceptor.m_vao[i].Destroy();
 }

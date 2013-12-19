@@ -4,6 +4,7 @@
 #include "../drape/shader_def.hpp"
 
 #include "../base/stl_add.hpp"
+#include "../std/bind.hpp"
 
 namespace
 {
@@ -18,7 +19,7 @@ namespace
 
 GLWidget::GLWidget()
 {
-  m_batcher = new Batcher(MakeStackRefPointer((IBatchFlush *)this));
+  m_batcher = new Batcher();
   m_programManager = new GpuProgramManager();
 }
 
@@ -70,13 +71,14 @@ void GLWidget::initializeGL()
   float color[4] = { 1.0, 0.0, 0.0, 1.0 };
   uniforms.push_back(UniformValue("color", color[0], color[1], color[2], color[3]));
 
+  m_batcher->StartSession(bind(&GLWidget::FlushFullBucket, this, _1, _2));
   ListGenerator gen;
   gen.SetDepth(0.5);
   gen.SetProgram(gpu::SOLID_AREA_PROGRAM);
   gen.SetViewport(-1.0f, -1.0f, 2.0f, 2.0f);
   gen.SetUniforms(uniforms);
   gen.Generate(30, *m_batcher);
-  m_batcher->Flush();
+  m_batcher->EndSession();
 }
 
 void GLWidget::paintGL()
