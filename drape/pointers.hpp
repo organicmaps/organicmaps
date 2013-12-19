@@ -2,97 +2,94 @@
 
 #include "../base/assert.hpp"
 
-#ifdef DEBUG
-  #include "../std/map.hpp"
+#include "../std/map.hpp"
+
+class PointerTracker
+{
+public:
+  ~PointerTracker();
 
   template <typename T>
-  class PointerTracker
+  void Ref(T * p)
   {
-  public:
-    ~PointerTracker()
+    if (p == NULL)
+      return;
+
+    map_t::iterator it = m_countMap.find(p);
+    if (it == m_countMap.end())
     {
-      ASSERT(m_countMap.empty(), ());
+      m_countMap.insert(make_pair((void *)p, make_pair(1, typeid(p).name())));
+      m_alivePointers.insert(p);
     }
+    else
+      it->second.first++;
+  }
 
-    void Ref(void * p)
-    {
-      if (p == NULL)
-        return;
+  void Deref(void * p, bool needDestroyedCheck);
+  void Destroy(void * p);
 
-      ++m_countMap[p];
-    }
+private:
+  typedef map<void *, pair<int, string> > map_t;
+  map_t m_countMap;
+  typedef set<void *> alive_pointers_t;
+  alive_pointers_t m_alivePointers;
+};
 
-    void Deref(void * p)
-    {
-      if (p == NULL)
-        return;
+#ifdef DEBUG
+  extern PointerTracker g_tracker;
 
-      map_t::iterator it = m_countMap.find(p);
-      ASSERT(it != m_countMap.end(), ());
-      ASSERT(it->second > 0, ());
-
-      if (--it->second == 0)
-        m_countMap.erase(it);
-    }
-
-    void Destroy(void * p)
-    {
-      if (p == NULL)
-        return;
-
-      map_t::iterator it = m_countMap.find(p);
-      ASSERT(it != m_countMap.end(), ());
-      ASSERT(it->second == 1, ());
-    }
-
-  private:
-    typedef map<void *, int> map_t;
-    map_t m_countMap;
-  };
-
-  #define DECLARE_TRACKER \
-    static PointerTracker<T> m_tracker
-  #define IMPLEMENT_TRACKER template<typename T> PointerTracker<T> DrapePointer<T>::m_tracker
-  #define REF_POINTER(p) m_tracker.Ref(p)
-  #define DEREF_POINTER(p) m_tracker.Deref(p)
-  #define DESTROY_POINTER(p) m_tracker.Destroy(p)
+  #define REF_POINTER(p) g_tracker.Ref(p)
+  #define DEREF_POINTER(p, c) g_tracker.Deref(p, c)
+  #define DESTROY_POINTER(p) g_tracker.Destroy(p)
 #else
-  #define DECLARE_TRACKER
   #define REF_POINTER(p)
-  #define DEREF_POINTER(p)
+  #define DEREF_POINTER(p, c)
   #define DESTROY_POINTER(p)
-  #define IMPLEMENT_TRACKER
 #endif
 
 template <typename T>
 class DrapePointer
 {
 public:
-  DrapePointer()      : m_p(NULL) {}
+  DrapePointer()
+    : m_p(NULL)
+    , m_needDestroyedCheck(true)
+  {
+  }
 
 protected:
-  DrapePointer(T * p) : m_p(p)
+  DrapePointer(T * p, bool needDestroyedCheck = true)
+    : m_p(p)
+    , m_needDestroyedCheck(needDestroyedCheck)
   {
     REF_POINTER(m_p);
   }
 
   DrapePointer(DrapePointer<T> const & other)
+    : m_p(NULL)
   {
-    m_p = other.m_p;
-    REF_POINTER(m_p);
+    m_needDestroyedCheck = other.m_needDestroyedCheck;
+    Reset(other.GetNonConstRaw());
+  }
+
+  DrapePointer<T> & operator=(DrapePointer<T> const & other)
+  {
+    m_needDestroyedCheck = other.m_needDestroyedCheck;
+    Reset(other.GetNonConstRaw());
+    return *this;
   }
 
   void Destroy()
   {
     DESTROY_POINTER(m_p);
     delete m_p;
-    DEREF_POINTER(m_p);
+    DEREF_POINTER(m_p, m_needDestroyedCheck);
     m_p = NULL;
   }
 
   void Reset(T * p)
   {
-    DEREF_POINTER(m_p);
+    DEREF_POINTER(m_p, m_needDestroyedCheck);
     m_p = p;
     REF_POINTER(m_p);
   }
@@ -101,15 +98,12 @@ protected:
   T const * GetRaw() const    { return m_p; }
   T * GetNonConstRaw() const  { return m_p; }
 
-private:
-  DrapePointer<T> & operator = (DrapePointer<T> const & /*other*/) { ASSERT(false, ()); return *this; }
+  bool IsNeedDestroyedCheck() const { return m_needDestroyedCheck; };
 
 private:
   T * m_p;
-  DECLARE_TRACKER;
+  bool m_needDestroyedCheck;
 };
-
-IMPLEMENT_TRACKER;
 
 template <typename T> class MasterPointer;
 
@@ -122,8 +116,13 @@ public:
 
   TransferPointer<T> & operator= (TransferPointer<T> const & other)
   {
-    base_t::Reset(other.GetNonConstRaw());
+    base_t::operator =(other);
     return *this;
+  }
+
+  ~TransferPointer()
+  {
+    base_t::Reset(NULL);
   }
 
   void Destroy() { base_t::Destroy(); }
@@ -143,15 +142,15 @@ class RefPointer : public DrapePointer<T>
   typedef DrapePointer<T> base_t;
 public:
   RefPointer() : base_t() {}
-  RefPointer(const RefPointer<T> & p) : base_t(p.GetNonConstRaw()) {}
+  RefPointer(const RefPointer<T> & p) : base_t(p) {}
 
   template <typename Y>
-  RefPointer(const RefPointer<Y> & p) : base_t(p.GetNonConstRaw()) {}
+  RefPointer(const RefPointer<Y> & p) : base_t(p.GetNonConstRaw(), p.IsNeedDestroyedCheck()) {}
   ~RefPointer() { base_t::Reset(NULL); }
 
-  RefPointer & operator = (const RefPointer<T> & other)
+  RefPointer<T> & operator = (const RefPointer<T> & other)
   {
-    base_t::Reset(other.GetNonConstRaw());
+    base_t::operator =(other);
     return *this;
   }
 
@@ -170,13 +169,13 @@ private:
   template <typename Y> friend class RefPointer;
   friend class MasterPointer<T>;
   friend RefPointer<T> MakeStackRefPointer<T>(T *);
-  RefPointer(T * p) : base_t(p) {}
+  RefPointer(T * p, bool needDestroyedCheck = true) : base_t(p, needDestroyedCheck) {}
 };
 
 template <typename T>
 RefPointer<T> MakeStackRefPointer(T * p)
 {
-  return RefPointer<T>(p);
+  return RefPointer<T>(p, false);
 }
 
 template <typename T>
@@ -186,11 +185,7 @@ class MasterPointer : public DrapePointer<T>
 public:
   MasterPointer() : base_t() {}
   MasterPointer(T * p) : base_t(p) {}
-  MasterPointer(const MasterPointer<T> & other)
-  {
-    ASSERT(GetRaw() == NULL, ());
-    base_t::Reset(other.GetNonConstRaw());
-  }
+  MasterPointer(const MasterPointer<T> & other) : base_t(other) {}
 
   MasterPointer(TransferPointer<T> & transferPointer)
   {
@@ -206,7 +201,7 @@ public:
   MasterPointer<T> & operator= (const MasterPointer<T> & other)
   {
     ASSERT(GetRaw() == NULL, ());
-    base_t::Reset(other.GetNonConstRaw());
+    base_t::operator =(other);
     return *this;
   }
 

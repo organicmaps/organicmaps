@@ -18,7 +18,8 @@ SOURCES += \
     $$DRAPE_DIR/glbuffer.cpp \
     $$DRAPE_DIR/utils/list_generator.cpp \
     $$DRAPE_DIR/shader_def.cpp \
-    $$DRAPE_DIR/glextensions_list.cpp
+    $$DRAPE_DIR/glextensions_list.cpp \
+    $$DRAPE_DIR/pointers.cpp
 
 HEADERS += \
     $$DRAPE_DIR/data_buffer.hpp \
