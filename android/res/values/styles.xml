@@ -106,7 +106,8 @@
     </style>
 
     <style name="Widget.MapButtonDrawer">
-        <item name="android:layout_height">@dimen/drawer_item_height</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/drawer_item_height</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:maxWidth">@dimen/drawer_width</item>
         <item name="android:background">@null</item>
