@@ -27,12 +27,12 @@ void PointerTracker::Destroy(void * p)
   if (p == NULL)
     return;
 
-#ifdef DEBUG
   map_t::iterator it = m_countMap.find(p);
-  ASSERT(it != m_countMap.end(), ());
+  if (it == m_countMap.end()) // suppress warning in release build
+    ASSERT(false, ());
+
   ASSERT(it->second.first == 1, ("Delete memory with more than one user : ", it->second.second));
   ASSERT(m_alivePointers.erase(p) == 1, ());
-#endif
 }
 
 #ifdef DEBUG

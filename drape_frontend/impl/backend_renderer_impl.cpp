@@ -14,6 +14,7 @@
 
 #include "../base/buffer_vector.hpp"
 #include "../base/object_tracker.hpp"
+#include "../base/stl_add.hpp"
 
 #include "../std/bind.hpp"
 
@@ -223,8 +224,7 @@ namespace df
     delete m_batchersPool;
 
     typedef set<ReadMWMTask *>::iterator index_iter;
-    for (index_iter it = m_taskIndex.begin(); it != m_taskIndex.end(); ++it)
-      delete (*it);
+    for_each(m_taskIndex.begin(), m_taskIndex.end(), DeleteFunctor());
 
     m_taskIndex.clear();
   }

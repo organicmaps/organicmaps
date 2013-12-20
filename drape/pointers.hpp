@@ -41,40 +41,44 @@ private:
   #define REF_POINTER(p) g_tracker.Ref(p)
   #define DEREF_POINTER(p, c) g_tracker.Deref(p, c)
   #define DESTROY_POINTER(p) g_tracker.Destroy(p)
+
+  #define DECLARE_CHECK bool m_isNeedDestroyedCheck
+  #define SET_CHECK_FLAG(x) m_isNeedDestroyedCheck = x
+  #define GET_CHECK_FLAG(x) (x).m_isNeedDestroyedCheck
 #else
   #define REF_POINTER(p)
   #define DEREF_POINTER(p, c)
   #define DESTROY_POINTER(p)
+
+  #define DECLARE_CHECK
+  #define SET_CHECK_FLAG(x)
+  #define GET_CHECK_FLAG(x) false
 #endif
 
 template <typename T>
 class DrapePointer
 {
 public:
-  DrapePointer()
-    : m_p(NULL)
-    , m_needDestroyedCheck(true)
-  {
-  }
+  DrapePointer() : m_p(NULL) { SET_CHECK_FLAG(true); }
 
 protected:
   DrapePointer(T * p, bool needDestroyedCheck = true)
     : m_p(p)
-    , m_needDestroyedCheck(needDestroyedCheck)
   {
+    SET_CHECK_FLAG(needDestroyedCheck);
     REF_POINTER(m_p);
   }
 
   DrapePointer(DrapePointer<T> const & other)
     : m_p(NULL)
   {
-    m_needDestroyedCheck = other.m_needDestroyedCheck;
+    SET_CHECK_FLAG(GET_CHECK_FLAG(other));
     Reset(other.GetNonConstRaw());
   }
 
   DrapePointer<T> & operator=(DrapePointer<T> const & other)
   {
-    m_needDestroyedCheck = other.m_needDestroyedCheck;
+    SET_CHECK_FLAG(GET_CHECK_FLAG(other));
     Reset(other.GetNonConstRaw());
     return *this;
   }
@@ -83,13 +87,13 @@ protected:
   {
     DESTROY_POINTER(m_p);
     delete m_p;
-    DEREF_POINTER(m_p, m_needDestroyedCheck);
+    DEREF_POINTER(m_p, GET_CHECK_FLAG(*this));
     m_p = NULL;
   }
 
   void Reset(T * p)
   {
-    DEREF_POINTER(m_p, m_needDestroyedCheck);
+    DEREF_POINTER(m_p, GET_CHECK_FLAG(*this));
     m_p = p;
     REF_POINTER(m_p);
   }
@@ -98,11 +102,11 @@ protected:
   T const * GetRaw() const    { return m_p; }
   T * GetNonConstRaw() const  { return m_p; }
 
-  bool IsNeedDestroyedCheck() const { return m_needDestroyedCheck; };
+  bool IsNeedDestroyedCheck() const { return GET_CHECK_FLAG(*this); };
 
 private:
   T * m_p;
-  bool m_needDestroyedCheck;
+  DECLARE_CHECK;
 };
 
 template <typename T> class MasterPointer;
@@ -112,25 +116,13 @@ class TransferPointer : public DrapePointer<T>
 {
   typedef DrapePointer<T> base_t;
 public:
-  TransferPointer(const TransferPointer<T> & other) : base_t(other) {}
-
-  TransferPointer<T> & operator= (TransferPointer<T> const & other)
-  {
-    base_t::operator =(other);
-    return *this;
-  }
-
-  ~TransferPointer()
-  {
-    base_t::Reset(NULL);
-  }
-
+  ~TransferPointer() { base_t::Reset(NULL); }
   void Destroy() { base_t::Destroy(); }
 
 private:
   friend class MasterPointer<T>;
   TransferPointer() {}
-  TransferPointer(T * p) : base_t(p) {}
+  explicit TransferPointer(T * p) : base_t(p) {}
 };
 
 template <typename T> class RefPointer;
@@ -142,23 +134,12 @@ class RefPointer : public DrapePointer<T>
   typedef DrapePointer<T> base_t;
 public:
   RefPointer() : base_t() {}
-  RefPointer(const RefPointer<T> & p) : base_t(p) {}
+  ~RefPointer() { base_t::Reset(NULL); }
 
   template <typename Y>
   RefPointer(const RefPointer<Y> & p) : base_t(p.GetNonConstRaw(), p.IsNeedDestroyedCheck()) {}
-  ~RefPointer() { base_t::Reset(NULL); }
 
-  RefPointer<T> & operator = (const RefPointer<T> & other)
-  {
-    base_t::operator =(other);
-    return *this;
-  }
-
-  bool IsContentLess(RefPointer<T> const & other) const
-  {
-    return *GetRaw() < *other.GetRaw();
-  }
-
+  bool IsContentLess(RefPointer<T> const & other) const { return *GetRaw() < *other.GetRaw(); }
   bool IsNull() const          { return base_t::GetRaw() == NULL; }
   T * operator->()             { return base_t::GetRaw(); }
   T const * operator->() const { return base_t::GetRaw(); }
@@ -169,14 +150,11 @@ private:
   template <typename Y> friend class RefPointer;
   friend class MasterPointer<T>;
   friend RefPointer<T> MakeStackRefPointer<T>(T *);
-  RefPointer(T * p, bool needDestroyedCheck = true) : base_t(p, needDestroyedCheck) {}
+  explicit RefPointer(T * p, bool needDestroyedCheck = true) : base_t(p, needDestroyedCheck) {}
 };
 
 template <typename T>
-RefPointer<T> MakeStackRefPointer(T * p)
-{
-  return RefPointer<T>(p, false);
-}
+RefPointer<T> MakeStackRefPointer(T * p) { return RefPointer<T>(p, false); }
 
 template <typename T>
 class MasterPointer : public DrapePointer<T>
@@ -184,10 +162,8 @@ class MasterPointer : public DrapePointer<T>
   typedef DrapePointer<T> base_t;
 public:
   MasterPointer() : base_t() {}
-  MasterPointer(T * p) : base_t(p) {}
-  MasterPointer(const MasterPointer<T> & other) : base_t(other) {}
-
-  MasterPointer(TransferPointer<T> & transferPointer)
+  explicit MasterPointer(T * p) : base_t(p) {}
+  explicit MasterPointer(TransferPointer<T> & transferPointer)
   {
     Reset(transferPointer.GetRaw());
     transferPointer.Reset(NULL);
@@ -196,13 +172,6 @@ public:
   ~MasterPointer()
   {
     base_t::Reset(NULL);
-  }
-
-  MasterPointer<T> & operator= (const MasterPointer<T> & other)
-  {
-    ASSERT(GetRaw() == NULL, ());
-    base_t::operator =(other);
-    return *this;
   }
 
   RefPointer<T> GetRefPointer() const

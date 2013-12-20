@@ -23,17 +23,18 @@ namespace df
     m_index.ReadFeaturesRequest(m_tileInfo.m_featureInfo, indexesToRead);
 
     if (!indexesToRead.empty())
+    {
       m_context.BeginReadTile(m_tileInfo.m_key);
 
-    for (size_t i = 0; i < indexesToRead.size(); ++i)
-    {
-      FeatureInfo & info = m_tileInfo.m_featureInfo[i];
-      ReadGeometry(info.m_id);
-      info.m_isOwner = true;
-    }
+      for (size_t i = 0; i < indexesToRead.size(); ++i)
+      {
+        FeatureInfo & info = m_tileInfo.m_featureInfo[i];
+        ReadGeometry(info.m_id);
+        info.m_isOwner = true;
+      }
 
-    if (!indexesToRead.empty())
       m_context.EndReadTile(m_tileInfo.m_key);
+    }
   }
 
   TileInfo const & ReadMWMTask::GetTileInfo() const
