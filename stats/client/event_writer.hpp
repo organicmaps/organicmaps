@@ -7,14 +7,14 @@
 namespace stats
 {
 
-class StatsWriter
+class EventWriter
 {
 public:
-  StatsWriter(string const & uniqueClientId, string const & dbPath);
+  EventWriter(string const & uniqueClientId, string const & dbPath);
 
   bool Store(Event const & e);
 
-  ~StatsWriter() {}
+  ~EventWriter() {}
 
   template<class T>
   bool Write(T const & m)

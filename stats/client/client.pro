@@ -11,13 +11,13 @@ INCLUDEPATH += $$ROOT_DIR/3party/protobuf/src
 DEPENDENCIES = base protobuf
 
 SOURCES += \
-    stats_client.cpp \
-    stats_writer.cpp \
     ../common/wire.pb.cc \
+    event_tracker.cpp \
+    event_writer.cpp
 
 HEADERS += \
-    stats_client.hpp \
-    stats_writer.hpp \
     ../common/wire.pb.h \
+    event_tracker.hpp \
+    event_writer.hpp
 
 OTHER_FILES += ../common/wire.proto

@@ -97,7 +97,7 @@
 
 - (void)logSearchQuery:(NSString *)query
 {
-  m_client.Search([query UTF8String]);
+  m_tracker.TrackSearch([query UTF8String]);
 }
 
 @end

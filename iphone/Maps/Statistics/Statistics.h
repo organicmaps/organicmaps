@@ -1,10 +1,10 @@
 #import <Foundation/Foundation.h>
 
-#include "../../stats/client/stats_client.hpp"
+#include "../../stats/client/event_tracker.hpp"
 
 @interface Statistics : NSObject
 {
-  stats::Client m_client;
+  stats::EventTracker m_tracker;
 }
 
 - (void)startSession;
