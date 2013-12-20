@@ -13,7 +13,7 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_util_StatsClient_trackSearchQuery(JNIEnv * env, jclass clazz, jstring query)
+  Java_com_mapswithme_util_NativeEventTracker_trackSearchQuery(JNIEnv * env, jclass clazz, jstring query)
   {
     return NativeTracker()->TrackSearch(jni::ToNativeString(env, query));
   }

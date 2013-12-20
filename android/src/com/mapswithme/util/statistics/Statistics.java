@@ -37,7 +37,7 @@ public enum Statistics
 
   public void trackSearchQuery(final String query)
   {
-    StatsClient.trackSearchQuery(query);
+    NativeEventTracker.trackSearchQuery(query);
   }
 
   private Statistics()
