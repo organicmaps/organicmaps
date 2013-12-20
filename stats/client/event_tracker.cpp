@@ -18,9 +18,8 @@ EventTracker::~EventTracker()
 
 bool EventTracker::TrackSearch(string const & query)
 {
-  class Search s;
-  s.set_query(query);
-  return m_writer->Write(s);
+  // @todo implement
+  return false;
 }
 
 }  // namespace stats

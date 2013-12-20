@@ -19,12 +19,8 @@ public:
   template<class T>
   bool Write(T const & m)
   {
-    Event e;
-    e.MutableExtension(T::event)->CopyFrom(m);
-    e.set_userid(m_uid);
-    e.set_timestamp(time(NULL));
-
-    return Store(e);
+    // @todo implement
+    return false;
   }
 
 private:
