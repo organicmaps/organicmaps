@@ -288,8 +288,19 @@ namespace
     bool operator() (uint32_t t)
     {
       IsDrawableLikeChecker doCheck(m_type);
-      // return true if need to delete
-      return !m_c.ProcessObjects(t, doCheck);
+      if (m_c.ProcessObjects(t, doCheck))
+        return false;
+
+      // IsDrawableLikeChecker checks only unique area styles,
+      // so we need to take into account point styles too.
+      if (m_type == FEATURE_TYPE_AREA)
+      {
+        IsDrawableLikeChecker doCheck(FEATURE_TYPE_POINT);
+        if (m_c.ProcessObjects(t, doCheck))
+          return false;
+      }
+
+      return true;
     }
   };
 }

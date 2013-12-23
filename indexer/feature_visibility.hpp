@@ -28,10 +28,9 @@ namespace feature
   bool IsDrawableAny(uint32_t type);
   bool IsDrawableForIndex(FeatureBase const & f, int level);
 
-  /// @name Be carefull with FEATURE_TYPE_AREA.
-  /// It's check only unique area styles, be it also can draw symbol or caption.
-  //@{
+  /// For FEATURE_TYPE_AREA need to have at least one area-filling type.
   bool IsDrawableLike(vector<uint32_t> const & types, FeatureGeoType ft);
+  /// For FEATURE_TYPE_AREA removes line-drawing only types.
   bool RemoveNoDrawableTypes(vector<uint32_t> & types, FeatureGeoType ft);
   //@}
 

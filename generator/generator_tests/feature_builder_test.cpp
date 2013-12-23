@@ -2,6 +2,7 @@
 
 #include "../feature_builder.hpp"
 
+#include "../../indexer/feature_visibility.hpp"
 #include "../../indexer/classificator_loader.hpp"
 #include "../../indexer/classificator.hpp"
 
@@ -65,4 +66,18 @@ UNIT_TEST(FBuilder_ManyTypes)
 
   TEST(fb2.CheckValid(), ());
   TEST_EQUAL(fb1, fb2, ());
+}
+
+UNIT_TEST(FVisibility_RemoveNoDrawableTypes)
+{
+  classificator::Load();
+  Classificator const & c = classif();
+
+  vector<uint32_t> types;
+  types.push_back(c.GetTypeByPath(vector<string>(1, "building")));
+  char const * arr[] = { "amenity", "theatre" };
+  types.push_back(c.GetTypeByPath(vector<string>(arr, arr + 2)));
+
+  TEST(feature::RemoveNoDrawableTypes(types, feature::FEATURE_TYPE_AREA), ());
+  TEST_EQUAL(types.size(), 2, ());
 }
