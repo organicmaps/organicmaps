@@ -6,15 +6,16 @@ namespace df
 {
   void MessageAcceptor::ProcessSingleMessage(bool waitMessage)
   {
-    Message * message = m_messageQueue.PopMessage(waitMessage);
-    if (message == NULL)
+    TransferPointer<Message> transferMessage = m_messageQueue.PopMessage(waitMessage);
+    MasterPointer<Message> message(transferMessage);
+    if (message.IsNull())
       return;
 
-    AcceptMessage(message);
-    delete message;
+    AcceptMessage(message.GetRefPointer());
+    message.Destroy();
   }
 
-  void MessageAcceptor::PostMessage(Message * message)
+  void MessageAcceptor::PostMessage(TransferPointer<Message> message)
   {
     m_messageQueue.PushMessage(message);
   }
@@ -22,13 +23,6 @@ namespace df
   void MessageAcceptor::CloseQueue()
   {
     m_messageQueue.CancelWait();
-    ClearQueue();
-  }
-
-  void MessageAcceptor::ClearQueue()
-  {
-    Message * message;
-    while ((message = m_messageQueue.PopMessage(false)) != NULL)
-      delete message;
+    m_messageQueue.ClearQuery();
   }
 }

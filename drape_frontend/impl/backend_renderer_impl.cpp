@@ -20,9 +20,9 @@
 
 namespace
 {
-  void PostFinishTask(df::ThreadsCommutator * commutator, threads::IRoutine * routine)
+  void PostFinishTask(RefPointer<df::ThreadsCommutator> commutator, threads::IRoutine * routine)
   {
-    commutator->PostMessage(df::ThreadsCommutator::ResourceUploadThread, new df::TaskFinishMessage(routine));
+    commutator->PostMessage(df::ThreadsCommutator::ResourceUploadThread, MovePointer<df::Message>(new df::TaskFinishMessage(routine)));
   }
 
   struct CoverageCellComparer
@@ -43,7 +43,7 @@ namespace
 
 namespace df
 {
-  BackendRendererImpl::BackendRendererImpl(ThreadsCommutator * commutator,
+  BackendRendererImpl::BackendRendererImpl(RefPointer<ThreadsCommutator> commutator,
                                            double visualScale,
                                            int surfaceWidth,
                                            int surfaceHeight)
@@ -55,8 +55,8 @@ namespace df
     m_commutator->RegisterThread(ThreadsCommutator::ResourceUploadThread, this);
 
     int readerCount = max(1, GetPlatform().CpuCores() - 2);
-    m_threadPool = new threads::ThreadPool(readerCount, bind(&PostFinishTask, commutator, _1));
-    m_batchersPool = new BatchersPool(readerCount, bind(&BackendRendererImpl::PostToRenderThreads, this, _1));
+    m_threadPool.Reset(new threads::ThreadPool(readerCount, bind(&PostFinishTask, commutator, _1)));
+    m_batchersPool.Reset(new BatchersPool(readerCount, bind(&BackendRendererImpl::PostToRenderThreads, this, _1)));
 
     StartThread();
   }
@@ -81,7 +81,7 @@ namespace df
         CancelTask(*it, false, false);
 
       m_taskIndex.clear();
-      PostToRenderThreads(new DropCoverageMessage());
+      PostToRenderThreads(MovePointer<Message>(new DropCoverageMessage()));
 
       for (size_t i = 0; i < tiles.size(); ++i)
         CreateTask(tiles[i]);
@@ -144,7 +144,7 @@ namespace df
     task->Cancel();
 
     if (postToRenderer)
-      PostToRenderThreads(new DropTileMessage(task->GetTileInfo().m_key));
+      PostToRenderThreads(MovePointer<Message>(new DropTileMessage(task->GetTileInfo().m_key)));
 
     if (removefromIndex)
       m_taskIndex.erase(task);
@@ -167,18 +167,18 @@ namespace df
   /////////////////////////////////////////
   //           MessageAcceptor           //
   /////////////////////////////////////////
-  void BackendRendererImpl::AcceptMessage(Message * message)
+  void BackendRendererImpl::AcceptMessage(RefPointer<Message> message)
   {
     switch (message->GetType())
     {
     case Message::UpdateCoverage:
-      UpdateCoverage(static_cast<UpdateCoverageMessage *>(message)->GetScreen());
+      UpdateCoverage(static_cast<UpdateCoverageMessage *>(message.GetRaw())->GetScreen());
       break;
     case Message::Resize:
-      Resize(static_cast<ResizeMessage *>(message)->GetRect());
+      Resize(static_cast<ResizeMessage *>(message.GetRaw())->GetRect());
       break;
     case Message::TaskFinish:
-      FinishTask(static_cast<TaskFinishMessage *>(message)->GetRoutine());
+      FinishTask(static_cast<TaskFinishMessage *>(message.GetRaw())->GetRoutine());
       break;
     case Message::TileReadStarted:
     case Message::TileReadEnded:
@@ -219,14 +219,10 @@ namespace df
   void BackendRendererImpl::ReleaseResources()
   {
     m_threadPool->Stop();
-    delete m_threadPool;
+    m_threadPool.Destroy();
+    m_batchersPool.Destroy();
 
-    delete m_batchersPool;
-
-    typedef set<ReadMWMTask *>::iterator index_iter;
-    for_each(m_taskIndex.begin(), m_taskIndex.end(), DeleteFunctor());
-
-    m_taskIndex.clear();
+    GetRangeDeletor(m_taskIndex, DeleteFunctor())();
   }
 
   void BackendRendererImpl::Do()
@@ -234,7 +230,7 @@ namespace df
     ThreadMain();
   }
 
-  void BackendRendererImpl::PostToRenderThreads(Message * message)
+  void BackendRendererImpl::PostToRenderThreads(TransferPointer<Message> message)
   {
     m_commutator->PostMessage(ThreadsCommutator::RenderThread, message);
   }

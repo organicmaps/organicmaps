@@ -3,6 +3,8 @@
 #include "message.hpp"
 #include "tile_info.hpp"
 
+#include "../drape/pointers.hpp"
+
 class Batcher;
 
 namespace df
@@ -11,13 +13,13 @@ namespace df
   {
   public:
     virtual ~MapShape(){}
-    virtual void Draw(Batcher * batcher) const = 0;
+    virtual void Draw(RefPointer<Batcher> batcher) const = 0;
   };
 
   class MapShapeReadedMessage : public Message
   {
   public:
-    MapShapeReadedMessage(const TileKey & key, MapShape const * shape)
+    MapShapeReadedMessage(const TileKey & key, TransferPointer<MapShape> shape)
       : m_key(key), m_shape(shape)
     {
       SetType(MapShapeReaded);
@@ -25,14 +27,15 @@ namespace df
 
     ~MapShapeReadedMessage()
     {
-      delete m_shape;
+      m_shape.Destroy();
     }
 
     const TileKey & GetKey() const { return m_key; }
-    MapShape const * GetShape() const { return m_shape; }
+    /// return non const reference for correct construct MasterPointer
+    TransferPointer<MapShape> & GetShape() { return m_shape; }
 
   private:
     TileKey m_key;
-    MapShape const * m_shape;
+    TransferPointer<MapShape> m_shape;
   };
 }

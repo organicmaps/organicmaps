@@ -18,7 +18,7 @@ namespace df
                        const GLState & state,
                        TransferPointer<VertexArrayBuffer> buffer)
     {
-      sendMessage(new FlushTileMessage(key, state, buffer));
+      sendMessage(MovePointer<Message>(new FlushTileMessage(key, state, buffer)));
     }
   }
 
@@ -26,7 +26,7 @@ namespace df
     : m_sendMessageFn(sendMessageFn)
   {
     for (int i = 0; i < initBatcherCount; ++i)
-      m_batchers.push(new Batcher());
+      m_batchers.push(MasterPointer<Batcher>(new Batcher()));
   }
 
   BatchersPool::~BatchersPool()
@@ -34,33 +34,34 @@ namespace df
     ASSERT(m_reservedBatchers.empty(), ());
     while (!m_batchers.empty())
     {
-      Batcher * batcher = m_batchers.top();
-      delete batcher;
+      m_batchers.top().Destroy();
       m_batchers.pop();
     }
   }
 
-  void BatchersPool::AcceptMessage(Message * message)
+  void BatchersPool::AcceptMessage(RefPointer<Message> message)
   {
     switch (message->GetType())
     {
     case Message::TileReadStarted:
       {
-        BaseTileMessage * msg = static_cast<BaseTileMessage *>(message);
+        BaseTileMessage * msg = static_cast<BaseTileMessage *>(message.GetRaw());
         ReserveBatcher(msg->GetKey());
         break;
       }
     case Message::TileReadEnded:
       {
-        BaseTileMessage * msg = static_cast<BaseTileMessage *>(message);
+        BaseTileMessage * msg = static_cast<BaseTileMessage *>(message.GetRaw());
         ReleaseBatcher(msg->GetKey());
         break;
       }
     case Message::MapShapeReaded:
       {
-        MapShapeReadedMessage * mapShape = static_cast<MapShapeReadedMessage *>(message);
-        Batcher * b = GetTileBatcher(mapShape->GetKey());
-        mapShape->GetShape()->Draw(b);
+        MapShapeReadedMessage * mapShapeMessage = static_cast<MapShapeReadedMessage *>(message.GetRaw());
+        RefPointer<Batcher> b = GetTileBatcher(mapShapeMessage->GetKey());
+        MasterPointer<MapShape> shape(mapShapeMessage->GetShape());
+        shape->Draw(b);
+        shape.Destroy();
         break;
       }
     default:
@@ -71,9 +72,9 @@ namespace df
 
   void BatchersPool::ReserveBatcher(TileKey const & key)
   {
-    Batcher * reserved = NULL;
+    MasterPointer<Batcher> reserved;
     if (m_batchers.empty())
-      reserved = new Batcher();
+      reserved.Reset(new Batcher());
     else
     {
       reserved = m_batchers.top();
@@ -84,12 +85,12 @@ namespace df
     VERIFY(m_reservedBatchers.insert(make_pair(key, reserved)).second, ());
   }
 
-  Batcher * BatchersPool::GetTileBatcher(TileKey const & key)
+  RefPointer<Batcher> BatchersPool::GetTileBatcher(TileKey const & key)
   {
     reserved_batchers_t::iterator it = m_reservedBatchers.find(key);
 
     ASSERT(it != m_reservedBatchers.end(), ());
-    return it->second;
+    return it->second.GetRefPointer();
   }
 
   void BatchersPool::ReleaseBatcher(TileKey const & key)
@@ -97,7 +98,7 @@ namespace df
     reserved_batchers_t::iterator it = m_reservedBatchers.find(key);
 
     ASSERT(it != m_reservedBatchers.end(), ());
-    Batcher * batcher = it->second;
+    MasterPointer<Batcher> batcher = it->second;
     batcher->EndSession();
     m_reservedBatchers.erase(it);
     m_batchers.push(batcher);

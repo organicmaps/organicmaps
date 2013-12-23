@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../drape/pointers.hpp"
+
 #include "../geometry/screenbase.hpp"
 
 #include "../std/function.hpp"
@@ -10,12 +12,10 @@ namespace df
   class BackendRendererImpl;
   class Message;
 
-  typedef function<void (Message *)> post_message_fn_t;
-
   class BackendRenderer
   {
   public:
-    BackendRenderer(ThreadsCommutator * commutator,
+    BackendRenderer(RefPointer<ThreadsCommutator> commutator,
                     double visualScale,
                     int surfaceWidth,
                     int surfaceHeight);
@@ -26,7 +26,7 @@ namespace df
     void Resize(int x0, int y0, int w, int h);
 
   private:
-    BackendRendererImpl * m_impl;
-    post_message_fn_t m_post;
+    MasterPointer<BackendRendererImpl> m_impl;
+    RefPointer<ThreadsCommutator> m_commutator;
   };
 }

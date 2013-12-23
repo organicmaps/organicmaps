@@ -2,6 +2,8 @@
 
 #include "message.hpp"
 
+#include "../drape/pointers.hpp"
+
 #include "../base/condition.hpp"
 
 #include "../std/list.hpp"
@@ -11,18 +13,19 @@ namespace df
   class MessageQueue
   {
   public:
-    MessageQueue();
+    ~MessageQueue();
 
     /// if queue is empty than return NULL
-    Message * PopMessage(bool waitMessage);
-    void PushMessage(Message * message);
+    TransferPointer<Message> PopMessage(bool waitMessage);
+    void PushMessage(TransferPointer<Message> message);
     void CancelWait();
+    void ClearQuery();
 
   private:
     void WaitMessage();
 
   private:
     threads::Condition m_condition;
-    list<Message *> m_messages;
+    list<MasterPointer<Message> > m_messages;
   };
 }

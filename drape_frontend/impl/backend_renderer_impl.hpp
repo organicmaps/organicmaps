@@ -5,6 +5,8 @@
 #include "engine_context.hpp"
 #include "batchers_pool.hpp"
 
+#include "../drape/pointers.hpp"
+
 #include "../map/scales_processor.hpp"
 #include "../map/tiler.hpp"
 
@@ -25,7 +27,7 @@ namespace df
                               public threads::IRoutine
   {
   public:
-    BackendRendererImpl(ThreadsCommutator * commutator,
+    BackendRendererImpl(RefPointer<ThreadsCommutator> commutator,
                         double visualScale,
                         int surfaceWidth,
                         int surfaceHeight);
@@ -59,14 +61,14 @@ namespace df
     /// transfer it to batchers
     MemoryFeatureIndex m_index;
     EngineContext m_engineContext;
-    BatchersPool * m_batchersPool;
+    MasterPointer<BatchersPool> m_batchersPool;
     /////////////////////////////////////////
 
     /////////////////////////////////////////
     //           MessageAcceptor           //
     /////////////////////////////////////////
   private:
-    void AcceptMessage(Message * message);
+    void AcceptMessage(RefPointer<Message> message);
 
       /////////////////////////////////////////
       //             ThreadPart              //
@@ -78,11 +80,11 @@ namespace df
     void ReleaseResources();
     virtual void Do();
 
-    void PostToRenderThreads(Message * message);
+    void PostToRenderThreads(TransferPointer<Message> message);
 
   private:
     threads::Thread m_selfThread;
-    threads::ThreadPool * m_threadPool;
-    ThreadsCommutator * m_commutator;
+    MasterPointer<threads::ThreadPool> m_threadPool;
+    RefPointer<ThreadsCommutator> m_commutator;
   };
 }

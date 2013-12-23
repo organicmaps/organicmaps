@@ -8,27 +8,27 @@
 
 namespace df
 {
-  BackendRenderer::BackendRenderer(ThreadsCommutator * commutator,
+  BackendRenderer::BackendRenderer(RefPointer<ThreadsCommutator> commutator,
                                    double visualScale,
                                    int surfaceWidth,
                                    int surfaceHeight)
+    : m_commutator(commutator)
   {
-    m_impl = new BackendRendererImpl(commutator, visualScale, surfaceWidth, surfaceHeight);
-    m_post = bind(&ThreadsCommutator::PostMessage, commutator, ThreadsCommutator::ResourceUploadThread, _1);
+    m_impl.Reset(new BackendRendererImpl(m_commutator, visualScale, surfaceWidth, surfaceHeight));
   }
 
   BackendRenderer::~BackendRenderer()
   {
-    delete m_impl;
+    m_impl.Destroy();
   }
 
   void BackendRenderer::UpdateCoverage(const ScreenBase & screen)
   {
-    m_post(new UpdateCoverageMessage(screen));
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, MovePointer<Message>(new UpdateCoverageMessage(screen)));
   }
 
   void BackendRenderer::Resize(int x0, int y0, int w, int h)
   {
-    m_post(new ResizeMessage(x0, y0, w, h));
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, MovePointer<Message>(new ResizeMessage(x0, y0, w, h)));
   }
 }

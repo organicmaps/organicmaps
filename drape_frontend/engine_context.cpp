@@ -5,7 +5,7 @@
 
 namespace df
 {
-  EngineContext::EngineContext(ThreadsCommutator * commutator)
+  EngineContext::EngineContext(RefPointer<ThreadsCommutator> commutator)
     : m_commutator(commutator)
   {
   }
@@ -15,7 +15,7 @@ namespace df
     PostMessage(new TileReadStartMessage(key));
   }
 
-  void EngineContext::InsertShape(TileKey const & key, MapShape const * shape)
+  void EngineContext::InsertShape(TileKey const & key, TransferPointer<MapShape> shape)
   {
     PostMessage(new MapShapeReadedMessage(key, shape));
   }
@@ -27,6 +27,6 @@ namespace df
 
   void EngineContext::PostMessage(Message * message)
   {
-    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, message);
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, MovePointer(message));
   }
 }

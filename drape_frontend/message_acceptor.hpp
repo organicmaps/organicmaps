@@ -2,6 +2,8 @@
 
 #include "message_queue.hpp"
 
+#include "../drape/pointers.hpp"
+
 namespace df
 {
   class Message;
@@ -9,7 +11,7 @@ namespace df
   class MessageAcceptor
   {
   protected:
-    virtual void AcceptMessage(Message * message) = 0;
+    virtual void AcceptMessage(RefPointer<Message> message) = 0;
 
     /// Must be called by subclass on message target thread
     void ProcessSingleMessage(bool waitMessage);
@@ -18,8 +20,7 @@ namespace df
   private:
     friend class ThreadsCommutator;
 
-    void PostMessage(Message * message);
-    void ClearQueue();
+    void PostMessage(TransferPointer<Message> message);
 
   private:
     MessageQueue m_messageQueue;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../drape/pointers.hpp"
 #include "../std/map.hpp"
 
 namespace df
@@ -16,8 +17,8 @@ namespace df
       ResourceUploadThread
     };
 
-    void RegisterThread(ThreadName name, MessageAcceptor * acceptor);
-    void PostMessage(ThreadName name, Message * message);
+    void RegisterThread(ThreadName name, MessageAcceptor *acceptor);
+    void PostMessage(ThreadName name, TransferPointer<Message> message);
 
   private:
     typedef map<ThreadName, MessageAcceptor *> acceptors_map_t;
