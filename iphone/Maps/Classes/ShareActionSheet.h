@@ -7,7 +7,7 @@
 
 - (instancetype)initWithText:(NSString *)text gX:(double)gX gY:(double)gY myPosition:(BOOL)myPosition;
 
-@property NSString * text;
+@property (strong) NSString * text;
 @property double gX;
 @property double gY;
 @property BOOL myPosition;
