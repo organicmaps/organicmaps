@@ -204,6 +204,12 @@ public:
   T const * GetRaw() const     { return base_t::GetRaw(); }
 };
 
+template<typename T>
+TransferPointer<T> MovePointer(T * p)
+{
+  return MasterPointer<T>(p).Move();
+}
+
 struct MasterPointerDeleter
 {
   template <typename Y, typename T>
