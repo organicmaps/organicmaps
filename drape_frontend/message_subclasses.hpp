@@ -69,7 +69,6 @@ namespace df
     const GLState & GetState() const { return m_state; }
     TransferPointer<VertexArrayBuffer> & GetBuffer();
 
-
   private:
     GLState m_state;
     TransferPointer<VertexArrayBuffer> m_buffer;
