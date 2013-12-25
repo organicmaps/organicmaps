@@ -17,7 +17,7 @@ include($$ROOT_DIR/common.pri)
 DRAPE_DIR = .
 include($$DRAPE_DIR/drape_common.pri)
 
-SOURCES += glfunctions.cpp \
+SOURCES += glfunctions.cpp
 
 OTHER_FILES += \
     shaders/simple_vertex_shader.vsh \
@@ -25,6 +25,3 @@ OTHER_FILES += \
     shaders/texturing_vertex_shader.vsh \
     shaders/shader_index.txt \
     shaders/texturing_fragment_shader.fsh
-
-HEADERS += \
-    oglcontextfactory.hpp
