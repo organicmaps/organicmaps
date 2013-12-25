@@ -4,13 +4,13 @@
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <sys/utsname.h>
-
-NSString * const FeaturesKey = @"FeaturesKey"; // value is array of dictionaries
+#import <AdSupport/ASIdentifierManager.h>
+#include "../../../platform/settings.hpp"
 
 @interface AppInfo ()
 
 @property Reachability * reachability;
-@property (nonatomic) NSMutableDictionary * info;
+@property (nonatomic) NSArray * features;
 @property NSDictionary * featuresByDefault;
 
 @end
@@ -21,28 +21,33 @@ NSString * const FeaturesKey = @"FeaturesKey"; // value is array of dictionaries
 {
   self = [super init];
 
+  // example featuresByDefault
   self.featuresByDefault = @{@"ads" : @NO, @"popup" : @YES};
+  //
 
   [self update];
 
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 
   return self;
 }
 
-- (void)applicationWillTerminate:(NSNotification *)notification
+- (void)applicationDidEnterBackground:(NSNotification *)notification
 {
-  [self.info writeToFile:[self infoFilePath] atomically:YES];
-}
-
-- (NSString *)snapshot
-{
-  return [NSString stringWithFormat:@"MapsWithMe ver. %@, %@ (iOS %@) %@", self.bundleVersion, self.deviceInfo, self.firmwareVersion, self.countryCode];
+  NSString * featuresString = @"";
+  for (NSDictionary * featureDict in self.features) {
+    if (![featureDict count])
+      continue;
+    if ([featuresString length])
+      featuresString = [featuresString stringByAppendingString:@";"];
+    featuresString = [NSString stringWithFormat:@"%@{%@:%@}", featuresString, [featureDict allKeys][0], [featureDict allValues][0]];
+  }
+  Settings::Set("AvailableFeatures", std::string([featuresString UTF8String]));
 }
 
 - (void)update
 {
-  // get info from server
+  // TODO: get info from server
   // if not success then subscribe for reachability updates
   self.reachability = [Reachability reachabilityForInternetConnection];
   __weak id weakSelf = self;
@@ -50,15 +55,14 @@ NSString * const FeaturesKey = @"FeaturesKey"; // value is array of dictionaries
     [weakSelf update];
   };
   [self.reachability startNotifier];
-  self.info[FeaturesKey] = @[@{}, @{@"ads" : @"ru,en"}];
 }
 
 - (BOOL)featureAvailable:(NSString *)featureName
 {
-  if (!self.info[FeaturesKey])
+  if (!self.features) // features haven't been downloaded yet
     return [self.featuresByDefault[featureName] boolValue];
 
-  for (NSDictionary * feature in self.info[FeaturesKey])
+  for (NSDictionary * feature in self.features)
   {
     if ([[[feature allKeys] firstObject] isEqualToString:featureName])
       return ([feature[@"locals"] rangeOfString:self.countryCode].location != NSNotFound) || [feature[@"locals"] isEqualToString:@"*"];
@@ -66,18 +70,21 @@ NSString * const FeaturesKey = @"FeaturesKey"; // value is array of dictionaries
   return NO;
 }
 
-- (NSString *)infoFilePath
+#pragma mark - Public Methods
+
+- (NSString *)snapshot
 {
-  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-  return [paths[0] stringByAppendingPathComponent:@"mwm_info"];
+  return [NSString stringWithFormat:@"MapsWithMe ver. %@, %@ (iOS %@) %@", self.bundleVersion, self.deviceInfo, self.firmwareVersion, self.countryCode];
 }
 
 #pragma mark - Public properties
 
 - (NSString *)userId
 {
-  UIDevice * device = [UIDevice currentDevice];
-  return [device respondsToSelector:@selector(identifierForVendor)] ? [device.identifierForVendor UUIDString] : nil;
+  if (NSClassFromString(@"ASIdentifierManager"))
+    return [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
+  else
+    return nil;
 }
 
 - (NSString *)countryCode
@@ -102,8 +109,7 @@ NSString * const FeaturesKey = @"FeaturesKey"; // value is array of dictionaries
 {
   struct utsname systemInfo;
   uname(&systemInfo);
-  return [NSString stringWithCString:systemInfo.machine
-                            encoding:NSUTF8StringEncoding];
+  return [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
 }
 
 - (NSString *)firmwareVersion
@@ -113,15 +119,26 @@ NSString * const FeaturesKey = @"FeaturesKey"; // value is array of dictionaries
 
 #pragma mark - Private properties
 
-- (NSMutableDictionary *)info
+- (NSArray *)features
 {
-  if (!_info)
+  if (!_features)
   {
-    _info = [NSMutableDictionary dictionaryWithContentsOfFile:[self infoFilePath]];
-    if (!_info)
-      _info = [NSMutableDictionary dictionary];
+    std::string featuresCPPString;
+    if (Settings::Get("AvailableFeatures", featuresCPPString))
+    {
+      NSString * featuresString = [NSString stringWithUTF8String:featuresCPPString.c_str()];
+      NSArray * features = [featuresString componentsSeparatedByString:@";"];
+      NSMutableArray * mArray = [NSMutableArray array];
+      for (NSString * featureDictString in features) {
+        NSString * trimmed = [featureDictString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"{}"]];
+        NSArray * components = [trimmed componentsSeparatedByString:@":"];
+        if ([components count] == 2)
+          [mArray addObject:@{components[0] : components[1]}];
+      }
+      _features = mArray;
+    }
   }
-  return _info;
+  return _features;
 }
 
 - (void)dealloc
