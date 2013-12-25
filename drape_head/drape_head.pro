@@ -7,7 +7,7 @@ include($$ROOT_DIR/common.pri)
 TARGET = DrapeHead
 TEMPLATE = app
 CONFIG += warn_on
-QT *= core widgets gui opengl
+QT *= core widgets gui
 
 win32* {
   LIBS += -lopengl32 -lws2_32 -lshell32 -liphlpapi
@@ -22,12 +22,14 @@ win32*|linux* {
 
 HEADERS += \
     mainwindow.hpp \
-    glwidget.hpp
+    glwidget.hpp \
+    qtoglcontext.hpp \
 
 SOURCES += \
     mainwindow.cpp \
     main.cpp \
-    glwidget.cpp
+    glwidget.cpp \
+    qtoglcontext.cpp \
 
 FORMS += \
     mainwindow.ui

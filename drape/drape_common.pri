@@ -41,4 +41,5 @@ HEADERS += \
     $$DRAPE_DIR/glbuffer.hpp \
     $$DRAPE_DIR/utils/list_generator.hpp \
     $$DRAPE_DIR/shader_def.hpp \
-    $$DRAPE_DIR/glextensions_list.hpp
+    $$DRAPE_DIR/glextensions_list.hpp \
+    $$DRAPE_DIR/oglcontext.hpp \
