@@ -6,9 +6,9 @@
 #import "CustomAlertView.h"
 #import "DiskFreeSpace.h"
 #import "Statistics.h"
+#import "Reachability.h"
 
 #include "Framework.h"
-#include "GetActiveConnectionType.h"
 
 #include "../../platform/platform.hpp"
 #include "../../platform/preferred_languages.hpp"
@@ -341,8 +341,8 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   }
   else
   {
-    TActiveConnectionType const connType = GetActiveConnectionType();
-    if (connType == ENotConnected)
+    Reachability * reachability = [Reachability reachabilityForInternetConnection];
+    if (![reachability isReachable])
     {
       // No any connection - skip downloading
       [[[[CustomAlertView alloc] initWithTitle:NSLocalizedString(@"no_internet_connection_detected", nil)
@@ -353,7 +353,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
     }
     else
     {
-      if (connType == EConnectedBy3G && m_downloadSize > MAX_3G_MEGABYTES * MB)
+      if ([reachability isReachableViaWWAN] && m_downloadSize > MAX_3G_MEGABYTES * MB)
       {
         // If user uses 3G, show warning before downloading
         [[[[CustomAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"no_wifi_ask_cellular_download", nil), countryName]

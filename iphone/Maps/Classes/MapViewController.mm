@@ -4,7 +4,6 @@
 #import "EAGLView.h"
 #import "BookmarksRootVC.h"
 #import "PlacePageVC.h"
-#import "GetActiveConnectionType.h"
 #import "PlacePreviewViewController.h"
 #import "MWMApi.h"
 #import "UIKitCategories.h"
@@ -12,6 +11,7 @@
 #import "UIViewController+Navigation.h"
 #import "Config.h"
 #import "ShareActionSheet.h"
+#import "Reachability.h"
 
 #import "../Settings/SettingsManager.h"
 #import "../../Common/CustomAlertView.h"
@@ -533,7 +533,8 @@ const long long LITE_IDL = 431183278L;
   if (self.isViewLoaded && self.view.window)
     [self invalidate]; // only invalidate when map is displayed on the screen
 
-  if (GetActiveConnectionType() != ENotConnected)
+  Reachability * reachability = [Reachability reachabilityForInternetConnection];
+  if ([reachability isReachable])
   {
     if (dlg_settings::ShouldShow(dlg_settings::AppStore))
       [self showAppStoreRatingMenu];
