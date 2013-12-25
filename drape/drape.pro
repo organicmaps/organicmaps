@@ -25,3 +25,6 @@ OTHER_FILES += \
     shaders/texturing_vertex_shader.vsh \
     shaders/shader_index.txt \
     shaders/texturing_fragment_shader.fsh
+
+HEADERS += \
+    oglcontextfactory.hpp

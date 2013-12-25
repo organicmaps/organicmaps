@@ -24,12 +24,14 @@ HEADERS += \
     mainwindow.hpp \
     glwidget.hpp \
     qtoglcontext.hpp \
+    qtoglcontextfactory.hpp
 
 SOURCES += \
     mainwindow.cpp \
     main.cpp \
     glwidget.cpp \
     qtoglcontext.cpp \
+    qtoglcontextfactory.cpp
 
 FORMS += \
     mainwindow.ui
