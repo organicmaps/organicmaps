@@ -1,14 +1,17 @@
-//
-//  iosOGLContextFactory.h
-//  Maps
-//
-//  Created by Dmitry Kunin on 25.12.13.
-//  Copyright (c) 2013 MapsWithMe. All rights reserved.
-//
+#pragma once
 
-#ifndef __Maps__iosOGLContextFactory__
-#define __Maps__iosOGLContextFactory__
+#import "iosOGLContext.h"
+#import "../../../../drape/oglcontextfactory.hpp"
 
-#include <iostream>
+class iosOGLContextFactory: public OGLContextFactory
+{
+  iosOGLContextFactory(CAEAGLLayer * layer);
 
-#endif /* defined(__Maps__iosOGLContextFactory__) */
+  virtual OGLContext * getDrawContext();
+  virtual OGLContext * getResourcesUploadContext();
+
+private:
+  CAEAGLLayer * m_layer;
+  iosOGLContext * m_drawContext;
+  iosOGLContext * m_uploadContext;
+};

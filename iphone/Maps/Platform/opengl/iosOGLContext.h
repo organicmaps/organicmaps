@@ -1,14 +1,34 @@
-//
-//  iosOGLContext.h
-//  Maps
-//
-//  Created by Dmitry Kunin on 25.12.13.
-//  Copyright (c) 2013 MapsWithMe. All rights reserved.
-//
+#pragma once
 
-#ifndef __Maps__iosOGLContext__
-#define __Maps__iosOGLContext__
+#import "../../../../drape/oglcontext.hpp"
 
-#include <iostream>
+#import <QuartzCore/CAEAGLLayer.h>
+#import <OpenGLES/ES2/gl.h>
+#import <OpenGLES/ES2/glext.h>
 
-#endif /* defined(__Maps__iosOGLContext__) */
+class iosOGLContext : public OGLContext
+{
+public:
+  iosOGLContext(CAEAGLLayer * layer, iosOGLContext * contextToShareWith, bool needBuffers = false);
+  ~iosOGLContext();
+
+  virtual void makeCurrent();
+  virtual void present();
+  virtual void setDefaultFramebuffer();
+
+private:
+  CAEAGLLayer * m_layer;
+  EAGLContext * m_nativeContext;
+
+  void initBuffers();
+  void destroyBuffers();
+
+  //{@ Buffers
+  bool m_needBuffers;
+  bool m_hasBuffers;
+
+  GLuint m_renderBufferId;
+  GLuint m_depthBufferId;
+  GLuint m_frameBufferId;
+  //@} buffers
+};
