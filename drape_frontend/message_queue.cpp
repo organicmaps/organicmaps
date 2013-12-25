@@ -21,7 +21,7 @@ namespace df
     /// even waitNonEmpty == true m_messages can be empty after WaitMessage call
     /// if application preparing to close and CancelWait been called
     if (m_messages.empty())
-      return MasterPointer<Message>(NULL).Move();
+      return MovePointer<Message>(NULL);
 
     MasterPointer<Message> msg = m_messages.front();
     m_messages.pop_front();
