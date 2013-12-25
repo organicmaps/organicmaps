@@ -6,6 +6,7 @@
 class iosOGLContextFactory: public OGLContextFactory
 {
   iosOGLContextFactory(CAEAGLLayer * layer);
+  ~iosOGLContextFactory();
 
   virtual OGLContext * getDrawContext();
   virtual OGLContext * getResourcesUploadContext();

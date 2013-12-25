@@ -36,6 +36,9 @@ void iosOGLContext::makeCurrent()
 void iosOGLContext::present()
 {
   ASSERT(m_nativeContext != NULL, ());
+  ASSERT(m_renderBufferId, ());
+
+  glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferId);
   [m_nativeContext presentRenderbuffer: GL_RENDERBUFFER];
 }
 

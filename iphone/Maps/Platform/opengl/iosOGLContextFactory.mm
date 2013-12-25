@@ -6,6 +6,12 @@ iosOGLContextFactory::iosOGLContextFactory(CAEAGLLayer * layer)
   , m_uploadContext(NULL)
 {}
 
+iosOGLContextFactory::~iosOGLContextFactory()
+{
+  delete m_drawContext;
+  delete m_uploadContext;
+}
+
 
 OGLContext * iosOGLContextFactory::getDrawContext()
 {
