@@ -22,7 +22,6 @@ win32*|linux* {
 
 HEADERS += \
     mainwindow.hpp \
-    glwidget.hpp \
     qtoglcontext.hpp \
     qtoglcontextfactory.hpp \
     drape_surface.hpp \
@@ -30,7 +29,6 @@ HEADERS += \
 SOURCES += \
     mainwindow.cpp \
     main.cpp \
-    glwidget.cpp \
     qtoglcontext.cpp \
     qtoglcontextfactory.cpp \ 
     drape_surface.cpp \

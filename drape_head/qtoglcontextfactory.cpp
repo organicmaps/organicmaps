@@ -8,6 +8,12 @@ QtOGLContextFactory::QtOGLContextFactory(QWindow * surface)
   , m_uploadContext(NULL)
 {}
 
+QtOGLContextFactory::~QtOGLContextFactory()
+{
+  delete m_drawContext;
+  delete m_uploadContext;
+}
+
 OGLContext * QtOGLContextFactory::getDrawContext()
 {
   if (m_drawContext == NULL)

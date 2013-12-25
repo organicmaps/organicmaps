@@ -5,10 +5,11 @@
 
 #include <QtGui/QWindow>
 
-class QtOGLContextFactory
+class QtOGLContextFactory : public OGLContextFactory
 {
 public:
   QtOGLContextFactory(QWindow * surface);
+  ~QtOGLContextFactory();
 
   virtual OGLContext * getDrawContext();
   virtual OGLContext * getResourcesUploadContext();

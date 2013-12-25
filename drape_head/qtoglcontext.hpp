@@ -8,7 +8,7 @@
 class QtOGLContext: public OGLContext
 {
 public:
-  QtOGLContext(QWindow *surface, QtOGLContext * contextToShareWith);
+  QtOGLContext(QWindow * surface, QtOGLContext * contextToShareWith);
 
   virtual void present();
   virtual void makeCurrent();
