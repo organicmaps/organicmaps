@@ -12,6 +12,7 @@ public:
 
   virtual void present();
   virtual void makeCurrent();
+  virtual void setDefaultFramebuffer();
 
 private:
   QOpenGLContext * m_nativeContext;
