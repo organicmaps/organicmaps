@@ -13,6 +13,11 @@ QtOGLContext::QtOGLContext(QWindow * surface, QtOGLContext * contextToShareWith)
     m_nativeContext->setShareContext(contextToShareWith->m_nativeContext);
 }
 
+QtOGLContext::~QtOGLContext()
+{
+  delete m_nativeContext;
+}
+
 void QtOGLContext::makeCurrent()
 {
   if (!m_isContextCreated)
