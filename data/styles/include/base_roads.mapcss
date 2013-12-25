@@ -368,11 +368,6 @@ line|z14[highway=secondary]
   width: 5;
   casing-color: #c8c860;
 }
-line|z14[highway=pedestrian]
-{
-  color: #d0ccac;
-  width: 1;
-}
 line|z14[highway=primary]
 {
   color: #FDE066;
@@ -405,7 +400,7 @@ line|z14[highway=road]
   color: #d0d0d0;
   width: 3.5;
 }
-line|z14-15[highway=footway]
+line|z15[highway=footway]
 {
   color: #d0ccbc;
   width: 1;
@@ -496,8 +491,7 @@ line|z15[highway=raceway]::d2p2
   linecap: butt;
 }
 line|z14-[highway=residential],
-line|z14-[highway=unclassified],
-line|z14-[highway=pedestrian]
+line|z14-[highway=unclassified]
 {
   font-size: 12;
   text-halo-radius: 2;
