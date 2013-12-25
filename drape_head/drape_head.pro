@@ -24,12 +24,13 @@ HEADERS += \
     mainwindow.hpp \
     glwidget.hpp \
     qtoglcontext.hpp \
+    qtoglcontextfactory.hpp \
+    drape_surface.hpp \
 
 SOURCES += \
     mainwindow.cpp \
     main.cpp \
     glwidget.cpp \
     qtoglcontext.cpp \
-
-FORMS += \
-    mainwindow.ui
+    qtoglcontextfactory.cpp \ 
+    drape_surface.cpp \
