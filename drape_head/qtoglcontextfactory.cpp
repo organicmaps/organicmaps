@@ -24,7 +24,7 @@ OGLContext * QtOGLContextFactory::getDrawContext()
 
 OGLContext * QtOGLContextFactory::getResourcesUploadContext()
 {
-  if (m_uploadContext != NULL)
+  if (m_uploadContext == NULL)
     m_uploadContext = new QtOGLContext(m_surface, m_drawContext);
 
   return m_uploadContext;

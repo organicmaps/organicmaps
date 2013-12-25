@@ -102,10 +102,7 @@ void DrapeSurface::CreateEngine()
 void DrapeSurface::Render()
 {
   const qreal retinaScale = devicePixelRatio();
-  int w = width();
-  int h = height();
-
-  glViewport(0, 0, w * retinaScale, h * retinaScale);
+  glViewport(0, 0, width() * retinaScale, height() * retinaScale);
   glClearDepth(1.0);
   glDepthFunc(GL_LEQUAL);
   glDepthMask(GL_TRUE);
