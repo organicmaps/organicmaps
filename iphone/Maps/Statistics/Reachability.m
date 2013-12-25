@@ -22,33 +22,12 @@ NSString *const kReachabilityChangedNotification = @"kReachabilityChangedNotific
 
 @end
 
-static NSString *reachabilityFlags(SCNetworkReachabilityFlags flags)
-{
-  return [NSString stringWithFormat:@"%c%c %c%c%c%c%c%c%c",
-#if	TARGET_OS_IPHONE
-          (flags & kSCNetworkReachabilityFlagsIsWWAN)               ? 'W' : '-',
-#else
-          'X',
-#endif
-          (flags & kSCNetworkReachabilityFlagsReachable)            ? 'R' : '-',
-          (flags & kSCNetworkReachabilityFlagsConnectionRequired)   ? 'c' : '-',
-          (flags & kSCNetworkReachabilityFlagsTransientConnection)  ? 't' : '-',
-          (flags & kSCNetworkReachabilityFlagsInterventionRequired) ? 'i' : '-',
-          (flags & kSCNetworkReachabilityFlagsConnectionOnTraffic)  ? 'C' : '-',
-          (flags & kSCNetworkReachabilityFlagsConnectionOnDemand)   ? 'D' : '-',
-          (flags & kSCNetworkReachabilityFlagsIsLocalAddress)       ? 'l' : '-',
-          (flags & kSCNetworkReachabilityFlagsIsDirect)             ? 'd' : '-'];
-}
-
 // Start listening for reachability notifications on the current run loop
 static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReachabilityFlags flags, void* info)
 {
 #pragma unused (target)
-#if __has_feature(objc_arc)
+
   Reachability *reachability = ((__bridge Reachability*)info);
-#else
-  Reachability *reachability = ((Reachability*)info);
-#endif
 
   // We probably don't need an autoreleasepool here, as GCD docs state each queue has its own autorelease pool,
   // but what the heck eh?
@@ -85,12 +64,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
   {
     id reachability = [[self alloc] initWithReachabilityRef:ref];
 
-#if __has_feature(objc_arc)
     return reachability;
-#else
-    return [reachability autorelease];
-#endif
-
   }
 
   return nil;
@@ -103,11 +77,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
   {
     id reachability = [[self alloc] initWithReachabilityRef:ref];
 
-#if __has_feature(objc_arc)
     return reachability;
-#else
-    return [reachability autorelease];
-#endif
   }
 
   return nil;
@@ -149,10 +119,6 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 
 	self.reachableBlock		= nil;
 	self.unreachableBlock	= nil;
-
-#if !(__has_feature(objc_arc))
-  [super dealloc];
-#endif
 }
 
 #pragma mark - Notifier Methods
@@ -176,18 +142,10 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
   if (!self.reachabilitySerialQueue)
     return NO;
 
-#if __has_feature(objc_arc)
   context.info = (__bridge void *)self;
-#else
-  context.info = (void *)self;
-#endif
 
   if (!SCNetworkReachabilitySetCallback(self.reachabilityRef, TMReachabilityCallback, &context))
   {
-#ifdef DEBUG
-    NSLog(@"SCNetworkReachabilitySetCallback() failed: %s", SCErrorString(SCError()));
-#endif
-
     // Clear out the dispatch queue
     if (self.reachabilitySerialQueue)
     {
@@ -205,10 +163,6 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
   // Set it as our reachability queue, which will retain the queue
   if (!SCNetworkReachabilitySetDispatchQueue(self.reachabilityRef, self.reachabilitySerialQueue))
   {
-#ifdef DEBUG
-    NSLog(@"SCNetworkReachabilitySetDispatchQueue() failed: %s", SCErrorString(SCError()));
-#endif
-
     // UH OH - FAILURE!
 
     // First stop, any callbacks!
