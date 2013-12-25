@@ -137,7 +137,7 @@ void FeatureParams::SetGeomType(feature::EGeomType t)
 
 void FeatureParams::SetGeomTypePointEx()
 {
-  ASSERT_EQUAL(m_geomType, HEADER_GEOM_POINT, ());
+  ASSERT(m_geomType == HEADER_GEOM_POINT || m_geomType == HEADER_GEOM_POINT_EX, ());
   ASSERT(!house.IsEmpty(), ());
 
   m_geomType = HEADER_GEOM_POINT_EX;
