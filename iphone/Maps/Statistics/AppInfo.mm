@@ -1,6 +1,5 @@
 
 #import "AppInfo.h"
-#import "Reachability.h"
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <sys/utsname.h>
@@ -9,8 +8,7 @@
 
 @interface AppInfo ()
 
-@property Reachability * reachability;
-@property (nonatomic) NSArray * features;
+@property (nonatomic) NSDictionary * features;
 @property NSDictionary * featuresByDefault;
 
 @end
@@ -21,26 +19,20 @@
 {
   self = [super init];
 
-  // example featuresByDefault
-  self.featuresByDefault = @{@"ads" : @NO, @"popup" : @YES};
-  //
-
   [self update];
-
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 
   return self;
 }
 
-- (void)applicationDidEnterBackground:(NSNotification *)notification
+- (void)saveFeaturesOnDisk
 {
+  // example of features string @"ads:ru,en;banners:*;track:jp,en"
   NSString * featuresString = @"";
-  for (NSDictionary * featureDict in self.features) {
-    if (![featureDict count])
-      continue;
+  for (NSString * featureName in [self.features allKeys])
+  {
     if ([featuresString length])
       featuresString = [featuresString stringByAppendingString:@";"];
-    featuresString = [NSString stringWithFormat:@"%@{%@:%@}", featuresString, [featureDict allKeys][0], [featureDict allValues][0]];
+    featuresString = [NSString stringWithFormat:@"%@%@:%@", featuresString, featureName, self.features[featureName]];
   }
   Settings::Set("AvailableFeatures", std::string([featuresString UTF8String]));
 }
@@ -48,8 +40,10 @@
 - (void)update
 {
   // TODO: get info from server
-  // if not success then subscribe for reachability updates
-  self.reachability = [Reachability reachabilityForInternetConnection];
+  // if done then saving features on disk
+  [self saveFeaturesOnDisk];
+
+  // if failed then subscribing for reachability updates
   __weak id weakSelf = self;
   self.reachability.reachableBlock = ^(Reachability * r){
     [weakSelf update];
@@ -57,20 +51,18 @@
   [self.reachability startNotifier];
 }
 
+#pragma mark - Public methods
+
 - (BOOL)featureAvailable:(NSString *)featureName
 {
   if (!self.features) // features haven't been downloaded yet
     return [self.featuresByDefault[featureName] boolValue];
 
-  for (NSDictionary * feature in self.features)
-  {
-    if ([[[feature allKeys] firstObject] isEqualToString:featureName])
-      return ([feature[@"locals"] rangeOfString:self.countryCode].location != NSNotFound) || [feature[@"locals"] isEqualToString:@"*"];
-  }
+  NSString * value = self.features[featureName];
+  if (value)
+    return ([value rangeOfString:self.countryCode].location != NSNotFound) || [value isEqualToString:@"*"];
   return NO;
 }
-
-#pragma mark - Public Methods
 
 - (NSString *)snapshot
 {
@@ -79,12 +71,33 @@
 
 #pragma mark - Public properties
 
-- (NSString *)userId
+- (NSString *)uniqueId
 {
-  if (NSClassFromString(@"ASIdentifierManager"))
-    return [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
-  else
-    return nil;
+  if (!_uniqueId)
+  {
+    std::string uniqueString;
+    if (Settings::Get("UniqueId", uniqueString)) // if id stored in settings
+    {
+      _uniqueId = [NSString stringWithUTF8String:uniqueString.c_str()];
+    }
+    else // if id not stored in settings
+    {
+      // trying to get id
+      if ([UIDevice instancesRespondToSelector:@selector(identifierForVendor)])
+        _uniqueId = [[UIDevice currentDevice].identifierForVendor UUIDString];
+      else
+        _uniqueId = (NSString *)CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, CFUUIDCreate(kCFAllocatorDefault)));
+
+      if (_uniqueId) // then saving in settings
+        Settings::Set("UniqueId", std::string([_uniqueId UTF8String]));
+    }
+  }
+  return _uniqueId;
+}
+
+- (NSString *)advertisingId
+{
+  return NSClassFromString(@"ASIdentifierManager") ? [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString] : nil;
 }
 
 - (NSString *)countryCode
@@ -93,9 +106,23 @@
   {
     CTTelephonyNetworkInfo * networkInfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier * carrier = networkInfo.subscriberCellularProvider;
-    _countryCode = [carrier.isoCountryCode uppercaseString];
-    if (!_countryCode)
+    if (carrier.isoCountryCode) // if device can access sim card info
+      _countryCode = [carrier.isoCountryCode uppercaseString];
+    else // else, getting system country code
       _countryCode = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
+
+    std::string codeString;
+    if (Settings::Get("CountryCode", codeString)) // if country code stored in settings
+    {
+      if (carrier.isoCountryCode) // if device can access sim card info
+        Settings::Set("CountryCode", std::string([_countryCode UTF8String])); // then save new code instead
+      else
+        _countryCode = [NSString stringWithUTF8String:codeString.c_str()]; // if device can NOT access sim card info then using saved code
+    }
+    else
+    {
+      Settings::Set("CountryCode", std::string([_countryCode UTF8String])); // saving code first time
+    }
   }
   return _countryCode;
 }
@@ -117,9 +144,16 @@
   return [UIDevice currentDevice].systemVersion;
 }
 
+- (Reachability *)reachability
+{
+  if (!_reachability)
+    _reachability = [Reachability reachabilityForInternetConnection];
+  return _reachability;
+}
+
 #pragma mark - Private properties
 
-- (NSArray *)features
+- (NSDictionary *)features
 {
   if (!_features)
   {
@@ -128,14 +162,14 @@
     {
       NSString * featuresString = [NSString stringWithUTF8String:featuresCPPString.c_str()];
       NSArray * features = [featuresString componentsSeparatedByString:@";"];
-      NSMutableArray * mArray = [NSMutableArray array];
-      for (NSString * featureDictString in features) {
-        NSString * trimmed = [featureDictString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"{}"]];
-        NSArray * components = [trimmed componentsSeparatedByString:@":"];
+      NSMutableDictionary * mDict = [NSMutableDictionary dictionary];
+      for (NSString * featurePairString in features)
+      {
+        NSArray * components = [featurePairString componentsSeparatedByString:@":"];
         if ([components count] == 2)
-          [mArray addObject:@{components[0] : components[1]}];
+          mDict[components[0]] = components[1];
       }
-      _features = mArray;
+      _features = mDict;
     }
   }
   return _features;
@@ -143,7 +177,6 @@
 
 - (void)dealloc
 {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
   [self.reachability stopNotifier];
 }
 
