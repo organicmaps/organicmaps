@@ -14,8 +14,16 @@ public:
   virtual OGLContext * getResourcesUploadContext();
 
 private:
+  void createWindowSurface();
+  void createPixelbufferSurface();
+
+
   AndroidOGLContext * m_drawContext;
   AndroidOGLContext * m_uploadContext;
+
+  EGLSurface m_windowSurface;
+  EGLSurface m_pixelbufferSurface;
+  EGLConfig  m_config;
 
   ANativeWindow * m_nativeWindow;
   EGLDisplay m_display;

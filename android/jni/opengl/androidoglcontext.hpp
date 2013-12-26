@@ -10,8 +10,7 @@
 class AndroidOGLContext : public OGLContext
 {
 public:
-  AndroidOGLContext(AndroidOGLContext * contextToShareWith);
-  AndroidOGLContext(EGLDisplay * display, ANativeWindow * nativeWindow);
+  AndroidOGLContext(EGLDisplay display, EGLSurface surface, EGLConfig config, AndroidOGLContext * contextToShareWith);
   ~AndroidOGLContext();
 
   virtual void makeCurrent();
@@ -19,23 +18,13 @@ public:
   virtual void setDefaultFramebuffer();
 
 private:
-  static EGLint * getConfigAttributesList();
-  static EGLint * getContextAttributesList();
-  void createNativeContextAndSurface();
-  void createPixelbufferSurface();
-
   // {@ Owned by Context
   EGLContext m_nativeContext;
-  EGLSurface m_surface;
   // @}
 
   // {@ Owned by Factory
+  EGLSurface m_surface;
   EGLDisplay m_display;
-  ANativeWindow * m_nativeWindow;
   // @}
-
-  EGLConfig m_config;
-
-  bool m_needPixelBufferSurface;
 };
 
