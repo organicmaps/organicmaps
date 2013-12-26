@@ -3,7 +3,7 @@
 
 #include "../../../base/assert.hpp"
 
-#include <algorithm>
+#include "../../../std/algorithm.hpp"
 
 static EGLint * getConfigAttributesList()
 {
@@ -58,7 +58,7 @@ AndroidOGLContextFactory::~AndroidOGLContextFactory()
 
 OGLContext * AndroidOGLContextFactory::getDrawContext()
 {
-  CHECK(m_windowSurface != EGL_NO_SURFACE, ());
+  ASSERT(m_windowSurface != EGL_NO_SURFACE, ());
   if (m_drawContext == NULL)
     m_drawContext = new AndroidOGLContext(m_display, m_windowSurface, m_config, m_uploadContext);
   return m_drawContext;
@@ -66,7 +66,7 @@ OGLContext * AndroidOGLContextFactory::getDrawContext()
 
 OGLContext * AndroidOGLContextFactory::getResourcesUploadContext()
 {
-  CHECK(m_pixelbufferSurface != EGL_NO_SURFACE, ());
+  ASSERT(m_pixelbufferSurface != EGL_NO_SURFACE, ());
   if (m_uploadContext == NULL)
     m_uploadContext = new AndroidOGLContext(m_display, m_pixelbufferSurface, m_config, m_drawContext);
   return m_uploadContext;
@@ -75,12 +75,12 @@ OGLContext * AndroidOGLContextFactory::getResourcesUploadContext()
 void AndroidOGLContextFactory::createWindowSurface()
 {
   EGLConfig configs[40];
-  int num_configs = 0;
-  VERIFY(eglChooseConfig(m_display, getConfigAttributesList(), configs, 40, &num_configs) == EGL_TRUE, ());
-  ASSERT(num_configs > 0, ("Didn't find any configs."));
+  int count = 0;
+  VERIFY(eglChooseConfig(m_display, getConfigAttributesList(), configs, 40, &count) == EGL_TRUE, ());
+  ASSERT(count > 0, ("Didn't find any configs."));
 
-  std::sort(&configs[0], &configs[num_configs], ConfigComparator(m_display));
-  for (int i = 0; i < num_configs; ++i)
+  sort(&configs[0], &configs[count], ConfigComparator(m_display));
+  for (int i = 0; i < count; ++i)
   {
     EGLConfig currentConfig = configs[i];
 
@@ -97,19 +97,21 @@ void AndroidOGLContextFactory::createWindowSurface()
     break;
   }
 
+  CHECK(m_config != NULL, ());
   CHECK(m_windowSurface != EGL_NO_SURFACE, ());
 }
 
 void AndroidOGLContextFactory::createPixelbufferSurface()
 {
-  CHECK(m_config != NULL, ());
+  ASSERT(m_config != NULL, ());
 
   const GLuint size = 1; // yes, 1 is the correct size, we dont really draw on it
   static EGLint surfaceConfig[] = {
       EGL_WIDTH, size, EGL_HEIGHT, size, EGL_NONE
   };
   m_pixelbufferSurface = eglCreatePbufferSurface(m_display, m_config, surfaceConfig);
-  ASSERT(m_pixelbufferSurface != EGL_NO_SURFACE, ());
+
+  CHECK(m_pixelbufferSurface != EGL_NO_SURFACE, ());
 }
 
 
