@@ -28,7 +28,7 @@ int gl_compare_config(EGLConfig const & l, EGLConfig const & r, EGLDisplay const
 class ConfigComparator
 {
 public:
-  ConfigComparator(EGLDisplay * display)
+  ConfigComparator(EGLDisplay display)
     : m_display(display)
   {}
 
@@ -38,6 +38,6 @@ public:
   }
 
 private:
-  EGLDisplay * m_display;
+  EGLDisplay m_display;
 };
 
