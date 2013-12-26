@@ -47,8 +47,8 @@ namespace df
 
   private:
     typedef multimap<GLState, MasterPointer<VertexArrayBuffer> > render_data_t;
-    typedef render_data_t render_data_iter;
-    typedef multimap<TileKey, render_data_t::iterator> tile_data_t;
+    typedef render_data_t::iterator render_data_iter;
+    typedef multimap<TileKey, render_data_iter> tile_data_t;
     typedef tile_data_t::iterator tile_data_iter;
     typedef pair<tile_data_iter, tile_data_iter> tile_data_range_t;
     render_data_t m_renderData;
