@@ -168,7 +168,7 @@ void GLFunctions::glUniformValuef(int8_t location, float v1, float v2, float v3,
   MOCK_CALL(glUniformValuef(location, v1, v2, v3, v4));
 }
 
-void GLFunctions::glUniformMatrix4x4Value(int8_t location, float * values)
+void GLFunctions::glUniformMatrix4x4Value(int8_t location, const float * values)
 {
   MOCK_CALL(glUniformMatrix4x4Value(location, values));
 }

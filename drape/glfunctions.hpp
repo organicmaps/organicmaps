@@ -68,7 +68,7 @@ public:
   static void glUniformValuef(int8_t location, float v1, float v2, float v3);
   static void glUniformValuef(int8_t location, float v1, float v2, float v3, float v4);
 
-  static void glUniformMatrix4x4Value(int8_t location, float * values);
+  static void glUniformMatrix4x4Value(int8_t location, const float *values);
 
   static uint32_t glGetCurrentProgram();
 

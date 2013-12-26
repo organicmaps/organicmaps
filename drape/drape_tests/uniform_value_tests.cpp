@@ -22,14 +22,14 @@ namespace
   class MemoryComparer
   {
   public:
-    MemoryComparer(T * memory, uint32_t size)
+    MemoryComparer(const T * memory, uint32_t size)
       : m_result(false)
       , m_memory(memory)
       , m_size(size)
     {
     }
 
-    void Compare(int32_t id, T * memory)
+    void Compare(int32_t id, const T * memory)
     {
       m_result = memcmp(m_memory, memory, m_size) == 0;
     }
@@ -41,7 +41,7 @@ namespace
 
   private:
     bool m_result;
-    T * m_memory;
+    const T * m_memory;
     uint32_t m_size;
   };
 }
