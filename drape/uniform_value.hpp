@@ -10,6 +10,13 @@
 class UniformValue
 {
 public:
+  enum Type
+  {
+    Int,
+    Float,
+    Matrix4x4
+  };
+
   explicit UniformValue(const string & name, int32_t v);
   explicit UniformValue(const string & name, int32_t v1, int32_t v2);
   explicit UniformValue(const string & name, int32_t v1, int32_t v2, int32_t v3);
@@ -20,9 +27,25 @@ public:
   explicit UniformValue(const string & name, float v1, float v2, float v3);
   explicit UniformValue(const string & name, float v1, float v2, float v3, float v4);
 
-  explicit UniformValue(const string & name, float * matrixValue);
+  explicit UniformValue(const string & name, const float * matrixValue);
 
-  void Apply(RefPointer<GpuProgram> program);
+  const string & GetName() const;
+  Type GetType() const;
+  size_t GetComponentCount() const;
+
+  void SetIntValue(int32_t v);
+  void SetIntValue(int32_t v1, int32_t v2);
+  void SetIntValue(int32_t v1, int32_t v2, int32_t v3);
+  void SetIntValue(int32_t v1, int32_t v2, int32_t v3, int32_t v4);
+
+  void SetFloatValue(float v);
+  void SetFloatValue(float v1, float v2);
+  void SetFloatValue(float v1, float v2, float v3);
+  void SetFloatValue(float v1, float v2, float v3, float v4);
+
+  void SetMatrix4x4Value(const float * matrixValue);
+
+  void Apply(RefPointer<GpuProgram> program) const;
 
   bool operator<(const UniformValue & other) const
   {
@@ -42,14 +65,13 @@ private:
     return reinterpret_cast<T *>(m_values.get());
   }
 
-private:
-  enum Type
+  template <typename T>
+  const T * CastMemory() const
   {
-    Int,
-    Float,
-    Matrix4x4
-  };
+    return reinterpret_cast<T *>(m_values.get());
+  }
 
+private:
   string m_name;
   Type m_type;
   size_t m_componentCount;

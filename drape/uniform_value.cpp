@@ -12,7 +12,7 @@ namespace
       dstPointer[i] = values[i];
   }
 
-  void ApplyInt(int8_t location, int32_t * pointer, size_t componentCount)
+  void ApplyInt(int8_t location, const int32_t * pointer, size_t componentCount)
   {
     switch (componentCount)
     {
@@ -33,7 +33,7 @@ namespace
     }
   }
 
-  void ApplyFloat(int8_t location, float * pointer, size_t componentCount)
+  void ApplyFloat(int8_t location, const float * pointer, size_t componentCount)
   {
     switch (componentCount)
     {
@@ -54,7 +54,7 @@ namespace
     }
   }
 
-  void ApplyMatrix(uint8_t location, float * matrix)
+  void ApplyMatrix(uint8_t location, const float * matrix)
   {
     GLFunctions::glUniformMatrix4x4Value(location, matrix);
   }
@@ -62,94 +62,170 @@ namespace
 
 UniformValue::UniformValue(const string & name, int32_t v)
   : m_name(name)
+  , m_type(Int)
+  , m_componentCount(1)
 {
   Allocate(sizeof(int32_t));
-  CopyValues(CastMemory<int32_t>(), &v, 1);
-  m_type = Int;
-  m_componentCount = 1;
+  SetIntValue(v);
 }
 
 UniformValue::UniformValue(const string & name, int32_t v1, int32_t v2)
   : m_name(name)
+  , m_type(Int)
+  , m_componentCount(2)
 {
   Allocate(2 * sizeof(int32_t));
-
-  int32_t values[2] = { v1, v2 };
-  CopyValues(CastMemory<int32_t>(), values, 2);
-  m_type = Int;
-  m_componentCount = 2;
+  SetIntValue(v1, v2);
 }
 
 UniformValue::UniformValue(const string & name, int32_t v1, int32_t v2, int32_t v3)
   : m_name(name)
+  , m_type(Int)
+  , m_componentCount(3)
 {
   Allocate(3 * sizeof(int32_t));
-
-  int32_t values[3] = { v1, v2, v3 };
-  CopyValues(CastMemory<int32_t>(), values, 3);
-  m_type = Int;
-  m_componentCount = 3;
+  SetIntValue(v1, v2, v3);
 }
 
 UniformValue::UniformValue(const string & name, int32_t v1, int32_t v2, int32_t v3, int32_t v4)
   : m_name(name)
+  , m_type(Int)
+  , m_componentCount(4)
 {
   Allocate(4 * sizeof(int32_t));
-  int32_t values[4] = { v1, v2, v3, v4 };
-  CopyValues(CastMemory<int32_t>(), values, 4);
-  m_type = Int;
-  m_componentCount = 4;
+  SetIntValue(v1, v2, v3, v4);
 }
 
 UniformValue::UniformValue(const string & name, float v)
   : m_name(name)
+  , m_type(Float)
+  , m_componentCount(1)
 {
   Allocate(sizeof(float));
-  CopyValues(CastMemory<float>(), &v, 1);
-  m_type = Float;
-  m_componentCount = 1;
+  SetFloatValue(v);
 }
 
 UniformValue::UniformValue(const string & name, float v1, float v2)
   : m_name(name)
+  , m_type(Float)
+  , m_componentCount(2)
 {
   Allocate(2 * sizeof(float));
-  float values[2] = { v1, v2 };
-  CopyValues(CastMemory<float>(), values, 2);
-  m_type = Float;
-  m_componentCount = 2;
+  SetFloatValue(v1, v2);
 }
 
 UniformValue::UniformValue(const string & name, float v1, float v2, float v3)
   : m_name(name)
+  , m_type(Float)
+  , m_componentCount(3)
 {
   Allocate(3 * sizeof(float));
-  float values[3] = { v1, v2, v3 };
-  CopyValues(CastMemory<float>(), values, 3);
-  m_type = Float;
-  m_componentCount = 3;
+  SetFloatValue(v1, v2, v3);
 }
 
 UniformValue::UniformValue(const string & name, float v1, float v2, float v3, float v4)
   : m_name(name)
+  , m_type(Float)
+  , m_componentCount(4)
 {
   Allocate(4 * sizeof(float));
-  float values[4] = { v1, v2, v3, v4 };
-  CopyValues(CastMemory<float>(), values, 4);
-  m_type = Float;
-  m_componentCount = 4;
+  SetFloatValue(v1, v2, v3, v4);
 }
 
-UniformValue::UniformValue(const string & name, float * matrixValue)
+UniformValue::UniformValue(const string & name, const float * matrixValue)
   : m_name(name)
+  , m_type(Matrix4x4)
+  , m_componentCount(16)
 {
   Allocate(4 * 4 * sizeof(float));
-  memcpy(CastMemory<float>(), matrixValue, 4 * 4 * sizeof(float));
-  m_type = Matrix4x4;
-  m_componentCount = 16;
+  SetMatrix4x4Value(matrixValue);
 }
 
-void UniformValue::Apply(RefPointer<GpuProgram> program)
+const string & UniformValue::GetName() const
+{
+  return m_name;
+}
+
+UniformValue::Type UniformValue::GetType() const
+{
+  return m_type;
+}
+
+size_t UniformValue::GetComponentCount() const
+{
+  return m_componentCount;
+}
+
+void UniformValue::SetIntValue(int32_t v)
+{
+  ASSERT(m_type == Int, ());
+  ASSERT(m_componentCount == 1, ());
+  CopyValues(CastMemory<int32_t>(), &v, m_componentCount);
+}
+
+void UniformValue::SetIntValue(int32_t v1, int32_t v2)
+{
+  ASSERT(m_type == Int, ());
+  ASSERT(m_componentCount == 2, ());
+  int v[2] = { v1, v2 };
+  CopyValues(CastMemory<int32_t>(), v, m_componentCount);
+}
+
+void UniformValue::SetIntValue(int32_t v1, int32_t v2, int32_t v3)
+{
+  ASSERT(m_type == Int, ());
+  ASSERT(m_componentCount == 3, ());
+  int v[3] = { v1, v2, v3 };
+  CopyValues(CastMemory<int32_t>(), v, m_componentCount);
+}
+
+void UniformValue::SetIntValue(int32_t v1, int32_t v2, int32_t v3, int32_t v4)
+{
+  ASSERT(m_type == Int, ());
+  ASSERT(m_componentCount == 4, ());
+  int v[4] = { v1, v2, v3, v4 };
+  CopyValues(CastMemory<int32_t>(), v, m_componentCount);
+}
+
+void UniformValue::SetFloatValue(float v)
+{
+  ASSERT(m_type == Float, ());
+  ASSERT(m_componentCount == 1, ());
+  CopyValues(CastMemory<float>(), &v, m_componentCount);
+}
+
+void UniformValue::SetFloatValue(float v1, float v2)
+{
+  ASSERT(m_type == Float, ());
+  ASSERT(m_componentCount == 2, ());
+  float v[2] = { v1, v2 };
+  CopyValues(CastMemory<float>(), v, m_componentCount);
+}
+
+void UniformValue::SetFloatValue(float v1, float v2, float v3)
+{
+  ASSERT(m_type == Float, ());
+  ASSERT(m_componentCount == 3, ());
+  float v[3] = { v1, v2, v3 };
+  CopyValues(CastMemory<float>(), v, m_componentCount);
+}
+
+void UniformValue::SetFloatValue(float v1, float v2, float v3, float v4)
+{
+  ASSERT(m_type == Float, ());
+  ASSERT(m_componentCount == 4, ());
+  float v[4] = { v1, v2, v3, v4 };
+  CopyValues(CastMemory<float>(), v, m_componentCount);
+}
+
+void UniformValue::SetMatrix4x4Value(const float * matrixValue)
+{
+  ASSERT(m_type == Matrix4x4, ());
+  ASSERT(m_componentCount == 16, ());
+  memcpy(CastMemory<float>(), matrixValue, 4 * 4 * sizeof(float));
+}
+
+void UniformValue::Apply(RefPointer<GpuProgram> program) const
 {
   uint8_t location = program->GetUniformLocation(m_name);
   switch (m_type) {
