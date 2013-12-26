@@ -11,7 +11,9 @@
 #import "UIViewController+Navigation.h"
 #import "Config.h"
 #import "ShareActionSheet.h"
+#import "MPInterstitialAdController.h"
 #import "Reachability.h"
+#import "AppInfo.h"
 
 #import "../Settings/SettingsManager.h"
 #import "../../Common/CustomAlertView.h"
@@ -35,12 +37,13 @@
 const long long PRO_IDL = 510623322L;
 const long long LITE_IDL = 431183278L;
 
-@interface MapViewController () <SideToolbarDelegate>
+@interface MapViewController () <SideToolbarDelegate, MPInterstitialAdControllerDelegate>
 
 @property (nonatomic) UIView * fadeView;
 @property (nonatomic) LocationButton * locationButton;
 @property (nonatomic, strong) UINavigationBar * apiNavigationBar;
 @property ShareActionSheet * shareActionSheet;
+@property MPInterstitialAdController * interstitialAd;
 
 @end
 
@@ -574,6 +577,22 @@ const long long LITE_IDL = 431183278L;
   [self.view addSubview:self.sideToolbar];
 
   [self.sideToolbar setMenuHidden:YES animated:NO];
+
+#ifdef LITE
+  AppInfo * info = [AppInfo sharedInfo];
+  if ([info featureAvailable:AppFeatureInterstitialAd] && info.launchCount >= 3)
+  {
+    NSString * adUnitId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MoPubInterstitialAdUnitId"];
+    self.interstitialAd = [MPInterstitialAdController interstitialAdControllerForAdUnitId:adUnitId];
+    self.interstitialAd.delegate = self;
+    [self.interstitialAd loadAd];
+  }
+#endif
+}
+
+- (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial
+{
+  [self.interstitialAd showFromViewController:self];
 }
 
 - (BOOL)prefersStatusBarHidden
