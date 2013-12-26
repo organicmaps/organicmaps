@@ -7,7 +7,7 @@ include($$ROOT_DIR/common.pri)
 TARGET = DrapeHead
 TEMPLATE = app
 CONFIG += warn_on
-QT *= core widgets gui
+QT *= core gui widgets
 
 win32* {
   LIBS += -lopengl32 -lws2_32 -lshell32 -liphlpapi
