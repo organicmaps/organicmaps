@@ -1,6 +1,8 @@
 #include "glstate.hpp"
 #include "glfunctions.hpp"
 
+#include "../std/bind.hpp"
+
 GLState::GLState(uint32_t gpuProgramIndex, int16_t depthLayer, const TextureBinding & texture)
   : m_gpuProgramIndex(gpuProgramIndex)
   , m_depthLayer(depthLayer)
@@ -23,14 +25,27 @@ TextureBinding & GLState::GetTextureBinding()
   return m_texture;
 }
 
-const vector<UniformValue> & GLState::GetUniformValues() const
+const UniformValuesStorage &GLState::GetUniformValues() const
 {
   return m_uniforms;
 }
 
-vector<UniformValue> & GLState::GetUniformValues()
+UniformValuesStorage & GLState::GetUniformValues()
 {
   return m_uniforms;
+}
+
+namespace
+{
+  void ApplyUniformValue(const UniformValue & value, RefPointer<GpuProgram> program)
+  {
+    value.Apply(program);
+  }
+}
+
+void ApplyUniforms(const UniformValuesStorage & uniforms, RefPointer<GpuProgram> program)
+{
+  uniforms.ForeachValue(bind(&ApplyUniformValue, _1, program));
 }
 
 void ApplyState(GLState state, RefPointer<GpuProgram> program)
@@ -44,7 +59,5 @@ void ApplyState(GLState state, RefPointer<GpuProgram> program)
       binding.Bind(textureLocation);
   }
 
-  vector<UniformValue> & uniforms = state.GetUniformValues();
-  for (size_t i = 0; i < uniforms.size(); ++i)
-    uniforms[i].Apply(program);
+  ApplyUniforms(state.GetUniformValues(), program);
 }

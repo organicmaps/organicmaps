@@ -3,8 +3,7 @@
 #include "pointers.hpp"
 #include "texture.hpp"
 #include "uniform_value.hpp"
-
-#include "../std/vector.hpp"
+#include "uniform_values_storage.hpp"
 
 class GLState
 {
@@ -14,8 +13,8 @@ public:
   int GetProgramIndex() const;
   const TextureBinding & GetTextureBinding() const;
   TextureBinding & GetTextureBinding();
-  const vector<UniformValue> & GetUniformValues() const;
-  vector<UniformValue> & GetUniformValues();
+  const UniformValuesStorage & GetUniformValues() const;
+  UniformValuesStorage & GetUniformValues();
 
   bool operator<(const GLState & other) const
   {
@@ -29,7 +28,8 @@ private:
   uint32_t m_gpuProgramIndex;
   uint16_t m_depthLayer;
   TextureBinding m_texture;
-  vector<UniformValue> m_uniforms;
+  UniformValuesStorage m_uniforms;
 };
 
+void ApplyUniforms(const UniformValuesStorage & uniforms, RefPointer<GpuProgram> program);
 void ApplyState(GLState state, RefPointer<GpuProgram> program);

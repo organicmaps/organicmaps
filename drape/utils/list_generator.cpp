@@ -45,7 +45,7 @@ void ListGenerator::SetProgram(uint32_t program)
   m_programIndex = program;
 }
 
-void ListGenerator::SetUniforms(const vector<UniformValue> & uniforms)
+void ListGenerator::SetUniforms(const UniformValuesStorage & uniforms)
 {
   m_uniforms = uniforms;
 }
