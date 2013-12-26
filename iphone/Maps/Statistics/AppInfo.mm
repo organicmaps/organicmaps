@@ -6,10 +6,22 @@
 #import <AdSupport/ASIdentifierManager.h>
 #include "../../../platform/settings.hpp"
 
+NSString * const AppFeatureInterstitialAd = @"InterstitialAd";
+NSString * const AppFeatureBannerAd = @"BannerAd";
+
 @interface AppInfo ()
 
 @property (nonatomic) NSDictionary * features;
 @property NSDictionary * featuresByDefault;
+
+@property (nonatomic) NSInteger launchCount;
+@property (nonatomic, strong) NSString * countryCode;
+@property (nonatomic, strong) NSString * bundleVersion;
+@property (nonatomic, strong) NSString * deviceInfo;
+@property (nonatomic, strong) NSString * firmwareVersion;
+@property (nonatomic, strong) NSString * uniqueId;
+@property (nonatomic, strong) NSString * advertisingId;
+@property (nonatomic, strong) Reachability * reachability;
 
 @end
 
@@ -18,6 +30,10 @@
 - (instancetype)init
 {
   self = [super init];
+
+  self.launchCount++;
+  self.featuresByDefault = @{AppFeatureInterstitialAd : @YES,
+                             AppFeatureBannerAd : @NO};
 
   [self update];
 
@@ -34,7 +50,8 @@
       featuresString = [featuresString stringByAppendingString:@";"];
     featuresString = [NSString stringWithFormat:@"%@%@:%@", featuresString, featureName, self.features[featureName]];
   }
-  Settings::Set("AvailableFeatures", std::string([featuresString UTF8String]));
+  if ([featuresString length])
+    Settings::Set("AvailableFeatures", std::string([featuresString UTF8String]));
 }
 
 - (void)update
@@ -46,7 +63,8 @@
   // if failed then subscribing for reachability updates
   __weak id weakSelf = self;
   self.reachability.reachableBlock = ^(Reachability * r){
-    [weakSelf update];
+    if ([r isReachable])
+      [weakSelf update];
   };
   [self.reachability startNotifier];
 }
@@ -70,6 +88,18 @@
 }
 
 #pragma mark - Public properties
+
+- (void)setLaunchCount:(NSInteger)launchCount
+{
+  Settings::Set("LaunchCount", (int)launchCount);
+}
+
+- (NSInteger)launchCount
+{
+  int count = 0;
+  Settings::Get("LaunchCount", count);
+  return count;
+}
 
 - (NSString *)uniqueId
 {
