@@ -9,7 +9,7 @@
 #include "../std/bind.hpp"
 
 #include <QMatrix4x4>
-
+#include <cmath>
 
 namespace
 {
@@ -28,6 +28,9 @@ DrapeSurface::DrapeSurface()
   setSurfaceType(QSurface::OpenGLSurface);
   m_batcher = new Batcher();
   m_programManager = new GpuProgramManager();
+
+  Q_ASSERT(QObject::connect(this, SIGNAL(heightChanged(int)), this, SLOT(RefreshProjector(int))));
+  Q_ASSERT(QObject::connect(this, SIGNAL(widthChanged(int)), this, SLOT(RefreshProjector(int))));
 }
 
 DrapeSurface::~DrapeSurface()
@@ -56,6 +59,36 @@ void DrapeSurface::exposeEvent(QExposeEvent *e)
   }
 }
 
+void DrapeSurface::timerEvent(QTimerEvent * e)
+{
+  if (e->timerId() == m_timerID)
+  {
+    static const float _2pi = 6.28318530718;
+    static float angle = 0.0;
+    angle += 0.035;
+    if (angle > _2pi)
+      angle -= _2pi;
+    RefreshMVUniform(angle);
+    Render();
+    m_contextFactory->getDrawContext()->present();
+  }
+}
+
+namespace
+{
+  void OrthoMatrix(float * m, float left, float right, float bottom, float top, float near, float far)
+  {
+    memset(m, 0, 16 * sizeof(float));
+    m[0]  = 2.0f / (right - left);
+    m[4]  = - (right + left) / (right - left);
+    m[5]  = 2.0f / (top - bottom);
+    m[9]  = - (top + bottom) / (top - bottom);
+    m[10] = -2.0f / (far - near);
+    m[14] = - (far + near) / (far - near);
+    m[15] = 1.0;
+  }
+}
+
 void DrapeSurface::CreateEngine()
 {
   glClearColor(0.8, 0.8, 0.8, 1.0);
@@ -66,28 +99,12 @@ void DrapeSurface::CreateEngine()
   glDepthFunc(GL_LEQUAL);
   glClearDepth(0.0);
 
-  vector<UniformValue> uniforms;
-  float model[16] =
-  {
-    1.0, 0.0, 0.0, 0.0,
-    0.0, 1.0, 0.0, 0.0,
-    0.0, 0.0, 1.0, 0.0,
-    0.0, 0.0, 0.0, 1.0
-  };
+  RefreshMVUniform(0.0);
+  RefreshProjector(0);
 
-  uniforms.push_back(UniformValue("modelView", model));
-  float p[16] =
-  {
-    0.5, 0.0, 0.0, 0.0,
-    0.0, 0.5, 0.0, 0.0,
-    0.0, 0.0, -0.5, 0.0,
-    0.0, 0.0, 0.0, 1.0
-  };
-
-  uniforms.push_back(UniformValue("projection", p));
-
-  float color[4] = { 1.0, 0.0, 0.0, 1.0 };
-  uniforms.push_back(UniformValue("color", color[0], color[1], color[2], color[3]));
+  UniformValuesStorage uniforms;
+  float color[4] = { 0.6, 0.8, 0.3, 1.0 };
+  uniforms.SetFloatValue("color", color[0], color[1], color[2], color[3]);
 
   m_batcher->StartSession(bind(&DrapeSurface::FlushFullBucket, this, _1, _2));
   ListGenerator gen;
@@ -97,6 +114,8 @@ void DrapeSurface::CreateEngine()
   gen.SetUniforms(uniforms);
   gen.Generate(31, *m_batcher);
   m_batcher->EndSession();
+
+  m_timerID = startTimer(1000 / 30);
 }
 
 void DrapeSurface::Render()
@@ -122,10 +141,42 @@ void DrapeSurface::Render()
   }
 }
 
+void DrapeSurface::RefreshProjector(int )
+{
+  int w = width();
+  int h = height();
+  if (w == 0)
+    w = 1;
+  float aspect = h / (float)w;
+  float m[16];
+  if (w > h)
+    OrthoMatrix(m, -2.0f / aspect, 2.0f / aspect, -2.0f, 2.0f, -2.0f, 2.0f);
+  else
+    OrthoMatrix(m, -2.0f, 2.0f, -2.0f * aspect, 2.0f * aspect, -2.0f, 2.0f);
+
+  m_generalUniforms.SetMatrix4x4Value("projection", m);
+}
+
+void DrapeSurface::RefreshMVUniform(float angle)
+{
+  float c = cos(angle);
+  float s = sin(angle);
+  float model[16] =
+  {
+    c,  -s,   0.0, 0.0,
+    s,   c,   0.0, 0.0,
+    0.0, 0.0, 1.0, 0.0,
+    0.0, 0.0, 0.0, 1.0
+  };
+
+  m_generalUniforms.SetMatrix4x4Value("modelView", model);
+}
+
 void DrapeSurface::RenderBucket(const GLState & state, RefPointer<VertexArrayBuffer> bucket)
 {
   RefPointer<GpuProgram> program = m_programManager->GetProgram(state.GetProgramIndex());
   ApplyState(state, program);
+  ApplyUniforms(m_generalUniforms, program);
   bucket->Render();
 }
 
