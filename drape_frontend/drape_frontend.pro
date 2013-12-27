@@ -17,7 +17,8 @@ SOURCES += \
     impl/backend_renderer_impl.cpp \
     read_mwm_task.cpp \
     batchers_pool.cpp \
-    frontend_renderer.cpp
+    frontend_renderer.cpp \
+    area_shape.cpp
 
 HEADERS += \
     backend_renderer.hpp \
@@ -34,4 +35,5 @@ HEADERS += \
     message_subclasses.hpp \
     map_shape.hpp \
     batchers_pool.hpp \
-    frontend_renderer.hpp
+    frontend_renderer.hpp \
+    area_shape.hpp
