@@ -20,7 +20,8 @@ SOURCES += \
     $$DRAPE_DIR/shader_def.cpp \
     $$DRAPE_DIR/glextensions_list.cpp \
     $$DRAPE_DIR/pointers.cpp \
-    $$DRAPE_DIR/uniform_values_storage.cpp
+    $$DRAPE_DIR/uniform_values_storage.cpp \
+    $$DRAPE_DIR/color.cpp
 
 HEADERS += \
     $$DRAPE_DIR/data_buffer.hpp \
@@ -44,4 +45,5 @@ HEADERS += \
     $$DRAPE_DIR/shader_def.hpp \
     $$DRAPE_DIR/glextensions_list.hpp \
     $$DRAPE_DIR/oglcontext.hpp \
-    $$DRAPE_DIR/uniform_values_storage.hpp
+    $$DRAPE_DIR/uniform_values_storage.hpp \
+    $$DRAPE_DIR/color.hpp
