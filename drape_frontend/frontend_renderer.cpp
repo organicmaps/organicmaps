@@ -20,6 +20,7 @@ namespace df
     , m_width(w)
     , m_height(h)
   {
+    m_commutator->RegisterThread(ThreadsCommutator::RenderThread, this);
     RefreshProjection(w, h);
     RefreshModelView(0);
     StartThread();

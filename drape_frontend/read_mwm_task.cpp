@@ -98,8 +98,8 @@ namespace df
 
   void ReadMWMTask::ReadGeometry(const FeatureID & id)
   {
-    m_context.InsertShape(TileKey(0, 0, 0), MovePointer<MapShape>(CreateFakeShape1()));
-    m_context.InsertShape(TileKey(0, 0, 0), MovePointer<MapShape>(CreateFakeShape2()));
+    m_context.InsertShape(m_tileInfo.m_key, MovePointer<MapShape>(CreateFakeShape1()));
+    m_context.InsertShape(m_tileInfo.m_key, MovePointer<MapShape>(CreateFakeShape2()));
     ///TODO read geometry
     ///TODO proccess geometry by styles
     ///foreach shape in shapes

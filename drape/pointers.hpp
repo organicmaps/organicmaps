@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../base/assert.hpp"
+#include "../base/mutex.hpp"
 
 #include "../std/map.hpp"
 
@@ -12,6 +13,7 @@ public:
   template <typename T>
   void Ref(T * p)
   {
+    threads::MutexGuard g(m_mutex);
     if (p == NULL)
       return;
 
@@ -33,6 +35,7 @@ private:
   map_t m_countMap;
   typedef set<void *> alive_pointers_t;
   alive_pointers_t m_alivePointers;
+  threads::Mutex m_mutex;
 };
 
 #ifdef DEBUG

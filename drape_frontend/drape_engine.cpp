@@ -7,6 +7,8 @@ namespace df
 
 DrapeEngine::DrapeEngine(RefPointer<OGLContextFactory> contextfactory, double vs, int w, int h)
 {
+  GLFunctions::Init();
+
   m_threadCommutator = MasterPointer<ThreadsCommutator>(new ThreadsCommutator());
 
   m_frontend = MasterPointer<FrontendRenderer>(

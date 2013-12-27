@@ -55,7 +55,7 @@ namespace df
 
     m_commutator->RegisterThread(ThreadsCommutator::ResourceUploadThread, this);
 
-    int readerCount = max(1, GetPlatform().CpuCores() - 2);
+    int readerCount = 1;//max(1, GetPlatform().CpuCores() - 2);
     m_threadPool.Reset(new threads::ThreadPool(readerCount, bind(&PostFinishTask, commutator, _1)));
     m_batchersPool.Reset(new BatchersPool(readerCount, bind(&BackendRendererImpl::PostToRenderThreads, this, _1)));
 

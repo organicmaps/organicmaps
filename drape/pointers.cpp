@@ -7,6 +7,7 @@ PointerTracker::~PointerTracker()
 
 void PointerTracker::Deref(void * p, bool needDestroyedCheck)
 {
+  threads::MutexGuard g(m_mutex);
   if (p == NULL)
     return;
 
@@ -24,6 +25,7 @@ void PointerTracker::Deref(void * p, bool needDestroyedCheck)
 
 void PointerTracker::Destroy(void * p)
 {
+  threads::MutexGuard g(m_mutex);
   if (p == NULL)
     return;
 

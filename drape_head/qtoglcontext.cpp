@@ -6,7 +6,7 @@ QtOGLContext::QtOGLContext(QWindow * surface, QtOGLContext * contextToShareWith)
 {
   m_isContextCreated = false;
   m_surface = surface;
-  m_nativeContext = new QOpenGLContext(m_surface);
+  m_nativeContext = new QOpenGLContext(NULL);
   m_nativeContext->setFormat(m_surface->requestedFormat());
 
   if  (contextToShareWith != NULL)

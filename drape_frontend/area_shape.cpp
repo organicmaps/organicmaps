@@ -23,7 +23,7 @@ namespace df
   {
     GLState state(gpu::SOLID_AREA_PROGRAM, 0, TextureBinding("", false, 0, MakeStackRefPointer<Texture>(NULL)));
     float r, g, b, a;
-    Convert(m_color, r, g, b, a);
+    ::Convert(m_color, r, g, b, a);
     state.GetUniformValues().SetFloatValue("color", r, g, b, a);
 
     AttributeProvider provider(2, m_vertexes.size());
@@ -47,7 +47,7 @@ namespace df
       decl.m_componentType = GLConst::GLFloatType;
       decl.m_offset = 0;
       decl.m_stride = 0;
-      provider.InitStream(0, info, MakeStackRefPointer((void *)&depthMemory[0]));
+      provider.InitStream(1, info, MakeStackRefPointer((void *)&depthMemory[0]));
     }
 
     batcher->InsertTriangleList(state, MakeStackRefPointer(&provider));
