@@ -7,9 +7,7 @@
 #include "../base/logging.hpp"
 
 #include "../std/bind.hpp"
-
-#include <QMatrix4x4>
-#include <cmath>
+#include "../std/cmath.hpp"
 
 namespace
 {
@@ -29,8 +27,8 @@ DrapeSurface::DrapeSurface()
   m_batcher = new Batcher();
   m_programManager = new GpuProgramManager();
 
-  Q_ASSERT(QObject::connect(this, SIGNAL(heightChanged(int)), this, SLOT(RefreshProjector(int))));
-  Q_ASSERT(QObject::connect(this, SIGNAL(widthChanged(int)), this, SLOT(RefreshProjector(int))));
+  QObject::connect(this, SIGNAL(heightChanged(int)), this, SLOT(RefreshProjector(int)));
+  QObject::connect(this, SIGNAL(widthChanged(int)), this, SLOT(RefreshProjector(int)));
 }
 
 DrapeSurface::~DrapeSurface()
@@ -63,7 +61,7 @@ void DrapeSurface::timerEvent(QTimerEvent * e)
 {
   if (e->timerId() == m_timerID)
   {
-    static const float _2pi = 6.28318530718;
+    static const float _2pi = 2 * math::pi;
     static float angle = 0.0;
     angle += 0.035;
     if (angle > _2pi)
