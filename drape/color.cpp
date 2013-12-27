@@ -71,8 +71,8 @@ Color Extract(uint32_t argb)
 
 void Convert(Color const & c, float & r, float & g, float & b, float & a)
 {
-  r = c.m_red / MaxChannelValue;
-  g = c.m_green / MaxChannelValue;
-  b = c.m_blue / MaxChannelValue;
-  a = c.m_alfa / MaxChannelValue;
+  r = c.m_red / (float)MaxChannelValue;
+  g = c.m_green / (float)MaxChannelValue;
+  b = c.m_blue / (float)MaxChannelValue;
+  a = c.m_alfa / (float)MaxChannelValue;
 }

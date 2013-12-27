@@ -147,7 +147,7 @@ void DrapeSurface::RefreshProjector(int )
     w = 1;
   float aspect = h / (float)w;
   float m[16];
-  if (w > h)
+   if (w > h)
     OrthoMatrix(m, -2.0f / aspect, 2.0f / aspect, -2.0f, 2.0f, -2.0f, 2.0f);
   else
     OrthoMatrix(m, -2.0f, 2.0f, -2.0f * aspect, 2.0f * aspect, -2.0f, 2.0f);
