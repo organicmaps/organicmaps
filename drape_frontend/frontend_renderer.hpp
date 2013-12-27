@@ -11,6 +11,9 @@
 #include "../drape/glstate.hpp"
 #include "../drape/vertex_array_buffer.hpp"
 #include "../drape/gpu_program_manager.hpp"
+#include "../drape/oglcontextfactory.hpp"
+
+#include "../drape/uniform_values_storage.hpp"
 
 #include "../std/map.hpp"
 
@@ -20,7 +23,10 @@ namespace df
                            public threads::IRoutine
   {
   public:
-    FrontendRenderer(RefPointer<ThreadsCommutator> commutator);
+    FrontendRenderer(RefPointer<ThreadsCommutator> commutator
+                     ,RefPointer<OGLContextFactory> oglcontextfactory
+                     , int w, int h);
+
     ~FrontendRenderer();
 
   protected:
@@ -28,6 +34,10 @@ namespace df
 
   private:
     void RenderScene();
+    void RefreshProjection(int w, int h);
+    void RefreshModelView(float radians);
+
+    void RenderPartImpl(pair<const GLState, MasterPointer<VertexArrayBuffer> > & node);
 
   private:
     void StartThread();
@@ -44,6 +54,7 @@ namespace df
     RefPointer<ThreadsCommutator> m_commutator;
     MasterPointer<GpuProgramManager> m_gpuProgramManager;
     threads::Thread m_selfThread;
+    RefPointer<OGLContextFactory> m_contextFactory;
 
   private:
     typedef multimap<GLState, MasterPointer<VertexArrayBuffer> > render_data_t;
@@ -53,5 +64,9 @@ namespace df
     typedef pair<tile_data_iter, tile_data_iter> tile_data_range_t;
     render_data_t m_renderData;
     tile_data_t   m_tileData;
+
+    UniformValuesStorage m_generalUniforms;
+    int m_width;
+    int m_height;
   };
 }
