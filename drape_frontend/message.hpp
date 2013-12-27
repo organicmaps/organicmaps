@@ -18,7 +18,8 @@ namespace df
       DropCoverage,
       UpdateCoverage,
       Resize,
-      TaskFinish
+      TaskFinish,
+      Rotate
     };
 
     Message();

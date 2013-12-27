@@ -77,8 +77,14 @@ namespace df
   class ResizeMessage : public Message
   {
   public:
-    ResizeMessage(int x, int y, int w, int h) : m_rect(x, y, x + w, y + h) {}
-    ResizeMessage(m2::RectI const & rect) : m_rect(rect) {}
+    ResizeMessage(int x, int y, int w, int h) : m_rect(x, y, x + w, y + h)
+    {
+      SetType(Resize);
+    }
+    ResizeMessage(m2::RectI const & rect) : m_rect(rect)
+    {
+      SetType(Resize);
+    }
     const m2::RectI & GetRect() const { return m_rect; }
 
   private:
@@ -88,7 +94,10 @@ namespace df
   class TaskFinishMessage : public Message
   {
   public:
-    TaskFinishMessage(threads::IRoutine * routine) : m_routine(routine) {}
+    TaskFinishMessage(threads::IRoutine * routine) : m_routine(routine)
+    {
+      SetType(TaskFinish);
+    }
     threads::IRoutine * GetRoutine() const { return m_routine; }
 
   private:
@@ -98,10 +107,28 @@ namespace df
   class UpdateCoverageMessage : public Message
   {
   public:
-    UpdateCoverageMessage(ScreenBase const & screen) : m_screen(screen) {}
+    UpdateCoverageMessage(ScreenBase const & screen) : m_screen(screen)
+    {
+      SetType(UpdateCoverage);
+    }
     const ScreenBase & GetScreen() const { return m_screen; }
 
   private:
     ScreenBase m_screen;
+  };
+
+  class RotateMessage: public Message
+  {
+  public:
+    RotateMessage(float dstAngleRadians)
+      : m_dstAngle(dstAngleRadians)
+    {
+      SetType(Rotate);
+    }
+
+    float GetDstAngle() const { return m_dstAngle; }
+
+  private:
+    float m_dstAngle;
   };
 }
