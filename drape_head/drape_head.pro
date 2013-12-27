@@ -1,6 +1,6 @@
 # Head project for drape develop and debuging
 ROOT_DIR = ..
-DEPENDENCIES = drape base
+DEPENDENCIES = drape_frontend drape map indexer platform geometry base
 
 include($$ROOT_DIR/common.pri)
 
@@ -20,6 +20,11 @@ win32*|linux* {
   QT *= network
 }
 
+macx-* {
+  LIBS *= "-framework CoreLocation" "-framework Foundation" "-framework CoreWLAN" \
+          "-framework QuartzCore" "-framework IOKit"
+}
+
 HEADERS += \
     mainwindow.hpp \
     qtoglcontext.hpp \
@@ -30,5 +35,5 @@ SOURCES += \
     mainwindow.cpp \
     main.cpp \
     qtoglcontext.cpp \
-    qtoglcontextfactory.cpp \ 
+    qtoglcontextfactory.cpp \
     drape_surface.cpp \

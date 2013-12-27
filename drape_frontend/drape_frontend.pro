@@ -18,11 +18,11 @@ SOURCES += \
     read_mwm_task.cpp \
     batchers_pool.cpp \
     frontend_renderer.cpp \
+    drape_engine.cpp \
     area_shape.cpp
 
 HEADERS += \
     backend_renderer.hpp \
-    render_thread.hpp \
     engine_context.hpp \
     memory_feature_index.hpp \
     tile_info.hpp \
@@ -36,4 +36,5 @@ HEADERS += \
     map_shape.hpp \
     batchers_pool.hpp \
     frontend_renderer.hpp \
+    drape_engine.hpp \
     area_shape.hpp
