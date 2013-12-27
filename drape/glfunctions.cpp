@@ -12,6 +12,10 @@ namespace
     return (v == true) ? GL_TRUE : GL_FALSE;
   }
 
+  void (*glClearColorFn)(GLfloat r, GLfloat g, GLfloat b, GLfloat a)                                      = NULL;
+  void (*glClearFn)(GLbitfield mask)                                                                      = NULL;
+  void (*glViewportFn)(GLint x, GLint y, GLsizei w, GLsizei h)                                            = NULL;
+
   /// VAO
   void (*glGenVertexArraysFn)(GLsizei n, GLuint * ids)                                                    = NULL;
   void (*glBindVertexArrayFn)(GLuint id)                                                                  = NULL;
@@ -86,6 +90,10 @@ void GLFunctions::Init()
   glDeleteVertexArrayFn = &glDeleteVertexArraysOES;
 #endif
 
+  glClearColorFn = &::glClearColor;
+  glClearFn = &::glClear;
+  glViewportFn = &::glViewport;
+
   /// VBO
   glGenBuffersFn = &::glGenBuffers;
   glBindBufferFn = &::glBindBuffer;
@@ -146,6 +154,21 @@ bool GLFunctions::glHasExtension(const string & name)
   }
 
   return false;
+}
+
+void GLFunctions::glClearColor(float r, float g, float b, float a)
+{
+  GLCHECK(glClearColorFn(r, g, b, a));
+}
+
+void GLFunctions::glClear()
+{
+  GLCHECK(glClearFn(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+}
+
+void GLFunctions::glViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
+{
+  GLCHECK(glViewportFn(x, y, w, h));
 }
 
 uint32_t GLFunctions::glGenVertexArray()
