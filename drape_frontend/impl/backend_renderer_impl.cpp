@@ -1,7 +1,6 @@
 #include "backend_renderer_impl.hpp"
 
 #include "threads_commutator.hpp"
-#include "render_thread.hpp"
 #include "tile_info.hpp"
 #include "memory_feature_index.hpp"
 #include "read_mwm_task.hpp"
@@ -43,12 +42,14 @@ namespace
 
 namespace df
 {
-  BackendRendererImpl::BackendRendererImpl(RefPointer<ThreadsCommutator> commutator,
-                                           double visualScale,
-                                           int surfaceWidth,
-                                           int surfaceHeight)
+  BackendRendererImpl::BackendRendererImpl(RefPointer<ThreadsCommutator> commutator
+                                           ,RefPointer<OGLContextFactory> oglcontextfactory
+                                           ,double visualScale
+                                           ,int surfaceWidth
+                                           ,int surfaceHeight)
     : m_engineContext(commutator)
     , m_commutator(commutator)
+    , m_contextFactory(oglcontextfactory)
   {
     m_scaleProcessor.SetParams(visualScale, ScalesProcessor::CalculateTileSize(surfaceWidth, surfaceHeight));
 
@@ -208,7 +209,7 @@ namespace df
 
   void BackendRendererImpl::ThreadMain()
   {
-    InitRenderThread();
+    m_contextFactory->getResourcesUploadContext()->makeCurrent();
 
     while (!IsCancelled())
       ProcessSingleMessage(true);

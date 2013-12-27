@@ -8,13 +8,14 @@
 
 namespace df
 {
-  BackendRenderer::BackendRenderer(RefPointer<ThreadsCommutator> commutator,
-                                   double visualScale,
-                                   int surfaceWidth,
-                                   int surfaceHeight)
+  BackendRenderer::BackendRenderer(RefPointer<ThreadsCommutator> commutator
+                                   ,RefPointer<OGLContextFactory> oglcontextfactory
+                                   ,double visualScale
+                                   ,int surfaceWidth
+                                   ,int surfaceHeight)
     : m_commutator(commutator)
   {
-    m_impl.Reset(new BackendRendererImpl(m_commutator, visualScale, surfaceWidth, surfaceHeight));
+    m_impl.Reset(new BackendRendererImpl(m_commutator, oglcontextfactory, visualScale, surfaceWidth, surfaceHeight));
   }
 
   BackendRenderer::~BackendRenderer()

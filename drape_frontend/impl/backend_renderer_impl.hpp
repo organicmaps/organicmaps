@@ -6,6 +6,7 @@
 #include "batchers_pool.hpp"
 
 #include "../drape/pointers.hpp"
+#include "../drape/oglcontextfactory.hpp"
 
 #include "../map/scales_processor.hpp"
 #include "../map/tiler.hpp"
@@ -27,10 +28,12 @@ namespace df
                               public threads::IRoutine
   {
   public:
-    BackendRendererImpl(RefPointer<ThreadsCommutator> commutator,
-                        double visualScale,
-                        int surfaceWidth,
-                        int surfaceHeight);
+    BackendRendererImpl(RefPointer<ThreadsCommutator> commutator
+                        ,RefPointer<OGLContextFactory> oglcontextfactory
+                        ,double visualScale
+                        ,int surfaceWidth
+                        ,int surfaceHeight);
+
     ~BackendRendererImpl();
 
   private:
@@ -86,5 +89,6 @@ namespace df
     threads::Thread m_selfThread;
     MasterPointer<threads::ThreadPool> m_threadPool;
     RefPointer<ThreadsCommutator> m_commutator;
+    RefPointer<OGLContextFactory> m_contextFactory;
   };
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../drape/pointers.hpp"
+#include "../drape/oglcontextfactory.hpp"
 
 #include "../geometry/screenbase.hpp"
 
@@ -15,10 +16,11 @@ namespace df
   class BackendRenderer
   {
   public:
-    BackendRenderer(RefPointer<ThreadsCommutator> commutator,
-                    double visualScale,
-                    int surfaceWidth,
-                    int surfaceHeight);
+    BackendRenderer(RefPointer<ThreadsCommutator> commutator
+                    ,RefPointer<OGLContextFactory> oglcontextfactory
+                    ,double visualScale
+                    ,int surfaceWidth
+                    ,int surfaceHeight);
 
     ~BackendRenderer();
 
