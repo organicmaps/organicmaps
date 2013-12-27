@@ -78,6 +78,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
   {
     mApplication = application;
 
+    //mLogger = new FileLogger("LocationService", mApplication.getDataStoragePath());
+
     mLocationManager = (LocationManager) mApplication.getSystemService(Context.LOCATION_SERVICE);
     mSensorManager = (SensorManager) mApplication.getSystemService(Context.SENSOR_SERVICE);
 

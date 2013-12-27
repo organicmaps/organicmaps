@@ -1,5 +1,7 @@
 package com.mapswithme.util.log;
 
+import android.text.TextUtils;
+
 public abstract class Logger
 {
   protected String tag = "MAPSWITHME";
@@ -9,6 +11,11 @@ public abstract class Logger
   protected Logger(String tag)
   {
     this.tag = tag;
+  }
+
+  static protected String join(Object ... args)
+  {
+    return (args != null ? TextUtils.join(", ", args) : "");
   }
 
   public abstract void d(String message);

@@ -46,6 +46,7 @@ public class WifiLocation extends BroadcastReceiver
 
   public WifiLocation()
   {
+    //mLogger = new FileLogger("WiFiLocation", MWMApplication.get().getDataStoragePath());
   }
 
   /// @return true if was started successfully.
