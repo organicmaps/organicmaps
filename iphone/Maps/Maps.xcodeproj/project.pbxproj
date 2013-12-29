@@ -62,14 +62,11 @@
 		97C985F1186C487900AF7E9E /* MPGoogleAdMobBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C98528186C487800AF7E9E /* MPGoogleAdMobBannerCustomEvent.m */; };
 		97C985F2186C487900AF7E9E /* MPGoogleAdMobInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C9852A186C487800AF7E9E /* MPGoogleAdMobInterstitialCustomEvent.m */; };
 		97C985F3186C487900AF7E9E /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98535186C487800AF7E9E /* libGoogleAdMobAds.a */; };
-		97C985F4186C487900AF7E9E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 97C98536186C487800AF7E9E /* README.md */; };
 		97C985F5186C487900AF7E9E /* MPiAdBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C98539186C487800AF7E9E /* MPiAdBannerCustomEvent.m */; };
 		97C985F6186C487900AF7E9E /* MPiAdInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C9853B186C487800AF7E9E /* MPiAdInterstitialCustomEvent.m */; };
 		97C985F7186C487900AF7E9E /* MPMillennialBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C9853E186C487800AF7E9E /* MPMillennialBannerCustomEvent.m */; };
 		97C985F8186C487900AF7E9E /* MPMillennialInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C98540186C487800AF7E9E /* MPMillennialInterstitialCustomEvent.m */; };
 		97C985F9186C487900AF7E9E /* libMMSDK_5.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98542186C487800AF7E9E /* libMMSDK_5.1.1.a */; };
-		97C985FA186C487900AF7E9E /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 97C98543186C487800AF7E9E /* LICENSE.txt */; };
-		97C985FB186C487900AF7E9E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 97C98548186C487800AF7E9E /* README.md */; };
 		97C985FC186C487900AF7E9E /* SpeechKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9854A186C487800AF7E9E /* SpeechKit.framework */; };
 		97C985FD186C487900AF7E9E /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C9854E186C487800AF7E9E /* CDataScanner.m */; };
 		97C985FE186C487900AF7E9E /* CFilteringJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C98551186C487800AF7E9E /* CFilteringJSONSerializer.m */; };
@@ -81,8 +78,6 @@
 		97C98604186C487900AF7E9E /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C9855F186C487800AF7E9E /* CJSONDeserializer.m */; };
 		97C98605186C487900AF7E9E /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C98561186C487800AF7E9E /* CJSONScanner.m */; };
 		97C98606186C487900AF7E9E /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C98563186C487800AF7E9E /* CJSONSerializer.m */; };
-		97C98607186C487900AF7E9E /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 97C98565186C487800AF7E9E /* LICENSE.txt */; };
-		97C98608186C487900AF7E9E /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = 97C98566186C487800AF7E9E /* README.markdown */; };
 		97C98609186C487900AF7E9E /* MPBannerAdManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C9856A186C487800AF7E9E /* MPBannerAdManager.m */; };
 		97C9860A186C487900AF7E9E /* MPBannerCustomEventAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C9856D186C487800AF7E9E /* MPBannerCustomEventAdapter.m */; };
 		97C9860B186C487900AF7E9E /* MPBaseBannerAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C9856F186C487800AF7E9E /* MPBaseBannerAdapter.m */; };
@@ -1471,7 +1466,6 @@
 		97C98533186C487800AF7E9E /* GADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequest.h; sourceTree = "<group>"; };
 		97C98534186C487800AF7E9E /* GADRequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequestError.h; sourceTree = "<group>"; };
 		97C98535186C487800AF7E9E /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
-		97C98536186C487800AF7E9E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		97C98538186C487800AF7E9E /* MPiAdBannerCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPiAdBannerCustomEvent.h; sourceTree = "<group>"; };
 		97C98539186C487800AF7E9E /* MPiAdBannerCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPiAdBannerCustomEvent.m; sourceTree = "<group>"; };
 		97C9853A186C487800AF7E9E /* MPiAdInterstitialCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPiAdInterstitialCustomEvent.h; sourceTree = "<group>"; };
@@ -1481,12 +1475,10 @@
 		97C9853F186C487800AF7E9E /* MPMillennialInterstitialCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMillennialInterstitialCustomEvent.h; sourceTree = "<group>"; };
 		97C98540186C487800AF7E9E /* MPMillennialInterstitialCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMillennialInterstitialCustomEvent.m; sourceTree = "<group>"; };
 		97C98542186C487800AF7E9E /* libMMSDK_5.1.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMMSDK_5.1.1.a; sourceTree = "<group>"; };
-		97C98543186C487800AF7E9E /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		97C98544186C487800AF7E9E /* MMAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAdView.h; sourceTree = "<group>"; };
 		97C98545186C487800AF7E9E /* MMInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInterstitial.h; sourceTree = "<group>"; };
 		97C98546186C487800AF7E9E /* MMRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequest.h; sourceTree = "<group>"; };
 		97C98547186C487800AF7E9E /* MMSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSDK.h; sourceTree = "<group>"; };
-		97C98548186C487800AF7E9E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		97C9854A186C487800AF7E9E /* SpeechKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpeechKit.framework; sourceTree = "<group>"; };
 		97C9854D186C487800AF7E9E /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
 		97C9854E186C487800AF7E9E /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
@@ -1509,8 +1501,6 @@
 		97C98562186C487800AF7E9E /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
 		97C98563186C487800AF7E9E /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
 		97C98564186C487800AF7E9E /* JSONRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONRepresentation.h; sourceTree = "<group>"; };
-		97C98565186C487800AF7E9E /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
-		97C98566186C487800AF7E9E /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
 		97C98569186C487800AF7E9E /* MPBannerAdManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPBannerAdManager.h; sourceTree = "<group>"; };
 		97C9856A186C487800AF7E9E /* MPBannerAdManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPBannerAdManager.m; sourceTree = "<group>"; };
 		97C9856B186C487800AF7E9E /* MPBannerAdManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPBannerAdManagerDelegate.h; sourceTree = "<group>"; };
@@ -2691,7 +2681,6 @@
 				97C98533186C487800AF7E9E /* GADRequest.h */,
 				97C98534186C487800AF7E9E /* GADRequestError.h */,
 				97C98535186C487800AF7E9E /* libGoogleAdMobAds.a */,
-				97C98536186C487800AF7E9E /* README.md */,
 			);
 			path = SDK;
 			sourceTree = "<group>";
@@ -2723,12 +2712,10 @@
 			isa = PBXGroup;
 			children = (
 				97C98542186C487800AF7E9E /* libMMSDK_5.1.1.a */,
-				97C98543186C487800AF7E9E /* LICENSE.txt */,
 				97C98544186C487800AF7E9E /* MMAdView.h */,
 				97C98545186C487800AF7E9E /* MMInterstitial.h */,
 				97C98546186C487800AF7E9E /* MMRequest.h */,
 				97C98547186C487800AF7E9E /* MMSDK.h */,
-				97C98548186C487800AF7E9E /* README.md */,
 				97C98549186C487800AF7E9E /* SpeechKit */,
 			);
 			path = SDK;
@@ -2758,8 +2745,6 @@
 				97C9854F186C487800AF7E9E /* Experimental */,
 				97C98558186C487800AF7E9E /* Extensions */,
 				97C9855D186C487800AF7E9E /* JSON */,
-				97C98565186C487800AF7E9E /* LICENSE.txt */,
-				97C98566186C487800AF7E9E /* README.markdown */,
 			);
 			path = TouchJSON;
 			sourceTree = "<group>";
@@ -4478,7 +4463,6 @@
 				FAFB0718151215EE0041901D /* et.png in Resources */,
 				FAFB0719151215EE0041901D /* fi.png in Resources */,
 				FAFB071A151215EE0041901D /* fj.png in Resources */,
-				97C98608186C487900AF7E9E /* README.markdown in Resources */,
 				FAFB071B151215EE0041901D /* fk.png in Resources */,
 				FAFB071C151215EE0041901D /* fm.png in Resources */,
 				FAFB071D151215EE0041901D /* fo.png in Resources */,
@@ -4500,7 +4484,6 @@
 				FAFB072D151215EE0041901D /* gs.png in Resources */,
 				FAFB072E151215EE0041901D /* gt.png in Resources */,
 				FAFB072F151215EE0041901D /* gu.png in Resources */,
-				97C985F4186C487900AF7E9E /* README.md in Resources */,
 				FAFB0730151215EE0041901D /* gw.png in Resources */,
 				FAFB0731151215EE0041901D /* gy.png in Resources */,
 				FAFB0732151215EE0041901D /* hk.png in Resources */,
@@ -4569,7 +4552,6 @@
 				FAFB0770151215EE0041901D /* mx.png in Resources */,
 				FAFB0771151215EE0041901D /* my.png in Resources */,
 				FAFB0772151215EE0041901D /* mz.png in Resources */,
-				97C985FB186C487900AF7E9E /* README.md in Resources */,
 				FAFB0773151215EE0041901D /* na.png in Resources */,
 				FAFB0774151215EE0041901D /* nc.png in Resources */,
 				FAFB0775151215EE0041901D /* ne.png in Resources */,
@@ -4617,7 +4599,6 @@
 				FAFB079D151215EE0041901D /* sk.png in Resources */,
 				FAFB079E151215EE0041901D /* sl.png in Resources */,
 				FAFB079F151215EE0041901D /* sm.png in Resources */,
-				97C98607186C487900AF7E9E /* LICENSE.txt in Resources */,
 				FAFB07A0151215EE0041901D /* sn.png in Resources */,
 				FAFB07A1151215EE0041901D /* so.png in Resources */,
 				FAFB07A2151215EE0041901D /* sr.png in Resources */,
@@ -4721,7 +4702,6 @@
 				FAFB0800151215EE0041901D /* cm@2x.png in Resources */,
 				FAFB0801151215EE0041901D /* cn@2x.png in Resources */,
 				FAFB0802151215EE0041901D /* co@2x.png in Resources */,
-				97C985FA186C487900AF7E9E /* LICENSE.txt in Resources */,
 				FAFB0803151215EE0041901D /* cr@2x.png in Resources */,
 				FAFB0804151215EE0041901D /* cu@2x.png in Resources */,
 				FAFB0805151215EE0041901D /* cv@2x.png in Resources */,
@@ -5238,7 +5218,7 @@
 					TARGET_OS_IPHONE,
 					DEBUG,
 					_DEBUG,
-					LITE,
+					OMIM_LITE,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -5283,6 +5263,7 @@
 					NDEBUG,
 					TARGET_OS_IPHONE,
 					"NS_BLOCK_ASSERTIONS=1",
+					OMIM_LITE,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
@@ -5349,6 +5330,7 @@
 					DEBUG,
 					_DEBUG,
 					TARGET_OS_IPHONE,
+					OMIM_LITE,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -5417,6 +5399,7 @@
 					_RELEASE,
 					TARGET_OS_IPHONE,
 					"NS_BLOCK_ASSERTIONS=1",
+					OMIM_LITE,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
@@ -5483,7 +5466,7 @@
 					TARGET_OS_IPHONE,
 					DEBUG,
 					_DEBUG,
-					FULL,
+					OMIM_FULL,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -5549,6 +5532,7 @@
 					DEBUG,
 					_DEBUG,
 					TARGET_OS_IPHONE,
+					OMIM_FULL,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -5617,6 +5601,7 @@
 					_RELEASE,
 					TARGET_OS_IPHONE,
 					"NS_BLOCK_ASSERTIONS=1",
+					OMIM_FULL,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
@@ -5686,6 +5671,7 @@
 					NDEBUG,
 					TARGET_OS_IPHONE,
 					"NS_BLOCK_ASSERTIONS=1",
+					OMIM_FULL,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
@@ -5754,6 +5740,7 @@
 					_RELEASE,
 					TARGET_OS_IPHONE,
 					"NS_BLOCK_ASSERTIONS=1",
+					OMIM_LITE,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
@@ -5822,6 +5809,7 @@
 					_RELEASE,
 					TARGET_OS_IPHONE,
 					"NS_BLOCK_ASSERTIONS=1",
+					OMIM_FULL,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
@@ -5890,6 +5878,7 @@
 					RELEASE,
 					_RELEASE,
 					"NS_BLOCK_ASSERTIONS=1",
+					OMIM_FULL,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
@@ -5949,7 +5938,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit,
+					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -5958,8 +5947,8 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK,
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK,
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
 				);
 			};
 			name = "Simulator Full Release";
@@ -5975,7 +5964,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit,
+					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -5984,8 +5973,8 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK,
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK,
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
 				);
 			};
 			name = "Simulator Lite";
@@ -6001,7 +5990,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit,
+					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -6010,8 +5999,8 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK,
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK,
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
 				);
 			};
 			name = "Simulator Full";
@@ -6027,7 +6016,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit,
+					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -6036,8 +6025,8 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK,
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK,
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
 				);
 			};
 			name = "Debug Lite";
@@ -6053,7 +6042,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit,
+					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -6062,8 +6051,8 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK,
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK,
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
 				);
 			};
 			name = "Debug Full";
@@ -6079,7 +6068,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit,
+					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -6088,8 +6077,8 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK,
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK,
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
 				);
 			};
 			name = "AdHoc Lite";
@@ -6105,7 +6094,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit,
+					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -6114,8 +6103,8 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK,
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK,
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
 				);
 			};
 			name = "Release Lite";
@@ -6131,7 +6120,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit,
+					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -6140,8 +6129,8 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK,
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK,
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
 				);
 			};
 			name = "AdHoc Full";
@@ -6157,7 +6146,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit,
+					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -6166,8 +6155,8 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK,
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK,
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
 				);
 			};
 			name = "Release Full";
@@ -6183,7 +6172,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit,
+					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -6192,8 +6181,8 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK,
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK,
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
 				);
 			};
 			name = "Production Lite";
@@ -6209,7 +6198,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit,
+					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -6218,8 +6207,8 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK,
-					/Users/gogosapiens/XcodeProjects/omim/iphone/Maps/MoPubSDK/AdNetworkSupport/Millennial/SDK,
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
+					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
 				);
 			};
 			name = "Production Full";

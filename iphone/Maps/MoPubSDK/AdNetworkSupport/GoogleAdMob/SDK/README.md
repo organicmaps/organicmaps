@@ -1,1 +1,0 @@
-To use the Google Ad Mob Network, download the Google Ad Mob SDK and place the header and static library files in this folder.

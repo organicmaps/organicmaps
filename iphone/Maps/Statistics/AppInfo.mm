@@ -14,7 +14,6 @@ NSString * const AppFeatureBannerAd = @"BannerAd";
 @property (nonatomic) NSDictionary * features;
 @property NSDictionary * featuresByDefault;
 
-@property (nonatomic) NSInteger launchCount;
 @property (nonatomic, strong) NSString * countryCode;
 @property (nonatomic, strong) NSString * bundleVersion;
 @property (nonatomic, strong) NSString * deviceInfo;
@@ -31,8 +30,7 @@ NSString * const AppFeatureBannerAd = @"BannerAd";
 {
   self = [super init];
 
-  self.launchCount++;
-  self.featuresByDefault = @{AppFeatureInterstitialAd : @YES,
+  self.featuresByDefault = @{AppFeatureInterstitialAd : @NO,
                              AppFeatureBannerAd : @NO};
 
   [self update];
@@ -40,33 +38,44 @@ NSString * const AppFeatureBannerAd = @"BannerAd";
   return self;
 }
 
-- (void)saveFeaturesOnDisk
+- (NSDictionary *)parsedFeatures:(NSString *)featuresString
 {
-  // example of features string @"ads:ru,en;banners:*;track:jp,en"
-  NSString * featuresString = @"";
-  for (NSString * featureName in [self.features allKeys])
+  NSArray * features = [featuresString componentsSeparatedByString:@";"];
+  NSMutableDictionary * mDict = [NSMutableDictionary dictionary];
+  for (NSString * featurePairString in features)
   {
-    if ([featuresString length])
-      featuresString = [featuresString stringByAppendingString:@";"];
-    featuresString = [NSString stringWithFormat:@"%@%@:%@", featuresString, featureName, self.features[featureName]];
+    NSArray * components = [featurePairString componentsSeparatedByString:@":"];
+    if ([components count] == 2)
+      mDict[components[0]] = components[1];
   }
-  if ([featuresString length])
-    Settings::Set("AvailableFeatures", std::string([featuresString UTF8String]));
+  return mDict;
 }
 
 - (void)update
 {
-  // TODO: get info from server
-  // if done then saving features on disk
-  [self saveFeaturesOnDisk];
-
-  // if failed then subscribing for reachability updates
-  __weak id weakSelf = self;
-  self.reachability.reachableBlock = ^(Reachability * r){
-    if ([r isReachable])
-      [weakSelf update];
-  };
-  [self.reachability startNotifier];
+  NSString * urlString = @"http://application.server/ios/features.txt";
+  NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+  [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * r, NSData * d, NSError * e){
+    if ([(NSHTTPURLResponse *)r statusCode] == 200)
+    {
+      NSString * featuresString = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
+      featuresString = [featuresString stringByReplacingOccurrencesOfString:@" " withString:@""];
+      std::string featuresCPPString;
+      if (!Settings::Get("AvailableFeatures", featuresCPPString))
+        self.features = [self parsedFeatures:featuresString];
+      Settings::Set("AvailableFeatures", std::string([featuresString UTF8String]));
+      [self.reachability stopNotifier];
+    }
+    else
+    {
+      __weak id weakSelf = self;
+      self.reachability.reachableBlock = ^(Reachability * r){
+        if ([r isReachable])
+          [weakSelf update];
+      };
+      [self.reachability startNotifier];
+    }
+  }];
 }
 
 #pragma mark - Public methods
@@ -78,7 +87,12 @@ NSString * const AppFeatureBannerAd = @"BannerAd";
 
   NSString * value = self.features[featureName];
   if (value)
-    return ([value rangeOfString:self.countryCode].location != NSNotFound) || [value isEqualToString:@"*"];
+  {
+    if ([value rangeOfString:self.countryCode options:NSCaseInsensitiveSearch].location != NSNotFound)
+      return YES;
+    if ([value rangeOfString:@"*"].location != NSNotFound)
+      return YES;
+  }
   return NO;
 }
 
@@ -191,15 +205,7 @@ NSString * const AppFeatureBannerAd = @"BannerAd";
     if (Settings::Get("AvailableFeatures", featuresCPPString))
     {
       NSString * featuresString = [NSString stringWithUTF8String:featuresCPPString.c_str()];
-      NSArray * features = [featuresString componentsSeparatedByString:@";"];
-      NSMutableDictionary * mDict = [NSMutableDictionary dictionary];
-      for (NSString * featurePairString in features)
-      {
-        NSArray * components = [featurePairString componentsSeparatedByString:@":"];
-        if ([components count] == 2)
-          mDict[components[0]] = components[1];
-      }
-      _features = mDict;
+      _features = [self parsedFeatures:featuresString];
     }
   }
   return _features;

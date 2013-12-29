@@ -8,6 +8,7 @@
 #import <MobileAppTracker/MobileAppTracker.h>
 #import "Config.h"
 #import "UIKitCategories.h"
+#import "AppInfo.h"
 
 #include <sys/xattr.h>
 
@@ -75,6 +76,7 @@ void InitLocalizedStrings()
 - (void) applicationWillEnterForeground: (UIApplication *) application
 {
   [m_locationManager orientationChanged];
+  [AppInfo sharedInfo].launchCount++;
   [m_mapViewController onEnterForeground];
 }
 
@@ -182,6 +184,8 @@ void InitLocalizedStrings()
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSLog(@"application didFinishLaunchingWithOptions");
+
+  [AppInfo sharedInfo].launchCount++;
 
   [[Statistics instance] startSession];
 

@@ -72,5 +72,7 @@
 	<string>14130</string>
 	<key>MoPubInterstitialAdUnitId</key>
 	<string>6ca53c8a5bbf497dbc24b4f5ff6addef</string>
+	<key>MoPubTopBannerAdUnitId</key>
+	<string>78b52bc1fc0e4931bb05f34fd3df7ea9</string>
 </dict>
 </plist>

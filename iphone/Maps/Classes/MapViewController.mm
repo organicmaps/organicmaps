@@ -12,6 +12,8 @@
 #import "Config.h"
 #import "ShareActionSheet.h"
 #import "MPInterstitialAdController.h"
+#import "MPInterstitialViewController.h"
+#import "MPAdView.h"
 #import "Reachability.h"
 #import "AppInfo.h"
 
@@ -37,13 +39,14 @@
 const long long PRO_IDL = 510623322L;
 const long long LITE_IDL = 431183278L;
 
-@interface MapViewController () <SideToolbarDelegate, MPInterstitialAdControllerDelegate>
+@interface MapViewController () <SideToolbarDelegate, MPInterstitialAdControllerDelegate, MPAdViewDelegate>
 
 @property (nonatomic) UIView * fadeView;
 @property (nonatomic) LocationButton * locationButton;
 @property (nonatomic, strong) UINavigationBar * apiNavigationBar;
 @property ShareActionSheet * shareActionSheet;
 @property MPInterstitialAdController * interstitialAd;
+@property MPAdView * topBannerAd;
 
 @end
 
@@ -494,6 +497,7 @@ const long long LITE_IDL = 431183278L;
 - (void)dealloc
 {
   [self destroyPopover];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation)interfaceOrientation
@@ -505,6 +509,14 @@ const long long LITE_IDL = 431183278L;
 {
   [self showPopover];
   [self invalidate];
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+  [self.topBannerAd rotateToOrientation:toInterfaceOrientation];
+  [UIView animateWithDuration:duration animations:^{
+    self.topBannerAd.midX = self.view.width / 2;
+  }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -544,6 +556,8 @@ const long long LITE_IDL = 431183278L;
     else if (dlg_settings::ShouldShow(dlg_settings::FacebookDlg))
       [self showFacebookRatingMenu];
   }
+  [self tryToShowInterstitial];
+  [self tryToShowTopBanner];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -551,6 +565,9 @@ const long long LITE_IDL = 431183278L;
   [super viewWillAppear:animated];
 
   [self invalidate];
+
+  [self tryToShowInterstitial];
+  [self tryToShowTopBanner];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -578,21 +595,93 @@ const long long LITE_IDL = 431183278L;
 
   [self.sideToolbar setMenuHidden:YES animated:NO];
 
-#ifdef LITE
-  AppInfo * info = [AppInfo sharedInfo];
-  if ([info featureAvailable:AppFeatureInterstitialAd] && info.launchCount >= 3)
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+}
+
+- (void)didEnterBackground:(NSNotification *)notification
+{
+#ifdef OMIM_LITE
+  if ([self.presentedViewController isKindOfClass:[MPInterstitialViewController class]])
+    [[Statistics instance] logEvent:@"Application closed while interstitial was being shown" withParameters:@{@"Country" : [AppInfo sharedInfo].countryCode}];
+#endif
+}
+
+- (void)tryToShowTopBanner
+{
+#ifdef OMIM_LITE
+  if (!self.topBannerAd && [[AppInfo sharedInfo] featureAvailable:AppFeatureBannerAd])
   {
-    NSString * adUnitId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MoPubInterstitialAdUnitId"];
-    self.interstitialAd = [MPInterstitialAdController interstitialAdControllerForAdUnitId:adUnitId];
-    self.interstitialAd.delegate = self;
-    [self.interstitialAd loadAd];
+    NSString * adUnitId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MoPubTopBannerAdUnitId"];
+    self.topBannerAd = [[MPAdView alloc] initWithAdUnitId:adUnitId size:MOPUB_BANNER_SIZE];
+    self.topBannerAd.delegate = self;
+    if (!SYSTEM_VERSION_IS_LESS_THAN(@"7"))
+      self.topBannerAd.minY = [UIApplication sharedApplication].statusBarFrame.size.height;
+    self.topBannerAd.midX = self.view.width / 2;
+    self.topBannerAd.hidden = YES;
+    [self.topBannerAd startAutomaticallyRefreshingContents];
+    [self.view addSubview:self.topBannerAd];
+    [self.topBannerAd loadAd];
   }
 #endif
 }
 
+- (void)tryToShowInterstitial
+{
+#ifdef OMIM_LITE
+  AppInfo * info = [AppInfo sharedInfo];
+  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  NSDate * lastShowDate = [userDefaults objectForKey:@"BANNER_SHOW_TIME"];
+  BOOL showTime = lastShowDate ? [[NSDate date] timeIntervalSinceDate:lastShowDate] > 1 : YES;
+  if ([info featureAvailable:AppFeatureInterstitialAd] && info.launchCount >= 3 && showTime)
+  {
+    if (self.interstitialAd.ready)
+    {
+      [userDefaults setObject:[NSDate date] forKey:@"BANNER_SHOW_TIME"];
+      [userDefaults synchronize];
+      [self.interstitialAd showFromViewController:self];
+    }
+    else
+    {
+      NSString * adUnitId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MoPubInterstitialAdUnitId"];
+      self.interstitialAd = [MPInterstitialAdController interstitialAdControllerForAdUnitId:adUnitId];
+      self.interstitialAd.delegate = self;
+      [self.interstitialAd loadAd];
+    }
+  }
+#endif
+}
+
+- (void)adViewDidLoadAd:(MPAdView *)view
+{
+  view.hidden = NO;
+  view.midX = self.view.width / 2;
+  [[Statistics instance] logEvent:@"Banner loaded" withParameters:@{@"Country" : [AppInfo sharedInfo].countryCode}];
+}
+
+- (void)adViewDidFailToLoadAd:(MPAdView *)view
+{
+  view.hidden = YES;
+}
+
+- (UIViewController *)viewControllerForPresentingModalView
+{
+  return self;
+}
+
+- (void)willPresentModalViewForAd:(MPAdView *)view
+{
+  [[Statistics instance] logEvent:@"Banner tapped" withParameters:@{@"Country" : [AppInfo sharedInfo].countryCode}];
+}
+
 - (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial
 {
-  [self.interstitialAd showFromViewController:self];
+  [interstitial showFromViewController:self];
+  [[Statistics instance] logEvent:@"Interstitial showed" withParameters:@{@"Country" : [AppInfo sharedInfo].countryCode}];
+}
+
+- (void)interstitialDidDisappear:(MPInterstitialAdController *)interstitial
+{
+  [[Statistics instance] logEvent:@"Interstitial closed" withParameters:@{@"Country" : [AppInfo sharedInfo].countryCode}];
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -608,6 +697,10 @@ const long long LITE_IDL = 431183278L;
 - (void)viewWillDisappear:(BOOL)animated
 {
   GetFramework().SetUpdatesEnabled(false);
+
+  [self.topBannerAd removeFromSuperview];
+  self.topBannerAd.delegate = nil;
+  self.topBannerAd = nil;
 
   [super viewWillDisappear:animated];
 }

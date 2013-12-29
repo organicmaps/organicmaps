@@ -1,1 +1,0 @@
-To use the Millennial Ad Network, download the Millennial SDK and place the header and static library files in this folder.

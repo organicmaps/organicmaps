@@ -19,6 +19,6 @@ extern NSString * const AppFeatureBannerAd;
 @property (nonatomic, strong, readonly) NSString * uniqueId;
 @property (nonatomic, strong, readonly) NSString * advertisingId;
 @property (nonatomic, strong, readonly) Reachability * reachability;
-@property (nonatomic, readonly) NSInteger launchCount;
+@property (nonatomic) NSInteger launchCount;
 
 @end
