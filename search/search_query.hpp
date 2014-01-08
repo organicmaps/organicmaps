@@ -18,6 +18,13 @@
 #include "../std/vector.hpp"
 
 
+#define HOUSE_SEARCH_TEST
+
+#ifdef HOUSE_SEARCH_TEST
+#include "house_detector.hpp"
+#endif
+
+
 class FeatureType;
 class CategoriesHolder;
 
@@ -189,6 +196,12 @@ private:
 
   buffer_vector<strings::UniString, 32> m_tokens;
   strings::UniString m_prefix;
+
+#ifdef HOUSE_SEARCH_TEST
+  strings::UniString m_house;
+  vector<FeatureID> m_streetID;
+  search::HouseDetector m_houseDetector;
+#endif
 
   /// 0 - current viewport rect
   /// 1 - near me rect

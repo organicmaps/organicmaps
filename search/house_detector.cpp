@@ -183,10 +183,11 @@ void HouseDetector::Bfs(Street * st)
   }
 }
 
-void HouseDetector::LoadStreets(vector<FeatureID> & ids)
+int HouseDetector::LoadStreets(vector<FeatureID> & ids)
 {
   sort(ids.begin(), ids.end());
 
+  int count = 0;
   for (size_t i = 0; i < ids.size(); ++i)
   {
     if (m_id2st.find(ids[i]) != m_id2st.end())
@@ -201,6 +202,8 @@ void HouseDetector::LoadStreets(vector<FeatureID> & ids)
       if (!f.GetName(0, name) || name.empty())
         continue;
 
+      ++count;
+
       Street * st = new Street();
       st->SetName(name);
       f.ForEachPoint(StreetCreator(st), FeatureType::BEST_GEOMETRY);
@@ -214,6 +217,7 @@ void HouseDetector::LoadStreets(vector<FeatureID> & ids)
   }
 
   m_loader.Free();
+  return count;
 }
 
 int HouseDetector::MergeStreets()
@@ -407,6 +411,10 @@ void HouseDetector::MatchAllHouses(string const & houseNumber, vector<HouseProje
   }
 }
 
+void HouseDetector::GetHouseForName(string const & houseNumber, vector<House> & res)
+{
+
+}
 
 
 namespace
@@ -558,7 +566,8 @@ void ProccessHouses(vector <search::HouseProjection> & houses, vector <search::H
 }
 
 //valid only if only one street in class
-void GetAllHousesForStreet(pair <search::HouseDetector::IterM, search::HouseDetector::IterM> range, map<search::House, double> & m)
+void GetAllHousesForStreet(pair<search::HouseDetector::IterM, search::HouseDetector::IterM> range,
+                           map<search::House, double> & m)
 {
   for (search::HouseDetector::IterM it = range.first; it != range.second; ++it)
   {

@@ -75,6 +75,7 @@ Query::Query(Index const * pIndex,
     m_pCategories(pCategories),
     m_pStringsToSuggest(pStringsToSuggest),
     m_pInfoGetter(pInfoGetter),
+    m_houseDetector(pIndex),
     m_worldSearch(true),
     m_position(empty_pos_value, empty_pos_value)
 {
@@ -266,6 +267,11 @@ void Query::ClearQueues()
 
 void Query::SetQuery(string const & query)
 {
+#ifdef HOUSE_SEARCH_TEST
+  m_house.clear();
+  m_streetID.clear();
+#endif
+
   // split input query by tokens and prefix
   search::Delimiters delims;
   SplitUniString(NormalizeAndSimplifyString(query), MakeBackInsertFunctor(m_tokens), delims);
@@ -295,12 +301,45 @@ void Query::SearchCoordinates(string const & query, Results & res) const
   }
 }
 
+namespace
+{
+bool IsNumber(strings::UniString const & s)
+{
+  for (size_t i = 0; i < s.size(); ++i)
+  {
+    // android production ndk-r8d has bug. "еда" detected as a number.
+    if (s[i] > 127 || !isdigit(s[i]))
+      return false;
+  }
+  return true;
+}
+
+bool isHouseNumber(strings::UniString const & s)
+{
+  if (s.size() > 6)
+    return false;
+  if (s[0] > 127 || !isdigit(s[0]))
+    return false;
+  cout << strings::ToUtf8(s) << " is house number" << endl;
+  return true;
+}
+
+}
+
 void Query::Search(Results & res, bool searchAddress)
 {
   ClearQueues();
 
   if (m_cancel) return;
   SuggestStrings(res);
+
+#ifdef HOUSE_SEARCH_TEST
+  if (m_tokens.size() > 1 && isHouseNumber(m_tokens.back()))
+  {
+    m_house.swap(m_tokens.back());
+    m_tokens.pop_back();
+  }
+#endif
 
   if (m_cancel) return;
   if (searchAddress)
@@ -508,6 +547,28 @@ void Query::FlushResults(Results & res, void (Results::*pAddFn)(Result const &))
 
   if (indV.empty())
     return;
+
+#ifdef HOUSE_SEARCH_TEST
+  if (!m_house.empty())
+  {
+    vector<FeatureID> streets;
+    for (size_t i = 0; i < indV.size(); ++i)
+    {
+      impl::PreResult2 const & r = *(indV[i]);
+      if (r.IsStreet())
+        streets.push_back(r.GetID());
+    }
+
+    if (m_houseDetector.LoadStreets(streets) > 0)
+      m_houseDetector.MergeStreets();
+    vector<search::House> houses;
+    m_houseDetector.GetHouseForName(strings::ToUtf8(m_house), houses);
+
+    for (size_t i = 0; i < houses.size(); ++i)
+      (res.*pAddFn)(Result(houses[i].GetPosition(), houses[i].GetNumber(),
+                           string(), string(), houses[i].GetPosition().Length(m_position)));
+  }
+#endif
 
   RemoveDuplicatingLinear(indV);
 
@@ -920,17 +981,6 @@ string DebugPrint(Query::Params const & p)
 
 namespace
 {
-  bool IsNumber(strings::UniString const & s)
-  {
-    for (size_t i = 0; i < s.size(); ++i)
-    {
-      // android production ndk-r8d has bug. "еда" detected as a number.
-      if (s[i] > 127 || !isdigit(s[i]))
-        return false;
-    }
-    return true;
-  }
-
   class DoStoreNumbers
   {
     vector<size_t> & m_vec;

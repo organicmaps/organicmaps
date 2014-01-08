@@ -119,6 +119,9 @@ public:
 
   string DebugPrint() const;
 
+  bool IsStreet() const;
+  inline FeatureID const & GetID() const { return m_id; }
+
 private:
   template <class T> friend bool LessRankT(T const & r1, T const & r2);
   template <class T> friend bool LessViewportDistanceT(T const & r1, T const & r2);

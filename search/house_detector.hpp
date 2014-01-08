@@ -150,7 +150,7 @@ public:
 
   HouseDetector(Index const * pIndex);
 
-  void LoadStreets(vector<FeatureID> & ids);
+  int LoadStreets(vector<FeatureID> & ids);
   /// @return number of different joined streets.
   int MergeStreets();
 
@@ -158,7 +158,7 @@ public:
   void ReadAllHouses(double offsetMeters);
 
   void MatchAllHouses(string const & houseNumber, vector<HouseProjection> & res);
-  vector<House> GetHouseForName(string const & houseName);
+  void GetHouseForName(string const & houseNumber, vector<House> & res);
 
   pair<IterM, IterM> GetAllStreets();
   void SimpleFilter(string const & houseNumber, vector<House> & res);
@@ -166,6 +166,7 @@ public:
 
 void LongestSubsequence(vector<HouseProjection> const & houses,
                         vector<HouseProjection> & result);
-void GetAllHousesForStreet(pair <search::HouseDetector::IterM, search::HouseDetector::IterM> range, map<House, double> & m);
+void GetAllHousesForStreet(pair<search::HouseDetector::IterM, search::HouseDetector::IterM> range,
+                           map<House, double> & m);
 
 }
