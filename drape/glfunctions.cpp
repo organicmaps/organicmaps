@@ -57,6 +57,15 @@ namespace
                                      const GLvoid * p)                                                    = NULL;
 
   GLint (*glGetUniformLocationFn)(GLuint programID, const GLchar * name)                                  = NULL;
+
+  void (*glGetActiveUniformFn)(GLuint programID,
+                               GLuint uniformIndex,
+                               GLsizei bufSize,
+                               GLsizei * length,
+                               GLint * size,
+                               GLenum * type,
+                               GLchar * name)                                                             = NULL;
+
   void (*glUniform1iFn)(GLint location, GLint value)                                                      = NULL;
   void (*glUniform2iFn)(GLint location, GLint v1, GLint v2)                                               = NULL;
   void (*glUniform3iFn)(GLint location, GLint v1, GLint v2, GLint v3)                                     = NULL;
@@ -68,8 +77,6 @@ namespace
   void (*glUniform4fFn)(GLint location, GLfloat v1, GLfloat v2, GLfloat v3, GLfloat v4)                   = NULL;
 
   void (*glUniformMatrix4fvFn)(GLint location, GLsizei count, GLboolean transpose, const GLfloat * value) = NULL;
-
-  void (*glGetProgramivFn)(GLuint program, GLenum paramname, GLint * paramvalue)                          = NULL;
 
   const int GLCompileStatus = GL_COMPILE_STATUS;
   const int GLLinkStatus = GL_LINK_STATUS;
@@ -128,6 +135,7 @@ void GLFunctions::Init()
   glVertexAttributePointerFn = &::glVertexAttribPointer;
 
   glGetUniformLocationFn = &::glGetUniformLocation;
+  glGetActiveUniformFn = &::glGetActiveUniform;
   glUniform1iFn = &::glUniform1i;
   glUniform2iFn = &::glUniform2i;
   glUniform3iFn = &::glUniform3i;
@@ -139,8 +147,6 @@ void GLFunctions::Init()
   glUniform4fFn = &::glUniform4f;
 
   glUniformMatrix4fvFn = &glUniformMatrix4fv;
-
-  glGetProgramivFn = &::glGetProgramiv;
 }
 
 bool GLFunctions::glHasExtension(const string & name)
@@ -357,6 +363,15 @@ void GLFunctions::glVertexAttributePointer(int attrLocation,
                                      reinterpret_cast<void *>(offset)));
 }
 
+void GLFunctions::glGetActiveUniform(uint32_t programID, uint32_t uniformIndex,
+                                     int32_t * uniformSize, glConst * type, string & name)
+{
+  ASSERT(glGetActiveUniformFn != NULL, ());
+  char buff[256];
+  GLCHECK(glGetActiveUniformFn(programID, uniformIndex, 256, NULL, uniformSize, type, buff));
+  name = string(buff);
+}
+
 int8_t GLFunctions::glGetUniformLocation(uint32_t programID, const string & name)
 {
   ASSERT(glGetUniformLocationFn != NULL, ());
@@ -439,7 +454,7 @@ uint32_t GLFunctions::glGetCurrentProgram()
 int32_t GLFunctions::glGetProgramiv(uint32_t program, glConst paramname)
 {
   ASSERT(glGetProgramivFn != NULL, ());
-  int32_t paramvalue = 0;
+  GLint paramvalue = 0;
   GLCHECK(glGetProgramivFn(program, paramname, &paramvalue));
   return paramvalue;
 }

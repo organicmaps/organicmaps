@@ -60,6 +60,9 @@ public:
                                        uint32_t stride,
                                        uint32_t offset);
 
+  static void glGetActiveUniform(uint32_t programID, uint32_t uniformIndex,
+                                 int32_t * uniformSize, glConst * type, string & name);
+
   static int8_t glGetUniformLocation(uint32_t programID, const string & name);
   static void glUniformValuei(int8_t location, int32_t v);
   static void glUniformValuei(int8_t location, int32_t v1, int32_t v2);
