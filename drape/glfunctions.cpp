@@ -69,6 +69,8 @@ namespace
 
   void (*glUniformMatrix4fvFn)(GLint location, GLsizei count, GLboolean transpose, const GLfloat * value) = NULL;
 
+  void (*glGetProgramivFn)(GLuint program, GLenum paramname, GLint * paramvalue)                          = NULL;
+
   const int GLCompileStatus = GL_COMPILE_STATUS;
   const int GLLinkStatus = GL_LINK_STATUS;
 }
@@ -137,6 +139,8 @@ void GLFunctions::Init()
   glUniform4fFn = &::glUniform4f;
 
   glUniformMatrix4fvFn = &glUniformMatrix4fv;
+
+  glGetProgramivFn = &::glGetProgramiv;
 }
 
 bool GLFunctions::glHasExtension(const string & name)
@@ -430,6 +434,14 @@ uint32_t GLFunctions::glGetCurrentProgram()
   GLint programIndex = 0;
   GLCHECK(glGetIntegerv(GL_CURRENT_PROGRAM, &programIndex));
   return programIndex;
+}
+
+int32_t GLFunctions::glGetProgramiv(uint32_t program, glConst paramname)
+{
+  ASSERT(glGetProgramivFn != NULL, ());
+  int32_t paramvalue = 0;
+  GLCHECK(glGetProgramivFn(program, paramname, &paramvalue));
+  return paramvalue;
 }
 
 void GLFunctions::glActiveTexture(uint32_t samplerBlock)

@@ -25,4 +25,6 @@ namespace GLConst
   const glConst GLUnsignedIntType     = GL_UNSIGNED_INT;
   const glConst GLFloatType           = GL_FLOAT;
   const glConst GLDoubleType          = GL_DOUBLE;
+
+  const glConst GLActiveUniforms      = GL_ACTIVE_UNIFORMS;
 }

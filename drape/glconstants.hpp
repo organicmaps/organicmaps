@@ -33,4 +33,7 @@ namespace GLConst
   extern const glConst GLUnsignedIntType;
   extern const glConst GLFloatType;
   extern const glConst GLDoubleType;
+
+  // Program object parameter names
+  extern const glConst GLActiveUniforms;
 }

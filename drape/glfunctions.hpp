@@ -75,6 +75,8 @@ public:
 
   static uint32_t glGetCurrentProgram();
 
+  static int32_t glGetProgramiv(uint32_t program, glConst paramname);
+
   // Textures support
   static void glActiveTexture(uint32_t samplerBlock);
   static uint32_t glGenTexture();
