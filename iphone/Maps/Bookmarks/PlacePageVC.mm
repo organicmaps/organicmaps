@@ -225,7 +225,10 @@ typedef enum {Editing, Saved} Mode;
     z.size.width -= SMALLMARGIN;
     UITextView * textView = [[UITextView alloc] initWithFrame:z];
     textView.scrollEnabled = NO;
-    textView.text = self.pinNotes;
+    if ([self.pinNotes length])
+      textView.text = self.pinNotes;
+    else
+      textView.text = [self descriptionPlaceholderText];
     textView.backgroundColor = [UIColor clearColor];
     textView.font = [UIFont fontWithName:@"Helvetica" size:18];
     textView.editable = NO;
@@ -531,7 +534,7 @@ typedef enum {Editing, Saved} Mode;
       cell.detailTextLabel.text = @"temp string";
       // Called to initialize frames and fonts
       [cell layoutSubviews];
-      UITextView * txtView = [[[UITextView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 142.0)] autorelease];
+      UITextView * txtView = [[[UITextView alloc] initWithFrame:CGRectMake(10.0, 0.0, 300.0, 142.0)] autorelease];
       txtView.delegate = self;
       txtView.AutoresizingMask = UIViewAutoresizingFlexibleWidth;
       txtView.textColor = cell.detailTextLabel.textColor;
@@ -558,7 +561,10 @@ typedef enum {Editing, Saved} Mode;
       break;
     case 3:
       UITextView * t = (UITextView *)[cell viewWithTag:TEXTVIEW_TAG];
-      t.text = self.pinNotes;
+      if ([self.pinNotes length])
+        t.text = self.pinNotes;
+      else
+        t.text = [self descriptionPlaceholderText];
       break;
   }
   return cell;
@@ -659,6 +665,23 @@ typedef enum {Editing, Saved} Mode;
 {
   if (textView.tag == TEXTVIEW_TAG)
     self.pinNotes = textView.text;
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+  if (![self.pinNotes length])
+    textView.text = @"";
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+  if (![self.pinNotes length])
+    textView.text = [self descriptionPlaceholderText];
+}
+
+- (NSString *)descriptionPlaceholderText
+{
+  return NSLocalizedString(@"description", nil);
 }
 
 -(PlaceAndCompasView *)getCompassView
