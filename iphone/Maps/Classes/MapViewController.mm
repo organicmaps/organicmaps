@@ -631,7 +631,7 @@ const long long LITE_IDL = 431183278L;
   AppInfo * info = [AppInfo sharedInfo];
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   NSDate * lastShowDate = [userDefaults objectForKey:@"BANNER_SHOW_TIME"];
-  BOOL showTime = lastShowDate ? [[NSDate date] timeIntervalSinceDate:lastShowDate] > 1 : YES;
+  BOOL showTime = lastShowDate ? [[NSDate date] timeIntervalSinceDate:lastShowDate] > (1 * 60 * 60) : YES;
   if ([info featureAvailable:AppFeatureInterstitialAd] && info.launchCount >= 3 && showTime)
   {
     if (self.interstitialAd.ready)
