@@ -14,6 +14,9 @@ GpuProgram::GpuProgram(RefPointer<Shader> vertexShader, RefPointer<Shader> fragm
 
   GLFunctions::glDetachShader(m_programID, vertexShader->GetID());
   GLFunctions::glDetachShader(m_programID, fragmentShader->GetID());
+
+  //get uniforms info
+  m_validator.reset(new UniformValidator(m_programID));
 }
 
 GpuProgram::~GpuProgram()
@@ -47,4 +50,34 @@ void GpuProgram::ActivateSampler(uint8_t textureBlock, const string & samplerNam
   ASSERT(GLFunctions::glGetCurrentProgram() == m_programID, ());
   int8_t location = GLFunctions::glGetUniformLocation(m_programID, samplerName);
   GLFunctions::glUniformValuei(location, textureBlock);
+}
+
+UniformValidator::UniformValidator(uint32_t programId)
+  : m_programID(programId)
+{
+  int32_t numberOfUnis = GLFunctions::glGetProgramiv(m_programID, GLConst::GLActiveUniforms);
+  for (size_t unIndex = 0; unIndex < numberOfUnis; ++unIndex)
+  {
+    string name;
+    glConst type;
+    UniformSize size;
+    GLCHECK(GLFunctions::glGetActiveUniform(m_programID, unIndex, &size, &type, name));
+    m_uniformsMap[name] = make_pair(type, size);
+  }
+}
+
+bool UniformValidator::HasUniform(const string & name)
+{
+  return m_uniformsMap.find(name) != m_uniformsMap.end();
+}
+
+bool UniformValidator::HasValidTypeAndSizeForName(const string & name, glConst type, UniformSize size)
+{
+  if (HasUniform(name))
+  {
+    UniformTypeAndSize actualParams = m_uniformsMap[name];
+    return type == actualParams.first && size == actualParams.second;
+  }
+  else
+    return false;
 }
