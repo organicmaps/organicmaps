@@ -119,5 +119,8 @@ public:
 namespace feature
 {
   /// @return false If fb became invalid (no any suitable types).
+  //@{
   bool PreprocessForWorldMap(FeatureBuilder1 & fb);
+  bool PreprocessForCountryMap(FeatureBuilder1 & fb);
+  //@}
 }

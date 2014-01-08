@@ -322,14 +322,21 @@ namespace feature
 
 class IsInvisibleFn
 {
-  int m_upperScale;
+  int m_lowScale, m_upScale;
+
 public:
-  IsInvisibleFn(int scale) : m_upperScale(scale) {}
+  IsInvisibleFn(int lowScale, int upScale)
+    : m_lowScale(lowScale), m_upScale(upScale)
+  {
+  }
+
   bool operator() (uint32_t type) const
   {
-    int const startScale = feature::GetDrawableScaleRange(type).first;
+    pair<int, int> const range = feature::GetDrawableScaleRange(type);
+
     // Actually it should not be equal to -1, but leave for safety reasons.
-    return (startScale == -1 || startScale > m_upperScale);
+    return (range.first == -1 ||
+            range.first > m_upScale || range.second < m_lowScale);
   }
 };
 
@@ -337,10 +344,21 @@ bool PreprocessForWorldMap(FeatureBuilder1 & fb)
 {
   int const upperScale = scales::GetUpperWorldScale();
 
-  if (fb.RemoveTypesIf(IsInvisibleFn(upperScale)))
+  if (fb.RemoveTypesIf(IsInvisibleFn(0, upperScale)))
     return false;
 
   fb.RemoveNameIfInvisible(0, upperScale);
+
+  return true;
+}
+
+bool PreprocessForCountryMap(FeatureBuilder1 & fb)
+{
+  if (fb.RemoveTypesIf(IsInvisibleFn(scales::GetUpperWorldScale() + 1,
+                                     scales::GetUpperStyleScale())))
+  {
+    return false;
+  }
 
   return true;
 }

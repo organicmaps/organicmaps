@@ -267,11 +267,13 @@ uint32_t FeatureParams::GetTypeForIndex(uint32_t i)
 
 string DebugPrint(FeatureParams const & p)
 {
+  Classificator const & c = classif();
+
   ostringstream out;
 
   out << "Types: ";
   for (size_t i = 0; i < p.m_Types.size(); ++i)
-    out << p.m_Types[i] << "; ";
+    out << c.GetReadableObjectName(p.m_Types[i]) << "; ";
 
   return (p.DebugString() + out.str());
 }

@@ -257,8 +257,11 @@ public:
 
 class MainFeaturesEmitter
 {
-  scoped_ptr<Polygonizer<FeaturesCollector> > m_countries;
-  scoped_ptr<WorldMapGenerator<FeaturesCollector> > m_world;
+  typedef WorldMapGenerator<FeaturesCollector> WorldGenerator;
+  typedef CountryMapGenerator<Polygonizer<FeaturesCollector> > CountriesGenerator;
+  scoped_ptr<CountriesGenerator> m_countries;
+  scoped_ptr<WorldGenerator> m_world;
+
   scoped_ptr<CoastlineFeaturesGenerator> m_coasts;
   scoped_ptr<FeaturesCollector> m_coastsHolder;
 
@@ -313,7 +316,7 @@ public:
 
     if (!info.m_makeCoasts)
     {
-      m_countries.reset(new Polygonizer<FeaturesCollector>(info));
+      m_countries.reset(new CountriesGenerator(info));
 
       if (info.m_emitCoasts)
       {
@@ -332,7 +335,7 @@ public:
 
     if (info.m_createWorld)
     {
-      m_world.reset(new WorldMapGenerator<FeaturesCollector>(info));
+      m_world.reset(new WorldGenerator(info));
     }
   }
 
@@ -402,9 +405,8 @@ public:
     }
     else if (m_coastsHolder)
     {
-      CombinedEmitter<
-          FeaturesCollector,
-          Polygonizer<FeaturesCollector> > emitter(m_coastsHolder.get(), m_countries.get());
+      CombinedEmitter<FeaturesCollector, CountriesGenerator>
+          emitter(m_coastsHolder.get(), m_countries.get());
       feature::ForEachFromDatRawFormat(m_srcCoastsFile, emitter);
     }
 
@@ -414,7 +416,7 @@ public:
   inline void GetNames(vector<string> & names) const
   {
     if (m_countries)
-      names = m_countries->Names();
+      names = m_countries->Parent().Names();
     else
       names.clear();
   }

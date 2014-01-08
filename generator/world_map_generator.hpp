@@ -110,3 +110,21 @@ public:
     m_merger.DoMerge(m_worldBucket);
   }
 };
+
+template <class FeatureOutT>
+class CountryMapGenerator
+{
+  FeatureOutT m_bucket;
+
+public:
+  template <class TInfo>
+  explicit CountryMapGenerator(TInfo const & info) : m_bucket(info) {}
+
+  void operator()(FeatureBuilder1 fb)
+  {
+    if (feature::PreprocessForCountryMap(fb))
+      m_bucket(fb);
+  }
+
+  FeatureOutT const & Parent() const { return m_bucket; }
+};

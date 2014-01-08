@@ -385,15 +385,10 @@ string DebugPrint(FeatureBuilder1 const & f)
   case GEOM_POINT: out << DebugPrint(f.m_Center); break;
   case GEOM_LINE: out << "line with " << f.GetPointsCount() << " points"; break;
   case GEOM_AREA: out << "area with " << f.GetPointsCount() << " points"; break;
-  default:
-    out << "ERROR: unknown geometry type"; break;
+  default: out << "ERROR: unknown geometry type"; break;
   }
 
-  return (out.str() + " " +
-          DebugPrint(f.m_LimitRect) + " " +
-          DebugPrint(f.m_Params) + " " +
-          DebugPrint(f.m_Polygons)
-          );
+  return (out.str() + " " + DebugPrint(f.m_LimitRect) + " " + DebugPrint(f.m_Params));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
