@@ -45,8 +45,12 @@ namespace
     uint32_t m_size;
   };
 
-  void mock_glGetActiveUniform(uint32_t programID, uint32_t index,
-                              int32_t * size, glConst * type, string & name)
+#ifdef DEBUG
+  void mock_glGetActiveUniform(uint32_t programID,
+                               uint32_t index,
+                               int32_t * size,
+                               glConst * type,
+                               string & name)
   {
     *size = 1;
     if (index < 9)
@@ -69,6 +73,7 @@ namespace
     else
       ASSERT(false, ("Undefined index:", index));
   }
+#endif
 }
 
 UNIT_TEST(UniformValueTest)
@@ -76,7 +81,6 @@ UNIT_TEST(UniformValueTest)
   const uint32_t VertexShaderID = 1;
   const uint32_t FragmentShaderID = 2;
   const uint32_t ProgramID = 3;
-  const uint32_t UniformsCount = 9;
 
   const int32_t positionLoc = 10;
   const int32_t modelViewLoc = 11;
@@ -113,8 +117,8 @@ UNIT_TEST(UniformValueTest)
     EXPECTGL(glDetachShader(ProgramID, FragmentShaderID));
 
 #ifdef DEBUG
-    EXPECTGL(glGetProgramiv(ProgramID, GLConst::GLActiveUniforms)).WillOnce(Return(UniformsCount));
-    EXPECTGL(glGetActiveUniform(ProgramID, _, _, _, _)).Times(UniformsCount).WillRepeatedly(Invoke(mock_glGetActiveUniform));
+    EXPECTGL(glGetProgramiv(ProgramID, GLConst::GLActiveUniforms)).WillOnce(Return(9));
+    EXPECTGL(glGetActiveUniform(ProgramID, _, _, _, _)).Times(9).WillRepeatedly(Invoke(mock_glGetActiveUniform));
 #endif
 
     EXPECTGL(glUseProgram(ProgramID));
