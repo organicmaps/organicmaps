@@ -27,4 +27,14 @@ namespace GLConst
   const glConst GLDoubleType          = GL_DOUBLE;
 
   const glConst GLActiveUniforms      = GL_ACTIVE_UNIFORMS;
+
+  extern const glConst GLFloatVec2 = GL_FLOAT_VEC2;
+  extern const glConst GLFloatVec3 = GL_FLOAT_VEC3;
+  extern const glConst GLFloatVec4 = GL_FLOAT_VEC4;
+
+  extern const glConst GLIntVec2 = GL_INT_VEC2;
+  extern const glConst GLIntVec3 = GL_INT_VEC3;
+  extern const glConst GLIntVec4 = GL_INT_VEC4;
+
+  extern const glConst GLFloatMat4 = GL_FLOAT_MAT4;
 }

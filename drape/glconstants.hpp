@@ -34,6 +34,17 @@ namespace GLConst
   extern const glConst GLFloatType;
   extern const glConst GLDoubleType;
 
+  extern const glConst GLFloatVec2;
+  extern const glConst GLFloatVec3;
+  extern const glConst GLFloatVec4;
+
+  extern const glConst GLIntVec2;
+  extern const glConst GLIntVec3;
+  extern const glConst GLIntVec4;
+
+  extern const glConst GLFloatMat4;
+
+
   // Program object parameter names
   extern const glConst GLActiveUniforms;
 }
