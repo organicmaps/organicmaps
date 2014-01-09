@@ -206,7 +206,7 @@ UNIT_TEST(SEARCH_HOUSE_NUMBER_SMOKE_TEST)
 UNIT_TEST(STREET_COMPARE_TEST)
 {
   search::Street A, B;
-  TEST(search::Street::IsSameStreets(A, B), ());
+  TEST(search::Street::IsSameStreets(&A, &B), ());
   string str[8][2] = { {"Московская", "Московская"},
                        {"ул. Московская", "Московская ул."},
                        {"ул. Московская", "Московская улица"},
@@ -220,25 +220,35 @@ UNIT_TEST(STREET_COMPARE_TEST)
   {
     A.SetName(str[i][0]);
     B.SetName(str[i][0]);
-    TEST(search::Street::IsSameStreets(A, B), ());
+    TEST(search::Street::IsSameStreets(&A, &B), ());
   }
+}
+
+namespace
+{
+
+bool LessHouseNumber(search::House const & h1, search::House const & h2)
+{
+  return search::House::LessHouseNumber()(&h1, &h2);
+}
+
 }
 
 UNIT_TEST(HOUSE_COMPARE_TEST)
 {
   m2::PointD p(1,1);
-  TEST(search::House::LessHouseNumber(search::House("1", p), search::House("2", p)), ());
-  TEST(search::House::LessHouseNumber(search::House("123", p), search::House("123-3", p)), ());
-  TEST(search::House::LessHouseNumber(search::House("18a", p), search::House("18b", p)), ());
-  TEST(search::House::LessHouseNumber(search::House("120 1A", p), search::House("120 7A", p)), ());
-  TEST(search::House::LessHouseNumber(search::House("120 1A", p), search::House("120 7B", p)), ());
+  TEST(LessHouseNumber(search::House("1", p), search::House("2", p)), ());
+  TEST(LessHouseNumber(search::House("123", p), search::House("123-3", p)), ());
+  TEST(LessHouseNumber(search::House("18a", p), search::House("18b", p)), ());
+  TEST(LessHouseNumber(search::House("120 1A", p), search::House("120 7A", p)), ());
+  TEST(LessHouseNumber(search::House("120 1A", p), search::House("120 7B", p)), ());
 
-  TEST(!search::House::LessHouseNumber(search::House("4", p), search::House("4", p)), ());
-  TEST(!search::House::LessHouseNumber(search::House("95", p), search::House("82-b", p)), ());
+  TEST(!LessHouseNumber(search::House("4", p), search::House("4", p)), ());
+  TEST(!LessHouseNumber(search::House("95", p), search::House("82-b", p)), ());
 
-  TEST(!search::House::LessHouseNumber(search::House("2", p), search::House("1", p)), ());
-  TEST(!search::House::LessHouseNumber(search::House("123-3", p), search::House("123", p)), ());
-  TEST(!search::House::LessHouseNumber(search::House("18b", p), search::House("18a", p)), ());
-  TEST(!search::House::LessHouseNumber(search::House("120 7A", p), search::House("120 1A", p)), ());
-  TEST(!search::House::LessHouseNumber(search::House("120 7B", p), search::House("120 1A", p)), ());
+  TEST(!LessHouseNumber(search::House("2", p), search::House("1", p)), ());
+  TEST(!LessHouseNumber(search::House("123-3", p), search::House("123", p)), ());
+  TEST(!LessHouseNumber(search::House("18b", p), search::House("18a", p)), ());
+  TEST(!LessHouseNumber(search::House("120 7A", p), search::House("120 1A", p)), ());
+  TEST(!LessHouseNumber(search::House("120 7B", p), search::House("120 1A", p)), ());
 }

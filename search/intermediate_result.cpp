@@ -350,7 +350,6 @@ namespace
         { "highway", "secondary" },
         { "highway", "residential" },
         { "highway", "pedestrian" },
-        { "highway", "residential" },
         { "highway", "tertiary" },
         { "highway", "construction" },
         { "highway", "living_street" },

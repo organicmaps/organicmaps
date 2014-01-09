@@ -39,27 +39,25 @@ class House
   void InitHouseNumberAndSuffix();
 
 public:
-  string const & GetNumber() const { return m_number; }
-  int GetIntNumber() const { return m_intNumber; }
-  m2::PointD const & GetPosition() const { return m_point; }
-
   House(string const & number, m2::PointD const & point)
     : m_number(number), m_point(point), m_intNumber(-1)
   {
     InitHouseNumberAndSuffix();
   }
 
-  inline static bool LessHouseNumber(House const & h1, House const & h2)
-  {
-    if (h1.m_intNumber == h2.m_intNumber)
-      return h1.m_suffix < h2.m_suffix;
-    return h1.m_intNumber < h2.m_intNumber;
-  }
+  inline string const & GetNumber() const { return m_number; }
+  inline int GetIntNumber() const { return m_intNumber; }
+  inline m2::PointD const & GetPosition() const { return m_point; }
 
-  bool operator<(House const & h) const
+  struct LessHouseNumber
   {
-    return LessHouseNumber(*this, h);
-  }
+    bool operator() (House const * h1, House const * h2) const
+    {
+      if (h1->m_intNumber == h2->m_intNumber)
+        return h1->m_suffix < h2->m_suffix;
+      return h1->m_intNumber < h2->m_intNumber;
+    }
+  };
 };
 
 struct HouseProjection
@@ -100,9 +98,9 @@ public:
   /// Get limit rect for street with ortho offset to the left and right.
   m2::RectD GetLimitRect(double offsetMeters) const;
 
-  inline static bool IsSameStreets(Street const & s1, Street const & s2)
+  inline static bool IsSameStreets(Street const * s1, Street const * s2)
   {
-    return s1.m_processedName == s2.m_processedName;
+    return s1->m_processedName == s2->m_processedName;
   }
 };
 
@@ -134,6 +132,7 @@ private:
   double m_epsMercator;
   typedef multimap<m2::PointD, Street *, LessWithEpsilon>::iterator IterT;
   multimap<m2::PointD, Street *, LessWithEpsilon> m_end2st;
+  vector<vector<Street *> > m_streets;
 
   int m_streetNum;
 
@@ -158,15 +157,9 @@ public:
   void ReadAllHouses(double offsetMeters);
 
   void MatchAllHouses(string const & houseNumber, vector<HouseProjection> & res);
-  void GetHouseForName(string const & houseNumber, vector<House> & res);
+  void GetHouseForName(string const & houseNumber, vector<House const *> & res);
 
-  pair<IterM, IterM> GetAllStreets();
-  void SimpleFilter(string const & houseNumber, vector<House> & res);
+  void ClearCaches();
 };
-
-void LongestSubsequence(vector<HouseProjection> const & houses,
-                        vector<HouseProjection> & result);
-void GetAllHousesForStreet(pair<search::HouseDetector::IterM, search::HouseDetector::IterM> range,
-                           map<House, double> & m);
 
 }

@@ -303,6 +303,7 @@ void Query::SearchCoordinates(string const & query, Results & res) const
 
 namespace
 {
+
 bool IsNumber(strings::UniString const & s)
 {
   for (size_t i = 0; i < s.size(); ++i)
@@ -314,14 +315,11 @@ bool IsNumber(strings::UniString const & s)
   return true;
 }
 
-bool isHouseNumber(strings::UniString const & s)
+/// Check that token can be house number.
+bool IsHouseNumber(strings::UniString const & s)
 {
-  if (s.size() > 6)
-    return false;
-  if (s[0] > 127 || !isdigit(s[0]))
-    return false;
-  cout << strings::ToUtf8(s) << " is house number" << endl;
-  return true;
+  /// @todo Probably, call some check function from House::
+  return (s.size() < 8 && s[0] <= 127 && isdigit(s[0]));
 }
 
 }
@@ -334,11 +332,18 @@ void Query::Search(Results & res, bool searchAddress)
   SuggestStrings(res);
 
 #ifdef HOUSE_SEARCH_TEST
-  if (m_tokens.size() > 1 && isHouseNumber(m_tokens.back()))
+  if (m_tokens.size() > 1 && IsHouseNumber(m_tokens.back()))
   {
     m_house.swap(m_tokens.back());
     m_tokens.pop_back();
   }
+  else if (IsHouseNumber(m_prefix))
+  {
+    m_house.swap(m_prefix);
+    m_prefix.clear();
+  }
+  else
+    m_houseDetector.ClearCaches();
 #endif
 
   if (m_cancel) return;
@@ -561,12 +566,16 @@ void Query::FlushResults(Results & res, void (Results::*pAddFn)(Result const &))
 
     if (m_houseDetector.LoadStreets(streets) > 0)
       m_houseDetector.MergeStreets();
-    vector<search::House> houses;
+
+    m_houseDetector.ReadAllHouses(200);
+
+    vector<search::House const *> houses;
     m_houseDetector.GetHouseForName(strings::ToUtf8(m_house), houses);
 
     for (size_t i = 0; i < houses.size(); ++i)
-      (res.*pAddFn)(Result(houses[i].GetPosition(), houses[i].GetNumber(),
-                           string(), string(), houses[i].GetPosition().Length(m_position)));
+      (res.*pAddFn)(Result(houses[i]->GetPosition(), houses[i]->GetNumber(),
+                           string(), string(),
+                           IsValidPosition() ? houses[i]->GetPosition().Length(m_position) : -1.0));
   }
 #endif
 
@@ -1907,6 +1916,11 @@ void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsig
   }
 }
 
+bool Query::IsValidPosition() const
+{
+  return (m_position.x > empty_pos_value && m_position.y > empty_pos_value);
+}
+
 void Query::SearchAdditional(Results & res, bool nearMe, bool inViewport)
 {
   ClearQueues();
@@ -1914,7 +1928,7 @@ void Query::SearchAdditional(Results & res, bool nearMe, bool inViewport)
   string name[2];
 
   // search in mwm with position ...
-  if (nearMe && m_position.x > empty_pos_value && m_position.y > empty_pos_value)
+  if (nearMe && IsValidPosition())
     name[0] = m_pInfoGetter->GetRegionFile(m_position);
 
   // ... and in mwm with viewport

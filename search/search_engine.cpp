@@ -85,7 +85,7 @@ Engine::Engine(IndexType const * pIndex, Reader * pCategoriesR,
                            &m_pData->m_categories,
                            &m_pData->m_stringsToSuggest,
                            &m_pData->m_infoGetter,
-                           100));   // Temporary for houses test
+                           50));   // Temporary for houses test
   m_pQuery->SetPreferredLanguage(lang);
 }
 

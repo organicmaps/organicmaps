@@ -221,6 +221,7 @@ private:
   //@}
 
   m2::PointD m_position;
+  bool IsValidPosition() const;
 
   void SetLanguage(int id, int8_t lang);
   int8_t GetLanguage(int id) const;
