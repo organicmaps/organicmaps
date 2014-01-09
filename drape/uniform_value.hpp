@@ -57,6 +57,7 @@ public:
   }
 
 private:
+  glConst GetCorrespondingGLType() const;
   void Allocate(size_t byteCount);
 
   template <typename T>

@@ -227,22 +227,66 @@ void UniformValue::SetMatrix4x4Value(const float * matrixValue)
 
 void UniformValue::Apply(RefPointer<GpuProgram> program) const
 {
+  ASSERT(program->HasUniform(m_name, GetCorrespondingGLType(), 1), ());
+
   uint8_t location = program->GetUniformLocation(m_name);
   switch (m_type) {
   case Int:
-    ASSERT(program->HasUniform(m_name, GLConst::GLIntType, m_componentCount), ());
     ApplyInt(location, CastMemory<int32_t>(), m_componentCount);
     break;
   case Float:
-    ASSERT(program->HasUniform(m_name, GLConst::GLFloatType, m_componentCount), ());
     ApplyFloat(location, CastMemory<float>(), m_componentCount);
     break;
   case Matrix4x4:
-    ASSERT(program->HasUniform(m_name, GLConst::GLFloatType, m_componentCount), ());
     ApplyMatrix(location, CastMemory<float>());
     break;
   default:
     ASSERT(false, ());
+  }
+}
+
+glConst UniformValue::GetCorrespondingGLType() const
+{
+  if (Int == m_type)
+  {
+    if (1 == m_componentCount)
+      return GLConst::GLIntType;
+    else if (2 == m_componentCount)
+      return GLConst::GLIntVec2;
+    else if (3 == m_componentCount)
+      return GLConst::GLIntVec3;
+    else if (4 == m_componentCount)
+      return GLConst::GLIntVec4;
+    else
+    {
+      ASSERT(false, ());
+      return -1;
+    }
+  }
+  else if (Float == m_type)
+  {
+    if (1 == m_componentCount)
+      return GLConst::GLFloatType;
+    else if (2 == m_componentCount)
+      return GLConst::GLFloatVec2;
+    else if (3 == m_componentCount)
+      return GLConst::GLFloatVec3;
+    else if (4 == m_componentCount)
+      return GLConst::GLFloatVec4;
+    else
+    {
+      ASSERT(false, ());
+      return -1;
+    }
+  }
+  else if (Matrix4x4 == m_type)
+  {
+    return GLConst::GLFloatMat4;
+  }
+  else
+  {
+    ASSERT(false, ());
+    return -1;
   }
 }
 
