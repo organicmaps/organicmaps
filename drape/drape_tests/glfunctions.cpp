@@ -185,14 +185,13 @@ bool GLFunctions::glHasExtension(string const & extName)
 
 int32_t GLFunctions::glGetProgramiv(uint32_t program, glConst paramname)
 {
-  // TODO: implement mock function
-  return 0;
+ return MOCK_CALL(glGetProgramiv(program, paramname));
 }
 
 void GLFunctions::glGetActiveUniform(uint32_t programID, uint32_t uniformIndex,
                                      int32_t *uniformSize, glConst *type, string &name)
 {
-  // TODO: implement mock function
+  MOCK_CALL(glGetActiveUniform(programID, uniformIndex, uniformSize, type, name));
 }
 
 void CheckGLError() {}

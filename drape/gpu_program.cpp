@@ -60,8 +60,10 @@ GpuProgram::GpuProgram(RefPointer<Shader> vertexShader, RefPointer<Shader> fragm
   GLFunctions::glDetachShader(m_programID, vertexShader->GetID());
   GLFunctions::glDetachShader(m_programID, fragmentShader->GetID());
 
-  //get uniforms info
+
+#ifdef DEBUG
   m_validator.reset(new UniformValidator(m_programID));
+#endif
 }
 
 GpuProgram::~GpuProgram()

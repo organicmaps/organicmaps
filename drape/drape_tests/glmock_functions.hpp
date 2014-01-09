@@ -63,6 +63,12 @@ namespace emul
     MOCK_METHOD1(glUseProgram, void(uint32_t programID));
     MOCK_METHOD1(glHasExtension, bool(string const & extName));
 
+    MOCK_METHOD2(glGetProgramiv, int32_t(uint32_t, glConst));
+
+    MOCK_METHOD5(glGetActiveUniform, void(uint32_t, uint32_t,
+                                          int32_t*, glConst *,
+                                          string &));
+
   private:
     static GLMockFunctions * m_mock;
   };
