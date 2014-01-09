@@ -44,6 +44,31 @@ namespace
     const T * m_memory;
     uint32_t m_size;
   };
+
+  void mock_glGetActiveUniform(uint32_t programID, uint32_t index,
+                              int32_t * size, glConst * type, string & name)
+  {
+    *size = 1;
+    if (index < 9)
+    {
+      static pair<string, glConst> mockUniforms[9] =
+      {
+        make_pair("position0", GLConst::GLIntType),
+        make_pair("position1", GLConst::GLIntVec2),
+        make_pair("position2", GLConst::GLIntVec3),
+        make_pair("position3", GLConst::GLIntVec4),
+        make_pair("position4", GLConst::GLFloatType),
+        make_pair("position5", GLConst::GLFloatVec2),
+        make_pair("position6", GLConst::GLFloatVec3),
+        make_pair("position7", GLConst::GLFloatVec4),
+        make_pair("viewModel", GLConst::GLFloatMat4)
+      };
+      name = mockUniforms[index].first;
+      *type = mockUniforms[index].second;
+    }
+    else
+      ASSERT(false, ("Undefined index:", index));
+  }
 }
 
 UNIT_TEST(UniformValueTest)
@@ -51,9 +76,11 @@ UNIT_TEST(UniformValueTest)
   const uint32_t VertexShaderID = 1;
   const uint32_t FragmentShaderID = 2;
   const uint32_t ProgramID = 3;
+  const uint32_t UniformsCount = 9;
 
   const int32_t positionLoc = 10;
   const int32_t modelViewLoc = 11;
+
 
   float matrix[16] =
   {
@@ -85,30 +112,35 @@ UNIT_TEST(UniformValueTest)
     EXPECTGL(glDetachShader(ProgramID, VertexShaderID));
     EXPECTGL(glDetachShader(ProgramID, FragmentShaderID));
 
+#ifdef DEBUG
+    EXPECTGL(glGetProgramiv(ProgramID, GLConst::GLActiveUniforms)).WillOnce(Return(UniformsCount));
+    EXPECTGL(glGetActiveUniform(ProgramID, _, _, _, _)).Times(UniformsCount).WillRepeatedly(Invoke(mock_glGetActiveUniform));
+#endif
+
     EXPECTGL(glUseProgram(ProgramID));
 
-    EXPECTGL(glGetUniformLocation(ProgramID, "position")).WillOnce(Return(positionLoc));
+    EXPECTGL(glGetUniformLocation(ProgramID, "position0")).WillOnce(Return(positionLoc));
     EXPECTGL(glUniformValuei(positionLoc, 1));
 
-    EXPECTGL(glGetUniformLocation(ProgramID, "position")).WillOnce(Return(positionLoc));
+    EXPECTGL(glGetUniformLocation(ProgramID, "position1")).WillOnce(Return(positionLoc));
     EXPECTGL(glUniformValuei(positionLoc, 1, 2));
 
-    EXPECTGL(glGetUniformLocation(ProgramID, "position")).WillOnce(Return(positionLoc));
+    EXPECTGL(glGetUniformLocation(ProgramID, "position2")).WillOnce(Return(positionLoc));
     EXPECTGL(glUniformValuei(positionLoc, 1, 2, 3));
 
-    EXPECTGL(glGetUniformLocation(ProgramID, "position")).WillOnce(Return(positionLoc));
+    EXPECTGL(glGetUniformLocation(ProgramID, "position3")).WillOnce(Return(positionLoc));
     EXPECTGL(glUniformValuei(positionLoc, 1, 2, 3, 4));
 
-    EXPECTGL(glGetUniformLocation(ProgramID, "position")).WillOnce(Return(positionLoc));
+    EXPECTGL(glGetUniformLocation(ProgramID, "position4")).WillOnce(Return(positionLoc));
     EXPECTGL(glUniformValuef(positionLoc, 1.0f));
 
-    EXPECTGL(glGetUniformLocation(ProgramID, "position")).WillOnce(Return(positionLoc));
+    EXPECTGL(glGetUniformLocation(ProgramID, "position5")).WillOnce(Return(positionLoc));
     EXPECTGL(glUniformValuef(positionLoc, 1.0f, 2.0f));
 
-    EXPECTGL(glGetUniformLocation(ProgramID, "position")).WillOnce(Return(positionLoc));
+    EXPECTGL(glGetUniformLocation(ProgramID, "position6")).WillOnce(Return(positionLoc));
     EXPECTGL(glUniformValuef(positionLoc, 1.0f, 2.0f, 3.0f));
 
-    EXPECTGL(glGetUniformLocation(ProgramID, "position")).WillOnce(Return(positionLoc));
+    EXPECTGL(glGetUniformLocation(ProgramID, "position7")).WillOnce(Return(positionLoc));
     EXPECTGL(glUniformValuef(positionLoc, 1.0f, 2.0f, 3.0f, 4.0f));
 
     EXPECTGL(glGetUniformLocation(ProgramID, "viewModel")).WillOnce(Return(modelViewLoc));
@@ -128,42 +160,42 @@ UNIT_TEST(UniformValueTest)
   program->Bind();
 
   {
-    UniformValue v("position", 1);
+    UniformValue v("position0", 1);
     v.Apply(program);
   }
 
   {
-    UniformValue v("position", 1, 2);
+    UniformValue v("position1", 1, 2);
     v.Apply(program);
   }
 
   {
-    UniformValue v("position", 1, 2, 3);
+    UniformValue v("position2", 1, 2, 3);
     v.Apply(program);
   }
 
   {
-    UniformValue v("position", 1, 2, 3, 4);
+    UniformValue v("position3", 1, 2, 3, 4);
     v.Apply(program);
   }
 
   {
-    UniformValue v("position", 1.0f);
+    UniformValue v("position4", 1.0f);
     v.Apply(program);
   }
 
   {
-    UniformValue v("position", 1.0f, 2.0f);
+    UniformValue v("position5", 1.0f, 2.0f);
     v.Apply(program);
   }
 
   {
-    UniformValue v("position", 1.0f, 2.0f, 3.0f);
+    UniformValue v("position6", 1.0f, 2.0f, 3.0f);
     v.Apply(program);
   }
 
   {
-    UniformValue v("position", 1.0f, 2.0f, 3.0f, 4.0f);
+    UniformValue v("position7", 1.0f, 2.0f, 3.0f, 4.0f);
     v.Apply(program);
   }
 
