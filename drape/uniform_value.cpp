@@ -230,12 +230,15 @@ void UniformValue::Apply(RefPointer<GpuProgram> program) const
   uint8_t location = program->GetUniformLocation(m_name);
   switch (m_type) {
   case Int:
+    ASSERT(program->HasUniform(m_name, GLConst::GLIntType, m_componentCount), ());
     ApplyInt(location, CastMemory<int32_t>(), m_componentCount);
     break;
   case Float:
+    ASSERT(program->HasUniform(m_name, GLConst::GLFloatType, m_componentCount), ());
     ApplyFloat(location, CastMemory<float>(), m_componentCount);
     break;
   case Matrix4x4:
+    ASSERT(program->HasUniform(m_name, GLConst::GLFloatType, m_componentCount), ());
     ApplyMatrix(location, CastMemory<float>());
     break;
   default:

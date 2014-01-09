@@ -8,7 +8,11 @@
 #include "../std/map.hpp"
 #include "../std/scoped_ptr.hpp"
 
+#ifdef DEBUG
 class UniformValidator;
+typedef int32_t UniformSize;
+typedef pair<glConst, UniformSize> UniformTypeAndSize;
+#endif
 
 class GpuProgram
 {
@@ -27,21 +31,11 @@ public:
 private:
   uint32_t m_programID;
 
-  scoped_ptr<UniformValidator> m_validator;
-};
 
-class UniformValidator
-{
+#ifdef DEBUG
 private:
-  typedef int32_t UniformSize;
-  typedef pair<glConst, UniformSize> UniformTypeAndSize;
-
-  uint32_t m_programID;
-  map<string, UniformTypeAndSize> m_uniformsMap;
-
+  scoped_ptr<UniformValidator> m_validator;
 public:
-  UniformValidator(uint32_t programId);
-
-  bool HasUniform(string const & name);
-  bool HasValidTypeAndSizeForName(string const & name, glConst type, UniformSize size);
+  bool HasUniform(string const & name, glConst type, UniformSize size);
+#endif
 };
