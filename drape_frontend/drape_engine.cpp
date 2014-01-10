@@ -18,6 +18,13 @@ DrapeEngine::DrapeEngine(RefPointer<OGLContextFactory> contextfactory, double vs
                  new BackendRenderer(m_threadCommutator.GetRefPointer(), contextfactory, vs, w, h));
 }
 
+DrapeEngine::~DrapeEngine()
+{
+  m_backend.Destroy();
+  m_frontend.Destroy();
+  m_threadCommutator.Destroy();
+}
+
 void DrapeEngine::OnSizeChanged(int x0, int y0, int w, int h)
 {
   m_backend->Resize(x0, y0, w, h);

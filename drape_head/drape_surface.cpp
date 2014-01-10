@@ -21,6 +21,7 @@ DrapeSurface::DrapeSurface()
 
 DrapeSurface::~DrapeSurface()
 {
+  m_drapeEngine.Destroy();
   m_contextFactory.Destroy();
 }
 
@@ -34,6 +35,7 @@ void DrapeSurface::exposeEvent(QExposeEvent *e)
     {
       m_contextFactory = MasterPointer<QtOGLContextFactory>(new QtOGLContextFactory(this));
       CreateEngine();
+      m_drapeEngine->SetAngle(0.0);
     }
   }
 }
@@ -59,6 +61,8 @@ void DrapeSurface::CreateEngine()
 
   m_drapeEngine = MasterPointer<df::DrapeEngine>(
                     new df::DrapeEngine(f , devicePixelRatio(), width(), height()));
+
+  sizeChanged(0);
 
   m_timerID = startTimer(1000 / 30);
 }

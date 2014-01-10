@@ -13,6 +13,7 @@ class DrapeEngine
 {
 public:
   DrapeEngine(RefPointer<OGLContextFactory> oglcontextfactory, double vs, int w, int h);
+  ~DrapeEngine();
 
   void OnSizeChanged(int x0, int y0, int w, int h);
   void SetAngle(float radians);
