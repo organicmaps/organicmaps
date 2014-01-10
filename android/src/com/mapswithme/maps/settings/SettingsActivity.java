@@ -58,8 +58,8 @@ public class SettingsActivity extends PreferenceActivity
         if (isDownloadingActive())
         {
           new AlertDialog.Builder(parent)
-          .setTitle(parent.getString(R.string.cant_change_this_setting))
-          .setMessage(parent.getString(R.string.downloading_is_active))
+          .setTitle(parent.getString(R.string.downloading_is_active))
+          .setMessage(parent.getString(R.string.cant_change_this_setting))
           .setPositiveButton(parent.getString(R.string.ok), new DialogInterface.OnClickListener()
           {
             @Override
