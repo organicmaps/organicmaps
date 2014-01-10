@@ -26,16 +26,14 @@ namespace
 
   struct CoverageCellComparer
   {
-    bool operator()(df::ReadMWMTask const * task, Tiler::RectInfo const & rectInfo) const
+    bool operator()(df::ReadMWMTask const * task, df::TileKey const & tileKey) const
     {
-      /// TODO remove RectInfo to TileInfo covertion after rewrite tiler on TileInfo returning
-      return task->GetTileInfo() < df::TileInfo(rectInfo.m_x, rectInfo.m_y, rectInfo.m_tileScale);
+      return task->GetTileInfo().m_key < tileKey;
     }
 
-    bool operator()(Tiler::RectInfo const & rectInfo, df::ReadMWMTask const * task) const
+    bool operator()(df::TileKey const & tileKey, df::ReadMWMTask const * task) const
     {
-      /// TODO remove RectInfo to TileInfo covertion after rewrite tiler on TileInfo returning
-      return df::TileInfo(rectInfo.m_x, rectInfo.m_y, rectInfo.m_tileScale) < task->GetTileInfo();
+      return tileKey < task->GetTileInfo().m_key;
     }
   };
 }
@@ -52,6 +50,7 @@ namespace df
     , m_contextFactory(oglcontextfactory)
   {
     m_scaleProcessor.SetParams(visualScale, ScalesProcessor::CalculateTileSize(surfaceWidth, surfaceHeight));
+    m_currentViewport.SetFromRect(m2::AnyRectD(m_scaleProcessor.GetWorldRect()));
 
     m_commutator->RegisterThread(ThreadsCommutator::ResourceUploadThread, this);
 
@@ -85,13 +84,16 @@ namespace df
       PostToRenderThreads(MovePointer<Message>(new DropCoverageMessage()));
 
       for (size_t i = 0; i < tiles.size(); ++i)
-        CreateTask(tiles[i]);
+      {
+        const Tiler::RectInfo & info = tiles[i];
+        CreateTask(TileKey(info.m_x, info.m_y, info.m_tileScale));
+      }
     }
     else
     {
-      set<Tiler::RectInfo> rectInfoSet;
+      set<TileKey> rectInfoSet;
       for (size_t i = 0 ; i < tiles.size(); ++i)
-        rectInfoSet.insert(tiles[i]);
+        rectInfoSet.insert(TileKey(tiles[i].m_x, tiles[i].m_y, tiles[i].m_tileScale));
 
       // Find rects that go out from viewport
       buffer_vector<ReadMWMTask *, 8> outdatedTasks;
@@ -100,7 +102,7 @@ namespace df
                      back_inserter(outdatedTasks), CoverageCellComparer());
 
       // Find rects that go in into viewport
-      buffer_vector<Tiler::RectInfo, 8> inputRects;
+      buffer_vector<TileKey, 8> inputRects;
       set_difference(rectInfoSet.begin(), rectInfoSet.end(),
                      m_taskIndex.begin(), m_taskIndex.end(),
                      back_inserter(inputRects), CoverageCellComparer());
@@ -113,6 +115,8 @@ namespace df
       for (size_t i = 0; i < inputRects.size(); ++i)
         CreateTask(inputRects[i]);
     }
+
+    m_currentViewport = screen;
   }
 
   void BackendRendererImpl::FinishTask(threads::IRoutine * routine)
@@ -129,13 +133,12 @@ namespace df
   void BackendRendererImpl::Resize(m2::RectI const & rect)
   {
     m_currentViewport.OnSize(rect);
+    UpdateCoverage(m_currentViewport);
   }
 
-  void BackendRendererImpl::CreateTask(Tiler::RectInfo const & info)
+  void BackendRendererImpl::CreateTask(TileKey const & info)
   {
-    ReadMWMTask * task = new ReadMWMTask(TileKey(info.m_x, info.m_y, info.m_tileScale),
-                                         m_index,
-                                         m_engineContext);
+    ReadMWMTask * task = new ReadMWMTask(info, m_index, m_engineContext);
     m_taskIndex.insert(task);
     m_threadPool->AddTask(task);
   }

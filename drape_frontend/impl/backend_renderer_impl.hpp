@@ -4,6 +4,7 @@
 #include "memory_feature_index.hpp"
 #include "engine_context.hpp"
 #include "batchers_pool.hpp"
+#include "read_mwm_task.hpp"
 
 #include "../drape/pointers.hpp"
 #include "../drape/oglcontextfactory.hpp"
@@ -22,7 +23,6 @@ namespace df
 {
   class Message;
   class ThreadsCommutator;
-  class ReadMWMTask;
 
   class BackendRendererImpl : public MessageAcceptor,
                               public threads::IRoutine
@@ -45,13 +45,13 @@ namespace df
     void ShapeReaded(const TileKey & key, MapShape const * shape);
 
   private:
-    void CreateTask(Tiler::RectInfo const & info);
+    void CreateTask(const TileKey & info);
     void CancelTask(ReadMWMTask * task, bool removefromIndex, bool postToRenderer);
     void RestartExistTasks();
 
   private:
     ScreenBase m_currentViewport;
-    set<ReadMWMTask *> m_taskIndex;
+    set<ReadMWMTask *, ReadMWMTaskLess> m_taskIndex;
 
     /////////////////////////////////////////
     /// Calculate rect for read from MWM
