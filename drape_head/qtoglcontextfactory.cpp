@@ -16,16 +16,20 @@ QtOGLContextFactory::~QtOGLContextFactory()
 
 OGLContext * QtOGLContextFactory::getDrawContext()
 {
+  m_mutex.Lock();
   if (m_drawContext == NULL)
     m_drawContext = new QtOGLContext(m_surface, m_uploadContext);
+  m_mutex.Unlock();
 
   return m_drawContext;
 }
 
 OGLContext * QtOGLContextFactory::getResourcesUploadContext()
 {
+  m_mutex.Lock();
   if (m_uploadContext == NULL)
     m_uploadContext = new QtOGLContext(m_surface, m_drawContext);
+  m_mutex.Unlock();
 
   return m_uploadContext;
 }
