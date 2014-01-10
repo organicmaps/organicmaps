@@ -7,7 +7,13 @@ namespace df
 {
   AreaShape::AreaShape(const Color & c)
     : m_color(c)
+    , m_depth(0.0f)
   {
+  }
+
+  void AreaShape::SetDepth(float depth)
+  {
+    m_depth = depth;
   }
 
   void AreaShape::AddTriangle(const m2::PointF & v1,
@@ -38,7 +44,7 @@ namespace df
       provider.InitStream(0, info, MakeStackRefPointer((void *)&m_vertexes[0]));
     }
 
-    vector<float> depthMemory(m_vertexes.size(), 0.0);
+    vector<float> depthMemory(m_vertexes.size(), m_depth);
     {
       BindingInfo info(1);
       BindingDecl & decl = info.GetBindingDecl(0);

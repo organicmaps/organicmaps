@@ -14,6 +14,7 @@ namespace df
   {
   public:
     AreaShape(Color const & c);
+    void SetDepth(float depth);
 
     void AddTriangle(const m2::PointF & v1,
                      const m2::PointF & v2,
@@ -24,5 +25,6 @@ namespace df
   private:
     Color m_color;
     vector<m2::PointF> m_vertexes;
+    float m_depth;
   };
 }
