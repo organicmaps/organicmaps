@@ -57,7 +57,11 @@
 GLExtensionsList::GLExtensionsList()
   : m_impl(new Impl())
 {
+#if defined(OMIM_OS_MOBILE)
   m_impl->CheckExtension(VertexArrayObject, "GL_OES_vertex_array_object");
+#else
+  m_impl->CheckExtension(VertexArrayObject, "GL_APPLE_vertex_array_object");
+#endif
 }
 
 GLExtensionsList::~GLExtensionsList()
