@@ -32,6 +32,6 @@ private:
   int m_timerID;
 
 private:
-  MasterPointer<QtOGLContextFactory> m_contextFactory;
-  MasterPointer<df::DrapeEngine>     m_drapeEngine;
+  MasterPointer<OGLContextFactory> m_contextFactory;
+  MasterPointer<df::DrapeEngine>   m_drapeEngine;
 };

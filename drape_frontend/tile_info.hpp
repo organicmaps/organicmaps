@@ -36,8 +36,8 @@ namespace df
     bool operator == (const TileKey & other) const
     {
       return m_x == other.m_x &&
-                  m_y == other.m_y &&
-                  m_zoomLevel == other.m_zoomLevel;
+             m_y == other.m_y &&
+             m_zoomLevel == other.m_zoomLevel;
     }
 
     int m_x;

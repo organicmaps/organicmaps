@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../base/mutex.hpp"
-
 #include "../../drape/oglcontextfactory.hpp"
 #include "qtoglcontext.hpp"
 
@@ -20,6 +18,4 @@ private:
   QWindow * m_surface;
   QtOGLContext * m_drawContext;
   QtOGLContext * m_uploadContext;
-
-  threads::Mutex m_mutex;
 };

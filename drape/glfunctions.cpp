@@ -15,7 +15,7 @@ namespace
   void (*glClearColorFn)(GLfloat r, GLfloat g, GLfloat b, GLfloat a)                                      = NULL;
   void (*glClearFn)(GLbitfield mask)                                                                      = NULL;
   void (*glViewportFn)(GLint x, GLint y, GLsizei w, GLsizei h)                                            = NULL;
-  void (*glFlushFn)()                                                                                                                  = NULL;
+  void (*glFlushFn)()                                                                                     = NULL;
 
   /// VAO
   void (*glGenVertexArraysFn)(GLsizei n, GLuint * ids)                                                    = NULL;

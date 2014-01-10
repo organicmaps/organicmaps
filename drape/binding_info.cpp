@@ -25,10 +25,10 @@ namespace
 
 bool BindingDecl::operator !=(const BindingDecl & other) const
 {
-  return m_attributeName != other.m_attributeName             ||
+  return m_attributeName != other.m_attributeName ||
       m_componentCount != other.m_componentCount  ||
-      m_componentType != other.m_componentType      ||
-      m_stride != other.m_stride                                             ||
+      m_componentType != other.m_componentType    ||
+      m_stride != other.m_stride                  ||
       m_offset != other.m_offset;
 }
 

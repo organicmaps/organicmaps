@@ -33,7 +33,8 @@ void DrapeSurface::exposeEvent(QExposeEvent *e)
   {
     if (m_contextFactory.IsNull())
     {
-      m_contextFactory = MasterPointer<QtOGLContextFactory>(new QtOGLContextFactory(this));
+      ThreadSafeFactory * factory = new ThreadSafeFactory(new QtOGLContextFactory(this));
+      m_contextFactory = MasterPointer<OGLContextFactory>(factory);
       CreateEngine();
       m_drapeEngine->SetAngle(0.0);
     }

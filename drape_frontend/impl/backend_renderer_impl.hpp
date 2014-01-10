@@ -51,7 +51,7 @@ namespace df
 
   private:
     ScreenBase m_currentViewport;
-    set<ReadMWMTask *, ReadMWMTaskLess> m_taskIndex;
+    set<ReadMWMTask *, ReadMWMTask::LessByTileKey> m_taskIndex;
 
     /////////////////////////////////////////
     /// Calculate rect for read from MWM

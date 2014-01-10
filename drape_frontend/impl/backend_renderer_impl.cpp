@@ -93,7 +93,10 @@ namespace df
     {
       set<TileKey> rectInfoSet;
       for (size_t i = 0 ; i < tiles.size(); ++i)
-        rectInfoSet.insert(TileKey(tiles[i].m_x, tiles[i].m_y, tiles[i].m_tileScale));
+      {
+        const Tiler::RectInfo & info = tiles[i];
+        rectInfoSet.insert(TileKey(info.m_x, info.m_y, info.m_tileScale));
+      }
 
       // Find rects that go out from viewport
       buffer_vector<ReadMWMTask *, 8> outdatedTasks;
