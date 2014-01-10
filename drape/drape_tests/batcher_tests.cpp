@@ -93,6 +93,10 @@ UNIT_TEST(BatchLists_Test)
     EXPECTGL(glDetachShader(ProgramID, VertexShaderID));
     EXPECTGL(glDetachShader(ProgramID, FragmentShaderID));
 
+#ifdef DEBUG
+    EXPECTGL(glGetProgramiv(_, _));
+#endif
+
     EXPECTGL(glDeleteShader(AnyOf(10, 11))).Times(2);
   }
 
@@ -122,7 +126,7 @@ UNIT_TEST(BatchLists_Test)
         .WillOnce(Invoke(&dataCmp, &MemoryComparer::cmp));
 
     // build VertexArrayBuffer
-    EXPECTGL(glHasExtension("GL_OES_vertex_array_object")).WillOnce(Return(true));
+    EXPECTGL(glHasExtension("GL_APPLE_vertex_array_object")).WillOnce(Return(true));
     EXPECTGL(glGenVertexArray()).WillOnce(Return(VaoID));
     EXPECTGL(glBindVertexArray(VaoID));
 
