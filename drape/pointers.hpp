@@ -57,6 +57,8 @@ private:
   #define DESTROY_POINTER(p)
 
   #define DECLARE_CHECK
+  #define DECLARE_CHECK_GET
+  #define DECLARE_CHECK_SET
   #define SET_CHECK_FLAG(x)
   #define GET_CHECK_FLAG(x) false
 #endif
