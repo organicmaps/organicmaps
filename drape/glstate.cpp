@@ -51,7 +51,6 @@ void ApplyUniforms(const UniformValuesStorage & uniforms, RefPointer<GpuProgram>
 void ApplyState(GLState state, RefPointer<GpuProgram> program)
 {
   TextureBinding & binding = state.GetTextureBinding();
-  program->Bind();
   if (binding.IsEnabled())
   {
     int8_t textureLocation = program->GetUniformLocation(binding.GetUniformName());

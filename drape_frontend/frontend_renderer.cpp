@@ -41,7 +41,10 @@ namespace df
         FlushTileMessage * msg = static_cast<FlushTileMessage *>(message.GetRaw());
         const GLState & state = msg->GetState();
         const TileKey & key = msg->GetKey();
-        MasterPointer<VertexArrayBuffer> buffer(msg->GetBuffer());
+        MasterPointer<VertexArrayBuffer> buffer(msg->AcceptBuffer());
+        RefPointer<GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
+        program->Bind();
+        buffer->Build(program);
         render_data_t::iterator renderIterator = m_renderData.insert(make_pair(state, buffer));
         m_tileData.insert(make_pair(key, renderIterator));
         break;
@@ -128,9 +131,9 @@ namespace df
     float m[4*4];
 
     if (w >= h)
-      OrthoMatrix(m, -1.f/aspect, 2.f/aspect, -1.f, 2.f, -2.f, 2.f);
+      OrthoMatrix(m, -2.f/aspect, 2.f/aspect, -2.f, 2.f, -2.f, 2.f);
     else
-      OrthoMatrix(m, -1.f, 2.f, -1.f*aspect, 2.f*aspect, -2.f, 2.f);
+      OrthoMatrix(m, -2.f, 2.f, -2.f*aspect, 2.f*aspect, -2.f, 2.f);
 
     m_generalUniforms.SetMatrix4x4Value("projection", m);
   }
@@ -154,6 +157,7 @@ namespace df
   {
     RefPointer<GpuProgram> program = m_gpuProgramManager->GetProgram(node.first.GetProgramIndex());
 
+    program->Bind();
     ApplyState(node.first, program);
     ApplyUniforms(m_generalUniforms, program);
 

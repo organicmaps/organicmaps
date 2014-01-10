@@ -33,7 +33,6 @@ void VertexArrayBuffer::Render()
   if (!m_buffers.empty())
   {
     ASSERT(!m_program.IsNull(), ("Somebody not call Build. It's very bad. Very very bad"));
-    m_program->Bind();
     /// if OES_vertex_array_object is supported than all bindings already saved in VAO
     /// and we need only bind VAO. In Bind method have ASSERT("bind already called")
     if (GLExtensionsList::Instance().IsSupported(GLExtensionsList::VertexArrayObject))

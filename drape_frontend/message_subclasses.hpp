@@ -8,8 +8,8 @@
 
 #include "../drape/glstate.hpp"
 #include "../drape/pointers.hpp"
+#include "../drape/vertex_array_buffer.hpp"
 
-class VertexArrayBuffer;
 namespace threads { class IRoutine; }
 
 namespace df
@@ -66,8 +66,13 @@ namespace df
     {
     }
 
+    ~FlushTileMessage()
+    {
+      m_buffer.Destroy();
+    }
+
     const GLState & GetState() const { return m_state; }
-    TransferPointer<VertexArrayBuffer> & GetBuffer() { return m_buffer; }
+    MasterPointer<VertexArrayBuffer> AcceptBuffer() { return MasterPointer<VertexArrayBuffer>(m_buffer); }
 
   private:
     GLState m_state;
