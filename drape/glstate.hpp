@@ -18,10 +18,12 @@ public:
 
   bool operator<(const GLState & other) const
   {
-    return m_depthLayer < other.m_depthLayer
-        || m_gpuProgramIndex < other.m_gpuProgramIndex
-        //|| m_texture < other.m_texture
-        || m_uniforms < other.m_uniforms;
+    if (m_depthLayer != other.m_depthLayer)
+      return m_depthLayer < other.m_depthLayer;
+    if (m_gpuProgramIndex != other.m_gpuProgramIndex)
+      return m_gpuProgramIndex < other.m_gpuProgramIndex;
+
+    return m_uniforms < other.m_uniforms;
   }
 
 private:

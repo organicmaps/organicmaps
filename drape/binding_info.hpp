@@ -12,6 +12,9 @@ struct BindingDecl
   glConst   m_componentType;
   uint8_t   m_stride;
   uint16_t  m_offset;
+
+  bool operator != (const BindingDecl & other) const;
+  bool operator < (const BindingDecl & other) const;
 };
 
 class BindingInfo

@@ -38,4 +38,12 @@ namespace df
     dbg::ObjectTracker m_objTracker;
   #endif
   };
+
+  struct ReadMWMTaskLess
+  {
+    bool operator()( const ReadMWMTask * l, const ReadMWMTask * r ) const
+    {
+      return l->GetTileInfo().m_key < r->GetTileInfo().m_key;
+    }
+  };
 }

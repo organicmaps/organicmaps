@@ -49,11 +49,15 @@ public:
 
   bool operator<(const UniformValue & other) const
   {
+    if (m_name != other.m_name)
+      return m_name < other.m_name;
+    if (m_type != other.m_type)
+      return m_type < other.m_type;
+    if (m_componentCount != other.m_componentCount)
+      return m_componentCount < other.m_componentCount;
+
     size_t s = ((m_type == Int) ? sizeof(int32_t) : sizeof(float)) * m_componentCount;
-    return m_name < other.m_name
-        || m_type < other.m_type
-        || m_componentCount < other.m_componentCount
-        || memcmp(m_values.get(), other.m_values.get(), s);
+    return memcmp(m_values.get(), other.m_values.get(), s) < 0;
   }
 
 private:

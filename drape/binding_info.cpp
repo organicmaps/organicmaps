@@ -23,6 +23,28 @@ namespace
   }
 }
 
+bool BindingDecl::operator !=(const BindingDecl & other) const
+{
+  return m_attributeName != other.m_attributeName             ||
+      m_componentCount != other.m_componentCount  ||
+      m_componentType != other.m_componentType      ||
+      m_stride != other.m_stride                                             ||
+      m_offset != other.m_offset;
+}
+
+bool BindingDecl::operator <(const BindingDecl & other) const
+{
+  if (m_attributeName != other.m_attributeName)
+    return m_attributeName < other.m_attributeName;
+  if (m_componentCount != other.m_componentCount)
+    return m_componentCount < other.m_componentCount;
+  if (m_componentType != other.m_componentType)
+    return m_componentType < other.m_componentType;
+  if (m_stride != other.m_stride)
+    return m_stride < other.m_stride;
+  return m_offset < other.m_offset;
+}
+
 BindingInfo::BindingInfo()
 {
   m_size = 0;
@@ -73,5 +95,16 @@ uint16_t BindingInfo::GetElementSize() const
 
 bool BindingInfo::operator< (const BindingInfo & other) const
 {
-  return this < &other;
+  if (m_size != other.m_size)
+    return m_size < other.m_size;
+
+  for (uint16_t i = 0; i < m_size; ++i)
+  {
+    BindingDecl & thisDecl = m_bindings[i];
+    BindingDecl & otherDecl = other.m_bindings[i];
+    if (thisDecl != otherDecl)
+      return thisDecl < otherDecl;
+  }
+
+  return false;
 }
