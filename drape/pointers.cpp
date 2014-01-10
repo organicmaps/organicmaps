@@ -5,7 +5,7 @@ PointerTracker::~PointerTracker()
   ASSERT(m_countMap.empty(), ());
 }
 
-void PointerTracker::Deref(void * p, bool needDestroyedCheck)
+void PointerTracker::Deref(void * p)
 {
   threads::MutexGuard g(m_mutex);
   if (p == NULL)
@@ -17,8 +17,7 @@ void PointerTracker::Deref(void * p, bool needDestroyedCheck)
 
   if (--it->second.first == 0)
   {
-    if (needDestroyedCheck)
-      ASSERT(m_alivePointers.find(p) == m_alivePointers.end(), ("Pointer leak for type : ", it->second.second));
+    ASSERT(m_alivePointers.find(p) == m_alivePointers.end(), ("Pointer leak for type : ", it->second.second));
     m_countMap.erase(it);
   }
 }

@@ -11,7 +11,7 @@ public:
   ~PointerTracker();
 
   template <typename T>
-  void Ref(T * p)
+  void Ref(T * p, bool needDestroyCheck)
   {
     threads::MutexGuard g(m_mutex);
     if (p == NULL)
@@ -21,13 +21,14 @@ public:
     if (it == m_countMap.end())
     {
       m_countMap.insert(make_pair((void *)p, make_pair(1, typeid(p).name())));
-      m_alivePointers.insert(p);
+      if (needDestroyCheck)
+        m_alivePointers.insert(p);
     }
     else
       it->second.first++;
   }
 
-  void Deref(void * p, bool needDestroyedCheck);
+  void Deref(void * p);
   void Destroy(void * p);
 
 private:
@@ -41,16 +42,16 @@ private:
 #ifdef DEBUG
   extern PointerTracker g_tracker;
 
-  #define REF_POINTER(p) g_tracker.Ref(p)
-  #define DEREF_POINTER(p, c) g_tracker.Deref(p, c)
+  #define REF_POINTER(p, c) g_tracker.Ref(p, c)
+  #define DEREF_POINTER(p) g_tracker.Deref(p)
   #define DESTROY_POINTER(p) g_tracker.Destroy(p)
 
   #define DECLARE_CHECK bool m_isNeedDestroyedCheck
   #define SET_CHECK_FLAG(x) m_isNeedDestroyedCheck = x
   #define GET_CHECK_FLAG(x) (x).m_isNeedDestroyedCheck
 #else
-  #define REF_POINTER(p)
-  #define DEREF_POINTER(p, c)
+  #define REF_POINTER(p, c)
+  #define DEREF_POINTER(p)
   #define DESTROY_POINTER(p)
 
   #define DECLARE_CHECK
@@ -69,7 +70,7 @@ protected:
     : m_p(p)
   {
     SET_CHECK_FLAG(needDestroyedCheck);
-    REF_POINTER(m_p);
+    REF_POINTER(m_p, GET_CHECK_FLAG(*this));
   }
 
   DrapePointer(DrapePointer<T> const & other)
@@ -90,15 +91,15 @@ protected:
   {
     DESTROY_POINTER(m_p);
     delete m_p;
-    DEREF_POINTER(m_p, GET_CHECK_FLAG(*this));
+    DEREF_POINTER(m_p);
     m_p = NULL;
   }
 
   void Reset(T * p)
   {
-    DEREF_POINTER(m_p, GET_CHECK_FLAG(*this));
+    DEREF_POINTER(m_p);
     m_p = p;
-    REF_POINTER(m_p);
+    REF_POINTER(m_p, GET_CHECK_FLAG(*this));
   }
 
   T * GetRaw()                { return m_p; }
