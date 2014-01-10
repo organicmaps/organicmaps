@@ -46,9 +46,11 @@ private:
   #define DEREF_POINTER(p) g_tracker.Deref(p)
   #define DESTROY_POINTER(p) g_tracker.Destroy(p)
 
-  #define DECLARE_CHECK bool m_isNeedDestroyedCheck
-  #define SET_CHECK_FLAG(x) m_isNeedDestroyedCheck = x
-  #define GET_CHECK_FLAG(x) (x).m_isNeedDestroyedCheck
+  #define DECLARE_CHECK bool m_checkOnDestroy
+  #define DECLARE_CHECK_GET bool IsCheckOnDestroy() const { return m_checkOnDestroy; }
+  #define DECLARE_CHECK_SET void SetCheckOnDestroy(bool doCheck) { m_checkOnDestroy = doCheck; }
+  #define SET_CHECK_FLAG(x) SetCheckOnDestroy(x)
+  #define GET_CHECK_FLAG(x) (x).IsCheckOnDestroy()
 #else
   #define REF_POINTER(p, c)
   #define DEREF_POINTER(p)
@@ -97,19 +99,33 @@ protected:
 
   void Reset(T * p)
   {
-    DEREF_POINTER(m_p);
-    m_p = p;
-    REF_POINTER(m_p, GET_CHECK_FLAG(*this));
+    ResetImpl(p);
   }
 
   T * GetRaw()                { return m_p; }
   T const * GetRaw() const    { return m_p; }
   T * GetNonConstRaw() const  { return m_p; }
 
-  bool IsNeedDestroyedCheck() const { return GET_CHECK_FLAG(*this); };
+  DECLARE_CHECK_GET;
+  DECLARE_CHECK_SET;
+
+  // Need to be const for copy constructor and assigment operator of TransfromPointer
+  void SetToNull() const
+  {
+    ResetImpl(NULL);
+  }
 
 private:
-  T * m_p;
+  void ResetImpl(T * p) const
+  {
+    DEREF_POINTER(m_p);
+    m_p = p;
+    REF_POINTER(m_p, GET_CHECK_FLAG(*this));
+  }
+
+private:
+  // Mutable for Move method
+  mutable T * m_p;
   DECLARE_CHECK;
 };
 
@@ -120,7 +136,26 @@ class TransferPointer : public DrapePointer<T>
 {
   typedef DrapePointer<T> base_t;
 public:
-  ~TransferPointer() { base_t::Reset(NULL); }
+  TransferPointer(const TransferPointer<T> & other)
+    : base_t(other)
+  {
+    ASSERT(GET_CHECK_FLAG(other) == true, ());
+    other.SetToNull();
+  }
+
+  TransferPointer<T> & operator=(TransferPointer<T> const & other)
+  {
+    ASSERT(GET_CHECK_FLAG(other) == true, ());;
+    base_t::operator =(other);
+    other.SetToNull();
+    return *this;
+  }
+
+  ~TransferPointer()
+  {
+    ASSERT(base_t::GetRaw() == NULL, ());
+    Destroy();
+  }
   void Destroy() { base_t::Destroy(); }
 
 private:
@@ -141,7 +176,7 @@ public:
   ~RefPointer() { base_t::Reset(NULL); }
 
   template <typename Y>
-  RefPointer(const RefPointer<Y> & p) : base_t(p.GetNonConstRaw(), p.IsNeedDestroyedCheck()) {}
+  RefPointer(const RefPointer<Y> & p) : base_t(p.GetNonConstRaw(), GET_CHECK_FLAG(p)) {}
 
   bool IsContentLess(RefPointer<T> const & other) const { return *GetRaw() < *other.GetRaw(); }
   bool IsNull() const          { return base_t::GetRaw() == NULL; }
