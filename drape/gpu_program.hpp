@@ -5,10 +5,11 @@
 #include "glconstants.hpp"
 
 #include "../std/string.hpp"
-#include "../std/map.hpp"
-#include "../std/scoped_ptr.hpp"
+
 
 #ifdef DEBUG
+#include "../std/scoped_ptr.hpp"
+
 class UniformValidator;
 typedef int32_t UniformSize;
 typedef pair<glConst, UniformSize> UniformTypeAndSize;

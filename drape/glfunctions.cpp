@@ -451,12 +451,12 @@ uint32_t GLFunctions::glGetCurrentProgram()
   return programIndex;
 }
 
-int32_t GLFunctions::glGetProgramiv(uint32_t program, glConst paramname)
+int32_t GLFunctions::glGetProgramiv(uint32_t program, glConst paramName)
 {
   ASSERT(glGetProgramivFn != NULL, ());
-  GLint paramvalue = 0;
-  GLCHECK(glGetProgramivFn(program, paramname, &paramvalue));
-  return paramvalue;
+  GLint paramValue = 0;
+  GLCHECK(glGetProgramivFn(program, paramName, &paramValue));
+  return paramValue;
 }
 
 void GLFunctions::glActiveTexture(uint32_t samplerBlock)

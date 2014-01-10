@@ -246,6 +246,7 @@ void UniformValue::Apply(RefPointer<GpuProgram> program) const
   }
 }
 
+#ifdef DEBUG
 glConst UniformValue::GetCorrespondingGLType() const
 {
   if (Int == m_type)
@@ -278,6 +279,7 @@ glConst UniformValue::GetCorrespondingGLType() const
     return -1;
   }
 }
+#endif
 
 void UniformValue::Allocate(size_t byteCount)
 {

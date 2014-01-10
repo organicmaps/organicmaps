@@ -4,6 +4,8 @@
 #include "../base/assert.hpp"
 
 #ifdef DEBUG
+#include "../std/map.hpp"
+
 class UniformValidator
 {
 private:
@@ -25,16 +27,12 @@ public:
     }
   }
 
-  bool HasUniform(string const & name)
-  {
-    return m_uniformsMap.find(name) != m_uniformsMap.end();
-  }
-
   bool HasValidTypeAndSizeForName(string const & name, glConst type, UniformSize size)
   {
-    if (HasUniform(name))
+    map<string, UniformTypeAndSize>::iterator it = m_uniformsMap.find(name);
+    if (it != m_uniformsMap.end())
     {
-      UniformTypeAndSize actualParams = m_uniformsMap[name];
+      UniformTypeAndSize actualParams = (*it).second;
       return type == actualParams.first && size == actualParams.second;
     }
     else
@@ -46,7 +44,8 @@ bool GpuProgram::HasUniform(string const & name, glConst type, UniformSize size)
 {
   return m_validator->HasValidTypeAndSizeForName(name, type, size);
 }
-#endif
+#endif // UniformValidator
+
 
 GpuProgram::GpuProgram(RefPointer<Shader> vertexShader, RefPointer<Shader> fragmentShader)
 {
