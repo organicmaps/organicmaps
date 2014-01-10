@@ -7,6 +7,11 @@ using namespace emul;
 
 #define MOCK_CALL(f) GLMockFunctions::Instance().f;
 
+void GLFunctions::glFlush()
+{
+
+}
+
 uint32_t GLFunctions::glGenVertexArray()
 {
   return MOCK_CALL(glGenVertexArray());

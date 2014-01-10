@@ -18,6 +18,7 @@ namespace df
                        const GLState & state,
                        TransferPointer<VertexArrayBuffer> buffer)
     {
+      GLFunctions::glFlush();
       sendMessage(MovePointer<Message>(new FlushTileMessage(key, state, buffer)));
     }
   }

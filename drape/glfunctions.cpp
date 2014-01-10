@@ -15,6 +15,7 @@ namespace
   void (*glClearColorFn)(GLfloat r, GLfloat g, GLfloat b, GLfloat a)                                      = NULL;
   void (*glClearFn)(GLbitfield mask)                                                                      = NULL;
   void (*glViewportFn)(GLint x, GLint y, GLsizei w, GLsizei h)                                            = NULL;
+  void (*glFlushFn)()                                                                                                                  = NULL;
 
   /// VAO
   void (*glGenVertexArraysFn)(GLsizei n, GLuint * ids)                                                    = NULL;
@@ -102,6 +103,7 @@ void GLFunctions::Init()
   glClearColorFn = &::glClearColor;
   glClearFn = &::glClear;
   glViewportFn = &::glViewport;
+  glFlushFn = &::glFlush;
 
   /// VBO
   glGenBuffersFn = &::glGenBuffers;
@@ -179,6 +181,11 @@ void GLFunctions::glClear()
 void GLFunctions::glViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
 {
   GLCHECK(glViewportFn(x, y, w, h));
+}
+
+void GLFunctions::glFlush()
+{
+  GLCHECK(glFlushFn());
 }
 
 uint32_t GLFunctions::glGenVertexArray()
