@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.base.MapsWithMeBaseListActivity;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.Language;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -49,6 +51,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   {
     private final SearchActivity m_context;
     private final LayoutInflater m_inflater;
+
 
     private final Resources m_resource;
     private final String m_packageName;
@@ -407,6 +410,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   private EditText m_searchBox;
   private ProgressBar m_progress;
   private Spinner m_modesSpinner;
+  private View mClearQueryBtn;
 
   @SuppressLint("NewApi")
   @Override
@@ -450,6 +454,15 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   private void setUpView()
   {
     m_progress = (ProgressBar) findViewById(R.id.search_progress);
+    mClearQueryBtn = findViewById(R.id.btn_clear_query);
+    mClearQueryBtn.setOnClickListener(new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        m_searchBox.getText().clear();
+      }
+    });
 
     // Initialize search edit box processor.
     m_searchBox = (EditText) findViewById(R.id.search_string);
@@ -460,6 +473,11 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       {
         if (runSearch() == QUERY_EMPTY)
           showCategories();
+
+        if (s.length() == 0)
+          UiUtils.hide(mClearQueryBtn);
+        else
+          UiUtils.show(mClearQueryBtn);
       }
 
       @Override
