@@ -8,7 +8,7 @@
   int m_slotID;
 }
 
-- (void) show:(UIViewController *)prevController;
-- (void) hide;
+- (void)show:(UIViewController *)prevController;
+- (void)hide;
 
 @end

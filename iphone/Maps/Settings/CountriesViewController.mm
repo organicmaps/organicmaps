@@ -72,12 +72,12 @@ static bool getGuideName(string & name, storage::TIndex const & index)
 
 @implementation CountriesViewController
 
-- (void) onCloseButton:(id)sender
+- (void)onCloseButton:(id)sender
 {
   [[[MapsAppDelegate theApp] settingsManager] hide];
 }
 
-- (id) initWithIndex: (TIndex const &) index andHeader: (NSString *)header
+- (id)initWithIndex:(TIndex const &)index andHeader:(NSString *)header
 {
   m_index = index;
   if ((self = [super initWithNibName:nil bundle:nil]))
@@ -88,7 +88,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
 	return self;
 }
 
-- (void) loadView
+- (void)loadView
 {
 	CGRect appRect = [UIScreen mainScreen].applicationFrame;
   UITableView * countriesTableView = [[UITableView alloc] initWithFrame:appRect style:UITableViewStylePlain];
@@ -96,11 +96,10 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   countriesTableView.delegate = self;
 	countriesTableView.dataSource = self;
   self.view = countriesTableView;
-  [countriesTableView release];
 }
 
 // Override to allow orientations other than the default portrait orientation.
-- (BOOL) shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation) interfaceOrientation
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return YES;
 }
@@ -119,12 +118,12 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   }
 }
 
-- (NSInteger) tableView: (UITableView *)tableView numberOfRowsInSection: (NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	return GetFramework().Storage().CountriesCount(m_index);
 }
 
-- (NSString *) GetStringForSize: (size_t)size
+- (NSString *)GetStringForSize: (size_t)size
 {
   if (size > MB)
   {
@@ -139,7 +138,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
 }
 
 // @TODO Refactor UI to use good icon for "zoom to the country" action
-- (UITableViewCellAccessoryType) getZoomIconType
+- (UITableViewCellAccessoryType)getZoomIconType
 {
   static const UITableViewCellAccessoryType iconType =
       [UIDevice currentDevice].systemVersion.floatValue < 7.0 ? UITableViewCellAccessoryDetailDisclosureButton
@@ -147,7 +146,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   return iconType;
 }
 
-- (void) UpdateCell:(UITableViewCell *)cell forCountry:(TIndex const &)countryIndex
+- (void)UpdateCell:(UITableViewCell *)cell forCountry:(TIndex const &)countryIndex
 {
   cell.accessoryView = nil;
 
@@ -166,8 +165,8 @@ static bool getGuideName(string & name, storage::TIndex const & index)
         [v removeFromSuperview];
     if ((s.CountriesCount(countryIndex) == 0) && frm.GetGuideInfo(countryIndex, info))
     {
-      UIImageView * im = [[[UIImageView alloc]  initWithImage:[UIImage imageNamed:@"ic_guide_mark"]] autorelease];
-      UIView * v = [[[UIView alloc] initWithFrame:im.frame] autorelease];
+      UIImageView * im = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_guide_mark"]];
+      UIView * v = [[UIView alloc] initWithFrame:im.frame];
       [v addSubview:im];
       v.tag = BAG_TAG;
       CGRect r = v.frame;
@@ -178,7 +177,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   }
 
   // do not show status for parent categories
-  if (![cell.reuseIdentifier isEqual: @"ParentCell"])
+  if (![cell.reuseIdentifier isEqual:@"ParentCell"])
   {
     storage::TStatus const st = frm.GetCountryStatus(countryIndex);
     switch (st)
@@ -216,7 +215,6 @@ static bool getGuideName(string & name, storage::TIndex const & index)
                                                initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleGray];
         cell.accessoryView = indicator;
         [indicator startAnimating];
-        [indicator release];
         break;
       }
 
@@ -247,7 +245,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
 }
 
 // Customize the appearance of table view cells.
-- (UITableViewCell *) tableView: (UITableView *)tableView cellForRowAtIndexPath: (NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   TIndex index = CalculateIndex(m_index, indexPath);
   storage::Storage & s = GetFramework().Storage();
@@ -258,9 +256,9 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   if (cell == nil)
   {
   	if (hasChildren)
-    	cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId] autorelease];
+	cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
   	else
-  		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
 	}
 
   if (hasChildren)
@@ -274,7 +272,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   return cell;
 }
 
-- (void) actionSheet: (UIActionSheet *) actionSheet clickedButtonAtIndex: (NSInteger) buttonIndex
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
   if (buttonIndex != actionSheet.cancelButtonIndex)
   {
@@ -312,13 +310,13 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   }
 }
 
-- (void) DoDownloadCountry
+- (void)DoDownloadCountry
 {
   GetFramework().Storage().DownloadCountry(m_clickedIndex);
 }
 
 // 3G warning confirmation handler
-- (void) alertView: (UIAlertView *)alertView didDismissWithButtonIndex: (NSInteger)buttonIndex
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
   if (buttonIndex != alertView.cancelButtonIndex)
   {
@@ -328,16 +326,17 @@ static bool getGuideName(string & name, storage::TIndex const & index)
 
 - (void) TryDownloadCountry
 {
-  NSString * countryName = [[m_clickedCell textLabel] text];
+  NSString * countryName = m_clickedCell.textLabel.text;
 
   if (FreeDiskSpaceInBytes() < (m_downloadSize + MB))
   {
     // No enough disk space - display warning dialog
-    [[[[CustomAlertView alloc] initWithTitle:NSLocalizedString(@"not_enough_disk_space", nil)
-                                     message:[NSString stringWithFormat:NSLocalizedString(@"free_space_for_country", nil), [self GetStringForSize: m_downloadSize], countryName]
+    NSString * message = [NSString stringWithFormat:NSLocalizedString(@"free_space_for_country", nil), [self GetStringForSize: m_downloadSize], countryName];
+    [[[CustomAlertView alloc] initWithTitle:NSLocalizedString(@"not_enough_disk_space", nil)
+                                     message:message
                                     delegate:nil
                            cancelButtonTitle:NSLocalizedString(@"ok", nil)
-                           otherButtonTitles:nil] autorelease] show];
+                           otherButtonTitles:nil] show];
   }
   else
   {
@@ -345,23 +344,22 @@ static bool getGuideName(string & name, storage::TIndex const & index)
     if (![reachability isReachable])
     {
       // No any connection - skip downloading
-      [[[[CustomAlertView alloc] initWithTitle:NSLocalizedString(@"no_internet_connection_detected", nil)
+      [[[CustomAlertView alloc] initWithTitle:NSLocalizedString(@"no_internet_connection_detected", nil)
                                      message:NSLocalizedString(@"use_wifi_recommendation_text", nil)
                                     delegate:nil
                            cancelButtonTitle:NSLocalizedString(@"ok", nil)
-                           otherButtonTitles:nil] autorelease] show];
+                           otherButtonTitles:nil] show];
     }
     else
     {
       if ([reachability isReachableViaWWAN] && m_downloadSize > MAX_3G_MEGABYTES * MB)
       {
         // If user uses 3G, show warning before downloading
-        [[[[CustomAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"no_wifi_ask_cellular_download", nil), countryName]
+        [[[CustomAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"no_wifi_ask_cellular_download", nil), countryName]
                                        message:nil
                                       delegate:self
                              cancelButtonTitle:NSLocalizedString(@"cancel", nil)
-                             otherButtonTitles:NSLocalizedString(@"use_cellular_data", nil),
-         nil] autorelease] show];
+                             otherButtonTitles:NSLocalizedString(@"use_cellular_data", nil), nil] show];
       }
       else
         [self DoDownloadCountry];
@@ -369,10 +367,10 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   }
 }
 
-- (void) tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	// deselect the current row (don't keep the table selection persistent)
-	[tableView deselectRowAtIndexPath: indexPath animated:YES];
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
   UITableViewCell * cell = [tableView cellForRowAtIndexPath: indexPath];
   
   // Push the new table view on the stack
@@ -382,15 +380,14 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   
   if (s.CountriesCount(index))
   {
-    CountriesViewController * newController = [[CountriesViewController alloc] initWithIndex: index andHeader: cell.textLabel.text];
+    CountriesViewController * newController = [[CountriesViewController alloc] initWithIndex:index andHeader:cell.textLabel.text];
     [self.navigationController pushViewController:newController animated:YES];
-    [newController release];
   }
   else
     [self createActionSheetForCountry:indexPath];
 }
 
-- (void) OnCountryChange: (TIndex const &)index
+- (void)OnCountryChange:(TIndex const &)index
 {
   if (IsOurIndex(index, m_index))
   {
@@ -402,7 +399,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   }
 }
 
-- (void) OnDownload:(TIndex const &)index withProgress:(pair<int64_t, int64_t> const &)progress
+- (void)OnDownload:(TIndex const &)index withProgress:(pair<int64_t, int64_t> const &)progress
 {
   if (IsOurIndex(index, m_index))
   {
@@ -414,7 +411,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   }
 }
 
--(void)createActionSheetForCountry:(NSIndexPath *)indexPath
+- (void)createActionSheetForCountry:(NSIndexPath *)indexPath
 {
   UITableView * table = (UITableView *)(self.view);
   UITableViewCell * cell = [table cellForRowAtIndexPath:indexPath];
@@ -426,7 +423,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   storage::Storage & s = GetFramework().Storage();
   m_downloadSize = s.CountrySizeInBytes(m_clickedIndex).second;
 
-  NSMutableArray * buttonNames = [[[NSMutableArray alloc] init] autorelease];
+  NSMutableArray * buttonNames = [[NSMutableArray alloc] init];
 
   bool canDelete = NO;
 
@@ -440,10 +437,10 @@ static bool getGuideName(string & name, storage::TIndex const & index)
 
     case EOnDiskOutOfDate:
       canDelete = YES;
-      [buttonNames addObject:[NSString stringWithFormat:NSLocalizedString(@"update_mb_or_kb", nil), [self GetStringForSize: m_downloadSize]]];
+      [buttonNames addObject:[NSString stringWithFormat:NSLocalizedString(@"update_mb_or_kb", nil), [self GetStringForSize:m_downloadSize]]];
       break;
     case ENotDownloaded:
-      [buttonNames addObject:[NSString stringWithFormat:NSLocalizedString(@"download_mb_or_kb", nil), [self GetStringForSize: m_downloadSize]]];
+      [buttonNames addObject:[NSString stringWithFormat:NSLocalizedString(@"download_mb_or_kb", nil), [self GetStringForSize:m_downloadSize]]];
       break;
 
     case EDownloadFailed:
@@ -457,11 +454,12 @@ static bool getGuideName(string & name, storage::TIndex const & index)
       NSString * guideAd = nil;
       if (getGuideName(guideAdevertiseString, m_clickedIndex))
         guideAd = [NSString stringWithUTF8String:guideAdevertiseString.c_str()];
-      UIActionSheet * actionSheet = [[[UIActionSheet alloc] initWithTitle:cell.textLabel.text delegate:self
-                                                        cancelButtonTitle: NSLocalizedString(@"do_nothing", nil)
-                                                   destructiveButtonTitle: NSLocalizedString(@"cancel_download", nil)
-                                                        otherButtonTitles: guideAd, nil] autorelease];
-      [actionSheet showFromRect:[cell frame] inView:table animated:YES];
+      UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:cell.textLabel.text
+                                                                delegate:self
+                                                        cancelButtonTitle:NSLocalizedString(@"do_nothing", nil)
+                                                   destructiveButtonTitle:NSLocalizedString(@"cancel_download", nil)
+                                                        otherButtonTitles:guideAd, nil];
+      [actionSheet showFromRect:cell.frame inView:table animated:YES];
       return;
     }
 
@@ -475,12 +473,11 @@ static bool getGuideName(string & name, storage::TIndex const & index)
       ASSERT ( false, () );
   }
 
-  UIActionSheet * as = [[[UIActionSheet alloc]
-                         initWithTitle: cell.textLabel.text
-                         delegate: self
-                         cancelButtonTitle: nil
-                         destructiveButtonTitle: nil
-                         otherButtonTitles: nil] autorelease];
+  UIActionSheet * as = [[UIActionSheet alloc] initWithTitle:cell.textLabel.text
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                     destructiveButtonTitle:nil
+                                          otherButtonTitles:nil];
 
   for (NSString * str in buttonNames)
     [as addButtonWithTitle:str];
@@ -503,7 +500,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
     [as addButtonWithTitle:NSLocalizedString(@"cancel", nil)];
     as.cancelButtonIndex = numOfButtons;
   }
-  [as showFromRect: [cell frame] inView:(UITableView *)self.view animated: YES];
+  [as showFromRect:cell.frame inView:(UITableView *)self.view animated: YES];
 }
 
 @end

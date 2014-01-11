@@ -16,7 +16,7 @@ class Framework;
   NSArray * categoriesNames;
 }
 
-@property NSMutableArray * searchResults;
+@property (nonatomic) NSMutableArray * searchResults;
 
 @property (nonatomic) UISearchBar * searchBar;
 @property (nonatomic) ScopeView * scopeView;

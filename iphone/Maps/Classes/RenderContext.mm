@@ -14,7 +14,7 @@ namespace iphone
 
 	RenderContext::~RenderContext()
 	{
-		[m_context release];
+
 	}
 
 	void RenderContext::makeCurrent()

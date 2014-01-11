@@ -43,7 +43,7 @@ const long long LITE_IDL = 431183278L;
 
 @property (nonatomic) UIView * fadeView;
 @property (nonatomic) LocationButton * locationButton;
-@property (nonatomic, strong) UINavigationBar * apiNavigationBar;
+@property (nonatomic) UINavigationBar * apiNavigationBar;
 @property ShareActionSheet * shareActionSheet;
 @property MPInterstitialAdController * interstitialAd;
 @property MPAdView * topBannerAd;

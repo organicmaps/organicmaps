@@ -12,15 +12,15 @@ NSString * const AppFeatureBannerAd = @"BannerAd";
 @interface AppInfo ()
 
 @property (nonatomic) NSDictionary * features;
-@property NSDictionary * featuresByDefault;
+@property (nonatomic) NSDictionary * featuresByDefault;
 
-@property (nonatomic, strong) NSString * countryCode;
-@property (nonatomic, strong) NSString * bundleVersion;
-@property (nonatomic, strong) NSString * deviceInfo;
-@property (nonatomic, strong) NSString * firmwareVersion;
-@property (nonatomic, strong) NSString * uniqueId;
-@property (nonatomic, strong) NSString * advertisingId;
-@property (nonatomic, strong) Reachability * reachability;
+@property (nonatomic) NSString * countryCode;
+@property (nonatomic) NSString * bundleVersion;
+@property (nonatomic) NSString * deviceInfo;
+@property (nonatomic) NSString * firmwareVersion;
+@property (nonatomic) NSString * uniqueId;
+@property (nonatomic) NSString * advertisingId;
+@property (nonatomic) Reachability * reachability;
 
 @end
 

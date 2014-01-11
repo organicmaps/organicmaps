@@ -35,7 +35,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
 
 @implementation PlacePreviewViewController
 
--(id)initWith:(search::AddressInfo const &)info point:(CGPoint)point
+- (id)initWith:(search::AddressInfo const &)info point:(CGPoint)point
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
@@ -52,7 +52,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
   return self;
 }
 
--(id)initWithApiPoint:(url_scheme::ApiPoint const &)apiPoint
+- (id)initWithApiPoint:(url_scheme::ApiPoint const &)apiPoint
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
@@ -65,7 +65,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
   return self;
 }
 
--(id)initWithPoint:(CGPoint)point
+- (id)initWithPoint:(CGPoint)point
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
@@ -76,7 +76,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
   return self;
 }
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
   if (isIPad)
@@ -85,7 +85,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
 
 #pragma mark - Table view data source
 
--(void)viewDidLoad
+- (void)viewDidLoad
 {
   [super viewDidLoad];
   [self setTitle:NSLocalizedString(@"info", nil)];
@@ -118,12 +118,11 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
       cell = [tableView dequeueReusableCellWithIdentifier:@"CoordinatesCELL"];
       if (!cell)
       {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CoordinatesCELL"] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CoordinatesCELL"];
         cell.textLabel.textAlignment = UITextAlignmentCenter;
         cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:26];
         cell.textLabel.textColor = [UIColor colorWithRed:COORDINATECOLOR green:COORDINATECOLOR blue:COORDINATECOLOR alpha:1.0];
-        UILongPressGestureRecognizer * longTouch = [[[UILongPressGestureRecognizer alloc]
-                                                     initWithTarget:self action:@selector(handleLongPress:)] autorelease];
+        UILongPressGestureRecognizer * longTouch = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
         longTouch.minimumPressDuration = 0.5;
         longTouch.delegate = self;
         [cell addGestureRecognizer:longTouch];
@@ -136,7 +135,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
     cell = [tableView dequeueReusableCellWithIdentifier:@"ApiReturnCell"];
     if (!cell)
     {
-      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ApiReturnCell"] autorelease];
+      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ApiReturnCell"];
       cell.textLabel.textAlignment = NSTextAlignmentCenter;
       UIButton * tmp = [UIButton buttonWithType:UIButtonTypeRoundedRect];
       [tmp setTitle:@"tmp" forState:UIControlStateNormal];
@@ -168,7 +167,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
 {
   if (section == 1)
   {
-    TwoButtonsView * myView = [[[TwoButtonsView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, TWOBUTTONSHEIGHT) leftButtonSelector:@selector(share) rightButtonSelector:@selector(addToBookmark) leftButtonTitle:NSLocalizedString(@"share", nil) rightButtontitle:NSLocalizedString(@"add_to_bookmarks", nil) target:self] autorelease];
+    TwoButtonsView * myView = [[TwoButtonsView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, TWOBUTTONSHEIGHT) leftButtonSelector:@selector(share) rightButtonSelector:@selector(addToBookmark) leftButtonTitle:NSLocalizedString(@"share", nil) rightButtontitle:NSLocalizedString(@"add_to_bookmarks", nil) target:self];
     return myView;
   }
   return nil;
@@ -203,7 +202,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
   [self.shareActionSheet show];
 }
 
--(void)addToBookmark
+- (void)addToBookmark
 {
   if (!GetPlatform().HasBookmarks())
   {
@@ -216,7 +215,6 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
     alert.tag = BALLOON_PROPOSAL_ALERT_VIEW;
 
     [alert show];
-    [alert release];
   }
   else
   {
@@ -228,7 +226,6 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
     else
       p = [[PlacePageVC alloc] initWithName:NSLocalizedString(@"my_position", nil) andGlobalPoint:m_point];
     [self.navigationController pushViewController:p animated:YES];
-    [p release];
   }
 }
 
@@ -247,19 +244,19 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
   }
 }
 
--(NSURL *)getBackUrl
+- (NSURL *)getBackUrl
 {
   string const str = GetFramework().GenerateApiBackUrl(m_apiPoint);
   return [NSURL URLWithString:[NSString stringWithUTF8String:str.c_str()]];
 }
 
--(void)orientationChanged
+- (void)orientationChanged
 {
   [self.placeAndCompass drawView];
   [self.tableView reloadData];
 }
 
--(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+- (void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
 {
   if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
   {
@@ -292,22 +289,20 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
   [UIPasteboard generalPasteboard].string = [self coordinatesToString];
 }
 
--(NSString *)coordinatesToString
+- (NSString *)coordinatesToString
 {
   NSString * result = nil;
   if (m_previewType == APIPOINT)
     result = [NSString stringWithFormat:@"%.05f %.05f", m_apiPoint.m_lat, m_apiPoint.m_lon];
   else
     result = [NSString stringWithFormat:@"%.05f %.05f", MercatorBounds::YToLat(m_point.y), MercatorBounds::XToLon(m_point.x)];
-  NSLocale * decimalPointLocale = [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] autorelease];
-  return [[[NSString alloc] initWithFormat:@"%@" locale:decimalPointLocale, result] autorelease];
+  NSLocale * decimalPointLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+  return [[NSString alloc] initWithFormat:@"%@" locale:decimalPointLocale, result];
 }
 
--(void)dealloc
+- (void)dealloc
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
-  self.placeAndCompass = nil;
-  [super dealloc];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -315,7 +310,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
   return YES;
 }
 
--(PlaceAndCompasView *)getCompassView
+- (PlaceAndCompasView *)getCompassView
 {
   if (!self.placeAndCompass)
   {

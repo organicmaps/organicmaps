@@ -7,6 +7,6 @@
   UIView * m_hint;
 }
 
-- (id) init;
+- (id)init;
 
 @end

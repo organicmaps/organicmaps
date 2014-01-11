@@ -9,11 +9,10 @@
 
 //********************* Helper delegate to handle async dialog message ******************
 @interface PrefDelegate : NSObject
-@property (nonatomic, assign) id m_controller;
+@property (nonatomic, weak) id m_controller;
 @end
 
 @implementation PrefDelegate
-@synthesize m_controller;
 
 @end
 //***************************************************************************************
@@ -45,11 +44,11 @@
     /*This code counts conversion Guides->MWM. We rely on setting with name "Units", and by the time this code will be executed, Framework->GuidesManager should be initialised*/
     set<string> s;
     GetFramework().GetGuidesManager().GetGuidesId(s);
-    NSMutableDictionary * guidesUrls = [[[NSMutableDictionary alloc] init] autorelease];
+    NSMutableDictionary * guidesUrls = [[NSMutableDictionary alloc] init];
     for (set<string>::iterator it = s.begin(); it != s.end();++it)
     {
       NSString * countryUrl = [NSString stringWithUTF8String:it->c_str()];
-      if ([APP canOpenURL:[NSURL URLWithString:countryUrl]])
+      if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:countryUrl]])
         guidesUrls[countryUrl] = @1;
     }
     if ([guidesUrls count])

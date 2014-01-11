@@ -10,8 +10,9 @@ namespace url_scheme { struct ApiPoint; }
 
 @interface PlacePageVC : UITableViewController <UITextFieldDelegate, UITextViewDelegate, UIGestureRecognizerDelegate, ColorPickerDelegate>
 
-- (id) initWithInfo:(search::AddressInfo const &)info point:(CGPoint)point;
-- (id) initWithApiPoint:(url_scheme::ApiPoint const &)apiPoint;
-- (id) initWithBookmark:(BookmarkAndCategory)bmAndCat;
-- (id) initWithName:(NSString *)name andGlobalPoint:(CGPoint)point;
+- (id)initWithInfo:(search::AddressInfo const &)info point:(CGPoint)point;
+- (id)initWithApiPoint:(url_scheme::ApiPoint const &)apiPoint;
+- (id)initWithBookmark:(BookmarkAndCategory)bmAndCat;
+- (id)initWithName:(NSString *)name andGlobalPoint:(CGPoint)point;
+
 @end

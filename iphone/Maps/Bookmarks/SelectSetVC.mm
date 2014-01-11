@@ -4,7 +4,7 @@
 
 @implementation SelectSetVC
 
-- (id) initWithIndex:(size_t *)index
+- (id)initWithIndex:(size_t *)index
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
@@ -39,7 +39,7 @@
   static NSString * kSetCellId = @"AddSetCell";
   UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:kSetCellId];
   if (cell == nil)
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kSetCellId] autorelease];
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kSetCellId];
   // Customize cell
   if (indexPath.section == 0)
   {
@@ -69,7 +69,6 @@
     if (isIPad)
       [asVC setContentSizeForViewInPopover:[self contentSizeForViewInPopover]];
     [self.navigationController pushViewController:asVC animated:YES];
-    [asVC release];
   }
   else
   {

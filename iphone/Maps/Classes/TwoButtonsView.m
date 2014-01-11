@@ -4,13 +4,14 @@
 
 @interface TwoButtonsView()
 
-@property (nonatomic, retain) UIButton * leftButton;
-@property (nonatomic, retain) UIButton * rightButton;
+@property (nonatomic) UIButton * leftButton;
+@property (nonatomic) UIButton * rightButton;
+
 @end
 
 @implementation TwoButtonsView
 
--(id)initWithFrame:(CGRect)frame leftButtonSelector:(SEL)leftSel rightButtonSelector:(SEL)rightSel leftButtonTitle:(NSString *)leftTitle rightButtontitle:(NSString *)rightTitle target:(id)target
+- (id)initWithFrame:(CGRect)frame leftButtonSelector:(SEL)leftSel rightButtonSelector:(SEL)rightSel leftButtonTitle:(NSString *)leftTitle rightButtontitle:(NSString *)rightTitle target:(id)target
 {
   self = [super initWithFrame:frame];
   if (self)
@@ -33,7 +34,7 @@
   return self;
 }
 
--(void)layoutSubviews
+- (void)layoutSubviews
 {
   [super layoutSubviews];
   double const buttonWidth = (self.superview.bounds.size.width - 3 * MARGIN) / 2;
@@ -41,10 +42,4 @@
   [self.rightButton setFrame:CGRectMake(2 * MARGIN + buttonWidth, 0, buttonWidth, self.frame.size.height)];
 }
 
--(void)dealloc
-{
-  self.leftButton = nil;
-  self.rightButton = nil;
-  [super dealloc];
-}
 @end

@@ -2,10 +2,7 @@
 
 @implementation WebViewController
 
-@synthesize m_url;
-@synthesize m_htmlText;
-
-- (id) initWithUrl: (NSURL *)url andTitleOrNil:(NSString *)title
+- (id)initWithUrl:(NSURL *)url andTitleOrNil:(NSString *)title
 {
   self = [super initWithNibName:nil bundle:nil];
   if (self)
@@ -17,9 +14,7 @@
   return self;
 }
 
-- (id) initWithHtml: (NSString *)htmlText
-            baseUrl:(NSURL *)url 
-      andTitleOrNil:(NSString *)title
+- (id)initWithHtml:(NSString *)htmlText baseUrl:(NSURL *)url andTitleOrNil:(NSString *)title
 {
   self = [super initWithNibName:nil bundle:nil];
   if (self)
@@ -36,19 +31,18 @@
 
 - (void)loadView
 {
-  CGRect frame = [[UIScreen mainScreen] applicationFrame];
+  CGRect frame = [UIScreen mainScreen].applicationFrame;
   UIWebView * webView = [[UIWebView alloc] initWithFrame:frame];
 //  webView.scalesPageToFit = YES;
   webView.autoresizesSubviews = YES;
-  webView.autoresizingMask= (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
+  webView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
 
-  if (m_htmlText)
-    [webView loadHTMLString:m_htmlText baseURL:m_url];
+  if (self.m_htmlText)
+    [webView loadHTMLString:self.m_htmlText baseURL:self.m_url];
   else
-    [webView loadRequest:[NSURLRequest requestWithURL:m_url]];
+    [webView loadRequest:[NSURLRequest requestWithURL:self.m_url]];
 
   self.view = webView;
-  [webView release];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -41,22 +41,22 @@ typedef enum {Editing, Saved} Mode;
 // Currently displays bookmark description (notes)
 @property(nonatomic, copy) NSString * pinNotes;
 // Stores displayed bookmark icon file name
-@property(nonatomic, retain) NSString * pinColor;
+@property(nonatomic) NSString * pinColor;
 // If we clicked already existing bookmark, it will be here
-@property(nonatomic, assign) BookmarkAndCategory pinEditedBookmark;
+@property(nonatomic) BookmarkAndCategory pinEditedBookmark;
 
-@property(nonatomic, assign) CGPoint pinGlobalPosition;
+@property(nonatomic) CGPoint pinGlobalPosition;
 
-@property (nonatomic, retain) PlaceAndCompasView * placeAndCompass;
+@property (nonatomic) PlaceAndCompasView * placeAndCompass;
 
-@property (nonatomic, retain) UIView * pickerView;
-@property (retain) ShareActionSheet * shareActionSheet;
+@property (nonatomic) UIView * pickerView;
+@property (nonatomic) ShareActionSheet * shareActionSheet;
 
 @end
 
 @implementation PlacePageVC
 
-- (id) initWithInfo:(search::AddressInfo const &)info point:(CGPoint)point
+- (id)initWithInfo:(search::AddressInfo const &)info point:(CGPoint)point
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
@@ -71,7 +71,7 @@ typedef enum {Editing, Saved} Mode;
   return self;
 }
 
-- (id) initWithApiPoint:(url_scheme::ApiPoint const &)apiPoint
+- (id)initWithApiPoint:(url_scheme::ApiPoint const &)apiPoint
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
@@ -86,7 +86,7 @@ typedef enum {Editing, Saved} Mode;
   return self;
 }
 
-- (id) initWithBookmark:(BookmarkAndCategory)bmAndCat
+- (id)initWithBookmark:(BookmarkAndCategory)bmAndCat
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
@@ -112,7 +112,7 @@ typedef enum {Editing, Saved} Mode;
   return self;
 }
 
-- (id) initWithName:(NSString *)name andGlobalPoint:(CGPoint)point
+- (id)initWithName:(NSString *)name andGlobalPoint:(CGPoint)point
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
@@ -123,20 +123,14 @@ typedef enum {Editing, Saved} Mode;
                          color:@""
                          category:MakeEmptyBookmarkAndCategory()
                          point:point];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification  object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification object:nil];
   }
   return self;
 }
 
-- (void) dealloc
+- (void)dealloc
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
-  self.pickerView = nil;
-  self.pinTitle = nil;
-  self.pinNotes = nil;
-  self.pinColor = nil;
-  self.placeAndCompass = nil;
-  [super dealloc];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -156,7 +150,7 @@ typedef enum {Editing, Saved} Mode;
   [super viewWillAppear:animated];
 }
 
--(void)viewDidLoad
+- (void)viewDidLoad
 {
   [super viewDidLoad];
   self.title = NSLocalizedString(@"info", nil);
@@ -220,7 +214,7 @@ typedef enum {Editing, Saved} Mode;
   {
     // @TODO Refactor - we can do better
     CGRect z = CGRectMake(0, 0, self.tableView.frame.size.width, [self getDescriptionHeight] + MARGIN);
-    UIView * view = [[[UIView alloc] initWithFrame:z] autorelease];
+    UIView * view = [[UIView alloc] initWithFrame:z];
     z.origin.x = SMALLMARGIN;
     z.size.width -= SMALLMARGIN;
     UITextView * textView = [[UITextView alloc] initWithFrame:z];
@@ -233,7 +227,6 @@ typedef enum {Editing, Saved} Mode;
     textView.font = [UIFont fontWithName:@"Helvetica" size:18];
     textView.editable = NO;
     [view addSubview:textView];
-    [textView release];
     return view;
   }
   return nil;
@@ -251,7 +244,12 @@ typedef enum {Editing, Saved} Mode;
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
   if (m_mode == Saved && section == 1)
-    return [[[TwoButtonsView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, TWOBUTTONSHEIGHT) leftButtonSelector:@selector(share) rightButtonSelector:@selector(remove) leftButtonTitle:NSLocalizedString(@"share", nil) rightButtontitle:NSLocalizedString(@"remove_pin", nil) target:self] autorelease];
+    return [[TwoButtonsView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, TWOBUTTONSHEIGHT)
+                              leftButtonSelector:@selector(share)
+                             rightButtonSelector:@selector(remove)
+                                 leftButtonTitle:NSLocalizedString(@"share", nil)
+                                rightButtontitle:NSLocalizedString(@"remove_pin", nil)
+                                          target:self];
   return nil;
 }
 
@@ -279,7 +277,7 @@ typedef enum {Editing, Saved} Mode;
   {
     if (indexPath.section == 1)
     {
-      SelectSetVC * vc = [[[SelectSetVC alloc] initWithIndex:&m_categoryIndex] autorelease];
+      SelectSetVC * vc = [[SelectSetVC alloc] initWithIndex:&m_categoryIndex];
       [self pushToNavigationControllerAndSetControllerToPopoverSize:vc];
     }
     else if (indexPath.section == 2)
@@ -291,7 +289,7 @@ typedef enum {Editing, Saved} Mode;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-  if (textField.text.length == 0)
+  if ([textField.text length] == 0)
     return YES;
   // Hide keyboard
   [textField resignFirstResponder];
@@ -304,7 +302,7 @@ typedef enum {Editing, Saved} Mode;
   return NO;
 }
 
--(void)pushToNavigationControllerAndSetControllerToPopoverSize:(UIViewController *)vc
+- (void)pushToNavigationControllerAndSetControllerToPopoverSize:(UIViewController *)vc
 {
   if (isIPad)
     [vc setContentSizeForViewInPopover:[self contentSizeForViewInPopover]];
@@ -316,7 +314,7 @@ typedef enum {Editing, Saved} Mode;
 	return 1;
 }
 
--(void)getSuperView:(double &)height width:(double &)width rect:(CGRect &)rect
+- (void)getSuperView:(double &)height width:(double &)width rect:(CGRect &)rect
 {
   if (isIPhone)
   {
@@ -334,7 +332,7 @@ typedef enum {Editing, Saved} Mode;
   }
 }
 
--(void)addRightNavigationItemWithAction:(SEL)selector
+- (void)addRightNavigationItemWithAction:(SEL)selector
 {
   UIBarButtonItem * but;
   if (m_mode == Saved)
@@ -342,10 +340,9 @@ typedef enum {Editing, Saved} Mode;
   else
     but = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:selector];
   self.navigationItem.rightBarButtonItem = but;
-  [but release];
 }
 
--(void)save
+- (void)save
 {
   [self.view endEditing:YES];
   [self savePin];
@@ -353,14 +350,14 @@ typedef enum {Editing, Saved} Mode;
   GetFramework().GetBalloonManager().Hide();
 }
 
--(void)edit
+- (void)edit
 {
   m_mode = Editing;
   [self.tableView reloadData];
   [self addRightNavigationItemWithAction:@selector(save)];
 }
 
--(void)remove
+- (void)remove
 {
   if (IsValid(_pinEditedBookmark))
   {
@@ -381,7 +378,7 @@ typedef enum {Editing, Saved} Mode;
   [self.shareActionSheet show];
 }
 
--(void)savePin
+- (void)savePin
 {
   Framework & f = GetFramework();
   if (_pinEditedBookmark == MakeEmptyBookmarkAndCategory())
@@ -439,7 +436,7 @@ typedef enum {Editing, Saved} Mode;
   }
 }
 
--(void)addBookmarkToCategory:(size_t)index
+- (void)addBookmarkToCategory:(size_t)index
 {
   Bookmark bm(m2::PointD(_pinGlobalPosition.x, _pinGlobalPosition.y), [self.pinTitle UTF8String], [self.pinColor UTF8String]);
   bm.SetDescription([self.pinNotes UTF8String]);
@@ -447,7 +444,7 @@ typedef enum {Editing, Saved} Mode;
   _pinEditedBookmark = pair<int, int>(index, GetFramework().AddBookmark(index, bm));
 }
 
--(void)initializeProperties:(NSString *)name notes:(NSString *)notes color:(NSString *)color category:(BookmarkAndCategory) bmAndCat point:(CGPoint)point
+- (void)initializeProperties:(NSString *)name notes:(NSString *)notes color:(NSString *)color category:(BookmarkAndCategory) bmAndCat point:(CGPoint)point
 {
   Framework & f = GetFramework();
 
@@ -463,9 +460,9 @@ typedef enum {Editing, Saved} Mode;
   m_selectedRow = [ColorPickerView getColorIndex:self.pinColor];
 }
 
--(UITextView *)createTextFieldForCell:(UIFont *)font color:(UIColor *)color
+- (UITextView *)createTextFieldForCell:(UIFont *)font color:(UIColor *)color
 {
-  UITextView * txtView = [[[UITextView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 142.0)] autorelease];
+  UITextView * txtView = [[UITextView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 142.0)];
   txtView.delegate = self;
   txtView.AutoresizingMask = UIViewAutoresizingFlexibleWidth;
   txtView.textColor = color;
@@ -475,7 +472,7 @@ typedef enum {Editing, Saved} Mode;
   return txtView;
 }
 
--(UITableViewCell *)cellForEditingModeWithTable:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)cellForEditingModeWithTable:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString * cellId;
   switch (indexPath.section)
@@ -488,7 +485,7 @@ typedef enum {Editing, Saved} Mode;
   UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
   if (!cell)
   {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellId] autorelease];
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellId];
     if (indexPath.section == 0)
     {
       cell.textLabel.text = NSLocalizedString(@"name", @"Add bookmark dialog - bookmark name");
@@ -501,7 +498,7 @@ typedef enum {Editing, Saved} Mode;
       CGFloat const padding = leftR.origin.x;
       CGRect r = CGRectMake(padding + leftR.size.width + padding, leftR.origin.y,
                             cell.contentView.frame.size.width - 3 * padding - leftR.size.width, leftR.size.height);
-      UITextField * f = [[[UITextField alloc] initWithFrame:r] autorelease];
+      UITextField * f = [[UITextField alloc] initWithFrame:r];
       f.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
       f.enablesReturnKeyAutomatically = YES;
       f.returnKeyType = UIReturnKeyDone;
@@ -534,7 +531,7 @@ typedef enum {Editing, Saved} Mode;
       cell.detailTextLabel.text = @"temp string";
       // Called to initialize frames and fonts
       [cell layoutSubviews];
-      UITextView * txtView = [[[UITextView alloc] initWithFrame:CGRectMake(10.0, 0.0, 300.0, 142.0)] autorelease];
+      UITextView * txtView = [[UITextView alloc] initWithFrame:CGRectMake(10.0, 0.0, 300.0, 142.0)];
       txtView.delegate = self;
       txtView.AutoresizingMask = UIViewAutoresizingFlexibleWidth;
       txtView.textColor = cell.detailTextLabel.textColor;
@@ -557,7 +554,7 @@ typedef enum {Editing, Saved} Mode;
       break;
 
     case 2:
-      cell.accessoryView = [[[UIImageView alloc] initWithImage:[CircleView createCircleImageWith:BUTTONDIAMETER andColor:[ColorPickerView buttonColor:m_selectedRow]]] autorelease];
+      cell.accessoryView = [[UIImageView alloc] initWithImage:[CircleView createCircleImageWith:BUTTONDIAMETER andColor:[ColorPickerView buttonColor:m_selectedRow]]];
       break;
     case 3:
       UITextView * t = (UITextView *)[cell viewWithTag:TEXTVIEW_TAG];
@@ -570,7 +567,7 @@ typedef enum {Editing, Saved} Mode;
   return cell;
 }
 
--(UITableViewCell *)cellForSaveModeWithTable:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)cellForSaveModeWithTable:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell * cell = nil;
   if (indexPath.section == 0)
@@ -578,12 +575,11 @@ typedef enum {Editing, Saved} Mode;
     cell = [tableView dequeueReusableCellWithIdentifier:@"CoordinatesCELL"];
     if (!cell)
     {
-      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CoordinatesCELL"] autorelease];
+      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CoordinatesCELL"];
       cell.textLabel.textAlignment = UITextAlignmentCenter;
       cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:26];
       cell.textLabel.textColor = [UIColor colorWithRed:COORDINATECOLOR green:COORDINATECOLOR blue:COORDINATECOLOR alpha:1.0];
-      UILongPressGestureRecognizer * longTouch = [[[UILongPressGestureRecognizer alloc]
-                                            initWithTarget:self action:@selector(handleLongPress:)] autorelease];
+      UILongPressGestureRecognizer * longTouch = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
       longTouch.minimumPressDuration = 0.5;
       longTouch.delegate = self;
       [cell addGestureRecognizer:longTouch];
@@ -593,7 +589,7 @@ typedef enum {Editing, Saved} Mode;
   return cell;
 }
 
--(void)orientationChanged
+- (void)orientationChanged
 {
   if (m_mode == Saved)
   {
@@ -602,7 +598,7 @@ typedef enum {Editing, Saved} Mode;
   }
 }
 
--(void)goToTheMap
+- (void)goToTheMap
 {
   GetFramework().GetBalloonManager().Hide();
   if (isIPad)
@@ -611,12 +607,12 @@ typedef enum {Editing, Saved} Mode;
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
--(CGFloat)getDescriptionHeight
+- (CGFloat)getDescriptionHeight
 {
   return [self.pinNotes sizeWithFont:[UIFont fontWithName:@"Helvetica" size:18] constrainedToSize:CGSizeMake(self.tableView.frame.size.width - 3 * SMALLMARGIN, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
 }
 
--(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+- (void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
 {
   if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
   {
@@ -649,10 +645,10 @@ typedef enum {Editing, Saved} Mode;
   [UIPasteboard generalPasteboard].string = [self coordinatesToString];
 }
 
--(NSString *)coordinatesToString
+- (NSString *)coordinatesToString
 {
-  NSLocale * decimalPointLocale = [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] autorelease];
-  return [[[NSString alloc] initWithFormat:@"%@" locale:decimalPointLocale, [NSString stringWithFormat:@"%.05f %.05f", MercatorBounds::YToLat(self.pinGlobalPosition.y), MercatorBounds::XToLon(self.pinGlobalPosition.x)]] autorelease];
+  NSLocale * decimalPointLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+  return [[NSString alloc] initWithFormat:@"%@" locale:decimalPointLocale, [NSString stringWithFormat:@"%.05f %.05f", MercatorBounds::YToLat(self.pinGlobalPosition.y), MercatorBounds::XToLon(self.pinGlobalPosition.x)]];
 }
 
 -(void)textFieldDidChange:(UITextField *)textField
@@ -684,20 +680,20 @@ typedef enum {Editing, Saved} Mode;
   return NSLocalizedString(@"description", nil);
 }
 
--(PlaceAndCompasView *)getCompassView
+- (PlaceAndCompasView *)getCompassView
 {
   if (!self.placeAndCompass)
     _placeAndCompass = [[PlaceAndCompasView alloc] initWithName:self.pinTitle placeSecondaryName:[NSString stringWithUTF8String:GetFramework().GetBmCategory(_pinEditedBookmark.first)->GetName().c_str()] placeGlobalPoint:_pinGlobalPosition width:self.tableView.frame.size.width];
   return self.placeAndCompass;
 }
 
--(void)showPicker
+- (void)showPicker
 {
   double height, width;
   CGRect rect;
   [self getSuperView:height width:width rect:rect];
-  self.pickerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, width, height)] autorelease];
-  ColorPickerView * colorPicker = [[[ColorPickerView alloc] initWithWidth:min(height, width) andSelectButton:m_selectedRow] autorelease];
+  self.pickerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+  ColorPickerView * colorPicker = [[ColorPickerView alloc] initWithWidth:min(height, width) andSelectButton:m_selectedRow];
   colorPicker.delegate = self;
   CGRect r = colorPicker.frame;
   r.origin.x = (self.pickerView.frame.size.width - colorPicker.frame.size.width) / 2;
@@ -706,7 +702,7 @@ typedef enum {Editing, Saved} Mode;
   [self.pickerView addSubview:colorPicker];
   self.pickerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   [self.pickerView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
-  UITapGestureRecognizer * tap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPicker)] autorelease];
+  UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPicker)];
   [self.pickerView addGestureRecognizer:tap];
   if (isIPhone)
   {
@@ -720,12 +716,12 @@ typedef enum {Editing, Saved} Mode;
     [self.view.superview addSubview:self.pickerView];
 }
 
--(void)dismissPicker
+- (void)dismissPicker
 {
   [self.pickerView removeFromSuperview];
 }
 
--(void)colorPicked:(size_t)colorIndex
+- (void)colorPicked:(size_t)colorIndex
 {
   if (colorIndex != m_selectedRow)
   {

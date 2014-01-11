@@ -3,17 +3,14 @@
 
 @implementation BookmarkCell
 
-@synthesize bmName;
-@synthesize bmDistance;
-
 - (id)initWithReuseIdentifier:(NSString *)identifier
 {
   self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
   if (self)
   {
-    bmName = [[[UILabel alloc] init] autorelease];
-    bmDistance = [[[UILabel alloc] init] autorelease];
-    bmDistance.textAlignment = UITextAlignmentRight;
+    _bmName = [[UILabel alloc] init];
+    _bmDistance = [[UILabel alloc] init];
+    _bmDistance.textAlignment = UITextAlignmentRight;
 
     // There is a hack below to get standart fonts and colors.
     self.textLabel.text = @"tmpText";
@@ -21,19 +18,19 @@
 
     [super layoutSubviews];
 
-    bmName.font = self.textLabel.font;
-    bmName.textColor = self.textLabel.textColor;
-    bmName.backgroundColor = [UIColor clearColor];
+    _bmName.font = self.textLabel.font;
+    _bmName.textColor = self.textLabel.textColor;
+    _bmName.backgroundColor = [UIColor clearColor];
 
-    bmDistance.font = self.detailTextLabel.font;
-    bmDistance.textColor = self.detailTextLabel.textColor;
-    bmDistance.backgroundColor = [UIColor clearColor];
+    _bmDistance.font = self.detailTextLabel.font;
+    _bmDistance.textColor = self.detailTextLabel.textColor;
+    _bmDistance.backgroundColor = [UIColor clearColor];
 
     self.detailTextLabel.text = nil;
     self.textLabel.text = nil;
 
-    [self.contentView addSubview:bmName];
-    [self.contentView addSubview:bmDistance];
+    [self.contentView addSubview:_bmName];
+    [self.contentView addSubview:_bmDistance];
   }
   return self;
 }
@@ -64,9 +61,9 @@
   CGFloat const h = r.size.height;
 
   CGFloat xDelim = (int)(r.origin.x + w / 2);
-  if (bmDistance.text.length)
+  if (_bmDistance.text.length)
   {
-    CGSize const distanceTextSize = [bmDistance.text sizeWithFont:bmDistance.font];
+    CGSize const distanceTextSize = [_bmDistance.text sizeWithFont:_bmDistance.font];
     if (xDelim + distanceTextSize.width < r.origin.x + w)
       xDelim = r.origin.x + w - distanceTextSize.width - KPaddingX;
   }
@@ -75,8 +72,8 @@
     xDelim = r.origin.x + w - KPaddingX;
   }
 
-  bmName.frame = CGRectMake(r.origin.x, r.origin.y, xDelim - r.origin.x, h);
-  bmDistance.frame = CGRectMake(xDelim, r.origin.y, r.origin.x + w - xDelim, h);
+  _bmName.frame = CGRectMake(r.origin.x, r.origin.y, xDelim - r.origin.x, h);
+  _bmDistance.frame = CGRectMake(xDelim, r.origin.y, r.origin.x + w - xDelim, h);
 }
 
 @end

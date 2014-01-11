@@ -115,14 +115,14 @@ static void OnSearchResultCallback(search::Results const & res)
 @interface SearchVC ()
 
 @property (nonatomic) BOOL searching;
-@property (nonatomic) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic) UIActivityIndicatorView * activityIndicator;
 
 @end
 
 @implementation SearchVC
 @synthesize searchResults = _searchResults;
 
-- (id) init
+- (id)init
 {
   if ((self = [super initWithNibName:nil bundle:nil]))
   {
@@ -173,8 +173,6 @@ static void OnSearchResultCallback(search::Results const & res)
   if ([m_locationManager getLat:lat Lon:lon])
     params.SetPosition(lat, lon);
 }
-
-
 
 - (UISearchBar *)searchBar
 {
@@ -652,7 +650,7 @@ void setSearchType(search::SearchParams & params)
   [self onCloseButton:nil];
 }
 
--(void)clearCacheResults
+- (void)clearCacheResults
 {
   for (int i = 0; i < [_searchResults count]; ++i)
   {
@@ -660,7 +658,7 @@ void setSearchType(search::SearchParams & params)
   }
 }
 
--(void)proceedSearchWithString:(NSString *)searchText andForceSearch:(BOOL)forceSearch
+- (void)proceedSearchWithString:(NSString *)searchText andForceSearch:(BOOL)forceSearch
 {
   g_numberOfRowsInEmptySearch = 0;
   [m_table reloadData];
@@ -668,7 +666,7 @@ void setSearchType(search::SearchParams & params)
     return;
   search::SearchParams params;
   setSearchType(params);
-  if(forceSearch)
+  if (forceSearch)
   {
     params.SetForceSearch(true);
   }

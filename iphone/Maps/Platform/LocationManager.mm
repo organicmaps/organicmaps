@@ -24,19 +24,14 @@
 
     m_lastLocationTime = nil;
     m_isCourse = NO;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification  object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification object:nil];
   }
   return self;
 }
 
 - (void)dealloc
 {
-  [m_observers release];
-  [m_locationManager release];
-  [m_lastLocationTime release];
   [[NSNotificationCenter defaultCenter] removeObserver:self];
-
-  [super dealloc];
 }
 
 - (void)start:(id <LocationObserver>)observer
@@ -53,18 +48,18 @@
 
       switch (authStatus)
       {
-      case kCLAuthorizationStatusAuthorized:
-      case kCLAuthorizationStatusNotDetermined:
-        [m_locationManager startUpdatingLocation];
-        if ([CLLocationManager headingAvailable])
-          [m_locationManager startUpdatingHeading];
-        m_isStarted = YES;
-        [m_observers addObject:observer];
-        break;
-      case kCLAuthorizationStatusRestricted:
-      case kCLAuthorizationStatusDenied:
-        [observer onLocationError:location::EDenied];
-        break;
+        case kCLAuthorizationStatusAuthorized:
+        case kCLAuthorizationStatusNotDetermined:
+          [m_locationManager startUpdatingLocation];
+          if ([CLLocationManager headingAvailable])
+            [m_locationManager startUpdatingHeading];
+          m_isStarted = YES;
+          [m_observers addObject:observer];
+          break;
+        case kCLAuthorizationStatusRestricted:
+        case kCLAuthorizationStatusDenied:
+          [observer onLocationError:location::EDenied];
+          break;
       }
     }
     else
@@ -132,8 +127,7 @@
     return;
 
   // Save current device time for location.
-  [m_lastLocationTime release];
-  m_lastLocationTime = [[NSDate date] retain];
+  m_lastLocationTime = [NSDate date];
 
   location::GpsInfo newInfo;
   [self location:newLocation toGpsInfo:newInfo];
@@ -224,7 +218,7 @@
 {
   if (meters < 0.)
     return nil;
-  
+
   string s;
   MeasurementUtils::FormatDistance(meters, s);
   return [NSString stringWithUTF8String:s.c_str()];
@@ -232,15 +226,15 @@
 
 - (bool)lastLocationIsValid
 {
-    return (([self lastLocation] != nil) && ([m_lastLocationTime timeIntervalSinceNow] > -300.0));
+  return (([self lastLocation] != nil) && ([m_lastLocationTime timeIntervalSinceNow] > -300.0));
 }
 
--(void)orientationChanged
+- (void)orientationChanged
 {
   m_locationManager.headingOrientation = (CLDeviceOrientation)[UIDevice currentDevice].orientation;
 }
 
--(void)notifyCompassUpdate:(location::CompassInfo const &)newInfo
+- (void)notifyCompassUpdate:(location::CompassInfo const &)newInfo
 {
   for (id observer in m_observers)
     if ([observer respondsToSelector:@selector(onCompassUpdate:)])

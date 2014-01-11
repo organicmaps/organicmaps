@@ -104,7 +104,7 @@
       cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksVCSetNameCell"];
       if (!cell)
       {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksVCSetNameCell"] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksVCSetNameCell"];
         cell.textLabel.text = NSLocalizedString(@"name", nil);
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         // Temporary, to init font and color
@@ -115,7 +115,7 @@
         CGFloat const padding = leftR.origin.x;
         CGRect r = CGRectMake(padding + leftR.size.width + padding, leftR.origin.y,
                               cell.contentView.frame.size.width - 3 * padding - leftR.size.width, leftR.size.height);
-        UITextField * f = [[[UITextField alloc] initWithFrame:r] autorelease];
+        UITextField * f = [[UITextField alloc] initWithFrame:r];
         f.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         f.enablesReturnKeyAutomatically = YES;
         f.returnKeyType = UIReturnKeyDone;
@@ -138,9 +138,9 @@
       cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksVCSetVisibilityCell"];
       if (!cell)
       {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksVCSetVisibilityCell"] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksVCSetVisibilityCell"];
         cell.textLabel.text = NSLocalizedString(@"visible", nil);
-        cell.accessoryView = [[[UISwitch alloc] init] autorelease];
+        cell.accessoryView = [[UISwitch alloc] init];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
       }
       UISwitch * sw = (UISwitch *)cell.accessoryView;
@@ -153,7 +153,7 @@
   {
     cell = [tableView dequeueReusableCellWithIdentifier:@"TrackCell"];
     if (!cell)
-      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"TrackCell"] autorelease];
+      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"TrackCell"];
     Track const * tr = cat->GetTrack(indexPath.row);
     cell.textLabel.text = [NSString stringWithUTF8String:tr->GetName().c_str()];
     string dist;
@@ -170,7 +170,7 @@
   {
     BookmarkCell * bmCell = (BookmarkCell *)[tableView dequeueReusableCellWithIdentifier:@"BookmarksVCBookmarkItemCell"];
     if (!bmCell)
-      bmCell = [[[BookmarkCell alloc] initWithReuseIdentifier:@"BookmarksVCBookmarkItemCell"] autorelease];
+      bmCell = [[BookmarkCell alloc] initWithReuseIdentifier:@"BookmarksVCBookmarkItemCell"];
     Bookmark const * bm = cat->GetBookmark(indexPath.row);
     if (bm)
     {
@@ -205,7 +205,7 @@
     cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksExportCell"];
     if (!cell)
     {
-      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BookmarksExportCell"] autorelease];
+      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BookmarksExportCell"];
       cell.textLabel.textAlignment = UITextAlignmentCenter;
       cell.textLabel.text = NSLocalizedString(@"share_by_email", nil);
     }
@@ -414,18 +414,18 @@
   return NO;
 }
 
-- (void) sendBookmarksWithExtension:(NSString *) fileExtension andType:(NSString *)mimeType andFile:(NSString *)filePath andCategory:(NSString *)catName
+- (void)sendBookmarksWithExtension:(NSString *)fileExtension andType:(NSString *)mimeType andFile:(NSString *)filePath andCategory:(NSString *)catName
 {
-  MailComposeViewController * mailVC = [[[MailComposeViewController alloc] init] autorelease];
+  MailComposeViewController * mailVC = [[MailComposeViewController alloc] init];
   mailVC.mailComposeDelegate = self;
   [mailVC setSubject:NSLocalizedString(@"share_bookmarks_email_subject", nil)];
-  NSData * myData = [[[NSData alloc] initWithContentsOfFile:filePath] autorelease];
+  NSData * myData = [[NSData alloc] initWithContentsOfFile:filePath];
   [mailVC addAttachmentData:myData mimeType:mimeType fileName:[NSString stringWithFormat:@"%@%@", catName, fileExtension]];
   [mailVC setMessageBody:[NSString stringWithFormat:NSLocalizedString(@"share_bookmarks_email_body", nil), catName] isHTML:NO];
   [self presentModalViewController:mailVC animated:YES];
 }
 
--(void)calculateSections
+- (void)calculateSections
 {
   size_t index = 1;
   BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);

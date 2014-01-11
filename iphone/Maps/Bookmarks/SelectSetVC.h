@@ -4,6 +4,6 @@
 {
   size_t * m_index;
 }
-- (id) initWithIndex:(size_t *)index;
+- (id)initWithIndex:(size_t *)index;
 
 @end

@@ -15,10 +15,10 @@
   UITableViewCell * m_clickedCell;
 }
 
-- (id) initWithIndex: (storage::TIndex const &) index andHeader: (NSString *) header;
+- (id)initWithIndex:(storage::TIndex const &)index andHeader:(NSString *)header;
 
-- (void) OnCountryChange: (storage::TIndex const &) index;
-- (void) OnDownload: (storage::TIndex const &) index withProgress: (pair<int64_t, int64_t> const &) progress;
-- (void) TryDownloadCountry;
+- (void)OnCountryChange:(storage::TIndex const &)index;
+- (void)OnDownload:(storage::TIndex const &)index withProgress:(pair<int64_t, int64_t> const &)progress;
+- (void)TryDownloadCountry;
 
 @end

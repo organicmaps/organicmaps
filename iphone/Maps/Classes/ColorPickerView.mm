@@ -42,7 +42,7 @@ static Tcolor const g_color [] =
     self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|
                             UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
 
-    UILabel * header = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, customWidth, HEADERHEIGHT)] autorelease];
+    UILabel * header = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, customWidth, HEADERHEIGHT)];
     header.backgroundColor = [UIColor clearColor];
     header.text = NSLocalizedString(@"bookmark_color", nil);
     header.font = [UIFont fontWithName:@"Helvetica" size:20];
@@ -51,7 +51,7 @@ static Tcolor const g_color [] =
 
     [self addSubview:header];
 
-    UIView * line = [[[UIView alloc] initWithFrame:CGRectMake(0, HEADERHEIGHT - LINEHEIGHT, customWidth, LINEHEIGHT)] autorelease];
+    UIView * line = [[UIView alloc] initWithFrame:CGRectMake(0, HEADERHEIGHT - LINEHEIGHT, customWidth, LINEHEIGHT)];
     line.backgroundColor = [UIColor colorWithRed:51/255.f green:204/255.f blue:255/255.f alpha:1];
     [self addSubview:line];
 
@@ -67,7 +67,7 @@ static Tcolor const g_color [] =
         CGFloat const selectionDiametr = buttonDiameter * 0.6;
         CGFloat const origin = buttonDiameter / 2 - selectionDiametr / 2;
         UIColor * col = [UIColor colorWithRed:1.f green:1.f blue:1.f alpha:1];
-        CircleView * selectedCircle = [[[CircleView alloc] initWithFrame:CGRectMake(origin, origin, selectionDiametr, selectionDiametr) andColor:col] autorelease];
+        CircleView * selectedCircle = [[CircleView alloc] initWithFrame:CGRectMake(origin, origin, selectionDiametr, selectionDiametr) andColor:col];
         [button setBackgroundImage:[CircleView createCircleImageWith:buttonDiameter andColor:c andSubview:selectedCircle] forState:UIControlStateNormal];
       }
 
@@ -78,7 +78,6 @@ static Tcolor const g_color [] =
       button.tag = i;
       [button setContentMode:UIViewContentModeScaleAspectFit];
       [self addSubview:button];
-      [button release];
     }
   }
   return self;

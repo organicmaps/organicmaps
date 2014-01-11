@@ -7,10 +7,10 @@
 
 - (instancetype)initWithText:(NSString *)text gX:(double)gX gY:(double)gY myPosition:(BOOL)myPosition;
 
-@property (strong) NSString * text;
-@property double gX;
-@property double gY;
-@property BOOL myPosition;
+@property (nonatomic) NSString * text;
+@property (nonatomic) double gX;
+@property (nonatomic) double gY;
+@property (nonatomic) BOOL myPosition;
 
 @end
 

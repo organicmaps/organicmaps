@@ -42,29 +42,25 @@ void InitLocalizedStrings()
 }
 
 @interface MapsAppDelegate()
-@property (nonatomic, retain) NSString * lastGuidesUrl;
+@property (nonatomic) NSString * lastGuidesUrl;
 @end
 
 @implementation MapsAppDelegate
 
-@synthesize m_mapViewController;
-@synthesize m_locationManager;
-
-
-+ (MapsAppDelegate *) theApp
++ (MapsAppDelegate *)theApp
 {
-  return (MapsAppDelegate *)[APP delegate];
+  return (MapsAppDelegate *)[UIApplication sharedApplication].delegate;
 }
 
-- (void) applicationWillTerminate: (UIApplication *) application
+- (void)applicationWillTerminate:(UIApplication *)application
 {
-	[m_mapViewController onTerminate];
+	[self.m_mapViewController onTerminate];
 }
 
-- (void) applicationDidEnterBackground: (UIApplication *) application
+- (void)applicationDidEnterBackground:(UIApplication *)application
 {
-	[m_mapViewController onEnterBackground];
-  if(m_activeDownloadsCounter)
+	[self.m_mapViewController onEnterBackground];
+  if (m_activeDownloadsCounter)
   {
     m_backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
       [application endBackgroundTask:m_backgroundTask];
@@ -73,11 +69,11 @@ void InitLocalizedStrings()
   }
 }
 
-- (void) applicationWillEnterForeground: (UIApplication *) application
+- (void)applicationWillEnterForeground:(UIApplication *)application
 {
-  [m_locationManager orientationChanged];
+  [self.m_locationManager orientationChanged];
   [AppInfo sharedInfo].launchCount++;
-  [m_mapViewController onEnterForeground];
+  [self.m_mapViewController onEnterForeground];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -85,12 +81,11 @@ void InitLocalizedStrings()
   if (!m_didOpenedWithUrl)
   {
     UIPasteboard * pasteboard = [UIPasteboard generalPasteboard];
-    if (pasteboard.string.length)
+    if ([pasteboard.string length])
     {
       if (GetFramework().ShowMapForURL([pasteboard.string UTF8String]))
       {
         [self showMap];
-
         pasteboard.string = @"";
       }
     }
@@ -114,55 +109,47 @@ void InitLocalizedStrings()
   return m_settingsManager;
 }
 
-- (void) dealloc
+- (void)dealloc
 {
-  [m_locationManager release];
-  [m_settingsManager release];
-  self.m_mapViewController = nil;
-  [m_navController release];
-  [m_window release];
-  self.lastGuidesUrl = nil;
-  [super dealloc];
-
   // Global cleanup
   DeleteFramework();
 }
 
-- (void) disableStandby
+- (void)disableStandby
 {
   ++m_standbyCounter;
-  APP.idleTimerDisabled = YES;
+  [UIApplication sharedApplication].idleTimerDisabled = YES;
 }
 
-- (void) enableStandby
+- (void)enableStandby
 {
   --m_standbyCounter;
   if (m_standbyCounter <= 0)
   {
-    APP.idleTimerDisabled = NO;
+   [UIApplication sharedApplication].idleTimerDisabled = NO;
     m_standbyCounter = 0;
   }
 }
 
-- (void) disableDownloadIndicator
+- (void)disableDownloadIndicator
 {
   --m_activeDownloadsCounter;
   if (m_activeDownloadsCounter <= 0)
   {
-    APP.networkActivityIndicatorVisible = NO;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     m_activeDownloadsCounter = 0;
-    if ([APP applicationState] == UIApplicationStateBackground)
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)
     {
-      [APP endBackgroundTask:m_backgroundTask];
+      [[UIApplication sharedApplication] endBackgroundTask:m_backgroundTask];
       m_backgroundTask = UIBackgroundTaskInvalid;
     }
   }
 }
 
-- (void) enableDownloadIndicator
+- (void)enableDownloadIndicator
 {
   ++m_activeDownloadsCounter;
-  APP.networkActivityIndicatorVisible = YES;
+  [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
 - (void)customizeAppearance
@@ -177,7 +164,7 @@ void InitLocalizedStrings()
     [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
   }
   if ([UINavigationBar instancesRespondToSelector:@selector(setShadowImage:)])
-    [[UINavigationBar appearance] setShadowImage:[[[UIImage alloc] init] autorelease]];
+    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
   [[UINavigationBar appearance] setTitleTextAttributes:attributes];
 }
 
@@ -191,12 +178,12 @@ void InitLocalizedStrings()
 
   InitLocalizedStrings();
 
-  [m_mapViewController onEnterForeground];
+  [self.m_mapViewController onEnterForeground];
 
-  [Preferences setup:m_mapViewController];
-  m_locationManager = [[LocationManager alloc] init];
+  [Preferences setup:self.m_mapViewController];
+  _m_locationManager = [[LocationManager alloc] init];
 
-  m_navController = [[NavigationController alloc] initWithRootViewController:m_mapViewController];
+  m_navController = [[NavigationController alloc] initWithRootViewController:self.m_mapViewController];
   m_navController.navigationBarHidden = YES;
   m_window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   m_window.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -230,7 +217,7 @@ void InitLocalizedStrings()
   return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
 }
 
--(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
   NSDictionary * dict = notification.userInfo;
   if ([[dict objectForKey:@"Proposal"] isEqual:@"OpenGuides"])
@@ -239,15 +226,11 @@ void InitLocalizedStrings()
     UIAlertView * view = [[UIAlertView alloc] initWithTitle:[dict objectForKey:@"GuideTitle"] message:[dict objectForKey:@"GuideMessage"] delegate:self cancelButtonTitle:NSLocalizedString(@"later", nil) otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
     view.tag = NOTIFICATION_ALERT_VIEW_TAG;
     [view show];
-    [view release];
   }
 }
 
 // We don't support HandleOpenUrl as it's deprecated from iOS 4.2
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
   NSString * scheme = url.scheme;
   Framework & f = GetFramework();
@@ -277,7 +260,7 @@ void InitLocalizedStrings()
       [[Statistics instance] logApiUsage:sourceApplication];
 
       [self showMap];
-      [m_mapViewController prepareForApi];
+      [self.m_mapViewController prepareForApi];
       return YES;
     }
   }
@@ -299,7 +282,7 @@ void InitLocalizedStrings()
   return NO;
 }
 
--(void)showLoadFileAlertIsSuccessful:(BOOL) successful
+- (void)showLoadFileAlertIsSuccessful:(BOOL)successful
 {
   m_loadingAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"load_kmz_title", nil)
                                                   message:
@@ -309,10 +292,9 @@ void InitLocalizedStrings()
   m_loadingAlertView.delegate = self;
   [m_loadingAlertView show];
   [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(dismissAlert) userInfo:nil repeats:NO];
-  [m_loadingAlertView release];
 }
 
--(void)dismissAlert
+- (void)dismissAlert
 {
   if (m_loadingAlertView)
     [m_loadingAlertView dismissWithClickedButtonIndex:0 animated:YES];
@@ -326,7 +308,7 @@ void InitLocalizedStrings()
     {
       [[Statistics instance] logEvent:@"Download Guides Proposal" withParameters:@{@"Answer" : @"YES"}];
       NSURL * url = [NSURL URLWithString:self.lastGuidesUrl];
-      [APP openURL:url];
+      [[UIApplication sharedApplication] openURL:url];
     }
     else
       [[Statistics instance] logEvent:@"Download Guides Proposal" withParameters:@{@"Answer" : @"NO"}];
@@ -335,14 +317,14 @@ void InitLocalizedStrings()
     m_loadingAlertView = nil;
 }
 
--(void)showMap
+- (void)showMap
 {
   [m_navController popToRootViewControllerAnimated:YES];
-  [m_mapViewController.sideToolbar setMenuHidden:YES animated:NO];
-  [m_mapViewController dismissPopover];
+  [self.m_mapViewController.sideToolbar setMenuHidden:YES animated:NO];
+  [self.m_mapViewController dismissPopover];
 }
 
--(void)subscribeToStorage
+- (void)subscribeToStorage
 {
   typedef void (*TChangeFunc)(id, SEL, storage::TIndex const &);
   SEL changeSel = @selector(OnCountryChange:);
@@ -356,7 +338,7 @@ void InitLocalizedStrings()
                                    bind(progressImpl, self, emptySel, _1, _2));
 }
 
-- (void) OnCountryChange: (storage::TIndex const &)index
+- (void)OnCountryChange:(storage::TIndex const &)index
 {
   Framework const & f = GetFramework();
   guides::GuideInfo guide;
@@ -364,17 +346,15 @@ void InitLocalizedStrings()
     [self ShowNotificationWithGuideInfo:guide];
 }
 
-- (void) EmptyFunction: (storage::TIndex const &) index withProgress: (pair<int64_t, int64_t> const &) progress
-{
-}
+- (void)EmptyFunction:(storage::TIndex const &)index withProgress:(pair<int64_t, int64_t> const &)progress {}
 
--(BOOL) ShowNotificationWithGuideInfo:(guides::GuideInfo const &)guide
+- (BOOL)ShowNotificationWithGuideInfo:(guides::GuideInfo const &)guide
 {
   guides::GuidesManager & guidesManager = GetFramework().GetGuidesManager();
   string const appID = guide.GetAppID();
 
   if (guidesManager.WasAdvertised(appID) ||
-      [APP canOpenURL:[NSURL URLWithString:[NSString stringWithUTF8String:appID.c_str()]]])
+      [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:[NSString stringWithUTF8String:appID.c_str()]]])
     return NO;
 
   UILocalNotification * notification = [[UILocalNotification alloc] init];
@@ -393,10 +373,10 @@ void InitLocalizedStrings()
                             @"GuideMessage" : message
                             };
 
-  [APP scheduleLocalNotification:notification];
-  [notification release];
+  [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 
   guidesManager.SetWasAdvertised(appID);
+
   return YES;
 }
 

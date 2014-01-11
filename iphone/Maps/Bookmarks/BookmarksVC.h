@@ -8,6 +8,6 @@
   size_t m_categoryIndex;
 }
 
-- (id) initWithCategory:(size_t)index;
+- (id)initWithCategory:(size_t)index;
 
 @end

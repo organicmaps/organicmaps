@@ -5,13 +5,13 @@
 
 @implementation AddSetVC
 
-- (id) initWithIndex:(size_t *)index;
+- (id)initWithIndex:(size_t *)index;
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
   {
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onSaveClicked)] autorelease];
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onCancelClicked)] autorelease];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onSaveClicked)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onCancelClicked)];
     self.title = NSLocalizedString(@"add_new_set", @"Add New Bookmark Set dialog title");
     m_index = index;
   }
@@ -69,8 +69,8 @@
   UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"EditSetNameCell"];
   if (!cell)
   {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"EditSetNameCell"] autorelease];
-    cell.textLabel.text =  @"Temporary Name";
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"EditSetNameCell"];
+    cell.textLabel.text = @"Temporary Name";
     [cell layoutSubviews];
     CGRect rect = cell.textLabel.frame;
     rect.size.width = cell.contentView.bounds.size.width - cell.textLabel.frame.origin.x;
@@ -88,7 +88,6 @@
     f.font = [cell.textLabel.font fontWithSize:[cell.textLabel.font pointSize]];
     f.tag = TEXT_FIELD_TAG;
     [cell.contentView addSubview:f];
-    [f release];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.text =  @"";
   }
@@ -97,7 +96,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-  if (textField.text.length == 0)
+  if ([textField.text length] == 0)
     return YES;
   
   [textField resignFirstResponder];

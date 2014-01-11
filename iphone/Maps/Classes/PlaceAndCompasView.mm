@@ -26,12 +26,12 @@
 
 @property (nonatomic, copy) NSString * name;
 @property (nonatomic, copy) NSString * secondaryInfo;
-@property (nonatomic, retain) CompassView * compass;
-@property (nonatomic, retain) UITextView * nameView;
-@property (nonatomic, retain) UITextView * secondaryInfoView;
-@property (nonatomic, retain) UILabel * distanceLabel;
-@property (nonatomic, retain) CircleView * circle;
-@property (nonatomic, assign) double screenWidth;
+@property (nonatomic) CompassView * compass;
+@property (nonatomic) UITextView * nameView;
+@property (nonatomic) UITextView * secondaryInfoView;
+@property (nonatomic) UILabel * distanceLabel;
+@property (nonatomic) CircleView * circle;
+@property (nonatomic) double screenWidth;
 
 
 @end
@@ -60,7 +60,7 @@
     if ([placeName length] == 0)
     {
       _name = [[NSString alloc] initWithString:placeSecondaryName];
-      _secondaryInfo = [[NSString alloc] initWithString:@""];
+      _secondaryInfo = @"";
     }
     else
     {
@@ -97,21 +97,12 @@
   return self;
 }
 
--(void)dealloc
+- (void)dealloc
 {
   [m_locationManager stop:self];
-
-  self.name = nil;
-  self.secondaryInfo = nil;
-  self.compass = nil;
-  self.distanceLabel = nil;
-
-  self.nameView = nil;
-  self.secondaryInfoView = nil;
-  [super dealloc];
 }
 
--(void)drawView
+- (void)drawView
 {
   if ([self canShowArrow])
     [self drawWithArrow];
@@ -119,7 +110,7 @@
     [self drawWithoutArrow];
 }
 
--(void)drawWithoutArrow
+- (void)drawWithoutArrow
 {
   [self.compass setShowArrow:NO];
   self.distanceLabel.frame = CGRectZero;
@@ -144,7 +135,7 @@
   self.frame = CGRectMake(0, 0, width, [self countHeight]);
 }
 
--(void)drawWithArrow
+- (void)drawWithArrow
 {
   double width = [self getCurrentSuperViewWidth];
   [self.compass setShowArrow:YES];
@@ -203,7 +194,7 @@
                                           MercatorBounds::LatToY(lat)), m2::PointD(m_xGlobal, m_yGlobal)) + northRad;
 }
 
--(BOOL)canShowArrow
+- (BOOL)canShowArrow
 {
   if  ([self getAzimut] >= 0.0)
     return YES;
@@ -211,7 +202,7 @@
     return NO;
 }
 
--(double)getAzimut
+- (double)getAzimut
 {
   double azimut = -1.0;
   double lat = 0.0, lon = 0.0;
@@ -230,12 +221,12 @@
   return azimut;
 }
 
--(double)getTextHeight:(NSString *)text font:(UIFont *)font
+- (double)getTextHeight:(NSString *)text font:(UIFont *)font
 {
   return  [text sizeWithFont:font constrainedToSize:CGSizeMake([self getCurrentSuperViewWidth] - 2 * MARGIN, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height + 2 * SMALLMARGIN;
 }
 
--(CGFloat) countHeight
+- (CGFloat) countHeight
 {
   if (self.secondaryInfo.length)
     return self.secondaryInfoView.frame.origin.y + self.secondaryInfoView.frame.size.height + SMALLMARGIN;
@@ -243,7 +234,7 @@
     return self.nameView.frame.origin.y + self.nameView.frame.size.height + SMALLMARGIN;
 }
 
--(CGFloat)getCurrentSuperViewWidth
+- (CGFloat)getCurrentSuperViewWidth
 {
   double width = self.superview.bounds.size.width;
   if (width == 0)

@@ -29,7 +29,7 @@
 }
 
 // The GL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:
-- (id)initWithCoder:(NSCoder*)coder
+- (id)initWithCoder:(NSCoder *)coder
 {
   NSLog(@"EAGLView initWithCoder Started");
 
@@ -45,7 +45,6 @@
     if (!renderContext.get())
     {
       NSLog(@"EAGLView initWithCoder Error");
-      [self release];
       return nil;
     }
     
@@ -53,14 +52,9 @@
     
     // ColorFormat : RGB565
     // Backbuffer : YES, (to prevent from loosing content when mixing with ordinary layers).
-    eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [NSNumber numberWithBool:NO],
-                                    kEAGLDrawablePropertyRetainedBacking,
-                                    kEAGLColorFormatRGB565,
-                                    kEAGLDrawablePropertyColorFormat,
-                                    nil];
+    eaglLayer.drawableProperties = @{kEAGLDrawablePropertyRetainedBacking : @NO, kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGB565};
     // Correct retina display support in opengl renderbuffer
-    self.contentScaleFactor = [[UIScreen mainScreen] scale];
+    self.contentScaleFactor = [UIScreen mainScreen].scale;
   }
 
   NSLog(@"EAGLView initWithCoder Ended");
@@ -180,7 +174,6 @@
 {
   delete videoTimer;
   [EAGLContext setCurrentContext:nil];
-  [super dealloc];
 }
 
 - (CGPoint)viewPoint2GlobalPoint:(CGPoint)pt

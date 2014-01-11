@@ -2,11 +2,6 @@
 
 @implementation SearchCell
 
-@synthesize featureName;
-@synthesize featureType;
-@synthesize featureCountry;
-@synthesize featureDistance;
-
 - (id)initWithReuseIdentifier:(NSString *)identifier
 {
   self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
@@ -16,24 +11,24 @@
     UIFont * large = [UIFont fontWithName:@"Helvetica-Bold" size:[UIFont labelFontSize] + 1];
     UIFont * small = [UIFont fontWithName:@"Helvetica" size:[UIFont systemFontSize]];
 
-    featureName = [[[UILabel alloc] init] autorelease];
-    featureName.font = large;
-    featureType = [[[UILabel alloc] init] autorelease];
-    featureType.font = small;
-    featureType.textColor = [UIColor grayColor];
-    featureType.textAlignment = UITextAlignmentRight;
-    featureCountry = [[[UILabel alloc] init] autorelease];
-    featureCountry.font = small;
-    featureCountry.textColor = [UIColor grayColor];
-    featureDistance = [[[UILabel alloc] init] autorelease];
-    featureDistance.font = small;
-    featureDistance.textColor = [UIColor grayColor];
-    featureDistance.textAlignment = UITextAlignmentRight;
+    _featureName = [[UILabel alloc] init];
+    _featureName.font = large;
+    _featureType = [[UILabel alloc] init];
+    _featureType.font = small;
+    _featureType.textColor = [UIColor grayColor];
+    _featureType.textAlignment = UITextAlignmentRight;
+    _featureCountry = [[UILabel alloc] init];
+    _featureCountry.font = small;
+    _featureCountry.textColor = [UIColor grayColor];
+    _featureDistance = [[UILabel alloc] init];
+    _featureDistance.font = small;
+    _featureDistance.textColor = [UIColor grayColor];
+    _featureDistance.textAlignment = UITextAlignmentRight;
 
-    [self.contentView addSubview:featureName];
-    [self.contentView addSubview:featureType];
-    [self.contentView addSubview:featureCountry];
-    [self.contentView addSubview:featureDistance];
+    [self.contentView addSubview:_featureName];
+    [self.contentView addSubview:_featureType];
+    [self.contentView addSubview:_featureCountry];
+    [self.contentView addSubview:_featureDistance];
   }
   return self;
 }
@@ -57,9 +52,9 @@
 
   CGFloat xTopDelim = (int)(r.origin.x + w / 2);
   CGFloat xBottomDelim = xTopDelim;
-  if (featureDistance.text.length)
+  if ([_featureDistance.text length])
   {
-    CGSize const distanceTextSize = [featureDistance.text sizeWithFont:featureDistance.font];
+    CGSize const distanceTextSize = [_featureDistance.text sizeWithFont:_featureDistance.font];
     if (xTopDelim + distanceTextSize.width < r.origin.x + w)
       xTopDelim = r.origin.x + w - distanceTextSize.width - KPaddingX;
   }
@@ -68,17 +63,17 @@
     xTopDelim = r.origin.x + w - KPaddingX;
   }
 
-  featureName.frame = CGRectMake(r.origin.x, r.origin.y, xTopDelim - r.origin.x, yDelim - r.origin.y);
-  featureDistance.frame = CGRectMake(xTopDelim, r.origin.y, r.origin.x + w - xTopDelim, yDelim - r.origin.y);
+  _featureName.frame = CGRectMake(r.origin.x, r.origin.y, xTopDelim - r.origin.x, yDelim - r.origin.y);
+  _featureDistance.frame = CGRectMake(xTopDelim, r.origin.y, r.origin.x + w - xTopDelim, yDelim - r.origin.y);
 
-  if (featureType.text.length)
+  if ([_featureType.text length])
   {
-    CGSize const typeTextSize = [featureType.text sizeWithFont:featureType.font];
+    CGSize const typeTextSize = [_featureType.text sizeWithFont:_featureType.font];
     if (xBottomDelim + typeTextSize.width < r.origin.x + w)
       xBottomDelim = r.origin.x + w - typeTextSize.width - KPaddingX;
   }
-  featureCountry.frame = CGRectMake(r.origin.x, yDelim, xBottomDelim - r.origin.x, r.origin.y + h - yDelim);
-  featureType.frame = CGRectMake(xBottomDelim, yDelim, r.origin.x + w - xBottomDelim, r.origin.y + h - yDelim);
+  _featureCountry.frame = CGRectMake(r.origin.x, yDelim, xBottomDelim - r.origin.x, r.origin.y + h - yDelim);
+  _featureType.frame = CGRectMake(xBottomDelim, yDelim, r.origin.x + w - xBottomDelim, r.origin.y + h - yDelim);
 }
 
 @end

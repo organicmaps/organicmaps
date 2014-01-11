@@ -3,12 +3,14 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface CircleView()
-@property (nonatomic, retain) UIColor * circleColor;
+
+@property (nonatomic) UIColor * circleColor;
+
 @end
 
 @implementation CircleView
 
--(id)initWithFrame:(CGRect)frame andColor:(UIColor *)color
+- (id)initWithFrame:(CGRect)frame andColor:(UIColor *)color
 {
   self = [super initWithFrame:frame];
   if (self)
@@ -27,28 +29,22 @@
   CGContextFillPath(ctx);
 }
 
--(void)dealloc
++ (UIView *)createViewWithCircleDiameter:(CGFloat)diameter andColor:(UIColor *)color
 {
-  self.circleColor = nil;
-  [super dealloc];
-}
-
-+(UIView *)createViewWithCircleDiameter:(CGFloat)diameter andColor:(UIColor *)color
-{
-  UIView * circleView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, diameter, diameter)] autorelease];
+  UIView * circleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, diameter, diameter)];
   circleView.backgroundColor = [UIColor clearColor];
-  CircleView * circle = [[[CircleView alloc] initWithFrame:CGRectMake(0.5, 0.5, diameter - 1, diameter - 1) andColor:color] autorelease];
+  CircleView * circle = [[CircleView alloc] initWithFrame:CGRectMake(0.5, 0.5, diameter - 1, diameter - 1) andColor:color];
   [circleView addSubview:circle];
   return circleView;
 }
 
-+(UIImage *)createCircleImageWith:(CGFloat)diameter andColor:(UIColor *)color
++ (UIImage *)createCircleImageWith:(CGFloat)diameter andColor:(UIColor *)color
 {
   UIView * circle = [self createViewWithCircleDiameter:diameter andColor:color];
   return [self imageWithView:circle];
 }
 
-+(UIImage *)createCircleImageWith:(CGFloat)diameter andColor:(UIColor *)color andSubview:(UIView *)view
++ (UIImage *)createCircleImageWith:(CGFloat)diameter andColor:(UIColor *)color andSubview:(UIView *)view
 {
   UIView * circle = [self createViewWithCircleDiameter:diameter andColor:color];
   [circle addSubview:view];
@@ -56,7 +52,7 @@
 }
 
 
-+(UIImage *) imageWithView:(UIView *)view
++ (UIImage *)imageWithView:(UIView *)view
 {
   UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 0.0);
   [view.layer renderInContext:UIGraphicsGetCurrentContext()];

@@ -12,15 +12,8 @@ using namespace storage;
 // Settings are always present globally
 @implementation SettingsManager
 
-- (void) dealloc
-{
-  [m_navigationController release];
-  [super dealloc];
-}
-
-
 /// Get right controller from the stack
-- (UIViewController *) ControllerByIndex:(TIndex const &)index
+- (UIViewController *)ControllerByIndex:(TIndex const &)index
 {
   NSArray * controllers = m_navigationController.viewControllers;
   NSInteger count = [controllers count] - 1;
@@ -33,24 +26,24 @@ using namespace storage;
   return nil;
 }
 
-- (void) OnCountryChange: (TIndex const &)index
+- (void)OnCountryChange:(TIndex const &)index
 {
   UIViewController * controller = [self ControllerByIndex:index];
   if (controller && [controller respondsToSelector:@selector(OnCountryChange:)])
     [(CountriesViewController *)controller OnCountryChange: index];
 }
 
-- (void) OnCountryDownload: (TIndex const &) index withProgress: (pair<int64_t, int64_t> const &) progress
+- (void)OnCountryDownload:(TIndex const &)index withProgress:(pair<int64_t, int64_t> const &)progress
 {
   UIViewController * controller = [self ControllerByIndex:index];
   if (controller && [controller respondsToSelector:@selector(OnDownload:withProgress:)])
-    [(CountriesViewController *)controller OnDownload: index withProgress: progress];
+    [(CountriesViewController *)controller OnDownload:index withProgress:progress];
 }
 
-- (void) show:(UIViewController *)prevController
+- (void)show:(UIViewController *)prevController
 {
-  CountriesViewController * countriesController = [[[CountriesViewController alloc]
-      initWithIndex:TIndex() andHeader:NSLocalizedString(@"download_maps", @"Settings/Downloader - Main downloader window title")] autorelease];
+  NSString * header = NSLocalizedString(@"download_maps", @"Settings/Downloader - Main downloader window title");
+  CountriesViewController * countriesController = [[CountriesViewController alloc] initWithIndex:TIndex() andHeader:header];
 
 //  m_navigationController = [[UINavigationController alloc] initWithRootViewController:countriesController];
   Framework & f = GetFramework();

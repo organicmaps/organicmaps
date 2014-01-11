@@ -36,8 +36,8 @@ int main(int argc, char * argv[])
   int retVal;
   @autoreleasepool
   {
-    Dummy * dummy = [[Dummy alloc] autorelease];
-    NSThread * thread = [[[NSThread alloc] initWithTarget:dummy selector:@selector(dummyThread:) object:nil] autorelease];
+    Dummy * dummy = [Dummy alloc];
+    NSThread * thread = [[NSThread alloc] initWithTarget:dummy selector:@selector(dummyThread:) object:nil];
     [thread start];
 
     [[NSUserDefaults standardUserDefaults] setBool:(Settings::IsFirstLaunch()) forKey:FIRST_LAUNCH_KEY];

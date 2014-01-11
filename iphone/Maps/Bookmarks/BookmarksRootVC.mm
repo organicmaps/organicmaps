@@ -13,7 +13,7 @@
 
 @implementation BookmarksRootVC
 
-- (id) init
+- (id)init
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
@@ -47,7 +47,7 @@
     m_hint.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     m_hint.backgroundColor = [UIColor clearColor];
 
-    UILabel * label = [[[UILabel alloc] initWithFrame:rect] autorelease];
+    UILabel * label = [[UILabel alloc] initWithFrame:rect];
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     label.backgroundColor = [UIColor clearColor];
     bool const showDetailedHint = !GetFramework().GetBmCategoriesCount();
@@ -83,7 +83,7 @@
   return GetFramework().GetBmCategoriesCount();
 }
 
--(void)onEyeTapped:(id)sender
+- (void)onEyeTapped:(id)sender
 {
   NSInteger row = ((UITapGestureRecognizer *)sender).view.tag;
   UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
@@ -103,11 +103,11 @@
   UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksRootVCSetCell"];
   if (!cell)
   {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksRootVCSetCell"] autorelease];
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksRootVCSetCell"];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     // Add "Eye" icon click handler to switch visibility
     cell.imageView.userInteractionEnabled = YES;
-    UITapGestureRecognizer * tapped = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onEyeTapped:)] autorelease];
+    UITapGestureRecognizer * tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onEyeTapped:)];
     tapped.numberOfTapsRequired = 1;
     [cell.imageView addGestureRecognizer:tapped];
   }
@@ -164,7 +164,7 @@
     [self applyCategoryRenaming];
     CGRect r = cell.textLabel.frame;
     r.size.width = cell.contentView.bounds.size.width - r.origin.x;
-    UITextField * f = [[[UITextField alloc] initWithFrame:r] autorelease];
+    UITextField * f = [[UITextField alloc] initWithFrame:r];
     f.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     f.returnKeyType = UIReturnKeyDone;
     f.enablesReturnKeyAutomatically = YES;
@@ -188,7 +188,6 @@
   {
     BookmarksVC * bvc = [[BookmarksVC alloc] initWithCategory:indexPath.row];
     [self.navigationController pushViewController:bvc animated:YES];
-    [bvc release];
   }
 }
 
@@ -280,8 +279,6 @@
 -(void)dealloc
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
-  [m_hint release];
-  [super dealloc];
 }
 
 @end
