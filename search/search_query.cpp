@@ -455,17 +455,11 @@ namespace
   }
 
   template <class T>
-  void AddPreResult2(impl::PreResult2 * p, vector<T> & indV)
+  bool IsResultExists(impl::PreResult2 const * p, vector<T> const & indV)
   {
-    if (p)
-    {
-      // do not insert duplicating results
-      if (indV.end() == find_if(indV.begin(), indV.end(),
-                                ProxyFunctor1<impl::PreResult2::StrictEqualF>(p)))
-        indV.push_back(T(p));
-      else
-        delete p;
-    }
+    // do not insert duplicating results
+    return (indV.end() != find_if(indV.begin(), indV.end(),
+                                  ProxyFunctor1<impl::PreResult2::StrictEqualF>(p)));
   }
 }
 
@@ -533,6 +527,7 @@ namespace impl
 void Query::FlushResults(Results & res, void (Results::*pAddFn)(Result const &))
 {
   vector<IndexedValue> indV;
+  vector<FeatureID> streets;
 
   {
     // make unique set of PreResult1
@@ -548,7 +543,19 @@ void Query::FlushResults(Results & res, void (Results::*pAddFn)(Result const &))
     // make PreResult2 vector
     impl::PreResult2Maker maker(*this);
     for (PreResultSetT::const_iterator i = theSet.begin(); i != theSet.end(); ++i)
-      AddPreResult2(maker(*i), indV);
+    {
+      impl::PreResult2 * p = maker(*i);
+      if (p == 0)
+        continue;
+
+      if (p->IsStreet())
+        streets.push_back(p->GetID());
+
+      if (IsResultExists(p, indV))
+        delete p;
+      else
+        indV.push_back(IndexedValue(p));
+    }
   }
 
   if (indV.empty())
@@ -557,14 +564,6 @@ void Query::FlushResults(Results & res, void (Results::*pAddFn)(Result const &))
 #ifdef HOUSE_SEARCH_TEST
   if (!m_house.empty())
   {
-    vector<FeatureID> streets;
-    for (size_t i = 0; i < indV.size(); ++i)
-    {
-      impl::PreResult2 const & r = *(indV[i]);
-      if (r.IsStreet())
-        streets.push_back(r.GetID());
-    }
-
     if (m_houseDetector.LoadStreets(streets) > 0)
       m_houseDetector.MergeStreets();
 
@@ -1896,7 +1895,11 @@ void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsig
     {
       if (m_cancel) break;
 
-      AddPreResult2(maker(FeatureID(i, offsets[i][j])), indV);
+      impl::PreResult2 * p = maker(FeatureID(i, offsets[i][j]));
+      if (p && !IsResultExists(p, indV))
+        indV.push_back(make_shared_ptr(p));
+      else
+        delete p;
     }
   }
 
