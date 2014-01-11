@@ -150,7 +150,7 @@ NSString * const AppFeatureBannerAd = @"BannerAd";
   {
     CTTelephonyNetworkInfo * networkInfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier * carrier = networkInfo.subscriberCellularProvider;
-    if (carrier.isoCountryCode) // if device can access sim card info
+    if ([carrier.isoCountryCode length]) // if device can access sim card info
       _countryCode = [carrier.isoCountryCode uppercaseString];
     else // else, getting system country code
       _countryCode = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
