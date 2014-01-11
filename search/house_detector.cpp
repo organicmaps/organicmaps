@@ -49,7 +49,7 @@ void GetStreetName(strings::SimpleTokenizer iter, string & streetName)
   }
 }
 
-double const STREET_CONNECTION_LENGTH_M = 25.0;
+double const STREET_CONNECTION_LENGTH_M = 100.0;
 
 void House::InitHouseNumberAndSuffix()
 {

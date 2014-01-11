@@ -85,7 +85,7 @@ Engine::Engine(IndexType const * pIndex, Reader * pCategoriesR,
                            &m_pData->m_categories,
                            &m_pData->m_stringsToSuggest,
                            &m_pData->m_infoGetter,
-                           50));   // Temporary for houses test
+                           100));   /// @todo temporary solution for house search, we should increase size, because for one street we can have a lot of features.
   m_pQuery->SetPreferredLanguage(lang);
 }
 
