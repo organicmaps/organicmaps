@@ -172,7 +172,6 @@ void GetCanditates(Index & index, vector<string> const & v, string const & house
 
   houser.LoadStreets(toDo.vect);
   houser.ReadAllHouses(offset);
-  houser.MatchAllHouses(houseName, res);
 
   sort(res.begin(), res.end(), &search::HouseProjection::LessDistance);
 }
@@ -193,8 +192,8 @@ UNIT_TEST(SEARCH_HOUSE_NUMBER_SMOKE_TEST)
     string houseName = "7";
     GetCanditates(index, streetName, houseName, res, 100);
     TEST_EQUAL(res.size(), 1, ());
-    TEST_ALMOST_EQUAL(res[0].m_house->GetPosition(), m2::PointD(27.539850827603416406, 64.222406776416349317), ());
     TEST_EQUAL(res[0].m_house->GetNumber(), houseName, ());
+    TEST_ALMOST_EQUAL(res[0].m_house->GetPosition(), m2::PointD(27.539850827603416406, 64.222406776416349317), ());
   }
   {
     vector <string> streetName(1, "проспект Независимости");

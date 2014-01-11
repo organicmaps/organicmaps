@@ -346,14 +346,14 @@ namespace
     {
       Classificator const & c = classif();
       char const * arr[][2] = {
+        { "highway", "trunk" },
         { "highway", "primary" },
         { "highway", "secondary" },
         { "highway", "residential" },
         { "highway", "pedestrian" },
         { "highway", "tertiary" },
         { "highway", "construction" },
-        { "highway", "living_street" },
-        { "highway", "trunk" }
+        { "highway", "living_street" }
       };
 
       for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)

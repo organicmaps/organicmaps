@@ -506,27 +506,6 @@ void HouseDetector::ReadAllHouses(double offsetMeters)
     ReadHouses(it->second, offsetMeters);
 }
 
-void HouseDetector::MatchAllHouses(string const & houseNumber, vector<HouseProjection> & res)
-{
-  /// @temporary decision to avoid duplicating houses
-  set<House const *> s;
-
-  for (IterM it = m_id2st.begin(); it != m_id2st.end();++it)
-  {
-    Street const * st = it->second;
-
-    for (size_t i = 0; i < st->m_houses.size(); ++i)
-    {
-      House const * house = st->m_houses[i].m_house;
-      if (house->GetNumber() == houseNumber && s.count(house) == 0)
-      {
-        res.push_back(st->m_houses[i]);
-        s.insert(house);
-      }
-    }
-  }
-}
-
 void HouseDetector::ClearCaches()
 {
   for (IterM it = m_id2st.begin(); it != m_id2st.end();++it)
@@ -564,6 +543,7 @@ struct LS
 void LongestSubsequence(vector<HouseProjection> const & houses,
                         vector<HouseProjection> & result)
 {
+  result.clear();
   if (houses.size() < 2)
   {
     result = houses;
@@ -575,13 +555,14 @@ void LongestSubsequence(vector<HouseProjection> const & houses,
     v[i] = LS(i);
 
   House::LessHouseNumber cmp;
-
   size_t res = 0;
   size_t pos = 0;
   for (size_t i = 0; i + 1 < houses.size(); ++i)
   {
     for (size_t j = i + 1; j < houses.size(); ++j)
     {
+      if (cmp(houses[i].m_house, houses[j].m_house) == cmp(houses[j].m_house, houses[i].m_house))
+        continue;
       if (cmp(houses[i].m_house, houses[j].m_house) && v[i].increaseValue + 1 > v[j].increaseValue)
       {
         v[j].increaseValue = v[i].increaseValue + 1;
@@ -633,25 +614,16 @@ void AddHouseToMap(search::HouseProjection const & proj, HouseMapT & m)
   m.insert(make_pair(proj.m_house, proj.m_distance));
 }
 
-bool CheckOddEven(search::HouseProjection const & h, bool isOdd)
-{
-  int const x = h.m_house->GetIntNumber();
-  return ((x % 2 == 1) == isOdd);
-}
-
 void ProccessHouses(vector<search::HouseProjection> & houses,
-                    vector<search::HouseProjection> & result,
-                    bool isOdd, HouseMapT & m)
+                    HouseMapT & m)
 {
-  houses.erase(remove_if(houses.begin(), houses.end(), bind(&CheckOddEven, _1, isOdd)), houses.end());
-
-  result.clear();
+  vector<search::HouseProjection> result;
   LongestSubsequence(houses, result);
 
   for_each(result.begin(), result.end(), bind(&AddHouseToMap, _1, ref(m)));
 }
 
-House const * GetClosestHouse(vector<Street *> const & st, string const & houseNumber)
+House const * GetClosestHouse(vector<Street *> const & st, string const & houseNumber, bool isOdd, bool sign)
 {
   double dist = numeric_limits<double>::max();
   int streetIndex = -1;
@@ -661,15 +633,15 @@ House const * GetClosestHouse(vector<Street *> const & st, string const & houseN
   {
     for (size_t j = 0; j < st[i]->m_houses.size(); ++j)
     {
-      if (st[i]->m_houses[j].m_house->GetNumber() == houseNumber)
-      {
+      bool s = st[i]->m_houses[j].m_projectionSign;
+      bool odd = st[i]->m_houses[j].m_house->GetIntNumber() % 2 == 1;
+      if (st[i]->m_houses[j].m_house->GetNumber() == houseNumber && ((isOdd == odd && sign == s) || (isOdd != odd && sign != s)))
         if (st[i]->m_houses[j].m_distance < dist)
         {
           dist = st[i]->m_houses[j].m_distance;
           streetIndex = i;
           houseIndex = j;
         }
-      }
     }
   }
 
@@ -678,55 +650,48 @@ House const * GetClosestHouse(vector<Street *> const & st, string const & houseN
   return st[streetIndex]->m_houses[houseIndex].m_house;
 }
 
-House const * GetLSHouse(vector<search::Street *> const & st, string const & houseNumber)
+House const * GetLSHouse(vector<search::Street *> const & st, string const & houseNumber,
+                         bool & isOdd, bool & sign, HouseMapT & m)
 {
-  HouseMapT m;
-  for (size_t i = 0; i < st.size(); ++i)
-  {
-    vector<search::HouseProjection> left, right;
+  double resDist = numeric_limits<double>::max();
+  int f = -1, s = -1;
 
-    double resDist = numeric_limits<double>::max();
-    size_t resInd = numeric_limits<size_t>::max();
+  for (size_t i = 0; i < st.size(); ++i)
     for (size_t j = 0; j < st[i]->m_houses.size(); ++j)
     {
       search::HouseProjection const & projection = st[i]->m_houses[j];
-      if (projection.m_projectionSign)
-        right.push_back(projection);
-      else
-        left.push_back(projection);
-
+      double dist = projection.m_distance;
       // Skip houses with projection on street ends.
-      double const dist = projection.m_distance;
-      if (resDist > dist &&
-          projection.m_proj != st[i]->m_points.front() && projection.m_proj != st[i]->m_points.back())
+      if (resDist > dist && projection.m_proj != st[i]->m_points.front() && projection.m_proj != st[i]->m_points.back())
       {
-        resInd = j;
+        f = i;
+        s = j;
         resDist = dist;
       }
     }
 
-    if (resInd >= st[i]->m_houses.size())
-      continue;
+  if (f == -1)
+    return 0;
 
-    bool leftOdd, rightOdd;
-    if (!st[i]->m_houses[resInd].m_projectionSign)
-    {
-      rightOdd = false;
-      if (st[i]->m_houses[resInd].m_house->GetIntNumber() % 2 == 1)
-        rightOdd = true;
-      leftOdd = !rightOdd;
-    }
-    else
-    {
-      leftOdd = false;
-      if (st[i]->m_houses[resInd].m_house->GetIntNumber() % 2 == 1)
-        leftOdd = true;
-      rightOdd = !leftOdd;
-    }
+  House const * h = st[f]->m_houses[s].m_house;
+  m.insert(make_pair(h, 0));
 
-    vector<search::HouseProjection> leftRes, rightRes;
-    ProccessHouses(right, rightRes, rightOdd, m);
-    ProccessHouses(left, leftRes, leftOdd, m);
+  isOdd = st[f]->m_houses[s].m_house->GetIntNumber() % 2 == 1;
+  sign = st[f]->m_houses[s].m_projectionSign;
+
+  for (size_t i = 0; i < st.size(); ++i)
+  {
+    vector<search::HouseProjection> left, right;
+    for (size_t j = 0; j < st[i]->m_houses.size(); ++j)
+    {
+      search::HouseProjection const & projection = st[i]->m_houses[j];
+      if (projection.m_projectionSign == sign && projection.m_house->GetIntNumber() % 2 == isOdd)
+        right.push_back(projection);
+      else if (projection.m_projectionSign != sign && projection.m_house->GetIntNumber() % 2 != isOdd)
+        left.push_back(projection);
+    }
+    ProccessHouses(right, m);
+    ProccessHouses(left, m);
   }
 
   for (HouseMapT::iterator it = m.begin(); it != m.end(); ++it)
@@ -762,7 +727,7 @@ void HouseDetector::GetHouseForName(string const & houseNumber, vector<House con
   }
 
   double dist = numeric_limits<double>::max();
-  for (size_t i = 0; i < sets.size()-1; ++i)
+  for (size_t i = 0; i < sets.size(); ++i)
     for (size_t j = i+1; j < sets.size(); ++j)
     {
       for (set<m2::PointD>::const_iterator it1 = sets[i].begin(); it1 != sets[i].end(); ++it1)
@@ -781,10 +746,11 @@ void HouseDetector::GetHouseForName(string const & houseNumber, vector<House con
   {
     LOG(LDEBUG, (Street::GetDbgName(m_streets[i])));
 
-    House const * house = GetLSHouse(m_streets[i], houseNumber);
+    bool isOdd, sign;
+    HouseMapT m;
+    House const * house = GetLSHouse(m_streets[i], houseNumber, isOdd, sign, m);
     if (house == 0)
-      house = GetClosestHouse(m_streets[i], houseNumber);
-
+      house = GetClosestHouse(m_streets[i], houseNumber, isOdd, sign);
     if (house)
       res.push_back(house);
   }

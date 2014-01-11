@@ -160,7 +160,6 @@ public:
   void ReadHouses(Street * st, double offsetMeters);
   void ReadAllHouses(double offsetMeters);
 
-  void MatchAllHouses(string const & houseNumber, vector<HouseProjection> & res);
   void GetHouseForName(string const & houseNumber, vector<House const *> & res);
 
   void ClearCaches();
