@@ -102,6 +102,11 @@ public:
   {
     return s1->m_processedName == s2->m_processedName;
   }
+
+  inline static string GetDbgName(vector<Street *> const & streets)
+  {
+    return streets.front()->m_processedName;
+  }
 };
 
 class HouseDetector

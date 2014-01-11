@@ -126,17 +126,25 @@ m2::RectD Street::GetLimitRect(double offsetMeters) const
 void Street::SetName(string const & name)
 {
   m_name = name;
-  strings::SimpleTokenizer iter(name, " -");
+  strings::SimpleTokenizer iter(name, "\t -,.");
   GetStreetName(iter, m_processedName);
   strings::MakeLowerCase(m_processedName);
 }
 
 namespace
 {
+
 bool LessDistance(HouseProjection const & p1, HouseProjection const & p2)
 {
   return p1.m_streetDistance < p2.m_streetDistance;
 }
+
+double GetDistanceMeters(m2::PointD const & p1, m2::PointD const & p2)
+{
+  return ms::DistanceOnEarth(MercatorBounds::YToLat(p1.y), MercatorBounds::XToLon(p1.x),
+                             MercatorBounds::YToLat(p2.y), MercatorBounds::XToLon(p2.x));
+}
+
 }
 
 void Street::SortHousesProjection()
@@ -154,11 +162,13 @@ HouseDetector::HouseDetector(Index const * pIndex)
 void HouseDetector::SetMetres2Mercator(double factor)
 {
   m_epsMercator = factor * STREET_CONNECTION_LENGTH_M;
+
+  LOG(LDEBUG, ("Street join epsilon = ", m_epsMercator));
 }
 
 void HouseDetector::FillQueue(queue<Street *> & q, Street const * street, bool isBeg)
 {
-  pair<IterT, IterT> const & range =
+  pair<IterT, IterT> const range =
       m_end2st.equal_range(isBeg ? street->m_points.front() : street->m_points.back());
 
   for (IterT it = range.first; it != range.second; ++it)
@@ -211,9 +221,17 @@ int HouseDetector::LoadStreets(vector<FeatureID> & ids)
       st->SetName(name);
       f.ForEachPoint(StreetCreator(st), FeatureType::BEST_GEOMETRY);
 
+      if (m_end2st.empty())
+      {
+        m2::PointD const p1 = st->m_points.front();
+        m2::PointD const p2 = st->m_points.back();
+
+        SetMetres2Mercator(p1.Length(p2) / GetDistanceMeters(p1, p2));
+      }
+
       m_id2st[ids[i]] = st;
-      m_end2st.insert(pair<m2::PointD, Street *> (st->m_points.front(), st));
-      m_end2st.insert(pair<m2::PointD, Street *> (st->m_points.back(), st));
+      m_end2st.insert(make_pair(st->m_points.front(), st));
+      m_end2st.insert(make_pair(st->m_points.back(), st));
     }
     else
       ASSERT(false, ());
@@ -225,6 +243,8 @@ int HouseDetector::LoadStreets(vector<FeatureID> & ids)
 
 int HouseDetector::MergeStreets()
 {
+  LOG(LDEBUG, ("MergeStreets() called", m_end2st.size()));
+
   for (IterT it = m_end2st.begin(); it != m_end2st.end(); ++it)
   {
     if (it->second->m_number == -1)
@@ -262,12 +282,6 @@ public:
     return false;
   }
 };
-
-double GetDistanceMeters(m2::PointD const & p1, m2::PointD const & p2)
-{
-  return ms::DistanceOnEarth(MercatorBounds::YToLat(p1.y), MercatorBounds::XToLon(p1.x),
-                             MercatorBounds::YToLat(p2.y), MercatorBounds::XToLon(p2.x));
-}
 
 class ProjectionCalcToStreet
 {
@@ -651,8 +665,42 @@ void HouseDetector::GetHouseForName(string const & houseNumber, vector<House con
   size_t const count = m_streets.size();
   res.reserve(count);
 
+  LOG(LDEBUG, ("Streets count", count));
+
+  // Check that all streets are merged well
+  // (compare minimal distance between different chains).
+#ifdef DEBUG
+  vector<set<m2::PointD> > sets;
   for (size_t i = 0; i < count; ++i)
   {
+    sets.push_back(set<m2::PointD>());
+    for (size_t j = 0; j < m_streets[i].size(); ++j)
+    {
+      sets.back().insert(m_streets[i][j]->m_points.front());
+      sets.back().insert(m_streets[i][j]->m_points.back());
+    }
+  }
+
+  double dist = numeric_limits<double>::max();
+  for (size_t i = 0; i < sets.size()-1; ++i)
+    for (size_t j = i+1; j < sets.size(); ++j)
+    {
+      for (set<m2::PointD>::const_iterator it1 = sets[i].begin(); it1 != sets[i].end(); ++it1)
+        for (set<m2::PointD>::const_iterator it2 = sets[j].begin(); it2 != sets[j].end(); ++it2)
+        {
+          double const d = GetDistanceMeters(*it1, *it2);
+          if (d < dist)
+            dist = d;
+        }
+    }
+
+  LOG(LDEBUG, ("Minimal distance = ", dist));
+#endif
+
+  for (size_t i = 0; i < count; ++i)
+  {
+    LOG(LDEBUG, (Street::GetDbgName(m_streets[i])));
+
     House const * house = GetLSHouse(m_streets[i], houseNumber);
     if (house == 0)
       house = GetClosestHouse(m_streets[i], houseNumber);

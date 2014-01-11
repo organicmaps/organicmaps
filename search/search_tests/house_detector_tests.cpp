@@ -74,8 +74,8 @@ UNIT_TEST(LESS_WITH_EPSILON)
 
 struct Process
 {
-  vector <FeatureID> vect;
-  vector <string> streetNames;
+  vector<FeatureID> vect;
+  vector<string> streetNames;
   void operator() (FeatureType const & f)
   {
     if (f.GetFeatureType() == feature::GEOM_LINE)
@@ -101,12 +101,24 @@ UNIT_TEST(STREET_MERGE_TEST)
   Index index;
   m2::RectD rect;
 
-  index.Add("minsk-pass.mwm", rect);
+  TEST(index.Add("minsk-pass.mwm", rect), ());
+
+  {
+    search::HouseDetector houser(&index);
+    Process toDo;
+    toDo.streetNames.push_back("улица Володарского");
+    index.ForEachInScale(toDo, scales::GetUpperScale());
+    LOG(LINFO, ("Count = ", toDo.vect.size()));
+    houser.LoadStreets(toDo.vect);
+    TEST_EQUAL(houser.MergeStreets(), 1, ());
+  }
+
   {
     search::HouseDetector houser(&index);
     Process toDo;
     toDo.streetNames.push_back("Московская улица");
     index.ForEachInScale(toDo, scales::GetUpperScale());
+    LOG(LINFO, ("Count = ", toDo.vect.size()));
     houser.LoadStreets(toDo.vect);
     TEST_EQUAL(houser.MergeStreets(), 1, ());
   }
@@ -120,6 +132,7 @@ UNIT_TEST(STREET_MERGE_TEST)
     houser.LoadStreets(toDo.vect);
     TEST_EQUAL(houser.MergeStreets(), 2, ());
   }
+
   {
     search::HouseDetector houser(&index);
     Process toDo;
@@ -132,6 +145,7 @@ UNIT_TEST(STREET_MERGE_TEST)
     houser.LoadStreets(toDo.vect);
     TEST_EQUAL(houser.MergeStreets(), 5, ());
   }
+
   {
     search::HouseDetector houser(&index);
     Process toDo;

@@ -318,8 +318,9 @@ bool IsNumber(strings::UniString const & s)
 /// Check that token can be house number.
 bool IsHouseNumber(strings::UniString const & s)
 {
+  size_t const count = s.size();
   /// @todo Probably, call some check function from House::
-  return (s.size() < 8 && s[0] <= 127 && isdigit(s[0]));
+  return (count > 0 && count < 8 && s[0] <= 127 && isdigit(s[0]));
 }
 
 }
@@ -573,9 +574,11 @@ void Query::FlushResults(Results & res, void (Results::*pAddFn)(Result const &))
     m_houseDetector.GetHouseForName(strings::ToUtf8(m_house), houses);
 
     for (size_t i = 0; i < houses.size(); ++i)
+    {
       (res.*pAddFn)(Result(houses[i]->GetPosition(), houses[i]->GetNumber(),
                            string(), string(),
                            IsValidPosition() ? houses[i]->GetPosition().Length(m_position) : -1.0));
+    }
   }
 #endif
 
