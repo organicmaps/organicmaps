@@ -12,8 +12,9 @@
 
 namespace df
 {
-  FrontendRenderer::FrontendRenderer(RefPointer<ThreadsCommutator>  commutator
-                                     , RefPointer<OGLContextFactory> oglcontextfactory, int w, int h)
+  FrontendRenderer::FrontendRenderer(RefPointer<ThreadsCommutator> commutator,
+                                     RefPointer<OGLContextFactory> oglcontextfactory,
+                                     int w, int h)
     : m_commutator(commutator)
     , m_gpuProgramManager(new GpuProgramManager())
     , m_contextFactory(oglcontextfactory)
@@ -184,11 +185,9 @@ namespace df
     while (!IsCancelled())
     {
       ProcessSingleMessage(false);
-      {
-        context->setDefaultFramebuffer();
-        RenderScene();
-        context->present();
-      }
+      context->setDefaultFramebuffer();
+      RenderScene();
+      context->present();
     }
 
     ReleaseResources();

@@ -376,7 +376,7 @@ void GLFunctions::glGetActiveUniform(uint32_t programID, uint32_t uniformIndex,
   ASSERT(glGetActiveUniformFn != NULL, ());
   char buff[256];
   GLCHECK(glGetActiveUniformFn(programID, uniformIndex, 256, NULL, uniformSize, type, buff));
-  name = string(buff);
+  name = buff;
 }
 
 int8_t GLFunctions::glGetUniformLocation(uint32_t programID, const string & name)

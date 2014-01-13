@@ -23,9 +23,9 @@ namespace df
                            public threads::IRoutine
   {
   public:
-    FrontendRenderer(RefPointer<ThreadsCommutator> commutator
-                     ,RefPointer<OGLContextFactory> oglcontextfactory
-                     , int w, int h);
+    FrontendRenderer(RefPointer<ThreadsCommutator> commutator,
+                     RefPointer<OGLContextFactory> oglcontextfactory,
+                     int w, int h);
 
     ~FrontendRenderer();
 

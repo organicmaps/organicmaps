@@ -28,14 +28,14 @@ DrapeEngine::~DrapeEngine()
 void DrapeEngine::OnSizeChanged(int x0, int y0, int w, int h)
 {
   m_backend->Resize(x0, y0, w, h);
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread
-                                  ,MovePointer<Message>(new ResizeMessage(x0, y0, w, h)));
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  MovePointer<Message>(new ResizeMessage(x0, y0, w, h)));
 }
 
 void DrapeEngine::SetAngle(float radians)
 {
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread
-                                  , MovePointer<Message>(new RotateMessage(radians)));
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  MovePointer<Message>(new RotateMessage(radians)));
 }
 
 }

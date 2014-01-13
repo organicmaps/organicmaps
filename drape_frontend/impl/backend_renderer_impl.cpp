@@ -40,11 +40,11 @@ namespace
 
 namespace df
 {
-  BackendRendererImpl::BackendRendererImpl(RefPointer<ThreadsCommutator> commutator
-                                           ,RefPointer<OGLContextFactory> oglcontextfactory
-                                           ,double visualScale
-                                           ,int surfaceWidth
-                                           ,int surfaceHeight)
+  BackendRendererImpl::BackendRendererImpl(RefPointer<ThreadsCommutator> commutator,
+                                           RefPointer<OGLContextFactory> oglcontextfactory,
+                                           double visualScale,
+                                           int surfaceWidth,
+                                           int surfaceHeight)
     : m_engineContext(commutator)
     , m_commutator(commutator)
     , m_contextFactory(oglcontextfactory)
@@ -54,7 +54,7 @@ namespace df
 
     m_commutator->RegisterThread(ThreadsCommutator::ResourceUploadThread, this);
 
-    int readerCount = 1;//max(1, GetPlatform().CpuCores() - 2);
+    int readerCount = max(1, GetPlatform().CpuCores() - 2);
     m_threadPool.Reset(new threads::ThreadPool(readerCount, bind(&PostFinishTask, commutator, _1)));
     m_batchersPool.Reset(new BatchersPool(readerCount, bind(&BackendRendererImpl::PostToRenderThreads, this, _1)));
 

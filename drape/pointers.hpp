@@ -141,13 +141,13 @@ public:
   TransferPointer(const TransferPointer<T> & other)
     : base_t(other)
   {
-    ASSERT(GET_CHECK_FLAG(other) == true, ());
+    ASSERT(GET_CHECK_FLAG(other), ());
     other.SetToNull();
   }
 
   TransferPointer<T> & operator=(TransferPointer<T> const & other)
   {
-    ASSERT(GET_CHECK_FLAG(other) == true, ());;
+    ASSERT(GET_CHECK_FLAG(other), ());;
     base_t::operator =(other);
     other.SetToNull();
     return *this;

@@ -28,11 +28,11 @@ namespace df
                               public threads::IRoutine
   {
   public:
-    BackendRendererImpl(RefPointer<ThreadsCommutator> commutator
-                        ,RefPointer<OGLContextFactory> oglcontextfactory
-                        ,double visualScale
-                        ,int surfaceWidth
-                        ,int surfaceHeight);
+    BackendRendererImpl(RefPointer<ThreadsCommutator> commutator,
+                        RefPointer<OGLContextFactory> oglcontextfactory,
+                        double visualScale,
+                        int surfaceWidth,
+                        int surfaceHeight);
 
     ~BackendRendererImpl();
 
