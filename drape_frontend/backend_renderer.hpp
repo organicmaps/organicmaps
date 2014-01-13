@@ -12,8 +12,6 @@
 #include "../map/scales_processor.hpp"
 #include "../map/tiler.hpp"
 
-#include "../platform/platform.hpp"
-
 #include "../base/thread.hpp"
 #include "../base/thread_pool.hpp"
 
@@ -35,8 +33,6 @@ namespace df
                     int surfaceHeight);
 
     ~BackendRenderer();
-
-    void OnResize(int x0, int y0, int w, int h);
 
   private:
     void UpdateCoverage(const ScreenBase & screen);

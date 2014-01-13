@@ -2,17 +2,13 @@
 
 #include "threads_commutator.hpp"
 #include "tile_info.hpp"
-#include "memory_feature_index.hpp"
-#include "read_mwm_task.hpp"
-
-#include "message.hpp"
 #include "message_subclasses.hpp"
-#include "map_shape.hpp"
 
 #include "../geometry/screenbase.hpp"
 
+#include "../platform/platform.hpp"
+
 #include "../base/buffer_vector.hpp"
-#include "../base/object_tracker.hpp"
 #include "../base/stl_add.hpp"
 
 #include "../std/bind.hpp"
@@ -64,12 +60,6 @@ namespace df
   BackendRenderer::~BackendRenderer()
   {
     StopThread();
-  }
-
-  void BackendRenderer::OnResize(int x0, int y0, int w, int h)
-  {
-    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                              MovePointer<Message>(new ResizeMessage(x0, y0, w, h)));
   }
 
   void BackendRenderer::UpdateCoverage(const ScreenBase & screen)
