@@ -33,19 +33,22 @@ namespace covering
   // Calculate cell coding depth according to max visual scale for mwm.
   int GetCodingDepth(int scale);
 
+  enum CoveringMode
+  {
+    ViewportWithLowLevels = 0,
+    LowLevelsOnly,
+    FullCover
+  };
+
   class CoveringGetter
   {
     IntervalsT m_res[2];
 
     m2::RectD const & m_rect;
-    int m_mode;
+    CoveringMode m_mode;
 
   public:
-    /// @param[in] mode\n
-    /// - 0 - cover viewport with low lovels;\n
-    /// - 1 - cover append low levels only;\n
-    /// - 2 - make full cover\n
-    CoveringGetter(m2::RectD const & r, int mode) : m_rect(r), m_mode(mode) {}
+    CoveringGetter(m2::RectD const & r, CoveringMode mode) : m_rect(r), m_mode(mode) {}
 
     IntervalsT const & Get(int scale);
   };

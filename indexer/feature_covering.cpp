@@ -231,11 +231,11 @@ IntervalsT const & CoveringGetter::Get(int scale)
   {
     switch (m_mode)
     {
-    case 0:
+    case ViewportWithLowLevels:
       CoverViewportAndAppendLowerLevels(m_rect, cellDepth, m_res[ind]);
       break;
 
-    case 1:
+    case LowLevelsOnly:
     {
       RectId id = GetRectIdAsIs(m_rect);
       while (id.Level() >= cellDepth)
@@ -244,7 +244,7 @@ IntervalsT const & CoveringGetter::Get(int scale)
       break;
     }
 
-    case 2:
+    case FullCover:
       m_res[ind].push_back(IntervalsT::value_type(0, static_cast<int64_t>((1ULL << 63) - 1)));
       break;
     }

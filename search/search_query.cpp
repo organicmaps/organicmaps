@@ -203,7 +203,7 @@ void Query::UpdateViewportOffsets(MWMVectorT const & mwmInfo, m2::RectD const & 
   offsets.resize(mwmInfo.size());
 
   int const viewScale = scales::GetScaleLevel(rect);
-  covering::CoveringGetter cov(rect, 0);
+  covering::CoveringGetter cov(rect, covering::ViewportWithLowLevels);
 
   for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
   {

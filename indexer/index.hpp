@@ -1,17 +1,17 @@
 #pragma once
 #include "cell_id.hpp"
 #include "data_factory.hpp"
+#include "mwm_set.hpp"
 #include "feature_covering.hpp"
 #include "features_vector.hpp"
 #include "scale_index.hpp"
-#include "mwm_set.hpp"
 
 #include "../coding/file_container.hpp"
 
 #include "../../defines.hpp"
 
-#include "../std/unordered_set.hpp"
 #include "../std/vector.hpp"
+#include "../std/unordered_set.hpp"
 
 
 class MwmValue : public MwmSet::MwmValueBase
@@ -61,22 +61,106 @@ public:
   bool DeleteMap(string const & fileName);
   bool UpdateMap(string const & fileName, m2::RectD & rect);
 
+private:
+
+  template <typename F>
+  class ReadFeatureFunctor
+  {
+    FeaturesVector const & m_V;
+    F & m_F;
+    mutable unordered_set<uint32_t> m_offsets;
+    MwmId m_mwmID;
+
+  public:
+    ReadFeatureFunctor(FeaturesVector const & v, F & f, MwmId mwmID)
+      : m_V(v), m_F(f), m_mwmID(mwmID)
+    {
+    }
+
+    void operator() (uint32_t offset) const
+    {
+      if (m_offsets.insert(offset).second)
+      {
+        FeatureType feature;
+
+        m_V.Get(offset, feature);
+        feature.SetID(FeatureID(m_mwmID, offset));
+
+        m_F(feature);
+      }
+    }
+  };
+
+  /// old style mwm reading
+  template <typename F>
+  class ReadMWMFunctor
+  {
+  public:
+    ReadMWMFunctor(F & f)
+      : m_f(f)
+    {
+    }
+
+    void operator() (MwmLock const & lock, covering::CoveringGetter & cov, uint32_t scale) const
+    {
+      MwmValue * pValue = lock.GetValue();
+      if (pValue)
+      {
+        feature::DataHeader const & header = pValue->GetHeader();
+
+        // Prepare needed covering.
+        int const lastScale = header.GetLastScale();
+
+        // In case of WorldCoasts we should pass correct scale in ForEachInIntervalAndScale.
+        if (scale > lastScale) scale = lastScale;
+
+        // Use last coding scale for covering (see index_builder.cpp).
+        covering::IntervalsT const & interval = cov.Get(lastScale);
+
+        // prepare features reading
+        FeaturesVector fv(pValue->m_cont, header);
+        ScaleIndex<ModelReaderPtr> index(pValue->m_cont.GetReader(INDEX_FILE_TAG),
+                                         pValue->m_factory);
+
+        // iterate through intervals
+        ReadFeatureFunctor<F> f1(fv, m_f, lock.GetID());
+        for (size_t i = 0; i < interval.size(); ++i)
+          index.ForEachInIntervalAndScale(f1, interval[i].first, interval[i].second, scale);
+      }
+    }
+
+  private:
+    F & m_f;
+  };
+
+public:
+
   template <typename F>
   void ForEachInRect(F & f, m2::RectD const & rect, uint32_t scale) const
   {
-    ForEachInIntervals(f, 0, rect, scale);
+    ReadMWMFunctor<F> implFunctor(f);
+    ForEachInIntervals(implFunctor, covering::ViewportWithLowLevels, rect, scale);
   }
 
   template <typename F>
   void ForEachInRect_TileDrawing(F & f, m2::RectD const & rect, uint32_t scale) const
   {
-    ForEachInIntervals(f, 1, rect, scale);
+    ReadMWMFunctor<F> implFunctor(f);
+    ForEachInIntervals(implFunctor, covering::LowLevelsOnly, rect, scale);
+  }
+
+  template <typename F>
+  void ForEachFeatureIDInRect(F & f, m2::RectD const & rect, uint32_t scale) const
+  {
+    ///TODO
+    //ForEachInIntervals(ReadMWMFunctor(*this, f), rect, scale);
   }
 
   template <typename F>
   void ForEachInScale(F & f, uint32_t scale) const
   {
-    ForEachInIntervals(f, 2, m2::RectD::GetInfiniteRect(), scale);
+    ReadMWMFunctor<F> implFunctor(f);
+    ForEachInIntervals(implFunctor, covering::FullCover, m2::RectD::GetInfiniteRect(), scale);
   }
 
   /// Guard for loading features from particular MWM by demand.
@@ -98,69 +182,8 @@ public:
 private:
 
   template <typename F>
-  class ReadFeatureFunctor
-  {
-    FeaturesVector const & m_V;
-    F & m_F;
-    unordered_set<uint32_t> & m_offsets;
-    MwmId m_mwmID;
-
-  public:
-    ReadFeatureFunctor(FeaturesVector const & v, F & f,
-                       unordered_set<uint32_t> & offsets, MwmId mwmID)
-      : m_V(v), m_F(f), m_offsets(offsets), m_mwmID(mwmID)
-    {
-    }
-
-    void operator() (uint32_t offset) const
-    {
-      if (m_offsets.insert(offset).second)
-      {
-        FeatureType feature;
-
-        m_V.Get(offset, feature);
-        feature.SetID(FeatureID(m_mwmID, offset));
-
-        m_F(feature);
-      }
-    }
-  };
-
-  template <typename F>
-  void ProcessMwm(F & f, MwmId id, covering::CoveringGetter & cov, uint32_t scale) const
-  {
-    MwmLock lock(*this, id);
-    MwmValue * pValue = lock.GetValue();
-    if (pValue)
-    {
-      feature::DataHeader const & header = pValue->GetHeader();
-
-      // Prepare needed covering.
-      int const lastScale = header.GetLastScale();
-
-      // In case of WorldCoasts we should pass correct scale in ForEachInIntervalAndScale.
-      if (scale > lastScale) scale = lastScale;
-
-      // Use last coding scale for covering (see index_builder.cpp).
-      covering::IntervalsT const & interval = cov.Get(lastScale);
-
-      // prepare features reading
-      FeaturesVector fv(pValue->m_cont, header);
-      ScaleIndex<ModelReaderPtr> index(pValue->m_cont.GetReader(INDEX_FILE_TAG),
-                                       pValue->m_factory);
-
-      // iterate through intervals
-      unordered_set<uint32_t> offsets;
-      ReadFeatureFunctor<F> f1(fv, f, offsets, id);
-      for (size_t i = 0; i < interval.size(); ++i)
-      {
-        index.ForEachInIntervalAndScale(f1, interval[i].first, interval[i].second, scale);
-      }
-    }
-  }
-
-  template <typename F>
-  void ForEachInIntervals(F & f, int mode, m2::RectD const & rect, uint32_t scale) const
+  void ForEachInIntervals(F & f, covering::CoveringMode mode,
+                          m2::RectD const & rect, uint32_t scale) const
   {
     vector<MwmInfo> mwm;
     GetMwmInfo(mwm);
@@ -178,7 +201,10 @@ private:
         switch (mwm[id].GetType())
         {
         case MwmInfo::COUNTRY:
-          ProcessMwm(f, id, cov, scale);
+          {
+            MwmLock lock(*this, id);
+            f(lock, cov, scale);
+          }
           break;
 
         case MwmInfo::COASTS:
@@ -193,9 +219,15 @@ private:
     }
 
     if (worldID[0] < count)
-      ProcessMwm(f, worldID[0], cov, scale);
+    {
+      MwmLock lock(*this, worldID[0]);
+      f(lock, cov, scale);
+    }
 
     if (worldID[1] < count)
-      ProcessMwm(f, worldID[1], cov, scale);
+    {
+      MwmLock lock(*this, worldID[1]);
+      f(lock, cov, scale);
+    }
   }
 };
