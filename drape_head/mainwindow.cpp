@@ -6,6 +6,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
+  , m_surface(NULL)
 {
   resize(600, 400);
   DrapeSurface * surface = new DrapeSurface();
@@ -15,9 +16,11 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+  ASSERT(m_surface == NULL, ());
 }
 
 void MainWindow::closeEvent(QCloseEvent * closeEvent)
 {
   delete m_surface;
+  m_surface = NULL;
 }
