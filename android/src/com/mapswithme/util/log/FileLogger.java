@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class FileLogger extends Logger
 {
-  static private FileWriter m_file = null;
+  static private volatile FileWriter m_file = null;
   static private String m_separator;
 
   private void write(String str)
@@ -28,14 +28,20 @@ public class FileLogger extends Logger
     this.tag = tag;
     if (m_file == null)
     {
-      try
+      synchronized (FileWriter.class)
       {
-        m_file = new FileWriter(path + "android-logging.txt");
-        m_separator = System.getProperty("line.separator");
-      }
-      catch (IOException ex)
-      {
-        Log.e(tag, ex.toString());
+        if (m_file == null)
+        {
+          try
+          {
+            m_file = new FileWriter(path + "android-logging.txt");
+            m_separator = System.getProperty("line.separator");
+          }
+          catch (IOException ex)
+          {
+            Log.e(tag, ex.toString());
+          }
+        }
       }
     }
   }
