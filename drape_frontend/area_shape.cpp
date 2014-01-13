@@ -13,16 +13,21 @@ namespace df
 
   void AreaShape::SetDepth(float depth)
   {
-    m_depth = depth;
+    if (m_depth != depth)
+    {
+      m_depth = depth;
+      for (size_t i = 0; i < m_vertexes.size() ; ++i)
+        m_vertexes[i].m_z = m_depth;
+    }
   }
 
   void AreaShape::AddTriangle(const m2::PointF & v1,
                               const m2::PointF & v2,
                               const m2::PointF & v3)
   {
-    m_vertexes.push_back(v1);
-    m_vertexes.push_back(v2);
-    m_vertexes.push_back(v3);
+    m_vertexes.push_back(Point3D(v1.x, v1.y, m_depth));
+    m_vertexes.push_back(Point3D(v2.x, v2.y, m_depth));
+    m_vertexes.push_back(Point3D(v3.x, v3.y, m_depth));
   }
 
   void AreaShape::Draw(RefPointer<Batcher> batcher) const
@@ -32,28 +37,16 @@ namespace df
     ::Convert(m_color, r, g, b, a);
     state.GetUniformValues().SetFloatValue("color", r, g, b, a);
 
-    AttributeProvider provider(2, m_vertexes.size());
+    AttributeProvider provider(1, m_vertexes.size());
     {
       BindingInfo info(1);
       BindingDecl & decl = info.GetBindingDecl(0);
       decl.m_attributeName = "position";
-      decl.m_componentCount = 2;
+      decl.m_componentCount = 3;
       decl.m_componentType = GLConst::GLFloatType;
       decl.m_offset = 0;
       decl.m_stride = 0;
       provider.InitStream(0, info, MakeStackRefPointer((void *)&m_vertexes[0]));
-    }
-
-    vector<float> depthMemory(m_vertexes.size(), m_depth);
-    {
-      BindingInfo info(1);
-      BindingDecl & decl = info.GetBindingDecl(0);
-      decl.m_attributeName = "depth";
-      decl.m_componentCount = 1;
-      decl.m_componentType = GLConst::GLFloatType;
-      decl.m_offset = 0;
-      decl.m_stride = 0;
-      provider.InitStream(1, info, MakeStackRefPointer((void *)&depthMemory[0]));
     }
 
     batcher->InsertTriangleList(state, MakeStackRefPointer(&provider));

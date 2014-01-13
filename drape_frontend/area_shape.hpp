@@ -23,8 +23,22 @@ namespace df
     virtual void Draw(RefPointer<Batcher> batcher) const;
 
   private:
+
+    struct Point3D
+    {
+      float m_x;
+      float m_y;
+      float m_z;
+
+      Point3D(float x, float y, float z)
+        : m_x(x)
+        , m_y(y)
+        , m_z(z)
+      {}
+    };
+
     Color m_color;
-    vector<m2::PointF> m_vertexes;
+    vector<Point3D> m_vertexes;
     float m_depth;
   };
 }
