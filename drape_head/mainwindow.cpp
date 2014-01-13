@@ -9,9 +9,15 @@ MainWindow::MainWindow(QWidget *parent)
 {
   resize(600, 400);
   DrapeSurface * surface = new DrapeSurface();
-  setCentralWidget(QWidget::createWindowContainer(surface, this));
+  m_surface = QWidget::createWindowContainer(surface, this);
+  setCentralWidget(m_surface);
 }
 
 MainWindow::~MainWindow()
 {
+}
+
+void MainWindow::closeEvent(QCloseEvent * closeEvent)
+{
+  delete m_surface;
 }
