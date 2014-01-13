@@ -13,8 +13,7 @@ namespace df
   class AreaShape : public MapShape
   {
   public:
-    AreaShape(Color const & c);
-    void SetDepth(float depth);
+    AreaShape(Color const & c, float depth);
 
     void AddTriangle(const m2::PointF & v1,
                      const m2::PointF & v2,

@@ -5,21 +5,10 @@
 
 namespace df
 {
-  AreaShape::AreaShape(const Color & c)
+  AreaShape::AreaShape(const Color & c, float depth)
     : m_color(c)
-    , m_depth(0.0f)
-  {
-  }
-
-  void AreaShape::SetDepth(float depth)
-  {
-    if (m_depth != depth)
-    {
-      m_depth = depth;
-      for (size_t i = 0; i < m_vertexes.size() ; ++i)
-        m_vertexes[i].m_z = m_depth;
-    }
-  }
+    , m_depth(depth)
+  {}
 
   void AreaShape::AddTriangle(const m2::PointF & v1,
                               const m2::PointF & v2,

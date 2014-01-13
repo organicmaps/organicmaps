@@ -8,8 +8,7 @@ namespace
 {
   df::AreaShape * CreateFakeShape1()
   {
-    df::AreaShape * shape = new df::AreaShape(Extract(0xFFEEAABB));
-    shape->SetDepth(0.3f);
+    df::AreaShape * shape = new df::AreaShape(Extract(0xFFEEAABB), 0.3f);
     shape->AddTriangle(m2::PointF(0.0f, 0.0f),
                        m2::PointF(1.0f, 0.0f),
                        m2::PointF(0.0f, 1.0f));
@@ -22,7 +21,7 @@ namespace
 
   df::AreaShape * CreateFakeShape2()
   {
-    df::AreaShape * shape = new df::AreaShape(Extract(0xFF66AAFF));
+    df::AreaShape * shape = new df::AreaShape(Extract(0xFF66AAFF), 0.0f);
     shape->AddTriangle(m2::PointF(-0.5f, 0.5f),
                        m2::PointF(0.5f, 1.5f),
                        m2::PointF(0.5f, -0.5f));
