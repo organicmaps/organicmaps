@@ -41,10 +41,10 @@ namespace
 namespace df
 {
   BackendRenderer::BackendRenderer(RefPointer<ThreadsCommutator> commutator,
-                                           RefPointer<OGLContextFactory> oglcontextfactory,
-                                           double visualScale,
-                                           int surfaceWidth,
-                                           int surfaceHeight)
+                                   RefPointer<OGLContextFactory> oglcontextfactory,
+                                   double visualScale,
+                                   int surfaceWidth,
+                                   int surfaceHeight)
     : m_engineContext(commutator)
     , m_commutator(commutator)
     , m_contextFactory(oglcontextfactory)
