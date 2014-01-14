@@ -21,6 +21,8 @@
 		5797B6D616C931EE00FFE6D2 /* resources-mdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D316C931EE00FFE6D2 /* resources-mdpi */; };
 		5797B6D716C931EE00FFE6D2 /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D416C931EE00FFE6D2 /* resources-xhdpi */; };
 		5797B6D816C931EE00FFE6D2 /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D416C931EE00FFE6D2 /* resources-xhdpi */; };
+		972CDCA218854AE5006641CA /* forwardButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 972CDCA018854AE5006641CA /* forwardButton.png */; };
+		972CDCA318854AE5006641CA /* backButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 972CDCA118854AE5006641CA /* backButton.png */; };
 		97387546184E475000170BC4 /* MessageComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97387545184E475000170BC4 /* MessageComposeViewController.m */; };
 		97387547184E475000170BC4 /* MessageComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97387545184E475000170BC4 /* MessageComposeViewController.m */; };
 		9747264318323080006B7CB7 /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.m */; };
@@ -1420,6 +1422,8 @@
 		772923C9184E0440008C1EDC /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
 		77DDA9A116D504F900804BDB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MapsWithMe-Pro.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MapsWithMe-Pro.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		972CDCA018854AE5006641CA /* forwardButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = forwardButton.png; path = AdAlerts/forwardButton.png; sourceTree = "<group>"; };
+		972CDCA118854AE5006641CA /* backButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backButton.png; path = AdAlerts/backButton.png; sourceTree = "<group>"; };
 		97387544184E475000170BC4 /* MessageComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageComposeViewController.h; sourceTree = "<group>"; };
 		97387545184E475000170BC4 /* MessageComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageComposeViewController.m; sourceTree = "<group>"; };
 		9747264118323080006B7CB7 /* UIKitCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIKitCategories.m; path = Categories/UIKitCategories.m; sourceTree = "<group>"; };
@@ -2827,6 +2831,8 @@
 				97C98574186C487800AF7E9E /* AdAlerts */,
 				97C98579186C487800AF7E9E /* MPAdBrowserController.h */,
 				97C9857A186C487800AF7E9E /* MPAdBrowserController.m */,
+				972CDCA018854AE5006641CA /* forwardButton.png */,
+				972CDCA118854AE5006641CA /* backButton.png */,
 				97C9857B186C487800AF7E9E /* MPAdBrowserController.xib */,
 				97C9857C186C487800AF7E9E /* MPAdConfiguration.h */,
 				97C9857D186C487800AF7E9E /* MPAdConfiguration.m */,
@@ -4671,6 +4677,7 @@
 				FAFB07E2151215EE0041901D /* az@2x.png in Resources */,
 				FAFB07E3151215EE0041901D /* ba@2x.png in Resources */,
 				FAFB07E4151215EE0041901D /* bb@2x.png in Resources */,
+				972CDCA318854AE5006641CA /* backButton.png in Resources */,
 				FAFB07E5151215EE0041901D /* bd@2x.png in Resources */,
 				FAFB07E6151215EE0041901D /* be@2x.png in Resources */,
 				FAFB07E7151215EE0041901D /* bf@2x.png in Resources */,
@@ -4837,6 +4844,7 @@
 				FAFB0881151215EE0041901D /* pg@2x.png in Resources */,
 				FAFB0882151215EE0041901D /* ph@2x.png in Resources */,
 				FAFB0883151215EE0041901D /* pk@2x.png in Resources */,
+				972CDCA218854AE5006641CA /* forwardButton.png in Resources */,
 				FAFB0884151215EE0041901D /* pl@2x.png in Resources */,
 				FAFB0885151215EE0041901D /* pm@2x.png in Resources */,
 				FAFB0886151215EE0041901D /* pn@2x.png in Resources */,

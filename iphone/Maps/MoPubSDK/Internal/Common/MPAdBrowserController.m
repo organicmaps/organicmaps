@@ -89,10 +89,6 @@
     [super viewDidLoad];
 
     // Set up toolbar buttons
-    self.backButton.image = [self backArrowImage];
-    self.backButton.title = nil;
-    self.forwardButton.image = [self forwardArrowImage];
-    self.forwardButton.title = nil;
     self.spinnerItem.customView = self.spinner;
     self.spinnerItem.title = nil;
 }
@@ -252,60 +248,6 @@
     if (error.code == 102 && [error.domain isEqual:@"WebKitErrorDomain"]) return;
 
     MPLogError(@"Ad browser (%p) experienced an error: %@.", self, [error localizedDescription]);
-}
-
-#pragma mark -
-#pragma mark Drawing
-
-- (CGContextRef)createContext
-{
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(nil,27,27,8,0,
-                                                 colorSpace,(CGBitmapInfo)kCGImageAlphaPremultipliedLast);
-    CFRelease(colorSpace);
-    return context;
-}
-
-- (UIImage *)backArrowImage
-{
-    CGContextRef context = [self createContext];
-    CGColorRef fillColor = [[UIColor blackColor] CGColor];
-    CGContextSetFillColor(context, CGColorGetComponents(fillColor));
-
-    CGContextBeginPath(context);
-    CGContextMoveToPoint(context, 8.0f, 13.0f);
-    CGContextAddLineToPoint(context, 24.0f, 4.0f);
-    CGContextAddLineToPoint(context, 24.0f, 22.0f);
-    CGContextClosePath(context);
-    CGContextFillPath(context);
-
-    CGImageRef imageRef = CGBitmapContextCreateImage(context);
-    CGContextRelease(context);
-
-    UIImage *image = [[UIImage alloc] initWithCGImage:imageRef];
-    CGImageRelease(imageRef);
-    return [image autorelease];
-}
-
-- (UIImage *)forwardArrowImage
-{
-    CGContextRef context = [self createContext];
-    CGColorRef fillColor = [[UIColor blackColor] CGColor];
-    CGContextSetFillColor(context, CGColorGetComponents(fillColor));
-
-    CGContextBeginPath(context);
-    CGContextMoveToPoint(context, 24.0f, 13.0f);
-    CGContextAddLineToPoint(context, 8.0f, 4.0f);
-    CGContextAddLineToPoint(context, 8.0f, 22.0f);
-    CGContextClosePath(context);
-    CGContextFillPath(context);
-
-    CGImageRef imageRef = CGBitmapContextCreateImage(context);
-    CGContextRelease(context);
-
-    UIImage *image = [[UIImage alloc] initWithCGImage:imageRef];
-    CGImageRelease(imageRef);
-    return [image autorelease];
 }
 
 #pragma mark -

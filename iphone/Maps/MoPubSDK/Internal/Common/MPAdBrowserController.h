@@ -41,11 +41,6 @@
 - (IBAction)safari;
 - (IBAction)done;
 
-// Drawing methods.
-- (CGContextRef)createContext CF_RETURNS_RETAINED;
-- (UIImage *)backArrowImage;
-- (UIImage *)forwardArrowImage;
-
 @end
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
