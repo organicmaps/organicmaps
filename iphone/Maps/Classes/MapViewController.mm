@@ -615,7 +615,7 @@ const long long LITE_IDL = 431183278L;
     self.topBannerAd = [[MPAdView alloc] initWithAdUnitId:adUnitId size:MOPUB_BANNER_SIZE];
     self.topBannerAd.delegate = self;
     if (!SYSTEM_VERSION_IS_LESS_THAN(@"7"))
-      self.topBannerAd.minY = [UIApplication sharedApplication].statusBarFrame.size.height;
+      self.topBannerAd.minY = 20;
     self.topBannerAd.midX = self.view.width / 2;
     self.topBannerAd.hidden = YES;
     [self.topBannerAd startAutomaticallyRefreshingContents];
