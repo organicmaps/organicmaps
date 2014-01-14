@@ -38,16 +38,17 @@ KeywordMatcher::ScoreT KeywordMatcher::Score(StringT const & name) const
   SplitUniString(name, MakeBackInsertFunctor(tokens), Delimiters());
 
   // Some names can have too many tokens. Trim them.
-  return Score(tokens.data(), min(size_t(MAX_TOKENS), tokens.size()));
+  return Score(tokens.data(), tokens.size());
 }
 
 KeywordMatcher::ScoreT KeywordMatcher::Score(StringT const * tokens, size_t count) const
 {
+  count = min(count, size_t(MAX_TOKENS));
+
   vector<bool> isQueryTokenMatched(m_keywords.size());
   vector<bool> isNameTokenMatched(count);
-  uint32_t numQueryTokensMatched = 0;
   uint32_t sumTokenMatchDistance = 0;
-  int32_t prevTokenMatchDistance = 0;
+  int8_t prevTokenMatchDistance = 0;
   bool bPrefixMatched = true;
 
   for (int i = 0; i < m_keywords.size(); ++i)
@@ -55,7 +56,7 @@ KeywordMatcher::ScoreT KeywordMatcher::Score(StringT const * tokens, size_t coun
       if (!isNameTokenMatched[j] && m_keywords[i] == tokens[j])
       {
         isQueryTokenMatched[i] = isNameTokenMatched[j] = true;
-        int32_t const tokenMatchDistance = i - j;
+        int8_t const tokenMatchDistance = i - j;
         sumTokenMatchDistance += abs(tokenMatchDistance - prevTokenMatchDistance);
         prevTokenMatchDistance = tokenMatchDistance;
       }
@@ -68,31 +69,37 @@ KeywordMatcher::ScoreT KeywordMatcher::Score(StringT const * tokens, size_t coun
           StartsWith(tokens[j].begin(), tokens[j].end(), m_prefix.begin(), m_prefix.end()))
       {
         isNameTokenMatched[j] = bPrefixMatched = true;
-        int32_t const tokenMatchDistance = int(m_keywords.size()) - j;
+        int8_t const tokenMatchDistance = int(m_keywords.size()) - j;
         sumTokenMatchDistance += abs(tokenMatchDistance - prevTokenMatchDistance);
       }
   }
 
+  uint8_t numQueryTokensMatched = 0;
   for (size_t i = 0; i < isQueryTokenMatched.size(); ++i)
     if (isQueryTokenMatched[i])
       ++numQueryTokensMatched;
 
-  ScoreT score = ScoreT();
+  ScoreT score;
   score.m_bFullQueryMatched = bPrefixMatched && (numQueryTokensMatched == isQueryTokenMatched.size());
   score.m_bPrefixMatched = bPrefixMatched;
   score.m_numQueryTokensAndPrefixMatched = numQueryTokensMatched + (bPrefixMatched ? 1 : 0);
-  score.m_nameTokensMatched = 0xFFFFFFFF;
-  for (uint32_t i = 0; i < min(size_t(32), isNameTokenMatched.size()); ++i)
-    if (!isNameTokenMatched[i])
-      score.m_nameTokensMatched &= ~(1 << (31 - i));
-  score.m_sumTokenMatchDistance = sumTokenMatchDistance;
 
+  score.m_nameTokensMatched = 0;
+  score.m_nameTokensLength = 0;
+  for (size_t i = 0; i < count; ++i)
+  {
+    if (isNameTokenMatched[i])
+      score.m_nameTokensMatched |= (1 << (MAX_TOKENS-1 - i));
+    score.m_nameTokensLength += tokens[i].size();
+  }
+
+  score.m_sumTokenMatchDistance = sumTokenMatchDistance;
   return score;
 }
 
 KeywordMatcher::ScoreT::ScoreT()
-  : m_sumTokenMatchDistance(0), m_nameTokensMatched(0), m_numQueryTokensAndPrefixMatched(0),
-    m_bFullQueryMatched(false), m_bPrefixMatched(false)
+  : m_sumTokenMatchDistance(0), m_nameTokensMatched(0), m_nameTokensLength(0),
+    m_numQueryTokensAndPrefixMatched(0), m_bFullQueryMatched(false), m_bPrefixMatched(false)
 {
 }
 
@@ -108,7 +115,11 @@ bool KeywordMatcher::ScoreT::operator < (KeywordMatcher::ScoreT const & s) const
     return m_nameTokensMatched < s.m_nameTokensMatched;
   if (m_sumTokenMatchDistance != s.m_sumTokenMatchDistance)
     return m_sumTokenMatchDistance > s.m_sumTokenMatchDistance;
-  return false;
+
+  if (m_bFullQueryMatched)
+    return m_nameTokensLength > s.m_nameTokensLength;
+  else
+    return false;
 }
 
 string DebugPrint(KeywordMatcher::ScoreT const & score)
@@ -119,7 +130,8 @@ string DebugPrint(KeywordMatcher::ScoreT const & score)
   out << ",nQTM=" << static_cast<int>(score.m_numQueryTokensAndPrefixMatched);
   out << ",PM=" << score.m_bPrefixMatched;
   out << ",NTM=";
-  for (int i = 31; i >= 0; --i) out << ((score.m_nameTokensMatched >> i) & 1);
+  for (int i = MAX_TOKENS-1; i >= 0; --i)
+    out << ((score.m_nameTokensMatched >> i) & 1);
   out << ",STMD=" << score.m_sumTokenMatchDistance;
   out << ")";
   return out.str();

@@ -9,14 +9,15 @@ namespace search
 class KeywordLangMatcher
 {
 public:
-
   class ScoreT
   {
   public:
-    ScoreT() {}
+    ScoreT();
     bool operator < (ScoreT const & s) const;
+
   private:
     friend class KeywordLangMatcher;
+    friend string DebugPrint(ScoreT const & score);
 
     ScoreT(KeywordMatcher::ScoreT const & score, int langScore);
 

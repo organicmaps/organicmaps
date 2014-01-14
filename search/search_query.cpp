@@ -95,8 +95,8 @@ Query::Query(Index const * pIndex,
   // Initialize keywords scorer.
   // Note! This order should match the indexes arrays above.
   vector<vector<int8_t> > langPriorities(4);
-  langPriorities[0].push_back(0);   // future current lang
-  langPriorities[1].push_back(0);   // future input lang
+  langPriorities[0].push_back(-1);   // future current lang
+  langPriorities[1].push_back(-1);   // future input lang
   langPriorities[2].push_back(StringUtf8Multilang::GetLangIndex("int_name"));
   langPriorities[2].push_back(StringUtf8Multilang::GetLangIndex("en"));
   langPriorities[3].push_back(StringUtf8Multilang::GetLangIndex("default"));

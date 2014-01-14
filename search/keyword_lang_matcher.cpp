@@ -11,6 +11,10 @@
 namespace search
 {
 
+KeywordLangMatcher::ScoreT::ScoreT() : m_langScore(numeric_limits<int>::min())
+{
+}
+
 KeywordLangMatcher::ScoreT::ScoreT(KeywordMatcher::ScoreT const & score, int langScore)
   : m_parentScore(score), m_langScore(langScore)
 {
@@ -69,6 +73,13 @@ KeywordLangMatcher::ScoreT KeywordLangMatcher::Score(int8_t lang,
                                                      StringT const * tokens, size_t count) const
 {
   return ScoreT(m_keywordMatcher.Score(tokens, count), GetLangScore(lang));
+}
+
+string DebugPrint(KeywordLangMatcher::ScoreT const & score)
+{
+  ostringstream ss;
+  ss << "KLM::ScoreT(" << DebugPrint(score.m_parentScore) << ", LS=" << score.m_langScore << ")";
+  return ss.str();
 }
 
 }  // namespace search

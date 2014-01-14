@@ -117,11 +117,11 @@ UNIT_TEST(KeywordMatcher_Prefix)
 
     {MATCHES, STRONGLY_BETTER, "new york gym"},
     {MATCHES, BETTER_OR_EQUAL, "new new york"},
-
     {MATCHES, STRONGLY_BETTER, "new york"},
 
     {MATCHES, STRONGLY_BETTER, "newark"},
-    {MATCHES, BETTER_OR_EQUAL, "new"},
+
+    {MATCHES, STRONGLY_BETTER, "new"},
   };
   TestKeywordMatcher(query, testCases);
 }
@@ -135,8 +135,7 @@ UNIT_TEST(KeywordMatcher_Keyword)
     {NOMATCH, DOES_NOT_MATTER, "zzz"},
     {NOMATCH, DOES_NOT_MATTER, "ne"},
     {NOMATCH, DOES_NOT_MATTER, "the netherlands"},
-
-    {NOMATCH, STRONGLY_BETTER, "newark"},
+    {NOMATCH, DOES_NOT_MATTER, "newark"},
 
     {MATCHES, STRONGLY_BETTER, "york new"},
 
@@ -174,14 +173,15 @@ UNIT_TEST(KeywordMatcher_KeywordAndPrefix)
 
     {MATCHES, STRONGLY_BETTER, "the new york"},
     {MATCHES, BETTER_OR_EQUAL, "york new the"},
+    {MATCHES, BETTER_OR_EQUAL, "york new"},
+
+    {MATCHES, STRONGLY_BETTER, "yo new"},
 
     {MATCHES, STRONGLY_BETTER, "new york pizza"},
 
-    {MATCHES, STRONGLY_BETTER, "york new"},
-    {MATCHES, BETTER_OR_EQUAL, "yo new"},
-
     {MATCHES, STRONGLY_BETTER, "new york"},
-    {MATCHES, BETTER_OR_EQUAL, "new yo"},
+
+    {MATCHES, STRONGLY_BETTER, "new yo"},
   };
   TestKeywordMatcher(query, testCases);
 }
@@ -203,10 +203,9 @@ UNIT_TEST(KeywordMatcher_KeywordAndKeyword)
     {MATCHES, STRONGLY_BETTER, "the new york"},
     {MATCHES, BETTER_OR_EQUAL, "york new the"},
 
-    {MATCHES, STRONGLY_BETTER, "new york pizza"},
-
     {MATCHES, STRONGLY_BETTER, "york new"},
 
+    {MATCHES, STRONGLY_BETTER, "new york pizza"},
     {MATCHES, STRONGLY_BETTER, "new york"},
   };
   TestKeywordMatcher(query, testCases);

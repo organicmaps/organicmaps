@@ -28,6 +28,7 @@ public:
 
     uint32_t m_sumTokenMatchDistance;
     uint32_t m_nameTokensMatched;
+    uint32_t m_nameTokensLength;
     uint8_t m_numQueryTokensAndPrefixMatched;
     bool m_bFullQueryMatched : 1;
     bool m_bPrefixMatched : 1;
