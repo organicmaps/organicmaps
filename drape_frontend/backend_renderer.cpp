@@ -13,6 +13,8 @@
 
 #include "../std/bind.hpp"
 
+#include "../indexer/mercator.hpp"
+
 namespace
 {
   void PostFinishTask(RefPointer<df::ThreadsCommutator> commutator, threads::IRoutine * routine)
@@ -62,16 +64,15 @@ namespace df
     StopThread();
   }
 
-  void BackendRenderer::UpdateCoverage(const ScreenBase & screen)
+  void BackendRenderer::UpdateCoverage(ScreenBase const & screen)
   {
-    m_tiler.seed(screen, screen.GlobalRect().GlobalCenter(), m_scaleProcessor.GetTileSize());
-
-    vector<Tiler::RectInfo> tiles;
-    m_tiler.tiles(tiles, 1);
+    set<TileKey> tilesKeysSet;
+    GetTileKeys(tilesKeysSet, screen);
 
     if (!m_currentViewport.GlobalRect().IsIntersect(screen.GlobalRect()) ||
         m_scaleProcessor.GetTileScaleBase(m_currentViewport) != m_scaleProcessor.GetTileScaleBase(screen))
     {
+
       typedef set<ReadMWMTask *>::iterator index_iter;
       for (index_iter it = m_taskIndex.begin(); it != m_taskIndex.end(); ++it)
         CancelTask(*it, false, false);
@@ -79,30 +80,21 @@ namespace df
       m_taskIndex.clear();
       PostToRenderThreads(MovePointer<Message>(new DropCoverageMessage()));
 
-      for (size_t i = 0; i < tiles.size(); ++i)
-      {
-        const Tiler::RectInfo & info = tiles[i];
-        CreateTask(TileKey(info.m_x, info.m_y, info.m_tileScale));
-      }
+      typedef set<TileKey>::iterator tile_keys_iterator;
+      for (tile_keys_iterator it = tilesKeysSet.begin(); it != tilesKeysSet.end(); ++it)
+        CreateTask(*it);
     }
     else
     {
-      set<TileKey> rectInfoSet;
-      for (size_t i = 0 ; i < tiles.size(); ++i)
-      {
-        const Tiler::RectInfo & info = tiles[i];
-        rectInfoSet.insert(TileKey(info.m_x, info.m_y, info.m_tileScale));
-      }
-
       // Find rects that go out from viewport
       buffer_vector<ReadMWMTask *, 8> outdatedTasks;
       set_difference(m_taskIndex.begin(), m_taskIndex.end(),
-                     rectInfoSet.begin(), rectInfoSet.end(),
+                     tilesKeysSet.begin(), tilesKeysSet.end(),
                      back_inserter(outdatedTasks), CoverageCellComparer());
 
       // Find rects that go in into viewport
       buffer_vector<TileKey, 8> inputRects;
-      set_difference(rectInfoSet.begin(), rectInfoSet.end(),
+      set_difference(tilesKeysSet.begin(), tilesKeysSet.end(),
                      m_taskIndex.begin(), m_taskIndex.end(),
                      back_inserter(inputRects), CoverageCellComparer());
 
@@ -165,6 +157,37 @@ namespace df
       (*it)->PrepareToRestart();
       m_threadPool->AddTask(*it);
     }
+  }
+
+  void BackendRenderer::GetTileKeys(set<TileKey> & out, ScreenBase const & screen)
+  {
+    out.clear();
+
+    int const tileScale = m_scaleProcessor.GetTileScaleBase(screen);
+    // equal for x and y
+    double const range = MercatorBounds::maxX - MercatorBounds::minX;
+    double const rectSize = range / (1 << tileScale);
+
+    m2::AnyRectD const & globalRect = screen.GlobalRect();
+    m2::RectD    const & clipRect   = globalRect.GetGlobalRect();
+
+    int const minTileX = static_cast<int>(floor(clipRect.minX() / rectSize));
+    int const maxTileX = static_cast<int>(ceil(clipRect.maxX() / rectSize));
+    int const minTileY = static_cast<int>(floor(clipRect.minY() / rectSize));
+    int const maxTileY = static_cast<int>(ceil(clipRect.maxY() / rectSize));
+
+    for (int tileY = minTileY; tileY < maxTileY; ++tileY)
+      for (int tileX = minTileX; tileX < maxTileX; ++tileX)
+      {
+        double const left = tileX * rectSize;
+        double const top  = tileY * rectSize;
+
+        m2::RectD currentTileRect(left, top,
+                                  left + rectSize, top + rectSize);
+
+        if (globalRect.IsIntersect(m2::AnyRectD(currentTileRect)))
+          out.insert(TileKey(tileX, tileY, tileScale));
+      }
   }
 
   /////////////////////////////////////////

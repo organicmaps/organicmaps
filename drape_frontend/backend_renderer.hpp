@@ -9,8 +9,9 @@
 #include "../drape/pointers.hpp"
 #include "../drape/oglcontextfactory.hpp"
 
+#include "../geometry/screenbase.hpp"
+
 #include "../map/scales_processor.hpp"
-#include "../map/tiler.hpp"
 
 #include "../base/thread.hpp"
 #include "../base/thread_pool.hpp"
@@ -53,8 +54,10 @@ namespace df
 
     /////////////////////////////////////////
     /// Calculate rect for read from MWM
-    Tiler m_tiler;
     ScalesProcessor m_scaleProcessor;
+
+    void GetTileKeys(set<TileKey> & out,
+                     ScreenBase const & screen);
     /////////////////////////////////////////
 
     /////////////////////////////////////////
