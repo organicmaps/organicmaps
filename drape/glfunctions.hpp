@@ -14,6 +14,8 @@ public:
   static void glViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h);
   static void glFlush();
 
+  static void glBindFramebuffer(glConst target, uint32_t id);
+
   /// VAO support
   static uint32_t glGenVertexArray();
   static void glBindVertexArray(uint32_t vao);

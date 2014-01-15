@@ -3,6 +3,8 @@
 #include "../base/assert.hpp"
 #include "../base/logging.hpp"
 
+#include "../drape/glfunctions.hpp"
+
 QtOGLContext::QtOGLContext(QWindow * surface, QtOGLContext * contextToShareWith)
 {
   m_isContextCreated = false;
@@ -44,5 +46,5 @@ void QtOGLContext::present()
 
 void QtOGLContext::setDefaultFramebuffer()
 {
-  glBindFramebuffer(GL_FRAMEBUFFER, 0);
+  GLFunctions::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
