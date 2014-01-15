@@ -775,18 +775,24 @@ bool BookmarkCategory::SaveToKMLFile()
   else
     m_file = GenerateUniqueFileName(GetPlatform().WritableDir(), name);
 
+  string const fileTmp = m_file + ".tmp";
+
   try
   {
+    // First, we save to the temporary file
     /// @todo On Windows UTF-8 file names are not supported.
-    ofstream of(m_file.c_str());
+    ofstream of(fileTmp.c_str(), std::ios_base::out | std::ios_base::trunc);
     SaveToKML(of);
     of.flush();
 
     if (!of.fail())
     {
+      // Only after successfull save we replace original file
+      my::DeleteFileX(m_file);
+      VERIFY(my::RenameFileX(fileTmp, m_file), (fileTmp, m_file));
       // delete old file
       if (!oldFile.empty())
-        VERIFY ( my::DeleteFileX(oldFile), (oldFile, m_file));
+        VERIFY(my::DeleteFileX(oldFile), (oldFile, m_file));
 
       return true;
     }
@@ -797,6 +803,9 @@ bool BookmarkCategory::SaveToKMLFile()
   }
 
   LOG(LWARNING, ("Can't save bookmarks category", m_name, "to file", m_file));
+
+  // remove possibly left tmp file
+  my::DeleteFileX(fileTmp);
 
   // return old file name in case of error
   if (!oldFile.empty())
