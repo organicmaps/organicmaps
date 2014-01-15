@@ -14,7 +14,7 @@ namespace df
   class MemoryFeatureIndex : private noncopyable
   {
   public:
-    void ReadFeaturesRequest(const vector<FeatureInfo> & features, vector<size_t> & indexes);
+    void ReadFeaturesRequest(vector<FeatureInfo> & features, vector<size_t> & indexes);
     void RemoveFeatures(const vector<FeatureInfo> & features);
 
   private:

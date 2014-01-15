@@ -117,10 +117,8 @@ void Batcher::InsertTriangles(const GLState & state, strategy s, RefPointer<Attr
     ASSERT(availableIndexCount != 0, ("Buffer must be filnalized on previous iteration"));
     ASSERT(availableVertexCount != 0, ("Buffer must be filnalized on previous iteration"));
 
-    bool needFinalizeBuffer = false;
     if (vertexCount > availableVertexCount || indexCount > availableIndexCount)
     {
-      needFinalizeBuffer = true;
       if (s.GetIndexCount(availableVertexCount) <= availableIndexCount)
         vertexCount = availableVertexCount;
       else
@@ -146,7 +144,8 @@ void Batcher::InsertTriangles(const GLState & state, strategy s, RefPointer<Attr
     }
 
     params->Advance(vertexCount);
-    if (needFinalizeBuffer)
+    if (!(buffer->GetAvailableIndexCount() > 3 &&
+          buffer->GetAvailableVertexCount() > 3))
       FinalizeBuffer(state);
   }
 }

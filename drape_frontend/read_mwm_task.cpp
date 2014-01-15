@@ -2,6 +2,8 @@
 
 #include "area_shape.hpp"
 
+#include "../base/logging.hpp"
+
 #include "../std/vector.hpp"
 
 namespace
@@ -31,18 +33,47 @@ namespace
                        m2::PointF(1.5f, 0.5f));
     return shape;
   }
+
+  struct FeatureIndexFetcher
+  {
+  public:
+    FeatureIndexFetcher(df::TileInfo & info)
+      : m_info(info)
+    {
+    }
+
+    void Finish()
+    {
+      sort(m_info.m_featureInfo.begin(), m_info.m_featureInfo.end());
+    }
+
+    void operator()(FeatureID featureID) const
+    {
+      m_info.m_featureInfo.push_back(featureID);
+    }
+
+  private:
+    df::TileInfo & m_info;
+  };
 }
 
 namespace df
 {
   ReadMWMTask::ReadMWMTask(TileKey const & tileKey,
+                           model::FeaturesFetcher const & model,
                            MemoryFeatureIndex & index,
-                           EngineContext &context)
+                           EngineContext & context)
     : m_tileInfo(tileKey)
-    , m_isFinished(false)
+    , m_model(model)
     , m_index(index)
     , m_context(context)
+    , m_isFinished(false)
   {
+  }
+
+  ReadMWMTask::~ReadMWMTask()
+  {
+    m_index.RemoveFeatures(m_tileInfo.m_featureInfo);
   }
 
   void ReadMWMTask::Do()
@@ -50,8 +81,14 @@ namespace df
     if (m_tileInfo.m_featureInfo.empty())
       ReadTileIndex();
 
+    if (IsCancelled())
+      return;
+
     vector<size_t> indexesToRead;
     m_index.ReadFeaturesRequest(m_tileInfo.m_featureInfo, indexesToRead);
+
+    if (IsCancelled())
+      return;
 
     if (!indexesToRead.empty())
     {
@@ -61,7 +98,9 @@ namespace df
       {
         FeatureInfo & info = m_tileInfo.m_featureInfo[i];
         ReadGeometry(info.m_id);
-        info.m_isOwner = true;
+
+        if (IsCancelled())
+          break;
       }
 
       m_context.EndReadTile(m_tileInfo.m_key);
@@ -90,19 +129,18 @@ namespace df
 
   void ReadMWMTask::ReadTileIndex()
   {
-    if (m_tileInfo.m_key == TileKey(-2, -1, 3))
-      m_tileInfo.m_featureInfo.push_back(FeatureInfo(FeatureID(0, 1)));
-    else if (m_tileInfo.m_key == TileKey(0, 1, 3))
-      m_tileInfo.m_featureInfo.push_back(FeatureInfo(FeatureID(0, 2)));
-    /// TODO read index specified by m_tileInfo(m_x & m_y & m_zoomLevel)
-    /// TODO insert readed FeatureIDs into m_tileInfo.m_featureInfo;
+    FeatureIndexFetcher fetcher(m_tileInfo);
+    m_model.ForEachFeatureID(m_tileInfo.GetGlobalRect(),
+                             fetcher,
+                             m_tileInfo.m_key.m_zoomLevel);
+    fetcher.Finish();
   }
 
   void ReadMWMTask::ReadGeometry(const FeatureID & id)
   {
-    if (id == FeatureID(0, 1))
+    if (id.m_mwm == 41)
       m_context.InsertShape(m_tileInfo.m_key, MovePointer<MapShape>(CreateFakeShape1()));
-    else if (id == FeatureID(0, 2))
+    else if (id.m_mwm == 42)
       m_context.InsertShape(m_tileInfo.m_key, MovePointer<MapShape>(CreateFakeShape2()));
     ///TODO read geometry
     ///TODO proccess geometry by styles

@@ -12,6 +12,7 @@
 #include "../geometry/screenbase.hpp"
 
 #include "../map/scales_processor.hpp"
+#include "../map/feature_vec_model.hpp"
 
 #include "../base/thread.hpp"
 #include "../base/thread_pool.hpp"
@@ -55,7 +56,8 @@ namespace df
     /////////////////////////////////////////
     /// Calculate rect for read from MWM
     ScalesProcessor m_scaleProcessor;
-
+    model::FeaturesFetcher m_model;
+    
     void GetTileKeys(set<TileKey> & out,
                      ScreenBase const & screen);
     /////////////////////////////////////////

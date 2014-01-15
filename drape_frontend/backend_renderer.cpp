@@ -47,12 +47,21 @@ namespace df
     , m_commutator(commutator)
     , m_contextFactory(oglcontextfactory)
   {
+    ///{ Temporary initialization
+    Platform::FilesList maps;
+    Platform & pl = GetPlatform();
+    pl.GetFilesByExt(pl.WritableDir(), DATA_FILE_EXTENSION, maps);
+
+    for_each(maps.begin(), maps.end(), bind(&model::FeaturesFetcher::AddMap, &m_model, _1));
+    ///}
+
+
     m_scaleProcessor.SetParams(visualScale, ScalesProcessor::CalculateTileSize(surfaceWidth, surfaceHeight));
     m_currentViewport.SetFromRect(m2::AnyRectD(m_scaleProcessor.GetWorldRect()));
 
     m_commutator->RegisterThread(ThreadsCommutator::ResourceUploadThread, this);
 
-    int readerCount = max(1, GetPlatform().CpuCores() - 2);
+    int readerCount = 1;//max(1, GetPlatform().CpuCores() - 2);
     m_threadPool.Reset(new threads::ThreadPool(readerCount, bind(&PostFinishTask, commutator, _1)));
     m_batchersPool.Reset(new BatchersPool(readerCount, bind(&BackendRenderer::PostToRenderThreads, this, _1)));
 
@@ -129,7 +138,7 @@ namespace df
 
   void BackendRenderer::CreateTask(TileKey const & info)
   {
-    ReadMWMTask * task = new ReadMWMTask(info, m_index, m_engineContext);
+    ReadMWMTask * task = new ReadMWMTask(info, m_model, m_index, m_engineContext);
     m_taskIndex.insert(task);
     m_threadPool->AddTask(task);
   }
@@ -144,7 +153,6 @@ namespace df
     if (removefromIndex)
       m_taskIndex.erase(task);
 
-    m_index.RemoveFeatures(task->GetTileInfo().m_featureInfo);
     if (task->IsFinished())
       delete task;
   }

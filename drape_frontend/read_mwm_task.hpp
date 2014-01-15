@@ -7,6 +7,8 @@
 #include "../base/thread.hpp"
 #include "../base/object_tracker.hpp"
 
+#include "../map/feature_vec_model.hpp"
+
 namespace df
 {
   class ReadMWMTask : public threads::IRoutine
@@ -21,8 +23,11 @@ namespace df
     };
 
     ReadMWMTask(TileKey const & tileKey,
+                model::FeaturesFetcher const & model,
                 MemoryFeatureIndex & index,
                 EngineContext & context);
+
+    ~ReadMWMTask();
 
     virtual void Do();
 
@@ -38,9 +43,10 @@ namespace df
 
   private:
     TileInfo m_tileInfo;
-    bool m_isFinished;
+    model::FeaturesFetcher const & m_model;
     MemoryFeatureIndex & m_index;
     EngineContext & m_context;
+    bool m_isFinished;
 
   #ifdef DEBUG
     dbg::ObjectTracker m_objTracker;

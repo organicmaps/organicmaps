@@ -68,7 +68,7 @@ private:
   {
     FeaturesVector const & m_V;
     F & m_F;
-    mutable unordered_set<uint32_t> m_offsets;
+    unordered_set<uint32_t> m_offsets;
     MwmId m_mwmID;
 
   public:
@@ -77,7 +77,7 @@ private:
     {
     }
 
-    void operator() (uint32_t offset) const
+    void operator() (uint32_t offset)
     {
       if (m_offsets.insert(offset).second)
       {
@@ -133,6 +133,66 @@ private:
     F & m_f;
   };
 
+  template <typename F>
+  class ReadFeatureIndexFunctor
+  {
+    struct ImplFunctor
+    {
+    public:
+      ImplFunctor(F & f, MwmId id)
+        : m_f(f)
+        , m_id(id)
+      {
+      }
+
+      void operator() (uint32_t offset)
+      {
+        ASSERT(m_id != -1, ());
+        if (m_offsets.insert(offset).second)
+          m_f(FeatureID(m_id, offset));
+      }
+
+    private:
+      F & m_f;
+      MwmId m_id;
+      unordered_set<uint32_t> m_offsets;
+    };
+
+  public:
+    ReadFeatureIndexFunctor(F & f)
+      : m_f(f)
+    {
+    }
+
+    void operator() (MwmLock const & lock, covering::CoveringGetter & cov, uint32_t scale) const
+    {
+      MwmValue * pValue = lock.GetValue();
+      if (pValue)
+      {
+        feature::DataHeader const & header = pValue->GetHeader();
+
+        // Prepare needed covering.
+        int const lastScale = header.GetLastScale();
+
+        // In case of WorldCoasts we should pass correct scale in ForEachInIntervalAndScale.
+        if (scale > lastScale) scale = lastScale;
+
+        // Use last coding scale for covering (see index_builder.cpp).
+        covering::IntervalsT const & interval = cov.Get(lastScale);
+        ScaleIndex<ModelReaderPtr> index(pValue->m_cont.GetReader(INDEX_FILE_TAG),
+                                         pValue->m_factory);
+
+        // iterate through intervals
+        ImplFunctor implFunctor(m_f, lock.GetID());
+        for (size_t i = 0; i < interval.size(); ++i)
+          index.ForEachInIntervalAndScale(implFunctor, interval[i].first, interval[i].second, scale);
+      }
+    }
+
+  private:
+    F & m_f;
+  };
+
 public:
 
   template <typename F>
@@ -152,8 +212,8 @@ public:
   template <typename F>
   void ForEachFeatureIDInRect(F & f, m2::RectD const & rect, uint32_t scale) const
   {
-    ///TODO
-    //ForEachInIntervals(ReadMWMFunctor(*this, f), rect, scale);
+    ReadFeatureIndexFunctor<F> implFunctor(f);
+    ForEachInIntervals(implFunctor, covering::LowLevelsOnly, rect, scale);
   }
 
   template <typename F>
