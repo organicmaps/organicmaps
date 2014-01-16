@@ -88,12 +88,35 @@ NSString * const AppFeatureBannerAd = @"BannerAd";
   NSString * value = self.features[featureName];
   if (value)
   {
-    if ([value rangeOfString:self.countryCode options:NSCaseInsensitiveSearch].location != NSNotFound)
+    NSString * countryCode = [@"@" stringByAppendingString:self.countryCode];
+    if ([value rangeOfString:countryCode options:NSCaseInsensitiveSearch].location != NSNotFound)
       return YES;
     if ([value rangeOfString:@"*"].location != NSNotFound)
       return YES;
   }
   return NO;
+}
+
+- (NSString *)featureValue:(NSString *)featureName forKey:(NSString *)key
+{
+  NSString * value = self.features[featureName];
+  NSArray * components = [value componentsSeparatedByString:@"@"];
+  for (NSString * countryComponent in components)
+  {
+    BOOL countryExist = [countryComponent rangeOfString:self.countryCode options:NSCaseInsensitiveSearch].location != NSNotFound;
+    BOOL allExist = [countryComponent rangeOfString:@"*" options:NSCaseInsensitiveSearch].location != NSNotFound;
+    if (countryExist || allExist)
+    {
+      NSArray * parameters = [countryComponent componentsSeparatedByString:@"#"];
+      for (NSString * parameter in parameters) {
+        NSRange range = [parameter rangeOfString:key options:NSCaseInsensitiveSearch];
+        NSInteger startIndex = range.location + range.length + 1;
+        if (range.location != NSNotFound && [parameter length] > startIndex)
+          return [parameter substringFromIndex:startIndex];
+      }
+    }
+  }
+  return nil;
 }
 
 - (NSString *)snapshot

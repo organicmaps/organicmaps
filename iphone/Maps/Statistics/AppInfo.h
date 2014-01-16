@@ -10,6 +10,8 @@ extern NSString * const AppFeatureBannerAd;
 + (instancetype)sharedInfo;
 
 - (BOOL)featureAvailable:(NSString *)featureName;
+- (NSString *)featureValue:(NSString *)featureName forKey:(NSString *)key;
+
 - (NSString *)snapshot;
 
 @property (nonatomic, readonly) NSString * countryCode;
