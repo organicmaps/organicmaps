@@ -35,7 +35,8 @@ SOURCES += \
     uniform_value_tests.cpp \
     attribute_provides_tests.cpp \
     compile_shaders_test.cpp \
-    batcher_tests.cpp
+    batcher_tests.cpp \
+    pointers_tests.cpp
 
 HEADERS += \
     glmock_functions.hpp \

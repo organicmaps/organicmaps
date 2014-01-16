@@ -159,6 +159,8 @@ public:
     Destroy();
   }
   void Destroy() { base_t::Destroy(); }
+  // IsNull need for test
+  bool IsNull()  { return base_t::GetRaw() == NULL; }
 
 private:
   friend class MasterPointer<T>;
