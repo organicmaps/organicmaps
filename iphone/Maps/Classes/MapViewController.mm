@@ -619,7 +619,7 @@ const long long LITE_IDL = 431183278L;
     self.topBannerAd.midX = self.view.width / 2;
     self.topBannerAd.hidden = YES;
     [self.topBannerAd startAutomaticallyRefreshingContents];
-    [self.view addSubview:self.topBannerAd];
+    [self.view insertSubview:self.topBannerAd belowSubview:self.sideToolbar];
     [self.topBannerAd loadAd];
   }
 #endif
