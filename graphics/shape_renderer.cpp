@@ -47,7 +47,7 @@ namespace graphics
   void ShapeRenderer::approximateArc(m2::PointD const & center, double startA, double endA, double r, vector<m2::PointD> & pts)
   {
     double sectorA = math::pi / 30.0;
-    size_t const sectorsCount = static_cast<size_t>(floor(fabs(endA - startA) / sectorA));
+    size_t const sectorsCount = max(size_t(1), static_cast<size_t>(floor(fabs(endA - startA) / sectorA)));
     sectorA = (endA - startA) / sectorsCount;
 
     for (size_t i = 0; i <= sectorsCount; ++i)
