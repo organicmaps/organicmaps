@@ -1,6 +1,6 @@
 # Head project for drape develop and debuging
 ROOT_DIR = ..
-DEPENDENCIES = drape_frontend map drape indexer platform geometry base
+DEPENDENCIES = drape_frontend map drape indexer platform geometry coding base
 
 include($$ROOT_DIR/common.pri)
 
