@@ -6,6 +6,8 @@ DEPENDENCIES = drape base
 ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
 
+DEFINES += DRAW_INFO
+
 SOURCES += \
     engine_context.cpp \
     memory_feature_index.cpp \

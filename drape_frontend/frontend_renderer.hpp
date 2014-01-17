@@ -2,6 +2,12 @@
 
 #include "../base/thread.hpp"
 
+#ifdef DRAW_INFO
+  #include "../base/timer.hpp"
+  #include "../std/vector.hpp"
+  #include "../std/numeric.hpp"
+#endif
+
 #include "message_acceptor.hpp"
 #include "threads_commutator.hpp"
 #include "tile_info.hpp"
@@ -28,6 +34,19 @@ namespace df
                      int w, int h);
 
     ~FrontendRenderer();
+
+#ifdef DRAW_INFO
+    double m_tpf;
+    double m_fps;
+
+    my::Timer m_timer;
+    double m_frameStartTime;
+    vector<double> m_tpfs;
+    int m_drawedFrames;
+
+    void BeforeDrawFrame();
+    void AfterDrawFrame();
+#endif
 
   protected:
     virtual void AcceptMessage(RefPointer<Message> message);

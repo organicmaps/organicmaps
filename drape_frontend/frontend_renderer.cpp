@@ -6,7 +6,6 @@
 
 #include "../geometry/any_rect2d.hpp"
 
-
 #include "../std/bind.hpp"
 #include "../std/cmath.hpp"
 
@@ -21,6 +20,11 @@ namespace df
     , m_width(w)
     , m_height(h)
   {
+#ifdef DRAW_INFO
+    m_tpf = 0,0;
+    m_fps = 0.0;
+#endif
+
     m_commutator->RegisterThread(ThreadsCommutator::RenderThread, this);
     RefreshProjection(w, h);
     RefreshModelView(0);
@@ -31,6 +35,33 @@ namespace df
   {
     StopThread();
   }
+
+#ifdef DRAW_INFO
+  void FrontendRenderer::BeforeDrawFrame()
+  {
+    m_frameStartTime = m_timer.ElapsedSeconds();
+  }
+
+  void FrontendRenderer::AfterDrawFrame()
+  {
+    m_drawedFrames++;
+
+    double elapsed = m_timer.ElapsedSeconds();
+    m_tpfs.push_back(elapsed - m_frameStartTime);
+
+    if (elapsed > 1.0)
+    {
+      m_timer.Reset();
+      m_fps = m_drawedFrames / elapsed;
+      m_drawedFrames = 0;
+
+      m_tpf = accumulate(m_tpfs.begin(), m_tpfs.end(), 0.0) / m_tpfs.size();
+
+      LOG(LINFO, ("Average Fps : ", m_fps));
+      LOG(LINFO, ("Average Tpf : ", m_tpf));
+    }
+  }
+#endif
 
   void FrontendRenderer::AcceptMessage(RefPointer<Message> message)
   {
@@ -112,12 +143,19 @@ namespace df
 
   void FrontendRenderer::RenderScene()
   {
+#ifdef DRAW_INFO
+    BeforeDrawFrame();
+#endif
+
     GLFunctions::glViewport(0, 0, m_width, m_height);
     GLFunctions::glClearColor(0.65f, 0.65f, 0.65f, 1.f);
     GLFunctions::glClear();
 
-
     for_each(m_renderData.begin(), m_renderData.end(), bind(&FrontendRenderer::RenderPartImpl, this, _1));
+
+#ifdef DRAW_INFO
+    AfterDrawFrame();
+#endif
   }
 
   void FrontendRenderer::RefreshProjection(int w, int h)
