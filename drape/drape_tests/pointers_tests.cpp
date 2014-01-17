@@ -49,14 +49,11 @@ namespace
   MockAssertExpector * InitAsserter()
   {
     if (g_asserter != NULL)
-    {
       delete g_asserter;
-      g_asserter = NULL;
-    }
 
     g_asserter = new MockAssertExpector();
 
-    m_defaultAssertFn = my::SetAssertFunction(MyOnAssertFailed);
+    m_defaultAssertFn = my::SetAssertFunction(&MyOnAssertFailed);
 
     return g_asserter;
   }
@@ -68,12 +65,12 @@ namespace
     g_asserter = NULL;
   }
 
-  SrcPoint ConstructSrcPoint(const char * fileName, const char * function, int line)
+  SrcPoint ConstructSrcPoint(const char * fileName, const char * function)
   {
 #ifndef __OBJC__
-    return SrcPoint(fileName, line, function, "()");
+    return SrcPoint(fileName, 0, function, "()");
 #else
-    return SrcPoint(fileName, line, function);
+    return SrcPoint(fileName, 0, function);
 #endif
   }
 #endif
@@ -84,16 +81,15 @@ namespace
 class SrcPointMatcher : public MatcherInterface<const SrcPoint &>
 {
 public:
-  SrcPointMatcher(const char * fileName, const char * function, int line)
-    : m_srcPoint(ConstructSrcPoint(fileName, function, line))
+  SrcPointMatcher(const char * fileName, const char * function)
+    : m_srcPoint(ConstructSrcPoint(fileName, function))
   {
   }
 
   virtual bool MatchAndExplain(const SrcPoint & x, MatchResultListener * listener) const
   {
     bool res = strcmp(x.FileName(), m_srcPoint.FileName()) == 0 &&
-               strcmp(x.Function(), m_srcPoint.Function()) == 0 &&
-               x.Line() == m_srcPoint.Line();
+               strcmp(x.Function(), m_srcPoint.Function()) == 0;
 
     if (res == false)
       (*listener) << "Actual parameter : " << DebugPrint(x);
@@ -115,9 +111,9 @@ private:
   SrcPoint m_srcPoint;
 };
 
-inline Matcher<const SrcPoint &> SrcPointEq(const char * fileName, const char * function, int line)
+inline Matcher<const SrcPoint &> SrcPointEq(const char * fileName, const char * function)
 {
-  return ::testing::MakeMatcher(new SrcPointMatcher(fileName, function, line));
+  return ::testing::MakeMatcher(new SrcPointMatcher(fileName, function));
 }
 
 #endif
@@ -163,7 +159,7 @@ UNIT_TEST(RefPointer_Positive)
   {
     MockAssertExpector * asserter = InitAsserter();
 
-    EXPECT_CALL(*asserter, Assert(SrcPointEq("drape/pointers.cpp", "Destroy", 35), _)).Times(1);
+    EXPECT_CALL(*asserter, Assert(SrcPointEq("drape/pointers.cpp", "Destroy"), _)).Times(1);
 
     MasterPointer<int> p(new int);
     RefPointer<int> refP(p.GetRefPointer());
@@ -178,7 +174,7 @@ UNIT_TEST(RefPointer_Positive)
 
     ::testing::InSequence s;
 
-    EXPECT_CALL(*asserter, Assert(SrcPointEq("drape/pointers.cpp", "Deref", 20), _));
+    EXPECT_CALL(*asserter, Assert(SrcPointEq("drape/pointers.cpp", "Deref"), _));
 
     {
       MasterPointer<int> p(new int);
@@ -274,7 +270,7 @@ UNIT_TEST(TransferPointerConvertion2_Positive)
     MasterPointer<int> p(new int);
     TEST_EQUAL(p.IsNull(), false, ());
 
-    EXPECT_CALL(*asserter, Assert(SrcPointEq("drape/pointers.hpp", "~TransferPointer", 158), _));
+    EXPECT_CALL(*asserter, Assert(SrcPointEq("drape/pointers.hpp", "~TransferPointer"), _));
 
     EmptyTransferAccepter<int> toDo;
     EmptyFunction(p.Move(), toDo);
@@ -287,7 +283,7 @@ UNIT_TEST(TransferPointerConvertion2_Positive)
   {
     MockAssertExpector * asserter = InitAsserter();
 
-    EXPECT_CALL(*asserter, Assert(SrcPointEq("drape/pointers.cpp", "Deref", 20), _));
+    EXPECT_CALL(*asserter, Assert(SrcPointEq("drape/pointers.cpp", "Deref"), _));
 
     {
       MasterPointer<int> p(new int);
