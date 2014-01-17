@@ -12,6 +12,7 @@
 
 @interface NSObject (Optimized)
 
++ (NSString *)className;
 - (void)performAfterDelay:(NSTimeInterval)delay block:(void (^)(void))block;
 
 @end

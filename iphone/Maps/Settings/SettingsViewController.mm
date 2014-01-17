@@ -59,7 +59,7 @@ typedef NS_ENUM(NSUInteger, Section)
   UITableViewCell * cell = nil;
   if (indexPath.section == SectionMetrics)
   {
-    cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SelectableCell class])];
+    cell = [tableView dequeueReusableCellWithIdentifier:[SelectableCell className]];
     Settings::Units units;
     if (!Settings::Get("Units", units))
       units = Settings::Metric;
@@ -71,7 +71,7 @@ typedef NS_ENUM(NSUInteger, Section)
   }
   else if (indexPath.section == SectionStatistics)
   {
-    cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchCell class])];
+    cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
     SwitchCell * customCell = (SwitchCell *)cell;
     bool on;
     if (!Settings::Get("StatisticsEnabled", on))
@@ -82,7 +82,7 @@ typedef NS_ENUM(NSUInteger, Section)
   }
   else if (indexPath.section == SectionZoomButtons)
   {
-    cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchCell class])];
+    cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
     SwitchCell * customCell = (SwitchCell *)cell;
     bool on;
     if (!Settings::Get("ZoomButtonsEnabled", on))
@@ -93,7 +93,7 @@ typedef NS_ENUM(NSUInteger, Section)
   }
   else if (indexPath.section == SectionAbout)
   {
-    cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([LinkCell class])];
+    cell = [tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
     LinkCell * customCell = (LinkCell *)cell;
     customCell.titleLabel.text = NSLocalizedString(@"about_menu_title", nil);
   }

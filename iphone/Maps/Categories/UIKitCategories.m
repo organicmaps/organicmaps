@@ -3,6 +3,11 @@
 
 @implementation NSObject (Optimized)
 
++ (NSString *)className
+{
+  return NSStringFromClass(self);
+}
+
 - (void)performAfterDelay:(NSTimeInterval)delay block:(void (^)(void))block
 {
   [self performSelector:@selector(fireBlockAfterDelay:) withObject:[block copy] afterDelay:delay];

@@ -881,7 +881,7 @@ const long long LITE_IDL = 431183278L;
   }
   else if (buttonIndex == 3)
   {
-    SettingsViewController * vc = [self.mainStoryboard instantiateViewControllerWithIdentifier:NSStringFromClass([SettingsViewController class])];
+    SettingsViewController * vc = [self.mainStoryboard instantiateViewControllerWithIdentifier:[SettingsViewController className]];
     [self.navigationController pushViewController:vc animated:YES];
   }
   else if (buttonIndex == 4)
