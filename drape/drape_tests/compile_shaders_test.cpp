@@ -4,9 +4,22 @@
 
 #include "../../platform/platform.hpp"
 #include "../../std/sstream.hpp"
+#include "../../std/target_os.hpp"
 
 #include <QtCore/QProcess>
 #include <QtCore/QTextStream>
+
+
+#if defined (OMIM_OS_MAC)
+  #define SHADERS_COMPILER "GLSLESCompiler_Series5.mac"
+#elif defined (OMIM_OS_LINUX)
+  #define SHADERS_COMPILER "GLSLESCompiler_Series5"
+#elif defined (OMIM_OS_WINDOWS)
+  #define SHADERS_COMPILER "GLSLESCompiler_Series5.exe"
+#else
+  #error "Define shaders compiler for your platform"
+#endif
+
 
 string DebugPrint(QString const & s)
 {
@@ -16,10 +29,10 @@ string DebugPrint(QString const & s)
 UNIT_TEST(CompileShaders_Test)
 {
   Platform & platform = GetPlatform();
-  string glslCompilerPath = platform.ResourcesDir() + "glslcompiler_sgx535";
+  string glslCompilerPath = platform.ResourcesDir() + "shaders_compiler/" SHADERS_COMPILER;
   if (!platform.IsFileExistsByFullPath(glslCompilerPath))
   {
-    glslCompilerPath = platform.WritableDir() + "glslcompiler_sgx535";
+    glslCompilerPath = platform.WritableDir() + "shaders_compiler/" SHADERS_COMPILER;
     if (!platform.IsFileExistsByFullPath(glslCompilerPath))
       TEST_EQUAL(false, true, ("GLSL compiler not found"));
   }
