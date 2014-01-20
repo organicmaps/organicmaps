@@ -2,10 +2,11 @@
 
 #include "../indexer/classificator.hpp"
 
-#include "../base/logging.hpp"
-
 #include "../geometry/distance.hpp"
 #include "../geometry/distance_on_sphere.hpp"
+#include "../geometry/angles.hpp"
+
+#include "../base/logging.hpp"
 
 #include "../std/set.hpp"
 #include "../std/bind.hpp"
@@ -221,6 +222,22 @@ double GetDistanceMeters(m2::PointD const & p1, m2::PointD const & p2)
                              MercatorBounds::YToLat(p2.y), MercatorBounds::XToLon(p2.x));
 }
 
+pair<double, double> GetConnectionAngleAndDistance(
+    m2::PointD const & pt, Street const * s1, Street const * s2)
+{
+  m2::PointD const & p0 = (pt == s1->m_points.front()) ?
+        s1->m_points[1] :
+        s1->m_points[s1->m_points.size()-2];
+
+  double const d0 = pt.SquareLength(s2->m_points.front());
+  double const d2 = pt.SquareLength(s2->m_points.back());
+  m2::PointD const & p2 = (d0 < d2) ?
+        s2->m_points[1] :
+        s2->m_points[s2->m_points.size()-2];
+
+  return make_pair(ang::GetShortestDistance(ang::AngleTo(p0, pt), ang::AngleTo(pt, p2)), min(d0, d2));
+}
+
 }
 
 void Street::SortHousesProjection()
@@ -244,16 +261,35 @@ void HouseDetector::SetMetres2Mercator(double factor)
 
 void HouseDetector::FillQueue(queue<Street *> & q, Street const * street, bool isBeg)
 {
-  pair<IterT, IterT> const range =
-      m_end2st.equal_range(isBeg ? street->m_points.front() : street->m_points.back());
+  m2::PointD const & pt = isBeg ? street->m_points.front() : street->m_points.back();
+  pair<IterT, IterT> const range = m_end2st.equal_range(pt);
 
+  double const maxAngle = 3.0*math::pi/4.0;
+
+  Street * resStreet = 0;
+  double resDistance = numeric_limits<double>::max();
   for (IterT it = range.first; it != range.second; ++it)
   {
-    if (it->second->m_number == -1 && Street::IsSameStreets(street, it->second))
+    Street * current = it->second;
+
+    // Choose the possible connection from non-processed and from the same street parts.
+    if (current != street && (current->m_number == -1 || current->m_number == m_streetNum) &&
+        Street::IsSameStreets(street, current))
     {
-      it->second->m_number = m_streetNum;
-      q.push(it->second);
+      // Choose the closest connection with suitable angle.
+      pair<double, double> const res = GetConnectionAngleAndDistance(pt, street, current);
+      if (fabs(res.first) < maxAngle && res.second < resDistance)
+      {
+        resStreet = current;
+        resDistance = res.second;
+      }
     }
+  }
+
+  if (resStreet && resStreet->m_number == -1)
+  {
+    resStreet->m_number = m_streetNum;
+    q.push(resStreet);
   }
 }
 
@@ -311,8 +347,6 @@ int HouseDetector::LoadStreets(vector<FeatureID> & ids)
       m_end2st.insert(make_pair(st->m_points.front(), st));
       m_end2st.insert(make_pair(st->m_points.back(), st));
     }
-    else
-      ASSERT(false, ());
   }
 
   m_loader.Free();
@@ -711,36 +745,6 @@ void HouseDetector::GetHouseForName(string const & houseNumber, vector<House con
   res.reserve(count);
 
   LOG(LDEBUG, ("Streets count", count));
-
-  // Check that all streets are merged well
-  // (compare minimal distance between different chains).
-#ifdef DEBUG
-  vector<set<m2::PointD> > sets;
-  for (size_t i = 0; i < count; ++i)
-  {
-    sets.push_back(set<m2::PointD>());
-    for (size_t j = 0; j < m_streets[i].size(); ++j)
-    {
-      sets.back().insert(m_streets[i][j]->m_points.front());
-      sets.back().insert(m_streets[i][j]->m_points.back());
-    }
-  }
-
-  double dist = numeric_limits<double>::max();
-  for (size_t i = 0; i < sets.size(); ++i)
-    for (size_t j = i+1; j < sets.size(); ++j)
-    {
-      for (set<m2::PointD>::const_iterator it1 = sets[i].begin(); it1 != sets[i].end(); ++it1)
-        for (set<m2::PointD>::const_iterator it2 = sets[j].begin(); it2 != sets[j].end(); ++it2)
-        {
-          double const d = GetDistanceMeters(*it1, *it2);
-          if (d < dist)
-            dist = d;
-        }
-    }
-
-  LOG(LDEBUG, ("Minimal distance = ", dist));
-#endif
 
   for (size_t i = 0; i < count; ++i)
   {
