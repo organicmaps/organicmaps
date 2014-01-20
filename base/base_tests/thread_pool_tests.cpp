@@ -46,7 +46,7 @@ UNIT_TEST(ThreadPool_CanceledTaskTest)
   threads::ThreadPool pool(4, bind(&JoinFinishFunction, _1, ref(finishCounter), ref(cond)));
 
   for (int i = 0; i < TASK_COUNT; ++i)
-    pool.AddTask(new CanceledTask());
+    pool.PushBack(new CanceledTask());
 
   pool.Stop();
 
@@ -78,7 +78,7 @@ UNIT_TEST(ThreadPool_StopOperationTest)
   threads::ThreadPool pool(0, bind(&JoinFinishFunction, _1, ref(finishCounter), ref(cond)));
 
   for (int i = 0; i < TASK_COUNT; ++i)
-    pool.AddTask(new EmptyPoolTask());
+    pool.PushBack(new EmptyPoolTask());
 
   pool.Stop();
 
@@ -127,7 +127,7 @@ UNIT_TEST(ThreadPool_ExecutionTaskTest)
   threads::ThreadPool pool(4, bind(&JoinFinishFunction, _1, ref(finishCounter), ref(cond)));
 
   for (size_t i = 0; i < tasks.size(); ++i)
-    pool.AddTask(tasks[i]);
+    pool.PushBack(tasks[i]);
 
   // CancelTastTask::Do method should not be called for last task
   tasks.back()->Cancel();

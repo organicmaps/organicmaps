@@ -2,6 +2,7 @@
 
 #include "message.hpp"
 #include "tile_info.hpp"
+#include "coverage_update_descriptor.hpp"
 
 #include "../geometry/rect2d.hpp"
 #include "../geometry/screenbase.hpp"
@@ -10,16 +11,8 @@
 #include "../drape/pointers.hpp"
 #include "../drape/vertex_array_buffer.hpp"
 
-namespace threads { class IRoutine; }
-
 namespace df
 {
-  class DropCoverageMessage : public Message
-  {
-  public:
-    DropCoverageMessage() { SetType(DropCoverage); }
-  };
-
   class BaseTileMessage : public Message
   {
   public:
@@ -49,11 +42,22 @@ namespace df
       : BaseTileMessage(key, Message::TileReadEnded) {}
   };
 
-  class DropTileMessage : public BaseTileMessage
+  class DropTilesMessage : public Message
   {
   public:
-    DropTileMessage(const TileKey & key)
-      : BaseTileMessage(key, Message::DropTile) {}
+    DropTilesMessage(CoverageUpdateDescriptor const & descr)
+      : m_coverageUpdateDescr(descr)
+    {
+      SetType(DropTiles);
+    }
+
+    CoverageUpdateDescriptor const & GetDescriptor() const
+    {
+      return m_coverageUpdateDescr;
+    }
+
+  private:
+    CoverageUpdateDescriptor m_coverageUpdateDescr;
   };
 
   class FlushTileMessage : public BaseTileMessage
@@ -94,19 +98,6 @@ namespace df
 
   private:
     m2::RectI m_rect;
-  };
-
-  class TaskFinishMessage : public Message
-  {
-  public:
-    TaskFinishMessage(threads::IRoutine * routine) : m_routine(routine)
-    {
-      SetType(TaskFinish);
-    }
-    threads::IRoutine * GetRoutine() const { return m_routine; }
-
-  private:
-    threads::IRoutine * m_routine;
   };
 
   class UpdateCoverageMessage : public Message

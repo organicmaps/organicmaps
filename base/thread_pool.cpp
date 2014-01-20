@@ -70,6 +70,11 @@ namespace threads
       m_tasks.PushBack(routine);
     }
 
+    void PushFront(threads::IRoutine * routine)
+    {
+      m_tasks.PushFront(routine);
+    }
+
     threads::IRoutine * PopFront()
     {
       return m_tasks.Front(true);
@@ -121,9 +126,14 @@ namespace threads
     delete m_impl;
   }
 
-  void ThreadPool::AddTask(threads::IRoutine * routine)
+  void ThreadPool::PushBack(threads::IRoutine * routine)
   {
     m_impl->PushBack(routine);
+  }
+
+  void ThreadPool::PushFront(IRoutine * routine)
+  {
+    m_impl->PushFront(routine);
   }
 
   void ThreadPool::Stop()

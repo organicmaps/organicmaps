@@ -1,88 +1,84 @@
 #pragma once
 
+#include "memory_feature_index.hpp"
+
 #include "../indexer/feature_decl.hpp"
-#include "../indexer/mercator.hpp"
+
+#include "../geometry/rect2d.hpp"
+
+#include "../base/mutex.hpp"
+#include "../base/exception.hpp"
 
 #include "../std/vector.hpp"
 #include "../std/noncopyable.hpp"
 
+
+namespace model { class FeaturesFetcher; }
+
 namespace df
 {
-  struct FeatureInfo
+struct TileKey
+{
+public:
+  TileKey() : m_x(-1), m_y(-1), m_zoomLevel(-1) {}
+  TileKey(int x, int y, int zoomLevel)
+    : m_x(x), m_y(y), m_zoomLevel(zoomLevel) {}
+
+  bool operator < (const TileKey & other) const
   {
-    FeatureInfo(const FeatureID & id)
-      : m_id(id), m_isOwner(false) {}
+    if (m_zoomLevel != other.m_zoomLevel)
+      return m_zoomLevel < other.m_zoomLevel;
+    if (m_y != other.m_y)
+      return m_y < other.m_y;
 
-    bool operator < (FeatureInfo const & other) const
-    {
-      if (!(m_id == other.m_id))
-        return m_id < other.m_id;
+    return m_x < other.m_x;
+  }
 
-      return m_isOwner < other.m_isOwner;
-    }
-
-    FeatureID m_id;
-    bool m_isOwner;
-  };
-
-  struct TileKey
+  bool operator == (const TileKey & other) const
   {
-  public:
-    TileKey() : m_x(-1), m_y(-1), m_zoomLevel(-1) {}
-    TileKey(int x, int y, int zoomLevel)
-      : m_x(x), m_y(y), m_zoomLevel(zoomLevel) {}
+    return m_x == other.m_x &&
+        m_y == other.m_y &&
+        m_zoomLevel == other.m_zoomLevel;
+  }
 
-    bool operator < (const TileKey & other) const
-    {
-      if (m_zoomLevel != other.m_zoomLevel)
-        return m_zoomLevel < other.m_zoomLevel;
-      if (m_y != other.m_y)
-        return m_y < other.m_y;
+  int m_x;
+  int m_y;
+  int m_zoomLevel;
+};
 
-      return m_x < other.m_x;
-    }
+class TileInfo : private noncopyable
+{
+public:
 
-    bool operator == (const TileKey & other) const
-    {
-      return m_x == other.m_x &&
-             m_y == other.m_y &&
-             m_zoomLevel == other.m_zoomLevel;
-    }
+  DECLARE_EXCEPTION(ReadCanceledException, RootException);
 
-    int m_x;
-    int m_y;
-    int m_zoomLevel;
-  };
+  TileInfo(TileKey const & key, model::FeaturesFetcher & model, MemoryFeatureIndex & memIndex);
 
-  class TileInfo : private noncopyable
-  {
-  public:
-    TileInfo(const TileKey & key)
-      : m_key(key) {}
-    TileInfo(int x, int y, int zoomLevel)
-      : m_key(x, y, zoomLevel) {}
+  void ReadFeatureIndex();
+  void ReadFeatures();
 
-    m2::RectD GetGlobalRect() const
-    {
-      double const worldSizeDevisor = 1 << m_key.m_zoomLevel;
-      double const rectSizeX = (MercatorBounds::maxX - MercatorBounds::minX) / worldSizeDevisor;
-      double const rectSizeY = (MercatorBounds::maxY - MercatorBounds::minY) / worldSizeDevisor;
+  m2::RectD GetGlobalRect() const;
 
-      m2::RectD tileRect(m_key.m_x * rectSizeX,
-                         m_key.m_y * rectSizeY,
-                         (m_key.m_x + 1) * rectSizeX,
-                         (m_key.m_y + 1) * rectSizeY);
+  TileKey const & GetTileKey() const { return m_key; }
+  void Cancel();
 
-      return tileRect;
-    }
+  void operator ()(const FeatureID & id);
+  bool operator < (const TileInfo & other) const { return m_key < other.m_key; }
 
-    bool operator < (const TileInfo & other) const
-    {
-      return m_key < other.m_key;
-    }
+private:
+  void RequestFeatures(vector<size_t> & featureIndexes);
+  void CheckCanceled();
+  bool DoNeedReadIndex() const;
 
-    TileKey m_key;
+private:
+  TileKey m_key;
 
-    vector<FeatureInfo> m_featureInfo;
-  };
+  vector<FeatureInfo> m_featureInfo;
+  model::FeaturesFetcher & m_model;
+  MemoryFeatureIndex & m_memIndex;
+
+  bool m_isCanceled;
+  threads::Mutex m_mutex;
+};
+
 }

@@ -82,23 +82,30 @@ namespace df
         break;
       }
 
-    case Message::DropTile:
+    case Message::DropTiles:
       {
-        DropTileMessage * msg = static_cast<DropTileMessage *>(message.GetRaw());
-        const TileKey & key = msg->GetKey();
-        tile_data_range_t range = m_tileData.equal_range(key);
-        for (tile_data_iter eraseIter = range.first; eraseIter != range.second; ++eraseIter)
+        CoverageUpdateDescriptor const & descr = static_cast<DropTilesMessage *>(message.GetRaw())->GetDescriptor();
+        ASSERT(!descr.IsEmpty(), ());
+
+        if (!descr.DoDropAll())
         {
-          eraseIter->second->second.Destroy();
-          m_renderData.erase(eraseIter->second);
+          vector<TileKey> const & tilesToDrop = descr.GetTilesToDrop();
+          for (int i = 0; i < tilesToDrop.size(); ++i)
+          {
+            tile_data_range_t range = m_tileData.equal_range(tilesToDrop[i]);
+            for (tile_data_iter eraseIter = range.first; eraseIter != range.second; ++eraseIter)
+            {
+              eraseIter->second->second.Destroy();
+              m_renderData.erase(eraseIter->second);
+            }
+            m_tileData.erase(range.first, range.second);
+          }
         }
-        m_tileData.erase(range.first, range.second);
+        else
+          DeleteRenderData();
+
         break;
       }
-
-    case Message::DropCoverage:
-      DeleteRenderData();
-      break;
 
     case Message::Resize:
       {

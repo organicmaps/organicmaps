@@ -13,12 +13,10 @@ namespace df
       TileReadStarted,
       TileReadEnded,
       FlushTile,
-      DropTile,
+      DropTiles,
       MapShapeReaded,
-      DropCoverage,
       UpdateCoverage,
       Resize,
-      TaskFinish,
       Rotate
     };
 

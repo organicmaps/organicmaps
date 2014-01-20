@@ -1,7 +1,5 @@
 #include "memory_feature_index.hpp"
 
-#include "../base/logging.hpp"
-
 namespace df
 {
   void MemoryFeatureIndex::ReadFeaturesRequest(vector<FeatureInfo> & features, vector<size_t> & indexes)
@@ -11,24 +9,27 @@ namespace df
     for (size_t i = 0; i < features.size(); ++i)
     {
       FeatureInfo & info = features[i];
+      ASSERT(!(m_features.find(info.m_id) == m_features.end() && info.m_isOwner == true), ());
       if (info.m_isOwner == false && m_features.insert(info.m_id).second == true)
       {
-        info.m_isOwner = true;
         indexes.push_back(i);
+        info.m_isOwner = true;
       }
     }
   }
 
-  void MemoryFeatureIndex::RemoveFeatures(const vector<FeatureInfo> & features)
+  void MemoryFeatureIndex::RemoveFeatures(vector<FeatureInfo> & features)
   {
     threads::MutexGuard lock(m_mutex);
 
     for (size_t i = 0; i < features.size(); ++i)
     {
-      const FeatureInfo & info = features[i];
+      FeatureInfo & info = features[i];
       if (info.m_isOwner == true)
-        //VERIFY(m_features.erase(info.m_id) == 1, ("Erase of ", info.m_id.m_mwm, " ", info.m_id.m_offset));
-        m_features.erase(info.m_id);
+      {
+        VERIFY(m_features.erase(info.m_id) == 1, ());
+        info.m_isOwner = false;
+      }
     }
   }
 }

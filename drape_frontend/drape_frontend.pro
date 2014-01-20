@@ -20,7 +20,10 @@ SOURCES += \
     batchers_pool.cpp \
     frontend_renderer.cpp \
     drape_engine.cpp \
-    area_shape.cpp
+    area_shape.cpp \
+    read_manager.cpp \
+    tile_info.cpp \
+    coverage_update_descriptor.cpp
 
 HEADERS += \
     engine_context.hpp \
@@ -37,4 +40,6 @@ HEADERS += \
     batchers_pool.hpp \
     frontend_renderer.hpp \
     drape_engine.hpp \
-    area_shape.hpp
+    area_shape.hpp \
+    read_manager.hpp \
+    coverage_update_descriptor.hpp

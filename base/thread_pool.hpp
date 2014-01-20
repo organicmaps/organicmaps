@@ -15,7 +15,8 @@ namespace threads
     ~ThreadPool();
 
     // ThreadPool will not delete routine. You can delete it in finish_routine_fn if need
-    void AddTask(threads::IRoutine * routine);
+    void PushBack(threads::IRoutine * routine);
+    void PushFront(threads::IRoutine * routine);
     void Stop();
 
   private:
