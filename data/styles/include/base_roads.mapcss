@@ -405,10 +405,11 @@ line|z15[highway=footway]
   color: #d0ccbc;
   width: 1;
 }
-line|z14-15[highway=path]
+line|z13-15[highway=path]
 {
-  color: silver;
-  width: 2;
+  color: #d79331;
+  width: 1;
+  dashes: 4,4;
 }
 line|z15[highway=raceway]
 {
