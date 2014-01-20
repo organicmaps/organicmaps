@@ -10,7 +10,8 @@ fi
 
 set -x
 
-find "`dirname $0`/../../../omim-build-$1/out/$1" -name "*_tests" | \
+# Ignore GUI tests as they need display connection and can't be tested in linux console
+find "`dirname $0`/../../../omim-build-$1/out/$1" -name "*_tests" \( ! -iname "gui_tests" \)| \
     grep -v /tmp/ | \
     awk '{ print $0" &&" } END { print "echo REALLY ALL TESTS PASSED" }' | \
     sh -x
