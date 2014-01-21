@@ -20,7 +20,7 @@ GetNdkRoot()
 GetNdkHost()
 {
   if [[ "${OSTYPE:0:5}" == "linux" ]]; then
-    echo "linux-x86"
+    echo "linux-x86_64"
     return 0
   fi
   if [[ "${OSTYPE:0:6}" == "darwin" ]]; then
