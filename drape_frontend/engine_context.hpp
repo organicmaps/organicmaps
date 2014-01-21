@@ -1,6 +1,5 @@
 #pragma once
 
-#include "tile_info.hpp"
 #include "threads_commutator.hpp"
 
 #include "../drape/pointers.hpp"
@@ -9,6 +8,7 @@ namespace df
 {
   class Message;
   class MapShape;
+  struct TileKey;
 
   class EngineContext
   {

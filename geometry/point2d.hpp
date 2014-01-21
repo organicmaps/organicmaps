@@ -35,9 +35,21 @@ namespace m2
       return math::sqr(x - p.x) + math::sqr(y - p.y);
     }
 
-    double Length(Point<T> const & p) const
+    double Length(Point<T> const & p = Point<T>(0,0)) const
     {
       return sqrt(SquareLength(p));
+    }
+
+    Point<T> Normalize() const
+    {
+      ASSERT(!IsAlmostZero(), ());
+      double module = Length();
+      return Point<T>(x/module, y/module);
+    }
+
+    bool IsAlmostZero() const
+    {
+      return AlmostEqual(*this, Point<T>(0,0));
     }
 
     Point<T> Move(T len, T ang) const

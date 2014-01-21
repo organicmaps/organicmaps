@@ -47,7 +47,7 @@ void DrapeSurface::timerEvent(QTimerEvent * e)
   {
     static const float _2pi = 2 * math::pi;
     static float angle = 0.0;
-    angle += 0.035;
+    angle += 0.0035;
     if (angle > _2pi)
       angle -= _2pi;
 

@@ -23,7 +23,8 @@ SOURCES += \
     area_shape.cpp \
     read_manager.cpp \
     tile_info.cpp \
-    coverage_update_descriptor.cpp
+    coverage_update_descriptor.cpp \
+    line_shape.cpp
 
 HEADERS += \
     engine_context.hpp \
@@ -42,4 +43,5 @@ HEADERS += \
     drape_engine.hpp \
     area_shape.hpp \
     read_manager.hpp \
-    coverage_update_descriptor.hpp
+    coverage_update_descriptor.hpp \
+    line_shape.hpp

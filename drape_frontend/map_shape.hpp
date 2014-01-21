@@ -9,6 +9,36 @@ class Batcher;
 
 namespace df
 {
+  /// Utils
+  struct Point3D
+  {
+    float m_x;
+    float m_y;
+    float m_z;
+
+    Point3D(float x, float y, float z)
+      : m_x(x)
+      , m_y(y)
+      , m_z(z)
+    {}
+  };
+
+  struct ToPoint3DFunctor
+  {
+    ToPoint3DFunctor(float depth)
+      : m_depth(depth)
+    {}
+
+    Point3D operator ()(m2::PointF const & p)
+    {
+      return Point3D(p.x, p.y, m_depth);
+    }
+
+  private:
+    float m_depth;
+  };
+  ///
+
   class MapShape
   {
   public:

@@ -163,12 +163,12 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey)
 {
   tileinfo_ptr tileInfo(new TileInfo(tileKey, m_model, m_memIndex));
   m_tileInfos.insert(tileInfo);
-  m_pool->PushBack(new ReadMWMTask(tileInfo));
+  m_pool->PushBack(new ReadMWMTask(tileInfo, m_context));
 }
 
 void ReadManager::PushTaskFront(ReadManager::tileinfo_ptr const & tileToReread)
 {
-  m_pool->PushFront(new ReadMWMTask(tileToReread));
+  m_pool->PushFront(new ReadMWMTask(tileToReread, m_context));
 }
 
 void ReadManager::ClearTileInfo(ReadManager::tileinfo_ptr & tileToClear)

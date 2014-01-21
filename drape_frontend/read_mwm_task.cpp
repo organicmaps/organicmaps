@@ -5,8 +5,9 @@
 namespace df
 {
 
-  ReadMWMTask::ReadMWMTask(weak_ptr<TileInfo> const & tileInfo)
+  ReadMWMTask::ReadMWMTask(weak_ptr<TileInfo> const & tileInfo, EngineContext & context)
     : m_tileInfo(tileInfo)
+    , m_context(context)
   {
   }
 
@@ -19,7 +20,7 @@ namespace df
     try
     {
       tileInfo->ReadFeatureIndex();
-      tileInfo->ReadFeatures();
+      tileInfo->ReadFeatures(m_context);
     }
     catch (TileInfo::ReadCanceledException & ex)
     {

@@ -12,6 +12,7 @@
 #include "../std/vector.hpp"
 #include "../std/noncopyable.hpp"
 
+#include "engine_context.hpp"
 
 namespace model { class FeaturesFetcher; }
 
@@ -55,7 +56,7 @@ public:
   TileInfo(TileKey const & key, model::FeaturesFetcher & model, MemoryFeatureIndex & memIndex);
 
   void ReadFeatureIndex();
-  void ReadFeatures();
+  void ReadFeatures(EngineContext & context);
 
   m2::RectD GetGlobalRect() const;
 
