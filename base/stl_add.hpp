@@ -1,7 +1,6 @@
 #pragma once
 #include "../std/functional.hpp"
 #include "../std/iterator.hpp"
-#include "../std/map.hpp"
 
 
 template <class ContainerT> class BackInsertFunctor

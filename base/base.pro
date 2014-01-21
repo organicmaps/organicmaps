@@ -28,7 +28,7 @@ SOURCES += \
     string_format.cpp \
     object_tracker.cpp \
     scheduled_task.cpp \
-    thread_pool.cpp
+    thread_pool.cpp \
 
 HEADERS += \
     SRC_FIRST.hpp \
@@ -77,4 +77,5 @@ HEADERS += \
     object_tracker.hpp \
     regexp.hpp \
     scheduled_task.hpp \
-    thread_pool.hpp
+    thread_pool.hpp \
+    stl_iterator.hpp \
