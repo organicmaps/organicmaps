@@ -25,4 +25,9 @@ struct FeatureID
   {
     return (m_mwm == r.m_mwm && m_offset == r.m_offset);
   }
+
+  inline bool operator != (FeatureID const & r) const
+  {
+    return !(*this == r);
+  }
 };

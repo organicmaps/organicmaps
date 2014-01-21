@@ -90,7 +90,7 @@ namespace df
         if (!descr.DoDropAll())
         {
           vector<TileKey> const & tilesToDrop = descr.GetTilesToDrop();
-          for (int i = 0; i < tilesToDrop.size(); ++i)
+          for (size_t i = 0; i < tilesToDrop.size(); ++i)
           {
             tile_data_range_t range = m_tileData.equal_range(tilesToDrop[i]);
             for (tile_data_iter eraseIter = range.first; eraseIter != range.second; ++eraseIter)

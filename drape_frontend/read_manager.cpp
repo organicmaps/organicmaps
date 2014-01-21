@@ -21,7 +21,7 @@ void CancelTaskFn(shared_ptr<TileInfo> tinfo)
   tinfo->Cancel();
 }
 
-struct CoverageCellComparer
+struct LessCoverageCell
 {
   bool operator()(shared_ptr<TileInfo> const & l, TileKey const & r) const
   {
@@ -30,7 +30,7 @@ struct CoverageCellComparer
 
   bool operator()(TileKey const & l, shared_ptr<TileInfo> const & r) const
   {
-    return r->GetTileKey() < l;
+    return l < r->GetTileKey();
   }
 };
 
@@ -48,7 +48,7 @@ ReadManager::ReadManager(double visualScale, int w, int h,
   , m_model(model)
 {
   m_scalesProcessor.SetParams(visualScale, ScalesProcessor::CalculateTileSize(w, h));
-  m_pool = MasterPointer<threads::ThreadPool>(new threads::ThreadPool(ReadCount(), bind(&ReadManager::OnTaskFinished, this, _1)));
+  m_pool.Reset(new threads::ThreadPool(ReadCount(), bind(&ReadManager::OnTaskFinished, this, _1)));
 }
 
 void ReadManager::OnTaskFinished(threads::IRoutine * task)
@@ -80,13 +80,13 @@ void ReadManager::UpdateCoverage(const ScreenBase & screen, CoverageUpdateDescri
     buffer_vector<tileinfo_ptr, 8> outdatedTiles;
     set_difference(m_tileInfos.begin(), m_tileInfos.end(),
                    tiles.begin(), tiles.end(),
-                   back_inserter(outdatedTiles), CoverageCellComparer());
+                   back_inserter(outdatedTiles), LessCoverageCell());
 
     // Find rects that go in into viewport
     buffer_vector<TileKey, 8> inputRects;
     set_difference(tiles.begin(), tiles.end(),
                    m_tileInfos.begin(), m_tileInfos.end(),
-                   back_inserter(inputRects), CoverageCellComparer());
+                   back_inserter(inputRects), LessCoverageCell());
 
     for_each(outdatedTiles.begin(), outdatedTiles.end(), bind(&ReadManager::ClearTileInfo, this, _1));
 

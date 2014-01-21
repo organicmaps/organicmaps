@@ -17,7 +17,7 @@ namespace df
 
     bool operator < (FeatureInfo const & other) const
     {
-      if (!(m_id == other.m_id))
+      if (m_id != other.m_id)
         return m_id < other.m_id;
 
       return m_isOwner < other.m_isOwner;

@@ -57,7 +57,7 @@ private:
   ScreenBase m_currentViewport;
 
 
-  struct LessByTileKeyComparator
+  struct LessByTileKey
   {
     bool operator ()(tileinfo_ptr const & l, tileinfo_ptr const & r) const
     {
@@ -65,7 +65,7 @@ private:
     }
   };
 
-  set<tileinfo_ptr, LessByTileKeyComparator> m_tileInfos;
+  set<tileinfo_ptr, LessByTileKey> m_tileInfos;
 
   void ClearTileInfo(tileinfo_ptr & tileToClear);
 };
