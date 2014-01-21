@@ -12,6 +12,7 @@
 
 #include "../std/vector.hpp"
 #include "../std/unordered_set.hpp"
+#include "../std/algorithm.hpp"
 
 
 class MwmValue : public MwmSet::MwmValueBase
@@ -223,6 +224,17 @@ public:
     ForEachInIntervals(implFunctor, covering::FullCover, m2::RectD::GetInfiniteRect(), scale);
   }
 
+  template <typename F>
+  void ReadFeatures(F & f, vector<FeatureID> const & features) const
+  {
+    if (features.empty())
+      return;
+
+    size_t currentIndex = 0;
+    while (currentIndex < features.size())
+      currentIndex = ReadFeatureRange(f, features, currentIndex);
+  }
+
   /// Guard for loading features from particular MWM by demand.
   class FeaturesLoaderGuard
   {
@@ -240,6 +252,38 @@ public:
   };
 
 private:
+
+  template <typename F>
+  size_t ReadFeatureRange(F & f, vector<FeatureID> const & features, size_t index) const
+  {
+    ASSERT_LESS(index, features.size(), ());
+    size_t result = index;
+    MwmId id = features[index].m_mwm;
+    MwmLock lock(*this, id);
+    MwmValue * pValue = lock.GetValue();
+    if (pValue)
+    {
+      FeaturesVector featureReader(pValue->m_cont, pValue->GetHeader());
+      while (result < features.size() && id == features[result].m_mwm)
+      {
+        FeatureID const & featureId = features[result];
+        FeatureType featureType;
+
+        featureReader.Get(featureId.m_offset, featureType);
+        featureType.SetID(featureId);
+
+        f(featureType);
+        ++result;
+      }
+    }
+    else
+    {
+      result = distance(features.begin(),
+                        lower_bound(features.begin(), features.end(), FeatureID(id + 1, 0)));
+    }
+
+    return result;
+  }
 
   template <typename F>
   void ForEachInIntervals(F & f, covering::CoveringMode mode,

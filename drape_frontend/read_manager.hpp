@@ -19,55 +19,55 @@
 
 namespace df
 {
+  class CoverageUpdateDescriptor;
 
-class CoverageUpdateDescriptor;
-
-class ReadManager
-{
   typedef shared_ptr<TileInfo> tileinfo_ptr;
-public:
-  ReadManager(double visualScale, int w, int h,
-              EngineContext & context,
-              model::FeaturesFetcher & model);
 
-  void UpdateCoverage(ScreenBase const & screen, CoverageUpdateDescriptor & updateDescr);
-  void Resize(m2::RectI const & rect);
-  void Stop();
-
-  static size_t ReadCount();
-
-private:
-  void OnTaskFinished(threads::IRoutine * task);
-  void GetTileKeys(set<TileKey> & out, const ScreenBase & screen) const;
-  bool MustDropAllTiles(ScreenBase const & screen) const;
-
-  void PushTaskBackForTileKey(TileKey const & tileKey);
-  void PushTaskFront(tileinfo_ptr const & tileToReread);
-
-private:
-
-  MemoryFeatureIndex m_memIndex;
-  EngineContext & m_context;
-
-  model::FeaturesFetcher & m_model;
-  ScalesProcessor m_scalesProcessor;
-
-  MasterPointer<threads::ThreadPool> m_pool;
-
-  ScreenBase m_currentViewport;
-
-
-  struct LessByTileKey
+  class ReadManager
   {
-    bool operator ()(tileinfo_ptr const & l, tileinfo_ptr const & r) const
+  public:
+    ReadManager(double visualScale, int w, int h,
+                EngineContext & context,
+                model::FeaturesFetcher & model);
+
+    void UpdateCoverage(ScreenBase const & screen, CoverageUpdateDescriptor & updateDescr);
+    void Resize(m2::RectI const & rect);
+    void Stop();
+
+    static size_t ReadCount();
+
+  private:
+    void OnTaskFinished(threads::IRoutine * task);
+    void GetTileKeys(set<TileKey> & out, const ScreenBase & screen) const;
+    bool MustDropAllTiles(ScreenBase const & screen) const;
+
+    void PushTaskBackForTileKey(TileKey const & tileKey);
+    void PushTaskFront(tileinfo_ptr const & tileToReread);
+
+  private:
+
+    MemoryFeatureIndex m_memIndex;
+    EngineContext & m_context;
+
+    model::FeaturesFetcher & m_model;
+    ScalesProcessor m_scalesProcessor;
+
+    MasterPointer<threads::ThreadPool> m_pool;
+
+    ScreenBase m_currentViewport;
+
+
+    struct LessByTileKey
     {
-      return *l < *r;
-    }
+      bool operator ()(tileinfo_ptr const & l, tileinfo_ptr const & r) const
+      {
+        return *l < *r;
+      }
+    };
+
+    set<tileinfo_ptr, LessByTileKey> m_tileInfos;
+
+    void CancelTileInfo(tileinfo_ptr tileToCancel);
+    void ClearTileInfo(tileinfo_ptr & tileToClear);
   };
-
-  set<tileinfo_ptr, LessByTileKey> m_tileInfos;
-
-  void ClearTileInfo(tileinfo_ptr & tileToClear);
-};
-
 }

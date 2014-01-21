@@ -12,15 +12,8 @@
 
 namespace df
 {
-
 namespace
 {
-
-void CancelTaskFn(shared_ptr<TileInfo> tinfo)
-{
-  tinfo->Cancel();
-}
-
 struct LessCoverageCell
 {
   bool operator()(shared_ptr<TileInfo> const & l, TileKey const & r) const
@@ -38,7 +31,6 @@ TileKey TileInfoPtrToTileKey(shared_ptr<TileInfo> const & p)
 {
   return p->GetTileKey();
 }
-
 }
 
 ReadManager::ReadManager(double visualScale, int w, int h,
@@ -66,7 +58,7 @@ void ReadManager::UpdateCoverage(const ScreenBase & screen, CoverageUpdateDescri
 
   if (MustDropAllTiles(screen))
   {
-    for_each(m_tileInfos.begin(), m_tileInfos.end(), &CancelTaskFn);
+      for_each(m_tileInfos.begin(), m_tileInfos.end(), bind(&ReadManager::CancelTileInfo, this, _1));
     m_tileInfos.clear();
 
     for_each(tiles.begin(), tiles.end(), bind(&ReadManager::PushTaskBackForTileKey, this, _1));
@@ -75,7 +67,6 @@ void ReadManager::UpdateCoverage(const ScreenBase & screen, CoverageUpdateDescri
   }
   else
   {
-
     // Find rects that go out from viewport
     buffer_vector<tileinfo_ptr, 8> outdatedTiles;
     set_difference(m_tileInfos.begin(), m_tileInfos.end(),
@@ -109,7 +100,7 @@ void ReadManager::Resize(const m2::RectI & rect)
 
 void ReadManager::Stop()
 {
-  for_each(m_tileInfos.begin(), m_tileInfos.end(), &CancelTaskFn);
+    for_each(m_tileInfos.begin(), m_tileInfos.end(), bind(&ReadManager::CancelTileInfo, this, _1));
   m_tileInfos.clear();
 
   m_pool->Stop();
@@ -161,21 +152,25 @@ bool ReadManager::MustDropAllTiles(ScreenBase const & screen) const
 
 void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey)
 {
-  tileinfo_ptr tileInfo(new TileInfo(tileKey, m_model, m_memIndex));
+    tileinfo_ptr tileInfo(new TileInfo(tileKey));
   m_tileInfos.insert(tileInfo);
-  m_pool->PushBack(new ReadMWMTask(tileInfo, m_context));
+  m_pool->PushBack(new ReadMWMTask(tileInfo, m_memIndex, m_model, m_context));
 }
 
-void ReadManager::PushTaskFront(ReadManager::tileinfo_ptr const & tileToReread)
+  void ReadManager::PushTaskFront(tileinfo_ptr const & tileToReread)
 {
-  m_pool->PushFront(new ReadMWMTask(tileToReread, m_context));
+  m_pool->PushFront(new ReadMWMTask(tileToReread, m_memIndex, m_model, m_context));
 }
 
-void ReadManager::ClearTileInfo(ReadManager::tileinfo_ptr & tileToClear)
+  void ReadManager::CancelTileInfo(tileinfo_ptr tileToCancel)
 {
-  tileToClear->Cancel();
+    tileToCancel->Cancel(m_memIndex);
+  }
+
+  void ReadManager::ClearTileInfo(tileinfo_ptr & tileToClear)
+  {
+    CancelTileInfo(tileToClear);
   m_tileInfos.erase(tileToClear);
 }
-
 }
 

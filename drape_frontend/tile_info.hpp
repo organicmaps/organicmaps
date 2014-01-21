@@ -15,6 +15,8 @@
 
 namespace model { class FeaturesFetcher; }
 
+class FeatureType;
+
 namespace df
 {
 class EngineContext;
@@ -51,36 +53,33 @@ public:
 class TileInfo : private noncopyable
 {
 public:
-
   DECLARE_EXCEPTION(ReadCanceledException, RootException);
 
-  TileInfo(TileKey const & key, model::FeaturesFetcher & model, MemoryFeatureIndex & memIndex);
+    TileInfo(TileKey const & key);
 
-  void ReadFeatureIndex();
-  void ReadFeatures(EngineContext & context);
+    void ReadFeatureIndex(model::FeaturesFetcher const & model);
+    void ReadFeatures(model::FeaturesFetcher const & model,
+                      MemoryFeatureIndex & memIndex,
+                      EngineContext & context);
+    void Cancel(MemoryFeatureIndex & memIndex);
 
   m2::RectD GetGlobalRect() const;
-
   TileKey const & GetTileKey() const { return m_key; }
-  void Cancel();
 
-  void operator ()(const FeatureID & id);
-  bool operator < (const TileInfo & other) const { return m_key < other.m_key; }
+    void operator ()(FeatureID const & id);
+    bool operator ()(FeatureType const & f);
+    bool operator <(TileInfo const & other) const { return m_key < other.m_key; }
 
 private:
-  void RequestFeatures(vector<size_t> & featureIndexes);
+    void RequestFeatures(MemoryFeatureIndex & memIndex, vector<size_t> & featureIndexes);
   void CheckCanceled();
   bool DoNeedReadIndex() const;
 
 private:
   TileKey m_key;
-
   vector<FeatureInfo> m_featureInfo;
-  model::FeaturesFetcher & m_model;
-  MemoryFeatureIndex & m_memIndex;
 
   bool m_isCanceled;
   threads::Mutex m_mutex;
 };
-
 }

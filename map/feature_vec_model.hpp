@@ -78,6 +78,12 @@ namespace model
       m_multiIndex.ForEachFeatureIDInRect(toDo, rect, scale);
     }
 
+    template <class ToDo>
+    void ReadFeatures(ToDo & toDo, vector<FeatureID> const & features) const
+    {
+      m_multiIndex.ReadFeatures(toDo, features);
+    }
+
     //@}
 
     Index const & GetIndex() const { return m_multiIndex; }

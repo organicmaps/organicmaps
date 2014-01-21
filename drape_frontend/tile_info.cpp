@@ -63,10 +63,8 @@ namespace
 namespace df
 {
 
-TileInfo::TileInfo(TileKey const & key, model::FeaturesFetcher & model, MemoryFeatureIndex & memIndex)
+  TileInfo::TileInfo(TileKey const & key)
   : m_key(key)
-  , m_model(model)
-  , m_memIndex(memIndex)
 {}
 
 m2::RectD TileInfo::GetGlobalRect() const
@@ -83,64 +81,62 @@ m2::RectD TileInfo::GetGlobalRect() const
   return tileRect;
 }
 
-bool TileInfo::DoNeedReadIndex() const
+  void TileInfo::ReadFeatureIndex(model::FeaturesFetcher const & model)
 {
-  return m_featureInfo.empty();
-}
-
-void TileInfo::Cancel()
-{
-  m_isCanceled = true;
-  threads::MutexGuard guard(m_mutex);
-  m_memIndex.RemoveFeatures(m_featureInfo);
-}
-
-void TileInfo::RequestFeatures(vector<size_t> & featureIndexes)
+    if (DoNeedReadIndex())
 {
   threads::MutexGuard guard(m_mutex);
-  m_memIndex.ReadFeaturesRequest(m_featureInfo, featureIndexes);
-
+      CheckCanceled();
+      model.ForEachFeatureID(GetGlobalRect(), *this, m_key.m_zoomLevel);
+      sort(m_featureInfo.begin(), m_featureInfo.end());
+    }
 }
 
-void TileInfo::CheckCanceled()
-{
-  if (m_isCanceled)
-    MYTHROW(ReadCanceledException, ());
-}
-
-void TileInfo::ReadFeatureIndex()
-{
-  if (DoNeedReadIndex())
+  namespace
   {
-    threads::MutexGuard guard(m_mutex);
-    CheckCanceled();
-    m_model.ForEachFeatureID(GetGlobalRect(), *this, m_key.m_zoomLevel);
-  }
+    struct IDsAccumulator
+    {
+      IDsAccumulator(vector<FeatureID> & ids, vector<FeatureInfo> const & src)
+        : m_ids(ids)
+        , m_src(src)
+{
 }
 
-void TileInfo::ReadFeatures(EngineContext & context)
+      void operator()(size_t index)
+{
+        ASSERT_LESS(index, m_src.size(), ());
+        m_ids.push_back(m_src[index].m_id);
+}
+
+      vector<FeatureID> & m_ids;
+      vector<FeatureInfo> const & m_src;
+    };
+}
+
+  void TileInfo::ReadFeatures(model::FeaturesFetcher const & model, 
+                              MemoryFeatureIndex & memIndex,
+                              EngineContext & context)
 {
   CheckCanceled();
   vector<size_t> indexes;
-  RequestFeatures(indexes);
+    RequestFeatures(memIndex, indexes);
 
-  for (size_t i = 0; i < indexes.size(); ++i)
-  {
-    CheckCanceled();
-    LOG(LINFO, ("Trying to read", indexes[i]));
+    vector<FeatureID> featuresToRead;
+    for_each(indexes.begin(), indexes.end(), IDsAccumulator(featuresToRead, m_featureInfo));
+
+    model.ReadFeatures(*this, featuresToRead);
   }
 
-  if (!indexes.empty() && m_key == TileKey(0,0,3))
+  void TileInfo::Cancel(MemoryFeatureIndex & memIndex)
   {
-    context.BeginReadTile(m_key);
-    {
-      context.InsertShape(m_key, MovePointer<MapShape>(CreateFakeShape1()));
-      context.InsertShape(m_key, MovePointer<MapShape>(CreateFakeShape2()));
-      context.InsertShape(m_key, MovePointer<MapShape>(CreateFakeLine1()));
-      context.InsertShape(m_key, MovePointer<MapShape>(CreateFakeLine2()));
-    }
-    context.EndReadTile(m_key);
+    m_isCanceled = true;
+    threads::MutexGuard guard(m_mutex);
+    memIndex.RemoveFeatures(m_featureInfo);
   }
+
+  bool TileInfo::operator ()(FeatureType const & f)
+  {
+    return true;
 }
 
 void TileInfo::operator ()(FeatureID const & id)
@@ -149,4 +145,22 @@ void TileInfo::operator ()(FeatureID const & id)
   CheckCanceled();
 }
 
+  //====================================================//
+
+  bool TileInfo::DoNeedReadIndex() const
+  {
+    return m_featureInfo.empty();
+  }
+
+  void TileInfo::RequestFeatures(MemoryFeatureIndex & memIndex, vector<size_t> & featureIndexes)
+  {
+    threads::MutexGuard guard(m_mutex);
+    memIndex.ReadFeaturesRequest(m_featureInfo, featureIndexes);
+  }
+
+  void TileInfo::CheckCanceled()
+  {
+    if (m_isCanceled)
+      MYTHROW(ReadCanceledException, ());
+  }
 }
