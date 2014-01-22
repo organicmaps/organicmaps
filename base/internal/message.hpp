@@ -51,9 +51,9 @@ inline string DebugPrint(unsigned char t)
 
 template <typename U, typename V> inline string DebugPrint(pair<U,V> const & p)
 {
-    ostringstream out;
-    out << "(" << DebugPrint(p.first) << ", " << DebugPrint(p.second) << ")";
-    return out.str();
+  ostringstream out;
+  out << "(" << DebugPrint(p.first) << ", " << DebugPrint(p.second) << ")";
+  return out.str();
 }
 
 namespace my
