@@ -1,5 +1,7 @@
 #include "house_detector.hpp"
+#include "search_common.hpp"
 
+#include "../indexer/feature_impl.hpp"
 #include "../indexer/classificator.hpp"
 
 #include "../geometry/distance.hpp"
@@ -7,6 +9,7 @@
 #include "../geometry/angles.hpp"
 
 #include "../base/logging.hpp"
+#include "../base/stl_iterator.hpp"
 
 #include "../std/set.hpp"
 #include "../std/bind.hpp"
@@ -123,37 +126,76 @@ void GetStreetName(strings::SimpleTokenizer iter, string & streetName)
   }
 }
 
+int GetIntHouse(string const & s)
+{
+  char const * start = s.c_str();
+  char * stop;
+  long const x = strtol(start, &stop, 10);
+  return (stop == start ? -1 : x);
 }
-
 
 double const STREET_CONNECTION_LENGTH_M = 100.0;
 
-void House::InitHouseNumberAndSuffix()
+class StreetCreator
 {
-  /// @todo Need to store many numbers for one house and parse according to it.
-
-  m_suffix = "";
-  m_intNumber = 0;
-  for (size_t i = 0; i < m_number.size(); ++i)
-    if (m_number[i] < '0' || m_number[i] > '9')
-    {
-      strings::to_int(m_number.substr(0, i), m_intNumber);
-      m_suffix = m_number.substr(i, m_number.size() - i);
-      return;
-    }
-
-  strings::to_int(m_number, m_intNumber);
-}
-
-struct StreetCreator
-{
-  Street * street;
-  StreetCreator(Street * st) : street(st) {}
+  Street * m_street;
+public:
+  StreetCreator(Street * st) : m_street(st) {}
   void operator () (CoordPointT const & point) const
   {
-    street->m_points.push_back(m2::PointD(point.first, point.second));
+    m_street->m_points.push_back(m2::PointD(point.first, point.second));
   }
 };
+
+}
+
+void House::InitHouseNumber()
+{
+  strings::SimpleTokenizer it(m_number, ",-; ");
+  while (it)
+  {
+    int const number = GetIntHouse(*it);
+    if (number != -1)
+    {
+      if (m_startN == -1)
+        m_startN = number;
+      else
+      {
+        // always assign to get house number boundaries [176, 182]
+        m_endN = number;
+      }
+    }
+
+    ++it;
+  }
+
+  ASSERT_GREATER_OR_EQUAL(m_startN, 0, (m_number));
+
+  if (m_endN != -1 && m_startN > m_endN)
+    swap(m_startN, m_endN);
+}
+
+House::ParsedNumber::ParsedNumber(string const & number)
+  : m_fullN(&number), m_intN(GetIntHouse(number))
+{
+}
+
+int House::GetMatch(ParsedNumber const & number) const
+{
+  if (((m_endN == -1) && m_startN != number.m_intN) ||
+      ((m_endN != -1) && (m_startN > number.m_intN || m_endN < number.m_intN)))
+  {
+    return -1;
+  }
+
+  if (*number.m_fullN == m_number)
+    return 0;
+
+  if ((number.m_intN % 2 == 0) == (m_startN % 2 == 0))
+    return 1;
+
+  return 2;
+}
 
 FeatureLoader::FeatureLoader(Index const * pIndex)
   : m_pIndex(pIndex), m_pGuard(0)
@@ -310,10 +352,30 @@ void HouseDetector::Bfs(Street * st)
   }
 }
 
-int HouseDetector::LoadStreets(vector<FeatureID> & ids)
+int HouseDetector::LoadStreets(vector<FeatureID> const & ids)
 {
   //LOG(LDEBUG, ("IDs = ", ids));
 
+  ASSERT(IsSortedAndUnique(ids.begin(), ids.end()), ());
+
+  // Check if the cache is obsolete and need to be cleared.
+  if (!m_id2st.empty())
+  {
+    typedef pair<FeatureID, Street *> ValueT;
+    function<ValueT::first_type const & (ValueT const &)> f = bind(&ValueT::first, _1);
+
+    CounterIterator it = set_difference(ids.begin(), ids.end(),
+                                        make_transform_iterator(m_id2st.begin(), f),
+                                        make_transform_iterator(m_id2st.end(), f),
+                                        CounterIterator());
+    if (it.GetCount() > ids.size() / 2)
+    {
+      LOG(LDEBUG, ("Clear HouseDetector cache: missed", it.GetCount(), "of", ids.size(), "elements."));
+      ClearCaches();
+    }
+  }
+
+  // Load streets.
   int count = 0;
   for (size_t i = 0; i < ids.size(); ++i)
   {
@@ -492,7 +554,9 @@ template <class ProjectionCalcT>
 void HouseDetector::ReadHouse(FeatureType const & f, Street * st, ProjectionCalcT & calc)
 {
   static HouseChecker checker;
-  if (checker.IsHouse(feature::TypesHolder(f)) && !f.GetHouseNumber().empty())
+
+  string const houseNumber = f.GetHouseNumber();
+  if (checker.IsHouse(feature::TypesHolder(f)) && feature::IsHouseNumber(houseNumber))
   {
     map<FeatureID, House *>::iterator const it = m_id2house.find(f.GetID());
 
@@ -506,7 +570,7 @@ void HouseDetector::ReadHouse(FeatureType const & f, Street * st, ProjectionCalc
       House * p;
       if (it == m_id2house.end())
       {
-        p = new House(f.GetHouseNumber(), pt);
+        p = new House(houseNumber, pt);
         m_id2house[f.GetID()] = p;
       }
       else
@@ -640,6 +704,8 @@ void AddHouseToMap(search::HouseProjection const & proj, HouseMapT & m)
   HouseMapT::iterator it = m.find(proj.m_house);
   if (it != m.end())
   {
+    ASSERT_EQUAL(proj.m_house->GetIntNumber(), it->first->GetIntNumber(), ());
+
     if (it->second > proj.m_distance)
       m.erase(it);
     else
@@ -648,8 +714,7 @@ void AddHouseToMap(search::HouseProjection const & proj, HouseMapT & m)
   m.insert(make_pair(proj.m_house, proj.m_distance));
 }
 
-void ProccessHouses(vector<search::HouseProjection> & houses,
-                    HouseMapT & m)
+void ProccessHouses(vector<search::HouseProjection> & houses, HouseMapT & m)
 {
   vector<search::HouseProjection> result;
   LongestSubsequence(houses, result);
@@ -663,19 +728,23 @@ House const * GetClosestHouse(vector<Street *> const & st, string const & houseN
   int streetIndex = -1;
   int houseIndex = -1;
 
+  House::ParsedNumber parsedNumber(houseNumber);
   for (size_t i = 0; i < st.size(); ++i)
   {
     for (size_t j = 0; j < st[i]->m_houses.size(); ++j)
     {
       bool s = st[i]->m_houses[j].m_projectionSign;
       bool odd = st[i]->m_houses[j].m_house->GetIntNumber() % 2 == 1;
-      if (st[i]->m_houses[j].m_house->GetNumber() == houseNumber && ((isOdd == odd && sign == s) || (isOdd != odd && sign != s)))
-        if (st[i]->m_houses[j].m_distance < dist)
-        {
-          dist = st[i]->m_houses[j].m_distance;
-          streetIndex = i;
-          houseIndex = j;
-        }
+
+      /// @todo Need to split distance and full house name match.
+      if (((isOdd == odd) == (sign == s)) &&
+          (st[i]->m_houses[j].m_distance < dist) &&
+          (st[i]->m_houses[j].m_house->GetMatch(parsedNumber) != -1))
+      {
+        dist = st[i]->m_houses[j].m_distance;
+        streetIndex = i;
+        houseIndex = j;
+      }
     }
   }
 
@@ -693,10 +762,10 @@ House const * GetLSHouse(vector<search::Street *> const & st, string const & hou
   for (size_t i = 0; i < st.size(); ++i)
     for (size_t j = 0; j < st[i]->m_houses.size(); ++j)
     {
-      search::HouseProjection const & projection = st[i]->m_houses[j];
-      double dist = projection.m_distance;
+      search::HouseProjection const & pr = st[i]->m_houses[j];
+      double const dist = pr.m_distance;
       // Skip houses with projection on street ends.
-      if (resDist > dist && projection.m_proj != st[i]->m_points.front() && projection.m_proj != st[i]->m_points.back())
+      if (resDist > dist && pr.m_proj != st[i]->m_points.front() && pr.m_proj != st[i]->m_points.back())
       {
         f = i;
         s = j;
@@ -724,16 +793,23 @@ House const * GetLSHouse(vector<search::Street *> const & st, string const & hou
       else if (projection.m_projectionSign != sign && projection.m_house->GetIntNumber() % 2 != isOdd)
         left.push_back(projection);
     }
+
     ProccessHouses(right, m);
     ProccessHouses(left, m);
   }
 
+  House const * arrRes[] = { 0, 0, 0 };
+  House::ParsedNumber parsedNumber(houseNumber);
   for (HouseMapT::iterator it = m.begin(); it != m.end(); ++it)
   {
-    /// @todo Compare result house smarter (may skip some suffixes or prefixes).
-    if (it->first->GetNumber() == houseNumber)
-      return it->first;
+    int const i = it->first->GetMatch(parsedNumber);
+    if (i >= 0)
+      arrRes[i] = it->first;
   }
+
+  for (size_t i = 0; i < ARRAY_SIZE(arrRes); ++i)
+    if (arrRes[i])
+      return arrRes[i];
   return 0;
 }
 
@@ -758,6 +834,9 @@ void HouseDetector::GetHouseForName(string const & houseNumber, vector<House con
     if (house)
       res.push_back(house);
   }
+
+  sort(res.begin(), res.end());
+  res.erase(unique(res.begin(), res.end()), res.end());
 }
 
 }

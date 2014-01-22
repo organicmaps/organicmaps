@@ -32,31 +32,46 @@ class House
 {
   string m_number;
   m2::PointD m_point;
-  int m_intNumber;
-  string m_suffix;
 
-  void InitHouseNumberAndSuffix();
+  // Start and End house numbers for this object.
+  // Osm objects can store many numbers for one area feature.
+  int m_startN, m_endN;
+
+  void InitHouseNumber();
 
 public:
   House(string const & number, m2::PointD const & point)
-    : m_number(number), m_point(point), m_intNumber(-1)
+    : m_number(number), m_point(point), m_startN(-1), m_endN(-1)
   {
-    InitHouseNumberAndSuffix();
+    InitHouseNumber();
   }
 
   inline string const & GetNumber() const { return m_number; }
-  inline int GetIntNumber() const { return m_intNumber; }
+  inline int GetIntNumber() const { return m_startN; }
   inline m2::PointD const & GetPosition() const { return m_point; }
 
   struct LessHouseNumber
   {
     bool operator() (House const * h1, House const * h2) const
     {
-      if (h1->m_intNumber == h2->m_intNumber)
-        return h1->m_suffix < h2->m_suffix;
-      return h1->m_intNumber < h2->m_intNumber;
+      return (h1->m_startN < h2->m_startN);
     }
   };
+
+  struct ParsedNumber
+  {
+    string const * m_fullN;
+    int m_intN;
+
+    ParsedNumber(string const & number);
+  };
+
+  /// @return \n
+  /// -1 - no match;
+  ///  0 - full match;
+  ///  1 - integer number match with odd (even).
+  ///  2 - integer number match.
+  int GetMatch(ParsedNumber const & number) const;
 };
 
 struct HouseProjection
@@ -153,7 +168,7 @@ public:
 
   HouseDetector(Index const * pIndex);
 
-  int LoadStreets(vector<FeatureID> & ids);
+  int LoadStreets(vector<FeatureID> const & ids);
   /// @return number of different joined streets.
   int MergeStreets();
 
