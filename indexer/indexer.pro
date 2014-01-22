@@ -42,6 +42,7 @@ SOURCES += \
     string_file.cpp \
     feature_algo.cpp \
     mwm_version.cpp \
+    feature_impl.cpp \
 
 HEADERS += \
     feature.hpp \

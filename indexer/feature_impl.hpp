@@ -1,9 +1,12 @@
 #pragma once
 
 #include "../base/macros.hpp"
+#include "../base/assert.hpp"
 
 #include "../std/string.hpp"
 
+
+namespace strings { class UniString; }
 
 namespace feature
 {
@@ -24,4 +27,8 @@ namespace feature
     str += arrChar[ind];
     return str;
   }
+
+  bool IsNumber(strings::UniString const & s);
+  bool IsHouseNumber(strings::UniString const & s);
+  bool IsHouseNumber(string const & s);
 }

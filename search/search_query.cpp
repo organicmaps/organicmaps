@@ -5,6 +5,7 @@
 
 #include "../storage/country_info.hpp"
 
+#include "../indexer/feature_impl.hpp"
 #include "../indexer/feature_covering.hpp"
 #include "../indexer/features_vector.hpp"
 #include "../indexer/index.hpp"
@@ -301,30 +302,6 @@ void Query::SearchCoordinates(string const & query, Results & res) const
   }
 }
 
-namespace
-{
-
-bool IsNumber(strings::UniString const & s)
-{
-  for (size_t i = 0; i < s.size(); ++i)
-  {
-    // android production ndk-r8d has bug. "еда" detected as a number.
-    if (s[i] > 127 || !isdigit(s[i]))
-      return false;
-  }
-  return true;
-}
-
-/// Check that token can be house number.
-bool IsHouseNumber(strings::UniString const & s)
-{
-  size_t const count = s.size();
-  /// @todo Probably, call some check function from House::
-  return (count > 0 && count < 8 && s[0] <= 127 && isdigit(s[0]));
-}
-
-}
-
 void Query::Search(Results & res, bool searchAddress)
 {
   ClearQueues();
@@ -333,18 +310,17 @@ void Query::Search(Results & res, bool searchAddress)
   SuggestStrings(res);
 
 #ifdef HOUSE_SEARCH_TEST
-  if (m_tokens.size() > 1 && IsHouseNumber(m_tokens.back()))
+  /// @todo Select best token for house number.
+  if (m_tokens.size() > 1 && feature::IsHouseNumber(m_tokens.back()))
   {
     m_house.swap(m_tokens.back());
     m_tokens.pop_back();
   }
-  else if (IsHouseNumber(m_prefix))
+  else if (feature::IsHouseNumber(m_prefix))
   {
     m_house.swap(m_prefix);
     m_prefix.clear();
   }
-  else
-    m_houseDetector.ClearCaches();
 #endif
 
   if (m_cancel) return;
@@ -562,7 +538,7 @@ void Query::FlushResults(Results & res, void (Results::*pAddFn)(Result const &))
     return;
 
 #ifdef HOUSE_SEARCH_TEST
-  if (!m_house.empty())
+  if (!m_house.empty() && !streets.empty())
   {
     if (m_houseDetector.LoadStreets(streets) > 0)
       m_houseDetector.MergeStreets();
@@ -1000,7 +976,7 @@ namespace
     void operator() (Query::Params::StringT const & s, size_t i)
     {
       /// @todo Do smart filtering of house numbers and zipcodes.
-      if (IsNumber(s))
+      if (feature::IsNumber(s))
         m_vec.push_back(i);
     }
   };
