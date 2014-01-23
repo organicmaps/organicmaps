@@ -493,20 +493,28 @@ public:
   ProjectionCalcToStreet(Street const * st, double distanceMeters)
     : m_points(st->m_points), m_distanceMeters(distanceMeters)
   {
+    ASSERT_GREATER(m_points.size(), 1, ());
   }
 
   void Initialize()
   {
-    if (m_calcs.empty() && !m_points.empty())
+    if (m_calcs.empty())
     {
-      m_calcs.reserve(m_points.size() - 1);
-      for (size_t i = 1; i < m_points.size(); ++i)
-      {
-        m_calcs.push_back(ProjectionT());
-        m_calcs.back().SetBounds(m_points[i-1], m_points[i]);
-      }
+      size_t const count = m_points.size() - 1;
+      m_calcs.resize(count);
+      for (size_t i = 0; i < count; ++i)
+        m_calcs[i].SetBounds(m_points[i], m_points[i+1]);
     }
   }
+
+  double GetLength(size_t ind) const
+  {
+    double length = 0.0;
+    for (size_t i = 0; i < ind; ++i)
+      length += m_calcs[i].GetLength();
+    return length;
+  }
+  double GetLength() const { return GetLength(m_calcs.size()); }
 
   void CalculateProjectionParameters(m2::PointD const & pt,
                                      m2::PointD & resPt, double & dist, double & resDist, size_t & ind)
@@ -539,12 +547,7 @@ public:
     {
       proj.m_proj = resPt;
       proj.m_distance = resDist;
-
-      proj.m_streetDistance = 0.0;
-      for (size_t i = 0; i < ind; ++i)
-        proj.m_streetDistance += m_calcs[i].GetLength();
-      proj.m_streetDistance += m_points[ind].Length(proj.m_proj);
-
+      proj.m_streetDistance = GetLength(ind) + m_points[ind].Length(proj.m_proj);
       proj.m_projectionSign = m2::GetOrientation(m_points[ind], m_points[ind+1], pt) >= 0;
       return true;
     }
@@ -599,6 +602,7 @@ void HouseDetector::ReadHouses(Street * st, double offsetMeters)
   m_loader.ForEachInRect(st->GetLimitRect(offsetMeters),
                          bind(&HouseDetector::ReadHouse<ProjectionCalcToStreet>, this, _1, st, ref(calcker)));
 
+  st->m_length = calcker.GetLength();
   st->SortHousesProjection();
   st->m_housesReaded = true;
 }
@@ -647,36 +651,48 @@ void LongestSubsequence(vector<HouseProjection> const & houses,
                         vector<HouseProjection> & result)
 {
   result.clear();
-  if (houses.size() < 2)
+
+  size_t const count = houses.size();
+  if (count < 2)
   {
     result = houses;
     return;
   }
 
-  vector<LS> v(houses.size());
-  for (size_t i = 0; i < v.size(); ++i)
+  vector<LS> v(count);
+  for (size_t i = 0; i < count; ++i)
     v[i] = LS(i);
 
   House::LessHouseNumber cmp;
   size_t res = 0;
   size_t pos = 0;
-  for (size_t i = 0; i + 1 < houses.size(); ++i)
+  for (size_t i = 0; i < count - 1; ++i)
   {
-    for (size_t j = i + 1; j < houses.size(); ++j)
+    for (size_t j = i + 1; j < count; ++j)
     {
-      if (cmp(houses[i].m_house, houses[j].m_house) == cmp(houses[j].m_house, houses[i].m_house))
+      bool const cmpIJ = cmp(houses[i].m_house, houses[j].m_house);
+
+      // If equal houses
+      if (cmpIJ == cmp(houses[j].m_house, houses[i].m_house))
+      {
+        ASSERT(!cmpIJ, ());
         continue;
-      if (cmp(houses[i].m_house, houses[j].m_house) && v[i].increaseValue + 1 >= v[j].increaseValue)
+      }
+
+      if (cmpIJ && v[i].increaseValue + 1 >= v[j].increaseValue)
       {
         if (v[i].increaseValue + 1 == v[j].increaseValue && houses[v[j].prevIncreasePos].m_distance < houses[i].m_distance)
           continue;
+
         v[j].increaseValue = v[i].increaseValue + 1;
         v[j].prevIncreasePos = i;
       }
-      if (!cmp(houses[i].m_house, houses[j].m_house) && v[i].decreaseValue + 1 >= v[j].decreaseValue)
+
+      if (!cmpIJ && v[i].decreaseValue + 1 >= v[j].decreaseValue)
       {
         if (v[i].decreaseValue + 1 == v[j].decreaseValue && houses[v[j].prevDecreasePos].m_distance < houses[i].m_distance)
           continue;
+
         v[j].decreaseValue = v[i].decreaseValue + 1;
         v[j].prevDecreasePos = i;
       }

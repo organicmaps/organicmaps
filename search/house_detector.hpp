@@ -97,10 +97,11 @@ public:
 
   vector<m2::PointD> m_points;
   vector<HouseProjection> m_houses;
+  double m_length;      /// Length in mercator (may be 0 for street without any projection)
+  int m_number;         /// Some ordered number after merging
   bool m_housesReaded;
-  int m_number;
 
-  Street() : m_housesReaded(false), m_number(-1) {}
+  Street() : m_length(0.0), m_number(-1), m_housesReaded(false) {}
 
   void SortHousesProjection();
 
