@@ -17,7 +17,6 @@ namespace
 {
 
 using search::KeywordMatcher;
-typedef search::KeywordMatcher::ScoreT ScoreT;
 using search::MAX_TOKENS;
 
 enum ExpectedMatchResult
@@ -42,8 +41,7 @@ struct KeywordMatcherTestCase
   char const * m_name;
 };
 
-template <size_t N>
-void TestKeywordMatcher(char const * const query, KeywordMatcherTestCase const (&testCases)[N])
+void InitMatcher(char const * query, KeywordMatcher & matcher)
 {
   vector<strings::UniString> keywords;
   strings::UniString prefix;
@@ -53,20 +51,54 @@ void TestKeywordMatcher(char const * const query, KeywordMatcherTestCase const (
     keywords.pop_back();
   }
 
-  KeywordMatcher matcher;
   matcher.SetKeywords(&keywords[0], keywords.size(), prefix);
-  ScoreT prevScore = ScoreT();
+}
+
+class TestScore
+{
+  typedef KeywordMatcher::ScoreT ScoreT;
+  ScoreT m_score;
+
+public:
+  TestScore() {}
+  TestScore(ScoreT const & score) : m_score(score) {}
+
+  bool operator<(TestScore const & s) const
+  {
+    if (m_score < s.m_score)
+      return true;
+    return m_score.LessInTokensLength(s.m_score);
+  }
+
+  bool IsQueryMatched() const { return m_score.IsQueryMatched(); }
+
+  friend string DebugPrint(TestScore const & score);
+};
+
+string DebugPrint(TestScore const & s)
+{
+  return DebugPrint(s.m_score);
+}
+
+template <size_t N>
+void TestKeywordMatcher(char const * const query, KeywordMatcherTestCase const (&testCases)[N])
+{
+  KeywordMatcher matcher;
+  InitMatcher(query, matcher);
+
+  TestScore prevScore;
   for (size_t i = 0; i < N; ++i)
   {
     char const * const name = testCases[i].m_name;
     char const * const prevName = (i == 0 ? "N/A" : testCases[i-1].m_name);
-    ScoreT const testScore = matcher.Score(name);
+    TestScore const testScore = matcher.Score(name);
 
     // Test that a newly created matcher returns the same result
     {
       KeywordMatcher freshMatcher;
-      freshMatcher.SetKeywords(&keywords[0], keywords.size(), prefix);
-      ScoreT const freshScore = freshMatcher.Score(name);
+      InitMatcher(query, freshMatcher);
+
+      TestScore const freshScore = freshMatcher.Score(name);
       // TEST_EQUAL(testScore, freshScore, (query, name));
       TEST(!(testScore < freshScore), (query, name));
       TEST(!(freshScore < testScore), (query, name));
@@ -75,7 +107,7 @@ void TestKeywordMatcher(char const * const query, KeywordMatcherTestCase const (
     if (testCases[i].m_eMatch != ANY_RES)
     {
       TEST_EQUAL(testCases[i].m_eMatch == MATCHES,
-                 KeywordMatcher::IsQueryMatched(testScore),
+                 testScore.IsQueryMatched(),
                  (query, name, testScore));
     }
 
@@ -102,6 +134,7 @@ void TestKeywordMatcher(char const * const query, KeywordMatcherTestCase const (
 }
 
 }  // unnamed namespace
+
 
 UNIT_TEST(KeywordMatcher_Prefix)
 {
@@ -296,4 +329,15 @@ UNIT_TEST(KeywordMatcher_ManyTokensInReverseOrder)
     {MATCHES, STRONGLY_BETTER, name.c_str()},
   };
   TestKeywordMatcher(query.c_str(), testCases);
+}
+
+UNIT_TEST(KeywordMatcher_DifferentLangs)
+{
+  KeywordMatcher matcher;
+
+  InitMatcher("не", matcher);
+
+  char const * arr[] = { "Невский переулок", "Неўскі завулак" };
+  TEST(!(matcher.Score(arr[0]) < matcher.Score(arr[1])), ());
+  TEST(!(matcher.Score(arr[1]) < matcher.Score(arr[0])), ());
 }

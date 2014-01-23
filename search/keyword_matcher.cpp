@@ -116,10 +116,17 @@ bool KeywordMatcher::ScoreT::operator < (KeywordMatcher::ScoreT const & s) const
   if (m_sumTokenMatchDistance != s.m_sumTokenMatchDistance)
     return m_sumTokenMatchDistance > s.m_sumTokenMatchDistance;
 
+  return false;
+}
+
+bool KeywordMatcher::ScoreT::LessInTokensLength(ScoreT const & s) const
+{
   if (m_bFullQueryMatched)
+  {
+    ASSERT(s.m_bFullQueryMatched, ());
     return m_nameTokensLength > s.m_nameTokensLength;
-  else
-    return false;
+  }
+  return false;
 }
 
 string DebugPrint(KeywordMatcher::ScoreT const & score)

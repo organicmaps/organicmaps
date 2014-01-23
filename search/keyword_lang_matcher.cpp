@@ -30,7 +30,7 @@ bool KeywordLangMatcher::ScoreT::operator <(KeywordLangMatcher::ScoreT const & s
   if (m_langScore != score.m_langScore)
     return m_langScore < score.m_langScore;
 
-  return false;
+  return m_parentScore.LessInTokensLength(score.m_parentScore);
 }
 
 void KeywordLangMatcher::SetLanguages(vector<vector<int8_t> > const & languagePriorities)

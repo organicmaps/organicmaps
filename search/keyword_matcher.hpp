@@ -19,12 +19,13 @@ public:
   public:
     ScoreT();
     bool operator < (ScoreT const & s) const;
+    bool LessInTokensLength(ScoreT const & s) const;
+
+    bool IsQueryMatched() const { return m_bFullQueryMatched; }
 
   private:
     friend class KeywordMatcher;
     friend string DebugPrint(ScoreT const & score);
-
-    bool IsQueryMatched() const { return m_bFullQueryMatched; }
 
     uint32_t m_sumTokenMatchDistance;
     uint32_t m_nameTokensMatched;
@@ -47,8 +48,6 @@ public:
   ScoreT Score(StringT const & name) const;
   ScoreT Score(StringT const * tokens, size_t count) const;
   //@}
-
-  static bool IsQueryMatched(ScoreT const & score) { return score.IsQueryMatched(); }
 
 private:
   vector<StringT> m_keywords;
