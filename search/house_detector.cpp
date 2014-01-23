@@ -661,13 +661,17 @@ void LongestSubsequence(vector<HouseProjection> const & houses,
     {
       if (cmp(houses[i].m_house, houses[j].m_house) == cmp(houses[j].m_house, houses[i].m_house))
         continue;
-      if (cmp(houses[i].m_house, houses[j].m_house) && v[i].increaseValue + 1 > v[j].increaseValue)
+      if (cmp(houses[i].m_house, houses[j].m_house) && v[i].increaseValue + 1 >= v[j].increaseValue)
       {
+        if (v[i].increaseValue + 1 == v[j].increaseValue && houses[v[j].prevIncreasePos].m_distance < houses[i].m_distance)
+          continue;
         v[j].increaseValue = v[i].increaseValue + 1;
         v[j].prevIncreasePos = i;
       }
-      if (!cmp(houses[i].m_house, houses[j].m_house) && v[i].decreaseValue + 1 > v[j].decreaseValue)
+      if (!cmp(houses[i].m_house, houses[j].m_house) && v[i].decreaseValue + 1 >= v[j].decreaseValue)
       {
+        if (v[i].decreaseValue + 1 == v[j].decreaseValue && houses[v[j].prevDecreasePos].m_distance < houses[i].m_distance)
+          continue;
         v[j].decreaseValue = v[i].decreaseValue + 1;
         v[j].prevDecreasePos = i;
       }
