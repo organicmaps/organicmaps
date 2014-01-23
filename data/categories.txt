@@ -1807,3 +1807,8 @@ ja:1オフィス|事務所
 ru:2офис|компания|контора
 pt:2escritório|empresa
 hu:3hivatal|cég
+
+area:highway-footway|area:highway-pedestrian|area:highway-steps
+en:3square
+ru:3площадь
+uk:майдан
