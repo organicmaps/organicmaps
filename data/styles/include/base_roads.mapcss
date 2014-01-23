@@ -405,7 +405,7 @@ line|z15[highway=footway]
   color: #d0ccbc;
   width: 1;
 }
-line|z13-15[highway=path]
+line|z13-[highway=path]
 {
   color: #d79331;
   width: 1;
@@ -687,11 +687,6 @@ line|z16[highway=path][sac_scale=mountain_hiking]
   width: 1.2;
   dashes: 2,2;
   linecap: butt;
-}
-line|z16[highway=path]
-{
-  color: silver;
-  width: 2;
 }
 line|z16[highway=footway][sac_scale=difficult_alpine_hiking],
 line|z16[highway=path][sac_scale=difficult_alpine_hiking]
@@ -1038,11 +1033,6 @@ line|z17-[highway=byway]
 {
   color: #c0a87c;
   width: 6;
-}
-line|z17-[highway=path]
-{
-  color: silver;
-  width: 3;
 }
 line|z17-[highway=path][route=hiking],
 line|z17-[highway=footway][sac_scale=hiking]
