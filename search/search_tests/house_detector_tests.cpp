@@ -164,7 +164,7 @@ UNIT_TEST(STREET_MERGE_TEST)
     toDo.streetNames.push_back("улица Городской Вал");
     index.ForEachInScale(toDo, scales::GetUpperScale());
     houser.LoadStreets(toDo.GetFeatureIDs());
-    TEST_LESS_OR_EQUAL(houser.MergeStreets(), 9, ());
+    TEST_LESS_OR_EQUAL(houser.MergeStreets(), 10, ());
   }
 }
 

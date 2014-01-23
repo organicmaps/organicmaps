@@ -253,7 +253,7 @@ void Street::SetName(string const & name)
 namespace
 {
 
-bool LessDistance(HouseProjection const & p1, HouseProjection const & p2)
+bool LessStreetDistance(HouseProjection const & p1, HouseProjection const & p2)
 {
   return p1.m_streetDistance < p2.m_streetDistance;
 }
@@ -264,27 +264,24 @@ double GetDistanceMeters(m2::PointD const & p1, m2::PointD const & p2)
                              MercatorBounds::YToLat(p2.y), MercatorBounds::XToLon(p2.x));
 }
 
-pair<double, double> GetConnectionAngleAndDistance(
-    m2::PointD const & pt, Street const * s1, Street const * s2)
+pair<double, double> GetConnectionAngleAndDistance(bool & isBeg, Street const * s1, Street const * s2)
 {
-  m2::PointD const & p0 = (pt == s1->m_points.front()) ?
-        s1->m_points[1] :
-        s1->m_points[s1->m_points.size()-2];
+  m2::PointD const & p1 = isBeg ? s1->m_points.front() : s1->m_points.back();
+  m2::PointD const & p0 = isBeg ? s1->m_points[1] : s1->m_points[s1->m_points.size()-2];
 
-  double const d0 = pt.SquareLength(s2->m_points.front());
-  double const d2 = pt.SquareLength(s2->m_points.back());
-  m2::PointD const & p2 = (d0 < d2) ?
-        s2->m_points[1] :
-        s2->m_points[s2->m_points.size()-2];
+  double const d0 = p1.SquareLength(s2->m_points.front());
+  double const d2 = p1.SquareLength(s2->m_points.back());
+  isBeg = (d0 < d2);
+  m2::PointD const & p2 = isBeg ? s2->m_points[1] : s2->m_points[s2->m_points.size()-2];
 
-  return make_pair(ang::GetShortestDistance(ang::AngleTo(p0, pt), ang::AngleTo(pt, p2)), min(d0, d2));
+  return make_pair(ang::GetShortestDistance(ang::AngleTo(p0, p1), ang::AngleTo(p1, p2)), min(d0, d2));
 }
 
 }
 
 void Street::SortHousesProjection()
 {
-  sort(m_houses.begin(), m_houses.end(), &LessDistance);
+  sort(m_houses.begin(), m_houses.end(), &LessStreetDistance);
 }
 
 HouseDetector::HouseDetector(Index const * pIndex)
@@ -301,29 +298,33 @@ void HouseDetector::SetMetres2Mercator(double factor)
   LOG(LDEBUG, ("Street join epsilon = ", m_epsMercator));
 }
 
-void HouseDetector::FillQueue(queue<Street *> & q, Street const * street, bool isBeg)
+void HouseDetector::FillQueue(queue<QueueObjT> & q, QueueObjT const & st)
 {
-  m2::PointD const & pt = isBeg ? street->m_points.front() : street->m_points.back();
+  m2::PointD const & pt = st.second ? st.first->m_points.front() : st.first->m_points.back();
   pair<IterT, IterT> const range = m_end2st.equal_range(pt);
 
   double const maxAngle = 3.0*math::pi/4.0;
 
   Street * resStreet = 0;
   double resDistance = numeric_limits<double>::max();
+  bool resBegin;
+
   for (IterT it = range.first; it != range.second; ++it)
   {
     Street * current = it->second;
 
     // Choose the possible connection from non-processed and from the same street parts.
-    if (current != street && (current->m_number == -1 || current->m_number == m_streetNum) &&
-        Street::IsSameStreets(street, current))
+    if (current != st.first && (current->m_number == -1 || current->m_number == m_streetNum) &&
+        Street::IsSameStreets(st.first, current))
     {
       // Choose the closest connection with suitable angle.
-      pair<double, double> const res = GetConnectionAngleAndDistance(pt, street, current);
+      bool isBegin = st.second;
+      pair<double, double> const res = GetConnectionAngleAndDistance(isBegin, st.first, current);
       if (fabs(res.first) < maxAngle && res.second < resDistance)
       {
         resStreet = current;
         resDistance = res.second;
+        resBegin = isBegin;
       }
     }
   }
@@ -331,24 +332,28 @@ void HouseDetector::FillQueue(queue<Street *> & q, Street const * street, bool i
   if (resStreet && resStreet->m_number == -1)
   {
     resStreet->m_number = m_streetNum;
-    q.push(resStreet);
+    q.push(make_pair(resStreet, !resBegin));
   }
 }
 
 void HouseDetector::Bfs(Street * st)
 {
-  queue<Street *> q;
-  q.push(st);
+  // true - match for the first point; false - for the last
+  queue<QueueObjT> q;
+
+  q.push(make_pair(st, true));
+  q.push(make_pair(st, false));
   st->m_number = m_streetNum;
   m_streets.push_back(vector<Street *>());
 
   while (!q.empty())
   {
-    Street * street = q.front();
-    m_streets.back().push_back(street);
+    pair<Street *, bool> const street = q.front();
     q.pop();
-    FillQueue(q, street, true);
-    FillQueue(q, street, false);
+
+    m_streets.back().push_back(street.first);
+
+    FillQueue(q, street);
   }
 }
 
@@ -440,7 +445,7 @@ int HouseDetector::MergeStreets()
   }
 
 //#ifdef DEBUG
-//  char const * arrColor[] = { "FFFF0000", "FF00FF00", "FF0000FF" };
+//  char const * arrColor[] = { "FFFF0000", "FF00FFFF", "FFFFFF00", "FF0000FF", "FF00FF00", "FFFF00FF" };
 //  for (size_t i = 0; i < m_streets.size(); ++i)
 //  {
 //    Streets2KML(file.GetStream(), m_streets[i], arrColor[i % ARRAY_SIZE(arrColor)]);

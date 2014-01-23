@@ -83,11 +83,6 @@ struct HouseProjection
   double m_streetDistance;
   /// false - to the left, true - to the right from projection segment
   bool m_projectionSign;
-
-  inline static bool LessDistance(HouseProjection const & r1, HouseProjection const & r2)
-  {
-    return r1.m_distance < r2.m_distance;
-  }
 };
 
 // many features combines to street
@@ -155,7 +150,8 @@ private:
 
   int m_streetNum;
 
-  void FillQueue(queue<Street *> & q, Street const * street, bool isBeg);
+  typedef pair<Street *, bool> QueueObjT;
+  void FillQueue(queue<QueueObjT> & q, QueueObjT const & st);
   void Bfs(Street * st);
 
   template <class ProjectionCalcT>
