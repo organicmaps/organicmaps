@@ -6,7 +6,6 @@
 
     <Button
         android:id="@+id/chs_footer_button"
-        android:textAppearance="@android:style/TextAppearance.Large"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/chs_footer_new_layout"
@@ -16,6 +15,7 @@
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
         android:text="@string/add_new_set"
+        android:textAppearance="@android:style/TextAppearance.Large"
         android:textColor="?android:textColorPrimary" />
 
     <RelativeLayout
@@ -39,7 +39,6 @@
 
         <EditText
             android:id="@+id/chs_footer_field"
-            android:singleLine="true"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -47,7 +46,9 @@
             android:layout_marginTop="6dp"
             android:layout_toLeftOf="@+id/chs_footer_create_button"
             android:layout_toRightOf="@+id/chs_footer_cancel_button"
-            android:hint="@string/name" />
+            android:hint="@string/name"
+            android:inputType="textCapWords"
+            android:singleLine="true" />
 
         <ImageButton
             android:id="@+id/chs_footer_create_button"

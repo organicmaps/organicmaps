@@ -12,6 +12,7 @@
         android:layout_margin="5dp"
         android:hint="@string/name"
         android:imeOptions="actionDone"
+        android:inputType="textCapWords"
         android:singleLine="true" />
 
 </LinearLayout>
