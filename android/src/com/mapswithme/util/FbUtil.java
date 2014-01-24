@@ -6,6 +6,7 @@ import com.facebook.AppEventsLogger;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.SimpleLogger;
+import com.mapswithme.util.statistics.Statistics;
 
 
 
@@ -21,6 +22,9 @@ public class FbUtil
 
   public static void activate(Context context)
   {
+     if (!Statistics.INSTANCE.isStatisticsEnabled(context))
+       return;
+
     final String thisPackageName = context.getPackageName();
 
     boolean supported = false;

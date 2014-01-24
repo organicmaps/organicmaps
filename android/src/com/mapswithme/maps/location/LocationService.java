@@ -26,11 +26,12 @@ import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.StubLogger;
+import com.mapswithme.util.statistics.Statistics;
 
 
 public class LocationService implements LocationListener, SensorEventListener, WifiLocation.Listener
 {
-  private Logger mLogger = StubLogger.get();//SimpleLogger.get(this.toString());
+  private final Logger mLogger = StubLogger.get();//SimpleLogger.get(this.toString());
 
   private static final double DEFAULT_SPEED_MpS = 5;
   private static final float DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M = 1000;
@@ -50,7 +51,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
     public void onLocationError(int errorCode);
   };
 
-  private HashSet<Listener> mObservers = new HashSet<Listener>(10);
+  private final HashSet<Listener> mObservers = new HashSet<Listener>(10);
 
   /// Last accepted location
   private Location mLastLocation = null;
@@ -63,7 +64,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   private volatile LocationManager mLocationManager;
 
-  private SensorManager mSensorManager;
+  private final SensorManager mSensorManager;
   private Sensor mAccelerometer = null;
   private Sensor mMagnetometer = null;
   /// To calculate true north for compass
@@ -103,14 +104,14 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   private void notifyLocationUpdated(final Location l)
   {
-    Iterator<Listener> it = mObservers.iterator();
+    final Iterator<Listener> it = mObservers.iterator();
     while (it.hasNext())
       it.next().onLocationUpdated(l);
   }
 
   private void notifyCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    Iterator<Listener> it = mObservers.iterator();
+    final Iterator<Listener> it = mObservers.iterator();
     while (it.hasNext())
       it.next().onCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }
@@ -175,7 +176,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
     {
       mIsGPSOff = false;
 
-      List<String> providers = getFilteredProviders();
+      final List<String> providers = getFilteredProviders();
       mLogger.d("Enabled providers count = ", providers.size());
 
       startWifiLocationUpdate();
@@ -186,7 +187,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
       {
         mIsActive = true;
 
-        for (String provider : providers)
+        for (final String provider : providers)
         {
           mLogger.d("Connected to provider = ", provider);
 
@@ -223,8 +224,10 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   private void startWifiLocationUpdate()
   {
-    if (ConnectionState.isConnected(mApplication) &&
-      ((WifiManager)mApplication.getSystemService(Context.WIFI_SERVICE)).isWifiEnabled())
+    final boolean isWifiEnabled = ((WifiManager)mApplication.getSystemService(Context.WIFI_SERVICE)).isWifiEnabled();
+    if (isWifiEnabled &&
+        Statistics.INSTANCE.isStatisticsEnabled(mApplication) &&
+        ConnectionState.isConnected(mApplication))
     {
       if (mWifiScanner == null)
         mWifiScanner = new WifiLocation();
@@ -241,10 +244,10 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   private List<String> getFilteredProviders()
   {
-    List<String> allProviders = mLocationManager.getProviders(false);
-    List<String> acceptedProviders = new ArrayList<String>(allProviders.size());
+    final List<String> allProviders = mLocationManager.getProviders(false);
+    final List<String> acceptedProviders = new ArrayList<String>(allProviders.size());
 
-    for (String prov : allProviders)
+    for (final String prov : allProviders)
     {
       if (LocationManager.PASSIVE_PROVIDER.equals(prov))
         continue;
@@ -314,7 +317,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
   private Location getBestLastLocation(List<String> providers)
   {
     Location res = null;
-    for (String pr : providers)
+    for (final String pr : providers)
     {
       final Location l = mLocationManager.getLastKnownLocation(pr);
       if (l != null && isNotExpired(l, l.getTime()))
@@ -384,7 +387,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
         String.valueOf(arr[2]));
      */
 
-    float[] ret = nativeUpdateCompassSensor(ind, arr);
+    final float[] ret = nativeUpdateCompassSensor(ind, arr);
 
     /*
     Log.d(TAG, "Sensor after, Java: " +
@@ -427,8 +430,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
     if (mGravity != null && mGeomagnetic != null)
     {
-      float R[] = new float[9];
-      float I[] = new float[9];
+      final float R[] = new float[9];
+      final float I[] = new float[9];
       if (SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic))
       {
         orientation = new float[3];

@@ -182,10 +182,14 @@ public enum Statistics
   public void startActivity(Activity activity)
   {
     ensureConfigured(activity);
-    mStatisticsEngine.onStartSession(activity);
 
-    if (doCollectStatistics(activity))
-      collectOneTimeStatistics(activity);
+    if (isStatisticsEnabled(activity))
+    {
+      mStatisticsEngine.onStartSession(activity);
+
+      if (doCollectStatistics(activity))
+        collectOneTimeStatistics(activity);
+    }
   }
 
   private boolean doCollectStatistics(Context context)
@@ -211,7 +215,8 @@ public enum Statistics
 
   public void stopActivity(Activity activity)
   {
-    mStatisticsEngine.onEndSession(activity);
+    if (isStatisticsEnabled(activity))
+      mStatisticsEngine.onEndSession(activity);
   }
 
   private void collectOneTimeStatistics(Activity activity)
@@ -241,8 +246,6 @@ public enum Statistics
 
       trackIfEnabled(activity, eventBuilder.getEvent());
     }
-
-    // TODO add number of maps
     setStatisticsCollected(activity, true);
   }
 
