@@ -1172,7 +1172,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public boolean onKeyUp(int keyCode, KeyEvent event)
   {
-    if (KeyEvent.KEYCODE_MENU == keyCode)
+    if (KeyEvent.KEYCODE_MENU == keyCode && !event.isCanceled())
     {
       toggleDrawer();
       return true;
