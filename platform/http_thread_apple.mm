@@ -10,7 +10,7 @@
   #include "../iphone/Maps/Classes/MapsAppDelegate.h"
 #endif
 
-#define TIMEOUT_IN_SECONDS 15.0
+#define TIMEOUT_IN_SECONDS 60.0
 
 @implementation HttpThread
 

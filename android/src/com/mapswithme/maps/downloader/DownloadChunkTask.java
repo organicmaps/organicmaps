@@ -20,6 +20,8 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
 {
   private static final String TAG = "DownloadChunkTask";
 
+  private static final int TIMEOUT_IN_SECONDS = 60;
+
   private long m_httpCallbackID;
   private String m_url;
   private long m_beg;
@@ -138,8 +140,8 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
         return false;
 
       urlConnection.setUseCaches(false);
-      urlConnection.setConnectTimeout(15 * 1000);
-      urlConnection.setReadTimeout(15 * 1000);
+      urlConnection.setConnectTimeout(TIMEOUT_IN_SECONDS * 1000);
+      urlConnection.setReadTimeout(TIMEOUT_IN_SECONDS * 1000);
 
       // Set user agent with unique client id
       urlConnection.setRequestProperty("User-Agent", m_userAgent);
