@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -91,9 +92,23 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
     {
       String m_path;
       long m_size;
+
+      @Override
+      public boolean equals(Object o)
+      {
+        if (o == this) return true;
+        if (o == null) return false;
+        return m_size == ((StorageItem)o).m_size;
+      }
+
+      @Override
+      public int hashCode()
+      {
+        return Long.valueOf(m_size).hashCode();
+      }
     }
 
-    private final List<StorageItem> m_items = new ArrayList<StorageItem>();
+    private List<StorageItem> m_items = new ArrayList<StorageItem>();
     private int m_current = -1;
 
     private boolean isAvailable(int index)
@@ -127,9 +142,12 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
       addStorage(m_currPath);
       addStorage(m_defPath);
 
+      // Remove duplicates
+      m_items = new ArrayList<StorageItem>(new LinkedHashSet<StorageItem>(m_items));
       // Find index of the current path.
       m_current = findItemByPath(m_currPath);
       assert(m_current != -1);
+
 
       notifyDataSetChanged();
     }
@@ -152,6 +170,7 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
           item.m_path = path;
           item.m_size = size;
 
+          m_items.add(item);
           m_items.add(item);
           return true;
         }
