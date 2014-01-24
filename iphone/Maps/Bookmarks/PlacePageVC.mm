@@ -26,7 +26,7 @@
 
 typedef enum {Editing, Saved} Mode;
 
-@interface PlacePageVC()
+@interface PlacePageVC() <UIWebViewDelegate>
 {
   int m_selectedRow;
   Mode m_mode;
@@ -35,6 +35,7 @@ typedef enum {Editing, Saved} Mode;
   //statistics purpose
   size_t m_categoryIndexStatistics;
   size_t m_numberOfCategories;
+  UIWebView * webView;
 }
 
 @property(nonatomic, copy) NSString * pinTitle;
@@ -206,44 +207,46 @@ typedef enum {Editing, Saved} Mode;
   return CELLHEIGHT;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (void)webViewDidFinishLoad:(UIWebView *)aWebView
 {
-  if (section == 0 && m_mode == Saved)
-    return [self getCompassView];
-  if (section == 1 && [self.pinNotes length] && m_mode == Saved)
+  [webView sizeToFit];
+  [self.tableView reloadData];
+  [UIView animateWithDuration:0.3 animations:^{
+    webView.alpha = 1;
+  }];
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+  if (navigationType == UIWebViewNavigationTypeLinkClicked)
   {
-    // @TODO Refactor - we can do better
-    CGRect z = CGRectMake(0, 0, self.tableView.frame.size.width, [self getDescriptionHeight] + MARGIN);
-    UIView * view = [[UIView alloc] initWithFrame:z];
-    z.origin.x = SMALLMARGIN;
-    z.size.width -= SMALLMARGIN;
-    UITextView * textView = [[UITextView alloc] initWithFrame:z];
-    textView.scrollEnabled = NO;
-    if ([self.pinNotes length])
-      textView.text = self.pinNotes;
-    else
-      textView.text = [self descriptionPlaceholderText];
-    textView.backgroundColor = [UIColor clearColor];
-    textView.font = [UIFont fontWithName:@"Helvetica" size:18];
-    textView.editable = NO;
-    [view addSubview:textView];
-    return view;
+    [[UIApplication sharedApplication] openURL:request.URL];
+    return NO;
   }
-  return nil;
+  return YES;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
   if (section == 0 && m_mode == Saved)
     return [self getCompassView].frame.size.height;
-  if (section == 1 && [self.pinNotes length] && m_mode == Saved)
-    return [self getDescriptionHeight] + MARGIN;
+  if (section == 1 && m_mode == Saved)
+    return TWOBUTTONSHEIGHT;
   return [self.tableView sectionHeaderHeight];
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-  if (m_mode == Saved && section == 1)
+  if (section == 1 && [self.pinNotes length] && m_mode == Saved)
+    return webView.scrollView.contentSize.height + 10;
+  return [self.tableView sectionFooterHeight];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+  if (section == 0 && m_mode == Saved)
+    return [self getCompassView];
+  if (section == 1 && m_mode == Saved)
     return [[TwoButtonsView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, TWOBUTTONSHEIGHT)
                               leftButtonSelector:@selector(share)
                              rightButtonSelector:@selector(remove)
@@ -253,11 +256,28 @@ typedef enum {Editing, Saved} Mode;
   return nil;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-  if (section == 1  && m_mode == Saved)
-    return TWOBUTTONSHEIGHT;
-  return [self.tableView sectionFooterHeight];
+  if (m_mode == Saved && section == 1 && [self.pinNotes length])
+  {
+    UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, 20)];
+    if (!webView)
+    {
+      CGFloat xOffset = 7;
+      CGFloat yOffset = 7;
+      webView = [[UIWebView alloc] initWithFrame:CGRectMake(xOffset, yOffset, contentView.width - 2 * xOffset, contentView.height - yOffset)];
+      webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+      webView.alpha = 0;
+      webView.opaque = NO;
+      webView.backgroundColor = [UIColor clearColor];
+      webView.delegate = self;
+      NSString * text = [NSString stringWithFormat:@"<font face=\"helvetica\">%@</font>", self.pinNotes];
+      [webView loadHTMLString:text baseURL:nil];
+    }
+    [contentView addSubview:webView];
+    return contentView;
+  }
+  return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -460,18 +480,6 @@ typedef enum {Editing, Saved} Mode;
   m_selectedRow = [ColorPickerView getColorIndex:self.pinColor];
 }
 
-- (UITextView *)createTextFieldForCell:(UIFont *)font color:(UIColor *)color
-{
-  UITextView * txtView = [[UITextView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 142.0)];
-  txtView.delegate = self;
-  txtView.AutoresizingMask = UIViewAutoresizingFlexibleWidth;
-  txtView.textColor = color;
-  txtView.font = font;
-  txtView.backgroundColor = [UIColor clearColor];
-  txtView.tag = TEXTVIEW_TAG;
-  return txtView;
-}
-
 - (UITableViewCell *)cellForEditingModeWithTable:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString * cellId;
@@ -533,7 +541,7 @@ typedef enum {Editing, Saved} Mode;
       [cell layoutSubviews];
       UITextView * txtView = [[UITextView alloc] initWithFrame:CGRectMake(10.0, 0.0, 300.0, 142.0)];
       txtView.delegate = self;
-      txtView.AutoresizingMask = UIViewAutoresizingFlexibleWidth;
+      txtView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
       txtView.textColor = cell.detailTextLabel.textColor;
       txtView.font = [cell.detailTextLabel.font fontWithSize:[cell.detailTextLabel.font pointSize]];
       txtView.backgroundColor = [UIColor clearColor];
@@ -557,11 +565,8 @@ typedef enum {Editing, Saved} Mode;
       cell.accessoryView = [[UIImageView alloc] initWithImage:[CircleView createCircleImageWith:BUTTONDIAMETER andColor:[ColorPickerView buttonColor:m_selectedRow]]];
       break;
     case 3:
-      UITextView * t = (UITextView *)[cell viewWithTag:TEXTVIEW_TAG];
-      if ([self.pinNotes length])
-        t.text = self.pinNotes;
-      else
-        t.text = [self descriptionPlaceholderText];
+      UITextView * textView = (UITextView *)[cell viewWithTag:TEXTVIEW_TAG];
+      textView.text = [self.pinNotes length] ? self.pinNotes : [self descriptionPlaceholderText];
       break;
   }
   return cell;
