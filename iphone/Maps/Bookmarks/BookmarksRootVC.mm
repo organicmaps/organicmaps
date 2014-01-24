@@ -10,7 +10,6 @@
 
 #define TEXTFIELD_TAG 999
 
-
 @implementation BookmarksRootVC
 
 - (id)init
@@ -117,11 +116,33 @@
   BookmarkCategory const * cat = GetFramework().GetBmCategory(indexPath.row);
   if (cat)
   {
-    cell.textLabel.text = [NSString stringWithUTF8String:cat->GetName().c_str()];
+    NSString * title = [NSString stringWithUTF8String:cat->GetName().c_str()];
+    cell.textLabel.text = [self truncateString:title toWidth:(self.tableView.width - 122) withFont:cell.textLabel.font];
     cell.imageView.image = [UIImage imageNamed:(cat->IsVisible() ? @"eye" : @"empty")];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", cat->GetBookmarksCount() + cat->GetTracksCount()];
   }
   return cell;
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+  [self.tableView reloadRowsAtIndexPaths:self.tableView.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (NSString *)truncateString:(NSString *)string toWidth:(CGFloat)width withFont:(UIFont *)font
+{
+  CGFloat tailLength = 3;
+  CGFloat incrementStep = 1;
+  if ([string length] < tailLength + incrementStep)
+    return string;
+  BOOL firstTime = YES;
+  while ([string sizeWithFont:font].width > width)
+  {
+    if (!firstTime)
+      string = [[string substringToIndex:([string length] - tailLength - incrementStep)] stringByAppendingString:@"..."];
+    firstTime = NO;
+  }
+  return string;
 }
 
 - (void)applyCategoryRenaming
