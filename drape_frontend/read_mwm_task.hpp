@@ -1,7 +1,6 @@
 #pragma once
 
 #include "tile_info.hpp"
-#include "engine_context.hpp"
 
 #include "../base/thread.hpp"
 
@@ -13,6 +12,8 @@
 
 namespace df
 {
+  class EngineContext;
+
   class ReadMWMTask : public threads::IRoutine
   {
   public:

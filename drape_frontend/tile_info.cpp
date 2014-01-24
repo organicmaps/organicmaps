@@ -5,6 +5,7 @@
 
 #include "line_shape.hpp"
 #include "area_shape.hpp"
+#include "engine_context.hpp"
 
 namespace
 {

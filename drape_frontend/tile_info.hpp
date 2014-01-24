@@ -12,12 +12,13 @@
 #include "../std/vector.hpp"
 #include "../std/noncopyable.hpp"
 
-#include "engine_context.hpp"
 
 namespace model { class FeaturesFetcher; }
 
 namespace df
 {
+class EngineContext;
+
 struct TileKey
 {
 public:

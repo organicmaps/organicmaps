@@ -24,12 +24,10 @@ namespace df
     Color const & GetColor() { return m_color; }
 
   private:
-    vector<Point3D> m_points;
-    vector<Point3D> m_normals;
+    vector<m2::PointF> m_points;
     Color m_color;
     float m_depth;
     float m_width;
-
   };
 
 }

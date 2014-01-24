@@ -38,6 +38,7 @@ using std::transform;
 using std::push_heap;
 using std::pop_heap;
 using std::sort_heap;
+using std::remove_copy_if;
 
 #ifdef DEBUG_NEW
 #define new DEBUG_NEW

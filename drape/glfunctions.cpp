@@ -523,8 +523,5 @@ void CheckGLError()
 {
   GLenum result = glGetError();
   if (result != GL_NO_ERROR)
-  {
-    LOG(LERROR, ("GLERROR:", result));
-    ASSERT(false, ());
-  }
+    LOG(LERROR, ("GLError:", result));
 }

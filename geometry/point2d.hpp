@@ -25,6 +25,11 @@ namespace m2
 
     static Point<T> Zero() { return Point<T>(0, 0); }
 
+    static double   LengthFromZero(Point<T> const & p)
+    {
+      return p.Length(Point<T>(0,0));
+    }
+
     bool EqualDxDy(Point<T> const & p, T eps) const
     {
       return ((fabs(x - p.x) < eps) && (fabs(y - p.y) < eps));
@@ -35,7 +40,7 @@ namespace m2
       return math::sqr(x - p.x) + math::sqr(y - p.y);
     }
 
-    double Length(Point<T> const & p = Point<T>(0,0)) const
+    double Length(Point<T> const & p) const
     {
       return sqrt(SquareLength(p));
     }
@@ -43,7 +48,7 @@ namespace m2
     Point<T> Normalize() const
     {
       ASSERT(!IsAlmostZero(), ());
-      double module = Length();
+      double module = LengthFromZero(*this);
       return Point<T>(x/module, y/module);
     }
 

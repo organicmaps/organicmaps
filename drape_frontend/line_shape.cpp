@@ -9,9 +9,35 @@
 #include "../base/logging.hpp"
 
 #include "../std/algorithm.hpp"
+#include "../base/stl_add.hpp"
 
 namespace df
 {
+  namespace
+  {
+    struct MatchesPrevious
+    {
+      MatchesPrevious(m2::PointF const & first)
+        : m_prev(first)
+      {}
+
+      bool operator ()(m2::PointF const & current)
+      {
+        if (m2::AlmostEqual(m_prev, current))
+          return true;
+        else
+        {
+          m_prev = current;
+          return false;
+        }
+      }
+
+    private:
+      m2::PointF m_prev;
+    };
+  }
+
+
   LineShape::LineShape(const vector<m2::PointF> & points,
                        const Color & color,
                        float depth,
@@ -21,28 +47,46 @@ namespace df
     , m_width(width)
   {
     ASSERT(!points.empty(), ());
+    m_points.reserve(points.size());
 
-    m_points.reserve(4*points.size());
-    m_normals.reserve(4*points.size());
+    m_points.push_back(points[0]);
+    remove_copy_if(points.begin() + 1, points.end(), back_inserter(m_points),
+                   MatchesPrevious(points[0]));
 
-    const float hw = width/2;
+    ASSERT(m_points.size() > 1, ());
+  }
+
+  void LineShape::Draw(RefPointer<Batcher> batcher) const
+  {
+    vector<Point3D> renderPoints;
+    vector<Point3D> renderNormals;
+
+    const float hw = m_width/2;
     typedef m2::PointF vec2;
 
-    vec2 start = points[0];
-    for (size_t i = 1; i < points.size(); i++)
+    vec2 start = m_points[0];
+    for (size_t i = 1; i < m_points.size(); ++i)
     {
-      vec2 end = points[i];
+      vec2 end = m_points[i];
       vec2 segment = end - start;
 
       if (segment.IsAlmostZero())
         continue;
 
-      if (i < points.size() - 1)
+      if (i < m_points.size() - 1)
       {
-        vec2 longer = points[i+1] - start;
-        const bool isCodirected = my::AlmostEqual(m2::DotProduct(segment, longer),
-                                                  static_cast<float>(segment.Length()*longer.Length()));
-        const bool isOrtho =      my::AlmostEqual(m2::DotProduct(segment, longer), .0f);
+        vec2 longer = m_points[i+1] - start;
+        const float dp = m2::DotProduct(segment, longer);
+        const bool isCodirected = my::AlmostEqual(dp, static_cast<float>(
+                                                    m2::PointF::LengthFromZero(segment)
+                                                    * m2::PointF::LengthFromZero(longer)));
+
+        // We must not skip and unite with zero-length vectors.
+        // For instance, if we have points [A,B,A]
+        // we could have 'segment' = AB, and 'longer' = AA
+        // if we unite it, we will lose AB segment.
+        // We could use isAlmostZero, but dotProduct is faster.
+        const bool isOrtho = my::AlmostEqual(dp, .0f);
         if (isCodirected && !isOrtho)
           continue;
       }
@@ -53,31 +97,34 @@ namespace df
       normal = normal.Normalize()*hw;
       ASSERT(!normal.IsAlmostZero(), (i, normal, start, end, segment));
 
+
       ToPoint3DFunctor convertTo3d(m_depth);
+      const Point3D start3d = convertTo3d(start);
+      const Point3D end3d = convertTo3d(end);
+      const Point3D normal3dpos = convertTo3d(normal);
+      const Point3D normal3dneg = convertTo3d(-normal);
 
-      m_points.push_back(convertTo3d(start));
-      m_points.push_back(convertTo3d(start));
-      m_normals.push_back(convertTo3d(normal));
-      m_normals.push_back(convertTo3d(-normal));
+      renderPoints.push_back(start3d);
+      renderPoints.push_back(start3d);
+      renderNormals.push_back(normal3dpos);
+      renderNormals.push_back(normal3dneg);
 
 
-      m_points.push_back(convertTo3d(end));
-      m_points.push_back(convertTo3d(end));
-      m_normals.push_back(convertTo3d(normal));
-      m_normals.push_back(convertTo3d(-normal));
+      renderPoints.push_back(end3d);
+      renderPoints.push_back(end3d);
+      renderNormals.push_back(normal3dpos);
+      renderNormals.push_back(normal3dneg);
 
       start = end;
     }
-  }
 
-  void LineShape::Draw(RefPointer<Batcher> batcher) const
-  {
+
     GLState state(gpu::SOLID_LINE_PROGRAM, 0, TextureBinding("", false, 0, MakeStackRefPointer<Texture>(NULL)));
     float r, g, b, a;
     ::Convert(m_color, r, g, b, a);
     state.GetUniformValues().SetFloatValue("color", r, g, b, a);
 
-    AttributeProvider provider(2, m_points.size());
+    AttributeProvider provider(2, renderPoints.size());
 
     {
       BindingInfo positionInfo(1);
@@ -88,7 +135,7 @@ namespace df
       decl.m_offset = 0;
       decl.m_stride = 0;
 
-      provider.InitStream(0, positionInfo, MakeStackRefPointer((void*)&m_points[0]));
+      provider.InitStream(0, positionInfo, MakeStackRefPointer((void*)&renderPoints[0]));
     }
 
     {
@@ -100,7 +147,7 @@ namespace df
       decl.m_offset = 0;
       decl.m_stride = 0;
 
-      provider.InitStream(1, normalInfo, MakeStackRefPointer((void*)&m_normals[0]));
+      provider.InitStream(1, normalInfo, MakeStackRefPointer((void*)&renderNormals[0]));
     }
 
     batcher->InsertTriangleStrip(state, MakeStackRefPointer(&provider));
