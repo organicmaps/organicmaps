@@ -40,7 +40,7 @@
             android:textSize="@dimen/sp_x_3"
             android:textStyle="bold" />
 
-        <TextView
+        <WebView
             android:id="@+id/descr"
             style="@style/infoItem"
             android:layout_width="match_parent"

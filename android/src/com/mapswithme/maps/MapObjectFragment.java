@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
@@ -56,7 +58,7 @@ public class MapObjectFragment extends Fragment
   private TextView mNameTV;
   private TextView mGroupTV;
   private TextView mTypeTV;
-  private TextView mDescrTV;
+  private WebView mDescrWv;
 
   private Button mAddToBookmarks;
   private Button mEditBmk;
@@ -179,11 +181,12 @@ public class MapObjectFragment extends Fragment
 
     // Description of BMK
     if (TextUtils.isEmpty(descr))
-      UiUtils.hide(mDescrTV);
+      UiUtils.hide(mDescrWv);
     else
     {
-      mDescrTV.setText(descr);
-      UiUtils.show(mDescrTV);
+      mDescrWv.loadData(descr, "text/html; charset=UTF-8", null);
+      mDescrWv.setBackgroundColor(Color.TRANSPARENT);
+      UiUtils.show(mDescrWv);
     }
 
     mLat = lat;
@@ -196,7 +199,7 @@ public class MapObjectFragment extends Fragment
     final View view = inflater.inflate(R.layout.fragment_map_object, container, false);
     // find views
     mNameTV      = (TextView) view.findViewById(R.id.name);
-    mDescrTV     = (TextView) view.findViewById(R.id.descr);
+    mDescrWv     = (WebView) view.findViewById(R.id.descr);
     mGroupTV     = (TextView) view.findViewById(R.id.group);
     mTypeTV      = (TextView) view.findViewById(R.id.type);
 
