@@ -1,5 +1,7 @@
 #include "tile_info.hpp"
 
+#include "stylist.hpp"
+
 #include "../map/feature_vec_model.hpp"
 #include "../indexer/mercator.hpp"
 
@@ -36,7 +38,7 @@ namespace
   }
 
   df::LineShape * CreateFakeLine1()
-  {
+{
     vector<m2::PointF> points;
     const float magn = 4;
 
@@ -58,39 +60,39 @@ namespace
     points.push_back(m2::PointF(0,0));
     return new df::LineShape(points, Extract(0xFF00FF00), .5f, 0.5f);
   }
-}
+  }
 
 namespace df
-{
+  {
 
   TileInfo::TileInfo(TileKey const & key)
-  : m_key(key)
-{}
+    : m_key(key)
+  {}
 
-m2::RectD TileInfo::GetGlobalRect() const
-{
-  double const worldSizeDevisor = 1 << m_key.m_zoomLevel;
-  double const rectSizeX = (MercatorBounds::maxX - MercatorBounds::minX) / worldSizeDevisor;
-  double const rectSizeY = (MercatorBounds::maxY - MercatorBounds::minY) / worldSizeDevisor;
+  m2::RectD TileInfo::GetGlobalRect() const
+  {
+    double const worldSizeDevisor = 1 << m_key.m_zoomLevel;
+    double const rectSizeX = (MercatorBounds::maxX - MercatorBounds::minX) / worldSizeDevisor;
+    double const rectSizeY = (MercatorBounds::maxY - MercatorBounds::minY) / worldSizeDevisor;
 
-  m2::RectD tileRect(m_key.m_x * rectSizeX,
-                     m_key.m_y * rectSizeY,
-                     (m_key.m_x + 1) * rectSizeX,
-                     (m_key.m_y + 1) * rectSizeY);
+    m2::RectD tileRect(m_key.m_x * rectSizeX,
+                       m_key.m_y * rectSizeY,
+                       (m_key.m_x + 1) * rectSizeX,
+                       (m_key.m_y + 1) * rectSizeY);
 
-  return tileRect;
-}
+    return tileRect;
+  }
 
   void TileInfo::ReadFeatureIndex(model::FeaturesFetcher const & model)
-{
+  {
     if (DoNeedReadIndex())
-{
-  threads::MutexGuard guard(m_mutex);
+    {
+      threads::MutexGuard guard(m_mutex);
       CheckCanceled();
       model.ForEachFeatureID(GetGlobalRect(), *this, m_key.m_zoomLevel);
       sort(m_featureInfo.begin(), m_featureInfo.end());
     }
-}
+  }
 
   namespace
   {
@@ -99,26 +101,26 @@ m2::RectD TileInfo::GetGlobalRect() const
       IDsAccumulator(vector<FeatureID> & ids, vector<FeatureInfo> const & src)
         : m_ids(ids)
         , m_src(src)
-{
-}
+      {
+      }
 
       void operator()(size_t index)
-{
+      {
         ASSERT_LESS(index, m_src.size(), ());
         m_ids.push_back(m_src[index].m_id);
-}
+      }
 
       vector<FeatureID> & m_ids;
       vector<FeatureInfo> const & m_src;
     };
-}
+  }
 
   void TileInfo::ReadFeatures(model::FeaturesFetcher const & model, 
                               MemoryFeatureIndex & memIndex,
                               EngineContext & context)
-{
-  CheckCanceled();
-  vector<size_t> indexes;
+  {
+    CheckCanceled();
+    vector<size_t> indexes;
     RequestFeatures(memIndex, indexes);
 
     vector<FeatureID> featuresToRead;
@@ -136,14 +138,23 @@ m2::RectD TileInfo::GetGlobalRect() const
 
   bool TileInfo::operator ()(FeatureType const & f)
   {
-    return true;
-}
+    Stylist s;
+    InitStylist(f, m_key.m_zoomLevel, s);
 
-void TileInfo::operator ()(FeatureID const & id)
-{
-  m_featureInfo.push_back(id);
-  CheckCanceled();
-}
+    if (s.PointStyleExists())
+      ASSERT(s.AreaStyleExists() == false && s.LineStyleExists() == false, ());
+
+    if (s.LineStyleExists())
+      ASSERT(s.AreaStyleExists() == false && s.PointStyleExists() == false, ());
+
+    return true;
+  }
+
+  void TileInfo::operator ()(FeatureID const & id)
+  {
+    m_featureInfo.push_back(id);
+    CheckCanceled();
+  }
 
   //====================================================//
 

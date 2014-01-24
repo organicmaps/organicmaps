@@ -22,6 +22,7 @@ namespace df
     , m_contextFactory(oglcontextfactory)
   {
     ///{ Temporary initialization
+    m_model.InitClassificator();
     Platform::FilesList maps;
     Platform & pl = GetPlatform();
     pl.GetFilesByExt(pl.WritableDir(), DATA_FILE_EXTENSION, maps);

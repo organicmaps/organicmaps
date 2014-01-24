@@ -1,0 +1,84 @@
+#pragma once
+
+#include "../indexer/feature_data.hpp"
+
+#include "../base/buffer_vector.hpp"
+
+#include "../std/function.hpp"
+#include "../std/string.hpp"
+
+class FeatureType;
+
+namespace drule { class BaseRule; }
+
+namespace df
+{
+  struct CaptionDescription
+  {
+    CaptionDescription();
+
+    void Init(FeatureType const & f,
+              int const zoomLevel);
+
+    void FormatCaptions(FeatureType const & f,
+                        feature::EGeomType type,
+                        bool auxCaptionExists);
+
+    const string & GetMainText() const;
+    const string & GetAuxText() const;
+    const string & GetRoadNumber() const;
+    double GetPopulationRank() const;
+    bool IsNameExists() const;
+
+  private:
+    void SwapCaptions(int const zoomLevel);
+    void DiscardLongCaption(int const zoomLevel);
+
+  private:
+    string m_mainText;
+    string m_auxText;
+    string m_roadNumber;
+    string m_houseNumber;
+    double m_populationRank;
+  };
+
+  class Stylist
+  {
+  public:
+    Stylist();
+
+    bool IsCoastLine() const;
+    bool AreaStyleExists() const;
+    bool LineStyleExists() const;
+    bool PointStyleExists() const;
+
+    CaptionDescription const & GetCaptionDescription() const;
+
+    typedef pair<drule::BaseRule const *, double> rule_wrapper_t;
+    typedef function<void (rule_wrapper_t const &)> rule_callback_t;
+    void ForEachRule(rule_callback_t const & fn);
+
+  private:
+    friend bool InitStylist(FeatureType const &,
+                            int const,
+                            Stylist &);
+
+    void RaiseCoastlineFlag();
+    void RaiseAreaStyleFlag();
+    void RaiseLineStyleFlag();
+    void RaisePointStyleFlag();
+
+    CaptionDescription & GetCaptionDescriptionImpl();
+
+  private:
+    typedef buffer_vector<rule_wrapper_t, 8> rules_t;
+    rules_t m_rules;
+
+    uint8_t m_state;
+    CaptionDescription m_captionDescriptor;
+  };
+
+  bool InitStylist(FeatureType const & f,
+                   int const zoomLevel,
+                   Stylist & s);
+}

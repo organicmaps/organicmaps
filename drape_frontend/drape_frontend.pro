@@ -6,6 +6,7 @@ DEPENDENCIES = drape base
 ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
 
+INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src
 DEFINES += DRAW_INFO
 
 SOURCES += \
@@ -24,6 +25,7 @@ SOURCES += \
     read_manager.cpp \
     tile_info.cpp \
     coverage_update_descriptor.cpp \
+    stylist.cpp \
     line_shape.cpp
 
 HEADERS += \
@@ -44,4 +46,5 @@ HEADERS += \
     area_shape.hpp \
     read_manager.hpp \
     coverage_update_descriptor.hpp \
+    stylist.hpp \
     line_shape.hpp
