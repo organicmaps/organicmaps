@@ -819,10 +819,9 @@ line|z15-[highway=path],
 line|z15-[highway=road],
 line|z15-[highway=service]
 {
-  font-size: 12;
-  text-halo-radius: 2;
+  font-size: 10;
   text: name;
-  text-color: #606060;
+  text-color: #707070;
 }
 line|z15-[highway=footway],
 line|z15-[highway=cycleway],
@@ -830,10 +829,9 @@ line|z15-[highway=pedestrian],
 line|z15-[highway=steps],
 line|z15-[highway=track]
 {
-  font-size: 12;
-  text-halo-radius: 2;
+  font-size: 10;
   text: name;
-  text-color: #303030;
+  text-color: #505050;
 }
 line|z16[highway=track]
 {
