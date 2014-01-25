@@ -29,10 +29,7 @@ import com.mapswithme.maps.MWMActivity.OpenUrlTask;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.ParsedMmwRequest;
-import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.base.MapsWithMeBaseActivity;
-import com.mapswithme.maps.guides.GuideInfo;
-import com.mapswithme.maps.guides.GuidesUtils;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.ConnectionState;
@@ -435,7 +432,8 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
       {
         String path = null;
         File tmpFile = null;
-        if (!data.getScheme().equalsIgnoreCase("file"))
+        final String scheme = data.getScheme();
+        if (scheme != null && !scheme.equalsIgnoreCase("file"))
         {
           // scheme is "content" or "http" - need to download file first
           InputStream input = null;
@@ -491,7 +489,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
           success = loadKMZFile(path);
         }
         else
-          Log.w(TAG, "Can't get bookmarks file from URI: " + data.getPath());
+          Log.w(TAG, "Can't get bookmarks file from URI: " + data);
 
         if (tmpFile != null)
           tmpFile.delete();
