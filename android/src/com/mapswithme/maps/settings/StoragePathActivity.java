@@ -171,7 +171,6 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
           item.m_size = size;
 
           m_items.add(item);
-          m_items.add(item);
           return true;
         }
         else
