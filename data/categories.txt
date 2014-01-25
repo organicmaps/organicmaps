@@ -168,7 +168,7 @@ pl:3sklep|towary
 pt:2clube noturno
 hu:2bolt
 
-shop-supermarket
+shop-supermarket|shop-department_store
 en:3supermarket|shop
 ru:3универсам|3супермаркет|магазин
 uk:3супермаркет|3універсам|2магазин|крамниця
@@ -236,7 +236,7 @@ pl:Stacja autobusowa|Zajezdnia|transport
 pt:estação rodoviária|4transporte
 hu:buszpályaudvar|2busz|megálló|4közlekedés
 
-railway-station
+railway-station|railway-halt
 en:3train station|4railway|railroad|3train|4station|4transport
 ru:ж/д станция|3поезд|3станция|4транспорт
 uk:залізничний вокзал|3поїзд|залізниця|3станція|4транспорт
@@ -1812,3 +1812,7 @@ area:highway-footway|area:highway-pedestrian|area:highway-steps
 en:3square
 ru:3площадь
 uk:майдан
+
+amenity-ferry_terminal
+en:3ferry
+ru:3лодка
