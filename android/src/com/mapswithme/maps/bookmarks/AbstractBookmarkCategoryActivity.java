@@ -16,10 +16,12 @@ public abstract class AbstractBookmarkCategoryActivity extends AbstractBookmarkL
   @Override
   public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
   {
-    if (menuInfo instanceof AdapterView.AdapterContextMenuInfo)
+    final AbstractBookmarkCategoryAdapter absAdapter = getAdapter();
+    if (menuInfo instanceof AdapterView.AdapterContextMenuInfo &&
+        absAdapter instanceof BookmarkCategoriesAdapter)
     {
       final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-      final BookmarkCategoriesAdapter adapter = (BookmarkCategoriesAdapter)getAdapter();
+      final BookmarkCategoriesAdapter adapter = (BookmarkCategoriesAdapter)absAdapter;
       if (adapter.isActiveItem(info.position))
       {
         mSelectedPosition = info.position;
