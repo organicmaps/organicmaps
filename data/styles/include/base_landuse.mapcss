@@ -268,4 +268,9 @@ area|z10-[natural=glacier]
 area|z14-[natural=beach]
 {
   fill-color: #eecc55;
+  text: name;
+  font-size: 11;
+  text-color: #202020;
+  text-halo-radius: 1;
+  text-halo-color: #eecc55;
 }
