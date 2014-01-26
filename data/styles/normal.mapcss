@@ -1017,10 +1017,16 @@ line|z14[boundary=administrative][border_type=country]
   z-index: 533;
   -x-kot-layer: top;
 }
-area|z15-[tourism=alpine_hut],
-node|z15-[tourism=alpine_hut]
+area|z14-[tourism=alpine_hut],
+node|z14-[tourism=alpine_hut]
 {
   icon-image: alpine_hut.svg;
+  text-offset: 10;
+  font-size: 12;
+  text-halo-radius: 2;
+  text: name;
+  text-color: #404040;
+  text-halo-color: white;
 }
 line|z14[boundary=national_park]
 {
