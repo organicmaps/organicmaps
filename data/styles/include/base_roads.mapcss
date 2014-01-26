@@ -412,6 +412,7 @@ line|z13-[highway=footway]
 {
   color: #d0ccbc;
   width: 1;
+  dashes: 4,4;
 }
 line|z13-[highway=path]
 {
