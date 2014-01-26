@@ -100,7 +100,7 @@ line|z13[waterway=river]
   color: #B9D4D4;
   width: 3;
 }
-area|z13[natural=water]
+area|z11-[natural=water]
 {
   text: name;
   font-size: 10;
@@ -168,6 +168,12 @@ line|z14[waterway=lock]
   z-index: 88;
   casing-width: 0.5;
   casing-color: #202020;
+}
+line|z11-13[waterway=river]
+{
+  text: name;
+  font-size: 10;
+  text-color: #507cea;
 }
 line|z14-[natural=spring],
 line|z14-[waterway=canal],
@@ -466,9 +472,9 @@ line[waterway]
 {
   text-position: line;
 }
-area|z14-[natural=lake],
+area|z11-[natural=lake],
 area|z12-14[natural=pond],
-node|z14-[natural=lake],
+node|z11-[natural=lake],
 node|z12-14[natural=pond]
 {
   text: name;
