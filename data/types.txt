@@ -954,3 +954,5 @@ amenity|ferry_terminal
 amenity
 shop|furniture
 natural|grassland
+natural|waterfall
+waterway|waterfall

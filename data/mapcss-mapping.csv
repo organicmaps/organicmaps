@@ -954,3 +954,5 @@ amenity|ferry_terminal;[amenity=ferry_terminal];;name;int_name;953;
 amenity;[amenity];;name;int_name;954;
 shop|furniture;[shop=furniture];;name;int_name;955;
 natural|grassland;[natural=grassland];;name;int_name;956;
+natural|waterfall;[natural=waterfall];;name;int_name;957;
+waterway|waterfall;[waterway=waterfall];;name;int_name;958;

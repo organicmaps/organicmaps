@@ -442,6 +442,7 @@ world  +
         vineyard  -
         volcano  -
         water  -
+        waterfall  -
         wetland  +
             bog  -
             {}
@@ -713,6 +714,7 @@ world  +
             intermittent  -
             tunnel  -
             {}
+        waterfall  -
         weir  -
         {}
     {}

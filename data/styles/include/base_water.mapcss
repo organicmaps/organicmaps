@@ -475,3 +475,11 @@ node|z12-14[natural=pond]
   font-size: 12;
   text-color: #5070d0;
 }
+node|z14-[natural=waterfall]
+{
+  icon-image: waterfall.svg;
+  text-offset: 10;
+  font-size: 12;
+  text: name;
+  text-color: #0000FF;
+}
