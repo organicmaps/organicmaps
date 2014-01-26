@@ -1,7 +1,7 @@
 #include "skin_generator.hpp"
 
 #include <QtCore/QFile>
-#include <QtGui/QApplication>
+#include <QApplication>
 
 #include <QtXml/QXmlSimpleReader>
 #include <QtXml/QXmlInputSource>
