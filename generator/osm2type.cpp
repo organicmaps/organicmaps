@@ -194,6 +194,8 @@ namespace ftype
             m_params.AddHouseNumber(v);
         if (k == "addr:housename")
             m_params.AddHouseName(v);
+        if (k == "addr:street")
+            m_params.AddStreetAddress(v);
         if (k == "addr:flats")
             m_params.flats = v;
 

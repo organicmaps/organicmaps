@@ -112,6 +112,8 @@ struct FeatureParamsBase
   string flats;
   int8_t layer;
   uint8_t rank;
+  /// We use it now only for search unit tests
+  string m_streetAddress;
 
   FeatureParamsBase() : layer(0), rank(0) {}
 
@@ -125,6 +127,7 @@ struct FeatureParamsBase
 
   void AddHouseName(string const & s);
   void AddHouseNumber(string const & s);
+  void AddStreetAddress(string const & s);
 
   template <class TSink>
   void Write(TSink & sink, uint8_t header) const

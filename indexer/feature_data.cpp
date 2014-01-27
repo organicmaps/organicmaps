@@ -125,6 +125,11 @@ void FeatureParamsBase::AddHouseNumber(string const & ss)
   house.Set(house.IsEmpty() ? s : s + ", " + house.Get());
 }
 
+void FeatureParamsBase::AddStreetAddress(string const & s)
+{
+  m_streetAddress = s;
+}
+
 void FeatureParams::SetGeomType(feature::EGeomType t)
 {
   switch (t)

@@ -12,6 +12,8 @@
 #include "../base/logging.hpp"
 #include "../base/stl_add.hpp"
 
+#include "../platform/platform.hpp"
+
 #include "../std/unordered_map.hpp"
 #include "../std/list.hpp"
 
@@ -395,7 +397,6 @@ protected:
         return;
 
       bool const isClosed = (count > 2 && ft.IsGeometryClosed());
-
       // Try to set area feature (point and linear types are also suitable for this)
       if (isClosed && feature::IsDrawableLike(fValue.m_Types, FEATURE_TYPE_AREA))
         base_type::FinishAreaFeature(id, ft);
@@ -411,7 +412,18 @@ protected:
             f.SetParams(params);
             f.SetCenter(ft.GetGeometryCenter());
             if (f.PreSerialize())
+            {
+              if (!params.m_streetAddress.empty() && !params.house.IsEmpty())
+              {
+                m2::PointD p = ft.GetLimitRect().Center();
+                string const s = params.m_streetAddress + "|" +  params.house.Get() + "|"
+                    + strings::to_string(MercatorBounds::YToLat(p.y)) + "|"
+                    + strings::to_string(MercatorBounds::XToLon(p.x)) + '\n';
+                FileWriter writer = FileWriter(GetPlatform().WritableDir() + "/adresses.txt", FileWriter::OP_APPEND, false);
+                writer.Write(s.c_str(), s.size());
+              }
               base_type::m_emitter(f);
+            }
           }
         }
 
@@ -478,6 +490,15 @@ protected:
     ft.SetParams(fValue);
     if (ft.PreSerialize())
     {
+      if (!fValue.m_streetAddress.empty() && !fValue.house.IsEmpty())
+      {
+        m2::PointD p = ft.GetLimitRect().Center();
+        string const s = fValue.m_streetAddress + "|" +  fValue.house.Get() + "|"
+            + strings::to_string(MercatorBounds::YToLat(p.y)) + "|"
+            + strings::to_string(MercatorBounds::XToLon(p.x)) + '\n';
+        FileWriter writer = FileWriter(GetPlatform().WritableDir() + "/adresses.txt", FileWriter::OP_APPEND, false);
+        writer.Write(s.c_str(), s.size());
+      }
       // add osm id for debugging
       ft.AddOsmId(p->name, id);
       base_type::m_emitter(ft);
