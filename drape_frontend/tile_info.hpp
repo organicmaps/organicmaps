@@ -19,41 +19,41 @@ class FeatureType;
 
 namespace df
 {
-class EngineContext;
+  class EngineContext;
 
-struct TileKey
-{
-public:
-  TileKey() : m_x(-1), m_y(-1), m_zoomLevel(-1) {}
-  TileKey(int x, int y, int zoomLevel)
-    : m_x(x), m_y(y), m_zoomLevel(zoomLevel) {}
-
-  bool operator < (const TileKey & other) const
+  struct TileKey
   {
-    if (m_zoomLevel != other.m_zoomLevel)
-      return m_zoomLevel < other.m_zoomLevel;
-    if (m_y != other.m_y)
-      return m_y < other.m_y;
+  public:
+    TileKey() : m_x(-1), m_y(-1), m_zoomLevel(-1) {}
+    TileKey(int x, int y, int zoomLevel)
+      : m_x(x), m_y(y), m_zoomLevel(zoomLevel) {}
 
-    return m_x < other.m_x;
-  }
+    bool operator < (const TileKey & other) const
+    {
+      if (m_zoomLevel != other.m_zoomLevel)
+        return m_zoomLevel < other.m_zoomLevel;
+      if (m_y != other.m_y)
+        return m_y < other.m_y;
 
-  bool operator == (const TileKey & other) const
+      return m_x < other.m_x;
+    }
+
+    bool operator == (const TileKey & other) const
+    {
+      return m_x == other.m_x &&
+          m_y == other.m_y &&
+          m_zoomLevel == other.m_zoomLevel;
+    }
+
+    int m_x;
+    int m_y;
+    int m_zoomLevel;
+  };
+
+  class TileInfo : private noncopyable
   {
-    return m_x == other.m_x &&
-        m_y == other.m_y &&
-        m_zoomLevel == other.m_zoomLevel;
-  }
-
-  int m_x;
-  int m_y;
-  int m_zoomLevel;
-};
-
-class TileInfo : private noncopyable
-{
-public:
-  DECLARE_EXCEPTION(ReadCanceledException, RootException);
+  public:
+    DECLARE_EXCEPTION(ReadCanceledException, RootException);
 
     TileInfo(TileKey const & key);
 
@@ -63,23 +63,23 @@ public:
                       EngineContext & context);
     void Cancel(MemoryFeatureIndex & memIndex);
 
-  m2::RectD GetGlobalRect() const;
-  TileKey const & GetTileKey() const { return m_key; }
+    m2::RectD GetGlobalRect() const;
+    TileKey const & GetTileKey() const { return m_key; }
 
     void operator ()(FeatureID const & id);
     bool operator ()(FeatureType const & f);
     bool operator <(TileInfo const & other) const { return m_key < other.m_key; }
 
-private:
+  private:
     void RequestFeatures(MemoryFeatureIndex & memIndex, vector<size_t> & featureIndexes);
-  void CheckCanceled();
-  bool DoNeedReadIndex() const;
+    void CheckCanceled();
+    bool DoNeedReadIndex() const;
 
-private:
-  TileKey m_key;
-  vector<FeatureInfo> m_featureInfo;
+  private:
+    TileKey m_key;
+    vector<FeatureInfo> m_featureInfo;
 
-  bool m_isCanceled;
-  threads::Mutex m_mutex;
-};
+    bool m_isCanceled;
+    threads::Mutex m_mutex;
+  };
 }

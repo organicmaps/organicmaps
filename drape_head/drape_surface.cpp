@@ -65,7 +65,7 @@ void DrapeSurface::CreateEngine()
 
   sizeChanged(0);
 
-  m_timerID = startTimer(1000 / 30);
+  //m_timerID = startTimer(1000 / 30);
 }
 
 void DrapeSurface::sizeChanged(int)

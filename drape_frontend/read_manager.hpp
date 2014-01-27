@@ -45,7 +45,6 @@ namespace df
     void PushTaskFront(tileinfo_ptr const & tileToReread);
 
   private:
-
     MemoryFeatureIndex m_memIndex;
     EngineContext & m_context;
 

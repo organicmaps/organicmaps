@@ -4,7 +4,6 @@
 
 namespace df
 {
-
   ReadMWMTask::ReadMWMTask(weak_ptr<TileInfo> const & tileInfo,
                            MemoryFeatureIndex & memIndex,
                            model::FeaturesFetcher & model,

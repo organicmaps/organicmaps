@@ -38,7 +38,7 @@ namespace
   }
 
   df::LineShape * CreateFakeLine1()
-{
+  {
     vector<m2::PointF> points;
     const float magn = 4;
 
@@ -60,11 +60,28 @@ namespace
     points.push_back(m2::PointF(0,0));
     return new df::LineShape(points, Extract(0xFF00FF00), .5f, 0.5f);
   }
-  }
+
+  struct IDsAccumulator
+  {
+    IDsAccumulator(vector<FeatureID> & ids, vector<df::FeatureInfo> const & src)
+      : m_ids(ids)
+      , m_src(src)
+    {
+    }
+
+    void operator()(size_t index)
+    {
+      ASSERT_LESS(index, m_src.size(), ());
+      m_ids.push_back(m_src[index].m_id);
+    }
+
+    vector<FeatureID> & m_ids;
+    vector<df::FeatureInfo> const & m_src;
+  };
+}
 
 namespace df
-  {
-
+{
   TileInfo::TileInfo(TileKey const & key)
     : m_key(key)
   {}
@@ -94,27 +111,6 @@ namespace df
     }
   }
 
-  namespace
-  {
-    struct IDsAccumulator
-    {
-      IDsAccumulator(vector<FeatureID> & ids, vector<FeatureInfo> const & src)
-        : m_ids(ids)
-        , m_src(src)
-      {
-      }
-
-      void operator()(size_t index)
-      {
-        ASSERT_LESS(index, m_src.size(), ());
-        m_ids.push_back(m_src[index].m_id);
-      }
-
-      vector<FeatureID> & m_ids;
-      vector<FeatureInfo> const & m_src;
-    };
-  }
-
   void TileInfo::ReadFeatures(model::FeaturesFetcher const & model, 
                               MemoryFeatureIndex & memIndex,
                               EngineContext & context)
@@ -123,10 +119,22 @@ namespace df
     vector<size_t> indexes;
     RequestFeatures(memIndex, indexes);
 
-    vector<FeatureID> featuresToRead;
-    for_each(indexes.begin(), indexes.end(), IDsAccumulator(featuresToRead, m_featureInfo));
+    if (!indexes.empty() && m_key == TileKey(0,0,3))
+    {
+      context.BeginReadTile(m_key);
+      {
+        context.InsertShape(m_key, MovePointer<MapShape>(CreateFakeShape1()));
+        context.InsertShape(m_key, MovePointer<MapShape>(CreateFakeShape2()));
+        context.InsertShape(m_key, MovePointer<MapShape>(CreateFakeLine1()));
+        context.InsertShape(m_key, MovePointer<MapShape>(CreateFakeLine2()));
+      }
+      context.EndReadTile(m_key);
+    }
 
-    model.ReadFeatures(*this, featuresToRead);
+//    vector<FeatureID> featuresToRead;
+//    for_each(indexes.begin(), indexes.end(), IDsAccumulator(featuresToRead, m_featureInfo));
+
+//    model.ReadFeatures(*this, featuresToRead);
   }
 
   void TileInfo::Cancel(MemoryFeatureIndex & memIndex)
