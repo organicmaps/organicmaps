@@ -59,7 +59,7 @@ namespace df
   void LineShape::Draw(RefPointer<Batcher> batcher) const
   {
     vector<Point3D> renderPoints;
-    vector<Point3D> renderNormals;
+    vector<m2::PointF> renderNormals;
 
     const float hw = m_width/2;
     typedef m2::PointF vec2;
@@ -70,8 +70,7 @@ namespace df
       vec2 end = m_points[i];
       vec2 segment = end - start;
 
-      if (segment.IsAlmostZero())
-        continue;
+      ASSERT(!segment.IsAlmostZero(), ());
 
       if (i < m_points.size() - 1)
       {
@@ -101,19 +100,18 @@ namespace df
       ToPoint3DFunctor convertTo3d(m_depth);
       const Point3D start3d = convertTo3d(start);
       const Point3D end3d = convertTo3d(end);
-      const Point3D normal3dpos = convertTo3d(normal);
-      const Point3D normal3dneg = convertTo3d(-normal);
+      const m2::PointF normalPos = normal;
+      const m2::PointF normalNeg = -normal;
 
       renderPoints.push_back(start3d);
       renderPoints.push_back(start3d);
-      renderNormals.push_back(normal3dpos);
-      renderNormals.push_back(normal3dneg);
-
+      renderNormals.push_back(normalPos);
+      renderNormals.push_back(normalNeg);
 
       renderPoints.push_back(end3d);
       renderPoints.push_back(end3d);
-      renderNormals.push_back(normal3dpos);
-      renderNormals.push_back(normal3dneg);
+      renderNormals.push_back(normalPos);
+      renderNormals.push_back(normalNeg);
 
       start = end;
     }
@@ -142,7 +140,7 @@ namespace df
       BindingInfo normalInfo(1);
       BindingDecl & decl = normalInfo.GetBindingDecl(0);
       decl.m_attributeName = "normal";
-      decl.m_componentCount = 3;
+      decl.m_componentCount = 2;
       decl.m_componentType = GLConst::GLFloatType;
       decl.m_offset = 0;
       decl.m_stride = 0;
