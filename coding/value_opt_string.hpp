@@ -72,3 +72,8 @@ public:
     }
   }
 };
+
+string DebugPrint(StringNumericOptimal const & s)
+{
+  return s.Get();
+}
