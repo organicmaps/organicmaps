@@ -36,7 +36,6 @@ namespace df
       default:
         return drule::count_of_rules;
       }
-
     }
 
     // ==================================== //
@@ -180,18 +179,16 @@ namespace df
                                           feature::EGeomType type,
                                           bool auxCaptionExists)
   {
-    if (auxCaptionExists == false &&
-        m_auxText.empty() == false   &&
-        type != feature::GEOM_LINE)
+    if (!auxCaptionExists && !m_auxText.empty() && type != feature::GEOM_LINE)
     {
       f.GetReadableName(m_mainText);
       if (m_mainText == m_auxText)
         m_auxText.clear();
     }
 
-    if (m_houseNumber.empty() == false)
+    if (!m_houseNumber.empty())
     {
-      if (m_mainText.empty() == true || m_houseNumber.find(m_mainText) != string::npos)
+      if (m_mainText.empty() || m_houseNumber.find(m_mainText) != string::npos)
         m_houseNumber.swap(m_mainText);
       else
         m_mainText += ("(" + m_houseNumber + ")");
@@ -225,8 +222,7 @@ namespace df
 
   void CaptionDescription::SwapCaptions(const int zoomLevel)
   {
-    if (zoomLevel <= scales::GetUpperWorldScale() &&
-        m_auxText.empty() == false)
+    if (zoomLevel <= scales::GetUpperWorldScale() && !m_auxText.empty())
     {
       m_mainText.swap(m_auxText);
       m_auxText.clear();
@@ -322,11 +318,14 @@ namespace df
     feature::EGeomType mainGeomType = feature::EGeomType(geomType.first);
 
     switch (mainGeomType) {
-    case feature::GEOM_POINT: s.RaisePointStyleFlag();
+    case feature::GEOM_POINT:
+      s.RaisePointStyleFlag();
       break;
-    case feature::GEOM_LINE : s.RaiseLineStyleFlag();
+    case feature::GEOM_LINE :
+      s.RaiseLineStyleFlag();
       break;
-    case feature::GEOM_AREA : s.RaiseAreaStyleFlag();
+    case feature::GEOM_AREA :
+      s.RaiseAreaStyleFlag();
       break;
     default:
       ASSERT(false, ());

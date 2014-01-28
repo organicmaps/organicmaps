@@ -224,12 +224,10 @@ public:
     ForEachInIntervals(implFunctor, covering::FullCover, m2::RectD::GetInfiniteRect(), scale);
   }
 
+  // "features" must be sorted using FeatureID::operator< as predicate
   template <typename F>
   void ReadFeatures(F & f, vector<FeatureID> const & features) const
   {
-    if (features.empty())
-      return;
-
     size_t currentIndex = 0;
     while (currentIndex < features.size())
       currentIndex = ReadFeatureRange(f, features, currentIndex);
@@ -253,6 +251,7 @@ public:
 
 private:
 
+  // "features" must be sorted using FeatureID::operator< as predicate
   template <typename F>
   size_t ReadFeatureRange(F & f, vector<FeatureID> const & features, size_t index) const
   {
