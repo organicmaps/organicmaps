@@ -39,12 +39,10 @@ namespace df
 
 
   LineShape::LineShape(const vector<m2::PointF> & points,
-                       const Color & color,
                        float depth,
-                       float width)
-    : m_color(color)
-    , m_depth(depth)
-    , m_width(width)
+                       const LineViewParams & params)
+    : m_depth(depth)
+    , m_params(params)
   {
     ASSERT(!points.empty(), ());
     m_points.reserve(points.size());
@@ -61,7 +59,7 @@ namespace df
     vector<Point3D> renderPoints;
     vector<m2::PointF> renderNormals;
 
-    const float hw = m_width/2;
+    const float hw = GetWidth() / 2.0f;
     typedef m2::PointF vec2;
 
     vec2 start = m_points[0];
@@ -119,7 +117,7 @@ namespace df
 
     GLState state(gpu::SOLID_LINE_PROGRAM, 0, TextureBinding("", false, 0, MakeStackRefPointer<Texture>(NULL)));
     float r, g, b, a;
-    ::Convert(m_color, r, g, b, a);
+    ::Convert(GetColor(), r, g, b, a);
     state.GetUniformValues().SetFloatValue("color", r, g, b, a);
 
     AttributeProvider provider(2, renderPoints.size());
