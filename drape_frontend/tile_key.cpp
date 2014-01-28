@@ -1,0 +1,46 @@
+#include "tile_key.hpp"
+
+#include "../indexer/mercator.hpp"
+
+namespace df
+{
+  TileKey::TileKey() :
+    m_x(-1), m_y(-1), m_zoomLevel(-1)
+  {
+  }
+
+  TileKey::TileKey(int x, int y, int zoomLevel)
+    : m_x(x), m_y(y), m_zoomLevel(zoomLevel)
+  {
+  }
+
+  bool TileKey::operator <(const TileKey & other) const
+  {
+    if (m_zoomLevel != other.m_zoomLevel)
+      return m_zoomLevel < other.m_zoomLevel;
+    if (m_y != other.m_y)
+      return m_y < other.m_y;
+
+    return m_x < other.m_x;
+  }
+
+  bool TileKey::operator ==(const TileKey & other) const
+  {
+    return m_x == other.m_x &&
+        m_y == other.m_y &&
+        m_zoomLevel == other.m_zoomLevel;
+  }
+
+  m2::RectD TileKey::GetGlobalRect() const
+  {
+    double const worldSizeDevisor = 1 << m_zoomLevel;
+    // Mercator SizeX and SizeY is equal
+    double const rectSize = (MercatorBounds::maxX - MercatorBounds::minX) / worldSizeDevisor;
+
+    double const startX = m_x * rectSize;
+    double const startY = m_y * rectSize;
+
+    return m2::RectD (startX, startY, startX + rectSize, startY + rectSize);
+  }
+
+}

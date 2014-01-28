@@ -1,0 +1,21 @@
+#pragma once
+
+#include "../geometry/rect2d.hpp"
+
+namespace df
+{
+  struct TileKey
+  {
+    TileKey();
+    TileKey(int x, int y, int zoomLevel);
+
+    bool operator < (const TileKey & other) const;
+    bool operator == (const TileKey & other) const;
+
+    m2::RectD GetGlobalRect() const;
+
+    int m_x;
+    int m_y;
+    int m_zoomLevel;
+  };
+}

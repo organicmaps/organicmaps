@@ -26,7 +26,11 @@ SOURCES += \
     tile_info.cpp \
     coverage_update_descriptor.cpp \
     stylist.cpp \
-    line_shape.cpp
+    line_shape.cpp \
+    rule_drawer.cpp \
+    viewport.cpp \
+    vizualization_params.cpp \
+    tile_key.cpp
 
 HEADERS += \
     engine_context.hpp \
@@ -47,4 +51,9 @@ HEADERS += \
     read_manager.hpp \
     coverage_update_descriptor.hpp \
     stylist.hpp \
-    line_shape.hpp
+    line_shape.hpp \
+    shape_view_params.hpp \
+    rule_drawer.hpp \
+    viewport.hpp \
+    vizualization_params.hpp \
+    tile_key.hpp

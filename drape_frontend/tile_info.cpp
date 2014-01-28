@@ -1,51 +1,57 @@
 #include "tile_info.hpp"
-
+#include "engine_context.hpp"
 #include "stylist.hpp"
-
-#include "../map/feature_vec_model.hpp"
-#include "../indexer/mercator.hpp"
+#include "rule_drawer.hpp"
 
 #include "line_shape.hpp"
 #include "area_shape.hpp"
 #include "engine_context.hpp"
+
+#include "../map/feature_vec_model.hpp"
+
+#include "../std/bind.hpp"
 
 namespace
 {
   df::AreaShape * CreateFakeShape1()
   {
     df::AreaShape * shape = new df::AreaShape(Extract(0xFFEEAABB), 0.3f);
-    shape->AddTriangle(m2::PointF(0.0f, 0.0f),
-                       m2::PointF(1.0f, 0.0f),
-                       m2::PointF(0.0f, 1.0f));
+    shape->AddTriangle(m2::PointF(50.0f, 50.0f),
+                       m2::PointF(100.0f, 50.0f),
+                       m2::PointF(50.0f, 100.0f));
 
-    shape->AddTriangle(m2::PointF(1.0f, 0.0f),
-                       m2::PointF(0.0f, 1.0f),
-                       m2::PointF(1.0f, 1.0f));
+    shape->AddTriangle(m2::PointF(100.0f, 50.0f),
+                       m2::PointF(50.0f, 100.0f),
+                       m2::PointF(100.0f, 100.0f));
     return shape;
   }
 
   df::AreaShape * CreateFakeShape2()
   {
     df::AreaShape * shape = new df::AreaShape(Extract(0xFF66AAFF), 0.0f);
-    shape->AddTriangle(m2::PointF(-0.5f, 0.5f),
-                       m2::PointF(0.5f, 1.5f),
-                       m2::PointF(0.5f, -0.5f));
+    shape->AddTriangle(m2::PointF(0.0f, 50.0f),
+                       m2::PointF(50.0f, 150.0f),
+                       m2::PointF(50.0f, 0.0f));
 
-    shape->AddTriangle(m2::PointF(0.5f, -0.5f),
-                       m2::PointF(0.5f, 1.5f),
-                       m2::PointF(1.5f, 0.5f));
+    shape->AddTriangle(m2::PointF(50.0f, 0.0f),
+                       m2::PointF(50.0f, 150.0f),
+                       m2::PointF(150.0f, 50.0f));
     return shape;
   }
 
   df::LineShape * CreateFakeLine1()
   {
     vector<m2::PointF> points;
-    const float magn = 4;
+    const float magn = 40;
 
     for (float x = -4*math::pi; x <= 4*math::pi; x+= math::pi/32)
-      points.push_back(m2::PointF(x, magn*sinf(x)));
+      points.push_back(m2::PointF(50 * x + 100.0, magn*sinf(x) + 200.0));
 
-    return new df::LineShape(points, Extract(0xFFFF0000), .0f, 1.f);
+    df::LineViewParams params;
+    params.m_color = Extract(0xFFFF0000);
+    params.m_width = 4.0f;
+
+    return new df::LineShape(points, 0.0f, params);
   }
 
   df::LineShape * CreateFakeLine2()
@@ -58,7 +64,18 @@ namespace
     points.push_back(m2::PointF(4,4));
     points.push_back(m2::PointF(0,4));
     points.push_back(m2::PointF(0,0));
-    return new df::LineShape(points, Extract(0xFF00FF00), .5f, 0.5f);
+
+    for (size_t i = 0; i < points.size(); ++i)
+    {
+      m2::PointF p = points[i] * 100;
+      points[i] = p + m2::PointF(100.0, 300.0);
+    }
+
+    df::LineViewParams params;
+    params.m_color = Extract(0xFF00FF00);
+    params.m_width = 2.0f;
+
+    return new df::LineShape(points, 0.5f, params);
   }
 
   struct IDsAccumulator
@@ -88,16 +105,7 @@ namespace df
 
   m2::RectD TileInfo::GetGlobalRect() const
   {
-    double const worldSizeDevisor = 1 << m_key.m_zoomLevel;
-    double const rectSizeX = (MercatorBounds::maxX - MercatorBounds::minX) / worldSizeDevisor;
-    double const rectSizeY = (MercatorBounds::maxY - MercatorBounds::minY) / worldSizeDevisor;
-
-    m2::RectD tileRect(m_key.m_x * rectSizeX,
-                       m_key.m_y * rectSizeY,
-                       (m_key.m_x + 1) * rectSizeX,
-                       (m_key.m_y + 1) * rectSizeY);
-
-    return tileRect;
+    return m_key.GetGlobalRect();
   }
 
   void TileInfo::ReadFeatureIndex(model::FeaturesFetcher const & model)
@@ -111,7 +119,7 @@ namespace df
     }
   }
 
-  void TileInfo::ReadFeatures(model::FeaturesFetcher const & model, 
+  void TileInfo::ReadFeatures(model::FeaturesFetcher const & model,
                               MemoryFeatureIndex & memIndex,
                               EngineContext & context)
   {
@@ -130,11 +138,11 @@ namespace df
       }
       context.EndReadTile(m_key);
     }
-
 //    vector<FeatureID> featuresToRead;
 //    for_each(indexes.begin(), indexes.end(), IDsAccumulator(featuresToRead, m_featureInfo));
 
-//    model.ReadFeatures(*this, featuresToRead);
+//    RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1 ,_2), context);
+//    model.ReadFeatures(drawer, featuresToRead);
   }
 
   void TileInfo::Cancel(MemoryFeatureIndex & memIndex)
@@ -144,24 +152,16 @@ namespace df
     memIndex.RemoveFeatures(m_featureInfo);
   }
 
-  bool TileInfo::operator ()(FeatureType const & f)
-  {
-    Stylist s;
-    InitStylist(f, m_key.m_zoomLevel, s);
-
-    if (s.PointStyleExists())
-      ASSERT(s.AreaStyleExists() == false && s.LineStyleExists() == false, ());
-
-    if (s.LineStyleExists())
-      ASSERT(s.AreaStyleExists() == false && s.PointStyleExists() == false, ());
-
-    return true;
-  }
-
   void TileInfo::operator ()(FeatureID const & id)
   {
     m_featureInfo.push_back(id);
     CheckCanceled();
+  }
+
+  void TileInfo::InitStylist(const FeatureType & f, Stylist & s)
+  {
+    CheckCanceled();
+    df::InitStylist(f, m_key.m_zoomLevel, s);
   }
 
   //====================================================//
@@ -177,7 +177,7 @@ namespace df
     memIndex.ReadFeaturesRequest(m_featureInfo, featureIndexes);
   }
 
-  void TileInfo::CheckCanceled()
+  void TileInfo::CheckCanceled() const
   {
     if (m_isCanceled)
       MYTHROW(ReadCanceledException, ());

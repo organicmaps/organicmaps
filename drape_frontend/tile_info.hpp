@@ -1,10 +1,9 @@
 #pragma once
 
+#include "tile_key.hpp"
 #include "memory_feature_index.hpp"
 
 #include "../indexer/feature_decl.hpp"
-
-#include "../geometry/rect2d.hpp"
 
 #include "../base/mutex.hpp"
 #include "../base/exception.hpp"
@@ -20,35 +19,7 @@ class FeatureType;
 namespace df
 {
   class EngineContext;
-
-  struct TileKey
-  {
-  public:
-    TileKey() : m_x(-1), m_y(-1), m_zoomLevel(-1) {}
-    TileKey(int x, int y, int zoomLevel)
-      : m_x(x), m_y(y), m_zoomLevel(zoomLevel) {}
-
-    bool operator < (const TileKey & other) const
-    {
-      if (m_zoomLevel != other.m_zoomLevel)
-        return m_zoomLevel < other.m_zoomLevel;
-      if (m_y != other.m_y)
-        return m_y < other.m_y;
-
-      return m_x < other.m_x;
-    }
-
-    bool operator == (const TileKey & other) const
-    {
-      return m_x == other.m_x &&
-          m_y == other.m_y &&
-          m_zoomLevel == other.m_zoomLevel;
-    }
-
-    int m_x;
-    int m_y;
-    int m_zoomLevel;
-  };
+  class Stylist;
 
   class TileInfo : private noncopyable
   {
@@ -67,12 +38,12 @@ namespace df
     TileKey const & GetTileKey() const { return m_key; }
 
     void operator ()(FeatureID const & id);
-    bool operator ()(FeatureType const & f);
     bool operator <(TileInfo const & other) const { return m_key < other.m_key; }
 
   private:
+    void InitStylist(FeatureType const & f, Stylist & s);
     void RequestFeatures(MemoryFeatureIndex & memIndex, vector<size_t> & featureIndexes);
-    void CheckCanceled();
+    void CheckCanceled() const;
     bool DoNeedReadIndex() const;
 
   private:
