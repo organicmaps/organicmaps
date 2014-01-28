@@ -4,6 +4,8 @@
 
 #include "../drape/pointers.hpp"
 
+#include "../map/scales_processor.hpp"
+
 namespace df
 {
   class Message;
@@ -13,7 +15,9 @@ namespace df
   class EngineContext
   {
   public:
-    EngineContext(RefPointer<ThreadsCommutator> commutator);
+    EngineContext(RefPointer<ThreadsCommutator> commutator, ScalesProcessor const & processor);
+
+    ScalesProcessor const & GetScalesProcessor() const;
 
     void BeginReadTile(TileKey const & key);
     /// If you call this method, you may forget about shape.
@@ -26,5 +30,6 @@ namespace df
 
   private:
     RefPointer<ThreadsCommutator> m_commutator;
+    ScalesProcessor m_scalesProcessor;
   };
 }

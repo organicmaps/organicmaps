@@ -26,9 +26,7 @@ namespace df
   class ReadManager
   {
   public:
-    ReadManager(double visualScale, int w, int h,
-                EngineContext & context,
-                model::FeaturesFetcher & model);
+    ReadManager(EngineContext & context, model::FeaturesFetcher & model);
 
     void UpdateCoverage(ScreenBase const & screen, CoverageUpdateDescriptor & updateDescr);
     void Resize(m2::RectI const & rect);
@@ -49,12 +47,10 @@ namespace df
     EngineContext & m_context;
 
     model::FeaturesFetcher & m_model;
-    ScalesProcessor m_scalesProcessor;
 
     MasterPointer<threads::ThreadPool> m_pool;
 
     ScreenBase m_currentViewport;
-
 
     struct LessByTileKey
     {

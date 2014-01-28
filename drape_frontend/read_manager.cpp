@@ -33,13 +33,10 @@ namespace df
     }
   }
 
-  ReadManager::ReadManager(double visualScale, int w, int h,
-                           EngineContext & context,
-                           model::FeaturesFetcher & model)
+  ReadManager::ReadManager(EngineContext & context, model::FeaturesFetcher & model)
     : m_context(context)
     , m_model(model)
   {
-    m_scalesProcessor.SetParams(visualScale, ScalesProcessor::CalculateTileSize(w, h));
     m_pool.Reset(new threads::ThreadPool(ReadCount(), bind(&ReadManager::OnTaskFinished, this, _1)));
   }
 
@@ -116,7 +113,7 @@ namespace df
   {
     out.clear();
 
-    int const tileScale = m_scalesProcessor.GetTileScaleBase(screen);
+    int const tileScale = m_context.GetScalesProcessor().GetTileScaleBase(screen);
     // equal for x and y
     double const range = MercatorBounds::maxX - MercatorBounds::minX;
     double const rectSize = range / (1 << tileScale);
@@ -145,8 +142,9 @@ namespace df
 
   bool ReadManager::MustDropAllTiles(ScreenBase const & screen) const
   {
-    const int oldScale = m_scalesProcessor.GetTileScaleBase(m_currentViewport);
-    const int newScale = m_scalesProcessor.GetTileScaleBase(screen);
+    ScalesProcessor const & sp = m_context.GetScalesProcessor();
+    const int oldScale = sp.GetTileScaleBase(m_currentViewport);
+    const int newScale = sp.GetTileScaleBase(screen);
     return (oldScale != newScale) || !m_currentViewport.GlobalRect().IsIntersect(screen.GlobalRect());
   }
 
