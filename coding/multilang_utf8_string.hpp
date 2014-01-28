@@ -92,20 +92,4 @@ public:
   }
 };
 
-string DebugPrint(StringUtf8Multilang const & s)
-{
-  string out;
-  struct Printer
-  {
-    string & m_out;
-    Printer(string & out) : m_out(out) {}
-    bool operator()(int8_t code, string const & name) const
-    {
-      m_out += string(StringUtf8Multilang::GetLangByCode(code)) + string(":") + name + " ";
-      return true;
-    }
-  } printer(out);
-
-  s.ForEachRef(printer);
-  return out;
-}
+string DebugPrint(StringUtf8Multilang const & s);

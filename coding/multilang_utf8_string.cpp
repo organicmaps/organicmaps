@@ -81,3 +81,25 @@ bool StringUtf8Multilang::GetString(int8_t lang, string & utf8s) const
 
   return false;
 }
+
+namespace
+{
+struct Printer
+{
+  string & m_out;
+  Printer(string & out) : m_out(out) {}
+  bool operator()(int8_t code, string const & name) const
+  {
+    m_out += string(StringUtf8Multilang::GetLangByCode(code)) + string(":") + name + " ";
+    return true;
+  }
+};
+} // namespace
+
+string DebugPrint(StringUtf8Multilang const & s)
+{
+  string out;
+  Printer printer(out);
+  s.ForEachRef(printer);
+  return out;
+}

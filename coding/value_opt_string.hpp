@@ -73,7 +73,7 @@ public:
   }
 };
 
-string DebugPrint(StringNumericOptimal const & s)
+inline string DebugPrint(StringNumericOptimal const & s)
 {
   return s.Get();
 }
