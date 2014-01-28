@@ -104,25 +104,22 @@ area|z11-[natural=water]
 {
   text: name;
   font-size: 10;
-  text-color: navy;
+  text-color: #507cea;
 }
 area|z14[natural=water]
 {
   text: name;
   font-size: 11;
-  text-color: navy;
 }
 area|z15[natural=water]
 {
   text: name;
   font-size: 12;
-  text-color: navy;
 }
 area|z16-[natural=water]
 {
   text: name;
   font-size: 16;
-  text-color: navy;
 }
 line|z13[waterway=ditch]
 {
@@ -312,13 +309,13 @@ line|z16[waterway=drain]
   casing-width: 0.6;
   casing-color: #b0b0b0;
 }
-line|z16-[waterway=ditch],
-line|z16-[waterway=drain],
-line|z16-[waterway=stream]
+line|z15-[waterway=ditch],
+line|z15-[waterway=drain],
+line|z15-[waterway=stream]
 {
   text: name;
   font-size: 12;
-  text-color: navy;
+  text-color: #507cea;
 }
 line|z16[waterway=stream][intermittent=yes]
 {
