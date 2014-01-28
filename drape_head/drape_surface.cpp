@@ -1,5 +1,7 @@
 #include "drape_surface.hpp"
 
+#include "../drape_frontend/viewport.hpp"
+
 #include "../drape/utils/list_generator.hpp"
 #include "../drape/shader_def.hpp"
 
@@ -60,8 +62,10 @@ void DrapeSurface::CreateEngine()
 {
   RefPointer<OGLContextFactory> f(m_contextFactory.GetRefPointer());
 
+  float pixelRatio = devicePixelRatio();
+
   m_drapeEngine = MasterPointer<df::DrapeEngine>(
-                    new df::DrapeEngine(f , devicePixelRatio(), width(), height()));
+                    new df::DrapeEngine(f , pixelRatio, df::Viewport(pixelRatio, 0, 0, width(), height())));
 
   sizeChanged(0);
 

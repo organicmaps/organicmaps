@@ -1,42 +1,40 @@
 #include "drape_engine.hpp"
 
 #include "message_subclasses.hpp"
+#include "vizualization_params.hpp"
 
 namespace df
 {
+  DrapeEngine::DrapeEngine(RefPointer<OGLContextFactory> contextfactory, double vs, Viewport const & viewport)
+  {
+    GLFunctions::Init();
+    VizualizationParams::SetVisualScale(vs);
 
-DrapeEngine::DrapeEngine(RefPointer<OGLContextFactory> contextfactory, double vs, int w, int h)
-{
-  GLFunctions::Init();
+    m_threadCommutator = MasterPointer<ThreadsCommutator>(new ThreadsCommutator());
+    RefPointer<ThreadsCommutator> commutatorRef = m_threadCommutator.GetRefPointer();
 
-  m_threadCommutator = MasterPointer<ThreadsCommutator>(new ThreadsCommutator());
+    m_frontend = MasterPointer<FrontendRenderer>(new FrontendRenderer(commutatorRef, contextfactory, viewport));
+    m_backend =  MasterPointer<BackendRenderer>(new BackendRenderer(commutatorRef, contextfactory, viewport));
+  }
 
-  m_frontend = MasterPointer<FrontendRenderer>(
-                 new FrontendRenderer(m_threadCommutator.GetRefPointer(), contextfactory, w, h));
+  DrapeEngine::~DrapeEngine()
+  {
+    m_backend.Destroy();
+    m_frontend.Destroy();
+    m_threadCommutator.Destroy();
+  }
 
-  m_backend =  MasterPointer<BackendRenderer>(
-                 new BackendRenderer(m_threadCommutator.GetRefPointer(), contextfactory, vs, w, h));
-}
+  void DrapeEngine::OnSizeChanged(int x0, int y0, int w, int h)
+  {
+    m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                    MovePointer<Message>(new ResizeMessage(x0, y0, w, h)));
+    m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                    MovePointer<Message>(new ResizeMessage(x0, y0, w, h)));
+  }
 
-DrapeEngine::~DrapeEngine()
-{
-  m_backend.Destroy();
-  m_frontend.Destroy();
-  m_threadCommutator.Destroy();
-}
-
-void DrapeEngine::OnSizeChanged(int x0, int y0, int w, int h)
-{
-  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  MovePointer<Message>(new ResizeMessage(x0, y0, w, h)));
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  MovePointer<Message>(new ResizeMessage(x0, y0, w, h)));
-}
-
-void DrapeEngine::SetAngle(float radians)
-{
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  MovePointer<Message>(new RotateMessage(radians)));
-}
-
+  void DrapeEngine::SetAngle(float radians)
+  {
+    m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                    MovePointer<Message>(new RotateMessage(radians)));
+  }
 }

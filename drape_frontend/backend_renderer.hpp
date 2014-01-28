@@ -2,6 +2,7 @@
 
 #include "message_acceptor.hpp"
 #include "engine_context.hpp"
+#include "viewport.hpp"
 
 #include "../drape/pointers.hpp"
 #include "../drape/oglcontextfactory.hpp"
@@ -24,9 +25,7 @@ namespace df
   public:
     BackendRenderer(RefPointer<ThreadsCommutator> commutator,
                     RefPointer<OGLContextFactory> oglcontextfactory,
-                    double visualScale,
-                    int surfaceWidth,
-                    int surfaceHeight);
+                    Viewport const & viewport);
 
     ~BackendRenderer();
 

@@ -12,6 +12,7 @@
 #include "threads_commutator.hpp"
 #include "tile_info.hpp"
 #include "backend_renderer.hpp"
+#include "viewport.hpp"
 
 #include "../drape/pointers.hpp"
 #include "../drape/glstate.hpp"
@@ -31,7 +32,7 @@ namespace df
   public:
     FrontendRenderer(RefPointer<ThreadsCommutator> commutator,
                      RefPointer<OGLContextFactory> oglcontextfactory,
-                     int w, int h);
+                     Viewport viewport);
 
     ~FrontendRenderer();
 
@@ -85,7 +86,6 @@ namespace df
     tile_data_t   m_tileData;
 
     UniformValuesStorage m_generalUniforms;
-    int m_width;
-    int m_height;
+    Viewport m_viewport;
   };
 }

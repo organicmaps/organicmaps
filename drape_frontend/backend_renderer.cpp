@@ -1,6 +1,7 @@
 #include "backend_renderer.hpp"
 #include "read_manager.hpp"
 #include "batchers_pool.hpp"
+#include "vizualization_params.hpp"
 
 #include "threads_commutator.hpp"
 #include "message_subclasses.hpp"
@@ -12,12 +13,21 @@
 
 namespace df
 {
+  namespace
+  {
+    ScalesProcessor CreateScaleProcessor(Viewport const & v)
+    {
+      ScalesProcessor p;
+      int tileSize = ScalesProcessor::CalculateTileSize(v.GetWidth(), v.GetHeight());
+      p.SetParams(df::VizualizationParams::GetVisualScale(), tileSize);
+      return p;
+    }
+  }
+
   BackendRenderer::BackendRenderer(RefPointer<ThreadsCommutator> commutator,
                                    RefPointer<OGLContextFactory> oglcontextfactory,
-                                   double visualScale,
-                                   int surfaceWidth,
-                                   int surfaceHeight)
-    : m_engineContext(commutator)
+                                   Viewport const & viewport)
+    : m_engineContext(commutator, CreateScaleProcessor(viewport))
     , m_commutator(commutator)
     , m_contextFactory(oglcontextfactory)
   {
@@ -32,7 +42,7 @@ namespace df
 
     m_commutator->RegisterThread(ThreadsCommutator::ResourceUploadThread, this);
     m_batchersPool.Reset(new BatchersPool(ReadManager::ReadCount(), bind(&BackendRenderer::PostToRenderThreads, this, _1)));
-    m_readManager.Reset(new ReadManager(visualScale, surfaceWidth, surfaceHeight, m_engineContext, m_model));
+    m_readManager.Reset(new ReadManager(m_engineContext, m_model));
 
     StartThread();
   }

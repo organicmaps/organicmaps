@@ -13,12 +13,11 @@ namespace df
 {
   FrontendRenderer::FrontendRenderer(RefPointer<ThreadsCommutator> commutator,
                                      RefPointer<OGLContextFactory> oglcontextfactory,
-                                     int w, int h)
+                                     Viewport viewport)
     : m_commutator(commutator)
     , m_gpuProgramManager(new GpuProgramManager())
     , m_contextFactory(oglcontextfactory)
-    , m_width(w)
-    , m_height(h)
+    , m_viewport(viewport)
   {
 #ifdef DRAW_INFO
     m_tpf = 0,0;
@@ -26,7 +25,7 @@ namespace df
 #endif
 
     m_commutator->RegisterThread(ThreadsCommutator::RenderThread, this);
-    RefreshProjection(w, h);
+    RefreshProjection(viewport.GetWidth(), viewport.GetHeight());
     RefreshModelView(0);
     StartThread();
   }
@@ -67,7 +66,6 @@ namespace df
   {
     switch (message->GetType())
     {
-
     case Message::FlushTile:
       {
         FlushTileMessage * msg = static_cast<FlushTileMessage *>(message.GetRaw());
@@ -81,7 +79,6 @@ namespace df
         m_tileData.insert(make_pair(key, renderIterator));
         break;
       }
-
     case Message::DropTiles:
       {
         CoverageUpdateDescriptor const & descr = static_cast<DropTilesMessage *>(message.GetRaw())->GetDescriptor();
@@ -119,7 +116,7 @@ namespace df
         RotateMessage * rtMsg = static_cast<RotateMessage *>(message.GetRaw());
         RefreshModelView(rtMsg->GetDstAngle());
 
-        ScreenBase screen(m2::RectI(0, 0, m_width, m_height),
+        ScreenBase screen(m2::RectI(0, 0, m_viewport.GetWidth(), m_viewport.GetHeight()),
                           m2::AnyRectD(m2::PointD(0, 0), ang::AngleD(rtMsg->GetDstAngle()),
                                        m2::RectD(0 ,0, 50, 50)));
 
@@ -139,11 +136,11 @@ namespace df
     {
       memset(m, 0, 16 * sizeof(float));
       m[0]  = 2.0f / (right - left);
-      m[4]  = - (right + left) / (right - left);
+      m[3]  = - (right + left) / (right - left);
       m[5]  = 2.0f / (top - bottom);
-      m[9]  = - (top + bottom) / (top - bottom);
+      m[7]  = - (top + bottom) / (top - bottom);
       m[10] = -2.0f / (far - near);
-      m[14] = - (far + near) / (far - near);
+      m[11] = - (far + near) / (far - near);
       m[15] = 1.0;
     }
   }
@@ -154,7 +151,7 @@ namespace df
     BeforeDrawFrame();
 #endif
 
-    GLFunctions::glViewport(0, 0, m_width, m_height);
+    m_viewport.Apply();
     GLFunctions::glClearColor(0.65f, 0.65f, 0.65f, 1.f);
     GLFunctions::glClear();
 
@@ -167,20 +164,17 @@ namespace df
 
   void FrontendRenderer::RefreshProjection(int w, int h)
   {
-    if (w == 0)
-      w = 1;
+    ASSERT(w >= 0, ());
+    ASSERT(h >= 0, ());
 
-    m_height = h;
-    m_width = w;
+    if (h < 2) h = 2;
+    if (w < 2) w = 2;
 
-    float aspect = h / (float)w;
+    m_viewport.SetViewport(0, 0, w, h);
+
     float m[4*4];
 
-    if (w >= h)
-      OrthoMatrix(m, -2.f/aspect, 2.f/aspect, -2.f, 2.f, -2.f, 2.f);
-    else
-      OrthoMatrix(m, -2.f, 2.f, -2.f*aspect, 2.f*aspect, -2.f, 2.f);
-
+    OrthoMatrix(m, 0.0f, w, h, 0.0f, -2.f, 2.f);
     m_generalUniforms.SetMatrix4x4Value("projection", m);
   }
 
