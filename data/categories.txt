@@ -1851,3 +1851,20 @@ zh:1渡船|運輸
 pl:2prom|transport
 pt:2balsa|transporte
 hu:2komp|közlekedés
+
+waterway-waterfall|natural-waterfall
+en:2waterfall|sights
+cs:2vodopád|pamětihodnosti
+de:2Wasserfall|Sehenswürdigkeit
+es:3cascada|turismo
+fr:3cascade|site touristique
+it:3cascata|turistico
+ja:滝|観光
+ko:1폭포|관광
+nl:2waterval|toerisme
+ru:2водопад|достопримечательность
+uk:2водоспад|пам’ятні місця
+zh:1瀑布|旅遊景點
+pl:2wodospad|osobliwości miasta
+pt:2cachoeira|vistas
+hu:2vízesés|látnivaló
