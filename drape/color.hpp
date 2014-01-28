@@ -21,6 +21,7 @@ inline uint8_t ExtractGreen(uint32_t argb);
 inline uint8_t ExtractBlue(uint32_t argb);
 inline uint8_t ExtractAlfa(uint32_t argb);
 Color Extract(uint32_t argb);
+Color Extract(uint32_t xrgb, uint8_t a);
 void  Convert(Color const & c, float & r, float & g, float & b, float & a);
 
 

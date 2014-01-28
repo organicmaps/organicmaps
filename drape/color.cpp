@@ -69,6 +69,14 @@ Color Extract(uint32_t argb)
                ExtractAlfa(argb));
 }
 
+Color Extract(uint32_t xrgb, uint8_t a)
+{
+  return Color(ExtractRed(xrgb),
+               ExtractGreen(xrgb),
+               ExtractBlue(xrgb),
+               a);
+}
+
 void Convert(Color const & c, float & r, float & g, float & b, float & a)
 {
   r = c.m_red / (float)MaxChannelValue;
