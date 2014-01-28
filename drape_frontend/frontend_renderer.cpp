@@ -152,7 +152,7 @@ namespace df
 #endif
 
     m_viewport.Apply();
-    GLFunctions::glClearColor(0.65f, 0.65f, 0.65f, 1.f);
+    GLFunctions::glClearColor(0.93f, 0.93f, 0.86f, 1.f);
     GLFunctions::glClear();
 
     for_each(m_renderData.begin(), m_renderData.end(), bind(&FrontendRenderer::RenderPartImpl, this, _1));
@@ -174,7 +174,7 @@ namespace df
 
     float m[4*4];
 
-    OrthoMatrix(m, 0.0f, w, h, 0.0f, -2.f, 2.f);
+    OrthoMatrix(m, 0.0f, w, h, 0.0f, -20000.0f, 20000.0f);
     m_generalUniforms.SetMatrix4x4Value("projection", m);
   }
 

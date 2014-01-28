@@ -2,15 +2,22 @@
 #include "stylist.hpp"
 #include "shape_view_params.hpp"
 #include "engine_context.hpp"
+#include "vizualization_params.hpp"
 
 #include "line_shape.hpp"
+#include "area_shape.hpp"
 
 #include "../indexer/drules_include.hpp"
 #include "../indexer/feature.hpp"
+#include "../indexer/feature_algo.hpp"
+#include "../indexer/drawing_rules.hpp"
 
 #include "../map/geometry_processors.hpp"
 
 #include "../base/assert.hpp"
+
+#include "../std/vector.hpp"
+#include "../std/bind.hpp"
 
 namespace df
 {
@@ -21,13 +28,11 @@ namespace df
       return Extract(src, 255 - (src >> 24));
     }
 
-    // ==================================================== //
     void Extract(::LineDefProto const * lineRule,
-                 double visualScale,
                  df::LineViewParams & params)
     {
       params.m_color = ToDrapeColor(lineRule->color());
-      params.m_width = max(lineRule->width() * visualScale, 1.0);
+      params.m_width = max(lineRule->width() * df::VizualizationParams::GetVisualScale(), 1.0);
 
       switch(lineRule->cap())
       {
@@ -54,6 +59,112 @@ namespace df
       }
     }
   }
+
+  // ============================================= //
+
+  namespace
+  {
+    class TrianglesFunctor
+    {
+    public:
+      TrianglesFunctor(ScreenBase const & convertor, vector<m2::PointF> & triangles)
+        : m_convertor(convertor)
+        , m_triangles(triangles)
+      {
+      }
+
+      void operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+      {
+        m2::PointF points[3] = { m_convertor.GtoP(p1), m_convertor.GtoP(p2), m_convertor.GtoP(p3) };
+        m2::RectF r(points[0], points[1]);
+        r.Add(points[2]);
+
+        double const eps = 1.0;
+        if (r.SizeX() < eps && r.SizeY() < 1.0)
+          return;
+
+        m_triangles.push_back(points[0]);
+        m_triangles.push_back(points[1]);
+        m_triangles.push_back(points[2]);
+      }
+
+    private:
+      ScreenBase const & m_convertor;
+      vector<m2::PointF> & m_triangles;
+    };
+
+    class ApplyAreaFeature
+    {
+    public:
+      ApplyAreaFeature(EngineContext & context,
+                       TileKey tileKey,
+                       vector<m2::PointF> & triangles)
+        : m_context(context)
+        , m_tileKey(tileKey)
+        , m_triangles(triangles)
+        , m_hasCenter(false)
+      {
+      }
+
+      void SetCenter(m2::PointF const & center) { m_center = center; }
+
+      void ProcessRule(Stylist::rule_wrapper_t const & rule)
+      {
+        drule::BaseRule const * pRule = rule.first;
+        double const depth = rule.second;
+
+        AreaRuleProto const * areaRule = pRule->GetArea();
+
+        if (areaRule)
+        {
+          AreaShape * shape = new AreaShape(ToDrapeColor(areaRule->color()), depth);
+          for (size_t i = 0; i < m_triangles.size(); i += 3)
+            shape->AddTriangle(m_triangles[i], m_triangles[i + 1], m_triangles[i + 2]);
+
+          m_context.InsertShape(m_tileKey, MovePointer<MapShape>(shape));
+        }
+        else
+        {
+          SymbolRuleProto const * symRule =  pRule->GetSymbol();
+          if (symRule)
+          {
+            m_symbolDepth = depth;
+            m_symbolRule  = symRule;
+          }
+
+          CircleRuleProto const * circleRule = pRule->GetCircle();
+          if (circleRule)
+          {
+            m_circleDepth = depth;
+            m_circleRule  = circleRule;
+          }
+        }
+      }
+
+      void Finish()
+      {
+        if (!m_hasCenter)
+          return;
+
+        // TODO
+        // create symbol or circle of symbol with circle
+      }
+
+    private:
+      EngineContext & m_context;
+      TileKey m_tileKey;
+      vector<m2::PointF> m_triangles;
+      bool m_hasCenter;
+      m2::PointF m_center;
+
+      double m_symbolDepth;
+      double m_circleDepth;
+      CircleRuleProto const * m_circleRule;
+      SymbolRuleProto const * m_symbolRule;
+    };
+  }
+
+  // ==================================================== //
 
   RuleDrawer::RuleDrawer(drawer_callback_fn const & fn, const TileKey & tileKey, EngineContext & context)
     : m_callback(fn)
@@ -88,18 +199,19 @@ namespace df
     }
 #endif
 
-    using namespace  gp;
     if (s.AreaStyleExists())
     {
-      typedef filter_screenpts_adapter<area_tess_points> functor_t;
+      vector<m2::PointF> triangles;
 
-      functor_t::params p;
-      p.m_convertor = & m_geometryConvertor;
-      p.m_rect = & m_globalRect;
+      TrianglesFunctor fun(m_geometryConvertor, triangles);
+      f.ForEachTriangleRef(fun, m_tileKey.m_zoomLevel);
 
-      functor_t fun(p);
-      f.ForEachTriangleExRef(fun, m_tileKey.m_zoomLevel);
-      list<di::AreaInfo> & info = fun.m_points;
+      ApplyAreaFeature apply(m_context, m_tileKey, triangles);
+      if (s.PointStyleExists())
+        apply.SetCenter(feature::GetCenter(f, m_tileKey.m_zoomLevel));
+
+      s.ForEachRule(bind(&ApplyAreaFeature::ProcessRule, &apply, _1));
+      apply.Finish();
     }
   }
 }
