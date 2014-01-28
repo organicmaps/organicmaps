@@ -75,7 +75,7 @@ void CategoriesHolder::LoadFromStream(istream & s)
   {
     ++lineNumber;
     getline(s, line);
-    strings::SimpleTokenizer iter(line, ":|");
+    strings::SimpleTokenizer iter(line, state == EParseTypes ? "|" : ":|");
 
     switch (state)
     {
