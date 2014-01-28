@@ -58,6 +58,8 @@ namespace df
     typedef function<void (rule_wrapper_t const &)> rule_callback_t;
     void ForEachRule(rule_callback_t const & fn);
 
+    bool IsEmpty() const;
+
   private:
     friend bool InitStylist(FeatureType const &,
                             int const,

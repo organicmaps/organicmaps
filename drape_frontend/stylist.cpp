@@ -6,6 +6,8 @@
 #include "../indexer/drules_include.hpp"
 #include "../indexer/scales.hpp"
 
+#include "../std/bind.hpp"
+
 namespace df
 {
   namespace
@@ -80,7 +82,12 @@ namespace df
                  int const zoomLevel,
                  int const keyCount,
                  bool isNameExists)
-        : m_f(f)
+        : m_pointStyleFinded(false)
+        , m_lineStyleFinded(false)
+        , m_iconFinded(false)
+        , m_captionWithoutOffsetFinded(false)
+        , m_auxCaptionFinded(false)
+        , m_f(f)
         , m_geomType(type)
         , m_zoomLevel(zoomLevel)
         , m_isNameExists(isNameExists)
@@ -89,7 +96,7 @@ namespace df
         Init();
       }
 
-      void operator() (drule::Key const & key)
+      void ProcessKey(drule::Key const & key)
       {
         double depth = key.m_priority;
         if (IsMiddleTunnel(m_depthLayer, depth) &&
@@ -127,13 +134,12 @@ namespace df
     private:
       void Init()
       {
-        m_population = m_f.GetPopulation();
         m_depthLayer = m_f.GetLayer();
         if (m_depthLayer == feature::LAYER_TRANSPARENT_TUNNEL)
           m_depthLayer = feature::LAYER_EMPTY;
 
         if (m_geomType == feature::GEOM_POINT)
-          m_priorityModifier = m_population / 7E9;
+          m_priorityModifier = (double)m_f.GetPopulation() / 7E9;
         else
         {
           m2::RectD const r = m_f.GetLimitRect(m_zoomLevel);
@@ -148,7 +154,6 @@ namespace df
       bool const m_isNameExists;
       double m_priorityModifier;
       int m_depthLayer;
-      uint32_t m_population;
     };
 
     const uint8_t CoastlineFlag  = 1;
@@ -274,6 +279,11 @@ namespace df
       fn(*it);
   }
 
+  bool Stylist::IsEmpty() const
+  {
+    return m_rules.empty();
+  }
+
   void Stylist::RaiseCoastlineFlag()
   {
     m_state |= CoastlineFlag;
@@ -336,7 +346,7 @@ namespace df
     descr.Init(f, zoomLevel);
 
     KeyFunctor keyFunctor(f, mainGeomType, zoomLevel, keys.size(), descr.IsNameExists());
-    for_each(keys.begin(), keys.end(), keyFunctor);
+    for_each(keys.begin(), keys.end(), bind(&KeyFunctor::ProcessKey, &keyFunctor, _1));
 
     s.m_rules.swap(keyFunctor.m_rules);
     descr.FormatCaptions(f, mainGeomType, keyFunctor.m_auxCaptionFinded);
