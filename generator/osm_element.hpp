@@ -419,7 +419,7 @@ protected:
                 string const s = params.m_streetAddress + "|" +  params.house.Get() + "|"
                     + strings::to_string(MercatorBounds::YToLat(p.y)) + "|"
                     + strings::to_string(MercatorBounds::XToLon(p.x)) + '\n';
-                FileWriter writer = FileWriter(GetPlatform().WritableDir() + "/adresses.txt", FileWriter::OP_APPEND, false);
+                FileWriter writer = FileWriter(GetPlatform().WritableDir() + "adresses.txt", FileWriter::OP_APPEND, false);
                 writer.Write(s.c_str(), s.size());
               }
               base_type::m_emitter(f);
@@ -496,7 +496,7 @@ protected:
         string const s = fValue.m_streetAddress + "|" +  fValue.house.Get() + "|"
             + strings::to_string(MercatorBounds::YToLat(p.y)) + "|"
             + strings::to_string(MercatorBounds::XToLon(p.x)) + '\n';
-        FileWriter writer = FileWriter(GetPlatform().WritableDir() + "/adresses.txt", FileWriter::OP_APPEND, false);
+        FileWriter writer = FileWriter(GetPlatform().WritableDir() + "adresses.txt", FileWriter::OP_APPEND, false);
         writer.Write(s.c_str(), s.size());
       }
       // add osm id for debugging
