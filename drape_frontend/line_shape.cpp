@@ -7,9 +7,9 @@
 
 #include "../base/math.hpp"
 #include "../base/logging.hpp"
+#include "../base/stl_add.hpp"
 
 #include "../std/algorithm.hpp"
-#include "../base/stl_add.hpp"
 
 namespace df
 {
@@ -57,7 +57,7 @@ namespace df
   void LineShape::Draw(RefPointer<Batcher> batcher) const
   {
     vector<Point3D> renderPoints;
-    vector<m2::PointF> renderNormals;
+    vector<Point3D> renderNormals;
 
     const float hw = GetWidth() / 2.0f;
     typedef m2::PointF vec2;
@@ -88,18 +88,12 @@ namespace df
           continue;
       }
 
-      vec2 normal(-segment.y, segment.x);
-      ASSERT(my::AlmostEqual(m2::DotProduct(normal, segment), 0.f), ());
-
-      normal = normal.Normalize()*hw;
-      ASSERT(!normal.IsAlmostZero(), (i, normal, start, end, segment));
-
-
       ToPoint3DFunctor convertTo3d(m_depth);
       const Point3D start3d = convertTo3d(start);
       const Point3D end3d = convertTo3d(end);
-      const m2::PointF normalPos = normal;
-      const m2::PointF normalNeg = -normal;
+      convertTo3d.SetThirdComponent(hw);
+      const Point3D normalPos = convertTo3d(segment);
+      const Point3D normalNeg = convertTo3d(-segment);
 
       renderPoints.push_back(start3d);
       renderPoints.push_back(start3d);
@@ -137,8 +131,8 @@ namespace df
     {
       BindingInfo normalInfo(1);
       BindingDecl & decl = normalInfo.GetBindingDecl(0);
-      decl.m_attributeName = "normal";
-      decl.m_componentCount = 2;
+      decl.m_attributeName = "direction";
+      decl.m_componentCount = 3;
       decl.m_componentType = GLConst::GLFloatType;
       decl.m_offset = 0;
       decl.m_stride = 0;

@@ -1,10 +1,13 @@
 attribute highp vec4 position;
-attribute highp vec4 normal;
+attribute highp vec4 direction;
 
 uniform highp mat4 modelView;
 uniform highp mat4 projection;
 
 void main(void)
 {
-    gl_Position = (position + normal) * modelView * projection;
+  float width = direction.z;
+  vec4 n = vec4(-direction.y, direction.x, 0, 0);
+  vec4 pn = normalize(n * modelView) * width;
+  gl_Position = (pn + position * modelView) * projection;
 }

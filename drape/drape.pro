@@ -24,4 +24,5 @@ OTHER_FILES += \
     shaders/solid_area_fragment_shader.fsh \
     shaders/texturing_vertex_shader.vsh \
     shaders/shader_index.txt \
-    shaders/texturing_fragment_shader.fsh
+    shaders/texturing_fragment_shader.fsh \
+    shaders/line_vertex_shader.vsh

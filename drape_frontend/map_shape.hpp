@@ -25,17 +25,22 @@ namespace df
 
   struct ToPoint3DFunctor
   {
-    ToPoint3DFunctor(float depth)
-      : m_depth(depth)
+    ToPoint3DFunctor(float thirdComponent)
+      : m_thirdComponent(thirdComponent)
     {}
 
     Point3D operator ()(m2::PointF const & p)
     {
-      return Point3D(p.x, p.y, m_depth);
+      return Point3D(p.x, p.y, m_thirdComponent);
+    }
+
+    void SetThirdComponent(float c)
+    {
+      m_thirdComponent = c;
     }
 
   private:
-    float m_depth;
+    float m_thirdComponent;
   };
   ///
 
