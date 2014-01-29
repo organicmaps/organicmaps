@@ -11,6 +11,7 @@
 #include "../house_detector.hpp"
 
 #include "../../std/iostream.hpp"
+#include "../../std/fstream.hpp"
 
 UNIT_TEST(LESS_WITH_EPSILON)
 {
@@ -266,4 +267,96 @@ UNIT_TEST(HOUSE_COMPARE_TEST)
   TEST(!LessHouseNumber(search::House("18b", p), search::House("18a", p)), ());
   TEST(!LessHouseNumber(search::House("120 7A", p), search::House("120 1A", p)), ());
   TEST(!LessHouseNumber(search::House("120 7B", p), search::House("120 1A", p)), ());
+}
+
+UNIT_TEST(VNG_TEST)
+{
+  search::House h1("32", m2::PointD(1,1));
+  search::House h2("32А", m2::PointD(1,1));
+  if (search::House::LessHouseNumber()(&h1, &h2))
+    cout << "Success" << endl;
+}
+
+bool cmp(double a, double b)
+{
+  return fabs(a - b) <= 1e-4;
+}
+
+UNIT_TEST(ALGORITHM_TEST)
+{
+  string const path = GetPlatform().WritableDir() + "adresses.txt";
+  ifstream file(path.c_str());
+  if (!file.good())
+  {
+    TEST(false, ("Can't open file"));
+    return;
+  }
+  string line;
+  Index index;
+  m2::RectD rect;
+  index.Add("my_minsk.mwm", rect);
+  int all = 0;
+  int matched = 0;
+  set <string> strset;
+
+  vector <string> match;
+  vector <string> not_match;
+  while (file.good())
+  {
+    getline(file, line);
+    if (line.empty())
+      continue;
+    vector<string> v;
+    strings::Tokenize(line, "|", MakeBackInsertFunctor(v));
+    vector <string> houseNumber;
+    //House number is in v[1], sometime it contains house name
+    strings::Tokenize(v[1], ",", MakeBackInsertFunctor(houseNumber));
+    v[1] = houseNumber[0];
+    if (strset.find(v[0] + v[1]) != strset.end())
+      continue;
+    strset.insert(v[0]+v[1]);
+    ++all;
+
+    search::HouseDetector houser(&index);
+    Process toDo;
+    toDo.streetNames.push_back(v[0]);
+    index.ForEachInScale(toDo, scales::GetUpperScale());
+    houser.LoadStreets(toDo.GetFeatureIDs());
+
+    houser.MergeStreets();
+    houser.ReadAllHouses(200);
+    vector<search::House const *> houses;
+    houser.GetHouseForName(v[1], houses);
+    if (houses.empty())
+    {
+      cout << "Empty " << v[0] << " " << v[1]  << endl;
+      continue;
+    }
+    double lon;
+    strings::to_double(v[2], lon);
+    double lat;
+    strings::to_double(v[3], lat);
+
+    bool flag = false;
+    for (size_t i = 0; i < houses.size(); ++i)
+    {
+      m2::PointD p = houses[i]->GetPosition();
+      p.x = MercatorBounds::XToLon(p.x);
+      p.y = MercatorBounds::YToLat(p.y);
+      if (!cmp(p.x, lat) || !cmp(p.y, lon))
+      {
+        cout << v[0] << " " << v[1] << endl;
+        continue;
+      }
+      flag = true;
+      match.push_back(v[0] + " " + v[1]);
+      cout << "Matched" << " " << v[0] + " " + v[1] << endl;
+      break;
+    }
+    if (!flag)
+      not_match.push_back(v[0] + " " + v[1]);
+  }
+  cout << match.size() << " "<< not_match.size() << endl;
+  cout << all << " " << double(match.size()) / double(match.size() + not_match.size()) << endl;
+
 }
