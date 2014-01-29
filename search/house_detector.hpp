@@ -54,6 +54,8 @@ public:
   {
     bool operator() (House const * h1, House const * h2) const
     {
+      if (h1->m_startN == h2->m_startN)
+        return h1->GetNumber() < h2->GetNumber();
       return (h1->m_startN < h2->m_startN);
     }
   };
