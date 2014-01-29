@@ -26,7 +26,12 @@ namespace df
 
     m_commutator->RegisterThread(ThreadsCommutator::RenderThread, this);
     RefreshProjection(viewport.GetWidth(), viewport.GetHeight());
-    RefreshModelView(0);
+
+    m_modelView.OnSize(viewport.GetX0(), viewport.GetY0(), viewport.GetWidth(), viewport.GetHeight());
+    m2::RectD rect(-174, -95, 174, 95);
+    m_modelView.SetFromRect(m2::AnyRectD(m2::PointD(0, 0), ang::AngleD(0), rect));
+
+    RefreshModelView();
     StartThread();
   }
 
@@ -107,21 +112,24 @@ namespace df
     case Message::Resize:
       {
         ResizeMessage * rszMsg = static_cast<ResizeMessage *>(message.GetRaw());
-        RefreshProjection(rszMsg->GetRect().SizeX(), rszMsg->GetRect().SizeY());
+        m2::RectI const & rect = rszMsg->GetRect();
+        int32_t sizeX = rect.SizeX();
+        int32_t sizeY = rect.SizeY();
+        m_modelView.OnSize(0, 0, sizeX, sizeY);
+        RefreshProjection(sizeX, sizeY);
+        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  MovePointer<Message>(new UpdateCoverageMessage(m_modelView)));
         break;
       }
 
     case Message::Rotate:
       {
         RotateMessage * rtMsg = static_cast<RotateMessage *>(message.GetRaw());
-        RefreshModelView(rtMsg->GetDstAngle());
-
-        ScreenBase screen(m2::RectI(0, 0, m_viewport.GetWidth(), m_viewport.GetHeight()),
-                          m2::AnyRectD(m2::PointD(0, 0), ang::AngleD(rtMsg->GetDstAngle()),
-                                       m2::RectD(0 ,0, 50, 50)));
+        m_modelView.Rotate(rtMsg->GetDstAngle());
+        RefreshModelView();
 
         m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  MovePointer<Message>(new UpdateCoverageMessage(screen)));
+                                  MovePointer<Message>(new UpdateCoverageMessage(m_modelView)));
         break;
       }
 
@@ -178,19 +186,19 @@ namespace df
     m_generalUniforms.SetMatrix4x4Value("projection", m);
   }
 
-  void FrontendRenderer::RefreshModelView(float radians)
+  void FrontendRenderer::RefreshModelView()
   {
-    float c = cos(radians);
-    float s = sin(radians);
-    float model[16] =
-    {
-      c,  -s,   0.0, 0.0,
-      s,   c,   0.0, 0.0,
-      0.0, 0.0, 1.0, 0.0,
-      0.0, 0.0, 0.0, 1.0
-    };
+    ScreenBase::MatrixT const & m = m_modelView.GtoPMatrix();
+    math::Matrix<float, 4, 4> mv;
 
-    m_generalUniforms.SetMatrix4x4Value("modelView", model);
+    /// preparing ModelView matrix
+
+    mv(0, 0) = m(0, 0); mv(0, 1) = m(1, 0); mv(0, 2) = 0; mv(0, 3) = m(2, 0);
+    mv(1, 0) = m(0, 1); mv(1, 1) = m(1, 1); mv(1, 2) = 0; mv(1, 3) = m(2, 1);
+    mv(2, 0) = 0;       mv(2, 1) = 0;       mv(2, 2) = 1; mv(2, 3) = 0;
+    mv(3, 0) = m(0, 2); mv(3, 1) = m(1, 2); mv(3, 2) = 0; mv(3, 3) = m(2, 2);
+
+    m_generalUniforms.SetMatrix4x4Value("modelView", mv.m_data);
   }
 
   void FrontendRenderer::RenderPartImpl(pair<const GLState, MasterPointer<VertexArrayBuffer> > & node)

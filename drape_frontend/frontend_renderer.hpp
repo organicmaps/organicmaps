@@ -22,6 +22,8 @@
 
 #include "../drape/uniform_values_storage.hpp"
 
+#include "../geometry/screenbase.hpp"
+
 #include "../std/map.hpp"
 
 namespace df
@@ -55,7 +57,7 @@ namespace df
   private:
     void RenderScene();
     void RefreshProjection(int w, int h);
-    void RefreshModelView(float radians);
+    void RefreshModelView();
 
     void RenderPartImpl(pair<const GLState, MasterPointer<VertexArrayBuffer> > & node);
 
@@ -87,5 +89,6 @@ namespace df
 
     UniformValuesStorage m_generalUniforms;
     Viewport m_viewport;
+    ScreenBase m_modelView;
   };
 }

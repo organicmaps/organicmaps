@@ -26,8 +26,6 @@ namespace df
 
   void DrapeEngine::OnSizeChanged(int x0, int y0, int w, int h)
   {
-    m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                    MovePointer<Message>(new ResizeMessage(x0, y0, w, h)));
     m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                     MovePointer<Message>(new ResizeMessage(x0, y0, w, h)));
   }

@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
   , m_surface(NULL)
 {
-  resize(600, 400);
+  resize(1200, 800);
   DrapeSurface * surface = new DrapeSurface();
   m_surface = QWidget::createWindowContainer(surface, this);
   setCentralWidget(m_surface);

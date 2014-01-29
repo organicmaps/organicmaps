@@ -90,11 +90,6 @@ namespace df
     m_currentViewport = screen;
   }
 
-  void ReadManager::Resize(const m2::RectI & rect)
-  {
-    m_currentViewport.OnSize(rect);
-  }
-
   void ReadManager::Stop()
   {
     for_each(m_tileInfos.begin(), m_tileInfos.end(), bind(&ReadManager::CancelTileInfo, this, _1));

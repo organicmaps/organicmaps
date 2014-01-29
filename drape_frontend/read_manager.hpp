@@ -29,7 +29,6 @@ namespace df
     ReadManager(EngineContext & context, model::FeaturesFetcher & model);
 
     void UpdateCoverage(ScreenBase const & screen, CoverageUpdateDescriptor & updateDescr);
-    void Resize(m2::RectI const & rect);
     void Stop();
 
     static size_t ReadCount();

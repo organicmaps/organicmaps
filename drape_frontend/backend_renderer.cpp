@@ -69,9 +69,6 @@ namespace df
           PostToRenderThreads(MovePointer<Message>(new DropTilesMessage(descr)));
       }
       break;
-    case Message::Resize:
-      m_readManager->Resize(static_cast<ResizeMessage *>(message.GetRaw())->GetRect());
-      break;
     case Message::TileReadStarted:
     case Message::TileReadEnded:
     case Message::MapShapeReaded:
