@@ -58,9 +58,7 @@ namespace df
     vector<size_t> indexes;
     RequestFeatures(memIndex, indexes);
 
-    // TODO remove m_key == TileKey(1, 0, 3) when tile position on
-    // display will be calculated in frontend_renderer
-    if (!indexes.empty() && m_key == TileKey(1,0,3))
+    if (!indexes.empty())
     {
       context.BeginReadTile(m_key);
       vector<FeatureID> featuresToRead;

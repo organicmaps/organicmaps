@@ -67,29 +67,19 @@ namespace df
     class TrianglesFunctor
     {
     public:
-      TrianglesFunctor(ScreenBase const & convertor, vector<m2::PointF> & triangles)
-        : m_convertor(convertor)
-        , m_triangles(triangles)
+      TrianglesFunctor(vector<m2::PointF> & triangles)
+        : m_triangles(triangles)
       {
       }
 
       void operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
       {
-        m2::PointF points[3] = { m_convertor.GtoP(p1), m_convertor.GtoP(p2), m_convertor.GtoP(p3) };
-        m2::RectF r(points[0], points[1]);
-        r.Add(points[2]);
-
-        double const eps = 1.0;
-        if (r.SizeX() < eps && r.SizeY() < 1.0)
-          return;
-
-        m_triangles.push_back(points[0]);
-        m_triangles.push_back(points[1]);
-        m_triangles.push_back(points[2]);
+        m_triangles.push_back(p1);
+        m_triangles.push_back(p2);
+        m_triangles.push_back(p3);
       }
 
     private:
-      ScreenBase const & m_convertor;
       vector<m2::PointF> & m_triangles;
     };
 
@@ -203,7 +193,7 @@ namespace df
     {
       vector<m2::PointF> triangles;
 
-      TrianglesFunctor fun(m_geometryConvertor, triangles);
+      TrianglesFunctor fun(triangles);
       f.ForEachTriangleRef(fun, m_tileKey.m_zoomLevel);
 
       ApplyAreaFeature apply(m_context, m_tileKey, triangles);
