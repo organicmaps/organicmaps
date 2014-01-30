@@ -543,7 +543,7 @@ void Query::FlushResults(Results & res, void (Results::*pAddFn)(Result const &))
     if (m_houseDetector.LoadStreets(streets) > 0)
       m_houseDetector.MergeStreets();
 
-    m_houseDetector.ReadAllHouses(200);
+    m_houseDetector.ReadAllHouses(500);
 
     vector<search::House const *> houses;
     m_houseDetector.GetHouseForName(strings::ToUtf8(m_house), houses);

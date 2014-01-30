@@ -13,6 +13,7 @@
 
 #include "../std/set.hpp"
 #include "../std/bind.hpp"
+#include "../std/numeric.hpp"
 
 #ifdef DEBUG
 #include "../platform/platform.hpp"
@@ -778,6 +779,265 @@ House const * GetClosestHouse(vector<Street *> const & st, string const & houseN
   return st[streetIndex]->m_houses[houseIndex].m_house;
 }
 
+struct HouseCompetitors
+{
+  House const * house;
+  double score;
+  HouseCompetitors(House const * h, double s):house(h), score(s)
+  {}
+  HouseCompetitors():house(0),score(numeric_limits<double>::max())
+  {}
+};
+
+void addToQueue(int houseNumber, queue <int> & q)
+{
+  q.push(houseNumber + 2);
+  if (houseNumber - 2 > 0)
+    q.push(houseNumber - 2);
+  if (houseNumber - 4 > 0)
+    q.push(houseNumber - 4);
+  q.push(houseNumber + 4);
+}
+
+bool cmpProj(HouseProjection const & p1, HouseProjection const & p2)
+{
+  return p1.m_distance < p2.m_distance;
+}
+
+struct HouseChain
+{
+  vector <HouseProjection> houses;
+  set <string> s;
+  double score;
+  int minHouseNumber;
+  int maxHouseNumber;
+
+  HouseChain()
+  {
+    minHouseNumber = -1;
+    maxHouseNumber = numeric_limits<int>::max();
+  }
+
+  HouseChain(HouseProjection const & h)
+  {
+    minHouseNumber = maxHouseNumber = h.m_house->GetIntNumber();
+    Add(h);
+  }
+
+  void Add(HouseProjection const & h)
+  {
+    if (s.find(h.m_house->GetNumber()) == s.end())
+    {
+      int num = h.m_house->GetIntNumber();
+      if (num < minHouseNumber)
+        minHouseNumber = num;
+      if (num > maxHouseNumber)
+        maxHouseNumber = num;
+      houses.push_back(h);
+      s.insert(h.m_house->GetNumber());
+    }
+  }
+
+  bool Find(string const & str)
+  {
+    return (s.find(str) != s.end());
+  }
+
+  void CountScore()
+  {
+    sort(houses.begin(), houses.end(), &cmpProj);
+    size_t s = min((int)houses.size(), 3);
+    for (size_t i = 0; i < s; ++i)
+      score += houses[i].m_distance;
+    score /= s;
+  }
+
+  bool operator<(HouseChain const & p) const
+  {
+    return score < p.score;
+  }
+};
+
+const int maxHouseNumberDistance = 4;
+const double maxHouseConnectionDistance = 300.0;
+
+HouseCompetitors GetBestHouseFromChains(vector<HouseChain> & houseChains, string const & houseNumber)
+{
+  for (size_t i = 0; i < houseChains.size(); ++i)
+    houseChains[i].CountScore();
+  sort(houseChains.begin(), houseChains.end());
+
+  for (size_t i = 1; i < houseChains.size(); ++i)
+  {
+    bool shouldConcatinateHouseChains = true;
+    //do something clever
+    if (houseChains[i].score >= 300)
+      break;
+    if (houseChains[0].minHouseNumber > houseChains[i].maxHouseNumber || houseChains[0].maxHouseNumber < houseChains[i].minHouseNumber)
+      for (size_t j = 0; j < houseChains[i].houses.size(); ++j)
+      {
+        if (houseChains[0].Find(houseChains[i].houses[j].m_house->GetNumber()))
+        {
+          shouldConcatinateHouseChains = false;
+          break;
+        }
+      }
+
+    if (shouldConcatinateHouseChains)
+      for (size_t j = 0; j < houseChains[i].houses.size(); ++j)
+        houseChains[0].Add(houseChains[i].houses[j]);
+  }
+
+  for (size_t j = 0; j < houseChains[0].houses.size(); ++j)
+    if (houseNumber == houseChains[0].houses[j].m_house->GetNumber())
+      return HouseCompetitors(houseChains[0].houses[j].m_house, houseChains[0].score);
+  return HouseCompetitors(0, numeric_limits<double>::max());
+}
+
+
+HouseCompetitors ProccessHouses(vector<search::HouseProjection> const & st, string const &  houseNumber)
+{
+  vector <HouseChain> houseChains;
+  vector <bool> used(st.size(), false);
+  size_t numberOfStreetHouses = used.size();
+  for (size_t i = 0; i < st.size(); ++i)
+  {
+    HouseProjection hp = st[i];
+    if (st[i].m_house->GetNumber() == houseNumber)
+    {
+      houseChains.push_back(HouseChain(hp));
+      used[i] = true;
+      --numberOfStreetHouses;
+    }
+  }
+  if (houseChains.empty())
+    return HouseCompetitors();
+
+  queue <int> houseNumbersToCheck;
+  addToQueue(houseChains[0].houses[0].m_house->GetIntNumber(), houseNumbersToCheck);
+  while (numberOfStreetHouses > 0)
+  {
+    if (!houseNumbersToCheck.empty())
+    {
+      int candidateHouseNumber = houseNumbersToCheck.front();
+      houseNumbersToCheck.pop();
+      vector <int> candidates;
+      for (size_t i = 0; i < used.size(); ++i)
+        if (!used[i] && st[i].m_house->GetIntNumber() == candidateHouseNumber)
+          candidates.push_back(i);
+      int numberOfCandidates = candidates.size();
+
+      bool shouldAddHouseToQueue = false;
+
+      while (numberOfCandidates > 0)
+      {
+        double dist = numeric_limits<double>::max();
+        int candidateIndex = -1;
+        int chainIndex = -1;
+        for (size_t i = 0; i < candidates.size(); ++i)
+        {
+          string num = st[candidates[i]].m_house->GetNumber();
+          if (!used[candidates[i]])
+          {
+            for (size_t j = 0; j < houseChains.size(); ++j)
+              for (size_t k = 0; k < houseChains[j].houses.size(); ++k)
+                if (!houseChains[j].Find(num) &&
+                    abs(houseChains[j].houses[k].m_house->GetIntNumber() - candidateHouseNumber) <= maxHouseNumberDistance)
+                {
+                  double tmp = GetDistanceMeters(houseChains[j].houses[k].m_house->GetPosition(), st[candidates[i]].m_house->GetPosition());
+                  double roadDist = houseChains[j].houses[k].m_distance + st[candidates[i]].m_distance;
+                  if (tmp < maxHouseConnectionDistance && tmp + roadDist < dist)
+                  {
+                    dist = tmp + roadDist;
+                    chainIndex = j;
+                    candidateIndex = i;
+                  }
+                }
+          }
+        }
+        if (chainIndex != -1)
+        {
+          houseChains[chainIndex].Add(st[candidates[candidateIndex]]);
+          shouldAddHouseToQueue = true;
+        }
+        else
+        {
+          for (size_t i = 0; i < candidates.size(); ++i)
+            if (!used[candidates[i]])
+            {
+              houseChains.push_back(HouseChain(st[candidates[i]]));
+              used[candidates[i]] = true;
+              --numberOfStreetHouses;
+              break;
+            }
+          numberOfCandidates = 0;
+          break;
+        }
+
+        used[candidates[candidateIndex]] = true;
+        --numberOfStreetHouses;
+        --numberOfCandidates;
+      }
+      if (shouldAddHouseToQueue)
+        addToQueue(candidateHouseNumber, houseNumbersToCheck);
+    }
+    else
+    {
+      for (size_t i = 0; i < used.size(); ++i)
+      {
+        if (!used[i])
+        {
+          houseChains.push_back(HouseChain(st[i]));
+          --numberOfStreetHouses;
+          used[i] = true;
+          addToQueue(st[i].m_house->GetIntNumber(), houseNumbersToCheck);
+          break;
+        }
+      }
+    }
+  }
+
+  return GetBestHouseFromChains(houseChains, houseNumber);
+}
+
+House const * GetBestHouseWithNumber(vector<Street *> const & st, string const & houseNumber, bool isOdd, bool sign)
+{
+  double maxScore = numeric_limits <double>::max();
+  HouseCompetitors result(0, maxScore);
+
+  for (size_t i = 0; i < st.size(); ++i)
+  {
+    map<m2::PointD, HouseProjection> filter;
+    for (size_t j = 0; j < st[i]->m_houses.size(); ++j)
+    {
+      map<m2::PointD, HouseProjection>::iterator it = filter.find(st[i]->m_houses[j].m_house->GetPosition());
+      if (it == filter.end())
+        filter[st[i]->m_houses[j].m_house->GetPosition()] = st[i]->m_houses[j];
+      else if (it->second.m_distance > st[i]->m_houses[j].m_distance)
+        it->second = st[i]->m_houses[j];
+    }
+
+    vector<search::HouseProjection> left, right;
+    for (map<m2::PointD, HouseProjection>::iterator it = filter.begin(); it != filter.end(); ++it)
+    {
+      if (it->second.m_projectionSign == sign && it->second.m_house->GetIntNumber() % 2 == isOdd)
+        right.push_back(it->second);
+      else if (it->second.m_projectionSign != sign && it->second.m_house->GetIntNumber() % 2 != isOdd)
+        left.push_back(it->second);
+    }
+
+    HouseCompetitors tmp = ProccessHouses(right, houseNumber);
+    if (tmp.score < result.score)
+      result = tmp;
+    tmp = ProccessHouses(left, houseNumber);
+    if (tmp.score < result.score)
+      result = tmp;
+  }
+  if (result.score != maxScore)
+    return result.house;
+  return 0;
+}
+
 House const * GetLSHouse(vector<search::Street *> const & st, string const & houseNumber,
                          bool & isOdd, bool & sign, HouseMapT & m)
 {
@@ -853,9 +1113,15 @@ void HouseDetector::GetHouseForName(string const & houseNumber, vector<House con
 
     bool isOdd, sign;
     HouseMapT m;
-    House const * house = GetLSHouse(m_streets[i], houseNumber, isOdd, sign, m);
-    if (house == 0)
-      house = GetClosestHouse(m_streets[i], houseNumber, isOdd, sign);
+    /*House const * house = */ GetLSHouse(m_streets[i], houseNumber, isOdd, sign, m);
+//    if (house == 0)
+//      house = GetClosestHouse(m_streets[i], houseNumber, isOdd, sign);
+//    if (house)
+    House const * house = GetBestHouseWithNumber(m_streets[i], houseNumber, isOdd, sign);
+//    if (house == 0)
+//      house = GetLSHouse(m_streets[i], houseNumber, isOdd, sign, m);
+//    if (house == 0)
+//       house = GetClosestHouse(m_streets[i], houseNumber, isOdd, sign);
     if (house)
       res.push_back(house);
   }

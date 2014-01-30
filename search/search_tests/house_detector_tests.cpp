@@ -296,7 +296,6 @@ UNIT_TEST(ALGORITHM_TEST)
   m2::RectD rect;
   index.Add("my_minsk.mwm", rect);
   int all = 0;
-  int matched = 0;
   set <string> strset;
 
   vector <string> match;
@@ -329,7 +328,7 @@ UNIT_TEST(ALGORITHM_TEST)
     houser.GetHouseForName(v[1], houses);
     if (houses.empty())
     {
-      cout << "Empty " << v[0] << " " << v[1]  << endl;
+      LOG(LINFO, ("Empty", v[0], v[1]));
       continue;
     }
     double lon;
@@ -345,18 +344,20 @@ UNIT_TEST(ALGORITHM_TEST)
       p.y = MercatorBounds::YToLat(p.y);
       if (!cmp(p.x, lat) || !cmp(p.y, lon))
       {
-        cout << v[0] << " " << v[1] << endl;
         continue;
       }
       flag = true;
       match.push_back(v[0] + " " + v[1]);
-      cout << "Matched" << " " << v[0] + " " + v[1] << endl;
       break;
     }
     if (!flag)
+    {
       not_match.push_back(v[0] + " " + v[1]);
+      LOG(LINFO, ("No match", v[0], v[1]));//, lat, lon, p.x, p.y));
+    }
   }
-  cout << match.size() << " "<< not_match.size() << endl;
-  cout << all << " " << double(match.size()) / double(match.size() + not_match.size()) << endl;
+  LOG(LINFO,  (match.size(), not_match.size(), all - match.size() - not_match.size()));
+  double t = double(match.size()) / double(all);
+  LOG(LINFO,  (all, t));
 
 }
