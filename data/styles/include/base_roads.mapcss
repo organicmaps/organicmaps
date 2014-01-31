@@ -329,7 +329,7 @@ line|z14[highway=unclassified],
 line|z14[highway=living_street]
 {
   color: white;
-  width: 3;
+  width: 2;
   casing-color: #c8c8af;
 }
 line|z14[highway=tertiary]
