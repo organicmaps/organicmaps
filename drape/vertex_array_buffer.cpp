@@ -60,7 +60,7 @@ void VertexArrayBuffer::Build(RefPointer<GpuProgram> program)
   BindBuffers();
 }
 
-RefPointer<GLBuffer> VertexArrayBuffer::GetBuffer(const BindingInfo & bindingInfo)
+RefPointer<GPUBuffer> VertexArrayBuffer::GetBuffer(const BindingInfo & bindingInfo)
 {
   buffers_map_t::iterator it = m_buffers.find(bindingInfo);
   if (it == m_buffers.end())
@@ -106,6 +106,11 @@ uint16_t VertexArrayBuffer::GetStartIndexValue() const
 #endif
 
   return m_buffers.begin()->second->GetCurrentSize();
+}
+
+bool VertexArrayBuffer::IsFilled() const
+{
+  return GetAvailableIndexCount() < 3 || GetAvailableVertexCount() < 3;
 }
 
 void VertexArrayBuffer::UploadIndexes(uint16_t * data, uint16_t count)

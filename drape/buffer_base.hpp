@@ -1,0 +1,23 @@
+#pragma once
+
+#include "../std/stdint.hpp"
+
+class BufferBase
+{
+public:
+  BufferBase(uint8_t elementSize, uint16_t capacity);
+
+  uint16_t GetCapacity() const;
+  uint16_t GetCurrentSize() const;
+  uint16_t GetAvailableSize() const;
+
+protected:
+  uint8_t GetElementSize() const;
+  void Seek(uint16_t elementNumber);
+  void UploadData(uint16_t elementCount);
+
+private:
+  uint8_t m_elementSize;
+  uint16_t m_capacity;
+  uint16_t m_size;
+};

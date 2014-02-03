@@ -15,14 +15,16 @@ SOURCES += \
     $$DRAPE_DIR/gpu_program_manager.cpp \
     $$DRAPE_DIR/glconstants.cpp \
     $$DRAPE_DIR/glstate.cpp \
-    $$DRAPE_DIR/glbuffer.cpp \
+    $$DRAPE_DIR/gpu_buffer.cpp \
     $$DRAPE_DIR/utils/list_generator.cpp \
     $$DRAPE_DIR/shader_def.cpp \
     $$DRAPE_DIR/glextensions_list.cpp \
     $$DRAPE_DIR/pointers.cpp \
     $$DRAPE_DIR/uniform_values_storage.cpp \
     $$DRAPE_DIR/color.cpp \
-    $$DRAPE_DIR/oglcontextfactory.cpp
+    $$DRAPE_DIR/oglcontextfactory.cpp \
+    $$DRAPE_DIR/buffer_base.cpp \
+    $$DRAPE_DIR/cpu_buffer.cpp
 
 HEADERS += \
     $$DRAPE_DIR/data_buffer.hpp \
@@ -41,11 +43,13 @@ HEADERS += \
     $$DRAPE_DIR/glIncludes.hpp \
     $$DRAPE_DIR/glconstants.hpp \
     $$DRAPE_DIR/glfunctions.hpp \
-    $$DRAPE_DIR/glbuffer.hpp \
+    $$DRAPE_DIR/gpu_buffer.hpp \
     $$DRAPE_DIR/utils/list_generator.hpp \
     $$DRAPE_DIR/shader_def.hpp \
     $$DRAPE_DIR/glextensions_list.hpp \
     $$DRAPE_DIR/oglcontext.hpp \
     $$DRAPE_DIR/uniform_values_storage.hpp \
     $$DRAPE_DIR/color.hpp \
-    $$DRAPE_DIR/oglcontextfactory.hpp
+    $$DRAPE_DIR/oglcontextfactory.hpp \
+    $$DRAPE_DIR/buffer_base.hpp \
+    $$DRAPE_DIR/cpu_buffer.hpp

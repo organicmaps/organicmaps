@@ -22,11 +22,12 @@ public:
   void Build(RefPointer<GpuProgram> program);
   ///@}
 
-  RefPointer<GLBuffer> GetBuffer(const BindingInfo & bindingInfo);
+  RefPointer<GPUBuffer> GetBuffer(const BindingInfo & bindingInfo);
 
   uint16_t GetAvailableVertexCount() const;
   uint16_t GetAvailableIndexCount() const;
   uint16_t GetStartIndexValue() const;
+  bool IsFilled() const;
   void UploadIndexes(uint16_t * data, uint16_t count);
 
 private:

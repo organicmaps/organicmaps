@@ -2,7 +2,7 @@
 
 #include "glmock_functions.hpp"
 
-#include "../glbuffer.hpp"
+#include "../gpu_buffer.hpp"
 #include "../data_buffer.hpp"
 #include "../index_buffer.hpp"
 
@@ -22,7 +22,7 @@ UNIT_TEST(CreateDestroyDataBufferTest)
   EXPECTGL(glBufferData(GLConst::GLArrayBuffer, 3 * 100 * sizeof(float), NULL, GLConst::GLStaticDraw));
   EXPECTGL(glDeleteBuffer(1));
 
-  GLBuffer * buffer = new DataBuffer(3 * sizeof(float), 100);
+  GPUBuffer * buffer = new DataBuffer(3 * sizeof(float), 100);
   delete buffer;
 }
 
@@ -34,7 +34,7 @@ UNIT_TEST(CreateDestroyIndexBufferTest)
   EXPECTGL(glBufferData(GLConst::GLElementArrayBuffer, 100 * sizeof(uint16_t), NULL, GLConst::GLStaticDraw));
   EXPECTGL(glDeleteBuffer(1));
 
-  GLBuffer * buffer = new IndexBuffer(100);
+  GPUBuffer * buffer = new IndexBuffer(100);
   delete buffer;
 }
 
@@ -52,7 +52,7 @@ UNIT_TEST(UploadDataTest)
   EXPECTGL(glBufferSubData(GLConst::GLArrayBuffer, 3 * 100 * sizeof(float), data, 0));
   EXPECTGL(glDeleteBuffer(1));
 
-  GLBuffer * buffer = new GLBuffer(GLBuffer::ElementBuffer, 3 * sizeof(float), 100);
+  GPUBuffer * buffer = new GPUBuffer(GPUBuffer::ElementBuffer, 3 * sizeof(float), 100);
   buffer->UploadData(data, 100);
   delete buffer;
 }
@@ -77,7 +77,7 @@ UNIT_TEST(ParticalUploadDataTest)
   EXPECTGL(glBufferSubData(GLConst::GLArrayBuffer, 3 * 70 * sizeof(float), part2Data, 3 * 30 * sizeof(float)));
   EXPECTGL(glDeleteBuffer(1));
 
-  GLBuffer * buffer = new GLBuffer(GLBuffer::ElementBuffer, 3 * sizeof(float), 100);
+  GPUBuffer * buffer = new GPUBuffer(GPUBuffer::ElementBuffer, 3 * sizeof(float), 100);
   TEST_EQUAL(buffer->GetCapacity(), 100, ());
   TEST_EQUAL(buffer->GetAvailableSize(), 100, ());
   TEST_EQUAL(buffer->GetCurrentSize(), 0, ());

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "glbuffer.hpp"
+#include "gpu_buffer.hpp"
 
-class DataBuffer : public GLBuffer
+class DataBuffer : public GPUBuffer
 {
 public:
   DataBuffer(uint8_t elementSize, uint16_t capacity);

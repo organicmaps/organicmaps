@@ -1,8 +1,8 @@
 #pragma once
 
-#include "glbuffer.hpp"
+#include "gpu_buffer.hpp"
 
-class IndexBuffer : public GLBuffer
+class IndexBuffer : public GPUBuffer
 {
 public:
   IndexBuffer(uint16_t capacity);
