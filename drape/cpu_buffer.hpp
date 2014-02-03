@@ -18,7 +18,7 @@ public:
   void Seek(uint16_t elementNumber);
   // Check function. In real world use must use it only in assert
   uint16_t GetCurrentElementNumber() const;
-  unsigned char * GetBufferBegin() const;
+  const unsigned char * Data() const;
 
 private:
   unsigned char * GetCursor() const;
@@ -26,5 +26,4 @@ private:
 private:
   unsigned char * m_memoryCursor;
   shared_ptr<vector<unsigned char> > m_memory;
-  uint32_t m_memorySize;
 };

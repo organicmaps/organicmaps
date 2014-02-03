@@ -165,7 +165,7 @@ void Batcher::InsertTriangleList(const GLState & state, RefPointer<AttributeProv
 
     vector<uint16_t> indexes;
     indexes.resize(vertexCount);
-    std::generate(indexes.begin(), indexes.end(), ListIndexGenerator(buffer->GetStartIndexValue()));
+    generate(indexes.begin(), indexes.end(), ListIndexGenerator(buffer->GetStartIndexValue()));
     buffer->UploadIndexes(&indexes[0], vertexCount);
 
     /// upload data from params to GPU buffers
@@ -222,6 +222,25 @@ void Batcher::InsertTriangleStrip(const GLState & state, RefPointer<AttributePro
   }
 }
 
+
+/*
+ * What happens here
+ *
+ * We try to pack TriangleFan on GPU indexed like triangle list.
+ * If we have enough memory in VertexArrayBuffer to store all data from params, we just copy it
+ *
+ * If we have not enough memory we broke data on parts.
+ * On first iteration we create CPUBuffer for each separate atribute
+ * in params and copy to it first vertex of fan. This vertex will be need
+ * when we will upload second part of data.
+ *
+ * Than we copy vertex data on GPU as much as we can and move params cursor on
+ * "uploaded vertex count" - 1. This last vertex will be used for uploading next part of data
+ *
+ * On second iteration we need upload first vertex of fan that stored in cpuBuffers and than upload
+ * second part of data. But to avoid 2 separate call of glBufferSubData we at first do a copy of
+ * data from params to cpuBuffer and than copy continuous block of memory from cpuBuffer
+ */
 void Batcher::InsertTriangleFan(const GLState & state, RefPointer<AttributeProvider> params)
 {
   vector<CPUBuffer> cpuBuffers;
@@ -243,10 +262,12 @@ void Batcher::InsertTriangleFan(const GLState & state, RefPointer<AttributeProvi
 
     if (!cpuBuffers.empty())
     {
-      // if m_cpuBuffer not empty than on previous interation we not pack all attributes on gpu
-      // and in m_cpuBuffers stored first vertex of fan.
-      // We need to copy next part of data into cpu buffer
-      // and than copy it into gpu memory with first vertex of fan
+      // if cpuBuffers not empty than on previous interation we not move data on gpu
+      // and in cpuBuffers stored first vertex of fan.
+      // To avoid two separate call of glBufferSubData
+      // (for first vertex and for next part of data)
+      // we at first copy next part of data into
+      // cpuBuffers, and than copy it from cpuBuffers to GPU
       for (size_t i = 0; i < params->GetStreamCount(); ++i)
       {
         CPUBuffer & cpuBuffer = cpuBuffers[i];
@@ -254,9 +275,10 @@ void Batcher::InsertTriangleFan(const GLState & state, RefPointer<AttributeProvi
         cpuBuffer.UploadData(params->GetRawPointer(i), vertexCount);
 
         RefPointer<GPUBuffer> streamBuffer = buffer->GetBuffer(params->GetBindingInfo(i));
-        // copy on gpu all vertexes that we copy into cpuBuffer on this iteration
-        // and first vertex of fan
-        streamBuffer->UploadData(cpuBuffer.GetBufferBegin(), vertexCount + 1);
+        // now in cpuBuffer we have correct "fan" created from second part of data
+        // first vertex of cpuBuffer if the first vertex of params, second vertex is
+        // the last vertex of previous uploaded data. We copy this data on GPU.
+        streamBuffer->UploadData(cpuBuffer.Data(), vertexCount + 1);
 
         // Move cpu buffer cursor on second element of buffer.
         // On next iteration first vertex of fan will be also available
@@ -290,8 +312,8 @@ void Batcher::InsertTriangleFan(const GLState & state, RefPointer<AttributeProvi
       else
       {
         // for each stream we must create CPU buffer.
-        // Copy to it first vertex of fan
-        // than we need upload first part of data on gpu
+        // Copy first vertex of fan into cpuBuffer for next iterations
+        // Than move first part of data on GPU
         cpuBuffers.reserve(params->GetStreamCount());
         for (size_t i = 0; i < params->GetStreamCount(); ++i)
         {
