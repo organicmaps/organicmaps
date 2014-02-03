@@ -8,7 +8,7 @@
 
 #include "../drape_frontend/viewport.hpp"
 
-#include <map>
+#include "../std/map.hpp"
 
 namespace df
 {
