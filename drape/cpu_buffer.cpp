@@ -9,7 +9,7 @@ CPUBuffer::CPUBuffer(uint8_t elementSize, uint16_t capacity)
 {
   uint32_t memorySize = my::NextPowOf2(GetCapacity() * GetElementSize());
   m_memory = SharedBufferManager::instance().reserveSharedBuffer(memorySize);
-  m_memoryCursor = Data();
+  m_memoryCursor = NonConstData();
 }
 
 CPUBuffer::~CPUBuffer()
@@ -35,7 +35,7 @@ void CPUBuffer::Seek(uint16_t elementNumber)
   uint32_t offsetFromBegin = GetElementSize() * elementNumber;
   ASSERT(Data() + offsetFromBegin <= Data() + m_memory->size(), ());
   base_t::Seek(elementNumber);
-  m_memoryCursor = Data() + offsetFromBegin;
+  m_memoryCursor = NonConstData() + offsetFromBegin;
 }
 
 uint16_t CPUBuffer::GetCurrentElementNumber() const
@@ -46,6 +46,11 @@ uint16_t CPUBuffer::GetCurrentElementNumber() const
 }
 
 const unsigned char * CPUBuffer::Data() const
+{
+  return &((*m_memory)[0]);
+}
+
+unsigned char * CPUBuffer::NonConstData()
 {
   return &((*m_memory)[0]);
 }

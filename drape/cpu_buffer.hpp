@@ -21,6 +21,7 @@ public:
   const unsigned char * Data() const;
 
 private:
+  unsigned char * NonConstData();
   unsigned char * GetCursor() const;
 
 private:
