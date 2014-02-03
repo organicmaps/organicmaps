@@ -23,12 +23,9 @@ public:
   void EndSession();
 
 private:
-  template <typename strategy>
-  void InsertTriangles(const GLState & state, strategy s, RefPointer<AttributeProvider> params);
-
   RefPointer<VertexArrayBuffer> GetBuffer(const GLState & state);
   /// return true if GLBuffer is finished
-  bool UploadBufferData(RefPointer<GLBuffer> vertexBuffer, RefPointer<AttributeProvider> params);
+  bool UploadBufferData(RefPointer<GPUBuffer> vertexBuffer, RefPointer<AttributeProvider> params);
   void FinalizeBuffer(const GLState & state);
   void Flush();
 

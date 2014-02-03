@@ -1,22 +1,22 @@
 #include "batcher.hpp"
+#include "cpu_buffer.hpp"
+
 #include "../base/assert.hpp"
 
 #include "../std/utility.hpp"
 
 namespace
 {
-  struct BaseStrategy
+  const uint32_t AllocateIndexCount = 3000;
+  const uint32_t AllocateVertexCount = 3000;
+
+  class IndexGenerator
   {
   public:
-    BaseStrategy()
-      : m_startIndex(0)
+    IndexGenerator(uint16_t startIndex)
+      : m_startIndex(startIndex)
       , m_counter(0)
     {
-    }
-
-    void SetStartIndex(uint16_t startIndex)
-    {
-      m_startIndex = startIndex;
     }
 
   protected:
@@ -25,21 +25,18 @@ namespace
       return m_counter++;
     }
 
-    uint16_t m_startIndex;
+    const uint16_t m_startIndex;
+
+  private:
     uint16_t m_counter;
   };
 
-  struct TrianglesListStrategy : public BaseStrategy
+  class ListIndexGenerator : public IndexGenerator
   {
   public:
-    uint16_t GetIndexCount(uint16_t vertexCount) const
+    ListIndexGenerator(uint16_t startIndex)
+      : IndexGenerator(startIndex)
     {
-      return vertexCount;
-    }
-
-    uint16_t GetVertexCount(uint16_t indexCount) const
-    {
-      return indexCount;
     }
 
     uint16_t operator()()
@@ -48,17 +45,12 @@ namespace
     }
   };
 
-  struct TrianglesStripStrategy : public BaseStrategy
+  class StripIndexGenerator : public IndexGenerator
   {
   public:
-    uint16_t GetIndexCount(uint16_t vertexCount) const
+    StripIndexGenerator(uint16_t startIndex)
+      : IndexGenerator(startIndex)
     {
-      return 3* (vertexCount - 2);
-    }
-
-    uint16_t GetVertexCount(uint16_t indexCount) const
-    {
-      return (indexCount / 3) + 2;
     }
 
     uint16_t operator()()
@@ -68,17 +60,12 @@ namespace
     }
   };
 
-  struct TrianglesFanStrategy : public BaseStrategy
+  class FanIndexGenerator : public IndexGenerator
   {
   public:
-    uint16_t GetIndexCount(uint16_t vertexCount) const
+    FanIndexGenerator(uint16_t startIndex)
+      : IndexGenerator(startIndex)
     {
-      return 3* (vertexCount - 2);
-    }
-
-    uint16_t GetVertexCount(uint16_t indexCount) const
-    {
-      return (indexCount / 3) + 2;
     }
 
     uint16_t operator()()
@@ -88,6 +75,62 @@ namespace
         return m_startIndex;
       return m_startIndex + counter - 2 * (counter / 3);
     }
+  };
+
+  class InsertHelper
+  {
+  public:
+    InsertHelper(RefPointer<AttributeProvider> params, RefPointer<VertexArrayBuffer> buffer)
+      : m_params(params)
+      , m_buffer(buffer)
+    {
+    }
+
+    void GetUploadStripFanParams(uint16_t & resultVertexCount, uint16_t & resultIndexCount)
+    {
+      uint16_t vertexCount = m_params->GetVertexCount();
+      uint16_t indexCount = VertexToIndexCount(vertexCount);
+      resultVertexCount = vertexCount;
+      resultIndexCount = VertexToIndexCount(vertexCount);
+
+      uint16_t availableVertexCount = m_buffer->GetAvailableVertexCount();
+      uint16_t availableIndexCount = m_buffer->GetAvailableIndexCount();
+
+      if (vertexCount > availableVertexCount || indexCount > availableIndexCount)
+      {
+        uint32_t indexCountForAvailableVertexCount = VertexToIndexCount(availableVertexCount);
+        if (indexCountForAvailableVertexCount >= availableIndexCount)
+        {
+          resultVertexCount = availableVertexCount;
+          resultIndexCount = indexCountForAvailableVertexCount;
+        }
+        else
+        {
+          resultIndexCount = availableIndexCount - availableIndexCount % 3;
+          resultVertexCount = IndexToVertexCount(resultIndexCount);
+        }
+      }
+    }
+
+    bool IsFullDataUploaded(uint16_t vertexCount)
+    {
+      return m_params->GetVertexCount() == vertexCount;
+    }
+
+  private:
+    uint32_t VertexToIndexCount(uint32_t vertexCount)
+    {
+      return 3 * (vertexCount - 2);
+    }
+
+    uint32_t IndexToVertexCount(uint32_t indexCount)
+    {
+      return indexCount / 3 + 2;
+    }
+
+  private:
+    RefPointer<AttributeProvider> m_params;
+    RefPointer<VertexArrayBuffer> m_buffer;
   };
 }
 
@@ -102,67 +145,178 @@ Batcher::~Batcher()
     it->second.Destroy();
 }
 
-template <typename strategy>
-void Batcher::InsertTriangles(const GLState & state, strategy s, RefPointer<AttributeProvider> params)
+void Batcher::InsertTriangleList(const GLState & state, RefPointer<AttributeProvider> params)
 {
   while (params->IsDataExists())
   {
     uint16_t vertexCount = params->GetVertexCount();
-    uint16_t indexCount = s.GetIndexCount(vertexCount);
 
     RefPointer<VertexArrayBuffer> buffer = GetBuffer(state);
+    ASSERT(!buffer->IsFilled(), ("Buffer must be filnalized on previous iteration"));
+
     uint16_t availableVertexCount = buffer->GetAvailableVertexCount();
     uint16_t availableIndexCount = buffer->GetAvailableIndexCount();
+    vertexCount = min(vertexCount, availableVertexCount);
+    vertexCount = min(vertexCount, availableIndexCount);
 
-    ASSERT(availableIndexCount != 0, ("Buffer must be filnalized on previous iteration"));
-    ASSERT(availableVertexCount != 0, ("Buffer must be filnalized on previous iteration"));
+    ASSERT(vertexCount >= 3, ());
 
-    if (vertexCount > availableVertexCount || indexCount > availableIndexCount)
-    {
-      if (s.GetIndexCount(availableVertexCount) <= availableIndexCount)
-        vertexCount = availableVertexCount;
-      else
-        vertexCount = s.GetVertexCount(availableIndexCount);
+    vertexCount -= vertexCount % 3;
 
-      indexCount = s.GetIndexCount(vertexCount);
-    }
-
-    /// generate indexes
-    uint16_t startIndexValue = buffer->GetStartIndexValue();
-    s.SetStartIndex(startIndexValue);
     vector<uint16_t> indexes;
-    indexes.resize(indexCount);
-    std::generate(indexes.begin(), indexes.end(), s);
-
-    buffer->UploadIndexes(&indexes[0], indexCount);
+    indexes.resize(vertexCount);
+    std::generate(indexes.begin(), indexes.end(), ListIndexGenerator(buffer->GetStartIndexValue()));
+    buffer->UploadIndexes(&indexes[0], vertexCount);
 
     /// upload data from params to GPU buffers
     for (size_t i = 0; i < params->GetStreamCount(); ++i)
     {
-      RefPointer<GLBuffer> streamBuffer = buffer->GetBuffer(params->GetBindingInfo(i));
+      RefPointer<GPUBuffer> streamBuffer = buffer->GetBuffer(params->GetBindingInfo(i));
       streamBuffer->UploadData(params->GetRawPointer(i), vertexCount);
     }
 
     params->Advance(vertexCount);
-    if (!(buffer->GetAvailableIndexCount() > 3 &&
-          buffer->GetAvailableVertexCount() > 3))
+    if (buffer->IsFilled())
+    {
+      buffer = RefPointer<VertexArrayBuffer>();
       FinalizeBuffer(state);
+    }
   }
-}
-
-void Batcher::InsertTriangleList(const GLState & state, RefPointer<AttributeProvider> params)
-{
-  InsertTriangles(state, TrianglesListStrategy(), params);
 }
 
 void Batcher::InsertTriangleStrip(const GLState & state, RefPointer<AttributeProvider> params)
 {
-  InsertTriangles(state, TrianglesStripStrategy(), params);
+  while (params->IsDataExists())
+  {
+    RefPointer<VertexArrayBuffer> buffer = GetBuffer(state);
+    ASSERT(!buffer->IsFilled(), ("Buffer must be filnalized on previous iteration"));
+
+    InsertHelper helper(params, buffer);
+
+    uint16_t vertexCount, indexCount;
+    helper.GetUploadStripFanParams(vertexCount, indexCount);
+
+    // generate indexes
+    vector<uint16_t> indexes;
+    indexes.resize(indexCount);
+    generate(indexes.begin(), indexes.end(), StripIndexGenerator(buffer->GetStartIndexValue()));
+    buffer->UploadIndexes(&indexes[0], indexCount);
+
+    for (size_t i = 0; i < params->GetStreamCount(); ++i)
+    {
+      RefPointer<GPUBuffer> streamBuffer = buffer->GetBuffer(params->GetBindingInfo(i));
+      streamBuffer->UploadData(params->GetRawPointer(i), vertexCount);
+    }
+
+    if (helper.IsFullDataUploaded(vertexCount))
+      params->Advance(vertexCount);
+    else
+      // uploadVertexCount - 2 for copy last 2 vertex into next VAO as this is TriangleStrip
+      params->Advance(vertexCount - 2);
+
+    if (buffer->IsFilled())
+    {
+      buffer = RefPointer<VertexArrayBuffer>();
+      FinalizeBuffer(state);
+    }
+  }
 }
 
 void Batcher::InsertTriangleFan(const GLState & state, RefPointer<AttributeProvider> params)
 {
-  InsertTriangles(state, TrianglesFanStrategy(), params);
+  vector<CPUBuffer> cpuBuffers;
+  while (params->IsDataExists())
+  {
+    RefPointer<VertexArrayBuffer> buffer = GetBuffer(state);
+    ASSERT(!buffer->IsFilled(), ("Buffer must be filnalized on previous iteration"));
+
+    InsertHelper helper(params, buffer);
+
+    uint16_t vertexCount, indexCount;
+    helper.GetUploadStripFanParams(vertexCount, indexCount);
+
+    // generate indexes
+    vector<uint16_t> indexes;
+    indexes.resize(indexCount);
+    generate(indexes.begin(), indexes.end(), FanIndexGenerator(buffer->GetStartIndexValue()));
+    buffer->UploadIndexes(&indexes[0], indexCount);
+
+    if (!cpuBuffers.empty())
+    {
+      // if m_cpuBuffer not empty than on previous interation we not pack all attributes on gpu
+      // and in m_cpuBuffers stored first vertex of fan.
+      // We need to copy next part of data into cpu buffer
+      // and than copy it into gpu memory with first vertex of fan
+      for (size_t i = 0; i < params->GetStreamCount(); ++i)
+      {
+        CPUBuffer & cpuBuffer = cpuBuffers[i];
+        ASSERT(cpuBuffer.GetCurrentElementNumber() == 1, ());
+        cpuBuffer.UploadData(params->GetRawPointer(i), vertexCount);
+
+        RefPointer<GPUBuffer> streamBuffer = buffer->GetBuffer(params->GetBindingInfo(i));
+        // copy on gpu all vertexes that we copy into cpuBuffer on this iteration
+        // and first vertex of fan
+        streamBuffer->UploadData(cpuBuffer.GetBufferBegin(), vertexCount + 1);
+
+        // Move cpu buffer cursor on second element of buffer.
+        // On next iteration first vertex of fan will be also available
+        cpuBuffer.Seek(1);
+      }
+
+      if (helper.IsFullDataUploaded(vertexCount))
+      {
+        // this means that we move all data on gpu
+        params->Advance(vertexCount);
+      }
+      else
+      {
+        // not all data was moved on gpu and last vertex of fan
+        // will need on second iteration
+        params->Advance(vertexCount - 1);
+      }
+    }
+    else // if m_cpuBuffer empty than it's first iteration
+    {
+      if (helper.IsFullDataUploaded(vertexCount))
+      {
+        // We can upload all input data as one peace. For upload we need only one iteration
+        for (size_t i = 0; i < params->GetStreamCount(); ++i)
+        {
+          RefPointer<GPUBuffer> streamBuffer = buffer->GetBuffer(params->GetBindingInfo(i));
+          streamBuffer->UploadData(params->GetRawPointer(i), vertexCount);
+        }
+        params->Advance(vertexCount);
+      }
+      else
+      {
+        // for each stream we must create CPU buffer.
+        // Copy to it first vertex of fan
+        // than we need upload first part of data on gpu
+        cpuBuffers.reserve(params->GetStreamCount());
+        for (size_t i = 0; i < params->GetStreamCount(); ++i)
+        {
+          const BindingInfo & binding = params->GetBindingInfo(i);
+          const void * rawDataPointer = params->GetRawPointer(i);
+          RefPointer<GPUBuffer> streamBuffer = buffer->GetBuffer(binding);
+          streamBuffer->UploadData(rawDataPointer, vertexCount);
+
+          cpuBuffers.push_back(CPUBuffer(binding.GetElementSize(), vertexCount));
+          CPUBuffer & cpuBuffer = cpuBuffers.back();
+          cpuBuffer.UploadData(rawDataPointer, 1);
+        }
+
+        // advance on uploadVertexCount - 1 to copy last vertex also into next VAO with
+        // first vertex of data from CPUBuffers
+        params->Advance(vertexCount - 1);
+      }
+    }
+
+    if (buffer->IsFilled())
+    {
+      buffer = RefPointer<VertexArrayBuffer>();
+      FinalizeBuffer(state);
+    }
+  }
 }
 
 void Batcher::StartSession(const flush_fn & flusher)
@@ -182,7 +336,7 @@ RefPointer<VertexArrayBuffer> Batcher::GetBuffer(const GLState & state)
   if (it != m_buckets.end())
     return it->second.GetRefPointer();
 
-  MasterPointer<VertexArrayBuffer> buffer(new VertexArrayBuffer(768, 512));
+  MasterPointer<VertexArrayBuffer> buffer(new VertexArrayBuffer(AllocateIndexCount, AllocateVertexCount));
   m_buckets.insert(make_pair(state, buffer));
   return buffer.GetRefPointer();
 }
