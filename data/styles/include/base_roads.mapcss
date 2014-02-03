@@ -408,7 +408,7 @@ line|z14[highway=road]
   color: #d0d0d0;
   width: 3.5;
 }
-line|z13-[highway=footway]
+line|z13-15[highway=footway]
 {
   color: #d0ccbc;
   width: 1;
