@@ -5,7 +5,13 @@
 #include "../drape/batcher.hpp"
 #include "../drape/gpu_program_manager.hpp"
 #include "../drape/uniform_values_storage.hpp"
-#include "../drape_frontend/drape_engine.hpp"
+
+#if defined(USE_TESTING_ENGINE)
+  #include "testing_engine.hpp"
+  #define DrapeEngine TestingEngine
+#else
+  #include "../drape_frontend/drape_engine.hpp"
+#endif
 
 #include <QtGui/QWindow>
 #include <QtCore/QTimerEvent>
