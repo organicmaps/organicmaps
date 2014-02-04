@@ -54,12 +54,16 @@ void AttributeProvider::Advance(uint16_t vertexCount)
 {
   ASSERT_LESS_OR_EQUAL(vertexCount, m_vertexCount, ());
   CHECK_STREAMS;
-  for (size_t i = 0; i < GetStreamCount(); ++i)
+
+  if (m_vertexCount != vertexCount)
   {
-    const BindingInfo & info = m_streams[i].m_binding;
-    uint32_t offset = vertexCount * info.GetElementSize();
-    void * rawPointer = m_streams[i].m_data.GetRaw();
-    m_streams[i].m_data = MakeStackRefPointer((void *)(((uint8_t *)rawPointer) + offset));
+    for (size_t i = 0; i < GetStreamCount(); ++i)
+    {
+      const BindingInfo & info = m_streams[i].m_binding;
+      uint32_t offset = vertexCount * info.GetElementSize();
+      void * rawPointer = m_streams[i].m_data.GetRaw();
+      m_streams[i].m_data = MakeStackRefPointer((void *)(((uint8_t *)rawPointer) + offset));
+    }
   }
 
   m_vertexCount -= vertexCount;
