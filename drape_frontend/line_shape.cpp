@@ -44,14 +44,8 @@ namespace df
     : m_depth(depth)
     , m_params(params)
   {
-    ASSERT(!points.empty(), ());
-    m_points.reserve(points.size());
-
-    m_points.push_back(points[0]);
-    remove_copy_if(points.begin() + 1, points.end(), back_inserter(m_points),
-                   MatchesPrevious(points[0]));
-
-    ASSERT(m_points.size() > 1, ());
+    ASSERT(points.size() > 1, ());
+    m_points = points;
   }
 
   void LineShape::Draw(RefPointer<Batcher> batcher) const
@@ -67,8 +61,6 @@ namespace df
     {
       vec2 end = m_points[i];
       vec2 segment = end - start;
-
-      ASSERT(!segment.IsAlmostZero(), ());
 
       if (i < m_points.size() - 1)
       {
