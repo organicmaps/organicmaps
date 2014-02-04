@@ -43,10 +43,14 @@
     [Flurry logEvent:eventName];
 }
 
-- (void)logInAppMessageEvent:(NSString *)eventName
+- (void)logInAppMessageEvent:(NSString *)eventName imageType:(NSString *)imageType
 {
   if (self.enabled)
-    [Flurry logEvent:eventName withParameters:@{@"Country" : [AppInfo sharedInfo].countryCode, @"Id" : [AppInfo sharedInfo].uniqueId}];
+  {
+    NSString * language = [[NSLocale preferredLanguages] firstObject];
+    AppInfo * info = [AppInfo sharedInfo];
+    [Flurry logEvent:eventName withParameters:@{@"Type": imageType, @"Country" : info.countryCode, @"Language" : language, @"Id" : info.uniqueId}];
+  }
 }
 
 - (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters

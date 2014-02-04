@@ -2,19 +2,16 @@
 #import <Foundation/Foundation.h>
 #import "Reachability.h"
 
-extern NSString * const AppFeatureMoPubInterstitial;
-extern NSString * const AppFeatureMWMProInterstitial;
-extern NSString * const AppFeatureMoPubBanner;
-extern NSString * const AppFeatureMWMProBanner;
+extern NSString * const AppFeatureInterstitial;
+extern NSString * const AppFeatureBanner;
+extern NSString * const AppFeatureProButtonOnMap;
 
 @interface AppInfo : NSObject
 
 + (instancetype)sharedInfo;
 
-- (void)setup; // call on application start
-
 - (BOOL)featureAvailable:(NSString *)featureName;
-- (id)featureValue:(NSString *)featureName forKey:(NSString *)key defaultValue:(id)defaultValue;
+- (id)featureValue:(NSString *)featureName forKey:(NSString *)key;
 
 - (NSString *)snapshot;
 
@@ -23,7 +20,7 @@ extern NSString * const AppFeatureMWMProBanner;
 @property (nonatomic, readonly) NSString * deviceInfo;
 @property (nonatomic, readonly) NSString * firmwareVersion;
 @property (nonatomic, readonly) NSString * uniqueId;
-@property (nonatomic, readonly) NSString * advertisingId;
+@property (nonatomic, readonly) NSUUID * advertisingId;
 @property (nonatomic, readonly) Reachability * reachability;
 @property (nonatomic, readonly) NSInteger launchCount;
 @property (nonatomic, readonly) NSDate * firstLaunchDate;

@@ -172,7 +172,7 @@ void InitLocalizedStrings()
   NSLog(@"application didFinishLaunchingWithOptions");
 
   [[Statistics instance] startSession];
-  [[AppInfo sharedInfo] setup];
+  [AppInfo sharedInfo]; // we call it to init -firstLaunchDate
 
   InitLocalizedStrings();
 

@@ -6,10 +6,9 @@
 #import <AdSupport/ASIdentifierManager.h>
 #include "../../../platform/settings.hpp"
 
-NSString * const AppFeatureMoPubInterstitial = @"AppFeatureMoPubInterstitial";
-NSString * const AppFeatureMWMProInterstitial = @"AppFeatureMWMProInterstitial";
-NSString * const AppFeatureMoPubBanner = @"AppFeatureMoPubBanner";
-NSString * const AppFeatureMWMProBanner = @"AppFeatureMWMProBanner";
+NSString * const AppFeatureInterstitial = @"AppFeatureInterstitial";
+NSString * const AppFeatureBanner = @"AppFeatureBanner";
+NSString * const AppFeatureProButtonOnMap = @"AppFeatureProButtonOnMap";
 
 @interface AppInfo ()
 
@@ -21,7 +20,7 @@ NSString * const AppFeatureMWMProBanner = @"AppFeatureMWMProBanner";
 @property (nonatomic) NSString * deviceInfo;
 @property (nonatomic) NSString * firmwareVersion;
 @property (nonatomic) NSString * uniqueId;
-@property (nonatomic) NSString * advertisingId;
+@property (nonatomic) NSUUID * advertisingId;
 @property (nonatomic) Reachability * reachability;
 @property (nonatomic) NSInteger launchCount;
 @property (nonatomic) NSDate * firstLaunchDate;
@@ -44,7 +43,7 @@ NSString * const AppFeatureMWMProBanner = @"AppFeatureMWMProBanner";
 - (void)update
 {
   NSString * urlString = @"http://application.server/ios/features.json";
-  NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+  NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:20];
   [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * r, NSData * d, NSError * e){
     if ([(NSHTTPURLResponse *)r statusCode] == 200)
     {
@@ -87,10 +86,10 @@ NSString * const AppFeatureMWMProBanner = @"AppFeatureMWMProBanner";
 
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
 
-  self.featuresByDefault = @{AppFeatureMoPubInterstitial : @NO,
-                             AppFeatureMWMProInterstitial : @NO,
-                             AppFeatureMoPubBanner : @NO,
-                             AppFeatureMWMProBanner : @NO};
+  self.featuresByDefault = @{AppFeatureInterstitial : @NO,
+                             AppFeatureBanner : @NO,
+                             AppFeatureProButtonOnMap : @NO,
+                            };
 
   [self update];
 
@@ -99,8 +98,6 @@ NSString * const AppFeatureMWMProBanner = @"AppFeatureMWMProBanner";
 
   return self;
 }
-
-- (void)setup {}
 
 - (BOOL)featureAvailable:(NSString *)featureName
 {
@@ -111,7 +108,7 @@ NSString * const AppFeatureMWMProBanner = @"AppFeatureMWMProBanner";
   return localizations[self.countryCode] || localizations[@"*"];
 }
 
-- (id)featureValue:(NSString *)featureName forKey:(NSString *)key defaultValue:(id)defaultValue
+- (id)featureValue:(NSString *)featureName forKey:(NSString *)key
 {
   NSDictionary * localizations = self.features[featureName];
   NSDictionary * parameters = localizations[self.countryCode];
@@ -120,7 +117,7 @@ NSString * const AppFeatureMWMProBanner = @"AppFeatureMWMProBanner";
   if (parameters && parameters[key])
     return parameters[key];
 
-  return defaultValue;
+  return nil;
 }
 
 - (NSString *)snapshot
@@ -166,9 +163,9 @@ NSString * const AppFeatureMWMProBanner = @"AppFeatureMWMProBanner";
   return _uniqueId;
 }
 
-- (NSString *)advertisingId
+- (NSUUID *)advertisingId
 {
-  return NSClassFromString(@"ASIdentifierManager") ? [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString] : nil;
+  return NSClassFromString(@"ASIdentifierManager") ? [ASIdentifierManager sharedManager].advertisingIdentifier : nil;
 }
 
 - (NSString *)countryCode
@@ -180,7 +177,7 @@ NSString * const AppFeatureMWMProBanner = @"AppFeatureMWMProBanner";
     if ([carrier.isoCountryCode length]) // if device can access sim card info
       _countryCode = [carrier.isoCountryCode uppercaseString];
     else // else, getting system country code
-      _countryCode = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
+      _countryCode = [[[NSLocale currentLocale] objectForKey:NSLocaleCountryCode] uppercaseString];
 
     std::string codeString;
     if (Settings::Get("CountryCode", codeString)) // if country code stored in settings

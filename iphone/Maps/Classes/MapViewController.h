@@ -25,8 +25,7 @@ namespace search { struct AddressInfo; }
 
   /// Temporary solution to improve long touch detection.
   m2::PointD m_touchDownPoint;
-  
-  UIPopoverController * m_popover;
+
   CGPoint m_popoverPos;
 }
 
@@ -52,5 +51,7 @@ namespace search { struct AddressInfo; }
 
 @property (weak, nonatomic) IBOutlet UIView * zoomButtonsView;
 @property (nonatomic) SideToolbar * sideToolbar;
+@property (nonatomic, strong) UIPopoverController * popoverVC;
+@property (nonatomic) UIView * fadeView;
 
 @end

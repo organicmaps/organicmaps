@@ -16,6 +16,8 @@
 #import "MPAdView.h"
 #import "Reachability.h"
 #import "AppInfo.h"
+#import "InAppMessagesManager.h"
+#import "InterstitialView.h"
 
 #import "../Settings/SettingsManager.h"
 #import "../../Common/CustomAlertView.h"
@@ -39,14 +41,12 @@
 const long long PRO_IDL = 510623322L;
 const long long LITE_IDL = 431183278L;
 
-@interface MapViewController () <SideToolbarDelegate, MPInterstitialAdControllerDelegate, MPAdViewDelegate>
+@interface MapViewController () <SideToolbarDelegate>
 
-@property (nonatomic) UIView * fadeView;
 @property (nonatomic) LocationButton * locationButton;
 @property (nonatomic) UINavigationBar * apiNavigationBar;
-@property ShareActionSheet * shareActionSheet;
-@property MPInterstitialAdController * interstitialAd;
-@property MPAdView * topBannerAd;
+@property (nonatomic) ShareActionSheet * shareActionSheet;
+@property (nonatomic) UIButton * buyButton;
 
 @end
 
@@ -511,14 +511,6 @@ const long long LITE_IDL = 431183278L;
   [self invalidate];
 }
 
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-  [self.topBannerAd rotateToOrientation:toInterfaceOrientation];
-  [UIView animateWithDuration:duration animations:^{
-    self.topBannerAd.midX = self.view.width / 2;
-  }];
-}
-
 - (void)didReceiveMemoryWarning
 {
 	GetFramework().MemoryWarning();
@@ -556,8 +548,6 @@ const long long LITE_IDL = 431183278L;
     else if (dlg_settings::ShouldShow(dlg_settings::FacebookDlg))
       [self showFacebookRatingMenu];
   }
-  [self tryToShowInterstitial];
-  [self tryToShowTopBanner];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -566,8 +556,14 @@ const long long LITE_IDL = 431183278L;
 
   [self invalidate];
 
-  [self tryToShowInterstitial];
-  [self tryToShowTopBanner];
+#ifdef OMIM_LITE
+  InAppMessagesManager * manager = [InAppMessagesManager sharedManager];
+  [manager registerController:self forMessage:InAppMessageInterstitial];
+  [manager registerController:self forMessage:InAppMessageBanner];
+
+  [manager triggerMessage:InAppMessageInterstitial];
+  [manager triggerMessage:InAppMessageBanner];
+#endif
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -588,106 +584,31 @@ const long long LITE_IDL = 431183278L;
 
   self.view.clipsToBounds = YES;
 
+#ifdef OMIM_LITE
+  AppInfo * info = [AppInfo sharedInfo];
+  if ([info featureAvailable:AppFeatureProButtonOnMap])
+  {
+    [self.view addSubview:self.buyButton];
+    self.buyButton.minX = self.locationButton.maxX - 3;
+    self.buyButton.maxY = self.view.height - 5;
+    
+    NSDictionary * texts = [info featureValue:AppFeatureProButtonOnMap forKey:@"Texts"];
+    NSString * proText = texts[[[NSLocale preferredLanguages] firstObject]];
+    if (!proText)
+      proText = texts[@"*"];
+    if (!proText)
+      proText = [NSLocalizedString(@"become_a_pro", nil) uppercaseString];
+
+    [self.buyButton setTitle:proText forState:UIControlStateNormal];
+  }
+#endif
+
   [self.view addSubview:self.apiNavigationBar];
   [self.view addSubview:self.locationButton];
   [self.view addSubview:self.fadeView];
   [self.view addSubview:self.sideToolbar];
 
   [self.sideToolbar setMenuHidden:YES animated:NO];
-
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
-}
-
-- (void)didEnterBackground:(NSNotification *)notification
-{
-#ifdef OMIM_LITE
-  if ([self.presentedViewController isKindOfClass:[MPInterstitialViewController class]])
-    [[Statistics instance] logEvent:@"Application closed while interstitial was being shown" withParameters:@{@"Country" : [AppInfo sharedInfo].countryCode}];
-#endif
-}
-
-- (void)tryToShowTopBanner
-{
-#ifdef OMIM_LITE
-  if (!self.topBannerAd && [[AppInfo sharedInfo] featureAvailable:AppFeatureBannerAd])
-  {
-    NSString * adUnitId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MoPubTopBannerAdUnitId"];
-    self.topBannerAd = [[MPAdView alloc] initWithAdUnitId:adUnitId size:MOPUB_BANNER_SIZE];
-    self.topBannerAd.delegate = self;
-    if (!SYSTEM_VERSION_IS_LESS_THAN(@"7"))
-      self.topBannerAd.minY = 20;
-    self.topBannerAd.midX = self.view.width / 2;
-    self.topBannerAd.hidden = YES;
-    [self.topBannerAd startAutomaticallyRefreshingContents];
-    [self.view insertSubview:self.topBannerAd belowSubview:self.sideToolbar];
-    [self.topBannerAd loadAd];
-  }
-#endif
-}
-
-- (void)tryToShowInterstitial
-{
-#ifdef OMIM_LITE
-  AppInfo * info = [AppInfo sharedInfo];
-  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-  NSDate * lastShowDate = [userDefaults objectForKey:@"BANNER_SHOW_TIME"];
-  NSString * periodString = [info featureValue:AppFeatureInterstitialAd forKey:@"period"];
-  NSTimeInterval period;
-  if ([periodString length])
-    period = [periodString doubleValue];
-  else
-    period = 3600;
-  BOOL showTime = lastShowDate ? [[NSDate date] timeIntervalSinceDate:lastShowDate] > period : YES;
-  if ([info featureAvailable:AppFeatureInterstitialAd] && info.launchCount >= 3 && showTime)
-  {
-    if (self.interstitialAd.ready)
-    {
-      [userDefaults setObject:[NSDate date] forKey:@"BANNER_SHOW_TIME"];
-      [userDefaults synchronize];
-      [self.interstitialAd showFromViewController:self];
-    }
-    else
-    {
-      NSString * adUnitId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MoPubInterstitialAdUnitId"];
-      self.interstitialAd = [MPInterstitialAdController interstitialAdControllerForAdUnitId:adUnitId];
-      self.interstitialAd.delegate = self;
-      [self.interstitialAd loadAd];
-    }
-  }
-#endif
-}
-
-- (void)adViewDidLoadAd:(MPAdView *)view
-{
-  view.hidden = NO;
-  view.midX = self.view.width / 2;
-  [[Statistics instance] logEvent:@"Banner loaded" withParameters:@{@"Country" : [AppInfo sharedInfo].countryCode}];
-}
-
-- (void)adViewDidFailToLoadAd:(MPAdView *)view
-{
-  view.hidden = YES;
-}
-
-- (UIViewController *)viewControllerForPresentingModalView
-{
-  return self;
-}
-
-- (void)willPresentModalViewForAd:(MPAdView *)view
-{
-  [[Statistics instance] logEvent:@"Banner tapped" withParameters:@{@"Country" : [AppInfo sharedInfo].countryCode}];
-}
-
-- (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial
-{
-  [interstitial showFromViewController:self];
-  [[Statistics instance] logEvent:@"Interstitial showed" withParameters:@{@"Country" : [AppInfo sharedInfo].countryCode}];
-}
-
-- (void)interstitialDidDisappear:(MPInterstitialAdController *)interstitial
-{
-  [[Statistics instance] logEvent:@"Interstitial closed" withParameters:@{@"Country" : [AppInfo sharedInfo].countryCode}];
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -704,9 +625,7 @@ const long long LITE_IDL = 431183278L;
 {
   GetFramework().SetUpdatesEnabled(false);
 
-  [self.topBannerAd removeFromSuperview];
-  self.topBannerAd.delegate = nil;
-  self.topBannerAd = nil;
+  [[InAppMessagesManager sharedManager] unregisterControllerFromAllMessages:self];
 
   [super viewWillDisappear:animated];
 }
@@ -721,10 +640,10 @@ const long long LITE_IDL = 431183278L;
 
     Framework & f = GetFramework();
 
-    typedef void (*POSITIONBalloonFnT)(id,SEL, double, double);
+    typedef void (*POSITIONBalloonFnT)(id, SEL, double, double);
     typedef void (*POIBalloonFnT)(id, SEL, m2::PointD const &, search::AddressInfo const &);
-    typedef void (*APIPOINTBalloonFnT)(id,SEL, url_scheme::ApiPoint const &);
-    typedef void (*BOOKMARKBalloonFnT)(id,SEL, BookmarkAndCategory const &);
+    typedef void (*APIPOINTBalloonFnT)(id, SEL, url_scheme::ApiPoint const &);
+    typedef void (*BOOKMARKBalloonFnT)(id, SEL, BookmarkAndCategory const &);
 
     BalloonManager & manager = f.GetBalloonManager();
 
@@ -798,6 +717,23 @@ const long long LITE_IDL = 431183278L;
   return _fadeView;
 }
 
+- (UIButton *)buyButton
+{
+    if (!_buyButton)
+    {
+        UIImage * buyImage = [[UIImage imageNamed:@"ProVersionButton"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 14, 14, 14)];
+        _buyButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 115, 44.5)];
+        _buyButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        _buyButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+        _buyButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16];
+        _buyButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+        [_buyButton setBackgroundImage:buyImage forState:UIControlStateNormal];
+        [_buyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_buyButton addTarget:self action:@selector(buyButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _buyButton;
+}
+
 #define SLIDE_VIEW_DARK_PART_TAG 1
 
 - (SideToolbar *)sideToolbar
@@ -864,8 +800,8 @@ const long long LITE_IDL = 431183278L;
     }
     else
     {
-      [[UIApplication sharedApplication] openProVersion];
       [[Statistics instance] logProposalReason:@"Search Screen" withAnswer:@"YES"];
+      [[UIApplication sharedApplication] openProVersion];
     }
   }
   else if (buttonIndex == 1)
@@ -881,8 +817,8 @@ const long long LITE_IDL = 431183278L;
     }
     else
     {
-      [[UIApplication sharedApplication] openProVersion];
       [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"YES"];
+      [[UIApplication sharedApplication] openProVersion];
     }
   }
   else if (buttonIndex == 3)
@@ -914,8 +850,9 @@ const long long LITE_IDL = 431183278L;
   self.fadeView.alpha = toolbar.menuShift / (toolbar.maximumMenuShift - toolbar.minimumMenuShift);
 }
 
-- (void)sideToolbarDidPressBuyButton:(SideToolbar *)toolbar
+- (void)buyButtonPressed:(id)sender
 {
+  [[Statistics instance] logProposalReason:@"Pro button on map" withAnswer:@"YES"];
   [[UIApplication sharedApplication] openProVersion];
 }
 
@@ -1034,13 +971,13 @@ NSInteger compareAddress(id l, id r, void * context)
   if (isIPad)
   {
     NavigationController * navC = [[NavigationController alloc] init];
-    m_popover = [[UIPopoverController alloc] initWithContentViewController:navC];
-    m_popover.delegate = self;
+    self.popoverVC = [[UIPopoverController alloc] initWithContentViewController:navC];
+    self.popoverVC.delegate = self;
 
     [navC pushViewController:vc animated:YES];
     navC.navigationBar.barStyle = UIBarStyleBlack;
 
-    [m_popover setPopoverContentSize:CGSizeMake(320, 480)];
+    [self.popoverVC setPopoverContentSize:CGSizeMake(320, 480)];
     [self showPopover];
   }
   else
@@ -1098,12 +1035,12 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void)destroyPopover
 {
-  m_popover = nil;
+  self.popoverVC = nil;
 }
 
 - (void)showPopover
 {
-  if (m_popover)
+  if (self.popoverVC)
     GetFramework().GetBalloonManager().Hide();
 
   double const sf = self.view.contentScaleFactor;
@@ -1111,12 +1048,12 @@ NSInteger compareAddress(id l, id r, void * context)
   Framework & f = GetFramework();
   m2::PointD tmp = m2::PointD(f.GtoP(m2::PointD(m_popoverPos.x, m_popoverPos.y)));
 
-  [m_popover presentPopoverFromRect:CGRectMake(tmp.x / sf, tmp.y / sf, 1, 1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+  [self.popoverVC presentPopoverFromRect:CGRectMake(tmp.x / sf, tmp.y / sf, 1, 1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
 - (void)dismissPopover
 {
-  [m_popover dismissPopoverAnimated:YES];
+  [self.popoverVC dismissPopoverAnimated:YES];
   [self destroyPopover];
   [self invalidate];
 }

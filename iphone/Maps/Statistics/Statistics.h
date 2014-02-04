@@ -9,7 +9,7 @@
 
 - (void)startSession;
 - (void)logEvent:(NSString *)eventName;
-- (void)logInAppMessageEvent:(NSString *)eventName;
+- (void)logInAppMessageEvent:(NSString *)eventName imageType:(NSString *)imageType;
 - (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters;
 - (void)logProposalReason:(NSString *)reason withAnswer:(NSString *)answer;
 - (void)logApiUsage:(NSString *)programName;

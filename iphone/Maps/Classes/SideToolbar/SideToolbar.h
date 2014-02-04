@@ -5,7 +5,6 @@
 @protocol SideToolbarDelegate <NSObject>
 
 - (void)sideToolbar:(SideToolbar *)toolbar didPressButtonAtIndex:(NSInteger)buttonIndex;
-- (void)sideToolbarDidPressBuyButton:(SideToolbar *)toolbar;
 - (void)sideToolbarDidUpdateShift:(SideToolbar *)toolbar;
 
 @end

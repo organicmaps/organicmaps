@@ -7,7 +7,6 @@
 
 @property (nonatomic) UIView * fadeView;
 @property (nonatomic) UIView * contentView;
-@property (nonatomic) UIButton * closeButton;
 
 @property (nonatomic, weak) id <InterstitialViewDelegate> delegate;
 @property (nonatomic) NSString * inAppMessageName;
@@ -21,8 +20,7 @@
 
 - (instancetype)initWithImages:(NSArray *)images inAppMessageName:(NSString *)messageName imageType:(NSString *)imageType delegate:(id<InterstitialViewDelegate>)delegate
 {
-  UIWindow * window = [[UIApplication sharedApplication].windows firstObject];
-  self = [super initWithFrame:[[window.subviews firstObject] bounds]];
+  self = [super initWithFrame:[self viewWindow].bounds];
 
   if (IPAD && [images count] != 2)
     return self;
@@ -65,20 +63,14 @@
     self.landscapeImageView = landscapeImageView;
   }
 
-  UIImage * closeImage = [UIImage imageNamed:@"InterstitialCloseButton"];
-  UIButton * closeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, closeImage.size.width, closeImage.size.height)];
-  [closeButton setImage:closeImage forState:UIControlStateNormal];
-  closeButton.contentMode = UIViewContentModeCenter;
-  [closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-  closeButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
-  closeButton.minX = self.portraitImageView.minX;
-  closeButton.minY = self.portraitImageView.minY + 3;
-  [self.contentView addSubview:closeButton];
-  self.closeButton = closeButton;
-
   self.inAppMessageName = messageName;
   self.imageType = imageType;
   self.delegate = delegate;
+
+  UIButton * closeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.width, 70)];
+  closeButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+  [closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+  [self.contentView addSubview:closeButton];
 
   [self updateAnimated:NO];
 
@@ -94,7 +86,7 @@
 {
   if (IPAD)
   {
-    BOOL portrait = UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation);
+    BOOL portrait = self.width < self.height;
     UIImageView * currentImageView = portrait ? self.portraitImageView : self.landscapeImageView;
     UIImageView * prevImageView = portrait ? self.landscapeImageView : self.portraitImageView;
 
@@ -102,8 +94,6 @@
     [UIView animateWithDuration:(animated ? 0.3 : 0) delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
       currentImageView.transform = CGAffineTransformMakeScale(scale, scale);
       currentImageView.center = CGPointMake(self.contentView.width / 2, self.contentView.height / 2);
-      self.closeButton.minX = currentImageView.minX + 3;
-      self.closeButton.minY = currentImageView.minY;
       prevImageView.alpha = 0;
       currentImageView.alpha = 1;
     } completion:^(BOOL finished) {}];
@@ -120,22 +110,19 @@
   [self closeWithResult:InterstitialViewResultDismissed];
 }
 
-- (void)show
+- (UIView *)viewWindow
 {
   UIWindow * window = [[UIApplication sharedApplication].windows firstObject];
-  UIView * view;
   // we do this because on iPhone messages are only in portrait mode
-  if (IPAD)
-  {
-    // this view supports rotations
-    view = [window.subviews firstObject];
-  }
-  else
-  {
-    // this view never rotates and is in portrait mode by default
-    view = window;
+  return IPAD ? [window.subviews firstObject] : window;
+}
+
+- (void)show
+{
+  UIView * view = [self viewWindow];
+  if (!IPAD)
     [self blockRotation:YES];
-  }
+
   for (UIView * subview in view.subviews)
   {
     if ([subview isKindOfClass:[self class]])

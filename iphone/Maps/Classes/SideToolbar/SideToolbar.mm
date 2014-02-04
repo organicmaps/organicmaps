@@ -2,7 +2,6 @@
 #import "SideToolbar.h"
 #import "SideToolbarCell.h"
 #import "UIKitCategories.h"
-#import "BuyButtonCell.h"
 #include "../../../../platform/platform.hpp"
 
 typedef NS_ENUM(NSUInteger, Section)
@@ -10,11 +9,10 @@ typedef NS_ENUM(NSUInteger, Section)
   SectionTopSpace,
   SectionMenu,
   SectionBottomSpace,
-  SectionBuyButton,
   SectionCount
 };
 
-@interface SideToolbar () <UITableViewDataSource, UITableViewDelegate, BuyButtonCellDelegate>
+@interface SideToolbar () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) UITableView * tableView;
 @property (nonatomic) UIPanGestureRecognizer * slidePanGesture;
@@ -59,11 +57,6 @@ typedef NS_ENUM(NSUInteger, Section)
   [self addSubview:self.tableView];
 
   return self;
-}
-
-- (void)buyButtonCellDidPressBuyButton:(BuyButtonCell *)cell
-{
-  [self.delegate sideToolbarDidPressBuyButton:self];
 }
 
 #pragma mark - TableView
@@ -122,23 +115,13 @@ typedef NS_ENUM(NSUInteger, Section)
       cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
   }
-  else if (indexPath.section == SectionBuyButton)
-  {
-    BuyButtonCell * customCell = (BuyButtonCell *)[tableView dequeueReusableCellWithIdentifier:@"BuyButtonCell"];
-    if (!customCell)
-    {
-      customCell = [[BuyButtonCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BuyButtonCell"];
-      customCell.delegate = self;
-    }
-    cell = customCell;
-  }
 
   return cell;
 }
 
 - (CGFloat)restSpace
 {
-  return self.height - [SideToolbarCell cellHeight] * [menuTitles count] - [BuyButtonCell cellHeight];
+  return self.height - [SideToolbarCell cellHeight] * [menuTitles count];
 }
 
 - (CGFloat)topSpaceRatio
@@ -169,8 +152,6 @@ typedef NS_ENUM(NSUInteger, Section)
     return [self topSpaceHeight];
   else if (indexPath.section == SectionBottomSpace)
     return [self bottomSpaceHeight];
-  else if (indexPath.section == SectionBuyButton)
-    return [BuyButtonCell cellHeight];
   return 0;
 }
 
