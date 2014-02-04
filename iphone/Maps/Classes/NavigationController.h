@@ -3,4 +3,6 @@
 
 @interface NavigationController : UINavigationController
 
+@property (nonatomic) BOOL autorotate;
+
 @end
