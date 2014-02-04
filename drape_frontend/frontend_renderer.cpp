@@ -28,7 +28,7 @@ namespace df
     RefreshProjection(viewport.GetWidth(), viewport.GetHeight());
 
     m_modelView.OnSize(viewport.GetX0(), viewport.GetY0(), viewport.GetWidth(), viewport.GetHeight());
-    m2::RectD rect(-174, -95, 174, 95);
+    m2::RectD rect(27.40, 64.14, 27.66, 64.34);
     m_modelView.SetFromRect(m2::AnyRectD(m2::PointD(0, 0), ang::AngleD(0), rect));
 
     RefreshModelView();
@@ -160,9 +160,15 @@ namespace df
 #endif
 
     m_viewport.Apply();
-    GLFunctions::glClearColor(0.93f, 0.93f, 0.86f, 1.f);
-    GLFunctions::glClear();
 
+    GLFunctions::glEnable(GLConst::GLDepthTest);
+
+    GLFunctions::glClearColor(0.93f, 0.93f, 0.86f, 1.f);
+    GLFunctions::glClearDepth(1.0);
+    GLFunctions::glDepthFunc(GLConst::GLLessOrEqual);
+    GLFunctions::glDepthMask(true);
+
+    GLFunctions::glClear();
     for_each(m_renderData.begin(), m_renderData.end(), bind(&FrontendRenderer::RenderPartImpl, this, _1));
 
 #ifdef DRAW_INFO
