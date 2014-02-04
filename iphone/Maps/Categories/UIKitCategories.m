@@ -171,3 +171,61 @@
 }
 
 @end
+
+
+@implementation NSString (Size)
+
+- (CGSize)sizeWithDrawSize:(CGSize)size font:(UIFont *)font
+{
+  if ([self respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)])
+    return [self boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : font} context:nil].size;
+  else
+    return [self sizeWithFont:font constrainedToSize:size lineBreakMode:NSLineBreakByWordWrapping];
+}
+
+@end
+
+
+@implementation UIButton (Custom)
+
++ (UIButton *)proVersionButton
+{
+  UIImage * image = [[UIImage imageNamed:@"ProVersionBanner"] resizableImageWithCapInsets:UIEdgeInsetsMake(8, 8, 8, 8)];
+  NSString * proText = [NSLocalizedString(@"become_a_pro", nil) uppercaseString];
+  UIFont * font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20];
+  CGSize size = [proText sizeWithDrawSize:CGSizeMake(300, image.size.height) font:font];
+
+  UIButton * proVersionButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, size.width + 44, image.size.height)];
+
+  NSRange range = [proText rangeOfString:@"PRO"];
+  if (range.location != NSNotFound && [UIButton instancesRespondToSelector:@selector(setAttributedTitle:forState:)])
+  {
+    NSMutableAttributedString * attributedProText = [[NSMutableAttributedString alloc] initWithString:proText];
+    [attributedProText addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue" size:20] range:range];
+    [attributedProText addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, [attributedProText length])];
+    [proVersionButton setAttributedTitle:attributedProText forState:UIControlStateNormal];
+  }
+  else
+  {
+    [proVersionButton setTitle:proText forState:UIControlStateNormal];
+  }
+  proVersionButton.titleLabel.font = font;
+  proVersionButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+  [proVersionButton setBackgroundImage:image forState:UIControlStateNormal];
+
+  return proVersionButton;
+}
+
+@end
+
+
+@implementation NSArray (Interval)
+
+- (BOOL)numberInInterval:(double)number
+{
+  if ([self count] == 2)
+    return number > [self[0] doubleValue] && number < [self[1] doubleValue];
+  return NO;
+}
+
+@end

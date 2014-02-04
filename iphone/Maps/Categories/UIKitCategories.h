@@ -48,3 +48,24 @@
 - (void)openProVersion;
 
 @end
+
+
+@interface NSString (Size)
+
+- (CGSize)sizeWithDrawSize:(CGSize)size font:(UIFont *)font;
+
+@end
+
+
+@interface UIButton (Custom)
+
++ (UIButton *)proVersionButton;
+
+@end
+
+
+@interface NSArray (Interval)
+
+- (BOOL)numberInInterval:(double)number;
+
+@end
