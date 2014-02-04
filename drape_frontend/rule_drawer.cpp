@@ -1,161 +1,18 @@
 #include "rule_drawer.hpp"
 #include "stylist.hpp"
-#include "shape_view_params.hpp"
 #include "engine_context.hpp"
-#include "vizualization_params.hpp"
+#include "apply_feature_functors.hpp"
 
-#include "line_shape.hpp"
-#include "area_shape.hpp"
-
-#include "../indexer/drules_include.hpp"
 #include "../indexer/feature.hpp"
 #include "../indexer/feature_algo.hpp"
-#include "../indexer/drawing_rules.hpp"
 
 #include "../map/geometry_processors.hpp"
 
 #include "../base/assert.hpp"
-
-#include "../std/vector.hpp"
 #include "../std/bind.hpp"
 
 namespace df
 {
-  namespace
-  {
-    Color ToDrapeColor(uint32_t src)
-    {
-      return Extract(src, 255 - (src >> 24));
-    }
-
-    void Extract(::LineDefProto const * lineRule,
-                 df::LineViewParams & params)
-    {
-      params.m_color = ToDrapeColor(lineRule->color());
-      params.m_width = max(lineRule->width() * df::VizualizationParams::GetVisualScale(), 1.0);
-
-      switch(lineRule->cap())
-      {
-      case ::ROUNDCAP : params.m_cap = df::RoundCap;
-        break;
-      case ::BUTTCAP  : params.m_cap = df::ButtCap;
-        break;
-      case ::SQUARECAP: params.m_cap = df::SquareCap;
-        break;
-      default:
-        ASSERT(false, ());
-      }
-
-      switch (lineRule->join())
-      {
-      case ::NOJOIN    : params.m_join = df::NonJoin;
-        break;
-      case ::ROUNDJOIN : params.m_join = df::RoundJoin;
-        break;
-      case ::BEVELJOIN : params.m_join = df::BevelJoin;
-        break;
-      default:
-        ASSERT(false, ());
-      }
-    }
-  }
-
-  // ============================================= //
-
-  namespace
-  {
-    class TrianglesFunctor
-    {
-    public:
-      TrianglesFunctor(vector<m2::PointF> & triangles)
-        : m_triangles(triangles)
-      {
-      }
-
-      void operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
-      {
-        m_triangles.push_back(p1);
-        m_triangles.push_back(p2);
-        m_triangles.push_back(p3);
-      }
-
-    private:
-      vector<m2::PointF> & m_triangles;
-    };
-
-    class ApplyAreaFeature
-    {
-    public:
-      ApplyAreaFeature(EngineContext & context,
-                       TileKey tileKey,
-                       vector<m2::PointF> & triangles)
-        : m_context(context)
-        , m_tileKey(tileKey)
-        , m_triangles(triangles)
-        , m_hasCenter(false)
-      {
-      }
-
-      void SetCenter(m2::PointF const & center) { m_center = center; }
-
-      void ProcessRule(Stylist::rule_wrapper_t const & rule)
-      {
-        drule::BaseRule const * pRule = rule.first;
-        double const depth = rule.second;
-
-        AreaRuleProto const * areaRule = pRule->GetArea();
-
-        if (areaRule)
-        {
-          AreaShape * shape = new AreaShape(ToDrapeColor(areaRule->color()), depth);
-          for (size_t i = 0; i < m_triangles.size(); i += 3)
-            shape->AddTriangle(m_triangles[i], m_triangles[i + 1], m_triangles[i + 2]);
-
-          m_context.InsertShape(m_tileKey, MovePointer<MapShape>(shape));
-        }
-        else
-        {
-          SymbolRuleProto const * symRule =  pRule->GetSymbol();
-          if (symRule)
-          {
-            m_symbolDepth = depth;
-            m_symbolRule  = symRule;
-          }
-
-          CircleRuleProto const * circleRule = pRule->GetCircle();
-          if (circleRule)
-          {
-            m_circleDepth = depth;
-            m_circleRule  = circleRule;
-          }
-        }
-      }
-
-      void Finish()
-      {
-        if (!m_hasCenter)
-          return;
-
-        // TODO
-        // create symbol or circle of symbol with circle
-      }
-
-    private:
-      EngineContext & m_context;
-      TileKey m_tileKey;
-      vector<m2::PointF> m_triangles;
-      bool m_hasCenter;
-      m2::PointF m_center;
-
-      double m_symbolDepth;
-      double m_circleDepth;
-      CircleRuleProto const * m_circleRule;
-      SymbolRuleProto const * m_symbolRule;
-    };
-  }
-
-  // ==================================================== //
-
   RuleDrawer::RuleDrawer(drawer_callback_fn const & fn, const TileKey & tileKey, EngineContext & context)
     : m_callback(fn)
     , m_tileKey(tileKey)
@@ -191,17 +48,22 @@ namespace df
 
     if (s.AreaStyleExists())
     {
-      vector<m2::PointF> triangles;
+      ApplyAreaFeature apply(m_context, m_tileKey);
+      f.ForEachTriangleRef(apply, m_tileKey.m_zoomLevel);
 
-      TrianglesFunctor fun(triangles);
-      f.ForEachTriangleRef(fun, m_tileKey.m_zoomLevel);
-
-      ApplyAreaFeature apply(m_context, m_tileKey, triangles);
       if (s.PointStyleExists())
-        apply.SetCenter(feature::GetCenter(f, m_tileKey.m_zoomLevel));
+        apply(feature::GetCenter(f, m_tileKey.m_zoomLevel));
 
       s.ForEachRule(bind(&ApplyAreaFeature::ProcessRule, &apply, _1));
       apply.Finish();
+    }
+    else if (s.LineStyleExists())
+    {
+      ApplyLineFeature apply(m_context, m_tileKey);
+      f.ForEachPointRef(apply, m_tileKey.m_zoomLevel);
+
+      s.ForEachRule(bind(&ApplyLineFeature::ProcessRule, &apply, _1));
+      //apply.Finish();
     }
   }
 }
