@@ -99,7 +99,7 @@ namespace
       if (vertexCount > availableVertexCount || indexCount > availableIndexCount)
       {
         uint32_t indexCountForAvailableVertexCount = VertexToIndexCount(availableVertexCount);
-        if (indexCountForAvailableVertexCount >= availableIndexCount)
+        if (indexCountForAvailableVertexCount <= availableIndexCount)
         {
           resultVertexCount = availableVertexCount;
           resultIndexCount = indexCountForAvailableVertexCount;
