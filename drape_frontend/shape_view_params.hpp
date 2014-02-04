@@ -6,16 +6,16 @@ namespace df
 {
   enum LineCap
   {
-    RoundCap,
-    ButtCap,
-    SquareCap
+    SquareCap = -1,
+    RoundCap  = 0,
+    ButtCap   = 1,
   };
 
   enum LineJoin
   {
-    NonJoin,
-    RoundJoin,
-    BevelJoin
+    NonJoin   = 0,
+    RoundJoin = 1,
+    BevelJoin  = 2
   };
 
   struct LineViewParams

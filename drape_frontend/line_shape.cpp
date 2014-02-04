@@ -50,11 +50,36 @@ namespace df
 
   void LineShape::Draw(RefPointer<Batcher> batcher) const
   {
+    //join, cap, segment params
+    // vertex type:
+    // [x] - {-1 : cap, 0 : segment, +1 : join}
+    // [y] - cap: { 0 : round, 1 : butt, -1 : square}
+    // [z] - join : {0: none, round : 1, bevel : 2}
+    // [w] - unused
+    const float T_CAP = -1.f;
+    const float T_SEGMENT = 0.f;
+    const float T_JOIN = +1.f;
+
     vector<Point3D> renderPoints;
-    vector<Point3D> renderNormals;
+    vector<Point3D> renderDirections;
+    vector<Point3D> renderVertexTypes;
 
     const float hw = GetWidth() / 2.0f;
     typedef m2::PointF vec2;
+
+    // Add start cap quad
+    vec2 firstSegment = m_points[1] - m_points[0];
+    vec2 direction = firstSegment;
+
+    m2::PointF firstPoint = m_points[0];
+    // Cap quad points
+    renderPoints.push_back(Point3D::From2D(firstPoint, m_depth)); // A
+    renderDirections.push_back(Point3D::From2D(direction, hw));
+    renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, 0));
+
+    renderPoints.push_back(Point3D::From2D(firstPoint, m_depth)); // B
+    renderDirections.push_back(Point3D::From2D(direction, -hw));
+    renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, 0));
 
     vec2 start = m_points[0];
     for (size_t i = 1; i < m_points.size(); ++i)
@@ -67,7 +92,7 @@ namespace df
         vec2 longer = m_points[i+1] - start;
         const float dp = m2::DotProduct(segment, longer);
         const bool isCodirected = my::AlmostEqual(dp, static_cast<float>(
-                                                    m2::PointF::LengthFromZero(segment)
+                                                      m2::PointF::LengthFromZero(segment)
                                                     * m2::PointF::LengthFromZero(longer)));
 
         // We must not skip and unite with zero-length vectors.
@@ -80,33 +105,52 @@ namespace df
           continue;
       }
 
-      ToPoint3DFunctor convertTo3d(m_depth);
-      const Point3D start3d = convertTo3d(start);
-      const Point3D end3d = convertTo3d(end);
-      convertTo3d.SetThirdComponent(hw);
-      const Point3D normalPos = convertTo3d(segment);
-      const Point3D normalNeg = convertTo3d(-segment);
+      const Point3D start3d = Point3D::From2D(start, m_depth);
+      const Point3D end3d   = Point3D::From2D(end, m_depth);
+
+      const Point3D directionPos = Point3D::From2D(segment, hw);
+      const Point3D directionNeg = Point3D::From2D(segment, -hw);
 
       renderPoints.push_back(start3d);
+      renderDirections.push_back(directionPos);
+      renderVertexTypes.push_back(Point3D(T_SEGMENT, 0, 0));
+
       renderPoints.push_back(start3d);
-      renderNormals.push_back(normalPos);
-      renderNormals.push_back(normalNeg);
+      renderDirections.push_back(directionNeg);
+      renderVertexTypes.push_back(Point3D(T_SEGMENT, 0, 0));
 
       renderPoints.push_back(end3d);
+      renderDirections.push_back(directionPos);
+      renderVertexTypes.push_back(Point3D(T_SEGMENT, 0, 0));
+
       renderPoints.push_back(end3d);
-      renderNormals.push_back(normalPos);
-      renderNormals.push_back(normalNeg);
+      renderDirections.push_back(directionNeg);
+      renderVertexTypes.push_back(Point3D(T_SEGMENT, 0, 0));
 
       start = end;
     }
 
+    //Add final cap
+    const size_t count   = m_points.size();
+    vec2 lastSegment     = m_points[count-1] - m_points[count-2];
+    m2::PointF lastPoint = m_points[count-1];
+    direction = -lastSegment;
+
+    renderPoints.push_back(Point3D::From2D(lastPoint, m_depth)); // A
+    renderDirections.push_back(Point3D::From2D(direction, -hw));
+    renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, 0));
+
+    renderPoints.push_back(Point3D::From2D(lastPoint, m_depth)); // B
+    renderDirections.push_back(Point3D::From2D(direction, hw));
+    renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, 0));
+    //
 
     GLState state(gpu::SOLID_LINE_PROGRAM, 0, TextureBinding("", false, 0, MakeStackRefPointer<Texture>(NULL)));
     float r, g, b, a;
     ::Convert(GetColor(), r, g, b, a);
     state.GetUniformValues().SetFloatValue("color", r, g, b, a);
 
-    AttributeProvider provider(2, renderPoints.size());
+    AttributeProvider provider(3, renderPoints.size());
 
     {
       BindingInfo positionInfo(1);
@@ -121,15 +165,27 @@ namespace df
     }
 
     {
-      BindingInfo normalInfo(1);
-      BindingDecl & decl = normalInfo.GetBindingDecl(0);
+      BindingInfo directionInfo(1);
+      BindingDecl & decl = directionInfo.GetBindingDecl(0);
       decl.m_attributeName = "direction";
       decl.m_componentCount = 3;
       decl.m_componentType = GLConst::GLFloatType;
       decl.m_offset = 0;
       decl.m_stride = 0;
 
-      provider.InitStream(1, normalInfo, MakeStackRefPointer((void*)&renderNormals[0]));
+      provider.InitStream(1, directionInfo, MakeStackRefPointer((void*)&renderDirections[0]));
+    }
+
+    {
+      BindingInfo vertexTypeInfo(1);
+      BindingDecl & decl = vertexTypeInfo.GetBindingDecl(0);
+      decl.m_attributeName = "a_vertType";
+      decl.m_componentCount = 3;
+      decl.m_componentType = GLConst::GLFloatType;
+      decl.m_offset = 0;
+      decl.m_stride = 0;
+
+      provider.InitStream(2, vertexTypeInfo, MakeStackRefPointer((void*)&renderVertexTypes[0]));
     }
 
     batcher->InsertTriangleStrip(state, MakeStackRefPointer(&provider));

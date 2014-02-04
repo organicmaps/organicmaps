@@ -21,26 +21,11 @@ namespace df
       , m_y(y)
       , m_z(z)
     {}
-  };
 
-  struct ToPoint3DFunctor
-  {
-    ToPoint3DFunctor(float thirdComponent)
-      : m_thirdComponent(thirdComponent)
-    {}
-
-    Point3D operator ()(m2::PointF const & p)
+    static Point3D From2D(m2::PointF const & src, float thirdComponent = 0)
     {
-      return Point3D(p.x, p.y, m_thirdComponent);
+      return Point3D(src.x, src.y, thirdComponent);
     }
-
-    void SetThirdComponent(float c)
-    {
-      m_thirdComponent = c;
-    }
-
-  private:
-    float m_thirdComponent;
   };
   ///
 
