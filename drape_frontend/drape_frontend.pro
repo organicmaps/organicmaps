@@ -30,7 +30,8 @@ SOURCES += \
     rule_drawer.cpp \
     viewport.cpp \
     vizualization_params.cpp \
-    tile_key.cpp
+    tile_key.cpp \
+    apply_feature_functors.cpp
 
 HEADERS += \
     engine_context.hpp \
@@ -56,4 +57,5 @@ HEADERS += \
     rule_drawer.hpp \
     viewport.hpp \
     vizualization_params.hpp \
-    tile_key.hpp
+    tile_key.hpp \
+    apply_feature_functors.hpp
