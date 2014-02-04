@@ -9,7 +9,11 @@ MainWindow::MainWindow(QWidget *parent)
   , m_surface(NULL)
 {
   resize(1200, 800);
+
   DrapeSurface * surface = new DrapeSurface();
+  QSurfaceFormat format = surface->requestedFormat();
+  format.setDepthBufferSize(16);
+  surface->setFormat(format);
   m_surface = QWidget::createWindowContainer(surface, this);
   setCentralWidget(m_surface);
 }
