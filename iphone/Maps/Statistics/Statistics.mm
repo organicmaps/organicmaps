@@ -1,6 +1,8 @@
+
 #import "Statistics.h"
 #include "../../../platform/settings.hpp"
 #import "Flurry.h"
+#import "AppInfo.h"
 
 @implementation Statistics
 
@@ -39,6 +41,12 @@
 {
   if (self.enabled)
     [Flurry logEvent:eventName];
+}
+
+- (void)logInAppMessageEvent:(NSString *)eventName
+{
+  if (self.enabled)
+    [Flurry logEvent:eventName withParameters:@{@"Country" : [AppInfo sharedInfo].countryCode, @"Id" : [AppInfo sharedInfo].uniqueId}];
 }
 
 - (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters
