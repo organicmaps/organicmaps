@@ -85,18 +85,59 @@ namespace df
     float bottom = m_viewport.GetY0();
     float top = bottom + m_viewport.GetHeight();
 
-    vector<m2::PointF> linePoints;
-    linePoints.push_back(m2::PointF(left + 40.0f, bottom + 40.0f));
-    linePoints.push_back(m2::PointF(right - 40.0f, bottom + 40.0f));
-    linePoints.push_back(m2::PointF(right - 40.0f, top));
-    linePoints.push_back(m2::PointF(left + 40.0f, top));
-    linePoints.push_back(m2::PointF(left + 40.0f, bottom + 40.0f));
+    float resolution = 32;
+    m2::PointF grid[32][32]; // to simpify testing
+    for (size_t i = 1; i <= resolution; ++i)
+      for (size_t j = 1; j <= resolution; ++j)
+        grid[i-1][j-1] = m2::PointF((right/resolution)*i, (top/resolution)*j);
 
-    LineViewParams params;
-    params.m_color = Color(255, 50, 50, 255);
-    params.m_width = 3.5f;
-    df::LineShape * line = new df::LineShape(linePoints, 0.0f, params);
-    line->Draw(m_batcher.GetRefPointer());
+    vector<m2::PointF> linePoints1;
+
+    linePoints1.push_back(grid[1][1]);
+    linePoints1.push_back(grid[4][2]);
+    linePoints1.push_back(grid[8][1]);
+    linePoints1.push_back(grid[16][4]);
+    linePoints1.push_back(grid[24][1]);
+    linePoints1.push_back(grid[29][4]);
+
+    LineViewParams params1;
+    params1.m_cap = RoundCap;
+    params1.m_color = Color(255, 255, 50, 255);
+    params1.m_width = 50.f;
+    df::LineShape * line1 = new df::LineShape(linePoints1, 0.0f, params1);
+    line1->Draw(m_batcher.GetRefPointer());
+
+    vector<m2::PointF> linePoints2;
+
+    linePoints2.push_back(grid[1][5]);
+    linePoints2.push_back(grid[4][6]);
+    linePoints2.push_back(grid[8][5]);
+    linePoints2.push_back(grid[16][8]);
+    linePoints2.push_back(grid[24][5]);
+    linePoints2.push_back(grid[29][8]);
+
+    LineViewParams params2;
+    params2.m_cap = SquareCap;
+    params2.m_color = Color(0, 255, 255, 255);
+    params2.m_width = 50.f;
+    df::LineShape * line2 = new df::LineShape(linePoints2, 0.0f, params2);
+    line2->Draw(m_batcher.GetRefPointer());
+
+    vector<m2::PointF> linePoints3;
+
+    linePoints3.push_back(grid[1][9]);
+    linePoints3.push_back(grid[4][10]);
+    linePoints3.push_back(grid[8][9]);
+    linePoints3.push_back(grid[16][12]);
+    linePoints3.push_back(grid[24][9]);
+    linePoints3.push_back(grid[29][12]);
+
+    LineViewParams params3;
+    params3.m_cap = ButtCap;
+    params3.m_color = Color(255, 0, 255, 255);
+    params3.m_width = 50.f;
+    df::LineShape * line3 = new df::LineShape(linePoints3, 0.0f, params3);
+    line3->Draw(m_batcher.GetRefPointer());
   }
 
   void TestingEngine::ModelViewInit()
