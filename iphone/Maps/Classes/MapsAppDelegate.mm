@@ -72,7 +72,6 @@ void InitLocalizedStrings()
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
   [self.m_locationManager orientationChanged];
-  [AppInfo sharedInfo].launchCount++;
   [self.m_mapViewController onEnterForeground];
 }
 
@@ -172,9 +171,8 @@ void InitLocalizedStrings()
 {
   NSLog(@"application didFinishLaunchingWithOptions");
 
-  [AppInfo sharedInfo].launchCount++;
-
   [[Statistics instance] startSession];
+  [[AppInfo sharedInfo] setup];
 
   InitLocalizedStrings();
 

@@ -6,8 +6,10 @@
 #import <AdSupport/ASIdentifierManager.h>
 #include "../../../platform/settings.hpp"
 
-NSString * const AppFeatureInterstitialAd = @"InterstitialAd";
-NSString * const AppFeatureBannerAd = @"BannerAd";
+NSString * const AppFeatureMoPubInterstitial = @"AppFeatureMoPubInterstitial";
+NSString * const AppFeatureMWMProInterstitial = @"AppFeatureMWMProInterstitial";
+NSString * const AppFeatureMoPubBanner = @"AppFeatureMoPubBanner";
+NSString * const AppFeatureMWMProBanner = @"AppFeatureMWMProBanner";
 
 @interface AppInfo ()
 
@@ -21,49 +23,32 @@ NSString * const AppFeatureBannerAd = @"BannerAd";
 @property (nonatomic) NSString * uniqueId;
 @property (nonatomic) NSString * advertisingId;
 @property (nonatomic) Reachability * reachability;
+@property (nonatomic) NSInteger launchCount;
+@property (nonatomic) NSDate * firstLaunchDate;
 
 @end
 
 @implementation AppInfo
 
-- (instancetype)init
+- (void)dealloc
 {
-  self = [super init];
-
-  self.featuresByDefault = @{AppFeatureInterstitialAd : @NO,
-                             AppFeatureBannerAd : @NO};
-
-  [self update];
-
-  return self;
+  [self.reachability stopNotifier];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (NSDictionary *)parsedFeatures:(NSString *)featuresString
+- (void)applicationDidBecomeActive:(NSNotification *)notification
 {
-  NSArray * features = [featuresString componentsSeparatedByString:@";"];
-  NSMutableDictionary * mDict = [NSMutableDictionary dictionary];
-  for (NSString * featurePairString in features)
-  {
-    NSArray * components = [featurePairString componentsSeparatedByString:@":"];
-    if ([components count] == 2)
-      mDict[components[0]] = components[1];
-  }
-  return mDict;
+  self.launchCount++;
 }
 
 - (void)update
 {
-  NSString * urlString = @"http://application.server/ios/features.txt";
+  NSString * urlString = @"http://application.server/ios/features.json";
   NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
   [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * r, NSData * d, NSError * e){
     if ([(NSHTTPURLResponse *)r statusCode] == 200)
     {
-      NSString * featuresString = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
-      featuresString = [featuresString stringByReplacingOccurrencesOfString:@" " withString:@""];
-      std::string featuresCPPString;
-      if (!Settings::Get("AvailableFeatures", featuresCPPString))
-        self.features = [self parsedFeatures:featuresString];
-      Settings::Set("AvailableFeatures", std::string([featuresString UTF8String]));
+      [d writeToFile:[self featuresPath] atomically:YES];
       [self.reachability stopNotifier];
     }
     else
@@ -78,45 +63,64 @@ NSString * const AppFeatureBannerAd = @"BannerAd";
   }];
 }
 
+- (NSString *)featuresPath
+{
+  NSString * libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];
+  return [libraryPath stringByAppendingPathComponent:@"AvailableFeatures.json"];
+}
+
 #pragma mark - Public methods
+
++ (instancetype)sharedInfo
+{
+  static AppInfo * appInfo;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    appInfo = [[self alloc] init];
+  });
+  return appInfo;
+}
+
+- (instancetype)init
+{
+  self = [super init];
+
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+
+  self.featuresByDefault = @{AppFeatureMoPubInterstitial : @NO,
+                             AppFeatureMWMProInterstitial : @NO,
+                             AppFeatureMoPubBanner : @NO,
+                             AppFeatureMWMProBanner : @NO};
+
+  [self update];
+
+  if (!self.firstLaunchDate)
+    self.firstLaunchDate = [NSDate date];
+
+  return self;
+}
+
+- (void)setup {}
 
 - (BOOL)featureAvailable:(NSString *)featureName
 {
   if (!self.features) // features haven't been downloaded yet
     return [self.featuresByDefault[featureName] boolValue];
 
-  NSString * value = self.features[featureName];
-  if (value)
-  {
-    NSString * countryCode = [@"@" stringByAppendingString:self.countryCode];
-    if ([value rangeOfString:countryCode options:NSCaseInsensitiveSearch].location != NSNotFound)
-      return YES;
-    if ([value rangeOfString:@"*"].location != NSNotFound)
-      return YES;
-  }
-  return NO;
+  NSDictionary * localizations = self.features[featureName];
+  return localizations[self.countryCode] || localizations[@"*"];
 }
 
-- (NSString *)featureValue:(NSString *)featureName forKey:(NSString *)key
+- (id)featureValue:(NSString *)featureName forKey:(NSString *)key defaultValue:(id)defaultValue
 {
-  NSString * value = self.features[featureName];
-  NSArray * components = [value componentsSeparatedByString:@"@"];
-  for (NSString * countryComponent in components)
-  {
-    BOOL countryExist = [countryComponent rangeOfString:self.countryCode options:NSCaseInsensitiveSearch].location != NSNotFound;
-    BOOL allExist = [countryComponent rangeOfString:@"*" options:NSCaseInsensitiveSearch].location != NSNotFound;
-    if (countryExist || allExist)
-    {
-      NSArray * parameters = [countryComponent componentsSeparatedByString:@"#"];
-      for (NSString * parameter in parameters) {
-        NSRange range = [parameter rangeOfString:key options:NSCaseInsensitiveSearch];
-        NSInteger startIndex = range.location + range.length + 1;
-        if (range.location != NSNotFound && [parameter length] > startIndex)
-          return [parameter substringFromIndex:startIndex];
-      }
-    }
-  }
-  return nil;
+  NSDictionary * localizations = self.features[featureName];
+  NSDictionary * parameters = localizations[self.countryCode];
+  if (!parameters)
+    parameters = localizations[@"*"];
+  if (parameters && parameters[key])
+    return parameters[key];
+
+  return defaultValue;
 }
 
 - (NSString *)snapshot
@@ -218,35 +222,28 @@ NSString * const AppFeatureBannerAd = @"BannerAd";
   return _reachability;
 }
 
+- (NSDate *)firstLaunchDate
+{
+  return [[NSUserDefaults standardUserDefaults] objectForKey:@"AppInfoFirstLaunchDate"];
+}
+
+- (void)setFirstLaunchDate:(NSDate *)firstLaunchDate
+{
+  [[NSUserDefaults standardUserDefaults] setObject:firstLaunchDate forKey:@"AppInfoFirstLaunchDate"];
+  [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 #pragma mark - Private properties
 
 - (NSDictionary *)features
 {
   if (!_features)
   {
-    std::string featuresCPPString;
-    if (Settings::Get("AvailableFeatures", featuresCPPString))
-    {
-      NSString * featuresString = [NSString stringWithUTF8String:featuresCPPString.c_str()];
-      _features = [self parsedFeatures:featuresString];
-    }
+    NSData * data = [NSData dataWithContentsOfFile:[self featuresPath]];
+    if (data)
+      _features = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
   }
   return _features;
-}
-
-- (void)dealloc
-{
-  [self.reachability stopNotifier];
-}
-
-+ (instancetype)sharedInfo
-{
-  static AppInfo * appInfo;
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    appInfo = [[self alloc] init];
-  });
-  return appInfo;
 }
 
 @end

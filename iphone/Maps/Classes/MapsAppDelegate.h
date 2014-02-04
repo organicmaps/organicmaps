@@ -17,7 +17,7 @@
   BOOL m_didOpenedWithUrl;
 }
 
-@property (nonatomic) IBOutlet MapViewController * m_mapViewController;
+@property (nonatomic, strong) IBOutlet MapViewController * m_mapViewController;
 @property (nonatomic, readonly) LocationManager * m_locationManager;
 
 + (MapsAppDelegate *)theApp;
