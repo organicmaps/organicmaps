@@ -45,6 +45,19 @@ namespace GLConst
   extern const glConst GLFloatMat4;
 
 
+  /// OpenGL states
+  extern const glConst GLDepthTest;
+
+  /// OpenGL depth functions
+  extern const glConst GLNever;
+  extern const glConst GLLess;
+  extern const glConst GLEqual;
+  extern const glConst GLLessOrEqual;
+  extern const glConst GLGreat;
+  extern const glConst GLNotEqual;
+  extern const glConst GLGreatOrEqual;
+  extern const glConst GLAlways;
+
   // Program object parameter names
   extern const glConst GLActiveUniforms;
 }

@@ -14,6 +14,12 @@ public:
   static void glViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h);
   static void glFlush();
 
+  static void glEnable(glConst mode);
+  static void glDisable(glConst mode);
+  static void glClearDepth(double depth);
+  static void glDepthMask(bool needWriteToDepthBuffer);
+  static void glDepthFunc(glConst depthFunc);
+
   static void glBindFramebuffer(glConst target, uint32_t id);
 
   /// VAO support

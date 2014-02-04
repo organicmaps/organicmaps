@@ -196,6 +196,31 @@ void GLFunctions::glFlush()
   GLCHECK(glFlushFn());
 }
 
+void GLFunctions::glEnable(glConst mode)
+{
+  ::glEnable(mode);
+}
+
+void GLFunctions::glDisable(glConst mode)
+{
+  ::glDisable(mode);
+}
+
+void GLFunctions::glClearDepth(double depth)
+{
+  ::glClearDepth(depth);
+}
+
+void GLFunctions::glDepthMask(bool needWriteToDepthBuffer)
+{
+  ::glDepthMask(convert(needWriteToDepthBuffer));
+}
+
+void GLFunctions::glDepthFunc(glConst depthFunc)
+{
+  ::glDepthFunc(depthFunc);
+}
+
 void GLFunctions::glBindFramebuffer(glConst target, uint32_t id)
 {
   ASSERT(glBindFramebufferFn != NULL, ());

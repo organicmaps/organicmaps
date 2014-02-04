@@ -26,15 +26,26 @@ namespace GLConst
   const glConst GLFloatType           = GL_FLOAT;
   const glConst GLDoubleType          = GL_DOUBLE;
 
-  extern const glConst GLFloatVec2 = GL_FLOAT_VEC2;
-  extern const glConst GLFloatVec3 = GL_FLOAT_VEC3;
-  extern const glConst GLFloatVec4 = GL_FLOAT_VEC4;
+  const glConst GLFloatVec2 = GL_FLOAT_VEC2;
+  const glConst GLFloatVec3 = GL_FLOAT_VEC3;
+  const glConst GLFloatVec4 = GL_FLOAT_VEC4;
 
-  extern const glConst GLIntVec2 = GL_INT_VEC2;
-  extern const glConst GLIntVec3 = GL_INT_VEC3;
-  extern const glConst GLIntVec4 = GL_INT_VEC4;
+  const glConst GLIntVec2 = GL_INT_VEC2;
+  const glConst GLIntVec3 = GL_INT_VEC3;
+  const glConst GLIntVec4 = GL_INT_VEC4;
 
-  extern const glConst GLFloatMat4 = GL_FLOAT_MAT4;
+  const glConst GLFloatMat4 = GL_FLOAT_MAT4;
+
+  const glConst GLDepthTest = GL_DEPTH_TEST;
+
+  const glConst GLNever = GL_NEVER;
+  const glConst GLLess = GL_LESS;
+  const glConst GLEqual = GL_EQUAL;
+  const glConst GLLessOrEqual = GL_LEQUAL;
+  const glConst GLGreat = GL_GREATER;
+  const glConst GLNotEqual = GL_NOTEQUAL;
+  const glConst GLGreatOrEqual = GL_GEQUAL;
+  const glConst GLAlways = GL_ALWAYS;
 
   const glConst GLActiveUniforms      = GL_ACTIVE_UNIFORMS;
 }
