@@ -130,14 +130,19 @@ namespace di
     {
       double depth = keys[i].m_priority;
 
-      if ((layer != 0) && (depth < 19000)
-          && ((keys[i].m_type == drule::area)
-           || (keys[i].m_type == drule::line)
-           || (keys[i].m_type == drule::waymarker)))
-        depth = (layer * drule::layer_base_priority) + fmod(depth, drule::layer_base_priority);
+      if (layer != 0 && depth < 19000)
+      {
+        if (keys[i].m_type == drule::line || keys[i].m_type == drule::waymarker)
+          depth = (layer * drule::layer_base_priority) + fmod(depth, drule::layer_base_priority);
+        else if (keys[i].m_type == drule::area)
+        {
+          // Use raw depth adding in area feature layers
+          // (avoid overlap linear objects in case of "fmod").
+          depth += layer * drule::layer_base_priority;
+        }
+      }
 
-      if ((keys[i].m_type == drule::symbol)
-       || (keys[i].m_type == drule::circle))
+      if (keys[i].m_type == drule::symbol || keys[i].m_type == drule::circle)
         hasIcon = true;
 
       if ((keys[i].m_type == drule::caption && hasName)
@@ -145,10 +150,10 @@ namespace di
        || (keys[i].m_type == drule::circle))
         m_hasPointStyles = true;
 
-      if ((keys[i].m_type == drule::caption)
-       || (keys[i].m_type == drule::symbol)
-       || (keys[i].m_type == drule::circle)
-       || (keys[i].m_type == drule::pathtext))
+      if (keys[i].m_type == drule::caption
+       || keys[i].m_type == drule::symbol
+       || keys[i].m_type == drule::circle
+       || keys[i].m_type == drule::pathtext)
       {
         // show labels of larger objects first
         depth += priorityModifier;
@@ -225,8 +230,7 @@ namespace di
       // we need to delete symbol style and circle style
       for (size_t i = 0; i < m_rules.size();)
       {
-        if ((keys[i].m_type == drule::symbol)
-         || (keys[i].m_type == drule::circle))
+        if (keys[i].m_type == drule::symbol || keys[i].m_type == drule::circle)
         {
           m_rules[i] = m_rules[m_rules.size() - 1];
           m_rules.pop_back();
