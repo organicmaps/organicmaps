@@ -842,7 +842,7 @@ de:Hauptstadt|Metropole|Stadt
 fr:capitale|ville
 it:capitale|città
 es:capital|ciudad
-ko:1자본|시|도시
+ko:1수도|도시
 ja:1首都|市|都市
 cs:hlavní město|metropole
 nl:hoofdstad|stad
