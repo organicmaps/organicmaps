@@ -114,7 +114,7 @@ namespace df
     double const rectSize = range / (1 << tileScale);
 
     m2::AnyRectD const & globalRect = screen.GlobalRect();
-    m2::RectD    const & clipRect   = globalRect.GetGlobalRect();
+    m2::RectD    const & clipRect   = screen.ClipRect();
 
     int const minTileX = static_cast<int>(floor(clipRect.minX() / rectSize));
     int const maxTileX = static_cast<int>(ceil(clipRect.maxX() / rectSize));
