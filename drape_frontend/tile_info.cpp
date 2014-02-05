@@ -32,6 +32,7 @@ namespace df
 {
   TileInfo::TileInfo(TileKey const & key)
     : m_key(key)
+    , m_isCanceled(false)
   {}
 
   m2::RectD TileInfo::GetGlobalRect() const
