@@ -85,11 +85,18 @@ namespace df
     float bottom = m_viewport.GetY0();
     float top = bottom + m_viewport.GetHeight();
 
-    float resolution = 32;
+    const float resolution = 32;
+    const float stepX = right/resolution;
+    const float stepY = top/resolution;
     m2::PointF grid[32][32]; // to simpify testing
     for (size_t i = 1; i <= resolution; ++i)
       for (size_t j = 1; j <= resolution; ++j)
-        grid[i-1][j-1] = m2::PointF((right/resolution)*i, (top/resolution)*j);
+        grid[i-1][j-1] = m2::PointF(stepX*i, stepY*j);
+
+    // grid:
+    // [31,31] ... [31,31]
+    //  ...         ...
+    // [0,0]   ... [0,31]
 
     vector<m2::PointF> linePoints1;
 

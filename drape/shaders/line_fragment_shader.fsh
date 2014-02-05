@@ -1,9 +1,9 @@
-uniform lowp vec4 color;
+uniform lowp vec4 u_color;
 
 varying highp vec4  v_vertType;
 varying highp vec4  v_distanceInfo;
 
-highp float cap(highp float type, highp float dx, highp float dy, highp float width)
+highp float cap(lowp float type, highp float dx, highp float dy, highp float width)
 {
   highp float hw = width/2.0;
 
@@ -13,53 +13,46 @@ highp float cap(highp float type, highp float dx, highp float dy, highp float wi
     return 1.0;
 }
 
-highp float join(int type, highp float dx, highp float dy, highp float width)
+highp float join(lowp float type, highp float dx, highp float dy, highp float width)
 {
   return 1.0;
 }
 
 void main(void)
 {
-  highp float vertType = v_vertType.x;
+  lowp float vertType = v_vertType.x;
 
   if (vertType == 0.0)
   {
-    gl_FragColor = color;
+    gl_FragColor = u_color;
     return;
   }
-  else if (vertType > 0.0)
-  {
-    highp float joinType = v_vertType.z;
-    highp float dx = v_distanceInfo.z - v_distanceInfo.x;
-    highp float dy = v_distanceInfo.w - v_distanceInfo.y;
-    highp float width = v_vertType.w;
 
-    if (join(int(joinType), dx, dy, width) > 0.0)
+
+  highp vec2  d     = v_distanceInfo.zw - v_distanceInfo.xy;
+  highp float width = v_vertType.w;
+
+  if (vertType > 0.0)
+  {
+    lowp float joinType = v_vertType.z;
+
+    if ( join(joinType, d.x, d.y, width) > 0.0 )
     {
       gl_FragColor = vec4(0.0, 0.0, 1.0, 1.0);
       return;
     }
-    else
-    {
-      discard;
-    }
+    discard;
   }
   else if (vertType < 0.0)
   {
-    highp float capType = v_vertType.y;
-    highp float dx = v_distanceInfo.z - v_distanceInfo.x;
-    highp float dy = v_distanceInfo.w - v_distanceInfo.y;
-    highp float width = v_vertType.w;
+    lowp float capType = v_vertType.y;
 
-    if ( cap(capType, dx, dy, width) > 0.0 )
+    if ( cap(capType, d.x, d.y, width) > 0.0 )
     {
-      gl_FragColor = color;
+      gl_FragColor = u_color;
       return;
     }
-    else
-    {
-      discard;
-    }
+    discard;
   }
 
   gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);

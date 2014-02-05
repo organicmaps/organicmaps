@@ -13,39 +13,14 @@
 
 namespace df
 {
-  namespace
-  {
-    struct MatchesPrevious
-    {
-      MatchesPrevious(m2::PointF const & first)
-        : m_prev(first)
-      {}
-
-      bool operator ()(m2::PointF const & current)
-      {
-        if (m2::AlmostEqual(m_prev, current))
-          return true;
-        else
-        {
-          m_prev = current;
-          return false;
-        }
-      }
-
-    private:
-      m2::PointF m_prev;
-    };
-  }
-
-
   LineShape::LineShape(const vector<m2::PointF> & points,
                        float depth,
                        const LineViewParams & params)
-    : m_depth(depth)
+    : m_points(points)
+    , m_depth(depth)
     , m_params(params)
   {
-    ASSERT(points.size() > 1, ());
-    m_points = points;
+    ASSERT_GREATER(m_points.size(), 1, ());
   }
 
   void LineShape::Draw(RefPointer<Batcher> batcher) const
@@ -60,34 +35,41 @@ namespace df
     const float T_SEGMENT = 0.f;
     const float T_JOIN = +1.f;
 
-    vector<Point3D> renderPoints;
-    vector<Point3D> renderDirections;
-    vector<Point3D> renderVertexTypes;
-
-    const float hw = GetWidth() / 2.0f;
     typedef m2::PointF vec2;
 
-    // Add start cap quad
-    vec2 firstSegment = m_points[1] - m_points[0];
-    vec2 direction = firstSegment;
+    const size_t count = m_points.size();
 
+    // prepare data
+    vector<Point3D> renderPoints;
+    renderPoints.reserve(count);
+    vector<Point3D> renderDirections;
+    renderDirections.reserve(count);
+    vector<vec2> renderVertexTypes;
+    renderVertexTypes.reserve(count);
+    //
+
+    const float hw = GetWidth() / 2.0f;
+
+    // Add start cap quad
+    vec2       direction  = m_points[1] - m_points[0];
     m2::PointF firstPoint = m_points[0];
-    // Cap quad points
+
     renderPoints.push_back(Point3D::From2D(firstPoint, m_depth)); // A
     renderDirections.push_back(Point3D::From2D(direction, hw));
-    renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, 0));
+    renderVertexTypes.push_back(vec2(T_CAP, m_params.m_cap));
 
     renderPoints.push_back(Point3D::From2D(firstPoint, m_depth)); // B
     renderDirections.push_back(Point3D::From2D(direction, -hw));
-    renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, 0));
+    renderVertexTypes.push_back(vec2(T_CAP, m_params.m_cap));
+    //
 
-    vec2 start = m_points[0];
-    for (size_t i = 1; i < m_points.size(); ++i)
+    m2::PointF start = m_points[0];
+    for (size_t i = 1; i < count; ++i)
     {
-      vec2 end = m_points[i];
-      vec2 segment = end - start;
+      m2::PointF end = m_points[i];
+      vec2 segment   = end - start;
 
-      if (i < m_points.size() - 1)
+      if (i < count - 1)
       {
         vec2 longer = m_points[i+1] - start;
         const float dp = m2::DotProduct(segment, longer);
@@ -113,49 +95,48 @@ namespace df
 
       renderPoints.push_back(start3d);
       renderDirections.push_back(directionPos);
-      renderVertexTypes.push_back(Point3D(T_SEGMENT, 0, 0));
+      renderVertexTypes.push_back(vec2(T_SEGMENT, 0));
 
       renderPoints.push_back(start3d);
       renderDirections.push_back(directionNeg);
-      renderVertexTypes.push_back(Point3D(T_SEGMENT, 0, 0));
+      renderVertexTypes.push_back(vec2(T_SEGMENT, 0));
 
       renderPoints.push_back(end3d);
       renderDirections.push_back(directionPos);
-      renderVertexTypes.push_back(Point3D(T_SEGMENT, 0, 0));
+      renderVertexTypes.push_back(vec2(T_SEGMENT, 0));
 
       renderPoints.push_back(end3d);
       renderDirections.push_back(directionNeg);
-      renderVertexTypes.push_back(Point3D(T_SEGMENT, 0, 0));
+      renderVertexTypes.push_back(vec2(T_SEGMENT, 0));
 
       start = end;
     }
 
     //Add final cap
-    const size_t count   = m_points.size();
     vec2 lastSegment     = m_points[count-1] - m_points[count-2];
     m2::PointF lastPoint = m_points[count-1];
     direction = -lastSegment;
 
     renderPoints.push_back(Point3D::From2D(lastPoint, m_depth)); // A
     renderDirections.push_back(Point3D::From2D(direction, -hw));
-    renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, 0));
+    renderVertexTypes.push_back(vec2(T_CAP, m_params.m_cap));
 
     renderPoints.push_back(Point3D::From2D(lastPoint, m_depth)); // B
     renderDirections.push_back(Point3D::From2D(direction, hw));
-    renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, 0));
+    renderVertexTypes.push_back(vec2(T_CAP, m_params.m_cap));
     //
 
     GLState state(gpu::SOLID_LINE_PROGRAM, 0, TextureBinding("", false, 0, MakeStackRefPointer<Texture>(NULL)));
     float r, g, b, a;
     ::Convert(GetColor(), r, g, b, a);
-    state.GetUniformValues().SetFloatValue("color", r, g, b, a);
+    state.GetUniformValues().SetFloatValue("u_color", r, g, b, a);
 
     AttributeProvider provider(3, renderPoints.size());
 
     {
       BindingInfo positionInfo(1);
       BindingDecl & decl = positionInfo.GetBindingDecl(0);
-      decl.m_attributeName = "position";
+      decl.m_attributeName = "a_position";
       decl.m_componentCount = 3;
       decl.m_componentType = GLConst::GLFloatType;
       decl.m_offset = 0;
@@ -167,7 +148,7 @@ namespace df
     {
       BindingInfo directionInfo(1);
       BindingDecl & decl = directionInfo.GetBindingDecl(0);
-      decl.m_attributeName = "direction";
+      decl.m_attributeName = "a_direction";
       decl.m_componentCount = 3;
       decl.m_componentType = GLConst::GLFloatType;
       decl.m_offset = 0;
@@ -180,7 +161,7 @@ namespace df
       BindingInfo vertexTypeInfo(1);
       BindingDecl & decl = vertexTypeInfo.GetBindingDecl(0);
       decl.m_attributeName = "a_vertType";
-      decl.m_componentCount = 3;
+      decl.m_componentCount = 2;
       decl.m_componentType = GLConst::GLFloatType;
       decl.m_offset = 0;
       decl.m_stride = 0;
