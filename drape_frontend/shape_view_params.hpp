@@ -13,9 +13,9 @@ namespace df
 
   enum LineJoin
   {
-    NonJoin   = 0,
+    MiterJoin   = -1,
+    BevelJoin  = 0,
     RoundJoin = 1,
-    BevelJoin  = 2
   };
 
   struct LineViewParams

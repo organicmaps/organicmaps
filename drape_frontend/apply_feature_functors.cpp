@@ -42,7 +42,7 @@ namespace df
 
       switch (lineRule->join())
       {
-      case ::NOJOIN    : params.m_join = df::NonJoin;
+      case ::NOJOIN    : params.m_join = df::MiterJoin;
         break;
       case ::ROUNDJOIN : params.m_join = df::RoundJoin;
         break;

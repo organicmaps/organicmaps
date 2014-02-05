@@ -34,6 +34,7 @@ namespace df
     const float T_CAP = -1.f;
     const float T_SEGMENT = 0.f;
     const float T_JOIN = +1.f;
+    const float MIN_JOIN_ANGLE = 15*math::pi/180;
 
     typedef m2::PointF vec2;
 
@@ -109,6 +110,65 @@ namespace df
       renderDirections.push_back(directionNeg);
       renderVertexTypes.push_back(vec2(T_SEGMENT, 0));
 
+      // This is a join!
+      const bool needJoinSegments = (end != m_points[count - 1]);
+      if (needJoinSegments && (m_params.m_join != BevelJoin))
+      {
+        vec2 vIn  = m_points[i]   - m_points[i-1];
+        vec2 vOut = m_points[i+1] - m_points[i];
+        const float cross = vIn.x*vOut.y - vIn.y*vOut.x;
+        const float dot   = vIn.x*vOut.x + vIn.y*vOut.y;
+        const float joinAngle = atan2f(cross, dot);
+        const bool  clockWise = cross < 0;
+        const float directionFix = ( clockWise ? +1 : -1 );
+
+        if (fabsf(joinAngle) > MIN_JOIN_ANGLE)
+        {
+          const float joinHeight = (m_params.m_join == MiterJoin)
+                                   ? fabsf(hw / cosf(joinAngle/2))
+                                   : 2*hw; // ensure we have enough space for sector
+
+          // Add join triangles
+          Point3D pivot = Point3D::From2D(m_points[i], m_depth);
+
+          // T123
+          vec2 nIn(-vIn.y, vIn.x);
+          vec2 nInFixed = nIn.Normalize() * directionFix;
+
+          renderPoints.push_back(pivot);//1
+          renderDirections.push_back(Point3D::From2D(nInFixed, hw));
+          renderVertexTypes.push_back(vec2(T_JOIN, m_params.m_join));
+
+          renderPoints.push_back(pivot);//2
+          renderDirections.push_back(Point3D(0,0,0)); // zero-shift point
+          renderVertexTypes.push_back(vec2(T_JOIN, m_params.m_join));
+
+          // T234
+          vec2 nOut(-vOut.y, vOut.x);
+          vec2 nOutFixed = nOut.Normalize() * directionFix;
+
+          vec2 joinBackBisec = (nInFixed + nOutFixed).Normalize();
+
+          renderPoints.push_back(pivot); //3
+          renderDirections.push_back(Point3D::From2D(joinBackBisec, joinHeight));
+          renderVertexTypes.push_back(vec2(T_JOIN, m_params.m_join));
+
+          renderPoints.push_back(pivot); //4
+          renderDirections.push_back(Point3D::From2D(nOutFixed, hw));
+          renderVertexTypes.push_back(vec2(T_JOIN, m_params.m_join));
+
+          if (!clockWise)
+          {
+            // We use triangle strip, so we need to create zero-sqare triangle
+            // for correct rasterization.
+            renderPoints.push_back(pivot); //4 second time
+            renderDirections.push_back(Point3D::From2D(nOutFixed, hw));
+            renderVertexTypes.push_back(vec2(T_JOIN, m_params.m_join));
+          }
+        }
+      }
+      //
+
       start = end;
     }
 
@@ -130,6 +190,7 @@ namespace df
     float r, g, b, a;
     ::Convert(GetColor(), r, g, b, a);
     state.GetUniformValues().SetFloatValue("u_color", r, g, b, a);
+    state.GetUniformValues().SetFloatValue("u_width", GetWidth());
 
     AttributeProvider provider(3, renderPoints.size());
 

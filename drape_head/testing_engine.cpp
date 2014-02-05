@@ -98,38 +98,45 @@ namespace df
     //  ...         ...
     // [0,0]   ... [0,31]
 
+    //1
     vector<m2::PointF> linePoints1;
 
     linePoints1.push_back(grid[1][1]);
-    linePoints1.push_back(grid[4][2]);
+    linePoints1.push_back(grid[4][6]);
     linePoints1.push_back(grid[8][1]);
-    linePoints1.push_back(grid[16][4]);
+    linePoints1.push_back(grid[16][10]);
     linePoints1.push_back(grid[24][1]);
     linePoints1.push_back(grid[29][4]);
 
     LineViewParams params1;
-    params1.m_cap = RoundCap;
+    params1.m_cap   = RoundCap;
+    params1.m_join  = RoundJoin;
     params1.m_color = Color(255, 255, 50, 255);
-    params1.m_width = 50.f;
+    params1.m_width = 80.f;
     df::LineShape * line1 = new df::LineShape(linePoints1, 0.0f, params1);
     line1->Draw(m_batcher.GetRefPointer());
+    //
 
+    //2
     vector<m2::PointF> linePoints2;
 
-    linePoints2.push_back(grid[1][5]);
-    linePoints2.push_back(grid[4][6]);
-    linePoints2.push_back(grid[8][5]);
-    linePoints2.push_back(grid[16][8]);
-    linePoints2.push_back(grid[24][5]);
-    linePoints2.push_back(grid[29][8]);
+    linePoints2.push_back(grid[2][28]);
+    linePoints2.push_back(grid[6][28]);
+    linePoints2.push_back(grid[6][22]);
+    linePoints2.push_back(grid[2][22]);
+    linePoints2.push_back(grid[2][16]);
+    linePoints2.push_back(grid[6][16]);
 
     LineViewParams params2;
-    params2.m_cap = SquareCap;
+    params2.m_cap   = SquareCap;
+    params2.m_join  = RoundJoin;
     params2.m_color = Color(0, 255, 255, 255);
     params2.m_width = 50.f;
     df::LineShape * line2 = new df::LineShape(linePoints2, 0.0f, params2);
     line2->Draw(m_batcher.GetRefPointer());
+    //
 
+    //3
     vector<m2::PointF> linePoints3;
 
     linePoints3.push_back(grid[1][9]);
@@ -140,11 +147,13 @@ namespace df
     linePoints3.push_back(grid[29][12]);
 
     LineViewParams params3;
-    params3.m_cap = ButtCap;
+    params3.m_cap   = ButtCap;
+    params3.m_join  = MiterJoin;
     params3.m_color = Color(255, 0, 255, 255);
-    params3.m_width = 50.f;
+    params3.m_width = 60.f;
     df::LineShape * line3 = new df::LineShape(linePoints3, 0.0f, params3);
     line3->Draw(m_batcher.GetRefPointer());
+    //
   }
 
   void TestingEngine::ModelViewInit()
