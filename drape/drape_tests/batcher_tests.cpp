@@ -64,7 +64,7 @@ UNIT_TEST(BatchLists_Test)
   const uint32_t DataBufferID = 2;
   const uint32_t VaoID = 3;
 
-  const int VERTEX_COUNT = 10;
+  const int VERTEX_COUNT = 12;
   float data[3 * VERTEX_COUNT];
   for (int i = 0; i < VERTEX_COUNT * 3; ++i)
     data[i] = (float)i;
@@ -157,7 +157,7 @@ UNIT_TEST(BatchLists_Test)
   decl.m_offset = 0;
   decl.m_stride = 0;
 
-  AttributeProvider provider(1, 10);
+  AttributeProvider provider(1, VERTEX_COUNT);
   provider.InitStream(0, binding, MakeStackRefPointer(data));
 
   VAOAcceptor vaoAcceptor;
