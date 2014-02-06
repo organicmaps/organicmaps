@@ -45,11 +45,12 @@ namespace df
     renderPoints.reserve(count);
     vector<Point3D> renderDirections;
     renderDirections.reserve(count);
-    vector<vec2> renderVertexTypes;
+    vector<Point3D> renderVertexTypes;
     renderVertexTypes.reserve(count);
     //
 
     const float hw = GetWidth() / 2.0f;
+    const float realWidth = GetWidth();
 
     // Add start cap quad
     vec2       direction  = m_points[1] - m_points[0];
@@ -57,11 +58,11 @@ namespace df
 
     renderPoints.push_back(Point3D::From2D(firstPoint, m_depth)); // A
     renderDirections.push_back(Point3D::From2D(direction, hw));
-    renderVertexTypes.push_back(vec2(T_CAP, m_params.m_cap));
+    renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, realWidth));
 
     renderPoints.push_back(Point3D::From2D(firstPoint, m_depth)); // B
     renderDirections.push_back(Point3D::From2D(direction, -hw));
-    renderVertexTypes.push_back(vec2(T_CAP, m_params.m_cap));
+    renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, realWidth));
     //
 
     m2::PointF start = m_points[0];
@@ -96,19 +97,19 @@ namespace df
 
       renderPoints.push_back(start3d);
       renderDirections.push_back(directionPos);
-      renderVertexTypes.push_back(vec2(T_SEGMENT, 0));
+      renderVertexTypes.push_back(Point3D(T_SEGMENT, 0, realWidth));
 
       renderPoints.push_back(start3d);
       renderDirections.push_back(directionNeg);
-      renderVertexTypes.push_back(vec2(T_SEGMENT, 0));
+      renderVertexTypes.push_back(Point3D(T_SEGMENT, 0, realWidth));
 
       renderPoints.push_back(end3d);
       renderDirections.push_back(directionPos);
-      renderVertexTypes.push_back(vec2(T_SEGMENT, 0));
+      renderVertexTypes.push_back(Point3D(T_SEGMENT, 0, realWidth));
 
       renderPoints.push_back(end3d);
       renderDirections.push_back(directionNeg);
-      renderVertexTypes.push_back(vec2(T_SEGMENT, 0));
+      renderVertexTypes.push_back(Point3D(T_SEGMENT, 0, realWidth));
 
       // This is a join!
       const bool needJoinSegments = (end != m_points[count - 1]);
@@ -137,11 +138,11 @@ namespace df
 
           renderPoints.push_back(pivot);//1
           renderDirections.push_back(Point3D::From2D(nInFixed, hw));
-          renderVertexTypes.push_back(vec2(T_JOIN, m_params.m_join));
+          renderVertexTypes.push_back(Point3D(T_JOIN, m_params.m_join, realWidth));
 
           renderPoints.push_back(pivot);//2
           renderDirections.push_back(Point3D(0,0,0)); // zero-shift point
-          renderVertexTypes.push_back(vec2(T_JOIN, m_params.m_join));
+          renderVertexTypes.push_back(Point3D(T_JOIN, m_params.m_join, realWidth));
 
           // T234
           vec2 nOut(-vOut.y, vOut.x);
@@ -151,11 +152,11 @@ namespace df
 
           renderPoints.push_back(pivot); //3
           renderDirections.push_back(Point3D::From2D(joinBackBisec, joinHeight));
-          renderVertexTypes.push_back(vec2(T_JOIN, m_params.m_join));
+          renderVertexTypes.push_back(Point3D(T_JOIN, m_params.m_join, realWidth));
 
           renderPoints.push_back(pivot); //4
           renderDirections.push_back(Point3D::From2D(nOutFixed, hw));
-          renderVertexTypes.push_back(vec2(T_JOIN, m_params.m_join));
+          renderVertexTypes.push_back(Point3D(T_JOIN, m_params.m_join, realWidth));
 
           if (!clockWise)
           {
@@ -163,7 +164,7 @@ namespace df
             // for correct rasterization.
             renderPoints.push_back(pivot); //4 second time
             renderDirections.push_back(Point3D::From2D(nOutFixed, hw));
-            renderVertexTypes.push_back(vec2(T_JOIN, m_params.m_join));
+            renderVertexTypes.push_back(Point3D(T_JOIN, m_params.m_join, realWidth));
           }
         }
       }
@@ -179,18 +180,17 @@ namespace df
 
     renderPoints.push_back(Point3D::From2D(lastPoint, m_depth)); // A
     renderDirections.push_back(Point3D::From2D(direction, -hw));
-    renderVertexTypes.push_back(vec2(T_CAP, m_params.m_cap));
+    renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, realWidth));
 
     renderPoints.push_back(Point3D::From2D(lastPoint, m_depth)); // B
     renderDirections.push_back(Point3D::From2D(direction, hw));
-    renderVertexTypes.push_back(vec2(T_CAP, m_params.m_cap));
+    renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, realWidth));
     //
 
     GLState state(gpu::SOLID_LINE_PROGRAM, 0, TextureBinding("", false, 0, MakeStackRefPointer<Texture>(NULL)));
     float r, g, b, a;
     ::Convert(GetColor(), r, g, b, a);
     state.GetUniformValues().SetFloatValue("u_color", r, g, b, a);
-    state.GetUniformValues().SetFloatValue("u_width", GetWidth());
 
     AttributeProvider provider(3, renderPoints.size());
 
@@ -222,7 +222,7 @@ namespace df
       BindingInfo vertexTypeInfo(1);
       BindingDecl & decl = vertexTypeInfo.GetBindingDecl(0);
       decl.m_attributeName = "a_vertType";
-      decl.m_componentCount = 2;
+      decl.m_componentCount = 3;
       decl.m_componentType = GLConst::GLFloatType;
       decl.m_offset = 0;
       decl.m_stride = 0;
