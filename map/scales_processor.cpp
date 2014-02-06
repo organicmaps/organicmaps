@@ -24,7 +24,7 @@ void ScalesProcessor::SetParams(double visualScale, int tileSize)
   m_visualScale = visualScale;
 }
 
-m2::RectD const & ScalesProcessor::GetWorldRect() const
+m2::RectD const & ScalesProcessor::GetWorldRect()
 {
   static m2::RectD const worldRect = MercatorBounds::FullRect();
   return worldRect;

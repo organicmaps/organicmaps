@@ -15,7 +15,7 @@ public:
 
   void SetParams(double visualScale, int tileSize);
 
-  m2::RectD const & GetWorldRect() const;
+  static m2::RectD const & GetWorldRect();
   inline int GetTileSize() const { return m_tileSize; }
   inline double GetVisualScale() const { return m_visualScale; }
 
