@@ -119,14 +119,14 @@ namespace df
         vec2 vOut = m_points[i+1] - m_points[i];
         const float cross = vIn.x*vOut.y - vIn.y*vOut.x;
         const float dot   = vIn.x*vOut.x + vIn.y*vOut.y;
-        const float joinAngle = atan2f(cross, dot);
+        const float joinAngle = atan2(cross, dot);
         const bool  clockWise = cross < 0;
         const float directionFix = ( clockWise ? +1 : -1 );
 
         if (fabsf(joinAngle) > MIN_JOIN_ANGLE)
         {
           const float joinHeight = (m_params.m_join == MiterJoin)
-                                   ? fabsf(hw / cosf(joinAngle/2))
+                                   ? fabs(hw / cos(joinAngle/2))
                                    : 2*hw; // ensure we have enough space for sector
 
           // Add join triangles
