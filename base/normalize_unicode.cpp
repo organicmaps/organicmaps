@@ -13,8 +13,11 @@ static void w(strings::UniString & r, uint16_t startIndex, int count)
 
 void Normalize(strings::UniString & s)
 {
+  size_t const size = s.size();
+
   strings::UniString r;
-  for (size_t i = 0; i < s.size(); ++i)
+  r.reserve(size);
+  for (size_t i = 0; i < size; ++i)
   {
     strings::UniChar const c = s[i];
     // ASCII optimization
@@ -4582,6 +4585,7 @@ void Normalize(strings::UniString & s)
       }
     }
   }
+
   s.swap(r);
 }
 

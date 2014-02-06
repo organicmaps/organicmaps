@@ -172,21 +172,25 @@ static size_t w(UniChar c, UniChar * buf)
 
 void MakeLowerCase(UniString & s)
 {
-  UniString r;
   size_t const size = s.size();
+
+  UniString r;
+  r.reserve(size);
   for (size_t i = 0; i < size; ++i)
   {
     UniChar const c = LowerUniChar(s[i]);
     if (c != 0)
       r.push_back(c);
     else
-    { // special case, replace this char with two or more chars for full case folding
+    {
+      // special case, replace this char with two or more chars for full case folding
       UniChar cc[3];
       size_t const count = w(s[i], &cc[0]);
       for (size_t j = 0; j < count; ++j)
         r.push_back(cc[j]);
     }
   }
+
   s.swap(r);
 }
 
