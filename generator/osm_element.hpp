@@ -12,8 +12,6 @@
 #include "../base/logging.hpp"
 #include "../base/stl_add.hpp"
 
-#include "../platform/platform.hpp"
-
 #include "../std/unordered_map.hpp"
 #include "../std/list.hpp"
 
@@ -347,6 +345,7 @@ class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
   typedef typename base_type::feature_builder_t feature_t;
 
   uint32_t m_coastType;
+  scoped_ptr<FileWriter> m_addrWriter;
 
 protected:
   virtual void EmitElement(XMLElement * p)
@@ -413,15 +412,10 @@ protected:
             f.SetCenter(ft.GetGeometryCenter());
             if (f.PreSerialize())
             {
-              if (!params.m_streetAddress.empty() && !params.house.IsEmpty())
-              {
-                m2::PointD p = ft.GetLimitRect().Center();
-                string const s = params.m_streetAddress + "|" +  params.house.Get() + "|"
-                    + strings::to_string(MercatorBounds::YToLat(p.y)) + "|"
-                    + strings::to_string(MercatorBounds::XToLon(p.x)) + '\n';
-                FileWriter writer = FileWriter(GetPlatform().WritableDir() + "adresses.txt", FileWriter::OP_APPEND, false);
-                writer.Write(s.c_str(), s.size());
-              }
+              string addr;
+              if (m_addrWriter && f.FormatFullAddress(addr))
+                m_addrWriter->Write(addr.c_str(), addr.size());
+
               base_type::m_emitter(f);
             }
           }
@@ -490,15 +484,10 @@ protected:
     ft.SetParams(fValue);
     if (ft.PreSerialize())
     {
-      if (!fValue.m_streetAddress.empty() && !fValue.house.IsEmpty())
-      {
-        m2::PointD p = ft.GetLimitRect().Center();
-        string const s = fValue.m_streetAddress + "|" +  fValue.house.Get() + "|"
-            + strings::to_string(MercatorBounds::YToLat(p.y)) + "|"
-            + strings::to_string(MercatorBounds::XToLon(p.x)) + '\n';
-        FileWriter writer = FileWriter(GetPlatform().WritableDir() + "adresses.txt", FileWriter::OP_APPEND, false);
-        writer.Write(s.c_str(), s.size());
-      }
+      string addr;
+      if (m_addrWriter && ft.FormatFullAddress(addr))
+        m_addrWriter->Write(addr.c_str(), addr.size());
+
       // add osm id for debugging
       ft.AddOsmId(p->name, id);
       base_type::m_emitter(ft);
@@ -506,8 +495,11 @@ protected:
   }
 
 public:
-  SecondPassParserUsual(TEmitter & emitter, THolder & holder, uint32_t coastType)
+  SecondPassParserUsual(TEmitter & emitter, THolder & holder,
+                        uint32_t coastType, string const & addrFilePath)
     : base_type(emitter, holder), m_coastType(coastType)
   {
+    if (!addrFilePath.empty())
+      m_addrWriter.reset(new FileWriter(addrFilePath, FileWriter::OP_APPEND));
   }
 };

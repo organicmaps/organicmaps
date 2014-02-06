@@ -74,6 +74,8 @@ public:
   //@{
   inline m2::RectD GetLimitRect() const { return m_LimitRect; }
 
+  bool FormatFullAddress(string & res) const;
+
   /// Get common parameters of feature.
   FeatureBase GetFeatureBase() const;
 

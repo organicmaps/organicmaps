@@ -25,6 +25,7 @@
 #include "../std/unordered_map.hpp"
 #include "../std/target_os.hpp"
 
+
 namespace feature
 {
 
@@ -437,7 +438,10 @@ bool GenerateImpl(GenerateInfo & info)
 
     MainFeaturesEmitter bucketer(info);
     SecondPassParserUsual<MainFeaturesEmitter, holder_t> parser(
-          bucketer, holder, info.m_makeCoasts ? classif().GetCoastType() : 0);
+          bucketer, holder,
+          info.m_makeCoasts ? classif().GetCoastType() : 0,
+          info.m_addressFile);
+
     ParseXMLFromStdIn(parser);
 
     // Stop if coasts are not merged and FLAG_fail_on_coasts is set

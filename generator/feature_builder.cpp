@@ -104,6 +104,11 @@ bool FeatureBuilder1::RemoveInvalidTypes()
                                         static_cast<FeatureGeoType>(m_Params.GetGeomType()));
 }
 
+bool FeatureBuilder1::FormatFullAddress(string & res) const
+{
+  return m_Params.FormatFullAddress(m_LimitRect.Center(), res);
+}
+
 FeatureBase FeatureBuilder1::GetFeatureBase() const
 {
   CHECK ( CheckValid(), (*this) );

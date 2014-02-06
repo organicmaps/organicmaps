@@ -1,6 +1,8 @@
 #pragma once
 #include "feature_decl.hpp"
 
+#include "../geometry/point2d.hpp"
+
 #include "../coding/multilang_utf8_string.hpp"
 #include "../coding/value_opt_string.hpp"
 #include "../coding/reader.hpp"
@@ -112,8 +114,6 @@ struct FeatureParamsBase
   string flats;
   int8_t layer;
   uint8_t rank;
-  /// We use it now only for search unit tests
-  string m_streetAddress;
 
   FeatureParamsBase() : layer(0), rank(0) {}
 
@@ -127,7 +127,6 @@ struct FeatureParamsBase
 
   void AddHouseName(string const & s);
   void AddHouseNumber(string const & s);
-  void AddStreetAddress(string const & s);
 
   template <class TSink>
   void Write(TSink & sink, uint8_t header) const
@@ -194,18 +193,29 @@ class FeatureParams : public FeatureParamsBase
 
   uint8_t m_geomType;
 
+  /// We use it now only for search unit tests
+  string m_streetAddress;
+
 public:
   typedef vector<uint32_t> types_t;
   types_t m_Types;
 
   FeatureParams() : m_geomType(0xFF) {}
 
+  /// @name Used in storing full street address only.
+  //@{
+  inline void AddStreetAddress(string const & s) { m_streetAddress = s; }
+  bool FormatFullAddress(m2::PointD const & pt, string & res) const;
+  //@}
+
   /// Assign parameters except geometry type.
   /// Geometry is independent state and it's set by FeatureType's geometry functions.
   inline void SetParams(FeatureParams const & rhs)
   {
     BaseT::operator=(rhs);
+
     m_Types = rhs.m_Types;
+    m_streetAddress = rhs.m_streetAddress;
   }
 
   inline bool IsValid() const { return !m_Types.empty(); }

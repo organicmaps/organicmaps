@@ -125,9 +125,17 @@ void FeatureParamsBase::AddHouseNumber(string const & ss)
   house.Set(house.IsEmpty() ? s : s + ", " + house.Get());
 }
 
-void FeatureParamsBase::AddStreetAddress(string const & s)
+bool FeatureParams::FormatFullAddress(m2::PointD const & pt, string & res) const
 {
-  m_streetAddress = s;
+  if (!m_streetAddress.empty() && !house.IsEmpty())
+  {
+    res = m_streetAddress + "|" +  house.Get() + "|"
+        + strings::to_string(MercatorBounds::YToLat(pt.y)) + "|"
+        + strings::to_string(MercatorBounds::XToLon(pt.x)) + '\n';
+    return true;
+  }
+
+  return false;
 }
 
 void FeatureParams::SetGeomType(feature::EGeomType t)

@@ -60,6 +60,8 @@ DEFINE_bool(generate_packed_borders, false, "Generate packed file with country p
 DEFINE_bool(check_mwm, false, "Check map file to be correct.");
 DEFINE_string(delete_section, "", "Delete specified section (defines.hpp) from container.");
 DEFINE_bool(fail_on_coasts, false, "Stop and exit with '255' code if some coastlines are not merged.");
+DEFINE_string(address_file_name, "", "Output file name for storing full addresses.");
+
 
 string AddSlashIfNeeded(string const & str)
 {
@@ -132,6 +134,9 @@ int main(int argc, char ** argv)
     genInfo.m_createWorld = FLAGS_generate_world;
     genInfo.m_makeCoasts = FLAGS_make_coasts;
     genInfo.m_emitCoasts = FLAGS_emit_coasts;
+
+    if (!FLAGS_address_file_name.empty())
+      genInfo.m_addressFile = path + FLAGS_address_file_name;
 
     if (!feature::GenerateFeatures(genInfo, FLAGS_use_light_nodes))
       return -1;
