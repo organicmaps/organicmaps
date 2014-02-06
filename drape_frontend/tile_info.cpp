@@ -3,6 +3,7 @@
 #include "stylist.hpp"
 #include "rule_drawer.hpp"
 
+#include "../base/scope_guard.hpp"
 #include "../map/feature_vec_model.hpp"
 
 #include "../std/bind.hpp"
@@ -62,12 +63,15 @@ namespace df
     if (!indexes.empty())
     {
       context.BeginReadTile(m_key);
+
+      // Reading can be interrupted by exception throwing
+      MY_SCOPE_GUARD(ReleaseReadTile, bind(&EngineContext::EndReadTile, &context, m_key));
+
       vector<FeatureID> featuresToRead;
       for_each(indexes.begin(), indexes.end(), IDsAccumulator(featuresToRead, m_featureInfo));
 
       RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1 ,_2), m_key, context);
       model.ReadFeatures(drawer, featuresToRead);
-      context.EndReadTile(m_key);
     }
   }
 
