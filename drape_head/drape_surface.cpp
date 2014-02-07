@@ -11,9 +11,12 @@
 #include "../std/bind.hpp"
 #include "../std/cmath.hpp"
 
+#include <QtGui/QMouseEvent>
+
 
 DrapeSurface::DrapeSurface()
-  : m_contextFactory(NULL)
+  : m_dragState(false)
+  , m_contextFactory(NULL)
 {
   setSurfaceType(QSurface::OpenGLSurface);
 
@@ -38,23 +41,56 @@ void DrapeSurface::exposeEvent(QExposeEvent *e)
       ThreadSafeFactory * factory = new ThreadSafeFactory(new QtOGLContextFactory(this));
       m_contextFactory = MasterPointer<OGLContextFactory>(factory);
       CreateEngine();
-      m_drapeEngine->SetAngle(0.0);
     }
   }
 }
 
-void DrapeSurface::timerEvent(QTimerEvent * e)
+void DrapeSurface::mousePressEvent(QMouseEvent * e)
 {
-  if (e->timerId() == m_timerID)
-  {
-    static const float _2pi = 2 * math::pi;
-    static float angle = 0.0;
-    angle += 0.0035;
-    if (angle > _2pi)
-      angle -= _2pi;
+  QWindow::mousePressEvent(e);
+  if (!isExposed())
+    return;
 
-    // TODO this is test
-    m_drapeEngine->SetAngle(angle);
+  if (e->button() == Qt::LeftButton)
+  {
+    m2::PointF p = GetDevicePosition(e->pos());
+    m_drapeEngine->DragStarted(p);
+    m_dragState = true;
+  }
+}
+
+void DrapeSurface::mouseMoveEvent(QMouseEvent * e)
+{
+  QWindow::mouseMoveEvent(e);
+  if (!isExposed())
+    return;
+
+  if (m_dragState)
+  {
+    m2::PointF p = GetDevicePosition(e->pos());
+    m_drapeEngine->Drag(p);
+  }
+}
+
+void DrapeSurface::mouseReleaseEvent(QMouseEvent * e)
+{
+  QWindow::mouseReleaseEvent(e);
+  if (!isExposed())
+    return;
+
+  if (m_dragState)
+  {
+    m2::PointF p = GetDevicePosition(e->pos());
+    m_drapeEngine->DragEnded(p);
+    m_dragState = false;
+  }
+}
+
+void DrapeSurface::wheelEvent(QWheelEvent * e)
+{
+  if (!m_dragState)
+  {
+    m_drapeEngine->Scale(GetDevicePosition(e->pos()), exp(e->delta() / 360.0));
   }
 }
 
@@ -68,12 +104,16 @@ void DrapeSurface::CreateEngine()
                     new df::DrapeEngine(f , pixelRatio, df::Viewport(pixelRatio, 0, 0, width(), height())));
 
   sizeChanged(0);
-
-  //m_timerID = startTimer(1000 / 30);
 }
 
 void DrapeSurface::sizeChanged(int)
 {
   if (!m_drapeEngine.IsNull())
-    m_drapeEngine->OnSizeChanged(0, 0, width(), height());
+    m_drapeEngine->Resize(width(), height());
+}
+
+m2::PointF DrapeSurface::GetDevicePosition(const QPoint & p)
+{
+  qreal ratio = devicePixelRatio();
+  return m2::PointF(p.x() /* ratio*/, p.y() /* ratio*/);
 }

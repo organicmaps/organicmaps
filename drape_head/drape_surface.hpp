@@ -26,7 +26,10 @@ public:
 
 protected:
   void exposeEvent(QExposeEvent * e);
-  void timerEvent(QTimerEvent * e);
+  void mousePressEvent(QMouseEvent * e);
+  void mouseMoveEvent(QMouseEvent * e);
+  void mouseReleaseEvent(QMouseEvent * e);
+  void wheelEvent(QWheelEvent * e);
 
 private:
   void CreateEngine();
@@ -34,8 +37,9 @@ private:
   Q_SLOT void sizeChanged(int);
 
 private:
+  m2::PointF GetDevicePosition(const QPoint & p);
 
-  int m_timerID;
+  bool m_dragState;
 
 private:
   MasterPointer<OGLContextFactory> m_contextFactory;

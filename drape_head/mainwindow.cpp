@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
   format.setDepthBufferSize(16);
   surface->setFormat(format);
   m_surface = QWidget::createWindowContainer(surface, this);
+  m_surface->setMouseTracking(true);
   setCentralWidget(m_surface);
 }
 

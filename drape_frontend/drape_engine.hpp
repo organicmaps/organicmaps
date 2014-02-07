@@ -7,6 +7,8 @@
 #include "../drape/pointers.hpp"
 #include "../drape/oglcontextfactory.hpp"
 
+#include "../map/navigator.hpp"
+
 namespace df
 {
   class Viewport;
@@ -16,13 +18,23 @@ namespace df
     DrapeEngine(RefPointer<OGLContextFactory> oglcontextfactory, double vs, Viewport const & viewport);
     ~DrapeEngine();
 
-    void OnSizeChanged(int x0, int y0, int w, int h);
-    void SetAngle(float radians);
+    void Resize(int w, int h);
+    void DragStarted(m2::PointF const & p);
+    void Drag(m2::PointF const & p);
+    void DragEnded(m2::PointF const & p);
+    void Scale(m2::PointF const & p, double factor);
+
+  private:
+    void UpdateCoverage();
 
   private:
     MasterPointer<FrontendRenderer> m_frontend;
     MasterPointer<BackendRenderer>  m_backend;
 
     MasterPointer<ThreadsCommutator> m_threadCommutator;
+
+    ScalesProcessor m_scales;
+    Viewport m_viewport;
+    Navigator m_navigator;
   };
 }
