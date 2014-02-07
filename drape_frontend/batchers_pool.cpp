@@ -106,6 +106,7 @@ namespace df
     reserved_batchers_t::iterator it = m_reservedBatchers.find(key);
 
     ASSERT(it != m_reservedBatchers.end(), ());
+    ASSERT_GREATER(it->second.second, 0, ());
     if ((--it->second.second)== 0)
     {
       MasterPointer<Batcher> batcher = it->second.first;

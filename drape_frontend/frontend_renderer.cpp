@@ -135,8 +135,8 @@ namespace df
         RefreshModelView();
         m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   MovePointer<Message>(new UpdateCoverageMessage(m_view)));
+        break;
       }
-
 
     case Message::Rotate:
       {
