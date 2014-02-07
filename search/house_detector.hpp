@@ -11,6 +11,10 @@
 
 namespace search
 {
+
+void GetStreetNameAsKey(string const & name, string & res);
+
+
 class FeatureLoader
 {
   Index const * m_pIndex;

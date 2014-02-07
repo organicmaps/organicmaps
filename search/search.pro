@@ -20,7 +20,8 @@ HEADERS += \
     feature_offset_match.hpp \
     keyword_lang_matcher.hpp \
     params.hpp \
-    house_detector.hpp
+    house_detector.hpp \
+    ftypes_matcher.hpp \
 
 SOURCES += \
     search_engine.cpp \
@@ -32,4 +33,5 @@ SOURCES += \
     approximate_string_match.cpp \
     keyword_lang_matcher.cpp \
     params.cpp \
-    house_detector.cpp
+    house_detector.cpp \
+    ftypes_matcher.cpp \

@@ -1,4 +1,5 @@
 #include "intermediate_result.hpp"
+#include "ftypes_matcher.hpp"
 
 #include "../storage/country_info.hpp"
 
@@ -336,43 +337,6 @@ namespace
       return (find(m_index, e, FirstLevelIndex(type)) != e);
     }
   };
-
-  class IsStreetChecker
-  {
-    vector<uint32_t> m_types;
-
-  public:
-    IsStreetChecker()
-    {
-      Classificator const & c = classif();
-      char const * arr[][2] = {
-        { "highway", "trunk" },
-        { "highway", "primary" },
-        { "highway", "secondary" },
-        { "highway", "residential" },
-        { "highway", "pedestrian" },
-        { "highway", "tertiary" },
-        { "highway", "construction" },
-        { "highway", "living_street" }
-      };
-
-      for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
-        m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2)));
-    }
-
-    bool IsMy(feature::TypesHolder const & types) const
-    {
-      for (size_t i = 0; i < types.Size(); ++i)
-      {
-        uint32_t t = types[i];
-        ftype::TruncValue(t, 2);
-
-        if (find(m_types.begin(), m_types.end(), t) != m_types.end())
-          return true;
-      }
-      return false;
-    }
-  };
 }
 
 bool PreResult2::LessLinearTypesF::operator() (PreResult2 const & r1, PreResult2 const & r2) const
@@ -414,8 +378,8 @@ bool PreResult2::EqualLinearTypesF::operator() (PreResult2 const & r1, PreResult
 
 bool PreResult2::IsStreet() const
 {
-  static IsStreetChecker checker;
-  return checker.IsMy(m_types);
+  static ftypes::IsStreetChecker checker;
+  return checker(m_types);
 }
 
 string PreResult2::DebugPrint() const
