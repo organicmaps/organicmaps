@@ -13,6 +13,7 @@ class Batcher;
 namespace df
 {
   class Message;
+  // Not thread safe
   class BatchersPool
   {
   public:
@@ -29,8 +30,12 @@ namespace df
     void ReleaseBatcher(TileKey const & key);
 
   private:
-    stack<MasterPointer<Batcher> > m_batchers;
-    typedef map<TileKey, MasterPointer<Batcher> > reserved_batchers_t;
+    typedef MasterPointer<Batcher> batcher_ptr;
+    typedef stack<batcher_ptr> batchers_pool_t;
+    typedef pair<batcher_ptr, int> counted_batcher_t;
+    typedef map<TileKey, counted_batcher_t> reserved_batchers_t;
+
+    batchers_pool_t m_batchers;
     reserved_batchers_t m_reservedBatchers;
 
     send_message_fn m_sendMessageFn;

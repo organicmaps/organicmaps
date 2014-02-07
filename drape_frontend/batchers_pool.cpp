@@ -73,6 +73,13 @@ namespace df
 
   void BatchersPool::ReserveBatcher(TileKey const & key)
   {
+    reserved_batchers_t::iterator it = m_reservedBatchers.find(key);
+    if (it != m_reservedBatchers.end())
+    {
+      it->second.second++;
+      return;
+    }
+
     MasterPointer<Batcher> reserved;
     if (m_batchers.empty())
       reserved.Reset(new Batcher());
@@ -83,7 +90,7 @@ namespace df
     }
 
     reserved->StartSession(bind(&FlushGeometry, m_sendMessageFn, key, _1, _2));
-    VERIFY(m_reservedBatchers.insert(make_pair(key, reserved)).second, ());
+    VERIFY(m_reservedBatchers.insert(make_pair(key, make_pair(reserved, 1))).second, ());
   }
 
   RefPointer<Batcher> BatchersPool::GetTileBatcher(TileKey const & key)
@@ -91,7 +98,7 @@ namespace df
     reserved_batchers_t::iterator it = m_reservedBatchers.find(key);
 
     ASSERT(it != m_reservedBatchers.end(), ());
-    return it->second.GetRefPointer();
+    return it->second.first.GetRefPointer();
   }
 
   void BatchersPool::ReleaseBatcher(TileKey const & key)
@@ -99,9 +106,12 @@ namespace df
     reserved_batchers_t::iterator it = m_reservedBatchers.find(key);
 
     ASSERT(it != m_reservedBatchers.end(), ());
-    MasterPointer<Batcher> batcher = it->second;
-    batcher->EndSession();
-    m_reservedBatchers.erase(it);
-    m_batchers.push(batcher);
+    if ((--it->second.second)== 0)
+    {
+      MasterPointer<Batcher> batcher = it->second.first;
+      batcher->EndSession();
+      m_reservedBatchers.erase(it);
+      m_batchers.push(batcher);
+    }
   }
 }
