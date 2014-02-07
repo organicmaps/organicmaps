@@ -46,6 +46,8 @@ namespace df
     void CheckCanceled() const;
     bool DoNeedReadIndex() const;
 
+    int GetZoomLevel() const;
+
   private:
     TileKey m_key;
     vector<FeatureInfo> m_featureInfo;

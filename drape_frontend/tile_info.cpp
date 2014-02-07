@@ -43,11 +43,11 @@ namespace df
 
   void TileInfo::ReadFeatureIndex(model::FeaturesFetcher const & model)
   {
+    threads::MutexGuard guard(m_mutex);
     if (DoNeedReadIndex())
     {
-      threads::MutexGuard guard(m_mutex);
       CheckCanceled();
-      model.ForEachFeatureID(GetGlobalRect(), *this, m_key.m_zoomLevel);
+      model.ForEachFeatureID(GetGlobalRect(), *this, GetZoomLevel());
       sort(m_featureInfo.begin(), m_featureInfo.end());
     }
   }
@@ -91,7 +91,7 @@ namespace df
   void TileInfo::InitStylist(const FeatureType & f, Stylist & s)
   {
     CheckCanceled();
-    df::InitStylist(f, m_key.m_zoomLevel, s);
+    df::InitStylist(f, GetZoomLevel(), s);
   }
 
   //====================================================//
@@ -111,5 +111,11 @@ namespace df
   {
     if (m_isCanceled)
       MYTHROW(ReadCanceledException, ());
+  }
+
+  int TileInfo::GetZoomLevel() const
+  {
+    int upperScale = scales::GetUpperScale();
+    return m_key.m_zoomLevel <= upperScale ? m_key.m_zoomLevel : upperScale;
   }
 }
