@@ -1,6 +1,7 @@
 #include "frontend_renderer.hpp"
 #include "message_subclasses.hpp"
 
+#include "../base/timer.hpp"
 #include "../base/assert.hpp"
 #include "../base/stl_add.hpp"
 
@@ -11,6 +12,17 @@
 
 namespace df
 {
+  namespace
+  {
+#ifdef DEBUG
+    const double VSyncInterval = 0.030;
+    const double InitAvarageTimePerMessage = 0.003;
+#else
+    const double VSyncInterval = 0.014;
+    const double InitAvarageTimePerMessage = 0.001;
+#endif
+  }
+
   FrontendRenderer::FrontendRenderer(RefPointer<ThreadsCommutator> commutator,
                                      RefPointer<OGLContextFactory> oglcontextfactory,
                                      Viewport viewport)
@@ -25,12 +37,8 @@ namespace df
 #endif
 
     m_commutator->RegisterThread(ThreadsCommutator::RenderThread, this);
-    RefreshProjection(viewport.GetWidth(), viewport.GetHeight());
 
-    m_modelView.OnSize(viewport.GetX0(), viewport.GetY0(), viewport.GetWidth(), viewport.GetHeight());
-    m2::RectD rect(27.40, 64.14, 27.66, 64.34);
-    m_modelView.SetFromRect(m2::AnyRectD(m2::PointD(0, 0), ang::AngleD(0), rect));
-
+    RefreshProjection();
     RefreshModelView();
     StartThread();
   }
@@ -89,7 +97,7 @@ namespace df
         CoverageUpdateDescriptor const & descr = static_cast<DropTilesMessage *>(message.GetRaw())->GetDescriptor();
         ASSERT(!descr.IsEmpty(), ());
 
-        if (!descr.DoDropAll())
+        if (!descr.IsDropAll())
         {
           vector<TileKey> const & tilesToDrop = descr.GetTilesToDrop();
           for (size_t i = 0; i < tilesToDrop.size(); ++i)
@@ -112,24 +120,32 @@ namespace df
     case Message::Resize:
       {
         ResizeMessage * rszMsg = static_cast<ResizeMessage *>(message.GetRaw());
-        m2::RectI const & rect = rszMsg->GetRect();
-        int32_t sizeX = rect.SizeX();
-        int32_t sizeY = rect.SizeY();
-        m_modelView.OnSize(0, 0, sizeX, sizeY);
-        RefreshProjection(sizeX, sizeY);
+        m_viewport = rszMsg->GetViewport();
+        RefreshProjection();
+        RefreshModelView();
         m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  MovePointer<Message>(new UpdateCoverageMessage(m_modelView)));
+                                  MovePointer<Message>(new UpdateCoverageMessage(m_view)));
         break;
       }
 
+    case Message::UpdateCoverage:
+      {
+        UpdateCoverageMessage * coverMessage = static_cast<UpdateCoverageMessage *>(message.GetRaw());
+        m_view = coverMessage->GetScreen();
+        RefreshModelView();
+        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  MovePointer<Message>(new UpdateCoverageMessage(m_view)));
+      }
+
+
     case Message::Rotate:
       {
-        RotateMessage * rtMsg = static_cast<RotateMessage *>(message.GetRaw());
-        m_modelView.Rotate(rtMsg->GetDstAngle());
-        RefreshModelView();
+        //RotateMessage * rtMsg = static_cast<RotateMessage *>(message.GetRaw());
+        //m_modelView.Rotate(rtMsg->GetDstAngle());
+        //RefreshModelView();
 
-        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  MovePointer<Message>(new UpdateCoverageMessage(m_modelView)));
+        //m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+        //                          MovePointer<Message>(new UpdateCoverageMessage(m_modelView)));
         break;
       }
 
@@ -160,7 +176,6 @@ namespace df
 #endif
 
     m_viewport.Apply();
-
     GLFunctions::glEnable(GLConst::GLDepthTest);
 
     GLFunctions::glClearColor(0.93f, 0.93f, 0.86f, 1.f);
@@ -176,25 +191,17 @@ namespace df
 #endif
   }
 
-  void FrontendRenderer::RefreshProjection(int w, int h)
+  void FrontendRenderer::RefreshProjection()
   {
-    ASSERT(w >= 0, ());
-    ASSERT(h >= 0, ());
-
-    if (h < 2) h = 2;
-    if (w < 2) w = 2;
-
-    m_viewport.SetViewport(0, 0, w, h);
-
     float m[4*4];
 
-    OrthoMatrix(m, 0.0f, w, h, 0.0f, -20000.0f, 20000.0f);
+    OrthoMatrix(m, 0.0f, m_viewport.GetWidth(), m_viewport.GetHeight(), 0.0f, -20000.0f, 20000.0f);
     m_generalUniforms.SetMatrix4x4Value("projection", m);
   }
 
   void FrontendRenderer::RefreshModelView()
   {
-    ScreenBase::MatrixT const & m = m_modelView.GtoPMatrix();
+    ScreenBase::MatrixT const & m = m_view.GtoPMatrix();
     math::Matrix<float, 4, 4> mv;
 
     /// preparing ModelView matrix
@@ -235,12 +242,35 @@ namespace df
     OGLContext * context = m_contextFactory->getDrawContext();
     context->makeCurrent();
 
+    my::Timer timer;
+    double processingTime = InitAvarageTimePerMessage; // By init we think that one message processed by 1ms
+
+    timer.Reset();
     while (!IsCancelled())
     {
-      ProcessSingleMessage(false);
       context->setDefaultFramebuffer();
       RenderScene();
+
+      double avarageMessageTime = processingTime;
+      processingTime = timer.ElapsedSeconds();
+      int messageCount = 0;
+
+      while (timer.ElapsedSeconds() + avarageMessageTime < VSyncInterval)
+      {
+        ProcessSingleMessage(false);
+        messageCount++;
+      }
+
+      if (messageCount == 0)
+      {
+        ProcessSingleMessage(false);
+        messageCount++;
+      }
+
+      processingTime = (timer.ElapsedSeconds() - processingTime) / messageCount;
+
       context->present();
+      timer.Reset();
     }
 
     ReleaseResources();

@@ -12,7 +12,6 @@
 #include "threads_commutator.hpp"
 #include "tile_info.hpp"
 #include "backend_renderer.hpp"
-#include "viewport.hpp"
 
 #include "../drape/pointers.hpp"
 #include "../drape/glstate.hpp"
@@ -56,7 +55,7 @@ namespace df
 
   private:
     void RenderScene();
-    void RefreshProjection(int w, int h);
+    void RefreshProjection();
     void RefreshModelView();
 
     void RenderPartImpl(pair<const GLState, MasterPointer<VertexArrayBuffer> > & node);
@@ -89,6 +88,6 @@ namespace df
 
     UniformValuesStorage m_generalUniforms;
     Viewport m_viewport;
-    ScreenBase m_modelView;
+    ScreenBase m_view;
   };
 }
