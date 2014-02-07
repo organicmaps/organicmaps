@@ -14,6 +14,7 @@ import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.Utils;
 
 class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
@@ -22,13 +23,13 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
 
   private static final int TIMEOUT_IN_SECONDS = 60;
 
-  private long m_httpCallbackID;
-  private String m_url;
-  private long m_beg;
-  private long m_end;
-  private long m_expectedFileSize;
+  private final long m_httpCallbackID;
+  private final String m_url;
+  private final long m_beg;
+  private final long m_end;
+  private final long m_expectedFileSize;
   private byte[] m_postBody;
-  private String m_userAgent;
+  private final String m_userAgent;
 
   private final int NOT_SET = -1;
   private final int IO_ERROR = -2;
@@ -115,7 +116,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
         {
           return Long.parseLong(contentRangeValue.substring(slashIndex + 1));
         }
-        catch (NumberFormatException ex)
+        catch (final NumberFormatException ex)
         {
           // Return -1 at the end of function
         }
@@ -133,7 +134,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
 
     try
     {
-      URL url = new URL(m_url);
+      final URL url = new URL(m_url);
       urlConnection = (HttpURLConnection) url.openConnection();
 
       if (isCancelled())
@@ -150,10 +151,12 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
       if (!(m_beg == 0 && m_end < 0))
       {
         if (m_end > 0)
-          urlConnection.setRequestProperty("Range", String.format("bytes=%d-%d", m_beg, m_end));
+          urlConnection.setRequestProperty("Range", StringUtils.formatUsingUsLocale("bytes=%d-%d", m_beg, m_end));
         else
-          urlConnection.setRequestProperty("Range", String.format("bytes=%d-", m_beg));
+          urlConnection.setRequestProperty("Range", StringUtils.formatUsingUsLocale("bytes=%d-", m_beg));
       }
+
+      final String requestParams = Utils.mapPrettyPrint(urlConnection.getRequestProperties());
 
       if (m_postBody != null)
       {
@@ -180,7 +183,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
       {
         // we've set error code so client should be notified about the error
         m_httpErrorCode = FILE_SIZE_CHECK_FAILED;
-        Log.w(TAG, "Error for " + urlConnection.getURL() + ": Server replied with code " + err + ", aborting download.");
+        Log.w(TAG, "Error for " + urlConnection.getURL() + ": Server replied with code " + err + ", aborting download. " + requestParams);
         return false;
       }
 
@@ -206,7 +209,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
 
       return downloadFromStream(new BufferedInputStream(urlConnection.getInputStream(), 65536));
     }
-    catch (MalformedURLException ex)
+    catch (final MalformedURLException ex)
     {
       Log.d(TAG, "Invalid url: " + m_url);
 
@@ -214,7 +217,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
       m_httpErrorCode = INVALID_URL;
       return false;
     }
-    catch (IOException ex)
+    catch (final IOException ex)
     {
       Log.d(TAG, "IOException in doInBackground for URL: " + m_url, ex);
 
@@ -251,7 +254,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
         ret = downloadFromStreamImpl(stream, arrSize[i] * 1024);
         break;
       }
-      catch (IOException ex)
+      catch (final IOException ex)
       {
         Log.d(TAG, "IOException in downloadFromStream for chunk size: " + arrSize[i], ex);
       }
@@ -274,7 +277,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
   /// -1 - some error occurred;
   private int downloadFromStreamImpl(InputStream stream, int bufferSize) throws IOException
   {
-    byte[] tempBuf = new byte[bufferSize];
+    final byte[] tempBuf = new byte[bufferSize];
 
     int readBytes;
     while ((readBytes = stream.read(tempBuf)) > 0)
@@ -282,7 +285,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
       if (isCancelled())
         return 1;
 
-      byte[] chunk = new byte[readBytes];
+      final byte[] chunk = new byte[readBytes];
       System.arraycopy(tempBuf, 0, chunk, 0, readBytes);
 
       publishProgress(chunk);

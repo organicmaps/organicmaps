@@ -1,5 +1,7 @@
 package com.mapswithme.util;
 
+import java.util.Locale;
+
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.CharacterStyle;
@@ -33,5 +35,10 @@ public class StringUtils
     }
 
     return spanStrBuilder;
+  }
+
+  public static String formatUsingUsLocale(String pattern, Object ... args)
+  {
+    return String.format(Locale.US, pattern, args);
   }
 }
