@@ -1,11 +1,16 @@
 
 package com.mapswithme.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
+import android.provider.Telephony;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -14,9 +19,6 @@ import com.mapswithme.maps.MapObjectFragment.MapObjectType;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.util.statistics.Statistics;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public abstract class ShareAction
 {
@@ -34,6 +36,8 @@ public abstract class ShareAction
 
   /* Extras*/
   private static final String EXTRA_SMS_BODY = "sms_body";
+  private static final String EXTRA_SMS_TEXT = Intent.EXTRA_TEXT;
+
 
   /* Types*/
   private static final String TYPE_MESSAGE_RFC822 = "message/rfc822";
@@ -148,8 +152,21 @@ public abstract class ShareAction
     @Override
     public void shareWithText(Activity activity, String body, String subject)
     {
-      final Intent smsIntent = getIntent();
-      smsIntent.putExtra(EXTRA_SMS_BODY, body);
+      Intent smsIntent = null;
+      if (Utils.apiEqualOrGreaterThan(Build.VERSION_CODES.KITKAT))
+      {
+        final String defaultSms = Telephony.Sms.getDefaultSmsPackage(activity);
+        smsIntent = new Intent(Intent.ACTION_SEND);
+        smsIntent.setType("text/plain");
+        smsIntent.putExtra(EXTRA_SMS_TEXT, body);
+        if (defaultSms != null)
+          smsIntent.setPackage(defaultSms);
+      }
+      else
+      {
+        smsIntent = getIntent();
+        smsIntent.putExtra(EXTRA_SMS_BODY, body);
+      }
       activity.startActivity(smsIntent);
     }
 
