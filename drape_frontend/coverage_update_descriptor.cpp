@@ -18,7 +18,7 @@ void CoverageUpdateDescriptor::DropTiles(const TileKey * tileToDrop, size_t size
   m_tilesToDrop.assign(tileToDrop, tileToDrop + size);
 }
 
-bool CoverageUpdateDescriptor::DoDropAll() const
+bool CoverageUpdateDescriptor::IsDropAll() const
 {
   return m_doDropAll;
 }

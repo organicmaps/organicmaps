@@ -60,7 +60,7 @@ namespace df
 
       for_each(tiles.begin(), tiles.end(), bind(&ReadManager::PushTaskBackForTileKey, this, _1));
 
-      updateDescr.DoDropAll();
+      updateDescr.DropAll();
     }
     else
     {

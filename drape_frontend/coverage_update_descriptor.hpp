@@ -16,7 +16,7 @@ public:
   void DropTiles(TileKey const * tileToDrop, size_t size);
 
 
-  bool DoDropAll() const;
+  bool IsDropAll() const;
   bool IsEmpty()   const;
 
   vector<TileKey> const & GetTilesToDrop() const;
