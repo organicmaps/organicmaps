@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -156,7 +157,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
           urlConnection.setRequestProperty("Range", StringUtils.formatUsingUsLocale("bytes=%d-", m_beg));
       }
 
-      final String requestParams = Utils.mapPrettyPrint(urlConnection.getRequestProperties());
+      final Map<?,?> requestParams = urlConnection.getRequestProperties();
 
       if (m_postBody != null)
       {
@@ -183,7 +184,9 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
       {
         // we've set error code so client should be notified about the error
         m_httpErrorCode = FILE_SIZE_CHECK_FAILED;
-        Log.w(TAG, "Error for " + urlConnection.getURL() + ": Server replied with code " + err + ", aborting download. " + requestParams);
+        Log.w(TAG, "Error for " + urlConnection.getURL() +
+              ": Server replied with code " + err +
+              ", aborting download. " + Utils.mapPrettyPrint(requestParams));
         return false;
       }
 
