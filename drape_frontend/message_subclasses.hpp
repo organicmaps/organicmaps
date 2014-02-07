@@ -1,8 +1,8 @@
 #pragma once
 
 #include "message.hpp"
-#include "tile_info.hpp"
 #include "coverage_update_descriptor.hpp"
+#include "viewport.hpp"
 
 #include "../geometry/rect2d.hpp"
 #include "../geometry/screenbase.hpp"
@@ -86,18 +86,15 @@ namespace df
   class ResizeMessage : public Message
   {
   public:
-    ResizeMessage(int x, int y, int w, int h) : m_rect(x, y, x + w, y + h)
+    ResizeMessage(Viewport const & viewport) : m_viewport(viewport)
     {
       SetType(Resize);
     }
-    ResizeMessage(m2::RectI const & rect) : m_rect(rect)
-    {
-      SetType(Resize);
-    }
-    const m2::RectI & GetRect() const { return m_rect; }
+
+    const Viewport & GetViewport() const { return m_viewport; }
 
   private:
-    m2::RectI m_rect;
+    Viewport m_viewport;
   };
 
   class UpdateCoverageMessage : public Message
