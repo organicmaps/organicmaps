@@ -146,12 +146,8 @@ public:
       sort(i->second.begin(), i->second.end());
   }
 
-  vector<FeatureID> const & Get(string const & name) const
+  vector<FeatureID> const & Get(string const & key) const
   {
-    string key;
-    if (!GetKey(name, key))
-      return m_empty;
-
     ContT::const_iterator i = m_ids.find(key);
     return (i == m_ids.end() ? m_empty : i->second);
   }
@@ -336,19 +332,44 @@ UNIT_TEST(HS_StreetKey)
   TEST_EQUAL("францискаскорины", GetStreetKey("Франциска Скорины Тракт"), ());
 }
 
+namespace
+{
+
+struct Address
+{
+  string m_streetKey;
+  string m_house;
+  double m_lat, m_lon;
+
+  bool operator<(Address const & rhs) const
+  {
+    return (m_streetKey < rhs.m_streetKey);
+  }
+};
+
+void swap(Address & a1, Address & a2)
+{
+  a1.m_streetKey.swap(a2.m_streetKey);
+  a1.m_house.swap(a2.m_house);
+  std::swap(a1.m_lat, a2.m_lat);
+  std::swap(a1.m_lon, a2.m_lon);
+}
+
+}
+
 UNIT_TEST(HS_MWMSearch)
 {
-  string const path = GetPlatform().WritableDir() + "minsk-pass.addr";
+  string const path = GetPlatform().WritableDir() + "addresses-Belarus.txt";
   ifstream file(path.c_str());
   if (!file.good())
   {
-    LOG(LWARNING, ("Address file not found"));
+    LOG(LWARNING, ("Address file not found", path));
     return;
   }
 
   Index index;
   m2::RectD rect;
-  if (!index.Add("minsk-pass.mwm", rect))
+  if (!index.Add("Belarus.mwm", rect))
   {
     LOG(LWARNING, ("MWM file not found"));
     return;
@@ -358,12 +379,8 @@ UNIT_TEST(HS_MWMSearch)
   index.ForEachInScale(streetIDs, scales::GetUpperScale());
   streetIDs.Finish();
 
-  search::HouseDetector detector(&index);
-
-  size_t all = 0, matched = 0, notMatched = 0;
-  set<string> addrSet;
-
   string line;
+  vector<Address> addresses;
   while (file.good())
   {
     getline(file, line);
@@ -373,21 +390,42 @@ UNIT_TEST(HS_MWMSearch)
     vector<string> v;
     strings::Tokenize(line, "|", MakeBackInsertFunctor(v));
 
+    string key = GetStreetKey(v[0]);
+    if (key.empty())
+      continue;
+
+    addresses.push_back(Address());
+    Address & a = addresses.back();
+
+    a.m_streetKey.swap(key);
+
     // House number is in v[1], sometime it contains house name after comma.
     strings::SimpleTokenizer house(v[1], ",");
     TEST(house, ());
-    v[1] = *house;
+    a.m_house = *house;
+    TEST(!a.m_house.empty(), ());
 
-    TEST(!v[0].empty(), ());
-    TEST(!v[1].empty(), ());
+    TEST(strings::to_double(v[2], a.m_lat), (v[2]));
+    TEST(strings::to_double(v[3], a.m_lon), (v[3]));
+  }
 
-    if (!addrSet.insert(v[0] + v[1]).second)
-      continue;
+  sort(addresses.begin(), addresses.end());
 
-    vector<FeatureID> const & streets = streetIDs.Get(v[0]);
+  search::HouseDetector detector(&index);
+  size_t all = 0, matched = 0, notMatched = 0;
+
+  size_t const percent = addresses.size() / 100;
+  for (size_t i = 0; i < addresses.size(); ++i)
+  {
+    if (i % percent == 0)
+      LOG(LINFO, ("%", i / percent, "%"));
+
+    Address const & a = addresses[i];
+
+    vector<FeatureID> const & streets = streetIDs.Get(a.m_streetKey);
     if (streets.empty())
     {
-      LOG(LWARNING, ("Missing street in mwm", v[0]));
+      LOG(LWARNING, ("Missing street in mwm", a.m_streetKey));
       continue;
     }
 
@@ -398,37 +436,33 @@ UNIT_TEST(HS_MWMSearch)
     detector.ReadAllHouses(200);
 
     vector<search::House const *> houses;
-    detector.GetHouseForName(v[1], houses);
+    detector.GetHouseForName(a.m_house, houses);
     if (houses.empty())
     {
-      LOG(LINFO, ("No houses", v[0], v[1]));
+      LOG(LINFO, ("No houses", a.m_streetKey, a.m_house));
       continue;
     }
 
-    double lat, lon;
-    TEST(strings::to_double(v[2], lat), (v[2]));
-    TEST(strings::to_double(v[3], lon), (v[3]));
-
-    size_t i = 0;
+    size_t j = 0;
     size_t const count = houses.size();
-    for (; i < count; ++i)
+    for (; j < count; ++j)
     {
-      m2::PointD p = houses[i]->GetPosition();
+      m2::PointD p = houses[j]->GetPosition();
       p.x = MercatorBounds::XToLon(p.x);
       p.y = MercatorBounds::YToLat(p.y);
 
       double const eps = 1.0E-4;
-      if (fabs(p.x - lon) < eps && fabs(p.y - lat) < eps)
+      if (fabs(p.x - a.m_lon) < eps && fabs(p.y - a.m_lat) < eps)
       {
         ++matched;
         break;
       }
     }
 
-    if (i == count)
+    if (j == count)
     {
       ++notMatched;
-      LOG(LINFO, ("Bad matched", v[0], v[1]));
+      LOG(LINFO, ("Bad matched", a.m_streetKey, a.m_house));
     }
   }
 
