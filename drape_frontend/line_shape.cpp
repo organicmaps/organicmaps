@@ -34,7 +34,9 @@ namespace df
     const float T_CAP = -1.f;
     const float T_SEGMENT = 0.f;
     const float T_JOIN = +1.f;
+
     const float MIN_JOIN_ANGLE = 15*math::pi/180;
+    const float MAX_JOIN_ANGLE = 179*math::pi/180;
 
     typedef m2::PointF vec2;
 
@@ -127,7 +129,8 @@ namespace df
         const bool  clockWise = cross < 0;
         const float directionFix = ( clockWise ? +1 : -1 );
 
-        if (fabsf(joinAngle) > MIN_JOIN_ANGLE)
+        const float absAngle = fabs(joinAngle);
+        if (absAngle > MIN_JOIN_ANGLE && absAngle < MAX_JOIN_ANGLE)
         {
           const float joinHeight = (m_params.m_join == MiterJoin)
                                    ? fabs(hw / cos(joinAngle/2))
