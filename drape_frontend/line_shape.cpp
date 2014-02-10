@@ -129,11 +129,11 @@ namespace df
         const bool  clockWise = cross < 0;
         const float directionFix = ( clockWise ? +1 : -1 );
 
-        const float absAngle = fabs(joinAngle);
+        const float absAngle = my::Abs(joinAngle);
         if (absAngle > MIN_JOIN_ANGLE && absAngle < MAX_JOIN_ANGLE)
         {
           const float joinHeight = (m_params.m_join == MiterJoin)
-                                   ? fabs(hw / cos(joinAngle/2))
+                                   ? my::Abs(hw / cos(joinAngle/2))
                                    : 2*hw; // ensure we have enough space for sector
 
           // Add join triangles
