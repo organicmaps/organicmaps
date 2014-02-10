@@ -160,14 +160,18 @@
 		97D40C0B184D031900A1D572 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D40C09184D031900A1D572 /* Images.xcassets */; };
 		97D40C0E184E389000A1D572 /* MailComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97D40C0D184E389000A1D572 /* MailComposeViewController.m */; };
 		97D40C0F184E389000A1D572 /* MailComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97D40C0D184E389000A1D572 /* MailComposeViewController.m */; };
+		97D807B818A92AAB00D416E0 /* MoreAppsVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97D807B718A92AAB00D416E0 /* MoreAppsVC.mm */; };
+		97D807B918A92AAB00D416E0 /* MoreAppsVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97D807B718A92AAB00D416E0 /* MoreAppsVC.mm */; };
+		97DD585518A8EAFA0079837E /* libAarkiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585218A8EAFA0079837E /* libAarkiSDK.a */; };
+		97DD585618A8EAFB0079837E /* libAarkiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585218A8EAFA0079837E /* libAarkiSDK.a */; };
+		97DD585818A8EB060079837E /* MobileAppTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585718A8EB060079837E /* MobileAppTracker.framework */; };
+		97DD585918A8EB060079837E /* MobileAppTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585718A8EB060079837E /* MobileAppTracker.framework */; };
+		97DD585C18A8EB130079837E /* libFlurry_4.3.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585A18A8EB120079837E /* libFlurry_4.3.2.a */; };
+		97DD585D18A8EB130079837E /* libFlurry_4.3.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585A18A8EB120079837E /* libFlurry_4.3.2.a */; };
 		97ECD871183620CE00F77A46 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		97ECD872183625F900F77A46 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		97ECD87518362AC600F77A46 /* MobileAppTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87418362AC600F77A46 /* MobileAppTracker.framework */; };
-		97ECD87618362AC700F77A46 /* MobileAppTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87418362AC600F77A46 /* MobileAppTracker.framework */; };
 		97ECD87818362B3D00F77A46 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87718362B3D00F77A46 /* CoreTelephony.framework */; };
 		97ECD87A18362B5400F77A46 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87918362B5400F77A46 /* MobileCoreServices.framework */; };
-		97ECD87C1836584B00F77A46 /* libAarkiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87B1836584B00F77A46 /* libAarkiSDK.a */; };
-		97ECD87D1836584B00F77A46 /* libAarkiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87B1836584B00F77A46 /* libAarkiSDK.a */; };
 		97ECD87F1836594400F77A46 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87E1836594400F77A46 /* StoreKit.framework */; };
 		97ECD8801836594A00F77A46 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87E1836594400F77A46 /* StoreKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		97ECD881183674CA00F77A46 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87718362B3D00F77A46 /* CoreTelephony.framework */; };
@@ -183,8 +187,6 @@
 		97F61795183E7445009919E2 /* LinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F61793183E7445009919E2 /* LinkCell.m */; };
 		CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
 		CB252D7016FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
-		ED3B8DB4182CD96F001F124F /* libFlurry_4.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3B8DB3182CD96F001F124F /* libFlurry_4.3.0.a */; };
-		ED3B8DB5182CD96F001F124F /* libFlurry_4.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3B8DB3182CD96F001F124F /* libFlurry_4.3.0.a */; };
 		ED48BBB117BE6EA8003E7E92 /* MWMApi.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB017BE6EA8003E7E92 /* MWMApi.mm */; };
 		ED48BBB217BE6EA8003E7E92 /* MWMApi.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB017BE6EA8003E7E92 /* MWMApi.mm */; };
 		ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */; };
@@ -1654,13 +1656,17 @@
 		97D40C09184D031900A1D572 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = SOURCE_ROOT; };
 		97D40C0C184E389000A1D572 /* MailComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MailComposeViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		97D40C0D184E389000A1D572 /* MailComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailComposeViewController.m; sourceTree = "<group>"; };
-		97ECD86D1836200A00F77A46 /* Aarki.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aarki.h; sourceTree = "<group>"; };
-		97ECD86E1836200A00F77A46 /* AarkiContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AarkiContact.h; sourceTree = "<group>"; };
+		97D807B618A92AAB00D416E0 /* MoreAppsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreAppsVC.h; sourceTree = "<group>"; };
+		97D807B718A92AAB00D416E0 /* MoreAppsVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoreAppsVC.mm; sourceTree = "<group>"; };
+		97DD585218A8EAFA0079837E /* libAarkiSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAarkiSDK.a; sourceTree = "<group>"; };
+		97DD585318A8EAFA0079837E /* Aarki.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aarki.h; sourceTree = "<group>"; };
+		97DD585418A8EAFA0079837E /* AarkiContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AarkiContact.h; sourceTree = "<group>"; };
+		97DD585718A8EB060079837E /* MobileAppTracker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MobileAppTracker.framework; sourceTree = "<group>"; };
+		97DD585A18A8EB120079837E /* libFlurry_4.3.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_4.3.2.a; sourceTree = "<group>"; };
+		97DD585B18A8EB120079837E /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		97ECD870183620CE00F77A46 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
-		97ECD87418362AC600F77A46 /* MobileAppTracker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MobileAppTracker.framework; sourceTree = "<group>"; };
 		97ECD87718362B3D00F77A46 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		97ECD87918362B5400F77A46 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		97ECD87B1836584B00F77A46 /* libAarkiSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAarkiSDK.a; sourceTree = "<group>"; };
 		97ECD87E1836594400F77A46 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		97EDDCE418A299C000AEFB7A /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		97F61762183D0A72009919E2 /* btn-zoom-in@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-zoom-in@2x.png"; sourceTree = "<group>"; };
@@ -1669,10 +1675,8 @@
 		97F61780183E6172009919E2 /* LocationButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationButton.h; sourceTree = "<group>"; };
 		97F6178F183E742E009919E2 /* LinkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LinkCell.h; path = Settings/LinkCell.h; sourceTree = "<group>"; };
 		97F61793183E7445009919E2 /* LinkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LinkCell.m; path = Settings/LinkCell.m; sourceTree = "<group>"; };
-		CB252D6916FF82C8001E41E9 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		CB252D6B16FF82C8001E41E9 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistics.h; sourceTree = "<group>"; };
 		CB252D6C16FF82C8001E41E9 /* Statistics.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Statistics.mm; sourceTree = "<group>"; };
-		ED3B8DB3182CD96F001F124F /* libFlurry_4.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_4.3.0.a; sourceTree = "<group>"; };
 		ED48BBAF17BE6EA8003E7E92 /* MWMApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMApi.h; sourceTree = "<group>"; };
 		ED48BBB017BE6EA8003E7E92 /* MWMApi.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMApi.mm; sourceTree = "<group>"; };
 		ED48BBB317C267F5003E7E92 /* ColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerView.h; sourceTree = "<group>"; };
@@ -2361,13 +2365,13 @@
 				EE12020911CD464100ABDD5D /* libbase.a in Frameworks */,
 				EDF924DB183380CE00539672 /* FacebookSDK.framework in Frameworks */,
 				EE12020A11CD464100ABDD5D /* libcoding.a in Frameworks */,
+				97DD585518A8EAFA0079837E /* libAarkiSDK.a in Frameworks */,
 				EE12020C11CD464100ABDD5D /* libexpat.a in Frameworks */,
 				EE12020E11CD464100ABDD5D /* libgeometry.a in Frameworks */,
-				97ECD87C1836584B00F77A46 /* libAarkiSDK.a in Frameworks */,
 				EE12020F11CD464100ABDD5D /* libindexer.a in Frameworks */,
 				EE12021011CD464100ABDD5D /* libmap.a in Frameworks */,
 				EE12021211CD464100ABDD5D /* libgraphics.a in Frameworks */,
-				ED3B8DB4182CD96F001F124F /* libFlurry_4.3.0.a in Frameworks */,
+				97DD585C18A8EB130079837E /* libFlurry_4.3.2.a in Frameworks */,
 				FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */,
 				FA04373212CAB83F00017494 /* libstorage.a in Frameworks */,
 				EEF5745512DE1AD50082F472 /* libfribidi.a in Frameworks */,
@@ -2375,8 +2379,8 @@
 				49DE1CA413437D7A00A93417 /* libbzip2.a in Frameworks */,
 				FA2EF9C713630C3B00E3E484 /* libplatform.a in Frameworks */,
 				FAAFD699139D9C6B000AE70C /* libsearch.a in Frameworks */,
-				97ECD87518362AC600F77A46 /* MobileAppTracker.framework in Frameworks */,
 				FAEA8B2A1437CA80002A6737 /* libjansson.a in Frameworks */,
+				97DD585818A8EB060079837E /* MobileAppTracker.framework in Frameworks */,
 				FAF29847146EEF4A00FF0057 /* libprotobuf.a in Frameworks */,
 				EE5A34E6156FCB9500E34FFE /* libgui.a in Frameworks */,
 				EEFFB4E815DCDD8A00BACE1C /* libanim.a in Frameworks */,
@@ -2407,6 +2411,7 @@
 				97C985F3186C487900AF7E9E /* libGoogleAdMobAds.a in Frameworks */,
 				FAFB08FB151215EE0041901D /* libfreetype.a in Frameworks */,
 				FAFB08FC151215EE0041901D /* Foundation.framework in Frameworks */,
+				97DD585D18A8EB130079837E /* libFlurry_4.3.2.a in Frameworks */,
 				FAFB08FD151215EE0041901D /* UIKit.framework in Frameworks */,
 				FAFB08FE151215EE0041901D /* CoreGraphics.framework in Frameworks */,
 				FAFB08FF151215EE0041901D /* OpenGLES.framework in Frameworks */,
@@ -2414,6 +2419,7 @@
 				FAFB0901151215EE0041901D /* CoreLocation.framework in Frameworks */,
 				FAFB0902151215EE0041901D /* libbase.a in Frameworks */,
 				EDF924DC183380CF00539672 /* FacebookSDK.framework in Frameworks */,
+				97DD585918A8EB060079837E /* MobileAppTracker.framework in Frameworks */,
 				FAFB0903151215EE0041901D /* libcoding.a in Frameworks */,
 				FAFB0904151215EE0041901D /* libexpat.a in Frameworks */,
 				FAFB0905151215EE0041901D /* libgeometry.a in Frameworks */,
@@ -2421,7 +2427,6 @@
 				972CDCC41887EF9F006641CA /* SpeechKit.framework in Frameworks */,
 				FAFB0907151215EE0041901D /* libmap.a in Frameworks */,
 				FAFB0908151215EE0041901D /* libgraphics.a in Frameworks */,
-				ED3B8DB5182CD96F001F124F /* libFlurry_4.3.0.a in Frameworks */,
 				FAFB0909151215EE0041901D /* SystemConfiguration.framework in Frameworks */,
 				FAFB090A151215EE0041901D /* libstorage.a in Frameworks */,
 				FAFB090B151215EE0041901D /* libfribidi.a in Frameworks */,
@@ -2430,12 +2435,11 @@
 				FAFB090D151215EE0041901D /* libbzip2.a in Frameworks */,
 				FAFB090E151215EE0041901D /* libplatform.a in Frameworks */,
 				FAFB090F151215EE0041901D /* libsearch.a in Frameworks */,
-				97ECD87618362AC700F77A46 /* MobileAppTracker.framework in Frameworks */,
 				FAFB0910151215EE0041901D /* libjansson.a in Frameworks */,
 				FAFB0911151215EE0041901D /* libprotobuf.a in Frameworks */,
-				97ECD87D1836584B00F77A46 /* libAarkiSDK.a in Frameworks */,
 				EE5A34E7156FCBD800E34FFE /* libgui.a in Frameworks */,
 				EEFFB4E915DCDD8A00BACE1C /* libanim.a in Frameworks */,
+				97DD585618A8EAFB0079837E /* libAarkiSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2447,6 +2451,8 @@
 			children = (
 				97B4E9271851DAB300BEC5D7 /* Custom Views */,
 				9789DB53188D5DFF007C6FAE /* In App Messaging */,
+				97D807B618A92AAB00D416E0 /* MoreAppsVC.h */,
+				97D807B718A92AAB00D416E0 /* MoreAppsVC.mm */,
 				978F9251183BD530000D6C7C /* NavigationController.h */,
 				978F9252183BD530000D6C7C /* NavigationController.mm */,
 				97D40C0C184E389000A1D572 /* MailComposeViewController.h */,
@@ -3019,14 +3025,14 @@
 				97C98520186AE3CF00AF7E9E /* AppInfo.mm */,
 				97C9851D186AE3C500AF7E9E /* Reachability.h */,
 				97C9851C186AE3C500AF7E9E /* Reachability.m */,
-				CB252D6916FF82C8001E41E9 /* Flurry.h */,
-				ED3B8DB3182CD96F001F124F /* libFlurry_4.3.0.a */,
 				CB252D6B16FF82C8001E41E9 /* Statistics.h */,
 				CB252D6C16FF82C8001E41E9 /* Statistics.mm */,
-				97ECD87B1836584B00F77A46 /* libAarkiSDK.a */,
-				97ECD86D1836200A00F77A46 /* Aarki.h */,
-				97ECD86E1836200A00F77A46 /* AarkiContact.h */,
-				97ECD87418362AC600F77A46 /* MobileAppTracker.framework */,
+				97DD585A18A8EB120079837E /* libFlurry_4.3.2.a */,
+				97DD585B18A8EB120079837E /* Flurry.h */,
+				97DD585718A8EB060079837E /* MobileAppTracker.framework */,
+				97DD585218A8EAFA0079837E /* libAarkiSDK.a */,
+				97DD585318A8EAFA0079837E /* Aarki.h */,
+				97DD585418A8EAFA0079837E /* AarkiContact.h */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -5021,6 +5027,7 @@
 				FA09E01113F71F6C007E69CA /* SearchVC.mm in Sources */,
 				9747264318323080006B7CB7 /* UIKitCategories.m in Sources */,
 				97719D421843AF1E00BDD815 /* ScopeView.m in Sources */,
+				97D807B818A92AAB00D416E0 /* MoreAppsVC.mm in Sources */,
 				FABF223E13FAA97A003D4D49 /* CompassView.mm in Sources */,
 				9789DB5A188D94F9007C6FAE /* InterstitialView.mm in Sources */,
 				FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */,
@@ -5132,6 +5139,7 @@
 				97C98614186C487900AF7E9E /* MPAdServerURLBuilder.m in Sources */,
 				97C98638186C487900AF7E9E /* MPGlobal.m in Sources */,
 				97C98609186C487900AF7E9E /* MPBannerAdManager.m in Sources */,
+				97D807B918A92AAB00D416E0 /* MoreAppsVC.mm in Sources */,
 				97C9860F186C487900AF7E9E /* MPAdBrowserController.m in Sources */,
 				FA5D4F1A1557F79900E7D8BB /* PlacePageVC.mm in Sources */,
 				FAF457E815597D4600DCCC49 /* Framework.cpp in Sources */,

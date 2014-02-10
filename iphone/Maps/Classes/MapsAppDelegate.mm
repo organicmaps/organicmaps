@@ -206,11 +206,13 @@ void InitLocalizedStrings()
 
   NSString * advertiserId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MobileAppTrackerAdvertiserId"];
   NSString * conversionKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MobileAppTrackerConversionKey"];
-  [[MobileAppTracker sharedManager] startTrackerWithMATAdvertiserId:advertiserId MATConversionKey:conversionKey];
-  if ([[NSUserDefaults standardUserDefaults] boolForKey:FIRST_LAUNCH_KEY])
-    [[MobileAppTracker sharedManager] trackInstall];
-  else
-    [[MobileAppTracker sharedManager] trackUpdate];
+  [MobileAppTracker startTrackerWithMATAdvertiserId:advertiserId MATConversionKey:conversionKey];
+  if (![[NSUserDefaults standardUserDefaults] boolForKey:FIRST_LAUNCH_KEY])
+    [MobileAppTracker setExistingUser:YES];
+  [MobileAppTracker trackSession];
+
+  if ([AppInfo sharedInfo].advertisingId)
+    [MobileAppTracker setAppleAdvertisingIdentifier:[AppInfo sharedInfo].advertisingId];
 
   return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
 }

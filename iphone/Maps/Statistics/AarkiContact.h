@@ -31,9 +31,6 @@ typedef void(^AarkiRewards)(NSString *placementId, NSNumber *rewards);
 // User ID
 + (NSString *)userId;
 
-// OpenUDID
-+ (NSString *)openUDID;
-
 // Advertising Identifier
 + (NSString *)advertisingId;
 

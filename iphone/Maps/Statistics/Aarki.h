@@ -2,7 +2,7 @@
 
 //! Protocol for customizing Aarki offers and providing offer request callbacks
 /*!
-
+ 
  The \a didExit callback is called whenever the user leaves the view controller.
  This may happen when the user successfully completes, quits or abandons the offer.
  */
@@ -22,12 +22,12 @@
 //! Show the offer (as a full screen modal overlay)
 /*!
  \param viewController For example the controller of the view which contains the ad which user clicks to present this offer
-
+ 
  This method is essentially equivalent to:
  \code
  [viewController presentModalViewController:self animated:animated];
  \endcode
-
+ 
  The offer will be dismissed with animation if it was presented with animation.
  \sa dismiss
  */
@@ -105,3 +105,4 @@ typedef void(^AarkiLoaderCompletionBlock)(AarkiStatus);
 
 
 @end
+
