@@ -23,7 +23,7 @@ void main(void)
 
   if (vertexType < 0.0)
   {
-    highp float quadWidth = a_vertType.y <= 0.0 ? 2.0 * abs(shift_mult) : abs(shift_mult);
+    highp float quadWidth = 2.0 * abs(shift_mult);
     highp vec4 pd = normalize(d * modelView) * quadWidth;
     pos = (pn - pd + pivot);
   }

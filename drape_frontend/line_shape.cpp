@@ -52,17 +52,21 @@ namespace df
     const float hw = GetWidth() / 2.0f;
     const float realWidth = GetWidth();
 
-    // Add start cap quad
+    // We understand 'butt' cap as 'flat'
+    const bool doAddCap = m_params.m_cap != ButtCap;
     vec2       direction  = m_points[1] - m_points[0];
     m2::PointF firstPoint = m_points[0];
+    // Add start cap quad
+    if (doAddCap)
+    {
+      renderPoints.push_back(Point3D::From2D(firstPoint, m_depth)); // A
+      renderDirections.push_back(Point3D::From2D(direction, hw));
+      renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, realWidth));
 
-    renderPoints.push_back(Point3D::From2D(firstPoint, m_depth)); // A
-    renderDirections.push_back(Point3D::From2D(direction, hw));
-    renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, realWidth));
-
-    renderPoints.push_back(Point3D::From2D(firstPoint, m_depth)); // B
-    renderDirections.push_back(Point3D::From2D(direction, -hw));
-    renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, realWidth));
+      renderPoints.push_back(Point3D::From2D(firstPoint, m_depth)); // B
+      renderDirections.push_back(Point3D::From2D(direction, -hw));
+      renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, realWidth));
+    }
     //
 
     m2::PointF start = m_points[0];
@@ -174,17 +178,20 @@ namespace df
     }
 
     //Add final cap
-    vec2 lastSegment     = m_points[count-1] - m_points[count-2];
-    m2::PointF lastPoint = m_points[count-1];
-    direction = -lastSegment;
+    if (doAddCap)
+    {
+      vec2 lastSegment     = m_points[count-1] - m_points[count-2];
+      m2::PointF lastPoint = m_points[count-1];
+      direction = -lastSegment;
 
-    renderPoints.push_back(Point3D::From2D(lastPoint, m_depth)); // A
-    renderDirections.push_back(Point3D::From2D(direction, -hw));
-    renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, realWidth));
+      renderPoints.push_back(Point3D::From2D(lastPoint, m_depth)); // A
+      renderDirections.push_back(Point3D::From2D(direction, -hw));
+      renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, realWidth));
 
-    renderPoints.push_back(Point3D::From2D(lastPoint, m_depth)); // B
-    renderDirections.push_back(Point3D::From2D(direction, hw));
-    renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, realWidth));
+      renderPoints.push_back(Point3D::From2D(lastPoint, m_depth)); // B
+      renderDirections.push_back(Point3D::From2D(direction, hw));
+      renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, realWidth));
+    }
     //
 
     GLState state(gpu::SOLID_LINE_PROGRAM, 0, TextureBinding("", false, 0, MakeStackRefPointer<Texture>(NULL)));
