@@ -350,12 +350,13 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
 {
   NSDictionary * imageParameters = [[AppInfo sharedInfo] featureValue:[self appFeatureNameForMessage:messageName] forKey:@"Variants"];
   NSArray * languages = imageParameters[imageType][@"Languages"];
+  // if message does not use localized text we should pass '*' instead of language name
+  // then, message image must be in /all directory on server
   if ([languages containsObject:[[NSLocale preferredLanguages] firstObject]])
     return [[NSLocale preferredLanguages] firstObject];
   if ([languages containsObject:@"*"])
     return @"all";
   return nil;
-#warning <#message#>
 }
 
 - (NSString *)appFeatureNameForMessage:(NSString *)messageName
