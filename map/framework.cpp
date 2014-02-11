@@ -1716,7 +1716,7 @@ m2::RectD Framework::GetMapApiViewportRect() const
     if (m_ParsedMapApi.GetViewportRect(rect))
       return rect;
 
-    return m_scales.GetWorldRect();
+    return ScalesProcessor::GetWorldRect();
   }
 }
 
