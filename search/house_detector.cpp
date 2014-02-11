@@ -64,10 +64,10 @@ void Street2KML(ostream & s, vector<m2::PointD> const & pts, char const * color)
   s << "</Placemark>" << endl;
 }
 
-void Streets2KML(ostream & s, vector<Street *> const & v, char const * color)
+void Streets2KML(ostream & s, MergedStreet const & st, char const * color)
 {
-  for (size_t i = 0; i < v.size(); ++i)
-    Street2KML(s, v[i]->m_points, color);
+  for (size_t i = 0; i < st.m_cont.size(); ++i)
+    Street2KML(s, st.m_cont[i]->m_points, color);
 }
 
 class KMLFileGuard
@@ -288,13 +288,19 @@ pair<double, double> GetConnectionAngleAndDistance(bool & isBeg, Street const * 
 
 }
 
+void Street::Reverse()
+{
+  ASSERT(m_houses.empty(), ());
+  reverse(m_points.begin(), m_points.end());
+}
+
 void Street::SortHousesProjection()
 {
   sort(m_houses.begin(), m_houses.end(), &LessStreetDistance);
 }
 
 HouseDetector::HouseDetector(Index const * pIndex)
-  : m_loader(pIndex), m_end2st(LessWithEpsilon(&m_epsMercator)), m_streetNum(0)
+  : m_loader(pIndex), m_streetNum(0)
 {
   // default value for conversions
   SetMetres2Mercator(360.0 / 40.0E06);
@@ -302,67 +308,87 @@ HouseDetector::HouseDetector(Index const * pIndex)
 
 void HouseDetector::SetMetres2Mercator(double factor)
 {
-  m_epsMercator = factor * STREET_CONNECTION_LENGTH_M;
+  m_metres2Mercator = factor;
 
-  LOG(LDEBUG, ("Street join epsilon = ", m_epsMercator));
+  LOG(LDEBUG, ("Street join epsilon = ", m_metres2Mercator * STREET_CONNECTION_LENGTH_M));
 }
 
-void HouseDetector::FillQueue(queue<QueueObjT> & q, QueueObjT const & st)
-{
-  m2::PointD const & pt = st.second ? st.first->m_points.front() : st.first->m_points.back();
-  pair<IterT, IterT> const range = m_end2st.equal_range(pt);
+//double HouseDetector::GetApprLengthMeters(int index) const
+//{
+//  m2::PointD const & p1 = m_streets[index].m_cont.front()->m_points.front();
+//  m2::PointD const & p2 = m_streets[index].m_cont.back()->m_points.back();
+//  return p1.Length(p2) / m_metres2Mercator;
+//}
 
+HouseDetector::StreetPtr HouseDetector::FindConnection(Street const * st, bool beg) const
+{
+  m2::PointD const & pt = beg ? st->m_points.front() : st->m_points.back();
   double const maxAngle = 3.0*math::pi/4.0;
 
-  Street * resStreet = 0;
+  StreetPtr resStreet(0, false);
   double resDistance = numeric_limits<double>::max();
-  bool resBegin;
+  double const eps = m_metres2Mercator * STREET_CONNECTION_LENGTH_M;
 
-  for (IterT it = range.first; it != range.second; ++it)
+  for (size_t i = 0; i < m_end2st.size(); ++i)
   {
-    Street * current = it->second;
+    if (!pt.EqualDxDy(m_end2st[i].first, eps))
+      continue;
+
+    Street * current = m_end2st[i].second;
 
     // Choose the possible connection from non-processed and from the same street parts.
-    if (current != st.first && (current->m_number == -1 || current->m_number == m_streetNum) &&
-        Street::IsSameStreets(st.first, current))
+    if (current != st && (current->m_number == -1 || current->m_number == m_streetNum) &&
+        Street::IsSameStreets(st, current))
     {
       // Choose the closest connection with suitable angle.
-      bool isBegin = st.second;
-      pair<double, double> const res = GetConnectionAngleAndDistance(isBegin, st.first, current);
+      bool isBeg = beg;
+      pair<double, double> const res = GetConnectionAngleAndDistance(isBeg, st, current);
       if (fabs(res.first) < maxAngle && res.second < resDistance)
       {
-        resStreet = current;
+        resStreet = StreetPtr(current, isBeg);
         resDistance = res.second;
-        resBegin = isBegin;
       }
     }
   }
 
-  if (resStreet && resStreet->m_number == -1)
-  {
-    resStreet->m_number = m_streetNum;
-    q.push(make_pair(resStreet, !resBegin));
-  }
+  if (resStreet.first && resStreet.first->m_number == -1)
+    return resStreet;
+  else
+    return StreetPtr(0, false);
 }
 
-void HouseDetector::Bfs(Street * st)
+void HouseDetector::MergeStreets(Street * st)
 {
-  // true - match for the first point; false - for the last
-  queue<QueueObjT> q;
-
-  q.push(make_pair(st, true));
-  q.push(make_pair(st, false));
   st->m_number = m_streetNum;
-  m_streets.push_back(vector<Street *>());
 
-  while (!q.empty())
+  m_streets.push_back(MergedStreet());
+  MergedStreet & ms = m_streets.back();
+  ms.m_cont.push_back(st);
+
+  bool isBeg = true;
+  while (true)
   {
-    pair<Street *, bool> const street = q.front();
-    q.pop();
+    // find connection from begin or end
+    StreetPtr st(0, false);
+    if (isBeg)
+      st = FindConnection(ms.m_cont.front(), true);
+    if (st.first == 0)
+    {
+      isBeg = false;
+      st = FindConnection(ms.m_cont.back(), false);
+      if (st.first == 0)
+        return;
+    }
 
-    m_streets.back().push_back(street.first);
+    if (isBeg == st.second)
+      st.first->Reverse();
 
-    FillQueue(q, street);
+    st.first->m_number = m_streetNum;
+
+    if (isBeg)
+      ms.m_cont.push_front(st.first);
+    else
+      ms.m_cont.push_back(st.first);
   }
 }
 
@@ -420,8 +446,8 @@ int HouseDetector::LoadStreets(vector<FeatureID> const & ids)
       }
 
       m_id2st[ids[i]] = st;
-      m_end2st.insert(make_pair(st->m_points.front(), st));
-      m_end2st.insert(make_pair(st->m_points.back(), st));
+      m_end2st.push_back(make_pair(st->m_points.front(), st));
+      m_end2st.push_back(make_pair(st->m_points.back(), st));
     }
   }
 
@@ -435,21 +461,16 @@ int HouseDetector::MergeStreets()
 
 //#ifdef DEBUG
 //  KMLFileGuard file("dbg_merged_streets.kml");
-//  char const * color = "FF000000";
 //#endif
 
-  for (IterT it = m_end2st.begin(); it != m_end2st.end(); ++it)
+  for (IterM it = m_id2st.begin(); it != m_id2st.end(); ++it)
   {
     Street * st = it->second;
 
-//#ifdef DEBUG
-//    Street2KML(file.GetStream(), st->m_points, color);
-//#endif
-
     if (st->m_number == -1)
     {
-      ++m_streetNum;
-      Bfs(st);
+      MergeStreets(st);
+      m_streetNum++;
     }
   }
 
@@ -523,7 +544,12 @@ public:
       length += m_calcs[i].GetLength();
     return length;
   }
-  double GetLength() const { return GetLength(m_calcs.size()); }
+
+  double GetLength()
+  {
+    Initialize();
+    return GetLength(m_calcs.size());
+  }
 
   void CalculateProjectionParameters(m2::PointD const & pt,
                                      m2::PointD & resPt, double & dist, double & resDist, size_t & ind)
@@ -567,6 +593,73 @@ public:
 
 }
 
+string const & MergedStreet::GetDbgName() const
+{
+  ASSERT(!m_cont.empty(), ());
+  return m_cont.front()->GetDbgName();
+}
+
+bool MergedStreet::IsHousesReaded() const
+{
+  ASSERT(!m_cont.empty(), ());
+  return m_cont.front()->m_housesReaded;
+}
+
+void MergedStreet::Erase(Index & i)
+{
+  ASSERT(!IsEnd(i), ());
+  m_cont[i.s]->m_houses.erase(m_cont[i.s]->m_houses.begin() + i.h);
+  if (m_cont[i.s]->m_houses.empty())
+    m_cont.erase(m_cont.begin() + i.s);
+  Next(i);
+}
+
+void MergedStreet::FinishReadingHouses()
+{
+  // Correct m_streetDistance for each projection according to merged streets.
+  double length = 0.0;
+  for (size_t i = 0; i < m_cont.size(); ++i)
+  {
+    if (i != 0)
+      for (size_t j = 0; j < m_cont[i]->m_houses.size(); ++j)
+        m_cont[i]->m_houses[j].m_streetDistance += length;
+
+    length += m_cont[i]->m_length;
+    m_cont[i]->m_housesReaded = true;
+  }
+
+  // Unique projections for merged street.
+  for (Index i = Begin(); !IsEnd(i);)
+  {
+    HouseProjection const & p1 = Get(i);
+    bool incI = true;
+
+    Index j = i; Inc(j);
+    while (!IsEnd(j))
+    {
+      HouseProjection const & p2 = Get(j);
+      if (p1.m_house == p2.m_house)
+      {
+        if (p1.m_distance < p2.m_distance)
+        {
+          Erase(j);
+        }
+        else
+        {
+          Erase(i);
+          incI = false;
+          break;
+        }
+      }
+      else
+        Inc(j);
+    }
+
+    if (incI)
+      Inc(i);
+  }
+}
+
 template <class ProjectionCalcT>
 void HouseDetector::ReadHouse(FeatureType const & f, Street * st, ProjectionCalcT & calc)
 {
@@ -607,19 +700,27 @@ void HouseDetector::ReadHouses(Street * st, double offsetMeters)
   if (st->m_housesReaded)
     return;
 
+  //offsetMeters = max(50.0, min(GetApprLengthMeters(st->m_number) / 2, offsetMeters));
+  //LOG(LINFO, ("Offset =", offsetMeters));
+
   ProjectionCalcToStreet calcker(st, offsetMeters);
   m_loader.ForEachInRect(st->GetLimitRect(offsetMeters),
                          bind(&HouseDetector::ReadHouse<ProjectionCalcToStreet>, this, _1, st, ref(calcker)));
 
   st->m_length = calcker.GetLength();
   st->SortHousesProjection();
-  st->m_housesReaded = true;
 }
 
 void HouseDetector::ReadAllHouses(double offsetMeters)
 {
-  for (map<FeatureID, Street *>::iterator it = m_id2st.begin(); it != m_id2st.end(); ++it)
+  for (IterM it = m_id2st.begin(); it != m_id2st.end(); ++it)
     ReadHouses(it->second, offsetMeters);
+
+  for (size_t i = 0; i < m_streets.size(); ++i)
+  {
+    if (!m_streets[i].IsHousesReaded())
+      m_streets[i].FinishReadingHouses();
+  }
 }
 
 void HouseDetector::ClearCaches()
@@ -756,7 +857,7 @@ void ProccessHouses(vector<search::HouseProjection> & houses, HouseMapT & m)
   for_each(result.begin(), result.end(), bind(&AddHouseToMap, _1, ref(m)));
 }
 
-House const * GetClosestHouse(vector<Street *> const & st, string const & houseNumber, bool isOdd, bool sign)
+House const * GetClosestHouse(MergedStreet const & st, string const & houseNumber, bool isOdd, bool sign)
 {
   double dist = numeric_limits<double>::max();
   int streetIndex = -1;
@@ -855,6 +956,7 @@ struct HouseChain
   {
     sort(houses.begin(), houses.end(), &cmpProj);
     size_t s = min((int)houses.size(), 3);
+    score = 0;
     for (size_t i = 0; i < s; ++i)
       score += houses[i].m_distance;
     score /= s;
@@ -1008,7 +1110,7 @@ HouseCompetitors ProccessHouses(vector<search::HouseProjection> const & st, stri
   return GetBestHouseFromChains(houseChains, houseNumber);
 }
 
-House const * GetBestHouseWithNumber(vector<Street *> const & st, string const & houseNumber, bool isOdd, bool sign)
+House const * GetBestHouseWithNumber(MergedStreet const & st, string const & houseNumber, bool isOdd, bool sign)
 {
   double maxScore = numeric_limits <double>::max();
   HouseCompetitors result(0, maxScore);
@@ -1046,34 +1148,32 @@ House const * GetBestHouseWithNumber(vector<Street *> const & st, string const &
   return 0;
 }
 
-House const * GetLSHouse(vector<search::Street *> const & st, string const & houseNumber,
+House const * GetLSHouse(MergedStreet const & st, string const & houseNumber,
                          bool & isOdd, bool & sign, HouseMapT & m)
 {
   double resDist = numeric_limits<double>::max();
-  int f = -1, s = -1;
+  search::HouseProjection pivot;
 
   for (size_t i = 0; i < st.size(); ++i)
     for (size_t j = 0; j < st[i]->m_houses.size(); ++j)
     {
       search::HouseProjection const & pr = st[i]->m_houses[j];
-      double const dist = pr.m_distance;
       // Skip houses with projection on street ends.
-      if (resDist > dist && pr.m_proj != st[i]->m_points.front() && pr.m_proj != st[i]->m_points.back())
+      if (resDist > pr.m_distance &&
+          pr.m_proj != st[i]->m_points.front() && pr.m_proj != st[i]->m_points.back())
       {
-        f = i;
-        s = j;
-        resDist = dist;
+        pivot = pr;
+        resDist = pr.m_distance;
       }
     }
 
-  if (f == -1)
+  if (pivot.m_house == 0)
     return 0;
 
-  House const * h = st[f]->m_houses[s].m_house;
-  m.insert(make_pair(h, 0));
+  m.insert(make_pair(pivot.m_house, 0));
 
-  isOdd = st[f]->m_houses[s].m_house->GetIntNumber() % 2 == 1;
-  sign = st[f]->m_houses[s].m_projectionSign;
+  isOdd = pivot.m_house->GetIntNumber() % 2 == 1;
+  sign = pivot.m_projectionSign;
 
   for (size_t i = 0; i < st.size(); ++i)
   {
@@ -1117,19 +1217,18 @@ void HouseDetector::GetHouseForName(string const & houseNumber, vector<House con
 
   for (size_t i = 0; i < count; ++i)
   {
-    LOG(LDEBUG, (Street::GetDbgName(m_streets[i])));
+    LOG(LDEBUG, (m_streets[i].GetDbgName()));
 
     bool isOdd, sign;
     HouseMapT m;
-    /*House const * house = */ GetLSHouse(m_streets[i], houseNumber, isOdd, sign, m);
-//    if (house == 0)
-//      house = GetClosestHouse(m_streets[i], houseNumber, isOdd, sign);
-//    if (house)
-    House const * house = GetBestHouseWithNumber(m_streets[i], houseNumber, isOdd, sign);
-//    if (house == 0)
-//      house = GetLSHouse(m_streets[i], houseNumber, isOdd, sign, m);
-//    if (house == 0)
-//       house = GetClosestHouse(m_streets[i], houseNumber, isOdd, sign);
+
+    House const * house = 0;
+    house = GetLSHouse(m_streets[i], houseNumber, isOdd, sign, m);
+    house = GetBestHouseWithNumber(m_streets[i], houseNumber, isOdd, sign);
+
+    //if (house == 0)
+    //  house = GetClosestHouse(m_streets[i], houseNumber, isOdd, sign);
+
     if (house)
       res.push_back(house);
   }

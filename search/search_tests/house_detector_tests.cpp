@@ -15,66 +15,6 @@
 #include "../../std/fstream.hpp"
 
 
-UNIT_TEST(HS_LessPoints)
-{
-  double q = 3.0 * 360.0 / 40.0E06;
-  search::HouseDetector::LessWithEpsilon compare(&q);
-  {
-    m2::PointD a(1, 1);
-    m2::PointD b(2, 2);
-    TEST(compare(a, b), ());
-    TEST(!compare(b, a), ());
-  }
-  {
-    m2::PointD a(1, 1);
-    m2::PointD b(1, 1);
-    TEST(!compare(a, b), ());
-    TEST(!compare(b, a), ());
-  }
-  {
-    m2::PointD a(1, 1);
-    m2::PointD b(1.1, 1.1);
-    TEST(compare(a, b), ());
-    TEST(!compare(b, a), ());
-  }
-  {
-    m2::PointD a(1, 1);
-    m2::PointD b(1 + q, 1);
-    TEST(!compare(a, b), ());
-    TEST(!compare(b, a), ());
-  }
-  {
-    m2::PointD a(1, 1);
-    m2::PointD b(1 + q, 1 - q);
-    TEST(!compare(a, b), ());
-    TEST(!compare(b, a), ());
-  }
-  {
-    m2::PointD a(1, 1 - q);
-    m2::PointD b(1 + q, 1);
-    TEST(!compare(a, b), ());
-    TEST(!compare(b, a), ());
-  }
-  {
-    m2::PointD a(1 - q, 1 - q);
-    m2::PointD b(1, 1);
-    TEST(!compare(a, b), ());
-    TEST(!compare(b, a), ());
-  }
-  {
-    m2::PointD a(1, 1);
-    m2::PointD b(1 + q, 1 + q);
-    TEST(!compare(a, b), ());
-    TEST(!compare(b, a), ());
-  }
-  {
-    m2::PointD a(1, 1);
-    m2::PointD b(1 + 2 * q, 1 + q);
-    TEST(compare(a, b), ());
-    TEST(!compare(b, a), ());
-  }
-}
-
 class StreetIDsByName
 {
   vector<FeatureID> vect;
@@ -359,7 +299,7 @@ void swap(Address & a1, Address & a2)
 
 UNIT_TEST(HS_MWMSearch)
 {
-  string const path = GetPlatform().WritableDir() + "addresses-Belarus.txt";
+  string const path = GetPlatform().WritableDir() + "addresses-Minsk.txt";
   ifstream file(path.c_str());
   if (!file.good())
   {
@@ -369,7 +309,7 @@ UNIT_TEST(HS_MWMSearch)
 
   Index index;
   m2::RectD rect;
-  if (!index.Add("Belarus.mwm", rect))
+  if (!index.Add("Minsk.mwm", rect))
   {
     LOG(LWARNING, ("MWM file not found"));
     return;
