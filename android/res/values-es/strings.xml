@@ -306,4 +306,6 @@
 	<string name="menu_search">Buscar</string>
 	<string name="pref_zoom_title">Botones de zoom</string>
 	<string name="pref_zoom_summary">Visualización en la pantalla</string>
+	<string name="more_apps_title">Más aplicaciones</string>
+	<string name="more_apps_guides">Guías de viaje</string>
 </resources>

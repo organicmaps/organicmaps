@@ -306,4 +306,6 @@
 	<string name="menu_search">検索</string>
 	<string name="pref_zoom_title">ズームボタン</string>
 	<string name="pref_zoom_summary">画面上に表示</string>
+	<string name="more_apps_title">その他のアプリ</string>
+	<string name="more_apps_guides">トラベルガイド</string>
 </resources>

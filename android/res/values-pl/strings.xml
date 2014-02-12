@@ -329,4 +329,6 @@
 	<string name="menu_search">Szukaj</string>
 	<string name="pref_zoom_title">Przyciski powiększania</string>
 	<string name="pref_zoom_summary">Wyświetl na ekranie</string>
+	<string name="more_apps_title">Więcej aplikacji</string>
+	<string name="more_apps_guides">Przewodniki podróżne</string>
 </resources>

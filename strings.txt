@@ -3000,3 +3000,39 @@
     ko = 화면에 표시
     zh-Hant = 在螢幕上顯示
     hu = Mutassa a kijelzőn
+
+  [more_apps_title]
+    en = More apps
+    ru = Другие приложения
+    fr = Plus d'applis
+    pl = Więcej aplikacji
+    da = Flere apps
+    zh-hant = 更多應用
+    de = Mehr Apps
+    uk = Більше програм
+    pt = Mais aplicativos
+    es = Más aplicaciones
+    it = Altre app
+    kr = 기타 앱
+    du = Meer apps
+    cz = Více aplikací
+    ja = その他のアプリ
+    hu = Több alkalmazás
+
+  [more_apps_guides]
+    en = Travel guides
+    ru = Путеводители
+    fr = Guides de voyage
+    pl = Przewodniki podróżne
+    da = Rejseguider
+    zh-hant = 旅行指南
+    de = Reiseführer
+    uk = Довідники туриста
+    pt = Guias de Viagem
+    es = Guías de viaje
+    it = Guide turistiche
+    kr = 여행 가이드
+    du = Reisgidsen
+    cz = Cestovní průvodci
+    ja = トラベルガイド
+    hu = Útikönyvek

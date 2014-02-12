@@ -316,4 +316,6 @@
 	<string name="menu_search">Cerca</string>
 	<string name="pref_zoom_title">Pulsanti per lo zoom</string>
 	<string name="pref_zoom_summary">Condividi la mia location</string>
+	<string name="more_apps_title">Altre app</string>
+	<string name="more_apps_guides">Guide turistiche</string>
 </resources>

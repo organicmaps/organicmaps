@@ -320,4 +320,6 @@
 	<string name="menu_search">Пошук</string>
 	<string name="pref_zoom_title">Кнопки трансфокації</string>
 	<string name="pref_zoom_summary">Відображення на екрані</string>
+	<string name="more_apps_title">Більше програм</string>
+	<string name="more_apps_guides">Довідники туриста</string>
 </resources>

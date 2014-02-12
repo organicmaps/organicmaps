@@ -336,4 +336,6 @@
 	<string name="menu_search">Search</string>
 	<string name="pref_zoom_title">Zoom buttons</string>
 	<string name="pref_zoom_summary">Display on the screen</string>
+	<string name="more_apps_title">More apps</string>
+	<string name="more_apps_guides">Travel guides</string>
 </resources>
