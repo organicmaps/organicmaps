@@ -46,6 +46,7 @@
 @interface UIApplication (URLs)
 
 - (void)openProVersion;
+- (void)openGuideWithName:(NSString *)guideName itunesURL:(NSString *)itunesURL;
 
 @end
 

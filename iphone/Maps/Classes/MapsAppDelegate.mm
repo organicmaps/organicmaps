@@ -173,6 +173,8 @@ void InitLocalizedStrings()
 
   [[Statistics instance] startSession];
   [AppInfo sharedInfo]; // we call it to init -firstLaunchDate
+  if ([AppInfo sharedInfo].advertisingId)
+    [[Statistics instance] logEvent:@"Device Info" withParameters:@{@"IFA" : [AppInfo sharedInfo].advertisingId, @"Country" : [AppInfo sharedInfo].countryCode}];
 
   InitLocalizedStrings();
 

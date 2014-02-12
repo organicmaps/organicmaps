@@ -18,6 +18,7 @@
 #import "AppInfo.h"
 #import "InAppMessagesManager.h"
 #import "InterstitialView.h"
+#import "MoreAppsVC.h"
 
 #import "../Settings/SettingsManager.h"
 #import "../../Common/CustomAlertView.h"
@@ -842,6 +843,11 @@ const long long LITE_IDL = 431183278L;
     {
       [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"unknown_current_position", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil] show];
     }
+  }
+  else if (buttonIndex == 5)
+  {
+    MoreAppsVC * vc = [[MoreAppsVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
   }
 }
 

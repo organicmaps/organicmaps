@@ -25,7 +25,6 @@
 		972CDCA318854AE5006641CA /* backButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 972CDCA118854AE5006641CA /* backButton.png */; };
 		972CDCC41887EF9F006641CA /* SpeechKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972CDCC31887EF9F006641CA /* SpeechKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		972CDCC61887F1B7006641CA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972CDCC51887F1B7006641CA /* CFNetwork.framework */; };
-		9735E6F918AA76C800CD16F2 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98651186C5EF000AF7E9E /* iAd.framework */; };
 		97387546184E475000170BC4 /* MessageComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97387545184E475000170BC4 /* MessageComposeViewController.m */; };
 		97387547184E475000170BC4 /* MessageComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97387545184E475000170BC4 /* MessageComposeViewController.m */; };
 		9747264318323080006B7CB7 /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.m */; };
@@ -162,6 +161,9 @@
 		97D40C0F184E389000A1D572 /* MailComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97D40C0D184E389000A1D572 /* MailComposeViewController.m */; };
 		97D807B818A92AAB00D416E0 /* MoreAppsVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97D807B718A92AAB00D416E0 /* MoreAppsVC.mm */; };
 		97D807B918A92AAB00D416E0 /* MoreAppsVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97D807B718A92AAB00D416E0 /* MoreAppsVC.mm */; };
+		97D807BC18A933FB00D416E0 /* MoreAppsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97D807BB18A933FB00D416E0 /* MoreAppsCell.m */; };
+		97D807BD18A933FB00D416E0 /* MoreAppsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97D807BB18A933FB00D416E0 /* MoreAppsCell.m */; };
+		97D807BE18A93C8800D416E0 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98651186C5EF000AF7E9E /* iAd.framework */; };
 		97DD585518A8EAFA0079837E /* libAarkiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585218A8EAFA0079837E /* libAarkiSDK.a */; };
 		97DD585618A8EAFB0079837E /* libAarkiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585218A8EAFA0079837E /* libAarkiSDK.a */; };
 		97DD585818A8EB060079837E /* MobileAppTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585718A8EB060079837E /* MobileAppTracker.framework */; };
@@ -1658,6 +1660,8 @@
 		97D40C0D184E389000A1D572 /* MailComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailComposeViewController.m; sourceTree = "<group>"; };
 		97D807B618A92AAB00D416E0 /* MoreAppsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreAppsVC.h; sourceTree = "<group>"; };
 		97D807B718A92AAB00D416E0 /* MoreAppsVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoreAppsVC.mm; sourceTree = "<group>"; };
+		97D807BA18A933FB00D416E0 /* MoreAppsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreAppsCell.h; sourceTree = "<group>"; };
+		97D807BB18A933FB00D416E0 /* MoreAppsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreAppsCell.m; sourceTree = "<group>"; };
 		97DD585218A8EAFA0079837E /* libAarkiSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAarkiSDK.a; sourceTree = "<group>"; };
 		97DD585318A8EAFA0079837E /* Aarki.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aarki.h; sourceTree = "<group>"; };
 		97DD585418A8EAFA0079837E /* AarkiContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AarkiContact.h; sourceTree = "<group>"; };
@@ -2347,7 +2351,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9735E6F918AA76C800CD16F2 /* iAd.framework in Frameworks */,
+				97D807BE18A93C8800D416E0 /* iAd.framework in Frameworks */,
 				97719D491843B6F700BDD815 /* Security.framework in Frameworks */,
 				97719D451843B6DC00BDD815 /* MessageUI.framework in Frameworks */,
 				97ECD87F1836594400F77A46 /* StoreKit.framework in Frameworks */,
@@ -2451,8 +2455,7 @@
 			children = (
 				97B4E9271851DAB300BEC5D7 /* Custom Views */,
 				9789DB53188D5DFF007C6FAE /* In App Messaging */,
-				97D807B618A92AAB00D416E0 /* MoreAppsVC.h */,
-				97D807B718A92AAB00D416E0 /* MoreAppsVC.mm */,
+				9770A04618AD19D300126E5C /* More Apps */,
 				978F9251183BD530000D6C7C /* NavigationController.h */,
 				978F9252183BD530000D6C7C /* NavigationController.mm */,
 				97D40C0C184E389000A1D572 /* MailComposeViewController.h */,
@@ -2614,6 +2617,17 @@
 				9747277A18328E65006B7CB7 /* SideToolbarCell.m */,
 			);
 			path = SideToolbar;
+			sourceTree = "<group>";
+		};
+		9770A04618AD19D300126E5C /* More Apps */ = {
+			isa = PBXGroup;
+			children = (
+				97D807B618A92AAB00D416E0 /* MoreAppsVC.h */,
+				97D807B718A92AAB00D416E0 /* MoreAppsVC.mm */,
+				97D807BA18A933FB00D416E0 /* MoreAppsCell.h */,
+				97D807BB18A933FB00D416E0 /* MoreAppsCell.m */,
+			);
+			name = "More Apps";
 			sourceTree = "<group>";
 		};
 		9789DB53188D5DFF007C6FAE /* In App Messaging */ = {
@@ -5034,6 +5048,7 @@
 				FAA5C2A2144F135F005337F6 /* LocationManager.mm in Sources */,
 				FA81AE3314D061BF00A0D70D /* SearchCell.mm in Sources */,
 				978F9240183B660F000D6C7C /* SettingsViewController.mm in Sources */,
+				97D807BC18A933FB00D416E0 /* MoreAppsCell.m in Sources */,
 				F7B90CD31521E6D200C054EE /* CustomNavigationView.mm in Sources */,
 				FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */,
 				FA5D4F191557F79900E7D8BB /* PlacePageVC.mm in Sources */,
@@ -5111,6 +5126,7 @@
 				97719D431843AF1E00BDD815 /* ScopeView.m in Sources */,
 				FAFB08F4151215EE0041901D /* CompassView.mm in Sources */,
 				FAFB08F5151215EE0041901D /* Preferences.mm in Sources */,
+				97D807BD18A933FB00D416E0 /* MoreAppsCell.m in Sources */,
 				FAFB08F6151215EE0041901D /* LocationManager.mm in Sources */,
 				97C9860D186C487900AF7E9E /* MPAdAlertGestureRecognizer.m in Sources */,
 				97C98641186C487900AF7E9E /* MPBannerCustomEvent.m in Sources */,

@@ -98,8 +98,9 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
         }
         else
         {
-          NSString * adUnitId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MoPubInterstitialAdUnitId"];
-          self.interstitialAd = [MPInterstitialAdController interstitialAdControllerForAdUnitId:adUnitId];
+          NSDictionary * imageVariants = [[AppInfo sharedInfo] featureValue:[self appFeatureNameForMessage:messageName] forKey:@"Variants"];
+          NSString * unitId = imageVariants[imageType][@"UnitId"];
+          self.interstitialAd = [MPInterstitialAdController interstitialAdControllerForAdUnitId:unitId];
           self.interstitialAd.delegate = self;
           [self.interstitialAd loadAd];
         }
@@ -119,8 +120,9 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
       if ([imageType isEqualToString:MoPubImageType])
       {
 #ifdef OMIM_LITE
-        NSString * adUnitId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MoPubTopBannerAdUnitId"];
-        MPAdView * moPubBanner = [[MPAdView alloc] initWithAdUnitId:adUnitId size:MOPUB_BANNER_SIZE];
+        NSDictionary * imageVariants = [[AppInfo sharedInfo] featureValue:[self appFeatureNameForMessage:messageName] forKey:@"Variants"];
+        NSString * unitId = imageVariants[imageType][@"UnitId"];
+        MPAdView * moPubBanner = [[MPAdView alloc] initWithAdUnitId:unitId size:MOPUB_BANNER_SIZE];
         moPubBanner.hidden = YES;
         moPubBanner.delegate = self;
         [moPubBanner startAutomaticallyRefreshingContents];

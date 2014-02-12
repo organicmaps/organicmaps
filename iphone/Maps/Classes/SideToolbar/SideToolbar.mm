@@ -40,15 +40,17 @@ typedef NS_ENUM(NSUInteger, Section)
                  NSLocalizedString(@"download_maps", nil),
                  NSLocalizedString(@"bookmarks", nil),
                  NSLocalizedString(@"settings", nil),
-                 NSLocalizedString(@"share_my_location", nil)];
+                 NSLocalizedString(@"share_my_location", nil),
+                 NSLocalizedString(@"more_apps_title", nil)];
 
   menuImageNames = @[@"IconSearch",
                      @"IconMap",
                      @"IconBookmarks",
                      @"IconSettings",
-                     @"IconShare"];
+                     @"IconShare",
+                     @"IconMoreApps"];
 
-  disabledInTrial = @[@YES, @NO, @YES, @NO, @NO, @NO];
+  disabledInTrial = @[@YES, @NO, @YES, @NO, @NO, @NO, @NO];
 
   self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin;
   [self addGestureRecognizer:self.menuPanGesture];
