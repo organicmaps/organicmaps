@@ -313,12 +313,12 @@ void HouseDetector::SetMetres2Mercator(double factor)
   LOG(LDEBUG, ("Street join epsilon = ", m_metres2Mercator * STREET_CONNECTION_LENGTH_M));
 }
 
-//double HouseDetector::GetApprLengthMeters(int index) const
-//{
-//  m2::PointD const & p1 = m_streets[index].m_cont.front()->m_points.front();
-//  m2::PointD const & p2 = m_streets[index].m_cont.back()->m_points.back();
-//  return p1.Length(p2) / m_metres2Mercator;
-//}
+double HouseDetector::GetApprLengthMeters(int index) const
+{
+  m2::PointD const & p1 = m_streets[index].m_cont.front()->m_points.front();
+  m2::PointD const & p2 = m_streets[index].m_cont.back()->m_points.back();
+  return p1.Length(p2) / m_metres2Mercator;
+}
 
 HouseDetector::StreetPtr HouseDetector::FindConnection(Street const * st, bool beg) const
 {
@@ -700,8 +700,7 @@ void HouseDetector::ReadHouses(Street * st, double offsetMeters)
   if (st->m_housesReaded)
     return;
 
-  //offsetMeters = max(50.0, min(GetApprLengthMeters(st->m_number) / 2, offsetMeters));
-  //LOG(LINFO, ("Offset =", offsetMeters));
+  offsetMeters = max(50.0, min(GetApprLengthMeters(st->m_number) / 2, offsetMeters));
 
   ProjectionCalcToStreet calcker(st, offsetMeters);
   m_loader.ForEachInRect(st->GetLimitRect(offsetMeters),
