@@ -323,15 +323,15 @@ double HouseDetector::GetApprLengthMeters(int index) const
 HouseDetector::StreetPtr HouseDetector::FindConnection(Street const * st, bool beg) const
 {
   m2::PointD const & pt = beg ? st->m_points.front() : st->m_points.back();
-  double const maxAngle = 3.0*math::pi/4.0;
+  double const maxAngle = math::pi/2.0;
 
   StreetPtr resStreet(0, false);
   double resDistance = numeric_limits<double>::max();
-  double const eps = m_metres2Mercator * STREET_CONNECTION_LENGTH_M;
+  double const minSqDistance = math::sqr(m_metres2Mercator * STREET_CONNECTION_LENGTH_M);
 
   for (size_t i = 0; i < m_end2st.size(); ++i)
   {
-    if (!pt.EqualDxDy(m_end2st[i].first, eps))
+    if (pt.SquareLength(m_end2st[i].first) > minSqDistance)
       continue;
 
     Street * current = m_end2st[i].second;
