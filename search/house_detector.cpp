@@ -10,6 +10,7 @@
 
 #include "../base/logging.hpp"
 #include "../base/stl_iterator.hpp"
+#include "../base/limited_priority_queue.hpp"
 
 #include "../std/set.hpp"
 #include "../std/bind.hpp"
@@ -482,6 +483,7 @@ int HouseDetector::MergeStreets()
 //  }
 //#endif
 
+  LOG(LDEBUG, ("MergeStreets() result", m_streetNum));
   return m_streetNum;
 }
 
@@ -605,6 +607,15 @@ bool MergedStreet::IsHousesReaded() const
   return m_cont.front()->m_housesReaded;
 }
 
+void MergedStreet::Next(Index & i) const
+{
+  while (i.s < m_cont.size() && i.h == m_cont[i.s]->m_houses.size())
+  {
+    i.h = 0;
+    ++i.s;
+  }
+}
+
 void MergedStreet::Erase(Index & i)
 {
   ASSERT(!IsEnd(i), ());
@@ -658,6 +669,51 @@ void MergedStreet::FinishReadingHouses()
     if (incI)
       Inc(i);
   }
+}
+
+HouseProjection const * MergedStreet::GetHousePivot(bool & odd, bool & sign) const
+{
+  typedef my::limited_priority_queue<
+      HouseProjection const *, HouseProjection::LessDistance> QueueT;
+  QueueT q(16);
+
+  // Get some most closest houses.
+  for (MergedStreet::Index i = Begin(); !IsEnd(i); Inc(i))
+    q.push(&Get(i));
+
+  // Calculate all probabilities.
+  // even-left, odd-left, even-right, odd-right
+  size_t counter[4] = { 0, 0, 0, 0 };
+  for (QueueT::const_iterator i = q.begin(); i != q.end(); ++i)
+  {
+    size_t ind = (*i)->m_house->GetIntNumber() % 2;
+    if ((*i)->m_projectionSign)
+      ind += 2;
+    ++counter[ind];
+  }
+
+  // Get best odd-sign pair.
+  if (counter[0] + counter[3] > counter[1] + counter[2])
+  {
+    odd = true;
+    sign = true;
+  }
+  else
+  {
+    odd = false;
+    sign = true;
+  }
+
+  // Get result pivot according to odd-sign pair.
+  while (!q.empty())
+  {
+    HouseProjection const * p = q.top();
+    if ((p->m_projectionSign == sign) == (p->IsOdd() == odd))
+      return p;
+    q.pop();
+  }
+
+  return 0;
 }
 
 template <class ProjectionCalcT>
@@ -856,11 +912,15 @@ void ProccessHouses(vector<search::HouseProjection> & houses, HouseMapT & m)
   for_each(result.begin(), result.end(), bind(&AddHouseToMap, _1, ref(m)));
 }
 
-House const * GetClosestHouse(MergedStreet const & st, string const & houseNumber, bool isOdd, bool sign)
+House const * GetClosestHouse(MergedStreet const & st, string const & houseNumber)
 {
   double dist = numeric_limits<double>::max();
   int streetIndex = -1;
   int houseIndex = -1;
+
+  bool isOdd, sign;
+  if (st.GetHousePivot(isOdd, sign) == 0)
+    return 0;
 
   House::ParsedNumber parsedNumber(houseNumber);
   for (size_t i = 0; i < st.size(); ++i)
@@ -1004,7 +1064,7 @@ HouseCompetitors GetBestHouseFromChains(vector<HouseChain> & houseChains, string
 }
 
 
-HouseCompetitors ProccessHouses(vector<search::HouseProjection> const & st, string const &  houseNumber)
+HouseCompetitors ProccessHouses(vector<search::HouseProjection> const & st, string const & houseNumber)
 {
   vector <HouseChain> houseChains;
   vector <bool> used(st.size(), false);
@@ -1109,8 +1169,12 @@ HouseCompetitors ProccessHouses(vector<search::HouseProjection> const & st, stri
   return GetBestHouseFromChains(houseChains, houseNumber);
 }
 
-House const * GetBestHouseWithNumber(MergedStreet const & st, string const & houseNumber, bool isOdd, bool sign)
+House const * GetBestHouseWithNumber(MergedStreet const & st, string const & houseNumber)
 {
+  bool isOdd, sign;
+  if (st.GetHousePivot(isOdd, sign) == 0)
+    return 0;
+
   double maxScore = numeric_limits <double>::max();
   HouseCompetitors result(0, maxScore);
 
@@ -1147,48 +1211,27 @@ House const * GetBestHouseWithNumber(MergedStreet const & st, string const & hou
   return 0;
 }
 
-House const * GetLSHouse(MergedStreet const & st, string const & houseNumber,
-                         bool & isOdd, bool & sign, HouseMapT & m)
+House const * GetLSHouse(MergedStreet const & st, string const & houseNumber, HouseMapT & m)
 {
-  double resDist = numeric_limits<double>::max();
-  search::HouseProjection pivot;
-
-  for (size_t i = 0; i < st.size(); ++i)
-    for (size_t j = 0; j < st[i]->m_houses.size(); ++j)
-    {
-      search::HouseProjection const & pr = st[i]->m_houses[j];
-      // Skip houses with projection on street ends.
-      if (resDist > pr.m_distance &&
-          pr.m_proj != st[i]->m_points.front() && pr.m_proj != st[i]->m_points.back())
-      {
-        pivot = pr;
-        resDist = pr.m_distance;
-      }
-    }
-
-  if (pivot.m_house == 0)
+  bool isOdd, sign;
+  HouseProjection const * pivot = st.GetHousePivot(isOdd, sign);
+  if (pivot == 0)
     return 0;
 
-  m.insert(make_pair(pivot.m_house, 0));
+  m.insert(make_pair(pivot->m_house, 0));
 
-  isOdd = pivot.m_house->GetIntNumber() % 2 == 1;
-  sign = pivot.m_projectionSign;
-
-  for (size_t i = 0; i < st.size(); ++i)
+  vector<HouseProjection> v1, v2;
+  for (MergedStreet::Index i = st.Begin(); !st.IsEnd(i); st.Inc(i))
   {
-    vector<search::HouseProjection> left, right;
-    for (size_t j = 0; j < st[i]->m_houses.size(); ++j)
-    {
-      search::HouseProjection const & projection = st[i]->m_houses[j];
-      if (projection.m_projectionSign == sign && projection.m_house->GetIntNumber() % 2 == isOdd)
-        right.push_back(projection);
-      else if (projection.m_projectionSign != sign && projection.m_house->GetIntNumber() % 2 != isOdd)
-        left.push_back(projection);
-    }
-
-    ProccessHouses(right, m);
-    ProccessHouses(left, m);
+    search::HouseProjection const & p = st.Get(i);
+    if (p.m_projectionSign == sign && p.IsOdd() == isOdd)
+      v1.push_back(p);
+    else if (p.m_projectionSign != sign && p.IsOdd() != isOdd)
+      v2.push_back(p);
   }
+
+  ProccessHouses(v1, m);
+  ProccessHouses(v2, m);
 
   House const * arrRes[] = { 0, 0, 0 };
   House::ParsedNumber parsedNumber(houseNumber);
@@ -1218,15 +1261,12 @@ void HouseDetector::GetHouseForName(string const & houseNumber, vector<House con
   {
     LOG(LDEBUG, (m_streets[i].GetDbgName()));
 
-    bool isOdd, sign;
+    House const * house = 0;
     HouseMapT m;
 
-    House const * house = 0;
-    house = GetLSHouse(m_streets[i], houseNumber, isOdd, sign, m);
-    house = GetBestHouseWithNumber(m_streets[i], houseNumber, isOdd, sign);
-
-    //if (house == 0)
-    //  house = GetClosestHouse(m_streets[i], houseNumber, isOdd, sign);
+    //house = GetLSHouse(m_streets[i], houseNumber, m);
+    house = GetBestHouseWithNumber(m_streets[i], houseNumber);
+    //house = GetClosestHouse(m_streets[i], houseNumber);
 
     if (house)
       res.push_back(house);

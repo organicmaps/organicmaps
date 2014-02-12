@@ -89,6 +89,16 @@ struct HouseProjection
   double m_streetDistance;
   /// false - to the left, true - to the right from projection segment
   bool m_projectionSign;
+
+  inline bool IsOdd() const { return (m_house->GetIntNumber() % 2 == 1); }
+
+  struct LessDistance
+  {
+    bool operator() (HouseProjection const * p1, HouseProjection const * p2) const
+    {
+      return p1->m_distance < p2->m_distance;
+    }
+  };
 };
 
 // many features combines to street
@@ -134,26 +144,20 @@ public:
   bool IsHousesReaded() const;
   void FinishReadingHouses();
 
+  HouseProjection const * GetHousePivot(bool & isOdd, bool & sign) const;
+
   /// @name Temporary
   //@{
   inline size_t size() const { return m_cont.size(); }
   inline Street const * operator[] (size_t i) const { return m_cont[i]; }
   //@}
 
-private:
+public:
   struct Index
   {
     size_t s, h;
     Index() : s(0), h(0) {}
   };
-  inline void Next(Index & i) const
-  {
-    while (i.s < m_cont.size() && i.h == m_cont[i.s]->m_houses.size())
-    {
-      i.h = 0;
-      ++i.s;
-    }
-  }
 
   inline Index Begin() const
   {
@@ -175,7 +179,10 @@ private:
     ASSERT(!IsEnd(i), ());
     return m_cont[i.s]->m_houses[i.h];
   }
+
+private:
   void Erase(Index & i);
+  void Next(Index & i) const;
 };
 
 class HouseDetector
@@ -202,7 +209,7 @@ private:
 
   void SetMetres2Mercator(double factor);
 
-  //double GetApprLengthMeters(int index) const;
+  double GetApprLengthMeters(int index) const;
 
 public:
   typedef map<FeatureID, Street *>::iterator IterM;
