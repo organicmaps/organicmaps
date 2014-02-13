@@ -1038,23 +1038,10 @@ HouseCompetitors GetBestHouseFromChains(vector<HouseChain> & houseChains, string
 
   for (size_t i = 1; i < houseChains.size(); ++i)
   {
-    bool shouldConcatinateHouseChains = true;
-    //do something clever
     if (houseChains[i].score >= 300)
       break;
-    if (houseChains[0].minHouseNumber > houseChains[i].maxHouseNumber || houseChains[0].maxHouseNumber < houseChains[i].minHouseNumber)
-      for (size_t j = 0; j < houseChains[i].houses.size(); ++j)
-      {
-        if (houseChains[0].Find(houseChains[i].houses[j].m_house->GetNumber()))
-        {
-          shouldConcatinateHouseChains = false;
-          break;
-        }
-      }
-
-    if (shouldConcatinateHouseChains)
-      for (size_t j = 0; j < houseChains[i].houses.size(); ++j)
-        houseChains[0].Add(houseChains[i].houses[j]);
+    for (size_t j = 0; j < houseChains[i].houses.size(); ++j)
+      houseChains[0].Add(houseChains[i].houses[j]);
   }
 
   for (size_t j = 0; j < houseChains[0].houses.size(); ++j)
@@ -1114,10 +1101,9 @@ HouseCompetitors ProccessHouses(vector<search::HouseProjection> const & st, stri
                     abs(houseChains[j].houses[k].m_house->GetIntNumber() - candidateHouseNumber) <= maxHouseNumberDistance)
                 {
                   double tmp = GetDistanceMeters(houseChains[j].houses[k].m_house->GetPosition(), st[candidates[i]].m_house->GetPosition());
-                  double roadDist = houseChains[j].houses[k].m_distance + st[candidates[i]].m_distance;
-                  if (tmp < maxHouseConnectionDistance && tmp + roadDist < dist)
+                  if (tmp < maxHouseConnectionDistance && tmp < dist)
                   {
-                    dist = tmp + roadDist;
+                    dist = tmp;
                     chainIndex = j;
                     candidateIndex = i;
                   }
@@ -1178,34 +1164,26 @@ House const * GetBestHouseWithNumber(MergedStreet const & st, string const & hou
   double maxScore = numeric_limits <double>::max();
   HouseCompetitors result(0, maxScore);
 
+  vector<search::HouseProjection> left, right;
   for (size_t i = 0; i < st.size(); ++i)
   {
-    map<m2::PointD, HouseProjection> filter;
     for (size_t j = 0; j < st[i]->m_houses.size(); ++j)
     {
-      map<m2::PointD, HouseProjection>::iterator it = filter.find(st[i]->m_houses[j].m_house->GetPosition());
-      if (it == filter.end())
-        filter[st[i]->m_houses[j].m_house->GetPosition()] = st[i]->m_houses[j];
-      else if (it->second.m_distance > st[i]->m_houses[j].m_distance)
-        it->second = st[i]->m_houses[j];
+      HouseProjection const & proj = st[i]->m_houses[j];
+      if (proj.m_projectionSign == sign && proj.m_house->GetIntNumber() % 2 == isOdd)
+        right.push_back(proj);
+      else if (proj.m_projectionSign != sign && proj.m_house->GetIntNumber() % 2 != isOdd)
+        left.push_back(proj);
     }
-
-    vector<search::HouseProjection> left, right;
-    for (map<m2::PointD, HouseProjection>::iterator it = filter.begin(); it != filter.end(); ++it)
-    {
-      if (it->second.m_projectionSign == sign && it->second.m_house->GetIntNumber() % 2 == isOdd)
-        right.push_back(it->second);
-      else if (it->second.m_projectionSign != sign && it->second.m_house->GetIntNumber() % 2 != isOdd)
-        left.push_back(it->second);
-    }
-
-    HouseCompetitors tmp = ProccessHouses(right, houseNumber);
-    if (tmp.score < result.score)
-      result = tmp;
-    tmp = ProccessHouses(left, houseNumber);
-    if (tmp.score < result.score)
-      result = tmp;
   }
+
+  HouseCompetitors tmp = ProccessHouses(right, houseNumber);
+  if (tmp.score < result.score)
+    result = tmp;
+  tmp = ProccessHouses(left, houseNumber);
+  if (tmp.score < result.score)
+    result = tmp;
+
   if (result.score != maxScore)
     return result.house;
   return 0;
