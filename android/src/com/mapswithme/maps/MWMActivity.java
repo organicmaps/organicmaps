@@ -47,6 +47,7 @@ import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.promo.ActivationSettings;
 import com.mapswithme.maps.promo.PromocodeActivationDialog;
+import com.mapswithme.maps.search.SearchController;
 import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.state.SuppotedState;
@@ -88,6 +89,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private DrawerLayout mDrawerLayout;
   private View mMainDrawer;
 
+
+  // search
+  private SearchController mSearchController;
 
   private String mProDialogMessage;
 
@@ -581,6 +585,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     // Initialize location service
     getLocationService();
+
+    mSearchController = SearchController.get();
+    mSearchController.onCreate(this);
   }
 
   private void setUpDrawer()
@@ -943,6 +950,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       UiUtils.show(findViewById(R.id.map_button_plus), findViewById(R.id.map_button_minus));
     else
       UiUtils.hide(findViewById(R.id.map_button_plus), findViewById(R.id.map_button_minus));
+
+
+    mSearchController.onResume();
   }
 
   @Override

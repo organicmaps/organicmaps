@@ -64,21 +64,17 @@
 
     <style name="MWMMain.NoBar" parent="@style/Holo.Theme.Light.NoActionBar"></style>
 
-    <style name="MwmSearch" parent="@style/Holo.Theme.Dialog.Light">
-        <item name="windowFixedHeightMajor">@dimen/dialog_fixed_height_major</item>
-        <item name="windowFixedHeightMinor">@dimen/dialog_fixed_height_minor</item>
-        <item name="windowFixedWidthMajor">@dimen/dialog_fixed_width_major</item>
-        <item name="windowFixedWidthMinor">@dimen/dialog_fixed_width_minor</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowActionBar">false</item>
+    <style name="MwmSearch" parent="@style/MWMMain">
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/semitransparent_black</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
 
     <!-- Dialog Holo.Light theme for Activity -->
     <style name="MWMTheme.Dialog.Light" parent="@style/MWMMain">
-        <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFrame">@null</item>
         <item name="android:windowTitleStyle">@style/Holo.DialogWindowTitle.Light</item>

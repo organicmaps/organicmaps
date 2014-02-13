@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.base.MapsWithMeBaseListActivity;
 import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.maps.search.SearchController;
 import com.mapswithme.util.Language;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -44,6 +45,13 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   {
     final Intent i = new Intent(context, SearchActivity.class);
     i.putExtra(EXTRA_SCOPE, scope).putExtra(EXTRA_QUERY, query);
+    context.startActivity(i);
+  }
+
+  public static void startForSearch(Context context, String query)
+  {
+    final Intent i = new Intent(context, SearchActivity.class);
+    i.putExtra(EXTRA_QUERY, query);
     context.startActivity(i);
   }
 
@@ -215,7 +223,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       public SearchResult(String suggestion)
       {
         m_name = suggestion;
-
         m_type = 0;
       }
 
@@ -288,7 +295,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       {
         // Show categories list.
 
-        assert(position < m_categories.length);
         final String strID = m_categories[position];
 
         holder.m_name.setText(getCategoryName(strID));
@@ -297,7 +303,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       else if (m_count == 0)
       {
         // Show warning message.
-        assert(position == 0);
 
         holder.m_name.setText(m_context.getString(R.string.no_search_results_found));
 
@@ -313,7 +318,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       else
       {
         // Show search results.
-        //Log.d(TAG, "Getting result for result ID = " + m_resultID);
 
         final SearchResult r = m_context.getResult(position, m_resultID);
         if (r != null)
@@ -354,7 +358,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
     public void updateCategories()
     {
-      assert(isShowCategories());
       m_count = -1;
       updateData();
     }
@@ -365,7 +368,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     {
       if (isShowCategories())
       {
-        assert(position < m_categories.length);
 
         final String category = getCategoryName(m_categories[position]);
         Statistics.INSTANCE.trackSearchCategoryClicked(m_context, category);
@@ -398,7 +400,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
   private String getSearchString()
   {
-    return m_searchBox.getText().toString();
+    return mSearchBox.getText().toString();
   }
 
   private boolean isShowCategories()
@@ -407,10 +409,15 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   }
 
   private LocationService m_location;
-  private EditText m_searchBox;
-  private ProgressBar m_progress;
-  private Spinner m_modesSpinner;
+  // Search views
+  private EditText mSearchBox;
+  private ProgressBar mSearchProgress;
   private View mClearQueryBtn;
+  private View mVoiceInput;
+  private View mSearchIcon;
+  //
+
+  private Spinner m_modesSpinner;
 
   @SuppressLint("NewApi")
   @Override
@@ -438,8 +445,9 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     final Intent intent = getIntent();
     if (intent != null && intent.hasExtra(EXTRA_QUERY))
     {
-      m_searchBox.setText(intent.getStringExtra(EXTRA_QUERY));
-      m_modesSpinner.setSelection(intent.getIntExtra(EXTRA_SCOPE, 0));
+      mSearchBox.setText(intent.getStringExtra(EXTRA_QUERY));
+      if (intent.hasExtra(EXTRA_SCOPE))
+        m_modesSpinner.setSelection(intent.getIntExtra(EXTRA_SCOPE, 0));
       runSearch();
     }
   }
@@ -453,20 +461,22 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
   private void setUpView()
   {
-    m_progress = (ProgressBar) findViewById(R.id.search_progress);
-    mClearQueryBtn = findViewById(R.id.btn_clear_query);
+    mVoiceInput = findViewById(R.id.search_voice_input);
+    mSearchIcon = findViewById(R.id.search_icon);
+    mSearchProgress = (ProgressBar) findViewById(R.id.search_progress);
+    mClearQueryBtn = findViewById(R.id.search_image_clear);
     mClearQueryBtn.setOnClickListener(new OnClickListener()
     {
       @Override
       public void onClick(View v)
       {
-        m_searchBox.getText().clear();
+        mSearchBox.getText().clear();
       }
     });
 
     // Initialize search edit box processor.
-    m_searchBox = (EditText) findViewById(R.id.search_string);
-    m_searchBox.addTextChangedListener(new TextWatcher()
+    mSearchBox = (EditText) findViewById(R.id.search_text_query);
+    mSearchBox.addTextChangedListener(new TextWatcher()
     {
       @Override
       public void afterTextChanged(Editable s)
@@ -474,10 +484,16 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         if (runSearch() == QUERY_EMPTY)
           showCategories();
 
-        if (s.length() == 0)
-          UiUtils.hide(mClearQueryBtn);
-        else
+        if (s.length() == 0) // enable voice input
+        {
+          UiUtils.invisible(mClearQueryBtn);
+          UiUtils.show(mVoiceInput);
+        }
+        else // show clear cross
+        {
           UiUtils.show(mClearQueryBtn);
+          UiUtils.invisible(mVoiceInput);
+        }
       }
 
       @Override
@@ -494,13 +510,13 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     // Initialize search modes spinner.
     m_modesSpinner = (Spinner) findViewById(R.id.search_modes_spinner);
 
-    final ArrayAdapter<CharSequence> adapter =
-        ArrayAdapter.createFromResource(this, R.array.search_modes, R.layout.simple_spinner_item);
+    final ArrayAdapter<?> adapter = ArrayAdapter
+                                    .createFromResource(this, R.array.search_modes, R.layout.simple_spinner_item);
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     m_modesSpinner.setAdapter(adapter);
 
     // Default mode is AROUND_POSITION
-    m_modesSpinner.setSelection(((MWMApplication) getApplication()).nativeGetInt(SEARCH_MODE_SETTING, 1));
+    m_modesSpinner.setSelection(MWMApplication.get().nativeGetInt(SEARCH_MODE_SETTING, 1));
 
     m_modesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
     {
@@ -553,9 +569,8 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     m_location.startUpdate(this);
 
     // do the search immediately after resume
-    Utils.setStringAndCursorToEnd(m_searchBox, getLastQuery());
-
-    m_searchBox.requestFocus();
+    Utils.setStringAndCursorToEnd(mSearchBox, getLastQuery());
+    mSearchBox.requestFocus();
   }
 
   @Override
@@ -579,6 +594,9 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     if (suggestion == null)
     {
       finish();
+      // TODO why does not getResult always return correct value?
+      final SearchAdapter.ViewHolder vh = (SearchAdapter.ViewHolder) v.getTag();
+      SearchController.get().setQuery(vh.m_name.getText().toString());
     }
     else
     {
@@ -592,15 +610,13 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   {
     if (!isShowCategories())
     {
-      //Log.d(TAG, "onBackPressed set empty text");
-
       // invokes runSearch with empty string - adapter will show categories
-      m_searchBox.setText("");
+      mSearchBox.setText("");
     }
     else
     {
-      //Log.d(TAG, "super.onBackPressed");
       super.onBackPressed();
+      SearchController.get().cancel();
     }
   }
 
@@ -619,17 +635,13 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
   private void updateDistance()
   {
-    //Log.d(TAG, ("From updateDistance()"));
     getSA().updateData();
   }
 
   private void showCategories()
   {
     clearLastQuery();
-
-    m_progress.setVisibility(View.GONE);
-
-    //Log.d(TAG, ("From showCategories()"));
+    setSearchInProgress(false);
     getSA().updateCategories();
   }
 
@@ -696,16 +708,12 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       @Override
       public void run()
       {
-        Log.d(TAG, "Show " + count + " results for id = " + resultID);
-
         // if this results for the last query - hide progress
         if (isCurrentResult(resultID))
-          m_progress.setVisibility(View.GONE);
+          setSearchInProgress(false);
 
         if (!isShowCategories())
         {
-          //Log.d(TAG, ("From runUI-updateData()"));
-
           // update list view with results if we are not in categories mode
           getSA().updateData(count, resultID);
 
@@ -718,7 +726,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
   private void runSearch(String s)
   {
-    Utils.setStringAndCursorToEnd(m_searchBox, s);
+    Utils.setStringAndCursorToEnd(mSearchBox, s);
   }
 
   /// @name These constants should be equal with search_params.hpp
@@ -751,28 +759,39 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       return QUERY_EMPTY;
     }
 
-    Log.d(TAG, "Search query = " + s);
 
     final String lang = Language.getKeyboardInput(this);
-    Log.d(TAG, "Current language = " + lang);
 
     final int id = m_queryID + QUERY_STEP;
     if (nativeRunSearch(s, lang, m_lat, m_lon, m_flags, m_searchMode, id))
     {
       // store current query
       m_queryID = id;
-      //Log.d(TAG, "Current search query id =" + m_queryID);
 
       // mark that it's not the first query already - don't do force search
       m_flags |= NOT_FIRST_QUERY;
 
-      // show search progress
-      m_progress.setVisibility(View.VISIBLE);
+      setSearchInProgress(true);
 
       return SEARCH_LAUNCHED;
     }
     else
       return SEARCH_SKIPPED;
+  }
+
+  private void setSearchInProgress(boolean inProgress)
+  {
+    // TODO animate visibility change
+    if (inProgress)
+    {
+      UiUtils.show(mSearchProgress);
+      UiUtils.invisible(mSearchIcon);
+    }
+    else // search is completed
+    {
+      UiUtils.invisible(mSearchProgress);
+      UiUtils.show(mSearchIcon);
+    }
   }
 
   public SearchAdapter.SearchResult getResult(int position, int queryID)

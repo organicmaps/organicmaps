@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="background_placepage">#ECECEC</color>
-  <color name="base_green">#4CD950</color>
-  <color name="text_primary">#333333</color>
-  <color name="text_seconadary">#999999</color>
 
-  <color name="drawer_green">#4CD964</color>
-  <color name="drawer_back_inv">#AEEE</color>
+    <color name="background_placepage">#ECECEC</color>
+    <color name="base_green">#4CD950</color>
+    <color name="text_primary">#333333</color>
+    <color name="text_seconadary">#999999</color>
+    <color name="drawer_green">#4CD964</color>
+    <color name="drawer_back_inv">#AEEE</color>
+    <color name="drawer_text_active">#FFF</color>
+    <color name="drawer_text_inacative">#FFF</color>
+    <color name="drawer_text_disabled">#999999</color>
 
-  <color name="drawer_text_active">#FFF</color>
-  <color name="drawer_text_inacative">#FFF</color>
-  <color name="drawer_text_disabled">#999999</color>
+    <drawable name="semitransparent_white">#30FFFFFF</drawable>
 
-  <drawable name="semitransparent_white">#30FFFFFF</drawable>
+    <color name="semitransparent_white">#30FFFFFF</color>
+
+    <drawable name="semitransparent_black">#30000000</drawable>
+
+    <color name="semitransparent_black">#60000000</color>
+
 </resources>

@@ -3,16 +3,4 @@
 
     <style name="MWMMain" parent="@android:style/Theme.Holo.Light"></style>
 
-    <style name="MwmSearch" parent="@android:style/Theme.Holo.Light.Dialog.MinWidth">
-        <item name="windowFixedHeightMajor">@dimen/dialog_fixed_height_major</item>
-        <item name="windowFixedHeightMinor">@dimen/dialog_fixed_height_minor</item>
-        <item name="windowFixedWidthMajor">@dimen/dialog_fixed_width_major</item>
-        <item name="windowFixedWidthMinor">@dimen/dialog_fixed_width_minor</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowIsFloating">true</item>
-    </style>
-
 </resources>

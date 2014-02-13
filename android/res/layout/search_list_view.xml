@@ -2,59 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@null"
     android:minHeight="9999dp"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/dp_x_2"
-    android:paddingRight="@dimen/dp_x_2" >
+    android:orientation="vertical" >
 
-    <LinearLayout
-        style="@style/Holo.EditText.Light"
+    <include
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:addStatesFromChildren="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
-
-        <EditText
-            android:id="@+id/search_string"
-            style="@style/Holo.TextAppearance.Large.Light"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@null"
-            android:hint="@string/search_map"
-            android:inputType="text"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp" />
-
-        <ProgressBar
-            android:id="@+id/search_progress"
-            style="@style/Holo.ProgressBar.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/btn_clear_query"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:padding="4dp"
-            android:src="@drawable/ic_action_cancel"
-            android:visibility="gone" />
-    </LinearLayout>
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        layout="@layout/search_box" />
 
     <Spinner
         android:id="@+id/search_modes_spinner"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/background_holo_light"
+        android:padding="5dp" />
 
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:animationCache="false"
+        android:background="@drawable/background_holo_light"
         android:scrollingCache="false" />
 
 </LinearLayout>

@@ -55,6 +55,14 @@ public final class UiUtils
       v.setVisibility(View.INVISIBLE);
   }
 
+  public static void hideIf(boolean condition, View ... views)
+  {
+    if (condition)
+      hide(views);
+    else
+      show(views);
+  }
+
 
   public static Drawable setCompoundDrawableBounds(int drawableId, int dimenId, Resources res)
   {
