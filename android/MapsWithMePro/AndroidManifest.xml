@@ -173,7 +173,6 @@
             android:configChanges="orientation|screenLayout|screenSize"
             android:label="@string/search_map"
             android:windowSoftInputMode="stateVisible|adjustResize"
-            android:noHistory="true"
             android:screenOrientation="behind" >
         </activity>
         <activity

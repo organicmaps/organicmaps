@@ -2,6 +2,7 @@ package com.mapswithme.maps;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.base.MapsWithMeBaseListActivity;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.search.SearchController;
+import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.Language;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -487,7 +489,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         if (s.length() == 0) // enable voice input
         {
           UiUtils.invisible(mClearQueryBtn);
-          UiUtils.show(mVoiceInput);
+          UiUtils.hideIf(!InputUtils.isVoiceInputSupported(SearchActivity.this), mVoiceInput);
         }
         else // show clear cross
         {
@@ -553,6 +555,16 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       @Override
       public void onNothingSelected(AdapterView<?> parent)
       {
+      }
+    });
+
+    mVoiceInput.setOnClickListener(new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        final Intent vrIntent = InputUtils.createIntentForVoiceRecognition(getResources().getString(R.string.search_map));
+        startActivityForResult(vrIntent, RC_VOICE_RECOGNITIN);
       }
     });
   }
@@ -815,4 +827,23 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
   private native String getLastQuery();
   private native void clearLastQuery();
+
+
+  // Handle voice recognition here
+  private final static int RC_VOICE_RECOGNITIN = 0xCA11;
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data)
+  {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    Log.d("MwmSpeech", String.format("req=%d res=%d", requestCode, resultCode));
+
+    if ((requestCode == RC_VOICE_RECOGNITIN) && (resultCode == Activity.RESULT_OK))
+    {
+      final String result = InputUtils.getMostConfidentResult(data);
+      if (result != null)
+        mSearchBox.setText(result);
+    }
+  }
 }
