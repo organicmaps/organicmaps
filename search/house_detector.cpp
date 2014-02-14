@@ -490,29 +490,6 @@ int HouseDetector::MergeStreets()
 namespace
 {
 
-class HouseChecker
-{
-  uint32_t m_types[2];
-public:
-  HouseChecker()
-  {
-    Classificator const & c = classif();
-
-    char const * arr0[] = { "building" };
-    m_types[0] = c.GetTypeByPath(vector<string>(arr0, arr0 + 1));
-    char const * arr1[] = { "building", "address" };
-    m_types[1] = c.GetTypeByPath(vector<string>(arr1, arr1 + 2));
-  }
-
-  bool IsHouse(feature::TypesHolder const & types)
-  {
-    for (size_t i = 0; i < ARRAY_SIZE(m_types); ++i)
-      if (types.Has(m_types[i]))
-        return true;
-    return false;
-  }
-};
-
 class ProjectionCalcToStreet
 {
   vector<m2::PointD> const & m_points;
@@ -721,10 +698,10 @@ HouseProjection const * MergedStreet::GetHousePivot(bool & odd, bool & sign) con
 template <class ProjectionCalcT>
 void HouseDetector::ReadHouse(FeatureType const & f, Street * st, ProjectionCalcT & calc)
 {
-  static HouseChecker checker;
+  static ftypes::IsBuildingChecker checker;
 
   string const houseNumber = f.GetHouseNumber();
-  if (checker.IsHouse(feature::TypesHolder(f)) && feature::IsHouseNumber(houseNumber))
+  if (checker(f) && feature::IsHouseNumber(houseNumber))
   {
     map<FeatureID, House *>::iterator const it = m_id2house.find(f.GetID());
 

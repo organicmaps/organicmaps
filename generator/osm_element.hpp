@@ -5,6 +5,8 @@
 #include "feature_builder.hpp"
 #include "ways_merger.hpp"
 
+#include "../search/ftypes_matcher.hpp"
+
 #include "../indexer/feature_visibility.hpp"
 #include "../indexer/classificator.hpp"
 
@@ -345,7 +347,13 @@ class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
   typedef typename base_type::feature_builder_t feature_t;
 
   uint32_t m_coastType;
+
   scoped_ptr<FileWriter> m_addrWriter;
+  bool NeedWriteAddress(FeatureParams const & params) const
+  {
+    static ftypes::IsBuildingChecker checker;
+    return m_addrWriter && checker(params.m_Types);
+  }
 
 protected:
   virtual void EmitElement(XMLElement * p)
@@ -413,7 +421,7 @@ protected:
             if (f.PreSerialize())
             {
               string addr;
-              if (m_addrWriter && f.FormatFullAddress(addr))
+              if (NeedWriteAddress(params) && f.FormatFullAddress(addr))
                 m_addrWriter->Write(addr.c_str(), addr.size());
 
               base_type::m_emitter(f);
@@ -485,7 +493,7 @@ protected:
     if (ft.PreSerialize())
     {
       string addr;
-      if (m_addrWriter && ft.FormatFullAddress(addr))
+      if (NeedWriteAddress(fValue) && ft.FormatFullAddress(addr))
         m_addrWriter->Write(addr.c_str(), addr.size());
 
       // add osm id for debugging
