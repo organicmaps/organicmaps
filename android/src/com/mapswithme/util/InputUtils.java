@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
-import android.util.Log;
 
 public class InputUtils
 {
@@ -39,12 +38,7 @@ public class InputUtils
       = vrIntentResult.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
     if (recongnizedStrings == null)
-    {
       return null;
-    }
-
-    for (int i = 0; i < recongnizedStrings.size(); ++i)
-      Log.d("MwmSpeech", "RR: " + i + " " + recongnizedStrings.get(i));
 
     return recongnizedStrings.isEmpty() ? null : recongnizedStrings.get(0);
   }

@@ -17,21 +17,6 @@
             android:orientation="vertical" >
 
             <FrameLayout
-                android:id="@+id/map_container_search"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/drawer_item_back_selector" >
-
-                <TextView
-                    android:id="@+id/map_button_search"
-                    style="@style/Widget.MapButtonDrawer"
-                    android:contentDescription="@string/menu_search"
-                    android:drawableLeft="@drawable/ic_search_selector"
-                    android:drawableRight="@drawable/ic_probadge"
-                    android:text="@string/menu_search" />
-            </FrameLayout>
-
-            <FrameLayout
                 android:id="@+id/map_container_download"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

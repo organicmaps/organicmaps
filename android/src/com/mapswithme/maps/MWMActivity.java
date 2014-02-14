@@ -610,16 +610,13 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
             runProVersionMarketActivity();
         }
         else if (R.id.map_container_download == id)
-          onDownloadClicked();
-        else if (R.id.map_container_search == id)
         {
-          if (isPro)
-            onSearchClicked();
-          else
-            runProVersionMarketActivity();
+          onDownloadClicked();
         }
         else if (R.id.buy_pro == id)
+        {
           runProVersionMarketActivity();
+        }
         else if (R.id.map_button_share_myposition == id)
         {
           final Location loc = MWMApplication.get().getLocationService().getLastKnown();
@@ -702,7 +699,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     });
 
     findViewById(R.id.map_container_bookmarks).setOnClickListener(drawerItemsClickListener);
-    findViewById(R.id.map_container_search).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.map_container_download).setOnClickListener(drawerItemsClickListener);
     toggleDrawer.setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.menuitem_settings_activity).setOnClickListener(drawerItemsClickListener);
@@ -711,14 +707,13 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
 
 
-    final TextView searchView = (TextView) findViewById(R.id.map_button_search);
     final TextView bookmarksView = (TextView) findViewById(R.id.map_button_bookmarks);
 
     final Resources res = getResources();
-    searchView.setCompoundDrawablesWithIntrinsicBounds(res.getDrawable(R.drawable.ic_search_selector), null,
-        isPro ? null : res.getDrawable(R.drawable.ic_probadge), null);
-    bookmarksView.setCompoundDrawablesWithIntrinsicBounds(res.getDrawable(R.drawable.ic_bookmarks_selector), null,
-        isPro ? null : res.getDrawable(R.drawable.ic_probadge), null);
+
+    bookmarksView
+      .setCompoundDrawablesWithIntrinsicBounds(res.getDrawable(R.drawable.ic_bookmarks_selector), null,
+        isPro || Yota.isYota() ? null : res.getDrawable(R.drawable.ic_probadge), null);
 
 
     final Button buyProButton = (Button)findViewById(R.id.buy_pro);

@@ -605,6 +605,19 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     final String suggestion = getSA().onItemClick(position);
     if (suggestion == null)
     {
+      presentResult(v);
+    }
+    else
+    {
+      // set suggestion string and run search (this call invokes runSearch)
+      runSearch(suggestion);
+    }
+  }
+
+  private void presentResult(View v)
+  {
+    if (MWMApplication.get().isProVersion())
+    {
       finish();
       // TODO why does not getResult always return correct value?
       final SearchAdapter.ViewHolder vh = (SearchAdapter.ViewHolder) v.getTag();
@@ -612,8 +625,8 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     }
     else
     {
-      // set suggestion string and run search (this call invokes runSearch)
-      runSearch(suggestion);
+      // TODO ask to buy pro
+      Utils.toastShortcut(this, R.string.search_available_in_pro_version);
     }
   }
 
@@ -836,8 +849,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   protected void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     super.onActivityResult(requestCode, resultCode, data);
-
-    Log.d("MwmSpeech", String.format("req=%d res=%d", requestCode, resultCode));
 
     if ((requestCode == RC_VOICE_RECOGNITIN) && (resultCode == Activity.RESULT_OK))
     {
