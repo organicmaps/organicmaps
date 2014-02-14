@@ -47,7 +47,6 @@ public class SearchController implements OnClickListener
     mSearchProgress = mMapActivity.findViewById(R.id.search_progress);
     mVoiceInput = mMapActivity.findViewById(R.id.search_voice_input);
 
-
     mSearchQueryTV.setOnClickListener(this);
     mClearView.setOnClickListener(this);
   }

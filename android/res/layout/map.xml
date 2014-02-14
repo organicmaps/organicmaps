@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
     <android.view.SurfaceView
         android:id="@+id/map_surfaceview"
@@ -10,90 +12,25 @@
         android:background="@android:color/transparent" />
 
     <include
+        android:id="@+id/omni_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         layout="@layout/search_box" />
 
-    <RelativeLayout
-        android:id="@+id/navigation_buttons_container"
+    <include
+        android:id="@+id/navigation_buttons_container_ref"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_gravity="right"
-        android:gravity="top"
-        android:orientation="vertical"
-        android:paddingRight="@dimen/zoom_margin_right" >
+        android:layout_height="match_parent"
+        android:layout_below="@id/omni_box"
+        layout="@layout/map_navigation_buttons" />
 
-        <ImageButton
-            android:id="@+id/yop_it"
-            style="@style/Widget.MapButtonZoom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/btn_yota_ptb" />
-
-        <View
-            android:id="@+id/anchor_center"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_centerVertical="true" />
-
-        <ImageButton
-            android:id="@+id/map_button_plus"
-            style="@style/Widget.MapButtonZoom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/anchor_center"
-            android:onClick="onPlusClicked"
-            android:src="@drawable/btn_zoom_in" />
-
-        <ImageButton
-            android:id="@+id/map_button_minus"
-            style="@style/Widget.MapButtonZoom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/map_button_plus"
-            android:onClick="onMinusClicked"
-            android:src="@drawable/btn_zoom_out" />
-    </RelativeLayout>
-
-    <FrameLayout
-        android:id="@+id/map_butons_container"
+    <include
+        android:id="@+id/map_butons_container_ref"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
         android:layout_margin="0dp"
-        android:gravity="bottom|left"
-        android:orientation="horizontal"
-        android:padding="0dp" >
+        layout="@layout/map_button_bottom" />
 
-        <ImageButton
-            android:id="@+id/map_button_myposition"
-            style="@style/Widget.MapButtonBottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left|bottom"
-            android:layout_marginBottom="@dimen/map_controls_margin"
-            android:layout_marginLeft="@dimen/map_controls_margin"
-            android:contentDescription="@string/my_position"
-            android:onClick="onMyPositionClicked"
-            android:paddingBottom="0dp"
-            android:src="@drawable/btn_map_controls_location_normal" />
-
-        <ImageButton
-            android:id="@+id/map_button_toggle_drawer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|bottom"
-            android:layout_marginBottom="@dimen/map_controls_margin"
-            android:background="@null"
-            android:contentDescription="@string/my_position"
-            android:paddingBottom="0dp"
-            android:paddingLeft="@dimen/dp_x_2"
-            android:paddingTop="@dimen/dp_x_6"
-            android:src="@drawable/btn_menu_tail_selector" />
-    </FrameLayout>
-
-</merge>
+</RelativeLayout>

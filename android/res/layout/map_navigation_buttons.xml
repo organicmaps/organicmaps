@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_buttons_container"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:gravity="top"
+    android:orientation="vertical"
+    android:paddingRight="@dimen/zoom_margin_right" >
+
+    <ImageButton
+        android:id="@+id/yop_it"
+        style="@style/Widget.MapButtonZoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/btn_yota_ptb" />
+
+    <View
+        android:id="@+id/anchor_center"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerVertical="true" />
+
+    <ImageButton
+        android:id="@+id/map_button_plus"
+        style="@style/Widget.MapButtonZoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/anchor_center"
+        android:onClick="onPlusClicked"
+        android:src="@drawable/btn_zoom_in" />
+
+    <ImageButton
+        android:id="@+id/map_button_minus"
+        style="@style/Widget.MapButtonZoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/map_button_plus"
+        android:onClick="onMinusClicked"
+        android:src="@drawable/btn_zoom_out" />
+
+</RelativeLayout>
