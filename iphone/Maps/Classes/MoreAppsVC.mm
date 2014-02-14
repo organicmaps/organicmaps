@@ -6,6 +6,7 @@
 #import "UIKitCategories.h"
 #import <iAd/iAd.h>
 #import "AppInfo.h"
+#import "Statistics.h"
 
 @interface MoreAppsVC () <UITableViewDataSource, UITableViewDelegate, ADBannerViewDelegate>
 
@@ -69,6 +70,8 @@ using namespace::storage;
   [self updateData];
 
   [self.view addSubview:self.tableView];
+
+  [[Statistics instance] logEvent:@"MoreApps screen launched"];
 }
 
 - (void)updateData
@@ -144,10 +147,12 @@ using namespace::storage;
   NSString * title = self.data[indexPath.section];
   if ([title isEqualToString:TitleMWM])
   {
+    [[Statistics instance] logEvent:@"MoreApps MWM clicked"];
     [[UIApplication sharedApplication] openProVersion];
   }
   else if ([title isEqualToString:TitleGuides])
   {
+    [[Statistics instance] logEvent:@"MoreApps guide clicked" withParameters:@{@"Guide" : self.guideRegions[indexPath.row][@"GuideName"]}];
     NSDictionary * guide = self.guideRegions[indexPath.row];
     [[UIApplication sharedApplication] openGuideWithName:guide[@"GuideName"] itunesURL:guide[@"URI"]];
   }
@@ -201,6 +206,11 @@ using namespace::storage;
   [self updateData];
   if (section != NSNotFound)
     [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)bannerViewActionDidFinish:(ADBannerView *)banner
+{
+  [[Statistics instance] logEvent:@"MoreApps banner clicked"];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
