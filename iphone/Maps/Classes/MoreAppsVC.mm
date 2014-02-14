@@ -5,6 +5,7 @@
 #import "MoreAppsCell.h"
 #import "UIKitCategories.h"
 #import <iAd/iAd.h>
+#import "AppInfo.h"
 
 @interface MoreAppsVC () <UITableViewDataSource, UITableViewDelegate, ADBannerViewDelegate>
 
@@ -57,7 +58,13 @@ using namespace::storage;
 
   TitleMWM = @"MapsWithMe Pro";
   TitleGuides = NSLocalizedString(@"more_apps_guides", nil);
-  TitleAds = @"iAd";
+  NSDictionary * texts = [[AppInfo sharedInfo] featureValue:AppFeatureMoreAppsBanner forKey:@"Texts"];
+  NSString * text = texts[[[NSLocale preferredLanguages] firstObject]];
+  if (!text)
+    text = texts[@"*"];
+  if (!text)
+    text = @"iAd";
+  TitleAds = text;
 
   [self updateData];
 
@@ -73,10 +80,25 @@ using namespace::storage;
 
   [mData addObject:TitleGuides];
 
-  if (self.bannerView.isBannerLoaded)
-    [mData addObject:TitleAds];
+  if ([[AppInfo sharedInfo] featureAvailable:AppFeatureMoreAppsBanner])
+  {
+    if (self.bannerView.isBannerLoaded)
+      [mData addObject:TitleAds];
+  }
 
   self.data = mData;
+}
+
+- (UIImage *)iconImageWithImage:(UIImage *)image
+{
+  CGRect rect = CGRectMake(0, 0, image.size.width, image.size.height);
+  UIGraphicsBeginImageContextWithOptions(rect.size, NO, [UIScreen mainScreen].scale);
+  [[UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:6.5] addClip];
+  [image drawInRect:rect];
+  UIImage * iconImage = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+
+  return iconImage;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -91,13 +113,13 @@ using namespace::storage;
     if ([title isEqualToString:TitleMWM])
     {
       cell.textLabel.text = TitleMWM;
-      cell.imageView.image = [UIImage imageNamed:@"MapsWithMeProIcon"];
+      cell.imageView.image = [self iconImageWithImage:[UIImage imageNamed:@"MapsWithMeProIcon"]];
     }
     else if ([title isEqualToString:TitleGuides])
     {
       NSDictionary * guide = self.guideRegions[indexPath.row];
       cell.textLabel.text = guide[@"Country"];
-      cell.imageView.image = [UIImage imageNamed:guide[@"GuideName"]];
+      cell.imageView.image = [self iconImageWithImage:[UIImage imageNamed:guide[@"GuideName"]]];
     }
     return cell;
   }
@@ -108,7 +130,6 @@ using namespace::storage;
     {
       cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"iAdCell"];
       self.bannerView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-      self.bannerView.currentContentSizeIdentifier = UIDeviceOrientationIsPortrait(self.interfaceOrientation) ? ADBannerContentSizeIdentifierPortrait : ADBannerContentSizeIdentifierLandscape;
       [cell.contentView addSubview:self.bannerView];
     }
     self.bannerView.midX = cell.width / 2;
@@ -184,9 +205,12 @@ using namespace::storage;
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-  self.bannerView.currentContentSizeIdentifier = UIDeviceOrientationIsPortrait(self.interfaceOrientation) ? ADBannerContentSizeIdentifierPortrait : ADBannerContentSizeIdentifierLandscape;
-  [self updateData];
-  [self.tableView reloadData];
+  if ([[AppInfo sharedInfo] featureAvailable:AppFeatureMoreAppsBanner])
+  {
+    self.bannerView.currentContentSizeIdentifier = UIDeviceOrientationIsPortrait(self.interfaceOrientation) ? ADBannerContentSizeIdentifierPortrait : ADBannerContentSizeIdentifierLandscape;
+    [self updateData];
+    [self.tableView reloadData];
+  }
 }
 
 - (UITableView *)tableView
@@ -206,6 +230,7 @@ using namespace::storage;
   if (!_bannerView)
   {
     _bannerView = [[ADBannerView alloc] initWithFrame:CGRectZero];
+    _bannerView.currentContentSizeIdentifier = UIDeviceOrientationIsPortrait(self.interfaceOrientation) ? ADBannerContentSizeIdentifierPortrait : ADBannerContentSizeIdentifierLandscape;
     _bannerView.delegate = self;
   }
   return _bannerView;

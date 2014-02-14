@@ -9,6 +9,7 @@
 NSString * const AppFeatureInterstitial = @"AppFeatureInterstitial";
 NSString * const AppFeatureBanner = @"AppFeatureBanner";
 NSString * const AppFeatureProButtonOnMap = @"AppFeatureProButtonOnMap";
+NSString * const AppFeatureMoreAppsBanner = @"AppFeatureMoreAppsBanner";
 
 @interface AppInfo ()
 
@@ -89,6 +90,7 @@ NSString * const AppFeatureProButtonOnMap = @"AppFeatureProButtonOnMap";
   self.featuresByDefault = @{AppFeatureInterstitial : @NO,
                              AppFeatureBanner : @NO,
                              AppFeatureProButtonOnMap : @NO,
+                             AppFeatureMoreAppsBanner : @YES,
                             };
 
   [self update];
