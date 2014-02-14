@@ -320,4 +320,5 @@
 	<string name="pref_zoom_summary">Показать на карте</string>
 	<string name="more_apps_title">Другие приложения</string>
 	<string name="more_apps_guides">Путеводители</string>
+	<string name="more_apps_ads">Другие приложения</string>
 </resources>

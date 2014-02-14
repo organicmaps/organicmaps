@@ -318,4 +318,5 @@
 	<string name="pref_zoom_summary">Condividi la mia location</string>
 	<string name="more_apps_title">Altre app</string>
 	<string name="more_apps_guides">Guide turistiche</string>
+	<string name="more_apps_ads">Altre app</string>
 </resources>

@@ -338,4 +338,5 @@
 	<string name="pref_zoom_summary">Display on the screen</string>
 	<string name="more_apps_title">More apps</string>
 	<string name="more_apps_guides">Travel guides</string>
+	<string name="more_apps_ads">More apps</string>
 </resources>

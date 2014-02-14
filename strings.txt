@@ -3036,3 +3036,21 @@
     cz = Cestovní průvodci
     ja = トラベルガイド
     hu = Útikönyvek
+
+  [more_apps_ads]
+    fr = Plus d'applis
+    pl = Więcej aplikacji
+    da = Flere apps
+    zh-hant = 更多應用
+    de = Mehr Apps
+    uk = Більше програм
+    pt = Mais aplicativos
+    es = Más aplicaciones
+    it = Altre app
+    kr = 기타 앱
+    du = Meer apps
+    cz = Více aplikací
+    ja = その他のアプリ
+    hu = Több alkalmazás
+    en = More apps
+    ru = Другие приложения
