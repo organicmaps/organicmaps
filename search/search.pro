@@ -22,6 +22,7 @@ HEADERS += \
     params.hpp \
     house_detector.hpp \
     ftypes_matcher.hpp \
+    algos.hpp \
 
 SOURCES += \
     search_engine.cpp \

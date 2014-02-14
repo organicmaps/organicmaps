@@ -40,6 +40,7 @@ class House
   // Start and End house numbers for this object.
   // Osm objects can store many numbers for one area feature.
   int m_startN, m_endN;
+  friend struct CompareHouseNumber;
 
   void InitHouseNumber();
 
@@ -53,16 +54,6 @@ public:
   inline string const & GetNumber() const { return m_number; }
   inline int GetIntNumber() const { return m_startN; }
   inline m2::PointD const & GetPosition() const { return m_point; }
-
-  struct LessHouseNumber
-  {
-    bool operator() (House const * h1, House const * h2) const
-    {
-      if (h1->m_startN == h2->m_startN)
-        return h1->GetNumber() < h2->GetNumber();
-      return (h1->m_startN < h2->m_startN);
-    }
-  };
 
   struct ParsedNumber
   {
@@ -99,6 +90,18 @@ struct HouseProjection
       return p1->m_distance < p2->m_distance;
     }
   };
+};
+
+struct CompareHouseNumber
+{
+  bool Less(HouseProjection const * h1, HouseProjection const * h2) const
+  {
+    return (h1->m_house->m_startN <= h2->m_house->m_startN);
+  }
+  bool Greater(HouseProjection const * h1, HouseProjection const * h2) const
+  {
+    return (h1->m_house->m_startN >= h2->m_house->m_startN);
+  }
 };
 
 // many features combines to street
@@ -189,10 +192,11 @@ class HouseDetector
 {
   FeatureLoader m_loader;
 
-  map<FeatureID, Street *> m_id2st;
-  map<FeatureID, House *> m_id2house;
+  typedef map<FeatureID, Street *> StreetMapT;
+  StreetMapT m_id2st;
+  typedef map<FeatureID, House *> HouseMapT;
+  HouseMapT m_id2house;
 
-private:
   vector<pair<m2::PointD, Street *> > m_end2st;
   vector<MergedStreet> m_streets;
 
@@ -212,8 +216,6 @@ private:
   double GetApprLengthMeters(int index) const;
 
 public:
-  typedef map<FeatureID, Street *>::iterator IterM;
-
   HouseDetector(Index const * pIndex);
 
   int LoadStreets(vector<FeatureID> const & ids);

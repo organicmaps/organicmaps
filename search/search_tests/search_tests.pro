@@ -27,6 +27,7 @@ SOURCES += \
     latlon_match_test.cpp \
     string_match_test.cpp \
     house_detector_tests.cpp \
+    algos_tests.cpp \
 
 HEADERS += \
     match_cost_mock.hpp \

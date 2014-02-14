@@ -1,5 +1,7 @@
 #include "house_detector.hpp"
 #include "search_common.hpp"
+#include "algos.hpp"
+#include "ftypes_matcher.hpp"
 
 #include "../indexer/feature_impl.hpp"
 #include "../indexer/classificator.hpp"
@@ -464,7 +466,7 @@ int HouseDetector::MergeStreets()
 //  KMLFileGuard file("dbg_merged_streets.kml");
 //#endif
 
-  for (IterM it = m_id2st.begin(); it != m_id2st.end(); ++it)
+  for (StreetMapT::iterator it = m_id2st.begin(); it != m_id2st.end(); ++it)
   {
     Street * st = it->second;
 
@@ -703,17 +705,18 @@ void HouseDetector::ReadHouse(FeatureType const & f, Street * st, ProjectionCalc
   string const houseNumber = f.GetHouseNumber();
   if (checker(f) && feature::IsHouseNumber(houseNumber))
   {
-    map<FeatureID, House *>::iterator const it = m_id2house.find(f.GetID());
+    HouseMapT::iterator const it = m_id2house.find(f.GetID());
+    bool const isNew = it == m_id2house.end();
 
-    // 15 - is a minimal building scale (enough for center point).
-    m2::PointD const pt = (it == m_id2house.end()) ?
-          f.GetLimitRect(15).Center() : it->second->GetPosition();
+    /// @todo We need FeatureType::BEST_GEOMETRY for tests (compare with ethalon),
+    /// but 15 - is enough for production code.
+    m2::PointD const pt = isNew ? f.GetLimitRect(FeatureType::BEST_GEOMETRY).Center() : it->second->GetPosition();
 
     HouseProjection pr;
     if (calc.GetProjection(pt, pr))
     {
       House * p;
-      if (it == m_id2house.end())
+      if (isNew)
       {
         p = new House(houseNumber, pt);
         m_id2house[f.GetID()] = p;
@@ -747,7 +750,7 @@ void HouseDetector::ReadHouses(Street * st, double offsetMeters)
 
 void HouseDetector::ReadAllHouses(double offsetMeters)
 {
-  for (IterM it = m_id2st.begin(); it != m_id2st.end(); ++it)
+  for (StreetMapT::iterator it = m_id2st.begin(); it != m_id2st.end(); ++it)
     ReadHouses(it->second, offsetMeters);
 
   for (size_t i = 0; i < m_streets.size(); ++i)
@@ -759,11 +762,11 @@ void HouseDetector::ReadAllHouses(double offsetMeters)
 
 void HouseDetector::ClearCaches()
 {
-  for (IterM it = m_id2st.begin(); it != m_id2st.end();++it)
+  for (StreetMapT::iterator it = m_id2st.begin(); it != m_id2st.end();++it)
     delete it->second;
   m_id2st.clear();
 
-  for (map<FeatureID, House *>::iterator it = m_id2house.begin(); it != m_id2house.end(); ++it)
+  for (HouseMapT::iterator it = m_id2house.begin(); it != m_id2house.end(); ++it)
     delete it->second;
 
   m_streetNum = 0;
@@ -776,167 +779,81 @@ void HouseDetector::ClearCaches()
 namespace
 {
 
-struct LS
-{
-  size_t prevDecreasePos, decreaseValue;
-  size_t prevIncreasePos, increaseValue;
-
-  LS() {}
-  LS(size_t i)
-  {
-    prevDecreasePos = i;
-    decreaseValue = 1;
-    prevIncreasePos = i;
-    increaseValue = 1;
-  }
-};
-
-void LongestSubsequence(vector<HouseProjection const *> const & houses,
-                        vector<HouseProjection const *> & result)
-{
-  result.clear();
-
-  size_t const count = houses.size();
-  if (count < 2)
-  {
-    result = houses;
-    return;
-  }
-
-  vector<LS> v(count);
-  for (size_t i = 0; i < count; ++i)
-    v[i] = LS(i);
-
-  House::LessHouseNumber cmp;
-  size_t res = 0;
-  size_t pos = 0;
-  for (size_t i = 0; i < count - 1; ++i)
-  {
-    for (size_t j = i + 1; j < count; ++j)
-    {
-      bool const cmpIJ = cmp(houses[i]->m_house, houses[j]->m_house);
-
-      // If equal houses
-      if (cmpIJ == cmp(houses[j]->m_house, houses[i]->m_house))
-      {
-        ASSERT(!cmpIJ, ());
-        continue;
-      }
-
-      if (cmpIJ && v[i].increaseValue + 1 >= v[j].increaseValue)
-      {
-        if (v[i].increaseValue + 1 == v[j].increaseValue && houses[v[j].prevIncreasePos]->m_distance < houses[i]->m_distance)
-          continue;
-
-        v[j].increaseValue = v[i].increaseValue + 1;
-        v[j].prevIncreasePos = i;
-      }
-
-      if (!cmpIJ && v[i].decreaseValue + 1 >= v[j].decreaseValue)
-      {
-        if (v[i].decreaseValue + 1 == v[j].decreaseValue && houses[v[j].prevDecreasePos]->m_distance < houses[i]->m_distance)
-          continue;
-
-        v[j].decreaseValue = v[i].decreaseValue + 1;
-        v[j].prevDecreasePos = i;
-      }
-
-      size_t const m = max(v[j].increaseValue, v[j].decreaseValue);
-      if (m > res)
-      {
-        res = m;
-        pos = j;
-      }
-    }
-  }
-
-  result.resize(res);
-  bool increasing = true;
-  if (v[pos].increaseValue < v[pos].decreaseValue)
-    increasing = false;
-
-  while (res > 0)
-  {
-    result[res - 1] = houses[pos];
-    --res;
-    if (increasing)
-      pos = v[pos].prevIncreasePos;
-    else
-      pos = v[pos].prevDecreasePos;
-  }
-}
-
-typedef map<search::House const *, double, House::LessHouseNumber> HouseMapT;
-
-void AddHouseToMap(HouseProjection const * proj, HouseMapT & m)
-{
-  HouseMapT::iterator it = m.find(proj->m_house);
-  if (it != m.end())
-  {
-    ASSERT_EQUAL(proj->m_house->GetIntNumber(), it->first->GetIntNumber(), ());
-
-    if (it->second > proj->m_distance)
-      m.erase(it);
-    else
-      return;
-  }
-  m.insert(make_pair(proj->m_house, proj->m_distance));
-}
-
-void ProccessHouses(vector<HouseProjection const *> & houses, HouseMapT & m)
-{
-  vector<HouseProjection const *> result;
-  LongestSubsequence(houses, result);
-
-  for_each(result.begin(), result.end(), bind(&AddHouseToMap, _1, ref(m)));
-}
-
-House const * GetClosestHouse(MergedStreet const & st, string const & houseNumber)
-{
-  double dist = numeric_limits<double>::max();
-  int streetIndex = -1;
-  int houseIndex = -1;
-
-  bool isOdd, sign;
-  if (st.GetHousePivot(isOdd, sign) == 0)
-    return 0;
-
-  House::ParsedNumber parsedNumber(houseNumber);
-  for (size_t i = 0; i < st.size(); ++i)
-  {
-    for (size_t j = 0; j < st[i]->m_houses.size(); ++j)
-    {
-      bool s = st[i]->m_houses[j].m_projectionSign;
-      bool odd = st[i]->m_houses[j].m_house->GetIntNumber() % 2 == 1;
-
-      /// @todo Need to split distance and full house name match.
-      if (((isOdd == odd) == (sign == s)) &&
-          (st[i]->m_houses[j].m_distance < dist) &&
-          (st[i]->m_houses[j].m_house->GetMatch(parsedNumber) != -1))
-      {
-        dist = st[i]->m_houses[j].m_distance;
-        streetIndex = i;
-        houseIndex = j;
-      }
-    }
-  }
-
-  if (streetIndex == -1)
-    return 0;
-  return st[streetIndex]->m_houses[houseIndex].m_house;
-}
-
 struct ScoredHouse
 {
   House const * house;
   double score;
-  ScoredHouse(House const * h, double s):house(h), score(s)
-  {}
-  ScoredHouse():house(0),score(numeric_limits<double>::max())
-  {}
+  ScoredHouse(House const * h, double s) : house(h), score(s) {}
+  ScoredHouse() : house(0), score(numeric_limits<double>::max()) {}
 };
 
-void addToQueue(int houseNumber, queue<int> & q)
+class ResultAccumulator
+{
+  House::ParsedNumber m_parsedNumber;
+  bool m_isOdd, m_sign;
+
+  ScoredHouse m_results[3];
+
+  bool IsBetter(int ind, double dist) const
+  {
+    return m_results[ind].house == 0 || m_results[ind].score > dist;
+  }
+
+public:
+  ResultAccumulator(string const & houseNumber)
+    : m_parsedNumber(houseNumber)
+  {
+  }
+
+  bool SetStreet(MergedStreet const & st)
+  {
+    Reset();
+    return st.GetHousePivot(m_isOdd, m_sign) != 0;
+  }
+
+  void Reset()
+  {
+    for (size_t i = 0; i < ARRAY_SIZE(m_results); ++i)
+      m_results[i] = ScoredHouse();
+  }
+
+  int GetSide(HouseProjection const & p) const
+  {
+    if (m_isOdd == p.IsOdd() && m_sign == p.m_projectionSign)
+      return 1;
+    else if (m_isOdd != p.IsOdd() && m_sign != p.m_projectionSign)
+      return -1;
+    return 0;
+  }
+
+  void ProcessCandidate(HouseProjection const & p)
+  {
+    if ((m_isOdd == p.IsOdd()) == (m_sign == p.m_projectionSign))
+      MatchCandidate(p);
+  }
+
+  void MatchCandidate(HouseProjection const & p)
+  {
+    int const ind = p.m_house->GetMatch(m_parsedNumber);
+    if (ind >= 0 && IsBetter(ind, p.m_distance))
+      m_results[ind] = ScoredHouse(p.m_house, p.m_distance);
+  }
+
+  void FlushResults(vector<House const *> & res) const
+  {
+    for (size_t i = 0; i < ARRAY_SIZE(m_results); ++i)
+      if (m_results[i].house)
+        res.push_back(m_results[i].house);
+  }
+};
+
+void GetClosestHouse(MergedStreet const & st, ResultAccumulator & acc)
+{
+  for (MergedStreet::Index i = st.Begin(); !st.IsEnd(i); st.Inc(i))
+    acc.ProcessCandidate(st.Get(i));
+}
+
+void AddToQueue(int houseNumber, queue<int> & q)
 {
   q.push(houseNumber + 2);
   if (houseNumber - 2 > 0)
@@ -1045,7 +962,7 @@ ScoredHouse ProccessHouses(vector<HouseProjection const *> const & st, string co
     return ScoredHouse();
 
   queue<int> houseNumbersToCheck;
-  addToQueue(houseChains[0].houses[0]->m_house->GetIntNumber(), houseNumbersToCheck);
+  AddToQueue(houseChains[0].houses[0]->m_house->GetIntNumber(), houseNumbersToCheck);
   while (numberOfStreetHouses > 0)
   {
     if (!houseNumbersToCheck.empty())
@@ -1109,7 +1026,7 @@ ScoredHouse ProccessHouses(vector<HouseProjection const *> const & st, string co
         --numberOfCandidates;
       }
       if (shouldAddHouseToQueue)
-        addToQueue(candidateHouseNumber, houseNumbersToCheck);
+        AddToQueue(candidateHouseNumber, houseNumbersToCheck);
     }
     else
     {
@@ -1120,7 +1037,7 @@ ScoredHouse ProccessHouses(vector<HouseProjection const *> const & st, string co
           houseChains.push_back(HouseChain(st[i]));
           --numberOfStreetHouses;
           used[i] = true;
-          addToQueue(st[i]->m_house->GetIntNumber(), houseNumbersToCheck);
+          AddToQueue(st[i]->m_house->GetIntNumber(), houseNumbersToCheck);
           break;
         }
       }
@@ -1151,41 +1068,32 @@ House const * GetBestHouseWithNumber(MergedStreet const & st, string const & hou
   return (s1.score < s2.score ? s1.house : s2.house);
 }
 
-House const * GetLSHouse(MergedStreet const & st, string const & houseNumber, HouseMapT & m)
+void LongestSubsequence(vector<HouseProjection const *> const & v,
+                        vector<HouseProjection const *> & res)
 {
-  bool isOdd, sign;
-  HouseProjection const * pivot = st.GetHousePivot(isOdd, sign);
-  if (pivot == 0)
-    return 0;
+  LongestSubsequence(v, back_inserter(res), CompareHouseNumber());
+}
 
-  m.insert(make_pair(pivot->m_house, 0));
-
+void GetLSHouse(MergedStreet const & st, double offsetMeters, ResultAccumulator & acc)
+{
   vector<HouseProjection const *> v1, v2;
   for (MergedStreet::Index i = st.Begin(); !st.IsEnd(i); st.Inc(i))
   {
     search::HouseProjection const & p = st.Get(i);
-    if (p.m_projectionSign == sign && p.IsOdd() == isOdd)
-      v1.push_back(&p);
-    else if (p.m_projectionSign != sign && p.IsOdd() != isOdd)
-      v2.push_back(&p);
+    if (p.m_distance <= offsetMeters)
+      switch (acc.GetSide(p))
+      {
+      case 1:  v1.push_back(&p); break;
+      case -1: v2.push_back(&p); break;
+      }
   }
 
-  ProccessHouses(v1, m);
-  ProccessHouses(v2, m);
+  vector<HouseProjection const *> res;
+  LongestSubsequence(v1, res);
+  LongestSubsequence(v2, res);
 
-  House const * arrRes[] = { 0, 0, 0 };
-  House::ParsedNumber parsedNumber(houseNumber);
-  for (HouseMapT::iterator it = m.begin(); it != m.end(); ++it)
-  {
-    int const i = it->first->GetMatch(parsedNumber);
-    if (i >= 0)
-      arrRes[i] = it->first;
-  }
-
-  for (size_t i = 0; i < ARRAY_SIZE(arrRes); ++i)
-    if (arrRes[i])
-      return arrRes[i];
-  return 0;
+  for (size_t i = 0; i < res.size(); ++i)
+    acc.MatchCandidate(*(res[i]));
 }
 
 }
@@ -1197,19 +1105,25 @@ void HouseDetector::GetHouseForName(string const & houseNumber, vector<House con
 
   LOG(LDEBUG, ("Streets count", count));
 
+  ResultAccumulator accumulator(houseNumber);
+
   for (size_t i = 0; i < count; ++i)
   {
     LOG(LDEBUG, (m_streets[i].GetDbgName()));
 
-    House const * house = 0;
-    HouseMapT m;
+    accumulator.SetStreet(m_streets[i]);
 
-    //house = GetLSHouse(m_streets[i], houseNumber, m);
-    house = GetBestHouseWithNumber(m_streets[i], houseNumber);
-    //house = GetClosestHouse(m_streets[i], houseNumber);
+    double arrOffsets[] = { 25, 50, 100, 200 };
+    for (size_t j = 0; j < ARRAY_SIZE(arrOffsets); ++j)
+      GetLSHouse(m_streets[i], arrOffsets[j], accumulator);
 
-    if (house)
-      res.push_back(house);
+//    GetClosestHouse(m_streets[i], accumulator);
+
+//    House const * house = GetBestHouseWithNumber(m_streets[i], houseNumber);
+//    if (house)
+//      res.push_back(house);
+
+    accumulator.FlushResults(res);
   }
 
   sort(res.begin(), res.end());

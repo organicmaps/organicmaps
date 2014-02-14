@@ -232,11 +232,6 @@ UNIT_TEST(HS_StreetsCompare)
 namespace
 {
 
-bool LessHouseNumber(search::House const & h1, search::House const & h2)
-{
-  return search::House::LessHouseNumber()(&h1, &h2);
-}
-
 string GetStreetKey(string const & name)
 {
   string res;
@@ -244,23 +239,6 @@ string GetStreetKey(string const & name)
   return res;
 }
 
-}
-
-UNIT_TEST(HS_HousesCompare)
-{
-  m2::PointD p(1,1);
-  TEST(LessHouseNumber(search::House("1", p), search::House("2", p)), ());
-  TEST(LessHouseNumber(search::House("18a", p), search::House("18b", p)), ());
-  TEST(LessHouseNumber(search::House("120 1A", p), search::House("120 7A", p)), ());
-  TEST(LessHouseNumber(search::House("120 1A", p), search::House("120 7B", p)), ());
-
-  TEST(!LessHouseNumber(search::House("4", p), search::House("4", p)), ());
-  TEST(!LessHouseNumber(search::House("95", p), search::House("82-b", p)), ());
-
-  TEST(!LessHouseNumber(search::House("2", p), search::House("1", p)), ());
-  TEST(!LessHouseNumber(search::House("18b", p), search::House("18a", p)), ());
-  TEST(!LessHouseNumber(search::House("120 7A", p), search::House("120 1A", p)), ());
-  TEST(!LessHouseNumber(search::House("120 7B", p), search::House("120 1A", p)), ());
 }
 
 UNIT_TEST(HS_StreetKey)
