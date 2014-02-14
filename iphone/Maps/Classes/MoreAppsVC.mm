@@ -59,13 +59,7 @@ using namespace::storage;
 
   TitleMWM = @"MapsWithMe Pro";
   TitleGuides = NSLocalizedString(@"more_apps_guides", nil);
-  NSDictionary * texts = [[AppInfo sharedInfo] featureValue:AppFeatureMoreAppsBanner forKey:@"Texts"];
-  NSString * text = texts[[[NSLocale preferredLanguages] firstObject]];
-  if (!text)
-    text = texts[@"*"];
-  if (!text)
-    text = @"iAd";
-  TitleAds = text;
+  TitleAds = NSLocalizedString(@"more_apps_ads", nil);
 
   [self updateData];
 
