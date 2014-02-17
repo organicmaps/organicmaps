@@ -458,7 +458,6 @@ void Framework::ShowBookmark(BookmarkAndCategory bnc)
   StopLocationFollow();
 
   // show ballon above
-  GetBalloonManager().ShowBookmark(bnc);
   Bookmark const * bmk = m_bmManager.GetBmCategory(bnc.first)->GetBookmark(bnc.second);
 
   double scale = bmk->GetScale();
@@ -685,10 +684,7 @@ void Framework::OnSize(int w, int h)
   if (m_renderPolicy)
   {
     m_informationDisplay.setDisplayRect(m2::RectI(0, 0, w, h));
-
     m_renderPolicy->OnSize(w, h);
-
-    m_balloonManager.ScreenSizeChanged(w, h);
   }
 
   m_width = w;
@@ -1221,6 +1217,8 @@ bool Framework::GetCurrentPosition(double & lat, double & lon) const
   else return false;
 }
 
+#define DO_NOT_INCLUDE_IN_RELEASE
+
 void Framework::ShowSearchResult(search::Result const & res)
 {
 #ifdef DO_NOT_INCLUDE_IN_RELEASE
@@ -1233,7 +1231,7 @@ void Framework::ShowSearchResult(search::Result const & res)
   for (size_t i = 0; i < searchRes.GetCount(); ++i)
   {
     search::Result const & tmpRes = searchRes.GetResult(i);
-    m_bmManager.AdditionalPoiLayerAddPoi(Bookmark(tmpRes.GetFeatureCenter(), tmpRes.GetString(), "placemark-orange"));
+    m_bmManager.AdditionalPoiLayerAddPoi(Bookmark(tmpRes.GetFeatureCenter(), tmpRes.GetString(), "api_pin"));
     if (res == tmpRes)
       resIndex = i;
   }
@@ -1270,14 +1268,6 @@ void Framework::ShowSearchResult(search::Result const & res)
   StopLocationFollow();
 
   ShowRectExVisibleScale(m_scales.GetRectForDrawScale(scale, center));
-
-#ifdef DO_NOT_INCLUDE_IN_RELEASE
-  m_balloonManager.ShowAdditionalLayerBookmark(resIndex);
-#else
-  search::AddressInfo info;
-  info.MakeFrom(res);
-  m_balloonManager.ShowAddress(center, info);
-#endif
 }
 
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
@@ -1488,10 +1478,6 @@ bool Framework::ShowMapForURL(string const & url)
     // set viewport and stop follow mode if any
     StopLocationFollow();
     SetViewPortASync(rect);
-
-    // show balloon
-    if (result != NO_BALLOON)
-      m_balloonManager.ShowURLPoint(point, result == BALLOON_PADDING);
 
     return true;
   }

@@ -13,6 +13,8 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 
 import com.mapswithme.maps.Framework;
 
@@ -61,6 +63,42 @@ public final class UiUtils
       hide(views);
     else
       show(views);
+  }
+
+  public static void animateAndHide(final View target, Animation anim)
+  {
+    anim.setAnimationListener(new AnimationListener()
+    {
+
+      @Override
+      public void onAnimationStart(Animation animation)
+      {
+      }
+
+      @Override
+      public void onAnimationRepeat(Animation animation)
+      {
+      }
+
+      @Override
+      public void onAnimationEnd(Animation animation)
+      {
+        try
+        {
+          hide(target);
+        } catch (final Exception e)
+        {
+          // ignore
+        }
+      }
+    });
+    target.startAnimation(anim);
+  }
+
+  public static void showAndAnimate(final View target, Animation anim)
+  {
+    show(target);
+    target.startAnimation(anim);
   }
 
 

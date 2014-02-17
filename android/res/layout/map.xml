@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:gravity="bottom" >
 
     <android.view.SurfaceView
         android:id="@+id/map_surfaceview"
@@ -29,8 +30,14 @@
         android:id="@+id/map_butons_container_ref"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/info_box"
         android:layout_margin="0dp"
         layout="@layout/map_button_bottom" />
+
+    <com.mapswithme.maps.widget.MapInfoView
+        android:id="@+id/info_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

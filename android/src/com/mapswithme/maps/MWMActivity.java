@@ -31,10 +31,12 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +46,9 @@ import com.mapswithme.maps.LocationButtonImageSetter.ButtonState;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
+import com.mapswithme.maps.bookmarks.data.Bookmark;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.promo.ActivationSettings;
 import com.mapswithme.maps.promo.PromocodeActivationDialog;
@@ -51,6 +56,7 @@ import com.mapswithme.maps.search.SearchController;
 import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.state.SuppotedState;
+import com.mapswithme.maps.widget.MapInfoView;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
@@ -78,11 +84,14 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
 
   // for API
-  private View mTitleBar;
-  private ImageView mAppIcon;
-  private TextView mAppTitle;
+//  private View mTitleBar;
+//  private ImageView mAppIcon;
+//  private TextView mAppTitle;
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<MWMActivity.MapTask>();
+
+  //info box
+  MapInfoView mInfoView;
 
 
   // Drawer components
@@ -567,14 +576,14 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     //set up view
     mLocationButton = (ImageButton) findViewById(R.id.map_button_myposition);
-    mTitleBar = findViewById(R.id.title_bar);
-    mAppIcon = (ImageView) findViewById(R.id.app_icon);
-    mAppTitle = (TextView) findViewById(R.id.app_title);
     mMapSurface = (SurfaceView) findViewById(R.id.map_surfaceview);
 
     setUpDrawer();
     yotaSetup();
     alignControls();
+
+    setUpInfoBox();
+    showInfoBox(false);
 
     Framework.connectBalloonListeners(this);
 
@@ -588,6 +597,11 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     mSearchController = SearchController.get();
     mSearchController.onCreate(this);
+  }
+
+  private void setUpInfoBox()
+  {
+    mInfoView = (MapInfoView) findViewById(R.id.info_box);
   }
 
   private void setUpDrawer()
@@ -953,33 +967,33 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public void setViewFromState(SuppotedState state)
   {
-    if (state == SuppotedState.API_REQUEST && ParsedMmwRequest.hasRequest())
-    {
-      // show title
-      mTitleBar.findViewById(R.id.up_block).setOnClickListener(new OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          onBackPressed();
-        }
-      });
-
-      final ParsedMmwRequest request = ParsedMmwRequest.getCurrentRequest();
-      if (request.hasTitle())
-        mAppTitle.setText(request.getTitle());
-      else
-        mAppTitle.setText(request.getCallerName(this));
-
-      mAppIcon.setImageDrawable(request.getIcon(this));
-      mTitleBar.setVisibility(View.VISIBLE);
-
-    }
-    else
-    {
-      // hide title
-      mTitleBar.setVisibility(View.GONE);
-    }
+//    if (state == SuppotedState.API_REQUEST && ParsedMmwRequest.hasRequest())
+//    {
+//      // show title
+//      mTitleBar.findViewById(R.id.up_block).setOnClickListener(new OnClickListener()
+//      {
+//        @Override
+//        public void onClick(View v)
+//        {
+//          onBackPressed();
+//        }
+//      });
+//
+//      final ParsedMmwRequest request = ParsedMmwRequest.getCurrentRequest();
+//      if (request.hasTitle())
+//        mAppTitle.setText(request.getTitle());
+//      else
+//        mAppTitle.setText(request.getCallerName(this));
+//
+//      mAppIcon.setImageDrawable(request.getIcon(this));
+//      mTitleBar.setVisibility(View.VISIBLE);
+//
+//    }
+//    else
+//    {
+//      // hide title
+//      mTitleBar.setVisibility(View.GONE);
+//    }
   }
 
   @Override
@@ -1245,6 +1259,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       final ParsedMmwRequest request = ParsedMmwRequest.getCurrentRequest();
       request.setPointData(lat, lon, name, id);
 
+
+      // TODO this is crappy moment now
       if (request.doReturnOnBalloonClick())
       {
         request.sendResponseAndFinish(this, true);
@@ -1258,7 +1274,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       @Override
       public void run()
       {
-        MapObjectActivity.startWithApiPoint(getActivity(), name, null, null, lat, lon);
+//        showInfoBoxWithText("Api Point", name);
       }
     });
   }
@@ -1266,12 +1282,18 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public void onPoiActivated(final String name, final String type, final String address, final double lat, final double lon)
   {
+    final MapObject.Poi poi = new MapObject.Poi(name, lat, lon, type);
+
     runOnUiThread(new Runnable()
     {
       @Override
       public void run()
       {
-        MapObjectActivity.startWithPoi(getActivity(), name, type, address, lat, lon);
+        if (!mInfoView.hasThatObject(poi))
+        {
+          mInfoView.setMapObject(poi);
+          showInfoBox(true);
+        }
       }
     });
   }
@@ -1284,10 +1306,17 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       @Override
       public void run()
       {
-        MapObjectActivity.startWithBookmark(getActivity(), category, bookmarkIndex);
+        final Bookmark b = BookmarkManager.getBookmarkManager().getBookmark(category, bookmarkIndex);
+        if (!mInfoView.hasThatObject(b))
+        {
+          mInfoView.setMapObject(b);
+          showInfoBox(true);
+        }
       }
     });
   }
+
+
 
   @Override
   public void onMyPositionActivated(final double lat, final double lon)
@@ -1297,10 +1326,85 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       @Override
       public void run()
       {
-        MapObjectActivity.startWithMyPosition(getActivity(), lat, lon);
+//        showInfoBoxWithText(getString(R.string.my_position), Framework.latLon2DMS(lat, lon));
       }
     });
   }
+
+  @Override
+  public void onAdditionalLayerActivated(final long index)
+  {
+    runOnUiThread(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        final MapObject sr = new MapObject.SearchResult(index);
+        if (!mInfoView.hasThatObject(sr))
+        {
+          mInfoView.setMapObject(sr);
+          showInfoBox(true);
+        }
+      }
+    });
+  }
+
+  @Override
+  public void onDismiss()
+  {
+    runOnUiThread(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        showInfoBox(false);
+        mInfoView.setMapObject(null);
+      }
+    });
+  }
+
+  private void showInfoBox(boolean show)
+  {
+    final View mapButtonBottom = findViewById(R.id.map_butons_container_ref);
+    final RelativeLayout.LayoutParams lp = (LayoutParams) mapButtonBottom.getLayoutParams();
+    lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, show ? 0 : RelativeLayout.TRUE);
+    mapButtonBottom.setLayoutParams(lp);
+
+    if (show)
+    {
+      final Animation slideIn = new TranslateAnimation(
+          TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
+          TranslateAnimation.RELATIVE_TO_SELF, 1.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f);   // Y
+      slideIn.setDuration(300);
+
+      mInfoView.startAnimation(slideIn);
+      mapButtonBottom.startAnimation(slideIn);
+
+      UiUtils.showAndAnimate(mInfoView, slideIn);
+      mapButtonBottom.startAnimation(slideIn);
+    }
+    else
+    {
+      final Animation slideOutInfo = new TranslateAnimation(
+          TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
+          TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 1.f);  // Y
+      slideOutInfo.setDuration(300);
+
+      final Animation slideOutButtons = new TranslateAnimation(
+          TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
+          TranslateAnimation.RELATIVE_TO_SELF, -1.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f);  // Y
+      slideOutButtons.setDuration(300);
+
+      mapButtonBottom.startAnimation(slideOutButtons);
+      UiUtils.animateAndHide(mInfoView, slideOutInfo);
+    }
+  }
+
+//  private void showInfoBoxWithText(CharSequence title, CharSequence subtitle)
+//  {
+//    mInfoView.setTextAndShow(title, subtitle);
+//    showInfoBox(true);
+//  }
 
   public static Intent createShowMapIntent(Context context, Index index)
   {

@@ -18,9 +18,9 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.mapswithme.maps.MapObjectFragment.MapObjectType;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.MapObject.MapObjectType;
 import com.mapswithme.maps.bookmarks.data.ParcelablePointD;
 
 public class MapObjectActivity extends FragmentActivity
@@ -44,7 +44,7 @@ public class MapObjectActivity extends FragmentActivity
   public static void startWithBookmark(Context context, int categoryIndex, int bookmarkIndex)
   {
     final Intent i = new Intent(context, MapObjectActivity.class);
-    i.putExtra(EXTRA_OBJECT_TYPE, MapObjectFragment.MapObjectType.BOOKMARK);
+    i.putExtra(EXTRA_OBJECT_TYPE, MapObjectType.BOOKMARK);
     i.putExtra(EXTRA_BMK_CAT, categoryIndex);
     i.putExtra(EXTRA_BMK_INDEX, bookmarkIndex);
     context.startActivity(i);
@@ -53,7 +53,7 @@ public class MapObjectActivity extends FragmentActivity
   public static void startWithPoi(Context context, String name, String type, String address, double lat, double lon)
   {
     final Intent i = new Intent(context, MapObjectActivity.class);
-    i.putExtra(EXTRA_OBJECT_TYPE, MapObjectFragment.MapObjectType.POI);
+    i.putExtra(EXTRA_OBJECT_TYPE, MapObjectType.POI);
     i.putExtra(EXTRA_NAME, name);
     i.putExtra(EXTRA_TYPE, type);
     i.putExtra(EXTRA_ADDRESS, address);
@@ -65,7 +65,7 @@ public class MapObjectActivity extends FragmentActivity
   public static void startWithApiPoint(Context context, String name, String type, String address, double lat, double lon)
   {
     final Intent i = new Intent(context, MapObjectActivity.class);
-    i.putExtra(EXTRA_OBJECT_TYPE, MapObjectFragment.MapObjectType.API_POINT);
+    i.putExtra(EXTRA_OBJECT_TYPE, MapObjectType.API_POINT);
     i.putExtra(EXTRA_NAME, name);
     i.putExtra(EXTRA_LAT, lat);
     i.putExtra(EXTRA_LON, lon);
@@ -75,7 +75,7 @@ public class MapObjectActivity extends FragmentActivity
   public static void startWithMyPosition(Context context, double lat, double lon)
   {
     final Intent i = new Intent(context, MapObjectActivity.class);
-    i.putExtra(EXTRA_OBJECT_TYPE, MapObjectFragment.MapObjectType.MY_POSITION);
+    i.putExtra(EXTRA_OBJECT_TYPE, MapObjectType.MY_POSITION);
     i.putExtra(EXTRA_LAT, lat);
     i.putExtra(EXTRA_LON, lon);
     context.startActivity(i);

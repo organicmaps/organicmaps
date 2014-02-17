@@ -15,9 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MapObjectFragment.MapObjectType;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.bookmarks.data.MapObject.MapObjectType;
 import com.mapswithme.util.statistics.Statistics;
 
 public abstract class ShareAction

@@ -561,7 +561,7 @@ namespace android
   void Framework::OnProcessTouchTask(double x, double y, unsigned ms)
   {
     m_wasLongClick = (ms == LONG_TOUCH_MS);
-    GetBalloonManager().OnClick(m2::PointD(x, y), m_wasLongClick);
+    GetPinClickManager().OnClick(m2::PointD(x, y), m_wasLongClick);
   }
 
   BookmarkAndCategory Framework::AddBookmark(size_t cat, Bookmark & bm)
@@ -601,7 +601,7 @@ namespace android
 
   void Framework::DeactivatePopup()
   {
-    GetBalloonManager().Hide();
+    GetPinClickManager().Hide();
   }
 
   string Framework::GetOutdatedCountriesString()
@@ -653,6 +653,18 @@ extern "C"
     jniEnv->CallVoidMethod(*obj.get(), methodID, apiPoint.m_lat, apiPoint.m_lon, j_name, j_id);
   }
 
+  // Additional layer
+    void CallOnAdditionalLayerActivatedListener(shared_ptr<jobject> obj, size_t index)
+    {
+      JNIEnv * jniEnv = jni::GetEnv();
+      const jmethodID methodID = jni::GetJavaMethodID(jniEnv,
+                                                      *obj.get(),
+                                                     "onAdditionalLayerActivated",
+                                                     "(J)V");
+
+      jniEnv->CallVoidMethod(*obj.get(), methodID, static_cast<jlong>(index));
+    }
+
   // POI
   void CallOnPoiActivatedListener(shared_ptr<jobject> obj, m2::PointD const & globalPoint, search::AddressInfo const & addrInfo)
   {
@@ -688,6 +700,14 @@ extern "C"
     jniEnv->CallVoidMethod(*obj.get(), methodId, lat, lon);
   }
 
+  // Dismiss information box
+  void CallOnDismissListener(shared_ptr<jobject> obj)
+  {
+    JNIEnv * jniEnv = jni::GetEnv();
+    const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(), "onDismiss", "()V");
+    jniEnv->CallVoidMethod(*obj.get(), methodId);
+  }
+
   /// @name JNI EXPORTS
   //@{
   JNIEXPORT jstring JNICALL
@@ -710,19 +730,21 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeConnectBalloonListeners(JNIEnv * env, jclass clazz, jobject l)
   {
-    BalloonManager & manager = g_framework->GetBalloonManager();
+    PinClickManager & manager = g_framework->GetPinClickManager();
     shared_ptr<jobject> obj = jni::make_global_ref(l);
 
     manager.ConnectApiListener(bind(&CallOnApiPointActivatedListener, obj, _1));
     manager.ConnectPoiListener(bind(&CallOnPoiActivatedListener, obj, _1, _2));
     manager.ConnectBookmarkListener(bind(&CallOnBookmarkActivatedListener, obj, _1));
     manager.ConnectPositionListener(bind(&CallOnMyPositionActivatedListener, obj, _1, _2));
+    manager.ConnectAdditionalListener(bind(&CallOnAdditionalLayerActivatedListener, obj, _1));
+    manager.ConnectDismissListener(bind(&CallOnDismissListener, obj));
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeClearBalloonListeners(JNIEnv * env, jobject thiz)
   {
-    g_framework->GetBalloonManager().ClearListeners();
+    g_framework->GetPinClickManager().ClearListeners();
   }
 
   JNIEXPORT jstring JNICALL
@@ -861,5 +883,22 @@ extern "C"
   {
     g_framework->ShowTrack(cat, track);
   }
+
+  JNIEXPORT void Java_com_mapswithme_maps_Framework_injectData(JNIEnv * env, jclass clazz, jobject jsearchResult, jlong index)
+    {
+      Bookmark * b = g_framework->NativeFramework()->
+          GetBookmarkManager().AdditionalPoiLayerGetBookmark(static_cast<size_t>(index));
+
+      static jclass javaClazz = env->GetObjectClass(jsearchResult);
+
+      static jfieldID nameId = env->GetFieldID(javaClazz, "mName", "Ljava/lang/String;");
+      env->SetObjectField(jsearchResult, nameId, jni::ToJavaString(env, b->GetName()));
+
+      static jfieldID latId = env->GetFieldID(javaClazz, "mLat", "D");
+      env->SetDoubleField(jsearchResult, latId, static_cast<jdouble>(b->GetOrg().y));
+
+      static jfieldID lonId = env->GetFieldID(javaClazz, "mLon", "D");
+      env->SetDoubleField(jsearchResult, latId, static_cast<jdouble>(b->GetOrg().x));
+    }
 
 }

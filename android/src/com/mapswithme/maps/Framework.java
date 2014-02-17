@@ -2,6 +2,7 @@ package com.mapswithme.maps;
 
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
+import com.mapswithme.maps.bookmarks.data.MapObject.SearchResult;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.guides.GuideInfo;
 import com.mapswithme.util.Utils;
@@ -18,6 +19,8 @@ public class Framework
     public void onPoiActivated(String name, String type, String address, double lat, double lon);
     public void onBookmarkActivated(int category, int bookmarkIndex);
     public void onMyPositionActivated(double lat, double lon);
+    public void onAdditionalLayerActivated(long index);
+    public void onDismiss();
   }
 
   // Interface
@@ -126,4 +129,6 @@ public class Framework
 
   // this class is just bridge between Java and C++ worlds, we must not create it
   private Framework() {}
+
+  public native static void injectData(SearchResult searchResult, long index);
 }

@@ -85,7 +85,7 @@ namespace qt
       m_pScale(0)
   {
     // Initialize with some stubs for test.
-    BalloonManager & manager = GetBalloonManager();
+    PinClickManager & manager = GetBalloonManager();
     manager.ConnectApiListener(&DummyAPI);
     manager.ConnectBookmarkListener(&DummyBookmark);
     manager.ConnectPoiListener(&DummyPOI);

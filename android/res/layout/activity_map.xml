@@ -5,12 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/abs__action_bar_default_height"
-        android:layout_gravity="top|center_horizontal"
-        layout="@layout/map_title_bar" />
-
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
@@ -36,6 +30,7 @@
                 android:layout_height="match_parent"
                 layout="@layout/drawer_main" />
 
+            <!-- Dark vertical line -->
             <View
                 android:layout_width="3dp"
                 android:layout_height="match_parent"

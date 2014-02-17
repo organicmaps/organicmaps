@@ -146,6 +146,6 @@ namespace qt
     m2::PointD m_taskPoint;
     bool m_wasLongClick, m_isCleanSingleClick;
 
-    BalloonManager & GetBalloonManager() { return m_framework->GetBalloonManager(); }
+    PinClickManager & GetBalloonManager() { return m_framework->GetBalloonManager(); }
   };
 }

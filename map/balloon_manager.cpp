@@ -1,4 +1,3 @@
-#include "bookmark_balloon.hpp"
 #include "balloon_manager.hpp"
 #include "framework.hpp"
 
@@ -9,124 +8,34 @@
 #include "../gui/controller.hpp"
 
 
-BalloonManager::BalloonManager(Framework & f)
+PinClickManager::PinClickManager(Framework & f)
   : m_f(f), m_updateForLocation(false)
+{}
+
+void PinClickManager::RenderPolicyCreated(graphics::EDensity density)
+{}
+
+void PinClickManager::LocationChanged(location::GpsInfo const & info)
+{}
+
+void PinClickManager::OnPositionClicked(m2::PointD const & pt)
 {
-}
-
-void BalloonManager::CreateBookmarkBalloon()
-{
-  CHECK(m_f.GetGuiController(), ());
-  CHECK(m_f.GetLocationState(), ());
-
-  BookmarkBalloon::Params bp;
-  bp.m_position = graphics::EPosAbove;
-  bp.m_depth = graphics::balloonBaseDepth;
-  bp.m_pivot = m2::PointD(0, 0);
-  bp.m_framework = &m_f;
-
-  m_balloon.reset(new BookmarkBalloon(bp));
-  m_balloon->setIsVisible(false);
-
-  m_f.GetGuiController()->AddElement(m_balloon);
-  m_f.GetLocationState()->AddOnPositionClickListener(bind(&BalloonManager::OnPositionClicked, this, _1));
-}
-
-void BalloonManager::RenderPolicyCreated(graphics::EDensity density)
-{
-  if (m_balloon == 0)
-    CreateBookmarkBalloon();
-
-  m_balloon->setImage(graphics::Image::Info("arrow.png", density));
-}
-
-void BalloonManager::ScreenSizeChanged(int width, int height)
-{
-  if (m_balloon)
-    m_balloon->onScreenSize(width, height);
-}
-
-void BalloonManager::LocationChanged(location::GpsInfo const & info)
-{
-  if (m_balloon && m_updateForLocation)
-  {
-    m_balloon->setGlbPivot(m2::PointD(MercatorBounds::LonToX(info.m_longitude),
-                                      MercatorBounds::LatToY(info.m_latitude)));
-  }
-}
-
-void BalloonManager::OnPositionClicked(m2::PointD const & pt)
-{
-  Show(pt, m_f.GetStringsBundle().GetString("my_position"), "", false);
-
-  m_balloon->setOnClickListener(bind(&BalloonManager::OnActivateMyPosition, this, _1));
-
+  m_positionListener(pt.x, pt.y);
   m_updateForLocation = true;
 }
 
-void BalloonManager::Show(m2::PointD const & pt, string const & name, string const & type, bool needPadding)
+void PinClickManager::Hide()
 {
   m_updateForLocation = false;
-
-  m_balloon->setGlbPivot(pt);
-  m_balloon->setBookmarkCaption(name, type);
-  m_balloon->showAnimated(needPadding);
-
   m_f.Invalidate();
 }
 
-void BalloonManager::Hide()
-{
-  m_updateForLocation = false;
-
-  m_balloon->hide();
-
-  m_f.Invalidate();
-}
-
-void BalloonManager::ShowAddress(m2::PointD const & pt, search::AddressInfo const & info)
-{
-  string name = info.GetPinName();
-  string type = info.GetPinType();
-  if (name.empty() && type.empty())
-    name = m_f.GetStringsBundle().GetString("dropped_pin");
-
-  Show(pt, name, type, false);
-
-  m_balloon->setOnClickListener(bind(&BalloonManager::OnActivatePOI, this, _1, info));
-}
-
-void BalloonManager::ShowURLPoint(url_scheme::ResultPoint const & point, bool needPadding)
-{
-  Show(point.GetOrg(), point.GetName(), "", needPadding);
-  m_balloon->setOnClickListener(bind(&BalloonManager::OnActivateAPI, this, _1, point));
-}
-
-void BalloonManager::ShowBookmark(BookmarkAndCategory bmAndCat)
-{
-  Bookmark const * pBM = m_f.GetBmCategory(bmAndCat.first)->GetBookmark(bmAndCat.second);
-  Show(pBM->GetOrg(), pBM->GetName(), "", true);
-  m_balloon->setOnClickListener(bind(&BalloonManager::OnActivateBookmark, this, _1, bmAndCat));
-}
-
-void BalloonManager::ShowAdditionalLayerBookmark(size_t index)
-{
-  ASSERT(index < m_f.AdditionalLayerNumberOfPoi(), ());
-  Bookmark const * pBM = m_f.AdditionalPoiLayerGetBookmark(index);
-  Show(pBM->GetOrg(), pBM->GetName(), "", true);
-
-  search::AddressInfo info;
-  info.m_name = pBM->GetName();
-  m_balloon->setOnClickListener(bind(&BalloonManager::OnActivatePOI, this, _1, info));
-}
-
-void BalloonManager::OnClick(m2::PointD const & pxPoint, bool isLongTouch)
+void PinClickManager::OnClick(m2::PointD const & pxPoint, bool isLongTouch)
 {
   url_scheme::ResultPoint apiPoint;
   if (m_f.GetMapApiPoint(pxPoint, apiPoint))
   {
-    Show(apiPoint.GetOrg(), apiPoint.GetName(), "", true);
-    m_balloon->setOnClickListener(bind(&BalloonManager::OnActivateAPI, this, _1, apiPoint));
+    OnActivateAPI(apiPoint);
   }
   else
   {
@@ -138,64 +47,70 @@ void BalloonManager::OnClick(m2::PointD const & pxPoint, bool isLongTouch)
     {
     case Framework::BOOKMARK:
       {
-        ShowBookmark(bmAndCat);
+        OnActivateBookmark(bmAndCat);
         return;
       }
 
     case Framework::ADDTIONAL_LAYER:
       {
-        ShowAdditionalLayerBookmark(bmAndCat.second);
+        OnAdditonalLayer(bmAndCat.second);
         return;
       }
 
     case Framework::POI:
-      if (!m_balloon->isVisible())
-      {
-        ShowAddress(m_f.PtoG(pxPivot), addrInfo);
+        OnActivatePOI(m_f.PtoG(pxPoint), addrInfo);
         return;
-      }
 
     default:
       if (isLongTouch)
       {
         m2::PointD const glbPoint = m_f.PtoG(pxPoint);
         m_f.GetAddressInfoForGlobalPoint(glbPoint, addrInfo);
-        ShowAddress(glbPoint, addrInfo);
+        OnActivatePOI(glbPoint, addrInfo);
         return;
       }
     }
 
-    // hide the balloon by default if no any Show before
-    Hide();
+    OnDismiss();
   }
 }
 
-void BalloonManager::ClearListeners()
+void PinClickManager::ClearListeners()
 {
   m_poiListener.clear();
   m_bookmarkListener.clear();
   m_apiListener.clear();
   m_positionListener.clear();
+  m_additionalLayerListener.clear();
+  m_dismissListener.clear();
 }
 
-void BalloonManager::OnActivateMyPosition(gui::Element *)
+void PinClickManager::OnActivateMyPosition()
 {
-  m2::PointD const & pt = m_balloon->glbPivot();
-  m_positionListener(MercatorBounds::YToLat(pt.y),
-                     MercatorBounds::XToLon(pt.x));
+  m_positionListener(0,0);
 }
 
-void BalloonManager::OnActivatePOI(gui::Element *, search::AddressInfo const & info)
+void PinClickManager::OnActivatePOI(m2::PointD const & globalPoint, search::AddressInfo const & info)
 {
-  m_poiListener(m_balloon->glbPivot(), info);
+  m_poiListener(globalPoint, info);
 }
 
-void BalloonManager::OnActivateAPI(gui::Element *, url_scheme::ResultPoint const & apiPoint)
+void PinClickManager::OnActivateAPI(url_scheme::ResultPoint const & apiPoint)
 {
   m_apiListener(apiPoint.GetPoint());
 }
 
-void BalloonManager::OnActivateBookmark(gui::Element *, BookmarkAndCategory const & bmAndCat)
+void PinClickManager::OnActivateBookmark(BookmarkAndCategory const & bmAndCat)
 {
   m_bookmarkListener(bmAndCat);
+}
+
+void PinClickManager::OnAdditonalLayer(size_t index)
+{
+  m_additionalLayerListener(index);
+}
+
+void PinClickManager::OnDismiss()
+{
+  m_dismissListener();
 }

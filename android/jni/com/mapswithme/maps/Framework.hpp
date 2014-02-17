@@ -121,7 +121,7 @@ namespace android
     size_t ChangeBookmarkCategory(BookmarkAndCategory const & ind, size_t newCat);
 
     ::Framework * NativeFramework();
-    BalloonManager & GetBalloonManager() { return m_work.GetBalloonManager(); }
+    PinClickManager & GetPinClickManager() { return m_work.GetBalloonManager(); }
 
     bool IsDownloadingActive();
 

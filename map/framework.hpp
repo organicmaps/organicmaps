@@ -141,7 +141,7 @@ protected:
   BenchmarkEngine * m_benchmarkEngine;
 
   BookmarkManager m_bmManager;
-  BalloonManager m_balloonManager;
+  PinClickManager m_balloonManager;
 
   void ClearAllCaches();
 
@@ -449,7 +449,7 @@ public:
 
   StringsBundle const & GetStringsBundle();
 
-  BalloonManager & GetBalloonManager() { return m_balloonManager; }
+  PinClickManager & GetBalloonManager() { return m_balloonManager; }
 
   /// Checks, whether the country which contains
   /// the specified point is loaded
@@ -494,4 +494,6 @@ public:
   guides::GuidesManager & GetGuidesManager() { return m_storage.GetGuideManager(); }
   bool GetGuideInfo(storage::TIndex const & index, guides::GuideInfo & info) const;
   //@}
+
+  BookmarkManager & GetBookmarkManager() { return m_bmManager; }
 };

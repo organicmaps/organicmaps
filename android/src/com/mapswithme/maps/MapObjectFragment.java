@@ -1,7 +1,5 @@
 package com.mapswithme.maps;
 
-import java.io.Serializable;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.graphics.Color;
@@ -31,6 +29,7 @@ import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.bookmarks.data.MapObject.MapObjectType;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -41,15 +40,6 @@ import com.mapswithme.util.statistics.Statistics;
 public class MapObjectFragment extends Fragment
                                implements OnClickListener
 {
-
-  public static enum MapObjectType implements Serializable
-  {
-    POI,
-    API_POINT,
-    BOOKMARK,
-    MY_POSITION
-  }
-
   private static final int MENU_ADD   = 0x01;
   private static final int MENU_EDIT  = 0x02;
   private static final int MENU_SHARE = 0x10;
@@ -305,7 +295,6 @@ public class MapObjectFragment extends Fragment
   {
     if (!MWMApplication.get().hasBookmarks())
     {
-      // TODO this cast if safe, but style is bad
       final MapObjectActivity activity = (MapObjectActivity) getActivity();
       activity.showProVersionBanner(getString(R.string.bookmarks_in_pro_version));
     }

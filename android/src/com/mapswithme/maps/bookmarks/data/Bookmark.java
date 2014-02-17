@@ -3,7 +3,6 @@ package com.mapswithme.maps.bookmarks.data;
 import android.content.Context;
 
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MapObjectFragment.MapObjectType;
 import com.mapswithme.maps.R;
 
 public class Bookmark extends MapObject
