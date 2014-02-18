@@ -1,0 +1,509 @@
+{
+    "AppFeatureBanner": {
+        "*": {
+            "Variants": {
+
+            }
+        },
+        "CA": {     
+            "Variants": {
+                "MoPub": {
+                    "Chance": 10,
+                    "UnitId": "78b52bc1fc0e4931bb05f34fd3df7ea9",
+                    "Languages": ["*"],  
+                    "LaunchCount": [5, 1000000000],
+                    "TimeLimit": [432000, 1000000000],                    
+                },
+            },
+        },
+        "AU": {     
+            "Variants": {
+                "MoPub": {
+                    "Chance": 10,
+                    "UnitId": "78b52bc1fc0e4931bb05f34fd3df7ea9",
+                    "Languages": ["*"],  
+                    "LaunchCount": [5, 1000000000],
+                    "TimeLimit": [432000, 1000000000],                    
+                },
+            },
+        },
+        "ZA": {     
+            "Variants": {
+                "MoPub": {
+                    "Chance": 10,
+                    "UnitId": "78b52bc1fc0e4931bb05f34fd3df7ea9",
+                    "Languages": ["*"],                   
+                },
+            },
+        },        
+        "NZ": {     
+            "Variants": {
+                "MoPub": {
+                    "Chance": 10,
+                    "UnitId": "78b52bc1fc0e4931bb05f34fd3df7ea9",
+                    "Languages": ["*"],  
+                },
+            },
+        }, 
+        "UA": {     
+            "Variants": {
+                "MoPub": {
+                    "Chance": 10,
+                    "UnitId": "78b52bc1fc0e4931bb05f34fd3df7ea9",
+                    "Languages": ["*"],  
+                },
+            },
+        },               
+    },
+    "AppFeatureInterstitial": {
+        "*": {         
+            "Variants": {
+                
+            },
+        },  
+        "US": {
+            "Period": 86400,  
+            "Variants": {
+                "MWMPro1": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,
+                },
+                "MWMPro2": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro3": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4_1": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4_2": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro5": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+            },
+        },
+        "IN": {
+            "Period": 86400,  
+            "Variants": {
+                "MWMPro1": {
+                    "Chance": 10,
+                    "Languages": ["*"], 
+                    "Online": true,                     
+                },
+                "MWMPro2": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro3": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4_1": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4_2": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro5": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+            },
+        },
+        "NG": {
+            "Period": 86400,  
+            "Variants": {
+                "MWMPro1": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro2": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro3": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4_1": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4_2": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro5": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+            },
+        },
+        "SG": {
+            "Period": 86400,  
+            "Variants": {
+                "MWMPro1": {
+                    "Chance": 10,
+                    "Languages": ["*"], 
+                    "Online": true,                     
+                },
+                "MWMPro2": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro3": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4_1": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4_2": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro5": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+            },
+        },
+        "CA": {
+            "Period": 86400,  
+            "Variants": {
+                "MWMPro1": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro2": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro3": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4_1": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4_2": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro5": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+            },
+        },
+        "ZA": {
+            "Period": 86400,  
+            "Variants": {
+                "MWMPro1": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro2": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro3": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4_1": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4_2": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro5": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+            },
+        },
+        "RU": {
+            "Period": 86400,  
+            "Variants": {
+                "MWMPro1": {
+                    "Chance": 10,
+                    "Languages": ["ru"],  
+                    "Online": true,                    
+                },
+                "MWMPro2": {
+                    "Chance": 10,
+                    "Languages": ["ru"],  
+                    "Online": true,                    
+                },
+                "MWMPro3": {
+                    "Chance": 10,
+                    "Languages": ["ru"],  
+                    "Online": true,                    
+                },
+                "MWMPro4": {
+                    "Chance": 10,
+                    "Languages": ["ru"],  
+                    "Online": true,                    
+                },
+                "MWMPro4_1": {
+                    "Chance": 10,
+                    "Languages": ["ru"],  
+                    "Online": true,                    
+                },
+                "MWMPro4_2": {
+                    "Chance": 10,
+                    "Languages": ["ru"],  
+                    "Online": true,                    
+                },
+                "MWMPro5": {
+                    "Chance": 10,
+                    "Languages": ["ru"],  
+                    "Online": true,                    
+                },
+            },
+        },
+        "NZ": {
+            "Period": 86400,  
+            "Variants": {
+                "MoPub": {
+                    "Chance": 70,
+                    "Languages": ["*"],  
+                    "LaunchCount": [5, 1000000000],
+                    "TimeLimit": [432000, 1000000000],                    
+                },
+                "MWMPro1": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro2": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro3": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4_1": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4_2": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro5": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+            },
+        },
+        "AU": {
+            "Period": 86400,  
+            "Variants": {
+                "MoPub": {
+                    "Chance": 70,
+                    "Languages": ["*"],  
+                    "LaunchCount": [5, 1000000000],
+                    "TimeLimit": [432000, 1000000000],                    
+                },
+                "MWMPro1": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro2": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro3": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4_1": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro4_2": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+                "MWMPro5": {
+                    "Chance": 10,
+                    "Languages": ["*"],  
+                    "Online": true,                    
+                },
+            },
+        },
+        "UA": {
+            "Period": 86400,  
+            "Variants": {
+                "MoPub": {
+                    "Chance": 70,
+                    "Languages": ["*"],  
+                    "LaunchCount": [5, 1000000000],
+                    "TimeLimit": [432000, 1000000000],                    
+                },
+                "MWMPro1": {
+                    "Chance": 10,
+                    "Languages": ["ru"],  
+                    "Online": true,                    
+                },
+                "MWMPro2": {
+                    "Chance": 10,
+                    "Languages": ["ru"],  
+                    "Online": true,                    
+                },
+                "MWMPro3": {
+                    "Chance": 10,
+                    "Languages": ["ru"],  
+                    "Online": true,                    
+                },
+                "MWMPro4": {
+                    "Chance": 10,
+                    "Languages": ["ru"],  
+                    "Online": true,                    
+                },
+                "MWMPro4_1": {
+                    "Chance": 10,
+                    "Languages": ["ru"],  
+                    "Online": true,                    
+                },
+                "MWMPro4_2": {
+                    "Chance": 10,
+                    "Languages": ["ru"],  
+                    "Online": true,                    
+                },
+                "MWMPro5": {
+                    "Chance": 10,
+                    "Languages": ["ru"],  
+                    "Online": true,                    
+                },
+            },
+        }, 
+    },
+    "AppFeatureProButtonOnMap": {
+        "*": {
+            "Texts": {
+                "ja": "プロ版を購入",
+                "ko": "프로 버전 구입",
+                "it": "COMPRA PRO",
+                "hu": "PRO MEGVÁSÁRLÁSA",
+                "fr": "ACHETER LA VERSION PRO",
+                "de": "PRO KAUFEN",
+                "du": "KOOP PRO",
+                "zh-hant": "購買專業版",
+                "cz": "ZAKOUPIT VERZI PRO",
+                "es": "COMPRAR PRO",
+                "uk": "КУПИТИ ВЕРСІЮ PRO", 
+                "pl": "KUP WERSJĘ PRO", 
+                "pt": "COMPRAR PRO",
+                "en": "BUY PRO",
+                "ru": "КУПИТЬ PRO",
+                "*": "BUY PRO",
+            },
+        },
+    },  
+    "AppFeatureMoreAppsBanner": {
+        "*": {
+        },
+    },
+}
