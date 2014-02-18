@@ -353,7 +353,7 @@ UNIT_TEST(HS_MWMSearch)
 
     detector.LoadStreets(streets);
     detector.MergeStreets();
-    detector.ReadAllHouses(200);
+    detector.ReadAllHouses();
 
     vector<search::House const *> houses;
     detector.GetHouseForName(a.m_house, houses);

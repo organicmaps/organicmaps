@@ -61,6 +61,8 @@ public:
     int m_intN;
 
     ParsedNumber(string const & number);
+
+    bool IsOdd() const { return (m_intN % 2 == 1); }
   };
 
   /// @return \n
@@ -69,6 +71,7 @@ public:
   ///  1 - integer number match with odd (even).
   ///  2 - integer number match.
   int GetMatch(ParsedNumber const & number) const;
+  bool GetNearbyMatch(ParsedNumber const & number) const;
 };
 
 struct HouseProjection
@@ -89,6 +92,14 @@ struct HouseProjection
     {
       return p1->m_distance < p2->m_distance;
     }
+  };
+
+  class EqualHouse
+  {
+    House const * m_house;
+  public:
+    EqualHouse(House const * h) : m_house(h) {}
+    bool operator() (HouseProjection const * p) const { return m_house == p->m_house; }
   };
 };
 
@@ -147,7 +158,7 @@ public:
   bool IsHousesReaded() const;
   void FinishReadingHouses();
 
-  HouseProjection const * GetHousePivot(bool & isOdd, bool & sign) const;
+  HouseProjection const * GetHousePivot(bool isOdd, bool & sign) const;
 
   /// @name Temporary
   //@{
@@ -222,7 +233,8 @@ public:
   /// @return number of different joined streets.
   int MergeStreets();
 
-  void ReadAllHouses(double offsetMeters);
+  static int const DEFAULT_OFFSET_M = 500;
+  void ReadAllHouses(double offsetMeters = DEFAULT_OFFSET_M);
 
   void GetHouseForName(string const & houseNumber, vector<House const *> & res);
 
