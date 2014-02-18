@@ -50,7 +50,9 @@ IsStreetChecker::IsStreetChecker()
     { "highway", "pedestrian" },
     { "highway", "tertiary" },
     { "highway", "construction" },
-    { "highway", "living_street" }
+    { "highway", "living_street" },
+    { "highway", "service" },
+    { "highway", "unclassified" }
   };
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
