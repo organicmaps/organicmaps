@@ -3,13 +3,13 @@
     android:id="@+id/info_box_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_holo_light"
     android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_holo_light"
         android:orientation="vertical"
         android:padding="10dp" >
 
@@ -38,6 +38,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="&lt;NO BODY>" />
+
+        <ImageView
+            android:id="@+id/info_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </LinearLayout>

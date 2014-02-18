@@ -166,6 +166,24 @@ public final class UiUtils
     COLOR_MAP.put("yellow", Color.parseColor("#ffff33"));
   }
 
+  public static class SimpleAnimationListener implements AnimationListener
+  {
+    @Override
+    public void onAnimationStart(Animation animation)
+    {
+    }
+
+    @Override
+    public void onAnimationEnd(Animation animation)
+    {
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation)
+    {
+    }
+  }
+
   // utility class
   private UiUtils() {};
 }

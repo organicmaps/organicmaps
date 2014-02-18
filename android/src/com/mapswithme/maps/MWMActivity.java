@@ -91,7 +91,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private final Stack<MapTask> mTasks = new Stack<MWMActivity.MapTask>();
 
   //info box
-  MapInfoView mInfoView;
+  private MapInfoView mInfoView;
+  private boolean mIsInfoBoxVisible;
 
 
   // Drawer components
@@ -1293,6 +1294,11 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         {
           mInfoView.setMapObject(poi);
           showInfoBox(true);
+          mInfoView.showBody(false);
+        }
+        else
+        {
+          mInfoView.showBody(true);
         }
       }
     });
@@ -1312,11 +1318,13 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
           mInfoView.setMapObject(b);
           showInfoBox(true);
         }
+        else
+        {
+          mInfoView.showBody(true);
+        }
       }
     });
   }
-
-
 
   @Override
   public void onMyPositionActivated(final double lat, final double lon)
@@ -1326,7 +1334,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       @Override
       public void run()
       {
-//        showInfoBoxWithText(getString(R.string.my_position), Framework.latLon2DMS(lat, lon));
       }
     });
   }
@@ -1345,6 +1352,10 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
           mInfoView.setMapObject(sr);
           showInfoBox(true);
         }
+        else
+        {
+          mInfoView.showBody(true);
+        }
       }
     });
   }
@@ -1352,15 +1363,18 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public void onDismiss()
   {
-    runOnUiThread(new Runnable()
+    if (!mInfoView.hasThatObject(null))
     {
-      @Override
-      public void run()
+      runOnUiThread(new Runnable()
       {
-        showInfoBox(false);
-        mInfoView.setMapObject(null);
-      }
-    });
+        @Override
+        public void run()
+        {
+          showInfoBox(false);
+          mInfoView.setMapObject(null);
+        }
+      });
+    }
   }
 
   private void showInfoBox(boolean show)
@@ -1370,12 +1384,18 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, show ? 0 : RelativeLayout.TRUE);
     mapButtonBottom.setLayoutParams(lp);
 
+    if (show == mIsInfoBoxVisible)
+      return;
+
+    mIsInfoBoxVisible = show;
+
+    final long duration = 200;
     if (show)
     {
       final Animation slideIn = new TranslateAnimation(
           TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
           TranslateAnimation.RELATIVE_TO_SELF, 1.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f);   // Y
-      slideIn.setDuration(300);
+      slideIn.setDuration(duration);
 
       mInfoView.startAnimation(slideIn);
       mapButtonBottom.startAnimation(slideIn);
@@ -1388,12 +1408,12 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       final Animation slideOutInfo = new TranslateAnimation(
           TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
           TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 1.f);  // Y
-      slideOutInfo.setDuration(300);
+      slideOutInfo.setDuration(duration);
 
       final Animation slideOutButtons = new TranslateAnimation(
           TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
           TranslateAnimation.RELATIVE_TO_SELF, -1.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f);  // Y
-      slideOutButtons.setDuration(300);
+      slideOutButtons.setDuration(duration);
 
       mapButtonBottom.startAnimation(slideOutButtons);
       UiUtils.animateAndHide(mInfoView, slideOutInfo);
