@@ -7,6 +7,8 @@
 
 #include "../../platform/platform.hpp"
 
+#include "../../geometry/distance_on_sphere.hpp"
+
 #include "../../indexer/scales.hpp"
 #include "../../indexer/index.hpp"
 #include "../../indexer/classificator_loader.hpp"
@@ -369,8 +371,9 @@ UNIT_TEST(HS_MWMSearch)
       p.x = MercatorBounds::XToLon(p.x);
       p.y = MercatorBounds::YToLat(p.y);
 
-      double const eps = 3.0E-4;
-      if (fabs(p.x - a.m_lon) < eps && fabs(p.y - a.m_lat) < eps)
+      //double const eps = 3.0E-4;
+      //if (fabs(p.x - a.m_lon) < eps && fabs(p.y - a.m_lat) < eps)
+      if (ms::DistanceOnEarth(a.m_lat, a.m_lon, p.y, p.x) < 3.0)
       {
         ++matched;
         break;
