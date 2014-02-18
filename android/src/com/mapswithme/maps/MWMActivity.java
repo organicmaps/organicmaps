@@ -57,6 +57,7 @@ import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.maps.widget.MapInfoView;
+import com.mapswithme.maps.widget.MapInfoView.OnVisibilityChangedListener;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
@@ -65,7 +66,11 @@ import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.Statistics;
 import com.nvidia.devtech.NvEventQueueActivity;
 
-public class MWMActivity extends NvEventQueueActivity implements LocationService.Listener, OnBalloonListener, DrawerListener
+public class MWMActivity extends NvEventQueueActivity
+                         implements LocationService.Listener,
+                                    OnBalloonListener,
+                                    DrawerListener,
+                                    OnVisibilityChangedListener
 {
   private final static String TAG = "MWMActivity";
   public static final String EXTRA_TASK = "map_task";
@@ -603,6 +608,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private void setUpInfoBox()
   {
     mInfoView = (MapInfoView) findViewById(R.id.info_box);
+    mInfoView.setOnVisibilityChangedListener(this);
   }
 
   private void setUpDrawer()
@@ -1379,7 +1385,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private void showInfoBox(boolean show)
   {
-    final View mapButtonBottom = findViewById(R.id.map_butons_container_ref);
+    final View mapButtonBottom = findViewById(R.id.map_buttons_bottom_ref);
     final RelativeLayout.LayoutParams lp = (LayoutParams) mapButtonBottom.getLayoutParams();
     lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, show ? 0 : RelativeLayout.TRUE);
     mapButtonBottom.setLayoutParams(lp);
@@ -1419,12 +1425,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       UiUtils.animateAndHide(mInfoView, slideOutInfo);
     }
   }
-
-//  private void showInfoBoxWithText(CharSequence title, CharSequence subtitle)
-//  {
-//    mInfoView.setTextAndShow(title, subtitle);
-//    showInfoBox(true);
-//  }
 
   public static Intent createShowMapIntent(Context context, Index index)
   {
@@ -1468,5 +1468,17 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public void onDrawerStateChanged(int arg0)
   {
+  }
+
+  @Override
+  public void onHeadVisibilityChanged(boolean isVisible)
+  {
+    // TODO could do nothing
+  }
+
+  @Override
+  public void onBodyVisibilityChanged(boolean isVisible)
+  {
+    UiUtils.hideIf(isVisible, findViewById(R.id.map_buttons_bottom_ref));
   }
 }

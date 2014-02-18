@@ -26,8 +26,10 @@ public class MapInfoView extends LinearLayout
   public interface OnVisibilityChangedListener
   {
     public void onHeadVisibilityChanged(boolean isVisible);
-    public void onbodyVisibilityChanged(boolean isVisible);
+    public void onBodyVisibilityChanged(boolean isVisible);
   }
+
+  private OnVisibilityChangedListener mVisibilityChangedListener;
 
   private boolean mIsHeaderVisible = true;
   private boolean mIsBodyVisible   = true;
@@ -125,7 +127,7 @@ public class MapInfoView extends LinearLayout
     this(context, null, 0);
   }
 
-  public void showBody(boolean show)
+  public void showBody(final boolean show)
   {
     if (mIsBodyVisible == show)
       return; // if state is already same as we need
@@ -142,6 +144,9 @@ public class MapInfoView extends LinearLayout
       slideUp.setDuration(duration);
       UiUtils.show(mBodyGroup);
       mView.startAnimation(slideUp);
+
+      if (mVisibilityChangedListener != null)
+        mVisibilityChangedListener.onBodyVisibilityChanged(show);
     }
     else     // slide down
     {
@@ -158,6 +163,9 @@ public class MapInfoView extends LinearLayout
         public void onAnimationEnd(Animation animation)
         {
           UiUtils.hide(mBodyGroup);
+
+          if (mVisibilityChangedListener != null)
+            mVisibilityChangedListener.onBodyVisibilityChanged(show);
         }
       });
       mView.startAnimation(slideDown);
@@ -168,12 +176,21 @@ public class MapInfoView extends LinearLayout
 
   public void showHeader(boolean show)
   {
+    if (mIsHeaderVisible == show)
+      return;
+
     UiUtils.hideIf(!show, mHeaderGroup);
     mIsHeaderVisible = show;
+
+    if (mVisibilityChangedListener != null)
+      mVisibilityChangedListener.onHeadVisibilityChanged(show);
   }
 
   public void show(boolean show)
   {
+    if (mIsVisible == show)
+      return;
+
     UiUtils.hideIf(!show, mView);
     mIsVisible = show;
   }
@@ -223,5 +240,10 @@ public class MapInfoView extends LinearLayout
         mMapObject = mo;
       }
     }
+  }
+
+  public void setOnVisibilityChangedListener(OnVisibilityChangedListener listener)
+  {
+    mVisibilityChangedListener = listener;
   }
 }
