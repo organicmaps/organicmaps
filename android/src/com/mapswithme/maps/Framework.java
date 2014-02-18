@@ -127,8 +127,10 @@ public class Framework
 
   private native static void nativeClearApiPoints();
 
+
   // this class is just bridge between Java and C++ worlds, we must not create it
   private Framework() {}
 
   public native static void injectData(SearchResult searchResult, long index);
+  public native static void cleanSearchLayerOnMap();
 }

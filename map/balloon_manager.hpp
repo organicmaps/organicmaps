@@ -42,6 +42,8 @@ public:
   void Hide();
 
   void DrawPin(shared_ptr<PaintEvent> const & e);
+  void RemovePin();
+  void Dismiss();
 
 
 private:

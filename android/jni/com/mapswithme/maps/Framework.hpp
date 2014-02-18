@@ -95,6 +95,7 @@ namespace android
     bool Search(search::SearchParams const & params);
     string GetLastSearchQuery() { return m_searchQuery; }
     void ClearLastSearchQuery() { m_searchQuery.clear(); }
+    void CleanSearchLayerOnMap();
 
     void LoadState();
     void SaveState();

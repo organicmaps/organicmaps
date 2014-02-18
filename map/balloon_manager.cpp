@@ -109,10 +109,21 @@ void PinClickManager::DrawPin(const shared_ptr<PaintEvent> & e)
     InformationDisplay & informationDisplay = m_f.GetInformationDisplay();
     m2::AnyRectD const & glbRect = navigator.Screen().GlobalRect();
 
-    // @todo changed pin picture
+    // @todo change pin picture
     if (glbRect.IsPointInside(m_pinGlobalLocation))
       informationDisplay.drawPlacemark(e->drawer(), "api_pin", navigator.GtoP(m_pinGlobalLocation));
   }
+}
+
+void PinClickManager::RemovePin()
+{
+  m_hasPin = false;
+  m_f.Invalidate();
+}
+
+void PinClickManager::Dismiss()
+{
+  OnDismiss();
 }
 
 void PinClickManager::ClearListeners()

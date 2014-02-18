@@ -444,6 +444,14 @@ namespace android
     m_work.ShowSearchResult(r);
   }
 
+  void Framework::CleanSearchLayerOnMap()
+  {
+    NativeFramework()->GetBalloonManager().RemovePin();
+    NativeFramework()->GetBalloonManager().Dismiss();
+    NativeFramework()->GetBookmarkManager().AdditionalPoiLayerClear();
+    NativeFramework()->Invalidate();
+  }
+
   bool Framework::Search(search::SearchParams const & params)
   {
     m_searchQuery = params.m_query;
@@ -885,20 +893,25 @@ extern "C"
   }
 
   JNIEXPORT void Java_com_mapswithme_maps_Framework_injectData(JNIEnv * env, jclass clazz, jobject jsearchResult, jlong index)
-    {
-      Bookmark * b = g_framework->NativeFramework()->
-          GetBookmarkManager().AdditionalPoiLayerGetBookmark(static_cast<size_t>(index));
+  {
+    Bookmark * b = g_framework->NativeFramework()->
+        GetBookmarkManager().AdditionalPoiLayerGetBookmark(static_cast<size_t>(index));
 
-      static jclass javaClazz = env->GetObjectClass(jsearchResult);
+    static jclass javaClazz = env->GetObjectClass(jsearchResult);
 
-      static jfieldID nameId = env->GetFieldID(javaClazz, "mName", "Ljava/lang/String;");
-      env->SetObjectField(jsearchResult, nameId, jni::ToJavaString(env, b->GetName()));
+    static jfieldID nameId = env->GetFieldID(javaClazz, "mName", "Ljava/lang/String;");
+    env->SetObjectField(jsearchResult, nameId, jni::ToJavaString(env, b->GetName()));
 
-      static jfieldID latId = env->GetFieldID(javaClazz, "mLat", "D");
-      env->SetDoubleField(jsearchResult, latId, static_cast<jdouble>(b->GetOrg().y));
+    static jfieldID latId = env->GetFieldID(javaClazz, "mLat", "D");
+    env->SetDoubleField(jsearchResult, latId, static_cast<jdouble>(b->GetOrg().y));
 
-      static jfieldID lonId = env->GetFieldID(javaClazz, "mLon", "D");
-      env->SetDoubleField(jsearchResult, latId, static_cast<jdouble>(b->GetOrg().x));
-    }
+    static jfieldID lonId = env->GetFieldID(javaClazz, "mLon", "D");
+    env->SetDoubleField(jsearchResult, latId, static_cast<jdouble>(b->GetOrg().x));
+  }
+
+  JNIEXPORT void Java_com_mapswithme_maps_Framework_cleanSearchLayerOnMap(JNIEnv * env, jclass clazz)
+  {
+    g_framework->CleanSearchLayerOnMap();
+  }
 
 }

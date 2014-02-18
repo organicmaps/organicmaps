@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.SearchActivity;
@@ -68,13 +69,12 @@ public class SearchController implements OnClickListener
     final int id = v.getId();
     if (R.id.search_text_query == id)
     {
-      // @todo Start search activity here
       final String query = mSearchQueryTV.getText().toString();
       SearchActivity.startForSearch(mMapActivity, query);
     }
     else if (R.id.search_image_clear == id)
     {
-      // @todo Clear search layer
+      Framework.cleanSearchLayerOnMap();
       mSearchQueryTV.setText(null);
       UiUtils.hide(mClearView);
     }
