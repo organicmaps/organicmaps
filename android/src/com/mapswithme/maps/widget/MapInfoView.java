@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -129,7 +130,39 @@ public class MapInfoView extends LinearLayout
     if (mIsBodyVisible == show)
       return; // if state is already same as we need
 
-    UiUtils.hideIf(!show, mBodyGroup);
+    final long duration = 250;
+    if (show) // slide up
+    {
+      final TranslateAnimation slideUp = new TranslateAnimation(
+          Animation.RELATIVE_TO_SELF, 0,
+          Animation.RELATIVE_TO_SELF, 0,
+          Animation.RELATIVE_TO_SELF, 1,
+          Animation.RELATIVE_TO_SELF, 0);
+
+      slideUp.setDuration(duration);
+      UiUtils.show(mBodyGroup);
+      mView.startAnimation(slideUp);
+    }
+    else     // slide down
+    {
+      final TranslateAnimation slideDown = new TranslateAnimation(
+          Animation.RELATIVE_TO_SELF, 0,
+          Animation.RELATIVE_TO_SELF, 0,
+          Animation.RELATIVE_TO_SELF, 0,
+          Animation.RELATIVE_TO_SELF, 1);
+
+      slideDown.setDuration(duration);
+      slideDown.setAnimationListener(new UiUtils.SimpleAnimationListener()
+      {
+        @Override
+        public void onAnimationEnd(Animation animation)
+        {
+          UiUtils.hide(mBodyGroup);
+        }
+      });
+      mView.startAnimation(slideDown);
+    }
+
     mIsBodyVisible = show;
   }
 
