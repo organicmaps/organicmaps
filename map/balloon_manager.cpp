@@ -9,7 +9,9 @@
 
 
 PinClickManager::PinClickManager(Framework & f)
-  : m_f(f), m_updateForLocation(false)
+  : m_f(f)
+  , m_updateForLocation(false)
+  , m_hasPin(false)
 {}
 
 void PinClickManager::RenderPolicyCreated(graphics::EDensity density)
@@ -32,46 +34,84 @@ void PinClickManager::Hide()
 
 void PinClickManager::OnClick(m2::PointD const & pxPoint, bool isLongTouch)
 {
+  // API
   url_scheme::ResultPoint apiPoint;
   if (m_f.GetMapApiPoint(pxPoint, apiPoint))
   {
+    // @todo draw pin here
     OnActivateAPI(apiPoint);
+    return;
   }
-  else
-  {
-    search::AddressInfo addrInfo;
-    m2::PointD          pxPivot;
-    BookmarkAndCategory bmAndCat;
 
-    switch (m_f.GetBookmarkOrPoi(pxPoint, pxPivot, addrInfo, bmAndCat))
-    {
+  // Everything else
+  search::AddressInfo addrInfo;
+  m2::PointD          pxPivot;
+  BookmarkAndCategory bmAndCat;
+
+  // By default we assume that we have pin
+  m_hasPin = true;
+  bool dispatched = false;
+
+  switch (m_f.GetBookmarkOrPoi(pxPoint, pxPivot, addrInfo, bmAndCat))
+  {
     case Framework::BOOKMARK:
-      {
-        OnActivateBookmark(bmAndCat);
-        return;
-      }
+    {
+      OnActivateBookmark(bmAndCat);
+      m_pinGlobalLocation = m_f.GetBmCategory(bmAndCat.first)->GetBookmark(bmAndCat.second)->GetOrg();
+      dispatched = true;
+      break;
+    }
 
     case Framework::ADDTIONAL_LAYER:
-      {
-        OnAdditonalLayer(bmAndCat.second);
-        return;
-      }
+    {
+      OnAdditonalLayer(bmAndCat.second);
+      m_pinGlobalLocation = m_f.GetBookmarkManager().AdditionalPoiLayerGetBookmark(bmAndCat.second)->GetOrg();
+      dispatched = true;
+      break;
+    }
 
     case Framework::POI:
-        OnActivatePOI(m_f.PtoG(pxPoint), addrInfo);
-        return;
+    {
+      m2::PointD globalPoint = m_f.PtoG(pxPivot);
+      OnActivatePOI(globalPoint, addrInfo);
+      m_pinGlobalLocation = globalPoint;
+      dispatched = true;
+      break;
+    }
 
     default:
+    {
       if (isLongTouch)
       {
         m2::PointD const glbPoint = m_f.PtoG(pxPoint);
         m_f.GetAddressInfoForGlobalPoint(glbPoint, addrInfo);
         OnActivatePOI(glbPoint, addrInfo);
-        return;
+        m_pinGlobalLocation = glbPoint;
+        dispatched = true;
       }
     }
+  }
 
+  if (!dispatched)
+  {
     OnDismiss();
+    m_hasPin = false;
+  }
+
+  m_f.Invalidate();
+}
+
+void PinClickManager::DrawPin(const shared_ptr<PaintEvent> & e)
+{
+  if (m_hasPin)
+  {
+    Navigator const    & navigator = m_f.GetNavigator();
+    InformationDisplay & informationDisplay = m_f.GetInformationDisplay();
+    m2::AnyRectD const & glbRect = navigator.Screen().GlobalRect();
+
+    // @todo changed pin picture
+    if (glbRect.IsPointInside(m_pinGlobalLocation))
+      informationDisplay.drawPlacemark(e->drawer(), "api_pin", navigator.GtoP(m_pinGlobalLocation));
   }
 }
 

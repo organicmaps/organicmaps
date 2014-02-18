@@ -803,6 +803,10 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   m_bmManager.DrawItems(e);
 
+
+  // somewhere here I can add current place mark
+  m_balloonManager.DrawPin(e);
+
   m_guiController->UpdateElements();
   m_guiController->DrawFrame(pScreen);
 }
@@ -1217,25 +1221,19 @@ bool Framework::GetCurrentPosition(double & lat, double & lon) const
   else return false;
 }
 
-#define DO_NOT_INCLUDE_IN_RELEASE
-
 void Framework::ShowSearchResult(search::Result const & res)
 {
-#ifdef DO_NOT_INCLUDE_IN_RELEASE
   search::Results searchRes;
   GetSearchEngine()->GetResults(searchRes);
 
   m_bmManager.AdditionalPoiLayerSetVisible();
   m_bmManager.AdditionalPoiLayerClear();
-  size_t resIndex = numeric_limits<size_t>::max();
+
   for (size_t i = 0; i < searchRes.GetCount(); ++i)
   {
     search::Result const & tmpRes = searchRes.GetResult(i);
     m_bmManager.AdditionalPoiLayerAddPoi(Bookmark(tmpRes.GetFeatureCenter(), tmpRes.GetString(), "api_pin"));
-    if (res == tmpRes)
-      resIndex = i;
   }
-#endif
 
   int scale;
   m2::PointD center;
@@ -1266,7 +1264,6 @@ void Framework::ShowSearchResult(search::Result const & res)
   }
 
   StopLocationFollow();
-
   ShowRectExVisibleScale(m_scales.GetRectForDrawScale(scale, center));
 }
 

@@ -10,6 +10,7 @@
 
 
 class Framework;
+class PaintEvent;
 namespace location { class GpsInfo; }
 namespace gui { class Element; }
 namespace search { struct AddressInfo; }
@@ -38,8 +39,14 @@ public:
   void RenderPolicyCreated(graphics::EDensity density);
   void LocationChanged(location::GpsInfo const & info);
   void OnClick(m2::PointD const & pxPoint, bool isLongTouch);
-
   void Hide();
+
+  void DrawPin(shared_ptr<PaintEvent> const & e);
+
+
+private:
+  bool m_hasPin;
+  m2::PointD m_pinGlobalLocation;
 
 private:
   /// @name Platform dependent listeners to show special activities.
