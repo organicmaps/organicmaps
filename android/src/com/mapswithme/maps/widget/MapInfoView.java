@@ -13,16 +13,22 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.bookmarks.data.MapObject.Poi;
+import com.mapswithme.maps.bookmarks.data.MapObject.SearchResult;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.SimpleLogger;
 
 public class MapInfoView extends LinearLayout
 {
+  private final Logger mLog = SimpleLogger.get("MwmMapInfoView");
+
   public interface OnVisibilityChangedListener
   {
     public void onHeadVisibilityChanged(boolean isVisible);
@@ -42,9 +48,6 @@ public class MapInfoView extends LinearLayout
   // Header
   private final TextView mTitle;;
   private final TextView mSubtitle;
-
-  // Body
-  private final ImageView mImage;
 
   // Data
   private MapObject mMapObject;
@@ -76,6 +79,23 @@ public class MapInfoView extends LinearLayout
     };
   };
 
+
+  private int mMaxBodyHeight = 0;
+  private final OnLayoutChangeListener mLayoutChangeListener = new OnLayoutChangeListener()
+  {
+
+    @Override
+    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight,
+        int oldBottom)
+    {
+      mMaxBodyHeight = (bottom - top)/2;
+      final ViewGroup.LayoutParams lp = mBodyGroup.getLayoutParams();
+      lp.height = mMaxBodyHeight;
+      mBodyGroup.setLayoutParams(lp);
+      mLog.d("Max height: " + mMaxBodyHeight);
+    }
+  };
+
   public MapInfoView(Context context, AttributeSet attrs, int defStyleAttr)
   {
     super(context, attrs, defStyleAttr);
@@ -93,10 +113,6 @@ public class MapInfoView extends LinearLayout
     // Header
     mTitle = (TextView) mHeaderGroup.findViewById(R.id.info_title);
     mSubtitle = (TextView) mHeaderGroup.findViewById(R.id.info_subtitle);
-
-    // Body
-    mImage = (ImageView) mBodyGroup.findViewById(R.id.info_image);
-    mImage.setImageResource(R.drawable.grump);
 
     // Gestures
     mGestureDetector = new GestureDetectorCompat(getContext(), mGestureListener);
@@ -125,6 +141,13 @@ public class MapInfoView extends LinearLayout
   public MapInfoView(Context context)
   {
     this(context, null, 0);
+  }
+
+  @Override
+  protected void onAttachedToWindow()
+  {
+    super.onAttachedToWindow();
+    ((View)getParent()).addOnLayoutChangeListener(mLayoutChangeListener);
   }
 
   public void showBody(final boolean show)
@@ -240,6 +263,28 @@ public class MapInfoView extends LinearLayout
         mMapObject = mo;
       }
     }
+  }
+
+  private void setBodyForPOI(Poi poi)
+  {
+    mBodyGroup.removeAllViews();
+  }
+
+  private void setBodyForBookmark(Bookmark bmk)
+  {
+    mBodyGroup.removeAllViews();
+  }
+
+  private void setBodyForAdditionalLayer(SearchResult sr)
+  {
+    mBodyGroup.removeAllViews();
+  }
+
+
+  private void setBodyForAPI(MapObject mo)
+  {
+    mBodyGroup.removeAllViews();
+    // TODO
   }
 
   public void setOnVisibilityChangedListener(OnVisibilityChangedListener listener)
