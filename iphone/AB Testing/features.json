@@ -45,7 +45,7 @@
                 },
             },
         }, 
-        "UA": {     
+        "BY": {
             "Variants": {
                 "MoPub": {
                     "Chance": 10,
@@ -433,7 +433,7 @@
                 },
             },
         },
-        "UA": {
+        "BY": {
             "Period": 86400,  
             "Variants": {
                 "MoPub": {
