@@ -65,6 +65,7 @@
         </ScrollView>
 
         <TextView
+            android:id="@+id/info_box_share"
             style="@style/tagGreenText.Large"
             android:layout_width="match_parent"
             android:layout_height="50dp"

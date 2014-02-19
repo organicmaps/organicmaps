@@ -1,5 +1,6 @@
 package com.mapswithme.maps.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
@@ -26,6 +27,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.MapObjectType;
 import com.mapswithme.maps.bookmarks.data.MapObject.Poi;
 import com.mapswithme.maps.bookmarks.data.MapObject.SearchResult;
+import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.SimpleLogger;
@@ -61,6 +63,9 @@ public class MapInfoView extends LinearLayout
 
   // Views
   private final LayoutInflater mInflater;
+
+  // Body
+  private final View mShareView;
 
   // Gestures
   private final GestureDetectorCompat mGestureDetector;
@@ -167,6 +172,15 @@ public class MapInfoView extends LinearLayout
 
     // Body
     mBodyContainer = (ScrollView) mBodyGroup.findViewById(R.id.body_container);
+    mShareView = mBodyGroup.findViewById(R.id.info_box_share);
+    mShareView.setOnClickListener(new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        ShareAction.getAnyShare().shareMapObject((Activity) getContext(), mMapObject);
+      }
+    });
 
     // Gestures
     mGestureDetector = new GestureDetectorCompat(getContext(), mGestureListener);
