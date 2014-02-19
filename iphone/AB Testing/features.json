@@ -8,7 +8,7 @@
         "CA": {     
             "Variants": {
                 "MoPub": {
-                    "Chance": 10,
+                    "Chance": 0,
                     "UnitId": "78b52bc1fc0e4931bb05f34fd3df7ea9",
                     "Languages": ["*"],  
                     "LaunchCount": [5, 1000000000],
@@ -19,7 +19,7 @@
         "AU": {     
             "Variants": {
                 "MoPub": {
-                    "Chance": 10,
+                    "Chance": 0,
                     "UnitId": "78b52bc1fc0e4931bb05f34fd3df7ea9",
                     "Languages": ["*"],  
                     "LaunchCount": [5, 1000000000],
@@ -30,7 +30,7 @@
         "ZA": {     
             "Variants": {
                 "MoPub": {
-                    "Chance": 10,
+                    "Chance": 0,
                     "UnitId": "78b52bc1fc0e4931bb05f34fd3df7ea9",
                     "Languages": ["*"],                   
                 },
@@ -39,7 +39,7 @@
         "NZ": {     
             "Variants": {
                 "MoPub": {
-                    "Chance": 10,
+                    "Chance": 0,
                     "UnitId": "78b52bc1fc0e4931bb05f34fd3df7ea9",
                     "Languages": ["*"],  
                 },
@@ -48,7 +48,7 @@
         "BY": {
             "Variants": {
                 "MoPub": {
-                    "Chance": 10,
+                    "Chance": 0,
                     "UnitId": "78b52bc1fc0e4931bb05f34fd3df7ea9",
                     "Languages": ["*"],  
                 },
@@ -345,7 +345,7 @@
             "Period": 86400,  
             "Variants": {
                 "MoPub": {
-                    "Chance": 70,
+                    "Chance": 0,
                     "Languages": ["*"],  
                     "LaunchCount": [5, 1000000000],
                     "TimeLimit": [432000, 1000000000],                    
@@ -391,7 +391,7 @@
             "Period": 86400,  
             "Variants": {
                 "MoPub": {
-                    "Chance": 70,
+                    "Chance": 0,
                     "Languages": ["*"],  
                     "LaunchCount": [5, 1000000000],
                     "TimeLimit": [432000, 1000000000],                    
@@ -437,7 +437,7 @@
             "Period": 86400,  
             "Variants": {
                 "MoPub": {
-                    "Chance": 70,
+                    "Chance": 0,
                     "Languages": ["*"],  
                     "LaunchCount": [5, 1000000000],
                     "TimeLimit": [432000, 1000000000],                    
