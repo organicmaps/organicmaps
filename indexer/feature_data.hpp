@@ -125,9 +125,6 @@ struct FeatureParamsBase
 
   string DebugString() const;
 
-  void AddHouseName(string const & s);
-  void AddHouseNumber(string const & s);
-
   template <class TSink>
   void Write(TSink & sink, uint8_t header) const
   {
@@ -194,7 +191,7 @@ class FeatureParams : public FeatureParamsBase
   uint8_t m_geomType;
 
   /// We use it now only for search unit tests
-  string m_streetAddress;
+  string m_street;
 
 public:
   typedef vector<uint32_t> types_t;
@@ -202,9 +199,12 @@ public:
 
   FeatureParams() : m_geomType(0xFF) {}
 
+  bool AddName(string const & lang, string const & s);
+  bool AddHouseName(string const & s);
+  bool AddHouseNumber(string const & s);
   /// @name Used in storing full street address only.
   //@{
-  inline void AddStreetAddress(string const & s) { m_streetAddress = s; }
+  void AddStreetAddress(string const & s);
   bool FormatFullAddress(m2::PointD const & pt, string & res) const;
   //@}
 
@@ -215,7 +215,7 @@ public:
     BaseT::operator=(rhs);
 
     m_Types = rhs.m_Types;
-    m_streetAddress = rhs.m_streetAddress;
+    m_street = rhs.m_street;
   }
 
   inline bool IsValid() const { return !m_Types.empty(); }

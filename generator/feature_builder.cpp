@@ -179,7 +179,7 @@ bool FeatureBuilder1::PreSerialize()
 
     // Store ref's in name field (used in "highway-motorway_junction").
     if (m_Params.name.IsEmpty() && !m_Params.ref.empty())
-      m_Params.name.AddString(0, m_Params.ref);
+      m_Params.name.AddString(StringUtf8Multilang::DEFAULT_CODE, m_Params.ref);
 
     m_Params.ref.clear();
     break;

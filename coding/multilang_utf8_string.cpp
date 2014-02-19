@@ -84,6 +84,7 @@ bool StringUtf8Multilang::GetString(int8_t lang, string & utf8s) const
 
 namespace
 {
+
 struct Printer
 {
   string & m_out;
@@ -94,7 +95,31 @@ struct Printer
     return true;
   }
 };
+
+struct Finder
+{
+  string const & m_s;
+  int8_t m_res;
+  Finder(string const & s) : m_s(s), m_res(-1) {}
+  bool operator()(int8_t code, string const & name)
+  {
+    if (name == m_s)
+    {
+      m_res = code;
+      return false;
+    }
+    return true;
+  }
+};
+
 } // namespace
+
+int8_t StringUtf8Multilang::FindString(string const & utf8s) const
+{
+  Finder finder(utf8s);
+  ForEachRef(finder);
+  return finder.m_res;
+}
 
 string DebugPrint(StringUtf8Multilang const & s)
 {

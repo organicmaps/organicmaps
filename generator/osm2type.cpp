@@ -49,25 +49,6 @@ namespace ftype
            );
     }
 
-    template <class ToDo> class tags_wrapper
-    {
-      typedef typename ToDo::result_type res_t;
-
-      string const & m_key;
-      ToDo & m_toDo;
-      res_t & m_res;
-
-    public:
-      tags_wrapper(string const & key, ToDo & toDo, res_t & res)
-        : m_key(key), m_toDo(toDo), m_res(res) {}
-
-      void operator() (string const & v)
-      {
-        if (!m_res)
-          m_res = m_toDo(m_key, v);
-      }
-    };
-
     template <class ToDo>
     typename ToDo::result_type for_each_tag(XMLElement * p, ToDo toDo)
     {
@@ -88,7 +69,7 @@ namespace ftype
           if (get_mark_value(k, v) == -1)
             continue;
 
-          strings::Tokenize(v, ";", tags_wrapper<ToDo>(k, toDo, res));
+          res = toDo(k, v);
           if (res) return res;
         }
       }
@@ -174,7 +155,7 @@ namespace ftype
           // Needed for better search matching
           QByteArray const normBytes = QString::fromUtf8(
                 v.c_str()).normalized(QString::NormalizationForm_KC).toUtf8();
-          m_params.name.AddString(lang, normBytes.constData());
+          m_params.AddName(lang, normBytes.constData());
         }
 
         // get layer

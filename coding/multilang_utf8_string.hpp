@@ -36,6 +36,8 @@ class StringUtf8Multilang
 
 public:
   static int8_t const UNSUPPORTED_LANGUAGE_CODE = -1;
+  static int8_t const DEFAULT_CODE = 0;
+
   /// @return UNSUPPORTED_LANGUAGE_CODE if language is not recognized
   static int8_t GetLangIndex(string const & lang);
   /// @return empty string if langCode is invalid
@@ -80,6 +82,8 @@ public:
     else
       return false;
   }
+
+  int8_t FindString(string const & utf8s) const;
 
   template <class TSink> void Write(TSink & sink) const
   {

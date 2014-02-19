@@ -1,4 +1,5 @@
 #include "feature_data.hpp"
+#include "feature_impl.hpp"
 #include "classificator.hpp"
 #include "feature.hpp"
 
@@ -108,13 +109,60 @@ string FeatureParamsBase::DebugString() const
           (!ref.empty() ? " Ref:" + ref : "") + " ");
 }
 
-void FeatureParamsBase::AddHouseName(string const & s)
+namespace
 {
-  house.Set(house.IsEmpty() ? s : house.Get() + ", " + s);
+
+// Most used dummy values are taken from
+// http://taginfo.openstreetmap.org/keys/addr%3Ahousename#values
+bool IsDummyName(string const & s)
+{
+  return (s.empty() ||
+          s == "Bloc" || s == "bloc" ||
+          s == "жилой дом" ||
+          s == "Edificio" || s == "edificio");
 }
 
-void FeatureParamsBase::AddHouseNumber(string const & ss)
+struct IsBadChar
 {
+  bool operator() (char c) const { return (c == '\n'); }
+};
+
+}
+
+bool FeatureParams::AddName(string const & lang, string const & s)
+{
+  if (IsDummyName(s))
+    return false;
+
+  name.AddString(lang, s);
+  return true;
+}
+
+bool FeatureParams::AddHouseName(string const & s)
+{
+  if (IsDummyName(s) || name.FindString(s) != StringUtf8Multilang::UNSUPPORTED_LANGUAGE_CODE)
+    return false;
+
+  // Most names are house numbers by statistics.
+  if (house.IsEmpty() && AddHouseNumber(s))
+    return true;
+
+  // Add as a default name if we don't have it yet.
+  string dummy;
+  if (!name.GetString(StringUtf8Multilang::DEFAULT_CODE, dummy))
+  {
+    name.AddString(StringUtf8Multilang::DEFAULT_CODE, s);
+    return true;
+  }
+
+  return false;
+}
+
+bool FeatureParams::AddHouseNumber(string const & ss)
+{
+  if (!feature::IsHouseNumber(ss))
+    return false;
+
   // Remove trailing zero's from house numbers.
   // It's important for debug checks of serialized-deserialized feature.
   string s(ss);
@@ -122,14 +170,33 @@ void FeatureParamsBase::AddHouseNumber(string const & ss)
   if (strings::to_uint64(s, n))
     s = strings::to_string(n);
 
-  house.Set(house.IsEmpty() ? s : s + ", " + house.Get());
+  house.Set(s);
+  return true;
+}
+
+void FeatureParams::AddStreetAddress(string const & s)
+{
+  m_street = s;
+
+  // Erase bad chars (\n) because we write addresses to txt file.
+  m_street.erase(remove_if(m_street.begin(), m_street.end(), IsBadChar()), m_street.end());
+
+  // Osm likes to put house numbers into addr:street field.
+  size_t i = m_street.find_last_of("\t ");
+  if (i != string::npos)
+  {
+    ++i;
+    uint64_t n;
+    if (strings::to_uint64(m_street.substr(i), n))
+      m_street.erase(i);
+  }
 }
 
 bool FeatureParams::FormatFullAddress(m2::PointD const & pt, string & res) const
 {
-  if (!m_streetAddress.empty() && !house.IsEmpty())
+  if (!m_street.empty() && !house.IsEmpty())
   {
-    res = m_streetAddress + "|" +  house.Get() + "|"
+    res = m_street + "|" + house.Get() + "|"
         + strings::to_string(MercatorBounds::YToLat(pt.y)) + "|"
         + strings::to_string(MercatorBounds::XToLon(pt.x)) + '\n';
     return true;
