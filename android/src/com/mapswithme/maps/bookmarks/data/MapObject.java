@@ -3,9 +3,13 @@ package com.mapswithme.maps.bookmarks.data;
 import java.io.Serializable;
 
 import com.mapswithme.maps.Framework;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.SimpleLogger;
 
 public abstract class MapObject
 {
+  private static final Logger mLog = SimpleLogger.get("MwmMapObject");
+
   public double getScale() { return 0; };
   // Interface
   public abstract String getName();
@@ -22,9 +26,15 @@ public abstract class MapObject
     final int[] primes = {2, 3, 5, 7, 11, 13, 17, 19, 23};
 
     final int base = primes[mo.getType().ordinal()];
-    final int sum = base*Double.valueOf(mo.getLat()).hashCode()
-                  + base*Double.valueOf(mo.getLon()).hashCode()
-                  + mo.getName() == null ? 1 : mo.getName().hashCode();
+    final int component1 = Double.valueOf(mo.getLat()).hashCode();
+    final int component2 = Double.valueOf(mo.getLon()).hashCode();
+    final int component3 = mo.getName() == null ? base : mo.getName().hashCode();
+
+    final int sum = (component1 << base)
+                  + (component2 >> base)
+                  +  component3;
+
+    mLog.d(String.format("c1=%d c2=%d c3=%d sum=%d", component1, component2, component3, sum));
 
     return sum;
   }

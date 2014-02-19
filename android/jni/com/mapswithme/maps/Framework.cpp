@@ -914,4 +914,9 @@ extern "C"
     g_framework->CleanSearchLayerOnMap();
   }
 
+  JNIEXPORT void Java_com_mapswithme_maps_Framework_invalidate(JNIEnv * env, jclass clazz)
+  {
+    g_framework->Invalidate();
+  }
+
 }

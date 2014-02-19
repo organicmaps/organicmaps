@@ -89,6 +89,11 @@ public class BookmarkManager
 
   public static native Point getBookmark(double px, double py);
 
+  public Bookmark getBookmark(Pair<Integer, Integer> catAndBmk)
+  {
+    return getBookmark(catAndBmk.first, catAndBmk.second);
+  }
+
   public Bookmark getBookmark(int cat, int bmk)
   {
     return getCategoryById(cat).getBookmark(bmk);

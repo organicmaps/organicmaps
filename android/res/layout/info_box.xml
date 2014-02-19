@@ -10,20 +10,37 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:padding="10dp" >
 
-        <TextView
-            android:id="@+id/info_title"
-            style="@style/Holo.TextAppearance.Large.Light"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/info_subtitle"
-            style="@style/Holo.TextAppearance.Medium.Light"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/info_title"
+                style="@style/infoItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="title" />
+
+            <TextView
+                style="@style/tagGreenText"
+                android:id="@+id/info_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="subtitle" />
+        </LinearLayout>
+
+        <CheckBox
+            android:background="#00F"
+            android:id="@+id/info_box_is_bookmarked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0" />
     </LinearLayout>
 
     <!-- Will have dynamic height -->

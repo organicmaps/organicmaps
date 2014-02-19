@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -20,7 +21,9 @@ import android.widget.TextView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.bookmarks.data.MapObject.MapObjectType;
 import com.mapswithme.maps.bookmarks.data.MapObject.Poi;
 import com.mapswithme.maps.bookmarks.data.MapObject.SearchResult;
 import com.mapswithme.util.UiUtils;
@@ -51,6 +54,7 @@ public class MapInfoView extends LinearLayout
   // Header
   private final TextView mTitle;;
   private final TextView mSubtitle;
+  private final CheckBox mIsBookmarked;
 
   // Data
   private MapObject mMapObject;
@@ -102,6 +106,45 @@ public class MapInfoView extends LinearLayout
     }
   };
 
+  // We dot want to use OnCheckedChangedListener because it gets called
+  // if someone calls setCheched() from code. We need only user interaction.
+  private final OnClickListener mIsBookmarkedClickListener = new OnClickListener()
+  {
+    @Override
+    public void onClick(View v)
+    {
+      if (v.getId() != R.id.info_box_is_bookmarked)
+        throw new IllegalStateException("This listener is only for is_bookmarkded checkbox.");
+
+      final BookmarkManager bm = BookmarkManager.getBookmarkManager();
+      if (mMapObject.getType() == MapObjectType.BOOKMARK)
+      {
+        // Make Poi from bookmark
+        final Poi p = new Poi(
+            mMapObject.getName(),
+            mMapObject.getLat(),
+            mMapObject.getLon(),
+            null);
+
+        // remove from bookmarks
+        bm.deleteBookmark((Bookmark) mMapObject);
+        setMapObject(p);
+      }
+      else
+      {
+        // Add to bookmarks
+        final Bookmark newbmk = bm.getBookmark(
+            bm.addNewBookmark(
+              mMapObject.getName(),
+              mMapObject.getLat(),
+              mMapObject.getLon()));
+
+        setMapObject(newbmk);
+      }
+      Framework.invalidate();
+    }
+  };
+
   public MapInfoView(Context context, AttributeSet attrs, int defStyleAttr)
   {
     super(context, attrs, defStyleAttr);
@@ -119,6 +162,8 @@ public class MapInfoView extends LinearLayout
     // Header
     mTitle = (TextView) mHeaderGroup.findViewById(R.id.info_title);
     mSubtitle = (TextView) mHeaderGroup.findViewById(R.id.info_subtitle);
+    mIsBookmarked = (CheckBox) mHeaderGroup.findViewById(R.id.info_box_is_bookmarked);
+    mIsBookmarked.setOnClickListener(mIsBookmarkedClickListener);
 
     // Body
     mBodyContainer = (ScrollView) mBodyGroup.findViewById(R.id.body_container);
@@ -275,15 +320,19 @@ public class MapInfoView extends LinearLayout
         switch (mo.getType())
         {
           case POI:
+            mIsBookmarked.setChecked(false);
             setBodyForPOI((Poi)mo);
             break;
           case BOOKMARK:
+            mIsBookmarked.setChecked(true);
             setBodyForBookmark((Bookmark)mo);
             break;
           case ADDITIONAL_LAYER:
+            mIsBookmarked.setChecked(false);
             setBodyForAdditionalLayer((SearchResult)mo);
             break;
           case API_POINT:
+            mIsBookmarked.setChecked(false);
             setBodyForAPI(mo);
             break;
           default:
