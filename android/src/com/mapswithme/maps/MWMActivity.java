@@ -1378,6 +1378,8 @@ public class MWMActivity extends NvEventQueueActivity
         {
           showInfoBox(false);
           mInfoView.setMapObject(null);
+          // TODO maybe this is not best solution
+          onBodyVisibilityChanged(false);
         }
       });
     }

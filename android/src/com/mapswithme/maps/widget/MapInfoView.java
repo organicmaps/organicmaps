@@ -14,8 +14,10 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -43,6 +45,7 @@ public class MapInfoView extends LinearLayout
 
   private final ViewGroup mHeaderGroup;
   private final ViewGroup mBodyGroup;
+  private final ScrollView mBodyContainer;
   private final View mView;
 
   // Header
@@ -51,6 +54,9 @@ public class MapInfoView extends LinearLayout
 
   // Data
   private MapObject mMapObject;
+
+  // Views
+  private final LayoutInflater mInflater;
 
   // Gestures
   private final GestureDetectorCompat mGestureDetector;
@@ -100,8 +106,8 @@ public class MapInfoView extends LinearLayout
   {
     super(context, attrs, defStyleAttr);
 
-    final LayoutInflater li =   (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    mView = li.inflate(R.layout.info_box, this, true);
+    mInflater =   (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    mView = mInflater.inflate(R.layout.info_box, this, true);
 
     mHeaderGroup = (ViewGroup) mView.findViewById(R.id.header);
     mBodyGroup = (ViewGroup) mView.findViewById(R.id.body);
@@ -113,6 +119,9 @@ public class MapInfoView extends LinearLayout
     // Header
     mTitle = (TextView) mHeaderGroup.findViewById(R.id.info_title);
     mSubtitle = (TextView) mHeaderGroup.findViewById(R.id.info_subtitle);
+
+    // Body
+    mBodyContainer = (ScrollView) mBodyGroup.findViewById(R.id.body_container);
 
     // Gestures
     mGestureDetector = new GestureDetectorCompat(getContext(), mGestureListener);
@@ -126,13 +135,6 @@ public class MapInfoView extends LinearLayout
     });
   }
 
-  @Override
-  public boolean onTouchEvent(MotionEvent event)
-  {
-    mGestureDetector.onTouchEvent(event);
-    return super.onTouchEvent(event);
-  }
-
   public MapInfoView(Context context, AttributeSet attrs)
   {
     this(context, attrs, 0);
@@ -141,6 +143,13 @@ public class MapInfoView extends LinearLayout
   public MapInfoView(Context context)
   {
     this(context, null, 0);
+  }
+
+  @Override
+  public boolean onTouchEvent(MotionEvent event)
+  {
+    mGestureDetector.onTouchEvent(event);
+    return super.onTouchEvent(event);
   }
 
   @Override
@@ -257,6 +266,24 @@ public class MapInfoView extends LinearLayout
       {
         mMapObject = mo;
         setTextAndShow(mo.getName(), mo.getType().toString());
+
+        switch (mo.getType())
+        {
+          case POI:
+            setBodyForPOI((Poi)mo);
+            break;
+          case BOOKMARK:
+            setBodyForBookmark((Bookmark)mo);
+            break;
+          case ADDITIONAL_LAYER:
+            setBodyForAdditionalLayer((SearchResult)mo);
+            break;
+          case API_POINT:
+            setBodyForAPI(mo);
+            break;
+          default:
+            throw new IllegalArgumentException("Unknown MapObject type:" + mo.getType());
+        }
       }
       else
       {
@@ -267,23 +294,29 @@ public class MapInfoView extends LinearLayout
 
   private void setBodyForPOI(Poi poi)
   {
-    mBodyGroup.removeAllViews();
+    mBodyContainer.removeAllViews();
+    final View poiView = mInflater.inflate(R.layout.info_box_poi, null);
+
+    final TextView addressText = (TextView) poiView.findViewById(R.id.info_box_address);
+    addressText.setText(Framework.getNameAndAddress4Point(poi.getLat(), poi.getLon()));
+
+    mBodyContainer.addView(poiView);
   }
 
   private void setBodyForBookmark(Bookmark bmk)
   {
-    mBodyGroup.removeAllViews();
+    mBodyContainer.removeAllViews();
   }
 
   private void setBodyForAdditionalLayer(SearchResult sr)
   {
-    mBodyGroup.removeAllViews();
+    mBodyContainer.removeAllViews();
   }
 
 
   private void setBodyForAPI(MapObject mo)
   {
-    mBodyGroup.removeAllViews();
+    mBodyContainer.removeAllViews();
     // TODO
   }
 

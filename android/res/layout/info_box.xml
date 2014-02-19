@@ -27,12 +27,35 @@
     </LinearLayout>
 
     <!-- Will have dynamic height -->
-    <FrameLayout
+
+    <LinearLayout
         android:id="@+id/body"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="500dp"
         android:background="@drawable/background_holo_light"
-        android:padding="10dp" >
-    </FrameLayout>
+        android:orientation="vertical" >
+
+        <View
+            style="@style/drawerSeparator"
+            android:layout_weight="0" />
+
+        <ScrollView
+            android:id="@+id/body_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#F00" >
+        </ScrollView>
+
+        <TextView
+            style="@style/tagGreenText.Large"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="0"
+            android:background="#0F0"
+            android:gravity="center"
+            android:text="@string/share"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
 
 </LinearLayout>
