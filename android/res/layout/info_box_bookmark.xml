@@ -7,14 +7,11 @@
 
     <TextView
         android:id="@+id/info_box_address"
-        style="@style/infoItem"
+        style="@style/Holo.TextAppearance.Medium.Light"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/info_box_bmk_category"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@string/robotoLight" />
 
     <include
         android:id="@+id/info_box_geo_ref"

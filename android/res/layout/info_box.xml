@@ -22,21 +22,26 @@
 
             <TextView
                 android:id="@+id/info_title"
-                style="@style/infoItem"
+                style="@style/Holo.TextAppearance.Large.Light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@string/robotoLight"
                 android:text="title" />
 
             <TextView
-                style="@style/tagGreenText"
                 android:id="@+id/info_subtitle"
+                style="@style/Holo.TextAppearance.Medium.Light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="subtitle" />
+                android:background="@color/ui_20_green"
+                android:fontFamily="@string/robotoRegular"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="subtitle"
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
         <CheckBox
-            android:background="#00F"
             android:id="@+id/info_box_is_bookmarked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,8 +65,7 @@
             android:id="@+id/body_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#F00" >
+            android:layout_weight="1" >
         </ScrollView>
 
         <TextView
@@ -70,7 +74,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_weight="0"
-            android:background="#0F0"
+            android:background="@drawable/ui_20_green_selector"
+            android:fontFamily="@string/robotoLight"
             android:gravity="center"
             android:text="@string/share"
             android:textColor="@android:color/white" />

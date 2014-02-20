@@ -14,8 +14,8 @@
         app:layout_gravity="left"
         app:layout_row="1"
         android:fontFamily="@string/robotoLight"
-        android:text="Distance"
-        android:textColor="#333333" />
+        android:text="Distance TODO"
+        android:textColor="@color/ui_20_text_dark" />
 
     <TextView
         android:id="@+id/info_box_geo_distance"
@@ -24,7 +24,7 @@
         app:layout_gravity="right"
         app:layout_row="1"
         android:fontFamily="@string/robotoRegular"
-        android:textColor="#53d769" />
+        android:textColor="@color/ui_20_text_green" />
 
     <TextView
         style="@style/Holo.TextAppearance.Medium.Light"
@@ -32,8 +32,8 @@
         app:layout_gravity="left"
         app:layout_row="2"
         android:fontFamily="@string/robotoLight"
-        android:text="Location"
-        android:textColor="#333333" />
+        android:text="Location TODO"
+        android:textColor="@color/ui_20_text_dark" />
 
     <TextView
         android:id="@+id/info_box_geo_location"
@@ -42,6 +42,6 @@
         app:layout_gravity="right"
         app:layout_row="2"
         android:fontFamily="@string/robotoRegular"
-        android:textColor="#53d769" />
+        android:textColor="@color/ui_20_text_green" />
 
 </android.support.v7.widget.GridLayout>
