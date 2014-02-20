@@ -218,7 +218,7 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
     BOOL inLaunchInterval = YES;
     NSArray * launchCountInterval = imageParameters[@"LaunchCount"];
     if ([launchCountInterval count] == 2)
-      inTimeInterval = info.launchCount >= [launchCountInterval[0] doubleValue] && info.launchCount <= [launchCountInterval[1] doubleValue];
+      inLaunchInterval = info.launchCount >= [launchCountInterval[0] doubleValue] && info.launchCount <= [launchCountInterval[1] doubleValue];
 
     BOOL shouldShow = [imageParameters[@"Online"] boolValue] ? [info.reachability isReachable] : YES;
 
