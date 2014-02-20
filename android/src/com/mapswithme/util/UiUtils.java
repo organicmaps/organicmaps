@@ -1,5 +1,7 @@
 package com.mapswithme.util;
 
+import static com.mapswithme.util.Utils.checkNotNull;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -15,6 +17,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
+import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
 
@@ -34,30 +37,30 @@ public final class UiUtils
   public static Drawable setCompoundDrawableBounds(Drawable d, int dimenId, Resources res)
   {
     final int dimension = (int) res.getDimension(dimenId);
-    final float aspect = (float)d.getIntrinsicWidth()/d.getIntrinsicHeight();
-    d.setBounds(0, 0, (int) (aspect*dimension), dimension);
+    final float aspect = (float) d.getIntrinsicWidth() / d.getIntrinsicHeight();
+    d.setBounds(0, 0, (int) (aspect * dimension), dimension);
     return d;
   }
 
-  public static void hide(View ... views)
+  public static void hide(View... views)
   {
     for (final View v : views)
       v.setVisibility(View.GONE);
   }
 
-  public static void show(View ... views)
+  public static void show(View... views)
   {
     for (final View v : views)
       v.setVisibility(View.VISIBLE);
   }
 
-  public static void invisible(View ... views)
+  public static void invisible(View... views)
   {
     for (final View v : views)
       v.setVisibility(View.INVISIBLE);
   }
 
-  public static void hideIf(boolean condition, View ... views)
+  public static void hideIf(boolean condition, View... views)
   {
     if (condition)
       hide(views);
@@ -72,13 +75,11 @@ public final class UiUtils
 
       @Override
       public void onAnimationStart(Animation animation)
-      {
-      }
+      {}
 
       @Override
       public void onAnimationRepeat(Animation animation)
-      {
-      }
+      {}
 
       @Override
       public void onAnimationEnd(Animation animation)
@@ -86,7 +87,8 @@ public final class UiUtils
         try
         {
           hide(target);
-        } catch (final Exception e)
+        }
+        catch (final Exception e)
         {
           // ignore
         }
@@ -101,16 +103,14 @@ public final class UiUtils
     target.startAnimation(anim);
   }
 
-
   public static Drawable setCompoundDrawableBounds(int drawableId, int dimenId, Resources res)
   {
     return setCompoundDrawableBounds(res.getDrawable(drawableId), dimenId, res);
   }
 
-
   public static Drawable drawCircleForPin(String type, int size, Resources res)
   {
-    //detect color by pin name
+    // detect color by pin name
     int color = Color.BLACK;
     try
     {
@@ -128,7 +128,6 @@ public final class UiUtils
     return drawCircle(color, size, res);
   }
 
-
   public static Drawable drawCircle(int color, int size, Resources res)
   {
     final Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
@@ -138,24 +137,24 @@ public final class UiUtils
     paint.setAntiAlias(true);
 
     final Canvas c = new Canvas(bmp);
-    final float dim = size/2.0f;
+    final float dim = size / 2.0f;
     c.drawCircle(dim, dim, dim, paint);
 
     return new BitmapDrawable(res, bmp);
   }
-
 
   @SuppressLint("DefaultLocale")
   public static final int colorByName(String name, int defColor)
   {
     if (COLOR_MAP.containsKey(name.trim().toLowerCase()))
       return COLOR_MAP.get(name);
-    else return defColor;
+    else
+      return defColor;
   }
 
-
   private static final Map<String, Integer> COLOR_MAP = new HashMap<String, Integer>();
-  static {
+  static
+  {
     COLOR_MAP.put("blue", Color.parseColor("#33ccff"));
     COLOR_MAP.put("brown", Color.parseColor("#663300"));
     COLOR_MAP.put("green", Color.parseColor("#66ff33"));
@@ -170,20 +169,27 @@ public final class UiUtils
   {
     @Override
     public void onAnimationStart(Animation animation)
-    {
-    }
+    {}
 
     @Override
     public void onAnimationEnd(Animation animation)
-    {
-    }
+    {}
 
     @Override
     public void onAnimationRepeat(Animation animation)
-    {
-    }
+    {}
+  }
+
+  public static TextView findViewSetText(View root, int textViewId, CharSequence text)
+  {
+    checkNotNull(root);
+
+    final TextView tv = (TextView) root.findViewById(textViewId);
+    tv.setText(text);
+    return tv;
   }
 
   // utility class
-  private UiUtils() {};
+  private UiUtils()
+  {};
 }

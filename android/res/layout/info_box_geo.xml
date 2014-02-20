@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/info_box_geo"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_rounded_background"
+    android:padding="10dp"
+    app:columnCount="2" >
+
+    <TextView
+        style="@style/Holo.TextAppearance.Medium.Light"
+        app:layout_column="0"
+        app:layout_gravity="left"
+        app:layout_row="1"
+        android:fontFamily="@string/robotoLight"
+        android:text="Distance"
+        android:textColor="#333333" />
+
+    <TextView
+        android:id="@+id/info_box_geo_distance"
+        style="@style/Holo.TextAppearance.Medium.Light"
+        app:layout_column="1"
+        app:layout_gravity="right"
+        app:layout_row="1"
+        android:fontFamily="@string/robotoRegular"
+        android:textColor="#53d769" />
+
+    <TextView
+        style="@style/Holo.TextAppearance.Medium.Light"
+        app:layout_column="0"
+        app:layout_gravity="left"
+        app:layout_row="2"
+        android:fontFamily="@string/robotoLight"
+        android:text="Location"
+        android:textColor="#333333" />
+
+    <TextView
+        android:id="@+id/info_box_geo_location"
+        style="@style/Holo.TextAppearance.Medium.Light"
+        app:layout_column="1"
+        app:layout_gravity="right"
+        app:layout_row="2"
+        android:fontFamily="@string/robotoRegular"
+        android:textColor="#53d769" />
+
+</android.support.v7.widget.GridLayout>

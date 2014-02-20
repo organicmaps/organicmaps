@@ -11,7 +11,6 @@ public class StringUtils
   /**
    *  Set span for the FIRST occurrence of EACH token.
    *
-   *
    * @param input
    * @param spanStyle
    * @param tokens

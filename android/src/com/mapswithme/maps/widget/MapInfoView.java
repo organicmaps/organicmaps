@@ -2,7 +2,9 @@ package com.mapswithme.maps.widget;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Location;
 import android.support.v4.view.GestureDetectorCompat;
+import android.support.v7.widget.GridLayout;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -20,6 +22,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -181,6 +184,7 @@ public class MapInfoView extends LinearLayout
         ShareAction.getAnyShare().shareMapObject((Activity) getContext(), mMapObject);
       }
     });
+
 
     // Gestures
     mGestureDetector = new GestureDetectorCompat(getContext(), mGestureListener);
@@ -352,12 +356,29 @@ public class MapInfoView extends LinearLayout
           default:
             throw new IllegalArgumentException("Unknown MapObject type:" + mo.getType());
         }
+        // Setup geoinformation
+        setUpGeoInformation(mo);
       }
       else
       {
         mMapObject = mo;
       }
     }
+  }
+
+  private void setUpGeoInformation(MapObject mo)
+  {
+    final GridLayout mGeoLayout = (GridLayout) mBodyContainer.findViewById(R.id.info_box_geo_ref);
+    final Location lastKnown = MWMApplication.get().getLocationService().getLastKnown();
+
+    final CharSequence distanceText = (lastKnown == null)
+        ? "TODO default string"
+        : Framework.getDistanceAndAzimutFromLatLon(
+            mo.getLat(), mo.getLon(), lastKnown.getLatitude(),
+            lastKnown.getLongitude(), 0.0).getDistance();
+
+    UiUtils.findViewSetText(mGeoLayout, R.id.info_box_geo_distance, distanceText);
+    UiUtils.findViewSetText(mGeoLayout, R.id.info_box_geo_location, UiUtils.formatLatLon(mo.getLat(), mo.getLon()));
   }
 
   private void setBodyForPOI(Poi poi)
@@ -374,6 +395,12 @@ public class MapInfoView extends LinearLayout
   private void setBodyForBookmark(Bookmark bmk)
   {
     mBodyContainer.removeAllViews();
+    final View bmkView = mInflater.inflate(R.layout.info_box_bookmark, null);
+
+    final TextView addressText = (TextView) bmkView.findViewById(R.id.info_box_address);
+    addressText.setText(Framework.getNameAndAddress4Point(bmk.getLat(), bmk.getLon()));
+
+    mBodyContainer.addView(bmkView);
   }
 
   private void setBodyForAdditionalLayer(SearchResult sr)

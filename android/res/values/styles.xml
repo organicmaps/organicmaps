@@ -2,6 +2,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
     <string name="robotoLight">sans-serif-light</string>
+    <string name="robotoRegular">"sans-serif"</string>
+
 
     <style name="Widget.MapButtonZoom" parent="android:Widget.Holo.ImageButton">
         <item name="android:background">@drawable/btn_zoom_bg_selector</item>
