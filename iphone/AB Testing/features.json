@@ -8,10 +8,9 @@
         "CA": {     
             "Variants": {
                 "MoPub": {
-                    "Chance": 0,
+                    "Chance": 10,
                     "UnitId": "78b52bc1fc0e4931bb05f34fd3df7ea9",
                     "Languages": ["*"],  
-                    "LaunchCount": [5, 1000000000],
                     "TimeLimit": [432000, 1000000000],                    
                 },
             },
@@ -19,10 +18,9 @@
         "AU": {     
             "Variants": {
                 "MoPub": {
-                    "Chance": 0,
+                    "Chance": 10,
                     "UnitId": "78b52bc1fc0e4931bb05f34fd3df7ea9",
                     "Languages": ["*"],  
-                    "LaunchCount": [5, 1000000000],
                     "TimeLimit": [432000, 1000000000],                    
                 },
             },
@@ -30,7 +28,7 @@
         "ZA": {     
             "Variants": {
                 "MoPub": {
-                    "Chance": 0,
+                    "Chance": 10,
                     "UnitId": "78b52bc1fc0e4931bb05f34fd3df7ea9",
                     "Languages": ["*"],                   
                 },
@@ -39,7 +37,7 @@
         "NZ": {     
             "Variants": {
                 "MoPub": {
-                    "Chance": 0,
+                    "Chance": 10,
                     "UnitId": "78b52bc1fc0e4931bb05f34fd3df7ea9",
                     "Languages": ["*"],  
                 },
@@ -48,7 +46,7 @@
         "BY": {
             "Variants": {
                 "MoPub": {
-                    "Chance": 0,
+                    "Chance": 10,
                     "UnitId": "78b52bc1fc0e4931bb05f34fd3df7ea9",
                     "Languages": ["*"],  
                 },
@@ -66,37 +64,37 @@
             "Variants": {
                 "MWMPro1": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,
                 },
                 "MWMPro2": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro3": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4_1": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4_2": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro5": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
             },
@@ -106,37 +104,37 @@
             "Variants": {
                 "MWMPro1": {
                     "Chance": 10,
-                    "Languages": ["*"], 
+                    "Languages": ["ru", "en"], 
                     "Online": true,                     
                 },
                 "MWMPro2": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro3": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4_1": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4_2": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro5": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
             },
@@ -146,37 +144,37 @@
             "Variants": {
                 "MWMPro1": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro2": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro3": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4_1": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4_2": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro5": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
             },
@@ -186,37 +184,37 @@
             "Variants": {
                 "MWMPro1": {
                     "Chance": 10,
-                    "Languages": ["*"], 
+                    "Languages": ["ru", "en"], 
                     "Online": true,                     
                 },
                 "MWMPro2": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro3": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4_1": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4_2": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro5": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
             },
@@ -226,37 +224,37 @@
             "Variants": {
                 "MWMPro1": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro2": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro3": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4_1": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4_2": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro5": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
             },
@@ -266,37 +264,37 @@
             "Variants": {
                 "MWMPro1": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro2": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro3": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4_1": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4_2": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro5": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
             },
@@ -304,39 +302,9 @@
         "RU": {
             "Period": 86400,  
             "Variants": {
-                "MWMPro1": {
-                    "Chance": 10,
-                    "Languages": ["ru"],  
-                    "Online": true,                    
-                },
-                "MWMPro2": {
-                    "Chance": 10,
-                    "Languages": ["ru"],  
-                    "Online": true,                    
-                },
-                "MWMPro3": {
-                    "Chance": 10,
-                    "Languages": ["ru"],  
-                    "Online": true,                    
-                },
                 "MWMPro4": {
                     "Chance": 10,
-                    "Languages": ["ru"],  
-                    "Online": true,                    
-                },
-                "MWMPro4_1": {
-                    "Chance": 10,
-                    "Languages": ["ru"],  
-                    "Online": true,                    
-                },
-                "MWMPro4_2": {
-                    "Chance": 10,
-                    "Languages": ["ru"],  
-                    "Online": true,                    
-                },
-                "MWMPro5": {
-                    "Chance": 10,
-                    "Languages": ["ru"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
             },
@@ -345,44 +313,43 @@
             "Period": 86400,  
             "Variants": {
                 "MoPub": {
-                    "Chance": 0,
+                    "Chance": 70,
                     "Languages": ["*"],  
-                    "LaunchCount": [5, 1000000000],
                     "TimeLimit": [432000, 1000000000],                    
                 },
                 "MWMPro1": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro2": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro3": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4_1": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4_2": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro5": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
             },
@@ -391,44 +358,43 @@
             "Period": 86400,  
             "Variants": {
                 "MoPub": {
-                    "Chance": 0,
+                    "Chance": 70,
                     "Languages": ["*"],  
-                    "LaunchCount": [5, 1000000000],
                     "TimeLimit": [432000, 1000000000],                    
                 },
                 "MWMPro1": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro2": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro3": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4_1": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro4_2": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
                 "MWMPro5": {
                     "Chance": 10,
-                    "Languages": ["*"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
             },
@@ -437,44 +403,13 @@
             "Period": 86400,  
             "Variants": {
                 "MoPub": {
-                    "Chance": 0,
+                    "Chance": 10,
                     "Languages": ["*"],  
-                    "LaunchCount": [5, 1000000000],
                     "TimeLimit": [432000, 1000000000],                    
-                },
-                "MWMPro1": {
-                    "Chance": 10,
-                    "Languages": ["ru"],  
-                    "Online": true,                    
-                },
-                "MWMPro2": {
-                    "Chance": 10,
-                    "Languages": ["ru"],  
-                    "Online": true,                    
-                },
-                "MWMPro3": {
-                    "Chance": 10,
-                    "Languages": ["ru"],  
-                    "Online": true,                    
                 },
                 "MWMPro4": {
                     "Chance": 10,
-                    "Languages": ["ru"],  
-                    "Online": true,                    
-                },
-                "MWMPro4_1": {
-                    "Chance": 10,
-                    "Languages": ["ru"],  
-                    "Online": true,                    
-                },
-                "MWMPro4_2": {
-                    "Chance": 10,
-                    "Languages": ["ru"],  
-                    "Online": true,                    
-                },
-                "MWMPro5": {
-                    "Chance": 10,
-                    "Languages": ["ru"],  
+                    "Languages": ["ru", "en"],  
                     "Online": true,                    
                 },
             },
