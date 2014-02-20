@@ -230,6 +230,8 @@ public:
   void GetPreferredNames(string & defaultName, string & intName) const;
   /// Get one most suitable name for user.
   void GetReadableName(string & name) const;
+
+  static int8_t const DEFAULT_LANG = StringUtf8Multilang::DEFAULT_CODE;
   bool GetName(int8_t lang, string & name) const;
   //@}
 

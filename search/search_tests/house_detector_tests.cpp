@@ -95,6 +95,90 @@ public:
   }
 };
 
+UNIT_TEST(HS_ParseNumber)
+{
+  typedef search::ParsedNumber NumberT;
+
+  {
+    NumberT n("135");
+    TEST(n.IsOdd(), ());
+    TEST_EQUAL(n.GetIntNumber(), 135, ());
+
+    NumberT n1("133");
+    NumberT n2("137");
+    TEST(n.IsIntersect(n1, 2), ());
+    TEST(!n.IsIntersect(n1, 1), ());
+    TEST(n.IsIntersect(n2, 2), ());
+    TEST(!n.IsIntersect(n2, 1), ());
+  }
+
+  {
+    NumberT n("135 1к/2");
+    TEST(n.IsOdd(), ());
+    TEST_EQUAL(n.GetIntNumber(), 135, ());
+
+    TEST(!n.IsIntersect(NumberT("134")), ());
+    TEST(!n.IsIntersect(NumberT("136")), ());
+  }
+
+  {
+    NumberT n("135A");
+    TEST(n.IsOdd(), ());
+    TEST_EQUAL(n.GetIntNumber(), 135, ());
+
+    TEST(!n.IsIntersect(NumberT("134")), ());
+    TEST(!n.IsIntersect(NumberT("136")), ());
+  }
+
+  {
+    NumberT n("135-к1", false);
+    TEST(n.IsOdd(), ());
+    TEST_EQUAL(n.GetIntNumber(), 135, ());
+
+    TEST(!n.IsIntersect(NumberT("134")), ());
+    TEST(!n.IsIntersect(NumberT("136")), ());
+  }
+
+  {
+    NumberT n("135-12", false);
+    TEST(n.IsOdd(), ());
+    TEST_EQUAL(n.GetIntNumber(), 135, ());
+
+    TEST(!n.IsIntersect(NumberT("134")), ());
+    TEST(!n.IsIntersect(NumberT("136")), ());
+  }
+
+
+  {
+    NumberT n("135-24", true);
+    TEST(!n.IsOdd(), ());
+    TEST_EQUAL(n.GetIntNumber(), 13524, ());
+  }
+
+  {
+    NumberT n("135;133;131");
+    TEST(n.IsOdd(), ());
+    TEST_EQUAL(n.GetIntNumber(), 131, ());
+
+    for (int i = 131; i <= 135; ++i)
+      TEST(n.IsIntersect(NumberT(strings::to_string(i))), ());
+    TEST(!n.IsIntersect(NumberT("130")), ());
+    TEST(!n.IsIntersect(NumberT("136")), ());
+  }
+
+  {
+    NumberT n("6-10", false);
+    TEST(!n.IsOdd(), ());
+    TEST_EQUAL(n.GetIntNumber(), 6, ());
+
+    for (int i = 6; i <= 10; ++i)
+      TEST(n.IsIntersect(NumberT(strings::to_string(i))), ());
+
+    TEST(!n.IsIntersect(NumberT("5")), ());
+    TEST(!n.IsIntersect(NumberT("11")), ());
+  }
+}
+
 UNIT_TEST(HS_StreetsMerge)
 {
   classificator::Load();
@@ -279,7 +363,9 @@ void swap(Address & a1, Address & a2)
 
 UNIT_TEST(HS_MWMSearch)
 {
-  string const path = GetPlatform().WritableDir() + "addresses-Minsk.txt";
+  string const country = "Minsk"; //"Belarus"; //"USA_New York";
+
+  string const path = GetPlatform().WritableDir() + "addresses-" + country + ".txt";
   ifstream file(path.c_str());
   if (!file.good())
   {
@@ -289,7 +375,7 @@ UNIT_TEST(HS_MWMSearch)
 
   Index index;
   m2::RectD rect;
-  if (!index.Add("Minsk.mwm", rect))
+  if (!index.Add(country + ".mwm", rect))
   {
     LOG(LWARNING, ("MWM file not found"));
     return;

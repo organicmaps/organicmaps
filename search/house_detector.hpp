@@ -32,38 +32,36 @@ public:
   template <class ToDo> void ForEachInRect(m2::RectD const & rect, ToDo toDo);
 };
 
+struct ParsedNumber
+{
+  string m_fullN;
+  int m_startN, m_endN;
+
+public:
+  /// @todo Pass correct "American" notation flag.
+  ParsedNumber(string const & number, bool american = false);
+
+  inline string const & GetNumber() const { return m_fullN; }
+  inline bool IsOdd() const { return (m_startN % 2 == 1); }
+  inline int GetIntNumber() const { return m_startN; }
+
+  bool IsIntersect(ParsedNumber const & number, int offset = 0) const;
+};
+
 class House
 {
-  string m_number;
+  ParsedNumber m_number;
   m2::PointD m_point;
-
-  // Start and End house numbers for this object.
-  // Osm objects can store many numbers for one area feature.
-  int m_startN, m_endN;
-  friend struct CompareHouseNumber;
-
-  void InitHouseNumber();
 
 public:
   House(string const & number, m2::PointD const & point)
-    : m_number(number), m_point(point), m_startN(-1), m_endN(-1)
+    : m_number(number), m_point(point)
   {
-    InitHouseNumber();
   }
 
-  inline string const & GetNumber() const { return m_number; }
-  inline int GetIntNumber() const { return m_startN; }
+  inline string const & GetNumber() const { return m_number.GetNumber(); }
+  inline int GetIntNumber() const { return m_number.GetIntNumber(); }
   inline m2::PointD const & GetPosition() const { return m_point; }
-
-  struct ParsedNumber
-  {
-    string const * m_fullN;
-    int m_intN;
-
-    ParsedNumber(string const & number);
-
-    bool IsOdd() const { return (m_intN % 2 == 1); }
-  };
 
   /// @return \n
   /// -1 - no match;
@@ -101,18 +99,6 @@ struct HouseProjection
     EqualHouse(House const * h) : m_house(h) {}
     bool operator() (HouseProjection const * p) const { return m_house == p->m_house; }
   };
-};
-
-struct CompareHouseNumber
-{
-  bool Less(HouseProjection const * h1, HouseProjection const * h2) const
-  {
-    return (h1->m_house->m_startN <= h2->m_house->m_startN);
-  }
-  bool Greater(HouseProjection const * h1, HouseProjection const * h2) const
-  {
-    return (h1->m_house->m_startN >= h2->m_house->m_startN);
-  }
 };
 
 // many features combines to street
@@ -213,6 +199,7 @@ class HouseDetector
 
   double m_metres2Mercator;
   int m_streetNum;
+  double m_houseOffsetM;
 
   typedef pair<Street *, bool> StreetPtr;
   StreetPtr FindConnection(Street const * st, bool beg) const;
@@ -233,7 +220,7 @@ public:
   /// @return number of different joined streets.
   int MergeStreets();
 
-  static int const DEFAULT_OFFSET_M = 500;
+  static int const DEFAULT_OFFSET_M = 200;
   void ReadAllHouses(double offsetMeters = DEFAULT_OFFSET_M);
 
   void GetHouseForName(string const & houseNumber, vector<House const *> & res);
