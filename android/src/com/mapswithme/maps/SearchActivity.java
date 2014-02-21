@@ -164,7 +164,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       else if (m_count < 0)
         return 0;
       else
-        return (m_count == 0 ? 1 : m_count);
+        return (m_count == 0 ? 1 : m_count + 1); // first additional item is "Show all result for"
     }
 
     @Override
@@ -319,6 +319,21 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       }
       else
       {
+        // title item with "Show all" text
+        if (position == 0)
+        {
+          holder.m_name.setText("TODO show all text");
+          holder.m_country.setText(null);
+          holder.m_amenity.setText(null);
+          holder.m_distance.setText(null);
+          holder.m_flag.clear();
+
+          return convertView;
+        }
+        // 0 index is for multiple result
+        // so real result are from 1
+        --position;
+
         // Show search results.
 
         final SearchResult r = m_context.getResult(position, m_resultID);

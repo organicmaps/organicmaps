@@ -1221,16 +1221,16 @@ bool Framework::GetCurrentPosition(double & lat, double & lon) const
   else return false;
 }
 
-void Framework::ShowSearchResult(search::Result const & res, size_t index)
+void Framework::ShowSearchResult(search::Result const & res, int index)
 {
-  search::Results searchRes;
-  GetSearchEngine()->GetResults(searchRes);
-
   m_bmManager.AdditionalPoiLayerSetVisible();
   m_bmManager.AdditionalPoiLayerClear();
 
   if (index == -1) // That means show all results
   {
+    search::Results searchRes;
+    GetSearchEngine()->GetResults(searchRes);
+
     LOG(LDEBUG, ("MwmSearch", "All result,", index));
 
     m2::RectD resultsRect(searchRes.GetResult(0).GetFeatureCenter(),
@@ -1250,6 +1250,7 @@ void Framework::ShowSearchResult(search::Result const & res, size_t index)
   else // single result
   {
     m_bmManager.AdditionalPoiLayerAddPoi(Bookmark(res.GetFeatureCenter(), res.GetString(), "api_pin"));
+
     LOG(LDEBUG, ("MwmSearch", "Single result,", index));
 
     int scale;

@@ -451,6 +451,12 @@ public class MapObjectFragment extends Fragment
 
       @Override
       public MapObjectType getType() { return mType; }
+
+      @Override
+      public String getPoiTypeName()
+      {
+        return null;
+      }
     };
   }
 

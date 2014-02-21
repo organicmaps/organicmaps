@@ -437,7 +437,7 @@ namespace android
     m_mask = mask;
   }
 
-  void Framework::ShowSearchResult(search::Result const & r, size_t index)
+  void Framework::ShowSearchResult(search::Result const & r, int index)
   {
     m_doLoadState = false;
     m_work.ShowSearchResult(r, index);

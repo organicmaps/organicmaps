@@ -162,8 +162,14 @@ public:
     //
     // ...
     // n -- last
-    if (CheckPosition(position))
-      g_framework->ShowSearchResult(m_results.GetResult(position), position - 1);
+    const int positionInResults = position - 1;
+    if (CheckPosition(positionInResults))
+    {
+      if (position == 0) // all result, first arguemnt does not matter
+        g_framework->ShowSearchResult(m_results.GetResult(0), positionInResults);
+      else
+        g_framework->ShowSearchResult(m_results.GetResult(positionInResults), positionInResults);
+    }
   }
 
   search::Result const * GetResult(int position, int resultID)
