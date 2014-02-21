@@ -157,8 +157,13 @@ public:
 
   void ShowItem(int position)
   {
+    // 0 -- show all
+    // 1 -- first
+    //
+    // ...
+    // n -- last
     if (CheckPosition(position))
-      g_framework->ShowSearchResult(m_results.GetResult(position));
+      g_framework->ShowSearchResult(m_results.GetResult(position), position - 1);
   }
 
   search::Result const * GetResult(int position, int resultID)

@@ -1221,7 +1221,7 @@ bool Framework::GetCurrentPosition(double & lat, double & lon) const
   else return false;
 }
 
-void Framework::ShowSearchResult(search::Result const & res)
+void Framework::ShowSearchResult(search::Result const & res, size_t index)
 {
   search::Results searchRes;
   GetSearchEngine()->GetResults(searchRes);
@@ -1229,42 +1229,60 @@ void Framework::ShowSearchResult(search::Result const & res)
   m_bmManager.AdditionalPoiLayerSetVisible();
   m_bmManager.AdditionalPoiLayerClear();
 
-  for (size_t i = 0; i < searchRes.GetCount(); ++i)
+  if (index == -1) // That means show all results
   {
-    search::Result const & tmpRes = searchRes.GetResult(i);
-    m_bmManager.AdditionalPoiLayerAddPoi(Bookmark(tmpRes.GetFeatureCenter(), tmpRes.GetString(), "api_pin"));
+    LOG(LDEBUG, ("MwmSearch", "All result,", index));
+
+    m2::RectD resultsRect(searchRes.GetResult(0).GetFeatureCenter(),
+                          searchRes.GetResult(1).GetFeatureCenter());
+
+    for (size_t i = 0; i < searchRes.GetCount(); ++i)
+    {
+      search::Result const & tmpRes = searchRes.GetResult(i);
+      m_bmManager.AdditionalPoiLayerAddPoi(Bookmark(tmpRes.GetFeatureCenter(), tmpRes.GetString(), "api_pin"));
+
+      if (i > 1)
+        resultsRect.Add(tmpRes.GetFeatureCenter());
+    }
+
+    ShowRectEx(resultsRect);
   }
-
-  int scale;
-  m2::PointD center;
-
-  switch (res.GetResultType())
+  else // single result
   {
-  case search::Result::RESULT_FEATURE:
-  {
-    FeatureID const id = res.GetFeatureID();
-    Index::FeaturesLoaderGuard guard(m_model.GetIndex(), id.m_mwm);
+    m_bmManager.AdditionalPoiLayerAddPoi(Bookmark(res.GetFeatureCenter(), res.GetString(), "api_pin"));
+    LOG(LDEBUG, ("MwmSearch", "Single result,", index));
 
-    FeatureType ft;
-    guard.GetFeature(id.m_offset, ft);
+    int scale;
+    m2::PointD center;
 
-    scale = feature::GetFeatureViewportScale(feature::TypesHolder(ft));
-    center = feature::GetCenter(ft, scale);
-    break;
-  }
+    switch (res.GetResultType())
+    {
+    case search::Result::RESULT_FEATURE:
+    {
+      FeatureID const id = res.GetFeatureID();
+      Index::FeaturesLoaderGuard guard(m_model.GetIndex(), id.m_mwm);
 
-  case search::Result::RESULT_LATLON:
-    scale = scales::GetUpperComfortScale();
-    center = res.GetFeatureCenter();
-    break;
+      FeatureType ft;
+      guard.GetFeature(id.m_offset, ft);
 
-  default:
-    ASSERT(false, ());
-    return;
+      scale = feature::GetFeatureViewportScale(feature::TypesHolder(ft));
+      center = feature::GetCenter(ft, scale);
+      break;
+    }
+
+    case search::Result::RESULT_LATLON:
+      scale = scales::GetUpperComfortScale();
+      center = res.GetFeatureCenter();
+      break;
+
+    default:
+      ASSERT(false, ());
+      return;
+    }
+    ShowRectExVisibleScale(m_scales.GetRectForDrawScale(scale, center));
   }
 
   StopLocationFollow();
-  ShowRectExVisibleScale(m_scales.GetRectForDrawScale(scale, center));
 }
 
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point,

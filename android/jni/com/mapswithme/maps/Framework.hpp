@@ -90,7 +90,7 @@ namespace android
 
     /// Show rect from another activity. Ensure that no LoadState will be called,
     /// when maim map activity will become active.
-    void ShowSearchResult(search::Result const & r);
+    void ShowSearchResult(search::Result const & r, size_t index);
 
     bool Search(search::SearchParams const & params);
     string GetLastSearchQuery() { return m_searchQuery; }
