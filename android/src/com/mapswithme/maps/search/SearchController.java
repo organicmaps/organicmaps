@@ -95,6 +95,7 @@ public class SearchController implements OnClickListener
   public void cancel()
   {
     setQuery(null);
+    Framework.cleanSearchLayerOnMap();
   }
 
   public boolean isSearching()
