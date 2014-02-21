@@ -2,6 +2,7 @@ package com.mapswithme.maps.widget;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.GridLayout;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -392,13 +394,26 @@ public class MapInfoView extends LinearLayout
     mBodyContainer.addView(poiView);
   }
 
-  private void setBodyForBookmark(Bookmark bmk)
+  private void setBodyForBookmark(final Bookmark bmk)
   {
     mBodyContainer.removeAllViews();
     final View bmkView = mInflater.inflate(R.layout.info_box_bookmark, null);
 
     final TextView addressText = (TextView) bmkView.findViewById(R.id.info_box_address);
     addressText.setText(Framework.getNameAndAddress4Point(bmk.getLat(), bmk.getLon()));
+
+    // Set category, pin color, set click listener TODO set size
+    final Drawable pinColorDrawable = UiUtils.drawCircleForPin(bmk.getIcon().getName(), 50, getResources());
+    UiUtils.findImageViewSetDrawable(bmkView, R.id.info_box_bmk_pincolor, pinColorDrawable);
+    UiUtils.findViewSetText(bmkView, R.id.info_box_bmk_category, bmk.getCategoryName(getContext()));
+    UiUtils.findViewSetOnClickListener(bmkView, R.id.info_box_bmk_edit, new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        BookmarkActivity.startWithBookmark(getContext(), bmk.getCategoryId(), bmk.getBookmarkId());
+      }
+    });
 
     mBodyContainer.addView(bmkView);
   }

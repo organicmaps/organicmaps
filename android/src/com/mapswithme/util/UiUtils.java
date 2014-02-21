@@ -15,8 +15,10 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
@@ -187,6 +189,24 @@ public final class UiUtils
     final TextView tv = (TextView) root.findViewById(textViewId);
     tv.setText(text);
     return tv;
+  }
+
+  public static ImageView findImageViewSetDrawable(View root, int imageViewId, Drawable drawable)
+  {
+    checkNotNull(root);
+
+    final ImageView iv = (ImageView) root.findViewById(imageViewId);
+    iv.setImageDrawable(drawable);
+    return iv;
+  }
+
+  public static View findViewSetOnClickListener(View root, int viewId, OnClickListener listener)
+  {
+    checkNotNull(root);
+
+    final View v = root.findViewById(viewId);
+    v.setOnClickListener(listener);
+    return v;
   }
 
   // utility class
