@@ -7,7 +7,6 @@ import android.location.Location;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.GridLayout;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.LayoutInflater;
@@ -34,6 +33,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject.Poi;
 import com.mapswithme.maps.bookmarks.data.MapObject.SearchResult;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.SimpleLogger;
 
@@ -79,8 +79,6 @@ public class MapInfoView extends LinearLayout
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
     {
-      Log.e("MwmGest", String.format("Scroll: dx=%f dy=%f", distanceX, distanceY));
-
       final boolean isVertical = Math.abs(distanceY) > 2*Math.abs(distanceX);
       final boolean isInRange  = Math.abs(distanceY) > 1 && Math.abs(distanceY) < 100;
 
@@ -134,7 +132,7 @@ public class MapInfoView extends LinearLayout
             mMapObject.getName(),
             mMapObject.getLat(),
             mMapObject.getLon(),
-            null);
+            null); // we dont know what type it was
 
         // remove from bookmarks
         bm.deleteBookmark((Bookmark) mMapObject);
@@ -300,7 +298,7 @@ public class MapInfoView extends LinearLayout
   private void setTextAndShow(final CharSequence title, final CharSequence subtitle)
   {
     // We need 2 animations: hide, show, and one listener
-    final long duration = 250;
+    final long duration = 300;
     final Animation fadeOut = new AlphaAnimation(1, 0);
     fadeOut.setDuration(duration);
     final Animation fadeIn = new AlphaAnimation(0, 1);
@@ -335,7 +333,10 @@ public class MapInfoView extends LinearLayout
       if (mo != null)
       {
         mMapObject = mo;
-        setTextAndShow(mo.getName(), mo.getType().toString());
+
+        final String name = Utils.firstNotEmpty(mo.getName(), mo.getPoiTypeName(), "TODO unknown");
+        final String type = Utils.firstNotEmpty(mo.getPoiTypeName(), "TODO unknown");
+        setTextAndShow(name, type);
 
         switch (mo.getType())
         {
@@ -358,7 +359,7 @@ public class MapInfoView extends LinearLayout
           default:
             throw new IllegalArgumentException("Unknown MapObject type:" + mo.getType());
         }
-        // Setup geoinformation
+        // Setup geo information
         setUpGeoInformation(mo);
       }
       else

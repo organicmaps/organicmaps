@@ -15,6 +15,7 @@ public abstract class MapObject
   public abstract String getName();
   public abstract double getLat();
   public abstract double getLon();
+  public abstract String getPoiTypeName();
 
   public abstract MapObjectType getType();
   // interface
@@ -53,14 +54,14 @@ public abstract class MapObject
     private final String mName;
     private final double mLat;
     private final double mLon;
-    private final String mCategory;
+    private final String mTypeName;
 
-    public Poi(String name, double lat, double lon, String category)
+    public Poi(String name, double lat, double lon, String typeName)
     {
       mName = name;
       mLat = lat;
       mLon = lon;
-      mCategory = category;
+      mTypeName = typeName;
     }
 
     @Override
@@ -87,9 +88,10 @@ public abstract class MapObject
       return MapObjectType.POI;
     }
 
-    public String getCategory()
+    @Override
+    public String getPoiTypeName()
     {
-      return mCategory;
+      return mTypeName;
     }
   }
 
@@ -98,6 +100,7 @@ public abstract class MapObject
     private String mName;
     private double mLat;
     private double mLon;
+    private String mTypeName;
 
     public SearchResult(long index)
     {
@@ -126,6 +129,12 @@ public abstract class MapObject
     public MapObjectType getType()
     {
       return MapObjectType.ADDITIONAL_LAYER;
+    }
+
+    @Override
+    public String getPoiTypeName()
+    {
+      return mTypeName;
     }
 
   }

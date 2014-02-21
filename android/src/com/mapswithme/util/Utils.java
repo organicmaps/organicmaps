@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import android.annotation.SuppressLint;
@@ -29,6 +30,15 @@ import com.mapswithme.maps.MWMApplication;
 final public class Utils
 {
   private static final String TAG = "Utils";
+
+  public static String firstNotEmpty(String ... args)
+  {
+    for (int i = 0; i < args.length; i++)
+      if (!TextUtils.isEmpty(args[i]))
+        return args[i];
+
+    throw new NoSuchElementException("All argument are empty");
+  }
 
   public static void closeStream(Closeable stream)
   {

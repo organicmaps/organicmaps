@@ -152,4 +152,10 @@ public class Bookmark extends MapObject
   {
     return MapObjectType.BOOKMARK;
   }
+
+  @Override
+  public String getPoiTypeName()
+  {
+    return BookmarkManager.getBookmarkManager().getCategoryById(mCategoryId).getName();
+  }
 }
