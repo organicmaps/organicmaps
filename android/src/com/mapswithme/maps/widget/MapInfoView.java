@@ -297,28 +297,37 @@ public class MapInfoView extends LinearLayout
 
   private void setTextAndShow(final CharSequence title, final CharSequence subtitle)
   {
-    // We need 2 animations: hide, show, and one listener
-    final long duration = 300;
-    final Animation fadeOut = new AlphaAnimation(1, 0);
-    fadeOut.setDuration(duration);
-    final Animation fadeIn = new AlphaAnimation(0, 1);
-    fadeIn.setDuration(duration);
+    final boolean animate = false;
 
-    fadeOut.setAnimationListener(new UiUtils.SimpleAnimationListener()
+    if (animate)
     {
-      @Override
-      public void onAnimationEnd(Animation animation)
+      // We need 2 animations: hide, show, and one listener
+      final long duration = 300;
+      final Animation fadeOut = new AlphaAnimation(1, 0);
+      fadeOut.setDuration(duration);
+      final Animation fadeIn = new AlphaAnimation(0, 1);
+      fadeIn.setDuration(duration);
+
+      fadeOut.setAnimationListener(new UiUtils.SimpleAnimationListener()
       {
-        mTitle.setText(title);
-        mSubtitle.setText(subtitle);
-        mHeaderGroup.startAnimation(fadeIn);
-      };
-    });
+        @Override
+        public void onAnimationEnd(Animation animation)
+        {
+          mTitle.setText(title);
+          mSubtitle.setText(subtitle);
+          mHeaderGroup.startAnimation(fadeIn);
+        };
+      });
+      mHeaderGroup.startAnimation(fadeOut);
+    }
+    else
+    {
+      mTitle.setText(title);
+      mSubtitle.setText(subtitle);
+    }
 
     show(true);
     showHeader(true);
-
-    mHeaderGroup.startAnimation(fadeOut);
   }
 
   public boolean hasThatObject(MapObject mo)
@@ -422,6 +431,13 @@ public class MapInfoView extends LinearLayout
   private void setBodyForAdditionalLayer(SearchResult sr)
   {
     mBodyContainer.removeAllViews();
+
+    final View addLayerView = mInflater.inflate(R.layout.info_box_additional_layer, null);
+
+    final TextView addressText = (TextView) addLayerView.findViewById(R.id.info_box_address);
+    addressText.setText(Framework.getNameAndAddress4Point(sr.getLat(), sr.getLon()));
+
+    mBodyContainer.addView(addLayerView);
   }
 
 
