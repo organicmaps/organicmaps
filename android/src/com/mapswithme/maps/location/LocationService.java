@@ -22,7 +22,10 @@ import android.view.Display;
 import android.view.Surface;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationRequest;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
@@ -31,7 +34,11 @@ import com.mapswithme.util.log.SimpleLogger;
 import com.mapswithme.util.statistics.Statistics;
 
 
-public class LocationService implements LocationListener, SensorEventListener, WifiLocation.Listener
+public class LocationService implements
+                             LocationListener, SensorEventListener, WifiLocation.Listener,
+                             GooglePlayServicesClient.ConnectionCallbacks,
+                             GooglePlayServicesClient.OnConnectionFailedListener,
+                             com.google.android.gms.location.LocationListener
 {
   private final Logger mLogger = SimpleLogger.get(this.toString());
 
@@ -81,16 +88,14 @@ public class LocationService implements LocationListener, SensorEventListener, W
   {
     if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(mApplication) == ConnectionResult.SUCCESS)
     {
-      // TODO use GP provider
+      mLocationProvider = new GoogleFusedLocationProvider();
       mLogger.d("Using Google Provider");
     }
     else
     {
-      // TODO Use default provider
+      mLocationProvider = new AndroidNativeLocationProvider();
       mLogger.d("Using native location provider");
     }
-    // TODO remove
-    mLocationProvider = new AndroidNativeLocationProvider();
   }
   ///
   ///
@@ -429,7 +434,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
     protected abstract void setUp();
     protected abstract void startUpdates(Listener l);
     protected abstract void stopUpdates();
-    protected abstract Location getBestLastKnown();
 
     // "Backward compatibility"
     protected abstract boolean isLocationBetter(Location location);
@@ -511,13 +515,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
       mMagneticField = null;
       mDrivingHeading = -1.0;
       mIsActive = false;
-    }
-
-    @Override
-    protected Location getBestLastKnown()
-    {
-      // TODO Unused?
-      return null;
     }
 
     @Override
@@ -624,6 +621,78 @@ public class LocationService implements LocationListener, SensorEventListener, W
     // End of inner class AndroidNativeLocationProvider
   }
 
+  private class GoogleFusedLocationProvider extends LocationProvider
+  {
+    private LocationClient mLocationClient;
+    private LocationRequest mLocationRequest;
+
+    @Override
+    protected void setUp()
+    {
+      mLocationClient = new LocationClient(mApplication, mHost, mHost);
+      mLocationClient.connect();
+
+      mLocationRequest = LocationRequest.create();
+      mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+      mLocationRequest.setInterval(500);
+      mLocationRequest.setFastestInterval(250);
+
+      mLogger.d("SetUp for GP provider.");
+    }
+
+    @Override
+    protected void startUpdates(Listener l)
+    {
+      mLocationClient.requestLocationUpdates(mLocationRequest, mHost);
+    }
+
+    @Override
+    protected void stopUpdates()
+    {
+      if (mLocationClient.isConnected())
+      {
+        mLocationClient.removeLocationUpdates(mHost);
+
+        // TODO when we disconnect?
+        //mLocationClient.disconnect();
+      }
+    }
+
+    @Override
+    protected boolean isLocationBetter(Location location)
+    {
+      // we belive that google services always returns good locations
+      return true;
+    }
+
+    @Override
+    protected Location getLastGPSLocation()
+    {
+      // there is no possibility to return precise provider
+      return mLocationClient.getLastLocation();
+    }
+
+    // End of inner class GoogleFusedLP
+  }
 
 
+  // Google Play callbacks
+
+  @Override
+  public void onConnectionFailed(ConnectionResult arg0)
+  {
+    mLogger.d("onConnectionFailed " + arg0);
+  }
+
+  @Override
+  public void onConnected(Bundle arg0)
+  {
+    mLogger.d("onConnected " + arg0);
+  }
+
+  @Override
+  public void onDisconnected()
+  {
+    mLogger.d("onDisconnected");
+  }
 }

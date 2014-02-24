@@ -578,6 +578,10 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     // We need check for tasks both in onCreate and onNewIntent
     // because of bug in OS: https://code.google.com/p/android/issues/detail?id=38629
     addTask(intent);
+
+    // Initialize location service
+    // TODO find better solution?
+    getLocationService();
   }
 
   private void setUpDrawer()
