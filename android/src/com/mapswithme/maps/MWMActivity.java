@@ -984,6 +984,7 @@ public class MWMActivity extends NvEventQueueActivity
 
 
     mSearchController.onResume();
+    mInfoView.onResume();
   }
 
   @Override

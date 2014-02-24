@@ -382,6 +382,7 @@ public class MapInfoView extends LinearLayout
       public void onClick(View v)
       {
         BookmarkActivity.startWithBookmark(getContext(), bmk.getCategoryId(), bmk.getBookmarkId());
+        // TODO we dont know if bookmark exists after this screen was open
       }
     });
 
@@ -419,5 +420,53 @@ public class MapInfoView extends LinearLayout
     lp.height = mMaxBodyHeight;
     mBodyGroup.setLayoutParams(lp);
     mLog.d("Max height: " + mMaxBodyHeight);
+  }
+
+  public void onResume()
+  {
+    if (mMapObject == null)
+      return;
+
+    // We need to check, if content of body is still valid
+    if (mMapObject.getType() == MapObjectType.BOOKMARK)
+    {
+      final Bookmark bmk = (Bookmark)mMapObject;
+      final BookmarkManager bm = BookmarkManager.getBookmarkManager();
+
+      // Was it deleted?
+      boolean deleted = false;
+
+      if (bm.getCategoriesCount() <= bmk.getCategoryId())
+        deleted = true;
+      else if (bm.getCategoryById(bmk.getCategoryId()).getBookmarksCount() <= bmk.getBookmarkId())
+        deleted = true;
+      else if (bm.getBookmark(bmk.getCategoryId(), bmk.getBookmarkId()).getLat() != bmk.getLat())
+        deleted = true;
+      // We can do check above, because lat/lon cannot be changed from edit screen.
+
+      if (deleted)
+      {
+     // Make Poi from bookmark
+        final Poi p = new Poi(
+            mMapObject.getName(),
+            mMapObject.getLat(),
+            mMapObject.getLon(),
+            null); // we dont know what type it was
+
+        // remove from bookmarks
+        bm.deleteBookmark((Bookmark) mMapObject);
+        setMapObject(p);
+
+        // TODO how to handle the case, when bookmark moved to another group
+     }
+      else
+      {
+        // Update data for current bookmark
+        final Bookmark updatedBmk = bm.getBookmark(bmk.getCategoryId(), bmk.getBookmarkId());
+        setMapObject(null);
+        setMapObject(updatedBmk);
+      }
+
+    }
   }
 }
