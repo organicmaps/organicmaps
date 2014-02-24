@@ -385,7 +385,6 @@ public class MapInfoView extends LinearLayout
       public void onClick(View v)
       {
         BookmarkActivity.startWithBookmark(getContext(), bmk.getCategoryId(), bmk.getBookmarkId());
-        // TODO we dont know if bookmark exists after this screen was open
       }
     });
 
@@ -473,8 +472,7 @@ public class MapInfoView extends LinearLayout
         // remove from bookmarks
         bm.deleteBookmark((Bookmark) mMapObject);
         setMapObject(p);
-
-        // TODO how to handle the case, when bookmark moved to another group
+        // TODO how to handle the case, when bookmark moved to another group?
      }
       else
       {
