@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.CheckBox;
@@ -51,7 +50,6 @@ public class MapInfoView extends LinearLayout
 
   private boolean mIsHeaderVisible = true;
   private boolean mIsBodyVisible   = true;
-  private boolean mIsVisible       = true;
 
   private final ViewGroup mHeaderGroup;
   private final ViewGroup mBodyGroup;
@@ -106,11 +104,7 @@ public class MapInfoView extends LinearLayout
     public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight,
         int oldBottom)
     {
-      mMaxBodyHeight = (bottom - top)/2;
-      final ViewGroup.LayoutParams lp = mBodyGroup.getLayoutParams();
-      lp.height = mMaxBodyHeight;
-      mBodyGroup.setLayoutParams(lp);
-      mLog.d("Max height: " + mMaxBodyHeight);
+      calculateMaxBodyHeight(top, bottom);
     }
   };
 
@@ -165,7 +159,6 @@ public class MapInfoView extends LinearLayout
 
     showBody(false);
     showHeader(false);
-    show(false);
 
     // Header
     mTitle = (TextView) mHeaderGroup.findViewById(R.id.info_title);
@@ -228,6 +221,7 @@ public class MapInfoView extends LinearLayout
       return; // if state is already same as we need
 
     final long duration = 200;
+
     // Calculate translate offset
     final int headHeight  = mHeaderGroup.getHeight();
     final int totalHeight = headHeight + mMaxBodyHeight;
@@ -268,6 +262,8 @@ public class MapInfoView extends LinearLayout
             mVisibilityChangedListener.onBodyVisibilityChanged(show);
         }
       });
+
+
       mView.startAnimation(slideDown);
     }
 
@@ -286,47 +282,12 @@ public class MapInfoView extends LinearLayout
       mVisibilityChangedListener.onHeadVisibilityChanged(show);
   }
 
-  public void show(boolean show)
-  {
-    if (mIsVisible == show)
-      return;
-
-    UiUtils.hideIf(!show, mView);
-    mIsVisible = show;
-  }
-
   private void setTextAndShow(final CharSequence title, final CharSequence subtitle)
   {
-    final boolean animate = false;
 
-    if (animate)
-    {
-      // We need 2 animations: hide, show, and one listener
-      final long duration = 300;
-      final Animation fadeOut = new AlphaAnimation(1, 0);
-      fadeOut.setDuration(duration);
-      final Animation fadeIn = new AlphaAnimation(0, 1);
-      fadeIn.setDuration(duration);
+    mTitle.setText(title);
+    mSubtitle.setText(subtitle);
 
-      fadeOut.setAnimationListener(new UiUtils.SimpleAnimationListener()
-      {
-        @Override
-        public void onAnimationEnd(Animation animation)
-        {
-          mTitle.setText(title);
-          mSubtitle.setText(subtitle);
-          mHeaderGroup.startAnimation(fadeIn);
-        };
-      });
-      mHeaderGroup.startAnimation(fadeOut);
-    }
-    else
-    {
-      mTitle.setText(title);
-      mSubtitle.setText(subtitle);
-    }
-
-    show(true);
     showHeader(true);
   }
 
@@ -368,7 +329,6 @@ public class MapInfoView extends LinearLayout
           default:
             throw new IllegalArgumentException("Unknown MapObject type:" + mo.getType());
         }
-        // Setup geo information
         setUpGeoInformation(mo);
       }
       else
@@ -450,5 +410,14 @@ public class MapInfoView extends LinearLayout
   public void setOnVisibilityChangedListener(OnVisibilityChangedListener listener)
   {
     mVisibilityChangedListener = listener;
+  }
+
+  private void calculateMaxBodyHeight(int top, int bottom)
+  {
+    mMaxBodyHeight = (bottom - top)/2;
+    final ViewGroup.LayoutParams lp = mBodyGroup.getLayoutParams();
+    lp.height = mMaxBodyHeight;
+    mBodyGroup.setLayoutParams(lp);
+    mLog.d("Max height: " + mMaxBodyHeight);
   }
 }

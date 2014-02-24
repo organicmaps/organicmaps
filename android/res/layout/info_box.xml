@@ -52,6 +52,7 @@
 
     <LinearLayout
         android:id="@+id/body"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:background="@drawable/background_holo_light"

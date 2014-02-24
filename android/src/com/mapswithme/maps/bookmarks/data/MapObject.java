@@ -36,7 +36,6 @@ public abstract class MapObject
                   +  component3;
 
     mLog.d(String.format("c1=%d c2=%d c3=%d sum=%d", component1, component2, component3, sum));
-
     return sum;
   }
 

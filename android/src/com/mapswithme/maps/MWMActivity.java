@@ -589,7 +589,6 @@ public class MWMActivity extends NvEventQueueActivity
     alignControls();
 
     setUpInfoBox();
-    showInfoBox(false);
 
     Framework.connectBalloonListeners(this);
 
@@ -597,6 +596,8 @@ public class MWMActivity extends NvEventQueueActivity
     // We need check for tasks both in onCreate and onNewIntent
     // because of bug in OS: https://code.google.com/p/android/issues/detail?id=38629
     addTask(intent);
+    showInfoBox(false, false);
+
 
     // Initialize location service
     getLocationService();
@@ -1313,7 +1314,7 @@ public class MWMActivity extends NvEventQueueActivity
         if (!mInfoView.hasThatObject(poi))
         {
           mInfoView.setMapObject(poi);
-          showInfoBox(true);
+          showInfoBox(true, true);
           mInfoView.showBody(false);
         }
         else
@@ -1336,7 +1337,7 @@ public class MWMActivity extends NvEventQueueActivity
         if (!mInfoView.hasThatObject(b))
         {
           mInfoView.setMapObject(b);
-          showInfoBox(true);
+          showInfoBox(true, true);
         }
         else
         {
@@ -1370,7 +1371,7 @@ public class MWMActivity extends NvEventQueueActivity
         if (!mInfoView.hasThatObject(sr))
         {
           mInfoView.setMapObject(sr);
-          showInfoBox(true);
+          showInfoBox(true, true);
         }
         else
         {
@@ -1390,23 +1391,24 @@ public class MWMActivity extends NvEventQueueActivity
         @Override
         public void run()
         {
-          showInfoBox(false);
+          showInfoBox(false, true);
           mInfoView.setMapObject(null);
-          // TODO maybe this is not best solution
-          onBodyVisibilityChanged(false);
+
+          UiUtils.show(findViewById(R.id.map_buttons_bottom_ref));
         }
       });
     }
   }
 
-  private void showInfoBox(boolean show)
+  private void showInfoBox(boolean show, boolean animate)
   {
     final View mapButtonBottom = findViewById(R.id.map_buttons_bottom_ref);
+
     final RelativeLayout.LayoutParams lp = (LayoutParams) mapButtonBottom.getLayoutParams();
     lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, show ? 0 : RelativeLayout.TRUE);
     mapButtonBottom.setLayoutParams(lp);
 
-    if (show == mIsInfoBoxVisible)
+    if ((show == mIsInfoBoxVisible) && animate)
       return;
 
     mIsInfoBoxVisible = show;
@@ -1414,31 +1416,47 @@ public class MWMActivity extends NvEventQueueActivity
     final long duration = 200;
     if (show)
     {
-      final Animation slideIn = new TranslateAnimation(
-          TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
-          TranslateAnimation.RELATIVE_TO_SELF, 1.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f);   // Y
-      slideIn.setDuration(duration);
+      if (animate)
+      {
+        final Animation slideIn = new TranslateAnimation(
+            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
+            TranslateAnimation.RELATIVE_TO_SELF, 1.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f);   // Y
+        slideIn.setDuration(duration);
 
-      mInfoView.startAnimation(slideIn);
-      mapButtonBottom.startAnimation(slideIn);
+        mInfoView.startAnimation(slideIn);
+        mapButtonBottom.startAnimation(slideIn);
 
-      UiUtils.showAndAnimate(mInfoView, slideIn);
-      mapButtonBottom.startAnimation(slideIn);
+        UiUtils.showAndAnimate(mInfoView, slideIn);
+        mapButtonBottom.startAnimation(slideIn);
+      }
+      else
+      {
+        UiUtils.show(mInfoView);
+        UiUtils.show(mapButtonBottom);
+      }
     }
     else
     {
-      final Animation slideOutInfo = new TranslateAnimation(
-          TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
-          TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 1.f);  // Y
-      slideOutInfo.setDuration(duration);
+      if (animate)
+      {
+        final Animation slideOutInfo = new TranslateAnimation(
+            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
+            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 1.f);  // Y
+        slideOutInfo.setDuration(duration);
 
-      final Animation slideOutButtons = new TranslateAnimation(
-          TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
-          TranslateAnimation.RELATIVE_TO_SELF, -1.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f);  // Y
-      slideOutButtons.setDuration(duration);
+        final Animation slideOutButtons = new TranslateAnimation(
+            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
+            TranslateAnimation.RELATIVE_TO_SELF, -1.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f);  // Y
+        slideOutButtons.setDuration(duration);
 
-      mapButtonBottom.startAnimation(slideOutButtons);
-      UiUtils.animateAndHide(mInfoView, slideOutInfo);
+        mapButtonBottom.startAnimation(slideOutButtons);
+        UiUtils.animateAndHide(mInfoView, slideOutInfo);
+      }
+      else
+      {
+        UiUtils.hide(mInfoView);
+        UiUtils.show(mapButtonBottom);
+      }
     }
   }
 
@@ -1495,6 +1513,7 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onBodyVisibilityChanged(boolean isVisible)
   {
+    // If body is visible -- hide my location and drawer buttons
     UiUtils.hideIf(isVisible, findViewById(R.id.map_buttons_bottom_ref));
   }
 
