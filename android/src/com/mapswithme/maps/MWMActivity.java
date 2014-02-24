@@ -784,10 +784,23 @@ public class MWMActivity extends NvEventQueueActivity
   protected void onNewIntent(Intent intent)
   {
     super.onNewIntent(intent);
-    addTask(intent);
+    if (intent != null)
+    {
+      if (intent.hasExtra(EXTRA_TASK))
+        addTask(intent);
+      else if (intent.hasExtra(EXTRA_SEARCH_RES_SINGLE))
+      {
+        final boolean singleResult = intent.getBooleanExtra(EXTRA_SEARCH_RES_SINGLE, false);
+        if (singleResult)
+          onAdditionalLayerActivated(0);
+        else
+          onDismiss();
+      }
+    }
   }
 
   private final static String EXTRA_CONSUMED = "mwm.extra.intent.processed";
+
   private void addTask(Intent intent)
   {
     if (intent != null
@@ -806,6 +819,7 @@ public class MWMActivity extends NvEventQueueActivity
       intent.putExtra(EXTRA_CONSUMED, true);
     }
   }
+
 
   @Override
   protected void onStop()
@@ -1483,4 +1497,16 @@ public class MWMActivity extends NvEventQueueActivity
   {
     UiUtils.hideIf(isVisible, findViewById(R.id.map_buttons_bottom_ref));
   }
+
+  // Need it for search
+  private static final String EXTRA_SEARCH_RES_SINGLE = "search_res_index";
+
+  public static void startWithSearchResult(Context context, boolean single)
+  {
+    final Intent mapIntent = new Intent(context, MWMActivity.class);
+    mapIntent.putExtra(EXTRA_SEARCH_RES_SINGLE, single);
+    context.startActivity(mapIntent);
+    // Next we need to handle intent
+  }
+
 }

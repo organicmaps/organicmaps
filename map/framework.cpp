@@ -1286,6 +1286,7 @@ void Framework::ShowAllSearchResults()
 
   for (size_t i = 0; i < searchRes.GetCount(); ++i)
   {
+    // @todo add type for each search result pin
     search::Result const & tmpRes = searchRes.GetResult(i);
     m_bmManager.AdditionalPoiLayerAddPoi(Bookmark(tmpRes.GetFeatureCenter(), tmpRes.GetString(), "api_pin"));
 

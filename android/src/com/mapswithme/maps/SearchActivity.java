@@ -634,7 +634,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     final String suggestion = getSA().onItemClick(position);
     if (suggestion == null)
     {
-      presentResult(v);
+      presentResult(v, position);
     }
     else
     {
@@ -643,18 +643,20 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     }
   }
 
-  private void presentResult(View v)
+  private void presentResult(View v, int position)
   {
     if (MWMApplication.get().isProVersion())
     {
       finish();
-      // TODO why does not getResult always return correct value?
+      // GetResult not always returns correct values?
       final SearchAdapter.ViewHolder vh = (SearchAdapter.ViewHolder) v.getTag();
       SearchController.get().setQuery(vh.m_name.getText().toString());
+
+      MWMActivity.startWithSearchResult(this, position != 0);
     }
     else
     {
-      // TODO ask to buy pro
+      // Should we add something more attractive?
       Utils.toastShortcut(this, R.string.search_available_in_pro_version);
     }
   }

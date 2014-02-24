@@ -910,8 +910,11 @@ extern "C"
 
   JNIEXPORT void Java_com_mapswithme_maps_Framework_injectData(JNIEnv * env, jclass clazz, jobject jsearchResult, jlong index)
   {
+    const size_t nIndex = static_cast<size_t>(index);
+    ASSERT_LESS(nIndex , g_framework->NativeFramework()->AdditionalLayerNumberOfPoi(), ("Invalid index", nIndex));
+
     Bookmark * b = g_framework->NativeFramework()->
-        GetBookmarkManager().AdditionalPoiLayerGetBookmark(static_cast<size_t>(index));
+        GetBookmarkManager().AdditionalPoiLayerGetBookmark(nIndex);
 
     static jclass javaClazz = env->GetObjectClass(jsearchResult);
 
