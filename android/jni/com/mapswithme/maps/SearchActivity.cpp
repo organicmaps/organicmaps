@@ -157,19 +157,18 @@ public:
 
   void ShowItem(int position)
   {
-    // 0 -- show all
-    // 1 -- first
-    //
-    // ...
-    // n -- last
-    const int positionInResults = position - 1;
-    if (CheckPosition(positionInResults))
-    {
-      if (position == 0) // all result, first arguemnt does not matter
-        g_framework->ShowSearchResult(m_results.GetResult(0), positionInResults);
-      else
-        g_framework->ShowSearchResult(m_results.GetResult(positionInResults), positionInResults);
-    }
+    if (CheckPosition(position))
+      g_framework->ShowSearchResult(m_results.GetResult(position));
+    else
+      LOG(LERROR, ("Invalid position", position));
+  }
+
+  void ShowAllResults()
+  {
+    if (m_results.GetCount() > 0)
+      g_framework->ShowAllSearchResults();
+    else
+      LOG(LERROR, ("There is no results to show."));
   }
 
   search::Result const * GetResult(int position, int resultID)
@@ -221,6 +220,12 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_SearchActivity_nativeShowItem(JNIEnv * env, jobject thiz, jint position)
 {
   SearchAdapter::Instance().ShowItem(position);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_SearchActivity_nativeShowAllSearchResults(JNIEnv * env, jclass clazz)
+{
+  SearchAdapter::Instance().ShowAllResults();
 }
 
 JNIEXPORT jobject JNICALL

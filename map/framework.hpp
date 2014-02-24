@@ -278,7 +278,9 @@ public:
   void PrepareSearch(bool hasPt, double lat = 0.0, double lon = 0.0);
   bool Search(search::SearchParams const & params);
   bool GetCurrentPosition(double & lat, double & lon) const;
-  void ShowSearchResult(search::Result const & res, int index);
+
+  void ShowSearchResult(search::Result const & res);
+  void ShowAllSearchResults();
 
   /// Calculate distance and direction to POI for the given position.
   /// @param[in]  point             POI's position;

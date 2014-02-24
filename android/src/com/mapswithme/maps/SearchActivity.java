@@ -393,22 +393,36 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       }
       else
       {
-        final SearchResult r = m_context.getResult(position, m_resultID);
-        if (r != null)
+        // TODO handle all cases
+        if (m_count > 0)
         {
-          if (r.m_type == 1)
+          // Show all items was clicked
+          if (position == 0)
           {
-            // show country and close activity
-            SearchActivity.nativeShowItem(position);
+            SearchActivity.nativeShowAllSearchResults();
             return null;
           }
-          else
+
+          // Specific result was clicked
+          final int resIndex = position - 1;
+          final SearchResult r = m_context.getResult(resIndex, m_resultID);
+          if (r != null)
           {
-            // advise suggestion
-            return r.m_name + ' ';
+            if (r.m_type == 1)
+            {
+              // show country and close activity
+              SearchActivity.nativeShowItem(resIndex);
+              return null;
+            }
+            else
+            {
+              // advise suggestion
+              return r.m_name + ' ';
+            }
           }
         }
       }
+
 
       // close activity in case of any error
       return null;
@@ -848,7 +862,9 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   private native boolean nativeRunSearch(String s, String lang,
                                          double lat, double lon, int flags,
                                          int searchMode, int queryID);
+
   private static native void nativeShowItem(int position);
+  private static native void nativeShowAllSearchResults();
 
   private native String getCountryNameIfAbsent(double lat, double lon);
   private native String getViewportCountryNameIfAbsent();

@@ -1221,43 +1221,19 @@ bool Framework::GetCurrentPosition(double & lat, double & lon) const
   else return false;
 }
 
-void Framework::ShowSearchResult(search::Result const & res, int index)
+void Framework::ShowSearchResult(search::Result const & res)
 {
   m_bmManager.AdditionalPoiLayerSetVisible();
   m_bmManager.AdditionalPoiLayerClear();
 
-  if (index == -1) // That means show all results
+  LOG(LDEBUG, ("MwmSearch", "Single result", res.GetString()));
+  m_bmManager.AdditionalPoiLayerAddPoi(Bookmark(res.GetFeatureCenter(), res.GetString(), "api_pin"));
+
+  int scale;
+  m2::PointD center;
+
+  switch (res.GetResultType())
   {
-    search::Results searchRes;
-    GetSearchEngine()->GetResults(searchRes);
-
-    LOG(LDEBUG, ("MwmSearch", "All result,", index));
-
-    m2::RectD resultsRect(searchRes.GetResult(0).GetFeatureCenter(),
-                          searchRes.GetResult(1).GetFeatureCenter());
-
-    for (size_t i = 0; i < searchRes.GetCount(); ++i)
-    {
-      search::Result const & tmpRes = searchRes.GetResult(i);
-      m_bmManager.AdditionalPoiLayerAddPoi(Bookmark(tmpRes.GetFeatureCenter(), tmpRes.GetString(), "api_pin"));
-
-      if (i > 1)
-        resultsRect.Add(tmpRes.GetFeatureCenter());
-    }
-
-    ShowRectEx(resultsRect);
-  }
-  else // single result
-  {
-    m_bmManager.AdditionalPoiLayerAddPoi(Bookmark(res.GetFeatureCenter(), res.GetString(), "api_pin"));
-
-    LOG(LDEBUG, ("MwmSearch", "Single result,", index));
-
-    int scale;
-    m2::PointD center;
-
-    switch (res.GetResultType())
-    {
     case search::Result::RESULT_FEATURE:
     {
       FeatureID const id = res.GetFeatureID();
@@ -1279,10 +1255,45 @@ void Framework::ShowSearchResult(search::Result const & res, int index)
     default:
       ASSERT(false, ());
       return;
-    }
-    ShowRectExVisibleScale(m_scales.GetRectForDrawScale(scale, center));
   }
 
+  ShowRectExVisibleScale(m_scales.GetRectForDrawScale(scale, center));
+  StopLocationFollow();
+}
+
+void Framework::ShowAllSearchResults()
+{
+  m_bmManager.AdditionalPoiLayerSetVisible();
+  m_bmManager.AdditionalPoiLayerClear();
+
+  search::Results searchRes;
+  GetSearchEngine()->GetResults(searchRes);
+
+  LOG(LDEBUG, ("MwmSearch", "All result", searchRes.GetCount()));
+
+  // @todo what to do if we have less then 2 results?
+  // as quick fix, use signe result function for that
+  if (searchRes.GetCount() == 1)
+  {
+    ShowSearchResult(searchRes.GetResult(0));
+    return;
+  }
+
+  ASSERT_GREATER_OR_EQUAL(searchRes.GetCount(), 2, ());
+
+  m2::RectD resultsRect(searchRes.GetResult(0).GetFeatureCenter(),
+                        searchRes.GetResult(1).GetFeatureCenter());
+
+  for (size_t i = 0; i < searchRes.GetCount(); ++i)
+  {
+    search::Result const & tmpRes = searchRes.GetResult(i);
+    m_bmManager.AdditionalPoiLayerAddPoi(Bookmark(tmpRes.GetFeatureCenter(), tmpRes.GetString(), "api_pin"));
+
+    if (i > 1)
+      resultsRect.Add(tmpRes.GetFeatureCenter());
+  }
+
+  ShowRectEx(resultsRect);
   StopLocationFollow();
 }
 
