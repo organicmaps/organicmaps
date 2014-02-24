@@ -2,10 +2,12 @@ package com.mapswithme.maps.widget;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.GridLayout;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.webkit.WebView;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -385,6 +388,20 @@ public class MapInfoView extends LinearLayout
         // TODO we dont know if bookmark exists after this screen was open
       }
     });
+
+
+    // Description of BMK
+    final WebView descritionWv = (WebView)bmkView.findViewById(R.id.info_box_bookmark_descr);
+    final String descriptionTxt = bmk.getBookmarkDescription();
+
+    if (TextUtils.isEmpty(descriptionTxt))
+      UiUtils.hide(descritionWv);
+    else
+    {
+      descritionWv.loadData(descriptionTxt, "text/html; charset=UTF-8", null);
+      descritionWv.setBackgroundColor(Color.TRANSPARENT);
+      UiUtils.show(descritionWv);
+    }
 
     mBodyContainer.addView(bmkView);
   }
