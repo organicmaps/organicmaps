@@ -21,17 +21,19 @@ import android.os.SystemClock;
 import android.view.Display;
 import android.view.Surface;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.StubLogger;
+import com.mapswithme.util.log.SimpleLogger;
 import com.mapswithme.util.statistics.Statistics;
 
 
 public class LocationService implements LocationListener, SensorEventListener, WifiLocation.Listener
 {
-  private final Logger mLogger = StubLogger.get();//SimpleLogger.get(this.toString());
+  private final Logger mLogger = SimpleLogger.get(this.toString());
 
   private static final double DEFAULT_SPEED_MpS = 5;
   private static final float DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M = 1000;
@@ -62,26 +64,45 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   private WifiLocation mWifiScanner = null;
 
-  private volatile LocationManager mLocationManager;
-
   private final SensorManager mSensorManager;
   private Sensor mAccelerometer = null;
   private Sensor mMagnetometer = null;
   /// To calculate true north for compass
   private GeomagneticField mMagneticField = null;
 
-  /// true when LocationService is on
-  private boolean mIsActive = false;
-
   private MWMApplication mApplication = null;
+
+  ///
+  /// LOCATION PROVIDER
+  ///
+  private LocationProvider mLocationProvider;
+
+  private void createLocationProvider()
+  {
+    if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(mApplication) == ConnectionResult.SUCCESS)
+    {
+      // TODO use GP provider
+      mLogger.d("Using Google Provider");
+    }
+    else
+    {
+      // TODO Use default provider
+      mLogger.d("Using native location provider");
+    }
+    // TODO remove
+    mLocationProvider = new AndroidNativeLocationProvider();
+  }
+  ///
+  ///
+  ///
 
   public LocationService(MWMApplication application)
   {
     mApplication = application;
 
-    //mLogger = new FileLogger("LocationService", mApplication.getDataStoragePath());
+    createLocationProvider();
+    mLocationProvider.setUp();
 
-    mLocationManager = (LocationManager) mApplication.getSystemService(Context.LOCATION_SERVICE);
     mSensorManager = (SensorManager) mApplication.getSystemService(Context.SENSOR_SERVICE);
 
     if (mSensorManager != null)
@@ -92,15 +113,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
   }
 
   public Location getLastKnown() { return mLastLocation; }
-
-  /*
-  private void notifyOnError(int errorCode)
-  {
-    Iterator<Listener> it = mObservers.iterator();
-    while (it.hasNext())
-      it.next().onLocationError(errorCode);
-  }
-   */
 
   private void notifyLocationUpdated(final Location l)
   {
@@ -114,45 +126,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
     final Iterator<Listener> it = mObservers.iterator();
     while (it.hasNext())
       it.next().onCompassUpdated(time, magneticNorth, trueNorth, accuracy);
-  }
-
-  private static boolean isSameLocationProvider(String p1, String p2)
-  {
-    if (p1 == null || p2 == null)
-      return false;
-    return p1.equals(p2);
-  }
-
-  @SuppressLint("NewApi")
-  private double getLocationTimeDiffS(Location l)
-  {
-    if (Utils.apiEqualOrGreaterThan(17))
-      return (l.getElapsedRealtimeNanos() - mLastLocation.getElapsedRealtimeNanos()) * 1.0E-9;
-    else
-    {
-      long time = l.getTime();
-      long lastTime = mLastLocation.getTime();
-      if (!isSameLocationProvider(l.getProvider(), mLastLocation.getProvider()))
-      {
-        // Do compare current and previous system times in case when
-        // we have incorrect time settings on a device.
-        time = System.currentTimeMillis();
-        lastTime = mLastLocationTime;
-      }
-
-      return (time - lastTime) * 1.0E-3;
-    }
-  }
-
-  private boolean isLocationBetter(Location l)
-  {
-    if (l == null)
-      return false;
-    if (mLastLocation == null)
-      return true;
-
-    final double s = Math.max(DEFAULT_SPEED_MpS, (l.getSpeed() + mLastLocation.getSpeed()) / 2.0);
-    return (l.getAccuracy() < (mLastLocation.getAccuracy() + s * getLocationTimeDiffS(l)));
   }
 
   @SuppressLint("NewApi")
@@ -169,57 +142,9 @@ public class LocationService implements LocationListener, SensorEventListener, W
   public void startUpdate(Listener observer)
   {
     mLogger.d("Start update for listener: ", observer);
-
     mObservers.add(observer);
 
-    if (!mIsActive)
-    {
-      mIsGPSOff = false;
-
-      final List<String> providers = getFilteredProviders();
-      mLogger.d("Enabled providers count = ", providers.size());
-
-      startWifiLocationUpdate();
-
-      if (providers.size() == 0 && mWifiScanner == null)
-        observer.onLocationError(ERROR_DENIED);
-      else
-      {
-        mIsActive = true;
-
-        for (final String provider : providers)
-        {
-          mLogger.d("Connected to provider = ", provider);
-
-          // Half of a second is more than enough, I think ...
-          mLocationManager.requestLocationUpdates(provider, 500, 0, this);
-        }
-        registerSensorListeners();
-
-        // Choose best location from available
-        final Location l = getBestLastLocation(providers);
-        mLogger.d("Last location: ", l);
-
-        if (isLocationBetter(l))
-        {
-          // get last better location
-          emitLocation(l);
-        }
-        else if (mLastLocation != null && isNotExpired(mLastLocation, mLastLocationTime))
-        {
-          // notify UI about last valid location
-          notifyLocationUpdated(mLastLocation);
-        }
-        else
-        {
-          // forget about old location
-          mLastLocation = null;
-        }
-      }
-
-      if (mIsGPSOff)
-        observer.onLocationError(ERROR_GPS_OFF);
-    }
+    mLocationProvider.startUpdates(observer);
   }
 
   private void startWifiLocationUpdate()
@@ -240,39 +165,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
     if (mWifiScanner != null)
       mWifiScanner.stopScan(mApplication);
     mWifiScanner = null;
-  }
-
-  private List<String> getFilteredProviders()
-  {
-    final List<String> allProviders = mLocationManager.getProviders(false);
-    final List<String> acceptedProviders = new ArrayList<String>(allProviders.size());
-
-    for (final String prov : allProviders)
-    {
-      if (LocationManager.PASSIVE_PROVIDER.equals(prov))
-        continue;
-
-      if (!mLocationManager.isProviderEnabled(prov))
-      {
-        if (LocationManager.GPS_PROVIDER.equals(prov))
-          mIsGPSOff = true;
-        continue;
-      }
-
-      if (Utils.apiLowerThan(11) &&
-          LocationManager.NETWORK_PROVIDER.equals(prov) &&
-          !ConnectionState.isConnected(mApplication))
-      {
-        // Do not use WiFi location provider.
-        // It returns very old last saved locations with the current time stamp.
-        mLogger.d("Disabled network location as a device isn't online.");
-        continue;
-      }
-
-      acceptedProviders.add(prov);
-    }
-
-    return acceptedProviders;
   }
 
   private void registerSensorListeners()
@@ -298,35 +190,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
     // Stop only if no more observers are subscribed
     if (mObservers.size() == 0)
     {
-      stopWifiLocationUpdate();
-
-      mLocationManager.removeUpdates(this);
-
-      if (mSensorManager != null)
-        mSensorManager.unregisterListener(this);
-
-      //mLastLocation = null;
-
-      // Reset current parameters to force initialize in the next startUpdate
-      mMagneticField = null;
-      mDrivingHeading = -1.0;
-      mIsActive = false;
+      mLocationProvider.stopUpdates();
     }
-  }
-
-  private Location getBestLastLocation(List<String> providers)
-  {
-    Location res = null;
-    for (final String pr : providers)
-    {
-      final Location l = mLocationManager.getLastKnownLocation(pr);
-      if (l != null && isNotExpired(l, l.getTime()))
-      {
-        if (res == null || res.getAccuracy() > l.getAccuracy())
-          res = l;
-      }
-    }
-    return res;
   }
 
   private void calcDirection(Location l)
@@ -357,7 +222,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
     if (l.getAccuracy() <= 0.0)
       return;
 
-    if (isLocationBetter(l))
+    if (mLocationProvider.isLocationBetter(l))
     {
       calcDirection(l);
 
@@ -368,7 +233,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
         if (mMagneticField == null ||
             (mLastLocation == null || l.distanceTo(mLastLocation) > DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M))
         {
-          mMagneticField = new GeomagneticField((float)l.getLatitude(), (float)l.getLongitude(),
+          mMagneticField = new GeomagneticField( (float)l.getLatitude(), (float)l.getLongitude(),
                                                  (float)l.getAltitude(), l.getTime());
         }
       }
@@ -546,6 +411,219 @@ public class LocationService implements LocationListener, SensorEventListener, W
   @Override
   public Location getLastGPSLocation()
   {
-    return mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+    return mLocationProvider.getLastGPSLocation();
   }
+
+
+  // Location providers: Android native or Google Play Services
+  private abstract class LocationProvider
+  {
+    protected LocationService mHost;
+
+    protected LocationProvider()
+    {
+      // I dont like Something.this syntax
+      mHost = LocationService.this;
+    }
+
+    protected abstract void setUp();
+    protected abstract void startUpdates(Listener l);
+    protected abstract void stopUpdates();
+    protected abstract Location getBestLastKnown();
+
+    // "Backward compatibility"
+    protected abstract boolean isLocationBetter(Location location);
+    protected abstract Location getLastGPSLocation();
+  }
+
+  private class AndroidNativeLocationProvider extends LocationProvider
+  {
+    /// true when LocationService is on
+    private boolean mIsActive = false;
+
+    // Meat
+    private volatile LocationManager mLocationManager;
+
+    @Override
+    protected void startUpdates(Listener l)
+    {
+      if (!mIsActive)
+      {
+        mIsGPSOff = false;
+
+        final List<String> providers = getFilteredProviders();
+        mLogger.d("Enabled providers count = ", providers.size());
+
+        startWifiLocationUpdate();
+
+        if (providers.size() == 0 && mWifiScanner == null)
+          l.onLocationError(ERROR_DENIED);
+        else
+        {
+          mIsActive = true;
+
+          for (final String provider : providers)
+          {
+            mLogger.d("Connected to provider = ", provider);
+
+            // Half of a second is more than enough, I think ...
+            mLocationManager.requestLocationUpdates(provider, 500, 0, mHost);
+          }
+          registerSensorListeners();
+
+          // Choose best location from available
+          final Location lastLocation = getBestLastLocation(providers);
+          mLogger.d("Last location: ", lastLocation);
+
+          if (isLocationBetter(lastLocation))
+          {
+            // get last better location
+            emitLocation(lastLocation);
+          }
+          else if (mLastLocation != null && isNotExpired(mLastLocation, mLastLocationTime))
+          {
+            // notify UI about last valid location
+            notifyLocationUpdated(mLastLocation);
+          }
+          else
+          {
+            // forget about old location
+            mLastLocation = null;
+          }
+        }
+
+        if (mIsGPSOff)
+          l.onLocationError(ERROR_GPS_OFF);
+      }
+    }
+
+    @Override
+    protected void stopUpdates()
+    {
+      stopWifiLocationUpdate();
+
+      mLocationManager.removeUpdates(mHost);
+
+      if (mSensorManager != null)
+        mSensorManager.unregisterListener(mHost);
+
+      // Reset current parameters to force initialize in the next startUpdate
+      mMagneticField = null;
+      mDrivingHeading = -1.0;
+      mIsActive = false;
+    }
+
+    @Override
+    protected Location getBestLastKnown()
+    {
+      // TODO Unused?
+      return null;
+    }
+
+    @Override
+    protected void setUp()
+    {
+      mLocationManager = (LocationManager) mApplication.getSystemService(Context.LOCATION_SERVICE);
+    }
+
+    // Trash
+    private Location getBestLastLocation(List<String> providers)
+    {
+      Location res = null;
+      for (final String pr : providers)
+      {
+        final Location l = mLocationManager.getLastKnownLocation(pr);
+        if (l != null && isNotExpired(l, l.getTime()))
+        {
+          if (res == null || res.getAccuracy() > l.getAccuracy())
+            res = l;
+        }
+      }
+      return res;
+    }
+
+    private List<String> getFilteredProviders()
+    {
+      final List<String> allProviders = mLocationManager.getProviders(false);
+      final List<String> acceptedProviders = new ArrayList<String>(allProviders.size());
+
+      for (final String prov : allProviders)
+      {
+        if (LocationManager.PASSIVE_PROVIDER.equals(prov))
+          continue;
+
+        if (!mLocationManager.isProviderEnabled(prov))
+        {
+          if (LocationManager.GPS_PROVIDER.equals(prov))
+            mIsGPSOff = true;
+          continue;
+        }
+
+        if (Utils.apiLowerThan(11) &&
+            LocationManager.NETWORK_PROVIDER.equals(prov) &&
+            !ConnectionState.isConnected(mApplication))
+        {
+          // Do not use WiFi location provider.
+          // It returns very old last saved locations with the current time stamp.
+          mLogger.d("Disabled network location as a device isn't online.");
+          continue;
+        }
+
+        acceptedProviders.add(prov);
+      }
+
+      return acceptedProviders;
+    }
+
+    @Override
+    protected Location getLastGPSLocation()
+    {
+      return mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+    }
+
+    @Override
+    protected boolean isLocationBetter(Location l)
+    {
+      if (l == null)
+        return false;
+      if (mLastLocation == null)
+        return true;
+
+      final double s = Math.max(DEFAULT_SPEED_MpS, (l.getSpeed() + mLastLocation.getSpeed()) / 2.0);
+      return (l.getAccuracy() < (mLastLocation.getAccuracy() + s * getLocationTimeDiffS(l)));
+    }
+
+    private boolean isSameLocationProvider(String p1, String p2)
+    {
+      if (p1 == null || p2 == null)
+        return false;
+      return p1.equals(p2);
+    }
+
+    @SuppressLint("NewApi")
+    private double getLocationTimeDiffS(Location l)
+    {
+      if (Utils.apiEqualOrGreaterThan(17))
+        return (l.getElapsedRealtimeNanos() - mLastLocation.getElapsedRealtimeNanos()) * 1.0E-9;
+      else
+      {
+        long time = l.getTime();
+        long lastTime = mLastLocation.getTime();
+        if (!isSameLocationProvider(l.getProvider(), mLastLocation.getProvider()))
+        {
+          // Do compare current and previous system times in case when
+          // we have incorrect time settings on a device.
+          time = System.currentTimeMillis();
+          lastTime = mLastLocationTime;
+        }
+
+        return (time - lastTime) * 1.0E-3;
+      }
+    }
+
+    // End of inner class AndroidNativeLocationProvider
+  }
+
+
+
 }
