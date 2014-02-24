@@ -8,11 +8,9 @@
 class GLState
 {
 public:
-  GLState(uint32_t gpuProgramIndex, int16_t depthLayer, const TextureBinding & texture);
+  GLState(uint32_t gpuProgramIndex, int16_t depthLayer);
 
   int GetProgramIndex() const;
-  const TextureBinding & GetTextureBinding() const;
-  TextureBinding & GetTextureBinding();
   const UniformValuesStorage & GetUniformValues() const;
   UniformValuesStorage & GetUniformValues();
 
@@ -29,7 +27,6 @@ public:
 private:
   uint32_t m_gpuProgramIndex;
   uint16_t m_depthLayer;
-  TextureBinding m_texture;
   UniformValuesStorage m_uniforms;
 };
 

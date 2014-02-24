@@ -147,7 +147,7 @@ UNIT_TEST(BatchLists_Test)
     EXPECTGL(glDeleteProgram(ProgramID));
   }
 
-  GLState state(0, 0, TextureBinding("", false, 0, RefPointer<Texture>()));
+  GLState state(0, 0);
 
   BindingInfo binding(1);
   BindingDecl & decl = binding.GetBindingDecl(0);

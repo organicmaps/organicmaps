@@ -105,8 +105,7 @@ void ListGenerator::Generate(int count, Batcher & batcher)
     provider.InitStream(1, info, MakeStackRefPointer(&depthMemory[0]));
   }
 
-  TextureBinding textureBinding("", false, 0, RefPointer<Texture>());
-  GLState state(m_programIndex, (int16_t)m_depth, textureBinding);
+  GLState state(m_programIndex, (int16_t)m_depth);
   state.GetUniformValues() = m_uniforms;
   batcher.InsertTriangleList(state, MakeStackRefPointer(&provider));
 }

@@ -197,7 +197,7 @@ namespace df
     }
     //
 
-    GLState state(gpu::SOLID_LINE_PROGRAM, 0, TextureBinding("", false, 0, MakeStackRefPointer<Texture>(NULL)));
+    GLState state(gpu::SOLID_LINE_PROGRAM, 0);
     float r, g, b, a;
     ::Convert(GetColor(), r, g, b, a);
     state.GetUniformValues().SetFloatValue("u_color", r, g, b, a);

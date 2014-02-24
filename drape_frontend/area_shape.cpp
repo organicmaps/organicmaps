@@ -21,7 +21,7 @@ namespace df
 
   void AreaShape::Draw(RefPointer<Batcher> batcher) const
   {
-    GLState state(gpu::SOLID_AREA_PROGRAM, 0, TextureBinding("", false, 0, MakeStackRefPointer<Texture>(NULL)));
+    GLState state(gpu::SOLID_AREA_PROGRAM, 0);
     float r, g, b, a;
     ::Convert(m_color, r, g, b, a);
     state.GetUniformValues().SetFloatValue("color", r, g, b, a);
