@@ -31,29 +31,6 @@ namespace tools
   class SkinGenerator
   {
   public:
-
-      struct CharInfo
-      {
-        int m_width;
-        int m_height;
-        int m_xOffset;
-        int m_yOffset;
-        int m_xAdvance;
-        gil::gray8_image_t m_image;
-
-        m2::Packer::handle_t m_handle;
-      };
-
-      typedef map<int32_t, pair<CharInfo, CharInfo> > TChars;
-
-      struct FontInfo
-      {
-        int8_t m_size;
-        TChars m_chars;
-      };
-
-      typedef vector<FontInfo> TFonts;
-
       struct SymbolInfo
       {
         QSize m_size;
@@ -71,7 +48,6 @@ namespace tools
 
       struct SkinPageInfo
       {
-        TFonts m_fonts;
         TSymbols m_symbols;
         int m_width;
         int m_height;
@@ -81,24 +57,17 @@ namespace tools
         m2::Packer m_packer;
       };
 
-      string const getBaseFileName(string const & fileName);
-
   private:
 
       bool m_needColorCorrection;
 
       QSvgRenderer m_svgRenderer;
 
-      int m_baseLineOffset;
-      QString m_fontFileName;
-
       typedef vector<SkinPageInfo> TSkinPages;
       TSkinPages m_pages;
 
       bool m_overflowDetected;
       void markOverflow();
-
-      void renderIcon(string const & svgFile, string const & pngFile, QSize const & size);
 
   public:
 
@@ -108,12 +77,6 @@ namespace tools
                           string const & skinName,
                           vector<QSize> const & symbolSizes,
                           vector<string> const & suffix);
-
-      void processSearchIcons(string const & symbolsDir,
-                              string const & searchCategories,
-                              string const & searchIconsPath,
-                              int searchIconWidth,
-                              int searchIconHeight);
       void renderPages();
       bool writeToFile(string const & skinName);
     };

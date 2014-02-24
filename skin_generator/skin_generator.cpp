@@ -18,21 +18,8 @@
 namespace tools
 {
   SkinGenerator::SkinGenerator(bool needColorCorrection)
-    : m_baseLineOffset(0), m_needColorCorrection(needColorCorrection)
+    : m_needColorCorrection(needColorCorrection)
   {}
-
-  string const SkinGenerator::getBaseFileName(string const & fileName)
-  {
-    int startPos = fileName.find_last_of("/");
-    int endPos = fileName.find_last_of(".");
-    if (endPos != string::npos)
-      endPos = endPos - startPos - 1;
-
-    string s = fileName.substr(fileName.find_last_of("/") + 1, endPos);
-    for (size_t i = 0; i < s.size(); ++i)
-      s[i] = tolower(s[i]);
-    return s;
-  }
 
   struct GreaterHeight
   {
@@ -74,76 +61,6 @@ namespace tools
     return n + 1;
   }
 
-  void SkinGenerator::processSearchIcons(string const & symbolsDir,
-                                         string const & searchCategories,
-                                         string const & searchIconsPath,
-                                         int searchIconWidth,
-                                         int searchIconHeight)
-  {
-    ifstream fin(searchCategories.c_str());
-    QDir().mkpath(QString(searchIconsPath.c_str()));
-
-    while (true)
-    {
-      string category;
-      string icon;
-      fin >> category;
-      fin >> icon;
-      if (!fin)
-        break;
-
-      QString fullFileName((symbolsDir + "/" + icon + ".svg").c_str());
-
-      if (m_svgRenderer.load(fullFileName))
-      {
-        QRect viewBox = m_svgRenderer.viewBox();
-        QSize defaultSize = m_svgRenderer.defaultSize();
-
-        QSize size = defaultSize * (searchIconWidth / 24.0);
-
-        /// fitting symbol into symbolSize, saving aspect ratio
-
-        if (size.width() > searchIconWidth)
-        {
-          size.setHeight((float)size.height() * searchIconWidth / (float)size.width());
-          size.setWidth(searchIconWidth);
-        }
-
-        if (size.height() > searchIconHeight)
-        {
-          size.setWidth((float)size.width() * searchIconHeight / (float)size.height());
-          size.setHeight(searchIconHeight);
-        }
-
-        renderIcon(symbolsDir + "/" + icon + ".svg",
-                   searchIconsPath + "/" + category + ".png",
-                   size);
-
-        renderIcon(symbolsDir + "/" + icon + ".svg",
-                   searchIconsPath + "/" + category + "@2x.png",
-                   size * 2);
-      }
-      else
-        LOG(LERROR, ("hasn't found icon", icon, "for category", category));
-    };
-  }
-
-  void SkinGenerator::renderIcon(string const & svgFile,
-                                 string const & pngFile,
-                                 QSize const & size)
-  {
-    if (m_svgRenderer.load(QString(svgFile.c_str())))
-    {
-      gil::bgra8_image_t gilImage(size.width(), size.height());
-      gil::fill_pixels(gil::view(gilImage), gil::rgba8_pixel_t(0, 0, 0, 0));
-      QImage img((uchar*)&gil::view(gilImage)(0, 0), size.width(), size.height(), QImage::Format_ARGB32);
-      QPainter painter(&img);
-
-      m_svgRenderer.render(&painter, QRect(0, 0, size.width(), size.height()));
-      img.save(pngFile.c_str());
-    }
-  }
-
   void DoPatchSize(QString const & name, string const & skinName, QSize & size)
   {
     if (name.startsWith("placemark-") || name.startsWith("current-position") || name.startsWith("api_pin"))
@@ -180,13 +97,12 @@ namespace tools
       for (size_t i = 0; i < fileNames.size(); ++i)
       {
         QString const & fileName = fileNames.at(i);
+        QString fullFileName = QString(dir.absolutePath()) + "/" + fileName;
+        QString symbolID = fileName.left(fileName.lastIndexOf("."));
         if (fileName.endsWith(".svg"))
         {
-          QString fullFileName = QString(svgDataDir.c_str()) + "/" + fileName;
-          QString symbolID = fileName.left(fileName.lastIndexOf("."));
           if (m_svgRenderer.load(fullFileName))
           {
-            QRect viewBox = m_svgRenderer.viewBox();
             QSize defaultSize = m_svgRenderer.defaultSize();
 
             QSize symbolSize = symbolSizes[j];
@@ -210,6 +126,12 @@ namespace tools
 
             page.m_symbols.push_back(SymbolInfo(size + QSize(4, 4), fullFileName, symbolID));
           }
+        }
+        else if (fileName.toLower().endsWith(".png"))
+        {
+          QPixmap pix(fullFileName);
+          QSize s = pix.size();
+          page.m_symbols.push_back(SymbolInfo(s + QSize(4, 4), fullFileName, symbolID));
         }
       }
     }
@@ -290,10 +212,19 @@ namespace tools
         painter.fillRect(dstRectQt, QColor(0, 0, 0, 0));
 
         painter.setClipRect(dstRect.minX() + 2, dstRect.minY() + 2, dstRect.SizeX() - 4, dstRect.SizeY() - 4);
-
-        m_svgRenderer.load(it->m_fullFileName);
         QRect renderRect(dstRect.minX() + 2, dstRect.minY() + 2, dstRect.SizeX() - 4, dstRect.SizeY() - 4);
-        m_svgRenderer.render(&painter, renderRect);
+
+        if (it->m_fullFileName.endsWith(".svg"))
+        {
+          m_svgRenderer.load(it->m_fullFileName);
+          m_svgRenderer.render(&painter, renderRect);
+        }
+        else if (it->m_fullFileName.toLower().endsWith(".png"))
+        {
+          LOG(LINFO, ("process png"));
+          QPixmap pix(it->m_fullFileName);
+          painter.drawPixmap(renderRect, pix);
+        }
       }
 
       string s = page.m_fileName + ".png";
@@ -328,60 +259,6 @@ namespace tools
 
       int minDynamicID = 0;
       int maxFontResourceID = 0;
-
-      for (TFonts::const_iterator fontIt = page.m_fonts.begin(); fontIt != page.m_fonts.end(); ++fontIt)
-      {
-        QDomElement fontInfo = doc.createElement("fontInfo");
-        fontInfo.setAttribute("size", fontIt->m_size);
-
-        for (TChars::const_iterator it = fontIt->m_chars.begin(); it != fontIt->m_chars.end(); ++it)
-        {
-          QDomElement charStyle = doc.createElement("charStyle");
-
-          charStyle.setAttribute("id", it->first);
-
-          QDomElement glyphInfo = doc.createElement("glyphInfo");
-          charStyle.appendChild(glyphInfo);
-
-          QDomElement resourceStyle = doc.createElement("resourceStyle");
-
-          m2::RectU texRect = page.m_packer.find(it->second.first.m_handle).second;
-
-          resourceStyle.setAttribute("x", texRect.minX());
-          resourceStyle.setAttribute("y", texRect.minY());
-          resourceStyle.setAttribute("width", texRect.SizeX());
-          resourceStyle.setAttribute("height", texRect.SizeY());
-
-          glyphInfo.appendChild(resourceStyle);
-
-          glyphInfo.setAttribute("xAdvance", it->second.first.m_xAdvance);
-          glyphInfo.setAttribute("xOffset", it->second.first.m_xOffset);
-          glyphInfo.setAttribute("yOffset", it->second.first.m_yOffset);
-
-          QDomElement glyphMaskInfo = doc.createElement("glyphMaskInfo");
-          resourceStyle = doc.createElement("resourceStyle");
-
-          texRect = page.m_packer.find(it->second.second.m_handle).second;
-
-          resourceStyle.setAttribute("x", texRect.minX());
-          resourceStyle.setAttribute("y", texRect.minY());
-          resourceStyle.setAttribute("width", texRect.SizeX());
-          resourceStyle.setAttribute("height", texRect.SizeY());
-
-          glyphMaskInfo.appendChild(resourceStyle);
-          glyphMaskInfo.setAttribute("xAdvance", it->second.second.m_xAdvance);
-          glyphMaskInfo.setAttribute("xOffset", it->second.second.m_xOffset);
-          glyphMaskInfo.setAttribute("yOffset", it->second.second.m_yOffset);
-
-          charStyle.appendChild(glyphMaskInfo);
-
-          fontInfo.appendChild(charStyle);
-
-          maxFontResourceID = max(it->first, maxFontResourceID);
-        }
-
-        pageElem.appendChild(fontInfo);
-      }
 
       minDynamicID += maxFontResourceID + 1;
       int maxImageResourceID = 0;
