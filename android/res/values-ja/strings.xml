@@ -309,4 +309,8 @@
 	<string name="more_apps_title">その他のアプリ</string>
 	<string name="more_apps_guides">トラベルガイド</string>
 	<string name="more_apps_ads">その他のアプリ</string>
+	<string name="placepage_distance">距離</string>
+	<string name="placepage_coordinates">コーディネート</string>
+	<string name="placepage_unsorted">未分類</string>
+	<string name="search_show_on_map">地図に表示</string>
 </resources>

@@ -319,4 +319,8 @@
 	<string name="more_apps_title">Altre app</string>
 	<string name="more_apps_guides">Guide turistiche</string>
 	<string name="more_apps_ads">Altre app</string>
+	<string name="placepage_distance">Distanza</string>
+	<string name="placepage_coordinates">Coordinate</string>
+	<string name="placepage_unsorted">Non classificato</string>
+	<string name="search_show_on_map">Visualizza sulla mappa</string>
 </resources>

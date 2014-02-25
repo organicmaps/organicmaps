@@ -302,4 +302,8 @@
 	<string name="menu_search">검색</string>
 	<string name="pref_zoom_title">확대/축소 버튼</string>
 	<string name="pref_zoom_summary">화면에 표시</string>
+	<string name="placepage_distance">거리</string>
+	<string name="placepage_coordinates">좌표</string>
+	<string name="placepage_unsorted">분류되지 않음</string>
+	<string name="search_show_on_map">지도 보기</string>
 </resources>

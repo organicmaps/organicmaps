@@ -524,3 +524,11 @@
 "more_apps_guides" = "Путеводители";
 
 "more_apps_ads" = "Другие приложения";
+
+"placepage_distance" = "Расстояние";
+
+"placepage_coordinates" = "Координаты";
+
+"placepage_unsorted" = "Без категории";
+
+"search_show_on_map" = "Посмотреть на карте";

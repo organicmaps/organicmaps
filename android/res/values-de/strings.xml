@@ -323,4 +323,8 @@
 	<string name="more_apps_title">Mehr Apps</string>
 	<string name="more_apps_guides">Reiseführer</string>
 	<string name="more_apps_ads">Mehr Apps</string>
+	<string name="placepage_distance">Distanz</string>
+	<string name="placepage_coordinates">Koordinaten</string>
+	<string name="placepage_unsorted">Unsortiert</string>
+	<string name="search_show_on_map">Auf der Karte ansehen</string>
 </resources>

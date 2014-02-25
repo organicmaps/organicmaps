@@ -298,4 +298,8 @@
 	<string name="menu_search">搜尋</string>
 	<string name="pref_zoom_title">縮放按鈕</string>
 	<string name="pref_zoom_summary">在螢幕上顯示</string>
+	<string name="placepage_distance">距离</string>
+	<string name="placepage_coordinates">坐标</string>
+	<string name="placepage_unsorted">未分类的</string>
+	<string name="search_show_on_map">在地图上查看</string>
 </resources>

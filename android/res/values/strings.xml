@@ -339,4 +339,8 @@
 	<string name="more_apps_title">More apps</string>
 	<string name="more_apps_guides">Travel guides</string>
 	<string name="more_apps_ads">More apps</string>
+	<string name="placepage_distance">Distance</string>
+	<string name="placepage_coordinates">Coordinates</string>
+	<string name="placepage_unsorted">Unsorted</string>
+	<string name="search_show_on_map">View on map</string>
 </resources>

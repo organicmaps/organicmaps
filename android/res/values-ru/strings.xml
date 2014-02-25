@@ -321,4 +321,8 @@
 	<string name="more_apps_title">Другие приложения</string>
 	<string name="more_apps_guides">Путеводители</string>
 	<string name="more_apps_ads">Другие приложения</string>
+	<string name="placepage_distance">Расстояние</string>
+	<string name="placepage_coordinates">Координаты</string>
+	<string name="placepage_unsorted">Без категории</string>
+	<string name="search_show_on_map">Посмотреть на карте</string>
 </resources>

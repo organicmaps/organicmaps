@@ -524,3 +524,11 @@
 "more_apps_guides" = "Travel guides";
 
 "more_apps_ads" = "More apps";
+
+"placepage_distance" = "거리";
+
+"placepage_coordinates" = "좌표";
+
+"placepage_unsorted" = "분류되지 않음";
+
+"search_show_on_map" = "지도 보기";
