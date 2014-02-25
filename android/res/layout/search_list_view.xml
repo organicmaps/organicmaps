@@ -26,6 +26,59 @@
         android:background="@drawable/background_holo_light"
         android:padding="5dp" />
 
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/background_holo_light"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+
+        <RadioButton
+            android:id="@+id/search_scope_near"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/search_scope_background_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="4dp"
+            android:text="@string/search_mode_nearme" />
+
+        <RadioButton
+            android:id="@+id/search_scope_on_screen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/search_scope_background_selector"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="4dp"
+            android:text="@string/search_mode_viewport" />
+
+        <RadioButton
+            android:id="@+id/search_scope_everywhere"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/search_scope_background_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="4dp"
+            android:text="@string/search_mode_all" />
+    </RadioGroup>
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
