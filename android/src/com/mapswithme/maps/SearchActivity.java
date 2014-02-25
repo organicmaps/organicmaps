@@ -322,7 +322,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         // title item with "Show all" text
         if (position == 0)
         {
-          holder.m_name.setText("TODO show all text");
+          holder.m_name.setText(m_context.getString(R.string.search_show_on_map));
           holder.m_country.setText(null);
           holder.m_amenity.setText(null);
           holder.m_distance.setText(null);

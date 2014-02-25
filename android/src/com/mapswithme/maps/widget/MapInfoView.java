@@ -307,8 +307,9 @@ public class MapInfoView extends LinearLayout
       {
         mMapObject = mo;
 
-        final String name = Utils.firstNotEmpty(mo.getName(), mo.getPoiTypeName(), "TODO unknown");
-        final String type = Utils.firstNotEmpty(mo.getPoiTypeName(), "TODO unknown");
+        final String undefined = getResources().getString(R.string.placepage_unsorted);
+        final String name = Utils.firstNotEmpty(mo.getName(), mo.getPoiTypeName(), undefined);
+        final String type = Utils.firstNotEmpty(mo.getPoiTypeName(), undefined);
         setTextAndShow(name, type);
 
         switch (mo.getType())
@@ -347,7 +348,7 @@ public class MapInfoView extends LinearLayout
     final Location lastKnown = MWMApplication.get().getLocationService().getLastKnown();
 
     final CharSequence distanceText = (lastKnown == null)
-        ? "TODO default string"
+        ? getResources().getString(R.string.unknown_current_position)
         : Framework.getDistanceAndAzimutFromLatLon(
             mo.getLat(), mo.getLon(), lastKnown.getLatitude(),
             lastKnown.getLongitude(), 0.0).getDistance();
