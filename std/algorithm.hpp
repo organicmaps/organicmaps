@@ -33,7 +33,6 @@ using std::set_union;
 using std::set_intersection;
 using std::set_difference;
 using std::set_symmetric_difference;
-using std::swap;
 using std::transform;
 using std::push_heap;
 using std::pop_heap;

@@ -363,9 +363,10 @@ void swap(Address & a1, Address & a2)
 
 UNIT_TEST(HS_MWMSearch)
 {
-  string const country = "Minsk"; //"Belarus"; //"USA_New York";
+  // "Minsk", "Belarus", "Lithuania", "USA_New York", "USA_California"
+  string const country = "minsk-pass";
 
-  string const path = GetPlatform().WritableDir() + "addresses-" + country + ".txt";
+  string const path = GetPlatform().WritableDir() + country + ".addr";
   ifstream file(path.c_str());
   if (!file.good())
   {
@@ -420,7 +421,7 @@ UNIT_TEST(HS_MWMSearch)
   search::HouseDetector detector(&index);
   size_t all = 0, matched = 0, notMatched = 0;
 
-  size_t const percent = addresses.size() / 100;
+  size_t const percent = max(size_t(1), addresses.size() / 100);
   for (size_t i = 0; i < addresses.size(); ++i)
   {
     if (i % percent == 0)

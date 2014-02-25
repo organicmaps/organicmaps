@@ -152,6 +152,20 @@ public:
   inline Street const * operator[] (size_t i) const { return m_cont[i]; }
   //@}
 
+  struct GreaterLength
+  {
+    bool operator() (MergedStreet const & s1, MergedStreet const & s2) const
+    {
+      return (s1.m_length > s2.m_length);
+    }
+  };
+
+  inline void Swap(MergedStreet & s)
+  {
+    m_cont.swap(s.m_cont);
+    std::swap(m_length, s.m_length);
+  }
+
 public:
   struct Index
   {
@@ -184,6 +198,11 @@ private:
   void Erase(Index & i);
   void Next(Index & i) const;
 };
+
+inline void swap(MergedStreet & s1, MergedStreet & s2)
+{
+  s1.Swap(s2);
+}
 
 class HouseDetector
 {

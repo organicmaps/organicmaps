@@ -110,8 +110,9 @@ string affics[] =
   "туп", "ул", "тр",
 
   // English
-  "street", "avenue", "square", "road", "drive",
-  "st", "av", "sq", "rd",
+  "street", "avenue", "square", "road", "boulevard",
+  "drive", "highway", "lane", "way",
+  "st", "av", "ave", "sq", "rd", "blvd", "dr", "hwy", "ln",
 
   // German
   "strasse", "weg", "platz",
@@ -227,7 +228,7 @@ ParsedNumber::ParsedNumber(string const & number, bool american)
       else
       {
         if (m_startN > m_endN)
-          swap(m_startN, m_endN);
+          std::swap(m_startN, m_endN);
       }
     }
   }
@@ -529,9 +530,14 @@ int HouseDetector::MergeStreets()
     }
   }
 
+  // Put longer streets first (for better house scoring).
+  sort(m_streets.begin(), m_streets.end(), MergedStreet::GreaterLength());
+
 //#ifdef DEBUG
 //  char const * arrColor[] = { "FFFF0000", "FF00FFFF", "FFFFFF00", "FF0000FF", "FF00FF00", "FFFF00FF" };
-//  for (size_t i = 0; i < m_streets.size(); ++i)
+
+//  // Write to kml from short to long to get the longest one at the top.
+//  for (int i = int(m_streets.size()) - 1; i >= 0; --i)
 //  {
 //    Streets2KML(file.GetStream(), m_streets[i], arrColor[i % ARRAY_SIZE(arrColor)]);
 //  }

@@ -1083,8 +1083,10 @@ namespace impl
     {
       m_name.swap(rhs.m_name);
       m_enName.swap(rhs.m_enName);
-      swap(m_value, rhs.m_value);
       m_matchedTokens.swap(rhs.m_matchedTokens);
+
+      using std::swap;
+      swap(m_value, rhs.m_value);
       swap(m_type, rhs.m_type);
     }
 
