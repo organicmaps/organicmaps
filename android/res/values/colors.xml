@@ -19,9 +19,13 @@
 
     <color name="semitransparent_black">#60000000</color>
 
+    <drawable name="white">#FFF</drawable>
 
     <color name="ui_20_gray">#EFEFF4</color>
+
     <color name="ui_20_text_dark">#333333</color>
+    <drawable name="ui_20_text_dark">#333333</drawable>
+
     <color name="ui_20_text_green">#53d769</color>
 
     <color name="ui_20_green">#3dca6a</color>

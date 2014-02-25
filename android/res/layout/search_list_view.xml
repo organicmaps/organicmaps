@@ -34,12 +34,14 @@
             android:layout_weight="1"
             android:background="@drawable/search_scope_background_selector"
             android:button="@null"
+            android:fontFamily="@string/robotoLight"
             android:gravity="center"
             android:paddingBottom="4dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingTop="4dp"
-            android:text="@string/search_mode_nearme" />
+            android:text="@string/search_mode_nearme"
+            android:textColor="@color/text_checked_white_unchecked_gray_selector" />
 
         <RadioButton
             android:id="@+id/search_scope_on_screen"
@@ -49,12 +51,14 @@
             android:background="@drawable/search_scope_background_selector"
             android:button="@null"
             android:checked="true"
+            android:fontFamily="@string/robotoLight"
             android:gravity="center"
             android:paddingBottom="4dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingTop="4dp"
-            android:text="@string/search_mode_viewport" />
+            android:text="@string/search_mode_viewport"
+            android:textColor="@color/text_checked_white_unchecked_gray_selector" />
 
         <RadioButton
             android:id="@+id/search_scope_everywhere"
@@ -63,12 +67,14 @@
             android:layout_weight="1"
             android:background="@drawable/search_scope_background_selector"
             android:button="@null"
+            android:fontFamily="@string/robotoLight"
             android:gravity="center"
             android:paddingBottom="4dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingTop="4dp"
-            android:text="@string/search_mode_all" />
+            android:text="@string/search_mode_all"
+            android:textColor="@color/text_checked_white_unchecked_gray_selector" />
     </RadioGroup>
 
     <ListView

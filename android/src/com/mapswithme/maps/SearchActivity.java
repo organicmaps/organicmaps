@@ -785,7 +785,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
   private void runSearch(int mode)
   {
-    Log.d("<><><>","SearchMode:" + mode);
     m_searchMode = mode;
     runSearch();
   }
