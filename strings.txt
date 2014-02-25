@@ -3054,3 +3054,71 @@
     hu = Több alkalmazás
     en = More apps
     ru = Другие приложения
+
+  [placepage_distance]
+    en = Distance
+    fr = Distance
+    nl = Afstand
+    it = Distanza
+    pl = Dystans
+    pt = Distância
+    uk = Відстань
+    ko = 거리
+    cs = Vzdálenost
+    de = Distanz
+    zh-Hant = 距离
+    ja = 距離
+    es = Distancia
+    ru = Расстояние
+    hu = Távolság
+
+  [placepage_coordinates]
+    en = Coordinates
+    fr = Coordonnées
+    nl = Coördinaten
+    it = Coordinate
+    pl = Współrzędne
+    pt = Coordenadas
+    uk = Координати
+    ko = 좌표
+    cs = Souřadnice
+    de = Koordinaten
+    zh-Hant = 坐标
+    ja = コーディネート
+    es = Coordenadas
+    ru = Координаты
+    hu = Koordináták
+
+  [placepage_unsorted]
+    en = Unsorted
+    fr = Non classé
+    nl = Ongeclassificeerd
+    it = Non classificato
+    pl = Niesklasyfikowane
+    pt = Não classificado
+    uk = Без категорії
+    ko = 분류되지 않음
+    cs = Nezařazené
+    de = Unsortiert
+    zh-Hant = 未分类的
+    ja = 未分類
+    es = Sin clasificar
+    ru = Без категории
+    hu = Osztályozatlan
+
+  [search_show_on_map]
+    en = View on map
+    fr = Afficher sur la carte
+    nl = Op kaart bekijken
+    it = Visualizza sulla mappa
+    pl = Zobacz na mapie
+    pt = Ver no mapa
+    uk = Подивитись на карті
+    ko = 지도 보기
+    cs = Zobrazit a mapě
+    de = Auf der Karte ansehen
+    zh-Hant = 在地图上查看
+    ja = 地図に表示
+    es = Ver en el mapa
+    ru = Посмотреть на карте
+    hu = Megtekintés a térképen
