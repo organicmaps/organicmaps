@@ -9,20 +9,18 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.mapswithme.maps.base.MapsWithMeBaseListActivity;
@@ -393,7 +391,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       }
       else
       {
-        // TODO handle all cases
         if (m_count > 0)
         {
           // Show all items was clicked
@@ -448,7 +445,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   private View mSearchIcon;
   //
 
-  private Spinner m_modesSpinner;
+  private RadioGroup mSearchScopeGroup;
 
   @SuppressLint("NewApi")
   @Override
@@ -478,8 +475,18 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     {
       mSearchBox.setText(intent.getStringExtra(EXTRA_QUERY));
       if (intent.hasExtra(EXTRA_SCOPE))
-        m_modesSpinner.setSelection(intent.getIntExtra(EXTRA_SCOPE, 0));
+        setSearchGroupSelectionByMode(intent.getIntExtra(EXTRA_SCOPE, 0));
       runSearch();
+    }
+  }
+
+  private void setSearchGroupSelectionByMode(final int savedSearchMode)
+  {
+    switch (savedSearchMode)
+    {
+      case ALL:         mSearchScopeGroup.check(R.id.search_scope_everywhere); break;
+      case IN_VIEWPORT: mSearchScopeGroup.check(R.id.search_scope_on_screen);  break;
+      default:          mSearchScopeGroup.check(R.id.search_scope_near);       break;
     }
   }
 
@@ -538,54 +545,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       }
     });
 
-    // Initialize search modes spinner.
-    m_modesSpinner = (Spinner) findViewById(R.id.search_modes_spinner);
-
-    final ArrayAdapter<?> adapter = ArrayAdapter
-                                    .createFromResource(this, R.array.search_modes, R.layout.simple_spinner_item);
-    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    m_modesSpinner.setAdapter(adapter);
-
-    // Default mode is AROUND_POSITION
-    m_modesSpinner.setSelection(MWMApplication.get().nativeGetInt(SEARCH_MODE_SETTING, 1));
-
-    m_modesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-    {
-      @Override
-      public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-      {
-        int mode = ALL;
-        switch (position)
-        {
-        case 1: mode = AROUND_POSITION; break;
-        case 2: mode = IN_VIEWPORT; break;
-        }
-
-        // Save new search setting
-        //
-        // But track change before that
-        final int oldSearchContext = getMwmApplication().nativeGetInt(SEARCH_MODE_SETTING, 1);
-        final String[] contexts = {"All", "Around", "Viewport"};
-        // value | val % 7 | real index in 'contexts'
-        //     7 |       0 |    0
-        //     1 |       1 |    1
-        //     2 |       2 |    2
-        final String from = contexts[oldSearchContext % 7];
-        final String to   = contexts[mode % 7];
-
-        if (!TextUtils.equals(from, to))
-          Statistics.INSTANCE.trackSearchContextChanged(SearchActivity.this, from, to);
-        // END of statistics
-
-        getMwmApplication().nativeSetInt(SEARCH_MODE_SETTING, position);
-        runSearch(mode);
-      }
-
-      @Override
-      public void onNothingSelected(AdapterView<?> parent)
-      {
-      }
-    });
+    setUpSearchModes();
 
     mVoiceInput.setOnClickListener(new OnClickListener()
     {
@@ -594,6 +554,34 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       {
         final Intent vrIntent = InputUtils.createIntentForVoiceRecognition(getResources().getString(R.string.search_map));
         startActivityForResult(vrIntent, RC_VOICE_RECOGNITIN);
+      }
+    });
+  }
+
+  private void setUpSearchModes()
+  {
+    // Initialize search modes group
+    mSearchScopeGroup = (RadioGroup)findViewById(R.id.search_scope);
+    // Default mode is AROUND_POSITION
+    setSearchGroupSelectionByMode(MWMApplication.get().nativeGetInt(SEARCH_MODE_SETTING, AROUND_POSITION));
+    mSearchScopeGroup.setOnCheckedChangeListener(new OnCheckedChangeListener()
+    {
+      @Override
+      public void onCheckedChanged(RadioGroup group, int checkedId)
+      {
+        int mode;
+
+        if (R.id.search_scope_everywhere == checkedId)
+          mode = ALL;
+        else if (R.id.search_scope_near == checkedId)
+          mode = AROUND_POSITION;
+        else if (R.id.search_scope_on_screen == checkedId)
+          mode = IN_VIEWPORT;
+        else
+          throw new IllegalArgumentException("Unknown Id: " + checkedId);
+
+        getMwmApplication().nativeSetInt(SEARCH_MODE_SETTING, mode);
+        runSearch(mode);
       }
     });
   }
@@ -797,6 +785,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
   private void runSearch(int mode)
   {
+    Log.d("<><><>","SearchMode:" + mode);
     m_searchMode = mode;
     runSearch();
   }
@@ -837,7 +826,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
   private void setSearchInProgress(boolean inProgress)
   {
-    // TODO animate visibility change
     if (inProgress)
     {
       UiUtils.show(mSearchProgress);

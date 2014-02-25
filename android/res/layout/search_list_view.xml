@@ -15,22 +15,14 @@
         android:layout_marginTop="10dp"
         layout="@layout/search_box" />
 
-    <Spinner
-        android:id="@+id/search_modes_spinner"
-        android:layout_width="fill_parent"
+    <RadioGroup
+        android:id="@+id/search_scope"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="0dp"
-        android:background="@drawable/background_holo_light"
-        android:padding="5dp" />
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:background="@drawable/background_holo_light"
         android:orientation="horizontal"
         android:padding="5dp" >
