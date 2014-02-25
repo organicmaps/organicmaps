@@ -580,7 +580,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     addTask(intent);
 
     // Initialize location service
-    // TODO find better solution?
     getLocationService();
   }
 

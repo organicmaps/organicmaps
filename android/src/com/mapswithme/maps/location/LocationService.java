@@ -30,7 +30,7 @@ import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.SimpleLogger;
+import com.mapswithme.util.log.StubLogger;
 import com.mapswithme.util.statistics.Statistics;
 
 
@@ -40,7 +40,7 @@ public class LocationService implements
                              GooglePlayServicesClient.OnConnectionFailedListener,
                              com.google.android.gms.location.LocationListener
 {
-  private final Logger mLogger = SimpleLogger.get(this.toString());
+  private final Logger mLogger = StubLogger.get();//SimpleLogger.get(this.toString());
 
   private static final double DEFAULT_SPEED_MpS = 5;
   private static final float DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M = 1000;
@@ -229,6 +229,8 @@ public class LocationService implements
 
     if (mLocationProvider.isLocationBetter(l))
     {
+      mLogger.d("Location accepted: " + l);
+
       calcDirection(l);
 
       // Used for more precise compass updates
@@ -626,6 +628,9 @@ public class LocationService implements
     private LocationClient mLocationClient;
     private LocationRequest mLocationRequest;
 
+    /// true when LocationService is on
+    private boolean mIsActive = false;
+
     @Override
     protected void setUp()
     {
@@ -643,7 +648,33 @@ public class LocationService implements
     @Override
     protected void startUpdates(Listener l)
     {
-      mLocationClient.requestLocationUpdates(mLocationRequest, mHost);
+      if (!mLocationClient.isConnected())
+      {
+        mLogger.e("LocationClient is disconnected");
+        // Connection is asynchronous process
+        // We need to be connected before call LocationClient.requestLocationUpdates()
+
+        if (!mLocationClient.isConnecting())
+          mLocationClient.connect();
+
+        return;
+      }
+
+      if (!mIsActive)
+      {
+        // Wifi
+        startWifiLocationUpdate();
+        // Sensors
+        registerSensorListeners();
+
+        mLocationClient.requestLocationUpdates(mLocationRequest, mHost);
+
+        final Location lastLocation = mLocationClient.getLastLocation();
+        if (lastLocation != null)
+          emitLocation(lastLocation);
+
+        mIsActive = true;
+      }
     }
 
     @Override
@@ -653,8 +684,17 @@ public class LocationService implements
       {
         mLocationClient.removeLocationUpdates(mHost);
 
-        // TODO when we disconnect?
-        //mLocationClient.disconnect();
+        // Reset current parameters to force initialize in the next startUpdate
+        mMagneticField = null;
+        mDrivingHeading = -1.0;
+        mIsActive = false;
+
+        // Sensors
+        if (mSensorManager != null)
+          mSensorManager.unregisterListener(mHost);
+
+        // Wifi
+        stopWifiLocationUpdate();
       }
     }
 
@@ -662,13 +702,18 @@ public class LocationService implements
     protected boolean isLocationBetter(Location location)
     {
       // we belive that google services always returns good locations
-      return true;
+      if (mLastLocation == null)
+        return true;
+      else if ("fused".equalsIgnoreCase(location.getProvider()))
+        return true;
+      else return mLastLocation.getAccuracy() >= location.getAccuracy();
     }
 
     @Override
     protected Location getLastGPSLocation()
     {
       // there is no possibility to return precise provider
+      // using LocationClient. Everything is 'fused'
       return mLocationClient.getLastLocation();
     }
 
