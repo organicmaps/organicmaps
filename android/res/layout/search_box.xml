@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/ic_omni_box_search_selector" />
+            android:src="@drawable/ic_search" />
     </FrameLayout>
 
     <EditText
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="4dp"
-            android:src="@drawable/ic_omni_box_cancel_selector"
+            android:src="@drawable/ic_close"
             android:visibility="visible" />
 
         <ImageView
@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/ic_omni_box_speech_selector" />
+            android:src="@drawable/ic_voice" />
     </FrameLayout>
 
 </LinearLayout>

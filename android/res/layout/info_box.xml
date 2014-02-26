@@ -43,6 +43,7 @@
 
         <CheckBox
             android:id="@+id/info_box_is_bookmarked"
+            android:button="@drawable/info_box_add_to_bookmarks_btn_selector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0" />
