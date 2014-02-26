@@ -218,12 +218,13 @@ namespace tools
         painter.setClipRect(dstRect.minX() + 2, dstRect.minY() + 2, dstRect.SizeX() - 4, dstRect.SizeY() - 4);
         QRect renderRect(dstRect.minX() + 2, dstRect.minY() + 2, dstRect.SizeX() - 4, dstRect.SizeY() - 4);
 
-        if (it->m_fullFileName.endsWith(".svg"))
+        QString fullLowerCaseName = it->m_fullFileName.toLower();
+        if (fullLowerCaseName.endsWith(".svg"))
         {
           m_svgRenderer.load(it->m_fullFileName);
           m_svgRenderer.render(&painter, renderRect);
         }
-        else if (it->m_fullFileName.toLower().endsWith(".png"))
+        else if (fullLowerCaseName.endsWith(".png"))
         {
           QPixmap pix(it->m_fullFileName);
           painter.drawPixmap(renderRect, pix);

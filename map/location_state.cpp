@@ -61,9 +61,7 @@ namespace location
         {
           double e = exp(-2 * elapsed) / 40000.0;
           e = max(e, 0.000005);
-          LOG(LINFO, ("E = ", e));
           m_currentRadius += e ;
-          LOG(LINFO, ("R = ", m_currentRadius));
 
           if (m_currentRadius < 0.0)
             m_currentRadius = 0.0;
