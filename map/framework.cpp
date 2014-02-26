@@ -1666,7 +1666,7 @@ void Framework::DrawMapApiPoints(shared_ptr<PaintEvent> const & e)
     if (glbRect.IsPointInside(org))
     {
       /// @todo Use custom pins from 3-party app
-      m_informationDisplay.drawPlacemark(pDrawer, "api_pin", m_navigator.GtoP(org));
+      m_informationDisplay.drawPlacemark(pDrawer, "search-result", m_navigator.GtoP(org));
     }
   }
 }
