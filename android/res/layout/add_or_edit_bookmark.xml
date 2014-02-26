@@ -35,14 +35,31 @@
 
             <include layout="@layout/green_separator" />
 
-            <EditText
-                android:id="@+id/pin_name"
-                style="@style/pinEditableParam"
-                android:layout_width="fill_parent"
+            <LinearLayout
+                android:id="@+id/bookmark_name_container"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/name"
-                android:inputType="textCapWords"
-                android:singleLine="true" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/pin_name"
+                    style="@style/pinEditableParam"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/name"
+                    android:inputType="textCapWords"
+                    android:singleLine="true" />
+
+                <ImageView
+                    android:id="@+id/bookmark_name_clear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_close" />
+            </LinearLayout>
 
             <!-- SET -->
 

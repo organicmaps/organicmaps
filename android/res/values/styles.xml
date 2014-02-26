@@ -58,7 +58,6 @@
 
     <style name="pinEditableParam" parent="Holo.EditText.Light">
         <item name="android:imeOptions">actionDone</item>
-        <item name="android:layout_marginBottom">@dimen/dp_x_4</item>
         <item name="android:textSize">@dimen/sp_x_4</item>
     </style>
 

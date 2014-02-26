@@ -48,6 +48,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
   private Bookmark mPin;
   private EditText mName;
+  private View     mClearName;
   private EditText mDescr;
   private TextView mSet;
   private ImageView mPinImage;
@@ -133,11 +134,12 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   private void refreshValuesInViews()
   {
     updateColorChooser(mPin.getIcon());
-
-
     Utils.setStringAndCursorToEnd(mName, mPin.getName());
+
     mSet.setText(mPin.getCategoryName(this));
     mDescr.setText(mPin.getBookmarkDescription());
+
+    setUpClearNameView();
   }
 
   private void setUpViews()
@@ -147,6 +149,15 @@ public class BookmarkActivity extends AbstractBookmarkActivity
     mPinImage = (ImageView)findViewById(R.id.color_image);
 
     mName = (EditText) findViewById(R.id.pin_name);
+    mClearName = findViewById(R.id.bookmark_name_clear);
+    mClearName.setOnClickListener(new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        mName.getText().clear();
+      }
+    });
     mDescr = (EditText)findViewById(R.id.pin_description);
 
     mPinImage.setOnClickListener(new OnClickListener()
@@ -187,8 +198,13 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
       @Override
-      public void afterTextChanged(Editable s) {}
+      public void afterTextChanged(Editable s)
+      {
+        setUpClearNameView();
+      }
     });
+
+    mName.requestFocus();
   }
 
   private void assignPinParams()
@@ -290,5 +306,13 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
       finish();
     }
+  }
+
+  private void setUpClearNameView()
+  {
+    if (TextUtils.isEmpty(mName.getText().toString()))
+      UiUtils.invisible(mClearName);
+    else
+      UiUtils.show(mClearName);
   }
 }
