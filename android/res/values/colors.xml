@@ -6,7 +6,6 @@
     <color name="text_primary">#333333</color>
     <color name="text_seconadary">#999999</color>
     <color name="drawer_green">#4CD964</color>
-    <color name="drawer_back_inv">#AEEE</color>
     <color name="drawer_text_active">#FFF</color>
     <color name="drawer_text_inacative">#FFF</color>
     <color name="drawer_text_disabled">#999999</color>

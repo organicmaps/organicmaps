@@ -10,10 +10,4 @@
         <item>2</item>
     </string-array>
 
-    <string-array name="search_modes">
-        <item>@string/search_mode_all</item>
-        <item>@string/search_mode_nearme</item>
-        <item>@string/search_mode_viewport</item>
-    </string-array>
-
 </resources>
