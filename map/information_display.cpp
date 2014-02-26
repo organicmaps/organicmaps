@@ -102,9 +102,7 @@ void InformationDisplay::InitLocationState(Framework * fw)
   p.m_position = graphics::EPosCenter;
   p.m_depth = graphics::locationDepth;
   p.m_pivot = m2::PointD(0, 0);
-  p.m_compassAreaColor = graphics::Color(255, 255, 255, 192);
-  p.m_compassBorderColor = graphics::Color(255, 255, 255, 96);
-  p.m_locationAreaColor = graphics::Color(11, 97, 210, 48);
+  p.m_locationAreaColor = graphics::Color(0x51, 0xA3, 0xDC, 0x25);
   p.m_framework = fw;
 
   m_locationState.reset(new location::State(p));
