@@ -44,8 +44,8 @@ namespace tools
 
     void operator()(SkinGenerator::SymbolInfo const & info)
     {
-      m_width = max(m_width, info.m_size.width());
-      m_height = max(m_height, info.m_size.height());
+      m_width = max(max(m_width, m_height), info.m_size.width());
+      m_height = max(max(m_width, m_height), info.m_size.height());
     }
   };
 
@@ -86,6 +86,9 @@ namespace tools
       QDir dir(QString(svgDataDir.c_str()));
       QStringList fileNames = dir.entryList(QDir::Files);
 
+      QDir pngDir = dir.absolutePath() + "/" + "png";
+      fileNames += pngDir.entryList(QDir::Files);
+
       /// separate page for symbols
       m_pages.push_back(SkinPageInfo());
       SkinPageInfo & page = m_pages.back();
@@ -97,10 +100,10 @@ namespace tools
       for (size_t i = 0; i < fileNames.size(); ++i)
       {
         QString const & fileName = fileNames.at(i);
-        QString fullFileName = QString(dir.absolutePath()) + "/" + fileName;
         QString symbolID = fileName.left(fileName.lastIndexOf("."));
         if (fileName.endsWith(".svg"))
         {
+          QString fullFileName = QString(dir.absolutePath()) + "/" + fileName;
           if (m_svgRenderer.load(fullFileName))
           {
             QSize defaultSize = m_svgRenderer.defaultSize();
@@ -129,6 +132,7 @@ namespace tools
         }
         else if (fileName.toLower().endsWith(".png"))
         {
+          QString fullFileName = QString(pngDir.absolutePath()) + "/" + fileName;
           QPixmap pix(fullFileName);
           QSize s = pix.size();
           page.m_symbols.push_back(SymbolInfo(s + QSize(4, 4), fullFileName, symbolID));
@@ -221,7 +225,6 @@ namespace tools
         }
         else if (it->m_fullFileName.toLower().endsWith(".png"))
         {
-          LOG(LINFO, ("process png"));
           QPixmap pix(it->m_fullFileName);
           painter.drawPixmap(renderRect, pix);
         }
