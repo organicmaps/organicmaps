@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -555,6 +557,20 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         final Intent vrIntent = InputUtils.createIntentForVoiceRecognition(getResources().getString(R.string.search_map));
         startActivityForResult(vrIntent, RC_VOICE_RECOGNITIN);
       }
+    });
+
+    getListView().setOnScrollListener(new OnScrollListener()
+    {
+      @Override
+      public void onScrollStateChanged(AbsListView view, int scrollState)
+      {
+        // Hide keyboard when user starts scroll
+        InputUtils.hideKeyboard(mSearchBox);
+      }
+
+      @Override
+      public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
+      {}
     });
   }
 

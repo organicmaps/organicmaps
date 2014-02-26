@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 public class InputUtils
 {
@@ -41,6 +43,13 @@ public class InputUtils
       return null;
 
     return recongnizedStrings.isEmpty() ? null : recongnizedStrings.get(0);
+  }
+
+  public static void hideKeyboard(View view)
+  {
+    final Context c = view.getContext();
+    final InputMethodManager imm =  (InputMethodManager)c.getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
   }
 
   private InputUtils() { /* static class */ }
