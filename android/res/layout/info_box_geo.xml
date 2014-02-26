@@ -24,6 +24,7 @@
         app:layout_gravity="right"
         app:layout_row="1"
         android:fontFamily="@string/robotoRegular"
+        android:singleLine="true"
         android:textColor="@color/ui_20_text_green" />
 
     <TextView
@@ -42,6 +43,7 @@
         app:layout_gravity="right"
         app:layout_row="2"
         android:fontFamily="@string/robotoRegular"
+        android:singleLine="true"
         android:textColor="@color/ui_20_text_green" />
 
 </android.support.v7.widget.GridLayout>

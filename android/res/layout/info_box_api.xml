@@ -21,6 +21,7 @@
 
     <Button
         android:id="@+id/info_box_api_return_to_caller"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Return to caller" />

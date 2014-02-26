@@ -102,16 +102,6 @@ public class MapInfoView extends LinearLayout
 
 
   private int mMaxBodyHeight = 0;
-  private final OnLayoutChangeListener mLayoutChangeListener = new OnLayoutChangeListener()
-  {
-
-    @Override
-    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight,
-        int oldBottom)
-    {
-      calculateMaxBodyHeight(top, bottom);
-    }
-  };
 
   // We dot want to use OnCheckedChangedListener because it gets called
   // if someone calls setCheched() from code. We need only user interaction.
@@ -214,10 +204,12 @@ public class MapInfoView extends LinearLayout
   }
 
   @Override
-  protected void onAttachedToWindow()
+  protected void onSizeChanged(int w, int h, int oldw, int oldh)
   {
-    super.onAttachedToWindow();
-    ((View)getParent()).addOnLayoutChangeListener(mLayoutChangeListener);
+    super.onSizeChanged(w, h, oldw, oldh);
+
+    final View parent = (View)getParent();
+    calculateMaxBodyHeight(parent.getHeight());
   }
 
   public void showBody(final boolean show)
@@ -460,9 +452,9 @@ public class MapInfoView extends LinearLayout
     mVisibilityChangedListener = listener;
   }
 
-  private void calculateMaxBodyHeight(int top, int bottom)
+  private void calculateMaxBodyHeight(int parentHeight)
   {
-    mMaxBodyHeight = (bottom - top)/2;
+    mMaxBodyHeight = parentHeight/2;
     final ViewGroup.LayoutParams lp = mBodyGroup.getLayoutParams();
     lp.height = mMaxBodyHeight;
     mBodyGroup.setLayoutParams(lp);

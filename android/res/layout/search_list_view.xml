@@ -40,6 +40,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingTop="4dp"
+            android:singleLine="true"
             android:text="@string/search_mode_nearme"
             android:textColor="@color/text_checked_white_unchecked_gray_selector" />
 
@@ -57,6 +58,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingTop="4dp"
+            android:singleLine="true"
             android:text="@string/search_mode_viewport"
             android:textColor="@color/text_checked_white_unchecked_gray_selector" />
 
@@ -73,6 +75,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingTop="4dp"
+            android:singleLine="true"
             android:text="@string/search_mode_all"
             android:textColor="@color/text_checked_white_unchecked_gray_selector" />
     </RadioGroup>
