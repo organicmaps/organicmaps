@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -152,7 +154,7 @@ public class MapInfoView extends LinearLayout
 
   public MapInfoView(Context context, AttributeSet attrs, int defStyleAttr)
   {
-    super(context, attrs, defStyleAttr);
+    super(context, attrs);
 
     mInflater =   (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     mView = mInflater.inflate(R.layout.info_box, this, true);
@@ -422,7 +424,35 @@ public class MapInfoView extends LinearLayout
   private void setBodyForAPI(MapObject mo)
   {
     mBodyContainer.removeAllViews();
-    // TODO
+
+    final View apiView = mInflater.inflate(R.layout.info_box_api, null);
+
+    final TextView addressText = (TextView) apiView.findViewById(R.id.info_box_address);
+    addressText.setText(Framework.getNameAndAddress4Point(mo.getLat(), mo.getLon()));
+
+    final Button backToCallerBtn = (Button)apiView.findViewById(R.id.info_box_api_return_to_caller);
+
+    final ParsedMmwRequest r = ParsedMmwRequest.getCurrentRequest();
+    // Text
+    final String btnText = Utils.firstNotEmpty(r.getCustomButtonName(),
+        getResources().getString(R.string.more_info));
+    backToCallerBtn.setText(btnText);
+
+    // Icon
+    final Drawable icon = UiUtils.setCompoundDrawableBounds(r.getIcon(getContext()), R.dimen.dp_x_8, getResources());
+    backToCallerBtn.setCompoundDrawables(icon, null, null, null);
+
+    // Return callback
+    backToCallerBtn.setOnClickListener(new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        ParsedMmwRequest.getCurrentRequest().sendResponseAndFinish((Activity) getContext(), true);
+      }
+    });
+
+    mBodyContainer.addView(apiView);
   }
 
   public void setOnVisibilityChangedListener(OnVisibilityChangedListener listener)

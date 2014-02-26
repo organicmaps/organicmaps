@@ -49,6 +49,7 @@ import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.bookmarks.data.MapObject.ApiPoint;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.promo.ActivationSettings;
 import com.mapswithme.maps.promo.PromocodeActivationDialog;
@@ -1282,24 +1283,27 @@ public class MWMActivity extends NvEventQueueActivity
       final ParsedMmwRequest request = ParsedMmwRequest.getCurrentRequest();
       request.setPointData(lat, lon, name, id);
 
-
-      // TODO this is crappy moment now
-      if (request.doReturnOnBalloonClick())
+      runOnUiThread(new Runnable()
       {
-        request.sendResponseAndFinish(this, true);
-        // we dont show MapObject in this case
-        return;
-      }
+        @Override
+        public void run()
+        {
+          final String poiType = ParsedMmwRequest.getCurrentRequest().getCallerName(mApplication).toString();
+          final ApiPoint apiPoint = new ApiPoint(name, id, poiType, lat, lon);
+
+          if (!mInfoView.hasThatObject(apiPoint))
+          {
+            mInfoView.setMapObject(apiPoint);
+            showInfoBox(true, true);
+            mInfoView.showBody(false);
+          }
+          else
+          {
+            mInfoView.showBody(true);
+          }
+        }
+      });
     }
-
-    runOnUiThread(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-//        showInfoBoxWithText("Api Point", name);
-      }
-    });
   }
 
   @Override

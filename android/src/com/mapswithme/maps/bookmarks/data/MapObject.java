@@ -135,6 +135,60 @@ public abstract class MapObject
     {
       return mTypeName;
     }
-
   }
+
+  public static class ApiPoint extends MapObject
+  {
+    private final String mName;
+    private final String mId;
+    private final String mPoiType;
+    private final double mLat;
+    private final double mLon;
+
+
+    public ApiPoint(String name, String id, String poiType, double lat, double lon)
+    {
+      this.mName = name;
+      this.mId = id;
+      this.mPoiType = poiType;
+      this.mLat = lat;
+      this.mLon = lon;
+    }
+
+    @Override
+    public String getName()
+    {
+      return mName;
+    }
+
+    @Override
+    public double getLat()
+    {
+      return mLat;
+    }
+
+    @Override
+    public double getLon()
+    {
+      return mLon;
+    }
+
+    @Override
+    public String getPoiTypeName()
+    {
+      return mPoiType;
+    }
+
+    @Override
+    public MapObjectType getType()
+    {
+      return MapObjectType.API_POINT;
+    }
+
+    public String getId()
+    {
+      return mId;
+    }
+  }
+
 }
