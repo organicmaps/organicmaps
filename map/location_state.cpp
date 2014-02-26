@@ -4,10 +4,10 @@
 #include "move_screen_task.hpp"
 
 #include "../graphics/display_list.hpp"
-#include "../graphics/brush.hpp"
-#include "../graphics/pen.hpp"
+#include "../graphics/icon.hpp"
 
 #include "../anim/controller.hpp"
+#include "../anim/task.hpp"
 //#include "../anim/angle_interpolation.hpp"
 
 #include "../gui/controller.hpp"
@@ -21,15 +21,76 @@
 
 #include "../base/logging.hpp"
 
-
 namespace location
 {
+  namespace
+  {
+    class ErrorSectorAnimator : public anim::Task
+    {
+      typedef anim::Task base_t;
+    public:
+      ErrorSectorAnimator(double maxRadius, gui::Element * e)
+        : m_maxRadius(maxRadius)
+        , m_currentRadius(0.0)
+        , m_pause(0.0)
+        , m_e(e)
+      {
+      }
+
+      void SetMaxRadius(double maxRadius)
+      {
+        m_maxRadius = maxRadius;
+      }
+
+      double GetCurrentRadius() const
+      {
+        return m_currentRadius;
+      }
+
+      virtual void OnStart(double ts)
+      {
+        m_startTime = ts;
+      }
+
+      virtual void OnStep(double ts)
+      {
+        base_t::OnStep(ts);
+
+        double elapsed = ts - (m_startTime + m_pause);
+        if (elapsed > 0.0)
+        {
+          double e = exp(-2 * elapsed) / 40000.0;
+          e = max(e, 0.000005);
+          LOG(LINFO, ("E = ", e));
+          m_currentRadius += e ;
+          LOG(LINFO, ("R = ", m_currentRadius));
+
+          if (m_currentRadius < 0.0)
+            m_currentRadius = 0.0;
+
+          if (m_currentRadius > m_maxRadius)
+          {
+            m_currentRadius = 0.0;
+            m_startTime = ts;
+            m_pause = 0.5;
+          }
+        }
+        m_e->invalidate();
+      }
+
+    private:
+      double m_maxRadius;
+      double m_currentRadius;
+      double m_startTime;
+      double m_pause;
+      gui::Element * m_e;
+    };
+  }
+
   double const State::s_cacheRadius = 500;
 
   State::Params::Params()
     : m_locationAreaColor(0, 0, 0, 0),
-      m_compassAreaColor(0, 0, 0, 0),
-      m_compassBorderColor(0, 0, 0, 0),
       m_framework(0)
   {}
 
@@ -47,21 +108,10 @@ namespace location
       m_currentSlotID(0)
   {
     m_locationAreaColor = p.m_locationAreaColor;
-    m_compassAreaColor = p.m_compassAreaColor;
-    m_compassBorderColor = p.m_compassBorderColor;
     m_framework = p.m_framework;
-
-    /// @todo Probably we can make this like static const int.
-    /// It's not a class state, so no need to store it in memory.
-    m_arrowScale = 0.5;
-    m_arrowWidth = 40 * m_arrowScale;
-    m_arrowHeight = 50 * m_arrowScale;
-    m_arrowBackHeight = 11 * m_arrowScale;
 
     m_boundRects.resize(1);
 
-    setColor(EActive, graphics::Color(65, 136, 210, 255));
-    setColor(EPressed, graphics::Color(102, 163, 210, 255));
     setState(EActive);
     setIsVisible(false);
   }
@@ -128,6 +178,24 @@ namespace location
       CallCompassStatusListeners(mode);
   }
 
+  void State::setIsVisible(bool isVisible)
+  {
+    gui::Element::setIsVisible(isVisible);
+//    if (isVisible)
+//    {
+//      m_radiusAnimation.reset(new ErrorSectorAnimator(m_errorRadius, this));
+//      m_framework->GetAnimController()->AddTask(m_radiusAnimation);
+//    }
+//    else
+//    {
+//      if (m_radiusAnimation)
+//      {
+//        m_radiusAnimation->End();
+//        m_radiusAnimation.reset();
+//      }
+//    }
+  }
+
   void State::OnLocationUpdate(location::GpsInfo const & info)
   {
     m_isFirstPosition = false;
@@ -141,6 +209,7 @@ namespace location
     setIsVisible(true);
     m_position = center;
     m_errorRadius = rect.SizeX() / 2;
+    SetErrorRadius(m_errorRadius);
 
     switch (m_locationProcessMode)
     {
@@ -190,74 +259,66 @@ namespace location
     return m_boundRects;
   }
 
-  void State::cacheArrowBorder(EState state)
+  void State::SetErrorRadius(double errorRadius)
   {
-    graphics::Screen * cacheScreen = m_controller->GetCacheScreen();
-
-    shared_ptr<graphics::DisplayList> & dl = m_arrowBorderLists[state];
-
-    dl.reset();
-    dl.reset(cacheScreen->createDisplayList());
-
-    cacheScreen->beginFrame();
-    cacheScreen->setDisplayList(dl.get());
-
-    double k = m_controller->GetVisualScale();
-
-    m2::PointD ptsD[] =
-    {
-      m2::PointD(0, 0),
-      m2::PointD(-(m_arrowWidth * k) / 2, (m_arrowBackHeight * k)),
-      m2::PointD(0, -m_arrowHeight * k + m_arrowBackHeight * k),
-      m2::PointD((m_arrowWidth * k) / 2, m_arrowBackHeight * k),
-      m2::PointD(0, 0),
-      m2::PointD(0, -m_arrowHeight * k + m_arrowBackHeight * k),
-    };
-
-    graphics::Color const borderColor = color(state);
-
-    uint32_t penStyle = cacheScreen->mapInfo(graphics::Pen::Info(borderColor, 1 * k, 0, 0, 0));
-
-    cacheScreen->drawPath(ptsD, ARRAY_SIZE(ptsD), 0, penStyle, depth());
-
-    cacheScreen->setDisplayList(0);
-    cacheScreen->endFrame();
+//    if (m_radiusAnimation)
+//    {
+//      ErrorSectorAnimator * a = static_cast<ErrorSectorAnimator *>(m_radiusAnimation.get());
+//      a->SetMaxRadius(errorRadius);
+//    }
   }
 
-  void State::cacheArrowBody(EState state)
+  double State::GetErrorRadius() const
+  {
+    /*if (m_radiusAnimation)
+    {
+      ErrorSectorAnimator * a = static_cast<ErrorSectorAnimator *>(m_radiusAnimation.get());
+      return a->GetCurrentRadius();
+    }
+
+    return 0.0;*/
+    return m_errorRadius;
+  }
+
+  void State::cachePositionArrow()
   {
     graphics::Screen * cacheScreen = m_controller->GetCacheScreen();
+    graphics::Icon::Info info("current-position-compas");
 
-    shared_ptr<graphics::DisplayList> & dl = m_arrowBodyLists[state];
+    graphics::Resource const * res = cacheScreen->fromID(cacheScreen->findInfo(info));
+    m2::RectU rect = res->m_texRect;
+    m_halfArrowSize.x = rect.SizeX() / 2.0;
+    m_halfArrowSize.y = rect.SizeY() / 2.0;
 
-    dl.reset();
-    dl.reset(cacheScreen->createDisplayList());
+    m_positionArrow.reset();
+    m_positionArrow.reset(cacheScreen->createDisplayList());
 
     cacheScreen->beginFrame();
-    cacheScreen->setDisplayList(dl.get());
+    cacheScreen->setDisplayList(m_positionArrow.get());
 
-    double k = m_controller->GetVisualScale();
-
-    m2::PointD pts[4] =
+    m2::PointD coords[4] =
     {
-      m2::PointD(-(m_arrowWidth * k) / 2, (m_arrowBackHeight * k)),
-      m2::PointD(0, 0),
-      m2::PointD(0, -m_arrowHeight * k + m_arrowBackHeight * k),
-      m2::PointD((m_arrowWidth * k) / 2, m_arrowBackHeight * k),
+      m2::PointD(-m_halfArrowSize.x, -m_halfArrowSize.y),
+      m2::PointD(-m_halfArrowSize.x,  m_halfArrowSize.y),
+      m2::PointD( m_halfArrowSize.x, -m_halfArrowSize.y),
+      m2::PointD( m_halfArrowSize.x,  m_halfArrowSize.y)
     };
 
-    graphics::Color const baseColor = color(state);
-    graphics::Color const lightColor = graphics::Color(min(255, (baseColor.r * 5) >> 2),
-                                           min(255, (baseColor.g * 5) >> 2),
-                                           min(255, (baseColor.b * 5) >> 2),
-                                           baseColor.a);
-    cacheScreen->drawTrianglesList(&pts[0], 3,
-                                   cacheScreen->mapInfo(graphics::Brush::Info(baseColor)),
-                                   depth());
-    cacheScreen->drawTrianglesList(&pts[1], 3,
-                                   cacheScreen->mapInfo(graphics::Brush::Info(lightColor)),
-                                   depth());
+    m2::PointF normal(0.0, 0.0);
+    shared_ptr<graphics::gl::BaseTexture> texture = cacheScreen->pipeline(res->m_pipelineID).texture();
 
+    m2::PointF texCoords[4] =
+    {
+      texture->mapPixel(m2::PointF(rect.minX(), rect.minY())),
+      texture->mapPixel(m2::PointF(rect.minX(), rect.maxY())),
+      texture->mapPixel(m2::PointF(rect.maxX(), rect.minY())),
+      texture->mapPixel(m2::PointF(rect.maxX(), rect.maxY()))
+    };
+
+    cacheScreen->addTexturedStripStrided(coords, sizeof(m2::PointD),
+                                         &normal, 0,
+                                         texCoords, sizeof(m2::PointF),
+                                         4, depth(), res->m_pipelineID);
     cacheScreen->setDisplayList(0);
     cacheScreen->endFrame();
   }
@@ -295,10 +356,7 @@ namespace location
 
   void State::cache()
   {
-    cacheArrowBody(EActive);
-    cacheArrowBorder(EActive);
-    cacheArrowBody(EPressed);
-    cacheArrowBorder(EPressed);
+    cachePositionArrow();
     cacheLocationMark();
 
     m_controller->GetCacheScreen()->completeCommands();
@@ -306,8 +364,7 @@ namespace location
 
   void State::purge()
   {
-    m_arrowBorderLists.clear();
-    m_arrowBodyLists.clear();
+    m_positionArrow.reset();
     m_locationMarkDL.reset();
     m_positionMarkDL.reset();
   }
@@ -325,10 +382,8 @@ namespace location
       m2::RectD newRect(pxPosition - m2::PointD(pxErrorRadius, pxErrorRadius),
                         pxPosition + m2::PointD(pxErrorRadius, pxErrorRadius));
 
-      double const pxArrowRadius = m_arrowHeight * m_controller->GetVisualScale();
-
-      m2::RectD arrowRect(pxPosition - m2::PointD(pxArrowRadius, pxArrowRadius),
-                          pxPosition + m2::PointD(pxArrowRadius, pxArrowRadius));
+      m2::RectD arrowRect(pxPosition - m_halfArrowSize,
+                          pxPosition + m_halfArrowSize);
 
       newRect.Add(arrowRect);
 
@@ -349,39 +404,12 @@ namespace location
 
       if (m_hasPosition)
       {
-        double screenAngle = m_framework->GetNavigator().Screen().GetAngle();
-        math::Matrix<double, 3, 3> compassDrawM;
         math::Matrix<double, 3, 3> locationDrawM;
-
-        /// drawing arrow body first
-        if (m_hasCompass)
-        {
-          double const headingRad = m_drawHeading;
-
-          double k = m_controller->GetVisualScale();
-
-          compassDrawM =
-              math::Shift(
-                math::Rotate(
-                  math::Shift(
-                    math::Identity<double, 3>(),
-                    m2::PointD(0, 0.4 * m_arrowHeight * k - m_arrowBackHeight * k)),
-                  screenAngle + headingRad),
-                pivot());
-
-          map<EState, shared_ptr<graphics::DisplayList> >::const_iterator it;
-          it = m_arrowBodyLists.find(state());
-
-          if (it != m_arrowBodyLists.end())
-            r->drawDisplayList(it->second.get(), compassDrawM * m);
-          else
-            LOG(LWARNING, ("m_compassDisplayLists[state()] is not set!"));
-        }
 
         /// then position
         m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
         double const pxErrorRadius = pxPosition.Length(
-              m_framework->GetNavigator().GtoP(Position() + m2::PointD(m_errorRadius, 0.0)));
+              m_framework->GetNavigator().GtoP(Position() + m2::PointD(GetErrorRadius(), 0.0)));
 
         double const drawScale = pxErrorRadius / s_cacheRadius;
 
@@ -395,22 +423,27 @@ namespace location
 
         math::Matrix<double, 3, 3> const drawM = locationDrawM * m;
 
-        if (!m_hasCompass)
-          r->drawDisplayList(m_positionMarkDL.get(), drawM);
-
         r->drawDisplayList(m_locationMarkDL.get(), drawM);
 
-        /// and then arrow border
         if (m_hasCompass)
         {
-          map<EState, shared_ptr<graphics::DisplayList> >::const_iterator it;
-          it = m_arrowBorderLists.find(state());
+          double screenAngle = m_framework->GetNavigator().Screen().GetAngle();
 
-          if (it != m_arrowBorderLists.end())
-            r->drawDisplayList(it->second.get(), compassDrawM * m);
-          else
-            LOG(LWARNING, ("m_arrowBorderLists[state()] is not set!"));
+          math::Matrix<double, 3, 3> compassDrawM;
+
+          double const headingRad = m_drawHeading;
+
+          compassDrawM =
+              math::Shift(
+                math::Rotate(
+                    math::Identity<double, 3>(),
+                    screenAngle + headingRad),
+                pivot());
+
+          r->drawDisplayList(m_positionArrow.get(), compassDrawM * m);
         }
+        else
+          r->drawDisplayList(m_positionMarkDL.get(), drawM);
       }
     }
   }
@@ -422,7 +455,7 @@ namespace location
 
   bool State::hitTest(m2::PointD const & pt) const
   {
-    double radius = m_arrowHeight * m_controller->GetVisualScale();
+    double radius = m_halfArrowSize.x;
     return (pt.SquareLength(pivot()) <= my::sq(radius));
   }
 
@@ -565,36 +598,6 @@ namespace location
   {
     CallOnPositionClickListeners(pt);
     return false;
-//    if (!m_framework->GetNavigator().DoSupportRotation())
-//      return false;
-
-//    anim::Controller::Guard guard(m_framework->GetAnimController());
-
-//    switch (state())
-//    {
-//    case EActive:
-//      if (m_hasCompass)
-//      {
-//        if (!IsCentered())
-//          AnimateToPositionAndEnqueueFollowing();
-//        else
-//          StartCompassFollowing();
-//      }
-//      break;
-
-//    case EPressed:
-//      StopCompassFollowing();
-//      break;
-
-//    default:
-//      /// @todo Need to check other states?
-//      /// - do nothing, then write comment;
-//      /// - place ASSERT, if other states are impossible;
-//      break;
-//    };
-
-//    invalidate();
-//    return true;
   }
 
   void State::CallOnPositionClickListeners(m2::PointD const & point)

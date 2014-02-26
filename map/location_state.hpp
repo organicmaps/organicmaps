@@ -7,7 +7,6 @@
 #include "../geometry/point2d.hpp"
 #include "../geometry/screenbase.hpp"
 
-#include "../std/shared_ptr.hpp"
 #include "../std/scoped_ptr.hpp"
 #include "../std/map.hpp"
 
@@ -15,6 +14,7 @@
 class Framework;
 
 namespace graphics { class DisplayList; }
+namespace anim { class Task; }
 
 namespace location
 {
@@ -47,9 +47,13 @@ namespace location
   private:
 
     static const double s_cacheRadius;
+    //shared_ptr<anim::Task> m_radiusAnimation;
+    void SetErrorRadius(double errorRadius);
+    double GetErrorRadius() const;
 
     double m_errorRadius;   //< error radius in mercator
     m2::PointD m_position;  //< position in mercator
+    m2::PointD m_halfArrowSize; //< size of Arrow image
 
     double m_drawHeading;
 
@@ -65,28 +69,18 @@ namespace location
 
     graphics::Color m_locationAreaColor;
 
-    graphics::Color m_compassAreaColor;
-    graphics::Color m_compassBorderColor;
-
     Framework * m_framework;
 
     /// Compass Rendering Parameters
     /// @{
 
-    double m_arrowHeight;
-    double m_arrowWidth;
-    double m_arrowBackHeight;
-    double m_arrowScale;
-
-    map<EState, shared_ptr<graphics::DisplayList> > m_arrowBodyLists;
-    map<EState, shared_ptr<graphics::DisplayList> > m_arrowBorderLists;
+    scoped_ptr<graphics::DisplayList> m_positionArrow;
     scoped_ptr<graphics::DisplayList> m_locationMarkDL;
     scoped_ptr<graphics::DisplayList> m_positionMarkDL;
 
     /// @}
-
-    void cacheArrowBorder(EState state);
-    void cacheArrowBody(EState state);
+    ///
+    void cachePositionArrow();
     void cacheLocationMark();
 
     void cache();
@@ -118,8 +112,6 @@ namespace location
     struct Params : base_t::Params
     {
       graphics::Color m_locationAreaColor;
-      graphics::Color m_compassAreaColor;
-      graphics::Color m_compassBorderColor;
       Framework * m_framework;
       Params();
     };
@@ -138,6 +130,8 @@ namespace location
 
     ECompassProcessMode GetCompassProcessMode() const;
     void SetCompassProcessMode(ECompassProcessMode mode);
+
+    void setIsVisible(bool isVisible);
 
     void TurnOff();
 
