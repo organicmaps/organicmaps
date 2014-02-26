@@ -652,9 +652,16 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     if (MWMApplication.get().isProVersion())
     {
       finish();
-      // GetResult not always returns correct values?
+
       final SearchAdapter.ViewHolder vh = (SearchAdapter.ViewHolder) v.getTag();
-      SearchController.get().setQuery(vh.m_name.getText().toString());
+
+      final String queryTitle = vh.m_name.getText().toString().trim();
+      final String showOnMapTitle = getString(R.string.search_show_on_map).trim();
+
+      if (showOnMapTitle.equalsIgnoreCase(queryTitle))
+        SearchController.get().setQuery(mSearchBox.getText().toString());
+      else
+        SearchController.get().setQuery(queryTitle);
 
       MWMActivity.startWithSearchResult(this, position != 0);
     }
