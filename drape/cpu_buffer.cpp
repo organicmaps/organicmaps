@@ -4,6 +4,9 @@
 #include "../base/shared_buffer_manager.hpp"
 #include "../base/assert.hpp"
 
+#include "../std/memcpy.hpp"
+
+
 CPUBuffer::CPUBuffer(uint8_t elementSize, uint16_t capacity)
   : base_t(elementSize, capacity)
 {
