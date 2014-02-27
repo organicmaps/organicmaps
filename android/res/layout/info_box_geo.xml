@@ -1,49 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/info_box_geo"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/white_rounded_background"
+    android:orientation="vertical"
     android:padding="10dp"
     app:columnCount="2" >
 
-    <TextView
-        style="@style/Holo.TextAppearance.Medium.Light"
-        app:layout_column="0"
-        app:layout_gravity="left"
-        app:layout_row="1"
-        android:fontFamily="@string/robotoLight"
-        android:text="@string/placepage_distance"
-        android:textColor="@color/ui_20_text_dark" />
+    <LinearLayout
+        android:id="@+id/info_box_geo_container_dist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:orientation="horizontal" >
 
-    <TextView
-        android:id="@+id/info_box_geo_distance"
-        style="@style/Holo.TextAppearance.Medium.Light"
-        app:layout_column="1"
-        app:layout_gravity="right"
-        app:layout_row="1"
-        android:fontFamily="@string/robotoRegular"
-        android:singleLine="true"
-        android:textColor="@color/ui_20_text_green" />
+        <TextView
+            style="@style/Holo.TextAppearance.Medium.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:fontFamily="@string/robotoLight"
+            android:gravity="left"
+            android:text="@string/placepage_distance"
+            android:textColor="@color/ui_20_text_dark" />
 
-    <TextView
-        style="@style/Holo.TextAppearance.Medium.Light"
-        app:layout_column="0"
-        app:layout_gravity="left"
-        app:layout_row="2"
-        android:fontFamily="@string/robotoLight"
-        android:text="@string/placepage_coordinates"
-        android:textColor="@color/ui_20_text_dark" />
+        <TextView
+            android:id="@+id/info_box_geo_distance"
+            style="@style/Holo.TextAppearance.Medium.Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@string/robotoRegular"
+            android:gravity="right"
+            android:singleLine="true"
+            android:textColor="@color/ui_20_text_green" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/info_box_geo_location"
-        style="@style/Holo.TextAppearance.Medium.Light"
-        app:layout_column="1"
-        app:layout_gravity="right"
-        app:layout_row="2"
-        android:fontFamily="@string/robotoRegular"
-        android:singleLine="true"
-        android:textColor="@color/ui_20_text_green" />
+    <LinearLayout
+        android:id="@+id/info_box_geo_container_coord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:orientation="horizontal" >
 
-</android.support.v7.widget.GridLayout>
+        <TextView
+            style="@style/Holo.TextAppearance.Medium.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:fontFamily="@string/robotoLight"
+            android:gravity="left"
+            android:text="@string/placepage_coordinates"
+            android:textColor="@color/ui_20_text_dark" />
+
+        <TextView
+            android:id="@+id/info_box_geo_location"
+            style="@style/Holo.TextAppearance.Medium.Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@string/robotoRegular"
+            android:gravity="right"
+            android:singleLine="true"
+            android:textColor="@color/ui_20_text_green" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.support.v4.view.GestureDetectorCompat;
-import android.support.v7.widget.GridLayout;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
@@ -146,7 +145,7 @@ public class MapInfoView extends LinearLayout
   {
     super(context, attrs);
 
-    mInflater =   (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    mInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     mView = mInflater.inflate(R.layout.info_box, this, true);
 
     mHeaderGroup = (ViewGroup) mView.findViewById(R.id.header);
@@ -340,17 +339,32 @@ public class MapInfoView extends LinearLayout
 
   private void setUpGeoInformation(MapObject mo)
   {
-    final GridLayout mGeoLayout = (GridLayout) mBodyContainer.findViewById(R.id.info_box_geo_ref);
+    final LinearLayout mGeoLayout = (LinearLayout) mBodyContainer.findViewById(R.id.info_box_geo_ref);
+
     final Location lastKnown = MWMApplication.get().getLocationService().getLastKnown();
+    updateDistance(lastKnown);
 
-    final CharSequence distanceText = (lastKnown == null)
-        ? getResources().getString(R.string.unknown_current_position)
-        : Framework.getDistanceAndAzimutFromLatLon(
-            mo.getLat(), mo.getLon(), lastKnown.getLatitude(),
-            lastKnown.getLongitude(), 0.0).getDistance();
-
-    UiUtils.findViewSetText(mGeoLayout, R.id.info_box_geo_distance, distanceText);
     UiUtils.findViewSetText(mGeoLayout, R.id.info_box_geo_location, UiUtils.formatLatLon(mo.getLat(), mo.getLon()));
+  }
+
+  public void updateDistance(Location l)
+  {
+    final LinearLayout mGeoLayout = (LinearLayout) mBodyContainer.findViewById(R.id.info_box_geo_ref);
+
+    if (mGeoLayout != null)
+    {
+      if (l != null)
+      {
+        UiUtils.show(mGeoLayout.findViewById(R.id.info_box_geo_container_dist));
+        final CharSequence distanceText = Framework.getDistanceAndAzimutFromLatLon(
+                mMapObject.getLat(), mMapObject.getLon(), l.getLatitude(), l.getLongitude(), 0.0).getDistance();
+        UiUtils.findViewSetText(mGeoLayout, R.id.info_box_geo_distance, distanceText);
+      }
+      else
+      {
+        UiUtils.hide(mGeoLayout.findViewById(R.id.info_box_geo_container_dist));
+      }
+    }
   }
 
   private void setBodyForPOI(Poi poi)

@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@string/robotoLight" />
 
-            <TextViews
+            <TextView
                 android:id="@+id/info_subtitle"
                 style="@style/Holo.TextAppearance.Medium.Light"
                 android:layout_width="wrap_content"
