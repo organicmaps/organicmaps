@@ -681,16 +681,8 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   @Override
   public void onBackPressed()
   {
-    if (!isShowCategories())
-    {
-      // invokes runSearch with empty string - adapter will show categories
-      mSearchBox.setText("");
-    }
-    else
-    {
-      super.onBackPressed();
-      SearchController.get().cancel();
-    }
+    super.onBackPressed();
+    SearchController.get().cancel();
   }
 
   /// Current position.
