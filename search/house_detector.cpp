@@ -1011,7 +1011,7 @@ struct HouseChain
   }
 };
 
-ScoredHouse GetBestHouseFromChains(vector<HouseChain> & houseChains, string const & houseNumber)
+pair <int, int> GetBestHouseFromChains(vector<HouseChain> & houseChains, string const & houseNumber, vector<HouseProjection const *> const & st, ResultAccumulator & acc)
 {
   for (size_t i = 0; i < houseChains.size(); ++i)
     houseChains[i].CountScore();
@@ -1022,10 +1022,10 @@ ScoredHouse GetBestHouseFromChains(vector<HouseChain> & houseChains, string cons
     for (size_t j = 0; j < houseChains[i].houses.size(); ++j)
     {
       if (houseNumber == houseChains[i].houses[j]->m_house->GetNumber())
-        return ScoredHouse(houseChains[i].houses[j]->m_house, houseChains[i].score);
+        return make_pair(i, j);
     }
   }
-  return ScoredHouse(0, numeric_limits<double>::max());
+  return make_pair(-1, -1);
 }
 
 
@@ -1045,12 +1045,13 @@ struct Competitiors
 };
 
 
-ScoredHouse ProccessHouses(vector<HouseProjection const *> const & st, string const & houseNumber)
+void ProccessHouses(vector<HouseProjection const *> const & st, ResultAccumulator & acc)
 {
   vector<HouseChain> houseChains;
   size_t const count = st.size();
   size_t numberOfStreetHouses = count;
   vector<bool> used(count, false);
+  string const & houseNumber = acc.GetFullNumber();
 
   for (size_t i = 0; i < count; ++i)
   {
@@ -1063,7 +1064,7 @@ ScoredHouse ProccessHouses(vector<HouseProjection const *> const & st, string co
     }
   }
   if (houseChains.empty())
-    return ScoredHouse();
+    return;
 
   queue<int> houseNumbersToCheck;
   AddToQueue(houseChains[0].houses[0]->m_house->GetIntNumber(), houseNumbersToCheck);
@@ -1133,20 +1134,24 @@ ScoredHouse ProccessHouses(vector<HouseProjection const *> const & st, string co
       }
     }
   }
-
-  return GetBestHouseFromChains(houseChains, houseNumber);
+  pair <int, int> ind = GetBestHouseFromChains(houseChains, houseNumber, st, acc);
+  if (ind.first != -1)
+    acc.MatchCandidate(*houseChains[ind.first].houses[ind.second], false);
 }
 
-House const * GetBestHouseWithNumber(MergedStreet const & st, ResultAccumulator & acc)
+void GetBestHouseWithNumber(MergedStreet const & st, double offsetMeters, ResultAccumulator & acc)
 {
+  acc.ResetNearby();
+
   vector<HouseProjection const *> v;
   for (MergedStreet::Index i = st.Begin(); !st.IsEnd(i); st.Inc(i))
   {
     HouseProjection const & p = st.Get(i);
-    if (acc.IsOurSide(p))
+    if (p.m_distance <= offsetMeters && acc.IsOurSide(p))
       v.push_back(&p);
   }
-  return ProccessHouses(v, acc.GetFullNumber()).house;
+
+  ProccessHouses(v, acc);
 }
 
 struct CompareHouseNumber
@@ -1218,9 +1223,12 @@ void HouseDetector::GetHouseForName(string const & houseNumber, vector<House con
 
 //    GetClosestHouse(m_streets[i], accumulator);
 
-//    House const * house = GetBestHouseWithNumber(m_streets[i], accumulator);
-//    if (house)
-//      res.push_back(house);
+//    for (size_t j = 0; j < ARRAY_SIZE(arrOffsets) && arrOffsets[j] <= m_houseOffsetM; ++j)
+//    {
+//       GetBestHouseWithNumber(m_streets[i], arrOffsets[j], accumulator);
+//       if (accumulator.HasBestMatch())
+//         break;
+//    }
 
     accumulator.FlushResults(res);
   }
