@@ -97,6 +97,13 @@ public class MapInfoView extends LinearLayout
 
       return false;
     };
+
+    @Override
+    public boolean onSingleTapConfirmed(MotionEvent e)
+    {
+      showBody(!mIsBodyVisible);
+      return true;
+    };
   };
 
 
