@@ -23,6 +23,7 @@ import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.telephony.TelephonyManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.KeyEvent;
@@ -587,7 +588,6 @@ public class MWMActivity extends NvEventQueueActivity
 
     setUpDrawer();
     yotaSetup();
-    alignControls();
 
     setUpInfoBox();
 
@@ -839,7 +839,15 @@ public class MWMActivity extends NvEventQueueActivity
     final int marginTop = (int) getResources().getDimension(R.dimen.zoom_plus_top_margin);
     lp.setMargins(margin, marginTop, margin, margin);
 
-    findViewById(R.id.scroll_up).setPadding(0, (int) getResources().getDimension(R.dimen.drawer_top_padding), 0, 0);
+    // Calculate padding as one quarter of height
+    int drawerItemsPadding = 0;
+    final DisplayMetrics dm = getResources().getDisplayMetrics();
+
+    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+      drawerItemsPadding = Math.max(dm.heightPixels, dm.widthPixels)/5;
+
+    Log.d("DrawerPadding", "x=" + drawerItemsPadding);
+    findViewById(R.id.scroll_up).setPadding(0,drawerItemsPadding, 0, 0);
   }
 
   /// @name From Location interface
@@ -984,6 +992,7 @@ public class MWMActivity extends NvEventQueueActivity
     else
       UiUtils.hide(findViewById(R.id.map_button_plus), findViewById(R.id.map_button_minus));
 
+    alignControls();
 
     mSearchController.onResume();
     mInfoView.onResume();
