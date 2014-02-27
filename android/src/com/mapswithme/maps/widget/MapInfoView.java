@@ -351,7 +351,7 @@ public class MapInfoView extends LinearLayout
   {
     final LinearLayout mGeoLayout = (LinearLayout) mBodyContainer.findViewById(R.id.info_box_geo_ref);
 
-    if (mGeoLayout != null)
+    if (mGeoLayout != null && mMapObject != null)
     {
       if (l != null)
       {
