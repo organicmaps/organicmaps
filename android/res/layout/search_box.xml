@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:background="@drawable/background_holo_light"
+    android:background="@drawable/search_field_selector"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingBottom="5dp"

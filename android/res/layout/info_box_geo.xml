@@ -5,8 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/white_rounded_background"
     android:orientation="vertical"
-    android:padding="10dp"
-     >
+    android:padding="10dp" >
 
     <LinearLayout
         android:id="@+id/info_box_geo_container_dist"

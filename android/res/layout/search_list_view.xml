@@ -2,83 +2,95 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@null"
+    android:background="@color/ui_20_background_grey"
     android:minHeight="9999dp"
     android:orientation="vertical" >
 
-    <include
+    <LinearLayout
+        android:id="@+id/search_params_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        layout="@layout/search_box" />
+        android:background="@android:color/white"
+        android:orientation="vertical" >
 
-    <RadioGroup
-        android:id="@+id/search_scope"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="0dp"
-        android:background="@drawable/background_holo_light"
-        android:orientation="horizontal"
-        android:padding="5dp" >
-
-        <RadioButton
-            android:id="@+id/search_scope_near"
+        <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/search_scope_background_selector"
-            android:button="@null"
-            android:fontFamily="@string/robotoLight"
-            android:gravity="center"
-            android:paddingBottom="4dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingTop="4dp"
-            android:singleLine="true"
-            android:text="@string/search_mode_nearme"
-            android:textColor="@color/text_checked_white_unchecked_gray_selector" />
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            layout="@layout/search_box" />
 
-        <RadioButton
-            android:id="@+id/search_scope_on_screen"
+        <RadioGroup
+            android:id="@+id/search_scope"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/search_scope_background_selector"
-            android:button="@null"
-            android:checked="true"
-            android:fontFamily="@string/robotoLight"
-            android:gravity="center"
-            android:paddingBottom="4dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingTop="4dp"
-            android:singleLine="true"
-            android:text="@string/search_mode_viewport"
-            android:textColor="@color/text_checked_white_unchecked_gray_selector" />
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="0dp"
+            android:orientation="horizontal"
+            android:padding="5dp" >
 
-        <RadioButton
-            android:id="@+id/search_scope_everywhere"
+            <RadioButton
+                android:id="@+id/search_scope_near"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/search_scope_background_selector"
+                android:button="@null"
+                android:fontFamily="@string/robotoLight"
+                android:gravity="center"
+                android:paddingBottom="4dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="4dp"
+                android:singleLine="true"
+                android:text="@string/search_mode_nearme"
+                android:textColor="@color/text_checked_white_unchecked_gray_selector" />
+
+            <RadioButton
+                android:id="@+id/search_scope_on_screen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/search_scope_background_selector"
+                android:button="@null"
+                android:checked="true"
+                android:fontFamily="@string/robotoLight"
+                android:gravity="center"
+                android:paddingBottom="4dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="4dp"
+                android:singleLine="true"
+                android:text="@string/search_mode_viewport"
+                android:textColor="@color/text_checked_white_unchecked_gray_selector" />
+
+            <RadioButton
+                android:id="@+id/search_scope_everywhere"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/search_scope_background_selector"
+                android:button="@null"
+                android:fontFamily="@string/robotoLight"
+                android:gravity="center"
+                android:paddingBottom="4dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="4dp"
+                android:singleLine="true"
+                android:text="@string/search_mode_all"
+                android:textColor="@color/text_checked_white_unchecked_gray_selector" />
+        </RadioGroup>
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/search_scope_background_selector"
-            android:button="@null"
-            android:fontFamily="@string/robotoLight"
-            android:gravity="center"
-            android:paddingBottom="4dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingTop="4dp"
-            android:singleLine="true"
-            android:text="@string/search_mode_all"
-            android:textColor="@color/text_checked_white_unchecked_gray_selector" />
-    </RadioGroup>
+            android:layout_height="2dp"
+            android:background="@drawable/horizontal_two_px_separator" />
+    </LinearLayout>
 
     <ListView
         android:id="@android:id/list"
@@ -87,9 +99,9 @@
         android:layout_marginBottom="0dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:animationCache="false"
-        android:background="@drawable/background_holo_light"
+        android:background="@drawable/white_rounded_background_bottom_corners"
         android:scrollingCache="false" />
 
 </LinearLayout>
