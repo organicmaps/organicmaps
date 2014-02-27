@@ -214,12 +214,14 @@ public class MapInfoView extends LinearLayout
   {
     super.onSizeChanged(w, h, oldw, oldh);
 
-    final View parent = (View)getParent();
-    calculateMaxBodyHeight(parent.getHeight());
+
+    calculateMaxBodyHeight();
   }
 
   public void showBody(final boolean show)
   {
+    calculateMaxBodyHeight();
+
     if (mIsBodyVisible == show)
       return; // if state is already same as we need
 
@@ -475,13 +477,28 @@ public class MapInfoView extends LinearLayout
     mVisibilityChangedListener = listener;
   }
 
-  private void calculateMaxBodyHeight(int parentHeight)
+  private void calculateMaxBodyHeight()
   {
-    mMaxBodyHeight = parentHeight/2;
-    final ViewGroup.LayoutParams lp = mBodyGroup.getLayoutParams();
-    lp.height = mMaxBodyHeight;
-    mBodyGroup.setLayoutParams(lp);
+    final View parent = (View)getParent();
+    if (parent != null)
+    {
+      mMaxBodyHeight = parent.getHeight()/2;
+      final ViewGroup.LayoutParams lp = mBodyGroup.getLayoutParams();
+      if (lp != null)
+      {
+        lp.height = mMaxBodyHeight;
+        mBodyGroup.setLayoutParams(lp);
+      }
+    }
+    requestLayout();
     mLog.d("Max height: " + mMaxBodyHeight);
+  }
+
+  @Override
+  protected void onLayout(boolean changed, int l, int t, int r, int b)
+  {
+    super.onLayout(changed, l, t, r, b);
+    calculateMaxBodyHeight();
   }
 
   public void onResume()
