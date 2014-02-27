@@ -32,7 +32,6 @@
             android:layout_weight="1"
             android:fontFamily="@string/robotoRegular"
             android:gravity="right"
-            android:singleLine="true"
             android:textColor="@color/ui_20_text_green" />
     </LinearLayout>
 
@@ -61,7 +60,6 @@
             android:layout_weight="1"
             android:fontFamily="@string/robotoRegular"
             android:gravity="right"
-            android:singleLine="true"
             android:textColor="@color/ui_20_text_green" />
     </LinearLayout>
 
