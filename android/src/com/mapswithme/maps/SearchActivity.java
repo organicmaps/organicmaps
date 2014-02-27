@@ -566,6 +566,12 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       {
         // Hide keyboard when user starts scroll
         InputUtils.hideKeyboard(mSearchBox);
+
+        // Hacky way to remove focus from only edittext at activity
+        mSearchBox.setFocusableInTouchMode(false);
+        mSearchBox.setFocusable(false);
+        mSearchBox.setFocusableInTouchMode(true);
+        mSearchBox.setFocusable(true);
       }
 
       @Override
