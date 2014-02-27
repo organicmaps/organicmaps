@@ -1227,7 +1227,7 @@ void Framework::ShowSearchResult(search::Result const & res)
   m_bmManager.AdditionalPoiLayerClear();
 
   LOG(LDEBUG, ("MwmSearch", "Single result", res.GetString()));
-  m_bmManager.AdditionalPoiLayerAddPoi(Bookmark(res.GetFeatureCenter(), res.GetString(), "api_pin"));
+  m_bmManager.AdditionalPoiLayerAddPoi(Bookmark(res.GetFeatureCenter(), res.GetString(), "search-result"));
 
   int scale;
   m2::PointD center;
@@ -1288,7 +1288,7 @@ void Framework::ShowAllSearchResults()
   {
     // @todo add type for each search result pin
     search::Result const & tmpRes = searchRes.GetResult(i);
-    m_bmManager.AdditionalPoiLayerAddPoi(Bookmark(tmpRes.GetFeatureCenter(), tmpRes.GetString(), "api_pin"));
+    m_bmManager.AdditionalPoiLayerAddPoi(Bookmark(tmpRes.GetFeatureCenter(), tmpRes.GetString(), "search-result"));
 
     if (i > 1)
       resultsRect.Add(tmpRes.GetFeatureCenter());

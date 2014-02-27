@@ -111,7 +111,7 @@ void PinClickManager::DrawPin(const shared_ptr<PaintEvent> & e)
 
     // @todo change pin picture
     if (glbRect.IsPointInside(m_pinGlobalLocation))
-      informationDisplay.drawPlacemark(e->drawer(), "api_pin", navigator.GtoP(m_pinGlobalLocation));
+      informationDisplay.drawPlacemark(e->drawer(), "search-result-active", navigator.GtoP(m_pinGlobalLocation));
   }
 }
 
