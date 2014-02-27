@@ -217,7 +217,7 @@ public class MapInfoView extends LinearLayout
     if (mIsBodyVisible == show)
       return; // if state is already same as we need
 
-    final long duration = 200;
+    final long duration = 400;
 
     // Calculate translate offset
     final int headHeight  = mHeaderGroup.getHeight();
@@ -248,6 +248,8 @@ public class MapInfoView extends LinearLayout
           Animation.RELATIVE_TO_SELF, 1 - offset);
 
       slideDown.setDuration(duration);
+      slideDown.setFillEnabled(true);
+      slideDown.setFillBefore(true);
       slideDown.setAnimationListener(new UiUtils.SimpleAnimationListener()
       {
         @Override

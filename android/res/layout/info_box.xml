@@ -3,7 +3,7 @@
     android:id="@+id/info_box_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_holo_light"
+    android:background="@color/ui_20_background_grey"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -25,10 +25,9 @@
                 style="@style/Holo.TextAppearance.Large.Light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@string/robotoLight"
-                android:text="title" />
+                android:fontFamily="@string/robotoLight" />
 
-            <TextView
+            <TextViews
                 android:id="@+id/info_subtitle"
                 style="@style/Holo.TextAppearance.Medium.Light"
                 android:layout_width="wrap_content"
@@ -37,27 +36,25 @@
                 android:fontFamily="@string/robotoRegular"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:text="subtitle"
                 android:textColor="@android:color/white" />
         </LinearLayout>
 
         <CheckBox
             android:id="@+id/info_box_is_bookmarked"
-            android:button="@drawable/info_box_add_to_bookmarks_btn_selector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0" />
+            android:layout_weight="0"
+            android:button="@drawable/info_box_add_to_bookmarks_btn_selector" />
     </LinearLayout>
 
     <!-- Will have dynamic height -->
 
     <LinearLayout
         android:id="@+id/body"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:background="@drawable/background_holo_light"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:visibility="gone" >
 
         <View
             style="@style/drawerSeparator"

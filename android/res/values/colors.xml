@@ -27,6 +27,8 @@
 
     <color name="ui_20_text_green">#53d769</color>
 
+    <color name="ui_20_background_grey">#efeff4</color>
+
     <color name="ui_20_green">#3dca6a</color>
     <drawable name="ui_20_green">#3dca6a</drawable>
 
