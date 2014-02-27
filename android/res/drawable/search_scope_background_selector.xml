@@ -9,6 +9,10 @@
           android:state_checked="true"
           android:state_pressed="true"/>
 
+    <item android:drawable="@drawable/search_scope_background_inactive_pressed"
+          android:state_checked="false"
+          android:state_pressed="true"/>
+
     <item android:drawable="@drawable/search_scope_background_inactive"
           android:state_checked="false"/>
 
