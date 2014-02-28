@@ -196,6 +196,11 @@ final public class Utils
     return mItem;
   }
 
+  public static Object[] asObjectArray(Object ... args)
+  {
+    return args;
+  }
+
   // utility class
   private Utils() {};
 }

@@ -1,72 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="fill_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center_vertical"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:padding="@dimen/dp_x_2"
-    >
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp" >
 
-    <com.mapswithme.maps.ArrowImage
-        android:id="@+id/country_flag"
-        android:layout_width="34dip"
-        android:layout_height="34dip"
-        android:layout_marginLeft="6dip"
-        android:scaleType="center"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"/>
-    
     <LinearLayout
-        android:id="@+id/search_layout_2"
-        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/country_flag">
+        android:layout_weight="1"
+        android:gravity="left|center_vertical"
+        android:orientation="vertical" >
 
-        <!-- Long Distance Value -->
         <TextView
-            android:id="@+id/distance"
-            android:layout_width="wrap_content"
+            android:id="@+id/search_item_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:textAppearance="@style/Holo.TextAppearance.Small.Light"/>
+            android:fontFamily="@string/robotoLight"
+            android:textAppearance="@style/Holo.TextAppearance.Medium.Light" />
 
-        <!-- Amenity -->
         <TextView
-            android:id="@+id/amenity"
-            android:layout_width="80dip"
+            android:id="@+id/search_item_place_type"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"            
-            android:gravity="right"
             android:ellipsize="end"
-            android:textAppearance="@style/Holo.TextAppearance.Small.Light"/>
-
+            android:fontFamily="@string/robotoRegular"
+            android:textAppearance="@style/Holo.TextAppearance.Small.Light"
+            android:textColor="@color/ui_20_search_dark_gray" />
     </LinearLayout>
-    
-    <LinearLayout
-        android:id="@+id/search_layout_1"
-        android:orientation="vertical"
+
+    <TextView
+        android:id="@+id/search_item_distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/search_layout_2"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true">
+        android:layout_weight="0"
+        android:fontFamily="@string/robotoRegular"
+        android:textAppearance="@style/Holo.TextAppearance.Medium.Light"
+        android:textColor="@color/ui_20_search_light_gray" />
 
-        <!-- Long Feature Name -->
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/Holo.TextAppearance.Large.Light"/>
-
-        <!-- Long Country Name -->
-        <TextView
-            android:id="@+id/country"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/Holo.TextAppearance.Small.Light"/>
-
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

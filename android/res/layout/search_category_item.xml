@@ -1,36 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center_vertical"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp">
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp" >
 
-    <com.mapswithme.maps.ArrowImage
-        android:id="@+id/country_flag"
+    <TextView
+        android:id="@+id/search_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="2dip"
-        android:paddingRight="8dip"
-        android:scaleType="center"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"/>
+        android:layout_weight="1"
+        android:fontFamily="@string/robotoLight"
+        android:textAppearance="@style/Holo.TextAppearance.Medium.Light" />
 
     <ImageView
         android:id="@+id/disclosure_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/ic_next_item"/>
+        android:layout_weight="0"
+        android:src="@drawable/ic_next_item" />
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/disclosure_image"
-        android:layout_toRightOf="@+id/country_flag"
-        android:layout_centerVertical="true"
-        android:textAppearance="@style/Holo.TextAppearance.Large.Light"/>
-
-</RelativeLayout>
+</LinearLayout>

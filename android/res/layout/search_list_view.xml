@@ -102,6 +102,12 @@
         android:layout_marginTop="0dp"
         android:animationCache="false"
         android:background="@drawable/white_rounded_background_bottom_corners"
+        android:divider="@drawable/horizontal_two_px_separator"
+        android:dividerHeight="1dp"
+        android:paddingBottom="6dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="6dp"
         android:scrollingCache="false" />
 
 </LinearLayout>

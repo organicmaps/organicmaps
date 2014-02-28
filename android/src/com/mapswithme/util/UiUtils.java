@@ -209,6 +209,26 @@ public final class UiUtils
     return v;
   }
 
+  public static TextView setTextAndShow(TextView tv, CharSequence text)
+  {
+    checkNotNull(tv);
+
+    tv.setText(text);
+    show(tv);
+
+    return tv;
+  }
+
+  public static TextView clearTextAndHide(TextView tv)
+  {
+    checkNotNull(tv);
+
+    tv.setText(null);
+    hide(tv);
+
+    return tv;
+  }
+
   // utility class
   private UiUtils()
   {};

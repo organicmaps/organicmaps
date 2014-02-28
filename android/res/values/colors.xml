@@ -37,6 +37,9 @@
 
     <color name="ui_20_green_darker_tr">#b25aae74</color>
     <drawable name="ui_20_green_darker_tr">#b25aae74</drawable>
+    
+    <color name="ui_20_search_dark_gray">#666666</color>
+    <color name="ui_20_search_light_gray">#979797</color>
 
     <color name="red">#F00</color>
     <color name="green">#0F0</color>

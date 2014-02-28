@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -182,26 +183,18 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     private static class ViewHolder
     {
       public TextView m_name = null;
-      public TextView m_country = null;
+      public TextView m_countryAndType = null;
       public TextView m_distance = null;
-      public TextView m_amenity = null;
-      public ArrowImage m_flag = null;
 
       void initFromView(View v, int type)
       {
-        m_name = (TextView) v.findViewById(R.id.name);
-
-        if (type != MESSAGE_TYPE)
-          m_flag = (ArrowImage) v.findViewById(R.id.country_flag);
+        m_name = (TextView) v.findViewById(R.id.search_item_name);
 
         if (type != CATEGORY_TYPE)
-          m_country = (TextView) v.findViewById(R.id.country);
+          m_countryAndType = (TextView) v.findViewById(R.id.search_item_place_type);
 
         if (type == RESULT_TYPE)
-        {
-          m_distance = (TextView) v.findViewById(R.id.distance);
-          m_amenity = (TextView) v.findViewById(R.id.amenity);
-        }
+          m_distance = (TextView) v.findViewById(R.id.search_item_distance);
       }
     }
 
@@ -211,10 +204,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       public String m_name;
       public String m_country;
       public String m_amenity;
-
-      public String m_flag;
       public String m_distance;
-      public double m_azimut;
 
       /// 0 - suggestion result
       /// 1 - feature result
@@ -236,10 +226,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         m_name = name;
         m_country = country;
         m_amenity = amenity;
-
-        m_flag = flag;
         m_distance = distance;
-        m_azimut = azimut;
 
         m_type = 1;
       }
@@ -299,34 +286,27 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
         final String strID = m_categories[position];
 
-        holder.m_name.setText(getCategoryName(strID));
-        holder.m_flag.setFlag(m_resource, m_packageName, strID);
+        UiUtils.setTextAndShow(holder.m_name, getCategoryName(strID));
       }
       else if (m_count == 0)
       {
         // Show warning message.
-
-        holder.m_name.setText(m_context.getString(R.string.no_search_results_found));
+        UiUtils.setTextAndShow(holder.m_name, m_context.getString(R.string.no_search_results_found));
 
         final String msg = getWarningForEmptyResults();
         if (msg != null)
-        {
-          holder.m_country.setVisibility(View.VISIBLE);
-          holder.m_country.setText(msg);
-        }
+          UiUtils.setTextAndShow(holder.m_countryAndType, msg);
         else
-          holder.m_country.setVisibility(View.GONE);
+          UiUtils.clearTextAndHide(holder.m_countryAndType);
       }
       else
       {
         // title item with "Show all" text
         if (position == 0)
         {
-          holder.m_name.setText(m_context.getString(R.string.search_show_on_map));
-          holder.m_country.setText(null);
-          holder.m_amenity.setText(null);
-          holder.m_distance.setText(null);
-          holder.m_flag.clear();
+          UiUtils.setTextAndShow(holder.m_name, m_context.getString(R.string.search_show_on_map));
+          UiUtils.clearTextAndHide(holder.m_countryAndType);
+          UiUtils.clearTextAndHide(holder.m_distance);
 
           return convertView;
         }
@@ -339,20 +319,10 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         final SearchResult r = m_context.getResult(position, m_resultID);
         if (r != null)
         {
-          holder.m_name.setText(r.m_name);
-          holder.m_country.setText(r.m_country);
-          holder.m_amenity.setText(r.m_amenity);
-          holder.m_distance.setText(r.m_distance);
-
-          if (r.m_type == 1)
-          {
-            if (r.m_flag != null && r.m_flag.length() > 0 && r.m_azimut < 0.0)
-              holder.m_flag.setFlag(m_resource, m_packageName, r.m_flag);
-            else
-              holder.m_flag.setAzimut(r.m_azimut);
-          }
-          else
-            holder.m_flag.clear();
+          UiUtils.setTextAndShow(holder.m_name, r.m_name);
+          UiUtils.setTextAndShow(holder.m_countryAndType,
+              TextUtils.join(", ", Utils.asObjectArray(r.m_country, r.m_amenity)));
+          UiUtils.setTextAndShow(holder.m_distance, r.m_distance);
         }
       }
 
