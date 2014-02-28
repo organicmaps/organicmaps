@@ -41,12 +41,15 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@null"
+        android:fontFamily="@string/robotoRegular"
         android:hint="@string/search_map"
+        android:imeOptions="actionDone"
         android:inputType="text"
         android:paddingBottom="5dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="5dp" />
+        android:paddingTop="5dp"
+        android:singleLine="true" />
 
     <FrameLayout
         android:id="@+id/container_cancel_voice_input_search"

@@ -12,10 +12,12 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseAdapter;
@@ -25,6 +27,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.mapswithme.maps.base.MapsWithMeBaseListActivity;
 import com.mapswithme.maps.location.LocationService;
@@ -450,6 +453,31 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         setSearchGroupSelectionByMode(intent.getIntExtra(EXTRA_SCOPE, 0));
       runSearch();
     }
+
+    // Listen for keyboard buttons
+    mSearchBox.setOnEditorActionListener(new OnEditorActionListener()
+    {
+      @Override
+      public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
+      {
+        if (isShowCategories())
+          return false;
+
+        final boolean isEnterDown = (event != null) &&
+            (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER);
+        final boolean isActionDone = (actionId == EditorInfo.IME_ACTION_DONE);
+
+        if (isEnterDown || isActionDone)
+        {
+          if (getSA().getCount() > 1)
+          {
+            getListView().performItemClick(getSA().getView(0, null, null), 0, 0);
+            return true;
+          }
+        }
+        return false;
+      }
+    });
   }
 
   private void setSearchGroupSelectionByMode(final int savedSearchMode)
@@ -625,13 +653,14 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
   private void presentResult(View v, int position)
   {
+
     if (MWMApplication.get().isProVersion())
     {
       finish();
 
       final SearchAdapter.ViewHolder vh = (SearchAdapter.ViewHolder) v.getTag();
-
       final String queryTitle = vh.m_name.getText().toString().trim();
+
       final String showOnMapTitle = getString(R.string.search_show_on_map).trim();
 
       if (showOnMapTitle.equalsIgnoreCase(queryTitle))
