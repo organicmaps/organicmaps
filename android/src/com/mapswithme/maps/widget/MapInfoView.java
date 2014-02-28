@@ -3,9 +3,13 @@ package com.mapswithme.maps.widget;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.support.v4.view.GestureDetectorCompat;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.ImageSpan;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
@@ -20,6 +24,7 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.TextView.BufferType;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMApplication;
@@ -355,8 +360,25 @@ public class MapInfoView extends LinearLayout
     {
       // API
       final ParsedMmwRequest r = ParsedMmwRequest.getCurrentRequest();
-      final String btnText = Utils.firstNotEmpty(r.getCustomButtonName(), getResources().getString(R.string.more_info));
-      UiUtils.setTextAndShow(mReturnToCallerBtn, btnText);
+
+      // Text and icon
+      final String txtPattern = String
+          .format("%s {icon} %s", getResources().getString(R.string.more_info), r.getCallerName(getContext()));
+
+      final int spanStart = txtPattern.indexOf("{icon}");
+      final int spanEnd   = spanStart + "{icon}".length();
+
+      final Drawable icon = r.getIcon(getContext());
+      final int spanSize = (int) (25*getResources().getDisplayMetrics().density);
+      icon.setBounds(0, 0, spanSize, spanSize);
+      final ImageSpan callerIconSpan = new ImageSpan(icon, ImageSpan.ALIGN_BOTTOM);
+
+      final SpannableString ss = new SpannableString(txtPattern);
+      ss.setSpan(callerIconSpan, spanStart, spanEnd, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+
+      UiUtils.show(mReturnToCallerBtn);
+      mReturnToCallerBtn.setText(ss, BufferType.SPANNABLE);
+      //
 
       // Return callback
       mReturnToCallerBtn.setOnClickListener(new OnClickListener()
