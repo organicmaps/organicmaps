@@ -20,8 +20,6 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.guides.GuideInfo;
 import com.mapswithme.maps.guides.GuidesUtils;
 import com.mapswithme.maps.location.LocationService;
-import com.mapswithme.maps.state.AppStateManager;
-import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.FbUtil;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
@@ -41,8 +39,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
   private LocationState m_locationState = null;
   private MapStorage m_storage = null;
   private int m_slotID = 0;
-
-  private final AppStateManager mAppStateManager = new AppStateManager();
 
   private boolean m_isPro = false;
   private boolean m_isYota = false;
@@ -265,16 +261,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
   public String getDefaultProVersionURL()
   {
     return m_defaultProURL;
-  }
-
-  public AppStateManager getAppStateManager()
-  {
-    return mAppStateManager;
-  }
-
-  public SuppotedState getAppState()
-  {
-    return mAppStateManager.getCurrentState();
   }
 
   static

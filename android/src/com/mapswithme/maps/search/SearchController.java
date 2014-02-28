@@ -9,6 +9,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.SearchActivity;
+import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.util.UiUtils;
 
 public class SearchController implements OnClickListener
@@ -54,6 +55,9 @@ public class SearchController implements OnClickListener
 
   public void onResume()
   {
+    if (ParsedMmwRequest.hasRequest())
+      mSearchQueryTV.setText(ParsedMmwRequest.getCurrentRequest().getTitle());
+    else
     mSearchQueryTV.setText(getQuery());
 
     mSearchQueryTV.setFocusable(false);
@@ -77,9 +81,20 @@ public class SearchController implements OnClickListener
       Framework.cleanSearchLayerOnMap();
       mSearchQueryTV.setText(null);
       UiUtils.hide(mClearView);
+
+      cancelApiCall();
     }
     else
       throw new IllegalArgumentException("Unknown id");
+  }
+
+  public void cancelApiCall()
+  {
+    if (ParsedMmwRequest.hasRequest())
+    {
+      ParsedMmwRequest.setCurrentRequest(null);
+      Framework.clearApiPoints();
+    }
   }
 
   public void setQuery(String query)

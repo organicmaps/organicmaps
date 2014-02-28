@@ -88,7 +88,7 @@ public class MapInfoView extends LinearLayout
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
     {
       final boolean isVertical = Math.abs(distanceY) > 2 * Math.abs(distanceX);
-      final boolean isInRange = Math.abs(distanceY) > 1 && Math.abs(distanceY) < 100;
+      final boolean isInRange  = Math.abs(distanceY) > 1 && Math.abs(distanceY) < 100;
 
       if (isVertical && isInRange)
       {
@@ -504,7 +504,20 @@ public class MapInfoView extends LinearLayout
   {
     if (mMapObject == null)
       return;
+
     checkBookmarkWasDeleted();
+    checkApiWasCanceled();
+  }
+
+  private void checkApiWasCanceled()
+  {
+    if ((mMapObject.getType() == MapObjectType.API_POINT) && !ParsedMmwRequest.hasRequest())
+    {
+      setMapObject(null);
+
+      showBody(false);
+      showHeader(false);
+    }
   }
 
   private void checkBookmarkWasDeleted()

@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
 import com.mapswithme.maps.MWMApplication;
-import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -20,20 +19,6 @@ import com.mapswithme.util.statistics.Statistics;
 @SuppressLint("NewApi")
 public class MapsWithMeBaseListActivity extends ListActivity
 {
-
-  protected SuppotedState mState;
-
-  public SuppotedState getState()                    { return mState; }
-  public void          setState(SuppotedState state) { mState = state; }
-
-
-  @Override
-  protected void onResume()
-  {
-    super.onResume();
-    updateState();
-    setViewFromState(mState);
-  }
 
   @Override
   protected void onStart()
@@ -62,20 +47,6 @@ public class MapsWithMeBaseListActivity extends ListActivity
         bar.setDisplayHomeAsUpEnabled(true);
     }
   }
-
-  /**
-   *  Method to be overridden from child.
-   *  Set specific view for activity here.
-   *
-   * @param state
-   */
-  public void setViewFromState(SuppotedState state) {};
-
-  public void updateState()
-  {
-    mState = getMwmApplication().getAppState();
-  }
-
 
   public MWMApplication getMwmApplication()
   {

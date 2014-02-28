@@ -57,7 +57,6 @@ import com.mapswithme.maps.promo.PromocodeActivationDialog;
 import com.mapswithme.maps.search.SearchController;
 import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.UnitLocale;
-import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.maps.widget.MapInfoView;
 import com.mapswithme.maps.widget.MapInfoView.OnVisibilityChangedListener;
 import com.mapswithme.util.ConnectionState;
@@ -992,49 +991,6 @@ public class MWMActivity extends NvEventQueueActivity
 
     mSearchController.onResume();
     mInfoView.onResume();
-  }
-
-  @Override
-  public void setViewFromState(SuppotedState state)
-  {
-//    if (state == SuppotedState.API_REQUEST && ParsedMmwRequest.hasRequest())
-//    {
-//      // show title
-//      mTitleBar.findViewById(R.id.up_block).setOnClickListener(new OnClickListener()
-//      {
-//        @Override
-//        public void onClick(View v)
-//        {
-//          onBackPressed();
-//        }
-//      });
-//
-//      final ParsedMmwRequest request = ParsedMmwRequest.getCurrentRequest();
-//      if (request.hasTitle())
-//        mAppTitle.setText(request.getTitle());
-//      else
-//        mAppTitle.setText(request.getCallerName(this));
-//
-//      mAppIcon.setImageDrawable(request.getIcon(this));
-//      mTitleBar.setVisibility(View.VISIBLE);
-//
-//    }
-//    else
-//    {
-//      // hide title
-//      mTitleBar.setVisibility(View.GONE);
-//    }
-  }
-
-  @Override
-  public void onBackPressed()
-  {
-    if (getState() == SuppotedState.API_REQUEST)
-      getMwmApplication()
-        .getAppStateManager()
-        .transitionTo(SuppotedState.DEFAULT_MAP);
-
-    super.onBackPressed();
   }
 
   // Initialized to invalid combination to force update on the first check

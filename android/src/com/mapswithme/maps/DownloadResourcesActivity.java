@@ -31,7 +31,6 @@ import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.base.MapsWithMeBaseActivity;
 import com.mapswithme.maps.location.LocationService;
-import com.mapswithme.maps.state.SuppotedState;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
@@ -690,8 +689,6 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
         final ParsedMmwRequest request = ParsedMmwRequest.extractFromIntent(intent, getApplicationContext());
         ParsedMmwRequest.setCurrentRequest(request);
         Statistics.INSTANCE.trackApiCall(request);
-        getMwmApplication().getAppStateManager().transitionTo(SuppotedState.API_REQUEST);
-
         if (!request.isPickPointMode())
           mMapTaskToForward = new OpenUrlTask(apiUrl);
         return true;

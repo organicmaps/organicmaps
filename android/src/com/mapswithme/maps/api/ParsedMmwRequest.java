@@ -9,8 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MWMApplication;
-import com.mapswithme.maps.state.SuppotedState;
 
 public class ParsedMmwRequest
 {
@@ -134,9 +132,6 @@ public class ParsedMmwRequest
       public void run()
       {
         sendResponse(activity, success);
-        MWMApplication.get()
-          .getAppStateManager()
-          .transitionTo(SuppotedState.DEFAULT_MAP);
         activity.finish();
       }
     });
