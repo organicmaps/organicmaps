@@ -26,12 +26,8 @@
             android:id="@+id/search_scope"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="0dp"
             android:orientation="horizontal"
-            android:padding="5dp" >
+            android:padding="8dp" >
 
             <RadioButton
                 android:id="@+id/search_scope_near"
@@ -108,6 +104,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="6dp"
+        android:scrollbarStyle="outsideOverlay"
         android:scrollingCache="false" />
 
 </LinearLayout>

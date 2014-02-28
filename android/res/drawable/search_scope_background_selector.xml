@@ -14,6 +14,7 @@
           android:state_pressed="true"/>
 
     <item android:drawable="@drawable/search_scope_background_inactive"
-          android:state_checked="false"/>
+          android:state_checked="false"
+          android:state_pressed="false"/>
 
 </selector>
