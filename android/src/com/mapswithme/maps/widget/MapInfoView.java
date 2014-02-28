@@ -3,7 +3,6 @@ package com.mapswithme.maps.widget;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.support.v4.view.GestureDetectorCompat;
 import android.text.TextUtils;
@@ -17,7 +16,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -47,6 +45,7 @@ public class MapInfoView extends LinearLayout
   public interface OnVisibilityChangedListener
   {
     public void onHeadVisibilityChanged(boolean isVisible);
+
     public void onBodyVisibilityChanged(boolean isVisible);
   }
 
@@ -55,13 +54,13 @@ public class MapInfoView extends LinearLayout
   private boolean mIsHeaderVisible = true;
   private boolean mIsBodyVisible   = true;
 
-  private final ViewGroup mHeaderGroup;
-  private final ViewGroup mBodyGroup;
+  private final ViewGroup  mHeaderGroup;
+  private final ViewGroup  mBodyGroup;
   private final ScrollView mBodyContainer;
-  private final View mView;
+  private final View       mView;
 
   // Header
-  private final TextView mTitle;;
+  private final TextView mTitle;
   private final TextView mSubtitle;
   private final CheckBox mIsBookmarked;
 
@@ -72,29 +71,30 @@ public class MapInfoView extends LinearLayout
   private final LayoutInflater mInflater;
 
   // Body
-  private final View mShareView;
+  private View     mShareView;
+  private View     mEditBtn;
+  private TextView mReturnToCallerBtn;
 
   // Gestures
   private final GestureDetectorCompat mGestureDetector;
-  private final OnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener()
+  private final OnGestureListener     mGestureListener = new GestureDetector.SimpleOnGestureListener()
   {
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
     {
-      final boolean isVertical = Math.abs(distanceY) > 2*Math.abs(distanceX);
-      final boolean isInRange  = Math.abs(distanceY) > 1 && Math.abs(distanceY) < 100;
+      final boolean isVertical = Math.abs(distanceY) > 2 * Math.abs(distanceX);
+      final boolean isInRange = Math.abs(distanceY) > 1 && Math.abs(distanceY) < 100;
 
       if (isVertical && isInRange)
       {
 
-        if (distanceY < 0) // sroll down, hide
+        if (distanceY < 0)
           showBody(false);
-        else               // sroll up, show
+        else
           showBody(true);
 
         return true;
       }
-
       return false;
     };
 
@@ -106,47 +106,35 @@ public class MapInfoView extends LinearLayout
     };
   };
 
-
   private int mMaxBodyHeight = 0;
 
   // We dot want to use OnCheckedChangedListener because it gets called
   // if someone calls setCheched() from code. We need only user interaction.
-  private final OnClickListener mIsBookmarkedClickListener = new OnClickListener()
-  {
-    @Override
-    public void onClick(View v)
-    {
-      if (v.getId() != R.id.info_box_is_bookmarked)
-        throw new IllegalStateException("This listener is only for is_bookmarkded checkbox.");
+  private final OnClickListener  mIsBookmarkedClickListener = new OnClickListener()
+   {
+     @Override
+     public void onClick(View v)
+     {
+       if (v.getId() != R.id.info_box_is_bookmarked)
+         throw new IllegalStateException("This listener is only for is_bookmarkded checkbox.");
 
-      final BookmarkManager bm = BookmarkManager.getBookmarkManager();
-      if (mMapObject.getType() == MapObjectType.BOOKMARK)
-      {
-        // Make Poi from bookmark
-        final Poi p = new Poi(
-            mMapObject.getName(),
-            mMapObject.getLat(),
-            mMapObject.getLon(),
-            null); // we dont know what type it was
+       final BookmarkManager bm = BookmarkManager.getBookmarkManager();
 
-        // remove from bookmarks
-        bm.deleteBookmark((Bookmark) mMapObject);
-        setMapObject(p);
-      }
-      else
-      {
-        // Add to bookmarks
-        final Bookmark newbmk = bm.getBookmark(
-            bm.addNewBookmark(
-              mMapObject.getName(),
-              mMapObject.getLat(),
-              mMapObject.getLon()));
-
-        setMapObject(newbmk);
-      }
-      Framework.invalidate();
-    }
-  };
+       if (mMapObject.getType() == MapObjectType.BOOKMARK)
+       {
+         final Poi p = new Poi(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon(), null);
+         bm.deleteBookmark((Bookmark) mMapObject);
+         setMapObject(p);
+       }
+       else
+       {
+         final Bookmark newbmk = bm.getBookmark(bm.addNewBookmark(
+             mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon()));
+         setMapObject(newbmk);
+       }
+       Framework.invalidate();
+     }
+   };
 
   public MapInfoView(Context context, AttributeSet attrs, int defStyleAttr)
   {
@@ -169,27 +157,11 @@ public class MapInfoView extends LinearLayout
 
     // Body
     mBodyContainer = (ScrollView) mBodyGroup.findViewById(R.id.body_container);
-    mShareView = mBodyGroup.findViewById(R.id.info_box_share);
-    mShareView.setOnClickListener(new OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        ShareAction.getAnyShare().shareMapObject((Activity) getContext(), mMapObject);
-      }
-    });
-
 
     // Gestures
     mGestureDetector = new GestureDetectorCompat(getContext(), mGestureListener);
     mView.setOnClickListener(new OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        // Friggin system does not work without this stub.
-      }
-    });
+    { @Override public void onClick(View v) { /* Friggin system does not work without this stub.*/ }});
   }
 
   public MapInfoView(Context context, AttributeSet attrs)
@@ -213,8 +185,6 @@ public class MapInfoView extends LinearLayout
   protected void onSizeChanged(int w, int h, int oldw, int oldh)
   {
     super.onSizeChanged(w, h, oldw, oldh);
-
-
     calculateMaxBodyHeight();
   }
 
@@ -228,9 +198,9 @@ public class MapInfoView extends LinearLayout
     final long duration = 400;
 
     // Calculate translate offset
-    final int headHeight  = mHeaderGroup.getHeight();
+    final int headHeight = mHeaderGroup.getHeight();
     final int totalHeight = headHeight + mMaxBodyHeight;
-    final float offset = headHeight/(float)totalHeight;
+    final float offset = headHeight / (float) totalHeight;
 
     if (show) // slide up
     {
@@ -247,7 +217,7 @@ public class MapInfoView extends LinearLayout
       if (mVisibilityChangedListener != null)
         mVisibilityChangedListener.onBodyVisibilityChanged(show);
     }
-    else     // slide down
+    else // slide down
     {
       final TranslateAnimation slideDown = new TranslateAnimation(
           Animation.RELATIVE_TO_SELF, 0,
@@ -270,7 +240,6 @@ public class MapInfoView extends LinearLayout
         }
       });
 
-
       mView.startAnimation(slideDown);
     }
 
@@ -291,7 +260,6 @@ public class MapInfoView extends LinearLayout
 
   private void setTextAndShow(final CharSequence title, final CharSequence subtitle)
   {
-
     mTitle.setText(title);
     mSubtitle.setText(subtitle);
 
@@ -320,15 +288,15 @@ public class MapInfoView extends LinearLayout
         {
           case POI:
             mIsBookmarked.setChecked(false);
-            setBodyForPOI((Poi)mo);
+            setBodyForPOI((Poi) mo);
             break;
           case BOOKMARK:
             mIsBookmarked.setChecked(true);
-            setBodyForBookmark((Bookmark)mo);
+            setBodyForBookmark((Bookmark) mo);
             break;
           case ADDITIONAL_LAYER:
             mIsBookmarked.setChecked(false);
-            setBodyForAdditionalLayer((SearchResult)mo);
+            setBodyForAdditionalLayer((SearchResult) mo);
             break;
           case API_POINT:
             mIsBookmarked.setChecked(false);
@@ -337,7 +305,10 @@ public class MapInfoView extends LinearLayout
           default:
             throw new IllegalArgumentException("Unknown MapObject type:" + mo.getType());
         }
-        setUpGeoInformation(mo);
+
+        setUpAddressBox();
+        setUpGeoInformation();
+        setUpBottomButtons();
       }
       else
       {
@@ -349,14 +320,65 @@ public class MapInfoView extends LinearLayout
     requestLayout();
   }
 
-  private void setUpGeoInformation(MapObject mo)
+  private void setUpBottomButtons()
+  {
+    mShareView = mBodyGroup.findViewById(R.id.info_box_share);
+    mShareView.setOnClickListener(new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        ShareAction.getAnyShare().shareMapObject((Activity) getContext(), mMapObject);
+      }
+    });
+
+    mEditBtn = mBodyGroup.findViewById(R.id.info_box_edit);
+    mReturnToCallerBtn = (TextView) mBodyGroup.findViewById(R.id.info_box_back_to_caller);
+    UiUtils.hide(mEditBtn);
+    UiUtils.hide(mReturnToCallerBtn);
+
+    if (mMapObject.getType() == MapObjectType.BOOKMARK)
+    {
+      // BOOKMARK
+      final Bookmark bmk = (Bookmark) mMapObject;
+      mEditBtn.setOnClickListener(new OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          BookmarkActivity.startWithBookmark(getContext(), bmk.getCategoryId(), bmk.getBookmarkId());
+        }
+      });
+      UiUtils.show(mEditBtn);
+    }
+    else if (mMapObject.getType() == MapObjectType.API_POINT)
+    {
+      // API
+      final ParsedMmwRequest r = ParsedMmwRequest.getCurrentRequest();
+      final String btnText = Utils.firstNotEmpty(r.getCustomButtonName(), getResources().getString(R.string.more_info));
+      UiUtils.setTextAndShow(mReturnToCallerBtn, btnText);
+
+      // Return callback
+      mReturnToCallerBtn.setOnClickListener(new OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          ParsedMmwRequest.getCurrentRequest().sendResponseAndFinish((Activity) getContext(), true);
+        }
+      });
+    }
+  }
+
+  private void setUpGeoInformation()
   {
     final LinearLayout mGeoLayout = (LinearLayout) mBodyContainer.findViewById(R.id.info_box_geo_ref);
 
     final Location lastKnown = MWMApplication.get().getLocationService().getLastKnown();
     updateDistance(lastKnown);
 
-    UiUtils.findViewSetText(mGeoLayout, R.id.info_box_geo_location, UiUtils.formatLatLon(mo.getLat(), mo.getLon()));
+    UiUtils.findViewSetText(mGeoLayout, R.id.info_box_geo_location,
+        UiUtils.formatLatLon(mMapObject.getLat(), mMapObject.getLon()));
   }
 
   public void updateDistance(Location l)
@@ -368,8 +390,8 @@ public class MapInfoView extends LinearLayout
       if (l != null)
       {
         UiUtils.show(mGeoLayout.findViewById(R.id.info_box_geo_container_dist));
-        final CharSequence distanceText = Framework.getDistanceAndAzimutFromLatLon(
-                mMapObject.getLat(), mMapObject.getLon(), l.getLatitude(), l.getLongitude(), 0.0).getDistance();
+        final CharSequence distanceText = Framework.getDistanceAndAzimutFromLatLon(mMapObject.getLat(),
+            mMapObject.getLon(), l.getLatitude(), l.getLongitude(), 0.0).getDistance();
         UiUtils.findViewSetText(mGeoLayout, R.id.info_box_geo_distance, distanceText);
       }
       else
@@ -383,11 +405,13 @@ public class MapInfoView extends LinearLayout
   {
     mBodyContainer.removeAllViews();
     final View poiView = mInflater.inflate(R.layout.info_box_poi, null);
-
-    final TextView addressText = (TextView) poiView.findViewById(R.id.info_box_address);
-    addressText.setText(Framework.getNameAndAddress4Point(poi.getLat(), poi.getLon()));
-
     mBodyContainer.addView(poiView);
+  }
+
+  private void setUpAddressBox()
+  {
+    final TextView addressText = (TextView) mBodyGroup.findViewById(R.id.info_box_address);
+    addressText.setText(Framework.getNameAndAddress4Point(mMapObject.getLat(), mMapObject.getLon()));
   }
 
   private void setBodyForBookmark(final Bookmark bmk)
@@ -395,25 +419,8 @@ public class MapInfoView extends LinearLayout
     mBodyContainer.removeAllViews();
     final View bmkView = mInflater.inflate(R.layout.info_box_bookmark, null);
 
-    final TextView addressText = (TextView) bmkView.findViewById(R.id.info_box_address);
-    addressText.setText(Framework.getNameAndAddress4Point(bmk.getLat(), bmk.getLon()));
-
-    // Set category, pin color, set click listener TODO set size
-    final Drawable pinColorDrawable = UiUtils.drawCircleForPin(bmk.getIcon().getName(), 50, getResources());
-    UiUtils.findImageViewSetDrawable(bmkView, R.id.info_box_bmk_pincolor, pinColorDrawable);
-    UiUtils.findViewSetText(bmkView, R.id.info_box_bmk_category, bmk.getCategoryName(getContext()));
-    UiUtils.findViewSetOnClickListener(bmkView, R.id.info_box_bmk_edit, new OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        BookmarkActivity.startWithBookmark(getContext(), bmk.getCategoryId(), bmk.getBookmarkId());
-      }
-    });
-
-
     // Description of BMK
-    final WebView descritionWv = (WebView)bmkView.findViewById(R.id.info_box_bookmark_descr);
+    final WebView descritionWv = (WebView) bmkView.findViewById(R.id.info_box_bookmark_descr);
     final String descriptionTxt = bmk.getBookmarkDescription();
 
     if (TextUtils.isEmpty(descriptionTxt))
@@ -431,47 +438,14 @@ public class MapInfoView extends LinearLayout
   private void setBodyForAdditionalLayer(SearchResult sr)
   {
     mBodyContainer.removeAllViews();
-
     final View addLayerView = mInflater.inflate(R.layout.info_box_additional_layer, null);
-
-    final TextView addressText = (TextView) addLayerView.findViewById(R.id.info_box_address);
-    addressText.setText(Framework.getNameAndAddress4Point(sr.getLat(), sr.getLon()));
-
     mBodyContainer.addView(addLayerView);
   }
-
 
   private void setBodyForAPI(MapObject mo)
   {
     mBodyContainer.removeAllViews();
-
     final View apiView = mInflater.inflate(R.layout.info_box_api, null);
-
-    final TextView addressText = (TextView) apiView.findViewById(R.id.info_box_address);
-    addressText.setText(Framework.getNameAndAddress4Point(mo.getLat(), mo.getLon()));
-
-    final Button backToCallerBtn = (Button)apiView.findViewById(R.id.info_box_api_return_to_caller);
-
-    final ParsedMmwRequest r = ParsedMmwRequest.getCurrentRequest();
-    // Text
-    final String btnText = Utils.firstNotEmpty(r.getCustomButtonName(),
-        getResources().getString(R.string.more_info));
-    backToCallerBtn.setText(btnText);
-
-    // Icon
-    final Drawable icon = UiUtils.setCompoundDrawableBounds(r.getIcon(getContext()), R.dimen.dp_x_8, getResources());
-    backToCallerBtn.setCompoundDrawables(icon, null, null, null);
-
-    // Return callback
-    backToCallerBtn.setOnClickListener(new OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        ParsedMmwRequest.getCurrentRequest().sendResponseAndFinish((Activity) getContext(), true);
-      }
-    });
-
     mBodyContainer.addView(apiView);
   }
 
@@ -482,10 +456,10 @@ public class MapInfoView extends LinearLayout
 
   private void calculateMaxBodyHeight()
   {
-    final View parent = (View)getParent();
+    final View parent = (View) getParent();
     if (parent != null)
     {
-      mMaxBodyHeight = parent.getHeight()/2;
+      mMaxBodyHeight = parent.getHeight() / 2;
       final ViewGroup.LayoutParams lp = mBodyGroup.getLayoutParams();
       if (lp != null)
       {
@@ -494,7 +468,7 @@ public class MapInfoView extends LinearLayout
       }
     }
     requestLayout();
-    mLog.d("Max height: " + mMaxBodyHeight);
+    invalidate();
   }
 
   @Override
@@ -508,14 +482,18 @@ public class MapInfoView extends LinearLayout
   {
     if (mMapObject == null)
       return;
+    checkBookmarkWasDeleted();
+  }
 
+  private void checkBookmarkWasDeleted()
+  {
     // We need to check, if content of body is still valid
     if (mMapObject.getType() == MapObjectType.BOOKMARK)
     {
-      final Bookmark bmk = (Bookmark)mMapObject;
+      final Bookmark bmk = (Bookmark) mMapObject;
       final BookmarkManager bm = BookmarkManager.getBookmarkManager();
 
-      // Was it deleted?
+      // Was bookmark deleted?
       boolean deleted = false;
 
       if (bm.getCategoriesCount() <= bmk.getCategoryId())
@@ -528,18 +506,13 @@ public class MapInfoView extends LinearLayout
 
       if (deleted)
       {
-     // Make Poi from bookmark
-        final Poi p = new Poi(
-            mMapObject.getName(),
-            mMapObject.getLat(),
-            mMapObject.getLon(),
-            null); // we dont know what type it was
-
+        // Make Poi from bookmark
+        final Poi p = new Poi(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon(), null);
         // remove from bookmarks
         bm.deleteBookmark((Bookmark) mMapObject);
         setMapObject(p);
-        // TODO how to handle the case, when bookmark moved to another group?
-     }
+        // TODO how to handle the case, when bookmark was moved to another group?
+      }
       else
       {
         // Update data for current bookmark
@@ -547,7 +520,6 @@ public class MapInfoView extends LinearLayout
         setMapObject(null);
         setMapObject(updatedBmk);
       }
-
     }
   }
 }

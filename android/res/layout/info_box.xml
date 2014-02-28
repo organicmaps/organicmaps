@@ -44,7 +44,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:button="@drawable/info_box_add_to_bookmarks_btn_selector" />
+            android:button="@drawable/info_box_add_to_bookmarks_btn_selector"
+            android:padding="8dp" />
     </LinearLayout>
 
     <!-- Will have dynamic height -->
@@ -66,18 +67,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" >
         </ScrollView>
-
-        <TextView
-            android:id="@+id/info_box_share"
-            style="@style/tagGreenText.Large"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_weight="0"
-            android:background="@drawable/ui_20_green_selector"
-            android:fontFamily="@string/robotoLight"
-            android:gravity="center"
-            android:text="@string/share"
-            android:textColor="@android:color/white" />
     </LinearLayout>
 
 </LinearLayout>

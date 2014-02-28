@@ -13,47 +13,6 @@
         android:layout_marginBottom="10dp"
         android:fontFamily="@string/robotoLight" />
 
-    <!-- Category, pin color, edit -->
-
-    <LinearLayout
-        android:id="@+id/info_box_bmk_cat_pin_edit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
-
-        <!-- Pin color -->
-
-        <ImageView
-            android:id="@+id/info_box_bmk_pincolor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:paddingBottom="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="5dp" />
-
-        <TextView
-            android:id="@+id/info_box_bmk_category"
-            style="@style/Holo.TextAppearance.Medium.Light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/ui_20_text_dark" />
-
-        <ImageButton
-            android:id="@+id/info_box_bmk_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:paddingBottom="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="5dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/edit_bookmark" />
-    </LinearLayout>
-
     <include
         android:id="@+id/info_box_geo_ref"
         android:layout_width="match_parent"
@@ -66,5 +25,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical" />
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        layout="@layout/info_box_bottom_buttons" />
 
 </LinearLayout>

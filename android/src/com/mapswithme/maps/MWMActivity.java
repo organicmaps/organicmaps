@@ -90,10 +90,6 @@ public class MWMActivity extends NvEventQueueActivity
   private View mYopItButton;
 
 
-  // for API
-//  private View mTitleBar;
-//  private ImageView mAppIcon;
-//  private TextView mAppTitle;
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<MWMActivity.MapTask>();
 

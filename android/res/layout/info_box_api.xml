@@ -19,11 +19,10 @@
         android:layout_height="wrap_content"
         layout="@layout/info_box_geo" />
 
-    <Button
-        android:id="@+id/info_box_api_return_to_caller"
-        android:gravity="center"
+    <include
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Return to caller" />
+        android:layout_marginTop="10dp"
+        layout="@layout/info_box_bottom_buttons" />
 
 </LinearLayout>

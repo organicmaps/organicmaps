@@ -13,11 +13,16 @@
         android:layout_marginBottom="10dp"
         android:fontFamily="@string/robotoLight" />
 
-
     <include
         android:id="@+id/info_box_geo_ref"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/info_box_geo" />
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        layout="@layout/info_box_bottom_buttons" />
 
 </LinearLayout>
