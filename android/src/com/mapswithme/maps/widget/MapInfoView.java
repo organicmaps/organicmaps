@@ -39,6 +39,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject.Poi;
 import com.mapswithme.maps.bookmarks.data.MapObject.SearchResult;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.UiUtils.SimpleAnimationListener;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.SimpleLogger;
@@ -56,6 +57,13 @@ public class MapInfoView extends LinearLayout
 
   private OnVisibilityChangedListener mVisibilityChangedListener;
 
+  public static enum State
+  {
+    COLLAPSED,
+    HEAD,
+    FULL
+  }
+
   private boolean mIsHeaderVisible = true;
   private boolean mIsBodyVisible   = true;
 
@@ -63,6 +71,8 @@ public class MapInfoView extends LinearLayout
   private final ViewGroup  mBodyGroup;
   private final ScrollView mBodyContainer;
   private final View       mView;
+
+  private State mCurrentState = State.COLLAPSED;
 
   // Header
   private final TextView mTitle;
@@ -94,9 +104,9 @@ public class MapInfoView extends LinearLayout
       {
 
         if (distanceY < 0)
-          showBody(false);
+          setState(State.HEAD);
         else
-          showBody(true);
+          setState(State.FULL);
 
         return true;
       }
@@ -106,7 +116,11 @@ public class MapInfoView extends LinearLayout
     @Override
     public boolean onSingleTapConfirmed(MotionEvent e)
     {
-      showBody(!mIsBodyVisible);
+      if (mCurrentState == State.FULL)
+        setState(State.HEAD);
+      else
+        setState(State.FULL);
+
       return true;
     };
   };
@@ -193,7 +207,7 @@ public class MapInfoView extends LinearLayout
     calculateMaxBodyHeight();
   }
 
-  public void showBody(final boolean show)
+  private void showBody(final boolean show)
   {
     calculateMaxBodyHeight();
 
@@ -251,16 +265,58 @@ public class MapInfoView extends LinearLayout
     mIsBodyVisible = show;
   }
 
-  public void showHeader(boolean show)
+  private void showHeader(final boolean show)
   {
     if (mIsHeaderVisible == show)
       return;
 
-    UiUtils.hideIf(!show, mHeaderGroup);
-    mIsHeaderVisible = show;
+    final int duration = 200;
 
-    if (mVisibilityChangedListener != null)
-      mVisibilityChangedListener.onHeadVisibilityChanged(show);
+    if (show)
+    {
+      final TranslateAnimation slideUp = new TranslateAnimation(
+          Animation.RELATIVE_TO_SELF, 0,
+          Animation.RELATIVE_TO_SELF, 0,
+          Animation.RELATIVE_TO_SELF, 1,
+          Animation.RELATIVE_TO_SELF, 0);
+      slideUp.setDuration(duration);
+
+      UiUtils.show(mHeaderGroup);
+      slideUp.setAnimationListener(new SimpleAnimationListener()
+      {
+        @Override
+        public void onAnimationEnd(Animation animation)
+        {
+          if (mVisibilityChangedListener != null)
+            mVisibilityChangedListener.onHeadVisibilityChanged(show);
+        }
+      });
+      mHeaderGroup.startAnimation(slideUp);
+    }
+    else
+    {
+      final TranslateAnimation slideDown = new TranslateAnimation(
+          Animation.RELATIVE_TO_SELF, 0,
+          Animation.RELATIVE_TO_SELF, 0,
+          Animation.RELATIVE_TO_SELF, 0,
+          Animation.RELATIVE_TO_SELF, 1);
+      slideDown.setDuration(duration);
+
+      slideDown.setAnimationListener(new SimpleAnimationListener()
+      {
+        @Override
+        public void onAnimationEnd(Animation animation)
+        {
+          UiUtils.hide(mHeaderGroup);
+          if (mVisibilityChangedListener != null)
+            mVisibilityChangedListener.onHeadVisibilityChanged(show);
+        }
+      });
+      mHeaderGroup.startAnimation(slideDown);
+    }
+
+
+    mIsHeaderVisible = show;
   }
 
   private void setTextAndShow(final CharSequence title, final CharSequence subtitle)
@@ -543,8 +599,6 @@ public class MapInfoView extends LinearLayout
       {
         // Make Poi from bookmark
         final Poi p = new Poi(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon(), null);
-        // remove from bookmarks
-        bm.deleteBookmark((Bookmark) mMapObject);
         setMapObject(p);
         // TODO how to handle the case, when bookmark was moved to another group?
       }
@@ -556,5 +610,58 @@ public class MapInfoView extends LinearLayout
         setMapObject(updatedBmk);
       }
     }
+  }
+
+  public void setState(State state)
+  {
+    mLog.d(String.format("Ivalid transition %s - > %s", mCurrentState, state));
+
+    if (mCurrentState != state)
+    {
+      // Do some transitions
+      if (mCurrentState == State.COLLAPSED && state == State.HEAD)
+        showHeader(true);
+      else if (mCurrentState == State.HEAD && state == State.FULL)
+        showBody(true);
+      else if (mCurrentState == State.HEAD && state == State.COLLAPSED)
+        showHeader(false);
+      else if (mCurrentState == State.FULL && state == State.HEAD)
+        showBody(false);
+      else if (mCurrentState == State.FULL && state == State.COLLAPSED)
+        slideEverytingDown();
+      else
+        throw new IllegalStateException(String.format("Ivalid transition %s - > %s", mCurrentState, state));
+
+      mCurrentState = state;
+    }
+  }
+
+  private void slideEverytingDown()
+  {
+    final TranslateAnimation slideDown = new TranslateAnimation(
+        Animation.RELATIVE_TO_SELF, 0,
+        Animation.RELATIVE_TO_SELF, 0,
+        Animation.RELATIVE_TO_SELF, 0,
+        Animation.RELATIVE_TO_SELF, 1);
+    slideDown.setDuration(400);
+
+    slideDown.setAnimationListener(new SimpleAnimationListener()
+    {
+      @Override
+      public void onAnimationEnd(Animation animation)
+      {
+        mIsBodyVisible = false;
+        mIsHeaderVisible = false;
+
+        UiUtils.hide(mHeaderGroup);
+        UiUtils.hide(mBodyGroup);
+        if (mVisibilityChangedListener != null)
+        {
+          mVisibilityChangedListener.onHeadVisibilityChanged(false);
+          mVisibilityChangedListener.onBodyVisibilityChanged(false);
+        }
+      }
+    });
+    mView.startAnimation(slideDown);
   }
 }

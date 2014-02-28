@@ -32,12 +32,9 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +56,7 @@ import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.widget.MapInfoView;
 import com.mapswithme.maps.widget.MapInfoView.OnVisibilityChangedListener;
+import com.mapswithme.maps.widget.MapInfoView.State;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
@@ -592,8 +590,6 @@ public class MWMActivity extends NvEventQueueActivity
     // We need check for tasks both in onCreate and onNewIntent
     // because of bug in OS: https://code.google.com/p/android/issues/detail?id=38629
     addTask(intent);
-    showInfoBox(false, false);
-
 
     // Initialize location service
     getLocationService();
@@ -1256,12 +1252,11 @@ public class MWMActivity extends NvEventQueueActivity
           if (!mInfoView.hasThatObject(apiPoint))
           {
             mInfoView.setMapObject(apiPoint);
-            showInfoBox(true, true);
-            mInfoView.showBody(false);
+            mInfoView.setState(State.HEAD);
           }
           else
           {
-            mInfoView.showBody(true);
+            mInfoView.setState(State.FULL);
           }
         }
       });
@@ -1281,12 +1276,11 @@ public class MWMActivity extends NvEventQueueActivity
         if (!mInfoView.hasThatObject(poi))
         {
           mInfoView.setMapObject(poi);
-          showInfoBox(true, true);
-          mInfoView.showBody(false);
+          mInfoView.setState(State.HEAD);
         }
         else
         {
-          mInfoView.showBody(true);
+          mInfoView.setState(State.FULL);
         }
       }
     });
@@ -1304,27 +1298,18 @@ public class MWMActivity extends NvEventQueueActivity
         if (!mInfoView.hasThatObject(b))
         {
           mInfoView.setMapObject(b);
-          showInfoBox(true, true);
+          mInfoView.setState(State.HEAD);
         }
         else
         {
-          mInfoView.showBody(true);
+          mInfoView.setState(State.FULL);
         }
       }
     });
   }
 
   @Override
-  public void onMyPositionActivated(final double lat, final double lon)
-  {
-    runOnUiThread(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-      }
-    });
-  }
+  public void onMyPositionActivated(final double lat, final double lon) {}
 
   @Override
   public void onAdditionalLayerActivated(final long index)
@@ -1338,11 +1323,11 @@ public class MWMActivity extends NvEventQueueActivity
         if (!mInfoView.hasThatObject(sr))
         {
           mInfoView.setMapObject(sr);
-          showInfoBox(true, true);
+          mInfoView.setState(State.HEAD);
         }
         else
         {
-          mInfoView.showBody(true);
+          mInfoView.setState(State.FULL);
         }
       }
     });
@@ -1358,73 +1343,67 @@ public class MWMActivity extends NvEventQueueActivity
         @Override
         public void run()
         {
-          showInfoBox(false, true);
-          mInfoView.setMapObject(null);
+          mInfoView.setState(State.COLLAPSED);
 
+          mInfoView.setMapObject(null);
           UiUtils.show(findViewById(R.id.map_buttons_bottom_ref));
         }
       });
     }
   }
 
-  private void showInfoBox(boolean show, boolean animate)
+  private void _showInfoBox(boolean show, boolean animate)
   {
-    final View mapButtonBottom = findViewById(R.id.map_buttons_bottom_ref);
-
-    final RelativeLayout.LayoutParams lp = (LayoutParams) mapButtonBottom.getLayoutParams();
-    lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, show ? 0 : RelativeLayout.TRUE);
-    mapButtonBottom.setLayoutParams(lp);
-
-    if ((show == mIsInfoBoxVisible) && animate)
-      return;
-
-    mIsInfoBoxVisible = show;
-
-    final long duration = 200;
-    if (show)
-    {
-      if (animate)
-      {
-        final Animation slideIn = new TranslateAnimation(
-            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
-            TranslateAnimation.RELATIVE_TO_SELF, 1.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f);   // Y
-        slideIn.setDuration(duration);
-
-        mInfoView.startAnimation(slideIn);
-        mapButtonBottom.startAnimation(slideIn);
-
-        UiUtils.showAndAnimate(mInfoView, slideIn);
-        mapButtonBottom.startAnimation(slideIn);
-      }
-      else
-      {
-        UiUtils.show(mInfoView);
-        UiUtils.show(mapButtonBottom);
-      }
-    }
-    else
-    {
-      if (animate)
-      {
-        final Animation slideOutInfo = new TranslateAnimation(
-            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
-            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 1.f);  // Y
-        slideOutInfo.setDuration(duration);
-
-        final Animation slideOutButtons = new TranslateAnimation(
-            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
-            TranslateAnimation.RELATIVE_TO_SELF, -1.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f);  // Y
-        slideOutButtons.setDuration(duration);
-
-        mapButtonBottom.startAnimation(slideOutButtons);
-        UiUtils.animateAndHide(mInfoView, slideOutInfo);
-      }
-      else
-      {
-        UiUtils.hide(mInfoView);
-        UiUtils.show(mapButtonBottom);
-      }
-    }
+//    if ((show == mIsInfoBoxVisible) && animate)
+//      return;
+//
+//    mIsInfoBoxVisible = show;
+//
+//    final long duration = 200;
+//    if (show)
+//    {
+//      if (animate)
+//      {
+//        final Animation slideIn = new TranslateAnimation(
+//            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
+//            TranslateAnimation.RELATIVE_TO_SELF, 1.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f);   // Y
+//        slideIn.setDuration(duration);
+//
+//        mInfoView.startAnimation(slideIn);
+//        mapButtonBottom.startAnimation(slideIn);
+//
+//        UiUtils.showAndAnimate(mInfoView, slideIn);
+//        mapButtonBottom.startAnimation(slideIn);
+//      }
+//      else
+//      {
+//        UiUtils.show(mInfoView);
+//        UiUtils.show(mapButtonBottom);
+//      }
+//    }
+//    else
+//    {
+//      if (animate)
+//      {
+//        final Animation slideOutInfo = new TranslateAnimation(
+//            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
+//            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 1.f);  // Y
+//        slideOutInfo.setDuration(duration);
+//
+//        final Animation slideOutButtons = new TranslateAnimation(
+//            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
+//            TranslateAnimation.RELATIVE_TO_SELF, -1.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f);  // Y
+//        slideOutButtons.setDuration(duration);
+//
+//        mapButtonBottom.startAnimation(slideOutButtons);
+//        UiUtils.animateAndHide(mInfoView, slideOutInfo);
+//      }
+//      else
+//      {
+//        UiUtils.hide(mInfoView);
+//        UiUtils.show(mapButtonBottom);
+//      }
+//    }
   }
 
   public static Intent createShowMapIntent(Context context, Index index)
@@ -1462,19 +1441,18 @@ public class MWMActivity extends NvEventQueueActivity
   }
 
   @Override
-  public void onDrawerSlide(View arg0, float arg1)
-  {
-  }
+  public void onDrawerSlide(View arg0, float arg1) {}
 
   @Override
-  public void onDrawerStateChanged(int arg0)
-  {
-  }
+  public void onDrawerStateChanged(int arg0) {}
 
   @Override
   public void onHeadVisibilityChanged(boolean isVisible)
   {
-    // TODO could do nothing
+    final View mapButtonBottom = findViewById(R.id.map_buttons_bottom_ref);
+    final RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mapButtonBottom.getLayoutParams();
+    lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, isVisible ? 0 : RelativeLayout.TRUE);
+    mapButtonBottom.setLayoutParams(lp);
   }
 
   @Override
