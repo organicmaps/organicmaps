@@ -5,16 +5,6 @@
 
             }
         },
-        "CA": {     
-            "Variants": {
-                "MoPub": {
-                    "Chance": 10,
-                    "UnitId": "78b52bc1fc0e4931bb05f34fd3df7ea9",
-                    "Languages": ["*"],  
-                    "TimeLimit": [432000, 1000000000],                    
-                },
-            },
-        },
         "AU": {     
             "Variants": {
                 "MoPub": {
@@ -24,396 +14,48 @@
                     "TimeLimit": [432000, 1000000000],                    
                 },
             },
-        },
-        "ZA": {     
-            "Variants": {
-                "MoPub": {
-                    "Chance": 10,
-                    "UnitId": "78b52bc1fc0e4931bb05f34fd3df7ea9",
-                    "Languages": ["*"],                   
-                },
-            },
-        },        
-        "NZ": {     
-            "Variants": {
-                "MoPub": {
-                    "Chance": 10,
-                    "UnitId": "78b52bc1fc0e4931bb05f34fd3df7ea9",
-                    "Languages": ["*"],  
-                },
-            },
-        }, 
-        "BY": {
-            "Variants": {
-                "MoPub": {
-                    "Chance": 10,
-                    "UnitId": "78b52bc1fc0e4931bb05f34fd3df7ea9",
-                    "Languages": ["*"],  
-                },
-            },
-        },               
+        },     
     },
     "AppFeatureInterstitial": {
         "*": {         
+            "Period": 10800,  
             "Variants": {
-                
+                "MWMPro4_2_OnlyIphone": {
+                    "Chance": 10,
+                    "Languages": ["ru", "en"], 
+                    "Idiom": "Phone", 
+                    "Online": true,                    
+                },
+                "MWMPro4_OnlyIpad": {
+                    "Chance": 10,
+                    "Idiom": "Pad",
+                    "Languages": ["ru", "en"],  
+                    "Online": true,                    
+                },                
             },
         },  
-        "US": {
-            "Period": 86400,  
-            "Variants": {
-                "MWMPro1": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,
-                },
-                "MWMPro2": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro3": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4_1": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4_2": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro5": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-            },
-        },
-        "IN": {
-            "Period": 86400,  
-            "Variants": {
-                "MWMPro1": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"], 
-                    "Online": true,                     
-                },
-                "MWMPro2": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro3": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4_1": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4_2": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro5": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-            },
-        },
-        "NG": {
-            "Period": 86400,  
-            "Variants": {
-                "MWMPro1": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro2": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro3": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4_1": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4_2": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro5": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-            },
-        },
-        "SG": {
-            "Period": 86400,  
-            "Variants": {
-                "MWMPro1": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"], 
-                    "Online": true,                     
-                },
-                "MWMPro2": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro3": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4_1": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4_2": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro5": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-            },
-        },
-        "CA": {
-            "Period": 86400,  
-            "Variants": {
-                "MWMPro1": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro2": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro3": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4_1": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4_2": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro5": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-            },
-        },
-        "ZA": {
-            "Period": 86400,  
-            "Variants": {
-                "MWMPro1": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro2": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro3": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4_1": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4_2": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro5": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-            },
-        },
-        "RU": {
-            "Period": 86400,  
-            "Variants": {
-                "MWMPro4": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-            },
-        },
-        "NZ": {
-            "Period": 86400,  
-            "Variants": {
-                "MoPub": {
-                    "Chance": 70,
-                    "Languages": ["*"],  
-                    "TimeLimit": [432000, 1000000000],                    
-                },
-                "MWMPro1": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro2": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro3": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4_1": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4_2": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro5": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-            },
-        },
         "AU": {
-            "Period": 86400,  
+            "Period": 10800,  
             "Variants": {
                 "MoPub": {
-                    "Chance": 70,
+                    "Chance": 10,
                     "Languages": ["*"],  
                     "TimeLimit": [432000, 1000000000],                    
                 },
-                "MWMPro1": {
+                "MWMPro4_2_OnlyIphone": {
                     "Chance": 10,
-                    "Languages": ["ru", "en"],  
+                    "Languages": ["ru", "en"], 
+                    "Idiom": "Phone", 
                     "Online": true,                    
                 },
-                "MWMPro2": {
+                "MWMPro4_OnlyIpad": {
                     "Chance": 10,
+                    "Idiom": "Pad",
                     "Languages": ["ru", "en"],  
                     "Online": true,                    
-                },
-                "MWMPro3": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4_1": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro4_2": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-                "MWMPro5": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
+                },  
             },
         },
-        "BY": {
-            "Period": 86400,  
-            "Variants": {
-                "MoPub": {
-                    "Chance": 10,
-                    "Languages": ["*"],  
-                    "TimeLimit": [432000, 1000000000],                    
-                },
-                "MWMPro4": {
-                    "Chance": 10,
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },
-            },
-        }, 
     },
     "AppFeatureProButtonOnMap": {
         "*": {
