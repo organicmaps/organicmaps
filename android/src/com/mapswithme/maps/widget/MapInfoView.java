@@ -344,6 +344,9 @@ public class MapInfoView extends LinearLayout
         mMapObject = mo;
       }
     }
+    // Sometimes we have to force update view
+    invalidate();
+    requestLayout();
   }
 
   private void setUpGeoInformation(MapObject mo)
