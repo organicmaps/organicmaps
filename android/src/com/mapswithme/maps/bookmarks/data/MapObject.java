@@ -3,41 +3,75 @@ package com.mapswithme.maps.bookmarks.data;
 import java.io.Serializable;
 
 import com.mapswithme.maps.Framework;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.SimpleLogger;
 
 public abstract class MapObject
 {
-  private static final Logger mLog = SimpleLogger.get("MwmMapObject");
+  protected String mName;
+  protected double mLat;
+  protected double mLon;
+  protected String mTypeName;
+
+  public MapObject(String name, double lat, double lon, String typeName)
+  {
+    mName = name;
+    mLat = lat;
+    mLon = lon;
+    mTypeName = typeName;
+  }
+
+  @Override
+  public int hashCode()
+  {
+    final int prime = 31;
+    int result = 1;
+    long temp;
+    temp = Double.doubleToLongBits(mLat);
+    result = prime * result + (int) (temp ^ (temp >>> 32));
+    temp = Double.doubleToLongBits(mLon);
+    result = prime * result + (int) (temp ^ (temp >>> 32));
+    result = prime * result + ((mName == null) ? 0 : mName.hashCode());
+    result = prime * result + ((mTypeName == null) ? 0 : mTypeName.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj)
+  {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    final MapObject other = (MapObject) obj;
+    if (Double.doubleToLongBits(mLat) != Double.doubleToLongBits(other.mLat))
+      return false;
+    if (Double.doubleToLongBits(mLon) != Double.doubleToLongBits(other.mLon))
+      return false;
+    if (mName == null)
+    {
+      if (other.mName != null)
+        return false;
+    }
+    else if (!mName.equals(other.mName))
+      return false;
+    if (mTypeName == null)
+    {
+      if (other.mTypeName != null)
+        return false;
+    }
+    else if (!mTypeName.equals(other.mTypeName))
+      return false;
+    return true;
+  }
 
   public double getScale() { return 0; };
-  // Interface
-  public abstract String getName();
-  public abstract double getLat();
-  public abstract double getLon();
-  public abstract String getPoiTypeName();
+  public String getName()  { return mName; }
+  public double getLat()   { return mLat; }
+  public double getLon()   { return mLon; }
+  public String getPoiTypeName() { return mTypeName; }
 
   public abstract MapObjectType getType();
-  // interface
-
-  public static Integer checkSum(MapObject mo)
-  {
-    if (mo == null) return 0;
-
-    final int[] primes = {2, 3, 5, 7, 11, 13, 17, 19, 23};
-
-    final int base = primes[mo.getType().ordinal()];
-    final int component1 = Double.valueOf(mo.getLat()).hashCode();
-    final int component2 = Double.valueOf(mo.getLon()).hashCode();
-    final int component3 = mo.getName() == null ? base : mo.getName().hashCode();
-
-    final int sum = (component1 << base)
-                  + (component2 >> base)
-                  +  component3;
-
-    mLog.d(String.format("c1=%d c2=%d c3=%d sum=%d", component1, component2, component3, sum));
-    return sum;
-  }
 
   public static enum MapObjectType implements Serializable
   {
@@ -50,35 +84,9 @@ public abstract class MapObject
 
   public static class Poi extends MapObject
   {
-    private final String mName;
-    private final double mLat;
-    private final double mLon;
-    private final String mTypeName;
-
     public Poi(String name, double lat, double lon, String typeName)
     {
-      mName = name;
-      mLat = lat;
-      mLon = lon;
-      mTypeName = typeName;
-    }
-
-    @Override
-    public String getName()
-    {
-      return mName;
-    }
-
-    @Override
-    public double getLat()
-    {
-      return mLat;
-    }
-
-    @Override
-    public double getLon()
-    {
-      return mLon;
+      super(name, lat, lon, typeName);
     }
 
     @Override
@@ -86,42 +94,14 @@ public abstract class MapObject
     {
       return MapObjectType.POI;
     }
-
-    @Override
-    public String getPoiTypeName()
-    {
-      return mTypeName;
-    }
   }
 
   public static class SearchResult extends MapObject
   {
-    private String mName;
-    private double mLat;
-    private double mLon;
-    private String mTypeName;
-
     public SearchResult(long index)
     {
+      super("", 0, 0, "");
       Framework.injectData(this, index);
-    }
-
-    @Override
-    public String getName()
-    {
-      return mName;
-    }
-
-    @Override
-    public double getLat()
-    {
-      return mLat;
-    }
-
-    @Override
-    public double getLon()
-    {
-      return mLon;
     }
 
     @Override
@@ -129,54 +109,16 @@ public abstract class MapObject
     {
       return MapObjectType.ADDITIONAL_LAYER;
     }
-
-    @Override
-    public String getPoiTypeName()
-    {
-      return mTypeName;
-    }
   }
 
   public static class ApiPoint extends MapObject
   {
-    private final String mName;
     private final String mId;
-    private final String mPoiType;
-    private final double mLat;
-    private final double mLon;
-
 
     public ApiPoint(String name, String id, String poiType, double lat, double lon)
     {
-      this.mName = name;
-      this.mId = id;
-      this.mPoiType = poiType;
-      this.mLat = lat;
-      this.mLon = lon;
-    }
-
-    @Override
-    public String getName()
-    {
-      return mName;
-    }
-
-    @Override
-    public double getLat()
-    {
-      return mLat;
-    }
-
-    @Override
-    public double getLon()
-    {
-      return mLon;
-    }
-
-    @Override
-    public String getPoiTypeName()
-    {
-      return mPoiType;
+      super(name, lat, lon, poiType);
+      mId = id;
     }
 
     @Override

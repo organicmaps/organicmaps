@@ -553,7 +553,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       public void onClick(View v)
       {
         final Intent vrIntent = InputUtils.createIntentForVoiceRecognition(getResources().getString(R.string.search_map));
-        startActivityForResult(vrIntent, RC_VOICE_RECOGNITIN);
+        startActivityForResult(vrIntent, RC_VOICE_RECOGNITION);
       }
     });
 
@@ -886,14 +886,14 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
 
   // Handle voice recognition here
-  private final static int RC_VOICE_RECOGNITIN = 0xCA11;
+  private final static int RC_VOICE_RECOGNITION = 0xCA11;
 
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     super.onActivityResult(requestCode, resultCode, data);
 
-    if ((requestCode == RC_VOICE_RECOGNITIN) && (resultCode == Activity.RESULT_OK))
+    if ((requestCode == RC_VOICE_RECOGNITION) && (resultCode == Activity.RESULT_OK))
     {
       final String result = InputUtils.getMostConfidentResult(data);
       if (result != null)

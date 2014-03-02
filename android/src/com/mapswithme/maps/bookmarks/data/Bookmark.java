@@ -12,16 +12,10 @@ public class Bookmark extends MapObject
   private int mBookmark;
   private double mMerX;
   private double mMerY;
-  private double mLon;
-  private double mLat;
-
-  //{@ Populate on creation or lazily?
-  private String mName;
-  //{@
-
-
   /* package */ Bookmark(int categoryId, int bookmarkId, String name)
   {
+    super(name, 0, 0, "");
+
     mCategoryId = categoryId;
     mBookmark = bookmarkId;
     mName = name;

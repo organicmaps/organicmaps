@@ -141,7 +141,7 @@ public class MapInfoView extends LinearLayout
 
        if (mMapObject.getType() == MapObjectType.BOOKMARK)
        {
-         final Poi p = new Poi(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon(), null);
+         final MapObject p = new Poi(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon(), null);
          bm.deleteBookmark((Bookmark) mMapObject);
          setMapObject(p);
        }
@@ -329,7 +329,12 @@ public class MapInfoView extends LinearLayout
 
   public boolean hasThatObject(MapObject mo)
   {
-    return MapObject.checkSum(mo).equals(MapObject.checkSum(mMapObject));
+    if (mo == null && mMapObject == null)
+      return true;
+    else if (mMapObject != null)
+      return mMapObject.equals(mo);
+
+    return false;
   }
 
   public void setMapObject(MapObject mo)
@@ -349,7 +354,7 @@ public class MapInfoView extends LinearLayout
         {
           case POI:
             mIsBookmarked.setChecked(false);
-            setBodyForPOI((Poi) mo);
+            setBodyForPOI(mo);
             break;
           case BOOKMARK:
             mIsBookmarked.setChecked(true);
@@ -479,7 +484,7 @@ public class MapInfoView extends LinearLayout
     }
   }
 
-  private void setBodyForPOI(Poi poi)
+  private void setBodyForPOI(MapObject poi)
   {
     mBodyContainer.removeAllViews();
     final View poiView = mInflater.inflate(R.layout.info_box_poi, null);
@@ -598,7 +603,7 @@ public class MapInfoView extends LinearLayout
       if (deleted)
       {
         // Make Poi from bookmark
-        final Poi p = new Poi(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon(), null);
+        final MapObject p = new Poi(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon(), null);
         setMapObject(p);
         // TODO how to handle the case, when bookmark was moved to another group?
       }

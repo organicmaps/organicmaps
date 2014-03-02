@@ -832,12 +832,12 @@ public class MWMActivity extends NvEventQueueActivity
 
     // Calculate padding as one quarter of height
     int drawerItemsPadding = 0;
-    final DisplayMetrics dm = getResources().getDisplayMetrics();
-
     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+    {
+      final DisplayMetrics dm = getResources().getDisplayMetrics();
       drawerItemsPadding = Math.max(dm.heightPixels, dm.widthPixels)/5;
+    }
 
-    Log.d("DrawerPadding", "x=" + drawerItemsPadding);
     findViewById(R.id.scroll_up).setPadding(0,drawerItemsPadding, 0, 0);
   }
 
@@ -1266,7 +1266,7 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onPoiActivated(final String name, final String type, final String address, final double lat, final double lon)
   {
-    final MapObject.Poi poi = new MapObject.Poi(name, lat, lon, type);
+    final MapObject poi = new MapObject.Poi(name, lat, lon, type);
 
     runOnUiThread(new Runnable()
     {

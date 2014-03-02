@@ -916,15 +916,15 @@ extern "C"
     Bookmark * b = g_framework->NativeFramework()->
         GetBookmarkManager().AdditionalPoiLayerGetBookmark(nIndex);
 
-    static jclass javaClazz = env->GetObjectClass(jsearchResult);
+    const jclass javaClazz = env->GetObjectClass(jsearchResult);
 
-    static jfieldID nameId = env->GetFieldID(javaClazz, "mName", "Ljava/lang/String;");
+    const jfieldID nameId = env->GetFieldID(javaClazz, "mName", "Ljava/lang/String;");
     env->SetObjectField(jsearchResult, nameId, jni::ToJavaString(env, b->GetName()));
 
-    static jfieldID latId = env->GetFieldID(javaClazz, "mLat", "D");
+    const jfieldID latId = env->GetFieldID(javaClazz, "mLat", "D");
     env->SetDoubleField(jsearchResult, latId, static_cast<jdouble>(MercatorBounds::YToLat(b->GetOrg().y)));
 
-    static jfieldID lonId = env->GetFieldID(javaClazz, "mLon", "D");
+    const jfieldID lonId = env->GetFieldID(javaClazz, "mLon", "D");
     env->SetDoubleField(jsearchResult, lonId, static_cast<jdouble>(MercatorBounds::XToLon(b->GetOrg().x)));
   }
 
