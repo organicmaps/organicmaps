@@ -30,20 +30,13 @@
         android:name="android.hardware.location.gps"
         android:required="false" />
 
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission
-        android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission
-        android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission
-        android:name="android.permission.INTERNET" />
-    <uses-permission
-        android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission
-        android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission
-        android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <supports-screens
         android:largeScreens="true"
@@ -53,70 +46,58 @@
         android:name="com.mapswithme.maps.MWMApplication"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Holo.Theme.Light" >
+        android:theme="@style/MWMMain" >
+
+        <meta-data android:name="com.google.android.gms.version"
+           android:value="@integer/google_play_services_version" />
+
         <activity
             android:name="com.mapswithme.maps.DownloadResourcesActivity"
             android:configChanges="orientation|screenLayout|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="behind"
-            android:theme="@style/MWMMain" >
+            android:theme="@style/MWMMain.NoBar" >
             <intent-filter>
-                <action
-                    android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-                <category
-                    android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
             <!-- standard "geo" scheme -->
             <intent-filter>
-                <action
-                    android:name="android.intent.action.VIEW" >
+                <action android:name="android.intent.action.VIEW" >
                 </action>
 
-                <category
-                    android:name="android.intent.category.DEFAULT" >
-                </category>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-                <data
-                    android:scheme="geo" >
-                </data>
+                <data android:scheme="geo" />
             </intent-filter>
             <intent-filter>
-                <action
-                    android:name="android.intent.action.VIEW" >
+                <action android:name="android.intent.action.VIEW" >
                 </action>
 
-                <category
-                    android:name="android.intent.category.DEFAULT" />
-                <category
-                    android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-                <data
-                    android:scheme="ge0" />
+                <data android:scheme="ge0" />
             </intent-filter>
             <intent-filter>
-                <action
-                    android:name="android.intent.action.VIEW" >
+                <action android:name="android.intent.action.VIEW" >
                 </action>
 
-                <category
-                    android:name="android.intent.category.DEFAULT" />
-                <category
-                    android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
                     android:host="ge0.me"
                     android:scheme="http" />
             </intent-filter>
             <intent-filter>
-                <action
-                    android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW" />
 
-                <category
-                    android:name="android.intent.category.DEFAULT" />
-                <category
-                    android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
                     android:host="maps.google.com"
@@ -128,10 +109,11 @@
 
             <!-- API CALL -->
             <intent-filter>
-                <action
-                    android:name="com.mapswithme.maps.api.request" />
+                <action android:name="com.mapswithme.maps.api.request" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity
             android:name="com.mapswithme.maps.MWMActivity"
             android:configChanges="orientation|screenLayout|screenSize"
@@ -178,8 +160,7 @@
             android:enabled="true"
             android:exported="true" >
             <intent-filter>
-                <action
-                    android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
@@ -187,6 +168,15 @@
             android:name="com.mapswithme.maps.background.WorkerService"
             android:exported="false" >
         </service>
+
+        <!-- Mobile Apps Tracking -->
+        <receiver
+            android:name="com.mobileapptracker.Tracker"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
