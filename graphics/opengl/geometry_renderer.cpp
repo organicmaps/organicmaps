@@ -152,6 +152,24 @@ namespace graphics
       processCommand(make_shared_ptr(new UploadData(resources, count, texture)));
     }
 
+    GeometryRenderer::DrawGeometry::DrawGeometry()
+      : m_alfa(1.0)
+    {
+    }
+
+    bool GeometryRenderer::DrawGeometry::isNeedAdditionalUniforms() const
+    {
+      gl::RenderContext const * rc = static_cast<gl::RenderContext const *>(renderContext());
+
+      shared_ptr<Program> const & prg = rc->program();
+      return prg->isParamExist(ETransparency);
+    }
+
+    void GeometryRenderer::DrawGeometry::setAdditionalUniforms(const UniformsHolder & holder)
+    {
+      VERIFY(holder.getValue(ETransparency, m_alfa), ());
+    }
+
     void GeometryRenderer::DrawGeometry::perform()
     {
       if (isDebugging())
@@ -170,6 +188,9 @@ namespace graphics
       prg->setParam(ESemModelView, rc->matrix(EModelView));
       prg->setParam(ESemProjection, rc->matrix(EProjection));
       prg->setParam(ESemSampler0, 0);
+
+      if (prg->isParamExist(ETransparency))
+        prg->setParam(ETransparency, m_alfa);
 
       prg->setStorage(m_storage);
       prg->setVertexDecl(Vertex::getVertexDecl());
@@ -366,6 +387,8 @@ namespace graphics
       gl::RenderContext * rc = static_cast<gl::RenderContext*>(renderContext());
       ProgramManager * pm = rc->programManager();
       shared_ptr<Program> prg = pm->getProgram(EVxTextured, EFrgAlphaTest);
+      if (m_type == AlfaVaringProgram)
+        prg = pm->getProgram(EVxTextured, EFrgVarAlfa);
 
       prg->setParam(ESemModelView, rc->matrix(EModelView));
       prg->setParam(ESemProjection, rc->matrix(EProjection));
@@ -377,6 +400,11 @@ namespace graphics
     void GeometryRenderer::applyStates()
     {
       processCommand(make_shared_ptr(new ApplyStates()));
+    }
+
+    void GeometryRenderer::applyVarAlfaStates()
+    {
+      processCommand(make_shared_ptr(new ApplyStates(ApplyStates::AlfaVaringProgram)));
     }
 
     void GeometryRenderer::ApplyBlitStates::perform()

@@ -23,6 +23,11 @@ namespace graphics
     return m_ctx;
   }
 
+  const RenderContext *Command::renderContext() const
+  {
+    return m_ctx;
+  }
+
   Command::Command()
     : m_isDebugging(false)
   {}

@@ -93,7 +93,8 @@ namespace graphics
   }
 
   void DisplayList::draw(DisplayListRenderer * r,
-                         math::Matrix<double, 3, 3> const & m)
+                         math::Matrix<double, 3, 3> const & m,
+                         UniformsHolder * holder)
   {
     math::Matrix<float, 4, 4> mv;
 
@@ -116,6 +117,8 @@ namespace graphics
          ++it)
     {
       (*it)->setRenderContext(r->renderContext());
+      if (holder != NULL && (*it)->isNeedAdditionalUniforms())
+        (*it)->setAdditionalUniforms(*holder);
       (*it)->perform();
     }
 

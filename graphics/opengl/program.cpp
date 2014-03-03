@@ -94,6 +94,11 @@ namespace graphics
       OGLCHECK(glDeleteProgramFn(m_handle));
     }
 
+    bool Program::isParamExist(ESemantic sem) const
+    {
+      return m_uniforms.find(sem) != m_uniforms.end();
+    }
+
     void Program::setParam(ESemantic sem, float v0)
     {
       map<ESemantic, Uniform>::iterator it = m_uniforms.find(sem);

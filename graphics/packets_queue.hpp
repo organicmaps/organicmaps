@@ -1,5 +1,7 @@
 #pragma once
 
+#include "uniforms_holder.hpp"
+
 #include "../base/fence_manager.hpp"
 
 #include "../base/threaded_list.hpp"
@@ -26,8 +28,12 @@ namespace graphics
     bool isDebugging() const;
     void setIsDebugging(bool flag);
 
+    virtual bool isNeedAdditionalUniforms() const { return false; }
+    virtual void setAdditionalUniforms(UniformsHolder const & /*uniforms*/) {}
+
     void setRenderContext(RenderContext * ctx);
     RenderContext * renderContext();
+    RenderContext const * renderContext() const;
 
     Command();
 

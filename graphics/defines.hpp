@@ -69,7 +69,8 @@ namespace graphics
     ESemTexCoord0,
     ESemSampler0,
     ESemModelView,
-    ESemProjection
+    ESemProjection,
+    ETransparency
   };
 
   void convert(char const * name, ESemantic & sem);

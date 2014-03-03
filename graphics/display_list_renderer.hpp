@@ -51,7 +51,8 @@ namespace graphics
     /// get current display list
     DisplayList * displayList() const;
     /// draw display list
-    void drawDisplayList(DisplayList * dl, math::Matrix<double, 3, 3> const & m);
+    void drawDisplayList(DisplayList * dl, math::Matrix<double, 3, 3> const & m,
+                         UniformsHolder * holder);
 
     /// Interceptable commands
     /// @{
@@ -82,6 +83,7 @@ namespace graphics
     void applyBlitStates();
     /// apply geometry rendering states
     void applyStates();
+    void applyVarAlfaStates();
     /// apply sharp geometry states
     void applySharpStates();
     /// @}

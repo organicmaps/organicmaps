@@ -1,5 +1,6 @@
 #pragma once
 
+#include "uniforms_holder.hpp"
 #include "defines.hpp"
 #include "display_list_renderer.hpp"
 #include "opengl/base_texture.hpp"
@@ -54,6 +55,7 @@ namespace graphics
     void addCheckPoint();
 
     void draw(DisplayListRenderer * r,
-              math::Matrix<double, 3, 3> const & m);
+              math::Matrix<double, 3, 3> const & m,
+              UniformsHolder * holder = NULL);
   };
 }

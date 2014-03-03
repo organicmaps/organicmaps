@@ -68,8 +68,23 @@ namespace graphics
         "}\n";
       m_frgShaders[EFrgNoAlphaTest].reset(new Shader(noAlphaTestFrgSrc, EFragmentShader));
 
+      static const char uniformAlfaFrgSrc[] =
+        "uniform sampler2D Sampler0;\n"
+        "uniform " PRECISION " float Transparency;\n"
+        "varying " PRECISION " vec2 TexCoordOut0;\n"
+        "void main(void) {\n"
+        " " PRECISION " vec4 color = texture2D(Sampler0, TexCoordOut0);\n"
+        " " PRECISION " float t = color.a;\n"
+        "  if (t > Transparency)\n"
+        "    t = Transparency;\n"
+        "  gl_FragColor = vec4(color.rgb, t);\n"
+        "}\n";
+
+      m_frgShaders[EFrgVarAlfa].reset(new Shader(uniformAlfaFrgSrc, EFragmentShader));
+
       getProgram(EVxTextured, EFrgAlphaTest);
       getProgram(EVxTextured, EFrgNoAlphaTest);
+      getProgram(EVxTextured, EFrgVarAlfa);
 
       getProgram(EVxSharp, EFrgAlphaTest);
       getProgram(EVxSharp, EFrgNoAlphaTest);

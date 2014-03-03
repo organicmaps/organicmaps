@@ -49,8 +49,14 @@ namespace graphics
         VertexDecl * m_vertexDecl;
         shared_ptr<Program> m_program;
 
+        DrawGeometry();
+        virtual bool isNeedAdditionalUniforms() const;
+        virtual void setAdditionalUniforms(UniformsHolder const & holder);
         void perform();
         void dump();
+
+      private:
+        float m_alfa;
       };
 
       struct FreeStorage : public Command
@@ -95,7 +101,17 @@ namespace graphics
 
       struct ApplyStates : public Command
       {
+        enum ProgramType
+        {
+          DefaultProgram,
+          AlfaVaringProgram
+        };
+
+        ApplyStates(ProgramType type = DefaultProgram) : m_type(type) {}
         void perform();
+
+      private:
+        ProgramType m_type;
       };
 
       struct ApplyBlitStates : public Command
@@ -122,6 +138,7 @@ namespace graphics
 
       void applySharpStates();
       void applyBlitStates();
+      void applyVarAlfaStates();
       void applyStates();
     };
   }

@@ -198,7 +198,7 @@ namespace graphics
         int pipelineID);
 
     void setDisplayList(DisplayList * dl);
-    void drawDisplayList(DisplayList * dl, math::Matrix<double, 3, 3> const & m);
+    void drawDisplayList(DisplayList * dl, math::Matrix<double, 3, 3> const & m, UniformsHolder * holder = NULL);
 
     void uploadResources(shared_ptr<Resource> const * resources,
                          size_t count,

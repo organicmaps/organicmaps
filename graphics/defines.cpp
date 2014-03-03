@@ -90,7 +90,8 @@ namespace graphics
     {ESemTexCoord0, "TexCoord0"},
     {ESemSampler0, "Sampler0"},
     {ESemModelView, "ModelView"},
-    {ESemProjection, "Projection"}
+    {ESemProjection, "Projection"},
+    {ETransparency, "Transparency"}
   };
 
   void convert(char const * name, ESemantic & sem)

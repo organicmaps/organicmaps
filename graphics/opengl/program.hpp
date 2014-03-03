@@ -72,7 +72,7 @@ namespace graphics
 
       ~Program();
 
-      unsigned getParam(char const * name);
+      bool isParamExist(ESemantic sem) const;
 
       void setParam(ESemantic sem, float v0);
       void setParam(ESemantic sem, float v0, float v1);

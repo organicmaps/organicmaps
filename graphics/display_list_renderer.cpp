@@ -79,9 +79,10 @@ namespace graphics
   }
 
   void DisplayListRenderer::drawDisplayList(DisplayList * dl,
-                                            math::Matrix<double, 3, 3> const & m)
+                                            math::Matrix<double, 3, 3> const & m,
+                                            UniformsHolder * holder)
   {
-    dl->draw(this, m);
+    dl->draw(this, m, holder);
   }
 
   void DisplayListRenderer::drawGeometry(shared_ptr<gl::BaseTexture> const & texture,
@@ -209,6 +210,14 @@ namespace graphics
       m_displayList->applyStates(make_shared_ptr(new ApplyStates()));
     else
       base_t::applyStates();
+  }
+
+  void DisplayListRenderer::applyVarAlfaStates()
+  {
+    if (m_displayList)
+      m_displayList->applyStates(make_shared_ptr(new ApplyStates(ApplyStates::AlfaVaringProgram)));
+    else
+      base_t::applyVarAlfaStates();
   }
 
   void DisplayListRenderer::applySharpStates()

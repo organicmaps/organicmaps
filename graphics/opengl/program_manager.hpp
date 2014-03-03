@@ -20,7 +20,8 @@ namespace graphics
     enum EFrgType
     {
       EFrgAlphaTest,
-      EFrgNoAlphaTest
+      EFrgNoAlphaTest,
+      EFrgVarAlfa
     };
 
     class ProgramManager
