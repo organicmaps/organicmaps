@@ -7,6 +7,7 @@
 #include "../geometry/point2d.hpp"
 #include "../geometry/screenbase.hpp"
 
+#include "../std/shared_ptr.hpp"
 #include "../std/scoped_ptr.hpp"
 #include "../std/map.hpp"
 
@@ -47,9 +48,11 @@ namespace location
   private:
 
     static const double s_cacheRadius;
-    //shared_ptr<anim::Task> m_radiusAnimation;
+    shared_ptr<anim::Task> m_radiusAnimation;
+    void UpdateAnimation();
     void SetErrorRadius(double errorRadius);
     double GetErrorRadius() const;
+    float GetTransparency() const;
 
     double m_errorRadius;   //< error radius in mercator
     m2::PointD m_position;  //< position in mercator
