@@ -11,6 +11,8 @@
 
 class Framework;
 class PaintEvent;
+namespace anim { class Task; }
+namespace graphics { class DisplayList; }
 namespace location { class GpsInfo; }
 namespace gui { class Element; }
 namespace search { struct AddressInfo; }
@@ -22,6 +24,14 @@ namespace url_scheme
 
 class PinClickManager
 {
+  shared_ptr<anim::Task> m_animTask;
+  void StartAnimation();
+  void ResetAnimation();
+  double GetCurrentPinScale();
+
+  graphics::DisplayList * m_searchPinDL;
+  graphics::DisplayList * GetSearchPinDL();
+
   Framework & m_f;
   bool m_updateForLocation;
 
@@ -35,6 +45,9 @@ class PinClickManager
 
 public:
   PinClickManager(Framework & f);
+  ~PinClickManager();
+
+  void Shutdown();
 
   void RenderPolicyCreated(graphics::EDensity density);
   void LocationChanged(location::GpsInfo const & info);

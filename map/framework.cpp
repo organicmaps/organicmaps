@@ -617,6 +617,7 @@ void Framework::GetLocalMaps(vector<string> & outMaps) const
 
 void Framework::PrepareToShutdown()
 {
+  m_balloonManager.Shutdown();
   SetRenderPolicy(0);
 }
 
