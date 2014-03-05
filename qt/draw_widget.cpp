@@ -72,6 +72,8 @@ namespace qt
   void DummyBookmark(BookmarkAndCategory const &) {}
   void DummyPOI(m2::PointD const &, search::AddressInfo const &) {}
   void DummyPosition(double, double) {}
+  void DummyAdditional(size_t) {}
+  void DummyDismiss() {}
 
   DrawWidget::DrawWidget(QWidget * pParent)
     : QGLWidget(pParent),
@@ -90,6 +92,8 @@ namespace qt
     manager.ConnectBookmarkListener(&DummyBookmark);
     manager.ConnectPoiListener(&DummyPOI);
     manager.ConnectPositionListener(&DummyPosition);
+    manager.ConnectAdditionalListener(&DummyAdditional);
+    manager.ConnectDismissListener(&DummyDismiss);
   }
 
   DrawWidget::~DrawWidget()
