@@ -331,30 +331,25 @@ void PinClickManager::OnActivateMyPosition()
 
 void PinClickManager::OnActivatePOI(m2::PointD const & globalPoint, search::AddressInfo const & info)
 {
-  if (m_poiListener)
-    m_poiListener(globalPoint, info);
+  m_poiListener(globalPoint, info);
 }
 
 void PinClickManager::OnActivateAPI(url_scheme::ResultPoint const & apiPoint)
 {
-  if (m_apiListener)
-    m_apiListener(apiPoint.GetPoint());
+  m_apiListener(apiPoint.GetPoint());
 }
 
 void PinClickManager::OnActivateBookmark(BookmarkAndCategory const & bmAndCat)
 {
-  if (m_bookmarkListener)
-    m_bookmarkListener(bmAndCat);
+  m_bookmarkListener(bmAndCat);
 }
 
 void PinClickManager::OnAdditonalLayer(size_t index)
 {
-  if (m_additionalLayerListener)
-    m_additionalLayerListener(index);
+  m_additionalLayerListener(index);
 }
 
 void PinClickManager::OnDismiss()
 {
-  if (m_dismissListener)
-    m_dismissListener();
+  m_dismissListener();
 }

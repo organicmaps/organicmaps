@@ -150,9 +150,7 @@ void CompassArrow::draw(graphics::OverlayRenderer * r,
     checkDirtyLayout();
 
     UniformsHolder holder;
-    float a = GetCurrentAlfa();
-    LOG(LINFO, ("Compass alfa = ", a));
-    holder.insertValue(ETransparency, a);
+    holder.insertValue(ETransparency, GetCurrentAlfa());
 
     math::Matrix<double, 3, 3> drawM = math::Shift(
                                          math::Rotate(
