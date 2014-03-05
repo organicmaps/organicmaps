@@ -583,7 +583,8 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     // Initialize search modes group
     mSearchScopeGroup = (RadioGroup)findViewById(R.id.search_scope);
     // Default mode is AROUND_POSITION
-    setSearchGroupSelectionByMode(MWMApplication.get().nativeGetInt(SEARCH_MODE_SETTING, AROUND_POSITION));
+    m_searchMode = MWMApplication.get().nativeGetInt(SEARCH_MODE_SETTING, AROUND_POSITION);
+    setSearchGroupSelectionByMode(m_searchMode);
     mSearchScopeGroup.setOnCheckedChangeListener(new OnCheckedChangeListener()
     {
       @Override
