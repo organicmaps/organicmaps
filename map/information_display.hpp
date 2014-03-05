@@ -135,6 +135,7 @@ public:
   void drawLog(Drawer * pDrawer);
 
   void enableCompassArrow(bool doEnable);
+  bool isCompassArrowEnabled() const;
   void setCompassArrowAngle(double angle);
 
   shared_ptr<location::State> const & locationState() const;

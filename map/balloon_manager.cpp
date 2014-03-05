@@ -184,7 +184,7 @@ graphics::DisplayList * PinClickManager::GetSearchPinDL()
     cacheScreen->addTexturedStripStrided(coords, sizeof(m2::PointD),
                                          &normal, 0,
                                          texCoords, sizeof(m2::PointF),
-                                         4, graphics::poiAndBookmarkDepth, res->m_pipelineID);
+                                         4, graphics::activePinDepth, res->m_pipelineID);
 
     cacheScreen->setDisplayList(NULL);
     cacheScreen->endFrame();
@@ -288,10 +288,10 @@ void PinClickManager::DrawPin(const shared_ptr<PaintEvent> & e)
     if (glbRect.IsPointInside(m_pinGlobalLocation))
     {
       m2::PointD pxPoint = navigator.GtoP(m_pinGlobalLocation);
+      pxPoint += m2::PointD(0.0, 4 * m_f.GetVisualScale());
       graphics::DisplayList * dl = GetSearchPinDL();
 
       double scale = GetCurrentPinScale();
-      LOG(LINFO, ("Pin Scale = ", scale));
       math::Matrix<double, 3, 3> m = math::Shift(
                                                  math::Scale(math::Identity<double, 3>(),
                                                              scale, scale),
@@ -331,25 +331,30 @@ void PinClickManager::OnActivateMyPosition()
 
 void PinClickManager::OnActivatePOI(m2::PointD const & globalPoint, search::AddressInfo const & info)
 {
-  m_poiListener(globalPoint, info);
+  if (m_poiListener)
+    m_poiListener(globalPoint, info);
 }
 
 void PinClickManager::OnActivateAPI(url_scheme::ResultPoint const & apiPoint)
 {
-  m_apiListener(apiPoint.GetPoint());
+  if (m_apiListener)
+    m_apiListener(apiPoint.GetPoint());
 }
 
 void PinClickManager::OnActivateBookmark(BookmarkAndCategory const & bmAndCat)
 {
-  m_bookmarkListener(bmAndCat);
+  if (m_bookmarkListener)
+    m_bookmarkListener(bmAndCat);
 }
 
 void PinClickManager::OnAdditonalLayer(size_t index)
 {
-  m_additionalLayerListener(index);
+  if (m_additionalLayerListener)
+    m_additionalLayerListener(index);
 }
 
 void PinClickManager::OnDismiss()
 {
-  m_dismissListener();
+  if (m_dismissListener)
+    m_dismissListener();
 }

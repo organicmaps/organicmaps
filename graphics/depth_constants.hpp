@@ -18,6 +18,7 @@ namespace graphics
   static const int balloonBaseDepth = countryStatusDepth - (balloonContentInc + 10);
 
   static const int locationDepth = balloonBaseDepth - 10;
-  static const int poiAndBookmarkDepth = locationDepth - 10;
+  static const int activePinDepth = locationDepth - 10;
+  static const int poiAndBookmarkDepth = activePinDepth - 10;
   static const int tracksDepth = poiAndBookmarkDepth - 10;
 }

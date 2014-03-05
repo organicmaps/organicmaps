@@ -1,13 +1,19 @@
 #pragma once
 
 #include "../gui/element.hpp"
-
-#include "../graphics/color.hpp"
-#include "../graphics/display_list.hpp"
-
 #include "../geometry/any_rect2d.hpp"
+#include "../std/shared_ptr.hpp"
 
-#include "../std/scoped_ptr.hpp"
+namespace anim
+{
+  class Task;
+}
+
+namespace graphics
+{
+  class DisplayList;
+  struct Resource;
+}
 
 class Framework;
 
@@ -18,20 +24,21 @@ class CompassArrow : public gui::Element
 private:
 
   typedef gui::Element base_t;
-
-  unsigned m_arrowWidth;
-  unsigned m_arrowHeight;
-  graphics::Color const m_northLeftColor;
-  graphics::Color const m_northRightColor;
-  graphics::Color const m_southLeftColor;
-  graphics::Color const m_southRightColor;
   double m_angle;
 
-  scoped_ptr<graphics::DisplayList> m_displayList;
+  graphics::DisplayList * m_displayList;
+
+  shared_ptr<anim::Task> m_animTask;
+
+  void AlfaAnimEnded(bool isVisible);
+  bool IsHidingAnim() const;
+  float GetCurrentAlfa() const;
+  void CreateAnim(double startAlfa, double endAlfa, double timeInterval, double timeOffset, bool isVisibleAtEnd);
 
   mutable vector<m2::AnyRectD> m_boundRects;
 
   Framework * m_framework;
+  graphics::Resource const * GetCompassResource() const;
 
   void cache();
   void purge();
@@ -40,17 +47,17 @@ public:
 
   struct Params : public base_t::Params
   {
-    unsigned m_arrowWidth;
-    unsigned m_arrowHeight;
     Framework * m_framework;
     Params();
   };
 
   CompassArrow(Params const & p);
 
-  void SetAngle(double angle);
+  void AnimateShow();
+  void AnimateHide();
 
-  unsigned GetArrowHeight() const;
+  void SetAngle(double angle);
+  m2::PointD GetPixelSize() const;
 
   vector<m2::AnyRectD> const & boundRects() const;
   void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;

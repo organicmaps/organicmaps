@@ -75,9 +75,16 @@ namespace gui
     m_CacheScreen->beginFrame();
     m_CacheScreen->setDisplayList(dl.get());
 
+    graphics::EPosition pos = graphics::EPosAbove;
+    if (strcmp(name, "search-result") == 0)
+    {
+      LOG(LINFO, ("Position checked"));
+      pos = graphics::EPosCenter;
+    }
+
     /// @todo do not cache depth in display list. use separate vertex shader and uniform constant
     /// to specify it while rendering display list.
-    m_CacheScreen->drawSymbol(m2::PointD(0, 0), name, graphics::EPosAbove, graphics::poiAndBookmarkDepth);
+    m_CacheScreen->drawSymbol(m2::PointD(0, 0), name, pos, graphics::poiAndBookmarkDepth);
 
     m_CacheScreen->setDisplayList(0);
     m_CacheScreen->endFrame();

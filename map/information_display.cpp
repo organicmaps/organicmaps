@@ -30,6 +30,8 @@
 namespace
 {
   static int const FONT_SIZE = 10;
+  static int const COMPASS_W_OFFSET = 13;
+  static int const COMPASS_H_OFFSET = 71;
 }
 
 InformationDisplay::InformationDisplay(Framework * fw)
@@ -50,7 +52,7 @@ InformationDisplay::InformationDisplay(Framework * fw)
   enableMemoryWarning(false);
   enableBenchmarkInfo(false);
   enableCountryStatusDisplay(false);
-  enableCompassArrow(false);
+  m_compassArrow->setIsVisible(false);
 
   for (int i = 0; i < sizeof(m_DebugPts) / sizeof(m2::PointD); ++i)
     m_DebugPts[i] = m2::PointD(0, 0);
@@ -87,8 +89,6 @@ void InformationDisplay::InitCompassArrow(Framework * fw)
 
   p.m_position = graphics::EPosCenter;
   p.m_depth = graphics::compassDepth;
-  p.m_arrowHeight = 50;
-  p.m_arrowWidth = 16;
   p.m_pivot = m2::PointD(0, 0);
   p.m_framework = fw;
 
@@ -141,10 +141,10 @@ void InformationDisplay::setScreen(ScreenBase const & screen)
   }
 
   double k = m_controller->GetVisualScale();
-  unsigned arrowHeight = m_compassArrow->GetArrowHeight();
+  m2::PointD size = m_compassArrow->GetPixelSize();
 
-  m_compassArrow->setPivot(m2::PointD(10 + arrowHeight / 2,
-                                      10 + arrowHeight / 2) * k);
+  m_compassArrow->setPivot(m2::PointD(COMPASS_W_OFFSET * k + size.x / 2.0,
+                                      COMPASS_H_OFFSET * k + size.y / 2.0));
 }
 
 void InformationDisplay::setBottomShift(double bottomShift)
@@ -162,7 +162,7 @@ void InformationDisplay::setDisplayRect(m2::RectI const & rect)
   m_ruler->setPivot(pt);
 
   m2::PointD debugLabelPivot(m_displayRect.minX() + 10,
-                             m_displayRect.minY() + 50 + 5 * m_visualScale);
+                             m_displayRect.minY() + 30 + 5 * m_visualScale);
 
   m_debugLabel->setPivot(debugLabelPivot);
 }
@@ -347,7 +347,15 @@ void InformationDisplay::drawLog(Drawer * drawer)
 
 void InformationDisplay::enableCompassArrow(bool doEnable)
 {
-  m_compassArrow->setIsVisible(doEnable);
+  if (doEnable)
+    m_compassArrow->AnimateShow();
+  else
+    m_compassArrow->AnimateHide();
+}
+
+bool InformationDisplay::isCompassArrowEnabled() const
+{
+  return m_compassArrow->isVisible();
 }
 
 void InformationDisplay::setCompassArrowAngle(double angle)

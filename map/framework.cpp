@@ -784,8 +784,9 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   m_informationDisplay.enableCountryStatusDisplay(isEmptyModel);
   bool isCompassEnabled = ang::AngleIn2PI(m_navigator.Screen().GetAngle()) > my::DegToRad(3.0);
-  m_informationDisplay.enableCompassArrow(isCompassEnabled);
-//  m_informationDisplay.enableCompassArrow(!my::AlmostEqual(ang::AngleIn2PI(m_navigator.Screen().GetAngle()), 0.0));
+  m_informationDisplay.enableCompassArrow(isCompassEnabled ||
+                                          (m_informationDisplay.isCompassArrowEnabled() && m_navigator.InAction()));
+
   m_informationDisplay.setCompassArrowAngle(m_navigator.Screen().GetAngle());
 
   m_informationDisplay.setScreen(m_navigator.Screen());
