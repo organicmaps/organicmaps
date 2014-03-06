@@ -58,7 +58,7 @@ namespace graphics
       glBufferSubDataFn = &glBufferSubData;
       glDeleteBuffersFn = &glDeleteBuffers;
 
-      g_isMapBufferSupported = HasExtension("GL_OES_mapbuffer");
+      g_isMapBufferSupported = false; //HasExtension("GL_OES_mapbuffer");
 
 #ifdef OMIM_OS_MAEMO
       glMapBufferFn = 0;

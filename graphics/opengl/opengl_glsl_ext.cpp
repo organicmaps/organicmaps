@@ -55,7 +55,7 @@ namespace graphics
       glBufferSubDataFn = &glBufferSubData;
       glDeleteBuffersFn = &glDeleteBuffers;
 
-      g_isMapBufferSupported = true;
+      g_isMapBufferSupported = false; //true;
 
       glMapBufferFn = &glMapBuffer;
       glUnmapBufferFn = &glUnmapBuffer;

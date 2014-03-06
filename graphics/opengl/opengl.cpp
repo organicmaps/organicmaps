@@ -106,7 +106,7 @@ namespace graphics
     void (OPENGL_CALLING_CONVENTION * glFlushFn)();
 
     bool g_isBufferObjectsSupported = true;
-    bool g_isMapBufferSupported = true;
+    bool g_isMapBufferSupported = false; //true;
     bool g_isFramebufferSupported = true;
     bool g_isRenderbufferSupported = true;
     bool g_isSeparateBlendFuncSupported = false;
