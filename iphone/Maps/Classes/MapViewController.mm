@@ -287,13 +287,24 @@ const long long LITE_IDL = 431183278L;
 
 - (void)showSearchResultAsBookmarkAtMercatorPoint:(const m2::PointD &)pt withInfo:(const search::AddressInfo &)info
 {
-  GetFramework().GetBalloonManager().ShowAddress(pt, info);
+
 }
 
 - (void)showBalloonWithCategoryIndex:(int)cat andBookmarkIndex:(int)bm
 {
-  GetFramework().GetBalloonManager().ShowBookmark(BookmarkAndCategory(cat, bm));
+
 }
+
+- (void)poiBalloonDismissed
+{
+
+}
+
+- (void)additionalLayer:(size_t)index
+{
+  
+}
+
 - (void)updatePointsFromEvent:(UIEvent *)event
 {
 	NSSet * allTouches = [event allTouches];
@@ -645,8 +656,10 @@ const long long LITE_IDL = 431183278L;
     typedef void (*POIBalloonFnT)(id, SEL, m2::PointD const &, search::AddressInfo const &);
     typedef void (*APIPOINTBalloonFnT)(id, SEL, url_scheme::ApiPoint const &);
     typedef void (*BOOKMARKBalloonFnT)(id, SEL, BookmarkAndCategory const &);
+    typedef void (*POIBalloonDismissedFnT)(id, SEL);
+    typedef void (*ADDITIONALLayerFnT)(id, SEL, size_t);
 
-    BalloonManager & manager = f.GetBalloonManager();
+    PinClickManager & manager = f.GetBalloonManager();
 
     SEL positionSel = @selector(positionBallonClickedLat:lon:);
     POSITIONBalloonFnT positionFn = (POSITIONBalloonFnT)[self methodForSelector:positionSel];
@@ -663,6 +676,14 @@ const long long LITE_IDL = 431183278L;
     SEL bookmarkSel = @selector(bookmarkBalloonClicked:);
     BOOKMARKBalloonFnT bookmarkFn = (BOOKMARKBalloonFnT)[self methodForSelector:bookmarkSel];
     manager.ConnectBookmarkListener(bind(bookmarkFn, self, bookmarkSel, _1));
+
+    SEL ballonPOIdismissedSel = @selector(poiBalloonDismissed);
+    POIBalloonDismissedFnT balloonDismissedFn = (POIBalloonDismissedFnT)[self methodForSelector:ballonPOIdismissedSel];
+    manager.ConnectDismissListener(bind(balloonDismissedFn, self, ballonPOIdismissedSel));
+
+    SEL additionalLayerSel = @selector(additionalLayer:);
+    ADDITIONALLayerFnT additionalLayerFn = (ADDITIONALLayerFnT)[self methodForSelector:additionalLayerSel];
+    manager.ConnectAdditionalListener(bind(additionalLayerFn, self, additionalLayerSel, _1));
 
     typedef void (*CompassStatusFnT)(id, SEL, int);
     SEL compassStatusSelector = @selector(onCompassStatusChanged:);
