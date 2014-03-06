@@ -617,7 +617,6 @@ void Framework::GetLocalMaps(vector<string> & outMaps) const
 
 void Framework::PrepareToShutdown()
 {
-  m_balloonManager.Shutdown();
   SetRenderPolicy(0);
 }
 
@@ -1339,10 +1338,11 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
 
 void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 {
+  m_balloonManager.Shutdown();
+  m_bmManager.DeleteScreen();
   m_guiController->ResetRenderParams();
   m_renderPolicy.reset();
   m_renderPolicy.reset(renderPolicy);
-  m_bmManager.DeleteScreen();
 
   if (m_renderPolicy)
   {

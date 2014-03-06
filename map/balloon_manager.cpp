@@ -111,7 +111,6 @@ void PinClickManager::Shutdown()
 
 void PinClickManager::RenderPolicyCreated(graphics::EDensity density)
 {
-  Shutdown();
 }
 
 void PinClickManager::LocationChanged(location::GpsInfo const & info)
