@@ -118,7 +118,7 @@ string affics[] =
   "strasse", "weg", "platz",
 
   // Lithuanian
-  "g", "pr", "pl", "kel",
+  "g", "pr", "pl", "kel"
 };
 
 void GetStreetName(strings::SimpleTokenizer iter, string & streetName)
@@ -921,8 +921,16 @@ public:
         res.push_back(m_results[i].house);
   }
 
+  House const * GetBestMatchHouse() const
+  {
+    return m_results[0].house;
+  }
+
+
   bool HasBestMatch() const { return (m_results[0].house != 0); }
   House const * GetNearbyCandidate() const { return (HasBestMatch() ? 0 : m_results[3].house); }
+
+
 };
 
 void ProcessNearbyHouses(vector<HouseProjection const *> const & v, ResultAccumulator & acc)
@@ -1198,6 +1206,46 @@ void GetLSHouse(MergedStreet const & st, double offsetMeters, ResultAccumulator 
 
 }
 
+void ProduceVoting(vector <ResultAccumulator> const & acc, vector<House const *> & res)
+{
+  vector < pair<House const *, vector<size_t> > > voting;
+  for (size_t i = 0; i < acc.size(); ++i)
+    if (acc[i].HasBestMatch())
+    {
+      size_t j = 0;
+      for (; j < voting.size(); ++j)
+        if (voting[j].first == acc[i].GetBestMatchHouse())
+        {
+          voting[j].second.push_back(i);
+          break;
+        }
+      if (j == voting.size())
+        voting.push_back(make_pair(acc[i].GetBestMatchHouse(), vector <size_t> (1, i)));
+    }
+  if (!voting.empty())
+  {
+    if (voting[0].second.size() > 1)
+    {
+      acc[voting[0].second.front()].FlushResults(res);
+      return;
+    }
+    if (voting.size() > 1 && voting[1].second.size() > 1)
+    {
+      acc[voting[1].second.front()].FlushResults(res);
+      return;
+    }
+  }
+  else
+    return;
+
+  for (size_t i = 0; i < acc.size(); ++i)
+    if (acc[i].HasBestMatch())
+    {
+      acc[i].FlushResults(res);
+      break;
+    }
+}
+
 void HouseDetector::GetHouseForName(string const & houseNumber, vector<House const *> & res)
 {
   size_t const count = m_streets.size();
@@ -1205,32 +1253,42 @@ void HouseDetector::GetHouseForName(string const & houseNumber, vector<House con
 
   LOG(LDEBUG, ("Streets count", count));
 
-  ResultAccumulator accumulator(houseNumber);
+  vector <ResultAccumulator> acc(3, ResultAccumulator(houseNumber));
 
   for (size_t i = 0; i < count; ++i)
   {
     LOG(LDEBUG, (m_streets[i].GetDbgName()));
 
-    accumulator.SetStreet(m_streets[i]);
+    for (size_t j = 0; j < acc.size(); ++j)
+       acc[j].SetStreet(m_streets[i]);
 
     double arrOffsets[] = { 25, 50, 100, 200, 500 };
+
+    size_t resultIndex = 0;
+
     for (size_t j = 0; j < ARRAY_SIZE(arrOffsets) && arrOffsets[j] <= m_houseOffsetM; ++j)
     {
-      GetLSHouse(m_streets[i], arrOffsets[j], accumulator);
-      if (accumulator.HasBestMatch())
+      GetLSHouse(m_streets[i], arrOffsets[j], acc[resultIndex]); //0.880194
+      if (acc[resultIndex].HasBestMatch())
         break;
     }
 
-//    GetClosestHouse(m_streets[i], accumulator);
+    resultIndex = 1;
 
-//    for (size_t j = 0; j < ARRAY_SIZE(arrOffsets) && arrOffsets[j] <= m_houseOffsetM; ++j)
-//    {
-//       GetBestHouseWithNumber(m_streets[i], arrOffsets[j], accumulator);
-//       if (accumulator.HasBestMatch())
-//         break;
-//    }
+    GetClosestHouse(m_streets[i], acc[resultIndex]); //0.880247
 
-    accumulator.FlushResults(res);
+    resultIndex = 2;
+
+    for (size_t j = 0; j < ARRAY_SIZE(arrOffsets) && arrOffsets[j] <= m_houseOffsetM; ++j)
+    {
+       GetBestHouseWithNumber(m_streets[i], arrOffsets[j], acc[resultIndex]); //0.88403
+       if (acc[resultIndex].HasBestMatch())
+         break;
+    }
+
+    ProduceVoting(acc, res);
+    for (size_t j = 0; j < acc.size(); ++j)
+      acc[j].Reset();
   }
 
   sort(res.begin(), res.end());
