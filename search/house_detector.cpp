@@ -201,7 +201,7 @@ size_t const HN_COUNT_FOR_ODD_TEST = 16;
 int const HOUSE_READING_SCALE = FeatureType::BEST_GEOMETRY;
 double const HN_MIN_READ_OFFSET_M = 50.0;
 int const HN_HEARBY_INDEX_RANGE = 5;
-double const HN_MAX_СONNECTION_DIST_M = 300.0;
+double const HN_MAX_CONNECTION_DIST_M = 300.0;
 
 
 class StreetCreator
@@ -1147,10 +1147,10 @@ void ProccessHouses(vector<HouseProjection const *> const & st, ResultAccumulato
             double dist = numeric_limits<double>::max();
             for (size_t k = 0; k < houseChains[j].houses.size(); ++k)
             {
-              if(abs(houseChains[j].houses[k]->m_house->GetIntNumber() - st[candidates[i]]->m_house->GetIntNumber()) <= HN_NEARBY_DISTANCE)
+              if (abs(houseChains[j].houses[k]->m_house->GetIntNumber() - st[candidates[i]]->m_house->GetIntNumber()) <= HN_NEARBY_DISTANCE)
                 dist = min(dist, GetDistanceMeters(houseChains[j].houses[k]->m_house->GetPosition(), st[candidates[i]]->m_house->GetPosition()));
             }
-            if (dist < HN_MAX_СONNECTION_DIST_M)
+            if (dist < HN_MAX_CONNECTION_DIST_M)
               comp.push_back(Competitiors(candidates[i], j, dist));
           }
         }
