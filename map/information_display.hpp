@@ -113,6 +113,7 @@ public:
   void drawDebugPoints(Drawer * pDrawer);
 
   void enableRuler(bool doEnable);
+  bool isRulerEnabled() const;
   void setRulerParams(unsigned pxMinWidth, double metresMinWidth, double metresMaxWidth);
 
   void enableDebugInfo(bool doEnable);

@@ -29,7 +29,9 @@
 
 namespace
 {
-  static int const FONT_SIZE = 10;
+  static int const RULLER_X_OFFSET = 65;
+  static int const RULLER_Y_OFFSET = 15;
+  static int const FONT_SIZE = 14;
   static int const COMPASS_W_OFFSET = 13;
   static int const COMPASS_H_OFFSET = 71;
 }
@@ -53,6 +55,7 @@ InformationDisplay::InformationDisplay(Framework * fw)
   enableBenchmarkInfo(false);
   enableCountryStatusDisplay(false);
   m_compassArrow->setIsVisible(false);
+  m_ruler->setIsVisible(false);
 
   for (int i = 0; i < sizeof(m_DebugPts) / sizeof(m2::PointD); ++i)
     m_DebugPts[i] = m2::PointD(0, 0);
@@ -65,7 +68,7 @@ void InformationDisplay::InitRuler(Framework * fw)
   Ruler::Params p;
 
   p.m_depth = graphics::rulerDepth;
-  p.m_position = graphics::EPosAboveLeft;
+  p.m_position = graphics::EPosAboveRight;
   p.m_framework = fw;
 
   m_ruler.reset(new Ruler(p));
@@ -156,8 +159,8 @@ void InformationDisplay::setDisplayRect(m2::RectI const & rect)
 {
   m_displayRect = rect;
 
-  m2::PointD pt(m2::PointD(m_displayRect.maxX() - 30 * m_visualScale,
-                           m_displayRect.maxY() - 10 * m_visualScale));
+  m2::PointD pt(m2::PointD(m_displayRect.minX() + RULLER_X_OFFSET * m_visualScale,
+                           m_displayRect.maxY() - RULLER_Y_OFFSET * m_visualScale));
 
   m_ruler->setPivot(pt);
 
@@ -189,7 +192,15 @@ void InformationDisplay::drawDebugPoints(Drawer * pDrawer)
 
 void InformationDisplay::enableRuler(bool doEnable)
 {
-  m_ruler->setIsVisible(doEnable);
+  if (doEnable)
+    m_ruler->AnimateShow();
+  else
+    m_ruler->AnimateHide();
+}
+
+bool InformationDisplay::isRulerEnabled() const
+{
+  return m_ruler->isVisible();
 }
 
 void InformationDisplay::setRulerParams(unsigned pxMinWidth, double metresMinWidth, double metresMaxWidth)

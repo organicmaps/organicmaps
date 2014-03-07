@@ -794,7 +794,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   m_informationDisplay.setDebugInfo(0, GetDrawScale());
 
-  m_informationDisplay.enableRuler(true);
+  m_informationDisplay.enableRuler(m_navigator.InAction());
 #ifdef DEBUG
   m_informationDisplay.enableDebugInfo(true);
 #endif

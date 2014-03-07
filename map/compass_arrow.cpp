@@ -1,9 +1,9 @@
 #include "compass_arrow.hpp"
 
 #include "framework.hpp"
+#include "alfa_animation_task.hpp"
 
 #include "../anim/controller.hpp"
-#include "../anim/task.hpp"
 
 #include "../gui/controller.hpp"
 
@@ -16,70 +16,6 @@
 #include "../graphics/pen.hpp"
 
 using namespace graphics;
-
-namespace
-{
-  class AlfaCompassAnim : public anim::Task
-  {
-    typedef anim::Task base_t;
-  public:
-    AlfaCompassAnim(double start, double end, double timeInterval, double timeOffset, Framework * f)
-      : m_start(start)
-      , m_end(end)
-      , m_current(start)
-      , m_timeInterval(timeInterval)
-      , m_timeOffset(timeOffset)
-      , m_f(f)
-    {
-    }
-
-    bool IsHiding() const
-    {
-      return m_start > m_end;
-    }
-
-    float GetCurrentAlfa() const
-    {
-      return m_current;
-    }
-
-    virtual void OnStart(double ts)
-    {
-      m_timeStart = ts;
-      base_t::OnStart(ts);
-      m_f->Invalidate();
-    }
-
-    virtual void OnStep(double ts)
-    {
-      base_t::OnStep(ts);
-      double elapsed = ts - (m_timeStart + m_timeOffset);
-      if (elapsed >= 0.0)
-      {
-        double t = elapsed / m_timeInterval;
-        if (t > 1.0)
-        {
-          m_current = m_end;
-          End();
-        }
-        else
-          m_current = m_start + t * (m_end - m_start);
-      }
-
-      m_f->Invalidate();
-    }
-
-  private:
-    double m_start;
-    double m_end;
-    double m_current;
-    double m_timeInterval;
-    double m_timeOffset;
-    double m_timeStart;
-
-    Framework * m_f;
-  };
-}
 
 CompassArrow::Params::Params()
   : m_framework(0)

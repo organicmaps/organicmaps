@@ -10,6 +10,11 @@
 
 #include "../graphics/display_list.hpp"
 
+namespace anim
+{
+  class Task;
+}
+
 namespace graphics
 {
   namespace gl
@@ -28,6 +33,12 @@ class Framework;
 class Ruler : public gui::Element
 {
 private:
+
+  shared_ptr<anim::Task> m_rulerAnim;
+  void AlfaAnimEnded(bool isVisible);
+  bool IsHidingAnim() const;
+  float GetCurrentAlfa() const;
+  void CreateAnim(double startAlfa, double endAlfa, double timeInterval, double timeOffset, bool isVisibleAtEnd);
 
   /// @todo Remove this variables. All this stuff are constants
   /// (get values from Framework constructor)
@@ -57,8 +68,13 @@ private:
   int m_currSystem;
   void CalcMetresDiff(double v);
 
-  shared_ptr<gui::CachedTextView> m_scaleText;
-  scoped_ptr<graphics::DisplayList> m_dl;
+  graphics::DisplayList * m_dl;
+  void PurgeMainDL();
+  void CacheMainDL();
+
+  graphics::DisplayList * m_textDL[2];
+  void PurgeTextDL(int index);
+  void UpdateText(const string & text);
 
   Framework * m_framework;
 
@@ -72,13 +88,12 @@ public:
 
   Ruler(Params const & p);
 
-  void setController(gui::Controller * controller);
+  void AnimateShow();
+  void AnimateHide();
 
   void setMinPxWidth(unsigned minPxWidth);
   void setMinMetersWidth(double v);
   void setMaxMetersWidth(double v);
-
-  void setFont(gui::Element::EState state, graphics::FontDesc const & f);
 
   vector<m2::AnyRectD> const & boundRects() const;
   void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
