@@ -9,7 +9,6 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -168,7 +167,11 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       else if (m_count < 0)
         return 0;
       else
-        return (m_count == 0 ? 1 : m_count + 1); // first additional item is "Show all result for"
+      {
+        // Additional item is "Show all result" button or
+        // "No results" string message for empty results.
+        return (m_count + 1);
+      }
     }
 
     @Override
@@ -286,21 +289,13 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       if (isShowCategories())
       {
         // Show categories list.
-
-        final String strID = m_categories[position];
-
-        UiUtils.setTextAndShow(holder.m_name, getCategoryName(strID));
+        UiUtils.setTextAndShow(holder.m_name, getCategoryName(m_categories[position]));
       }
       else if (m_count == 0)
       {
         // Show warning message.
         UiUtils.setTextAndShow(holder.m_name, m_context.getString(R.string.no_search_results_found));
-
-        final String msg = getWarningForEmptyResults();
-        if (msg != null)
-          UiUtils.setTextAndShow(holder.m_countryAndType, msg);
-        else
-          UiUtils.clearTextAndHide(holder.m_countryAndType);
+        UiUtils.setTextEx(holder.m_countryAndType, getWarningForEmptyResults());
       }
       else
       {
@@ -310,22 +305,29 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
           UiUtils.setTextAndShow(holder.m_name, m_context.getString(R.string.search_show_on_map));
           UiUtils.clearTextAndHide(holder.m_countryAndType);
           UiUtils.clearTextAndHide(holder.m_distance);
-
           return convertView;
         }
+
         // 0 index is for multiple result
         // so real result are from 1
         --position;
 
         // Show search results.
-
         final SearchResult r = m_context.getResult(position, m_resultID);
         if (r != null)
         {
           UiUtils.setTextAndShow(holder.m_name, r.m_name);
-          UiUtils.setTextAndShow(holder.m_countryAndType,
-              TextUtils.join(", ", Utils.asObjectArray(r.m_country, r.m_amenity)));
-          UiUtils.setTextAndShow(holder.m_distance, r.m_distance);
+
+          String type = null;
+          String dist = null;
+          if (r.m_type == 1)
+          {
+            type = Utils.joinSkipEmpty(", ",  Utils.asObjectArray(r.m_country, r.m_amenity));
+            dist = r.m_distance;
+          }
+
+          UiUtils.setTextEx(holder.m_countryAndType, type);
+          UiUtils.setTextEx(holder.m_distance, dist);
         }
       }
 

@@ -921,11 +921,14 @@ extern "C"
     const jfieldID nameId = env->GetFieldID(javaClazz, "mName", "Ljava/lang/String;");
     env->SetObjectField(jsearchResult, nameId, jni::ToJavaString(env, b->GetName()));
 
+    const jfieldID typeId = env->GetFieldID(javaClazz, "mTypeName", "Ljava/lang/String;");
+    env->SetObjectField(jsearchResult, typeId, jni::ToJavaString(env, b->GetDescription()));
+
     const jfieldID latId = env->GetFieldID(javaClazz, "mLat", "D");
-    env->SetDoubleField(jsearchResult, latId, static_cast<jdouble>(MercatorBounds::YToLat(b->GetOrg().y)));
+    env->SetDoubleField(jsearchResult, latId, MercatorBounds::YToLat(b->GetOrg().y));
 
     const jfieldID lonId = env->GetFieldID(javaClazz, "mLon", "D");
-    env->SetDoubleField(jsearchResult, lonId, static_cast<jdouble>(MercatorBounds::XToLon(b->GetOrg().x)));
+    env->SetDoubleField(jsearchResult, lonId, MercatorBounds::XToLon(b->GetOrg().x));
   }
 
   JNIEXPORT void Java_com_mapswithme_maps_Framework_cleanSearchLayerOnMap(JNIEnv * env, jclass clazz)

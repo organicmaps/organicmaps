@@ -229,6 +229,14 @@ public final class UiUtils
     return tv;
   }
 
+  public static void setTextEx(TextView tv, CharSequence text)
+  {
+    checkNotNull(tv);
+
+    tv.setText(text);
+    tv.setVisibility((text == null || text.length() == 0) ? View.INVISIBLE : View.VISIBLE);
+  }
+
   // utility class
   private UiUtils()
   {};
