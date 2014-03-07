@@ -76,7 +76,8 @@ def write_local_properties(sdkDir, ndkDir):
     # copy files to folders
     subfolders = ['MapsWithMeLite', 'MapsWithMeLite.Samsung', 'MapsWithMePro',
                    '3rd_party/external_styles',
-                   '3rd_party/facebook-android-sdk/facebook']
+                   '3rd_party/facebook-android-sdk/facebook',
+                   '3rd_party/google-play-services_lib']
 
     for folder in subfolders:
         dst = os.path.join(androidRoot, folder, 'local.properties')
