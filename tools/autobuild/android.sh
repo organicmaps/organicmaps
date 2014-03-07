@@ -6,7 +6,7 @@ set -e -u -x
 LOCAL_DIRNAME="${PWD}/$(dirname "$0")"
 
 if [[ $# < 1 ]]; then
-  echo "Usage: $0 <debug|release|production> [armeabi|armeabi-v7a|mips|x86] [android-PLATFORM_NUMBER]"
+  echo "Usage: $0 <debug|release|production> [armeabi|armeabi-v7a|armeabi-v7a-hard|mips|x86] [android-PLATFORM_NUMBER]"
   exit 1
 fi
 CONFIGURATION="$1"
@@ -28,7 +28,7 @@ fi
 if [[ $# > 1 ]] ; then
   NDK_ABI_LIST=$2
 else
-  NDK_ABI_LIST=(armeabi armeabi-v7a x86)
+  NDK_ABI_LIST=(armeabi armeabi-v7a-hard x86)
 fi
 
 

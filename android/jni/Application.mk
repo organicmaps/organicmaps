@@ -2,7 +2,7 @@ NDK_TOOLCHAIN_VERSION := 4.6
 APP_PLATFORM := android-5
 
 ifeq (x$(NDK_ABI_TO_BUILD), x)
-  APP_ABI := armeabi armeabi-v7a x86
+  APP_ABI := armeabi armeabi-v7a-hard x86
 else
   APP_ABI := $(NDK_ABI_TO_BUILD)
 endif
