@@ -38,16 +38,9 @@ namespace search { struct AddressInfo; }
 
 - (IBAction)onMyPositionClicked:(id)sender;
 
-- (void)showSearchResultAsBookmarkAtMercatorPoint:(m2::PointD const &)pt withInfo:(search::AddressInfo const &)info;
-- (void)showBalloonWithCategoryIndex:(int)cat andBookmarkIndex:(int)bm;
-
 - (void)prepareForApi;
-- (void)clearApiMode;
-- (BOOL)shouldShowNavBar;
 
 - (void)dismissPopover;
-
-@property (nonatomic) BOOL isApiMode;
 
 @property (weak, nonatomic) IBOutlet UIView * zoomButtonsView;
 @property (nonatomic) SideToolbar * sideToolbar;

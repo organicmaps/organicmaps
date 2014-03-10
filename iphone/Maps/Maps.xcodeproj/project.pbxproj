@@ -170,6 +170,8 @@
 		97DD585918A8EB060079837E /* MobileAppTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585718A8EB060079837E /* MobileAppTracker.framework */; };
 		97DD585C18A8EB130079837E /* libFlurry_4.3.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585A18A8EB120079837E /* libFlurry_4.3.2.a */; };
 		97DD585D18A8EB130079837E /* libFlurry_4.3.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585A18A8EB120079837E /* libFlurry_4.3.2.a */; };
+		97DEA09618D75BB000C5F963 /* ContextViews.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97DEA09518D75BB000C5F963 /* ContextViews.mm */; };
+		97DEA09718D75BB000C5F963 /* ContextViews.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97DEA09518D75BB000C5F963 /* ContextViews.mm */; };
 		97ECD871183620CE00F77A46 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		97ECD872183625F900F77A46 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		97ECD87818362B3D00F77A46 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87718362B3D00F77A46 /* CoreTelephony.framework */; };
@@ -1668,6 +1670,9 @@
 		97DD585718A8EB060079837E /* MobileAppTracker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MobileAppTracker.framework; sourceTree = "<group>"; };
 		97DD585A18A8EB120079837E /* libFlurry_4.3.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_4.3.2.a; sourceTree = "<group>"; };
 		97DD585B18A8EB120079837E /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		97DEA09018D706C300C5F963 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		97DEA09418D75BB000C5F963 /* ContextViews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextViews.h; sourceTree = "<group>"; };
+		97DEA09518D75BB000C5F963 /* ContextViews.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ContextViews.mm; sourceTree = "<group>"; };
 		97ECD870183620CE00F77A46 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		97ECD87718362B3D00F77A46 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		97ECD87918362B5400F77A46 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -2658,6 +2663,10 @@
 			isa = PBXGroup;
 			children = (
 				9747277618328E65006B7CB7 /* SideToolbar */,
+				97ABBA4318C8DF620079333C /* PlacePageView.h */,
+				97ABBA4418C8DF620079333C /* PlacePageView.mm */,
+				97DEA09418D75BB000C5F963 /* ContextViews.h */,
+				97DEA09518D75BB000C5F963 /* ContextViews.mm */,
 				ED48BBB317C267F5003E7E92 /* ColorPickerView.h */,
 				ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */,
 				ED48BBB817C2B1E2003E7E92 /* CircleView.h */,
@@ -5047,6 +5056,7 @@
 				FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */,
 				FAA5C2A2144F135F005337F6 /* LocationManager.mm in Sources */,
 				FA81AE3314D061BF00A0D70D /* SearchCell.mm in Sources */,
+				97DEA09618D75BB000C5F963 /* ContextViews.mm in Sources */,
 				978F9240183B660F000D6C7C /* SettingsViewController.mm in Sources */,
 				97D807BC18A933FB00D416E0 /* MoreAppsCell.m in Sources */,
 				F7B90CD31521E6D200C054EE /* CustomNavigationView.mm in Sources */,
@@ -5065,6 +5075,7 @@
 				9747277D18328E65006B7CB7 /* SideToolbarCell.m in Sources */,
 				978F9244183B660F000D6C7C /* SwitchCell.m in Sources */,
 				EDB811A3175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */,
+				97ABBA4518C8DF620079333C /* PlacePageView.mm in Sources */,
 				9747277B18328E65006B7CB7 /* SideToolbar.mm in Sources */,
 				97F61794183E7445009919E2 /* LinkCell.m in Sources */,
 				EDCB4E8E175E67120005AA35 /* PlacePreviewViewController.mm in Sources */,
@@ -5099,8 +5110,10 @@
 				97C9863A186C487900AF7E9E /* MPLogging.m in Sources */,
 				FAFB08EE151215EE0041901D /* SettingsManager.mm in Sources */,
 				FAFB08EF151215EE0041901D /* RenderBuffer.mm in Sources */,
+				97DEA09718D75BB000C5F963 /* ContextViews.mm in Sources */,
 				978F9254183BD530000D6C7C /* NavigationController.mm in Sources */,
 				97C9851F186AE3C500AF7E9E /* Reachability.m in Sources */,
+				97ABBA4618C8DF620079333C /* PlacePageView.mm in Sources */,
 				9789DB5B188D94F9007C6FAE /* InterstitialView.mm in Sources */,
 				FAFB08F0151215EE0041901D /* RenderContext.mm in Sources */,
 				97C985FD186C487900AF7E9E /* CDataScanner.m in Sources */,

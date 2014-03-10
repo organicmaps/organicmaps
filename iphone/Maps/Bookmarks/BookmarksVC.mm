@@ -300,9 +300,16 @@
       if (editingStyle == UITableViewCellEditingStyleDelete)
       {
         if (indexPath.section == m_trackSection)
+        {
           cat->DeleteTrack(indexPath.row);
+        }
         else
+        {
           cat->DeleteBookmark(indexPath.row);
+          BookmarkAndCategory bookmarkAndCategory = BookmarkAndCategory(m_categoryIndex, indexPath.row);
+          NSValue * value = [NSValue valueWithBytes:&bookmarkAndCategory objCType:@encode(BookmarkAndCategory)];
+          [[NSNotificationCenter defaultCenter] postNotificationName:BOOKMARK_DELETED_NOTIFICATION object:value];
+        }
       }
       cat->SaveToKMLFile();
       size_t previousNumberOfSections  = m_numberOfSections;

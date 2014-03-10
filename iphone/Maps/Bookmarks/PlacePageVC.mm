@@ -24,12 +24,9 @@
 #define COORDINATECOLOR 51.0/255.0
 #define BUTTONDIAMETER 18
 
-typedef enum {Editing, Saved} Mode;
-
 @interface PlacePageVC() <UIWebViewDelegate>
 {
   int m_selectedRow;
-  Mode m_mode;
   size_t m_categoryIndex;
 
   //statistics purpose
@@ -67,7 +64,7 @@ typedef enum {Editing, Saved} Mode;
                          notes:@""
                          color:@""
                          category:MakeEmptyBookmarkAndCategory() point:point];
-    m_mode = Editing;
+    self.mode = PlacePageVCModeEditing;
   }
   return self;
 }
@@ -77,7 +74,7 @@ typedef enum {Editing, Saved} Mode;
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
   {
-    m_mode = Editing;
+    self.mode = PlacePageVCModeEditing;
     [self initializeProperties:[NSString stringWithUTF8String:apiPoint.m_name.c_str()]
                          notes:@""
                          color:@""
@@ -108,7 +105,7 @@ typedef enum {Editing, Saved} Mode;
                          category:bmAndCat
                          point:CGPointMake(pt.x, pt.y)];
 
-    m_mode = Saved;
+    self.mode = PlacePageVCModeSaved;
   }
   return self;
 }
@@ -118,7 +115,7 @@ typedef enum {Editing, Saved} Mode;
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
   {
-    m_mode = Editing;
+    self.mode = PlacePageVCModeEditing;
     [self initializeProperties:name
                          notes:@""
                          color:@""
@@ -155,7 +152,7 @@ typedef enum {Editing, Saved} Mode;
 {
   [super viewDidLoad];
   self.title = NSLocalizedString(@"info", nil);
-  if (m_mode == Editing)
+  if (self.mode == PlacePageVCModeEditing)
     [self addRightNavigationItemWithAction:@selector(save)];
   else
     [self addRightNavigationItemWithAction:@selector(edit)];
@@ -176,7 +173,7 @@ typedef enum {Editing, Saved} Mode;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  if (m_mode == Editing)
+  if (self.mode == PlacePageVCModeEditing)
     switch (section)
     {
       //name
@@ -202,7 +199,7 @@ typedef enum {Editing, Saved} Mode;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (indexPath.section == 3 && m_mode == Editing)
+  if (indexPath.section == 3 && self.mode == PlacePageVCModeEditing)
     return DESCRIPTIONHEIGHT;
   return CELLHEIGHT;
 }
@@ -228,25 +225,25 @@ typedef enum {Editing, Saved} Mode;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-  if (section == 0 && m_mode == Saved)
+  if (section == 0 && self.mode == PlacePageVCModeSaved)
     return [self getCompassView].frame.size.height;
-  if (section == 1 && m_mode == Saved)
+  if (section == 1 && self.mode == PlacePageVCModeSaved)
     return TWOBUTTONSHEIGHT;
   return [self.tableView sectionHeaderHeight];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-  if (section == 1 && [self.pinNotes length] && m_mode == Saved)
+  if (section == 1 && [self.pinNotes length] && self.mode == PlacePageVCModeSaved)
     return webView.scrollView.contentSize.height + 10;
   return [self.tableView sectionFooterHeight];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-  if (section == 0 && m_mode == Saved)
+  if (section == 0 && self.mode == PlacePageVCModeSaved)
     return [self getCompassView];
-  if (section == 1 && m_mode == Saved)
+  if (section == 1 && self.mode == PlacePageVCModeSaved)
     return [[TwoButtonsView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, TWOBUTTONSHEIGHT)
                               leftButtonSelector:@selector(share)
                              rightButtonSelector:@selector(remove)
@@ -258,7 +255,7 @@ typedef enum {Editing, Saved} Mode;
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-  if (m_mode == Saved && section == 1 && [self.pinNotes length])
+  if (self.mode == PlacePageVCModeSaved && section == 1 && [self.pinNotes length])
   {
     UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, 20)];
     if (!webView)
@@ -283,7 +280,7 @@ typedef enum {Editing, Saved} Mode;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell * cell = nil;
-  if (m_mode == Editing)
+  if (self.mode == PlacePageVCModeEditing)
     cell = [self cellForEditingModeWithTable:tableView cellForRowAtIndexPath:indexPath];
   else
     cell = [self cellForSaveModeWithTable:tableView cellForRowAtIndexPath:indexPath];
@@ -293,7 +290,7 @@ typedef enum {Editing, Saved} Mode;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-  if (m_mode == Editing)
+  if (self.mode == PlacePageVCModeEditing)
   {
     if (indexPath.section == 1)
     {
@@ -355,7 +352,7 @@ typedef enum {Editing, Saved} Mode;
 - (void)addRightNavigationItemWithAction:(SEL)selector
 {
   UIBarButtonItem * but;
-  if (m_mode == Saved)
+  if (self.mode == PlacePageVCModeSaved)
     but = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:selector];
   else
     but = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:selector];
@@ -372,7 +369,7 @@ typedef enum {Editing, Saved} Mode;
 
 - (void)edit
 {
-  m_mode = Editing;
+  self.mode = PlacePageVCModeEditing;
   [self.tableView reloadData];
   [self addRightNavigationItemWithAction:@selector(save)];
 }
@@ -383,12 +380,17 @@ typedef enum {Editing, Saved} Mode;
   {
     BookmarkCategory * cat = GetFramework().GetBmCategory(_pinEditedBookmark.first);
     if (cat->GetBookmarksCount() > _pinEditedBookmark.second)
-    {
-      cat->DeleteBookmark(_pinEditedBookmark.second);
-      cat->SaveToKMLFile();
-    }
+      [self deleteBookmarkInCategory:cat];
   }
   [self goToTheMap];
+}
+
+- (void)deleteBookmarkInCategory:(BookmarkCategory *)category
+{
+  category->DeleteBookmark(_pinEditedBookmark.second);
+  category->SaveToKMLFile();
+  NSValue * value = [NSValue valueWithBytes:&_pinEditedBookmark objCType:@encode(BookmarkAndCategory)];
+  [[NSNotificationCenter defaultCenter] postNotificationName:BOOKMARK_DELETED_NOTIFICATION object:value];
 }
 
 - (void)share
@@ -441,8 +443,7 @@ typedef enum {Editing, Saved} Mode;
     if (_pinEditedBookmark.first != m_categoryIndex)
     {
       [[Statistics instance] logEvent:@"Bookmark Category" withParameters:@{@"Changed" : @"YES"}];
-      cat->DeleteBookmark(_pinEditedBookmark.second);
-      cat->SaveToKMLFile();
+      [self deleteBookmarkInCategory:cat];
       [self addBookmarkToCategory:m_categoryIndex];
     }
     else
@@ -453,6 +454,7 @@ typedef enum {Editing, Saved} Mode;
       newBm.SetDescription([self.pinNotes UTF8String]);
       f.ReplaceBookmark(_pinEditedBookmark.first, _pinEditedBookmark.second, newBm);
     }
+    [self.delegate placePageVC:self didUpdateBookmarkAndCategory:_pinEditedBookmark];
   }
 }
 
@@ -462,6 +464,7 @@ typedef enum {Editing, Saved} Mode;
   bm.SetDescription([self.pinNotes UTF8String]);
 
   _pinEditedBookmark = pair<int, int>(index, GetFramework().AddBookmark(index, bm));
+  [self.delegate placePageVC:self didUpdateBookmarkAndCategory:_pinEditedBookmark];
 }
 
 - (void)initializeProperties:(NSString *)name notes:(NSString *)notes color:(NSString *)color category:(BookmarkAndCategory) bmAndCat point:(CGPoint)point
@@ -596,7 +599,7 @@ typedef enum {Editing, Saved} Mode;
 
 - (void)orientationChanged
 {
-  if (m_mode == Saved)
+  if (self.mode == PlacePageVCModeSaved)
   {
     [self.placeAndCompass drawView];
     [self.tableView reloadData];

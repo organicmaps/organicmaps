@@ -7,7 +7,6 @@
 
 #include "../../platform/platform.hpp"
 
-
 #define TEXTFIELD_TAG 999
 
 @implementation BookmarksRootVC
@@ -223,6 +222,7 @@
   {
     Framework & f = GetFramework();
     f.DeleteBmCategory(indexPath.row);
+    [[NSNotificationCenter defaultCenter] postNotificationName:BOOKMARK_CATEGORY_DELETED_NOTIFICATION object:@(indexPath.row)];
     [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     // Disable edit mode if no categories are left
     if (!f.GetBmCategoriesCount())

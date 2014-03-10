@@ -150,23 +150,19 @@ const long long LITE_IDL = 431183278L;
   [self pushViewController:preview];
 }
 
-- (void)poiBalloonClicked:(m2::PointD const &)pt info:(search::AddressInfo const &)info
+- (void)additionalLayer:(size_t)index
 {
-  PlacePreviewViewController * preview = [[PlacePreviewViewController alloc] initWith:info point:CGPointMake(pt.x, pt.y)];
-  m_popoverPos = CGPointMake(pt.x, pt.y);
-  [self pushViewController:preview];
+  Framework & framework = GetFramework();
+  Bookmark const * bookmark = framework.AdditionalPoiLayerGetBookmark(index);
+
+  [self.placePageView showBookmark:*bookmark];
+  [self.placePageView setState:PlacePageStateBitShown animated:YES];
 }
 
 - (void)apiBalloonClicked:(url_scheme::ApiPoint const &)apiPoint
 {
-  if (GetFramework().GoBackOnBalloonClick() && [MWMApi canOpenApiUrl:apiPoint])
-  {
-    [MWMApi openAppWithPoint:apiPoint];
-    return;
-  }
-  PlacePreviewViewController * apiPreview = [[PlacePreviewViewController alloc] initWithApiPoint:apiPoint];
-  m_popoverPos = CGPointMake(MercatorBounds::LonToX(apiPoint.m_lon), MercatorBounds::LatToY(apiPoint.m_lat));
-  [self pushViewController:apiPreview];
+  [self.placePageView showApiPoint:apiPoint];
+  [self.placePageView setState:PlacePageStateBitShown animated:YES];
 }
 
 - (void)bookmarkBalloonClicked:(BookmarkAndCategory const &)bmAndCat
@@ -703,8 +699,6 @@ const long long LITE_IDL = 431183278L;
     if (!f.LoadState())
       f.SetMaxWorldRect();
 
-    _isApiMode = NO;
-
     f.Invalidate();
     f.LoadBookmarks();
   }
@@ -714,6 +708,32 @@ const long long LITE_IDL = 431183278L;
 }
 
 #pragma mark - Getters
+
+- (PlacePageView *)placePageView
+{
+  if (!_placePageView)
+  {
+    _placePageView = [[PlacePageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 0)];
+    _placePageView.minY = self.view.height;
+    _placePageView.delegate = self;
+    _placePageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [_placePageView addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+  }
+  return _placePageView;
+}
+
+- (SearchView *)searchView
+{
+  if (!_searchView)
+  {
+    _searchView = [[SearchView alloc] initWithFrame:self.view.bounds];
+    _searchView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [_searchView addObserver:self forKeyPath:@"active" options:NSKeyValueObservingOptionNew context:nil];
+  }
+  return _searchView;
+}
+
+#define LOCATION_BUTTON_MID_Y (self.view.height - 28)
 
 - (LocationButton *)locationButton
 {
@@ -789,12 +809,15 @@ const long long LITE_IDL = 431183278L;
 
     _sideToolbar.slideView = toolbarButton;
 
-    [_sideToolbar addObserver:self forKeyPath:@"isMenuHidden" options:NSKeyValueObservingOptionNew context:nil];
-  }
-  return _sideToolbar;
+- (void)placePageView:(PlacePageView *)placePage willEditBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory
+{
+  PlacePageVC * vc = [[PlacePageVC alloc] initWithBookmark:bookmarkAndCategory];
+  vc.delegate = self;
+  vc.mode = PlacePageVCModeEditing;
+  [self pushViewController:vc];
 }
 
-- (UINavigationBar *)apiNavigationBar
+- (void)placePageView:(PlacePageView *)placePage willEditBookmarkWithInfo:(search::AddressInfo const &)addressInfo point:(m2::PointD const &)point
 {
   if (!_apiNavigationBar)
   {
@@ -807,6 +830,19 @@ const long long LITE_IDL = 431183278L;
     _apiNavigationBar.alpha = 0;
   }
   return _apiNavigationBar;
+}
+
+- (void)placePageView:(PlacePageView *)placePage willShareInfo:(search::AddressInfo const &)addressInfo point:(m2::PointD const &)point
+{
+  NSString * text = [NSString stringWithUTF8String:addressInfo.GetPinName().c_str()];
+  ShareInfo * info = [[ShareInfo alloc] initWithText:text gX:point.x gY:point.y myPosition:NO];
+  self.shareActionSheet = [[ShareActionSheet alloc] initWithInfo:info viewController:self];
+  [self.shareActionSheet show];
+}
+
+- (void)placePageVC:(PlacePageVC *)placePageVC didUpdateBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory
+{
+  [self.placePageView showBookmarkAndCategory:bookmarkAndCategory];
 }
 
 #pragma mark - SideToolbarDelegate
@@ -929,49 +965,44 @@ const long long LITE_IDL = 431183278L;
       darkTail.alpha = self.sideToolbar.isMenuHidden ? 0 : 1;
     }];
   }
+  else if (object == self.placePageView && [keyPath isEqualToString:@"state"])
+  {
+    [UIView animateWithDuration:0.5 delay:0 damping:0.8 initialVelocity:0 options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction) animations:^{
+      switch (self.placePageView.state)
+      {
+      case PlacePageStateHidden:
+        self.sideToolbar.slideView.midY = SLIDE_VIEW_MID_Y;
+        self.locationButton.midY = LOCATION_BUTTON_MID_Y;
+        GetFramework().GetBalloonManager().RemovePin();
+        break;
+      case PlacePageStateBitShown:
+        self.sideToolbar.slideView.midY = SLIDE_VIEW_MID_Y - (self.view.height - self.placePageView.minY);
+        self.locationButton.midY = LOCATION_BUTTON_MID_Y - (self.view.height - self.placePageView.minY);
+        break;
+      case PlacePageStateOpened:
+        Framework & f = GetFramework();
+        CGFloat x = self.view.width / 2;
+        CGFloat y = (self.searchView.searchBar.maxY + self.placePageView.minY) / 2;
+        CGPoint const center = [(EAGLView *)self.view viewPoint2GlobalPoint:CGPointMake(x, y)];
+        m2::PointD const offsetV = self.placePageView.pinPoint - m2::PointD(center.x, center.y);
+        f.SetViewportCenterAnimated(f.GetViewportCenter() + offsetV);
+        break;
+      }
+    } completion:nil];
+  }
 }
 
 #pragma mark - Public methods
 
 - (void)prepareForApi
 {
-  _isApiMode = YES;
-  if ([self shouldShowNavBar])
-  {
-    self.apiNavigationBar.topItem.title = [NSString stringWithUTF8String:GetFramework().GetMapApiAppTitle().c_str()];
-    [UIView animateWithDuration:0.3 animations:^{
-      self.apiNavigationBar.alpha = 1;
-    }];
-    [self dismissPopover];
-  }
-}
-
-- (void)clearApiMode
-{
-  _isApiMode = NO;
-  [self invalidate];
-  [UIView animateWithDuration:0.3 animations:^{
-    self.apiNavigationBar.alpha = 0;
-  }];
-  Framework & f = GetFramework();
-  f.ClearMapApiPoints();
-  f.GetBalloonManager().Hide();
+  [self dismissPopover];
+  self.searchView.searchBar.apiText = [NSString stringWithUTF8String:GetFramework().GetMapApiAppTitle().c_str()];
 }
 
 + (NSURL *)getBackUrl
 {
   return [NSURL URLWithString:[NSString stringWithUTF8String:GetFramework().GetMapApiBackUrl().c_str()]];
-}
-
-- (void)returnToApiApp
-{
-  [APP openURL:[MapViewController getBackUrl]];
-  [self clearApiMode];
-}
-
-- (BOOL)shouldShowNavBar
-{
-  return (_isApiMode && [APP canOpenURL:[MapViewController getBackUrl]]);
 }
 
 - (void)setupMeasurementSystem
