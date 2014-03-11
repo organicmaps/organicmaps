@@ -453,7 +453,7 @@ BookmarkAndCategory Framework::GetBookmark(m2::PointD const & pxPoint, double vi
   return make_pair(retBookmarkCategory, retBookmark);
 }
 
-void Framework::ShowBookmark(BookmarkAndCategory bnc)
+void Framework::ShowBookmark(BookmarkAndCategory const & bnc)
 {
   StopLocationFollow();
 
@@ -465,6 +465,8 @@ void Framework::ShowBookmark(BookmarkAndCategory bnc)
     scale = scales::GetUpperComfortScale();
 
   ShowRectExVisibleScale(m_scales.GetRectForDrawScale(scale, bmk->GetOrg()));
+
+  m_balloonManager.OnBookmarkClick(bnc);
 }
 
 void Framework::ShowTrack(Track const & track)
@@ -1512,6 +1514,8 @@ bool Framework::ShowMapForURL(string const & url)
     StopLocationFollow();
     SetViewPortASync(rect);
 
+    if (result != NO_BALLOON)
+      m_balloonManager.OnClick(GtoP(point.GetOrg()), true);
     return true;
   }
   else

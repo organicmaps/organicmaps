@@ -43,6 +43,8 @@ class PinClickManager
   void OnAdditonalLayer(size_t index);
   void OnDismiss();
 
+  void SetBalloonVisible(bool isVisible);
+
 public:
   PinClickManager(Framework & f);
   ~PinClickManager();
@@ -51,7 +53,10 @@ public:
 
   void RenderPolicyCreated(graphics::EDensity density);
   void LocationChanged(location::GpsInfo const & info);
+
   void OnClick(m2::PointD const & pxPoint, bool isLongTouch);
+  void OnBookmarkClick(BookmarkAndCategory const & bnc);
+
   void Hide();
 
   void DrawPin(shared_ptr<PaintEvent> const & e);

@@ -39,7 +39,7 @@ public:
   /// Need to fix default name using "dropped_pin" in Framework.
   string & GetName() { return m_point.m_name; }
 
-  m2::PointD GetOrg() const { return m_org; }
+  m2::PointD const & GetOrg() const { return m_org; }
   string const & GetName() const { return m_point.m_name; }
   ApiPoint const & GetPoint() const { return m_point; }
 };
