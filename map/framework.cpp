@@ -1226,7 +1226,10 @@ void Framework::ShowSearchResult(search::Result const & res)
 {
   m_bmManager.AdditionalPoiLayerSetVisible();
   m_bmManager.AdditionalPoiLayerClear();
-  m_bmManager.AdditionalPoiLayerAddPoi(Bookmark(res.GetFeatureCenter(), res.GetString(), "search-result"));
+
+  Bookmark bmk(res.GetFeatureCenter(), res.GetString(), "search-result");
+  bmk.SetDescription(res.GetFeatureType());
+  m_bmManager.AdditionalPoiLayerAddPoi(bmk);
 
   int scale;
   m2::PointD center;
