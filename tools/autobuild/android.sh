@@ -1,9 +1,9 @@
-# Script takes configuration as a parameter and optional clean keyword.
-# Possible configurations: debug release production
+# Script builds only C++ native libs. To build also jni part see another script: eclipse[*].sh
 
 set -e -u -x
 
-LOCAL_DIRNAME="${PWD}/$(dirname "$0")"
+MY_PATH="`dirname \"$0\"`"              # relative
+MY_PATH="`( cd \"$MY_PATH\" && pwd )`"  # absolutized and normalized
 
 if [[ $# < 1 ]]; then
   echo "Usage: $0 <debug|release|production> [armeabi|armeabi-v7a|armeabi-v7a-hard|mips|x86] [android-PLATFORM_NUMBER]"
@@ -11,12 +11,12 @@ if [[ $# < 1 ]]; then
 fi
 CONFIGURATION="$1"
 
-source "$LOCAL_DIRNAME/build.sh"
-source "$LOCAL_DIRNAME/ndk_helper.sh"
+source "$MY_PATH/build.sh"
+source "$MY_PATH/ndk_helper.sh"
 
-MKSPEC="$LOCAL_DIRNAME/../mkspecs/android-g++"
+MKSPEC="$MY_PATH/../mkspecs/android-g++"
 QMAKE_PARAMS="CONFIG+=${CONFIGURATION}"
-SHADOW_DIR_BASE="$LOCAL_DIRNAME/../../../omim-android"
+SHADOW_DIR_BASE="$MY_PATH/../../../omim-android"
 
 # Try to read ndk root path from android/local.properties file
 export NDK_ROOT=$(GetNdkRoot) || ( echo "Can't read NDK root path from android/local.properties"; exit 1 )

@@ -1,10 +1,10 @@
 #!/bin/bash
-set -e -x
+set -e -x -u
 
-LOCAL_DIRNAME="$(dirname "$0")"
-#LOCAL_DIRNAME="${PWD}/$(dirname "$0")"
+MY_PATH="`dirname \"$0\"`"              # relative
+MY_PATH="`( cd \"$MY_PATH\" && pwd )`"  # absolutized and normalized
 
-source "$LOCAL_DIRNAME/detect_qmake.sh"
+source "$MY_PATH/detect_qmake.sh"
 
 # Prints number of cores to stdout
 GetCPUCores() {
@@ -36,7 +36,7 @@ BuildQt() {
 
     mkdir -p "$SHADOW_DIR"
     cd "$SHADOW_DIR"
-    "$QMAKE" CONFIG-=sdk -r "$QMAKE_PARAMS" -spec "$MKSPEC" "$LOCAL_DIRNAME/../../omim.pro"
+    "$QMAKE" CONFIG-=sdk -r "$QMAKE_PARAMS" -spec "$MKSPEC" "$MY_PATH/../../omim.pro"
 #    make clean > /dev/null || true
     make -j $(GetCPUCores)
   )

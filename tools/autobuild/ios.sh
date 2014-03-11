@@ -3,8 +3,8 @@
 
 set -e -u -x
 
-LOCAL_DIRNAME="$(dirname "$0")"
-#LOCAL_DIRNAME="${PWD}/$(dirname "$0")"
+MY_PATH="`dirname \"$0\"`"              # relative
+MY_PATH="`( cd \"$MY_PATH\" && pwd )`"  # absolutized and normalized
 
 if [[ $# < 1 ]]; then
   echo "Usage: $0 <debug|release|production|simulator|simulator-release> [clean]"
@@ -12,8 +12,8 @@ if [[ $# < 1 ]]; then
 fi
 CONFIGURATION="$1"
 
-source "$LOCAL_DIRNAME/build.sh"
-source "$LOCAL_DIRNAME/detect_xcode.sh"
+source "$MY_PATH/build.sh"
+source "$MY_PATH/detect_xcode.sh"
 
 SDK_ROOT="$(PrintIOSSDKPath "$CONFIGURATION")"
 if [[ $? -ne 0 ]]; then
@@ -22,7 +22,7 @@ if [[ $? -ne 0 ]]; then
 fi
 export SDK_ROOT
 
-SHADOW_DIR="$LOCAL_DIRNAME/../../../omim-iphone"
+SHADOW_DIR="$MY_PATH/../../../omim-iphone"
 
 if [[ $CONFIGURATION == *production* ]]; then
   QMAKE_PARAMS="CONFIG+=production CONFIG+=release"
@@ -39,9 +39,9 @@ else
 fi
 
 if [[ $CONFIGURATION == *simulator* ]]; then
-  MKSPEC="$LOCAL_DIRNAME/../mkspecs/iphonesimulator"
+  MKSPEC="$MY_PATH/../mkspecs/iphonesimulator"
 else
-  MKSPEC="$LOCAL_DIRNAME/../mkspecs/iphonedevice"
+  MKSPEC="$MY_PATH/../mkspecs/iphonedevice"
 fi
 
 if [[ $GCC_VERSION == *clang* ]]; then

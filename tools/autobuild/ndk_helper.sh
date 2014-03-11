@@ -1,12 +1,13 @@
 set -e -u
 
-LOCAL_DIRNAME="${PWD}/$(dirname "$0")"
+MY_PATH="`dirname \"$0\"`"              # relative
+MY_PATH="`( cd \"$MY_PATH\" && pwd )`"  # absolutized and normalized
 
 # Echoes found NDK root path or nothing if not found
 # return 1 on error and 0 on success
 GetNdkRoot()
 {
-  local FILENAME="$LOCAL_DIRNAME/../../android/local.properties"
+  local FILENAME="$MY_PATH/../../android/local.properties"
   while read line
   do
     if [[ "${line:0:7}" == "ndk.dir" ]]; then
