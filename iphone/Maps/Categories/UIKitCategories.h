@@ -1,7 +1,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define IPAD UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
+#define IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define DISPLAY_IS_4_INCH ([UIScreen mainScreen].bounds.size.height == 568.f)
 
 #define SYSTEM_VERSION_IS_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)

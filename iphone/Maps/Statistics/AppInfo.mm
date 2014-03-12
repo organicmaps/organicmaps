@@ -17,11 +17,7 @@ NSString * const AppFeatureMoreAppsBanner = @"AppFeatureMoreAppsBanner";
 @property (nonatomic) NSDictionary * featuresByDefault;
 
 @property (nonatomic) NSString * countryCode;
-@property (nonatomic) NSString * bundleVersion;
-@property (nonatomic) NSString * deviceInfo;
-@property (nonatomic) NSString * firmwareVersion;
 @property (nonatomic) NSString * uniqueId;
-@property (nonatomic) NSUUID * advertisingId;
 @property (nonatomic) Reachability * reachability;
 @property (nonatomic) NSInteger launchCount;
 @property (nonatomic) NSDate * firstLaunchDate;
