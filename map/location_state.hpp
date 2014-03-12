@@ -104,10 +104,6 @@ namespace location
 
     void CallCompassStatusListeners(ECompassProcessMode mode);
 
-    double ComputeMoveSpeed(m2::PointD const & globalPt0,
-                            m2::PointD const & globalPt1,
-                            ScreenBase const & s);
-
     void CheckCompassFollowing();
     void FollowCompass();
 

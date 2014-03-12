@@ -135,13 +135,6 @@ namespace location
     setIsVisible(false);
   }
 
-  double State::ComputeMoveSpeed(m2::PointD const & globalPt0,
-                                 m2::PointD const & globalPt1,
-                                 ScreenBase const & s)
-  {
-    return max(0.1, min(0.5, 0.5 * s.GtoP(globalPt0).Length(s.GtoP(globalPt1)) / 50.0));
-  }
-
   bool State::HasPosition() const
   {
     return m_hasPosition;
@@ -528,30 +521,12 @@ namespace location
 
   void State::AnimateToPosition()
   {
-    anim::Controller * controller = m_framework->GetAnimController();
-    anim::Controller::Guard guard(controller);
-
-    m2::PointD startPt = m_framework->GetNavigator().Screen().GetOrg();
-    m2::PointD endPt = Position();
-
-    ScreenBase const & s = m_framework->GetNavigator().Screen();
-    double speed = ComputeMoveSpeed(startPt, endPt, s);
-
-    m_framework->GetAnimator().MoveScreen(startPt, endPt, speed);
+    m_framework->SetViewportCenterAnimated(Position());
   }
 
   void State::AnimateToPositionAndEnqueueFollowing()
   {
-    anim::Controller * controller = m_framework->GetAnimController();
-    anim::Controller::Guard guard(controller);
-
-    m2::PointD const startPt = m_framework->GetNavigator().Screen().GetOrg();
-    m2::PointD const endPt = Position();
-    ScreenBase const & s = m_framework->GetNavigator().Screen();
-
-    double const speed = ComputeMoveSpeed(startPt, endPt, s);
-
-    shared_ptr<MoveScreenTask> const & t = m_framework->GetAnimator().MoveScreen(startPt, endPt, speed);
+    shared_ptr<MoveScreenTask> const & t = m_framework->SetViewportCenterAnimated(Position());
 
     t->Lock();
     t->AddCallback(anim::Task::EEnded, bind(&State::SetIsCentered, this, true));
@@ -561,16 +536,7 @@ namespace location
 
   void State::AnimateToPositionAndEnqueueLocationProcessMode(location::ELocationProcessMode mode)
   {
-    anim::Controller * controller = m_framework->GetAnimController();
-    anim::Controller::Guard guard(controller);
-
-    m2::PointD const startPt = m_framework->GetNavigator().Screen().GetOrg();
-    m2::PointD const endPt = Position();
-
-    ScreenBase const & s = m_framework->GetNavigator().Screen();
-    double const speed = ComputeMoveSpeed(startPt, endPt, s);
-
-    shared_ptr<MoveScreenTask> const & t = m_framework->GetAnimator().MoveScreen(startPt, endPt, speed);
+    shared_ptr<MoveScreenTask> const & t = m_framework->SetViewportCenterAnimated(Position());
 
     t->Lock();
     t->AddCallback(anim::Task::EEnded, bind(&State::SetIsCentered, this, true));

@@ -838,6 +838,16 @@ void Framework::SetViewportCenter(m2::PointD const & pt)
   Invalidate();
 }
 
+shared_ptr<MoveScreenTask> Framework::SetViewportCenterAnimated(m2::PointD const & endPt)
+{
+  anim::Controller::Guard guard(GetAnimController());
+  ScreenBase const & s = m_navigator.Screen();
+  m2::PointD const & startPt = s.GetOrg();
+  double const speed = m_navigator.ComputeMoveSpeed(startPt, endPt);
+
+  return m_animator.MoveScreen(startPt, endPt, speed);
+}
+
 m2::AnyRectD Framework::ToRotated(m2::RectD const & rect) const
 {
   double const dx = rect.SizeX();

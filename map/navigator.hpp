@@ -16,6 +16,8 @@ public:
   void CenterViewport(m2::PointD const & p);
   void SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect);
 
+  double ComputeMoveSpeed(m2::PointD const & p0, m2::PointD const & p1) const;
+
   void SaveState();
   /// @return false if can't load previously saved values
   bool LoadState();

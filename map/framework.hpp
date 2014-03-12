@@ -39,6 +39,8 @@
 #include "../std/scoped_ptr.hpp"
 #include "../std/target_os.hpp"
 
+#include "move_screen_task.hpp"
+
 #include "track.hpp"
 
 //#define DRAW_TOUCH_POINTS
@@ -320,6 +322,7 @@ public:
 
   m2::PointD GetViewportCenter() const;
   void SetViewportCenter(m2::PointD const & pt);
+  shared_ptr<MoveScreenTask> SetViewportCenterAnimated(m2::PointD const & endPt);
 
   /// Set correct viewport, parse API, show balloon.
   bool ShowMapForURL(string const & url);
