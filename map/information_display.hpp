@@ -114,7 +114,6 @@ public:
 
   void enableRuler(bool doEnable);
   bool isRulerEnabled() const;
-  void setRulerParams(unsigned pxMinWidth, double metresMinWidth, double metresMaxWidth);
 
   void enableDebugInfo(bool doEnable);
   void setDebugInfo(double frameDuration, int currentScale);

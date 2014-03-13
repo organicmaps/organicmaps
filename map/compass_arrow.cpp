@@ -107,7 +107,7 @@ void CompassArrow::AlfaAnimEnded(bool isVisible)
 bool CompassArrow::IsHidingAnim() const
 {
   ASSERT(m_animTask != NULL, ());
-  AlfaCompassAnim * a = static_cast<AlfaCompassAnim *>(m_animTask.get());
+  AlfaAnimationTask * a = static_cast<AlfaAnimationTask *>(m_animTask.get());
   return a->IsHiding();
 }
 
@@ -115,7 +115,7 @@ float CompassArrow::GetCurrentAlfa() const
 {
   if (m_animTask)
   {
-    AlfaCompassAnim * a = static_cast<AlfaCompassAnim *>(m_animTask.get());
+    AlfaAnimationTask * a = static_cast<AlfaAnimationTask *>(m_animTask.get());
     return a->GetCurrentAlfa();
   }
 
@@ -129,7 +129,7 @@ void CompassArrow::CreateAnim(double startAlfa, double endAlfa, double timeInter
 
   if (m_animTask)
     m_animTask->Cancel();
-  m_animTask.reset(new AlfaCompassAnim(startAlfa, endAlfa, timeInterval, timeOffset, m_framework));
+  m_animTask.reset(new AlfaAnimationTask(startAlfa, endAlfa, timeInterval, timeOffset, m_framework));
   m_animTask->AddCallback(anim::Task::EEnded, bind(&CompassArrow::AlfaAnimEnded, this, isVisibleAtEnd));
   m_framework->GetAnimController()->AddTask(m_animTask);
 }

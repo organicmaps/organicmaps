@@ -2,7 +2,7 @@
 
 #include "framework.hpp"
 
-AlfaCompassAnim::AlfaCompassAnim(double start, double end, double timeInterval, double timeOffset, Framework * f)
+AlfaAnimationTask::AlfaAnimationTask(double start, double end, double timeInterval, double timeOffset, Framework * f)
   : m_start(start)
   , m_end(end)
   , m_current(start)
@@ -12,24 +12,24 @@ AlfaCompassAnim::AlfaCompassAnim(double start, double end, double timeInterval, 
 {
 }
 
-bool AlfaCompassAnim::IsHiding() const
+bool AlfaAnimationTask::IsHiding() const
 {
   return m_start > m_end;
 }
 
-float AlfaCompassAnim::GetCurrentAlfa() const
+float AlfaAnimationTask::GetCurrentAlfa() const
 {
   return m_current;
 }
 
-void AlfaCompassAnim::OnStart(double ts)
+void AlfaAnimationTask::OnStart(double ts)
 {
   m_timeStart = ts;
   base_t::OnStart(ts);
   m_f->Invalidate();
 }
 
-void AlfaCompassAnim::OnStep(double ts)
+void AlfaAnimationTask::OnStep(double ts)
 {
   base_t::OnStep(ts);
   double elapsed = ts - (m_timeStart + m_timeOffset);

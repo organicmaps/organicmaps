@@ -102,10 +102,6 @@ protected:
 
   bool m_queryMaxScaleMode;
 
-  double const m_metresMinWidth;
-  double const m_metresMaxWidth;
-  int const m_minRulerWidth;
-
   int m_width;
   int m_height;
 

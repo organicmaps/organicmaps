@@ -4,11 +4,11 @@
 
 class Framework;
 
-class AlfaCompassAnim : public anim::Task
+class AlfaAnimationTask : public anim::Task
 {
   typedef anim::Task base_t;
 public:
-  AlfaCompassAnim(double start, double end, double timeInterval, double timeOffset, Framework * f);
+  AlfaAnimationTask(double start, double end, double timeInterval, double timeOffset, Framework * f);
 
   bool IsHiding() const;
 

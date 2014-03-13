@@ -49,7 +49,6 @@ InformationDisplay::InformationDisplay(Framework * fw)
   InitDebugLabel();
 
   enableDebugPoints(false);
-  enableRuler(false);
   enableDebugInfo(false);
   enableMemoryWarning(false);
   enableBenchmarkInfo(false);
@@ -201,13 +200,6 @@ void InformationDisplay::enableRuler(bool doEnable)
 bool InformationDisplay::isRulerEnabled() const
 {
   return m_ruler->isVisible();
-}
-
-void InformationDisplay::setRulerParams(unsigned pxMinWidth, double metresMinWidth, double metresMaxWidth)
-{
-  m_ruler->setMinPxWidth(pxMinWidth);
-  m_ruler->setMinMetersWidth(metresMinWidth);
-  m_ruler->setMaxMetersWidth(metresMaxWidth);
 }
 
 void InformationDisplay::setVisualScale(double visualScale)

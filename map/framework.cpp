@@ -179,18 +179,6 @@ Framework::Framework()
   : m_navigator(m_scales),
     m_animator(this),
     m_queryMaxScaleMode(false),
-
-    /// @todo It's not a class state, so no need to store it in memory.
-    /// Move this constants to Ruler (and don't store them at all).
-    m_metresMinWidth(10),
-    m_metresMaxWidth(1000000),
-
-#if defined(OMIM_OS_DESKTOP)
-    m_minRulerWidth(97),
-#else
-    m_minRulerWidth(60),
-#endif
-
     m_width(0),
     m_height(0),
     m_informationDisplay(this),
@@ -229,9 +217,6 @@ Framework::Framework()
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.enableDebugPoints(true);
 #endif
-
-  m_informationDisplay.setRulerParams(m_minRulerWidth, m_metresMinWidth, m_metresMaxWidth);
-
   m_model.InitClassificator();
 
   // Get all available maps.
