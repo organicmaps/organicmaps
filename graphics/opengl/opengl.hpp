@@ -48,8 +48,10 @@
 #endif
 
 
-#ifdef OMIM_OS_WINDOWS
+#if defined(OMIM_OS_WINDOWS)
   #define OPENGL_CALLING_CONVENTION __stdcall
+#elif defined(OMIM_OS_ANDROID)
+  #define OPENGL_CALLING_CONVENTION __NDK_FPABI__
 #else
   #define OPENGL_CALLING_CONVENTION
 #endif
