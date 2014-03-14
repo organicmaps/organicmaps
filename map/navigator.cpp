@@ -310,6 +310,7 @@ void Navigator::StartRotate(double a, double /*timeInSec*/)
   m_StartAngle = a;
   m_StartScreen = m_Screen;
   m_InAction = true;
+  m_InDrag = false;
 }
 
 void Navigator::DoRotate(double a, double /*timeInSec*/)
@@ -399,6 +400,7 @@ void Navigator::StartScale(m2::PointD const & pt1, m2::PointD const & pt2, doubl
   m_DoCheckRotationThreshold = m_DoSupportRotation;
   m_IsRotatingDuringScale = false;
   m_InAction = true;
+  m_InDrag = false;
 }
 
 void Navigator::ScaleToPoint(m2::PointD const & pt, double factor, double /*timeInSec*/)
