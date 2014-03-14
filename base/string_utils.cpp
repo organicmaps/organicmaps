@@ -3,6 +3,9 @@
 
 #include "../std/target_os.hpp"
 #include "../std/iterator.hpp"
+#include "../std/cmath.hpp"
+
+#include <iomanip>  // setprecision
 
 #include <boost/algorithm/string.hpp> // boost::trim
 
@@ -158,6 +161,13 @@ bool IsASCIIString(string const & str)
 bool StartsWith(string const & s1, char const * s2)
 {
   return (s1.compare(0, strlen(s2), s2) == 0);
+}
+
+string to_string_dac(double d, int dac)
+{
+  ostringstream ss;
+  ss << std::setprecision(dac + int(log10(fabs(d))) + 1) << d;
+  return ss.str();
 }
 
 }

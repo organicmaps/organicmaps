@@ -230,6 +230,12 @@ UNIT_TEST(to_string)
   // 6 digits after the comma with rounding - it's a default behavior
   TEST_EQUAL(strings::to_string(-0.66666666), "-0.666667", ());
 
+  TEST_EQUAL(strings::to_string_dac(99.9999, 3), "100", ());
+  TEST_EQUAL(strings::to_string_dac(-99.9999, 3), "-100", ());
+  TEST_EQUAL(strings::to_string_dac(-10.66666666, 7), "-10.6666667", ());
+  TEST_EQUAL(strings::to_string_dac(10001.66666666, 8), "10001.66666666", ());
+  TEST_EQUAL(strings::to_string_dac(99999.99999999, 8), "99999.99999999", ());
+
   TEST_EQUAL(strings::to_string(-1.0E2), "-100", ());
   TEST_EQUAL(strings::to_string(1.0E-2), "0.01", ());
 

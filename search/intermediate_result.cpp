@@ -194,7 +194,7 @@ PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p,
 }
 
 PreResult2::PreResult2(m2::RectD const & viewport, m2::PointD const & pos, double lat, double lon)
-  : m_str("(" + strings::to_string(lat) + ", " + strings::to_string(lon) + ")"),
+  : m_str("(" + strings::to_string_dac(lat, 5) + ", " + strings::to_string_dac(lon, 5) + ")"),
     m_resultType(RESULT_LATLON),
     m_rank(255)
 {
