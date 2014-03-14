@@ -105,7 +105,7 @@ namespace graphics
     bool isDirtyLayout() const;
     void setIsDirtyLayout(bool flag) const;
 
-    bool isVisible() const;
+    virtual bool isVisible() const;
     virtual void setIsVisible(bool flag);
 
     bool isValid() const;

@@ -32,20 +32,20 @@ CompassArrow::CompassArrow(Params const & p)
 
 void CompassArrow::AnimateShow()
 {
-  if (!isVisible() && (m_animTask == NULL || IsHidingAnim()))
+  if (!isBaseVisible() && (m_animTask == NULL || IsHidingAnim()))
   {
     setIsVisible(true);
     CreateAnim(0.1, 1.0, 0.2, 0.0, true);
   }
 
-  if (isVisible() && (m_animTask == NULL || IsHidingAnim()))
+  if (isBaseVisible() && (m_animTask == NULL || IsHidingAnim()))
     CreateAnim(GetCurrentAlfa(), 1.0, 0.2, 0.0, true);
 }
 
 void CompassArrow::AnimateHide()
 {
-  if (isVisible() && (m_animTask == NULL || !IsHidingAnim()))
-    CreateAnim(1.0, 0.0, 0.3, 1.0, false);
+  if (isBaseVisible() && (m_animTask == NULL || !IsHidingAnim()))
+    CreateAnim(1.0, 0.0, 0.3, 0.3, false);
 }
 
 void CompassArrow::SetAngle(double angle)
@@ -81,7 +81,7 @@ vector<m2::AnyRectD> const & CompassArrow::boundRects() const
 void CompassArrow::draw(graphics::OverlayRenderer * r,
                         math::Matrix<double, 3, 3> const & m) const
 {
-  if (isVisible())
+  if (isBaseVisible())
   {
     checkDirtyLayout();
 
@@ -96,6 +96,14 @@ void CompassArrow::draw(graphics::OverlayRenderer * r,
 
     r->drawDisplayList(m_displayList, drawM * m, &holder);
   }
+}
+
+bool CompassArrow::isVisible() const
+{
+  if (m_animTask != NULL && IsHidingAnim())
+    return false;
+
+  return isBaseVisible();
 }
 
 void CompassArrow::AlfaAnimEnded(bool isVisible)
@@ -191,6 +199,11 @@ void CompassArrow::purge()
 {
   delete m_displayList;
   m_displayList = NULL;
+}
+
+bool CompassArrow::isBaseVisible() const
+{
+  return base_t::isVisible();
 }
 
 bool CompassArrow::onTapEnded(m2::PointD const & pt)

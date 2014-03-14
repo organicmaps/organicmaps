@@ -22,8 +22,8 @@ class Framework;
 class CompassArrow : public gui::Element
 {
 private:
-
   typedef gui::Element base_t;
+
   double m_angle;
 
   graphics::DisplayList * m_displayList;
@@ -42,6 +42,7 @@ private:
 
   void cache();
   void purge();
+  bool isBaseVisible() const;
 
 public:
 
@@ -61,6 +62,7 @@ public:
 
   vector<m2::AnyRectD> const & boundRects() const;
   void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+  virtual bool isVisible() const;
 
   bool onTapEnded(m2::PointD const & pt);
 
