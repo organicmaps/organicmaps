@@ -6,10 +6,7 @@ ifeq ($(NDK_DEBUG),1)
 else
   ifeq ($(PRODUCTION),1)
     OMIM_CONFIG := production
-    LOCAL_CFLAGS += -fvisibility=hidden
-    LOCAL_CPPFLAGS += -fvisibility-inlines-hidden
   endif
-  LOCAL_CFLAGS += -O3
 endif
 
 ####################################################################################
@@ -127,6 +124,17 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := mapswithme
 LOCAL_STATIC_LIBRARIES := stats_client map gui search storage indexer graphics platform anim geometry coding base expat freetype fribidi zlib bzip2 jansson tomcrypt protobuf
 LOCAL_CFLAGS := -ffunction-sections -fdata-sections -Wno-psabi
+
+ifneq ($(NDK_DEBUG),1)
+  ifeq ($(PRODUCTION),1)
+    OMIM_CONFIG := production
+    LOCAL_CFLAGS += -fvisibility=hidden
+    LOCAL_CPPFLAGS += -fvisibility-inlines-hidden
+  endif
+  LOCAL_CFLAGS += -O3
+  LOCAL_LFLAGS += -O3
+endif
+
 
 TARGET_PLATFORM := android-5
 
