@@ -892,7 +892,8 @@ extern "C"
     return static_cast<jint>(g_framework->NativeFramework()->GetDrawScale());
   }
 
-  JNIEXPORT jdoubleArray Java_com_mapswithme_maps_Framework_getScreenRectCenter(JNIEnv * env, jclass clazz)
+  JNIEXPORT jdoubleArray JNICALL
+  Java_com_mapswithme_maps_Framework_getScreenRectCenter(JNIEnv * env, jclass clazz)
   {
     const m2::PointD center = g_framework->NativeFramework()->GetViewportCenter();
 
@@ -903,12 +904,14 @@ extern "C"
     return jLatLon;
   }
 
-  JNIEXPORT void Java_com_mapswithme_maps_Framework_nativeShowTrackRect(JNIEnv * env, jclass clazz, jint cat, jint track)
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeShowTrackRect(JNIEnv * env, jclass clazz, jint cat, jint track)
   {
     g_framework->ShowTrack(cat, track);
   }
 
-  JNIEXPORT void Java_com_mapswithme_maps_Framework_injectData(JNIEnv * env, jclass clazz, jobject jsearchResult, jlong index)
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_injectData(JNIEnv * env, jclass clazz, jobject jsearchResult, jlong index)
   {
     const size_t nIndex = static_cast<size_t>(index);
     ASSERT_LESS(nIndex , g_framework->NativeFramework()->AdditionalLayerNumberOfPoi(), ("Invalid index", nIndex));
@@ -931,12 +934,14 @@ extern "C"
     env->SetDoubleField(jsearchResult, lonId, MercatorBounds::XToLon(b->GetOrg().x));
   }
 
-  JNIEXPORT void Java_com_mapswithme_maps_Framework_cleanSearchLayerOnMap(JNIEnv * env, jclass clazz)
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_cleanSearchLayerOnMap(JNIEnv * env, jclass clazz)
   {
     g_framework->CleanSearchLayerOnMap();
   }
 
-  JNIEXPORT void Java_com_mapswithme_maps_Framework_invalidate(JNIEnv * env, jclass clazz)
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_invalidate(JNIEnv * env, jclass clazz)
   {
     g_framework->Invalidate();
   }
