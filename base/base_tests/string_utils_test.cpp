@@ -1,6 +1,6 @@
 #include "../../testing/testing.hpp"
-#include "../string_utils.hpp"
 
+#include "../string_utils.hpp"
 #include "../logging.hpp"
 
 #include "../../std/iomanip.hpp"
@@ -8,18 +8,22 @@
 #include "../../std/bind.hpp"
 #include "../../std/unordered_map.hpp"
 
-#define UNICODE_TEST_FILE "../../data/CaseFolding.test"
 
 /// internal function in base
 namespace strings { UniChar LowerUniChar(UniChar c); }
 
 UNIT_TEST(LowerUniChar)
 {
-  // load unicode case folding table
-  ifstream file(UNICODE_TEST_FILE);
+  // Load unicode case folding table.
+
+  // To use Platform class here, we need to add many link stuff into .pro file ...
+  //string const fName = GetPlatform().WritablePathForFile("CaseFolding.test");
+  string const fName = "../../../omim/data/CaseFolding.test";
+
+  ifstream file(fName.c_str());
   if (!file.good())
   {
-    LOG(LWARNING, ("Can't open unicode test file", UNICODE_TEST_FILE));
+    LOG(LWARNING, ("Can't open unicode test file", fName));
     return;
   }
 
