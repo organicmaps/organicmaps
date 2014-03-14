@@ -328,6 +328,7 @@ void Ruler::RulerFrame::Cache(const string & text, graphics::FontDesc const & f)
         coords.push_back(m2::PointD(baseX, 0.0));
 
         m2::RectI resourceRect(glyphRes[i]->m_texRect);
+        resourceRect.Inflate(-1, -1);
         double w = resourceRect.SizeX();
         double h = resourceRect.SizeY();
         lengthFromStart += w;
