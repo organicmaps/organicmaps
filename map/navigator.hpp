@@ -59,6 +59,7 @@ public:
   bool Update(double timeInSec);
 
   bool InAction() const;
+  bool InDrag() const;
 
   /// enabling/disabling screen rotation handling
   void SetSupportRotation(bool flag);
@@ -108,6 +109,7 @@ private:
   math::Matrix<float, 3, 3> m_DeltaMatrix;
   // Flag, which indicates, whether we are in the middle of some action.
   bool m_InAction;
+  bool m_InDrag;
   // Does Navigator supports screen rotation.
   bool m_DoSupportRotation;
   // Should we check for threshold while scaling by two fingers.

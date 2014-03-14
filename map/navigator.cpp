@@ -29,6 +29,7 @@ namespace
 Navigator::Navigator(ScalesProcessor const & scales)
   : m_scales(scales),
     m_InAction(false),
+    m_InDrag(false),
     m_DoSupportRotation(false)
 {
 }
@@ -337,6 +338,7 @@ void Navigator::StartDrag(m2::PointD const & pt, double /*timeInSec*/)
   m_StartPt1 = m_LastPt1 = pt;
   m_StartScreen = m_Screen;
   m_InAction = true;
+  m_InDrag = true;
 }
 
 void Navigator::DoDrag(m2::PointD const & pt, double /*timeInSec*/)
@@ -375,11 +377,17 @@ void Navigator::StopDrag(m2::PointD const & pt, double timeInSec, bool /*animate
 {
   DoDrag(pt, timeInSec);
   m_InAction = false;
+  m_InDrag = false;
 }
 
 bool Navigator::InAction() const
 {
   return m_InAction;
+}
+
+bool Navigator::InDrag() const
+{
+  return m_InDrag;
 }
 
 void Navigator::StartScale(m2::PointD const & pt1, m2::PointD const & pt2, double /*timeInSec*/)
