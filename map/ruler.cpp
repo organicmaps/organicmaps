@@ -149,8 +149,8 @@ void Ruler::RulerFrame::Cache(const string & text, graphics::FontDesc const & f)
   gui::Controller * controller = m_f.GetGuiController();
   graphics::Screen * cs = controller->GetCacheScreen();
   double k = m_f.GetVisualScale();
+  if (m_dl == NULL)
   {
-    m_dl.reset();
     m_dl.reset(cs->createDisplayList());
 
     cs->beginFrame();
@@ -159,24 +159,24 @@ void Ruler::RulerFrame::Cache(const string & text, graphics::FontDesc const & f)
 
     cs->applyVarAlfaStates();
 
-    double halfLength = CacheLength / 2.0;
+//    double halfLength = CacheLength / 2.0;
 
-    graphics::GlyphKey key(strings::LastUniChar("0"), f.m_size, f.m_isMasked, f.m_color);
-    graphics::Glyph::Info glyphInfo(key, controller->GetGlyphCache());
-    uint32_t zeroMarkGlyph = cs->mapInfo(glyphInfo);
-    graphics::Resource const * glyphRes = cs->fromID(zeroMarkGlyph);
+//    graphics::GlyphKey key(strings::LastUniChar("0"), f.m_size, f.m_isMasked, f.m_color);
+//    graphics::Glyph::Info glyphInfo(key, controller->GetGlyphCache());
+//    uint32_t zeroMarkGlyph = cs->mapInfo(glyphInfo);
+//    graphics::Resource const * glyphRes = cs->fromID(zeroMarkGlyph);
 
-    m2::RectI glyphRect(glyphRes->m_texRect);
-    double glyphHalfW = glyphRect.SizeX() / 2.0;
-    double glyphHalfH = glyphRect.SizeY() / 2.0;
-    double zeroMarkOffset = (glyphHalfH + 2) + 5 * k;
+//    m2::RectI glyphRect(glyphRes->m_texRect);
+//    double glyphHalfW = glyphRect.SizeX() / 2.0;
+//    double glyphHalfH = glyphRect.SizeY() / 2.0;
+//    double zeroMarkOffset = (glyphHalfH + 2) + 5 * k;
 
     graphics::Brush::Info brushInfo(graphics::Color(3, 3, 3, 255));
     uint32_t brushId = cs->mapInfo(brushInfo);
     graphics::Resource const * brushRes = cs->fromID(brushId);
     m2::RectU brushRect = brushRes->m_texRect;
 
-    shared_ptr<graphics::gl::BaseTexture> glyphTexture = cs->pipeline(glyphRes->m_pipelineID).texture();
+    //shared_ptr<graphics::gl::BaseTexture> glyphTexture = cs->pipeline(glyphRes->m_pipelineID).texture();
     m2::PointF brushCenter = cs->pipeline(brushRes->m_pipelineID).texture()->mapPixel(brushRect.Center());
 
     //  0  1     10  11        18  17
@@ -192,77 +192,78 @@ void Ruler::RulerFrame::Cache(const string & text, graphics::FontDesc const & f)
     m2::PointD coords[] =
     {
     //      Zero mark geometry
-    /*-4*/  m2::PointD(0.0, -zeroMarkOffset),
-    /*-3*/  m2::PointD(0.0, -zeroMarkOffset),
-    /*-2*/  m2::PointD(0.0, -zeroMarkOffset),
-    /*-1*/  m2::PointD(0.0, -zeroMarkOffset),
+    /*-4*/  //m2::PointD(0.0, -zeroMarkOffset),
+    /*-3*/  //m2::PointD(0.0, -zeroMarkOffset),
+    /*-2*/  //m2::PointD(0.0, -zeroMarkOffset),
+    /*-1*/  //m2::PointD(0.0, -zeroMarkOffset),
     //      Ruler geometry
-    /* 0*/  m2::PointD(0.0, -5.0 * k),
-    /* 1*/  m2::PointD(0.0, -5.0 * k),
-    /* 2*/  m2::PointD(0.0, -3.0 * k),
+    /* 0*/  //m2::PointD(0.0, -5.0 * k),
+    /* 1*/  //m2::PointD(0.0, -5.0 * k),
+    /* 2*/  //m2::PointD(0.0, -3.0 * k),
     /* 3*/  m2::PointD(0.0, -3.0 * k),
     /* 4*/  m2::PointD(0.0,  0.0),
-    /* 5*/  m2::PointD(0.0,  0.0),
-    /* 6*/  m2::PointD(0.0, -3.0 * k),
-    /* 7*/  m2::PointD(halfLength - 0.5,  0.0),
-    /* 8*/  m2::PointD(halfLength - 0.5, -3.0 * k),
-    /* 9*/  m2::PointD(halfLength - 0.5, -3.0 * k),
-    /*10*/  m2::PointD(halfLength - 0.5, -7.0 * k),
-    /*11*/  m2::PointD(halfLength - 0.5, -7.0 * k),
-    /*12*/  m2::PointD(halfLength - 0.5, -3.0 * k),
-    /*13*/  m2::PointD(halfLength - 0.5,  0.0 * k),
+    /* 5*/  //m2::PointD(0.0,  0.0),
+    /* 6*/  //m2::PointD(0.0, -3.0 * k),
+    /* 7*/  //m2::PointD(halfLength - 0.5,  0.0),
+    /* 8*/  //m2::PointD(halfLength - 0.5, -3.0 * k),
+    /* 9*/  //m2::PointD(halfLength - 0.5, -3.0 * k),
+    /*10*/  //m2::PointD(halfLength - 0.5, -7.0 * k),
+    /*11*/  //m2::PointD(halfLength - 0.5, -7.0 * k),
+    /*12*/  //m2::PointD(halfLength - 0.5, -3.0 * k),
+    /*13*/  //m2::PointD(halfLength - 0.5,  0.0 * k),
     /*14*/  m2::PointD(CacheLength, -3.0 * k),
     /*15*/  m2::PointD(CacheLength,  0.0 * k),
-    /*16*/  m2::PointD(CacheLength, -3.0 * k),
-    /*17*/  m2::PointD(CacheLength, -5.0 * k),
-    /*18*/  m2::PointD(CacheLength, -5.0 * k)
+    /*16*/  //m2::PointD(CacheLength, -3.0 * k),
+    /*17*/  //m2::PointD(CacheLength, -5.0 * k),
+    /*18*/  //m2::PointD(CacheLength, -5.0 * k)
     };
 
-    m2::PointF normals[] =
-    {
+    //m2::PointF normals[] =
+    //{
     //      Zero mark normals
-    /*-4*/  m2::PointF(-glyphHalfW + 1, -glyphHalfH),
-    /*-3*/  m2::PointF(-glyphHalfW + 1,  glyphHalfH),
-    /*-2*/  m2::PointF( glyphHalfW + 1, -glyphHalfH),
-    /*-1*/  m2::PointF( glyphHalfW + 1,  glyphHalfH),
+    /*-4*/  //m2::PointF(-glyphHalfW + 1, -glyphHalfH),
+    /*-3*/  //m2::PointF(-glyphHalfW + 1,  glyphHalfH),
+    /*-2*/  //m2::PointF( glyphHalfW + 1, -glyphHalfH),
+    /*-1*/  //m2::PointF( glyphHalfW + 1,  glyphHalfH),
     //      Ruler normals
-    /* 0*/  m2::PointF( 0.0     , 0.0),
-    /* 1*/  m2::PointF( 1.0 * k , 0.0),
-    /* 2*/  m2::PointF( 0.0     , 0.0),
-    /* 3*/  m2::PointF( 1.0 * k , 0.0),
-    /* 4*/  m2::PointF( 0.0     , 0.0),
-    /* 5*/  m2::PointF( 1.0 * k , 0.0),
-    /* 6*/  m2::PointF( 1.0 * k , 0.0),
-    /* 7*/  m2::PointF( 1.0 * k , 0.0),
-    /* 8*/  m2::PointF( 1.0 * k , 0.0),
-    /* 9*/  m2::PointF( 0.0     , 0.0),
-    /*10*/  m2::PointF( 0.0     , 0.0),
-    /*11*/  m2::PointF( 1.0 * k , 0.0),
-    /*12*/  m2::PointF( 1.0 * k , 0.0),
-    /*13*/  m2::PointF( 1.0 * k , 0.0),
-    /*14*/  m2::PointF( 0.0     , 0.0),
-    /*15*/  m2::PointF( 0.0     , 0.0),
-    /*16*/  m2::PointF(-1.0 * k , 0.0),
-    /*17*/  m2::PointF( 0.0     , 0.0),
-    /*18*/  m2::PointF(-1.0 * k , 0.0)
-    };
+    /* 0*/  //m2::PointF( 0.0     , 0.0),
+    /* 1*/  //m2::PointF( 1.0 * k , 0.0),
+    /* 2*/  //m2::PointF( 0.0     , 0.0),
+    /* 3*/  //m2::PointF( 1.0 * k , 0.0),
+    /* 4*/  //m2::PointF( 0.0     , 0.0),
+    /* 5*/  //m2::PointF( 1.0 * k , 0.0),
+    /* 6*/  //m2::PointF( 1.0 * k , 0.0),
+    /* 7*/  //m2::PointF( 1.0 * k , 0.0),
+    /* 8*/  //m2::PointF( 1.0 * k , 0.0),
+    /* 9*/  //m2::PointF( 0.0     , 0.0),
+    /*10*/  //m2::PointF( 0.0     , 0.0),
+    /*11*/  //m2::PointF( 1.0 * k , 0.0),
+    /*12*/  //m2::PointF( 1.0 * k , 0.0),
+    /*13*/  //m2::PointF( 1.0 * k , 0.0),
+    /*14*/  //m2::PointF( 0.0     , 0.0),
+    /*15*/  //m2::PointF( 0.0     , 0.0),
+    /*16*/  //m2::PointF(-1.0 * k , 0.0),
+    /*17*/  //m2::PointF( 0.0     , 0.0),
+    /*18*/  //m2::PointF(-1.0 * k , 0.0)
+    //};
 
-    vector<m2::PointF> texCoords(ARRAY_SIZE(normals), brushCenter);
-    texCoords[0] = glyphTexture->mapPixel(m2::PointF(glyphRect.minX(), glyphRect.minY()));
-    texCoords[1] = glyphTexture->mapPixel(m2::PointF(glyphRect.minX(), glyphRect.maxY()));
-    texCoords[2] = glyphTexture->mapPixel(m2::PointF(glyphRect.maxX(), glyphRect.minY()));
-    texCoords[3] = glyphTexture->mapPixel(m2::PointF(glyphRect.maxX(), glyphRect.maxY()));
+    //vector<m2::PointF> texCoords(ARRAY_SIZE(coords), brushCenter);
+    //texCoords[0] = glyphTexture->mapPixel(m2::PointF(glyphRect.minX(), glyphRect.minY()));
+    //texCoords[1] = glyphTexture->mapPixel(m2::PointF(glyphRect.minX(), glyphRect.maxY()));
+    //texCoords[2] = glyphTexture->mapPixel(m2::PointF(glyphRect.maxX(), glyphRect.minY()));
+    //texCoords[3] = glyphTexture->mapPixel(m2::PointF(glyphRect.maxX(), glyphRect.maxY()));
 
-    ASSERT(ARRAY_SIZE(coords) == ARRAY_SIZE(normals), ());
+    //ASSERT(ARRAY_SIZE(coords) == ARRAY_SIZE(normals), ());
 
-    cs->addTexturedStripStrided(coords, sizeof(m2::PointD),
-                               normals, sizeof(m2::PointF),
-                               &texCoords[0], sizeof(m2::PointF), 4,
-                               m_depth, glyphRes->m_pipelineID);
+//    cs->addTexturedStripStrided(coords, sizeof(m2::PointD),
+//                               normals, sizeof(m2::PointF),
+//                               &texCoords[0], sizeof(m2::PointF), 4,
+//                               m_depth, glyphRes->m_pipelineID);
 
-    cs->addTexturedStripStrided(coords + 4, sizeof(m2::PointD),
-                               normals + 4, sizeof(m2::PointF),
-                               &texCoords[4], sizeof(m2::PointF), ARRAY_SIZE(coords) - 4,
+    m2::PointF normal(0.0, 0.0);
+    cs->addTexturedStripStrided(coords , sizeof(m2::PointD),
+                               &normal, 0,
+                               &brushCenter, 0, ARRAY_SIZE(coords),
                                m_depth, brushRes->m_pipelineID);
 
     cs->setDisplayList(0);
@@ -301,17 +302,14 @@ void Ruler::RulerFrame::Cache(const string & text, graphics::FontDesc const & f)
 
     if (cs->mapInfo(resInfos.data(), ids.data(), infos.size()))
     {
-      uint32_t width = 0;
       for (size_t i = 0; i < ids.size(); ++i)
       {
         graphics::Resource const * res = cs->fromID(ids[i]);
-        width += res->m_texRect.SizeX();
         glyphRes[i] = res;
       }
 
       int32_t pipelineID = glyphRes[0]->m_pipelineID;
       shared_ptr<graphics::gl::BaseTexture> texture = cs->pipeline(pipelineID).texture();
-      double halfWidth = width / 2.0;
       double lengthFromStart = 0.0;
 
       buffer_vector<m2::PointF, 48> coords;
@@ -320,7 +318,7 @@ void Ruler::RulerFrame::Cache(const string & text, graphics::FontDesc const & f)
 
       for (size_t i = 0; i < uniString.size(); ++i)
       {
-        double baseX = lengthFromStart - halfWidth;
+        double baseX = lengthFromStart;
         coords.push_back(m2::PointD(baseX, 0.0));
         coords.push_back(m2::PointD(baseX, 0.0));
         coords.push_back(m2::PointD(baseX, 0.0));
@@ -408,16 +406,15 @@ void Ruler::RulerFrame::ShowAnimate(bool needPause)
 
 void Ruler::RulerFrame::HideAnimate(bool needPause)
 {
-  double offset = (needPause == true) ? 1.0 : 0.0;
+  double offset = (needPause == true) ? 0.3 : 0.0;
   double timeInterval = (needPause == true) ? 0.3 : 0.15;
   CreateAnim(1.0, 0.0, timeInterval, offset, false);
 }
 
 void Ruler::RulerFrame::Draw(graphics::OverlayRenderer * r, const math::Matrix<double, 3, 3> & m)
 {
-  LOG(LINFO, ("Main dl = ", m_dl.get()));
-  ASSERT(m_dl != NULL, ());
-  ASSERT(m_textDL != NULL, ());
+  ASSERT(m_dl != NULL, ("Main display list is null"));
+  ASSERT(m_textDL != NULL, ("Text display list is null"));
   graphics::UniformsHolder holder;
   float a = GetCurrentAlfa();
   holder.insertValue(graphics::ETransparency, a);
@@ -426,9 +423,9 @@ void Ruler::RulerFrame::Draw(graphics::OverlayRenderer * r, const math::Matrix<d
                            math::Scale(m, m2::PointD(m_scale, 1.0)),
                             m_orgPt), &holder);
 
-  double yOffset = -(2 + 5 * m_f.GetVisualScale());
+  double yOffset = -(2 + 3 * m_f.GetVisualScale());
   r->drawDisplayList(m_textDL.get(),
-                     math::Shift(m, m_orgPt + m2::PointF(CacheLength * m_scale, yOffset)),
+                     math::Shift(m, m_orgPt + m2::PointF(0.0, yOffset)),
                      &holder);
 }
 
@@ -537,7 +534,7 @@ Ruler::Ruler(Params const & p)
     m_currentRangeIndex(InvalidUnitValue),
     m_currSystem(0),
     m_mainFrame(NULL),
-    m_animFrames(NULL),
+    m_animFrame(NULL),
     m_framework(p.m_framework)
 {
   setIsVisible(false);
@@ -593,10 +590,8 @@ void Ruler::UpdateText(const string & text)
   RulerFrame * frame = GetMainFrame();
   if (frame->IsValid())
   {
-    //RulerFrame * addFrame = new RulerFrame(*frame, bind(&Ruler::AnimFrameAnimEnded, this, _1, _2));
-    //m_animFrames.push_back(addFrame);
-    delete m_animFrames;
-    m_animFrames = new RulerFrame(*frame, bind(&Ruler::AnimFrameAnimEnded, this, _1, _2));
+    delete m_animFrame;
+    m_animFrame = new RulerFrame(*frame, bind(&Ruler::AnimFrameAnimEnded, this, _1, _2));
   }
 
   frame->Cache(text, font(EActive));
@@ -612,10 +607,8 @@ void Ruler::MainFrameAnimEnded(bool isVisible, RulerFrame * frame)
 
 void Ruler::AnimFrameAnimEnded(bool /*isVisible*/, RulerFrame * frame)
 {
-  //m_animFrames.remove(frame);
-  //delete frame;
   delete frame;
-  m_animFrames = NULL;
+  m_animFrame = NULL;
 }
 
 Ruler::RulerFrame * Ruler::GetMainFrame()
@@ -638,9 +631,8 @@ void Ruler::purge()
   delete m_mainFrame;
   m_mainFrame = NULL;
 
-  //GetRangeDeletor(m_animFrames, DeleteFunctor())();
-  delete m_animFrames;
-  m_animFrames = NULL;
+  delete m_animFrame;
+  m_animFrame = NULL;
   setIsVisible(false);
 }
 
@@ -732,8 +724,7 @@ void Ruler::draw(graphics::OverlayRenderer * s, math::Matrix<double, 3, 3> const
 
     RulerFrame * frame = GetMainFrame();
     frame->Draw(s, m);
-    //for_each(m_animFrames.begin(), m_animFrames.end(), bind(&Ruler::RulerFrame::Draw, _1, s, m));
-    if (m_animFrames)
-      m_animFrames->Draw(s, m);
+    if (m_animFrame)
+      m_animFrame->Draw(s, m);
   }
 }

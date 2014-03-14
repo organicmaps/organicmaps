@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "../gui/element.hpp"
 
 #include "../geometry/screenbase.hpp"
@@ -96,8 +95,7 @@ private:
   RulerFrame * GetMainFrame();
   RulerFrame * GetMainFrame() const;
   RulerFrame * m_mainFrame;
-  //list<RulerFrame *> m_animFrames;
-  RulerFrame * m_animFrames;
+  RulerFrame * m_animFrame;
 
   Framework * m_framework;
 
