@@ -6,5 +6,6 @@
     <stroke
         android:width="3dp"
         android:color="@color/ui_20_green" />
+    <solid android:color="@android:color/transparent" />
 
 </shape>
