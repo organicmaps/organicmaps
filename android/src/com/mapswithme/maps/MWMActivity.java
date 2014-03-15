@@ -14,7 +14,6 @@ import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,7 +31,6 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -640,7 +638,7 @@ public class MWMActivity extends NvEventQueueActivity
             final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
             final String body = getString(R.string.my_position_share_sms, geoUrl, httpUrl);
             // we use shortest message we can have here
-            ShareAction.getAnyShare().shareWithText(getActivity(), body,"");
+            ShareAction.getAnyShare().shareWithText(getActivity(), body, "");
           }
           else
           {
@@ -691,7 +689,7 @@ public class MWMActivity extends NvEventQueueActivity
           final float dY = e2.getY() - e1.getY();
           if (Math.abs(dX) > Math.abs(dY)) // is closer to horizontal
           {
-              mDrawerLayout.openDrawer(mMainDrawer);
+            mDrawerLayout.openDrawer(mMainDrawer);
             return true;
           }
         }
@@ -704,7 +702,6 @@ public class MWMActivity extends NvEventQueueActivity
 
     toggleDrawer.setOnTouchListener(new OnTouchListener()
     {
-
       @Override
       public boolean onTouch(View v, MotionEvent event)
       {
@@ -719,33 +716,39 @@ public class MWMActivity extends NvEventQueueActivity
     findViewById(R.id.map_button_share_myposition).setOnClickListener(drawerItemsClickListener);
     findViewById(R.id.buy_pro).setOnClickListener(drawerItemsClickListener);
 
+    if (isPro || Yota.isYota())
+    {
+      final TextView bookmarksView = (TextView) findViewById(R.id.map_button_bookmarks);
 
+      // Make post stuff because of Android strange behavior:
+      // direct call doesn't work on Sony LT devices.
+      // http://stackoverflow.com/questions/20423445/setcompounddrawableswithintrinsicboundsint-int-int-int-not-working
+      bookmarksView.post(new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          bookmarksView.setCompoundDrawablesWithIntrinsicBounds(
+              R.drawable.ic_bookmarks_selector, 0, 0, 0);
+        }
+      });
+    }
 
-    final TextView bookmarksView = (TextView) findViewById(R.id.map_button_bookmarks);
-
-    final Resources res = getResources();
-
-    bookmarksView
-      .setCompoundDrawablesWithIntrinsicBounds(res.getDrawable(R.drawable.ic_bookmarks_selector), null,
-        isPro || Yota.isYota() ? null : res.getDrawable(R.drawable.ic_probadge), null);
-
-
-    final Button buyProButton = (Button)findViewById(R.id.buy_pro);
     if (isPro)
-      UiUtils.hide(buyProButton);
+      UiUtils.hide(findViewById(R.id.buy_pro));
   }
 
   private void yotaSetup()
   {
-    // yota setup
     mYopItButton = findViewById(R.id.yop_it);
     if (!Yota.isYota())
+    {
       mYopItButton.setVisibility(View.INVISIBLE);
+    }
     else
     {
       mYopItButton.setOnClickListener(new OnClickListener()
       {
-
         @Override
         public void onClick(View v)
         {
