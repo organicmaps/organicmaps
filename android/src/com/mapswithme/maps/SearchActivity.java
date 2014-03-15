@@ -527,7 +527,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         if (s.length() == 0) // enable voice input
         {
           UiUtils.invisible(mClearQueryBtn);
-          UiUtils.hideIf(!InputUtils.isVoiceInputSupported(SearchActivity.this), mVoiceInput);
+          UiUtils.showIf(InputUtils.isVoiceInputSupported(SearchActivity.this), mVoiceInput);
         }
         else // show clear cross
         {

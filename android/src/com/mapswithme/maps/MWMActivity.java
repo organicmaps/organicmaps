@@ -981,10 +981,9 @@ public class MWMActivity extends NvEventQueueActivity
 
     startWatchingExternalStorage();
 
-    if (SettingsActivity.isZoomButtonsEnabled(mApplication))
-      UiUtils.show(findViewById(R.id.map_button_plus), findViewById(R.id.map_button_minus));
-    else
-      UiUtils.hide(findViewById(R.id.map_button_plus), findViewById(R.id.map_button_minus));
+    UiUtils.showIf(SettingsActivity.isZoomButtonsEnabled(mApplication),
+                   findViewById(R.id.map_button_plus),
+                   findViewById(R.id.map_button_minus));
 
     alignControls();
 
@@ -1462,7 +1461,7 @@ public class MWMActivity extends NvEventQueueActivity
   public void onBodyVisibilityChanged(boolean isVisible)
   {
     // If body is visible -- hide my location and drawer buttons
-    UiUtils.hideIf(isVisible, findViewById(R.id.map_buttons_bottom_ref));
+    UiUtils.showIf(!isVisible, findViewById(R.id.map_buttons_bottom_ref));
   }
 
   // Need it for search

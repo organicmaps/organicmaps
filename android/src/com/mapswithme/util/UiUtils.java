@@ -62,12 +62,12 @@ public final class UiUtils
       v.setVisibility(View.INVISIBLE);
   }
 
-  public static void hideIf(boolean condition, View... views)
+  public static void showIf(boolean isShow, View... views)
   {
-    if (condition)
-      hide(views);
-    else
+    if (isShow)
       show(views);
+    else
+      hide(views);
   }
 
   public static void animateAndHide(final View target, Animation anim)
@@ -234,7 +234,7 @@ public final class UiUtils
     checkNotNull(tv);
 
     tv.setText(text);
-    tv.setVisibility((text == null || text.length() == 0) ? View.INVISIBLE : View.VISIBLE);
+    tv.setVisibility((text == null || text.length() == 0) ? View.GONE : View.VISIBLE);
   }
 
   // utility class

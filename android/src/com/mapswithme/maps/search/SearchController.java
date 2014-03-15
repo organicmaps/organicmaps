@@ -64,7 +64,7 @@ public class SearchController implements OnClickListener
     UiUtils.hide(mSearchProgress);
     UiUtils.hide(mVoiceInput);
 
-    UiUtils.hideIf(!isSearching(), mClearView);
+    UiUtils.showIf(isSearching(), mClearView);
   }
 
   @Override
