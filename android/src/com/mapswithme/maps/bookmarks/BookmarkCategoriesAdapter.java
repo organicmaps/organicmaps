@@ -22,6 +22,11 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
   private final static int ITEM = 0;
   private final static int HELP = 1;
 
+  public boolean isActiveItem(int position)
+  {
+    return getItemViewType(position) != HELP;
+  }
+
   @Override
   public int getCount()
   {
@@ -31,21 +36,13 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
   @Override
   public int getItemViewType(int position)
   {
-    if (position == getCount() - 1) return HELP;
-    return ITEM;
+    return (position == getCount() - 1) ? HELP : ITEM;
   }
 
   @Override
   public int getViewTypeCount()
   {
     return 2;
-  }
-
-  public boolean isActiveItem(int position)
-  {
-    return getItemViewType(position) != HELP
-        && position < getCount()
-        && position >= 0;
   }
 
   @Override
@@ -84,7 +81,7 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
     psh.categoryId = position;
     // name
     psh.name.setText(set.getName() + " ("+String.valueOf(set.getSize())+")");
-    // visiblity
+    // visibility
     psh.visibilityCheckBox.setChecked(set.isVisible());
 
     return convertView;

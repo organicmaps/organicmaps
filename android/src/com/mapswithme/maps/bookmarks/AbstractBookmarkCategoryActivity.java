@@ -1,65 +1,30 @@
 package com.mapswithme.maps.bookmarks;
 
-import android.content.Intent;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
+import android.os.Bundle;
+import android.widget.BaseAdapter;
 
-import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.MapsWithMeBaseListActivity;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 
-public abstract class AbstractBookmarkCategoryActivity extends AbstractBookmarkListActivity
+public abstract class AbstractBookmarkCategoryActivity extends MapsWithMeBaseListActivity
 {
-  private int mSelectedPosition;
+  protected BookmarkManager mManager;
 
   @Override
-  public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
+  public void onCreate(Bundle savedInstanceState)
   {
-    final AbstractBookmarkCategoryAdapter absAdapter = getAdapter();
-    if (menuInfo instanceof AdapterView.AdapterContextMenuInfo &&
-        absAdapter instanceof BookmarkCategoriesAdapter)
-    {
-      final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-      final BookmarkCategoriesAdapter adapter = (BookmarkCategoriesAdapter)absAdapter;
-      if (adapter.isActiveItem(info.position))
-      {
-        mSelectedPosition = info.position;
-        menu.setHeaderTitle(mManager.getCategoryById(mSelectedPosition).getName());
-      }
-    }
-    super.onCreateContextMenu(menu, v, menuInfo);
-  }
+    super.onCreate(savedInstanceState);
 
-  @Override
-  public boolean onContextItemSelected(MenuItem item)
-  {
-    final int itemId = item.getItemId();
-    if (itemId == R.id.set_edit)
-    {
-      startActivity(new Intent(this, BookmarkListActivity.class).
-                    putExtra(BookmarkActivity.PIN_SET, mSelectedPosition).
-                    putExtra(BookmarkListActivity.EDIT_CONTENT, enableEditing()));
-    }
-    else if (itemId == R.id.set_delete)
-    {
-      mManager.deleteCategory(mSelectedPosition);
-      getAdapter().notifyDataSetChanged();
-    }
-    return super.onContextItemSelected(item);
-  }
-
-  protected abstract boolean enableEditing();
-
-  protected AbstractBookmarkCategoryAdapter getAdapter()
-  {
-    return ((AbstractBookmarkCategoryAdapter) getListView().getAdapter());
+    mManager = BookmarkManager.getBookmarkManager(getApplicationContext());
   }
 
   @Override
   protected void onStart()
   {
     super.onStart();
+
     getAdapter().notifyDataSetChanged();
   }
+
+  protected abstract BaseAdapter getAdapter();
 }

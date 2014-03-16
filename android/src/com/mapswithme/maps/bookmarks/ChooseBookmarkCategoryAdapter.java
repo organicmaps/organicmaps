@@ -29,11 +29,13 @@ public class ChooseBookmarkCategoryAdapter extends AbstractBookmarkCategoryAdapt
       convertView.setTag(new SingleChoiceHolder((TextView) convertView.findViewById(R.id.sci_set_name),
           (RadioButton) convertView.findViewById(R.id.sci_checkbox)));
     }
-    SingleChoiceHolder holder = (SingleChoiceHolder) convertView.getTag();
+
+    final SingleChoiceHolder holder = (SingleChoiceHolder) convertView.getTag();
     boolean checked = mCheckedPosition == position;
     holder.name.setText(getItem(position).getName());
     holder.name.setTextAppearance(getContext(), checked ? android.R.style.TextAppearance_Large : android.R.style.TextAppearance_Medium);
     holder.checked.setChecked(checked);
+
     return convertView;
   }
 

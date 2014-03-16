@@ -28,14 +28,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.MapsWithMeBaseActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
-public class BookmarkActivity extends AbstractBookmarkActivity
+public class BookmarkActivity extends MapsWithMeBaseActivity
 {
   private static final int BOOKMARK_COLOR_DIALOG = 11002;
 
@@ -46,6 +48,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   public static final int REQUEST_CODE_SET = 0x1;
   public static final String BOOKMARK_NAME = "bookmark_name";
 
+  private BookmarkManager mManager;
   private Bookmark mPin;
   private EditText mName;
   private View     mClearName;
@@ -73,18 +76,18 @@ public class BookmarkActivity extends AbstractBookmarkActivity
 
     setContentView(R.layout.add_or_edit_bookmark);
 
-    // Note that Point result from the intent is actually a pair of (category index, bookmark index in category).
-    assert(getIntent().getExtras().containsKey(PIN));
+    // Note that Point result from the intent is actually a pair of
+    // (category index, bookmark index in category).
     final Point cab = ((ParcelablePoint)getIntent().getParcelableExtra(PIN)).getPoint();
 
+    mManager = BookmarkManager.getBookmarkManager(getApplicationContext());
     mPin = mManager.getBookmark(cab.x, cab.y);
     mCurrentCategoryId = mPin.getCategoryId();
 
     setTitle(mPin.getName());
     setUpViews();
 
-
-
+    // Adapt UI according to API version: leave ActionBar or Buttons.
     if (Utils.apiEqualOrGreaterThan(11) && getActionBar() != null)
     {
       final ActionBar ab = getActionBar();
@@ -111,10 +114,10 @@ public class BookmarkActivity extends AbstractBookmarkActivity
           onDeleteClick(null);
         }
       });
+
       UiUtils.hide(findViewById(R.id.btn_done), findViewById(R.id.btn_delete));
     }
   }
-
 
   private void updateColorChooser(Icon icon)
   {

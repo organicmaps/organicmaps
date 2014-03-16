@@ -23,24 +23,25 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.MapsWithMeBaseListActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.Utils;
 
 
-public class BookmarkListActivity extends AbstractBookmarkListActivity
+public class BookmarkListActivity extends MapsWithMeBaseListActivity
 {
   public static final String TAG = "BookmarkListActivity";
-  public static final String EDIT_CONTENT = "edit_content";
 
+  private BookmarkManager mManager;
   private EditText mSetName;
   private BookmarkCategory mEditedSet;
   private int mSelectedPosition;
   private BookmarkListAdapter mPinAdapter;
-  private boolean mEditContent;
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -48,35 +49,38 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
     super.onCreate(savedInstanceState);
     setContentView(R.layout.bookmarks_list);
 
-    final int setIndex = getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1);
-    mEditContent = getIntent().getBooleanExtra(EDIT_CONTENT, true);
-    mEditedSet = mManager.getCategoryById(setIndex);
-    setTitle(mEditedSet.getName());
+    mManager = BookmarkManager.getBookmarkManager(getApplicationContext());
 
-    if (mEditedSet != null)
-      createListAdapter();
+    // Initialize with passed edited set.
+    final int setIndex = getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1);
+    mEditedSet = mManager.getCategoryById(setIndex);
+
+    setTitle(mEditedSet.getName());
+    createListAdapter();
 
     setUpViews();
+
     getListView().setOnItemClickListener(new OnItemClickListener()
     {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id)
       {
-
-        final int type = mPinAdapter.getItemViewType(position);
-
-        if (type == BookmarkListAdapter.TYPE_SECTION)
-          return;
-
-        if (type == BookmarkListAdapter.TYPE_BMK)
+        switch (mPinAdapter.getItemViewType(position))
         {
-          final Bookmark bmk = (Bookmark) mPinAdapter.getItem(position);
-          mManager.showBookmarkOnMap(setIndex, bmk.getBookmarkId());
-        }
-        else
-        {
-          final Track track = (Track) mPinAdapter.getItem(position);
-          Framework.showTrackRect(track);
+          case BookmarkListAdapter.TYPE_SECTION:
+            return;
+          case BookmarkListAdapter.TYPE_BMK:
+          {
+            final Bookmark bmk = (Bookmark) mPinAdapter.getItem(position);
+            mManager.showBookmarkOnMap(setIndex, bmk.getBookmarkId());
+            break;
+          }
+          case BookmarkListAdapter.TYPE_TRACK:
+          {
+            final Track track = (Track) mPinAdapter.getItem(position);
+            Framework.showTrackRect(track);
+            break;
+          }
         }
 
         final Intent i = new Intent(BookmarkListActivity.this, MWMActivity.class);
@@ -97,7 +101,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       shareButton.setOnClickListener(new OnClickListener()
       {
         @Override
-        public void onClick(View v) { onSendEMail(shareButton); }
+        public void onClick(View v) { onSendEMail(); }
       });
     }
     else
@@ -106,29 +110,26 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
 
   private void createListAdapter()
   {
-    setListAdapter(mPinAdapter = new BookmarkListAdapter(this,
-                                                         ((MWMApplication) getApplication()).getLocationService(),
-                                                         mEditedSet));
+    mPinAdapter = new BookmarkListAdapter(this,
+        ((MWMApplication) getApplication()).getLocationService(),
+        mEditedSet);
+
+    setListAdapter(mPinAdapter);
 
     mPinAdapter.startLocationUpdate();
   }
 
   private void assignCategoryParams()
   {
-    if (mEditedSet != null)
-    {
-      final String name = mSetName.getText().toString();
-      if (!name.equals(mEditedSet.getName()))
-        mManager.setCategoryName(mEditedSet, name);
-    }
+    final String name = mSetName.getText().toString();
+    if (!name.equals(mEditedSet.getName()))
+      mManager.setCategoryName(mEditedSet, name);
   }
 
   private void setUpViews()
   {
     mSetName = (EditText) findViewById(R.id.pin_set_name);
-    if (mEditedSet != null)
-      mSetName.setText(mEditedSet.getName());
-
+    mSetName.setText(mEditedSet.getName());
     mSetName.addTextChangedListener(new TextWatcher()
     {
       @Override
@@ -150,41 +151,39 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       {
       }
     });
-
   }
 
   @Override
   public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
   {
-    if (mEditContent)
+    assignCategoryParams();
+
+    // Some list views can be section delimiters.
+    if (menuInfo instanceof AdapterView.AdapterContextMenuInfo)
     {
-      assignCategoryParams();
+      final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
 
-      if (menuInfo instanceof AdapterView.AdapterContextMenuInfo)
+      mSelectedPosition = info.position;
+      final Object obj = mPinAdapter.getItem(mSelectedPosition);
+      final int type = mPinAdapter.getItemViewType(mSelectedPosition);
+
+      if (type == BookmarkListAdapter.TYPE_BMK)
       {
-        final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        mSelectedPosition = info.position;
+        final MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.pin_sets_context_menu, menu);
 
-        final int type = mPinAdapter.getItemViewType(mSelectedPosition);
-        if (type == BookmarkListAdapter.TYPE_BMK)
+        for (final ShareAction sa : ShareAction.ACTIONS.values())
         {
-          final MenuInflater inflater = getMenuInflater();
-          inflater.inflate(R.menu.pin_sets_context_menu, menu);
+          if (sa.isSupported(this))
+            menu.add(Menu.NONE, sa.getId(), sa.getId(), getResources().getString(sa.getNameResId()));
+        }
 
-          for (final ShareAction sa : ShareAction.ACTIONS.values())
-          {
-            if (sa.isSupported(this))
-              menu.add(Menu.NONE, sa.getId(), sa.getId(), getResources().getString(sa.getNameResId()));
-          }
-          final Bookmark bmk = (Bookmark) mPinAdapter.getItem(mSelectedPosition);
-          menu.setHeaderTitle(bmk.getName());
-        }
-        else if (type == BookmarkListAdapter.TYPE_TRACK)
-        {
-          menu.add(Menu.NONE, MENU_DELETE_TRACK, MENU_DELETE_TRACK, getString(R.string.delete));
-          final Track trk = (Track) mPinAdapter.getItem(mSelectedPosition);
-          menu.setHeaderTitle(trk.getName());
-        }
+        menu.setHeaderTitle(((Bookmark) obj).getName());
+      }
+      else if (type == BookmarkListAdapter.TYPE_TRACK)
+      {
+        menu.add(Menu.NONE, MENU_DELETE_TRACK, MENU_DELETE_TRACK, getString(R.string.delete));
+        menu.setHeaderTitle(((Track) obj).getName());
       }
 
       super.onCreateContextMenu(menu, v, menuInfo);
@@ -196,26 +195,25 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   public boolean onContextItemSelected(MenuItem item)
   {
     final int itemId = item.getItemId();
+    final Object obj = mPinAdapter.getItem(mSelectedPosition);
+
     if (itemId == R.id.set_edit)
     {
-      final Bookmark bmk = (Bookmark) mPinAdapter.getItem(mSelectedPosition);
-      startPinActivity(mEditedSet.getId(), bmk.getBookmarkId());
+      startPinActivity(mEditedSet.getId(), ((Bookmark) obj).getBookmarkId());
     }
     else if (itemId == R.id.set_delete)
     {
-      mManager.deleteBookmark((Bookmark) mPinAdapter.getItem(mSelectedPosition));
+      mManager.deleteBookmark((Bookmark) obj);
       mPinAdapter.notifyDataSetChanged();
     }
     else if (ShareAction.ACTIONS.containsKey(itemId))
     {
       final ShareAction shareAction = ShareAction.ACTIONS.get(itemId);
-      final Bookmark bmk = (Bookmark) mPinAdapter.getItem(mSelectedPosition);
-      shareAction.shareMapObject(this, bmk);
+      shareAction.shareMapObject(this, (Bookmark) obj);
     }
     else if (itemId == MENU_DELETE_TRACK)
     {
-      final Track track = (Track) mPinAdapter.getItem(mSelectedPosition);
-      mManager.deleteTrack(track);
+      mManager.deleteTrack((Track) obj);
       mPinAdapter.notifyDataSetChanged();
     }
 
@@ -233,8 +231,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   {
     super.onStart();
 
-    if (mPinAdapter != null)
-      mPinAdapter.notifyDataSetChanged();
+    mPinAdapter.notifyDataSetChanged();
   }
 
   @Override
@@ -242,8 +239,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   {
     assignCategoryParams();
 
-    if (mPinAdapter != null)
-      mPinAdapter.stopLocationUpdate();
+    mPinAdapter.stopLocationUpdate();
 
     super.onPause();
   }
@@ -253,11 +249,10 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   {
     super.onResume();
 
-    if (mPinAdapter != null)
-      mPinAdapter.startLocationUpdate();
+    mPinAdapter.startLocationUpdate();
   }
 
-  public void onSendEMail(View v)
+  private void onSendEMail()
   {
     assignCategoryParams();
 
@@ -265,7 +260,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
     final String name = mManager.saveToKMZFile(mEditedSet.getId(), path);
     if (name == null)
     {
-      // some error occured
+      // some error occurred
       return;
     }
 
@@ -310,10 +305,9 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   @Override
   public boolean onOptionsItemSelected(MenuItem item)
   {
-
     if (item.getItemId() == ID_SEND_BY_EMAIL)
     {
-      onSendEMail(null);
+      onSendEMail();
       return true;
     }
 

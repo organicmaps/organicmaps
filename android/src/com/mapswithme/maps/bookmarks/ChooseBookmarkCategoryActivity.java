@@ -4,8 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
+import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,14 +25,28 @@ import com.mapswithme.util.statistics.Statistics;
 
 public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActivity
 {
-  private static final int REQUEST_CREATE_CATEGORY = 1000;
-  private ChooseBookmarkCategoryAdapter mAdapter;
   private FooterHandler m_handler;
+
+  private Bookmark getBookmarkFromIntent()
+  {
+    // Note that Point result from the intent is actually a pair
+    // of (category index, bookmark index in category).
+    final Point cab = ((ParcelablePoint) getIntent().getParcelableExtra(BookmarkActivity.PIN)).getPoint();
+    return mManager.getBookmark(cab.x, cab.y);
+  }
+
+  @Override
+  protected ChooseBookmarkCategoryAdapter getAdapter()
+  {
+    return (ChooseBookmarkCategoryAdapter) ((HeaderViewListAdapter) getListView().getAdapter()).getWrappedAdapter();
+  }
 
   @Override
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+
+    setListAdapter(new ChooseBookmarkCategoryAdapter(this, getIntent().getIntExtra(BookmarkActivity.PIN_SET, 0)));
 
     m_handler = new FooterHandler();
     getListView().setOnItemClickListener(new OnItemClickListener()
@@ -42,18 +55,17 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
       public void onItemClick(AdapterView<?> parent, View view, int position, long id)
       {
         m_handler.switchToAddButton();
-        mAdapter.chooseItem(position);
+        getAdapter().chooseItem(position);
 
-        // Note that Point result from the intent is actually a pair of (category index, bookmark index in category).
-        final Point cab = ((ParcelablePoint)getIntent().getParcelableExtra(BookmarkActivity.PIN)).getPoint();
-        Bookmark bmk = mManager.getBookmark(cab.x, cab.y);
+        final Bookmark bmk = getBookmarkFromIntent();
         bmk.setCategoryId(position);
-        getIntent().putExtra(BookmarkActivity.PIN, new ParcelablePoint(position, bmk.getBookmarkId()));
+        getIntent().putExtra(BookmarkActivity.PIN,
+            new ParcelablePoint(bmk.getCategoryId(), bmk.getBookmarkId()));
 
         onBackPressed();
       }
     });
-    setListAdapter(mAdapter = new ChooseBookmarkCategoryAdapter(this, getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1)));
+
     registerForContextMenu(getListView());
   }
 
@@ -61,40 +73,23 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
   public void onBackPressed()
   {
     m_handler.createCategoryIfNeeded();
+
     setResult(RESULT_OK, new Intent().putExtra(BookmarkActivity.PIN, getIntent().getParcelableExtra(BookmarkActivity.PIN)));
 
     super.onBackPressed();
   }
 
   @Override
-  public void onCreateContextMenu(ContextMenu menu, View v,
-                                  ContextMenuInfo menuInfo)
-  {
-    getMenuInflater().inflate(R.menu.choose_pin_sets_context_menu, menu);
-    super.onCreateContextMenu(menu, v, menuInfo);
-  }
-
-  @Override
-  protected ChooseBookmarkCategoryAdapter getAdapter()
-  {
-    return (ChooseBookmarkCategoryAdapter)((HeaderViewListAdapter) getListView().getAdapter()).getWrappedAdapter();
-  }
-
-  @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data)
   {
-    if (requestCode == REQUEST_CREATE_CATEGORY && resultCode == RESULT_OK)
+    if (resultCode == RESULT_OK)
     {
-      mAdapter.chooseItem(data.getIntExtra(BookmarkActivity.PIN_SET, 0));
+      getAdapter().chooseItem(data.getIntExtra(BookmarkActivity.PIN_SET, 0));
+
       getIntent().putExtra(BookmarkActivity.PIN, data.getParcelableExtra(BookmarkActivity.PIN));
     }
-    super.onActivityResult(requestCode, resultCode, data);
-  }
 
-  @Override
-  protected boolean enableEditing()
-  {
-    return false;
+    super.onActivityResult(requestCode, resultCode, data);
   }
 
   private class FooterHandler implements View.OnClickListener
@@ -104,13 +99,16 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
     Button mAddButton;
     ImageButton mCancel;
     View mNewLayout;
+
     InputMethodManager mImm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
     private void createCategory()
     {
-      if (mNewName.getText().length() > 0)
+      final Editable e = mNewName.getText();
+      if (e.length() > 0)
       {
-        createNewCategory(mNewName.getText().toString());
+        createNewCategory(e.toString());
+
         mImm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
       }
     }
@@ -128,6 +126,7 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
     {
       mRootView = getLayoutInflater().inflate(R.layout.choose_category_footer, null);
       getListView().addFooterView(mRootView);
+
       mNewName = (EditText)mRootView.findViewById(R.id.chs_footer_field);
 
       mAddButton = (Button)mRootView.findViewById(R.id.chs_footer_button);
@@ -147,13 +146,15 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
       mCancel.setOnClickListener(this);
 
       mNewLayout = mRootView.findViewById(R.id.chs_footer_new_layout);
+
       mNewName.setOnEditorActionListener(new EditText.OnEditorActionListener()
       {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
         {
           if (actionId == EditorInfo.IME_ACTION_DONE ||
-              (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
+              (event.getAction() == KeyEvent.ACTION_DOWN &&
+               event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
           {
             createCategory();
             return true;
@@ -165,9 +166,7 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
 
     private void createNewCategory(String name)
     {
-      // Note that Point result from the intent is actually a pair of (category index, bookmark index in category).
-      final Point cab = ((ParcelablePoint)getIntent().getParcelableExtra(BookmarkActivity.PIN)).getPoint();
-      final int index = mManager.createCategory(mManager.getBookmark(cab.x, cab.y), name);
+      final int index = mManager.createCategory(getBookmarkFromIntent(), name);
 
       getIntent().putExtra(BookmarkActivity.PIN_SET, index)
       .putExtra(BookmarkActivity.PIN, new ParcelablePoint(index, 0));

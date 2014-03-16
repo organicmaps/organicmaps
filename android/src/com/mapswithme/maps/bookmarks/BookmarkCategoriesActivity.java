@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -13,29 +14,35 @@ import com.mapswithme.maps.R;
 
 public class BookmarkCategoriesActivity extends AbstractBookmarkCategoryActivity
 {
+  private int mSelectedPosition;
 
   @Override
-  protected void onCreate(Bundle savedInstanceState)
+  protected BookmarkCategoriesAdapter getAdapter()
+  {
+    return (BookmarkCategoriesAdapter) getListView().getAdapter();
+  }
+
+  @Override
+  public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.categories);
-    final ListView listView = getListView();
-    final BookmarkCategoriesAdapter adapter = new BookmarkCategoriesAdapter(this);
-    listView.setAdapter(adapter);
-    listView.setOnItemClickListener(new OnItemClickListener()
-    {
 
+    final ListView lv = getListView();
+    lv.setAdapter(new BookmarkCategoriesAdapter(this));
+    lv.setOnItemClickListener(new OnItemClickListener()
+    {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id)
       {
-        if (adapter.isActiveItem(position))
+        if (getAdapter().isActiveItem(position))
         {
           startActivity(new Intent(BookmarkCategoriesActivity.this, BookmarkListActivity.class)
           .putExtra(BookmarkActivity.PIN_SET, position));
         }
       }
-
     });
+
     registerForContextMenu(getListView());
   }
 
@@ -43,17 +50,28 @@ public class BookmarkCategoriesActivity extends AbstractBookmarkCategoryActivity
   public void onCreateContextMenu(ContextMenu menu, View v,
                                   ContextMenuInfo menuInfo)
   {
-    final BookmarkCategoriesAdapter adapter = (BookmarkCategoriesAdapter)getAdapter();
-    if (adapter.isActiveItem(((AdapterView.AdapterContextMenuInfo)menuInfo).position))
+    mSelectedPosition = ((AdapterView.AdapterContextMenuInfo)menuInfo).position;
+    if (getAdapter().isActiveItem(mSelectedPosition))
     {
       getMenuInflater().inflate(R.menu.bookmark_categories_context_menu, menu);
+      menu.setHeaderTitle(mManager.getCategoryById(mSelectedPosition).getName());
+
       super.onCreateContextMenu(menu, v, menuInfo);
     }
+    else
+      mSelectedPosition = -1;
   }
 
   @Override
-  protected boolean enableEditing()
+  public boolean onContextItemSelected(MenuItem item)
   {
-    return true;
+    if (item.getItemId() == R.id.set_delete)
+    {
+      assert (mSelectedPosition != -1);
+      mManager.deleteCategory(mSelectedPosition);
+      getAdapter().notifyDataSetChanged();
+    }
+
+    return super.onContextItemSelected(item);
   }
 }

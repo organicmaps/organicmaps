@@ -30,7 +30,6 @@ public class BookmarkListAdapter extends BaseAdapter
 {
   private final Activity mContext;
   private final BookmarkCategory mCategory;
-  private double mNorth = -1;
   private final LocationService mLocation;
 
   // reuse drawables
@@ -59,19 +58,22 @@ public class BookmarkListAdapter extends BaseAdapter
   {
     return 3; // bookmark + track + section
   }
-  final static int TYPE_TRACK = 0;
-  final static int TYPE_BMK   = 1;
-  final static int TYPE_SECTION   = 2;
+  final static int TYPE_TRACK   = 0;
+  final static int TYPE_BMK     = 1;
+  final static int TYPE_SECTION = 2;
 
   @Override
   public int getItemViewType(int position)
   {
-    if (position == getBookmarksSectionPosition() || position == getTracksSectionPosition())
+    final int bmkPos = getBookmarksSectionPosition();
+    final int trackPos = getTracksSectionPosition();
+
+    if (position == bmkPos || position == trackPos)
       return TYPE_SECTION;
 
-    if (position > getBookmarksSectionPosition() && !isSectionEmpty(SECTION_BMKS))
+    if (position > bmkPos && !isSectionEmpty(SECTION_BMKS))
       return TYPE_BMK;
-    else if (position > getTracksSectionPosition() && !isSectionEmpty(SECTION_TRACKS))
+    else if (position > trackPos && !isSectionEmpty(SECTION_TRACKS))
       return TYPE_TRACK;
 
     throw new IllegalArgumentException("Position not found: " + position);
@@ -98,6 +100,7 @@ public class BookmarkListAdapter extends BaseAdapter
         sectionView = convertView;
         sectionName = (TextView) sectionView.getTag();
       }
+
       final int sectionIndex = getSectionForPosition(position);
       sectionName.setText(getSections().get(sectionIndex));
       return sectionView;
@@ -105,12 +108,12 @@ public class BookmarkListAdapter extends BaseAdapter
 
     if (convertView == null)
     {
-      final int lId = type == TYPE_BMK ? R.layout.list_item_bookmark : R.layout.list_item_track;
-      convertView = LayoutInflater.from(mContext).inflate(lId, null);
+      final int id = (type == TYPE_BMK) ? R.layout.list_item_bookmark : R.layout.list_item_track;
+      convertView = LayoutInflater.from(mContext).inflate(id, null);
       convertView.setTag(new PinHolder(convertView));
     }
-    final PinHolder holder = (PinHolder) convertView.getTag();
 
+    final PinHolder holder = (PinHolder) convertView.getTag();
     if (type == TYPE_BMK)
       holder.set((Bookmark)getItem(position));
     else
@@ -152,15 +155,7 @@ public class BookmarkListAdapter extends BaseAdapter
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    final double north[] = { magneticNorth, trueNorth };
-    mLocation.correctCompassAngles(mContext.getWindowManager().getDefaultDisplay(), north);
-    final double ret = (north[1] >= 0.0 ? north[1] : north[0]);
-
-    if (mNorth == -1 || Math.abs(mNorth - ret) > 0.02)
-    {
-      mNorth = ret;
-      notifyDataSetChanged();
-    }
+    // We don't show any arrows for bookmarks any more.
   }
 
   @Override
@@ -196,7 +191,7 @@ public class BookmarkListAdapter extends BaseAdapter
       final Location loc = mLocation.getLastKnown();
       if (loc != null)
       {
-        final DistanceAndAzimut daa = bmk.getDistanceAndAzimut(loc.getLatitude(), loc.getLongitude(), mNorth);
+        final DistanceAndAzimut daa = bmk.getDistanceAndAzimut(loc.getLatitude(), loc.getLongitude(), 0.0);
         distance.setText(daa.getDistance());
       }
       else
@@ -230,7 +225,7 @@ public class BookmarkListAdapter extends BaseAdapter
     {
       final Resources res = mContext.getResources();
       final int circleSize = (int) (res.getDimension(R.dimen.circle_size) + .5);
-      // colors could be different, so dont use cache
+      // colors could be different, so don't use cache
       final Drawable circle = UiUtils.drawCircle(trk.getColor(), circleSize, res);
       icon.setImageDrawable(circle);
     }
