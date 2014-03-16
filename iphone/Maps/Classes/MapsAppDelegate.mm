@@ -158,9 +158,11 @@ void InitLocalizedStrings()
   attributes[UITextAttributeTextShadowColor] = [UIColor clearColor];
   [[UINavigationBar appearance] setTintColor:[UIColor colorWithColorCode:@"393655"]];
   if (!SYSTEM_VERSION_IS_LESS_THAN(@"7")) {
+    [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
+    [[UIBarButtonItem appearance] setTitleTextAttributes:attributes forState:UIControlStateNormal];
+
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground7"] forBarMetrics:UIBarMetricsDefault];
     attributes[UITextAttributeFont] = [UIFont fontWithName:@"HelveticaNeue" size:17.5];
-    [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
   }
   if ([UINavigationBar instancesRespondToSelector:@selector(setShadowImage:)])
     [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
