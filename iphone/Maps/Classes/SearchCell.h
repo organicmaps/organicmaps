@@ -1,12 +1,15 @@
+
 #import <UIKit/UIKit.h>
+
+typedef NS_ENUM(NSUInteger, SearchCellPosition) {
+  SearchCellPositionFirst = 1,
+  SearchCellPositionMiddle = 2,
+  SearchCellPositionLast = 3,
+  SearchCellPositionAlone = 4,
+};
 
 @interface SearchCell : UITableViewCell
 
-@property (nonatomic, readonly) UILabel * featureName;
-@property (nonatomic, readonly) UILabel * featureType;
-@property (nonatomic, readonly) UILabel * featureCountry;
-@property (nonatomic, readonly) UILabel * featureDistance;
-
-- (id)initWithReuseIdentifier:(NSString *)identifier;
+@property (nonatomic) SearchCellPosition position;
 
 @end

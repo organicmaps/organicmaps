@@ -1,5 +1,4 @@
 #import "MapViewController.h"
-#import "SearchVC.h"
 #import "MapsAppDelegate.h"
 #import "EAGLView.h"
 #import "BookmarksRootVC.h"
@@ -19,6 +18,8 @@
 #import "InAppMessagesManager.h"
 #import "InterstitialView.h"
 #import "MoreAppsVC.h"
+#import "PlacePageView.h"
+#import "SearchView.h"
 
 #import "../Settings/SettingsManager.h"
 #import "../../Common/CustomAlertView.h"
@@ -42,12 +43,13 @@
 const long long PRO_IDL = 510623322L;
 const long long LITE_IDL = 431183278L;
 
-@interface MapViewController () <SideToolbarDelegate>
+@interface MapViewController () <SideToolbarDelegate, PlacePageViewDelegate, PlacePageVCDelegate>
 
 @property (nonatomic) LocationButton * locationButton;
-@property (nonatomic) UINavigationBar * apiNavigationBar;
 @property (nonatomic) ShareActionSheet * shareActionSheet;
 @property (nonatomic) UIButton * buyButton;
+@property (nonatomic) PlacePageView * placePageView;
+@property (nonatomic) SearchView * searchView;
 
 @end
 
@@ -142,18 +144,20 @@ const long long LITE_IDL = 431183278L;
 
 #pragma mark - Map Navigation
 
-- (void)positionBallonClickedLat:(double)lat lon:(double)lon
+- (void)poiBalloonClicked:(m2::PointD const &)point info:(search::AddressInfo const &)addressInfo
 {
-  CGPoint const p = CGPointMake(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
-  PlacePreviewViewController * preview = [[PlacePreviewViewController alloc] initWithPoint:p];
-  m_popoverPos = p;
-  [self pushViewController:preview];
+  [self showPlacePageWithPoint:point addressInfo:addressInfo];
+}
+
+- (void)poiBalloonDismissed
+{
+  [self.placePageView setState:PlacePageStateHidden animated:YES];
 }
 
 - (void)additionalLayer:(size_t)index
 {
   Framework & framework = GetFramework();
-  Bookmark const * bookmark = framework.AdditionalPoiLayerGetBookmark(index);
+  Bookmark * bookmark = framework.AdditionalPoiLayerGetBookmark(index);
 
   [self.placePageView showBookmark:*bookmark];
   [self.placePageView setState:PlacePageStateBitShown animated:YES];
@@ -165,12 +169,21 @@ const long long LITE_IDL = 431183278L;
   [self.placePageView setState:PlacePageStateBitShown animated:YES];
 }
 
-- (void)bookmarkBalloonClicked:(BookmarkAndCategory const &)bmAndCat
+- (void)bookmarkBalloonClicked:(BookmarkAndCategory const &)bookmarkAndCategory
 {
-  PlacePageVC * vc = [[PlacePageVC alloc] initWithBookmark:bmAndCat];
-  Bookmark const * bm = GetFramework().GetBmCategory(bmAndCat.first)->GetBookmark(bmAndCat.second);
-  m_popoverPos = CGPointMake(bm->GetOrg().x, bm->GetOrg().y);
-  [self pushViewController:vc];
+  [self showPlacePageWithBookmarkAndCategory:bookmarkAndCategory];
+}
+
+- (void)showPlacePageWithPoint:(m2::PointD)point addressInfo:(search::AddressInfo)addressInfo
+{
+  [self.placePageView showPoint:point addressInfo:addressInfo];
+  [self.placePageView setState:PlacePageStateBitShown animated:YES];
+}
+
+- (void)showPlacePageWithBookmarkAndCategory:(BookmarkAndCategory)bookmarkAndCategory
+{
+  [self.placePageView showBookmarkAndCategory:bookmarkAndCategory];
+  [self.placePageView setState:PlacePageStateBitShown animated:YES];
 }
 
 - (void)onMyPositionClicked:(id)sender
@@ -281,26 +294,6 @@ const long long LITE_IDL = 431183278L;
   [self invalidate];
 }
 
-- (void)showSearchResultAsBookmarkAtMercatorPoint:(const m2::PointD &)pt withInfo:(const search::AddressInfo &)info
-{
-
-}
-
-- (void)showBalloonWithCategoryIndex:(int)cat andBookmarkIndex:(int)bm
-{
-
-}
-
-- (void)poiBalloonDismissed
-{
-
-}
-
-- (void)additionalLayer:(size_t)index
-{
-  
-}
-
 - (void)updatePointsFromEvent:(UIEvent *)event
 {
 	NSSet * allTouches = [event allTouches];
@@ -388,6 +381,8 @@ const long long LITE_IDL = 431183278L;
 
   if (!self.sideToolbar.isMenuHidden)
     [self.sideToolbar setMenuHidden:YES animated:YES];
+  if (self.placePageView.state == PlacePageStateOpened)
+    [self.placePageView setState:PlacePageStateBitShown animated:YES];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -611,10 +606,20 @@ const long long LITE_IDL = 431183278L;
   }
 #endif
 
-  [self.view addSubview:self.apiNavigationBar];
   [self.view addSubview:self.locationButton];
+
+  [self.view addSubview:self.searchView];
+
   [self.view addSubview:self.fadeView];
+
+  UIButton * slideView = [self slideView];
+  [self.view addSubview:slideView];
+
+  [self.view addSubview:self.placePageView];
+
   [self.view addSubview:self.sideToolbar];
+
+  self.sideToolbar.slideView = slideView;
 
   [self.sideToolbar setMenuHidden:YES animated:NO];
 }
@@ -650,10 +655,10 @@ const long long LITE_IDL = 431183278L;
 
     typedef void (*POSITIONBalloonFnT)(id, SEL, double, double);
     typedef void (*POIBalloonFnT)(id, SEL, m2::PointD const &, search::AddressInfo const &);
+    typedef void (*POIBalloonDismissedFnT)(id, SEL);
     typedef void (*APIPOINTBalloonFnT)(id, SEL, url_scheme::ApiPoint const &);
     typedef void (*BOOKMARKBalloonFnT)(id, SEL, BookmarkAndCategory const &);
-    typedef void (*POIBalloonDismissedFnT)(id, SEL);
-    typedef void (*ADDITIONALLayerFnT)(id, SEL, size_t);
+    typedef void (*ADDITIONALLayerFnT)(id, SEL, size_t index);
 
     PinClickManager & manager = f.GetBalloonManager();
 
@@ -715,8 +720,8 @@ const long long LITE_IDL = 431183278L;
   {
     _placePageView = [[PlacePageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 0)];
     _placePageView.minY = self.view.height;
-    _placePageView.delegate = self;
     _placePageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    _placePageView.delegate = self;
     [_placePageView addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
   }
   return _placePageView;
@@ -740,7 +745,7 @@ const long long LITE_IDL = 431183278L;
   if (!_locationButton)
   {
     _locationButton = [[LocationButton alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
-    _locationButton.center = CGPointMake(28, self.view.height - 28);
+    _locationButton.center = CGPointMake(28, LOCATION_BUTTON_MID_Y);
     _locationButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
     [_locationButton addTarget:self action:@selector(onMyPositionClicked:) forControlEvents:UIControlEventTouchUpInside];
   }
@@ -777,37 +782,44 @@ const long long LITE_IDL = 431183278L;
 }
 
 #define SLIDE_VIEW_DARK_PART_TAG 1
+#define SLIDE_VIEW_MID_Y (self.view.height - 35)
 
 - (SideToolbar *)sideToolbar
 {
   if (!_sideToolbar)
   {
-    _sideToolbar = [[SideToolbar alloc] initWithFrame:CGRectMake(self.view.width, 0, 260, self.view.height)];
+    _sideToolbar = [[SideToolbar alloc] initWithFrame:CGRectMake(self.view.width, 0, 310, self.view.height)];
     _sideToolbar.delegate = self;
+  }
+  return _sideToolbar;
+}
 
-    UIButton * toolbarButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 70)];
-    toolbarButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-    toolbarButton.maxX = self.view.width;
-    toolbarButton.midY = self.view.height - 35;
-    [toolbarButton addTarget:self action:@selector(toolbarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+- (UIButton *)slideView
+{
+  UIButton * toolbarButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 70)];
+  toolbarButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+  toolbarButton.maxX = self.view.width;
+  toolbarButton.midY = SLIDE_VIEW_MID_Y;
+  [toolbarButton addTarget:self action:@selector(toolbarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 
-    CGFloat tailShift = 7;
+  CGFloat tailShift = 7;
 
-    UIImageView * tailLight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SlideViewLight"]];
-    tailLight.maxX = toolbarButton.width;
-    tailLight.midY = toolbarButton.height / 2 + tailShift;
-    [toolbarButton addSubview:tailLight];
+  UIImageView * tailLight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SlideViewLight"]];
+  tailLight.maxX = toolbarButton.width;
+  tailLight.midY = toolbarButton.height / 2 + tailShift;
+  [toolbarButton addSubview:tailLight];
 
-    UIImageView * tailDark = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SlideViewDark"]];
-    tailDark.maxX = toolbarButton.width;
-    tailDark.midY = toolbarButton.height / 2 + tailShift;
-    tailDark.alpha = 0;
-    tailDark.tag = SLIDE_VIEW_DARK_PART_TAG;
-    [toolbarButton addSubview:tailDark];
+  UIImageView * tailDark = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SlideViewDark"]];
+  tailDark.maxX = toolbarButton.width;
+  tailDark.midY = toolbarButton.height / 2 + tailShift;
+  tailDark.alpha = 0;
+  tailDark.tag = SLIDE_VIEW_DARK_PART_TAG;
+  [toolbarButton addSubview:tailDark];
 
-    [self.view addSubview:toolbarButton];
+  return toolbarButton;
+}
 
-    _sideToolbar.slideView = toolbarButton;
+#pragma mark - PlacePageViewDelegate
 
 - (void)placePageView:(PlacePageView *)placePage willEditBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory
 {
@@ -819,17 +831,10 @@ const long long LITE_IDL = 431183278L;
 
 - (void)placePageView:(PlacePageView *)placePage willEditBookmarkWithInfo:(search::AddressInfo const &)addressInfo point:(m2::PointD const &)point
 {
-  if (!_apiNavigationBar)
-  {
-    CGFloat height = SYSTEM_VERSION_IS_LESS_THAN(@"7") ? 44 : 64;
-    _apiNavigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.width, height)];
-    UINavigationItem * item = [[UINavigationItem alloc] init];
-    _apiNavigationBar.items = @[item];
-    _apiNavigationBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _apiNavigationBar.topItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"back", nil) style: UIBarButtonItemStyleDone target:self action:@selector(returnToApiApp)];
-    _apiNavigationBar.alpha = 0;
-  }
-  return _apiNavigationBar;
+  PlacePageVC * vc = [[PlacePageVC alloc] initWithInfo:addressInfo point:CGPointMake(point.x, point.y)];
+  vc.delegate = self;
+  vc.mode = PlacePageVCModeEditing;
+  [self pushViewController:vc];
 }
 
 - (void)placePageView:(PlacePageView *)placePage willShareInfo:(search::AddressInfo const &)addressInfo point:(m2::PointD const &)point
@@ -847,26 +852,13 @@ const long long LITE_IDL = 431183278L;
 
 #pragma mark - SideToolbarDelegate
 
-- (void)sideToolbar:(SideToolbar *)toolbar didPressButtonAtIndex:(NSInteger)buttonIndex
+- (void)sideToolbar:(SideToolbar *)toolbar didPressItemWithName:(NSString *)itemName
 {
-  if (buttonIndex == 0)
-  {
-    if (GetPlatform().IsPro())
-    {
-      SearchVC * vc = [[SearchVC alloc] init];
-      [self.navigationController pushViewController:vc animated:YES];
-    }
-    else
-    {
-      [[Statistics instance] logProposalReason:@"Search Screen" withAnswer:@"YES"];
-      [[UIApplication sharedApplication] openProVersion];
-    }
-  }
-  else if (buttonIndex == 1)
+  if ([itemName isEqualToString:@"Maps"])
   {
     [[[MapsAppDelegate theApp] settingsManager] show:self];
   }
-  else if (buttonIndex == 2)
+  else if ([itemName isEqualToString:@"Bookmarks"])
   {
     if (GetPlatform().IsPro())
     {
@@ -879,12 +871,12 @@ const long long LITE_IDL = 431183278L;
       [[UIApplication sharedApplication] openProVersion];
     }
   }
-  else if (buttonIndex == 3)
+  else if ([itemName isEqualToString:@"Settings"])
   {
     SettingsViewController * vc = [self.mainStoryboard instantiateViewControllerWithIdentifier:[SettingsViewController className]];
     [self.navigationController pushViewController:vc animated:YES];
   }
-  else if (buttonIndex == 4)
+  else if ([itemName isEqualToString:@"Share"])
   {
     CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
     if (location)
@@ -901,11 +893,39 @@ const long long LITE_IDL = 431183278L;
       [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"unknown_current_position", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil] show];
     }
   }
-  else if (buttonIndex == 5)
+  else if ([itemName isEqualToString:@"MoreApps"])
   {
     MoreAppsVC * vc = [[MoreAppsVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
   }
+}
+
+- (void)sideToolbarDidCloseMenu:(SideToolbar *)toolbar
+{
+  [self.view bringSubviewToFront:self.placePageView];
+}
+
+- (void)sideToolbarWillCloseMenu:(SideToolbar *)toolbar
+{
+  [UIView animateWithDuration:0.25 animations:^{
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
+      [self setNeedsStatusBarAppearanceUpdate];
+    self.fadeView.alpha = 0;
+    UIView * darkTail = [self.sideToolbar.slideView viewWithTag:SLIDE_VIEW_DARK_PART_TAG];
+    darkTail.alpha = 0;
+  }];
+}
+
+- (void)sideToolbarWillOpenMenu:(SideToolbar *)toolbar
+{
+  [UIView animateWithDuration:0.25 animations:^{
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
+      [self setNeedsStatusBarAppearanceUpdate];
+    self.fadeView.alpha = 1;
+    UIView * darkTail = [self.sideToolbar.slideView viewWithTag:SLIDE_VIEW_DARK_PART_TAG];
+    darkTail.alpha = 1;
+  }];
+  [self.view sendSubviewToBack:self.placePageView];
 }
 
 - (void)sideToolbarDidUpdateShift:(SideToolbar *)toolbar
@@ -955,15 +975,13 @@ const long long LITE_IDL = 431183278L;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-  if (object == self.sideToolbar && [keyPath isEqualToString:@"isMenuHidden"])
+  if (object == self.searchView && [keyPath isEqualToString:@"active"])
   {
-    [UIView animateWithDuration:0.25 animations:^{
-      if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
-        [self setNeedsStatusBarAppearanceUpdate];
-      self.fadeView.alpha = self.sideToolbar.isMenuHidden ? 0 : 1;
-      UIView * darkTail = [self.sideToolbar.slideView viewWithTag:SLIDE_VIEW_DARK_PART_TAG];
-      darkTail.alpha = self.sideToolbar.isMenuHidden ? 0 : 1;
+    [UIView animateWithDuration:0.2 animations:^{
+      self.sideToolbar.slideView.maxX = self.searchView.active ? self.view.width + self.sideToolbar.slideView.width : self.view.width;
     }];
+    if (self.searchView.active)
+      [self.placePageView setState:PlacePageStateHidden animated:YES];
   }
   else if (object == self.placePageView && [keyPath isEqualToString:@"state"])
   {
