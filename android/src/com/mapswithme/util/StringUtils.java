@@ -40,4 +40,18 @@ public class StringUtils
   {
     return String.format(Locale.US, pattern, args);
   }
+
+  public static String joinSkipEmpty(String delim, Object[] arr)
+  {
+    String res = null;
+    for (int i = 0; i < arr.length; ++i)
+    {
+      String s = (arr[i] != null) ? arr[i].toString() : null;
+      if (s != null && !s.isEmpty())
+        res = (res == null) ? s : res + delim + s;
+    }
+    return res;
+  }
+
+  private StringUtils() {}
 }

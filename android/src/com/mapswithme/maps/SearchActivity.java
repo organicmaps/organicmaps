@@ -33,6 +33,7 @@ import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.search.SearchController;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.Language;
+import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
@@ -322,7 +323,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
           String dist = null;
           if (r.m_type == 1)
           {
-            type = Utils.joinSkipEmpty(", ",  Utils.asObjectArray(r.m_country, r.m_amenity));
+            type = StringUtils.joinSkipEmpty(", ",  Utils.asObjectArray(r.m_country, r.m_amenity));
             dist = r.m_distance;
           }
 

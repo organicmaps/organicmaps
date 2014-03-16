@@ -451,10 +451,13 @@ namespace android
 
   void Framework::CleanSearchLayerOnMap()
   {
-    NativeFramework()->GetBalloonManager().RemovePin();
-    NativeFramework()->GetBalloonManager().Dismiss();
-    NativeFramework()->GetBookmarkManager().AdditionalPoiLayerClear();
-    NativeFramework()->Invalidate();
+    ::Framework * f = NativeFramework();
+
+    // Call ClearXXX first, then RemovePin (Framework::Invalidate is called inside).
+    f->GetBookmarkManager().AdditionalPoiLayerClear();
+    f->GetBalloonManager().RemovePin();
+    f->GetBalloonManager().Dismiss();
+    f->Invalidate();
   }
 
   bool Framework::Search(search::SearchParams const & params)

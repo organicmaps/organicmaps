@@ -259,7 +259,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     // Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
     mwmActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-    //add task to forward
+    // Add saved task to forward to map activity.
     if (mMapTaskToForward != null)
     {
       mwmActivityIntent.putExtra(MWMActivity.EXTRA_TASK, mMapTaskToForward);
@@ -686,9 +686,12 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
       final String apiUrl = intent.getStringExtra(Const.EXTRA_URL);
       if (apiUrl != null)
       {
+        Framework.cleanSearchLayerOnMap();
+
         final ParsedMmwRequest request = ParsedMmwRequest.extractFromIntent(intent, getApplicationContext());
         ParsedMmwRequest.setCurrentRequest(request);
         Statistics.INSTANCE.trackApiCall(request);
+
         if (!request.isPickPointMode())
           mMapTaskToForward = new OpenUrlTask(apiUrl);
         return true;

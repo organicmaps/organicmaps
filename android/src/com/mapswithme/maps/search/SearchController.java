@@ -58,13 +58,13 @@ public class SearchController implements OnClickListener
     if (ParsedMmwRequest.hasRequest())
       mSearchQueryTV.setText(ParsedMmwRequest.getCurrentRequest().getTitle());
     else
-    mSearchQueryTV.setText(getQuery());
+      mSearchQueryTV.setText(getQuery());
 
     mSearchQueryTV.setFocusable(false);
     UiUtils.hide(mSearchProgress);
     UiUtils.hide(mVoiceInput);
 
-    UiUtils.showIf(isSearching(), mClearView);
+    UiUtils.showIf(!TextUtils.isEmpty(mSearchQueryTV.getText()), mClearView);
   }
 
   @Override
@@ -78,11 +78,14 @@ public class SearchController implements OnClickListener
     }
     else if (R.id.search_image_clear == id)
     {
+      // Clear API points first, then clear additional layer
+      // (Framework::Invalidate is called inside).
+      cancelApiCall();
+
       Framework.cleanSearchLayerOnMap();
+
       mSearchQueryTV.setText(null);
       UiUtils.hide(mClearView);
-
-      cancelApiCall();
     }
     else
       throw new IllegalArgumentException("Unknown id");
@@ -112,10 +115,4 @@ public class SearchController implements OnClickListener
     setQuery(null);
     Framework.cleanSearchLayerOnMap();
   }
-
-  public boolean isSearching()
-  {
-    return !TextUtils.isEmpty(mQuery);
-  }
-
 }
