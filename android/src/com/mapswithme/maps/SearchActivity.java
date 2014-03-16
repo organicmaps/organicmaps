@@ -657,8 +657,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
   private void presentResult(View v, int position)
   {
-    // If user searched for something, then
-    // clear API layer
+    // If user searched for something, then clear API layer
     SearchController.get().cancelApiCall();
 
     if (MWMApplication.get().isProVersion())
@@ -666,20 +665,17 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       finish();
 
       final SearchAdapter.ViewHolder vh = (SearchAdapter.ViewHolder) v.getTag();
-      final String queryTitle = vh.m_name.getText().toString().trim();
 
-      final String showOnMapTitle = getString(R.string.search_show_on_map).trim();
-
-      if (showOnMapTitle.equalsIgnoreCase(queryTitle))
-        SearchController.get().setQuery(mSearchBox.getText().toString());
-      else
-        SearchController.get().setQuery(queryTitle);
+      // Put query string for "View on map" or feature name for search result.
+      SearchController.get().setQuery(position == 0 ?
+            mSearchBox.getText().toString() :
+            vh.m_name.getText().toString().trim());
 
       MWMActivity.startWithSearchResult(this, position != 0);
     }
     else
     {
-      // Should we add something more attractive?
+      /// @todo Should we add something more attractive?
       Utils.toastShortcut(this, R.string.search_available_in_pro_version);
     }
   }

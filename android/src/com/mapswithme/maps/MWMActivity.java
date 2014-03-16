@@ -651,8 +651,10 @@ public class MWMActivity extends NvEventQueueActivity
               public void onClick(DialogInterface dialog, int which)
               {
                 dialog.dismiss();
-              }})
-            .create().show();
+              }
+            })
+            .create()
+            .show();
           }
         }
 
@@ -780,6 +782,7 @@ public class MWMActivity extends NvEventQueueActivity
   protected void onNewIntent(Intent intent)
   {
     super.onNewIntent(intent);
+
     if (intent != null)
     {
       if (intent.hasExtra(EXTRA_TASK))
@@ -841,7 +844,7 @@ public class MWMActivity extends NvEventQueueActivity
       drawerItemsPadding = Math.max(dm.heightPixels, dm.widthPixels)/5;
     }
 
-    findViewById(R.id.scroll_up).setPadding(0,drawerItemsPadding, 0, 0);
+    findViewById(R.id.scroll_up).setPadding(0, drawerItemsPadding, 0, 0);
   }
 
   /// @name From Location interface
@@ -904,29 +907,6 @@ public class MWMActivity extends NvEventQueueActivity
     }
   }
 
-  public void onCompassStatusChanged(int newStatus)
-  {
-    if (newStatus == 1)
-      LocationButtonImageSetter.setButtonViewFromState(ButtonState.FOLLOW_MODE, mLocationButton);
-    else if (getLocationState().hasPosition())
-      LocationButtonImageSetter.setButtonViewFromState(ButtonState.HAS_LOCATION, mLocationButton);
-    else
-      LocationButtonImageSetter.setButtonViewFromState(ButtonState.NO_LOCATION, mLocationButton);
-  }
-
-  public void OnCompassStatusChanged(int newStatus)
-  {
-    final int val = newStatus;
-    runOnUiThread(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        onCompassStatusChanged(val);
-      }
-    });
-  }
-
   @Override
   public void onLocationUpdated(final Location l)
   {
@@ -945,6 +925,31 @@ public class MWMActivity extends NvEventQueueActivity
     nativeCompassUpdated(time, angles[0], angles[1], accuracy);
   }
   //@}
+
+  public void onCompassStatusChanged(int newStatus)
+  {
+    if (newStatus == 1)
+      LocationButtonImageSetter.setButtonViewFromState(ButtonState.FOLLOW_MODE, mLocationButton);
+    else if (getLocationState().hasPosition())
+      LocationButtonImageSetter.setButtonViewFromState(ButtonState.HAS_LOCATION, mLocationButton);
+    else
+      LocationButtonImageSetter.setButtonViewFromState(ButtonState.NO_LOCATION, mLocationButton);
+  }
+
+  /// Callback from native compass GUI element processing.
+  public void OnCompassStatusChanged(int newStatus)
+  {
+    final int val = newStatus;
+    runOnUiThread(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        onCompassStatusChanged(val);
+      }
+    });
+  }
+
 
   private int m_compassStatusListenerID = -1;
 
@@ -1186,9 +1191,7 @@ public class MWMActivity extends NvEventQueueActivity
     return super.onKeyUp(keyCode, event);
   }
 
-  ////
-  //    Map TASKS
-  ////
+  /// Map tasks invoked by intent processing.
 
   public interface MapTask extends Serializable
   {
@@ -1231,9 +1234,7 @@ public class MWMActivity extends NvEventQueueActivity
     }
   }
 
-  ////
-  //   NATIVE callbacks and methods
-  ////
+  /// Callbacks from native map objects touch event.
 
   @Override
   public void onApiPointActivated(final double lat, final double lon, final String name, final String id)

@@ -130,30 +130,30 @@ public class MapInfoView extends LinearLayout
   // We dot want to use OnCheckedChangedListener because it gets called
   // if someone calls setCheched() from code. We need only user interaction.
   private final OnClickListener  mIsBookmarkedClickListener = new OnClickListener()
-   {
-     @Override
-     public void onClick(View v)
-     {
-       if (v.getId() != R.id.info_box_is_bookmarked)
-         throw new IllegalStateException("This listener is only for is_bookmarkded checkbox.");
+  {
+    @Override
+    public void onClick(View v)
+    {
+      if (v.getId() != R.id.info_box_is_bookmarked)
+        throw new IllegalStateException("This listener is only for is_bookmarkded checkbox.");
 
-       final BookmarkManager bm = BookmarkManager.getBookmarkManager();
+      final BookmarkManager bm = BookmarkManager.getBookmarkManager();
 
-       if (mMapObject.getType() == MapObjectType.BOOKMARK)
-       {
-         final MapObject p = new Poi(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon(), null);
-         bm.deleteBookmark((Bookmark) mMapObject);
-         setMapObject(p);
-       }
-       else
-       {
-         final Bookmark newbmk = bm.getBookmark(bm.addNewBookmark(
-             mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon()));
-         setMapObject(newbmk);
-       }
-       Framework.invalidate();
-     }
-   };
+      if (mMapObject.getType() == MapObjectType.BOOKMARK)
+      {
+        final MapObject p = new Poi(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon(), null);
+        bm.deleteBookmark((Bookmark) mMapObject);
+        setMapObject(p);
+      }
+      else
+      {
+        final Bookmark newbmk = bm.getBookmark(bm.addNewBookmark(
+            mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon()));
+        setMapObject(newbmk);
+      }
+      Framework.invalidate();
+    }
+  };
 
   public MapInfoView(Context context, AttributeSet attrs, int defStyleAttr)
   {

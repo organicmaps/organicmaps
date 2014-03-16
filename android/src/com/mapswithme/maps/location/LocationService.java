@@ -267,6 +267,9 @@ public class LocationService implements
 
   private float[] mGravity = null;
   private float[] mGeomagnetic = null;
+  private final float mR[] = new float[9];
+  private final float mI[] = new float[9];
+  private final float[] mOrientation = new float[3];
 
   private boolean mIsGPSOff;
 
@@ -282,7 +285,7 @@ public class LocationService implements
   public void onSensorChanged(SensorEvent event)
   {
     // Get the magnetic north (orientation contains azimut, pitch and roll).
-    float[] orientation = null;
+    boolean hasOrientation = false;
 
     switch (event.sensor.getType())
     {
@@ -296,18 +299,16 @@ public class LocationService implements
 
     if (mGravity != null && mGeomagnetic != null)
     {
-      final float R[] = new float[9];
-      final float I[] = new float[9];
-      if (SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic))
+      if (SensorManager.getRotationMatrix(mR, mI, mGravity, mGeomagnetic))
       {
-        orientation = new float[3];
-        SensorManager.getOrientation(R, orientation);
+        hasOrientation = true;
+        SensorManager.getOrientation(mR, mOrientation);
       }
     }
 
-    if (orientation != null)
+    if (hasOrientation)
     {
-      final double magneticHeading = correctAngle(orientation[0], 0.0);
+      final double magneticHeading = correctAngle(mOrientation[0], 0.0);
 
       if (mMagneticField == null)
       {
