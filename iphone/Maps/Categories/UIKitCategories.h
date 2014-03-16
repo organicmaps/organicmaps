@@ -40,6 +40,8 @@
 @property (nonatomic) CGFloat height;
 @property (nonatomic) CGSize size;
 
++ (void)animateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay damping:(double)dampingRatio initialVelocity:(double)springVelocity options:(UIViewAnimationOptions)options animations:(void (^)(void))animations completion:(void (^)(BOOL finished))completion;
+
 @end
 
 
