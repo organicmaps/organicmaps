@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 
-public class ChooseBookmarkCategoryAdapter extends AbstractBookmarkCategoryAdapter implements Chooseable
+public class ChooseBookmarkCategoryAdapter extends AbstractBookmarkCategoryAdapter
 {
   private int mCheckedPosition = -1;
 
@@ -51,14 +51,12 @@ public class ChooseBookmarkCategoryAdapter extends AbstractBookmarkCategoryAdapt
     }
   }
 
-  @Override
   public void chooseItem(int position)
   {
     mCheckedPosition = position;
     notifyDataSetChanged();
   }
 
-  @Override
   public int getCheckedItemPosition()
   {
     return mCheckedPosition;

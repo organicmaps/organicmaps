@@ -14,8 +14,8 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.util.UiUtils;
 
-//SingleChoise list view don't add radiobutton to custom view
-public class IconsAdapter extends ArrayAdapter<Icon> implements Chooseable
+/// SingleChoise list view don't add radio button to custom view.
+public class IconsAdapter extends ArrayAdapter<Icon>
 {
   private int mCheckedPosition = 0;
 
@@ -46,7 +46,7 @@ public class IconsAdapter extends ArrayAdapter<Icon> implements Chooseable
       UiUtils.hide(holder.tick);
 
     holder.icon.setImageDrawable(
-        UiUtils.drawCircleForPin(getItem(position).getType(), (int)res.getDimension(R.dimen.dp_x_16), res));
+        UiUtils.drawCircleForPin(getItem(position).getType(), (int) res.getDimension(R.dimen.dp_x_16), res));
 
     return convertView;
   }
@@ -61,17 +61,14 @@ public class IconsAdapter extends ArrayAdapter<Icon> implements Chooseable
       this.icon = icon;
       this.tick = tick;
     }
-
   }
 
-  @Override
   public void chooseItem(int position)
   {
     mCheckedPosition = position;
     notifyDataSetChanged();
   }
 
-  @Override
   public int getCheckedItemPosition()
   {
     return mCheckedPosition;
