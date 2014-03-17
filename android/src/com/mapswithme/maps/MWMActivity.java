@@ -82,13 +82,12 @@ public class MWMActivity extends NvEventQueueActivity
 
   private ImageButton mLocationButton;
   private SurfaceView mMapSurface;
-  private View mYopItButton;
 
 
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<MWMActivity.MapTask>();
 
-  //info box
+  // Info box (place page).
   private MapInfoView mInfoView;
   private boolean mIsInfoBoxVisible;
 
@@ -97,13 +96,11 @@ public class MWMActivity extends NvEventQueueActivity
   private DrawerLayout mDrawerLayout;
   private View mMainDrawer;
 
-
-  // search
   private SearchController mSearchController;
 
   private String mProDialogMessage;
 
-  public native void deactivatePopup();
+  private native void deactivatePopup();
 
   private LocationService getLocationService()
   {
@@ -742,14 +739,14 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void yotaSetup()
   {
-    mYopItButton = findViewById(R.id.yop_it);
+    final View yopmeButton = findViewById(R.id.yop_it);
     if (!Yota.isYota())
     {
-      mYopItButton.setVisibility(View.INVISIBLE);
+      yopmeButton.setVisibility(View.INVISIBLE);
     }
     else
     {
-      mYopItButton.setOnClickListener(new OnClickListener()
+      yopmeButton.setOnClickListener(new OnClickListener()
       {
         @Override
         public void onClick(View v)
@@ -1191,6 +1188,15 @@ public class MWMActivity extends NvEventQueueActivity
     return super.onKeyUp(keyCode, event);
   }
 
+  @Override
+  public void onBackPressed()
+  {
+    if (mInfoView.getState() != State.COLLAPSED)
+      hideInfoView();
+    else
+      super.onBackPressed();
+  }
+
   /// Map tasks invoked by intent processing.
 
   public interface MapTask extends Serializable
@@ -1336,6 +1342,14 @@ public class MWMActivity extends NvEventQueueActivity
     });
   }
 
+  private void hideInfoView()
+  {
+    mInfoView.setState(State.COLLAPSED);
+    mInfoView.setMapObject(null);
+
+    UiUtils.show(findViewById(R.id.map_buttons_bottom_ref));
+  }
+
   @Override
   public void onDismiss()
   {
@@ -1346,10 +1360,7 @@ public class MWMActivity extends NvEventQueueActivity
         @Override
         public void run()
         {
-          mInfoView.setState(State.COLLAPSED);
-
-          mInfoView.setMapObject(null);
-          UiUtils.show(findViewById(R.id.map_buttons_bottom_ref));
+          hideInfoView();
         }
       });
     }

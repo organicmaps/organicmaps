@@ -327,6 +327,11 @@ public class MapInfoView extends LinearLayout
     showHeader(true);
   }
 
+  public State getState()
+  {
+    return mCurrentState;
+  }
+
   public boolean hasThatObject(MapObject mo)
   {
     if (mo == null && mMapObject == null)
@@ -381,6 +386,7 @@ public class MapInfoView extends LinearLayout
         mMapObject = mo;
       }
     }
+
     // Sometimes we have to force update view
     invalidate();
     requestLayout();
@@ -619,8 +625,6 @@ public class MapInfoView extends LinearLayout
 
   public void setState(State state)
   {
-    mLog.d(String.format("Ivalid transition %s - > %s", mCurrentState, state));
-
     if (mCurrentState != state)
     {
       // Do some transitions
