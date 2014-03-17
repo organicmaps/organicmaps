@@ -46,8 +46,6 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
   {
     super.onCreate(savedInstanceState);
 
-    setListAdapter(new ChooseBookmarkCategoryAdapter(this, getIntent().getIntExtra(BookmarkActivity.PIN_SET, 0)));
-
     m_handler = new FooterHandler();
     getListView().setOnItemClickListener(new OnItemClickListener()
     {
@@ -65,6 +63,9 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
         onBackPressed();
       }
     });
+
+    // Set adapter only after FooterHandler is initialized and added into layout.
+    setListAdapter(new ChooseBookmarkCategoryAdapter(this, getIntent().getIntExtra(BookmarkActivity.PIN_SET, 0)));
 
     registerForContextMenu(getListView());
   }
