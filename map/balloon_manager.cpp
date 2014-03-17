@@ -366,5 +366,7 @@ void PinClickManager::OnAdditonalLayer(size_t index)
 
 void PinClickManager::OnDismiss()
 {
-  m_dismissListener();
+  // Can be called before the listeners will be attached (clearing on activity start).
+  if (m_dismissListener)
+    m_dismissListener();
 }
