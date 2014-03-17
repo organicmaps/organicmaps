@@ -10,6 +10,10 @@ double AngleIn2PI(double ang)
   ang = fmod(ang, period);
   if (ang < 0.0)
     ang += period;
+  
+  if (my::AlmostEqual(period, ang))
+    return 0.0;
+
   return ang;
 }
 

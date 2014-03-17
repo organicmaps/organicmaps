@@ -42,7 +42,7 @@ void Animator::RotateScreen(double startAngle, double endAngle)
   }
   else
   {
-    double const eps = my::DegToRad(3.0);
+    double const eps = my::DegToRad(1.5);
 
     if (fabs(ang::GetShortestDistance(startAngle, endAngle)) > eps)
     {
