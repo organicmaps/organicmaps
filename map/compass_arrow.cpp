@@ -32,14 +32,16 @@ CompassArrow::CompassArrow(Params const & p)
 
 void CompassArrow::AnimateShow()
 {
-  if (!isBaseVisible() && (m_animTask == NULL || IsHidingAnim()))
+  if (m_animTask == NULL || IsHidingAnim())
   {
-    setIsVisible(true);
-    CreateAnim(0.1, 1.0, 0.2, 0.0, true);
+    if (!isBaseVisible())
+    {
+      setIsVisible(true);
+      CreateAnim(0.1, 1.0, 0.2, 0.0, true);
+    }
+    else
+      CreateAnim(GetCurrentAlfa(), 1.0, 0.2, 0.0, true);
   }
-
-  if (isBaseVisible() && (m_animTask == NULL || IsHidingAnim()))
-    CreateAnim(GetCurrentAlfa(), 1.0, 0.2, 0.0, true);
 }
 
 void CompassArrow::AnimateHide()
