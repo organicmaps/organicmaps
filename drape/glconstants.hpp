@@ -20,9 +20,48 @@ namespace GLConst
   extern const glConst GLFragmentShader;
   extern const glConst GLCurrentProgram;
 
+  /// Texture layouts
+  extern const glConst GLRGBA;
+  extern const glConst GLRGB;
+  extern const glConst GLAlpha;
+  extern const glConst GLLuminance;
+  extern const glConst GLAlphaLuminance;
+
+  /// Texture layout size
+  extern const glConst GLRGBA8;
+  extern const glConst GLRGBA4;
+  extern const glConst GLAlpha8;
+  extern const glConst GLLuminance8;
+  extern const glConst GLAlphaLuminance8;
+  extern const glConst GLAlphaLuminance4;
+
   /// Pixel type for texture upload
   extern const glConst GL8BitOnChannel;
   extern const glConst GL4BitOnChannel;
+
+  /// Texture targets
+  extern const glConst GLTexture2D;
+
+  /// Texture uniform blocks
+  extern const glConst GLTexture0;
+  extern const glConst GLTexture1;
+  extern const glConst GLTexture2;
+  extern const glConst GLTexture3;
+
+  /// Texture param names
+  extern const glConst GLMinFilter;
+  extern const glConst GLMagFilter;
+  extern const glConst GLWrapS;
+  extern const glConst GLWrapT;
+
+  /// Texture Wrap Modes
+  extern const glConst GLRepeate;
+  extern const glConst GLMirroredRepeate;
+  extern const glConst GLClampToEdge;
+
+  /// Texture Filter Modes
+  extern const glConst GLLinear;
+  extern const glConst GLNearest;
 
   /// OpenGL types
   extern const glConst GLByteType;

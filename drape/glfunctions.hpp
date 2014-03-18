@@ -90,12 +90,12 @@ public:
   static int32_t glGetProgramiv(uint32_t program, glConst paramName);
 
   // Textures support
-  static void glActiveTexture(uint32_t samplerBlock);
+  static void glActiveTexture(glConst texBlock);
   static uint32_t glGenTexture();
   static void glBindTexture(uint32_t textureID);
-  static void glTexImage2D(int width, int height, glConst pixelType, const void * data);
-  static void glTexSubImage2D(int x, int y, int width, int height, glConst pixelType, const void * data);
-  static uint32_t  glGetBindedTexture();
+  static void glTexImage2D(int width, int height, glConst layout, glConst pixelType, const void * data);
+  static void glTexSubImage2D(int x, int y, int width, int height, glConst layout, glConst pixelType, const void * data);
+  static void glTexParameter(glConst target, glConst param, glConst value);
 
   // Draw support
   static void glDrawElements(uint16_t indexCount);

@@ -7,7 +7,9 @@ class GLExtensionsList : private noncopyable
 public:
   enum ExtensionName
   {
-    VertexArrayObject
+    VertexArrayObject,
+    TextureNPOT,
+    RequiredInternalFormat
   };
 
   static GLExtensionsList & Instance();

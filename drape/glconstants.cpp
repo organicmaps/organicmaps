@@ -1,6 +1,30 @@
 #include "glconstants.hpp"
 #include "glIncludes.hpp"
 
+#if !defined(GL_RGBA8_OES)
+  #define GL_RGBA8_OES 0x8058
+#endif
+
+#if !defined(GL_RGBA4_OES)
+  #define GL_RGBA4_OES 0x8056
+#endif
+
+#if !defined(GL_ALPHA8_OES)
+  #define GL_ALPHA8_OES 0x803C
+#endif
+
+#if !defined(GL_LUMINANCE8_OES)
+  #define GL_LUMINANCE8_OES 0x8040
+#endif
+
+#if !defined(GL_LUMINANCE8_ALPHA8_OES)
+  #define GL_LUMINANCE8_ALPHA8_OES 0x8045
+#endif
+
+#if !defined(GL_LUMINANCE8_ALPHA4_OES)
+  #define GL_LUMINANCE8_ALPHA4_OES 0x8043
+#endif
+
 namespace GLConst
 {
   const glConst GLArrayBuffer         = GL_ARRAY_BUFFER;
@@ -14,8 +38,40 @@ namespace GLConst
   const glConst GLFragmentShader      = GL_FRAGMENT_SHADER;
   const glConst GLCurrentProgram      = GL_CURRENT_PROGRAM;
 
+  const glConst GLRGBA                = GL_RGBA;
+  const glConst GLRGB                 = GL_RGB;
+  const glConst GLAlpha               = GL_ALPHA;
+  const glConst GLLuminance           = GL_LUMINANCE;
+  const glConst GLAlphaLuminance      = GL_LUMINANCE_ALPHA;
+
+  const glConst GLRGBA8               = GL_RGBA8_OES;
+  const glConst GLRGBA4               = GL_RGBA4_OES;
+  const glConst GLAlpha8              = GL_ALPHA8_OES;
+  const glConst GLLuminance8          = GL_LUMINANCE8_OES;
+  const glConst GLAlphaLuminance8     = GL_LUMINANCE8_ALPHA8_OES;
+  const glConst GLAlphaLuminance4     = GL_LUMINANCE8_ALPHA4_OES;
+
   const glConst GL8BitOnChannel       = GL_UNSIGNED_BYTE;
   const glConst GL4BitOnChannel       = GL_UNSIGNED_SHORT_4_4_4_4;
+
+  const glConst GLTexture2D           = GL_TEXTURE_2D;
+
+  const glConst GLTexture0            = GL_TEXTURE0;
+  const glConst GLTexture1            = GL_TEXTURE1;
+  const glConst GLTexture2            = GL_TEXTURE2;
+  const glConst GLTexture3            = GL_TEXTURE3;
+
+  const glConst GLMinFilter           = GL_TEXTURE_MIN_FILTER;
+  const glConst GLMagFilter           = GL_TEXTURE_MAG_FILTER;
+  const glConst GLWrapS               = GL_TEXTURE_WRAP_S;
+  const glConst GLWrapT               = GL_TEXTURE_WRAP_T;
+
+  const glConst GLRepeate             = GL_REPEAT;
+  const glConst GLMirroredRepeate     = GL_MIRRORED_REPEAT;
+  const glConst GLClampToEdge         = GL_CLAMP_TO_EDGE;
+
+  const glConst GLLinear              = GL_LINEAR;
+  const glConst GLNearest             = GL_NEAREST;
 
   const glConst GLByteType            = GL_BYTE;
   const glConst GLUnsignedByteType    = GL_UNSIGNED_BYTE;

@@ -505,9 +505,9 @@ int32_t GLFunctions::glGetProgramiv(uint32_t program, glConst paramName)
   return paramValue;
 }
 
-void GLFunctions::glActiveTexture(uint32_t samplerBlock)
+void GLFunctions::glActiveTexture(glConst texBlock)
 {
-  GLCHECK(::glActiveTexture(GL_TEXTURE0 + samplerBlock));
+  GLCHECK(::glActiveTexture(texBlock));
 }
 
 uint32_t GLFunctions::glGenTexture()
@@ -522,21 +522,19 @@ void GLFunctions::glBindTexture(uint32_t textureID)
   GLCHECK(::glBindTexture(GL_TEXTURE_2D, textureID));
 }
 
-void GLFunctions::glTexImage2D(int width, int height, glConst pixelType, const void * data)
+void GLFunctions::glTexImage2D(int width, int height, glConst layout, glConst pixelType, const void * data)
 {
-  GLCHECK(::glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, pixelType, data));
+  GLCHECK(::glTexImage2D(GL_TEXTURE_2D, 0, layout, width, height, 0, layout, pixelType, data));
 }
 
-void GLFunctions::glTexSubImage2D(int x, int y, int width, int height, glConst pixelType, const void * data)
+void GLFunctions::glTexSubImage2D(int x, int y, int width, int height, glConst layout, glConst pixelType, const void * data)
 {
-  GLCHECK(::glTexSubImage2D(GL_TEXTURE_2D, 0, x, y, width, height, GL_RGBA, pixelType, data));
+  GLCHECK(::glTexSubImage2D(GL_TEXTURE_2D, 0, x, y, width, height, layout, pixelType, data));
 }
 
-uint32_t GLFunctions::glGetBindedTexture()
+void GLFunctions::glTexParameter(glConst target, glConst param, glConst value)
 {
-  int id = 0;
-  GLCHECK(::glGetIntegerv(GL_TEXTURE_BINDING_2D, &id));
-  return id;
+  GLCHECK(::glTexParameteri(target, param, value));
 }
 
 void GLFunctions::glDrawElements(uint16_t indexCount)
