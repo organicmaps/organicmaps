@@ -344,34 +344,33 @@ public class MapInfoView extends LinearLayout
     {
       if (mo != null)
       {
+        mo.setDefaultIfEmpty(getResources());
+
+        setTextAndShow(mo.getName(), mo.getPoiTypeName());
+
         mMapObject = mo;
 
-        final String undefined = getResources().getString(R.string.placepage_unsorted);
-        final String name = Utils.firstNotEmpty(mo.getName(), mo.getPoiTypeName(), undefined);
-        final String type = Utils.firstNotEmpty(mo.getPoiTypeName(), undefined);
-        setTextAndShow(name, type);
-
+        boolean isChecked = false;
         switch (mo.getType())
         {
           case POI:
-            mIsBookmarked.setChecked(false);
             setBodyForPOI(mo);
             break;
           case BOOKMARK:
-            mIsBookmarked.setChecked(true);
+            isChecked = true;
             setBodyForBookmark((Bookmark) mo);
             break;
           case ADDITIONAL_LAYER:
-            mIsBookmarked.setChecked(false);
             setBodyForAdditionalLayer((SearchResult) mo);
             break;
           case API_POINT:
-            mIsBookmarked.setChecked(false);
             setBodyForAPI(mo);
             break;
           default:
             throw new IllegalArgumentException("Unknown MapObject type:" + mo.getType());
         }
+
+        mIsBookmarked.setChecked(isChecked);
 
         setUpAddressBox();
         setUpGeoInformation();

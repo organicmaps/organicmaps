@@ -2,7 +2,10 @@ package com.mapswithme.maps.bookmarks.data;
 
 import java.io.Serializable;
 
+import android.content.res.Resources;
+
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.R;
 
 public abstract class MapObject
 {
@@ -17,6 +20,25 @@ public abstract class MapObject
     mLat = lat;
     mLon = lon;
     mTypeName = typeName;
+  }
+
+  private static boolean isEmpty(String s)
+  {
+    return (s == null || s.isEmpty());
+  }
+
+  public void setDefaultIfEmpty(Resources res)
+  {
+    if (isEmpty(mName))
+    {
+      if (isEmpty(mTypeName))
+        mName = res.getString(R.string.dropped_pin);
+      else
+        mName = mTypeName;
+    }
+
+    if (isEmpty(mTypeName))
+      mTypeName = res.getString(R.string.placepage_unsorted);
   }
 
   @Override
@@ -132,5 +154,4 @@ public abstract class MapObject
       return mId;
     }
   }
-
 }
