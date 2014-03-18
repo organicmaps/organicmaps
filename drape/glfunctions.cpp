@@ -532,9 +532,9 @@ void GLFunctions::glTexSubImage2D(int x, int y, int width, int height, glConst l
   GLCHECK(::glTexSubImage2D(GL_TEXTURE_2D, 0, x, y, width, height, layout, pixelType, data));
 }
 
-void GLFunctions::glTexParameter(glConst target, glConst param, glConst value)
+void GLFunctions::glTexParameter(glConst param, glConst value)
 {
-  GLCHECK(::glTexParameteri(target, param, value));
+  GLCHECK(::glTexParameteri(GL_TEXTURE_2D, param, value));
 }
 
 void GLFunctions::glDrawElements(uint16_t indexCount)

@@ -43,7 +43,7 @@ void Texture::SetFilterParams(glConst minFilter, glConst magFilter)
 {
   VERIFY_ID;
   GLFunctions::glTexParameter(GLConst::GLMinFilter, minFilter);
-  GLFunctions::glTexParameter(GLConst::GLMaxFilter, magFilter);
+  GLFunctions::glTexParameter(GLConst::GLMagFilter, magFilter);
 }
 
 void Texture::SetWrapMode(glConst sMode, glConst tMode)

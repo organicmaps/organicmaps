@@ -95,7 +95,7 @@ public:
   static void glBindTexture(uint32_t textureID);
   static void glTexImage2D(int width, int height, glConst layout, glConst pixelType, const void * data);
   static void glTexSubImage2D(int x, int y, int width, int height, glConst layout, glConst pixelType, const void * data);
-  static void glTexParameter(glConst target, glConst param, glConst value);
+  static void glTexParameter(glConst param, glConst value);
 
   // Draw support
   static void glDrawElements(uint16_t indexCount);
