@@ -1,93 +1,119 @@
 #include "texture.hpp"
+
 #include "glfunctions.hpp"
+#include "glextensions_list.hpp"
 
-namespace
+#include "../base/math.hpp"
+
+#define VERIFY_ID ASSERT(GetID() != -1, ())
+
+Texture::Texture()
+  : m_textureID(-1)
 {
-  glConst convert(TextureInfo::PixelType t)
-  {
-    if (t == TextureInfo::FullRGBA)
-      return GLConst::GL8BitOnChannel;
+}
 
-    return GLConst::GL4BitOnChannel;
+void Texture::Create(uint32_t width, uint32_t height, TextureFormat format)
+{
+  Create(width, height, format, MakeStackRefPointer<void>(NULL));
+}
+
+void Texture::Create(uint32_t width, uint32_t height, TextureFormat format, RefPointer<void> data)
+{
+  m_width = width;
+  m_height = height;
+  if (!GLExtensionsList::Instance().IsSupported(GLExtensionsList::TextureNPOT))
+  {
+    m_width = my::NextPowOf2(width);
+    m_height = my::NextPowOf2(height);
+  }
+
+  m_textureID = GLFunctions::glGenTexture();
+  GLFunctions::glBindTexture(m_textureID);
+
+  glConst layout;
+  glConst pixelType;
+  UnpackFormat(format, layout, pixelType);
+
+  GLFunctions::glTexImage2D(m_width, m_height, layout, pixelType, data.GetRaw());
+  SetFilterParams(GLConst::GLLinear, GLConst::GLLinear);
+  SetFilterParams(GLConst::GLClampToEdge, GLConst::GLClampToEdge);
+}
+
+void Texture::SetFilterParams(glConst minFilter, glConst magFilter)
+{
+  VERIFY_ID;
+  GLFunctions::glTexParameter(GLConst::GLMinFilter, minFilter);
+  GLFunctions::glTexParameter(GLConst::GLMaxFilter, magFilter);
+}
+
+void Texture::SetWrapMode(glConst sMode, glConst tMode)
+{
+  VERIFY_ID;
+  GLFunctions::glTexParameter(GLConst::GLWrapS, sMode);
+  GLFunctions::glTexParameter(GLConst::GLWrapT, tMode);
+}
+
+void Texture::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height,
+                         TextureFormat format, RefPointer<void> data)
+{
+  VERIFY_ID;
+  glConst layout;
+  glConst pixelType;
+
+  UnpackFormat(format, layout, pixelType);
+
+  GLFunctions::glTexSubImage2D(x, y, width, height, layout, pixelType, data.GetRaw());
+}
+
+uint32_t Texture::GetWidth() const
+{
+  VERIFY_ID;
+  return m_width;
+}
+
+uint32_t Texture::GetHeight() const
+{
+  VERIFY_ID;
+  return m_height;
+}
+
+float Texture::GetS(uint32_t x) const
+{
+  VERIFY_ID;
+  return x / m_width;
+}
+
+float Texture::GetT(uint32_t y) const
+{
+  VERIFY_ID;
+  return y / m_height;
+}
+
+void Texture::Bind() const
+{
+  VERIFY_ID;
+  GLFunctions::glBindTexture(GetID());
+}
+
+void Texture::UnpackFormat(Texture::TextureFormat format, glConst & layout, glConst & pixelType)
+{
+  bool requiredFormat = GLExtensionsList::Instance().IsSupported(GLExtensionsList::RequiredInternalFormat);
+  switch (format) {
+  case RGBA8:
+    layout = requiredFormat ? GLConst::GLRGBA8 : GLConst::GLRGBA;
+    pixelType = GLConst::GL8BitOnChannel;
+    break;
+  case RGBA4:
+    layout = requiredFormat ? GLConst::GLRGBA4 : GLConst::GLRGBA;
+    pixelType = GLConst::GL4BitOnChannel;
+    break;
+  default:
+    ASSERT(false, ());
+    break;
   }
 }
 
-Texture::Texture(TextureInfo const & info)
-{
-  Init(info, NULL);
-}
-
-Texture::Texture(TextureInfo const & info, void * data)
-{
-  Init(info, data);
-}
-
-void Texture::Update(uint32_t x, uint32_t y, uint32_t width, uint32_t height, void * data)
-{
-  GLFunctions::glTexSubImage2D(x, y, width, height, convert(m_info.m_pixelType), data);
-}
-
-uint32_t Texture::GetID() const
+int32_t Texture::GetID() const
 {
   return m_textureID;
-}
-
-void Texture::Bind()
-{
-  GLFunctions::glBindTexture(m_textureID);
-}
-
-TextureInfo const & Texture::GetInfo() const
-{
-  return m_info;
-}
-
-void Texture::Init(const TextureInfo &info, void * data)
-{
-  m_info = info;
-  m_textureID = GLFunctions::glGenTexture();
-  Bind();
-  GLFunctions::glTexImage2D(m_info.m_width, m_info.m_height, convert(m_info.m_pixelType), data);
-}
-
-
-TextureBinding::TextureBinding(const std::string & uniformName,
-                               bool isEnabled,
-                               uint8_t samplerBlock,
-                               RefPointer<Texture> texture)
-  : m_uniformName(uniformName)
-  , m_isEnabled(isEnabled)
-  , m_samplerBlock(samplerBlock)
-  , m_texture(texture)
-{
-}
-
-void TextureBinding::Bind(int8_t uniformLocation)
-{
-  if (IsEnabled() || uniformLocation == -1)
-    return;
-
-  GLFunctions::glActiveTexture(m_samplerBlock);
-  m_texture->Bind();
-  GLFunctions::glUniformValuei(uniformLocation, (int32_t)m_texture->GetID());
-}
-
-bool TextureBinding::IsEnabled() const
-{
-  return m_isEnabled && !m_texture.IsNull();
-}
-
-const string & TextureBinding::GetUniformName() const
-{
-  return m_uniformName;
-}
-
-void TextureBinding::SetIsEnabled(bool isEnabled)
-{
-  m_isEnabled = isEnabled;
-}
-
-void TextureBinding::SetTexture(RefPointer<Texture> texture)
-{
-  m_texture = texture;
 }
