@@ -686,6 +686,12 @@ string const & MergedStreet::GetDbgName() const
   return m_cont.front()->GetDbgName();
 }
 
+string const & MergedStreet::GetName() const
+{
+  ASSERT(!m_cont.empty(), ());
+  return m_cont.front()->GetName();
+}
+
 bool MergedStreet::IsHousesReaded() const
 {
   ASSERT(!m_cont.empty(), ());
@@ -803,6 +809,8 @@ void HouseDetector::ReadHouse(FeatureType const & f, Street * st, ProjectionCalc
   static ftypes::IsBuildingChecker checker;
 
   string const houseNumber = f.GetHouseNumber();
+
+  /// @todo After new data generation we can skip IsHouseNumber check here.
   if (checker(f) && feature::IsHouseNumber(houseNumber))
   {
     HouseMapT::iterator const it = m_id2house.find(f.GetID());
@@ -961,11 +969,11 @@ public:
       m_results[ind] = ScoredHouse(p.m_house, p.m_distance);
   }
 
-  void FlushResults(vector<House const *> & res) const
+  void FlushResults(vector<AddressSearchResult> & res, MergedStreet const & st) const
   {
     for (size_t i = 0; i < ARRAY_SIZE(m_results) - 1; ++i)
       if (m_results[i].house)
-        res.push_back(m_results[i].house);
+        res.push_back(AddressSearchResult(m_results[i].house, &st));
   }
 
   House const * GetBestMatchHouse() const
@@ -1015,7 +1023,7 @@ void AddToQueue(int houseNumber, queue<int> & q)
 struct HouseChain
 {
   vector<HouseProjection const *> houses;
-  set<string> s;
+  set<string> chainHouses;
   double score;
   int minHouseNumber;
   int maxHouseNumber;
@@ -1034,7 +1042,7 @@ struct HouseChain
 
   void Add(HouseProjection const * h)
   {
-    if (s.insert(h->m_house->GetNumber()).second)
+    if (chainHouses.insert(h->m_house->GetNumber()).second)
     {
       int num = h->m_house->GetIntNumber();
       if (num < minHouseNumber)
@@ -1047,7 +1055,7 @@ struct HouseChain
 
   bool Find(string const & str)
   {
-    return (s.find(str) != s.end());
+    return (chainHouses.find(str) != chainHouses.end());
   }
 
   void CountScore()
@@ -1196,7 +1204,6 @@ void ProccessHouses(vector<HouseProjection const *> const & st, ResultAccumulato
 
 void GetBestHouseWithNumber(MergedStreet const & st, double offsetMeters, ResultAccumulator & acc)
 {
-
   vector<HouseProjection const *> v;
   for (MergedStreet::Index i = st.Begin(); !st.IsEnd(i); st.Inc(i))
   {
@@ -1252,7 +1259,7 @@ void GetLSHouse(MergedStreet const & st, double offsetMeters, ResultAccumulator 
 
 }
 
-void ProduceVoting(vector <ResultAccumulator> const & acc, vector<House const *> & res)
+void ProduceVoting(vector <ResultAccumulator> const & acc, vector<AddressSearchResult> & res, MergedStreet const & st)
 {
   vector < pair<House const *, vector<size_t> > > voting;
   for (size_t i = 0; i < acc.size(); ++i)
@@ -1272,12 +1279,12 @@ void ProduceVoting(vector <ResultAccumulator> const & acc, vector<House const *>
   {
     if (voting[0].second.size() > 1)
     {
-      acc[voting[0].second.front()].FlushResults(res);
+      acc[voting[0].second.front()].FlushResults(res, st);
       return;
     }
     if (voting.size() > 1 && voting[1].second.size() > 1)
     {
-      acc[voting[1].second.front()].FlushResults(res);
+      acc[voting[1].second.front()].FlushResults(res, st);
       return;
     }
   }
@@ -1287,12 +1294,13 @@ void ProduceVoting(vector <ResultAccumulator> const & acc, vector<House const *>
   for (size_t i = 0; i < acc.size(); ++i)
     if (acc[i].HasBestMatch())
     {
-      acc[i].FlushResults(res);
-      break;
+      acc[i].FlushResults(res, st);
+      return;
     }
+  acc[0].FlushResults(res, st);
 }
 
-void HouseDetector::GetHouseForName(string const & houseNumber, vector<House const *> & res)
+void HouseDetector::GetHouseForName(string const & houseNumber, vector<AddressSearchResult> &res)
 {
   size_t const count = m_streets.size();
   res.reserve(count);
@@ -1332,7 +1340,7 @@ void HouseDetector::GetHouseForName(string const & houseNumber, vector<House con
          break;
     }
 
-    ProduceVoting(acc, res);
+    ProduceVoting(acc, res, m_streets[i]);
     for (size_t j = 0; j < acc.size(); ++j)
       acc[j].Reset();
   }

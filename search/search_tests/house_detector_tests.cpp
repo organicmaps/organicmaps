@@ -259,11 +259,11 @@ m2::PointD FindHouse(Index & index, vector<string> const & streets,
 
   houser.ReadAllHouses(offset);
 
-  vector<search::House const *> houses;
+  vector<search::AddressSearchResult> houses;
   houser.GetHouseForName(houseName, houses);
 
   TEST_EQUAL(houses.size(), 1, ());
-  return houses[0]->GetPosition();
+  return houses[0].m_house->GetPosition();
 }
 
 }
@@ -442,7 +442,7 @@ UNIT_TEST(HS_MWMSearch)
     detector.MergeStreets();
     detector.ReadAllHouses();
 
-    vector<search::House const *> houses;
+    vector<search::AddressSearchResult> houses;
     detector.GetHouseForName(a.m_house, houses);
     if (houses.empty())
     {
@@ -454,7 +454,8 @@ UNIT_TEST(HS_MWMSearch)
     size_t const count = houses.size();
     for (; j < count; ++j)
     {
-      m2::PointD p = houses[j]->GetPosition();
+      search::House const * h = houses[j].m_house;
+      m2::PointD p = h->GetPosition();
       p.x = MercatorBounds::XToLon(p.x);
       p.y = MercatorBounds::YToLat(p.y);
 

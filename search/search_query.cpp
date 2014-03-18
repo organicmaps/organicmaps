@@ -277,6 +277,32 @@ void Query::SetQuery(string const & query)
   search::Delimiters delims;
   SplitUniString(NormalizeAndSimplifyString(query), MakeBackInsertFunctor(m_tokens), delims);
 
+#ifdef HOUSE_SEARCH_TEST
+  int tokenIndex = m_tokens.size() - 1;
+
+  while(tokenIndex >= 0)
+  {
+    if (feature::IsHouseNumberDeepCheck(m_tokens[tokenIndex]))
+    {
+      if (m_tokens.size() > 1)
+      {
+        m_house.swap(m_tokens[tokenIndex]);
+        m_tokens[tokenIndex].swap(m_tokens.back());
+        m_tokens.pop_back();
+      }
+      break;
+    }
+    --tokenIndex;
+  }
+
+  if (!m_tokens.empty() && m_house.empty() && feature::IsHouseNumberDeepCheck(m_prefix))
+  {
+    m_house.swap(m_prefix);
+    m_prefix.clear();
+  }
+
+#endif
+
   if (!m_tokens.empty() && !delims(strings::LastUniChar(query)))
   {
     m_prefix.swap(m_tokens.back());
@@ -308,20 +334,6 @@ void Query::Search(Results & res, bool searchAddress)
 
   if (m_cancel) return;
   SuggestStrings(res);
-
-#ifdef HOUSE_SEARCH_TEST
-  /// @todo Select best token for house number.
-  if (m_tokens.size() > 1 && feature::IsHouseNumber(m_tokens.back()))
-  {
-    m_house.swap(m_tokens.back());
-    m_tokens.pop_back();
-  }
-  else if (feature::IsHouseNumber(m_prefix))
-  {
-    m_house.swap(m_prefix);
-    m_prefix.clear();
-  }
-#endif
 
   if (m_cancel) return;
   if (searchAddress)
@@ -545,14 +557,15 @@ void Query::FlushResults(Results & res, void (Results::*pAddFn)(Result const &))
 
     m_houseDetector.ReadAllHouses();
 
-    vector<search::House const *> houses;
+    vector<search::AddressSearchResult> houses;
     m_houseDetector.GetHouseForName(strings::ToUtf8(m_house), houses);
 
     for (size_t i = 0; i < houses.size(); ++i)
     {
-      (res.*pAddFn)(Result(houses[i]->GetPosition(), houses[i]->GetNumber(),
+      House const * h = houses[i].m_house;
+      (res.*pAddFn)(Result(h->GetPosition(), h->GetNumber() + ", " + houses[i].m_street->GetName(),
                            string(), string(),
-                           IsValidPosition() ? houses[i]->GetPosition().Length(m_position) : -1.0));
+                           IsValidPosition() ? h->GetPosition().Length(m_position) : -1.0));
     }
   }
 #endif

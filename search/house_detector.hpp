@@ -130,6 +130,7 @@ public:
   }
 
   inline string const & GetDbgName() const { return m_processedName; }
+  inline string const & GetName() const { return m_name; }
 };
 
 class MergedStreet
@@ -141,6 +142,7 @@ public:
   MergedStreet() : m_length(0.0) {}
 
   string const & GetDbgName() const;
+  string const & GetName() const;
   bool IsHousesReaded() const;
   void FinishReadingHouses();
 
@@ -204,6 +206,8 @@ inline void swap(MergedStreet & s1, MergedStreet & s2)
   s1.Swap(s2);
 }
 
+struct AddressSearchResult;
+
 class HouseDetector
 {
   FeatureLoader m_loader;
@@ -242,9 +246,30 @@ public:
   static int const DEFAULT_OFFSET_M = 200;
   void ReadAllHouses(double offsetMeters = DEFAULT_OFFSET_M);
 
-  void GetHouseForName(string const & houseNumber, vector<House const *> & res);
+  void GetHouseForName(string const & houseNumber, vector<AddressSearchResult> &res);
 
   void ClearCaches();
+};
+
+struct AddressSearchResult
+{
+  House const * m_house;
+  MergedStreet const * m_street;
+
+  AddressSearchResult(House const * house, MergedStreet const * street):m_house(house), m_street(street)
+  {}
+
+  bool operator<(AddressSearchResult const & a) const
+  {
+    if (m_house == a.m_house)
+      return m_street < a.m_street;
+    return m_house < a.m_house;
+  }
+
+  bool operator==(AddressSearchResult const & a) const
+  {
+    return (m_house == a.m_house && m_street == a.m_street);
+  }
 };
 
 }
