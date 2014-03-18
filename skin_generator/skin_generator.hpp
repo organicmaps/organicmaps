@@ -79,5 +79,6 @@ namespace tools
                           vector<string> const & suffix);
       void renderPages();
       bool writeToFile(string const & skinName);
+      void writeToFileNewStyle(string const & skinName);
     };
 } // namespace tools

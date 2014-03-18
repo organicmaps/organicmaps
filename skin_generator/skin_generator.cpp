@@ -309,4 +309,47 @@ namespace tools
 
     return true;
   }
+
+  void SkinGenerator::writeToFileNewStyle(const string & skinName)
+  {
+    QDomDocument doc = QDomDocument("skin");
+    QDomElement rootElem = doc.createElement("root");
+    doc.appendChild(rootElem);
+
+    for (vector<SkinPageInfo>::const_iterator pageIt = m_pages.begin(); pageIt != m_pages.end(); ++pageIt)
+    {
+      QDomElement fileNode = doc.createElement("file");
+      fileNode.setAttribute("width", pageIt->m_width);
+      fileNode.setAttribute("height", pageIt->m_height);
+      rootElem.appendChild(fileNode);
+
+      for (vector<SymbolInfo>::const_iterator symbolIt = pageIt->m_symbols.begin();
+           symbolIt != pageIt->m_symbols.end(); ++symbolIt)
+      {
+        m2::RectU r = pageIt->m_packer.find(symbolIt->m_handle).second;
+        QDomElement symbol = doc.createElement("symbol");
+        symbol.setAttribute("minX", r.minX());
+        symbol.setAttribute("minY", r.minY());
+        symbol.setAttribute("maxX", r.maxX());
+        symbol.setAttribute("maxY", r.maxY());
+        symbol.setAttribute("name", symbolIt->m_symbolID.toLower());
+        fileNode.appendChild(symbol);
+      }
+    }
+    string extName = ".sdf";
+    QFile::remove(QString((skinName + extName).c_str()));
+
+    if (QFile::exists((skinName + extName).c_str()))
+      throw std::exception();
+
+    QFile file(QString((skinName + extName).c_str()));
+
+    LOG(LINFO, ("writing skin into ", skinName + extName));
+
+    if (!file.open(QIODevice::ReadWrite))
+      throw std::exception();
+    QTextStream ts(&file);
+    ts.setCodec("UTF-8");
+    ts << doc.toString();
+  }
 }

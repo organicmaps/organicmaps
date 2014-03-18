@@ -1,6 +1,7 @@
 #include "skin_generator.hpp"
 
 #include <QtCore/QFile>
+#include <QtCore/QString>
 #include <QApplication>
 
 #include <QtXml/QXmlSimpleReader>
@@ -35,19 +36,14 @@ int main(int argc, char *argv[])
   std::vector<std::string> suffixes;
   suffixes.push_back(FLAGS_skinSuffix);
 
-  /*
-  gen.processSearchIcons(FLAGS_searchIconsSrcPath,
-                         FLAGS_searchCategories,
-                         FLAGS_searchIconsOutPath,
-                         FLAGS_searchIconWidth,
-                         FLAGS_searchIconHeight);
-                         */
-
   gen.processSymbols(FLAGS_symbolsDir, FLAGS_skinName, symbolSizes, suffixes);
 
   gen.renderPages();
 
   gen.writeToFile(FLAGS_skinName + FLAGS_skinSuffix);
+  QString newSkin(FLAGS_skinName.c_str());
+  newSkin.replace("basic", "symbols");
+  gen.writeToFileNewStyle(newSkin.toStdString() + FLAGS_skinSuffix);
 
   return 0;
 }
