@@ -14,6 +14,8 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import android.view.animation.TranslateAnimation;
 import android.webkit.WebView;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
@@ -41,13 +44,9 @@ import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.UiUtils.SimpleAnimationListener;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.SimpleLogger;
 
 public class MapInfoView extends LinearLayout
 {
-  private final Logger mLog = SimpleLogger.get("MwmMapInfoView");
-
   public interface OnVisibilityChangedListener
   {
     public void onHeadVisibilityChanged(boolean isVisible);
@@ -127,34 +126,6 @@ public class MapInfoView extends LinearLayout
 
   private int mMaxBodyHeight = 0;
 
-  // We dot want to use OnCheckedChangedListener because it gets called
-  // if someone calls setCheched() from code. We need only user interaction.
-  private final OnClickListener  mIsBookmarkedClickListener = new OnClickListener()
-  {
-    @Override
-    public void onClick(View v)
-    {
-      if (v.getId() != R.id.info_box_is_bookmarked)
-        throw new IllegalStateException("This listener is only for is_bookmarkded checkbox.");
-
-      final BookmarkManager bm = BookmarkManager.getBookmarkManager();
-
-      if (mMapObject.getType() == MapObjectType.BOOKMARK)
-      {
-        final MapObject p = new Poi(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon(), null);
-        bm.deleteBookmark((Bookmark) mMapObject);
-        setMapObject(p);
-      }
-      else
-      {
-        final Bookmark newbmk = bm.getBookmark(bm.addNewBookmark(
-            mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon()));
-        setMapObject(newbmk);
-      }
-      Framework.invalidate();
-    }
-  };
-
   public MapInfoView(Context context, AttributeSet attrs, int defStyleAttr)
   {
     super(context, attrs);
@@ -172,7 +143,31 @@ public class MapInfoView extends LinearLayout
     mTitle = (TextView) mHeaderGroup.findViewById(R.id.info_title);
     mSubtitle = (TextView) mHeaderGroup.findViewById(R.id.info_subtitle);
     mIsBookmarked = (CheckBox) mHeaderGroup.findViewById(R.id.info_box_is_bookmarked);
-    mIsBookmarked.setOnClickListener(mIsBookmarkedClickListener);
+
+    // We don't want to use OnCheckedChangedListener because it gets called
+    // if someone calls setCheched() from code. We need only user interaction.
+    mIsBookmarked.setOnClickListener(new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        final BookmarkManager bm = BookmarkManager.getBookmarkManager();
+
+        if (mMapObject.getType() == MapObjectType.BOOKMARK)
+        {
+          final MapObject p = new Poi(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon(), null);
+          bm.deleteBookmark((Bookmark) mMapObject);
+          setMapObject(p);
+        }
+        else
+        {
+          final Bookmark newbmk = bm.getBookmark(bm.addNewBookmark(
+              mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon()));
+          setMapObject(newbmk);
+        }
+        Framework.invalidate();
+      }
+    });
 
     // Body
     mBodyContainer = (ScrollView) mBodyGroup.findViewById(R.id.body_container);
@@ -291,6 +286,7 @@ public class MapInfoView extends LinearLayout
             mVisibilityChangedListener.onHeadVisibilityChanged(show);
         }
       });
+
       mHeaderGroup.startAnimation(slideUp);
     }
     else
@@ -312,9 +308,9 @@ public class MapInfoView extends LinearLayout
             mVisibilityChangedListener.onHeadVisibilityChanged(show);
         }
       });
+
       mHeaderGroup.startAnimation(slideDown);
     }
-
 
     mIsHeaderVisible = show;
   }
@@ -421,6 +417,7 @@ public class MapInfoView extends LinearLayout
           BookmarkActivity.startWithBookmark(getContext(), bmk.getCategoryId(), bmk.getBookmarkId());
         }
       });
+
       UiUtils.show(mEditBtn);
     }
     else if (mMapObject.getType() == MapObjectType.API_POINT)
@@ -445,9 +442,6 @@ public class MapInfoView extends LinearLayout
 
       UiUtils.show(mReturnToCallerBtn);
       mReturnToCallerBtn.setText(ss, BufferType.SPANNABLE);
-      //
-
-      // Return callback
       mReturnToCallerBtn.setOnClickListener(new OnClickListener()
       {
         @Override
@@ -459,33 +453,79 @@ public class MapInfoView extends LinearLayout
     }
   }
 
+  private LinearLayout mGeoLayout = null;
+  private View mDistanceView;
+  private TextView mDistanceText;
+
   private void setUpGeoInformation()
   {
-    final LinearLayout mGeoLayout = (LinearLayout) mBodyContainer.findViewById(R.id.info_box_geo_ref);
+    mGeoLayout = (LinearLayout) mBodyContainer.findViewById(R.id.info_box_geo_ref);
+    mDistanceView = mGeoLayout.findViewById(R.id.info_box_geo_container_dist);
+    mDistanceText = (TextView) mGeoLayout.findViewById(R.id.info_box_geo_distance);
 
     final Location lastKnown = MWMApplication.get().getLocationService().getLastKnown();
     updateDistance(lastKnown);
 
-    UiUtils.findViewSetText(mGeoLayout, R.id.info_box_geo_location,
-        UiUtils.formatLatLon(mMapObject.getLat(), mMapObject.getLon()));
+    final TextView coord = (TextView) mGeoLayout.findViewById(R.id.info_box_geo_location);
+
+    final double lat = mMapObject.getLat();
+    final double lon = mMapObject.getLon();
+    coord.setText(UiUtils.formatLatLon(lat, lon));
+
+    // Context menu for the coordinates copying.
+    if (Utils.apiEqualOrGreaterThan(11))
+    {
+      coord.setOnLongClickListener(new OnLongClickListener()
+      {
+        @Override
+        public boolean onLongClick(View v)
+        {
+          final PopupMenu popup = new PopupMenu(getContext(), v);
+          final Menu menu = popup.getMenu();
+
+          final String copyText = getResources().getString(android.R.string.copy);
+          final String arrCoord[] = {
+              UiUtils.formatLatLon(lat, lon),
+              UiUtils.formatLatLonToDMS(lat, lon) };
+
+          menu.add(Menu.NONE, 0, 0, String.format("%s %s", copyText, arrCoord[0]));
+          menu.add(Menu.NONE, 1, 1, String.format("%s %s", copyText, arrCoord[1]));
+          menu.add(Menu.NONE, 2, 2, android.R.string.cancel);
+
+          popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
+          {
+            @Override
+            public boolean onMenuItemClick(MenuItem item)
+            {
+              final int id = item.getItemId();
+              if (id >= 0 && id < 2)
+              {
+                final Context ctx = getContext();
+                Utils.copyTextToClipboard(ctx, arrCoord[id]);
+                Utils.toastShortcut(ctx, ctx.getString(R.string.copied_to_clipboard, arrCoord[id]));
+              }
+              return true;
+            }
+          });
+
+          popup.show();
+          return true;
+        }
+      });
+    }
   }
 
   public void updateDistance(Location l)
   {
-    final LinearLayout mGeoLayout = (LinearLayout) mBodyContainer.findViewById(R.id.info_box_geo_ref);
-
     if (mGeoLayout != null && mMapObject != null)
     {
+      mDistanceView.setVisibility(l != null ? View.VISIBLE : View.GONE);
+
       if (l != null)
       {
-        UiUtils.show(mGeoLayout.findViewById(R.id.info_box_geo_container_dist));
         final CharSequence distanceText = Framework.getDistanceAndAzimutFromLatLon(mMapObject.getLat(),
             mMapObject.getLon(), l.getLatitude(), l.getLongitude(), 0.0).getDistance();
-        UiUtils.findViewSetText(mGeoLayout, R.id.info_box_geo_distance, distanceText);
-      }
-      else
-      {
-        UiUtils.hide(mGeoLayout.findViewById(R.id.info_box_geo_container_dist));
+        mDistanceText.setText(distanceText);
       }
     }
   }
@@ -671,6 +711,7 @@ public class MapInfoView extends LinearLayout
         }
       }
     });
+
     mView.startAnimation(slideDown);
   }
 }
