@@ -20,7 +20,7 @@ namespace graphics
 
     if (res == 0)
     {
-      LOG(LINFO, ("drawImage: resID=", resID, "wasn't found on current skin"));
+      LOG(LDEBUG, ("drawImage: resID=", resID, "wasn't found on current skin"));
       return;
     }
 

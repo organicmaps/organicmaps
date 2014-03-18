@@ -195,7 +195,7 @@ namespace
     else
     {
       OGLCHECKAFTER;
-      LOG(LWARNING, ("Can't get OpenGL name"));
+      LOG(LDEBUG/*LWARNING*/, ("Can't get OpenGL name"));
     }
   }
 }
@@ -254,8 +254,8 @@ namespace
       m_rgba4RenderBuffer = true;
 #endif
 
-    LOG(LINFO, ("using GL_RGBA4 for color buffer : ", m_rgba4RenderBuffer));
-    LOG(LINFO, ("selected", graphics::formatName(m_texRtFormat), "format for tile textures"));
+    LOG(LDEBUG, ("using GL_RGBA4 for color buffer : ", m_rgba4RenderBuffer));
+    LOG(LDEBUG, ("selected", graphics::formatName(m_texRtFormat), "format for tile textures"));
   }
 
   bool ResourceManager::Params::canUseNPOTextures()
@@ -307,7 +307,7 @@ namespace
       initTexturePool(p.m_textureParams[i], m_texturePools[i]);
 
     if (!graphics::gl::g_isBufferObjectsSupported)
-      LOG(LINFO, ("buffer objects are unsupported. using client vertex array instead."));
+      LOG(LDEBUG, ("buffer objects are unsupported. using client vertex array instead."));
   }
 
   void ResourceManager::initThreadSlots(Params const & p)
@@ -346,7 +346,7 @@ namespace
   {
     if (p.isValid())
     {
-      LOG(LINFO, ("initializing", convert(p.m_storageType), "resource pool. vbSize=", p.m_vbSize, ", ibSize=", p.m_ibSize));
+      LOG(LDEBUG, ("initializing", convert(p.m_storageType), "resource pool. vbSize=", p.m_vbSize, ", ibSize=", p.m_ibSize));
       TStorageFactory storageFactory(p.m_vbSize,
                                      p.m_ibSize,
                                      m_params.m_useSingleThreadedOGL,
@@ -361,7 +361,7 @@ namespace
       pool->SetIsDebugging(p.m_isDebugging);
     }
     else
-      LOG(LINFO, ("no ", convert(p.m_storageType), " resource"));
+      LOG(LDEBUG, ("no ", convert(p.m_storageType), " resource"));
   }
 
   TStoragePool * ResourceManager::storagePool(EStorageType type)
@@ -388,7 +388,7 @@ namespace
       pool->SetIsDebugging(p.m_isDebugging);
     }
     else
-      LOG(LINFO, ("no ", convert(p.m_textureType), " resource"));
+      LOG(LDEBUG, ("no ", convert(p.m_textureType), " resource"));
   }
 
   TTexturePool * ResourceManager::texturePool(ETextureType type)

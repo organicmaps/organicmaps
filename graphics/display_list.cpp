@@ -109,9 +109,6 @@ namespace graphics
 
     /// drawing collected geometry
 
-    if (m_isDebugging)
-      LOG(LINFO, ("started DisplayList::draw"));
-
     for (list<shared_ptr<Command> >::const_iterator it = m_commands.begin();
          it != m_commands.end();
          ++it)
@@ -121,10 +118,6 @@ namespace graphics
         (*it)->setAdditionalUniforms(*holder);
       (*it)->perform();
     }
-
-    if (m_isDebugging)
-      LOG(LINFO, ("finished DisplayList::draw"));
-
 
     r->renderContext()->setMatrix(EModelView, math::Identity<double, 4>());
   }

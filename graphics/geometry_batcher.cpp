@@ -776,7 +776,7 @@ namespace graphics
   /// is explicitly checked in the mapXXX() functions.
   void GeometryBatcher::onDynamicOverflow(int pipelineID)
   {
-    LOG(LINFO, ("DynamicPage flushing, pipelineID=", (uint32_t)pipelineID));
+    LOG(LDEBUG, ("DynamicPage flushing, pipelineID=", (uint32_t)pipelineID));
     flushDynamicPage();
   }
 

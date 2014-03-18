@@ -210,7 +210,7 @@ namespace graphics
     if (m_textureType != EStaticTexture)
       m_texture = m_resourceManager->texturePool(m_textureType)->Reserve();
     else
-      LOG(LINFO, ("reserveTexture call for with invalid type param"));
+      LOG(LDEBUG, ("reserveTexture call for with invalid type param"));
   }
 
   TTexturePool * ResourceCache::texturePool() const
@@ -222,7 +222,7 @@ namespace graphics
       return m_resourceManager->texturePool(m_textureType);
     else
     {
-      LOG(LWARNING, ("no texturePool with such type", m_textureType));
+      LOG(LDEBUG/*LWARNING*/, ("no texturePool with such type", m_textureType));
       return 0;
     }
   }
@@ -234,7 +234,7 @@ namespace graphics
                             m_resourceManager->params().m_textureParams[m_textureType].m_texHeight,
                             0x00FFFFFF - 1);
     else
-      LOG(LINFO, ("createPacker call for invalid type param"));
+      LOG(LDEBUG, ("createPacker call for invalid type param"));
   }
 
   shared_ptr<ResourceManager> const & ResourceCache::resourceManager() const

@@ -125,7 +125,7 @@ namespace graphics
           if (graphics::gl::g_hasContext)
           {
             if (glUnmapBufferFn(m_target) == GL_FALSE)
-              LOG(LWARNING, ("glUnmapBuffer returned GL_FALSE!"));
+              LOG(LDEBUG/*LWARNING*/, ("glUnmapBuffer returned GL_FALSE!"));
             OGLCHECKAFTER;
           }
           else

@@ -201,7 +201,7 @@ namespace gui
     if (it != m_dls.end())
       r->drawDisplayList(it->second.get(), drawM * m);
     else
-      LOG(LWARNING, ("m_dls[state] is not set!"));
+      LOG(LDEBUG/*LWARNING*/, ("m_dls[state] is not set!"));
 
     m_textView->draw(r, m);
   }

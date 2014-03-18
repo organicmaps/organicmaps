@@ -39,13 +39,13 @@ CoverageGenerator::CoverageGenerator(TileRenderer * tileRenderer,
 
 CoverageGenerator::~CoverageGenerator()
 {
-  LOG(LINFO, ("cancelling coverage thread"));
+  LOG(LDEBUG, ("cancelling coverage thread"));
   ClearCoverage();
 }
 
 void CoverageGenerator::Shutdown()
 {
-  LOG(LINFO, ("shutdown resources"));
+  LOG(LDEBUG, ("shutdown resources"));
   m_stateInfo.SetSequenceID(numeric_limits<int>::max());
   m_queue.CancelCommands();
   m_queue.Cancel();
@@ -57,7 +57,7 @@ void CoverageGenerator::InitializeThreadGL(shared_ptr<graphics::RenderContext> c
 {
   threads::MutexGuard g(m_stateInfo.m_mutex);
 
-  LOG(LINFO, ("initializing CoverageGenerator on it's own thread."));
+  LOG(LDEBUG, ("initializing CoverageGenerator on it's own thread."));
 
   if (context)
   {

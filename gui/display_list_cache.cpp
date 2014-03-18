@@ -78,7 +78,7 @@ namespace gui
     graphics::EPosition pos = graphics::EPosAbove;
     if (strcmp(name, "search-result") == 0)
     {
-      LOG(LINFO, ("Position checked"));
+      LOG(LDEBUG, ("Position checked"));
       pos = graphics::EPosCenter;
     }
 

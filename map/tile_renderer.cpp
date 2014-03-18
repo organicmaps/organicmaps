@@ -69,7 +69,7 @@ TileRenderer::TileRenderer(
 
   m_threadData.resize(m_queue.ExecutorsCount());
 
-  LOG(LINFO, ("initializing ", m_queue.ExecutorsCount(), " rendering threads"));
+  LOG(LDEBUG, ("initializing ", m_queue.ExecutorsCount(), " rendering threads"));
 
   TileSizeT const tileSz = GetTileSizes();
 
@@ -109,7 +109,7 @@ TileRenderer::~TileRenderer()
 
 void TileRenderer::Shutdown()
 {
-  LOG(LINFO, ("shutdown resources"));
+  LOG(LDEBUG, ("shutdown resources"));
   SetSequenceID(numeric_limits<int>::max());
   m_queue.CancelCommands();
   m_queue.Cancel();
@@ -121,7 +121,7 @@ void TileRenderer::Shutdown()
 
 void TileRenderer::InitializeThreadGL(core::CommandsQueue::Environment const & env)
 {
-  LOG(LINFO, ("initializing TileRenderer", env.threadNum(), "on it's own thread"));
+  LOG(LDEBUG, ("initializing TileRenderer", env.threadNum(), "on it's own thread"));
 
   ThreadData & threadData = m_threadData[env.threadNum()];
 
@@ -273,7 +273,7 @@ void TileRenderer::CacheActiveTile(Tiler::RectInfo const & rectInfo)
 
     if (m_tileCache.CanFit() == 0)
     {
-      LOG(LINFO, ("resizing tileCache to", m_tileCache.CacheSize() + 1, "elements"));
+      LOG(LDEBUG, ("resizing tileCache to", m_tileCache.CacheSize() + 1, "elements"));
       m_tileCache.Resize(m_tileCache.CacheSize() + 1);
     }
 

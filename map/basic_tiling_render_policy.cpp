@@ -20,7 +20,7 @@ BasicTilingRenderPolicy::BasicTilingRenderPolicy(Params const & p,
 {
   m_TileSize = ScalesProcessor::CalculateTileSize(p.m_screenWidth, p.m_screenHeight);
 
-  LOG(LINFO, ("ScreenSize=", p.m_screenWidth, "x", p.m_screenHeight, ", TileSize=", m_TileSize));
+  LOG(LDEBUG, ("ScreenSize=", p.m_screenWidth, "x", p.m_screenHeight, ", TileSize=", m_TileSize));
 
   if (doUseQueuedRenderer)
     m_QueuedRenderer.reset(new QueuedRenderer(GetPlatform().CpuCores() + 1, p.m_primaryRC));

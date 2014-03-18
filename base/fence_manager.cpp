@@ -56,7 +56,7 @@ void FenceManager::signalFence(int id)
 
   if (it == m_activeFences.end())
   {
-    LOG(LINFO, ("fence with id", id, "has been already signalled or hasn't been installed yet"));
+    LOG(LDEBUG, ("fence with id", id, "has been already signalled or hasn't been installed yet"));
     return;
   }
 
@@ -88,7 +88,7 @@ void FenceManager::joinFence(int id)
 
     if (it == m_activeFences.end())
     {
-      LOG(LINFO, ("fence with id", id, "has been already reached in the past or hasn't been installed yet"));
+      LOG(LDEBUG, ("fence with id", id, "has been already reached in the past or hasn't been installed yet"));
       return;
     }
 

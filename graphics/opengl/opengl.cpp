@@ -35,11 +35,9 @@ namespace graphics
 
     void DumpGLInformation()
     {
-      LOG(LINFO, ("OpenGL Information"));
-      LOG(LINFO, ("--------------------------------------------"));
-      LOG(LINFO, ("Vendor     : ", glGetString(GL_VENDOR)));
-      LOG(LINFO, ("Renderer   : ", glGetString(GL_RENDERER)));
-      LOG(LINFO, ("Version    : ", glGetString(GL_VERSION)));
+      LOG(LINFO, ("OpenGL Vendor    :", glGetString(GL_VENDOR)));
+      LOG(LINFO, ("OpenGL Renderer  :", glGetString(GL_RENDERER)));
+      LOG(LINFO, ("OpenGL Version   :", glGetString(GL_VERSION)));
 
       vector<string> names;
 
@@ -48,12 +46,10 @@ namespace graphics
       for (unsigned i = 0; i < names.size(); ++i)
       {
         if (i == 0)
-          LOG(LINFO, ("Extensions : ", names[i]));
+          LOG(LINFO, ("OpenGL Extensions: ", names[i]));
         else
-          LOG(LINFO, ("             ", names[i]));
+          LOG(LINFO, ("                   ", names[i]));
       }
-
-      LOG(LINFO, ("--------------------------------------------"));
     }
 
     void (OPENGL_CALLING_CONVENTION * glActiveTextureFn) (GLenum texture);

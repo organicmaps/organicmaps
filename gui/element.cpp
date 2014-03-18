@@ -48,7 +48,7 @@ namespace gui
     if (m_controller)
       m_controller->Invalidate();
     else
-      LOG(LWARNING, ("unattached gui::Element couldn't be invalidated!"));
+      LOG(LDEBUG/*LWARNING*/, ("unattached gui::Element couldn't be invalidated!"));
   }
 
   double Element::visualScale() const
@@ -57,7 +57,7 @@ namespace gui
       return m_controller->GetVisualScale();
     else
     {
-      LOG(LWARNING, ("unattached gui::Elements shouldn't call gui::Element::visualScale function"));
+      LOG(LDEBUG/*LWARNING*/, ("unattached gui::Elements shouldn't call gui::Element::visualScale function"));
       return 0.0;
     }
   }

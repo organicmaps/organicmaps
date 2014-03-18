@@ -89,7 +89,7 @@ public:
       {
         doFirstWait = false;
         if (!m_resName.empty())
-          LOG(LINFO, ("consumer is waiting for", m_resName));
+          LOG(LDEBUG, ("consumer is waiting for", m_resName));
       }
 
       m_Cond.Wait();

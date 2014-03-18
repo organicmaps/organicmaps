@@ -57,7 +57,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
 
 TilingRenderPolicyMT::~TilingRenderPolicyMT()
 {
-  LOG(LINFO, ("cancelling ResourceManager"));
+  LOG(LDEBUG, ("cancelling ResourceManager"));
   m_resourceManager->cancel();
 
   m_CoverageGenerator->Shutdown();

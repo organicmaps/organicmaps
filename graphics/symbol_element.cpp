@@ -23,7 +23,7 @@ namespace graphics
 
     if (res == 0)
     {
-      LOG(LWARNING, ("POI", m_info.m_name, "wasn't found on current skin."));
+      LOG(LDEBUG/*LWARNING*/, ("POI", m_info.m_name, "wasn't found on current skin."));
       return;
     }
 
@@ -65,13 +65,13 @@ namespace graphics
 
     if (res == 0)
     {
-      LOG(LINFO, ("POI(", m_info.m_name, ") wasn't found on the current skin"));
+      LOG(LDEBUG, ("POI(", m_info.m_name, ") wasn't found on the current skin"));
       return;
     }
 
     if (res->m_texRect != m_symbolRect)
     {
-      LOG(LINFO, ("POI(", m_info.m_name, ") rects doesn't match"));
+      LOG(LDEBUG, ("POI(", m_info.m_name, ") rects doesn't match"));
       return;
     }
 

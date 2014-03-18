@@ -52,7 +52,7 @@ namespace graphics
 
     if (storagePool->IsCancelled())
     {
-      LOG(LINFO, ("skipping multiBlit on cancelled multiBlitStorages pool"));
+      LOG(LDEBUG, ("skipping multiBlit on cancelled multiBlitStorages pool"));
       return;
     }
 

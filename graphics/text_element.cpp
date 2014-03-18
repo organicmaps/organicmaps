@@ -124,7 +124,7 @@ namespace graphics
                             &glyphIDs[firstVis],
                             lastVis - firstVis))
     {
-      LOG(LINFO, ("cannot render string", lastVis - firstVis, "characters long"));
+      LOG(LDEBUG, ("cannot render string", lastVis - firstVis, "characters long"));
       return;
     }
 

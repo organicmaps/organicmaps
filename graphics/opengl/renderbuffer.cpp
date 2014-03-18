@@ -25,7 +25,7 @@ namespace graphics
         internalFormat = GL_RGBA4_MWM;
 
       if (m_isDepthBuffer == false)
-        LOG(LINFO, ("Color buffer format : ", internalFormat));
+        LOG(LDEBUG, ("Color buffer format : ", internalFormat));
       OGLCHECK(glRenderbufferStorageFn(target,
                                        internalFormat,
                                        m_width,

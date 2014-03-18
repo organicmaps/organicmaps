@@ -38,17 +38,11 @@ namespace graphics
 
     void GeometryRenderer::UploadData::perform()
     {
-      if (isDebugging())
-        LOG(LINFO, ("performing UploadData command", m_texture->width(), m_texture->height()));
-
       if (!m_texture)
       {
         LOG(LDEBUG, ("no texture on upload"));
         return;
       }
-
-      if (isDebugging())
-        LOG(LINFO, ("uploading to", m_texture->id(), "texture"));
 
       if (m_uploadQueue.empty())
         return;
@@ -141,7 +135,7 @@ namespace graphics
       m2::RectU r(0, 0, 0, 0);
       if (!m_uploadQueue.empty())
         r = m_uploadQueue[0]->m_texRect;
-      LOG(LINFO, ("UploadData: texture", m_texture->id(), ", count=", m_uploadQueue.size(), ", first=", r));
+      LOG(LDEBUG, ("UploadData: texture", m_texture->id(), ", count=", m_uploadQueue.size(), ", first=", r));
     }
 
 
@@ -172,15 +166,6 @@ namespace graphics
 
     void GeometryRenderer::DrawGeometry::perform()
     {
-      if (isDebugging())
-        LOG(LINFO, ("performing DrawGeometry command"));
-
-      if (isDebugging())
-        LOG(LINFO, ("using", m_texture->id(), "texture"));
-
-      if (isDebugging())
-        LOG(LINFO, ("drawing", m_indicesCount / 3, "triangles"));
-
       gl::RenderContext * rc = static_cast<gl::RenderContext*>(renderContext());
 
       shared_ptr<Program> const & prg = rc->program();
@@ -199,7 +184,7 @@ namespace graphics
       if (m_texture)
         m_texture->makeCurrent();
       else
-        LOG(LINFO, ("null texture used in DrawGeometry"));
+        LOG(LDEBUG, ("null texture used in DrawGeometry"));
 
       unsigned glPrimType;
       convert(m_primitiveType, glPrimType);
@@ -213,7 +198,7 @@ namespace graphics
 
     void GeometryRenderer::DrawGeometry::dump()
     {
-      LOG(LINFO, ("DrawGeometry, texture=", m_texture->id(), ", indicesCount=", m_indicesCount));
+      LOG(LDEBUG, ("DrawGeometry, texture=", m_texture->id(), ", indicesCount=", m_indicesCount));
     }
 
     void GeometryRenderer::drawGeometry(shared_ptr<BaseTexture> const & texture,
@@ -235,9 +220,6 @@ namespace graphics
 
     void GeometryRenderer::FreeStorage::perform()
     {
-      if (isDebugging())
-        LOG(LINFO, ("performing FreeStorage command"));
-
       if (m_storagePool->IsCancelled())
         return;
 
@@ -261,12 +243,6 @@ namespace graphics
 
     void GeometryRenderer::FreeTexture::perform()
     {
-      if (isDebugging())
-        LOG(LINFO, ("performing FreeTexture command"));
-
-      if (isDebugging())
-        LOG(LINFO, ("freeing", m_texture->id(), "texture"));
-
       if (m_texturePool->IsCancelled())
         return;
 
@@ -275,7 +251,7 @@ namespace graphics
 
     void GeometryRenderer::FreeTexture::dump()
     {
-      LOG(LINFO, ("FreeTexture, texture=", m_texture->id(), ", pool=", m_texturePool->ResName()));
+      LOG(LDEBUG, ("FreeTexture, texture=", m_texture->id(), ", pool=", m_texturePool->ResName()));
     }
 
     void GeometryRenderer::FreeTexture::cancel()
@@ -295,9 +271,6 @@ namespace graphics
 
     void GeometryRenderer::UnlockStorage::perform()
     {
-      if (isDebugging())
-        LOG(LINFO, ("performing UnlockPipeline command"));
-
       if (m_storage.m_vertices && m_storage.m_indices)
       {
         m_storage.m_vertices->unlock();
@@ -329,9 +302,6 @@ namespace graphics
 
     void GeometryRenderer::DiscardStorage::perform()
     {
-      if (isDebugging())
-        LOG(LINFO, ("performing DiscardStorage command"));
-
       if (m_storage.m_vertices && m_storage.m_indices)
       {
         m_storage.m_vertices->discard();
@@ -357,9 +327,6 @@ namespace graphics
 
     void GeometryRenderer::ApplyStates::perform()
     {
-      if (isDebugging())
-        LOG(LINFO, ("performing ApplyStates command"));
-
       // Disable dither to fix 4-bit textures "grid" issue on Nvidia Tegra cards
       OGLCHECK(glDisable(GL_DITHER));
 
@@ -409,9 +376,6 @@ namespace graphics
 
     void GeometryRenderer::ApplyBlitStates::perform()
     {
-      if (isDebugging())
-        LOG(LINFO, ("performing ApplyBlitStates command"));
-
       OGLCHECK(glDisable(GL_DEPTH_TEST));
       OGLCHECK(glDepthMask(GL_FALSE));
 
@@ -434,9 +398,6 @@ namespace graphics
 
     void GeometryRenderer::ApplySharpStates::perform()
     {
-      if (isDebugging())
-        LOG(LINFO, ("performing ApplySharpStates command"));
-
       // Disable dither to fix 4-bit textures "grid" issue on Nvidia Tegra cards
       OGLCHECK(glDisable(GL_DITHER));
 

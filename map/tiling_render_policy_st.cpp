@@ -60,12 +60,12 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
 
 TilingRenderPolicyST::~TilingRenderPolicyST()
 {
-  LOG(LINFO, ("cancelling ResourceManager"));
+  LOG(LDEBUG, ("cancelling ResourceManager"));
   m_resourceManager->cancel();
 
   int cpuCores = GetPlatform().CpuCores();
 
-  LOG(LINFO, ("deleting TilingRenderPolicyST"));
+  LOG(LDEBUG, ("deleting TilingRenderPolicyST"));
 
   m_QueuedRenderer->PrepareQueueCancellation(cpuCores);
   /// now we should process all commands to collect them into queues
@@ -83,11 +83,11 @@ TilingRenderPolicyST::~TilingRenderPolicyST()
   for (unsigned i = 0; i < cpuCores; ++i)
     m_QueuedRenderer->CancelQueuedCommands(i);
 
-  LOG(LINFO, ("reseting coverageGenerator"));
+  LOG(LDEBUG, ("reseting coverageGenerator"));
   m_CoverageGenerator.reset();
-  LOG(LINFO, ("reseting tileRenderer"));
+  LOG(LDEBUG, ("reseting tileRenderer"));
   m_TileRenderer.reset();
-  LOG(LINFO, ("done reseting tileRenderer"));
+  LOG(LDEBUG, ("done reseting tileRenderer"));
 }
 
 void TilingRenderPolicyST::SetRenderFn(TRenderFn const & renderFn)

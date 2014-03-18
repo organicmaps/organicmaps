@@ -27,10 +27,6 @@ namespace graphics
 
   void AreaRenderer::endFrame()
   {
-    if (isDebugging())
-    {
-      LOG(LINFO, ("drawing ", m_areasCount, " areas, ", m_trianglesCount, " triangles total"));
-    }
     base_t::endFrame();
   }
 
@@ -51,7 +47,7 @@ namespace graphics
 
     if (res == 0)
     {
-      LOG(LINFO, ("drawTrianglesFan: resID=", resID, " wasn't found on current skin."));
+      LOG(LDEBUG, ("drawTrianglesFan: resID=", resID, " wasn't found on current skin."));
       return;
     }
 
@@ -96,7 +92,7 @@ namespace graphics
 
     if (res == 0)
     {
-      LOG(LINFO, ("drawArea: resID=", resID, " wasn't found on current skin."));
+      LOG(LDEBUG, ("drawArea: resID=", resID, " wasn't found on current skin."));
       return;
     }
 

@@ -33,23 +33,10 @@ namespace graphics
 
     void Clipper::EnableClipRect::perform()
     {
-      if (isDebugging())
-        LOG(LINFO, ("performing EnableClipRect command"));
-
       if (m_flag)
-      {
-        if (isDebugging())
-          LOG(LINFO, ("enabling scissor test"));
         OGLCHECK(glEnable(GL_SCISSOR_TEST));
-      }
       else
-      {
-        if (isDebugging())
-        {
-          LOG(LINFO, ("disabling scissor test"));
-          OGLCHECK(glDisable(GL_SCISSOR_TEST));
-        }
-      }
+        OGLCHECK(glDisable(GL_SCISSOR_TEST));
     }
 
     void Clipper::enableClipRect(bool flag)
@@ -70,9 +57,6 @@ namespace graphics
 
     void Clipper::SetClipRect::perform()
     {
-      if (isDebugging())
-        LOG(LINFO, ("performing SetClipRect command"));
-
       OGLCHECK(glScissor(m_rect.minX(), m_rect.minY(), m_rect.SizeX(), m_rect.SizeY()));
     }
 

@@ -22,7 +22,7 @@ namespace graphics
 
     if (resID == base_t::invalidHandle())
     {
-      LOG(LINFO, ("cannot map color"));
+      LOG(LDEBUG, ("cannot map color"));
       return;
     }
 
@@ -108,7 +108,7 @@ namespace graphics
 
     if (res == 0)
     {
-      LOG(LINFO, ("cannot map color"));
+      LOG(LDEBUG, ("cannot map color"));
       return;
     }
 
@@ -154,7 +154,7 @@ namespace graphics
 
     if (res == 0)
     {
-      LOG(LINFO, ("cannot map color"));
+      LOG(LDEBUG, ("cannot map color"));
       return;
     }
 
@@ -199,7 +199,7 @@ namespace graphics
 
     if (res == 0)
     {
-      LOG(LINFO, ("cannot map color"));
+      LOG(LDEBUG, ("cannot map color"));
       return;
     }
 

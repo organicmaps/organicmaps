@@ -226,17 +226,17 @@ void RenderPolicy::SetAnimController(anim::Controller * controller)
 
 void RenderPolicy::FrameLock()
 {
-  LOG(LWARNING, ("unimplemented method called."));
+  LOG(LDEBUG/*LWARNING*/, ("unimplemented method called."));
 }
 
 void RenderPolicy::FrameUnlock()
 {
-  LOG(LWARNING, ("unimplemented method called"));
+  LOG(LDEBUG/*LWARNING*/, ("unimplemented method called"));
 }
 
 graphics::Overlay * RenderPolicy::FrameOverlay() const
 {
-  LOG(LWARNING, ("unimplemented method called"));
+  LOG(LDEBUG/*LWARNING*/, ("unimplemented method called"));
   return NULL;
 }
 

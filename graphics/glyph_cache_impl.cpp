@@ -493,7 +493,7 @@ namespace graphics
     {
       if (m_unicodeBlocks[i].hasSymbol(key.m_symbolCode))
       {
-        LOG(LINFO, ("Symbol", key.m_symbolCode, "not found, unicodeBlock=", m_unicodeBlocks[i].m_name));
+        LOG(LDEBUG, ("Symbol", key.m_symbolCode, "not found, unicodeBlock=", m_unicodeBlocks[i].m_name));
         break;
       }
     }

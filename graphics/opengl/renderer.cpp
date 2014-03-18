@@ -117,7 +117,7 @@ namespace graphics
       if (firstReport)
       {
         if (!glDiscardFramebufferFn)
-          LOG(LINFO, ("GL_EXT_discard_framebuffer is unsupported"));
+          LOG(LDEBUG, ("GL_EXT_discard_framebuffer is unsupported"));
         firstReport = false;
       }
 
@@ -187,8 +187,6 @@ namespace graphics
 
     void Renderer::ClearCommand::perform()
     {
-      if (isDebugging())
-        LOG(LINFO, ("performing clear command"));
       OGLCHECK(glClearColor(m_color.r / 255.0f,
                             m_color.g / 255.0f,
                             m_color.b / 255.0f,
@@ -232,12 +230,6 @@ namespace graphics
 
     void Renderer::ChangeFrameBuffer::perform()
     {
-      if (isDebugging())
-      {
-        LOG(LINFO, ("performing ChangeFrameBuffer command"));
-        LOG(LINFO, ("frameBufferID=", m_frameBuffer->id()));
-      }
-
       m_frameBuffer->makeCurrent();
 
       OGLCHECK(glViewport(0, 0, m_frameBuffer->width(), m_frameBuffer->height()));

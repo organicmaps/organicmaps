@@ -34,7 +34,7 @@ namespace graphics
 
     if (res == 0)
     {
-      LOG(LINFO, ("drawPath: resID=", resID, "wasn't found on current skin"));
+      LOG(LDEBUG, ("drawPath: resID=", resID, "wasn't found on current skin"));
       return;
     }
 
@@ -477,10 +477,6 @@ namespace graphics
 
   void PathRenderer::endFrame()
   {
-    if (isDebugging())
-    {
-      LOG(LINFO, ("drawing ", m_pathCount, " pathes, ", m_pointsCount, " points total"));
-    }
     base_t::endFrame();
   }
 

@@ -20,7 +20,7 @@ QueuedRenderer::~QueuedRenderer()
 
   delete [] m_Pipelines;
 
-  LOG(LINFO, ("deleted QueuedRenderPolicy"));
+  LOG(LDEBUG, ("deleted QueuedRenderPolicy"));
 }
 
 bool QueuedRenderer::NeedRedraw() const
@@ -44,14 +44,10 @@ void QueuedRenderer::SetPartialExecution(int pipelineNum, bool flag)
 void QueuedRenderer::BeginFrame()
 {
   m_IsDebugging = false;
-  if (m_IsDebugging)
-    LOG(LINFO, ("-------BeginFrame-------"));
 }
 
 void QueuedRenderer::EndFrame()
 {
-  if (m_IsDebugging)
-    LOG(LINFO, ("-------EndFrame-------"));
 }
 
 void QueuedRenderer::DrawFrame()
@@ -74,9 +70,6 @@ bool QueuedRenderer::RenderQueuedCommands(int pipelineNum)
   /// logging only calls that is made while rendering tiles.
 //  if ((pipelineNum == 0) && (m_IsDebugging))
 //    graphics::gl::g_doLogOGLCalls = true;
-
-  if (m_IsDebugging)
-    LOG(LINFO, ("--- Processing Pipeline #", pipelineNum, " ---"));
 
   unsigned cmdProcessed = 0;
 
@@ -125,12 +118,6 @@ bool QueuedRenderer::RenderQueuedCommands(int pipelineNum)
     /// breaking from processing cycle.
     if (isCheckpoint && partialExecution)
       break;
-  }
-
-  if (m_IsDebugging)
-  {
-    LOG(LINFO, ("processed", cmdProcessed, "commands"));
-    LOG(LINFO, (m_Pipelines[pipelineNum].m_Queue.size(), "commands left"));
   }
 
   return res;
@@ -200,9 +187,6 @@ void QueuedRenderer::CopyQueuedCommands(list<graphics::Packet> &l, list<graphics
 
 void QueuedRenderer::CancelQueuedCommands(int pipelineNum)
 {
-  if (m_IsDebugging)
-    LOG(LINFO, ("cancelling packetsQueue for pipeline", pipelineNum));
-
   m_Pipelines[pipelineNum].m_Queue.cancel();
 
   list<graphics::Packet> l;

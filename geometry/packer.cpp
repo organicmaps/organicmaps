@@ -172,7 +172,7 @@ namespace m2
 
   void Packer::callOverflowFns()
   {
-    LOG(LINFO, ("Texture|Handles Overflow"));
+    LOG(LDEBUG, ("Texture|Handles Overflow"));
     overflowFns handlersCopy = m_overflowFns;
     while (!handlersCopy.empty())
     {
