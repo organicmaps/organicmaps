@@ -9,6 +9,10 @@
 UNIT_TEST(Assert_Smoke)
 {
   int x = 5;
+  // to avoid warning in release
+#ifdef RELEASE
+  UNUSED_VALUE(x);
+#endif
   ASSERT_EQUAL ( x, 5, () );
   ASSERT_NOT_EQUAL ( x, 6, () );
   //ASSERT_EQUAL ( x, 666, ("Skip this to continue test") );

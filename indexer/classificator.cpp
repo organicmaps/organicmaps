@@ -172,6 +172,10 @@ namespace ftype
     ASSERT ( value <= max_value, ("invalid input value", value) );
 
     uint8_t const cl = get_control_level(type);
+    // to avoid warning in release
+#ifdef RELEASE
+    UNUSED_VALUE(levels_count);
+#endif
     ASSERT ( cl < levels_count, (cl) );
 
     set_value(type, cl, value);

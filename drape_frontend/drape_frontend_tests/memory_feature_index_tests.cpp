@@ -21,11 +21,11 @@ namespace
       features[indexes[i]].m_isOwner = true;
   }
 
-  void ResetReadedMark(vector<df::FeatureInfo> & features)
-  {
-    for (size_t i = 0; i < features.size(); ++i)
-      features[i].m_isOwner = false;
-  }
+//  void ResetReadedMark(vector<df::FeatureInfo> & features)
+//  {
+//    for (size_t i = 0; i < features.size(); ++i)
+//      features[i].m_isOwner = false;
+//  }
 }
 
 UNIT_TEST(MemoryFeatureIndex_SimpleTest)

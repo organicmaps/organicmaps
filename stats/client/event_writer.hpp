@@ -27,10 +27,10 @@ private:
   bool OpenDb(string const & path);
 
 private:
-  unsigned int m_cnt;
-  void * m_db; // @todo Replace with ours impl
+//  unsigned int m_cnt;
+//  void * m_db; // @todo Replace with ours impl
   string m_path;
-  unsigned long long m_uid;
+//  unsigned long long m_uid;
 };
 
 }  // namespace stats

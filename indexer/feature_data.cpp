@@ -132,6 +132,7 @@ void FeatureParams::SetGeomType(feature::EGeomType t)
   case GEOM_POINT: m_geomType = HEADER_GEOM_POINT; break;
   case GEOM_LINE: m_geomType = HEADER_GEOM_LINE; break;
   case GEOM_AREA: m_geomType = HEADER_GEOM_AREA; break;
+  default: ASSERT(false, ());
   }
 }
 

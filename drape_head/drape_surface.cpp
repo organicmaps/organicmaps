@@ -114,6 +114,6 @@ void DrapeSurface::sizeChanged(int)
 
 m2::PointF DrapeSurface::GetDevicePosition(const QPoint & p)
 {
-  qreal ratio = devicePixelRatio();
+//  qreal ratio = devicePixelRatio();
   return m2::PointF(p.x() /* ratio*/, p.y() /* ratio*/);
 }

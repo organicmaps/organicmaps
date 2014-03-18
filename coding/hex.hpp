@@ -44,7 +44,10 @@ inline string NumToHex(IntT n)
   for (size_t i = 0; i < sizeof(n); ++i)
   {
     buf[i] = (n >> ((sizeof(n) - 1) * 8));
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wshift-count-overflow"
     n <<= 8;
+#pragma GCC diagnostic pop
   }
 
   return ToHex(buf, sizeof(buf));
