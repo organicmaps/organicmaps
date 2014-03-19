@@ -24,7 +24,6 @@ namespace
     {
       if (element == "symbol")
       {
-        ASSERT(m_isSymbol == true, ());
         ASSERT(!m_name.empty(), ());
         ASSERT(m_rect.IsValid(), ());
         m_skn.insert(make_pair(m_name, m_rect));
@@ -65,8 +64,6 @@ namespace
     uint32_t m_height;
 
   private:
-    bool m_isSymbol;
-
     string m_name;
     m2::RectU m_rect;
 

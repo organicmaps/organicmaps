@@ -5,7 +5,7 @@
 
 #include "../base/math.hpp"
 
-#define VERIFY_ID ASSERT(GetID() != -1, ())
+#define ASSERT_ID ASSERT(GetID() != -1, ())
 
 Texture::Texture()
   : m_textureID(-1)
@@ -41,14 +41,14 @@ void Texture::Create(uint32_t width, uint32_t height, TextureFormat format, RefP
 
 void Texture::SetFilterParams(glConst minFilter, glConst magFilter)
 {
-  VERIFY_ID;
+  ASSERT_ID;
   GLFunctions::glTexParameter(GLConst::GLMinFilter, minFilter);
   GLFunctions::glTexParameter(GLConst::GLMagFilter, magFilter);
 }
 
 void Texture::SetWrapMode(glConst sMode, glConst tMode)
 {
-  VERIFY_ID;
+  ASSERT_ID;
   GLFunctions::glTexParameter(GLConst::GLWrapS, sMode);
   GLFunctions::glTexParameter(GLConst::GLWrapT, tMode);
 }
@@ -56,7 +56,7 @@ void Texture::SetWrapMode(glConst sMode, glConst tMode)
 void Texture::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height,
                          TextureFormat format, RefPointer<void> data)
 {
-  VERIFY_ID;
+  ASSERT_ID;
   glConst layout;
   glConst pixelType;
 
@@ -67,31 +67,31 @@ void Texture::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height
 
 uint32_t Texture::GetWidth() const
 {
-  VERIFY_ID;
+  ASSERT_ID;
   return m_width;
 }
 
 uint32_t Texture::GetHeight() const
 {
-  VERIFY_ID;
+  ASSERT_ID;
   return m_height;
 }
 
 float Texture::GetS(uint32_t x) const
 {
-  VERIFY_ID;
-  return x / m_width;
+  ASSERT_ID;
+  return x / (float)m_width;
 }
 
 float Texture::GetT(uint32_t y) const
 {
-  VERIFY_ID;
-  return y / m_height;
+  ASSERT_ID;
+  return y / (float)m_height;
 }
 
 void Texture::Bind() const
 {
-  VERIFY_ID;
+  ASSERT_ID;
   GLFunctions::glBindTexture(GetID());
 }
 

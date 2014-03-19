@@ -337,16 +337,8 @@ namespace tools
       }
     }
     string extName = ".sdf";
-    QFile::remove(QString((skinName + extName).c_str()));
-
-    if (QFile::exists((skinName + extName).c_str()))
-      throw std::exception();
-
     QFile file(QString((skinName + extName).c_str()));
-
-    LOG(LINFO, ("writing skin into ", skinName + extName));
-
-    if (!file.open(QIODevice::ReadWrite))
+    if (!file.open(QIODevice::ReadWrite | QIODevice::Truncate))
       throw std::exception();
     QTextStream ts(&file);
     ts.setCodec("UTF-8");
