@@ -1,7 +1,7 @@
 #include "drape_engine.hpp"
 
 #include "message_subclasses.hpp"
-#include "vizualization_params.hpp"
+#include "visual_params.hpp"
 
 namespace df
 {
@@ -10,16 +10,14 @@ namespace df
     , m_navigator(m_scales)
   {
     GLFunctions::Init();
-    VizualizationParams::SetVisualScale(vs);
-    m_scales.SetParams(vs, ScalesProcessor::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
-    //m_modelView.Load();
+    VisualParams::Init(vs, df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
     m_navigator.LoadState();
 
     m_threadCommutator = MasterPointer<ThreadsCommutator>(new ThreadsCommutator());
     RefPointer<ThreadsCommutator> commutatorRef = m_threadCommutator.GetRefPointer();
 
     m_frontend = MasterPointer<FrontendRenderer>(new FrontendRenderer(commutatorRef, contextfactory, m_viewport));
-    m_backend =  MasterPointer<BackendRenderer>(new BackendRenderer(commutatorRef, contextfactory, m_viewport));
+    m_backend =  MasterPointer<BackendRenderer>(new BackendRenderer(commutatorRef, contextfactory));
 
     UpdateCoverage();
   }

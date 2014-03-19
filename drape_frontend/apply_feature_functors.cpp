@@ -1,6 +1,6 @@
 #include "apply_feature_functors.hpp"
 #include "shape_view_params.hpp"
-#include "vizualization_params.hpp"
+#include "visual_params.hpp"
 #include "engine_context.hpp"
 
 #include "area_shape.hpp"
@@ -26,7 +26,7 @@ namespace df
                  df::LineViewParams & params)
     {
       params.m_color = ToDrapeColor(lineRule->color());
-      params.m_width = max(lineRule->width() * df::VizualizationParams::GetVisualScale(), 1.0);
+      params.m_width = max(lineRule->width() * df::VisualParams::Instance().GetVisualScale(), 1.0);
 
       switch(lineRule->cap())
       {

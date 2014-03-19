@@ -29,9 +29,9 @@ SOURCES += \
     line_shape.cpp \
     rule_drawer.cpp \
     viewport.cpp \
-    vizualization_params.cpp \
     tile_key.cpp \
-    apply_feature_functors.cpp
+    apply_feature_functors.cpp \
+    visual_params.cpp
 
 HEADERS += \
     engine_context.hpp \
@@ -56,6 +56,6 @@ HEADERS += \
     shape_view_params.hpp \
     rule_drawer.hpp \
     viewport.hpp \
-    vizualization_params.hpp \
     tile_key.hpp \
-    apply_feature_functors.hpp
+    apply_feature_functors.hpp \
+    visual_params.hpp

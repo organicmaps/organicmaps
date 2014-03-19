@@ -5,15 +5,9 @@
 
 namespace df
 {
-  EngineContext::EngineContext(RefPointer<ThreadsCommutator> commutator, ScalesProcessor const & processor)
+  EngineContext::EngineContext(RefPointer<ThreadsCommutator> commutator)
     : m_commutator(commutator)
-    , m_scalesProcessor(processor)
   {
-  }
-
-  ScalesProcessor const & EngineContext::GetScalesProcessor() const
-  {
-    return m_scalesProcessor;
   }
 
   void EngineContext::BeginReadTile(TileKey const & key)

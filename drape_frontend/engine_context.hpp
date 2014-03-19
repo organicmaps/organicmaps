@@ -15,9 +15,7 @@ namespace df
   class EngineContext
   {
   public:
-    EngineContext(RefPointer<ThreadsCommutator> commutator, ScalesProcessor const & processor);
-
-    ScalesProcessor const & GetScalesProcessor() const;
+    EngineContext(RefPointer<ThreadsCommutator> commutator);
 
     void BeginReadTile(TileKey const & key);
     /// If you call this method, you may forget about shape.
@@ -30,6 +28,5 @@ namespace df
 
   private:
     RefPointer<ThreadsCommutator> m_commutator;
-    ScalesProcessor m_scalesProcessor;
   };
 }

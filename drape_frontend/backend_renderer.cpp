@@ -1,7 +1,7 @@
 #include "backend_renderer.hpp"
 #include "read_manager.hpp"
 #include "batchers_pool.hpp"
-#include "vizualization_params.hpp"
+#include "visual_params.hpp"
 
 #include "threads_commutator.hpp"
 #include "message_subclasses.hpp"
@@ -13,21 +13,9 @@
 
 namespace df
 {
-  namespace
-  {
-    ScalesProcessor CreateScaleProcessor(Viewport const & v)
-    {
-      ScalesProcessor p;
-      int tileSize = ScalesProcessor::CalculateTileSize(v.GetWidth(), v.GetHeight());
-      p.SetParams(df::VizualizationParams::GetVisualScale(), tileSize);
-      return p;
-    }
-  }
-
   BackendRenderer::BackendRenderer(RefPointer<ThreadsCommutator> commutator,
-                                   RefPointer<OGLContextFactory> oglcontextfactory,
-                                   Viewport const & viewport)
-    : m_engineContext(commutator, CreateScaleProcessor(viewport))
+                                   RefPointer<OGLContextFactory> oglcontextfactory)
+    : m_engineContext(commutator)
     , m_commutator(commutator)
     , m_contextFactory(oglcontextfactory)
   {

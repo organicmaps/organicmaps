@@ -24,8 +24,7 @@ namespace df
   {
   public:
     BackendRenderer(RefPointer<ThreadsCommutator> commutator,
-                    RefPointer<OGLContextFactory> oglcontextfactory,
-                    Viewport const & viewport);
+                    RefPointer<OGLContextFactory> oglcontextfactory);
 
     ~BackendRenderer();
 

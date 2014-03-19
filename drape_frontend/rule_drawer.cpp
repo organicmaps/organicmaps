@@ -2,11 +2,10 @@
 #include "stylist.hpp"
 #include "engine_context.hpp"
 #include "apply_feature_functors.hpp"
+#include "visual_params.hpp"
 
 #include "../indexer/feature.hpp"
 #include "../indexer/feature_algo.hpp"
-
-#include "../map/geometry_processors.hpp"
 
 #include "../base/assert.hpp"
 #include "../std/bind.hpp"
@@ -20,7 +19,7 @@ namespace df
   {
     m_globalRect = m_tileKey.GetGlobalRect();
 
-    int32_t tileSize = m_context.GetScalesProcessor().GetTileSize();
+    int32_t tileSize = df::VisualParams::Instance().GetTileSize();
     m_geometryConvertor.OnSize(0, 0, tileSize, tileSize);
     m_geometryConvertor.SetFromRect(m2::AnyRectD(m_globalRect));
   }

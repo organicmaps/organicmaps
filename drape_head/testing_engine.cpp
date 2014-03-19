@@ -1,6 +1,6 @@
 #include "testing_engine.hpp"
 
-#include "../drape_frontend/vizualization_params.hpp"
+#include "../drape_frontend/visual_params.hpp"
 #include "../drape_frontend/line_shape.hpp"
 
 #include "../base/stl_add.hpp"
@@ -15,7 +15,7 @@ namespace df
     , m_viewport(viewport)
   {
     GLFunctions::Init();
-    df::VizualizationParams::SetVisualScale(vs);
+    df::VisualParams::Init(vs, df::CalculateTileSize(viewport.GetWidth(), viewport.GetHeight()));
     m_contextFactory->getDrawContext()->makeCurrent();
 
     m_batcher.Reset(new Batcher());

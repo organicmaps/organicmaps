@@ -1,6 +1,7 @@
 #include "read_manager.hpp"
 #include "read_mwm_task.hpp"
 #include "coverage_update_descriptor.hpp"
+#include "visual_params.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -108,7 +109,7 @@ namespace df
   {
     out.clear();
 
-    int const tileScale = m_context.GetScalesProcessor().GetTileScaleBase(screen);
+    int const tileScale = df::GetTileScaleBase(screen);
     // equal for x and y
     double const range = MercatorBounds::maxX - MercatorBounds::minX;
     double const rectSize = range / (1 << tileScale);
@@ -137,9 +138,8 @@ namespace df
 
   bool ReadManager::MustDropAllTiles(ScreenBase const & screen) const
   {
-    ScalesProcessor const & sp = m_context.GetScalesProcessor();
-    const int oldScale = sp.GetTileScaleBase(m_currentViewport);
-    const int newScale = sp.GetTileScaleBase(screen);
+    const int oldScale = df::GetTileScaleBase(m_currentViewport);
+    const int newScale = df::GetTileScaleBase(screen);
     return (oldScale != newScale) || !m_currentViewport.GlobalRect().IsIntersect(screen.GlobalRect());
   }
 
