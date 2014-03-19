@@ -16,7 +16,7 @@ namespace df
               float depth,
               LineViewParams const & params);
 
-    virtual void Draw(RefPointer<Batcher> batcher) const;
+    virtual void Draw(RefPointer<Batcher> batcher, RefPointer<TextureManager> /*textures*/) const;
 
     float         GetWidth() const { return m_params.m_width; }
     Color const & GetColor() const { return m_params.m_color; }

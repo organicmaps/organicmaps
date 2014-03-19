@@ -2,20 +2,28 @@
 
 #include "utils/lodepng.h"
 
-SymbolsTexture::SymbolsTexture(const string & skinPathName)
+#include "../platform/platform.hpp"
+
+void SymbolsTexture::Load(const string & skinPathName)
 {
   uint32_t width, height;
   m_desc.Load(skinPathName + ".sdf", width, height);
 
+  ReaderPtr<ModelReader> reader = GetPlatform().GetReader(skinPathName + ".png");
+  uint64_t size = reader.Size();
+  vector<unsigned char> rawData;
+  rawData.resize(size);
+  reader.Read(0, &rawData[0], size);
+
   vector<unsigned char> pngData;
   unsigned w, h;
-  lodepng::decode(pngData, w, h, skinPathName + ".png");
+  lodepng::decode(pngData, w, h, &rawData[0], rawData.size());
 
   ASSERT(width == w && height == h, ());
   Create(width, height, Texture::RGBA8, MakeStackRefPointer<void>(&pngData[0]));
 }
 
-m2::RectD SymbolsTexture::FindSymbol(const string & symbolName)
+m2::RectD SymbolsTexture::FindSymbol(const string & symbolName) const
 {
   m2::RectU r;
   if (!m_desc.GetResource(symbolName, r))

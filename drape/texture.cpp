@@ -36,7 +36,7 @@ void Texture::Create(uint32_t width, uint32_t height, TextureFormat format, RefP
 
   GLFunctions::glTexImage2D(m_width, m_height, layout, pixelType, data.GetRaw());
   SetFilterParams(GLConst::GLLinear, GLConst::GLLinear);
-  SetFilterParams(GLConst::GLClampToEdge, GLConst::GLClampToEdge);
+  SetWrapMode(GLConst::GLClampToEdge, GLConst::GLClampToEdge);
 }
 
 void Texture::SetFilterParams(glConst minFilter, glConst magFilter)

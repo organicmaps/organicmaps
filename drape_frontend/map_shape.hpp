@@ -6,6 +6,7 @@
 #include "../drape/pointers.hpp"
 
 class Batcher;
+class TextureManager;
 
 namespace df
 {
@@ -33,7 +34,7 @@ namespace df
   {
   public:
     virtual ~MapShape(){}
-    virtual void Draw(RefPointer<Batcher> batcher) const = 0;
+    virtual void Draw(RefPointer<Batcher> batcher, RefPointer<TextureManager> textures) const = 0;
   };
 
   class MapShapeReadedMessage : public Message

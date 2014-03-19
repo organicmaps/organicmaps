@@ -114,7 +114,7 @@ namespace df
     params1.m_color = Color(255, 255, 50, 255);
     params1.m_width = 80.f;
     df::LineShape * line1 = new df::LineShape(linePoints1, 0.0f, params1);
-    line1->Draw(m_batcher.GetRefPointer());
+    line1->Draw(m_batcher.GetRefPointer(), MakeStackRefPointer<TextureManager>(NULL));
     //
 
     //2
@@ -133,7 +133,7 @@ namespace df
     params2.m_color = Color(0, 255, 255, 255);
     params2.m_width = 50.f;
     df::LineShape * line2 = new df::LineShape(linePoints2, 0.0f, params2);
-    line2->Draw(m_batcher.GetRefPointer());
+    line2->Draw(m_batcher.GetRefPointer(), MakeStackRefPointer<TextureManager>(NULL));
     //
 
     //3
@@ -152,7 +152,7 @@ namespace df
     params3.m_color = Color(255, 0, 255, 255);
     params3.m_width = 60.f;
     df::LineShape * line3 = new df::LineShape(linePoints3, 0.0f, params3);
-    line3->Draw(m_batcher.GetRefPointer());
+    line3->Draw(m_batcher.GetRefPointer(), MakeStackRefPointer<TextureManager>(NULL));
     //
   }
 

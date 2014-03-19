@@ -23,7 +23,7 @@ namespace df
     ASSERT_GREATER(m_points.size(), 1, ());
   }
 
-  void LineShape::Draw(RefPointer<Batcher> batcher) const
+  void LineShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureManager> /*textures*/) const
   {
     //join, cap, segment params
     // vertex type:

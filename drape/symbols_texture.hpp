@@ -8,9 +8,8 @@
 class SymbolsTexture : public Texture
 {
 public:
-  SymbolsTexture(string const & skinPathName);
-
-  m2::RectD FindSymbol(string const & symbolName);
+  void Load(string const & skinPathName);
+  m2::RectD FindSymbol(string const & symbolName) const;
 
 private:
   TextureStructureDesc m_desc;

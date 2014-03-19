@@ -69,7 +69,7 @@ namespace df
         MapShapeReadedMessage * msg = static_cast<MapShapeReadedMessage *>(message.GetRaw());
         RefPointer<Batcher> batcher = m_batchersPool->GetTileBatcher(msg->GetKey());
         MasterPointer<MapShape> shape(msg->GetShape());
-        shape->Draw(batcher);
+        shape->Draw(batcher, MakeStackRefPointer(&m_textureManager));
 
         shape.Destroy();
       }
@@ -98,6 +98,8 @@ namespace df
   void BackendRenderer::ThreadMain()
   {
     m_contextFactory->getResourcesUploadContext()->makeCurrent();
+
+    m_textureManager.LoadExternalResources(VisualParams::Instance().GetResourcePostfix());
 
     while (!IsCancelled())
       ProcessSingleMessage(true);

@@ -19,7 +19,7 @@ namespace df
     m_vertexes.push_back(Point3D(v3.x, v3.y, m_depth));
   }
 
-  void AreaShape::Draw(RefPointer<Batcher> batcher) const
+  void AreaShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureManager> /*textures*/) const
   {
     GLState state(gpu::SOLID_AREA_PROGRAM, 0);
     float r, g, b, a;

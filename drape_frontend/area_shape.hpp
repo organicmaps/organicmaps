@@ -19,7 +19,7 @@ namespace df
                      const m2::PointF & v2,
                      const m2::PointF & v3);
 
-    virtual void Draw(RefPointer<Batcher> batcher) const;
+    virtual void Draw(RefPointer<Batcher> batcher, RefPointer<TextureManager> /*textures*/) const;
 
   private:
     Color m_color;

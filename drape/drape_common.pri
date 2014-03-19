@@ -27,7 +27,8 @@ SOURCES += \
     $$DRAPE_DIR/cpu_buffer.cpp \
     $$DRAPE_DIR/utils/lodepng.cpp \
     $$DRAPE_DIR/texture_structure_desc.cpp \
-    $$DRAPE_DIR/symbols_texture.cpp
+    $$DRAPE_DIR/symbols_texture.cpp \
+    $$DRAPE_DIR/texture_manager.cpp
 
 HEADERS += \
     $$DRAPE_DIR/data_buffer.hpp \
@@ -58,4 +59,5 @@ HEADERS += \
     $$DRAPE_DIR/cpu_buffer.hpp \
     $$DRAPE_DIR/utils/lodepng.h \
     $$DRAPE_DIR/texture_structure_desc.hpp \
-    $$DRAPE_DIR/symbols_texture.hpp
+    $$DRAPE_DIR/symbols_texture.hpp \
+    $$DRAPE_DIR/texture_manager.hpp

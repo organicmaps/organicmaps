@@ -6,6 +6,7 @@
 
 #include "../drape/pointers.hpp"
 #include "../drape/oglcontextfactory.hpp"
+#include "../drape/texture_manager.hpp"
 
 #include "../map/feature_vec_model.hpp"
 
@@ -38,6 +39,7 @@ namespace df
     EngineContext m_engineContext;
     MasterPointer<BatchersPool> m_batchersPool;
     MasterPointer<ReadManager>  m_readManager;
+    TextureManager m_textureManager;
 
     /////////////////////////////////////////
     //           MessageAcceptor           //
