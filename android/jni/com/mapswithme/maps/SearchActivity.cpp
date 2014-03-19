@@ -76,13 +76,16 @@ class SearchAdapter
       {
         // Grab last results.
         threads::MutexGuard guard(m_updateMutex);
-        m_results.Swap(m_storeResults);
-        m_ID = m_storeID;
+        if (m_ID != m_storeID)
+        {
+          m_results.Swap(m_storeResults);
+          m_ID = m_storeID;
+        }
       }
 
       if (resultID != m_ID)
       {
-        // It happens when search engine is reconnected.
+        // It happens when acquiring obsolete results.
         return false;
       }
     }

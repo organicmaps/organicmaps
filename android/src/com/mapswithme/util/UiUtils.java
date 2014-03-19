@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -234,7 +235,7 @@ public final class UiUtils
     checkNotNull(tv);
 
     tv.setText(text);
-    tv.setVisibility((text == null || text.length() == 0) ? View.GONE : View.VISIBLE);
+    tv.setVisibility(TextUtils.isEmpty(text) ? View.GONE : View.VISIBLE);
   }
 
   // utility class

@@ -298,17 +298,15 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         UiUtils.setTextAndShow(holder.m_name, m_context.getString(R.string.no_search_results_found));
         UiUtils.setTextEx(holder.m_countryAndType, getWarningForEmptyResults());
       }
-      else
+      else if (position == 0)
       {
         // title item with "Show all" text
-        if (position == 0)
-        {
-          UiUtils.setTextAndShow(holder.m_name, m_context.getString(R.string.search_show_on_map));
-          UiUtils.clearTextAndHide(holder.m_countryAndType);
-          UiUtils.clearTextAndHide(holder.m_distance);
-          return convertView;
-        }
-
+        UiUtils.setTextAndShow(holder.m_name, m_context.getString(R.string.search_show_on_map));
+        UiUtils.clearTextAndHide(holder.m_countryAndType);
+        UiUtils.clearTextAndHide(holder.m_distance);
+      }
+      else
+      {
         // 0 index is for multiple result
         // so real result are from 1
         --position;
@@ -361,7 +359,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     {
       if (isShowCategories())
       {
-
         final String category = getCategoryName(m_categories[position]);
         Statistics.INSTANCE.trackSearchCategoryClicked(m_context, category);
 
@@ -398,7 +395,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         }
       }
 
-
       // close activity in case of any error
       return null;
     }
@@ -411,7 +407,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
   private boolean isShowCategories()
   {
-    return (getSearchString().length() == 0);
+    return getSearchString().isEmpty();
   }
 
   private LocationService m_location;
